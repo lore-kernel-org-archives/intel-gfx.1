@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45B55C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Dec 2022 23:09:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82F5CC4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Dec 2022 23:15:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FB5610E2A9;
-	Mon, 12 Dec 2022 23:09:07 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A5B489B70;
- Mon, 12 Dec 2022 23:09:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3307310E2AA;
+	Mon, 12 Dec 2022 23:15:36 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6269C10E2AC;
+ Mon, 12 Dec 2022 23:15:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670886542; x=1702422542;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=3o1WZ8betb2kUnHIXBXlT1hezIJeiPny7iniEYg6MUM=;
- b=Yi+4u5ddQy3sjvEbI0xyhGsw6lkkWfIw9zh9p+FlEqn+0eyq/mMcsmXJ
- /4UbvOFUnyNST1cDAs1BpjmfZrYqJT27Fgux8cuYrFkioCqVOC72ZfF7K
- /ParWmImWBqVJky/O7Dly19HGy0NQZ5wzHAM1ECvvR2LERnN6k7U/P2Vd
- GDjgLpomIqLK5mMzPySNl4SqBal8AIrJ4r8y8NqNtGRwg5fu3jGLeFYDU
- H5tFdjuXnx8osaGdUzxCSGcXBedKZRfxbrLfQXQEYjb7VpMxUtWxDhKq5
- 4O9P8pacQdqw7wvwqNxOTNL4rwYSfsfZAxYBmSU15fIl6ShjpnaJVApXQ Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="319128073"
-X-IronPort-AV: E=Sophos;i="5.96,239,1665471600"; d="scan'208";a="319128073"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2022 15:08:58 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="822661955"
-X-IronPort-AV: E=Sophos;i="5.96,239,1665471600"; d="scan'208";a="822661955"
-Received: from anicol1x-mobl.ger.corp.intel.com (HELO intel.com)
- ([10.252.59.70])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2022 15:08:56 -0800
-Date: Tue, 13 Dec 2022 00:08:50 +0100
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Message-ID: <Y5e0gh2u8uTlwQL6@ashyti-mobl2.lan>
-References: <20221212161338.1007659-1-andi.shyti@linux.intel.com>
- <Y5dc7vhfh6yixFRo@intel.com>
+ t=1670886933; x=1702422933;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=+ZfLx14VQts4btj9IQGik2CfGNVFjVDYe8Oxf6OY6yk=;
+ b=ekQkvCbaSlNhu0Jwi1tm99+LpGnFYgIzRwlB6rHep6wpTRWigxcAm5AW
+ o/dHvIthuQA5kwCASKO3AnQv1UGNK1cSod9nwdlm2SjZc6ztmp0zCMUiv
+ DZ2I1mOaScLQDnGXVl4tbjmG8Ez8aQvseDuNT/4V7ymu8pu5B0mdKo/In
+ oFZcrKcxEHj3ZE0uibXi3yT45NMmbcHsf6LjE5vK8QFNxNqmzqFO0jf9Y
+ SolschEOOgLV8uINmcbWIVW4w7YYCebcryCDY7A0hdoGe9m4Q5+4QzWmk
+ pyFik/tbx46HaD3wxfPNssUkPiVuafcwJT2YPl9AQQb9uyuWkPwC2xrkk A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="380196339"
+X-IronPort-AV: E=Sophos;i="5.96,239,1665471600"; d="scan'208";a="380196339"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Dec 2022 15:15:32 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="679090301"
+X-IronPort-AV: E=Sophos;i="5.96,239,1665471600"; d="scan'208";a="679090301"
+Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Dec 2022 15:15:32 -0800
+From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Mon, 12 Dec 2022 15:15:05 -0800
+Message-Id: <20221212231527.2384-2-niranjana.vishwanathapura@intel.com>
+X-Mailer: git-send-email 2.21.0.rc0.32.g243a4c7e27
+In-Reply-To: <20221212231527.2384-1-niranjana.vishwanathapura@intel.com>
+References: <20221212231527.2384-1-niranjana.vishwanathapura@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Y5dc7vhfh6yixFRo@intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/gt: Reset twice
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v9 01/23] drm/i915/vm_bind: Expose vm lookup
+ function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,107 +58,58 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, stable@vger.kernel.org,
- Chris Wilson <chris@chris-wilson.co.uk>, dri-devel@lists.freedesktop.org
+Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com, thomas.hellstrom@intel.com,
+ matthew.auld@intel.com, daniel.vetter@intel.com, christian.koenig@amd.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Rodrigo,
+Make i915_gem_vm_lookup() function non-static as it will be
+used by the vm_bind feature.
 
-On Mon, Dec 12, 2022 at 11:55:10AM -0500, Rodrigo Vivi wrote:
-> On Mon, Dec 12, 2022 at 05:13:38PM +0100, Andi Shyti wrote:
-> > From: Chris Wilson <chris@chris-wilson.co.uk>
-> > 
-> > After applying an engine reset, on some platforms like Jasperlake, we
-> > occasionally detect that the engine state is not cleared until shortly
-> > after the resume. As we try to resume the engine with volatile internal
-> > state, the first request fails with a spurious CS event (it looks like
-> > it reports a lite-restore to the hung context, instead of the expected
-> > idle->active context switch).
-> > 
-> > Signed-off-by: Chris Wilson <hris@chris-wilson.co.uk>
-> 
-> There's a typo in the signature email I'm afraid...
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 11 ++++++++++-
+ drivers/gpu/drm/i915/gem/i915_gem_context.h |  3 +++
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
-oh yes, I forgot the 'C' :)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 46e71f62fcec..b90901ad6866 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -346,7 +346,16 @@ static int proto_context_register(struct drm_i915_file_private *fpriv,
+ 	return ret;
+ }
+ 
+-static struct i915_address_space *
++/**
++ * i915_gem_vm_lookup() - looks up for the VM reference given the vm id
++ * @file_priv: the private data associated with the user's file
++ * @id: the VM id
++ *
++ * Finds the VM reference associated to a specific id.
++ *
++ * Returns the VM pointer on success, NULL in case of failure.
++ */
++struct i915_address_space *
+ i915_gem_vm_lookup(struct drm_i915_file_private *file_priv, u32 id)
+ {
+ 	struct i915_address_space *vm;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.h b/drivers/gpu/drm/i915/gem/i915_gem_context.h
+index e5b0f66ea1fe..899fa8f1e0fe 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.h
+@@ -139,6 +139,9 @@ int i915_gem_context_setparam_ioctl(struct drm_device *dev, void *data,
+ int i915_gem_context_reset_stats_ioctl(struct drm_device *dev, void *data,
+ 				       struct drm_file *file);
+ 
++struct i915_address_space *
++i915_gem_vm_lookup(struct drm_i915_file_private *file_priv, u32 id);
++
+ struct i915_gem_context *
+ i915_gem_context_lookup(struct drm_i915_file_private *file_priv, u32 id);
+ 
+-- 
+2.21.0.rc0.32.g243a4c7e27
 
-> Other than that, have we checked the possibility of using the driver-initiated-flr bit
-> instead of this second loop? That should be the right way to guarantee everything is
-> cleared on gen11+...
-
-maybe I am misinterpreting it, but is FLR the same as resetting
-hardware domains individually?
-
-How am I supposed to use driver_initiated_flr() in this context?
-
-Thanks,
-Andi
-
-> > Cc: stable@vger.kernel.org
-> > Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
-> > Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/gt/intel_reset.c | 34 ++++++++++++++++++++++-----
-> >  1 file changed, 28 insertions(+), 6 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-> > index ffde89c5835a4..88dfc0c5316ff 100644
-> > --- a/drivers/gpu/drm/i915/gt/intel_reset.c
-> > +++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-> > @@ -268,6 +268,7 @@ static int ilk_do_reset(struct intel_gt *gt, intel_engine_mask_t engine_mask,
-> >  static int gen6_hw_domain_reset(struct intel_gt *gt, u32 hw_domain_mask)
-> >  {
-> >  	struct intel_uncore *uncore = gt->uncore;
-> > +	int loops = 2;
-> >  	int err;
-> >  
-> >  	/*
-> > @@ -275,18 +276,39 @@ static int gen6_hw_domain_reset(struct intel_gt *gt, u32 hw_domain_mask)
-> >  	 * for fifo space for the write or forcewake the chip for
-> >  	 * the read
-> >  	 */
-> > -	intel_uncore_write_fw(uncore, GEN6_GDRST, hw_domain_mask);
-> > +	do {
-> > +		intel_uncore_write_fw(uncore, GEN6_GDRST, hw_domain_mask);
-> >  
-> > -	/* Wait for the device to ack the reset requests */
-> > -	err = __intel_wait_for_register_fw(uncore,
-> > -					   GEN6_GDRST, hw_domain_mask, 0,
-> > -					   500, 0,
-> > -					   NULL);
-> > +		/*
-> > +		 * Wait for the device to ack the reset requests.
-> > +		 *
-> > +		 * On some platforms, e.g. Jasperlake, we see see that the
-> > +		 * engine register state is not cleared until shortly after
-> > +		 * GDRST reports completion, causing a failure as we try
-> > +		 * to immediately resume while the internal state is still
-> > +		 * in flux. If we immediately repeat the reset, the second
-> > +		 * reset appears to serialise with the first, and since
-> > +		 * it is a no-op, the registers should retain their reset
-> > +		 * value. However, there is still a concern that upon
-> > +		 * leaving the second reset, the internal engine state
-> > +		 * is still in flux and not ready for resuming.
-> > +		 */
-> > +		err = __intel_wait_for_register_fw(uncore, GEN6_GDRST,
-> > +						   hw_domain_mask, 0,
-> > +						   2000, 0,
-> > +						   NULL);
-> > +	} while (err == 0 && --loops);
-> >  	if (err)
-> >  		GT_TRACE(gt,
-> >  			 "Wait for 0x%08x engines reset failed\n",
-> >  			 hw_domain_mask);
-> >  
-> > +	/*
-> > +	 * As we have observed that the engine state is still volatile
-> > +	 * after GDRST is acked, impose a small delay to let everything settle.
-> > +	 */
-> > +	udelay(50);
-> > +
-> >  	return err;
-> >  }
-> >  
-> > -- 
-> > 2.38.1
-> > 
