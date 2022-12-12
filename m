@@ -4,45 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABFEFC4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Dec 2022 22:09:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 539B2C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Dec 2022 22:26:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EF5C10E141;
-	Mon, 12 Dec 2022 22:09:23 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3B6589EFF
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Dec 2022 22:09:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670882949; x=1702418949;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=51Yg+ZLLJ7t5EAPJt0Mxqb1N5tAAbOhWjT6iLmfYS44=;
- b=cOOYJw2vI3NQxJ82VYmXc+6LEXfU8y+ET9h2dFRL9zpSq4PH/5MBYaMU
- +GrzBowkq9xgbiU6OBxFcJb3EL5Wdq/CTihqFb5YSODuDOf1YOlQmcaKZ
- XxbDLZRiaP7u0yXxvLQJx484Wqrj+5FAlor2xlr7YWrI3VLoLumAhHohf
- Czb7CF1xeJCSUKeTaQwqLhOcyTRMnY3uLgm2LbQV5RG+DloGOQpg0oZ8W
- kG5FmDEHOGRjv0lqVF3VFWlaYB2us/KsJmp1CJz1pIijQHQ5LrlbwZqv/
- lrA7lJP92vdweDVBaV47gfjmF+Zh3exi5KLPpCn5ehKKCeX/rTiRVe8hD Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="345031085"
-X-IronPort-AV: E=Sophos;i="5.96,239,1665471600"; d="scan'208";a="345031085"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2022 14:09:09 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="641882374"
-X-IronPort-AV: E=Sophos;i="5.96,239,1665471600"; d="scan'208";a="641882374"
-Received: from unerlige-desk.jf.intel.com ([10.165.21.199])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2022 14:09:07 -0800
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Dec 2022 14:08:58 -0800
-Message-Id: <20221212220902.1819159-1-umesh.nerlige.ramappa@intel.com>
-X-Mailer: git-send-email 2.38.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFF7A10E141;
+	Mon, 12 Dec 2022 22:26:49 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1218D10E141;
+ Mon, 12 Dec 2022 22:26:45 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id E42CAA882E;
+ Mon, 12 Dec 2022 22:26:43 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 0/4] drm/i915/mtl: Add OAG 32 bit format
- support for MTL
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Umesh Nerlige Ramappa" <umesh.nerlige.ramappa@intel.com>
+Date: Mon, 12 Dec 2022 22:26:43 -0000
+Message-ID: <167088400389.12118.3931671995815625065@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20221212220902.1819159-1-umesh.nerlige.ramappa@intel.com>
+In-Reply-To: <20221212220902.1819159-1-umesh.nerlige.ramappa@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915/mtl=3A_Add_OAG_32_bit_format_support_for_MTL?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,25 +40,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable OA for MTL by adding 32-bit OA format support and relevant fixes.
+== Series Details ==
 
-v4: Rebase
+Series: drm/i915/mtl: Add OAG 32 bit format support for MTL
+URL   : https://patchwork.freedesktop.org/series/111868/
+State : warning
 
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+== Summary ==
 
-Umesh Nerlige Ramappa (4):
-  drm/i915/mtl: Resize noa_wait BO size to save restore GPR regs
-  drm/i915/mtl: Add Wa_14015846243 to fix OA vs CS timestamp mismatch
-  drm/i915/mtl: Update OA mux whitelist for MTL
-  drm/i915/mtl: Add OA support by enabling 32 bit OAG formats for MTL
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
- drivers/gpu/drm/i915/gt/intel_gt_types.h |  6 ---
- drivers/gpu/drm/i915/i915_perf.c         | 49 ++++++++++++++++++------
- 2 files changed, 38 insertions(+), 17 deletions(-)
-
--- 
-2.38.1
 
