@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 523EDC4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Dec 2022 22:09:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2F21C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Dec 2022 22:09:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59E7910E0C8;
-	Mon, 12 Dec 2022 22:09:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90EC110E128;
+	Mon, 12 Dec 2022 22:09:21 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 002E989F63
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Dec 2022 22:09:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44DEF10E128
+ for <intel-gfx@lists.freedesktop.org>; Mon, 12 Dec 2022 22:09:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1670882949; x=1702418949;
+ t=1670882950; x=1702418950;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=KGUW+Dp1b5ioNJsmBSZ+dW+GT7AdvbyCKGXI4Goytyw=;
- b=dDG2Mtd/1oPJ9pfNDkYE01Hgkn8u0/q7o9DhJuzzkCuDUk9o+u5LlZPc
- JRkQExwZAmEc+IuQZ2RyJpu1oW4GBT+Bu0SgxTQLXgDhpbvWkYCIHEUcv
- hptoS451JqjPvEzz4sksMo+BzsA4BjpExilq+l0M4wDwsIk4QA59Syv8p
- MvmIkFzqYtlfwntR2PnJWqc/klrH7G2nLu3C9OZNPCMfpY6/rES1CHY+F
- Xdlk+dLP8nqlBzJ3af2a7LKSOuqDmiGk3cHCi6nKcpcu415y3h/Z3KCBw
- qgS58hGBYGfQqODV6EMZLN1wU+OFi0kgTO1doNeIfnyLOW7P6oWPuy7NX g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="345031088"
-X-IronPort-AV: E=Sophos;i="5.96,239,1665471600"; d="scan'208";a="345031088"
+ bh=twCOOzvTl9h4scH3pgXQhg635DAnZfTrii418m6SRpc=;
+ b=Zkq6YUCNBGa4LX/up6qT9VS3RlhZ5HRk0/ve5PQ76fMm98tDHee6AEmG
+ AHmQ1SAmT/dMhhfkA9+NfVXlyfVpbI1b2S4UE58gS3oEj4/OguZLM/GZa
+ WosRJKPgjqBB2SGJfs/YrvBGkYdAHVLIp3XGS0Yq6fZbB78kvcwgMc20O
+ 69r1GJAHesavSXOg/ohCNShDcEr3YG+Un53TWWtgKfD8dk03kyn8+Xc3x
+ 5I4E2k6JMoIjKeVg2tBCoxELSzqabCc6iSEIqS7eGbF49hOl1DAAT7uUo
+ 1tiYM+MccLjS4/My4DWjPFoBZuQo1xXbj8AYSQZVmk+MhzPTlkHNS9SPt g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="345031093"
+X-IronPort-AV: E=Sophos;i="5.96,239,1665471600"; d="scan'208";a="345031093"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Dec 2022 14:09:09 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="641882375"
-X-IronPort-AV: E=Sophos;i="5.96,239,1665471600"; d="scan'208";a="641882375"
+X-IronPort-AV: E=McAfee;i="6500,9779,10559"; a="641882377"
+X-IronPort-AV: E=Sophos;i="5.96,239,1665471600"; d="scan'208";a="641882377"
 Received: from unerlige-desk.jf.intel.com ([10.165.21.199])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Dec 2022 14:09:07 -0800
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 12 Dec 2022 14:08:59 -0800
-Message-Id: <20221212220902.1819159-2-umesh.nerlige.ramappa@intel.com>
+Date: Mon, 12 Dec 2022 14:09:01 -0800
+Message-Id: <20221212220902.1819159-4-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20221212220902.1819159-1-umesh.nerlige.ramappa@intel.com>
 References: <20221212220902.1819159-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 1/4] drm/i915/mtl: Resize noa_wait BO size to
- save restore GPR regs
+Subject: [Intel-gfx] [PATCH v4 3/4] drm/i915/mtl: Update OA mux whitelist
+ for MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,109 +60,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On MTL, gt->scratch was using stolen lmem. An MI_SRM to stolen lmem
-caused a hang that was attributed to saving and restoring the GPR
-registers used for noa_wait.
-
-Add an additional page in noa_wait BO to save/restore GPR registers for
-the noa_wait logic.
+0x20cc (WAIT_FOR_RC6_EXIT on other platforms) is repurposed on MTL. Use
+a separate mux table to verify oa configs passed by user.
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_types.h |  6 ------
- drivers/gpu/drm/i915/i915_perf.c         | 25 ++++++++++++++++--------
- 2 files changed, 17 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/i915/i915_perf.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_types.h b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-index 0b6da2aa9718..f08c2556aa25 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_types.h
-@@ -304,12 +304,6 @@ enum intel_gt_scratch_field {
- 
- 	/* 8 bytes */
- 	INTEL_GT_SCRATCH_FIELD_COHERENTL3_WA = 256,
--
--	/* 6 * 8 bytes */
--	INTEL_GT_SCRATCH_FIELD_PERF_CS_GPR = 2048,
--
--	/* 4 bytes */
--	INTEL_GT_SCRATCH_FIELD_PERF_PREDICATE_RESULT_1 = 2096,
- };
- 
- #endif /* __INTEL_GT_TYPES_H__ */
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index d22f30dd4fba..a8b34460d36f 100644
+index 1a8618a787d6..41f6c0923ba5 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -1846,8 +1846,7 @@ static u32 *save_restore_register(struct i915_perf_stream *stream, u32 *cs,
- 	for (d = 0; d < dword_count; d++) {
- 		*cs++ = cmd;
- 		*cs++ = i915_mmio_reg_offset(reg) + 4 * d;
--		*cs++ = intel_gt_scratch_offset(stream->engine->gt,
--						offset) + 4 * d;
-+		*cs++ = i915_ggtt_offset(stream->noa_wait) + offset + 4 * d;
- 		*cs++ = 0;
- 	}
+@@ -4322,6 +4322,17 @@ static const struct i915_range gen12_oa_mux_regs[] = {
+ 	{}
+ };
  
-@@ -1880,7 +1879,13 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
- 					  MI_PREDICATE_RESULT_2_ENGINE(base) :
- 					  MI_PREDICATE_RESULT_1(RENDER_RING_BASE);
- 
--	bo = i915_gem_object_create_internal(i915, 4096);
-+	/*
-+	 * gt->scratch was being used to save/restore the GPR registers, but on
-+	 * MTL the scratch uses stolen lmem. An MI_SRM to this memory region
-+	 * causes an engine hang. Instead allocate an additional page here to
-+	 * save/restore GPR registers
-+	 */
-+	bo = i915_gem_object_create_internal(i915, 8192);
- 	if (IS_ERR(bo)) {
- 		drm_err(&i915->drm,
- 			"Failed to allocate NOA wait batchbuffer\n");
-@@ -1914,14 +1919,19 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
- 		goto err_unpin;
- 	}
- 
-+	stream->noa_wait = vma;
++/*
++ * Ref: 14010536224:
++ * 0x20cc is repurposed on MTL, so use a separate array for MTL.
++ */
++static const struct i915_range mtl_oa_mux_regs[] = {
++	{ .start = 0x0d00, .end = 0x0d04 },	/* RPM_CONFIG[0-1] */
++	{ .start = 0x0d0c, .end = 0x0d2c },	/* NOA_CONFIG[0-8] */
++	{ .start = 0x9840, .end = 0x9840 },	/* GDT_CHICKEN_BITS */
++	{ .start = 0x9884, .end = 0x9888 },	/* NOA_WRITE */
++};
 +
-+#define GPR_SAVE_OFFSET 4096
-+#define PREDICATE_SAVE_OFFSET 4160
-+
- 	/* Save registers. */
- 	for (i = 0; i < N_CS_GPR; i++)
- 		cs = save_restore_register(
- 			stream, cs, true /* save */, CS_GPR(i),
--			INTEL_GT_SCRATCH_FIELD_PERF_CS_GPR + 8 * i, 2);
-+			GPR_SAVE_OFFSET + 8 * i, 2);
- 	cs = save_restore_register(
- 		stream, cs, true /* save */, mi_predicate_result,
--		INTEL_GT_SCRATCH_FIELD_PERF_PREDICATE_RESULT_1, 1);
-+		PREDICATE_SAVE_OFFSET, 1);
+ static bool gen7_is_valid_b_counter_addr(struct i915_perf *perf, u32 addr)
+ {
+ 	return reg_in_range_table(addr, gen7_oa_b_counters);
+@@ -4365,7 +4376,10 @@ static bool xehp_is_valid_b_counter_addr(struct i915_perf *perf, u32 addr)
  
- 	/* First timestamp snapshot location. */
- 	ts0 = cs;
-@@ -2037,10 +2047,10 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
- 	for (i = 0; i < N_CS_GPR; i++)
- 		cs = save_restore_register(
- 			stream, cs, false /* restore */, CS_GPR(i),
--			INTEL_GT_SCRATCH_FIELD_PERF_CS_GPR + 8 * i, 2);
-+			GPR_SAVE_OFFSET + 8 * i, 2);
- 	cs = save_restore_register(
- 		stream, cs, false /* restore */, mi_predicate_result,
--		INTEL_GT_SCRATCH_FIELD_PERF_PREDICATE_RESULT_1, 1);
-+		PREDICATE_SAVE_OFFSET, 1);
+ static bool gen12_is_valid_mux_addr(struct i915_perf *perf, u32 addr)
+ {
+-	return reg_in_range_table(addr, gen12_oa_mux_regs);
++	if (IS_METEORLAKE(perf->i915))
++		return reg_in_range_table(addr, mtl_oa_mux_regs);
++	else
++		return reg_in_range_table(addr, gen12_oa_mux_regs);
+ }
  
- 	/* And return to the ring. */
- 	*cs++ = MI_BATCH_BUFFER_END;
-@@ -2050,7 +2060,6 @@ static int alloc_noa_wait(struct i915_perf_stream *stream)
- 	i915_gem_object_flush_map(bo);
- 	__i915_gem_object_release_map(bo);
- 
--	stream->noa_wait = vma;
- 	goto out_ww;
- 
- err_unpin:
+ static u32 mask_reg_value(u32 reg, u32 val)
 -- 
 2.38.1
 
