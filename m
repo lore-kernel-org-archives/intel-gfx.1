@@ -4,58 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC063C10F1E
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 20:09:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9AF8C3DA71
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 20:29:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D914110E558;
-	Thu, 15 Dec 2022 20:09:33 +0000 (UTC)
-Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com
- [IPv6:2607:f8b0:4864:20::834])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 916D110E0DC;
- Thu, 15 Dec 2022 20:09:25 +0000 (UTC)
-Received: by mail-qt1-x834.google.com with SMTP id cg5so471826qtb.12;
- Thu, 15 Dec 2022 12:09:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bIJwwX6o/b6aPEH4Ez3gITDnx0EFzLpqpuWyT53Asbg=;
- b=B9tVSL/8z7idokQLakcvklafcX+bg3mJwv5O1ke3l6U/5vzf0a5/l8/tpwqftvZoSu
- wZJ8CxDlEMFQW8lhcwT8czbx8iAnBuu5UIklvWnBIJKcMok7zCD/cb6IoGtMFFcLd+fN
- UzucgMACEX0bnFfyqOnXhMcH6LjMvrXtZyDgOvFAEebBaJVqzqKWToL1EF/PHe81jmgK
- LlKGAt87uiOLhekchUs7Pl8rptO5ZwdtgyAXSHXbngxnANNvvb6XrXJyN0E4ce+cMCU9
- eZUgOuIrin2i7fx02YoyFkTOgxCK/p2Vn+Oo2DrVn9sRoIyxcM0aRnwgjNtcj7p63H8Z
- RHEQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id B270C10E558;
+	Thu, 15 Dec 2022 20:29:22 +0000 (UTC)
+Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com
+ [IPv6:2607:f8b0:4864:20::1133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B523E10E418
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Dec 2022 15:16:02 +0000 (UTC)
+Received: by mail-yw1-x1133.google.com with SMTP id
+ 00721157ae682-3f15a6f72d0so839617b3.1
+ for <intel-gfx@lists.freedesktop.org>; Wed, 14 Dec 2022 07:16:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=i8/7ompYoprPv6p5gopqt1zlXtmepYGFLCWXe2gsqzg=;
+ b=BUfL3YrZ28K+1n6E2SQ9fOqgRKi2RgeotU3ckXNn8xFWPTs42cuoGfphfjNQOV0pgx
+ 7/jp35I3w0HRIOFVcsghYPgMBrhr8AMNN8/bTKnJa17Hz49AiqnR3KxJME/VVIigK+sS
+ o/Lm4IOiEo8w6nxX4t2A4IzKZLODEjcrKKDsdmGKLI1atzrsu3mpNZREk5A83gxmOZAt
+ L+k/IzYKvXs7B7hnKP1erYHIobJ4iQu87BD3pnHQtG8fBQOI4ExEQ0QtE/CElufFbNCA
+ yV0c98uSdPhEqukbLuFuzz8L6ZLLU8J5/FlBKjiGFYDWzKiB3XFMXdMwK39OTfRDW0AO
+ GSIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=bIJwwX6o/b6aPEH4Ez3gITDnx0EFzLpqpuWyT53Asbg=;
- b=Bl09mx4wLCQUaHii6mzHP4qaw6j6Kw6WlJyzygbamke/JXcA+WCTksACJvgj1dEqkQ
- /N/+ecro0oVNzZHXAXeJOGfkvPNarcWMWVgv8ENMyPyDAG0fatV18iuTAPNOUDTWTobZ
- JZ0PvPM5Gx0KYjYRtsEHXDWoPdOGqX/bjN9rhTnUvg61Lr9dYiQxdtP28yIwNEPjsomS
- KCJsLultNiV/YO9Quv7N8n1i/ttI3RYxIEGg6VOSQZBwSSKWt8RE41Th5E3LjfLQZzH1
- ejjM++Vkq52hUx3Og1aHGTciRpEEu6HTERwFcL0oLtR1SbjDqo20dOumzyz2z/9HXSqk
- MNRg==
-X-Gm-Message-State: ANoB5plyNN81OzLPIgKgdnDqLfFQhXMmOQ7Ug1/haCo9DQbUgQRgWGxR
- c0tkv8mpFW90sHJ6Ophs5B8EhpHqqtmg0s3OFKjH+7Dt
-X-Google-Smtp-Source: AA0mqf49s40gUJGEaE3LaBjQEIjJZF78JlQPSk1bJ+Mu+iSbCIyQGWAF38vhUQc1tApd1SUnRW0783hYr7K1Jhd9dMg=
-X-Received: by 2002:ac8:544c:0:b0:3a8:93f:53aa with SMTP id
- d12-20020ac8544c000000b003a8093f53aamr1099142qtq.447.1671134964625; Thu, 15
- Dec 2022 12:09:24 -0800 (PST)
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=i8/7ompYoprPv6p5gopqt1zlXtmepYGFLCWXe2gsqzg=;
+ b=xjlvkxgaqkV1RyX+SuD4w/n7XByk3lupLdmtEMdM5pAiiyln2Hl3bgw37wKXYWcEJj
+ lZcyYxWPqax93lc/NabnV9bF32RieiHmRmQe8LzsG3fVBXL2srQ8Gl5OqOsBUyi23XBM
+ Nx1zquP9i4LkwGOn/E7XB+JgfJRj00EAliNJI1+ChNABFxHO1N535xJ8pK0PqkIGv/KY
+ P+ZR9K/gnLkGsM3Iek6hZfqLNFj4W6TLISHW3F3ceznDLIpJ9FGT8XIZZpTR+Mha3Uuv
+ toQFN2RXtpRSk8yQNJcKmjuBt3oKjCMoXZdhNAZs9qOWShwieFGrI386MrbWIIsOTNCP
+ 4DbA==
+X-Gm-Message-State: ANoB5pm12e4VN2HjOqAQSuhDns+A04NTz65Q3gnDs91hjb8aLlQIii65
+ mWfwO1IMgtahknqYXEFO4krDrAwi/41gBs5ZoXxR5g==
+X-Google-Smtp-Source: AA0mqf6N7NofCRVaBdlZmzX/2IFdQaSJdENS2yaazN5Bc4VEowcispQ6llOh6euNJwrBHENhxHLAYZsrXmLpw9L8cy4=
+X-Received: by 2002:a81:1e44:0:b0:370:7a9a:564 with SMTP id
+ e65-20020a811e44000000b003707a9a0564mr27785992ywe.278.1671030961275; Wed, 14
+ Dec 2022 07:16:01 -0800 (PST)
 MIME-Version: 1.0
-References: <20221125102137.1801-1-christian.koenig@amd.com>
- <20221125102137.1801-6-christian.koenig@amd.com>
- <0169e3dd-c705-175d-9045-2baf0cbabb78@gmail.com>
-In-Reply-To: <0169e3dd-c705-175d-9045-2baf0cbabb78@gmail.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Fri, 16 Dec 2022 06:09:13 +1000
-Message-ID: <CAPM=9tx2=M3DO+nP60WfEpeF4XvSfA+4wqsNmvSVHuq=bdQWqg@mail.gmail.com>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+References: <cover.1670778651.git.david.keisarschm@mail.huji.ac.il>
+ <b3caaa5ac5fca4b729bf1ecd0d01968c09e6d083.1670778652.git.david.keisarschm@mail.huji.ac.il>
+ <Y5c8KLzJFz/XZMiM@zx2c4.com> <20221214123358.GA1062210@linux.intel.com>
+In-Reply-To: <20221214123358.GA1062210@linux.intel.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Wed, 14 Dec 2022 16:15:49 +0100
+Message-ID: <CANn89iJtK4m1cWvCwp=L_rEOEBa+B1kLZJAw0D9_cYPQcAj+Mw@mail.gmail.com>
+To: Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH 6/9] drm/qxl: stop using ttm_bo_wait
+X-Mailman-Approved-At: Thu, 15 Dec 2022 20:29:21 +0000
+Subject: Re: [Intel-gfx] [PATCH 1/5] Renaming weak prng invocations -
+ prandom_bytes_state, prandom_u32_state
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,72 +69,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@redhat.com>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Peter Zijlstra <peterz@infradead.org>,
+ Joonsoo Kim <iamjoonsoo.kim@lge.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Alexei Starovoitov <ast@kernel.org>, dri-devel@lists.freedesktop.org,
+ Song Liu <song@kernel.org>, linux-mtd@lists.infradead.org,
+ Stanislav Fomichev <sdf@google.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Hyeonggon Yoo <42.hyeyoo@gmail.com>, Christoph Lameter <cl@linux.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, Richard Weinberger <richard@nod.at>,
+ x86@kernel.org, John Fastabend <john.fastabend@gmail.com>,
+ Andrii Nakryiko <andrii@kernel.org>, ilay.bahat1@gmail.com,
+ Ingo Molnar <mingo@redhat.com>, David Rientjes <rientjes@google.com>,
+ Yonghong Song <yhs@fb.com>, Paolo Abeni <pabeni@redhat.com>,
+ "James E.J. Bottomley" <jejb@linux.ibm.com>, Petr Mladek <pmladek@suse.com>,
+ david.keisarschm@mail.huji.ac.il, Dave Hansen <dave.hansen@linux.intel.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, intel-gfx@lists.freedesktop.org,
+ Steven Rostedt <rostedt@goodmis.org>, KP Singh <kpsingh@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Borislav Petkov <bp@alien8.de>, Hannes Reinecke <hare@suse.de>,
+ Andy Lutomirski <luto@kernel.org>, Jiri Pirko <jiri@nvidia.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, bpf@vger.kernel.org,
+ Vlastimil Babka <vbabka@suse.cz>, Hao Luo <haoluo@google.com>,
+ linux-scsi@vger.kernel.org, "Martin K. Petersen" <martin.petersen@oracle.com>,
+ linux-mm@kvack.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Pekka Enberg <penberg@kernel.org>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>, aksecurity@gmail.com,
+ Jiri Olsa <jolsa@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Martin KaFai Lau <martin.lau@linux.dev>,
+ "David S. Miller" <davem@davemloft.net>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Dave Airlie <airlied@redhat.com>
+On Wed, Dec 14, 2022 at 1:34 PM Stanislaw Gruszka
+<stanislaw.gruszka@linux.intel.com> wrote:
+>
+> On Mon, Dec 12, 2022 at 03:35:20PM +0100, Jason A. Donenfeld wrote:
+> > Please CC me on future revisions.
+> >
+> > As of 6.2, the prandom namespace is *only* for predictable randomness.
+> > There's no need to rename anything. So nack on this patch 1/5.
+>
+> It is not obvious (for casual developers like me) that p in prandom
+> stands for predictable. Some renaming would be useful IMHO.
 
-On Fri, 16 Dec 2022 at 00:20, Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> Am 25.11.22 um 11:21 schrieb Christian K=C3=B6nig:
-> > TTM is just wrapping core DMA functionality here, remove the mid-layer.
-> > No functional change.
->
-> Any objections to this guys?
->
-> I'm basically just following a suggestion from Daniel here and it
-> already triggered a discussion about the timeout for i915.
->
-> Thanks,
-> Christian.
->
-> >
-> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > ---
-> >   drivers/gpu/drm/qxl/qxl_cmd.c | 16 ++++++++++++++--
-> >   1 file changed, 14 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/qxl/qxl_cmd.c b/drivers/gpu/drm/qxl/qxl_cm=
-d.c
-> > index 63aa96a69752..281edab518cd 100644
-> > --- a/drivers/gpu/drm/qxl/qxl_cmd.c
-> > +++ b/drivers/gpu/drm/qxl/qxl_cmd.c
-> > @@ -579,7 +579,7 @@ void qxl_surface_evict(struct qxl_device *qdev, str=
-uct qxl_bo *surf, bool do_upd
-> >
-> >   static int qxl_reap_surf(struct qxl_device *qdev, struct qxl_bo *surf=
-, bool stall)
-> >   {
-> > -     int ret;
-> > +     long ret;
-> >
-> >       ret =3D qxl_bo_reserve(surf);
-> >       if (ret)
-> > @@ -588,7 +588,19 @@ static int qxl_reap_surf(struct qxl_device *qdev, =
-struct qxl_bo *surf, bool stal
-> >       if (stall)
-> >               mutex_unlock(&qdev->surf_evict_mutex);
-> >
-> > -     ret =3D ttm_bo_wait(&surf->tbo, true, !stall);
-> > +     if (stall) {
-> > +             ret =3D dma_resv_wait_timeout(surf->tbo.base.resv,
-> > +                                         DMA_RESV_USAGE_BOOKKEEP, true=
-,
-> > +                                         15 * HZ);
-> > +             if (ret > 0)
-> > +                     ret =3D 0;
-> > +             else if (ret =3D=3D 0)
-> > +                     ret =3D -EBUSY;
-> > +     } else {
-> > +             ret =3D dma_resv_test_signaled(surf->tbo.base.resv,
-> > +                                          DMA_RESV_USAGE_BOOKKEEP);
-> > +             ret =3D ret ? -EBUSY : 0;
-> > +     }
-> >
-> >       if (stall)
-> >               mutex_lock(&qdev->surf_evict_mutex);
->
+Renaming makes backports more complicated, because stable teams will
+have to 'undo' name changes.
+Stable teams are already overwhelmed by the amount of backports, and
+silly merge conflicts.
+
+Take another example :
+
+u64 timecounter_read(struct timecounter *tc)
+
+You would think this function would read the timecounter, right ?
+
+Well, it _updates_ many fields from @tc, so a 'better name' would also
+be useful.
+
+linux kernel is not for casual readers.
