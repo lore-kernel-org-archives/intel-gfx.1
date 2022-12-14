@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD312C001B2
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Dec 2022 18:43:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2C30C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Dec 2022 18:43:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DDB610E451;
-	Wed, 14 Dec 2022 18:43:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6BCF10E452;
+	Wed, 14 Dec 2022 18:43:16 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 606D210E44F;
- Wed, 14 Dec 2022 18:43:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D91AA10E44F;
+ Wed, 14 Dec 2022 18:43:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671043383; x=1702579383;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=qIB+IG0nRJcAUz4HQIXON8xBXAnSiGfKuP+C3Av1YeQ=;
- b=GU07VcHScL4YyQEk8YjfAJM/spw5YnUs5722D2zBtQxLh7weHCkrKSw4
- rnT8eL/nYoRcEfylxX/v0UIfcRMzz/mFVICqAQcEvmsri77zIPI3TDLUB
- v7TU8azY3acCqTxTx29jwJvrvCuX68g3KEcB9SH1rlEqgKXPT52DlVl+9
- ftuICMH/jsdHhBRsYubwA5MczUJrO9TgvSewDZho25wo9YnGE+fZu/Nx0
- jkQLs4Up6540odpA/w9J79O4X19duGokusunjCgQNsPy+Vob0hM7o+tu9
- 1ZumSfuGOzPHWoL0wB9YzU2uSiPLUC6UfI0syKWlBelVVJvNTBPdzkKnP w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10561"; a="320343547"
-X-IronPort-AV: E=Sophos;i="5.96,245,1665471600"; d="scan'208";a="320343547"
+ t=1671043385; x=1702579385;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=TkO/OjLlcLjPgVfZQcfk+7JhxG4B2uNmLJzM3oSl5iY=;
+ b=LX/AiDgBoYVJ1VAmezG3w0dyDqm+1hDK6q2fqpfI63Jsn2S36KgdNSxm
+ 0FAHYhbnas9TXzvLzf4ZsLsevSHyjkgP2LOLiRgWe4GqW9vu8lmzgdvnx
+ TfeaS9LSvyGZI+NLulnw2iTrB6JakxsmHae+rdAebyRbuXXqLvd2Zl9fy
+ liuK/Gy7F59RJqn4wy74z7KxBgl4VdBO4IC57k15XyHuWwv1Rx+yaWlVW
+ HT1++uIJSZRNi4VqKA/hJNdb0xthEPAqFwCWvfZHjpJ7zGebbEYe3gMoL
+ zP4LmQiKb9zoWo75bwgSj0yRntjFXQXokdO9W044ydrr+INjP5mu4d3WV A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10561"; a="320343557"
+X-IronPort-AV: E=Sophos;i="5.96,245,1665471600"; d="scan'208";a="320343557"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Dec 2022 10:43:02 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10561"; a="894424793"
-X-IronPort-AV: E=Sophos;i="5.96,245,1665471600"; d="scan'208";a="894424793"
+ 14 Dec 2022 10:43:05 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10561"; a="894424798"
+X-IronPort-AV: E=Sophos;i="5.96,245,1665471600"; d="scan'208";a="894424798"
 Received: from ideak-desk.fi.intel.com ([10.237.72.58])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Dec 2022 10:43:00 -0800
+ 14 Dec 2022 10:43:04 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 14 Dec 2022 20:42:56 +0200
-Message-Id: <20221214184258.2869417-1-imre.deak@intel.com>
+Date: Wed, 14 Dec 2022 20:42:58 +0200
+Message-Id: <20221214184258.2869417-3-imre.deak@intel.com>
 X-Mailer: git-send-email 2.31.1.189.g2e36527f23
+In-Reply-To: <20221214184258.2869417-1-imre.deak@intel.com>
+References: <20221214184258.2869417-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/3] drm/display/dp_mst: Fix down/up message
- handling after sink disconnect
+Subject: [Intel-gfx] [PATCH 3/3] drm/display/dp_mst: Fix payload addition on
+ a disconnected sink
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,41 +61,43 @@ Cc: stable@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If the sink gets disconnected during receiving a multi-packet DP MST AUX
-down-reply/up-request sideband message, the state keeping track of which
-packets have been received already is not reset. This results in a failed
-sanity check for the subsequent message packet received after a sink is
-reconnected (due to the pending message not yet completed with an
-end-of-message-transfer packet), indicated by the
+If an MST stream is enabled on a disconnected sink, the payload for the
+stream is not created and the MST manager's payload count/next start VC
+slot is not updated. Since the payload's start VC slot may still contain
+a valid value (!= -1) the subsequent disabling of such a stream could
+cause an incorrect decrease of the payload count/next start VC slot in
+drm_dp_remove_payload() and hence later payload additions will fail.
 
-"sideband msg set header failed"
-
-error.
-
-Fix the above by resetting the up/down message reception state after a
-disconnect event.
+Fix the above by marking the payload as invalid in the above case, so
+that it's skipped during payload removal. While at it add a debug print
+for this case.
 
 Cc: Lyude Paul <lyude@redhat.com>
-Cc: <stable@vger.kernel.org> # v3.17+
+Cc: <stable@vger.kernel.org> # v6.1+
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 51a46689cda70..90819fff2c9ba 100644
+index 01350510244f2..5861b0a6247bc 100644
 --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
 +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -3641,6 +3641,9 @@ int drm_dp_mst_topology_mgr_set_mst(struct drm_dp_mst_topology_mgr *mgr, bool ms
- 		drm_dp_dpcd_writeb(mgr->aux, DP_MSTM_CTRL, 0);
- 		ret = 0;
- 		mgr->payload_id_table_cleared = false;
-+
-+		memset(&mgr->down_rep_recv, 0, sizeof(mgr->down_rep_recv));
-+		memset(&mgr->up_req_recv, 0, sizeof(mgr->up_req_recv));
- 	}
+@@ -3309,8 +3309,13 @@ int drm_dp_add_payload_part1(struct drm_dp_mst_topology_mgr *mgr,
+ 	int ret;
  
- out_unlock:
+ 	port = drm_dp_mst_topology_get_port_validated(mgr, payload->port);
+-	if (!port)
++	if (!port) {
++		drm_dbg_kms(mgr->dev,
++			    "VCPI %d for port %p not in topology, not creating a payload\n",
++			    payload->vcpi, payload->port);
++		payload->vc_start_slot = -1;
+ 		return 0;
++	}
+ 
+ 	if (mgr->payload_count == 0)
+ 		mgr->next_start_slot = mst_state->start_slot;
 -- 
 2.37.1
 
