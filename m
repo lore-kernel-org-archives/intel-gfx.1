@@ -4,46 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52D04C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 20:29:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B68FFC4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Dec 2022 20:38:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56B3610E566;
-	Thu, 15 Dec 2022 20:29:27 +0000 (UTC)
-X-Greylist: delayed 315 seconds by postgrey-1.36 at gabe;
- Sat, 10 Dec 2022 18:07:07 UTC
-Received: from forward103j.mail.yandex.net (forward103j.mail.yandex.net
- [5.45.198.246])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 501B810E0DC;
- Sat, 10 Dec 2022 18:07:07 +0000 (UTC)
-Received: from forward101q.mail.yandex.net (forward101q.mail.yandex.net
- [IPv6:2a02:6b8:c0e:4b:0:640:4012:bb98])
- by forward103j.mail.yandex.net (Yandex) with ESMTP id 798FF101AF4;
- Sat, 10 Dec 2022 21:01:47 +0300 (MSK)
-Received: from vla5-1ef2161cc1d7.qloud-c.yandex.net
- (vla5-1ef2161cc1d7.qloud-c.yandex.net
- [IPv6:2a02:6b8:c18:3607:0:640:1ef2:161c])
- by forward101q.mail.yandex.net (Yandex) with ESMTP id 74E1F13E80002;
- Sat, 10 Dec 2022 21:01:47 +0300 (MSK)
-Received: by vla5-1ef2161cc1d7.qloud-c.yandex.net (smtp/Yandex) with ESMTPSA
- id j1gRoFCZEOs1-LYqGIaIh; Sat, 10 Dec 2022 21:01:46 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=skif-web.ru; s=mail;
- t=1670695306; bh=d4LSP210pPsizDp0BFbLhYh/xU1PF2q/gTxyraEFraM=;
- h=Message-Id:Date:Cc:Subject:To:From;
- b=ojObATcgxbhAkntM7e5z327TbthRoYz/QbiRZaEzjRc/gdDlqzt+2mMwf+bH6tCnQ
- aiT/mHwkFWCPVDO9y0VNtBV1qdKqZmaz5qI1EgmFTP7ASBPo7fOZ5vjvzGMyri4vwk
- cwWcU+jaVX5kLFh9NaPyO7arokanAosSrZLiHHHc=
-Authentication-Results: vla5-1ef2161cc1d7.qloud-c.yandex.net;
- dkim=pass header.i=@skif-web.ru
-From: Alexey Lukyanchuk <skif@skif-web.ru>
-To: tvrtko.ursulin@linux.intel.com
-Date: Sat, 10 Dec 2022 21:01:19 +0300
-Message-Id: <20221210180118.22087-1-skif@skif-web.ru>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21E6610E56B;
+	Thu, 15 Dec 2022 20:38:25 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42AAF10E568;
+ Thu, 15 Dec 2022 20:38:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1671136699; x=1702672699;
+ h=date:from:to:cc:subject:message-id:
+ content-transfer-encoding:mime-version;
+ bh=3imu+xzqs1VUa+7z7/el/pwQADdrOrZ5ufbShxcDrj0=;
+ b=bPMq9F+/8QjcRoX0Y9PV9sUNI6Cq0jdj7WQMSagcHRqOgNACEWqUKA4z
+ f5JmdgRAPNSbsO9j089gwMnv3zNghPLydkHvf25iWEQK4hnZt6tTllDfq
+ j2CsFX7QvbWV+gDjG5GxuFEsEUb/j5dwsYFp2g1VprUawp7MdeBdfjbLG
+ YFF+RjVc0sGJ2IjKYUcfvAiYuXtTD7I8otUqV+7M5nx6+XH1ShXhj+bHq
+ 0mksVcFv5cpEpFwah0KmhPmQXReFir+V+5cjyqCh7PIGh40R43dXRrcMy
+ uhRcwtw/fa9qKMeMM5xezKP2dgYbaQmXpkm3OlSFZxI0q3ouzJJCFB4vM g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10562"; a="319968044"
+X-IronPort-AV: E=Sophos;i="5.96,248,1665471600"; d="scan'208";a="319968044"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Dec 2022 12:36:57 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10562"; a="718138610"
+X-IronPort-AV: E=Sophos;i="5.96,248,1665471600"; d="scan'208";a="718138610"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
+ by fmsmga004.fm.intel.com with ESMTP; 15 Dec 2022 12:36:57 -0800
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.16; Thu, 15 Dec 2022 12:36:56 -0800
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.16 via Frontend Transport; Thu, 15 Dec 2022 12:36:56 -0800
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.172)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.16; Thu, 15 Dec 2022 12:36:56 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=h7Te7MSkWN9R/2ye3lBzebV9kbhcGieYpvqqnEpSPgUV54n8SED8alUTYoqhFHbUfwAnKTXZzWFrUQGf8di6jRFJegTdEQg6bjrO5KqV4L8ckYaAsiwHheDXCNqqoLhsvGXnN+TIlxyNPLHpo60HHQz9fb2KRhcBpd4SKapy0Q76Eg3aNvWx+zCEGlW6KYIonOlJUIDEx2MhuLJTXXPe/zUhY3uQM4vFN6mM67xEq1XrlyrytCG2rI+gCDbqWv00tmYmn8baS5n1MQuoYIHhrO1bT09YXv9NIQx+krFkupuS3M3EJf6dnB6MRj/j+Z6LkAqHBursNutJRsKXs6/vAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z1lpvmPT+QYuZrNED/YfgWwmhr0OEcFmXrdznJ44xyo=;
+ b=ZNCq9w3K+TMOWOd6RMIIHKjwgBifM1z8uMrQYHLcxjQbxoLxPdFm4BTBN/QGMIBeQDeSKSPzg8COoukiNx5CuMKDOMt07AUwS7wk9KkfhAF2jVbheCWN81QTtVFbdnnA+5JEd4BLaj//k4Yh130kmRvHt9W7gumH/7/1Jk1slyk81zWEinjXSEwnsAGxK/FHwAUybbLkqhz6gn4Bv8YKO2JPK0AybS13fHttv9RU1MAY0CfRuDet19N/3q5w/uRvMDd9mWInuqVQ49d1/n/oQDoGV6jHFgi/r4cBSqUSHeqThb5FZfPpOHIbyUIzNCXX/4FF41y0kxaYGdHw92caBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MN0PR11MB6059.namprd11.prod.outlook.com (2603:10b6:208:377::9)
+ by DS0PR11MB6350.namprd11.prod.outlook.com (2603:10b6:8:cd::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5924.12; Thu, 15 Dec 2022 20:36:54 +0000
+Received: from MN0PR11MB6059.namprd11.prod.outlook.com
+ ([fe80::499c:efe3:4397:808]) by MN0PR11MB6059.namprd11.prod.outlook.com
+ ([fe80::499c:efe3:4397:808%9]) with mapi id 15.20.5924.012; Thu, 15 Dec 2022
+ 20:36:54 +0000
+Date: Thu, 15 Dec 2022 15:36:48 -0500
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <Y5uFYOJ/1jgf2eSE@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 15 Dec 2022 20:29:21 +0000
-Subject: [Intel-gfx] [PATCH RFC] fix dell wyse 3040 poweroff
+X-ClientProxiedBy: BYAPR07CA0096.namprd07.prod.outlook.com
+ (2603:10b6:a03:12b::37) To MN0PR11MB6059.namprd11.prod.outlook.com
+ (2603:10b6:208:377::9)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR11MB6059:EE_|DS0PR11MB6350:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7abaa11f-f592-4e5b-ffbc-08dadedc1a82
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: fmwmNeFUByuTsD4LUwz5Hb+/7CQjlGZVBK4UGLm36hQRWB9/uZB9LLZRWxmQTHKQQj6X98dM/65j5VKZP5HCib4S7fr2mGshN5gCXII7bjXBaCix5sguP4UYO0ajAzSEFj+hOZWmHQRSkfK3tLBSqj+jzvLvJjhK9wfkuKRlOUjta5LjfkihRx3AFf3uf4/F+TMyexbPitkFIw5j/pEnltYjh4DADHgXXx9jjG5yJxyIE2yqTrSx8gC7IbLWK0nRoPlWpj8JtcFXaCHmJwlSQXl9+4aDvgmmDFSOZvCoiza4AD4frSySmuD39qc6sSHwLm9w7PO4WHs7MOS5TX5VvE90njg6dmq8THcluG9QoIDmguwVcrW6EmVqA/MjilcY/TXRqNUVOwJnRRQj9JQ35AXDM8LzPdTdjVPB1hygtWZu/VywftP1EQnh+hN22VowwCU8BCgVEa+iJoEDtE+PomyxmmMesnCfv/bIZoaxzy54RETr+pydaxJLcIdi8xkUdouIPUjBq8yeFhrNdZvNMWYDNsjqrNuXqXK2a204E3BZNrZXQXb6WCnIc6HUiOQdtXeBVsUEsmRKgOQg4XNixNsOucNo7FBNrxc0OYcxiiY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR11MB6059.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(366004)(346002)(376002)(396003)(39860400002)(136003)(451199015)(86362001)(36756003)(66476007)(4326008)(66946007)(8676002)(66556008)(316002)(6512007)(54906003)(2616005)(38100700002)(82960400001)(66574015)(4001150100001)(83380400001)(2906002)(966005)(110136005)(26005)(186003)(6486002)(41300700001)(6506007)(478600001)(6666004)(7416002)(5660300002)(8936002)(44832011);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?KGV+/Y5bLWvOAHJc87YAv3rE4pWCuyIuvz3lLM3ughKzrigAVaKxsL/EoW?=
+ =?iso-8859-1?Q?LN8YmbD7LjCLGDYggKmnYulaI1ikCcsbTy8IQVkPlnazI4riPlF5bT9s/x?=
+ =?iso-8859-1?Q?tW4lGlyuMShE3PE7NJBiaQE42S2SCSlKp9kWXt+bJ0esSDFAUeaoBRGhqN?=
+ =?iso-8859-1?Q?OjeqpjFo+TSf51US/gTzAftm8Bq4A93PYwiVLreydnrJjGCev6GDjuYeYs?=
+ =?iso-8859-1?Q?fpbF+BhcHo3hKsPYZd7MY2BxgWdz5x6BUlnzl5DAF5tPDLELi8oprOcSeL?=
+ =?iso-8859-1?Q?JNFkYOMHeaaLnV9XhwBu0FYPSo40WioOSzWlVVfCx1XT8oW+sr4k16nqZ3?=
+ =?iso-8859-1?Q?VyNHKsTR9oNMkLuO+vLk+y00APiumMVQ52oAoolCSoCnpcOQMPLcoiIXKX?=
+ =?iso-8859-1?Q?OWttQI2ibj5EV3wmLqRgSgFjGOSvFtgxuon3QLGPdCKyHBML0ZtNI7SeZb?=
+ =?iso-8859-1?Q?DHTGHsRq4mRvnqzwUidQ+Ym+qRrHRVvwmIpMTLYrJClTVA8AP+e1T7cMAK?=
+ =?iso-8859-1?Q?SYqfwwzOtGlIRCFG/lt8jZbq3fOpO/fRY/BiAEOLDxuwhSJXC7otHuQfEK?=
+ =?iso-8859-1?Q?HuUsVz6D7PLGoO8attYbUlgFEZNA+evbzRIoFc9dGgHE9SWqMtWx/VFM0N?=
+ =?iso-8859-1?Q?2FSWyHk2GYMPsGNGuocqwvY5++zer+qUdaxNfLtPfh7/W+ElmvHTuzo9pr?=
+ =?iso-8859-1?Q?xwdA5OqcuH7D2zR4Kt2wICLyxu1qvrRsbgRxuRkTOqDqMVsOcBWPiYLGgZ?=
+ =?iso-8859-1?Q?YbU70Y2il2lIN9+zw5D/m2tHEPHxdWmrOeJb9DeDITGPTtNsi4iTfkiGow?=
+ =?iso-8859-1?Q?ykLT1bICZmIfI4WH/U0hyqmxkS0X54+xk55u/RhDkitiY6eX8R8hjW/R1u?=
+ =?iso-8859-1?Q?q5qBGVbofBohezKVoyuzxT4BXnOproWKeKzZKW3tZkjQ3SIPv/E+JXxoAV?=
+ =?iso-8859-1?Q?gV/BJKLTuahpDTsI8gHptRJ1lqoHQNUvchBXYiWbb3Q2zolFL83veNZtQD?=
+ =?iso-8859-1?Q?hVcCzkGZ6xax/sbp/YDzm+OtuY/ehnav1DoxT4DuAidPjG6p3pcT5VGzEY?=
+ =?iso-8859-1?Q?wckqGe+G2XIFLAS0QVf7il2RRDI8S5I8zO+XcMvDDcb3DHwXsAQt2lFxuC?=
+ =?iso-8859-1?Q?vVxpPMtrKaFfr6dap4IFHrMx7jKodWq4qMRzuvHyO4nSCfLh0FgaynZ3Qn?=
+ =?iso-8859-1?Q?f0mX2En1sjA6FnpyQroW5QQgGo6dAOLHQN/V4GO6P7IUlCVxJRwHSjPMs2?=
+ =?iso-8859-1?Q?ie9/pxy2rWLWeBlGBadmEJT6ldc9SghRgPFXoAVk0DLp6PVGsNAzP5pdLn?=
+ =?iso-8859-1?Q?KswDERB7TGR7djZEJHLuYP6c4yRz9ahjrw6hZj9YNhHg+45cYseXoxVAw/?=
+ =?iso-8859-1?Q?NTn9fKTSL4Chj742d2rxryMe+Wv8i8yd88AT5okZppjksWkX7S9mRX+K7g?=
+ =?iso-8859-1?Q?a9iBorGNoXJYlgsquOeLTIppbaenGgrwJtEI7USA3qVoL607XlZWTbofU3?=
+ =?iso-8859-1?Q?uUqOmk14CG9ggCOB249jZX7m1qIEx5JJ7VEa93N+DYjOoM3BLonDIfPgAR?=
+ =?iso-8859-1?Q?75Y/VK2LDyiHj4D0Y0yVE/XAlVZ3UBKpBDgjDgpgy+jBRqxT3jOwMmbu9U?=
+ =?iso-8859-1?Q?3ADscXSzwHDq1BRUHpOb5PxrRzl7EDd+qG6I1PR8jA6hjR84WP3QrE3A?=
+ =?iso-8859-1?Q?=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7abaa11f-f592-4e5b-ffbc-08dadedc1a82
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR11MB6059.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2022 20:36:54.7341 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CztfH7TUMjyIw9rh+9EKpSc4onsuQRLbAWPkMn8RiOme5xapIhWlRpKxMEDdnoNAXYdSJIR5T9yunJXb7/mDIA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB6350
+X-OriginatorOrg: intel.com
+Subject: [Intel-gfx] [PULL] drm-intel-next-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,106 +142,81 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexey Lukyanchuk <skif@skif-web.ru>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>
+Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Dell wyse 3040 cat't poweroff aftet kernel 5.11.
-It happens  because i915_driver_shutdown function.
-Disabling of this function mitigate this problem.
+Hi Dave and Daniel,
 
-Fixes: 440b354f3 ("drivers/gpu/drm:power off troubles on dell wyse 3040") 
-Signed-off-by: Alexey Lukyanchuk <skif@skif-web.ru> 
----
-There is trouble with i915_driver_shutdown function. After some diving I found that trouble looks like race condition in drm_atomic_get_connector_state function (drivers/gpu/drm/drm_atomic.c), maybe it linked to iterators. Now I fully exclude i915_driver_shutdown for wyse 3040 device.
+In case you end up sending more stuff towards 6.2-rc1,
+please consider sending these fixes below.
 
-Can any one comment on this one please ? 
----
- drivers/gpu/drm/i915/display/intel_quirks.c | 25 +++++++++++++++++++++
- drivers/gpu/drm/i915/i915_driver.c          |  3 +++
- drivers/gpu/drm/i915/i915_drv.h             |  1 +
- 3 files changed, 29 insertions(+)
+The migrate related fixes seems to be the most important
+ones, but also I don't believe it looks so critical that
+it couldn't wait for the -rc2.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index e415cd7c0..a6a549d48 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -60,6 +60,12 @@ static void quirk_no_pps_backlight_power_hook(struct drm_i915_private *i915)
- 	drm_info(&i915->drm, "Applying no pps backlight power quirk\n");
- }
- 
-+static void quirk_wyse_3040_shutdown_fix(struct drm_i915_private *i915)
-+{
-+	i915->quirks |= QUIRK_WYSE_3040_SHUTDOWN_FIX;
-+	drm_info(&i915->drm, "Applying wyse 3040 shutdown fix\n");
-+}
-+
- struct intel_quirk {
- 	int device;
- 	int subsystem_vendor;
-@@ -85,6 +91,12 @@ static int intel_dmi_no_pps_backlight(const struct dmi_system_id *id)
- 	return 1;
- }
- 
-+static int wyse_3040_shutdown_fix(const struct dmi_system_id *id)
-+{
-+	DRM_INFO("This device need help with poweroff %s\n", id->ident);
-+	return 1;
-+}
-+
- static const struct intel_dmi_quirk intel_dmi_quirks[] = {
- 	{
- 		.dmi_id_list = &(const struct dmi_system_id[]) {
-@@ -131,6 +143,19 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
- 		},
- 		.hook = quirk_no_pps_backlight_power_hook,
- 	},
-+	{
-+		.dmi_id_list = &(const struct dmi_system_id[]) {
-+			{
-+				.callback = wyse_3040_shutdown_fix,
-+				.ident = "Dell Inc. 0G56C0",
-+				.matches = {DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "Dell Inc."),
-+					    DMI_EXACT_MATCH(DMI_BOARD_NAME, "0G56C0"),
-+				},
-+			},
-+			{ }
-+		},
-+		.hook = quirk_wyse_3040_shutdown_fix,
-+	},
- };
- 
- static struct intel_quirk intel_quirks[] = {
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index deb8a8b76..af60fb79a 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -1079,6 +1079,9 @@ static void intel_shutdown_encoders(struct drm_i915_private *dev_priv)
- 
- void i915_driver_shutdown(struct drm_i915_private *i915)
- {
-+	if (!(i915->quirks & QUIRK_WYSE_3040_SHUTDOWN_FIX))
-+		return;
-+
- 	disable_rpm_wakeref_asserts(&i915->runtime_pm);
- 	intel_runtime_pm_disable(&i915->runtime_pm);
- 	intel_power_domains_disable(i915);
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 086bbe894..fdd6866e7 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -200,6 +200,7 @@ struct drm_i915_display_funcs {
- #define QUIRK_INCREASE_T12_DELAY (1<<6)
- #define QUIRK_INCREASE_DDI_DISABLED_TIME (1<<7)
- #define QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK (1<<8)
-+#define QUIRK_WYSE_3040_SHUTDOWN_FIX (1<<9)
- 
- struct i915_suspend_saved_registers {
- 	u32 saveDSPARB;
--- 
-2.25.1
+Here goes drm-intel-next-fixes-2022-12-15:
+- Documentation fixe (Matt, Miaoqian)
+- OA-perf related fix (Umesh)
+- VLV/CHV HDMI/DP audio fix (Ville)
+- Display DDI/Transcoder fix (Khaled)
+- Migrate fixes (Chris, Matt)
 
+Thanks,
+Rodrigo.
+
+The following changes since commit 66efff515a6500d4b4976fbab3bee8b92a1137fb:
+
+  Merge tag 'amd-drm-next-6.2-2022-12-07' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2022-12-09 12:08:33 +1000)
+
+are available in the Git repository at:
+
+  git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-next-fixes-2022-12-15
+
+for you to fetch changes up to ad0fca2dceeab8fdd8e1135f4b4ef2dc46c2ead9:
+
+  drm/i915/ttm: consider CCS for backup objects (2022-12-14 12:56:58 -0500)
+
+----------------------------------------------------------------
+- Documentation fixe (Matt, Miaoqian)
+- OA-perf related fix (Umesh)
+- VLV/CHV HDMI/DP audio fix (Ville)
+- Display DDI/Transcoder fix (Khaled)
+- Migrate fixes (Chris, Matt)
+
+----------------------------------------------------------------
+Chris Wilson (1):
+      drm/i915/migrate: Account for the reserved_space
+
+Khaled Almahallawy (1):
+      drm/i915/display: Don't disable DDI/Transcoder when setting phy test pattern
+
+Matt Roper (1):
+      drm/i915/gt: Correct kerneldoc for intel_gt_mcr_wait_for_reg()
+
+Matthew Auld (2):
+      drm/i915/migrate: fix corner case in CCS aux copying
+      drm/i915/ttm: consider CCS for backup objects
+
+Miaoqian Lin (1):
+      drm/i915: Fix documentation for intel_uncore_forcewake_put__locked
+
+Umesh Nerlige Ramappa (1):
+      drm/i915/perf: Do not parse context image for HSW
+
+Ville Syrjälä (1):
+      drm/i915: Fix VLV/CHV HDMI/DP audio enable
+
+ drivers/gpu/drm/i915/display/g4x_dp.c            |  4 +-
+ drivers/gpu/drm/i915/display/g4x_hdmi.c          | 25 +++++++---
+ drivers/gpu/drm/i915/display/intel_dp.c          | 59 ------------------------
+ drivers/gpu/drm/i915/gem/i915_gem_object.c       |  3 ++
+ drivers/gpu/drm/i915/gem/i915_gem_object_types.h | 10 ++--
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c       | 18 +++++++-
+ drivers/gpu/drm/i915/gt/intel_gt_mcr.c           |  2 +-
+ drivers/gpu/drm/i915/gt/intel_migrate.c          | 53 ++++++++++++++++-----
+ drivers/gpu/drm/i915/i915_perf.c                 |  6 ++-
+ drivers/gpu/drm/i915/intel_uncore.c              |  4 +-
+ 10 files changed, 96 insertions(+), 88 deletions(-)
