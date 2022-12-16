@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A1C2C4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Dec 2022 16:08:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC6D0C4332F
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Dec 2022 16:08:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF46F10E5E8;
-	Fri, 16 Dec 2022 16:08:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D57DD10E5F0;
+	Fri, 16 Dec 2022 16:08:19 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE2AB10E5E8;
- Fri, 16 Dec 2022 16:08:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A53F10E5F0;
+ Fri, 16 Dec 2022 16:08:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671206887; x=1702742887;
+ t=1671206894; x=1702742894;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Yw91XUnp7QZ3ZiibbRYe4nJEhG5X8VpYiPW/sU0hLRw=;
- b=EtTVxGO1wZF2+xYn2ZzF6RJZTEd08SkVXcKletBmxO/AK3cG5fV9Db9X
- Yo50iO2O/JRiJH959OzonwrsSVoVoWDj4qgT6nhWS454oW69vXGWMfs6W
- wrsz4LUcLV6bElA5x9/D4CorYfzlRKlz7j6YmwWa73W+Gm9RJoTxJH4lz
- +PF8lPAqLQzVzjn1G2zw6I5Wo3yD1drxqw1Ni/lEED9w4LUuTP5FaHKYo
- LzKGJ8kXwZHTAhZeAgv67z1jWkY0q9eoF+EWLuCf9elNK2mEpeyjHZxdg
- jEwlvEce51JhtXpyfZUoqv7dwZYIrrv5N2+BsyJTUs2DAq2GXgWp0esHR g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10563"; a="299330709"
-X-IronPort-AV: E=Sophos;i="5.96,249,1665471600"; d="scan'208";a="299330709"
+ bh=mcL7lYWznAGu3TkJL4LtipX04RRM6z4FmRrXF4FjyaM=;
+ b=Z8BC9DsMW30B5n8/oS0AueN6QuMtH2k9YWAxMztWmDkDyfiJd+K7BpsX
+ Xi5QUEMilw2P/ZU1ZS2oon0bVbJrsPYWBF1L4LwjBnAEU5Daou2g/vE67
+ uEhYKSPrkP2a92X48S5FXOHMxGjRrS5MKFWXZ68xFgfTxyVLsUohPzd00
+ 1tNHvOIN66e2ogTuyfuxOMi+PyINKkqJ2Vfs6JgXqLwDeafgKbevX0ilB
+ X7wx6YJahmiqTF2zu2rcnT6ow8qeNmgwM3h4cs8YvwI9Dk+Ll8SjZk9FR
+ w2ZV1iTZza9yMZPOlHkSITbg+A4c+26//H4L/KXABvxsyZQcD3VtPcEoI g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10563"; a="299330785"
+X-IronPort-AV: E=Sophos;i="5.96,249,1665471600"; d="scan'208";a="299330785"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2022 08:01:22 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10563"; a="682337264"
-X-IronPort-AV: E=Sophos;i="5.96,249,1665471600"; d="scan'208";a="682337264"
+ 16 Dec 2022 08:01:30 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10563"; a="682337419"
+X-IronPort-AV: E=Sophos;i="5.96,249,1665471600"; d="scan'208";a="682337419"
 Received: from fbielich-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.252.62.38])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2022 08:01:16 -0800
+ 16 Dec 2022 08:01:27 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Fri, 16 Dec 2022 18:00:24 +0200
-Message-Id: <839cb0fd5a411705dc724f7b8d339bba97fb8b78.1671206131.git.jani.nikula@intel.com>
+Date: Fri, 16 Dec 2022 18:00:26 +0200
+Message-Id: <f561ba662e841f6ddd20fcc8476bab7379cb9bb9.1671206131.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1671206131.git.jani.nikula@intel.com>
 References: <cover.1671206131.git.jani.nikula@intel.com>
@@ -47,8 +47,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 10/12] drm/i915/bios: convert
- intel_bios_init_panel() to drm_edid
+Subject: [Intel-gfx] [PATCH v6 12/12] drm/i915/panel: move panel fixed EDID
+ to struct intel_panel
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,170 +65,262 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Try to use struct drm_edid where possible, even if having to fall back
-to looking into struct edid down low via drm_edid_raw().
-
-v2: Rebase
+It's a bit confusing to have two cached EDIDs in struct intel_connector
+with slightly different purposes. Make the distinction a bit clearer by
+moving the EDID cached for eDP and LVDS panels at connector init time to
+struct intel_panel, and name it fixed_edid. That's what it is, a fixed
+EDID for the panels.
 
 Cc: Imre Deak <imre.deak@intel.com>
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bios.c | 23 ++++++++++++-----------
- drivers/gpu/drm/i915/display/intel_bios.h |  4 ++--
- drivers/gpu/drm/i915/display/intel_dp.c   |  2 +-
- drivers/gpu/drm/i915/display/intel_lvds.c |  2 +-
- 4 files changed, 16 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/display/icl_dsi.c        |  2 +-
+ .../gpu/drm/i915/display/intel_connector.c    |  3 ---
+ .../drm/i915/display/intel_display_types.h    |  6 ++++--
+ drivers/gpu/drm/i915/display/intel_dp.c       | 20 +++++++++----------
+ drivers/gpu/drm/i915/display/intel_dvo.c      |  2 +-
+ drivers/gpu/drm/i915/display/intel_lvds.c     | 11 +++++-----
+ drivers/gpu/drm/i915/display/intel_panel.c    | 10 +++++++++-
+ drivers/gpu/drm/i915/display/intel_panel.h    |  4 +++-
+ drivers/gpu/drm/i915/display/intel_sdvo.c     |  2 +-
+ drivers/gpu/drm/i915/display/vlv_dsi.c        |  2 +-
+ 10 files changed, 35 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index 55544d484318..9badd77d656a 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -620,14 +620,14 @@ static void dump_pnp_id(struct drm_i915_private *i915,
- 
- static int opregion_get_panel_type(struct drm_i915_private *i915,
- 				   const struct intel_bios_encoder_data *devdata,
--				   const struct edid *edid, bool use_fallback)
-+				   const struct drm_edid *drm_edid, bool use_fallback)
- {
- 	return intel_opregion_get_panel_type(i915);
- }
- 
- static int vbt_get_panel_type(struct drm_i915_private *i915,
- 			      const struct intel_bios_encoder_data *devdata,
--			      const struct edid *edid, bool use_fallback)
-+			      const struct drm_edid *drm_edid, bool use_fallback)
- {
- 	const struct bdb_lvds_options *lvds_options;
- 
-@@ -652,12 +652,13 @@ static int vbt_get_panel_type(struct drm_i915_private *i915,
- 
- static int pnpid_get_panel_type(struct drm_i915_private *i915,
- 				const struct intel_bios_encoder_data *devdata,
--				const struct edid *edid, bool use_fallback)
-+				const struct drm_edid *drm_edid, bool use_fallback)
- {
- 	const struct bdb_lvds_lfp_data *data;
- 	const struct bdb_lvds_lfp_data_ptrs *ptrs;
- 	const struct lvds_pnp_id *edid_id;
- 	struct lvds_pnp_id edid_id_nodate;
-+	const struct edid *edid = drm_edid_raw(drm_edid); /* FIXME */
- 	int i, best = -1;
- 
- 	if (!edid)
-@@ -701,7 +702,7 @@ static int pnpid_get_panel_type(struct drm_i915_private *i915,
- 
- static int fallback_get_panel_type(struct drm_i915_private *i915,
- 				   const struct intel_bios_encoder_data *devdata,
--				   const struct edid *edid, bool use_fallback)
-+				   const struct drm_edid *drm_edid, bool use_fallback)
- {
- 	return use_fallback ? 0 : -1;
- }
-@@ -715,13 +716,13 @@ enum panel_type {
- 
- static int get_panel_type(struct drm_i915_private *i915,
- 			  const struct intel_bios_encoder_data *devdata,
--			  const struct edid *edid, bool use_fallback)
-+			  const struct drm_edid *drm_edid, bool use_fallback)
- {
- 	struct {
- 		const char *name;
- 		int (*get_panel_type)(struct drm_i915_private *i915,
- 				      const struct intel_bios_encoder_data *devdata,
--				      const struct edid *edid, bool use_fallback);
-+				      const struct drm_edid *drm_edid, bool use_fallback);
- 		int panel_type;
- 	} panel_types[] = {
- 		[PANEL_TYPE_OPREGION] = {
-@@ -745,7 +746,7 @@ static int get_panel_type(struct drm_i915_private *i915,
- 
- 	for (i = 0; i < ARRAY_SIZE(panel_types); i++) {
- 		panel_types[i].panel_type = panel_types[i].get_panel_type(i915, devdata,
--									  edid, use_fallback);
-+									  drm_edid, use_fallback);
- 
- 		drm_WARN_ON(&i915->drm, panel_types[i].panel_type > 0xf &&
- 			    panel_types[i].panel_type != 0xff);
-@@ -3187,7 +3188,7 @@ void intel_bios_init(struct drm_i915_private *i915)
- static void intel_bios_init_panel(struct drm_i915_private *i915,
- 				  struct intel_panel *panel,
- 				  const struct intel_bios_encoder_data *devdata,
--				  const struct edid *edid,
-+				  const struct drm_edid *drm_edid,
- 				  bool use_fallback)
- {
- 	/* already have it? */
-@@ -3197,7 +3198,7 @@ static void intel_bios_init_panel(struct drm_i915_private *i915,
+diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+index ae14c794c4bc..d56d01f07bb7 100644
+--- a/drivers/gpu/drm/i915/display/icl_dsi.c
++++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+@@ -2054,7 +2054,7 @@ void icl_dsi_init(struct drm_i915_private *dev_priv)
+ 		goto err;
  	}
  
- 	panel->vbt.panel_type = get_panel_type(i915, devdata,
--					       edid, use_fallback);
-+					       drm_edid, use_fallback);
- 	if (panel->vbt.panel_type < 0) {
- 		drm_WARN_ON(&i915->drm, use_fallback);
- 		return;
-@@ -3228,9 +3229,9 @@ void intel_bios_init_panel_early(struct drm_i915_private *i915,
- void intel_bios_init_panel_late(struct drm_i915_private *i915,
- 				struct intel_panel *panel,
- 				const struct intel_bios_encoder_data *devdata,
--				const struct edid *edid)
-+				const struct drm_edid *drm_edid)
- {
--	intel_bios_init_panel(i915, panel, devdata, edid, true);
-+	intel_bios_init_panel(i915, panel, devdata, drm_edid, true);
- }
+-	intel_panel_init(intel_connector);
++	intel_panel_init(intel_connector, NULL);
  
- /**
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.h b/drivers/gpu/drm/i915/display/intel_bios.h
-index ff1fdd2e0c1c..d221f784aa88 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.h
-+++ b/drivers/gpu/drm/i915/display/intel_bios.h
-@@ -32,8 +32,8 @@
+ 	intel_backlight_setup(intel_connector, INVALID_PIPE);
  
- #include <linux/types.h>
+diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
+index 4814d4e2f7f9..257afac34839 100644
+--- a/drivers/gpu/drm/i915/display/intel_connector.c
++++ b/drivers/gpu/drm/i915/display/intel_connector.c
+@@ -99,9 +99,6 @@ void intel_connector_destroy(struct drm_connector *connector)
  
-+struct drm_edid;
- struct drm_i915_private;
--struct edid;
- struct intel_bios_encoder_data;
- struct intel_crtc_state;
- struct intel_encoder;
-@@ -238,7 +238,7 @@ void intel_bios_init_panel_early(struct drm_i915_private *dev_priv,
- void intel_bios_init_panel_late(struct drm_i915_private *dev_priv,
- 				struct intel_panel *panel,
- 				const struct intel_bios_encoder_data *devdata,
--				const struct edid *edid);
-+				const struct drm_edid *drm_edid);
- void intel_bios_fini_panel(struct intel_panel *panel);
- void intel_bios_driver_remove(struct drm_i915_private *dev_priv);
- bool intel_bios_is_valid_vbt(const void *buf, size_t size);
+ 	intel_hdcp_cleanup(intel_connector);
+ 
+-	if (!IS_ERR_OR_NULL(intel_connector->edid))
+-		drm_edid_free(intel_connector->edid);
+-
+ 	intel_panel_fini(intel_connector);
+ 
+ 	drm_connector_cleanup(connector);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 34dc850340b8..6feb232bb1c2 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -351,6 +351,9 @@ struct intel_vbt_panel_data {
+ };
+ 
+ struct intel_panel {
++	/* Fixed EDID for eDP and LVDS. May hold ERR_PTR for invalid EDID. */
++	const struct drm_edid *fixed_edid;
++
+ 	struct list_head fixed_modes;
+ 
+ 	/* backlight */
+@@ -591,8 +594,7 @@ struct intel_connector {
+ 	/* Panel info for eDP and LVDS */
+ 	struct intel_panel panel;
+ 
+-	/* Cached EDID for eDP and LVDS. May hold ERR_PTR for invalid EDID. */
+-	const struct drm_edid *edid;
++	/* Cached EDID for detect. */
+ 	const struct drm_edid *detect_edid;
+ 
+ 	/* Number of times hotplug detection was tried after an HPD interrupt */
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 6caa290ef6e6..a64e97808813 100644
+index 67f2cb048ac1..3f4396b5f029 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -5325,7 +5325,7 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
- 	intel_connector->edid = drm_edid;
+@@ -4480,18 +4480,19 @@ bool intel_digital_port_connected(struct intel_encoder *encoder)
+ static const struct drm_edid *
+ intel_dp_get_edid(struct intel_dp *intel_dp)
+ {
+-	struct intel_connector *intel_connector = intel_dp->attached_connector;
++	struct intel_connector *connector = intel_dp->attached_connector;
++	const struct drm_edid *fixed_edid = connector->panel.fixed_edid;
+ 
+-	/* use cached edid if we have one */
+-	if (intel_connector->edid) {
++	/* Use panel fixed edid if we have one */
++	if (fixed_edid) {
+ 		/* invalid edid */
+-		if (IS_ERR(intel_connector->edid))
++		if (IS_ERR(fixed_edid))
+ 			return NULL;
+ 
+-		return drm_edid_dup(intel_connector->edid);
+-	} else
+-		return drm_edid_read_ddc(&intel_connector->base,
+-					 &intel_dp->aux.ddc);
++		return drm_edid_dup(fixed_edid);
++	}
++
++	return drm_edid_read_ddc(&connector->base, &intel_dp->aux.ddc);
+ }
+ 
+ static void
+@@ -5316,7 +5317,6 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
+ 	} else {
+ 		drm_edid = ERR_PTR(-ENOENT);
+ 	}
+-	intel_connector->edid = drm_edid;
  
  	intel_bios_init_panel_late(dev_priv, &intel_connector->panel, encoder->devdata,
--				   IS_ERR_OR_NULL(drm_edid) ? NULL : drm_edid_raw(drm_edid));
-+				   IS_ERR(drm_edid) ? NULL : drm_edid);
+ 				   IS_ERR(drm_edid) ? NULL : drm_edid);
+@@ -5343,7 +5343,7 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
+ 		goto out_vdd_off;
+ 	}
  
- 	intel_panel_add_edid_fixed_modes(intel_connector, true);
+-	intel_panel_init(intel_connector);
++	intel_panel_init(intel_connector, drm_edid);
  
+ 	intel_edp_backlight_setup(intel_dp, intel_connector);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dvo.c b/drivers/gpu/drm/i915/display/intel_dvo.c
+index 4aeae0f3ac91..0be8105cb18a 100644
+--- a/drivers/gpu/drm/i915/display/intel_dvo.c
++++ b/drivers/gpu/drm/i915/display/intel_dvo.c
+@@ -554,6 +554,6 @@ void intel_dvo_init(struct drm_i915_private *i915)
+ 		 */
+ 		intel_panel_add_encoder_fixed_mode(connector, encoder);
+ 
+-		intel_panel_init(connector);
++		intel_panel_init(connector, NULL);
+ 	}
+ }
 diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
-index 6a98787edf48..9f6910bba2e9 100644
+index 9f6910bba2e9..a1557d84ce0a 100644
 --- a/drivers/gpu/drm/i915/display/intel_lvds.c
 +++ b/drivers/gpu/drm/i915/display/intel_lvds.c
-@@ -977,7 +977,7 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
- 	intel_connector->edid = drm_edid;
+@@ -477,10 +477,11 @@ static int intel_lvds_compute_config(struct intel_encoder *intel_encoder,
+ static int intel_lvds_get_modes(struct drm_connector *connector)
+ {
+ 	struct intel_connector *intel_connector = to_intel_connector(connector);
++	const struct drm_edid *fixed_edid = intel_connector->panel.fixed_edid;
  
+-	/* use cached edid if we have one */
+-	if (!IS_ERR_OR_NULL(intel_connector->edid)) {
+-		drm_edid_connector_update(connector, intel_connector->edid);
++	/* Use panel fixed edid if we have one */
++	if (!IS_ERR_OR_NULL(fixed_edid)) {
++		drm_edid_connector_update(connector, fixed_edid);
+ 
+ 		return drm_edid_connector_add_modes(connector);
+ 	}
+@@ -974,8 +975,6 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
+ 	} else {
+ 		drm_edid = ERR_PTR(-ENOENT);
+ 	}
+-	intel_connector->edid = drm_edid;
+-
  	intel_bios_init_panel_late(dev_priv, &intel_connector->panel, NULL,
--				   IS_ERR_OR_NULL(drm_edid) ? NULL : drm_edid_raw(drm_edid));
-+				   IS_ERR(drm_edid) ? NULL : drm_edid);
+ 				   IS_ERR(drm_edid) ? NULL : drm_edid);
  
- 	/* Try EDID first */
- 	intel_panel_add_edid_fixed_modes(intel_connector, true);
+@@ -1000,7 +999,7 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
+ 	if (!intel_panel_preferred_fixed_mode(intel_connector))
+ 		goto failed;
+ 
+-	intel_panel_init(intel_connector);
++	intel_panel_init(intel_connector, drm_edid);
+ 
+ 	intel_backlight_setup(intel_connector, INVALID_PIPE);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+index 3b1004b019a8..42aa04bac261 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.c
++++ b/drivers/gpu/drm/i915/display/intel_panel.c
+@@ -31,6 +31,8 @@
+ #include <linux/kernel.h>
+ #include <linux/pwm.h>
+ 
++#include <drm/drm_edid.h>
++
+ #include "i915_reg.h"
+ #include "intel_backlight.h"
+ #include "intel_connector.h"
+@@ -670,10 +672,13 @@ void intel_panel_init_alloc(struct intel_connector *connector)
+ 	INIT_LIST_HEAD(&panel->fixed_modes);
+ }
+ 
+-int intel_panel_init(struct intel_connector *connector)
++int intel_panel_init(struct intel_connector *connector,
++		     const struct drm_edid *fixed_edid)
+ {
+ 	struct intel_panel *panel = &connector->panel;
+ 
++	panel->fixed_edid = fixed_edid;
++
+ 	intel_backlight_init_funcs(panel);
+ 
+ 	if (!has_drrs_modes(connector))
+@@ -692,6 +697,9 @@ void intel_panel_fini(struct intel_connector *connector)
+ 	struct intel_panel *panel = &connector->panel;
+ 	struct drm_display_mode *fixed_mode, *next;
+ 
++	if (!IS_ERR_OR_NULL(panel->fixed_edid))
++		drm_edid_free(panel->fixed_edid);
++
+ 	intel_backlight_destroy(panel);
+ 
+ 	intel_bios_fini_panel(panel);
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.h b/drivers/gpu/drm/i915/display/intel_panel.h
+index 4b51e1c51da6..15a8c897b33f 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.h
++++ b/drivers/gpu/drm/i915/display/intel_panel.h
+@@ -13,13 +13,15 @@ enum drrs_type;
+ struct drm_connector;
+ struct drm_connector_state;
+ struct drm_display_mode;
++struct drm_edid;
+ struct drm_i915_private;
+ struct intel_connector;
+ struct intel_crtc_state;
+ struct intel_encoder;
+ 
+ void intel_panel_init_alloc(struct intel_connector *connector);
+-int intel_panel_init(struct intel_connector *connector);
++int intel_panel_init(struct intel_connector *connector,
++		     const struct drm_edid *fixed_edid);
+ void intel_panel_fini(struct intel_connector *connector);
+ enum drm_connector_status
+ intel_panel_detect(struct drm_connector *connector, bool force);
+diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
+index 21805c15d5eb..c58e5cfa8e88 100644
+--- a/drivers/gpu/drm/i915/display/intel_sdvo.c
++++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
+@@ -2903,7 +2903,7 @@ intel_sdvo_lvds_init(struct intel_sdvo *intel_sdvo, u16 type)
+ 		mutex_unlock(&i915->drm.mode_config.mutex);
+ 	}
+ 
+-	intel_panel_init(intel_connector);
++	intel_panel_init(intel_connector, NULL);
+ 
+ 	if (!intel_panel_preferred_fixed_mode(intel_connector))
+ 		goto err;
+diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
+index 662bdb656aa3..2289f6b1b4eb 100644
+--- a/drivers/gpu/drm/i915/display/vlv_dsi.c
++++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
+@@ -1983,7 +1983,7 @@ void vlv_dsi_init(struct drm_i915_private *dev_priv)
+ 		goto err_cleanup_connector;
+ 	}
+ 
+-	intel_panel_init(intel_connector);
++	intel_panel_init(intel_connector, NULL);
+ 
+ 	intel_backlight_setup(intel_connector, INVALID_PIPE);
+ 
 -- 
 2.34.1
 
