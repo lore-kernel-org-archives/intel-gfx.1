@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EAB8C4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Dec 2022 00:38:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69125C4332F
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Dec 2022 00:38:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52E1210E5A6;
-	Fri, 16 Dec 2022 00:38:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F5CB10E5AB;
+	Fri, 16 Dec 2022 00:38:29 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34AB710E5A5
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Dec 2022 00:38:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80F1D10E5AA
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Dec 2022 00:38:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671151097; x=1702687097;
+ t=1671151103; x=1702687103;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=LMx+KGgLskJhVw+zQNVEhOE9JFm2/tHogE+Ob/+MwRw=;
- b=D6TAq4IbbAmYDD2I/Ot62vBS8DRl0smWaz5wVp0/rNxah/EmabDn9JEa
- Au1PlMnsJrEH0dDOcb1cKEF3TH3EAEzt6ucaL1Pt327kSdXLz3baPOU78
- B8D9z2dc3OIvWfCQwzYzF0YTfssaKUK6azALAVGol7ZWXUnPUSR2c8zlt
- y6PglaRAZqMbZ7R4hlGf6FH5WtIpcKiCALjR69CJNn0e8QjriD1jkIuZP
- 89B0OxdZt0q2RrqOHqd7yJj+KG4Y9goDx/D4PSexzapqZtRqGdfZ8FEdp
- wJMSH3Icf24qDrxw7lfZ2zSzdHAUGchPwLUY9v8oismA8liHJbJ+b6iQ7 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10562"; a="405103801"
-X-IronPort-AV: E=Sophos;i="5.96,248,1665471600"; d="scan'208";a="405103801"
+ bh=r4TIe8qGFRK32xyJiPEJfGt5rX9WSvaMi69vSphASL4=;
+ b=CyyO67dNamWXEwO62YjAQCnxhVK9iKLZmUxlppGjiqcfH97GjdxxXkxL
+ 18QRFymad4LWYu5yeRrzDApGclPyG7X7Sx7iBFCtHRtc5R/z1khrJqwmt
+ VZUpZlIjpyAr+uhd9MmNOQaIIhJZLMa6RjJHCgXRqQBz4MBkdGXtWCvKh
+ e+simeogt7QU888/e/quUp8NswTyMHrLtKYOWq27UY/ljU9j3G1UkXZ8/
+ MEx8HhoVUjcdy5eY6+Uij5KN8ADFZjPGa9Ikhofwsu+TS0Lycx5jWYn7f
+ OuIM4+SYWKyrVgIenH1y9Uslmbh0Z0GWMKbUUcWvQyi1OqKtDq9Bp7ULn g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10562"; a="405103813"
+X-IronPort-AV: E=Sophos;i="5.96,248,1665471600"; d="scan'208";a="405103813"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Dec 2022 16:38:16 -0800
+ 15 Dec 2022 16:38:23 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10562"; a="643100165"
-X-IronPort-AV: E=Sophos;i="5.96,248,1665471600"; d="scan'208";a="643100165"
+X-IronPort-AV: E=McAfee;i="6500,9779,10562"; a="643100195"
+X-IronPort-AV: E=Sophos;i="5.96,248,1665471600"; d="scan'208";a="643100195"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga007.jf.intel.com with SMTP; 15 Dec 2022 16:38:14 -0800
+ by orsmga007.jf.intel.com with SMTP; 15 Dec 2022 16:38:21 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 16 Dec 2022 02:38:14 +0200
+ Fri, 16 Dec 2022 02:38:20 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 16 Dec 2022 02:37:58 +0200
-Message-Id: <20221216003810.13338-2-ville.syrjala@linux.intel.com>
+Date: Fri, 16 Dec 2022 02:38:00 +0200
+Message-Id: <20221216003810.13338-4-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221216003810.13338-1-ville.syrjala@linux.intel.com>
 References: <20221216003810.13338-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 01/13] drm/i915/dsb: Stop with the RMW
+Subject: [Intel-gfx] [PATCH 03/13] drm/i915/dsb: Align DSB register writes
+ to 8 bytes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,84 +65,30 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-We don't want to keep random bits set in DSB_CTRL. Stop the
-harmful RMW.
-
-Also flip the reverse & around to appease my ocd.
+Every DSB instruction has to be 8byte aligned. Make sure
+that is the case for the non-indexed register writes as well.
+The way this could end up unaligned is we emitted an odd
+number of indexed register writes beforehand.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dsb.c | 22 +++++++---------------
- drivers/gpu/drm/i915/i915_reg.h          |  2 +-
- 2 files changed, 8 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dsb.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
-index 3d63c1bf1e4f..ebebaf802dee 100644
+index 90a22af30aab..6abfd0fc541a 100644
 --- a/drivers/gpu/drm/i915/display/intel_dsb.c
 +++ b/drivers/gpu/drm/i915/display/intel_dsb.c
-@@ -73,42 +73,34 @@ struct intel_dsb {
- static bool is_dsb_busy(struct drm_i915_private *i915, enum pipe pipe,
- 			enum dsb_id id)
- {
--	return DSB_STATUS & intel_de_read(i915, DSB_CTRL(pipe, id));
-+	return intel_de_read(i915, DSB_CTRL(pipe, id)) & DSB_STATUS_BUSY;
- }
- 
- static bool intel_dsb_enable_engine(struct drm_i915_private *i915,
- 				    enum pipe pipe, enum dsb_id id)
- {
--	u32 dsb_ctrl;
--
--	dsb_ctrl = intel_de_read(i915, DSB_CTRL(pipe, id));
--	if (DSB_STATUS & dsb_ctrl) {
-+	if (is_dsb_busy(i915, pipe, id)) {
- 		drm_dbg_kms(&i915->drm, "DSB engine is busy.\n");
- 		return false;
+@@ -172,6 +172,9 @@ void intel_dsb_reg_write(struct intel_dsb *dsb,
+ 		return;
  	}
  
--	dsb_ctrl |= DSB_ENABLE;
--	intel_de_write(i915, DSB_CTRL(pipe, id), dsb_ctrl);
--
-+	intel_de_write(i915, DSB_CTRL(pipe, id), DSB_ENABLE);
- 	intel_de_posting_read(i915, DSB_CTRL(pipe, id));
++	/* Every instruction should be 8 byte aligned. */
++	dsb->free_pos = ALIGN(dsb->free_pos, 2);
 +
- 	return true;
- }
- 
- static bool intel_dsb_disable_engine(struct drm_i915_private *i915,
- 				     enum pipe pipe, enum dsb_id id)
- {
--	u32 dsb_ctrl;
--
--	dsb_ctrl = intel_de_read(i915, DSB_CTRL(pipe, id));
--	if (DSB_STATUS & dsb_ctrl) {
-+	if (is_dsb_busy(i915, pipe, id)) {
- 		drm_dbg_kms(&i915->drm, "DSB engine is busy.\n");
- 		return false;
- 	}
- 
--	dsb_ctrl &= ~DSB_ENABLE;
--	intel_de_write(i915, DSB_CTRL(pipe, id), dsb_ctrl);
--
-+	intel_de_write(i915, DSB_CTRL(pipe, id), 0);
- 	intel_de_posting_read(i915, DSB_CTRL(pipe, id));
-+
- 	return true;
- }
- 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index cef9418beec0..ed989e749635 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -8104,7 +8104,7 @@ enum skl_power_gate {
- #define DSB_TAIL(pipe, id)		_MMIO(DSBSL_INSTANCE(pipe, id) + 0x4)
- #define DSB_CTRL(pipe, id)		_MMIO(DSBSL_INSTANCE(pipe, id) + 0x8)
- #define   DSB_ENABLE			(1 << 31)
--#define   DSB_STATUS			(1 << 0)
-+#define   DSB_STATUS_BUSY		(1 << 0)
- 
- #define CLKREQ_POLICY			_MMIO(0x101038)
- #define  CLKREQ_POLICY_MEM_UP_OVRD	REG_BIT(1)
+ 	dsb->ins_start_offset = dsb->free_pos;
+ 	buf[dsb->free_pos++] = val;
+ 	buf[dsb->free_pos++] = (DSB_OPCODE_MMIO_WRITE  << DSB_OPCODE_SHIFT) |
 -- 
 2.37.4
 
