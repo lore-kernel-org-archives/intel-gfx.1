@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D97E4C001B2
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Dec 2022 16:01:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96B29C4332F
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Dec 2022 16:02:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C97DC10E5F0;
-	Fri, 16 Dec 2022 16:01:34 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3966D10E5ED;
- Fri, 16 Dec 2022 16:01:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B8BF10E5F5;
+	Fri, 16 Dec 2022 16:01:35 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1015B10E5F0;
+ Fri, 16 Dec 2022 16:01:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671206478; x=1702742478;
+ t=1671206486; x=1702742486;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=sy/xQc4bMej24rvIp5Gpd6HKDFr8Ht6SFP30KyJ42rc=;
- b=GG5Tmak7b2mrYUt+uSGPl2z17YGb8rZbrYKUEY1CddV9TyKAYZG4rRUO
- RDfyNcKbrfX/QjPH9t1696DZGzvytVFY49FqmrKUECrBjKZSlQcbvh0eG
- Cq0e+h68xsZ1NhQ5Rhnlvqs4atl5uuV5wZQXJekLLIn1T3GCJKjs9AWO3
- IKWyYXrzvUVM3aJfm5D5xAvDDJZAWV7fAr6pwYG46QbfzuLg32uiyMEOz
- vwwG8aE9GdasynkDmYCpFZtCJBcB70c00ENpYHx9ZbP8Te4Yi9gsXOEyy
- YPimBkZLrZuDhOyjJ/qWzY2rjTIfKU991MvhQG7SJFEpZg5F4PlnwFULf A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10563"; a="383327126"
-X-IronPort-AV: E=Sophos;i="5.96,249,1665471600"; d="scan'208";a="383327126"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2022 08:00:55 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10563"; a="738576270"
-X-IronPort-AV: E=Sophos;i="5.96,249,1665471600"; d="scan'208";a="738576270"
+ bh=840+c9wg4WWV+yrNbR2stuoJO+WcGVDyxP8K+zuTk+w=;
+ b=RYnaAQV9auHd1UFBsspiNaJqC0qdOJ7khjOFvp3AH2kusZAHjMF1ZbFb
+ ZOHuH0+Bdgh5jG79+v6j2LEkHYzGmUj5cYvtAPnHXlMq8xKO7AJa6bxtu
+ DUjj5P8JmeSHZ85YK457nD46349aDABOf/xViy4SIXT+dj4EgXsw1TpvB
+ X8/Z3XAaCTQdUx/egWnQ4RAKnA8Zi6JbSz4FdaJ856tHDvhMxC942TGqt
+ 9CIzZvf1pjr6u17GbuT0StjTU5q2FJfDy8MhyfSd6J1EBX/HwahqNE1Q1
+ hIBZNB+Se+wv36K6r69DeSWeFTX04zJ7f0KZ7tsaPz2rmBX6FAg3ifPDq g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10563"; a="346076512"
+X-IronPort-AV: E=Sophos;i="5.96,249,1665471600"; d="scan'208";a="346076512"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2022 08:01:15 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10563"; a="713301075"
+X-IronPort-AV: E=Sophos;i="5.96,249,1665471600"; d="scan'208";a="713301075"
 Received: from fbielich-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.252.62.38])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2022 08:00:53 -0800
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2022 08:01:07 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Fri, 16 Dec 2022 18:00:19 +0200
-Message-Id: <e7c3db0e10803ea0a7aa45ce24b314a059b45289.1671206131.git.jani.nikula@intel.com>
+Date: Fri, 16 Dec 2022 18:00:22 +0200
+Message-Id: <5139a511cde3662baf6943d2945d842569175332.1671206131.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1671206131.git.jani.nikula@intel.com>
 References: <cover.1671206131.git.jani.nikula@intel.com>
@@ -47,8 +47,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 05/12] drm/edid: move EDID BPC quirk
- application to update_display_info()
+Subject: [Intel-gfx] [PATCH v6 08/12] drm/edid: remove redundant
+ _drm_connector_update_edid_property()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,65 +65,55 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The BPC quirks are closer to home in update_display_info().
+Realize that drm_edid_connector_update() and
+_drm_connector_update_edid_property() are now the same thing. Drop the
+latter.
 
 Cc: Imre Deak <imre.deak@intel.com>
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 26 +++++++++++++-------------
- 1 file changed, 13 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 21 +--------------------
+ 1 file changed, 1 insertion(+), 20 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 2246a5b10d2c..15f69c362fc3 100644
+index 8bbd4662468e..fc276f377c2e 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -6467,6 +6467,18 @@ static void update_display_info(struct drm_connector *connector,
- 	if (info->quirks & EDID_QUIRK_CAP_DSC_15BPP)
- 		info->max_dsc_bpp = 15;
- 
-+	if (info->quirks & EDID_QUIRK_FORCE_6BPC)
-+		info->bpc = 6;
-+
-+	if (info->quirks & EDID_QUIRK_FORCE_8BPC)
-+		info->bpc = 8;
-+
-+	if (info->quirks & EDID_QUIRK_FORCE_10BPC)
-+		info->bpc = 10;
-+
-+	if (info->quirks & EDID_QUIRK_FORCE_12BPC)
-+		info->bpc = 12;
-+
- 	/* Depends on info->cea_rev set by drm_parse_cea_ext() above */
- 	drm_edid_to_eld(connector, drm_edid);
+@@ -6722,24 +6722,6 @@ int drm_edid_connector_add_modes(struct drm_connector *connector)
  }
-@@ -6566,7 +6578,7 @@ static int add_displayid_detailed_modes(struct drm_connector *connector,
- static int _drm_edid_connector_update(struct drm_connector *connector,
- 				      const struct drm_edid *drm_edid)
+ EXPORT_SYMBOL(drm_edid_connector_add_modes);
+ 
+-static int _drm_connector_update_edid_property(struct drm_connector *connector,
+-					       const struct drm_edid *drm_edid)
+-{
+-	/*
+-	 * Set the display info, using edid if available, otherwise resetting
+-	 * the values to defaults. This duplicates the work done in
+-	 * drm_add_edid_modes, but that function is not consistently called
+-	 * before this one in all drivers and the computation is cheap enough
+-	 * that it seems better to duplicate it rather than attempt to ensure
+-	 * some arbitrary ordering of calls.
+-	 */
+-	update_display_info(connector, drm_edid);
+-
+-	_drm_update_tile_info(connector, drm_edid);
+-
+-	return _drm_edid_connector_property_update(connector, drm_edid);
+-}
+-
+ /**
+  * drm_connector_update_edid_property - update the edid property of a connector
+  * @connector: drm connector
+@@ -6761,8 +6743,7 @@ int drm_connector_update_edid_property(struct drm_connector *connector,
  {
--	struct drm_display_info *info = &connector->display_info;
-+	const struct drm_display_info *info = &connector->display_info;
- 	int num_modes = 0;
+ 	struct drm_edid drm_edid;
  
- 	/*
-@@ -6606,18 +6618,6 @@ static int _drm_edid_connector_update(struct drm_connector *connector,
- 	if (info->quirks & (EDID_QUIRK_PREFER_LARGE_60 | EDID_QUIRK_PREFER_LARGE_75))
- 		edid_fixup_preferred(connector);
- 
--	if (info->quirks & EDID_QUIRK_FORCE_6BPC)
--		info->bpc = 6;
--
--	if (info->quirks & EDID_QUIRK_FORCE_8BPC)
--		info->bpc = 8;
--
--	if (info->quirks & EDID_QUIRK_FORCE_10BPC)
--		info->bpc = 10;
--
--	if (info->quirks & EDID_QUIRK_FORCE_12BPC)
--		info->bpc = 12;
--
- 	return num_modes;
+-	return _drm_connector_update_edid_property(connector,
+-						   drm_edid_legacy_init(&drm_edid, edid));
++	return drm_edid_connector_update(connector, drm_edid_legacy_init(&drm_edid, edid));
  }
+ EXPORT_SYMBOL(drm_connector_update_edid_property);
  
 -- 
 2.34.1
