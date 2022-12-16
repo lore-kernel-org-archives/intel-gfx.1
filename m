@@ -4,62 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5E5BC10F1B
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 20:19:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C8A6C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 20:19:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F99610E4AD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4BAA10E4AE;
 	Wed, 21 Dec 2022 20:19:43 +0000 (UTC)
-Received: from domac.alu.hr (domac.alu.hr [161.53.235.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD55D10E3BD
- for <intel-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 19:34:54 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by domac.alu.hr (Postfix) with ESMTP id 45633604F2;
- Tue, 20 Dec 2022 20:34:22 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=alu.unizg.hr; s=mail;
- t=1671564862; bh=AMvAYSCzhnqBUsJKH9QAi3LBf/OWQgyZqdczOwEVN5g=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=mVsjDFm8MseZY2DSlA41G+9hfP+qFwB5rrgC0BhlAjXpBwJqpvTYKblpAIgc/L3SW
- RDinGcWaa8somyQ97bMt6ZbkiGVwaiszg4NmJTh9L8dJuyla2BMT5GPNGovM1YAX+M
- L1p1us18STXBwFsKzpr17u7N4/Wfnl9KQv7wTZl2eqg3k0Sbc3Brz+r3W/VBLnksmI
- RjZcJ48G9DUZw5z517lT2SPfKoZNRZcOfwV7RT+awgDpozXz7AeqWAmZBfNLnD04Xn
- Qmk4VLqyrJ/CT2ycbOLBQZZSV8xlnDN5sPADsrJ6FfMfiO+tFPHbVW+QY5GQCkeMok
- UaPSNVnBLO4Lg==
-X-Virus-Scanned: Debian amavisd-new at domac.alu.hr
-Received: from domac.alu.hr ([127.0.0.1])
- by localhost (domac.alu.hr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 71VgMwB9AUsD; Tue, 20 Dec 2022 20:34:19 +0100 (CET)
-Received: from [193.198.186.200] (pc-mtodorov.slava.alu.hr [193.198.186.200])
- by domac.alu.hr (Postfix) with ESMTPSA id 82F71604F1;
- Tue, 20 Dec 2022 20:34:19 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=alu.unizg.hr; s=mail;
- t=1671564859; bh=AMvAYSCzhnqBUsJKH9QAi3LBf/OWQgyZqdczOwEVN5g=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=oVyhOM5yC9Hjq8b5tJmxPzzgoXwbBCy/t+wnYru2DA6NsILmXMI/MzfGlSxUUHHjU
- bWjQCcxAJlD39Jvz2O3+jXz8/HERg4eqTY6P1/eSqsswDaJA6vCn7AbjebgZ/4WUVv
- r8GznaV0Fm7lid2A4QZ78pbob/55Eo3kJ8E8rDjaEXMsORsD1EITdy9Z1A5DDfUIFO
- A+0uNBy/Z/oqxI8nBLNQCeiVEmMKeoHhiJSZLWroAjVMntGoQoNk0yrsB/t36O6A7Q
- 0wkJIBwFvyJMYWwOqRM4SOqs5MlImA6NPxC29TWt64WcVY8weZgLzVqQqqOYaJcgqa
- BT8CLb15uSl/A==
-Message-ID: <619bdecc-cf87-60a4-f50d-836f4c073ea7@alu.unizg.hr>
-Date: Tue, 20 Dec 2022 20:34:12 +0100
+X-Greylist: delayed 427 seconds by postgrey-1.36 at gabe;
+ Fri, 16 Dec 2022 15:37:33 UTC
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4376510E5D7
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Dec 2022 15:37:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1671205053;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=pwwJEkrFReZPzLzP51LhMk3PJhtYr+RTzrbi7FqpBfA=;
+ b=d+FQYWIMgOnKV5We2JZZCcScV8fSpZWkRVr3jD+ZeGrpOexEuF+iu2Ze
+ 9w2Q+4Plo0YbR2Y0Lk3q6J3If+p8sp38ek/CNVXJL7w513Us3cIv9gFqX
+ 8AORda8HBUlV1HU2md22/YieviWWPF/i4Yi8KUsM2efQiDcpRF09KiDFe w=;
+X-IronPort-RemoteIP: 104.47.58.168
+X-IronPort-MID: 89165806
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:5IWFhK9Zi2Q8OhI1+zlWDrUDTH6TJUtcMsCJ2f8bNWPcYEJGY0x3y
+ jRMDWmPbKuJZ2GnctF2bdyw9UMBvJXVxoBlSQBqrSw8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
+ 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKucYHsZqTZMEE8JkQhkl/MynrlmiN24BxLlk
+ d7pqojUNUTNNwRcawr40Ire7kIx1BjOkGlA5AZnP6kV5AW2e0Q9V/rzG4ngdxMUfaEMdgKKb
+ 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
+ 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDklrx
+ /tGdBZcfymCjr2bkKznGsZ0194seZyD0IM34hmMzBn/JNN/GNXpZfWP4tVVmjAtmspJAPDSI
+ dIDbiZiZwjBZBsJPUoLDJU5n6GjgXyXnz9w8QrJ4/ZopTWDilUvgNABM/KMEjCObexTklyVu
+ STt+GPhDwtBHNee1SCE4jSngeqncSbTCNNLSuDorqACbFu77EFLUy0weV+BiqOwlVWDco12I
+ GUS5X97xUQ13AnxJjXnZDW9qWSBtwQRWPJRFfM78wCHzqfI4wefCXMARzQHY9sj3Oc3QyAn0
+ hqGkcPBAT10rKbTR2iQ+7uZtjCuPjBTKnUNDQcUQA1A79T9rYUbihPUUs0lAKOzlsfyGzz73
+ 3aNtidWr7keiM8j1qOl/EvGiTahupjISAEu4gzdGGmi62tRZoejZsqu6FvG6f9oKIefU0nHv
+ X4YlszY5+cLZbmPkyuLSf5LGLip+/eDPTv0hV9pAoln9jKx9nrldodViBlkI0tzM8kDPyHof
+ k77uAVN6ZsVN3yvBYdrfZitCMNs0LL7CNDkUNjQb9xTct5wchOK+GdlYkv492XkjFQsnL55N
+ dGBdt6hF14bD7hqyHy9QOJ1+bs2zSklg2/eQJnhxBSm+buYeHORD7wCNTOmbOci4eWfpxjH+
+ v5eMdeHz1NUV+iWSiXe948eKXgEI2c/Adb9q6R/Zr7dCglrAmcsD7nW27xJRmB+t6Fcl+ON9
+ HftXEZdkQP7nSeed1XMbW1/YrTyW5o5tWg8ISEnIVev3T4kfJqr66AcMZAweNHL6dBe8BK9d
+ NFdE+3oPxiFYm6vF+g1BXUlkLFfSQ==
+IronPort-HdrOrdr: A9a23:TLApKqOEchiqEsBcTjGjsMiBIKoaSvp037BK7S1MoH1uA6ilfq
+ WV9sjzuiWatN98Yh8dcLO7Scy9qBHnhP1ICOAqVN/PYOCBggqVxelZhrcKqAeQeREWmNQ86U
+ 4aSdkYNDXxZ2IK8foT4mODYqkdKA/sytHXuQ/cpU0dPD2Dc8tbnmFE4p7wKDwNeOFBb6BJba
+ a01458iBeLX28YVci/DmltZZm/mzWa/KiWGSLvHnQcmXKzsQ8=
+X-IronPort-AV: E=Sophos;i="5.96,249,1665460800"; d="scan'208";a="89165806"
+Received: from mail-bn8nam11lp2168.outbound.protection.outlook.com (HELO
+ NAM11-BN8-obe.outbound.protection.outlook.com) ([104.47.58.168])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 16 Dec 2022 10:30:18 -0500
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=G1n/OdYmGyBFbTIBgCVuaWwGZq4dFvguvcFySFXOaV1B1bQ8xSBg76TqFM3CyEf2uKcMMMo25PEF9zT4Fv432FKla/xMnU5RxVjesdap6v4CvZEQQJVZbdyaRRsh/Xhwe+sdFBhTiAprsFwQDdtuQglxJ8ToxrirS3cEjT588vFo2bFo6CuwL7DvS+PYW/YPRvT1gGdE1jOiWic4eMJU22unYrYWZSqRCw6rLuskkqaZ606Ev0uKxmIVUV2aLi2fejd+ju4i0afN0qf/o/P4AkvpILUV+3Dpk14EGCfX5kb5kbL71WLLvai9DErIREqTuQ/LQcjyHJ1qOMua+l6lfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pwwJEkrFReZPzLzP51LhMk3PJhtYr+RTzrbi7FqpBfA=;
+ b=UhTZTbmvw51ZXqJWmlCsy9274YqjfWasfmRD1cAxpyiCvR/KNy/Z2S7/kW+kiDnctxobLymAPxHFRGVUpnkoj271iRDa/cfyUuxCWgRfMucygK1j59fQJVE9cP50sDw/cX6gEoV8JI9XcD6OWWwQ/HH7yzyl0TsTP4b9yWFuXzMNwUMlCexUwZ2XEtIqgH/CCLVzLx3ye5KpF71c7tUNuUmpCw8DaPnhJa2YBV53+CDzWW8m53dBJWNRU3pjydGo6f4f88Gqi1zrSf3IAtJyyAJA/GYXczBf1betJFuMnlfMRrndmGrT7x7BbhLWykcOKy9ddIEQZoaMqca94vUfNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pwwJEkrFReZPzLzP51LhMk3PJhtYr+RTzrbi7FqpBfA=;
+ b=wOrqpP4lxFUYAPymZ+ppdtwrV2lwXl3LPG37IXyQQW/DvZOQoMUxd4if6nM4S0vuBLO0bE+eMm9MMylyUL7PkDkRhU4hlCO14Zva3IIj7j5z0y2P4U9a4ZID5Bovr+R5j5aNWAd6Ah2mzYJSXtEkdGUlaVJxvoTD8UbuQmX+GsA=
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
+ by PH0PR03MB5783.namprd03.prod.outlook.com (2603:10b6:510:42::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.12; Fri, 16 Dec
+ 2022 15:30:14 +0000
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::c679:226f:52fa:4c19]) by BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::c679:226f:52fa:4c19%6]) with mapi id 15.20.5880.019; Fri, 16 Dec 2022
+ 15:30:13 +0000
+From: Andrew Cooper <Andrew.Cooper3@citrix.com>
+To: =?utf-8?B?TWFyZWsgTWFyY3p5a293c2tpLUfDs3JlY2tp?=
+ <marmarek@invisiblethingslab.com>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [cache coherency bug] i915 and PAT attributes
+Thread-Index: AQHZEWNKBewvTtnrP0qLWzHfxYCD+w==
+Date: Fri, 16 Dec 2022 15:30:13 +0000
+Message-ID: <1c326e0c-5812-083a-0739-aa20fab3efc4@citrix.com>
+References: <Y5Hst0bCxQDTN7lK@mail-itl>
+In-Reply-To: <Y5Hst0bCxQDTN7lK@mail-itl>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BYAPR03MB3623:EE_|PH0PR03MB5783:EE_
+x-ms-office365-filtering-correlation-id: 0c3803b8-67ba-4253-265c-08dadf7a6d3b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: yKocoAleDd0KJlySRHxDfJahm5GtWcZ9D1QI3ojTWz2MqbMkB8rqzM4pT/GlZl2oza1yTITkbH4N0zoQMHZsjJi7sYHSgKFr0628DBPjUdjYm3LmYluFNXm7UCN+5bQTZl2jYh7IgLwN/eGZjHgTBczmxIcoRmfIpOnBIqwW78NTu1q6V7E7Xt4hJXho97JeoTm667h+Z7wo3OpuAHHSkNNVVminfrPr1VFxwQtDMMGDg6d91WwpUvvXqEQXd6L886XLkDA4VoYNCZvAt59HNV2x+0v/AA1+sea69LyU7ZEYS90/X5olhrdPZ98S+t87qbZtzkeBNUwiuZnzH99jgQVHUeK5cnl938jA5zSfsVrF4+QbbAN+eDlG6lLFlWUUW/P0VrQ0xoyYzKxzdeYJVt0VpXI7rxmC/dZjfia8ZBOw/AXrpSj1sGb8f6ynTlRrhPgCHXSvIpoa55yYPsyYbuLBJT7WO/Io68WrC3t1cTeT5yaE8F/VZxEEtssgOAdZDFjOPf/0YnKauo++njFjy9ptG6aEjDsvvVAVLf3jItstLvy2lmBk/PwkGjIGMo0VTCPvoRDzP/YHH4ZHbhAU7krBClLIlzhk0A38JA9RrSQPs0Jlv10JMUAl/wGAXwwWIVk+IoLiS/765SKZBtqSwlfqMF/lW6suThMzuxc/RP7/JPsNM8lDs9BAyfnCWIrbka8zblkiR90T9lIH3tni71uzTU0Kp8Ae8OIVa4JI6B/CX9X4K1ZVmQV1jlL3D3sVfEWAdPsrLyaZYcExw8RvUPlkjvRY4XtI8Ithl+TPjLTOHEWoDr5NXSJwGbowpD5mnhlutxj/3FyaCWmbVwXPtA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR03MB3623.namprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(39860400002)(376002)(396003)(366004)(136003)(346002)(451199015)(31686004)(36756003)(186003)(91956017)(26005)(6512007)(66946007)(76116006)(66446008)(478600001)(66476007)(71200400001)(966005)(4326008)(41300700001)(2616005)(6486002)(86362001)(31696002)(64756008)(8676002)(66574015)(5660300002)(2906002)(8936002)(7416002)(122000001)(53546011)(110136005)(6506007)(66556008)(54906003)(316002)(83380400001)(38100700002)(82960400001)(38070700005)(43740500002)(45980500001);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?eGNEVUZsVmxiZ3JuQUlLd2ErNWN5TllrNUtDQU9KaUd6U3J3OGRKSlhpWGFO?=
+ =?utf-8?B?eU1HSW5pYk9CazBYczB2bjlYNmcvL3IxbHFrdHJBTjBmYzNZUUlmNjVjcjY3?=
+ =?utf-8?B?NXNHRG5xS0poTFdDZ0N4KzNma3Y0cSt6M0phZVNMWXg1MGxadDBGakdNNERU?=
+ =?utf-8?B?V2dOZWtzNTIyQXV2dzVnSDJqTUMxNE13UGh1MVdmTlpMY0tNUmVZSHZuSmZM?=
+ =?utf-8?B?UHR4QUNjWVlLNW5oTFEyNjRWMjI1MktJM3JzUHJGeUJWZ3poL2ZKV0YwZVZY?=
+ =?utf-8?B?alFGRkRwdEtZSU5sY0U2RG9SNGlhS25MMDFKblVtVmhyK1MzTEhoSnpFTG5I?=
+ =?utf-8?B?NlNqNHZReGRnQzVYWS8xMkVTK1NENmdORlcwb3JZR0pWd1A0bjkvb3lLY3da?=
+ =?utf-8?B?eFNsRXZUMHdtVTRrOUV4R29OSmxnL3hKakdqV0ZWNU93aENBVFlibkc0TTFS?=
+ =?utf-8?B?VklCTm1wZTIwZzBEZXdQU0RLTTBOc0dabjdrTFBRUFRCNk9TdHRXZWZIN3h3?=
+ =?utf-8?B?V0MzdFJURU9nZnRNSWx0aHN2Wmd1bVZrdVM5ekc1em5YcEFUSFJ2QTJlbFNl?=
+ =?utf-8?B?MTR4emFrK0xldGExVTZVYy9ON2lPVmh3MFB4Ym05K2NXU2ZoejNZNDlFeE9o?=
+ =?utf-8?B?aWpXZ1FDcExyTGFzQjAyQ0JYVDNSbXZGbUs2Uzc2VldYS29JN3kvTTRwcFVB?=
+ =?utf-8?B?aWhkYVN3S2VDQUh3VHpsUWg1eE4rYkd1dzZGblhRd2xxbks3c3N2NlFYRUZ1?=
+ =?utf-8?B?aE5UMGgrVFp2b0Z6QllycE5LVDdNYVVaTmR6c2gzT05zWlc5TTYwLzlXQ0Vs?=
+ =?utf-8?B?dXkrWjhwQU8zOGxVNHY5Z2Voa2FBMXNMN290RG9ScGNkU1ZvL3F1cVZlMVBk?=
+ =?utf-8?B?ZmhIZStRVkVxNlZZdmg2VWpIc0Z4R2xCVVZrWjVTOW90RFYzZ3lJRW9SMFpQ?=
+ =?utf-8?B?cWVicng1cTZnZWlWODJVbGh4cVVTSXpCdkVKMm1TWS96cjZHUTN0bEVzZU8v?=
+ =?utf-8?B?ZFN2bkh2aVNHNmxRRFdCK1JBb3NjaStBSnNZcnpiclhrQ0FSNWE0ZjJjTDFn?=
+ =?utf-8?B?dnBmVTFLQU05TXFTcXFTbFBEM2NyaWdON1pIdnRGcHh0bTJmRkVOaENONGp0?=
+ =?utf-8?B?clhsMHQvRHl1MnZVK0t5bGVwOXlyNm4zRmtoaENmSHNHcEY4Q1pNSUlrYUYy?=
+ =?utf-8?B?TDJiMjl0TDl1eE1ZRXBFOFp0WUhsaU5GUHp5TFVGaUJQZk05Ykh5Y0Y3VEU1?=
+ =?utf-8?B?b2V0L0FGMjE2aW95TzdDanM2Y0JMdWJuK1o0YVo2K01ncFJKcGNXUzdhb3B0?=
+ =?utf-8?B?YnFneDRIVjhLWjNwL1prcHZneHp3YkR6aEhtU2sxQ2d4MU53OElPZDVxVTI2?=
+ =?utf-8?B?M3RKVXNUQjNsZFk3U2RHTWJzVlRLUTF5bEwvL2paK3RTcVRENStaZ1gwSkRv?=
+ =?utf-8?B?RVpBTGZEMjhJdmxZQ21rT252WXBiUytwQ2pObUhHYnBCeC9KL2ppYk5YeXhX?=
+ =?utf-8?B?SjRKYWoraDJvQ1JYcm9nL3lHK2RFa2N0NFBvU2paUmVPdERLQmJ5dStqWU5a?=
+ =?utf-8?B?SFVBWXY0UzBzcTBPbGh4TVZWSGRwMWZSQWdQSnFCSi9meGlON2tkOXZCVlcw?=
+ =?utf-8?B?RjZ3QmFUSmU3R0NtamZWdTV4eWhDMGIwL1I1eWcxNGtRUVk1cTVnUjhITzJZ?=
+ =?utf-8?B?akp3dk1DUHRIV2x3aFlDbTlJdUg2Z2JydmtZSUI5M0hOZ1hvUmU0Wi9KNHYz?=
+ =?utf-8?B?TnRNSXJpRS9rV1p5Wlh2Qy9jazk0bnVQUnZZM2ZXK29wS3poVmF1OEFielVt?=
+ =?utf-8?B?aXFrb2M1UUtVN1JXNUFpZ0RjZWkxVTYyL21VYTk4dDR1WXRHRncvRklMS3Av?=
+ =?utf-8?B?RmxLWEt0ZDYwQlhaOW5GTDFGWEtkZHdaaGJVMDFlRVFhVHMrTWN1cDRGbTZ3?=
+ =?utf-8?B?ZFFXQU5HbnRRVmlpaHN3QURZbmd5WENla3pkTHc0WHRrUGJTU0tKR2ZSTDM4?=
+ =?utf-8?B?R3N3RkJicDVscEpnSlFUbGYyYVpIbzFCTE1lQVVjdGdhS0hYcjNRRnh1QUdk?=
+ =?utf-8?B?RlV3Mk5NaUJVRk9pVkgwbjFqUVJOYUtBK2JhTU00RTR4dThTM2IwdzdGYmpX?=
+ =?utf-8?B?ZWJQTWIveE5VWjVBa1N0TDdqcGZXTDBtN0Zqa3c4ZFIrZUQwNjQ3WDIrek5n?=
+ =?utf-8?B?SVE9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <4FB0DF6B138B9A4F8BD3397C646403F8@namprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- srinivas pandruvada <srinivas.pandruvada@linux.intel.com>,
- LKML <linux-kernel@vger.kernel.org>, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, Rodrigo Vivi <rodrigo.vivi@intel.com>
-References: <f849cc70-b21f-6476-ba26-08989d1243c2@alu.unizg.hr>
- <05424a5351a847786377a548dba0759917d8046c.camel@linux.intel.com>
- <15ef1bb9-7312-5d98-8bf0-0af1a37cfd2a@linux.intel.com>
-Content-Language: en-US, hr
-From: Mirsad Todorovac <mirsad.todorovac@alu.unizg.hr>
-In-Reply-To: <15ef1bb9-7312-5d98-8bf0-0af1a37cfd2a@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c3803b8-67ba-4253-265c-08dadf7a6d3b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Dec 2022 15:30:13.7318 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: CX2s9UdkbF+OLDho9P73nOrfOOcb/Wvt4IVUpNtqy3+9tjrusU9n6bBsqna7zt8Afq7/CKimB6RG5aLEpp9ejbk43xFxCbhz7zKwYcRlp/g=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB5783
 X-Mailman-Approved-At: Wed, 21 Dec 2022 20:19:41 +0000
-Subject: Re: [Intel-gfx] LOOKS GOOD: Possible regression in drm/i915 driver:
- memleak
+Subject: Re: [Intel-gfx] [cache coherency bug] i915 and PAT attributes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,150 +175,59 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org,
- Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: the arch/x86 maintainers <x86@kernel.org>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ "Demi M. Obenour" <demi@invisiblethingslab.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 12/20/22 16:52, Tvrtko Ursulin wrote:
-
-> On 20/12/2022 15:22, srinivas pandruvada wrote:
->> +Added DRM mailing list and maintainers
->>
->> On Tue, 2022-12-20 at 15:33 +0100, Mirsad Todorovac wrote:
->>> Hi all,
->>>
->>> I have been unsuccessful to find any particular Intel i915 maintainer
->>> emails, so my best bet is to post here, as you will must assuredly
->>> already know them.
-> 
-> For future reference you can use ${kernel_dir}/scripts/get_maintainer.pl 
-> -f ...
-> 
->>> The problem is a kernel memory leak that is repeatedly occurring
->>> triggered during the execution of Chrome browser under the latest
->>> 6.1.0+
->>> kernel of this morning and Almalinux 8.6 on a Lenovo desktop box
->>> with Intel(R) Core(TM) i5-8400 CPU @ 2.80GHz CPU.
->>>
->>> The build is with KMEMLEAK, KASAN and MGLRU turned on during the
->>> build,
->>> on a vanilla mainline kernel from Mr. Torvalds' tree.
->>>
->>> The leaks look like this one:
->>>
->>> unreferenced object 0xffff888131754880 (size 64):
->>>     comm "chrome", pid 13058, jiffies 4298568878 (age 3708.084s)
->>>     hex dump (first 32 bytes):
->>>       01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->>> ................
->>>       00 00 00 00 00 00 00 00 00 80 1e 3e 83 88 ff ff
->>> ...........>....
->>>     backtrace:
->>>       [<ffffffff9e9b5542>] slab_post_alloc_hook+0xb2/0x340
->>>       [<ffffffff9e9bbf5f>] __kmem_cache_alloc_node+0x1bf/0x2c0
->>>       [<ffffffff9e8f767a>] kmalloc_trace+0x2a/0xb0
->>>       [<ffffffffc08dfde5>] drm_vma_node_allow+0x45/0x150 [drm]
->>>       [<ffffffffc0b33315>] __assign_mmap_offset_handle+0x615/0x820
->>> [i915]
->>>       [<ffffffffc0b34057>] i915_gem_mmap_offset_ioctl+0x77/0x110
->>> [i915]
->>>       [<ffffffffc08bc5e1>] drm_ioctl_kernel+0x181/0x280 [drm]
->>>       [<ffffffffc08bc9cd>] drm_ioctl+0x2dd/0x6a0 [drm]
->>>       [<ffffffff9ea54744>] __x64_sys_ioctl+0xc4/0x100
->>>       [<ffffffff9fbc0178>] do_syscall_64+0x58/0x80
->>>       [<ffffffff9fc000aa>] entry_SYSCALL_64_after_hwframe+0x72/0xdc
->>>
->>> The complete list of leaks in attachment, but they seem similar or
->>> the same.
->>>
->>> Please find attached lshw and kernel build config file.
->>>
->>> I will probably check the same parms on my laptop at home, which is
->>> also
->>> Lenovo, but a different hw config and Ubuntu 22.10.
-> 
-> Could you try the below patch?
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c 
-> b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-> index c3ea243d414d..0b07534c203a 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-> @@ -679,9 +679,10 @@ mmap_offset_attach(struct drm_i915_gem_object *obj,
->   insert:
->          mmo = insert_mmo(obj, mmo);
->          GEM_BUG_ON(lookup_mmo(obj, mmap_type) != mmo);
-> -out:
-> +
->          if (file)
->                  drm_vma_node_allow(&mmo->vma_node, file);
-> +out:
->          return mmo;
-> 
->   err:
-> 
-> Maybe it is not the best fix but curious to know if it will make the 
-> leak go away.
-
-Hi,
-
-After 27 minutes uptime with the patched kernel it looks promising.
-It is much longer than it took for the buggy kernel to leak slabs.
-
-Here is the output:
-
-[root@pc-mtodorov marvin]# echo scan > /sys/kernel/debug/kmemleak
-[root@pc-mtodorov marvin]# cat !$
-cat /sys/kernel/debug/kmemleak
-unreferenced object 0xffff888105028d80 (size 16):
-   comm "kworker/u12:5", pid 359, jiffies 4294902898 (age 1620.144s)
-   hex dump (first 16 bytes):
-     6d 65 6d 73 74 69 63 6b 30 00 00 00 00 00 00 00  memstick0.......
-   backtrace:
-     [<ffffffffb6bb5542>] slab_post_alloc_hook+0xb2/0x340
-     [<ffffffffb6bbbf5f>] __kmem_cache_alloc_node+0x1bf/0x2c0
-     [<ffffffffb6af8175>] __kmalloc_node_track_caller+0x55/0x160
-     [<ffffffffb6ae34a6>] kstrdup+0x36/0x60
-     [<ffffffffb6ae3508>] kstrdup_const+0x28/0x30
-     [<ffffffffb70d0757>] kvasprintf_const+0x97/0xd0
-     [<ffffffffb7c9cdf4>] kobject_set_name_vargs+0x34/0xc0
-     [<ffffffffb750289b>] dev_set_name+0x9b/0xd0
-     [<ffffffffc12d9201>] memstick_check+0x181/0x639 [memstick]
-     [<ffffffffb676e1d6>] process_one_work+0x4e6/0x7e0
-     [<ffffffffb676e556>] worker_thread+0x76/0x770
-     [<ffffffffb677b468>] kthread+0x168/0x1a0
-     [<ffffffffb6604c99>] ret_from_fork+0x29/0x50
-[root@pc-mtodorov marvin]# w
-  20:27:35 up 27 min,  2 users,  load average: 0.83, 1.15, 1.19
-USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
-marvin   tty2     tty2             20:01   27:10  10:12   2.09s 
-/opt/google/chrome/chrome --type=utility --utility-sub-type=audio.m
-marvin   pts/1    -                20:01    0.00s  2:00   0.38s sudo bash
-[root@pc-mtodorov marvin]# uname -rms
-Linux 6.1.0-b6bb9676f216-mglru-kmemlk-kasan+ x86_64
-[root@pc-mtodorov marvin]#
-
-2. On the Ubuntu 22.10 with Debian build I did not reproduce the error 
-thus far.
-
-This looks to me like fixed, but if it doesn't leak anything until 
-Thursday morning when I will see this desktop box next time, then we'll 
-know with more certainty.
-
-Hope this helps. (My $0.02 .)
-
-Kudos for the quick fix :)
-
-Kind regards,
-Mirsad
-
--- 
-Mirsad Goran Todorovac
-Sistem inženjer
-Grafički fakultet | Akademija likovnih umjetnosti
-Sveučilište u Zagrebu
--- 
-System engineer
-Faculty of Graphic Arts | Academy of Fine Arts
-University of Zagreb, Republic of Croatia
+T24gMDgvMTIvMjAyMiAxOjU1IHBtLCBNYXJlayBNYXJjenlrb3dza2ktR8OzcmVja2kgd3JvdGU6
+DQo+IEhpLA0KPg0KPiBUaGVyZSBpcyBhbiBpc3N1ZSB3aXRoIGk5MTUgb24gWGVuIFBWIChkb20w
+KS4gVGhlIGVuZCByZXN1bHQgaXMgYSBsb3Qgb2YNCj4gZ2xpdGNoZXMsIGxpa2UgaGVyZTogaHR0
+cHM6Ly9vcGVucWEucXViZXMtb3Mub3JnL3Rlc3RzLzU0NzQ4I3N0ZXAvc3RhcnR1cC84DQo+ICh0
+aGlzIG9uZSBpcyBvbiBBREwsIExpbnV4IDYuMS1yYzcgYXMgYSBYZW4gUFYgZG9tMCkuIEl0J3Mg
+dXNpbmcgWG9yZw0KPiB3aXRoICJtb2Rlc2V0dGluZyIgZHJpdmVyLg0KPg0KPiBBZnRlciBzb21l
+IGl0ZXJhdGlvbnMgb2YgZGVidWdnaW5nLCB3ZSBuYXJyb3dlZCBpdCBkb3duIHRvIGk5MTUgaGFu
+ZGxpbmcNCj4gY2FjaGluZy4gVGhlIG1haW4gZGlmZmVyZW5jZSBpcyB0aGF0IFBBVCBpcyBzZXR1
+cCBkaWZmZXJlbnRseSBvbiBYZW4gUFYNCj4gdGhhbiBvbiBuYXRpdmUgTGludXguIE5vcm1hbGx5
+LCBMaW51eCBkb2VzIGhhdmUgYXBwcm9wcmlhdGUgYWJzdHJhY3Rpb24NCj4gZm9yIHRoYXQsIGJ1
+dCBhcHBhcmVudGx5IHNvbWV0aGluZyByZWxhdGVkIHRvIGk5MTUgZG9lc24ndCBwbGF5IHdlbGwN
+Cj4gd2l0aCBpdC4gVGhlIHNwZWNpZmljIGRpZmZlcmVuY2UgaXM6DQo+IG5hdGl2ZSBsaW51eDoN
+Cj4geDg2L1BBVDogQ29uZmlndXJhdGlvbiBbMC03XTogV0IgIFdDICBVQy0gVUMgIFdCICBXUCAg
+VUMtIFdUDQo+IHhlbiBwdjoNCj4geDg2L1BBVDogQ29uZmlndXJhdGlvbiBbMC03XTogV0IgIFdU
+ICBVQy0gVUMgIFdDICBXUCAgVUMgIFVDDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICB+fiAgICAgICAgICB+fiAgICAgIH5+ICB+fg0KPg0KPiBUaGUgc3BlY2lmaWMgaW1wYWN0
+IGRlcGVuZHMgb24ga2VybmVsIHZlcnNpb24gYW5kIHRoZSBoYXJkd2FyZS4gVGhlIG1vc3QNCj4g
+c2V2ZXJlIGlzc3VlcyBJIHNlZSBvbiA+PUFETCwgYnV0IHNvbWUgb2xkZXIgaGFyZHdhcmUgaXMg
+YWZmZWN0ZWQgdG9vIC0NCj4gc29tZXRpbWVzIG9ubHkgaWYgY29tcG9zaXRpb24gaXMgZGlzYWJs
+ZWQgaW4gdGhlIHdpbmRvdyBtYW5hZ2VyLg0KPiBTb21lIG1vcmUgaW5mb3JtYXRpb24gaXMgY29s
+bGVjdGVkIGF0DQo+IGh0dHBzOi8vZ2l0aHViLmNvbS9RdWJlc09TL3F1YmVzLWlzc3Vlcy9pc3N1
+ZXMvNDc4MiAoYW5kIGZldyBsaW5rZWQNCj4gZHVwbGljYXRlcy4uLikuDQo+DQo+IEtpbmQtb2Yg
+cmVsYXRlZCBjb21taXQgaXMgaGVyZToNCj4gaHR0cHM6Ly9naXRodWIuY29tL3RvcnZhbGRzL2xp
+bnV4L2NvbW1pdC9iZGQ4YjZjOTgyMzljYWQgKCJkcm0vaTkxNToNCj4gcmVwbGFjZSBYODZfRkVB
+VFVSRV9QQVQgd2l0aCBwYXRfZW5hYmxlZCgpIikgLSBpdCBpcyB0aGUgcGxhY2Ugd2hlcmUNCj4g
+aTkxNSBleHBsaWNpdGx5IGNoZWNrcyBmb3IgUEFUIHN1cHBvcnQsIHNvIEknbSBjYy1pbmcgcGVv
+cGxlIG1lbnRpb25lZA0KPiB0aGVyZSB0b28uDQo+DQo+IEFueSBpZGVhcz8NCj4NCj4gVGhlIGlz
+c3VlIGNhbiBiZSBlYXNpbHkgcmVwcm9kdWNlZCB3aXRob3V0IFhlbiB0b28sIGJ5IGFkanVzdGlu
+ZyBQQVQgaW4NCj4gTGludXg6DQo+IC0tLS0tODwtLS0tLQ0KPiBkaWZmIC0tZ2l0IGEvYXJjaC94
+ODYvbW0vcGF0L21lbXR5cGUuYyBiL2FyY2gveDg2L21tL3BhdC9tZW10eXBlLmMNCj4gaW5kZXgg
+NjZhMjA5ZjdlYjg2Li4zMTlhYjYwYzhkOGMgMTAwNjQ0DQo+IC0tLSBhL2FyY2gveDg2L21tL3Bh
+dC9tZW10eXBlLmMNCj4gKysrIGIvYXJjaC94ODYvbW0vcGF0L21lbXR5cGUuYw0KPiBAQCAtNDAw
+LDggKzQwMCw4IEBAIHZvaWQgcGF0X2luaXQodm9pZCkNCj4gIAkJICogVGhlIHJlc2VydmVkIHNs
+b3RzIGFyZSB1bnVzZWQsIGJ1dCBtYXBwZWQgdG8gdGhlaXINCj4gIAkJICogY29ycmVzcG9uZGlu
+ZyB0eXBlcyBpbiB0aGUgcHJlc2VuY2Ugb2YgUEFUIGVycmF0YS4NCj4gIAkJICovDQo+IC0JCXBh
+dCA9IFBBVCgwLCBXQikgfCBQQVQoMSwgV0MpIHwgUEFUKDIsIFVDX01JTlVTKSB8IFBBVCgzLCBV
+QykgfA0KPiAtCQkgICAgICBQQVQoNCwgV0IpIHwgUEFUKDUsIFdQKSB8IFBBVCg2LCBVQ19NSU5V
+UykgfCBQQVQoNywgV1QpOw0KPiArCQlwYXQgPSBQQVQoMCwgV0IpIHwgUEFUKDEsIFdUKSB8IFBB
+VCgyLCBVQ19NSU5VUykgfCBQQVQoMywgVUMpIHwNCj4gKwkJICAgICAgUEFUKDQsIFdDKSB8IFBB
+VCg1LCBXUCkgfCBQQVQoNiwgVUMpICAgICAgIHwgUEFUKDcsIFVDKTsNCj4gIAl9DQo+ICANCj4g
+IAlpZiAoIXBhdF9icF9pbml0aWFsaXplZCkgew0KPiAtLS0tLTg8LS0tLS0NCj4NCg0KSGVsbG8s
+IGNhbiBhbnlvbmUgaGVscCBwbGVhc2U/DQoNCkludGVsJ3MgQ0kgaGFzIHRha2VuIHRoaXMgcmVw
+cm9kdWNlciBvZiB0aGUgYnVnLCBhbmQgY29uZmlybWVkIHRoZQ0KcmVncmVzc2lvbi7CoA0KaHR0
+cHM6Ly9sb3JlLmtlcm5lbC5vcmcvaW50ZWwtZ2Z4L1k1SHN0MGJDeFFEVE43bEtAbWFpbC1pdGwv
+VC8jbTQ0ODBjMTVhMGQxMTdkY2U2MjEwNTYyZWI1NDI4NzVlNzU3NjQ3ZmINCg0KV2UncmUgcmVh
+c29uYWJseSBjb25maWRlbnQgdGhhdCBpdCBpcyBhbiBpOTE1IGJ1ZyAoZ2l2ZW4gdGhlIHJlcHJv
+IHdpdGgNCm5vIFhlbiBpbiB0aGUgbWl4KSwgYnV0IHdlJ3JlIG91dCBvZiBhbnkgZnVydGhlciBp
+ZGVhcy4NCg0KVGhhbmtzLA0KDQp+QW5kcmV3DQo=
