@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7D2DC4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Dec 2022 16:01:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CE96C4332F
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Dec 2022 16:01:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A0AF10E5EE;
-	Fri, 16 Dec 2022 16:01:23 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF9D10E5ED;
- Fri, 16 Dec 2022 16:01:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5728F10E5F1;
+	Fri, 16 Dec 2022 16:01:33 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B4D610E5ED;
+ Fri, 16 Dec 2022 16:01:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671206475; x=1702742475;
+ t=1671206483; x=1702742483;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=xCPG6Yqo7wTPv5+RvjknKDTMwDW2+XH4iOgAhJX9OHI=;
- b=nUpGVcKuR9xWeEUUXeKf+IDs5fQJczVoQpQwYrUsIvJ/cK608OhOnGoX
- u2kaQCj0XmERrs7/jxEqBDes/XQDOM3LEWr5S+xPEb4c96E7Kh0lnCwAQ
- 5pw8Xc4/4qdNK+/2NpSeyZkdCbkk8IYUOT9HuODZJsf9UthIAf4lcQ8+D
- fgBGzf146ORCqG4E0+uoDvauPvq2WP/J9I4RhXA4YGXRvnSkHbLJ0PdVt
- AsR2fq4pXKQeKGqVQ9LXBnotjdAvCKIVof+OgaPgKtBJLLuzZg6P0oqg4
- TWkeGXMAhKlFcMYKlUdyg/H3PjquVvez5A99czOKShcH4IF+54mfx5XBa A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10563"; a="383327088"
-X-IronPort-AV: E=Sophos;i="5.96,249,1665471600"; d="scan'208";a="383327088"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2022 08:00:50 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10563"; a="738576228"
-X-IronPort-AV: E=Sophos;i="5.96,249,1665471600"; d="scan'208";a="738576228"
+ bh=4szs20UTY6bA5Vx+u8zdvqIBh7bKI+NLVBeLRrJyQ4M=;
+ b=SwLfes7uNZSlWd3p2q9FmS8Lp2X3nFnne5qKzZks0glgx+sNPzwsYxvt
+ 6J8yu3QXAh4Yze2SEfpi+qz/pchbPwZ1hRNKgEX16VpHxnDtSiEIXx+RS
+ QJN9dQeiWDOse4F8RZJb6yuy8TARiJVS76rmWyViMsx/dmwZu0gBFl58l
+ HFNVLwQXO0HyrdVHMmx1YsTqpoHX7sIXb37yZ+/U0pcSxvtCv5tG936b4
+ AuEEWtHBw6OBn0oOS+4iNoVb2BpXJ/C0TeXWDDhzg/Cg+YBu1h5KSPl7T
+ mJrPsyUqqT1uWcrXJSx98QQYkAdkBKQk+bZks/RW3yS3hgUMn+ubS9QMy g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10563"; a="298665572"
+X-IronPort-AV: E=Sophos;i="5.96,249,1665471600"; d="scan'208";a="298665572"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2022 08:01:00 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10563"; a="718399749"
+X-IronPort-AV: E=Sophos;i="5.96,249,1665471600"; d="scan'208";a="718399749"
 Received: from fbielich-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.252.62.38])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2022 08:00:49 -0800
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Dec 2022 08:00:57 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Fri, 16 Dec 2022 18:00:18 +0200
-Message-Id: <d38f45c328dc0fdea444721df913d851321070f5.1671206131.git.jani.nikula@intel.com>
+Date: Fri, 16 Dec 2022 18:00:20 +0200
+Message-Id: <f35102562feb9ca63462a902a582c3494fccde4d.1671206131.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1671206131.git.jani.nikula@intel.com>
 References: <cover.1671206131.git.jani.nikula@intel.com>
@@ -47,8 +47,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 04/12] drm/edid: merge ELD handling to
- update_display_info()
+Subject: [Intel-gfx] [PATCH v6 06/12] drm/edid: refactor
+ _drm_edid_connector_update() and rename
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,91 +65,76 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Simplify display info update by merging ELD handling as well as clearing
-of the data in update_display_info().
+By moving update_display_info() out of _drm_edid_connector_update() we
+make the function purely about adding modes. Rename accordingly.
 
 Cc: Imre Deak <imre.deak@intel.com>
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c | 28 +++++++++++++---------------
- 1 file changed, 13 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 25 ++++++++++++-------------
+ 1 file changed, 12 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index f40058d4c290..2246a5b10d2c 100644
+index 15f69c362fc3..4ebfd7212bce 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -5529,8 +5529,6 @@ static void drm_edid_to_eld(struct drm_connector *connector,
- 	int total_sad_count = 0;
- 	int mnl;
- 
--	clear_eld(connector);
--
- 	if (!drm_edid)
- 		return;
- 
-@@ -6377,9 +6375,15 @@ static void update_display_info(struct drm_connector *connector,
- 				const struct drm_edid *drm_edid)
- {
- 	struct drm_display_info *info = &connector->display_info;
--	const struct edid *edid = drm_edid->edid;
-+	const struct edid *edid;
- 
- 	drm_reset_display_info(connector);
-+	clear_eld(connector);
-+
-+	if (!drm_edid)
-+		return;
-+
-+	edid = drm_edid->edid;
- 
- 	info->quirks = edid_get_quirks(drm_edid);
- 
-@@ -6462,6 +6466,9 @@ static void update_display_info(struct drm_connector *connector,
- 
- 	if (info->quirks & EDID_QUIRK_CAP_DSC_15BPP)
- 		info->max_dsc_bpp = 15;
-+
-+	/* Depends on info->cea_rev set by drm_parse_cea_ext() above */
-+	drm_edid_to_eld(connector, drm_edid);
+@@ -6575,19 +6575,12 @@ static int add_displayid_detailed_modes(struct drm_connector *connector,
+ 	return num_modes;
  }
  
- static struct drm_display_mode *drm_mode_displayid_detailed(struct drm_device *dev,
-@@ -6562,12 +6569,6 @@ static int _drm_edid_connector_update(struct drm_connector *connector,
- 	struct drm_display_info *info = &connector->display_info;
+-static int _drm_edid_connector_update(struct drm_connector *connector,
+-				      const struct drm_edid *drm_edid)
++static int _drm_edid_connector_add_modes(struct drm_connector *connector,
++					 const struct drm_edid *drm_edid)
+ {
+ 	const struct drm_display_info *info = &connector->display_info;
  	int num_modes = 0;
  
--	if (!drm_edid) {
--		drm_reset_display_info(connector);
--		clear_eld(connector);
--		return 0;
--	}
+-	/*
+-	 * CEA-861-F adds ycbcr capability map block, for HDMI 2.0 sinks.
+-	 * To avoid multiple parsing of same block, lets parse that map
+-	 * from sink info, before parsing CEA modes.
+-	 */
+-	update_display_info(connector, drm_edid);
 -
- 	/*
- 	 * CEA-861-F adds ycbcr capability map block, for HDMI 2.0 sinks.
- 	 * To avoid multiple parsing of same block, lets parse that map
-@@ -6575,8 +6576,8 @@ static int _drm_edid_connector_update(struct drm_connector *connector,
- 	 */
- 	update_display_info(connector, drm_edid);
+ 	if (!drm_edid)
+ 		return 0;
  
--	/* Depends on info->cea_rev set by update_display_info() above */
--	drm_edid_to_eld(connector, drm_edid);
-+	if (!drm_edid)
-+		return 0;
+@@ -6692,7 +6685,9 @@ int drm_edid_connector_update(struct drm_connector *connector,
+ {
+ 	int count;
  
- 	/*
- 	 * EDID spec says modes should be preferred in this order:
-@@ -6713,10 +6714,7 @@ static int _drm_connector_update_edid_property(struct drm_connector *connector,
- 	 * that it seems better to duplicate it rather than attempt to ensure
- 	 * some arbitrary ordering of calls.
- 	 */
--	if (drm_edid)
--		update_display_info(connector, drm_edid);
--	else
--		drm_reset_display_info(connector);
+-	count = _drm_edid_connector_update(connector, drm_edid);
 +	update_display_info(connector, drm_edid);
++
++	count = _drm_edid_connector_add_modes(connector, drm_edid);
  
  	_drm_update_tile_info(connector, drm_edid);
+ 
+@@ -6762,7 +6757,8 @@ EXPORT_SYMBOL(drm_connector_update_edid_property);
+  */
+ int drm_add_edid_modes(struct drm_connector *connector, struct edid *edid)
+ {
+-	struct drm_edid drm_edid;
++	struct drm_edid _drm_edid;
++	const struct drm_edid *drm_edid;
+ 
+ 	if (edid && !drm_edid_is_valid(edid)) {
+ 		drm_warn(connector->dev, "[CONNECTOR:%d:%s] EDID invalid.\n",
+@@ -6770,8 +6766,11 @@ int drm_add_edid_modes(struct drm_connector *connector, struct edid *edid)
+ 		edid = NULL;
+ 	}
+ 
+-	return _drm_edid_connector_update(connector,
+-					  drm_edid_legacy_init(&drm_edid, edid));
++	drm_edid = drm_edid_legacy_init(&_drm_edid, edid);
++
++	update_display_info(connector, drm_edid);
++
++	return _drm_edid_connector_add_modes(connector, drm_edid);
+ }
+ EXPORT_SYMBOL(drm_add_edid_modes);
  
 -- 
 2.34.1
