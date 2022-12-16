@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A583EC4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Dec 2022 00:38:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26146C4332F
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Dec 2022 00:38:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EABDC10E5B1;
-	Fri, 16 Dec 2022 00:38:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F12C110E148;
+	Fri, 16 Dec 2022 00:38:49 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEF6710E5AA
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Dec 2022 00:38:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7734610E5AC
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Dec 2022 00:38:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671151106; x=1702687106;
+ t=1671151113; x=1702687113;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=7zuV63m57Jbfht9eOdygjJlJ+twhUmP/S8t2rFTu3x0=;
- b=NDxT5U+T11NW9VvmuY8XhQPvftHYS5KW8dg/tlWmAXUJzHyWIflJOYWY
- xnnRigGB9rLmDXtR5gAYrRLTLLD8Mxg1AN4ku7vco9h24nBr6LK+FYb9k
- r07ofhYxuHNisfY7SavybRM7U7AX5nrnwJvpMHE/qEhlmT5eYXKulo0DR
- wqVrMHTH8ZOzSYfRZHeSmkS69T0O3GwSMEHK4IIMADODlNCtuVXTiLO7y
- VMigALKOTJTNtg4FZjEpTFq4jOoMrhGG7kql3kthsNHifA6pEHnNWsQfE
- KXSJtXRFo0sx09mFqqjECpdEV0zoN2+QrYlME61x206KnNSufzY/SeD3L w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10562"; a="405103824"
-X-IronPort-AV: E=Sophos;i="5.96,248,1665471600"; d="scan'208";a="405103824"
+ bh=DVhGt1kmXWLrxMCUu71PRAvpghtw6VsTVNtT4FG9sOc=;
+ b=PhODu24YiOVfAaleADgQaYCoATenkNJuLh4q79ni9c+iOwNr6euGQxdN
+ RxgO8byyAtopaV6mVuCwwRbmlmg9+YRqz20kbrAve1tmJMArYHafG3iCj
+ 5a+048FsLeP2DH4nL0c5C3UGnP3751ziEYuncg0R+h2Sr6jhewBQXLrVy
+ cA6wWdakwRDwBz+noQRjzBipk3t92DeqOeRMrOQ7brrNM97OhOQxxrGYX
+ aA3zRFlMxWIn38/vlsJ1mxk3toNTuqcJ+74l0rKc6PCuHs5AgaYNdlky1
+ j68Nrt6o6+GlAIubKZXnzc+LKTD0NKU2Ew0/SekD7QtSdvAkpvROr+515 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10562"; a="405103842"
+X-IronPort-AV: E=Sophos;i="5.96,248,1665471600"; d="scan'208";a="405103842"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Dec 2022 16:38:26 -0800
+ 15 Dec 2022 16:38:33 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10562"; a="643100203"
-X-IronPort-AV: E=Sophos;i="5.96,248,1665471600"; d="scan'208";a="643100203"
+X-IronPort-AV: E=McAfee;i="6500,9779,10562"; a="643100210"
+X-IronPort-AV: E=Sophos;i="5.96,248,1665471600"; d="scan'208";a="643100210"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by orsmga007.jf.intel.com with SMTP; 15 Dec 2022 16:38:24 -0800
+ by orsmga007.jf.intel.com with SMTP; 15 Dec 2022 16:38:30 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 16 Dec 2022 02:38:23 +0200
+ Fri, 16 Dec 2022 02:38:30 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 16 Dec 2022 02:38:01 +0200
-Message-Id: <20221216003810.13338-5-ville.syrjala@linux.intel.com>
+Date: Fri, 16 Dec 2022 02:38:03 +0200
+Message-Id: <20221216003810.13338-7-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.37.4
 In-Reply-To: <20221216003810.13338-1-ville.syrjala@linux.intel.com>
 References: <20221216003810.13338-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 04/13] drm/i915/dsb: Fix DSB command buffer size
- checks
+Subject: [Intel-gfx] [PATCH 06/13] drm/i915/dsb: Extract intel_dsb_emit()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,39 +64,66 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-free_pos is in dwords, DSB_BUF_SIZE in bytes. Directly
-comparing the two is nonsense. Fix it up, and make sure
-we also account for the 8byte alignment requirement for
-each instruction, and also assume that each instruction
-normally eats two dwords.
+Extract a small helper to emit a DSB intstruction. Should
+become useful if/when we need to start emitting other
+instructions besides register writes.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dsb.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dsb.c | 30 ++++++++++++++++--------
+ 1 file changed, 20 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
-index 6abfd0fc541a..fbcbf9efd039 100644
+index 6fc7d087a7ca..fb20d9ee84a4 100644
 --- a/drivers/gpu/drm/i915/display/intel_dsb.c
 +++ b/drivers/gpu/drm/i915/display/intel_dsb.c
-@@ -97,7 +97,7 @@ void intel_dsb_indexed_reg_write(struct intel_dsb *dsb,
- 	u32 *buf = dsb->cmd_buf;
- 	u32 reg_val;
+@@ -86,6 +86,22 @@ static bool is_dsb_busy(struct drm_i915_private *i915, enum pipe pipe,
+ 	return intel_de_read(i915, DSB_CTRL(pipe, id)) & DSB_STATUS_BUSY;
+ }
  
--	if (drm_WARN_ON(&dev_priv->drm, dsb->free_pos >= DSB_BUF_SIZE)) {
-+	if (drm_WARN_ON(&dev_priv->drm, ALIGN(dsb->free_pos, 2) > DSB_BUF_SIZE / 4 - 2)) {
- 		drm_dbg_kms(&dev_priv->drm, "DSB buffer overflow\n");
++static void intel_dsb_emit(struct intel_dsb *dsb, u32 ldw, u32 udw)
++{
++	u32 *buf = dsb->cmd_buf;
++
++	if (!assert_dsb_has_room(dsb))
++		return;
++
++	/* Every instruction should be 8 byte aligned. */
++	dsb->free_pos = ALIGN(dsb->free_pos, 2);
++
++	dsb->ins_start_offset = dsb->free_pos;
++
++	buf[dsb->free_pos++] = ldw;
++	buf[dsb->free_pos++] = udw;
++}
++
+ /**
+  * intel_dsb_indexed_reg_write() -Write to the DSB context for auto
+  * increment register.
+@@ -169,19 +185,13 @@ void intel_dsb_indexed_reg_write(struct intel_dsb *dsb,
+ void intel_dsb_reg_write(struct intel_dsb *dsb,
+ 			 i915_reg_t reg, u32 val)
+ {
+-	u32 *buf = dsb->cmd_buf;
+-
+ 	if (!assert_dsb_has_room(dsb))
  		return;
- 	}
-@@ -167,7 +167,7 @@ void intel_dsb_reg_write(struct intel_dsb *dsb,
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	u32 *buf = dsb->cmd_buf;
  
--	if (drm_WARN_ON(&dev_priv->drm, dsb->free_pos >= DSB_BUF_SIZE)) {
-+	if (drm_WARN_ON(&dev_priv->drm, ALIGN(dsb->free_pos, 2) > DSB_BUF_SIZE / 4 - 2)) {
- 		drm_dbg_kms(&dev_priv->drm, "DSB buffer overflow\n");
- 		return;
- 	}
+-	/* Every instruction should be 8 byte aligned. */
+-	dsb->free_pos = ALIGN(dsb->free_pos, 2);
+-
+-	dsb->ins_start_offset = dsb->free_pos;
+-	buf[dsb->free_pos++] = val;
+-	buf[dsb->free_pos++] = (DSB_OPCODE_MMIO_WRITE  << DSB_OPCODE_SHIFT) |
+-			       (DSB_BYTE_EN << DSB_BYTE_EN_SHIFT) |
+-			       i915_mmio_reg_offset(reg);
++	intel_dsb_emit(dsb, val,
++		       (DSB_OPCODE_MMIO_WRITE << DSB_OPCODE_SHIFT) |
++		       (DSB_BYTE_EN << DSB_BYTE_EN_SHIFT) |
++		       i915_mmio_reg_offset(reg));
+ }
+ 
+ /**
 -- 
 2.37.4
 
