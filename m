@@ -4,63 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D35CDC4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 20:19:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A7DFC4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 20:20:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0263810E4B6;
-	Wed, 21 Dec 2022 20:19:46 +0000 (UTC)
-X-Greylist: delayed 640 seconds by postgrey-1.36 at gabe;
- Tue, 20 Dec 2022 17:31:32 UTC
-Received: from domac.alu.hr (domac.alu.hr [161.53.235.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBC3B10E0F5
- for <intel-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 17:31:32 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by domac.alu.hr (Postfix) with ESMTP id BA51E604F2;
- Tue, 20 Dec 2022 18:20:43 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=alu.unizg.hr; s=mail;
- t=1671556843; bh=/ns6x+N3oOC613yOKCn/zP2jb3uGEQHs5rJnDN/GpeU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=BlxfrTK8SvJRIto9oWq1lrwpAIS39Z8rXCR1StIfWqbTeDIfG3ebsTZ5VTE+0onV3
- 1vGhJmxCM0Rm/ug2uax9MjBMWt/gTkScYSdHliGxIT9srmazf+AIim44KtWhPlxcFz
- VIAvfKCiiZvID8n6Pwko3t8kEM5YWgkHeMplFWoPuXkxjyINEiqSmqOMl2jk21k79N
- qVFTqaBivHtv25fLm/jWkgdJZqAS21rm3Y2TlASBlo1OIYowtE5gFCDdpTIHnUBeew
- gLkw4O574h5vwkR24+PwDscf6Nlvo8GiFnhWicXE8DVEt67FxwtlfmZW1lTW7ZKywq
- h/QcoOxHrejpw==
-X-Virus-Scanned: Debian amavisd-new at domac.alu.hr
-Received: from domac.alu.hr ([127.0.0.1])
- by localhost (domac.alu.hr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 82zR5omftyEb; Tue, 20 Dec 2022 18:20:41 +0100 (CET)
-Received: from [192.168.0.12] (unknown [188.252.196.120])
- by domac.alu.hr (Postfix) with ESMTPSA id 3CFB4604F1;
- Tue, 20 Dec 2022 18:20:40 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=alu.unizg.hr; s=mail;
- t=1671556841; bh=/ns6x+N3oOC613yOKCn/zP2jb3uGEQHs5rJnDN/GpeU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=E15GbcHNLLR4EHBmLqGtgv3MWrtGBrpgkVRcXr/eiutcZ26grxBZ9FdGgYci9qcoE
- F6vvFO/wkiZx95uTWsLwYggOOy+9xldcquaJfgwF/zyYwv8iNIGkgmv2q1cUDmHy3Q
- y7QHe5MC+6JeT3BbbpoyfXEoIfhunNxMq6OWXHHUyxhtnKPRUwp87SjYa+O1CjPxEA
- KOuOtuoUt/fHZkU4/Bfl71FX0efHb0NG4LodkOY4/TAv+WvRBEJguqwWAgBDchDBmA
- bzCQKVVtIXvqHXBbKGC3lZtoF3rYlCSiTmYydms1SiP0dg6l+2JkCJHpfHtssIlqgl
- Ghje2KqnenHqQ==
-Message-ID: <fb590417-2c27-1f46-2dc8-e90931d9c600@alu.unizg.hr>
-Date: Tue, 20 Dec 2022 18:20:39 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B7A410E4B7;
+	Wed, 21 Dec 2022 20:20:05 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [85.220.165.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB95510E218
+ for <intel-gfx@lists.freedesktop.org>; Mon, 19 Dec 2022 09:01:45 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1p7BdX-00055t-G9; Mon, 19 Dec 2022 09:36:39 +0100
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1p7BdS-000I7t-UR; Mon, 19 Dec 2022 09:36:34 +0100
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1p7BdS-006GXR-8z; Mon, 19 Dec 2022 09:36:34 +0100
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>, Dave Airlie <airlied@redhat.com>,
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>,
+ John Stultz <jstultz@google.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Chen Feng <puck.chen@hisilicon.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Karol Herbst <kherbst@redhat.com>,
+ Lyude Paul <lyude@redhat.com>,
+ Javier Martinez Canillas <javierm@redhat.com>
+Date: Mon, 19 Dec 2022 09:36:27 +0100
+Message-Id: <20221219083627.1401627-1-u.kleine-koenig@pengutronix.de>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Content-Language: en-US
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- srinivas pandruvada <srinivas.pandruvada@linux.intel.com>,
- LKML <linux-kernel@vger.kernel.org>, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, Rodrigo Vivi <rodrigo.vivi@intel.com>
-References: <f849cc70-b21f-6476-ba26-08989d1243c2@alu.unizg.hr>
- <05424a5351a847786377a548dba0759917d8046c.camel@linux.intel.com>
- <15ef1bb9-7312-5d98-8bf0-0af1a37cfd2a@linux.intel.com>
-From: Mirsad Goran Todorovac <mirsad.todorovac@alu.unizg.hr>
-In-Reply-To: <15ef1bb9-7312-5d98-8bf0-0af1a37cfd2a@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5224;
+ i=u.kleine-koenig@pengutronix.de; h=from:subject;
+ bh=ZqfFbvgJpMyKVKFmiZCYnPmobkFNQjvPehywec6oyBE=;
+ b=owEBbQGS/pANAwAKAcH8FHityuwJAcsmYgBjoCKHEJAtYyv1GKjnjBFZ0ZCBl4J5k3935lB4hMVw
+ 9i3WuFyJATMEAAEKAB0WIQR+cioWkBis/z50pAvB/BR4rcrsCQUCY6AihwAKCRDB/BR4rcrsCcixB/
+ 9hHo0+rNOd9s5KE7RHOsnO3muEbuMyw3QJhVVfVboODKLwdKCmjvBrrjRCG61slD4Xm5T6TnhZ0rHY
+ gEaIra20QAEkhbb1rDBig3igiMCvo3TOSg07DiOfbJAQivllRgTvvYZ5Sta55/ipBt58svNiQpdkd3
+ 7hvV5XzAXzK6RNL6H1tg71K2M2RI0AFI4rdJf2ACrubw/fAc/lHKxy8CxO0GjqhRvGrsG0TAfiQdYA
+ /ghQjMcj3J4H4XapZ8XwJJSJlhSHIxh/VU1kzB6AEuA4U8z03CU829UClkJGz6lASW97FQXMzKoZJ+
+ rwf5wKvKN0Jn6M68TphEMosYDhGEHP
+X-Developer-Key: i=u.kleine-koenig@pengutronix.de; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: intel-gfx@lists.freedesktop.org
 X-Mailman-Approved-At: Wed, 21 Dec 2022 20:19:41 +0000
-Subject: Re: [Intel-gfx] Possible regression in drm/i915 driver: memleak
+Subject: [Intel-gfx] [PATCH v3] drm: Only select I2C_ALGOBIT for drivers
+ that actually need it
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,112 +82,149 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org,
- Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: kernel@pengutronix.de, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 20. 12. 2022. 16:52, Tvrtko Ursulin wrote:
+While working on a drm driver that doesn't need the i2c algobit stuff I
+noticed that DRM selects this code even though only 8 drivers actually use
+it. While also only some drivers use i2c, keep the select for I2C for the
+next cleanup patch. Still prepare this already by also selecting I2C for
+the individual drivers.
 
-> On 20/12/2022 15:22, srinivas pandruvada wrote:
->> +Added DRM mailing list and maintainers
->>
->> On Tue, 2022-12-20 at 15:33 +0100, Mirsad Todorovac wrote:
->>> Hi all,
->>>
->>> I have been unsuccessful to find any particular Intel i915 maintainer
->>> emails, so my best bet is to post here, as you will must assuredly
->>> already know them.
-> 
-> For future reference you can use ${kernel_dir}/scripts/get_maintainer.pl -f ...
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+---
+ drivers/gpu/drm/Kconfig                 | 1 -
+ drivers/gpu/drm/amd/amdgpu/Kconfig      | 2 ++
+ drivers/gpu/drm/ast/Kconfig             | 2 ++
+ drivers/gpu/drm/gma500/Kconfig          | 2 ++
+ drivers/gpu/drm/hisilicon/hibmc/Kconfig | 2 ++
+ drivers/gpu/drm/i915/Kconfig            | 2 ++
+ drivers/gpu/drm/mgag200/Kconfig         | 2 ++
+ drivers/gpu/drm/nouveau/Kconfig         | 2 ++
+ drivers/gpu/drm/radeon/Kconfig          | 2 ++
+ 9 files changed, 16 insertions(+), 1 deletion(-)
 
-Thank you, this will help a great deal provided that I find any
-more bugs ...
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index 315cbdf61979..93c732a8f870 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -12,7 +12,6 @@ menuconfig DRM
+ 	select HDMI
+ 	select FB_CMDLINE
+ 	select I2C
+-	select I2C_ALGOBIT
+ 	select DMA_SHARED_BUFFER
+ 	select SYNC_FILE
+ # gallium uses SYS_kcmp for os_same_file_description() to de-duplicate
+diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig b/drivers/gpu/drm/amd/amdgpu/Kconfig
+index 5fcd510f1abb..5341b6b242c3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Kconfig
++++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+@@ -13,6 +13,8 @@ config DRM_AMDGPU
+ 	select DRM_TTM_HELPER
+ 	select POWER_SUPPLY
+ 	select HWMON
++	select I2C
++	select I2C_ALGOBIT
+ 	select BACKLIGHT_CLASS_DEVICE
+ 	select INTERVAL_TREE
+ 	select DRM_BUDDY
+diff --git a/drivers/gpu/drm/ast/Kconfig b/drivers/gpu/drm/ast/Kconfig
+index d367a90cd3de..563fa7a3b546 100644
+--- a/drivers/gpu/drm/ast/Kconfig
++++ b/drivers/gpu/drm/ast/Kconfig
+@@ -4,6 +4,8 @@ config DRM_AST
+ 	depends on DRM && PCI && MMU
+ 	select DRM_GEM_SHMEM_HELPER
+ 	select DRM_KMS_HELPER
++	select I2C
++	select I2C_ALGOBIT
+ 	help
+ 	 Say yes for experimental AST GPU driver. Do not enable
+ 	 this driver without having a working -modesetting,
+diff --git a/drivers/gpu/drm/gma500/Kconfig b/drivers/gpu/drm/gma500/Kconfig
+index 807b989e3c77..2efc0eb41c64 100644
+--- a/drivers/gpu/drm/gma500/Kconfig
++++ b/drivers/gpu/drm/gma500/Kconfig
+@@ -3,6 +3,8 @@ config DRM_GMA500
+ 	tristate "Intel GMA500/600/3600/3650 KMS Framebuffer"
+ 	depends on DRM && PCI && X86 && MMU
+ 	select DRM_KMS_HELPER
++	select I2C
++	select I2C_ALGOBIT
+ 	# GMA500 depends on ACPI_VIDEO when ACPI is enabled, just like i915
+ 	select ACPI_VIDEO if ACPI
+ 	select BACKLIGHT_CLASS_DEVICE if ACPI
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/Kconfig b/drivers/gpu/drm/hisilicon/hibmc/Kconfig
+index 4e41c144a290..126504318a4f 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/Kconfig
++++ b/drivers/gpu/drm/hisilicon/hibmc/Kconfig
+@@ -7,6 +7,8 @@ config DRM_HISI_HIBMC
+ 	select DRM_VRAM_HELPER
+ 	select DRM_TTM
+ 	select DRM_TTM_HELPER
++	select I2C
++	select I2C_ALGOBIT
+ 	help
+ 	  Choose this option if you have a Hisilicon Hibmc soc chipset.
+ 	  If M is selected the module will be called hibmc-drm.
+diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+index 3efce05d7b57..c6e3792622f2 100644
+--- a/drivers/gpu/drm/i915/Kconfig
++++ b/drivers/gpu/drm/i915/Kconfig
+@@ -18,6 +18,8 @@ config DRM_I915
+ 	select DRM_PANEL
+ 	select DRM_MIPI_DSI
+ 	select RELAY
++	select I2C
++	select I2C_ALGOBIT
+ 	select IRQ_WORK
+ 	# i915 depends on ACPI_VIDEO when ACPI is enabled
+ 	# but for select to work, need to select ACPI_VIDEO's dependencies, ick
+diff --git a/drivers/gpu/drm/mgag200/Kconfig b/drivers/gpu/drm/mgag200/Kconfig
+index eec59658a938..b28c5e4828f4 100644
+--- a/drivers/gpu/drm/mgag200/Kconfig
++++ b/drivers/gpu/drm/mgag200/Kconfig
+@@ -4,6 +4,8 @@ config DRM_MGAG200
+ 	depends on DRM && PCI && MMU
+ 	select DRM_GEM_SHMEM_HELPER
+ 	select DRM_KMS_HELPER
++	select I2C
++	select I2C_ALGOBIT
+ 	help
+ 	 This is a KMS driver for Matrox G200 chips. It supports the original
+ 	 MGA G200 desktop chips and the server variants. It requires 0.3.0
+diff --git a/drivers/gpu/drm/nouveau/Kconfig b/drivers/gpu/drm/nouveau/Kconfig
+index 03d12caf9e26..a0bb3987bf63 100644
+--- a/drivers/gpu/drm/nouveau/Kconfig
++++ b/drivers/gpu/drm/nouveau/Kconfig
+@@ -10,6 +10,8 @@ config DRM_NOUVEAU
+ 	select DRM_KMS_HELPER
+ 	select DRM_TTM
+ 	select DRM_TTM_HELPER
++	select I2C
++	select I2C_ALGOBIT
+ 	select BACKLIGHT_CLASS_DEVICE if DRM_NOUVEAU_BACKLIGHT
+ 	select X86_PLATFORM_DEVICES if ACPI && X86
+ 	select ACPI_WMI if ACPI && X86
+diff --git a/drivers/gpu/drm/radeon/Kconfig b/drivers/gpu/drm/radeon/Kconfig
+index 97a277f9a25e..62a596d3a891 100644
+--- a/drivers/gpu/drm/radeon/Kconfig
++++ b/drivers/gpu/drm/radeon/Kconfig
+@@ -15,6 +15,8 @@ config DRM_RADEON
+ 	select HWMON
+ 	select BACKLIGHT_CLASS_DEVICE
+ 	select INTERVAL_TREE
++	select I2C
++	select I2C_ALGOBIT
+ 	# radeon depends on ACPI_VIDEO when ACPI is enabled, for select to work
+ 	# ACPI_VIDEO's dependencies must also be selected.
+ 	select INPUT if ACPI
 
->>> The problem is a kernel memory leak that is repeatedly occurring
->>> triggered during the execution of Chrome browser under the latest
->>> 6.1.0+
->>> kernel of this morning and Almalinux 8.6 on a Lenovo desktop box
->>> with Intel(R) Core(TM) i5-8400 CPU @ 2.80GHz CPU.
->>>
->>> The build is with KMEMLEAK, KASAN and MGLRU turned on during the
->>> build,
->>> on a vanilla mainline kernel from Mr. Torvalds' tree.
->>>
->>> The leaks look like this one:
->>>
->>> unreferenced object 0xffff888131754880 (size 64):
->>>     comm "chrome", pid 13058, jiffies 4298568878 (age 3708.084s)
->>>     hex dump (first 32 bytes):
->>>       01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->>> ................
->>>       00 00 00 00 00 00 00 00 00 80 1e 3e 83 88 ff ff
->>> ...........>....
->>>     backtrace:
->>>       [<ffffffff9e9b5542>] slab_post_alloc_hook+0xb2/0x340
->>>       [<ffffffff9e9bbf5f>] __kmem_cache_alloc_node+0x1bf/0x2c0
->>>       [<ffffffff9e8f767a>] kmalloc_trace+0x2a/0xb0
->>>       [<ffffffffc08dfde5>] drm_vma_node_allow+0x45/0x150 [drm]
->>>       [<ffffffffc0b33315>] __assign_mmap_offset_handle+0x615/0x820
->>> [i915]
->>>       [<ffffffffc0b34057>] i915_gem_mmap_offset_ioctl+0x77/0x110
->>> [i915]
->>>       [<ffffffffc08bc5e1>] drm_ioctl_kernel+0x181/0x280 [drm]
->>>       [<ffffffffc08bc9cd>] drm_ioctl+0x2dd/0x6a0 [drm]
->>>       [<ffffffff9ea54744>] __x64_sys_ioctl+0xc4/0x100
->>>       [<ffffffff9fbc0178>] do_syscall_64+0x58/0x80
->>>       [<ffffffff9fc000aa>] entry_SYSCALL_64_after_hwframe+0x72/0xdc
->>>
->>> The complete list of leaks in attachment, but they seem similar or
->>> the same.
->>>
->>> Please find attached lshw and kernel build config file.
->>>
->>> I will probably check the same parms on my laptop at home, which is
->>> also
->>> Lenovo, but a different hw config and Ubuntu 22.10.
-> 
-> Could you try the below patch?
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-> index c3ea243d414d..0b07534c203a 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-> @@ -679,9 +679,10 @@ mmap_offset_attach(struct drm_i915_gem_object *obj,
->   insert:
->          mmo = insert_mmo(obj, mmo);
->          GEM_BUG_ON(lookup_mmo(obj, mmap_type) != mmo);
-> -out:
-> +
->          if (file)
->                  drm_vma_node_allow(&mmo->vma_node, file);
-> +out:
->          return mmo;
-> 
->   err:
-> 
-> Maybe it is not the best fix but curious to know if it will make the leak go away.
-
-The patch was successfully applied to the latest Mr. Torvalds' tree (commit b6bb9676f216).
-
-It is currently building, which can take up to 90 minutes on our system.
-
-Now the test depends on whether I will be able to setup the machine at work remotely
-(there were some firewalls on port 22 recently).
-
-I will keep you updated.
-
-Thanks,
-Mirsad
-
---
-Mirsad Goran Todorovac
-Sistem inženjer
-Grafički fakultet | Akademija likovnih umjetnosti
-Sveučilište u Zagrebu
+base-commit: ca39c4daa6f7f770b1329ffb46f1e4a6bcc3f291
 -- 
-System engineer
-Faculty of Graphic Arts | Academy of Fine Arts
-University of Zagreb, Republic of Croatia
-The European Union
+2.38.1
 
