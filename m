@@ -4,61 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26E18C3DA7A
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:05:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C47CC4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:05:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC3BC10E2B5;
-	Mon, 19 Dec 2022 16:05:24 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20ACE10E2AF;
- Mon, 19 Dec 2022 16:05:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D4E610E002;
+	Mon, 19 Dec 2022 16:05:27 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D83310E002;
+ Mon, 19 Dec 2022 16:05:20 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7F84F38145;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0796461067;
  Mon, 19 Dec 2022 16:05:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1671465919; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=fUg69Q6qEszR/WHAWAwnkSfcltjIyOVm1DIp4dya8uM=;
- b=2NgbyN6O+VYVJ9thzpCsCEsN9zlWzf/ypUilGv03NfFWXKz+WRkP/GFeL9JXyLcUcJ85F9
- MXjuAupX9a44GRRVja5B7dkPStf+Aq1ZNLoGq3q5ImeZI4FPJIXjitvUsN0YVBjf9Z1NI2
- RgIR4imKcr2rZ+/rX3NLJISzxvCaCug=
+ bh=69qvRJt9dPgqQNta8R4MzEBubU4rlE+sQe1t6RNuAKU=;
+ b=QTBorkF0/jrcJexym83GrqOAhTMVDvYEGm3m2hcE+ofn/1DEesjc40qGagcGmqFOIi8VML
+ kPp0/BAgAb0vhHNNj2HDwUWLUqBz6Ay7SCfn8vyiyo8Jvu0lV9B1WZK7K7RacxyRDsvA4E
+ vp1TMkh6hO8sSC3/Uaw2M3uoG6Voz0o=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1671465919;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=fUg69Q6qEszR/WHAWAwnkSfcltjIyOVm1DIp4dya8uM=;
- b=I6xUkz4ToabEbnD4TGTMJ5I4iz49ya5BZg2GGspLCu77K9rPJL8erbwLZJZn/2/m4ivwGY
- TVAFwwfP0OSenYCg==
+ bh=69qvRJt9dPgqQNta8R4MzEBubU4rlE+sQe1t6RNuAKU=;
+ b=/2sPOhMvtrkhzdSGV3gI9/CKIROCWhDl2D3pPAWtpbx8/HnrMbiv/j+1pui+bnA0+zgXiW
+ AaiNk+TKvuw9OxCQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 489E513910;
- Mon, 19 Dec 2022 16:05:19 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C4A2513910;
+ Mon, 19 Dec 2022 16:05:18 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kCHPEL+LoGPeZwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:19 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id EDcHL76LoGPeZwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:18 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch,
 	airlied@gmail.com,
 	deller@gmx.de,
 	javierm@redhat.com
-Date: Mon, 19 Dec 2022 17:05:02 +0100
-Message-Id: <20221219160516.23436-5-tzimmermann@suse.de>
+Date: Mon, 19 Dec 2022 17:05:00 +0100
+Message-Id: <20221219160516.23436-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20221219160516.23436-1-tzimmermann@suse.de>
 References: <20221219160516.23436-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 04/18] drm/i915: Do not set struct
- fb_info.apertures
+Subject: [Intel-gfx] [PATCH 02/18] Revert "fbcon: don't lose the console
+ font across generic->chip driver switch"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,43 +78,103 @@ Cc: linux-fbdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Generic fbdev drivers use the apertures field in struct fb_info to
-control ownership of the framebuffer memory and graphics device. Do
-not set the values in i915.
+This reverts commit ae1287865f5361fa138d4d3b1b6277908b54eac9.
+
+Always free the console font when deinitializing the framebuffer
+console. Subsequent framebuffer consoles will then use the default
+font. Rely on userspace to load any user-configured font for these
+consoles.
+
+Commit ae1287865f53 ("fbcon: don't lose the console font across
+generic->chip driver switch") was introduced to work around losing
+the font during graphics-device handover. [1][2] It kept a dangling
+pointer with the font data between loading the two consoles, which is
+fairly adventurous hack. It also never covered cases when the other
+consoles, such as VGA text mode, where involved.
+
+The problem has meanwhile been solved in userspace. Systemd comes
+with a udev rule that re-installs the configured font when a console
+comes up. [3] So the kernel workaround can be removed.
+
+This also removes one of the two special cases triggered by setting
+FBINFO_MISC_FIRMWARE in an fbdev driver.
+
+Tested during device handover from efifb and simpledrm to radeon. Udev
+reloads the configured console font for the new driver's terminal.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Link: https://bugzilla.redhat.com/show_bug.cgi?id=892340 # 1
+Link: https://bugzilla.redhat.com/show_bug.cgi?id=1074624 # 2
+Link: https://cgit.freedesktop.org/systemd/systemd/tree/src/vconsole/90-vconsole.rules.in?h=v222 # 3
 ---
- drivers/gpu/drm/i915/display/intel_fbdev.c | 7 -------
- 1 file changed, 7 deletions(-)
+ drivers/video/fbdev/core/fbcon.c | 17 ++++++-----------
+ 1 file changed, 6 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-index 03ed4607a46d..bbdb98d7c96e 100644
---- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-@@ -267,23 +267,16 @@ static int intelfb_create(struct drm_fb_helper *helper,
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 500b26d652f6..90b36b3adfd0 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -958,7 +958,7 @@ static const char *fbcon_startup(void)
+ 	set_blitting_type(vc, info);
  
- 	info->fbops = &intelfb_ops;
+ 	/* Setup default font */
+-	if (!p->fontdata && !vc->vc_font.data) {
++	if (!p->fontdata) {
+ 		if (!fontname[0] || !(font = find_font(fontname)))
+ 			font = get_default_font(info->var.xres,
+ 						info->var.yres,
+@@ -968,8 +968,6 @@ static const char *fbcon_startup(void)
+ 		vc->vc_font.height = font->height;
+ 		vc->vc_font.data = (void *)(p->fontdata = font->data);
+ 		vc->vc_font.charcount = font->charcount;
+-	} else {
+-		p->fontdata = vc->vc_font.data;
+ 	}
  
--	/* setup aperture base/size for vesafb takeover */
- 	obj = intel_fb_obj(&intel_fb->base);
- 	if (i915_gem_object_is_lmem(obj)) {
- 		struct intel_memory_region *mem = obj->mm.region;
+ 	cols = FBCON_SWAP(ops->rotate, info->var.xres, info->var.yres);
+@@ -1135,9 +1133,9 @@ static void fbcon_init(struct vc_data *vc, int init)
+ 	ops->p = &fb_display[fg_console];
+ }
  
--		info->apertures->ranges[0].base = mem->io_start;
--		info->apertures->ranges[0].size = mem->io_size;
--
- 		/* Use fbdev's framebuffer from lmem for discrete */
- 		info->fix.smem_start =
- 			(unsigned long)(mem->io_start +
- 					i915_gem_object_get_dma_address(obj, 0));
- 		info->fix.smem_len = obj->base.size;
- 	} else {
--		info->apertures->ranges[0].base = ggtt->gmadr.start;
--		info->apertures->ranges[0].size = ggtt->mappable_end;
--
- 		/* Our framebuffer is the entirety of fbdev's system memory */
- 		info->fix.smem_start =
- 			(unsigned long)(ggtt->gmadr.start + i915_ggtt_offset(vma));
+-static void fbcon_free_font(struct fbcon_display *p, bool freefont)
++static void fbcon_free_font(struct fbcon_display *p)
+ {
+-	if (freefont && p->userfont && p->fontdata && (--REFCOUNT(p->fontdata) == 0))
++	if (p->userfont && p->fontdata && (--REFCOUNT(p->fontdata) == 0))
+ 		kfree(p->fontdata - FONT_EXTRA_WORDS * sizeof(int));
+ 	p->fontdata = NULL;
+ 	p->userfont = 0;
+@@ -1172,8 +1170,8 @@ static void fbcon_deinit(struct vc_data *vc)
+ 	struct fb_info *info;
+ 	struct fbcon_ops *ops;
+ 	int idx;
+-	bool free_font = true;
+ 
++	fbcon_free_font(p);
+ 	idx = con2fb_map[vc->vc_num];
+ 
+ 	if (idx == -1)
+@@ -1184,8 +1182,6 @@ static void fbcon_deinit(struct vc_data *vc)
+ 	if (!info)
+ 		goto finished;
+ 
+-	if (info->flags & FBINFO_MISC_FIRMWARE)
+-		free_font = false;
+ 	ops = info->fbcon_par;
+ 
+ 	if (!ops)
+@@ -1197,9 +1193,8 @@ static void fbcon_deinit(struct vc_data *vc)
+ 	ops->initialized = false;
+ finished:
+ 
+-	fbcon_free_font(p, free_font);
+-	if (free_font)
+-		vc->vc_font.data = NULL;
++	fbcon_free_font(p);
++	vc->vc_font.data = NULL;
+ 
+ 	if (vc->vc_hi_font_mask && vc->vc_screenbuf)
+ 		set_vc_hi_font(vc, false);
 -- 
 2.39.0
 
