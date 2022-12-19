@@ -4,61 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E530C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:08:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F24EC4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:08:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 979DF10E2E4;
-	Mon, 19 Dec 2022 16:06:13 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C760A10E2C6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD74010E2DE;
+	Mon, 19 Dec 2022 16:06:16 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B89C10E2B7;
  Mon, 19 Dec 2022 16:05:52 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 74E9F6106C;
- Mon, 19 Dec 2022 16:05:21 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id F2E2738149;
+ Mon, 19 Dec 2022 16:05:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1671465921; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kaoy/wsHmACEkNUPQDwCodxxk7bv39KwEjjtHvnuLPY=;
- b=zwnnLeVgu/s3egNObkVdpEXh77/XY3MobzVV5GJI1gttTfIxX9W8Q+m9TprcXlLjjw5+zk
- eYu4mOF+QvFS83FmGpyu69FfHB3eEEm8yYax1itCD+SjBRqew7QTnHV/9t85tFIVD0Q/VT
- APbe3gfOruEA6qOqZIn72uYlYQfIdv8=
+ bh=obTd6Vm1en8QYigHEu9RhDcL5tb/CmpPkDgnKAoQ5jE=;
+ b=b4K4FAar1WgYMZX5pfZnzCVcF80GxF/BuZdANPvIPGZthi5DRao3/arOXSSrCzmw+/YfIu
+ DkFh6mfpuAErsioiYMFs06ZKz2+V2DVmkQA/tHWYwslk5m/ZgqIWKw4b6LELWED4hBlVJq
+ 1O/aqwBiAkBpVH844qCWXsHTJU1MG4w=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1671465921;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kaoy/wsHmACEkNUPQDwCodxxk7bv39KwEjjtHvnuLPY=;
- b=kus+BY2vnPzmJQDjGCUVRzdQvBFM+NEu81vfD1mSWOqYl5qrrmEPyKieCOyRumTRUCMg+9
- UvJt4LdI4sHWxXDQ==
+ bh=obTd6Vm1en8QYigHEu9RhDcL5tb/CmpPkDgnKAoQ5jE=;
+ b=472H4JvHPod2/eeTkuU93yA7QE5pwbZ5rhmYSoL7HgEUeRiKO1eB//pWB5b5OYjMvvrDAE
+ xRpEqrP5VJVl4uAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3DD7913910;
- Mon, 19 Dec 2022 16:05:21 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B7D6213911;
+ Mon, 19 Dec 2022 16:05:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id SH0nDsGLoGPeZwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:21 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id SMr4K8CLoGPeZwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:20 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch,
 	airlied@gmail.com,
 	deller@gmx.de,
 	javierm@redhat.com
-Date: Mon, 19 Dec 2022 17:05:10 +0100
-Message-Id: <20221219160516.23436-13-tzimmermann@suse.de>
+Date: Mon, 19 Dec 2022 17:05:08 +0100
+Message-Id: <20221219160516.23436-11-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20221219160516.23436-1-tzimmermann@suse.de>
 References: <20221219160516.23436-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 12/18] fbdev/offb: Allocate struct offb_par with
- framebuffer_alloc()
+Subject: [Intel-gfx] [PATCH 10/18] fbdev/efifb: Add struct efifb_par for
+ driver data
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,72 +78,55 @@ Cc: linux-fbdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move the palette array into struct offb_par and allocate both via
-framebuffer_alloc(), as intended by fbdev. No functional changes.
+The efifb_par structure holds the palette for efifb. It will also
+be useful for storing the device's aperture range.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/video/fbdev/offb.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+ drivers/video/fbdev/efifb.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/video/fbdev/offb.c b/drivers/video/fbdev/offb.c
-index 91001990e351..a298adcee2d9 100644
---- a/drivers/video/fbdev/offb.c
-+++ b/drivers/video/fbdev/offb.c
-@@ -53,10 +53,9 @@ struct offb_par {
- 	volatile void __iomem *cmap_data;
- 	int cmap_type;
- 	int blanked;
+diff --git a/drivers/video/fbdev/efifb.c b/drivers/video/fbdev/efifb.c
+index 16c1aaae9afa..694013f62781 100644
+--- a/drivers/video/fbdev/efifb.c
++++ b/drivers/video/fbdev/efifb.c
+@@ -49,6 +49,10 @@ static u64 mem_flags = EFI_MEMORY_WC | EFI_MEMORY_UC;
+ 
+ static struct pci_dev *efifb_pci_dev;	/* dev with BAR covering the efifb */
+ 
++struct efifb_par {
 +	u32 pseudo_palette[16];
- };
- 
--struct offb_par default_par;
--
- #ifdef CONFIG_PPC32
- extern boot_infos_t *boot_infos;
- #endif
-@@ -393,11 +392,11 @@ static void offb_init_fb(struct platform_device *parent, const char *name,
- 			 int foreign_endian, struct device_node *dp)
++};
++
+ static struct fb_var_screeninfo efifb_defined = {
+ 	.activate		= FB_ACTIVATE_NOW,
+ 	.height			= -1,
+@@ -351,6 +355,7 @@ static u64 bar_offset;
+ static int efifb_probe(struct platform_device *dev)
  {
- 	unsigned long res_size = pitch * height;
--	struct offb_par *par = &default_par;
- 	unsigned long res_start = address;
- 	struct fb_fix_screeninfo *fix;
- 	struct fb_var_screeninfo *var;
  	struct fb_info *info;
-+	struct offb_par *par;
- 
- 	if (!request_mem_region(res_start, res_size, "offb"))
- 		return;
-@@ -411,17 +410,15 @@ static void offb_init_fb(struct platform_device *parent, const char *name,
- 		return;
++	struct efifb_par *par;
+ 	int err, orientation;
+ 	unsigned int size_vmode;
+ 	unsigned int size_remap;
+@@ -447,14 +452,14 @@ static int efifb_probe(struct platform_device *dev)
+ 			efifb_fix.smem_start);
  	}
  
--	info = framebuffer_alloc(sizeof(u32) * 16, &parent->dev);
--
-+	info = framebuffer_alloc(sizeof(*par), &parent->dev);
+-	info = framebuffer_alloc(sizeof(u32) * 16, &dev->dev);
++	info = framebuffer_alloc(sizeof(*par), &dev->dev);
  	if (!info) {
- 		release_mem_region(res_start, res_size);
- 		return;
+ 		err = -ENOMEM;
+ 		goto err_release_mem;
  	}
- 	platform_set_drvdata(parent, info);
--
+ 	platform_set_drvdata(dev, info);
+-	info->pseudo_palette = info->par;
+-	info->par = NULL;
 +	par = info->par;
- 	fix = &info->fix;
- 	var = &info->var;
--	info->par = par;
- 
- 	if (name) {
- 		strcpy(fix->id, "OFfb ");
-@@ -515,7 +512,7 @@ static void offb_init_fb(struct platform_device *parent, const char *name,
- 
- 	info->fbops = &offb_ops;
- 	info->screen_base = ioremap(address, fix->smem_len);
--	info->pseudo_palette = (void *) (info + 1);
 +	info->pseudo_palette = par->pseudo_palette;
- 	info->flags = FBINFO_DEFAULT | FBINFO_MISC_FIRMWARE | foreign_endian;
  
- 	fb_alloc_cmap(&info->cmap, 256, 0);
+ 	info->apertures = alloc_apertures(1);
+ 	if (!info->apertures) {
 -- 
 2.39.0
 
