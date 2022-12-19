@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 234B4C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:06:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9EDEC4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:06:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DE0810E2B4;
-	Mon, 19 Dec 2022 16:05:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7468110E2C5;
+	Mon, 19 Dec 2022 16:05:35 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCF4810E002;
- Mon, 19 Dec 2022 16:05:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD03210E2B0;
+ Mon, 19 Dec 2022 16:05:22 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7A57F38148;
- Mon, 19 Dec 2022 16:05:20 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 38E023814A;
+ Mon, 19 Dec 2022 16:05:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1671465920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1671465921; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Y+BusCraEh5B/kjNqlmWH+J56/01IzSqEoXG4u/ApxA=;
- b=k7jGbHXivI8oaQx7V9IBKJo+DdTFFl41MQn27pb9GsHRNJ74ovh21uVJdx1DBf6AM1AN94
- tUvpGhJrqeLTJvrIVht5sLAu5lgKhrihHp3PQF08mHJCtJiLIq764LPsFwt9m1Grq4ptQU
- Z2SZ8LUremjqHJ6YvZlq3xNvFen8q8M=
+ bh=RqquY0vRF4j2TZClbWT3UuEK0xCY+Dj3YMKH6n7ha14=;
+ b=1oqZO6f7Z/UK84n1HDTBt6BQhym72ZyWuk2ESMExKZbV8MO0N7rtVzJ880pZ0h6s477vjm
+ f9tqz07CfPWKgPKXZ9ychqFwzTUaKY2zhWShDBXxPZ836suqvL/KOpUsA00a2nmsiIu5Ql
+ xeA4F2VVY2hIft7Hu7z5lm10b9phdhM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1671465920;
+ s=susede2_ed25519; t=1671465921;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Y+BusCraEh5B/kjNqlmWH+J56/01IzSqEoXG4u/ApxA=;
- b=y/6SDwejq5Tt4rZOdRLJCx0aYachA6O9xsFjfG0AGO+GH3NwOR3y+4LVALyVGFr4W8+Vb3
- MB84pAqpOitWoQBg==
+ bh=RqquY0vRF4j2TZClbWT3UuEK0xCY+Dj3YMKH6n7ha14=;
+ b=1ANZjnO6UjrMzIpnHT3KrA22LyztidJt0BlWk2ZQ5LJVf4lyUGmVU4NfBdvaaZnfa8RMRW
+ 0zl4uWZWKK6zEKAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 415CB13911;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 025F113910;
  Mon, 19 Dec 2022 16:05:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mKASD8CLoGPeZwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id CCZGO8CLoGPeZwAAMHmgww
  (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:20 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch,
 	airlied@gmail.com,
 	deller@gmx.de,
 	javierm@redhat.com
-Date: Mon, 19 Dec 2022 17:05:06 +0100
-Message-Id: <20221219160516.23436-9-tzimmermann@suse.de>
+Date: Mon, 19 Dec 2022 17:05:09 +0100
+Message-Id: <20221219160516.23436-12-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20221219160516.23436-1-tzimmermann@suse.de>
 References: <20221219160516.23436-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/18] fbdev/hyperv-fb: Do not set struct
+Subject: [Intel-gfx] [PATCH 11/18] fbdev/efifb: Do not use struct
  fb_info.apertures
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,67 +78,93 @@ Cc: linux-fbdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Generic fbdev drivers use the apertures field in struct fb_info to
-control ownership of the framebuffer memory and graphics device. Do
-not set the values in hyperv-fb.
+Acquire ownership of the firmware scanout buffer by calling Linux'
+aperture helpers. Remove the use of struct fb_info.apertures and do
+not set FBINFO_MISC_FIRMWARE; both of which previously configured
+buffer ownership.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/video/fbdev/hyperv_fb.c | 17 ++++++-----------
- 1 file changed, 6 insertions(+), 11 deletions(-)
+ drivers/video/fbdev/efifb.c | 24 ++++++++++++++----------
+ 1 file changed, 14 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/video/fbdev/hyperv_fb.c b/drivers/video/fbdev/hyperv_fb.c
-index d8edb5635f77..1c7d6ff5a6c0 100644
---- a/drivers/video/fbdev/hyperv_fb.c
-+++ b/drivers/video/fbdev/hyperv_fb.c
-@@ -988,13 +988,10 @@ static int hvfb_getmem(struct hv_device *hdev, struct fb_info *info)
- 	struct pci_dev *pdev  = NULL;
- 	void __iomem *fb_virt;
- 	int gen2vm = efi_enabled(EFI_BOOT);
-+	resource_size_t base, size;
- 	phys_addr_t paddr;
- 	int ret;
+diff --git a/drivers/video/fbdev/efifb.c b/drivers/video/fbdev/efifb.c
+index 694013f62781..a5779fb453a2 100644
+--- a/drivers/video/fbdev/efifb.c
++++ b/drivers/video/fbdev/efifb.c
+@@ -7,6 +7,7 @@
+  *
+  */
  
--	info->apertures = alloc_apertures(1);
--	if (!info->apertures)
--		return -ENOMEM;
--
- 	if (!gen2vm) {
- 		pdev = pci_get_device(PCI_VENDOR_ID_MICROSOFT,
- 			PCI_DEVICE_ID_HYPERV_VIDEO, NULL);
-@@ -1003,8 +1000,8 @@ static int hvfb_getmem(struct hv_device *hdev, struct fb_info *info)
- 			return -ENODEV;
- 		}
++#include <linux/aperture.h>
+ #include <linux/kernel.h>
+ #include <linux/efi.h>
+ #include <linux/efi-bgrt.h>
+@@ -51,6 +52,8 @@ static struct pci_dev *efifb_pci_dev;	/* dev with BAR covering the efifb */
  
--		info->apertures->ranges[0].base = pci_resource_start(pdev, 0);
--		info->apertures->ranges[0].size = pci_resource_len(pdev, 0);
-+		base = pci_resource_start(pdev, 0);
-+		size = pci_resource_len(pdev, 0);
+ struct efifb_par {
+ 	u32 pseudo_palette[16];
++	resource_size_t base;
++	resource_size_t size;
+ };
  
- 		/*
- 		 * For Gen 1 VM, we can directly use the contiguous memory
-@@ -1027,8 +1024,8 @@ static int hvfb_getmem(struct hv_device *hdev, struct fb_info *info)
- 		}
- 		pr_info("Unable to allocate enough contiguous physical memory on Gen 1 VM. Using MMIO instead.\n");
- 	} else {
--		info->apertures->ranges[0].base = screen_info.lfb_base;
--		info->apertures->ranges[0].size = screen_info.lfb_size;
-+		base = screen_info.lfb_base;
-+		size = screen_info.lfb_size;
+ static struct fb_var_screeninfo efifb_defined = {
+@@ -253,6 +256,8 @@ static inline void efifb_show_boot_graphics(struct fb_info *info) {}
+  */
+ static void efifb_destroy(struct fb_info *info)
+ {
++	struct efifb_par *par = info->par;
++
+ 	if (efifb_pci_dev)
+ 		pm_runtime_put(&efifb_pci_dev->dev);
+ 
+@@ -264,8 +269,7 @@ static void efifb_destroy(struct fb_info *info)
  	}
  
- 	/*
-@@ -1070,9 +1067,7 @@ static int hvfb_getmem(struct hv_device *hdev, struct fb_info *info)
- 	info->screen_size = dio_fb_size;
+ 	if (request_mem_succeeded)
+-		release_mem_region(info->apertures->ranges[0].base,
+-				   info->apertures->ranges[0].size);
++		release_mem_region(par->base, par->size);
+ 	fb_dealloc_cmap(&info->cmap);
  
- getmem_done:
--	aperture_remove_conflicting_devices(info->apertures->ranges[0].base,
--					    info->apertures->ranges[0].size,
--					    false, KBUILD_MODNAME);
-+	aperture_remove_conflicting_devices(base, size, false, KBUILD_MODNAME);
+ 	framebuffer_release(info);
+@@ -461,13 +465,8 @@ static int efifb_probe(struct platform_device *dev)
+ 	par = info->par;
+ 	info->pseudo_palette = par->pseudo_palette;
  
- 	if (gen2vm) {
- 		/* framebuffer is reallocated, clear screen_info to avoid misuse from kexec */
+-	info->apertures = alloc_apertures(1);
+-	if (!info->apertures) {
+-		err = -ENOMEM;
+-		goto err_release_fb;
+-	}
+-	info->apertures->ranges[0].base = efifb_fix.smem_start;
+-	info->apertures->ranges[0].size = size_remap;
++	par->base = efifb_fix.smem_start;
++	par->size = size_remap;
+ 
+ 	if (efi_enabled(EFI_MEMMAP) &&
+ 	    !efi_mem_desc_lookup(efifb_fix.smem_start, &md)) {
+@@ -556,7 +555,7 @@ static int efifb_probe(struct platform_device *dev)
+ 	info->fbops = &efifb_ops;
+ 	info->var = efifb_defined;
+ 	info->fix = efifb_fix;
+-	info->flags = FBINFO_FLAG_DEFAULT | FBINFO_MISC_FIRMWARE;
++	info->flags = FBINFO_FLAG_DEFAULT;
+ 
+ 	orientation = drm_get_panel_orientation_quirk(efifb_defined.xres,
+ 						      efifb_defined.yres);
+@@ -589,6 +588,11 @@ static int efifb_probe(struct platform_device *dev)
+ 	if (efifb_pci_dev)
+ 		WARN_ON(pm_runtime_get_sync(&efifb_pci_dev->dev) < 0);
+ 
++	err = devm_aperture_acquire_for_platform_device(dev, par->base, par->size);
++	if (err) {
++		pr_err("efifb: cannot acquire aperture\n");
++		goto err_put_rpm_ref;
++	}
+ 	err = register_framebuffer(info);
+ 	if (err < 0) {
+ 		pr_err("efifb: cannot register framebuffer\n");
 -- 
 2.39.0
 
