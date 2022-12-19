@@ -4,61 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F1B7C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:07:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C5F8C4167B
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:07:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 239C510E2D0;
-	Mon, 19 Dec 2022 16:06:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16A0D10E2BB;
+	Mon, 19 Dec 2022 16:06:06 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97FCF10E2B8;
- Mon, 19 Dec 2022 16:05:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2033B10E2B8;
+ Mon, 19 Dec 2022 16:05:50 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3D0B261069;
- Mon, 19 Dec 2022 16:05:20 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BFC7C60F21;
+ Mon, 19 Dec 2022 16:05:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1671465920; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1671465918; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kw4PCYbRKyTYm5bvhnSq7yK73tS8WkU4oVIsN0XjlAs=;
- b=XRpD+7A47u27mhj9WIia4vQucs01xOEb7OZFcFYLFJ9+KLVhlOUuXr1Tg2PJLCXczohGR+
- zXm+8yvSYixyCtX51jHwKURm8vZOio5HfRT8cd8lM4HAXFVRMwX432qVslkrgFWhOT4EjB
- e0KX4gzDcSdrUCrWk0AE8wedxLHnZhU=
+ bh=0aR/7zFFg6opL9Sswet7ilYlrwEicNIovKojH/nmoWY=;
+ b=bGEDJKn4Nwf6TsCbG2/dCdacpEPM1FAG+frz2BSnI0hzyfybAerHTKemiCgf9kfdtlZIM1
+ rnX4VyKXFRrqi33on7Ci/RbaKdebTLAtjrIpsf0bAXKZwNS18VSKcLo3XcqpwumY/sESoY
+ ETmo/ogos0cAGYArM4ar9DBb0ic8N8I=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1671465920;
+ s=susede2_ed25519; t=1671465918;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=kw4PCYbRKyTYm5bvhnSq7yK73tS8WkU4oVIsN0XjlAs=;
- b=WN4Coft+2mZbZl0Hz4sAfWdk5nLpNgDT4S3LPKv+Xj+Mt38OALgt+G6TR+6aArpZSLuOtJ
- dsT5xh7OZtEC8UDQ==
+ bh=0aR/7zFFg6opL9Sswet7ilYlrwEicNIovKojH/nmoWY=;
+ b=hLadcWTjfhJunbRRm9pANWRI7ofUt7yf9j+g+bFlaED6UhkD3EaREXKJiv1PajaAbRL4ac
+ Y6/HVNbxpcwj+OBg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0624A13910;
- Mon, 19 Dec 2022 16:05:20 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 87D8F13911;
+ Mon, 19 Dec 2022 16:05:18 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kH15AMCLoGPeZwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:20 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id qGT7H76LoGPeZwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:18 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch,
 	airlied@gmail.com,
 	deller@gmx.de,
 	javierm@redhat.com
-Date: Mon, 19 Dec 2022 17:05:05 +0100
-Message-Id: <20221219160516.23436-8-tzimmermann@suse.de>
+Date: Mon, 19 Dec 2022 17:04:59 +0100
+Message-Id: <20221219160516.23436-2-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20221219160516.23436-1-tzimmermann@suse.de>
 References: <20221219160516.23436-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/18] fbdev/clps711x-fb: Do not set struct
- fb_info.apertures
+Subject: [Intel-gfx] [PATCH 01/18] fbcon: Remove trailing whitespaces
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,45 +77,120 @@ Cc: linux-fbdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Generic fbdev drivers use the apertures field in struct fb_info to
-control ownership of the framebuffer memory and graphics device. Do
-not set the values in clps711x-fb.
+Fix coding style. No functional changes.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/video/fbdev/clps711x-fb.c | 10 +---------
- 1 file changed, 1 insertion(+), 9 deletions(-)
+ drivers/video/fbdev/core/fbcon.c | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/video/fbdev/clps711x-fb.c b/drivers/video/fbdev/clps711x-fb.c
-index a1061c2f1640..45c75ff01eca 100644
---- a/drivers/video/fbdev/clps711x-fb.c
-+++ b/drivers/video/fbdev/clps711x-fb.c
-@@ -251,16 +251,8 @@ static int clps711x_fb_probe(struct platform_device *pdev)
- 		goto out_fb_release;
- 	}
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index c0143d38df83..500b26d652f6 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -26,7 +26,7 @@
+  *
+  *  Hardware cursor support added by Emmanuel Marty (core@ggi-project.org)
+  *  Smart redraw scrolling, arbitrary font width support, 512char font support
+- *  and software scrollback added by 
++ *  and software scrollback added by
+  *                         Jakub Jelinek (jj@ultra.linux.cz)
+  *
+  *  Random hacking by Martin Mares <mj@ucw.cz>
+@@ -127,7 +127,7 @@ static int logo_shown = FBCON_LOGO_CANSHOW;
+ /* console mappings */
+ static unsigned int first_fb_vc;
+ static unsigned int last_fb_vc = MAX_NR_CONSOLES - 1;
+-static int fbcon_is_default = 1; 
++static int fbcon_is_default = 1;
+ static int primary_device = -1;
+ static int fbcon_has_console_bind;
  
--	info->apertures = alloc_apertures(1);
--	if (!info->apertures) {
--		ret = -ENOMEM;
--		goto out_fb_release;
--	}
--
- 	cfb->buffsize = resource_size(res);
- 	info->fix.smem_start = res->start;
--	info->apertures->ranges[0].base = info->fix.smem_start;
--	info->apertures->ranges[0].size = cfb->buffsize;
+@@ -415,12 +415,12 @@ static int __init fb_console_setup(char *this_opt)
+ 			strscpy(fontname, options + 5, sizeof(fontname));
+ 			continue;
+ 		}
+-		
++
+ 		if (!strncmp(options, "scrollback:", 11)) {
+ 			pr_warn("Ignoring scrollback size option\n");
+ 			continue;
+ 		}
+-		
++
+ 		if (!strncmp(options, "map:", 4)) {
+ 			options += 4;
+ 			if (*options) {
+@@ -446,7 +446,7 @@ static int __init fb_console_setup(char *this_opt)
+ 				last_fb_vc = simple_strtoul(options, &options, 10) - 1;
+ 			if (last_fb_vc < first_fb_vc || last_fb_vc >= MAX_NR_CONSOLES)
+ 				last_fb_vc = MAX_NR_CONSOLES - 1;
+-			fbcon_is_default = 0; 
++			fbcon_is_default = 0;
+ 			continue;
+ 		}
  
- 	cfb->clk = devm_clk_get(dev, NULL);
- 	if (IS_ERR(cfb->clk)) {
-@@ -345,7 +337,7 @@ static int clps711x_fb_probe(struct platform_device *pdev)
- 				       &clps711x_lcd_ops);
- 	if (!IS_ERR(lcd))
- 		return 0;
+@@ -940,7 +940,7 @@ static const char *fbcon_startup(void)
+ 	info = fbcon_registered_fb[info_idx];
+ 	if (!info)
+ 		return NULL;
 -	
 +
- 	ret = PTR_ERR(lcd);
- 	unregister_framebuffer(info);
+ 	if (fbcon_open(info))
+ 		return NULL;
  
+@@ -1999,7 +1999,7 @@ static void updatescrollmode(struct fbcon_display *p,
+ #define PITCH(w) (((w) + 7) >> 3)
+ #define CALC_FONTSZ(h, p, c) ((h) * (p) * (c)) /* size = height * pitch * charcount */
+ 
+-static int fbcon_resize(struct vc_data *vc, unsigned int width, 
++static int fbcon_resize(struct vc_data *vc, unsigned int width,
+ 			unsigned int height, unsigned int user)
+ {
+ 	struct fb_info *info = fbcon_info_from_console(vc->vc_num);
+@@ -2174,7 +2174,7 @@ static int fbcon_switch(struct vc_data *vc)
+ 	    ops->update_start(info);
+ 	}
+ 
+-	fbcon_set_palette(vc, color_table); 	
++	fbcon_set_palette(vc, color_table);
+ 	fbcon_clear_margins(vc, 0);
+ 
+ 	if (logo_shown == FBCON_LOGO_DRAW) {
+@@ -2343,7 +2343,7 @@ static void set_vc_hi_font(struct vc_data *vc, bool set)
+ 			vc->vc_complement_mask >>= 1;
+ 			vc->vc_s_complement_mask >>= 1;
+ 		}
+-			
++
+ 		/* ++Edmund: reorder the attribute bits */
+ 		if (vc->vc_can_do_color) {
+ 			unsigned short *cp =
+@@ -2366,7 +2366,7 @@ static void set_vc_hi_font(struct vc_data *vc, bool set)
+ 			vc->vc_complement_mask <<= 1;
+ 			vc->vc_s_complement_mask <<= 1;
+ 		}
+-			
++
+ 		/* ++Edmund: reorder the attribute bits */
+ 		{
+ 			unsigned short *cp =
+@@ -2527,7 +2527,7 @@ static int fbcon_set_font(struct vc_data *vc, struct console_font *font,
+ 	/* Check if the same font is on some other console already */
+ 	for (i = first_fb_vc; i <= last_fb_vc; i++) {
+ 		struct vc_data *tmp = vc_cons[i].d;
+-		
++
+ 		if (fb_display[i].userfont &&
+ 		    fb_display[i].fontdata &&
+ 		    FNTSUM(fb_display[i].fontdata) == csum &&
+@@ -3435,5 +3435,5 @@ void __exit fb_console_exit(void)
+ 
+ 	do_unregister_con_driver(&fb_con);
+ 	console_unlock();
+-}	
++}
+ #endif
 -- 
 2.39.0
 
