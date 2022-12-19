@@ -4,61 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16A26C10F1B
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:07:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95D41C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:07:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1110510E2C9;
-	Mon, 19 Dec 2022 16:05:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16D8710E2B8;
+	Mon, 19 Dec 2022 16:05:54 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 302D810E2B0;
- Mon, 19 Dec 2022 16:05:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD93710E2B7;
+ Mon, 19 Dec 2022 16:05:49 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D43293814D;
- Mon, 19 Dec 2022 16:05:22 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8296C38144;
+ Mon, 19 Dec 2022 16:05:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1671465922; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=t7h0EXkUAVrRAP/PStW6XTr3++6xPsY6KDln6r0Rw7E=;
- b=u7ZYAWmY4Z+/LC6wlTezBTokc/XIEsHEjQ0W0RANZpeMnaZT6GB8YMAcYXr0BPDL7bvS4k
- s22o5XlBct47Iv4s8tcy2yfhv3zHzbqhQoxxkCRodTHaJfHYgYRtIbCq0z7lgLgd9RnnBc
- /a8jRAX7O8tgFDgmnQc2P2eBtggVyXg=
+ t=1671465918; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Zi9DGAHO0BaQvyNUt7EaCCw0VNS9QAUwHpcrOeBGrvY=;
+ b=ij+rxhcqW3W6+MWS3kO8nMtHYN3oDHlgFX/aDSZKOujL11P5YyA5Yp7J4PX+Ti5tiGaxVx
+ xHeFpGDS6Y790wnabdtJDtShIYRUJWofvBsZb2l3zrBeJHBo1xpeMSqN/+iClmeP6Oep6Y
+ 0kAs05m6gO/Z7fZltjIngJrkka93pjc=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1671465922;
+ s=susede2_ed25519; t=1671465918;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=t7h0EXkUAVrRAP/PStW6XTr3++6xPsY6KDln6r0Rw7E=;
- b=BJX4LNDRHzlZuDQdhKAJdNuaEUMNlnC8x6UTj+YQKrfJXdrFTqCnUrzFA23uDEl5GEt0la
- 5U6oHMHbA4uvxZAA==
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Zi9DGAHO0BaQvyNUt7EaCCw0VNS9QAUwHpcrOeBGrvY=;
+ b=0p4gfUQSsxWvjADe+QY4pLfQhm4JPPLDWnJRyBCavXTyEkQMup1ME/v44uJTj5reo8Uvsk
+ RFnYZJeqyymWAzCw==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9E74313910;
- Mon, 19 Dec 2022 16:05:22 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 487F613910;
+ Mon, 19 Dec 2022 16:05:18 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id cAPGJcKLoGPeZwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:22 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id TWe9EL6LoGPeZwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:18 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch,
 	airlied@gmail.com,
 	deller@gmx.de,
 	javierm@redhat.com
-Date: Mon, 19 Dec 2022 17:05:16 +0100
-Message-Id: <20221219160516.23436-19-tzimmermann@suse.de>
+Date: Mon, 19 Dec 2022 17:04:58 +0100
+Message-Id: <20221219160516.23436-1-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20221219160516.23436-1-tzimmermann@suse.de>
-References: <20221219160516.23436-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 18/18] drm/fbdev: Remove aperture handling and
- FBINFO_MISC_FIRMWARE
+Subject: [Intel-gfx] [PATCH 00/18] drm,
+ fbdev: Remove apertures structure and FBINFO_MISC_FIRMWARE
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,132 +72,83 @@ Cc: linux-fbdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are no users left of struct fb_info.apertures and the flag
-FBINFO_MISC_FIRMWARE. Remove both and the aperture-ownership code
-in the fbdev core. All code for aperture ownership is now located
-in the fbdev drivers.
+Remove struct fb_info.apertures and FBINFO_MISC_FIRMWARE from fbdev
+and handle the aperture ownership without involving the fbdev core.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/video/fbdev/core/fbmem.c   | 33 ------------------------------
- drivers/video/fbdev/core/fbsysfs.c |  1 -
- include/linux/fb.h                 | 22 --------------------
- 3 files changed, 56 deletions(-)
+The apertures field in struct fb_info is a remnant from earlier
+ownership management for framebuffer apertures. When fbdev core code
+still handled ownership of the framebuffer among fbdev device drivers,
+generic drivers set the aperture ranges to claim the firmware scanout
+buffer for themselves.
 
-diff --git a/drivers/video/fbdev/core/fbmem.c b/drivers/video/fbdev/core/fbmem.c
-index 3a6c8458eb8d..02217c33d152 100644
---- a/drivers/video/fbdev/core/fbmem.c
-+++ b/drivers/video/fbdev/core/fbmem.c
-@@ -13,7 +13,6 @@
- 
- #include <linux/module.h>
- 
--#include <linux/aperture.h>
- #include <linux/compat.h>
- #include <linux/types.h>
- #include <linux/errno.h>
-@@ -1653,32 +1652,6 @@ static void do_unregister_framebuffer(struct fb_info *fb_info)
- 	put_fb_info(fb_info);
- }
- 
--static int fb_aperture_acquire_for_platform_device(struct fb_info *fb_info)
--{
--	struct apertures_struct *ap = fb_info->apertures;
--	struct device *dev = fb_info->device;
--	struct platform_device *pdev;
--	unsigned int i;
--	int ret;
--
--	if (!ap)
--		return 0;
--
--	if (!dev_is_platform(dev))
--		return 0;
--
--	pdev = to_platform_device(dev);
--
--	for (ret = 0, i = 0; i < ap->count; ++i) {
--		ret = devm_aperture_acquire_for_platform_device(pdev, ap->ranges[i].base,
--								ap->ranges[i].size);
--		if (ret)
--			break;
--	}
--
--	return ret;
--}
--
- /**
-  *	register_framebuffer - registers a frame buffer device
-  *	@fb_info: frame buffer info structure
-@@ -1693,12 +1666,6 @@ register_framebuffer(struct fb_info *fb_info)
- {
- 	int ret;
- 
--	if (fb_info->flags & FBINFO_MISC_FIRMWARE) {
--		ret = fb_aperture_acquire_for_platform_device(fb_info);
--		if (ret)
--			return ret;
--	}
--
- 	mutex_lock(&registration_lock);
- 	ret = do_register_framebuffer(fb_info);
- 	mutex_unlock(&registration_lock);
-diff --git a/drivers/video/fbdev/core/fbsysfs.c b/drivers/video/fbdev/core/fbsysfs.c
-index 4d7f63892dcc..0c33c4adcd79 100644
---- a/drivers/video/fbdev/core/fbsysfs.c
-+++ b/drivers/video/fbdev/core/fbsysfs.c
-@@ -88,7 +88,6 @@ void framebuffer_release(struct fb_info *info)
- 	mutex_destroy(&info->bl_curve_mutex);
- #endif
- 
--	kfree(info->apertures);
- 	kfree(info);
- }
- EXPORT_SYMBOL(framebuffer_release);
-diff --git a/include/linux/fb.h b/include/linux/fb.h
-index 96b96323e9cb..30183fd259ae 100644
---- a/include/linux/fb.h
-+++ b/include/linux/fb.h
-@@ -423,8 +423,6 @@ struct fb_tile_ops {
-  */
- #define FBINFO_MISC_ALWAYS_SETPAR   0x40000
- 
--/* where the fb is a firmware driver, and can be replaced with a proper one */
--#define FBINFO_MISC_FIRMWARE        0x80000
- /*
-  * Host and GPU endianness differ.
-  */
-@@ -499,30 +497,10 @@ struct fb_info {
- 	void *fbcon_par;                /* fbcon use-only private area */
- 	/* From here on everything is device dependent */
- 	void *par;
--	/* we need the PCI or similar aperture base/size not
--	   smem_start/size as smem_start may just be an object
--	   allocated inside the aperture so may not actually overlap */
--	struct apertures_struct {
--		unsigned int count;
--		struct aperture {
--			resource_size_t base;
--			resource_size_t size;
--		} ranges[0];
--	} *apertures;
- 
- 	bool skip_vt_switch; /* no VT switch on suspend/resume required */
- };
- 
--static inline struct apertures_struct *alloc_apertures(unsigned int max_num) {
--	struct apertures_struct *a;
--
--	a = kzalloc(struct_size(a, ranges, max_num), GFP_KERNEL);
--	if (!a)
--		return NULL;
--	a->count = max_num;
--	return a;
--}
--
- #define FBINFO_FLAG_DEFAULT	FBINFO_DEFAULT
- 
- /* This will go away
+Now that we have a module with helpers that manage aperture and
+framebuffer ownership among drivers, the aperture field is not needed
+any longer. In fact, several drivers set this field, even though they
+are not generic fbdev drivers. Only drivers that set FBINFO_MISC_FIRMWARE
+can use apertures in a meaningful way.
+
+To remove FBINFO_MISC_FIRMWARE, patches 1 and 2 remove it from fbcon. It
+was used to work around issues with font loading. That is now all handled
+in userspace.
+
+Patches 3 to 9 remove aperture setup from all non-generic drivers. These
+drivers are not for firmware graphics and do not have to set the values.
+For DRM, we do not need to allocate the apertures field any longer.
+
+Patches 10 to 17 update all generic fbdev drivers to manage aperture
+ownership by themselves by called Linux aperture helpers. The setup of
+the apertures field and setting FBINFO_MISC_FIRMWARE is being removed as
+a result of that.
+
+With all of its users gone, patch 18 removes FBINFO_MISC_FIRMWARE, struct
+fb_info.apertures and the fbdev core's aperture code.
+
+Tested with handover combinations of efifb, simpledrm and radeon.
+
+Thomas Zimmermann (18):
+  fbcon: Remove trailing whitespaces
+  Revert "fbcon: don't lose the console font across generic->chip driver
+    switch"
+  drm/gma500: Do not set struct fb_info.apertures
+  drm/i915: Do not set struct fb_info.apertures
+  drm/radeon: Do not set struct fb_info.apertures
+  drm/fb-helper: Do not allocate unused apertures structure
+  fbdev/clps711x-fb: Do not set struct fb_info.apertures
+  fbdev/hyperv-fb: Do not set struct fb_info.apertures
+  vfio-mdev/mdpy-fb: Do not set struct fb_info.apertures
+  fbdev/efifb: Add struct efifb_par for driver data
+  fbdev/efifb: Do not use struct fb_info.apertures
+  fbdev/offb: Allocate struct offb_par with framebuffer_alloc()
+  fbdev/offb: Do not use struct fb_info.apertures
+  fbdev/simplefb: Do not use struct fb_info.apertures
+  fbdev/vesafb: Remove trailing whitespaces
+  fbdev/vesafb: Do not use struct fb_info.apertures
+  fbdev/vga16fb: Do not use struct fb_info.apertures
+  drm/fbdev: Remove aperture handling and FBINFO_MISC_FIRMWARE
+
+ drivers/gpu/drm/drm_fb_helper.c            | 20 ++---------
+ drivers/gpu/drm/gma500/framebuffer.c       |  5 ---
+ drivers/gpu/drm/i915/display/intel_fbdev.c |  7 ----
+ drivers/gpu/drm/radeon/radeon_fb.c         |  4 ---
+ drivers/video/fbdev/clps711x-fb.c          | 10 +-----
+ drivers/video/fbdev/core/fbcon.c           | 41 ++++++++++------------
+ drivers/video/fbdev/core/fbmem.c           | 33 -----------------
+ drivers/video/fbdev/core/fbsysfs.c         |  1 -
+ drivers/video/fbdev/efifb.c                | 35 +++++++++++-------
+ drivers/video/fbdev/hyperv_fb.c            | 17 ++++-----
+ drivers/video/fbdev/offb.c                 | 33 +++++++++--------
+ drivers/video/fbdev/simplefb.c             | 19 +++++-----
+ drivers/video/fbdev/vesafb.c               | 37 ++++++++++---------
+ drivers/video/fbdev/vga16fb.c              | 15 +++-----
+ include/linux/fb.h                         | 22 ------------
+ samples/vfio-mdev/mdpy-fb.c                |  8 -----
+ 16 files changed, 99 insertions(+), 208 deletions(-)
+
+
+base-commit: d322881f7e33af24901ee8ccaec3beef82f21203
+prerequisite-patch-id: c2b2f08f0eccc9f5df0c0da49fa1d36267deb11d
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+prerequisite-patch-id: 3f204510fcbf9530d6540bd8e6128cce598988b6
 -- 
 2.39.0
 
