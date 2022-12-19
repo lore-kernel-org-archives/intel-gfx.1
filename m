@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23E22C4167B
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 20:19:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E03CC10F1B
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 20:19:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0483410E4B3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47CA910E4B5;
 	Wed, 21 Dec 2022 20:19:45 +0000 (UTC)
-Received: from m12.mail.163.com (m12.mail.163.com [220.181.12.216])
- by gabe.freedesktop.org (Postfix) with ESMTP id E697810E365;
- Tue, 20 Dec 2022 09:41:00 +0000 (UTC)
+Received: from m12.mail.163.com (m12.mail.163.com [220.181.12.215])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6770010E2A6;
+ Mon, 19 Dec 2022 12:52:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=5U/Q0
- IzBncgGJ65mZDk0e6NuKaOGAn75Xs2OHH9bGHk=; b=SrkBw11w8K6FHxt1r/Cva
- GQWOb75ACnz7P5xM98IkqXOjfmO8KduGo4Pv8Xi7FjygF1zJFdFsOK1cgwI4gtKh
- IJ3JRQ+xud5UYjcCa/m1uk+LeX95NeT/jesrY9D1/ctk2Px2r0+2yJ7uTM6P29q3
- vrWyHZx9Z+ZeDdw9r7kMUo=
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=uxYH6
+ rrU5fdjTZNUSkyInFLMBcyBhkRRS55I787F7LE=; b=c3MxkReacFwFpO3rkb5eb
+ 2mvuGDoCXHLe55cZoIIPb8L90Gsq+IurHKy5SncT4Sjzlua9NpaN7cP34Q7rxQAp
+ eWFbvqJQgZZHxNf0NsF4GYG9JwFPaK/9KRtdG5JUVEvbdhZ7aBD2iRAYhVGzmY47
+ MYAJCI2jbepyCVq69pkrN8=
 Received: from leanderwang-LC2.localdomain (unknown [111.206.145.21])
- by zwqz-smtp-mta-g0-3 (Coremail) with SMTP id _____wB3j3r_gqFjgjtjAA--.34322S2;
- Tue, 20 Dec 2022 17:40:15 +0800 (CST)
+ by zwqz-smtp-mta-g0-4 (Coremail) with SMTP id _____wA3hXZ1XqBjHoJ2AA--.37727S2;
+ Mon, 19 Dec 2022 20:52:05 +0800 (CST)
 From: Zheng Wang <zyytlz.wz@163.com>
 To: zhi.a.wang@intel.com
-Date: Tue, 20 Dec 2022 17:40:14 +0800
-Message-Id: <20221220094014.1128207-1-zyytlz.wz@163.com>
+Date: Mon, 19 Dec 2022 20:52:04 +0800
+Message-Id: <20221219125204.1001149-1-zyytlz.wz@163.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <11728bc1-7b59-1623-b517-d1a0d57eb275@intel.com>
 References: <11728bc1-7b59-1623-b517-d1a0d57eb275@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wB3j3r_gqFjgjtjAA--.34322S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7AFW8WFy7XF4DtF17trWxtFb_yoW5JF43pF
- W8XF4YyF48ZF1Ivw47uF18AFy3Z3W3Xa48WrZ7Ka4Ykrs0qF1qkr90yFW5Xr97uFWDAw4f
- Cr4DJrW3Ca4jvaDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRomh7UUUUU=
+X-CM-TRANSID: _____wA3hXZ1XqBjHoJ2AA--.37727S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXry3Ar17WF1UKryrJr1UWrg_yoW5trWkpF
+ WUWF45AF4xAF1IvryfWF18AFy3Z3W3Xa4xWrZ7K3WYkFsrtF1qyrWayFy3Jr9I9rZrWw4f
+ CF4UJFZrC34jqa7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRYhFsUUUUU=
 X-Originating-IP: [111.206.145.21]
-X-CM-SenderInfo: h2113zf2oz6qqrwthudrp/xtbBzgbdU2I0W3z3ogAAsi
+X-CM-SenderInfo: h2113zf2oz6qqrwthudrp/1tbiXB3cU1Xl5JmTlQAAsF
 X-Mailman-Approved-At: Wed, 21 Dec 2022 20:19:41 +0000
-Subject: [Intel-gfx] [PATCH v5] drm/i915/gvt: fix double free bug in
+Subject: [Intel-gfx] [RESEND PATCH v4] drm/i915/gvt: fix double free bug in
  split_2MB_gtt_entry
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,22 +62,14 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 If intel_gvt_dma_map_guest_page failed, it will call
- ppgtt_invalidate_spt, which will finally free the spt. But the
- caller function ppgtt_populate_spt_by_guest_entry does not notice
- that, it will free spt again in its error path.
+ ppgtt_invalidate_spt, which will finally free the spt. But the caller does
+ not notice that, it will free spt again in error path.
 
 Fix this by undoing the mapping of DMA address and freeing sub_spt.
-Besides, leave the handle of spt destroy to caller function instead of
-callee function when error occurs.
 
 Fixes: b901b252b6cf ("drm/i915/gvt: Add 2M huge gtt support")
 Signed-off-by: Zheng Wang <zyytlz.wz@163.com>
 ---
-v5:
-- remove unnecessary switch-case code for there is only one particular case,
-correct the unmap target from parent_spt to sub_spt.add more details in
-commit message. All suggested by Zhenyu
-
 v4:
 - fix by undo the mapping of DMA address and free sub_spt suggested by Zhi
 
@@ -88,13 +80,28 @@ v2: https://lore.kernel.org/all/20221006165845.1735393-1-zyytlz.wz@163.com/
 
 v1: https://lore.kernel.org/all/20220928033340.1063949-1-zyytlz.wz@163.com/
 ---
- drivers/gpu/drm/i915/gvt/gtt.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gvt/gtt.c | 53 +++++++++++++++++++++++++++++-----
+ 1 file changed, 46 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
-index 51e5e8fb505b..4d478a59eb7d 100644
+index 51e5e8fb505b..b472e021e5a4 100644
 --- a/drivers/gpu/drm/i915/gvt/gtt.c
 +++ b/drivers/gpu/drm/i915/gvt/gtt.c
+@@ -1192,11 +1192,11 @@ static int split_2MB_gtt_entry(struct intel_vgpu *vgpu,
+ {
+ 	const struct intel_gvt_gtt_pte_ops *ops = vgpu->gvt->gtt.pte_ops;
+ 	struct intel_vgpu_ppgtt_spt *sub_spt;
+-	struct intel_gvt_gtt_entry sub_se;
++	struct intel_gvt_gtt_entry sub_se, e;
+ 	unsigned long start_gfn;
+ 	dma_addr_t dma_addr;
+-	unsigned long sub_index;
+-	int ret;
++	unsigned long sub_index, parent_index;
++	int ret, ret1;
+ 
+ 	gvt_dbg_mm("Split 2M gtt entry, index %lu\n", index);
+ 
 @@ -1209,10 +1209,8 @@ static int split_2MB_gtt_entry(struct intel_vgpu *vgpu,
  	for_each_shadow_entry(sub_spt, &sub_se, sub_index) {
  		ret = intel_gvt_dma_map_guest_page(vgpu, start_gfn + sub_index,
@@ -108,17 +115,46 @@ index 51e5e8fb505b..4d478a59eb7d 100644
  		sub_se.val64 = se->val64;
  
  		/* Copy the PAT field from PDE. */
-@@ -1231,6 +1229,18 @@ static int split_2MB_gtt_entry(struct intel_vgpu *vgpu,
+@@ -1231,6 +1229,47 @@ static int split_2MB_gtt_entry(struct intel_vgpu *vgpu,
  	ops->set_pfn(se, sub_spt->shadow_page.mfn);
  	ppgtt_set_shadow_entry(spt, se, index);
  	return 0;
 +err:
 +	/* Undone the existing mappings of DMA addr. */
-+	for_each_present_shadow_entry(sub_spt, &sub_se, sub_index) {
-+		gvt_vdbg_mm("invalidate 4K entry\n");
-+		ppgtt_invalidate_pte(sub_spt, &sub_se);
++	for_each_present_shadow_entry(spt, &e, parent_index) {
++		switch (e.type) {
++		case GTT_TYPE_PPGTT_PTE_4K_ENTRY:
++			gvt_vdbg_mm("invalidate 4K entry\n");
++			ppgtt_invalidate_pte(spt, &e);
++			break;
++		case GTT_TYPE_PPGTT_PTE_64K_ENTRY:
++			/* We don't setup 64K shadow entry so far. */
++			WARN(1, "suspicious 64K gtt entry\n");
++			continue;
++		case GTT_TYPE_PPGTT_PTE_2M_ENTRY:
++			gvt_vdbg_mm("invalidate 2M entry\n");
++			continue;
++		case GTT_TYPE_PPGTT_PTE_1G_ENTRY:
++			WARN(1, "GVT doesn't support 1GB page\n");
++			continue;
++		case GTT_TYPE_PPGTT_PML4_ENTRY:
++		case GTT_TYPE_PPGTT_PDP_ENTRY:
++		case GTT_TYPE_PPGTT_PDE_ENTRY:
++			gvt_vdbg_mm("invalidate PMUL4/PDP/PDE entry\n");
++			ret1 = ppgtt_invalidate_spt_by_shadow_entry(
++					spt->vgpu, &e);
++			if (ret1) {
++				gvt_vgpu_err("fail: shadow page %p shadow entry 0x%llx type %d\n",
++				spt, e.val64, e.type);
++				goto free_spt;
++			}
++			break;
++		default:
++			GEM_BUG_ON(1);
++		}
 +	}
-+	/* Release the new allocated spt. */
++	/* Release the new alloced apt. */
++free_spt:
 +	trace_spt_change(sub_spt->vgpu->id, "release", sub_spt,
 +		sub_spt->guest_page.gfn, sub_spt->shadow_page.type);
 +	ppgtt_free_spt(sub_spt);
