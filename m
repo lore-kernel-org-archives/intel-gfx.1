@@ -4,62 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91A5DC10F1B
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 20:20:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C28AC4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 20:20:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1C4B10E4B8;
-	Wed, 21 Dec 2022 20:20:07 +0000 (UTC)
-Received: from domac.alu.hr (domac.alu.hr [161.53.235.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02F1C10E033
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Dec 2022 07:15:54 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by domac.alu.hr (Postfix) with ESMTP id 87647604F1;
- Wed, 21 Dec 2022 08:15:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=alu.unizg.hr; s=mail;
- t=1671606918; bh=ZtlAaE33ZZV4SRhYl62x38s2P5dFAXk9MtedaQ1GwJQ=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=hWwX6B24XRPEiDD2g8Ml63SL7ENYpyECRW9YB50LlNx+drKGlbOuE7s5md1Th28cv
- +ccKC11cSq5YI7bDaP+9Z1qNvtZ8a57f57OHLvX7H5AUq/VPpOUD+ZgF5B1vCC9Q2E
- 2zZRJCLduZ8KGaovktZl9J5qE4mL3cGIG5Ob5f03vCmiowQpJPqtNRh33Ax10qYUbC
- CgbwQx0bUXtcqT18MKxZnOUaOtY8jwfuzySMAw0oe+siQF6OqB0CSOBTqkcQ5IgGrJ
- j6S8o8oR3BLKFJOjWvIRO2b6iYCld6227Cu6JloummITDyb/3Q9HTH1lJCgbv78ldF
- MPyWM8ubaHVnA==
-X-Virus-Scanned: Debian amavisd-new at domac.alu.hr
-Received: from domac.alu.hr ([127.0.0.1])
- by localhost (domac.alu.hr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id R7N6VywRqYZj; Wed, 21 Dec 2022 08:15:16 +0100 (CET)
-Received: from [10.0.1.53] (grf-nat.grf.hr [161.53.83.23])
- by domac.alu.hr (Postfix) with ESMTPSA id 6EE20604EE;
- Wed, 21 Dec 2022 08:15:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=alu.unizg.hr; s=mail;
- t=1671606915; bh=ZtlAaE33ZZV4SRhYl62x38s2P5dFAXk9MtedaQ1GwJQ=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=ceVnQHDOpjRUL+PgA+ZT+1TNTr0uObNSZc8akBXH/X8eK6a89Sw81T5Dkwdy1twZJ
- b6ycWGWDkW4aezlJBNgWTYhpEyxbJb9J9sM7i1P62T3QGSr3YzdBPRYEnk0Arjhra9
- aweo8EoP82Fzi21UugOgZB0DGj5l85++xEts2XtI9QGYfqHYMFZ4TRW1xU22b95N/Y
- imradjcpUjYplRdJOHzclUYN0KUWpxmuJf9J1HmnwoxC5NaK7LeHdJ8Tqx6uZACwsC
- iCwhpkQor9c7bd4dBvROSCrfxgMMEMvooBQvKiwmt+mhTMw1x7B1nGNHowDVVkyChf
- DltNLxhfxnRoQ==
-Message-ID: <24360ef5-a088-58be-d03e-e72ed63d0e13@alu.unizg.hr>
-Date: Wed, 21 Dec 2022 08:15:09 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ED7C10E4BB;
+	Wed, 21 Dec 2022 20:20:12 +0000 (UTC)
+X-Greylist: delayed 946 seconds by postgrey-1.36 at gabe;
+ Mon, 19 Dec 2022 08:14:05 UTC
+Received: from m12.mail.163.com (m12.mail.163.com [220.181.12.198])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D890710E1F7;
+ Mon, 19 Dec 2022 08:14:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=Hzd8l
+ f6HY4y2Yw9uc+TdTUhpidkvFZA9uoCnx/ZjXJY=; b=UykVbeZaZcR2s+sQubBlD
+ Gsa9w0ba/ivcEYX4AGmLCBHWkNum3qHH7OBFjoLsIYujCvedluxNUWSVNHUlaroz
+ Q0iyNvwrBN79oTsgcnXNWLLTwnqEmcU2h01h768tl/HLe+vuhCvPofLHwxEz6D/T
+ 47DERHVVrrH/n4IXvrHRHA=
+Received: from leanderwang-LC2.localdomain (unknown [111.206.145.21])
+ by zwqz-smtp-mta-g0-2 (Coremail) with SMTP id _____wCXjF1NGaBjOMpSAA--.24784S2;
+ Mon, 19 Dec 2022 15:57:02 +0800 (CST)
+From: Zheng Wang <zyytlz.wz@163.com>
+To: zhi.a.wang@intel.com
+Date: Mon, 19 Dec 2022 15:57:00 +0800
+Message-Id: <20221219075700.220058-1-zyytlz.wz@163.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <da557524-02ff-2ac7-7960-6f710c2d41d6@intel.com>
+References: <da557524-02ff-2ac7-7960-6f710c2d41d6@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-From: Mirsad Goran Todorovac <mirsad.todorovac@alu.unizg.hr>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- srinivas pandruvada <srinivas.pandruvada@linux.intel.com>,
- LKML <linux-kernel@vger.kernel.org>, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, Rodrigo Vivi <rodrigo.vivi@intel.com>
-References: <f849cc70-b21f-6476-ba26-08989d1243c2@alu.unizg.hr>
- <05424a5351a847786377a548dba0759917d8046c.camel@linux.intel.com>
- <15ef1bb9-7312-5d98-8bf0-0af1a37cfd2a@linux.intel.com>
- <619bdecc-cf87-60a4-f50d-836f4c073ea7@alu.unizg.hr>
-Content-Language: en-US
-In-Reply-To: <619bdecc-cf87-60a4-f50d-836f4c073ea7@alu.unizg.hr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wCXjF1NGaBjOMpSAA--.24784S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7GF48GF45Kr43KF4UtFWDurg_yoWfZFc_uF
+ yxCwn7Cw1DJFsxWw43tFnxXr409rn5XrZ2g3yFvrW7GasrZFnrWas3J3sIgrs7t393KrW5
+ Kr4DXrWjvryj9jkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRtMKCJUUUUU==
+X-Originating-IP: [111.206.145.21]
+X-CM-SenderInfo: h2113zf2oz6qqrwthudrp/1tbiQhHcU1aED4R+7wAAsU
 X-Mailman-Approved-At: Wed, 21 Dec 2022 20:19:41 +0000
-Subject: Re: [Intel-gfx] Possible regression in drm/i915 driver: memleak
+Subject: Re: [Intel-gfx] [PATCH v3] drm/i915/gvt: fix double free bug in
+ split_2MB_gtt_entry
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,158 +54,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org,
- Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: alex000young@gmail.com, security@kernel.org,
+ intel-gvt-dev@lists.freedesktop.org, airlied@linux.ie,
+ gregkh@linuxfoundation.org, intel-gfx@lists.freedesktop.org,
+ hackerzheng666@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 1002992920@qq.com, zyytlz.wz@163.com,
+ airlied@gmail.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 20.12.2022. 20:34, Mirsad Todorovac wrote:
-> On 12/20/22 16:52, Tvrtko Ursulin wrote:
->
->> On 20/12/2022 15:22, srinivas pandruvada wrote:
->>> +Added DRM mailing list and maintainers
->>>
->>> On Tue, 2022-12-20 at 15:33 +0100, Mirsad Todorovac wrote:
->>>> Hi all,
->>>>
->>>> I have been unsuccessful to find any particular Intel i915 maintainer
->>>> emails, so my best bet is to post here, as you will must assuredly
->>>> already know them.
->>
->> For future reference you can use 
->> ${kernel_dir}/scripts/get_maintainer.pl -f ...
->>
->>>> The problem is a kernel memory leak that is repeatedly occurring
->>>> triggered during the execution of Chrome browser under the latest
->>>> 6.1.0+
->>>> kernel of this morning and Almalinux 8.6 on a Lenovo desktop box
->>>> with Intel(R) Core(TM) i5-8400 CPU @ 2.80GHz CPU.
->>>>
->>>> The build is with KMEMLEAK, KASAN and MGLRU turned on during the
->>>> build,
->>>> on a vanilla mainline kernel from Mr. Torvalds' tree.
->>>>
->>>> The leaks look like this one:
->>>>
->>>> unreferenced object 0xffff888131754880 (size 64):
->>>>     comm "chrome", pid 13058, jiffies 4298568878 (age 3708.084s)
->>>>     hex dump (first 32 bytes):
->>>>       01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->>>> ................
->>>>       00 00 00 00 00 00 00 00 00 80 1e 3e 83 88 ff ff
->>>> ...........>....
->>>>     backtrace:
->>>>       [<ffffffff9e9b5542>] slab_post_alloc_hook+0xb2/0x340
->>>>       [<ffffffff9e9bbf5f>] __kmem_cache_alloc_node+0x1bf/0x2c0
->>>>       [<ffffffff9e8f767a>] kmalloc_trace+0x2a/0xb0
->>>>       [<ffffffffc08dfde5>] drm_vma_node_allow+0x45/0x150 [drm]
->>>>       [<ffffffffc0b33315>] __assign_mmap_offset_handle+0x615/0x820
->>>> [i915]
->>>>       [<ffffffffc0b34057>] i915_gem_mmap_offset_ioctl+0x77/0x110
->>>> [i915]
->>>>       [<ffffffffc08bc5e1>] drm_ioctl_kernel+0x181/0x280 [drm]
->>>>       [<ffffffffc08bc9cd>] drm_ioctl+0x2dd/0x6a0 [drm]
->>>>       [<ffffffff9ea54744>] __x64_sys_ioctl+0xc4/0x100
->>>>       [<ffffffff9fbc0178>] do_syscall_64+0x58/0x80
->>>>       [<ffffffff9fc000aa>] entry_SYSCALL_64_after_hwframe+0x72/0xdc
->>>>
->>>> The complete list of leaks in attachment, but they seem similar or
->>>> the same.
->>>>
->>>> Please find attached lshw and kernel build config file.
->>>>
->>>> I will probably check the same parms on my laptop at home, which is
->>>> also
->>>> Lenovo, but a different hw config and Ubuntu 22.10.
->>
->> Could you try the below patch?
->>
->> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c 
->> b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
->> index c3ea243d414d..0b07534c203a 100644
->> --- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
->> +++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
->> @@ -679,9 +679,10 @@ mmap_offset_attach(struct drm_i915_gem_object *obj,
->>   insert:
->>          mmo = insert_mmo(obj, mmo);
->>          GEM_BUG_ON(lookup_mmo(obj, mmap_type) != mmo);
->> -out:
->> +
->>          if (file)
->>                  drm_vma_node_allow(&mmo->vma_node, file);
->> +out:
->>          return mmo;
->>
->>   err:
->>
->> Maybe it is not the best fix but curious to know if it will make the 
->> leak go away.
->
-> Hi,
->
-> After 27 minutes uptime with the patched kernel it looks promising.
-> It is much longer than it took for the buggy kernel to leak slabs.
->
-> Here is the output:
->
-> [root@pc-mtodorov marvin]# echo scan > /sys/kernel/debug/kmemleak
-> [root@pc-mtodorov marvin]# cat !$
-> cat /sys/kernel/debug/kmemleak
-> unreferenced object 0xffff888105028d80 (size 16):
->   comm "kworker/u12:5", pid 359, jiffies 4294902898 (age 1620.144s)
->   hex dump (first 16 bytes):
->     6d 65 6d 73 74 69 63 6b 30 00 00 00 00 00 00 00 memstick0.......
->   backtrace:
->     [<ffffffffb6bb5542>] slab_post_alloc_hook+0xb2/0x340
->     [<ffffffffb6bbbf5f>] __kmem_cache_alloc_node+0x1bf/0x2c0
->     [<ffffffffb6af8175>] __kmalloc_node_track_caller+0x55/0x160
->     [<ffffffffb6ae34a6>] kstrdup+0x36/0x60
->     [<ffffffffb6ae3508>] kstrdup_const+0x28/0x30
->     [<ffffffffb70d0757>] kvasprintf_const+0x97/0xd0
->     [<ffffffffb7c9cdf4>] kobject_set_name_vargs+0x34/0xc0
->     [<ffffffffb750289b>] dev_set_name+0x9b/0xd0
->     [<ffffffffc12d9201>] memstick_check+0x181/0x639 [memstick]
->     [<ffffffffb676e1d6>] process_one_work+0x4e6/0x7e0
->     [<ffffffffb676e556>] worker_thread+0x76/0x770
->     [<ffffffffb677b468>] kthread+0x168/0x1a0
->     [<ffffffffb6604c99>] ret_from_fork+0x29/0x50
-> [root@pc-mtodorov marvin]# w
->  20:27:35 up 27 min,  2 users,  load average: 0.83, 1.15, 1.19
-> USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
-> marvin   tty2     tty2             20:01   27:10  10:12   2.09s 
-> /opt/google/chrome/chrome --type=utility --utility-sub-type=audio.m
-> marvin   pts/1    -                20:01    0.00s  2:00   0.38s sudo bash
-> [root@pc-mtodorov marvin]# uname -rms
-> Linux 6.1.0-b6bb9676f216-mglru-kmemlk-kasan+ x86_64
-> [root@pc-mtodorov marvin]#
->
-> 2. On the Ubuntu 22.10 with Debian build I did not reproduce the error 
-> thus far.
->
-> This looks to me like fixed, but if it doesn't leak anything until 
-> Thursday morning when I will see this desktop box next time, then 
-> we'll know with more certainty. 
+Hi Zhi,
 
-After an inspection in the morning local time and 12:10h uptime, it 
-appears that the problem is fixed. No chrome-triggered 
-i915_gem_mmap_offset_ioctl leaks.
+Thanks again for your reply and clear explaination about the function.
+I still have some doubt about the fix. Here is a invoke chain :
+ppgtt_populate_spt
+  ->ppgtt_populate_shadow_entry
+    ->split_2MB_gtt_entry
+As far as I'm concerned, when something error happens in DMA mapping,
+which will make intel_gvt_dma_map_guest_page return none-zero code,
+It will invoke ppgtt_invalidate_spt and call ppgtt_free_spt,which will
+finally free spt by kfree. But the caller doesn't notice that and frees
+spt by calling ppgtt_free_spt again. This is a typical UAF/Double Free
+vulnerability. So I think the key point is about how to handle spt properly.
+The handle newly allocated spt (aka sub_spt) is not the root cause of this
+issue. Could you please give me more advice about how to fix this security
+bug? Besides, I'm not sure if there are more similar problems in othe location.
 
-By this uptime, there were about 30 instances of leaks in the unpatched 
-kernel.
-
-Congratulations!
-
-Kind regards,
-Mirsad
+Best regards,
+Zheng Wang
 
 -- 
-Mirsad Todorovac
-System engineer
-Faculty of Graphic Arts | Academy of Fine Arts
-University of Zagreb
-Republic of Croatia, the European Union
---
-Sistem inženjer
-Grafički fakultet | Akademija likovnih umjetnosti
-Sveučilište u Zagrebu
+2.25.1
 
