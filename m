@@ -4,31 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66E16C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 15:51:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26E18C3DA7A
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Dec 2022 16:05:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3258410E002;
-	Mon, 19 Dec 2022 15:51:12 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0764F10E002;
- Mon, 19 Dec 2022 15:51:09 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id F2DC9AA914;
- Mon, 19 Dec 2022 15:51:08 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC3BC10E2B5;
+	Mon, 19 Dec 2022 16:05:24 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20ACE10E2AF;
+ Mon, 19 Dec 2022 16:05:21 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7F84F38145;
+ Mon, 19 Dec 2022 16:05:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1671465919; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=fUg69Q6qEszR/WHAWAwnkSfcltjIyOVm1DIp4dya8uM=;
+ b=2NgbyN6O+VYVJ9thzpCsCEsN9zlWzf/ypUilGv03NfFWXKz+WRkP/GFeL9JXyLcUcJ85F9
+ MXjuAupX9a44GRRVja5B7dkPStf+Aq1ZNLoGq3q5ImeZI4FPJIXjitvUsN0YVBjf9Z1NI2
+ RgIR4imKcr2rZ+/rX3NLJISzxvCaCug=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1671465919;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=fUg69Q6qEszR/WHAWAwnkSfcltjIyOVm1DIp4dya8uM=;
+ b=I6xUkz4ToabEbnD4TGTMJ5I4iz49ya5BZg2GGspLCu77K9rPJL8erbwLZJZn/2/m4ivwGY
+ TVAFwwfP0OSenYCg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 489E513910;
+ Mon, 19 Dec 2022 16:05:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id kCHPEL+LoGPeZwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 19 Dec 2022 16:05:19 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: daniel@ffwll.ch,
+	airlied@gmail.com,
+	deller@gmx.de,
+	javierm@redhat.com
+Date: Mon, 19 Dec 2022 17:05:02 +0100
+Message-Id: <20221219160516.23436-5-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20221219160516.23436-1-tzimmermann@suse.de>
+References: <20221219160516.23436-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jani Nikula" <jani.nikula@intel.com>
-Date: Mon, 19 Dec 2022 15:51:08 -0000
-Message-ID: <167146506895.5871.9085187293372260701@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20221219105955.4014451-1-jani.nikula@intel.com>
-In-Reply-To: <20221219105955.4014451-1-jani.nikula@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/dsi=3A_add_support_for_ICL+_native_MIPI_GPIO_seque?=
- =?utf-8?q?nce_=28rev5=29?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 04/18] drm/i915: Do not set struct
+ fb_info.apertures
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,25 +71,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: linux-fbdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-hyperv@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Generic fbdev drivers use the apertures field in struct fb_info to
+control ownership of the framebuffer memory and graphics device. Do
+not set the values in i915.
 
-Series: drm/i915/dsi: add support for ICL+ native MIPI GPIO sequence (rev5)
-URL   : https://patchwork.freedesktop.org/series/111850/
-State : warning
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/i915/display/intel_fbdev.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-== Summary ==
-
-Error: dim checkpatch failed
-60bdaba1b923 drm/i915/dsi: add support for ICL+ native MIPI GPIO sequence
--:21: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
-#21: 
-- References instead of Closes issue 6131 because this does not fix everything
-
-total: 0 errors, 1 warnings, 0 checks, 141 lines checked
-
+diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+index 03ed4607a46d..bbdb98d7c96e 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbdev.c
++++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+@@ -267,23 +267,16 @@ static int intelfb_create(struct drm_fb_helper *helper,
+ 
+ 	info->fbops = &intelfb_ops;
+ 
+-	/* setup aperture base/size for vesafb takeover */
+ 	obj = intel_fb_obj(&intel_fb->base);
+ 	if (i915_gem_object_is_lmem(obj)) {
+ 		struct intel_memory_region *mem = obj->mm.region;
+ 
+-		info->apertures->ranges[0].base = mem->io_start;
+-		info->apertures->ranges[0].size = mem->io_size;
+-
+ 		/* Use fbdev's framebuffer from lmem for discrete */
+ 		info->fix.smem_start =
+ 			(unsigned long)(mem->io_start +
+ 					i915_gem_object_get_dma_address(obj, 0));
+ 		info->fix.smem_len = obj->base.size;
+ 	} else {
+-		info->apertures->ranges[0].base = ggtt->gmadr.start;
+-		info->apertures->ranges[0].size = ggtt->mappable_end;
+-
+ 		/* Our framebuffer is the entirety of fbdev's system memory */
+ 		info->fix.smem_start =
+ 			(unsigned long)(ggtt->gmadr.start + i915_ggtt_offset(vma));
+-- 
+2.39.0
 
