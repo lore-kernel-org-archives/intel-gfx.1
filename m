@@ -4,33 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31B32C4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 08:32:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 314F9C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 08:32:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1B4010E09C;
-	Tue, 20 Dec 2022 08:31:58 +0000 (UTC)
-X-Greylist: delayed 2055 seconds by postgrey-1.36 at gabe;
- Tue, 20 Dec 2022 08:31:53 UTC
-Received: from farmhouse.coelho.fi (paleale.coelho.fi [176.9.41.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5D7E10E09C
- for <intel-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 08:31:53 +0000 (UTC)
-Received: from 91-156-4-168.elisa-laajakaista.fi ([91.156.4.168]
- helo=[192.168.100.137])
- by farmhouse.coelho.fi with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
- (envelope-from <luca@coelho.fi>) id 1p7XVF-005ItP-1c
- for intel-gfx@lists.freedesktop.org; Tue, 20 Dec 2022 09:57:34 +0200
-Message-ID: <42c2034c1ca4135e4c586905360f7a28ea4a0059.camel@coelho.fi>
-From: Luca Coelho <luca@coelho.fi>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 20 Dec 2022 09:57:32 +0200
-In-Reply-To: <20221208143853.442803-1-luciano.coelho@intel.com>
-References: <20221208143853.442803-1-luciano.coelho@intel.com>
-Content-Type: multipart/alternative; boundary="=-SnkVzAEvs07BwTyCCgwe"
-User-Agent: Evolution 3.46.2-1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id D22CC10E339;
+	Tue, 20 Dec 2022 08:32:20 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C485C10E09D;
+ Tue, 20 Dec 2022 08:32:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1671525131; x=1703061131;
+ h=date:from:to:cc:subject:message-id:reply-to:references:
+ mime-version:in-reply-to;
+ bh=C/hTgZEZo75zb+BTntVx1WXDyCh8QkxVDLKYtiG9wWc=;
+ b=XzCCj1cdQxYn9sfVK7WwvHnRWwimlxtdsSvGxItQ+7jH4g5UhAj0yYWk
+ j7OFG2vSIalIlkwRJXp6IL1IW+EQN+gsJ4Lw/ZwC5EzSsEpzsax+h49qk
+ i322D/urwq655wbJS5+KEDhY5McRlQ0YddIs27fzH/Lqcy7/2ot5HRIjR
+ GF6In/1O86HWJ37BMKiI/KWySczgJuTJJ6AyajIrjFtLefnl2ZVcyoZZ2
+ CjV+oqKg3oa1Vmc9LBr8fyQOpO7qYfbKQGIR8u/Jv1hXecY30nnmgpYWd
+ e3MHX6KOmSHAqXWE6DN4CT+jCdT8xqUKYq6DUoOHCQTGx9+TjjXb/cCWg g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10566"; a="299902619"
+X-IronPort-AV: E=Sophos;i="5.96,258,1665471600"; 
+ d="asc'?scan'208";a="299902619"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Dec 2022 00:31:52 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10566"; a="650908730"
+X-IronPort-AV: E=Sophos;i="5.96,258,1665471600"; 
+ d="asc'?scan'208";a="650908730"
+Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.159.108])
+ by orsmga002.jf.intel.com with ESMTP; 20 Dec 2022 00:31:48 -0800
+Date: Tue, 20 Dec 2022 16:29:50 +0800
+From: Zhenyu Wang <zhenyuw@linux.intel.com>
+To: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.com>
+Message-ID: <20221220082950.GF30028@zhen-hp.sh.intel.com>
+References: <Y6Eu2604cqtryP4g@mail.google.com>
 MIME-Version: 1.0
-Subject: [Intel-gfx] [PATCH v4 2/2] drm/i915/mtl: Limit scaler input to 4k
- in plane scaling [RESEND]
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature"; boundary="WVf18ZLo9bznw8Mz"
+Content-Disposition: inline
+In-Reply-To: <Y6Eu2604cqtryP4g@mail.google.com>
+Subject: Re: [Intel-gfx] [PATCH] [next] i915/gvt: Replace one-element array
+ with flexible-array member
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,146 +60,121 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
+Cc: intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, linux-hardening@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---=-SnkVzAEvs07BwTyCCgwe
-Content-Type: text/plain; charset="UTF-8"
+
+--WVf18ZLo9bznw8Mz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-From: Animesh Manna <animesh.manna@intel.com>
-
-As part of die area reduction max input source modified to 4096
-for MTL so modified range check logic of scaler.
-
-Signed-off-by: Jos=C3=A9 Roberto de Souza <jose.souza@intel.com>
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
-Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
----
- drivers/gpu/drm/i915/display/skl_scaler.c | 31 +++++++++++++++++------
- 1 file changed, 23 insertions(+), 8 deletions(-)
-
-In v2:
-   * No changes;
-
-In v3:
-   * Removed stray reviewed-by tag;
-   * Added my s-o-b.
-
-In v4:
-   * No changes.
-
-For some reason this patch didn't reach the list before.  Resending.
-
-diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i9=
-15/display/skl_scaler.c
-index d7390067b7d4..6baa07142b03 100644
---- a/drivers/gpu/drm/i915/display/skl_scaler.c
-+++ b/drivers/gpu/drm/i915/display/skl_scaler.c
-@@ -103,6 +103,8 @@ skl_update_scaler(struct intel_crtc_state *crtc_state, =
-bool force_detach,
- 	struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
- 	const struct drm_display_mode *adjusted_mode =3D
- 		&crtc_state->hw.adjusted_mode;
-+	int min_src_w, min_src_h, min_dst_w, min_dst_h;
-+	int max_src_w, max_src_h, max_dst_w, max_dst_h;
+On 2022.12.20 16:41:15 +1300, Paulo Miguel Almeida wrote:
+> One-element arrays are deprecated, and we are replacing them with
+> flexible array members instead. So, replace one-element array with
+> flexible-array member in struct gvt_firmware_header and refactor the
+> rest of the code accordingly.
+>=20
+> Additionally, previous implementation was allocating 8 bytes more than
+> required to represent firmware_header + cfg_space data + mmio data.
+>=20
+> This helps with the ongoing efforts to tighten the FORTIFY_SOURCE
+> routines on memcpy() and help us make progress towards globally
+> enabling -fstrict-flex-arrays=3D3 [1].
+>=20
+> Link: https://github.com/KSPP/linux/issues/79
+> Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D101836 [1]
+> Signed-off-by: Paulo Miguel Almeida <paulo.miguel.almeida.rodenas@gmail.c=
+om>
+> ---
+> To make reviewing this patch easier, I'm pasting before/after struct
+> sizes.
+>=20
+> pahole -C gvt_firmware_header before/drivers/gpu/drm/i915/gvt/firmware.o=
 =20
- 	/*
- 	 * Src coordinates are already rotated by 270 degrees for
-@@ -157,15 +159,28 @@ skl_update_scaler(struct intel_crtc_state *crtc_state=
-, bool force_detach,
- 		return -EINVAL;
- 	}
+> struct gvt_firmware_header {
+> 	u64                        magic;                /*     0     8 */
+> 	u32                        crc32;                /*     8     4 */
+> 	u32                        version;              /*    12     4 */
+> 	u64                        cfg_space_size;       /*    16     8 */
+> 	u64                        cfg_space_offset;     /*    24     8 */
+> 	u64                        mmio_size;            /*    32     8 */
+> 	u64                        mmio_offset;          /*    40     8 */
+> 	unsigned char              data[1];              /*    48     1 */
+>=20
+> 	/* size: 56, cachelines: 1, members: 8 */
+> 	/* padding: 7 */
+> 	/* last cacheline: 56 bytes */
+> };
+>=20
+> pahole -C gvt_firmware_header after/drivers/gpu/drm/i915/gvt/firmware.o=
 =20
-+	min_src_w =3D SKL_MIN_SRC_W;
-+	min_src_h =3D SKL_MIN_SRC_H;
-+	min_dst_w =3D SKL_MIN_DST_W;
-+	min_dst_h =3D SKL_MIN_DST_H;
-+
-+	if (DISPLAY_VER(dev_priv) >=3D 11 && DISPLAY_VER(dev_priv) < 14) {
-+		max_src_w =3D ICL_MAX_SRC_W;
-+		max_src_h =3D ICL_MAX_SRC_H;
-+		max_dst_w =3D ICL_MAX_DST_W;
-+		max_dst_h =3D ICL_MAX_DST_H;
-+	} else {
-+		max_src_w =3D SKL_MAX_SRC_W;
-+		max_src_h =3D SKL_MAX_SRC_H;
-+		max_dst_w =3D SKL_MAX_DST_W;
-+		max_dst_h =3D SKL_MAX_DST_H;
-+	}
-+
- 	/* range checks */
--	if (src_w < SKL_MIN_SRC_W || src_h < SKL_MIN_SRC_H ||
--	    dst_w < SKL_MIN_DST_W || dst_h < SKL_MIN_DST_H ||
--	    (DISPLAY_VER(dev_priv) >=3D 11 &&
--	     (src_w > ICL_MAX_SRC_W || src_h > ICL_MAX_SRC_H ||
--	      dst_w > ICL_MAX_DST_W || dst_h > ICL_MAX_DST_H)) ||
--	    (DISPLAY_VER(dev_priv) < 11 &&
--	     (src_w > SKL_MAX_SRC_W || src_h > SKL_MAX_SRC_H ||
--	      dst_w > SKL_MAX_DST_W || dst_h > SKL_MAX_DST_H)))	{
-+	if (src_w < min_src_w || src_h < min_src_h ||
-+	    dst_w < min_dst_w || dst_h < min_dst_h ||
-+	    src_w > max_src_w || src_h > max_src_h ||
-+	    dst_w > max_dst_w || dst_h > max_dst_h) {
- 		drm_dbg_kms(&dev_priv->drm,
- 			    "scaler_user index %u.%u: src %ux%u dst %ux%u "
- 			    "size is out of scaler range\n",
+> struct gvt_firmware_header {
+> 	u64                        magic;                /*     0     8 */
+> 	u32                        crc32;                /*     8     4 */
+> 	u32                        version;              /*    12     4 */
+> 	u64                        cfg_space_size;       /*    16     8 */
+> 	u64                        cfg_space_offset;     /*    24     8 */
+> 	u64                        mmio_size;            /*    32     8 */
+> 	u64                        mmio_offset;          /*    40     8 */
+> 	unsigned char              data[];               /*    48     0 */
+>=20
+> 	/* size: 48, cachelines: 1, members: 8 */
+> 	/* last cacheline: 48 bytes */
+> };
+>=20
+> As you can see the additional byte of the fake-flexible array (data[1])
+> forced the compiler to pad the struct but those bytes aren't actually used
+> as first & last bytes (of both cfg_space and mmio) are controlled by the
+> <>_size and <>_offset members present in the gvt_firmware_header struct.
+> ---
+>  drivers/gpu/drm/i915/gvt/firmware.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/gvt/firmware.c b/drivers/gpu/drm/i915/g=
+vt/firmware.c
+> index a683c22d5b64..dce93738e98a 100644
+> --- a/drivers/gpu/drm/i915/gvt/firmware.c
+> +++ b/drivers/gpu/drm/i915/gvt/firmware.c
+> @@ -45,7 +45,7 @@ struct gvt_firmware_header {
+>  	u64 cfg_space_offset;	/* offset in the file */
+>  	u64 mmio_size;
+>  	u64 mmio_offset;	/* offset in the file */
+> -	unsigned char data[1];
+> +	unsigned char data[];
+>  };
+> =20
+>  #define dev_to_drm_minor(d) dev_get_drvdata((d))
+> @@ -77,7 +77,7 @@ static int expose_firmware_sysfs(struct intel_gvt *gvt)
+>  	unsigned long size, crc32_start;
+>  	int ret;
+> =20
+> -	size =3D sizeof(*h) + info->mmio_size + info->cfg_space_size;
+> +	size =3D offsetof(struct gvt_firmware_header, data) + info->mmio_size +=
+ info->cfg_space_size;
+>  	firmware =3D vzalloc(size);
+>  	if (!firmware)
+>  		return -ENOMEM;
+> --=20
 
+Looks good to me.
+Reviewed-by: Zhenyu Wang <zhenyuw@linux.intel.com>
 
---=-SnkVzAEvs07BwTyCCgwe
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Thanks!
 
-<html><head></head><body><pre>From: Animesh Manna &lt;<a href=3D"mailto:ani=
-mesh.manna@intel.com">animesh.manna@intel.com</a>&gt;</pre><pre><br></pre><=
-pre>As part of die area reduction max input source modified to 4096</pre><p=
-re>for MTL so modified range check logic of scaler.</pre><pre><br></pre><pr=
-e>Signed-off-by: Jos=C3=A9 Roberto de Souza &lt;<a href=3D"mailto:jose.souz=
-a@intel.com">jose.souza@intel.com</a>&gt;</pre><pre>Signed-off-by: Animesh =
-Manna &lt;<a href=3D"mailto:animesh.manna@intel.com">animesh.manna@intel.co=
-m</a>&gt;</pre><pre>Signed-off-by: Luca Coelho &lt;<a href=3D"mailto:lucian=
-o.coelho@intel.com">luciano.coelho@intel.com</a>&gt;</pre><pre>---</pre><pr=
-e> drivers/gpu/drm/i915/display/skl_scaler.c | 31 +++++++++++++++++------</=
-pre><pre> 1 file changed, 23 insertions(+), 8 deletions(-)</pre><pre><br></=
-pre><pre>In v2:</pre><pre>   * No changes;</pre><pre><br></pre><pre>In v3:<=
-/pre><pre>   * Removed stray reviewed-by tag;</pre><pre>   * Added my s-o-b=
-.</pre><pre><br></pre><pre>In v4:</pre><pre>   * No changes.</pre><pre><br>=
-</pre><pre>For some reason this patch didn't reach the list before.  Resend=
-ing.</pre><pre><br></pre><pre>diff --git a/drivers/gpu/drm/i915/display/skl=
-_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c</pre><pre>index d7390=
-067b7d4..6baa07142b03 100644</pre><pre>--- a/drivers/gpu/drm/i915/display/s=
-kl_scaler.c</pre><pre>+++ b/drivers/gpu/drm/i915/display/skl_scaler.c</pre>=
-<pre>@@ -103,6 +103,8 @@ skl_update_scaler(struct intel_crtc_state *crtc_st=
-ate, bool force_detach,</pre><pre> 	struct drm_i915_private *dev_priv =3D t=
-o_i915(crtc-&gt;base.dev);</pre><pre> 	const struct drm_display_mode *adjus=
-ted_mode =3D</pre><pre> 		&amp;crtc_state-&gt;hw.adjusted_mode;</pre><pre>+=
-	int min_src_w, min_src_h, min_dst_w, min_dst_h;</pre><pre>+	int max_src_w,=
- max_src_h, max_dst_w, max_dst_h;</pre><pre> </pre><pre> 	/*</pre><pre> 	 *=
- Src coordinates are already rotated by 270 degrees for</pre><pre>@@ -157,1=
-5 +159,28 @@ skl_update_scaler(struct intel_crtc_state *crtc_state, bool fo=
-rce_detach,</pre><pre> 		return -EINVAL;</pre><pre> 	}</pre><pre> </pre><pr=
-e>+	min_src_w =3D SKL_MIN_SRC_W;</pre><pre>+	min_src_h =3D SKL_MIN_SRC_H;</=
-pre><pre>+	min_dst_w =3D SKL_MIN_DST_W;</pre><pre>+	min_dst_h =3D SKL_MIN_D=
-ST_H;</pre><pre>+</pre><pre>+	if (DISPLAY_VER(dev_priv) &gt;=3D 11 &amp;&am=
-p; DISPLAY_VER(dev_priv) &lt; 14) {</pre><pre>+		max_src_w =3D ICL_MAX_SRC_=
-W;</pre><pre>+		max_src_h =3D ICL_MAX_SRC_H;</pre><pre>+		max_dst_w =3D ICL=
-_MAX_DST_W;</pre><pre>+		max_dst_h =3D ICL_MAX_DST_H;</pre><pre>+	} else {<=
-/pre><pre>+		max_src_w =3D SKL_MAX_SRC_W;</pre><pre>+		max_src_h =3D SKL_MA=
-X_SRC_H;</pre><pre>+		max_dst_w =3D SKL_MAX_DST_W;</pre><pre>+		max_dst_h =
-=3D SKL_MAX_DST_H;</pre><pre>+	}</pre><pre>+</pre><pre> 	/* range checks */=
-</pre><pre>-	if (src_w &lt; SKL_MIN_SRC_W || src_h &lt; SKL_MIN_SRC_H ||</p=
-re><pre>-	    dst_w &lt; SKL_MIN_DST_W || dst_h &lt; SKL_MIN_DST_H ||</pre>=
-<pre>-	    (DISPLAY_VER(dev_priv) &gt;=3D 11 &amp;&amp;</pre><pre>-	     (s=
-rc_w &gt; ICL_MAX_SRC_W || src_h &gt; ICL_MAX_SRC_H ||</pre><pre>-	      ds=
-t_w &gt; ICL_MAX_DST_W || dst_h &gt; ICL_MAX_DST_H)) ||</pre><pre>-	    (DI=
-SPLAY_VER(dev_priv) &lt; 11 &amp;&amp;</pre><pre>-	     (src_w &gt; SKL_MAX=
-_SRC_W || src_h &gt; SKL_MAX_SRC_H ||</pre><pre>-	      dst_w &gt; SKL_MAX_=
-DST_W || dst_h &gt; SKL_MAX_DST_H)))	{</pre><pre>+	if (src_w &lt; min_src_w=
- || src_h &lt; min_src_h ||</pre><pre>+	    dst_w &lt; min_dst_w || dst_h &=
-lt; min_dst_h ||</pre><pre>+	    src_w &gt; max_src_w || src_h &gt; max_src=
-_h ||</pre><pre>+	    dst_w &gt; max_dst_w || dst_h &gt; max_dst_h) {</pre>=
-<pre> 		drm_dbg_kms(&amp;dev_priv-&gt;drm,</pre><pre> 			    "scaler_user i=
-ndex %u.%u: src %ux%u dst %ux%u "</pre><pre> 			    "size is out of scaler =
-range\n",</pre><div><br></div><div><span></span></div></body></html>
+--WVf18ZLo9bznw8Mz
+Content-Type: application/pgp-signature; name="signature.asc"
 
---=-SnkVzAEvs07BwTyCCgwe--
+-----BEGIN PGP SIGNATURE-----
+
+iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCY6FyfgAKCRCxBBozTXgY
+J4H/AJ0TiZ3MGB5514oDdiz4Nwdq5iOREwCfdiEwH2G89X6y35mKtGCBryNZ02g=
+=O2Zy
+-----END PGP SIGNATURE-----
+
+--WVf18ZLo9bznw8Mz--
