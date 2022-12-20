@@ -4,42 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E03CC10F1B
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 20:19:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D35CDC4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 20:19:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47CA910E4B5;
-	Wed, 21 Dec 2022 20:19:45 +0000 (UTC)
-Received: from m12.mail.163.com (m12.mail.163.com [220.181.12.215])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6770010E2A6;
- Mon, 19 Dec 2022 12:52:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=uxYH6
- rrU5fdjTZNUSkyInFLMBcyBhkRRS55I787F7LE=; b=c3MxkReacFwFpO3rkb5eb
- 2mvuGDoCXHLe55cZoIIPb8L90Gsq+IurHKy5SncT4Sjzlua9NpaN7cP34Q7rxQAp
- eWFbvqJQgZZHxNf0NsF4GYG9JwFPaK/9KRtdG5JUVEvbdhZ7aBD2iRAYhVGzmY47
- MYAJCI2jbepyCVq69pkrN8=
-Received: from leanderwang-LC2.localdomain (unknown [111.206.145.21])
- by zwqz-smtp-mta-g0-4 (Coremail) with SMTP id _____wA3hXZ1XqBjHoJ2AA--.37727S2;
- Mon, 19 Dec 2022 20:52:05 +0800 (CST)
-From: Zheng Wang <zyytlz.wz@163.com>
-To: zhi.a.wang@intel.com
-Date: Mon, 19 Dec 2022 20:52:04 +0800
-Message-Id: <20221219125204.1001149-1-zyytlz.wz@163.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <11728bc1-7b59-1623-b517-d1a0d57eb275@intel.com>
-References: <11728bc1-7b59-1623-b517-d1a0d57eb275@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0263810E4B6;
+	Wed, 21 Dec 2022 20:19:46 +0000 (UTC)
+X-Greylist: delayed 640 seconds by postgrey-1.36 at gabe;
+ Tue, 20 Dec 2022 17:31:32 UTC
+Received: from domac.alu.hr (domac.alu.hr [161.53.235.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBC3B10E0F5
+ for <intel-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 17:31:32 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by domac.alu.hr (Postfix) with ESMTP id BA51E604F2;
+ Tue, 20 Dec 2022 18:20:43 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=alu.unizg.hr; s=mail;
+ t=1671556843; bh=/ns6x+N3oOC613yOKCn/zP2jb3uGEQHs5rJnDN/GpeU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=BlxfrTK8SvJRIto9oWq1lrwpAIS39Z8rXCR1StIfWqbTeDIfG3ebsTZ5VTE+0onV3
+ 1vGhJmxCM0Rm/ug2uax9MjBMWt/gTkScYSdHliGxIT9srmazf+AIim44KtWhPlxcFz
+ VIAvfKCiiZvID8n6Pwko3t8kEM5YWgkHeMplFWoPuXkxjyINEiqSmqOMl2jk21k79N
+ qVFTqaBivHtv25fLm/jWkgdJZqAS21rm3Y2TlASBlo1OIYowtE5gFCDdpTIHnUBeew
+ gLkw4O574h5vwkR24+PwDscf6Nlvo8GiFnhWicXE8DVEt67FxwtlfmZW1lTW7ZKywq
+ h/QcoOxHrejpw==
+X-Virus-Scanned: Debian amavisd-new at domac.alu.hr
+Received: from domac.alu.hr ([127.0.0.1])
+ by localhost (domac.alu.hr [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 82zR5omftyEb; Tue, 20 Dec 2022 18:20:41 +0100 (CET)
+Received: from [192.168.0.12] (unknown [188.252.196.120])
+ by domac.alu.hr (Postfix) with ESMTPSA id 3CFB4604F1;
+ Tue, 20 Dec 2022 18:20:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=alu.unizg.hr; s=mail;
+ t=1671556841; bh=/ns6x+N3oOC613yOKCn/zP2jb3uGEQHs5rJnDN/GpeU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=E15GbcHNLLR4EHBmLqGtgv3MWrtGBrpgkVRcXr/eiutcZ26grxBZ9FdGgYci9qcoE
+ F6vvFO/wkiZx95uTWsLwYggOOy+9xldcquaJfgwF/zyYwv8iNIGkgmv2q1cUDmHy3Q
+ y7QHe5MC+6JeT3BbbpoyfXEoIfhunNxMq6OWXHHUyxhtnKPRUwp87SjYa+O1CjPxEA
+ KOuOtuoUt/fHZkU4/Bfl71FX0efHb0NG4LodkOY4/TAv+WvRBEJguqwWAgBDchDBmA
+ bzCQKVVtIXvqHXBbKGC3lZtoF3rYlCSiTmYydms1SiP0dg6l+2JkCJHpfHtssIlqgl
+ Ghje2KqnenHqQ==
+Message-ID: <fb590417-2c27-1f46-2dc8-e90931d9c600@alu.unizg.hr>
+Date: Tue, 20 Dec 2022 18:20:39 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Content-Language: en-US
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ srinivas pandruvada <srinivas.pandruvada@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, Rodrigo Vivi <rodrigo.vivi@intel.com>
+References: <f849cc70-b21f-6476-ba26-08989d1243c2@alu.unizg.hr>
+ <05424a5351a847786377a548dba0759917d8046c.camel@linux.intel.com>
+ <15ef1bb9-7312-5d98-8bf0-0af1a37cfd2a@linux.intel.com>
+From: Mirsad Goran Todorovac <mirsad.todorovac@alu.unizg.hr>
+In-Reply-To: <15ef1bb9-7312-5d98-8bf0-0af1a37cfd2a@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wA3hXZ1XqBjHoJ2AA--.37727S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXry3Ar17WF1UKryrJr1UWrg_yoW5trWkpF
- WUWF45AF4xAF1IvryfWF18AFy3Z3W3Xa4xWrZ7K3WYkFsrtF1qyrWayFy3Jr9I9rZrWw4f
- CF4UJFZrC34jqa7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRYhFsUUUUU=
-X-Originating-IP: [111.206.145.21]
-X-CM-SenderInfo: h2113zf2oz6qqrwthudrp/1tbiXB3cU1Xl5JmTlQAAsF
 X-Mailman-Approved-At: Wed, 21 Dec 2022 20:19:41 +0000
-Subject: [Intel-gfx] [RESEND PATCH v4] drm/i915/gvt: fix double free bug in
- split_2MB_gtt_entry
+Subject: Re: [Intel-gfx] Possible regression in drm/i915 driver: memleak
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,117 +73,112 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex000young@gmail.com, security@kernel.org,
- intel-gvt-dev@lists.freedesktop.org, airlied@linux.ie,
- gregkh@linuxfoundation.org, intel-gfx@lists.freedesktop.org,
- hackerzheng666@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 1002992920@qq.com, zyytlz.wz@163.com,
- airlied@gmail.com
+Cc: intel-gfx@lists.freedesktop.org,
+ Thorsten Leemhuis <regressions@leemhuis.info>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If intel_gvt_dma_map_guest_page failed, it will call
- ppgtt_invalidate_spt, which will finally free the spt. But the caller does
- not notice that, it will free spt again in error path.
+On 20. 12. 2022. 16:52, Tvrtko Ursulin wrote:
 
-Fix this by undoing the mapping of DMA address and freeing sub_spt.
+> On 20/12/2022 15:22, srinivas pandruvada wrote:
+>> +Added DRM mailing list and maintainers
+>>
+>> On Tue, 2022-12-20 at 15:33 +0100, Mirsad Todorovac wrote:
+>>> Hi all,
+>>>
+>>> I have been unsuccessful to find any particular Intel i915 maintainer
+>>> emails, so my best bet is to post here, as you will must assuredly
+>>> already know them.
+> 
+> For future reference you can use ${kernel_dir}/scripts/get_maintainer.pl -f ...
 
-Fixes: b901b252b6cf ("drm/i915/gvt: Add 2M huge gtt support")
-Signed-off-by: Zheng Wang <zyytlz.wz@163.com>
----
-v4:
-- fix by undo the mapping of DMA address and free sub_spt suggested by Zhi
+Thank you, this will help a great deal provided that I find any
+more bugs ...
 
-v3:
-- correct spelling mistake and remove unused variable suggested by Greg
+>>> The problem is a kernel memory leak that is repeatedly occurring
+>>> triggered during the execution of Chrome browser under the latest
+>>> 6.1.0+
+>>> kernel of this morning and Almalinux 8.6 on a Lenovo desktop box
+>>> with Intel(R) Core(TM) i5-8400 CPU @ 2.80GHz CPU.
+>>>
+>>> The build is with KMEMLEAK, KASAN and MGLRU turned on during the
+>>> build,
+>>> on a vanilla mainline kernel from Mr. Torvalds' tree.
+>>>
+>>> The leaks look like this one:
+>>>
+>>> unreferenced object 0xffff888131754880 (size 64):
+>>>     comm "chrome", pid 13058, jiffies 4298568878 (age 3708.084s)
+>>>     hex dump (first 32 bytes):
+>>>       01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>>> ................
+>>>       00 00 00 00 00 00 00 00 00 80 1e 3e 83 88 ff ff
+>>> ...........>....
+>>>     backtrace:
+>>>       [<ffffffff9e9b5542>] slab_post_alloc_hook+0xb2/0x340
+>>>       [<ffffffff9e9bbf5f>] __kmem_cache_alloc_node+0x1bf/0x2c0
+>>>       [<ffffffff9e8f767a>] kmalloc_trace+0x2a/0xb0
+>>>       [<ffffffffc08dfde5>] drm_vma_node_allow+0x45/0x150 [drm]
+>>>       [<ffffffffc0b33315>] __assign_mmap_offset_handle+0x615/0x820
+>>> [i915]
+>>>       [<ffffffffc0b34057>] i915_gem_mmap_offset_ioctl+0x77/0x110
+>>> [i915]
+>>>       [<ffffffffc08bc5e1>] drm_ioctl_kernel+0x181/0x280 [drm]
+>>>       [<ffffffffc08bc9cd>] drm_ioctl+0x2dd/0x6a0 [drm]
+>>>       [<ffffffff9ea54744>] __x64_sys_ioctl+0xc4/0x100
+>>>       [<ffffffff9fbc0178>] do_syscall_64+0x58/0x80
+>>>       [<ffffffff9fc000aa>] entry_SYSCALL_64_after_hwframe+0x72/0xdc
+>>>
+>>> The complete list of leaks in attachment, but they seem similar or
+>>> the same.
+>>>
+>>> Please find attached lshw and kernel build config file.
+>>>
+>>> I will probably check the same parms on my laptop at home, which is
+>>> also
+>>> Lenovo, but a different hw config and Ubuntu 22.10.
+> 
+> Could you try the below patch?
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+> index c3ea243d414d..0b07534c203a 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
+> @@ -679,9 +679,10 @@ mmap_offset_attach(struct drm_i915_gem_object *obj,
+>   insert:
+>          mmo = insert_mmo(obj, mmo);
+>          GEM_BUG_ON(lookup_mmo(obj, mmap_type) != mmo);
+> -out:
+> +
+>          if (file)
+>                  drm_vma_node_allow(&mmo->vma_node, file);
+> +out:
+>          return mmo;
+> 
+>   err:
+> 
+> Maybe it is not the best fix but curious to know if it will make the leak go away.
 
-v2: https://lore.kernel.org/all/20221006165845.1735393-1-zyytlz.wz@163.com/
+The patch was successfully applied to the latest Mr. Torvalds' tree (commit b6bb9676f216).
 
-v1: https://lore.kernel.org/all/20220928033340.1063949-1-zyytlz.wz@163.com/
----
- drivers/gpu/drm/i915/gvt/gtt.c | 53 +++++++++++++++++++++++++++++-----
- 1 file changed, 46 insertions(+), 7 deletions(-)
+It is currently building, which can take up to 90 minutes on our system.
 
-diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
-index 51e5e8fb505b..b472e021e5a4 100644
---- a/drivers/gpu/drm/i915/gvt/gtt.c
-+++ b/drivers/gpu/drm/i915/gvt/gtt.c
-@@ -1192,11 +1192,11 @@ static int split_2MB_gtt_entry(struct intel_vgpu *vgpu,
- {
- 	const struct intel_gvt_gtt_pte_ops *ops = vgpu->gvt->gtt.pte_ops;
- 	struct intel_vgpu_ppgtt_spt *sub_spt;
--	struct intel_gvt_gtt_entry sub_se;
-+	struct intel_gvt_gtt_entry sub_se, e;
- 	unsigned long start_gfn;
- 	dma_addr_t dma_addr;
--	unsigned long sub_index;
--	int ret;
-+	unsigned long sub_index, parent_index;
-+	int ret, ret1;
- 
- 	gvt_dbg_mm("Split 2M gtt entry, index %lu\n", index);
- 
-@@ -1209,10 +1209,8 @@ static int split_2MB_gtt_entry(struct intel_vgpu *vgpu,
- 	for_each_shadow_entry(sub_spt, &sub_se, sub_index) {
- 		ret = intel_gvt_dma_map_guest_page(vgpu, start_gfn + sub_index,
- 						   PAGE_SIZE, &dma_addr);
--		if (ret) {
--			ppgtt_invalidate_spt(spt);
--			return ret;
--		}
-+		if (ret)
-+			goto err;
- 		sub_se.val64 = se->val64;
- 
- 		/* Copy the PAT field from PDE. */
-@@ -1231,6 +1229,47 @@ static int split_2MB_gtt_entry(struct intel_vgpu *vgpu,
- 	ops->set_pfn(se, sub_spt->shadow_page.mfn);
- 	ppgtt_set_shadow_entry(spt, se, index);
- 	return 0;
-+err:
-+	/* Undone the existing mappings of DMA addr. */
-+	for_each_present_shadow_entry(spt, &e, parent_index) {
-+		switch (e.type) {
-+		case GTT_TYPE_PPGTT_PTE_4K_ENTRY:
-+			gvt_vdbg_mm("invalidate 4K entry\n");
-+			ppgtt_invalidate_pte(spt, &e);
-+			break;
-+		case GTT_TYPE_PPGTT_PTE_64K_ENTRY:
-+			/* We don't setup 64K shadow entry so far. */
-+			WARN(1, "suspicious 64K gtt entry\n");
-+			continue;
-+		case GTT_TYPE_PPGTT_PTE_2M_ENTRY:
-+			gvt_vdbg_mm("invalidate 2M entry\n");
-+			continue;
-+		case GTT_TYPE_PPGTT_PTE_1G_ENTRY:
-+			WARN(1, "GVT doesn't support 1GB page\n");
-+			continue;
-+		case GTT_TYPE_PPGTT_PML4_ENTRY:
-+		case GTT_TYPE_PPGTT_PDP_ENTRY:
-+		case GTT_TYPE_PPGTT_PDE_ENTRY:
-+			gvt_vdbg_mm("invalidate PMUL4/PDP/PDE entry\n");
-+			ret1 = ppgtt_invalidate_spt_by_shadow_entry(
-+					spt->vgpu, &e);
-+			if (ret1) {
-+				gvt_vgpu_err("fail: shadow page %p shadow entry 0x%llx type %d\n",
-+				spt, e.val64, e.type);
-+				goto free_spt;
-+			}
-+			break;
-+		default:
-+			GEM_BUG_ON(1);
-+		}
-+	}
-+	/* Release the new alloced apt. */
-+free_spt:
-+	trace_spt_change(sub_spt->vgpu->id, "release", sub_spt,
-+		sub_spt->guest_page.gfn, sub_spt->shadow_page.type);
-+	ppgtt_free_spt(sub_spt);
-+	sub_spt = NULL;
-+	return ret;
- }
- 
- static int split_64KB_gtt_entry(struct intel_vgpu *vgpu,
+Now the test depends on whether I will be able to setup the machine at work remotely
+(there were some firewalls on port 22 recently).
+
+I will keep you updated.
+
+Thanks,
+Mirsad
+
+--
+Mirsad Goran Todorovac
+Sistem inženjer
+Grafički fakultet | Akademija likovnih umjetnosti
+Sveučilište u Zagrebu
 -- 
-2.25.1
+System engineer
+Faculty of Graphic Arts | Academy of Fine Arts
+University of Zagreb, Republic of Croatia
+The European Union
 
