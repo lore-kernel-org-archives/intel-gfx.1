@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F3E7C4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 10:32:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FD69C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 10:33:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E6A910E375;
-	Tue, 20 Dec 2022 10:32:13 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB20610E375
- for <intel-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 10:32:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C4C410E379;
+	Tue, 20 Dec 2022 10:33:17 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 811D410E379
+ for <intel-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 10:33:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671532328; x=1703068328;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=oYQOSGHKY8Dx0wzJKDeOXQHcHuyQsSvUSqeHny8vvi4=;
- b=PiC9Es0La5rpVBY9VBGLwcH+tC0P7TPLJYz3Zfw0wCFxJkrFG/PvaThZ
- BDvL6Otvj/fAEQxXAmMS3PuK2I5hqW8Tg0bL35COhgzKUT7JpBFY1lQJ2
- vaupZTrhl5hIEgLQXyWDm+odJUtzFp2iVSm6GFdEj+8RW2nFM3cW1ObGw
- /+6QScXfSo+shTkdiXq1VGY6WSjj0Ai7tb4nrQAr/ERlI8uCC5SwE6Da/
- /U4+2Vx3hTsH34ERrHDMON63y7rXyCX1kVM8HDn5PcJ1SX+k97Ui6m+y9
- 3+Lpjf9ZWMaUZtlMeYnTiL9TAS3sbMISb8UowLSiqOW8Pa2td8IZmzSEd Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10566"; a="307263031"
-X-IronPort-AV: E=Sophos;i="5.96,259,1665471600"; d="scan'208";a="307263031"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Dec 2022 02:32:08 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10566"; a="714374243"
-X-IronPort-AV: E=Sophos;i="5.96,259,1665471600"; d="scan'208";a="714374243"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.191])
- by fmsmga008.fm.intel.com with SMTP; 20 Dec 2022 02:32:05 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 20 Dec 2022 12:32:05 +0200
-Date: Tue, 20 Dec 2022 12:32:05 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Sasa Dragic <sasa.dragic@gmail.com>
-Message-ID: <Y6GPJcaHBx/xs3Hi@intel.com>
-References: <20221219172927.9603-1-sasa.dragic@gmail.com>
- <20221219172927.9603-2-sasa.dragic@gmail.com>
+ t=1671532392; x=1703068392;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=GFY27XT1HHoS1UEnIpPW40aLrrqV9w3cWR12DwwAy4Y=;
+ b=Foo3IGt4ofvA/k+KMZpLQtn4Myj/Jx5UYNYifFppBdLeVbEinB0VjewR
+ ax2VpP0vgI5urbd3zjzk2b+8jmlb07anDANr8MssYvKMmERS1+EqzYCOs
+ KDZZ9pQ+5tEwsj6nVhYZbDwcrT9ywetiSZwPQKE8M1qa/g1G5TOuXMLxh
+ a/Laf9ZBkN5ZlVyA7e4ZvVENb5N5C5ffqlt567qAAxTasnUxGk45lvrtg
+ cN6+OebmPRdWiorM9h6/s3ICvz/76ta7pSW44UlV5xLkSFwmbF2k4yGbe
+ oCx6iKgj0fEtvFtAAbraK/6Tog8zPx36sbc1AGy4zpY8eXB71MkSXalgT w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10566"; a="320761210"
+X-IronPort-AV: E=Sophos;i="5.96,259,1665471600"; d="scan'208";a="320761210"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Dec 2022 02:33:11 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10566"; a="775244557"
+X-IronPort-AV: E=Sophos;i="5.96,259,1665471600"; d="scan'208";a="775244557"
+Received: from nirmoyda-mobl.ger.corp.intel.com (HELO [10.249.41.33])
+ ([10.249.41.33])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Dec 2022 02:33:10 -0800
+Message-ID: <c88f147a-c4bd-c988-d3ec-8a53c6bf7acd@linux.intel.com>
+Date: Tue, 20 Dec 2022 12:33:06 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Content-Language: en-US
+To: Andrzej Hajda <andrzej.hajda@intel.com>, Nirmoy Das
+ <nirmoy.das@intel.com>, intel-gfx@lists.freedesktop.org
+References: <20221219112933.21417-1-nirmoy.das@intel.com>
+ <660fc517-82ad-1ecf-17c8-6f9017caaddd@intel.com>
+From: "Das, Nirmoy" <nirmoy.das@linux.intel.com>
+In-Reply-To: <660fc517-82ad-1ecf-17c8-6f9017caaddd@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20221219172927.9603-2-sasa.dragic@gmail.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH 1/1] drm/i915: re-disable RC6p on Sandy
- Bridge
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915: Use helper func to find out
+ map type
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,72 +63,73 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: matthew.auld@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Dec 19, 2022 at 06:29:27PM +0100, Sasa Dragic wrote:
-> RC6p on Sandy Bridge got re-enabled over time, causing visual glitches
-> and GPU hangs.
-> 
-> Disabled originally in commit 1c8ecf80fdee ("drm/i915: do not enable
-> RC6p on Sandy Bridge").
 
-re cover letter:
-> It was originally disabled in commit 1c8ecf80fdee ("drm/i915: do not
-> enable RC6p on Sandy Bridge"), and subsequently re-enabled by
-> 13c5a577b342 ("drm/i915/gt: Select the deepest available parking mode
-> for rc6"), which seems to focus only on Ivy Bridge.
+On 12/19/2022 8:04 PM, Andrzej Hajda wrote:
+> On 19.12.2022 12:29, Nirmoy Das wrote:
+>> Use i915_coherent_map_type() function to find out
+>> map_type of the shmem obj.
+>>
+>> v2: handle non-llc platform(Matt)
+>>
+>> Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
+>> ---
+>>   drivers/gpu/drm/i915/gt/shmem_utils.c | 7 +++++--
+>>   1 file changed, 5 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/gt/shmem_utils.c 
+>> b/drivers/gpu/drm/i915/gt/shmem_utils.c
+>> index 402f085f3a02..449c9ed44382 100644
+>> --- a/drivers/gpu/drm/i915/gt/shmem_utils.c
+>> +++ b/drivers/gpu/drm/i915/gt/shmem_utils.c
+>> @@ -8,6 +8,7 @@
+>>   #include <linux/pagemap.h>
+>>   #include <linux/shmem_fs.h>
+>>   +#include "i915_drv.h"
+>>   #include "gem/i915_gem_object.h"
+>>   #include "gem/i915_gem_lmem.h"
+>>   #include "shmem_utils.h"
+>> @@ -32,6 +33,8 @@ struct file *shmem_create_from_data(const char 
+>> *name, void *data, size_t len)
+>>     struct file *shmem_create_from_object(struct drm_i915_gem_object 
+>> *obj)
+>>   {
+>> +    struct drm_i915_private *i915 = to_i915(obj->base.dev);
+>> +    enum i915_map_type map_type;
+>>       struct file *file;
+>>       void *ptr;
+>>   @@ -41,8 +44,8 @@ struct file *shmem_create_from_object(struct 
+>> drm_i915_gem_object *obj)
+>>           return file;
+>>       }
+>>   -    ptr = i915_gem_object_pin_map_unlocked(obj, 
+>> i915_gem_object_is_lmem(obj) ?
+>> -                        I915_MAP_WC : I915_MAP_WB);
+>> +    map_type = i915_coherent_map_type(i915, obj, true);
+>> +    ptr = i915_gem_object_pin_map_unlocked(obj, map_type);
+>
+>
+> More lines, but less branches, some gain :)
+>
 
-That only kicks in while parked (ie. fully idle from
-software POV). I think the real bad commit is
-fb6db0f5bf1d ("drm/i915: Remove unsafe i915.enable_rc6")
-which seems to affects which rc6 level is selected while
-unparked.
+Yes and I am more behind the idea of unifying finding map_type with this 
+helper.
 
-We should mention both of those commits here:
-Fixes: fb6db0f5bf1d ("drm/i915: Remove unsafe i915.enable_rc6")
-Fixes: 13c5a577b342 ("drm/i915/gt: Select the deepest available parking mode for rc6")
 
-Also we want
-Cc: stable@vger.kernel.org
+> Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
 
-We can add those while pushing, so no need to resend for that.
 
-> 
-> Signed-off-by: Sasa Dragic <sasa.dragic@gmail.com>
-> ---
->  drivers/gpu/drm/i915/i915_pci.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-> index 668e9da52584..69377564028a 100644
-> --- a/drivers/gpu/drm/i915/i915_pci.c
-> +++ b/drivers/gpu/drm/i915/i915_pci.c
-> @@ -423,7 +423,8 @@ static const struct intel_device_info ilk_m_info = {
->  	.has_coherent_ggtt = true, \
->  	.has_llc = 1, \
->  	.has_rc6 = 1, \
-> -	.has_rc6p = 1, \
-> +	/* snb does support rc6p, but enabling it causes various issues */ \
-> +	.has_rc6p = 0, \
+Thanks!
 
-The one downside of doing it this way is that we also lose
-the debugfs/sysfs files so we can't monitor rc6+/++
-residency anymore to make sure they are not entered.
+Nirmoy
 
-I think ideally we'd split this into two parts: which rc6
-states the hw actually has vs. which rc6 states we actually
-want to use. But at least for the time being I think this
-simple should be sufficient, and should be easy to backport
-to stable releases.
-
->  	.has_rps = true, \
->  	.dma_mask_size = 40, \
->  	.__runtime.ppgtt_type = INTEL_PPGTT_ALIASING, \
-> -- 
-> 2.37.2
-
--- 
-Ville Syrj�l�
-Intel
+>
+> Regards
+> Andrzej
+>
+>>       if (IS_ERR(ptr))
+>>           return ERR_CAST(ptr);
+>
