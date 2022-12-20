@@ -4,51 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4878C4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 08:25:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31B32C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 08:32:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D52E210E09C;
-	Tue, 20 Dec 2022 08:25:11 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB84C10E06B;
- Tue, 20 Dec 2022 08:24:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671524697; x=1703060697;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- mime-version:in-reply-to;
- bh=3Saonc4e64Y8dqAWVhyrq0LeRdHBKmGol/AJz6kvzNY=;
- b=gcpfe8IFTGL+YdqrSXgcpCWdk40WNHhN7u6zLPjGzK7XMIIX9aS4w8E7
- GwyeFfgfISzee55irzWegnxP64DO2ypqJ0cs2zgeKxXepvRzwygsMHlwH
- 62C30eSWEyAcGIewkvE0rdovKPJz7nADy13ZbavkW+9sl8rNvXwdsjYUy
- lwHBkgrQ7njjpvxNPvxXD0aAmHANaQAW5G8uD/jaaaaTlD/KSPqdF0sos
- BMFP+ItKpWOVRfeFLifeMamTpma8b8vkkbwiI96dAtw9nQ5RDPImRCWuV
- Q0jZInWBNM4tYdJz0Sr9FUEz7dYHupsC9kyY82gJ9eL2KjYV0ZgMNCnne g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10566"; a="405809674"
-X-IronPort-AV: E=Sophos;i="5.96,258,1665471600"; 
- d="asc'?scan'208";a="405809674"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Dec 2022 00:24:57 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10566"; a="683329366"
-X-IronPort-AV: E=Sophos;i="5.96,258,1665471600"; 
- d="asc'?scan'208";a="683329366"
-Received: from zhen-hp.sh.intel.com (HELO zhen-hp) ([10.239.159.108])
- by orsmga001.jf.intel.com with ESMTP; 20 Dec 2022 00:24:52 -0800
-Date: Tue, 20 Dec 2022 16:22:55 +0800
-From: Zhenyu Wang <zhenyuw@linux.intel.com>
-To: Zheng Wang <zyytlz.wz@163.com>
-Message-ID: <20221220082255.GE30028@zhen-hp.sh.intel.com>
-References: <11728bc1-7b59-1623-b517-d1a0d57eb275@intel.com>
- <20221219125204.1001149-1-zyytlz.wz@163.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1B4010E09C;
+	Tue, 20 Dec 2022 08:31:58 +0000 (UTC)
+X-Greylist: delayed 2055 seconds by postgrey-1.36 at gabe;
+ Tue, 20 Dec 2022 08:31:53 UTC
+Received: from farmhouse.coelho.fi (paleale.coelho.fi [176.9.41.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5D7E10E09C
+ for <intel-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 08:31:53 +0000 (UTC)
+Received: from 91-156-4-168.elisa-laajakaista.fi ([91.156.4.168]
+ helo=[192.168.100.137])
+ by farmhouse.coelho.fi with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
+ (envelope-from <luca@coelho.fi>) id 1p7XVF-005ItP-1c
+ for intel-gfx@lists.freedesktop.org; Tue, 20 Dec 2022 09:57:34 +0200
+Message-ID: <42c2034c1ca4135e4c586905360f7a28ea4a0059.camel@coelho.fi>
+From: Luca Coelho <luca@coelho.fi>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 20 Dec 2022 09:57:32 +0200
+In-Reply-To: <20221208143853.442803-1-luciano.coelho@intel.com>
+References: <20221208143853.442803-1-luciano.coelho@intel.com>
+Content-Type: multipart/alternative; boundary="=-SnkVzAEvs07BwTyCCgwe"
+User-Agent: Evolution 3.46.2-1 
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="c7rykKtsZvepKFKR"
-Content-Disposition: inline
-In-Reply-To: <20221219125204.1001149-1-zyytlz.wz@163.com>
-Subject: Re: [Intel-gfx] [RESEND PATCH v4] drm/i915/gvt: fix double free bug
- in split_2MB_gtt_entry
+Subject: [Intel-gfx] [PATCH v4 2/2] drm/i915/mtl: Limit scaler input to 4k
+ in plane scaling [RESEND]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,166 +43,146 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
-Cc: alex000young@gmail.com, security@kernel.org, airlied@linux.ie,
- gregkh@linuxfoundation.org, intel-gfx@lists.freedesktop.org,
- hackerzheng666@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 1002992920@qq.com, airlied@gmail.com,
- intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
---c7rykKtsZvepKFKR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--=-SnkVzAEvs07BwTyCCgwe
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On 2022.12.19 20:52:04 +0800, Zheng Wang wrote:
-> If intel_gvt_dma_map_guest_page failed, it will call
->  ppgtt_invalidate_spt, which will finally free the spt. But the caller do=
-es
->  not notice that, it will free spt again in error path.
->
+From: Animesh Manna <animesh.manna@intel.com>
 
-It's not clear from this description which caller is actually wrong,
-better to clarify the problem in ppgtt_populate_spt_by_guest_entry() functi=
-on.
+As part of die area reduction max input source modified to 4096
+for MTL so modified range check logic of scaler.
 
-> Fix this by undoing the mapping of DMA address and freeing sub_spt.
->=20
-> Fixes: b901b252b6cf ("drm/i915/gvt: Add 2M huge gtt support")
-> Signed-off-by: Zheng Wang <zyytlz.wz@163.com>
-> ---
-> v4:
-> - fix by undo the mapping of DMA address and free sub_spt suggested by Zhi
->=20
-> v3:
-> - correct spelling mistake and remove unused variable suggested by Greg
->=20
-> v2: https://lore.kernel.org/all/20221006165845.1735393-1-zyytlz.wz@163.co=
-m/
->=20
-> v1: https://lore.kernel.org/all/20220928033340.1063949-1-zyytlz.wz@163.co=
-m/
-> ---
->  drivers/gpu/drm/i915/gvt/gtt.c | 53 +++++++++++++++++++++++++++++-----
->  1 file changed, 46 insertions(+), 7 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gt=
-t.c
-> index 51e5e8fb505b..b472e021e5a4 100644
-> --- a/drivers/gpu/drm/i915/gvt/gtt.c
-> +++ b/drivers/gpu/drm/i915/gvt/gtt.c
-> @@ -1192,11 +1192,11 @@ static int split_2MB_gtt_entry(struct intel_vgpu =
-*vgpu,
->  {
->  	const struct intel_gvt_gtt_pte_ops *ops =3D vgpu->gvt->gtt.pte_ops;
->  	struct intel_vgpu_ppgtt_spt *sub_spt;
-> -	struct intel_gvt_gtt_entry sub_se;
-> +	struct intel_gvt_gtt_entry sub_se, e;
->  	unsigned long start_gfn;
->  	dma_addr_t dma_addr;
-> -	unsigned long sub_index;
-> -	int ret;
-> +	unsigned long sub_index, parent_index;
-> +	int ret, ret1;
-> =20
->  	gvt_dbg_mm("Split 2M gtt entry, index %lu\n", index);
-> =20
-> @@ -1209,10 +1209,8 @@ static int split_2MB_gtt_entry(struct intel_vgpu *=
-vgpu,
->  	for_each_shadow_entry(sub_spt, &sub_se, sub_index) {
->  		ret =3D intel_gvt_dma_map_guest_page(vgpu, start_gfn + sub_index,
->  						   PAGE_SIZE, &dma_addr);
-> -		if (ret) {
-> -			ppgtt_invalidate_spt(spt);
-> -			return ret;
-> -		}
-> +		if (ret)
-> +			goto err;
+Signed-off-by: Jos=C3=A9 Roberto de Souza <jose.souza@intel.com>
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
+---
+ drivers/gpu/drm/i915/display/skl_scaler.c | 31 +++++++++++++++++------
+ 1 file changed, 23 insertions(+), 8 deletions(-)
 
-I think it's fine to remove this and leave to upper caller, but again please
-describe the behavior change in commit message as well, e.g to fix the sani=
-ty
-of spt destroy that leaving previous invalidate and free of spt to caller f=
-unction
-instead of within callee function.
+In v2:
+   * No changes;
 
->  		sub_se.val64 =3D se->val64;
-> =20
->  		/* Copy the PAT field from PDE. */
-> @@ -1231,6 +1229,47 @@ static int split_2MB_gtt_entry(struct intel_vgpu *=
-vgpu,
->  	ops->set_pfn(se, sub_spt->shadow_page.mfn);
->  	ppgtt_set_shadow_entry(spt, se, index);
->  	return 0;
-> +err:
-> +	/* Undone the existing mappings of DMA addr. */
-> +	for_each_present_shadow_entry(spt, &e, parent_index) {
+In v3:
+   * Removed stray reviewed-by tag;
+   * Added my s-o-b.
 
-sub_spt? We're undoing what's mapped for sub_spt right?
+In v4:
+   * No changes.
 
-> +		switch (e.type) {
-> +		case GTT_TYPE_PPGTT_PTE_4K_ENTRY:
-> +			gvt_vdbg_mm("invalidate 4K entry\n");
-> +			ppgtt_invalidate_pte(spt, &e);
-> +			break;
-> +		case GTT_TYPE_PPGTT_PTE_64K_ENTRY:
-> +			/* We don't setup 64K shadow entry so far. */
-> +			WARN(1, "suspicious 64K gtt entry\n");
-> +			continue;
-> +		case GTT_TYPE_PPGTT_PTE_2M_ENTRY:
-> +			gvt_vdbg_mm("invalidate 2M entry\n");
-> +			continue;
-> +		case GTT_TYPE_PPGTT_PTE_1G_ENTRY:
-> +			WARN(1, "GVT doesn't support 1GB page\n");
-> +			continue;
-> +		case GTT_TYPE_PPGTT_PML4_ENTRY:
-> +		case GTT_TYPE_PPGTT_PDP_ENTRY:
-> +		case GTT_TYPE_PPGTT_PDE_ENTRY:
+For some reason this patch didn't reach the list before.  Resending.
 
-I don't think this all entry type makes sense, as here we just split
-2M entry for multiple 4K PTE entry.
+diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i9=
+15/display/skl_scaler.c
+index d7390067b7d4..6baa07142b03 100644
+--- a/drivers/gpu/drm/i915/display/skl_scaler.c
++++ b/drivers/gpu/drm/i915/display/skl_scaler.c
+@@ -103,6 +103,8 @@ skl_update_scaler(struct intel_crtc_state *crtc_state, =
+bool force_detach,
+ 	struct drm_i915_private *dev_priv =3D to_i915(crtc->base.dev);
+ 	const struct drm_display_mode *adjusted_mode =3D
+ 		&crtc_state->hw.adjusted_mode;
++	int min_src_w, min_src_h, min_dst_w, min_dst_h;
++	int max_src_w, max_src_h, max_dst_w, max_dst_h;
+=20
+ 	/*
+ 	 * Src coordinates are already rotated by 270 degrees for
+@@ -157,15 +159,28 @@ skl_update_scaler(struct intel_crtc_state *crtc_state=
+, bool force_detach,
+ 		return -EINVAL;
+ 	}
+=20
++	min_src_w =3D SKL_MIN_SRC_W;
++	min_src_h =3D SKL_MIN_SRC_H;
++	min_dst_w =3D SKL_MIN_DST_W;
++	min_dst_h =3D SKL_MIN_DST_H;
++
++	if (DISPLAY_VER(dev_priv) >=3D 11 && DISPLAY_VER(dev_priv) < 14) {
++		max_src_w =3D ICL_MAX_SRC_W;
++		max_src_h =3D ICL_MAX_SRC_H;
++		max_dst_w =3D ICL_MAX_DST_W;
++		max_dst_h =3D ICL_MAX_DST_H;
++	} else {
++		max_src_w =3D SKL_MAX_SRC_W;
++		max_src_h =3D SKL_MAX_SRC_H;
++		max_dst_w =3D SKL_MAX_DST_W;
++		max_dst_h =3D SKL_MAX_DST_H;
++	}
++
+ 	/* range checks */
+-	if (src_w < SKL_MIN_SRC_W || src_h < SKL_MIN_SRC_H ||
+-	    dst_w < SKL_MIN_DST_W || dst_h < SKL_MIN_DST_H ||
+-	    (DISPLAY_VER(dev_priv) >=3D 11 &&
+-	     (src_w > ICL_MAX_SRC_W || src_h > ICL_MAX_SRC_H ||
+-	      dst_w > ICL_MAX_DST_W || dst_h > ICL_MAX_DST_H)) ||
+-	    (DISPLAY_VER(dev_priv) < 11 &&
+-	     (src_w > SKL_MAX_SRC_W || src_h > SKL_MAX_SRC_H ||
+-	      dst_w > SKL_MAX_DST_W || dst_h > SKL_MAX_DST_H)))	{
++	if (src_w < min_src_w || src_h < min_src_h ||
++	    dst_w < min_dst_w || dst_h < min_dst_h ||
++	    src_w > max_src_w || src_h > max_src_h ||
++	    dst_w > max_dst_w || dst_h > max_dst_h) {
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "scaler_user index %u.%u: src %ux%u dst %ux%u "
+ 			    "size is out of scaler range\n",
 
-> +			gvt_vdbg_mm("invalidate PMUL4/PDP/PDE entry\n");
-> +			ret1 =3D ppgtt_invalidate_spt_by_shadow_entry(
-> +					spt->vgpu, &e);
-> +			if (ret1) {
-> +				gvt_vgpu_err("fail: shadow page %p shadow entry 0x%llx type %d\n",
-> +				spt, e.val64, e.type);
-> +				goto free_spt;
-> +			}
 
-for above reason, I don't think this is valid.
+--=-SnkVzAEvs07BwTyCCgwe
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-> +			break;
-> +		default:
-> +			GEM_BUG_ON(1);
-> +		}
-> +	}
-> +	/* Release the new alloced apt. */
-> +free_spt:
-> +	trace_spt_change(sub_spt->vgpu->id, "release", sub_spt,
-> +		sub_spt->guest_page.gfn, sub_spt->shadow_page.type);
-> +	ppgtt_free_spt(sub_spt);
-> +	sub_spt =3D NULL;
-> +	return ret;
->  }
-> =20
->  static int split_64KB_gtt_entry(struct intel_vgpu *vgpu,
-> --=20
-> 2.25.1
->=20
+<html><head></head><body><pre>From: Animesh Manna &lt;<a href=3D"mailto:ani=
+mesh.manna@intel.com">animesh.manna@intel.com</a>&gt;</pre><pre><br></pre><=
+pre>As part of die area reduction max input source modified to 4096</pre><p=
+re>for MTL so modified range check logic of scaler.</pre><pre><br></pre><pr=
+e>Signed-off-by: Jos=C3=A9 Roberto de Souza &lt;<a href=3D"mailto:jose.souz=
+a@intel.com">jose.souza@intel.com</a>&gt;</pre><pre>Signed-off-by: Animesh =
+Manna &lt;<a href=3D"mailto:animesh.manna@intel.com">animesh.manna@intel.co=
+m</a>&gt;</pre><pre>Signed-off-by: Luca Coelho &lt;<a href=3D"mailto:lucian=
+o.coelho@intel.com">luciano.coelho@intel.com</a>&gt;</pre><pre>---</pre><pr=
+e> drivers/gpu/drm/i915/display/skl_scaler.c | 31 +++++++++++++++++------</=
+pre><pre> 1 file changed, 23 insertions(+), 8 deletions(-)</pre><pre><br></=
+pre><pre>In v2:</pre><pre>   * No changes;</pre><pre><br></pre><pre>In v3:<=
+/pre><pre>   * Removed stray reviewed-by tag;</pre><pre>   * Added my s-o-b=
+.</pre><pre><br></pre><pre>In v4:</pre><pre>   * No changes.</pre><pre><br>=
+</pre><pre>For some reason this patch didn't reach the list before.  Resend=
+ing.</pre><pre><br></pre><pre>diff --git a/drivers/gpu/drm/i915/display/skl=
+_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c</pre><pre>index d7390=
+067b7d4..6baa07142b03 100644</pre><pre>--- a/drivers/gpu/drm/i915/display/s=
+kl_scaler.c</pre><pre>+++ b/drivers/gpu/drm/i915/display/skl_scaler.c</pre>=
+<pre>@@ -103,6 +103,8 @@ skl_update_scaler(struct intel_crtc_state *crtc_st=
+ate, bool force_detach,</pre><pre> 	struct drm_i915_private *dev_priv =3D t=
+o_i915(crtc-&gt;base.dev);</pre><pre> 	const struct drm_display_mode *adjus=
+ted_mode =3D</pre><pre> 		&amp;crtc_state-&gt;hw.adjusted_mode;</pre><pre>+=
+	int min_src_w, min_src_h, min_dst_w, min_dst_h;</pre><pre>+	int max_src_w,=
+ max_src_h, max_dst_w, max_dst_h;</pre><pre> </pre><pre> 	/*</pre><pre> 	 *=
+ Src coordinates are already rotated by 270 degrees for</pre><pre>@@ -157,1=
+5 +159,28 @@ skl_update_scaler(struct intel_crtc_state *crtc_state, bool fo=
+rce_detach,</pre><pre> 		return -EINVAL;</pre><pre> 	}</pre><pre> </pre><pr=
+e>+	min_src_w =3D SKL_MIN_SRC_W;</pre><pre>+	min_src_h =3D SKL_MIN_SRC_H;</=
+pre><pre>+	min_dst_w =3D SKL_MIN_DST_W;</pre><pre>+	min_dst_h =3D SKL_MIN_D=
+ST_H;</pre><pre>+</pre><pre>+	if (DISPLAY_VER(dev_priv) &gt;=3D 11 &amp;&am=
+p; DISPLAY_VER(dev_priv) &lt; 14) {</pre><pre>+		max_src_w =3D ICL_MAX_SRC_=
+W;</pre><pre>+		max_src_h =3D ICL_MAX_SRC_H;</pre><pre>+		max_dst_w =3D ICL=
+_MAX_DST_W;</pre><pre>+		max_dst_h =3D ICL_MAX_DST_H;</pre><pre>+	} else {<=
+/pre><pre>+		max_src_w =3D SKL_MAX_SRC_W;</pre><pre>+		max_src_h =3D SKL_MA=
+X_SRC_H;</pre><pre>+		max_dst_w =3D SKL_MAX_DST_W;</pre><pre>+		max_dst_h =
+=3D SKL_MAX_DST_H;</pre><pre>+	}</pre><pre>+</pre><pre> 	/* range checks */=
+</pre><pre>-	if (src_w &lt; SKL_MIN_SRC_W || src_h &lt; SKL_MIN_SRC_H ||</p=
+re><pre>-	    dst_w &lt; SKL_MIN_DST_W || dst_h &lt; SKL_MIN_DST_H ||</pre>=
+<pre>-	    (DISPLAY_VER(dev_priv) &gt;=3D 11 &amp;&amp;</pre><pre>-	     (s=
+rc_w &gt; ICL_MAX_SRC_W || src_h &gt; ICL_MAX_SRC_H ||</pre><pre>-	      ds=
+t_w &gt; ICL_MAX_DST_W || dst_h &gt; ICL_MAX_DST_H)) ||</pre><pre>-	    (DI=
+SPLAY_VER(dev_priv) &lt; 11 &amp;&amp;</pre><pre>-	     (src_w &gt; SKL_MAX=
+_SRC_W || src_h &gt; SKL_MAX_SRC_H ||</pre><pre>-	      dst_w &gt; SKL_MAX_=
+DST_W || dst_h &gt; SKL_MAX_DST_H)))	{</pre><pre>+	if (src_w &lt; min_src_w=
+ || src_h &lt; min_src_h ||</pre><pre>+	    dst_w &lt; min_dst_w || dst_h &=
+lt; min_dst_h ||</pre><pre>+	    src_w &gt; max_src_w || src_h &gt; max_src=
+_h ||</pre><pre>+	    dst_w &gt; max_dst_w || dst_h &gt; max_dst_h) {</pre>=
+<pre> 		drm_dbg_kms(&amp;dev_priv-&gt;drm,</pre><pre> 			    "scaler_user i=
+ndex %u.%u: src %ux%u dst %ux%u "</pre><pre> 			    "size is out of scaler =
+range\n",</pre><div><br></div><div><span></span></div></body></html>
 
---c7rykKtsZvepKFKR
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCY6Fw2gAKCRCxBBozTXgY
-J/tiAJ0chKIsYFFlZBTo+ayrE7mCyhznbwCgjL5xMyVtruGCC953PHVeafhZWoY=
-=8NeT
------END PGP SIGNATURE-----
-
---c7rykKtsZvepKFKR--
+--=-SnkVzAEvs07BwTyCCgwe--
