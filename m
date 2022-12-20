@@ -4,48 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C190AC4167B
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 19:11:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B611C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 19:47:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FC0D10E39F;
-	Tue, 20 Dec 2022 19:11:29 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF16610E39F
- for <intel-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 19:11:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671563486; x=1703099486;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- mime-version:in-reply-to;
- bh=Xsn5qGbrwGzlwJOh92duMbFNWX8s5UMOpPQk1y3eSq8=;
- b=dB4y9zo7q1mbzFnzjhopTHilE2gxclxqmYDENhqTJ8iQuYvK1BIr3498
- BwMYN2stprRjtNdWpCOo+ZnJ4XZ+icESIUeBxW8w8IFZDsU65IwUJdarT
- 85BkAKiHmDq1XbIq76Yd+BylIcJTti47a4iWp4S25Db4eCt3CANhSLKl5
- wtXQ/f6CYq+86spe9Gvw2veQ2SGD5YfGjhvT07i4rTHgd+oxEHGdsTzFN
- pJgDPoA2PskYlxeIh7tzbDBNI7iqmGSF0BjsJ8FgmnTB8/68MGCS4IuS8
- vBDjPPB4eareAb5VfmrudLybMnDUB2hlJ9vSECfgDBCBkGvN2wVSZD2OL g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="317332740"
-X-IronPort-AV: E=Sophos;i="5.96,259,1665471600"; d="scan'208";a="317332740"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Dec 2022 11:11:26 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="644568651"
-X-IronPort-AV: E=Sophos;i="5.96,259,1665471600"; d="scan'208";a="644568651"
-Received: from ideak-desk.fi.intel.com ([10.237.72.58])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Dec 2022 11:11:24 -0800
-Date: Tue, 20 Dec 2022 21:11:21 +0200
-From: Imre Deak <imre.deak@intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Message-ID: <Y6II2T9SCtc1uZC6@ideak-desk.fi.intel.com>
-References: <20221220094618.207126-1-maarten.lankhorst@linux.intel.com>
- <87zgbi2qpc.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85F4210E3CC;
+	Tue, 20 Dec 2022 19:47:48 +0000 (UTC)
+X-Greylist: delayed 454 seconds by postgrey-1.36 at gabe;
+ Tue, 20 Dec 2022 19:47:46 UTC
+Received: from jabberwock.ucw.cz (jabberwock.ucw.cz [46.255.230.98])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBA3410E3CC
+ for <intel-gfx@lists.freedesktop.org>; Tue, 20 Dec 2022 19:47:46 +0000 (UTC)
+Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
+ id 8D0971C09F9; Tue, 20 Dec 2022 20:39:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ucw.cz; s=gen1;
+ t=1671565196;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=Z6Z4LV97YlfeiHNsI0GPtvBWuPiFBia9iXHj9p0V7f4=;
+ b=iSK/6k6YdYfe0pf3QIaGF0m9os72nxF3CAqc4kVpFydNcBeDZyAXwLd29ygI3aWdCD/P4E
+ hjb1tP04xpxvEqTGSku5jVwZ3Ze5vyiRMUS/PfukmleXTPDA24OIQLtf5lIYLLX2i19Nc9
+ ctnIK+xkRK2AK199jxQW3iEge/uxrTY=
+Date: Tue, 20 Dec 2022 20:39:56 +0100
+From: Pavel Machek <pavel@ucw.cz>
+To: Steven Rostedt <rostedt@goodmis.org>
+Message-ID: <Y6IPjC9mpnoquL8S@duo.ucw.cz>
+References: <20221220134519.3dd1318b@gandalf.local.home>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ protocol="application/pgp-signature"; boundary="Q4QndSuPZQc8d5xp"
 Content-Disposition: inline
-In-Reply-To: <87zgbi2qpc.fsf@intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/display: Fix a use-after-free when
- intel_edp_init_connector fails
+In-Reply-To: <20221220134519.3dd1318b@gandalf.local.home>
+Subject: Re: [Intel-gfx] [PATCH] treewide: Convert del_timer*() to
+ timer_shutdown*()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,101 +49,85 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: imre.deak@intel.com
-Cc: intel-gfx@lists.freedesktop.org
+Cc: alsa-devel@alsa-project.org, linux-staging@lists.linux.dev,
+ linux-sh@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, drbd-dev@lists.linbit.com,
+ linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-atm-general@lists.sourceforge.net, lvs-devel@vger.kernel.org,
+ linux-acpi@vger.kernel.org, SHA-cyfmac-dev-list@infineon.com,
+ coreteam@netfilter.org, intel-wired-lan@lists.osuosl.org,
+ linux-input@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
+ linux-ext4@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>,
+ linux-media@vger.kernel.org, bridge@lists.linux-foundation.org,
+ intel-gfx@lists.freedesktop.org, linux-nfs@vger.kernel.org,
+ linux-block@vger.kernel.org, cgroups@vger.kernel.org,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Anna-Maria Gleixner <anna-maria@linutronix.de>,
+ brcm80211-dev-list.pdl@broadcom.com, Stephen Boyd <sboyd@kernel.org>,
+ netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ Julia Lawall <Julia.Lawall@inria.fr>, linux-bluetooth@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Dec 20, 2022 at 02:40:47PM +0200, Jani Nikula wrote:
-> On Tue, 20 Dec 2022, Maarten Lankhorst <maarten.lankhorst@linux.intel.com> wrote:
-> > We enable the DP aux channel during probe, but may free the connector
-> > soon afterwards. Ensure the DP aux display power put is completed before
-> > everything is freed, to prevent a use-after-free in icl_aux_pw_to_phy(),
-> > called from icl_combo_phy_aux_power_well_disable.
-> 
-> Feels like the placement of the intel_display_power_flush_work_sync()
-> call in intel_dp_aux_fini() is a bit arbitrary.
-> 
-> If we add it in intel_dp_aux_fini(), the async and sync waits will both
-> be called on the regular encoder destroy path.
 
-Yes, calling intel_display_power_flush_work() from the error handler at
-the end of intel_dp_init_connector() would be better.
+--Q4QndSuPZQc8d5xp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> Maybe both intel_ddi_encoder_destroy() and intel_dp_encoder_destroy()
-> should call intel_display_power_flush_work_sync(), instead of async,
+On Tue 2022-12-20 13:45:19, Steven Rostedt wrote:
+> [
+>   Linus,
+>=20
+>     I ran the script against your latest master branch:
+>     commit b6bb9676f2165d518b35ba3bea5f1fcfc0d969bf
+>=20
+>     As the timer_shutdown*() code is now in your tree, I figured
+>     we can start doing the conversions. At least add the trivial ones
+>     now as Thomas suggested that this gets applied at the end of the
+>     merge window, to avoid conflicts with linux-next during the
+>     development cycle. I can wait to Friday to run it again, and
+>     resubmit.
+>=20
+>     What is the best way to handle this?
+> ]
+>=20
+> From: "Steven Rostedt (Google)" <rostedt@goodmis.org>
+>=20
+> Due to several bugs caused by timers being re-armed after they are
+> shutdown and just before they are freed, a new state of timers was added
+> called "shutdown". After a timer is set to this state, then it can no
+> longer be re-armed.
+>=20
+> The following script was run to find all the trivial locations where
+> del_timer() or del_timer_sync() is called in the same function that the
+> object holding the timer is freed. It also ignores any locations where the
+> timer->function is modified between the del_timer*() and the free(), as
+> that is not considered a "trivial" case.
+>=20
+> This was created by using a coccinelle script and the following
+commands:
 
-intel_display_power_flush_work() ensures that power wells without a
-reference held are disabled when it returns, so no need to call the
-_sync() version for encoders (the _sync() version ensures in addition
-during driver unloading that the work function is not running).
+LED parts looks good to me.
 
-> and maybe the error paths should call those functions instead of just
-> drm_encoder_cleanup()?
+Getting it in just before -rc1 would be best solution for me.
 
-Yes, the cleanup in those functions could be shared with the error
-handling in g4x_dp_init() and intel_ddi_init(), except kfree(dig_port)
-which also happens if drm_encoder_init() fails. 
+Best regards,
+								Pavel
+--=20
+People of Russia, stop Putin before his war on Ukraine escalates.
 
-For this intel_pps_vdd_off_sync() / intel_dp_aux_fini() would also
-happen later at the end of g4x_dp_init()/intel_ddi_init(), I guess
-that's ok.
+--Q4QndSuPZQc8d5xp
+Content-Type: application/pgp-signature; name="signature.asc"
 
-I wonder if not handling drm_encoder_init() error in intel_ddi_init()
-was on purpose, can't see a reason for it.
+-----BEGIN PGP SIGNATURE-----
 
-> Imre?
-> 
-> 
-> BR,
-> Jani.
-> 
-> 
-> >
-> > Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_display_power.c | 2 +-
-> >  drivers/gpu/drm/i915/display/intel_display_power.h | 1 +
-> >  drivers/gpu/drm/i915/display/intel_dp_aux.c        | 2 ++
-> >  3 files changed, 4 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-> > index 04915f85a0df..0edb5532461f 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display_power.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-> > @@ -776,7 +776,7 @@ void intel_display_power_flush_work(struct drm_i915_private *i915)
-> >   * Like intel_display_power_flush_work(), but also ensure that the work
-> >   * handler function is not running any more when this function returns.
-> >   */
-> > -static void
-> > +void
-> >  intel_display_power_flush_work_sync(struct drm_i915_private *i915)
-> >  {
-> >  	struct i915_power_domains *power_domains = &i915->display.power.domains;
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
-> > index 7136ea3f233e..dc10ee0519e6 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display_power.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_display_power.h
-> > @@ -188,6 +188,7 @@ void __intel_display_power_put_async(struct drm_i915_private *i915,
-> >  				     enum intel_display_power_domain domain,
-> >  				     intel_wakeref_t wakeref);
-> >  void intel_display_power_flush_work(struct drm_i915_private *i915);
-> > +void intel_display_power_flush_work_sync(struct drm_i915_private *i915);
-> >  #if IS_ENABLED(CONFIG_DRM_I915_DEBUG_RUNTIME_PM)
-> >  void intel_display_power_put(struct drm_i915_private *dev_priv,
-> >  			     enum intel_display_power_domain domain,
-> > diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> > index f1835c74bff0..1006dddad2d5 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> > @@ -680,6 +680,8 @@ void intel_dp_aux_fini(struct intel_dp *intel_dp)
-> >  	if (cpu_latency_qos_request_active(&intel_dp->pm_qos))
-> >  		cpu_latency_qos_remove_request(&intel_dp->pm_qos);
-> >  
-> > +	/* Ensure async work from intel_dp_aux_xfer() is flushed before we clean up */
-> > +	intel_display_power_flush_work_sync(dp_to_i915(intel_dp));
-> >  	kfree(intel_dp->aux.name);
-> >  }
-> 
-> -- 
-> Jani Nikula, Intel Open Source Graphics Center
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCY6IPjAAKCRAw5/Bqldv6
+8qFnAJ4h7/YkgMmaMAi5FTo4aeUHj64lowCgv7jO/1JyimzJx+06JHTOXFlIAIk=
+=01ne
+-----END PGP SIGNATURE-----
+
+--Q4QndSuPZQc8d5xp--
