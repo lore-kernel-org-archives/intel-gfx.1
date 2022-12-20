@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2E77C4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 02:41:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70B63C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 02:42:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D45B810E33F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1ABDD10E33E;
 	Tue, 20 Dec 2022 02:41:23 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E02910E33A;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5517B10E338;
  Tue, 20 Dec 2022 02:41:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1671504070; x=1703040070;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ZJBacbFwXnG9ueK3PrL1ENFYN0P5x+tdYzBYuTFhotk=;
- b=UoiVBXm3tspb3QziIG3Dtiv0dl6QIskP0NG4h0NVvt+4IUi2flvfNie2
- LHgakd9MWnyfRvPC/PDuyo33rMwYs/Cj90yvsdpQ8PJRbGvi1JiK4soMA
- ku4PABPKD43ojICk2hnUdx4hyKUbikeaPykED7hlP4iYxowGebAsGdRDP
- BdXgD6r8syy0GG4NNq1sRg9CiW98ymTNlIMN+QV0kjaL1EYMDS4N72yAy
- oIQlYoDUwB2Zoe0akDa88wTnPYtTltH2bqYQCY/BWzIMwC9EwthXmQHAe
- JVzVIaUWckFVLQ7sfdvkXJ+TNF7tShRgqRLWmWhmAIdWXHM2dk1r3c91O w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10566"; a="405761795"
-X-IronPort-AV: E=Sophos;i="5.96,258,1665471600"; d="scan'208";a="405761795"
+ bh=kq9l5+8ydFNSntDp7jGVkfiszjk0zXAHdtqLTcyLSiI=;
+ b=kbeFyoinKnriSz1rJhJPCEIAknuYxI1WEj+SehcCJxT8oxFLhy1EIYYq
+ 4tGevLk314PFpIpU39mLW/NqKj0ep/quSKT1eZWeAUfG+w/4HF3MIwoaw
+ et3SA3v9ZXnG3hQa6M7cEYDlDgjDeLiS3wy0nmD3LU3ziBL2AMzIJAl/f
+ QnzaH7E4ZfWuezBkk677/8OZN0BJP2cLv4lJa2rphnBXkDw48vmpv1cBm
+ T/LVoLTQK21U0YAPvdI66gYVhhwhISXZOdncbdu3/BOxWILnS1lUCfAwi
+ 66lA2nzj8P5aPdwn1Saz6NCfzkxXB9HugFhE9NB0nxL8wO4gySrUC1cmZ Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10566"; a="405761788"
+X-IronPort-AV: E=Sophos;i="5.96,258,1665471600"; d="scan'208";a="405761788"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Dec 2022 18:41:09 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10566"; a="825062150"
-X-IronPort-AV: E=Sophos;i="5.96,258,1665471600"; d="scan'208";a="825062150"
+X-IronPort-AV: E=McAfee;i="6500,9779,10566"; a="825062144"
+X-IronPort-AV: E=Sophos;i="5.96,258,1665471600"; d="scan'208";a="825062144"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.201])
  by orsmga005.jf.intel.com with ESMTP; 19 Dec 2022 18:41:08 -0800
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Mon, 19 Dec 2022 18:41:47 -0800
-Message-Id: <20221220024147.4118685-4-John.C.Harrison@Intel.com>
+Date: Mon, 19 Dec 2022 18:41:45 -0800
+Message-Id: <20221220024147.4118685-2-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20221220024147.4118685-1-John.C.Harrison@Intel.com>
 References: <20221220024147.4118685-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915/uc: Fix two issues with over-size
- firmware files
+Subject: [Intel-gfx] [PATCH 1/3] drm/i915/guc: Fix missing return code
+ checks in submission init
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,113 +59,210 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Alan Previn <alan.previn.teres.alexis@intel.com>,
- Jani Nikula <jani.nikula@intel.com>, DRI-Devel@Lists.FreeDesktop.Org,
- Matthew Auld <matthew.auld@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: DRI-Devel@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-In the case where a firmware file is too large (e.g. someone
-downloaded a web page ASCII dump from github...), the firmware object
-is released but the pointer is not zerod. If no other firmware file
-was found then release would be called again leading to a double kfree.
+The CI results for the 'fast request' patch set (enables error return
+codes for fire-and-forget H2G messages) hit an issue with the KMD
+sending context submission requests on an invalid context. That was
+caused by a fault injection probe failing the context creation of a
+kernel context. However, there was no return code checking on any of
+the kernel context registration paths. So the driver kept going and
+tried to use the kernel context for the record defaults process.
 
-Also, the size check was only being applied to the initial firmware
-load not any of the subsequent attempts. So move the check into a
-wrapper that is used for all loads.
+Fix that by checking for errors and aborting as appropriate when
+creating kernel contexts. While at it, clean up some other submission
+init related failure cleanup paths. Also, rename guc_init_lrc_mapping
+to guc_init_submission as the former name hasn't been valid in a long
+time.
 
-Fixes: 016241168dc5 ("drm/i915/uc: use different ggtt pin offsets for uc loads")
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 42 ++++++++++++++++--------
- 1 file changed, 28 insertions(+), 14 deletions(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 74 ++++++++++++++-----
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.h |  2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  7 +-
+ 3 files changed, 62 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-index d6ff6c584c1e1..06b5f92ba3a55 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-@@ -675,6 +675,32 @@ static int check_fw_header(struct intel_gt *gt,
- 	return 0;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 53f7f599cde3a..4682ec1dbd9c0 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1431,21 +1431,25 @@ static int guc_action_enable_usage_stats(struct intel_guc *guc)
+ 	return intel_guc_send(guc, action, ARRAY_SIZE(action));
  }
  
-+int try_firmware_load(struct intel_uc_fw *uc_fw, const struct firmware **fw)
-+{
-+	struct intel_gt *gt = __uc_fw_to_gt(uc_fw);
-+	struct device *dev = gt->i915->drm.dev;
-+	int err;
+-static void guc_init_engine_stats(struct intel_guc *guc)
++static int guc_init_engine_stats(struct intel_guc *guc)
+ {
+ 	struct intel_gt *gt = guc_to_gt(guc);
+ 	intel_wakeref_t wakeref;
++	int ret;
+ 
+ 	mod_delayed_work(system_highpri_wq, &guc->timestamp.work,
+ 			 guc->timestamp.ping_delay);
+ 
+ 	with_intel_runtime_pm(&gt->i915->runtime_pm, wakeref) {
+-		int ret = guc_action_enable_usage_stats(guc);
++		ret = guc_action_enable_usage_stats(guc);
+ 
+-		if (ret)
+-			drm_err(&gt->i915->drm,
+-				"Failed to enable usage stats: %d!\n", ret);
++		if (ret) {
++			cancel_delayed_work_sync(&guc->timestamp.work);
++			drm_err(&gt->i915->drm, "Failed to enable usage stats: %d!\n", ret);
++		}
+ 	}
 +
-+	err = firmware_request_nowarn(fw, uc_fw->file_selected.path, dev);
++	return ret;
+ }
+ 
+ void intel_guc_busyness_park(struct intel_gt *gt)
+@@ -4101,9 +4105,11 @@ static void guc_set_default_submission(struct intel_engine_cs *engine)
+ 	engine->submit_request = guc_submit_request;
+ }
+ 
+-static inline void guc_kernel_context_pin(struct intel_guc *guc,
+-					  struct intel_context *ce)
++static inline int guc_kernel_context_pin(struct intel_guc *guc,
++					 struct intel_context *ce)
+ {
++	int ret;
 +
-+	if (err)
-+		return err;
+ 	/*
+ 	 * Note: we purposefully do not check the returns below because
+ 	 * the registration can only fail if a reset is just starting.
+@@ -4111,16 +4117,24 @@ static inline void guc_kernel_context_pin(struct intel_guc *guc,
+ 	 * isn't happening and even it did this code would be run again.
+ 	 */
+ 
+-	if (context_guc_id_invalid(ce))
+-		pin_guc_id(guc, ce);
++	if (context_guc_id_invalid(ce)) {
++		int ret = pin_guc_id(guc, ce);
 +
-+	if ((*fw)->size > INTEL_UC_RSVD_GGTT_PER_FW) {
-+		drm_err(&gt->i915->drm,
-+			"%s firmware %s: size (%zuKB) exceeds max supported size (%uKB)\n",
-+			intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
-+			(*fw)->size / SZ_1K, INTEL_UC_RSVD_GGTT_PER_FW / SZ_1K);
-+
-+		/* try to find another blob to load */
-+		release_firmware(*fw);
-+		*fw = NULL;
-+		return -ENOENT;
++		if (ret < 0)
++			return ret;
 +	}
+ 
+ 	if (!test_bit(CONTEXT_GUC_INIT, &ce->flags))
+ 		guc_context_init(ce);
+ 
+-	try_context_registration(ce, true);
++	ret = try_context_registration(ce, true);
++	if (ret)
++		unpin_guc_id(guc, ce);
++
++	return ret;
+ }
+ 
+-static inline void guc_init_lrc_mapping(struct intel_guc *guc)
++static inline int guc_init_submission(struct intel_guc *guc)
+ {
+ 	struct intel_gt *gt = guc_to_gt(guc);
+ 	struct intel_engine_cs *engine;
+@@ -4147,9 +4161,17 @@ static inline void guc_init_lrc_mapping(struct intel_guc *guc)
+ 		struct intel_context *ce;
+ 
+ 		list_for_each_entry(ce, &engine->pinned_contexts_list,
+-				    pinned_contexts_link)
+-			guc_kernel_context_pin(guc, ce);
++				    pinned_contexts_link) {
++			int ret = guc_kernel_context_pin(guc, ce);
++
++			if (ret) {
++				/* No point in trying to clean up as i915 will wedge on failure */
++				return ret;
++			}
++		}
+ 	}
 +
 +	return 0;
-+}
+ }
+ 
+ static void guc_release(struct intel_engine_cs *engine)
+@@ -4391,9 +4413,10 @@ static int guc_init_global_schedule_policy(struct intel_guc *guc)
+ 	return ret;
+ }
+ 
+-void intel_guc_submission_enable(struct intel_guc *guc)
++int intel_guc_submission_enable(struct intel_guc *guc)
+ {
+ 	struct intel_gt *gt = guc_to_gt(guc);
++	int ret;
+ 
+ 	/* Enable and route to GuC */
+ 	if (GRAPHICS_VER(gt->i915) >= 12)
+@@ -4401,16 +4424,31 @@ void intel_guc_submission_enable(struct intel_guc *guc)
+ 				   GUC_SEM_INTR_ROUTE_TO_GUC |
+ 				   GUC_SEM_INTR_ENABLE_ALL);
+ 
+-	guc_init_lrc_mapping(guc);
+-	guc_init_engine_stats(guc);
+-	guc_init_global_schedule_policy(guc);
++	ret = guc_init_submission(guc);
++	if (ret)
++		goto fail;
 +
- /**
-  * intel_uc_fw_fetch - fetch uC firmware
-  * @uc_fw: uC firmware
-@@ -688,7 +714,6 @@ int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw)
- 	struct intel_gt *gt = __uc_fw_to_gt(uc_fw);
- 	struct drm_i915_private *i915 = gt->i915;
- 	struct intel_uc_fw_file file_ideal;
--	struct device *dev = i915->drm.dev;
- 	struct drm_i915_gem_object *obj;
- 	const struct firmware *fw = NULL;
- 	bool old_ver = false;
-@@ -704,20 +729,9 @@ int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw)
- 	__force_fw_fetch_failures(uc_fw, -EINVAL);
- 	__force_fw_fetch_failures(uc_fw, -ESTALE);
++	ret = guc_init_engine_stats(guc);
++	if (ret)
++		goto fail;
++
++	ret = guc_init_global_schedule_policy(guc);
++	if (ret)
++		goto fail;
++
++	return 0;
++
++fail:
++	intel_guc_submission_disable(guc);
++	return ret;
+ }
  
--	err = firmware_request_nowarn(&fw, uc_fw->file_selected.path, dev);
-+	err = try_firmware_load(uc_fw, &fw);
- 	memcpy(&file_ideal, &uc_fw->file_wanted, sizeof(file_ideal));
++/* Note: By the time we're here, GuC may have already been reset */
+ void intel_guc_submission_disable(struct intel_guc *guc)
+ {
+ 	struct intel_gt *gt = guc_to_gt(guc);
  
--	if (!err && fw->size > INTEL_UC_RSVD_GGTT_PER_FW) {
--		drm_err(&i915->drm,
--			"%s firmware %s: size (%zuKB) exceeds max supported size (%uKB)\n",
--			intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
--			fw->size / SZ_1K, INTEL_UC_RSVD_GGTT_PER_FW / SZ_1K);
--
--		/* try to find another blob to load */
--		release_firmware(fw);
--		err = -ENOENT;
--	}
--
- 	/* Any error is terminal if overriding. Don't bother searching for older versions */
- 	if (err && intel_uc_fw_is_overridden(uc_fw))
- 		goto fail;
-@@ -738,7 +752,7 @@ int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw)
- 			break;
- 		}
+-	/* Note: By the time we're here, GuC may have already been reset */
++	cancel_delayed_work_sync(&guc->timestamp.work);
  
--		err = firmware_request_nowarn(&fw, uc_fw->file_selected.path, dev);
-+		err = try_firmware_load(uc_fw, &fw);
- 	}
+ 	/* Disable and route to host */
+ 	if (GRAPHICS_VER(gt->i915) >= 12)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
+index 5a95a9f0a8e31..c57b29cdb1a64 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
+@@ -15,7 +15,7 @@ struct intel_engine_cs;
  
- 	if (err)
+ void intel_guc_submission_init_early(struct intel_guc *guc);
+ int intel_guc_submission_init(struct intel_guc *guc);
+-void intel_guc_submission_enable(struct intel_guc *guc);
++int intel_guc_submission_enable(struct intel_guc *guc);
+ void intel_guc_submission_disable(struct intel_guc *guc);
+ void intel_guc_submission_fini(struct intel_guc *guc);
+ int intel_guc_preempt_work_create(struct intel_guc *guc);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+index 9a8a1abf71d7f..8e338b3321a93 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+@@ -537,8 +537,11 @@ static int __uc_init_hw(struct intel_uc *uc)
+ 	else
+ 		intel_huc_auth(huc);
+ 
+-	if (intel_uc_uses_guc_submission(uc))
+-		intel_guc_submission_enable(guc);
++	if (intel_uc_uses_guc_submission(uc)) {
++		ret = intel_guc_submission_enable(guc);
++		if (ret)
++			goto err_log_capture;
++	}
+ 
+ 	if (intel_uc_uses_guc_slpc(uc)) {
+ 		ret = intel_guc_slpc_enable(&guc->slpc);
 -- 
 2.39.0
 
