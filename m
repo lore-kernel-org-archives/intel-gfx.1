@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82525C4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 22:00:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAC0BC4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Dec 2022 22:09:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AB6010E406;
-	Tue, 20 Dec 2022 22:00:18 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7ED9410E0DE;
- Tue, 20 Dec 2022 22:00:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16E6310E044;
+	Tue, 20 Dec 2022 22:09:09 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3DCA10E044;
+ Tue, 20 Dec 2022 22:09:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671573614; x=1703109614;
+ t=1671574147; x=1703110147;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=8dCGaT0pcLDlSjWzsIeUUf3Mu8KteGcPIaW2WGG8F14=;
- b=bv+/19J/CUhtphYydkl6lfmxOKdnQd4fhO5k/Iteegw4bxltHJTD+/7v
- eNTfMASM3d0A62MiXLadXYhX3RQEz8dNwgr6e0vuH7Hg0Kpa1tY8UX2zV
- qc2WaffZRDD4+oLeu9NZzN/WcgFk30Jh109RmbYsBqqOvvNaTw3Rxlp//
- ti6Es3ArjFgUjVqQ0Ve1ljmHkbDDjOcbdWwzlR1/vbHwJfB9WJ72A2kXN
- xZnW8TpECkRp8KlcZaoXipAEn66m/cG69GLYFhfAA0IKauqAQ6loqBxaD
- HulzQ3JbM+h6/B/KKCC1sIMrAhEL+qJV23CokS3Ar+qzqBYVhW/bpQBZO Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="317364311"
-X-IronPort-AV: E=Sophos;i="5.96,259,1665471600"; d="scan'208";a="317364311"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Dec 2022 14:00:13 -0800
+ bh=t8p6yD2DgGKWzoxqI2joXuLTLa4pC7jtwHUjrJo4Ijc=;
+ b=RAXhGjIgZKXYWx05FofnBN6HpHgCU0o2QS8bdSJvyIFO0enc9j5ji8Zm
+ jcYJ1ZRqHbx9c4vJ/T6QnuDdDPkh39Tb+e6sS8o+fMAE6AnFzZrb3jXSn
+ i8jLckPR9jWVxuBJjVQhNqXdoBXoWgncuh327tgVIbzcLLB+Tr8/h9E15
+ xN54vUF58ezWY+S/qHQuKDAzEcSRp33iZXqlihNWBwf4BQukXjSGMYWx0
+ jOYqR3U9HOrdfANKPyyyYntRBEkzT7LO4+R4jis+D7MZZ8+fKsDbNPean
+ cEi6zdnxeU+Jf6VhS4SZtXc/ayD9xBpL4M4hcroKpnrlDZR2U1ETuqtDC g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="381955220"
+X-IronPort-AV: E=Sophos;i="5.96,259,1665471600"; d="scan'208";a="381955220"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Dec 2022 14:09:07 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="793476374"
-X-IronPort-AV: E=Sophos;i="5.96,259,1665471600"; d="scan'208";a="793476374"
+X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="601264522"
+X-IronPort-AV: E=Sophos;i="5.96,259,1665471600"; d="scan'208";a="601264522"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by fmsmga001.fm.intel.com with ESMTP; 20 Dec 2022 14:00:13 -0800
+ by orsmga003.jf.intel.com with ESMTP; 20 Dec 2022 14:09:06 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 20 Dec 2022 14:03:04 -0800
-Message-Id: <20221220220304.2383273-1-alan.previn.teres.alexis@intel.com>
+Date: Tue, 20 Dec 2022 14:11:58 -0800
+Message-Id: <20221220221158.2390090-1-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/1] drm/i915/pxp: Use drm_dbg if arb session
+Subject: [Intel-gfx] [PATCH v2 1/1] drm/i915/pxp: Use drm_dbg if arb session
  failed due to fw version
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,6 +68,9 @@ user-space will eventually get a -ENODEV for the protected context
 creation which is the correct behavior and we don't create unnecessary
 drm_error's in our dmesg (for what is unsupported platforms).
 
+Changes from prio revs:
+   v1 : - print incorrect version from input packet, not output.
+
 Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
  drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_cmn.h | 1 +
@@ -87,7 +90,7 @@ index c2f23394f9b8..aaa8187a0afb 100644
  };
  
 diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-index d50354bfb993..1e2fef39a675 100644
+index d50354bfb993..9d084ed9cc50 100644
 --- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
 +++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
 @@ -298,6 +298,11 @@ int intel_pxp_tee_cmd_create_arb_session(struct intel_pxp *pxp,
@@ -98,7 +101,7 @@ index d50354bfb993..1e2fef39a675 100644
 +	else if (msg_out.header.status == PXP_STATUS_ERROR_API_VERSION)
 +		drm_dbg(&i915->drm, "PXP firmware version unsupported, requested: "
 +			"CMD-ID-[0x%08x] on API-Ver-[0x%08x]\n",
-+			msg_in.header.command_id, msg_out.header.api_version);
++			msg_in.header.command_id, msg_in.header.api_version);
  	else if (msg_out.header.status != 0x0)
  		drm_warn(&i915->drm, "PXP firmware failed arb session init request ret=[0x%08x]\n",
  			 msg_out.header.status);
