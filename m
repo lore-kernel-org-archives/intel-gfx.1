@@ -4,48 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2088CC4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 15:38:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48DD2C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 15:39:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A21B10E125;
-	Wed, 21 Dec 2022 15:38:40 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B0D110E125
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Dec 2022 15:38:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D044910E125;
+	Wed, 21 Dec 2022 15:39:53 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACF7F10E125
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Dec 2022 15:39:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671637117; x=1703173117;
+ t=1671637191; x=1703173191;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=0xNlvcpmR0xIHbf2Hbj7I1r/YD5skgCSx2cqRiO6Irs=;
- b=LX/dRy6PkUGU20CcR4FWWrVv0L4eY8EShiR3G3GTe8comXqZ4KFKhRV6
- 4AYagIw8WLDjtwZRcrlA2nedrTbss7JEw8wH2Ub7QwJ6f5+y4LmVSsh4H
- JD3n535x3v+1kfGQdQdYI7G2beMep481VuT62umKX+7mIARIMrLIEB+b9
- j1BvW3fG6yFm9KB9Bzw/I+YWhdtW1u4G2IvOf585qYA1ZOgTXsFspe/yk
- WrPgKTXY+2KSOfjYGAejAM7I7JMxqIUQXKUbUyE82vGveYKnBHbbxbcj4
- mbc1GHVnzhl2z/ztPYIReHQNa5Q2SbriN7+WWopVcYM8EpaNbiLaR1/gm g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="321075263"
-X-IronPort-AV: E=Sophos;i="5.96,262,1665471600"; d="scan'208";a="321075263"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Dec 2022 07:38:36 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="980239564"
-X-IronPort-AV: E=Sophos;i="5.96,262,1665471600"; d="scan'208";a="980239564"
-Received: from cbenthin-mobl1.amr.corp.intel.com (HELO
- jhogande-mobl1.ger.corp.intel.com) ([10.252.61.207])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Dec 2022 07:38:34 -0800
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
+ bh=ne81+rZv8RPuLpIvrNQ2EmuPxtHlPm0WBNsQXlttLsU=;
+ b=lmwm/TpkSw8+LdzGRj/TuqkNfqyLIABiZPMDj3IWS6dFwepF44IbvP5D
+ I89HPQJ7NPZD6HHpLWqIeKElwclNApkcpNzPx60nC2Ug1Drj30mxwcVzH
+ SL0sMFB+QTu+B9fAMRPDnavY8lsTKefsJL0Dpid47OUJ4RCGUINpJK8hv
+ zWpEaBiM4MW8czXlAc9OQb/RWao1nqe1zTXdJwFguUJmEoOzoH+4wQTpM
+ 94vJVjI7ssOHerrW3CS6XC4D/BmnI2zzikELHQjCPOPvV+Ipx84lAhnmX
+ g0aiebvhpG9j5yEWbN2km6dH2kgwoRgQayF2Xxyfyu78wPOfe13wskpmg g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="299576465"
+X-IronPort-AV: E=Sophos;i="5.96,262,1665471600"; d="scan'208";a="299576465"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Dec 2022 07:39:50 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10567"; a="644879797"
+X-IronPort-AV: E=Sophos;i="5.96,262,1665471600"; d="scan'208";a="644879797"
+Received: from dut-internal-9dd7.jf.intel.com ([10.24.14.53])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Dec 2022 07:39:49 -0800
+From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 21 Dec 2022 17:38:16 +0200
-Message-Id: <20221221153816.1915426-1-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.34.1
+Date: Wed, 21 Dec 2022 07:35:14 -0800
+Message-Id: <20221221153514.3874262-1-jonathan.cavitt@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3] drm/i915/fbdev: Implement fb_dirty for intel
- custom fb helper
+Subject: [Intel-gfx] [PATCH] drm/i915: Enable XE_HP 4Tile support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,56 +54,45 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>
+Cc: jonathan.cavitt@intel.com,
+ Telukuntla Sreedhar <sreedhar.telukuntla@intel.com>,
+ Bommu Krishnaiah <krishnaiah.bommu@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After splitting generic drm_fb_helper into it's own file it's left to
-helper implementation to have fb_dirty function. Currently intel
-fbdev doesn't have it. This is causing problems to features (PSR, FBC,
-DRRS) relying on dirty callback.
+Add .has_4tile tag to XE_HP_FEATURES set.
+Remove duplicate entry from DG2_FEATURES.
 
-Implement simple fb_dirty callback to deliver notifications about updates
-in fb console.
-
-v3: Check damage clip
-v2: Improved commit message and added Fixes tag
-
-Fixes: 8ab59da26bc0 ("drm/fb-helper: Move generic fbdev emulation into separate source file")
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Cc: Bommu Krishnaiah <krishnaiah.bommu@intel.com>
+Cc: Roper Matthew D <matthew.d.roper@intel.com>
+Cc: Kempczynski Zbigniew <Zbigniew.Kempczynski@intel.com>
+Cc: Telukuntla Sreedhar <sreedhar.telukuntla@intel.com>
+Acked-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fbdev.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/gpu/drm/i915/i915_pci.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-index 03ed4607a46d..4e87d9964fcc 100644
---- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-@@ -328,8 +328,20 @@ static int intelfb_create(struct drm_fb_helper *helper,
- 	return ret;
- }
- 
-+static int intelfb_dirty(struct drm_fb_helper *helper, struct drm_clip_rect *clip)
-+{
-+	if (!(clip->x1 < clip->x2 && clip->y1 < clip->y2))
-+		return 0;
-+
-+	if (helper->fb->funcs->dirty)
-+		return helper->fb->funcs->dirty(helper->fb, NULL, 0, 0, clip, 1);
-+
-+	return 0;
-+}
-+
- static const struct drm_fb_helper_funcs intel_fb_helper_funcs = {
- 	.fb_probe = intelfb_create,
-+	.fb_dirty = intelfb_dirty,
- };
- 
- static void intel_fbdev_destroy(struct intel_fbdev *ifbdev)
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 668e9da52584..7fd74cc28c0a 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -1017,6 +1017,7 @@ static const struct intel_device_info adl_p_info = {
+ 	.has_3d_pipeline = 1, \
+ 	.has_64bit_reloc = 1, \
+ 	.has_flat_ccs = 1, \
++	.has_4tile = 1, \
+ 	.has_global_mocs = 1, \
+ 	.has_gt_uc = 1, \
+ 	.has_llc = 1, \
+@@ -1061,7 +1062,6 @@ static const struct intel_device_info xehpsdv_info = {
+ 	.__runtime.graphics.ip.rel = 55, \
+ 	.__runtime.media.ip.rel = 55, \
+ 	PLATFORM(INTEL_DG2), \
+-	.has_4tile = 1, \
+ 	.has_64k_pages = 1, \
+ 	.has_guc_deprivilege = 1, \
+ 	.has_heci_pxp = 1, \
 -- 
-2.34.1
+2.25.1
 
