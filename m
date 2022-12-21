@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02D32C4167B
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 22:52:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3613C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 22:52:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AC4710E138;
-	Wed, 21 Dec 2022 22:51:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C55610E137;
+	Wed, 21 Dec 2022 22:51:52 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EB8810E137
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E059B10E0F7
  for <intel-gfx@lists.freedesktop.org>; Wed, 21 Dec 2022 22:51:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1671663109; x=1703199109;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=dihkVAdrcYCS+uehz9anhQl84xJdTATy6LvWhxUMWQY=;
- b=FS48dB12A4iIno7HbXs3fLNyI6/1nJUNnGxUf+FVY23JpG033yL5SPYN
- QA3g7yFrnbvyasuQvoJbgi1BSkHm2/6dIEc9N0JBejdrgJ/FqrMZzwrni
- hdDfFiPOvumsVPEcCBx0/6ydlo4Px7qDVZsFcP+ky2cgjx0qdU84h6GJs
- AScm5rBzVQkVTpGX2T5+CsfN0qEriOt5dr6quCa5ZVkAcjNJ4ToOvLz3I
- ykfzalJXe1yOGq+EJaiHmx2EBiqY4pcZFn/1cZEEuu9LxfEcI+bqJy9G0
- qi/kUnC9Z0v8A7YgjO9/2uLG//PlsPEjU4lQzrn5IGbtSpzJs1pkHl/Rj A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10568"; a="300328211"
-X-IronPort-AV: E=Sophos;i="5.96,263,1665471600"; d="scan'208";a="300328211"
+ bh=CZn2cVDnmCgEo3uuieqkgL/QIFH/uiZmaqIaToI+tgU=;
+ b=M8R3JWWLosa/TBXECYsXvYs1LiRuQt9C3HXi7KjSTGa2TztUDugS21RL
+ g1WqWwUColPsuBMy1xtqVsu08lSF7XHb7szJPiEVjuiEJy/KXtTW7d8Fr
+ zRTIMjbH5NhZOJeWoLIalay1vL1glrik5gDyVMRBDotoj7ETt28mPryM5
+ fR7+5p+dS5g/oQjxvaWmMRJxXa8krgfXf4Nqc75STvCTKCeNd9u0O5mcc
+ 4RfDf7d5GmEs672+dAIUbD3w4P/L3H0BS35AmOhPj7wsvrj4vzft+wnJK
+ PkoZjS2XSbBUh1dGp/qG8dhjy8OEvCiGfv5tTDS0jiGDVFK+F1mgAx0Br A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10568"; a="300328213"
+X-IronPort-AV: E=Sophos;i="5.96,263,1665471600"; d="scan'208";a="300328213"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Dec 2022 14:51:49 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10568"; a="682183971"
-X-IronPort-AV: E=Sophos;i="5.96,263,1665471600"; d="scan'208";a="682183971"
+X-IronPort-AV: E=McAfee;i="6500,9779,10568"; a="682183973"
+X-IronPort-AV: E=Sophos;i="5.96,263,1665471600"; d="scan'208";a="682183973"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
  by orsmga008.jf.intel.com with ESMTP; 21 Dec 2022 14:51:48 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 21 Dec 2022 14:54:35 -0800
-Message-Id: <20221221225439.2714575-4-alan.previn.teres.alexis@intel.com>
+Date: Wed, 21 Dec 2022 14:54:37 -0800
+Message-Id: <20221221225439.2714575-6-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221221225439.2714575-1-alan.previn.teres.alexis@intel.com>
 References: <20221129004832.3735764-1-alan.previn.teres.alexis@intel.com>
  <20221221225439.2714575-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 3/7] mei: clean pending read with vtag on bus
+Subject: [Intel-gfx] [PATCH v3 5/7] drm/i915/pxp: Trigger the global
+ teardown for before suspending
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,33 +61,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Alexander Usyskin <alexander.usyskin@intel.com>
+A driver bug was recently discovered where the security firmware was
+receiving internal HW signals indicating that session key expirations
+had occurred. Architecturally, the firmware was expecting a response
+from the GuC to acknowledge the event with the firmware side.
+However the OS was in a suspended state and GuC had been reset.
 
-Client on bus have only one vtag map slot and should disregard the vtag
-value when cleaning pending read flag.
-Fixes read flow control message unexpectedly generated when
-clent on bus send messages with different vtags.
+Internal specifications actually required the driver to ensure
+that all active sessions be properly cleaned up in such cases where
+the system is suspended and the GuC potentially unable to respond.
 
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+This patch adds the global teardown code in i915's suspend_prepare
+code path.
+
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/misc/mei/client.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/pxp/intel_pxp.c         | 60 +++++++++++++++++---
+ drivers/gpu/drm/i915/pxp/intel_pxp.h         |  1 +
+ drivers/gpu/drm/i915/pxp/intel_pxp_pm.c      |  2 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp_session.c |  9 ++-
+ drivers/gpu/drm/i915/pxp/intel_pxp_session.h |  5 ++
+ 5 files changed, 64 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/misc/mei/client.c b/drivers/misc/mei/client.c
-index 9ddb854b8155..5c19097266fe 100644
---- a/drivers/misc/mei/client.c
-+++ b/drivers/misc/mei/client.c
-@@ -1343,7 +1343,9 @@ static void mei_cl_reset_read_by_vtag(const struct mei_cl *cl, u8 vtag)
- 	struct mei_cl_vtag *vtag_l;
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+index cfc9af8b3d21..96a988efd237 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
+@@ -270,6 +270,55 @@ static bool pxp_component_bound(struct intel_pxp *pxp)
+ 	return bound;
+ }
  
- 	list_for_each_entry(vtag_l, &cl->vtag_map, list) {
--		if (vtag_l->vtag == vtag) {
-+		/* The client on bus has one fixed vtag map */
-+		if ((cl->cldev && mei_cldev_enabled(cl->cldev)) ||
-+		    vtag_l->vtag == vtag) {
- 			vtag_l->pending_read = false;
- 			break;
- 		}
++static int __pxp_global_teardown_locked(struct intel_pxp *pxp, bool terminate_for_cleanup)
++{
++	if (terminate_for_cleanup) {
++		if (!pxp->arb_is_valid)
++			return 0;
++		/*
++		 * To ensure synchronous and coherent session teardown completion
++		 * in response to suspend or shutdown triggers, don't user a worker.
++		 */
++		intel_pxp_mark_termination_in_progress(pxp);
++		intel_pxp_terminate(pxp, false);
++	} else {
++		if (pxp->arb_is_valid)
++			return 0;
++		/*
++		 * If we are not in final termination, and the arb-session is currently
++		 * inactive, we are doing a reset and restart due to some runtime event.
++		 * Use the worker that was designed for this.
++		 */
++		pxp_queue_termination(pxp);
++	}
++
++	if (!wait_for_completion_timeout(&pxp->termination, msecs_to_jiffies(250)))
++		return -ETIMEDOUT;
++
++	return 0;
++}
++
++void intel_pxp_end(struct intel_pxp *pxp)
++{
++	struct drm_i915_private *i915 = pxp->ctrl_gt->i915;
++	intel_wakeref_t wakeref;
++
++	if (!intel_pxp_is_enabled(pxp))
++		return;
++
++	wakeref = intel_runtime_pm_get(&i915->runtime_pm);
++
++	mutex_lock(&pxp->arb_mutex);
++
++	if (__pxp_global_teardown_locked(pxp, true))
++		drm_dbg(&i915->drm, "PXP end timed out\n");
++
++	mutex_unlock(&pxp->arb_mutex);
++
++	intel_pxp_fini_hw(pxp);
++	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
++}
++
+ /*
+  * the arb session is restarted from the irq work when we receive the
+  * termination completion interrupt
+@@ -286,16 +335,9 @@ int intel_pxp_start(struct intel_pxp *pxp)
+ 
+ 	mutex_lock(&pxp->arb_mutex);
+ 
+-	if (pxp->arb_is_valid)
+-		goto unlock;
+-
+-	pxp_queue_termination(pxp);
+-
+-	if (!wait_for_completion_timeout(&pxp->termination,
+-					msecs_to_jiffies(250))) {
+-		ret = -ETIMEDOUT;
++	ret = __pxp_global_teardown_locked(pxp, false);
++	if (ret)
+ 		goto unlock;
+-	}
+ 
+ 	/* make sure the compiler doesn't optimize the double access */
+ 	barrier();
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+index 9658d3005222..3ded0890cd27 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+@@ -27,6 +27,7 @@ void intel_pxp_mark_termination_in_progress(struct intel_pxp *pxp);
+ void intel_pxp_tee_end_arb_fw_session(struct intel_pxp *pxp, u32 arb_session_id);
+ 
+ int intel_pxp_start(struct intel_pxp *pxp);
++void intel_pxp_end(struct intel_pxp *pxp);
+ 
+ int intel_pxp_key_check(struct intel_pxp *pxp,
+ 			struct drm_i915_gem_object *obj,
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
+index 892d39cc61c1..e427464aa131 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
+@@ -16,7 +16,7 @@ void intel_pxp_suspend_prepare(struct intel_pxp *pxp)
+ 	if (!intel_pxp_is_enabled(pxp))
+ 		return;
+ 
+-	pxp->arb_is_valid = false;
++	intel_pxp_end(pxp);
+ 
+ 	intel_pxp_invalidate(pxp);
+ }
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
+index 74ed7e16e481..d8278c4002e3 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
+@@ -115,11 +115,14 @@ static int pxp_terminate_arb_session_and_global(struct intel_pxp *pxp)
+ 	return ret;
+ }
+ 
+-static void pxp_terminate(struct intel_pxp *pxp)
++void intel_pxp_terminate(struct intel_pxp *pxp, bool restart_arb)
+ {
+ 	int ret;
+ 
+-	pxp->hw_state_invalidated = true;
++	if (restart_arb)
++		pxp->hw_state_invalidated = true;
++	else
++		pxp->hw_state_invalidated = false;
+ 
+ 	/*
+ 	 * if we fail to submit the termination there is no point in waiting for
+@@ -167,7 +170,7 @@ static void pxp_session_work(struct work_struct *work)
+ 
+ 	if (events & PXP_TERMINATION_REQUEST) {
+ 		events &= ~PXP_TERMINATION_COMPLETE;
+-		pxp_terminate(pxp);
++		intel_pxp_terminate(pxp, true);
+ 	}
+ 
+ 	if (events & PXP_TERMINATION_COMPLETE)
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.h b/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
+index 903ac52cffa1..4f944b63b5b6 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
+@@ -12,9 +12,14 @@ struct intel_pxp;
+ 
+ #ifdef CONFIG_DRM_I915_PXP
+ void intel_pxp_session_management_init(struct intel_pxp *pxp);
++void intel_pxp_terminate(struct intel_pxp *pxp, bool restart_arb);
+ #else
+ static inline void intel_pxp_session_management_init(struct intel_pxp *pxp)
+ {
+ }
++
++static inline void intel_pxp_terminate(struct intel_pxp *pxp, bool restart_arb)
++{
++}
+ #endif
+ #endif /* __INTEL_PXP_SESSION_H__ */
 -- 
 2.34.1
 
