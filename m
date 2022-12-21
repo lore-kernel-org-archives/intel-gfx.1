@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6A38C4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 23:03:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E787C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 23:03:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A88B410E135;
-	Wed, 21 Dec 2022 23:03:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1778D10E138;
+	Wed, 21 Dec 2022 23:03:45 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7055510E04A;
- Wed, 21 Dec 2022 23:03:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A62ED10E135;
+ Wed, 21 Dec 2022 23:03:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671663820; x=1703199820;
+ t=1671663821; x=1703199821;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=/YKkW1l4U7eduipxOO4rUMd2XB1phFWki053IcvBnSA=;
- b=AqtpwGi1bINi5spymbUkeO8kpP2y4AnUOOdiV009tIwAH4sETJtdzafw
- VkX9AF1oBPjkSyCMS45hk5CIPdlx6hZLHTh4KlE8wNu1iKvpGoUkWwsdh
- m3k+stqlTLoEhVsgdIqvRj+5aO2WJGrrwVi3NT+A/F6H9vBxZbfyq5Sw4
- iPoCvcmypvf8bIEKAIjwrUrl5rLQpOHi9/n8XCULbOF6Nmf7qFMJYj3j/
- C2uU/DJJZ6bmPFLuX81LG65yLoG18Erwe0kbZ9SiulE45RpAZFzKMoGao
- eH0WroZUGx7UQty+8fKsUk+FgHqfXOamuqCeE6QffY/v+36P2B5OvhMEK g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10568"; a="321905526"
-X-IronPort-AV: E=Sophos;i="5.96,263,1665471600"; d="scan'208";a="321905526"
+ bh=FOsZO5rNNM+rLrUMhHLDvZ4UBjLzI7oonCzXrY6qkLE=;
+ b=Y5cvRH6sBL6x/n/C3QuZCVUAPlbLUHvPcL+Hd/mLUrcsYiQBlGeykgis
+ 5KdWvCWDKqgemzBdNq0TQh8sx7m3AQTs5T4r8tU3TNNcianJxzR/Y9pxj
+ /ujyRR+llk4IEAv+7T52b0UsNFrNHQDEYwAVBPT65PSg95Q+aABiiT3LN
+ g3+O5bfp6zzJolsbiyDD7e9YUZITydU4WySvl6jAi8um26bPNtYoqnmg6
+ pDgGS0y7iNUBbaiCYRmvxBO5c8zvrIELE7viTCyYlzPxjGkjB+xswt6Ur
+ A09IaLSUnYEOBm5jhW5UK3rFrOtI+lY3myQGyfiH3g1e5Fq2jD/ZKuNB4 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10568"; a="321905537"
+X-IronPort-AV: E=Sophos;i="5.96,263,1665471600"; d="scan'208";a="321905537"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Dec 2022 15:03:40 -0800
+ 21 Dec 2022 15:03:41 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10568"; a="793864418"
-X-IronPort-AV: E=Sophos;i="5.96,263,1665471600"; d="scan'208";a="793864418"
+X-IronPort-AV: E=McAfee;i="6500,9779,10568"; a="793864429"
+X-IronPort-AV: E=Sophos;i="5.96,263,1665471600"; d="scan'208";a="793864429"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by fmsmga001.fm.intel.com with ESMTP; 21 Dec 2022 15:03:39 -0800
+ by fmsmga001.fm.intel.com with ESMTP; 21 Dec 2022 15:03:41 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 21 Dec 2022 15:06:23 -0800
-Message-Id: <20221221230628.2715916-3-alan.previn.teres.alexis@intel.com>
+Date: Wed, 21 Dec 2022 15:06:25 -0800
+Message-Id: <20221221230628.2715916-5-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20221221230628.2715916-1-alan.previn.teres.alexis@intel.com>
 References: <20221221230628.2715916-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 2/7] drm/i915/pxp: add device link between
- i915 and mei_pxp
+Subject: [Intel-gfx] [PATCH v3 4/7] drm/i915/pxp: Invalidate all PXP fw
+ sessions during teardown
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,43 +67,142 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Alexander Usyskin <alexander.usyskin@intel.com>
+A gap was recently discovered where if an application did not
+invalidate all of the stream keys (intentionally or not), and the
+driver did a full PXP global teardown on the GT subsystem, we
+find that future session creation would fail on the security
+firmware's side of the equation. i915 is the entity that needs
+ensure the sessions' state across both iGT and security firmware
+are at a known clean point when performing a full global teardown.
 
-Add device link with i915 as consumer and mei_pxp as supplier
-to ensure proper ordering of power flows.
+Architecturally speaking, i915 should inspect all active sessions
+and submit the invalidate-stream-key PXP command to the security
+firmware for each of them. However, for the upstream i915 driver
+we only support the arbitration session that can be created
+so that will be the only session we will cleanup.
 
-V2: condition on absence of heci_pxp to filter out DG
-
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/i915/pxp/intel_pxp.h          |  1 +
+ .../drm/i915/pxp/intel_pxp_cmd_interface_42.h | 15 ++++++++
+ .../i915/pxp/intel_pxp_cmd_interface_cmn.h    |  3 ++
+ drivers/gpu/drm/i915/pxp/intel_pxp_session.c  |  2 ++
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.c      | 35 +++++++++++++++++++
+ 5 files changed, 56 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-index d50354bfb993..bef6d7f8ac55 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-@@ -127,6 +127,10 @@ static int i915_pxp_tee_component_bind(struct device *i915_kdev,
- 	intel_wakeref_t wakeref;
- 	int ret = 0;
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+index 04440fada711..9658d3005222 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+@@ -24,6 +24,7 @@ void intel_pxp_init_hw(struct intel_pxp *pxp);
+ void intel_pxp_fini_hw(struct intel_pxp *pxp);
  
-+	if (!HAS_HECI_PXP(i915) &&
-+	    drm_WARN_ON(&i915->drm, !device_link_add(i915_kdev, tee_kdev, DL_FLAG_STATELESS)))
-+		return -ENOMEM;
+ void intel_pxp_mark_termination_in_progress(struct intel_pxp *pxp);
++void intel_pxp_tee_end_arb_fw_session(struct intel_pxp *pxp, u32 arb_session_id);
+ 
+ int intel_pxp_start(struct intel_pxp *pxp);
+ 
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_42.h b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_42.h
+index 739f9072fa5f..26f7d9f01bf3 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_42.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_42.h
+@@ -12,6 +12,9 @@
+ /* PXP-Opcode for Init Session */
+ #define PXP42_CMDID_INIT_SESSION 0x1e
+ 
++/* PXP-Opcode for Invalidate Stream Key */
++#define PXP42_CMDID_INVALIDATE_STREAM_KEY 0x00000007
 +
- 	mutex_lock(&pxp->tee_mutex);
- 	pxp->pxp_component = data;
- 	pxp->pxp_component->tee_dev = tee_kdev;
-@@ -169,6 +173,9 @@ static void i915_pxp_tee_component_unbind(struct device *i915_kdev,
- 	mutex_lock(&pxp->tee_mutex);
- 	pxp->pxp_component = NULL;
- 	mutex_unlock(&pxp->tee_mutex);
+ /* PXP-Input-Packet: Init Session (Arb-Session) */
+ struct pxp42_create_arb_in {
+ 	struct pxp_cmd_header header;
+@@ -25,4 +28,16 @@ struct pxp42_create_arb_out {
+ 	struct pxp_cmd_header header;
+ } __packed;
+ 
++/* PXP-Input-Packet: Invalidate Stream Key */
++struct pxp42_inv_stream_key_in {
++	struct pxp_cmd_header header;
++	u32 rsvd[3];
++} __packed;
 +
-+	if (!HAS_HECI_PXP(i915))
-+		device_link_remove(i915_kdev, tee_kdev);
++/* PXP-Output-Packet: Invalidate Stream Key */
++struct pxp42_inv_stream_key_out {
++	struct pxp_cmd_header header;
++	u32 rsvd;
++} __packed;
++
+ #endif /* __INTEL_PXP_FW_INTERFACE_42_H__ */
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_cmn.h b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_cmn.h
+index c2f23394f9b8..69e34ec49e78 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_cmn.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_cmn.h
+@@ -27,6 +27,9 @@ struct pxp_cmd_header {
+ 	union {
+ 		u32 status; /* out */
+ 		u32 stream_id; /* in */
++#define PXP_CMDHDR_EXTDATA_SESSION_VALID GENMASK(0, 0)
++#define PXP_CMDHDR_EXTDATA_APP_TYPE GENMASK(1, 1)
++#define PXP_CMDHDR_EXTDATA_SESSION_ID GENMASK(17, 2)
+ 	};
+ 	/* Length of the message (excluding the header) */
+ 	u32 buffer_len;
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
+index ae413580b81a..74ed7e16e481 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
+@@ -110,6 +110,8 @@ static int pxp_terminate_arb_session_and_global(struct intel_pxp *pxp)
+ 
+ 	intel_uncore_write(gt->uncore, PXP_GLOBAL_TERMINATE, 1);
+ 
++	intel_pxp_tee_end_arb_fw_session(pxp, ARB_SESSION);
++
+ 	return ret;
  }
  
- static const struct component_ops i915_pxp_tee_component_ops = {
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+index bef6d7f8ac55..9e247f38f3bd 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+@@ -311,3 +311,38 @@ int intel_pxp_tee_cmd_create_arb_session(struct intel_pxp *pxp,
+ 
+ 	return ret;
+ }
++
++void intel_pxp_tee_end_arb_fw_session(struct intel_pxp *pxp, u32 session_id)
++{
++	struct drm_i915_private *i915 = pxp->ctrl_gt->i915;
++	struct pxp42_inv_stream_key_in msg_in = {0};
++	struct pxp42_inv_stream_key_out msg_out = {0};
++	int ret, trials = 0;
++
++try_again:
++	memset(&msg_in, 0, sizeof(msg_in));
++	memset(&msg_out, 0, sizeof(msg_out));
++	msg_in.header.api_version = PXP_APIVER(4, 2);
++	msg_in.header.command_id = PXP42_CMDID_INVALIDATE_STREAM_KEY;
++	msg_in.header.buffer_len = sizeof(msg_in) - sizeof(msg_in.header);
++
++	msg_in.header.stream_id = FIELD_PREP(PXP_CMDHDR_EXTDATA_SESSION_VALID, 1);
++	msg_in.header.stream_id |= FIELD_PREP(PXP_CMDHDR_EXTDATA_APP_TYPE, 0);
++	msg_in.header.stream_id |= FIELD_PREP(PXP_CMDHDR_EXTDATA_SESSION_ID, session_id);
++
++	ret = intel_pxp_tee_io_message(pxp,
++				       &msg_in, sizeof(msg_in),
++				       &msg_out, sizeof(msg_out),
++				       NULL);
++
++	/* Cleanup coherency between GT and Firmware is critical, so try again if it fails */
++	if ((ret || msg_out.header.status != 0x0) && ++trials < 3)
++		goto try_again;
++
++	if (ret)
++		drm_err(&i915->drm, "Failed to send tee msg for inv-stream-key-%d, ret=[%d]\n",
++			session_id, ret);
++	else if (msg_out.header.status != 0x0)
++		drm_warn(&i915->drm, "PXP firmware failed inv-stream-key-%d with status 0x%08x\n",
++			 session_id, msg_out.header.status);
++}
 -- 
 2.34.1
 
