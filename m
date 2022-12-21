@@ -4,44 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C28AC4332F
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 20:20:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BA18C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Dec 2022 20:36:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9ED7C10E4BB;
-	Wed, 21 Dec 2022 20:20:12 +0000 (UTC)
-X-Greylist: delayed 946 seconds by postgrey-1.36 at gabe;
- Mon, 19 Dec 2022 08:14:05 UTC
-Received: from m12.mail.163.com (m12.mail.163.com [220.181.12.198])
- by gabe.freedesktop.org (Postfix) with ESMTP id D890710E1F7;
- Mon, 19 Dec 2022 08:14:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:Subject:Date:Message-Id:MIME-Version; bh=Hzd8l
- f6HY4y2Yw9uc+TdTUhpidkvFZA9uoCnx/ZjXJY=; b=UykVbeZaZcR2s+sQubBlD
- Gsa9w0ba/ivcEYX4AGmLCBHWkNum3qHH7OBFjoLsIYujCvedluxNUWSVNHUlaroz
- Q0iyNvwrBN79oTsgcnXNWLLTwnqEmcU2h01h768tl/HLe+vuhCvPofLHwxEz6D/T
- 47DERHVVrrH/n4IXvrHRHA=
-Received: from leanderwang-LC2.localdomain (unknown [111.206.145.21])
- by zwqz-smtp-mta-g0-2 (Coremail) with SMTP id _____wCXjF1NGaBjOMpSAA--.24784S2;
- Mon, 19 Dec 2022 15:57:02 +0800 (CST)
-From: Zheng Wang <zyytlz.wz@163.com>
-To: zhi.a.wang@intel.com
-Date: Mon, 19 Dec 2022 15:57:00 +0800
-Message-Id: <20221219075700.220058-1-zyytlz.wz@163.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <da557524-02ff-2ac7-7960-6f710c2d41d6@intel.com>
-References: <da557524-02ff-2ac7-7960-6f710c2d41d6@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB19A10E4AE;
+	Wed, 21 Dec 2022 20:36:01 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6E5AD10E4AD;
+ Wed, 21 Dec 2022 20:35:59 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 493FFA0BA8;
+ Wed, 21 Dec 2022 20:35:59 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wCXjF1NGaBjOMpSAA--.24784S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7GF48GF45Kr43KF4UtFWDurg_yoWfZFc_uF
- yxCwn7Cw1DJFsxWw43tFnxXr409rn5XrZ2g3yFvrW7GasrZFnrWas3J3sIgrs7t393KrW5
- Kr4DXrWjvryj9jkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRtMKCJUUUUU==
-X-Originating-IP: [111.206.145.21]
-X-CM-SenderInfo: h2113zf2oz6qqrwthudrp/1tbiQhHcU1aED4R+7wAAsU
-X-Mailman-Approved-At: Wed, 21 Dec 2022 20:19:41 +0000
-Subject: Re: [Intel-gfx] [PATCH v3] drm/i915/gvt: fix double free bug in
- split_2MB_gtt_entry
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Luca Coelho" <luciano.coelho@intel.com>
+Date: Wed, 21 Dec 2022 20:35:59 -0000
+Message-ID: <167165495927.32312.13535873781623666967@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20221220081117.169803-1-luciano.coelho@intel.com>
+In-Reply-To: <20221220081117.169803-1-luciano.coelho@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
+ =?utf-8?q?rm/i915/mtl=3A_handle_some_MTL_scaler_limitations?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,35 +40,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alex000young@gmail.com, security@kernel.org,
- intel-gvt-dev@lists.freedesktop.org, airlied@linux.ie,
- gregkh@linuxfoundation.org, intel-gfx@lists.freedesktop.org,
- hackerzheng666@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 1002992920@qq.com, zyytlz.wz@163.com,
- airlied@gmail.com
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Zhi,
+== Series Details ==
 
-Thanks again for your reply and clear explaination about the function.
-I still have some doubt about the fix. Here is a invoke chain :
-ppgtt_populate_spt
-  ->ppgtt_populate_shadow_entry
-    ->split_2MB_gtt_entry
-As far as I'm concerned, when something error happens in DMA mapping,
-which will make intel_gvt_dma_map_guest_page return none-zero code,
-It will invoke ppgtt_invalidate_spt and call ppgtt_free_spt,which will
-finally free spt by kfree. But the caller doesn't notice that and frees
-spt by calling ppgtt_free_spt again. This is a typical UAF/Double Free
-vulnerability. So I think the key point is about how to handle spt properly.
-The handle newly allocated spt (aka sub_spt) is not the root cause of this
-issue. Could you please give me more advice about how to fix this security
-bug? Besides, I'm not sure if there are more similar problems in othe location.
+Series: drm/i915/mtl: handle some MTL scaler limitations
+URL   : https://patchwork.freedesktop.org/series/112089/
+State : failure
 
-Best regards,
-Zheng Wang
+== Summary ==
 
--- 
-2.25.1
+Error: make failed
+  CALL    scripts/checksyscalls.sh
+  DESCEND objtool
+  CC [M]  drivers/gpu/drm/i915/display/intel_atomic_plane.o
+drivers/gpu/drm/i915/display/intel_atomic_plane.c: In function ‘intel_atomic_plane_check_clipping’:
+drivers/gpu/drm/i915/display/intel_atomic_plane.c:918:3: error: implicit declaration of function ‘skl_plane_max_scale’ [-Werror=implicit-function-declaration]
+  918 |   skl_plane_max_scale(i915, fb,
+      |   ^~~~~~~~~~~~~~~~~~~
+cc1: all warnings being treated as errors
+make[5]: *** [scripts/Makefile.build:250: drivers/gpu/drm/i915/display/intel_atomic_plane.o] Error 1
+make[4]: *** [scripts/Makefile.build:500: drivers/gpu/drm/i915] Error 2
+make[3]: *** [scripts/Makefile.build:500: drivers/gpu/drm] Error 2
+make[2]: *** [scripts/Makefile.build:500: drivers/gpu] Error 2
+make[1]: *** [scripts/Makefile.build:500: drivers] Error 2
+make: *** [Makefile:1992: .] Error 2
+
 
