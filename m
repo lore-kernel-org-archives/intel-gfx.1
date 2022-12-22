@@ -4,62 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63649C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Dec 2022 00:21:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99F15C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Dec 2022 00:24:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D90210E4E4;
-	Thu, 22 Dec 2022 00:20:59 +0000 (UTC)
-Received: from domac.alu.hr (domac.alu.hr [161.53.235.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82EDE10E4E4
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Dec 2022 00:20:55 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by domac.alu.hr (Postfix) with ESMTP id D3ECE604F0;
- Thu, 22 Dec 2022 01:12:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=alu.unizg.hr; s=mail;
- t=1671667948; bh=DhTKIzs3fcKoZJwXnt3sUyxHmyFNNTV1yFYSML1ykgc=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=CGkbxcBWisRX8MQLP3+Ws1E18751ctQ2ZTaagDNqqUuTbIrESqJqvTC5QROm63qRH
- kdTKnifGQdaJYCssZz28MtaYuryfAeuGXLuoL3V9sdC9/NYwvUyzCtkWaCt20gyUHM
- T1CNIzg7QXEREtapESjyWIRNzN3TXvm01/Cg5wFPXS9/Gs+B/gJSXW7/Sinh2QPCoP
- XHXI3yd41wtFwb3KLjq2ZUfnOKRa6nntBoNWLcr1/OWYeZBdMgfsLIyzhL+oxuJhIq
- evtr/xmLHeiErvdpo/HhfpUowIZfYEhVBTtys+VxqkBavhXnwisY4599l+8skPA+gj
- Wc9XxHjEMNfrA==
-X-Virus-Scanned: Debian amavisd-new at domac.alu.hr
-Received: from domac.alu.hr ([127.0.0.1])
- by localhost (domac.alu.hr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 2X7pmtL7sIZE; Thu, 22 Dec 2022 01:12:26 +0100 (CET)
-Received: from [192.168.0.12] (unknown [188.252.197.66])
- by domac.alu.hr (Postfix) with ESMTPSA id 92213604EE;
- Thu, 22 Dec 2022 01:12:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=alu.unizg.hr; s=mail;
- t=1671667946; bh=DhTKIzs3fcKoZJwXnt3sUyxHmyFNNTV1yFYSML1ykgc=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=arfR6j72j2JN+4GMnRfVD6a1d7HiLEN1BPbCv4PH0O89Iqs5/z07yfrebdK7e0/Ma
- Mzgc6RHHLJaybPdrLWlZ8057IUNLY5Rnwyw+VlJ9+p7VmgQviGRIM9UqIug7BksjV2
- cQQCnPlof+ovPbqb+p+jW6omZFM6MsPnQaLMbVwP9McyJ+F119cKpwa1aw0/Up/Gd6
- 7pat8r/q3kKsC17L3kqMG99Z/pqgL4lZ2j2i9sspvG/yDasSK7d46bPJPuC/lWQSJv
- 5oXybYLxu5rTwEES/DNxeT0t5N482VsGENdKL9wrRdPUZvKTARmkD/F1xi6iIsbJq0
- pJAsMEyNZIKdQ==
-Message-ID: <8e080674-36ab-9260-046e-f4e3c931a3b9@alu.unizg.hr>
-Date: Thu, 22 Dec 2022 01:12:24 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDAE010E429;
+	Thu, 22 Dec 2022 00:23:59 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7754910E4E4
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Dec 2022 00:23:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1671668637; x=1703204637;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=0Br62Lp4aat8augrh+veBbGn+clrp1FPNIB9uFRKh0s=;
+ b=myF1PWf7wPbv7rDDEf/olpODfq23fCkltNFIuwjtXzA/njHwiT5OehEz
+ y40N0pZLBCRx7Bnc+rkcpMC3qFahgwQRO9f/H/CR0XT2N6iPKG144Ucom
+ 4KRvgYKkHU2E1VRDB1lLxJvggt+58/87weOvm1xBx3kCHN2cAOSc01TWO
+ +WEqQr67/0YDPpjAyL1GEZfcLRUjeudbsHHB9ghBWFDc7RwyUC68CVBR1
+ BNLT/a+Vlfx9K3kmuh5k5xmkii5EYRUs3JzOTexNTzO0+V7UMvjxsF2id
+ UX+UfcQI+3IQNUcuun6YmmE41jd+x1jx6sSXQ7VBCHkYA0bkdAMT1sR4B A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10568"; a="299679053"
+X-IronPort-AV: E=Sophos;i="5.96,263,1665471600"; d="scan'208";a="299679053"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Dec 2022 16:23:56 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10568"; a="740359996"
+X-IronPort-AV: E=Sophos;i="5.96,263,1665471600"; d="scan'208";a="740359996"
+Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
+ by FMSMGA003.fm.intel.com with ESMTP; 21 Dec 2022 16:23:56 -0800
+Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.16; Wed, 21 Dec 2022 16:23:55 -0800
+Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
+ fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.16; Wed, 21 Dec 2022 16:23:55 -0800
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.16 via Frontend Transport; Wed, 21 Dec 2022 16:23:55 -0800
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.169)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.16; Wed, 21 Dec 2022 16:23:55 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VEtPWoj6s5dKGzPeaMEKpjv9VHIVBNKrt4VGeGW1FkLOLfTO+qSUt3qjAMvRMxAJzQSLhe+i1ht5sk3U+pV8Z1FVSbuQ6mN/kfGFV/GL+cdif7O9IqOlBOvaN1/B8hN2SsAOHicbjmW6DkWOo11eYnrT8wSDVRqg/dYpCyxjGqdjf/6zAHIgUjWB87XeOrqn2cYF3zye2LHi7ttscNutAqY7XVA3BvC3CMizwlUEMwIT8GdPOy8dKk8ttdnCCo0NhPvoc7b0AHb3iegJqBogEqlKtTTcF24t3sd53qwA59bIyQBcv3A9B3hmv9AVbq3YTXT5UAmmV9ANc+7jiCGEKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=W6AUrlgBRIOdMm20TD1ImGT/C+x+G4UT5YNsOnEqHKg=;
+ b=mdkn8na1DNTN0oLbhnL86pHH7gQtq1z8FSUpHAplls00X3k16mflmxj79FOSYLlAsZQf3aZ00Tpf4tjqRmPhDk28PtJb2a237edhGN6aWFUmvCBF0RGsXb/a/qleH+LXuwufV0SgnGlPwVd68jEcxVQvyCyiBuIU9EHdzzQEo19F404K+wnUbQ8aK7/yjq/MpOXHUewELBEPHgh/EZx8IlJVvxz924HAxCr2RLgqG0Z8aaWUCGf3zJ7Ya/ccKN/AtIKlGgRR7rlXXvQy0bGknvQuULj8r6JmxJhUSYN2YZlSVC32zihxhe0OYDGgAM3B8MdH5EblQ7ZiTDWMnpWZZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CY5PR11MB6139.namprd11.prod.outlook.com (2603:10b6:930:29::17)
+ by BN9PR11MB5401.namprd11.prod.outlook.com (2603:10b6:408:11a::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.16; Thu, 22 Dec
+ 2022 00:23:48 +0000
+Received: from CY5PR11MB6139.namprd11.prod.outlook.com
+ ([fe80::22:fdef:cea5:e8f3]) by CY5PR11MB6139.namprd11.prod.outlook.com
+ ([fe80::22:fdef:cea5:e8f3%3]) with mapi id 15.20.5924.016; Thu, 22 Dec 2022
+ 00:23:48 +0000
+Date: Wed, 21 Dec 2022 16:23:45 -0800
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Message-ID: <20221222002345.xbz37hl6gzhb44np@ldmartin-desk2.lan>
+X-Patchwork-Hint: comment
+References: <20221220201104.339399-1-gustavo.sousa@intel.com>
+ <20221220201104.339399-3-gustavo.sousa@intel.com>
+ <87wn6l1299.fsf@intel.com>
+Content-Type: text/plain; charset="us-ascii"; format=flowed
+Content-Disposition: inline
+In-Reply-To: <87wn6l1299.fsf@intel.com>
+X-ClientProxiedBy: BY5PR03CA0019.namprd03.prod.outlook.com
+ (2603:10b6:a03:1e0::29) To CY5PR11MB6139.namprd11.prod.outlook.com
+ (2603:10b6:930:29::17)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Content-Language: en-US
-From: Mirsad Goran Todorovac <mirsad.todorovac@alu.unizg.hr>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- srinivas pandruvada <srinivas.pandruvada@linux.intel.com>,
- LKML <linux-kernel@vger.kernel.org>, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, Rodrigo Vivi <rodrigo.vivi@intel.com>
-References: <f849cc70-b21f-6476-ba26-08989d1243c2@alu.unizg.hr>
- <05424a5351a847786377a548dba0759917d8046c.camel@linux.intel.com>
- <15ef1bb9-7312-5d98-8bf0-0af1a37cfd2a@linux.intel.com>
- <619bdecc-cf87-60a4-f50d-836f4c073ea7@alu.unizg.hr>
-In-Reply-To: <619bdecc-cf87-60a4-f50d-836f4c073ea7@alu.unizg.hr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] LOOKS GOOD: Possible regression in drm/i915 driver:
- memleak
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR11MB6139:EE_|BN9PR11MB5401:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2d724812-1bae-4184-2308-08dae3b2cb20
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: g2swQfqgQhgiZTNUSEIQqaE8/3VlwP+P5LOi9tcA6j5OnWkhOyattHH7DCIH37lOYPQSjIwVDVB7wtmZHAee70PSiWzpS5kh8ImYFwmmWnx2X6x/Yu/Ptz9NnK3odSO97JNqO0+XelMvlfu0AMgQfXrCHK9/INCHMj3ok8YGenQJrTfG/HqpN/NqEHcReMPDD+D2/WFLeiNqyf38VysBfnDdNg73Tuu/ELXOPEFMxalt66J1ssVRkHdfcXIVGGXMymciAiNZiYk/V6XwIexDyci6E5mLaGAEu2UQefhaN2OyAtT+Kby7EpDKIcVuWKA77TJJ3rN0neba2KJOMOvIN0bv4LeLynlm9A9KfUj92hKYtHWsv5k+2oXKtHKBU+9UPIzRJTqW4x0ZI1CzE6QdeAz12aNRptOW7nvQhYdGO0bESV5dGswRVjTspvlmQGc4BG2oVkWeHACFvxygJTyvvEts8wAXo4DhizB/NzGu0Kfogttndk4wAT9I/NjuklqiEPT6PPTKrNZ0Goqgiwe7tLSVUlJwRpn9yPlHwF7A3y8Cz6htQWynEq+bPonK9jp/oTLF0dzfNyMZtIulO3ZSJ/6DED80OUDWMMMNIKi9E9wTDjOtL1R6WE8JpeJbMAO3vlvYe0hBgBZHdr6+YD/a9m8gwW49SLVarfShj/Wnp7Q=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY5PR11MB6139.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(376002)(366004)(346002)(136003)(39860400002)(396003)(451199015)(54906003)(6916009)(38100700002)(6486002)(82960400001)(966005)(2906002)(478600001)(5660300002)(316002)(8936002)(66556008)(36756003)(66476007)(66946007)(86362001)(4326008)(8676002)(83380400001)(186003)(26005)(1076003)(6666004)(6512007)(41300700001)(6506007)(9686003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Ahiqlzs0R1Toup9MP5mz2k2sikr09dYW0yYwMMwT5wfSrOhXNVlkGHrnkViZ?=
+ =?us-ascii?Q?q7qLKtOOYN2XTik3VumwdBHPXWHSNhzWObpCNF1kjH35yMjIkb5t1chnfx9B?=
+ =?us-ascii?Q?2EwFORqlJhy700QSLwaKX0c7AHlQ274KbxXmZb5ApJKzjKGKZ53+qe5NdCXV?=
+ =?us-ascii?Q?qeInabEFruYGVYtnpf50EtrZLVZBTXOPt2KfmHHeO5raXZNFWthPKNCpwaib?=
+ =?us-ascii?Q?s78hyJ0+QH2kKC7lf9JsberMgzqpJbg6Sz/ZvygTNj7A2LifFU3nF4+2Y/fs?=
+ =?us-ascii?Q?FMf+72Y6SctoVZ2cx0PwgYMsenSwBKce4wmcboyfXWVaWyjxj8Twm1DmFp1D?=
+ =?us-ascii?Q?9gdSkiGn/Nb+wy7SBMtgG8otvcQbp8rGlFYhwAjcAaZJrjhywBKmd99FiiA6?=
+ =?us-ascii?Q?9fEBU3iy1AgMzZ+r5YGvMLPqGO88hwFUqy072a292F/q0M7f7TYjXzz7BkdS?=
+ =?us-ascii?Q?dYLpXdOC128kUtLhsr5m/KxY5wYmXWZ839NkqjFba6ayGj8ZthoYK5Pd72Dx?=
+ =?us-ascii?Q?BXpdVafRkCI2sjOgZEZmOudNp8ZMM6RYFNTLzaP96EvzP13yswOeADUk5czD?=
+ =?us-ascii?Q?dgAAgrJCCesw3NrpwdEpkrbSLbVi5JY+/l4lr9FEZ70CHe1NuXc70IguR6nI?=
+ =?us-ascii?Q?mQpyiwje8D7FzanFWwyDVwhKPTbnUg73orY1uoO4MyZjQaUAxr7Rm+TZHhFy?=
+ =?us-ascii?Q?viDVXFMyqUBuhFA79x8pTmXwAAO4Pt5FBB7K4qlJQItF+/9pdtTB3Lh+yon/?=
+ =?us-ascii?Q?RTjgxMoEALXS7PvsttqR4oXTWVpG3cblaLTGumcyEx7Ui9ET4NXHlE933YFe?=
+ =?us-ascii?Q?imdiTbEA86IlWNDImgYHGD1DHNQAN0y+r2JMPys5ohk4TvVuamuZTWMzFxzi?=
+ =?us-ascii?Q?o9pRQ9SCl/QIj6BrvtSLXIr9nN9yBo25T1Et6LHF5kDyOjnErzlcmK6ukDpp?=
+ =?us-ascii?Q?fv6UsldVDuf1mPSfaQHlvFKk7EsEhfTTPM0Mjyhq+g1qbHObU6R9zBMHXu4f?=
+ =?us-ascii?Q?TJp+gpvMq5dZh+cjkiyHtWTQ7Om7qs7Wg54saaPE1lgGj/rSM3qgj4i/qEgD?=
+ =?us-ascii?Q?8RSUXUu4UFWJHntZeR5nLdC/6UnarKLrnR52tWao+I0jvwEGZssshYxzVOcn?=
+ =?us-ascii?Q?S76yWaZpHM1QldBYzsZE5xhgC4Jb4+eSQirKapx+PrWw7c2dRNN5wHPFXeX5?=
+ =?us-ascii?Q?CGaHrmFuiu/Y0tNdEfij7NUfWfASv7GyoufQWixh54pCQgiOu9AOUEueW5N0?=
+ =?us-ascii?Q?r4dGwVj7AgW+WiFFrPZAfjAMerVcR/1rNj9zYMWEd2v0hvKbOREGT4TEXcuL?=
+ =?us-ascii?Q?dmoLm4qp/ighwgA+eu9qN569O/OvglB2hkW/7/L/ASLrsx9Hsk2O6dpmk/o9?=
+ =?us-ascii?Q?zjSq1H0WI7dLtJiic6BaksEXoYmb9tmkuBDCIxp0GdZ/N2P8LYsjpxGgoV48?=
+ =?us-ascii?Q?X4mj2n1Qz+2+pnUiVK4jRp2fdt+GiV3h1VCNfSE9xuaxtRoY78yIB7+CKOiI?=
+ =?us-ascii?Q?JJFtchvitSInArfvCYxpN87mcji8d3TWyIXrGxmip9yKzGyTYgKeQdeO07N7?=
+ =?us-ascii?Q?yx+KooSjeCNU6F0RfcRh2YmeCJUBCQhdd3nKtygSHa7dkw3PRiZdE5nE9zDS?=
+ =?us-ascii?Q?JA=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d724812-1bae-4184-2308-08dae3b2cb20
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR11MB6139.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Dec 2022 00:23:47.9800 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yI8fBGujAmgiVV0hJojxs5ofByAcDiBQyBiJ8VsXauz4Z7eSNKW/BN4vt2zjCJ93Sod2l7YgTSDvyYfmj1Mvwi+OSREEELvZqQyeMkVE8WQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR11MB5401
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915/dmc: Use unversioned firmware
+ paths
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,156 +150,216 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org,
- Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: intel-gfx@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 20. 12. 2022. 20:34, Mirsad Todorovac wrote:
-> On 12/20/22 16:52, Tvrtko Ursulin wrote:
-> 
->> On 20/12/2022 15:22, srinivas pandruvada wrote:
->>> +Added DRM mailing list and maintainers
->>>
->>> On Tue, 2022-12-20 at 15:33 +0100, Mirsad Todorovac wrote:
->>>> Hi all,
->>>>
->>>> I have been unsuccessful to find any particular Intel i915 maintainer
->>>> emails, so my best bet is to post here, as you will must assuredly
->>>> already know them.
+On Wed, Dec 21, 2022 at 12:26:26PM +0200, Jani Nikula wrote:
+>On Tue, 20 Dec 2022, Gustavo Sousa <gustavo.sousa@intel.com> wrote:
+>> As we do not require specific versions anymore, change the convention
+>> for blob filenames to stop using version numbers. This simplifies code
+>> maintenance, since we do not need to keep updating blob paths for new
+>> DMC releases, and also makes DMC loading compatible with systems that do
+>> not have the latest firmware release.
 >>
->> For future reference you can use ${kernel_dir}/scripts/get_maintainer.pl -f ...
+>> References: https://lore.kernel.org/r/Y3081s7c5ksutpMW@intel.com
+>> Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
+>> ---
+>>  drivers/gpu/drm/i915/display/intel_dmc.c | 98 ++++++++++++++++++++----
+>>  1 file changed, 82 insertions(+), 16 deletions(-)
 >>
->>>> The problem is a kernel memory leak that is repeatedly occurring
->>>> triggered during the execution of Chrome browser under the latest
->>>> 6.1.0+
->>>> kernel of this morning and Almalinux 8.6 on a Lenovo desktop box
->>>> with Intel(R) Core(TM) i5-8400 CPU @ 2.80GHz CPU.
->>>>
->>>> The build is with KMEMLEAK, KASAN and MGLRU turned on during the
->>>> build,
->>>> on a vanilla mainline kernel from Mr. Torvalds' tree.
->>>>
->>>> The leaks look like this one:
->>>>
->>>> unreferenced object 0xffff888131754880 (size 64):
->>>>     comm "chrome", pid 13058, jiffies 4298568878 (age 3708.084s)
->>>>     hex dump (first 32 bytes):
->>>>       01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->>>> ................
->>>>       00 00 00 00 00 00 00 00 00 80 1e 3e 83 88 ff ff
->>>> ...........>....
->>>>     backtrace:
->>>>       [<ffffffff9e9b5542>] slab_post_alloc_hook+0xb2/0x340
->>>>       [<ffffffff9e9bbf5f>] __kmem_cache_alloc_node+0x1bf/0x2c0
->>>>       [<ffffffff9e8f767a>] kmalloc_trace+0x2a/0xb0
->>>>       [<ffffffffc08dfde5>] drm_vma_node_allow+0x45/0x150 [drm]
->>>>       [<ffffffffc0b33315>] __assign_mmap_offset_handle+0x615/0x820
->>>> [i915]
->>>>       [<ffffffffc0b34057>] i915_gem_mmap_offset_ioctl+0x77/0x110
->>>> [i915]
->>>>       [<ffffffffc08bc5e1>] drm_ioctl_kernel+0x181/0x280 [drm]
->>>>       [<ffffffffc08bc9cd>] drm_ioctl+0x2dd/0x6a0 [drm]
->>>>       [<ffffffff9ea54744>] __x64_sys_ioctl+0xc4/0x100
->>>>       [<ffffffff9fbc0178>] do_syscall_64+0x58/0x80
->>>>       [<ffffffff9fc000aa>] entry_SYSCALL_64_after_hwframe+0x72/0xdc
->>>>
->>>> The complete list of leaks in attachment, but they seem similar or
->>>> the same.
->>>>
->>>> Please find attached lshw and kernel build config file.
->>>>
->>>> I will probably check the same parms on my laptop at home, which is
->>>> also
->>>> Lenovo, but a different hw config and Ubuntu 22.10.
+>> diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
+>> index 4124b3d37110..b11f0f451dd7 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_dmc.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_dmc.c
+>> @@ -42,51 +42,70 @@
+>>  #define DMC_VERSION_MAJOR(version)	((version) >> 16)
+>>  #define DMC_VERSION_MINOR(version)	((version) & 0xffff)
 >>
->> Could you try the below patch?
->>
->> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
->> index c3ea243d414d..0b07534c203a 100644
->> --- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
->> +++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
->> @@ -679,9 +679,10 @@ mmap_offset_attach(struct drm_i915_gem_object *obj,
->>   insert:
->>          mmo = insert_mmo(obj, mmo);
->>          GEM_BUG_ON(lookup_mmo(obj, mmap_type) != mmo);
->> -out:
+>> -#define DMC_PATH(platform, major, minor) \
+>> -	"i915/"				 \
+>> -	__stringify(platform) "_dmc_ver" \
+>> -	__stringify(major) "_"		 \
+>> +#define DMC_PATH(platform) \
+>> +	"i915/" __stringify(platform) "_dmc.bin"
 >> +
->>          if (file)
->>                  drm_vma_node_allow(&mmo->vma_node, file);
->> +out:
->>          return mmo;
+>> +/*
+>> + * New DMC additions should not use this. This is used solely to remain
+>> + * compatible with systems that have not yet updated DMC blobs to use
+>> + * unversioned file names.
+>> + */
+>> +#define DMC_LEGACY_PATH(platform, major, minor) \
+>> +	"i915/"					\
+>> +	__stringify(platform) "_dmc_ver"	\
+>> +	__stringify(major) "_"			\
+>>  	__stringify(minor) ".bin"
 >>
->>   err:
+>>  #define DISPLAY_VER13_DMC_MAX_FW_SIZE	0x20000
 >>
->> Maybe it is not the best fix but curious to know if it will make the leak go away.
-> 
-> Hi,
-> 
-> After 27 minutes uptime with the patched kernel it looks promising.
-> It is much longer than it took for the buggy kernel to leak slabs.
-> 
-> Here is the output:
-> 
-> [root@pc-mtodorov marvin]# echo scan > /sys/kernel/debug/kmemleak
-> [root@pc-mtodorov marvin]# cat !$
-> cat /sys/kernel/debug/kmemleak
-> unreferenced object 0xffff888105028d80 (size 16):
->    comm "kworker/u12:5", pid 359, jiffies 4294902898 (age 1620.144s)
->    hex dump (first 16 bytes):
->      6d 65 6d 73 74 69 63 6b 30 00 00 00 00 00 00 00  memstick0.......
->    backtrace:
->      [<ffffffffb6bb5542>] slab_post_alloc_hook+0xb2/0x340
->      [<ffffffffb6bbbf5f>] __kmem_cache_alloc_node+0x1bf/0x2c0
->      [<ffffffffb6af8175>] __kmalloc_node_track_caller+0x55/0x160
->      [<ffffffffb6ae34a6>] kstrdup+0x36/0x60
->      [<ffffffffb6ae3508>] kstrdup_const+0x28/0x30
->      [<ffffffffb70d0757>] kvasprintf_const+0x97/0xd0
->      [<ffffffffb7c9cdf4>] kobject_set_name_vargs+0x34/0xc0
->      [<ffffffffb750289b>] dev_set_name+0x9b/0xd0
->      [<ffffffffc12d9201>] memstick_check+0x181/0x639 [memstick]
->      [<ffffffffb676e1d6>] process_one_work+0x4e6/0x7e0
->      [<ffffffffb676e556>] worker_thread+0x76/0x770
->      [<ffffffffb677b468>] kthread+0x168/0x1a0
->      [<ffffffffb6604c99>] ret_from_fork+0x29/0x50
-> [root@pc-mtodorov marvin]# w
->   20:27:35 up 27 min,  2 users,  load average: 0.83, 1.15, 1.19
-> USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
-> marvin   tty2     tty2             20:01   27:10  10:12   2.09s /opt/google/chrome/chrome --type=utility --utility-sub-type=audio.m
-> marvin   pts/1    -                20:01    0.00s  2:00   0.38s sudo bash
-> [root@pc-mtodorov marvin]# uname -rms
-> Linux 6.1.0-b6bb9676f216-mglru-kmemlk-kasan+ x86_64
-> [root@pc-mtodorov marvin]#
+>>  #define DISPLAY_VER12_DMC_MAX_FW_SIZE	ICL_DMC_MAX_FW_SIZE
+>>
+>> -#define DG2_DMC_PATH			DMC_PATH(dg2, 2, 08)
+>> +#define DG2_DMC_PATH			DMC_PATH(dg2)
+>> +#define DG2_DMC_LEGACY_PATH		DMC_LEGACY_PATH(dg2, 2, 08)
+>>  MODULE_FIRMWARE(DG2_DMC_PATH);
 
-As I hear no reply from Tvrtko, and there is already 1d5h uptime with no leaks (but
-the kworker with memstick_check nag I couldn't bisect on the only box that reproduced it,
-because something in hw was not supported in pre 4.16 kernels on the Lenovo V530S-07ICB.
-Or I am doing something wrong.)
+We have an issue here.  Previously `modinfo --field=firmware i915`
+would report i915/dg2_dmc_ver2_08.bin. Now it's going to report
+i915/dg2_dmc.bin
 
-However, now I can find the memstick maintainers thanks to Tvrtko's hint.
+that modinfo call is what distros use to bundle the firmware blobs in
+the initrd. It may also be used for creating package dependendies.
 
-If you no longer require my service, I would close this on my behalf.
+If we do this, unless they have updated their linux-firmware
+packages, the initrd will be left without the firmware.
+Just checked
+git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git main
+and we still don't have the unversioned firmware there.
 
-I hope I did not cause too much trouble. The knowledgeable knew that this was not a security
-risk, but only a bug. (30 leaks of 64 bytes each were hardly to exhaust memory in any realistic
-time.)
+>>
+>> -#define ADLP_DMC_PATH			DMC_PATH(adlp, 2, 16)
+>> +#define ADLP_DMC_PATH			DMC_PATH(adlp)
+>> +#define ADLP_DMC_LEGACY_PATH		DMC_LEGACY_PATH(adlp, 2, 16)
+>>  MODULE_FIRMWARE(ADLP_DMC_PATH);
+>>
+>> -#define ADLS_DMC_PATH			DMC_PATH(adls, 2, 01)
+>> +#define ADLS_DMC_PATH			DMC_PATH(adls)
+>> +#define ADLS_DMC_LEGACY_PATH		DMC_LEGACY_PATH(adls, 2, 01)
+>>  MODULE_FIRMWARE(ADLS_DMC_PATH);
+>>
+>> -#define DG1_DMC_PATH			DMC_PATH(dg1, 2, 02)
+>> +#define DG1_DMC_PATH			DMC_PATH(dg1)
+>> +#define DG1_DMC_LEGACY_PATH		DMC_LEGACY_PATH(dg1, 2, 02)
+>>  MODULE_FIRMWARE(DG1_DMC_PATH);
+>>
+>> -#define RKL_DMC_PATH			DMC_PATH(rkl, 2, 03)
+>> +#define RKL_DMC_PATH			DMC_PATH(rkl)
+>> +#define RKL_DMC_LEGACY_PATH		DMC_LEGACY_PATH(rkl, 2, 03)
+>>  MODULE_FIRMWARE(RKL_DMC_PATH);
+>>
+>> -#define TGL_DMC_PATH			DMC_PATH(tgl, 2, 12)
+>> +#define TGL_DMC_PATH			DMC_PATH(tgl)
+>> +#define TGL_DMC_LEGACY_PATH		DMC_LEGACY_PATH(tgl, 2, 12)
+>>  MODULE_FIRMWARE(TGL_DMC_PATH);
+>>
+>> -#define ICL_DMC_PATH			DMC_PATH(icl, 1, 09)
+>> +#define ICL_DMC_PATH			DMC_PATH(icl)
+>> +#define ICL_DMC_LEGACY_PATH		DMC_LEGACY_PATH(icl, 1, 09)
+>>  #define ICL_DMC_MAX_FW_SIZE		0x6000
+>>  MODULE_FIRMWARE(ICL_DMC_PATH);
+>>
+>> -#define GLK_DMC_PATH			DMC_PATH(glk, 1, 04)
+>> +#define GLK_DMC_PATH			DMC_PATH(glk)
+>> +#define GLK_DMC_LEGACY_PATH		DMC_LEGACY_PATH(glk, 1, 04)
+>>  #define GLK_DMC_MAX_FW_SIZE		0x4000
+>>  MODULE_FIRMWARE(GLK_DMC_PATH);
+>>
+>> -#define KBL_DMC_PATH			DMC_PATH(kbl, 1, 04)
+>> +#define KBL_DMC_PATH			DMC_PATH(kbl)
+>> +#define KBL_DMC_LEGACY_PATH		DMC_LEGACY_PATH(kbl, 1, 04)
+>>  #define KBL_DMC_MAX_FW_SIZE		BXT_DMC_MAX_FW_SIZE
+>>  MODULE_FIRMWARE(KBL_DMC_PATH);
+>>
+>> -#define SKL_DMC_PATH			DMC_PATH(skl, 1, 27)
+>> +#define SKL_DMC_PATH			DMC_PATH(skl)
+>> +#define SKL_DMC_LEGACY_PATH		DMC_LEGACY_PATH(skl, 1, 27)
+>>  #define SKL_DMC_MAX_FW_SIZE		BXT_DMC_MAX_FW_SIZE
+>>  MODULE_FIRMWARE(SKL_DMC_PATH);
+>>
+>> -#define BXT_DMC_PATH			DMC_PATH(bxt, 1, 07)
+>> +#define BXT_DMC_PATH			DMC_PATH(bxt)
+>> +#define BXT_DMC_LEGACY_PATH		DMC_LEGACY_PATH(bxt, 1, 07)
+>>  #define BXT_DMC_MAX_FW_SIZE		0x3000
+>>  MODULE_FIRMWARE(BXT_DMC_PATH);
+>>
+>> @@ -821,16 +840,63 @@ static void intel_dmc_runtime_pm_put(struct drm_i915_private *dev_priv)
+>>  	intel_display_power_put(dev_priv, POWER_DOMAIN_INIT, wakeref);
+>>  }
+>>
+>> +static const char *dmc_legacy_path(struct drm_i915_private *i915)
+>> +{
+>> +	if (IS_DG2(i915)) {
+>> +		return DG2_DMC_LEGACY_PATH;
+>> +	} else if (IS_ALDERLAKE_P(i915)) {
+>> +		return ADLP_DMC_LEGACY_PATH;
+>> +	} else if (IS_ALDERLAKE_S(i915)) {
+>> +		return ADLS_DMC_LEGACY_PATH;
+>> +	} else if (IS_DG1(i915)) {
+>> +		return DG1_DMC_LEGACY_PATH;
+>> +	} else if (IS_ROCKETLAKE(i915)) {
+>> +		return RKL_DMC_LEGACY_PATH;
+>> +	} else if (IS_TIGERLAKE(i915)) {
+>> +		return TGL_DMC_LEGACY_PATH;
+>> +	} else if (DISPLAY_VER(i915) == 11) {
+>> +		return ICL_DMC_LEGACY_PATH;
+>> +	} else if (IS_GEMINILAKE(i915)) {
+>> +		return GLK_DMC_LEGACY_PATH;
+>> +	} else if (IS_KABYLAKE(i915) ||
+>> +		   IS_COFFEELAKE(i915) ||
+>> +		   IS_COMETLAKE(i915)) {
+>> +		return KBL_DMC_LEGACY_PATH;
+>> +	} else if (IS_SKYLAKE(i915)) {
+>> +		return SKL_DMC_LEGACY_PATH;
+>> +	} else if (IS_BROXTON(i915)) {
+>> +		return BXT_DMC_LEGACY_PATH;
+>> +	}
+>> +
+>> +	return NULL;
+>> +}
+>> +
+>>  static void dmc_load_work_fn(struct work_struct *work)
+>>  {
+>>  	struct drm_i915_private *dev_priv;
+>>  	struct intel_dmc *dmc;
+>>  	const struct firmware *fw = NULL;
+>> +	const char *legacy_path;
+>> +	int err;
+>>
+>>  	dev_priv = container_of(work, typeof(*dev_priv), display.dmc.work);
+>>  	dmc = &dev_priv->display.dmc;
+>>
+>> -	request_firmware(&fw, dev_priv->display.dmc.fw_path, dev_priv->drm.dev);
+>> +	err = firmware_request_nowarn(&fw, dev_priv->display.dmc.fw_path, dev_priv->drm.dev);
+>> +
+>> +	if (err == -ENOENT && !dev_priv->params.dmc_firmware_path) {
+>> +		legacy_path = dmc_legacy_path(dev_priv);
+>> +		if (legacy_path) {
+>> +			drm_dbg_kms(&dev_priv->drm,
+>> +				    "%s not found, falling back to %s\n",
+>> +				    dmc->fw_path,
+>> +				    legacy_path);
+>> +			err = firmware_request_nowarn(&fw, legacy_path, dev_priv->drm.dev);
+>> +			if (err == 0)
+>> +				dev_priv->display.dmc.fw_path = legacy_path;
+>> +		}
+>> +	}
+>> +
+>
+>I'd keep the request_firmware() with warnings.
 
-However, having some experience with software development, I always preferred bugs reported
-and fixed rather than concealed and lying in wait (or worse, found first by a motivated
-adversary.) Forgive me this rant, I do not live from writing kernel drivers, this is just a
-pet project as of time being ...
+then not only it will be missing from initrd but we will also trigger
+new warnings. Humn, I think one alternative approach and my proposal
+would be:
 
-Thanks,
-Mirsad
+leave platforms that already have published firmware as is as long as
+they are not behind a force_probe. For the new platforms, like mtl,
+just use the platform name and don't bother about the version.
+We will also have to fix it in the linux-firmware repo.
 
---
-Mirsad Goran Todorovac
-Sistem inženjer
-Grafički fakultet | Akademija likovnih umjetnosti
-Sveučilište u Zagrebu
--- 
-System engineer
-Faculty of Graphic Arts | Academy of Fine Arts
-University of Zagreb, Republic of Croatia
-The European Union
+We are likely not updating DMC for very old platforms anyway, no need to
+rename them.  I think that after having symlinks in place in
+linux-firmware for a few years/months, then we can go back and kill the
+version numbers if we really want to.
 
+Lucas De Marchi
+
+>
+>BR,
+>Jani.
+>
+>>  	parse_dmc_fw(dev_priv, fw);
+>>
+>>  	if (intel_dmc_has_payload(dev_priv)) {
+>
+>-- 
+>Jani Nikula, Intel Open Source Graphics Center
