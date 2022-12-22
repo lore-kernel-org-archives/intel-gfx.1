@@ -4,152 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 371C4C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Dec 2022 09:29:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07B12C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Dec 2022 09:56:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4368A10E527;
-	Thu, 22 Dec 2022 09:29:38 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B7CC10E530;
- Thu, 22 Dec 2022 09:29:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671701375; x=1703237375;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=K52wCIFypG7fsVB7RC6oOMHo4HKN3z7+DDwVJ0pCNbw=;
- b=N8uUFxqoZPImPV09yczGN9YXfsFca2CA94pwBta5r0WE+Sgb0U6w1Tc6
- RzAnWnPHsSQlIlxNQLJnJnmD1XozkAOct2QEdHgsK5k8zaZl7NaIQ+6Xo
- gveGSdmjEVbr34M+H7kHFH5+RRVLsDJef0zvceFqfwMhOTR8HEgRqfz22
- /8yjs+qiVSdrd0/Fx4NCOaDSuE6AXQvYnVfB+AwbKdX+37Thq7VWpqicf
- BdCtEmUx0KcE4xVxQT3wwCiGEh9m0/9hBmus2LfqtUXOthqj3s5nQQIRC
- gKG7EQ3dSDnyysXpPP1RV+QNiNdtQpNE7d1Sy+noB+UEjT4nP0sieCjHk w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10568"; a="406324166"
-X-IronPort-AV: E=Sophos;i="5.96,265,1665471600"; d="scan'208";a="406324166"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Dec 2022 01:29:34 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10568"; a="651723457"
-X-IronPort-AV: E=Sophos;i="5.96,265,1665471600"; d="scan'208";a="651723457"
-Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
- by orsmga002.jf.intel.com with ESMTP; 22 Dec 2022 01:29:34 -0800
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Thu, 22 Dec 2022 01:29:33 -0800
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Thu, 22 Dec 2022 01:29:33 -0800
-Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
- orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16 via Frontend Transport; Thu, 22 Dec 2022 01:29:33 -0800
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com (104.47.58.109)
- by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.16; Thu, 22 Dec 2022 01:29:33 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kTiInEHHG6BiT4tJx6OFe+DCclz3138yj178fRzTn88yyw0MNaVdcW6x+tT/Iye+TjcjNk3OWY4DbM5GTIpUbZGtRB2BDdMsOOvYpfqLPYhvufmJabig4icJH97ppM1oCusV3sAOuQSxkDrapjekLZms5kH3kt+4bmN4wvGNwCt4OIul3M19KmyazBat/5KG8/VKGtiK7XakhyxX+mTJbXlH6CUg2lVbVM4OjNnELejnEEhjHXawjwpXqQD4isI3dcwXiHcrFW7Du5SZ4dU5/u26UZ+eaCd1758WCz+o+PgVrjjk6pNSZBEverBixaTndwmAGybNYx0+nhLdPoJvCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OAvxlExje3+i47Hrn5VaOyDJ195+z+FYZSWbTH2vWb8=;
- b=EHFqUHMyxrx1gcmyEKm9j3ynPBtiZzsjF1u4fbZfZ0ZCy61/82aeZGmPXIJPjnLquyLaZOl+gwlZEbpENy6vBxJ5XOBJn6AG/nmhSx1a8EdVZVO8SzIPUeiAp8eRVB85Gp55GTmwXi5Hw24jgtRyrgEELOBQf+7eAsZX2g4j7VGUG79gdWcH/5N39JWxp8d4LENf9dmLew58IJVMr1qmA0Vr5w94g3zCK2s3o/1tJ09qrNpfURcv9HgN/RVt5IU8u0gw+oIZOVPtldfjqqBAR9pRQhPaqAjwTQIPD9x6Z5MODV4pofNnuqZJC7iebP1kJibCagfGhURcwf3Y5nldIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CH0PR11MB5409.namprd11.prod.outlook.com (2603:10b6:610:d0::7)
- by PH8PR11MB7022.namprd11.prod.outlook.com (2603:10b6:510:222::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.16; Thu, 22 Dec
- 2022 09:29:31 +0000
-Received: from CH0PR11MB5409.namprd11.prod.outlook.com
- ([fe80::2f13:f639:2761:bb6c]) by CH0PR11MB5409.namprd11.prod.outlook.com
- ([fe80::2f13:f639:2761:bb6c%3]) with mapi id 15.20.5924.016; Thu, 22 Dec 2022
- 09:29:31 +0000
-Message-ID: <4a3f841d-e0ab-dfd9-a6c0-08e2e04c7b6f@intel.com>
-Date: Thu, 22 Dec 2022 11:28:34 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.12.0
-Content-Language: en-US
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>, Andi Shyti
- <andi.shyti@linux.intel.com>
-References: <20221212161338.1007659-1-andi.shyti@linux.intel.com>
- <Y5dc7vhfh6yixFRo@intel.com> <Y5e0gh2u8uTlwQL6@ashyti-mobl2.lan>
- <51402d0d8cfdc319d0786ec03c5ada4d82757cf0.camel@intel.com>
- <Y5pQH+KGujkSJTvT@ashyti-mobl2.lan> <Y5t+gEMl/XFpAh4N@intel.com>
-From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-In-Reply-To: <Y5t+gEMl/XFpAh4N@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P265CA0242.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:350::16) To CH0PR11MB5409.namprd11.prod.outlook.com
- (2603:10b6:610:d0::7)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71C5D10E04C;
+	Thu, 22 Dec 2022 09:56:02 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8603510E04C;
+ Thu, 22 Dec 2022 09:56:00 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 7EBDCAA01E;
+ Thu, 22 Dec 2022 09:56:00 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0177298160835515033=="
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR11MB5409:EE_|PH8PR11MB7022:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0e8d2f48-a9a6-4e1a-ea1f-08dae3ff077f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vn4YOjbSLIz96k2NSe7+wX7oYJEAbOJIxTOb7bkMML9sCzDii/7KDpllGPQyPUnfPaew7i5OozHw5DJKL/cdL/BD9jJbe9EM80LusximAYe+AwfEc04TcafrVU6zGwk5897sz21D1xW3RSBckOb3ysEsKT6V6i24oPxJKTVIVh0PjA6/8hB7d+P+ZrhoaNwPCyD2kui3MQ1laBvoFz8q4+KiMDkvU6knZlYc0NV5I0mHmTZGikOpk4Ef5ngcA4ocWnr6gQXFuJ3PkjmqJdp7OOY9I1DOwijp0nCHrhoQFD1WJKH5+o2QlsxMHxT77bf0ZgKWU/yN+aJG/AnDxLxwqJozeNnLozH2Iiz09xbtEA3D5oe/Q8Qv7aNavQrcI/+LXBZ7viiExcqSOvRWy5t6JZAxbikrK6VnhPvTjPC5g3ujFftl2JmQauZnjc9sPfZ4pNI9HzxfY8plRHY24YGMYGWkIwWCP7vw+8ACNQ8CDXf7Zp57qDgJUijdylLMuT6kukAmNjGr4OM0T+SRdZlHfY/ttl51gagAmNr5EkntIDk3Ld89a19LPRNBjkcuV0UuwM2gUf0TifBuqFc7/ZTH2dO2/Ty1hdynhFVJLg62ECcQcYelMZUOe3ePbH1i3l4SmyfAXWrT1XYFR8AoyHCMPzQSSjcjCgLXX7z4P7osaRX1xk03GBKdSE+fBzLMLSqU
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR11MB5409.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(396003)(366004)(376002)(346002)(39860400002)(136003)(451199015)(31686004)(66476007)(36756003)(26005)(4326008)(110136005)(478600001)(186003)(41300700001)(2616005)(8676002)(2906002)(31696002)(86362001)(66946007)(6512007)(66556008)(5660300002)(38100700002)(6486002)(4001150100001)(6506007)(316002)(53546011)(83380400001)(966005)(54906003)(8936002)(82960400001)(45980500001)(43740500002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Tk9HNENvYzB0VGpCVUlEZ1FmajVVT2VYUWFLNE5QRmJULzRhaWxrZ3JKeU9Y?=
- =?utf-8?B?RFQ0NGVqSVlZQWVOdGN5VkQwRnVyTXdPTklFdkhjd2REMzkzdXZra01DN2pa?=
- =?utf-8?B?ckFTS0dNTTNYZUxXRWJCLyt2SzFUMFFZZUVqbGhySTAxcG5kZDRZUHozRVpN?=
- =?utf-8?B?U0xvREhpUkNqeUxXUUIzUDB3eW05WmQyb1N2SmZTbi9udnBncXViUWUzb3dV?=
- =?utf-8?B?YU1CZ2tIbHlESEFlM2VRVEJ0Tm5kMk1iSE8vQ2JacXRlcG5uNHdzNmVmanpj?=
- =?utf-8?B?cjBadjVYNytzd3lLRjVHNlliOHZENGN0ZWRiR0NMMDBrcVN6eUlXdVd5aGQz?=
- =?utf-8?B?dnYvUUdPZkVXQmJEVUdwaWtpK3FKQUovUWtwNk5rdGJ4ZmxzdTZoM2lBL0o5?=
- =?utf-8?B?U0tPYldwUlhPSExJanJJTG1kTXM4YVU1UUF2R1lwdlcvNlN1WWVGNkFkUTJ6?=
- =?utf-8?B?THM3ZENWQmRmcDI2NzNPMjFWVjErOUsyQjBmZWxOclJBUDhUYS9pQjZpamhD?=
- =?utf-8?B?ZWJNOXZPeXY5R0U3V3MyV0wzSmhYZUlsTFVVNm14VDNEbkloenEvS2RrcmNs?=
- =?utf-8?B?Y0ZFaUZEWXVPRnVhQkNNWnJsZjd0M1VkWXE5SVV6UWJOUHI4eFJYTmJzSjYw?=
- =?utf-8?B?K0duUFU4dkw3MkF6T0pCOUMyNnBheHZGcWdsd2lpR2YvZDAxa1VNTDhQYmQ0?=
- =?utf-8?B?TDRpb0FKYm5EMXB2OGpQMVVrZC9kck9laVBlQUxnMHZCMVR3STBXUU1SVWoz?=
- =?utf-8?B?ekdacWcwSVc2SW1wT2xMMjEvOHdkN3cybnlOeVl2aXNKemY4RjNIYURrMmRX?=
- =?utf-8?B?REFDUzZoNGVQRkpDM2p6TjdEdmVGMEE4bHM0c20rWFlZU1FFSGNkT0NURnhE?=
- =?utf-8?B?elA0WXVpbTF6QXRKRjcydytIVnMydlVCYVQ1d2xxYjZMaXhJbXMyQVpPMkdH?=
- =?utf-8?B?dlVIRFpyYzhyTUZjUlhvbEZBSzVSUU96MnpwV01RQ2RzSE42ckFUU0M5YVdv?=
- =?utf-8?B?eUpVVExjeU9xZllLUUU1Znk3VUU1djhlRGY0UUZLZGI3WDBkbzZLa1ZmVXBq?=
- =?utf-8?B?bnliM1pyZ1BPTkxCUU82cjhaaU55TmV1QVEydWE4NStmdXF4eFpoS1pHcUNt?=
- =?utf-8?B?SDlMZW1QTmtYZDhESEVGRVhVbk5ScWt2UmJZMVBOZnQxc2tXb0tLdXIvVUc3?=
- =?utf-8?B?cklFY1dyVzg2Q2xVc1lKSU5Lb3d2OHZaYzZHanVwTzRrOFBjclpGdGltd2J3?=
- =?utf-8?B?WXdwODVEMWlZaExDc1Y0RGs3REUvWmpzSVBNYUxiTklVSnhpL1pGOGlvallO?=
- =?utf-8?B?QVExZHNDZGNyRUtjMHJMNVZnRlVpb01aTUQ2cjdaOFY2dnJwbDBWUFUycU9N?=
- =?utf-8?B?aUN6OThWNVpCdnFlVkNlSEQ1V3paK1laWXlDSVZXRFVnSTU1UEl5ejBOSXlw?=
- =?utf-8?B?SE56ZlBXSXBUWmc3M0szNEFMK29CdDh6THBhejR1ZVk0b1dxSkZja09QeGN2?=
- =?utf-8?B?R3FKYi9oRDM1UzZ2b2NZL2VadEhYY2gwMC9MUHZIU3hGM2ZYMkR6VGk1OUx0?=
- =?utf-8?B?WUZCRTB6bUtNWGNPMFhqYkM5cklDS2lLRksyQWg3YzRweUk2MVFhU055amlB?=
- =?utf-8?B?SlpPU1dnV05nRk1kb2pqZ2N0dFMwdXhsZjExM0Q0MlRmRTBBUTFyc3pKNFdp?=
- =?utf-8?B?WG9pZlp5TGY2cVMxQmc3MWFWcWRnSGFvT0V5VkltQXdvcEFXQ0hNSExJT0Nk?=
- =?utf-8?B?ak9xNVFza1pzbGxTQUdWN1FxSnEvS3REZ253TXFWS0NRTGovclcvWTBYTlJD?=
- =?utf-8?B?WTczaDJaaDh5TnBKaTBTZjljQXoyZWtyNzhFNUZieUxmVFNSSy9LWDJrQmdG?=
- =?utf-8?B?WFZSWE9zTXJta1JXNjVacEtmSkQ0L29ONkw3VmVFK2ZhQUhkMjB0MzNpNHFI?=
- =?utf-8?B?RXloYUpaakNOY0UvZjMvUXFNVTE1Ym5qSTZEbTJrR2VLbUYxKzRmUExVYnZI?=
- =?utf-8?B?bkJ1cUxoZFdOdmxrUEUzSkZ6UE9rSFoyWnlHWXkyaFdyTUkvQnRCUE5JbEN2?=
- =?utf-8?B?MUtYWDZhOUxqYko1QW5taG9iME13R3VlY0VGYWpJWFVsNFpRNkdGbmxlWEhy?=
- =?utf-8?B?bWR4WDF4WUxLdkVnSGZYNkRNNkRjNHJlNXB2ZmFjSjZQcXRsK1UybFpCcnpw?=
- =?utf-8?B?QUE9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e8d2f48-a9a6-4e1a-ea1f-08dae3ff077f
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR11MB5409.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Dec 2022 09:29:31.3021 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GoXQjGvI+V/8MeDRyOoh0ESs4nrVgcCxeDwWm7sA5lYXPuBGpAZXion5c/xaO6DJIL0VwYChWKexhk135FiqZfG1MMK88TZfZMQBWkAP768=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB7022
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/gt: Reset twice
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Teres Alexis, Alan Previn" <alan.previn.teres.alexis@intel.com>
+Date: Thu, 22 Dec 2022 09:56:00 -0000
+Message-ID: <167170296048.14837.17970747209153199122@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20221220221158.2390090-1-alan.previn.teres.alexis@intel.com>
+In-Reply-To: <20221220221158.2390090-1-alan.previn.teres.alexis@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3Igc2Vy?=
+ =?utf-8?q?ies_starting_with_=5Bv3=2C1/1=5D_drm/i915/pxp=3A_Use_drm=5Fdbg_?=
+ =?utf-8?q?if_arb_session_failed_due_to_fw_version_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,235 +41,191 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "chris@chris-wilson.co.uk" <chris@chris-wilson.co.uk>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============0177298160835515033==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+== Series Details ==
+
+Series: series starting with [v3,1/1] drm/i915/pxp: Use drm_dbg if arb session failed due to fw version (rev2)
+URL   : https://patchwork.freedesktop.org/series/112121/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_12521 -> Patchwork_112121v2
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112121v2/index.html
+
+Participating hosts (46 -> 46)
+------------------------------
+
+  Additional (1): fi-tgl-dsi 
+  Missing    (1): bat-atsm-1 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_112121v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@gt_heartbeat:
+    - fi-kbl-soraka:      [PASS][1] -> [DMESG-FAIL][2] ([i915#5334])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12521/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112121v2/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html
+
+  * igt@i915_selftest@live@late_gt_pm:
+    - fi-kbl-soraka:      [PASS][3] -> [INCOMPLETE][4] ([i915#7640])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12521/fi-kbl-soraka/igt@i915_selftest@live@late_gt_pm.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112121v2/fi-kbl-soraka/igt@i915_selftest@live@late_gt_pm.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@reset:
+    - {bat-rpls-2}:       [DMESG-FAIL][5] ([i915#4983]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12521/bat-rpls-2/igt@i915_selftest@live@reset.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112121v2/bat-rpls-2/igt@i915_selftest@live@reset.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109284]: https://bugs.freedesktop.org/show_bug.cgi?id=109284
+  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
+  [fdo#109295]: https://bugs.freedesktop.org/show_bug.cgi?id=109295
+  [fdo#110189]: https://bugs.freedesktop.org/show_bug.cgi?id=110189
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#1845]: https://gitlab.freedesktop.org/drm/intel/issues/1845
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#3301]: https://gitlab.freedesktop.org/drm/intel/issues/3301
+  [i915#3546]: https://gitlab.freedesktop.org/drm/intel/issues/3546
+  [i915#3555]: https://gitlab.freedesktop.org/drm/intel/issues/3555
+  [i915#4103]: https://gitlab.freedesktop.org/drm/intel/issues/4103
+  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
+  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
+  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
+  [i915#5334]: https://gitlab.freedesktop.org/drm/intel/issues/5334
+  [i915#6471]: https://gitlab.freedesktop.org/drm/intel/issues/6471
+  [i915#6997]: https://gitlab.freedesktop.org/drm/intel/issues/6997
+  [i915#7125]: https://gitlab.freedesktop.org/drm/intel/issues/7125
+  [i915#7456]: https://gitlab.freedesktop.org/drm/intel/issues/7456
+  [i915#7561]: https://gitlab.freedesktop.org/drm/intel/issues/7561
+  [i915#7640]: https://gitlab.freedesktop.org/drm/intel/issues/7640
 
 
-On 12/15/22 10:07 PM, Rodrigo Vivi wrote:
-> On Wed, Dec 14, 2022 at 11:37:19PM +0100, Andi Shyti wrote:
->> Hi Rodrigo,
->>
->> On Tue, Dec 13, 2022 at 01:18:48PM +0000, Vivi, Rodrigo wrote:
->>> On Tue, 2022-12-13 at 00:08 +0100, Andi Shyti wrote:
->>>> Hi Rodrigo,
->>>>
->>>> On Mon, Dec 12, 2022 at 11:55:10AM -0500, Rodrigo Vivi wrote:
->>>>> On Mon, Dec 12, 2022 at 05:13:38PM +0100, Andi Shyti wrote:
->>>>>> From: Chris Wilson <chris@chris-wilson.co.uk>
->>>>>>
->>>>>> After applying an engine reset, on some platforms like
->>>>>> Jasperlake, we
->>>>>> occasionally detect that the engine state is not cleared until
->>>>>> shortly
->>>>>> after the resume. As we try to resume the engine with volatile
->>>>>> internal
->>>>>> state, the first request fails with a spurious CS event (it looks
->>>>>> like
->>>>>> it reports a lite-restore to the hung context, instead of the
->>>>>> expected
->>>>>> idle->active context switch).
->>>>>>
->>>>>> Signed-off-by: Chris Wilson <hris@chris-wilson.co.uk>
->>>>>
->>>>> There's a typo in the signature email I'm afraid...
->>>>
->>>> oh yes, I forgot the 'C' :)
->>>
->>> you forgot?
->>> who signed it off?
->>
->> Chris, but as I was copy/pasting SoB's I might have
->> unintentionally removed the 'c'.
->>
->>>>> Other than that, have we checked the possibility of using the
->>>>> driver-initiated-flr bit
->>>>> instead of this second loop? That should be the right way to
->>>>> guarantee everything is
->>>>> cleared on gen11+...
->>>>
->>>> maybe I am misinterpreting it, but is FLR the same as resetting
->>>> hardware domains individually?
->>>
->>> No, it is bigger than that... almost the PCI FLR with some exceptions:
->>>
->>> https://lists.freedesktop.org/archives/intel-gfx/2022-December/313956.html
->>
->> yes, exactly... I would use FLR feedback if I was performing an
->> FLR reset. But here I'm not doing that, here I'm simply gating
->> off some power domains. It happens that those power domains turn
->> on and off engines making them reset.
-> 
-> is this issue only seeing when this reset is called from the
-> sanitize functions at probe and resumes?
-> Or from any kind of gt reset?
-> 
-> I don't remember seeing any reference link to the bug in the patch,
-> hence I'm assuming this is happening in any kind of gt reset that
-> ends up in this function.
-> 
->>
->> FLR doesn't have anything to do here, also because if you want to
->> reset a single engine you go through this function, instead of
->> resetting the whole GPU with whatever is annexed.
-> 
-> yeap. That might be to extreme depending on the case. But all that
-> I asked was if we were considering this option since this is the
-> recommended way of reseting our engines nowadays.
-> 
->>
->> This patch is not fixing the "reset" concept of i915, but it's
->> fixing a missing feedback that happens in one single platform
->> when trying to gate on/off a domain.
-> 
-> But it is changing the reset concept and timeouts for all the reset
-> cases in all the platforms.
-> 
->>
->> Maybe I am completely off track, but I don't see connection with
->> FLR here.
-> 
-> The point is that if a reset is needed, for any reason,
-> the recommended way for Jasperlake, and any other newer platforms,
-> is to use the FLR rather than the engine reset. But we are using
-> the engine reset, and now twice, rather then attempt the recommended
-> way.
-> 
->>
->> (besides FLR might not be present in all the platforms)
-> 
-> This issue is also not present in all the platforms and you are still
-> increasing the loops and delay for all the platforms.
-> 
->>
->> Thanks a lot for your inputs,
-> 
-> have we looked to the Jasperlake workarounds to see if we are missing
-> anything there that could help us in this case instead of this extreme
-> approach of randomly increasing timeouts and attempts for all the
-> platforms?
-> 
-Hi, Rodrigo
-JSL_WA (Bspec: 33451) doesn't seem to have a WA similar to this issue. 
-(Please correct me if I can't find it.)
+Build changes
+-------------
 
->> Andi
->>
->>>> How am I supposed to use driver_initiated_flr() in this context?
->>>
->>> Some drivers are not even using this gt reset anymore and going
->>> directly with the driver-initiated FLR in case that guc reset failed.
->>>
->>> I believe we can still keep the gt reset in our case as we currently
->>> have, but instead of keep retrying it until it succeeds we probably
->>> should go to the next level and do the driver initiated FLR when the GT
->>> reset failed.
->>>
->>>>
->>>> Thanks,
->>>> Andi
->>>>
->>>>>> Cc: stable@vger.kernel.org
->>>>>> Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
->>>>>> Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
->>>>>> ---
->>>>>>   drivers/gpu/drm/i915/gt/intel_reset.c | 34
->>>>>> ++++++++++++++++++++++-----
->>>>>>   1 file changed, 28 insertions(+), 6 deletions(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c
->>>>>> b/drivers/gpu/drm/i915/gt/intel_reset.c
->>>>>> index ffde89c5835a4..88dfc0c5316ff 100644
->>>>>> --- a/drivers/gpu/drm/i915/gt/intel_reset.c
->>>>>> +++ b/drivers/gpu/drm/i915/gt/intel_reset.c
->>>>>> @@ -268,6 +268,7 @@ static int ilk_do_reset(struct intel_gt *gt,
->>>>>> intel_engine_mask_t engine_mask,
->>>>>>   static int gen6_hw_domain_reset(struct intel_gt *gt, u32
->>>>>> hw_domain_mask)
->>>>>>   {
->>>>>>          struct intel_uncore *uncore = gt->uncore;
->>>>>> +       int loops = 2;
->>>>>>          int err;
->>>>>>   
->>>>>>          /*
->>>>>> @@ -275,18 +276,39 @@ static int gen6_hw_domain_reset(struct
->>>>>> intel_gt *gt, u32 hw_domain_mask)
->>>>>>           * for fifo space for the write or forcewake the chip for
->>>>>>           * the read
->>>>>>           */
->>>>>> -       intel_uncore_write_fw(uncore, GEN6_GDRST,
->>>>>> hw_domain_mask);
->>>>>> +       do {
->>>>>> +               intel_uncore_write_fw(uncore, GEN6_GDRST,
->>>>>> hw_domain_mask);
->>>>>>   
->>>>>> -       /* Wait for the device to ack the reset requests */
->>>>>> -       err = __intel_wait_for_register_fw(uncore,
->>>>>> -                                          GEN6_GDRST,
->>>>>> hw_domain_mask, 0,
->>>>>> -                                          500, 0,
->>>>>> -                                          NULL);
->>>>>> +               /*
->>>>>> +                * Wait for the device to ack the reset requests.
->>>>>> +                *
->>>>>> +                * On some platforms, e.g. Jasperlake, we see see
->>>>>> that the
->>>>>> +                * engine register state is not cleared until
->>>>>> shortly after
->>>>>> +                * GDRST reports completion, causing a failure as
->>>>>> we try
->>>>>> +                * to immediately resume while the internal state
->>>>>> is still
->>>>>> +                * in flux. If we immediately repeat the reset,
->>>>>> the second
->>>>>> +                * reset appears to serialise with the first, and
->>>>>> since
->>>>>> +                * it is a no-op, the registers should retain
->>>>>> their reset
->>>>>> +                * value. However, there is still a concern that
->>>>>> upon
->>>>>> +                * leaving the second reset, the internal engine
->>>>>> state
->>>>>> +                * is still in flux and not ready for resuming.
->>>>>> +                */
->>>>>> +               err = __intel_wait_for_register_fw(uncore,
->>>>>> GEN6_GDRST,
->>>>>> +
->>>>>> hw_domain_mask, 0,
->>>>>> +                                                  2000, 0,
->>>>>> +                                                  NULL);
-Andi, fast_timeout_us is increased from 500 to 2000, and if it fails, it 
-tries to reset it once more. How was this value of 2000 calculated?
->>>>>> +       } while (err == 0 && --loops);
->>>>>>          if (err)
->>>>>>                  GT_TRACE(gt,
->>>>>>                           "Wait for 0x%08x engines reset
->>>>>> failed\n",
->>>>>>                           hw_domain_mask);
-Did GT_TRACE report an error in a situation where the problem was reported?
->>>>>>   
->>>>>> +       /*
->>>>>> +        * As we have observed that the engine state is still
->>>>>> volatile
->>>>>> +        * after GDRST is acked, impose a small delay to let
->>>>>> everything settle.
->>>>>> +        */
->>>>>> +       udelay(50);
-udelay(50) affects all platforms that can call gen6_hw_domain_reset(), 
-is that intended?
+  * Linux: CI_DRM_12521 -> Patchwork_112121v2
 
-Br,
+  CI-20190529: 20190529
+  CI_DRM_12521: 584eb294ab7b1273c5ef505a33f2a5d89c877fcd @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7101: bd33b4c060eb6b2e24c5784b2aa817ae5840f84f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_112121v2: 584eb294ab7b1273c5ef505a33f2a5d89c877fcd @ git://anongit.freedesktop.org/gfx-ci/linux
 
-G.G.
->>>>>> +
->>>>>>          return err;
->>>>>>   }
->>>>>>   
->>>>>> -- 
->>>>>> 2.38.1
->>>>>>
->>>
+
+### Linux commits
+
+a90f3cf3e5d9 drm/i915/pxp: Use drm_dbg if arb session failed due to fw version
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112121v2/index.html
+
+--===============0177298160835515033==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with [v3,1/1] drm/i915/pxp: Use drm_dbg if arb session failed due to fw version (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/112121/">https://patchwork.freedesktop.org/series/112121/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112121v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112121v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_12521 -&gt; Patchwork_112121v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112121v2/index.html</p>
+<h2>Participating hosts (46 -&gt; 46)</h2>
+<p>Additional (1): fi-tgl-dsi <br />
+  Missing    (1): bat-atsm-1 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_112121v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@gt_heartbeat:</p>
+<ul>
+<li>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12521/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112121v2/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@late_gt_pm:</p>
+<ul>
+<li>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12521/fi-kbl-soraka/igt@i915_selftest@live@late_gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112121v2/fi-kbl-soraka/igt@i915_selftest@live@late_gt_pm.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7640">i915#7640</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@reset:<ul>
+<li>{bat-rpls-2}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12521/bat-rpls-2/igt@i915_selftest@live@reset.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112121v2/bat-rpls-2/igt@i915_selftest@live@reset.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_12521 -&gt; Patchwork_112121v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_12521: 584eb294ab7b1273c5ef505a33f2a5d89c877fcd @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7101: bd33b4c060eb6b2e24c5784b2aa817ae5840f84f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_112121v2: 584eb294ab7b1273c5ef505a33f2a5d89c877fcd @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>a90f3cf3e5d9 drm/i915/pxp: Use drm_dbg if arb session failed due to fw version</p>
+
+</body>
+</html>
+
+--===============0177298160835515033==--
