@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3223C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Dec 2022 22:30:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA4ECC4167B
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Dec 2022 22:30:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B72010E5BA;
-	Thu, 22 Dec 2022 22:28:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3E4D8920E;
+	Thu, 22 Dec 2022 22:28:57 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1017010E59B;
- Thu, 22 Dec 2022 22:28:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40F5410E5A3;
+ Thu, 22 Dec 2022 22:28:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671748120; x=1703284120;
+ t=1671748122; x=1703284122;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=s4S/8EAmsXBk2hLt6odMkz7dZjsBO7IlqdFy6RdQy18=;
- b=FPmzZdeHENyMHkUAJRehARg4tqNT0RPtlilxHTMu6hfk2m4xRQ19jnPr
- DCeVhuFw+QZEMxOXGSC4xeB8meC762PO8FT1rJYPQJF9F6UOVlEslZH4e
- cBqpP6db3m0wjK5q1Lqa724MBkuKjVzIDknXghoGwPAUZzpAEa0UDdyPq
- LuqEqjEoWLOzCLZVKcrDDUR41SdOFBZCPMnyXP9IbyFayDKt8R6Sz+AQS
- p1yCohYvLwqSLfyRwTk+5pEbXDGCoIR4/WbcYqGQzoYI8N0z30tKEz0SQ
- ctK1dwKLhngBQaYgU/oCsBo6YtFTT+F7VdZIGXyCV9RqH0G3P6Ahj9g3u g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="406472850"
-X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="406472850"
+ bh=+3OIgtfqf/OzkI9uIOy3C0/QaoKcrHuJ8pzvQ1rDVII=;
+ b=GPjW7aLbuqJ3/WscG6fCMqBbK3g8djbbCcdF5RaQqRas+cvidEgLdngp
+ u5eusKnqUZ+nHGYDYv8QEseY5zXkt/JtSU+vuJVSWi9NrHeIgHPSirgTZ
+ OBpeYtQHvU9rWq0n99lXCkuzBjjbvl+XWyXJKz1jPMEJf8oy5kUPehFfR
+ xXU6QG61HC2uPgCaAuwrrkIyq3hgzAoeCP6kaeeQ/uAAUCzgp6SGedTCS
+ IkDf2swFVGjKbSMmKU1zKw8NzelhoHqmGDfjU7ba9suGqdPLRcFYcDikW
+ d4Nd1XB61vz099SLMiRGDDh2alSk2GWEC7axHqq5i4xAqTk8vx/kd7kSD w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="406472868"
+X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="406472868"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Dec 2022 14:28:39 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="645412312"
-X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="645412312"
+ 22 Dec 2022 14:28:41 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="645412337"
+X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="645412337"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Dec 2022 14:28:38 -0800
+ 22 Dec 2022 14:28:40 -0800
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 22 Dec 2022 14:21:12 -0800
-Message-Id: <20221222222127.34560-6-matthew.brost@intel.com>
+Date: Thu, 22 Dec 2022 14:21:27 -0800
+Message-Id: <20221222222127.34560-21-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221222222127.34560-1-matthew.brost@intel.com>
 References: <20221222222127.34560-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC PATCH 05/20] drm/sched: Add generic scheduler
- message interface
+Subject: [Intel-gfx] [RFC PATCH 20/20] mei/hdcp: Also enable for XE
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,202 +60,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add generic schedule message interface which sends messages to backend
-from the drm_gpu_scheduler main submission thread. The idea is some of
-these messages modify some state in drm_sched_entity which is also
-modified during submission. By scheduling these messages and submission
-in the same thread their is not race changing states in
-drm_sched_entity.
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 
-This interface will be used in XE, new Intel GPU driver, to cleanup,
-suspend, resume, and change scheduling properties of a drm_sched_entity.
+Xe, is a new driver for Intel GPUs that supports both integrated
+and discrete platforms starting with Tiger Lake. Let's ensure
+mei/hdcp can accept xe instead of i915 whenever that is in use.
 
-The interface is designed to be generic and extendable with only the
-backend understanding the messages.
-
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Tomas Winkler <tomas.winkler@intel.com>
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/scheduler/sched_main.c | 58 +++++++++++++++++++++++++-
- include/drm/gpu_scheduler.h            | 29 ++++++++++++-
- 2 files changed, 84 insertions(+), 3 deletions(-)
+ drivers/misc/mei/hdcp/Kconfig    | 2 +-
+ drivers/misc/mei/hdcp/mei_hdcp.c | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index 8c64045d0692..8e688c2fc482 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -987,6 +987,54 @@ drm_sched_pick_best(struct drm_gpu_scheduler **sched_list,
- }
- EXPORT_SYMBOL(drm_sched_pick_best);
+diff --git a/drivers/misc/mei/hdcp/Kconfig b/drivers/misc/mei/hdcp/Kconfig
+index 54e1c9526909..2ac9148988d4 100644
+--- a/drivers/misc/mei/hdcp/Kconfig
++++ b/drivers/misc/mei/hdcp/Kconfig
+@@ -4,7 +4,7 @@
+ config INTEL_MEI_HDCP
+ 	tristate "Intel HDCP2.2 services of ME Interface"
+ 	select INTEL_MEI_ME
+-	depends on DRM_I915
++	depends on DRM_I915 || DRM_XE
+ 	help
+ 	  MEI Support for HDCP2.2 Services on Intel platforms.
  
-+/**
-+ * drm_sched_add_msg - add scheduler message
-+ *
-+ * @sched: scheduler instance
-+ * @msg: message to be added
-+ *
-+ * Can and will pass an jobs waiting on dependencies or in a runnable queue.
-+ * Messages processing will stop if schedule run wq is stopped and resume when
-+ * run wq is started.
-+ */
-+void drm_sched_add_msg(struct drm_gpu_scheduler *sched,
-+		       struct drm_sched_msg *msg)
-+{
-+	spin_lock(&sched->job_list_lock);
-+	list_add_tail(&msg->link, &sched->msgs);
-+	spin_unlock(&sched->job_list_lock);
-+
-+	/*
-+	 * Same as above in drm_sched_run_wq_queue, try to kick worker if
-+	 * paused, harmless if this races
-+	 */
-+	if (!sched->pause_run_wq)
-+		queue_work(sched->run_wq, &sched->work_run);
-+}
-+EXPORT_SYMBOL(drm_sched_add_msg);
-+
-+/**
-+ * drm_sched_get_msg - get scheduler message
-+ *
-+ * @sched: scheduler instance
-+ *
-+ * Returns NULL or message
-+ */
-+static struct drm_sched_msg *
-+drm_sched_get_msg(struct drm_gpu_scheduler *sched)
-+{
-+	struct drm_sched_msg *msg;
-+
-+	spin_lock(&sched->job_list_lock);
-+	msg = list_first_entry_or_null(&sched->msgs,
-+				       struct drm_sched_msg, link);
-+	if (msg)
-+		list_del(&msg->link);
-+	spin_unlock(&sched->job_list_lock);
-+
-+	return msg;
-+}
-+
- /**
-  * drm_sched_main - main scheduler thread
-  *
-@@ -1000,6 +1048,7 @@ static void drm_sched_main(struct work_struct *w)
+diff --git a/drivers/misc/mei/hdcp/mei_hdcp.c b/drivers/misc/mei/hdcp/mei_hdcp.c
+index e889a8bd7ac8..699dfc4a0a57 100644
+--- a/drivers/misc/mei/hdcp/mei_hdcp.c
++++ b/drivers/misc/mei/hdcp/mei_hdcp.c
+@@ -784,7 +784,8 @@ static int mei_hdcp_component_match(struct device *dev, int subcomponent,
+ {
+ 	struct device *base = data;
  
- 	while (!READ_ONCE(sched->pause_run_wq)) {
- 		struct drm_sched_entity *entity;
-+		struct drm_sched_msg *msg;
- 		struct drm_sched_fence *s_fence;
- 		struct drm_sched_job *sched_job;
- 		struct dma_fence *fence;
-@@ -1007,12 +1056,16 @@ static void drm_sched_main(struct work_struct *w)
+-	if (!dev->driver || strcmp(dev->driver->name, "i915") ||
++	if (!dev->driver ||
++	    (strcmp(dev->driver->name, "i915") && strcmp(dev->driver->name, "xe")) ||
+ 	    subcomponent != I915_COMPONENT_HDCP)
+ 		return 0;
  
- 		cleanup_job = drm_sched_get_cleanup_job(sched);
- 		entity = drm_sched_select_entity(sched);
-+		msg = drm_sched_get_msg(sched);
- 
- 		if (cleanup_job)
- 			sched->ops->free_job(cleanup_job);
- 
-+		if (msg)
-+			sched->ops->process_msg(msg);
-+
- 		if (!entity) {
--			if (!cleanup_job)
-+			if (!cleanup_job && !msg)
- 				break;
- 			continue;
- 		}
-@@ -1021,7 +1074,7 @@ static void drm_sched_main(struct work_struct *w)
- 
- 		if (!sched_job) {
- 			complete_all(&entity->entity_idle);
--			if (!cleanup_job)
-+			if (!cleanup_job && !msg)
- 				break;
- 			continue;
- 		}
-@@ -1097,6 +1150,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched,
- 
- 	init_waitqueue_head(&sched->job_scheduled);
- 	INIT_LIST_HEAD(&sched->pending_list);
-+	INIT_LIST_HEAD(&sched->msgs);
- 	spin_lock_init(&sched->job_list_lock);
- 	atomic_set(&sched->hw_rq_count, 0);
- 	INIT_DELAYED_WORK(&sched->work_tdr, drm_sched_job_timedout);
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index ff50f3c289cd..31448deb9412 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -369,6 +369,23 @@ enum drm_gpu_sched_stat {
- 	DRM_GPU_SCHED_STAT_ENODEV,
- };
- 
-+/**
-+ * struct drm_sched_msg - an in-band (relative to GPU scheduler run queue)
-+ * message
-+ *
-+ * Generic enough for backend defined messages, backend can expand if needed.
-+ */
-+struct drm_sched_msg {
-+	/** @link: list link into the gpu scheduler list of messages */
-+	struct list_head		link;
-+	/**
-+	 * @private_data: opaque pointer to message private data (backend defined)
-+	 */
-+	void				*private_data;
-+	/** @opcode: opcode of message (backend defined) */
-+	unsigned int			opcode;
-+};
-+
- /**
-  * struct drm_sched_backend_ops - Define the backend operations
-  *	called by the scheduler
-@@ -446,6 +463,12 @@ struct drm_sched_backend_ops {
-          * and it's time to clean it up.
- 	 */
- 	void (*free_job)(struct drm_sched_job *sched_job);
-+
-+	/**
-+	 * @process_msg: Process a message. Allowed to block, it is this
-+	 * function's responsibility to free message if dynamically allocated.
-+	 */
-+	void (*process_msg)(struct drm_sched_msg *msg);
- };
- 
- /**
-@@ -456,6 +479,7 @@ struct drm_sched_backend_ops {
-  * @timeout: the time after which a job is removed from the scheduler.
-  * @name: name of the ring for which this scheduler is being used.
-  * @sched_rq: priority wise array of run queues.
-+ * @msgs: list of messages to be processed in @work_run
-  * @job_scheduled: once @drm_sched_entity_do_release is called the scheduler
-  *                 waits on this wait queue until all the scheduled jobs are
-  *                 finished.
-@@ -463,7 +487,7 @@ struct drm_sched_backend_ops {
-  * @job_id_count: used to assign unique id to the each job.
-  * @run_wq: workqueue used to queue @work_run
-  * @timeout_wq: workqueue used to queue @work_tdr
-- * @work_run: schedules jobs and cleans up entities
-+ * @work_run: schedules jobs, cleans up jobs, and processes messages
-  * @work_tdr: schedules a delayed call to @drm_sched_job_timedout after the
-  *            timeout interval is over.
-  * @pending_list: the list of jobs which are currently in the job queue.
-@@ -485,6 +509,7 @@ struct drm_gpu_scheduler {
- 	long				timeout;
- 	const char			*name;
- 	struct drm_sched_rq		sched_rq[DRM_SCHED_PRIORITY_COUNT];
-+	struct list_head		msgs;
- 	wait_queue_head_t		job_scheduled;
- 	atomic_t			hw_rq_count;
- 	atomic64_t			job_id_count;
-@@ -530,6 +555,8 @@ void drm_sched_entity_modify_sched(struct drm_sched_entity *entity,
- 
- void drm_sched_job_cleanup(struct drm_sched_job *job);
- void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
-+void drm_sched_add_msg(struct drm_gpu_scheduler *sched,
-+		       struct drm_sched_msg *msg);
- void drm_sched_run_wq_stop(struct drm_gpu_scheduler *sched);
- void drm_sched_run_wq_start(struct drm_gpu_scheduler *sched);
- void drm_sched_stop(struct drm_gpu_scheduler *sched, struct drm_sched_job *bad);
 -- 
 2.37.3
 
