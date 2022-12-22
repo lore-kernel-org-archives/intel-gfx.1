@@ -4,31 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F3ECC4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Dec 2022 08:12:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8DBDC4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Dec 2022 08:26:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9101D10E513;
-	Thu, 22 Dec 2022 08:12:07 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id D9FB810E512;
- Thu, 22 Dec 2022 08:12:03 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 90195AA0ED;
- Thu, 22 Dec 2022 08:12:02 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============5990493910746247407=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3D7D10E514;
+	Thu, 22 Dec 2022 08:26:25 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E47CE10E514;
+ Thu, 22 Dec 2022 08:26:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1671697583; x=1703233583;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=G26Xi+3Mu0RsqVsMq6+Wo/lBvmZFtlv/v/jQGWH5Td4=;
+ b=K/cEpwdwUmkwVPI9dUNuTztrBZFPoUd0X0En7Bhp4w6lqFMhkXW7+UED
+ bAnf7rASr/aKGcJS0n9653lp46Gq21+7wyjqAhja0TcwBS8gvlv+kLyyI
+ 1qDWdfZZErUSJE9VmwKwRHuCxvasnFbg5qpNHuwRAHwbNI5zIrzanBt5B
+ 1VmjtOzL5qPxJ4lwLONp/NyKd1TniIKzeN50WjKXQovFf5iwRQwdbCb/+
+ WRNs01AgCkfZ99XWhyE/urAZYOIm67KZ4Ropg8gZi7gM9Y5fdyUAa/MMJ
+ NZMJwz+qFD/OjJ7UEVf5aYjoES5nFKPVjxq2WL8me9d10Zt7Mob7baZIx Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10568"; a="384426683"
+X-IronPort-AV: E=Sophos;i="5.96,265,1665471600"; d="scan'208";a="384426683"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Dec 2022 00:26:23 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10568"; a="645127601"
+X-IronPort-AV: E=Sophos;i="5.96,265,1665471600"; d="scan'208";a="645127601"
+Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Dec 2022 00:26:23 -0800
+From: Lucas De Marchi <lucas.demarchi@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Thu, 22 Dec 2022 00:25:57 -0800
+Message-Id: <20221222082557.1364711-5-lucas.demarchi@intel.com>
+X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20221222082557.1364711-1-lucas.demarchi@intel.com>
+References: <20221222082557.1364711-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Date: Thu, 22 Dec 2022 08:12:02 -0000
-Message-ID: <167169672255.14835.12345802470793651136@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20221219160516.23436-1-tzimmermann@suse.de>
-In-Reply-To: <20221219160516.23436-1-tzimmermann@suse.de>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?=2C_fbdev=3A_Remove_apertures_structure_and_FBINFO=5FMISC=5FFIR?=
- =?utf-8?q?MWARE_=28rev2=29?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 4/4] fixup! drm/i915: Remove platform comments
+ from workarounds
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,201 +58,87 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============5990493910746247407==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+---
+ drivers/gpu/drm/i915/display/intel_psr.c | 2 +-
+ drivers/gpu/drm/i915/i915_perf.c         | 4 ++--
+ drivers/gpu/drm/i915/intel_pm.c          | 4 ++--
+ drivers/gpu/drm/i915/intel_uncore.c      | 2 +-
+ 4 files changed, 6 insertions(+), 6 deletions(-)
 
-== Series Details ==
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 328c886309f3..543881838def 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -1636,7 +1636,7 @@ static void psr2_man_trk_ctl_calc(struct intel_crtc_state *crtc_state,
+ 
+ 	if (full_update) {
+ 		/*
+-		 * Not applying Wa_14014971508
++		 * Not applying Wa_14014971508 as we do not support the
+ 		 * feature that requires this workaround.
+ 		 */
+ 		val |= man_trk_ctl_single_full_frame_bit_get(dev_priv);
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 49f7e1fbd96c..9e6686b8c8f0 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -1590,7 +1590,7 @@ static void i915_oa_stream_destroy(struct i915_perf_stream *stream)
+ 	free_oa_buffer(stream);
+ 
+ 	/*
+-	 * Wa_16011777198
++	 * Wa_16011777198 - Unset the override of GUCRC mode to enable rc6.
+ 	 */
+ 	if (intel_uc_uses_guc_rc(&gt->uc) &&
+ 	    (IS_DG2_GRAPHICS_STEP(gt->i915, G10, STEP_A0, STEP_C0) ||
+@@ -3293,7 +3293,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 	intel_uncore_forcewake_get(stream->uncore, FORCEWAKE_ALL);
+ 
+ 	/*
+-	 * Wa_16011777198
++	 * Wa_16011777198 - GuC resets render as part of the Wa. This causes
+ 	 * OA to lose the configuration state. Prevent this by overriding GUCRC
+ 	 * mode.
+ 	 */
+diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
+index 82a59738ca4a..492973085297 100644
+--- a/drivers/gpu/drm/i915/intel_pm.c
++++ b/drivers/gpu/drm/i915/intel_pm.c
+@@ -4578,7 +4578,7 @@ static void ivb_init_clock_gating(struct drm_i915_private *dev_priv)
+ 
+ 	/*
+ 	 * According to the spec, bit 13 (RCZUNIT) must be set on IVB.
+-	 * This implements the WaDisableRCZUnitClockGating
++	 * This implements the WaDisableRCZUnitClockGating workaround.
+ 	 */
+ 	intel_uncore_write(&dev_priv->uncore, GEN6_UCGCTL2,
+ 		   GEN6_RCZUNIT_CLOCK_GATE_DISABLE);
+@@ -4615,7 +4615,7 @@ static void vlv_init_clock_gating(struct drm_i915_private *dev_priv)
+ 
+ 	/*
+ 	 * According to the spec, bit 13 (RCZUNIT) must be set on IVB.
+-	 * This implements the WaDisableRCZUnitClockGating
++	 * This implements the WaDisableRCZUnitClockGating workaround.
+ 	 */
+ 	intel_uncore_write(&dev_priv->uncore, GEN6_UCGCTL2,
+ 		   GEN6_RCZUNIT_CLOCK_GATE_DISABLE);
+diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
+index e56dbb20f2fe..182791a9cabb 100644
+--- a/drivers/gpu/drm/i915/intel_uncore.c
++++ b/drivers/gpu/drm/i915/intel_uncore.c
+@@ -1887,7 +1887,7 @@ static const struct intel_forcewake_range __xelpmp_fw_ranges[] = {
+ static void
+ ilk_dummy_write(struct intel_uncore *uncore)
+ {
+-	/* WaIssueDummyWriteToWakeupFromRC6
++	/* WaIssueDummyWriteToWakeupFromRC6 - Issue a dummy write to wake up
+ 	 * the chip from rc6 before touching it for real. MI_MODE is masked,
+ 	 * hence harmless to write 0 into. */
+ 	__raw_uncore_write32(uncore, RING_MI_MODE(RENDER_RING_BASE), 0);
+-- 
+2.39.0
 
-Series: drm, fbdev: Remove apertures structure and FBINFO_MISC_FIRMWARE (rev2)
-URL   : https://patchwork.freedesktop.org/series/112069/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_12521 -> Patchwork_112069v2
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112069v2/index.html
-
-Participating hosts (46 -> 45)
-------------------------------
-
-  Missing    (1): bat-atsm-1 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_112069v2 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@hangcheck:
-    - fi-hsw-4770:        [PASS][1] -> [INCOMPLETE][2] ([i915#4785])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12521/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112069v2/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html
-    - bat-dg1-5:          [PASS][3] -> [INCOMPLETE][4] ([i915#4983])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12521/bat-dg1-5/igt@i915_selftest@live@hangcheck.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112069v2/bat-dg1-5/igt@i915_selftest@live@hangcheck.html
-
-  * igt@runner@aborted:
-    - fi-hsw-4770:        NOTRUN -> [FAIL][5] ([fdo#109271] / [i915#4312] / [i915#5594])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112069v2/fi-hsw-4770/igt@runner@aborted.html
-    - bat-dg1-5:          NOTRUN -> [FAIL][6] ([i915#4312])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112069v2/bat-dg1-5/igt@runner@aborted.html
-
-  
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
-  [i915#4785]: https://gitlab.freedesktop.org/drm/intel/issues/4785
-  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
-  [i915#5594]: https://gitlab.freedesktop.org/drm/intel/issues/5594
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_12521 -> Patchwork_112069v2
-
-  CI-20190529: 20190529
-  CI_DRM_12521: 584eb294ab7b1273c5ef505a33f2a5d89c877fcd @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7101: bd33b4c060eb6b2e24c5784b2aa817ae5840f84f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_112069v2: 584eb294ab7b1273c5ef505a33f2a5d89c877fcd @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-19b034976333 drm/fbdev: Remove aperture handling and FBINFO_MISC_FIRMWARE
-60f2bde3dbcf fbdev/vga16fb: Do not use struct fb_info.apertures
-499844d92d56 fbdev/vesafb: Do not use struct fb_info.apertures
-d8c2620aa2a2 fbdev/vesafb: Remove trailing whitespaces
-2d23f20a288b fbdev/simplefb: Do not use struct fb_info.apertures
-560addfbec2f fbdev/offb: Do not use struct fb_info.apertures
-c89260bbd67a fbdev/offb: Allocate struct offb_par with framebuffer_alloc()
-1c1e130fd479 fbdev/efifb: Do not use struct fb_info.apertures
-473e7f788067 fbdev/efifb: Add struct efifb_par for driver data
-1dfa46e3cdfa vfio-mdev/mdpy-fb: Do not set struct fb_info.apertures
-fc3ca744e6f9 fbdev/hyperv-fb: Do not set struct fb_info.apertures
-aa63d07f6438 fbdev/clps711x-fb: Do not set struct fb_info.apertures
-2af5a9cf4381 drm/fb-helper: Do not allocate unused apertures structure
-a5d752dfe3d5 drm/radeon: Do not set struct fb_info.apertures
-b8fa763fb622 drm/i915: Do not set struct fb_info.apertures
-dd9c39b9598c drm/gma500: Do not set struct fb_info.apertures
-744e4af1e98c Revert "fbcon: don't lose the console font across generic->chip driver switch"
-635a3b51d2ba fbcon: Remove trailing whitespaces
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112069v2/index.html
-
---===============5990493910746247407==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm, fbdev: Remove apertures structure and FBINFO_MISC_FIRMWARE (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/112069/">https://patchwork.freedesktop.org/series/112069/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112069v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112069v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_12521 -&gt; Patchwork_112069v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112069v2/index.html</p>
-<h2>Participating hosts (46 -&gt; 45)</h2>
-<p>Missing    (1): bat-atsm-1 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_112069v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>
-<p>fi-hsw-4770:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12521/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112069v2/fi-hsw-4770/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4785">i915#4785</a>)</p>
-</li>
-<li>
-<p>bat-dg1-5:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12521/bat-dg1-5/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112069v2/bat-dg1-5/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a>)</p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@runner@aborted:</p>
-<ul>
-<li>
-<p>fi-hsw-4770:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112069v2/fi-hsw-4770/igt@runner@aborted.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/5594">i915#5594</a>)</p>
-</li>
-<li>
-<p>bat-dg1-5:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112069v2/bat-dg1-5/igt@runner@aborted.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4312">i915#4312</a>)</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_12521 -&gt; Patchwork_112069v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_12521: 584eb294ab7b1273c5ef505a33f2a5d89c877fcd @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7101: bd33b4c060eb6b2e24c5784b2aa817ae5840f84f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_112069v2: 584eb294ab7b1273c5ef505a33f2a5d89c877fcd @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>19b034976333 drm/fbdev: Remove aperture handling and FBINFO_MISC_FIRMWARE<br />
-60f2bde3dbcf fbdev/vga16fb: Do not use struct fb_info.apertures<br />
-499844d92d56 fbdev/vesafb: Do not use struct fb_info.apertures<br />
-d8c2620aa2a2 fbdev/vesafb: Remove trailing whitespaces<br />
-2d23f20a288b fbdev/simplefb: Do not use struct fb_info.apertures<br />
-560addfbec2f fbdev/offb: Do not use struct fb_info.apertures<br />
-c89260bbd67a fbdev/offb: Allocate struct offb_par with framebuffer_alloc()<br />
-1c1e130fd479 fbdev/efifb: Do not use struct fb_info.apertures<br />
-473e7f788067 fbdev/efifb: Add struct efifb_par for driver data<br />
-1dfa46e3cdfa vfio-mdev/mdpy-fb: Do not set struct fb_info.apertures<br />
-fc3ca744e6f9 fbdev/hyperv-fb: Do not set struct fb_info.apertures<br />
-aa63d07f6438 fbdev/clps711x-fb: Do not set struct fb_info.apertures<br />
-2af5a9cf4381 drm/fb-helper: Do not allocate unused apertures structure<br />
-a5d752dfe3d5 drm/radeon: Do not set struct fb_info.apertures<br />
-b8fa763fb622 drm/i915: Do not set struct fb_info.apertures<br />
-dd9c39b9598c drm/gma500: Do not set struct fb_info.apertures<br />
-744e4af1e98c Revert "fbcon: don't lose the console font across generic-&gt;chip driver switch"<br />
-635a3b51d2ba fbcon: Remove trailing whitespaces</p>
-
-</body>
-</html>
-
---===============5990493910746247407==--
