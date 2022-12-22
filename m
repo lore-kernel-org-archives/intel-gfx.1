@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B292CC4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Dec 2022 22:29:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49BF6C4167B
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Dec 2022 22:29:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6F0D10E5A2;
-	Thu, 22 Dec 2022 22:28:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15E4C10E5A3;
+	Thu, 22 Dec 2022 22:28:47 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52A7910E598;
- Thu, 22 Dec 2022 22:28:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD12810E59A;
+ Thu, 22 Dec 2022 22:28:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671748120; x=1703284120;
+ t=1671748119; x=1703284119;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=8fxMf+iFzsgQPjxzKAFs6IknZTmP9FolMXVoWON+Gdk=;
- b=nfNEYjv2RfTHM1Tl7omJK1let3zMnzaU3+UR2SC4uLbB5U0rF2tkVtI9
- qb4ljDXhu9WE7n11WLaPgD/JVM5gZNps1MaVWP3Wr025xc4ti9+/4xupg
- w83CP9V9Kbf2JC15RmWZKO5wM7bxvlw8cm+hOZ4xJyQUR23E0FGKt7WcX
- GlPtO8ft4D2wfO26mNv1GiLu/0hqqZ3uWD6bLeRqiRnax78KcWNy6aSYH
- TjIjzVY29HFuvGPZjtpzxwXfDAIi9MqSvhykgWhWtAfDvbkPENL5JbLbV
- cCYZ9C4q6rCflP3Y9Fg+5Niv2ZL7Y8FhoZ3GeYSUIOW9IMHmL6OxxLRaP Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="406472855"
-X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="406472855"
+ bh=u2yrJleobNdy/IWLkWWmKyRwumRQHGk4+LVRllcyXts=;
+ b=SamV3+hBrHrYr5+CVHye/poYkzCBmBjESAW+O7OCP2NO6Q2Gy/q+iSxX
+ Ea6PeLAyGgmhOzctgDoCv6Oe3JnJahxT/O/x54jk7SJERr7PsbCWfavyn
+ 28X+1nRKRmtPj5Yegb4boS2KghenR73NHHLeJL3RDyyrotQmYnHn9wzln
+ TTRtgaoh0SvxQbcvg5HKx36FH/6iEOUViKhtnvPBQL0uWzp9AviB+Gk0x
+ VbetnSLinx8CzuLVfrcdOyOXxIPC1cDqykYFksN7uPQdSP/xhh1ZwYuWU
+ cEPvcK5Wn3jKl4ZwiS1NwqM8PnY2TSeMCh7GYNlkqmpTBo2wDJyZDaXHT A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="406472848"
+X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="406472848"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Dec 2022 14:28:39 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="645412317"
-X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="645412317"
+ 22 Dec 2022 14:28:38 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="645412308"
+X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="645412308"
 Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Dec 2022 14:28:38 -0800
+ 22 Dec 2022 14:28:37 -0800
 From: Matthew Brost <matthew.brost@intel.com>
 To: <intel-gfx@lists.freedesktop.org>,
 	<dri-devel@lists.freedesktop.org>
-Date: Thu, 22 Dec 2022 14:21:16 -0800
-Message-Id: <20221222222127.34560-10-matthew.brost@intel.com>
+Date: Thu, 22 Dec 2022 14:21:10 -0800
+Message-Id: <20221222222127.34560-4-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.37.3
 In-Reply-To: <20221222222127.34560-1-matthew.brost@intel.com>
 References: <20221222222127.34560-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC PATCH 09/20] drm: Add a gpu page-table walker
- helper
+Subject: [Intel-gfx] [RFC PATCH 03/20] drm/radeon: Use the drm suballocation
+ manager implementation.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,369 +62,606 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 
-Add a gpu page table walker similar in functionality to the cpu page-table
-walker in mm/pagewalk.c. This is made a drm helper in the hope that it
-might prove useful to other drivers, but we could of course make it
-single-driver only and rename the functions initially.
+Use the generic suballocation helper.
+Note that the generic suballocator only allows a single alignment,
+so we may waste a few more bytes for radeon_semaphore, shouldn't
+be a big deal, could be re-added if needed. Also, similar to amdgpu,
+debug output changes slightly and suballocator cpu usage may be
+slightly higher.
 
-Also if remaining a DRM helper, we should consider making it a helper
-kernel module of its own.
-
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Co-developed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/Makefile      |   1 +
- drivers/gpu/drm/drm_pt_walk.c | 159 +++++++++++++++++++++++++++++++++
- include/drm/drm_pt_walk.h     | 161 ++++++++++++++++++++++++++++++++++
- 3 files changed, 321 insertions(+)
- create mode 100644 drivers/gpu/drm/drm_pt_walk.c
- create mode 100644 include/drm/drm_pt_walk.h
+ drivers/gpu/drm/radeon/radeon.h           |  55 +---
+ drivers/gpu/drm/radeon/radeon_ib.c        |  12 +-
+ drivers/gpu/drm/radeon/radeon_object.h    |  25 +-
+ drivers/gpu/drm/radeon/radeon_sa.c        | 314 ++--------------------
+ drivers/gpu/drm/radeon/radeon_semaphore.c |   6 +-
+ 5 files changed, 55 insertions(+), 357 deletions(-)
 
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 23ad760884b2..d030c2885dd8 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -39,6 +39,7 @@ drm-y := \
- 	drm_prime.o \
- 	drm_print.o \
- 	drm_property.o \
-+	drm_pt_walk.o \
- 	drm_syncobj.o \
- 	drm_sysfs.o \
- 	drm_trace_points.o \
-diff --git a/drivers/gpu/drm/drm_pt_walk.c b/drivers/gpu/drm/drm_pt_walk.c
-new file mode 100644
-index 000000000000..1a0b147a3acc
---- /dev/null
-+++ b/drivers/gpu/drm/drm_pt_walk.c
-@@ -0,0 +1,159 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright © 2022 Intel Corporation
-+ */
-+#include <drm/drm_pt_walk.h>
-+
-+/**
-+ * DOC: GPU page-table tree walking.
-+ * The utilities in this file are similar to the CPU page-table walk
-+ * utilities in mm/pagewalk.c. The main difference is that we distinguish
-+ * the various levels of a page-table tree with an unsigned integer rather
-+ * than by name. 0 is the lowest level, and page-tables with level 0 can
-+ * not be directories pointing to lower levels, whereas all other levels
-+ * can. The user of the utilities determines the highest level.
-+ *
-+ * Nomenclature:
-+ * Each struct drm_pt, regardless of level is referred to as a page table, and
-+ * multiple page tables typically form a page table tree with page tables at
-+ * intermediate levels being page directories pointing at page tables at lower
-+ * levels. A shared page table for a given address range is a page-table which
-+ * is neither fully within nor fully outside the address range and that can
-+ * thus be shared by two or more address ranges.
-+ */
-+static u64 drm_pt_addr_end(u64 addr, u64 end, unsigned int level,
-+			   const struct drm_pt_walk *walk)
+diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
+index 57e20780a458..d19a4b1c1a8f 100644
+--- a/drivers/gpu/drm/radeon/radeon.h
++++ b/drivers/gpu/drm/radeon/radeon.h
+@@ -79,6 +79,7 @@
+ 
+ #include <drm/drm_gem.h>
+ #include <drm/drm_audio_component.h>
++#include <drm/drm_suballoc.h>
+ 
+ #include "radeon_family.h"
+ #include "radeon_mode.h"
+@@ -511,52 +512,12 @@ struct radeon_bo {
+ };
+ #define gem_to_radeon_bo(gobj) container_of((gobj), struct radeon_bo, tbo.base)
+ 
+-/* sub-allocation manager, it has to be protected by another lock.
+- * By conception this is an helper for other part of the driver
+- * like the indirect buffer or semaphore, which both have their
+- * locking.
+- *
+- * Principe is simple, we keep a list of sub allocation in offset
+- * order (first entry has offset == 0, last entry has the highest
+- * offset).
+- *
+- * When allocating new object we first check if there is room at
+- * the end total_size - (last_object_offset + last_object_size) >=
+- * alloc_size. If so we allocate new object there.
+- *
+- * When there is not enough room at the end, we start waiting for
+- * each sub object until we reach object_offset+object_size >=
+- * alloc_size, this object then become the sub object we return.
+- *
+- * Alignment can't be bigger than page size.
+- *
+- * Hole are not considered for allocation to keep things simple.
+- * Assumption is that there won't be hole (all object on same
+- * alignment).
+- */
+ struct radeon_sa_manager {
+-	wait_queue_head_t	wq;
+-	struct radeon_bo	*bo;
+-	struct list_head	*hole;
+-	struct list_head	flist[RADEON_NUM_RINGS];
+-	struct list_head	olist;
+-	unsigned		size;
+-	uint64_t		gpu_addr;
+-	void			*cpu_ptr;
+-	uint32_t		domain;
+-	uint32_t		align;
+-};
+-
+-struct radeon_sa_bo;
+-
+-/* sub-allocation buffer */
+-struct radeon_sa_bo {
+-	struct list_head		olist;
+-	struct list_head		flist;
+-	struct radeon_sa_manager	*manager;
+-	unsigned			soffset;
+-	unsigned			eoffset;
+-	struct radeon_fence		*fence;
++	struct drm_suballoc_manager	base;
++	struct radeon_bo		*bo;
++	uint64_t			gpu_addr;
++	void				*cpu_ptr;
++	u32 domain;
+ };
+ 
+ /*
+@@ -587,7 +548,7 @@ int radeon_mode_dumb_mmap(struct drm_file *filp,
+  * Semaphores.
+  */
+ struct radeon_semaphore {
+-	struct radeon_sa_bo	*sa_bo;
++	struct drm_suballoc	*sa_bo;
+ 	signed			waiters;
+ 	uint64_t		gpu_addr;
+ };
+@@ -816,7 +777,7 @@ void radeon_irq_kms_disable_hpd(struct radeon_device *rdev, unsigned hpd_mask);
+  */
+ 
+ struct radeon_ib {
+-	struct radeon_sa_bo		*sa_bo;
++	struct drm_suballoc		*sa_bo;
+ 	uint32_t			length_dw;
+ 	uint64_t			gpu_addr;
+ 	uint32_t			*ptr;
+diff --git a/drivers/gpu/drm/radeon/radeon_ib.c b/drivers/gpu/drm/radeon/radeon_ib.c
+index 62b116727b4f..63fcfe65d814 100644
+--- a/drivers/gpu/drm/radeon/radeon_ib.c
++++ b/drivers/gpu/drm/radeon/radeon_ib.c
+@@ -61,7 +61,7 @@ int radeon_ib_get(struct radeon_device *rdev, int ring,
+ {
+ 	int r;
+ 
+-	r = radeon_sa_bo_new(rdev, &rdev->ring_tmp_bo, &ib->sa_bo, size, 256);
++	r = radeon_sa_bo_new(&rdev->ring_tmp_bo, &ib->sa_bo, size);
+ 	if (r) {
+ 		dev_err(rdev->dev, "failed to get a new IB (%d)\n", r);
+ 		return r;
+@@ -77,7 +77,7 @@ int radeon_ib_get(struct radeon_device *rdev, int ring,
+ 		/* ib pool is bound at RADEON_VA_IB_OFFSET in virtual address
+ 		 * space and soffset is the offset inside the pool bo
+ 		 */
+-		ib->gpu_addr = ib->sa_bo->soffset + RADEON_VA_IB_OFFSET;
++		ib->gpu_addr = drm_suballoc_soffset(ib->sa_bo) + RADEON_VA_IB_OFFSET;
+ 	} else {
+ 		ib->gpu_addr = radeon_sa_bo_gpu_addr(ib->sa_bo);
+ 	}
+@@ -97,7 +97,7 @@ int radeon_ib_get(struct radeon_device *rdev, int ring,
+ void radeon_ib_free(struct radeon_device *rdev, struct radeon_ib *ib)
+ {
+ 	radeon_sync_free(rdev, &ib->sync, ib->fence);
+-	radeon_sa_bo_free(rdev, &ib->sa_bo, ib->fence);
++	radeon_sa_bo_free(&ib->sa_bo, ib->fence);
+ 	radeon_fence_unref(&ib->fence);
+ }
+ 
+@@ -201,8 +201,7 @@ int radeon_ib_pool_init(struct radeon_device *rdev)
+ 
+ 	if (rdev->family >= CHIP_BONAIRE) {
+ 		r = radeon_sa_bo_manager_init(rdev, &rdev->ring_tmp_bo,
+-					      RADEON_IB_POOL_SIZE*64*1024,
+-					      RADEON_GPU_PAGE_SIZE,
++					      RADEON_IB_POOL_SIZE*64*1024, 256,
+ 					      RADEON_GEM_DOMAIN_GTT,
+ 					      RADEON_GEM_GTT_WC);
+ 	} else {
+@@ -210,8 +209,7 @@ int radeon_ib_pool_init(struct radeon_device *rdev)
+ 		 * to the command stream checking
+ 		 */
+ 		r = radeon_sa_bo_manager_init(rdev, &rdev->ring_tmp_bo,
+-					      RADEON_IB_POOL_SIZE*64*1024,
+-					      RADEON_GPU_PAGE_SIZE,
++					      RADEON_IB_POOL_SIZE*64*1024, 256,
+ 					      RADEON_GEM_DOMAIN_GTT, 0);
+ 	}
+ 	if (r) {
+diff --git a/drivers/gpu/drm/radeon/radeon_object.h b/drivers/gpu/drm/radeon/radeon_object.h
+index 0a6ef49e990a..b7c5087a7dbc 100644
+--- a/drivers/gpu/drm/radeon/radeon_object.h
++++ b/drivers/gpu/drm/radeon/radeon_object.h
+@@ -169,15 +169,22 @@ extern void radeon_bo_fence(struct radeon_bo *bo, struct radeon_fence *fence,
+ /*
+  * sub allocation
+  */
++static inline struct radeon_sa_manager *
++to_radeon_sa_manager(struct drm_suballoc_manager *manager)
 +{
-+	u64 size = 1ull << walk->shifts[level];
-+	u64 tmp = round_up(addr + 1, size);
-+
-+	return min_t(u64, tmp, end);
++	return container_of(manager, struct radeon_sa_manager, base);
 +}
+ 
+-static inline uint64_t radeon_sa_bo_gpu_addr(struct radeon_sa_bo *sa_bo)
++static inline uint64_t radeon_sa_bo_gpu_addr(struct drm_suballoc *sa_bo)
+ {
+-	return sa_bo->manager->gpu_addr + sa_bo->soffset;
++	return to_radeon_sa_manager(sa_bo->manager)->gpu_addr +
++		drm_suballoc_soffset(sa_bo);
+ }
+ 
+-static inline void * radeon_sa_bo_cpu_addr(struct radeon_sa_bo *sa_bo)
++static inline void * radeon_sa_bo_cpu_addr(struct drm_suballoc *sa_bo)
+ {
+-	return sa_bo->manager->cpu_ptr + sa_bo->soffset;
++	return to_radeon_sa_manager(sa_bo->manager)->cpu_ptr +
++		drm_suballoc_soffset(sa_bo);
+ }
+ 
+ extern int radeon_sa_bo_manager_init(struct radeon_device *rdev,
+@@ -190,12 +197,10 @@ extern int radeon_sa_bo_manager_start(struct radeon_device *rdev,
+ 				      struct radeon_sa_manager *sa_manager);
+ extern int radeon_sa_bo_manager_suspend(struct radeon_device *rdev,
+ 					struct radeon_sa_manager *sa_manager);
+-extern int radeon_sa_bo_new(struct radeon_device *rdev,
+-			    struct radeon_sa_manager *sa_manager,
+-			    struct radeon_sa_bo **sa_bo,
+-			    unsigned size, unsigned align);
+-extern void radeon_sa_bo_free(struct radeon_device *rdev,
+-			      struct radeon_sa_bo **sa_bo,
++extern int radeon_sa_bo_new(struct radeon_sa_manager *sa_manager,
++			    struct drm_suballoc **sa_bo,
++			    unsigned size);
++extern void radeon_sa_bo_free(struct drm_suballoc **sa_bo,
+ 			      struct radeon_fence *fence);
+ #if defined(CONFIG_DEBUG_FS)
+ extern void radeon_sa_bo_dump_debug_info(struct radeon_sa_manager *sa_manager,
+diff --git a/drivers/gpu/drm/radeon/radeon_sa.c b/drivers/gpu/drm/radeon/radeon_sa.c
+index 0981948bd9ed..b5555750aa0d 100644
+--- a/drivers/gpu/drm/radeon/radeon_sa.c
++++ b/drivers/gpu/drm/radeon/radeon_sa.c
+@@ -44,53 +44,31 @@
+ 
+ #include "radeon.h"
+ 
+-static void radeon_sa_bo_remove_locked(struct radeon_sa_bo *sa_bo);
+-static void radeon_sa_bo_try_free(struct radeon_sa_manager *sa_manager);
+-
+ int radeon_sa_bo_manager_init(struct radeon_device *rdev,
+ 			      struct radeon_sa_manager *sa_manager,
+-			      unsigned size, u32 align, u32 domain, u32 flags)
++			      unsigned size, u32 sa_align, u32 domain, u32 flags)
+ {
+-	int i, r;
+-
+-	init_waitqueue_head(&sa_manager->wq);
+-	sa_manager->bo = NULL;
+-	sa_manager->size = size;
+-	sa_manager->domain = domain;
+-	sa_manager->align = align;
+-	sa_manager->hole = &sa_manager->olist;
+-	INIT_LIST_HEAD(&sa_manager->olist);
+-	for (i = 0; i < RADEON_NUM_RINGS; ++i) {
+-		INIT_LIST_HEAD(&sa_manager->flist[i]);
+-	}
++	int r;
+ 
+-	r = radeon_bo_create(rdev, size, align, true,
++	r = radeon_bo_create(rdev, size, RADEON_GPU_PAGE_SIZE, true,
+ 			     domain, flags, NULL, NULL, &sa_manager->bo);
+ 	if (r) {
+ 		dev_err(rdev->dev, "(%d) failed to allocate bo for manager\n", r);
+ 		return r;
+ 	}
+ 
++	sa_manager->domain = domain;
 +
-+static bool drm_pt_next(pgoff_t *offset, u64 *addr, u64 next, u64 end,
-+			unsigned int level, const struct drm_pt_walk *walk)
-+{
-+	pgoff_t step = 1;
++	drm_suballoc_manager_init(&sa_manager->base, size, sa_align);
 +
-+	/* Shared pt walk skips to the last pagetable */
-+	if (unlikely(walk->shared_pt_mode)) {
-+		unsigned int shift = walk->shifts[level];
-+		u64 skip_to = round_down(end, 1ull << shift);
+ 	return r;
+ }
+ 
+ void radeon_sa_bo_manager_fini(struct radeon_device *rdev,
+ 			       struct radeon_sa_manager *sa_manager)
+ {
+-	struct radeon_sa_bo *sa_bo, *tmp;
+-
+-	if (!list_empty(&sa_manager->olist)) {
+-		sa_manager->hole = &sa_manager->olist,
+-		radeon_sa_bo_try_free(sa_manager);
+-		if (!list_empty(&sa_manager->olist)) {
+-			dev_err(rdev->dev, "sa_manager is not empty, clearing anyway\n");
+-		}
+-	}
+-	list_for_each_entry_safe(sa_bo, tmp, &sa_manager->olist, olist) {
+-		radeon_sa_bo_remove_locked(sa_bo);
+-	}
++	drm_suballoc_manager_fini(&sa_manager->base);
+ 	radeon_bo_unref(&sa_manager->bo);
+-	sa_manager->size = 0;
+ }
+ 
+ int radeon_sa_bo_manager_start(struct radeon_device *rdev,
+@@ -139,260 +117,33 @@ int radeon_sa_bo_manager_suspend(struct radeon_device *rdev,
+ 	return r;
+ }
+ 
+-static void radeon_sa_bo_remove_locked(struct radeon_sa_bo *sa_bo)
++int radeon_sa_bo_new(struct radeon_sa_manager *sa_manager,
++		     struct drm_suballoc **sa_bo,
++		     unsigned size)
+ {
+-	struct radeon_sa_manager *sa_manager = sa_bo->manager;
+-	if (sa_manager->hole == &sa_bo->olist) {
+-		sa_manager->hole = sa_bo->olist.prev;
+-	}
+-	list_del_init(&sa_bo->olist);
+-	list_del_init(&sa_bo->flist);
+-	radeon_fence_unref(&sa_bo->fence);
+-	kfree(sa_bo);
+-}
+-
+-static void radeon_sa_bo_try_free(struct radeon_sa_manager *sa_manager)
+-{
+-	struct radeon_sa_bo *sa_bo, *tmp;
+-
+-	if (sa_manager->hole->next == &sa_manager->olist)
+-		return;
++	struct drm_suballoc *sa = drm_suballoc_new(&sa_manager->base, size, GFP_KERNEL, true);
+ 
+-	sa_bo = list_entry(sa_manager->hole->next, struct radeon_sa_bo, olist);
+-	list_for_each_entry_safe_from(sa_bo, tmp, &sa_manager->olist, olist) {
+-		if (sa_bo->fence == NULL || !radeon_fence_signaled(sa_bo->fence)) {
+-			return;
+-		}
+-		radeon_sa_bo_remove_locked(sa_bo);
++	if (IS_ERR(sa)) {
++		*sa_bo = NULL;
++		return PTR_ERR(sa);
+ 	}
+-}
+ 
+-static inline unsigned radeon_sa_bo_hole_soffset(struct radeon_sa_manager *sa_manager)
+-{
+-	struct list_head *hole = sa_manager->hole;
+-
+-	if (hole != &sa_manager->olist) {
+-		return list_entry(hole, struct radeon_sa_bo, olist)->eoffset;
+-	}
++	*sa_bo = sa;
+ 	return 0;
+ }
+ 
+-static inline unsigned radeon_sa_bo_hole_eoffset(struct radeon_sa_manager *sa_manager)
+-{
+-	struct list_head *hole = sa_manager->hole;
+-
+-	if (hole->next != &sa_manager->olist) {
+-		return list_entry(hole->next, struct radeon_sa_bo, olist)->soffset;
+-	}
+-	return sa_manager->size;
+-}
+-
+-static bool radeon_sa_bo_try_alloc(struct radeon_sa_manager *sa_manager,
+-				   struct radeon_sa_bo *sa_bo,
+-				   unsigned size, unsigned align)
+-{
+-	unsigned soffset, eoffset, wasted;
+-
+-	soffset = radeon_sa_bo_hole_soffset(sa_manager);
+-	eoffset = radeon_sa_bo_hole_eoffset(sa_manager);
+-	wasted = (align - (soffset % align)) % align;
+-
+-	if ((eoffset - soffset) >= (size + wasted)) {
+-		soffset += wasted;
+-
+-		sa_bo->manager = sa_manager;
+-		sa_bo->soffset = soffset;
+-		sa_bo->eoffset = soffset + size;
+-		list_add(&sa_bo->olist, sa_manager->hole);
+-		INIT_LIST_HEAD(&sa_bo->flist);
+-		sa_manager->hole = &sa_bo->olist;
+-		return true;
+-	}
+-	return false;
+-}
+-
+-/**
+- * radeon_sa_event - Check if we can stop waiting
+- *
+- * @sa_manager: pointer to the sa_manager
+- * @size: number of bytes we want to allocate
+- * @align: alignment we need to match
+- *
+- * Check if either there is a fence we can wait for or
+- * enough free memory to satisfy the allocation directly
+- */
+-static bool radeon_sa_event(struct radeon_sa_manager *sa_manager,
+-			    unsigned size, unsigned align)
+-{
+-	unsigned soffset, eoffset, wasted;
+-	int i;
+-
+-	for (i = 0; i < RADEON_NUM_RINGS; ++i) {
+-		if (!list_empty(&sa_manager->flist[i])) {
+-			return true;
+-		}
+-	}
+-
+-	soffset = radeon_sa_bo_hole_soffset(sa_manager);
+-	eoffset = radeon_sa_bo_hole_eoffset(sa_manager);
+-	wasted = (align - (soffset % align)) % align;
+-
+-	if ((eoffset - soffset) >= (size + wasted)) {
+-		return true;
+-	}
+-
+-	return false;
+-}
+-
+-static bool radeon_sa_bo_next_hole(struct radeon_sa_manager *sa_manager,
+-				   struct radeon_fence **fences,
+-				   unsigned *tries)
+-{
+-	struct radeon_sa_bo *best_bo = NULL;
+-	unsigned i, soffset, best, tmp;
+-
+-	/* if hole points to the end of the buffer */
+-	if (sa_manager->hole->next == &sa_manager->olist) {
+-		/* try again with its beginning */
+-		sa_manager->hole = &sa_manager->olist;
+-		return true;
+-	}
+-
+-	soffset = radeon_sa_bo_hole_soffset(sa_manager);
+-	/* to handle wrap around we add sa_manager->size */
+-	best = sa_manager->size * 2;
+-	/* go over all fence list and try to find the closest sa_bo
+-	 * of the current last
+-	 */
+-	for (i = 0; i < RADEON_NUM_RINGS; ++i) {
+-		struct radeon_sa_bo *sa_bo;
+-
+-		fences[i] = NULL;
+-
+-		if (list_empty(&sa_manager->flist[i])) {
+-			continue;
+-		}
+-
+-		sa_bo = list_first_entry(&sa_manager->flist[i],
+-					 struct radeon_sa_bo, flist);
+-
+-		if (!radeon_fence_signaled(sa_bo->fence)) {
+-			fences[i] = sa_bo->fence;
+-			continue;
+-		}
+-
+-		/* limit the number of tries each ring gets */
+-		if (tries[i] > 2) {
+-			continue;
+-		}
+-
+-		tmp = sa_bo->soffset;
+-		if (tmp < soffset) {
+-			/* wrap around, pretend it's after */
+-			tmp += sa_manager->size;
+-		}
+-		tmp -= soffset;
+-		if (tmp < best) {
+-			/* this sa bo is the closest one */
+-			best = tmp;
+-			best_bo = sa_bo;
+-		}
+-	}
+-
+-	if (best_bo) {
+-		++tries[best_bo->fence->ring];
+-		sa_manager->hole = best_bo->olist.prev;
+-
+-		/* we knew that this one is signaled,
+-		   so it's save to remote it */
+-		radeon_sa_bo_remove_locked(best_bo);
+-		return true;
+-	}
+-	return false;
+-}
+-
+-int radeon_sa_bo_new(struct radeon_device *rdev,
+-		     struct radeon_sa_manager *sa_manager,
+-		     struct radeon_sa_bo **sa_bo,
+-		     unsigned size, unsigned align)
+-{
+-	struct radeon_fence *fences[RADEON_NUM_RINGS];
+-	unsigned tries[RADEON_NUM_RINGS];
+-	int i, r;
+-
+-	BUG_ON(align > sa_manager->align);
+-	BUG_ON(size > sa_manager->size);
+-
+-	*sa_bo = kmalloc(sizeof(struct radeon_sa_bo), GFP_KERNEL);
+-	if ((*sa_bo) == NULL) {
+-		return -ENOMEM;
+-	}
+-	(*sa_bo)->manager = sa_manager;
+-	(*sa_bo)->fence = NULL;
+-	INIT_LIST_HEAD(&(*sa_bo)->olist);
+-	INIT_LIST_HEAD(&(*sa_bo)->flist);
+-
+-	spin_lock(&sa_manager->wq.lock);
+-	do {
+-		for (i = 0; i < RADEON_NUM_RINGS; ++i)
+-			tries[i] = 0;
+-
+-		do {
+-			radeon_sa_bo_try_free(sa_manager);
+-
+-			if (radeon_sa_bo_try_alloc(sa_manager, *sa_bo,
+-						   size, align)) {
+-				spin_unlock(&sa_manager->wq.lock);
+-				return 0;
+-			}
+-
+-			/* see if we can skip over some allocations */
+-		} while (radeon_sa_bo_next_hole(sa_manager, fences, tries));
+-
+-		for (i = 0; i < RADEON_NUM_RINGS; ++i)
+-			radeon_fence_ref(fences[i]);
+-
+-		spin_unlock(&sa_manager->wq.lock);
+-		r = radeon_fence_wait_any(rdev, fences, false);
+-		for (i = 0; i < RADEON_NUM_RINGS; ++i)
+-			radeon_fence_unref(&fences[i]);
+-		spin_lock(&sa_manager->wq.lock);
+-		/* if we have nothing to wait for block */
+-		if (r == -ENOENT) {
+-			r = wait_event_interruptible_locked(
+-				sa_manager->wq, 
+-				radeon_sa_event(sa_manager, size, align)
+-			);
+-		}
+-
+-	} while (!r);
+-
+-	spin_unlock(&sa_manager->wq.lock);
+-	kfree(*sa_bo);
+-	*sa_bo = NULL;
+-	return r;
+-}
+-
+-void radeon_sa_bo_free(struct radeon_device *rdev, struct radeon_sa_bo **sa_bo,
++void radeon_sa_bo_free(struct drm_suballoc **sa_bo,
+ 		       struct radeon_fence *fence)
+ {
+-	struct radeon_sa_manager *sa_manager;
+-
+ 	if (sa_bo == NULL || *sa_bo == NULL) {
+ 		return;
+ 	}
+ 
+-	sa_manager = (*sa_bo)->manager;
+-	spin_lock(&sa_manager->wq.lock);
+-	if (fence && !radeon_fence_signaled(fence)) {
+-		(*sa_bo)->fence = radeon_fence_ref(fence);
+-		list_add_tail(&(*sa_bo)->flist,
+-			      &sa_manager->flist[fence->ring]);
+-	} else {
+-		radeon_sa_bo_remove_locked(*sa_bo);
+-	}
+-	wake_up_all_locked(&sa_manager->wq);
+-	spin_unlock(&sa_manager->wq.lock);
++	if (fence)
++		drm_suballoc_free(*sa_bo, &fence->base);
++	else
++		drm_suballoc_free(*sa_bo, NULL);
 +
-+		if (skip_to > next) {
-+			step += (skip_to - next) >> shift;
-+			next = skip_to;
-+		}
-+	}
-+
-+	*addr = next;
-+	*offset += step;
-+
-+	return next != end;
-+}
-+
-+/**
-+ * drm_pt_walk_range() - Walk a range of a gpu page table tree with callbacks
-+ * for each page-table entry in all levels.
-+ * @parent: The root page table for walk start.
-+ * @level: The root page table level.
-+ * @addr: Virtual address start.
-+ * @end: Virtual address end + 1.
-+ * @walk: Walk info.
-+ *
-+ * Similar to the CPU page-table walker, this is a helper to walk
-+ * a gpu page table and call a provided callback function for each entry.
-+ *
-+ * Return: 0 on success, negative error code on error. The error is
-+ * propagated from the callback and on error the walk is terminated.
-+ */
-+int drm_pt_walk_range(struct drm_pt *parent, unsigned int level,
-+		      u64 addr, u64 end, struct drm_pt_walk *walk)
-+{
-+	pgoff_t offset = drm_pt_offset(addr, level, walk);
-+	struct drm_pt **entries = parent->dir ? parent->dir->entries : NULL;
-+	const struct drm_pt_walk_ops *ops = walk->ops;
-+	enum page_walk_action action;
-+	struct drm_pt *child;
-+	int err = 0;
-+	u64 next;
-+
-+	do {
-+		next = drm_pt_addr_end(addr, end, level, walk);
-+		if (walk->shared_pt_mode && drm_pt_covers(addr, next, level,
-+							  walk))
-+			continue;
-+again:
-+		action = ACTION_SUBTREE;
-+		child = entries ? entries[offset] : NULL;
-+		err = ops->pt_entry(parent, offset, level, addr, next,
-+				    &child, &action, walk);
-+		if (err)
-+			break;
-+
-+		/* Probably not needed yet for gpu pagetable walk. */
-+		if (unlikely(action == ACTION_AGAIN))
-+			goto again;
-+
-+		if (likely(!level || !child || action == ACTION_CONTINUE))
-+			continue;
-+
-+		err = drm_pt_walk_range(child, level - 1, addr, next, walk);
-+
-+		if (!err && ops->pt_post_descend)
-+			err = ops->pt_post_descend(parent, offset, level, addr,
-+						   next, &child, &action, walk);
-+		if (err)
-+			break;
-+
-+	} while (drm_pt_next(&offset, &addr, next, end, level, walk));
-+
-+	return err;
-+}
-+EXPORT_SYMBOL(drm_pt_walk_range);
-+
-+/**
-+ * drm_pt_walk_shared() - Walk shared page tables of a page-table tree.
-+ * @parent: Root page table directory.
-+ * @level: Level of the root.
-+ * @addr: Start address.
-+ * @end: Last address + 1.
-+ * @walk: Walk info.
-+ *
-+ * This function is similar to drm_pt_walk_range() but it skips page tables
-+ * that are private to the range. Since the root (or @parent) page table is
-+ * typically also a shared page table this function is different in that it
-+ * calls the pt_entry callback and the post_descend callback also for the
-+ * root. The root can be detected in the callbacks by checking whether
-+ * parent == *child.
-+ * Walking only the shared page tables is common for unbind-type operations
-+ * where the page-table entries for an address range are cleared or detached
-+ * from the main page-table tree.
-+ *
-+ * Return: 0 on success, negative error code on error: If a callback
-+ * returns an error, the walk will be terminated and the error returned by
-+ * this function.
-+ */
-+int drm_pt_walk_shared(struct drm_pt *parent, unsigned int level,
-+		       u64 addr, u64 end, struct drm_pt_walk *walk)
-+{
-+	const struct drm_pt_walk_ops *ops = walk->ops;
-+	enum page_walk_action action = ACTION_SUBTREE;
-+	struct drm_pt *child = parent;
-+	int err;
-+
-+	walk->shared_pt_mode = true;
-+	err = walk->ops->pt_entry(parent, 0, level + 1, addr, end,
-+				  &child, &action, walk);
-+
-+	if (err || action != ACTION_SUBTREE)
-+		return err;
-+
-+	err = drm_pt_walk_range(parent, level, addr, end, walk);
-+	if (!err && ops->pt_post_descend) {
-+		err = ops->pt_post_descend(parent, 0, level + 1, addr, end,
-+					   &child, &action, walk);
-+	}
-+	return err;
-+}
-+EXPORT_SYMBOL(drm_pt_walk_shared);
-diff --git a/include/drm/drm_pt_walk.h b/include/drm/drm_pt_walk.h
-new file mode 100644
-index 000000000000..64e7a418217c
---- /dev/null
-+++ b/include/drm/drm_pt_walk.h
-@@ -0,0 +1,161 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Copyright © 2022 Intel Corporation
-+ */
-+#ifndef __DRM_PT_WALK__
-+#define __DRM_PT_WALK__
-+
-+#include <linux/pagewalk.h>
-+#include <linux/types.h>
-+
-+struct drm_pt_dir;
-+
-+/**
-+ * struct drm_pt - base class for driver pagetable subclassing.
-+ * @dir: Pointer to an array of children if any.
-+ *
-+ * Drivers could subclass this, and if it's a page-directory, typically
-+ * embed the drm_pt_dir::entries array in the same allocation.
-+ */
-+struct drm_pt {
-+	struct drm_pt_dir *dir;
-+};
-+
-+/**
-+ * struct drm_pt_dir - page directory structure
-+ * @entries: Array holding page directory children.
-+ *
-+ * It is the responsibility of the user to ensure @entries is
-+ * correctly sized.
-+ */
-+struct drm_pt_dir {
-+	struct drm_pt *entries[0];
-+};
-+
-+/**
-+ * struct drm_pt_walk - Embeddable struct for walk parameters
-+ */
-+struct drm_pt_walk {
-+	/** @ops: The walk ops used for the pagewalk */
-+	const struct drm_pt_walk_ops *ops;
-+	/**
-+	 * @shifts: Array of page-table entry shifts used for the
-+	 * different levels, starting out with the leaf level 0
-+	 * page-shift as the first entry. It's legal for this pointer to be
-+	 * changed during the walk.
-+	 */
-+	const u64 *shifts;
-+	/** @max_level: Highest populated level in @sizes */
-+	unsigned int max_level;
-+	/**
-+	 * @shared_pt_mode: Whether to skip all entries that are private
-+	 * to the address range and called only for entries that are
-+	 * shared with other address ranges. Such entries are referred to
-+	 * as shared pagetables.
-+	 */
-+	bool shared_pt_mode;
-+};
-+
-+/**
-+ * typedef drm_pt_entry_fn - gpu page-table-walk callback-function
-+ * @parent: The parent page.table.
-+ * @offset: The offset (number of entries) into the page table.
-+ * @level: The level of @parent.
-+ * @addr: The virtual address.
-+ * @next: The virtual address for the next call, or end address.
-+ * @child: Pointer to pointer to child page-table at this @offset. The
-+ * function may modify the value pointed to if, for example, allocating a
-+ * child page table.
-+ * @action: The walk action to take upon return. See <linux/pagewalk.h>.
-+ * @walk: The walk parameters.
-+ */
-+typedef int (*drm_pt_entry_fn)(struct drm_pt *parent, pgoff_t offset,
-+			       unsigned int level, u64 addr, u64 next,
-+			       struct drm_pt **child,
-+			       enum page_walk_action *action,
-+			       struct drm_pt_walk *walk);
-+
-+/**
-+ * struct drm_pt_walk_ops - Walk callbacks.
-+ */
-+struct drm_pt_walk_ops {
-+	/**
-+	 * @pt_entry: Callback to be called for each page table entry prior
-+	 * to descending to the next level. The returned value of the action
-+	 * function parameter is honored.
-+	 */
-+	drm_pt_entry_fn pt_entry;
-+	/**
-+	 * @pt_post_descend: Callback to be called for each page table entry
-+	 * after return from descending to the next level. The returned value
-+	 * of the action function parameter is ignored.
-+	 */
-+	drm_pt_entry_fn pt_post_descend;
-+};
-+
-+int drm_pt_walk_range(struct drm_pt *parent, unsigned int level,
-+		      u64 addr, u64 end, struct drm_pt_walk *walk);
-+
-+int drm_pt_walk_shared(struct drm_pt *parent, unsigned int level,
-+		       u64 addr, u64 end, struct drm_pt_walk *walk);
-+
-+/**
-+ * drm_pt_covers - Whether the address range covers an entire entry in @level
-+ * @addr: Start of the range.
-+ * @end: End of range + 1.
-+ * @level: Page table level.
-+ * @walk: Page table walk info.
-+ *
-+ * This function is a helper to aid in determining whether a leaf page table
-+ * entry can be inserted at this @level.
-+ *
-+ * Return: Whether the range provided covers exactly an entry at this level.
-+ */
-+static inline bool drm_pt_covers(u64 addr, u64 end, unsigned int level,
-+				 const struct drm_pt_walk *walk)
-+{
-+	u64 pt_size = 1ull << walk->shifts[level];
-+
-+	return end - addr == pt_size && IS_ALIGNED(addr, pt_size);
-+}
-+
-+/**
-+ * drm_pt_num_entries: Number of page-table entries of a given range at this
-+ * level
-+ * @addr: Start address.
-+ * @end: End address.
-+ * @level: Page table level.
-+ * @walk: Walk info.
-+ *
-+ * Return: The number of page table entries at this level between @start and
-+ * @end.
-+ */
-+static inline pgoff_t
-+drm_pt_num_entries(u64 addr, u64 end, unsigned int level,
-+		   const struct drm_pt_walk *walk)
-+{
-+	u64 pt_size = 1ull << walk->shifts[level];
-+
-+	return (round_up(end, pt_size) - round_down(addr, pt_size)) >>
-+		walk->shifts[level];
-+}
-+
-+/**
-+ * drm_pt_offset: Offset of the page-table entry for a given address.
-+ * @addr: The address.
-+ * @level: Page table level.
-+ * @walk: Walk info.
-+ *
-+ * Return: The page table entry offset for the given address in a
-+ * page table with size indicated by @level.
-+ */
-+static inline pgoff_t
-+drm_pt_offset(u64 addr, unsigned int level, const struct drm_pt_walk *walk)
-+{
-+	if (level < walk->max_level)
-+		addr &= ((1ull << walk->shifts[level + 1]) - 1);
-+
-+	return addr >> walk->shifts[level];
-+}
-+
-+#endif
+ 	*sa_bo = NULL;
+ }
+ 
+@@ -400,25 +151,8 @@ void radeon_sa_bo_free(struct radeon_device *rdev, struct radeon_sa_bo **sa_bo,
+ void radeon_sa_bo_dump_debug_info(struct radeon_sa_manager *sa_manager,
+ 				  struct seq_file *m)
+ {
+-	struct radeon_sa_bo *i;
++	struct drm_printer p = drm_seq_file_printer(m);
+ 
+-	spin_lock(&sa_manager->wq.lock);
+-	list_for_each_entry(i, &sa_manager->olist, olist) {
+-		uint64_t soffset = i->soffset + sa_manager->gpu_addr;
+-		uint64_t eoffset = i->eoffset + sa_manager->gpu_addr;
+-		if (&i->olist == sa_manager->hole) {
+-			seq_printf(m, ">");
+-		} else {
+-			seq_printf(m, " ");
+-		}
+-		seq_printf(m, "[0x%010llx 0x%010llx] size %8lld",
+-			   soffset, eoffset, eoffset - soffset);
+-		if (i->fence) {
+-			seq_printf(m, " protected by 0x%016llx on ring %d",
+-				   i->fence->seq, i->fence->ring);
+-		}
+-		seq_printf(m, "\n");
+-	}
+-	spin_unlock(&sa_manager->wq.lock);
++	drm_suballoc_dump_debug_info(&sa_manager->base, &p, sa_manager->gpu_addr);
+ }
+ #endif
+diff --git a/drivers/gpu/drm/radeon/radeon_semaphore.c b/drivers/gpu/drm/radeon/radeon_semaphore.c
+index 221e59476f64..3e2b0bf0d55d 100644
+--- a/drivers/gpu/drm/radeon/radeon_semaphore.c
++++ b/drivers/gpu/drm/radeon/radeon_semaphore.c
+@@ -40,8 +40,8 @@ int radeon_semaphore_create(struct radeon_device *rdev,
+ 	if (*semaphore == NULL) {
+ 		return -ENOMEM;
+ 	}
+-	r = radeon_sa_bo_new(rdev, &rdev->ring_tmp_bo,
+-			     &(*semaphore)->sa_bo, 8, 8);
++	r = radeon_sa_bo_new(&rdev->ring_tmp_bo,
++			     &(*semaphore)->sa_bo, 8);
+ 	if (r) {
+ 		kfree(*semaphore);
+ 		*semaphore = NULL;
+@@ -100,7 +100,7 @@ void radeon_semaphore_free(struct radeon_device *rdev,
+ 		dev_err(rdev->dev, "semaphore %p has more waiters than signalers,"
+ 			" hardware lockup imminent!\n", *semaphore);
+ 	}
+-	radeon_sa_bo_free(rdev, &(*semaphore)->sa_bo, fence);
++	radeon_sa_bo_free(&(*semaphore)->sa_bo, fence);
+ 	kfree(*semaphore);
+ 	*semaphore = NULL;
+ }
 -- 
 2.37.3
 
