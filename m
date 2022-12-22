@@ -4,141 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A7DBC4332F
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Dec 2022 22:12:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66CE1C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Dec 2022 22:28:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D57510E189;
-	Thu, 22 Dec 2022 22:12:22 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 428CB10E189
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Dec 2022 22:12:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4604F10E594;
+	Thu, 22 Dec 2022 22:28:43 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E9CE10E598;
+ Thu, 22 Dec 2022 22:28:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1671747141; x=1703283141;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=QIdQ8dKsAzJS8t2YfFeetd9ScMjxksy2WZLP8qfDGjk=;
- b=NXL62qiEDO6c6vZRZ9UO8eMjJqZ9lEWMLS4QQJfULMIT+5nken7DGPQ7
- BIEW67rQRtuj3UNR8HBYMrDfc1uza86/uz/Z+b7yql/VoQNbPjRfHULBt
- Np/qxWK+W/P0LM7x7tZ0fOrCOdR8H4OTP44IHzEzzQBDL8lstZdPeLyB9
- anU+ZPHGlvacFM3FJL7A8NKKC4AeHMZONM/I6pyZT2A/IX1VV7n1Hi+TH
- Ou9GplUVx3aLOXxuvpP0O+HF9amslNBbGBwE089WPdVZHouAChBfWKJJg
- uxI0B2BJUvBsqeOR9hG4tjcDbTTIakU6FpmAfYEczu9KrmkC0KdvMWyd9 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="299900200"
-X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="299900200"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Dec 2022 14:12:20 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="629650132"
-X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="629650132"
-Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
- by orsmga006.jf.intel.com with ESMTP; 22 Dec 2022 14:12:19 -0800
-Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Thu, 22 Dec 2022 14:12:18 -0800
-Received: from fmsmsx601.amr.corp.intel.com (10.18.126.81) by
- fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Thu, 22 Dec 2022 14:12:18 -0800
-Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16 via Frontend Transport; Thu, 22 Dec 2022 14:12:18 -0800
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com (104.47.55.103)
- by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.16; Thu, 22 Dec 2022 14:12:18 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cLaG7VKx5FmuF9RJYchn+sqKUDkF9c8B11DK1IrmnkleP+pu+Z/M4VwX6h7WDW64TJoav38dXIhy1quN0foAmajjjKW9bikXfM4xmYNhJzywMrEyS8AiibG1MK+hbL8uVyMLGFJhbx9fw5CnM2cvGiG8BKBY5wDT7+YhV6cH8vfPhgyXXpAXy3whpBQYp14e/yuxjzbpFcF/YkuufVXhXIwHdnaW2SwMDePa+iYOFMsDe+TskZ4m4ts3zyW8f2t6Jk1u+BOcHQp/Ad6vUBJu+lj5RDnz2JJtcZmTN6XzhMRVRmXfgi1w/dS8hVqIdMUUeJLksdp9iXLi/DItXNrkjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I8q9J6CTFXEd1UCLYtYh5Wbz2oFYjTjmNAg3r8+uwWU=;
- b=MmE/f60tw9pf9YUnePucv44KQ4MZxuSV2nt7yc3/lB0p5yNTVlL8Ghl1TXpvWUi6SIu+NSPu0pSBDEo8U/g7FCzf6+d1thZXi9h+U2wqtpJSBE4B9eEgAWadBTYk0F3cLiYMAOJhPyEYsxmwBZNgu0z+zUacwgMlqMqpxLbsZ2lQ8z0vLaWHHuVEkzHI7Pqbueje5iW+POknERZInDT6RFTA+YnBeH0v0CXjYzAlL/HI+g7NtAnzjNJXEff9E2ga1TUKEoho/nnAq+JDbf15N/0CB3s4U7xskNe9lpqO2Jb/Ot0l7PzvuOfMLU4lpm3gIFrpzdt9ZnpgA8m32gjqXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from BN8PR11MB3556.namprd11.prod.outlook.com (2603:10b6:408:8d::31)
- by SA2PR11MB5114.namprd11.prod.outlook.com (2603:10b6:806:114::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.12; Thu, 22 Dec
- 2022 22:12:16 +0000
-Received: from BN8PR11MB3556.namprd11.prod.outlook.com
- ([fe80::993c:13fc:ebc9:7168]) by BN8PR11MB3556.namprd11.prod.outlook.com
- ([fe80::993c:13fc:ebc9:7168%4]) with mapi id 15.20.5924.016; Thu, 22 Dec 2022
- 22:12:15 +0000
-Date: Thu, 22 Dec 2022 19:12:08 -0300
-From: Gustavo Sousa <gustavo.sousa@intel.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>, Jani Nikula
- <jani.nikula@linux.intel.com>
-Message-ID: <20221222221208.dk6tgqrwx7o3rdwh@gjsousa-mobl2>
-References: <20221220201104.339399-1-gustavo.sousa@intel.com>
- <20221220201104.339399-3-gustavo.sousa@intel.com>
- <87wn6l1299.fsf@intel.com>
- <20221222002345.xbz37hl6gzhb44np@ldmartin-desk2.lan>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20221222002345.xbz37hl6gzhb44np@ldmartin-desk2.lan>
-X-ClientProxiedBy: BYAPR11CA0057.namprd11.prod.outlook.com
- (2603:10b6:a03:80::34) To BN8PR11MB3556.namprd11.prod.outlook.com
- (2603:10b6:408:8d::31)
+ t=1671748119; x=1703284119;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=2zQcwAJPqcholHx0Bd+7lHYzK8mIzw2yMGGIcUJlNJY=;
+ b=ZTwekf5qmDMUJxKaDhbw8dXmxS0LzlK2mQ5HARZFEiUCG95LskN05Asu
+ okzHWMia6SFH63JQM6n+Lu6IWv4LGqOlbdDabeOzTBVlTI/xWPMMs5aut
+ 2TQlbacZUtm4BF0DRcSPVj+1KR2PZ7/tAwsdxqnEy7bKN14JpokhStf6e
+ khWTe/5hYFmmhWWYCtQKK7DmBmYEAxtuzBb6ByNQtHzvtTKtcy3zo32Eo
+ +LCqC0Z4dkyWANvHrsFXlNtJAvhkItzpTqUQHxC2BmXIQ1RdBz0EYdyj9
+ O0R6m3K+jJmJLXXQxgYffFdJ9+eYxUDJuhKsjCiJdHhUcqYOlFRBB9JXu A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="406472846"
+X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="406472846"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Dec 2022 14:28:38 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10569"; a="645412303"
+X-IronPort-AV: E=Sophos;i="5.96,266,1665471600"; d="scan'208";a="645412303"
+Received: from jons-linux-dev-box.fm.intel.com ([10.1.27.20])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Dec 2022 14:28:37 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: <intel-gfx@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>
+Date: Thu, 22 Dec 2022 14:21:08 -0800
+Message-Id: <20221222222127.34560-2-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20221222222127.34560-1-matthew.brost@intel.com>
+References: <20221222222127.34560-1-matthew.brost@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR11MB3556:EE_|SA2PR11MB5114:EE_
-X-MS-Office365-Filtering-Correlation-Id: c6751e4c-7a50-40b4-6fe3-08dae4699536
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MO7RitZUy28ewkwT3hESZIihBAKOeCXZK30OUTw6xbh3r7htvdEdF1dStJqz37ZRsOeO4p0SdphGWlUP4MpUndOoH8VPUozYh0hTo7LM1FwbGjSeTEwB2FUDuFdCIXqFsGgZ4AVbF2ZYnLJHou/+YIhUOaZoZLa2hybHDvl0C9BYle2F6gkpEQDVTv/ZOrXCj7mBPzKDnQLMX0oE+Vh7dapaCoIZiRnk98jIO5KUspdeIHC8zINnYnP6iyarqdmOjlpqF2n7YUihY+qsA3w6qghDUNTPhU4k9dd/m3lAtNXzzh+DQ4Xb2zDHL3klzaHdIBHrQQtdbdq7g62L27+hQmH8J7ByU+O7aPCSlKlNpscYtdbwnssc8lSttiV9lpjohDxsQohlbKCFMkBrjv/Ur/3MCEaCLFGzIFqgiEf+d/irA8P/U1L0UDpLrcR/ogarczpknaRX2ijrGajy5lhYabr1bkUxIo6ty5CB+SRXHzMaRj8xoMYtPBklBmlY00OpfOkrW7nHiqJ+9nZYKWX6RAogehUZujee26XBHO/OrqerTNdqP0PgZeI2FNnhMgU9+zXMaKu6RRJlZNwiPDsvz1Lc9/Ms4/nrXpqMfyQN09NhCoyyCa5F8WkusBTWICSQJaxHK6etGvHLgm/8Nyc8U8Uc+H7T1/UkyH9d3hml1WI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR11MB3556.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(7916004)(366004)(346002)(396003)(376002)(39860400002)(136003)(451199015)(5660300002)(8936002)(44832011)(83380400001)(41300700001)(8676002)(4326008)(66556008)(66476007)(66946007)(33716001)(86362001)(82960400001)(2906002)(38100700002)(966005)(6486002)(1076003)(6506007)(478600001)(110136005)(6666004)(6512007)(9686003)(186003)(26005)(316002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?WNf3e6vaIYHi2wKOTdeT3XAfHbuv1h2+aBmsJwNzE//NDwfJjp6q4gNL/Kh4?=
- =?us-ascii?Q?zXEnvlm3LSC93R8HnAn0oxxCG1QAzmcpswgA7orjz0/E0EKVtoBv06guaetO?=
- =?us-ascii?Q?uvnCmavmUoGgTrXKeiZzTxQ5+gtoQLOScsXN2ZIjlntfCzQscBCiSJhpsZsj?=
- =?us-ascii?Q?qB2zrL0WNAy3cW1dDRvGpBu60CpSoBb1RM7pyZgogfT0HwGt8d2Yni7EAbVo?=
- =?us-ascii?Q?E5SEb0rGdTsuBmmXuMzkw44PGv3BbDJukG+XzVlQcUxALwhGt/sGHbBmf1IX?=
- =?us-ascii?Q?jBypQ/qihzePTTdBc2dVyaO6gZD6jK2/UtZVTzx/Fu4UlnX2JJb72WfqYCj8?=
- =?us-ascii?Q?UneKs+2iGRc/cG3eYS/o77yVUNmpsbN7DQAsfLxQ6w7W3dLfoexBeZs80AiT?=
- =?us-ascii?Q?8rlQfJ1GgM0uf7+x8CGT+OVU2CVBWvCOkBavk6JgvStxCo6wQBwCdNSTP3DN?=
- =?us-ascii?Q?sWQ8rFebVRPhw8Vsfs1WOJeZ9AAXPzxzBFJM3sY+hsEKLpCHF2z8UUc4eVF4?=
- =?us-ascii?Q?ZGh1pnoAzrZ8ovvAcqpWEk9lvd0OMXHyDLDm7xnSstvt8qyW/Bq3yyrUXjgu?=
- =?us-ascii?Q?XSs/dWJ8mMA4uFWjebW4lVs+oyFTLmTu9kFAuwPy1aE1d/own+7wnFXty4bG?=
- =?us-ascii?Q?HFYs0HSNZActSNc532T1+5UzFRiyrAP3jjBOVXAz+6o1QfXQHA/+ByY4hRHs?=
- =?us-ascii?Q?UoVc0deU52SrsMZenlvE37TfB+Ey7B8Nu3MFHbOhl3BpXX5hGptnrBqyTgob?=
- =?us-ascii?Q?qDJc9FF7PDFYQ3ohUmz5Gam22j0f5Phe4CnGa83UbaSDBioR9Ccoj7sJ1zhe?=
- =?us-ascii?Q?VS/zMbjuAQ9QoUohwMzPUc/cUG3cleVyeJ0IHNXbGCDE9caqCpV32Sib/3fs?=
- =?us-ascii?Q?MEs8XEiPWHIkVXr9ANyqT6ZD7B0CDZ+FbDwccRnFN6Zbp/FEUVcpRiSEZiJ6?=
- =?us-ascii?Q?jSo8GtHJejvTqrVD3yxY6T+KefUtfARXd1duvVzogh6rBxNJqCiGIh/QS3B5?=
- =?us-ascii?Q?+JOGIIXOalmMH8GK6vsZMYRU7EoBdfPwPTHammlDmzdanvl4faEcWQN/TRmb?=
- =?us-ascii?Q?CE272AqT8Mg3dx89c/3Fx77fFxIOvAFipqDfgjKAGSxnV063tTu9vY3qvr3g?=
- =?us-ascii?Q?S8pBhQ0j0lDM/GJbGlOOwRqrzn+PVYTlAhLtH4CLKKpHtLbgr5kKqitr4gAv?=
- =?us-ascii?Q?bUIpvR4v+vpbMWbG6rg/CVRGQ5vwRtKUYQ92R1qpokhy+/+YFb76tyjhrVpU?=
- =?us-ascii?Q?E05rjhTJS9Wo9lGtrDT6Zzlw/cKalXMdqcgtUwrsCdT3qspvkB5SotfByP1i?=
- =?us-ascii?Q?YKSTzxuodj+2Y5jbxR79C438C/zeZYQgkUXOIGj4shkJ00nYlD8+GIOG988a?=
- =?us-ascii?Q?3a7fImCnTDIjU2EB9IYY3zm2e2/zWx3Mg+ykaRm+GqEUyqsedMmwUQl9CPIJ?=
- =?us-ascii?Q?g+zqQtqlf9RGuXpni0Om8l7emVvYRYkpxlbFv9k/GX38XpOh8aYF5Xvy5VAg?=
- =?us-ascii?Q?8iU32Ch5r22l1inj6gVpi7SPxAoTLUSk/ifE5yOnjHhf/5hBhiqUaLbWkyjR?=
- =?us-ascii?Q?cBo6lwVKqgXZ6OFMGlNPyqoz6wfO8uT9epREEAE+FLWg5cfxBveY2Cox9xP/?=
- =?us-ascii?Q?qQ=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6751e4c-7a50-40b4-6fe3-08dae4699536
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR11MB3556.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Dec 2022 22:12:15.7886 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZJ3XfCGxliyTuFgYbSEQQf0TVC6XdB5xDAoGGRr0zfqAnodF1C/qrxZkouKVdKC5SWoWaOTm5MMDqhnt30j/qg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB5114
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915/dmc: Use unversioned firmware
- paths
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [RFC PATCH 01/20] drm/suballoc: Introduce a generic
+ suballocation manager
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,248 +59,491 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 21, 2022 at 04:23:45PM -0800, Lucas De Marchi wrote:
-> On Wed, Dec 21, 2022 at 12:26:26PM +0200, Jani Nikula wrote:
-> > On Tue, 20 Dec 2022, Gustavo Sousa <gustavo.sousa@intel.com> wrote:
-> > > As we do not require specific versions anymore, change the convention
-> > > for blob filenames to stop using version numbers. This simplifies code
-> > > maintenance, since we do not need to keep updating blob paths for new
-> > > DMC releases, and also makes DMC loading compatible with systems that do
-> > > not have the latest firmware release.
-> > > 
-> > > References: https://lore.kernel.org/r/Y3081s7c5ksutpMW@intel.com
-> > > Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
-> > > ---
-> > >  drivers/gpu/drm/i915/display/intel_dmc.c | 98 ++++++++++++++++++++----
-> > >  1 file changed, 82 insertions(+), 16 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
-> > > index 4124b3d37110..b11f0f451dd7 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_dmc.c
-> > > +++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-> > > @@ -42,51 +42,70 @@
-> > >  #define DMC_VERSION_MAJOR(version)	((version) >> 16)
-> > >  #define DMC_VERSION_MINOR(version)	((version) & 0xffff)
-> > > 
-> > > -#define DMC_PATH(platform, major, minor) \
-> > > -	"i915/"				 \
-> > > -	__stringify(platform) "_dmc_ver" \
-> > > -	__stringify(major) "_"		 \
-> > > +#define DMC_PATH(platform) \
-> > > +	"i915/" __stringify(platform) "_dmc.bin"
-> > > +
-> > > +/*
-> > > + * New DMC additions should not use this. This is used solely to remain
-> > > + * compatible with systems that have not yet updated DMC blobs to use
-> > > + * unversioned file names.
-> > > + */
-> > > +#define DMC_LEGACY_PATH(platform, major, minor) \
-> > > +	"i915/"					\
-> > > +	__stringify(platform) "_dmc_ver"	\
-> > > +	__stringify(major) "_"			\
-> > >  	__stringify(minor) ".bin"
-> > > 
-> > >  #define DISPLAY_VER13_DMC_MAX_FW_SIZE	0x20000
-> > > 
-> > >  #define DISPLAY_VER12_DMC_MAX_FW_SIZE	ICL_DMC_MAX_FW_SIZE
-> > > 
-> > > -#define DG2_DMC_PATH			DMC_PATH(dg2, 2, 08)
-> > > +#define DG2_DMC_PATH			DMC_PATH(dg2)
-> > > +#define DG2_DMC_LEGACY_PATH		DMC_LEGACY_PATH(dg2, 2, 08)
-> > >  MODULE_FIRMWARE(DG2_DMC_PATH);
-> 
-> We have an issue here.  Previously `modinfo --field=firmware i915`
-> would report i915/dg2_dmc_ver2_08.bin. Now it's going to report
-> i915/dg2_dmc.bin
-> 
-> that modinfo call is what distros use to bundle the firmware blobs in
-> the initrd. It may also be used for creating package dependendies.
-> 
-> If we do this, unless they have updated their linux-firmware
-> packages, the initrd will be left without the firmware.
-> Just checked
-> git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git main
-> and we still don't have the unversioned firmware there.
+From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-Interesting. Thanks for the explanation!
+Initially we tried to leverage the amdgpu suballocation manager.
+It turnes out, however, that it tries extremely hard not to enable
+signalling on the fences that hold the memory up for freeing, which makes
+it hard to understand and to fix potential issues with it.
 
-I think one way of approaching the issue would be to synchronize the process:
+So in a simplification effort, introduce a drm suballocation manager as a
+wrapper around an existing allocator (drm_mm) and to avoid using queues
+for freeing, thus avoiding throttling on free which is an undesired
+feature as typically the throttling needs to be done uninterruptible.
 
-1. Work toward getting approval for the patch (i.e. r-b);
-2. With the approval, send a PR to linux-firmware with the necessary changes;
-3. After the linux-firmware PR is merged, the patch could be integraged.
+This variant is probably more cpu-hungry but can be improved at the cost
+of additional complexity. Ideas for that are documented in the
+drm_suballoc.c file.
 
-I think that would still apply if going with your proposal on your next comment.
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Co-developed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+ drivers/gpu/drm/Kconfig        |   4 +
+ drivers/gpu/drm/Makefile       |   3 +
+ drivers/gpu/drm/drm_suballoc.c | 301 +++++++++++++++++++++++++++++++++
+ include/drm/drm_suballoc.h     | 112 ++++++++++++
+ 4 files changed, 420 insertions(+)
+ create mode 100644 drivers/gpu/drm/drm_suballoc.c
+ create mode 100644 include/drm/drm_suballoc.h
 
-> 
-> > > 
-> > > -#define ADLP_DMC_PATH			DMC_PATH(adlp, 2, 16)
-> > > +#define ADLP_DMC_PATH			DMC_PATH(adlp)
-> > > +#define ADLP_DMC_LEGACY_PATH		DMC_LEGACY_PATH(adlp, 2, 16)
-> > >  MODULE_FIRMWARE(ADLP_DMC_PATH);
-> > > 
-> > > -#define ADLS_DMC_PATH			DMC_PATH(adls, 2, 01)
-> > > +#define ADLS_DMC_PATH			DMC_PATH(adls)
-> > > +#define ADLS_DMC_LEGACY_PATH		DMC_LEGACY_PATH(adls, 2, 01)
-> > >  MODULE_FIRMWARE(ADLS_DMC_PATH);
-> > > 
-> > > -#define DG1_DMC_PATH			DMC_PATH(dg1, 2, 02)
-> > > +#define DG1_DMC_PATH			DMC_PATH(dg1)
-> > > +#define DG1_DMC_LEGACY_PATH		DMC_LEGACY_PATH(dg1, 2, 02)
-> > >  MODULE_FIRMWARE(DG1_DMC_PATH);
-> > > 
-> > > -#define RKL_DMC_PATH			DMC_PATH(rkl, 2, 03)
-> > > +#define RKL_DMC_PATH			DMC_PATH(rkl)
-> > > +#define RKL_DMC_LEGACY_PATH		DMC_LEGACY_PATH(rkl, 2, 03)
-> > >  MODULE_FIRMWARE(RKL_DMC_PATH);
-> > > 
-> > > -#define TGL_DMC_PATH			DMC_PATH(tgl, 2, 12)
-> > > +#define TGL_DMC_PATH			DMC_PATH(tgl)
-> > > +#define TGL_DMC_LEGACY_PATH		DMC_LEGACY_PATH(tgl, 2, 12)
-> > >  MODULE_FIRMWARE(TGL_DMC_PATH);
-> > > 
-> > > -#define ICL_DMC_PATH			DMC_PATH(icl, 1, 09)
-> > > +#define ICL_DMC_PATH			DMC_PATH(icl)
-> > > +#define ICL_DMC_LEGACY_PATH		DMC_LEGACY_PATH(icl, 1, 09)
-> > >  #define ICL_DMC_MAX_FW_SIZE		0x6000
-> > >  MODULE_FIRMWARE(ICL_DMC_PATH);
-> > > 
-> > > -#define GLK_DMC_PATH			DMC_PATH(glk, 1, 04)
-> > > +#define GLK_DMC_PATH			DMC_PATH(glk)
-> > > +#define GLK_DMC_LEGACY_PATH		DMC_LEGACY_PATH(glk, 1, 04)
-> > >  #define GLK_DMC_MAX_FW_SIZE		0x4000
-> > >  MODULE_FIRMWARE(GLK_DMC_PATH);
-> > > 
-> > > -#define KBL_DMC_PATH			DMC_PATH(kbl, 1, 04)
-> > > +#define KBL_DMC_PATH			DMC_PATH(kbl)
-> > > +#define KBL_DMC_LEGACY_PATH		DMC_LEGACY_PATH(kbl, 1, 04)
-> > >  #define KBL_DMC_MAX_FW_SIZE		BXT_DMC_MAX_FW_SIZE
-> > >  MODULE_FIRMWARE(KBL_DMC_PATH);
-> > > 
-> > > -#define SKL_DMC_PATH			DMC_PATH(skl, 1, 27)
-> > > +#define SKL_DMC_PATH			DMC_PATH(skl)
-> > > +#define SKL_DMC_LEGACY_PATH		DMC_LEGACY_PATH(skl, 1, 27)
-> > >  #define SKL_DMC_MAX_FW_SIZE		BXT_DMC_MAX_FW_SIZE
-> > >  MODULE_FIRMWARE(SKL_DMC_PATH);
-> > > 
-> > > -#define BXT_DMC_PATH			DMC_PATH(bxt, 1, 07)
-> > > +#define BXT_DMC_PATH			DMC_PATH(bxt)
-> > > +#define BXT_DMC_LEGACY_PATH		DMC_LEGACY_PATH(bxt, 1, 07)
-> > >  #define BXT_DMC_MAX_FW_SIZE		0x3000
-> > >  MODULE_FIRMWARE(BXT_DMC_PATH);
-> > > 
-> > > @@ -821,16 +840,63 @@ static void intel_dmc_runtime_pm_put(struct drm_i915_private *dev_priv)
-> > >  	intel_display_power_put(dev_priv, POWER_DOMAIN_INIT, wakeref);
-> > >  }
-> > > 
-> > > +static const char *dmc_legacy_path(struct drm_i915_private *i915)
-> > > +{
-> > > +	if (IS_DG2(i915)) {
-> > > +		return DG2_DMC_LEGACY_PATH;
-> > > +	} else if (IS_ALDERLAKE_P(i915)) {
-> > > +		return ADLP_DMC_LEGACY_PATH;
-> > > +	} else if (IS_ALDERLAKE_S(i915)) {
-> > > +		return ADLS_DMC_LEGACY_PATH;
-> > > +	} else if (IS_DG1(i915)) {
-> > > +		return DG1_DMC_LEGACY_PATH;
-> > > +	} else if (IS_ROCKETLAKE(i915)) {
-> > > +		return RKL_DMC_LEGACY_PATH;
-> > > +	} else if (IS_TIGERLAKE(i915)) {
-> > > +		return TGL_DMC_LEGACY_PATH;
-> > > +	} else if (DISPLAY_VER(i915) == 11) {
-> > > +		return ICL_DMC_LEGACY_PATH;
-> > > +	} else if (IS_GEMINILAKE(i915)) {
-> > > +		return GLK_DMC_LEGACY_PATH;
-> > > +	} else if (IS_KABYLAKE(i915) ||
-> > > +		   IS_COFFEELAKE(i915) ||
-> > > +		   IS_COMETLAKE(i915)) {
-> > > +		return KBL_DMC_LEGACY_PATH;
-> > > +	} else if (IS_SKYLAKE(i915)) {
-> > > +		return SKL_DMC_LEGACY_PATH;
-> > > +	} else if (IS_BROXTON(i915)) {
-> > > +		return BXT_DMC_LEGACY_PATH;
-> > > +	}
-> > > +
-> > > +	return NULL;
-> > > +}
-> > > +
-> > >  static void dmc_load_work_fn(struct work_struct *work)
-> > >  {
-> > >  	struct drm_i915_private *dev_priv;
-> > >  	struct intel_dmc *dmc;
-> > >  	const struct firmware *fw = NULL;
-> > > +	const char *legacy_path;
-> > > +	int err;
-> > > 
-> > >  	dev_priv = container_of(work, typeof(*dev_priv), display.dmc.work);
-> > >  	dmc = &dev_priv->display.dmc;
-> > > 
-> > > -	request_firmware(&fw, dev_priv->display.dmc.fw_path, dev_priv->drm.dev);
-> > > +	err = firmware_request_nowarn(&fw, dev_priv->display.dmc.fw_path, dev_priv->drm.dev);
-> > > +
-> > > +	if (err == -ENOENT && !dev_priv->params.dmc_firmware_path) {
-> > > +		legacy_path = dmc_legacy_path(dev_priv);
-> > > +		if (legacy_path) {
-> > > +			drm_dbg_kms(&dev_priv->drm,
-> > > +				    "%s not found, falling back to %s\n",
-> > > +				    dmc->fw_path,
-> > > +				    legacy_path);
-> > > +			err = firmware_request_nowarn(&fw, legacy_path, dev_priv->drm.dev);
-> > > +			if (err == 0)
-> > > +				dev_priv->display.dmc.fw_path = legacy_path;
-> > > +		}
-> > > +	}
-> > > +
-> > 
-> > I'd keep the request_firmware() with warnings.
-> 
-> then not only it will be missing from initrd but we will also trigger
-> new warnings. Humn, I think one alternative approach and my proposal
-> would be:
-> 
-> leave platforms that already have published firmware as is as long as
-> they are not behind a force_probe. For the new platforms, like mtl,
-> just use the platform name and don't bother about the version.
-> We will also have to fix it in the linux-firmware repo.
-> 
-> We are likely not updating DMC for very old platforms anyway, no need to
-> rename them.  I think that after having symlinks in place in
-> linux-firmware for a few years/months, then we can go back and kill the
-> version numbers if we really want to.
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index 663ea8f9966d..ad231a68c2a5 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -233,6 +233,10 @@ config DRM_GEM_SHMEM_HELPER
+ 	help
+ 	  Choose this if you need the GEM shmem helper functions
+ 
++config DRM_SUBALLOC_HELPER
++	tristate
++	depends on DRM
++
+ config DRM_SCHED
+ 	tristate
+ 	depends on DRM
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index 496fa5a6147a..23ad760884b2 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -88,6 +88,9 @@ obj-$(CONFIG_DRM_GEM_DMA_HELPER) += drm_dma_helper.o
+ drm_shmem_helper-y := drm_gem_shmem_helper.o
+ obj-$(CONFIG_DRM_GEM_SHMEM_HELPER) += drm_shmem_helper.o
+ 
++drm_suballoc_helper-y := drm_suballoc.o
++obj-$(CONFIG_DRM_SUBALLOC_HELPER) += drm_suballoc_helper.o
++
+ drm_vram_helper-y := drm_gem_vram_helper.o
+ obj-$(CONFIG_DRM_VRAM_HELPER) += drm_vram_helper.o
+ 
+diff --git a/drivers/gpu/drm/drm_suballoc.c b/drivers/gpu/drm/drm_suballoc.c
+new file mode 100644
+index 000000000000..6e0292dea548
+--- /dev/null
++++ b/drivers/gpu/drm/drm_suballoc.c
+@@ -0,0 +1,301 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2022 Intel Corporation
++ */
++
++#include <drm/drm_suballoc.h>
++
++/**
++ * DOC:
++ * This suballocator intends to be a wrapper around a range allocator
++ * that is aware also of deferred range freeing with fences. Currently
++ * we hard-code the drm_mm as the range allocator.
++ * The approach, while rather simple, suffers from three performance
++ * issues that can all be fixed if needed at the tradeoff of more and / or
++ * more complex code:
++ *
++ * 1) It's cpu-hungry, the drm_mm allocator is overkill. Either code a
++ * much simpler range allocator, or let the caller decide by providing
++ * ops that wrap any range allocator. Also could avoid waking up unless
++ * there is a reasonable chance of enough space in the range manager.
++ *
++ * 2) We unnecessarily install the fence callbacks too early, forcing
++ * enable_signaling() too early causing extra driver effort. This is likely
++ * not an issue if used with the drm_scheduler since it calls
++ * enable_signaling() early anyway.
++ *
++ * 3) Long processing in irq (disabled) context. We've mostly worked around
++ * that already by using the idle_list. If that workaround is deemed to
++ * complex for little gain, we can remove it and use spin_lock_irq()
++ * throughout the manager. If we want to shorten processing in irq context
++ * even further, we can skip the spin_trylock in __drm_suballoc_free() and
++ * avoid freeing allocations from irq context altogeher. However drm_mm
++ * should be quite fast at freeing ranges.
++ *
++ * 4) Shrinker that starts processing the list items in 2) and 3) to play
++ * better with the system.
++ */
++
++static void drm_suballoc_process_idle(struct drm_suballoc_manager *sa_manager);
++
++/**
++ * drm_suballoc_manager_init() - Initialise the drm_suballoc_manager
++ * @sa_manager: pointer to the sa_manager
++ * @size: number of bytes we want to suballocate
++ * @align: alignment for each suballocated chunk
++ *
++ * Prepares the suballocation manager for suballocations.
++ */
++void drm_suballoc_manager_init(struct drm_suballoc_manager *sa_manager,
++			       u64 size, u64 align)
++{
++	spin_lock_init(&sa_manager->lock);
++	spin_lock_init(&sa_manager->idle_list_lock);
++	mutex_init(&sa_manager->alloc_mutex);
++	drm_mm_init(&sa_manager->mm, 0, size);
++	init_waitqueue_head(&sa_manager->wq);
++	sa_manager->range_size = size;
++	sa_manager->alignment = align;
++	INIT_LIST_HEAD(&sa_manager->idle_list);
++}
++EXPORT_SYMBOL(drm_suballoc_manager_init);
++
++/**
++ * drm_suballoc_manager_fini() - Destroy the drm_suballoc_manager
++ * @sa_manager: pointer to the sa_manager
++ *
++ * Cleans up the suballocation manager after use. All fences added
++ * with drm_suballoc_free() must be signaled, or we cannot clean up
++ * the entire manager.
++ */
++void drm_suballoc_manager_fini(struct drm_suballoc_manager *sa_manager)
++{
++	drm_suballoc_process_idle(sa_manager);
++	drm_mm_takedown(&sa_manager->mm);
++	mutex_destroy(&sa_manager->alloc_mutex);
++}
++EXPORT_SYMBOL(drm_suballoc_manager_fini);
++
++static void __drm_suballoc_free(struct drm_suballoc *sa)
++{
++	struct drm_suballoc_manager *sa_manager = sa->manager;
++	struct dma_fence *fence;
++
++	/*
++	 * In order to avoid protecting the potentially lengthy drm_mm manager
++	 * *allocation* processing with an irq-disabling lock,
++	 * defer touching the drm_mm for freeing until we're in task context,
++	 * with no irqs disabled, or happen to succeed in taking the manager
++	 * lock.
++	 */
++	if (!in_task() || irqs_disabled()) {
++		unsigned long irqflags;
++
++		if (spin_trylock(&sa_manager->lock))
++			goto locked;
++
++		spin_lock_irqsave(&sa_manager->idle_list_lock, irqflags);
++		list_add_tail(&sa->idle_link, &sa_manager->idle_list);
++		spin_unlock_irqrestore(&sa_manager->idle_list_lock, irqflags);
++		wake_up(&sa_manager->wq);
++		return;
++	}
++
++	spin_lock(&sa_manager->lock);
++locked:
++	drm_mm_remove_node(&sa->node);
++
++	fence = sa->fence;
++	sa->fence = NULL;
++	spin_unlock(&sa_manager->lock);
++	/* Maybe only wake if first mm hole is sufficiently large? */
++	wake_up(&sa_manager->wq);
++	dma_fence_put(fence);
++	kfree(sa);
++}
++
++/* Free all deferred idle allocations */
++static void drm_suballoc_process_idle(struct drm_suballoc_manager *sa_manager)
++{
++	/*
++	 * prepare_to_wait() / wake_up() semantics ensure that any list
++	 * addition that was done before wake_up() is visible when
++	 * this code is called from the wait loop.
++	 */
++	if (!list_empty_careful(&sa_manager->idle_list)) {
++		struct drm_suballoc *sa, *next;
++		unsigned long irqflags;
++		LIST_HEAD(list);
++
++		spin_lock_irqsave(&sa_manager->idle_list_lock, irqflags);
++		list_splice_init(&sa_manager->idle_list, &list);
++		spin_unlock_irqrestore(&sa_manager->idle_list_lock, irqflags);
++
++		list_for_each_entry_safe(sa, next, &list, idle_link)
++			__drm_suballoc_free(sa);
++	}
++}
++
++static void
++drm_suballoc_fence_signaled(struct dma_fence *fence, struct dma_fence_cb *cb)
++{
++	struct drm_suballoc *sa = container_of(cb, typeof(*sa), cb);
++
++	__drm_suballoc_free(sa);
++}
++
++static int drm_suballoc_tryalloc(struct drm_suballoc *sa, u64 size)
++{
++	struct drm_suballoc_manager *sa_manager = sa->manager;
++	int err;
++
++	drm_suballoc_process_idle(sa_manager);
++	spin_lock(&sa_manager->lock);
++	err = drm_mm_insert_node_generic(&sa_manager->mm, &sa->node, size,
++					 sa_manager->alignment, 0,
++					 DRM_MM_INSERT_EVICT);
++	spin_unlock(&sa_manager->lock);
++	return err;
++}
++
++/**
++ * drm_suballoc_new() - Make a suballocation.
++ * @sa_manager: pointer to the sa_manager
++ * @size: number of bytes we want to suballocate.
++ * @gfp: Allocation context.
++ * @intr: Whether to sleep interruptibly if sleeping.
++ *
++ * Try to make a suballocation of size @size, which will be rounded
++ * up to the alignment specified in specified in drm_suballoc_manager_init().
++ *
++ * Returns a new suballocated bo, or an ERR_PTR.
++ */
++struct drm_suballoc*
++drm_suballoc_new(struct drm_suballoc_manager *sa_manager, u64 size,
++		 gfp_t gfp, bool intr)
++{
++	struct drm_suballoc *sa;
++	DEFINE_WAIT(wait);
++	int err = 0;
++
++	if (size > sa_manager->range_size)
++		return ERR_PTR(-ENOSPC);
++
++	sa = kzalloc(sizeof(*sa), gfp);
++	if (!sa)
++		return ERR_PTR(-ENOMEM);
++
++	/* Avoid starvation using the alloc_mutex */
++	if (intr)
++		err = mutex_lock_interruptible(&sa_manager->alloc_mutex);
++	else
++		mutex_lock(&sa_manager->alloc_mutex);
++	if (err) {
++		kfree(sa);
++		return ERR_PTR(err);
++	}
++
++	sa->manager = sa_manager;
++	err = drm_suballoc_tryalloc(sa, size);
++	if (err != -ENOSPC)
++		goto out;
++
++	for (;;) {
++		prepare_to_wait(&sa_manager->wq, &wait,
++				intr ? TASK_INTERRUPTIBLE :
++				TASK_UNINTERRUPTIBLE);
++
++		err = drm_suballoc_tryalloc(sa, size);
++		if (err != -ENOSPC)
++			break;
++
++		if (intr && signal_pending(current)) {
++			err = -ERESTARTSYS;
++			break;
++		}
++
++		io_schedule();
++	}
++	finish_wait(&sa_manager->wq, &wait);
++
++out:
++	mutex_unlock(&sa_manager->alloc_mutex);
++	if (!sa->node.size) {
++		kfree(sa);
++		WARN_ON(!err);
++		sa = ERR_PTR(err);
++	}
++
++	return sa;
++}
++EXPORT_SYMBOL(drm_suballoc_new);
++
++/**
++ * drm_suballoc_free() - Free a suballocation
++ * @suballoc: pointer to the suballocation
++ * @fence: fence that signals when suballocation is idle
++ * @queue: the index to which queue the suballocation will be placed on the free list.
++ *
++ * Free the suballocation. The suballocation can be re-used after @fence
++ * signals.
++ */
++void
++drm_suballoc_free(struct drm_suballoc *sa, struct dma_fence *fence)
++{
++	if (!sa)
++		return;
++
++	if (!fence || dma_fence_is_signaled(fence)) {
++		__drm_suballoc_free(sa);
++		return;
++	}
++
++	sa->fence = dma_fence_get(fence);
++	if (dma_fence_add_callback(fence, &sa->cb, drm_suballoc_fence_signaled))
++		__drm_suballoc_free(sa);
++}
++EXPORT_SYMBOL(drm_suballoc_free);
++
++#ifdef CONFIG_DEBUG_FS
++
++/**
++ * drm_suballoc_dump_debug_info() - Dump the suballocator state
++ * @sa_manager: The suballoc manager.
++ * @p: Pointer to a drm printer for output.
++ * @suballoc_base: Constant to add to the suballocated offsets on printout.
++ *
++ * This function dumps the suballocator state. Note that the caller has
++ * to explicitly order frees and calls to this function in order for the
++ * freed node to show up as protected by a fence.
++ */
++void drm_suballoc_dump_debug_info(struct drm_suballoc_manager *sa_manager,
++				  struct drm_printer *p, u64 suballoc_base)
++{
++	const struct drm_mm_node *entry;
++
++	spin_lock(&sa_manager->lock);
++	drm_mm_for_each_node(entry, &sa_manager->mm) {
++		struct drm_suballoc *sa =
++			container_of(entry, typeof(*sa), node);
++
++		drm_printf(p, " ");
++		drm_printf(p, "[0x%010llx 0x%010llx] size %8lld",
++			   (unsigned long long)suballoc_base + entry->start,
++			   (unsigned long long)suballoc_base + entry->start +
++			   entry->size, (unsigned long long)entry->size);
++
++		if (sa->fence)
++			drm_printf(p, " protected by 0x%016llx on context %llu",
++				   (unsigned long long)sa->fence->seqno,
++				   (unsigned long long)sa->fence->context);
++
++		drm_printf(p, "\n");
++	}
++	spin_unlock(&sa_manager->lock);
++}
++EXPORT_SYMBOL(drm_suballoc_dump_debug_info);
++#endif
++
++MODULE_AUTHOR("Intel Corporation");
++MODULE_DESCRIPTION("Simple range suballocator helper");
++MODULE_LICENSE("GPL and additional rights");
+diff --git a/include/drm/drm_suballoc.h b/include/drm/drm_suballoc.h
+new file mode 100644
+index 000000000000..910952b3383b
+--- /dev/null
++++ b/include/drm/drm_suballoc.h
+@@ -0,0 +1,112 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2022 Intel Corporation
++ */
++#ifndef _DRM_SUBALLOC_H_
++#define _DRM_SUBALLOC_H_
++
++#include <drm/drm_mm.h>
++
++#include <linux/dma-fence.h>
++#include <linux/types.h>
++
++/**
++ * struct drm_suballoc_manager - Wrapper for fenced range allocations
++ * @mm: The range manager. Protected by @lock.
++ * @range_size: The total size of the range.
++ * @alignment: Range alignment.
++ * @wq: Wait queue for sleeping allocations on contention.
++ * @idle_list: List of idle but not yet freed allocations. Protected by
++ * @idle_list_lock.
++ * @task: Task waiting for allocation. Protected by @lock.
++ */
++struct drm_suballoc_manager {
++	/** @lock: Manager lock. Protects @mm. */
++	spinlock_t lock;
++	/**
++	 * @idle_list_lock: Lock to protect the idle_list.
++	 * Disable irqs when locking.
++	 */
++	spinlock_t idle_list_lock;
++	/** @alloc_mutex: Mutex to protect against stavation. */
++	struct mutex alloc_mutex;
++	struct drm_mm mm;
++	u64 range_size;
++	u64 alignment;
++	wait_queue_head_t wq;
++	struct list_head idle_list;
++};
++
++/**
++ * struct drm_suballoc: Suballocated range.
++ * @node: The drm_mm representation of the range.
++ * @fence: dma-fence indicating whether allocation is active or idle.
++ * Assigned on call to free the allocation so doesn't need protection.
++ * @cb: dma-fence callback structure. Used for callbacks when the fence signals.
++ * @manager: The struct drm_suballoc_manager the range belongs to. Immutable.
++ * @idle_link: Link for the manager idle_list. Progected by the
++ * drm_suballoc_manager::idle_lock.
++ */
++struct drm_suballoc {
++	struct drm_mm_node node;
++	struct dma_fence *fence;
++	struct dma_fence_cb cb;
++	struct drm_suballoc_manager *manager;
++	struct list_head idle_link;
++};
++
++void drm_suballoc_manager_init(struct drm_suballoc_manager *sa_manager,
++			       u64 size, u64 align);
++
++void drm_suballoc_manager_fini(struct drm_suballoc_manager *sa_manager);
++
++struct drm_suballoc *drm_suballoc_new(struct drm_suballoc_manager *sa_manager,
++				      u64 size, gfp_t gfp, bool intr);
++
++void drm_suballoc_free(struct drm_suballoc *sa, struct dma_fence *fence);
++
++/**
++ * drm_suballoc_soffset - Range start.
++ * @sa: The struct drm_suballoc.
++ *
++ * Return: The start of the allocated range.
++ */
++static inline u64 drm_suballoc_soffset(struct drm_suballoc *sa)
++{
++	return sa->node.start;
++}
++
++/**
++ * drm_suballoc_eoffset - Range end.
++ * @sa: The struct drm_suballoc.
++ *
++ * Return: The end of the allocated range + 1.
++ */
++static inline u64 drm_suballoc_eoffset(struct drm_suballoc *sa)
++{
++	return sa->node.start + sa->node.size;
++}
++
++/**
++ * drm_suballoc_size - Range size.
++ * @sa: The struct drm_suballoc.
++ *
++ * Return: The size of the allocated range.
++ */
++static inline u64 drm_suballoc_size(struct drm_suballoc *sa)
++{
++	return sa->node.size;
++}
++
++#ifdef CONFIG_DEBUG_FS
++void drm_suballoc_dump_debug_info(struct drm_suballoc_manager *sa_manager,
++				  struct drm_printer *p, u64 suballoc_base);
++#else
++static inline void
++drm_suballoc_dump_debug_info(struct drm_suballoc_manager *sa_manager,
++			     struct drm_printer *p, u64 suballoc_base)
++{ }
++
++#endif
++
++#endif /* _DRM_SUBALLOC_H_ */
+-- 
+2.37.3
 
-Sounds good.
-
-This patch was an attempt to have all supported platforms changed to the new
-convention and keep us from having to send a new patch for each platform that
-would need the change because of a new firmware release. But to avoid warnings,
-I think your proposal would be better indeed.
-
-It seems that currently the only platforms with display that are
-using require_force_probe = 1 are DG1 and MTL, and the latter does not have an
-entry in intel_dmc.c yet. Moving forward with your proposal, I guess we could
-also keep DG1 as is and only update it when/if the time comes.
-
-That said, I still think we would need the logic for loading from legacy paths
-as fallback so that we do not cause regressions when, for example, ADL has an
-update and we "move" it to the new convention. Do you agree?
-
-So here is my proposal:
-
-- Keep using the same paths (i.e. versioned ones) for the current entries in
-  intel_dmc.c, but define them with DMC_LEGACY_PATH() and reserve DMC_PATH() for
-  the new convention.
-
-- Keep the logic for the fallback in place because we know that it will be
-  needed soon enough for some more recent platforms.
-
-- Similarly to your last remark, if we find it necessary, we could in the future
-  remove the fallback logic after linux-firmware has all blobs using the new
-  convention for good enough time.
-
-
---
-Gustavo Sousa
