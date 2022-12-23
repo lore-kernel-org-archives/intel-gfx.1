@@ -4,61 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAFAFC4167B
-	for <intel-gfx@archiver.kernel.org>; Fri, 23 Dec 2022 00:58:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D351C10F1D
+	for <intel-gfx@archiver.kernel.org>; Fri, 23 Dec 2022 00:58:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F060010E5FD;
-	Fri, 23 Dec 2022 00:58:01 +0000 (UTC)
-Received: from mail-pl1-x649.google.com (mail-pl1-x649.google.com
- [IPv6:2607:f8b0:4864:20::649])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 092AC10E5F1
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Dec 2022 00:57:53 +0000 (UTC)
-Received: by mail-pl1-x649.google.com with SMTP id
- c12-20020a170902d48c00b00189e5443387so2385887plg.15
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Dec 2022 16:57:53 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE78210E5F8;
+	Fri, 23 Dec 2022 00:58:02 +0000 (UTC)
+Received: from mail-yw1-x114a.google.com (mail-yw1-x114a.google.com
+ [IPv6:2607:f8b0:4864:20::114a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B319D10E615
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Dec 2022 00:57:59 +0000 (UTC)
+Received: by mail-yw1-x114a.google.com with SMTP id
+ 00721157ae682-3dfb9d11141so36792147b3.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Dec 2022 16:57:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
- bh=d+Q/YQeHZWJ0vREmMTQabuLJv/+4O5g7zAHpbuOFGTs=;
- b=cGB2Kk6wNWNAIq0pn/lG31LZ+jy1BxxG22XBitcS8CWDmp2z4Lhdnef0BGcAm+RvUh
- dJmcq7R+7SuGck4PuyUeyUCJkW65Lvfi9fboC8f7g9EVEpDN857mWJxXqLgFMLrQWGln
- Kjecvsk3TvvJ2gGLKH55SZwSxBxEOcPg0oFfMnU/R5GleViIAv1XjeCPLyU1wTWSJK2S
- +iS3t0vV/qEduOYgT/AES8Jul3ZiXXRXD3dl2cOxJsXpYTudq3EXtRTOFEi2bF+1egWF
- QP48ZSSaeO6lXbbjEfyK0KsD6kqL75R5X9rhhYcXTnDt3mgITCArhWecSITrbyBZ+xt2
- 3VTA==
+ bh=Wv7Sq7HoBVZLuoe15+dVfh7DmwmErtwyqBsV25zTBHk=;
+ b=dwSVlAZgWxSlftsojKgyDx43KpFpCJGRtc3IRFu3GmjsFZNeXwP+0HlSGWWwzg1wic
+ Mm8K8eEYW2H1yntodiOGHv7lvnOm/1z24jmE/DoOEat/BXnpKDQetjSQ2e/jlISDndzn
+ 1nmJlnErn6cTNVPegHjYDWQB84MK9ay6ny7wDMYHPF2bxt/IRS4V3CpBw0hHNVnqSIPI
+ AOuSn1InRMkW0W/W4Y6bnc9MzsuXj7+c1GJLKaVvotPIuTliO7YbpvONhosQQihMYApz
+ 5tjeLw12T/6UEC7CuL4oYzssc0CPUs+/hEDmPefuDbcWkak3eQWMtCmICA4OJuf63YKd
+ I+mQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=d+Q/YQeHZWJ0vREmMTQabuLJv/+4O5g7zAHpbuOFGTs=;
- b=C8HBXiebkZw89iRHAzO9cUZjSaDNVLVCYwIy+TgUJLvZ+Br9W80mfOOl7ajtobzDeL
- tTaBdH6ILsk2g26z6TI7bHk/7CKoYWKrtv66qjpTDqCkUOSOpQ4xeO3GWnOuONDzweko
- nXi/Ytwkq5746bb32Vxln5JTIuebRcSmQEmXJc1/3rIVum7eLCm+nZej4SUQQrzQ3VUM
- 9II0AmmWZBdtgzhl7LBEz90Gs1L/SYr4PHkUWwXYPtTD8u01b4xfvHZRtcWykxvpFYbT
- h2cGTVA92IlLnA9ZT5bTuii+YRioXCUUSPf4ctKOSnU5JjkGsdl4iAm49ueOXSPOTq2G
- AXmA==
-X-Gm-Message-State: AFqh2kosPtMIXnFsWxdffj6+/DQPXS5LjFPua2zbKyR01dfNEXRbzEJn
- 4bMsoBYMOUgKy3sz/BIOmimtDrXiAIM=
-X-Google-Smtp-Source: AMrXdXs1Xo/ZikoJFeArKRToXLGYmJLPRFbPAWwxlzpvnOIeRODeOddNaO6jwczXdcof/QkZXUFwsMJdkN8=
+ bh=Wv7Sq7HoBVZLuoe15+dVfh7DmwmErtwyqBsV25zTBHk=;
+ b=0ET6vd/uy6NsFQ7gLcv9geRi0FQn9aeJ2NYDIBOCKU3ptmUp5/M9m/F/bbEpSyU18z
+ qJCDRQ9d1Gt/FSdHHmxXlpFYpDVtpMWB3VWzvzzJ90D5uHJlBo/5aGc9iPolnKV5+I3U
+ JpXEX+tGfw3a+E7bXsWKE5speRcWO/Ulby8WonAuKRkGTTryhMbzgpLbVrpfzHijJDG7
+ ZBe5lWzlGm3H0tDOx3lT5flq/aaHdHCPjdtL+bdYlmxyIQM71otOTfzXoUiDbjKzh2k8
+ +TnGMjsLU0JVBqMjjm1JtGQr5Plficr4FdRz98hS8Hxqm44jCB7T7T+bMLsi6oiGunsk
+ Nxlg==
+X-Gm-Message-State: AFqh2kpAoNAb5waSKSn0x+U3dLNhOLbbiL/ZeM0qCKwbHm3VBmW5Yuc9
+ FjaQrya24pWxucFEaHQ+LSYG9Sq0Bc0=
+X-Google-Smtp-Source: AMrXdXstOrx3bUm5K/7Br+kFYpSxsgyLT1oZYQfRteln3A58NAAOzxF3mVNqbUjLF/5Fsax8WFKaA37+ZY8=
 X-Received: from zagreus.c.googlers.com
  ([fda3:e722:ac3:cc00:7f:e700:c0a8:5c37])
- (user=seanjc job=sendgmr) by 2002:a17:90b:701:b0:219:1d0a:34a6 with SMTP id
- s1-20020a17090b070100b002191d0a34a6mr180782pjz.1.1671757072021; Thu, 22 Dec
- 2022 16:57:52 -0800 (PST)
-Date: Fri, 23 Dec 2022 00:57:16 +0000
+ (user=seanjc job=sendgmr) by 2002:a25:9209:0:b0:756:3e38:765f with SMTP id
+ b9-20020a259209000000b007563e38765fmr658755ybo.428.1671757078643; Thu, 22 Dec
+ 2022 16:57:58 -0800 (PST)
+Date: Fri, 23 Dec 2022 00:57:20 +0000
 In-Reply-To: <20221223005739.1295925-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20221223005739.1295925-1-seanjc@google.com>
 X-Mailer: git-send-email 2.39.0.314.g84b9a713c41-goog
-Message-ID: <20221223005739.1295925-5-seanjc@google.com>
+Message-ID: <20221223005739.1295925-9-seanjc@google.com>
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>,
  Paolo Bonzini <pbonzini@redhat.com>, 
  Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: [Intel-gfx] [PATCH 04/27] drm/i915/gvt: Verify VFIO-pinned page is
- THP when shadowing 2M gtt entry
+Subject: [Intel-gfx] [PATCH 08/27] drm/i915/gvt: Hoist acquisition of
+ vgpu_lock out to kvmgt_page_track_write()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,60 +78,69 @@ Cc: Yan Zhao <yan.y.zhao@intel.com>, kvm@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When shadowing a GTT entry with a 2M page, explicitly verify that the
-first page pinned by VFIO is a transparent hugepage instead of assuming
-that page observed by is_2MB_gtt_possible() is the same page pinned by
-vfio_pin_pages().  E.g. if userspace is doing something funky with the
-guest's memslots, or if the page is demoted between is_2MB_gtt_possible()
-and vfio_pin_pages().
+Host the acquisition of vgpu_lock from intel_vgpu_page_track_handler() out
+to its sole caller, kvmgt_page_track_write().  An upcoming fix will add a
+mutex to protect the gfn hash table that referenced by
+kvmgt_gfn_is_write_protected(), i.e. kvmgt_page_track_write() will need to
+acquire another lock.  Conceptually, the to-be-introduced gfn_lock has
+finer granularity than vgpu_lock and so the lock order should ideally be
+vgpu_lock => gfn_lock, e.g. to avoid potential lock inversion elsewhere in
+KVMGT.
 
-This is more of a performance optimization than a bug fix as the check
-for contiguous struct pages should guard against incorrect mapping (even
-though assuming struct pages are virtually contiguous is wrong).
-
-The real motivation for explicitly checking for a transparent hugepage
-after pinning is that it will reduce the risk of introducing a bug in a
-future fix for a page refcount leak (KVMGT doesn't put the reference
-acquired by gfn_to_pfn()), and eventually will allow KVMGT to stop using
-KVM's gfn_to_pfn() altogether.
+No functional change intended.
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- drivers/gpu/drm/i915/gvt/kvmgt.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gvt/kvmgt.c      |  4 ++++
+ drivers/gpu/drm/i915/gvt/page_track.c | 10 ++--------
+ 2 files changed, 6 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-index 714221f9a131..6f358b4fe406 100644
+index 5d0e029d60d7..ca9926061cd8 100644
 --- a/drivers/gpu/drm/i915/gvt/kvmgt.c
 +++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
-@@ -159,11 +159,25 @@ static int gvt_pin_guest_page(struct intel_vgpu *vgpu, unsigned long gfn,
- 			goto err;
- 		}
+@@ -1626,9 +1626,13 @@ static void kvmgt_page_track_write(struct kvm_vcpu *vcpu, gpa_t gpa,
+ 	struct intel_vgpu *info =
+ 		container_of(node, struct intel_vgpu, track_node);
  
--		if (npage == 0)
--			base_page = cur_page;
-+		if (npage == 0) {
-+			/*
-+			 * Bail immediately to avoid unnecessary pinning when
-+			 * trying to shadow a 2M page and the host page isn't
-+			 * a transparent hugepage.
-+			 *
-+			 * TODO: support other type hugepages, e.g. HugeTLB.
-+			 */
-+			if (size == I915_GTT_PAGE_SIZE_2M &&
-+			    !PageTransHuge(cur_page))
-+				ret = -EIO;
-+			else
-+				base_page = cur_page;
-+		}
- 		else if (base_page + npage != cur_page) {
- 			gvt_vgpu_err("The pages are not continuous\n");
- 			ret = -EINVAL;
-+		}
-+		if (ret < 0) {
- 			npage++;
- 			goto err;
- 		}
++	mutex_lock(&info->vgpu_lock);
++
+ 	if (kvmgt_gfn_is_write_protected(info, gpa_to_gfn(gpa)))
+ 		intel_vgpu_page_track_handler(info, gpa,
+ 						     (void *)val, len);
++
++	mutex_unlock(&info->vgpu_lock);
+ }
+ 
+ static void kvmgt_page_track_flush_slot(struct kvm *kvm,
+diff --git a/drivers/gpu/drm/i915/gvt/page_track.c b/drivers/gpu/drm/i915/gvt/page_track.c
+index 3375b51c75f1..6d72d11914a5 100644
+--- a/drivers/gpu/drm/i915/gvt/page_track.c
++++ b/drivers/gpu/drm/i915/gvt/page_track.c
+@@ -162,13 +162,9 @@ int intel_vgpu_page_track_handler(struct intel_vgpu *vgpu, u64 gpa,
+ 	struct intel_vgpu_page_track *page_track;
+ 	int ret = 0;
+ 
+-	mutex_lock(&vgpu->vgpu_lock);
+-
+ 	page_track = intel_vgpu_find_page_track(vgpu, gpa >> PAGE_SHIFT);
+-	if (!page_track) {
+-		ret = -ENXIO;
+-		goto out;
+-	}
++	if (!page_track)
++		return -ENXIO;
+ 
+ 	if (unlikely(vgpu->failsafe)) {
+ 		/* Remove write protection to prevent furture traps. */
+@@ -179,7 +175,5 @@ int intel_vgpu_page_track_handler(struct intel_vgpu *vgpu, u64 gpa,
+ 			gvt_err("guest page write error, gpa %llx\n", gpa);
+ 	}
+ 
+-out:
+-	mutex_unlock(&vgpu->vgpu_lock);
+ 	return ret;
+ }
 -- 
 2.39.0.314.g84b9a713c41-goog
 
