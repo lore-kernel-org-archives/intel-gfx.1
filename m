@@ -4,26 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 061D4C10F1B
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Dec 2022 16:33:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FD6EC4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Dec 2022 16:33:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87B3110E15D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B821510E160;
 	Tue, 27 Dec 2022 16:32:56 +0000 (UTC)
 Received: from msg-1.mailo.com (msg-1.mailo.com [213.182.54.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FF3A10E11B;
- Sun, 25 Dec 2022 07:48:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 987EB10E2E6;
+ Tue, 27 Dec 2022 07:55:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mailo.com; s=mailo;
- t=1671954490; bh=aBta368pCzAXtdUGLmcTgKPtuQS+E+6V5AUDhc5bAYg=;
- h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:References:
- MIME-Version:Content-Type:In-Reply-To;
- b=Yb4s9iD8tadJFgSm4v5UFdKvDkq10qjgFGfAIIPbyK+bxyf3nwKeqxyN7pdDwghwd
- Km/v/eEVcA7iSWFbDql4qNYLmQBQ0LlvqdRpSexEE3LFrIvFpOGXH0g2MjTLOC24ID
- cwoUsW3Y3AqB+wp2E0ME/ENz8kF0N+R0Xxfj7+mc=
-Received: by b-6.in.mailobj.net [192.168.90.16] with ESMTP
+ t=1672127688; bh=giLygN6VCt7V445nQatslkp77AOYXtWjJUE7E0bEqc0=;
+ h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:MIME-Version:
+ Content-Type;
+ b=QCqXgq8OvC0nS2bvkqSJGiSC4vJEpFoCCALoQUcVCT4D3XEaiDtb1L8tJGJKo9bHo
+ 0wVRz/R+tSsQ6WUVRx4ievKOIoP4Lu5e6PBAYCTxWlJYcxB8v5UReEZRb0q8O5ro3G
+ ZLqMs3FLEz9Cheb7v1fV9WXMRCBL5GQ8egm0c11k=
+Received: by b-2.in.mailobj.net [192.168.90.12] with ESMTP
  via ip-206.mailobj.net [213.182.55.206]
- Sun, 25 Dec 2022 08:48:10 +0100 (CET)
-X-EA-Auth: NixFvOfkNIjC/V/jyidk3xF9ifjT9WgqJGK5iP0nd0HTff1Tpd/mTcntT0tjjTYLbIT+FAfQOfJhuMAHEzlVq6dnT+wDu5c9
-Date: Sun, 25 Dec 2022 13:18:05 +0530
+ Tue, 27 Dec 2022 08:54:48 +0100 (CET)
+X-EA-Auth: Y/txN7h7M1NSBRb/aAVjjQNqoV1iyiWxffr+VZOusP9tx6BTq8pNJEqpfWcIfiLuIBYbzBtgFVghFHIsVPbvkC8b7+YujL3P
+Date: Tue, 27 Dec 2022 13:24:39 +0530
 From: Deepak R Varma <drv@mailo.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
@@ -32,15 +32,13 @@ To: Jani Nikula <jani.nikula@linux.intel.com>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Message-ID: <1cce7ada5c91f81f9b3d6b2d68eb7fda4dd9fbf7.1671952191.git.drv@mailo.com>
-References: <cover.1671952191.git.drv@mailo.com>
+Message-ID: <Y6qkv/YVsUQ6kpYp@qemulion>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cover.1671952191.git.drv@mailo.com>
 X-Mailman-Approved-At: Tue, 27 Dec 2022 16:32:55 +0000
-Subject: [Intel-gfx] [PATCH v2 2/2] drm/i915/selftests: Convert atomic_* API
- calls for i915_active.count refcount_*
+Subject: [Intel-gfx] [PATCH] drm/i915/display: Avoid full proxy f_ops for
+ DRRS debug attributes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,62 +56,52 @@ Cc: Praveen Kumar <kumarpraveen@linux.microsoft.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Handle the struct i915_active member variable count transition from
-atomic_t type to refcount_t type for selftest use cases. Transition the
-atomic_*() API calls to their equivalent refcount_*() API calls.
+Using DEFINE_SIMPLE_ATTRIBUTE macro with the debugfs_create_file()
+function adds the overhead of introducing a proxy file operation
+functions to wrap the original read/write inside file removal protection
+functions. This adds significant overhead in terms of introducing and
+managing the proxy factory file operations structure and function
+wrapping at runtime.
+As a replacement, a combination of DEFINE_DEBUGFS_ATTRIBUTE macro paired
+with debugfs_create_file_unsafe() is suggested to be used instead.  The
+DEFINE_DEBUGFS_ATTRIBUTE utilises debugfs_file_get() and
+debugfs_file_put() wrappers to protect the original read and write
+function calls for the debug attributes. There is no need for any
+runtime proxy file operations to be managed by the debugfs core.
 
-Reported-by: kernel test robot <lkp@intel.com>
+This Change is reported by the debugfs_simple_attr.cocci Coccinelle
+semantic patch.
+
 Signed-off-by: Deepak R Varma <drv@mailo.com>
 ---
-Please note:
-   1. Proposed changes are compile tested only.
-   2. This patch 2/2 is required to be applied after patch 1/2 due to
-      inter dependency.
-
-Changes in v2:
-   1. Patch added to patch series.
-   2. Handle build issues Reported-by: kernel test robot <lkp@intel.com>
-      Include changes for i915/selftests use cases for atomic_* to refcount_*
-      transition.
-
-
- drivers/gpu/drm/i915/selftests/i915_active.c | 8 ++++----
+ drivers/gpu/drm/i915/display/intel_drrs.c | 8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_active.c b/drivers/gpu/drm/i915/selftests/i915_active.c
-index b61fe850e924..f1eca59e0180 100644
---- a/drivers/gpu/drm/i915/selftests/i915_active.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_active.c
-@@ -125,9 +125,9 @@ __live_active_setup(struct drm_i915_private *i915)
- 		pr_err("i915_active retired before submission!\n");
- 		err = -EINVAL;
- 	}
--	if (atomic_read(&active->base.count) != count) {
-+	if (refcount_read(&active->base.count) != count) {
- 		pr_err("i915_active not tracking all requests, found %d, expected %d\n",
--		       atomic_read(&active->base.count), count);
-+		       refcount_read(&active->base.count), count);
- 		err = -EINVAL;
- 	}
-
-@@ -279,7 +279,7 @@ static struct intel_engine_cs *node_to_barrier(struct active_node *it)
- void i915_active_print(struct i915_active *ref, struct drm_printer *m)
- {
- 	drm_printf(m, "active %ps:%ps\n", ref->active, ref->retire);
--	drm_printf(m, "\tcount: %d\n", atomic_read(&ref->count));
-+	drm_printf(m, "\tcount: %d\n", refcount_read(&ref->count));
- 	drm_printf(m, "\tpreallocated barriers? %s\n",
- 		   str_yes_no(!llist_empty(&ref->preallocated_barriers)));
-
-@@ -324,7 +324,7 @@ static void active_flush(struct i915_active *ref,
- 	spin_lock_irq(fence->lock);
- 	__list_del_entry(&active->cb.node);
- 	spin_unlock_irq(fence->lock); /* serialise with fence->cb_list */
--	atomic_dec(&ref->count);
-+	refcount_dec(&ref->count);
-
- 	GEM_BUG_ON(!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags));
+diff --git a/drivers/gpu/drm/i915/display/intel_drrs.c b/drivers/gpu/drm/i915/display/intel_drrs.c
+index 5b9e44443814..84ba7379d6f8 100644
+--- a/drivers/gpu/drm/i915/display/intel_drrs.c
++++ b/drivers/gpu/drm/i915/display/intel_drrs.c
+@@ -374,16 +374,16 @@ static int intel_drrs_debugfs_ctl_set(void *data, u64 val)
+ 	return ret;
  }
+
+-DEFINE_SIMPLE_ATTRIBUTE(intel_drrs_debugfs_ctl_fops,
+-			NULL, intel_drrs_debugfs_ctl_set, "%llu\n");
++DEFINE_DEBUGFS_ATTRIBUTE(intel_drrs_debugfs_ctl_fops,
++			 NULL, intel_drrs_debugfs_ctl_set, "%llu\n");
+
+ void intel_drrs_crtc_debugfs_add(struct intel_crtc *crtc)
+ {
+ 	debugfs_create_file("i915_drrs_status", 0444, crtc->base.debugfs_entry,
+ 			    crtc, &intel_drrs_debugfs_status_fops);
+
+-	debugfs_create_file("i915_drrs_ctl", 0644, crtc->base.debugfs_entry,
+-			    crtc, &intel_drrs_debugfs_ctl_fops);
++	debugfs_create_file_unsafe("i915_drrs_ctl", 0644, crtc->base.debugfs_entry,
++				    crtc, &intel_drrs_debugfs_ctl_fops);
+ }
+
+ static int intel_drrs_debugfs_type_show(struct seq_file *m, void *unused)
 --
 2.34.1
 
