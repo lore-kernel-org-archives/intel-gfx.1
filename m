@@ -4,43 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9978CC4167B
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Dec 2022 16:33:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37B05C4167B
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Dec 2022 16:33:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 220C310E164;
-	Tue, 27 Dec 2022 16:33:11 +0000 (UTC)
-Received: from msg-4.mailo.com (msg-4.mailo.com [213.182.54.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB8B110E117;
- Sun, 25 Dec 2022 07:47:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=mailo.com; s=mailo;
- t=1671954441; bh=bMU9mUk6Hw98H87DEnX7EHpdpzuEKQ/x1ECaFF4/Tjs=;
- h=X-EA-Auth:Date:From:To:Cc:Subject:Message-ID:References:
- MIME-Version:Content-Type:In-Reply-To;
- b=WoKWM9VvSJNpSWwSlYreTc9B1hYNk1x3PboZuTaB1HhSe6SWVn/eicjg78bZIOy/W
- eTDiRPhAqEJMdNcqg15+KFVqfJj8WUd/eAXKSoQaBQl/F9rIjESa97M/TSHn9M2h/R
- IGRQu6SybExcB1yNLx1US6dnbdiz3bpfi5FeVIZk=
-Received: by b-6.in.mailobj.net [192.168.90.16] with ESMTP
- via ip-206.mailobj.net [213.182.55.206]
- Sun, 25 Dec 2022 08:47:20 +0100 (CET)
-X-EA-Auth: AfL6MqEJGDGV6JwNRF6Xqw+evEf5XMzyYLv3rVlGa1tumfShUReZEyAisWYF+hg9A2xGSkVbcOSB4UUd+Q+csLUK2zJ/IhsQ
-Date: Sun, 25 Dec 2022 13:17:15 +0530
-From: Deepak R Varma <drv@mailo.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Message-ID: <fe31efd659622839c7f7bc2890d9e3411bbfa7cd.1671952191.git.drv@mailo.com>
-References: <cover.1671952191.git.drv@mailo.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 844B810E163;
+	Tue, 27 Dec 2022 16:33:33 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E36AF10E163;
+ Tue, 27 Dec 2022 16:33:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1672158811; x=1703694811;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=wrPCLmCNzk1NXwV7pSh5+JPMF+DWrM4rdO69H5fR02Q=;
+ b=WUVOe1u2qwZQN9tWu/D8n8krV0S+mx5LvejOWdJZMijV4BpeYRTZs81l
+ upYnxilh+yefjKRVaE2cWq+VeGHbjK1Y80VYJTTMd6c1B8xnZgZ+ni3RB
+ 5Cm9gZL5iXTaNgSJqznYaiO7vxHtRWD06jy/to8A9/T/KZ6KN0EejL174
+ 6LQhlYWTnzEnQRilz7loy/NmdbnsKBg7twcVEeCSsXjLjAwBnfTqUxlW5
+ dm5iWHnoVSExqm7O2B23bgWuKRdcET8UABofC+2eCNP7LHK8q3t8JRW1B
+ mmKY1BMBkpvwvr2OppiaHwmj79rSc0d8MdVEjxhtG106hmeOO6XWJJHra g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10573"; a="318399796"
+X-IronPort-AV: E=Sophos;i="5.96,278,1665471600"; d="scan'208";a="318399796"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Dec 2022 08:33:21 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10573"; a="898400979"
+X-IronPort-AV: E=Sophos;i="5.96,278,1665471600"; d="scan'208";a="898400979"
+Received: from lsitkiew-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.8.250])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Dec 2022 08:33:20 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, Andi Shyti
+ <andi.shyti@linux.intel.com>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <d99c1147-fc3f-71f0-c115-49febbf2aa3a@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20221223121821.358021-1-andi.shyti@linux.intel.com>
+ <d99c1147-fc3f-71f0-c115-49febbf2aa3a@linux.intel.com>
+Date: Tue, 27 Dec 2022 18:33:16 +0200
+Message-ID: <87h6xg24dv.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1671952191.git.drv@mailo.com>
-X-Mailman-Approved-At: Tue, 27 Dec 2022 16:32:55 +0000
-Subject: [Intel-gfx] [PATCH v2 1/2] drm/i915: convert i915_active.count from
- atomic_t to refcount_t
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gt: Retry RING_HEAD reset until it
+ sticks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,200 +61,159 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Praveen Kumar <kumarpraveen@linux.microsoft.com>,
- Deepak R Varma <drv@mailo.com>, Saurabh Singh Sengar <ssengar@microsoft.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The refcount_* APIs are designed to address known issues with the
-atomic_t APIs for reference counting. They provide following distinct
-advantages:
-   - protect the reference counters from overflow/underflow
-   - avoid use-after-free errors
-   - provide improved memory ordering guarantee schemes
-   - neater and safer.
-Hence, convert the atomic_t count member variable and associated
-atomic_*() API calls to equivalent refcount_t type and refcount_*() API
-calls.
+On Fri, 23 Dec 2022, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com> wrote:
+> On 23/12/2022 12:18, Andi Shyti wrote:
+>> From: Chris Wilson <chris@chris-wilson.co.uk>
+>> 
+>> On Haswell, in particular, we see an issue where resets fails because
+>> the engine resumes from an incorrect RING_HEAD. Since the RING_HEAD
+>> doesn't point to the remaining requests to re-run, but may instead point
+>> into the uninitialised portion of the ring, the GPU may be then fed
+>> invalid instructions from a privileged context, often pushing the GPU
+>> into an unrecoverable hang.
+>> 
+>> If at first the write doesn't succeed, try, try again.
+>> 
+>> References: https://gitlab.freedesktop.org/drm/intel/-/issues/5432
+>> References: https://gitlab.freedesktop.org/drm/intel/-/issues/3303
+>> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+>> Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+>> Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+>> Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+>> ---
+>>   .../gpu/drm/i915/gt/intel_ring_submission.c   | 44 +++++++++++++------
+>>   drivers/gpu/drm/i915/i915_utils.h             |  8 ++++
+>>   2 files changed, 38 insertions(+), 14 deletions(-)
+>> 
+>> diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+>> index 827adb0cfaea6..cdf283f5b1427 100644
+>> --- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+>> +++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+>> @@ -192,6 +192,7 @@ static bool stop_ring(struct intel_engine_cs *engine)
+>>   static int xcs_resume(struct intel_engine_cs *engine)
+>>   {
+>>   	struct intel_ring *ring = engine->legacy.ring;
+>> +	ktime_t kt;
+>>   
+>>   	ENGINE_TRACE(engine, "ring:{HEAD:%04x, TAIL:%04x}\n",
+>>   		     ring->head, ring->tail);
+>> @@ -230,9 +231,20 @@ static int xcs_resume(struct intel_engine_cs *engine)
+>>   	set_pp_dir(engine);
+>>   
+>>   	/* First wake the ring up to an empty/idle ring */
+>> -	ENGINE_WRITE_FW(engine, RING_HEAD, ring->head);
+>> +	until_timeout_ns(kt, 2 * NSEC_PER_MSEC) {
+>> +		ENGINE_WRITE_FW(engine, RING_HEAD, ring->head);
+>> +		if (ENGINE_READ_FW(engine, RING_HEAD) == ring->head)
+>> +			break;
+>> +	}
+>
+> 2ms?! Shudder..
+>
+> #define done \
+> ({ \
+> 	ENGINE_WRITE_FW(engine, RING_HEAD, ring->head); \
+> 	ENGINE_READ_FW(engine, RING_HEAD) == ring->head; \
+> })
+> _wait_for_atomic(done, 2 * USEC_PER_MSEC, needs_to_be_atomic_or_not?);
+> #undef done
+>
+> Should work and avoid the need to add yet another helper, please 
+> double-check. Not as pretty, but accumulating generic sounding helpers 
+> in i915_utils.h is a bit frowned upon.
 
-This patch proposal address the following warnings generated by
-the atomic_as_refcounter.cocci coccinelle script
-	atomic_add_unless
+Yeah, please no more helpers like this. They're not helping.
 
-Signed-off-by: Deepak R Varma <drv@mailo.com>
----
-Please note:
-   1. Proposed changes are compile tested only.
-   2. This patch 1/2 is required to be applied before patch 2/2 due to
-      interdependency.
-
-Changes in v2:
-   1. Patch added to the patch series.
-   2. Handle build issues Reported-by: kernel test robot <lkp@intel.com>
-      Earlier a standalone patch was sent for the i915 base driver only. The
-      Kernel Test Robot reported build failure for additional atomic_*() calls
-      specific to i915 debugging support when enabled. This version now includes
-      those changes as well.
-
-
- drivers/gpu/drm/i915/i915_active.c       | 28 +++++++++++++-----------
- drivers/gpu/drm/i915/i915_active.h       |  6 ++---
- drivers/gpu/drm/i915/i915_active_types.h |  4 ++--
- 3 files changed, 20 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
-index 7412abf166a8..5e58d8b1e947 100644
---- a/drivers/gpu/drm/i915/i915_active.c
-+++ b/drivers/gpu/drm/i915/i915_active.c
-@@ -92,14 +92,14 @@ static void debug_active_init(struct i915_active *ref)
- static void debug_active_activate(struct i915_active *ref)
- {
- 	lockdep_assert_held(&ref->tree_lock);
--	if (!atomic_read(&ref->count)) /* before the first inc */
-+	if (!refcount_read(&ref->count)) /* before the first inc */
- 		debug_object_activate(ref, &active_debug_desc);
- }
-
- static void debug_active_deactivate(struct i915_active *ref)
- {
- 	lockdep_assert_held(&ref->tree_lock);
--	if (!atomic_read(&ref->count)) /* after the last dec */
-+	if (!refcount_read(&ref->count)) /* after the last dec */
- 		debug_object_deactivate(ref, &active_debug_desc);
- }
-
-@@ -133,7 +133,7 @@ __active_retire(struct i915_active *ref)
- 	GEM_BUG_ON(i915_active_is_idle(ref));
-
- 	/* return the unused nodes to our slabcache -- flushing the allocator */
--	if (!atomic_dec_and_lock_irqsave(&ref->count, &ref->tree_lock, flags))
-+	if (!refcount_dec_and_lock_irqsave(&ref->count, &ref->tree_lock, &flags))
- 		return;
-
- 	GEM_BUG_ON(rcu_access_pointer(ref->excl.fence));
-@@ -179,8 +179,8 @@ active_work(struct work_struct *wrk)
- {
- 	struct i915_active *ref = container_of(wrk, typeof(*ref), work);
-
--	GEM_BUG_ON(!atomic_read(&ref->count));
--	if (atomic_add_unless(&ref->count, -1, 1))
-+	GEM_BUG_ON(!refcount_read(&ref->count));
-+	if (refcount_dec_not_one(&ref->count))
- 		return;
-
- 	__active_retire(ref);
-@@ -189,8 +189,8 @@ active_work(struct work_struct *wrk)
- static void
- active_retire(struct i915_active *ref)
- {
--	GEM_BUG_ON(!atomic_read(&ref->count));
--	if (atomic_add_unless(&ref->count, -1, 1))
-+	GEM_BUG_ON(!refcount_read(&ref->count));
-+	if (refcount_dec_not_one(&ref->count))
- 		return;
-
- 	if (ref->flags & I915_ACTIVE_RETIRE_SLEEPS) {
-@@ -354,7 +354,7 @@ void __i915_active_init(struct i915_active *ref,
- 	ref->cache = NULL;
-
- 	init_llist_head(&ref->preallocated_barriers);
--	atomic_set(&ref->count, 0);
-+	refcount_set(&ref->count, 0);
- 	__mutex_init(&ref->mutex, "i915_active", mkey);
- 	__i915_active_fence_init(&ref->excl, NULL, excl_retire);
- 	INIT_WORK(&ref->work, active_work);
-@@ -445,7 +445,7 @@ int i915_active_add_request(struct i915_active *ref, struct i915_request *rq)
-
- 	if (replace_barrier(ref, active)) {
- 		RCU_INIT_POINTER(active->fence, NULL);
--		atomic_dec(&ref->count);
-+		refcount_dec(&ref->count);
- 	}
- 	if (!__i915_active_fence_set(active, fence))
- 		__i915_active_acquire(ref);
-@@ -488,14 +488,16 @@ i915_active_set_exclusive(struct i915_active *ref, struct dma_fence *f)
- bool i915_active_acquire_if_busy(struct i915_active *ref)
- {
- 	debug_active_assert(ref);
--	return atomic_add_unless(&ref->count, 1, 0);
-+	return refcount_add_not_zero(1, &ref->count);
- }
-
- static void __i915_active_activate(struct i915_active *ref)
- {
- 	spin_lock_irq(&ref->tree_lock); /* __active_retire() */
--	if (!atomic_fetch_inc(&ref->count))
-+	if (!refcount_inc_not_zero(&ref->count)) {
-+		refcount_inc(&ref->count);
- 		debug_active_activate(ref);
-+	}
- 	spin_unlock_irq(&ref->tree_lock);
- }
-
-@@ -757,7 +759,7 @@ int i915_sw_fence_await_active(struct i915_sw_fence *fence,
- void i915_active_fini(struct i915_active *ref)
- {
- 	debug_active_fini(ref);
--	GEM_BUG_ON(atomic_read(&ref->count));
-+	GEM_BUG_ON(refcount_read(&ref->count));
- 	GEM_BUG_ON(work_pending(&ref->work));
- 	mutex_destroy(&ref->mutex);
-
-@@ -927,7 +929,7 @@ int i915_active_acquire_preallocate_barrier(struct i915_active *ref,
-
- 		first = first->next;
-
--		atomic_dec(&ref->count);
-+		refcount_dec(&ref->count);
- 		intel_engine_pm_put(barrier_to_engine(node));
-
- 		kmem_cache_free(slab_cache, node);
-diff --git a/drivers/gpu/drm/i915/i915_active.h b/drivers/gpu/drm/i915/i915_active.h
-index 7eb44132183a..116c7c28466a 100644
---- a/drivers/gpu/drm/i915/i915_active.h
-+++ b/drivers/gpu/drm/i915/i915_active.h
-@@ -193,14 +193,14 @@ void i915_active_release(struct i915_active *ref);
-
- static inline void __i915_active_acquire(struct i915_active *ref)
- {
--	GEM_BUG_ON(!atomic_read(&ref->count));
--	atomic_inc(&ref->count);
-+	GEM_BUG_ON(!refcount_read(&ref->count));
-+	refcount_inc(&ref->count);
- }
-
- static inline bool
- i915_active_is_idle(const struct i915_active *ref)
- {
--	return !atomic_read(&ref->count);
-+	return !refcount_read(&ref->count);
- }
-
- void i915_active_fini(struct i915_active *ref);
-diff --git a/drivers/gpu/drm/i915/i915_active_types.h b/drivers/gpu/drm/i915/i915_active_types.h
-index b02a78ac87db..152a3a25d9f7 100644
---- a/drivers/gpu/drm/i915/i915_active_types.h
-+++ b/drivers/gpu/drm/i915/i915_active_types.h
-@@ -7,7 +7,7 @@
- #ifndef _I915_ACTIVE_TYPES_H_
- #define _I915_ACTIVE_TYPES_H_
-
--#include <linux/atomic.h>
-+#include <linux/refcount.h>
- #include <linux/dma-fence.h>
- #include <linux/llist.h>
- #include <linux/mutex.h>
-@@ -23,7 +23,7 @@ struct i915_active_fence {
- struct active_node;
-
- struct i915_active {
--	atomic_t count;
-+	refcount_t count;
- 	struct mutex mutex;
-
- 	spinlock_t tree_lock;
---
-2.34.1
+BR,
+Jani.
 
 
+>
+> Regards,
+>
+> Tvrtko
+>
+>> +
+>>   	ENGINE_WRITE_FW(engine, RING_TAIL, ring->head);
+>> -	ENGINE_POSTING_READ(engine, RING_TAIL);
+>> +	if (ENGINE_READ_FW(engine, RING_HEAD) != ENGINE_READ_FW(engine, RING_TAIL)) {
+>> +		ENGINE_TRACE(engine, "failed to reset empty ring: [%x, %x]: %x\n",
+>> +			     ENGINE_READ_FW(engine, RING_HEAD),
+>> +			     ENGINE_READ_FW(engine, RING_TAIL),
+>> +			     ring->head);
+>> +		goto err;
+>> +	}
+>>   
+>>   	ENGINE_WRITE_FW(engine, RING_CTL,
+>>   			RING_CTL_SIZE(ring->size) | RING_VALID);
+>> @@ -241,12 +253,16 @@ static int xcs_resume(struct intel_engine_cs *engine)
+>>   	if (__intel_wait_for_register_fw(engine->uncore,
+>>   					 RING_CTL(engine->mmio_base),
+>>   					 RING_VALID, RING_VALID,
+>> -					 5000, 0, NULL))
+>> +					 5000, 0, NULL)) {
+>> +		ENGINE_TRACE(engine, "failed to restart\n");
+>>   		goto err;
+>> +	}
+>>   
+>> -	if (GRAPHICS_VER(engine->i915) > 2)
+>> +	if (GRAPHICS_VER(engine->i915) > 2) {
+>>   		ENGINE_WRITE_FW(engine,
+>>   				RING_MI_MODE, _MASKED_BIT_DISABLE(STOP_RING));
+>> +		ENGINE_POSTING_READ(engine, RING_MI_MODE);
+>> +	}
+>>   
+>>   	/* Now awake, let it get started */
+>>   	if (ring->tail != ring->head) {
+>> @@ -259,16 +275,16 @@ static int xcs_resume(struct intel_engine_cs *engine)
+>>   	return 0;
+>>   
+>>   err:
+>> -	drm_err(&engine->i915->drm,
+>> -		"%s initialization failed; "
+>> -		"ctl %08x (valid? %d) head %08x [%08x] tail %08x [%08x] start %08x [expected %08x]\n",
+>> -		engine->name,
+>> -		ENGINE_READ(engine, RING_CTL),
+>> -		ENGINE_READ(engine, RING_CTL) & RING_VALID,
+>> -		ENGINE_READ(engine, RING_HEAD), ring->head,
+>> -		ENGINE_READ(engine, RING_TAIL), ring->tail,
+>> -		ENGINE_READ(engine, RING_START),
+>> -		i915_ggtt_offset(ring->vma));
+>> +	ENGINE_TRACE(engine,
+>> +		     "initialization failed; "
+>> +		     "ctl %08x (valid? %d) head %08x [%08x] tail %08x [%08x] start %08x [expected %08x]\n",
+>> +		     ENGINE_READ(engine, RING_CTL),
+>> +		     ENGINE_READ(engine, RING_CTL) & RING_VALID,
+>> +		     ENGINE_READ(engine, RING_HEAD), ring->head,
+>> +		     ENGINE_READ(engine, RING_TAIL), ring->tail,
+>> +		     ENGINE_READ(engine, RING_START),
+>> +		     i915_ggtt_offset(ring->vma));
+>> +	GEM_TRACE_DUMP();
+>>   	return -EIO;
+>>   }
+>>   
+>> diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
+>> index b64192d9c7daa..f24a25c0685e1 100644
+>> --- a/drivers/gpu/drm/i915/i915_utils.h
+>> +++ b/drivers/gpu/drm/i915/i915_utils.h
+>> @@ -254,6 +254,14 @@ wait_remaining_ms_from_jiffies(unsigned long timestamp_jiffies, int to_wait_ms)
+>>   	}
+>>   }
+>>   
+>> +/**
+>> + * until_timeout_ns - Keep retrying (busy spin) until the duration has passed
+>> + */
+>> +#define until_timeout_ns(end, timeout_ns) \
+>> +	for ((end) = ktime_get() + (timeout_ns); \
+>> +	     ktime_before(ktime_get(), (end)); \
+>> +	     cpu_relax())
+>> + >   /**
+>>    * __wait_for - magic wait macro
+>>    *
 
+-- 
+Jani Nikula, Intel Open Source Graphics Center
