@@ -4,31 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FECAC4167B
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Dec 2022 12:07:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32015C4167B
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Dec 2022 14:26:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D029910E3A4;
-	Wed, 28 Dec 2022 12:07:54 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 87CE310E3A6;
- Wed, 28 Dec 2022 12:07:51 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 7889FAADD6;
- Wed, 28 Dec 2022 12:07:51 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============5586006133076235471=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E87F10E1B0;
+	Wed, 28 Dec 2022 14:26:37 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8D2C10E1B0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Dec 2022 14:26:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1672237595; x=1703773595;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=mKTEDQ6CSfsKdsL2YjPbNwLuGErivIkgldBQHvCIlI4=;
+ b=Z3OtWf+4FTAoziluAjOms9o3LTJyaq8bkC7fRdQsqs8HqsADfnsposs6
+ BtmUJhEBV2Lx/gybsPPtIyMiCMWYPZEot6bwk9nx0EKoq1lBzCuCC3PQR
+ n7kjGYS2DBWR5o96Gp+AbkDxOmIHOPLqWLyO6hPTyWS5DValkkjgx7/z/
+ AwK4BYFlkvLLorlo5WW9HXoLipzLrArtyxvS5L8LYsiRw54mcND+h29Gg
+ x5AOTCbobKPaC+dGEUL42vtiTfB7U1nErV4XL4JVKHgOytKIBaGmlzetD
+ AT5ibRhggdOqkH/jSobY1+YSTmt6jOGpN4jI+AwnCWG0GWUs9SgLnbaD0 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10574"; a="322113443"
+X-IronPort-AV: E=Sophos;i="5.96,280,1665471600"; d="scan'208";a="322113443"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Dec 2022 06:26:28 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10574"; a="982101452"
+X-IronPort-AV: E=Sophos;i="5.96,280,1665471600"; d="scan'208";a="982101452"
+Received: from rsznejde-mobl.ger.corp.intel.com (HELO
+ paris.ger.corp.intel.com) ([10.249.140.251])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Dec 2022 06:26:23 -0800
+From: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 28 Dec 2022 16:25:28 +0200
+Message-Id: <20221228142533.880703-2-gwan-gyeong.mun@intel.com>
+X-Mailer: git-send-email 2.37.1
+In-Reply-To: <20221228142533.880703-1-gwan-gyeong.mun@intel.com>
+References: <20221228142533.880703-1-gwan-gyeong.mun@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Rodrigo Vivi" <rodrigo.vivi@intel.com>
-Date: Wed, 28 Dec 2022 12:07:51 -0000
-Message-ID: <167222927145.24091.16813774455321032907@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20221228104712.995922-1-rodrigo.vivi@intel.com>
-In-Reply-To: <20221228104712.995922-1-rodrigo.vivi@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgXSBS?=
- =?utf-8?q?evert_=22perf/core=3A_Avoid_removing_shared_pmu=5Fcontext_on_un?=
- =?utf-8?q?register=22?=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v15 1/6] drm/i915/gem: Typecheck page lookups
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,405 +58,741 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: thomas.hellstrom@linux.intel.com, andrzej.hajda@intel.com,
+ jani.nikula@intel.com, chris@chris-wilson.co.uk, matthew.auld@intel.com,
+ mchehab@kernel.org, nirmoy.das@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============5586006133076235471==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+From: Chris Wilson <chris@chris-wilson.co.uk>
 
-== Series Details ==
+We need to check that we avoid integer overflows when looking up a page,
+and so fix all the instances where we have mistakenly used a plain
+integer instead of a more suitable long. Be pedantic and add integer
+typechecking to the lookup so that we can be sure that we are safe.
+And it also uses pgoff_t as our page lookups must remain compatible with
+the page cache, pgoff_t is currently exactly unsigned long.
 
-Series: ] Revert "perf/core: Avoid removing shared pmu_context on unregister"
-URL   : https://patchwork.freedesktop.org/series/112265/
-State : failure
+v2: Move added i915_utils's macro into drm_util header (Jani N)
+v3: Make not use the same macro name on a function. (Mauro)
+    For kernel-doc, macros and functions are handled in the same namespace,
+    the same macro name on a function prevents ever adding documentation
+    for it.
+v4: Add kernel-doc markups to the kAPI functions and macros (Mauoro)
+v5: Fix an alignment to match open parenthesis
+v6: Rebase
+v10: Use assert_typable instead of exactly_pgoff_t() macro. (Kees)
+v11: Change the use of assert_typable to assert_same_typable (G.G)
+v12: Change to use static_assert(__castable_to_type(n ,T)) style since
+     the assert_same_typable() macro has been dropped. (G.G)
+v13: Change the use of __castable_to_type() to castable_to_type()
+     Remove an unnecessary header include line. (G.G)
 
-== Summary ==
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Kees Cook <keescook@chromium.org>
+Co-developed-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+Signed-off-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Reviewed-by: Nirmoy Das <nirmoy.das@intel.com> (v2)
+Reviewed-by: Mauro Carvalho Chehab <mchehab@kernel.org> (v3)
+Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com> (v5)
+---
+ drivers/gpu/drm/i915/gem/i915_gem_object.c    |   7 +-
+ drivers/gpu/drm/i915/gem/i915_gem_object.h    | 293 ++++++++++++++++--
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c     |  27 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c       |   2 +-
+ .../drm/i915/gem/selftests/i915_gem_context.c |  12 +-
+ .../drm/i915/gem/selftests/i915_gem_mman.c    |   8 +-
+ .../drm/i915/gem/selftests/i915_gem_object.c  |   8 +-
+ drivers/gpu/drm/i915/i915_gem.c               |  18 +-
+ drivers/gpu/drm/i915/i915_vma.c               |   8 +-
+ 9 files changed, 322 insertions(+), 61 deletions(-)
 
-CI Bug Log - changes from CI_DRM_12528 -> Patchwork_112265v1
-====================================================
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index 1a0886b8aaa1..e6d4efde4fc5 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -427,10 +427,11 @@ void __i915_gem_object_invalidate_frontbuffer(struct drm_i915_gem_object *obj,
+ static void
+ i915_gem_object_read_from_page_kmap(struct drm_i915_gem_object *obj, u64 offset, void *dst, int size)
+ {
++	pgoff_t idx = offset >> PAGE_SHIFT;
+ 	void *src_map;
+ 	void *src_ptr;
+ 
+-	src_map = kmap_atomic(i915_gem_object_get_page(obj, offset >> PAGE_SHIFT));
++	src_map = kmap_atomic(i915_gem_object_get_page(obj, idx));
+ 
+ 	src_ptr = src_map + offset_in_page(offset);
+ 	if (!(obj->cache_coherent & I915_BO_CACHE_COHERENT_FOR_READ))
+@@ -443,9 +444,10 @@ i915_gem_object_read_from_page_kmap(struct drm_i915_gem_object *obj, u64 offset,
+ static void
+ i915_gem_object_read_from_page_iomap(struct drm_i915_gem_object *obj, u64 offset, void *dst, int size)
+ {
++	pgoff_t idx = offset >> PAGE_SHIFT;
++	dma_addr_t dma = i915_gem_object_get_dma_address(obj, idx);
+ 	void __iomem *src_map;
+ 	void __iomem *src_ptr;
+-	dma_addr_t dma = i915_gem_object_get_dma_address(obj, offset >> PAGE_SHIFT);
+ 
+ 	src_map = io_mapping_map_wc(&obj->mm.region->iomap,
+ 				    dma - obj->mm.region->region.start,
+@@ -484,6 +486,7 @@ static bool object_has_mappable_iomem(struct drm_i915_gem_object *obj)
+  */
+ int i915_gem_object_read_from_page(struct drm_i915_gem_object *obj, u64 offset, void *dst, int size)
+ {
++	GEM_BUG_ON(overflows_type(offset >> PAGE_SHIFT, pgoff_t));
+ 	GEM_BUG_ON(offset >= obj->base.size);
+ 	GEM_BUG_ON(offset_in_page(offset) > PAGE_SIZE - size);
+ 	GEM_BUG_ON(!i915_gem_object_has_pinned_pages(obj));
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.h b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+index 3db53769864c..5a37545cc84c 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.h
+@@ -27,8 +27,10 @@ enum intel_region_id;
+  * spot such a local variable, please consider fixing!
+  *
+  * Aside from our own locals (for which we have no excuse!):
+- * - sg_table embeds unsigned int for num_pages
+- * - get_user_pages*() mixed ints with longs
++ * - sg_table embeds unsigned int for nents
++ *
++ * We can check for invalidly typed locals with typecheck(), see for example
++ * i915_gem_object_get_sg().
+  */
+ #define GEM_CHECK_SIZE_OVERFLOW(sz) \
+ 	GEM_WARN_ON((sz) >> PAGE_SHIFT > INT_MAX)
+@@ -363,44 +365,289 @@ i915_gem_object_get_tile_row_size(const struct drm_i915_gem_object *obj)
+ int i915_gem_object_set_tiling(struct drm_i915_gem_object *obj,
+ 			       unsigned int tiling, unsigned int stride);
+ 
++/**
++ * __i915_gem_object_page_iter_get_sg - helper to find the target scatterlist
++ * pointer and the target page position using pgoff_t n input argument and
++ * i915_gem_object_page_iter
++ * @obj: i915 GEM buffer object
++ * @iter: i915 GEM buffer object page iterator
++ * @n: page offset
++ * @offset: searched physical offset,
++ *          it will be used for returning physical page offset value
++ *
++ * Context: Takes and releases the mutex lock of the i915_gem_object_page_iter.
++ *          Takes and releases the RCU lock to search the radix_tree of
++ *          i915_gem_object_page_iter.
++ *
++ * Returns:
++ * The target scatterlist pointer and the target page position.
++ *
++ * Recommended to use wrapper macro: i915_gem_object_page_iter_get_sg()
++ */
+ struct scatterlist *
+-__i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+-			 struct i915_gem_object_page_iter *iter,
+-			 unsigned int n,
+-			 unsigned int *offset, bool dma);
++__i915_gem_object_page_iter_get_sg(struct drm_i915_gem_object *obj,
++				   struct i915_gem_object_page_iter *iter,
++				   pgoff_t  n,
++				   unsigned int *offset);
+ 
++/**
++ * i915_gem_object_page_iter_get_sg - wrapper macro for
++ * __i915_gem_object_page_iter_get_sg()
++ * @obj: i915 GEM buffer object
++ * @it: i915 GEM buffer object page iterator
++ * @n: page offset
++ * @offset: searched physical offset,
++ *          it will be used for returning physical page offset value
++ *
++ * Context: Takes and releases the mutex lock of the i915_gem_object_page_iter.
++ *          Takes and releases the RCU lock to search the radix_tree of
++ *          i915_gem_object_page_iter.
++ *
++ * Returns:
++ * The target scatterlist pointer and the target page position.
++ *
++ * In order to avoid the truncation of the input parameter, it checks the page
++ * offset n's type from the input parameter before calling
++ * __i915_gem_object_page_iter_get_sg().
++ */
++#define i915_gem_object_page_iter_get_sg(obj, it, n, offset) ({	\
++	static_assert(castable_to_type(n , pgoff_t));		\
++	__i915_gem_object_page_iter_get_sg(obj, it, n, offset);	\
++})
++
++/**
++ * __i915_gem_object_get_sg - helper to find the target scatterlist
++ * pointer and the target page position using pgoff_t n input argument and
++ * drm_i915_gem_object. It uses an internal shmem scatterlist lookup function.
++ * @obj: i915 GEM buffer object
++ * @n: page offset
++ * @offset: searched physical offset,
++ *          it will be used for returning physical page offset value
++ *
++ * It uses drm_i915_gem_object's internal shmem scatterlist lookup function as
++ * i915_gem_object_page_iter and calls __i915_gem_object_page_iter_get_sg().
++ *
++ * Returns:
++ * The target scatterlist pointer and the target page position.
++ *
++ * Recommended to use wrapper macro: i915_gem_object_get_sg()
++ * See also __i915_gem_object_page_iter_get_sg()
++ */
+ static inline struct scatterlist *
+-i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+-		       unsigned int n,
+-		       unsigned int *offset)
++__i915_gem_object_get_sg(struct drm_i915_gem_object *obj, pgoff_t n,
++			 unsigned int *offset)
+ {
+-	return __i915_gem_object_get_sg(obj, &obj->mm.get_page, n, offset, false);
++	return __i915_gem_object_page_iter_get_sg(obj, &obj->mm.get_page, n, offset);
+ }
+ 
++/**
++ * i915_gem_object_get_sg - wrapper macro for __i915_gem_object_get_sg()
++ * @obj: i915 GEM buffer object
++ * @n: page offset
++ * @offset: searched physical offset,
++ *          it will be used for returning physical page offset value
++ *
++ * Returns:
++ * The target scatterlist pointer and the target page position.
++ *
++ * In order to avoid the truncation of the input parameter, it checks the page
++ * offset n's type from the input parameter before calling
++ * __i915_gem_object_get_sg().
++ * See also __i915_gem_object_page_iter_get_sg()
++ */
++#define i915_gem_object_get_sg(obj, n, offset) ({	\
++	static_assert(castable_to_type(n , pgoff_t));	\
++	__i915_gem_object_get_sg(obj, n, offset);	\
++})
++
++/**
++ * __i915_gem_object_get_sg_dma - helper to find the target scatterlist
++ * pointer and the target page position using pgoff_t n input argument and
++ * drm_i915_gem_object. It uses an internal DMA mapped scatterlist lookup function
++ * @obj: i915 GEM buffer object
++ * @n: page offset
++ * @offset: searched physical offset,
++ *          it will be used for returning physical page offset value
++ *
++ * It uses drm_i915_gem_object's internal DMA mapped scatterlist lookup function
++ * as i915_gem_object_page_iter and calls __i915_gem_object_page_iter_get_sg().
++ *
++ * Returns:
++ * The target scatterlist pointer and the target page position.
++ *
++ * Recommended to use wrapper macro: i915_gem_object_get_sg_dma()
++ * See also __i915_gem_object_page_iter_get_sg()
++ */
+ static inline struct scatterlist *
+-i915_gem_object_get_sg_dma(struct drm_i915_gem_object *obj,
+-			   unsigned int n,
+-			   unsigned int *offset)
++__i915_gem_object_get_sg_dma(struct drm_i915_gem_object *obj, pgoff_t n,
++			     unsigned int *offset)
+ {
+-	return __i915_gem_object_get_sg(obj, &obj->mm.get_dma_page, n, offset, true);
++	return __i915_gem_object_page_iter_get_sg(obj, &obj->mm.get_dma_page, n, offset);
+ }
+ 
++/**
++ * i915_gem_object_get_sg_dma - wrapper macro for __i915_gem_object_get_sg_dma()
++ * @obj: i915 GEM buffer object
++ * @n: page offset
++ * @offset: searched physical offset,
++ *          it will be used for returning physical page offset value
++ *
++ * Returns:
++ * The target scatterlist pointer and the target page position.
++ *
++ * In order to avoid the truncation of the input parameter, it checks the page
++ * offset n's type from the input parameter before calling
++ * __i915_gem_object_get_sg_dma().
++ * See also __i915_gem_object_page_iter_get_sg()
++ */
++#define i915_gem_object_get_sg_dma(obj, n, offset) ({	\
++	static_assert(castable_to_type(n , pgoff_t));	\
++	__i915_gem_object_get_sg_dma(obj, n, offset);	\
++})
++
++/**
++ * __i915_gem_object_get_page - helper to find the target page with a page offset
++ * @obj: i915 GEM buffer object
++ * @n: page offset
++ *
++ * It uses drm_i915_gem_object's internal shmem scatterlist lookup function as
++ * i915_gem_object_page_iter and calls __i915_gem_object_page_iter_get_sg()
++ * internally.
++ *
++ * Returns:
++ * The target page pointer.
++ *
++ * Recommended to use wrapper macro: i915_gem_object_get_page()
++ * See also __i915_gem_object_page_iter_get_sg()
++ */
+ struct page *
+-i915_gem_object_get_page(struct drm_i915_gem_object *obj,
+-			 unsigned int n);
++__i915_gem_object_get_page(struct drm_i915_gem_object *obj, pgoff_t n);
+ 
++/**
++ * i915_gem_object_get_page - wrapper macro for __i915_gem_object_get_page
++ * @obj: i915 GEM buffer object
++ * @n: page offset
++ *
++ * Returns:
++ * The target page pointer.
++ *
++ * In order to avoid the truncation of the input parameter, it checks the page
++ * offset n's type from the input parameter before calling
++ * __i915_gem_object_get_page().
++ * See also __i915_gem_object_page_iter_get_sg()
++ */
++#define i915_gem_object_get_page(obj, n) ({		\
++	static_assert(castable_to_type(n , pgoff_t));	\
++	__i915_gem_object_get_page(obj, n);		\
++})
++
++/**
++ * __i915_gem_object_get_dirty_page - helper to find the target page with a page
++ * offset
++ * @obj: i915 GEM buffer object
++ * @n: page offset
++ *
++ * It works like i915_gem_object_get_page(), but it marks the returned page dirty.
++ *
++ * Returns:
++ * The target page pointer.
++ *
++ * Recommended to use wrapper macro: i915_gem_object_get_dirty_page()
++ * See also __i915_gem_object_page_iter_get_sg() and __i915_gem_object_get_page()
++ */
+ struct page *
+-i915_gem_object_get_dirty_page(struct drm_i915_gem_object *obj,
+-			       unsigned int n);
++__i915_gem_object_get_dirty_page(struct drm_i915_gem_object *obj, pgoff_t n);
++
++/**
++ * i915_gem_object_get_dirty_page - wrapper macro for __i915_gem_object_get_dirty_page
++ * @obj: i915 GEM buffer object
++ * @n: page offset
++ *
++ * Returns:
++ * The target page pointer.
++ *
++ * In order to avoid the truncation of the input parameter, it checks the page
++ * offset n's type from the input parameter before calling
++ * __i915_gem_object_get_dirty_page().
++ * See also __i915_gem_object_page_iter_get_sg() and __i915_gem_object_get_page()
++ */
++#define i915_gem_object_get_dirty_page(obj, n) ({	\
++	static_assert(castable_to_type(n , pgoff_t));	\
++	__i915_gem_object_get_dirty_page(obj, n);	\
++})
+ 
++/**
++ * __i915_gem_object_get_dma_address_len - helper to get bus addresses of
++ * targeted DMA mapped scatterlist from i915 GEM buffer object and it's length
++ * @obj: i915 GEM buffer object
++ * @n: page offset
++ * @len: DMA mapped scatterlist's DMA bus addresses length to return
++ *
++ * Returns:
++ * Bus addresses of targeted DMA mapped scatterlist
++ *
++ * Recommended to use wrapper macro: i915_gem_object_get_dma_address_len()
++ * See also __i915_gem_object_page_iter_get_sg() and __i915_gem_object_get_sg_dma()
++ */
+ dma_addr_t
+-i915_gem_object_get_dma_address_len(struct drm_i915_gem_object *obj,
+-				    unsigned long n,
+-				    unsigned int *len);
++__i915_gem_object_get_dma_address_len(struct drm_i915_gem_object *obj, pgoff_t n,
++				      unsigned int *len);
+ 
++/**
++ * i915_gem_object_get_dma_address_len - wrapper macro for
++ * __i915_gem_object_get_dma_address_len
++ * @obj: i915 GEM buffer object
++ * @n: page offset
++ * @len: DMA mapped scatterlist's DMA bus addresses length to return
++ *
++ * Returns:
++ * Bus addresses of targeted DMA mapped scatterlist
++ *
++ * In order to avoid the truncation of the input parameter, it checks the page
++ * offset n's type from the input parameter before calling
++ * __i915_gem_object_get_dma_address_len().
++ * See also __i915_gem_object_page_iter_get_sg() and
++ * __i915_gem_object_get_dma_address_len()
++ */
++#define i915_gem_object_get_dma_address_len(obj, n, len) ({	\
++	static_assert(castable_to_type(n , pgoff_t));		\
++	__i915_gem_object_get_dma_address_len(obj, n, len);	\
++})
++
++/**
++ * __i915_gem_object_get_dma_address - helper to get bus addresses of
++ * targeted DMA mapped scatterlist from i915 GEM buffer object
++ * @obj: i915 GEM buffer object
++ * @n: page offset
++ *
++ * Returns:
++ * Bus addresses of targeted DMA mapped scatterlis
++ *
++ * Recommended to use wrapper macro: i915_gem_object_get_dma_address()
++ * See also __i915_gem_object_page_iter_get_sg() and __i915_gem_object_get_sg_dma()
++ */
+ dma_addr_t
+-i915_gem_object_get_dma_address(struct drm_i915_gem_object *obj,
+-				unsigned long n);
++__i915_gem_object_get_dma_address(struct drm_i915_gem_object *obj, pgoff_t n);
++
++/**
++ * i915_gem_object_get_dma_address - wrapper macro for
++ * __i915_gem_object_get_dma_address
++ * @obj: i915 GEM buffer object
++ * @n: page offset
++ *
++ * Returns:
++ * Bus addresses of targeted DMA mapped scatterlist
++ *
++ * In order to avoid the truncation of the input parameter, it checks the page
++ * offset n's type from the input parameter before calling
++ * __i915_gem_object_get_dma_address().
++ * See also __i915_gem_object_page_iter_get_sg() and
++ * __i915_gem_object_get_dma_address()
++ */
++#define i915_gem_object_get_dma_address(obj, n) ({	\
++	static_assert(castable_to_type(n , pgoff_t));	\
++	__i915_gem_object_get_dma_address(obj, n);	\
++})
+ 
+ void __i915_gem_object_set_pages(struct drm_i915_gem_object *obj,
+ 				 struct sg_table *pages);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+index 05a27723ebb8..ecd86130b74f 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+@@ -521,14 +521,16 @@ void __i915_gem_object_release_map(struct drm_i915_gem_object *obj)
+ }
+ 
+ struct scatterlist *
+-__i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+-			 struct i915_gem_object_page_iter *iter,
+-			 unsigned int n,
+-			 unsigned int *offset,
+-			 bool dma)
++__i915_gem_object_page_iter_get_sg(struct drm_i915_gem_object *obj,
++				   struct i915_gem_object_page_iter *iter,
++				   pgoff_t n,
++				   unsigned int *offset)
++
+ {
+-	struct scatterlist *sg;
++	const bool dma = iter == &obj->mm.get_dma_page ||
++			 iter == &obj->ttm.get_io_page;
+ 	unsigned int idx, count;
++	struct scatterlist *sg;
+ 
+ 	might_sleep();
+ 	GEM_BUG_ON(n >= obj->base.size >> PAGE_SHIFT);
+@@ -636,7 +638,7 @@ __i915_gem_object_get_sg(struct drm_i915_gem_object *obj,
+ }
+ 
+ struct page *
+-i915_gem_object_get_page(struct drm_i915_gem_object *obj, unsigned int n)
++__i915_gem_object_get_page(struct drm_i915_gem_object *obj, pgoff_t n)
+ {
+ 	struct scatterlist *sg;
+ 	unsigned int offset;
+@@ -649,8 +651,7 @@ i915_gem_object_get_page(struct drm_i915_gem_object *obj, unsigned int n)
+ 
+ /* Like i915_gem_object_get_page(), but mark the returned page dirty */
+ struct page *
+-i915_gem_object_get_dirty_page(struct drm_i915_gem_object *obj,
+-			       unsigned int n)
++__i915_gem_object_get_dirty_page(struct drm_i915_gem_object *obj, pgoff_t n)
+ {
+ 	struct page *page;
+ 
+@@ -662,9 +663,8 @@ i915_gem_object_get_dirty_page(struct drm_i915_gem_object *obj,
+ }
+ 
+ dma_addr_t
+-i915_gem_object_get_dma_address_len(struct drm_i915_gem_object *obj,
+-				    unsigned long n,
+-				    unsigned int *len)
++__i915_gem_object_get_dma_address_len(struct drm_i915_gem_object *obj,
++				      pgoff_t n, unsigned int *len)
+ {
+ 	struct scatterlist *sg;
+ 	unsigned int offset;
+@@ -678,8 +678,7 @@ i915_gem_object_get_dma_address_len(struct drm_i915_gem_object *obj,
+ }
+ 
+ dma_addr_t
+-i915_gem_object_get_dma_address(struct drm_i915_gem_object *obj,
+-				unsigned long n)
++__i915_gem_object_get_dma_address(struct drm_i915_gem_object *obj, pgoff_t n)
+ {
+ 	return i915_gem_object_get_dma_address_len(obj, n, NULL);
+ }
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+index d409a77449a3..2b5fc98ae922 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+@@ -692,7 +692,7 @@ static unsigned long i915_ttm_io_mem_pfn(struct ttm_buffer_object *bo,
+ 	GEM_WARN_ON(bo->ttm);
+ 
+ 	base = obj->mm.region->iomap.base - obj->mm.region->region.start;
+-	sg = __i915_gem_object_get_sg(obj, &obj->ttm.get_io_page, page_offset, &ofs, true);
++	sg = i915_gem_object_page_iter_get_sg(obj, &obj->ttm.get_io_page, page_offset, &ofs);
+ 
+ 	return ((base + sg_dma_address(sg)) >> PAGE_SHIFT) + ofs;
+ }
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+index ac02fb036592..414ee2cb70fc 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+@@ -469,7 +469,8 @@ static int gpu_fill(struct intel_context *ce,
+ static int cpu_fill(struct drm_i915_gem_object *obj, u32 value)
+ {
+ 	const bool has_llc = HAS_LLC(to_i915(obj->base.dev));
+-	unsigned int n, m, need_flush;
++	unsigned int need_flush;
++	unsigned long n, m;
+ 	int err;
+ 
+ 	i915_gem_object_lock(obj, NULL);
+@@ -499,7 +500,8 @@ static int cpu_fill(struct drm_i915_gem_object *obj, u32 value)
+ static noinline int cpu_check(struct drm_i915_gem_object *obj,
+ 			      unsigned int idx, unsigned int max)
+ {
+-	unsigned int n, m, needs_flush;
++	unsigned int needs_flush;
++	unsigned long n;
+ 	int err;
+ 
+ 	i915_gem_object_lock(obj, NULL);
+@@ -508,7 +510,7 @@ static noinline int cpu_check(struct drm_i915_gem_object *obj,
+ 		goto out_unlock;
+ 
+ 	for (n = 0; n < real_page_count(obj); n++) {
+-		u32 *map;
++		u32 *map, m;
+ 
+ 		map = kmap_atomic(i915_gem_object_get_page(obj, n));
+ 		if (needs_flush & CLFLUSH_BEFORE)
+@@ -516,7 +518,7 @@ static noinline int cpu_check(struct drm_i915_gem_object *obj,
+ 
+ 		for (m = 0; m < max; m++) {
+ 			if (map[m] != m) {
+-				pr_err("%pS: Invalid value at object %d page %d/%ld, offset %d/%d: found %x expected %x\n",
++				pr_err("%pS: Invalid value at object %d page %ld/%ld, offset %d/%d: found %x expected %x\n",
+ 				       __builtin_return_address(0), idx,
+ 				       n, real_page_count(obj), m, max,
+ 				       map[m], m);
+@@ -527,7 +529,7 @@ static noinline int cpu_check(struct drm_i915_gem_object *obj,
+ 
+ 		for (; m < DW_PER_PAGE; m++) {
+ 			if (map[m] != STACK_MAGIC) {
+-				pr_err("%pS: Invalid value at object %d page %d, offset %d: found %x expected %x (uninitialised)\n",
++				pr_err("%pS: Invalid value at object %d page %ld, offset %d: found %x expected %x (uninitialised)\n",
+ 				       __builtin_return_address(0), idx, n, m,
+ 				       map[m], STACK_MAGIC);
+ 				err = -EINVAL;
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+index 7f6353827735..56279908ed30 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+@@ -97,11 +97,11 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
+ 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+ 	struct i915_gtt_view view;
+ 	struct i915_vma *vma;
++	unsigned long offset;
+ 	unsigned long page;
+ 	u32 __iomem *io;
+ 	struct page *p;
+ 	unsigned int n;
+-	u64 offset;
+ 	u32 *cpu;
+ 	int err;
+ 
+@@ -158,7 +158,7 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
+ 	cpu = kmap(p) + offset_in_page(offset);
+ 	drm_clflush_virt_range(cpu, sizeof(*cpu));
+ 	if (*cpu != (u32)page) {
+-		pr_err("Partial view for %lu [%u] (offset=%llu, size=%u [%llu, row size %u], fence=%d, tiling=%d, stride=%d) misalignment, expected write to page (%llu + %u [0x%llx]) of 0x%x, found 0x%x\n",
++		pr_err("Partial view for %lu [%u] (offset=%llu, size=%u [%llu, row size %u], fence=%d, tiling=%d, stride=%d) misalignment, expected write to page (%lu + %u [0x%lx]) of 0x%x, found 0x%x\n",
+ 		       page, n,
+ 		       view.partial.offset,
+ 		       view.partial.size,
+@@ -214,10 +214,10 @@ static int check_partial_mappings(struct drm_i915_gem_object *obj,
+ 	for_each_prime_number_from(page, 1, npages) {
+ 		struct i915_gtt_view view =
+ 			compute_partial_view(obj, page, MIN_CHUNK_PAGES);
++		unsigned long offset;
+ 		u32 __iomem *io;
+ 		struct page *p;
+ 		unsigned int n;
+-		u64 offset;
+ 		u32 *cpu;
+ 
+ 		GEM_BUG_ON(view.partial.size > nreal);
+@@ -254,7 +254,7 @@ static int check_partial_mappings(struct drm_i915_gem_object *obj,
+ 		cpu = kmap(p) + offset_in_page(offset);
+ 		drm_clflush_virt_range(cpu, sizeof(*cpu));
+ 		if (*cpu != (u32)page) {
+-			pr_err("Partial view for %lu [%u] (offset=%llu, size=%u [%llu, row size %u], fence=%d, tiling=%d, stride=%d) misalignment, expected write to page (%llu + %u [0x%llx]) of 0x%x, found 0x%x\n",
++			pr_err("Partial view for %lu [%u] (offset=%llu, size=%u [%llu, row size %u], fence=%d, tiling=%d, stride=%d) misalignment, expected write to page (%lu + %u [0x%lx]) of 0x%x, found 0x%x\n",
+ 			       page, n,
+ 			       view.partial.offset,
+ 			       view.partial.size,
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c
+index bdf5bb40ccf1..19e374f68ff7 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_object.c
+@@ -33,10 +33,10 @@ static int igt_gem_object(void *arg)
+ 
+ static int igt_gem_huge(void *arg)
+ {
+-	const unsigned int nreal = 509; /* just to be awkward */
++	const unsigned long nreal = 509; /* just to be awkward */
+ 	struct drm_i915_private *i915 = arg;
+ 	struct drm_i915_gem_object *obj;
+-	unsigned int n;
++	unsigned long n;
+ 	int err;
+ 
+ 	/* Basic sanitycheck of our huge fake object allocation */
+@@ -49,7 +49,7 @@ static int igt_gem_huge(void *arg)
+ 
+ 	err = i915_gem_object_pin_pages_unlocked(obj);
+ 	if (err) {
+-		pr_err("Failed to allocate %u pages (%lu total), err=%d\n",
++		pr_err("Failed to allocate %lu pages (%lu total), err=%d\n",
+ 		       nreal, obj->base.size / PAGE_SIZE, err);
+ 		goto out;
+ 	}
+@@ -57,7 +57,7 @@ static int igt_gem_huge(void *arg)
+ 	for (n = 0; n < obj->base.size / PAGE_SIZE; n++) {
+ 		if (i915_gem_object_get_page(obj, n) !=
+ 		    i915_gem_object_get_page(obj, n % nreal)) {
+-			pr_err("Page lookup mismatch at index %u [%u]\n",
++			pr_err("Page lookup mismatch at index %lu [%lu]\n",
+ 			       n, n % nreal);
+ 			err = -EINVAL;
+ 			goto out_unpin;
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index 969581e7106f..35950fa91406 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -229,8 +229,9 @@ i915_gem_shmem_pread(struct drm_i915_gem_object *obj,
+ 		     struct drm_i915_gem_pread *args)
+ {
+ 	unsigned int needs_clflush;
+-	unsigned int idx, offset;
+ 	char __user *user_data;
++	unsigned long offset;
++	pgoff_t idx;
+ 	u64 remain;
+ 	int ret;
+ 
+@@ -383,13 +384,17 @@ i915_gem_gtt_pread(struct drm_i915_gem_object *obj,
+ {
+ 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+ 	struct i915_ggtt *ggtt = to_gt(i915)->ggtt;
++	unsigned long remain, offset;
+ 	intel_wakeref_t wakeref;
+ 	struct drm_mm_node node;
+ 	void __user *user_data;
+ 	struct i915_vma *vma;
+-	u64 remain, offset;
+ 	int ret = 0;
+ 
++	if (overflows_type(args->size, remain) ||
++	    overflows_type(args->offset, offset))
++		return -EINVAL;
++
+ 	wakeref = intel_runtime_pm_get(&i915->runtime_pm);
+ 
+ 	vma = i915_gem_gtt_prepare(obj, &node, false);
+@@ -540,13 +545,17 @@ i915_gem_gtt_pwrite_fast(struct drm_i915_gem_object *obj,
+ 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+ 	struct i915_ggtt *ggtt = to_gt(i915)->ggtt;
+ 	struct intel_runtime_pm *rpm = &i915->runtime_pm;
++	unsigned long remain, offset;
+ 	intel_wakeref_t wakeref;
+ 	struct drm_mm_node node;
+ 	struct i915_vma *vma;
+-	u64 remain, offset;
+ 	void __user *user_data;
+ 	int ret = 0;
+ 
++	if (overflows_type(args->size, remain) ||
++	    overflows_type(args->offset, offset))
++		return -EINVAL;
++
+ 	if (i915_gem_object_has_struct_page(obj)) {
+ 		/*
+ 		 * Avoid waking the device up if we can fallback, as
+@@ -654,8 +663,9 @@ i915_gem_shmem_pwrite(struct drm_i915_gem_object *obj,
+ {
+ 	unsigned int partial_cacheline_write;
+ 	unsigned int needs_clflush;
+-	unsigned int offset, idx;
+ 	void __user *user_data;
++	unsigned long offset;
++	pgoff_t idx;
+ 	u64 remain;
+ 	int ret;
+ 
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index 7d044888ac33..8b16f6e32efa 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -936,7 +936,7 @@ rotate_pages(struct drm_i915_gem_object *obj, unsigned int offset,
+ 	     struct sg_table *st, struct scatterlist *sg)
+ {
+ 	unsigned int column, row;
+-	unsigned int src_idx;
++	pgoff_t src_idx;
+ 
+ 	for (column = 0; column < width; column++) {
+ 		unsigned int left;
+@@ -1042,7 +1042,7 @@ add_padding_pages(unsigned int count,
+ 
+ static struct scatterlist *
+ remap_tiled_color_plane_pages(struct drm_i915_gem_object *obj,
+-			      unsigned int offset, unsigned int alignment_pad,
++			      unsigned long offset, unsigned int alignment_pad,
+ 			      unsigned int width, unsigned int height,
+ 			      unsigned int src_stride, unsigned int dst_stride,
+ 			      struct sg_table *st, struct scatterlist *sg,
+@@ -1101,7 +1101,7 @@ remap_tiled_color_plane_pages(struct drm_i915_gem_object *obj,
+ 
+ static struct scatterlist *
+ remap_contiguous_pages(struct drm_i915_gem_object *obj,
+-		       unsigned int obj_offset,
++		       pgoff_t obj_offset,
+ 		       unsigned int count,
+ 		       struct sg_table *st, struct scatterlist *sg)
+ {
+@@ -1134,7 +1134,7 @@ remap_contiguous_pages(struct drm_i915_gem_object *obj,
+ 
+ static struct scatterlist *
+ remap_linear_color_plane_pages(struct drm_i915_gem_object *obj,
+-			       unsigned int obj_offset, unsigned int alignment_pad,
++			       pgoff_t obj_offset, unsigned int alignment_pad,
+ 			       unsigned int size,
+ 			       struct sg_table *st, struct scatterlist *sg,
+ 			       unsigned int *gtt_offset)
+-- 
+2.37.1
 
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_112265v1 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_112265v1, please notify your bug team to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/index.html
-
-Participating hosts (40 -> 42)
-------------------------------
-
-  Additional (3): fi-kbl-soraka bat-dg2-9 fi-bsw-kefka 
-  Missing    (1): fi-hsw-4770 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_112265v1:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@i915_selftest@live@perf:
-    - fi-kbl-soraka:      NOTRUN -> [INCOMPLETE][1]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-kbl-soraka/igt@i915_selftest@live@perf.html
-
-  
-#### Suppressed ####
-
-  The following results come from untrusted machines, tests, or statuses.
-  They do not affect the overall result.
-
-  * igt@i915_pm_rpm@basic-rte:
-    - {bat-adln-1}:       [PASS][2] -> [DMESG-WARN][3]
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12528/bat-adln-1/igt@i915_pm_rpm@basic-rte.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/bat-adln-1/igt@i915_pm_rpm@basic-rte.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_112265v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@gem_exec_gttfill@basic:
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][4] ([fdo#109271]) +7 similar issues
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-kbl-soraka/igt@gem_exec_gttfill@basic.html
-
-  * igt@gem_huc_copy@huc-copy:
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][5] ([fdo#109271] / [i915#2190])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html
-
-  * igt@gem_lmem_swapping@basic:
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][6] ([fdo#109271] / [i915#4613]) +3 similar issues
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html
-
-  * igt@gem_lmem_swapping@parallel-random-engines:
-    - bat-adlp-4:         NOTRUN -> [SKIP][7] ([i915#4613]) +3 similar issues
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/bat-adlp-4/igt@gem_lmem_swapping@parallel-random-engines.html
-
-  * igt@i915_pm_rps@basic-api:
-    - bat-adlp-4:         NOTRUN -> [SKIP][8] ([i915#6621])
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/bat-adlp-4/igt@i915_pm_rps@basic-api.html
-
-  * igt@i915_selftest@live@gt_heartbeat:
-    - fi-kbl-soraka:      NOTRUN -> [DMESG-FAIL][9] ([i915#5334])
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html
-
-  * igt@i915_selftest@live@gt_pm:
-    - fi-kbl-soraka:      NOTRUN -> [DMESG-FAIL][10] ([i915#1886])
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html
-
-  * igt@kms_chamelium@common-hpd-after-suspend:
-    - bat-adlp-4:         NOTRUN -> [SKIP][11] ([fdo#111827])
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/bat-adlp-4/igt@kms_chamelium@common-hpd-after-suspend.html
-
-  * igt@kms_chamelium@hdmi-hpd-fast:
-    - fi-bsw-kefka:       NOTRUN -> [SKIP][12] ([fdo#109271] / [fdo#111827]) +8 similar issues
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-bsw-kefka/igt@kms_chamelium@hdmi-hpd-fast.html
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][13] ([fdo#109271] / [fdo#111827]) +7 similar issues
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-kbl-soraka/igt@kms_chamelium@hdmi-hpd-fast.html
-
-  * igt@kms_setmode@basic-clone-single-crtc:
-    - fi-snb-2600:        NOTRUN -> [SKIP][14] ([fdo#109271])
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-snb-2600/igt@kms_setmode@basic-clone-single-crtc.html
-
-  * igt@prime_vgem@basic-fence-flip:
-    - fi-bsw-kefka:       NOTRUN -> [SKIP][15] ([fdo#109271]) +17 similar issues
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-bsw-kefka/igt@prime_vgem@basic-fence-flip.html
-
-  * igt@prime_vgem@basic-userptr:
-    - bat-adlp-4:         NOTRUN -> [SKIP][16] ([fdo#109295] / [i915#3301] / [i915#3708])
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/bat-adlp-4/igt@prime_vgem@basic-userptr.html
-
-  * igt@prime_vgem@basic-write:
-    - bat-adlp-4:         NOTRUN -> [SKIP][17] ([fdo#109295] / [i915#3291] / [i915#3708]) +2 similar issues
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/bat-adlp-4/igt@prime_vgem@basic-write.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_pm_rpm@basic-rte:
-    - bat-adlp-4:         [DMESG-WARN][18] ([i915#7077]) -> [PASS][19]
-   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12528/bat-adlp-4/igt@i915_pm_rpm@basic-rte.html
-   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/bat-adlp-4/igt@i915_pm_rpm@basic-rte.html
-
-  * igt@i915_selftest@live@gt_heartbeat:
-    - fi-cfl-8109u:       [DMESG-FAIL][20] ([i915#5334]) -> [PASS][21]
-   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12528/fi-cfl-8109u/igt@i915_selftest@live@gt_heartbeat.html
-   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-cfl-8109u/igt@i915_selftest@live@gt_heartbeat.html
-
-  * igt@i915_selftest@live@reset:
-    - {bat-rpls-2}:       [DMESG-FAIL][22] ([i915#4983]) -> [PASS][23]
-   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12528/bat-rpls-2/igt@i915_selftest@live@reset.html
-   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/bat-rpls-2/igt@i915_selftest@live@reset.html
-
-  * igt@kms_pipe_crc_basic@suspend-read-crc@pipe-c-dp-1:
-    - {bat-adlp-9}:       [DMESG-WARN][24] ([i915#2867]) -> [PASS][25]
-   [24]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12528/bat-adlp-9/igt@kms_pipe_crc_basic@suspend-read-crc@pipe-c-dp-1.html
-   [25]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/bat-adlp-9/igt@kms_pipe_crc_basic@suspend-read-crc@pipe-c-dp-1.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
-  [fdo#109295]: https://bugs.freedesktop.org/show_bug.cgi?id=109295
-  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
-  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
-  [i915#1845]: https://gitlab.freedesktop.org/drm/intel/issues/1845
-  [i915#1886]: https://gitlab.freedesktop.org/drm/intel/issues/1886
-  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
-  [i915#2867]: https://gitlab.freedesktop.org/drm/intel/issues/2867
-  [i915#3291]: https://gitlab.freedesktop.org/drm/intel/issues/3291
-  [i915#3301]: https://gitlab.freedesktop.org/drm/intel/issues/3301
-  [i915#3555]: https://gitlab.freedesktop.org/drm/intel/issues/3555
-  [i915#3708]: https://gitlab.freedesktop.org/drm/intel/issues/3708
-  [i915#4077]: https://gitlab.freedesktop.org/drm/intel/issues/4077
-  [i915#4079]: https://gitlab.freedesktop.org/drm/intel/issues/4079
-  [i915#4083]: https://gitlab.freedesktop.org/drm/intel/issues/4083
-  [i915#4103]: https://gitlab.freedesktop.org/drm/intel/issues/4103
-  [i915#4212]: https://gitlab.freedesktop.org/drm/intel/issues/4212
-  [i915#4213]: https://gitlab.freedesktop.org/drm/intel/issues/4213
-  [i915#4215]: https://gitlab.freedesktop.org/drm/intel/issues/4215
-  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
-  [i915#4579]: https://gitlab.freedesktop.org/drm/intel/issues/4579
-  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
-  [i915#4873]: https://gitlab.freedesktop.org/drm/intel/issues/4873
-  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
-  [i915#5190]: https://gitlab.freedesktop.org/drm/intel/issues/5190
-  [i915#5274]: https://gitlab.freedesktop.org/drm/intel/issues/5274
-  [i915#5334]: https://gitlab.freedesktop.org/drm/intel/issues/5334
-  [i915#5354]: https://gitlab.freedesktop.org/drm/intel/issues/5354
-  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
-  [i915#6471]: https://gitlab.freedesktop.org/drm/intel/issues/6471
-  [i915#6621]: https://gitlab.freedesktop.org/drm/intel/issues/6621
-  [i915#6794]: https://gitlab.freedesktop.org/drm/intel/issues/6794
-  [i915#7077]: https://gitlab.freedesktop.org/drm/intel/issues/7077
-  [i915#7561]: https://gitlab.freedesktop.org/drm/intel/issues/7561
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_12528 -> Patchwork_112265v1
-
-  CI-20190529: 20190529
-  CI_DRM_12528: 7e9f060b6f2ad746710306da06ba9c4a53876357 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7104: fe5def13049225967770eaaf19ec01ef80e2adc5 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_112265v1: 7e9f060b6f2ad746710306da06ba9c4a53876357 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/index.html
-
---===============5586006133076235471==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>] Revert &quot;perf/core: Avoid removing shared pmu_context on unregister&quot;</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/112265/">https://patchwork.freedesktop.org/series/112265/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_12528 -&gt; Patchwork_112265v1</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_112265v1 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_112265v1, please notify your bug team to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 42)</h2>
-<p>Additional (3): fi-kbl-soraka bat-dg2-9 fi-bsw-kefka <br />
-  Missing    (1): fi-hsw-4770 </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_112265v1:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@i915_selftest@live@perf:<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-kbl-soraka/igt@i915_selftest@live@perf.html">INCOMPLETE</a></li>
-</ul>
-</li>
-</ul>
-<h4>Suppressed</h4>
-<p>The following results come from untrusted machines, tests, or statuses.<br />
-  They do not affect the overall result.</p>
-<ul>
-<li>igt@i915_pm_rpm@basic-rte:<ul>
-<li>{bat-adln-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12528/bat-adln-1/igt@i915_pm_rpm@basic-rte.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/bat-adln-1/igt@i915_pm_rpm@basic-rte.html">DMESG-WARN</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_112265v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_exec_gttfill@basic:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-kbl-soraka/igt@gem_exec_gttfill@basic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +7 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@basic:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
-<ul>
-<li>bat-adlp-4:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/bat-adlp-4/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_pm_rps@basic-api:</p>
-<ul>
-<li>bat-adlp-4:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/bat-adlp-4/igt@i915_pm_rps@basic-api.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6621">i915#6621</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@gt_heartbeat:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@gt_pm:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1886">i915#1886</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@common-hpd-after-suspend:</p>
-<ul>
-<li>bat-adlp-4:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/bat-adlp-4/igt@kms_chamelium@common-hpd-after-suspend.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium@hdmi-hpd-fast:</p>
-<ul>
-<li>
-<p>fi-bsw-kefka:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-bsw-kefka/igt@kms_chamelium@hdmi-hpd-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +8 similar issues</p>
-</li>
-<li>
-<p>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-kbl-soraka/igt@kms_chamelium@hdmi-hpd-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://bugs.freedesktop.org/show_bug.cgi?id=111827">fdo#111827</a>) +7 similar issues</p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_setmode@basic-clone-single-crtc:</p>
-<ul>
-<li>fi-snb-2600:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-snb-2600/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-fence-flip:</p>
-<ul>
-<li>fi-bsw-kefka:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-bsw-kefka/igt@prime_vgem@basic-fence-flip.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +17 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-userptr:</p>
-<ul>
-<li>bat-adlp-4:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/bat-adlp-4/igt@prime_vgem@basic-userptr.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109295">fdo#109295</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3301">i915#3301</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3708">i915#3708</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-write:</p>
-<ul>
-<li>bat-adlp-4:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/bat-adlp-4/igt@prime_vgem@basic-write.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109295">fdo#109295</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3291">i915#3291</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/3708">i915#3708</a>) +2 similar issues</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_pm_rpm@basic-rte:</p>
-<ul>
-<li>bat-adlp-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12528/bat-adlp-4/igt@i915_pm_rpm@basic-rte.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7077">i915#7077</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/bat-adlp-4/igt@i915_pm_rpm@basic-rte.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@gt_heartbeat:</p>
-<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12528/fi-cfl-8109u/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/fi-cfl-8109u/igt@i915_selftest@live@gt_heartbeat.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@reset:</p>
-<ul>
-<li>{bat-rpls-2}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12528/bat-rpls-2/igt@i915_selftest@live@reset.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/bat-rpls-2/igt@i915_selftest@live@reset.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@suspend-read-crc@pipe-c-dp-1:</p>
-<ul>
-<li>{bat-adlp-9}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12528/bat-adlp-9/igt@kms_pipe_crc_basic@suspend-read-crc@pipe-c-dp-1.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2867">i915#2867</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112265v1/bat-adlp-9/igt@kms_pipe_crc_basic@suspend-read-crc@pipe-c-dp-1.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_12528 -&gt; Patchwork_112265v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_12528: 7e9f060b6f2ad746710306da06ba9c4a53876357 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7104: fe5def13049225967770eaaf19ec01ef80e2adc5 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_112265v1: 7e9f060b6f2ad746710306da06ba9c4a53876357 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-
-</body>
-</html>
-
---===============5586006133076235471==--
