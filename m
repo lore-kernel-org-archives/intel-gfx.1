@@ -4,47 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 486E3C4332F
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Dec 2022 08:00:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3A9EC4167B
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Dec 2022 08:18:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B1B410E44B;
-	Fri, 30 Dec 2022 08:00:19 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
- by gabe.freedesktop.org (Postfix) with ESMTP id 71E5610E3A6;
- Wed, 28 Dec 2022 14:43:45 +0000 (UTC)
-Received: from [192.168.1.139] (unknown [171.76.80.102])
- by linux.microsoft.com (Postfix) with ESMTPSA id 676CE20F26B6;
- Wed, 28 Dec 2022 06:43:42 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 676CE20F26B6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
- s=default; t=1672238625;
- bh=eISDS/91oiq1DS7pKCpl1TnGMMOr/ZfUtjW/6tYTuBo=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=JA/DFLkJg+lq0r974VDtsSIzXPguPqbLgZMMrdHHFydbLbq6uiflSW7pRUYc7jZ4V
- JCJbMMLq6SQXaSF44FNDtApMoSBCxsMeTzl/KU2oCe71ev6/CiHYxYpBdettrtcK9H
- iKndRKC3FCLd8gA6bCKjQE49B/+rLttmkRNOpAnY=
-Message-ID: <adabe9ea-1e25-5d4f-88d6-cd232af04693@linux.microsoft.com>
-Date: Wed, 28 Dec 2022 20:13:39 +0530
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EB1910E051;
+	Fri, 30 Dec 2022 08:18:13 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CDE310E051
+ for <intel-gfx@lists.freedesktop.org>; Fri, 30 Dec 2022 08:18:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1672388291; x=1703924291;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=4gQ53AYOct72pMribB3+jDAJ6wennhzEOH4j8t9mEQo=;
+ b=fnwJce2lGQA0Tq4b8yuehkM8j+iAvWfcryUNwh4v2GBLbKZOUQodxU1U
+ O0qP2v8oPafI+eYccz38H3c166v+axxjMm6fQxN/fTIxlaGklAD7hD3Km
+ Aa9HGh7Tan8qvWA6pJ1Pp1kmbGUMjBs7WspCrRrzd+surxViawaeAa6L7
+ SJsQAoYcSbsMunxQIfAm7TQXAfPHUgfpsMoN+3pwpSOG+lCQI85BXKhsZ
+ Zf+M+g4x3+HKMw9cCpdRcP7y/yxJcFavgH8osRAV7n22CAOQbV+9f/AJW
+ sXUrFrfLur58AiH/RuF2ZbwrPWXo3IXKxWXhLIZRv3xEkkPPrIt/Sr0u/ A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10575"; a="321247174"
+X-IronPort-AV: E=Sophos;i="5.96,286,1665471600"; d="scan'208";a="321247174"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Dec 2022 00:18:10 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10575"; a="686212338"
+X-IronPort-AV: E=Sophos;i="5.96,286,1665471600"; d="scan'208";a="686212338"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by orsmga001.jf.intel.com with ESMTP; 30 Dec 2022 00:18:10 -0800
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.16; Fri, 30 Dec 2022 00:18:09 -0800
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.16; Fri, 30 Dec 2022 00:18:09 -0800
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.16 via Frontend Transport; Fri, 30 Dec 2022 00:18:09 -0800
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.170)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.16; Fri, 30 Dec 2022 00:18:09 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RKy6H7pYs+SR4N2r6mNqdp6HpEvx49KMXkMqS8FfCxKzyLm7UbuTccoexla0qpNVgR8tk6+baaK82NgEdyDnY5q/FTD/MNv8V/PfFFLxzhubZ2xASPegisDjW7UZIizudxyx4JiL5juf2LUFvu/Ki/J+zkvh/KqFYqPyo82mIIrsDUszCSCxFB2H1ZNf/GIsj9wp5K0siPwPjyvHPVCqzXXnu4dDaJE2iLhUuGzztb0ckbDwab120zSO11NWRwIm2WzTzzWhlpSOFgmIfOO376ACd4FxkwgZh2ye47HXDucykkislTZFdekMg+4r3oRreOPBny/qN6pkjFK3lIuWQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nVJpIA8x6H0k6JUujQ2dWch7NK2iKJieykkjWvRhcXE=;
+ b=Yv3zn3eh5B8dBYgAmDEswa8cyIPMhMOydWGoEejcIjDZEHMjPwDNFO+X/GsDgANyggVbG/WKUVupYe+VYzEz02WO3GTflgf5xtx3W/Za9U5BKPgc88hV+oEoamdaqKiU7kqz0+kIoTlFs+kvwl02cEsz5oRaY5YhHCbuVXEbC3WxX5wSBnOe12Lssv/CZhzIApAf7+KmCAYbFUNkXohST/vLLQQeaXX3c4WOuUvRAYCeAWl3uqpb9ojy8E54th923kZODu4GyQJ+rRfsl3YbXVxTJQU7wELDHAQEDIBl/x7dPUbibH9kmyXMAHGxKUXeM7fhb6xcliUG/0h1t49KAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MN0PR11MB6059.namprd11.prod.outlook.com (2603:10b6:208:377::9)
+ by SJ0PR11MB5151.namprd11.prod.outlook.com (2603:10b6:a03:2ac::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.18; Fri, 30 Dec
+ 2022 08:18:07 +0000
+Received: from MN0PR11MB6059.namprd11.prod.outlook.com
+ ([fe80::499c:efe3:4397:808]) by MN0PR11MB6059.namprd11.prod.outlook.com
+ ([fe80::499c:efe3:4397:808%9]) with mapi id 15.20.5944.016; Fri, 30 Dec 2022
+ 08:18:07 +0000
+Date: Fri, 30 Dec 2022 03:18:03 -0500
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Gustavo Sousa <gustavo.sousa@intel.com>
+Message-ID: <Y66euxZzzpuHmnVd@intel.com>
+References: <20221229161230.1261938-1-rodrigo.vivi@intel.com>
+ <20221229180134.ulydr5qprda3z3zz@gjsousa-mobl2>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20221229180134.ulydr5qprda3z3zz@gjsousa-mobl2>
+X-ClientProxiedBy: SJ0PR13CA0133.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c6::18) To MN0PR11MB6059.namprd11.prod.outlook.com
+ (2603:10b6:208:377::9)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Content-Language: en-US
-To: Deepak R Varma <drv@mailo.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <cover.1671952191.git.drv@mailo.com>
- <fe31efd659622839c7f7bc2890d9e3411bbfa7cd.1671952191.git.drv@mailo.com>
-From: Praveen Kumar <kumarpraveen@linux.microsoft.com>
-In-Reply-To: <fe31efd659622839c7f7bc2890d9e3411bbfa7cd.1671952191.git.drv@mailo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Fri, 30 Dec 2022 08:00:00 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 1/2] drm/i915: convert i915_active.count
- from atomic_t to refcount_t
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR11MB6059:EE_|SJ0PR11MB5151:EE_
+X-MS-Office365-Filtering-Correlation-Id: e743f775-12ef-4dad-dbd2-08daea3e6149
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: u5TUVxRcmUoXQ/0OBrRT0H57C9/vE5zz/CqaBeqQtELRYlkX/7YJLiwLDSS+92TIoCwHwlMowODgKVgODBcCnoHFTCXMzC96fp8KiGZQFWybYcScq1/VY1Rtq3D1V3YvEtq82b2M5kbT8nx3fBMaFsO831Lh1VzxVCHOh3g4QAVX958tKcvknIu7W6aGetwdr/eL2g3+SCznDOkXESploy8KF7FZ8oho26alKg1IuO0P8cHMRwV16fOskaH1qv9PQtxUH9ZX4zP4NhdM0JrhzQZMcO+xJo3Ob4ddrjo3Neyxj/3eX3CA7K5lLrqeizh8WhCqHUMHVmHzgQ4/S1V3co6vraNH5hDKZv5OHA0tuE35jdUZUVhok4oCv+p5e/BNDgaCy3och2vvstIUus5vNr7RxXMHxvfLTzZSOrRc8cofpU1nKix5QcPKT+lHemeoLXaQm+yxlD2sDKcMU+JYetenHL5t7XKVUqBxOSim8Dhe5GPPTvGZAhnTfZGrv98bf1qaujDLKldPyZhIwx28RiH5VGO7Se4h2XJQsA67VOsEl9ZLoNEiFDjj5pt5+RigoMjNKPNCtIEf1O8oxz7esFmdcj+xp5+6/7o/m5B/YYYFiHOj4niSWQoOvBwNdhNc2xN0bW/dD/Cv8My1PAqcvA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR11MB6059.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(396003)(366004)(376002)(346002)(136003)(39860400002)(451199015)(36756003)(86362001)(4326008)(2906002)(66946007)(66556008)(66476007)(8676002)(5660300002)(44832011)(83380400001)(82960400001)(38100700002)(478600001)(316002)(6636002)(37006003)(2616005)(6486002)(41300700001)(6862004)(8936002)(6666004)(6506007)(186003)(26005)(6512007);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?qxduoJ7C9/usUCAA/0HDkjdpV3wSN+l8Oh0z2L6zwwMRWPd9wqnjtXbDxZKu?=
+ =?us-ascii?Q?v4LV4UAr3S7R3VP8uB2FgfY/YOc2MGeLaaLdGpZKOhc2UOdafOP2a+W1ogvb?=
+ =?us-ascii?Q?BYsaxR4rof6GM1vVPn8riKudI9K7XlcL4zwIVDTUuYlC55/wmU662tTo7xL/?=
+ =?us-ascii?Q?9GjocQoSDRLulWLUwdDvLPUGetvHWBeeAzMLBRs8d/MmXcqp5QysadCZQPlh?=
+ =?us-ascii?Q?Oe//Q8mCcc/qzmp0+rH2lQIt/jDXsOZYV7e94R+/TaR3hoZWnPPR66qPew8k?=
+ =?us-ascii?Q?uIwzXMyneb80qCdVT1VhUPDA9FRPckOpZEs5ufWz0+RQYsH6LHQt/Dm3E7RI?=
+ =?us-ascii?Q?jCI3Bww0nRQ0vI8XWuy/ahw8ecJgZXcuVVfzhe4shZFUq1piY0w0HStNyvjG?=
+ =?us-ascii?Q?/oesZsP2ILFeH0zjtFbsJVCa6D6g8FpzFcoQ8mGAfWs9aGhBG1oDygkxdbEd?=
+ =?us-ascii?Q?Iy8a9xIBtBax5LJG96pbX5MB+//BE4XxBXCHjvkMvxNav+ztrIs6jIXVFx6b?=
+ =?us-ascii?Q?nqFIDJ1H7yhON2etQe63W1ppBgTjnbbxqctkYrZajRluw2Nq9yyqsT7h0cOs?=
+ =?us-ascii?Q?8ahcs/yfsQrR/44hPXjfE8Qiv5eBQg4nKU3UUcZqv7zEPV5w3RwR/DkPaJ7m?=
+ =?us-ascii?Q?rBTTY10SUjhQ/jfVBUvrXJwFZg/mu4b741ol+eeT0AnvXrT4ASlpPBfokWaX?=
+ =?us-ascii?Q?bGfCONecZCAfjtKMhMYbkankX4q32xYFdht8tZub+dTJjnVBcSa/Ybf4TFVf?=
+ =?us-ascii?Q?gL/XcfhYRKeoiSw+RMkA+edEWwX5TzeSjcRxOGL663lmwnq3b5f74piD8VaF?=
+ =?us-ascii?Q?ZLxtg9ev6xMz4Dtt14Ouxi0HCoaEUXk79bInxmClv4HjRBA9Gt2ooh6ZNvpY?=
+ =?us-ascii?Q?Fx4P7tufzXuMdH/Jtr/bQo8th/Ljea5JFMJdoVS2K+WmKQM4cHqC9QBpNhee?=
+ =?us-ascii?Q?w7NGMF7P50X48g4PePdDa/6Oq8pBRVWa06K3I8wmD6D8ZtWXwV4FB5foDiv2?=
+ =?us-ascii?Q?nFoUWZU5tIAL0nS46OKHfOV5YwoIs5Ru1bxV+o1eh435xjO+nLnbYIB/y9YX?=
+ =?us-ascii?Q?5GNIQotFR12pfMlg/qPb2IIPETF6nXQoNZ+P10Yi/k2Z0ttg455WbynvKXHS?=
+ =?us-ascii?Q?PQYr+aqsqLoKmOpCn8O2XFSouljcgVe6jnLGBRAfqpJG92/nD7eSID8rO3Rv?=
+ =?us-ascii?Q?x1A7WO1TCkn3hDl3Iu+kHlY/7GfgwDi0lprjhFkkenFeAYAeY8CcTq1PTN97?=
+ =?us-ascii?Q?vFgi++5DsbtU38uVagWgk0CMqHaXLjlT7EHtUaYu8qr8RgwtkeqwulSxaotY?=
+ =?us-ascii?Q?+drkU5E3dCmARSSFBg+BC+cKUg2iDWI+Z2McmGy+sLCLRWaALWTJQ4hYr76m?=
+ =?us-ascii?Q?txcnLlRJWXplSz6T1oYuoprLfcd4fpTSwJp/w3OmPgIgVAjgVCHffFHi88N+?=
+ =?us-ascii?Q?eQZ8FrJdgHFci9vQM2P3cTPhdGS73cUEu/kkWo9wtLp2X3SAjpS8Ds84aVx3?=
+ =?us-ascii?Q?Jh0YBSCBzYzkHoQjkHX8jn2vcSj9uJYrt3Tyhw7Ftk6nfp/UYqUvO3RUM6aH?=
+ =?us-ascii?Q?00KlZIsYnobcoCqWGtMIWstvR76GEdpxoBAIrz3n?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: e743f775-12ef-4dad-dbd2-08daea3e6149
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR11MB6059.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Dec 2022 08:18:07.0274 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 49Yh2GCxHStJOIS2IlLsWmqGZ3jkeEDmf1wAMxUsD41vxAJYg8afPMW/bvYf1x4UlbEcg/WhD9JXWz67IVPhpQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB5151
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Expand force_probe to block probe
+ of devices as well.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,206 +147,170 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Saurabh Singh Sengar <ssengar@microsoft.com>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 25-12-2022 13:17, Deepak R Varma wrote:
-> The refcount_* APIs are designed to address known issues with the
-> atomic_t APIs for reference counting. They provide following distinct
-> advantages:
->    - protect the reference counters from overflow/underflow
->    - avoid use-after-free errors
->    - provide improved memory ordering guarantee schemes
->    - neater and safer.
-> Hence, convert the atomic_t count member variable and associated
-> atomic_*() API calls to equivalent refcount_t type and refcount_*() API
-> calls.
+On Thu, Dec 29, 2022 at 03:01:34PM -0300, Gustavo Sousa wrote:
+> On Thu, Dec 29, 2022 at 11:12:30AM -0500, Rodrigo Vivi wrote:
+> > There are new cases where we want to block i915 probe, such
+> > as when experimenting or developing the new Xe driver.
+> > 
+> > But also, with the new hibrid cards, users or developers might
+> > want to use i915 only on integrated and fully block the probe
+> > of the i915 for the discrete. Or vice versa.
+> > 
+> > Oh, and there are even older development and validation reasons,
+> > like when you use some distro where the modprobe.blacklist is
+> > not present.
+> > 
+> > But in any case, let's introduce a more granular control, but without
+> > introducing yet another parameter, but using the existent force_probe
+> > one.
+> > 
+> > Just by adding a ! in the begin of the id in the force_probe, like
+> > in this case where we would block the probe for Alder Lake:
+> > 
+> > $ insmod i915.ko force_probe='!46a6'
+> > 
+> > Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/Kconfig       | 13 ++++++++++---
+> >  drivers/gpu/drm/i915/i915_params.c |  2 +-
+> >  drivers/gpu/drm/i915/i915_pci.c    | 29 +++++++++++++++++++++++++----
+> >  3 files changed, 36 insertions(+), 8 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+> > index 3efce05d7b57..8873cd0355b7 100644
+> > --- a/drivers/gpu/drm/i915/Kconfig
+> > +++ b/drivers/gpu/drm/i915/Kconfig
+> > @@ -54,24 +54,31 @@ config DRM_I915
+> >  	  If "M" is selected, the module will be called i915.
+> >  
+> >  config DRM_I915_FORCE_PROBE
+> > -	string "Force probe driver for selected new Intel hardware"
+> > +	string "Force probe i915 for selected Intel hardware IDs"
+> >  	depends on DRM_I915
+> >  	help
+> >  	  This is the default value for the i915.force_probe module
+> >  	  parameter. Using the module parameter overrides this option.
+> >  
+> > -	  Force probe the driver for new Intel graphics devices that are
+> > +	  Force probe the i915 for Intel graphics devices that are
+> >  	  recognized but not properly supported by this kernel version. It is
+> >  	  recommended to upgrade to a kernel version with proper support as soon
+> >  	  as it is available.
+> >  
+> > +	  It can also be used to block the probe of recognized and fully
+> > +	  supported devices.
+> > +
+> >  	  Use "" to disable force probe. If in doubt, use this.
+> >  
+> > -	  Use "<pci-id>[,<pci-id>,...]" to force probe the driver for listed
+> > +	  Use "<pci-id>[,<pci-id>,...]" to force probe the i915 for listed
+> >  	  devices. For example, "4500" or "4500,4571".
+> >  
+> >  	  Use "*" to force probe the driver for all known devices.
+> >  
+> > +	  Use "!" right before the ID to block the probe of the device. For
+> > +	  example, "4500,!4571" forces the probe of 4500 and blocks the probe of
+> > +	  4571.
+> > +
+> >  config DRM_I915_CAPTURE_ERROR
+> >  	bool "Enable capturing GPU state following a hang"
+> >  	depends on DRM_I915
+> > diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
+> > index 61578f2860cd..d634bd3f641a 100644
+> > --- a/drivers/gpu/drm/i915/i915_params.c
+> > +++ b/drivers/gpu/drm/i915/i915_params.c
+> > @@ -122,7 +122,7 @@ i915_param_named_unsafe(enable_psr2_sel_fetch, bool, 0400,
+> >  	"Default: 0");
+> >  
+> >  i915_param_named_unsafe(force_probe, charp, 0400,
+> > -	"Force probe the driver for specified devices. "
+> > +	"Force probe options for specified supported devices. "
+> >  	"See CONFIG_DRM_I915_FORCE_PROBE for details.");
+> >  
+> >  i915_param_named_unsafe(disable_power_well, int, 0400,
+> > diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+> > index 668e9da52584..fc1383f3a646 100644
+> > --- a/drivers/gpu/drm/i915/i915_pci.c
+> > +++ b/drivers/gpu/drm/i915/i915_pci.c
+> > @@ -1253,7 +1253,7 @@ static void i915_pci_remove(struct pci_dev *pdev)
+> >  }
+> >  
+> >  /* is device_id present in comma separated list of ids */
+> > -static bool force_probe(u16 device_id, const char *devices)
+> > +static bool device_id_in_list(u16 device_id, const char *devices, bool negative)
+> >  {
+> >  	char *s, *p, *tok;
+> >  	bool ret;
+> > @@ -1272,6 +1272,12 @@ static bool force_probe(u16 device_id, const char *devices)
+> >  	for (p = s, ret = false; (tok = strsep(&p, ",")) != NULL; ) {
+> >  		u16 val;
+> >  
+> > +		if (negative && tok[0] == '!')
+> > +			tok++;
+> > +		else if ((negative && tok[0] != '!') ||
+> > +			 (!negative && tok[0] == '!'))
+> > +			 continue;
+> > +
+> >  		if (kstrtou16(tok, 16, &val) == 0 && val == device_id) {
+> >  			ret = true;
+> >  			break;
+> > @@ -1283,6 +1289,16 @@ static bool force_probe(u16 device_id, const char *devices)
+> >  	return ret;
+> >  }
+> >  
+> > +static bool id_forced(u16 device_id)
+> > +{
+> > +	return device_id_in_list(device_id, i915_modparams.force_probe, false);
+> > +}
+> > +
+> > +static bool id_blocked(u16 device_id)
+> > +{
+> > +	return device_id_in_list(device_id, i915_modparams.force_probe, true);
+> > +}
 > 
-> This patch proposal address the following warnings generated by
-> the atomic_as_refcounter.cocci coccinelle script
-> 	atomic_add_unless
-> 
-> Signed-off-by: Deepak R Varma <drv@mailo.com>
-> ---
-> Please note:
->    1. Proposed changes are compile tested only.
->    2. This patch 1/2 is required to be applied before patch 2/2 due to
->       interdependency.
-> 
-> Changes in v2:
->    1. Patch added to the patch series.
->    2. Handle build issues Reported-by: kernel test robot <lkp@intel.com>
->       Earlier a standalone patch was sent for the i915 base driver only. The
->       Kernel Test Robot reported build failure for additional atomic_*() calls
->       specific to i915 debugging support when enabled. This version now includes
->       those changes as well.
-> 
-> 
->  drivers/gpu/drm/i915/i915_active.c       | 28 +++++++++++++-----------
->  drivers/gpu/drm/i915/i915_active.h       |  6 ++---
->  drivers/gpu/drm/i915/i915_active_types.h |  4 ++--
->  3 files changed, 20 insertions(+), 18 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
-> index 7412abf166a8..5e58d8b1e947 100644
-> --- a/drivers/gpu/drm/i915/i915_active.c
-> +++ b/drivers/gpu/drm/i915/i915_active.c
-> @@ -92,14 +92,14 @@ static void debug_active_init(struct i915_active *ref)
->  static void debug_active_activate(struct i915_active *ref)
->  {
->  	lockdep_assert_held(&ref->tree_lock);
-> -	if (!atomic_read(&ref->count)) /* before the first inc */
-> +	if (!refcount_read(&ref->count)) /* before the first inc */
->  		debug_object_activate(ref, &active_debug_desc);
->  }
-> 
->  static void debug_active_deactivate(struct i915_active *ref)
->  {
->  	lockdep_assert_held(&ref->tree_lock);
-> -	if (!atomic_read(&ref->count)) /* after the last dec */
-> +	if (!refcount_read(&ref->count)) /* after the last dec */
->  		debug_object_deactivate(ref, &active_debug_desc);
->  }
-> 
-> @@ -133,7 +133,7 @@ __active_retire(struct i915_active *ref)
->  	GEM_BUG_ON(i915_active_is_idle(ref));
-> 
->  	/* return the unused nodes to our slabcache -- flushing the allocator */
-> -	if (!atomic_dec_and_lock_irqsave(&ref->count, &ref->tree_lock, flags))
-> +	if (!refcount_dec_and_lock_irqsave(&ref->count, &ref->tree_lock, &flags))
->  		return;
-> 
->  	GEM_BUG_ON(rcu_access_pointer(ref->excl.fence));
-> @@ -179,8 +179,8 @@ active_work(struct work_struct *wrk)
->  {
->  	struct i915_active *ref = container_of(wrk, typeof(*ref), work);
-> 
-> -	GEM_BUG_ON(!atomic_read(&ref->count));
-> -	if (atomic_add_unless(&ref->count, -1, 1))
-> +	GEM_BUG_ON(!refcount_read(&ref->count));
-> +	if (refcount_dec_not_one(&ref->count))
+> I think id_blocked() would return true for any device id if force_probe was "*".
 
-I'm not sure if this is correct here, I assume we should be adding instead here its decrementing ?
+good catch. I will just wait until middle next week to see if someone has something
+against the idea in general and then re-spin a version with:
 
->  		return;
-> 
->  	__active_retire(ref);
-> @@ -189,8 +189,8 @@ active_work(struct work_struct *wrk)
->  static void
->  active_retire(struct i915_active *ref)
->  {
-> -	GEM_BUG_ON(!atomic_read(&ref->count));
-> -	if (atomic_add_unless(&ref->count, -1, 1))
-> +	GEM_BUG_ON(!refcount_read(&ref->count));
-> +	if (refcount_dec_not_one(&ref->count))
->  		return;
-> 
->  	if (ref->flags & I915_ACTIVE_RETIRE_SLEEPS) {
-> @@ -354,7 +354,7 @@ void __i915_active_init(struct i915_active *ref,
->  	ref->cache = NULL;
-> 
->  	init_llist_head(&ref->preallocated_barriers);
-> -	atomic_set(&ref->count, 0);
-> +	refcount_set(&ref->count, 0);
->  	__mutex_init(&ref->mutex, "i915_active", mkey);
->  	__i915_active_fence_init(&ref->excl, NULL, excl_retire);
->  	INIT_WORK(&ref->work, active_work);
-> @@ -445,7 +445,7 @@ int i915_active_add_request(struct i915_active *ref, struct i915_request *rq)
-> 
->  	if (replace_barrier(ref, active)) {
->  		RCU_INIT_POINTER(active->fence, NULL);
-> -		atomic_dec(&ref->count);
-> +		refcount_dec(&ref->count);
->  	}
->  	if (!__i915_active_fence_set(active, fence))
->  		__i915_active_acquire(ref);
-> @@ -488,14 +488,16 @@ i915_active_set_exclusive(struct i915_active *ref, struct dma_fence *f)
->  bool i915_active_acquire_if_busy(struct i915_active *ref)
->  {
->  	debug_active_assert(ref);
-> -	return atomic_add_unless(&ref->count, 1, 0);
-> +	return refcount_add_not_zero(1, &ref->count);
->  }
-> 
->  static void __i915_active_activate(struct i915_active *ref)
->  {
->  	spin_lock_irq(&ref->tree_lock); /* __active_retire() */
-> -	if (!atomic_fetch_inc(&ref->count))
-> +	if (!refcount_inc_not_zero(&ref->count)) {
-> +		refcount_inc(&ref->count);
->  		debug_active_activate(ref);
-> +	}
->  	spin_unlock_irq(&ref->tree_lock);
->  }
-> 
-> @@ -757,7 +759,7 @@ int i915_sw_fence_await_active(struct i915_sw_fence *fence,
->  void i915_active_fini(struct i915_active *ref)
->  {
->  	debug_active_fini(ref);
-> -	GEM_BUG_ON(atomic_read(&ref->count));
-> +	GEM_BUG_ON(refcount_read(&ref->count));
->  	GEM_BUG_ON(work_pending(&ref->work));
->  	mutex_destroy(&ref->mutex);
-> 
-> @@ -927,7 +929,7 @@ int i915_active_acquire_preallocate_barrier(struct i915_active *ref,
-> 
->  		first = first->next;
-> 
-> -		atomic_dec(&ref->count);
-> +		refcount_dec(&ref->count);
->  		intel_engine_pm_put(barrier_to_engine(node));
-> 
->  		kmem_cache_free(slab_cache, node);
-> diff --git a/drivers/gpu/drm/i915/i915_active.h b/drivers/gpu/drm/i915/i915_active.h
-> index 7eb44132183a..116c7c28466a 100644
-> --- a/drivers/gpu/drm/i915/i915_active.h
-> +++ b/drivers/gpu/drm/i915/i915_active.h
-> @@ -193,14 +193,14 @@ void i915_active_release(struct i915_active *ref);
-> 
->  static inline void __i915_active_acquire(struct i915_active *ref)
->  {
-> -	GEM_BUG_ON(!atomic_read(&ref->count));
-> -	atomic_inc(&ref->count);
-> +	GEM_BUG_ON(!refcount_read(&ref->count));
-> +	refcount_inc(&ref->count);
->  }
-> 
->  static inline bool
->  i915_active_is_idle(const struct i915_active *ref)
->  {
-> -	return !atomic_read(&ref->count);
-> +	return !refcount_read(&ref->count);
->  }
-> 
->  void i915_active_fini(struct i915_active *ref);
-> diff --git a/drivers/gpu/drm/i915/i915_active_types.h b/drivers/gpu/drm/i915/i915_active_types.h
-> index b02a78ac87db..152a3a25d9f7 100644
-> --- a/drivers/gpu/drm/i915/i915_active_types.h
-> +++ b/drivers/gpu/drm/i915/i915_active_types.h
-> @@ -7,7 +7,7 @@
->  #ifndef _I915_ACTIVE_TYPES_H_
->  #define _I915_ACTIVE_TYPES_H_
-> 
-> -#include <linux/atomic.h>
-> +#include <linux/refcount.h>
->  #include <linux/dma-fence.h>
->  #include <linux/llist.h>
->  #include <linux/mutex.h>
-> @@ -23,7 +23,7 @@ struct i915_active_fence {
->  struct active_node;
-> 
->  struct i915_active {
-> -	atomic_t count;
-> +	refcount_t count;
->  	struct mutex mutex;
-> 
->  	spinlock_t tree_lock;
-> --
-> 2.34.1
-> 
-> 
+- if (strcmp(devices, "*") == 0)
++ if (strcmp(devices, "*") == 0 && !negative)
 
-Regards,
-
-~Praveen.
+> 
+> > +
+> >  bool i915_pci_resource_valid(struct pci_dev *pdev, int bar)
+> >  {
+> >  	if (!pci_resource_flags(pdev, bar))
+> > @@ -1308,10 +1324,9 @@ static int i915_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+> >  		(struct intel_device_info *) ent->driver_data;
+> >  	int err;
+> >  
+> > -	if (intel_info->require_force_probe &&
+> > -	    !force_probe(pdev->device, i915_modparams.force_probe)) {
+> > +	if (intel_info->require_force_probe && !id_forced(pdev->device)) {
+> >  		dev_info(&pdev->dev,
+> > -			 "Your graphics device %04x is not properly supported by the driver in this\n"
+> > +			 "Your graphics device %04x is not properly supported by i915 in this\n"
+> >  			 "kernel version. To force driver probe anyway, use i915.force_probe=%04x\n"
+> >  			 "module parameter or CONFIG_DRM_I915_FORCE_PROBE=%04x configuration option,\n"
+> >  			 "or (recommended) check for kernel updates.\n",
+> > @@ -1319,6 +1334,12 @@ static int i915_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+> >  		return -ENODEV;
+> >  	}
+> >  
+> > +	if (id_blocked(pdev->device)) {
+> > +		dev_info(&pdev->dev, "I915 probe blocked for Device ID %04x.\n",
+> > +			 pdev->device);
+> > +		return -ENODEV;
+> > +	}
+> > +
+> >  	/* Only bind to function 0 of the device. Early generations
+> >  	 * used function 1 as a placeholder for multi-head. This causes
+> >  	 * us confusion instead, especially on the systems where both
+> > -- 
+> > 2.38.1
+> > 
