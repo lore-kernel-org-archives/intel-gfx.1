@@ -4,47 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FD5CC4332F
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 19:01:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07177C4332F
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 19:01:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB1D610E46A;
-	Wed,  4 Jan 2023 19:01:01 +0000 (UTC)
-X-Greylist: delayed 429 seconds by postgrey-1.36 at gabe;
- Wed, 04 Jan 2023 17:58:49 UTC
-Received: from mail2-relais-roc.national.inria.fr
- (mail2-relais-roc.national.inria.fr [192.134.164.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54C6310E45D;
- Wed,  4 Jan 2023 17:58:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inria.fr; s=dc;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=jPIOICMJamB8Q+k5NZeaoYSyd6m7DdgJ938P616hzCc=;
- b=QQY9ert9138tBSipHgPuDLMcAPtLB2fm0L8B1JdP2te+pSz0p6WnxmEG
- NEiFbSoMLo6aFvP12O7CnxGlwplm4rRSIdzsWz3xRrXnZ+fMbZZfSkS/A
- djFmMTCati7ETdLEiovvya0zvAuiEQZ1lv5PB/sQ5Ei1MGpIcZcyhYA/c U=;
-Authentication-Results: mail2-relais-roc.national.inria.fr;
- dkim=none (message not signed) header.i=none;
- spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr;
- dmarc=fail (p=none dis=none) d=inria.fr
-X-IronPort-AV: E=Sophos;i="5.96,300,1665439200"; d="scan'208";a="85986134"
-Received: from 214.123.68.85.rev.sfr.net (HELO hadrien) ([85.68.123.214])
- by mail2-relais-roc.national.inria.fr with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jan 2023 18:51:38 +0100
-Date: Wed, 4 Jan 2023 18:51:37 +0100 (CET)
-From: Julia Lawall <julia.lawall@inria.fr>
-X-X-Sender: jll@hadrien
-To: Deepak R Varma <drv@mailo.com>
-In-Reply-To: <Y7PG5Hx5dDE7aHSx@qemulion>
-Message-ID: <alpine.DEB.2.22.394.2301041850570.7216@hadrien>
-References: <Y6qmNW6cOHjGwn03@qemulion> <Y6sn1BmhFJFssW0h@intel.com>
- <Y6s0FSK9+F+/oKSf@qemulion> <Y6wl9NhYZG5RjJL7@intel.com>
- <Y7PG5Hx5dDE7aHSx@qemulion>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F10710E46F;
+	Wed,  4 Jan 2023 19:01:03 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 245E510E047;
+ Tue,  3 Jan 2023 14:41:44 +0000 (UTC)
+Received: from maud (unknown [12.157.81.133])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: alyssa)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id B189F6602CFA;
+ Tue,  3 Jan 2023 14:41:40 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1672756902;
+ bh=9kUBaPr5+/NLgDqrmIPkb/x8jcn2Rs9mopL9MBfl8Hs=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=M7W+Tc+M4crTRtWOpsrk7r7xw14EIiPobNgMAYi/54VpJkCdLi7xao1iSVl8YzgdG
+ jYByAYZqJeLxMCgsIStPoPMshPXH1UD2uFknqqGkRGN7tQiZ543zW4nF4EFU1bW+3s
+ DWPiTxwerzCjPtc/Kjzx3JlG9G15rgO9ro8s67AI85F9hU4ERhm+3pzG7MeDjF9YgH
+ kZj+6R2jdmMcLR0jxEDuOdxAr0+4OHQzs7w8YQcV+FwAyrGFrQdqT5e2rbVY/zMM1C
+ Lx6/zMDMW4p6AlNYPmFx35UjCWHVeACkKFqW43zRpjaJ3yzjfdt+pHbS8D4qmegcLm
+ JYtzs83Zg5hWQ==
+Date: Tue, 3 Jan 2023 09:41:31 -0500
+From: Alyssa Rosenzweig <alyssa@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Message-ID: <Y7Q+m2m1rPV1HzBR@maud>
+References: <20221222222127.34560-1-matthew.brost@intel.com>
+ <8c0a1792-c2bd-375f-fa56-747e34b085f4@suse.de>
+ <87cz7xyxft.fsf@intel.com> <20230103145648.24947c06@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230103145648.24947c06@collabora.com>
 X-Mailman-Approved-At: Wed, 04 Jan 2023 19:01:00 +0000
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/fbc: Avoid full proxy f_ops for
- FBC debug attributes
+Subject: Re: [Intel-gfx] [RFC PATCH 00/20] Initial Xe driver submission
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,166 +54,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Saurabh Singh Sengar <ssengar@microsoft.com>,
- Praveen Kumar <kumarpraveen@linux.microsoft.com>,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Julia Lawall <Julia.Lawall@lip6.fr>, Nicolai Stange <nicstange@gmail.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+> > For one thing, setting that up would be a lot of up front infrastructure
+> > work. I'm not sure how to even pull that off when Xe is still
+> > out-of-tree and i915 development plunges on upstream as ever.
+> > 
+> > For another, realistically, the overlap between supported platforms is
+> > going to end at some point, and eventually new platforms are only going
+> > to be supported with Xe. That's going to open up new possibilities for
+> > refactoring also the display code. I think it would be premature to lock
+> > in to a common directory structure or a common helper module at this
+> > point.
+> > 
+> > I'm not saying no to the idea, and we've contemplated it before, but I
+> > think there are still too many moving parts to decide to go that way.
+> 
+> FWIW, I actually have the same dilemma with the driver for new Mali GPUs
+> I'm working on. I initially started making it a sub-driver of the
+> existing panfrost driver (some HW blocks are similar, like the
+> IOMMU and a few other things, and some SW abstracts can be shared here
+> and there, like the GEM allocator logic). But I'm now considering
+> forking the driver (after Alyssa planted the seed :-)), not only
+> because I want to start from a clean sheet on the the uAPI front
+> (wouldn't be an issue in your case, because you're talking about
+> sharing helpers, not the driver frontend), but also because any refactor
+> to panfrost is a potential source of regression for existing users. So,
+> I tend to agree with Jani here, trying to share code before things have
+> settled down is likely to cause pain to both Xe and i915
+> users+developers.
 
+++
 
-On Tue, 3 Jan 2023, Deepak R Varma wrote:
+I pretend to have never written a kernel driver, so will not comment
+there. But Boris and I were previously bit trying to share code between
+our GL and VK drivers, before VK settled down, causing pain for both. I
+don't want a kernelside repeat of that (for either Mali or Intel).
 
-> On Wed, Dec 28, 2022 at 06:18:12AM -0500, Rodrigo Vivi wrote:
-> > On Tue, Dec 27, 2022 at 11:36:13PM +0530, Deepak R Varma wrote:
-> > > On Tue, Dec 27, 2022 at 12:13:56PM -0500, Rodrigo Vivi wrote:
-> > > > On Tue, Dec 27, 2022 at 01:30:53PM +0530, Deepak R Varma wrote:
-> > > > > Using DEFINE_SIMPLE_ATTRIBUTE macro with the debugfs_create_file()
-> > > > > function adds the overhead of introducing a proxy file operation
-> > > > > functions to wrap the original read/write inside file removal protection
-> > > > > functions. This adds significant overhead in terms of introducing and
-> > > > > managing the proxy factory file operations structure and function
-> > > > > wrapping at runtime.
-> > > > > As a replacement, a combination of DEFINE_DEBUGFS_ATTRIBUTE macro paired
-> > > > > with debugfs_create_file_unsafe() is suggested to be used instead.  The
-> > > > > DEFINE_DEBUGFS_ATTRIBUTE utilises debugfs_file_get() and
-> > > > > debugfs_file_put() wrappers to protect the original read and write
-> > > > > function calls for the debug attributes. There is no need for any
-> > > > > runtime proxy file operations to be managed by the debugfs core.
-> > > > >
-> > > > > This Change is reported by the debugfs_simple_attr.cocci Coccinelle
-> > > > > semantic patch.
-> > > >
-> > > > I just checked here with
-> > > > $ make coccicheck M=drivers/gpu/drm/i915/ MODE=context COCCI=./scripts/coccinelle/api/debugfs/debugfs_simple_attr.cocci
-> > >
-> > > Hello Rodrigo,
-> > > Thank you so much for your review and feedback on the patch proposal.
-> > >
-> > > >
-> > > > The part reported by the this script is the s/SIMPLE/DEBUGFS
-> > > > but the change to the unsafe option is not.
-> > >
-> > > If you look at the original commit of this coccinelle file, it calls out the
-> > > need for pairing debugfs_create_file_unsafe() as well. Please review this
-> > >
-> > > commitID: 5103068eaca2: ("debugfs, coccinelle: check for obsolete DEFINE_SIMPLE_ATTRIBUTE() usage")
-> >
-> > +Nicolai and Julia.
-> >
-> > It looks like coccinelle got right the
-> > - DEFINE_SIMPLE_ATTRIBUTE(dsa_fops, dsa_get, dsa_set, dsa_fmt);
-> > + DEFINE_DEBUGFS_ATTRIBUTE(dsa_fops, dsa_get, dsa_set, dsa_fmt);
-> >
-> > but it failed badly on
-> > - debugfs_create_file(name, mode, parent, data, &dsa_fops)
-> > + debugfs_create_file_unsafe(name, mode, parent, data, &dsa_fops)
-> >
-> > >
-> > > Based on my review of the code, the functions debugfs_create_file() and
-> > > debugfs_create_file_unsafe(), both internally call __debugfs_create_file().
-> > > However, they pass debugfs_full_proxy_file_operations and
-> > > debugfs_open_proxy_file_operations respectively to it. The former represents the
-> > > full proxy factory, where as the later one is lightweight open proxy
-> > > implementation of the file operations structure.
-> > >
-> > > >
-> > > > This commit message is not explaining why the unsafe is the suggested
-> > > > or who suggested it.
-> > >
-> > > If you find the response above accurate, I will include these details about
-> > > the _unsafe() function in my commit message in v2.
-> > >
-> > > >
-> > > > If you remove the unsafe part feel free to resend adding:
-> > >
-> > > Please confirm you still believe switching to _unsafe() is not necessary.
-> >
-> > Based on the coccinelle commit it looks like you are right, but cocinelle
-> > just failed to detect the case. Let's see what Nicolai and Julia respond
-> > before we move with any patch here.
->
-> Hello Nicolai and Julia,
-> Can you please review this proposed patch and the feedback comments from Rodrigo
-> please?
-
-I'm not an expert on this issue.  If the semantic patch needs to change in
-some way, I would be happy to take any improvements.
-
-julia
-
-
->
-> Thank you,
-> ./drv
->
-> >
-> > >
-> > > >
-> > > > Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> > > > (to both patches, this and the drrs one.
-> > > >
-> > > > Also, it looks like you could contribute with other 2 patches:
-> > > > drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c:64:0-23: WARNING: pxp_terminate_fops should be defined with DEFINE_DEBUGFS_ATTRIBUTE
-> > > > drivers/gpu/drm/i915/gvt/debugfs.c:150:0-23: WARNING: vgpu_scan_nonprivbb_fops should be defined with DEFINE_DEBUGFS_ATTRIBUTE
-> > >
-> > > Yes, these are on my list. Was waiting for a feedback on the first submission
-> > > before I send more similar patches.
-> > >
-> > > Appreciate your time and the feedback.
-> > >
-> > >
-> > > Regards,
-> > > ./drv
-> > >
-> > > >
-> > > > >
-> > > > > Signed-off-by: Deepak R Varma <drv@mailo.com>
-> > > > > ---
-> > > > >  drivers/gpu/drm/i915/display/intel_fbc.c | 12 ++++++------
-> > > > >  1 file changed, 6 insertions(+), 6 deletions(-)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-> > > > > index b5ee5ea0d010..4b481e2f908b 100644
-> > > > > --- a/drivers/gpu/drm/i915/display/intel_fbc.c
-> > > > > +++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-> > > > > @@ -1809,10 +1809,10 @@ static int intel_fbc_debugfs_false_color_set(void *data, u64 val)
-> > > > >  	return 0;
-> > > > >  }
-> > > > >
-> > > > > -DEFINE_SIMPLE_ATTRIBUTE(intel_fbc_debugfs_false_color_fops,
-> > > > > -			intel_fbc_debugfs_false_color_get,
-> > > > > -			intel_fbc_debugfs_false_color_set,
-> > > > > -			"%llu\n");
-> > > > > +DEFINE_DEBUGFS_ATTRIBUTE(intel_fbc_debugfs_false_color_fops,
-> > > > > +			 intel_fbc_debugfs_false_color_get,
-> > > > > +			 intel_fbc_debugfs_false_color_set,
-> > > > > +			 "%llu\n");
-> > > > >
-> > > > >  static void intel_fbc_debugfs_add(struct intel_fbc *fbc,
-> > > > >  				  struct dentry *parent)
-> > > > > @@ -1821,8 +1821,8 @@ static void intel_fbc_debugfs_add(struct intel_fbc *fbc,
-> > > > >  			    fbc, &intel_fbc_debugfs_status_fops);
-> > > > >
-> > > > >  	if (fbc->funcs->set_false_color)
-> > > > > -		debugfs_create_file("i915_fbc_false_color", 0644, parent,
-> > > > > -				    fbc, &intel_fbc_debugfs_false_color_fops);
-> > > > > +		debugfs_create_file_unsafe("i915_fbc_false_color", 0644, parent,
-> > > > > +					   fbc, &intel_fbc_debugfs_false_color_fops);
-> > > > >  }
-> > > > >
-> > > > >  void intel_fbc_crtc_debugfs_add(struct intel_crtc *crtc)
-> > > > > --
-> > > > > 2.34.1
-> > > > >
-> > > > >
-> > > > >
-> > >
-> > >
-> >
->
->
->
+I tend to think that, if you're tempted to share a driver frontend
+without the backend, that's a sign that there's too much boilerplate for
+the frontend and maybe there needs to be more helpers somewhere. For Xe,
+that doesn't apply since the hw overlaps between the drivers, but for
+Mali, there really is more different than similar and there's an
+obvious, acute break between "old Mali" and "new Mali". The shared
+"instantiate a DRM driver boilerplate" is pretty trivial, and the MMU
+code is as simple as it gets...
