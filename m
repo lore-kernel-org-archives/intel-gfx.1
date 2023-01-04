@@ -4,50 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80E2FC4708E
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 10:07:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 403DFC4332F
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 10:08:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6B4610E567;
-	Wed,  4 Jan 2023 10:07:19 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 460AB10E564;
- Wed,  4 Jan 2023 10:07:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFBA510E56A;
+	Wed,  4 Jan 2023 10:08:35 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F8CB10E56A;
+ Wed,  4 Jan 2023 10:08:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1672826836; x=1704362836;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=f28yXyuPCw5qqjy3tYDOeHUtVROKLB9vceXiiKc241A=;
- b=Kz6kcLplcdnPaHQxbstsyEFhjCY0tD3aVLf9yojogmlBiyk89L/b1BZf
- D3W5z61xNgRS5zt4WBmgjCuifQewWIQ/MhXlI/O7kfM5idef414Xbjx7H
- uZ4je2NlmsVP1zGni7J0EJhKIDBjISfpJ/o5V41tL1H6jfpVHgvOkeV9a
- Kpl0jT8zNas+ckgHoDCU1T1LWX8qGr6EnnNKVy9xtbXdUeB9d7M0HlAUj
- Zo0iUuuGnJJUAsM1kcozNdFygoWgR9DR6X5hXnCbZgSNeE9UYVIG2c89R
- t3T5zSFcbzYUtGhpndM3Q3MzboD+TQjAQddMDB6oQFcVZs/eJd4+Watdt Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10579"; a="408157085"
-X-IronPort-AV: E=Sophos;i="5.96,299,1665471600"; d="scan'208";a="408157085"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jan 2023 02:07:15 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10579"; a="723590998"
-X-IronPort-AV: E=Sophos;i="5.96,299,1665471600"; d="scan'208";a="723590998"
-Received: from mkabdel-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.25.63])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jan 2023 02:07:14 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Date: Wed,  4 Jan 2023 12:05:37 +0200
-Message-Id: <94814815b820135ca259d97f463c80628cabf9f6.1672826282.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1672826282.git.jani.nikula@intel.com>
-References: <cover.1672826282.git.jani.nikula@intel.com>
+ t=1672826914; x=1704362914;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=NGHGib1U6D2wARLPjdMFf6PUETAizeB9ioowpLTLMkE=;
+ b=IF5xI6PqTbeIbTDQh1eFaIDQk4D9HwuXU7jhm4Ir3TyKAsUwUpWY1NGd
+ wYlu9QntGiGYJqf2kJnXmNsueObQIkXF/x7IThXt9Xh9ILkMJvfY1ehKr
+ KJ42Mrmqldf+Jb762boy7i2t2ODYdihMRyTRA9a7X3IEpR2XR1snCqxLJ
+ ELg8mfsXV5++VLWte5MFXj+rwm+wnQgBXCCeM4cfSSNlEXdOAWaiXZ8IV
+ 8Pz5LSYkXvGRGGWHVzox7MIVYnVrRevNSjJLANwPDAb0qiSMdch/HUVey
+ N+uW6MvlRpyFLNbq66ZQRi3f4TvENYYQqUdxQggdF1MbznCvidZheC6KT w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10579"; a="305402673"
+X-IronPort-AV: E=Sophos;i="5.96,299,1665471600"; d="scan'208";a="305402673"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jan 2023 02:08:33 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10579"; a="829137108"
+X-IronPort-AV: E=Sophos;i="5.96,299,1665471600"; d="scan'208";a="829137108"
+Received: from wfurtakx-mobl.ger.corp.intel.com (HELO [10.213.223.45])
+ ([10.213.223.45])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jan 2023 02:08:31 -0800
+Message-ID: <210966b7-d736-48cd-15f4-3451d96914b6@linux.intel.com>
+Date: Wed, 4 Jan 2023 10:08:29 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 22/22] drm/i915/panel: move panel fixed EDID
- to struct intel_panel
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Content-Language: en-US
+To: Matt Roper <matthew.d.roper@intel.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>
+References: <20221219101316.168129-1-tvrtko.ursulin@linux.intel.com>
+ <20221219101316.168129-3-tvrtko.ursulin@linux.intel.com>
+ <083b4424-d984-a2d2-1f58-035e4c1c82bd@intel.com>
+ <Y7SIwogJwS2teOgy@mdroper-desk1.amr.corp.intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <Y7SIwogJwS2teOgy@mdroper-desk1.amr.corp.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915: Consolidate TLB invalidation
+ flow
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,265 +66,404 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
+Cc: Intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It's a bit confusing to have two cached EDIDs in struct intel_connector
-with slightly different purposes. Make the distinction a bit clearer by
-moving the EDID cached for eDP and LVDS panels at connector init time to
-struct intel_panel, and name it fixed_edid. That's what it is, a fixed
-EDID for the panels.
 
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/icl_dsi.c        |  2 +-
- .../gpu/drm/i915/display/intel_connector.c    |  3 ---
- .../drm/i915/display/intel_display_types.h    |  6 ++++--
- drivers/gpu/drm/i915/display/intel_dp.c       | 20 +++++++++----------
- drivers/gpu/drm/i915/display/intel_dvo.c      |  2 +-
- drivers/gpu/drm/i915/display/intel_lvds.c     | 11 +++++-----
- drivers/gpu/drm/i915/display/intel_panel.c    | 10 +++++++++-
- drivers/gpu/drm/i915/display/intel_panel.h    |  4 +++-
- drivers/gpu/drm/i915/display/intel_sdvo.c     |  2 +-
- drivers/gpu/drm/i915/display/vlv_dsi.c        |  2 +-
- 10 files changed, 35 insertions(+), 27 deletions(-)
+On 03/01/2023 19:57, Matt Roper wrote:
+> On Mon, Dec 19, 2022 at 05:10:02PM +0100, Andrzej Hajda wrote:
+>> On 19.12.2022 11:13, Tvrtko Ursulin wrote:
+>>> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>>>
+>>> As the logic for selecting the register and corresponsing values grew, the
+>>
+>> corresponding
+>>
+>>> code become a bit unsightly. Consolidate by storing the required values at
+>>> engine init time in the engine itself, and by doing so minimise the amount
+>>> of invariant platform and engine checks during each and every TLB
+>>> invalidation.
+>>>
+>>> v2:
+>>>    * Fail engine probe if TLB invlidations registers are unknown.
+>>>
+>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>>> Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+>>> Cc: Matt Roper <matthew.d.roper@intel.com>
+>>> Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com> # v1
+>>> ---
+>>>    drivers/gpu/drm/i915/gt/intel_engine_cs.c    |  93 +++++++++++++
+>>>    drivers/gpu/drm/i915/gt/intel_engine_types.h |  15 +++
+>>>    drivers/gpu/drm/i915/gt/intel_gt.c           | 135 +++----------------
+>>>    3 files changed, 128 insertions(+), 115 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+>>> index 99c4b866addd..d47dadfc25c8 100644
+>>> --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+>>> +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+>>> @@ -1143,12 +1143,105 @@ static int init_status_page(struct intel_engine_cs *engine)
+>>>    	return ret;
+>>>    }
+>>> +static int intel_engine_init_tlb_invalidation(struct intel_engine_cs *engine)
+>>> +{
+>>> +	static const union intel_engine_tlb_inv_reg gen8_regs[] = {
+>>> +		[RENDER_CLASS].reg		= GEN8_RTCR,
+>>> +		[VIDEO_DECODE_CLASS].reg	= GEN8_M1TCR, /* , GEN8_M2TCR */
+>>> +		[VIDEO_ENHANCEMENT_CLASS].reg	= GEN8_VTCR,
+>>> +		[COPY_ENGINE_CLASS].reg		= GEN8_BTCR,
+>>> +	};
+>>> +	static const union intel_engine_tlb_inv_reg gen12_regs[] = {
+>>> +		[RENDER_CLASS].reg		= GEN12_GFX_TLB_INV_CR,
+>>> +		[VIDEO_DECODE_CLASS].reg	= GEN12_VD_TLB_INV_CR,
+>>> +		[VIDEO_ENHANCEMENT_CLASS].reg	= GEN12_VE_TLB_INV_CR,
+>>> +		[COPY_ENGINE_CLASS].reg		= GEN12_BLT_TLB_INV_CR,
+>>> +		[COMPUTE_CLASS].reg		= GEN12_COMPCTX_TLB_INV_CR,
+>>> +	};
+>>> +	static const union intel_engine_tlb_inv_reg xehp_regs[] = {
+>>> +		[RENDER_CLASS].mcr_reg		  = XEHP_GFX_TLB_INV_CR,
+>>> +		[VIDEO_DECODE_CLASS].mcr_reg	  = XEHP_VD_TLB_INV_CR,
+>>> +		[VIDEO_ENHANCEMENT_CLASS].mcr_reg = XEHP_VE_TLB_INV_CR,
+>>> +		[COPY_ENGINE_CLASS].mcr_reg	  = XEHP_BLT_TLB_INV_CR,
+>>> +		[COMPUTE_CLASS].mcr_reg		  = XEHP_COMPCTX_TLB_INV_CR,
+>>> +	};
+>>> +	struct drm_i915_private *i915 = engine->i915;
+>>> +	const union intel_engine_tlb_inv_reg *regs;
+>>> +	union intel_engine_tlb_inv_reg reg;
+>>> +	unsigned int class = engine->class;
+>>> +	unsigned int num = 0;
+>>> +	u32 val;
+>>> +
+>>> +	/*
+>>> +	 * New platforms should not be added with catch-all-newer (>=)
+>>> +	 * condition so that any later platform added triggers the below warning
+>>> +	 * and in turn mandates a human cross-check of whether the invalidation
+>>> +	 * flows have compatible semantics.
+>>> +	 *
+>>> +	 * For instance with the 11.00 -> 12.00 transition three out of five
+>>> +	 * respective engine registers were moved to masked type. Then after the
+>>> +	 * 12.00 -> 12.50 transition multi cast handling is required too.
+>>> +	 */
+>>> +
+>>> +	if (GRAPHICS_VER_FULL(i915) == IP_VER(12, 50)) {
+> 
+> This is bad...it only captures XEHPSDV and breaks the handling of DG2
+> (12.55), PVC (12.60), and MTL (12.70, 12.71, and 12.72).  You're not
+> hitting the warning as expected since those are all now being captured
+> by the next case of the if/else ladder.  With the way GMD_ID works, we
+> may also get new version numbers that silently show up in hardware too
+> at some point (e.g., 12.73, 12.74, etc.)
 
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index ae14c794c4bc..d56d01f07bb7 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -2054,7 +2054,7 @@ void icl_dsi_init(struct drm_i915_private *dev_priv)
- 		goto err;
- 	}
- 
--	intel_panel_init(intel_connector);
-+	intel_panel_init(intel_connector, NULL);
- 
- 	intel_backlight_setup(intel_connector, INVALID_PIPE);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
-index 4814d4e2f7f9..257afac34839 100644
---- a/drivers/gpu/drm/i915/display/intel_connector.c
-+++ b/drivers/gpu/drm/i915/display/intel_connector.c
-@@ -99,9 +99,6 @@ void intel_connector_destroy(struct drm_connector *connector)
- 
- 	intel_hdcp_cleanup(intel_connector);
- 
--	if (!IS_ERR_OR_NULL(intel_connector->edid))
--		drm_edid_free(intel_connector->edid);
--
- 	intel_panel_fini(intel_connector);
- 
- 	drm_connector_cleanup(connector);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 34dc850340b8..6feb232bb1c2 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -351,6 +351,9 @@ struct intel_vbt_panel_data {
- };
- 
- struct intel_panel {
-+	/* Fixed EDID for eDP and LVDS. May hold ERR_PTR for invalid EDID. */
-+	const struct drm_edid *fixed_edid;
-+
- 	struct list_head fixed_modes;
- 
- 	/* backlight */
-@@ -591,8 +594,7 @@ struct intel_connector {
- 	/* Panel info for eDP and LVDS */
- 	struct intel_panel panel;
- 
--	/* Cached EDID for eDP and LVDS. May hold ERR_PTR for invalid EDID. */
--	const struct drm_edid *edid;
-+	/* Cached EDID for detect. */
- 	const struct drm_edid *detect_edid;
- 
- 	/* Number of times hotplug detection was tried after an HPD interrupt */
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 67f2cb048ac1..3f4396b5f029 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4480,18 +4480,19 @@ bool intel_digital_port_connected(struct intel_encoder *encoder)
- static const struct drm_edid *
- intel_dp_get_edid(struct intel_dp *intel_dp)
- {
--	struct intel_connector *intel_connector = intel_dp->attached_connector;
-+	struct intel_connector *connector = intel_dp->attached_connector;
-+	const struct drm_edid *fixed_edid = connector->panel.fixed_edid;
- 
--	/* use cached edid if we have one */
--	if (intel_connector->edid) {
-+	/* Use panel fixed edid if we have one */
-+	if (fixed_edid) {
- 		/* invalid edid */
--		if (IS_ERR(intel_connector->edid))
-+		if (IS_ERR(fixed_edid))
- 			return NULL;
- 
--		return drm_edid_dup(intel_connector->edid);
--	} else
--		return drm_edid_read_ddc(&intel_connector->base,
--					 &intel_dp->aux.ddc);
-+		return drm_edid_dup(fixed_edid);
-+	}
-+
-+	return drm_edid_read_ddc(&connector->base, &intel_dp->aux.ddc);
- }
- 
- static void
-@@ -5316,7 +5317,6 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
- 	} else {
- 		drm_edid = ERR_PTR(-ENOENT);
- 	}
--	intel_connector->edid = drm_edid;
- 
- 	intel_bios_init_panel_late(dev_priv, &intel_connector->panel, encoder->devdata,
- 				   IS_ERR(drm_edid) ? NULL : drm_edid);
-@@ -5343,7 +5343,7 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
- 		goto out_vdd_off;
- 	}
- 
--	intel_panel_init(intel_connector);
-+	intel_panel_init(intel_connector, drm_edid);
- 
- 	intel_edp_backlight_setup(intel_dp, intel_connector);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dvo.c b/drivers/gpu/drm/i915/display/intel_dvo.c
-index 4aeae0f3ac91..0be8105cb18a 100644
---- a/drivers/gpu/drm/i915/display/intel_dvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_dvo.c
-@@ -554,6 +554,6 @@ void intel_dvo_init(struct drm_i915_private *i915)
- 		 */
- 		intel_panel_add_encoder_fixed_mode(connector, encoder);
- 
--		intel_panel_init(connector);
-+		intel_panel_init(connector, NULL);
- 	}
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
-index 9f6910bba2e9..a1557d84ce0a 100644
---- a/drivers/gpu/drm/i915/display/intel_lvds.c
-+++ b/drivers/gpu/drm/i915/display/intel_lvds.c
-@@ -477,10 +477,11 @@ static int intel_lvds_compute_config(struct intel_encoder *intel_encoder,
- static int intel_lvds_get_modes(struct drm_connector *connector)
- {
- 	struct intel_connector *intel_connector = to_intel_connector(connector);
-+	const struct drm_edid *fixed_edid = intel_connector->panel.fixed_edid;
- 
--	/* use cached edid if we have one */
--	if (!IS_ERR_OR_NULL(intel_connector->edid)) {
--		drm_edid_connector_update(connector, intel_connector->edid);
-+	/* Use panel fixed edid if we have one */
-+	if (!IS_ERR_OR_NULL(fixed_edid)) {
-+		drm_edid_connector_update(connector, fixed_edid);
- 
- 		return drm_edid_connector_add_modes(connector);
- 	}
-@@ -974,8 +975,6 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
- 	} else {
- 		drm_edid = ERR_PTR(-ENOENT);
- 	}
--	intel_connector->edid = drm_edid;
--
- 	intel_bios_init_panel_late(dev_priv, &intel_connector->panel, NULL,
- 				   IS_ERR(drm_edid) ? NULL : drm_edid);
- 
-@@ -1000,7 +999,7 @@ void intel_lvds_init(struct drm_i915_private *dev_priv)
- 	if (!intel_panel_preferred_fixed_mode(intel_connector))
- 		goto failed;
- 
--	intel_panel_init(intel_connector);
-+	intel_panel_init(intel_connector, drm_edid);
- 
- 	intel_backlight_setup(intel_connector, INVALID_PIPE);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index 3b1004b019a8..42aa04bac261 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -31,6 +31,8 @@
- #include <linux/kernel.h>
- #include <linux/pwm.h>
- 
-+#include <drm/drm_edid.h>
-+
- #include "i915_reg.h"
- #include "intel_backlight.h"
- #include "intel_connector.h"
-@@ -670,10 +672,13 @@ void intel_panel_init_alloc(struct intel_connector *connector)
- 	INIT_LIST_HEAD(&panel->fixed_modes);
- }
- 
--int intel_panel_init(struct intel_connector *connector)
-+int intel_panel_init(struct intel_connector *connector,
-+		     const struct drm_edid *fixed_edid)
- {
- 	struct intel_panel *panel = &connector->panel;
- 
-+	panel->fixed_edid = fixed_edid;
-+
- 	intel_backlight_init_funcs(panel);
- 
- 	if (!has_drrs_modes(connector))
-@@ -692,6 +697,9 @@ void intel_panel_fini(struct intel_connector *connector)
- 	struct intel_panel *panel = &connector->panel;
- 	struct drm_display_mode *fixed_mode, *next;
- 
-+	if (!IS_ERR_OR_NULL(panel->fixed_edid))
-+		drm_edid_free(panel->fixed_edid);
-+
- 	intel_backlight_destroy(panel);
- 
- 	intel_bios_fini_panel(panel);
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.h b/drivers/gpu/drm/i915/display/intel_panel.h
-index 4b51e1c51da6..15a8c897b33f 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.h
-+++ b/drivers/gpu/drm/i915/display/intel_panel.h
-@@ -13,13 +13,15 @@ enum drrs_type;
- struct drm_connector;
- struct drm_connector_state;
- struct drm_display_mode;
-+struct drm_edid;
- struct drm_i915_private;
- struct intel_connector;
- struct intel_crtc_state;
- struct intel_encoder;
- 
- void intel_panel_init_alloc(struct intel_connector *connector);
--int intel_panel_init(struct intel_connector *connector);
-+int intel_panel_init(struct intel_connector *connector,
-+		     const struct drm_edid *fixed_edid);
- void intel_panel_fini(struct intel_connector *connector);
- enum drm_connector_status
- intel_panel_detect(struct drm_connector *connector, bool force);
-diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index 21805c15d5eb..c58e5cfa8e88 100644
---- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -2903,7 +2903,7 @@ intel_sdvo_lvds_init(struct intel_sdvo *intel_sdvo, u16 type)
- 		mutex_unlock(&i915->drm.mode_config.mutex);
- 	}
- 
--	intel_panel_init(intel_connector);
-+	intel_panel_init(intel_connector, NULL);
- 
- 	if (!intel_panel_preferred_fixed_mode(intel_connector))
- 		goto err;
-diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
-index 662bdb656aa3..2289f6b1b4eb 100644
---- a/drivers/gpu/drm/i915/display/vlv_dsi.c
-+++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
-@@ -1983,7 +1983,7 @@ void vlv_dsi_init(struct drm_i915_private *dev_priv)
- 		goto err_cleanup_connector;
- 	}
- 
--	intel_panel_init(intel_connector);
-+	intel_panel_init(intel_connector, NULL);
- 
- 	intel_backlight_setup(intel_connector, INVALID_PIPE);
- 
--- 
-2.34.1
+Great (on multiple counts) ...
 
+> 
+>>> +		regs = xehp_regs;
+>>> +		num = ARRAY_SIZE(xehp_regs);
+>>> +	} else if (GRAPHICS_VER(i915) == 12) {
+> 
+> You'd want to change this to
+> 
+>          GRAPHICS_VER_FULL(i915) == IP_VER(12, 0)
+> 
+> to get the behavior you expected.
+
+Okay, that, and then to be as safe as I intended, ie. warn on every new 
+platforms so developers *must* check registers are still compatible 
+during platform enablement, we would need a full ver range check 
+something like:
+
+	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50) &&
+	    GRAPHICS_VER_FULL(i915) <= IP_VER(12, 55)) {
+		regs = xehp_regs;
+		num = ARRAY_SIZE(xehp_regs);
+	} else if (GRAPHICS_VER_FULL(i915) == IP_VER(12, 0)) {
+		regs = gen12_regs;
+		num = ARRAY_SIZE(gen12_regs);
+
+What do you think about that?
+
+Or you are saying new GMD IDs may appear in the field without first 
+having passed the new platform enablemend process? That would be 
+horrible so I hope not.
+
+Regards,
+
+Tvrtko
+
+>>> +		regs = gen12_regs;
+>>> +		num = ARRAY_SIZE(gen12_regs);
+>>> +	} else if (GRAPHICS_VER(i915) >= 8 && GRAPHICS_VER(i915) <= 11) {
+>>> +		regs = gen8_regs;
+>>> +		num = ARRAY_SIZE(gen8_regs);
+>>> +	} else if (GRAPHICS_VER(i915) < 8) {
+>>> +		return 0;
+>>> +	} > +
+>>> +	if (drm_WARN_ONCE(&i915->drm, !num,
+>>> +			  "Platform does not implement TLB invalidation!"))
+>>> +		return -ENODEV;
+>>> +
+>>> +	if (drm_WARN_ON_ONCE(&i915->drm,
+>>> +			     class >= num ||
+>>> +			     (!regs[class].reg.reg &&
+>>> +			      !regs[class].mcr_reg.reg)))
+>>> +		return -ERANGE;
+>>
+>> I hope the propagation of -ERANGE to device probe is OK.
+>>
+>> Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
+>>
+>> Regards
+>> Andrzej
+>>
+>>> +
+>>> +	reg = regs[class];
+>>> +
+>>> +	if (GRAPHICS_VER(i915) == 8 && class == VIDEO_DECODE_CLASS) {
+>>> +		reg.reg.reg += 4 * engine->instance; /* GEN8_M2TCR */
+>>> +		val = 0;
+>>> +	} else {
+>>> +		val = engine->instance;
+>>> +	}
+>>> +
+>>> +	val = BIT(val);
+>>> +
+>>> +	engine->tlb_inv.mcr = regs == xehp_regs;
+>>> +	engine->tlb_inv.reg = reg;
+>>> +	engine->tlb_inv.done = val;
+>>> +
+>>> +	if (GRAPHICS_VER(i915) >= 12 &&
+>>> +	    (engine->class == VIDEO_DECODE_CLASS ||
+>>> +	     engine->class == VIDEO_ENHANCEMENT_CLASS ||
+>>> +	     engine->class == COMPUTE_CLASS))
+>>> +		engine->tlb_inv.request = _MASKED_BIT_ENABLE(val);
+>>> +	else
+>>> +		engine->tlb_inv.request = val;
+>>> +
+>>> +	return 0;
+>>> +}
+>>> +
+>>>    static int engine_setup_common(struct intel_engine_cs *engine)
+>>>    {
+>>>    	int err;
+>>>    	init_llist_head(&engine->barrier_tasks);
+>>> +	err = intel_engine_init_tlb_invalidation(engine);
+>>> +	if (err)
+>>> +		return err;
+>>> +
+>>>    	err = init_status_page(engine);
+>>>    	if (err)
+>>>    		return err;
+>>> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+>>> index 4fd54fb8810f..8c661fe89314 100644
+>>> --- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
+>>> +++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+>>> @@ -341,6 +341,19 @@ struct intel_engine_guc_stats {
+>>>    	u64 start_gt_clk;
+>>>    };
+>>> +union intel_engine_tlb_inv_reg {
+>>> +	i915_reg_t	reg;
+>>> +	i915_mcr_reg_t	mcr_reg;
+>>> +};
+>>> +
+>>> +struct intel_engine_tlb_inv
+>>> +{
+>>> +	bool mcr;
+>>> +	union intel_engine_tlb_inv_reg reg;
+>>> +	u32 request;
+>>> +	u32 done;
+>>> +};
+>>> +
+>>>    struct intel_engine_cs {
+>>>    	struct drm_i915_private *i915;
+>>>    	struct intel_gt *gt;
+>>> @@ -372,6 +385,8 @@ struct intel_engine_cs {
+>>>    	u32 context_size;
+>>>    	u32 mmio_base;
+>>> +	struct intel_engine_tlb_inv tlb_inv;
+>>> +
+>>>    	/*
+>>>    	 * Some w/a require forcewake to be held (which prevents RC6) while
+>>>    	 * a particular engine is active. If so, we set fw_domain to which
+>>> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+>>> index 854841a731cb..9fb0ac03f51a 100644
+>>> --- a/drivers/gpu/drm/i915/gt/intel_gt.c
+>>> +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+>>> @@ -983,36 +983,6 @@ void intel_gt_info_print(const struct intel_gt_info *info,
+>>>    	intel_sseu_dump(&info->sseu, p);
+>>>    }
+>>> -struct reg_and_bit {
+>>> -	union {
+>>> -		i915_reg_t reg;
+>>> -		i915_mcr_reg_t mcr_reg;
+>>> -	};
+>>> -	u32 bit;
+>>> -};
+>>> -
+>>> -static struct reg_and_bit
+>>> -get_reg_and_bit(const struct intel_engine_cs *engine, const bool gen8,
+>>> -		const i915_reg_t *regs, const unsigned int num)
+>>> -{
+>>> -	const unsigned int class = engine->class;
+>>> -	struct reg_and_bit rb = { };
+>>> -
+>>> -	if (drm_WARN_ON_ONCE(&engine->i915->drm,
+>>> -			     class >= num || !regs[class].reg))
+>>> -		return rb;
+>>> -
+>>> -	rb.reg = regs[class];
+>>> -	if (gen8 && class == VIDEO_DECODE_CLASS)
+>>> -		rb.reg.reg += 4 * engine->instance; /* GEN8_M2TCR */
+>>> -	else
+>>> -		rb.bit = engine->instance;
+>>> -
+>>> -	rb.bit = BIT(rb.bit);
+>>> -
+>>> -	return rb;
+>>> -}
+>>> -
+>>>    /*
+>>>     * HW architecture suggest typical invalidation time at 40us,
+>>>     * with pessimistic cases up to 100us and a recommendation to
+>>> @@ -1026,14 +996,20 @@ get_reg_and_bit(const struct intel_engine_cs *engine, const bool gen8,
+>>>     * but are now considered MCR registers.  Since they exist within a GAM range,
+>>>     * the primary instance of the register rolls up the status from each unit.
+>>>     */
+>>> -static int wait_for_invalidate(struct intel_gt *gt, struct reg_and_bit rb)
+>>> +static int wait_for_invalidate(struct intel_engine_cs *engine)
+>>>    {
+>>> -	if (GRAPHICS_VER_FULL(gt->i915) >= IP_VER(12, 50))
+>>> -		return intel_gt_mcr_wait_for_reg(gt, rb.mcr_reg, rb.bit, 0,
+>>> +	if (engine->tlb_inv.mcr)
+>>> +		return intel_gt_mcr_wait_for_reg(engine->gt,
+>>> +						 engine->tlb_inv.reg.mcr_reg,
+>>> +						 engine->tlb_inv.done,
+>>> +						 0,
+>>>    						 TLB_INVAL_TIMEOUT_US,
+>>>    						 TLB_INVAL_TIMEOUT_MS);
+>>>    	else
+>>> -		return __intel_wait_for_register_fw(gt->uncore, rb.reg, rb.bit, 0,
+>>> +		return __intel_wait_for_register_fw(engine->gt->uncore,
+>>> +						    engine->tlb_inv.reg.reg,
+>>> +						    engine->tlb_inv.done,
+>>> +						    0,
+>>>    						    TLB_INVAL_TIMEOUT_US,
+>>>    						    TLB_INVAL_TIMEOUT_MS,
+>>>    						    NULL);
+>>> @@ -1041,61 +1017,14 @@ static int wait_for_invalidate(struct intel_gt *gt, struct reg_and_bit rb)
+>>>    static void mmio_invalidate_full(struct intel_gt *gt)
+>>>    {
+>>> -	static const i915_reg_t gen8_regs[] = {
+>>> -		[RENDER_CLASS]			= GEN8_RTCR,
+>>> -		[VIDEO_DECODE_CLASS]		= GEN8_M1TCR, /* , GEN8_M2TCR */
+>>> -		[VIDEO_ENHANCEMENT_CLASS]	= GEN8_VTCR,
+>>> -		[COPY_ENGINE_CLASS]		= GEN8_BTCR,
+>>> -	};
+>>> -	static const i915_reg_t gen12_regs[] = {
+>>> -		[RENDER_CLASS]			= GEN12_GFX_TLB_INV_CR,
+>>> -		[VIDEO_DECODE_CLASS]		= GEN12_VD_TLB_INV_CR,
+>>> -		[VIDEO_ENHANCEMENT_CLASS]	= GEN12_VE_TLB_INV_CR,
+>>> -		[COPY_ENGINE_CLASS]		= GEN12_BLT_TLB_INV_CR,
+>>> -		[COMPUTE_CLASS]			= GEN12_COMPCTX_TLB_INV_CR,
+>>> -	};
+>>> -	static const i915_mcr_reg_t xehp_regs[] = {
+>>> -		[RENDER_CLASS]			= XEHP_GFX_TLB_INV_CR,
+>>> -		[VIDEO_DECODE_CLASS]		= XEHP_VD_TLB_INV_CR,
+>>> -		[VIDEO_ENHANCEMENT_CLASS]	= XEHP_VE_TLB_INV_CR,
+>>> -		[COPY_ENGINE_CLASS]		= XEHP_BLT_TLB_INV_CR,
+>>> -		[COMPUTE_CLASS]			= XEHP_COMPCTX_TLB_INV_CR,
+>>> -	};
+>>>    	struct drm_i915_private *i915 = gt->i915;
+>>>    	struct intel_uncore *uncore = gt->uncore;
+>>>    	struct intel_engine_cs *engine;
+>>>    	intel_engine_mask_t awake, tmp;
+>>>    	enum intel_engine_id id;
+>>> -	const i915_reg_t *regs;
+>>> -	unsigned int num = 0;
+>>>    	unsigned long flags;
+>>> -	/*
+>>> -	 * New platforms should not be added with catch-all-newer (>=)
+>>> -	 * condition so that any later platform added triggers the below warning
+>>> -	 * and in turn mandates a human cross-check of whether the invalidation
+>>> -	 * flows have compatible semantics.
+>>> -	 *
+>>> -	 * For instance with the 11.00 -> 12.00 transition three out of five
+>>> -	 * respective engine registers were moved to masked type. Then after the
+>>> -	 * 12.00 -> 12.50 transition multi cast handling is required too.
+>>> -	 */
+>>> -
+>>> -	if (GRAPHICS_VER_FULL(i915) == IP_VER(12, 50)) {
+>>> -		regs = NULL;
+>>> -		num = ARRAY_SIZE(xehp_regs);
+>>> -	} else if (GRAPHICS_VER(i915) == 12) {
+>>> -		regs = gen12_regs;
+>>> -		num = ARRAY_SIZE(gen12_regs);
+>>> -	} else if (GRAPHICS_VER(i915) >= 8 && GRAPHICS_VER(i915) <= 11) {
+>>> -		regs = gen8_regs;
+>>> -		num = ARRAY_SIZE(gen8_regs);
+>>> -	} else if (GRAPHICS_VER(i915) < 8) {
+>>> -		return;
+>>> -	}
+>>> -
+>>> -	if (drm_WARN_ONCE(&i915->drm, !num,
+>>> -			  "Platform does not implement TLB invalidation!"))
+>>> +	if (GRAPHICS_VER(i915) < 8)
+>>>    		return;
+>>>    	intel_uncore_forcewake_get(uncore, FORCEWAKE_ALL);
+>>> @@ -1105,33 +1034,18 @@ static void mmio_invalidate_full(struct intel_gt *gt)
+>>>    	awake = 0;
+>>>    	for_each_engine(engine, gt, id) {
+>>> -		struct reg_and_bit rb;
+>>> -
+>>>    		if (!intel_engine_pm_is_awake(engine))
+>>>    			continue;
+>>> -		if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50)) {
+>>> -			u32 val = BIT(engine->instance);
+>>> -
+>>> -			if (engine->class == VIDEO_DECODE_CLASS ||
+>>> -			    engine->class == VIDEO_ENHANCEMENT_CLASS ||
+>>> -			    engine->class == COMPUTE_CLASS)
+>>> -				val = _MASKED_BIT_ENABLE(val);
+>>> +		if (engine->tlb_inv.mcr)
+>>>    			intel_gt_mcr_multicast_write_fw(gt,
+>>> -							xehp_regs[engine->class],
+>>> -							val);
+>>> -		} else {
+>>> -			rb = get_reg_and_bit(engine, regs == gen8_regs, regs, num);
+>>> -			if (!i915_mmio_reg_offset(rb.reg))
+>>> -				continue;
+>>> -
+>>> -			if (GRAPHICS_VER(i915) == 12 && (engine->class == VIDEO_DECODE_CLASS ||
+>>> -			    engine->class == VIDEO_ENHANCEMENT_CLASS ||
+>>> -			    engine->class == COMPUTE_CLASS))
+>>> -				rb.bit = _MASKED_BIT_ENABLE(rb.bit);
+>>> -
+>>> -			intel_uncore_write_fw(uncore, rb.reg, rb.bit);
+>>> -		}
+>>> +							engine->tlb_inv.reg.mcr_reg,
+>>> +							engine->tlb_inv.request);
+>>> +		else
+>>> +			intel_uncore_write_fw(uncore,
+>>> +					      engine->tlb_inv.reg.reg,
+>>> +					      engine->tlb_inv.request);
+>>> +
+>>>    		awake |= engine->mask;
+>>>    	}
+>>> @@ -1150,16 +1064,7 @@ static void mmio_invalidate_full(struct intel_gt *gt)
+>>>    	intel_gt_mcr_unlock(gt, flags);
+>>>    	for_each_engine_masked(engine, gt, awake, tmp) {
+>>> -		struct reg_and_bit rb;
+>>> -
+>>> -		if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50)) {
+>>> -			rb.mcr_reg = xehp_regs[engine->class];
+>>> -			rb.bit = BIT(engine->instance);
+>>> -		} else {
+>>> -			rb = get_reg_and_bit(engine, regs == gen8_regs, regs, num);
+>>> -		}
+>>> -
+>>> -		if (wait_for_invalidate(gt, rb))
+>>> +		if (wait_for_invalidate(engine))
+>>>    			drm_err_ratelimited(&gt->i915->drm,
+>>>    					    "%s TLB invalidation did not complete in %ums!\n",
+>>>    					    engine->name, TLB_INVAL_TIMEOUT_MS);
+>>
+> 
