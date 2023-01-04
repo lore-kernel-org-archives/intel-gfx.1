@@ -4,48 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72538C46467
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 10:08:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08CBFC4332F
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Jan 2023 10:15:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F66D10E56D;
-	Wed,  4 Jan 2023 10:08:36 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2F0A10E56A
- for <intel-gfx@lists.freedesktop.org>; Wed,  4 Jan 2023 10:08:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 771AC10E56F;
+	Wed,  4 Jan 2023 10:15:00 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B5CF10E56F
+ for <intel-gfx@lists.freedesktop.org>; Wed,  4 Jan 2023 10:14:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1672826912; x=1704362912;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=Gnht3hTvFMk49fMRUcV4Mn+YaSO0yEb/U1I0ifQHAiI=;
- b=YqwNNdijN6cvNTwXxH/SlsnWVlrpqBjPQDyAVb5I7T9i7zOrbBsNUZE4
- njzEX+/mYAVUMmbMEEA3OHNlCmVHblSSGi4IvO6n7kfQOA0+xF4jtVWbb
- hjRVVoQc9dtfjimVF15u+HT7Filg2K/cnG9C3sNECrFJE3fFoGyZm6SPr
- T2AHUqgycZK7QXugjhIpqrRBHjfhYAL5V5M6I20PnD+zEhCDEbebNev+v
- dUyA5wzgoAuM1ahytuNFoXA3pkK+YnqPJlWlYaj2R/JJhvWZdn4osjoGx
- dqPsvnRcnKoUCCqRSLi1oIpLC6RVbqmJ90ub7nLYUtbQQ9SKao/yiCAE5 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10579"; a="320611342"
-X-IronPort-AV: E=Sophos;i="5.96,299,1665471600"; d="scan'208";a="320611342"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jan 2023 02:08:32 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10579"; a="632743951"
-X-IronPort-AV: E=Sophos;i="5.96,299,1665471600"; d="scan'208";a="632743951"
-Received: from mkabdel-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.25.63])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jan 2023 02:08:28 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20221220120023.1214620-1-andrzej.hajda@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20221220120023.1214620-1-andrzej.hajda@intel.com>
-Date: Wed, 04 Jan 2023 12:08:26 +0200
-Message-ID: <87edsay5lx.fsf@intel.com>
+ t=1672827298; x=1704363298;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=uLP4A3XlLXIFjMFMsEcgdE9OmjLne242EwwwhbCNK8Y=;
+ b=a3Hw1xG9izSKSioQgcumxa5Z6ASDpLI8ZfA//dM7uLPS0tmKePPew8W3
+ 6FHAY0mTZ1og+PiN6OJDXRJrx06D+KC3dBP0E3TjAuh3IEzoFtS/SXC/n
+ sD1DIXONXit+3Xyg4++VRFn6X3f5EPs0e28DwFEw5pCIgAXM2Dv5AJJzs
+ +4Jqej74in9YkY1ocGyVAJqykv79VSKjJwbBiMI2w+2K/sx0LVyZusZvo
+ 7LFu3DvfRceZ9FFYLkzecgbXwvtcMYao46Lr5EeeB9DX15o2AtVDwU3WJ
+ GruKPK1Y/hhGNC0pmSVZmHKWMfFr6Z+yimxr6HmONR08jZfnvbcLFEFAa A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10579"; a="301590621"
+X-IronPort-AV: E=Sophos;i="5.96,299,1665471600"; d="scan'208";a="301590621"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jan 2023 02:14:57 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10579"; a="762629803"
+X-IronPort-AV: E=Sophos;i="5.96,299,1665471600"; d="scan'208";a="762629803"
+Received: from wfurtakx-mobl.ger.corp.intel.com (HELO [10.213.223.45])
+ ([10.213.223.45])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jan 2023 02:14:55 -0800
+Message-ID: <823d28bf-3bb4-4b97-0821-e920588ffec4@linux.intel.com>
+Date: Wed, 4 Jan 2023 10:14:54 +0000
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915/display/core: use intel_de_rmw
- if possible
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Content-Language: en-US
+To: Jani Nikula <jani.nikula@intel.com>,
+ Suraj Kandpal <suraj.kandpal@intel.com>, intel-gfx@lists.freedesktop.org
+References: <20230102054047.124624-1-suraj.kandpal@intel.com>
+ <20230102054047.124624-6-suraj.kandpal@intel.com> <87k022y6af.fsf@intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <87k022y6af.fsf@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v5 5/7] drm/i915/hdcp: Fill wired_cmd_in
+ structures at a single place
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,771 +64,566 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 20 Dec 2022, Andrzej Hajda <andrzej.hajda@intel.com> wrote:
-> The helper makes the code more compact and readable.
->
-> Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
-> ---
-> Hi all,
->
-> This is the last patchset converting different flavours
-> of register updates to intel_de_rmw. There are probably
-> still some remnants, which would require functional changes
-> to allow conversion. They would need probably more individual
-> approach.
->
-> Jani, thank you for reviews.
->
-> And the final diffstat for all patches:
-> 26 files changed, 425 insertions(+), 952 deletions(-)
 
-I think this is doing too much per patch. Please just chop it up a bit,
-if only for the sake of the reviewer.
+On 04/01/2023 09:53, Jani Nikula wrote:
+> On Mon, 02 Jan 2023, Suraj Kandpal <suraj.kandpal@intel.com> wrote:
+>> Need to fill wired cmd in structures at a single place as they remain
+>> same for both gsc and mei.
+> 
+> I'm still opposed to adding this stuff to i915 and exporting the
+> symbols. Seems like it should be a separate component, because this is
+> not about i915.
+> 
+> Cc: other maintainers, please chime in.
+> 
+>> --v3
+>> -remove inline function from header [Jani]
+>>
+>> Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+>> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+>> ---
+>>   drivers/gpu/drm/i915/Makefile              |   1 +
+>>   drivers/gpu/drm/i915/i915_hdcp_interface.c | 216 +++++++++++++++++++++
+>>   drivers/misc/mei/hdcp/mei_hdcp.c           | 153 ++-------------
+>>   include/drm/i915_hdcp_interface.h          |  39 ++++
+>>   4 files changed, 270 insertions(+), 139 deletions(-)
+>>   create mode 100644 drivers/gpu/drm/i915/i915_hdcp_interface.c
+>>
+>> diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+>> index 461d6b40656d..c6a9826af58d 100644
+>> --- a/drivers/gpu/drm/i915/Makefile
+>> +++ b/drivers/gpu/drm/i915/Makefile
+>> @@ -36,6 +36,7 @@ i915-y += i915_driver.o \
+>>   	  i915_drm_client.o \
+>>   	  i915_config.o \
+>>   	  i915_getparam.o \
+>> +	  i915_hdcp_interface.o\
+>>   	  i915_ioctl.o \
+>>   	  i915_irq.o \
+>>   	  i915_mitigations.o \
+>> diff --git a/drivers/gpu/drm/i915/i915_hdcp_interface.c b/drivers/gpu/drm/i915/i915_hdcp_interface.c
+>> new file mode 100644
+>> index 000000000000..e6b787c2fa50
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/i915/i915_hdcp_interface.c
+>> @@ -0,0 +1,216 @@
+>> +// SPDX-License-Identifier: MIT
+>> +/*
+>> + * Copyright 2022, Intel Corporation.
+>> + */
+>> +
+>> +#include <drm/i915_hdcp_interface.h>
+>> +
+>> +void
+>> +i915_hdcp_fill_session_in(struct wired_cmd_initiate_hdcp2_session_in *session_init_in,
+>> +			  struct hdcp_port_data *data)
+>> +{
+>> +	session_init_in->header.api_version = HDCP_API_VERSION;
+>> +	session_init_in->header.command_id = WIRED_INITIATE_HDCP2_SESSION;
+>> +	session_init_in->header.status = FW_HDCP_STATUS_SUCCESS;
+>> +	session_init_in->header.buffer_len =
+>> +				WIRED_CMD_BUF_LEN_INITIATE_HDCP2_SESSION_IN;
+>> +
+>> +	session_init_in->port.integrated_port_type = data->port_type;
+>> +	session_init_in->port.physical_port = (u8)data->hdcp_ddi;
+>> +	session_init_in->port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> +	session_init_in->protocol = data->protocol;
+>> +}
+>> +EXPORT_SYMBOL(i915_hdcp_fill_session_in);
 
-BR,
-Jani.
+I am not familiar enough with the problem space but this kind of trivial 
+exported symbols definitely do not look like the best choice.
 
+Presumably there are two kernel modules dealing with this HDCP protocol 
+in which case would creating a kernel module like intel_hdcp, which 
+would establish the protocol definitions and API to use it. I915 and any 
+other module would then depend on that module and use it.
 
->
-> Regards
-> Andrzej
-> ---
->  drivers/gpu/drm/i915/display/intel_display.c  |  22 +--
->  .../drm/i915/display/intel_display_power.c    |  49 ++----
->  .../i915/display/intel_display_power_well.c   |  82 +++------
->  drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 165 ++++++------------
->  .../drm/i915/display/intel_modeset_setup.c    |  17 +-
->  5 files changed, 108 insertions(+), 227 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index e75b9b2a0e015a..c6c566a6572b8b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -293,11 +293,11 @@ static void
->  skl_wa_827(struct drm_i915_private *dev_priv, enum pipe pipe, bool enable)
->  {
->  	if (enable)
-> -		intel_de_write(dev_priv, CLKGATE_DIS_PSL(pipe),
-> -		               intel_de_read(dev_priv, CLKGATE_DIS_PSL(pipe)) | DUPS1_GATING_DIS | DUPS2_GATING_DIS);
-> +		intel_de_rmw(dev_priv, CLKGATE_DIS_PSL(pipe),
-> +			     0, DUPS1_GATING_DIS | DUPS2_GATING_DIS);
->  	else
-> -		intel_de_write(dev_priv, CLKGATE_DIS_PSL(pipe),
-> -		               intel_de_read(dev_priv, CLKGATE_DIS_PSL(pipe)) & ~(DUPS1_GATING_DIS | DUPS2_GATING_DIS));
-> +		intel_de_rmw(dev_priv, CLKGATE_DIS_PSL(pipe),
-> +		             DUPS1_GATING_DIS | DUPS2_GATING_DIS, 0);
->  }
->  
->  /* Wa_2006604312:icl,ehl */
-> @@ -306,11 +306,9 @@ icl_wa_scalerclkgating(struct drm_i915_private *dev_priv, enum pipe pipe,
->  		       bool enable)
->  {
->  	if (enable)
-> -		intel_de_write(dev_priv, CLKGATE_DIS_PSL(pipe),
-> -		               intel_de_read(dev_priv, CLKGATE_DIS_PSL(pipe)) | DPFR_GATING_DIS);
-> +		intel_de_rmw(dev_priv, CLKGATE_DIS_PSL(pipe), 0, DPFR_GATING_DIS);
->  	else
-> -		intel_de_write(dev_priv, CLKGATE_DIS_PSL(pipe),
-> -		               intel_de_read(dev_priv, CLKGATE_DIS_PSL(pipe)) & ~DPFR_GATING_DIS);
-> +		intel_de_rmw(dev_priv, CLKGATE_DIS_PSL(pipe), DPFR_GATING_DIS, 0);
->  }
->  
->  /* Wa_1604331009:icl,jsl,ehl */
-> @@ -1852,12 +1850,10 @@ static void hsw_set_frame_start_delay(const struct intel_crtc_state *crtc_state)
->  	enum transcoder transcoder = crtc_state->cpu_transcoder;
->  	i915_reg_t reg = DISPLAY_VER(dev_priv) >= 14 ? MTL_CHICKEN_TRANS(transcoder) :
->  			 CHICKEN_TRANS(transcoder);
-> -	u32 val;
->  
-> -	val = intel_de_read(dev_priv, reg);
-> -	val &= ~HSW_FRAME_START_DELAY_MASK;
-> -	val |= HSW_FRAME_START_DELAY(crtc_state->framestart_delay - 1);
-> -	intel_de_write(dev_priv, reg, val);
-> +	intel_de_rmw(dev_priv, reg,
-> +		     HSW_FRAME_START_DELAY_MASK,
-> +		     HSW_FRAME_START_DELAY(crtc_state->framestart_delay - 1));
->  }
->  
->  static void icl_ddi_bigjoiner_pre_enable(struct intel_atomic_state *state,
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-> index 1a23ecd4623a53..90d7a623d6e3cc 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-> @@ -1260,9 +1260,7 @@ static void hsw_disable_lcpll(struct drm_i915_private *dev_priv,
->  		drm_err(&dev_priv->drm, "D_COMP RCOMP still in progress\n");
->  
->  	if (allow_power_down) {
-> -		val = intel_de_read(dev_priv, LCPLL_CTL);
-> -		val |= LCPLL_POWER_DOWN_ALLOW;
-> -		intel_de_write(dev_priv, LCPLL_CTL, val);
-> +		intel_de_rmw(dev_priv, LCPLL_CTL, 0, LCPLL_POWER_DOWN_ALLOW);
->  		intel_de_posting_read(dev_priv, LCPLL_CTL);
->  	}
->  }
-> @@ -1306,9 +1304,7 @@ static void hsw_restore_lcpll(struct drm_i915_private *dev_priv)
->  		drm_err(&dev_priv->drm, "LCPLL not locked yet\n");
->  
->  	if (val & LCPLL_CD_SOURCE_FCLK) {
-> -		val = intel_de_read(dev_priv, LCPLL_CTL);
-> -		val &= ~LCPLL_CD_SOURCE_FCLK;
-> -		intel_de_write(dev_priv, LCPLL_CTL, val);
-> +		intel_de_rmw(dev_priv, LCPLL_CTL, LCPLL_CD_SOURCE_FCLK, 0);
->  
->  		if (wait_for_us((intel_de_read(dev_priv, LCPLL_CTL) &
->  				 LCPLL_CD_SOURCE_FCLK_DONE) == 0, 1))
-> @@ -1347,15 +1343,11 @@ static void hsw_restore_lcpll(struct drm_i915_private *dev_priv)
->   */
->  static void hsw_enable_pc8(struct drm_i915_private *dev_priv)
->  {
-> -	u32 val;
-> -
->  	drm_dbg_kms(&dev_priv->drm, "Enabling package C8+\n");
->  
-> -	if (HAS_PCH_LPT_LP(dev_priv)) {
-> -		val = intel_de_read(dev_priv, SOUTH_DSPCLK_GATE_D);
-> -		val &= ~PCH_LP_PARTITION_LEVEL_DISABLE;
-> -		intel_de_write(dev_priv, SOUTH_DSPCLK_GATE_D, val);
-> -	}
-> +	if (HAS_PCH_LPT_LP(dev_priv))
-> +		intel_de_rmw(dev_priv, SOUTH_DSPCLK_GATE_D,
-> +			     PCH_LP_PARTITION_LEVEL_DISABLE, 0);
->  
->  	lpt_disable_clkout_dp(dev_priv);
->  	hsw_disable_lcpll(dev_priv, true, true);
-> @@ -1363,25 +1355,21 @@ static void hsw_enable_pc8(struct drm_i915_private *dev_priv)
->  
->  static void hsw_disable_pc8(struct drm_i915_private *dev_priv)
->  {
-> -	u32 val;
-> -
->  	drm_dbg_kms(&dev_priv->drm, "Disabling package C8+\n");
->  
->  	hsw_restore_lcpll(dev_priv);
->  	intel_init_pch_refclk(dev_priv);
->  
-> -	if (HAS_PCH_LPT_LP(dev_priv)) {
-> -		val = intel_de_read(dev_priv, SOUTH_DSPCLK_GATE_D);
-> -		val |= PCH_LP_PARTITION_LEVEL_DISABLE;
-> -		intel_de_write(dev_priv, SOUTH_DSPCLK_GATE_D, val);
-> -	}
-> +	if (HAS_PCH_LPT_LP(dev_priv))
-> +		intel_de_rmw(dev_priv, SOUTH_DSPCLK_GATE_D,
-> +			     0, PCH_LP_PARTITION_LEVEL_DISABLE);
->  }
->  
->  static void intel_pch_reset_handshake(struct drm_i915_private *dev_priv,
->  				      bool enable)
->  {
->  	i915_reg_t reg;
-> -	u32 reset_bits, val;
-> +	u32 reset_bits;
->  
->  	if (IS_IVYBRIDGE(dev_priv)) {
->  		reg = GEN7_MSG_CTL;
-> @@ -1394,14 +1382,7 @@ static void intel_pch_reset_handshake(struct drm_i915_private *dev_priv,
->  	if (DISPLAY_VER(dev_priv) >= 14)
->  		reset_bits |= MTL_RESET_PICA_HANDSHAKE_EN;
->  
-> -	val = intel_de_read(dev_priv, reg);
-> -
-> -	if (enable)
-> -		val |= reset_bits;
-> -	else
-> -		val &= ~reset_bits;
-> -
-> -	intel_de_write(dev_priv, reg, val);
-> +	intel_de_rmw(dev_priv, reg, reset_bits, enable ? reset_bits : 0);
->  }
->  
->  static void skl_display_core_init(struct drm_i915_private *dev_priv,
-> @@ -1618,7 +1599,6 @@ static void icl_display_core_init(struct drm_i915_private *dev_priv,
->  {
->  	struct i915_power_domains *power_domains = &dev_priv->display.power.domains;
->  	struct i915_power_well *well;
-> -	u32 val;
->  
->  	gen9_set_dc_state(dev_priv, DC_STATE_DISABLE);
->  
-> @@ -1670,11 +1650,10 @@ static void icl_display_core_init(struct drm_i915_private *dev_priv,
->  		intel_dmc_load_program(dev_priv);
->  
->  	/* Wa_14011508470:tgl,dg1,rkl,adl-s,adl-p */
-> -	if (DISPLAY_VER(dev_priv) >= 12) {
-> -		val = DCPR_CLEAR_MEMSTAT_DIS | DCPR_SEND_RESP_IMM |
-> -		      DCPR_MASK_LPMODE | DCPR_MASK_MAXLATENCY_MEMUP_CLR;
-> -		intel_de_rmw(dev_priv, GEN11_CHICKEN_DCPR_2, 0, val);
-> -	}
-> +	if (DISPLAY_VER(dev_priv) >= 12)
-> +		intel_de_rmw(dev_priv, GEN11_CHICKEN_DCPR_2, 0,
-> +			     DCPR_CLEAR_MEMSTAT_DIS | DCPR_SEND_RESP_IMM |
-> +			     DCPR_MASK_LPMODE | DCPR_MASK_MAXLATENCY_MEMUP_CLR);
->  
->  	/* Wa_14011503030:xelpd */
->  	if (DISPLAY_VER(dev_priv) >= 13)
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.c b/drivers/gpu/drm/i915/display/intel_display_power_well.c
-> index 8710dd41ffd4c6..05b431f968cb49 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_power_well.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_power_well.c
-> @@ -333,7 +333,6 @@ static void hsw_power_well_enable(struct drm_i915_private *dev_priv,
->  {
->  	const struct i915_power_well_regs *regs = power_well->desc->ops->regs;
->  	int pw_idx = i915_power_well_instance(power_well)->hsw.idx;
-> -	u32 val;
->  
->  	if (power_well->desc->has_fuses) {
->  		enum skl_power_gate pg;
-> @@ -356,9 +355,7 @@ static void hsw_power_well_enable(struct drm_i915_private *dev_priv,
->  			gen9_wait_for_power_well_fuses(dev_priv, SKL_PG0);
->  	}
->  
-> -	val = intel_de_read(dev_priv, regs->driver);
-> -	intel_de_write(dev_priv, regs->driver,
-> -		       val | HSW_PWR_WELL_CTL_REQ(pw_idx));
-> +	intel_de_rmw(dev_priv, regs->driver, 0, HSW_PWR_WELL_CTL_REQ(pw_idx));
->  
->  	hsw_wait_for_power_well_enable(dev_priv, power_well, false);
->  
-> @@ -380,14 +377,11 @@ static void hsw_power_well_disable(struct drm_i915_private *dev_priv,
->  {
->  	const struct i915_power_well_regs *regs = power_well->desc->ops->regs;
->  	int pw_idx = i915_power_well_instance(power_well)->hsw.idx;
-> -	u32 val;
->  
->  	hsw_power_well_pre_disable(dev_priv,
->  				   power_well->desc->irq_pipe_mask);
->  
-> -	val = intel_de_read(dev_priv, regs->driver);
-> -	intel_de_write(dev_priv, regs->driver,
-> -		       val & ~HSW_PWR_WELL_CTL_REQ(pw_idx));
-> +	intel_de_rmw(dev_priv, regs->driver, HSW_PWR_WELL_CTL_REQ(pw_idx), 0);
->  	hsw_wait_for_power_well_disable(dev_priv, power_well);
->  }
->  
-> @@ -398,29 +392,22 @@ icl_combo_phy_aux_power_well_enable(struct drm_i915_private *dev_priv,
->  	const struct i915_power_well_regs *regs = power_well->desc->ops->regs;
->  	int pw_idx = i915_power_well_instance(power_well)->hsw.idx;
->  	enum phy phy = icl_aux_pw_to_phy(dev_priv, power_well);
-> -	u32 val;
->  
->  	drm_WARN_ON(&dev_priv->drm, !IS_ICELAKE(dev_priv));
->  
-> -	val = intel_de_read(dev_priv, regs->driver);
-> -	intel_de_write(dev_priv, regs->driver,
-> -		       val | HSW_PWR_WELL_CTL_REQ(pw_idx));
-> +	intel_de_rmw(dev_priv, regs->driver, 0, HSW_PWR_WELL_CTL_REQ(pw_idx));
->  
-> -	if (DISPLAY_VER(dev_priv) < 12) {
-> -		val = intel_de_read(dev_priv, ICL_PORT_CL_DW12(phy));
-> -		intel_de_write(dev_priv, ICL_PORT_CL_DW12(phy),
-> -			       val | ICL_LANE_ENABLE_AUX);
-> -	}
-> +	if (DISPLAY_VER(dev_priv) < 12)
-> +		intel_de_rmw(dev_priv, ICL_PORT_CL_DW12(phy),
-> +			     0, ICL_LANE_ENABLE_AUX);
->  
->  	hsw_wait_for_power_well_enable(dev_priv, power_well, false);
->  
->  	/* Display WA #1178: icl */
->  	if (pw_idx >= ICL_PW_CTL_IDX_AUX_A && pw_idx <= ICL_PW_CTL_IDX_AUX_B &&
-> -	    !intel_bios_is_port_edp(dev_priv, (enum port)phy)) {
-> -		val = intel_de_read(dev_priv, ICL_AUX_ANAOVRD1(pw_idx));
-> -		val |= ICL_AUX_ANAOVRD1_ENABLE | ICL_AUX_ANAOVRD1_LDO_BYPASS;
-> -		intel_de_write(dev_priv, ICL_AUX_ANAOVRD1(pw_idx), val);
-> -	}
-> +	    !intel_bios_is_port_edp(dev_priv, (enum port)phy))
-> +		intel_de_rmw(dev_priv, ICL_AUX_ANAOVRD1(pw_idx),
-> +			     0, ICL_AUX_ANAOVRD1_ENABLE | ICL_AUX_ANAOVRD1_LDO_BYPASS);
->  }
->  
->  static void
-> @@ -430,17 +417,12 @@ icl_combo_phy_aux_power_well_disable(struct drm_i915_private *dev_priv,
->  	const struct i915_power_well_regs *regs = power_well->desc->ops->regs;
->  	int pw_idx = i915_power_well_instance(power_well)->hsw.idx;
->  	enum phy phy = icl_aux_pw_to_phy(dev_priv, power_well);
-> -	u32 val;
->  
->  	drm_WARN_ON(&dev_priv->drm, !IS_ICELAKE(dev_priv));
->  
-> -	val = intel_de_read(dev_priv, ICL_PORT_CL_DW12(phy));
-> -	intel_de_write(dev_priv, ICL_PORT_CL_DW12(phy),
-> -		       val & ~ICL_LANE_ENABLE_AUX);
-> +	intel_de_rmw(dev_priv, ICL_PORT_CL_DW12(phy), ICL_LANE_ENABLE_AUX, 0);
->  
-> -	val = intel_de_read(dev_priv, regs->driver);
-> -	intel_de_write(dev_priv, regs->driver,
-> -		       val & ~HSW_PWR_WELL_CTL_REQ(pw_idx));
-> +	intel_de_rmw(dev_priv, regs->driver, HSW_PWR_WELL_CTL_REQ(pw_idx), 0);
->  
->  	hsw_wait_for_power_well_disable(dev_priv, power_well);
->  }
-> @@ -502,19 +484,15 @@ icl_tc_phy_aux_power_well_enable(struct drm_i915_private *dev_priv,
->  	const struct i915_power_well_regs *regs = power_well->desc->ops->regs;
->  	bool is_tbt = power_well->desc->is_tc_tbt;
->  	bool timeout_expected;
-> -	u32 val;
->  
->  	icl_tc_port_assert_ref_held(dev_priv, power_well, dig_port);
->  
-> -	val = intel_de_read(dev_priv, DP_AUX_CH_CTL(aux_ch));
-> -	val &= ~DP_AUX_CH_CTL_TBT_IO;
-> -	if (is_tbt)
-> -		val |= DP_AUX_CH_CTL_TBT_IO;
-> -	intel_de_write(dev_priv, DP_AUX_CH_CTL(aux_ch), val);
-> +	intel_de_rmw(dev_priv, DP_AUX_CH_CTL(aux_ch),
-> +		     DP_AUX_CH_CTL_TBT_IO, is_tbt ? DP_AUX_CH_CTL_TBT_IO : 0);
->  
-> -	val = intel_de_read(dev_priv, regs->driver);
-> -	intel_de_write(dev_priv, regs->driver,
-> -		       val | HSW_PWR_WELL_CTL_REQ(i915_power_well_instance(power_well)->hsw.idx));
-> +	intel_de_rmw(dev_priv, regs->driver,
-> +		     0,
-> +		     HSW_PWR_WELL_CTL_REQ(i915_power_well_instance(power_well)->hsw.idx));
->  
->  	/*
->  	 * An AUX timeout is expected if the TBT DP tunnel is down,
-> @@ -776,12 +754,8 @@ static void tgl_enable_dc3co(struct drm_i915_private *dev_priv)
->  
->  static void tgl_disable_dc3co(struct drm_i915_private *dev_priv)
->  {
-> -	u32 val;
-> -
->  	drm_dbg_kms(&dev_priv->drm, "Disabling DC3CO\n");
-> -	val = intel_de_read(dev_priv, DC_STATE_EN);
-> -	val &= ~DC_STATE_DC3CO_STATUS;
-> -	intel_de_write(dev_priv, DC_STATE_EN, val);
-> +	intel_de_rmw(dev_priv, DC_STATE_EN, DC_STATE_DC3CO_STATUS, 0);
->  	gen9_set_dc_state(dev_priv, DC_STATE_DISABLE);
->  	/*
->  	 * Delay of 200us DC3CO Exit time B.Spec 49196
-> @@ -820,8 +794,8 @@ void gen9_enable_dc5(struct drm_i915_private *dev_priv)
->  
->  	/* Wa Display #1183: skl,kbl,cfl */
->  	if (DISPLAY_VER(dev_priv) == 9 && !IS_BROXTON(dev_priv))
-> -		intel_de_write(dev_priv, GEN8_CHICKEN_DCPR_1,
-> -			       intel_de_read(dev_priv, GEN8_CHICKEN_DCPR_1) | SKL_SELECT_ALTERNATE_DC_EXIT);
-> +		intel_de_rmw(dev_priv, GEN8_CHICKEN_DCPR_1,
-> +			     0, SKL_SELECT_ALTERNATE_DC_EXIT);
->  
->  	gen9_set_dc_state(dev_priv, DC_STATE_EN_UPTO_DC5);
->  }
-> @@ -847,8 +821,8 @@ void skl_enable_dc6(struct drm_i915_private *dev_priv)
->  
->  	/* Wa Display #1183: skl,kbl,cfl */
->  	if (DISPLAY_VER(dev_priv) == 9 && !IS_BROXTON(dev_priv))
-> -		intel_de_write(dev_priv, GEN8_CHICKEN_DCPR_1,
-> -			       intel_de_read(dev_priv, GEN8_CHICKEN_DCPR_1) | SKL_SELECT_ALTERNATE_DC_EXIT);
-> +		intel_de_rmw(dev_priv, GEN8_CHICKEN_DCPR_1,
-> +			     0, SKL_SELECT_ALTERNATE_DC_EXIT);
->  
->  	gen9_set_dc_state(dev_priv, DC_STATE_EN_UPTO_DC6);
->  }
-> @@ -1149,18 +1123,14 @@ static bool vlv_power_well_enabled(struct drm_i915_private *dev_priv,
->  
->  static void vlv_init_display_clock_gating(struct drm_i915_private *dev_priv)
->  {
-> -	u32 val;
-> -
->  	/*
->  	 * On driver load, a pipe may be active and driving a DSI display.
->  	 * Preserve DPOUNIT_CLOCK_GATE_DISABLE to avoid the pipe getting stuck
->  	 * (and never recovering) in this case. intel_dsi_post_disable() will
->  	 * clear it when we turn off the display.
->  	 */
-> -	val = intel_de_read(dev_priv, DSPCLK_GATE_D(dev_priv));
-> -	val &= DPOUNIT_CLOCK_GATE_DISABLE;
-> -	val |= VRHUNIT_CLOCK_GATE_DISABLE;
-> -	intel_de_write(dev_priv, DSPCLK_GATE_D(dev_priv), val);
-> +	intel_de_rmw(dev_priv, DSPCLK_GATE_D(dev_priv),
-> +		     ~DPOUNIT_CLOCK_GATE_DISABLE, VRHUNIT_CLOCK_GATE_DISABLE);
->  
->  	/*
->  	 * Disable trickle feed and enable pnd deadline calculation
-> @@ -1276,8 +1246,7 @@ static void vlv_dpio_cmn_power_well_enable(struct drm_i915_private *dev_priv,
->  	 * both PLLs disabled, or we risk losing DPIO and PLL
->  	 * synchronization.
->  	 */
-> -	intel_de_write(dev_priv, DPIO_CTL,
-> -		       intel_de_read(dev_priv, DPIO_CTL) | DPIO_CMNRST);
-> +	intel_de_rmw(dev_priv, DPIO_CTL, 0, DPIO_CMNRST);
->  }
->  
->  static void vlv_dpio_cmn_power_well_disable(struct drm_i915_private *dev_priv,
-> @@ -1289,8 +1258,7 @@ static void vlv_dpio_cmn_power_well_disable(struct drm_i915_private *dev_priv,
->  		assert_pll_disabled(dev_priv, pipe);
->  
->  	/* Assert common reset */
-> -	intel_de_write(dev_priv, DPIO_CTL,
-> -		       intel_de_read(dev_priv, DPIO_CTL) & ~DPIO_CMNRST);
-> +	intel_de_rmw(dev_priv, DPIO_CTL, DPIO_CMNRST, 0);
->  
->  	vlv_set_power_well(dev_priv, power_well, false);
->  }
-> diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-> index 1974eb580ed198..e9215ebcdfc44d 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-> @@ -608,10 +608,8 @@ static void hsw_ddi_wrpll_disable(struct drm_i915_private *dev_priv,
->  				  struct intel_shared_dpll *pll)
->  {
->  	const enum intel_dpll_id id = pll->info->id;
-> -	u32 val;
->  
-> -	val = intel_de_read(dev_priv, WRPLL_CTL(id));
-> -	intel_de_write(dev_priv, WRPLL_CTL(id), val & ~WRPLL_PLL_ENABLE);
-> +	intel_de_rmw(dev_priv, WRPLL_CTL(id), WRPLL_PLL_ENABLE, 0);
->  	intel_de_posting_read(dev_priv, WRPLL_CTL(id));
->  
->  	/*
-> @@ -626,10 +624,8 @@ static void hsw_ddi_spll_disable(struct drm_i915_private *dev_priv,
->  				 struct intel_shared_dpll *pll)
->  {
->  	enum intel_dpll_id id = pll->info->id;
-> -	u32 val;
->  
-> -	val = intel_de_read(dev_priv, SPLL_CTL);
-> -	intel_de_write(dev_priv, SPLL_CTL, val & ~SPLL_PLL_ENABLE);
-> +	intel_de_rmw(dev_priv, SPLL_CTL, SPLL_PLL_ENABLE, 0);
->  	intel_de_posting_read(dev_priv, SPLL_CTL);
->  
->  	/*
-> @@ -1238,16 +1234,10 @@ static void skl_ddi_pll_write_ctrl1(struct drm_i915_private *dev_priv,
->  				    struct intel_shared_dpll *pll)
->  {
->  	const enum intel_dpll_id id = pll->info->id;
-> -	u32 val;
->  
-> -	val = intel_de_read(dev_priv, DPLL_CTRL1);
-> -
-> -	val &= ~(DPLL_CTRL1_HDMI_MODE(id) |
-> -		 DPLL_CTRL1_SSC(id) |
-> -		 DPLL_CTRL1_LINK_RATE_MASK(id));
-> -	val |= pll->state.hw_state.ctrl1 << (id * 6);
-> -
-> -	intel_de_write(dev_priv, DPLL_CTRL1, val);
-> +	intel_de_rmw(dev_priv, DPLL_CTRL1,
-> +		     DPLL_CTRL1_HDMI_MODE(id) | DPLL_CTRL1_SSC(id) | DPLL_CTRL1_LINK_RATE_MASK(id),
-> +		     pll->state.hw_state.ctrl1 << (id * 6));
->  	intel_de_posting_read(dev_priv, DPLL_CTRL1);
->  }
->  
-> @@ -1265,8 +1255,7 @@ static void skl_ddi_pll_enable(struct drm_i915_private *dev_priv,
->  	intel_de_posting_read(dev_priv, regs[id].cfgcr2);
->  
->  	/* the enable bit is always bit 31 */
-> -	intel_de_write(dev_priv, regs[id].ctl,
-> -		       intel_de_read(dev_priv, regs[id].ctl) | LCPLL_PLL_ENABLE);
-> +	intel_de_rmw(dev_priv, regs[id].ctl, 0, LCPLL_PLL_ENABLE);
->  
->  	if (intel_de_wait_for_set(dev_priv, DPLL_STATUS, DPLL_LOCK(id), 5))
->  		drm_err(&dev_priv->drm, "DPLL %d not locked\n", id);
-> @@ -1285,8 +1274,7 @@ static void skl_ddi_pll_disable(struct drm_i915_private *dev_priv,
->  	const enum intel_dpll_id id = pll->info->id;
->  
->  	/* the enable bit is always bit 31 */
-> -	intel_de_write(dev_priv, regs[id].ctl,
-> -		       intel_de_read(dev_priv, regs[id].ctl) & ~LCPLL_PLL_ENABLE);
-> +	intel_de_rmw(dev_priv, regs[id].ctl, LCPLL_PLL_ENABLE, 0);
->  	intel_de_posting_read(dev_priv, regs[id].ctl);
->  }
->  
-> @@ -1902,14 +1890,11 @@ static void bxt_ddi_pll_enable(struct drm_i915_private *dev_priv,
->  	bxt_port_to_phy_channel(dev_priv, port, &phy, &ch);
->  
->  	/* Non-SSC reference */
-> -	temp = intel_de_read(dev_priv, BXT_PORT_PLL_ENABLE(port));
-> -	temp |= PORT_PLL_REF_SEL;
-> -	intel_de_write(dev_priv, BXT_PORT_PLL_ENABLE(port), temp);
-> +	intel_de_rmw(dev_priv, BXT_PORT_PLL_ENABLE(port), 0, PORT_PLL_REF_SEL);
->  
->  	if (IS_GEMINILAKE(dev_priv)) {
-> -		temp = intel_de_read(dev_priv, BXT_PORT_PLL_ENABLE(port));
-> -		temp |= PORT_PLL_POWER_ENABLE;
-> -		intel_de_write(dev_priv, BXT_PORT_PLL_ENABLE(port), temp);
-> +		intel_de_rmw(dev_priv, BXT_PORT_PLL_ENABLE(port),
-> +			     0, PORT_PLL_POWER_ENABLE);
->  
->  		if (wait_for_us((intel_de_read(dev_priv, BXT_PORT_PLL_ENABLE(port)) &
->  				 PORT_PLL_POWER_STATE), 200))
-> @@ -1918,39 +1903,28 @@ static void bxt_ddi_pll_enable(struct drm_i915_private *dev_priv,
->  	}
->  
->  	/* Disable 10 bit clock */
-> -	temp = intel_de_read(dev_priv, BXT_PORT_PLL_EBB_4(phy, ch));
-> -	temp &= ~PORT_PLL_10BIT_CLK_ENABLE;
-> -	intel_de_write(dev_priv, BXT_PORT_PLL_EBB_4(phy, ch), temp);
-> +	intel_de_rmw(dev_priv, BXT_PORT_PLL_EBB_4(phy, ch),
-> +		     PORT_PLL_10BIT_CLK_ENABLE, 0);
->  
->  	/* Write P1 & P2 */
-> -	temp = intel_de_read(dev_priv, BXT_PORT_PLL_EBB_0(phy, ch));
-> -	temp &= ~(PORT_PLL_P1_MASK | PORT_PLL_P2_MASK);
-> -	temp |= pll->state.hw_state.ebb0;
-> -	intel_de_write(dev_priv, BXT_PORT_PLL_EBB_0(phy, ch), temp);
-> +	intel_de_rmw(dev_priv, BXT_PORT_PLL_EBB_0(phy, ch),
-> +		     PORT_PLL_P1_MASK | PORT_PLL_P2_MASK, pll->state.hw_state.ebb0);
->  
->  	/* Write M2 integer */
-> -	temp = intel_de_read(dev_priv, BXT_PORT_PLL(phy, ch, 0));
-> -	temp &= ~PORT_PLL_M2_INT_MASK;
-> -	temp |= pll->state.hw_state.pll0;
-> -	intel_de_write(dev_priv, BXT_PORT_PLL(phy, ch, 0), temp);
-> +	intel_de_rmw(dev_priv, BXT_PORT_PLL(phy, ch, 0),
-> +		     PORT_PLL_M2_INT_MASK, pll->state.hw_state.pll0);
->  
->  	/* Write N */
-> -	temp = intel_de_read(dev_priv, BXT_PORT_PLL(phy, ch, 1));
-> -	temp &= ~PORT_PLL_N_MASK;
-> -	temp |= pll->state.hw_state.pll1;
-> -	intel_de_write(dev_priv, BXT_PORT_PLL(phy, ch, 1), temp);
-> +	intel_de_rmw(dev_priv, BXT_PORT_PLL(phy, ch, 1),
-> +		     PORT_PLL_N_MASK, pll->state.hw_state.pll1);
->  
->  	/* Write M2 fraction */
-> -	temp = intel_de_read(dev_priv, BXT_PORT_PLL(phy, ch, 2));
-> -	temp &= ~PORT_PLL_M2_FRAC_MASK;
-> -	temp |= pll->state.hw_state.pll2;
-> -	intel_de_write(dev_priv, BXT_PORT_PLL(phy, ch, 2), temp);
-> +	intel_de_rmw(dev_priv, BXT_PORT_PLL(phy, ch, 2),
-> +		     PORT_PLL_M2_FRAC_MASK, pll->state.hw_state.pll2);
->  
->  	/* Write M2 fraction enable */
-> -	temp = intel_de_read(dev_priv, BXT_PORT_PLL(phy, ch, 3));
-> -	temp &= ~PORT_PLL_M2_FRAC_ENABLE;
-> -	temp |= pll->state.hw_state.pll3;
-> -	intel_de_write(dev_priv, BXT_PORT_PLL(phy, ch, 3), temp);
-> +	intel_de_rmw(dev_priv, BXT_PORT_PLL(phy, ch, 3),
-> +		     PORT_PLL_M2_FRAC_ENABLE, pll->state.hw_state.pll3);
->  
->  	/* Write coeff */
->  	temp = intel_de_read(dev_priv, BXT_PORT_PLL(phy, ch, 6));
-> @@ -1961,15 +1935,11 @@ static void bxt_ddi_pll_enable(struct drm_i915_private *dev_priv,
->  	intel_de_write(dev_priv, BXT_PORT_PLL(phy, ch, 6), temp);
->  
->  	/* Write calibration val */
-> -	temp = intel_de_read(dev_priv, BXT_PORT_PLL(phy, ch, 8));
-> -	temp &= ~PORT_PLL_TARGET_CNT_MASK;
-> -	temp |= pll->state.hw_state.pll8;
-> -	intel_de_write(dev_priv, BXT_PORT_PLL(phy, ch, 8), temp);
-> +	intel_de_rmw(dev_priv, BXT_PORT_PLL(phy, ch, 8),
-> +		     PORT_PLL_TARGET_CNT_MASK, pll->state.hw_state.pll8);
->  
-> -	temp = intel_de_read(dev_priv, BXT_PORT_PLL(phy, ch, 9));
-> -	temp &= ~PORT_PLL_LOCK_THRESHOLD_MASK;
-> -	temp |= pll->state.hw_state.pll9;
-> -	intel_de_write(dev_priv, BXT_PORT_PLL(phy, ch, 9), temp);
-> +	intel_de_rmw(dev_priv, BXT_PORT_PLL(phy, ch, 9),
-> +		     PORT_PLL_LOCK_THRESHOLD_MASK, pll->state.hw_state.pll9);
->  
->  	temp = intel_de_read(dev_priv, BXT_PORT_PLL(phy, ch, 10));
->  	temp &= ~PORT_PLL_DCO_AMP_OVR_EN_H;
-> @@ -1986,9 +1956,7 @@ static void bxt_ddi_pll_enable(struct drm_i915_private *dev_priv,
->  	intel_de_write(dev_priv, BXT_PORT_PLL_EBB_4(phy, ch), temp);
->  
->  	/* Enable PLL */
-> -	temp = intel_de_read(dev_priv, BXT_PORT_PLL_ENABLE(port));
-> -	temp |= PORT_PLL_ENABLE;
-> -	intel_de_write(dev_priv, BXT_PORT_PLL_ENABLE(port), temp);
-> +	intel_de_rmw(dev_priv, BXT_PORT_PLL_ENABLE(port), 0, PORT_PLL_ENABLE);
->  	intel_de_posting_read(dev_priv, BXT_PORT_PLL_ENABLE(port));
->  
->  	if (wait_for_us((intel_de_read(dev_priv, BXT_PORT_PLL_ENABLE(port)) & PORT_PLL_LOCK),
-> @@ -2016,17 +1984,13 @@ static void bxt_ddi_pll_disable(struct drm_i915_private *dev_priv,
->  					struct intel_shared_dpll *pll)
->  {
->  	enum port port = (enum port)pll->info->id; /* 1:1 port->PLL mapping */
-> -	u32 temp;
->  
-> -	temp = intel_de_read(dev_priv, BXT_PORT_PLL_ENABLE(port));
-> -	temp &= ~PORT_PLL_ENABLE;
-> -	intel_de_write(dev_priv, BXT_PORT_PLL_ENABLE(port), temp);
-> +	intel_de_rmw(dev_priv, BXT_PORT_PLL_ENABLE(port), PORT_PLL_ENABLE, 0);
->  	intel_de_posting_read(dev_priv, BXT_PORT_PLL_ENABLE(port));
->  
->  	if (IS_GEMINILAKE(dev_priv)) {
-> -		temp = intel_de_read(dev_priv, BXT_PORT_PLL_ENABLE(port));
-> -		temp &= ~PORT_PLL_POWER_ENABLE;
-> -		intel_de_write(dev_priv, BXT_PORT_PLL_ENABLE(port), temp);
-> +		intel_de_rmw(dev_priv, BXT_PORT_PLL_ENABLE(port),
-> +			     PORT_PLL_POWER_ENABLE, 0);
->  
->  		if (wait_for_us(!(intel_de_read(dev_priv, BXT_PORT_PLL_ENABLE(port)) &
->  				  PORT_PLL_POWER_STATE), 200))
-> @@ -3641,8 +3605,8 @@ static void icl_dpll_write(struct drm_i915_private *dev_priv,
->  			 !i915_mmio_reg_valid(div0_reg));
->  	if (dev_priv->display.vbt.override_afc_startup &&
->  	    i915_mmio_reg_valid(div0_reg))
-> -		intel_de_rmw(dev_priv, div0_reg, TGL_DPLL0_DIV0_AFC_STARTUP_MASK,
-> -			     hw_state->div0);
-> +		intel_de_rmw(dev_priv, div0_reg,
-> +			     TGL_DPLL0_DIV0_AFC_STARTUP_MASK, hw_state->div0);
->  	intel_de_posting_read(dev_priv, cfgcr1_reg);
->  }
->  
-> @@ -3651,7 +3615,6 @@ static void icl_mg_pll_write(struct drm_i915_private *dev_priv,
->  {
->  	struct intel_dpll_hw_state *hw_state = &pll->state.hw_state;
->  	enum tc_port tc_port = icl_pll_id_to_tc_port(pll->info->id);
-> -	u32 val;
->  
->  	/*
->  	 * Some of the following registers have reserved fields, so program
-> @@ -3659,23 +3622,19 @@ static void icl_mg_pll_write(struct drm_i915_private *dev_priv,
->  	 * during the calc/readout phase if the mask depends on some other HW
->  	 * state like refclk, see icl_calc_mg_pll_state().
->  	 */
-> -	val = intel_de_read(dev_priv, MG_REFCLKIN_CTL(tc_port));
-> -	val &= ~MG_REFCLKIN_CTL_OD_2_MUX_MASK;
-> -	val |= hw_state->mg_refclkin_ctl;
-> -	intel_de_write(dev_priv, MG_REFCLKIN_CTL(tc_port), val);
-> +	intel_de_rmw(dev_priv, MG_REFCLKIN_CTL(tc_port),
-> +		     MG_REFCLKIN_CTL_OD_2_MUX_MASK, hw_state->mg_refclkin_ctl);
->  
-> -	val = intel_de_read(dev_priv, MG_CLKTOP2_CORECLKCTL1(tc_port));
-> -	val &= ~MG_CLKTOP2_CORECLKCTL1_A_DIVRATIO_MASK;
-> -	val |= hw_state->mg_clktop2_coreclkctl1;
-> -	intel_de_write(dev_priv, MG_CLKTOP2_CORECLKCTL1(tc_port), val);
-> +	intel_de_rmw(dev_priv, MG_CLKTOP2_CORECLKCTL1(tc_port),
-> +		     MG_CLKTOP2_CORECLKCTL1_A_DIVRATIO_MASK,
-> +		     hw_state->mg_clktop2_coreclkctl1);
->  
-> -	val = intel_de_read(dev_priv, MG_CLKTOP2_HSCLKCTL(tc_port));
-> -	val &= ~(MG_CLKTOP2_HSCLKCTL_TLINEDRV_CLKSEL_MASK |
-> -		 MG_CLKTOP2_HSCLKCTL_CORE_INPUTSEL_MASK |
-> -		 MG_CLKTOP2_HSCLKCTL_HSDIV_RATIO_MASK |
-> -		 MG_CLKTOP2_HSCLKCTL_DSDIV_RATIO_MASK);
-> -	val |= hw_state->mg_clktop2_hsclkctl;
-> -	intel_de_write(dev_priv, MG_CLKTOP2_HSCLKCTL(tc_port), val);
-> +	intel_de_rmw(dev_priv, MG_CLKTOP2_HSCLKCTL(tc_port),
-> +		     MG_CLKTOP2_HSCLKCTL_TLINEDRV_CLKSEL_MASK |
-> +		     MG_CLKTOP2_HSCLKCTL_CORE_INPUTSEL_MASK |
-> +		     MG_CLKTOP2_HSCLKCTL_HSDIV_RATIO_MASK |
-> +		     MG_CLKTOP2_HSCLKCTL_DSDIV_RATIO_MASK,
-> +		     hw_state->mg_clktop2_hsclkctl);
->  
->  	intel_de_write(dev_priv, MG_PLL_DIV0(tc_port), hw_state->mg_pll_div0);
->  	intel_de_write(dev_priv, MG_PLL_DIV1(tc_port), hw_state->mg_pll_div1);
-> @@ -3684,15 +3643,12 @@ static void icl_mg_pll_write(struct drm_i915_private *dev_priv,
->  		       hw_state->mg_pll_frac_lock);
->  	intel_de_write(dev_priv, MG_PLL_SSC(tc_port), hw_state->mg_pll_ssc);
->  
-> -	val = intel_de_read(dev_priv, MG_PLL_BIAS(tc_port));
-> -	val &= ~hw_state->mg_pll_bias_mask;
-> -	val |= hw_state->mg_pll_bias;
-> -	intel_de_write(dev_priv, MG_PLL_BIAS(tc_port), val);
-> +	intel_de_rmw(dev_priv, MG_PLL_BIAS(tc_port),
-> +		     hw_state->mg_pll_bias_mask, hw_state->mg_pll_bias);
->  
-> -	val = intel_de_read(dev_priv, MG_PLL_TDC_COLDST_BIAS(tc_port));
-> -	val &= ~hw_state->mg_pll_tdc_coldst_bias_mask;
-> -	val |= hw_state->mg_pll_tdc_coldst_bias;
-> -	intel_de_write(dev_priv, MG_PLL_TDC_COLDST_BIAS(tc_port), val);
-> +	intel_de_rmw(dev_priv, MG_PLL_TDC_COLDST_BIAS(tc_port),
-> +		     hw_state->mg_pll_tdc_coldst_bias_mask,
-> +		     hw_state->mg_pll_tdc_coldst_bias);
->  
->  	intel_de_posting_read(dev_priv, MG_PLL_TDC_COLDST_BIAS(tc_port));
->  }
-> @@ -3766,11 +3722,7 @@ static void icl_pll_power_enable(struct drm_i915_private *dev_priv,
->  				 struct intel_shared_dpll *pll,
->  				 i915_reg_t enable_reg)
->  {
-> -	u32 val;
-> -
-> -	val = intel_de_read(dev_priv, enable_reg);
-> -	val |= PLL_POWER_ENABLE;
-> -	intel_de_write(dev_priv, enable_reg, val);
-> +	intel_de_rmw(dev_priv, enable_reg, 0, PLL_POWER_ENABLE);
->  
->  	/*
->  	 * The spec says we need to "wait" but it also says it should be
-> @@ -3785,11 +3737,7 @@ static void icl_pll_enable(struct drm_i915_private *dev_priv,
->  			   struct intel_shared_dpll *pll,
->  			   i915_reg_t enable_reg)
->  {
-> -	u32 val;
-> -
-> -	val = intel_de_read(dev_priv, enable_reg);
-> -	val |= PLL_ENABLE;
-> -	intel_de_write(dev_priv, enable_reg, val);
-> +	intel_de_rmw(dev_priv, enable_reg, 0, PLL_ENABLE);
->  
->  	/* Timeout is actually 600us. */
->  	if (intel_de_wait_for_set(dev_priv, enable_reg, PLL_LOCK, 1))
-> @@ -3815,8 +3763,7 @@ static void adlp_cmtg_clock_gating_wa(struct drm_i915_private *i915, struct inte
->  	 * since TRANS_CMTG_CHICKEN is only accessible while DPLL0 is enabled.
->  	 */
->  	val = intel_de_read(i915, TRANS_CMTG_CHICKEN);
-> -	val = intel_de_read(i915, TRANS_CMTG_CHICKEN);
-> -	intel_de_write(i915, TRANS_CMTG_CHICKEN, DISABLE_DPT_CLK_GATING);
-> +	val = intel_de_rmw(i915, TRANS_CMTG_CHICKEN, ~0, DISABLE_DPT_CLK_GATING);
->  	if (drm_WARN_ON(&i915->drm, val & ~DISABLE_DPT_CLK_GATING))
->  		drm_dbg_kms(&i915->drm, "Unexpected flags in TRANS_CMTG_CHICKEN: %08x\n", val);
->  }
-> @@ -3900,8 +3847,6 @@ static void icl_pll_disable(struct drm_i915_private *dev_priv,
->  			    struct intel_shared_dpll *pll,
->  			    i915_reg_t enable_reg)
->  {
-> -	u32 val;
-> -
->  	/* The first steps are done by intel_ddi_post_disable(). */
->  
->  	/*
-> @@ -3910,9 +3855,7 @@ static void icl_pll_disable(struct drm_i915_private *dev_priv,
->  	 * nothing here.
->  	 */
->  
-> -	val = intel_de_read(dev_priv, enable_reg);
-> -	val &= ~PLL_ENABLE;
-> -	intel_de_write(dev_priv, enable_reg, val);
-> +	intel_de_rmw(dev_priv, enable_reg, PLL_ENABLE, 0);
->  
->  	/* Timeout is actually 1us. */
->  	if (intel_de_wait_for_clear(dev_priv, enable_reg, PLL_LOCK, 1))
-> @@ -3920,9 +3863,7 @@ static void icl_pll_disable(struct drm_i915_private *dev_priv,
->  
->  	/* DVFS post sequence would be here. See the comment above. */
->  
-> -	val = intel_de_read(dev_priv, enable_reg);
-> -	val &= ~PLL_POWER_ENABLE;
-> -	intel_de_write(dev_priv, enable_reg, val);
-> +	intel_de_rmw(dev_priv, enable_reg, PLL_POWER_ENABLE, 0);
->  
->  	/*
->  	 * The spec says we need to "wait" but it also says it should be
-> diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-> index 96395bfbd41dfb..6f6dc7c6b88b0c 100644
-> --- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-> +++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-> @@ -647,17 +647,14 @@ static void intel_early_display_was(struct drm_i915_private *i915)
->  	 * Also known as Wa_14010480278.
->  	 */
->  	if (IS_DISPLAY_VER(i915, 10, 12))
-> -		intel_de_write(i915, GEN9_CLKGATE_DIS_0,
-> -			       intel_de_read(i915, GEN9_CLKGATE_DIS_0) | DARBF_GATING_DIS);
-> +		intel_de_rmw(i915, GEN9_CLKGATE_DIS_0, 0, DARBF_GATING_DIS);
->  
-> -	if (IS_HASWELL(i915)) {
-> -		/*
-> -		 * WaRsPkgCStateDisplayPMReq:hsw
-> -		 * System hang if this isn't done before disabling all planes!
-> -		 */
-> -		intel_de_write(i915, CHICKEN_PAR1_1,
-> -			       intel_de_read(i915, CHICKEN_PAR1_1) | FORCE_ARB_IDLE_PLANES);
-> -	}
-> +	/*
-> +	 * WaRsPkgCStateDisplayPMReq:hsw
-> +	 * System hang if this isn't done before disabling all planes!
-> +	 */
-> +	if (IS_HASWELL(i915))
-> +		intel_de_rmw(i915, CHICKEN_PAR1_1, 0, FORCE_ARB_IDLE_PLANES);
->  
->  	if (IS_KABYLAKE(i915) || IS_COFFEELAKE(i915) || IS_COMETLAKE(i915)) {
->  		/* Display WA #1142:kbl,cfl,cml */
+Presumably this is what Jani meant actually and that sounds like the 
+exactly right direction to me. I just don't know enough about the scope 
+of the protocol to propose anything more specific.
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+Regards,
+
+Tvrtko
+
+>> +
+>> +void
+>> +i915_hdcp_fill_rxcert_in(struct wired_cmd_verify_receiver_cert_in *verify_rxcert_in,
+>> +			 struct hdcp2_ake_send_cert *rx_cert,
+>> +			 struct hdcp_port_data *data)
+>> +{
+>> +	verify_rxcert_in->header.api_version = HDCP_API_VERSION;
+>> +	verify_rxcert_in->header.command_id = WIRED_VERIFY_RECEIVER_CERT;
+>> +	verify_rxcert_in->header.status = FW_HDCP_STATUS_SUCCESS;
+>> +	verify_rxcert_in->header.buffer_len =
+>> +				WIRED_CMD_BUF_LEN_VERIFY_RECEIVER_CERT_IN;
+>> +
+>> +	verify_rxcert_in->port.integrated_port_type = data->port_type;
+>> +	verify_rxcert_in->port.physical_port = (u8)data->hdcp_ddi;
+>> +	verify_rxcert_in->port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> +
+>> +	verify_rxcert_in->cert_rx = rx_cert->cert_rx;
+>> +	memcpy(verify_rxcert_in->r_rx, &rx_cert->r_rx, HDCP_2_2_RRX_LEN);
+>> +	memcpy(verify_rxcert_in->rx_caps, rx_cert->rx_caps, HDCP_2_2_RXCAPS_LEN);
+>> +}
+>> +EXPORT_SYMBOL(i915_hdcp_fill_rxcert_in);
+>> +
+>> +void
+>> +i915_hdcp_fill_hprime_in(struct wired_cmd_ake_send_hprime_in *send_hprime_in,
+>> +			 struct hdcp2_ake_send_hprime *rx_hprime,
+>> +			 struct hdcp_port_data *data)
+>> +{
+>> +	send_hprime_in->header.api_version = HDCP_API_VERSION;
+>> +	send_hprime_in->header.command_id = WIRED_AKE_SEND_HPRIME;
+>> +	send_hprime_in->header.status = FW_HDCP_STATUS_SUCCESS;
+>> +	send_hprime_in->header.buffer_len = WIRED_CMD_BUF_LEN_AKE_SEND_HPRIME_IN;
+>> +
+>> +	send_hprime_in->port.integrated_port_type = data->port_type;
+>> +	send_hprime_in->port.physical_port = (u8)data->hdcp_ddi;
+>> +	send_hprime_in->port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> +
+>> +	memcpy(send_hprime_in->h_prime, rx_hprime->h_prime,
+>> +	       HDCP_2_2_H_PRIME_LEN);
+>> +}
+>> +EXPORT_SYMBOL(i915_hdcp_fill_hprime_in);
+>> +
+>> +void
+>> +i915_hdcp_fill_pairing_info_in(struct wired_cmd_ake_send_pairing_info_in *pairing_info_in,
+>> +			       struct hdcp2_ake_send_pairing_info *pairing_info,
+>> +			       struct hdcp_port_data *data)
+>> +{
+>> +	pairing_info_in->header.api_version = HDCP_API_VERSION;
+>> +	pairing_info_in->header.command_id = WIRED_AKE_SEND_PAIRING_INFO;
+>> +	pairing_info_in->header.status = FW_HDCP_STATUS_SUCCESS;
+>> +	pairing_info_in->header.buffer_len =
+>> +				WIRED_CMD_BUF_LEN_SEND_PAIRING_INFO_IN;
+>> +
+>> +	pairing_info_in->port.integrated_port_type = data->port_type;
+>> +	pairing_info_in->port.physical_port = (u8)data->hdcp_ddi;
+>> +	pairing_info_in->port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> +
+>> +	memcpy(pairing_info_in->e_kh_km, pairing_info->e_kh_km,
+>> +	       HDCP_2_2_E_KH_KM_LEN);
+>> +}
+>> +EXPORT_SYMBOL(i915_hdcp_fill_pairing_info_in);
+>> +
+>> +void
+>> +i915_hdcp_fill_locality_check_in(struct wired_cmd_init_locality_check_in *lc_init_in,
+>> +				 struct hdcp_port_data *data)
+>> +{
+>> +	lc_init_in->header.api_version = HDCP_API_VERSION;
+>> +	lc_init_in->header.command_id = WIRED_INIT_LOCALITY_CHECK;
+>> +	lc_init_in->header.status = FW_HDCP_STATUS_SUCCESS;
+>> +	lc_init_in->header.buffer_len = WIRED_CMD_BUF_LEN_INIT_LOCALITY_CHECK_IN;
+>> +
+>> +	lc_init_in->port.integrated_port_type = data->port_type;
+>> +	lc_init_in->port.physical_port = (u8)data->hdcp_ddi;
+>> +	lc_init_in->port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> +}
+>> +EXPORT_SYMBOL(i915_hdcp_fill_locality_check_in);
+>> +
+>> +void
+>> +i915_hdcp_fill_validate_locality_in(struct wired_cmd_validate_locality_in *verify_lprime_in,
+>> +				    struct hdcp2_lc_send_lprime *rx_lprime,
+>> +				    struct hdcp_port_data *data)
+>> +{
+>> +	verify_lprime_in->header.api_version = HDCP_API_VERSION;
+>> +	verify_lprime_in->header.command_id = WIRED_VALIDATE_LOCALITY;
+>> +	verify_lprime_in->header.status = FW_HDCP_STATUS_SUCCESS;
+>> +	verify_lprime_in->header.buffer_len =
+>> +					WIRED_CMD_BUF_LEN_VALIDATE_LOCALITY_IN;
+>> +
+>> +	verify_lprime_in->port.integrated_port_type = data->port_type;
+>> +	verify_lprime_in->port.physical_port = (u8)data->hdcp_ddi;
+>> +	verify_lprime_in->port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> +
+>> +	memcpy(verify_lprime_in->l_prime, rx_lprime->l_prime,
+>> +	       HDCP_2_2_L_PRIME_LEN);
+>> +}
+>> +EXPORT_SYMBOL(i915_hdcp_fill_validate_locality_in);
+>> +
+>> +void
+>> +i915_hdcp_fill_session_key_in(struct wired_cmd_get_session_key_in *get_skey_in,
+>> +			      struct hdcp_port_data *data)
+>> +{
+>> +	get_skey_in->header.api_version = HDCP_API_VERSION;
+>> +	get_skey_in->header.command_id = WIRED_GET_SESSION_KEY;
+>> +	get_skey_in->header.status = FW_HDCP_STATUS_SUCCESS;
+>> +	get_skey_in->header.buffer_len = WIRED_CMD_BUF_LEN_GET_SESSION_KEY_IN;
+>> +
+>> +	get_skey_in->port.integrated_port_type = data->port_type;
+>> +	get_skey_in->port.physical_port = (u8)data->hdcp_ddi;
+>> +	get_skey_in->port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> +}
+>> +EXPORT_SYMBOL(i915_hdcp_fill_session_key_in);
+>> +
+>> +void
+>> +i915_hdcp_fill_repeater_in(struct wired_cmd_verify_repeater_in *verify_repeater_in,
+>> +			   struct hdcp2_rep_send_receiverid_list *rep_topology,
+>> +			   struct hdcp_port_data *data)
+>> +{
+>> +	verify_repeater_in->header.api_version = HDCP_API_VERSION;
+>> +	verify_repeater_in->header.command_id = WIRED_VERIFY_REPEATER;
+>> +	verify_repeater_in->header.status = FW_HDCP_STATUS_SUCCESS;
+>> +	verify_repeater_in->header.buffer_len =
+>> +				WIRED_CMD_BUF_LEN_VERIFY_REPEATER_IN;
+>> +
+>> +	verify_repeater_in->port.integrated_port_type = data->port_type;
+>> +	verify_repeater_in->port.physical_port = (u8)data->hdcp_ddi;
+>> +	verify_repeater_in->port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> +
+>> +	memcpy(verify_repeater_in->rx_info, rep_topology->rx_info,
+>> +	       HDCP_2_2_RXINFO_LEN);
+>> +	memcpy(verify_repeater_in->seq_num_v, rep_topology->seq_num_v,
+>> +	       HDCP_2_2_SEQ_NUM_LEN);
+>> +	memcpy(verify_repeater_in->v_prime, rep_topology->v_prime,
+>> +	       HDCP_2_2_V_PRIME_HALF_LEN);
+>> +	memcpy(verify_repeater_in->receiver_ids, rep_topology->receiver_ids,
+>> +	       HDCP_2_2_RECEIVER_IDS_MAX_LEN);
+>> +}
+>> +EXPORT_SYMBOL(i915_hdcp_fill_repeater_in);
+>> +
+>> +void
+>> +i915_hdcp_fill_auth_stream_req_in(struct wired_cmd_repeater_auth_stream_req_in *verify_mprime_in,
+>> +				  struct hdcp2_rep_stream_ready *stream_ready, ssize_t cmd_size,
+>> +				  struct hdcp_port_data *data)
+>> +{
+>> +	verify_mprime_in->header.api_version = HDCP_API_VERSION;
+>> +	verify_mprime_in->header.command_id = WIRED_REPEATER_AUTH_STREAM_REQ;
+>> +	verify_mprime_in->header.status = FW_HDCP_STATUS_SUCCESS;
+>> +	verify_mprime_in->header.buffer_len = cmd_size  - sizeof(verify_mprime_in->header);
+>> +
+>> +	verify_mprime_in->port.integrated_port_type = data->port_type;
+>> +	verify_mprime_in->port.physical_port = (u8)data->hdcp_ddi;
+>> +	verify_mprime_in->port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> +
+>> +	memcpy(verify_mprime_in->m_prime, stream_ready->m_prime, HDCP_2_2_MPRIME_LEN);
+>> +	drm_hdcp_cpu_to_be24(verify_mprime_in->seq_num_m, data->seq_num_m);
+>> +
+>> +	memcpy(verify_mprime_in->streams, data->streams,
+>> +	       array_size(data->k, sizeof(*data->streams)));
+>> +
+>> +	verify_mprime_in->k = cpu_to_be16(data->k);
+>> +}
+>> +EXPORT_SYMBOL(i915_hdcp_fill_auth_stream_req_in);
+>> +
+>> +void
+>> +i915_hdcp_fill_enable_auth_in(struct wired_cmd_enable_auth_in *enable_auth_in,
+>> +			      struct hdcp_port_data *data)
+>> +{
+>> +	enable_auth_in->header.api_version = HDCP_API_VERSION;
+>> +	enable_auth_in->header.command_id = WIRED_ENABLE_AUTH;
+>> +	enable_auth_in->header.status = FW_HDCP_STATUS_SUCCESS;
+>> +	enable_auth_in->header.buffer_len = WIRED_CMD_BUF_LEN_ENABLE_AUTH_IN;
+>> +
+>> +	enable_auth_in->port.integrated_port_type = data->port_type;
+>> +	enable_auth_in->port.physical_port = (u8)data->hdcp_ddi;
+>> +	enable_auth_in->port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> +	enable_auth_in->stream_type = data->streams[0].stream_type;
+>> +}
+>> +EXPORT_SYMBOL(i915_hdcp_fill_enable_auth_in);
+>> +
+>> +void
+>> +i915_hdcp_fill_close_session_in(struct wired_cmd_close_session_in *session_close_in,
+>> +				struct hdcp_port_data *data)
+>> +{
+>> +	session_close_in->header.api_version = HDCP_API_VERSION;
+>> +	session_close_in->header.command_id = WIRED_CLOSE_SESSION;
+>> +	session_close_in->header.status = FW_HDCP_STATUS_SUCCESS;
+>> +	session_close_in->header.buffer_len =
+>> +				WIRED_CMD_BUF_LEN_CLOSE_SESSION_IN;
+>> +
+>> +	session_close_in->port.integrated_port_type = data->port_type;
+>> +	session_close_in->port.physical_port = (u8)data->hdcp_ddi;
+>> +	session_close_in->port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> +}
+>> +EXPORT_SYMBOL(i915_hdcp_fill_close_session_in);
+>> +
+>> diff --git a/drivers/misc/mei/hdcp/mei_hdcp.c b/drivers/misc/mei/hdcp/mei_hdcp.c
+>> index d4faecbbbe76..2cf42e98dfae 100644
+>> --- a/drivers/misc/mei/hdcp/mei_hdcp.c
+>> +++ b/drivers/misc/mei/hdcp/mei_hdcp.c
+>> @@ -50,17 +50,7 @@ mei_hdcp_initiate_session(struct device *dev, struct hdcp_port_data *data,
+>>   
+>>   	cldev = to_mei_cl_device(dev);
+>>   
+>> -	session_init_in.header.api_version = HDCP_API_VERSION;
+>> -	session_init_in.header.command_id = WIRED_INITIATE_HDCP2_SESSION;
+>> -	session_init_in.header.status = FW_HDCP_STATUS_SUCCESS;
+>> -	session_init_in.header.buffer_len =
+>> -				WIRED_CMD_BUF_LEN_INITIATE_HDCP2_SESSION_IN;
+>> -
+>> -	session_init_in.port.integrated_port_type = data->port_type;
+>> -	session_init_in.port.physical_port = (u8)data->hdcp_ddi;
+>> -	session_init_in.port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> -	session_init_in.protocol = data->protocol;
+>> -
+>> +	i915_hdcp_fill_session_in(&session_init_in, data);
+>>   	byte = mei_cldev_send(cldev, (u8 *)&session_init_in,
+>>   			      sizeof(session_init_in));
+>>   	if (byte < 0) {
+>> @@ -119,21 +109,7 @@ mei_hdcp_verify_receiver_cert_prepare_km(struct device *dev,
+>>   		return -EINVAL;
+>>   
+>>   	cldev = to_mei_cl_device(dev);
+>> -
+>> -	verify_rxcert_in.header.api_version = HDCP_API_VERSION;
+>> -	verify_rxcert_in.header.command_id = WIRED_VERIFY_RECEIVER_CERT;
+>> -	verify_rxcert_in.header.status = FW_HDCP_STATUS_SUCCESS;
+>> -	verify_rxcert_in.header.buffer_len =
+>> -				WIRED_CMD_BUF_LEN_VERIFY_RECEIVER_CERT_IN;
+>> -
+>> -	verify_rxcert_in.port.integrated_port_type = data->port_type;
+>> -	verify_rxcert_in.port.physical_port = (u8)data->hdcp_ddi;
+>> -	verify_rxcert_in.port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> -
+>> -	verify_rxcert_in.cert_rx = rx_cert->cert_rx;
+>> -	memcpy(verify_rxcert_in.r_rx, &rx_cert->r_rx, HDCP_2_2_RRX_LEN);
+>> -	memcpy(verify_rxcert_in.rx_caps, rx_cert->rx_caps, HDCP_2_2_RXCAPS_LEN);
+>> -
+>> +	i915_hdcp_fill_rxcert_in(&verify_rxcert_in, rx_cert, data);
+>>   	byte = mei_cldev_send(cldev, (u8 *)&verify_rxcert_in,
+>>   			      sizeof(verify_rxcert_in));
+>>   	if (byte < 0) {
+>> @@ -192,18 +168,7 @@ mei_hdcp_verify_hprime(struct device *dev, struct hdcp_port_data *data,
+>>   
+>>   	cldev = to_mei_cl_device(dev);
+>>   
+>> -	send_hprime_in.header.api_version = HDCP_API_VERSION;
+>> -	send_hprime_in.header.command_id = WIRED_AKE_SEND_HPRIME;
+>> -	send_hprime_in.header.status = FW_HDCP_STATUS_SUCCESS;
+>> -	send_hprime_in.header.buffer_len = WIRED_CMD_BUF_LEN_AKE_SEND_HPRIME_IN;
+>> -
+>> -	send_hprime_in.port.integrated_port_type = data->port_type;
+>> -	send_hprime_in.port.physical_port = (u8)data->hdcp_ddi;
+>> -	send_hprime_in.port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> -
+>> -	memcpy(send_hprime_in.h_prime, rx_hprime->h_prime,
+>> -	       HDCP_2_2_H_PRIME_LEN);
+>> -
+>> +	i915_hdcp_fill_hprime_in(&send_hprime_in, rx_hprime, data);
+>>   	byte = mei_cldev_send(cldev, (u8 *)&send_hprime_in,
+>>   			      sizeof(send_hprime_in));
+>>   	if (byte < 0) {
+>> @@ -248,20 +213,8 @@ mei_hdcp_store_pairing_info(struct device *dev, struct hdcp_port_data *data,
+>>   		return -EINVAL;
+>>   
+>>   	cldev = to_mei_cl_device(dev);
+>> -
+>> -	pairing_info_in.header.api_version = HDCP_API_VERSION;
+>> -	pairing_info_in.header.command_id = WIRED_AKE_SEND_PAIRING_INFO;
+>> -	pairing_info_in.header.status = FW_HDCP_STATUS_SUCCESS;
+>> -	pairing_info_in.header.buffer_len =
+>> -					WIRED_CMD_BUF_LEN_SEND_PAIRING_INFO_IN;
+>> -
+>> -	pairing_info_in.port.integrated_port_type = data->port_type;
+>> -	pairing_info_in.port.physical_port = (u8)data->hdcp_ddi;
+>> -	pairing_info_in.port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> -
+>> -	memcpy(pairing_info_in.e_kh_km, pairing_info->e_kh_km,
+>> -	       HDCP_2_2_E_KH_KM_LEN);
+>> -
+>> +	i915_hdcp_fill_pairing_info_in(&pairing_info_in, pairing_info,
+>> +				       data);
+>>   	byte = mei_cldev_send(cldev, (u8 *)&pairing_info_in,
+>>   			      sizeof(pairing_info_in));
+>>   	if (byte < 0) {
+>> @@ -309,15 +262,7 @@ mei_hdcp_initiate_locality_check(struct device *dev,
+>>   
+>>   	cldev = to_mei_cl_device(dev);
+>>   
+>> -	lc_init_in.header.api_version = HDCP_API_VERSION;
+>> -	lc_init_in.header.command_id = WIRED_INIT_LOCALITY_CHECK;
+>> -	lc_init_in.header.status = FW_HDCP_STATUS_SUCCESS;
+>> -	lc_init_in.header.buffer_len = WIRED_CMD_BUF_LEN_INIT_LOCALITY_CHECK_IN;
+>> -
+>> -	lc_init_in.port.integrated_port_type = data->port_type;
+>> -	lc_init_in.port.physical_port = (u8)data->hdcp_ddi;
+>> -	lc_init_in.port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> -
+>> +	i915_hdcp_fill_locality_check_in(&lc_init_in, data);
+>>   	byte = mei_cldev_send(cldev, (u8 *)&lc_init_in, sizeof(lc_init_in));
+>>   	if (byte < 0) {
+>>   		dev_dbg(dev, "mei_cldev_send failed. %zd\n", byte);
+>> @@ -364,19 +309,8 @@ mei_hdcp_verify_lprime(struct device *dev, struct hdcp_port_data *data,
+>>   
+>>   	cldev = to_mei_cl_device(dev);
+>>   
+>> -	verify_lprime_in.header.api_version = HDCP_API_VERSION;
+>> -	verify_lprime_in.header.command_id = WIRED_VALIDATE_LOCALITY;
+>> -	verify_lprime_in.header.status = FW_HDCP_STATUS_SUCCESS;
+>> -	verify_lprime_in.header.buffer_len =
+>> -					WIRED_CMD_BUF_LEN_VALIDATE_LOCALITY_IN;
+>> -
+>> -	verify_lprime_in.port.integrated_port_type = data->port_type;
+>> -	verify_lprime_in.port.physical_port = (u8)data->hdcp_ddi;
+>> -	verify_lprime_in.port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> -
+>> -	memcpy(verify_lprime_in.l_prime, rx_lprime->l_prime,
+>> -	       HDCP_2_2_L_PRIME_LEN);
+>> -
+>> +	i915_hdcp_fill_validate_locality_in(&verify_lprime_in, rx_lprime,
+>> +					    data);
+>>   	byte = mei_cldev_send(cldev, (u8 *)&verify_lprime_in,
+>>   			      sizeof(verify_lprime_in));
+>>   	if (byte < 0) {
+>> @@ -423,15 +357,7 @@ static int mei_hdcp_get_session_key(struct device *dev,
+>>   
+>>   	cldev = to_mei_cl_device(dev);
+>>   
+>> -	get_skey_in.header.api_version = HDCP_API_VERSION;
+>> -	get_skey_in.header.command_id = WIRED_GET_SESSION_KEY;
+>> -	get_skey_in.header.status = FW_HDCP_STATUS_SUCCESS;
+>> -	get_skey_in.header.buffer_len = WIRED_CMD_BUF_LEN_GET_SESSION_KEY_IN;
+>> -
+>> -	get_skey_in.port.integrated_port_type = data->port_type;
+>> -	get_skey_in.port.physical_port = (u8)data->hdcp_ddi;
+>> -	get_skey_in.port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> -
+>> +	i915_hdcp_fill_session_key_in(&get_skey_in, data);
+>>   	byte = mei_cldev_send(cldev, (u8 *)&get_skey_in, sizeof(get_skey_in));
+>>   	if (byte < 0) {
+>>   		dev_dbg(dev, "mei_cldev_send failed. %zd\n", byte);
+>> @@ -487,25 +413,7 @@ mei_hdcp_repeater_check_flow_prepare_ack(struct device *dev,
+>>   
+>>   	cldev = to_mei_cl_device(dev);
+>>   
+>> -	verify_repeater_in.header.api_version = HDCP_API_VERSION;
+>> -	verify_repeater_in.header.command_id = WIRED_VERIFY_REPEATER;
+>> -	verify_repeater_in.header.status = FW_HDCP_STATUS_SUCCESS;
+>> -	verify_repeater_in.header.buffer_len =
+>> -					WIRED_CMD_BUF_LEN_VERIFY_REPEATER_IN;
+>> -
+>> -	verify_repeater_in.port.integrated_port_type = data->port_type;
+>> -	verify_repeater_in.port.physical_port = (u8)data->hdcp_ddi;
+>> -	verify_repeater_in.port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> -
+>> -	memcpy(verify_repeater_in.rx_info, rep_topology->rx_info,
+>> -	       HDCP_2_2_RXINFO_LEN);
+>> -	memcpy(verify_repeater_in.seq_num_v, rep_topology->seq_num_v,
+>> -	       HDCP_2_2_SEQ_NUM_LEN);
+>> -	memcpy(verify_repeater_in.v_prime, rep_topology->v_prime,
+>> -	       HDCP_2_2_V_PRIME_HALF_LEN);
+>> -	memcpy(verify_repeater_in.receiver_ids, rep_topology->receiver_ids,
+>> -	       HDCP_2_2_RECEIVER_IDS_MAX_LEN);
+>> -
+>> +	i915_hdcp_fill_repeater_in(&verify_repeater_in, rep_topology, data);
+>>   	byte = mei_cldev_send(cldev, (u8 *)&verify_repeater_in,
+>>   			      sizeof(verify_repeater_in));
+>>   	if (byte < 0) {
+>> @@ -566,23 +474,8 @@ static int mei_hdcp_verify_mprime(struct device *dev,
+>>   	if (!verify_mprime_in)
+>>   		return -ENOMEM;
+>>   
+>> -	verify_mprime_in->header.api_version = HDCP_API_VERSION;
+>> -	verify_mprime_in->header.command_id = WIRED_REPEATER_AUTH_STREAM_REQ;
+>> -	verify_mprime_in->header.status = FW_HDCP_STATUS_SUCCESS;
+>> -	verify_mprime_in->header.buffer_len = cmd_size  - sizeof(verify_mprime_in->header);
+>> -
+>> -	verify_mprime_in->port.integrated_port_type = data->port_type;
+>> -	verify_mprime_in->port.physical_port = (u8)data->hdcp_ddi;
+>> -	verify_mprime_in->port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> -
+>> -	memcpy(verify_mprime_in->m_prime, stream_ready->m_prime, HDCP_2_2_MPRIME_LEN);
+>> -	drm_hdcp_cpu_to_be24(verify_mprime_in->seq_num_m, data->seq_num_m);
+>> -
+>> -	memcpy(verify_mprime_in->streams, data->streams,
+>> -	       array_size(data->k, sizeof(*data->streams)));
+>> -
+>> -	verify_mprime_in->k = cpu_to_be16(data->k);
+>> -
+>> +	i915_hdcp_fill_auth_stream_req_in(verify_mprime_in, stream_ready,
+>> +					  cmd_size, data);
+>>   	byte = mei_cldev_send(cldev, (u8 *)verify_mprime_in, cmd_size);
+>>   	kfree(verify_mprime_in);
+>>   	if (byte < 0) {
+>> @@ -628,16 +521,7 @@ static int mei_hdcp_enable_authentication(struct device *dev,
+>>   
+>>   	cldev = to_mei_cl_device(dev);
+>>   
+>> -	enable_auth_in.header.api_version = HDCP_API_VERSION;
+>> -	enable_auth_in.header.command_id = WIRED_ENABLE_AUTH;
+>> -	enable_auth_in.header.status = FW_HDCP_STATUS_SUCCESS;
+>> -	enable_auth_in.header.buffer_len = WIRED_CMD_BUF_LEN_ENABLE_AUTH_IN;
+>> -
+>> -	enable_auth_in.port.integrated_port_type = data->port_type;
+>> -	enable_auth_in.port.physical_port = (u8)data->hdcp_ddi;
+>> -	enable_auth_in.port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> -	enable_auth_in.stream_type = data->streams[0].stream_type;
+>> -
+>> +	i915_hdcp_fill_enable_auth_in(&enable_auth_in, data);
+>>   	byte = mei_cldev_send(cldev, (u8 *)&enable_auth_in,
+>>   			      sizeof(enable_auth_in));
+>>   	if (byte < 0) {
+>> @@ -682,16 +566,7 @@ mei_hdcp_close_session(struct device *dev, struct hdcp_port_data *data)
+>>   
+>>   	cldev = to_mei_cl_device(dev);
+>>   
+>> -	session_close_in.header.api_version = HDCP_API_VERSION;
+>> -	session_close_in.header.command_id = WIRED_CLOSE_SESSION;
+>> -	session_close_in.header.status = FW_HDCP_STATUS_SUCCESS;
+>> -	session_close_in.header.buffer_len =
+>> -				WIRED_CMD_BUF_LEN_CLOSE_SESSION_IN;
+>> -
+>> -	session_close_in.port.integrated_port_type = data->port_type;
+>> -	session_close_in.port.physical_port = (u8)data->hdcp_ddi;
+>> -	session_close_in.port.attached_transcoder = (u8)data->hdcp_transcoder;
+>> -
+>> +	i915_hdcp_fill_close_session_in(&session_close_in, data);
+>>   	byte = mei_cldev_send(cldev, (u8 *)&session_close_in,
+>>   			      sizeof(session_close_in));
+>>   	if (byte < 0) {
+>> diff --git a/include/drm/i915_hdcp_interface.h b/include/drm/i915_hdcp_interface.h
+>> index a92925cd1eae..9952bf78d4f7 100644
+>> --- a/include/drm/i915_hdcp_interface.h
+>> +++ b/include/drm/i915_hdcp_interface.h
+>> @@ -536,4 +536,43 @@ struct wired_cmd_repeater_auth_stream_req_out {
+>>   	struct hdcp_port_id	port;
+>>   } __packed;
+>>   
+>> +void
+>> +i915_hdcp_fill_session_in(struct wired_cmd_initiate_hdcp2_session_in *session_init_in,
+>> +			  struct hdcp_port_data *data);
+>> +void
+>> +i915_hdcp_fill_rxcert_in(struct wired_cmd_verify_receiver_cert_in *verify_rxcert_in,
+>> +			 struct hdcp2_ake_send_cert *rx_cert,
+>> +			 struct hdcp_port_data *data);
+>> +void
+>> +i915_hdcp_fill_hprime_in(struct wired_cmd_ake_send_hprime_in *send_hprime_in,
+>> +			 struct hdcp2_ake_send_hprime *rx_hprime,
+>> +			 struct hdcp_port_data *data);
+>> +void
+>> +i915_hdcp_fill_pairing_info_in(struct wired_cmd_ake_send_pairing_info_in *pairing_info_in,
+>> +			       struct hdcp2_ake_send_pairing_info *pairing_info,
+>> +			       struct hdcp_port_data *data);
+>> +void
+>> +i915_hdcp_fill_locality_check_in(struct wired_cmd_init_locality_check_in *lc_init_in,
+>> +				 struct hdcp_port_data *data);
+>> +void
+>> +i915_hdcp_fill_validate_locality_in(struct wired_cmd_validate_locality_in *verify_lprime_in,
+>> +				    struct hdcp2_lc_send_lprime *rx_lprime,
+>> +				    struct hdcp_port_data *data);
+>> +void
+>> +i915_hdcp_fill_session_key_in(struct wired_cmd_get_session_key_in *get_skey_in,
+>> +			      struct hdcp_port_data *data);
+>> +void
+>> +i915_hdcp_fill_repeater_in(struct wired_cmd_verify_repeater_in *verify_repeater_in,
+>> +			   struct hdcp2_rep_send_receiverid_list *rep_topology,
+>> +			   struct hdcp_port_data *data);
+>> +void
+>> +i915_hdcp_fill_auth_stream_req_in(struct wired_cmd_repeater_auth_stream_req_in *verify_mprime_in,
+>> +				  struct hdcp2_rep_stream_ready *stream_ready, ssize_t cmd_size,
+>> +				  struct hdcp_port_data *data);
+>> +void
+>> +i915_hdcp_fill_enable_auth_in(struct wired_cmd_enable_auth_in *enable_auth_in,
+>> +			      struct hdcp_port_data *data);
+>> +void
+>> +i915_hdcp_fill_close_session_in(struct wired_cmd_close_session_in *session_close_in,
+>> +				struct hdcp_port_data *data);
+>>   #endif /* _I915_HDCP_INTERFACE_H_ */
+> 
