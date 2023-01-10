@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 343ACC46467
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Jan 2023 18:06:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49F39C61DB3
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Jan 2023 18:06:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C34810E115;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EEFF10E10E;
 	Tue, 10 Jan 2023 18:06:22 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F90810E601;
- Tue, 10 Jan 2023 16:44:47 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 08518617DE;
- Tue, 10 Jan 2023 16:44:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B925C433D2;
- Tue, 10 Jan 2023 16:44:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1673369086;
- bh=5pn8lNPzgrol7P8MBSuD7FbH2Rhpic8YeqNAugxASls=;
- h=Date:From:To:Cc:Subject:From;
- b=HI7JpEwkuf+RJ2R7d+YsfTHRQBGCakNFWm+7b1d30HrcAcAh1p9QQmP4YXO1RXiml
- jR/gZjcdi/S9lCp1mHKWz9UF2qvAVC4MSw7eNLX+BkvbyA1wcr1atcLXBzCwcIoORY
- 6h9q2+C44XQ3YaGjgfU4qo9TQZCDFd4dXTELHiQ6v/cGxAJsqpdaidEv5Cn8CyHjiJ
- I9WGQy4F4ioTx1C+EhjYsc706rSMm4+I94FDxs0q/DNlBDhJSKef9pmowT1f/jCRSb
- pqCoJAx0aXoNfcXkf0XuF7ax9lsSySCsjp9NXhzt1zMB6KyuLS05r49mUYB5IL/PXu
- wcTeCnt2+yo/A==
-Date: Tue, 10 Jan 2023 10:44:53 -0600
-From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <Y72WBTUmh9r1lvKN@work>
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5A46110E5E5;
+ Tue, 10 Jan 2023 15:30:24 +0000 (UTC)
+Received: from localhost.localdomain (unknown [124.16.138.125])
+ by APP-05 (Coremail) with SMTP id zQCowAC32M2GhL1jH78NDA--.21443S2;
+ Tue, 10 Jan 2023 23:30:14 +0800 (CST)
+From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tvrtko.ursulin@linux.intel.com, airlied@gmail.com,
+ daniel@ffwll.ch, ville.syrjala@linux.intel.com, manasi.d.navare@intel.com,
+ stanislav.lisovskiy@intel.com, lucas.demarchi@intel.com
+Date: Tue, 10 Jan 2023 23:30:13 +0800
+Message-Id: <20230110153013.5702-1-jiasheng@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowAC32M2GhL1jH78NDA--.21443S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zry5Zr45tFWUGF15AFy7Jrb_yoW8Cr45pF
+ 43CFyYyrW5JFsYgay5Aa1vvFy7C3y8t3WfCF17u3ZrZ3WYyrn8Aw1qy3Z8WFyDGF43XF4r
+ AF97tFW29F1qyrJanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvG14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+ n2kIc2xKxwCY02Avz4vE14v_XrWl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr
+ 0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY
+ 17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
+ C0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
+ 6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
+ 73UjIFyTuYvjfU0CJmUUUUU
+X-Originating-IP: [124.16.138.125]
+X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
 X-Mailman-Approved-At: Tue, 10 Jan 2023 18:06:21 +0000
-Subject: [Intel-gfx] [PATCH][next] drm/i915/guc: Replace zero-length arrays
- with flexible-array members
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915: Replace alloc*workqueue with DRM
+ helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,60 +59,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: intel-gfx@lists.freedesktop.org, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Zero-length arrays are deprecated[1] and we are moving towards
-adopting C99 flexible-array members, instead. So, replace zero-length
-arrays in a couple of structures (three, actually) with flex-array
-members.
+Replace alloc*workqueue with DRM helpers in order to avoid memory leak.
+Moreover, check the return value since the workqueue may be NULL and
+cause NULL pointer dereference.
 
-This helps with the ongoing efforts to tighten the FORTIFY_SOURCE
-routines on memcpy() and help us make progress towards globally
-enabling -fstrict-flex-arrays=3 [2].
-
-Link: https://www.kernel.org/doc/html/latest/process/deprecated.html#zero-length-and-one-element-arrays [1]
-Link: https://gcc.gnu.org/pipermail/gcc-patches/2022-October/602902.html [2]
-Link: https://github.com/KSPP/linux/issues/78
-Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+Fixes: c26a058680dc ("drm/i915: Use a high priority wq for nonblocking plane updates")
+Fixes: 757fffcfdffb ("drm/i915: Put all non-blocking modesets onto an ordered wq")
+Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
 ---
- drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h b/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
-index 3624abfd22d1..9d589c28f40f 100644
---- a/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
-+++ b/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
-@@ -73,7 +73,7 @@ struct guc_debug_capture_list_header {
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 6c2686ecb62a..8acef38ca985 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -41,6 +41,7 @@
+ #include <drm/drm_damage_helper.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_fourcc.h>
++#include <drm/drm_managed.h>
+ #include <drm/drm_privacy_screen_consumer.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_rect.h>
+@@ -8654,9 +8655,16 @@ int intel_modeset_init_noirq(struct drm_i915_private *i915)
  
- struct guc_debug_capture_list {
- 	struct guc_debug_capture_list_header header;
--	struct guc_mmio_reg regs[0];
-+	struct guc_mmio_reg regs[];
- } __packed;
+ 	intel_dmc_ucode_init(i915);
  
- /**
-@@ -125,7 +125,7 @@ struct guc_state_capture_header_t {
+-	i915->display.wq.modeset = alloc_ordered_workqueue("i915_modeset", 0);
+-	i915->display.wq.flip = alloc_workqueue("i915_flip", WQ_HIGHPRI |
+-						WQ_UNBOUND, WQ_UNBOUND_MAX_ACTIVE);
++	ret = drmm_alloc_ordered_workqueue(&i915->drm,
++					   i915->display.wq.modeset, "i915_modeset", 0);
++	if (ret)
++		goto cleanup_vga_client_pw_domain_dmc;
++
++	ret = drmm_alloc_workqueue(&i915->drm, i915->display.wq.flip,
++				   "i915_flip", WQ_HIGHPRI | WQ_UNBOUND,
++				   WQ_UNBOUND_MAX_ACTIVE);
++	if (ret)
++		goto cleanup_vga_client_pw_domain_dmc;
  
- struct guc_state_capture_t {
- 	struct guc_state_capture_header_t header;
--	struct guc_mmio_reg mmio_entries[0];
-+	struct guc_mmio_reg mmio_entries[];
- } __packed;
+ 	intel_mode_config_init(i915);
  
- enum guc_capture_group_types {
-@@ -145,7 +145,7 @@ struct guc_state_capture_group_header_t {
- /* this is the top level structure where an error-capture dump starts */
- struct guc_state_capture_group_t {
- 	struct guc_state_capture_group_header_t grp_header;
--	struct guc_state_capture_t capture_entries[0];
-+	struct guc_state_capture_t capture_entries[];
- } __packed;
- 
- /**
 -- 
-2.34.1
+2.25.1
 
