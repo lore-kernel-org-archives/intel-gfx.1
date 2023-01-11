@@ -4,59 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9218C46467
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 15:42:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADDFDC5479D
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 15:48:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5907610E782;
-	Wed, 11 Jan 2023 15:41:44 +0000 (UTC)
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [IPv6:2a00:1450:4864:20::329])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E69B110E76E
- for <intel-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 15:41:29 +0000 (UTC)
-Received: by mail-wm1-x329.google.com with SMTP id
- m26-20020a05600c3b1a00b003d9811fcaafso12970647wms.5
- for <intel-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 07:41:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uA+tPLir+1X4c7NIGPD8fbGsyIZBKsPUjYPi9h9kAc8=;
- b=eNQu3m5MBYcJ4ir7wnU2uKSOdOlTVnwwoNbl7ndwmx7pL0oaymY4tJ+VPavmH4gWu3
- ctX/ciqpqll+Gi0G39VkzdIVV+zIy+55w4NRmQ48GvAAagPpdV92t11x9dtuCypNqs8x
- VKs1+2qNooBYEQ/WTCaaYQDd8eQZXRMv5YgkU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=uA+tPLir+1X4c7NIGPD8fbGsyIZBKsPUjYPi9h9kAc8=;
- b=c4JZ5uZZIx9HsfCm104/i/PazFGmKfECO61CWWoEDt4tattBnHY1Y2MVkpN3VarlMe
- U0TbSi4fFQR40tTzkb/DK2P1RrMJ825AjwmdgagbCqhEZajZ3hHT42W/28Yi0ItYMy+q
- dXyinLC7hGhi4QxW2DPCxzeFjO2RP6w9j6WJpnEa64xfgcMnuvMVhT7ud1oFATYm4Den
- Wtgj1xitjfcgoadD7/cAy7XsAyi+UPkVF+j5nffiGVLjalYkMMgZHpbFf4bEZ8hlBFev
- aaji4zTWckW18Y4PXK693qE9QJE2rF3Z/mD8t15JzHrfoRqQsmRnk8YCCwZj014tS0YS
- NDXA==
-X-Gm-Message-State: AFqh2kreWryuuh3iPn98eVAg49j7MR6DunTTRRNZdGbIw2n8dHqnG61x
- lg2i0Q5Dp3yr92ZtBfOtGjJyLA==
-X-Google-Smtp-Source: AMrXdXvP0g7aBxRONWD/2hWDOWNy8uqW2LewLgFiVP8szo0yPD2T/n1jDfUyAtI8xKF52PjIaacOWg==
-X-Received: by 2002:a05:600c:4f83:b0:3d2:3f55:f73f with SMTP id
- n3-20020a05600c4f8300b003d23f55f73fmr53421615wmq.8.1673451688237; 
- Wed, 11 Jan 2023 07:41:28 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- t9-20020a05600c198900b003d9e74dd9b2sm15936149wmq.9.2023.01.11.07.41.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Jan 2023 07:41:27 -0800 (PST)
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Wed, 11 Jan 2023 16:41:07 +0100
-Message-Id: <20230111154112.90575-6-daniel.vetter@ffwll.ch>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230111154112.90575-1-daniel.vetter@ffwll.ch>
-References: <20230111154112.90575-1-daniel.vetter@ffwll.ch>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83F8710E767;
+	Wed, 11 Jan 2023 15:48:46 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 150B710E2B2;
+ Wed, 11 Jan 2023 15:48:42 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 78AF04D04;
+ Wed, 11 Jan 2023 15:48:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1673452120; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7HolUeqhNdLsoAqq440YRlEf0YkiRssG6oTl1lqBFrg=;
+ b=C+zxCwUNikDpo2qRee8qzrB745zGChCzwn2Np8x+h3RBAZa0Jk/9j/s6/jaXs8hNmuGQ3H
+ pUYIDJeOOI+lTy3o0BKGPdGz6aGwXUKeRf2JRniFP+yP/zfQuBysjlxAGSdR6xLZoGtIDP
+ lEksvLVCq6z/8E+73pEP0w8HOJCczUk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1673452120;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=7HolUeqhNdLsoAqq440YRlEf0YkiRssG6oTl1lqBFrg=;
+ b=2pwoWD/zi/ZqD0lHNS6wtg9IzlPJoyWeFGnlilzIlnggDnqBSy/Ygsjttir11u/xaihtnz
+ 0uWhyZ+49DDjz4Dw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 40B081358A;
+ Wed, 11 Jan 2023 15:48:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id qO6pDljavmOmPgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Wed, 11 Jan 2023 15:48:40 +0000
+Message-ID: <1118bbfc-16f2-a65c-0dd0-ccc0e42e13c1@suse.de>
+Date: Wed, 11 Jan 2023 16:48:39 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/11] staging/lynxfb: Use pci aperture helper
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Content-Language: en-US
+To: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ DRI Development <dri-devel@lists.freedesktop.org>
+References: <20230111154112.90575-1-daniel.vetter@ffwll.ch>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <20230111154112.90575-1-daniel.vetter@ffwll.ch>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------P5RX26hFj9D7bORUwnr1Td7e"
+Subject: Re: [Intel-gfx] [PATCH 01/11] drm/ast: Use
+ drm_aperture_remove_conflicting_pci_framebuffers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,59 +71,96 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Teddy Wang <teddy.wang@siliconmotion.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
+Cc: linux-fbdev@vger.kernel.org,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel.vetter@intel.com>,
- Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+ LKML <linux-kernel@vger.kernel.org>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Dave Airlie <airlied@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>,
+ Helge Deller <deller@gmx.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It exists! Note that since this is an exact copy, there shouldn't be
-any functional difference here.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------P5RX26hFj9D7bORUwnr1Td7e
+Content-Type: multipart/mixed; boundary="------------2yw32F0NFA2IWrkrE62RBQUY";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ DRI Development <dri-devel@lists.freedesktop.org>
+Cc: Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>, Daniel Vetter
+ <daniel.vetter@intel.com>, Dave Airlie <airlied@redhat.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, Helge Deller <deller@gmx.de>,
+ linux-fbdev@vger.kernel.org
+Message-ID: <1118bbfc-16f2-a65c-0dd0-ccc0e42e13c1@suse.de>
+Subject: Re: [PATCH 01/11] drm/ast: Use
+ drm_aperture_remove_conflicting_pci_framebuffers
+References: <20230111154112.90575-1-daniel.vetter@ffwll.ch>
+In-Reply-To: <20230111154112.90575-1-daniel.vetter@ffwll.ch>
 
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Sudip Mukherjee <sudipm.mukherjee@gmail.com>
-Cc: Teddy Wang <teddy.wang@siliconmotion.com>
-Cc: linux-fbdev@vger.kernel.org
----
- drivers/staging/sm750fb/sm750.c | 16 +---------------
- 1 file changed, 1 insertion(+), 15 deletions(-)
+--------------2yw32F0NFA2IWrkrE62RBQUY
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
-index effc7fcc3703..22ace3168723 100644
---- a/drivers/staging/sm750fb/sm750.c
-+++ b/drivers/staging/sm750fb/sm750.c
-@@ -989,20 +989,6 @@ static int sm750fb_framebuffer_alloc(struct sm750_dev *sm750_dev, int fbidx)
- 	return err;
- }
- 
--static int lynxfb_kick_out_firmware_fb(struct pci_dev *pdev)
--{
--	resource_size_t base = pci_resource_start(pdev, 0);
--	resource_size_t size = pci_resource_len(pdev, 0);
--	bool primary = false;
--
--#ifdef CONFIG_X86
--	primary = pdev->resource[PCI_ROM_RESOURCE].flags &
--					IORESOURCE_ROM_SHADOW;
--#endif
--
--	return aperture_remove_conflicting_devices(base, size, primary, "sm750_fb1");
--}
--
- static int lynxfb_pci_probe(struct pci_dev *pdev,
- 			    const struct pci_device_id *ent)
- {
-@@ -1011,7 +997,7 @@ static int lynxfb_pci_probe(struct pci_dev *pdev,
- 	int fbidx;
- 	int err;
- 
--	err = lynxfb_kick_out_firmware_fb(pdev);
-+	err = aperture_remove_conflicting_pci_devices(pdev, "sm750_fb1");
- 	if (err)
- 		return err;
- 
--- 
-2.39.0
+SGkNCg0KQW0gMTEuMDEuMjMgdW0gMTY6NDEgc2NocmllYiBEYW5pZWwgVmV0dGVyOg0KPiBJ
+dCdzIGp1c3Qgb3BlbiBjb2RlZCBhbmQgbWF0Y2hlcy4NCj4gDQo+IE5vdGUgdGhhdCBUaG9t
+YXMgc2FpZCB0aGF0IGhpcyB2ZXJzaW9uIGFwcGFyZW50bHkgZmFpbGVkIGZvciBzb21lDQo+
+IHJlYXNvbiwgYnV0IGhleSBtYXliZSB3ZSBzaG91bGQgdHJ5IGFnYWluLg0KDQpJJ2xsIGdp
+dmUgdGhpcyBwYXRjaCBhIHRlc3QgdG9tb3Jyb3cuDQoNCkJlc3QgcmVnYXJkcw0KVGhvbWFz
+DQoNCj4gDQo+IFNpZ25lZC1vZmYtYnk6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJA
+aW50ZWwuY29tPg0KPiBDYzogRGF2ZSBBaXJsaWUgPGFpcmxpZWRAcmVkaGF0LmNvbT4NCj4g
+Q2M6IFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPg0KPiBDYzogSmF2
+aWVyIE1hcnRpbmV6IENhbmlsbGFzIDxqYXZpZXJtQHJlZGhhdC5jb20+DQo+IENjOiBIZWxn
+ZSBEZWxsZXIgPGRlbGxlckBnbXguZGU+DQo+IENjOiBsaW51eC1mYmRldkB2Z2VyLmtlcm5l
+bC5vcmcNCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FzdC9hc3RfZHJ2LmMgfCAxNiAr
+LS0tLS0tLS0tLS0tLS0tDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAx
+NSBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYXN0
+L2FzdF9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hc3QvYXN0X2Rydi5jDQo+IGluZGV4IDQy
+MGZjNzVjMjQwZS4uM2FjMjRhNzgwZjUwIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYXN0L2FzdF9kcnYuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYXN0L2FzdF9kcnYu
+Yw0KPiBAQCAtOTAsMjcgKzkwLDEzIEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcGNpX2Rldmlj
+ZV9pZCBhc3RfcGNpaWRsaXN0W10gPSB7DQo+ICAgDQo+ICAgTU9EVUxFX0RFVklDRV9UQUJM
+RShwY2ksIGFzdF9wY2lpZGxpc3QpOw0KPiAgIA0KPiAtc3RhdGljIGludCBhc3RfcmVtb3Zl
+X2NvbmZsaWN0aW5nX2ZyYW1lYnVmZmVycyhzdHJ1Y3QgcGNpX2RldiAqcGRldikNCj4gLXsN
+Cj4gLQlib29sIHByaW1hcnkgPSBmYWxzZTsNCj4gLQlyZXNvdXJjZV9zaXplX3QgYmFzZSwg
+c2l6ZTsNCj4gLQ0KPiAtCWJhc2UgPSBwY2lfcmVzb3VyY2Vfc3RhcnQocGRldiwgMCk7DQo+
+IC0Jc2l6ZSA9IHBjaV9yZXNvdXJjZV9sZW4ocGRldiwgMCk7DQo+IC0jaWZkZWYgQ09ORklH
+X1g4Ng0KPiAtCXByaW1hcnkgPSBwZGV2LT5yZXNvdXJjZVtQQ0lfUk9NX1JFU09VUkNFXS5m
+bGFncyAmIElPUkVTT1VSQ0VfUk9NX1NIQURPVzsNCj4gLSNlbmRpZg0KPiAtDQo+IC0JcmV0
+dXJuIGRybV9hcGVydHVyZV9yZW1vdmVfY29uZmxpY3RpbmdfZnJhbWVidWZmZXJzKGJhc2Us
+IHNpemUsIHByaW1hcnksICZhc3RfZHJpdmVyKTsNCj4gLX0NCj4gLQ0KPiAgIHN0YXRpYyBp
+bnQgYXN0X3BjaV9wcm9iZShzdHJ1Y3QgcGNpX2RldiAqcGRldiwgY29uc3Qgc3RydWN0IHBj
+aV9kZXZpY2VfaWQgKmVudCkNCj4gICB7DQo+ICAgCXN0cnVjdCBhc3RfcHJpdmF0ZSAqYXN0
+Ow0KPiAgIAlzdHJ1Y3QgZHJtX2RldmljZSAqZGV2Ow0KPiAgIAlpbnQgcmV0Ow0KPiAgIA0K
+PiAtCXJldCA9IGFzdF9yZW1vdmVfY29uZmxpY3RpbmdfZnJhbWVidWZmZXJzKHBkZXYpOw0K
+PiArCXJldCA9IGRybV9hcGVydHVyZV9yZW1vdmVfY29uZmxpY3RpbmdfcGNpX2ZyYW1lYnVm
+ZmVycyhwZGV2LCAmYXN0X2RyaXZlcik7DQo+ICAgCWlmIChyZXQpDQo+ICAgCQlyZXR1cm4g
+cmV0Ow0KPiAgIA0KDQotLSANClRob21hcyBaaW1tZXJtYW5uDQpHcmFwaGljcyBEcml2ZXIg
+RGV2ZWxvcGVyDQpTVVNFIFNvZnR3YXJlIFNvbHV0aW9ucyBHZXJtYW55IEdtYkgNCk1heGZl
+bGRzdHIuIDUsIDkwNDA5IE7DvHJuYmVyZywgR2VybWFueQ0KKEhSQiAzNjgwOSwgQUcgTsO8
+cm5iZXJnKQ0KR2VzY2jDpGZ0c2bDvGhyZXI6IEl2byBUb3Rldg0K
 
+--------------2yw32F0NFA2IWrkrE62RBQUY--
+
+--------------P5RX26hFj9D7bORUwnr1Td7e
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmO+2lcFAwAAAAAACgkQlh/E3EQov+Ca
+uQ/9GSAJvfal3trQzlRz8EJNpTeK4TmCFv2te06DIQbCpAFE08aG6FlB6BEFxazYJ+pyeNqkq4+N
+KlRUVIGbpn8gaioCShe63dwOXmC5PgSQsMaX49bRfPvWx8luJu0rNFY2NuFox3iuRuhut91rTowF
+ySJRJ14kmxGc0N0Y7ymLQFIvXCYV/Qr+bXp2Y0ma+YioDqf5dDrp+8vdJo0cfK9Hm0W1G4EjkjmF
+TxhFri+30yG1TIke/7OjrcAXuD8XuY0AbzIYEkP1XImW0nGU7IhXILyPsGKD0K7Vi7c0X4nOYd9D
+g9QY9yuRcDDK7JC2mHEIXoI7mEbsNQraVu9H3xW3bhOaBOFxKAHtOJICUn4+9WZkHD56snakiuyh
+1hxGqD+dshgNOQl7ZCNFQA7eW+cGXIjd0bf54gnGwwQL/RGXITbQ5hG/GMCZLXvOlO0YRS5K+/77
+sYaHZPsikDJ1m2/N6Gm1eVkC4kVMcN2Xy2k7VSzdX/O9lV3kl3XwE17fzeTScnR39hbUmstvCEke
+I3FHaogKCpK8INDYHbrQCU34MwRZwgfxPjNfgCgr/wgT1zhN1twM70vbogV7+HZVqwVyglFIqEud
+IWM8jmQUYlki/Dzf4J+GCsVdGav5pGalaa/YgHae/OCzwInanS5PWNu/1HhpQMQe1WcQ/8o2zk2k
+6hk=
+=GC3z
+-----END PGP SIGNATURE-----
+
+--------------P5RX26hFj9D7bORUwnr1Td7e--
