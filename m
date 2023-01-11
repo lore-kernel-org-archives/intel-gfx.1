@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8116DC5479D
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 23:56:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC551C54EBC
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 23:56:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F13010E83F;
-	Wed, 11 Jan 2023 23:56:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 343EE10E840;
+	Wed, 11 Jan 2023 23:56:21 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CE4310E176
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 406E810E170
  for <intel-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 23:56:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1673481376; x=1705017376;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=SQ22vN3h73dKPedccgjBF0XVtKc1E52/qDLJFl4E+/Y=;
- b=UXp9YwJwMgsf+QWehUYsQ0mViUIntDepuUHV7qXVqmhI+/y2TkwO/+o3
- DVT2sLbBYJnZN4eP89Qt4T0eFsKDapvxKevqVfghhcOtltipmSHmNc5Zo
- 1ig0UO85FWl31VlkvqJFwV+/JYO72qpJTymyBGlCZSizKG86hLmK4ox8I
- XJZDawUXUfecrnjoQkMH5Qq4Cl6ti50nnm7UAFbBS/NdY11ZacCXhM/su
- zqNTFlzK1vhEahzMhR9r1iffu9sYDaBh4Nn0sZK0DGgxGStPSjTrDrdfD
- hMHZwXxc28iEHW2fCMFXsF2M3RkL1bNrhlqGKxGI3WRbJzAOoUg9kfQ5L A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="307090903"
-X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="307090903"
+ bh=x4CXsg5e5UhdGUDOBoMuneXk/sbxN8JXuIaU+8esK4k=;
+ b=aAzZ4zO0qpm0wWQIYiFIy/Xa4glcnXeXhh/6yKwSoZlnvBQOn1SYYedS
+ kL1GaC6aWG02THHFjilC8RdJu9tsYkU3aUSQDdeX2i0iReRfozblQLNQN
+ /oGTPe4tmf0ABN6Y9zsL16+PkgVGjr+IGwSlkt2dPRpLPA/D9HoE/j6Xt
+ T0Msh2A4/4KepDhliA/eXEKfqsbnhGRwbHhl4RqqRncbV+/TqnFlpO/cv
+ +gh1z4BEtL/Ch6yzxbONWDw74QtAhBZ3tVRMwqGAPbXMS3RChs8MssF1o
+ jG8TzzdX5sBYTjrQu0iO/u2zZLtWl62Jb0fNrgDo2fuQphu2xXdkizi/V g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="307090901"
+X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="307090901"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Jan 2023 15:56:14 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="831486392"
-X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="831486392"
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="831486382"
+X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="831486382"
 Received: from invictus.jf.intel.com ([10.165.21.134])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Jan 2023 15:56:14 -0800
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 11 Jan 2023 15:55:31 -0800
-Message-Id: <20230111235531.3353815-10-radhakrishna.sripada@intel.com>
+Date: Wed, 11 Jan 2023 15:55:28 -0800
+Message-Id: <20230111235531.3353815-7-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230111235531.3353815-1-radhakrishna.sripada@intel.com>
 References: <20230111235531.3353815-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH dii-client 9/9] drm/i915/display/mtl: Program
- latch to phy reset
+Subject: [Intel-gfx] [PATCH dii-client 6/9] drm/i915/debugfs: Multiplex
+ upper layer interfaces to act on all gt's
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,63 +60,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: José Roberto de Souza <jose.souza@intel.com>
+From: Andi Shyti <andi.shyti@linux.intel.com>
 
-Latch reset of phys during DC9 and when driver is unloaded to avoid
-phy reset.
+Commit 82a149a62b6b5 ('drm/i915/gt: move remaining debugfs
+interfaces into gt') moves gt related debugfs files in the gtX/
+directories to act on specific gt's individually.
 
-Specification ask us to program it closer to the step that enables
-DC9 in DC_STATE_EN but doing this way allow us to sanitize the phy
-latch during driver load.
+The original files are kept intact in the same location in order
+to not break userspace users. But they were performing only on
+the root tile (tile 0).
 
-BSpec: 49197
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+Add a multiplexing functionality to the higher directories files
+so that they can perform the operations on all the tiles in a
+with a single write.
+
+In the read case they provide an or'ed value amongst the tiles.
+
+Cc: Maciej Patelczyk <maciej.patelczyk@intel.com>
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_power.c | 8 ++++++++
- drivers/gpu/drm/i915/i915_reg.h                    | 2 ++
- 2 files changed, 10 insertions(+)
+ drivers/gpu/drm/i915/i915_debugfs.c | 38 ++++++++++++++++++++++++++---
+ 1 file changed, 34 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index 1a23ecd4623a..9b6dfd5f1259 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -1646,6 +1646,10 @@ static void icl_display_core_init(struct drm_i915_private *dev_priv,
- 	intel_power_well_enable(dev_priv, well);
- 	mutex_unlock(&power_domains->lock);
+diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
+index a356ca490159..d64e9e3a439d 100644
+--- a/drivers/gpu/drm/i915/i915_debugfs.c
++++ b/drivers/gpu/drm/i915/i915_debugfs.c
+@@ -575,14 +575,36 @@ static int i915_wa_registers(struct seq_file *m, void *unused)
+ static int i915_wedged_get(void *data, u64 *val)
+ {
+ 	struct drm_i915_private *i915 = data;
++	struct intel_gt *gt;
++	unsigned int i;
  
-+	if (DISPLAY_VER(dev_priv) == 14)
-+		intel_de_rmw(dev_priv, DC_STATE_EN,
-+			     HOLD_PHY_PG1_LATCH | HOLD_PHY_CLKREQ_PG1_LATCH, 0);
+-	return intel_gt_debugfs_reset_show(to_gt(i915), val);
++	*val = 0;
 +
- 	/* 4. Enable CDCLK. */
- 	intel_cdclk_init_hw(dev_priv);
- 
-@@ -1700,6 +1704,10 @@ static void icl_display_core_uninit(struct drm_i915_private *dev_priv)
- 	/* 3. Disable CD clock */
- 	intel_cdclk_uninit_hw(dev_priv);
- 
-+	if (DISPLAY_VER(dev_priv) == 14)
-+		intel_de_rmw(dev_priv, DC_STATE_EN, 0,
-+			     HOLD_PHY_PG1_LATCH | HOLD_PHY_CLKREQ_PG1_LATCH);
++	for_each_gt(gt, i915, i) {
++		int ret;
++		u64 v;
 +
- 	/*
- 	 * 4. Disable Power Well 1 (PG1).
- 	 *    The AUX IO power wells are toggled on demand, so they are already
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index d43f0f8e061c..d84d05cc49de 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -7383,6 +7383,8 @@ enum skl_power_gate {
- #define  DC_STATE_DISABLE		0
- #define  DC_STATE_EN_DC3CO		REG_BIT(30)
- #define  DC_STATE_DC3CO_STATUS		REG_BIT(29)
-+#define  HOLD_PHY_CLKREQ_PG1_LATCH	REG_BIT(21)
-+#define  HOLD_PHY_PG1_LATCH		REG_BIT(20)
- #define  DC_STATE_EN_UPTO_DC5		(1 << 0)
- #define  DC_STATE_EN_DC9		(1 << 3)
- #define  DC_STATE_EN_UPTO_DC6		(2 << 0)
++		ret = intel_gt_debugfs_reset_show(gt, &v);
++		if (ret)
++			return ret;
++
++		/* at least one tile should be wedged */
++		*val |= !!v;
++		if (*val)
++			break;
++	}
++
++	return 0;
+ }
+ 
+ static int i915_wedged_set(void *data, u64 val)
+ {
+ 	struct drm_i915_private *i915 = data;
+-	intel_gt_debugfs_reset_store(to_gt(i915), val);
++	struct intel_gt *gt;
++	unsigned int i;
++
++	for_each_gt(gt, i915, i)
++		intel_gt_debugfs_reset_store(gt, val);
+ 
+ 	return 0;
+ }
+@@ -732,7 +754,11 @@ static int i915_sseu_status(struct seq_file *m, void *unused)
+ static int i915_forcewake_open(struct inode *inode, struct file *file)
+ {
+ 	struct drm_i915_private *i915 = inode->i_private;
+-	intel_gt_pm_debugfs_forcewake_user_open(to_gt(i915));
++	struct intel_gt *gt;
++	unsigned int i;
++
++	for_each_gt(gt, i915, i)
++		intel_gt_pm_debugfs_forcewake_user_open(gt);
+ 
+ 	return 0;
+ }
+@@ -740,7 +766,11 @@ static int i915_forcewake_open(struct inode *inode, struct file *file)
+ static int i915_forcewake_release(struct inode *inode, struct file *file)
+ {
+ 	struct drm_i915_private *i915 = inode->i_private;
+-	intel_gt_pm_debugfs_forcewake_user_release(to_gt(i915));
++	struct intel_gt *gt;
++	unsigned int i;
++
++	for_each_gt(gt, i915, i)
++		intel_gt_pm_debugfs_forcewake_user_release(gt);
+ 
+ 	return 0;
+ }
 -- 
 2.34.1
 
