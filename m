@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9599C46467
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 23:56:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A1B1C54EBC
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 23:56:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D18E10E838;
-	Wed, 11 Jan 2023 23:56:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E72610E83E;
+	Wed, 11 Jan 2023 23:56:20 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AB5310E2C5
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4193910E838
  for <intel-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 23:56:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1673481376; x=1705017376;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=w4V4wt3JHqbj3QI6M+dSkYv5uC+o73NfOa2u5/uhXBA=;
- b=DJLF5p9bgCOXwB6Vh2DN2ZuQFmQbAMwQ1CDCXSscmm5bUc2ho8Imn8Ix
- SoLKiIoDX1u649+2mKC4Wb3EuRy8okfTi8VvaW2cv02Qfs6wZJqMeuvHg
- 148y+6tHeBmcK6J0wmdmby7wldQIZFpyPA4ehSVXplD6fr04jo+E4r4vS
- EXqx/LfD76OhkLcuFr/CRG/2ADsaw6EjKdjamMvj1p/MhCmXR04Q4TqBP
- 8osFx80KzAXjueEbYpyuyBU/Azb3cOOtcBrTTP0eKzp6nVeZ37eTdhgVz
- 1yIJUTFeo83P/ASJy9Iz0zeqQblGG8tYZf1bURCKvIliwHG62OqLLfPsk Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="307090902"
-X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="307090902"
+ bh=K0ux4J3aJ283Z6NQWZc+KUG7MV9Kn6PfbuHN6h1lPAU=;
+ b=K7o2ddZMU1XfkKwWfIQm05aVV+JOKYpH/iYcmLfClncYW4h8U8RzeVU6
+ QIdyxMNAEZ/6IBtGMkPHLarKonVYatWnh0iGEbhDx2Y+7ubnb/s/U+VTe
+ cmBRc56/9gaDZd+InpkCTtdDNFmUjVNbtzRem8H+B8oTfDIdZjr+yBySr
+ MotL2ZqT/H/FH7QEouftvzuSG05tp0aywLsnBenUIN79j0RNE3BZBYywg
+ ycC00xTR+u1G8uiNoTh+LGp377JEhxs+Me8zMtfyZjwEJs9oQjW5JeUmU
+ 706AxCOhaYYM6Cdd6gdxRvsAYyw/J9Y+MmUQTPI9ftlFnYVgbv4x4hBxu A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="307090900"
+X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="307090900"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Jan 2023 15:56:14 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="831486387"
-X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="831486387"
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="831486378"
+X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="831486378"
 Received: from invictus.jf.intel.com ([10.165.21.134])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Jan 2023 15:56:14 -0800
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 11 Jan 2023 15:55:29 -0800
-Message-Id: <20230111235531.3353815-8-radhakrishna.sripada@intel.com>
+Date: Wed, 11 Jan 2023 15:55:27 -0800
+Message-Id: <20230111235531.3353815-6-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230111235531.3353815-1-radhakrishna.sripada@intel.com>
 References: <20230111235531.3353815-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH dii-client 7/9] drm/i915/fbdev: lock the fbdev
- obj before vma pin
+Subject: [Intel-gfx] [PATCH dii-client 5/9] drm/i915/gt: generate per gt
+ debugfs files
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,72 +61,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tejas Upadhyay <tejas.upadhyay@intel.com>
+From: Andi Shyti <andi.shyti@intel.com>
 
-lock the fbdev obj before calling into
-i915_vma_pin_iomap(). This helps to solve below :
+In the view of multi-gt we want independent per gt debug files.
 
-<7>[   93.563308] i915 0000:00:02.0: [drm:intelfb_create [i915]] no BIOS fb, allocating a new one
-<4>[   93.581844] ------------[ cut here ]------------
-<4>[   93.581855] WARNING: CPU: 12 PID: 625 at drivers/gpu/drm/i915/gem/i915_gem_pages.c:424 i915_gem_object_pin_map+0x152/0x1c0 [i915]
+In debugfs create gt0/ gt1/ ... gtN/ for gt related files. In
+platforms with 2 gt's, the debugfs would be structured as follows:
 
-v2 :
-   - Remove err variable - Chris
-   - Pass false as its not interruptible - Chris
+/sys/kernel/debug/dri
+                  └── 0
+                      ├── gt0
+                      │   ├── drpc
+                      │   ├── engines
+                      │   ├── forcewake
+                      │   ├── frequency
+                      │   └── rps_boost
+                      └─- gt1
+                      :   ├── drpc
+                      :   ├── engines
+                      :   ├── forcewake
+                          ├── frequency
+                          └── rps_boost
 
-Bug-id: VLK-38439
-Fixes: b473df22760f9 ("backport "drm/i915: Add ww context to intel_dpt_pin, v2.")
-Cc: Chris Wilson <chris.p.wilson@intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Signed-off-by: Andi Shyti <andi.shyti@intel.com>
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fbdev.c | 24 ++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_debugfs.c    | 4 +++-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        | 2 ++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.c    | 5 ++++-
+ drivers/gpu/drm/i915/gt/uc/intel_uc_debugfs.c | 2 ++
+ 4 files changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-index 03ed4607a46d..40808d57f0d0 100644
---- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-@@ -210,6 +210,7 @@ static int intelfb_create(struct drm_fb_helper *helper,
- 	bool prealloc = false;
- 	void __iomem *vaddr;
- 	struct drm_i915_gem_object *obj;
-+	struct i915_gem_ww_ctx ww;
- 	int ret;
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_debugfs.c b/drivers/gpu/drm/i915/gt/intel_gt_debugfs.c
+index 5fc2df01aa0d..4dc23b8d3aa2 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_debugfs.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_debugfs.c
+@@ -83,11 +83,13 @@ static void gt_debugfs_register(struct intel_gt *gt, struct dentry *root)
+ void intel_gt_debugfs_register(struct intel_gt *gt)
+ {
+ 	struct dentry *root;
++	char gtname[4];
  
- 	mutex_lock(&ifbdev->hpd_lock);
-@@ -290,13 +291,24 @@ static int intelfb_create(struct drm_fb_helper *helper,
- 		info->fix.smem_len = vma->size;
- 	}
+ 	if (!gt->i915->drm.primary->debugfs_root)
+ 		return;
  
--	vaddr = i915_vma_pin_iomap(vma);
--	if (IS_ERR(vaddr)) {
--		drm_err(&dev_priv->drm,
--			"Failed to remap framebuffer into virtual memory (%pe)\n", vaddr);
--		ret = PTR_ERR(vaddr);
--		goto out_unpin;
-+	for_i915_gem_ww(&ww, ret, false) {
-+		ret = i915_gem_object_lock(vma->obj, &ww);
-+
-+		if (ret)
-+			continue;
-+
-+		vaddr = i915_vma_pin_iomap(vma);
-+		if (IS_ERR(vaddr)) {
-+			drm_err(&dev_priv->drm,
-+					"Failed to remap framebuffer into virtual memory (%pe)\n", vaddr);
-+			ret = PTR_ERR(vaddr);
-+			continue;
-+		}
- 	}
-+
-+	if (ret)
-+		goto out_unpin;
-+
- 	info->screen_base = vaddr;
- 	info->screen_size = vma->size;
+-	root = debugfs_create_dir("gt", gt->i915->drm.primary->debugfs_root);
++	snprintf(gtname, sizeof(gtname), "gt%u", gt->info.id);
++	root = debugfs_create_dir(gtname, gt->i915->drm.primary->debugfs_root);
+ 	if (IS_ERR(root))
+ 		return;
  
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index bb4dfe707a7d..e46aac1a41e6 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -42,6 +42,8 @@ struct intel_guc {
+ 	/** @capture: the error-state-capture module's data and objects */
+ 	struct intel_guc_state_capture *capture;
+ 
++	struct dentry *dbgfs_node;
++
+ 	/** @sched_engine: Global engine used to submit requests to GuC */
+ 	struct i915_sched_engine *sched_engine;
+ 	/**
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
+index 68331c538b0a..71b1f23b64c1 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
+@@ -542,8 +542,11 @@ static int guc_log_relay_create(struct intel_guc_log *log)
+ 	 */
+ 	n_subbufs = 8;
+ 
++	if (!guc->dbgfs_node)
++		return -ENOENT;
++
+ 	guc_log_relay_chan = relay_open("guc_log",
+-					dev_priv->drm.primary->debugfs_root,
++					guc->dbgfs_node,
+ 					subbuf_size, n_subbufs,
+ 					&relay_callbacks, dev_priv);
+ 	if (!guc_log_relay_chan) {
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_debugfs.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_debugfs.c
+index 284d6fbc2d08..2f93cc4e408a 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_debugfs.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_debugfs.c
+@@ -54,6 +54,8 @@ void intel_uc_debugfs_register(struct intel_uc *uc, struct dentry *gt_root)
+ 	if (IS_ERR(root))
+ 		return;
+ 
++	uc->guc.dbgfs_node = root;
++
+ 	intel_gt_debugfs_register_files(root, files, ARRAY_SIZE(files), uc);
+ 
+ 	intel_guc_debugfs_register(&uc->guc, root);
 -- 
 2.34.1
 
