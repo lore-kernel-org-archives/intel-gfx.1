@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81FF1C46467
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 23:56:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9599C46467
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 23:56:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA92810E2C5;
-	Wed, 11 Jan 2023 23:56:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D18E10E838;
+	Wed, 11 Jan 2023 23:56:19 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 618CE10E176
- for <intel-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 23:56:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AB5310E2C5
+ for <intel-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 23:56:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673481375; x=1705017375;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=bIkb67EMeDraCIDWqCohv6KG+6/T3isMA/ys7bmPZF4=;
- b=FcHzpmWqyFLPLArJGD4LdTaO7QcTj/aErOfL5Oc3KzTIEflQ85Fax0lW
- yzcsPLjeVybQupDSJmeKOX8l/ISdzzY2FqaieaWV03NcB2j8uqGhNhJ2n
- nG9aulufWvw6BGpgqXIEe44TWDa9Fq73IGbqQ5HXrGgl8p/EGuCcC+YOX
- r8ZdwOg4J7wlh8SYNr2fpSSdaTHFzVRpa9HaduGHIi5Wr/EHYYK+Gje8f
- GEWJd4t9ES76U4pHhbmPGC7UzlXSyWARU+zxkxgzeNgMvH75tl4whuaU6
- BOkzX8Ak2W5l/Mu0jcv71JX8WXtKx3YXb4EjmKKrrxkxwKeW11YXRO7wU g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="307090892"
-X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="307090892"
+ t=1673481376; x=1705017376;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=w4V4wt3JHqbj3QI6M+dSkYv5uC+o73NfOa2u5/uhXBA=;
+ b=DJLF5p9bgCOXwB6Vh2DN2ZuQFmQbAMwQ1CDCXSscmm5bUc2ho8Imn8Ix
+ SoLKiIoDX1u649+2mKC4Wb3EuRy8okfTi8VvaW2cv02Qfs6wZJqMeuvHg
+ 148y+6tHeBmcK6J0wmdmby7wldQIZFpyPA4ehSVXplD6fr04jo+E4r4vS
+ EXqx/LfD76OhkLcuFr/CRG/2ADsaw6EjKdjamMvj1p/MhCmXR04Q4TqBP
+ 8osFx80KzAXjueEbYpyuyBU/Azb3cOOtcBrTTP0eKzp6nVeZ37eTdhgVz
+ 1yIJUTFeo83P/ASJy9Iz0zeqQblGG8tYZf1bURCKvIliwHG62OqLLfPsk Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="307090902"
+X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="307090902"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Jan 2023 15:56:14 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="831486363"
-X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="831486363"
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="831486387"
+X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="831486387"
 Received: from invictus.jf.intel.com ([10.165.21.134])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Jan 2023 15:56:14 -0800
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 11 Jan 2023 15:55:22 -0800
-Message-Id: <20230111235531.3353815-1-radhakrishna.sripada@intel.com>
+Date: Wed, 11 Jan 2023 15:55:29 -0800
+Message-Id: <20230111235531.3353815-8-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230111235531.3353815-1-radhakrishna.sripada@intel.com>
+References: <20230111235531.3353815-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH dii-client 0/9] Misc Meteorlake patches
+Subject: [Intel-gfx] [PATCH dii-client 7/9] drm/i915/fbdev: lock the fbdev
+ obj before vma pin
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,55 +60,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series adds patches needed for Meteorlake platform.
+From: Tejas Upadhyay <tejas.upadhyay@intel.com>
 
-Yjere are 4 GT related patches 1 to handle interrupts for both
-render and media gt, 2 patches to generate per gt debug files,
-and the fourth patch to fix the bcs default context.
+lock the fbdev obj before calling into
+i915_vma_pin_iomap(). This helps to solve below :
 
-There are 5 display patches, 1 for the phy to hold its values
-during dc9 entry/exit, 1 fbdev related fix, 1 patch fixes an earlier
-workaround, 1 patch to init empty clock gating hooks and 1 patch
-to skip informing punit about bw changes through mail box.
+<7>[   93.563308] i915 0000:00:02.0: [drm:intelfb_create [i915]] no BIOS fb, allocating a new one
+<4>[   93.581844] ------------[ cut here ]------------
+<4>[   93.581855] WARNING: CPU: 12 PID: 625 at drivers/gpu/drm/i915/gem/i915_gem_pages.c:424 i915_gem_object_pin_map+0x152/0x1c0 [i915]
 
+v2 :
+   - Remove err variable - Chris
+   - Pass false as its not interruptible - Chris
+
+Bug-id: VLK-38439
+Fixes: b473df22760f9 ("backport "drm/i915: Add ww context to intel_dpt_pin, v2.")
+Cc: Chris Wilson <chris.p.wilson@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_fbdev.c | 24 ++++++++++++++++------
+ 1 file changed, 18 insertions(+), 6 deletions(-)
 
-Andi Shyti (2):
-  drm/i915/gt: generate per gt debugfs files
-  drm/i915/debugfs: Multiplex upper layer interfaces to act on all gt's
-
-José Roberto de Souza (1):
-  drm/i915/display/mtl: Program latch to phy reset
-
-Lucas De Marchi (1):
-  drm/i915/mtl: Fix bcs default context
-
-Paulo Zanoni (1):
-  drm/i915/mtl: make IRQ reset and postinstall multi-gt aware
-
-Radhakrishna Sripada (3):
-  drm/i915/mtl: Initialize empty clockgating hooks for MTL
-  drm/i915/mtl: Fix Wa_14015855405 implementation
-  drm/i915/mtl: Skip pcode qgv restrictions for MTL
-
-Tejas Upadhyay (1):
-  drm/i915/fbdev: lock the fbdev obj before vma pin
-
- drivers/gpu/drm/i915/display/intel_bw.c       |  3 ++
- .../drm/i915/display/intel_display_power.c    |  8 ++++
- drivers/gpu/drm/i915/display/intel_dmc.c      | 35 ++++++++++++++---
- drivers/gpu/drm/i915/display/intel_fbdev.c    | 24 +++++++++---
- drivers/gpu/drm/i915/gt/intel_gt_debugfs.c    |  4 +-
- drivers/gpu/drm/i915/gt/intel_lrc.c           | 37 +-----------------
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  2 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.c    |  5 ++-
- drivers/gpu/drm/i915/gt/uc/intel_uc_debugfs.c |  2 +
- drivers/gpu/drm/i915/i915_debugfs.c           | 38 +++++++++++++++++--
- drivers/gpu/drm/i915/i915_irq.c               | 28 +++++++++-----
- drivers/gpu/drm/i915/i915_reg.h               | 12 ++++--
- drivers/gpu/drm/i915/intel_pm.c               |  4 +-
- 13 files changed, 135 insertions(+), 67 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+index 03ed4607a46d..40808d57f0d0 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbdev.c
++++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+@@ -210,6 +210,7 @@ static int intelfb_create(struct drm_fb_helper *helper,
+ 	bool prealloc = false;
+ 	void __iomem *vaddr;
+ 	struct drm_i915_gem_object *obj;
++	struct i915_gem_ww_ctx ww;
+ 	int ret;
+ 
+ 	mutex_lock(&ifbdev->hpd_lock);
+@@ -290,13 +291,24 @@ static int intelfb_create(struct drm_fb_helper *helper,
+ 		info->fix.smem_len = vma->size;
+ 	}
+ 
+-	vaddr = i915_vma_pin_iomap(vma);
+-	if (IS_ERR(vaddr)) {
+-		drm_err(&dev_priv->drm,
+-			"Failed to remap framebuffer into virtual memory (%pe)\n", vaddr);
+-		ret = PTR_ERR(vaddr);
+-		goto out_unpin;
++	for_i915_gem_ww(&ww, ret, false) {
++		ret = i915_gem_object_lock(vma->obj, &ww);
++
++		if (ret)
++			continue;
++
++		vaddr = i915_vma_pin_iomap(vma);
++		if (IS_ERR(vaddr)) {
++			drm_err(&dev_priv->drm,
++					"Failed to remap framebuffer into virtual memory (%pe)\n", vaddr);
++			ret = PTR_ERR(vaddr);
++			continue;
++		}
+ 	}
++
++	if (ret)
++		goto out_unpin;
++
+ 	info->screen_base = vaddr;
+ 	info->screen_size = vma->size;
+ 
 -- 
 2.34.1
 
