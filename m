@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76B52C46467
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 05:40:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4901C5479D
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 05:40:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C290910E6EA;
-	Wed, 11 Jan 2023 05:40:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A62AF10E6EC;
+	Wed, 11 Jan 2023 05:40:07 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 989A610E6E8
- for <intel-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 05:39:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C5C510E6EB
+ for <intel-gfx@lists.freedesktop.org>; Wed, 11 Jan 2023 05:40:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673415599; x=1704951599;
+ t=1673415603; x=1704951603;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=yqprujcA4Xg9CBFMQUNE3H0yUsKlp4erVcTzZR9H88c=;
- b=X7Zmm08XOb7kNyMZSO39ZIjz3X3ETDccGYp9R9MWwb5yVOncd4qq17YJ
- eCbuKBA7lQ/HpxJdKfccKR0PLbFZrUv+o6+zDEjo5+xWDiCPI1o6GF+bh
- MNn2hzZsSuSRixLhJgsxcX43kV9NDEnfmZIWhl8p+bp8eKsBHC5PGxzdV
- 7LhAbs41p6mLkaFmArEZ37N0ARKgH7/zpHC1OQVS1dIT7IGfyOcW2WezR
- lFcn7EMUJ4PjpIMUEWMuBz+EfNSKA3OzXwF803bmqWIEELmlZfK9vsfd7
- 7FwJRAmRIwclqoXYTGpltN9yLtPUSB0xEqlPKDZXaYK37xtAC3/18eP/U w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="325341398"
-X-IronPort-AV: E=Sophos;i="5.96,315,1665471600"; d="scan'208";a="325341398"
+ bh=rlaZG4+j/mg+cV/fiL/FdD6LXu7drK28J23+1L+7SMU=;
+ b=jrKjM0LdFSZPoOghYJSDXyB8djyHv0OFxRqBn9KbPHdODEf6nMgEhSwC
+ N1zHd0yzSi/iMCIe+mHu/7u87zNZ6zXY6J3dVrqjevZwr3pEIpgPbpTkG
+ PfYmC7M0qS9tC7IE90QBokRT9q1q1Y5Yf2zgyKzVlo73bSrfVeXQOdeCE
+ R8jK/UvhgYLKeXGKIcUZ/MmjuVp8VsD9LkQvtWkwVTeVhaXXEdiG3HfVK
+ s6K2A+2Nc7DutlLfR+TVHuSbSHsKlaf7UAdyUNlaz41/GQpiD68lR+tUd
+ U2JxVdI+N2dTcpYuinemSXP9YsPEA2guiVSNBmX1/SWLc9getXChugk5X g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="325341414"
+X-IronPort-AV: E=Sophos;i="5.96,315,1665471600"; d="scan'208";a="325341414"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2023 21:39:59 -0800
+ 10 Jan 2023 21:40:03 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="720598408"
-X-IronPort-AV: E=Sophos;i="5.96,315,1665471600"; d="scan'208";a="720598408"
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="720598475"
+X-IronPort-AV: E=Sophos;i="5.96,315,1665471600"; d="scan'208";a="720598475"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by fmsmga008.fm.intel.com with ESMTP; 10 Jan 2023 21:39:57 -0800
+ by fmsmga008.fm.intel.com with ESMTP; 10 Jan 2023 21:40:01 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 11 Jan 2023 11:08:32 +0530
-Message-Id: <20230111053837.1608588-5-suraj.kandpal@intel.com>
+Date: Wed, 11 Jan 2023 11:08:34 +0530
+Message-Id: <20230111053837.1608588-7-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230111053837.1608588-1-suraj.kandpal@intel.com>
 References: <20230111053837.1608588-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 4/9] drm/i915: Enable YCbCr420 for VDSC
+Subject: [Intel-gfx] [PATCH v6 6/9] drm/i915/vdsc: Check slice design
+ requirement
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,259 +60,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implementation of VDSC for YCbCr420.
+Add function to check if slice design requirements are being
+met as defined in the below link section Slice Design Requirement
+
+https://gfxspecs.intel.com/Predator/Home/Index/49259
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- .../gpu/drm/i915/display/intel_qp_tables.c    | 187 ++++++++++++++++--
- .../gpu/drm/i915/display/intel_qp_tables.h    |   4 +-
- drivers/gpu/drm/i915/display/intel_vdsc.c     |   4 +-
- 3 files changed, 180 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vdsc.c | 32 +++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_qp_tables.c b/drivers/gpu/drm/i915/display/intel_qp_tables.c
-index 6f8e4ec5c0fb..6e86c0971d24 100644
---- a/drivers/gpu/drm/i915/display/intel_qp_tables.c
-+++ b/drivers/gpu/drm/i915/display/intel_qp_tables.c
-@@ -17,6 +17,15 @@
- /* from BPP 6 to 36 in steps of 0.5 */
- #define RC_RANGE_QP444_12BPC_MAX_NUM_BPP	61
- 
-+/* from BPP 6 to 24 in steps of 0.5 */
-+#define RC_RANGE_QP420_8BPC_MAX_NUM_BPP		17
-+
-+/* from BPP 6 to 30 in steps of 0.5 */
-+#define RC_RANGE_QP420_10BPC_MAX_NUM_BPP	23
-+
-+/* from BPP 6 to 36 in steps of 0.5 */
-+#define RC_RANGE_QP420_12BPC_MAX_NUM_BPP	29
-+
- /*
-  * These qp tables are as per the C model
-  * and it has the rows pointing to bpps which increment
-@@ -283,26 +292,182 @@ static const u8 rc_range_maxqp444_12bpc[DSC_NUM_BUF_RANGES][RC_RANGE_QP444_12BPC
- 	  11, 11, 10, 10, 10, 10, 10, 9, 9, 8, 8, 8, 8, 8, 7, 7, 6, 6, 6, 6, 5, 5, 4 }
- };
- 
--#define PARAM_TABLE(_minmax, _bpc, _row, _col)  do { \
--	if (bpc == (_bpc)) \
--		return rc_range_##_minmax##qp444_##_bpc##bpc[_row][_col]; \
-+static const u8 rc_range_minqp420_8bpc[DSC_NUM_BUF_RANGES][RC_RANGE_QP420_8BPC_MAX_NUM_BPP] = {
-+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 3, 3, 3, 3, 3, 2, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0 },
-+	{ 3, 3, 3, 3, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0 },
-+	{ 3, 3, 3, 3, 3, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0, 0 },
-+	{ 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0 },
-+	{ 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 0 },
-+	{ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 1, 1 },
-+	{ 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 2, 1, 1 },
-+	{ 5, 5, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4, 3, 2, 2, 1 },
-+	{ 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 4, 3, 3, 2, 1 },
-+	{ 9, 8, 8, 7, 7, 7, 7, 7, 7, 6, 5, 5, 4, 3, 3, 3, 2 },
-+	{ 13, 12, 12, 11, 10, 10, 9, 8, 8, 7, 6, 6, 5, 5, 4, 4, 3 }
-+};
-+
-+static const u8 rc_range_maxqp420_8bpc[DSC_NUM_BUF_RANGES][RC_RANGE_QP420_8BPC_MAX_NUM_BPP] = {
-+	{ 4, 4, 3, 3, 2, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 4, 4, 4, 4, 4, 3, 2, 2, 1, 1, 1, 1, 0, 0, 0, 0, 0 },
-+	{ 5, 5, 5, 5, 5, 4, 3, 2, 1, 1, 1, 1, 1, 1, 0, 0, 0 },
-+	{ 6, 6, 6, 6, 6, 5, 4, 3, 2, 2, 2, 1, 1, 1, 1, 0, 0 },
-+	{ 7, 7, 7, 7, 7, 5, 4, 3, 2, 2, 2, 2, 2, 1, 1, 1, 0 },
-+	{ 7, 7, 7, 7, 7, 6, 5, 4, 3, 3, 3, 2, 2, 2, 1, 1, 0 },
-+	{ 7, 7, 7, 7, 7, 6, 5, 4, 3, 3, 3, 3, 2, 2, 2, 1, 1 },
-+	{ 8, 8, 8, 8, 8, 7, 6, 5, 4, 4, 4, 3, 3, 2, 2, 2, 1 },
-+	{ 9, 9, 9, 8, 8, 7, 6, 6, 5, 5, 4, 4, 3, 3, 2, 2, 1 },
-+	{ 10, 10, 9, 9, 9, 8, 7, 6, 5, 5, 5, 4, 4, 3, 3, 2, 2 },
-+	{ 10, 10, 10, 9, 9, 8, 8, 7, 6, 6, 5, 5, 4, 4, 3, 2, 2 },
-+	{ 11, 11, 10, 10, 9, 9, 8, 7, 7, 6, 6, 5, 5, 4, 3, 3, 2 },
-+	{ 11, 11, 11, 10, 9, 9, 9, 8, 7, 7, 6, 5, 5, 4, 4, 3, 2 },
-+	{ 13, 12, 12, 11, 10, 10, 9, 8, 8, 7, 6, 6, 5, 4, 4, 4, 3 },
-+	{ 14, 13, 13, 12, 11, 11, 10, 9, 9, 8, 7, 7, 6, 6, 5, 5, 4 }
-+};
-+
-+static const u8 rc_range_minqp420_10bpc[DSC_NUM_BUF_RANGES][RC_RANGE_QP420_10BPC_MAX_NUM_BPP] = {
-+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 4, 4, 4, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 4, 4, 4, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 5, 5, 5, 4, 4, 4, 4, 4, 4, 3, 3, 2, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 7, 7, 7, 6, 6, 5, 5, 4, 4, 3, 3, 3, 3, 2, 2, 2, 1, 1, 1, 0, 0, 0, 0 },
-+	{ 7, 7, 7, 7, 7, 6, 5, 5, 5, 5, 5, 4, 3, 3, 2, 2, 1, 1, 1, 1, 1, 0, 0 },
-+	{ 7, 7, 7, 7, 7, 6, 6, 5, 5, 5, 5, 4, 4, 4, 3, 2, 2, 2, 2, 1, 1, 1, 0 },
-+	{ 7, 7, 7, 7, 7, 7, 6, 6, 6, 6, 6, 5, 4, 4, 4, 3, 2, 2, 2, 1, 1, 1, 0 },
-+	{ 7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 6, 6, 5, 5, 4, 4, 3, 3, 2, 2, 2, 1, 1 },
-+	{ 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 6, 5, 5, 4, 4, 3, 3, 2, 2, 1, 1 },
-+	{ 9, 9, 9, 9, 9, 8, 8, 8, 8, 8, 7, 7, 6, 6, 5, 5, 4, 4, 3, 3, 2, 2, 1 },
-+	{ 9, 9, 9, 9, 9, 9, 8, 8, 8, 8, 8, 8, 8, 7, 6, 6, 5, 4, 4, 3, 3, 2, 1 },
-+	{ 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 8, 8, 7, 7, 6, 5, 4, 4, 3, 3, 2, 1 },
-+	{ 13, 12, 12, 11, 11, 11, 11, 11, 11, 10, 9, 9, 8, 7, 7, 6, 5, 5, 4, 3, 3,
-+	  2, 2 },
-+	{ 17, 16, 16, 15, 14, 14, 13, 12, 12, 11, 10, 10, 10, 9, 8, 8, 7, 6, 6, 5,
-+	  5, 4, 4 }
-+};
-+
-+static const u8 rc_range_maxqp420_10bpc[DSC_NUM_BUF_RANGES][RC_RANGE_QP420_10BPC_MAX_NUM_BPP] = {
-+	{ 8, 8, 7, 6, 4, 4, 3, 3, 2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 8, 8, 8, 7, 6, 5, 4, 4, 3, 3, 3, 3, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0 },
-+	{ 9, 9, 9, 8, 8, 7, 6, 5, 4, 3, 3, 3, 3, 3, 2, 1, 1, 1, 0, 0, 0, 0, 0 },
-+	{ 10, 10, 10, 9, 9, 8, 7, 6, 5, 4, 4, 3, 3, 3, 3, 2, 1, 1, 1, 1, 1, 0,
-+	  0 },
-+	{ 11, 11, 11, 10, 10, 8, 7, 6, 5, 4, 4, 4, 4, 3, 3, 3, 2, 2, 2, 1, 1, 1,
-+	  0 },
-+	{ 11, 11, 11, 10, 10, 9, 8, 7, 6, 6, 6, 5, 4, 4, 3, 3, 2, 2, 2, 2, 2, 1,
-+	  1 },
-+	{ 11, 11, 11, 11, 11, 10, 9, 8, 7, 7, 7, 6, 5, 5, 4, 3, 3, 3, 3, 2, 2, 2,
-+	  1 },
-+	{ 12, 12, 12, 12, 12, 11, 10, 9, 8, 8, 8, 7, 6, 5, 5, 4, 3, 3, 3, 2, 2,
-+	  2, 1 },
-+	{ 13, 13, 13, 12, 12, 11, 10, 10, 9, 9, 8, 8, 7, 7, 6, 5, 4, 4, 3, 3, 3,
-+	  2, 2 },
-+	{ 14, 14, 13, 13, 13, 12, 11, 10, 9, 9, 9, 8, 8, 7, 7, 6, 5, 4, 4, 3, 3,
-+	  2, 2 },
-+	{ 14, 14, 14, 13, 13, 12, 12, 11, 10, 10, 9, 9, 8, 8, 7, 6, 5, 5, 4, 4,
-+	  3, 3, 2 },
-+	{ 15, 15, 14, 14, 13, 13, 12, 11, 11, 10, 10, 9, 9, 8, 7, 7, 6, 5, 5, 4,
-+	  4, 3, 2 },
-+	{ 15, 15, 15, 14, 13, 13, 13, 12, 11, 11, 10, 9, 9, 8, 8, 7, 6, 5, 5, 4,
-+	  4, 3, 2 },
-+	{ 17, 16, 16, 15, 14, 14, 13, 12, 12, 11, 10, 10, 9, 8, 8, 7, 6, 6, 5, 4,
-+	  4, 3, 3 },
-+	{ 18, 17, 17, 16, 15, 15, 14, 13, 13, 12, 11, 11, 11, 10, 9, 9, 8, 7, 7,
-+	  6, 6, 5, 5 }
-+};
-+
-+static const u8 rc_range_minqp420_12bpc[DSC_NUM_BUF_RANGES][RC_RANGE_QP420_12BPC_MAX_NUM_BPP] = {
-+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-+	  0, 0, 0, 0, 0 },
-+	{ 4, 4, 4, 4, 4, 4, 3, 3, 2, 2, 2, 2, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0,
-+	  0, 0, 0, 0, 0 },
-+	{ 9, 8, 8, 7, 7, 6, 5, 5, 4, 4, 4, 4, 3, 3, 3, 2, 2, 1, 0, 0, 0, 0, 0, 0,
-+	  0, 0, 0, 0, 0 },
-+	{ 10, 9, 9, 8, 8, 8, 7, 7, 6, 6, 6, 5, 5, 4, 4, 3, 2, 2, 1, 1, 1, 0, 0, 0,
-+	  0, 0, 0, 0, 0 },
-+	{ 11, 10, 10, 10, 10, 9, 9, 8, 7, 6, 6, 6, 6, 5, 5, 4, 3, 3, 3, 2, 2, 1,
-+	  0, 0, 0, 0, 0, 0, 0 },
-+	{ 11, 11, 11, 11, 11, 10, 10, 9, 9, 9, 9, 8, 7, 6, 5, 5, 4, 4, 3, 3, 3, 2,
-+	  1, 1, 0, 0, 0, 0, 0 },
-+	{ 11, 11, 11, 11, 11, 11, 10, 10, 9, 9, 9, 8, 8, 7, 6, 5, 5, 5, 5, 4, 3, 3,
-+	  2, 1, 1, 1, 1, 1, 0 },
-+	{ 11, 11, 11, 11, 11, 11, 11, 10, 10, 10, 10, 9, 8, 8, 8, 7, 6, 6, 5, 4, 4,
-+	  3, 2, 2, 1, 1, 1, 1, 1 },
-+	{ 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 10, 10, 9, 9, 8, 8, 7, 7, 6, 5,
-+	  5, 4, 4, 2, 2, 1, 1, 1, 1 },
-+	{ 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 10, 10, 9, 9, 8, 8, 7, 7, 6,
-+	  5, 4, 4, 3, 2, 2, 1, 1, 1 },
-+	{ 13, 13, 13, 13, 13, 13, 13, 12, 12, 12, 11, 11, 10, 10, 9, 9, 8, 8, 7, 7,
-+	  6, 5, 4, 3, 3, 2, 2, 1, 1 },
-+	{ 13, 13, 13, 13, 13, 13, 13, 13, 13, 12, 12, 12, 12, 11, 10, 10, 9, 8, 8,
-+	  7, 7, 6, 5, 4, 3, 3, 2, 2, 1 },
-+	{ 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 12, 12, 11, 11, 10, 9, 8, 8,
-+	  7, 7, 6, 5, 4, 4, 3, 2, 2, 1 },
-+	{ 15, 15, 15, 15, 15, 15, 15, 15, 15, 14, 13, 13, 12, 11, 11, 10, 9, 9, 8,
-+	  8, 7, 6, 6, 5, 4, 4, 3, 3, 2 },
-+	{ 21, 20, 20, 19, 18, 18, 17, 16, 16, 15, 14, 14, 14, 13, 12, 12, 11, 10,
-+	  10, 10, 9, 8, 8, 7, 6, 6, 5, 5, 4 }
-+};
-+
-+static const u8 rc_range_maxqp420_12bpc[DSC_NUM_BUF_RANGES][RC_RANGE_QP420_12BPC_MAX_NUM_BPP] = {
-+	{ 11, 10, 9, 8, 6, 6, 5, 5, 4, 3, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0, 0,
-+	  0, 0, 0, 0, 0, 0 },
-+	{ 12, 11, 11, 10, 9, 8, 7, 7, 6, 6, 5, 5, 4, 3, 3, 2, 1, 1, 1, 1, 1, 1,
-+	  1, 0, 0, 0, 0, 0, 0 },
-+	{ 13, 12, 12, 11, 11, 10, 9, 8, 7, 6, 6, 6, 5, 5, 4, 3, 3, 2, 1, 1, 1, 1,
-+	  1, 0, 0, 0, 0, 0, 0 },
-+	{ 14, 13, 13, 12, 12, 11, 10, 9, 8, 7, 7, 6, 6, 5, 5, 4, 3, 3, 2, 2, 2, 1,
-+	  1, 1, 0, 0, 0, 0, 0 },
-+	{ 15, 14, 14, 13, 13, 11, 10, 9, 8, 7, 7, 7, 7, 6, 6, 5, 4, 4, 4, 3, 3, 2,
-+	  1, 1, 1, 0, 0, 0, 0 },
-+	{ 15, 15, 15, 14, 14, 13, 12, 11, 10, 10, 10, 9, 8, 7, 6, 6, 5, 5, 4, 4,
-+	  4, 3, 2, 2, 1, 1, 0, 0, 0 },
-+	{ 15, 15, 15, 15, 15, 14, 13, 12, 11, 11, 11, 10, 9, 8, 7, 6, 6, 6, 6, 5,
-+	  4, 4, 3, 2, 2, 2, 1, 1, 0 },
-+	{ 16, 16, 16, 16, 16, 15, 14, 13, 12, 12, 12, 11, 10, 9, 9, 8, 7, 7, 6, 5,
-+	  5, 4, 3, 3, 2, 2, 2, 1, 1 },
-+	{ 17, 17, 17, 16, 16, 15, 14, 14, 13, 13, 12, 12, 11, 11, 10, 9, 8, 8, 7,
-+	  6, 6, 5, 5, 3, 3, 2, 2, 1, 1 },
-+	{ 18, 18, 17, 17, 17, 16, 15, 14, 13, 13, 13, 12, 12, 11, 11, 10, 9, 8, 8,
-+	  7, 6, 5, 5, 4, 3, 3, 2, 2, 1 },
-+	{ 18, 18, 18, 17, 17, 16, 16, 15, 14, 14, 13, 13, 12, 12, 11, 10, 9, 9, 8,
-+	  8, 7, 6, 5, 4, 4, 3, 3, 2, 2 },
-+	{ 19, 19, 18, 18, 17, 17, 16, 15, 15, 14, 14, 13, 13, 12, 11, 11, 10, 9,
-+	  9, 8, 8, 7, 6, 5, 4, 4, 3, 3, 2 },
-+	{ 19, 19, 19, 18, 17, 17, 17, 16, 15, 15, 14, 13, 13, 12, 12, 11, 10, 9,
-+	  9, 8, 8, 7, 6, 5, 5, 4, 3, 3, 2 },
-+	{ 21, 20, 20, 19, 18, 18, 17, 16, 16, 15, 14, 14, 13, 12, 12, 11, 10, 10,
-+	  9, 9, 8, 7, 7, 6, 5, 5, 4, 4, 3 },
-+	{ 22, 21, 21, 20, 19, 19, 18, 17, 17, 16, 15, 15, 15, 14, 13, 13, 12, 11,
-+	  11, 11, 10, 9, 9, 8, 7, 7, 6, 6, 5 }
-+};
-+
-+#define PARAM_TABLE(_minmax, _bpc, _row, _col, _is_420)  do { \
-+	if (bpc == (_bpc)) {	\
-+		if (_is_420)	\
-+			return rc_range_##_minmax##qp420_##_bpc##bpc[_row][_col]; \
-+		else	\
-+			return rc_range_##_minmax##qp444_##_bpc##bpc[_row][_col]; \
-+	}	\
- } while (0)
- 
--u8 intel_lookup_range_min_qp(int bpc, int buf_i, int bpp_i)
-+u8 intel_lookup_range_min_qp(int bpc, int buf_i, int bpp_i, bool is_420)
- {
--	PARAM_TABLE(min, 8, buf_i, bpp_i);
--	PARAM_TABLE(min, 10, buf_i, bpp_i);
--	PARAM_TABLE(min, 12, buf_i, bpp_i);
-+	PARAM_TABLE(min, 8, buf_i, bpp_i, is_420);
-+	PARAM_TABLE(min, 10, buf_i, bpp_i, is_420);
-+	PARAM_TABLE(min, 12, buf_i, bpp_i, is_420);
- 
- 	MISSING_CASE(bpc);
- 	return 0;
- }
- 
--u8 intel_lookup_range_max_qp(int bpc, int buf_i, int bpp_i)
-+u8 intel_lookup_range_max_qp(int bpc, int buf_i, int bpp_i, bool is_420)
- {
--	PARAM_TABLE(max, 8, buf_i, bpp_i);
--	PARAM_TABLE(max, 10, buf_i, bpp_i);
--	PARAM_TABLE(max, 12, buf_i, bpp_i);
-+	PARAM_TABLE(max, 8, buf_i, bpp_i, is_420);
-+	PARAM_TABLE(max, 10, buf_i, bpp_i, is_420);
-+	PARAM_TABLE(max, 12, buf_i, bpp_i, is_420);
- 
- 	MISSING_CASE(bpc);
- 	return 0;
-diff --git a/drivers/gpu/drm/i915/display/intel_qp_tables.h b/drivers/gpu/drm/i915/display/intel_qp_tables.h
-index 9fb3c36bd7c6..a9ff9ca29938 100644
---- a/drivers/gpu/drm/i915/display/intel_qp_tables.h
-+++ b/drivers/gpu/drm/i915/display/intel_qp_tables.h
-@@ -8,7 +8,7 @@
- 
- #include <linux/types.h>
- 
--u8 intel_lookup_range_min_qp(int bpc, int buf_i, int bpp_i);
--u8 intel_lookup_range_max_qp(int bpc, int buf_i, int bpp_i);
-+u8 intel_lookup_range_min_qp(int bpc, int buf_i, int bpp_i, bool is_420);
-+u8 intel_lookup_range_max_qp(int bpc, int buf_i, int bpp_i, bool is_420);
- 
- #endif
 diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index 207b2a648d32..ed16f63d6355 100644
+index 52a82d8b289e..0a683d6dff33 100644
 --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
 +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -422,9 +422,9 @@ calculate_rc_params(struct rc_parameters *rc,
- 	for (buf_i = 0; buf_i < DSC_NUM_BUF_RANGES; buf_i++) {
- 		/* Read range_minqp and range_max_qp from qp tables */
- 		rc->rc_range_params[buf_i].range_min_qp =
--			intel_lookup_range_min_qp(bpc, buf_i, bpp_i);
-+			intel_lookup_range_min_qp(bpc, buf_i, bpp_i, vdsc_cfg->native_420);
- 		rc->rc_range_params[buf_i].range_max_qp =
--			intel_lookup_range_max_qp(bpc, buf_i, bpp_i);
-+			intel_lookup_range_max_qp(bpc, buf_i, bpp_i, vdsc_cfg->native_420);
+@@ -447,6 +447,29 @@ calculate_rc_params(struct rc_parameters *rc,
+ 	}
+ }
  
- 		/* Calculate range_bgp_offset */
- 		if (bpp <= 6) {
++static int intel_dsc_check_slice_design_req(struct intel_crtc_state *pipe_config,
++					    struct drm_dsc_config *vdsc_cfg)
++{
++	if (pipe_config->output_format == INTEL_OUTPUT_FORMAT_RGB ||
++	    pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR444) {
++		if (vdsc_cfg->slice_height > 4095)
++			return -EINVAL;
++		if (vdsc_cfg->slice_height * vdsc_cfg->slice_width < 15000)
++			return -EINVAL;
++	} else if (pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR420) {
++		if (!(vdsc_cfg->slice_width % 2))
++			return -EINVAL;
++		if (!(vdsc_cfg->slice_height % 2))
++			return -EINVAL;
++		if (vdsc_cfg->slice_height > 4094)
++			return -EINVAL;
++		if (vdsc_cfg->slice_height * vdsc_cfg->slice_width < 30000)
++			return -EINVAL;
++	}
++
++	return 0;
++}
++
+ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(pipe_config->uapi.crtc);
+@@ -455,11 +478,20 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
+ 	u16 compressed_bpp = pipe_config->dsc.compressed_bpp;
+ 	const struct rc_parameters *rc_params;
+ 	struct rc_parameters *rc = NULL;
++	int err;
+ 	u8 i = 0;
+ 
+ 	vdsc_cfg->pic_width = pipe_config->hw.adjusted_mode.crtc_hdisplay;
+ 	vdsc_cfg->slice_width = DIV_ROUND_UP(vdsc_cfg->pic_width,
+ 					     pipe_config->dsc.slice_count);
++
++	err = intel_dsc_check_slice_design_req(pipe_config, vdsc_cfg);
++
++	if (err) {
++		drm_dbg_kms(&dev_priv->drm, "Slice design requirements not met\n");
++		return err;
++	}
++
+ 	/*
+ 	 * According to DSC 1.2 specs if colorspace is YCbCr then convert_rgb is 0
+ 	 * else 1
 -- 
 2.25.1
 
