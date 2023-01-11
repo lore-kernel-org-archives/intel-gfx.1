@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 550D7C54EBC
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 21:43:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FCC9C46467
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Jan 2023 21:43:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7241710E159;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 891C810E825;
 	Wed, 11 Jan 2023 21:42:37 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0761E10E159;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39E6910E0E2;
  Wed, 11 Jan 2023 21:42:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673473351; x=1705009351;
+ t=1673473350; x=1705009350;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=bjajzxiV1GP749/YYSgXBCIV3/yTkJZB5p0e27BI564=;
- b=T3Me3H8pCqvHH7zNHK7oFklPoEKO/ugrxHmgSLj0UPUD7Y9uWCkhqnvF
- NoZenFvmYs1RiF9RT/ttpiChmHZB/ArLYWs7RcvCxOBtgkiJlbwUb8MwD
- MNBMpw2F+oXuo4T1gKDRM+/B1b7BbCooSePvFF30Rx9KmPR3MQ6803eGb
- 4zm+YdLLTTA+dECiCVm+ulR4tZjyF19SK/8w64msdqeRtj2FvjkdeFz6Q
- T7uzaqPXMh5qZk2tDfucL/n/R8YbvyeyWukMyo8+DjJqZUe9tS9mLFS4Y
- 20KarCDNdyv9D2xNfJJkQb6sInbarDk0/dj7HQWOXOa/+Hh4M7xNTTWqX g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="322244756"
-X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="322244756"
+ bh=99LwWWbj9sGrCwj1kyX+9Bhw14fR1D48Erpg2TgfQyc=;
+ b=dfXLpdslz6Me28tK+DX91Udoy+IeqLPThuWuR/iOSoe9bNK3M0pwmJzv
+ UDc9CdhpXkQSh1NjbJEWhkOVvctYNaCTNpAFuYfSoQK6sSB2Wa4v8Zaf/
+ 14Ffz54a6uIYUMkZuabt+MaErw2eu4NCGKJILO+2MhkYof+vYIu7FvWWj
+ NP+aEm+ZTGDWC8S0T65CN8g1sNq8ogXWYNZGTESoFDNwEsImZGGYuRq7F
+ qbj/3FftpDhaMcN5UcVgct9WCMYcmLkhGvPuz7UbLjqO++Y4xHunAeESl
+ J+W0hIwO35mBPfBmU8IAmGxkr2FRk52z4yhpXqO4D4RIWl4xJh5fARK6w Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="322244742"
+X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="322244742"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jan 2023 13:42:30 -0800
+ 11 Jan 2023 13:42:29 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="607530441"
-X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="607530441"
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="607530423"
+X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="607530423"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga003.jf.intel.com with ESMTP; 11 Jan 2023 13:42:29 -0800
+ by orsmga003.jf.intel.com with ESMTP; 11 Jan 2023 13:42:28 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 11 Jan 2023 13:42:25 -0800
-Message-Id: <20230111214226.907536-9-alan.previn.teres.alexis@intel.com>
+Date: Wed, 11 Jan 2023 13:42:19 -0800
+Message-Id: <20230111214226.907536-3-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230111214226.907536-1-alan.previn.teres.alexis@intel.com>
 References: <20230111214226.907536-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 8/9] drm/i915/pxp: On MTL,
- KCR enabling doesn't wait on tee component
+Subject: [Intel-gfx] [PATCH v2 2/9] drm/i915/pxp: Add GSC-CS back-end
+ resource init and cleanup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,203 +62,294 @@ Cc: dri-devel@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On legacy platforms, KCR HW enabling is done at the time the mei
-component interface is bound. It's also disabled during unbind.
-However, for MTL onwards, we don't depend on the tee-component
-operation before we can start sending GSC-CS firmware messages.
-
-Thus, immediately enable KCR HW on PXP's init, fini and resume.
+For MTL, PXP transport back-end uses the GSC engine to submit
+HECI packets for PXP arb session management. The command submission
+that uses non-priveleged mode requires us to allocate (or free)
+a set of execution submission resources (buffer-object, batch-buffer
+and context). Thus, do this one time allocation of resources in
+GSC-CS init and clean them up in fini.
 
 Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp.c     | 52 ++++++++++++++++++------
- drivers/gpu/drm/i915/pxp/intel_pxp.h     |  4 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.c  | 10 ++---
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.c | 13 +-----
- 4 files changed, 49 insertions(+), 30 deletions(-)
+ .../drm/i915/pxp/intel_pxp_cmd_interface_43.h |   6 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c    | 216 +++++++++++++++++-
+ drivers/gpu/drm/i915/pxp/intel_pxp_types.h    |   5 +
+ 3 files changed, 225 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index 809b49f59594..90e739345924 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -143,10 +143,12 @@ static void pxp_init_full(struct intel_pxp *pxp)
- 	if (ret)
- 		return;
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_43.h b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_43.h
+index ad67e3f49c20..52b9a61bcdd4 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_43.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_43.h
+@@ -10,7 +10,11 @@
+ #include "intel_pxp_cmd_interface_cmn.h"
  
--	if (pxp->uses_gsccs)
-+	if (pxp->uses_gsccs) {
- 		ret = intel_pxp_gsccs_init(pxp);
--	else
-+		intel_pxp_init_hw(pxp, true);
-+	} else {
- 		ret = intel_pxp_tee_component_init(pxp);
-+	}
- 	if (ret)
- 		goto out_context;
+ /* PXP-Cmd-Op definitions */
+-#define PXP43_CMDID_START_HUC_AUTH 0x0000003A
++#define PXP43_CMDID_START_HUC_AUTH	0x0000003A
++
++/* PXP-Packet sizes for MTL's GSCCS-HECI instruction */
++#define PXP43_MAX_HECI_IN_SIZE		(SZ_32K)
++#define PXP43_MAX_HECI_OUT_SIZE		(SZ_32K)
  
-@@ -249,10 +251,12 @@ void intel_pxp_fini(struct drm_i915_private *i915)
+ /* PXP-Input-Packet: HUC-Authentication */
+ struct pxp43_start_huc_auth_in {
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c b/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
+index 21400650fc86..97ca187e6fde 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
+@@ -3,9 +3,41 @@
+  * Copyright(c) 2023 Intel Corporation.
+  */
  
- 	i915->pxp->arb_is_valid = false;
++#include "gem/i915_gem_internal.h"
++
++#include "gt/intel_context.h"
++
+ #include "i915_drv.h"
+-#include "intel_pxp_types.h"
++#include "intel_pxp_cmd_interface_43.h"
+ #include "intel_pxp_gsccs.h"
++#include "intel_pxp_types.h"
++
++struct gsccs_session_resources {
++	struct mutex cmd_mutex; /* Protects submission for arb session */
++	u64 host_session_handle; /* used by firmware to link commands to sessions */
++
++	struct intel_context *ce; /* context for gsc command submission */
++	struct i915_ppgtt *ppgtt; /* ppgtt for gsc command submission */
++
++	struct drm_i915_gem_object *pkt_obj; /* PXP HECI message packet buffer */
++	struct i915_vma *pkt_vma; /* PXP HECI message packet vma */
++	void *pkt_vaddr;  /* PXP HECI message packet virt memory pointer */
++
++	/* Buffer info for GSC engine batch buffer: */
++	struct drm_i915_gem_object *bb_obj; /* batch buffer object */
++	struct i915_vma *bb_vma; /* batch buffer vma */
++	void *bb_vaddr; /* batch buffer virtual memory pointer */
++};
++
++struct gsccs_teelink_priv {
++	/** @arb_exec_res: resources for arb-session GSC-CS PXP command submission */
++	struct gsccs_session_resources arb_exec_res;
++};
++
++static inline struct gsccs_teelink_priv *pxp_to_gsccs_priv(struct intel_pxp *pxp)
++{
++	return (struct gsccs_teelink_priv *)pxp->gsccs_priv;
++}
  
--	if (i915->pxp->uses_gsccs)
-+	if (i915->pxp->uses_gsccs) {
-+		intel_pxp_fini_hw(i915->pxp, true);
- 		intel_pxp_gsccs_fini(i915->pxp);
--	else
-+	} else {
- 		intel_pxp_tee_component_fini(i915->pxp);
-+	}
- 
- 	destroy_vcs_context(i915->pxp);
- 
-@@ -304,8 +308,9 @@ int intel_pxp_start(struct intel_pxp *pxp)
- 	if (!intel_pxp_is_enabled(pxp))
- 		return -ENODEV;
- 
--	if (wait_for(pxp_component_bound(pxp), 250))
--		return -ENXIO;
-+	if (!pxp->uses_gsccs)
-+		if (wait_for(pxp_component_bound(pxp), 250))
-+			return -ENXIO;
- 
- 	mutex_lock(&pxp->arb_mutex);
- 
-@@ -331,16 +336,39 @@ int intel_pxp_start(struct intel_pxp *pxp)
- 	return ret;
+ int intel_pxp_gsccs_create_session(struct intel_pxp *pxp,
+ 				   int arb_session_id)
+@@ -13,11 +45,193 @@ int intel_pxp_gsccs_create_session(struct intel_pxp *pxp,
+ 	return -ENODEV;
  }
  
--void intel_pxp_init_hw(struct intel_pxp *pxp)
 +static void
-+intel_pxp_hw_state_change(struct intel_pxp *pxp, bool enable,
-+			  bool skip_if_runtime_pm_off)
++gsccs_destroy_buffer(struct drm_i915_private *i915, struct i915_vma *vma,
++		     struct drm_i915_gem_object *obj)
 +{
-+	intel_wakeref_t wakeref;
++	int err;
 +
-+	if (skip_if_runtime_pm_off) {
-+		/* if we are suspended, the HW will be re-initialized on resume */
-+		wakeref = intel_runtime_pm_get_if_in_use(&pxp->ctrl_gt->i915->runtime_pm);
-+		if (!wakeref)
-+			return;
-+	}
++	i915_vma_unpin(vma);
++	err = i915_vma_unbind(vma);
++	if (err)
++		drm_dbg(&i915->drm, "Unexpected failure when vma-unbinding = %d\n", err);
 +
-+	if (enable) {
-+		kcr_pxp_enable(pxp);
-+		intel_pxp_irq_enable(pxp);
-+	} else {
-+		kcr_pxp_disable(pxp);
-+		intel_pxp_irq_disable(pxp);
-+	}
-+
-+	if (skip_if_runtime_pm_off)
-+		intel_runtime_pm_put(&pxp->ctrl_gt->i915->runtime_pm, wakeref);
++	i915_gem_object_unpin_map(obj);
++	i915_gem_object_unpin_pages(obj);
++	i915_gem_object_put(obj);
 +}
 +
-+void intel_pxp_init_hw(struct intel_pxp *pxp, bool skip_if_runtime_pm_off)
++static int
++gsccs_create_buffer(struct drm_i915_private *i915, const char *bufname,
++		    size_t size, struct i915_ppgtt *ppgtt,
++		    struct drm_i915_gem_object **obj,
++		    struct i915_vma **vma, void **map)
++{
++	int err = 0;
++
++	*obj = i915_gem_object_create_internal(i915, size);
++	if (IS_ERR(*obj)) {
++		drm_err(&i915->drm, "Failed to allocate gsccs backend %s.\n", bufname);
++		err = PTR_ERR(*obj);
++		goto out_none;
++	}
++
++	*vma = i915_vma_instance(*obj, &ppgtt->vm, NULL);
++	if (IS_ERR(*vma)) {
++		drm_err(&i915->drm, "Failed to vma-instance gsccs backend %s.\n", bufname);
++		err = PTR_ERR(*vma);
++		goto out_put;
++	}
++
++	err = i915_gem_object_pin_pages_unlocked(*obj);
++	if (err) {
++		drm_err(&i915->drm, "Failed to pin gsccs backend %s.\n", bufname);
++		goto out_put;
++	}
++
++	/* map to the virtual memory pointer */
++	*map = i915_gem_object_pin_map_unlocked(*obj, i915_coherent_map_type(i915, *obj, true));
++	if (IS_ERR(*map)) {
++		drm_err(&i915->drm, "Failed to map gsccs backend %s.\n", bufname);
++		err = PTR_ERR(*map);
++		goto out_unpin;
++	}
++
++	/* all PXP sessions commands are treated as non-priveleged */
++	err = i915_vma_pin(*vma, 0, 0, PIN_USER);
++	if (err) {
++		drm_err(&i915->drm, "Failed to vma-pin gsccs backend %s.\n", bufname);
++		goto out_unmap;
++	}
++
++	return 0;
++
++out_unmap:
++	i915_gem_object_unpin_map(*obj);
++out_unpin:
++	i915_gem_object_unpin_pages(*obj);
++out_put:
++	i915_gem_object_put(*obj);
++out_none:
++	*obj = NULL;
++	*vma = NULL;
++	*map = NULL;
++
++	return err;
++}
++
++static void
++gsccs_destroy_execution_resource(struct intel_pxp *pxp,
++				 struct gsccs_session_resources *strm_res)
++{
++	if (strm_res->ce)
++		intel_context_put(strm_res->ce);
++	if (strm_res->bb_obj)
++		gsccs_destroy_buffer(pxp->ctrl_gt->i915, strm_res->bb_vma, strm_res->bb_obj);
++	if (strm_res->pkt_obj)
++		gsccs_destroy_buffer(pxp->ctrl_gt->i915, strm_res->pkt_vma, strm_res->pkt_obj);
++	if (strm_res->ppgtt)
++		i915_vm_put(&strm_res->ppgtt->vm);
++
++	memset(strm_res, 0, sizeof(*strm_res));
++}
++
++static int
++gsccs_allocate_execution_resource(struct intel_pxp *pxp,
++				  struct gsccs_session_resources *strm_res)
++{
++	struct intel_gt *gt = pxp->ctrl_gt;
++	struct intel_engine_cs *engine = gt->engine[GSC0];
++	struct i915_ppgtt *ppgtt;
++	struct intel_context *ce;
++	int err = 0;
++
++	/*
++	 * First, ensure the GSC engine is present.
++	 * NOTE: Backend should would only be called with the correct gt.
++	 */
++	if (!engine)
++		return -ENODEV;
++
++	mutex_init(&strm_res->cmd_mutex);
++
++	ppgtt = i915_ppgtt_create(gt, 0);
++	if (IS_ERR(ppgtt))
++		return PTR_ERR(ppgtt);
++
++	strm_res->ppgtt = ppgtt;
++
++	/*
++	 * Now, allocate, pin and map two objects, one for the heci message packet
++	 * and another for the batch buffer we submit into GSC engine (that includes the packet).
++	 * NOTE: GSC-CS backend is currently only supported on MTL, so we allocate shmem.
++	 */
++	err = gsccs_create_buffer(pxp->ctrl_gt->i915, "Heci Packet",
++				  PXP43_MAX_HECI_IN_SIZE + PXP43_MAX_HECI_OUT_SIZE,
++				  strm_res->ppgtt,
++				  &strm_res->pkt_obj, &strm_res->pkt_vma,
++				  &strm_res->pkt_vaddr);
++	if (err) {
++		gsccs_destroy_execution_resource(pxp, strm_res);
++		return err;
++	}
++
++	err = gsccs_create_buffer(pxp->ctrl_gt->i915, "Batch Buffer",
++				  PAGE_SIZE, strm_res->ppgtt,
++				  &strm_res->bb_obj, &strm_res->bb_vma,
++				  &strm_res->bb_vaddr);
++	if (err) {
++		gsccs_destroy_execution_resource(pxp, strm_res);
++		return err;
++	}
++	/*
++	 * TODO: Consider optimization of pre-populating batch buffer
++	 * with the send-HECI instruction now at init and reuse through its life.
++	 */
++
++	/* Finally, create an intel_context to be used during the submission */
++	ce = intel_context_create(engine);
++	if (IS_ERR(ce)) {
++		drm_err(&gt->i915->drm, "Failed creating gsccs backend ctx\n");
++		gsccs_destroy_execution_resource(pxp, strm_res);
++		return PTR_ERR(ce);
++	}
++	i915_vm_put(ce->vm);
++	ce->vm = i915_vm_get(&ppgtt->vm);
++
++	strm_res->ce = ce;
++
++	return 0;
++}
++
+ void intel_pxp_gsccs_fini(struct intel_pxp *pxp)
  {
--	kcr_pxp_enable(pxp);
--	intel_pxp_irq_enable(pxp);
-+	intel_pxp_hw_state_change(pxp, true, skip_if_runtime_pm_off);
++	struct gsccs_teelink_priv *gsccs = pxp_to_gsccs_priv(pxp);
++
++	if (!gsccs)
++		return;
++
++	gsccs_destroy_execution_resource(pxp, &gsccs->arb_exec_res);
++	kfree(gsccs);
++	pxp->gsccs_priv = NULL;
  }
  
--void intel_pxp_fini_hw(struct intel_pxp *pxp)
-+void intel_pxp_fini_hw(struct intel_pxp *pxp, bool skip_if_runtime_pm_off)
+ int intel_pxp_gsccs_init(struct intel_pxp *pxp)
  {
--	kcr_pxp_disable(pxp);
--	intel_pxp_irq_disable(pxp);
-+	intel_pxp_hw_state_change(pxp, false, skip_if_runtime_pm_off);
++	struct gsccs_teelink_priv *gsccs;
++	int ret;
++
++	gsccs = kzalloc(sizeof(*gsccs), GFP_KERNEL);
++	if (!gsccs)
++		return -ENOMEM;
++
++	ret = gsccs_allocate_execution_resource(pxp, &gsccs->arb_exec_res);
++	if (ret) {
++		kfree(gsccs);
++		return ret;
++	}
++
++	pxp->gsccs_priv = gsccs;
++
+ 	return 0;
  }
- 
- int intel_pxp_key_check(struct intel_pxp *pxp,
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-index 04440fada711..6c1fe3f0a20c 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -20,8 +20,8 @@ bool intel_pxp_is_active(const struct intel_pxp *pxp);
- int intel_pxp_init(struct drm_i915_private *i915);
- void intel_pxp_fini(struct drm_i915_private *i915);
- 
--void intel_pxp_init_hw(struct intel_pxp *pxp);
--void intel_pxp_fini_hw(struct intel_pxp *pxp);
-+void intel_pxp_init_hw(struct intel_pxp *pxp, bool skip_if_runtime_pm_off);
-+void intel_pxp_fini_hw(struct intel_pxp *pxp, bool skip_if_runtime_pm_off);
- 
- void intel_pxp_mark_termination_in_progress(struct intel_pxp *pxp);
- 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-index 892d39cc61c1..94c1b2fe1eb2 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-@@ -29,7 +29,7 @@ void intel_pxp_suspend(struct intel_pxp *pxp)
- 		return;
- 
- 	with_intel_runtime_pm(&pxp->ctrl_gt->i915->runtime_pm, wakeref) {
--		intel_pxp_fini_hw(pxp);
-+		intel_pxp_fini_hw(pxp, false);
- 		pxp->hw_state_invalidated = false;
- 	}
- }
-@@ -40,14 +40,14 @@ void intel_pxp_resume(struct intel_pxp *pxp)
- 		return;
- 
- 	/*
--	 * The PXP component gets automatically unbound when we go into S3 and
-+	 * On Pre-MTL, PXP component gets automatically unbound when we go into S3 and
- 	 * re-bound after we come out, so in that scenario we can defer the
- 	 * hw init to the bind call.
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+index 43aa61c26de5..fdcb9a66f691 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+@@ -32,6 +32,11 @@ struct intel_pxp {
  	 */
--	if (!pxp->pxp_component)
-+	if (!pxp->uses_gsccs & !pxp->pxp_component)
- 		return;
+ 	bool uses_gsccs;
  
--	intel_pxp_init_hw(pxp);
-+	intel_pxp_init_hw(pxp, false);
- }
- 
- void intel_pxp_runtime_suspend(struct intel_pxp *pxp)
-@@ -57,7 +57,7 @@ void intel_pxp_runtime_suspend(struct intel_pxp *pxp)
- 
- 	pxp->arb_is_valid = false;
- 
--	intel_pxp_fini_hw(pxp);
-+	intel_pxp_fini_hw(pxp, false);
- 
- 	pxp->hw_state_invalidated = false;
- }
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-index d50354bfb993..9b34f2056b19 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
-@@ -141,16 +141,9 @@ static int i915_pxp_tee_component_bind(struct device *i915_kdev,
- 		}
- 	}
- 
--	/* if we are suspended, the HW will be re-initialized on resume */
--	wakeref = intel_runtime_pm_get_if_in_use(&i915->runtime_pm);
--	if (!wakeref)
--		return 0;
--
- 	/* the component is required to fully start the PXP HW */
- 	if (intel_pxp_is_enabled(pxp))
--		intel_pxp_init_hw(pxp);
--
--	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
-+		intel_pxp_init_hw(pxp, true);
- 
- 	return ret;
- }
-@@ -160,11 +153,9 @@ static void i915_pxp_tee_component_unbind(struct device *i915_kdev,
- {
- 	struct drm_i915_private *i915 = kdev_to_i915(i915_kdev);
- 	struct intel_pxp *pxp = i915->pxp;
--	intel_wakeref_t wakeref;
- 
- 	if (intel_pxp_is_enabled(pxp))
--		with_intel_runtime_pm_if_in_use(&i915->runtime_pm, wakeref)
--			intel_pxp_fini_hw(pxp);
-+		intel_pxp_fini_hw(pxp, true);
- 
- 	mutex_lock(&pxp->tee_mutex);
- 	pxp->pxp_component = NULL;
++	/**
++	 * @gsccs_priv: GSC-CS based tee-link private context.
++	 */
++	void *gsccs_priv;
++
+ 	/**
+ 	 * @pxp_component: i915_pxp_component struct of the bound mei_pxp
+ 	 * module. Only set and cleared inside component bind/unbind functions,
 -- 
 2.39.0
 
