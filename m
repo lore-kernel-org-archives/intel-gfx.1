@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D201EC54EBC
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Jan 2023 00:37:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9B92C46467
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Jan 2023 00:37:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73FF910E2D0;
-	Thu, 12 Jan 2023 00:37:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44F1D10E2D3;
+	Thu, 12 Jan 2023 00:37:17 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4588E10E2C1;
- Thu, 12 Jan 2023 00:37:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B428310E83E;
+ Thu, 12 Jan 2023 00:37:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673483830; x=1705019830;
+ t=1673483833; x=1705019833;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=5ALdp5m4zJK4j40J6RgfsW0Df3XImqncrm7b3PrJivg=;
- b=mA8IJMwS9bRpTr0eh1yZS27NDacpNls9YcCSQ5bBbzl19vNwSd6a3tll
- JU1giJXFqS7+GZJgT71/N1Li35GpEgzwSplL3auQFUW96YtC2oHmpmYgl
- DEJL2vXx6S4l7lrbEr4PGAyarrDJSETfF9eGb+yabYDj9cmfT4PCHMIVa
- HUsGPDBYdo1hRmUbuh6LlmYeEw/LnMj28Tiuaw3hVj5dON6nyfTLoK0kc
- n1dUeIiHyGZZwuCRO8SsJA9hGM70ffA306WtCHr0Rnnbmngvc4OQBXoXL
- VHewyzKHRo/aZYvKY2RsDNzSCDiq+6Ckj1ZJhRzDH9FNJAy8KlW6YHqfL w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="303271470"
-X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="303271470"
+ bh=2Lxj77hEAJ3S07gtUnrmnuW0iUn6nVX/lat5FVlG5s8=;
+ b=R0X5pOOxuZG8Thpono1EUExhZhPfR4ofXZAVEmGTiYMSNi/6Rzei+ji5
+ 7peur2BQkEM3dta/rJLK08y2vH8gOriwDaTQJ4yU1ApM85OIhDVcdujvk
+ 4qpmf473irAceJcmCl848Eva+L0ukM8bAU64ldSn4iG+yb85N8P05ysP+
+ 13Nw0b2XsRVWrWdPSHj1FY4joBG7ZvWyVdvqR6h6o8pktUqy8/FN1O2Nh
+ MEDft861KwJdJitfMhhxRSwvuaAIkIGfM5DKVNRnN7Ar14+eNLJrKSKED
+ lSPJjilJzr2JTPK0gP2UejNATZ108/Z9GD9spbIMYtyCbFIX4nqhwAbkx Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="303271482"
+X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="303271482"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jan 2023 16:37:09 -0800
+ 11 Jan 2023 16:37:13 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="635179834"
-X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="635179834"
+X-IronPort-AV: E=McAfee;i="6500,9779,10586"; a="635179866"
+X-IronPort-AV: E=Sophos;i="5.96,318,1665471600"; d="scan'208";a="635179866"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga006.jf.intel.com with ESMTP; 11 Jan 2023 16:37:09 -0800
+ by orsmga006.jf.intel.com with ESMTP; 11 Jan 2023 16:37:11 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 11 Jan 2023 16:37:01 -0800
-Message-Id: <20230112003706.950931-2-alan.previn.teres.alexis@intel.com>
+Date: Wed, 11 Jan 2023 16:37:03 -0800
+Message-Id: <20230112003706.950931-4-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230112003706.950931-1-alan.previn.teres.alexis@intel.com>
 References: <20230112003706.950931-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 1/6] mei: mei-me: resume device in prepare
+Subject: [Intel-gfx] [PATCH v4 3/6] mei: clean pending read with vtag on bus
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,64 +68,32 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Alexander Usyskin <alexander.usyskin@intel.com>
 
-Asynchronous runtime resume is not possible while the system
-is suspending.
-The power management subsystem resumes the device only in the
-suspend phase, not in the prepare phase.
-Force resume device in prepare to allow drivers on mei bus
-to communicate in their prepare callbacks.
+Client on bus have only one vtag map slot and should disregard the vtag
+value when cleaning pending read flag.
+Fixes read flow control message unexpectedly generated when
+clent on bus send messages with different vtags.
 
 Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/misc/mei/pci-me.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ drivers/misc/mei/client.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/misc/mei/pci-me.c b/drivers/misc/mei/pci-me.c
-index 704cd0caa172..4280759739f0 100644
---- a/drivers/misc/mei/pci-me.c
-+++ b/drivers/misc/mei/pci-me.c
-@@ -340,6 +340,12 @@ static void mei_me_remove(struct pci_dev *pdev)
- }
+diff --git a/drivers/misc/mei/client.c b/drivers/misc/mei/client.c
+index 9ddb854b8155..5c19097266fe 100644
+--- a/drivers/misc/mei/client.c
++++ b/drivers/misc/mei/client.c
+@@ -1343,7 +1343,9 @@ static void mei_cl_reset_read_by_vtag(const struct mei_cl *cl, u8 vtag)
+ 	struct mei_cl_vtag *vtag_l;
  
- #ifdef CONFIG_PM_SLEEP
-+static int mei_me_pci_prepare(struct device *device)
-+{
-+	pm_runtime_resume(device);
-+	return 0;
-+}
-+
- static int mei_me_pci_suspend(struct device *device)
- {
- 	struct pci_dev *pdev = to_pci_dev(device);
-@@ -396,7 +402,17 @@ static int mei_me_pci_resume(struct device *device)
- 
- 	return 0;
- }
--#endif /* CONFIG_PM_SLEEP */
-+
-+static void mei_me_pci_complete(struct device *device)
-+{
-+	pm_runtime_suspend(device);
-+}
-+#else /* CONFIG_PM_SLEEP */
-+
-+#define mei_me_pci_prepare NULL
-+#define mei_me_pci_suspend NULL
-+
-+#endif /* !CONFIG_PM_SLEEP */
- 
- #ifdef CONFIG_PM
- static int mei_me_pm_runtime_idle(struct device *device)
-@@ -499,6 +515,8 @@ static inline void mei_me_unset_pm_domain(struct mei_device *dev)
- }
- 
- static const struct dev_pm_ops mei_me_pm_ops = {
-+	.prepare = mei_me_pci_prepare,
-+	.complete = mei_me_pci_complete,
- 	SET_SYSTEM_SLEEP_PM_OPS(mei_me_pci_suspend,
- 				mei_me_pci_resume)
- 	SET_RUNTIME_PM_OPS(
+ 	list_for_each_entry(vtag_l, &cl->vtag_map, list) {
+-		if (vtag_l->vtag == vtag) {
++		/* The client on bus has one fixed vtag map */
++		if ((cl->cldev && mei_cldev_enabled(cl->cldev)) ||
++		    vtag_l->vtag == vtag) {
+ 			vtag_l->pending_read = false;
+ 			break;
+ 		}
 -- 
 2.39.0
 
