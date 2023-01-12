@@ -4,56 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F9DAC54EBE
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Jan 2023 16:48:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD9C3C54EBE
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Jan 2023 16:56:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A0D910E2F6;
-	Thu, 12 Jan 2023 16:48:39 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89CA010E2F6;
- Thu, 12 Jan 2023 16:48:37 +0000 (UTC)
-Received: from localhost (unknown [IPv6:2a01:e0a:2c:6930:5cf4:84a1:2763:fe0d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: bbrezillon)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id EA4446600010;
- Thu, 12 Jan 2023 16:48:35 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1673542116;
- bh=uz9pI1gvIEzhrb2m/Xm7YdISRgBmgk6rpjUdS7IrNpU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=gK0tai0IIxVf8XgBbpEOy4GXXsdbG/KTiVd7SQpge2WgCQjC8OyQcBiKF5B/nKTgH
- XwP7EGm24dIqaLEOabyADii00s23dA2GYs6kmjHQKREke3MRDlTIcPjQIUbgBMHkXo
- 6PUtmoWRTJKcR+5JSDSaiNrOCt+E/7cLkayFRpzO4iq91izLnWB4vy9qWLSlpBZv3F
- tjELmxj5DxfagSVAhDz03T1E28DrzZDyrkAH8R0zx2LEJCVxaDGgfhs2HEaWjH2hTV
- uibmhehWlHTBPtiAxecjF38oiTdv8N7bUgyxk73NLdX8qc96EZd9My2mWrXCmGstrh
- Ac7RK/+acdl5Q==
-Date: Thu, 12 Jan 2023 17:48:33 +0100
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <20230112174833.71023805@collabora.com>
-In-Reply-To: <CAKMK7uGPFVjkugw-W+o6C514x8ZPJs3L1A_QCB69aF0WAfHZjw@mail.gmail.com>
-References: <Y7cns9bpfIslkCPu@DUT025-TGLU.fm.intel.com>
- <CAOFGe978gae1mN2W_rrgXQm4ioQm73Bkpr-ex2Oa4gtkNzDpcg@mail.gmail.com>
- <20230109181748.4d73b834@collabora.com>
- <Y7x7tSsdgQvZ+JD0@phenom.ffwll.local>
- <20230110094647.5897dbdd@collabora.com>
- <CAKMK7uHTGCoW1CEmfk6vTYG-=8FEQg2fUrcKMV80o=iQ6QhUdg@mail.gmail.com>
- <20230112101053.393e0717@collabora.com>
- <Y7/Tolh8SGLtybs0@phenom.ffwll.local>
- <20230112111103.324abb3c@collabora.com>
- <20230112112553.324ffa05@collabora.com>
- <Y7/kMa1Jz+4+YIvv@phenom.ffwll.local>
- <20230112130818.220edc62@collabora.com>
- <CAKMK7uGPFVjkugw-W+o6C514x8ZPJs3L1A_QCB69aF0WAfHZjw@mail.gmail.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.36; x86_64-redhat-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C64EF10E2F2;
+	Thu, 12 Jan 2023 16:56:40 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0536A10E2F2;
+ Thu, 12 Jan 2023 16:56:39 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id F29B3AADD2;
+ Thu, 12 Jan 2023 16:56:38 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0196225581796297322=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [RFC PATCH 04/20] drm/sched: Convert drm scheduler
- to use a work queue rather than kthread
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
+Date: Thu, 12 Jan 2023 16:56:38 -0000
+Message-ID: <167354259896.2073.7452083515649475699@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230112152145.1117-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20230112152145.1117-1-ville.syrjala@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915=3A_Reject_=3C_1x1_pixel_plane_source_size?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,142 +40,431 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 12 Jan 2023 16:38:18 +0100
-Daniel Vetter <daniel@ffwll.ch> wrote:
+--===============0196225581796297322==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-> > >
-> > > Also if you do the allocation in ->prepare_job with dma_fence and not
-> > > run_job, then I think can sort out fairness issues (if they do pop up) in
-> > > the drm/sched code instead of having to think about this in each driver.  
-> >
-> > By allocation, you mean assigning a FW slot ID? If we do this allocation
-> > in ->prepare_job(), couldn't we mess up ordering? Like,
-> > lower-prio/later-queuing entity being scheduled before its pairs,
-> > because there's no guarantee on the job completion order (and thus the
-> > queue idleness order). I mean, completion order depends on the kind of
-> > job being executed by the queues, the time the FW actually lets the
-> > queue execute things and probably other factors. You can use metrics
-> > like the position in the LRU list + the amount of jobs currently
-> > queued to a group to guess which one will be idle first, but that's
-> > just a guess. And I'm not sure I see what doing this slot selection in  
-> > ->prepare_job() would bring us compared to doing it in ->run_job(),  
-> > where we can just pick the least recently used slot.  
-> 
-> In ->prepare_job you can let the scheduler code do the stalling (and
-> ensure fairness), in ->run_job it's your job.
+== Series Details ==
 
-Yeah returning a fence in ->prepare_job() to wait for a FW slot to
-become idle sounds good. This fence would be signaled when one of the
-slots becomes idle. But I'm wondering why we'd want to select the slot
-so early. Can't we just do the selection in ->run_job()? After all, if
-the fence has been signaled, that means we'll find at least one slot
-that's ready when we hit ->run_job(), and we can select it at that
-point.
+Series: drm/i915: Reject < 1x1 pixel plane source size
+URL   : https://patchwork.freedesktop.org/series/112743/
+State : success
 
-> The current RFC doesn't
-> really bother much with getting this very right, but if the scheduler
-> code tries to make sure it pushes higher-prio stuff in first before
-> others, you should get the right outcome.
+== Summary ==
 
-Okay, so I'm confused again. We said we had a 1:1
-drm_gpu_scheduler:drm_sched_entity mapping, meaning that entities are
-isolated from each other. I can see how I could place the dma_fence
-returned by ->prepare_job() in a driver-specific per-priority list, so
-the driver can pick the highest-prio/first-inserted entry and signal the
-associated fence when a slot becomes idle. But I have a hard time
-seeing how common code could do that if it doesn't see the other
-entities. Right now, drm_gpu_scheduler only selects the best entity
-among the registered ones, and there's only one entity per
-drm_gpu_scheduler in this case.
+CI Bug Log - changes from CI_DRM_12577 -> Patchwork_112743v1
+====================================================
 
-> 
-> The more important functional issue is that you must only allocate the
-> fw slot after all dependencies have signalled.
+Summary
+-------
 
-Sure, but it doesn't have to be a specific FW slot, it can be any FW
-slot, as long as we don't signal more fences than we have slots
-available, right?
+  **SUCCESS**
 
-> Otherwise you might get
-> a nice deadlock, where job A is waiting for the fw slot of B to become
-> free, and B is waiting for A to finish.
+  No regressions found.
 
-Got that part, and that's ensured by the fact we wait for all
-regular deps before returning the FW-slot-available dma_fence in
-->prepare_job(). This exact same fence will be signaled when a slot
-becomes idle.
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/index.html
 
-> 
-> > > Few fw sched slots essentially just make fw scheduling unfairness more
-> > > prominent than with others, but I don't think it's fundamentally something
-> > > else really.
-> > >
-> > > If every ctx does that and the lru isn't too busted, they should then form
-> > > a nice orderly queue and cycle through the fw scheduler, while still being
-> > > able to get some work done. It's essentially the exact same thing that
-> > > happens with ttm vram eviction, when you have a total working set where
-> > > each process fits in vram individually, but in total they're too big and
-> > > you need to cycle things through.  
-> >
-> > I see.
-> >  
-> > >  
-> > > > > I'll need to make sure this still works with the concept of group (it's
-> > > > > not a single queue we schedule, it's a group of queues, meaning that we
-> > > > > have N fences to watch to determine if the slot is busy or not, but
-> > > > > that should be okay).  
-> > > >
-> > > > Oh, there's one other thing I forgot to mention: the FW scheduler is
-> > > > not entirely fair, it does take the slot priority (which has to be
-> > > > unique across all currently assigned slots) into account when
-> > > > scheduling groups. So, ideally, we'd want to rotate group priorities
-> > > > when they share the same drm_sched_priority (probably based on the
-> > > > position in the LRU).  
-> > >
-> > > Hm that will make things a bit more fun I guess, especially with your
-> > > constraint to not update this too often. How strict is that priority
-> > > difference? If it's a lot, we might need to treat this more like execlist
-> > > and less like a real fw scheduler ...  
-> >
-> > Strict as in, if two groups with same priority try to request an
-> > overlapping set of resources (cores or tilers), it can deadlock, so
-> > pretty strict I would say :-).  
-> 
-> So it first finishes all the higher priority tasks and only then it
-> runs the next one, so no round-robin? Or am I just confused what this
-> all is about. Or is it more that the order in the group determines how
-> it tries to schedule on the hw, and if the earlier job needs hw that
-> also the later one needs, then the earlier one has to finish first?
-> Which would still mean that for these overlapping cases there's just
-> no round-robin in the fw scheduler at all.
+Participating hosts (33 -> 43)
+------------------------------
 
-Okay, so my understanding is: FW scheduler always takes the highest
-priority when selecting between X groups requesting access to a
-resource, but if 2 groups want the same resource and have the same
-priority, there's no ordering guarantee. The deadlock happens when both
-group A and B claim resources X and Y. Group A might get resource X
-and group B might get resource Y, both waiting for the other resource
-they claimed. If they have different priorities one of them would back
-off and let the other run, if they have the same priority, none of them
-would, and that's where the deadlock comes from. Note that we don't
-control the order resources get acquired from the CS, so there's no way
-to avoid this deadlock without assigning different priorities.
+  Additional (11): fi-kbl-soraka bat-dg1-7 bat-adls-5 bat-dg1-6 bat-adln-1 bat-atsm-1 fi-pnv-d510 bat-rplp-1 bat-rpls-1 bat-rpls-2 bat-jsl-1 
+  Missing    (1): fi-snb-2520m 
 
-And you're right, if you pick different priorities, the only time lower
-priority groups get to run is when the highest priority group is
-waiting on an asynchronous operation to complete (can be a
-compute/frag/tiler job completion, some inter queue synchronization,
-waiting for an already acquired resource, ...), or when it's idle. I
-suspect queues from different groups can run concurrently if there's
-enough command-stream processing slots available, and those groups
-request resources that don't overlap, but I'm speculating here. So, no
-round-robin if slots are assigned unique priorities. Not even sure
-scheduling is time-slice based to be honest, it could be some
-cooperative scheduling where groups with the same priorities get to
-wait for the currently running group to be blocked to get access to
-the HW. In any case, there's no easy way to prevent deadlocks if we
-don't assign unique priorities.
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_112743v1:
+
+### IGT changes ###
+
+#### Suppressed ####
+
+  The following results come from untrusted machines, tests, or statuses.
+  They do not affect the overall result.
+
+  * igt@kms_chamelium_frames@dp-crc-fast:
+    - {bat-rplp-1}:       NOTRUN -> [SKIP][1] +8 similar issues
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-rplp-1/igt@kms_chamelium_frames@dp-crc-fast.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_112743v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_exec_gttfill@basic:
+    - fi-pnv-d510:        NOTRUN -> [FAIL][2] ([i915#7229])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/fi-pnv-d510/igt@gem_exec_gttfill@basic.html
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][3] ([fdo#109271] / [i915#2190])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html
+
+  * igt@gem_lmem_swapping@basic:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][4] ([fdo#109271] / [i915#4613]) +3 similar issues
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html
+
+  * igt@gem_mmap@basic:
+    - bat-dg1-6:          NOTRUN -> [SKIP][5] ([i915#4083])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@gem_mmap@basic.html
+
+  * igt@gem_render_tiled_blits@basic:
+    - bat-dg1-6:          NOTRUN -> [SKIP][6] ([i915#4079]) +1 similar issue
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@gem_render_tiled_blits@basic.html
+
+  * igt@gem_tiled_fence_blits@basic:
+    - bat-dg1-6:          NOTRUN -> [SKIP][7] ([i915#4077]) +2 similar issues
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@gem_tiled_fence_blits@basic.html
+
+  * igt@i915_pm_backlight@basic-brightness:
+    - bat-dg1-6:          NOTRUN -> [SKIP][8] ([i915#7561])
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@i915_pm_backlight@basic-brightness.html
+
+  * igt@i915_pm_rps@basic-api:
+    - bat-dg1-6:          NOTRUN -> [SKIP][9] ([i915#6621])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@i915_pm_rps@basic-api.html
+
+  * igt@i915_selftest@live@gt_pm:
+    - fi-kbl-soraka:      NOTRUN -> [DMESG-FAIL][10] ([i915#1886])
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html
+
+  * igt@i915_selftest@live@guc_hang:
+    - fi-kbl-soraka:      NOTRUN -> [INCOMPLETE][11] ([i915#7640])
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/fi-kbl-soraka/igt@i915_selftest@live@guc_hang.html
+
+  * igt@kms_addfb_basic@basic-y-tiled-legacy:
+    - bat-dg1-6:          NOTRUN -> [SKIP][12] ([i915#4215])
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@kms_addfb_basic@basic-y-tiled-legacy.html
+
+  * igt@kms_addfb_basic@tile-pitch-mismatch:
+    - bat-dg1-6:          NOTRUN -> [SKIP][13] ([i915#4212]) +7 similar issues
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@kms_addfb_basic@tile-pitch-mismatch.html
+
+  * igt@kms_chamelium_frames@hdmi-crc-fast:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][14] ([fdo#109271]) +15 similar issues
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/fi-kbl-soraka/igt@kms_chamelium_frames@hdmi-crc-fast.html
+
+  * igt@kms_chamelium_hpd@common-hpd-after-suspend:
+    - bat-dg1-6:          NOTRUN -> [SKIP][15] ([i915#7828]) +8 similar issues
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@kms_chamelium_hpd@common-hpd-after-suspend.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor:
+    - bat-dg1-6:          NOTRUN -> [SKIP][16] ([i915#4103] / [i915#4213])
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - bat-dg1-6:          NOTRUN -> [SKIP][17] ([fdo#109285])
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@kms_force_connector_basic@force-load-detect.html
+
+  * igt@kms_psr@primary_page_flip:
+    - fi-pnv-d510:        NOTRUN -> [SKIP][18] ([fdo#109271]) +44 similar issues
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/fi-pnv-d510/igt@kms_psr@primary_page_flip.html
+
+  * igt@kms_psr@sprite_plane_onoff:
+    - bat-dg1-6:          NOTRUN -> [SKIP][19] ([i915#1072] / [i915#4078]) +3 similar issues
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@kms_psr@sprite_plane_onoff.html
+
+  * igt@kms_setmode@basic-clone-single-crtc:
+    - bat-dg1-6:          NOTRUN -> [SKIP][20] ([i915#3555])
+   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@kms_setmode@basic-clone-single-crtc.html
+
+  * igt@prime_vgem@basic-gtt:
+    - bat-dg1-6:          NOTRUN -> [SKIP][21] ([i915#3708] / [i915#4077]) +1 similar issue
+   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@prime_vgem@basic-gtt.html
+
+  * igt@prime_vgem@basic-read:
+    - bat-dg1-6:          NOTRUN -> [SKIP][22] ([i915#3708]) +3 similar issues
+   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@prime_vgem@basic-read.html
+
+  * igt@prime_vgem@basic-userptr:
+    - bat-dg1-6:          NOTRUN -> [SKIP][23] ([i915#3708] / [i915#4873])
+   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@prime_vgem@basic-userptr.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
+  [fdo#109295]: https://bugs.freedesktop.org/show_bug.cgi?id=109295
+  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
+  [i915#132]: https://gitlab.freedesktop.org/drm/intel/issues/132
+  [i915#1836]: https://gitlab.freedesktop.org/drm/intel/issues/1836
+  [i915#1845]: https://gitlab.freedesktop.org/drm/intel/issues/1845
+  [i915#1849]: https://gitlab.freedesktop.org/drm/intel/issues/1849
+  [i915#1886]: https://gitlab.freedesktop.org/drm/intel/issues/1886
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#2582]: https://gitlab.freedesktop.org/drm/intel/issues/2582
+  [i915#3003]: https://gitlab.freedesktop.org/drm/intel/issues/3003
+  [i915#3282]: https://gitlab.freedesktop.org/drm/intel/issues/3282
+  [i915#3291]: https://gitlab.freedesktop.org/drm/intel/issues/3291
+  [i915#3301]: https://gitlab.freedesktop.org/drm/intel/issues/3301
+  [i915#3555]: https://gitlab.freedesktop.org/drm/intel/issues/3555
+  [i915#3637]: https://gitlab.freedesktop.org/drm/intel/issues/3637
+  [i915#3708]: https://gitlab.freedesktop.org/drm/intel/issues/3708
+  [i915#4077]: https://gitlab.freedesktop.org/drm/intel/issues/4077
+  [i915#4078]: https://gitlab.freedesktop.org/drm/intel/issues/4078
+  [i915#4079]: https://gitlab.freedesktop.org/drm/intel/issues/4079
+  [i915#4083]: https://gitlab.freedesktop.org/drm/intel/issues/4083
+  [i915#4103]: https://gitlab.freedesktop.org/drm/intel/issues/4103
+  [i915#4212]: https://gitlab.freedesktop.org/drm/intel/issues/4212
+  [i915#4213]: https://gitlab.freedesktop.org/drm/intel/issues/4213
+  [i915#4215]: https://gitlab.freedesktop.org/drm/intel/issues/4215
+  [i915#4303]: https://gitlab.freedesktop.org/drm/intel/issues/4303
+  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
+  [i915#4579]: https://gitlab.freedesktop.org/drm/intel/issues/4579
+  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
+  [i915#4873]: https://gitlab.freedesktop.org/drm/intel/issues/4873
+  [i915#5591]: https://gitlab.freedesktop.org/drm/intel/issues/5591
+  [i915#6077]: https://gitlab.freedesktop.org/drm/intel/issues/6077
+  [i915#6078]: https://gitlab.freedesktop.org/drm/intel/issues/6078
+  [i915#6093]: https://gitlab.freedesktop.org/drm/intel/issues/6093
+  [i915#6094]: https://gitlab.freedesktop.org/drm/intel/issues/6094
+  [i915#6166]: https://gitlab.freedesktop.org/drm/intel/issues/6166
+  [i915#6311]: https://gitlab.freedesktop.org/drm/intel/issues/6311
+  [i915#6621]: https://gitlab.freedesktop.org/drm/intel/issues/6621
+  [i915#6645]: https://gitlab.freedesktop.org/drm/intel/issues/6645
+  [i915#6997]: https://gitlab.freedesktop.org/drm/intel/issues/6997
+  [i915#7229]: https://gitlab.freedesktop.org/drm/intel/issues/7229
+  [i915#7357]: https://gitlab.freedesktop.org/drm/intel/issues/7357
+  [i915#7443]: https://gitlab.freedesktop.org/drm/intel/issues/7443
+  [i915#7456]: https://gitlab.freedesktop.org/drm/intel/issues/7456
+  [i915#7561]: https://gitlab.freedesktop.org/drm/intel/issues/7561
+  [i915#7625]: https://gitlab.freedesktop.org/drm/intel/issues/7625
+  [i915#7640]: https://gitlab.freedesktop.org/drm/intel/issues/7640
+  [i915#7828]: https://gitlab.freedesktop.org/drm/intel/issues/7828
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_12577 -> Patchwork_112743v1
+
+  CI-20190529: 20190529
+  CI_DRM_12577: e3da2dad96f658f4275d39977a7258ccfeedac1d @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7117: 67669415954a763e2d1aa1bed6ef3786c0d17807 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_112743v1: e3da2dad96f658f4275d39977a7258ccfeedac1d @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+fb6130381e0b drm/i915: Reject < 1x1 pixel plane source size
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/index.html
+
+--===============0196225581796297322==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Reject &lt; 1x1 pixel plane source size</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/112743/">https://patchwork.freedesktop.org/series/112743/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_12577 -&gt; Patchwork_112743v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/index.html</p>
+<h2>Participating hosts (33 -&gt; 43)</h2>
+<p>Additional (11): fi-kbl-soraka bat-dg1-7 bat-adls-5 bat-dg1-6 bat-adln-1 bat-atsm-1 fi-pnv-d510 bat-rplp-1 bat-rpls-1 bat-rpls-2 bat-jsl-1 <br />
+  Missing    (1): fi-snb-2520m </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_112743v1:</p>
+<h3>IGT changes</h3>
+<h4>Suppressed</h4>
+<p>The following results come from untrusted machines, tests, or statuses.<br />
+  They do not affect the overall result.</p>
+<ul>
+<li>igt@kms_chamelium_frames@dp-crc-fast:<ul>
+<li>{bat-rplp-1}:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-rplp-1/igt@kms_chamelium_frames@dp-crc-fast.html">SKIP</a> +8 similar issues</li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_112743v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_exec_gttfill@basic:</p>
+<ul>
+<li>fi-pnv-d510:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/fi-pnv-d510/igt@gem_exec_gttfill@basic.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7229">i915#7229</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_lmem_swapping@basic:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_mmap@basic:</p>
+<ul>
+<li>bat-dg1-6:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@gem_mmap@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4083">i915#4083</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_render_tiled_blits@basic:</p>
+<ul>
+<li>bat-dg1-6:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@gem_render_tiled_blits@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4079">i915#4079</a>) +1 similar issue</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_tiled_fence_blits@basic:</p>
+<ul>
+<li>bat-dg1-6:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@gem_tiled_fence_blits@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4077">i915#4077</a>) +2 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_backlight@basic-brightness:</p>
+<ul>
+<li>bat-dg1-6:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@i915_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7561">i915#7561</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_rps@basic-api:</p>
+<ul>
+<li>bat-dg1-6:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@i915_pm_rps@basic-api.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6621">i915#6621</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_pm:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1886">i915#1886</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@guc_hang:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/fi-kbl-soraka/igt@i915_selftest@live@guc_hang.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7640">i915#7640</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_addfb_basic@basic-y-tiled-legacy:</p>
+<ul>
+<li>bat-dg1-6:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@kms_addfb_basic@basic-y-tiled-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4215">i915#4215</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_addfb_basic@tile-pitch-mismatch:</p>
+<ul>
+<li>bat-dg1-6:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@kms_addfb_basic@tile-pitch-mismatch.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4212">i915#4212</a>) +7 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium_frames@hdmi-crc-fast:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/fi-kbl-soraka/igt@kms_chamelium_frames@hdmi-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +15 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium_hpd@common-hpd-after-suspend:</p>
+<ul>
+<li>bat-dg1-6:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@kms_chamelium_hpd@common-hpd-after-suspend.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7828">i915#7828</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor:</p>
+<ul>
+<li>bat-dg1-6:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4103">i915#4103</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4213">i915#4213</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>bat-dg1-6:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109285">fdo#109285</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@primary_page_flip:</p>
+<ul>
+<li>fi-pnv-d510:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/fi-pnv-d510/igt@kms_psr@primary_page_flip.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +44 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@sprite_plane_onoff:</p>
+<ul>
+<li>bat-dg1-6:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@kms_psr@sprite_plane_onoff.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4078">i915#4078</a>) +3 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_setmode@basic-clone-single-crtc:</p>
+<ul>
+<li>bat-dg1-6:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3555">i915#3555</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-gtt:</p>
+<ul>
+<li>bat-dg1-6:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@prime_vgem@basic-gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3708">i915#3708</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4077">i915#4077</a>) +1 similar issue</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-read:</p>
+<ul>
+<li>bat-dg1-6:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@prime_vgem@basic-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3708">i915#3708</a>) +3 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-userptr:</p>
+<ul>
+<li>bat-dg1-6:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112743v1/bat-dg1-6/igt@prime_vgem@basic-userptr.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3708">i915#3708</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4873">i915#4873</a>)</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_12577 -&gt; Patchwork_112743v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_12577: e3da2dad96f658f4275d39977a7258ccfeedac1d @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7117: 67669415954a763e2d1aa1bed6ef3786c0d17807 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_112743v1: e3da2dad96f658f4275d39977a7258ccfeedac1d @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>fb6130381e0b drm/i915: Reject &lt; 1x1 pixel plane source size</p>
+
+</body>
+</html>
+
+--===============0196225581796297322==--
