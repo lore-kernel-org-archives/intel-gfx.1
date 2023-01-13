@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6DDDC678D4
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 19:31:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0CBFC3DA78
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 19:31:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70D8C10EADF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F16410EAE5;
 	Fri, 13 Jan 2023 19:31:00 +0000 (UTC)
-Received: from mail-il1-x131.google.com (mail-il1-x131.google.com
- [IPv6:2607:f8b0:4864:20::131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D151C10EAD7;
- Fri, 13 Jan 2023 19:30:55 +0000 (UTC)
-Received: by mail-il1-x131.google.com with SMTP id i17so6395769ila.9;
- Fri, 13 Jan 2023 11:30:55 -0800 (PST)
+Received: from mail-il1-x12a.google.com (mail-il1-x12a.google.com
+ [IPv6:2607:f8b0:4864:20::12a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB19F10EABC;
+ Fri, 13 Jan 2023 19:30:46 +0000 (UTC)
+Received: by mail-il1-x12a.google.com with SMTP id f8so5148008ilj.5;
+ Fri, 13 Jan 2023 11:30:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=yTR4ieke4SQncXKaVkcTEuYiRp/32On6yFfwWzPneBA=;
- b=lahi/KQ0DOsZB02/nhfjQxbV7OhjRTH7vLIlbkcZpeXdHg3dmYbzOG4jLw9mvXpXaK
- fNEH6Wf9z/A3AOI13fgKl+SB5r5Zxhsx+hlOPhyVRcULqBJh/XpYsFqsZjt5npG7TS+N
- xuy389egjEYb8wf95btNmwBIVA5D+eUuCKos5ClpCu8Ux6cBQpT/r6hbyOXikd0W2v6M
- dQxFtTq+A5arZm4We9HFCsVBEQ9s2GPnrqLqf9krJqC9T8axl7kwjzrK2Jc3IFCYizqF
- TjuDIG7Rt6DIQVQbMG5Ncv13v1Wg3aaLmIBkw8hwH/o8Jh39YxYH4zxiAGe5UHP8iTx5
- apjQ==
+ bh=qWKFQeFAxn+ZOh646ePMJ4LTdlatpOHry6TwdNzo/6o=;
+ b=WEB/QiC1kblSr7YALV/jSJKcpvQyT+QwF75uAuHFqKiFVyfrr6ULMAMYbydn11q3hm
+ TAy34JZjMpq5xguKevoGRXkAuvU0F7UTUG0c6x8jkt6c5c4vrpeTkKwPEvCTxVCj++12
+ F8o0rMCsqW6UZmU9HA5CAloAMNJXcKTmpne50mvxlHK6xfXOha/3NpcP/f0rdQzu5TPX
+ TndCaBh4jJFy0SYsicMpVbhCxxv+/r0JXKJtlujyFx7bZYUv//inVAhg7ex/x+gpwC/7
+ pfuN+ZCYJs4oitXOS1/lfZpiOfrD43+loQU0KYn2TlORbhuNuSBa7zQ29IjB6U1OCsG6
+ XM/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=yTR4ieke4SQncXKaVkcTEuYiRp/32On6yFfwWzPneBA=;
- b=iWue1hT+grIwqGA3H4UX70IEmBo41n7c3+YDmeLTLJaDAicUVhzNpYms5HjUPN0g3E
- ippWbCzRRbp7Au6uhM6BxBFFEotl5pNUB0lbCPi0PM4RfOt4JFXnOsCVOOuU3sy/wtCT
- 4HjJY4nenZSIxUuSsh4cyco+pve/faBc8q0pJV8yBbEfGBg6HVY3HhKf+IR5GFLMDhNm
- mPXbT95xqjG6hd7NI7hRpyGowDogNiXtRf2lDNFkSwOy0Kj5/uhwPgPAlaeFmm1LpJYA
- CESe7qDFHsXqHMsoRJem4QGa8afaa6ZhNcYU4YDLU33sE31Hwz4idhs5M3EF6oX5Ue+o
- aEbA==
-X-Gm-Message-State: AFqh2krZfbH2upBx89LaGydyTrCg6OdzCzW3BZVucErG7ZBvoQy5nx7z
- 895pqkUOyHCIxYwOgT5OEP0=
-X-Google-Smtp-Source: AMrXdXsgxUL3/qiDQID4zmfERkh2F5ouCmFPUZidaXKyo6mdOb6sKXD5GPfpUdc2o+e9QJcYwmp2cA==
-X-Received: by 2002:a92:4b0f:0:b0:30e:da56:d369 with SMTP id
- m15-20020a924b0f000000b0030eda56d369mr3600066ilg.7.1673638255047; 
- Fri, 13 Jan 2023 11:30:55 -0800 (PST)
+ bh=qWKFQeFAxn+ZOh646ePMJ4LTdlatpOHry6TwdNzo/6o=;
+ b=mJIftccRWjjwstOxyCecRhvMzxf0ezwDGRA07FoZBd1Z08bE6o6HIUuH9hL2UzDG58
+ 0M9MkSHk6UBwU3SBVbsgQ/HQs/BKt+/Eg65W/NVg8vuDMkxdFH2FyOfPK/jXicrFQklx
+ ecBm2bA5SzW2mZUwR/NRuAASPzuFfVe31Z0iMrYuChPieG713e3HfxXgJb7+hyemlDmT
+ b/4uZf1HudCj1DJDOPKkuIEdmWRl3NUMLozjDddmmTPuVuv0wRa1px2hyI10fOgeL4Uq
+ HMc9U7/FAO1GCEzMzmPhvl/rlBFy3Kxs9LB/6fvtz88xBaZlU7ekcYNFO38pJ6cMGTv/
+ +crw==
+X-Gm-Message-State: AFqh2krec4nzWusghkDIAa+MfkiyCiwZbp0lrng/DE58XTk4rLBgEoRp
+ sZN6M+HY3tuV3TajmIMMfX0=
+X-Google-Smtp-Source: AMrXdXuebkiSDHExojLJ+QU/M9dNm59SYuKStqvVl5iBT60SWt95K7DwYqFDv59rrs9RtH0Kkqk27g==
+X-Received: by 2002:a92:d186:0:b0:30d:b66e:e4e3 with SMTP id
+ z6-20020a92d186000000b0030db66ee4e3mr10285677ilz.1.1673638246047; 
+ Fri, 13 Jan 2023 11:30:46 -0800 (PST)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- e32-20020a026d60000000b0039e583abceasm6497289jaf.68.2023.01.13.11.30.53
+ e32-20020a026d60000000b0039e583abceasm6497289jaf.68.2023.01.13.11.30.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Jan 2023 11:30:54 -0800 (PST)
+ Fri, 13 Jan 2023 11:30:45 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Jan 2023 12:30:08 -0700
-Message-Id: <20230113193016.749791-13-jim.cromie@gmail.com>
+Date: Fri, 13 Jan 2023 12:30:00 -0700
+Message-Id: <20230113193016.749791-5-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230113193016.749791-1-jim.cromie@gmail.com>
 References: <20230113193016.749791-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 12/20] dyndbg-API: DYNDBG_CLASSMAP_USE drop
- extra args
+Subject: [Intel-gfx] [PATCH v2 04/20] dyndbg: make ddebug_apply_class_bitmap
+ more selective
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,188 +80,119 @@ Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch, jbaron@akamai.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Drop macro args after _var.  Since DYNDBG_CLASSMAP_USE no longer
-forwards to DYNDBG_CLASSMAP_DEFINE, it doesn't need those args to
-forward.  Keep only the _var arg, which is the extern'd struct
-classmap with all the class info.
+ddebug_apply_class_bitmap() currently applies the class settings to
+all modules, by calling ddebug_exec_queries(query, NULL), where NULL
+is wildcard ("*" does the same).  Make it more selective, by adding
+query_module param, and passing it into ddebug_exec_queries, instead
+of the NULL.
+
+This allows its more selective use later; for propagating drm.debug
+settings to dependent modules when/just-after they load.  Doing this
+propagation with "*" is fine, but would match with all previously
+loaded modules, creating more dynamic_debug.verbose=3 logging
+activity, and obscuring the actual changes.
+
+No functional change.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 12 +---------
- drivers/gpu/drm/display/drm_dp_helper.c | 12 +---------
- drivers/gpu/drm/drm_crtc_helper.c       | 12 +---------
- drivers/gpu/drm/i915/i915_params.c      | 12 +---------
- drivers/gpu/drm/nouveau/nouveau_drm.c   | 12 +---------
- include/linux/dynamic_debug.h           | 30 ++++++++++++++-----------
- 6 files changed, 22 insertions(+), 68 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 0075184b5d93..7bcc22ef5d49 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -189,17 +189,7 @@ int amdgpu_vcnfw_log;
- static void amdgpu_drv_delayed_reset_work_handler(struct work_struct *work);
+after `modprobe i915`, heres the module dependencies,
+though not all on drm.debug.
+
+bash-5.2# lsmod
+Module                  Size  Used by
+i915                 3133440  0
+drm_buddy              20480  1 i915
+ttm                    90112  1 i915
+i2c_algo_bit           16384  1 i915
+video                  61440  1 i915
+wmi                    32768  1 video
+drm_display_helper    200704  1 i915
+drm_kms_helper        208896  2 drm_display_helper,i915
+drm                   606208  5 drm_kms_helper,drm_display_helper,drm_buddy,i915,ttm
+cec                    57344  2 drm_display_helper,i915
+---
+ lib/dynamic_debug.c | 19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
+
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 823190094350..943e0597ecd4 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -600,7 +600,8 @@ static int ddebug_exec_queries(char *query, const char *modname)
  
- #if defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
--DYNDBG_CLASSMAP_USE(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
--			"DRM_UT_CORE",
--			"DRM_UT_DRIVER",
--			"DRM_UT_KMS",
--			"DRM_UT_PRIME",
--			"DRM_UT_ATOMIC",
--			"DRM_UT_VBL",
--			"DRM_UT_STATE",
--			"DRM_UT_LEASE",
--			"DRM_UT_DP",
--			"DRM_UT_DRMRES");
-+DYNDBG_CLASSMAP_USE(drm_debug_classes);
- #endif
+ /* apply a new bitmap to the sys-knob's current bit-state */
+ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+-				     unsigned long *new_bits, unsigned long *old_bits)
++				     unsigned long *new_bits, unsigned long *old_bits,
++				     const char *query_modname)
+ {
+ #define QUERY_SIZE 128
+ 	char query[QUERY_SIZE];
+@@ -608,7 +609,8 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 	int matches = 0;
+ 	int bi, ct;
  
- struct amdgpu_mgpu_info mgpu_info = {
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index 8fa7a88299e7..3bc188cb1116 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -42,17 +42,7 @@
- #include "drm_dp_helper_internal.h"
+-	v2pr_info("apply: 0x%lx to: 0x%lx\n", *new_bits, *old_bits);
++	v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits, *old_bits,
++		  query_modname ?: "");
  
- #if defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
--DYNDBG_CLASSMAP_USE(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
--			"DRM_UT_CORE",
--			"DRM_UT_DRIVER",
--			"DRM_UT_KMS",
--			"DRM_UT_PRIME",
--			"DRM_UT_ATOMIC",
--			"DRM_UT_VBL",
--			"DRM_UT_STATE",
--			"DRM_UT_LEASE",
--			"DRM_UT_DP",
--			"DRM_UT_DRMRES");
-+DYNDBG_CLASSMAP_USE(drm_debug_classes);
- #endif
+ 	for (bi = 0; bi < map->length; bi++) {
+ 		if (test_bit(bi, new_bits) == test_bit(bi, old_bits))
+@@ -617,12 +619,15 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 		snprintf(query, QUERY_SIZE, "class %s %c%s", map->class_names[bi],
+ 			 test_bit(bi, new_bits) ? '+' : '-', dcp->flags);
  
- struct dp_aux_backlight {
-diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
-index 2f747c9c8f60..5fb83336b015 100644
---- a/drivers/gpu/drm/drm_crtc_helper.c
-+++ b/drivers/gpu/drm/drm_crtc_helper.c
-@@ -52,17 +52,7 @@
- #include "drm_crtc_helper_internal.h"
+-		ct = ddebug_exec_queries(query, NULL);
++		ct = ddebug_exec_queries(query, query_modname);
+ 		matches += ct;
  
- #if defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
--DYNDBG_CLASSMAP_USE(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
--			"DRM_UT_CORE",
--			"DRM_UT_DRIVER",
--			"DRM_UT_KMS",
--			"DRM_UT_PRIME",
--			"DRM_UT_ATOMIC",
--			"DRM_UT_VBL",
--			"DRM_UT_STATE",
--			"DRM_UT_LEASE",
--			"DRM_UT_DP",
--			"DRM_UT_DRMRES");
-+DYNDBG_CLASSMAP_USE(drm_debug_classes);
- #endif
+ 		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
+ 			  ct, map->class_names[bi], *new_bits);
+ 	}
++	v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits, *old_bits,
++		  query_modname ?: "");
++
+ 	return matches;
+ }
  
- /**
-diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
-index b5b2542ae364..e959d0384ead 100644
---- a/drivers/gpu/drm/i915/i915_params.c
-+++ b/drivers/gpu/drm/i915/i915_params.c
-@@ -30,17 +30,7 @@
- #include "i915_drv.h"
+@@ -678,7 +683,7 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
+ 				continue;
+ 			}
+ 			curr_bits ^= BIT(cls_id);
+-			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, dcp->bits);
++			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, dcp->bits, NULL);
+ 			*dcp->bits = curr_bits;
+ 			v2pr_info("%s: changed bit %d:%s\n", KP_NAME(kp), cls_id,
+ 				  map->class_names[cls_id]);
+@@ -688,7 +693,7 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
+ 			old_bits = CLASSMAP_BITMASK(*dcp->lvl);
+ 			curr_bits = CLASSMAP_BITMASK(cls_id + (wanted ? 1 : 0 ));
  
- #if defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
--DYNDBG_CLASSMAP_USE(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
--			"DRM_UT_CORE",
--			"DRM_UT_DRIVER",
--			"DRM_UT_KMS",
--			"DRM_UT_PRIME",
--			"DRM_UT_ATOMIC",
--			"DRM_UT_VBL",
--			"DRM_UT_STATE",
--			"DRM_UT_LEASE",
--			"DRM_UT_DP",
--			"DRM_UT_DRMRES");
-+DYNDBG_CLASSMAP_USE(drm_debug_classes);
- #endif
- 
- #define i915_param_named(name, T, perm, desc) \
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index 2963cf5b0807..609edeb2a117 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -72,17 +72,7 @@
- #include "nouveau_dmem.h"
- 
- #if defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
--DYNDBG_CLASSMAP_USE(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
--			"DRM_UT_CORE",
--			"DRM_UT_DRIVER",
--			"DRM_UT_KMS",
--			"DRM_UT_PRIME",
--			"DRM_UT_ATOMIC",
--			"DRM_UT_VBL",
--			"DRM_UT_STATE",
--			"DRM_UT_LEASE",
--			"DRM_UT_DP",
--			"DRM_UT_DRMRES");
-+DYNDBG_CLASSMAP_USE(drm_debug_classes);
- #endif
- 
- MODULE_PARM_DESC(config, "option string to pass to driver core");
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 397ac8294230..91015d1a04e0 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -90,13 +90,15 @@ struct ddebug_class_map {
- };
- 
- /**
-- * DYNDBG_CLASSMAP_DEFINE - define the class_map that names the
-- * debug classes used in this module.  This tells dyndbg the authorized
-- * classnames it should manipulate.
-- * @_var:   a struct ddebug_class_map, passed to module_param_cb
-+ * DYNDBG_CLASSMAP_DEFINE - define debug-classes used by a module.
-+ * @_var:   name of the classmap, exported for other modules coordinated use.
-  * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
-  * @_base:  offset of 1st class-name. splits .class_id space
-- * @classes: class-names used to control class'd prdbgs
-+ * @classes: enum-map - symbol names are "classnames", vals are .class_ids
-+ *
-+ * @classes vals are _ddebug.class_ids used in the module, the symbol
-+ * names are stringified; they authorize "class FOO" to >control.
-+ * Connection to a kernel-param is done separately.
-  */
- #define DYNDBG_CLASSMAP_DEFINE(_var, _maptype, _base, ...)		\
- 	const char *_var##_classnames[] = { __VA_ARGS__ };		\
-@@ -116,16 +118,18 @@ struct ddebug_class_user {
- 	struct ddebug_class_map *map;
- };
- /**
-- * DYNDBG_CLASSMAP_USE - Use a classmap DEFINEd in another module.
-- * This lets dyndbg initialize the dependent module's prdbgs from the
-- * other module's controlling sysfs node.
-+ * DYNDBG_CLASSMAP_USE - refer to a classmap, DEFINEd elsewhere.
-+ * @_var: name of the exported classmap
-+ *
-+ * This registers the module's use of another module's classmap defn,
-+ * allowing dyndbg to find the controlling kparam, and propagate its
-+ * settings to the dependent module being loaded.
-  */
--#define DYNDBG_CLASSMAP_USE(_var, ...)					\
--	DYNDBG_CLASSMAP_USE_(_var, __UNIQUE_ID(ddebug_class_user),	\
--			     __VA_ARGS__)
--#define DYNDBG_CLASSMAP_USE_(_var, _uname, ...)				\
-+#define DYNDBG_CLASSMAP_USE(_var)					\
-+	DYNDBG_CLASSMAP_USE_(_var, __UNIQUE_ID(ddebug_class_user))
-+#define DYNDBG_CLASSMAP_USE_(_var, _uname)				\
- 	extern struct ddebug_class_map _var;				\
--	static struct ddebug_class_user __used				\
-+	struct ddebug_class_user __used					\
- 	__section("__dyndbg_class_refs") _uname = {			\
- 		.user_mod_name = KBUILD_MODNAME,			\
- 		.map = &_var,						\
+-			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, &old_bits);
++			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, &old_bits, NULL);
+ 			*dcp->lvl = (cls_id + (wanted ? 1 : 0));
+ 			v2pr_info("%s: changed bit-%d: \"%s\" %lx->%lx\n", KP_NAME(kp), cls_id,
+ 				  map->class_names[cls_id], old_bits, curr_bits);
+@@ -751,7 +756,7 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 			inrep &= CLASSMAP_BITMASK(map->length);
+ 		}
+ 		v2pr_info("bits:%lx > %s\n", inrep, KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits);
++		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits, NULL);
+ 		*dcp->bits = inrep;
+ 		break;
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+@@ -764,7 +769,7 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
+ 		new_bits = CLASSMAP_BITMASK(inrep);
+ 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits);
++		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, NULL);
+ 		*dcp->lvl = inrep;
+ 		break;
+ 	default:
 -- 
 2.39.0
 
