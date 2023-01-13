@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85761C54EBD
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 01:19:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CC16C63797
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 01:19:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 961CD10E1CD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B472C10E971;
 	Fri, 13 Jan 2023 01:18:54 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 690AE10E1C4;
- Fri, 13 Jan 2023 01:18:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A5EE10E1CD;
+ Fri, 13 Jan 2023 01:18:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673572731; x=1705108731;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=6Pkl0cpvz5S9qgQnl+nqoerpjrcu8LGM3J6G9kbs5aE=;
- b=cSlGiGzuqXNnaGCwE0KIetUAFzfZ27nJ0GQ88nc3Bh6Vex3rLOT2KXOt
- Hu7+XWOmX8NYB993yVVMFvwmRHj3KNyFyG+cWBjS28iunfTN8xsF9x1Kh
- K9jiDBEuzJrb/N0ZqerQsfxPbhIC7PTInFGzMol69MmxToSFKV0tht4dM
- effnAfihurzLppL+/NOIVAXB2DoKORBHUg2Kn7Ojod6THLn6hE85nm+01
- PDFqOpfGapHrQxnm2Wto3F0JMMu2SWufKXZY6vgGYrTtH5PMGj9rwfogd
- yb0s+71AkQWWSNe48mtcD96spKYhpKGwJNWLWC/yiTlUgS6NBH6qHOXip A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="323941561"
-X-IronPort-AV: E=Sophos;i="5.97,212,1669104000"; d="scan'208";a="323941561"
+ t=1673572733; x=1705108733;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=x9fuNHqoT8mkYvgfb2i9hJadC6WsIgtpQevJQGY3mAs=;
+ b=Mk2Lsk79QEskeIH9eOcqeDW6RT71tSOo7WkfLXME25fwI5jdk5XpfBnu
+ YDVFmx4W+bA0DQp3JXsZW53b91QJTp0MzrUyq3tIBPasZQQ9hUkekiWDv
+ +U7MyZ8qd0iizm+g7tZmfJtxZNca3QzBmYQmzl0KXdRmUEpey8h2cgdrQ
+ jvVeHlPy+5KYBlYU4UqEnqoy8C2+0GjCX8Lst65vIaQCvQbw+TPRwNkWM
+ Cs/pi6UrJt0qmlHsMr6eqCnFLm2y9JP0BwL34FdWKVeWAzLL62csqg7N7
+ XegfhdI5CH0jrAM+iapK2EoeCxvBfVhnUHoJ9vpkTZwtDkfK5ZGU8ShFt w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="323941584"
+X-IronPort-AV: E=Sophos;i="5.97,212,1669104000"; d="scan'208";a="323941584"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2023 17:18:50 -0800
+ 12 Jan 2023 17:18:52 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="746761008"
-X-IronPort-AV: E=Sophos;i="5.97,212,1669104000"; d="scan'208";a="746761008"
+X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="746761031"
+X-IronPort-AV: E=Sophos;i="5.97,212,1669104000"; d="scan'208";a="746761031"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by FMSMGA003.fm.intel.com with ESMTP; 12 Jan 2023 17:18:50 -0800
+ by FMSMGA003.fm.intel.com with ESMTP; 12 Jan 2023 17:18:52 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 12 Jan 2023 17:18:44 -0800
-Message-Id: <20230113011850.1463965-1-alan.previn.teres.alexis@intel.com>
+Date: Thu, 12 Jan 2023 17:18:48 -0800
+Message-Id: <20230113011850.1463965-5-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20230113011850.1463965-1-alan.previn.teres.alexis@intel.com>
+References: <20230113011850.1463965-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 0/6] drm/i915/pxp: Add missing cleanup steps
- for PXP global-teardown
+Subject: [Intel-gfx] [PATCH v5 4/6] drm/i915/pxp: Invalidate all PXP fw
+ sessions during teardown
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,78 +67,143 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A customer issue was recently discovered and in the process a
-gap in i915's PXP interaction with HW+FW architecure was also
-realized. This series adds those missing pieces.
+A gap was recently discovered where if an application did not
+invalidate all of the stream keys (intentionally or not), and the
+driver did a full PXP global teardown on the GT subsystem, we
+find that future session creation would fail on the security
+firmware's side of the equation. i915 is the entity that needs
+ensure the sessions' state across both iGT and security firmware
+are at a known clean point when performing a full global teardown.
 
-This fix includes changes where i915 calls into the mei
-component interface in order to submit requests to the security
-firmware during the i915's suspend_prepare flow. This change did
-expose a blocking issue in the mei component side that was
-discovered while testing in rev1. The issue being the mei-pxp
-component driver not being able to runtime-resume while being
-within the suspend_prepare callstack.
+Architecturally speaking, i915 should inspect all active sessions
+and submit the invalidate-stream-key PXP command to the security
+firmware for each of them. However, for the upstream i915 driver
+we only support the arbitration session that can be created
+so that will be the only session we will cleanup.
 
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+Reviewed-by: Juston Li <justonli@chromium.org>
+---
+ drivers/gpu/drm/i915/pxp/intel_pxp.h          |  1 +
+ .../drm/i915/pxp/intel_pxp_cmd_interface_42.h | 15 ++++++++
+ .../i915/pxp/intel_pxp_cmd_interface_cmn.h    |  3 ++
+ drivers/gpu/drm/i915/pxp/intel_pxp_session.c  |  2 ++
+ drivers/gpu/drm/i915/pxp/intel_pxp_tee.c      | 35 +++++++++++++++++++
+ 5 files changed, 56 insertions(+)
 
-Thus, we have now included the mei patches (from Alexander) that
-fixes that issue by adding a device-link based on the interface
-type to ensure mei side runtime resume during the i915's
-suspend_prepare call.
-
-That said, as per request from Alexander, we seek Greg's and Tomas'
-review for the mei patches (Patch 1, 2 and 3). Patch 2, although is
-a change in the i915 code, is the mei component device link change.
-
-The individual patches explain more details. Patch 7 can be ignored
-as it won't be merged and is only meant to ensure the CI run's
-the PXP subtests with PXP support enabled in KConfig.
-
-Changes from prior revs:
-   v1: - Dont need to teardown non-arbitration sessions (Juston).
-       - Fix builds when PXP is enabled in config (Alan/CI-build).
-       - Fix the broken pm-suspend-resume symmetry when we do this
-         pxp-session-teardown during i915s pm_suspend_prepare by
-         ensuring the init is done during i915s pm_resume_complete.
-   v2: - Rebase on latest drm-tip after PXP subsytem was promoted
-         to global.
-       - Remove "INTEL_PXP_MAX_HWDRM_SESSIONS" unneeded (Juston Li).
-       - Added mei patches that are dependencies for this series
-         to successfully pass testing when PXP config is enabled.
-   v3: - Added fix for mei patch when CONFIG_PM_SLEEP is off (reported
-         by kernel test robot <lkp@intel.com>).
-   v4: - Added "DRM_SWITCH_POWER_OFF" check and removed bail-out if
-         '!i915' that wont happen in i915_pm_complete (Daniele).
-       - move i915_pm_complete to appear in i915_pm_resume.
-       - One more fix for mei patch when CONFIG_PM_SLEEP is off
-         (reported by kernel test robot <lkp@intel.com>).
-
-Alan Previn (3):
-  drm/i915/pxp: Invalidate all PXP fw sessions during teardown
-  drm/i915/pxp: Trigger the global teardown for before suspending
-  drm/i915/pxp: Pxp hw init should be in resume_complete
-
-Alexander Usyskin (3):
-  mei: mei-me: resume device in prepare
-  drm/i915/pxp: add device link between i915 and mei_pxp
-  mei: clean pending read with vtag on bus
-
- drivers/gpu/drm/i915/gt/intel_gt_pm.h         |  1 +
- drivers/gpu/drm/i915/i915_driver.c            | 20 ++++++-
- drivers/gpu/drm/i915/pxp/intel_pxp.c          | 60 ++++++++++++++++---
- drivers/gpu/drm/i915/pxp/intel_pxp.h          |  2 +
- .../drm/i915/pxp/intel_pxp_cmd_interface_42.h | 15 +++++
- .../i915/pxp/intel_pxp_cmd_interface_cmn.h    |  3 +
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.c       |  4 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.h       |  6 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_session.c  | 11 +++-
- drivers/gpu/drm/i915/pxp/intel_pxp_session.h  |  5 ++
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.c      | 42 +++++++++++++
- drivers/misc/mei/client.c                     |  4 +-
- drivers/misc/mei/pci-me.c                     | 20 ++++++-
- 13 files changed, 172 insertions(+), 21 deletions(-)
-
-
-base-commit: c0ba6b6312e9139ce4b89da2904b329c13b5e94d
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+index 04440fada711..9658d3005222 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
+@@ -24,6 +24,7 @@ void intel_pxp_init_hw(struct intel_pxp *pxp);
+ void intel_pxp_fini_hw(struct intel_pxp *pxp);
+ 
+ void intel_pxp_mark_termination_in_progress(struct intel_pxp *pxp);
++void intel_pxp_tee_end_arb_fw_session(struct intel_pxp *pxp, u32 arb_session_id);
+ 
+ int intel_pxp_start(struct intel_pxp *pxp);
+ 
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_42.h b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_42.h
+index 739f9072fa5f..26f7d9f01bf3 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_42.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_42.h
+@@ -12,6 +12,9 @@
+ /* PXP-Opcode for Init Session */
+ #define PXP42_CMDID_INIT_SESSION 0x1e
+ 
++/* PXP-Opcode for Invalidate Stream Key */
++#define PXP42_CMDID_INVALIDATE_STREAM_KEY 0x00000007
++
+ /* PXP-Input-Packet: Init Session (Arb-Session) */
+ struct pxp42_create_arb_in {
+ 	struct pxp_cmd_header header;
+@@ -25,4 +28,16 @@ struct pxp42_create_arb_out {
+ 	struct pxp_cmd_header header;
+ } __packed;
+ 
++/* PXP-Input-Packet: Invalidate Stream Key */
++struct pxp42_inv_stream_key_in {
++	struct pxp_cmd_header header;
++	u32 rsvd[3];
++} __packed;
++
++/* PXP-Output-Packet: Invalidate Stream Key */
++struct pxp42_inv_stream_key_out {
++	struct pxp_cmd_header header;
++	u32 rsvd;
++} __packed;
++
+ #endif /* __INTEL_PXP_FW_INTERFACE_42_H__ */
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_cmn.h b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_cmn.h
+index c2f23394f9b8..69e34ec49e78 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_cmn.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_cmn.h
+@@ -27,6 +27,9 @@ struct pxp_cmd_header {
+ 	union {
+ 		u32 status; /* out */
+ 		u32 stream_id; /* in */
++#define PXP_CMDHDR_EXTDATA_SESSION_VALID GENMASK(0, 0)
++#define PXP_CMDHDR_EXTDATA_APP_TYPE GENMASK(1, 1)
++#define PXP_CMDHDR_EXTDATA_SESSION_ID GENMASK(17, 2)
+ 	};
+ 	/* Length of the message (excluding the header) */
+ 	u32 buffer_len;
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
+index ae413580b81a..74ed7e16e481 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
+@@ -110,6 +110,8 @@ static int pxp_terminate_arb_session_and_global(struct intel_pxp *pxp)
+ 
+ 	intel_uncore_write(gt->uncore, PXP_GLOBAL_TERMINATE, 1);
+ 
++	intel_pxp_tee_end_arb_fw_session(pxp, ARB_SESSION);
++
+ 	return ret;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+index bef6d7f8ac55..9e247f38f3bd 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+@@ -311,3 +311,38 @@ int intel_pxp_tee_cmd_create_arb_session(struct intel_pxp *pxp,
+ 
+ 	return ret;
+ }
++
++void intel_pxp_tee_end_arb_fw_session(struct intel_pxp *pxp, u32 session_id)
++{
++	struct drm_i915_private *i915 = pxp->ctrl_gt->i915;
++	struct pxp42_inv_stream_key_in msg_in = {0};
++	struct pxp42_inv_stream_key_out msg_out = {0};
++	int ret, trials = 0;
++
++try_again:
++	memset(&msg_in, 0, sizeof(msg_in));
++	memset(&msg_out, 0, sizeof(msg_out));
++	msg_in.header.api_version = PXP_APIVER(4, 2);
++	msg_in.header.command_id = PXP42_CMDID_INVALIDATE_STREAM_KEY;
++	msg_in.header.buffer_len = sizeof(msg_in) - sizeof(msg_in.header);
++
++	msg_in.header.stream_id = FIELD_PREP(PXP_CMDHDR_EXTDATA_SESSION_VALID, 1);
++	msg_in.header.stream_id |= FIELD_PREP(PXP_CMDHDR_EXTDATA_APP_TYPE, 0);
++	msg_in.header.stream_id |= FIELD_PREP(PXP_CMDHDR_EXTDATA_SESSION_ID, session_id);
++
++	ret = intel_pxp_tee_io_message(pxp,
++				       &msg_in, sizeof(msg_in),
++				       &msg_out, sizeof(msg_out),
++				       NULL);
++
++	/* Cleanup coherency between GT and Firmware is critical, so try again if it fails */
++	if ((ret || msg_out.header.status != 0x0) && ++trials < 3)
++		goto try_again;
++
++	if (ret)
++		drm_err(&i915->drm, "Failed to send tee msg for inv-stream-key-%d, ret=[%d]\n",
++			session_id, ret);
++	else if (msg_out.header.status != 0x0)
++		drm_warn(&i915->drm, "PXP firmware failed inv-stream-key-%d with status 0x%08x\n",
++			 session_id, msg_out.header.status);
++}
 -- 
 2.39.0
 
