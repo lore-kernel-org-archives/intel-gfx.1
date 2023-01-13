@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0714BC54EBD
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 01:19:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B67CC54EBE
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 01:19:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5129210E975;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEB2D10E976;
 	Fri, 13 Jan 2023 01:18:56 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBC4210E971;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A89310E1C4;
  Fri, 13 Jan 2023 01:18:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1673572733; x=1705108733;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=8GdIhSQriGTOtBWIEXOEDy9Xggyv0+9Ofz23ziBHpIQ=;
- b=Z2dzEPiz8gmjl+1urr38+KWmWvEu4TFkiOWhtFrZ+jdA3w5S5ft9H0Da
- LqHGgx/YjGA35J9X82PHdP56NdJpQbtaPV4b/999Md+aIv0o0VODE6fHp
- uuSFJIuYcLgUHNdzOBQDTHX/6nTbzzAkRicXLWdS7hY7EsRUhF2XGxFOq
- A2AKiD+Pf3RakI0MZ6rN1M+VcjUpAIQTsT8mJSAp1D9w/lRBtP01JtxBU
- IvP08RhMxdrQhSHsvr4xorPZaS2vPWm6Pf2ktnEu95pOtnmp/QOcSejib
- GDkXXDUZaKX+bJzeex0wCvzeIDum6uw/F5JM2BLKPPCHs7kaG2K2RJPXe A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="323941590"
-X-IronPort-AV: E=Sophos;i="5.97,212,1669104000"; d="scan'208";a="323941590"
+ bh=2Lxj77hEAJ3S07gtUnrmnuW0iUn6nVX/lat5FVlG5s8=;
+ b=Vg52+gxo5ZPvlPaXW9rK3ZpMI7O17a7rc97cNA3squRi3Hcq/2CyWSnT
+ Pr3q9DdiSoLBa+dqonl8/EEJX0xybbxN+i7ehIuh/DzFYrLooVqfTXgMd
+ wzH9MZWHiPoqbVPmUQ7h1fGCU9w3QeWw8y8wwk7GRbXyqZERYA7C0kkFf
+ rteW+9IzrJKd06tNRgHemMy8QvRvEVqh2or9caXsBtQrXnSMmvaLchcnH
+ AAY5Gs73aKmqOfPKWu65GEp4iwTRSe6oh2lr4jwRX6OTerGr30yLN0SNZ
+ oBI2IVlEkQK0rJkOWYq5iIfQquk4vO0UM6RSqbregLLFhom0NRinMlp0n g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="323941581"
+X-IronPort-AV: E=Sophos;i="5.97,212,1669104000"; d="scan'208";a="323941581"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2023 17:18:53 -0800
+ 12 Jan 2023 17:18:52 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="746761040"
-X-IronPort-AV: E=Sophos;i="5.97,212,1669104000"; d="scan'208";a="746761040"
+X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="746761027"
+X-IronPort-AV: E=Sophos;i="5.97,212,1669104000"; d="scan'208";a="746761027"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by FMSMGA003.fm.intel.com with ESMTP; 12 Jan 2023 17:18:53 -0800
+ by FMSMGA003.fm.intel.com with ESMTP; 12 Jan 2023 17:18:52 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 12 Jan 2023 17:18:50 -0800
-Message-Id: <20230113011850.1463965-7-alan.previn.teres.alexis@intel.com>
+Date: Thu, 12 Jan 2023 17:18:47 -0800
+Message-Id: <20230113011850.1463965-4-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230113011850.1463965-1-alan.previn.teres.alexis@intel.com>
 References: <20230113011850.1463965-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 6/6] drm/i915/pxp: Pxp hw init should be in
- resume_complete
+Subject: [Intel-gfx] [PATCH v5 3/6] mei: clean pending read with vtag on bus
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,139 +66,34 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-During suspend flow, i915 currently achors' on the pm_suspend_prepare
-callback as the location where we quiesce the entire GPU and perform
-all necessary cleanup in order to go into suspend. PXP is also called
-during this time to perform the arbitration session teardown (with
-the assurance no additional GEM IOCTLs will come after that could
-restart the session).
+From: Alexander Usyskin <alexander.usyskin@intel.com>
 
-However, if other devices or drivers fail their suspend_prepare, the
-system will not go into suspend and i915 will be expected to resume
-operation. In this case, we need to re-initialize the PXP hardware
-and this really should be done within the pm_resume_complete callback
-which is the correct opposing function in the resume sequence to
-match pm_suspend_prepare of the suspend sequence.
+Client on bus have only one vtag map slot and should disregard the vtag
+value when cleaning pending read flag.
+Fixes read flow control message unexpectedly generated when
+clent on bus send messages with different vtags.
 
-Because this callback is the last thing at the end of resuming
-we expect little to no impact to the rest of the i915 resume sequence
-with this change.
-
+Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_pm.h   |  1 +
- drivers/gpu/drm/i915/i915_driver.c      | 20 ++++++++++++++++++--
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.c |  2 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.h |  6 +++---
- 4 files changed, 23 insertions(+), 6 deletions(-)
+ drivers/misc/mei/client.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.h b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-index 6c9a46452364..fd1a23621222 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-@@ -77,6 +77,7 @@ void intel_gt_pm_fini(struct intel_gt *gt);
+diff --git a/drivers/misc/mei/client.c b/drivers/misc/mei/client.c
+index 9ddb854b8155..5c19097266fe 100644
+--- a/drivers/misc/mei/client.c
++++ b/drivers/misc/mei/client.c
+@@ -1343,7 +1343,9 @@ static void mei_cl_reset_read_by_vtag(const struct mei_cl *cl, u8 vtag)
+ 	struct mei_cl_vtag *vtag_l;
  
- void intel_gt_suspend_prepare(struct intel_gt *gt);
- void intel_gt_suspend_late(struct intel_gt *gt);
-+
- int intel_gt_resume(struct intel_gt *gt);
- 
- void intel_gt_runtime_suspend(struct intel_gt *gt);
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index c1e427ba57ae..4c68a3f26e96 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -1170,6 +1170,13 @@ static bool suspend_to_idle(struct drm_i915_private *dev_priv)
- 	return false;
- }
- 
-+static void i915_drm_complete(struct drm_device *dev)
-+{
-+	struct drm_i915_private *i915 = to_i915(dev);
-+
-+	intel_pxp_resume_complete(i915->pxp);
-+}
-+
- static int i915_drm_prepare(struct drm_device *dev)
- {
- 	struct drm_i915_private *i915 = to_i915(dev);
-@@ -1370,8 +1377,6 @@ static int i915_drm_resume(struct drm_device *dev)
- 
- 	i915_gem_resume(dev_priv);
- 
--	intel_pxp_resume(dev_priv->pxp);
--
- 	intel_modeset_init_hw(dev_priv);
- 	intel_init_clock_gating(dev_priv);
- 	intel_hpd_init(dev_priv);
-@@ -1563,6 +1568,16 @@ static int i915_pm_resume(struct device *kdev)
- 	return i915_drm_resume(&i915->drm);
- }
- 
-+static void i915_pm_complete(struct device *kdev)
-+{
-+	struct drm_i915_private *i915 = kdev_to_i915(kdev);
-+
-+	if (i915->drm.switch_power_state == DRM_SWITCH_POWER_OFF)
-+		return;
-+
-+	i915_drm_complete(&i915->drm);
-+}
-+
- /* freeze: before creating the hibernation_image */
- static int i915_pm_freeze(struct device *kdev)
- {
-@@ -1783,6 +1798,7 @@ const struct dev_pm_ops i915_pm_ops = {
- 	.suspend_late = i915_pm_suspend_late,
- 	.resume_early = i915_pm_resume_early,
- 	.resume = i915_pm_resume,
-+	.complete = i915_pm_complete,
- 
- 	/*
- 	 * S4 event handlers
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-index e427464aa131..4f836b317424 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-@@ -34,7 +34,7 @@ void intel_pxp_suspend(struct intel_pxp *pxp)
- 	}
- }
- 
--void intel_pxp_resume(struct intel_pxp *pxp)
-+void intel_pxp_resume_complete(struct intel_pxp *pxp)
- {
- 	if (!intel_pxp_is_enabled(pxp))
- 		return;
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
-index 586be769104f..06b46f535b42 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
-@@ -11,7 +11,7 @@ struct intel_pxp;
- #ifdef CONFIG_DRM_I915_PXP
- void intel_pxp_suspend_prepare(struct intel_pxp *pxp);
- void intel_pxp_suspend(struct intel_pxp *pxp);
--void intel_pxp_resume(struct intel_pxp *pxp);
-+void intel_pxp_resume_complete(struct intel_pxp *pxp);
- void intel_pxp_runtime_suspend(struct intel_pxp *pxp);
- #else
- static inline void intel_pxp_suspend_prepare(struct intel_pxp *pxp)
-@@ -22,7 +22,7 @@ static inline void intel_pxp_suspend(struct intel_pxp *pxp)
- {
- }
- 
--static inline void intel_pxp_resume(struct intel_pxp *pxp)
-+static inline void intel_pxp_resume_complete(struct intel_pxp *pxp)
- {
- }
- 
-@@ -32,6 +32,6 @@ static inline void intel_pxp_runtime_suspend(struct intel_pxp *pxp)
- #endif
- static inline void intel_pxp_runtime_resume(struct intel_pxp *pxp)
- {
--	intel_pxp_resume(pxp);
-+	intel_pxp_resume_complete(pxp);
- }
- #endif /* __INTEL_PXP_PM_H__ */
+ 	list_for_each_entry(vtag_l, &cl->vtag_map, list) {
+-		if (vtag_l->vtag == vtag) {
++		/* The client on bus has one fixed vtag map */
++		if ((cl->cldev && mei_cldev_enabled(cl->cldev)) ||
++		    vtag_l->vtag == vtag) {
+ 			vtag_l->pending_read = false;
+ 			break;
+ 		}
 -- 
 2.39.0
 
