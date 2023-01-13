@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1788C54EBD
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 01:19:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7184FC54EBE
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Jan 2023 01:20:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95A3210E974;
-	Fri, 13 Jan 2023 01:19:01 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC78710E1C4;
- Fri, 13 Jan 2023 01:18:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFDC710E1B7;
+	Fri, 13 Jan 2023 01:20:19 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 416BC10E1B7
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Jan 2023 01:20:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673572733; x=1705108733;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=BXRfnFVNgAWyqu5wrS6GlVsPMcZOKCaQiXxHq32XWWs=;
- b=WeWJBhfCeLcCZkyQO0DOtPZkkK9G9HFSpOSac9Ag7aABEgDxxzwasIc2
- 7+sL/n9H0uGMRgJFPwRSFTNuOFQ2XsLbqXCZG3JmF4S7RRUM8beMpcbyi
- G+exTUPdAJBpV1QRl1mKmjtzjqlyvMYHICulNn0f1ABoCINH4TdoPp543
- eeSg/TCemv+cVaWWt57Q4smTeqErHSNYYUWTpO5tyURGNL7h3OQwpiyFQ
- UufxT6l2EKItkxtqC6NLZIw8atfB4HDPw6ybdjs7wNzKOzQsdCofas7VN
- V5pSSUB98bjmpMfnVJ/yGI4d4+uqGxe1VwtECpcrdFyyxUfh4nWOweJHR A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="323941587"
-X-IronPort-AV: E=Sophos;i="5.97,212,1669104000"; d="scan'208";a="323941587"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2023 17:18:53 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="746761035"
-X-IronPort-AV: E=Sophos;i="5.97,212,1669104000"; d="scan'208";a="746761035"
-Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by FMSMGA003.fm.intel.com with ESMTP; 12 Jan 2023 17:18:53 -0800
-From: Alan Previn <alan.previn.teres.alexis@intel.com>
+ t=1673572818; x=1705108818;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=T0uHuSLcyrZNMGhGPOggJ9cyK3hE2hSA4EHAmHnIw6I=;
+ b=hbqc8/53fOUbOIBiJ6opoC2Ptw4Vxyzr4sy5tn7basvpfEgsRz1I9VTO
+ fMEOIZh0d1jsoHoqA+NNUnWK0CstSj+kjHv+//o1Kz95MpKcMcWySARjt
+ RiY13tcMNQxhNUrZRgSMRLx0RwlhPk43+ljVHJk6ubm57TsmgO+o3iOrO
+ l3b2z5ekUfy7DCpek7ni+tahnba0A7NMEXz+RfNfbFWmw48HPeEgBohqY
+ 1mBClGYrDyUZN5I3JjP64DYdMls4Vd460RkddLV1RdB5OJ+1c+5VcD85c
+ egAqb/rnHtSQoLre/g7r1ti7zkM4cX6EO5wWLLMstxydLkmIpVmYPfuPk Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="351116349"
+X-IronPort-AV: E=Sophos;i="5.97,212,1669104000"; d="scan'208";a="351116349"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2023 17:20:17 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10588"; a="635600933"
+X-IronPort-AV: E=Sophos;i="5.97,212,1669104000"; d="scan'208";a="635600933"
+Received: from ramyapad-mobl.amr.corp.intel.com (HELO gjsousa-mobl2.intel.com)
+ ([10.212.13.135])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2023 17:20:15 -0800
+From: Gustavo Sousa <gustavo.sousa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 12 Jan 2023 17:18:49 -0800
-Message-Id: <20230113011850.1463965-6-alan.previn.teres.alexis@intel.com>
+Date: Thu, 12 Jan 2023 22:19:47 -0300
+Message-Id: <20230113011947.9631-1-gustavo.sousa@intel.com>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230113011850.1463965-1-alan.previn.teres.alexis@intel.com>
-References: <20230113011850.1463965-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 5/6] drm/i915/pxp: Trigger the global
- teardown for before suspending
+Subject: [Intel-gfx] [PATCH] drm/i915/gt: Move LSC_CHICKEN_BIT* workarounds
+ to correct function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,192 +56,122 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
-	Vivi@freedesktop.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rodrigo <rodrigo.vivi@intel.com>,
-	Alexander Usyskin <alexander.usyskin@intel.com>,
-	dri-devel@lists.freedesktop.org,
-	Tomas Winkler <tomas.winkler@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A driver bug was recently discovered where the security firmware was
-receiving internal HW signals indicating that session key expirations
-had occurred. Architecturally, the firmware was expecting a response
-from the GuC to acknowledge the event with the firmware side.
-However the OS was in a suspended state and GuC had been reset.
+That register doesn't belong to a specific engine, so the proper
+placement for workarounds programming it should be
+general_render_compute_wa_init().
 
-Internal specifications actually required the driver to ensure
-that all active sessions be properly cleaned up in such cases where
-the system is suspended and the GuC potentially unable to respond.
-
-This patch adds the global teardown code in i915's suspend_prepare
-code path.
-
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
-Reviewed-by: Juston Li <justonli@chromium.org>
+Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp.c         | 60 +++++++++++++++++---
- drivers/gpu/drm/i915/pxp/intel_pxp.h         |  1 +
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.c      |  2 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_session.c |  9 ++-
- drivers/gpu/drm/i915/pxp/intel_pxp_session.h |  5 ++
- 5 files changed, 64 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 65 ++++++++++++---------
+ 1 file changed, 36 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index cfc9af8b3d21..f3d9e7989eb7 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -270,6 +270,55 @@ static bool pxp_component_bound(struct intel_pxp *pxp)
- 	return bound;
- }
- 
-+static int __pxp_global_teardown_locked(struct intel_pxp *pxp, bool terminate_for_cleanup)
-+{
-+	if (terminate_for_cleanup) {
-+		if (!pxp->arb_is_valid)
-+			return 0;
-+		/*
-+		 * To ensure synchronous and coherent session teardown completion
-+		 * in response to suspend or shutdown triggers, don't use a worker.
-+		 */
-+		intel_pxp_mark_termination_in_progress(pxp);
-+		intel_pxp_terminate(pxp, false);
-+	} else {
-+		if (pxp->arb_is_valid)
-+			return 0;
-+		/*
-+		 * If we are not in final termination, and the arb-session is currently
-+		 * inactive, we are doing a reset and restart due to some runtime event.
-+		 * Use the worker that was designed for this.
-+		 */
-+		pxp_queue_termination(pxp);
-+	}
-+
-+	if (!wait_for_completion_timeout(&pxp->termination, msecs_to_jiffies(250)))
-+		return -ETIMEDOUT;
-+
-+	return 0;
-+}
-+
-+void intel_pxp_end(struct intel_pxp *pxp)
-+{
-+	struct drm_i915_private *i915 = pxp->ctrl_gt->i915;
-+	intel_wakeref_t wakeref;
-+
-+	if (!intel_pxp_is_enabled(pxp))
-+		return;
-+
-+	wakeref = intel_runtime_pm_get(&i915->runtime_pm);
-+
-+	mutex_lock(&pxp->arb_mutex);
-+
-+	if (__pxp_global_teardown_locked(pxp, true))
-+		drm_dbg(&i915->drm, "PXP end timed out\n");
-+
-+	mutex_unlock(&pxp->arb_mutex);
-+
-+	intel_pxp_fini_hw(pxp);
-+	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
-+}
-+
- /*
-  * the arb session is restarted from the irq work when we receive the
-  * termination completion interrupt
-@@ -286,16 +335,9 @@ int intel_pxp_start(struct intel_pxp *pxp)
- 
- 	mutex_lock(&pxp->arb_mutex);
- 
--	if (pxp->arb_is_valid)
--		goto unlock;
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 6dacd0dc5c2c..bd40b8c93d24 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -2325,10 +2325,6 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 		/* Wa_1509727124 */
+ 		wa_mcr_masked_en(wal, GEN10_SAMPLER_MODE,
+ 				 SC_DISABLE_POWER_OPTIMIZATION_EBB);
 -
--	pxp_queue_termination(pxp);
--
--	if (!wait_for_completion_timeout(&pxp->termination,
--					msecs_to_jiffies(250))) {
--		ret = -ETIMEDOUT;
-+	ret = __pxp_global_teardown_locked(pxp, false);
-+	if (ret)
- 		goto unlock;
--	}
- 
- 	/* make sure the compiler doesn't optimize the double access */
- 	barrier();
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-index 9658d3005222..3ded0890cd27 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -27,6 +27,7 @@ void intel_pxp_mark_termination_in_progress(struct intel_pxp *pxp);
- void intel_pxp_tee_end_arb_fw_session(struct intel_pxp *pxp, u32 arb_session_id);
- 
- int intel_pxp_start(struct intel_pxp *pxp);
-+void intel_pxp_end(struct intel_pxp *pxp);
- 
- int intel_pxp_key_check(struct intel_pxp *pxp,
- 			struct drm_i915_gem_object *obj,
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-index 892d39cc61c1..e427464aa131 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-@@ -16,7 +16,7 @@ void intel_pxp_suspend_prepare(struct intel_pxp *pxp)
- 	if (!intel_pxp_is_enabled(pxp))
- 		return;
- 
--	pxp->arb_is_valid = false;
-+	intel_pxp_end(pxp);
- 
- 	intel_pxp_invalidate(pxp);
- }
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-index 74ed7e16e481..d8278c4002e3 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-@@ -115,11 +115,14 @@ static int pxp_terminate_arb_session_and_global(struct intel_pxp *pxp)
- 	return ret;
- }
- 
--static void pxp_terminate(struct intel_pxp *pxp)
-+void intel_pxp_terminate(struct intel_pxp *pxp, bool restart_arb)
- {
- 	int ret;
- 
--	pxp->hw_state_invalidated = true;
-+	if (restart_arb)
-+		pxp->hw_state_invalidated = true;
-+	else
-+		pxp->hw_state_invalidated = false;
- 
- 	/*
- 	 * if we fail to submit the termination there is no point in waiting for
-@@ -167,7 +170,7 @@ static void pxp_session_work(struct work_struct *work)
- 
- 	if (events & PXP_TERMINATION_REQUEST) {
- 		events &= ~PXP_TERMINATION_COMPLETE;
--		pxp_terminate(pxp);
-+		intel_pxp_terminate(pxp, true);
+-		/* Wa_22013037850 */
+-		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0_UDW,
+-				DISABLE_128B_EVICTION_COMMAND_UDW);
  	}
  
- 	if (events & PXP_TERMINATION_COMPLETE)
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.h b/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
-index 903ac52cffa1..4f944b63b5b6 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
-@@ -12,9 +12,14 @@ struct intel_pxp;
+ 	if (IS_DG2_GRAPHICS_STEP(i915, G10, STEP_B0, STEP_FOREVER) ||
+@@ -2357,21 +2353,6 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 				 GEN12_DISABLE_HDR_PAST_PAYLOAD_HOLD_FIX);
+ 	}
  
- #ifdef CONFIG_DRM_I915_PXP
- void intel_pxp_session_management_init(struct intel_pxp *pxp);
-+void intel_pxp_terminate(struct intel_pxp *pxp, bool restart_arb);
- #else
- static inline void intel_pxp_session_management_init(struct intel_pxp *pxp)
- {
- }
+-	if (IS_DG2_GRAPHICS_STEP(i915, G10, STEP_B0, STEP_C0) ||
+-	    IS_DG2_G11(i915)) {
+-		/*
+-		 * Wa_22012826095:dg2
+-		 * Wa_22013059131:dg2
+-		 */
+-		wa_mcr_write_clr_set(wal, LSC_CHICKEN_BIT_0_UDW,
+-				     MAXREQS_PER_BANK,
+-				     REG_FIELD_PREP(MAXREQS_PER_BANK, 2));
+-
+-		/* Wa_22013059131:dg2 */
+-		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0,
+-				FORCE_1_SUB_MESSAGE_PER_FRAGMENT);
+-	}
+-
+ 	/* Wa_1308578152:dg2_g10 when first gslice is fused off */
+ 	if (IS_DG2_GRAPHICS_STEP(i915, G10, STEP_B0, STEP_C0) &&
+ 	    needs_wa_1308578152(engine)) {
+@@ -2396,16 +2377,6 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 		 */
+ 		wa_mcr_masked_en(wal, GEN8_ROW_CHICKEN,
+ 				 MDQ_ARBITRATION_MODE | UGM_BACKUP_MODE);
+-
+-		/*
+-		 * Wa_14010918519:dg2_g10
+-		 *
+-		 * LSC_CHICKEN_BIT_0 always reads back as 0 is this stepping,
+-		 * so ignoring verification.
+-		 */
+-		wa_mcr_add(wal, LSC_CHICKEN_BIT_0_UDW, 0,
+-			   FORCE_SLM_FENCE_SCOPE_TO_TILE | FORCE_UGM_FENCE_SCOPE_TO_TILE,
+-			   0, false);
+ 	}
+ 
+ 	if (IS_DG2_GRAPHICS_STEP(i915, G10, STEP_A0, STEP_B0)) {
+@@ -2990,6 +2961,15 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
+ 
+ 	add_render_compute_tuning_settings(i915, wal);
+ 
++	if (IS_MTL_GRAPHICS_STEP(i915, M, STEP_A0, STEP_B0) ||
++	    IS_MTL_GRAPHICS_STEP(i915, P, STEP_A0, STEP_B0) ||
++	    IS_DG2_GRAPHICS_STEP(i915, G10, STEP_B0, STEP_FOREVER) ||
++	    IS_DG2_G11(i915) || IS_DG2_G12(i915)) {
++		/* Wa_22013037850 */
++		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0_UDW,
++				DISABLE_128B_EVICTION_COMMAND_UDW);
++	}
 +
-+static inline void intel_pxp_terminate(struct intel_pxp *pxp, bool restart_arb)
-+{
-+}
- #endif
- #endif /* __INTEL_PXP_SESSION_H__ */
+ 	if (IS_MTL_GRAPHICS_STEP(i915, M, STEP_A0, STEP_B0) ||
+ 	    IS_MTL_GRAPHICS_STEP(i915, P, STEP_A0, STEP_B0) ||
+ 	    IS_PONTEVECCHIO(i915) ||
+@@ -3011,6 +2991,33 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
+ 		wa_masked_en(wal, VFG_PREEMPTION_CHICKEN, POLYGON_TRIFAN_LINELOOP_DISABLE);
+ 	}
+ 
++	if (IS_DG2_GRAPHICS_STEP(i915, G10, STEP_B0, STEP_C0) ||
++	    IS_DG2_G11(i915)) {
++		/*
++		 * Wa_22012826095:dg2
++		 * Wa_22013059131:dg2
++		 */
++		wa_mcr_write_clr_set(wal, LSC_CHICKEN_BIT_0_UDW,
++				     MAXREQS_PER_BANK,
++				     REG_FIELD_PREP(MAXREQS_PER_BANK, 2));
++
++		/* Wa_22013059131:dg2 */
++		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0,
++				FORCE_1_SUB_MESSAGE_PER_FRAGMENT);
++	}
++
++	if (IS_DG2_GRAPHICS_STEP(i915, G10, STEP_A0, STEP_B0)) {
++		/*
++		 * Wa_14010918519:dg2_g10
++		 *
++		 * LSC_CHICKEN_BIT_0 always reads back as 0 is this stepping,
++		 * so ignoring verification.
++		 */
++		wa_mcr_add(wal, LSC_CHICKEN_BIT_0_UDW, 0,
++			   FORCE_SLM_FENCE_SCOPE_TO_TILE | FORCE_UGM_FENCE_SCOPE_TO_TILE,
++			   0, false);
++	}
++
+ 	if (IS_PONTEVECCHIO(i915)) {
+ 		/* Wa_16016694945 */
+ 		wa_masked_en(wal, XEHPC_LNCFMISCCFGREG0, XEHPC_OVRLSCCC);
 -- 
 2.39.0
 
