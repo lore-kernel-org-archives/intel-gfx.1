@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6353C677F1
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 21:37:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF419C3DA78
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 21:37:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 073C610E5E0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C19FC10E5E1;
 	Tue, 17 Jan 2023 21:36:58 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A775710E5E3;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7764B10E5E1;
  Tue, 17 Jan 2023 21:36:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1673991414; x=1705527414;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=wdasfmllz40XLlt0SGJMvTNdsjx3B7M8nIQJ/f5T2pw=;
- b=e+4kdotkngUWq21GGbXklcCIA7ZgfMYghRl/vZyJp9EVaklGZteDlc4O
- vLrSywsMQiFuhRl2fIZIhTJTTjNVixioAQKrcGPMJIgzPr/WDnkNf4rxn
- 2QrWlu6tMsZypCso/CW0mT8+b7OTI9GSK2nY8/gLh6EZXerxNYD14UFu2
- HkQRH56EiMXel+A5OvKqjXHIS3m13bTzJL5uFWnmIBEKfjSJ0nwZMqkPn
- P0NOiVbaLQpL6/6cJNF7SmjWqSobkwwEczu8s3epn0Iuin3dxD2QvxmMC
- BKdnkIHd5p3WEBGvYPAvyGcQeUm/38n6X+SGqlHCBl9T/Kqvp9hx+mw10 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="312696230"
-X-IronPort-AV: E=Sophos;i="5.97,224,1669104000"; d="scan'208";a="312696230"
+ bh=S2qa84XPCfwCvLSibgiJ0AamPPWLfsfr8XdwHJ/JzZs=;
+ b=OIHwyexFV/8vl6VTbbimPDOPjtUAnv2jMGK14jzTfiwpRPStw8j7vXq2
+ hW5v9mMSWJ1P2wCke1pK3pEoXajB2qsBJw+C9IIZdwPa3DLIs4sOObm43
+ pNY5gClLGr+REzTT7r5qhjhvhBz9aZz7A+dE3++0mRA6ZmzJUcGGwnH4M
+ lua5G9IlLYXeeTtrdLJTdy2FhDloecl5uOpMGcH5aF5JqK3aUXom2FIwB
+ UYTdiH0LZYEFkI5oxw3Tr0ZSyDsmGYceFwWg7hGYbFuaOnpX1kPZ1L0rB
+ VM1grPJzCkM9/SQ5vg56bERC2hV5XEAE41tHI3ym9LrI31Xwqg6hsJDCu Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="312696227"
+X-IronPort-AV: E=Sophos;i="5.97,224,1669104000"; d="scan'208";a="312696227"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2023 13:36:54 -0800
+ 17 Jan 2023 13:36:53 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="988285035"
-X-IronPort-AV: E=Sophos;i="5.97,224,1669104000"; d="scan'208";a="988285035"
+X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="988285027"
+X-IronPort-AV: E=Sophos;i="5.97,224,1669104000"; d="scan'208";a="988285027"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
  by fmsmga005.fm.intel.com with ESMTP; 17 Jan 2023 13:36:53 -0800
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Tue, 17 Jan 2023 13:36:30 -0800
-Message-Id: <20230117213630.2897570-6-John.C.Harrison@Intel.com>
+Date: Tue, 17 Jan 2023 13:36:28 -0800
+Message-Id: <20230117213630.2897570-4-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230117213630.2897570-1-John.C.Harrison@Intel.com>
 References: <20230117213630.2897570-1-John.C.Harrison@Intel.com>
@@ -45,8 +45,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 5/5] drm/i915/guc: Add a debug print on GuC
- triggered reset
+Subject: [Intel-gfx] [PATCH v2 3/5] drm/i915: Allow error capture of a
+ pending request
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,31 +65,39 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-For understanding bug reports, it can be useful to have an explicit
-dmesg print when a reset notification is received from GuC. As opposed
-to simply inferring that this happened from other messages.
+A hang situation has been observed where the only requests on the
+context were either completed or not yet started according to the
+breaadcrumbs. However, the register state claimed a batch was (maybe)
+in progress. So, allow capture of the pending request on the grounds
+that this might be better than nothing.
+
+v2: Reword 'not started' warning message (Tvrtko)
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/i915/i915_gpu_error.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 9bc80b807dbcc..6029dbab5feeb 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -4665,6 +4665,10 @@ static void guc_handle_context_reset(struct intel_guc *guc,
- {
- 	trace_intel_context_reset(ce);
- 
-+	drm_dbg(&guc_to_gt(guc)->i915->drm, "Got GuC reset of 0x%04X, exiting = %d, banned = %d\n",
-+		ce->guc_id.id, test_bit(CONTEXT_EXITING, &ce->flags),
-+		test_bit(CONTEXT_BANNED, &ce->flags));
-+
- 	if (likely(intel_context_is_schedulable(ce))) {
- 		capture_error_state(guc, ce);
- 		guc_context_replay(ce);
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index 461489d599a7e..1d33822a8ca23 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -1629,12 +1629,9 @@ capture_engine(struct intel_engine_cs *engine,
+ 		intel_engine_clear_hung_context(engine);
+ 		/* This will reference count the request (if found) */
+ 		rq = intel_context_find_active_request(ce);
+-		if (rq && !i915_request_started(rq)) {
+-			drm_info(&engine->gt->i915->drm, "Got hung context on %s with no active request!\n",
+-				 engine->name);
+-			i915_request_put(rq);
+-			rq = NULL;
+-		}
++		if (rq && !i915_request_started(rq))
++			drm_info(&engine->gt->i915->drm, "Got hung context on %s with active request %lld:%lld [0x%04X] not yet started\n",
++				 engine->name, rq->fence.context, rq->fence.seqno, ce->guc_id.id);
+ 	} else {
+ 		/*
+ 		 * Getting here with GuC enabled means it is a forced error capture
 -- 
 2.39.0
 
