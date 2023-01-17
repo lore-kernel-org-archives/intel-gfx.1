@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F1DFC3DA78
-	for <intel-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 12:32:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31AEEC3DA78
+	for <intel-gfx@archiver.kernel.org>; Tue, 17 Jan 2023 12:33:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 191B010E548;
-	Tue, 17 Jan 2023 12:32:44 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD18C10E543;
- Tue, 17 Jan 2023 12:32:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCE4210E535;
+	Tue, 17 Jan 2023 12:33:24 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A773410E535
+ for <intel-gfx@lists.freedesktop.org>; Tue, 17 Jan 2023 12:33:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1673958762; x=1705494762;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=MeMXKj5o+Ike3f9M4ooda+PrHav/S+5sUnjX4zwSNj4=;
- b=SO5JHfdvLU3h4k3nSytbZmhjBOhWh4DzYFNhIYwkH2wxDNv/YwbQChqU
- nUpKTuo8sAaLrTW+/lbwQdjwybmZHvpzaZlUdbBRolH5I0+AuCduMYzmx
- 5A7UN8D8q7tCFjqRd/3c8lFTpuG3yghel+vWGaIrhp8YUrhI6ZzWRAAWB
- TsC2NCz0wSBN/F9lUsxqMVWLIIxGRzmEPbxWwLmv6wP7qAs7+9qIgIgZi
- iLfWrqhiumDF1Q1ZOg4akLxI3u2zTDCZM2aOdKq1KIBocv398Cy7cosTk
- 3PQfv6tnb/3UDpi0hrNwZPZhQz/iYfq3CyDJj1Y2o0ny6OAPW2LfX3Xqu g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10592"; a="387034033"
-X-IronPort-AV: E=Sophos;i="5.97,222,1669104000"; d="scan'208";a="387034033"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2023 04:32:42 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10592"; a="636856858"
-X-IronPort-AV: E=Sophos;i="5.97,222,1669104000"; d="scan'208";a="636856858"
-Received: from nirmoyda-desk.igk.intel.com ([10.102.42.231])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2023 04:32:38 -0800
-From: Nirmoy Das <nirmoy.das@intel.com>
+ t=1673958801; x=1705494801;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=EHOEcRvOPlHCnS4faGaILYzGkvjpJCmJvdoIw2wyCww=;
+ b=KRuRBCnknW0/glmMMojsIfbhgn/wmrwzDMEz0/ezBIMb85kqnYIrFam7
+ 0/qt+j8U4fEGvusWs4bWdP5vYQaHsbHBBSmxtLAb4oQABONsT8zKApNyo
+ kTr49lVS5KYa+CBDfdmBz30mu9VrtbCsVDl8yYc0G2qyzPQ/EpXLYLWpm
+ KThpEVBcY6m72XpxE9CKKP5xn0vWFgr6qIUv/vZ1+oDncPZPDUdERebeQ
+ LUbqKGLCG7rfO7hZp5hW+XH+9oGp49d+mZkZQ2Z10D3yrk7TSn8FYI3P0
+ XQM5/Jxw0Dful1AgbmEWeUDaA6MUc5wBTWFYRSyBaT8TTCxAH1BbmP3Po g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10592"; a="312549473"
+X-IronPort-AV: E=Sophos;i="5.97,222,1669104000"; d="scan'208";a="312549473"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jan 2023 04:33:21 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10592"; a="833154184"
+X-IronPort-AV: E=Sophos;i="5.97,222,1669104000"; d="scan'208";a="833154184"
+Received: from vishvend-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.252.14.88])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jan 2023 04:33:19 -0800
+From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 17 Jan 2023 13:32:34 +0100
-Message-Id: <20230117123234.26487-1-nirmoy.das@intel.com>
-X-Mailer: git-send-email 2.39.0
+Date: Tue, 17 Jan 2023 14:33:07 +0200
+Message-Id: <980a5e08b397bc0dbccf93cd84798772233ce75c.1673958757.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1673958757.git.jani.nikula@intel.com>
+References: <cover.1673958757.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Organization: Intel Deutschland GmbH, Registered Address: Am Campeon 10,
- 85579 Neubiberg, Germany,
- Commercial Register: Amtsgericht Muenchen HRB 186928 
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2] drm/i915/selftests: Unwind hugepages to drop
- wakeref on error
+Subject: [Intel-gfx] [PATCH 2/4] drm/i915/gmch: split out soc/intel_gmch
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,65 +59,406 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Matthew Auld <matthew.auld@intel.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, chris.p.wilson@linux.intel.com,
- Nirmoy Das <nirmoy.das@intel.com>
+Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Chris Wilson <chris.p.wilson@linux.intel.com>
+The GMCH related code is a bit too low level and out of place for the
+high level i915_driver.c file. Split out to a separate file under
+soc/. Rename the functions accordingly.
 
-Make sure that upon error after we have acquired the wakeref we do
-release it again.
-
-v2: add another missing "goto out_wf"(Andi).
-
-Fixes: 027c38b4121e ("drm/i915/selftests: Grab the runtime pm in shrink_thp")
-Cc: Andi Shyti <andi.shyti@linux.intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
-Signed-off-by: Chris Wilson <chris.p.wilson@linux.intel.com>
-Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/gem/selftests/huge_pages.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/Makefile         |   1 +
+ drivers/gpu/drm/i915/i915_driver.c    | 145 +-------------------------
+ drivers/gpu/drm/i915/soc/intel_gmch.c | 145 ++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/soc/intel_gmch.h |  15 +++
+ 4 files changed, 166 insertions(+), 140 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/soc/intel_gmch.c
+ create mode 100644 drivers/gpu/drm/i915/soc/intel_gmch.h
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-index c281b0ec9e05..defece0bcb81 100644
---- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-@@ -1855,7 +1855,7 @@ static int igt_shrink_thp(void *arg)
- 			I915_SHRINK_ACTIVE);
- 	i915_vma_unpin(vma);
- 	if (err)
--		goto out_put;
-+		goto out_wf;
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index f47f00b162a4..153b25b2b135 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -63,6 +63,7 @@ i915-y += i915_driver.o \
+ # core peripheral code
+ i915-y += \
+ 	soc/intel_dram.o \
++	soc/intel_gmch.o \
+ 	soc/intel_pch.o
  
+ # core library code
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 59cbc24cda6c..41384626577d 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -34,7 +34,6 @@
+ #include <linux/pci.h>
+ #include <linux/pm.h>
+ #include <linux/pm_runtime.h>
+-#include <linux/pnp.h>
+ #include <linux/slab.h>
+ #include <linux/string_helpers.h>
+ #include <linux/vga_switcheroo.h>
+@@ -78,6 +77,7 @@
+ #include "pxp/intel_pxp_pm.h"
+ 
+ #include "soc/intel_dram.h"
++#include "soc/intel_gmch.h"
+ 
+ #include "i915_file_private.h"
+ #include "i915_debugfs.h"
+@@ -107,141 +107,6 @@
+ 
+ static const struct drm_driver i915_drm_driver;
+ 
+-static void i915_release_bridge_dev(struct drm_device *dev,
+-				    void *bridge)
+-{
+-	pci_dev_put(bridge);
+-}
+-
+-static int i915_get_bridge_dev(struct drm_i915_private *dev_priv)
+-{
+-	int domain = pci_domain_nr(to_pci_dev(dev_priv->drm.dev)->bus);
+-
+-	dev_priv->gmch.pdev =
+-		pci_get_domain_bus_and_slot(domain, 0, PCI_DEVFN(0, 0));
+-	if (!dev_priv->gmch.pdev) {
+-		drm_err(&dev_priv->drm, "bridge device not found\n");
+-		return -EIO;
+-	}
+-
+-	return drmm_add_action_or_reset(&dev_priv->drm, i915_release_bridge_dev,
+-					dev_priv->gmch.pdev);
+-}
+-
+-/* Allocate space for the MCH regs if needed, return nonzero on error */
+-static int
+-intel_alloc_mchbar_resource(struct drm_i915_private *dev_priv)
+-{
+-	int reg = GRAPHICS_VER(dev_priv) >= 4 ? MCHBAR_I965 : MCHBAR_I915;
+-	u32 temp_lo, temp_hi = 0;
+-	u64 mchbar_addr;
+-	int ret;
+-
+-	if (GRAPHICS_VER(dev_priv) >= 4)
+-		pci_read_config_dword(dev_priv->gmch.pdev, reg + 4, &temp_hi);
+-	pci_read_config_dword(dev_priv->gmch.pdev, reg, &temp_lo);
+-	mchbar_addr = ((u64)temp_hi << 32) | temp_lo;
+-
+-	/* If ACPI doesn't have it, assume we need to allocate it ourselves */
+-#ifdef CONFIG_PNP
+-	if (mchbar_addr &&
+-	    pnp_range_reserved(mchbar_addr, mchbar_addr + MCHBAR_SIZE))
+-		return 0;
+-#endif
+-
+-	/* Get some space for it */
+-	dev_priv->gmch.mch_res.name = "i915 MCHBAR";
+-	dev_priv->gmch.mch_res.flags = IORESOURCE_MEM;
+-	ret = pci_bus_alloc_resource(dev_priv->gmch.pdev->bus,
+-				     &dev_priv->gmch.mch_res,
+-				     MCHBAR_SIZE, MCHBAR_SIZE,
+-				     PCIBIOS_MIN_MEM,
+-				     0, pcibios_align_resource,
+-				     dev_priv->gmch.pdev);
+-	if (ret) {
+-		drm_dbg(&dev_priv->drm, "failed bus alloc: %d\n", ret);
+-		dev_priv->gmch.mch_res.start = 0;
+-		return ret;
+-	}
+-
+-	if (GRAPHICS_VER(dev_priv) >= 4)
+-		pci_write_config_dword(dev_priv->gmch.pdev, reg + 4,
+-				       upper_32_bits(dev_priv->gmch.mch_res.start));
+-
+-	pci_write_config_dword(dev_priv->gmch.pdev, reg,
+-			       lower_32_bits(dev_priv->gmch.mch_res.start));
+-	return 0;
+-}
+-
+-/* Setup MCHBAR if possible, return true if we should disable it again */
+-static void
+-intel_setup_mchbar(struct drm_i915_private *dev_priv)
+-{
+-	int mchbar_reg = GRAPHICS_VER(dev_priv) >= 4 ? MCHBAR_I965 : MCHBAR_I915;
+-	u32 temp;
+-	bool enabled;
+-
+-	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
+-		return;
+-
+-	dev_priv->gmch.mchbar_need_disable = false;
+-
+-	if (IS_I915G(dev_priv) || IS_I915GM(dev_priv)) {
+-		pci_read_config_dword(dev_priv->gmch.pdev, DEVEN, &temp);
+-		enabled = !!(temp & DEVEN_MCHBAR_EN);
+-	} else {
+-		pci_read_config_dword(dev_priv->gmch.pdev, mchbar_reg, &temp);
+-		enabled = temp & 1;
+-	}
+-
+-	/* If it's already enabled, don't have to do anything */
+-	if (enabled)
+-		return;
+-
+-	if (intel_alloc_mchbar_resource(dev_priv))
+-		return;
+-
+-	dev_priv->gmch.mchbar_need_disable = true;
+-
+-	/* Space is allocated or reserved, so enable it. */
+-	if (IS_I915G(dev_priv) || IS_I915GM(dev_priv)) {
+-		pci_write_config_dword(dev_priv->gmch.pdev, DEVEN,
+-				       temp | DEVEN_MCHBAR_EN);
+-	} else {
+-		pci_read_config_dword(dev_priv->gmch.pdev, mchbar_reg, &temp);
+-		pci_write_config_dword(dev_priv->gmch.pdev, mchbar_reg, temp | 1);
+-	}
+-}
+-
+-static void
+-intel_teardown_mchbar(struct drm_i915_private *dev_priv)
+-{
+-	int mchbar_reg = GRAPHICS_VER(dev_priv) >= 4 ? MCHBAR_I965 : MCHBAR_I915;
+-
+-	if (dev_priv->gmch.mchbar_need_disable) {
+-		if (IS_I915G(dev_priv) || IS_I915GM(dev_priv)) {
+-			u32 deven_val;
+-
+-			pci_read_config_dword(dev_priv->gmch.pdev, DEVEN,
+-					      &deven_val);
+-			deven_val &= ~DEVEN_MCHBAR_EN;
+-			pci_write_config_dword(dev_priv->gmch.pdev, DEVEN,
+-					       deven_val);
+-		} else {
+-			u32 mchbar_val;
+-
+-			pci_read_config_dword(dev_priv->gmch.pdev, mchbar_reg,
+-					      &mchbar_val);
+-			mchbar_val &= ~1;
+-			pci_write_config_dword(dev_priv->gmch.pdev, mchbar_reg,
+-					       mchbar_val);
+-		}
+-	}
+-
+-	if (dev_priv->gmch.mch_res.start)
+-		release_resource(&dev_priv->gmch.mch_res);
+-}
+-
+ static int i915_workqueues_init(struct drm_i915_private *dev_priv)
+ {
  	/*
- 	 * Now that the pages are *unpinned* shrinking should invoke
-@@ -1871,19 +1871,19 @@ static int igt_shrink_thp(void *arg)
- 		pr_err("unexpected pages mismatch, should_swap=%s\n",
- 		       str_yes_no(should_swap));
- 		err = -EINVAL;
--		goto out_put;
-+		goto out_wf;
+@@ -447,7 +312,7 @@ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
+ 	if (i915_inject_probe_failure(dev_priv))
+ 		return -ENODEV;
+ 
+-	ret = i915_get_bridge_dev(dev_priv);
++	ret = intel_gmch_bridge_setup(dev_priv);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -464,7 +329,7 @@ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
  	}
  
- 	if (should_swap == (obj->mm.page_sizes.sg || obj->mm.page_sizes.phys)) {
- 		pr_err("unexpected residual page-size bits, should_swap=%s\n",
- 		       str_yes_no(should_swap));
- 		err = -EINVAL;
--		goto out_put;
-+		goto out_wf;
- 	}
+ 	/* Try to make sure MCHBAR is enabled before poking at it */
+-	intel_setup_mchbar(dev_priv);
++	intel_gmch_bar_setup(dev_priv);
+ 	intel_device_info_runtime_init(dev_priv);
  
- 	err = i915_vma_pin(vma, 0, 0, flags);
- 	if (err)
--		goto out_put;
-+		goto out_wf;
+ 	for_each_gt(gt, dev_priv, i) {
+@@ -479,7 +344,7 @@ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
+ 	return 0;
  
- 	while (n--) {
- 		err = cpu_check(obj, n, 0xdeadbeaf);
+ err_uncore:
+-	intel_teardown_mchbar(dev_priv);
++	intel_gmch_bar_teardown(dev_priv);
+ 
+ 	return ret;
+ }
+@@ -490,7 +355,7 @@ static int i915_driver_mmio_probe(struct drm_i915_private *dev_priv)
+  */
+ static void i915_driver_mmio_release(struct drm_i915_private *dev_priv)
+ {
+-	intel_teardown_mchbar(dev_priv);
++	intel_gmch_bar_teardown(dev_priv);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/i915/soc/intel_gmch.c b/drivers/gpu/drm/i915/soc/intel_gmch.c
+new file mode 100644
+index 000000000000..75916aa072e7
+--- /dev/null
++++ b/drivers/gpu/drm/i915/soc/intel_gmch.c
+@@ -0,0 +1,145 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2023 Intel Corporation
++ */
++
++#include <linux/pci.h>
++#include <linux/pnp.h>
++
++#include <drm/drm_managed.h>
++
++#include "i915_drv.h"
++#include "intel_gmch.h"
++#include "intel_pci_config.h"
++
++static void intel_gmch_bridge_release(struct drm_device *dev, void *bridge)
++{
++	pci_dev_put(bridge);
++}
++
++int intel_gmch_bridge_setup(struct drm_i915_private *dev_priv)
++{
++	int domain = pci_domain_nr(to_pci_dev(dev_priv->drm.dev)->bus);
++
++	dev_priv->gmch.pdev =
++		pci_get_domain_bus_and_slot(domain, 0, PCI_DEVFN(0, 0));
++	if (!dev_priv->gmch.pdev) {
++		drm_err(&dev_priv->drm, "bridge device not found\n");
++		return -EIO;
++	}
++
++	return drmm_add_action_or_reset(&dev_priv->drm, intel_gmch_bridge_release,
++					dev_priv->gmch.pdev);
++}
++
++/* Allocate space for the MCH regs if needed, return nonzero on error */
++static int
++intel_alloc_mchbar_resource(struct drm_i915_private *dev_priv)
++{
++	int reg = GRAPHICS_VER(dev_priv) >= 4 ? MCHBAR_I965 : MCHBAR_I915;
++	u32 temp_lo, temp_hi = 0;
++	u64 mchbar_addr;
++	int ret;
++
++	if (GRAPHICS_VER(dev_priv) >= 4)
++		pci_read_config_dword(dev_priv->gmch.pdev, reg + 4, &temp_hi);
++	pci_read_config_dword(dev_priv->gmch.pdev, reg, &temp_lo);
++	mchbar_addr = ((u64)temp_hi << 32) | temp_lo;
++
++	/* If ACPI doesn't have it, assume we need to allocate it ourselves */
++#ifdef CONFIG_PNP
++	if (mchbar_addr &&
++	    pnp_range_reserved(mchbar_addr, mchbar_addr + MCHBAR_SIZE))
++		return 0;
++#endif
++
++	/* Get some space for it */
++	dev_priv->gmch.mch_res.name = "i915 MCHBAR";
++	dev_priv->gmch.mch_res.flags = IORESOURCE_MEM;
++	ret = pci_bus_alloc_resource(dev_priv->gmch.pdev->bus,
++				     &dev_priv->gmch.mch_res,
++				     MCHBAR_SIZE, MCHBAR_SIZE,
++				     PCIBIOS_MIN_MEM,
++				     0, pcibios_align_resource,
++				     dev_priv->gmch.pdev);
++	if (ret) {
++		drm_dbg(&dev_priv->drm, "failed bus alloc: %d\n", ret);
++		dev_priv->gmch.mch_res.start = 0;
++		return ret;
++	}
++
++	if (GRAPHICS_VER(dev_priv) >= 4)
++		pci_write_config_dword(dev_priv->gmch.pdev, reg + 4,
++				       upper_32_bits(dev_priv->gmch.mch_res.start));
++
++	pci_write_config_dword(dev_priv->gmch.pdev, reg,
++			       lower_32_bits(dev_priv->gmch.mch_res.start));
++	return 0;
++}
++
++/* Setup MCHBAR if possible, return true if we should disable it again */
++void intel_gmch_bar_setup(struct drm_i915_private *dev_priv)
++{
++	int mchbar_reg = GRAPHICS_VER(dev_priv) >= 4 ? MCHBAR_I965 : MCHBAR_I915;
++	u32 temp;
++	bool enabled;
++
++	if (IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv))
++		return;
++
++	dev_priv->gmch.mchbar_need_disable = false;
++
++	if (IS_I915G(dev_priv) || IS_I915GM(dev_priv)) {
++		pci_read_config_dword(dev_priv->gmch.pdev, DEVEN, &temp);
++		enabled = !!(temp & DEVEN_MCHBAR_EN);
++	} else {
++		pci_read_config_dword(dev_priv->gmch.pdev, mchbar_reg, &temp);
++		enabled = temp & 1;
++	}
++
++	/* If it's already enabled, don't have to do anything */
++	if (enabled)
++		return;
++
++	if (intel_alloc_mchbar_resource(dev_priv))
++		return;
++
++	dev_priv->gmch.mchbar_need_disable = true;
++
++	/* Space is allocated or reserved, so enable it. */
++	if (IS_I915G(dev_priv) || IS_I915GM(dev_priv)) {
++		pci_write_config_dword(dev_priv->gmch.pdev, DEVEN,
++				       temp | DEVEN_MCHBAR_EN);
++	} else {
++		pci_read_config_dword(dev_priv->gmch.pdev, mchbar_reg, &temp);
++		pci_write_config_dword(dev_priv->gmch.pdev, mchbar_reg, temp | 1);
++	}
++}
++
++void intel_gmch_bar_teardown(struct drm_i915_private *dev_priv)
++{
++	int mchbar_reg = GRAPHICS_VER(dev_priv) >= 4 ? MCHBAR_I965 : MCHBAR_I915;
++
++	if (dev_priv->gmch.mchbar_need_disable) {
++		if (IS_I915G(dev_priv) || IS_I915GM(dev_priv)) {
++			u32 deven_val;
++
++			pci_read_config_dword(dev_priv->gmch.pdev, DEVEN,
++					      &deven_val);
++			deven_val &= ~DEVEN_MCHBAR_EN;
++			pci_write_config_dword(dev_priv->gmch.pdev, DEVEN,
++					       deven_val);
++		} else {
++			u32 mchbar_val;
++
++			pci_read_config_dword(dev_priv->gmch.pdev, mchbar_reg,
++					      &mchbar_val);
++			mchbar_val &= ~1;
++			pci_write_config_dword(dev_priv->gmch.pdev, mchbar_reg,
++					       mchbar_val);
++		}
++	}
++
++	if (dev_priv->gmch.mch_res.start)
++		release_resource(&dev_priv->gmch.mch_res);
++}
+diff --git a/drivers/gpu/drm/i915/soc/intel_gmch.h b/drivers/gpu/drm/i915/soc/intel_gmch.h
+new file mode 100644
+index 000000000000..bbc52dbab708
+--- /dev/null
++++ b/drivers/gpu/drm/i915/soc/intel_gmch.h
+@@ -0,0 +1,15 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2023 Intel Corporation
++ */
++
++#ifndef __INTEL_GMCH_H__
++#define __INTEL_GMCH_H__
++
++struct drm_i915_private;
++
++int intel_gmch_bridge_setup(struct drm_i915_private *i915);
++void intel_gmch_bar_setup(struct drm_i915_private *i915);
++void intel_gmch_bar_teardown(struct drm_i915_private *i915);
++
++#endif /* __INTEL_GMCH_H__ */
 -- 
-2.39.0
+2.34.1
 
