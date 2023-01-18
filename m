@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7389BC32793
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 07:16:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B20B7C38159
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 07:16:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9E0810E6B5;
-	Wed, 18 Jan 2023 07:16:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0413210E6B6;
+	Wed, 18 Jan 2023 07:16:22 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F106910E69D;
- Wed, 18 Jan 2023 07:16:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9DFD10E68D;
+ Wed, 18 Jan 2023 07:16:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674026177; x=1705562177;
+ t=1674026174; x=1705562174;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=cqE+BWgEHf3+RWEFlHjqr1yTL51SJAbfazyGbd6OQLs=;
- b=Obxopn4295CpeBIUyIc9pqE+8oTp5cpo06ruU+LzxNJ41YLGz2DK+EVB
- 9XOCMSCFqNI3VRrzJa+nxyH3Vf3tWUB26ePSU8rIL/pHGL2Grknc0kWGI
- JtA5sXfFY26Lb25DkBa7BTrHHo4Ru6jPfOS9mS0TqMpgzaDzgvQb+Qare
- 60sJfMsMO8Ma1aklh3yc6Hf1gAC+L1kePR7w1wPiAbYw00nUC+CgEoJ3P
- RSvNufxb2wHjhshRsukMJbLQl2245kWoM04XAiGhB+2LmG/N6Zoj0Rxay
- qPqW7cIO8ezD/Pi4v7J2rjuv5Z9qUamC73oK9geYAg5PyJMswqiLMq3cm Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="308482079"
-X-IronPort-AV: E=Sophos;i="5.97,224,1669104000"; d="scan'208";a="308482079"
+ bh=+ZfLx14VQts4btj9IQGik2CfGNVFjVDYe8Oxf6OY6yk=;
+ b=lWqJTeZpR3JEQ6zeY8vNtJTt7Uf7WVGEoLYfmJJcn64HhdEw0i8yh5+B
+ bpMtkWLpzfVUlUooe7eET/57bwi3012eNx4zOVhQKsENw2AYT+PrqnfRJ
+ rA3XPOu5lSsCeLHOlN8M9jzIahbviizKyHC6uQYoWpMLt7L6+5DSiGL68
+ pGFQBZrYPxKbcHxeyvDGAMLaVbpv3UwtgBwK9qKjMSW1kuayC/eWAJ4W6
+ JVNhARSXv2SlQM/xUG7wH+ZCzbNON7/CHpu9mL+e7HZg4lTbqU162iZqJ
+ pr8oqXIa1wttSo4TPQVxSB2izcoDAllybRZeTYoPlxUTB7/iekIkxyNi6 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="308482024"
+X-IronPort-AV: E=Sophos;i="5.97,224,1669104000"; d="scan'208";a="308482024"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2023 23:16:15 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="661610021"
-X-IronPort-AV: E=Sophos;i="5.97,224,1669104000"; d="scan'208";a="661610021"
+ 17 Jan 2023 23:16:14 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="661609956"
+X-IronPort-AV: E=Sophos;i="5.97,224,1669104000"; d="scan'208";a="661609956"
 Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2023 23:16:15 -0800
+ 17 Jan 2023 23:16:13 -0800
 From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue, 17 Jan 2023 23:16:04 -0800
-Message-Id: <20230118071609.17572-19-niranjana.vishwanathapura@intel.com>
+Date: Tue, 17 Jan 2023 23:15:47 -0800
+Message-Id: <20230118071609.17572-2-niranjana.vishwanathapura@intel.com>
 X-Mailer: git-send-email 2.21.0.rc0.32.g243a4c7e27
 In-Reply-To: <20230118071609.17572-1-niranjana.vishwanathapura@intel.com>
 References: <20230118071609.17572-1-niranjana.vishwanathapura@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 18/23] drm/i915/vm_bind: Limit vm_bind mode
- to non-recoverable contexts
+Subject: [Intel-gfx] [PATCH v10 01/23] drm/i915/vm_bind: Expose vm lookup
+ function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,33 +63,53 @@ Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com, thomas.hellstrom@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Only support vm_bind mode with non-recoverable contexts.
-With new vm_bind mode with eb3 submission path, we need not
-support older recoverable contexts.
+Make i915_gem_vm_lookup() function non-static as it will be
+used by the vm_bind feature.
 
 Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 11 ++++++++++-
+ drivers/gpu/drm/i915/gem/i915_gem_context.h |  3 +++
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index fb4d2dab5053..9809c58316c2 100644
+index 46e71f62fcec..b90901ad6866 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -1617,6 +1617,12 @@ i915_gem_create_context(struct drm_i915_private *i915,
- 	INIT_LIST_HEAD(&ctx->stale.engines);
+@@ -346,7 +346,16 @@ static int proto_context_register(struct drm_i915_file_private *fpriv,
+ 	return ret;
+ }
  
- 	if (pc->vm) {
-+		/* Only non-recoverable contexts are allowed in vm_bind mode */
-+		if (i915_gem_vm_is_vm_bind_mode(pc->vm) &&
-+		    (pc->user_flags & BIT(UCONTEXT_RECOVERABLE))) {
-+			err = -EINVAL;
-+			goto err_ctx;
-+		}
- 		vm = i915_vm_get(pc->vm);
- 	} else if (HAS_FULL_PPGTT(i915)) {
- 		struct i915_ppgtt *ppgtt;
+-static struct i915_address_space *
++/**
++ * i915_gem_vm_lookup() - looks up for the VM reference given the vm id
++ * @file_priv: the private data associated with the user's file
++ * @id: the VM id
++ *
++ * Finds the VM reference associated to a specific id.
++ *
++ * Returns the VM pointer on success, NULL in case of failure.
++ */
++struct i915_address_space *
+ i915_gem_vm_lookup(struct drm_i915_file_private *file_priv, u32 id)
+ {
+ 	struct i915_address_space *vm;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.h b/drivers/gpu/drm/i915/gem/i915_gem_context.h
+index e5b0f66ea1fe..899fa8f1e0fe 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.h
+@@ -139,6 +139,9 @@ int i915_gem_context_setparam_ioctl(struct drm_device *dev, void *data,
+ int i915_gem_context_reset_stats_ioctl(struct drm_device *dev, void *data,
+ 				       struct drm_file *file);
+ 
++struct i915_address_space *
++i915_gem_vm_lookup(struct drm_i915_file_private *file_priv, u32 id);
++
+ struct i915_gem_context *
+ i915_gem_context_lookup(struct drm_i915_file_private *file_priv, u32 id);
+ 
 -- 
 2.21.0.rc0.32.g243a4c7e27
 
