@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1B0EC38159
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 13:16:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5C35C38147
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 13:16:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 288C410E74D;
-	Wed, 18 Jan 2023 13:16:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DB8F10E746;
+	Wed, 18 Jan 2023 13:16:22 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DFAE10E746
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Jan 2023 13:16:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F48510E74A
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Jan 2023 13:16:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674047774; x=1705583774;
+ t=1674047775; x=1705583775;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=80/jgMgx8kseVuIlJ/geeP29Bb+jbqicsPhXgG8rj0I=;
- b=B+Qlk3IHKY1n4n7jt+bONZZmd+cGDOZjO2+hX63TLHM3ugTTYT3cgP/U
- hdcgB4RfowVyyQr66bBBPfz/CACGIl2RVQak/BFgxnk+yVartdC/qn1hd
- FSmUdCLY9xBk9koiVr0Q0zgPzESJ8l8jfpwxfTwb9OUDvy9m9hhUqp8L6
- lDgNHY1PCMimPna4zZSaYfsJBxo3V/7JOhkRTyFAr2DKd+vKtAmMubQSm
- RprPuxafu6gMivDKlV/9zvWicE1DcbU9N94EiFEHabcE/iTU0XOGbvmTl
- 6+rGgtuZTAjOlsBcxFHDH2JIg0HQ6QmJQsM7fjimodzXye2ouJKNdY8Nk w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="312857655"
-X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="312857655"
+ bh=tCD5fm43ms1etShhWs6Ngo5+kr9FAwsTFeuX7tKo5a4=;
+ b=K8svf5c3PiJCry/MrbLgFBEczvPbFQ7CVC8CFfF7We+Fgrg/AbK4ukYN
+ oahkWgWr0gMVtygYpWGIwLLBeDnfeu2/a9SCqbdbUEYkXDlNZJmfKaHjl
+ AKnYbPtYVBUYxquOE5pwrzAOgNTu7T4NRBlz/nlCLyD2yStwboYWvyGs6
+ pF6IenUdpG8N//49OSzyvHSdoXW1o/MabZN2kI/JTl2MhpSQX23svkbJd
+ DQ6pp2PVUpGrAr6eIej0sgQI/K9mhdde9HKqmaHzylss2YDEf84GUvqCY
+ E5E8mzNOqMVISfPPJYDXOPjJzDR8Rq31WKr9gnIwXxTPVzDaiTmXetg4/ A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="312857674"
+X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="312857674"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2023 05:16:11 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="652933952"
-X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="652933952"
+ 18 Jan 2023 05:16:15 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="652934113"
+X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="652934113"
 Received: from kozlovdm-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.252.28.132])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2023 05:16:01 -0800
+ 18 Jan 2023 05:16:10 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 18 Jan 2023 15:15:36 +0200
-Message-Id: <20230118131538.3558599-5-jani.nikula@intel.com>
+Date: Wed, 18 Jan 2023 15:15:38 +0200
+Message-Id: <20230118131538.3558599-7-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230118131538.3558599-1-jani.nikula@intel.com>
 References: <20230118131538.3558599-1-jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5/7] drm/i915: move I915_GEM_GPU_DOMAINS to
- i915_gem.h
+Subject: [Intel-gfx] [PATCH 7/7] drm/i915: move GT_FREQUENCY_MULTIPLIER and
+ GEN9_FREQ_SCALER to intel_rps.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,46 +67,38 @@ Declutter i915_drv.h.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h | 7 -------
- drivers/gpu/drm/i915/i915_gem.h | 7 +++++++
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_rps.h | 3 +++
+ drivers/gpu/drm/i915/i915_drv.h     | 3 ---
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.h b/drivers/gpu/drm/i915/gt/intel_rps.h
+index 9e1cad9ba0e9..c622962c6bef 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.h
++++ b/drivers/gpu/drm/i915/gt/intel_rps.h
+@@ -12,6 +12,9 @@
+ struct i915_request;
+ struct drm_printer;
+ 
++#define GT_FREQUENCY_MULTIPLIER 50
++#define GEN9_FREQ_SCALER 3
++
+ void intel_rps_init_early(struct intel_rps *rps);
+ void intel_rps_init(struct intel_rps *rps);
+ void intel_rps_sanitize(struct intel_rps *rps);
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 73ce5447cae8..eed552e507dc 100644
+index d12c7932677a..2a6e212f8824 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -68,13 +68,6 @@ struct drm_i915_clock_gating_funcs;
- struct vlv_s0ix_state;
- struct intel_pxp;
+@@ -904,9 +904,6 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define NUM_L3_SLICES(dev_priv) (IS_HSW_GT3(dev_priv) ? \
+ 				 2 : HAS_L3_DPF(dev_priv))
  
--#define I915_GEM_GPU_DOMAINS \
--	(I915_GEM_DOMAIN_RENDER | \
--	 I915_GEM_DOMAIN_SAMPLER | \
--	 I915_GEM_DOMAIN_COMMAND | \
--	 I915_GEM_DOMAIN_INSTRUCTION | \
--	 I915_GEM_DOMAIN_VERTEX)
+-#define GT_FREQUENCY_MULTIPLIER 50
+-#define GEN9_FREQ_SCALER 3
 -
- #define I915_COLOR_UNEVICTABLE (-1) /* a non-vma sharing the address space */
+ #define INTEL_NUM_PIPES(dev_priv) (hweight8(RUNTIME_INFO(dev_priv)->pipe_mask))
  
- #define GEM_QUIRK_PIN_SWIZZLED_PAGES	BIT(0)
-diff --git a/drivers/gpu/drm/i915/i915_gem.h b/drivers/gpu/drm/i915/i915_gem.h
-index a5cdf6662d01..82e9d289398c 100644
---- a/drivers/gpu/drm/i915/i915_gem.h
-+++ b/drivers/gpu/drm/i915/i915_gem.h
-@@ -39,6 +39,13 @@ struct i915_gem_ww_ctx;
- struct i915_gtt_view;
- struct i915_vma;
- 
-+#define I915_GEM_GPU_DOMAINS	       \
-+	(I915_GEM_DOMAIN_RENDER |      \
-+	 I915_GEM_DOMAIN_SAMPLER |     \
-+	 I915_GEM_DOMAIN_COMMAND |     \
-+	 I915_GEM_DOMAIN_INSTRUCTION | \
-+	 I915_GEM_DOMAIN_VERTEX)
-+
- void i915_gem_init_early(struct drm_i915_private *i915);
- void i915_gem_cleanup_early(struct drm_i915_private *i915);
- 
+ #define HAS_DISPLAY(dev_priv) (RUNTIME_INFO(dev_priv)->pipe_mask != 0)
 -- 
 2.34.1
 
