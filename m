@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8E52C38147
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 15:12:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E404C32793
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 15:18:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77B7010E76A;
-	Wed, 18 Jan 2023 15:12:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DFFA10E76B;
+	Wed, 18 Jan 2023 15:18:54 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4953110E76A;
- Wed, 18 Jan 2023 15:12:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C226410E76B;
+ Wed, 18 Jan 2023 15:18:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674054746; x=1705590746;
+ t=1674055132; x=1705591132;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=8qnR5rybSa915P4QDWXvqsyBKlHVRhV6SdmThr59Oto=;
- b=JrW2tks3MqhfTblXmXGUyd2P0DhRn4da6RM77URS+XnX7xReVx0Jx7ZZ
- YgDploFESTt/4+Zl/cvXyxf6k9RnBM0YIqCo0GG9qbRN+aaO5KS6+SbHI
- u4c0q88xPcffAmew/IysMhMns6sjOdQar2aMVnaoxAhCKUubtGk3FEGZR
- PXl+4GSQrIL83bSuUZj0/XNQG68WjJQlMFy29c/cYNceEiS6h7JaZyHhq
- w8wjN422laBI4q0ky74JkRvFa8bOokIfLj/daMZAySstbE4PWEdWpNlr+
- NjVunW6mt8ppuOkApqGvz0S7/A1GjXcD1jdA+9rMSHdnsbrHnNieLpBOl Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="387351256"
-X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="387351256"
+ bh=20H7Om82F7MOSKcLF/cfzUH1vbKRnqq8dlc/4ggLgbY=;
+ b=OKzwxeW2S/ksEDy3UG0FtchisZCv6GOSsQlALXN6Uf7ASLiFtqUwK2Xf
+ 4hVTiRT52rZoffHvQlrBRETNcpE5Hj75+mQJ1h8ctUAbLSBnv+npiqvE1
+ W43HxY9kjHGoQUzJP1OCiSvRlBlrgfguuEiSs9zFC7NU2FlVx1hFUutfj
+ 888pB+tUtsdkmNIyhYQ1VFT9jUxXTldYX8JB/1lMs0UV8Frd028umeYTq
+ xjM0ovUMgQzx+lnD2lkYhPWzGT4YMYOVV0Kn1SaZqADelRnQDxyN3bCaB
+ HJu2C1FUfVNqRuZiFdjtDHY/8XWKRheYuYHcCeO7N4i+WKE8HPDVxsUN9 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="387353288"
+X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="387353288"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2023 07:12:25 -0800
+ 18 Jan 2023 07:18:52 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="690226217"
-X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="690226217"
+X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="690226951"
+X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="690226951"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.55])
- by orsmga008.jf.intel.com with SMTP; 18 Jan 2023 07:12:23 -0800
+ by orsmga008.jf.intel.com with SMTP; 18 Jan 2023 07:18:49 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 18 Jan 2023 17:12:22 +0200
-Date: Wed, 18 Jan 2023 17:12:22 +0200
+ Wed, 18 Jan 2023 17:18:49 +0200
+Date: Wed, 18 Jan 2023 17:18:49 +0200
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
 To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <Y8gMVp968R+yCcaP@intel.com>
+Message-ID: <Y8gN2ZrovuJQqUG0@intel.com>
 References: <cover.1672826282.git.jani.nikula@intel.com>
- <7989b2b37837be68953c5d20afd3e93762bfd626.1672826282.git.jani.nikula@intel.com>
+ <775124fd07a5b7892e869becc3dd8dadb328ae5f.1672826282.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <7989b2b37837be68953c5d20afd3e93762bfd626.1672826282.git.jani.nikula@intel.com>
+In-Reply-To: <775124fd07a5b7892e869becc3dd8dadb328ae5f.1672826282.git.jani.nikula@intel.com>
 X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH v7 03/22] drm/edid: parse VICs from CTA VDB
- early
+Subject: Re: [Intel-gfx] [PATCH v7 05/22] drm/edid: use VIC in AVI infoframe
+ if sink lists it in CTA VDB
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,124 +62,85 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, William Tseng <william.tseng@intel.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 04, 2023 at 12:05:18PM +0200, Jani Nikula wrote:
-> A number of places need access to the VICs. Just parse them early for
-> easy access. Gracefully handle multiple CTA VDBs. It's unlikely to have
-> more than one, but the CTA-861 references "Video Data Block(s)", so err
-> on the safe side.
-> 
-> Start parsing them now, convert users in follow-up to have fewer moving
-> parts in one go.
-> 
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+On Wed, Jan 04, 2023 at 12:05:20PM +0200, Jani Nikula wrote:
+> Apparently there are HDMI 1.4 compatible displays out there that support
+> VICs from specs later than CTA-861-D, i.e. VIC > 64, although HDMI 1.4
+> references CTA-861-D only.
+
+Not 100% this is a real issue or not. IIRC we decided to 
+play it safe regardless.
+
+However later CTA specs do clarify the handling of VIC >=128 which
+apparently are known to have issues, and we're even supposed to
+use the presence of such SVDs to determine which version of the
+AVI infoframe to transmit. Currently we don't handle that stuff
+correctly, but looks like it'll be much easier to remedy now.
 
 Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-> ---
->  drivers/gpu/drm/drm_connector.c |  1 +
->  drivers/gpu/drm/drm_edid.c      | 36 +++++++++++++++++++++++++++++++++
->  include/drm/drm_connector.h     | 10 +++++++++
->  3 files changed, 47 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index 8d92777e57dd..21b3df75ab8c 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -565,6 +565,7 @@ void drm_connector_cleanup(struct drm_connector *connector)
->  	ida_free(&dev->mode_config.connector_ida, connector->index);
->  
->  	kfree(connector->display_info.bus_formats);
-> +	kfree(connector->display_info.vics);
->  	drm_mode_object_unregister(dev, &connector->base);
->  	kfree(connector->name);
->  	connector->name = NULL;
+> We try to avoid using VICs from the later specs in the AVI infoframes to
+> avoid upsetting sinks that conform to earlier specs.
+> 
+> However, it seems reasonable to do this when the sink claims it supports
+> the VIC. With the pre-parsed list of VICs handy, this is now trivial.
+> 
+> References: https://gitlab.freedesktop.org/drm/intel/-/issues/6153
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Cc: William Tseng <william.tseng@intel.com>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+>  drivers/gpu/drm/drm_edid.c | 22 +++++++++++++++++++++-
+>  1 file changed, 21 insertions(+), 1 deletion(-)
+> 
 > diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index b94adb9bbefb..90846dc69061 100644
+> index 7f0386175230..3dfcd6450f10 100644
 > --- a/drivers/gpu/drm/drm_edid.c
 > +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -5862,6 +5862,36 @@ drm_default_rgb_quant_range(const struct drm_display_mode *mode)
+> @@ -5864,6 +5864,22 @@ static void parse_cta_vdb(struct drm_connector *connector, const struct cea_db *
+>  	}
 >  }
->  EXPORT_SYMBOL(drm_default_rgb_quant_range);
 >  
-> +/* CTA-861 Video Data Block (CTA VDB) */
-> +static void parse_cta_vdb(struct drm_connector *connector, const struct cea_db *db)
+> +static bool cta_vdb_has_vic(const struct drm_connector *connector, u8 vic)
 > +{
-> +	struct drm_display_info *info = &connector->display_info;
-> +	int i, vic_index, len = cea_db_payload_len(db);
-> +	const u8 *svds = cea_db_data(db);
-> +	u8 *vics;
+> +	const struct drm_display_info *info = &connector->display_info;
+> +	int i;
 > +
-> +	if (!len)
-> +		return;
+> +	if (!vic || !info->vics)
+> +		return false;
 > +
-> +	/* Gracefully handle multiple VDBs, however unlikely that is */
-> +	vics = krealloc(info->vics, info->vics_len + len, GFP_KERNEL);
-> +	if (!vics)
-> +		return;
-> +
-> +	vic_index = info->vics_len;
-> +	info->vics_len += len;
-> +	info->vics = vics;
-> +
-> +	for (i = 0; i < len; i++) {
-> +		u8 vic = svd_to_vic(svds[i]);
-> +
-> +		if (!drm_valid_cea_vic(vic))
-> +			vic = 0;
-> +
-> +		info->vics[vic_index++] = vic;
+> +	for (i = 0; i < info->vics_len; i++) {
+> +		if (info->vics[i] == vic)
+> +			return true;
 > +	}
+> +
+> +	return false;
 > +}
 > +
 >  static void drm_parse_vcdb(struct drm_connector *connector, const u8 *db)
 >  {
 >  	struct drm_display_info *info = &connector->display_info;
-> @@ -6205,6 +6235,8 @@ static void drm_parse_cea_ext(struct drm_connector *connector,
->  			drm_parse_vcdb(connector, data);
->  		else if (cea_db_is_hdmi_hdr_metadata_block(db))
->  			drm_parse_hdr_metadata_block(connector, data);
-> +		else if (cea_db_tag(db) == CTA_DB_VIDEO)
-> +			parse_cta_vdb(connector, db);
->  	}
->  	cea_db_iter_end(&iter);
->  }
-> @@ -6372,6 +6404,10 @@ static void drm_reset_display_info(struct drm_connector *connector)
->  	info->mso_stream_count = 0;
->  	info->mso_pixel_overlap = 0;
->  	info->max_dsc_bpp = 0;
-> +
-> +	kfree(info->vics);
-> +	info->vics = NULL;
-> +	info->vics_len = 0;
->  }
+> @@ -6909,10 +6925,14 @@ static u8 drm_mode_cea_vic(const struct drm_connector *connector,
+>   *
+>   * HDMI 1.4 (CTA-861-D) VIC range: [1..64]
+>   * HDMI 2.0 (CTA-861-F) VIC range: [1..107]
+> + *
+> + * If the sink lists the VIC in CTA VDB, assume it's fine, regardless of HDMI
+> + * version.
+>   */
+>  static u8 vic_for_avi_infoframe(const struct drm_connector *connector, u8 vic)
+>  {
+> -	if (!is_hdmi2_sink(connector) && vic > 64)
+> +	if (!is_hdmi2_sink(connector) && vic > 64 &&
+> +	    !cta_vdb_has_vic(connector, vic))
+>  		return 0;
 >  
->  static u32 update_display_info(struct drm_connector *connector,
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index 9037f1317aee..d97ed06d5837 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -721,6 +721,16 @@ struct drm_display_info {
->  	 * monitor's default value is used instead.
->  	 */
->  	u32 max_dsc_bpp;
-> +
-> +	/**
-> +	 * @vics: Array of vics_len VICs. Internal to EDID parsing.
-> +	 */
-> +	u8 *vics;
-> +
-> +	/**
-> +	 * @vics_len: Number of elements in vics. Internal to EDID parsing.
-> +	 */
-> +	int vics_len;
->  };
->  
->  int drm_display_info_set_bus_formats(struct drm_display_info *info,
+>  	return vic;
 > -- 
 > 2.34.1
 
