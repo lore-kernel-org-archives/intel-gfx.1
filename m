@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97E90C32793
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 07:16:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87E71C32793
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 07:16:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C8F510E69D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E70910E6B0;
 	Wed, 18 Jan 2023 07:16:19 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B14DA10E69D;
- Wed, 18 Jan 2023 07:16:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B6B810E69D;
+ Wed, 18 Jan 2023 07:16:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674026175; x=1705562175;
+ t=1674026176; x=1705562176;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=e7LoC5bS7R1sMyD1WnGoqPBjiVYN2DxIZvXSYcsl59E=;
- b=MSrHQEgq4iLtsKCc9g93jXj4m4U8ZjU4cDsMlqmKhRYFHYtvjoZLveRP
- 7fBUQFm8fMxeBvpb2sscOtQTqzUbKQCjXKfPEAoaCspoxDsmacB8hz/QO
- d2k+fDtwDjVeXxJCAIZ4ZAVhmsEYLq7Ov0aKqQ1uRZLFaxncbYhz4HZsv
- dkMv10Nhdo3fPJNVv3NTSWtl4NGF9AnXdURzgM6PMeKsYUC8Q8JYkM7Hm
- EGPlLMvUXyJxGfrKRjxNKKofpNGOSHRdDxZ4w6kwgHFhRCKRdW5A4Ypnf
- kqgZcAbv9ugYC3hCOjwYJJVanHVocFhqYr6xisGIwwJP98qsVw15DTCPc A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="308482041"
-X-IronPort-AV: E=Sophos;i="5.97,224,1669104000"; d="scan'208";a="308482041"
+ bh=qLt+iryDvELJcq0pAKPz4aWxwNwJH3wH26+Yrs+S2xU=;
+ b=dUWdkINOzrRW4jLkkmZnJRrMdExlojwwgb+k7CafTKuXqGpp5TIUlkXx
+ k5CM2YRqEOZhGb7UOJlDUk21W9r7tmknaJnHgT9NZfC+VHAOLYHGL7vad
+ ScPXE6S2516V2Zc2RHOhLnLuCDuQSSRB4DC6EkCZU+owzgh2TIDXN04R3
+ 3d9jS4RPvQ7172W3WQtScLwIeetIQ+y46OGvphTeLvmznzBGA8QWb5phZ
+ rIpXGDc9lowzSWAv9YN0Ox4klNbRsnT62ON8ct2yjP191MsX9EleFhttA
+ MAIeZkGytMz2FMlHFJ5xK7WGZfAZXSz5vMvHAVlz4zqhYXLjjNvQxRCYQ g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="308482051"
+X-IronPort-AV: E=Sophos;i="5.97,224,1669104000"; d="scan'208";a="308482051"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2023 23:16:14 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="661609979"
-X-IronPort-AV: E=Sophos;i="5.97,224,1669104000"; d="scan'208";a="661609979"
+ 17 Jan 2023 23:16:15 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="661609991"
+X-IronPort-AV: E=Sophos;i="5.97,224,1669104000"; d="scan'208";a="661609991"
 Received: from nvishwa1-desk.sc.intel.com ([172.25.29.76])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  17 Jan 2023 23:16:14 -0800
 From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue, 17 Jan 2023 23:15:52 -0800
-Message-Id: <20230118071609.17572-7-niranjana.vishwanathapura@intel.com>
+Date: Tue, 17 Jan 2023 23:15:55 -0800
+Message-Id: <20230118071609.17572-10-niranjana.vishwanathapura@intel.com>
 X-Mailer: git-send-email 2.21.0.rc0.32.g243a4c7e27
 In-Reply-To: <20230118071609.17572-1-niranjana.vishwanathapura@intel.com>
 References: <20230118071609.17572-1-niranjana.vishwanathapura@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 06/23] drm/i915/vm_bind: Implement bind and
- unbind of object
+Subject: [Intel-gfx] [PATCH v10 09/23] drm/i915/vm_bind: Support persistent
+ vma activeness tracking
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,715 +63,202 @@ Cc: paulo.r.zanoni@intel.com, jani.nikula@intel.com, thomas.hellstrom@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add uapi and implement support for bind and unbind of an
-object at the specified GPU virtual addresses.
+Do not use i915_vma activeness tracking for persistent vmas.
 
-The vm_bind mode is not supported in legacy execbuf2 ioctl.
-It will be supported only in the newer execbuf3 ioctl.
+As persistent vmas are part of working set for each execbuf
+submission on that address space (VM), a persistent vma is
+active if the VM active. As vm->root_obj->base.resv will be
+updated for each submission on that VM, it correctly
+represent whether the VM is active or not.
 
-v2: On older platforms ctx->vm is not set, check for it.
-    In vm_bind call, add vma to vm_bind_list.
-    Add more input validity checks.
-    Update some documentation.
-v3: In vm_bind call, add vma to vm_bound_list as user can
-    request a fence and pass to execbuf3 as input fence.
-    Remove short term pinning with PIN_VALIDATE flag.
-v4: Replace vm->vm_bind_mode check with i915_gem_vm_is_vm_bind_mode().
-v5: Ensure all reserved fields are 0, use PIN_NOEVICT.
-v6: Add reserved fields to drm_i915_gem_vm_bind.
+Add i915_vm_is_active() and i915_vm_sync() functions based
+on vm->root_obj->base.resv with DMA_RESV_USAGE_BOOKKEEP
+usage. dma-resv fence list will be updated with this usage
+during each submission with this VM in the new execbuf3
+ioctl path.
 
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Update i915_vma_is_active(), i915_vma_sync() and the
+__i915_vma_unbind_async() functions to properly handle
+persistent vmas.
+
+v2: Ensure lvalue of dma_resv_wait_timeout() call is long.
+v3: Do not await for purged vmas to become idle during
+    async unbind
+
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 Signed-off-by: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-Signed-off-by: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
-Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- drivers/gpu/drm/i915/Makefile                 |   1 +
- drivers/gpu/drm/i915/gem/i915_gem_context.h   |  15 +
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |   5 +
- drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h   |  26 ++
- .../drm/i915/gem/i915_gem_vm_bind_object.c    | 330 ++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_gtt.c           |  10 +
- drivers/gpu/drm/i915/gt/intel_gtt.h           |   9 +
- drivers/gpu/drm/i915/i915_driver.c            |   3 +
- drivers/gpu/drm/i915/i915_vma.c               |   1 +
- drivers/gpu/drm/i915/i915_vma_types.h         |  14 +
- include/uapi/drm/i915_drm.h                   | 105 ++++++
- 11 files changed, 519 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h
- create mode 100644 drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
+ drivers/gpu/drm/i915/i915_gem_gtt.c | 39 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/i915_gem_gtt.h |  3 +++
+ drivers/gpu/drm/i915/i915_vma.c     | 28 +++++++++++++++++++++
+ drivers/gpu/drm/i915/i915_vma.h     | 25 +++++++++---------
+ 4 files changed, 83 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index f47f00b162a4..fc3ed0aea034 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -171,6 +171,7 @@ gem-y += \
- 	gem/i915_gem_ttm_move.o \
- 	gem/i915_gem_ttm_pm.o \
- 	gem/i915_gem_userptr.o \
-+	gem/i915_gem_vm_bind_object.o \
- 	gem/i915_gem_wait.o \
- 	gem/i915_gemfs.o
- i915-y += \
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.h b/drivers/gpu/drm/i915/gem/i915_gem_context.h
-index 899fa8f1e0fe..e8b41aa8f8c4 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.h
-@@ -139,6 +139,21 @@ int i915_gem_context_setparam_ioctl(struct drm_device *dev, void *data,
- int i915_gem_context_reset_stats_ioctl(struct drm_device *dev, void *data,
- 				       struct drm_file *file);
- 
-+/**
-+ * i915_gem_vm_is_vm_bind_mode() - Check if address space is in vm_bind mode
-+ * @vm: the address space
-+ *
-+ * Returns:
-+ * true: @vm is in vm_bind mode; allows only vm_bind method of binding.
-+ * false: @vm is not in vm_bind mode; allows only legacy execbuff method
-+ *        of binding.
-+ */
-+static inline bool i915_gem_vm_is_vm_bind_mode(struct i915_address_space *vm)
-+{
-+	/* No support to enable vm_bind mode yet */
-+	return false;
-+}
-+
- struct i915_address_space *
- i915_gem_vm_lookup(struct drm_i915_file_private *file_priv, u32 id);
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 192bb3f10733..6456f15448bd 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -785,6 +785,11 @@ static int eb_select_context(struct i915_execbuffer *eb)
- 	if (unlikely(IS_ERR(ctx)))
- 		return PTR_ERR(ctx);
- 
-+	if (ctx->vm && i915_gem_vm_is_vm_bind_mode(ctx->vm)) {
-+		i915_gem_context_put(ctx);
-+		return -EOPNOTSUPP;
-+	}
-+
- 	eb->gem_context = ctx;
- 	if (i915_gem_context_has_full_ppgtt(ctx))
- 		eb->invalid_flags |= EXEC_OBJECT_NEEDS_GTT;
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h b/drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h
-new file mode 100644
-index 000000000000..36262a6357b5
---- /dev/null
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_vm_bind.h
-@@ -0,0 +1,26 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2022 Intel Corporation
-+ */
-+
-+#ifndef __I915_GEM_VM_BIND_H
-+#define __I915_GEM_VM_BIND_H
-+
-+#include <linux/types.h>
-+
-+struct drm_device;
-+struct drm_file;
-+struct i915_address_space;
-+struct i915_vma;
-+
-+struct i915_vma *
-+i915_gem_vm_bind_lookup_vma(struct i915_address_space *vm, u64 va);
-+
-+int i915_gem_vm_bind_ioctl(struct drm_device *dev, void *data,
-+			   struct drm_file *file);
-+int i915_gem_vm_unbind_ioctl(struct drm_device *dev, void *data,
-+			     struct drm_file *file);
-+
-+void i915_gem_vm_unbind_all(struct i915_address_space *vm);
-+
-+#endif /* __I915_GEM_VM_BIND_H */
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c b/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
-new file mode 100644
-index 000000000000..5064aba9ab87
---- /dev/null
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_vm_bind_object.c
-@@ -0,0 +1,330 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2022 Intel Corporation
-+ */
-+
-+#include <uapi/drm/i915_drm.h>
-+
-+#include <linux/interval_tree_generic.h>
-+
-+#include "gem/i915_gem_context.h"
-+#include "gem/i915_gem_vm_bind.h"
-+
-+#include "gt/intel_gpu_commands.h"
-+
-+#define START(node) ((node)->start)
-+#define LAST(node) ((node)->last)
-+
-+/* Not all defined functions are used, hence use __maybe_unused */
-+INTERVAL_TREE_DEFINE(struct i915_vma, rb, u64, __subtree_last,
-+		     START, LAST, __maybe_unused static inline, i915_vm_bind_it)
-+
-+#undef START
-+#undef LAST
-+
-+/**
-+ * DOC: VM_BIND/UNBIND ioctls
-+ *
-+ * DRM_I915_GEM_VM_BIND/UNBIND ioctls allows UMD to bind/unbind GEM buffer
-+ * objects (BOs) or sections of a BOs at specified GPU virtual addresses on a
-+ * specified address space (VM). Multiple mappings can map to the same physical
-+ * pages of an object (aliasing). These mappings (also referred to as persistent
-+ * mappings) will be persistent across multiple GPU submissions (execbuf calls)
-+ * issued by the UMD, without user having to provide a list of all required
-+ * mappings during each submission (as required by older execbuf mode).
-+ *
-+ * The VM_BIND/UNBIND calls allow UMDs to request a timeline out fence for
-+ * signaling the completion of bind/unbind operation.
-+ *
-+ * VM_BIND feature is advertised to user via I915_PARAM_VM_BIND_VERSION.
-+ * User has to opt-in for VM_BIND mode of binding for an address space (VM)
-+ * during VM creation time via I915_VM_CREATE_FLAGS_USE_VM_BIND extension.
-+ *
-+ * VM_BIND/UNBIND ioctl calls executed on different CPU threads concurrently
-+ * are not ordered. Furthermore, parts of the VM_BIND/UNBIND operations can be
-+ * done asynchronously, when valid out fence is specified.
-+ *
-+ * VM_BIND locking order is as below.
-+ *
-+ * 1) vm_bind_lock mutex will protect vm_bind lists. This lock is taken in
-+ *    vm_bind/vm_unbind ioctl calls, in the execbuf path and while releasing the
-+ *    mapping.
-+ *
-+ *    In future, when GPU page faults are supported, we can potentially use a
-+ *    rwsem instead, so that multiple page fault handlers can take the read
-+ *    side lock to lookup the mapping and hence can run in parallel.
-+ *    The older execbuf mode of binding do not need this lock.
-+ *
-+ * 2) The object's dma-resv lock will protect i915_vma state and needs
-+ *    to be held while binding/unbinding a vma in the async worker and while
-+ *    updating dma-resv fence list of an object. Note that private BOs of a VM
-+ *    will all share a dma-resv object.
-+ *
-+ * 3) Spinlock/s to protect some of the VM's lists like the list of
-+ *    invalidated vmas (due to eviction and userptr invalidation) etc.
-+ */
-+
-+/**
-+ * i915_gem_vm_bind_lookup_vma() - lookup for persistent vma mapped at a
-+ * specified address
-+ * @vm: virtual address space to look for persistent vma
-+ * @va: starting address where vma is mapped
-+ *
-+ * Retrieves the persistent vma mapped address @va from the @vm's vma tree.
-+ *
-+ * Returns vma pointer on success, NULL on failure.
-+ */
-+struct i915_vma *
-+i915_gem_vm_bind_lookup_vma(struct i915_address_space *vm, u64 va)
-+{
-+	lockdep_assert_held(&vm->vm_bind_lock);
-+
-+	return i915_vm_bind_it_iter_first(&vm->va, va, va);
-+}
-+
-+static void i915_gem_vm_bind_remove(struct i915_vma *vma, bool release_obj)
-+{
-+	lockdep_assert_held(&vma->vm->vm_bind_lock);
-+
-+	list_del_init(&vma->vm_bind_link);
-+	i915_vm_bind_it_remove(vma, &vma->vm->va);
-+
-+	/* Release object */
-+	if (release_obj)
-+		i915_gem_object_put(vma->obj);
-+}
-+
-+static int i915_gem_vm_unbind_vma(struct i915_address_space *vm,
-+				  struct drm_i915_gem_vm_unbind *va)
-+{
-+	struct drm_i915_gem_object *obj;
-+	struct i915_vma *vma;
-+	int ret;
-+
-+	ret = mutex_lock_interruptible(&vm->vm_bind_lock);
-+	if (ret)
-+		return ret;
-+
-+	va->start = gen8_noncanonical_addr(va->start);
-+	vma = i915_gem_vm_bind_lookup_vma(vm, va->start);
-+
-+	if (!vma)
-+		ret = -ENOENT;
-+	else if (vma->size != va->length)
-+		ret = -EINVAL;
-+
-+	if (ret) {
-+		mutex_unlock(&vm->vm_bind_lock);
-+		return ret;
-+	}
-+
-+	i915_gem_vm_bind_remove(vma, false);
-+
-+	mutex_unlock(&vm->vm_bind_lock);
-+
-+	/*
-+	 * Destroy the vma and then release the object.
-+	 * As persistent vma holds object reference, it can only be destroyed
-+	 * either by vm_unbind ioctl or when VM is being released. As we are
-+	 * holding VM reference here, it is safe accessing the vma here.
-+	 */
-+	obj = vma->obj;
-+	i915_gem_object_lock(obj, NULL);
-+	i915_vma_destroy(vma);
-+	i915_gem_object_unlock(obj);
-+
-+	i915_gem_object_put(obj);
-+
-+	return 0;
-+}
-+
-+/**
-+ * i915_gem_vm_unbind_all() - unbind all persistent mappings from an
-+ * address space
-+ * @vm: Address spece to remove persistent mappings from
-+ *
-+ * Unbind all userspace requested vm_bind mappings from @vm.
-+ */
-+void i915_gem_vm_unbind_all(struct i915_address_space *vm)
-+{
-+	struct i915_vma *vma, *t;
-+
-+	mutex_lock(&vm->vm_bind_lock);
-+	list_for_each_entry_safe(vma, t, &vm->vm_bind_list, vm_bind_link)
-+		i915_gem_vm_bind_remove(vma, true);
-+	list_for_each_entry_safe(vma, t, &vm->vm_bound_list, vm_bind_link)
-+		i915_gem_vm_bind_remove(vma, true);
-+	mutex_unlock(&vm->vm_bind_lock);
-+}
-+
-+static struct i915_vma *vm_bind_get_vma(struct i915_address_space *vm,
-+					struct drm_i915_gem_object *obj,
-+					struct drm_i915_gem_vm_bind *va)
-+{
-+	struct i915_gtt_view view;
-+	struct i915_vma *vma;
-+
-+	va->start = gen8_noncanonical_addr(va->start);
-+	vma = i915_gem_vm_bind_lookup_vma(vm, va->start);
-+	if (vma)
-+		return ERR_PTR(-EEXIST);
-+
-+	view.type = I915_GTT_VIEW_PARTIAL;
-+	view.partial.offset = va->offset >> PAGE_SHIFT;
-+	view.partial.size = va->length >> PAGE_SHIFT;
-+	vma = i915_vma_create_persistent(obj, vm, &view);
-+	if (IS_ERR(vma))
-+		return vma;
-+
-+	vma->start = va->start;
-+	vma->last = va->start + va->length - 1;
-+
-+	return vma;
-+}
-+
-+static int i915_gem_vm_bind_obj(struct i915_address_space *vm,
-+				struct drm_i915_gem_vm_bind *va,
-+				struct drm_file *file)
-+{
-+	struct drm_i915_gem_object *obj;
-+	struct i915_vma *vma = NULL;
-+	struct i915_gem_ww_ctx ww;
-+	u64 pin_flags;
-+	int ret = 0;
-+
-+	if (!i915_gem_vm_is_vm_bind_mode(vm))
-+		return -EOPNOTSUPP;
-+
-+	/* Ensure start and length fields are valid */
-+	if (!va->length || !IS_ALIGNED(va->start, I915_GTT_PAGE_SIZE))
-+		ret = -EINVAL;
-+
-+	obj = i915_gem_object_lookup(file, va->handle);
-+	if (!obj)
-+		return -ENOENT;
-+
-+	/* Ensure offset and length are aligned to object's max page size */
-+	if (!IS_ALIGNED(va->offset | va->length,
-+			i915_gem_object_max_page_size(obj->mm.placements,
-+						      obj->mm.n_placements)))
-+		ret = -EINVAL;
-+
-+	/* Check for mapping range overflow */
-+	if (range_overflows_t(u64, va->offset, va->length, obj->base.size))
-+		ret = -EINVAL;
-+
-+	if (ret)
-+		goto put_obj;
-+
-+	ret = mutex_lock_interruptible(&vm->vm_bind_lock);
-+	if (ret)
-+		goto put_obj;
-+
-+	vma = vm_bind_get_vma(vm, obj, va);
-+	if (IS_ERR(vma)) {
-+		ret = PTR_ERR(vma);
-+		goto unlock_vm;
-+	}
-+
-+	pin_flags = va->start | PIN_OFFSET_FIXED | PIN_USER |
-+		    PIN_VALIDATE | PIN_NOEVICT;
-+
-+	for_i915_gem_ww(&ww, ret, true) {
-+		ret = i915_gem_object_lock(vma->obj, &ww);
-+		if (ret)
-+			continue;
-+
-+		ret = i915_vma_pin_ww(vma, &ww, 0, 0, pin_flags);
-+		if (ret)
-+			continue;
-+
-+		/* Wait for bind to complete */
-+		ret = i915_vma_wait_for_bind(vma);
-+		if (ret)
-+			continue;
-+
-+		list_add_tail(&vma->vm_bind_link, &vm->vm_bound_list);
-+		i915_vm_bind_it_insert(vma, &vm->va);
-+
-+		/* Hold object reference until vm_unbind */
-+		i915_gem_object_get(vma->obj);
-+	}
-+
-+	if (ret)
-+		i915_vma_destroy(vma);
-+unlock_vm:
-+	mutex_unlock(&vm->vm_bind_lock);
-+put_obj:
-+	i915_gem_object_put(obj);
-+
-+	return ret;
-+}
-+
-+/**
-+ * i915_gem_vm_bind_ioctl() - ioctl function for binding a section of object
-+ * at a specified virtual address
-+ * @dev: drm_device pointer
-+ * @data: ioctl data structure
-+ * @file: drm_file pointer
-+ *
-+ * Adds the specified persistent mapping (virtual address to a section of an
-+ * object) and binds it in the device page table.
-+ *
-+ * Returns 0 on success, error code on failure.
-+ */
-+int i915_gem_vm_bind_ioctl(struct drm_device *dev, void *data,
-+			   struct drm_file *file)
-+{
-+	struct drm_i915_gem_vm_bind *args = data;
-+	struct i915_address_space *vm;
-+	int ret;
-+
-+	/* Reserved fields must be 0 */
-+	if ((args->flags & __I915_GEM_VM_BIND_UNKNOWN_FLAGS) ||
-+	    args->rsvd[0] || args->rsvd[1] || args->extensions)
-+		return -EINVAL;
-+
-+	vm = i915_gem_vm_lookup(file->driver_priv, args->vm_id);
-+	if (unlikely(!vm))
-+		return -ENOENT;
-+
-+	ret = i915_gem_vm_bind_obj(vm, args, file);
-+
-+	i915_vm_put(vm);
-+	return ret;
-+}
-+
-+/**
-+ * i915_gem_vm_unbind_ioctl() - ioctl function for unbinding a mapping at a
-+ * specified virtual address
-+ * @dev: drm_device pointer
-+ * @data: ioctl data structure
-+ * @file: drm_file pointer
-+ *
-+ * Removes the persistent mapping at the specified address and unbinds it
-+ * from the device page table.
-+ *
-+ * Returns 0 on success, error code on failure. -ENOENT is returned if the
-+ * specified mapping is not found.
-+ */
-+int i915_gem_vm_unbind_ioctl(struct drm_device *dev, void *data,
-+			     struct drm_file *file)
-+{
-+	struct drm_i915_gem_vm_unbind *args = data;
-+	struct i915_address_space *vm;
-+	int ret;
-+
-+	/* Reserved fields must be 0 */
-+	if ((args->flags & __I915_GEM_VM_UNBIND_UNKNOWN_FLAGS) ||
-+	    args->pad || args->rsvd[0] || args->rsvd[1] || args->extensions)
-+		return -EINVAL;
-+
-+	vm = i915_gem_vm_lookup(file->driver_priv, args->vm_id);
-+	if (unlikely(!vm))
-+		return -ENOENT;
-+
-+	ret = i915_gem_vm_unbind_vma(vm, args);
-+
-+	i915_vm_put(vm);
-+	return ret;
-+}
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
-index e37164a60d37..3d61204f7e1e 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
-@@ -12,6 +12,7 @@
- 
- #include "gem/i915_gem_internal.h"
- #include "gem/i915_gem_lmem.h"
-+#include "gem/i915_gem_vm_bind.h"
- #include "i915_reg.h"
+diff --git a/drivers/gpu/drm/i915/i915_gem_gtt.c b/drivers/gpu/drm/i915/i915_gem_gtt.c
+index 7bd1861ddbdf..1d8506548d4a 100644
+--- a/drivers/gpu/drm/i915/i915_gem_gtt.c
++++ b/drivers/gpu/drm/i915/i915_gem_gtt.c
+@@ -25,6 +25,45 @@
  #include "i915_trace.h"
- #include "i915_utils.h"
-@@ -178,6 +179,8 @@ int i915_vm_lock_objects(struct i915_address_space *vm,
- void i915_address_space_fini(struct i915_address_space *vm)
+ #include "i915_vgpu.h"
+ 
++/**
++ * i915_vm_sync() - Wait until address space is not in use
++ * @vm: address space
++ *
++ * Waits until all requests using the address space are complete.
++ *
++ * Returns: 0 if success, -ve err code upon failure
++ */
++int i915_vm_sync(struct i915_address_space *vm)
++{
++	long ret;
++
++	/* Wait for all requests under this vm to finish */
++	ret = dma_resv_wait_timeout(vm->root_obj->base.resv,
++				    DMA_RESV_USAGE_BOOKKEEP, false,
++				    MAX_SCHEDULE_TIMEOUT);
++	if (ret < 0)
++		return ret;
++	else if (ret > 0)
++		return 0;
++	else
++		return -ETIMEDOUT;
++}
++
++/**
++ * i915_vm_is_active() - Check if address space is being used
++ * @vm: address space
++ *
++ * Check if any request using the specified address space is
++ * active.
++ *
++ * Returns: true if address space is active, false otherwise.
++ */
++bool i915_vm_is_active(const struct i915_address_space *vm)
++{
++	return !dma_resv_test_signaled(vm->root_obj->base.resv,
++				       DMA_RESV_USAGE_BOOKKEEP);
++}
++
+ int i915_gem_gtt_prepare_pages(struct drm_i915_gem_object *obj,
+ 			       struct sg_table *pages)
  {
- 	drm_mm_takedown(&vm->mm);
-+	GEM_BUG_ON(!RB_EMPTY_ROOT(&vm->va.rb_root));
-+	mutex_destroy(&vm->vm_bind_lock);
- }
+diff --git a/drivers/gpu/drm/i915/i915_gem_gtt.h b/drivers/gpu/drm/i915/i915_gem_gtt.h
+index 243419783052..e62b52c74586 100644
+--- a/drivers/gpu/drm/i915/i915_gem_gtt.h
++++ b/drivers/gpu/drm/i915/i915_gem_gtt.h
+@@ -52,4 +52,7 @@ int i915_gem_gtt_insert(struct i915_address_space *vm,
  
- /**
-@@ -204,6 +207,8 @@ static void __i915_vm_release(struct work_struct *work)
- 	struct i915_address_space *vm =
- 		container_of(work, struct i915_address_space, release_work);
+ #define PIN_OFFSET_MASK		I915_GTT_PAGE_MASK
  
-+	i915_gem_vm_unbind_all(vm);
++int i915_vm_sync(struct i915_address_space *vm);
++bool i915_vm_is_active(const struct i915_address_space *vm);
 +
- 	__i915_vm_close(vm);
- 
- 	/* Synchronize async unbinds. */
-@@ -280,6 +285,11 @@ void i915_address_space_init(struct i915_address_space *vm, int subclass)
- 
- 	INIT_LIST_HEAD(&vm->bound_list);
- 	INIT_LIST_HEAD(&vm->unbound_list);
-+
-+	vm->va = RB_ROOT_CACHED;
-+	INIT_LIST_HEAD(&vm->vm_bind_list);
-+	INIT_LIST_HEAD(&vm->vm_bound_list);
-+	mutex_init(&vm->vm_bind_lock);
- }
- 
- void *__px_vaddr(struct drm_i915_gem_object *p)
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index 5a775310d3fc..88c54a85f22c 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -260,6 +260,15 @@ struct i915_address_space {
- 	 */
- 	struct list_head unbound_list;
- 
-+	/** @vm_bind_lock: Mutex to protect @vm_bind_list and @vm_bound_list */
-+	struct mutex vm_bind_lock;
-+	/** @vm_bind_list: List of vm_binding in process */
-+	struct list_head vm_bind_list;
-+	/** @vm_bound_list: List of vm_binding completed */
-+	struct list_head vm_bound_list;
-+	/** @va: tree of persistent vmas */
-+	struct rb_root_cached va;
-+
- 	/* Global GTT */
- 	bool is_ggtt:1;
- 
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index c1e427ba57ae..fdc9c55829e8 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -69,6 +69,7 @@
- #include "gem/i915_gem_ioctls.h"
- #include "gem/i915_gem_mman.h"
- #include "gem/i915_gem_pm.h"
-+#include "gem/i915_gem_vm_bind.h"
- #include "gt/intel_gt.h"
- #include "gt/intel_gt_pm.h"
- #include "gt/intel_rc6.h"
-@@ -1895,6 +1896,8 @@ static const struct drm_ioctl_desc i915_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(I915_QUERY, i915_query_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_VM_CREATE, i915_gem_vm_create_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(I915_GEM_VM_DESTROY, i915_gem_vm_destroy_ioctl, DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(I915_GEM_VM_BIND, i915_gem_vm_bind_ioctl, DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(I915_GEM_VM_UNBIND, i915_gem_vm_unbind_ioctl, DRM_RENDER_ALLOW),
- };
- 
- /*
+ #endif
 diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
-index e43cbb5fa154..ba24deaa87dc 100644
+index 353203bd5685..b44fd5f73b64 100644
 --- a/drivers/gpu/drm/i915/i915_vma.c
 +++ b/drivers/gpu/drm/i915/i915_vma.c
-@@ -241,6 +241,7 @@ vma_create(struct drm_i915_gem_object *obj,
- 	spin_unlock(&obj->vma.lock);
- 	mutex_unlock(&vm->mutex);
- 
-+	INIT_LIST_HEAD(&vma->vm_bind_link);
- 	return vma;
- 
- err_unlock:
-diff --git a/drivers/gpu/drm/i915/i915_vma_types.h b/drivers/gpu/drm/i915/i915_vma_types.h
-index be1cd76304cb..5fadcd9d4282 100644
---- a/drivers/gpu/drm/i915/i915_vma_types.h
-+++ b/drivers/gpu/drm/i915/i915_vma_types.h
-@@ -296,6 +296,20 @@ struct i915_vma {
- 	/** This object's place on the active/inactive lists */
- 	struct list_head vm_link;
- 
-+	/** @vm_bind_link: node for the vm_bind related lists of vm */
-+	struct list_head vm_bind_link;
-+
-+	/** Interval tree structures for persistent vma */
-+
-+	/** @rb: node for the interval tree of vm for persistent vmas */
-+	struct rb_node rb;
-+	/** @start: start endpoint of the rb node */
-+	u64 start;
-+	/** @last: Last endpoint of the rb node */
-+	u64 last;
-+	/** @__subtree_last: last in subtree */
-+	u64 __subtree_last;
-+
- 	struct list_head obj_link; /* Link in the object's VMA list */
- 	struct rb_node obj_node;
- 	struct hlist_node obj_hash;
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 8df261c5ab9b..6bb00ece001a 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -470,6 +470,8 @@ typedef struct _drm_i915_sarea {
- #define DRM_I915_GEM_VM_CREATE		0x3a
- #define DRM_I915_GEM_VM_DESTROY		0x3b
- #define DRM_I915_GEM_CREATE_EXT		0x3c
-+#define DRM_I915_GEM_VM_BIND		0x3d
-+#define DRM_I915_GEM_VM_UNBIND		0x3e
- /* Must be kept compact -- no holes */
- 
- #define DRM_IOCTL_I915_INIT		DRM_IOW( DRM_COMMAND_BASE + DRM_I915_INIT, drm_i915_init_t)
-@@ -534,6 +536,8 @@ typedef struct _drm_i915_sarea {
- #define DRM_IOCTL_I915_QUERY			DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_QUERY, struct drm_i915_query)
- #define DRM_IOCTL_I915_GEM_VM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_VM_CREATE, struct drm_i915_gem_vm_control)
- #define DRM_IOCTL_I915_GEM_VM_DESTROY	DRM_IOW (DRM_COMMAND_BASE + DRM_I915_GEM_VM_DESTROY, struct drm_i915_gem_vm_control)
-+#define DRM_IOCTL_I915_GEM_VM_BIND	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_VM_BIND, struct drm_i915_gem_vm_bind)
-+#define DRM_IOCTL_I915_GEM_VM_UNBIND	DRM_IOWR(DRM_COMMAND_BASE + DRM_I915_GEM_VM_UNBIND, struct drm_i915_gem_vm_unbind)
- 
- /* Allow drivers to submit batchbuffers directly to hardware, relying
-  * on the security mechanisms provided by hardware.
-@@ -3727,6 +3731,107 @@ struct drm_i915_gem_create_ext_protected_content {
- /* ID of the protected content session managed by i915 when PXP is active */
- #define I915_PROTECTED_CONTENT_DEFAULT_SESSION 0xf
- 
-+/**
-+ * struct drm_i915_gem_vm_bind - VA to object mapping to bind.
-+ *
-+ * This structure is passed to VM_BIND ioctl and specifies the mapping of GPU
-+ * virtual address (VA) range to the section of an object that should be bound
-+ * in the device page table of the specified address space (VM).
-+ * The VA range specified must be unique (ie., not currently bound) and can
-+ * be mapped to whole object or a section of the object (partial binding).
-+ * Multiple VA mappings can be created to the same section of the object
-+ * (aliasing).
-+ *
-+ * The @start, @offset and @length must be 4K page aligned. However the DG2
-+ * and XEHPSDV has 64K page size for device local memory and has compact page
-+ * table. On those platforms, for binding device local-memory objects, the
-+ * @start, @offset and @length must be 64K aligned.
-+ *
-+ * Error code -EINVAL will be returned if @start, @offset and @length are not
-+ * properly aligned. In version 1 (See I915_PARAM_VM_BIND_VERSION), error code
-+ * -ENOSPC will be returned if the VA range specified can't be reserved.
-+ *
-+ * VM_BIND/UNBIND ioctl calls executed on different CPU threads concurrently
-+ * are not ordered.
-+ */
-+struct drm_i915_gem_vm_bind {
-+	/** @vm_id: VM (address space) id to bind */
-+	__u32 vm_id;
-+
-+	/** @handle: Object handle */
-+	__u32 handle;
-+
-+	/** @start: Virtual Address start to bind */
-+	__u64 start;
-+
-+	/** @offset: Offset in object to bind */
-+	__u64 offset;
-+
-+	/** @length: Length of mapping to bind */
-+	__u64 length;
-+
-+	/** @flags: Currently reserved, MBZ. */
-+	__u64 flags;
-+#define __I915_GEM_VM_BIND_UNKNOWN_FLAGS (~0ull)
-+
-+	/** @rsvd: Reserved, MBZ */
-+	__u64 rsvd[2];
-+
-+	/** @rsvd2: Reserved for timeline fence */
-+	__u64 rsvd2[2];
-+
-+	/**
-+	 * @extensions: Zero-terminated chain of extensions.
-+	 *
-+	 * For future extensions. See struct i915_user_extension.
-+	 */
-+	__u64 extensions;
-+};
-+
-+/**
-+ * struct drm_i915_gem_vm_unbind - VA to object mapping to unbind.
-+ *
-+ * This structure is passed to VM_UNBIND ioctl and specifies the GPU virtual
-+ * address (VA) range that should be unbound from the device page table of the
-+ * specified address space (VM). VM_UNBIND will force unbind the specified
-+ * range from device page table without waiting for any GPU job to complete.
-+ * It is UMDs responsibility to ensure the mapping is no longer in use before
-+ * calling VM_UNBIND.
-+ *
-+ * If the specified mapping is not found, the ioctl will simply return without
-+ * any error.
-+ *
-+ * VM_BIND/UNBIND ioctl calls executed on different CPU threads concurrently
-+ * are not ordered.
-+ */
-+struct drm_i915_gem_vm_unbind {
-+	/** @vm_id: VM (address space) id to bind */
-+	__u32 vm_id;
-+
-+	/** @pad: padding, MBZ */
-+	__u32 pad;
-+
-+	/** @start: Virtual Address start to unbind */
-+	__u64 start;
-+
-+	/** @length: Length of mapping to unbind */
-+	__u64 length;
-+
-+	/** @flags: Currently reserved, MBZ. */
-+	__u64 flags;
-+#define __I915_GEM_VM_UNBIND_UNKNOWN_FLAGS (~0ull)
-+
-+	/** @rsvd: Reserved, MBZ */
-+	__u64 rsvd[2];
-+
-+	/**
-+	 * @extensions: Zero-terminated chain of extensions.
-+	 *
-+	 * For future extensions. See struct i915_user_extension.
-+	 */
-+	__u64 extensions;
-+};
-+
- #if defined(__cplusplus)
+@@ -422,6 +422,24 @@ int i915_vma_wait_for_bind(struct i915_vma *vma)
+ 	return err;
  }
- #endif
+ 
++/**
++ * i915_vma_sync() - Wait for the vma to be idle
++ * @vma: vma to be tested
++ *
++ * Returns 0 on success and error code on failure
++ */
++int i915_vma_sync(struct i915_vma *vma)
++{
++	int ret;
++
++	/* Wait for the asynchronous bindings and pending GPU reads */
++	ret = i915_active_wait(&vma->active);
++	if (ret || !i915_vma_is_persistent(vma) || i915_vma_is_purged(vma))
++		return ret;
++
++	return i915_vm_sync(vma->vm);
++}
++
+ #if IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM)
+ static int i915_vma_verify_bind_complete(struct i915_vma *vma)
+ {
+@@ -1917,6 +1935,8 @@ int _i915_vma_move_to_active(struct i915_vma *vma,
+ 	int err;
+ 
+ 	assert_object_held(obj);
++	if (i915_vma_is_persistent(vma))
++		return -EINVAL;
+ 
+ 	GEM_BUG_ON(!vma->pages);
+ 
+@@ -2131,6 +2151,14 @@ static struct dma_fence *__i915_vma_unbind_async(struct i915_vma *vma)
+ 		return ERR_PTR(-EBUSY);
+ 	}
+ 
++	if (i915_vma_is_persistent(vma) && !i915_vma_is_purged(vma) &&
++	    __i915_sw_fence_await_reservation(&vma->resource->chain,
++					      vma->vm->root_obj->base.resv,
++					      DMA_RESV_USAGE_BOOKKEEP,
++					      i915_fence_timeout(vma->vm->i915),
++					      GFP_NOWAIT | __GFP_NOWARN) < 0)
++		return ERR_PTR(-EBUSY);
++
+ 	fence = __i915_vma_evict(vma, true);
+ 
+ 	drm_mm_remove_node(&vma->node); /* pairs with i915_vma_release() */
+diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
+index 7b1bf5ba4f12..de1756e4f638 100644
+--- a/drivers/gpu/drm/i915/i915_vma.h
++++ b/drivers/gpu/drm/i915/i915_vma.h
+@@ -51,12 +51,6 @@ i915_vma_create_persistent(struct drm_i915_gem_object *obj,
+ 
+ void i915_vma_unpin_and_release(struct i915_vma **p_vma, unsigned int flags);
+ #define I915_VMA_RELEASE_MAP BIT(0)
+-
+-static inline bool i915_vma_is_active(const struct i915_vma *vma)
+-{
+-	return !i915_active_is_idle(&vma->active);
+-}
+-
+ /* do not reserve memory to prevent deadlocks */
+ #define __EXEC_OBJECT_NO_RESERVE BIT(31)
+ #define __EXEC_OBJECT_NO_REQUEST_AWAIT BIT(30)
+@@ -209,6 +203,18 @@ static inline void i915_vma_set_purged(struct i915_vma *vma)
+ 	set_bit(I915_VMA_PURGED_BIT, __i915_vma_flags(vma));
+ }
+ 
++static inline bool i915_vma_is_active(const struct i915_vma *vma)
++{
++	if (i915_vma_is_persistent(vma)) {
++		if (i915_vma_is_purged(vma))
++			return false;
++
++		return i915_vm_is_active(vma->vm);
++	}
++
++	return !i915_active_is_idle(&vma->active);
++}
++
+ static inline struct i915_vma *i915_vma_get(struct i915_vma *vma)
+ {
+ 	i915_gem_object_get(vma->obj);
+@@ -480,12 +486,7 @@ void i915_vma_make_shrinkable(struct i915_vma *vma);
+ void i915_vma_make_purgeable(struct i915_vma *vma);
+ 
+ int i915_vma_wait_for_bind(struct i915_vma *vma);
+-
+-static inline int i915_vma_sync(struct i915_vma *vma)
+-{
+-	/* Wait for the asynchronous bindings and pending GPU reads */
+-	return i915_active_wait(&vma->active);
+-}
++int i915_vma_sync(struct i915_vma *vma);
+ 
+ /**
+  * i915_vma_get_current_resource - Get the current resource of the vma
 -- 
 2.21.0.rc0.32.g243a4c7e27
 
