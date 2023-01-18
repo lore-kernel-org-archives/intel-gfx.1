@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B685C38147
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 19:30:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03AD8C38147
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 19:30:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5592510E827;
-	Wed, 18 Jan 2023 19:30:49 +0000 (UTC)
-Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
- [IPv6:2607:f8b0:4864:20::831])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A557310E81B
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Jan 2023 19:30:41 +0000 (UTC)
-Received: by mail-qt1-x831.google.com with SMTP id d16so17711339qtw.8
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Jan 2023 11:30:41 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10DF810E824;
+	Wed, 18 Jan 2023 19:30:56 +0000 (UTC)
+Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
+ [IPv6:2607:f8b0:4864:20::f2e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38AC010E824
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Jan 2023 19:30:49 +0000 (UTC)
+Received: by mail-qv1-xf2e.google.com with SMTP id m12so22410949qvt.9
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Jan 2023 11:30:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=I1/a+ysQjYWSLi+7tvGa8uhZWWX+I3DCv+Ho6KGSchQ=;
- b=PIQlIOGduxyrwhLVu1XvTThHFJgMpf7lLtpiHVnbyiWhUwVk4Xv4TADgsCPFiiNR2w
- ZmPCWIci/ZkrNa31bPmPQwB9hioQqoirPt4j4qJp8YO0bHyiBMI6WYAnS0jcTShaESGq
- bRMLOugEVzPaWg4nG5t1R1FKmJ7GAG7j7YYl8=
+ bh=/52S2yQO347VCYnw3lcgURc+RsitVzGCjZgdtUF6R2c=;
+ b=B2/cZWZAuvHw0Rt4dcv6ipWOsx/xa87RiYmMSjt40gPQiuZW28kSOCN18cHj9JEHYD
+ JlP5e57TRa7JOqyxL/ZljMb4hA0UTkb08WLbJzclztGei8o3eRLybHFr25EV70aQ/iK8
+ vK2izOMFI9OAEj11M/H5SfB8e917SA5SlbFaU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=I1/a+ysQjYWSLi+7tvGa8uhZWWX+I3DCv+Ho6KGSchQ=;
- b=mYxa4fLTfivfsuNYcieYtmEOEurv6n8mOP09QFVE5RXAoI4WbtqfdKKExLDau+OntZ
- oY0mFIDTMrnI3HwiaOV5fz0oreBUoixiJpAv0RNqskH5RidH0p+dlaFE1eP1Mz/eAASc
- Al2L6Hy+OQf1NpVwpSugdQRyKil3ipSyaEeaYBIq3UJWjsbFHlsdbZhjWauvI44ibY2Q
- pYxdPjfKIEjrGUM8U7uK2QoQQkbrl1ChswwVb5w/T2xj8mXFa1JVuXG94yBvQ9ku6Int
- 3FWycvyE6rEwZbQBs45VC03WUQcjUPyyGywOc5X9vK4mjdhnrdChmQlVWxOGc5cyFFP6
- VSag==
-X-Gm-Message-State: AFqh2krAktQQgqFnG06cZcWAKU32XuigiLX4rDckL0wDN9sIRsUiTijk
- J8tK+C79ezzffMiXoX5S7O6wpQ==
-X-Google-Smtp-Source: AMrXdXubuwUavpiFBuAnouMLvfVbBO5rVhIlniXLSoJDGRXJivyAAxSPS+AeZy15FIMrlSBRXHu5Tg==
-X-Received: by 2002:a05:622a:1b11:b0:3af:7bf6:d1f5 with SMTP id
- bb17-20020a05622a1b1100b003af7bf6d1f5mr11779180qtb.63.1674070241279; 
- Wed, 18 Jan 2023 11:30:41 -0800 (PST)
+ bh=/52S2yQO347VCYnw3lcgURc+RsitVzGCjZgdtUF6R2c=;
+ b=5ZRNcSO5GY124J2TB0tDBJUavKYcqBkD4w+MLFNRZXnXA93ehQKae5eowbXcZxyctl
+ ZbMy9kZ26TtxJJCMMO2wN0OxrgcGRRo/7j/yd/g+cp8iMLa3lztydX47lfBJMWE3TGx4
+ uKm1DQjW0+0llitot/siKLxLwQUDwkdW0pyTMoIdLEtEAUFAg8/STwxFZyoJsyw8hHd0
+ fbpyKHxHVawE/CSVcUaIa5xQQ3XZSyEdFro7tZsXyGJWe5UipcRL6cjn6haHwlIyYIRf
+ SsxG3WodVnVWv5XdAIKaMShd7qPUGu9ITKAfkaq5MhE1Ui2xBX2C1bK8INhE4PmurhwX
+ 2yAA==
+X-Gm-Message-State: AFqh2ko1ccJtYJoqwpG5asBdTTiWBOocQWvSVmzI6cZPagg6kszBqPzF
+ IuPvVWduobizESluM+QkBCxSOQ==
+X-Google-Smtp-Source: AMrXdXswgWPxSK5vtG8KVOUpiv1dsMdMlTWhfTgij9ORwe5l2o9VqGfzDsuK+S7FR81euFwjYj3agA==
+X-Received: by 2002:a05:6214:2d41:b0:534:e0c4:226d with SMTP id
+ na1-20020a0562142d4100b00534e0c4226dmr10247851qvb.16.1674070248272; 
+ Wed, 18 Jan 2023 11:30:48 -0800 (PST)
 Received: from localhost (29.46.245.35.bc.googleusercontent.com.
  [35.245.46.29]) by smtp.gmail.com with UTF8SMTPSA id
- h18-20020a05620a401200b00702d1c6e7bbsm7725753qko.130.2023.01.18.11.30.39
+ f8-20020a05620a408800b0070543181468sm23215117qko.57.2023.01.18.11.30.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Jan 2023 11:30:40 -0800 (PST)
+ Wed, 18 Jan 2023 11:30:47 -0800 (PST)
 From: Mark Yacoub <markyacoub@chromium.org>
 X-Google-Original-From: Mark Yacoub <markyacoub@google.com>
 To: quic_khsieh@quicinc.com, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org
-Date: Wed, 18 Jan 2023 19:30:10 +0000
-Message-Id: <20230118193015.911074-6-markyacoub@google.com>
+Date: Wed, 18 Jan 2023 19:30:13 +0000
+Message-Id: <20230118193015.911074-9-markyacoub@google.com>
 X-Mailer: git-send-email 2.39.0.246.g2a6d74b583-goog
 In-Reply-To: <20230118193015.911074-1-markyacoub@google.com>
 References: <20230118193015.911074-1-markyacoub@google.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 05/10] drm/i915/hdcp: Consolidate HDCP
- setup/state cache
+Subject: [Intel-gfx] [PATCH v6 08/10] dt-bindings: msm/dp: Add bindings for
+ HDCP registers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,127 +76,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Cc: quic_sbillaka@quicinc.com, konrad.dybcio@somainline.org,
  bjorn.andersson@linaro.org, krzysztof.kozlowski+dt@linaro.org,
  airlied@gmail.com, hbh25y@gmail.com, marex@denx.de, abhinavk@codeaurora.org,
- javierm@redhat.com, agross@kernel.org, quic_jesszhan@quicinc.com,
- daniel@ffwll.ch, Jani Nikula <jani.nikula@intel.com>, lucas.demarchi@intel.com,
- quic_abhinavk@quicinc.com, swboyd@chromium.org, robh+dt@kernel.org,
- christophe.jaillet@wanadoo.fr, maxime@cerno.tech, rodrigo.vivi@intel.com,
- johan+linaro@kernel.org, markyacoub@chromium.org, andersson@kernel.org,
- dianders@chromium.org, tzimmermann@suse.de, dmitry.baryshkov@linaro.org,
- seanpaul@chromium.org
+ javierm@redhat.com, agross@kernel.org, Mark Yacoub <markyacoub@chromiu.org>,
+ quic_jesszhan@quicinc.com, daniel@ffwll.ch, Rob Herring <robh@kernel.org>,
+ lucas.demarchi@intel.com, quic_abhinavk@quicinc.com, swboyd@chromium.org,
+ robh+dt@kernel.org, christophe.jaillet@wanadoo.fr, maxime@cerno.tech,
+ rodrigo.vivi@intel.com, johan+linaro@kernel.org, markyacoub@chromium.org,
+ andersson@kernel.org, dianders@chromium.org, tzimmermann@suse.de,
+ dmitry.baryshkov@linaro.org, seanpaul@chromium.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Sean Paul <seanpaul@chromium.org>
 
-Stick all of the setup for HDCP into a dedicated function. No functional
-change, but this will facilitate moving HDCP logic into helpers.
+This patch adds the bindings for the MSM DisplayPort HDCP registers
+which are required to write the HDCP key into the display controller as
+well as the registers to enable HDCP authentication/key
+exchange/encryption.
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+We'll use a new compatible string for this since the fields are optional.
+
+Cc: Rob Herring <robh@kernel.org>
+Cc: Stephen Boyd <swboyd@chromium.org>
+Reviewed-by: Rob Herring <robh@kernel.org>
 Signed-off-by: Sean Paul <seanpaul@chromium.org>
-Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-6-sean@poorly.run #v1
-Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-6-sean@poorly.run #v2
-Link: https://patchwork.freedesktop.org/patch/msgid/20211001151145.55916-6-sean@poorly.run #v3
-Link: https://patchwork.freedesktop.org/patch/msgid/20211105030434.2828845-6-sean@poorly.run #v4
-Link: https://patchwork.freedesktop.org/patch/msgid/20220411204741.1074308-6-sean@poorly.run #v5
+Signed-off-by: Mark Yacoub <markyacoub@chromiu.org>
+Link: https://patchwork.freedesktop.org/patch/msgid/20210913175747.47456-13-sean@poorly.run #v1
+Link: https://patchwork.freedesktop.org/patch/msgid/20210915203834.1439-13-sean@poorly.run #v2
+Link: https://patchwork.freedesktop.org/patch/msgid/20211001151145.55916-13-sean@poorly.run #v3
+Link: https://patchwork.freedesktop.org/patch/msgid/20211105030434.2828845-13-sean@poorly.run #v4
+Link: https://patchwork.freedesktop.org/patch/msgid/20211115202153.117244-1-sean@poorly.run #v4.5
+Link: https://patchwork.freedesktop.org/patch/msgid/20220411204741.1074308-9-sean@poorly.run #v5
 
 Changes in v2:
--None
+-Drop register range names (Stephen)
+-Fix yaml errors (Rob)
 Changes in v3:
--None
+-Add new compatible string for dp-hdcp
+-Add descriptions to reg
+-Add minItems/maxItems to reg
+-Make reg depend on the new hdcp compatible string
 Changes in v4:
--None
+-Rebase on Bjorn's multi-dp patchset
+Changes in v4.5:
+-Remove maxItems from reg (Rob)
+-Remove leading zeros in example (Rob)
 Changes in v5:
 -None
 Changes in v6:
--None
+-Rebased: modify minItems instead of adding it as new line.
 
 ---
- drivers/gpu/drm/i915/display/intel_hdcp.c | 52 +++++++++++++++--------
- 1 file changed, 35 insertions(+), 17 deletions(-)
+ .../devicetree/bindings/display/msm/dp-controller.yaml    | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index 396d2cef000a..0a20bc41be55 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -2190,6 +2190,37 @@ static enum mei_fw_tc intel_get_mei_fw_tc(enum transcoder cpu_transcoder)
- 	}
- }
+diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+index f2515af8256f..17d741f9af86 100644
+--- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+@@ -24,13 +24,15 @@ properties:
+       - qcom,sm8350-dp
  
-+static int
-+_intel_hdcp_setup(struct intel_connector *connector,
-+		  const struct intel_crtc_state *pipe_config, u8 content_type)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
-+	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
-+	struct intel_hdcp *hdcp = &connector->hdcp;
-+	int ret = 0;
-+
-+	if (!connector->encoder) {
-+		drm_err(&dev_priv->drm, "[%s:%d] encoder is not initialized\n",
-+			connector->base.name, connector->base.base.id);
-+		return -ENODEV;
-+	}
-+
-+	hdcp->content_type = content_type;
-+
-+	if (intel_crtc_has_type(pipe_config, INTEL_OUTPUT_DP_MST)) {
-+		hdcp->cpu_transcoder = pipe_config->mst_master_transcoder;
-+		hdcp->stream_transcoder = pipe_config->cpu_transcoder;
-+	} else {
-+		hdcp->cpu_transcoder = pipe_config->cpu_transcoder;
-+		hdcp->stream_transcoder = INVALID_TRANSCODER;
-+	}
-+
-+	if (DISPLAY_VER(dev_priv) >= 12)
-+		dig_port->hdcp_port_data.fw_tc = intel_get_mei_fw_tc(hdcp->cpu_transcoder);
-+
-+	return ret;
-+}
-+
- static int initialize_hdcp_port_data(struct intel_connector *connector,
- 				     struct intel_digital_port *dig_port,
- 				     const struct intel_hdcp_shim *shim)
-@@ -2329,28 +2360,14 @@ int intel_hdcp_enable(struct intel_connector *connector,
- 	if (!hdcp->shim)
- 		return -ENOENT;
+   reg:
+-    minItems: 4
++    minItems: 5
+     items:
+       - description: ahb register block
+       - description: aux register block
+       - description: link register block
+       - description: p0 register block
+       - description: p1 register block
++      - description: (Optional) Registers for HDCP device key injection
++      - description: (Optional) Registers for HDCP TrustZone interaction
  
--	if (!connector->encoder) {
--		drm_err(&dev_priv->drm, "[%s:%d] encoder is not initialized\n",
--			connector->base.name, connector->base.base.id);
--		return -ENODEV;
--	}
--
- 	mutex_lock(&hdcp->mutex);
- 	mutex_lock(&dig_port->hdcp_mutex);
- 	drm_WARN_ON(&dev_priv->drm,
- 		    hdcp->value == DRM_MODE_CONTENT_PROTECTION_ENABLED);
--	hdcp->content_type = content_type;
--
--	if (intel_crtc_has_type(pipe_config, INTEL_OUTPUT_DP_MST)) {
--		hdcp->cpu_transcoder = pipe_config->mst_master_transcoder;
--		hdcp->stream_transcoder = pipe_config->cpu_transcoder;
--	} else {
--		hdcp->cpu_transcoder = pipe_config->cpu_transcoder;
--		hdcp->stream_transcoder = INVALID_TRANSCODER;
--	}
- 
--	if (DISPLAY_VER(dev_priv) >= 12)
--		dig_port->hdcp_port_data.fw_tc = intel_get_mei_fw_tc(hdcp->cpu_transcoder);
-+	ret = _intel_hdcp_setup(connector, pipe_config, content_type);
-+	if (ret)
-+		goto out;
- 
- 	/*
- 	 * Considering that HDCP2.2 is more secure than HDCP1.4, If the setup
-@@ -2378,6 +2395,7 @@ int intel_hdcp_enable(struct intel_connector *connector,
- 					true);
- 	}
- 
-+out:
- 	mutex_unlock(&dig_port->hdcp_mutex);
- 	mutex_unlock(&hdcp->mutex);
- 	return ret;
+   interrupts:
+     maxItems: 1
+@@ -154,7 +156,9 @@ examples:
+               <0xae90200 0x200>,
+               <0xae90400 0xc00>,
+               <0xae91000 0x400>,
+-              <0xae91400 0x400>;
++              <0xae91400 0x400>,
++              <0xaed1000 0x174>,
++              <0xaee1000 0x2c>;
+         interrupt-parent = <&mdss>;
+         interrupts = <12>;
+         clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
 -- 
 2.39.0.246.g2a6d74b583-goog
 
