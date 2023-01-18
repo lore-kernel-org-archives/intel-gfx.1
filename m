@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1759BC32793
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 16:30:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72998C32793
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 16:30:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63FD110E047;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7317510E1F1;
 	Wed, 18 Jan 2023 16:30:55 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59A3310E047
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Jan 2023 16:30:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 385A610E047
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Jan 2023 16:30:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674059454; x=1705595454;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=KKXn+6gdLZJCQ9N66HUYoYErX+Va6Mg/QhIHy3S3MQE=;
- b=VTEngZzwg2f6SHva0OM/mxKF4N+uyrVAwYM7f7Q7ZB5G16VUZrYcNfBW
- 8HylMXHi+9if26q/HRKEUtrQvEk0eHhOpYeoEwkMsCDAcfPxqEMbODe2x
- MIb8a1gHSY16zniIVC2X96gSj0AcG+oy1NY3nLA2eICH274SZENFb2y9v
- 7TbIcHFiuZ2gUqP8+zSbjWd5vKsAbkRtIiM9RdNm7aTtKfEL06lvsdXST
- dkcRUYrMS6wxXFG2miB33UDBpt4BxFZXgcZooCLoKSlu92ygWjdfR4P/v
- kbP52gqY4djmssOyFZy1YsInJZ2k3Lv0hN2YGxLMkpYPtZ1ATJJ6WdvYv A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="326289750"
-X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="326289750"
+ t=1674059453; x=1705595453;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=057S/Q1OfSV+jWzQwoqCf+mPMw0OcekBq5i2D0LS0lI=;
+ b=M6TvETAATZKvsrlanhcec6boHJbP+bq085GIGf1KC3imhjA84GkHyFMg
+ 9qTakowSlyM2Xq2rfk7W0rDhKT+KXxWESSsozw+/0wgZUgrBqr9V3xp1K
+ z27H9da+nw3gxubpTpk9v8LKZAKIE4qd4vq9YXh/MErnigdos429yttIK
+ XG1aOrJPhboWA0kHJ0IL4LSWSw0MOfrjzqDSVOOK9OLZrvkV250fP6SeV
+ 1hLW9VyJEZwKR3rdo8KnSDu16Y6FRTOOqy5pew+bIsbapk0J8QJ6Y4wn1
+ 8RTemrZ+F0Go2xC+qfMnVYFL9+A8zrMEGJDOpCIT5Jf0K8I7ZATpOqTjD w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="326289718"
+X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="326289718"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2023 08:30:49 -0800
+ 18 Jan 2023 08:30:43 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="692060423"
-X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="692060423"
+X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="692060408"
+X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="692060408"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.55])
- by orsmga001.jf.intel.com with SMTP; 18 Jan 2023 08:30:47 -0800
+ by orsmga001.jf.intel.com with SMTP; 18 Jan 2023 08:30:41 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 18 Jan 2023 18:30:46 +0200
+ Wed, 18 Jan 2023 18:30:40 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 18 Jan 2023 18:30:29 +0200
-Message-Id: <20230118163040.29808-3-ville.syrjala@linux.intel.com>
+Date: Wed, 18 Jan 2023 18:30:27 +0200
+Message-Id: <20230118163040.29808-1-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.38.2
-In-Reply-To: <20230118163040.29808-1-ville.syrjala@linux.intel.com>
-References: <20230118163040.29808-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 02/13] drm/i915/dsb: Pimp debug/error prints
+Subject: [Intel-gfx] [PATCH 00/13] drm/i915: Load LUTs with DSB
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,58 +62,41 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Print the crtc/DSB id information to make it clear which DSB engine
-we're talking about.
+Restore DSB usage for lodaing the LUTs, and do so
+properly during vblank to avoid tearing. And also
+included are some improvements to aid in analyzing
+DSB issues.
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_dsb.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+There is one undocumented (afaik) hw issue with
+the legacy LUT that I still need to report to the
+hw folks. But I have already included what seems
+like an effective workaround.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
-index 96bc117fd6a0..f41146fc84d7 100644
---- a/drivers/gpu/drm/i915/display/intel_dsb.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsb.c
-@@ -88,7 +88,8 @@ static bool assert_dsb_has_room(struct intel_dsb *dsb)
- 
- 	/* each instruction is 2 dwords */
- 	return !drm_WARN(&i915->drm, dsb->free_pos > dsb->size - 2,
--			 "DSB buffer overflow\n");
-+			 "[CRTC:%d:%s] DSB %d buffer overflow\n",
-+			 crtc->base.base.id, crtc->base.name, dsb->id);
- }
- 
- static bool is_dsb_busy(struct drm_i915_private *i915, enum pipe pipe,
-@@ -232,7 +233,8 @@ void intel_dsb_commit(struct intel_dsb *dsb)
- 		return;
- 
- 	if (is_dsb_busy(dev_priv, pipe, dsb->id)) {
--		drm_err(&dev_priv->drm, "DSB engine is busy.\n");
-+		drm_err(&dev_priv->drm, "[CRTC:%d:%s] DSB %d is busy\n",
-+			crtc->base.base.id, crtc->base.name, dsb->id);
- 		goto reset;
- 	}
- 
-@@ -250,7 +252,8 @@ void intel_dsb_commit(struct intel_dsb *dsb)
- 
- 	if (wait_for(!is_dsb_busy(dev_priv, pipe, dsb->id), 1))
- 		drm_err(&dev_priv->drm,
--			"Timed out waiting for DSB workload completion.\n");
-+			"[CRTC:%d:%s] DSB %d timed out waiting for idle\n",
-+			crtc->base.base.id, crtc->base.name, dsb->id);
- 
- reset:
- 	dsb->free_pos = 0;
-@@ -325,7 +328,8 @@ struct intel_dsb *intel_dsb_prepare(struct intel_crtc *crtc,
- 	kfree(dsb);
- out:
- 	drm_info_once(&i915->drm,
--		      "DSB queue setup failed, will fallback to MMIO for display HW programming\n");
-+		      "[CRTC:%d:%s] DSB %d queue setup failed, will fallback to MMIO for display HW programming\n",
-+		      crtc->base.base.id, crtc->base.name, DSB1);
- 
- 	return NULL;
- }
+Ville Syrjälä (13):
+  drm/i915/dsb: Define more DSB registers
+  drm/i915/dsb: Pimp debug/error prints
+  drm/i915/dsb: Split intel_dsb_wait() from intel_dsb_commit()
+  drm/i915/dsb: Introduce intel_dsb_finish()
+  drm/i915/dsb: Dump the DSB command buffer when DSB fails
+  drm/i915/dsb: Allow vblank synchronized DSB execution
+  drm/i915/dsb: Nuke the DSB debug
+  drm/i915/dsb: Skip DSB command buffer setup if we have no LUTs
+  drm/i915/dsb: Don't use DSB to load the LUTs during full modeset
+  drm/i915/dsb: Load LUTs using the DSB during vblank
+  drm/i915/dsb: Write each legacy LUT entry twice with DSB
+  drm/i915/dsb: Load LUTs with the DSB
+  drm/i915: Do state check for color management changes
+
+ drivers/gpu/drm/i915/display/intel_color.c    | 46 ++++++++++--
+ drivers/gpu/drm/i915/display/intel_color.h    |  2 +
+ drivers/gpu/drm/i915/display/intel_crtc.c     |  4 +-
+ drivers/gpu/drm/i915/display/intel_display.c  |  3 +
+ drivers/gpu/drm/i915/display/intel_dsb.c      | 70 ++++++++++++++-----
+ drivers/gpu/drm/i915/display/intel_dsb.h      |  5 +-
+ .../drm/i915/display/intel_modeset_verify.c   |  2 +
+ drivers/gpu/drm/i915/i915_reg.h               | 50 ++++++++++++-
+ 8 files changed, 156 insertions(+), 26 deletions(-)
+
 -- 
 2.38.2
 
