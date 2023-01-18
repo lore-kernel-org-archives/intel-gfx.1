@@ -4,48 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5F8DC38147
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 15:53:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F057C38147
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 16:08:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAA0510E198;
-	Wed, 18 Jan 2023 15:53:24 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6D0B10E788
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Jan 2023 15:53:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F233610E775;
+	Wed, 18 Jan 2023 16:08:40 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7639010E1CF;
+ Wed, 18 Jan 2023 16:08:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674057196; x=1705593196;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ccFUthDybLOwRGSXEyRslrzuk2oeeJQUovQ5IEybA4k=;
- b=EmmDHSi05pcjQngyXwLQBRX3ym62LSeb4zc5UWhzye/17Lskqui+qMEp
- U9WaRXPCO9wP0mpA7yKzZl/L2ZCFrCLUH67Qv9P6EKmm2aDBL2xkpj2tY
- 4Z4giMLSAzh3P7Lj4g4zAAX7x0eSY5NSUjxrdrBxNBxmGifdYFa0odOop
- 4Z+sydPlA2HXvEyDDKefVlF5q/r8m4bElx95VO68r8FneDFl+YSeUsUzW
- 6zs5dYBbu0XNE4qIGH2zDb7bnZ5o8C8DInqjqsFFr1PylbS6JfD8uyBvF
- NMCd5MUpXMfXbZC5dQcFB+AMUefs+xU1V2aNXVylAQKianxkZUFiFtfMQ w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="411249689"
-X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="411249689"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2023 07:53:00 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="802236754"
-X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="802236754"
-Received: from sgunturi-mobl.amr.corp.intel.com (HELO gjsousa-mobl2.intel.com)
- ([10.213.185.74])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2023 07:52:59 -0800
-From: Gustavo Sousa <gustavo.sousa@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 18 Jan 2023 12:52:48 -0300
-Message-Id: <20230118155249.41551-2-gustavo.sousa@intel.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230118155249.41551-1-gustavo.sousa@intel.com>
-References: <20230118155249.41551-1-gustavo.sousa@intel.com>
+ t=1674058118; x=1705594118;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=duTpPycpgipoVLsrDHCL8AH3lxXBmk1Ues77CjRyEjo=;
+ b=US2bspfhyDXIsvNwZm4p7eXN+f6Z6fwPq9HHbCzycQtRaua+1vCu6VC7
+ E1U0HFHPzZH9samZt71C+eYJd/J8usi6cCxnLMkNTphaznYRw9MEd6i+2
+ t8qJuw7QxhhixbZyxKbyxovKLaDHP2mosMTupt5Snec5OY8H3pf2JCuZm
+ dQXrWSjApE+0CrJAGdDk8sL3MCSKlTJGJXlF1oA/9f2TEAmDZdDvwojif
+ RbJ4zn38o4EzVcmDnqyEDE6KdGllyxMimPKYlM+8476kxTSojyS7etz9+
+ UfSIiKf+6HuJija3wILENzkY93UavXuLBrDnYZ0d/AhZTGhMa+MqPad0b w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="326283136"
+X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="326283136"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jan 2023 08:08:38 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="692053522"
+X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="692053522"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.55])
+ by orsmga001.jf.intel.com with SMTP; 18 Jan 2023 08:08:35 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 18 Jan 2023 18:08:34 +0200
+Date: Wed, 18 Jan 2023 18:08:34 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Message-ID: <Y8gZgi6+h0ZyDGuE@intel.com>
+References: <cover.1672826282.git.jani.nikula@intel.com>
+ <7c912a01272a6203673c04eec13158051aafc7dd.1672826282.git.jani.nikula@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/2] drm/i915/doc: Document where to
- implement register workarounds
+In-Reply-To: <7c912a01272a6203673c04eec13158051aafc7dd.1672826282.git.jani.nikula@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH v7 11/22] drm/edid: split HDMI VSDB info and
+ mode parsing
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,62 +62,137 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Extend the existing documentation in gt/intel_workarounds.c to make it
-clear which functions register workarounds should be implemented in
-according to their types.
+On Wed, Jan 04, 2023 at 12:05:26PM +0200, Jani Nikula wrote:
+> Separate the parsing of display info and modes from the HDMI VSDB. This
+> is prerequisite work for overall better separation of the two parsing
+> steps.
+> 
+> The info parsing is about figuring out whether the sink supports HDMI
+> infoframes. Since they were added in HDMI 1.4, assume the sink supports
+> HDMI infoframes if it uses HDMI 1.4 features in HDMI VSDB. For details,
+> see commit f1781e9bb2dd ("drm/edid: Allow HDMI infoframe without VIC or
+> S3D").
+> 
+> The logic is not exactly the same, but since it was somewhat heuristic
+> to begin with, assume this is close enough.
+> 
+> Add cea_db_raw_size() helper to get the size of the entire data block,
+> including tag and length. This is helpful for checking against specs
+> that define indexes from the start of the entire block, like here.
 
-Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+I do wonder how much point there is in this difference between
+the payload handling for HDMI vs. CTA specified blocks. CTA
+specifies the bytes using 1-based indexing so the indices won't
+directly match the spec there either. Perhaps we should just use
+the same approach for all data blocks regardless of where they're
+specified. Anyways, just food for thought in the future.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 6dacd0dc5c2c..ef6065ce8267 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -30,6 +30,9 @@
-  *   creation to have a "primed golden context", i.e. a context image that
-  *   already contains the changes needed to all the registers.
-  *
-+ *   Context workarounds should be implemented in the *_ctx_workarounds_init()
-+ *   variants respective to the targeted platforms.
-+ *
-  * - Engine workarounds: the list of these WAs is applied whenever the specific
-  *   engine is reset. It's also possible that a set of engine classes share a
-  *   common power domain and they are reset together. This happens on some
-@@ -42,15 +45,28 @@
-  *   saves/restores their values before/after the reset takes place. See
-  *   ``drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c`` for reference.
-  *
-+ *   Workarounds for registers specific to RCS and CCS should be implemented in
-+ *   rcs_engine_wa_init() and ccs_engine_wa_init(), respectively; those for
-+ *   registers belonging to BCS, VCS or VECS should be implemented in
-+ *   xcs_engine_wa_init(). Workarounds for registers not belonging to a specific
-+ *   engine's MMIO range but that are part of of the common RCS/CCS reset domain
-+ *   should be implemented in general_render_compute_wa_init().
-+ *
-  * - GT workarounds: the list of these WAs is applied whenever these registers
-  *   revert to their default values: on GPU reset, suspend/resume [1]_, etc.
-  *
-+ *   GT workarounds should be implemented in the *_gt_workarounds_init()
-+ *   variants respective to the targeted platforms.
-+ *
-  * - Register whitelist: some workarounds need to be implemented in userspace,
-  *   but need to touch privileged registers. The whitelist in the kernel
-  *   instructs the hardware to allow the access to happen. From the kernel side,
-  *   this is just a special case of a MMIO workaround (as we write the list of
-  *   these to/be-whitelisted registers to some special HW registers).
-  *
-+ *   Register whitelisting should be done in the *_whitelist_build() variants
-+ *   respective to the targeted platforms.
-+ *
-  * - Workaround batchbuffers: buffers that get executed automatically by the
-  *   hardware on every HW context restore. These buffers are created and
-  *   programmed in the default context so the hardware always go through those
+> 
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+>  drivers/gpu/drm/drm_edid.c | 39 +++++++++++++++++++++++++++++++++++---
+>  1 file changed, 36 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index 93067b8dd9f6..5cb1d36ce48a 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -4717,7 +4717,6 @@ static int hdmi_vsdb_latency_length(const u8 *db)
+>  static int
+>  do_hdmi_vsdb_modes(struct drm_connector *connector, const u8 *db, u8 len)
+>  {
+> -	struct drm_display_info *info = &connector->display_info;
+>  	int modes = 0, offset = 0, i, multi_present = 0, multi_len;
+>  	u8 vic_len, hdmi_3d_len = 0;
+>  	u16 mask;
+> @@ -4835,8 +4834,6 @@ do_hdmi_vsdb_modes(struct drm_connector *connector, const u8 *db, u8 len)
+>  	}
+>  
+>  out:
+> -	if (modes > 0)
+> -		info->has_hdmi_infoframe = true;
+>  	return modes;
+>  }
+>  
+> @@ -4893,6 +4890,7 @@ static int cea_db_tag(const struct cea_db *db)
+>  	return db->tag_length >> 5;
+>  }
+>  
+> +/* Data block payload length excluding the tag and length byte */
+>  static int cea_db_payload_len(const void *_db)
+>  {
+>  	/* FIXME: Transition to passing struct cea_db * everywhere. */
+> @@ -4901,6 +4899,12 @@ static int cea_db_payload_len(const void *_db)
+>  	return db->tag_length & 0x1f;
+>  }
+>  
+> +/* Data block raw size including the tag and length byte */
+> +static int cea_db_raw_size(const void *db)
+> +{
+> +	return cea_db_payload_len(db) + 1;
+> +}
+> +
+>  static const void *cea_db_data(const struct cea_db *db)
+>  {
+>  	return db->data;
+> @@ -6159,6 +6163,32 @@ static void drm_parse_hdmi_deep_color_info(struct drm_connector *connector,
+>  	}
+>  }
+>  
+> +/*
+> + * Try to infer whether the sink supports HDMI infoframes.
+> + *
+> + * HDMI infoframe support was first added in HDMI 1.4. Assume the sink supports
+> + * infoframes if the HDMI VSDB contains HDMI 1.4 features.
+> + */
+> +static bool hdmi_vsdb_infoframe_support(struct drm_connector *connector, const u8 *db)
+> +{
+> +	int size = cea_db_raw_size(db);
+> +	int offset = 8;
+> +
+> +	if (offset < size)
+> +		offset += hdmi_vsdb_latency_length(db);
+> +
+> +	/* 3D_present */
+> +	if (offset < size && db[offset++] & BIT(7))
+> +		return true;
+> +
+> +	/* HDMI_VIC_LEN and HDMI_3D_LEN */
+> +	if (offset < size && db[offset])
+> +		return true;
+
+I'm thinking it should be enough to just check the HDMI_Video_present
+bit. Granted it would be a slight change in behaviour if there are 
+EDIDs with said bit set but with no actual 3D/HDMI modes included. But
+such sinks would still conform to spec version 1.4 and so should have
+no problems with the infoframe.
+
+> +
+> +	return false;
+> +}
+> +
+> +/* HDMI Vendor-Specific Data Block (HDMI VSDB, H14b-VSDB) */
+>  static void
+>  drm_parse_hdmi_vsdb_video(struct drm_connector *connector, const u8 *db)
+>  {
+> @@ -6172,6 +6202,9 @@ drm_parse_hdmi_vsdb_video(struct drm_connector *connector, const u8 *db)
+>  	if (len >= 7)
+>  		info->max_tmds_clock = db[7] * 5000;
+>  
+> +	if (hdmi_vsdb_infoframe_support(connector, db))
+> +		info->has_hdmi_infoframe = true;
+> +
+>  	drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] HDMI: DVI dual %d, max TMDS clock %d kHz\n",
+>  		    connector->base.id, connector->name,
+>  		    info->dvi_dual, info->max_tmds_clock);
+> -- 
+> 2.34.1
+
 -- 
-2.39.0
-
+Ville Syrjälä
+Intel
