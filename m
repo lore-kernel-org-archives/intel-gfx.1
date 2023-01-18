@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51BBBC38147
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 13:15:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2739DC677F1
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Jan 2023 13:16:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE7F410E742;
-	Wed, 18 Jan 2023 13:15:55 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97A0D10E742
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Jan 2023 13:15:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A869210E747;
+	Wed, 18 Jan 2023 13:16:09 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42FB510E747
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Jan 2023 13:16:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674047753; x=1705583753;
+ t=1674047768; x=1705583768;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=xp/7RnWWh+2X0mCPWrCnx7X5FjyYDY9/Vsy/QlggYOE=;
- b=dTni6AE2TDkbvsNPRH1H1VfgyOH2rc+VYasKlywUE9NCRLUvrWA30s9s
- /5tUmRqL4U8qpE/S4xZWcReE0lxfSqQRJHCO1O9pnepJVdjq2kM8absYW
- KJUJrOYo4cM8QYZCNylkaPXAYGI/4llouhT0Dw1ZNp3J3OuDQyUpiHhFH
- rYVhO3xrlX0CAbGofxlGSYMfTGR6GUvs2yH/z2TipSAP7RIvIkBXDNI+L
- sTEvOJwjTdn7YSVGr42J5UqYjr2+SnBErc7JkaFBwyQNGelS6gc8FVOcV
- oDhEZYX95LcurYWUP4lWOgO7P2I9v2KGvQokI0Ywp3AMd6OcD+QmLTVcA g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="389479776"
-X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="389479776"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2023 05:15:53 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="690189916"
-X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="690189916"
+ bh=yzCfwQD4vlTY3muylZlEkKQU40YBP7jtbco1faDOfTo=;
+ b=ZV80hX1KHKvES02sn0thojHxgmAg2Qa5aMYrLwjngjC/ay/rHGC2iKM2
+ GlEWKyd7AWSDMO7ftK0CvtqU+31jp1usvQ+TneItHkUM/NkgL4KpImZi+
+ 00noOORmT7z91xG4TFS2QQq2WPc/mnbxXzXyYRth9VPrFf8GtEWyh12Ag
+ 51iVWL6TXLOshsqsUx7TppUkPP0mHNIlU3Nu+cHf2JSgDGIytYjon9tdX
+ GLalJoR3giskUGz00kmqLNWTk+RmLWPyP3oD3RzWx/SowkOhlItHh50Rd
+ A8D6DHjRqXmNNVQQKZZnp36QcvwcbvGSZVfEiXgqAY+kWDeZIqE/UTrfW A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="312857588"
+X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="312857588"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jan 2023 05:15:49 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10593"; a="652933556"
+X-IronPort-AV: E=Sophos;i="5.97,226,1669104000"; d="scan'208";a="652933556"
 Received: from kozlovdm-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.252.28.132])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2023 05:15:51 -0800
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jan 2023 05:15:47 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 18 Jan 2023 15:15:34 +0200
-Message-Id: <20230118131538.3558599-3-jani.nikula@intel.com>
+Date: Wed, 18 Jan 2023 15:15:33 +0200
+Message-Id: <20230118131538.3558599-2-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230118131538.3558599-1-jani.nikula@intel.com>
 References: <20230118131538.3558599-1-jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/7] drm/i915: drop a number of unnecessary
- forward declarations
+Subject: [Intel-gfx] [PATCH 2/7] drm/i915: move I915_IDLE_ENGINES_TIMEOUT
+ next to its only user
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,31 +63,43 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove leftovers from earlier cleanups.
+Declutter i915_drv.h. If there's ever a need to use this in more than
+one place, we can figure out a better spot then. For now, this seems
+easiest.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h | 7 -------
- 1 file changed, 7 deletions(-)
+ drivers/gpu/drm/i915/i915_debugfs.c | 3 +++
+ drivers/gpu/drm/i915/i915_drv.h     | 2 --
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
+index a356ca490159..51ba9a8369c5 100644
+--- a/drivers/gpu/drm/i915/i915_debugfs.c
++++ b/drivers/gpu/drm/i915/i915_debugfs.c
+@@ -648,6 +648,9 @@ i915_drop_caches_get(void *data, u64 *val)
+ 
+ 	return 0;
+ }
++
++#define I915_IDLE_ENGINES_TIMEOUT (200) /* in ms */
++
+ static int
+ gt_drop_caches(struct intel_gt *gt, u64 val)
+ {
 diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 343e3e568774..ad0c5fd0cc92 100644
+index 8377173e8de5..343e3e568774 100644
 --- a/drivers/gpu/drm/i915/i915_drv.h
 +++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -65,13 +65,6 @@
- #include "intel_uncore.h"
+@@ -194,8 +194,6 @@ struct i915_gem_mm {
+ 	u32 shrink_count;
+ };
  
- struct drm_i915_clock_gating_funcs;
--struct drm_i915_gem_object;
--struct drm_i915_private;
--struct intel_connector;
--struct intel_dp;
--struct intel_encoder;
--struct intel_limit;
--struct intel_overlay_error_state;
- struct vlv_s0ix_state;
- struct intel_pxp;
+-#define I915_IDLE_ENGINES_TIMEOUT (200) /* in ms */
+-
+ #define HAS_HW_SAGV_WM(i915) (DISPLAY_VER(i915) >= 13 && !IS_DGFX(i915))
  
+ struct i915_virtual_gpu {
 -- 
 2.34.1
 
