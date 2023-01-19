@@ -4,47 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A30CC38142
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Jan 2023 06:50:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE31AC00A5A
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Jan 2023 06:50:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91AFD10E8B4;
-	Thu, 19 Jan 2023 06:50:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1768E10E8B3;
+	Thu, 19 Jan 2023 06:50:36 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A71310E8B1;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B65A810E8B3;
  Thu, 19 Jan 2023 06:50:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1674111033; x=1705647033;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=ov8y484JIIkk/zE3pkQvSrmWUXT/SHd+zOXd9wu9OYE=;
- b=PM/KCgBf87do+6awN7ho0P8G/MQ11OZXwTVvvrC2vw49aEtQlOJB/1eR
- iUlub0koStG9hWlDEg55uFIpfoCZxb+7pTCMw8SkqSQ0s6kxgsvHCTUPN
- qBL5UUHmktmIzRRazJcOgP96ACSnvQw2PYJx6hd1X2XL71D8T94JRRXKA
- tK1vXxqB7GUMP4NRej+3adQ/X3Mt4T19MSBv+82hnV6zTUQykZJ1Uh/pV
- 2VGMKBcJV+reXoLlLA4D29rKT1bIa0IzBXgM3QvqmDzinTXGeOlg5MLIe
- FqpEcwBnO1bYmzmBIjXrRMdjOrQFxwy1qmrcTdWOsT/YGsBUe5pyJ6wQM g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="323897859"
-X-IronPort-AV: E=Sophos;i="5.97,228,1669104000"; d="scan'208";a="323897859"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=xbbJ1YgtFuol2H6ICruayFiqlhvGc5yaiK2Rt4k4F7U=;
+ b=bGISL+UAcog2nreexesGYN4mSFuqknGNZKidqSQce8lxm/LTo4bJqfHs
+ lvluuh9rFi6m4icrrdXcKLl8HzDblbvhbJd9gm8VvIHtc/h9CDe9SGYrd
+ pwiFazBM+lqJDersaI6P7CctSqnXzhMaWtuDT3b/LYiPL/jL8GZxIwm4M
+ M0axeZGYh8K4Gr72981mEWVDKKzDCwjpSy+gxTlI+ImioJkRcY0L7BO+V
+ h9otObmSt9WBrfErF2/kvYc5qAVA1YDyB0cypj6+/HXiUGNs4jSTqO1M9
+ ZY4v1UEN0dvG8bMqqlywLTALl/7s5lm/CtoyN6uxw6N8jXUyTRSw4qlrO w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="323897866"
+X-IronPort-AV: E=Sophos;i="5.97,228,1669104000"; d="scan'208";a="323897866"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2023 22:50:20 -0800
+ 18 Jan 2023 22:50:21 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="723385731"
-X-IronPort-AV: E=Sophos;i="5.97,228,1669104000"; d="scan'208";a="723385731"
+X-IronPort-AV: E=McAfee;i="6500,9779,10594"; a="723385752"
+X-IronPort-AV: E=Sophos;i="5.97,228,1669104000"; d="scan'208";a="723385752"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
- by fmsmga008.fm.intel.com with ESMTP; 18 Jan 2023 22:50:20 -0800
+ by fmsmga008.fm.intel.com with ESMTP; 18 Jan 2023 22:50:21 -0800
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Wed, 18 Jan 2023 22:49:54 -0800
-Message-Id: <20230119065000.1661857-1-John.C.Harrison@Intel.com>
+Date: Wed, 18 Jan 2023 22:50:00 -0800
+Message-Id: <20230119065000.1661857-7-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20230119065000.1661857-1-John.C.Harrison@Intel.com>
+References: <20230119065000.1661857-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 0/6] Allow error capture without a request &
- fix locking issues
+Subject: [Intel-gfx] [PATCH v3 6/6] drm/i915/guc: Add a debug print on GuC
+ triggered reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,47 +65,31 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-It is technically possible to get a hung context without a valid
-request. In such a situation, try to provide as much information in
-the error capture as possible rather than just aborting and capturing
-nothing.
-
-Similarly, in the case of an engine reset failure the GuC is not able
-to report the guilty context. So try a manual search instead of
-reporting nothing.
-
-While doing all this, it was noticed that the locking was broken in a
-number of places when searching for hung requests and dumping request
-info. So fix all that up as well.
-
-v2: Tidy up code flow in error capture. Reword some comments/messages.
-(review feedback from Tvrtko)
-Also fix up request locking issues from earlier changes noticed during
-code review of this change.
-v3: Fix some potential null pointer derefs and a reference leak.
-Add new patch to refactor the duplicated hung request search code into
-a common backend agnostic wrapper function and use the correct
-spinlocks for the correct lists. Also tweak some of the patch
-descriptions for better accuracy.
+For understanding bug reports, it can be useful to have an explicit
+dmesg print when a reset notification is received from GuC. As opposed
+to simply inferring that this happened from other messages.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-
-John Harrison (6):
-  drm/i915: Fix request locking during error capture & debugfs dump
-  drm/i915: Fix up locking around dumping requests lists
-  drm/i915: Allow error capture without a request
-  drm/i915: Allow error capture of a pending request
-  drm/i915/guc: Look for a guilty context when an engine reset fails
-  drm/i915/guc: Add a debug print on GuC triggered reset
-
- drivers/gpu/drm/i915/gt/intel_context.c       | 31 +++++++
- drivers/gpu/drm/i915/gt/intel_context.h       |  3 +
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     | 49 ++++++-----
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 34 ++++++-
- drivers/gpu/drm/i915/i915_gpu_error.c         | 88 ++++++++++---------
- 5 files changed, 138 insertions(+), 67 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 7c5ea66218443..30f79d333ae9b 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -4667,6 +4667,10 @@ static void guc_handle_context_reset(struct intel_guc *guc,
+ {
+ 	trace_intel_context_reset(ce);
+ 
++	drm_dbg(&guc_to_gt(guc)->i915->drm, "Got GuC reset of 0x%04X, exiting = %d, banned = %d\n",
++		ce->guc_id.id, test_bit(CONTEXT_EXITING, &ce->flags),
++		test_bit(CONTEXT_BANNED, &ce->flags));
++
+ 	if (likely(intel_context_is_schedulable(ce))) {
+ 		capture_error_state(guc, ce);
+ 		guc_context_replay(ce);
 -- 
 2.39.0
 
