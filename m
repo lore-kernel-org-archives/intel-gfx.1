@@ -4,52 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4264C004D4
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Jan 2023 15:59:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C3F6C004D4
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Jan 2023 16:19:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D490010E99A;
-	Thu, 19 Jan 2023 15:59:22 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ABA7010E998;
- Thu, 19 Jan 2023 15:59:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D62910E99C;
+	Thu, 19 Jan 2023 16:19:22 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C9BB10E99C;
+ Thu, 19 Jan 2023 16:19:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674143959; x=1705679959;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=QfZHiUbrYsKZ11KY9Ll6SaFDUenjXXadoi2vzZjMzhA=;
- b=LA0Jhl1ePIDJfhNlwLd/LSHpt1y/gDfZDgRSzmn+5HZepDnEhT5DHV60
- WAhJ1EbbUxkkI/PkoMBwhzm3TZtwXcWfRwMqHhxIt8pHS5VE9aCpI7CQ8
- zimtXlf/UV82Tk8b75ETqzRVzh7vYzAbDtdLgKHxQE+LXO3O98x15kqHh
- CsHdb47Scow2FLA+M11viSTPYyPWfhs9x9gx9nsT25Lni9yzzSC7whaIQ
- R17K+Br9S3NREsOJ+ZZsEUiuPAoKUH4yqNRP/h8XRYrTPjrA/xWTVMK4o
- /DYvWsh80DvDjFf4/v6PxhO8fCdGFr4IapOWRSG9sOn2SBAqnix9PaQjW A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="304999276"
-X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="304999276"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2023 07:59:19 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="802673930"
-X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="802673930"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.55])
- by fmsmga001.fm.intel.com with SMTP; 19 Jan 2023 07:59:16 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 19 Jan 2023 17:59:15 +0200
-Date: Thu, 19 Jan 2023 17:59:15 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <Y8lo0zG7p3DFklH9@intel.com>
-References: <7c912a01272a6203673c04eec13158051aafc7dd.1672826282.git.jani.nikula@intel.com>
- <20230119154628.953419-1-jani.nikula@intel.com>
+ t=1674145159; x=1705681159;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=UaBvTPPN/qFm6aJAGwv9/wUEunB/aBJDdH/97Lxe6T4=;
+ b=BvguqtmlS49PPdx6c9YiCeNNBLsECRibcpFzKUInDkX/jYjQqAS/ez6v
+ 5VhRW3ZfB9HBHAmGV2xf/44yDg863l7d6ALTMsku9s7CYVSCOp0Q8DixP
+ aXrvic1gENxrN2lt9JJnITzzhhaF/WPzDsrJOj93jEc5Edslr9uIbBz9e
+ QMipLKiaXouhAkhcPQKPJWF1ByI1vA63RxzA8/rZaqGKzeaxbIePHXLNb
+ qgwOTuimG6U6JnucunSnbYc6/sPcKncYGiaQvhq/IX+RbqgDpvBh/EdVF
+ YzgsXT5FMrtWamDPxan5eesYOVlTE1siO/4jpYLIO0/F9UppLOXDAmpv4 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="305699221"
+X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="305699221"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2023 08:19:18 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="637756000"
+X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="637756000"
+Received: from jnikula-mobl4.fi.intel.com (HELO localhost) ([10.237.66.157])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2023 08:19:16 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Thu, 19 Jan 2023 18:18:55 +0200
+Message-Id: <e9880bbb2b5724d9aac88a90a31ba3ba9af9da3f.1674144945.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1674144945.git.jani.nikula@intel.com>
+References: <cover.1674144945.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230119154628.953419-1-jani.nikula@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH] drm/edid: split HDMI VSDB info and mode
- parsing
+Subject: [Intel-gfx] [PATCH v8 2/8] drm/edid: refactor
+ _drm_edid_connector_update() and rename
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,85 +60,81 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 19, 2023 at 05:46:28PM +0200, Jani Nikula wrote:
-> Separate the parsing of display info and modes from the HDMI VSDB. This
-> is prerequisite work for overall better separation of the two parsing
-> steps.
-> 
-> The info parsing is about figuring out whether the sink supports HDMI
-> infoframes. Since they were added in HDMI 1.4, assume the sink supports
-> HDMI infoframes if it has the HDMI_Video_present bit set (introduced in
-> HDMI 1.4). For details, see commit f1781e9bb2dd ("drm/edid: Allow HDMI
-> infoframe without VIC or S3D").
-> 
-> The logic is not exactly the same, but since it was somewhat heuristic
-> to begin with, assume this is close enough.
-> 
-> v2:
-> - Simplify to only check HDMI_Video_present bit (Ville)
-> - Drop cea_db_raw_size() helper (Ville)
-> 
-> Cc: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+By moving update_display_info() out of _drm_edid_connector_update() we
+make the function purely about adding modes. Rename accordingly.
 
-Reviewed-by: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
+Cc: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
+Reviewed-by: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/drm_edid.c | 25 ++++++++++++-------------
+ 1 file changed, 12 insertions(+), 13 deletions(-)
 
-> ---
->  drivers/gpu/drm/drm_edid.c | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index e8b67f3f5c91..ee453e39562a 100644
-> --- a/drivers/gpu/drm/drm_edid.c
-> +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -4713,7 +4713,6 @@ static int hdmi_vsdb_latency_length(const u8 *db)
->  static int
->  do_hdmi_vsdb_modes(struct drm_connector *connector, const u8 *db, u8 len)
->  {
-> -	struct drm_display_info *info = &connector->display_info;
->  	int modes = 0, offset = 0, i, multi_present = 0, multi_len;
->  	u8 vic_len, hdmi_3d_len = 0;
->  	u16 mask;
-> @@ -4831,8 +4830,6 @@ do_hdmi_vsdb_modes(struct drm_connector *connector, const u8 *db, u8 len)
->  	}
->  
->  out:
-> -	if (modes > 0)
-> -		info->has_hdmi_infoframe = true;
->  	return modes;
->  }
->  
-> @@ -6153,6 +6150,7 @@ static void drm_parse_hdmi_deep_color_info(struct drm_connector *connector,
->  	}
->  }
->  
-> +/* HDMI Vendor-Specific Data Block (HDMI VSDB, H14b-VSDB) */
->  static void
->  drm_parse_hdmi_vsdb_video(struct drm_connector *connector, const u8 *db)
->  {
-> @@ -6166,6 +6164,15 @@ drm_parse_hdmi_vsdb_video(struct drm_connector *connector, const u8 *db)
->  	if (len >= 7)
->  		info->max_tmds_clock = db[7] * 5000;
->  
-> +	/*
-> +	 * Try to infer whether the sink supports HDMI infoframes.
-> +	 *
-> +	 * HDMI infoframe support was first added in HDMI 1.4. Assume the sink
-> +	 * supports infoframes if HDMI_Video_present is set.
-> +	 */
-> +	if (len >= 8 && db[8] & BIT(5))
-> +		info->has_hdmi_infoframe = true;
-> +
->  	drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] HDMI: DVI dual %d, max TMDS clock %d kHz\n",
->  		    connector->base.id, connector->name,
->  		    info->dvi_dual, info->max_tmds_clock);
-> -- 
-> 2.34.1
-
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index ee453e39562a..f9502df3dbca 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6637,19 +6637,12 @@ static int add_displayid_detailed_modes(struct drm_connector *connector,
+ 	return num_modes;
+ }
+ 
+-static int _drm_edid_connector_update(struct drm_connector *connector,
+-				      const struct drm_edid *drm_edid)
++static int _drm_edid_connector_add_modes(struct drm_connector *connector,
++					 const struct drm_edid *drm_edid)
+ {
+ 	const struct drm_display_info *info = &connector->display_info;
+ 	int num_modes = 0;
+ 
+-	/*
+-	 * CEA-861-F adds ycbcr capability map block, for HDMI 2.0 sinks.
+-	 * To avoid multiple parsing of same block, lets parse that map
+-	 * from sink info, before parsing CEA modes.
+-	 */
+-	update_display_info(connector, drm_edid);
+-
+ 	if (!drm_edid)
+ 		return 0;
+ 
+@@ -6754,7 +6747,9 @@ int drm_edid_connector_update(struct drm_connector *connector,
+ {
+ 	int count;
+ 
+-	count = _drm_edid_connector_update(connector, drm_edid);
++	update_display_info(connector, drm_edid);
++
++	count = _drm_edid_connector_add_modes(connector, drm_edid);
+ 
+ 	_drm_update_tile_info(connector, drm_edid);
+ 
+@@ -6824,7 +6819,8 @@ EXPORT_SYMBOL(drm_connector_update_edid_property);
+  */
+ int drm_add_edid_modes(struct drm_connector *connector, struct edid *edid)
+ {
+-	struct drm_edid drm_edid;
++	struct drm_edid _drm_edid;
++	const struct drm_edid *drm_edid;
+ 
+ 	if (edid && !drm_edid_is_valid(edid)) {
+ 		drm_warn(connector->dev, "[CONNECTOR:%d:%s] EDID invalid.\n",
+@@ -6832,8 +6828,11 @@ int drm_add_edid_modes(struct drm_connector *connector, struct edid *edid)
+ 		edid = NULL;
+ 	}
+ 
+-	return _drm_edid_connector_update(connector,
+-					  drm_edid_legacy_init(&drm_edid, edid));
++	drm_edid = drm_edid_legacy_init(&_drm_edid, edid);
++
++	update_display_info(connector, drm_edid);
++
++	return _drm_edid_connector_add_modes(connector, drm_edid);
+ }
+ EXPORT_SYMBOL(drm_add_edid_modes);
+ 
 -- 
-Ville Syrj‰l‰
-Intel
+2.34.1
+
