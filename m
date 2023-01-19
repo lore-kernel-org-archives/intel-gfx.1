@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66A81C46467
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Jan 2023 16:19:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18A8AC004D4
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Jan 2023 16:19:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 640CA10E99E;
-	Thu, 19 Jan 2023 16:19:27 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BD9B10E99E;
- Thu, 19 Jan 2023 16:19:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54EA810E9A2;
+	Thu, 19 Jan 2023 16:19:32 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2615F10E996;
+ Thu, 19 Jan 2023 16:19:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674145164; x=1705681164;
+ t=1674145168; x=1705681168;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=jzrGcq2qbvm7+vWEL9U0oaznnNYswxDkRaSEWl5CUBQ=;
- b=fDzL6ddgjLUr7UTFOCy01xXt8iDqfoHJDd/US+Ng9UQAyx2pIXxs3AOh
- Pn+YeMUIRz5jziQWaXUiHnTmlUT+k7vAcKxAVa5qzY++75bcjOFdmb0pO
- ZpGcy3r7JFwhYKpDo4e3A+Twomuy2RW4ihLcm159CgW8jm5251uBvI8jL
- gMjPU8zWll5WgrwguMNEt9iZ/F6XOgyX3KXBn/hKoR1cXr/HWCdxAIYcV
- lFeWfeTUEvbqccOf6jZ6XLNTlF8GXgQ41fO8zoZru7VRv1UuYUmaFy4mN
- tvC9bDYTwYx+aZ0VO3FxQCNq73B9Pl5HbnEq3pSOhmymCZQiu/15KKcG8 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="305699242"
-X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="305699242"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2023 08:19:23 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="637756033"
-X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="637756033"
+ bh=pOhFRmgeq5MOBaiVkEN73ObeOaNacMiPrY94Br9vTiI=;
+ b=IY6JJAyq4ITk/+R/1mOL4FoiTMZwAmWdYKp5fxwT/1kQtv/ZYOz12M0z
+ odxNjj3QrnWcTHfOZK4l+MIF7Rln0QtMDreR90UhMUn1xXchQs8u364J3
+ m3jr8Vju5eLj/vM05oKlkGaRXYcuA2SQcLpquO8ULIyZKVMDFFzW5/unM
+ f1Bbkjh+8HOQIHqNeqqS31g2OJODO9dgleRVDOUPzBySitzOgZN+F1lvH
+ dyVK17jsUdXbO90F2BtoIMi2uaBsAwSF6+PdBAPfxeLMY9MMqju5bMBgn
+ YPMMuQ2fkV8y0p5sNOCcqXlvVKbBY49d9siI8JSJ8sz+ddtpJmNN1SGtQ g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="325372809"
+X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="325372809"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2023 08:19:13 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="660256738"
+X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="660256738"
 Received: from jnikula-mobl4.fi.intel.com (HELO localhost) ([10.237.66.157])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2023 08:19:21 -0800
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jan 2023 08:19:11 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 19 Jan 2023 18:18:56 +0200
-Message-Id: <e86fff1579f14ebf6334692526c8f6831cd02cac.1674144945.git.jani.nikula@intel.com>
+Date: Thu, 19 Jan 2023 18:18:54 +0200
+Message-Id: <238e15f7ab15a86f7fd1812271dcaec9bc6e1506.1674144945.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1674144945.git.jani.nikula@intel.com>
 References: <cover.1674144945.git.jani.nikula@intel.com>
@@ -46,8 +46,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 3/8] drm/edid: add separate
- drm_edid_connector_add_modes()
+Subject: [Intel-gfx] [PATCH v8 1/8] drm/edid: split HDMI VSDB info and mode
+ parsing
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,155 +64,75 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The original goal with drm_edid_connector_update() was to have a single
-call for updating the connector and adding probed modes, in this order,
-but that turned out to be problematic. Drivers that need to update the
-connector in the .detect() callback would end up updating the probed
-modes as well. Turns out the callback may be called so many times that
-the probed mode list fills up without bounds, and this is amplified by
-add_alternate_cea_modes() duplicating the CEA modes on every call,
-actually running out of memory on some machines.
+Separate the parsing of display info and modes from the HDMI VSDB. This
+is prerequisite work for overall better separation of the two parsing
+steps.
 
-Kudos to Imre Deak <imre.deak@intel.com> for explaining this to me.
+The info parsing is about figuring out whether the sink supports HDMI
+infoframes. Since they were added in HDMI 1.4, assume the sink supports
+HDMI infoframes if it has the HDMI_Video_present bit set (introduced in
+HDMI 1.4). For details, see commit f1781e9bb2dd ("drm/edid: Allow HDMI
+infoframe without VIC or S3D").
 
-Go back to having separate drm_edid_connector_update() and
-drm_edid_connector_add_modes() calls. The former may be called from
-.detect(), .force(), or .get_modes(), but the latter only from
-.get_modes().
+The logic is not exactly the same, but since it was somewhat heuristic
+to begin with, assume this is close enough.
 
-Unlike drm_add_edid_modes(), have drm_edid_connector_add_modes() update
-the probed modes from the EDID property instead of the passed in
-EDID. This is mainly to enforce two things:
+v2:
+- Simplify to only check HDMI_Video_present bit (Ville)
+- Drop cea_db_raw_size() helper (Ville)
 
-1) drm_edid_connector_update() must be called before
-   drm_edid_connector_add_modes().
-
-   Display info and quirks are needed for parsing the modes, and we
-   don't want to call update_display_info() again to ensure the info is
-   available, like drm_add_edid_modes() does.
-
-2) The same EDID is used for both updating the connector and adding the
-   probed modes.
-
-Fortunately, the change is easy, because no driver has actually adopted
-drm_edid_connector_update(). Not even i915, and that's mainly because of
-the problem described above.
-
-Cc: Imre Deak <imre.deak@intel.com>
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_edid.c         | 44 +++++++++++++++++++++++-------
- drivers/gpu/drm/drm_probe_helper.c |  4 ++-
- include/drm/drm_edid.h             |  2 ++
- 3 files changed, 39 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/drm_edid.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index f9502df3dbca..d0c21d27b978 100644
+index e8b67f3f5c91..ee453e39562a 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
-@@ -6735,30 +6735,54 @@ static int _drm_edid_connector_property_update(struct drm_connector *connector,
-  * @connector: Connector
-  * @drm_edid: EDID
-  *
-- * Update the connector mode list, display info, ELD, HDR metadata, relevant
-- * properties, etc. from the passed in EDID.
-+ * Update the connector display info, ELD, HDR metadata, relevant properties,
-+ * etc. from the passed in EDID.
-  *
-  * If EDID is NULL, reset the information.
-  *
-- * Return: The number of modes added or 0 if we couldn't find any.
-+ * Must be called before calling drm_edid_connector_add_modes().
-+ *
-+ * Return: 0 on success, negative error on errors.
-  */
- int drm_edid_connector_update(struct drm_connector *connector,
- 			      const struct drm_edid *drm_edid)
+@@ -4713,7 +4713,6 @@ static int hdmi_vsdb_latency_length(const u8 *db)
+ static int
+ do_hdmi_vsdb_modes(struct drm_connector *connector, const u8 *db, u8 len)
  {
-+	update_display_info(connector, drm_edid);
-+
-+	_drm_update_tile_info(connector, drm_edid);
-+
-+	return _drm_edid_connector_property_update(connector, drm_edid);
-+}
-+EXPORT_SYMBOL(drm_edid_connector_update);
-+
-+/**
-+ * drm_edid_connector_add_modes - Update probed modes from the EDID property
-+ * @connector: Connector
-+ *
-+ * Add the modes from the previously updated EDID property to the connector
-+ * probed modes list.
-+ *
-+ * drm_edid_connector_update() must have been called before this to update the
-+ * EDID property.
-+ *
-+ * Return: The number of modes added, or 0 if we couldn't find any.
-+ */
-+int drm_edid_connector_add_modes(struct drm_connector *connector)
-+{
-+	const struct drm_edid *drm_edid = NULL;
- 	int count;
+-	struct drm_display_info *info = &connector->display_info;
+ 	int modes = 0, offset = 0, i, multi_present = 0, multi_len;
+ 	u8 vic_len, hdmi_3d_len = 0;
+ 	u16 mask;
+@@ -4831,8 +4830,6 @@ do_hdmi_vsdb_modes(struct drm_connector *connector, const u8 *db, u8 len)
+ 	}
  
--	update_display_info(connector, drm_edid);
-+	if (connector->edid_blob_ptr)
-+		drm_edid = drm_edid_alloc(connector->edid_blob_ptr->data,
-+					  connector->edid_blob_ptr->length);
- 
- 	count = _drm_edid_connector_add_modes(connector, drm_edid);
- 
--	_drm_update_tile_info(connector, drm_edid);
--
--	/* Note: Ignore errors for now. */
--	_drm_edid_connector_property_update(connector, drm_edid);
-+	drm_edid_free(drm_edid);
- 
- 	return count;
+ out:
+-	if (modes > 0)
+-		info->has_hdmi_infoframe = true;
+ 	return modes;
  }
--EXPORT_SYMBOL(drm_edid_connector_update);
-+EXPORT_SYMBOL(drm_edid_connector_add_modes);
  
- static int _drm_connector_update_edid_property(struct drm_connector *connector,
- 					       const struct drm_edid *drm_edid)
-@@ -6813,7 +6837,7 @@ EXPORT_SYMBOL(drm_connector_update_edid_property);
-  * &drm_display_info structure and ELD in @connector with any information which
-  * can be derived from the edid.
-  *
-- * This function is deprecated. Use drm_edid_connector_update() instead.
-+ * This function is deprecated. Use drm_edid_connector_add_modes() instead.
-  *
-  * Return: The number of modes added or 0 if we couldn't find any.
-  */
-diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
-index 7973f2589ced..95aeeed33cf5 100644
---- a/drivers/gpu/drm/drm_probe_helper.c
-+++ b/drivers/gpu/drm/drm_probe_helper.c
-@@ -1163,7 +1163,9 @@ int drm_connector_helper_get_modes(struct drm_connector *connector)
- 	 * EDID. Otherwise, if the EDID is NULL, clear the connector
- 	 * information.
- 	 */
--	count = drm_edid_connector_update(connector, drm_edid);
-+	drm_edid_connector_update(connector, drm_edid);
+@@ -6153,6 +6150,7 @@ static void drm_parse_hdmi_deep_color_info(struct drm_connector *connector,
+ 	}
+ }
+ 
++/* HDMI Vendor-Specific Data Block (HDMI VSDB, H14b-VSDB) */
+ static void
+ drm_parse_hdmi_vsdb_video(struct drm_connector *connector, const u8 *db)
+ {
+@@ -6166,6 +6164,15 @@ drm_parse_hdmi_vsdb_video(struct drm_connector *connector, const u8 *db)
+ 	if (len >= 7)
+ 		info->max_tmds_clock = db[7] * 5000;
+ 
++	/*
++	 * Try to infer whether the sink supports HDMI infoframes.
++	 *
++	 * HDMI infoframe support was first added in HDMI 1.4. Assume the sink
++	 * supports infoframes if HDMI_Video_present is set.
++	 */
++	if (len >= 8 && db[8] & BIT(5))
++		info->has_hdmi_infoframe = true;
 +
-+	count = drm_edid_connector_add_modes(connector);
- 
- 	drm_edid_free(drm_edid);
- 
-diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
-index 372963600f1d..70ae6c290bdc 100644
---- a/include/drm/drm_edid.h
-+++ b/include/drm/drm_edid.h
-@@ -609,6 +609,8 @@ const struct drm_edid *drm_edid_read_custom(struct drm_connector *connector,
- 					    void *context);
- int drm_edid_connector_update(struct drm_connector *connector,
- 			      const struct drm_edid *edid);
-+int drm_edid_connector_add_modes(struct drm_connector *connector);
-+
- const u8 *drm_find_edid_extension(const struct drm_edid *drm_edid,
- 				  int ext_id, int *ext_index);
- 
+ 	drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] HDMI: DVI dual %d, max TMDS clock %d kHz\n",
+ 		    connector->base.id, connector->name,
+ 		    info->dvi_dual, info->max_tmds_clock);
 -- 
 2.34.1
 
