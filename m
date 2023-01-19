@@ -4,48 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DAC7C46467
-	for <intel-gfx@archiver.kernel.org>; Thu, 19 Jan 2023 16:19:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9207DC678D6
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Jan 2023 16:19:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B34C710E99F;
-	Thu, 19 Jan 2023 16:19:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EBAF10E9A6;
+	Thu, 19 Jan 2023 16:19:42 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2255810E99E;
- Thu, 19 Jan 2023 16:19:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5DEF10E9A7;
+ Thu, 19 Jan 2023 16:19:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674145166; x=1705681166;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=R+SixiSrJOtjQT1NY7mbSropzachrisO3nBb/MPGtpU=;
- b=jnppDTUla5o314Vj8tWhrZDSqT8aHu5u9TO5iaNH2s3plBdEJlc93l7t
- XCk9Vx2+1uqwaHUCvWIIJHSKfu84rJo+uGxMGSifGCQHN3FI+Hppa2uxx
- GAcvMx/jVa652wcrNRS78QsKU37Fw42KSMns9dz+L8IsvX+0yrK6Nyk1D
- hGKSZGWG56SHaCfBAtFE2SXfzJD41hniDIVGE5Bg9ooeEhney3ANlPscw
- ZWTzvP//b3SZXutp2D8qhwHr4KtzyKGawUnbdLU8Z2qiHbCDss/6dGZJb
- /xRngomFa+LnfgmPCF6bHucAR87LCaU23tE6QRB7+nQ3HhKWfsjU5sfOE w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="325372789"
-X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="325372789"
+ t=1674145178; x=1705681178;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=RQvIBJV5ujzuDZ4mJMY6PyvVi/7K09K7bbJat1hnOtw=;
+ b=j0qtOXN18651Lkc5ltA+0GytHQgQQ8cCG3GdhOSwpoFxgXtzxNshNTnL
+ zzIhWx7bSfKcvKu4zYr8Lb0+eryuzweMhuE9qNk5XCYKMp/R4Odr6/o/v
+ D8KSdB+WXJwSAL9PdCJhmbEvf2/tvWYgDPF0oWAbIEVGrIE4QB8CiMKA8
+ cebPh9NPE93nMj4L9XCP/Js+ERYSQJVGtZOd7kDN+1LarIhvgMskyCEPR
+ XLaZUgiI+4BZY6tGm/hgm+brBRgjWu4mXI31tXYsCpS/CXZxe6DF9ljEr
+ k1y6nnG7ILezhqf6WZGRRxJw98HDZjSENsmx4y1tY5imItQL39FmMcrGp Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="325372888"
+X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="325372888"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2023 08:19:08 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="660256675"
-X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="660256675"
+ 19 Jan 2023 08:19:29 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10595"; a="660256920"
+X-IronPort-AV: E=Sophos;i="5.97,229,1669104000"; d="scan'208";a="660256920"
 Received: from jnikula-mobl4.fi.intel.com (HELO localhost) ([10.237.66.157])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2023 08:19:05 -0800
+ 19 Jan 2023 08:19:27 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 19 Jan 2023 18:18:53 +0200
-Message-Id: <cover.1674144945.git.jani.nikula@intel.com>
+Date: Thu, 19 Jan 2023 18:18:57 +0200
+Message-Id: <712cc299afe33d8f6279a15d5b0117aeeab88bb4.1674144945.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1674144945.git.jani.nikula@intel.com>
+References: <cover.1674144945.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 0/8] drm/edid: info & modes parsing and
- drm_edid refactors
+Subject: [Intel-gfx] [PATCH v8 4/8] drm/edid: remove redundant
+ _drm_connector_update_edid_property()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,40 +64,56 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A bunch of patches merged, thanks to Ville's review, here's another spin
-to get CI on the updated patch 1. The rest remain unchanged.
+Realize that drm_edid_connector_update() and
+_drm_connector_update_edid_property() are now the same thing. Drop the
+latter.
 
-Jani Nikula (8):
-  drm/edid: split HDMI VSDB info and mode parsing
-  drm/edid: refactor _drm_edid_connector_update() and rename
-  drm/edid: add separate drm_edid_connector_add_modes()
-  drm/edid: remove redundant _drm_connector_update_edid_property()
-  drm/i915/edid: convert DP, HDMI and LVDS to drm_edid
-  drm/i915/bios: convert intel_bios_init_panel() to drm_edid
-  drm/i915/opregion: convert intel_opregion_get_edid() to struct
-    drm_edid
-  drm/i915/panel: move panel fixed EDID to struct intel_panel
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/drm_edid.c | 21 +--------------------
+ 1 file changed, 1 insertion(+), 20 deletions(-)
 
- drivers/gpu/drm/drm_edid.c                    | 93 +++++++++++--------
- drivers/gpu/drm/drm_probe_helper.c            |  4 +-
- drivers/gpu/drm/i915/display/icl_dsi.c        |  2 +-
- drivers/gpu/drm/i915/display/intel_bios.c     | 23 ++---
- drivers/gpu/drm/i915/display/intel_bios.h     |  4 +-
- .../gpu/drm/i915/display/intel_connector.c    |  5 +-
- .../drm/i915/display/intel_display_types.h    |  8 +-
- drivers/gpu/drm/i915/display/intel_dp.c       | 91 +++++++++---------
- drivers/gpu/drm/i915/display/intel_dvo.c      |  2 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c     | 28 +++---
- drivers/gpu/drm/i915/display/intel_lvds.c     | 51 ++++++----
- drivers/gpu/drm/i915/display/intel_opregion.c | 29 +++---
- drivers/gpu/drm/i915/display/intel_opregion.h |  4 +-
- drivers/gpu/drm/i915/display/intel_panel.c    | 10 +-
- drivers/gpu/drm/i915/display/intel_panel.h    |  4 +-
- drivers/gpu/drm/i915/display/intel_sdvo.c     |  2 +-
- drivers/gpu/drm/i915/display/vlv_dsi.c        |  2 +-
- include/drm/drm_edid.h                        |  2 +
- 18 files changed, 201 insertions(+), 163 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index d0c21d27b978..3d0a4da661bc 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6784,24 +6784,6 @@ int drm_edid_connector_add_modes(struct drm_connector *connector)
+ }
+ EXPORT_SYMBOL(drm_edid_connector_add_modes);
+ 
+-static int _drm_connector_update_edid_property(struct drm_connector *connector,
+-					       const struct drm_edid *drm_edid)
+-{
+-	/*
+-	 * Set the display info, using edid if available, otherwise resetting
+-	 * the values to defaults. This duplicates the work done in
+-	 * drm_add_edid_modes, but that function is not consistently called
+-	 * before this one in all drivers and the computation is cheap enough
+-	 * that it seems better to duplicate it rather than attempt to ensure
+-	 * some arbitrary ordering of calls.
+-	 */
+-	update_display_info(connector, drm_edid);
+-
+-	_drm_update_tile_info(connector, drm_edid);
+-
+-	return _drm_edid_connector_property_update(connector, drm_edid);
+-}
+-
+ /**
+  * drm_connector_update_edid_property - update the edid property of a connector
+  * @connector: drm connector
+@@ -6823,8 +6805,7 @@ int drm_connector_update_edid_property(struct drm_connector *connector,
+ {
+ 	struct drm_edid drm_edid;
+ 
+-	return _drm_connector_update_edid_property(connector,
+-						   drm_edid_legacy_init(&drm_edid, edid));
++	return drm_edid_connector_update(connector, drm_edid_legacy_init(&drm_edid, edid));
+ }
+ EXPORT_SYMBOL(drm_connector_update_edid_property);
+ 
 -- 
 2.34.1
 
