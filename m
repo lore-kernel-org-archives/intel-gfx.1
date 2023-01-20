@@ -4,47 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EBEBC05027
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Jan 2023 19:35:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAFD6C05027
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Jan 2023 19:37:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 352B410EB07;
-	Fri, 20 Jan 2023 19:35:35 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03CAC10EAF8;
- Fri, 20 Jan 2023 19:35:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674243319; x=1705779319;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=K9Rwmr+p+yYte04uXq7uaLaekVzftRt5vKKh8dUuOMI=;
- b=TMtQNhNGbueocdIDkqzUsCxIEme+ya6x+VO6Ts6sqIGU22ffX9LXUKUO
- 4BSuBFVevVPD81QMMGCN26D+F/FKXAsACI+Hfrz33b2E8OjosqEZvLZIg
- hcYvDPaTBfTGMN2ys6ZMlSYHz2aU/H7rk+fjWMrZoXqPv2VN2Yxb5SIiT
- ZUZ3/P0OPkxV3AenjVRVYizfmVoCJjVCzxYJFoj+V4AVRoNMuIcFJVsX1
- /QLN47AdR7q0a0Vm1ijWzH2HZX3iOJgY4YUM91V/0oS/a+eQknjdnSh7d
- 2o4X91KGq5es4DR1/dXxzXJXRwxdPPokK+9Ym7/WI5zqw11F7wBsEN9ff Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="411903540"
-X-IronPort-AV: E=Sophos;i="5.97,233,1669104000"; d="scan'208";a="411903540"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2023 11:35:17 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="834518317"
-X-IronPort-AV: E=Sophos;i="5.97,233,1669104000"; d="scan'208";a="834518317"
-Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2023 11:35:16 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 20 Jan 2023 11:34:55 -0800
-Message-Id: <20230120193457.3295977-7-lucas.demarchi@intel.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230120193457.3295977-1-lucas.demarchi@intel.com>
-References: <20230120193457.3295977-1-lucas.demarchi@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ABDF10EAF6;
+	Fri, 20 Jan 2023 19:37:13 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id EC05B10EAF6;
+ Fri, 20 Jan 2023 19:37:10 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id E5995AADDC;
+ Fri, 20 Jan 2023 19:37:10 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 6/8] drm/i915: Convert _FIA() to
- _PICK_EVEN_2RANGES()
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Michal Wajdeczko" <michal.wajdeczko@intel.com>
+Date: Fri, 20 Jan 2023 19:37:10 -0000
+Message-ID: <167424343093.22910.9479799933877772328@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230120164050.1765-1-michal.wajdeczko@intel.com>
+In-Reply-To: <20230120164050.1765-1-michal.wajdeczko@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_GuC_oriented_print_macros?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,33 +40,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-_FIA() can use _PICK_EVEN_2RANGES instead of _PICK, which reduces the
-size and is safer.
+== Series Details ==
 
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
----
- drivers/gpu/drm/i915/display/intel_mg_phy_regs.h | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Series: GuC oriented print macros
+URL   : https://patchwork.freedesktop.org/series/113162/
+State : warning
 
-diff --git a/drivers/gpu/drm/i915/display/intel_mg_phy_regs.h b/drivers/gpu/drm/i915/display/intel_mg_phy_regs.h
-index 0e8248bce52d..0306ade2bc30 100644
---- a/drivers/gpu/drm/i915/display/intel_mg_phy_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_mg_phy_regs.h
-@@ -142,7 +142,9 @@
- #define FIA1_BASE			0x163000
- #define FIA2_BASE			0x16E000
- #define FIA3_BASE			0x16F000
--#define _FIA(fia)			_PICK((fia), FIA1_BASE, FIA2_BASE, FIA3_BASE)
-+#define _FIA(fia)			_PICK_EVEN_2RANGES((fia), 1,		\
-+							   FIA1_BASE, FIA1_BASE,\
-+							   FIA2_BASE, FIA3_BASE)
- #define _MMIO_FIA(fia, off)		_MMIO(_FIA(fia) + (off))
- 
- /* ICL PHY DFLEX registers */
--- 
-2.39.0
+== Summary ==
+
+Error: dim checkpatch failed
+b54a9b032bdb drm/i915/guc: Add GuC oriented print macros
+Traceback (most recent call last):
+  File "scripts/spdxcheck.py", line 6, in <module>
+    from ply import lex, yacc
+ModuleNotFoundError: No module named 'ply'
+-:17: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#17: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 48 lines checked
+abf8a7a2bd04 drm/i915/guc: Update GuC messages in intel_guc.c
+ef22893e1a38 drm/i915/guc: Update GuC messages in intel_guc_ads.c
+5bc4c51849e5 drm/i915/guc: Update GuC messages in intel_guc_ct.c
+817341aa24e6 drm/i915/guc: Update GuC messages in intel_guc_fw.c
+0211cb927751 drm/i915/guc: Update GuC messages in intel_guc_log.c
+0643c8385f5b drm/i915/guc: Update GuC messages in intel_guc_submission.c
+972bd4630444 drm/i915/guc: Update GT/GuC messages in intel_uc.c
+
 
