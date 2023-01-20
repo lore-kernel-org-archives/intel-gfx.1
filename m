@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94F44C05027
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Jan 2023 16:41:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71FBFC38141
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Jan 2023 16:41:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAE3710EAA9;
-	Fri, 20 Jan 2023 16:41:24 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFB3710EAA9;
- Fri, 20 Jan 2023 16:41:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D42D310EAAE;
+	Fri, 20 Jan 2023 16:41:36 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 660E510EAAC;
+ Fri, 20 Jan 2023 16:41:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674232882; x=1705768882;
+ t=1674232893; x=1705768893;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=6+aUMB2iz+HbeSZBYeZVNCBJQoqRwKY+t40FMKs6J3c=;
- b=A2Tn2dTjQSQXNYyD99OmpMCJ5apSPf+i5WpwRHhQkZJ0KeGEJVRlO3lw
- eBN7lj1ukjxQvDm+4MTvQzI55RLmqxbneo3ezNpXU0ytLWCseBMXN+H6r
- HjZnqq3+M8VwgzKV6bL6n29TuGlIJouYEAWgi/huagHg6FXb5qZ1RIvLc
- 3iHvm/AM27ncPpc4VAc3oXoPb+CNTzfORbd1iOHz75eeSsflqi8f2eV8a
- rSaOAdivjumiol1lVHvYwtW/eDoDX0HvT9qvm/ZpxFeQB740ec8Davj+I
- FLdHZm+J9uSQQCl3/tVypzIEoDfkZLOioArLgHy9+KWGogNNpMXPWBvSh Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="323309836"
-X-IronPort-AV: E=Sophos;i="5.97,232,1669104000"; d="scan'208";a="323309836"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2023 08:41:22 -0800
+ bh=B9MB3zjJZuPl6eTSb0o/zxh2hOkds/UGrCDypYzuaUs=;
+ b=PMYPetDs8tGphXYUWrfX4zg09FosAX/ZH5jX8oHLHu6xt6WLFVqj7ItC
+ 1KsjpMv7MBbgNJUDO5O78uQodvqUn8+tD0B2S0zYh/biQ6tx6Mx2HeC6I
+ d3mcHqOgnhTz7KupN0vo0R6uTip1jVzSlhHJRRRJYihEWh1yrhQelenjc
+ suWQpdHcaL3yj75TIR1eU6g9/WBDOjCZCuEFpIXoXihsEJQRM4XRCQHSe
+ IetHeyBCKAjpLrKO/lklXfp/DhSspVQHnsAOtYgL3fgR6H7OG6hXMX+yd
+ Ot+ohUOPCSg4sg4C8ZSsS6NdvCxngIjTnZf0L4JMsXh03dIn3bShaGMnD g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="325656840"
+X-IronPort-AV: E=Sophos;i="5.97,232,1669104000"; d="scan'208";a="325656840"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2023 08:41:33 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="691109966"
-X-IronPort-AV: E=Sophos;i="5.97,232,1669104000"; d="scan'208";a="691109966"
+X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="749398901"
+X-IronPort-AV: E=Sophos;i="5.97,232,1669104000"; d="scan'208";a="749398901"
 Received: from irvmail001.ir.intel.com ([10.43.11.63])
- by orsmga008.jf.intel.com with ESMTP; 20 Jan 2023 08:41:21 -0800
+ by FMSMGA003.fm.intel.com with ESMTP; 20 Jan 2023 08:41:32 -0800
 Received: from mwajdecz-MOBL.ger.corp.intel.com
  (mwajdecz-MOBL.ger.corp.intel.com [10.249.145.153])
  by irvmail001.ir.intel.com (8.14.3/8.13.6/MailSET/Hub) with ESMTP id
- 30KGfEfb023485; Fri, 20 Jan 2023 16:41:20 GMT
+ 30KGfEfi023485; Fri, 20 Jan 2023 16:41:31 GMT
 From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Date: Fri, 20 Jan 2023 17:40:43 +0100
-Message-Id: <20230120164050.1765-2-michal.wajdeczko@intel.com>
+Date: Fri, 20 Jan 2023 17:40:50 +0100
+Message-Id: <20230120164050.1765-9-michal.wajdeczko@intel.com>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20230120164050.1765-1-michal.wajdeczko@intel.com>
 References: <20230120164050.1765-1-michal.wajdeczko@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/8] drm/i915/guc: Add GuC oriented print macros
+Subject: [Intel-gfx] [PATCH 8/8] drm/i915/guc: Update GT/GuC messages in
+ intel_uc.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,74 +64,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-While we do have GT oriented print macros, add few more GuC
-specific to have common look and feel across all messages
-related to the GuC and to avoid chasing the gt pointer.
-
-We will use these macros shortly in upcoming patches.
+Use new macros to have common prefix that also include GT#.
 
 Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Cc: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_print.h | 48 ++++++++++++++++++++
- 1 file changed, 48 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_print.h
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c | 74 +++++++++++++--------------
+ 1 file changed, 36 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_print.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_print.h
-new file mode 100644
-index 000000000000..e75989d4ba06
---- /dev/null
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_print.h
-@@ -0,0 +1,48 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2023 Intel Corporation
-+ */
-+
-+#ifndef __INTEL_GUC_PRINT__
-+#define __INTEL_GUC_PRINT__
-+
-+#include "gt/intel_gt.h"
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+index 9a8a1abf71d7..e94f0d7119c4 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+@@ -6,11 +6,13 @@
+ #include <linux/string_helpers.h>
+ 
+ #include "gt/intel_gt.h"
 +#include "gt/intel_gt_print.h"
-+
-+#define guc_printk(_guc, _level, _fmt, ...) \
-+	gt_##_level(guc_to_gt(_guc), "GUC: " _fmt, ##__VA_ARGS__)
-+
-+#define guc_err(_guc, _fmt, ...) \
-+	guc_printk((_guc), err, _fmt, ##__VA_ARGS__)
-+
-+#define guc_warn(_guc, _fmt, ...) \
-+	guc_printk((_guc), warn, _fmt, ##__VA_ARGS__)
-+
-+#define guc_notice(_guc, _fmt, ...) \
-+	guc_printk((_guc), notice, _fmt, ##__VA_ARGS__)
-+
-+#define guc_info(_guc, _fmt, ...) \
-+	guc_printk((_guc), info, _fmt, ##__VA_ARGS__)
-+
-+#define guc_dbg(_guc, _fmt, ...) \
-+	guc_printk((_guc), dbg, _fmt, ##__VA_ARGS__)
-+
-+#define guc_err_ratelimited(_guc, _fmt, ...) \
-+	guc_printk((_guc), err_ratelimited, _fmt, ##__VA_ARGS__)
-+
-+#define guc_probe_error(_guc, _fmt, ...) \
-+	guc_printk((_guc), probe_error, _fmt, ##__VA_ARGS__)
-+
-+#define guc_WARN(_guc, _cond, _fmt, ...) \
-+	gt_WARN(guc_to_gt(_guc), _cond, "GUC: " _fmt, ##__VA_ARGS__)
-+
-+#define guc_WARN_ONCE(_guc, _cond, _fmt, ...) \
-+	gt_WARN_ONCE(guc_to_gt(_guc), _cond, "GUC: " _fmt, ##__VA_ARGS__)
-+
-+#define guc_WARN_ON(_guc, _cond) \
-+	gt_WARN(guc_to_gt(_guc), _cond, "%s(%s)", "guc_WARN_ON", __stringify(_cond))
-+
-+#define guc_WARN_ON_ONCE(_guc, _cond) \
-+	gt_WARN_ONCE(guc_to_gt(_guc), _cond, "%s(%s)", "guc_WARN_ON_ONCE", __stringify(_cond))
-+
-+#endif /* __INTEL_GUC_PRINT__ */
+ #include "gt/intel_reset.h"
+ #include "intel_gsc_fw.h"
+ #include "intel_gsc_uc.h"
+ #include "intel_guc.h"
+ #include "intel_guc_ads.h"
++#include "intel_guc_print.h"
+ #include "intel_guc_submission.h"
+ #include "gt/intel_rps.h"
+ #include "intel_uc.h"
+@@ -67,14 +69,14 @@ static int __intel_uc_reset_hw(struct intel_uc *uc)
+ 
+ 	ret = intel_reset_guc(gt);
+ 	if (ret) {
+-		DRM_ERROR("Failed to reset GuC, ret = %d\n", ret);
++		gt_err(gt, "Failed to reset GuC, ret = %d\n", ret);
+ 		return ret;
+ 	}
+ 
+ 	guc_status = intel_uncore_read(gt->uncore, GUC_STATUS);
+-	WARN(!(guc_status & GS_MIA_IN_RESET),
+-	     "GuC status: 0x%x, MIA core expected to be in reset\n",
+-	     guc_status);
++	gt_WARN(gt, !(guc_status & GS_MIA_IN_RESET),
++		"GuC status: 0x%x, MIA core expected to be in reset\n",
++		guc_status);
+ 
+ 	return ret;
+ }
+@@ -252,15 +254,13 @@ static int guc_enable_communication(struct intel_guc *guc)
+ 	intel_guc_ct_event_handler(&guc->ct);
+ 	spin_unlock_irq(gt->irq_lock);
+ 
+-	drm_dbg(&i915->drm, "GuC communication enabled\n");
++	guc_dbg(guc, "communication enabled\n");
+ 
+ 	return 0;
+ }
+ 
+ static void guc_disable_communication(struct intel_guc *guc)
+ {
+-	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
+-
+ 	/*
+ 	 * Events generated during or after CT disable are logged by guc in
+ 	 * via mmio. Make sure the register is clear before disabling CT since
+@@ -280,11 +280,12 @@ static void guc_disable_communication(struct intel_guc *guc)
+ 	 */
+ 	guc_get_mmio_msg(guc);
+ 
+-	drm_dbg(&i915->drm, "GuC communication disabled\n");
++	guc_dbg(guc, "communication disabled\n");
+ }
+ 
+ static void __uc_fetch_firmwares(struct intel_uc *uc)
+ {
++	struct intel_gt *gt = uc_to_gt(uc);
+ 	int err;
+ 
+ 	GEM_BUG_ON(!intel_uc_wants_guc(uc));
+@@ -293,15 +294,13 @@ static void __uc_fetch_firmwares(struct intel_uc *uc)
+ 	if (err) {
+ 		/* Make sure we transition out of transient "SELECTED" state */
+ 		if (intel_uc_wants_huc(uc)) {
+-			drm_dbg(&uc_to_gt(uc)->i915->drm,
+-				"Failed to fetch GuC: %d disabling HuC\n", err);
++			gt_dbg(gt, "Failed to fetch GuC fw (%pe) disabling HuC\n", ERR_PTR(err));
+ 			intel_uc_fw_change_status(&uc->huc.fw,
+ 						  INTEL_UC_FIRMWARE_ERROR);
+ 		}
+ 
+ 		if (intel_uc_wants_gsc_uc(uc)) {
+-			drm_dbg(&uc_to_gt(uc)->i915->drm,
+-				"Failed to fetch GuC: %d disabling GSC\n", err);
++			gt_dbg(gt, "Failed to fetch GuC fw (%pe) disabling GSC\n", ERR_PTR(err));
+ 			intel_uc_fw_change_status(&uc->gsc.fw,
+ 						  INTEL_UC_FIRMWARE_ERROR);
+ 		}
+@@ -382,7 +381,7 @@ static int uc_init_wopcm(struct intel_uc *uc)
+ 	int err;
+ 
+ 	if (unlikely(!base || !size)) {
+-		i915_probe_error(gt->i915, "Unsuccessful WOPCM partitioning\n");
++		gt_probe_error(gt, "Unsuccessful WOPCM partitioning\n");
+ 		return -E2BIG;
+ 	}
+ 
+@@ -413,13 +412,13 @@ static int uc_init_wopcm(struct intel_uc *uc)
+ 	return 0;
+ 
+ err_out:
+-	i915_probe_error(gt->i915, "Failed to init uC WOPCM registers!\n");
+-	i915_probe_error(gt->i915, "%s(%#x)=%#x\n", "DMA_GUC_WOPCM_OFFSET",
+-			 i915_mmio_reg_offset(DMA_GUC_WOPCM_OFFSET),
+-			 intel_uncore_read(uncore, DMA_GUC_WOPCM_OFFSET));
+-	i915_probe_error(gt->i915, "%s(%#x)=%#x\n", "GUC_WOPCM_SIZE",
+-			 i915_mmio_reg_offset(GUC_WOPCM_SIZE),
+-			 intel_uncore_read(uncore, GUC_WOPCM_SIZE));
++	gt_probe_error(gt, "Failed to init uC WOPCM registers!\n");
++	gt_probe_error(gt, "%s(%#x)=%#x\n", "DMA_GUC_WOPCM_OFFSET",
++		       i915_mmio_reg_offset(DMA_GUC_WOPCM_OFFSET),
++		       intel_uncore_read(uncore, DMA_GUC_WOPCM_OFFSET));
++	gt_probe_error(gt, "%s(%#x)=%#x\n", "GUC_WOPCM_SIZE",
++		       i915_mmio_reg_offset(GUC_WOPCM_SIZE),
++		       intel_uncore_read(uncore, GUC_WOPCM_SIZE));
+ 
+ 	return err;
+ }
+@@ -451,18 +450,17 @@ static int __uc_check_hw(struct intel_uc *uc)
+ 
+ static void print_fw_ver(struct intel_uc *uc, struct intel_uc_fw *fw)
+ {
+-	struct drm_i915_private *i915 = uc_to_gt(uc)->i915;
+-
+-	drm_info(&i915->drm, "%s firmware %s version %u.%u.%u\n",
+-		 intel_uc_fw_type_repr(fw->type), fw->file_selected.path,
+-		 fw->file_selected.ver.major,
+-		 fw->file_selected.ver.minor,
+-		 fw->file_selected.ver.patch);
++	gt_info(uc_to_gt(uc), "%s firmware %s version %u.%u.%u\n",
++		intel_uc_fw_type_repr(fw->type), fw->file_selected.path,
++		fw->file_selected.ver.major,
++		fw->file_selected.ver.minor,
++		fw->file_selected.ver.patch);
+ }
+ 
+ static int __uc_init_hw(struct intel_uc *uc)
+ {
+-	struct drm_i915_private *i915 = uc_to_gt(uc)->i915;
++	struct intel_gt *gt = uc_to_gt(uc);
++	struct drm_i915_private *i915 = gt->i915;
+ 	struct intel_guc *guc = &uc->guc;
+ 	struct intel_huc *huc = &uc->huc;
+ 	int ret, attempts;
+@@ -514,8 +512,8 @@ static int __uc_init_hw(struct intel_uc *uc)
+ 		if (ret == 0)
+ 			break;
+ 
+-		DRM_DEBUG_DRIVER("GuC fw load failed: %d; will reset and "
+-				 "retry %d more time(s)\n", ret, attempts);
++		gt_dbg(gt, "GuC fw load failed (%pe) will reset and retry %d more time(s)\n",
++		       ERR_PTR(ret), attempts);
+ 	}
+ 
+ 	/* Did we succeded or run out of retries? */
+@@ -551,10 +549,10 @@ static int __uc_init_hw(struct intel_uc *uc)
+ 
+ 	intel_gsc_uc_load_start(&uc->gsc);
+ 
+-	drm_info(&i915->drm, "GuC submission %s\n",
+-		 str_enabled_disabled(intel_uc_uses_guc_submission(uc)));
+-	drm_info(&i915->drm, "GuC SLPC %s\n",
+-		 str_enabled_disabled(intel_uc_uses_guc_slpc(uc)));
++	gt_info(gt, "GuC submission %s\n",
++		str_enabled_disabled(intel_uc_uses_guc_submission(uc)));
++	gt_info(gt, "GuC SLPC %s\n",
++		str_enabled_disabled(intel_uc_uses_guc_slpc(uc)));
+ 
+ 	return 0;
+ 
+@@ -572,12 +570,12 @@ static int __uc_init_hw(struct intel_uc *uc)
+ 	__uc_sanitize(uc);
+ 
+ 	if (!ret) {
+-		drm_notice(&i915->drm, "GuC is uninitialized\n");
++		gt_notice(gt, "GuC is uninitialized\n");
+ 		/* We want to run without GuC submission */
+ 		return 0;
+ 	}
+ 
+-	i915_probe_error(i915, "GuC initialization failed %d\n", ret);
++	gt_probe_error(gt, "GuC initialization failed %pe\n", ERR_PTR(ret));
+ 
+ 	/* We want to keep KMS alive */
+ 	return -EIO;
+@@ -690,7 +688,7 @@ void intel_uc_suspend(struct intel_uc *uc)
+ 	with_intel_runtime_pm(&uc_to_gt(uc)->i915->runtime_pm, wakeref) {
+ 		err = intel_guc_suspend(guc);
+ 		if (err)
+-			DRM_DEBUG_DRIVER("Failed to suspend GuC, err=%d", err);
++			gt_dbg(uc_to_gt(uc), "Failed to suspend GuC, %pe", ERR_PTR(err));
+ 	}
+ }
+ 
+@@ -718,7 +716,7 @@ static int __uc_resume(struct intel_uc *uc, bool enable_communication)
+ 
+ 	err = intel_guc_resume(guc);
+ 	if (err) {
+-		DRM_DEBUG_DRIVER("Failed to resume GuC, err=%d", err);
++		gt_dbg(gt, "Failed to resume GuC, %pe", ERR_PTR(err));
+ 		return err;
+ 	}
+ 
 -- 
 2.25.1
 
