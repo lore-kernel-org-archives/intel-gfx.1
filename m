@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7B20C05027
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Jan 2023 19:35:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CFDFC25B50
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Jan 2023 19:35:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C9BF10EAFA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E03410EAFE;
 	Fri, 20 Jan 2023 19:35:19 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD48310E39D;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48BBC10E39E;
  Fri, 20 Jan 2023 19:35:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1674243317; x=1705779317;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Nws+b8Tv9yMcVHF4dRTjJJJLwq5I7tBHqORq8QtOAe0=;
- b=fajn2Z65tbGxQ77OS8dalVA7BNptn/fcTNde9kuuC8F/PTMPUss9XOzt
- 2hu7Qb2Ux5NS1qgUfbe2Pevpeb4eO5eoMR1Dyd3JTsAonW1n2rzvO58U5
- Z425Hne2lPj7QPkzj6fikR6Va7+7UEUIQ3tsdNEv5MJtYh8u/n4W1v2Pv
- grmmlXdQxizVTocdqOQi5dxE4iC+TriAYUySjxeIqSYqmfCGSKSYCWDV9
- xj3/KudIcZHtZLwaSKXjxs0Td/gkyULyQBPqTOh0J1jF/4lvp/iaE8iBJ
- Fp8MSoHjwiLXdZPbjs+XCJX9ZAKF4DZOqVPY/I6ZZlWgVjeyEtB40XTzW Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="411903536"
-X-IronPort-AV: E=Sophos;i="5.97,233,1669104000"; d="scan'208";a="411903536"
+ bh=PDRZreVYUxY3F2JcBZ+8Vj7vod49Vq8JSDd72Fsl+V4=;
+ b=aKJLJ7umfxZQ9k4JTccTYeoGTM4aF50A/yLlwBpbkPnAyIoQ/5gYOK+5
+ +0A2sy1ozhCBnlZDzCZ1PF1FTx+I2mcHqz+8PJzIb15xkzOx9VjrIQbbQ
+ 7yWoB0OF9F9S7lk3feL2JP/XjNj1OYAcviMR+wTOPVTF5WaprgyT93IMJ
+ PtuJg6q7uYkhQSFO1SiftbTj4KM8NOjgmKX/M/3DG92iphOOX0N6/QVb7
+ NI2zrnOYPONQ10U8OUaK6OFJraEX/2TN+DjKjq0F0lK47Vbmu/Mhu4u+B
+ DPBsC0BWkRJTmCJKXwJUnPm2rK3W+7Z7vns8ZTbNE5a6CZZIEI17BfcMi A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="411903528"
+X-IronPort-AV: E=Sophos;i="5.97,233,1669104000"; d="scan'208";a="411903528"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2023 11:35:17 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="834518314"
-X-IronPort-AV: E=Sophos;i="5.97,233,1669104000"; d="scan'208";a="834518314"
+ 20 Jan 2023 11:35:16 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="834518297"
+X-IronPort-AV: E=Sophos;i="5.97,233,1669104000"; d="scan'208";a="834518297"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Jan 2023 11:35:16 -0800
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 20 Jan 2023 11:34:54 -0800
-Message-Id: <20230120193457.3295977-6-lucas.demarchi@intel.com>
+Date: Fri, 20 Jan 2023 11:34:50 -0800
+Message-Id: <20230120193457.3295977-2-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230120193457.3295977-1-lucas.demarchi@intel.com>
 References: <20230120193457.3295977-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 5/8] drm/i915: Convert PIPE3/PORT3 to
- _PICK_EVEN_2RANGES()
+Subject: [Intel-gfx] [PATCH v2 1/8] drm/i915: Add _PICK_EVEN_2RANGES()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,43 +60,66 @@ Cc: Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Like done for when __var_args__ were used, but size-wise it's also
-benefitial to avoid _PICK() used for 3 ports/pipes:
+It's a constant pattern in the driver to need to use 2 ranges of MMIOs
+based on port, phy, pll, etc. When that happens, instead of using
+_PICK_EVEN(), _PICK() needs to be used.  Using _PICK() is discouraged
+due to some reasons like:
 
-	$ size build64/drivers/gpu/drm/i915/i915.o{.old,.new}
-	   text    data     bss     dec     hex filename
-	4026288  185703    6984 4218975  40605f build64/drivers/gpu/drm/i915/i915.o.old
-	4025496  185703    6984 4218183  405d47 build64/drivers/gpu/drm/i915/i915.o.new
+1) It increases the code size since the array is declared
+   in each call site
+2) Developers need to be careful not to incur an
+   out-of-bounds array access
+3) Developers need to be careful that the indexes match the
+   table. For that it may be that the table needs to contain
+   holes, making (1) even worse.
+
+Add a variant of _PICK_EVEN() that works with 2 ranges and selects which
+one to use depending on the index value.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_reg_defs.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/i915_reg_defs.h | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_reg_defs.h b/drivers/gpu/drm/i915/display/intel_display_reg_defs.h
-index f1681e1396b5..755c1ea8225c 100644
---- a/drivers/gpu/drm/i915/display/intel_display_reg_defs.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_reg_defs.h
-@@ -13,7 +13,7 @@
- #define VLV_DISPLAY_BASE		0x180000
- 
- /*
-- * Named helper wrappers around _PICK_EVEN() and _PICK().
-+ * Named helper wrappers around _PICK_EVEN() and _PICK_EVEN_2RANGES().
+diff --git a/drivers/gpu/drm/i915/i915_reg_defs.h b/drivers/gpu/drm/i915/i915_reg_defs.h
+index be43580a6979..b7ec87464d69 100644
+--- a/drivers/gpu/drm/i915/i915_reg_defs.h
++++ b/drivers/gpu/drm/i915/i915_reg_defs.h
+@@ -119,6 +119,34 @@
   */
- #define _PIPE(pipe, a, b)		_PICK_EVEN(pipe, a, b)
- #define _PLANE(plane, a, b)		_PICK_EVEN(plane, a, b)
-@@ -29,8 +29,8 @@
- #define _MMIO_PLL(pll, a, b)		_MMIO(_PLL(pll, a, b))
- #define _MMIO_PHY(phy, a, b)		_MMIO(_PHY(phy, a, b))
+ #define _PICK_EVEN(__index, __a, __b) ((__a) + (__index) * ((__b) - (__a)))
  
--#define _MMIO_PIPE3(pipe, a, b, c)	_MMIO(_PICK(pipe, a, b, c))
--#define _MMIO_PORT3(pipe, a, b, c)	_MMIO(_PICK(pipe, a, b, c))
-+#define _MMIO_PIPE3(pipe, a, b, c)	_MMIO(_PICK_EVEN_2RANGES(pipe, 1, a, a, b, c))
-+#define _MMIO_PORT3(pipe, a, b, c)	_MMIO(_PICK_EVEN_2RANGES(pipe, 1, a, a, b, c))
- 
++/*
++ * Like _PICK_EVEN(), but supports 2 ranges of evenly spaced address offsets.
++ * The first range is used for indexes below @__c_index, and the second
++ * range is used for anything above it. Example::
++ *
++ * #define _FOO_A			0xf000
++ * #define _FOO_B			0xf004
++ * #define _FOO_C			0xf008
++ * #define _SUPER_FOO_A			0xa000
++ * #define _SUPER_FOO_B			0xa100
++ * #define FOO(x)			_MMIO(_PICK_EVEN_RANGES(x, 3,		\
++ *					      _FOO_A, _FOO_B,			\
++ *					      _SUPER_FOO_A, _SUPER_FOO_B))
++ *
++ * This expands to:
++ *	0: 0xf000,
++ *	1: 0xf004,
++ *	2: 0xf008,
++ *	3: 0xa100,
++ *	4: 0xa200,
++ *	5: 0xa300,
++ *	...
++ */
++#define _PICK_EVEN_2RANGES(__index, __c_index, __a, __b, __c, __d)		\
++	(BUILD_BUG_ON_ZERO(!__is_constexpr(__c_index)) +			\
++	 ((__index) < (__c_index) ? _PICK_EVEN(__index, __a, __b) :		\
++				   _PICK_EVEN((__index) - (__c_index), __c, __d)))
++
  /*
-  * Device info offset array based helpers for groups of registers with unevenly
+  * Given the arbitrary numbers in varargs, pick the 0-based __index'th number.
+  *
 -- 
 2.39.0
 
