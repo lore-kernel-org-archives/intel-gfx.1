@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4E03C25B4E
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Jan 2023 16:41:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1D72C38141
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Jan 2023 16:41:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 429AB10EAB6;
-	Fri, 20 Jan 2023 16:41:38 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC54410EAAB;
- Fri, 20 Jan 2023 16:41:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10D9410EAB3;
+	Fri, 20 Jan 2023 16:41:39 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C76FA10EAAD;
+ Fri, 20 Jan 2023 16:41:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674232885; x=1705768885;
+ t=1674232888; x=1705768888;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=bpuUOiIQOglcE/lGUdrCXSNKIhTa7p5kH6aLwKK9hJ4=;
- b=Yr8kOcDIpTz7ezJMgGhN0gjZuLGGL2E/Y7K2FrRFZbrCOq1ueQO+lzq9
- zq66NvaiH/PO9Nkct4NayDk1NJzpgG1/jBgJJ3ZqfYAooTIRDF2mIf6Z8
- llgymkw7DVbE2pd81zjIGiQeTvrT+JvVaFWNC6Jz738QRzo2QrjVxRIgs
- IoL6yLTRoCDJ1Yy+RQdL41Yu56gLKN6FCee42rWXIeqlXZngYH94WupyX
- VjnX94c5/AQ4XP3dww+QA0098+eAgWwLXOX5o4zf4OD50TcXU6IbUQx4K
- fp5ft/C8fJovcdaPw7zYn9aTqOB0pI+m7vH06e0KIwd3j47U3PZycLYlb A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="323309852"
-X-IronPort-AV: E=Sophos;i="5.97,232,1669104000"; d="scan'208";a="323309852"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2023 08:41:25 -0800
+ bh=Vv/F1KLWiNKMQCtGlnsWwh7HVyMiV4oF7jvh2rIsTMQ=;
+ b=fJx44QDxE6FDdW5Is6pZe/bgQgaAcya1TA2Pqr3U4p/ZbeyHzq0mpTLD
+ pkX9RYRxqRzJfR31JKhSHmCYs+2T13qEjHoJ8F15Bu0vmip1drPCOr/zG
+ 97nPdQNdMPgLNGi7Mkbtcp4lcPgKvADqdTjuzEBrYefEAl7H8/3C8o37I
+ fimZrGkbYyM86lOwvaYZVb1bX3rQnpIs1802E7ks6b9VgcRGBxq+tTOg5
+ 2Cn7JBLefI4fdukyu0hvYxbkth6zRqHvZj4qEzILZSkn7dQiPRIYtwONg
+ C61sufAtMN2pNb2TQfhWJS3hGu5xgY98ArVx9AxDOLq5gfEq7Yj5ExjFB A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="325656803"
+X-IronPort-AV: E=Sophos;i="5.97,232,1669104000"; d="scan'208";a="325656803"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2023 08:41:28 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="691109984"
-X-IronPort-AV: E=Sophos;i="5.97,232,1669104000"; d="scan'208";a="691109984"
+X-IronPort-AV: E=McAfee;i="6500,9779,10596"; a="749398882"
+X-IronPort-AV: E=Sophos;i="5.97,232,1669104000"; d="scan'208";a="749398882"
 Received: from irvmail001.ir.intel.com ([10.43.11.63])
- by orsmga008.jf.intel.com with ESMTP; 20 Jan 2023 08:41:24 -0800
+ by FMSMGA003.fm.intel.com with ESMTP; 20 Jan 2023 08:41:27 -0800
 Received: from mwajdecz-MOBL.ger.corp.intel.com
  (mwajdecz-MOBL.ger.corp.intel.com [10.249.145.153])
  by irvmail001.ir.intel.com (8.14.3/8.13.6/MailSET/Hub) with ESMTP id
- 30KGfEfc023485; Fri, 20 Jan 2023 16:41:23 GMT
+ 30KGfEfe023485; Fri, 20 Jan 2023 16:41:26 GMT
 From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Date: Fri, 20 Jan 2023 17:40:44 +0100
-Message-Id: <20230120164050.1765-3-michal.wajdeczko@intel.com>
+Date: Fri, 20 Jan 2023 17:40:46 +0100
+Message-Id: <20230120164050.1765-5-michal.wajdeczko@intel.com>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20230120164050.1765-1-michal.wajdeczko@intel.com>
 References: <20230120164050.1765-1-michal.wajdeczko@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/8] drm/i915/guc: Update GuC messages in
- intel_guc.c
+Subject: [Intel-gfx] [PATCH 4/8] drm/i915/guc: Update GuC messages in
+ intel_guc_ct.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,139 +69,46 @@ Use new macros to have common prefix that also include GT#.
 Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 Cc: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.c | 31 +++++++++++++-------------
- 1 file changed, 15 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-index 1bccc175f9e6..be39e519b5fd 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index 2b22065e87bf..89adfc4193d2 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
 @@ -11,6 +11,7 @@
- #include "intel_guc.h"
- #include "intel_guc_ads.h"
- #include "intel_guc_capture.h"
-+#include "intel_guc_print.h"
- #include "intel_guc_slpc.h"
- #include "intel_guc_submission.h"
+ 
  #include "i915_drv.h"
-@@ -94,8 +95,8 @@ static void gen9_enable_guc_interrupts(struct intel_guc *guc)
- 	assert_rpm_wakelock_held(&gt->i915->runtime_pm);
+ #include "intel_guc_ct.h"
++#include "intel_guc_print.h"
+ #include "gt/intel_gt.h"
  
- 	spin_lock_irq(gt->irq_lock);
--	WARN_ON_ONCE(intel_uncore_read(gt->uncore, GEN8_GT_IIR(2)) &
--		     gt->pm_guc_events);
-+	guc_WARN_ON_ONCE(guc, intel_uncore_read(gt->uncore, GEN8_GT_IIR(2)) &
-+			 gt->pm_guc_events);
- 	gen6_gt_pm_enable_irq(gt, gt->pm_guc_events);
- 	spin_unlock_irq(gt->irq_lock);
- 
-@@ -342,7 +343,7 @@ static void guc_init_params(struct intel_guc *guc)
- 	params[GUC_CTL_DEVID] = guc_ctl_devid(guc);
- 
- 	for (i = 0; i < GUC_CTL_MAX_DWORDS; i++)
--		DRM_DEBUG_DRIVER("param[%2d] = %#x\n", i, params[i]);
-+		guc_dbg(guc, "param[%2d] = %#x\n", i, params[i]);
+ static inline struct intel_guc *ct_to_guc(struct intel_guc_ct *ct)
+@@ -28,21 +29,16 @@ static inline struct drm_i915_private *ct_to_i915(struct intel_guc_ct *ct)
+ 	return ct_to_gt(ct)->i915;
  }
  
- /*
-@@ -389,7 +390,6 @@ void intel_guc_dump_time_info(struct intel_guc *guc, struct drm_printer *p)
+-static inline struct drm_device *ct_to_drm(struct intel_guc_ct *ct)
+-{
+-	return &ct_to_i915(ct)->drm;
+-}
+-
+ #define CT_ERROR(_ct, _fmt, ...) \
+-	drm_err(ct_to_drm(_ct), "CT: " _fmt, ##__VA_ARGS__)
++	guc_err(ct_to_guc(_ct), "CT: " _fmt, ##__VA_ARGS__)
+ #ifdef CONFIG_DRM_I915_DEBUG_GUC
+ #define CT_DEBUG(_ct, _fmt, ...) \
+-	drm_dbg(ct_to_drm(_ct), "CT: " _fmt, ##__VA_ARGS__)
++	guc_dbg(ct_to_guc(_ct), "CT: " _fmt, ##__VA_ARGS__)
+ #else
+ #define CT_DEBUG(...)	do { } while (0)
+ #endif
+ #define CT_PROBE_ERROR(_ct, _fmt, ...) \
+-	i915_probe_error(ct_to_i915(ct), "CT: " _fmt, ##__VA_ARGS__)
++	guc_probe_error(ct_to_guc(ct), "CT: " _fmt, ##__VA_ARGS__)
  
- int intel_guc_init(struct intel_guc *guc)
- {
--	struct intel_gt *gt = guc_to_gt(guc);
- 	int ret;
- 
- 	ret = intel_uc_fw_init(&guc->fw);
-@@ -451,7 +451,7 @@ int intel_guc_init(struct intel_guc *guc)
- 	intel_uc_fw_fini(&guc->fw);
- out:
- 	intel_uc_fw_change_status(&guc->fw, INTEL_UC_FIRMWARE_INIT_FAIL);
--	i915_probe_error(gt->i915, "failed with %d\n", ret);
-+	guc_probe_error(guc, "failed with %pe\n", ERR_PTR(ret));
- 	return ret;
- }
- 
-@@ -480,7 +480,6 @@ void intel_guc_fini(struct intel_guc *guc)
- int intel_guc_send_mmio(struct intel_guc *guc, const u32 *request, u32 len,
- 			u32 *response_buf, u32 response_buf_size)
- {
--	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
- 	struct intel_uncore *uncore = guc_to_gt(guc)->uncore;
- 	u32 header;
- 	int i;
-@@ -515,7 +514,7 @@ int intel_guc_send_mmio(struct intel_guc *guc, const u32 *request, u32 len,
- 					   10, 10, &header);
- 	if (unlikely(ret)) {
- timeout:
--		drm_err(&i915->drm, "mmio request %#x: no reply %x\n",
-+		guc_err(guc, "mmio request %#x: no reply %x\n",
- 			request[0], header);
- 		goto out;
- 	}
-@@ -537,7 +536,7 @@ int intel_guc_send_mmio(struct intel_guc *guc, const u32 *request, u32 len,
- 	if (FIELD_GET(GUC_HXG_MSG_0_TYPE, header) == GUC_HXG_TYPE_NO_RESPONSE_RETRY) {
- 		u32 reason = FIELD_GET(GUC_HXG_RETRY_MSG_0_REASON, header);
- 
--		drm_dbg(&i915->drm, "mmio request %#x: retrying, reason %u\n",
-+		guc_dbg(guc, "mmio request %#x: retrying, reason %u\n",
- 			request[0], reason);
- 		goto retry;
- 	}
-@@ -546,7 +545,7 @@ int intel_guc_send_mmio(struct intel_guc *guc, const u32 *request, u32 len,
- 		u32 hint = FIELD_GET(GUC_HXG_FAILURE_MSG_0_HINT, header);
- 		u32 error = FIELD_GET(GUC_HXG_FAILURE_MSG_0_ERROR, header);
- 
--		drm_err(&i915->drm, "mmio request %#x: failure %x/%u\n",
-+		guc_err(guc, "mmio request %#x: failure %x/%u\n",
- 			request[0], error, hint);
- 		ret = -ENXIO;
- 		goto out;
-@@ -554,7 +553,7 @@ int intel_guc_send_mmio(struct intel_guc *guc, const u32 *request, u32 len,
- 
- 	if (FIELD_GET(GUC_HXG_MSG_0_TYPE, header) != GUC_HXG_TYPE_RESPONSE_SUCCESS) {
- proto:
--		drm_err(&i915->drm, "mmio request %#x: unexpected reply %#x\n",
-+		guc_err(guc, "mmio request %#x: unexpected reply %#x\n",
- 			request[0], header);
- 		ret = -EPROTO;
- 		goto out;
-@@ -597,9 +596,9 @@ int intel_guc_to_host_process_recv_msg(struct intel_guc *guc,
- 	msg = payload[0] & guc->msg_enabled_mask;
- 
- 	if (msg & INTEL_GUC_RECV_MSG_CRASH_DUMP_POSTED)
--		drm_err(&guc_to_gt(guc)->i915->drm, "Received early GuC crash dump notification!\n");
-+		guc_err(guc, "Received early GuC crash dump notification!\n");
- 	if (msg & INTEL_GUC_RECV_MSG_EXCEPTION)
--		drm_err(&guc_to_gt(guc)->i915->drm, "Received early GuC exception notification!\n");
-+		guc_err(guc, "Received early GuC exception notification!\n");
- 
- 	return 0;
- }
-@@ -653,7 +652,8 @@ int intel_guc_suspend(struct intel_guc *guc)
- 		 */
- 		ret = intel_guc_send_mmio(guc, action, ARRAY_SIZE(action), NULL, 0);
- 		if (ret)
--			DRM_ERROR("GuC suspend: RESET_CLIENT action failed with error %d!\n", ret);
-+			guc_err(guc, "suspend: RESET_CLIENT action failed with %pe\n",
-+				ERR_PTR(ret));
- 	}
- 
- 	/* Signal that the GuC isn't running. */
-@@ -828,12 +828,11 @@ static int __guc_action_self_cfg(struct intel_guc *guc, u16 key, u16 len, u64 va
- 
- static int __guc_self_cfg(struct intel_guc *guc, u16 key, u16 len, u64 value)
- {
--	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
- 	int err = __guc_action_self_cfg(guc, key, len, value);
- 
- 	if (unlikely(err))
--		i915_probe_error(i915, "Unsuccessful self-config (%pe) key %#hx value %#llx\n",
--				 ERR_PTR(err), key, value);
-+		guc_probe_error(guc, "Unsuccessful self-config (%pe) key %#hx value %#llx\n",
-+				ERR_PTR(err), key, value);
- 	return err;
- }
- 
+ /**
+  * DOC: CTB Blob
 -- 
 2.25.1
 
