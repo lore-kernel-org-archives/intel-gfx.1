@@ -4,52 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B8A0C636D4
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 14:25:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19942C05027
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 14:25:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67DB010E577;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F6A210E576;
 	Thu,  2 Feb 2023 14:24:58 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40E5410E102;
- Wed, 25 Jan 2023 17:08:09 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C11031FD87;
- Wed, 25 Jan 2023 17:08:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1674666487; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=FNzsO8QkHd4bwcFXjgFFOOBC/xElVC4T91KIaFtN0Io=;
- b=D/br1xSsxQfk6apBfZHBB6RWB236iiiYqtOZ2eZ95J8WjWhuYAEVV+tXTEh0QKRmA1b4xH
- QN55Gxk1acvIRqe6qMTQwSbVuwI9C24RIc9UEoj8Q4rbZSCTfRh25I8IC+VWb1YjIErqcg
- 9b1EbAjGibksBO3NPm+wpmCzLKQPsIY=
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7757F1358F;
- Wed, 25 Jan 2023 17:08:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id T+qcHPdh0WP1JAAAMHmgww
- (envelope-from <mhocko@suse.com>); Wed, 25 Jan 2023 17:08:07 +0000
-Date: Wed, 25 Jan 2023 18:08:06 +0100
-From: Michal Hocko <mhocko@suse.com>
-To: Suren Baghdasaryan <surenb@google.com>
-Message-ID: <Y9Fh9joU3vTCwYbX@dhcp22.suse.cz>
-References: <20230125083851.27759-1-surenb@google.com>
- <20230125083851.27759-5-surenb@google.com>
- <Y9D4rWEsajV/WfNx@dhcp22.suse.cz>
- <CAJuCfpGd2eG0RSMte9OVgsRVWPo+Sj7+t8EOo8o_iKzZoh1MXA@mail.gmail.com>
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de
+ [130.133.4.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA8C910E4C8;
+ Mon, 23 Jan 2023 15:23:25 +0000 (UTC)
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+ by outpost.zedat.fu-berlin.de (Exim 4.95) with esmtps (TLS1.3)
+ tls TLS_AES_256_GCM_SHA384
+ (envelope-from <glaubitz@zedat.fu-berlin.de>)
+ id 1pJyfK-002YAC-Ph; Mon, 23 Jan 2023 16:23:22 +0100
+Received: from dynamic-077-011-154-164.77.11.pool.telefonica.de
+ ([77.11.154.164] helo=[192.168.1.11])
+ by inpost2.zedat.fu-berlin.de (Exim 4.95) with esmtpsa (TLS1.3)
+ tls TLS_AES_128_GCM_SHA256
+ (envelope-from <glaubitz@physik.fu-berlin.de>)
+ id 1pJyfK-003fd5-JQ; Mon, 23 Jan 2023 16:23:22 +0100
+Message-ID: <3c426ff9-e2de-86ee-6b49-443fea3437ff@physik.fu-berlin.de>
+Date: Mon, 23 Jan 2023 16:23:21 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAJuCfpGd2eG0RSMte9OVgsRVWPo+Sj7+t8EOo8o_iKzZoh1MXA@mail.gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Content-Language: en-US
+To: Thomas Zimmermann <tzimmermann@suse.de>
+References: <Y8kDk5YX7Yz3eRhM@linux-uq9g>
+ <0df23fe5-40cb-c5f3-33e1-da57a7b23808@physik.fu-berlin.de>
+ <43ed96bc-5a70-ba61-1959-fcb2fe86387e@suse.de>
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+In-Reply-To: <43ed96bc-5a70-ba61-1959-fcb2fe86387e@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-Originating-IP: 77.11.154.164
 X-Mailman-Approved-At: Thu, 02 Feb 2023 14:24:10 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 4/6] mm: replace vma->vm_flags indirect
- modification in ksm_madvise
+Subject: Re: [Intel-gfx] [PULL] drm-misc-next
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,83 +54,43 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
- leewalsh@google.com, dri-devel@lists.freedesktop.org, perex@perex.cz,
- jglisse@google.com, arjunroy@google.com, m.szyprowski@samsung.com,
- linux-arch@vger.kernel.org, qianweili@huawei.com,
- linux-samsung-soc@vger.kernel.org, aneesh.kumar@linux.ibm.com,
- chenhuacai@kernel.org, kasan-dev@googlegroups.com, linux-acpi@vger.kernel.org,
- rientjes@google.com, xen-devel@lists.xenproject.org, devel@lists.orangefs.org,
- minchan@google.com, robert.jarzmik@free.fr, linux-um@lists.infradead.org,
- etnaviv@lists.freedesktop.org, npiggin@gmail.com, viro@zeniv.linux.org.uk,
- luto@kernel.org, gthelen@google.com, tglx@linutronix.de, ldufour@linux.ibm.com,
- linux-sgx@vger.kernel.org, martin.petersen@oracle.com,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
- linux-media@vger.kernel.org, freedreno@lists.freedesktop.org,
- joelaf@google.com, linux-aio@kvack.org, linux-fbdev@vger.kernel.org,
- linux-ia64@vger.kernel.org, david@redhat.com, dave.hansen@linux.intel.com,
- virtualization@lists.linux-foundation.org, edumazet@google.com,
- target-devel@vger.kernel.org, punit.agrawal@bytedance.com,
- linux-s390@vger.kernel.org, dave@stgolabs.net, deller@gmx.de, hughd@google.com,
- andrii@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-rockchip@lists.infradead.org, linux-graphics-maintainer@vmware.com,
- kernel-team@android.com, jayalk@intworks.biz, soheil@google.com,
- selinux@vger.kernel.org, linux-arm-msm@vger.kernel.org, mripard@kernel.org,
- shakeelb@google.com, haojian.zhuang@gmail.com, loongarch@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, tytso@mit.edu, nico@fluxnic.net,
- muchun.song@linux.dev, hjc@rock-chips.com, mcoquelin.stm32@gmail.com,
- tatashin@google.com, mike.kravetz@oracle.com, songliubraving@fb.com,
- jasowang@redhat.com, alsa-devel@alsa-project.org, peterx@redhat.com,
- linux-tegra@vger.kernel.org, kraxel@redhat.com, will@kernel.org,
- dmaengine@vger.kernel.org, bhe@redhat.com, miklos@szeredi.hu,
- linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev, willy@infradead.org,
- gurua@google.com, dgilbert@interlog.com, xiang@kernel.org, pabeni@redhat.com,
- jejb@linux.ibm.com, quic_abhinavk@quicinc.com, bp@alien8.de,
- mchehab@kernel.org, linux-ext4@vger.kernel.org, tomba@kernel.org,
- hughlynch@google.com, sre@kernel.org, tfiga@chromium.org,
- linux-xfs@vger.kernel.org, zhangfei.gao@linaro.org, wangzhou1@hisilicon.com,
- netdev@vger.kernel.org, bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- davem@davemloft.net, kvm@vger.kernel.org, mst@redhat.com, peterz@infradead.org,
- bigeasy@linutronix.de, alexandre.torgue@foss.st.com, dhowells@redhat.com,
- linux-mm@kvack.org, ray.huang@amd.com, adilger.kernel@dilger.ca,
- kuba@kernel.org, sparclinux@vger.kernel.org, airlied@gmail.com,
- anton.ivanov@cambridgegreys.com, herbert@gondor.apana.org.au,
- linux-scsi@vger.kernel.org, richard@nod.at, x86@kernel.org, vkoul@kernel.org,
- mingo@redhat.com, axelrasmussen@google.com, intel-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, paulmck@kernel.org, jannh@google.com, chao@kernel.org,
- liam.howlett@oracle.com, hdegoede@redhat.com,
- linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com, vbabka@suse.cz,
- dimitri.sivanich@hpe.com, amd-gfx@lists.freedesktop.org, posk@google.com,
- lstoakes@gmail.com, peterjung1337@gmail.com, yoshfuji@linux-ipv6.org,
- linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org, kent.overstreet@linux.dev,
- kexec@lists.infradead.org, tiwai@suse.com, krzysztof.kozlowski@linaro.org,
- tzimmermann@suse.de, hannes@cmpxchg.org, dmitry.baryshkov@linaro.org,
- johannes@sipsolutions.net, mgorman@techsingularity.net,
- linux-accelerators@lists.ozlabs.org, l.stach@pengutronix.de
+Cc: dim-tools@lists.freedesktop.org, daniel.vetter@ffwll.ch,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rodrigo.vivi@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed 25-01-23 08:57:48, Suren Baghdasaryan wrote:
-> On Wed, Jan 25, 2023 at 1:38 AM 'Michal Hocko' via kernel-team
-> <kernel-team@android.com> wrote:
-> >
-> > On Wed 25-01-23 00:38:49, Suren Baghdasaryan wrote:
-> > > Replace indirect modifications to vma->vm_flags with calls to modifier
-> > > functions to be able to track flag changes and to keep vma locking
-> > > correctness. Add a BUG_ON check in ksm_madvise() to catch indirect
-> > > vm_flags modification attempts.
-> >
-> > Those BUG_ONs scream to much IMHO. KSM is an MM internal code so I
-> > gueess we should be willing to trust it.
-> 
-> Yes, but I really want to prevent an indirect misuse since it was not
-> easy to find these. If you feel strongly about it I will remove them
-> or if you have a better suggestion I'm all for it.
+Hi Thomas!
 
-You can avoid that by making flags inaccesible directly, right?
+On 1/23/23 16:13, Thomas Zimmermann wrote:
+>>> Driver Changes:
+>>>
+>>>  * Remove obsolete drivers for userspace modesetting i810, mga, r128,
+>>>    savage, sis, tdfx, via
+>>
+>> Is the Rage 128 GPU still supported via the generic modesetting driver?
+>>
+>> I'm asking because, we're still supporting PowerMacs in Debian Ports of which
+>> some of those are sporting a Rage 128 GPU. Similar question applies to the
+>> i810 GPU used in some old ThinkPads, for example.
+> 
+> Yes, all of those chips are still supported by the generic modesetting drivers
+> and even the old userspace Xorg drivers.
+
+OK, good to know.
+
+> The only thing that is not supported any longer is hardware-accelerated 3d rendering.
+> However, this has not worked anyway, as Mesa has dropped support for those chips a long
+> time ago.
+
+Correct me if I'm wrong, but I thought that's what Mesa Classic was forked off for?
+
+Thanks,
+Adrian
 
 -- 
-Michal Hocko
-SUSE Labs
+  .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+   `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+
