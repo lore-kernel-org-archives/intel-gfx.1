@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FF6EC25B4E
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 05:32:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5431C54E94
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 05:32:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D35E10E5F8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E830A10E5F4;
 	Tue, 24 Jan 2023 05:31:57 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BC3710E5F0;
- Tue, 24 Jan 2023 05:31:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFBFA10E5F0;
+ Tue, 24 Jan 2023 05:31:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674538314; x=1706074314;
+ t=1674538315; x=1706074315;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=X4ArxoXirkgOKloGmAmJiYs7bIiBmJ9MRGfZLIQ4mnM=;
- b=I+KMNoYiyyoJz0q+MBUjdi8eCNb2S4ouC/+dRP53mE15WzJkJKKacK+M
- XZYYokKNpDFejfS5Wf4uO7rbBvqfJbvOm2X9rL0yHrC+bE7ZQAxODepOe
- WgCex7o5Y4jYEGswLAwma5459rElmjY4hTVqXHU+oDmoP98XZFqFAyiW7
- 5yIaFhE9EOsy+xeEuV5e5ArS/NDV4X9A2VVVIUAW7BuE6iepoXeDWt+Ny
- ZKUIOjj3uMe/hDoFLN0Gk6vceQ/vkQXNy8aGr3Lcel+qwAzujXJepjazg
- Vpv66MVUDIGdBgPP1au3HdnTuRQKZiTvb2uDlz66T7jBrrmb3XZeFEYP4 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="324906424"
-X-IronPort-AV: E=Sophos;i="5.97,241,1669104000"; d="scan'208";a="324906424"
+ bh=hIhpJ8wB01aRUwdbNx7VohfjOmCO0vJbtWemK7jr8gA=;
+ b=mHmNZ0Jyw+2L+oa8HkKUOpxebNL19kLL2ITTvjJ8dCRYzqTtbqRuw5cu
+ aIHPoWN8q//jNRxWfbubm/bbCSgOyYwLeTSlejf4zm2iX/7FKpYQog3ys
+ UdDAg3teatCrJrKKzo7pEoYw44mR+b17J5GXs/fwBxTcelMmtMO79GfHQ
+ cZ54cQtxMYCxperXOdJXHqnx+aM2ysJE7uP4EFsxr4vET7noRXzD0lss0
+ 2Cw/i0FGYiZlDS1RVEjfdawItNRYWfKUVm5HSqfzHEBLa2poFWkR7iw5q
+ NYoNxT2121pjzEj35XppLem+h+gDYez2ViMUF+ZPclahZO4MbIhOsm2rT Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="324906449"
+X-IronPort-AV: E=Sophos;i="5.97,241,1669104000"; d="scan'208";a="324906449"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jan 2023 21:31:53 -0800
+ 23 Jan 2023 21:31:55 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="611921441"
-X-IronPort-AV: E=Sophos;i="5.97,241,1669104000"; d="scan'208";a="611921441"
+X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="611921472"
+X-IronPort-AV: E=Sophos;i="5.97,241,1669104000"; d="scan'208";a="611921472"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga003.jf.intel.com with ESMTP; 23 Jan 2023 21:31:52 -0800
+ by orsmga003.jf.intel.com with ESMTP; 23 Jan 2023 21:31:54 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 23 Jan 2023 21:31:45 -0800
-Message-Id: <20230124053150.3543928-2-alan.previn.teres.alexis@intel.com>
+Date: Mon, 23 Jan 2023 21:31:50 -0800
+Message-Id: <20230124053150.3543928-7-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230124053150.3543928-1-alan.previn.teres.alexis@intel.com>
 References: <20230124053150.3543928-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 1/6] mei: mei-me: resume device in prepare
+Subject: [Intel-gfx] [PATCH v6 6/6] drm/i915/pxp: Pxp hw init should be in
+ resume_complete
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,66 +67,128 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Alexander Usyskin <alexander.usyskin@intel.com>
+During suspend flow, i915 currently achors' on the pm_suspend_prepare
+callback as the location where we quiesce the entire GPU and perform
+all necessary cleanup in order to go into suspend. PXP is also called
+during this time to perform the arbitration session teardown (with
+the assurance no additional GEM IOCTLs will come after that could
+restart the session).
 
-Asynchronous runtime resume is not possible while the system
-is suspending.
-The power management subsystem resumes the device only in the
-suspend phase, not in the prepare phase.
-Force resume device in prepare to allow drivers on mei bus
-to communicate in their prepare callbacks.
+However, if other devices or drivers fail their suspend_prepare, the
+system will not go into suspend and i915 will be expected to resume
+operation. In this case, we need to re-initialize the PXP hardware
+and this really should be done within the pm_resume_complete callback
+which is the correct opposing function in the resume sequence to
+match pm_suspend_prepare of the suspend sequence.
 
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
-Reviewed-by: Tomas Winkler <tomas.winkler@intel.com>
+Because this callback is the last thing at the end of resuming
+we expect little to no impact to the rest of the i915 resume sequence
+with this change.
+
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/misc/mei/pci-me.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_driver.c      | 20 ++++++++++++++++++--
+ drivers/gpu/drm/i915/pxp/intel_pxp_pm.c |  2 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp_pm.h |  6 +++---
+ 3 files changed, 22 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/misc/mei/pci-me.c b/drivers/misc/mei/pci-me.c
-index 5bf0d50d55a0..676d566f38dd 100644
---- a/drivers/misc/mei/pci-me.c
-+++ b/drivers/misc/mei/pci-me.c
-@@ -342,6 +342,12 @@ static void mei_me_remove(struct pci_dev *pdev)
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 6469c7c1e154..122736b48938 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -1167,6 +1167,13 @@ static bool suspend_to_idle(struct drm_i915_private *dev_priv)
+ 	return false;
  }
  
- #ifdef CONFIG_PM_SLEEP
-+static int mei_me_pci_prepare(struct device *device)
++static void i915_drm_complete(struct drm_device *dev)
 +{
-+	pm_runtime_resume(device);
-+	return 0;
++	struct drm_i915_private *i915 = to_i915(dev);
++
++	intel_pxp_resume_complete(i915->pxp);
 +}
 +
- static int mei_me_pci_suspend(struct device *device)
+ static int i915_drm_prepare(struct drm_device *dev)
  {
- 	struct pci_dev *pdev = to_pci_dev(device);
-@@ -398,7 +404,17 @@ static int mei_me_pci_resume(struct device *device)
+ 	struct drm_i915_private *i915 = to_i915(dev);
+@@ -1367,8 +1374,6 @@ static int i915_drm_resume(struct drm_device *dev)
  
- 	return 0;
+ 	i915_gem_resume(dev_priv);
+ 
+-	intel_pxp_resume(dev_priv->pxp);
+-
+ 	intel_modeset_init_hw(dev_priv);
+ 	intel_init_clock_gating(dev_priv);
+ 	intel_hpd_init(dev_priv);
+@@ -1560,6 +1565,16 @@ static int i915_pm_resume(struct device *kdev)
+ 	return i915_drm_resume(&i915->drm);
  }
--#endif /* CONFIG_PM_SLEEP */
-+
-+static void mei_me_pci_complete(struct device *device)
+ 
++static void i915_pm_complete(struct device *kdev)
 +{
-+	pm_runtime_suspend(device);
++	struct drm_i915_private *i915 = kdev_to_i915(kdev);
++
++	if (i915->drm.switch_power_state == DRM_SWITCH_POWER_OFF)
++		return;
++
++	i915_drm_complete(&i915->drm);
 +}
-+#else /* CONFIG_PM_SLEEP */
 +
-+#define mei_me_pci_prepare NULL
-+#define mei_me_pci_complete NULL
-+
-+#endif /* !CONFIG_PM_SLEEP */
+ /* freeze: before creating the hibernation_image */
+ static int i915_pm_freeze(struct device *kdev)
+ {
+@@ -1780,6 +1795,7 @@ const struct dev_pm_ops i915_pm_ops = {
+ 	.suspend_late = i915_pm_suspend_late,
+ 	.resume_early = i915_pm_resume_early,
+ 	.resume = i915_pm_resume,
++	.complete = i915_pm_complete,
  
- #ifdef CONFIG_PM
- static int mei_me_pm_runtime_idle(struct device *device)
-@@ -501,6 +517,8 @@ static inline void mei_me_unset_pm_domain(struct mei_device *dev)
+ 	/*
+ 	 * S4 event handlers
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
+index e427464aa131..4f836b317424 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
+@@ -34,7 +34,7 @@ void intel_pxp_suspend(struct intel_pxp *pxp)
+ 	}
  }
  
- static const struct dev_pm_ops mei_me_pm_ops = {
-+	.prepare = mei_me_pci_prepare,
-+	.complete = mei_me_pci_complete,
- 	SET_SYSTEM_SLEEP_PM_OPS(mei_me_pci_suspend,
- 				mei_me_pci_resume)
- 	SET_RUNTIME_PM_OPS(
+-void intel_pxp_resume(struct intel_pxp *pxp)
++void intel_pxp_resume_complete(struct intel_pxp *pxp)
+ {
+ 	if (!intel_pxp_is_enabled(pxp))
+ 		return;
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
+index 586be769104f..06b46f535b42 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
+@@ -11,7 +11,7 @@ struct intel_pxp;
+ #ifdef CONFIG_DRM_I915_PXP
+ void intel_pxp_suspend_prepare(struct intel_pxp *pxp);
+ void intel_pxp_suspend(struct intel_pxp *pxp);
+-void intel_pxp_resume(struct intel_pxp *pxp);
++void intel_pxp_resume_complete(struct intel_pxp *pxp);
+ void intel_pxp_runtime_suspend(struct intel_pxp *pxp);
+ #else
+ static inline void intel_pxp_suspend_prepare(struct intel_pxp *pxp)
+@@ -22,7 +22,7 @@ static inline void intel_pxp_suspend(struct intel_pxp *pxp)
+ {
+ }
+ 
+-static inline void intel_pxp_resume(struct intel_pxp *pxp)
++static inline void intel_pxp_resume_complete(struct intel_pxp *pxp)
+ {
+ }
+ 
+@@ -32,6 +32,6 @@ static inline void intel_pxp_runtime_suspend(struct intel_pxp *pxp)
+ #endif
+ static inline void intel_pxp_runtime_resume(struct intel_pxp *pxp)
+ {
+-	intel_pxp_resume(pxp);
++	intel_pxp_resume_complete(pxp);
+ }
+ #endif /* __INTEL_PXP_PM_H__ */
 -- 
 2.39.0
 
