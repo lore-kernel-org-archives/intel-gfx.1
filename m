@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CA47C54EB4
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 17:06:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0203BC54E94
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 17:06:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A4ED10E6E5;
-	Tue, 24 Jan 2023 17:06:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7693E10E6ED;
+	Tue, 24 Jan 2023 17:06:36 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46CBA10E6D0;
- Tue, 24 Jan 2023 17:06:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8963B10E6D7;
+ Tue, 24 Jan 2023 17:06:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674579992; x=1706115992;
+ t=1674579993; x=1706115993;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=XLrvo+vi+c+yn5lY9GqNhfnf9E5B3A1yfqJ9VP3I38o=;
- b=ctgmTZemmpCJaSMHYYEkdglcMiUSxgLbzb6j4kZGxXxtfbEmAPvjBxCK
- eoqpw4pBkhp+waLhT47FafArhFHKD1adm/itmJSUHAtM6Y+gW7klVULKr
- AH0fZwAVBuisrJK+a5tGGE0rqPqW+Zq0ClTIxkD4RET3HjH1DQud52lTS
- 8WzDSumGB0kmpvgjilFdG+v0Dc+59lLvUIlEp5vw5bw/pmQCxCekD6aUP
- RbouNyscAThxmDPGnYuNgZzqWLbJAJRlw4ohr7XXBdoLgBTWULW/X03l/
- LRjWyjSge5DWrvrHX6+EvBHc++3pHsrXmoi6fFhRBxKZHOxEAQpUPJ2Ov A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="306007407"
-X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="306007407"
+ bh=6+aUMB2iz+HbeSZBYeZVNCBJQoqRwKY+t40FMKs6J3c=;
+ b=c+xf4cGJIdkZotTeo/iYkZLrEMs4bwsVWX5eDZ9XigMeiMkTz4HCo2cD
+ R3RzqH34XQuK/23b9/Jh2EWLQX9GpcxXjFEpupXtlBmb4pr0RdQXkiRKo
+ Hj9pZ4SqtUnFNy+PLIyx+C9d41ntUtxx0T7Bh6o6tKF/qbVgxslf1pln9
+ AEcIuE1GmD21gWo5IYMjGHIhvQ6Myzf6s1551DnnGB2xr7BA9q+RKPfwv
+ GGGEZAyErOHTPlX1uWxUm6xUsdz/6XdI1EWv89O1EDc9CTZYa0pmkzowe
+ Dl0XrvEV8v5UnnQdq9QCUnMYN8NqcPbTbPk1guL7NQnEpL9IrZZhPZay4 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="306007400"
+X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="306007400"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2023 09:05:29 -0800
+ 24 Jan 2023 09:05:28 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="750895794"
-X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="750895794"
+X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="750895782"
+X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="750895782"
 Received: from irvmail002.ir.intel.com ([10.43.11.120])
- by FMSMGA003.fm.intel.com with ESMTP; 24 Jan 2023 09:05:25 -0800
+ by FMSMGA003.fm.intel.com with ESMTP; 24 Jan 2023 09:05:24 -0800
 Received: from mwajdecz-MOBL.ger.corp.intel.com
  (mwajdecz-MOBL.ger.corp.intel.com [10.249.147.192])
- by irvmail002.ir.intel.com (Postfix) with ESMTP id E1E4D37E29;
- Tue, 24 Jan 2023 17:05:24 +0000 (GMT)
+ by irvmail002.ir.intel.com (Postfix) with ESMTP id 0C4C837E22;
+ Tue, 24 Jan 2023 17:05:22 +0000 (GMT)
 From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 24 Jan 2023 18:05:19 +0100
-Message-Id: <20230124170522.1808-6-michal.wajdeczko@intel.com>
+Date: Tue, 24 Jan 2023 18:05:15 +0100
+Message-Id: <20230124170522.1808-2-michal.wajdeczko@intel.com>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20230124170522.1808-1-michal.wajdeczko@intel.com>
 References: <20230124170522.1808-1-michal.wajdeczko@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 5/8] drm/i915/guc: Update GuC messages in
- intel_guc_fw.c
+Subject: [Intel-gfx] [PATCH v2 1/8] drm/i915/guc: Add GuC oriented print
+ macros
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,76 +66,74 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use new macros to have common prefix that also include GT#.
+While we do have GT oriented print macros, add few more GuC
+specific to have common look and feel across all messages
+related to the GuC and to avoid chasing the gt pointer.
+
+We will use these macros shortly in upcoming patches.
 
 Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Cc: John Harrison <John.C.Harrison@Intel.com>
-Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_print.h | 48 ++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_print.h
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-index 5b86b2e286e0..3d2249bda368 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-@@ -13,6 +13,7 @@
- #include "gt/intel_gt_mcr.h"
- #include "gt/intel_gt_regs.h"
- #include "intel_guc_fw.h"
-+#include "intel_guc_print.h"
- #include "i915_drv.h"
- 
- static void guc_prepare_xfer(struct intel_gt *gt)
-@@ -103,8 +104,10 @@ static inline bool guc_ready(struct intel_uncore *uncore, u32 *status)
- 	return uk_val == INTEL_GUC_LOAD_STATUS_READY;
- }
- 
--static int guc_wait_ucode(struct intel_uncore *uncore)
-+static int guc_wait_ucode(struct intel_guc *guc)
- {
-+	struct intel_gt *gt = guc_to_gt(guc);
-+	struct intel_uncore *uncore = gt->uncore;
- 	u32 status;
- 	int ret;
- 
-@@ -127,10 +130,8 @@ static int guc_wait_ucode(struct intel_uncore *uncore)
- 	 */
- 	ret = wait_for(guc_ready(uncore, &status), 200);
- 	if (ret) {
--		struct drm_device *drm = &uncore->i915->drm;
--
--		drm_info(drm, "GuC load failed: status = 0x%08X\n", status);
--		drm_info(drm, "GuC load failed: status: Reset = %d, "
-+		guc_info(guc, "load failed: status = 0x%08X\n", status);
-+		guc_info(guc, "load failed: status: Reset = %d, "
- 			"BootROM = 0x%02X, UKernel = 0x%02X, "
- 			"MIA = 0x%02X, Auth = 0x%02X\n",
- 			REG_FIELD_GET(GS_MIA_IN_RESET, status),
-@@ -140,12 +141,12 @@ static int guc_wait_ucode(struct intel_uncore *uncore)
- 			REG_FIELD_GET(GS_AUTH_STATUS_MASK, status));
- 
- 		if ((status & GS_BOOTROM_MASK) == GS_BOOTROM_RSA_FAILED) {
--			drm_info(drm, "GuC firmware signature verification failed\n");
-+			guc_info(guc, "firmware signature verification failed\n");
- 			ret = -ENOEXEC;
- 		}
- 
- 		if (REG_FIELD_GET(GS_UKERNEL_MASK, status) == INTEL_GUC_LOAD_STATUS_EXCEPTION) {
--			drm_info(drm, "GuC firmware exception. EIP: %#x\n",
-+			guc_info(guc, "firmware exception. EIP: %#x\n",
- 				 intel_uncore_read(uncore, SOFT_SCRATCH(13)));
- 			ret = -ENXIO;
- 		}
-@@ -194,7 +195,7 @@ int intel_guc_fw_upload(struct intel_guc *guc)
- 	if (ret)
- 		goto out;
- 
--	ret = guc_wait_ucode(uncore);
-+	ret = guc_wait_ucode(guc);
- 	if (ret)
- 		goto out;
- 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_print.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_print.h
+new file mode 100644
+index 000000000000..e75989d4ba06
+--- /dev/null
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_print.h
+@@ -0,0 +1,48 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2023 Intel Corporation
++ */
++
++#ifndef __INTEL_GUC_PRINT__
++#define __INTEL_GUC_PRINT__
++
++#include "gt/intel_gt.h"
++#include "gt/intel_gt_print.h"
++
++#define guc_printk(_guc, _level, _fmt, ...) \
++	gt_##_level(guc_to_gt(_guc), "GUC: " _fmt, ##__VA_ARGS__)
++
++#define guc_err(_guc, _fmt, ...) \
++	guc_printk((_guc), err, _fmt, ##__VA_ARGS__)
++
++#define guc_warn(_guc, _fmt, ...) \
++	guc_printk((_guc), warn, _fmt, ##__VA_ARGS__)
++
++#define guc_notice(_guc, _fmt, ...) \
++	guc_printk((_guc), notice, _fmt, ##__VA_ARGS__)
++
++#define guc_info(_guc, _fmt, ...) \
++	guc_printk((_guc), info, _fmt, ##__VA_ARGS__)
++
++#define guc_dbg(_guc, _fmt, ...) \
++	guc_printk((_guc), dbg, _fmt, ##__VA_ARGS__)
++
++#define guc_err_ratelimited(_guc, _fmt, ...) \
++	guc_printk((_guc), err_ratelimited, _fmt, ##__VA_ARGS__)
++
++#define guc_probe_error(_guc, _fmt, ...) \
++	guc_printk((_guc), probe_error, _fmt, ##__VA_ARGS__)
++
++#define guc_WARN(_guc, _cond, _fmt, ...) \
++	gt_WARN(guc_to_gt(_guc), _cond, "GUC: " _fmt, ##__VA_ARGS__)
++
++#define guc_WARN_ONCE(_guc, _cond, _fmt, ...) \
++	gt_WARN_ONCE(guc_to_gt(_guc), _cond, "GUC: " _fmt, ##__VA_ARGS__)
++
++#define guc_WARN_ON(_guc, _cond) \
++	gt_WARN(guc_to_gt(_guc), _cond, "%s(%s)", "guc_WARN_ON", __stringify(_cond))
++
++#define guc_WARN_ON_ONCE(_guc, _cond) \
++	gt_WARN_ONCE(guc_to_gt(_guc), _cond, "%s(%s)", "guc_WARN_ON_ONCE", __stringify(_cond))
++
++#endif /* __INTEL_GUC_PRINT__ */
 -- 
 2.25.1
 
