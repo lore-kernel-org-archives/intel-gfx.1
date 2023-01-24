@@ -4,59 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33E07C38142
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 13:41:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC49AC38142
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 13:41:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83DD210E6C1;
-	Tue, 24 Jan 2023 13:40:22 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07FAF10E684;
- Tue, 24 Jan 2023 13:40:15 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BDEBF1FDEF;
- Tue, 24 Jan 2023 13:40:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1674567613; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=afz1DQI5FyPuRzZBzvdALN3LMLNkwLW65z09Mk9nstc=;
- b=irAupa3dQoLcgqzy6sjjvetLKf/6O8/IJP2T7IwihZq5dHeeiOo1cXzSrDTu4spJjZ1bge
- POzp1TaUd8bhPHa7kHxQxsri6mJ5Y1t1AY504OD9O4OXtlkJj9zLfeaTQTQWPhNk3O8ccK
- LPamX4bCXxt8+WBNp77SJm/qbQFQsXc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1674567613;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=afz1DQI5FyPuRzZBzvdALN3LMLNkwLW65z09Mk9nstc=;
- b=Z7Dx1YHntG0XoQmIY111UfKWr9lK1S5tCRXoEumgAZfA/zrsJbsjTSp34EnE61WS/7o5yX
- Du8FQn79oF/UFxAA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7B539139FF;
- Tue, 24 Jan 2023 13:40:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 0BQ1Hb3fz2PWZgAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Tue, 24 Jan 2023 13:40:13 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, javierm@redhat.com
-Date: Tue, 24 Jan 2023 14:40:07 +0100
-Message-Id: <20230124134010.30263-8-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230124134010.30263-1-tzimmermann@suse.de>
-References: <20230124134010.30263-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21D1F10E675;
+	Tue, 24 Jan 2023 13:41:58 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18C5310E0D0;
+ Tue, 24 Jan 2023 13:41:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674567715; x=1706103715;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=id9BiI2WE7yN2TbgreHQ7n9PbufSJ8AzzKrzesL8QYs=;
+ b=LWkYT/k4bvhK9ga+FWIpmsaffFgb+3X1vqIXi3471jE3V6/aFwjjFBfv
+ s7+Ks46f/btzKJONOJcFxkKvjXedUL4ZkaFdS92UHZ2I3WyLl0d8G8sjX
+ T8s2DRM1OmjfOgLLXWFLsHwazWdnn7OKfq1zHHexvq0+w+yDSUTjJPyrJ
+ f3HxFWasRvsg4xlxojlj3PPG/ndc0K2BT8PTO2zgURafqrCqm9hrtZVwi
+ otc1CG/TzBHQCQFWlCAVv1VzQCy4DQ0+bH4AeKvlgMVp8aV/N2E8epVoa
+ +cEh3QndBRd9WUKrt5TPhmkhKQTVod2QwuyJpZaUHgL+d2lUFwZRHD1Fh w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="388640002"
+X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="388640002"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2023 05:41:53 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="612049061"
+X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="612049061"
+Received: from pesir-mobl.ger.corp.intel.com (HELO localhost) ([10.252.57.197])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2023 05:41:49 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>
+In-Reply-To: <20230124104548.3234554-1-dmitry.baryshkov@linaro.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20230124104548.3234554-1-dmitry.baryshkov@linaro.org>
+Date: Tue, 24 Jan 2023 15:41:46 +0200
+Message-ID: <87pmb46odh.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 07/10] drm/fbdev-generic: Minimize hotplug
- error handling
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH v3 1/2] drm/probe_helper: extract two helper
+ functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,58 +60,133 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, intel-gfx@lists.freedesktop.org,
+ Chen-Yu Tsai <wenst@chromium.org>, dri-devel@lists.freedesktop.org,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, freedreno@lists.freedesktop.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Call drm_fb_helper_init() in the generic-fbdev hotplug helper
-to revert the effects of drm_fb_helper_init(). No full cleanup
-is required.
+On Tue, 24 Jan 2023, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
+> Extract drm_kms_helper_enable_hpd() and drm_kms_helper_disable_hpd(),
+> two helpers that enable and disable HPD handling on all device's
+> connectors.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/drm_fbdev_generic.c | 14 +++++---------
- 1 file changed, 5 insertions(+), 9 deletions(-)
+Thanks for separating this, it makes the other patch easier to read.
 
-diff --git a/drivers/gpu/drm/drm_fbdev_generic.c b/drivers/gpu/drm/drm_fbdev_generic.c
-index 6ae014040df3..dd8be5e0f271 100644
---- a/drivers/gpu/drm/drm_fbdev_generic.c
-+++ b/drivers/gpu/drm/drm_fbdev_generic.c
-@@ -387,25 +387,21 @@ static int drm_fbdev_client_hotplug(struct drm_client_dev *client)
- 
- 	ret = drm_fb_helper_init(dev, fb_helper);
- 	if (ret)
--		goto err;
-+		goto err_drm_err;
- 
- 	if (!drm_drv_uses_atomic_modeset(dev))
- 		drm_helper_disable_unused_functions(dev);
- 
- 	ret = drm_fb_helper_initial_config(fb_helper);
- 	if (ret)
--		goto err_cleanup;
-+		goto err_drm_fb_helper_fini;
- 
- 	return 0;
- 
--err_cleanup:
--	drm_fbdev_cleanup(fb_helper);
--err:
--	fb_helper->dev = NULL;
--	fb_helper->info = NULL;
--
-+err_drm_fb_helper_fini:
-+	drm_fb_helper_fini(fb_helper);
-+err_drm_err:
- 	drm_err(dev, "fbdev: Failed to setup generic emulation (ret=%d)\n", ret);
--
- 	return ret;
- }
- 
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+
+
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+> ---
+>  drivers/gpu/drm/drm_probe_helper.c | 68 ++++++++++++++++++------------
+>  1 file changed, 41 insertions(+), 27 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
+> index 95aeeed33cf5..ab787d71fa66 100644
+> --- a/drivers/gpu/drm/drm_probe_helper.c
+> +++ b/drivers/gpu/drm/drm_probe_helper.c
+> @@ -222,6 +222,45 @@ drm_connector_mode_valid(struct drm_connector *connector,
+>  	return ret;
+>  }
+>  
+> +static void drm_kms_helper_disable_hpd(struct drm_device *dev)
+> +{
+> +	struct drm_connector *connector;
+> +	struct drm_connector_list_iter conn_iter;
+> +
+> +	drm_connector_list_iter_begin(dev, &conn_iter);
+> +	drm_for_each_connector_iter(connector, &conn_iter) {
+> +		const struct drm_connector_helper_funcs *funcs =
+> +			connector->helper_private;
+> +
+> +		if (funcs && funcs->disable_hpd)
+> +			funcs->disable_hpd(connector);
+> +	}
+> +	drm_connector_list_iter_end(&conn_iter);
+> +}
+> +
+> +static bool drm_kms_helper_enable_hpd(struct drm_device *dev)
+> +{
+> +	bool poll = false;
+> +	struct drm_connector *connector;
+> +	struct drm_connector_list_iter conn_iter;
+> +
+> +	drm_connector_list_iter_begin(dev, &conn_iter);
+> +	drm_for_each_connector_iter(connector, &conn_iter) {
+> +		const struct drm_connector_helper_funcs *funcs =
+> +			connector->helper_private;
+> +
+> +		if (funcs && funcs->enable_hpd)
+> +			funcs->enable_hpd(connector);
+> +
+> +		if (connector->polled & (DRM_CONNECTOR_POLL_CONNECT |
+> +					 DRM_CONNECTOR_POLL_DISCONNECT))
+> +			poll = true;
+> +	}
+> +	drm_connector_list_iter_end(&conn_iter);
+> +
+> +	return poll;
+> +}
+> +
+>  #define DRM_OUTPUT_POLL_PERIOD (10*HZ)
+>  /**
+>   * drm_kms_helper_poll_enable - re-enable output polling.
+> @@ -241,26 +280,12 @@ drm_connector_mode_valid(struct drm_connector *connector,
+>  void drm_kms_helper_poll_enable(struct drm_device *dev)
+>  {
+>  	bool poll = false;
+> -	struct drm_connector *connector;
+> -	struct drm_connector_list_iter conn_iter;
+>  	unsigned long delay = DRM_OUTPUT_POLL_PERIOD;
+>  
+>  	if (!dev->mode_config.poll_enabled || !drm_kms_helper_poll)
+>  		return;
+>  
+> -	drm_connector_list_iter_begin(dev, &conn_iter);
+> -	drm_for_each_connector_iter(connector, &conn_iter) {
+> -		const struct drm_connector_helper_funcs *funcs =
+> -			connector->helper_private;
+> -
+> -		if (funcs && funcs->enable_hpd)
+> -			funcs->enable_hpd(connector);
+> -
+> -		if (connector->polled & (DRM_CONNECTOR_POLL_CONNECT |
+> -					 DRM_CONNECTOR_POLL_DISCONNECT))
+> -			poll = true;
+> -	}
+> -	drm_connector_list_iter_end(&conn_iter);
+> +	poll = drm_kms_helper_enable_hpd(dev);
+>  
+>  	if (dev->mode_config.delayed_event) {
+>  		/*
+> @@ -810,24 +835,13 @@ EXPORT_SYMBOL(drm_kms_helper_is_poll_worker);
+>  
+>  static void drm_kms_helper_poll_disable_fini(struct drm_device *dev, bool fini)
+>  {
+> -	struct drm_connector *connector;
+> -	struct drm_connector_list_iter conn_iter;
+> -
+>  	if (!dev->mode_config.poll_enabled)
+>  		return;
+>  
+>  	if (fini)
+>  		dev->mode_config.poll_enabled = false;
+>  
+> -	drm_connector_list_iter_begin(dev, &conn_iter);
+> -	drm_for_each_connector_iter(connector, &conn_iter) {
+> -		const struct drm_connector_helper_funcs *funcs =
+> -			connector->helper_private;
+> -
+> -		if (funcs && funcs->disable_hpd)
+> -			funcs->disable_hpd(connector);
+> -	}
+> -	drm_connector_list_iter_end(&conn_iter);
+> +	drm_kms_helper_disable_hpd(dev);
+>  
+>  	cancel_delayed_work_sync(&dev->mode_config.output_poll_work);
+>  }
+
 -- 
-2.39.0
-
+Jani Nikula, Intel Open Source Graphics Center
