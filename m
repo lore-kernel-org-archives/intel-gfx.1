@@ -4,60 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBB8EC25B4E
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 15:33:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2564CC25B4E
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 15:39:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 040B410E6BB;
-	Tue, 24 Jan 2023 15:32:56 +0000 (UTC)
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [IPv6:2a00:1450:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A9A710E6BB
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 15:32:53 +0000 (UTC)
-Received: by mail-ej1-x636.google.com with SMTP id ss4so39907743ejb.11
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 07:32:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=W5dsaNfViujrd5rtY6vGRV7H1C6E8hytZM3pF5b0FV4=;
- b=J4SDNoY1W+DQJk3Ec4siCf1MHFGVCUi5ZzwOGaniAXpxN0Q9pCDcIysRByjajZi1R9
- hwI6R0YfSbYLlWG1WF0slAkE4EOIEZGnVX0DKjyP90wTuDLwNF/c8dIfxZd/sh1/3J0o
- /JPJt5MrNczjXZWVCI2oRCCwAmRlXUyFgreGs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=W5dsaNfViujrd5rtY6vGRV7H1C6E8hytZM3pF5b0FV4=;
- b=ZFg+i9VIKA2/sFpsaRv4+htEydGEa+M77jGp1l6GLpL+p4TYXfV5nU8XlFRf726CyD
- ph0U6pkR/qS9LqsnStS7cueo6XL7l+9mtinOhXevlApS2NJiZXsVQNEOHJX5yQDIC4wp
- prp/GcuBS9kgpKgynO45Bo5zgHF3OgrN/uO+CV5fWL/zSrdBy2Cst8fwcyyOlXmqXamT
- KAPxiuADA4XE2uAvcZHoI3cQmgOBrLChDtrVj7q0KlLGxaSDSHTz2zY31tvhgki004nS
- rRChdKLkOZzPmsD2jFr2k8FnZdTGN+8gGAtcyN1DP6dzEtFQfWU46Psqy5H98t6SeNww
- +wiA==
-X-Gm-Message-State: AFqh2kpzldCI4OxALQcvSY5+AcYMNVWa4+KZ1Afxl3lOUSgNqGNljfxk
- /lKp+FOzfUKlGUrX2Vh/XtEDQg==
-X-Google-Smtp-Source: AMrXdXuwn5ni0Y2Y4hSkbLofreZT4oqmrMtu0eW85VY3gw9HiS0OrogHosELhYE9BKzEK6syEP+4ZQ==
-X-Received: by 2002:a17:906:95d2:b0:7c1:37:6d5e with SMTP id
- n18-20020a17090695d200b007c100376d5emr30268880ejy.2.1674574371942; 
- Tue, 24 Jan 2023 07:32:51 -0800 (PST)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id
- n3-20020aa7c783000000b0049c3e188965sm1169220eds.23.2023.01.24.07.32.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Jan 2023 07:32:51 -0800 (PST)
-Date: Tue, 24 Jan 2023 16:32:48 +0100
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Message-ID: <Y8/6IHb8bXjAiwT+@phenom.ffwll.local>
-References: <Y8fW2Ny1B1hZ5ZmF@tursulin-desk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CD8610E6BC;
+	Tue, 24 Jan 2023 15:39:37 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C637910E6BC
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 15:39:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674574774; x=1706110774;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=aWFd2RMXK0oQ+ODVz9k37KShx8Z5VMiZpr/ReAOa2m8=;
+ b=B3iIrSJBfOc4MRdYypes1l8Q5S0nk351EHth6XogDikIYKgqLu5cr5Jt
+ UHJzv47Sy2jG8KP7rLSxfIBQFEHEkEQxZ0+b4KxVXchTN/hofCMPJxhpR
+ KP5OPLiBcSGBqIy7aZXM5KFmca3GEiu6jpBTE1B5b6xauyDDpZ7w0rjE3
+ hHQV/FwYfvFZwVCsXja2+w9TLVSlD0P9qUOXUEU0K4oSja330RhCFM8xo
+ MPY+2Q2gAsV3Gz3SkyWa9p/84mQ9Ox37RjbAU7P5XhtrBZXKWwYQS4fp3
+ srngYQNiLHiOxeLBwDA7jsKu7u+VS75FBf+46vMJ9gTM8A1Opp2zM9bIf g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="327578426"
+X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="327578426"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2023 07:39:34 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="730720990"
+X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="730720990"
+Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.15.89])
+ ([10.213.15.89])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2023 07:39:32 -0800
+Message-ID: <3747c574-e97e-6b14-db41-764f53546523@intel.com>
+Date: Tue, 24 Jan 2023 16:39:30 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.6.1
+Content-Language: en-US
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+References: <20230116155910.3189421-1-andrzej.hajda@intel.com>
+ <bad960e2-1f0d-b42c-2856-33ae7e56c6a4@linux.intel.com>
+From: Andrzej Hajda <andrzej.hajda@intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <bad960e2-1f0d-b42c-2856-33ae7e56c6a4@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <Y8fW2Ny1B1hZ5ZmF@tursulin-desk>
-X-Operating-System: Linux phenom 5.19.0-2-amd64 
-Subject: Re: [Intel-gfx] [PULL] drm-intel-gt-next
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gt: Add selftests for TLB
+ invalidation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,490 +65,632 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Dave Airlie <airlied@gmail.com>, intel-gfx@lists.freedesktop.org
+Cc: Chris Wilson <chris@chris-wilson.co.uk>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 18, 2023 at 11:24:44AM +0000, Tvrtko Ursulin wrote:
-> Hi Dave, Daniel,
+Hi Tvrtko,
+
+Thx for looking at it.
+
+On 17.01.2023 11:51, Tvrtko Ursulin wrote:
 > 
-> Here goes the first pull request for 6.3.
+> Hi,
 > 
-> What sticks out most is the amount of fixes, majority of which if not all
-> would have already landed via gt/next fixes pull requests though, so I
-> will only mention them here briefly.
+> Thanks for sending this on! Lets see below..
 > 
-> Most impactful ones are probably in the area of DG2 TLB invalidation,
-> followed by eviction, both platform agnostic (userspace crashes due
-> eviction failures after object locking changes) and a couple DG2 ones
-> (visual glitches due CCS aux data not always handled).
+> On 16/01/2023 15:59, Andrzej Hajda wrote:
+>> From: Chris Wilson <chris@chris-wilson.co.uk>
+>>
+>> Check that we invalidate the TLB cache, the updated physical addresses
+>> are immediately visible to the HW, and there is no retention of the old
+>> physical address for concurrent HW access.
+>>
+>> Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
+>> [ahajda: adjust to upstream driver]
+>> Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
+>> ---
+>>   drivers/gpu/drm/i915/gt/intel_gpu_commands.h  |   1 +
+>>   drivers/gpu/drm/i915/gt/intel_gt.c            |   4 +
+>>   drivers/gpu/drm/i915/gt/selftest_tlb.c        | 405 ++++++++++++++++++
+>>   .../drm/i915/selftests/i915_live_selftests.h  |   1 +
+>>   4 files changed, 411 insertions(+)
+>>   create mode 100644 drivers/gpu/drm/i915/gt/selftest_tlb.c
+>>
+>> diff --git a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h 
+>> b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
+>> index 2af1ae3831df98..e10507fa71ce63 100644
+>> --- a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
+>> +++ b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
+>> @@ -394,6 +394,7 @@
+>>   #define MI_LOAD_URB_MEM         MI_INSTR(0x2C, 0)
+>>   #define MI_STORE_URB_MEM        MI_INSTR(0x2D, 0)
+>>   #define MI_CONDITIONAL_BATCH_BUFFER_END MI_INSTR(0x36, 0)
+>> +#define  MI_DO_COMPARE        REG_BIT(21)
+>>   #define STATE_BASE_ADDRESS \
+>>       ((0x3 << 29) | (0x0 << 27) | (0x1 << 24) | (0x1 << 16))
+>> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c 
+>> b/drivers/gpu/drm/i915/gt/intel_gt.c
+>> index 7eeee5a7cb33cb..e6358373eb9c92 100644
+>> --- a/drivers/gpu/drm/i915/gt/intel_gt.c
+>> +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+>> @@ -1196,3 +1196,7 @@ void intel_gt_invalidate_tlb(struct intel_gt 
+>> *gt, u32 seqno)
+>>           mutex_unlock(&gt->tlb.invalidate_lock);
+>>       }
+>>   }
+>> +
+>> +#if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+>> +#include "selftest_tlb.c"
+>> +#endif
+>> diff --git a/drivers/gpu/drm/i915/gt/selftest_tlb.c 
+>> b/drivers/gpu/drm/i915/gt/selftest_tlb.c
+>> new file mode 100644
+>> index 00000000000000..a5082a70f06a77
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/i915/gt/selftest_tlb.c
+>> @@ -0,0 +1,405 @@
+>> +// SPDX-License-Identifier: MIT
+>> +/*
+>> + * Copyright © 2022 Intel Corporation
+>> + */
+>> +
+>> +#include "i915_selftest.h"
+>> +
+>> +#include "gem/i915_gem_internal.h"
+>> +#include "gem/i915_gem_region.h"
+>> +
+>> +#include "gen8_engine_cs.h"
+>> +#include "i915_gem_ww.h"
+>> +#include "intel_engine_regs.h"
+>> +#include "intel_gpu_commands.h"
+>> +#include "intel_context.h"
+>> +#include "intel_gt.h"
+>> +#include "intel_ring.h"
+>> +
+>> +#include "selftests/igt_flush_test.h"
+>> +#include "selftests/i915_random.h"
+>> +
+>> +static void clear_dw(struct i915_vma *vma, u64 addr, u32 val)
+>> +{
+>> +    GEM_BUG_ON(addr < i915_vma_offset(vma));
+>> +    GEM_BUG_ON(addr >= i915_vma_offset(vma) + i915_vma_size(vma));
+>> +    memset32(page_mask_bits(vma->obj->mm.mapping) +
+>> +         (addr - i915_vma_offset(vma)), val, 1);
+>> +}
+>> +
+>> +static int
+>> +pte_tlbinv(struct intel_context *ce,
+>> +       struct i915_vma *va,
+>> +       struct i915_vma *vb,
+>> +       u64 align,
+>> +       void (*tlbinv)(struct i915_address_space *vm, u64 addr, u64 
+>> length),
+>> +       u64 length,
+>> +       struct rnd_state *prng)
+>> +{
+>> +    const int use_64b = GRAPHICS_VER(ce->vm->i915) >= 8;
+>> +    struct drm_i915_gem_object *batch;
+>> +    struct i915_request *rq;
+>> +    struct i915_vma *vma;
+>> +    int retries;
+>> +    u64 addr;
+>> +    int err;
+>> +    u32 *cs;
+>> +
+>> +    batch = i915_gem_object_create_internal(ce->vm->i915, 4096);
+>> +    if (IS_ERR(batch))
+>> +        return PTR_ERR(batch);
+>> +
+>> +    vma = i915_vma_instance(batch, ce->vm, NULL);
+>> +    if (IS_ERR(vma)) {
+>> +        err = PTR_ERR(vma);
+>> +        goto out;
+>> +    }
+>> +
+>> +    err = i915_vma_pin(vma, 0, 0, PIN_USER);
+>> +    if (err)
+>> +        goto out;
+>> +
+>> +    retries = 5;
+>> +    do {
+>> +        addr = igt_random_offset(prng,
+>> +                     i915_vma_offset(vma),
 > 
-> Then we have a bunch of crashes and simiar issues fixed which would have
-> been triggerable under more like edge conditions. On older platforms,
-> RC6p gets disabled on Sandybridge to avoid GPU hangs and visual glitches.
+> Why start is set to i915_vma_offset(vma) ?
+
+I guess it can be probably better to start after vma (since vma is 
+allocated at the beginning of vm).
+
 > 
-> Finally there is a bunch of log noise getting disabled, mostly over-
-> zealouos log level use or misleadingly logging failures which are
-> otherwise handled.
+>> +                     /* upper limit for MI_BB_START */
+>> +                     min(ce->vm->total, BIT_ULL(48)),
+>> +                     va->size, 4);
+>> +
+>> +        err = i915_vma_pin(va,  0, 0, (addr & -align) | 
+>> PIN_OFFSET_FIXED | PIN_USER);
+>> +    } while (err == -ENOSPC && --retries);
+>> +    if (err) {
+>> +        err = 0;
+>> +        goto out;
+>> +    }
 > 
-> In terms of new features there isn't that much. We have some new
-> workarounds which can affect performance and an improvement to suspend-
-> resume times especially significant on modern slow CPU systems like some
-> Chromebooks.
+> This loop should basically never fail since the VM is pristine and 
+> local, right? It can only clash with the the batch buffer so I am 
+> wondering if it would be better not to eat the error condition.
 > 
-> Outside of immediate visibility to end users, early enablement for
-> Meteorlake and Ponte Vecchio is carrying on. Former especially has had
-> support for loading the GSC firmware, OA and initial GT workarounds added.
+> Or evicting previous engine runs does not work? But then five retries 
+> wouldn't be enough..
+
+My tests shows the bb (vma) is usually pinned either to offset 0, ether 
+to 4096, so the pristinity is disputable.
+Anyway I will try to pin in the area after end of vma plus align just once.
+
+
 > 
-> And of course as always there are some random cleanups, selftest tweaks
-> and misc refactorings, which feels less than the usual amount in this
-> round.
+>> +    GEM_BUG_ON(i915_vma_offset(va) != (addr & -align));
+>> +    vb->node = va->node; /* overwrites the _same_ PTE  */
+>> +
+>> +    if (align == SZ_64K) {
+>> +        u64 end = addr + va->size;
+>> +
+>> +        /*
+>> +         * SZ_64K pages on dg1 require that the whole PT be marked
+>> +         * containing 64KiB entries. So we make sure that our vma
+>> +         * covers the whole PT, despite being randomly aligned to 64KiB
+>> +         * and restrict our sampling to the 2MiB PT within where
+>> +         * we know that we will be using 64KiB pages.
+>> +         */
+>> +        addr = round_up(addr & -align, SZ_2M);
+>> +        addr |=    igt_random_offset(prng, 0, end - addr, 4, 4);
+> 
+> I don't quite get what this is for. Can it even be that PTs are not all 
+> SZ_64K when the backing store was verified to be contigous already?
+
+This is, I belive, how 64KB pages works on DG1[1] - all 32 entries (only 
+every 16th counts) in PT should point to 64KB pages - 32*64KB=2MB. In 
+short if we want to excersise 64KB pages, we need to pin vma at 64KB 
+boundary, ptes up to 2MB boundary will be 4KB, then we should have 32 
+64KB ptes.
+
+[1]: https://gfxspecs.intel.com/Predator/Home/Index/45026
+
+> 
+>> +    }
+>> +
+>> +    if (addr - i915_vma_offset(va) >= i915_vma_size(va))
+>> +        addr = igt_random_offset(prng,
+>> +                     i915_vma_offset(va),
+>> +                     i915_vma_offset(va) + i915_vma_size(va),
+>> +                     4, 4);
+> 
+> What's this for? Seemingly can override all the "complicated" placement 
+> calculations from above.
+
+This apparently handles cases in which complicated calculation could 
+went wrong. I will try to remove it.
+
+> 
+>> +
+>> +    pr_info("%s(%s): Sampling %llx, with alignment %llx, using PTE 
+>> size %x (phys %x, sg %x), invalidate:%llx+%llx\n",
+>> +        ce->engine->name, va->obj->mm.region->name ?: "smem",
+>> +        addr, align, va->resource->page_sizes_gtt, 
+>> va->page_sizes.phys, va->page_sizes.sg,
+>> +        addr & -length, length);
+>> +
+>> +    cs = i915_gem_object_pin_map_unlocked(batch, I915_MAP_WC);
+>> +    *cs++ = MI_NOOP; /* for later termination */
+>> +
+>> +    /* Sample the target to see if we spot an incorrect page */
+>> +    *cs++ = MI_CONDITIONAL_BATCH_BUFFER_END | MI_DO_COMPARE | (1 + 
+>> use_64b);
+>> +    *cs++ = -2; /* break if *addr < -1 */
+>> +    *cs++ = lower_32_bits(addr);
+>> +    *cs++ = upper_32_bits(addr);
+>> +    clear_dw(va, addr, -1);
+>> +    clear_dw(vb, addr, 0);
+> 
+> Is the "break if *addr < -1" comment correct? Because in the sanity 
+> check case where va == vb, we have 0 in the target dword - and code 
+> implies that exists the batch.
+
+This is unsigned:
+(u32)0 < (u32)(-2)
+(u32)(-1) > (u32)(-2)
+So the comment should be fixed "/* break if *addr < -2 */"
+or different values choosen.
+
+> 
+>> +
+>> +    /* Keep sampling until we get bored */
+>> +    *cs++ = MI_BATCH_BUFFER_START | BIT(8) | use_64b;
+> 
+> Strange that we don't have MI_BATCH_PPGTT for Gen8+.
+> 
+>> +    *cs++ = lower_32_bits(i915_vma_offset(vma));
+>> +    *cs++ = upper_32_bits(i915_vma_offset(vma));
+>> +
+>> +    i915_gem_object_flush_map(batch);
+>> +
+>> +    rq = i915_request_create(ce);
+>> +    if (IS_ERR(rq)) {
+>> +        err = PTR_ERR(rq);
+>> +        goto out_va;
+>> +    }
+>> +
+>> +    err = rq->engine->emit_bb_start(rq, i915_vma_offset(vma), 0, 0);
+>> +    if (err) {
+>> +        i915_request_add(rq);
+>> +        goto out_va;
+>> +    }
+>> +
+>> +    i915_request_get(rq);
+>> +    i915_request_add(rq);
+>> +
+>> +    /* Short sleep to sanitycheck the batch is spinning before we 
+>> begin */
+>> +    msleep(10);
+>> +    if (va == vb) {
+>> +        if (!i915_request_completed(rq)) {
+>> +            pr_err("Semaphore sanitycheck failed\n");
+>> +            err = -EIO;
+>> +        }
+>> +    } else if (!i915_request_completed(rq)) {
+>> +        struct i915_vma_resource vb_res = {
+>> +            .bi.pages = vb->obj->mm.pages,
+>> +            .bi.page_sizes = vb->obj->mm.page_sizes,
+>> +            .start = i915_vma_offset(vb),
+>> +            .vma_size = i915_vma_size(vb)
+>> +        };
+>> +        unsigned int pte_flags = 0;
+>> +
+>> +        /* Flip the PTE between A and B */
+>> +        if (i915_gem_object_is_lmem(vb->obj))
+>> +            pte_flags |= PTE_LM;
+>> +        ce->vm->insert_entries(ce->vm, &vb_res, 0, pte_flags);
+>> +
+>> +        /* Flush the PTE update to concurrent HW */
+>> +        tlbinv(ce->vm, addr & -length, length);
+>> +
+>> +        if (wait_for(i915_request_completed(rq), HZ / 2)) {
+>> +            pr_err("%s: Request did not complete; the COND_BBE did 
+>> not read the updated PTE\n",
+>> +                   ce->engine->name);
+>> +            err = -EINVAL;
+>> +        }
+>> +    } else {
+>> +        pr_err("Spinner sanitycheck failed\n");
+>> +        err = -EIO;
+> 
+> This doesn't appear to be the sanity check branch, as referred in 
+> mem_tlbinv, but more like batch unexpectedly terminated in the full test 
+> scenario.
+> 
+>> +    }
+>> +    i915_request_put(rq);
+>> +
+>> +    cs = page_mask_bits(batch->mm.mapping);
+>> +    *cs = MI_BATCH_BUFFER_END;
+>> +    wmb();
+>> +
+>> +out_va:
+>> +    if (vb != va)
+>> +        memset(&vb->node, 0, sizeof(vb->node));
+>> +    i915_vma_unpin(va);
+>> +    if (i915_vma_unbind_unlocked(va))
+>> +        err = -EIO;
+>> +out:
+>> +    i915_gem_object_put(batch);
+>> +    return err;
+>> +}
+>> +
+>> +static struct drm_i915_gem_object *create_lmem(struct intel_gt *gt)
+>> +{
+>> +    return i915_gem_object_create_lmem(gt->i915, SZ_1G, 
+>> I915_BO_ALLOC_CONTIGUOUS);
+>> +}
+> 
+> Is there a special significance in allocating 1G and if so lets explain 
+> it with a comment similar to one in create_smem below.
+
+Ok, will be added (1GB pages).
+
+> 
+>> +
+>> +static struct drm_i915_gem_object *create_smem(struct intel_gt *gt)
+>> +{
+>> +    /*
+>> +     * SZ_64K pages require covering the whole 2M PT (gen8 to tgl/dg1).
+>> +     * While that does not require the whole 2M block to be contiguous
+>> +     * it is easier to make it so, since we need that for SZ_2M pagees.
+>> +     * Since we randomly offset the start of the vma, we need a 4M 
+>> object
+>> +     * so that there is a 2M range within it is suitable for SZ_64K PTE.
+>> +     */
+>> +    return i915_gem_object_create_internal(gt->i915, SZ_4M);
+>> +}
+>> +
+>> +static int
+>> +mem_tlbinv(struct intel_gt *gt,
+>> +       struct drm_i915_gem_object *(*create_fn)(struct intel_gt *),
+>> +       void (*tlbinv)(struct i915_address_space *vm, u64 addr, u64 
+>> length))
+>> +{
+>> +    struct intel_engine_cs *engine;
+>> +    struct drm_i915_gem_object *A, *B;
+>> +    struct i915_ppgtt *ppgtt;
+>> +    struct i915_vma *va, *vb;
+>> +    enum intel_engine_id id;
+>> +    I915_RND_STATE(prng);
+>> +    LIST_HEAD(discard);
+>> +    void *vaddr;
+>> +    int err;
+>> +
+>> +    if (GRAPHICS_VER(gt->i915) < 6) /* MI_CONDITIONAL_BB_END & bcs */
+>> +        return 0;
+>> +
+>> +    /*
+>> +     * Check that the TLB invalidate is able to revoke an active
+>> +     * page. We load a page into a spinning COND_BBE loop and then
+>> +     * remap that page to a new physical address. The old address, and
+>> +     * so the loop keeps spinning, is retained in the TLB cache until
+>> +     * we issue an invalidate.
+>> +     */
+>> +
+>> +    A = create_fn(gt);
+>> +    if (IS_ERR(A))
+>> +        return PTR_ERR(A);
+>> +
+>> +    vaddr = i915_gem_object_pin_map_unlocked(A, I915_MAP_WC);
+>> +    if (IS_ERR(vaddr)) {
+>> +        err = PTR_ERR(vaddr);
+>> +        goto out_a;
+>> +    }
+>> +
+>> +    /* Allocate a second physical address significantly different 
+>> from A */
+> 
+> Could we expand this with a why please?
+
+As I understand from Chris, this is to assure we have 'phys' addresses 
+as different as possible, to avoid influence of possible other 
+caches/prefetch/...
+
+
+> 
+>> +    do {
+>> +        B = create_fn(gt);
+>> +        if (IS_ERR(B)) {
+>> +            err = PTR_ERR(B);
+>> +            goto out_a;
+>> +        }
+>> +
+>> +        err = i915_gem_object_pin_pages_unlocked(B);
+>> +        if (err)
+>> +            goto out_b;
+>> +
+>> +        if (upper_32_bits(i915_gem_object_get_dma_address(A, 0)) !=
+>> +            upper_32_bits(i915_gem_object_get_dma_address(B, 0)))
+>> +            break;
+>> +
+>> +        list_add(&B->st_link, &discard);
+> 
+> Something prevents releasing the object immediately here?
+
+Avoid the same address allocation in the next iteration.
+
+> 
+>> +    } while (1);
+>> +
+>> +    vaddr = i915_gem_object_pin_map_unlocked(B, I915_MAP_WC);
+>> +    if (IS_ERR(vaddr)) {
+>> +        err = PTR_ERR(vaddr);
+>> +        goto out_b;
+>> +    }
+>> +
+>> +    GEM_BUG_ON(A->base.size != B->base.size);
+>> +    if ((A->mm.page_sizes.phys | B->mm.page_sizes.phys) & 
+>> (A->base.size - 1))
+>> +        pr_warn("Failed to allocate contiguous pages for size %zx\n",
+>> +            A->base.size);
+>> +
+>> +    ppgtt = i915_ppgtt_create(gt, 0);
+>> +    if (IS_ERR(ppgtt)) {
+>> +        err = PTR_ERR(ppgtt);
+>> +        goto out_b;
+>> +    }
+>> +
+>> +    va = i915_vma_instance(A, &ppgtt->vm, NULL);
+>> +    if (IS_ERR(va)) {
+>> +        err = PTR_ERR(va);
+>> +        goto out_vm;
+>> +    }
+>> +
+>> +    vb = i915_vma_instance(B, &ppgtt->vm, NULL);
+>> +    if (IS_ERR(vb)) {
+>> +        err = PTR_ERR(vb);
+>> +        goto out_vm;
+>> +    }
+>> +
+>> +    err = 0;
+>> +    for_each_engine(engine, gt, id) {
+>> +        struct i915_gem_ww_ctx ww;
+>> +        struct intel_context *ce;
+>> +        int bit;
+>> +
+>> +        ce = intel_context_create(engine);
+>> +        if (IS_ERR(ce)) {
+>> +            err = PTR_ERR(ce);
+>> +            break;
+>> +        }
+>> +
+>> +        i915_vm_put(ce->vm);
+>> +        ce->vm = i915_vm_get(&ppgtt->vm);
+>> +
+>> +        for_i915_gem_ww(&ww, err, true)
+>> +            err = intel_context_pin_ww(ce, &ww);
+>> +        if (err == 0) {
+> 
+> Could invert and save one indentation level at the cost of having two 
+> intel_context_put's, but your choice.
+
+
+Will do it.
+
+> 
+>> +            for_each_set_bit(bit,
+>> +                     (unsigned long 
+>> *)&RUNTIME_INFO(gt->i915)->page_sizes,
+>> +                     
+>> BITS_PER_TYPE(RUNTIME_INFO(gt->i915)->page_sizes)) {
+>> +                int len;
+>> +
+>> +                /* sanitycheck the semaphore wake up */
+>> +                err = pte_tlbinv(ce, va, va,
+>> +                         BIT_ULL(bit),
+>> +                         NULL, SZ_4K,
+>> +                         &prng);
+>> +                if (err)
+>> +                    goto err_unpin;
+>> +
+>> +                for (len = 2; len <= 
+>> RUNTIME_INFO(gt->i915)->ppgtt_size; len *= 2) {
+>> +                    err = pte_tlbinv(ce, va, vb,
+>> +                            BIT_ULL(bit),
+>> +                            tlbinv,
+>> +                            BIT_ULL(len),
+>> +                            &prng);
+>> +                    if (err)
+>> +                        goto err_unpin;
+>> +                }
+>> +
+>> +                if (len != RUNTIME_INFO(gt->i915)->ppgtt_size) {
+>> +                    len = RUNTIME_INFO(gt->i915)->ppgtt_size;
+>> +                    err = pte_tlbinv(ce, va, vb,
+>> +                            BIT_ULL(bit),
+>> +                            tlbinv,
+>> +                            BIT_ULL(len),
+>> +                            &prng);
+>> +                    if (err)
+>> +                        goto err_unpin;
+>> +                }
+>> +            }
+>> +err_unpin:
+>> +            intel_context_unpin(ce);
+> 
+> Is
+> 
+> if (err)
+>      break;
+> 
+> missing from here?
+
+No, the loop ends below and there is break on error.
+
+> 
+>> +        }
+>> +
+>> +        intel_context_put(ce);
+>> +        if (err)
+>> +            break;
+>> +    }
+>> +
+>> +    if (igt_flush_test(gt->i915))
+>> +        err = -EIO;
+>> +
+>> +out_vm:
+>> +    i915_vm_put(&ppgtt->vm);
+>> +out_b:
+>> +    i915_gem_object_put(B);
+>> +out_a:
+>> +    i915_gem_object_put(A);
+>> +    list_for_each_entry_safe(A, B, &discard, st_link)
+>> +        i915_gem_object_put(A);
+>> +    return err;
+>> +}
+>> +
+>> +static void tlbinv_full(struct i915_address_space *vm, u64 addr, u64 
+>> length)
+>> +{
+>> +    intel_gt_invalidate_tlb(vm->gt, intel_gt_tlb_seqno(vm->gt) | 1);
+>> +}
+>> +
+>> +static int invalidate_full(void *arg)
+>> +{
+>> +    struct intel_gt *gt = arg;
+>> +    int err;
+>> +
+>> +    if (GRAPHICS_VER(gt->i915) < 8)
+>> +        return 0; /* TLB invalidate not implemented */
+>> +
+>> +    err = mem_tlbinv(gt, create_smem, tlbinv_full);
+>> +    if (err == 0)
+>> +        err = mem_tlbinv(gt, create_lmem, tlbinv_full);
+>> +    if (err == -ENODEV || err == -ENXIO)
+> 
+> ENODEV presumably will come out from platforms not supporting something, 
+> like the create_lmem test.
+> 
+> What about ENXIO? Wondering if it is future proof to eat that error here.
+
+ From i915_gem_object_pin_map in case of no iommu?
+
+
+> 
+>> +        err = 0;
+>> +
+>> +    return err;
+>> +}
+>> +
+>> +int intel_tlb_live_selftests(struct drm_i915_private *i915)
+>> +{
+>> +    static const struct i915_subtest tests[] = {
+>> +        SUBTEST(invalidate_full),
+>> +    };
+>> +    struct intel_gt *gt;
+>> +    unsigned int i;
+>> +
+>> +    for_each_gt(gt, i915, i) {
+>> +        int err;
+>> +
+>> +        if (intel_gt_is_wedged(gt))
+>> +            continue;
+>> +
+>> +        err = intel_gt_live_subtests(tests, gt);
+>> +        if (err)
+>> +            return err;
+>> +    }
+>> +
+>> +    return 0;
+>> +}
+>> diff --git a/drivers/gpu/drm/i915/selftests/i915_live_selftests.h 
+>> b/drivers/gpu/drm/i915/selftests/i915_live_selftests.h
+>> index aaf8a380e5c789..5aee6c9a8295ce 100644
+>> --- a/drivers/gpu/drm/i915/selftests/i915_live_selftests.h
+>> +++ b/drivers/gpu/drm/i915/selftests/i915_live_selftests.h
+>> @@ -25,6 +25,7 @@ selftest(gt_lrc, intel_lrc_live_selftests)
+>>   selftest(gt_mocs, intel_mocs_live_selftests)
+>>   selftest(gt_pm, intel_gt_pm_live_selftests)
+>>   selftest(gt_heartbeat, intel_heartbeat_live_selftests)
+>> +selftest(gt_tlb, intel_tlb_live_selftests)
+>>   selftest(requests, i915_request_live_selftests)
+>>   selftest(migrate, intel_migrate_live_selftests)
+>>   selftest(active, i915_active_live_selftests)
+> 
+> Okay general idea looks simple - just some details which I perhaps did 
+> not get on the first try to explain.
+
+
+That was quite good excersise for me as well.
+I will send v2 in 1-2 days.
+
+Regards
+Andrzej
+
 > 
 > Regards,
 > 
 > Tvrtko
-> 
-> drm-intel-gt-next-2023-01-18:
-> Driver Changes:
-> 
-> Fixes/improvements/new stuff:
-> 
-> - Fix workarounds on Gen2-3 (Tvrtko Ursulin)
-> - Fix HuC delayed load memory leaks (Daniele Ceraolo Spurio)
-> - Fix a BUG caused by impendance mismatch in dma_fence_wait_timeout and GuC (Janusz Krzysztofik)
-> - Add DG2 workarounds Wa_18018764978 and Wa_18019271663 (Matt Atwood)
-> - Apply recommended L3 hashing mask tuning parameters (Gen12+) (Matt Roper)
-> - Improve suspend / resume times with VT-d scanout workaround active (Andi Shyti, Chris Wilson)
-> - Silence misleading "mailbox access failed" warning in snb_pcode_read (Ashutosh Dixit)
-> - Fix null pointer dereference on HSW perf/OA (Umesh Nerlige Ramappa)
-> - Avoid trampling the ring during buffer migration (and selftests) (Chris Wilson, Matthew Auld)
-> - Fix DG2 visual corruption on small BAR systems by not forgetting to copy CCS aux state (Matthew Auld)
-> - More fixing of DG2 visual corruption by not forgetting to copy CCS aux state of backup objects (Matthew Auld)
-> - Fix TLB invalidation for Gen12.50 video and compute engines (Andrzej Hajda)
-> - Limit Wa_22012654132 to just specific steppings (Matt Roper)
-> - Fix userspace crashes due eviction not working under lock contention after the object locking conversion (Matthew Auld)
-> - Avoid double free is user deploys a corrupt GuC firmware (John Harrison)
-> - Fix 32-bit builds by using "%zu" to format size_t (Nirmoy Das)
-> - Fix a possible BUG in TTM async unbind due not reserving enough fence slots (Nirmoy Das)
-> - Fix potential use after free by not exposing the GEM context id to userspace too early (Rob Clark)
-> - Show clamped PL1 limit to the user (hwmon) (Ashutosh Dixit)
-> - Workaround unreliable reset on Jasperlake (Chris Wilson)
-> - Cover rest of SVG unit MCR registers (Gustavo Sousa)
-> - Avoid PXP log spam on platforms which do not support the feature (Alan Previn)
-> - Re-disable RC6p on Sandy Bridge to avoid GPU hangs and visual glitches (Sasa Dragic)
-> 
-> Future platform enablement:
-> 
-> - Manage uncore->lock while waiting on MCR register (Matt Roper)
-> - Enable Idle Messaging for GSC CS (Vinay Belgaumkar)
-> - Only initialize GSC in tile 0 (Jos� Roberto de Souza)
-> - Media GT and Render GT share common GGTT (Aravind Iddamsetty)
-> - Add dedicated MCR lock (Matt Roper)
-> - Implement recommended caching policy (PVC) (Wayne Boyer)
-> - Add hardware-level lock for steering (Matt Roper)
-> - Check full IP version when applying hw steering semaphore (Matt Roper)
-> - Enable GuC GGTT invalidation from the start (Daniele Ceraolo Spurio)
-> - MTL GSC firmware support (Daniele Ceraolo Spurio, Jonathan Cavitt)
-> - MTL OA support (Umesh Nerlige Ramappa)
-> - MTL initial gt workarounds (Matt Roper)
-> 
-> Driver refactors:
-> 
-> - Hold forcewake and MCR lock over PPAT setup (Matt Roper)
-> - Acquire fw before loop in intel_uncore_read64_2x32 (Umesh Nerlige Ramappa)
-> - GuC filename cleanups and use submission API version number (John Harrison)
-> - Promote pxp subsystem to top-level of i915 (Alan Previn)
-> - Finish proofing the code agains object size overflows (Chris Wilson, Gwan-gyeong Mun)
-> - Start adding module oriented dmesg output (John Harrison)
-> 
-> Miscellaneous:
-> 
-> - Correct kerneldoc for intel_gt_mcr_wait_for_reg() (Matt Roper)
-> - Bump up sample period for busy stats selftest (Umesh Nerlige Ramappa)
-> - Make GuC default_lists const data (Jani Nikula)
-> - Fix table order verification to check all FW types (John Harrison)
-> - Remove some limited use register access wrappers (Jani Nikula)
-> - Remove struct_member macro (Andrzej Hajda)
-> - Remove hardcoded value with a macro (Nirmoy Das)
-> - Use helper func to find out map type (Nirmoy Das)
-> - Fix a static analysis warning (John Harrison)
-> - Consolidate VMA active tracking helpers (Andrzej Hajda)
-> - Do not cover all future platforms in TLB invalidation (Tvrtko Ursulin)
-> - Replace zero-length arrays with flexible-array members (Gustavo A. R. Silva)
-> - Unwind hugepages to drop wakeref on error (Chris Wilson)
-> - Remove a couple of superfluous i915_drm.h includes (Jani Nikula)
-> 
-> Merges:
-> 
-> - Merge drm/drm-next into drm-intel-gt-next (Rodrigo Vivi)
-> The following changes since commit 1b929c02afd37871d5afb9d498426f83432e71c2:
-> 
->   Linux 6.2-rc1 (2022-12-25 13:41:39 -0800)
-> 
-> are available in the Git repository at:
-> 
->   git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-gt-next-2023-01-18
 
-Pulled, but there was an entertaining (silent?) git merge conflict in
-intel_uc_fw.c with a duplicated try_firmware_load.c. I fixed it up after
-Rodrigo and dim-rerere confirmed it's not just me :-)
-
-Thanks, Daniel
-
-> 
-> for you to fetch changes up to 378e04f7cb24aad124a8e55e7a36b689fb63ac17:
-> 
->   drm/i915: remove a couple of superfluous i915_drm.h includes (2023-01-18 11:55:08 +0200)
-> 
-> ----------------------------------------------------------------
-> Driver Changes:
-> 
-> Fixes/improvements/new stuff:
-> 
-> - Fix workarounds on Gen2-3 (Tvrtko Ursulin)
-> - Fix HuC delayed load memory leaks (Daniele Ceraolo Spurio)
-> - Fix a BUG caused by impendance mismatch in dma_fence_wait_timeout and GuC (Janusz Krzysztofik)
-> - Add DG2 workarounds Wa_18018764978 and Wa_18019271663 (Matt Atwood)
-> - Apply recommended L3 hashing mask tuning parameters (Gen12+) (Matt Roper)
-> - Improve suspend / resume times with VT-d scanout workaround active (Andi Shyti, Chris Wilson)
-> - Silence misleading "mailbox access failed" warning in snb_pcode_read (Ashutosh Dixit)
-> - Fix null pointer dereference on HSW perf/OA (Umesh Nerlige Ramappa)
-> - Avoid trampling the ring during buffer migration (and selftests) (Chris Wilson, Matthew Auld)
-> - Fix DG2 visual corruption on small BAR systems by not forgetting to copy CCS aux state (Matthew Auld)
-> - More fixing of DG2 visual corruption by not forgetting to copy CCS aux state of backup objects (Matthew Auld)
-> - Fix TLB invalidation for Gen12.50 video and compute engines (Andrzej Hajda)
-> - Limit Wa_22012654132 to just specific steppings (Matt Roper)
-> - Fix userspace crashes due eviction not working under lock contention after the object locking conversion (Matthew Auld)
-> - Avoid double free is user deploys a corrupt GuC firmware (John Harrison)
-> - Fix 32-bit builds by using "%zu" to format size_t (Nirmoy Das)
-> - Fix a possible BUG in TTM async unbind due not reserving enough fence slots (Nirmoy Das)
-> - Fix potential use after free by not exposing the GEM context id to userspace too early (Rob Clark)
-> - Show clamped PL1 limit to the user (hwmon) (Ashutosh Dixit)
-> - Workaround unreliable reset on Jasperlake (Chris Wilson)
-> - Cover rest of SVG unit MCR registers (Gustavo Sousa)
-> - Avoid PXP log spam on platforms which do not support the feature (Alan Previn)
-> - Re-disable RC6p on Sandy Bridge to avoid GPU hangs and visual glitches (Sasa Dragic)
-> 
-> Future platform enablement:
-> 
-> - Manage uncore->lock while waiting on MCR register (Matt Roper)
-> - Enable Idle Messaging for GSC CS (Vinay Belgaumkar)
-> - Only initialize GSC in tile 0 (Jos� Roberto de Souza)
-> - Media GT and Render GT share common GGTT (Aravind Iddamsetty)
-> - Add dedicated MCR lock (Matt Roper)
-> - Implement recommended caching policy (PVC) (Wayne Boyer)
-> - Add hardware-level lock for steering (Matt Roper)
-> - Check full IP version when applying hw steering semaphore (Matt Roper)
-> - Enable GuC GGTT invalidation from the start (Daniele Ceraolo Spurio)
-> - MTL GSC firmware support (Daniele Ceraolo Spurio, Jonathan Cavitt)
-> - MTL OA support (Umesh Nerlige Ramappa)
-> - MTL initial gt workarounds (Matt Roper)
-> 
-> Driver refactors:
-> 
-> - Hold forcewake and MCR lock over PPAT setup (Matt Roper)
-> - Acquire fw before loop in intel_uncore_read64_2x32 (Umesh Nerlige Ramappa)
-> - GuC filename cleanups and use submission API version number (John Harrison)
-> - Promote pxp subsystem to top-level of i915 (Alan Previn)
-> - Finish proofing the code agains object size overflows (Chris Wilson, Gwan-gyeong Mun)
-> - Start adding module oriented dmesg output (John Harrison)
-> 
-> Miscellaneous:
-> 
-> - Correct kerneldoc for intel_gt_mcr_wait_for_reg() (Matt Roper)
-> - Bump up sample period for busy stats selftest (Umesh Nerlige Ramappa)
-> - Make GuC default_lists const data (Jani Nikula)
-> - Fix table order verification to check all FW types (John Harrison)
-> - Remove some limited use register access wrappers (Jani Nikula)
-> - Remove struct_member macro (Andrzej Hajda)
-> - Remove hardcoded value with a macro (Nirmoy Das)
-> - Use helper func to find out map type (Nirmoy Das)
-> - Fix a static analysis warning (John Harrison)
-> - Consolidate VMA active tracking helpers (Andrzej Hajda)
-> - Do not cover all future platforms in TLB invalidation (Tvrtko Ursulin)
-> - Replace zero-length arrays with flexible-array members (Gustavo A. R. Silva)
-> - Unwind hugepages to drop wakeref on error (Chris Wilson)
-> - Remove a couple of superfluous i915_drm.h includes (Jani Nikula)
-> 
-> Merges:
-> 
-> - Merge drm/drm-next into drm-intel-gt-next (Rodrigo Vivi)
-> 
-> ----------------------------------------------------------------
-> Alan Previn (2):
->       drm/i915/pxp: Promote pxp subsystem to top-level of i915
->       drm/i915/pxp: Use drm_dbg if arb session failed due to fw version
-> 
-> Andi Shyti (2):
->       drm/i915: Limit the display memory alignment to 32 bit instead of 64
->       Revert "drm/i915: Improve on suspend / resume time with VT-d enabled"
-> 
-> Andrzej Hajda (4):
->       drm/i915: remove struct_member macro
->       drm/i915: fix TLB invalidation for Gen12.50 video and compute engines
->       drm/i915: use proper helper in igt_vma_move_to_active_unlocked
->       drm/i915/selftest: use igt_vma_move_to_active_unlocked if possible
-> 
-> Aravind Iddamsetty (1):
->       drm/i915/mtl: Media GT and Render GT share common GGTT
-> 
-> Ashutosh Dixit (2):
->       drm/i915/hwmon: Silence "mailbox access failed" warning in snb_pcode_read
->       drm/i915/hwmon: Display clamped PL1 limit
-> 
-> Chris Wilson (9):
->       drm/i915: Wrap all access to i915_vma.node.start|size
->       drm/i915: Introduce guard pages to i915_vma
->       drm/i915: Refine VT-d scanout workaround
->       drm/i915/migrate: Account for the reserved_space
->       drm/i915/gem: Typecheck page lookups
->       drm/i915: Check for integer truncation on scatterlist creation
->       drm/i915: Remove truncation warning for large objects
->       drm/i915/gt: Reset twice
->       drm/i915/selftests: Unwind hugepages to drop wakeref on error
-> 
-> Daniele Ceraolo Spurio (8):
->       drm/i915/huc: fix leak of debug object in huc load fence on driver unload
->       drm/i915/huc: always init the delayed load fence
->       drm/i915/guc: enable GuC GGTT invalidation from the start
->       drm/i915/uc: Introduce GSC FW
->       drm/i915/gsc: Skip the version check when fetching the GSC FW
->       drm/i915/gsc: GSC firmware loading
->       drm/i915/gsc: Do a driver-FLR on unload if GSC was loaded
->       drm/i915/mtl: MTL has one GSC CS on the media GT
-> 
-> Gustavo A. R. Silva (1):
->       drm/i915/guc: Replace zero-length arrays with flexible-array members
-> 
-> Gustavo Sousa (1):
->       drm/i915/gt: Cover rest of SVG unit MCR registers
-> 
-> Gwan-gyeong Mun (3):
->       drm/i915: Check for integer truncation on the configuration of ttm place
->       drm/i915: Check if the size is too big while creating shmem file
->       drm/i915: Use error code as -E2BIG when the size of gem ttm object is too large
-> 
-> Jani Nikula (3):
->       drm/i915/guc: make default_lists const data
->       drm/i915/gt: remove some limited use register access wrappers
->       drm/i915: remove a couple of superfluous i915_drm.h includes
-> 
-> Janusz Krzysztofik (2):
->       drm/i915: Fix negative value passed as remaining time
->       drm/i915: Never return 0 if not all requests retired
-> 
-> John Harrison (7):
->       drm/i915/uc: Fix table order verification to check all FW types
->       drm/i915/uc: Rationalise delimiters in filename macros
->       drm/i915/uc: More refactoring of UC version numbers
->       drm/i915/guc: Use GuC submission API version number
->       drm/i915/guc: Fix a static analysis warning
->       drm/i915/uc: Fix two issues with over-size firmware files
->       drm/i915/gt: Start adding module oriented dmesg output
-> 
-> Jonathan Cavitt (1):
->       drm/i915/gsc: Disable GSC engine and power well if FW is not selected
-> 
-> Jos� Roberto de Souza (1):
->       drm/i915/gsc: Only initialize GSC in tile 0
-> 
-> Matt Atwood (2):
->       drm/i915/dg2: Introduce Wa_18018764978
->       drm/i915/dg2: Introduce Wa_18019271663
-> 
-> Matt Roper (10):
->       drm/i915/gt: Manage uncore->lock while waiting on MCR register
->       drm/i915/gt: Correct kerneldoc for intel_gt_mcr_wait_for_reg()
->       drm/i915/gt: Pass gt rather than uncore to lowest-level reads/writes
->       drm/i915/gt: Add dedicated MCR lock
->       drm/i915/mcr: Hold forcewake and MCR lock over PPAT setup
->       drm/i915/mtl: Add hardware-level lock for steering
->       drm/i915/mtl: Check full IP version when applying hw steering semaphore
->       drm/i915/gen12: Apply recommended L3 hashing mask
->       drm/i915/dg2: Return Wa_22012654132 to just specific steppings
->       drm/i915/mtl: Add initial gt workarounds
-> 
-> Matthew Auld (5):
->       drm/i915/selftests: use live_subtests for live_migrate
->       drm/i915/selftests: exercise emit_pte() with nearly full ring
->       drm/i915/migrate: fix corner case in CCS aux copying
->       drm/i915/ttm: consider CCS for backup objects
->       drm/i915: improve the catch-all evict to handle lock contention
-> 
-> Nirmoy Das (4):
->       drm/i915/selftests: Remove hardcoded value with a macro
->       drm/i915: Use helper func to find out map type
->       drm/i915: Use "%zu" to format size_t
->       drm/i915: Reserve enough fence slot for i915_vma_unbind_async
-> 
-> Rob Clark (1):
->       drm/i915: Fix potential context UAFs
-> 
-> Rodrigo Vivi (1):
->       Merge drm/drm-next into drm-intel-gt-next
-> 
-> Sasa Dragic (1):
->       drm/i915: re-disable RC6p on Sandy Bridge
-> 
-> Tvrtko Ursulin (2):
->       drm/i915: Fix workarounds on Gen2-3
->       drm/i915: Do not cover all future platforms in TLB invalidation
-> 
-> Umesh Nerlige Ramappa (7):
->       i915/uncore: Acquire fw before loop in intel_uncore_read64_2x32
->       drm/i915/selftest: Bump up sample period for busy stats selftest
->       drm/i915/perf: Do not parse context image for HSW
->       drm/i915/mtl: Resize noa_wait BO size to save restore GPR regs
->       drm/i915/mtl: Add Wa_14015846243 to fix OA vs CS timestamp mismatch
->       drm/i915/mtl: Update OA mux whitelist for MTL
->       drm/i915/mtl: Add OA support by enabling 32 bit OAG formats for MTL
-> 
-> Vinay Belgaumkar (1):
->       drm/i915/mtl: Enable Idle Messaging for GSC CS
-> 
-> Wayne Boyer (1):
->       drm/i915/pvc: Implement recommended caching policy
-> 
->  drivers/gpu/drm/i915/Makefile                      |  11 +-
->  drivers/gpu/drm/i915/display/intel_fb_pin.c        |   2 +-
->  drivers/gpu/drm/i915/display/intel_fbdev.c         |   2 +-
->  drivers/gpu/drm/i915/display/skl_universal_plane.c |   2 +-
->  drivers/gpu/drm/i915/gem/i915_gem_context.c        |  30 +-
->  drivers/gpu/drm/i915/gem/i915_gem_create.c         |   2 +-
->  drivers/gpu/drm/i915/gem/i915_gem_domain.c         |  15 +-
->  drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c     |  94 ++++--
->  drivers/gpu/drm/i915/gem/i915_gem_internal.c       |   7 +-
->  drivers/gpu/drm/i915/gem/i915_gem_mman.c           |   4 +-
->  drivers/gpu/drm/i915/gem/i915_gem_object.c         |   7 +-
->  drivers/gpu/drm/i915/gem/i915_gem_object.h         | 303 ++++++++++++++++---
->  drivers/gpu/drm/i915/gem/i915_gem_pages.c          |  27 +-
->  drivers/gpu/drm/i915/gem/i915_gem_phys.c           |   4 +
->  drivers/gpu/drm/i915/gem/i915_gem_shmem.c          |  25 +-
->  drivers/gpu/drm/i915/gem/i915_gem_shrinker.c       |   2 +-
->  drivers/gpu/drm/i915/gem/i915_gem_tiling.c         |   4 +-
->  drivers/gpu/drm/i915/gem/i915_gem_ttm.c            |  20 +-
->  drivers/gpu/drm/i915/gem/i915_gem_userptr.c        |   6 +-
->  .../gpu/drm/i915/gem/selftests/huge_gem_object.c   |   6 +-
->  drivers/gpu/drm/i915/gem/selftests/huge_pages.c    |  18 +-
->  .../drm/i915/gem/selftests/i915_gem_client_blt.c   |  23 +-
->  .../drm/i915/gem/selftests/i915_gem_coherency.c    |   2 +-
->  .../gpu/drm/i915/gem/selftests/i915_gem_context.c  |  35 +--
->  drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c |  10 +-
->  .../gpu/drm/i915/gem/selftests/i915_gem_object.c   |   8 +-
->  drivers/gpu/drm/i915/gem/selftests/igt_gem_utils.c |  15 +-
->  drivers/gpu/drm/i915/gem/selftests/igt_gem_utils.h |   2 +-
->  drivers/gpu/drm/i915/gt/gen7_renderclear.c         |   2 +-
->  drivers/gpu/drm/i915/gt/intel_engine.h             |   2 +
->  drivers/gpu/drm/i915/gt/intel_engine_cs.c          |  24 +-
->  drivers/gpu/drm/i915/gt/intel_engine_pm.c          |  18 ++
->  .../gpu/drm/i915/gt/intel_execlists_submission.c   |   6 +-
->  drivers/gpu/drm/i915/gt/intel_ggtt.c               | 186 ++++--------
->  drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c       |   3 +-
->  drivers/gpu/drm/i915/gt/intel_ggtt_gmch.c          |   1 -
->  drivers/gpu/drm/i915/gt/intel_gpu_commands.h       |   7 +
->  drivers/gpu/drm/i915/gt/intel_gsc.c                |   8 +
->  drivers/gpu/drm/i915/gt/intel_gt.c                 | 175 +++++------
->  drivers/gpu/drm/i915/gt/intel_gt.h                 |   5 +
->  drivers/gpu/drm/i915/gt/intel_gt_clock_utils.c     |   8 +-
->  drivers/gpu/drm/i915/gt/intel_gt_debugfs.c         |   2 -
->  drivers/gpu/drm/i915/gt/intel_gt_irq.c             |  11 +-
->  drivers/gpu/drm/i915/gt/intel_gt_mcr.c             | 141 ++++++++-
->  drivers/gpu/drm/i915/gt/intel_gt_mcr.h             |   2 +
->  drivers/gpu/drm/i915/gt/intel_gt_pm.c              |  17 +-
->  drivers/gpu/drm/i915/gt/intel_gt_print.h           |  51 ++++
->  drivers/gpu/drm/i915/gt/intel_gt_regs.h            |  33 +-
->  drivers/gpu/drm/i915/gt/intel_gt_sysfs.c           |   4 +-
->  drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c        |  34 +--
->  drivers/gpu/drm/i915/gt/intel_gt_types.h           |  20 +-
->  drivers/gpu/drm/i915/gt/intel_gtt.c                |  34 ++-
->  drivers/gpu/drm/i915/gt/intel_gtt.h                |  30 +-
->  drivers/gpu/drm/i915/gt/intel_migrate.c            |   6 +-
->  drivers/gpu/drm/i915/gt/intel_mocs.c               |   3 +
->  drivers/gpu/drm/i915/gt/intel_renderstate.c        |   2 +-
->  drivers/gpu/drm/i915/gt/intel_reset.c              |  52 ++--
->  drivers/gpu/drm/i915/gt/intel_ring_submission.c    |   2 +-
->  drivers/gpu/drm/i915/gt/intel_workarounds.c        | 172 +++++++----
->  drivers/gpu/drm/i915/gt/selftest_engine_cs.c       |   8 +-
->  drivers/gpu/drm/i915/gt/selftest_execlists.c       |  30 +-
->  drivers/gpu/drm/i915/gt/selftest_hangcheck.c       |  15 +-
->  drivers/gpu/drm/i915/gt/selftest_lrc.c             |  20 +-
->  drivers/gpu/drm/i915/gt/selftest_migrate.c         | 173 ++++++++++-
->  drivers/gpu/drm/i915/gt/selftest_mocs.c            |   4 +-
->  drivers/gpu/drm/i915/gt/selftest_ring_submission.c |   2 +-
->  drivers/gpu/drm/i915/gt/selftest_rps.c             |  12 +-
->  drivers/gpu/drm/i915/gt/selftest_workarounds.c     |  20 +-
->  drivers/gpu/drm/i915/gt/shmem_utils.c              |   7 +-
->  drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h      |   6 +-
->  drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c          | 210 +++++++++++++
->  drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.h          |  15 +
->  drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c          | 137 +++++++++
->  drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h          |  47 +++
->  drivers/gpu/drm/i915/gt/uc/intel_guc.c             |  16 +-
->  drivers/gpu/drm/i915/gt/uc/intel_guc.h             |  11 +
->  drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c  |  24 +-
->  drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c          |   2 +-
->  drivers/gpu/drm/i915/gt/uc/intel_uc.c              |  29 +-
->  drivers/gpu/drm/i915/gt/uc/intel_uc.h              |   3 +
->  drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c           | 333 +++++++++++++++------
->  drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h           |  23 +-
->  drivers/gpu/drm/i915/gt/uc/intel_uc_fw_abi.h       |   3 +-
->  drivers/gpu/drm/i915/gvt/dmabuf.c                  |  10 +-
->  drivers/gpu/drm/i915/i915_cmd_parser.c             |   4 +-
->  drivers/gpu/drm/i915/i915_debugfs.c                |   2 +-
->  drivers/gpu/drm/i915/i915_driver.c                 |  46 +--
->  drivers/gpu/drm/i915/i915_drv.h                    |   7 +-
->  drivers/gpu/drm/i915/i915_gem.c                    |  20 +-
->  drivers/gpu/drm/i915/i915_gem_evict.c              |  88 ++++--
->  drivers/gpu/drm/i915/i915_gem_evict.h              |   4 +-
->  drivers/gpu/drm/i915/i915_gem_gtt.h                |   3 +-
->  drivers/gpu/drm/i915/i915_hwmon.c                  |  43 ++-
->  drivers/gpu/drm/i915/i915_params.c                 |   3 +
->  drivers/gpu/drm/i915/i915_params.h                 |   1 +
->  drivers/gpu/drm/i915/i915_pci.c                    |   5 +-
->  drivers/gpu/drm/i915/i915_perf.c                   |  51 +++-
->  drivers/gpu/drm/i915/i915_reg.h                    |   3 +
->  drivers/gpu/drm/i915/i915_scatterlist.c            |   9 +
->  drivers/gpu/drm/i915/i915_utils.h                  |   4 +-
->  drivers/gpu/drm/i915/i915_vma.c                    |  83 +++--
->  drivers/gpu/drm/i915/i915_vma.h                    |  52 +++-
->  drivers/gpu/drm/i915/i915_vma_resource.c           |   4 +-
->  drivers/gpu/drm/i915/i915_vma_resource.h           |  17 +-
->  drivers/gpu/drm/i915/i915_vma_types.h              |   3 +-
->  drivers/gpu/drm/i915/intel_device_info.c           |   6 +
->  drivers/gpu/drm/i915/intel_mchbar_regs.h           |   2 +
->  drivers/gpu/drm/i915/intel_region_ttm.c            |  14 +
->  drivers/gpu/drm/i915/intel_runtime_pm.h            |   2 +-
->  drivers/gpu/drm/i915/intel_uncore.c                |  59 ++++
->  drivers/gpu/drm/i915/intel_uncore.h                |  13 +
->  drivers/gpu/drm/i915/pxp/intel_pxp.c               | 128 ++++++--
->  drivers/gpu/drm/i915/pxp/intel_pxp.h               |   9 +-
->  drivers/gpu/drm/i915/pxp/intel_pxp_cmd.c           |   8 +-
->  .../gpu/drm/i915/pxp/intel_pxp_cmd_interface_cmn.h |   1 +
->  drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c       |  36 ++-
->  drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.h       |   4 +-
->  drivers/gpu/drm/i915/pxp/intel_pxp_huc.c           |  11 +-
->  drivers/gpu/drm/i915/pxp/intel_pxp_irq.c           |  18 +-
->  drivers/gpu/drm/i915/pxp/intel_pxp_pm.c            |   6 +-
->  drivers/gpu/drm/i915/pxp/intel_pxp_session.c       |  10 +-
->  drivers/gpu/drm/i915/pxp/intel_pxp_tee.c           |  35 ++-
->  drivers/gpu/drm/i915/pxp/intel_pxp_types.h         |   8 +
->  drivers/gpu/drm/i915/selftests/i915_gem.c          |   2 +
->  drivers/gpu/drm/i915/selftests/i915_gem_evict.c    |   4 +-
->  drivers/gpu/drm/i915/selftests/i915_gem_gtt.c      |   4 +
->  drivers/gpu/drm/i915/selftests/i915_request.c      |  20 +-
->  drivers/gpu/drm/i915/selftests/igt_spinner.c       |   8 +-
->  drivers/gpu/drm/i915/selftests/scatterlist.c       |   4 +
->  129 files changed, 2778 insertions(+), 993 deletions(-)
->  create mode 100644 drivers/gpu/drm/i915/gt/intel_gt_print.h
->  create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
->  create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.h
->  create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c
->  create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
