@@ -4,51 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9048C54EED
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 17:07:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E4D2C54E94
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 17:12:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A62010E6E0;
-	Tue, 24 Jan 2023 17:06:42 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 860AF10E6D4;
- Tue, 24 Jan 2023 17:06:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674579992; x=1706115992;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=/HUxB6tfXLaAI9CtMYtyB+45WS2zXKzaSueX41iwTvI=;
- b=BhH5SupgNN0REAUvdvQHROcbiCU45SN8dv4BJfb2ybi8OJ3jWODPxMW8
- bpnp1CaE6o2Du5gG/WEsgG5nn7q4TN9hZlPFcZdwH+HnrWgt9CdJ7JDJj
- ymO8OyT5Z0KvNPwPSNafenDMKgQgUUPBLD13anwNjKCfFTAyeENZEsXL2
- yqnmky/xewKWQz5y2IuopYKqN7X0IRWpba9OVcEwM7Ey3V4REBbhhkhd4
- K9iLlM9/qzYMXwc4TwlENcYz1kIVkfpqhADGtW6ATpbTDsBQ2yeY0znZW
- Ag0vzUihMa0z2IgfCfjiK/Z1mXgf9rfbKtGjTSk1rpn6k/piVFZtMqbyS g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="306007410"
-X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="306007410"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2023 09:05:29 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="750895798"
-X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="750895798"
-Received: from irvmail002.ir.intel.com ([10.43.11.120])
- by FMSMGA003.fm.intel.com with ESMTP; 24 Jan 2023 09:05:25 -0800
-Received: from mwajdecz-MOBL.ger.corp.intel.com
- (mwajdecz-MOBL.ger.corp.intel.com [10.249.147.192])
- by irvmail002.ir.intel.com (Postfix) with ESMTP id 6182837E21;
- Tue, 24 Jan 2023 17:05:25 +0000 (GMT)
-From: Michal Wajdeczko <michal.wajdeczko@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 24 Jan 2023 18:05:20 +0100
-Message-Id: <20230124170522.1808-7-michal.wajdeczko@intel.com>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20230124170522.1808-1-michal.wajdeczko@intel.com>
-References: <20230124170522.1808-1-michal.wajdeczko@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF8B310E097;
+	Tue, 24 Jan 2023 17:12:10 +0000 (UTC)
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F29D10E097;
+ Tue, 24 Jan 2023 17:12:09 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id w11so20804255lfu.11;
+ Tue, 24 Jan 2023 09:12:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=zaMXdjnUJV5FMTPJEaHUEHp8Nfb0QJomieUmnE2lH1k=;
+ b=ew0+EO7FRpXgGYjZi553mAsftT25+g50Rw8EBVb8lhQBVydTBqFKZ3SdNE5v8M6PNv
+ 6P8scwE/xv9zZNvEwUf8ieSr4Ao8KeQXHdbtS/PwFMixNDvMW2noE2KusoZWfE3SH9iM
+ XtolIxIBsTyXZBg3BTQJg5mqPcTG7s57CAdjh/96OKgT1oYe57Q3H42fhL0j0o5vGyMG
+ CFbQM2eclQuJYT47AAMLknJguVCHEo2ZeSmLmJaJdczSWOPk+gK2YtBZEbUCj/I3T/mN
+ ur1yeXtrWM+WJOvcqF0HMR9fYcvW6WgUPjXARoAk0yRlay9i3QdNfWTF7RUAO540cqCh
+ E8cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=zaMXdjnUJV5FMTPJEaHUEHp8Nfb0QJomieUmnE2lH1k=;
+ b=KgfvY+j0DLNo4PFc9o+yWC1KLQdhnpBPzEXi86y/BF2okXEVoBy+1Bj9GbzELHpB0i
+ yjt7vsfTQTVZOR9cE4lk9ROoAcVM4uPl7I55gkQRMb1iXHxOt51ncId9c1P6ANqhUOsA
+ 9fuG/H0P6MCZJRlEqNf+mqnYHSGB9/zxDtc6etNfuzo3x91dANAY1k8RpgyLhYh9SjEj
+ 4/yOflQwcUaDdh6WCpHzFDDWzrq+YA+SJTTZZZS52U98sj8pGH1TGRPUu3xgSqQghwG0
+ lO92QHgd5NZ7+pokqJ6BUr+Li/2LQrMkkpfjvJ0bvB+iABqhPvn8ffdW/0+IrhTfrE2N
+ Pl9w==
+X-Gm-Message-State: AFqh2krpqZ7tUS2V7sklS1d2sJZM0W0lVcViQKokMvDHiLKc9kr0BgTM
+ ybzhccIAX+OD+Mv6fPCkkht2tR+yYH9s7rwbbJQ=
+X-Google-Smtp-Source: AMrXdXs0c2UwMKktuIpp2U98/7lqyFM4RRV5BngNRiroCYzz91tCI0hc1C//RyYG0hisDJiQ/ptKk/Gqie2GfUAD8VA=
+X-Received: by 2002:a05:6512:96d:b0:4c7:6601:e3b1 with SMTP id
+ v13-20020a056512096d00b004c76601e3b1mr1320102lft.548.1674580327731; Tue, 24
+ Jan 2023 09:12:07 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 6/8] drm/i915/guc: Update GuC messages in
- intel_guc_log.c
+References: <20230124125726.13323-1-christian.koenig@amd.com>
+ <20230124125726.13323-5-christian.koenig@amd.com>
+In-Reply-To: <20230124125726.13323-5-christian.koenig@amd.com>
+From: Matthew Auld <matthew.william.auld@gmail.com>
+Date: Tue, 24 Jan 2023 17:11:40 +0000
+Message-ID: <CAM0jSHM0bKVZhmJcx00Lum-5+o-JUTtVwQeOEQvN5Ur0z=1GOA@mail.gmail.com>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH 5/5] drm/ttm: replace busy placement with
+ flags v2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,167 +68,123 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use new macros to have common prefix that also include GT#.
+On Tue, 24 Jan 2023 at 12:57, Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> Instead of a list of separate busy placement add flags which indicate
+> that a placement should only be used when there is room or if we need to
+> evict.
+>
+> v2: add missing TTM_PL_FLAG_IDLE for i915
+>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
 
-v2: drop redundant GuC strings, minor improvements
+<snip>
 
-Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-Cc: John Harrison <John.C.Harrison@Intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.c | 37 ++++++++++++----------
- 1 file changed, 20 insertions(+), 17 deletions(-)
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c b/drivers/gpu/drm/nouve=
+au/nouveau_bo.c
+> index c2ec91cc845d..0ab24ca5f419 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_bo.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
+> @@ -347,27 +347,6 @@ nouveau_bo_new(struct nouveau_cli *cli, u64 size, in=
+t align,
+>         return 0;
+>  }
+>
+> -static void
+> -set_placement_list(struct ttm_place *pl, unsigned *n, uint32_t domain)
+> -{
+> -       *n =3D 0;
+> -
+> -       if (domain & NOUVEAU_GEM_DOMAIN_VRAM) {
+> -               pl[*n].mem_type =3D TTM_PL_VRAM;
+> -               pl[*n].flags =3D 0;
+> -               (*n)++;
+> -       }
+> -       if (domain & NOUVEAU_GEM_DOMAIN_GART) {
+> -               pl[*n].mem_type =3D TTM_PL_TT;
+> -               pl[*n].flags =3D 0;
+> -               (*n)++;
+> -       }
+> -       if (domain & NOUVEAU_GEM_DOMAIN_CPU) {
+> -               pl[*n].mem_type =3D TTM_PL_SYSTEM;
+> -               pl[(*n)++].flags =3D 0;
+> -       }
+> -}
+> -
+>  static void
+>  set_placement_range(struct nouveau_bo *nvbo, uint32_t domain)
+>  {
+> @@ -395,10 +374,6 @@ set_placement_range(struct nouveau_bo *nvbo, uint32_=
+t domain)
+>                         nvbo->placements[i].fpfn =3D fpfn;
+>                         nvbo->placements[i].lpfn =3D lpfn;
+>                 }
+> -               for (i =3D 0; i < nvbo->placement.num_busy_placement; ++i=
+) {
+> -                       nvbo->busy_placements[i].fpfn =3D fpfn;
+> -                       nvbo->busy_placements[i].lpfn =3D lpfn;
+> -               }
+>         }
+>  }
+>
+> @@ -406,15 +381,32 @@ void
+>  nouveau_bo_placement_set(struct nouveau_bo *nvbo, uint32_t domain,
+>                          uint32_t busy)
+>  {
+> -       struct ttm_placement *pl =3D &nvbo->placement;
+> +       struct ttm_place *pl =3D nvbo->placements;
+> +       unsigned *n =3D &nvbo->placement.num_placement;
+>
+> -       pl->placement =3D nvbo->placements;
+> -       set_placement_list(nvbo->placements, &pl->num_placement, domain);
+> +       domain |=3D busy;
+>
+> -       pl->busy_placement =3D nvbo->busy_placements;
+> -       set_placement_list(nvbo->busy_placements, &pl->num_busy_placement=
+,
+> -                          domain | busy);
+> +       *n =3D 0;
+> +       if (domain & NOUVEAU_GEM_DOMAIN_VRAM) {
+> +               pl[*n].mem_type =3D TTM_PL_VRAM;
+> +               pl[*n].flags =3D busy & NOUVEAU_GEM_DOMAIN_VRAM ?
+> +                       TTM_PL_FLAG_BUSY : 0;
+> +               (*n)++;
+> +       }
+> +       if (domain & NOUVEAU_GEM_DOMAIN_GART) {
+> +               pl[*n].mem_type =3D TTM_PL_TT;
+> +               pl[*n].flags =3D busy & NOUVEAU_GEM_DOMAIN_GART ?
+> +                       TTM_PL_FLAG_BUSY : 0;
+> +               (*n)++;
+> +       }
+> +       if (domain & NOUVEAU_GEM_DOMAIN_CPU) {
+> +               pl[*n].mem_type =3D TTM_PL_SYSTEM;
+> +               pl[*n].flags =3D busy & NOUVEAU_GEM_DOMAIN_CPU ?
+> +                       TTM_PL_FLAG_BUSY : 0;
+> +               (*n)++;
+> +       }
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-index 68331c538b0a..290bb996b667 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-@@ -12,6 +12,7 @@
- #include "i915_memcpy.h"
- #include "intel_guc_capture.h"
- #include "intel_guc_log.h"
-+#include "intel_guc_print.h"
- 
- #if defined(CONFIG_DRM_I915_DEBUG_GUC)
- #define GUC_LOG_DEFAULT_CRASH_BUFFER_SIZE	SZ_2M
-@@ -39,7 +40,6 @@ struct guc_log_section {
- static void _guc_log_init_sizes(struct intel_guc_log *log)
- {
- 	struct intel_guc *guc = log_to_guc(log);
--	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
- 	static const struct guc_log_section sections[GUC_LOG_SECTIONS_LIMIT] = {
- 		{
- 			GUC_LOG_CRASH_MASK >> GUC_LOG_CRASH_SHIFT,
-@@ -82,12 +82,12 @@ static void _guc_log_init_sizes(struct intel_guc_log *log)
- 		}
- 
- 		if (!IS_ALIGNED(log->sizes[i].bytes, log->sizes[i].units))
--			drm_err(&i915->drm, "Mis-aligned GuC log %s size: 0x%X vs 0x%X!",
-+			guc_err(guc, "Mis-aligned log %s size: 0x%X vs 0x%X!\n",
- 				sections[i].name, log->sizes[i].bytes, log->sizes[i].units);
- 		log->sizes[i].count = log->sizes[i].bytes / log->sizes[i].units;
- 
- 		if (!log->sizes[i].count) {
--			drm_err(&i915->drm, "Zero GuC log %s size!", sections[i].name);
-+			guc_err(guc, "Zero log %s size!\n", sections[i].name);
- 		} else {
- 			/* Size is +1 unit */
- 			log->sizes[i].count--;
-@@ -95,15 +95,17 @@ static void _guc_log_init_sizes(struct intel_guc_log *log)
- 
- 		/* Clip to field size */
- 		if (log->sizes[i].count > sections[i].max) {
--			drm_err(&i915->drm, "GuC log %s size too large: %d vs %d!",
-+			guc_err(guc, "log %s size too large: %d vs %d!\n",
- 				sections[i].name, log->sizes[i].count + 1, sections[i].max + 1);
- 			log->sizes[i].count = sections[i].max;
- 		}
- 	}
- 
- 	if (log->sizes[GUC_LOG_SECTIONS_CRASH].units != log->sizes[GUC_LOG_SECTIONS_DEBUG].units) {
--		drm_err(&i915->drm, "Unit mis-match for GuC log crash and debug sections: %d vs %d!",
-+		guc_err(guc, "Unit mis-match between log sections: %s = %d vs %s = %d!\n",
-+			sections[GUC_LOG_SECTIONS_CRASH].name,
- 			log->sizes[GUC_LOG_SECTIONS_CRASH].units,
-+			sections[GUC_LOG_SECTIONS_DEBUG].name,
- 			log->sizes[GUC_LOG_SECTIONS_DEBUG].units);
- 		log->sizes[GUC_LOG_SECTIONS_CRASH].units = log->sizes[GUC_LOG_SECTIONS_DEBUG].units;
- 		log->sizes[GUC_LOG_SECTIONS_CRASH].count = 0;
-@@ -374,6 +376,7 @@ size_t intel_guc_get_log_buffer_offset(struct intel_guc_log *log,
- 
- static void _guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log)
- {
-+	struct intel_guc *guc = log_to_guc(log);
- 	unsigned int buffer_size, read_offset, write_offset, bytes_to_copy, full_cnt;
- 	struct guc_log_buffer_state *log_buf_state, *log_buf_snapshot_state;
- 	struct guc_log_buffer_state log_buf_state_local;
-@@ -383,7 +386,7 @@ static void _guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log)
- 
- 	mutex_lock(&log->relay.lock);
- 
--	if (WARN_ON(!intel_guc_log_relay_created(log)))
-+	if (guc_WARN_ON(guc, !intel_guc_log_relay_created(log)))
- 		goto out_unlock;
- 
- 	/* Get the pointer to shared GuC log buffer */
-@@ -398,7 +401,7 @@ static void _guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log)
- 		 * Used rate limited to avoid deluge of messages, logs might be
- 		 * getting consumed by User at a slow rate.
- 		 */
--		DRM_ERROR_RATELIMITED("no sub-buffer to copy general logs\n");
-+		guc_err_ratelimited(guc, "no sub-buffer to copy general logs\n");
- 		log->relay.full_count++;
- 
- 		goto out_unlock;
-@@ -451,7 +454,7 @@ static void _guc_log_copy_debuglogs_for_relay(struct intel_guc_log *log)
- 			write_offset = buffer_size;
- 		} else if (unlikely((read_offset > buffer_size) ||
- 				    (write_offset > buffer_size))) {
--			DRM_ERROR("invalid log buffer state\n");
-+			guc_err(guc, "invalid log buffer state\n");
- 			/* copy whole buffer as offsets are unreliable */
- 			read_offset = 0;
- 			write_offset = buffer_size;
-@@ -547,7 +550,7 @@ static int guc_log_relay_create(struct intel_guc_log *log)
- 					subbuf_size, n_subbufs,
- 					&relay_callbacks, dev_priv);
- 	if (!guc_log_relay_chan) {
--		DRM_ERROR("Couldn't create relay chan for GuC logging\n");
-+		guc_err(guc, "Couldn't create relay channel for logging\n");
- 
- 		ret = -ENOMEM;
- 		return ret;
-@@ -596,7 +599,7 @@ static u32 __get_default_log_level(struct intel_guc_log *log)
- 	}
- 
- 	if (i915->params.guc_log_level > GUC_LOG_LEVEL_MAX) {
--		DRM_WARN("Incompatible option detected: %s=%d, %s!\n",
-+		guc_warn(guc, "Incompatible option detected: %s=%d, %s!\n",
- 			 "guc_log_level", i915->params.guc_log_level,
- 			 "verbosity too high");
- 		return (IS_ENABLED(CONFIG_DRM_I915_DEBUG) ||
-@@ -641,15 +644,15 @@ int intel_guc_log_create(struct intel_guc_log *log)
- 	log->buf_addr = vaddr;
- 
- 	log->level = __get_default_log_level(log);
--	DRM_DEBUG_DRIVER("guc_log_level=%d (%s, verbose:%s, verbosity:%d)\n",
--			 log->level, str_enabled_disabled(log->level),
--			 str_yes_no(GUC_LOG_LEVEL_IS_VERBOSE(log->level)),
--			 GUC_LOG_LEVEL_TO_VERBOSITY(log->level));
-+	guc_dbg(guc, "guc_log_level=%d (%s, verbose:%s, verbosity:%d)\n",
-+		log->level, str_enabled_disabled(log->level),
-+		str_yes_no(GUC_LOG_LEVEL_IS_VERBOSE(log->level)),
-+		GUC_LOG_LEVEL_TO_VERBOSITY(log->level));
- 
- 	return 0;
- 
- err:
--	DRM_ERROR("Failed to allocate or map GuC log buffer. %d\n", ret);
-+	guc_err(guc, "Failed to allocate or map log buffer %pe\n", ERR_PTR(ret));
- 	return ret;
- }
- 
-@@ -687,7 +690,7 @@ int intel_guc_log_set_level(struct intel_guc_log *log, u32 level)
- 					     GUC_LOG_LEVEL_IS_ENABLED(level),
- 					     GUC_LOG_LEVEL_TO_VERBOSITY(level));
- 	if (ret) {
--		DRM_DEBUG_DRIVER("guc_log_control action failed %d\n", ret);
-+		guc_dbg(guc, "guc_log_control action failed %pe\n", ERR_PTR(ret));
- 		goto out_unlock;
- 	}
- 
-@@ -905,7 +908,7 @@ int intel_guc_log_dump(struct intel_guc_log *log, struct drm_printer *p,
- 
- 	map = i915_gem_object_pin_map_unlocked(obj, I915_MAP_WC);
- 	if (IS_ERR(map)) {
--		DRM_DEBUG("Failed to pin object\n");
-+		guc_dbg(guc, "Failed to pin log object: %pe\n", map);
- 		drm_puts(p, "(log data unaccessible)\n");
- 		free_page((unsigned long)page);
- 		return PTR_ERR(map);
--- 
-2.25.1
+Should this not be something like:
 
+non_busy =3D domain;
+domain |=3D busy;
+....
+if (domain & VRAM) {
+     if (non_busy & VRAM)
+         flags =3D 0
+     else
+        flags =3D FLAG_BUSY
+}
+
+Otherwise if VRAM is set in both "busy" and "domain", it will only try
+VRAM when all non-busy first fails, which looks like a change in
+behaviour?
+
+The rest of the patch looks good to me, so with the above fixed or explaine=
+d,
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
