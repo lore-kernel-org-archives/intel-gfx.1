@@ -4,57 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 593F8C38142
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 14:02:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EC47C38142
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 14:17:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF2AA10E68E;
-	Tue, 24 Jan 2023 14:02:23 +0000 (UTC)
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2B7610E68B;
- Tue, 24 Jan 2023 14:02:21 +0000 (UTC)
-Received: by mail-lf1-x135.google.com with SMTP id cf42so23590073lfb.1;
- Tue, 24 Jan 2023 06:02:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JpmUW2uzBEebCsOWSMVc3QDBmaoUlSnuYaYqa8KE94c=;
- b=BcZCdu1zd26n9h7SnmTlTpQQ+c0d8k47pgbf/Rva8EEu3dSHqACBADDC6N1omyE7G2
- y+jMtIwZIG/c7eh5pObS6LHdJ2nQVA5jhyIBKQ/b2/Lo+gLjLr8P7mYy60nso3R/bUT2
- p+vcq0P2APmjJsMHzbwJ3UaitEP7Mx9dAOD14wQJgnNHnPZGjk2hkS/ZkAqDaqvhRmle
- mg2yjBvnBJJ+xQPFPQ3eFa0hdqZz1kDi4uP6pLwtKUkd3eVeC9fwpdgeq21vIh4PKRrC
- obzBoL4o6kUUyGPkQjwM1Ey04D+mD1sKDgqP9yYFc8BaOkzmdb9iX41xZAPo2cbcKgyr
- LR/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=JpmUW2uzBEebCsOWSMVc3QDBmaoUlSnuYaYqa8KE94c=;
- b=b49sx1FEqfJZn3bYfhvpvSk6O078oajVwsKBv5fdWHWlxp1rlSZTJiTQAhrnHmpGA3
- LtKSSwz5K4iLJ1vJ+yAPJsD9cj0CvipQx01z0qin++JKohxVOdIOtPLcWcyFbHCCoA1D
- InK2zVnItTJlQXb8+b48BuQJpUIjJeHc7MYHI7wIHXJNzOm1xCOvtIvapxm3gwCWRhA+
- Ya7pNYAyYcqlNA3glgrHJCSfsNgZ0NcC7IT0MigIfI9f8c3GhqOsp5BXFBjao2PVoiHf
- HACIYuaf5HLVtOZwtWEQgKXuLehVfozk+6F5/CX6/8fcDpP2LKWpRWLRI/Anid0NltSl
- l94g==
-X-Gm-Message-State: AFqh2kom99h5KYg4Vf3/sKTt8M2mGNA0gs8vqow0Vwx+Sn9wXo4tfi5v
- 4vMs5+hHgzRzewiz0MqhX0YbUR1J8OeBszp3TlescdVD06o=
-X-Google-Smtp-Source: AMrXdXsXThp92oYSPt3YksAHwf6ZVJDkeOZnK7/3qxxoICUQDFpwvP7iIXTWZgmMVRz+HSt/Xurcyy0hGKYWUSp2pok=
-X-Received: by 2002:a19:8c19:0:b0:4ca:f3c2:2670 with SMTP id
- o25-20020a198c19000000b004caf3c22670mr2359202lfd.166.1674568939874; Tue, 24
- Jan 2023 06:02:19 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1445A10E68B;
+	Tue, 24 Jan 2023 14:17:52 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 416D110E68B
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 14:17:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1674569869; x=1706105869;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=S4ju1uXYedWdw+kNuDAWt6R6Z+FOpwODu2KS7vV7iQ4=;
+ b=HesT2rrBB4hK1ZgxmEihuniZr3Net2aoxnLxyVXu8xcCW6g5RpR8gGdg
+ h89aJ32nLD7qYi5R3l++pP51ujHfk4dy5rrAuBNZhqIlWwJL7/61mdHj9
+ QGozDQfEXPhoYGaZ9zPrlra/FEpAnwIpxvUCJjvn+ApXKnmwwXzwUH8qA
+ 4kGaCPbsduKSjrYwU9HOr0Mur9Iq+7pCthv8+DruhaBW05zURSFbScSWn
+ cRRhRPRAqWlioI4k0Dh+v9C8XRf/0AADKEfYWpbQhRd1Ji4dkWFTJPAVK
+ VTY7fO6g/AjdxRdIiotIMHXB+PWgkJTlKHKY5GRQFP8Dgljj7ggDfi5uD g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="309875222"
+X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="309875222"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2023 06:17:48 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="725487221"
+X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="725487221"
+Received: from nirmoyda-desk.igk.intel.com ([10.102.42.231])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2023 06:17:46 -0800
+From: Nirmoy Das <nirmoy.das@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 24 Jan 2023 15:17:40 +0100
+Message-Id: <20230124141740.17601-1-nirmoy.das@intel.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-References: <20230124125726.13323-1-christian.koenig@amd.com>
- <20230124125726.13323-4-christian.koenig@amd.com>
-In-Reply-To: <20230124125726.13323-4-christian.koenig@amd.com>
-From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Tue, 24 Jan 2023 14:01:52 +0000
-Message-ID: <CAM0jSHOVr0qfTfXTeuEh81joaAs2pE8+6Pbu7jY_xGZrTeJuxA@mail.gmail.com>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH 4/5] drm/ttm: prevent moving of pinned BOs
+Organization: Intel Deutschland GmbH, Registered Address: Am Campeon 10,
+ 85579 Neubiberg, Germany,
+ Commercial Register: Amtsgericht Muenchen HRB 186928 
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH] drm/i915/display: Pass drm_i915_private as
+ param to i915 funcs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,23 +58,119 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 24 Jan 2023 at 12:57, Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> We have checks for this in the individual drivers move callback, but
-> it's probably better to generally forbit that on a higher level.
+For i915 functions pass struct drm_i915_private directly instead of
+struct drm_device.
 
-forbid
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
+Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 2 +-
+ drivers/gpu/drm/i915/display/intel_fbdev.c   | 8 ++++----
+ drivers/gpu/drm/i915/display/intel_fbdev.h   | 8 ++++----
+ drivers/gpu/drm/i915/i915_driver.c           | 4 +++-
+ 4 files changed, 12 insertions(+), 10 deletions(-)
 
->
-> Also stops exporting ttm_resource_compat() since that's not necessary
-> any more after removing the extra checks in vmwgfx.
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index e37cca6b18c6..b014d8626ef7 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -9004,7 +9004,7 @@ void intel_display_driver_register(struct drm_i915_private *i915)
+ 	 * enabled. We do it last so that the async config cannot run
+ 	 * before the connectors are registered.
+ 	 */
+-	intel_fbdev_initial_config_async(&i915->drm);
++	intel_fbdev_initial_config_async(i915);
+ 
+ 	/*
+ 	 * We need to coordinate the hotplugs with the asynchronous
+diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+index 19f3b5d92a55..c2c52f8e5887 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbdev.c
++++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+@@ -547,9 +547,9 @@ static void intel_fbdev_initial_config(void *data, async_cookie_t cookie)
+ 		intel_fbdev_unregister(to_i915(ifbdev->helper.dev));
+ }
+ 
+-void intel_fbdev_initial_config_async(struct drm_device *dev)
++void intel_fbdev_initial_config_async(struct drm_i915_private *dev_priv)
+ {
+-	struct intel_fbdev *ifbdev = to_i915(dev)->display.fbdev.fbdev;
++	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
+ 
+ 	if (!ifbdev)
+ 		return;
+@@ -686,9 +686,9 @@ void intel_fbdev_output_poll_changed(struct drm_device *dev)
+ 		drm_fb_helper_hotplug_event(&ifbdev->helper);
+ }
+ 
+-void intel_fbdev_restore_mode(struct drm_device *dev)
++void intel_fbdev_restore_mode(struct drm_i915_private *dev_priv)
+ {
+-	struct intel_fbdev *ifbdev = to_i915(dev)->display.fbdev.fbdev;
++	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
+ 
+ 	if (!ifbdev)
+ 		return;
+diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.h b/drivers/gpu/drm/i915/display/intel_fbdev.h
+index 0e95e9472fa3..04fd523a5023 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbdev.h
++++ b/drivers/gpu/drm/i915/display/intel_fbdev.h
+@@ -15,12 +15,12 @@ struct intel_framebuffer;
+ 
+ #ifdef CONFIG_DRM_FBDEV_EMULATION
+ int intel_fbdev_init(struct drm_device *dev);
+-void intel_fbdev_initial_config_async(struct drm_device *dev);
++void intel_fbdev_initial_config_async(struct drm_i915_private *dev_priv);
+ void intel_fbdev_unregister(struct drm_i915_private *dev_priv);
+ void intel_fbdev_fini(struct drm_i915_private *dev_priv);
+ void intel_fbdev_set_suspend(struct drm_device *dev, int state, bool synchronous);
+ void intel_fbdev_output_poll_changed(struct drm_device *dev);
+-void intel_fbdev_restore_mode(struct drm_device *dev);
++void intel_fbdev_restore_mode(struct drm_i915_private *dev_priv);
+ struct intel_framebuffer *intel_fbdev_framebuffer(struct intel_fbdev *fbdev);
+ #else
+ static inline int intel_fbdev_init(struct drm_device *dev)
+@@ -28,7 +28,7 @@ static inline int intel_fbdev_init(struct drm_device *dev)
+ 	return 0;
+ }
+ 
+-static inline void intel_fbdev_initial_config_async(struct drm_device *dev)
++static inline void intel_fbdev_initial_config_async(struct drm_i915_private *dev_priv)
+ {
+ }
+ 
+@@ -48,7 +48,7 @@ static inline void intel_fbdev_output_poll_changed(struct drm_device *dev)
+ {
+ }
+ 
+-static inline void intel_fbdev_restore_mode(struct drm_device *dev)
++static inline void intel_fbdev_restore_mode(struct drm_i915_private *i915)
+ {
+ }
+ static inline struct intel_framebuffer *intel_fbdev_framebuffer(struct intel_fbdev *fbdev)
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 6469c7c1e154..cd6069c1762d 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -1071,7 +1071,9 @@ static int i915_driver_open(struct drm_device *dev, struct drm_file *file)
+  */
+ static void i915_driver_lastclose(struct drm_device *dev)
+ {
+-	intel_fbdev_restore_mode(dev);
++	struct drm_i915_private *i915 = to_i915(dev);
++
++	intel_fbdev_restore_mode(i915);
+ 
+ 	vga_switcheroo_process_delayed_switch();
+ }
+-- 
+2.39.0
 
-Idea seems reasonable to me,
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
