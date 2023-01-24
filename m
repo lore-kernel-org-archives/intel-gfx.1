@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56511C54E94
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 17:04:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E35E1C25B4E
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 17:05:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9ECD10E0B1;
-	Tue, 24 Jan 2023 17:04:33 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D151110E0B1
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 17:04:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A0E410E6D0;
+	Tue, 24 Jan 2023 17:05:38 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5075D10E6DA
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Jan 2023 17:05:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674579872; x=1706115872;
+ t=1674579935; x=1706115935;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=hglcBY2wJvq2+0uja+g3bAGXMy/5TDsnI1fGc81dg3w=;
- b=MmT0Lqb1IQVGKfbSqAJmthUtTV6YOvOTPsdoelPWRmk/qDhlMKh1ijie
- g8S8BzVouojTYcUETm5Ya1dskE54DdBdZ+XneJ69ELbHzLdeWPo1D6AAj
- tNkGipPXJJcpvo9ohPDg0xGsdIPdG+WHqjErmu/5OXQmDUnDsPDoae1WZ
- IILGbmZL/OEQXn2qQ+yL+/5LykbYv95HIrXTA4sgI4+aZVkuVWmJLkcUx
- Ejf/z+849DRK7XZpXvhUbtHCSqC+xO+teGqPAJDmmv2vaPmVbibDiwGdO
- K9EWDXUCiox9oWwvjXfR99MorrQPBJYF1V7DpYWAq0qVSwL1TIY+XDhWZ g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="306006565"
-X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="306006565"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2023 09:03:47 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="836044722"
-X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="836044722"
+ bh=D8tDiqwyNPqxtdSeCS/Zj8qXUsqBQnEIeAcbIiE9cKA=;
+ b=FlJbVb8M8YDjYi2GzjaJmkCbOcyaVRcyT/tzmIN40ebiAxcPP0pXpoH7
+ wPJQS30xR9GGcSLnZkzG6YRr9qm7dHEh7RdW4nKaiFmzAAugceRbAZ2YV
+ qITLVGuiN6bKOfl5ZNiSdRQcBGxZKC7ojAu6IDpsMS6/6RjLAhbvxTTQ8
+ wVnXp3PVl4lpsu6esR19kMPp+CjTLQchXKQyZwAxT7tlmoJ6GYn1+hby8
+ 62UnPKFZfBUdsi/DgXYsv89RpeVg504OaLiuBq7v31l59rEawh9hjVjil
+ 90wujonIHPeUPvshN3VaZwMOJ+q3Xmw5cr8bfdD8cSVcGsP/LPCNH0h/3 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="412579693"
+X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="412579693"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2023 09:05:34 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="786154731"
+X-IronPort-AV: E=Sophos;i="5.97,242,1669104000"; d="scan'208";a="786154731"
 Received: from nirmoyda-mobl.ger.corp.intel.com (HELO [10.249.46.216])
  ([10.249.46.216])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2023 09:03:45 -0800
-Message-ID: <9be0ff9d-58b5-f0df-56ad-28b5c3652ba4@linux.intel.com>
-Date: Tue, 24 Jan 2023 18:03:43 +0100
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2023 09:05:32 -0800
+Message-ID: <9553f978-b2f4-8cac-e456-f9e31f1fcd74@linux.intel.com>
+Date: Tue, 24 Jan 2023 18:05:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.1
-To: Matt Roper <matthew.d.roper@intel.com>, Nirmoy Das <nirmoy.das@intel.com>
-References: <20230124142212.18498-1-nirmoy.das@intel.com>
- <Y9AO2blTxfzNiT9H@mdroper-desk1.amr.corp.intel.com>
 Content-Language: en-US
+To: Andi Shyti <andi.shyti@linux.intel.com>, Nirmoy Das <nirmoy.das@intel.com>
+References: <20230124142212.18498-1-nirmoy.das@intel.com>
+ <Y9AC7hp6JFMe+w/J@ashyti-mobl2.lan>
 From: "Das, Nirmoy" <nirmoy.das@linux.intel.com>
-In-Reply-To: <Y9AO2blTxfzNiT9H@mdroper-desk1.amr.corp.intel.com>
+In-Reply-To: <Y9AC7hp6JFMe+w/J@ashyti-mobl2.lan>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Subject: Re: [Intel-gfx] [PATCH] drm/i915/xehpsdv/selftests: Flush all tiles
@@ -66,32 +66,26 @@ Cc: intel-gfx@lists.freedesktop.org, chris.p.wilson@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Andi,
 
-On 1/24/2023 6:01 PM, Matt Roper wrote:
+On 1/24/2023 5:10 PM, Andi Shyti wrote:
+> Hi Nirmoy,
+>
 > On Tue, Jan 24, 2023 at 03:22:12PM +0100, Nirmoy Das wrote:
 >> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 >>
 >> We want to idle all tiles when exiting selftests.
-> This test doesn't sound like it's specific to "xehpsdv."  Was the patch
-> title supposed to be "xehp" (the architecture, not the platform)?  For
-> that matter, we haven't even enabled multiple tiles on xehpsdv/pvc yet,
-> so MTL is actually the only platform with multiple GTs at the moment.
-
-
-Thanks for correcting that. It is needed for MTL. I will resend with 
-proper subject.
-
-
-Regards,
-
-Nirmoy
-
->
->
-> Matt
->
+>>
 >> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 >> Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
+> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+
+
+Thanks.
+
+>
+> ...
+>
 >> ---
 >>   .../gpu/drm/i915/selftests/igt_flush_test.c   | 28 +++++++++++--------
 >>   1 file changed, 17 insertions(+), 11 deletions(-)
@@ -114,7 +108,18 @@ Nirmoy
 >> +	for_each_gt(gt, i915, i) {
 >> +		if (intel_gt_is_wedged(gt))
 >> +			ret = -EIO;
->>   
+> I'm just wondering if it makes sense to check if the gt is
+> wedged.
+
+Could you please expand more, what are your thoughts about this ?
+
+
+Nirmoy
+
+
+>
+> Andi
+>
 >> -	if (intel_gt_wait_for_idle(gt, HZ * 3) == -ETIME) {
 >> -		pr_err("%pS timed out, cancelling all further testing.\n",
 >> -		       __builtin_return_address(0));
@@ -141,4 +146,3 @@ Nirmoy
 >>   	return ret;
 >> -- 
 >> 2.39.0
->>
