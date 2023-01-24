@@ -4,47 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 973D8C38142
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 05:32:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C015C25B4E
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Jan 2023 06:21:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3473B10E603;
-	Tue, 24 Jan 2023 05:32:14 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3649910E5F4;
- Tue, 24 Jan 2023 05:31:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674538315; x=1706074315;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=tpA+SdFROrqjOiHBenU4xLPD1EbOmpIsbDBF87yZB+s=;
- b=eyMnQdmvN4penb+BH9yuNsqShyxJjACEmxvtw+thAlWonpRWSOlexx8d
- i5WCGFXmkCc0RqSlvW5a/w76odbteZQeHjK6ajnEp03geoxdgnGxnS6lN
- AGAxZcA7Hq3gO6RqojoCi0LPVeh2qt0xQjUCHwnLmyD2zHe2mfcKgIZh9
- pr+z69FQL4eYGzrqPxOj4vEAxmW21OFfZycNIUp/HGinBH9gwjZLuUA8p
- ZxW2aJ7iL1CbR9BZ4XQ1jwbWjGZS2ZZOnF0BytJL60cOxP5YYaGCLvC67
- VZbNO6icsEyh1QOKl7w5ITyHq05aMZBEK+11Vpcl65Ef8YO1wJWOzw9IE w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="324906442"
-X-IronPort-AV: E=Sophos;i="5.97,241,1669104000"; d="scan'208";a="324906442"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jan 2023 21:31:54 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10599"; a="611921466"
-X-IronPort-AV: E=Sophos;i="5.97,241,1669104000"; d="scan'208";a="611921466"
-Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga003.jf.intel.com with ESMTP; 23 Jan 2023 21:31:54 -0800
-From: Alan Previn <alan.previn.teres.alexis@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 23 Jan 2023 21:31:49 -0800
-Message-Id: <20230124053150.3543928-6-alan.previn.teres.alexis@intel.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230124053150.3543928-1-alan.previn.teres.alexis@intel.com>
-References: <20230124053150.3543928-1-alan.previn.teres.alexis@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68BA010E60B;
+	Tue, 24 Jan 2023 06:21:33 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8856F10E60A;
+ Tue, 24 Jan 2023 06:21:32 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 73DDDA47DF;
+ Tue, 24 Jan 2023 06:21:32 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0649321499848301620=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 5/6] drm/i915/pxp: Trigger the global
- teardown for before suspending
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Alan Previn" <alan.previn.teres.alexis@intel.com>
+Date: Tue, 24 Jan 2023 06:21:32 -0000
+Message-ID: <167454129243.17484.4852929368717082722@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230124053150.3543928-1-alan.previn.teres.alexis@intel.com>
+In-Reply-To: <20230124053150.3543928-1-alan.previn.teres.alexis@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915/pxp=3A_Add_missing_cleanup_steps_for_PXP_global-teardown?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,194 +40,268 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
-	Vivi@freedesktop.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rodrigo <rodrigo.vivi@intel.com>,
-	Alexander Usyskin <alexander.usyskin@intel.com>,
-	dri-devel@lists.freedesktop.org,
-	Tomas Winkler <tomas.winkler@intel.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A driver bug was recently discovered where the security firmware was
-receiving internal HW signals indicating that session key expirations
-had occurred. Architecturally, the firmware was expecting a response
-from the GuC to acknowledge the event with the firmware side.
-However the OS was in a suspended state and GuC had been reset.
+--===============0649321499848301620==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Internal specifications actually required the driver to ensure
-that all active sessions be properly cleaned up in such cases where
-the system is suspended and the GuC potentially unable to respond.
+== Series Details ==
 
-This patch adds the global teardown code in i915's suspend_prepare
-code path.
+Series: drm/i915/pxp: Add missing cleanup steps for PXP global-teardown
+URL   : https://patchwork.freedesktop.org/series/113251/
+State : success
 
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
-Reviewed-by: Juston Li <justonli@chromium.org>
----
- drivers/gpu/drm/i915/pxp/intel_pxp.c         | 65 +++++++++++++++++---
- drivers/gpu/drm/i915/pxp/intel_pxp.h         |  1 +
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.c      |  2 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_session.c |  6 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_session.h |  5 ++
- 5 files changed, 66 insertions(+), 13 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index cfc9af8b3d21..9d4c7724e98e 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -270,6 +270,60 @@ static bool pxp_component_bound(struct intel_pxp *pxp)
- 	return bound;
- }
- 
-+static int __pxp_global_teardown_final(struct intel_pxp *pxp)
-+{
-+	if (!pxp->arb_is_valid)
-+		return 0;
-+	/*
-+	 * To ensure synchronous and coherent session teardown completion
-+	 * in response to suspend or shutdown triggers, don't use a worker.
-+	 */
-+	intel_pxp_mark_termination_in_progress(pxp);
-+	intel_pxp_terminate(pxp, false);
-+
-+	if (!wait_for_completion_timeout(&pxp->termination, msecs_to_jiffies(250)))
-+		return -ETIMEDOUT;
-+
-+	return 0;
-+}
-+
-+static int __pxp_global_teardown_restart(struct intel_pxp *pxp)
-+{
-+	if (pxp->arb_is_valid)
-+		return 0;
-+	/*
-+	 * The arb-session is currently inactive and we are doing a reset and restart
-+	 * due to a runtime event. Use the worker that was designed for this.
-+	 */
-+	pxp_queue_termination(pxp);
-+
-+	if (!wait_for_completion_timeout(&pxp->termination, msecs_to_jiffies(250)))
-+		return -ETIMEDOUT;
-+
-+	return 0;
-+}
-+
-+void intel_pxp_end(struct intel_pxp *pxp)
-+{
-+	struct drm_i915_private *i915 = pxp->ctrl_gt->i915;
-+	intel_wakeref_t wakeref;
-+
-+	if (!intel_pxp_is_enabled(pxp))
-+		return;
-+
-+	wakeref = intel_runtime_pm_get(&i915->runtime_pm);
-+
-+	mutex_lock(&pxp->arb_mutex);
-+
-+	if (__pxp_global_teardown_final(pxp))
-+		drm_dbg(&i915->drm, "PXP end timed out\n");
-+
-+	mutex_unlock(&pxp->arb_mutex);
-+
-+	intel_pxp_fini_hw(pxp);
-+	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
-+}
-+
- /*
-  * the arb session is restarted from the irq work when we receive the
-  * termination completion interrupt
-@@ -286,16 +340,9 @@ int intel_pxp_start(struct intel_pxp *pxp)
- 
- 	mutex_lock(&pxp->arb_mutex);
- 
--	if (pxp->arb_is_valid)
--		goto unlock;
--
--	pxp_queue_termination(pxp);
--
--	if (!wait_for_completion_timeout(&pxp->termination,
--					msecs_to_jiffies(250))) {
--		ret = -ETIMEDOUT;
-+	ret = __pxp_global_teardown_restart(pxp);
-+	if (ret)
- 		goto unlock;
--	}
- 
- 	/* make sure the compiler doesn't optimize the double access */
- 	barrier();
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.h b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-index 9658d3005222..3ded0890cd27 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.h
-@@ -27,6 +27,7 @@ void intel_pxp_mark_termination_in_progress(struct intel_pxp *pxp);
- void intel_pxp_tee_end_arb_fw_session(struct intel_pxp *pxp, u32 arb_session_id);
- 
- int intel_pxp_start(struct intel_pxp *pxp);
-+void intel_pxp_end(struct intel_pxp *pxp);
- 
- int intel_pxp_key_check(struct intel_pxp *pxp,
- 			struct drm_i915_gem_object *obj,
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-index 892d39cc61c1..e427464aa131 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
-@@ -16,7 +16,7 @@ void intel_pxp_suspend_prepare(struct intel_pxp *pxp)
- 	if (!intel_pxp_is_enabled(pxp))
- 		return;
- 
--	pxp->arb_is_valid = false;
-+	intel_pxp_end(pxp);
- 
- 	intel_pxp_invalidate(pxp);
- }
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-index 74ed7e16e481..448cacb0465d 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-@@ -115,11 +115,11 @@ static int pxp_terminate_arb_session_and_global(struct intel_pxp *pxp)
- 	return ret;
- }
- 
--static void pxp_terminate(struct intel_pxp *pxp)
-+void intel_pxp_terminate(struct intel_pxp *pxp, bool post_invalidation_needs_restart)
- {
- 	int ret;
- 
--	pxp->hw_state_invalidated = true;
-+	pxp->hw_state_invalidated = post_invalidation_needs_restart;
- 
- 	/*
- 	 * if we fail to submit the termination there is no point in waiting for
-@@ -167,7 +167,7 @@ static void pxp_session_work(struct work_struct *work)
- 
- 	if (events & PXP_TERMINATION_REQUEST) {
- 		events &= ~PXP_TERMINATION_COMPLETE;
--		pxp_terminate(pxp);
-+		intel_pxp_terminate(pxp, true);
- 	}
- 
- 	if (events & PXP_TERMINATION_COMPLETE)
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.h b/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
-index 903ac52cffa1..ba5788127109 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.h
-@@ -12,9 +12,14 @@ struct intel_pxp;
- 
- #ifdef CONFIG_DRM_I915_PXP
- void intel_pxp_session_management_init(struct intel_pxp *pxp);
-+void intel_pxp_terminate(struct intel_pxp *pxp, bool post_invalidation_needs_restart);
- #else
- static inline void intel_pxp_session_management_init(struct intel_pxp *pxp)
- {
- }
-+
-+static inline void intel_pxp_terminate(struct intel_pxp *pxp, bool post_invalidation_needs_restart)
-+{
-+}
- #endif
- #endif /* __INTEL_PXP_SESSION_H__ */
--- 
-2.39.0
+CI Bug Log - changes from CI_DRM_12625 -> Patchwork_113251v1
+====================================================
 
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/index.html
+
+Participating hosts (39 -> 39)
+------------------------------
+
+  Additional (1): fi-tgl-dsi 
+  Missing    (1): fi-snb-2520m 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_113251v1:
+
+### IGT changes ###
+
+#### Suppressed ####
+
+  The following results come from untrusted machines, tests, or statuses.
+  They do not affect the overall result.
+
+  * igt@i915_selftest@live@gt_pm:
+    - {fi-tgl-dsi}:       NOTRUN -> [DMESG-FAIL][1]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/fi-tgl-dsi/igt@i915_selftest@live@gt_pm.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_113251v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@kms_chamelium_hpd@common-hpd-after-suspend:
+    - fi-rkl-guc:         NOTRUN -> [SKIP][2] ([i915#7828])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/fi-rkl-guc/igt@kms_chamelium_hpd@common-hpd-after-suspend.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions:
+    - fi-bsw-kefka:       [PASS][3] -> [FAIL][4] ([i915#6298])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12625/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@gt_lrc:
+    - fi-rkl-guc:         [INCOMPLETE][5] ([i915#4983]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12625/fi-rkl-guc/igt@i915_selftest@live@gt_lrc.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/fi-rkl-guc/igt@i915_selftest@live@gt_lrc.html
+
+  * igt@i915_selftest@live@gt_mocs:
+    - {bat-rpls-2}:       [DMESG-FAIL][7] ([i915#7059]) -> [PASS][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12625/bat-rpls-2/igt@i915_selftest@live@gt_mocs.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/bat-rpls-2/igt@i915_selftest@live@gt_mocs.html
+
+  * igt@i915_selftest@live@migrate:
+    - {bat-dg2-11}:       [DMESG-WARN][9] -> [PASS][10] +4 similar issues
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12625/bat-dg2-11/igt@i915_selftest@live@migrate.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/bat-dg2-11/igt@i915_selftest@live@migrate.html
+
+  * igt@i915_selftest@live@requests:
+    - {bat-rplp-1}:       [INCOMPLETE][11] ([i915#7609]) -> [PASS][12]
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12625/bat-rplp-1/igt@i915_selftest@live@requests.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/bat-rplp-1/igt@i915_selftest@live@requests.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
+  [fdo#109295]: https://bugs.freedesktop.org/show_bug.cgi?id=109295
+  [fdo#110189]: https://bugs.freedesktop.org/show_bug.cgi?id=110189
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#3282]: https://gitlab.freedesktop.org/drm/intel/issues/3282
+  [i915#3291]: https://gitlab.freedesktop.org/drm/intel/issues/3291
+  [i915#3301]: https://gitlab.freedesktop.org/drm/intel/issues/3301
+  [i915#3555]: https://gitlab.freedesktop.org/drm/intel/issues/3555
+  [i915#3708]: https://gitlab.freedesktop.org/drm/intel/issues/3708
+  [i915#4103]: https://gitlab.freedesktop.org/drm/intel/issues/4103
+  [i915#4312]: https://gitlab.freedesktop.org/drm/intel/issues/4312
+  [i915#4579]: https://gitlab.freedesktop.org/drm/intel/issues/4579
+  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
+  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
+  [i915#5334]: https://gitlab.freedesktop.org/drm/intel/issues/5334
+  [i915#5354]: https://gitlab.freedesktop.org/drm/intel/issues/5354
+  [i915#6298]: https://gitlab.freedesktop.org/drm/intel/issues/6298
+  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
+  [i915#6621]: https://gitlab.freedesktop.org/drm/intel/issues/6621
+  [i915#7059]: https://gitlab.freedesktop.org/drm/intel/issues/7059
+  [i915#7456]: https://gitlab.freedesktop.org/drm/intel/issues/7456
+  [i915#7561]: https://gitlab.freedesktop.org/drm/intel/issues/7561
+  [i915#7609]: https://gitlab.freedesktop.org/drm/intel/issues/7609
+  [i915#7828]: https://gitlab.freedesktop.org/drm/intel/issues/7828
+  [i915#7834]: https://gitlab.freedesktop.org/drm/intel/issues/7834
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_12625 -> Patchwork_113251v1
+
+  CI-20190529: 20190529
+  CI_DRM_12625: 6a023df4443d313724dc96d1fff15193bb7ec5b8 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7134: 61b8c0a0c8a9611c47749c0b1a262843892cccd7 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_113251v1: 6a023df4443d313724dc96d1fff15193bb7ec5b8 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+f7cccc8678f4 drm/i915/pxp: Pxp hw init should be in resume_complete
+b441881460d7 drm/i915/pxp: Trigger the global teardown for before suspending
+1d6c1a6ffa29 drm/i915/pxp: Invalidate all PXP fw sessions during teardown
+5967724019e1 mei: clean pending read with vtag on bus
+73db300d5335 drm/i915/pxp: add device link between i915 and mei_pxp
+355f82f7e166 mei: mei-me: resume device in prepare
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/index.html
+
+--===============0649321499848301620==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/pxp: Add missing cleanup steps for PXP global-teardown</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/113251/">https://patchwork.freedesktop.org/series/113251/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_12625 -&gt; Patchwork_113251v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/index.html</p>
+<h2>Participating hosts (39 -&gt; 39)</h2>
+<p>Additional (1): fi-tgl-dsi <br />
+  Missing    (1): fi-snb-2520m </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_113251v1:</p>
+<h3>IGT changes</h3>
+<h4>Suppressed</h4>
+<p>The following results come from untrusted machines, tests, or statuses.<br />
+  They do not affect the overall result.</p>
+<ul>
+<li>igt@i915_selftest@live@gt_pm:<ul>
+<li>{fi-tgl-dsi}:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/fi-tgl-dsi/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_113251v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@kms_chamelium_hpd@common-hpd-after-suspend:</p>
+<ul>
+<li>fi-rkl-guc:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/fi-rkl-guc/igt@kms_chamelium_hpd@common-hpd-after-suspend.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7828">i915#7828</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions:</p>
+<ul>
+<li>fi-bsw-kefka:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12625/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/fi-bsw-kefka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6298">i915#6298</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@gt_lrc:</p>
+<ul>
+<li>fi-rkl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12625/fi-rkl-guc/igt@i915_selftest@live@gt_lrc.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/fi-rkl-guc/igt@i915_selftest@live@gt_lrc.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_mocs:</p>
+<ul>
+<li>{bat-rpls-2}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12625/bat-rpls-2/igt@i915_selftest@live@gt_mocs.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7059">i915#7059</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/bat-rpls-2/igt@i915_selftest@live@gt_mocs.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@migrate:</p>
+<ul>
+<li>{bat-dg2-11}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12625/bat-dg2-11/igt@i915_selftest@live@migrate.html">DMESG-WARN</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/bat-dg2-11/igt@i915_selftest@live@migrate.html">PASS</a> +4 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@requests:</p>
+<ul>
+<li>{bat-rplp-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12625/bat-rplp-1/igt@i915_selftest@live@requests.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7609">i915#7609</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113251v1/bat-rplp-1/igt@i915_selftest@live@requests.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_12625 -&gt; Patchwork_113251v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_12625: 6a023df4443d313724dc96d1fff15193bb7ec5b8 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7134: 61b8c0a0c8a9611c47749c0b1a262843892cccd7 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_113251v1: 6a023df4443d313724dc96d1fff15193bb7ec5b8 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>f7cccc8678f4 drm/i915/pxp: Pxp hw init should be in resume_complete<br />
+b441881460d7 drm/i915/pxp: Trigger the global teardown for before suspending<br />
+1d6c1a6ffa29 drm/i915/pxp: Invalidate all PXP fw sessions during teardown<br />
+5967724019e1 mei: clean pending read with vtag on bus<br />
+73db300d5335 drm/i915/pxp: add device link between i915 and mei_pxp<br />
+355f82f7e166 mei: mei-me: resume device in prepare</p>
+
+</body>
+</html>
+
+--===============0649321499848301620==--
