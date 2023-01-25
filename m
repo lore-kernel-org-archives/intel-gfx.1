@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 964ABC61D9D
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 10:04:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D1B7C27C76
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 10:04:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B47EA10E774;
-	Wed, 25 Jan 2023 10:04:00 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2089.outbound.protection.outlook.com [40.107.223.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D00310E37A;
- Wed, 25 Jan 2023 10:03:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 269FC10E777;
+	Wed, 25 Jan 2023 10:04:06 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06E9210E777;
+ Wed, 25 Jan 2023 10:04:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=epF+9rQy8SPy4OiP3+0Z9fNmuxHz6iiYiSPjtZI3yD2t3Gok6U5qtl9co8YaDKDESUDVZhb1+JNuMgqnCDMPJQovcBvzwhZ9uHE79jjEyQhakI/AD0e6IzLxs1Rdc0GqeRIjMm/URSfMihpVGbSFe6HDcrSsCATGb9mPfm95bOPr2wLJ+xQAjRtdCP5664O9bv3dwtCZ4QkAHxELFnN7I2qHg5mWgz/EWfrvjl1wc1z5l2fc9KNTTJXSaEq7cMQv8l5tS/ahRdesfOrSIJhyj5YkB0UgCoEngEtGvs6CdP2H8BE5amJYhqHg/3WC4J6n8e56vlHwlZ8M36qGgXB4tQ==
+ b=fP4QeDNq0GC2CAc7bahA49q5PgQr0caXs33jxycsbMHVxTipA/21UfoV3f1G1dlOOTHPoMAET2AkN3aZKM9Pfwf1jJlKyoB7HEs9lAA/7mZzJDuVbNvvHWk0esZXqPr6nFnq6oyiC79m8HR8/EWAOu3Bkr17Z6f/+2YeqvXKHVJFLsUVxkEwQd1fQr52j8bBhjXN8mDz/zqNvmrh0qEEzDSPr+5AImyWDoWWSKSnLKWkkOmafk13rLwsCuspDR1TVcSZWowbb1awXQeWGnZFjBHe9WBYEzz1m3wnakFAgtPffrbK68PSvkmQ1BZu2JKbHeMoTuTVjUGccYmiMVtNog==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MHYZa/ZbmjxYTLo3XR1Skukn38Cs2A2GS5sxMyOmWRY=;
- b=LOvSg5hHoY6/PFd4bpuSwBq6VHI78osNycZQsroY063JOVNRha0cThgJRgoixMgrwU6/JAEewYNNbnPf7ZBVcbYqoR9CZ3bW+ST1vLAC9HDEOdmZowqIowCAusXwYFM4+kp3gmf1vikgp/POBpl1xNKOyNnMGD4K1tNASQfGBfoErtRLroMGzFODKj18H5u3igLRyuI41k7RClzc91ifxJixzo2xDPsOIcV1eGH5UjdE6OUoqGl0pueqTB9t6wLqJoHD0CT3TuJ4NdH9HNc9/mTPd76YTOxY8MkYEg3SxYZjVu+aorVhmevHJ540TNPoiuo0FOYF7p2syCqhcWcqjA==
+ bh=j/qeUh7S6/2i+kDiqlzhItj7sxHWJ7Ck9Me0toGfJUk=;
+ b=bArRBX+0QW3lb3XjD00D0tJJ0PY4/3VwqKO/N0JbBY5uVcXoppXOY0Y0HYWUSUfp23t7j4vClPQZNqHg6hpVZFhLPrGebyI64oL0nKoNNHFqoM8pFssfwsfKUGI4ZPYsvViCB43XO8EIt4vV6s21JvWITac7LcDx0YF3iDlpuKAloaUi+8FoKM0Lg4n3F7pFW0SBY2Efcck8EOC71JVWjyFhKbYZd3W0Tc4L9D79aiMO0KBzdeY8LjxNR+OPhuWkv2Epy1VuVZbWe/JDlvl0VWGe5f1UeB7Dd8zHDwOCz6sRW+7y12YmllzrFXXwKcyvkuHleNiKlw6wYfmEYCLMRA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MHYZa/ZbmjxYTLo3XR1Skukn38Cs2A2GS5sxMyOmWRY=;
- b=LgBwQt5hrGe2MTyWFJJUTdyO7t/M/veVqrnpX8vGzJfAXRkwiiznSFhkDpkMe2jcBmad0o5qr/n692LWCupz6hYplftW428weIvua4YvHlTdsEhz27IOAsgLBp8hrJuVnncSNaosYLX+eRJRJuluD2UUij42XrdA1jg+ivDole4=
-Received: from MW4PR03CA0122.namprd03.prod.outlook.com (2603:10b6:303:8c::7)
- by MW4PR12MB6731.namprd12.prod.outlook.com (2603:10b6:303:1eb::11) with
+ bh=j/qeUh7S6/2i+kDiqlzhItj7sxHWJ7Ck9Me0toGfJUk=;
+ b=VZ6zAVBpKGRZv3uM8AdOxgBAHiVSZ6CoVzmpnArZVFHSS4f/FewQ9bDdKreRCQAiSo1lAHpI4VOrH4ovNOjdPp37vf5Ll4PYy6A+ewQZMg6B6w8sLauZnDVa24i31TRX0jk9kLPRdqolqtW4u+LjAkzuJhF7kYduLrXWV31ixxk=
+Received: from DM6PR13CA0060.namprd13.prod.outlook.com (2603:10b6:5:134::37)
+ by SJ0PR12MB6784.namprd12.prod.outlook.com (2603:10b6:a03:44f::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Wed, 25 Jan
- 2023 10:03:52 +0000
-Received: from CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8c:cafe::c5) by MW4PR03CA0122.outlook.office365.com
- (2603:10b6:303:8c::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.20 via Frontend
- Transport; Wed, 25 Jan 2023 10:03:52 +0000
+ 2023 10:04:00 +0000
+Received: from DM6NAM11FT114.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:134:cafe::30) by DM6PR13CA0060.outlook.office365.com
+ (2603:10b6:5:134::37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.16 via Frontend
+ Transport; Wed, 25 Jan 2023 10:04:00 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -45,18 +45,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT033.mail.protection.outlook.com (10.13.174.247) with Microsoft SMTP
+ DM6NAM11FT114.mail.protection.outlook.com (10.13.172.206) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6043.17 via Frontend Transport; Wed, 25 Jan 2023 10:03:51 +0000
+ 15.20.6043.17 via Frontend Transport; Wed, 25 Jan 2023 10:03:59 +0000
 Received: from amar-X570-AORUS-ELITE.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.34; Wed, 25 Jan 2023 04:03:47 -0600
+ 15.1.2375.34; Wed, 25 Jan 2023 04:03:56 -0600
 From: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
  <intel-gfx@lists.freedesktop.org>, <nouveau@lists.freedesktop.org>
-Date: Wed, 25 Jan 2023 15:33:13 +0530
-Message-ID: <20230125100315.6214-2-Amaranath.Somalapuram@amd.com>
+Date: Wed, 25 Jan 2023 15:33:15 +0530
+Message-ID: <20230125100315.6214-4-Amaranath.Somalapuram@amd.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20230125100315.6214-1-Amaranath.Somalapuram@amd.com>
 References: <20230125100315.6214-1-Amaranath.Somalapuram@amd.com>
@@ -68,27 +68,27 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT033:EE_|MW4PR12MB6731:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93c1b39d-27f0-472b-1bf5-08dafebb75d1
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT114:EE_|SJ0PR12MB6784:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1beb53d3-7b64-4322-104d-08dafebb7acd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kgjfNI7aU1dPs0AFJW0cpQg+q1BjflxJBVBP6OrXIJwgPbMHp1ogjghO0AIK8aXimsUd6VJA2kEu4dSVrIUAJ6c+SDZzWUBNZTk323MIKtT4hsmgff8V/egyDa7obS7eUtlbAhkDBY3jVjkSUgcM99a01BLd/zjUIohXkEfJ+uxcBn+u8mspSjMG82Qq6547hg8AFSf9AVw9v3/N8M4pV1odmsBIF22iKJ80aGcsdeD+edKKrdmvV8cmsQ0Co0xiDqKBHli9xypBojDNsROBhOUVBj5DPFoCXKHMi4s2kOemw93CjKkFHf7X4R4FkI/K+OTixpDVfmXjuRi6jgQkph57cGwaXP3nqUM+u3fulyr0uhloz7G9sUuUcRl+sMHjVwzs/y/qaQ2j/BNMTCkoa8igSTY+mV/MJpGA/OqUBEspOOxe7HkwsObGtTaGaIUDMOuRWhuVMWEGFaTKY2i9cLZbXknvLZN32w/Rv4OjZiuanUIyomOlIqaD6adcw7Tt5i0ZwQSjdaNL23Yf6x3p8BGAZt+t6cx5ZRryHZfvBBDCAdnGVO2y9XlvUfW/joWECF2IAV66RH1n+wWoppzUB6VW1ac61MnMlEZVhtyNAdpUKM0AU/BmoBMd8YjTDwAdtq+tGd/qqXHO+YG8H0F2jSgB8opWVwCRARFMuP/Za4fWfNChvNDugkduyWwWygEK+Wu9058TrQwcinRIYNLVcLTGALPJTmialQvCIx2HVF0=
+X-Microsoft-Antispam-Message-Info: F9qOXXRN1TSrtWdWdu3sz8L/omNDQQMt5Fyna9eoTWd9nseNiEjXlOYsbDQAP8Ea/lAVsxf24uhIUgbPPGFoD0c5Mz+i1qVEj8IqCl6DHTEsByTbDa73LUnAx8s3rwq09kv6K8QkWmw2YiqIwbvQRKSdwg4IuX3hwUa3mgNRt6owsABGEpW7f/T04h8c5fXR3C0YU3PnbwheRhDLc/bYbGCqgoEAnJpQ2MOjhliY5jyJgZrgCc7GkU8N6m9y55fAkuhtrsWRgdE5hs6RoSDJ6ohd9HMhjjs8svSjDnHlvjtGrC/k0uuHF7FoGWM+DTmnoNlTL/oNgADVAKRZE+W3klC2pplsqNEPPaQlO9CaUmWknIdYuERxCcpShGk1M/LdpNZT0pMwBetC/2F8nvzciXkySxwgbboRjJBS5Wj26TwbRtToFZgYks8U3jZa2R3kxkevbpGhhzd/FLAvS2ZHIvsCQlghtoeUPPz+9wGj7K7bqnAFWaIEa7L4O2UQVqT6gRSMSIOnfLTLNsnvMTpmkuMeWBwX0WML4I2KgNtT0zYy5kh1AhAibjuJDRjH6g0AYoAU1JAbhDabINnCB0KuNxXFV2JaqQLk/87LdSBdpsymRNwu/T7C9ESOiFua0sfD39Bidv5HQlY5b8C46yb/hb3h7ihIM8IzOw4WmH4t8tClohMZvC9blk4jN03V36nrjU5ePkNpIbGiNOZ3gCCDh7fer56tQNh/t9KkTv5HSbc=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:SATLEXMB04.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230025)(4636009)(376002)(39860400002)(136003)(346002)(396003)(451199018)(40470700004)(46966006)(36840700001)(83380400001)(36860700001)(426003)(336012)(54906003)(47076005)(2616005)(478600001)(8676002)(186003)(450100002)(36756003)(1076003)(70206006)(70586007)(110136005)(7696005)(356005)(2906002)(86362001)(82740400003)(41300700001)(26005)(81166007)(5660300002)(16526019)(316002)(40480700001)(40460700003)(6666004)(4326008)(82310400005)(8936002)(36900700001);
+ SFS:(13230025)(4636009)(39860400002)(376002)(136003)(346002)(396003)(451199018)(46966006)(36840700001)(40470700004)(8676002)(316002)(86362001)(70586007)(70206006)(36860700001)(36756003)(54906003)(8936002)(5660300002)(336012)(47076005)(426003)(82740400003)(2906002)(40460700003)(82310400005)(4326008)(41300700001)(26005)(6666004)(40480700001)(186003)(450100002)(81166007)(1076003)(2616005)(16526019)(478600001)(83380400001)(356005)(7696005)(110136005)(36900700001);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2023 10:03:51.3918 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93c1b39d-27f0-472b-1bf5-08dafebb75d1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2023 10:03:59.8164 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1beb53d3-7b64-4322-104d-08dafebb7acd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DM6NAM11FT114.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6731
-Subject: [Intel-gfx] [PATCH v4 2/4] drm/ttm: Clean up page shift operation
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6784
+Subject: [Intel-gfx] [PATCH v4 4/4] drm/i915: Clean up page shift operation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,57 +109,36 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Remove page shift operations as ttm_resource moved
 from num_pages to size_t size in bytes.
-v1 -> v2: fix missing page shift to fpfn and lpfn
-v2 -> v3: separate patches based on driver module
 
 Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
 ---
- drivers/gpu/drm/ttm/ttm_range_manager.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/i915_scatterlist.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_range_manager.c b/drivers/gpu/drm/ttm/ttm_range_manager.c
-index ae11d07eb63a..3703cbc6d368 100644
---- a/drivers/gpu/drm/ttm/ttm_range_manager.c
-+++ b/drivers/gpu/drm/ttm/ttm_range_manager.c
-@@ -83,9 +83,10 @@ static int ttm_range_man_alloc(struct ttm_resource_manager *man,
+diff --git a/drivers/gpu/drm/i915/i915_scatterlist.c b/drivers/gpu/drm/i915/i915_scatterlist.c
+index 114e5e39aa72..bd7aaf7738f4 100644
+--- a/drivers/gpu/drm/i915/i915_scatterlist.c
++++ b/drivers/gpu/drm/i915/i915_scatterlist.c
+@@ -94,7 +94,7 @@ struct i915_refct_sgt *i915_rsgt_from_mm_node(const struct drm_mm_node *node,
+ 	if (!rsgt)
+ 		return ERR_PTR(-ENOMEM);
  
- 	spin_lock(&rman->lock);
- 	ret = drm_mm_insert_node_in_range(mm, &node->mm_nodes[0],
--					  PFN_UP(node->base.size),
-+					  node->base.size,
- 					  bo->page_alignment, 0,
--					  place->fpfn, lpfn, mode);
-+					  place->fpfn << PAGE_SHIFT,
-+					  lpfn << PAGE_SHIFT, mode);
- 	spin_unlock(&rman->lock);
+-	i915_refct_sgt_init(rsgt, node->size << PAGE_SHIFT);
++	i915_refct_sgt_init(rsgt, node->size);
+ 	st = &rsgt->table;
+ 	if (sg_alloc_table(st, DIV_ROUND_UP_ULL(node->size, segment_pages),
+ 			   GFP_KERNEL)) {
+@@ -105,8 +105,8 @@ struct i915_refct_sgt *i915_rsgt_from_mm_node(const struct drm_mm_node *node,
+ 	sg = st->sgl;
+ 	st->nents = 0;
+ 	prev_end = (resource_size_t)-1;
+-	block_size = node->size << PAGE_SHIFT;
+-	offset = node->start << PAGE_SHIFT;
++	block_size = node->size;
++	offset = node->start;
  
- 	if (unlikely(ret)) {
-@@ -119,11 +120,10 @@ static bool ttm_range_man_intersects(struct ttm_resource_manager *man,
- 				     size_t size)
- {
- 	struct drm_mm_node *node = &to_ttm_range_mgr_node(res)->mm_nodes[0];
--	u32 num_pages = PFN_UP(size);
- 
- 	/* Don't evict BOs outside of the requested placement range */
--	if (place->fpfn >= (node->start + num_pages) ||
--	    (place->lpfn && place->lpfn <= node->start))
-+	if ((place->fpfn << PAGE_SHIFT) >= (node->start + size) ||
-+	    (place->lpfn && (place->lpfn << PAGE_SHIFT) <= node->start))
- 		return false;
- 
- 	return true;
-@@ -135,10 +135,9 @@ static bool ttm_range_man_compatible(struct ttm_resource_manager *man,
- 				     size_t size)
- {
- 	struct drm_mm_node *node = &to_ttm_range_mgr_node(res)->mm_nodes[0];
--	u32 num_pages = PFN_UP(size);
- 
- 	if (node->start < place->fpfn ||
--	    (place->lpfn && (node->start + num_pages) > place->lpfn))
-+	    (place->lpfn && (node->start + size) > place->lpfn << PAGE_SHIFT))
- 		return false;
- 
- 	return true;
+ 	while (block_size) {
+ 		u64 len;
 -- 
 2.32.0
 
