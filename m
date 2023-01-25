@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2491C54EED
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 08:26:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5869AC54E94
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 08:26:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B954610E08C;
-	Wed, 25 Jan 2023 08:26:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A078010E0C9;
+	Wed, 25 Jan 2023 08:26:47 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BD7D89FC9;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF2FA897FD;
  Wed, 25 Jan 2023 08:26:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674635204; x=1706171204;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=RZHoKnCSJANAcMbJmgURp8uHiUtuizRBHya3gPMAWLo=;
- b=CVRCDa7M0KdCRzZ9TLDITMg6CyCNp4yatLCemArnX5GnLqu9Mc8p+RLH
- W4vikVejfx1a2nNB4CQBJJMjgxcYiJlJfROyp5DGCAqDDro0IxqA+h6ag
- SxSeJq3fZ1K4k/BLDrPJin0h/bXixKOtH50Wzwbazv1yHO0b7bYZKb2eD
- mCdaTg+SRANXPKgOAfasIO0AnY2YvL9jeboU+hDqyyyilHWDsbt2dvn0s
- 9M8h5tkY1E0oTr7GmZq8u/hN+IvMATVgAa++zuvUMjWDMWaj+iGZS73vo
- 5D8Qk1diF09chz8Oj/7Dg8eC6gN8kW0w3t+xeobmaaSnWAxJDpi4CMDMd Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="325180409"
-X-IronPort-AV: E=Sophos;i="5.97,244,1669104000"; d="scan'208";a="325180409"
+ t=1674635205; x=1706171205;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=hIhpJ8wB01aRUwdbNx7VohfjOmCO0vJbtWemK7jr8gA=;
+ b=avvD578GHCMVAhrOrvsebAvJcRBFAdkmlvTb2TOhU0ZnJ/TFDHEZE+hi
+ cHTnQHhnPWyoSzvxtqkSi+zxVqy0ah51qy4NqHTh5pqJf5Ad6NSiG4Xs7
+ mcYyA0KC9ZInob1vssdGz1EjHeHU/gTMyh1v0o3Kppw3aw/KFT7GcP9HI
+ 3CGzy1SuZACf8rVPQfnCPyhBUkx1/B83Swhq5B6yUMA6r4yLS8LE6PUI8
+ 1pz+MSYYWJ0uYJxCI+96BWZYAgvZUhktMMa/6nZcbRreAQaoQfwkinJZi
+ 336dQCb1ZNVm4V7/Zmg49k9vCDB7vnZNZN2059QH2XQ50QjAaDwFuxJHS Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="325180422"
+X-IronPort-AV: E=Sophos;i="5.97,244,1669104000"; d="scan'208";a="325180422"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Jan 2023 00:26:42 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="662426104"
-X-IronPort-AV: E=Sophos;i="5.97,244,1669104000"; d="scan'208";a="662426104"
+X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="662426130"
+X-IronPort-AV: E=Sophos;i="5.97,244,1669104000"; d="scan'208";a="662426130"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga002.jf.intel.com with ESMTP; 25 Jan 2023 00:26:37 -0800
+ by orsmga002.jf.intel.com with ESMTP; 25 Jan 2023 00:26:39 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 25 Jan 2023 00:26:31 -0800
-Message-Id: <20230125082637.118970-1-alan.previn.teres.alexis@intel.com>
+Date: Wed, 25 Jan 2023 00:26:37 -0800
+Message-Id: <20230125082637.118970-7-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20230125082637.118970-1-alan.previn.teres.alexis@intel.com>
+References: <20230125082637.118970-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 0/6] drm/i915/pxp: Add missing cleanup steps
- for PXP global-teardown
+Subject: [Intel-gfx] [PATCH v7 6/6] drm/i915/pxp: Pxp hw init should be in
+ resume_complete
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,84 +67,128 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A customer issue was recently discovered and in the process a
-gap in i915's PXP interaction with HW+FW architecure was also
-realized. This series adds those missing pieces.
+During suspend flow, i915 currently achors' on the pm_suspend_prepare
+callback as the location where we quiesce the entire GPU and perform
+all necessary cleanup in order to go into suspend. PXP is also called
+during this time to perform the arbitration session teardown (with
+the assurance no additional GEM IOCTLs will come after that could
+restart the session).
 
-This fix includes changes where i915 calls into the mei
-component interface in order to submit requests to the security
-firmware during the i915's suspend_prepare flow. This change did
-expose a blocking issue in the mei component side that was
-discovered while testing in rev1. The issue being the mei-pxp
-component driver not being able to runtime-resume while being
-within the suspend_prepare callstack.
+However, if other devices or drivers fail their suspend_prepare, the
+system will not go into suspend and i915 will be expected to resume
+operation. In this case, we need to re-initialize the PXP hardware
+and this really should be done within the pm_resume_complete callback
+which is the correct opposing function in the resume sequence to
+match pm_suspend_prepare of the suspend sequence.
 
+Because this callback is the last thing at the end of resuming
+we expect little to no impact to the rest of the i915 resume sequence
+with this change.
 
-Thus, we have now included the mei patches (from Alexander) that
-fixes that issue by adding a device-link based on the interface
-type to ensure mei side runtime resume during the i915's
-suspend_prepare call.
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+---
+ drivers/gpu/drm/i915/i915_driver.c      | 20 ++++++++++++++++++--
+ drivers/gpu/drm/i915/pxp/intel_pxp_pm.c |  2 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp_pm.h |  6 +++---
+ 3 files changed, 22 insertions(+), 6 deletions(-)
 
-That said, as per request from Alexander, we seek Greg's and Tomas'
-review for the mei patches (Patch 1, 2 and 3). Patch 2, although is
-a change in the i915 code, is the mei component device link change.
-
-The individual patches explain more details. Patch 7 can be ignored
-as it won't be merged and is only meant to ensure the CI run's
-the PXP subtests with PXP support enabled in KConfig.
-
-Changes from prior revs:
-   v1: - Dont need to teardown non-arbitration sessions (Juston).
-       - Fix builds when PXP is enabled in config (Alan/CI-build).
-       - Fix the broken pm-suspend-resume symmetry when we do this
-         pxp-session-teardown during i915s pm_suspend_prepare by
-         ensuring the init is done during i915s pm_resume_complete.
-   v2: - Rebase on latest drm-tip after PXP subsytem was promoted
-         to global.
-       - Remove "INTEL_PXP_MAX_HWDRM_SESSIONS" unneeded (Juston Li).
-       - Added mei patches that are dependencies for this series
-         to successfully pass testing when PXP config is enabled.
-   v3: - Added fix for mei patch when CONFIG_PM_SLEEP is off (reported
-         by kernel test robot <lkp@intel.com>).
-   v4: - Added "DRM_SWITCH_POWER_OFF" check and removed bail-out if
-         '!i915' that wont happen in i915_pm_complete (Daniele).
-       - move i915_pm_complete to appear in i915_pm_resume.
-       - One more fix for mei patch when CONFIG_PM_SLEEP is off
-         (reported by kernel test robot <lkp@intel.com>).
-   v5: - Reworked Patch #2 on device link establishment. Don't hide
-         triggering device-link behind drm_WARN, return -ENODEV if
-         it fails and stash the returned device_link struct (Rodrigo).
-   v6: - Cosmetic improvements on variable name and comments for
-         the stashed dev_link and fixed to use device_link_del
-         instead of device_link_remove (Rodrigo).
-
-Alan Previn (3):
-  drm/i915/pxp: Invalidate all PXP fw sessions during teardown
-  drm/i915/pxp: Trigger the global teardown for before suspending
-  drm/i915/pxp: Pxp hw init should be in resume_complete
-
-Alexander Usyskin (3):
-  mei: mei-me: resume device in prepare
-  drm/i915/pxp: add device link between i915 and mei_pxp
-  mei: clean pending read with vtag on bus
-
- drivers/gpu/drm/i915/i915_driver.c            | 20 +++++-
- drivers/gpu/drm/i915/pxp/intel_pxp.c          | 65 ++++++++++++++++---
- drivers/gpu/drm/i915/pxp/intel_pxp.h          |  2 +
- .../drm/i915/pxp/intel_pxp_cmd_interface_42.h | 15 +++++
- .../i915/pxp/intel_pxp_cmd_interface_cmn.h    |  3 +
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.c       |  4 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.h       |  6 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_session.c  |  8 ++-
- drivers/gpu/drm/i915/pxp/intel_pxp_session.h  |  5 ++
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.c      | 46 +++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_types.h    |  3 +
- drivers/misc/mei/client.c                     |  4 +-
- drivers/misc/mei/pci-me.c                     | 20 +++++-
- 13 files changed, 180 insertions(+), 21 deletions(-)
-
-
-base-commit: 6bcfacd291ed6ff1ff50a295f970c98d54eabe05
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 6469c7c1e154..122736b48938 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -1167,6 +1167,13 @@ static bool suspend_to_idle(struct drm_i915_private *dev_priv)
+ 	return false;
+ }
+ 
++static void i915_drm_complete(struct drm_device *dev)
++{
++	struct drm_i915_private *i915 = to_i915(dev);
++
++	intel_pxp_resume_complete(i915->pxp);
++}
++
+ static int i915_drm_prepare(struct drm_device *dev)
+ {
+ 	struct drm_i915_private *i915 = to_i915(dev);
+@@ -1367,8 +1374,6 @@ static int i915_drm_resume(struct drm_device *dev)
+ 
+ 	i915_gem_resume(dev_priv);
+ 
+-	intel_pxp_resume(dev_priv->pxp);
+-
+ 	intel_modeset_init_hw(dev_priv);
+ 	intel_init_clock_gating(dev_priv);
+ 	intel_hpd_init(dev_priv);
+@@ -1560,6 +1565,16 @@ static int i915_pm_resume(struct device *kdev)
+ 	return i915_drm_resume(&i915->drm);
+ }
+ 
++static void i915_pm_complete(struct device *kdev)
++{
++	struct drm_i915_private *i915 = kdev_to_i915(kdev);
++
++	if (i915->drm.switch_power_state == DRM_SWITCH_POWER_OFF)
++		return;
++
++	i915_drm_complete(&i915->drm);
++}
++
+ /* freeze: before creating the hibernation_image */
+ static int i915_pm_freeze(struct device *kdev)
+ {
+@@ -1780,6 +1795,7 @@ const struct dev_pm_ops i915_pm_ops = {
+ 	.suspend_late = i915_pm_suspend_late,
+ 	.resume_early = i915_pm_resume_early,
+ 	.resume = i915_pm_resume,
++	.complete = i915_pm_complete,
+ 
+ 	/*
+ 	 * S4 event handlers
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
+index e427464aa131..4f836b317424 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
+@@ -34,7 +34,7 @@ void intel_pxp_suspend(struct intel_pxp *pxp)
+ 	}
+ }
+ 
+-void intel_pxp_resume(struct intel_pxp *pxp)
++void intel_pxp_resume_complete(struct intel_pxp *pxp)
+ {
+ 	if (!intel_pxp_is_enabled(pxp))
+ 		return;
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
+index 586be769104f..06b46f535b42 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.h
+@@ -11,7 +11,7 @@ struct intel_pxp;
+ #ifdef CONFIG_DRM_I915_PXP
+ void intel_pxp_suspend_prepare(struct intel_pxp *pxp);
+ void intel_pxp_suspend(struct intel_pxp *pxp);
+-void intel_pxp_resume(struct intel_pxp *pxp);
++void intel_pxp_resume_complete(struct intel_pxp *pxp);
+ void intel_pxp_runtime_suspend(struct intel_pxp *pxp);
+ #else
+ static inline void intel_pxp_suspend_prepare(struct intel_pxp *pxp)
+@@ -22,7 +22,7 @@ static inline void intel_pxp_suspend(struct intel_pxp *pxp)
+ {
+ }
+ 
+-static inline void intel_pxp_resume(struct intel_pxp *pxp)
++static inline void intel_pxp_resume_complete(struct intel_pxp *pxp)
+ {
+ }
+ 
+@@ -32,6 +32,6 @@ static inline void intel_pxp_runtime_suspend(struct intel_pxp *pxp)
+ #endif
+ static inline void intel_pxp_runtime_resume(struct intel_pxp *pxp)
+ {
+-	intel_pxp_resume(pxp);
++	intel_pxp_resume_complete(pxp);
+ }
+ #endif /* __INTEL_PXP_PM_H__ */
 -- 
 2.39.0
 
