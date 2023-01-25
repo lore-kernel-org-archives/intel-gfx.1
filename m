@@ -4,47 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B405AC27C76
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 08:07:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64154C54E94
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 08:07:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D3BB10E73A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E93D310E743;
 	Wed, 25 Jan 2023 08:06:57 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3ED410E73A;
- Wed, 25 Jan 2023 08:06:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB59210E044;
+ Wed, 25 Jan 2023 08:06:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674634015; x=1706170015;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=4jIM+rAvkJsfNZoozqXpV3F6jtWvzuAhTZfKZs20pEs=;
- b=KwAEGvDS2DHneN51BCVdwWb7txSh+Y3PpQpkcl54RNBOnCI5MY2NuyXb
- V7yAChPcde9SM86dz2cA2pm90Q7/e93oCBM+TGnV46/Di1KhG9/1jzWrh
- 4ijjSkvZvm8nVz5/AnF+VWA3LTTz8PmEfxONEi5Ebrb+JEuVnuKGXXNjE
- J507cJaPLol5AYP7gyFbd3v5hp6CEbvU5k59K/qw9rNbq0b8ZsktebJwq
- PH2jv5dhBZjTiT07vxEyWvG6As3EJA9PetqflHSouRbFx7225f2/RYOe3
- kUkhAsUrJOUPjHkHuwMTIjzglBe4vYNS4RXQNIyLxtg5D9GJNJMv36Zax A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="310079373"
-X-IronPort-AV: E=Sophos;i="5.97,244,1669104000"; d="scan'208";a="310079373"
+ t=1674634014; x=1706170014;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=j2jnhj85dAYI/PGSZB/1S24SAn8CudUYh/yP/tw1xYQ=;
+ b=Vytcrs7NSiPyGBcddtuHwSkYIBC92MpByU1RtaWREr2iEgz56+UnNz4T
+ 99YO7YuY9dJ9/t2J3bChsqyowJz6b8FB56JR3d2ginJJQZyiZeFr4YX4w
+ 2jf9TObIV0wM4LIfZD8a8OiNdi5NGvimSlHyaIb3M7MyeVdQ2FG61t1zY
+ RPY4PPk9NZWWb6tcVaoQac/VxsSMSOnkUP0PrhG/oyG7Qw7DKXzX/CUwy
+ PNPK+v/+HfW//bWA/T3Y1OJou/y9cfyyG2W0LBydOw745J9GR8I2E4h9N
+ lqjCxFE63aTOCXoAnLeDWRn5KPYr7UYNZwsEM4gOCzCXH4/yWvDTQvl3q A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="310079361"
+X-IronPort-AV: E=Sophos;i="5.97,244,1669104000"; d="scan'208";a="310079361"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Jan 2023 00:06:54 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="991180688"
-X-IronPort-AV: E=Sophos;i="5.97,244,1669104000"; d="scan'208";a="991180688"
+X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="991180670"
+X-IronPort-AV: E=Sophos;i="5.97,244,1669104000"; d="scan'208";a="991180670"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by fmsmga005.fm.intel.com with ESMTP; 25 Jan 2023 00:06:54 -0800
+ by fmsmga005.fm.intel.com with ESMTP; 25 Jan 2023 00:06:53 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 25 Jan 2023 00:06:49 -0800
-Message-Id: <20230125080651.100223-7-alan.previn.teres.alexis@intel.com>
+Date: Wed, 25 Jan 2023 00:06:43 -0800
+Message-Id: <20230125080651.100223-1-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230125080651.100223-1-alan.previn.teres.alexis@intel.com>
-References: <20230125080651.100223-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 6/8] drm/i915/pxp: MTL-KCR interrupt ctrl's
- are in GT-0
+Subject: [Intel-gfx] [PATCH v3 0/8] drm/i915/pxp: Add MTL PXP Support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,136 +59,104 @@ Cc: dri-devel@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Despite KCR subsystem being in the media-tile (close to the
-GSC-CS), the IRQ controls for it are on GT-0 with other global
-IRQ controls. Thus, add a helper for KCR hw interrupt
-enable/disable functions to get the correct gt structure (for
-uncore) for MTL.
+This series enables PXP on MTL. On ADL/TGL platforms, we rely on
+the mei driver via the i915-mei PXP component interface to establish
+a connection to the security firmware via the HECI device interface.
+That interface is used to create and teardown the PXP ARB session.
+PXP ARB session is created when protected contexts are created.
 
-In the helper, we get GT-0's handle for uncore when touching
-IRQ registers despite the pxp->ctrl_gt being the media-tile.
-No difference for legacy of course.
+In this series, the front end behaviors and interfaces (uapi) remain
+the same. We add backend support for MTL but with MTL we directly use
+the GSC-CS engine on the MTL GPU device to send messages to the PXP
+(a.k.a. GSC a.k.a graphics-security) firmware. With MTL, the format
+of the message is slightly different with a 2-layer packetization
+that is explained in detail in Patch #3. Also, the second layer
+which is the actual PXP firmware packet is now rev'd to version 4.3
+for MTL that is defined in Patch #5.
 
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
----
- drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c |  2 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_irq.c     | 24 +++++++++++++++++---
- drivers/gpu/drm/i915/pxp/intel_pxp_irq.h     |  8 +++++++
- 3 files changed, 30 insertions(+), 4 deletions(-)
+Take note that Patch #4 adds the buffer allocation and gsccs-send-
+message without actually being called by the arb-creation code
+which gets added in Patch #5. Additionally, a seperate series being
+reviewed is introducing a change for session teardown (in pxp front-
+end layer that will need backend support by both legacy and gsccs).
+If we squash all of these together (buffer-alloc, send-message,
+arb-creation and, in future, session-termination), the single patch
+will be rather large. That said, we are keeping Patch #4 and #5
+separate for now, but at merge time, we can squash them together
+if maintainer requires it.
 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c b/drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c
-index 4b8e70caa3ad..9f6e300486b4 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c
-@@ -44,7 +44,7 @@ static int pxp_terminate_get(void *data, u64 *val)
- static int pxp_terminate_set(void *data, u64 val)
- {
- 	struct intel_pxp *pxp = data;
--	struct intel_gt *gt = pxp->ctrl_gt;
-+	struct intel_gt *gt = intel_pxp_get_irq_gt(pxp);
- 
- 	if (!intel_pxp_is_active(pxp))
- 		return -ENODEV;
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
-index 91e9622c07d0..3a725397349f 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
-@@ -4,10 +4,12 @@
-  */
- #include <linux/workqueue.h>
- 
-+#include "gt/intel_gt.h"
- #include "gt/intel_gt_irq.h"
- #include "gt/intel_gt_regs.h"
- #include "gt/intel_gt_types.h"
- 
-+#include "i915_drv.h"
- #include "i915_irq.h"
- #include "i915_reg.h"
- 
-@@ -17,6 +19,22 @@
- #include "intel_pxp_types.h"
- #include "intel_runtime_pm.h"
- 
-+/**
-+ * intel_pxp_get_irq_gt - Find the correct GT that owns KCR interrupts
-+ * @pxp: pointer to pxp struct
-+ *
-+ * For platforms with a single GT, we return the pxp->ctrl_gt (as expected)
-+ * but for MTL+ that has a media-tile, although the KCR engine is in the
-+ * media-tile (i.e. pxp->ctrl_gt), the IRQ controls are on the root tile.
-+ * In the end, we don't use pxp->ctrl_gt for IRQ, we always return root gt.
-+ */
-+struct intel_gt *intel_pxp_get_irq_gt(struct intel_pxp *pxp)
-+{
-+	WARN_ON_ONCE(!pxp->ctrl_gt->i915->media_gt && !gt_is_root(pxp->ctrl_gt));
-+
-+	return to_gt(pxp->ctrl_gt->i915);
-+}
-+
- /**
-  * intel_pxp_irq_handler - Handles PXP interrupts.
-  * @pxp: pointer to pxp struct
-@@ -29,7 +47,7 @@ void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
- 	if (GEM_WARN_ON(!intel_pxp_is_enabled(pxp)))
- 		return;
- 
--	gt = pxp->ctrl_gt;
-+	gt = intel_pxp_get_irq_gt(pxp);
- 
- 	lockdep_assert_held(gt->irq_lock);
- 
-@@ -68,7 +86,7 @@ static inline void pxp_irq_reset(struct intel_gt *gt)
- 
- void intel_pxp_irq_enable(struct intel_pxp *pxp)
- {
--	struct intel_gt *gt = pxp->ctrl_gt;
-+	struct intel_gt *gt = intel_pxp_get_irq_gt(pxp);
- 
- 	spin_lock_irq(gt->irq_lock);
- 
-@@ -83,7 +101,7 @@ void intel_pxp_irq_enable(struct intel_pxp *pxp)
- 
- void intel_pxp_irq_disable(struct intel_pxp *pxp)
- {
--	struct intel_gt *gt = pxp->ctrl_gt;
-+	struct intel_gt *gt = intel_pxp_get_irq_gt(pxp);
- 
- 	/*
- 	 * We always need to submit a global termination when we re-enable the
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_irq.h b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.h
-index 8c292dc86f68..eea87c9eb62b 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_irq.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.h
-@@ -9,6 +9,7 @@
- #include <linux/types.h>
- 
- struct intel_pxp;
-+struct intel_gt;
- 
- #define GEN12_DISPLAY_PXP_STATE_TERMINATED_INTERRUPT BIT(1)
- #define GEN12_DISPLAY_APP_TERMINATED_PER_FW_REQ_INTERRUPT BIT(2)
-@@ -23,6 +24,8 @@ struct intel_pxp;
- void intel_pxp_irq_enable(struct intel_pxp *pxp);
- void intel_pxp_irq_disable(struct intel_pxp *pxp);
- void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir);
-+struct intel_gt *intel_pxp_get_irq_gt(struct intel_pxp *pxp);
-+
- #else
- static inline void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
- {
-@@ -35,6 +38,11 @@ static inline void intel_pxp_irq_enable(struct intel_pxp *pxp)
- static inline void intel_pxp_irq_disable(struct intel_pxp *pxp)
- {
- }
-+
-+static inline struct intel_gt *intel_pxp_get_irq_gt(struct intel_pxp *pxp)
-+{
-+	return NULL;
-+}
- #endif
- 
- #endif /* __INTEL_PXP_IRQ_H__ */
+Changes from prior revs:
+   v1 : - fixed when building with CONFIG_PXP disabled.
+        - more alignment with gsc_mtl_header structure from the HDCP
+   v2 : - (all following changes as per reviews from Daniele)
+        - squashed Patch #1 from v1 into the next one.
+        - replaced unnecessary "uses_gsccs" boolean in the pxp
+          with "HAS_ENGINE(pxp->ctrl_gt, GSC0)".
+        - moved the stashing of gsccs resources from a dynamically
+          allocated opaque handle to an explicit sub-struct in
+          'struct intel_pxp'.
+        - moved the buffer object allocations from Patch #1 of this
+          series to Patch #5 (but keep the context allocation in
+          Patch #1).
+        - used the kernel default ppgtt for the gsccs context.
+        - optimized the buffer allocation and deallocation code
+          and drop the need to stash the drm_i915_gem_object.
+        - use a macro with the right mmio reg base (depending
+          on root-tile vs media-tile) along with common relative
+          offset to access all KCR registers thus minimizing
+          changes to the KCR register access codes.
+        - fixed bugs in the heci packet request submission code
+          in Patch #3 (of this series)
+        - add comments in the mtl-gsc-heci-header regarding the
+          host-session-handle.
+        - re-use tee-mutex instead of introducing a gsccs specific
+          cmd mutex.
+        - minor cosmetic improvements in Patch #5.
+	- before creating arb session, ensure intel_pxp_start
+          first ensures the GSC FW is up and running.
+        - use 2 second timeout for the pending-bit scenario when
+          sending command to GSC-FW as per specs.
+        - simplify intel_pxp_get_irq_gt with addition comments
+        - redo Patch #7 to minimize the changes without introducing
+          a common  abstraction helper for suspend/resume/init/fini
+          codes that have to change the kcr power state.
+
+Alan Previn (8):
+  drm/i915/pxp: Add GSC-CS back-end resource init and cleanup
+  drm/i915/pxp: Add MTL hw-plumbing enabling for KCR operation
+  drm/i915/pxp: Add MTL helpers to submit Heci-Cmd-Packet to GSC
+  drm/i915/pxp: Add GSC-CS backend to send GSC fw messages
+  drm/i915/pxp: Add ARB session creation with new PXP API Ver4.3
+  drm/i915/pxp: MTL-KCR interrupt ctrl's are in GT-0
+  drm/i915/pxp: On MTL, KCR enabling doesn't wait on tee component
+  drm/i915/pxp: Enable PXP with MTL-GSC-CS
+
+ drivers/gpu/drm/i915/Makefile                 |   2 +
+ drivers/gpu/drm/i915/gt/intel_gpu_commands.h  |   2 +
+ drivers/gpu/drm/i915/gt/intel_gt_irq.c        |   3 +-
+ .../i915/gt/uc/intel_gsc_uc_heci_cmd_submit.c | 110 +++++++
+ .../i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h |  76 +++++
+ drivers/gpu/drm/i915/i915_pci.c               |   1 +
+ drivers/gpu/drm/i915/pxp/intel_pxp.c          |  69 +++--
+ .../drm/i915/pxp/intel_pxp_cmd_interface_43.h |  25 ++
+ drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c  |   2 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c    | 287 ++++++++++++++++++
+ drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h    |  31 ++
+ drivers/gpu/drm/i915/pxp/intel_pxp_irq.c      |  24 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp_irq.h      |   8 +
+ drivers/gpu/drm/i915/pxp/intel_pxp_pm.c       |   3 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp_regs.h     |  27 ++
+ drivers/gpu/drm/i915/pxp/intel_pxp_session.c  |  20 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp_types.h    |  20 ++
+ 17 files changed, 675 insertions(+), 35 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_heci_cmd_submit.c
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h
+ create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_regs.h
+
+
+base-commit: 6bcfacd291ed6ff1ff50a295f970c98d54eabe05
 -- 
 2.39.0
 
