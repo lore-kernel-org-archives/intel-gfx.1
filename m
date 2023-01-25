@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E0AAC54E94
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 20:04:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2755BC61DA7
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 20:04:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BB9F10E86F;
-	Wed, 25 Jan 2023 20:04:23 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 866A210E85E;
- Wed, 25 Jan 2023 20:04:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6006A10E881;
+	Wed, 25 Jan 2023 20:04:24 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5AB510E865;
+ Wed, 25 Jan 2023 20:04:20 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2E6FA21BC2;
- Wed, 25 Jan 2023 20:04:18 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7920D1FEC1;
+ Wed, 25 Jan 2023 20:04:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1674677058; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1674677059; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=T5Sbzsv89EKEkrOe/wPvSqXndeo3WhAF853jHk6ZLI8=;
- b=ChhXTFJaFJBKqWIraYGI6roExZjLpdQI9WuePjTTgmUDEbllJuc8+RFjdemPZfVdQCZRpM
- QtJW65VWdX2QbGWszEVd335ZCChuZpzA9NNNp43AXrGfhmp9V4HykHAT4h++RFSRqjpAPX
- T1IdwpG9YXN9IdoPXgoYsgwk2KaAo8w=
+ bh=Zoux513NDbS/RjwGo+DUepZBrPP64vlVKK/ir64Oz4g=;
+ b=sPvl66UZKyyksHOjGrFYex9FhjwpbxvFxeiN9kUt99WuzayfLZAvNvHt0MzGnf3LjgcZxo
+ 4hkIxEW1Rn2Bw2KESs3ACVR+CBd0eQ1GVGypqVFGMW8oPwUjGwX/FnaIs90qBWcRbXc8JK
+ JseiGs7RGxeO7VGyeiaZOKXmhIR/Gc4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1674677058;
+ s=susede2_ed25519; t=1674677059;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=T5Sbzsv89EKEkrOe/wPvSqXndeo3WhAF853jHk6ZLI8=;
- b=QVFieepnUZSrJoO/X4spqT5UJ6oEbINiIoYEnytL2gvkWvgsGp0x5RdffK0fvv/5zjix8C
- wvowuAUxe18eCFDg==
+ bh=Zoux513NDbS/RjwGo+DUepZBrPP64vlVKK/ir64Oz4g=;
+ b=hJdwgVGbESjWKkSQw7WX4cku+owWUV46rmDSNRv5KggAWwkB3m+A4Pd7y/CdI7IGcZ8Yaj
+ 0fjcu8wqd+yvxRCg==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E675A1339E;
- Wed, 25 Jan 2023 20:04:17 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 40A8013A06;
+ Wed, 25 Jan 2023 20:04:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 6Cl6N0GL0WMDeAAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Wed, 25 Jan 2023 20:04:17 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id SJYID0OL0WMDeAAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Wed, 25 Jan 2023 20:04:19 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, javierm@redhat.com
-Date: Wed, 25 Jan 2023 21:04:09 +0100
-Message-Id: <20230125200415.14123-5-tzimmermann@suse.de>
+Date: Wed, 25 Jan 2023 21:04:14 +0100
+Message-Id: <20230125200415.14123-10-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230125200415.14123-1-tzimmermann@suse.de>
 References: <20230125200415.14123-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 04/10] drm/fbdev-generic: Initialize
- fb-helper structure in generic setup
+Subject: [Intel-gfx] [PATCH v3 09/10] drm/fbdev-generic: Inline clean-up
+ helpers into drm_fbdev_fb_destroy()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,57 +77,56 @@ Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Initialize the fb-helper structure immediately after its allocation
-in drm_fbdev_generic_setup(). That will make it easier to fill it with
-driver-specific values, such as the preferred BPP.
+The fbdev framebuffer cleanup in drm_fbdev_fb_destroy() calls
+drm_fbdev_release() and drm_fbdev_cleanup(). Inline both into the
+caller. No functional changes.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 ---
- drivers/gpu/drm/drm_fbdev_generic.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_fbdev_generic.c | 17 ++---------------
+ 1 file changed, 2 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_fbdev_generic.c b/drivers/gpu/drm/drm_fbdev_generic.c
-index 135d58b8007b..63f66325a8a5 100644
+index a9c519001019..68ce652e3a14 100644
 --- a/drivers/gpu/drm/drm_fbdev_generic.c
 +++ b/drivers/gpu/drm/drm_fbdev_generic.c
-@@ -385,8 +385,6 @@ static int drm_fbdev_client_hotplug(struct drm_client_dev *client)
- 	if (dev->fb_helper)
- 		return drm_fb_helper_hotplug_event(dev->fb_helper);
- 
--	drm_fb_helper_prepare(dev, fb_helper, &drm_fb_helper_generic_funcs);
--
- 	ret = drm_fb_helper_init(dev, fb_helper);
- 	if (ret)
- 		goto err;
-@@ -456,12 +454,12 @@ void drm_fbdev_generic_setup(struct drm_device *dev,
- 	fb_helper = kzalloc(sizeof(*fb_helper), GFP_KERNEL);
- 	if (!fb_helper)
- 		return;
-+	drm_fb_helper_prepare(dev, fb_helper, &drm_fb_helper_generic_funcs);
- 
- 	ret = drm_client_init(dev, &fb_helper->client, "fbdev", &drm_fbdev_client_funcs);
- 	if (ret) {
--		kfree(fb_helper);
- 		drm_err(dev, "Failed to register client: %d\n", ret);
--		return;
-+		goto err_drm_client_init;
- 	}
- 
- 	/*
-@@ -484,5 +482,12 @@ void drm_fbdev_generic_setup(struct drm_device *dev,
- 		drm_dbg_kms(dev, "client hotplug ret=%d\n", ret);
- 
- 	drm_client_register(&fb_helper->client);
-+
-+	return;
-+
-+err_drm_client_init:
-+	drm_fb_helper_unprepare(fb_helper);
-+	kfree(fb_helper);
-+	return;
+@@ -43,8 +43,9 @@ static int drm_fbdev_fb_release(struct fb_info *info, int user)
+ 	return 0;
  }
- EXPORT_SYMBOL(drm_fbdev_generic_setup);
+ 
+-static void drm_fbdev_cleanup(struct drm_fb_helper *fb_helper)
++static void drm_fbdev_fb_destroy(struct fb_info *info)
+ {
++	struct drm_fb_helper *fb_helper = info->par;
+ 	struct fb_info *fbi = fb_helper->info;
+ 	void *shadow = NULL;
+ 
+@@ -64,24 +65,10 @@ static void drm_fbdev_cleanup(struct drm_fb_helper *fb_helper)
+ 		drm_client_buffer_vunmap(fb_helper->buffer);
+ 
+ 	drm_client_framebuffer_delete(fb_helper->buffer);
+-}
+-
+-static void drm_fbdev_release(struct drm_fb_helper *fb_helper)
+-{
+-	drm_fbdev_cleanup(fb_helper);
+ 	drm_client_release(&fb_helper->client);
+ 	kfree(fb_helper);
+ }
+ 
+-/*
+- * fb_ops.fb_destroy is called by the last put_fb_info() call at the end of
+- * unregister_framebuffer() or fb_release().
+- */
+-static void drm_fbdev_fb_destroy(struct fb_info *info)
+-{
+-	drm_fbdev_release(info->par);
+-}
+-
+ static int drm_fbdev_fb_mmap(struct fb_info *info, struct vm_area_struct *vma)
+ {
+ 	struct drm_fb_helper *fb_helper = info->par;
 -- 
 2.39.0
 
