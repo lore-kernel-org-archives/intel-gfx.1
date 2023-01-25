@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA3D6C54E94
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 08:07:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0A7AC27C76
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 08:26:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1ECB710E74F;
-	Wed, 25 Jan 2023 08:07:09 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F392810E73B;
- Wed, 25 Jan 2023 08:06:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1401B10E0C4;
+	Wed, 25 Jan 2023 08:26:47 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60CF988FAE;
+ Wed, 25 Jan 2023 08:26:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674634016; x=1706170016;
+ t=1674635204; x=1706171204;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=vA9rM8tnefeGMgbrEaRzNawRYUX8aar4AwXZjWAWxsg=;
- b=FxkBRCKlxJqQWwxZT8D0lTjxakqA0WYcnijssIw0v3hk0GEsHJ7/+HDX
- udkZC0Gg/Pcl2PIIwWjNg4SFt9Fai2//XPQA+NkXljy85jnMgoPAz7JHQ
- nVxo5uHhs+NroXmB37r3BiaV4TJyWE6B3GNHnJZ2zvdnityf6wcbp7Okf
- k/QkC8f0TGFpzT3rzfWz2w6hLp4cSC4uQXJMUV+ooJMyBL45YCVIgic5G
- FU99+jRsuTuXTYpuchEVQ7FzPQM8iXEZ7l81CVU0i5WwFmFbCsPrw6KpL
- HpWwpibpUORnnk85MC0lWeurBL9veEDZSX3rGdt1BcDeM+RWcgk35JQDb A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="310079377"
-X-IronPort-AV: E=Sophos;i="5.97,244,1669104000"; d="scan'208";a="310079377"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2023 00:06:54 -0800
+ bh=kBmMnLyy6W2MDFW1b38+tE3Zdfm36TxVLDVPmm+kaNU=;
+ b=eoA5qo9IJS5jTZHwdA+w7lsXqmE431qmpPfFCCidl73SECs0excXCXa/
+ 51NvlB8UrGsM1VSlM8NUsPykCQOUXAZfPAaCKjpLEIc4UXgTsXmIBhjy4
+ lDmaMplcmGViZbzhDycFLipE9WH8nRH+1VBSZIpAVx+KbczRbvfspKHJh
+ ctDoXvw6KVVIMGjwD6745sT87mbHruIyGB82S9EMkUZp+7dK7Y/2hi3jy
+ CIPyFSsHSM5LWKPdY/0C9ymYiRWEnp7rV2m3gdu13jH0FQ37/rs5snHxa
+ STiE4IqldIpzTGLD8lGk9LEIiw487eU+C7qypZLjPyvFXrtfBYngRhHsX w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="325180410"
+X-IronPort-AV: E=Sophos;i="5.97,244,1669104000"; d="scan'208";a="325180410"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jan 2023 00:26:42 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="991180694"
-X-IronPort-AV: E=Sophos;i="5.97,244,1669104000"; d="scan'208";a="991180694"
+X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="662426108"
+X-IronPort-AV: E=Sophos;i="5.97,244,1669104000"; d="scan'208";a="662426108"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by fmsmga005.fm.intel.com with ESMTP; 25 Jan 2023 00:06:54 -0800
+ by orsmga002.jf.intel.com with ESMTP; 25 Jan 2023 00:26:38 -0800
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 25 Jan 2023 00:06:51 -0800
-Message-Id: <20230125080651.100223-9-alan.previn.teres.alexis@intel.com>
+Date: Wed, 25 Jan 2023 00:26:32 -0800
+Message-Id: <20230125082637.118970-2-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230125080651.100223-1-alan.previn.teres.alexis@intel.com>
-References: <20230125080651.100223-1-alan.previn.teres.alexis@intel.com>
+In-Reply-To: <20230125082637.118970-1-alan.previn.teres.alexis@intel.com>
+References: <20230125082637.118970-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 8/8] drm/i915/pxp: Enable PXP with MTL-GSC-CS
+Subject: [Intel-gfx] [PATCH v7 1/6] mei: mei-me: resume device in prepare
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,45 +56,77 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org,
- Alan Previn <alan.previn.teres.alexis@intel.com>
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
+	Vivi@freedesktop.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rodrigo <rodrigo.vivi@intel.com>,
+	Alexander Usyskin <alexander.usyskin@intel.com>,
+	dri-devel@lists.freedesktop.org,
+	Tomas Winkler <tomas.winkler@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable PXP with MTL-GSC-CS: add the has_pxp into device info
-and increase the timeouts for new GSC-CS + firmware specs.
+From: Alexander Usyskin <alexander.usyskin@intel.com>
 
+Asynchronous runtime resume is not possible while the system
+is suspending.
+The power management subsystem resumes the device only in the
+suspend phase, not in the prepare phase.
+Force resume device in prepare to allow drivers on mei bus
+to communicate in their prepare callbacks.
+
+Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+Reviewed-by: Tomas Winkler <tomas.winkler@intel.com>
 Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/gpu/drm/i915/i915_pci.c              | 1 +
- drivers/gpu/drm/i915/pxp/intel_pxp_session.c | 2 +-
- 2 files changed, 2 insertions(+), 1 deletion(-)
+ drivers/misc/mei/pci-me.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index 6b4a66734e09..8f7c751a2f64 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -1149,6 +1149,7 @@ static const struct intel_device_info mtl_info = {
- 	.has_guc_deprivilege = 1,
- 	.has_mslice_steering = 0,
- 	.has_snoop = 1,
-+	.has_pxp = 1,
- 	.__runtime.memory_regions = REGION_SMEM | REGION_STOLEN_LMEM,
- 	.__runtime.platform_engine_mask = BIT(RCS0) | BIT(BCS0) | BIT(CCS0),
- 	.require_force_probe = 1,
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-index a4917d517e23..2fafd39cea47 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-@@ -44,7 +44,7 @@ static int pxp_wait_for_session_state(struct intel_pxp *pxp, u32 id, bool in_pla
- 				      KCR_SIP(pxp->kcr_base),
- 				      mask,
- 				      in_play ? mask : 0,
--				      100);
-+				      250);
+diff --git a/drivers/misc/mei/pci-me.c b/drivers/misc/mei/pci-me.c
+index 5bf0d50d55a0..676d566f38dd 100644
+--- a/drivers/misc/mei/pci-me.c
++++ b/drivers/misc/mei/pci-me.c
+@@ -342,6 +342,12 @@ static void mei_me_remove(struct pci_dev *pdev)
+ }
  
- 	intel_runtime_pm_put(uncore->rpm, wakeref);
+ #ifdef CONFIG_PM_SLEEP
++static int mei_me_pci_prepare(struct device *device)
++{
++	pm_runtime_resume(device);
++	return 0;
++}
++
+ static int mei_me_pci_suspend(struct device *device)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(device);
+@@ -398,7 +404,17 @@ static int mei_me_pci_resume(struct device *device)
  
+ 	return 0;
+ }
+-#endif /* CONFIG_PM_SLEEP */
++
++static void mei_me_pci_complete(struct device *device)
++{
++	pm_runtime_suspend(device);
++}
++#else /* CONFIG_PM_SLEEP */
++
++#define mei_me_pci_prepare NULL
++#define mei_me_pci_complete NULL
++
++#endif /* !CONFIG_PM_SLEEP */
+ 
+ #ifdef CONFIG_PM
+ static int mei_me_pm_runtime_idle(struct device *device)
+@@ -501,6 +517,8 @@ static inline void mei_me_unset_pm_domain(struct mei_device *dev)
+ }
+ 
+ static const struct dev_pm_ops mei_me_pm_ops = {
++	.prepare = mei_me_pci_prepare,
++	.complete = mei_me_pci_complete,
+ 	SET_SYSTEM_SLEEP_PM_OPS(mei_me_pci_suspend,
+ 				mei_me_pci_resume)
+ 	SET_RUNTIME_PM_OPS(
 -- 
 2.39.0
 
