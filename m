@@ -4,50 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E759C27C76
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 12:55:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65952C27C76
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 13:30:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0BE210E7B6;
-	Wed, 25 Jan 2023 12:55:35 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3857C10E7B6
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 12:55:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C833310E00B;
+	Wed, 25 Jan 2023 13:30:08 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC62410E00B
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 13:30:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674651334; x=1706187334;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=gU4pd2cx1GsQu4k5rhqs8IM8sKcLRkWyMiyRo+ZH9XY=;
- b=QA++VjgGDGvv/EWUctLfyV3oFNToD0IIgX4bQIi/YKZzKuRs1Somg0oI
- vau+ziPW+plHKLBHlDolWrV0Wx1Xvwwe7A47zzMmw6Il5i3LZw8N/l+p8
- hfZzg8qMtG4P1PUQDsGNYxdbjl8mNn6fUU233JkMqbeNmNunQXBlRAlc2
- 411G5L8uvF5kXBYzXKenuHTUDzn29eZj8s3oL7djaHN5v/XocJjCrLaZk
- XuDZRR3Iydkoow7OXmZAamCSCx7mpl8k/dnWh5fPVRlswqN6e+mn/vPrN
- qKxQnHBbFv5OrSDGzivuGkHg0f/uRPOvutN6nh6+QBEYi6jh1NIcGm839 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="325222003"
-X-IronPort-AV: E=Sophos;i="5.97,245,1669104000"; d="scan'208";a="325222003"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2023 04:55:33 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="770727311"
-X-IronPort-AV: E=Sophos;i="5.97,245,1669104000"; d="scan'208";a="770727311"
-Received: from sjuberti-mobl.ger.corp.intel.com (HELO intel.com)
- ([10.251.210.92])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2023 04:55:25 -0800
-Date: Wed, 25 Jan 2023 13:55:17 +0100
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: "Das, Nirmoy" <nirmoy.das@linux.intel.com>
-Message-ID: <Y9EmtfAblOP3HCrP@ashyti-mobl2.lan>
-References: <20230124142212.18498-1-nirmoy.das@intel.com>
- <Y9AC7hp6JFMe+w/J@ashyti-mobl2.lan>
- <9553f978-b2f4-8cac-e456-f9e31f1fcd74@linux.intel.com>
+ t=1674653405; x=1706189405;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=LoAv6G8qmebcw0d1X4v7zPyGp+QX0okBk/vP9q94zFw=;
+ b=BxQ7isX1bwzqbCkAVGWg+yuplr9pswA+N2oUGChFLW2BFffbNDpxLsqF
+ GXU0rQcdZA2K9CxFvq3LlfMNZFnyxUWC7CiPym1STmS7kR83ysTstEif9
+ KNudRTERDV8xPAs28atdlzVoIA/uoF5LxD1wd071ITkNfa7B8tdm0nWwz
+ SRkV0nTWAFTjlN5L8WguLEM6tcxgOQPYeW3mGwFnyb4weSITNIYhPuN9N
+ qvY4p1D3puJx1janicEEpBYeJ+ADyvIIABwKedpTNVUSE0bG4HBeJL8Q8
+ q86ho3k+BIMxokrCXDyi5C20YdSheVIi5Mo0cP0uvYq95w9pOE7V2tUzX Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="314455576"
+X-IronPort-AV: E=Sophos;i="5.97,245,1669104000"; d="scan'208";a="314455576"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jan 2023 05:29:05 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="836343835"
+X-IronPort-AV: E=Sophos;i="5.97,245,1669104000"; d="scan'208";a="836343835"
+Received: from nirmoyda-mobl.ger.corp.intel.com (HELO [10.252.46.223])
+ ([10.252.46.223])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jan 2023 05:28:25 -0800
+Message-ID: <592aad9f-fb3b-4369-4683-aef49628786a@linux.intel.com>
+Date: Wed, 25 Jan 2023 14:28:23 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9553f978-b2f4-8cac-e456-f9e31f1fcd74@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/xehpsdv/selftests: Flush all tiles
- on test exit
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Content-Language: en-US
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+References: <20230124110515.17017-1-nirmoy.das@intel.com>
+ <d8a7783d-29fc-342d-c9ed-3f3b16455b4d@linux.intel.com>
+ <Y9Aw3sCGt+s+qGIO@intel.com>
+From: "Das, Nirmoy" <nirmoy.das@linux.intel.com>
+In-Reply-To: <Y9Aw3sCGt+s+qGIO@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gt: Clear wedged status upon
+ suspend
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,54 +63,94 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, chris.p.wilson@intel.com,
+Cc: intel-gfx@lists.freedesktop.org,
+ Chris Wilson <chris.p.wilson@linux.intel.com>,
  Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Nirmoy,
+Hi Rodrigo,
 
-> > > +	struct intel_gt *gt;
-> > > +	unsigned int i;
-> > > +	int ret = 0;
-> > > -	cond_resched();
-> > > +	for_each_gt(gt, i915, i) {
-> > > +		if (intel_gt_is_wedged(gt))
-> > > +			ret = -EIO;
-> > I'm just wondering if it makes sense to check if the gt is
-> > wedged.
-> 
-> Could you please expand more, what are your thoughts about this ?
+On 1/24/2023 8:26 PM, Rodrigo Vivi wrote:
+> On Tue, Jan 24, 2023 at 12:07:19PM +0100, Das, Nirmoy wrote:
+>> Forgot to add the drm issue a reference.
+>>
+>> On 1/24/2023 12:05 PM, Nirmoy Das wrote:
+>>> From: Chris Wilson <chris.p.wilson@linux.intel.com>
+>>>
+>>> Currently we use set-wedged on suspend if the workload is not responding
+>>> in order to allow a fast suspend (albeit at the cost of discarding the
+>>> current userspace). This may leave the device wedged during suspend,
+>>> where we may require the device available in order to swapout CPU
+>>> inaccessible device memory. Clear any temporary wedged-status after
+>>> flushing userspace off the device so we can use the blitter ourselves
+>>> inside suspend.
+> This seems a very good move. But this explain they unset_wedged part,
+> not the removal of the retire_requests. Why don't we need to retire them
+> anymore?
 
-if we are wedged, I do expect the wait_for_idle to fail and not
-having any pending job.
 
-But nevertheless it's not that important, it's just the way this
-function is organized that makes me raise an eyebrow.
+Thanks for noticing that. This on me, I missed another patch which moved 
+the intel_gt_retire_requests()
 
-My r-b stands, still.
+inside of intel_gt_set_wedged().
 
-Andi
+>
+> Also, what are the chances of races here? I mean, we are marking
+> the gpu as not wedged anymore. Do we have any warranty at this point
+> that no further request will arrive?
 
-[...]
 
-> > > +		cond_resched();
-> > > -		GEM_TRACE("%pS timed out.\n",
-> > > -			  __builtin_return_address(0));
-> > > -		GEM_TRACE_DUMP();
-> > > +		if (intel_gt_wait_for_idle(gt, HZ * 3) == -ETIME) {
-> > > +			pr_err("%pS timed out, cancelling all further testing.\n",
-> > > +			       __builtin_return_address(0));
-> > > -		intel_gt_set_wedged(gt);
-> > > -		ret = -EIO;
-> > > +			GEM_TRACE("%pS timed out.\n",
-> > > +				  __builtin_return_address(0));
-> > > +			GEM_TRACE_DUMP();
-> > > +
-> > > +			intel_gt_set_wedged(gt);
-> > > +			ret = -EIO;
-> > > +		}
-> > >   	}
-> > >   	return ret;
-> > > -- 
-> > > 2.39.0
+The assumption was: this is  in single threaded suspend "context" so we 
+should be fine but
+
+we just realized that  this is getting called at pm prepare time. Thanks 
+for raising this it seem
+
+I need to refactor i915_gem_backup_suspend() as well which should be 
+called much later on.
+
+
+Regards,
+
+Nirmoy
+
+>
+> Shouldn't we have a way to differentiate between the totally wedged
+> and blocked for user submission?
+>
+>>> Testcase: igt/gem_eio/in-flight-suspend
+>> References: https://gitlab.freedesktop.org/drm/intel/-/issues/7896
+>>> Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+>>> Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>>> Signed-off-by: Chris Wilson <chris.p.wilson@linux.intel.com>
+>>> Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
+>>> ---
+>>>    drivers/gpu/drm/i915/gt/intel_gt_pm.c | 10 ++++------
+>>>    1 file changed, 4 insertions(+), 6 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+>>> index cef3d6f5c34e..74d1dd3793f9 100644
+>>> --- a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+>>> +++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+>>> @@ -317,19 +317,17 @@ int intel_gt_resume(struct intel_gt *gt)
+>>>    static void wait_for_suspend(struct intel_gt *gt)
+>>>    {
+>>> -	if (!intel_gt_pm_is_awake(gt))
+>>> -		return;
+>>> -
+>>> -	if (intel_gt_wait_for_idle(gt, I915_GT_SUSPEND_IDLE_TIMEOUT) == -ETIME) {
+>>> +	if (intel_gt_wait_for_idle(gt, I915_GT_SUSPEND_IDLE_TIMEOUT) == -ETIME)
+>>>    		/*
+>>>    		 * Forcibly cancel outstanding work and leave
+>>>    		 * the gpu quiet.
+>>>    		 */
+>>>    		intel_gt_set_wedged(gt);
+>>> -		intel_gt_retire_requests(gt);
+>>> -	}
+>>>    	intel_gt_pm_wait_for_idle(gt);
+>>> +
+>>> +	/* Make the GPU available again for swapout */
+>>> +	intel_gt_unset_wedged(gt);
+>>>    }
+>>>    void intel_gt_suspend_prepare(struct intel_gt *gt)
