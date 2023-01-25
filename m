@@ -4,34 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BAA0C61D9D
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 14:01:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6625EC61D97
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 14:04:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4EAD10E7B9;
-	Wed, 25 Jan 2023 14:01:57 +0000 (UTC)
-X-Greylist: delayed 2347 seconds by postgrey-1.36 at gabe;
- Wed, 25 Jan 2023 14:01:55 UTC
-Received: from farmhouse.coelho.fi (paleale.coelho.fi [176.9.41.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3922C10E7B9
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 14:01:55 +0000 (UTC)
-Received: from 91-155-254-125.elisa-laajakaista.fi ([91.155.254.125]
- helo=[192.168.100.137])
- by farmhouse.coelho.fi with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.95)
- (envelope-from <luca@coelho.fi>) id 1pKfje-005vrZ-Ps;
- Wed, 25 Jan 2023 15:22:45 +0200
-Message-ID: <64e38dd19751aae9718dd077e94cb557a5cbd378.camel@coelho.fi>
-From: Luca Coelho <luca@coelho.fi>
-To: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org
-Date: Wed, 25 Jan 2023 15:22:40 +0200
-In-Reply-To: <20230118151800.3669913-1-jani.nikula@intel.com>
-References: <20230118151800.3669913-1-jani.nikula@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.3-1 
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1E5310E7C0;
+	Wed, 25 Jan 2023 14:04:27 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B99D10E7BA;
+ Wed, 25 Jan 2023 14:04:24 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BDE651F45F;
+ Wed, 25 Jan 2023 14:04:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1674655462; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vbSq8QpP5gKFCj9wRXhX+c2qWCGlcx8AVtCmLzhws7g=;
+ b=b2N+klmsqa/8s7L7etOh/GF+KIr8CQWsepzhB1TUN5s20dtITMD++MlMECauuBzrBXx3CW
+ xMPVajzZIlHkXfGwwKINj30SVh0/g8eMigw60zwNOOpQxD24TMT9EuUiHw1bOxB9vYKpR5
+ NTal+rKexrC80op7nYH3MRVITk+O1YQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1674655462;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=vbSq8QpP5gKFCj9wRXhX+c2qWCGlcx8AVtCmLzhws7g=;
+ b=XGawAPjoinARPFUEoLCQUzQiiQqB0pZ8GlJmmHy1nHYEw49D5DKIKU3kLzbJzjTxGAV8f8
+ ZS0TKSus8Ju06gDw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 779B11358F;
+ Wed, 25 Jan 2023 14:04:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id EC48HOY20WMrPwAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Wed, 25 Jan 2023 14:04:22 +0000
+Message-ID: <54303476-8e1d-2a6e-0d8f-8d5c7b75f64c@suse.de>
+Date: Wed, 25 Jan 2023 15:04:21 +0100
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] [PATCH 1/4] drm/i915/params: use generics for
- parameter printing
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+To: Javier Martinez Canillas <javierm@redhat.com>, airlied@gmail.com,
+ daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
+References: <20230124134010.30263-1-tzimmermann@suse.de>
+ <20230124134010.30263-2-tzimmermann@suse.de>
+ <296bcff0-9d75-3d6b-e101-dddb26edadf1@redhat.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <296bcff0-9d75-3d6b-e101-dddb26edadf1@redhat.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------9Ic1E1tNJRTSvnT3QXPtHIyk"
+Subject: Re: [Intel-gfx] [PATCH v2 01/10] drm/client: Test for connectors
+ before sending hotplug event
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,100 +73,93 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2023-01-18 at 17:17 +0200, Jani Nikula wrote:
-> Replace the __builtin_strcmp() if ladder with generics.
->=20
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> ---
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------9Ic1E1tNJRTSvnT3QXPtHIyk
+Content-Type: multipart/mixed; boundary="------------m6sBL7sIhfc4J6AgPtm5C4Gn";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Javier Martinez Canillas <javierm@redhat.com>, airlied@gmail.com,
+ daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Message-ID: <54303476-8e1d-2a6e-0d8f-8d5c7b75f64c@suse.de>
+Subject: Re: [PATCH v2 01/10] drm/client: Test for connectors before sending
+ hotplug event
+References: <20230124134010.30263-1-tzimmermann@suse.de>
+ <20230124134010.30263-2-tzimmermann@suse.de>
+ <296bcff0-9d75-3d6b-e101-dddb26edadf1@redhat.com>
+In-Reply-To: <296bcff0-9d75-3d6b-e101-dddb26edadf1@redhat.com>
 
-Neat! I learned something new.  For the whole series:
+--------------m6sBL7sIhfc4J6AgPtm5C4Gn
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
+SGkNCg0KQW0gMjUuMDEuMjMgdW0gMDk6MzAgc2NocmllYiBKYXZpZXIgTWFydGluZXogQ2Fu
+aWxsYXM6DQo+IEhlbGxvIFRob21hcywNCj4gDQo+IE9uIDEvMjQvMjMgMTQ6NDAsIFRob21h
+cyBaaW1tZXJtYW5uIHdyb3RlOg0KPj4gVGVzdCBmb3IgY29ubmVjdG9ycyBpbiB0aGUgY2xp
+ZW50IGNvZGUgYW5kIHJlbW92ZSBhIHNpbWlsYXIgdGVzdA0KPj4gZnJvbSB0aGUgZ2VuZXJp
+YyBmYmRldiBlbXVsYXRpb24uIERvIG5vdGhpbmcgaWYgdGhlIHRlc3QgZmFpbHMuDQo+PiBO
+b3QgaGF2aW5nIGNvbm5lY3RvcnMgaW5kaWNhdGVzIGEgZHJpdmVyIGJ1Zy4NCj4+DQo+PiBT
+aWduZWQtb2ZmLWJ5OiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4N
+Cj4+IC0tLQ0KPiANCj4gUmV2aWV3ZWQtYnk6IEphdmllciBNYXJ0aW5leiBDYW5pbGxhcyA8
+amF2aWVybUByZWRoYXQuY29tPg0KPiANCj4gYnV0IEkndmUgYSBxdWVzdGlvbiBiZWxvdy4N
+Cj4gDQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9kcm1fY2xpZW50LmMgICAgICAgIHwgNSArKysr
+Kw0KPj4gICBkcml2ZXJzL2dwdS9kcm0vZHJtX2ZiZGV2X2dlbmVyaWMuYyB8IDUgLS0tLS0N
+Cj4+ICAgMiBmaWxlcyBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0p
+DQo+IA0KPiBbLi4uXQ0KPiANCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZmJkZXZf
+Z2VuZXJpYy5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2ZiZGV2X2dlbmVyaWMu
+Yw0KPj4gQEAgLTM4OSwxMSArMzg5LDYgQEAgc3RhdGljIGludCBkcm1fZmJkZXZfY2xpZW50
+X2hvdHBsdWcoc3RydWN0IGRybV9jbGllbnRfZGV2ICpjbGllbnQpDQo+PiAgIAlpZiAoZGV2
+LT5mYl9oZWxwZXIpDQo+PiAgIAkJcmV0dXJuIGRybV9mYl9oZWxwZXJfaG90cGx1Z19ldmVu
+dChkZXYtPmZiX2hlbHBlcik7DQo+PiAgIA0KPj4gLQlpZiAoIWRldi0+bW9kZV9jb25maWcu
+bnVtX2Nvbm5lY3Rvcikgew0KPj4gLQkJZHJtX2RiZ19rbXMoZGV2LCAiTm8gY29ubmVjdG9y
+cyBmb3VuZCwgd2lsbCBub3QgY3JlYXRlIGZyYW1lYnVmZmVyIVxuIik7DQo+PiAtCQlyZXR1
+cm4gMDsNCj4+IC0JfQ0KPj4gLQ0KPiANCj4gV2hhdCBhYm91dCB0aGUgZm9sbG93aW5nIGNv
+ZGUgc25pcHBldDoNCj4gDQo+IAlpZiAoIWRybV9kcnZfdXNlc19hdG9taWNfbW9kZXNldChk
+ZXYpKQ0KPiAJCWRybV9oZWxwZXJfZGlzYWJsZV91bnVzZWRfZnVuY3Rpb25zKGRldik7DQo+
+IA0KPiB0aGF0IHNlZW1zIHRvIGJlIHNvbWV0aGluZyB0aGF0IHNob3VsZCBiZSBpbiB0aGUg
+Y29yZSBjbGllbnQgZGV2IGhvdHBsdWcNCj4gYXMgd2VsbCwgc2luY2UgaXQgaXNuJ3Qgc3Bl
+Y2lmaWMgdG8gdGhlIGZiZGV2IGVtdWxhdGlvbiBjbGllbnQgPw0KDQpUaGF0J3MgaW4gdGhl
+IG1pZGRsZSBvZiB0aGUgaW5pdGlhbCBwcm9iaW5nIGNvZGUgYW5kIGRpc2FibGVzIHBpcGVs
+aW5lIA0KZWxlbWVudHMgaW4gbm9uLWF0b21pYyBtb2Rlc2V0dGluZy4gVEJIIEkgZG9uJ3Qg
+ZGFyZSB0byBtb3ZlIGl0IGFyb3VuZC4gDQpJZiB3ZSBldmVyIGhhdmUgb3RoZXIgY2xpZW50
+cywgd2UgY2FuIGF0dGVtcHQgdGhlIHB1dCBpdCBpbnRvIHRoZSBjbGllbnQuDQoNCkJlc3Qg
+cmVnYXJkcw0KVGhvbWFzDQoNCg0KPiANCg0KLS0gDQpUaG9tYXMgWmltbWVybWFubg0KR3Jh
+cGhpY3MgRHJpdmVyIERldmVsb3Blcg0KU1VTRSBTb2Z0d2FyZSBTb2x1dGlvbnMgR2VybWFu
+eSBHbWJIDQpNYXhmZWxkc3RyLiA1LCA5MDQwOSBOw7xybmJlcmcsIEdlcm1hbnkNCihIUkIg
+MzY4MDksIEFHIE7DvHJuYmVyZykNCkdlc2Now6RmdHNmw7xocmVyOiBJdm8gVG90ZXYNCg==
 
 
->  drivers/gpu/drm/i915/i915_params.c | 55 +++++++++++++++++++-----------
->  1 file changed, 36 insertions(+), 19 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i9=
-15_params.c
-> index d634bd3f641a..6482e878f31e 100644
-> --- a/drivers/gpu/drm/i915/i915_params.c
-> +++ b/drivers/gpu/drm/i915/i915_params.c
-> @@ -222,27 +222,44 @@ i915_param_named_unsafe(lmem_size, uint, 0400,
->  i915_param_named_unsafe(lmem_bar_size, uint, 0400,
->  			"Set the lmem bar size(in MiB).");
-> =20
-> -static __always_inline void _print_param(struct drm_printer *p,
-> -					 const char *name,
-> -					 const char *type,
-> -					 const void *x)
-> +static void _param_print_bool(struct drm_printer *p, const char *name,
-> +			      bool val)
->  {
-> -	if (!__builtin_strcmp(type, "bool"))
-> -		drm_printf(p, "i915.%s=3D%s\n", name,
-> -			   str_yes_no(*(const bool *)x));
-> -	else if (!__builtin_strcmp(type, "int"))
-> -		drm_printf(p, "i915.%s=3D%d\n", name, *(const int *)x);
-> -	else if (!__builtin_strcmp(type, "unsigned int"))
-> -		drm_printf(p, "i915.%s=3D%u\n", name, *(const unsigned int *)x);
-> -	else if (!__builtin_strcmp(type, "unsigned long"))
-> -		drm_printf(p, "i915.%s=3D%lu\n", name, *(const unsigned long *)x);
-> -	else if (!__builtin_strcmp(type, "char *"))
-> -		drm_printf(p, "i915.%s=3D%s\n", name, *(const char **)x);
-> -	else
-> -		WARN_ONCE(1, "no printer defined for param type %s (i915.%s)\n",
-> -			  type, name);
-> +	drm_printf(p, "i915.%s=3D%s\n", name, str_yes_no(val));
->  }
-> =20
-> +static void _param_print_int(struct drm_printer *p, const char *name,
-> +			     int val)
-> +{
-> +	drm_printf(p, "i915.%s=3D%d\n", name, val);
-> +}
-> +
-> +static void _param_print_uint(struct drm_printer *p, const char *name,
-> +			      unsigned int val)
-> +{
-> +	drm_printf(p, "i915.%s=3D%u\n", name, val);
-> +}
-> +
-> +static void _param_print_ulong(struct drm_printer *p, const char *name,
-> +			       unsigned long val)
-> +{
-> +	drm_printf(p, "i915.%s=3D%lu\n", name, val);
-> +}
-> +
-> +static void _param_print_charp(struct drm_printer *p, const char *name,
-> +			       const char *val)
-> +{
-> +	drm_printf(p, "i915.%s=3D%s\n", name, val);
-> +}
-> +
-> +#define _param_print(p, name, val)				\
-> +	_Generic(val,						\
-> +		 bool: _param_print_bool,			\
-> +		 int: _param_print_int,				\
-> +		 unsigned int: _param_print_uint,		\
-> +		 unsigned long: _param_print_ulong,		\
-> +		 char *: _param_print_charp)(p, name, val)
-> +
->  /**
->   * i915_params_dump - dump i915 modparams
->   * @params: i915 modparams
-> @@ -252,7 +269,7 @@ static __always_inline void _print_param(struct drm_p=
-rinter *p,
->   */
->  void i915_params_dump(const struct i915_params *params, struct drm_print=
-er *p)
->  {
-> -#define PRINT(T, x, ...) _print_param(p, #x, #T, &params->x);
-> +#define PRINT(T, x, ...) _param_print(p, #x, params->x);
->  	I915_PARAMS_FOR_EACH(PRINT);
->  #undef PRINT
->  }
+--------------m6sBL7sIhfc4J6AgPtm5C4Gn--
 
+--------------9Ic1E1tNJRTSvnT3QXPtHIyk
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmPRNuUFAwAAAAAACgkQlh/E3EQov+Dv
+9w//aauyhE9l7KTLTcYoGNHO0YopaFilxVY2jcD0liyFEF6TPeIi6PVYVUYKmVpwk5NI64DBN1jG
+f9ZWmdrLE5dWsztIskHxKTdu6ccDxnCIvEhSLBAVp3PTVBb4otMtuuvqx6z+USCjAv0Vl8qaDMpF
+T9yJ13yTSuqdo6IayPYJ8YiTkiHoru/m467tFleYKs269nPR21wvh4psCd/zO5RN7P4HHeIdyoE4
+rRHEHDUw8plharM840CZonOdB/3cNyPZWPEafLpPSmC5d3t55bvEtm4tbMcajKz8FTLjBMXBk6of
+S6SNT0CNVKxOBhbEtGHZkISEjjgPgh8t0CI4+y6vcbISvACFDgKK0jJwSmY4nb9jmYGSx+RYOgE1
+yn+C7K5ml33IHxx1NhYBnyEvebEL2hDHjRaMM4+cv+LOYIYg2Wn04KZtFCSzot66UW/mZOciXCtB
+rk0RkUvFV0zv0gBQnQ+ePbTidtPpnDo9SuAdZNU1mSABffukZ5UtvfasXTxvrf4sGcltpmmHCsOh
+4Bco5tm3NJPZyFu829nGrRh4mTZ00PMAdD3gjdX6/PNYPmV0RlsAv4pv4DM3kz4Udtyg0wqOUids
+V2ajZqe2CSsBs5eXWLZL1WUgE49MboIaMpoF4IiBYnM3tOF/A+MyTyot1kf32sE/YPPDKKXH0JiL
+T9Y=
+=5HPw
+-----END PGP SIGNATURE-----
+
+--------------9Ic1E1tNJRTSvnT3QXPtHIyk--
