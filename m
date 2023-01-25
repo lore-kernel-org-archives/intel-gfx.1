@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF88BC54E94
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 18:52:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 323E2C54EED
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 18:52:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3126010E813;
-	Wed, 25 Jan 2023 18:52:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96E3010E815;
+	Wed, 25 Jan 2023 18:52:52 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7C3410E811
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 18:52:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4C6810E815
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 18:52:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674672764; x=1706208764;
+ t=1674672770; x=1706208770;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=Idq3kwdJMFn++0TYEPI2FSs2JBOrQTiv6BCAz+ban1c=;
- b=i7dAzY9zeNxuy1Wr4H56kG3y3bkJn/nG8duozUx4C2hSP/mHPxt/jfm2
- fisAEajts1lig+7YSbMMey+gdz+F8jlmQ16f96ZjHciuaZjXart+fOdtq
- nmP2nLC+neLLiNuXv/CI2GEdB1u4WjX0RygnQ8VIiWUT2OTZ7UOh3lqAH
- WUpmExIczIOw6zwizGzOVPMyDfj5MpDPu981ZBoQoTsQtDbfXuW1RFKpm
- tCpx/ZC1nBVFsPoBulmMVJFil7MCvcbbGkrxWAedbi5cZMO3CcVlqt3xJ
- gfRlM+VsLOD2UNwuCwFMJVU+CSt3ZDVxEhDjm7rBZENqMUu/GLvoD6fjV A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10601"; a="326671503"
-X-IronPort-AV: E=Sophos;i="5.97,246,1669104000"; d="scan'208";a="326671503"
+ bh=Hutb74kOf9OLGJWc2j1J0ZUTFbx9KK25il8kY+68O9g=;
+ b=E/x1n7oZB9oRnc7tNmO8t9qDhY40Gc/u6A60o1GM/Ucx6Vya3nbjRE5h
+ j2Gu2LwrwOg2fzHqIxA/uEbvfGz911OL9FyLYgvFC2QBu4kvVmqpqMOXw
+ p8zL+yK/dNEpMaihY061iM2ggFmgGN5DLYGzo5ouJEjWSk7AUmLhQE50P
+ he7gCycuM5rekG/ke3EqNPtjdTv27ncW1E/9gejrrg8ruKizs4HkeNqVf
+ MoChzYkYjJMSVmVFGsKzmndmAktrqFMHjWktJQMeGP21ivlc+Z4I3GbBX
+ R8nKGCATWg7er4g1rooAv35EnzAsvKy1CnpIqlt8VCzxOEedVZProagX6 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10601"; a="326671515"
+X-IronPort-AV: E=Sophos;i="5.97,246,1669104000"; d="scan'208";a="326671515"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2023 10:52:44 -0800
+ 25 Jan 2023 10:52:50 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10601"; a="655912153"
-X-IronPort-AV: E=Sophos;i="5.97,246,1669104000"; d="scan'208";a="655912153"
+X-IronPort-AV: E=McAfee;i="6500,9779,10601"; a="655912176"
+X-IronPort-AV: E=Sophos;i="5.97,246,1669104000"; d="scan'208";a="655912176"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.55])
- by orsmga007.jf.intel.com with SMTP; 25 Jan 2023 10:52:42 -0800
+ by orsmga007.jf.intel.com with SMTP; 25 Jan 2023 10:52:48 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 25 Jan 2023 20:52:41 +0200
+ Wed, 25 Jan 2023 20:52:47 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 25 Jan 2023 20:52:31 +0200
-Message-Id: <20230125185234.21599-3-ville.syrjala@linux.intel.com>
+Date: Wed, 25 Jan 2023 20:52:33 +0200
+Message-Id: <20230125185234.21599-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230125185234.21599-1-ville.syrjala@linux.intel.com>
 References: <20230125185234.21599-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/5] drm/i915: Undo rmw damage to gen3 error
- interrupt handler
+Subject: [Intel-gfx] [PATCH 4/5] drm/i915: Extract {i9xx, i965)_error_mask()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,54 +64,94 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-The gen2/gen3 irq code is supposed to be identical apart
-from the 32bit vs. 16bit access width. The recent change
-to intel_de_rmw() ruined that symmetry. Restore it to avoid
-needless mental gymnastics when comparing the two codepaths.
-
-And while at it remove the extra eir!=0 check that somehow
-ended up in the gen2 codepath only.
+Pull the EMR calculation into small helpers.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_irq.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/i915_irq.c | 46 ++++++++++++++++++---------------
+ 1 file changed, 25 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index 240d5e198904..b45d426a5bd5 100644
+index 0e90c348175e..081b79d00521 100644
 --- a/drivers/gpu/drm/i915/i915_irq.c
 +++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -3510,9 +3510,7 @@ static void i8xx_error_irq_ack(struct drm_i915_private *i915,
- 	u16 emr;
- 
- 	*eir = intel_uncore_read16(uncore, EIR);
--
--	if (*eir)
--		intel_uncore_write16(uncore, EIR, *eir);
-+	intel_uncore_write16(uncore, EIR, *eir);
- 
- 	*eir_stuck = intel_uncore_read16(uncore, EIR);
- 	if (*eir_stuck == 0)
-@@ -3548,7 +3546,8 @@ static void i9xx_error_irq_ack(struct drm_i915_private *dev_priv,
- {
- 	u32 emr;
- 
--	*eir = intel_uncore_rmw(&dev_priv->uncore, EIR, 0, 0);
-+	*eir = intel_uncore_read(&dev_priv->uncore, EIR);
-+	intel_uncore_write(&dev_priv->uncore, EIR, *eir);
- 
- 	*eir_stuck = intel_uncore_read(&dev_priv->uncore, EIR);
- 	if (*eir_stuck == 0)
-@@ -3564,7 +3563,8 @@ static void i9xx_error_irq_ack(struct drm_i915_private *dev_priv,
- 	 * (or by a GPU reset) so we mask any bit that
- 	 * remains set.
- 	 */
--	emr = intel_uncore_rmw(&dev_priv->uncore, EMR, ~0, 0xffffffff);
-+	emr = intel_uncore_read(&dev_priv->uncore, EMR);
-+	intel_uncore_write(&dev_priv->uncore, EMR, 0xffffffff);
- 	intel_uncore_write(&dev_priv->uncore, EMR, emr | *eir_stuck);
+@@ -3471,15 +3471,18 @@ static void i8xx_irq_reset(struct drm_i915_private *dev_priv)
+ 	dev_priv->irq_mask = ~0u;
  }
  
++static u32 i9xx_error_mask(struct drm_i915_private *i915)
++{
++	return ~(I915_ERROR_PAGE_TABLE |
++		 I915_ERROR_MEMORY_REFRESH);
++}
++
+ static void i8xx_irq_postinstall(struct drm_i915_private *dev_priv)
+ {
+ 	struct intel_uncore *uncore = &dev_priv->uncore;
+ 	u16 enable_mask;
+ 
+-	intel_uncore_write16(uncore,
+-			     EMR,
+-			     ~(I915_ERROR_PAGE_TABLE |
+-			       I915_ERROR_MEMORY_REFRESH));
++	intel_uncore_write16(uncore, EMR, i9xx_error_mask(dev_priv));
+ 
+ 	/* Unmask the interrupts that we always want on. */
+ 	dev_priv->irq_mask =
+@@ -3651,8 +3654,7 @@ static void i915_irq_postinstall(struct drm_i915_private *dev_priv)
+ 	struct intel_uncore *uncore = &dev_priv->uncore;
+ 	u32 enable_mask;
+ 
+-	intel_uncore_write(uncore, EMR, ~(I915_ERROR_PAGE_TABLE |
+-					  I915_ERROR_MEMORY_REFRESH));
++	intel_uncore_write(uncore, EMR, i9xx_error_mask(dev_priv));
+ 
+ 	/* Unmask the interrupts that we always want on. */
+ 	dev_priv->irq_mask =
+@@ -3755,26 +3757,28 @@ static void i965_irq_reset(struct drm_i915_private *dev_priv)
+ 	dev_priv->irq_mask = ~0u;
+ }
+ 
+-static void i965_irq_postinstall(struct drm_i915_private *dev_priv)
++static u32 i965_error_mask(struct drm_i915_private *i915)
+ {
+-	struct intel_uncore *uncore = &dev_priv->uncore;
+-	u32 enable_mask;
+-	u32 error_mask;
+-
+ 	/*
+ 	 * Enable some error detection, note the instruction error mask
+ 	 * bit is reserved, so we leave it masked.
+ 	 */
+-	if (IS_G4X(dev_priv)) {
+-		error_mask = ~(GM45_ERROR_PAGE_TABLE |
+-			       GM45_ERROR_MEM_PRIV |
+-			       GM45_ERROR_CP_PRIV |
+-			       I915_ERROR_MEMORY_REFRESH);
+-	} else {
+-		error_mask = ~(I915_ERROR_PAGE_TABLE |
+-			       I915_ERROR_MEMORY_REFRESH);
+-	}
+-	intel_uncore_write(uncore, EMR, error_mask);
++	if (IS_G4X(i915))
++		return ~(GM45_ERROR_PAGE_TABLE |
++			 GM45_ERROR_MEM_PRIV |
++			 GM45_ERROR_CP_PRIV |
++			 I915_ERROR_MEMORY_REFRESH);
++	else
++		return ~(I915_ERROR_PAGE_TABLE |
++			 I915_ERROR_MEMORY_REFRESH);
++}
++
++static void i965_irq_postinstall(struct drm_i915_private *dev_priv)
++{
++	struct intel_uncore *uncore = &dev_priv->uncore;
++	u32 enable_mask;
++
++	intel_uncore_write(uncore, EMR, i965_error_mask(dev_priv));
+ 
+ 	/* Unmask the interrupts that we always want on. */
+ 	dev_priv->irq_mask =
 -- 
 2.39.1
 
