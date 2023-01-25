@@ -4,46 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79BA3C27C76
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 08:27:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74381C27C76
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Jan 2023 08:30:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 662FB10E74B;
-	Wed, 25 Jan 2023 08:26:51 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46C1E897FD;
- Wed, 25 Jan 2023 08:26:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674635205; x=1706171205;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=vbcjHN6c+T2ove7xe1N675QhwgjetRSgH+Q8NcZ3S/g=;
- b=VLPYvk3ZJ2CAibXYh1cg/dLQS1Lgkqrn9VAzDZR/1VSwdqmQAmDo0gNf
- 1tYMYcSj+HPE1Mv+WnlDRciGp8RbCESn6ucmfeiyjZVNn76iFi+WEx4f+
- tVnOBxFMYnFNSwddh/NTLFjoyIRGgeMZQc7aJGgmJtM64e1neBElNJfYC
- P18ndK5avD7gpurEhK4U7N0P7nXhlCpXOyBGctV/S6tA3T+UmczAaVHsr
- r1uNh8D4n2tXvcSJdoQWcY/t8E2UXART94MeQLK70BR/iYJnmZgFkDkgp
- GNuBaP+EQS/moW8DG9LGseisXI2kpd4qtwItyin/3FojNWZhj2qKti2CT A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="325180414"
-X-IronPort-AV: E=Sophos;i="5.97,244,1669104000"; d="scan'208";a="325180414"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2023 00:26:42 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10600"; a="662426116"
-X-IronPort-AV: E=Sophos;i="5.97,244,1669104000"; d="scan'208";a="662426116"
-Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga002.jf.intel.com with ESMTP; 25 Jan 2023 00:26:38 -0800
-From: Alan Previn <alan.previn.teres.alexis@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 25 Jan 2023 00:26:34 -0800
-Message-Id: <20230125082637.118970-4-alan.previn.teres.alexis@intel.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230125082637.118970-1-alan.previn.teres.alexis@intel.com>
-References: <20230125082637.118970-1-alan.previn.teres.alexis@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA14F10E757;
+	Wed, 25 Jan 2023 08:30:54 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5509310E754
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 08:30:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1674635449;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=kr0S8akD6qUBjK/SM2fF6lu+0ihmEwSHU9fQtaMUMNo=;
+ b=Mppe5nNW1QLUDULW9Qak8LiKCeBvmtQH++BkMM5gFXY3U+gc+JJhkcFQMI/RjYNbYcW/rY
+ x3PWWdmuOMUvDuoAKVErx5fFepgK6UPXRsH7O+jiYX/e39gWDBbG1HMiKkQa1h308yJGsO
+ LmpMIwqVaWChTLl8DViWrAyF2pXD2EI=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-230-_RZRj0fBNyS2Y3JQu8ukOQ-1; Wed, 25 Jan 2023 03:30:45 -0500
+X-MC-Unique: _RZRj0fBNyS2Y3JQu8ukOQ-1
+Received: by mail-wr1-f69.google.com with SMTP id
+ o15-20020a5d684f000000b002be540246e1so2450493wrw.22
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Jan 2023 00:30:45 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=kr0S8akD6qUBjK/SM2fF6lu+0ihmEwSHU9fQtaMUMNo=;
+ b=yc0acsTUiFLJYOzE3rS/V+5Hface5MkcHpRB++UqCBUUn1Wn568dVUBH1s+uCizfwo
+ /NcT7L8f9ij86VQhZGdDYs+xWTu9+QstzXocnTndKei9cEsRj9mxwEiiBS0itXVXeqro
+ UWInbh/SqBXndihBYrCcx2GekwlkkO2A/FNvJrIFlAhIrPBb6jqPFY8IGMXZl30y2Akp
+ 0ZWYP+8bIMueYsrxICfpgUcKw6ysHDqQTKZ9xcm4xKaMa4RB0Z+ZzTyMqon2+GLdxw5V
+ j2/w8EkevhwvcU9LG/tK4wp7GhbIrvW6NbdTm/dkoslaj9RM0+r2rLnwytYMPFMcS4q9
+ TOOw==
+X-Gm-Message-State: AFqh2kpkaOkLxj0XyXsLdQXkt0JWO4MtyTKk21yrNqOPAjfi/S4PGLBU
+ r9MOapOfMPrCwWpRRb01KlWaxuQSPszcJwHHBg7YyaHwi4fgnFYDmf399LVaBn+nBLJxh5SH3KF
+ igGVw/PA9OXA9nFhd/isopybgo9lj
+X-Received: by 2002:a05:6000:388:b0:2bc:7ec3:8b2 with SMTP id
+ u8-20020a056000038800b002bc7ec308b2mr29736136wrf.68.1674635444701; 
+ Wed, 25 Jan 2023 00:30:44 -0800 (PST)
+X-Google-Smtp-Source: AMrXdXvJXEPl3F4VP/2Wui1NMuiLkn1RDtzF7t2lLspd9Qgz+v3EiIOxwRmTCt+QhhFH4DIAkfWI6g==
+X-Received: by 2002:a05:6000:388:b0:2bc:7ec3:8b2 with SMTP id
+ u8-20020a056000038800b002bc7ec308b2mr29736083wrf.68.1674635444065; 
+ Wed, 25 Jan 2023 00:30:44 -0800 (PST)
+Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
+ [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
+ n17-20020a5d67d1000000b002425be3c9e2sm3716862wrw.60.2023.01.25.00.30.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 25 Jan 2023 00:30:43 -0800 (PST)
+Message-ID: <296bcff0-9d75-3d6b-e101-dddb26edadf1@redhat.com>
+Date: Wed, 25 Jan 2023 09:30:42 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 3/6] mei: clean pending read with vtag on bus
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+To: Thomas Zimmermann <tzimmermann@suse.de>, airlied@gmail.com,
+ daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
+References: <20230124134010.30263-1-tzimmermann@suse.de>
+ <20230124134010.30263-2-tzimmermann@suse.de>
+From: Javier Martinez Canillas <javierm@redhat.com>
+In-Reply-To: <20230124134010.30263-2-tzimmermann@suse.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v2 01/10] drm/client: Test for connectors
+ before sending hotplug event
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,45 +88,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
-	Vivi@freedesktop.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rodrigo <rodrigo.vivi@intel.com>,
-	Alexander Usyskin <alexander.usyskin@intel.com>,
-	dri-devel@lists.freedesktop.org,
-	Tomas Winkler <tomas.winkler@intel.com>
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Alexander Usyskin <alexander.usyskin@intel.com>
+Hello Thomas,
 
-Client on bus have only one vtag map slot and should disregard the vtag
-value when cleaning pending read flag.
-Fixes read flow control message unexpectedly generated when
-clent on bus send messages with different vtags.
+On 1/24/23 14:40, Thomas Zimmermann wrote:
+> Test for connectors in the client code and remove a similar test
+> from the generic fbdev emulation. Do nothing if the test fails.
+> Not having connectors indicates a driver bug.
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
 
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
-Reviewed-by: Tomas Winkler <tomas.winkler@intel.com>
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
----
- drivers/misc/mei/client.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
-diff --git a/drivers/misc/mei/client.c b/drivers/misc/mei/client.c
-index 9ddb854b8155..5c19097266fe 100644
---- a/drivers/misc/mei/client.c
-+++ b/drivers/misc/mei/client.c
-@@ -1343,7 +1343,9 @@ static void mei_cl_reset_read_by_vtag(const struct mei_cl *cl, u8 vtag)
- 	struct mei_cl_vtag *vtag_l;
- 
- 	list_for_each_entry(vtag_l, &cl->vtag_map, list) {
--		if (vtag_l->vtag == vtag) {
-+		/* The client on bus has one fixed vtag map */
-+		if ((cl->cldev && mei_cldev_enabled(cl->cldev)) ||
-+		    vtag_l->vtag == vtag) {
- 			vtag_l->pending_read = false;
- 			break;
- 		}
+but I've a question below.
+
+>  drivers/gpu/drm/drm_client.c        | 5 +++++
+>  drivers/gpu/drm/drm_fbdev_generic.c | 5 -----
+>  2 files changed, 5 insertions(+), 5 deletions(-)
+
+[...]
+
+> --- a/drivers/gpu/drm/drm_fbdev_generic.c
+> +++ b/drivers/gpu/drm/drm_fbdev_generic.c
+> @@ -389,11 +389,6 @@ static int drm_fbdev_client_hotplug(struct drm_client_dev *client)
+>  	if (dev->fb_helper)
+>  		return drm_fb_helper_hotplug_event(dev->fb_helper);
+>  
+> -	if (!dev->mode_config.num_connector) {
+> -		drm_dbg_kms(dev, "No connectors found, will not create framebuffer!\n");
+> -		return 0;
+> -	}
+> -
+
+What about the following code snippet:
+
+	if (!drm_drv_uses_atomic_modeset(dev))
+		drm_helper_disable_unused_functions(dev);
+
+that seems to be something that should be in the core client dev hotplug
+as well, since it isn't specific to the fbdev emulation client ?
+
 -- 
-2.39.0
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
