@@ -4,48 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A0ADC636D4
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 14:25:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36592C61DA4
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 14:25:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0123E10E580;
-	Thu,  2 Feb 2023 14:25:00 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7BAF10E744;
- Wed, 25 Jan 2023 09:02:13 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEFDD10E57F;
+	Thu,  2 Feb 2023 14:24:59 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3505910E2A1;
+ Thu, 26 Jan 2023 09:20:35 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 706F421BC7;
- Wed, 25 Jan 2023 09:02:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1674637332; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=SlRMHnKgl2ysMiG3ziDgQVqy0pZ2+RMTN2tEUkXl1oQ=;
- b=CylERLDbieGu3PWTdvXLEld0Li+qbd7wIdoCwjIyDd+qG3j/xsmZaFNxHZ9BHqigKFDp2h
- G+luEBa1wjOWHFua4YAnGvwD5IYd5KDo2FdpDHLq+ELEUbPuYE6WIwO6oA3RlzeuL+Fv1J
- XkwT2InE7+nANi+BujeIlpRiAMYhk9g=
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 224651339E;
- Wed, 25 Jan 2023 09:02:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id reRPCBTw0GOqDAAAMHmgww
- (envelope-from <mhocko@suse.com>); Wed, 25 Jan 2023 09:02:12 +0000
-Date: Wed, 25 Jan 2023 10:02:11 +0100
-From: Michal Hocko <mhocko@suse.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id B276EB81CBE;
+ Thu, 26 Jan 2023 09:20:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F7DBC433D2;
+ Thu, 26 Jan 2023 09:19:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1674724832;
+ bh=73aMcUob1WYX+/b4rggndOJ7N9caL088plxdfjSDDEQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=JmyjvNONg1SgIhjqFFggxa6D/d0DdvOOGuNt2dtDINzMuck9VRm1yrgcKsMjflpW+
+ SwTLsN9QAcAPFlEDt4IXaVuzKuvw/QTFDgiE6iXZrjCF1Dk77N344FV6FZLMxl/SIh
+ YCzWCtWMyri2S/VxFa8w5izmma6QvGZR6W3LW+HhZQLDOEjS2QQ4+yWFtPAWXwzXjB
+ 8sjW4u5olaD4DQ8+tTWSGydqMOF+S7T6bSIcqdA9DZQS+/0Qnjc5pNbohtILz6vsxE
+ pH2w8v8IDyyC1JX/SGY55iAqC16GztTVGkZPd8qlGsAwBxzWAs0I60Xu7VFg5IVHwG
+ yDtfzpUFPYi0Q==
+Date: Thu, 26 Jan 2023 11:19:37 +0200
+From: Mike Rapoport <rppt@kernel.org>
 To: Suren Baghdasaryan <surenb@google.com>
-Message-ID: <Y9DwE4Z8hB38aX6X@dhcp22.suse.cz>
+Message-ID: <Y9JFqaE4n/eGoWWi@kernel.org>
 References: <20230125083851.27759-1-surenb@google.com>
  <20230125083851.27759-3-surenb@google.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20230125083851.27759-3-surenb@google.com>
-X-Mailman-Approved-At: Thu, 02 Feb 2023 14:24:10 +0000
+X-Mailman-Approved-At: Thu, 02 Feb 2023 14:24:11 +0000
 Subject: Re: [Intel-gfx] [PATCH v2 2/6] mm: replace VM_LOCKED_CLEAR_MASK
  with VM_LOCKED_MASK
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -98,18 +92,19 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
  hughlynch@google.com, sre@kernel.org, tfiga@chromium.org,
  linux-xfs@vger.kernel.org, zhangfei.gao@linaro.org, wangzhou1@hisilicon.com,
  netdev@vger.kernel.org, bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- davem@davemloft.net, kvm@vger.kernel.org, mst@redhat.com, peterz@infradead.org,
- bigeasy@linutronix.de, alexandre.torgue@foss.st.com, dhowells@redhat.com,
- linux-mm@kvack.org, ray.huang@amd.com, adilger.kernel@dilger.ca,
- kuba@kernel.org, sparclinux@vger.kernel.org, airlied@gmail.com,
- anton.ivanov@cambridgegreys.com, herbert@gondor.apana.org.au,
- linux-scsi@vger.kernel.org, richard@nod.at, x86@kernel.org, vkoul@kernel.org,
- mingo@redhat.com, axelrasmussen@google.com, intel-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, paulmck@kernel.org, jannh@google.com, chao@kernel.org,
- liam.howlett@oracle.com, hdegoede@redhat.com,
- linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com, vbabka@suse.cz,
- dimitri.sivanich@hpe.com, amd-gfx@lists.freedesktop.org, posk@google.com,
- lstoakes@gmail.com, peterjung1337@gmail.com, yoshfuji@linux-ipv6.org,
+ davem@davemloft.net, mhocko@suse.com, kvm@vger.kernel.org, mst@redhat.com,
+ peterz@infradead.org, bigeasy@linutronix.de, alexandre.torgue@foss.st.com,
+ dhowells@redhat.com, linux-mm@kvack.org, ray.huang@amd.com,
+ adilger.kernel@dilger.ca, kuba@kernel.org, sparclinux@vger.kernel.org,
+ airlied@gmail.com, anton.ivanov@cambridgegreys.com,
+ herbert@gondor.apana.org.au, linux-scsi@vger.kernel.org, richard@nod.at,
+ x86@kernel.org, vkoul@kernel.org, mingo@redhat.com, axelrasmussen@google.com,
+ intel-gfx@lists.freedesktop.org, daniel@ffwll.ch, paulmck@kernel.org,
+ jannh@google.com, chao@kernel.org, liam.howlett@oracle.com,
+ hdegoede@redhat.com, linux-mediatek@lists.infradead.org,
+ matthias.bgg@gmail.com, vbabka@suse.cz, dimitri.sivanich@hpe.com,
+ amd-gfx@lists.freedesktop.org, posk@google.com, lstoakes@gmail.com,
+ peterjung1337@gmail.com, yoshfuji@linux-ipv6.org,
  linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org, kent.overstreet@linux.dev,
  kexec@lists.infradead.org, tiwai@suse.com, krzysztof.kozlowski@linaro.org,
  tzimmermann@suse.de, hannes@cmpxchg.org, dmitry.baryshkov@linaro.org,
@@ -118,13 +113,13 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed 25-01-23 00:38:47, Suren Baghdasaryan wrote:
+On Wed, Jan 25, 2023 at 12:38:47AM -0800, Suren Baghdasaryan wrote:
 > To simplify the usage of VM_LOCKED_CLEAR_MASK in clear_vm_flags(),
 > replace it with VM_LOCKED_MASK bitmask and convert all users.
->
+> 
 > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
 
-Acked-by: Michal Hocko <mhocko@suse.com>
+Acked-by: Mike Rapoport (IBM) <rppt@kernel.org>
 
 > ---
 >  include/linux/mm.h | 4 ++--
@@ -248,7 +243,5 @@ Acked-by: Michal Hocko <mhocko@suse.com>
 >  		 * anon_vma links of the old vma is no longer needed after its page
 > -- 
 > 2.39.1
-
--- 
-Michal Hocko
-SUSE Labs
+> 
+> 
