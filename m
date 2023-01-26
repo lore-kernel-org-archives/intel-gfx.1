@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55FAFC27C76
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 00:54:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A02D6C54E94
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 00:54:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3FF210E8D1;
-	Thu, 26 Jan 2023 00:54:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8881110E8D3;
+	Thu, 26 Jan 2023 00:54:36 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78D6610E8D3;
- Thu, 26 Jan 2023 00:54:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93C9710E8CF;
+ Thu, 26 Jan 2023 00:54:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674694473; x=1706230473;
+ t=1674694474; x=1706230474;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=MMGVM3oKDx1++G5z9tXhnD/tSjRvUWveU/E16hB4uys=;
- b=PrLZrwyyAdqx7YMq8FtoN39GFTkvc5yfSugS9vfHuw7LavOZEiO/4pTg
- PtVlPsQ2sLJlaTfPvB7aVR4A7s/N25J7/hy/Y/44xDmxGpWklin3YakTf
- YcOQijBc5TenQ0Ufto+t+dq/MchUYQ35sI8a6psrslWiEnDfZsVle3vAP
- FMxpmT05F8smkGzT09KXzKDgJkgCsxB34IS5pAz9stDiWBj8byBpjccGB
- Sf0z7W5V8BnFlZsIKlsjbqLi+FoZ64JKto0dL4i8ravypJsJNywnG4bCS
- 5c7ujvGIs0tkJzcbxJF1zgXukletB1TF/2svzArcGKjEu+Enq38gt5RDf A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10601"; a="389064429"
-X-IronPort-AV: E=Sophos;i="5.97,246,1669104000"; d="scan'208";a="389064429"
+ bh=gE2TL8/wmSdfF/qfLiTs7dtrj7rx1/jqcUGqBVk0hBM=;
+ b=dyw/m0NBVRRwh5yKCRe7aEN3m9TpjF8FG+TbQTYG9TakGdUg3/gjqs78
+ HunVAk+DKhEdQtX7raVH61ZCp9L0ygKHWYZqzVKDVtiVP2gFMObr3bUQG
+ ZMuYIaLYtf44xez8Of5/JSEqITxgvhXWKtgCcpDezItGjonrZQ/+VgxxL
+ jh+Ml32+MS38+BpYoE1SSCx83mkVF5z1gFwRphUE41uZczP8acpUxLise
+ Ia4L0KVRO6FkL3alUrY8swOUB/5ayqg74Qn3aqBPev++Xa5dq4dQKx8u9
+ yiYkcWIefGO6bQ+p4DhWbwe8uj1vTG3YPdUGtfLWIZIwHmzHR8TW8xCFF A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10601"; a="389064433"
+X-IronPort-AV: E=Sophos;i="5.97,246,1669104000"; d="scan'208";a="389064433"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jan 2023 16:54:32 -0800
+ 25 Jan 2023 16:54:33 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10601"; a="751404293"
-X-IronPort-AV: E=Sophos;i="5.97,246,1669104000"; d="scan'208";a="751404293"
+X-IronPort-AV: E=McAfee;i="6500,9779,10601"; a="751404311"
+X-IronPort-AV: E=Sophos;i="5.97,246,1669104000"; d="scan'208";a="751404311"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
- by FMSMGA003.fm.intel.com with ESMTP; 25 Jan 2023 16:54:32 -0800
+ by FMSMGA003.fm.intel.com with ESMTP; 25 Jan 2023 16:54:33 -0800
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Wed, 25 Jan 2023 16:54:17 -0800
-Message-Id: <20230126005420.160070-6-John.C.Harrison@Intel.com>
+Date: Wed, 25 Jan 2023 16:54:20 -0800
+Message-Id: <20230126005420.160070-9-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230126005420.160070-1-John.C.Harrison@Intel.com>
 References: <20230126005420.160070-1-John.C.Harrison@Intel.com>
@@ -45,8 +45,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 5/8] drm/i915: Allow error capture of a
- pending request
+Subject: [Intel-gfx] [PATCH v5 8/8] drm/i915/guc: Rename GuC register state
+ capture node to be more obvious
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,38 +65,64 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-A hang situation has been observed where the only requests on the
-context were either completed or not yet started according to the
-breaadcrumbs. However, the register state claimed a batch was (maybe)
-in progress. So, allow capture of the pending request on the grounds
-that this might be better than nothing.
-
-v2: Reword 'not started' warning message (Tvrtko)
+The GuC specific register state entry in the error capture object was
+just called 'capture'. Although the companion 'node' entry was called
+'guc_capture_node'. Rename the base entry to be 'guc_capture' instead
+so that it is a) more consistent and b) more obvious what it is.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- drivers/gpu/drm/i915/i915_gpu_error.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c | 8 ++++----
+ drivers/gpu/drm/i915/i915_gpu_error.h          | 2 +-
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index 225f1b11a6b93..904f21e1380cd 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -1624,12 +1624,9 @@ capture_engine(struct intel_engine_cs *engine,
- 		return NULL;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
+index 1c1b85073b4bd..fc3b994626a4f 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
+@@ -1506,7 +1506,7 @@ int intel_guc_capture_print_engine_node(struct drm_i915_error_state_buf *ebuf,
  
- 	intel_engine_get_hung_entity(engine, &ce, &rq);
--	if (rq && !i915_request_started(rq)) {
-+	if (rq && !i915_request_started(rq))
- 		drm_info(&engine->gt->i915->drm, "Got hung context on %s with active request %lld:%lld [0x%04X] not yet started\n",
- 			 engine->name, rq->fence.context, rq->fence.seqno, ce->guc_id.id);
--		i915_request_put(rq);
--		rq = NULL;
--	}
+ 	if (!ebuf || !ee)
+ 		return -EINVAL;
+-	cap = ee->capture;
++	cap = ee->guc_capture;
+ 	if (!cap || !ee->engine)
+ 		return -ENODEV;
  
- 	if (rq) {
- 		capture = intel_engine_coredump_add_request(ee, rq, ATOMIC_MAYFAIL);
+@@ -1576,8 +1576,8 @@ void intel_guc_capture_free_node(struct intel_engine_coredump *ee)
+ 	if (!ee || !ee->guc_capture_node)
+ 		return;
+ 
+-	guc_capture_add_node_to_cachelist(ee->capture, ee->guc_capture_node);
+-	ee->capture = NULL;
++	guc_capture_add_node_to_cachelist(ee->guc_capture, ee->guc_capture_node);
++	ee->guc_capture = NULL;
+ 	ee->guc_capture_node = NULL;
+ }
+ 
+@@ -1611,7 +1611,7 @@ void intel_guc_capture_get_matching_node(struct intel_gt *gt,
+ 		    (ce->lrc.lrca & CTX_GTT_ADDRESS_MASK)) {
+ 			list_del(&n->link);
+ 			ee->guc_capture_node = n;
+-			ee->capture = guc->capture;
++			ee->guc_capture = guc->capture;
+ 			return;
+ 		}
+ 	}
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.h b/drivers/gpu/drm/i915/i915_gpu_error.h
+index efc75cc2ffdb9..56027ffbce51f 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.h
++++ b/drivers/gpu/drm/i915/i915_gpu_error.h
+@@ -94,7 +94,7 @@ struct intel_engine_coredump {
+ 	struct intel_instdone instdone;
+ 
+ 	/* GuC matched capture-lists info */
+-	struct intel_guc_state_capture *capture;
++	struct intel_guc_state_capture *guc_capture;
+ 	struct __guc_capture_parsed_output *guc_capture_node;
+ 
+ 	struct i915_gem_context_coredump {
 -- 
 2.39.1
 
