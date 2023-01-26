@@ -4,50 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 892A1C636D6
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 14:24:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACE7EC636D4
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 14:24:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13BE810E559;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7380410E55A;
 	Thu,  2 Feb 2023 14:24:14 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BD3D10E759;
- Wed, 25 Jan 2023 08:56:24 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D93110E8EA;
+ Thu, 26 Jan 2023 13:00:53 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0B83B1FEC6;
- Wed, 25 Jan 2023 08:56:23 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id EE0DA1FF71;
+ Thu, 26 Jan 2023 13:00:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1674636983; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1674738051; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=HlfVezvAjFmKLztHMOaZ+yji8Nsqp9vLwu4LVliFLNo=;
- b=sP3k2vbL/TMjnnanRjZuUO51OPKL7NCAE7wor1COt2s99RKg6YGTByegVuny2bFzwE3+s6
- UutXKdgKZ+JCm3/zcJc6jOoDAopdP55BVOpdwrjI4e178jvtCsfm11DvfUjHyJJs6l60Lo
- ZwU2a8676f0/M9W0HO3obY7BVSmDGjU=
+ bh=jq01Sm8SBYrwuIbnTiDzZaS12Esjwjw+h71W4eebOX4=;
+ b=K75+0LENCpiZZU3kMZnJrFUA4+44SN8LdEABzSCpIz22gmVv/HwH2lzrsYI5x0JZViHUUM
+ wcy9eFyPF6rgsuViC3kbxwVm3DKMR3TWH902j64biJlGce/pyBzsBvmeyUGi3xeJTep5cp
+ bSwZ++MfqmGC/D1s41XTt2GdZhZENIA=
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B78841339E;
- Wed, 25 Jan 2023 08:56:22 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A04C1139B3;
+ Thu, 26 Jan 2023 13:00:51 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ZJ2WLLbu0GN/CQAAMHmgww
- (envelope-from <mhocko@suse.com>); Wed, 25 Jan 2023 08:56:22 +0000
-Date: Wed, 25 Jan 2023 09:56:22 +0100
-From: Michal Hocko <mhocko@suse.com>
-To: Suren Baghdasaryan <surenb@google.com>
-Message-ID: <Y9DuttqjdKSRCVYh@dhcp22.suse.cz>
-References: <20230125083851.27759-1-surenb@google.com>
- <20230125083851.27759-2-surenb@google.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id IAQ8JoN50mNkUwAAMHmgww
+ (envelope-from <mkoutny@suse.com>); Thu, 26 Jan 2023 13:00:51 +0000
+Date: Thu, 26 Jan 2023 14:00:50 +0100
+From: Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Message-ID: <20230126130050.GA22442@blackbody.suse.cz>
+References: <20230112165609.1083270-1-tvrtko.ursulin@linux.intel.com>
+ <20230123154239.GA24348@blackbody.suse.cz>
+ <371f3ce5-3468-b91d-d688-7e89499ff347@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="+QahgC5+KEYLbs62"
 Content-Disposition: inline
-In-Reply-To: <20230125083851.27759-2-surenb@google.com>
-X-Mailman-Approved-At: Thu, 02 Feb 2023 14:24:10 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 1/6] mm: introduce vma->vm_flags modifier
- functions
+In-Reply-To: <371f3ce5-3468-b91d-d688-7e89499ff347@linux.intel.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Mailman-Approved-At: Thu, 02 Feb 2023 14:24:11 +0000
+Subject: Re: [Intel-gfx] [RFC v3 00/12] DRM scheduling cgroup controller
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,151 +62,94 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
- leewalsh@google.com, dri-devel@lists.freedesktop.org, perex@perex.cz,
- jglisse@google.com, arjunroy@google.com, m.szyprowski@samsung.com,
- linux-arch@vger.kernel.org, qianweili@huawei.com,
- linux-samsung-soc@vger.kernel.org, aneesh.kumar@linux.ibm.com,
- chenhuacai@kernel.org, kasan-dev@googlegroups.com, linux-acpi@vger.kernel.org,
- rientjes@google.com, xen-devel@lists.xenproject.org, devel@lists.orangefs.org,
- minchan@google.com, robert.jarzmik@free.fr, linux-um@lists.infradead.org,
- etnaviv@lists.freedesktop.org, npiggin@gmail.com, viro@zeniv.linux.org.uk,
- luto@kernel.org, gthelen@google.com, tglx@linutronix.de, ldufour@linux.ibm.com,
- linux-sgx@vger.kernel.org, martin.petersen@oracle.com,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
- linux-media@vger.kernel.org, freedreno@lists.freedesktop.org,
- joelaf@google.com, linux-aio@kvack.org, linux-fbdev@vger.kernel.org,
- linux-ia64@vger.kernel.org, david@redhat.com, dave.hansen@linux.intel.com,
- virtualization@lists.linux-foundation.org, edumazet@google.com,
- target-devel@vger.kernel.org, punit.agrawal@bytedance.com,
- linux-s390@vger.kernel.org, dave@stgolabs.net, deller@gmx.de, hughd@google.com,
- andrii@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-rockchip@lists.infradead.org, linux-graphics-maintainer@vmware.com,
- kernel-team@android.com, jayalk@intworks.biz, soheil@google.com,
- selinux@vger.kernel.org, linux-arm-msm@vger.kernel.org, mripard@kernel.org,
- shakeelb@google.com, haojian.zhuang@gmail.com, loongarch@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, tytso@mit.edu, nico@fluxnic.net,
- muchun.song@linux.dev, hjc@rock-chips.com, mcoquelin.stm32@gmail.com,
- tatashin@google.com, mike.kravetz@oracle.com, songliubraving@fb.com,
- jasowang@redhat.com, alsa-devel@alsa-project.org, peterx@redhat.com,
- linux-tegra@vger.kernel.org, kraxel@redhat.com, will@kernel.org,
- dmaengine@vger.kernel.org, bhe@redhat.com, miklos@szeredi.hu,
- linux-rdma@vger.kernel.org, linux-staging@lists.linux.dev, willy@infradead.org,
- gurua@google.com, dgilbert@interlog.com, xiang@kernel.org, pabeni@redhat.com,
- jejb@linux.ibm.com, quic_abhinavk@quicinc.com, bp@alien8.de,
- mchehab@kernel.org, linux-ext4@vger.kernel.org, tomba@kernel.org,
- hughlynch@google.com, sre@kernel.org, tfiga@chromium.org,
- linux-xfs@vger.kernel.org, zhangfei.gao@linaro.org, wangzhou1@hisilicon.com,
- netdev@vger.kernel.org, bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- davem@davemloft.net, kvm@vger.kernel.org, mst@redhat.com, peterz@infradead.org,
- bigeasy@linutronix.de, alexandre.torgue@foss.st.com, dhowells@redhat.com,
- linux-mm@kvack.org, ray.huang@amd.com, adilger.kernel@dilger.ca,
- kuba@kernel.org, sparclinux@vger.kernel.org, airlied@gmail.com,
- anton.ivanov@cambridgegreys.com, herbert@gondor.apana.org.au,
- linux-scsi@vger.kernel.org, richard@nod.at, x86@kernel.org, vkoul@kernel.org,
- mingo@redhat.com, axelrasmussen@google.com, intel-gfx@lists.freedesktop.org,
- daniel@ffwll.ch, paulmck@kernel.org, jannh@google.com, chao@kernel.org,
- liam.howlett@oracle.com, hdegoede@redhat.com,
- linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com, vbabka@suse.cz,
- dimitri.sivanich@hpe.com, amd-gfx@lists.freedesktop.org, posk@google.com,
- lstoakes@gmail.com, peterjung1337@gmail.com, yoshfuji@linux-ipv6.org,
- linuxppc-dev@lists.ozlabs.org, dsahern@kernel.org, kent.overstreet@linux.dev,
- kexec@lists.infradead.org, tiwai@suse.com, krzysztof.kozlowski@linaro.org,
- tzimmermann@suse.de, hannes@cmpxchg.org, dmitry.baryshkov@linaro.org,
- johannes@sipsolutions.net, mgorman@techsingularity.net,
- linux-accelerators@lists.ozlabs.org, l.stach@pengutronix.de
+Cc: Rob Clark <robdclark@chromium.org>, Kenny.Ho@amd.com,
+ Dave Airlie <airlied@redhat.com>,
+ =?iso-8859-1?Q?St=E9phane?= Marchesin <marcheu@chromium.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Zefan Li <lizefan.x@bytedance.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Tejun Heo <tj@kernel.org>, cgroups@vger.kernel.org,
+ "T . J . Mercier" <tjmercier@google.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed 25-01-23 00:38:46, Suren Baghdasaryan wrote:
-> vm_flags are among VMA attributes which affect decisions like VMA merging
-> and splitting. Therefore all vm_flags modifications are performed after
-> taking exclusive mmap_lock to prevent vm_flags updates racing with such
-> operations. Introduce modifier functions for vm_flags to be used whenever
-> flags are updated. This way we can better check and control correct
-> locking behavior during these updates.
-> 
-> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
 
-Acked-by: Michal Hocko <mhocko@suse.com>
+--+QahgC5+KEYLbs62
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> ---
->  include/linux/mm.h       | 37 +++++++++++++++++++++++++++++++++++++
->  include/linux/mm_types.h |  8 +++++++-
->  2 files changed, 44 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index c2f62bdce134..b71f2809caac 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -627,6 +627,43 @@ static inline void vma_init(struct vm_area_struct *vma, struct mm_struct *mm)
->  	INIT_LIST_HEAD(&vma->anon_vma_chain);
->  }
->  
-> +/* Use when VMA is not part of the VMA tree and needs no locking */
-> +static inline void init_vm_flags(struct vm_area_struct *vma,
-> +				 unsigned long flags)
-> +{
-> +	vma->vm_flags = flags;
-> +}
-> +
-> +/* Use when VMA is part of the VMA tree and modifications need coordination */
-> +static inline void reset_vm_flags(struct vm_area_struct *vma,
-> +				  unsigned long flags)
-> +{
-> +	mmap_assert_write_locked(vma->vm_mm);
-> +	init_vm_flags(vma, flags);
-> +}
-> +
-> +static inline void set_vm_flags(struct vm_area_struct *vma,
-> +				unsigned long flags)
-> +{
-> +	mmap_assert_write_locked(vma->vm_mm);
-> +	vma->vm_flags |= flags;
-> +}
-> +
-> +static inline void clear_vm_flags(struct vm_area_struct *vma,
-> +				  unsigned long flags)
-> +{
-> +	mmap_assert_write_locked(vma->vm_mm);
-> +	vma->vm_flags &= ~flags;
-> +}
-> +
-> +static inline void mod_vm_flags(struct vm_area_struct *vma,
-> +				unsigned long set, unsigned long clear)
-> +{
-> +	mmap_assert_write_locked(vma->vm_mm);
-> +	vma->vm_flags |= set;
-> +	vma->vm_flags &= ~clear;
-> +}
-> +
->  static inline void vma_set_anonymous(struct vm_area_struct *vma)
->  {
->  	vma->vm_ops = NULL;
-> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-> index 2d6d790d9bed..6c7c70bf50dd 100644
-> --- a/include/linux/mm_types.h
-> +++ b/include/linux/mm_types.h
-> @@ -491,7 +491,13 @@ struct vm_area_struct {
->  	 * See vmf_insert_mixed_prot() for discussion.
->  	 */
->  	pgprot_t vm_page_prot;
-> -	unsigned long vm_flags;		/* Flags, see mm.h. */
-> +
-> +	/*
-> +	 * Flags, see mm.h.
-> +	 * WARNING! Do not modify directly.
-> +	 * Use {init|reset|set|clear|mod}_vm_flags() functions instead.
-> +	 */
-> +	unsigned long vm_flags;
->  
->  	/*
->  	 * For areas with an address space and backing store,
-> -- 
-> 2.39.1
+On Wed, Jan 25, 2023 at 06:11:35PM +0000, Tvrtko Ursulin <tvrtko.ursulin@li=
+nux.intel.com> wrote:
+> I don't immediately see how you envisage the half-userspace implementation
+> would look like in terms of what functionality/new APIs would be provided=
+ by
+> the kernel?
 
--- 
-Michal Hocko
-SUSE Labs
+Output:
+	drm.stat (with consumed time(s))
+
+Input:
+	drm.throttle (alternatives)
+	- a) writing 0,1 (in rough analogy to your proposed
+	     notifications)
+	- b) writing duration (in loose analogy to memory.reclaim)
+	     - for how long GPU work should be backed off
+
+An userspace agent sitting between these two and it'd do the measurement
+and calculation depending on given policies (weighting, throttling) and
+apply respective controls.
+
+(In resemblance of e.g. https://denji.github.io/cpulimit/)
+
+> Problem there is to find a suitable point to charge at. If for a moment we
+> limit the discussion to i915, out of the box we could having charging
+> happening at several thousand times per second to effectively never. This=
+ is
+> to illustrate the GPU context execution dynamics which range from many sm=
+all
+> packets of work to multi-minute, or longer. For the latter to be accounted
+> for we'd still need some periodic scanning, which would then perhaps go p=
+er
+> driver. For the former we'd have thousands of needless updates per second.
+>=20
+> Hence my thinking was to pay both the cost of accounting and collecting t=
+he
+> usage data once per actionable event, where the latter is controlled by s=
+ome
+> reasonable scanning period/frequency.
+>=20
+> In addition to that, a few DRM drivers already support GPU usage querying
+> via fdinfo, so that being externally triggered, it is next to trivial to
+> wire all those DRM drivers into such common DRM cgroup controller framewo=
+rk.
+> All that every driver needs to implement on top is the "over budget"
+> callback.
+
+I'd also like show comparison with CPU accounting and controller.
+There is tick-based (~sampling) measurement of various components of CPU
+time (task_group_account_field()). But the actual schedulling (weights)
+or throttling is based on precise accounting (update_curr()).
+
+So, if the goal is to have precise and guaranteed limits, it shouldn't
+(cannot) be based on sampling. OTOH, if it must be sampling based due to
+variability of the device landscape, it could be advisory mechanism with
+the userspace component.
+
+My 0.02=E2=82=AC,
+Michal
+
+--+QahgC5+KEYLbs62
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYIAB0WIQTrXXag4J0QvXXBmkMkDQmsBEOquQUCY9J5fQAKCRAkDQmsBEOq
+uUg3AP4+ZWvuZ3xdlWSXFPWS/n5dpEobQswSJpRzulYDa0Y2kQEAvVvMx/X7B0zi
+wV+jzd0bW0zXWpasGE5L8GxBJMNyRwA=
+=pO2C
+-----END PGP SIGNATURE-----
+
+--+QahgC5+KEYLbs62--
