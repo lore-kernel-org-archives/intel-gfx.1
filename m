@@ -4,48 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EB5BC52D11
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 17:09:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D019C52D11
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 17:37:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF49010E94A;
-	Thu, 26 Jan 2023 17:09:12 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8888810E949
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Jan 2023 17:09:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5711010E955;
+	Thu, 26 Jan 2023 17:37:27 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCC7010E071;
+ Thu, 26 Jan 2023 17:37:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674752950; x=1706288950;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=ycXB6gq93NYGW2VMFhOcwHZiCyrzqYHV7jaPpYSZAkw=;
- b=GhEqp/FjEEKbCPpqcupXhGehJoPe+XmyY0X54+8NF+Vd7hO/QU2Gr8Pf
- f9o+6cyABI+gphqLQfvTf8nNGQx84uUKGSAgx7UBwJwVrbiJPpJE0nc3C
- T0E+0FRrsw/ukgNCfFQ8EX7D0fbgBwTSawyLn1nuArrJ5g5Sp+Le/h7KQ
- IE0GHY4hmvAt22sRJFcZ/Ku28jfpOF9rBYjNbyGr8vFV8nx/839TDql0X
- +4cv2o2wF+4JgXyremqv1QNh3BMzi6oGqcQaZdNZA48y0hQDC7CFjB9sY
- rhIfsoVqHFJHnVl4LDbHco3E6S0ZcS8ayBe6IjZl89PRGkM/smAR8C4Az Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="325547357"
-X-IronPort-AV: E=Sophos;i="5.97,249,1669104000"; d="scan'208";a="325547357"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2023 09:08:15 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="751642446"
-X-IronPort-AV: E=Sophos;i="5.97,249,1669104000"; d="scan'208";a="751642446"
-Received: from lab-ah.igk.intel.com ([10.102.42.211])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2023 09:08:13 -0800
-From: Andrzej Hajda <andrzej.hajda@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 26 Jan 2023 18:08:01 +0100
-Message-Id: <20230126170801.3954784-1-andrzej.hajda@intel.com>
-X-Mailer: git-send-email 2.34.1
+ t=1674754644; x=1706290644;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=Lqutl9bhgI4S8SlFAnyAxVShqTKq0/cefhe5ZHLd1TM=;
+ b=H8lpY4fE6JVbfndwlEv7lZPT4FvLSXTv+HHAndHwGZlW12vOQq1wPUeS
+ J9Y15Uw2CJd3azAYF3Tx6v9FLLKcLdzyLxsiq60qLGaxgm4dlhYfCJgGv
+ uIkvmO8ZJb7IAqopvlRcaDOKYloK3t/lfEYkeaHwFS2FuSVCLld3k9fzH
+ O7C4EispsYJeWG/AF9G0jBgLEK0rvt018oBL3hVPmciyUwbDTCHHQ0+L4
+ Sh2bLU2UyyWlBViP0BG7BF9PnPrCv4A70ILCP6iho9FCdM8a8hCSlDBHH
+ YCLn304vfK4Dahy89K0t9QrwemXG9WXkmRjo0vodK4zEldSSavIdTe4iJ Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="354180313"
+X-IronPort-AV: E=Sophos;i="5.97,249,1669104000"; d="scan'208";a="354180313"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2023 09:37:12 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="656252858"
+X-IronPort-AV: E=Sophos;i="5.97,249,1669104000"; d="scan'208";a="656252858"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.55])
+ by orsmga007.jf.intel.com with SMTP; 26 Jan 2023 09:37:05 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 26 Jan 2023 19:37:04 +0200
+Date: Thu, 26 Jan 2023 19:37:04 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Imre Deak <imre.deak@intel.com>
+Message-ID: <Y9K6QPz/OnHuXrp4@intel.com>
+References: <20230125114852.748337-1-imre.deak@intel.com>
+ <20230125114852.748337-3-imre.deak@intel.com>
 MIME-Version: 1.0
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3] drm/i915/gt: Add selftests for TLB
- invalidation
+In-Reply-To: <20230125114852.748337-3-imre.deak@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH 2/9] drm/display/dp_mst: Handle old/new
+ payload states in drm_dp_remove_payload()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,464 +62,187 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Karol Herbst <kherbst@redhat.com>, intel-gfx@lists.freedesktop.org,
+ stable@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Wayne Lin <Wayne.Lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Ben Skeggs <bskeggs@redhat.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Chris Wilson <chris@chris-wilson.co.uk>
+On Wed, Jan 25, 2023 at 01:48:45PM +0200, Imre Deak wrote:
+> Atm, drm_dp_remove_payload() uses the same payload state to both get the
+> vc_start_slot required for the payload removal DPCD message and to
+> deduct time_slots from vc_start_slot of all payloads after the one being
+> removed.
+> 
+> The above isn't always correct, as vc_start_slot must be the up-to-date
+> version contained in the new payload state,
 
-Check that we invalidate the TLB cache, the updated physical addresses
-are immediately visible to the HW, and there is no retention of the old
-physical address for concurrent HW access.
+Why is that? In fact couldn't we just clear both start_slot and
+pbn to 0 here?
 
-Signed-off-by: Chris Wilson <chris@chris-wilson.co.uk>
-[ahajda: adjust to upstream driver, v2+]
-Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
----
-v2:
-    - addressed comments (Tvrtko),
-    - changed pin/sample address calculation,
-    - removed checks for platforms older than 8,
-    - use low ints in MI_DO_COMPARE to be more clear,
-    - continue test if physical addresses have the same uppper 32 bits,
-    - consolidate two calls to pte_tlbinv into one
-v3:
-    - skip pages not supported by vm (CI reported EINVAL),
-    - fix dw size in MI_CONDITIONAL_BATCH_BUFFER_END for gen8 (CI reported EIO),
-    - remove aggressive allocation to get different upper halves of physical
-      address (CI reported OOM).
----
- drivers/gpu/drm/i915/gt/intel_gpu_commands.h  |   1 +
- drivers/gpu/drm/i915/gt/intel_gt.c            |   4 +
- drivers/gpu/drm/i915/gt/selftest_tlb.c        | 380 ++++++++++++++++++
- .../drm/i915/selftests/i915_live_selftests.h  |   1 +
- 4 files changed, 386 insertions(+)
- create mode 100644 drivers/gpu/drm/i915/gt/selftest_tlb.c
+> but time_slots must be the
+> one used when the payload was previously added, contained in the old
+> payload state. The new payload's time_slots can change vs. the old one
+> if the current atomic commit changes the corresponding mode.
+> 
+> This patch let's drivers pass the old and new payload states to
+> drm_dp_remove_payload(), but keeps these the same for now in all drivers
+> not to change the behavior. A follow-up i915 patch will pass in that
+> driver the correct old and new states to the function.
+> 
+> Cc: Lyude Paul <lyude@redhat.com>
+> Cc: Ben Skeggs <bskeggs@redhat.com>
+> Cc: Karol Herbst <kherbst@redhat.com>
+> Cc: Harry Wentland <harry.wentland@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Wayne Lin <Wayne.Lin@amd.com>
+> Cc: stable@vger.kernel.org # 6.1
+> Cc: dri-devel@lists.freedesktop.org
+> Signed-off-by: Imre Deak <imre.deak@intel.com>
+> ---
+>  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  2 +-
+>  drivers/gpu/drm/display/drm_dp_mst_topology.c | 22 ++++++++++---------
+>  drivers/gpu/drm/i915/display/intel_dp_mst.c   |  4 +++-
+>  drivers/gpu/drm/nouveau/dispnv50/disp.c       |  2 +-
+>  include/drm/display/drm_dp_mst_helper.h       |  3 ++-
+>  5 files changed, 19 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> index 6994c9a1ed858..fed4ce6821161 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> @@ -179,7 +179,7 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
+>  	if (enable)
+>  		drm_dp_add_payload_part1(mst_mgr, mst_state, payload);
+>  	else
+> -		drm_dp_remove_payload(mst_mgr, mst_state, payload);
+> +		drm_dp_remove_payload(mst_mgr, mst_state, payload, payload);
+>  
+>  	/* mst_mgr->->payloads are VC payload notify MST branch using DPCD or
+>  	 * AUX message. The sequence is slot 1-63 allocated sequence for each
+> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> index 5861b0a6247bc..ebf6e31e156e0 100644
+> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> @@ -3342,7 +3342,8 @@ EXPORT_SYMBOL(drm_dp_add_payload_part1);
+>   * drm_dp_remove_payload() - Remove an MST payload
+>   * @mgr: Manager to use.
+>   * @mst_state: The MST atomic state
+> - * @payload: The payload to write
+> + * @old_payload: The payload with its old state
+> + * @new_payload: The payload to write
+>   *
+>   * Removes a payload from an MST topology if it was successfully assigned a start slot. Also updates
+>   * the starting time slots of all other payloads which would have been shifted towards the start of
+> @@ -3350,33 +3351,34 @@ EXPORT_SYMBOL(drm_dp_add_payload_part1);
+>   */
+>  void drm_dp_remove_payload(struct drm_dp_mst_topology_mgr *mgr,
+>  			   struct drm_dp_mst_topology_state *mst_state,
+> -			   struct drm_dp_mst_atomic_payload *payload)
+> +			   const struct drm_dp_mst_atomic_payload *old_payload,
+> +			   struct drm_dp_mst_atomic_payload *new_payload)
+>  {
+>  	struct drm_dp_mst_atomic_payload *pos;
+>  	bool send_remove = false;
+>  
+>  	/* We failed to make the payload, so nothing to do */
+> -	if (payload->vc_start_slot == -1)
+> +	if (new_payload->vc_start_slot == -1)
+>  		return;
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-index 2af1ae3831df98..e10507fa71ce63 100644
---- a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-@@ -394,6 +394,7 @@
- #define MI_LOAD_URB_MEM         MI_INSTR(0x2C, 0)
- #define MI_STORE_URB_MEM        MI_INSTR(0x2D, 0)
- #define MI_CONDITIONAL_BATCH_BUFFER_END MI_INSTR(0x36, 0)
-+#define  MI_DO_COMPARE		REG_BIT(21)
- 
- #define STATE_BASE_ADDRESS \
- 	((0x3 << 29) | (0x0 << 27) | (0x1 << 24) | (0x1 << 16))
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index f0dbfc434e0773..001a7ec5b86182 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -1205,3 +1205,7 @@ void intel_gt_invalidate_tlb(struct intel_gt *gt, u32 seqno)
- 		mutex_unlock(&gt->tlb.invalidate_lock);
- 	}
- }
-+
-+#if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
-+#include "selftest_tlb.c"
-+#endif
-diff --git a/drivers/gpu/drm/i915/gt/selftest_tlb.c b/drivers/gpu/drm/i915/gt/selftest_tlb.c
-new file mode 100644
-index 00000000000000..c93c384a69e79a
---- /dev/null
-+++ b/drivers/gpu/drm/i915/gt/selftest_tlb.c
-@@ -0,0 +1,380 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright Â© 2022 Intel Corporation
-+ */
-+
-+#include "i915_selftest.h"
-+
-+#include "gem/i915_gem_internal.h"
-+#include "gem/i915_gem_region.h"
-+
-+#include "gen8_engine_cs.h"
-+#include "i915_gem_ww.h"
-+#include "intel_engine_regs.h"
-+#include "intel_gpu_commands.h"
-+#include "intel_context.h"
-+#include "intel_gt.h"
-+#include "intel_ring.h"
-+
-+#include "selftests/igt_flush_test.h"
-+#include "selftests/i915_random.h"
-+
-+static void clear_dw(struct i915_vma *vma, u64 addr, u32 val)
-+{
-+	GEM_BUG_ON(addr < i915_vma_offset(vma));
-+	GEM_BUG_ON(addr >= i915_vma_offset(vma) + i915_vma_size(vma));
-+	memset32(page_mask_bits(vma->obj->mm.mapping) +
-+		 (addr - i915_vma_offset(vma)), val, 1);
-+}
-+
-+static int
-+pte_tlbinv(struct intel_context *ce,
-+	   struct i915_vma *va,
-+	   struct i915_vma *vb,
-+	   u64 align,
-+	   void (*tlbinv)(struct i915_address_space *vm, u64 addr, u64 length),
-+	   u64 length,
-+	   struct rnd_state *prng)
-+{
-+	struct drm_i915_gem_object *batch;
-+	struct i915_request *rq;
-+	struct i915_vma *vma;
-+	u32 dw_len;
-+	u64 addr;
-+	int err;
-+	u32 *cs;
-+
-+	batch = i915_gem_object_create_internal(ce->vm->i915, 4096);
-+	if (IS_ERR(batch))
-+		return PTR_ERR(batch);
-+
-+	vma = i915_vma_instance(batch, ce->vm, NULL);
-+	if (IS_ERR(vma)) {
-+		err = PTR_ERR(vma);
-+		goto out;
-+	}
-+
-+	err = i915_vma_pin(vma, 0, 0, PIN_USER);
-+	if (err)
-+		goto out;
-+
-+	/* Pin va at random but aligned offset after vma */
-+	addr = round_up(vma->node.start + vma->node.size, align);
-+	/* MI_CONDITIONAL_BATCH_BUFFER_END limits address to 48b */
-+	addr = igt_random_offset(prng, addr, min(ce->vm->total, BIT_ULL(48)),
-+				 va->size, align);
-+	err = i915_vma_pin(va,  0, 0, addr | PIN_OFFSET_FIXED | PIN_USER);
-+	if (err) {
-+		pr_err("Cannot pin at %llx+%llx\n", addr, va->size);
-+		goto out;
-+	}
-+	GEM_BUG_ON(i915_vma_offset(va) != addr);
-+	vb->node = va->node; /* overwrites the _same_ PTE  */
-+
-+	/*
-+	 * Now choose random dword at the 1st pinned page.
-+	 *
-+	 * SZ_64K pages on dg1 require that the whole PT be marked
-+	 * containing 64KiB entries. So we make sure that vma
-+	 * covers the whole PT, despite being randomly aligned to 64KiB
-+	 * and restrict our sampling to the 2MiB PT within where
-+	 * we know that we will be using 64KiB pages.
-+	 */
-+	if (align == SZ_64K)
-+		addr = round_up(addr, SZ_2M) + igt_random_offset(prng, 0, SZ_2M, 4, 4);
-+	else
-+		addr += igt_random_offset(prng, 0, align, 4, 4);
-+
-+	pr_info("%s(%s): Sampling %llx, with alignment %llx, using PTE size %x (phys %x, sg %x), invalidate:%llx+%llx\n",
-+		ce->engine->name, va->obj->mm.region->name ?: "smem",
-+		addr, align, va->resource->page_sizes_gtt, va->page_sizes.phys,
-+		va->page_sizes.sg, addr & -length, length);
-+
-+	cs = i915_gem_object_pin_map_unlocked(batch, I915_MAP_WC);
-+	*cs++ = MI_NOOP; /* for later termination */
-+	if (GRAPHICS_VER(ce->vm->i915) == 8 &&
-+	    (ce->engine->class == VIDEO_DECODE_CLASS ||
-+	     ce->engine->class == VIDEO_ENHANCEMENT_CLASS))
-+		dw_len = 1;
-+	else
-+		dw_len = 2;
-+	/* Sample the target to see if we spot an incorrect page */
-+	*cs++ = MI_CONDITIONAL_BATCH_BUFFER_END | MI_DO_COMPARE | dw_len;
-+	*cs++ = 1; /* break if *addr <= 1 */
-+	*cs++ = lower_32_bits(addr);
-+	*cs++ = upper_32_bits(addr);
-+	clear_dw(va, addr, 2);
-+	clear_dw(vb, addr, 1);
-+
-+	/* Keep sampling until we get bored */
-+	*cs++ = MI_BATCH_BUFFER_START | BIT(8) | 1;
-+	*cs++ = lower_32_bits(i915_vma_offset(vma));
-+	*cs++ = upper_32_bits(i915_vma_offset(vma));
-+
-+	i915_gem_object_flush_map(batch);
-+
-+	rq = i915_request_create(ce);
-+	if (IS_ERR(rq)) {
-+		err = PTR_ERR(rq);
-+		goto out_va;
-+	}
-+
-+	err = rq->engine->emit_bb_start(rq, i915_vma_offset(vma), 0, 0);
-+	if (err) {
-+		i915_request_add(rq);
-+		goto out_va;
-+	}
-+
-+	i915_request_get(rq);
-+	i915_request_add(rq);
-+
-+	/* Short sleep to sanitycheck the batch is spinning before we begin */
-+	msleep(10);
-+	if (va == vb) {
-+		if (!i915_request_completed(rq)) {
-+			pr_err("Semaphore sanitycheck failed\n");
-+			err = -EIO;
-+		}
-+	} else if (!i915_request_completed(rq)) {
-+		struct i915_vma_resource vb_res = {
-+			.bi.pages = vb->obj->mm.pages,
-+			.bi.page_sizes = vb->obj->mm.page_sizes,
-+			.start = i915_vma_offset(vb),
-+			.vma_size = i915_vma_size(vb)
-+		};
-+		unsigned int pte_flags = 0;
-+
-+		/* Flip the PTE between A and B */
-+		if (i915_gem_object_is_lmem(vb->obj))
-+			pte_flags |= PTE_LM;
-+		ce->vm->insert_entries(ce->vm, &vb_res, 0, pte_flags);
-+
-+		/* Flush the PTE update to concurrent HW */
-+		tlbinv(ce->vm, addr & -length, length);
-+
-+		if (wait_for(i915_request_completed(rq), HZ / 2)) {
-+			pr_err("%s: Request did not complete; the COND_BBE did not read the updated PTE\n",
-+			       ce->engine->name);
-+			err = -EINVAL;
-+		}
-+	} else {
-+		pr_err("Spinner ended unexpectedly\n");
-+		err = -EIO;
-+	}
-+	i915_request_put(rq);
-+
-+	cs = page_mask_bits(batch->mm.mapping);
-+	*cs = MI_BATCH_BUFFER_END;
-+	wmb();
-+
-+out_va:
-+	if (vb != va)
-+		memset(&vb->node, 0, sizeof(vb->node));
-+	i915_vma_unpin(va);
-+	if (i915_vma_unbind_unlocked(va))
-+		err = -EIO;
-+out:
-+	i915_gem_object_put(batch);
-+	return err;
-+}
-+
-+static struct drm_i915_gem_object *create_lmem(struct intel_gt *gt)
-+{
-+	/*
-+	 * Allocation of largest possible page size allows to test all types
-+	 * of pages.
-+	 */
-+	return i915_gem_object_create_lmem(gt->i915, SZ_1G, I915_BO_ALLOC_CONTIGUOUS);
-+}
-+
-+static struct drm_i915_gem_object *create_smem(struct intel_gt *gt)
-+{
-+	/*
-+	 * SZ_64K pages require covering the whole 2M PT (gen8 to tgl/dg1).
-+	 * While that does not require the whole 2M block to be contiguous
-+	 * it is easier to make it so, since we need that for SZ_2M pagees.
-+	 * Since we randomly offset the start of the vma, we need a 4M object
-+	 * so that there is a 2M range within it is suitable for SZ_64K PTE.
-+	 */
-+	return i915_gem_object_create_internal(gt->i915, SZ_4M);
-+}
-+
-+static int
-+mem_tlbinv(struct intel_gt *gt,
-+	   struct drm_i915_gem_object *(*create_fn)(struct intel_gt *),
-+	   void (*tlbinv)(struct i915_address_space *vm, u64 addr, u64 length))
-+{
-+	unsigned int ppgtt_size = RUNTIME_INFO(gt->i915)->ppgtt_size;
-+	struct intel_engine_cs *engine;
-+	struct drm_i915_gem_object *A, *B;
-+	struct i915_ppgtt *ppgtt;
-+	struct i915_vma *va, *vb;
-+	enum intel_engine_id id;
-+	I915_RND_STATE(prng);
-+	void *vaddr;
-+	int err;
-+
-+	/*
-+	 * Check that the TLB invalidate is able to revoke an active
-+	 * page. We load a page into a spinning COND_BBE loop and then
-+	 * remap that page to a new physical address. The old address, and
-+	 * so the loop keeps spinning, is retained in the TLB cache until
-+	 * we issue an invalidate.
-+	 */
-+
-+	A = create_fn(gt);
-+	if (IS_ERR(A))
-+		return PTR_ERR(A);
-+
-+	vaddr = i915_gem_object_pin_map_unlocked(A, I915_MAP_WC);
-+	if (IS_ERR(vaddr)) {
-+		err = PTR_ERR(vaddr);
-+		goto out_a;
-+	}
-+
-+	B = create_fn(gt);
-+	if (IS_ERR(B)) {
-+		err = PTR_ERR(B);
-+		goto out_a;
-+	}
-+
-+	vaddr = i915_gem_object_pin_map_unlocked(B, I915_MAP_WC);
-+	if (IS_ERR(vaddr)) {
-+		err = PTR_ERR(vaddr);
-+		goto out_b;
-+	}
-+
-+	GEM_BUG_ON(A->base.size != B->base.size);
-+	if ((A->mm.page_sizes.phys | B->mm.page_sizes.phys) & (A->base.size - 1))
-+		pr_warn("Failed to allocate contiguous pages for size %zx\n",
-+			A->base.size);
-+
-+	ppgtt = i915_ppgtt_create(gt, 0);
-+	if (IS_ERR(ppgtt)) {
-+		err = PTR_ERR(ppgtt);
-+		goto out_b;
-+	}
-+
-+	va = i915_vma_instance(A, &ppgtt->vm, NULL);
-+	if (IS_ERR(va)) {
-+		err = PTR_ERR(va);
-+		goto out_vm;
-+	}
-+
-+	vb = i915_vma_instance(B, &ppgtt->vm, NULL);
-+	if (IS_ERR(vb)) {
-+		err = PTR_ERR(vb);
-+		goto out_vm;
-+	}
-+
-+	err = 0;
-+	for_each_engine(engine, gt, id) {
-+		struct i915_gem_ww_ctx ww;
-+		struct intel_context *ce;
-+		int bit;
-+
-+		ce = intel_context_create(engine);
-+		if (IS_ERR(ce)) {
-+			err = PTR_ERR(ce);
-+			break;
-+		}
-+
-+		i915_vm_put(ce->vm);
-+		ce->vm = i915_vm_get(&ppgtt->vm);
-+
-+		for_i915_gem_ww(&ww, err, true)
-+			err = intel_context_pin_ww(ce, &ww);
-+		if (err)
-+			goto err_put;
-+
-+		for_each_set_bit(bit,
-+				 (unsigned long *)&RUNTIME_INFO(gt->i915)->page_sizes,
-+				 BITS_PER_TYPE(RUNTIME_INFO(gt->i915)->page_sizes)) {
-+			unsigned int len;
-+
-+			if (BIT_ULL(bit) < i915_vm_obj_min_alignment(va->vm, va->obj))
-+				continue;
-+
-+			/* sanitycheck the semaphore wake up */
-+			err = pte_tlbinv(ce, va, va,
-+					 BIT_ULL(bit),
-+					 NULL, SZ_4K,
-+					 &prng);
-+			if (err)
-+				goto err_unpin;
-+
-+			for (len = 2; len <= ppgtt_size; len = min(2 * len, ppgtt_size)) {
-+				err = pte_tlbinv(ce, va, vb,
-+						BIT_ULL(bit),
-+						tlbinv,
-+						BIT_ULL(len),
-+						&prng);
-+				if (err)
-+					goto err_unpin;
-+				if (len == ppgtt_size)
-+					break;
-+			}
-+		}
-+err_unpin:
-+		intel_context_unpin(ce);
-+err_put:
-+		intel_context_put(ce);
-+		if (err)
-+			break;
-+	}
-+
-+	if (igt_flush_test(gt->i915))
-+		err = -EIO;
-+
-+out_vm:
-+	i915_vm_put(&ppgtt->vm);
-+out_b:
-+	i915_gem_object_put(B);
-+out_a:
-+	i915_gem_object_put(A);
-+	return err;
-+}
-+
-+static void tlbinv_full(struct i915_address_space *vm, u64 addr, u64 length)
-+{
-+	intel_gt_invalidate_tlb(vm->gt, intel_gt_tlb_seqno(vm->gt) | 1);
-+}
-+
-+static int invalidate_full(void *arg)
-+{
-+	struct intel_gt *gt = arg;
-+	int err;
-+
-+	if (GRAPHICS_VER(gt->i915) < 8)
-+		return 0; /* TLB invalidate not implemented */
-+
-+	err = mem_tlbinv(gt, create_smem, tlbinv_full);
-+	if (err == 0)
-+		err = mem_tlbinv(gt, create_lmem, tlbinv_full);
-+	if (err == -ENODEV || err == -ENXIO)
-+		err = 0;
-+
-+	return err;
-+}
-+
-+int intel_tlb_live_selftests(struct drm_i915_private *i915)
-+{
-+	static const struct i915_subtest tests[] = {
-+		SUBTEST(invalidate_full),
-+	};
-+	struct intel_gt *gt;
-+	unsigned int i;
-+
-+	for_each_gt(gt, i915, i) {
-+		int err;
-+
-+		if (intel_gt_is_wedged(gt))
-+			continue;
-+
-+		err = intel_gt_live_subtests(tests, gt);
-+		if (err)
-+			return err;
-+	}
-+
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/i915/selftests/i915_live_selftests.h b/drivers/gpu/drm/i915/selftests/i915_live_selftests.h
-index aaf8a380e5c789..5aee6c9a8295ce 100644
---- a/drivers/gpu/drm/i915/selftests/i915_live_selftests.h
-+++ b/drivers/gpu/drm/i915/selftests/i915_live_selftests.h
-@@ -25,6 +25,7 @@ selftest(gt_lrc, intel_lrc_live_selftests)
- selftest(gt_mocs, intel_mocs_live_selftests)
- selftest(gt_pm, intel_gt_pm_live_selftests)
- selftest(gt_heartbeat, intel_heartbeat_live_selftests)
-+selftest(gt_tlb, intel_tlb_live_selftests)
- selftest(requests, i915_request_live_selftests)
- selftest(migrate, intel_migrate_live_selftests)
- selftest(active, i915_active_live_selftests)
+So I take it the only reason we even have that is the copy being done in
+drm_dp_mst_atomic_wait_for_dependencies()? I don't really understand
+why any of that is being done tbh. If the new payload hasn't been
+allocated yet then why can't its vc_start_slots just stay at -1
+until that time?
+
+This whole thing feels a bit weird since the payload table really isn't
+your normal atomic state that is computed ahead of time. Instead it just
+gets built up on as we go during the actual commit. So not really sure
+why we're even tracking it in atomic state...
+
+>  
+>  	mutex_lock(&mgr->lock);
+> -	send_remove = drm_dp_mst_port_downstream_of_branch(payload->port, mgr->mst_primary);
+> +	send_remove = drm_dp_mst_port_downstream_of_branch(new_payload->port, mgr->mst_primary);
+>  	mutex_unlock(&mgr->lock);
+>  
+>  	if (send_remove)
+> -		drm_dp_destroy_payload_step1(mgr, mst_state, payload);
+> +		drm_dp_destroy_payload_step1(mgr, mst_state, new_payload);
+>  	else
+>  		drm_dbg_kms(mgr->dev, "Payload for VCPI %d not in topology, not sending remove\n",
+> -			    payload->vcpi);
+> +			    new_payload->vcpi);
+>  
+>  	list_for_each_entry(pos, &mst_state->payloads, next) {
+> -		if (pos != payload && pos->vc_start_slot > payload->vc_start_slot)
+> -			pos->vc_start_slot -= payload->time_slots;
+> +		if (pos != new_payload && pos->vc_start_slot > new_payload->vc_start_slot)
+> +			pos->vc_start_slot -= old_payload->time_slots;
+>  	}
+> -	payload->vc_start_slot = -1;
+> +	new_payload->vc_start_slot = -1;
+>  
+>  	mgr->payload_count--;
+> -	mgr->next_start_slot -= payload->time_slots;
+> +	mgr->next_start_slot -= old_payload->time_slots;
+>  }
+>  EXPORT_SYMBOL(drm_dp_remove_payload);
+>  
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> index ba29c294b7c1b..5f7bcb5c14847 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> @@ -526,6 +526,8 @@ static void intel_mst_disable_dp(struct intel_atomic_state *state,
+>  		to_intel_connector(old_conn_state->connector);
+>  	struct drm_dp_mst_topology_state *mst_state =
+>  		drm_atomic_get_mst_topology_state(&state->base, &intel_dp->mst_mgr);
+> +	struct drm_dp_mst_atomic_payload *payload =
+> +		drm_atomic_get_mst_payload_state(mst_state, connector->port);
+>  	struct drm_i915_private *i915 = to_i915(connector->base.dev);
+>  
+>  	drm_dbg_kms(&i915->drm, "active links %d\n",
+> @@ -534,7 +536,7 @@ static void intel_mst_disable_dp(struct intel_atomic_state *state,
+>  	intel_hdcp_disable(intel_mst->connector);
+>  
+>  	drm_dp_remove_payload(&intel_dp->mst_mgr, mst_state,
+> -			      drm_atomic_get_mst_payload_state(mst_state, connector->port));
+> +			      payload, payload);
+>  
+>  	intel_audio_codec_disable(encoder, old_crtc_state, old_conn_state);
+>  }
+> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> index edcb2529b4025..ed9d374147b8d 100644
+> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+> @@ -885,7 +885,7 @@ nv50_msto_prepare(struct drm_atomic_state *state,
+>  
+>  	// TODO: Figure out if we want to do a better job of handling VCPI allocation failures here?
+>  	if (msto->disabled) {
+> -		drm_dp_remove_payload(mgr, mst_state, payload);
+> +		drm_dp_remove_payload(mgr, mst_state, payload, payload);
+>  
+>  		nvif_outp_dp_mst_vcpi(&mstm->outp->outp, msto->head->base.index, 0, 0, 0, 0);
+>  	} else {
+> diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
+> index 41fd8352ab656..f5eb9aa152b14 100644
+> --- a/include/drm/display/drm_dp_mst_helper.h
+> +++ b/include/drm/display/drm_dp_mst_helper.h
+> @@ -841,7 +841,8 @@ int drm_dp_add_payload_part2(struct drm_dp_mst_topology_mgr *mgr,
+>  			     struct drm_dp_mst_atomic_payload *payload);
+>  void drm_dp_remove_payload(struct drm_dp_mst_topology_mgr *mgr,
+>  			   struct drm_dp_mst_topology_state *mst_state,
+> -			   struct drm_dp_mst_atomic_payload *payload);
+> +			   const struct drm_dp_mst_atomic_payload *old_payload,
+> +			   struct drm_dp_mst_atomic_payload *new_payload);
+>  
+>  int drm_dp_check_act_status(struct drm_dp_mst_topology_mgr *mgr);
+>  
+> -- 
+> 2.37.1
+
 -- 
-2.34.1
-
+Ville Syrjälä
+Intel
