@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42CC0C05027
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 18:35:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3921C54EAA
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Jan 2023 18:36:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 978F810E975;
-	Thu, 26 Jan 2023 18:35:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78B0310E977;
+	Thu, 26 Jan 2023 18:36:44 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BA3110E975
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Jan 2023 18:35:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F78C10E975;
+ Thu, 26 Jan 2023 18:36:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674758156; x=1706294156;
+ t=1674758201; x=1706294201;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=zM9He63UWNCs7R2yKxiBXX0qwpN+VmtHbOyPH9x8kz4=;
- b=cMcoxTW+VjEaK1z+AsP90YLl+tNixvl35pN20Yzg9NVpvk0L6XAsOAuv
- ARfwd/lKkXG+mViV19kp9giDqfX2VxmjjxCXUC0Wbvdb2b6VOPceDuMai
- 0hAQqw6tsQEBrv5fpQJE5j0NSKbOBKSee9D5LRr+Bqac+/uW3bKhxY+wF
- mScIma6X0uO1/w6JCogQI4icW0oluHMxk3lZsFsdYWYYw+CL5IXL37+KC
- WCgn80RGqyRyQ4Lwmn9zQHE3eQJM9r1+ulgXN5UcWDrk+rHIhL6n4ZknT
- /cLVioTngDmoohpMwKLz/n2yOF3quiXD1G0Dcot492S2PfzZ4ly46Q0IR Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="310505282"
-X-IronPort-AV: E=Sophos;i="5.97,249,1669104000"; d="scan'208";a="310505282"
+ bh=8O3O3NcCzjqZ0coZTHbLYJiTX+VxZUPC30aZ9kiJdO4=;
+ b=FBHFTa8zSAUFP/EKDdUMsVFt9CdKoduYXhyhal/M/pPtoTATcDl76Fo4
+ exwEcPDl7uZfN9rNGgoHY3d8m0/S08Aw2K1TqhgbKTWsPTuHuWLSQ7OMt
+ Aq65BcCH+bfAfOk+F8gQMbyUWiWwN6fXynGv9cfhJhh4nBLsK4ccZEa56
+ h64YoTQSL3Wz5BfgVA1rTTigyK847SdnWSUDXL12zjCAvXSAYj8D8uPkW
+ M6ThIZpI7P4DpgF+qvR6Ua4tH8Lwu8vO5EtdhKdkkh52LFNsxg7RbgBTs
+ hPAT0TsCXsIdxQXkilbzJ2RAjVOgOiOZa5jlKjAdAnyHtm68Hix+mPynx A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="310505955"
+X-IronPort-AV: E=Sophos;i="5.97,249,1669104000"; d="scan'208";a="310505955"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jan 2023 10:34:34 -0800
+ 26 Jan 2023 10:36:24 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="695221555"
-X-IronPort-AV: E=Sophos;i="5.97,249,1669104000"; d="scan'208";a="695221555"
+X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="695223226"
+X-IronPort-AV: E=Sophos;i="5.97,249,1669104000"; d="scan'208";a="695223226"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.55])
- by orsmga001.jf.intel.com with SMTP; 26 Jan 2023 10:34:28 -0800
+ by orsmga001.jf.intel.com with SMTP; 26 Jan 2023 10:36:21 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 26 Jan 2023 20:34:28 +0200
-Date: Thu, 26 Jan 2023 20:34:28 +0200
+ Thu, 26 Jan 2023 20:36:20 +0200
+Date: Thu, 26 Jan 2023 20:36:20 +0200
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
 To: Imre Deak <imre.deak@intel.com>
-Message-ID: <Y9LHtN4I40fR92k+@intel.com>
-References: <20230125114852.748337-2-imre.deak@intel.com>
- <20230126091310.1154148-1-imre.deak@intel.com>
+Message-ID: <Y9LIJE85qySKUODU@intel.com>
+References: <20230125114852.748337-1-imre.deak@intel.com>
+ <20230125114852.748337-4-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230126091310.1154148-1-imre.deak@intel.com>
+In-Reply-To: <20230125114852.748337-4-imre.deak@intel.com>
 X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH v2 1/9] drm/i915/dp_mst: Add the MST
- topology state for modesetted CRTCs
+Subject: Re: [Intel-gfx] [PATCH 3/9] drm/display/dp_mst: Add
+ drm_atomic_get_old_mst_topology_state()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,115 +62,97 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, stable@vger.kernel.org
+Cc: intel-gfx@lists.freedesktop.org, stable@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 26, 2023 at 11:13:10AM +0200, Imre Deak wrote:
-> Add the MST topology for a CRTC to the atomic state if the driver
-> needs to force a modeset on the CRTC after the encoder compute config
-> functions are called.
+On Wed, Jan 25, 2023 at 01:48:46PM +0200, Imre Deak wrote:
+> Add a function to get the old MST topology state, required by a
+> follow-up i915 patch.
 > 
-> Later the MST encoder's disable hook also adds the state, but that isn't
-> guaranteed to work (since in that hook getting the state may fail, which
-> can't be handled there). This should fix that, while a later patch fixes
-> the use of the MST state in the disable hook.
-> 
-> v2: Add missing forward struct declartions, caught by hdrtest.
+> While at it clarify the code comment of
+> drm_atomic_get_new_mst_topology_state().
 > 
 > Cc: Lyude Paul <lyude@redhat.com>
 > Cc: stable@vger.kernel.org # 6.1
+> Cc: dri-devel@lists.freedesktop.org
 > Signed-off-by: Imre Deak <imre.deak@intel.com>
+> ---
+>  drivers/gpu/drm/display/drm_dp_mst_topology.c | 29 +++++++++++++++++--
+>  include/drm/display/drm_dp_mst_helper.h       |  3 ++
+>  2 files changed, 30 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> index ebf6e31e156e0..81cc0c3b1e000 100644
+> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> @@ -5362,18 +5362,43 @@ struct drm_dp_mst_topology_state *drm_atomic_get_mst_topology_state(struct drm_a
+>  }
+>  EXPORT_SYMBOL(drm_atomic_get_mst_topology_state);
+>  
+> +/**
+> + * drm_atomic_get_old_mst_topology_state: get old MST topology state in atomic state, if any
+> + * @state: global atomic state
+> + * @mgr: MST topology manager, also the private object in this case
+> + *
+> + * This function wraps drm_atomic_get_old_private_obj_state() passing in the MST atomic
+> + * state vtable so that the private object state returned is that of a MST
+> + * topology object.
+> + *
+> + * Returns:
+> + *
+> + * The old MST topology state, or NULL if there's no topology state for this MST mgr
+> + * in the global atomic state
+> + */
+> +struct drm_dp_mst_topology_state *
+> +drm_atomic_get_old_mst_topology_state(struct drm_atomic_state *state,
+> +				      struct drm_dp_mst_topology_mgr *mgr)
+> +{
+> +	struct drm_private_state *priv_state =
+
+I would include 'old_' in the variable name to remind the reader what it
+is.
 
 Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-> ---
->  drivers/gpu/drm/i915/display/intel_display.c |  4 +++
->  drivers/gpu/drm/i915/display/intel_dp_mst.c  | 37 ++++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_dp_mst.h  |  4 +++
->  3 files changed, 45 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index 717ca3d7890d3..d3994e2a7d636 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -5934,6 +5934,10 @@ int intel_modeset_all_pipes(struct intel_atomic_state *state,
->  		if (ret)
->  			return ret;
->  
-> +		ret = intel_dp_mst_add_topology_state_for_crtc(state, crtc);
-> +		if (ret)
-> +			return ret;
+> +		drm_atomic_get_old_private_obj_state(state, &mgr->base);
 > +
->  		ret = intel_atomic_add_affected_planes(state, crtc);
->  		if (ret)
->  			return ret;
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> index 8b0e4defa3f10..ba29c294b7c1b 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-> @@ -1223,3 +1223,40 @@ bool intel_dp_mst_is_slave_trans(const struct intel_crtc_state *crtc_state)
->  	return crtc_state->mst_master_transcoder != INVALID_TRANSCODER &&
->  	       crtc_state->mst_master_transcoder != crtc_state->cpu_transcoder;
->  }
-> +
-> +/**
-> + * intel_dp_mst_add_topology_state_for_crtc - add MST topology state for a CRTC
-> + * @state: atomic state
-> + * @crtc: CRTC
-> + *
-> + * Add the MST topology state for @crtc to @state.
-> + *
-> + * Returns 0 on success, negative error code on failure.
-> + */
-> +int intel_dp_mst_add_topology_state_for_crtc(struct intel_atomic_state *state,
-> +					     struct intel_crtc *crtc)
-> +{
-> +	struct drm_connector *_connector;
-> +	struct drm_connector_state *conn_state;
-> +	int i;
-> +
-> +	for_each_new_connector_in_state(&state->base, _connector, conn_state, i) {
-> +		struct drm_dp_mst_topology_state *mst_state;
-> +		struct intel_connector *connector = to_intel_connector(_connector);
-> +
-> +		if (conn_state->crtc != &crtc->base)
-> +			continue;
-> +
-> +		if (!connector->mst_port)
-> +			continue;
-> +
-> +		mst_state = drm_atomic_get_mst_topology_state(&state->base,
-> +							      &connector->mst_port->mst_mgr);
-> +		if (IS_ERR(mst_state))
-> +			return PTR_ERR(mst_state);
-> +
-> +		mst_state->pending_crtc_mask |= drm_crtc_mask(&crtc->base);
-> +	}
-> +
-> +	return 0;
+> +	return priv_state ? to_dp_mst_topology_state(priv_state) : NULL;
 > +}
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.h b/drivers/gpu/drm/i915/display/intel_dp_mst.h
-> index f7301de6cdfb3..f1815bb722672 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.h
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.h
-> @@ -8,6 +8,8 @@
->  
->  #include <linux/types.h>
->  
-> +struct intel_atomic_state;
-> +struct intel_crtc;
->  struct intel_crtc_state;
->  struct intel_digital_port;
->  struct intel_dp;
-> @@ -18,5 +20,7 @@ int intel_dp_mst_encoder_active_links(struct intel_digital_port *dig_port);
->  bool intel_dp_mst_is_master_trans(const struct intel_crtc_state *crtc_state);
->  bool intel_dp_mst_is_slave_trans(const struct intel_crtc_state *crtc_state);
->  bool intel_dp_mst_source_support(struct intel_dp *intel_dp);
-> +int intel_dp_mst_add_topology_state_for_crtc(struct intel_atomic_state *state,
-> +					     struct intel_crtc *crtc);
->  
->  #endif /* __INTEL_DP_MST_H__ */
+> +EXPORT_SYMBOL(drm_atomic_get_old_mst_topology_state);
+> +
+>  /**
+>   * drm_atomic_get_new_mst_topology_state: get new MST topology state in atomic state, if any
+>   * @state: global atomic state
+>   * @mgr: MST topology manager, also the private object in this case
+>   *
+> - * This function wraps drm_atomic_get_priv_obj_state() passing in the MST atomic
+> + * This function wraps drm_atomic_get_new_private_obj_state() passing in the MST atomic
+>   * state vtable so that the private object state returned is that of a MST
+>   * topology object.
+>   *
+>   * Returns:
+>   *
+> - * The MST topology state, or NULL if there's no topology state for this MST mgr
+> + * The new MST topology state, or NULL if there's no topology state for this MST mgr
+>   * in the global atomic state
+>   */
+>  struct drm_dp_mst_topology_state *
+> diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
+> index f5eb9aa152b14..32c764fb9cb56 100644
+> --- a/include/drm/display/drm_dp_mst_helper.h
+> +++ b/include/drm/display/drm_dp_mst_helper.h
+> @@ -868,6 +868,9 @@ struct drm_dp_mst_topology_state *
+>  drm_atomic_get_mst_topology_state(struct drm_atomic_state *state,
+>  				  struct drm_dp_mst_topology_mgr *mgr);
+>  struct drm_dp_mst_topology_state *
+> +drm_atomic_get_old_mst_topology_state(struct drm_atomic_state *state,
+> +				      struct drm_dp_mst_topology_mgr *mgr);
+> +struct drm_dp_mst_topology_state *
+>  drm_atomic_get_new_mst_topology_state(struct drm_atomic_state *state,
+>  				      struct drm_dp_mst_topology_mgr *mgr);
+>  struct drm_dp_mst_atomic_payload *
 > -- 
 > 2.37.1
 
