@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 962A2C636D7
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 14:25:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE0BAC636D4
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 14:25:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A7F610E571;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ABB010E56C;
 	Thu,  2 Feb 2023 14:24:56 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D372610E0DB;
- Wed, 25 Jan 2023 09:38:55 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ECA810E294;
+ Thu, 26 Jan 2023 17:07:43 +0000 (UTC)
+Received: from mercury (dyndsl-037-138-191-219.ewe-ip-backbone.de
+ [37.138.191.219])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8985B1F8CC;
- Wed, 25 Jan 2023 09:38:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1674639534; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=rlC3v8G7Qltb7/sMWGykfElAbj3RZvreU88MtZ+OLHM=;
- b=r0FIat4kOE8WovOTP3LWhacl5M3EjQXhF3aBT5cBj3FuQ5I+yJMTY0cq7QTmO7SFPDQv6O
- tRrm4BhOZHjZFNfq3BxFKWYU7SqtAc8zTE0tqhcCiP6BOgQ+ipP6+yjGZBzFWwz4Mee2C0
- GFF6IKS/BdrV8Bwlj7T9ur543veHKvk=
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 446411358F;
- Wed, 25 Jan 2023 09:38:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id jLUjEK740GMsIAAAMHmgww
- (envelope-from <mhocko@suse.com>); Wed, 25 Jan 2023 09:38:54 +0000
-Date: Wed, 25 Jan 2023 10:38:53 +0100
-From: Michal Hocko <mhocko@suse.com>
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: sre)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 7FC3E6602E7D;
+ Thu, 26 Jan 2023 17:07:41 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1674752861;
+ bh=TJwB9xWefUtenAJhobcnuA3/dr44yh/1qZH05naV3dA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=HIAeawkSMl4wLK9atphFO2PYIuQtn0mXWrQTGJkp27Vvwen4RmNJXIKy0KOcMN2qu
+ MGji/BoqRh//5quIKkg+7Jg9a4rlT6zYnOxKnHRve8IRt32uZ0O2J9C6ByA7KSG9ni
+ ooI+f+xDzdj/4Xv/XqAW1ZMOqMbxlnaE69Ns4AaVsCb09DHvVD+xjXrJ7HkcJ65ZDs
+ 0FKkR9qOOchTbFQKw+Lbe8GJsd/K96q/WWSPWtyPUY4G0yRJ/G34tsJUBI/vL5q95x
+ a6dIJ/I/0Glk/75yhzfiBv6PLPN/HUTuWOcS4vpdAGRdicde5HTb77Vj3shLRE2rZN
+ snAuQFm3yL5CQ==
+Received: by mercury (Postfix, from userid 1000)
+ id 8DAD710609C7; Thu, 26 Jan 2023 18:07:39 +0100 (CET)
+Date: Thu, 26 Jan 2023 18:07:39 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
 To: Suren Baghdasaryan <surenb@google.com>
-Message-ID: <Y9D4rWEsajV/WfNx@dhcp22.suse.cz>
+Message-ID: <20230126170739.mlka2jivn3mfstyf@mercury.elektranox.org>
 References: <20230125083851.27759-1-surenb@google.com>
- <20230125083851.27759-5-surenb@google.com>
+ <20230125083851.27759-4-surenb@google.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="qcyccrleajamxo75"
 Content-Disposition: inline
-In-Reply-To: <20230125083851.27759-5-surenb@google.com>
+In-Reply-To: <20230125083851.27759-4-surenb@google.com>
 X-Mailman-Approved-At: Thu, 02 Feb 2023 14:24:10 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 4/6] mm: replace vma->vm_flags indirect
- modification in ksm_madvise
+Subject: Re: [Intel-gfx] [PATCH v2 3/6] mm: replace vma->vm_flags direct
+ modifications with modifier calls
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,10 +93,10 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
  gurua@google.com, dgilbert@interlog.com, xiang@kernel.org, pabeni@redhat.com,
  jejb@linux.ibm.com, quic_abhinavk@quicinc.com, bp@alien8.de,
  mchehab@kernel.org, linux-ext4@vger.kernel.org, tomba@kernel.org,
- hughlynch@google.com, sre@kernel.org, tfiga@chromium.org,
- linux-xfs@vger.kernel.org, zhangfei.gao@linaro.org, wangzhou1@hisilicon.com,
- netdev@vger.kernel.org, bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- davem@davemloft.net, kvm@vger.kernel.org, mst@redhat.com, peterz@infradead.org,
+ hughlynch@google.com, tfiga@chromium.org, linux-xfs@vger.kernel.org,
+ zhangfei.gao@linaro.org, wangzhou1@hisilicon.com, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-erofs@lists.ozlabs.org, davem@davemloft.net,
+ mhocko@suse.com, kvm@vger.kernel.org, mst@redhat.com, peterz@infradead.org,
  bigeasy@linutronix.de, alexandre.torgue@foss.st.com, dhowells@redhat.com,
  linux-mm@kvack.org, ray.huang@amd.com, adilger.kernel@dilger.ca,
  kuba@kernel.org, sparclinux@vger.kernel.org, airlied@gmail.com,
@@ -118,18 +116,63 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed 25-01-23 00:38:49, Suren Baghdasaryan wrote:
-> Replace indirect modifications to vma->vm_flags with calls to modifier
+
+--qcyccrleajamxo75
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+On Wed, Jan 25, 2023 at 12:38:48AM -0800, Suren Baghdasaryan wrote:
+> Replace direct modifications to vma->vm_flags with calls to modifier
 > functions to be able to track flag changes and to keep vma locking
-> correctness. Add a BUG_ON check in ksm_madvise() to catch indirect
-> vm_flags modification attempts.
-
-Those BUG_ONs scream to much IMHO. KSM is an MM internal code so I
-gueess we should be willing to trust it.
-
+> correctness.
+>=20
 > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> ---
+> [...]
+>  drivers/hsi/clients/cmt_speech.c                   |  2 +-
+>  120 files changed, 188 insertions(+), 199 deletions(-)
+> [...]
+> diff --git a/drivers/hsi/clients/cmt_speech.c b/drivers/hsi/clients/cmt_s=
+peech.c
+> index 8069f795c864..952a31e742a1 100644
+> --- a/drivers/hsi/clients/cmt_speech.c
+> +++ b/drivers/hsi/clients/cmt_speech.c
+> @@ -1264,7 +1264,7 @@ static int cs_char_mmap(struct file *file, struct v=
+m_area_struct *vma)
+>  	if (vma_pages(vma) !=3D 1)
+>  		return -EINVAL;
+> =20
+> -	vma->vm_flags |=3D VM_IO | VM_DONTDUMP | VM_DONTEXPAND;
+> +	set_vm_flags(vma, VM_IO | VM_DONTDUMP | VM_DONTEXPAND);
+>  	vma->vm_ops =3D &cs_char_vm_ops;
+>  	vma->vm_private_data =3D file->private_data;
+> =20
 
-Acked-by: Michal Hocko <mhocko@suse.com>
--- 
-Michal Hocko
-SUSE Labs
+Acked-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+
+-- Sebastian
+
+--qcyccrleajamxo75
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmPSs1EACgkQ2O7X88g7
++pquLBAAkw9lw9lxNRCI6jvqLy98JsUBgSQigNB6Eh8JVWsySHMm1OszFCcvTpoc
+vinC/VPMOa6JwEw5e9naXRF2UJahO+Cx+e5MYIKos3QyIUPfi0YM7Cv96h6+c4l/
+NdcxLS8+9ElitTuA47UVgPSeZwzdZ1kU5VUV1X2fx+6aGA+dBfWVBgWDqU6AB0Sa
+ehU4betso5Ypl26YEmLPHmY+8Xx2jXNwwBEgsHgO2/YjRn9YPDeMAqb4lWs99h0d
+nUV1VqwTClRrExtNDvidHryknmyCIBpYt38gn0i9+uIf9mFoBmUDN+/zAdRguGBT
+r1CQAwvRvHmEyGJ4dp1nijyt/PWxDBlCWytlmzXrK/rkeH8sQCRdCr9L83/d5DM0
+iU98ehmbH9kx8rD4y0L91xmsnegNYNKSfAvz3EP4KYFOHjTw2SOCYoazPu3z62bN
+d3HL+08LeZpm1XwVPydZqBd5UpBK8NaQYCJ3BjsLUefsSJE+SWzsnoYFnbUrL1X9
+1XfU6LGtVvjCPUsjk7oqh5PjtRGQsdtUhSZJLwNzTeh4I0nSzL1pj8vRFZ7UTcV4
+RmFYsjBbKhja2fC13eM4tKzfx53harnHVNuUPw2aoLKshpkQaOTUqWBnRXtbJZkb
+dSRKObxfPlHVI+awnfN6owpXF86Owew2+XJcXILOPxaBk8PI/Ns=
+=/0TB
+-----END PGP SIGNATURE-----
+
+--qcyccrleajamxo75--
