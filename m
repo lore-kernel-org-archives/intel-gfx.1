@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85923C636D4
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 14:25:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92BE5C05027
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 14:25:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DD8410E567;
-	Thu,  2 Feb 2023 14:25:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 182BF10E586;
+	Thu,  2 Feb 2023 14:25:37 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74F1810E92F;
- Thu, 26 Jan 2023 14:48:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E7A010E296;
+ Thu, 26 Jan 2023 09:27:56 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E1F826183C;
- Thu, 26 Jan 2023 14:48:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05241C4339B;
- Thu, 26 Jan 2023 14:48:14 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3647A61778;
+ Thu, 26 Jan 2023 09:27:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3921C433EF;
+ Thu, 26 Jan 2023 09:27:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1674744532;
- bh=WNohoknU9nLfbwIXeO77neZ4yMyv64MASZK2UIAfOfc=;
+ s=k20201202; t=1674725274;
+ bh=SoMuUCKccvLBFFlS2yaoZNAJ6vi8hf11UD5LIFXhHPI=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=OyaVsT5ePzTFS76R1FH5KLxOUgzscan6sLv55lgf+totKkalpj5P4hTJ0CFzpg2nB
- FjnAcEI6WBL0tfwF/TTw8b+wwY6a9pfQDEoFaNDhDzv4Bx4E//TKL2HIis05iqFTqA
- 6cWnwUhcKJagQmydnhE9MWdKN98RZA7QH0/g2op6Qc+WX5kkWc6P8AxP1IQok4d4Iv
- rC+rDq5bfpCpp87TX2zmlNbavkxhh4pjEZT5VQ1/5GQQQR5j3P3SiDxYUla0TLmDmY
- tHoanGw9DWG+oAt/RnrhsxsQ7gltrsJN75kvWssUX4MOKayClNcjWM9UluK5fqquNs
- P9OGQuC06AeFQ==
-Date: Thu, 26 Jan 2023 16:48:04 +0200
+ b=j//Fl5kIolRbc8e9oVCQ2yHwbpz0TuieYLSj+mDFLpa1qwKxXUhf5PJmcO75Ujh3s
+ twG4fOSIQIUcY+3MnnJB2LFgFpgYd/SthHle/+axd8X6B40DgEguPrzEIDstErfxF8
+ ko0Mb6Gc7DtRkgMx2KamDNuuhnb/IfTXyWRUAI8okoWPpJCrU+5VBwHmsXg3EJf5FZ
+ gJ2/jlRLLWN+Ab/FNlmJJeHDKv+eOxzvt50mhgYbacQHyS9BYwkvyF434NJwFVAGsI
+ dA9tzS1LLkbpY2wsykh131+0o90nnu9297soO8LSNeHRZppCk70KOOayN+gSrVyob+
+ 3jVum/MlvC8IQ==
+Date: Thu, 26 Jan 2023 11:26:58 +0200
 From: Mike Rapoport <rppt@kernel.org>
 To: Suren Baghdasaryan <surenb@google.com>
-Message-ID: <Y9KSpNJ4y0GMwkrW@kernel.org>
+Message-ID: <Y9JHYvihjxGpAFPg@kernel.org>
 References: <20230125083851.27759-1-surenb@google.com>
- <20230125083851.27759-7-surenb@google.com>
+ <20230125083851.27759-5-surenb@google.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230125083851.27759-7-surenb@google.com>
+In-Reply-To: <20230125083851.27759-5-surenb@google.com>
 X-Mailman-Approved-At: Thu, 02 Feb 2023 14:24:11 +0000
-Subject: Re: [Intel-gfx] [PATCH v2 6/6] mm: export dump_mm()
+Subject: Re: [Intel-gfx] [PATCH v2 4/6] mm: replace vma->vm_flags indirect
+ modification in ksm_madvise
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,32 +114,101 @@ Cc: michel@lespinasse.org, nvdimm@lists.linux.dev, heiko@sntech.de,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 25, 2023 at 12:38:51AM -0800, Suren Baghdasaryan wrote:
-> mmap_assert_write_locked() is used in vm_flags modifiers. Because
-> mmap_assert_write_locked() uses dump_mm() and vm_flags are sometimes
-> modified from from inside a module, it's necessary to export
-> dump_mm() function.
+On Wed, Jan 25, 2023 at 12:38:49AM -0800, Suren Baghdasaryan wrote:
+> Replace indirect modifications to vma->vm_flags with calls to modifier
+> functions to be able to track flag changes and to keep vma locking
+> correctness. Add a BUG_ON check in ksm_madvise() to catch indirect
+> vm_flags modification attempts.
 > 
 > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
 
 Acked-by: Mike Rapoport (IBM) <rppt@kernel.org>
 
 > ---
->  mm/debug.c | 1 +
->  1 file changed, 1 insertion(+)
+>  arch/powerpc/kvm/book3s_hv_uvmem.c | 5 ++++-
+>  arch/s390/mm/gmap.c                | 5 ++++-
+>  mm/khugepaged.c                    | 2 ++
+>  mm/ksm.c                           | 2 ++
+>  4 files changed, 12 insertions(+), 2 deletions(-)
 > 
-> diff --git a/mm/debug.c b/mm/debug.c
-> index 9d3d893dc7f4..96d594e16292 100644
-> --- a/mm/debug.c
-> +++ b/mm/debug.c
-> @@ -215,6 +215,7 @@ void dump_mm(const struct mm_struct *mm)
->  		mm->def_flags, &mm->def_flags
->  	);
->  }
-> +EXPORT_SYMBOL(dump_mm);
+> diff --git a/arch/powerpc/kvm/book3s_hv_uvmem.c b/arch/powerpc/kvm/book3s_hv_uvmem.c
+> index 1d67baa5557a..325a7a47d348 100644
+> --- a/arch/powerpc/kvm/book3s_hv_uvmem.c
+> +++ b/arch/powerpc/kvm/book3s_hv_uvmem.c
+> @@ -393,6 +393,7 @@ static int kvmppc_memslot_page_merge(struct kvm *kvm,
+>  {
+>  	unsigned long gfn = memslot->base_gfn;
+>  	unsigned long end, start = gfn_to_hva(kvm, gfn);
+> +	unsigned long vm_flags;
+>  	int ret = 0;
+>  	struct vm_area_struct *vma;
+>  	int merge_flag = (merge) ? MADV_MERGEABLE : MADV_UNMERGEABLE;
+> @@ -409,12 +410,14 @@ static int kvmppc_memslot_page_merge(struct kvm *kvm,
+>  			ret = H_STATE;
+>  			break;
+>  		}
+> +		vm_flags = vma->vm_flags;
+>  		ret = ksm_madvise(vma, vma->vm_start, vma->vm_end,
+> -			  merge_flag, &vma->vm_flags);
+> +			  merge_flag, &vm_flags);
+>  		if (ret) {
+>  			ret = H_STATE;
+>  			break;
+>  		}
+> +		reset_vm_flags(vma, vm_flags);
+>  		start = vma->vm_end;
+>  	} while (end > vma->vm_end);
 >  
->  static bool page_init_poisoning __read_mostly = true;
+> diff --git a/arch/s390/mm/gmap.c b/arch/s390/mm/gmap.c
+> index 3a695b8a1e3c..d5eb47dcdacb 100644
+> --- a/arch/s390/mm/gmap.c
+> +++ b/arch/s390/mm/gmap.c
+> @@ -2587,14 +2587,17 @@ int gmap_mark_unmergeable(void)
+>  {
+>  	struct mm_struct *mm = current->mm;
+>  	struct vm_area_struct *vma;
+> +	unsigned long vm_flags;
+>  	int ret;
+>  	VMA_ITERATOR(vmi, mm, 0);
 >  
+>  	for_each_vma(vmi, vma) {
+> +		vm_flags = vma->vm_flags;
+>  		ret = ksm_madvise(vma, vma->vm_start, vma->vm_end,
+> -				  MADV_UNMERGEABLE, &vma->vm_flags);
+> +				  MADV_UNMERGEABLE, &vm_flags);
+>  		if (ret)
+>  			return ret;
+> +		reset_vm_flags(vma, vm_flags);
+>  	}
+>  	mm->def_flags &= ~VM_MERGEABLE;
+>  	return 0;
+> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> index 8abc59345bf2..76b24cd0c179 100644
+> --- a/mm/khugepaged.c
+> +++ b/mm/khugepaged.c
+> @@ -354,6 +354,8 @@ struct attribute_group khugepaged_attr_group = {
+>  int hugepage_madvise(struct vm_area_struct *vma,
+>  		     unsigned long *vm_flags, int advice)
+>  {
+> +	/* vma->vm_flags can be changed only using modifier functions */
+> +	BUG_ON(vm_flags == &vma->vm_flags);
+>  	switch (advice) {
+>  	case MADV_HUGEPAGE:
+>  #ifdef CONFIG_S390
+> diff --git a/mm/ksm.c b/mm/ksm.c
+> index 04f1c8c2df11..992b2be9f5e6 100644
+> --- a/mm/ksm.c
+> +++ b/mm/ksm.c
+> @@ -2573,6 +2573,8 @@ int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
+>  	struct mm_struct *mm = vma->vm_mm;
+>  	int err;
+>  
+> +	/* vma->vm_flags can be changed only using modifier functions */
+> +	BUG_ON(vm_flags == &vma->vm_flags);
+>  	switch (advice) {
+>  	case MADV_MERGEABLE:
+>  		/*
 > -- 
 > 2.39.1
+> 
 > 
