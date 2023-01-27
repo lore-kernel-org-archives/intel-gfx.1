@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6AD3C54EAA
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Jan 2023 22:43:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 284A6C38142
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Jan 2023 22:43:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDF2910E2D1;
-	Fri, 27 Jan 2023 22:43:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E35610E2D6;
+	Fri, 27 Jan 2023 22:43:30 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1CFF10E2E0
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90E9410E2E9
  for <intel-gfx@lists.freedesktop.org>; Fri, 27 Jan 2023 22:43:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1674859407; x=1706395407;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=K9G5c9UQRcNvS5Z0DZHc/e3qorl5/a1vPBklH6uTvqY=;
- b=NBu+BVSDcygmS2vdJYDopdiPy2NLIoNTQPFafINabkwMajRyb+zngFM8
- C7n9dNT8Y0DiZGCfO93LaecN2Uc+lTCCVDg5UXLRL988f8NgpmVtphmoN
- DU5mxclyDZOFxD8FNMXb9qN/0+wT8fW57BvghXlW3SID823SV9484tRPD
- 7B5dwnAS4OIE0SWg+5Qe9xJNsQkBNgkEY0YIOkMGoygJxVySqdyZwIL9+
- s6IQ7GGsWxFJ8rgBljNpZ/ejgr03wv7KzSLsF19CKkklKbB6hOlSqGd2e
- INhq/9gtha5nJwFUDrR5HyUUlZyi8QQdm++TuZyRmGilXmBfLL4I6PEjf Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10603"; a="328501626"
-X-IronPort-AV: E=Sophos;i="5.97,252,1669104000"; d="scan'208";a="328501626"
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Y+8WmGRatGzcOf9Di2tYJmy7BidlA2ez9YJTV1YCiZ4=;
+ b=OTj8KMjgNrXmYXw5znsNMCOwWCEDDGf96aLV6YnJIfQ0sJNVr5DL4zwk
+ m26o6DqIu8yDL86e2DBHnMUrhaUr8PppzGi8JLifjbmFhR10WHbo9Zhcb
+ xfmQnjPcU5tWJCl4wMjDmw9AfsYtbxxEOIEN55ACoznjw+LXUMWkVBHPK
+ nPK0kqPlqDUI8+4AHeSsOZBJU2AQhp3AGN8WmsDziivgeEOQ/FaN1KxOu
+ Xyn8nZTmG4ljrAtLrke/SXy4v8AacNSulRP+bxk7QZDCHpBYvjE8P4tLx
+ wLJJzlikqd+fUFBl7UZvNaG1J8g46VI6gGAOXPa5lSQHL4KIyqDLLKpOX Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10603"; a="328501624"
+X-IronPort-AV: E=Sophos;i="5.97,252,1669104000"; d="scan'208";a="328501624"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  27 Jan 2023 14:43:19 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10603"; a="771727414"
-X-IronPort-AV: E=Sophos;i="5.97,252,1669104000"; d="scan'208";a="771727414"
+X-IronPort-AV: E=McAfee;i="6500,9779,10603"; a="771727406"
+X-IronPort-AV: E=Sophos;i="5.97,252,1669104000"; d="scan'208";a="771727406"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  27 Jan 2023 14:43:18 -0800
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 27 Jan 2023 14:43:13 -0800
-Message-Id: <20230127224313.4042331-4-matthew.d.roper@intel.com>
+Date: Fri, 27 Jan 2023 14:43:10 -0800
+Message-Id: <20230127224313.4042331-1-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230127224313.4042331-1-matthew.d.roper@intel.com>
-References: <20230127224313.4042331-1-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915/dg1: Drop final use of
- IS_DG1_GRAPHICS_STEP
+Subject: [Intel-gfx] [PATCH 0/3] Drop TGL/DG1 workarounds for pre-prod
+ steppings
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,47 +58,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-All production DG1 hardware has graphics stepping B0; there is no such
-thing as C0.  As such, we can simplify
+As described in the comment on intel_detect_preproduction_hw(),
 
-        IS_DG1_GRAPHICS_STEP(uncore->i915, STEP_A0, STEP_C0)
+   Our policy for removing pre-production workarounds is to keep the
+   current gen workarounds as a guide to the bring-up of the next gen
+   (workarounds have a habit of persisting!). Anything older than that
+   should be removed along with the complications they introduce.
 
-to just match DG1 in general.
+TGL and DG1 are well past the point where we should move forward with
+removing the hardware workarounds specific to internal/pre-production
+hardware.
 
-Bspec: 44463
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_region_lmem.c | 2 +-
- drivers/gpu/drm/i915/i915_drv.h             | 3 ---
- 2 files changed, 1 insertion(+), 4 deletions(-)
+JSL/EHL appear to have productized A0 hardware, so all workarounds for
+those platforms will stay in the driver forever.  We can probably remove
+some pre-production workarounds for RKL and ADL at this point as well,
+but the bspec doesn't have details about which steppings were only used
+in pre-production, so we'll need to track down that information later.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-index f3ad93db0b21..89fdfc67f8d1 100644
---- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-+++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
-@@ -158,7 +158,7 @@ static const struct intel_memory_region_ops intel_region_lmem_ops = {
- static bool get_legacy_lowmem_region(struct intel_uncore *uncore,
- 				     u64 *start, u32 *size)
- {
--	if (!IS_DG1_GRAPHICS_STEP(uncore->i915, STEP_A0, STEP_C0))
-+	if (!IS_DG1(uncore->i915))
- 		return false;
- 
- 	*start = 0;
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 57b84dbca084..495788e18b77 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -656,9 +656,6 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- #define IS_RKL_DISPLAY_STEP(p, since, until) \
- 	(IS_ROCKETLAKE(p) && IS_DISPLAY_STEP(p, since, until))
- 
--#define IS_DG1_GRAPHICS_STEP(p, since, until) \
--	(IS_DG1(p) && IS_GRAPHICS_STEP(p, since, until))
--
- #define IS_ADLS_DISPLAY_STEP(__i915, since, until) \
- 	(IS_ALDERLAKE_S(__i915) && \
- 	 IS_DISPLAY_STEP(__i915, since, until))
+
+Matt Roper (3):
+  drm/i915/tgl: Drop support for pre-production steppings
+  drm/i915/dg1: Drop support for pre-production steppings
+  drm/i915/dg1: Drop final use of IS_DG1_GRAPHICS_STEP
+
+ .../drm/i915/display/intel_display_power.c    |  6 +-
+ drivers/gpu/drm/i915/display/intel_psr.c      | 26 ------
+ .../drm/i915/display/skl_universal_plane.c    |  2 +-
+ drivers/gpu/drm/i915/gt/intel_region_lmem.c   |  2 +-
+ drivers/gpu/drm/i915/gt/intel_workarounds.c   | 86 +------------------
+ drivers/gpu/drm/i915/i915_driver.c            |  2 +
+ drivers/gpu/drm/i915/i915_drv.h               | 13 ---
+ drivers/gpu/drm/i915/intel_pm.c               | 16 ----
+ 8 files changed, 10 insertions(+), 143 deletions(-)
+
 -- 
 2.39.1
 
