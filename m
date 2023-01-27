@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F50DC61DA4
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Jan 2023 11:12:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EAB6C54EAA
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Jan 2023 11:13:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43D9910E459;
-	Fri, 27 Jan 2023 11:12:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7B4F10E460;
+	Fri, 27 Jan 2023 11:13:02 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3F5110E454;
- Fri, 27 Jan 2023 11:12:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A09210E458;
+ Fri, 27 Jan 2023 11:12:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674817971; x=1706353971;
+ t=1674817975; x=1706353975;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=HfP297QW8gIkpCYO2BzVqMKCU4NmSe3qOUmwVqCBKVY=;
- b=AOvh6kldbekhwZIIaEjbe2EqpxFaljvatmQW7IhjJiRf9fNMGWKGo/3p
- 3BT0nvc31nFQWYktJd4bTqJWginvdoywxPlOYHstKxKAs6Qz0d++2jEjA
- m1ICibruRBlTWJ5Q8VI5ehNZfy7/t7xunYfRPDK3kFcvsUqOBkHvbZA/S
- 20fV+9t9Ll7akgtHyuqxGwrGciN0kOl7nPy/AY6QHMsc3AL8VC+rRYq43
- Trus0QEP7gypP9v2CwyE3lemTsb3sEzAIlfOq/6RXaPFRR+i0NziMPooa
- 4+tDVU+8ARMs0ZXwXlYtmmPE92iGw+63ZI81m3TerriqWwQg/gZwKbOUb A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="328352645"
-X-IronPort-AV: E=Sophos;i="5.97,250,1669104000"; d="scan'208";a="328352645"
+ bh=8TZ/wvve9Dvq4Y9T5zmRqt6DdJbRlIJjzSZ9OFSR+i0=;
+ b=bOualiIfVS6+EezXZ1DrIN+LkZEkhX12/UpfKV1Ty1VXr3EjQ9HzsrGY
+ Xd2jeuja+2We+OL63C7OsbFI03maqYYH9H6fEPQgp04V95KP7gogTPzId
+ 0TPrwJ0Z2kX6cuWH5hvrEVmHGoq2KW64sTkmStdsAifS0BbUr5xZe3qQj
+ quc8EpnytO1fobAV1nhAUkQJ2Q3n9FOutYgbi5r/k1/6PDFsfXDleYJ/4
+ sLDZV98Kr9EvrnUcuBoNM6KPpZT0cQrVQNf3Id5nFcOaFYnVkQBR9PMf+
+ Dmktey/7xh3lckAmNhy01whXGlMA1eCoKxc5o7XxV/HuQOEuX7Nv3g1n8 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="328352652"
+X-IronPort-AV: E=Sophos;i="5.97,250,1669104000"; d="scan'208";a="328352652"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2023 03:12:51 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="908638121"
-X-IronPort-AV: E=Sophos;i="5.97,250,1669104000"; d="scan'208";a="908638121"
+ 27 Jan 2023 03:12:54 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10602"; a="908638128"
+X-IronPort-AV: E=Sophos;i="5.97,250,1669104000"; d="scan'208";a="908638128"
 Received: from jgeary-mobl1.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.233.162])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2023 03:12:50 -0800
+ 27 Jan 2023 03:12:53 -0800
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: igt-dev@lists.freedesktop.org,
 	Intel-gfx@lists.freedesktop.org
-Date: Fri, 27 Jan 2023 11:12:36 +0000
-Message-Id: <20230127111241.3624629-2-tvrtko.ursulin@linux.intel.com>
+Date: Fri, 27 Jan 2023 11:12:38 +0000
+Message-Id: <20230127111241.3624629-4-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230127111241.3624629-1-tvrtko.ursulin@linux.intel.com>
 References: <20230127111241.3624629-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 1/6] intel_gpu_top: Fix man page formatting
+Subject: [Intel-gfx] [PATCH i-g-t 3/6] intel_gpu_top: Add command line
+ switch to start in physical engine mode
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,118 +64,79 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-New lines are not respected when rst2man generates the page so try to work
-around that by followin advice from the Internet.
-
-v2:
- * Improve some wording.
- * Tidy -o option description.
- * Update dates.
- * Convert the filter list to table.
+Default mode is to aggreate engines per class but some users would prefer
+to be able to start in physical engine mode too.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Reviewed-by: Kamil Konieczny <kamil.konieczny@linux.intel.com> # v1
+Cc: Dmitry Rogozhkin <dmitry.v.rogozhkin@intel.com>
+Reviewed-by: Kamil Konieczny <kamil.konieczny@linux.intel.com>
 ---
- man/intel_gpu_top.rst | 55 ++++++++++++++++++++-----------------------
- 1 file changed, 25 insertions(+), 30 deletions(-)
+ man/intel_gpu_top.rst | 3 +++
+ tools/intel_gpu_top.c | 9 +++++++--
+ 2 files changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/man/intel_gpu_top.rst b/man/intel_gpu_top.rst
-index 748c7740c800..4417bcff0d5b 100644
+index caf0a9f9432c..69834756b81e 100644
 --- a/man/intel_gpu_top.rst
 +++ b/man/intel_gpu_top.rst
-@@ -7,9 +7,9 @@ Display a top-like summary of Intel GPU usage
- ---------------------------------------------
- .. include:: defs.rst
- :Author: IGT Developers <igt-dev@lists.freedesktop.org>
--:Date: 2020-03-18
-+:Date: 2023-01-27
- :Version: |PACKAGE_STRING|
--:Copyright: 2009,2011,2012,2016,2018,2019,2020 Intel Corporation
-+:Copyright: 2009,2011,2012,2016,2018,2019,2020,2023 Intel Corporation
- :Manual section: |MANUAL_SECTION|
- :Manual group: |MANUAL_GROUP|
- 
-@@ -23,7 +23,7 @@ DESCRIPTION
- 
- **intel_gpu_top** is a tool to display usage information on Intel GPU's.
- 
--The tool gathers data using perf performance counters (PMU) exposed by i915 and other platform drivers like RAPL (power) and Uncore IMC (memory bandwidth).
-+The tool presents data collected from performance counters (PMU), exposed by i915 and other platform drivers like RAPL (power) and Uncore IMC (memory bandwidth).
- 
- OPTIONS
- =======
-@@ -37,49 +37,44 @@ OPTIONS
- -l
-     List plain text data.
- 
---o <file path | ->
--    Output to the specified file instead of standard output.
--    '-' can also be specified to explicitly select standard output.
-+-o <file>, or -o -
-+    Output to the specified file instead of standard output. '-' can also be specified to explicitly select standard output.
- 
- -s <ms>
-     Refresh period in milliseconds.
-+
- -L
--    List available GPUs on the platform.
-+    List available GPUs on the system.
-+
+@@ -49,6 +49,9 @@ OPTIONS
  -d
--    Select a specific GPU using supported filter.
-+    Select a specific GPU using one of the supported filters.
+     Select a specific GPU using one of the supported filters.
  
++-p
++   Default to showing physical engines instead of aggregated classes.
++
  RUNTIME CONTROL
  ===============
  
- Supported keys:
+diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
+index c4d98de4fe31..e91b47baf72b 100644
+--- a/tools/intel_gpu_top.c
++++ b/tools/intel_gpu_top.c
+@@ -1268,6 +1268,7 @@ usage(const char *appname)
+ 		"\t[-s <ms>]       Refresh period in milliseconds (default %ums).\n"
+ 		"\t[-L]            List all cards.\n"
+ 		"\t[-d <device>]   Device filter, please check manual page for more details.\n"
++		"\t[-p]            Default to showing physical engines instead of classes.\n"
+ 		"\n",
+ 		appname, DEFAULT_PERIOD_MS);
+ 	igt_device_print_filter_types();
+@@ -2446,6 +2447,7 @@ int main(int argc, char **argv)
+ {
+ 	unsigned int period_us = DEFAULT_PERIOD_MS * 1000;
+ 	struct clients *clients = NULL;
++	bool physical_engines = false;
+ 	int con_w = -1, con_h = -1;
+ 	char *output_path = NULL;
+ 	struct engines *engines;
+@@ -2456,7 +2458,7 @@ int main(int argc, char **argv)
+ 	char *codename = NULL;
  
--    'q'    Exit from the tool.
--    'h'    Show interactive help.
--    '1'    Toggle between aggregated engine class and physical engine mode.
--    'n'    Toggle display of numeric client busyness overlay.
--    's'    Toggle between sort modes (runtime, total runtime, pid, client id).
--    'i'    Toggle display of clients which used no GPU time.
--    'H'    Toggle between per PID aggregation and individual clients.
-+|
-+|    'q'    Exit from the tool.
-+|    'h'    Show interactive help.
-+|    '1'    Toggle between aggregated by engine class and physical engine mode.
-+|    'n'    Toggle display of numeric client busyness overlay.
-+|    's'    Toggle between sort modes (runtime, total runtime, pid, client id).
-+|    'i'    Toggle display of clients which used no GPU time.
-+|    'H'    Toggle between per PID aggregation and individual clients.
- 
- DEVICE SELECTION
- ================
- 
--User can select specific GPU for performance monitoring on platform where multiple GPUs are available.
--A GPU can be selected by sysfs path, drm node or using various PCI sub filters.
--
--Filter types: ::
--
--    ---
--    filter   syntax
--    ---
--    sys      sys:/sys/devices/pci0000:00/0000:00:02.0
--             find device by its sysfs path
--
--    drm      drm:/dev/dri/* path
--             find drm device by /dev/dri/* node
-+On systems where multiple GPUs are present it is possible to select a specific GPU to be monitored. A GPU can be selected by sysfs path, drm device node or using various PCI sub filters.
- 
--    pci      pci:[vendor=%04x/name][,device=%04x][,card=%d]
--             vendor is hex number or vendor name
-+==========  ====================================================== ======================
-+**Filter**  **Syntax**                                             **GPU selection criteria**
-+==========  ====================================================== ======================
-+sys          | ``sys:/sys/devices/pci0000:00/0000:00:02.0``        Select using the sysfs path.
-+drm          | ``drm:/dev/dri/<node>``                             Select using the /dev/dri/\* device node.
-+pci          | ``pci:[vendor=%04x/name][,device=%04x][,card=%d]``  Select using the PCI addrress. Vendor is hexadecinal number or vendor name.
-+==========  ====================================================== ======================
- 
- JSON OUTPUT
- ===========
+ 	/* Parse options */
+-	while ((ch = getopt(argc, argv, "o:s:d:JLlh")) != -1) {
++	while ((ch = getopt(argc, argv, "o:s:d:pJLlh")) != -1) {
+ 		switch (ch) {
+ 		case 'o':
+ 			output_path = optarg;
+@@ -2467,6 +2469,9 @@ int main(int argc, char **argv)
+ 		case 'd':
+ 			opt_device = strdup(optarg);
+ 			break;
++		case 'p':
++			physical_engines = true;
++			break;
+ 		case 'J':
+ 			output_mode = JSON;
+ 			break;
+@@ -2508,7 +2513,7 @@ int main(int argc, char **argv)
+ 	case INTERACTIVE:
+ 		pops = &term_pops;
+ 		interactive_stdin();
+-		class_view = true;
++		class_view = !physical_engines;
+ 		break;
+ 	case STDOUT:
+ 		pops = &stdout_pops;
 -- 
 2.34.1
 
