@@ -4,47 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3613C38142
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Jan 2023 22:43:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80C2CC38142
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Jan 2023 23:53:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F9B810E1D9;
-	Fri, 27 Jan 2023 22:43:40 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA20B10E2ED
- for <intel-gfx@lists.freedesktop.org>; Fri, 27 Jan 2023 22:43:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674859407; x=1706395407;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=wrAY4IBO3+At1MMMmYrypna1KaBxtyFeeVScCVmu2m0=;
- b=ksmytKQhesjARP3TaMSlPLeXMQOAvhcMtBRcQKhqrKRsh55AwV50Caho
- /nA2IsdqYiqjhk6pFZGm2YXUbxuJjrrf7bbvAUEDsXcXcupqxG3o3p8cG
- zkMY+cpFRgAM4KJj9II69N/k5qwkLkY/tVpL7D4H4NKew/AKfaGM2fDNB
- Rf4tWSb0giqEQxBW2K+GpU9i8z20YYki0/hpZ2D3vlS2xBePunTg9zy6O
- eNF9sfB1tbzK+5/DhAEg6jilL/kJRkdEUag3x7DsyKDvz598XOHbsD4xG
- uojf+X99Vefq6t4/8MZEqInl3WExcmluBoTDP0XqEKCWMFmeya0wGFzk5 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10603"; a="328501625"
-X-IronPort-AV: E=Sophos;i="5.97,252,1669104000"; d="scan'208";a="328501625"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2023 14:43:19 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10603"; a="771727409"
-X-IronPort-AV: E=Sophos;i="5.97,252,1669104000"; d="scan'208";a="771727409"
-Received: from mdroper-desk1.fm.intel.com ([10.1.27.134])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2023 14:43:18 -0800
-From: Matt Roper <matthew.d.roper@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 27 Jan 2023 14:43:11 -0800
-Message-Id: <20230127224313.4042331-2-matthew.d.roper@intel.com>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230127224313.4042331-1-matthew.d.roper@intel.com>
-References: <20230127224313.4042331-1-matthew.d.roper@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 661C610E088;
+	Fri, 27 Jan 2023 23:53:48 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0081D10E088;
+ Fri, 27 Jan 2023 23:53:46 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id EF194AADE4;
+ Fri, 27 Jan 2023 23:53:45 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1457054984321730778=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/3] drm/i915/tgl: Drop support for
- pre-production steppings
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matt Roper" <matthew.d.roper@intel.com>
+Date: Fri, 27 Jan 2023 23:53:45 -0000
+Message-ID: <167486362595.18992.12074211181907095705@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230127224313.4042331-1-matthew.d.roper@intel.com>
+In-Reply-To: <20230127224313.4042331-1-matthew.d.roper@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgRHJv?=
+ =?utf-8?q?p_TGL/DG1_workarounds_for_pre-prod_steppings?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,238 +40,245 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Several post-TGL platforms have been brought up now, so we're well past
-the point where we usually drop the workarounds that are only applicable
-to internal/pre-production hardware.
+--===============1457054984321730778==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Production TGL hardware always has display stepping C0 or later and GT
-stepping B0 or later (this is true for both the original TGL and the U/Y
-subplatform).
+== Series Details ==
 
-Bspec 44455
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
----
- .../drm/i915/display/intel_display_power.c    |  5 +--
- drivers/gpu/drm/i915/display/intel_psr.c      | 26 -----------
- .../drm/i915/display/skl_universal_plane.c    |  2 +-
- drivers/gpu/drm/i915/gt/intel_workarounds.c   | 44 ++-----------------
- drivers/gpu/drm/i915/i915_driver.c            |  1 +
- drivers/gpu/drm/i915/i915_drv.h               |  8 ----
- drivers/gpu/drm/i915/intel_pm.c               |  4 --
- 7 files changed, 7 insertions(+), 83 deletions(-)
+Series: Drop TGL/DG1 workarounds for pre-prod steppings
+URL   : https://patchwork.freedesktop.org/series/113453/
+State : success
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index 1a23ecd4623a..1dc31f0f5e0a 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -1581,9 +1581,8 @@ static void tgl_bw_buddy_init(struct drm_i915_private *dev_priv)
- 
- 	if (IS_ALDERLAKE_S(dev_priv) ||
- 	    IS_DG1_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0) ||
--	    IS_RKL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0) ||
--	    IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_C0))
--		/* Wa_1409767108:tgl,dg1,adl-s */
-+	    IS_RKL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
-+		/* Wa_1409767108 */
- 		table = wa_1409767108_buddy_page_masks;
- 	else
- 		table = tgl_buddy_page_masks;
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 7d4a15a283a0..5dca58dd97a9 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -591,12 +591,6 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
- 	if (intel_dp->psr.psr2_sel_fetch_enabled) {
- 		u32 tmp;
- 
--		/* Wa_1408330847 */
--		if (IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
--			intel_de_rmw(dev_priv, CHICKEN_PAR1_1,
--				     DIS_RAM_BYPASS_PSR2_MAN_TRACK,
--				     DIS_RAM_BYPASS_PSR2_MAN_TRACK);
--
- 		tmp = intel_de_read(dev_priv, PSR2_MAN_TRK_CTL(intel_dp->psr.transcoder));
- 		drm_WARN_ON(&dev_priv->drm, !(tmp & PSR2_MAN_TRK_CTL_ENABLE));
- 	} else if (HAS_PSR2_SEL_FETCH(dev_priv)) {
-@@ -765,13 +759,6 @@ static bool intel_psr2_sel_fetch_config_valid(struct intel_dp *intel_dp,
- 		return false;
- 	}
- 
--	/* Wa_14010254185 Wa_14010103792 */
--	if (IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_C0)) {
--		drm_dbg_kms(&dev_priv->drm,
--			    "PSR2 sel fetch not enabled, missing the implementation of WAs\n");
--		return false;
--	}
--
- 	return crtc_state->enable_psr2_sel_fetch = true;
- }
- 
-@@ -945,13 +932,6 @@ static bool intel_psr2_config_valid(struct intel_dp *intel_dp,
- 		}
- 	}
- 
--	/* Wa_2209313811 */
--	if (!crtc_state->enable_psr2_sel_fetch &&
--	    IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_C0)) {
--		drm_dbg_kms(&dev_priv->drm, "PSR2 HW tracking is not supported this Display stepping\n");
--		goto unsupported;
--	}
--
- 	if (!psr2_granularity_check(intel_dp, crtc_state)) {
- 		drm_dbg_kms(&dev_priv->drm, "PSR2 not enabled, SU granularity not compatible\n");
- 		goto unsupported;
-@@ -1360,12 +1340,6 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
- 	intel_psr_exit(intel_dp);
- 	intel_psr_wait_exit_locked(intel_dp);
- 
--	/* Wa_1408330847 */
--	if (intel_dp->psr.psr2_sel_fetch_enabled &&
--	    IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
--		intel_de_rmw(dev_priv, CHICKEN_PAR1_1,
--			     DIS_RAM_BYPASS_PSR2_MAN_TRACK, 0);
--
- 	/*
- 	 * Wa_16013835468
- 	 * Wa_14015648006
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 9b172a1e90de..e956edb87398 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -2180,7 +2180,7 @@ static bool gen12_plane_has_mc_ccs(struct drm_i915_private *i915,
- 	if (DISPLAY_VER(i915) < 12)
- 		return false;
- 
--	/* Wa_14010477008:tgl[a0..c0],rkl[all],dg1[all] */
-+	/* Wa_14010477008 */
- 	if (IS_DG1(i915) || IS_ROCKETLAKE(i915) ||
- 	    IS_TGL_DISPLAY_STEP(i915, STEP_A0, STEP_D0))
- 		return false;
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index 4efc1a532982..82a8f372bde6 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -1456,31 +1456,6 @@ gen12_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
- 	wa_mcr_write_or(wal, GEN10_DFR_RATIO_EN_AND_CHICKEN, DFR_DISABLE);
- }
- 
--static void
--tgl_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
--{
--	struct drm_i915_private *i915 = gt->i915;
--
--	gen12_gt_workarounds_init(gt, wal);
--
--	/* Wa_1409420604:tgl */
--	if (IS_TGL_UY_GRAPHICS_STEP(i915, STEP_A0, STEP_B0))
--		wa_mcr_write_or(wal,
--				SUBSLICE_UNIT_LEVEL_CLKGATE2,
--				CPSSUNIT_CLKGATE_DIS);
--
--	/* Wa_1607087056:tgl also know as BUG:1409180338 */
--	if (IS_TGL_UY_GRAPHICS_STEP(i915, STEP_A0, STEP_B0))
--		wa_write_or(wal,
--			    GEN11_SLICE_UNIT_LEVEL_CLKGATE,
--			    L3_CLKGATE_DIS | L3_CR2X_CLKGATE_DIS);
--
--	/* Wa_1408615072:tgl[a0] */
--	if (IS_TGL_UY_GRAPHICS_STEP(i915, STEP_A0, STEP_B0))
--		wa_write_or(wal, UNSLICE_UNIT_LEVEL_CLKGATE2,
--			    VSUNIT_CLKGATE_DIS_TGL);
--}
--
- static void
- dg1_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
- {
-@@ -1716,8 +1691,6 @@ gt_init_workarounds(struct intel_gt *gt, struct i915_wa_list *wal)
- 		xehpsdv_gt_workarounds_init(gt, wal);
- 	else if (IS_DG1(i915))
- 		dg1_gt_workarounds_init(gt, wal);
--	else if (IS_TIGERLAKE(i915))
--		tgl_gt_workarounds_init(gt, wal);
- 	else if (GRAPHICS_VER(i915) == 12)
- 		gen12_gt_workarounds_init(gt, wal);
- 	else if (GRAPHICS_VER(i915) == 11)
-@@ -2437,27 +2410,16 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
- 			   true);
- 	}
- 
--	if (IS_DG1_GRAPHICS_STEP(i915, STEP_A0, STEP_B0) ||
--	    IS_TGL_UY_GRAPHICS_STEP(i915, STEP_A0, STEP_B0)) {
-+	if (IS_DG1_GRAPHICS_STEP(i915, STEP_A0, STEP_B0)) {
- 		/*
--		 * Wa_1607138336:tgl[a0],dg1[a0]
--		 * Wa_1607063988:tgl[a0],dg1[a0]
-+		 * Wa_1607138336
-+		 * Wa_1607063988
- 		 */
- 		wa_write_or(wal,
- 			    GEN9_CTX_PREEMPT_REG,
- 			    GEN12_DISABLE_POSH_BUSY_FF_DOP_CG);
- 	}
- 
--	if (IS_TGL_UY_GRAPHICS_STEP(i915, STEP_A0, STEP_B0)) {
--		/*
--		 * Wa_1606679103:tgl
--		 * (see also Wa_1606682166:icl)
--		 */
--		wa_write_or(wal,
--			    GEN7_SARCHKMD,
--			    GEN7_DISABLE_SAMPLER_PREFETCH);
--	}
--
- 	if (IS_ALDERLAKE_P(i915) || IS_ALDERLAKE_S(i915) || IS_DG1(i915) ||
- 	    IS_ROCKETLAKE(i915) || IS_TIGERLAKE(i915)) {
- 		/* Wa_1606931601:tgl,rkl,dg1,adl-s,adl-p */
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index cf1c0970ecb4..879ab4ed42af 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -167,6 +167,7 @@ static void intel_detect_preproduction_hw(struct drm_i915_private *dev_priv)
- 	pre |= IS_KABYLAKE(dev_priv) && INTEL_REVID(dev_priv) < 0x1;
- 	pre |= IS_GEMINILAKE(dev_priv) && INTEL_REVID(dev_priv) < 0x3;
- 	pre |= IS_ICELAKE(dev_priv) && INTEL_REVID(dev_priv) < 0x7;
-+	pre |= IS_TIGERLAKE(dev_priv) && INTEL_REVID(dev_priv) < 0x1;
- 
- 	if (pre) {
- 		drm_err(&dev_priv->drm, "This is a pre-production stepping. "
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 48c838b4ea62..62cc0f76c583 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -653,14 +653,6 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- 	(IS_TIGERLAKE(__i915) && \
- 	 IS_DISPLAY_STEP(__i915, since, until))
- 
--#define IS_TGL_UY_GRAPHICS_STEP(__i915, since, until) \
--	(IS_TGL_UY(__i915) && \
--	 IS_GRAPHICS_STEP(__i915, since, until))
--
--#define IS_TGL_GRAPHICS_STEP(__i915, since, until) \
--	(IS_TIGERLAKE(__i915) && !IS_TGL_UY(__i915)) && \
--	 IS_GRAPHICS_STEP(__i915, since, until))
--
- #define IS_RKL_DISPLAY_STEP(p, since, until) \
- 	(IS_ROCKETLAKE(p) && IS_DISPLAY_STEP(p, since, until))
- 
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index 3fc65bd12cc1..c6676f1a9c6f 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -4336,10 +4336,6 @@ static void gen12lp_init_clock_gating(struct drm_i915_private *dev_priv)
- 		intel_uncore_write(&dev_priv->uncore, ILK_DPFC_CHICKEN(INTEL_FBC_A),
- 				   DPFC_CHICKEN_COMP_DUMMY_PIXEL);
- 
--	/* Wa_1409825376:tgl (pre-prod)*/
--	if (IS_TGL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_C0))
--		intel_uncore_rmw(&dev_priv->uncore, GEN9_CLKGATE_DIS_3, 0, TGL_VRH_GATING_DIS);
--
- 	/* Wa_14013723622:tgl,rkl,dg1,adl-s */
- 	if (DISPLAY_VER(dev_priv) == 12)
- 		intel_uncore_rmw(&dev_priv->uncore, CLKREQ_POLICY,
--- 
-2.39.1
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_12658 -> Patchwork_113453v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/index.html
+
+Participating hosts (24 -> 23)
+------------------------------
+
+  Missing    (1): fi-snb-2520m 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_113453v1:
+
+### IGT changes ###
+
+#### Suppressed ####
+
+  The following results come from untrusted machines, tests, or statuses.
+  They do not affect the overall result.
+
+  * igt@i915_selftest@live@requests:
+    - {bat-rplp-1}:       [PASS][1] -> [ABORT][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12658/bat-rplp-1/igt@i915_selftest@live@requests.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/bat-rplp-1/igt@i915_selftest@live@requests.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_113453v1 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@core_hotunplug@unbind-rebind:
+    - {bat-dg2-11}:       [DMESG-WARN][3] ([i915#1982]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12658/bat-dg2-11/igt@core_hotunplug@unbind-rebind.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/bat-dg2-11/igt@core_hotunplug@unbind-rebind.html
+
+  * igt@i915_pm_rpm@basic-rte:
+    - {bat-adlp-6}:       [ABORT][5] -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12658/bat-adlp-6/igt@i915_pm_rpm@basic-rte.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/bat-adlp-6/igt@i915_pm_rpm@basic-rte.html
+
+  * igt@i915_pm_rpm@module-reload:
+    - {bat-dg2-11}:       [DMESG-WARN][7] -> [PASS][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12658/bat-dg2-11/igt@i915_pm_rpm@module-reload.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/bat-dg2-11/igt@i915_pm_rpm@module-reload.html
+
+  * igt@i915_selftest@live@gt_heartbeat:
+    - fi-apl-guc:         [DMESG-FAIL][9] ([i915#5334]) -> [PASS][10]
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12658/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html
+
+  * igt@i915_selftest@live@migrate:
+    - {bat-dg2-11}:       [DMESG-WARN][11] ([i915#2867]) -> [PASS][12] +5 similar issues
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12658/bat-dg2-11/igt@i915_selftest@live@migrate.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/bat-dg2-11/igt@i915_selftest@live@migrate.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size:
+    - fi-bsw-n3050:       [FAIL][13] ([i915#6298]) -> [PASS][14]
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12658/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109295]: https://bugs.freedesktop.org/show_bug.cgi?id=109295
+  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
+  [i915#2867]: https://gitlab.freedesktop.org/drm/intel/issues/2867
+  [i915#3291]: https://gitlab.freedesktop.org/drm/intel/issues/3291
+  [i915#3301]: https://gitlab.freedesktop.org/drm/intel/issues/3301
+  [i915#3708]: https://gitlab.freedesktop.org/drm/intel/issues/3708
+  [i915#4137]: https://gitlab.freedesktop.org/drm/intel/issues/4137
+  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
+  [i915#5334]: https://gitlab.freedesktop.org/drm/intel/issues/5334
+  [i915#6298]: https://gitlab.freedesktop.org/drm/intel/issues/6298
+  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
+  [i915#6621]: https://gitlab.freedesktop.org/drm/intel/issues/6621
+  [i915#6997]: https://gitlab.freedesktop.org/drm/intel/issues/6997
+  [i915#7828]: https://gitlab.freedesktop.org/drm/intel/issues/7828
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_12658 -> Patchwork_113453v1
+
+  CI-20190529: 20190529
+  CI_DRM_12658: a9e72f4e0baf2e3e306da0063f98099044d85285 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7141: a978df7912acda18eada1b1d2ae4b438ed3e940b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_113453v1: a9e72f4e0baf2e3e306da0063f98099044d85285 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+7fb70302790c drm/i915/dg1: Drop final use of IS_DG1_GRAPHICS_STEP
+ea47c28431c9 drm/i915/dg1: Drop support for pre-production steppings
+ea63c4cec9f1 drm/i915/tgl: Drop support for pre-production steppings
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/index.html
+
+--===============1457054984321730778==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Drop TGL/DG1 workarounds for pre-prod steppings</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/113453/">https://patchwork.freedesktop.org/series/113453/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_12658 -&gt; Patchwork_113453v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/index.html</p>
+<h2>Participating hosts (24 -&gt; 23)</h2>
+<p>Missing    (1): fi-snb-2520m </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_113453v1:</p>
+<h3>IGT changes</h3>
+<h4>Suppressed</h4>
+<p>The following results come from untrusted machines, tests, or statuses.<br />
+  They do not affect the overall result.</p>
+<ul>
+<li>igt@i915_selftest@live@requests:<ul>
+<li>{bat-rplp-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12658/bat-rplp-1/igt@i915_selftest@live@requests.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/bat-rplp-1/igt@i915_selftest@live@requests.html">ABORT</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_113453v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@core_hotunplug@unbind-rebind:</p>
+<ul>
+<li>{bat-dg2-11}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12658/bat-dg2-11/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/bat-dg2-11/igt@core_hotunplug@unbind-rebind.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_rpm@basic-rte:</p>
+<ul>
+<li>{bat-adlp-6}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12658/bat-adlp-6/igt@i915_pm_rpm@basic-rte.html">ABORT</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/bat-adlp-6/igt@i915_pm_rpm@basic-rte.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_rpm@module-reload:</p>
+<ul>
+<li>{bat-dg2-11}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12658/bat-dg2-11/igt@i915_pm_rpm@module-reload.html">DMESG-WARN</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/bat-dg2-11/igt@i915_pm_rpm@module-reload.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_heartbeat:</p>
+<ul>
+<li>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12658/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@migrate:</p>
+<ul>
+<li>{bat-dg2-11}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12658/bat-dg2-11/igt@i915_selftest@live@migrate.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2867">i915#2867</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/bat-dg2-11/igt@i915_selftest@live@migrate.html">PASS</a> +5 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size:</p>
+<ul>
+<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12658/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6298">i915#6298</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113453v1/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_12658 -&gt; Patchwork_113453v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_12658: a9e72f4e0baf2e3e306da0063f98099044d85285 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7141: a978df7912acda18eada1b1d2ae4b438ed3e940b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_113453v1: a9e72f4e0baf2e3e306da0063f98099044d85285 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>7fb70302790c drm/i915/dg1: Drop final use of IS_DG1_GRAPHICS_STEP<br />
+ea47c28431c9 drm/i915/dg1: Drop support for pre-production steppings<br />
+ea63c4cec9f1 drm/i915/tgl: Drop support for pre-production steppings</p>
+
+</body>
+</html>
+
+--===============1457054984321730778==--
