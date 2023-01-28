@@ -4,49 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A41F3C27C76
-	for <intel-gfx@archiver.kernel.org>; Sat, 28 Jan 2023 14:44:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAD4DC27C76
+	for <intel-gfx@archiver.kernel.org>; Sat, 28 Jan 2023 19:59:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D754310E1DC;
-	Sat, 28 Jan 2023 14:44:40 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AA8B10E1DC;
- Sat, 28 Jan 2023 14:44:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AA0B10E070;
+	Sat, 28 Jan 2023 19:59:22 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2FA810E078;
+ Sat, 28 Jan 2023 19:59:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674917079; x=1706453079;
- h=date:from:to:cc:subject:message-id:mime-version:
- content-transfer-encoding;
- bh=TCzl1JEhnIn14bGbsG4mVABQo2h4Yf/W3DDMLnDmz/E=;
- b=lH0hVRtB/jW/5IY2LuZDaUsQ+cBDHLG5yvyy/IvfRrEWblL17rgdGOtU
- 3AijZ05hfQff9+z9C15hQGAlUyr2+KJP/539v2EnklZJT8TV1yPcpv+Va
- m6mRi44y9ZgHyDRwqbJuvEVYEPnAZcBl5LPnbsZd600JCEhJrgnS6PE+w
- L/jiDEL/ybAPidXdsH2gD9we0iEw4BnndUNNlhy9yQbtC7yN1pvc06PSB
- UxuZug9hUqyhSVLtCMmOjSOv81dcVgnS84t8cGlgbxk8aqkjZawlhdYse
- TnlISAjQjCqbQkP3i3Zud0Sz7SSM0IO2b/WQLqWABOYb9huF3LzbhQ3oj g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10604"; a="310916239"
-X-IronPort-AV: E=Sophos;i="5.97,254,1669104000"; d="scan'208";a="310916239"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2023 06:44:38 -0800
+ t=1674935960; x=1706471960;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=1kJ99avfGpNFfO9Ujr5BLqvmNxDmIuAlcOTeYzk9f6I=;
+ b=AzqgZfgIt4ioFtmYVHxXIsn9CRZbUkBkIs5O7BTaPZx4u64nVjdVDYki
+ IM4lqKPksS4MYhpmAAuEOmypx9wCJuOf082aL7Z5VV4KejOQwXpBfasUI
+ jSzCm/3F398VjngRRffzMO5bWvny3kViTiRM6jymezKV/+m+mFSvpBUet
+ 6/COV1gTsTBjzgmILY4wnJwUQPJiilWgp3c7W2RAuPgF9KtGc5/wu0oap
+ sFj9wY8yzLa3GInMJJnWxxKdFLvsu1fj0q3dO4nom12+BARhRk1oq53pj
+ EwUri26jV908AqP+OfeDTv7GNA7q/a1BqTZMEawmaEM5K9e7unFxNDoow Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10604"; a="306978115"
+X-IronPort-AV: E=Sophos;i="5.97,254,1669104000"; d="scan'208";a="306978115"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jan 2023 11:59:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10604"; a="694037265"
-X-IronPort-AV: E=Sophos;i="5.97,254,1669104000"; d="scan'208";a="694037265"
-Received: from lkp-server01.sh.intel.com (HELO ffa7f14d1d0f) ([10.239.97.150])
- by orsmga008.jf.intel.com with ESMTP; 28 Jan 2023 06:44:36 -0800
-Received: from kbuild by ffa7f14d1d0f with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pLmRX-0000o9-0N;
- Sat, 28 Jan 2023 14:44:35 +0000
-Date: Sat, 28 Jan 2023 22:43:47 +0800
-From: kernel test robot <lkp@intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Message-ID: <63d534a3.RzXvRKk6xwLCt+c9%lkp@intel.com>
-User-Agent: Heirloom mailx 12.5 6/20/10
+X-IronPort-AV: E=McAfee;i="6500,9779,10604"; a="613567924"
+X-IronPort-AV: E=Sophos;i="5.97,254,1669104000"; d="scan'208";a="613567924"
+Received: from irvmail002.ir.intel.com ([10.43.11.120])
+ by orsmga003.jf.intel.com with ESMTP; 28 Jan 2023 11:59:18 -0800
+Received: from mwajdecz-MOBL.ger.corp.intel.com
+ (mwajdecz-MOBL.ger.corp.intel.com [10.249.137.106])
+ by irvmail002.ir.intel.com (Postfix) with ESMTP id CCA3A333EE;
+ Sat, 28 Jan 2023 19:59:17 +0000 (GMT)
+From: Michal Wajdeczko <michal.wajdeczko@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Sat, 28 Jan 2023 20:59:00 +0100
+Message-Id: <20230128195907.1837-2-michal.wajdeczko@intel.com>
+X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20230128195907.1837-1-michal.wajdeczko@intel.com>
+References: <20230128195907.1837-1-michal.wajdeczko@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Subject: [Intel-gfx] [linux-next:master] BUILD REGRESSION
- e2f86c02fdc96ca29ced53221a3cbf50aa6f8b49
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v3 1/8] drm/i915/guc: Add GuC oriented print
+ macros
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,153 +62,79 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linux Memory Management List <linux-mm@kvack.org>,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-branch HEAD: e2f86c02fdc96ca29ced53221a3cbf50aa6f8b49  Add linux-next specific files for 20230127
+While we do have GT oriented print macros, add few more GuC
+specific to have common look and feel across all messages
+related to the GuC and to avoid chasing the gt pointer.
 
-Error/Warning: (recently discovered and may have been fixed)
+We will use these macros shortly in upcoming patches.
 
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/fsl-edma.ko] undefined!
-ERROR: modpost: "devm_platform_ioremap_resource" [drivers/dma/idma64.ko] undefined!
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:148:6: warning: no previous prototype for 'link_dp_trace_set_edp_power_timestamp' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:158:10: warning: no previous prototype for 'link_dp_trace_get_edp_poweron_timestamp' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/accessories/link_dp_trace.c:163:10: warning: no previous prototype for 'link_dp_trace_get_edp_poweroff_timestamp' [-Wmissing-prototypes]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:1295:32: warning: variable 'result_write_min_hblank' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_capability.c:279:42: warning: variable 'ds_port' set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/amdgpu/../display/dc/link/protocols/link_dp_training.c:1585:38: warning: variable 'result' set but not used [-Wunused-but-set-variable]
-idma64.c:(.text+0x9a): undefined reference to `devm_platform_ioremap_resource'
-libbpf: failed to find '.BTF' ELF section in vmlinux
+Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_print.h | 48 ++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_print.h
 
-Unverified Error/Warning (likely false positive, please contact us if interested):
-
-FAILED: load BTF from vmlinux: No data available
-
-Error/Warning ids grouped by kconfigs:
-
-gcc_recent_errors
-|-- alpha-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arc-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arm-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arm64-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- arm64-randconfig-r021-20230126
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|-- i386-allyesconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-|-- i386-randconfig-s041-20230123
-|   `-- drivers-gpu-drm-i915-gem-i915_gem_ttm.c:sparse:sparse:incorrect-type-in-assignment-(different-base-types)-expected-restricted-vm_fault_t-assigned-usertype-ret-got-int
-|-- ia64-allmodconfig
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweroff_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_get_edp_poweron_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-accessories-link_dp_trace.c:warning:no-previous-prototype-for-link_dp_trace_set_edp_power_timestamp
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-ds_port-set-but-not-used
-|   |-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_capability.c:warning:variable-result_write_min_hblank-set-but-not-used
-|   `-- drivers-gpu-drm-amd-amdgpu-..-display-dc-link-protocols-link_dp_training.c:warning:variable-result-set-but-not-used
-clang_recent_errors
-`-- s390-randconfig-r022-20230123
-    `-- idma64.c:(.text):undefined-reference-to-devm_platform_ioremap_resource
-
-elapsed time: 739m
-
-configs tested: 56
-configs skipped: 2
-
-gcc tested configs:
-x86_64                            allnoconfig
-powerpc                           allnoconfig
-x86_64                              defconfig
-i386                                defconfig
-arm                                 defconfig
-ia64                             allmodconfig
-x86_64                               rhel-8.3
-arc                  randconfig-r043-20230123
-i386                          randconfig-a001
-arm                  randconfig-r046-20230123
-i386                          randconfig-a003
-x86_64                           rhel-8.3-syz
-i386                          randconfig-a005
-x86_64                         rhel-8.3-kunit
-arm64                            allyesconfig
-i386                             allyesconfig
-x86_64                           allyesconfig
-arm                              allyesconfig
-x86_64                           rhel-8.3-kvm
-x86_64                          rhel-8.3-func
-x86_64                    rhel-8.3-kselftests
-x86_64                           rhel-8.3-bpf
-x86_64               randconfig-a002-20230123
-sh                               allmodconfig
-x86_64               randconfig-a001-20230123
-x86_64               randconfig-a004-20230123
-x86_64               randconfig-a003-20230123
-x86_64               randconfig-a005-20230123
-x86_64               randconfig-a006-20230123
-mips                             allyesconfig
-powerpc                          allmodconfig
-arc                                 defconfig
-alpha                               defconfig
-s390                             allmodconfig
-s390                                defconfig
-m68k                             allyesconfig
-m68k                             allmodconfig
-um                             i386_defconfig
-arc                              allyesconfig
-alpha                            allyesconfig
-s390                             allyesconfig
-um                           x86_64_defconfig
-
-clang tested configs:
-x86_64                          rhel-8.3-rust
-hexagon              randconfig-r041-20230123
-hexagon              randconfig-r045-20230123
-s390                 randconfig-r044-20230123
-i386                          randconfig-a002
-riscv                randconfig-r042-20230123
-i386                          randconfig-a004
-i386                          randconfig-a006
-x86_64               randconfig-a013-20230123
-x86_64               randconfig-a011-20230123
-x86_64               randconfig-a012-20230123
-x86_64               randconfig-a015-20230123
-x86_64               randconfig-a014-20230123
-x86_64               randconfig-a016-20230123
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_print.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_print.h
+new file mode 100644
+index 000000000000..e75989d4ba06
+--- /dev/null
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_print.h
+@@ -0,0 +1,48 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2023 Intel Corporation
++ */
++
++#ifndef __INTEL_GUC_PRINT__
++#define __INTEL_GUC_PRINT__
++
++#include "gt/intel_gt.h"
++#include "gt/intel_gt_print.h"
++
++#define guc_printk(_guc, _level, _fmt, ...) \
++	gt_##_level(guc_to_gt(_guc), "GUC: " _fmt, ##__VA_ARGS__)
++
++#define guc_err(_guc, _fmt, ...) \
++	guc_printk((_guc), err, _fmt, ##__VA_ARGS__)
++
++#define guc_warn(_guc, _fmt, ...) \
++	guc_printk((_guc), warn, _fmt, ##__VA_ARGS__)
++
++#define guc_notice(_guc, _fmt, ...) \
++	guc_printk((_guc), notice, _fmt, ##__VA_ARGS__)
++
++#define guc_info(_guc, _fmt, ...) \
++	guc_printk((_guc), info, _fmt, ##__VA_ARGS__)
++
++#define guc_dbg(_guc, _fmt, ...) \
++	guc_printk((_guc), dbg, _fmt, ##__VA_ARGS__)
++
++#define guc_err_ratelimited(_guc, _fmt, ...) \
++	guc_printk((_guc), err_ratelimited, _fmt, ##__VA_ARGS__)
++
++#define guc_probe_error(_guc, _fmt, ...) \
++	guc_printk((_guc), probe_error, _fmt, ##__VA_ARGS__)
++
++#define guc_WARN(_guc, _cond, _fmt, ...) \
++	gt_WARN(guc_to_gt(_guc), _cond, "GUC: " _fmt, ##__VA_ARGS__)
++
++#define guc_WARN_ONCE(_guc, _cond, _fmt, ...) \
++	gt_WARN_ONCE(guc_to_gt(_guc), _cond, "GUC: " _fmt, ##__VA_ARGS__)
++
++#define guc_WARN_ON(_guc, _cond) \
++	gt_WARN(guc_to_gt(_guc), _cond, "%s(%s)", "guc_WARN_ON", __stringify(_cond))
++
++#define guc_WARN_ON_ONCE(_guc, _cond) \
++	gt_WARN_ONCE(guc_to_gt(_guc), _cond, "%s(%s)", "guc_WARN_ON_ONCE", __stringify(_cond))
++
++#endif /* __INTEL_GUC_PRINT__ */
 -- 
-0-DAY CI Kernel Test Service
-https://01.org/lkp
+2.25.1
+
