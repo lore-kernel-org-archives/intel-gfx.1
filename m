@@ -4,48 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0A89C27C76
-	for <intel-gfx@archiver.kernel.org>; Sat, 28 Jan 2023 19:59:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB2C6C38142
+	for <intel-gfx@archiver.kernel.org>; Sat, 28 Jan 2023 19:59:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BC5110E1F0;
-	Sat, 28 Jan 2023 19:59:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B964510E200;
+	Sat, 28 Jan 2023 19:59:28 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B903010E070;
- Sat, 28 Jan 2023 19:59:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A88810E070;
+ Sat, 28 Jan 2023 19:59:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1674935960; x=1706471960;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=GBGOcAYNHkidSthvS8N2hrSP6zC78Yyz3aBcX9zOCPQ=;
- b=RxZo9wuuwRsfnW5hHX7ZXm9bdwqRRzelUlLQq6/l4D6upOHSMMkTBjX5
- vkVE3XDX1buWv+WL9Xuq0Mi+SOyjeOxF+Lo1zsapJdBdDmPWLrYpZj9V/
- aDeyHfel+9dzj5IBj0/BPpFrfBC4ICe0ZG2zlFQQNEn5Fn7MuFu9gs1x/
- 3GMRBGY2F1O0i3KqTcRgJam8fDO1dPMUJLZXb/XxU++gSnuCeyIThyCIe
- a11kr3HEt99XJwOQ8oMMt1ixyiYdr61amuZuUxAjmwlOk965uooojT96n
- RuQb+2JszvS/MQWvDuf32RoJksUaCm2smRcd2JSdTOYWP97c4CourQIhY w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10604"; a="306978114"
-X-IronPort-AV: E=Sophos;i="5.97,254,1669104000"; d="scan'208";a="306978114"
+ t=1674935962; x=1706471962;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=P4i1ulhhdRq3MwiP3scXvqlpOdhmBBDy9TbFuXyrI2k=;
+ b=i2MB+K6MS0H64XDX4rE3su9Nc4L4M2bSS9a2bFqHQcjuJBfVjwOfNLsW
+ yZ6PWFh2DO/zYN0ob3p9z5rjd+7eQd1qQYiy3Y2dPZtULjDW17xctugEH
+ 4nNPxDZbxWs7kk3Gcf6XDUG9TuOePb3NWG/x+myQ09kT9CftiY+YfU19V
+ Cky+2TOfDV8fZ8/pK41Ka9L/X+h1KYZsy/VZd2S+7lvj2t5gO1J96eWJt
+ Q7EWgf3c1M3QMD/JBN2hqEeReHt8uEj5JF1G402UdblfU9tqlZ07XTtxK
+ HfpKlpFEB7J3uS7hyCS76drF34btH2pwRJarwly2Fyr4auUPxdcnXyIby A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10604"; a="306978117"
+X-IronPort-AV: E=Sophos;i="5.97,254,1669104000"; d="scan'208";a="306978117"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2023 11:59:20 -0800
+ 28 Jan 2023 11:59:21 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10604"; a="613567921"
-X-IronPort-AV: E=Sophos;i="5.97,254,1669104000"; d="scan'208";a="613567921"
+X-IronPort-AV: E=McAfee;i="6500,9779,10604"; a="613567932"
+X-IronPort-AV: E=Sophos;i="5.97,254,1669104000"; d="scan'208";a="613567932"
 Received: from irvmail002.ir.intel.com ([10.43.11.120])
- by orsmga003.jf.intel.com with ESMTP; 28 Jan 2023 11:59:18 -0800
+ by orsmga003.jf.intel.com with ESMTP; 28 Jan 2023 11:59:20 -0800
 Received: from mwajdecz-MOBL.ger.corp.intel.com
  (mwajdecz-MOBL.ger.corp.intel.com [10.249.137.106])
- by irvmail002.ir.intel.com (Postfix) with ESMTP id 07718333EC;
- Sat, 28 Jan 2023 19:59:16 +0000 (GMT)
+ by irvmail002.ir.intel.com (Postfix) with ESMTP id 62AD8333F0;
+ Sat, 28 Jan 2023 19:59:19 +0000 (GMT)
 From: Michal Wajdeczko <michal.wajdeczko@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Sat, 28 Jan 2023 20:58:59 +0100
-Message-Id: <20230128195907.1837-1-michal.wajdeczko@intel.com>
+Date: Sat, 28 Jan 2023 20:59:02 +0100
+Message-Id: <20230128195907.1837-4-michal.wajdeczko@intel.com>
 X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20230128195907.1837-1-michal.wajdeczko@intel.com>
+References: <20230128195907.1837-1-michal.wajdeczko@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 0/8] GuC oriented print macros
+Subject: [Intel-gfx] [PATCH v3 3/8] drm/i915/guc: Update GuC messages in
+ intel_guc_ads.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,39 +65,62 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is a follow up series for existing commit 67804e48b494
-("drm/i915/gt: Start adding module oriented dmesg output")
-that was focusing just on the GT.
+Use new macros to have common prefix that also include GT#.
 
-Now extend changes to uc/ folder and focus on the GuC.
+Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
+Cc: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: John Harrison <John.C.Harrison@Intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-v2: applying feedback from John
-v3: more feedback from John
-
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: John Harrison <John.C.Harrison@Intel.com>	
-
-Michal Wajdeczko (8):
-  drm/i915/guc: Add GuC oriented print macros
-  drm/i915/guc: Update GuC messages in intel_guc.c
-  drm/i915/guc: Update GuC messages in intel_guc_ads.c
-  drm/i915/guc: Update GuC messages in intel_guc_ct.c
-  drm/i915/guc: Update GuC messages in intel_guc_fw.c
-  drm/i915/guc: Update GuC messages in intel_guc_log.c
-  drm/i915/guc: Update GuC messages in intel_guc_submission.c
-  drm/i915/guc: Update GT/GuC messages in intel_uc.c
-
- drivers/gpu/drm/i915/gt/uc/intel_guc.c        | 31 ++++---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |  8 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     | 23 +-----
- drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c     | 17 ++--
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.c    | 38 ++++-----
- drivers/gpu/drm/i915/gt/uc/intel_guc_print.h  | 48 +++++++++++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 61 ++++++--------
- drivers/gpu/drm/i915/gt/uc/intel_uc.c         | 80 +++++++++----------
- 8 files changed, 164 insertions(+), 142 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_guc_print.h
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+index a7f737c4792e..69ce06faf8cd 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c
+@@ -15,6 +15,7 @@
+ #include "intel_guc_ads.h"
+ #include "intel_guc_capture.h"
+ #include "intel_guc_fwif.h"
++#include "intel_guc_print.h"
+ #include "intel_uc.h"
+ #include "i915_drv.h"
+ 
+@@ -427,7 +428,7 @@ static long guc_mmio_reg_state_create(struct intel_guc *guc)
+ 
+ 	guc->ads_regset = temp_set.storage;
+ 
+-	drm_dbg(&guc_to_gt(guc)->i915->drm, "Used %zu KB for temporary ADS regset\n",
++	guc_dbg(guc, "Used %zu KB for temporary ADS regset\n",
+ 		(temp_set.storage_max * sizeof(struct guc_mmio_reg)) >> 10);
+ 
+ 	return total * sizeof(struct guc_mmio_reg);
+@@ -621,7 +622,7 @@ static void guc_init_golden_context(struct intel_guc *guc)
+ 
+ 		engine = find_engine_state(gt, engine_class);
+ 		if (!engine) {
+-			drm_err(&gt->i915->drm, "No engine state recorded for class %d!\n",
++			guc_err(guc, "No engine state recorded for class %d!\n",
+ 				engine_class);
+ 			ads_blob_write(guc, ads.eng_state_size[guc_class], 0);
+ 			ads_blob_write(guc, ads.golden_context_lrca[guc_class], 0);
+@@ -646,7 +647,6 @@ static int
+ guc_capture_prep_lists(struct intel_guc *guc)
+ {
+ 	struct intel_gt *gt = guc_to_gt(guc);
+-	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
+ 	u32 ads_ggtt, capture_offset, null_ggtt, total_size = 0;
+ 	struct guc_gt_system_info local_info;
+ 	struct iosys_map info_map;
+@@ -751,7 +751,7 @@ guc_capture_prep_lists(struct intel_guc *guc)
+ 	}
+ 
+ 	if (guc->ads_capture_size && guc->ads_capture_size != PAGE_ALIGN(total_size))
+-		drm_warn(&i915->drm, "GuC->ADS->Capture alloc size changed from %d to %d\n",
++		guc_warn(guc, "ADS capture alloc size changed from %d to %d\n",
+ 			 guc->ads_capture_size, PAGE_ALIGN(total_size));
+ 
+ 	return PAGE_ALIGN(total_size);
 -- 
 2.25.1
 
