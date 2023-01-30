@@ -4,51 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5972AC54EED
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Jan 2023 10:08:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E50DC54EAA
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Jan 2023 10:08:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A3DB10E0DB;
-	Mon, 30 Jan 2023 10:08:46 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3F2210E0D7;
- Mon, 30 Jan 2023 10:08:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0565310E1E0;
+	Mon, 30 Jan 2023 10:08:47 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0670310E0D7
+ for <intel-gfx@lists.freedesktop.org>; Mon, 30 Jan 2023 10:08:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675073318; x=1706609318;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=mo5yexCA/ZrKtoN97r7pTE+FhCESycsJPmqk4RiCrdM=;
- b=midQ0fL8uHpwAqJ5zgtsw85coE+Et7rz9nzFKhJFlTtkrS+DlzR7KRiL
- 1qMcp0BgGPJJf0owW9g3HNzXnizqSYWb8kBmGhzX3mFB1Q2Oefp77INrM
- J5bN47NLncQUr9ZNWgNxWVYEFh+6SwR7ZJSupEZH4yIG6aJ5TN+QUJzQ2
- lAQG3X7UHVTyH7USExHpbgy5x4Lv2DGUwPY7SxF2vrTx2+ycO5qMpHonx
- /mOuXSRV0XCAH8dR6t6perqmCrpJngjvk4o2N8QJxIg5luOxk6T4YA5b5
- fNk+8WVmmVnvTs00xph0B7Oo0Fb6pJDU8XH3IzYYwpMtoJpBB8gLrXGIU g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10605"; a="327538541"
-X-IronPort-AV: E=Sophos;i="5.97,257,1669104000"; d="scan'208";a="327538541"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2023 02:08:25 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10605"; a="664037045"
-X-IronPort-AV: E=Sophos;i="5.97,257,1669104000"; d="scan'208";a="664037045"
-Received: from pjoconno-mobl1.ger.corp.intel.com (HELO [10.213.216.153])
- ([10.213.216.153])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2023 02:08:22 -0800
-Message-ID: <5908ac91-bb6c-7ea9-0f2a-88054fe1b24d@linux.intel.com>
-Date: Mon, 30 Jan 2023 10:08:19 +0000
+ t=1675073317; x=1706609317;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=+gYWpEbzf5F6HMWpqCvJuC/PB4E6Kcyw6FtOz9BQunQ=;
+ b=QAIwN+QBhdv+AHpbZiZmW7wHf9amV+BGSyOzYDrwEQJZWwagEw3JaJEk
+ VL+hz2aaKPGXMhMd0p1nrEvUdMPeOj5AfbEYcgtl6DjLO0DeEgDBxfbnh
+ SrNXF0hyvQ25DAXkNAmf5c/TFFO7DPR3/JWMtnNOUA6M162zmERh/06Hs
+ aDC2wGd+PX9CfvDRLC3BBsbQ6HZ1aZjh6rsbjrXXc0XY0FeNHZwHKS2Kw
+ Q8a/dEST4UWCz92CwgQSvR1dQkZfNdqUtOBhfCOGPstYSNjr6gmoJp0XV
+ qWwi9rL0f1pgX78amIjQGSe9MU5zKK78Fv0YHPcllZBil/iNJXPXpF+Nq g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10605"; a="413741235"
+X-IronPort-AV: E=Sophos;i="5.97,257,1669104000"; d="scan'208";a="413741235"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jan 2023 02:08:30 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10605"; a="657400635"
+X-IronPort-AV: E=Sophos;i="5.97,257,1669104000"; d="scan'208";a="657400635"
+Received: from chaitanya.iind.intel.com ([10.190.239.113])
+ by orsmga007.jf.intel.com with ESMTP; 30 Jan 2023 02:08:27 -0800
+From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 30 Jan 2023 15:38:05 +0530
+Message-Id: <20230130100806.1373883-2-chaitanya.kumar.borah@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230130100806.1373883-1-chaitanya.kumar.borah@intel.com>
+References: <20230130100806.1373883-1-chaitanya.kumar.borah@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org
-References: <20230127200550.3531984-1-robdclark@gmail.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <20230127200550.3531984-1-robdclark@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Fix potential bit_17 double-free
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [RFC v4 1/2] drm/i915: Add RPL-U sub platform
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,90 +56,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, intel-gfx@lists.freedesktop.org,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- open list <linux-kernel@vger.kernel.org>,
- Chris Wilson <chris@chris-wilson.co.uk>, pengfuyuan <pengfuyuan@kylinos.cn>,
- Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@gmail.com>
+Cc: ville.syrjala@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Separate out RPLU device ids and add them to both RPL and
+newly created RPL-U subplatforms.
 
-On 27/01/2023 20:05, Rob Clark wrote:
-> From: Rob Clark <robdclark@chromium.org>
-> 
-> A userspace with multiple threads racing I915_GEM_SET_TILING to set the
-> tiling to I915_TILING_NONE could trigger a double free of the bit_17
-> bitmask.  (Or conversely leak memory on the transition to tiled.)  Move
-> allocation/free'ing of the bitmask within the section protected by the
-> obj lock.
-> 
-> Fixes: e9b73c67390a ("drm/i915: Reduce memory pressure during shrinker by preallocating swizzle pages")
+v2: (Matt)
+    - Sort PCI-IDs numerically
+    - Name the sub-platform to accurately depict what it is for
+    - Make RPL-U part of RPL subplatform
 
-Should be:
+v3: revert to RPL-U subplatform (Jani)
 
-Fixes: 2850748ef876 ("drm/i915: Pull i915_vma_pin under the vm->mutex")
+v4: (Jani)
+    - Add RPL-U ids to RPL-P platform
+    - Remove redundant comment
 
-Before that commit there as a "BKL" (struct_mutex) aroung the call to 
-i915_gem_object_set_tiling. Otherwise fix looks good:
+Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+---
+ drivers/gpu/drm/i915/i915_drv.h          |  2 ++
+ drivers/gpu/drm/i915/intel_device_info.c |  7 +++++++
+ drivers/gpu/drm/i915/intel_device_info.h |  1 +
+ include/drm/i915_pciids.h                | 12 ++++++++----
+ 4 files changed, 18 insertions(+), 4 deletions(-)
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 48fd82722f12..c88e514728a0 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -619,6 +619,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ 	IS_SUBPLATFORM(dev_priv, INTEL_ALDERLAKE_P, INTEL_SUBPLATFORM_N)
+ #define IS_ADLP_RPLP(dev_priv) \
+ 	IS_SUBPLATFORM(dev_priv, INTEL_ALDERLAKE_P, INTEL_SUBPLATFORM_RPL)
++#define IS_ADLP_RPLU(dev_priv) \
++	IS_SUBPLATFORM(dev_priv, INTEL_ALDERLAKE_P, INTEL_SUBPLATFORM_RPLU)
+ #define IS_HSW_EARLY_SDV(dev_priv) (IS_HASWELL(dev_priv) && \
+ 				    (INTEL_DEVID(dev_priv) & 0xFF00) == 0x0C00)
+ #define IS_BDW_ULT(dev_priv) \
+diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
+index 849baf6c3b3c..322e1ef94c47 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.c
++++ b/drivers/gpu/drm/i915/intel_device_info.c
+@@ -201,6 +201,10 @@ static const u16 subplatform_rpl_ids[] = {
+ 	INTEL_RPLP_IDS(0),
+ };
+ 
++static const u16 subplatform_rplu_ids[] = {
++	INTEL_RPLU_IDS(0),
++};
++
+ static const u16 subplatform_g10_ids[] = {
+ 	INTEL_DG2_G10_IDS(0),
+ 	INTEL_ATS_M150_IDS(0),
+@@ -268,6 +272,9 @@ static void intel_device_info_subplatform_init(struct drm_i915_private *i915)
+ 	} else if (find_devid(devid, subplatform_rpl_ids,
+ 			      ARRAY_SIZE(subplatform_rpl_ids))) {
+ 		mask = BIT(INTEL_SUBPLATFORM_RPL);
++		if (find_devid(devid, subplatform_rplu_ids,
++			       ARRAY_SIZE(subplatform_rplu_ids)))
++			mask |= BIT(INTEL_SUBPLATFORM_RPLU);
+ 	} else if (find_devid(devid, subplatform_g10_ids,
+ 			      ARRAY_SIZE(subplatform_g10_ids))) {
+ 		mask = BIT(INTEL_SUBPLATFORM_G10);
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index d588e5fd2eea..3e3ca5eb073f 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -127,6 +127,7 @@ enum intel_platform {
+  * bit set
+  */
+ #define INTEL_SUBPLATFORM_N    1
++#define INTEL_SUBPLATFORM_RPLU  2
+ 
+ /* MTL */
+ #define INTEL_SUBPLATFORM_M	0
+diff --git a/include/drm/i915_pciids.h b/include/drm/i915_pciids.h
+index 4a4c190f7698..5824e1d7d162 100644
+--- a/include/drm/i915_pciids.h
++++ b/include/drm/i915_pciids.h
+@@ -684,14 +684,18 @@
+ 	INTEL_VGA_DEVICE(0xA78A, info), \
+ 	INTEL_VGA_DEVICE(0xA78B, info)
+ 
++/* RPL-U */
++#define INTEL_RPLU_IDS(info) \
++	INTEL_VGA_DEVICE(0xA721, info), \
++	INTEL_VGA_DEVICE(0xA7A1, info), \
++	INTEL_VGA_DEVICE(0xA7A9, info)
++
+ /* RPL-P */
+ #define INTEL_RPLP_IDS(info) \
++	INTEL_RPLU_IDS(info), \
+ 	INTEL_VGA_DEVICE(0xA720, info), \
+-	INTEL_VGA_DEVICE(0xA721, info), \
+ 	INTEL_VGA_DEVICE(0xA7A0, info), \
+-	INTEL_VGA_DEVICE(0xA7A1, info), \
+-	INTEL_VGA_DEVICE(0xA7A8, info), \
+-	INTEL_VGA_DEVICE(0xA7A9, info)
++	INTEL_VGA_DEVICE(0xA7A8, info)
+ 
+ /* DG2 */
+ #define INTEL_DG2_G10_IDS(info) \
+-- 
+2.25.1
 
-I'll tweak the fixes tag and merge in a minute, thanks for the fix!
-
-Regards,
-
-Tvrtko
-
-> Signed-off-by: Rob Clark <robdclark@chromium.org>
-> ---
->   drivers/gpu/drm/i915/gem/i915_gem_tiling.c | 9 +++++----
->   1 file changed, 5 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_tiling.c b/drivers/gpu/drm/i915/gem/i915_gem_tiling.c
-> index fd42b89b7162..bc21b1c2350a 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_tiling.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_tiling.c
-> @@ -298,36 +298,37 @@ i915_gem_object_set_tiling(struct drm_i915_gem_object *obj,
->   		vma->fence_alignment =
->   			i915_gem_fence_alignment(i915,
->   						 vma->size, tiling, stride);
->   
->   		if (vma->fence)
->   			vma->fence->dirty = true;
->   	}
->   	spin_unlock(&obj->vma.lock);
->   
->   	obj->tiling_and_stride = tiling | stride;
-> -	i915_gem_object_unlock(obj);
-> -
-> -	/* Force the fence to be reacquired for GTT access */
-> -	i915_gem_object_release_mmap_gtt(obj);
->   
->   	/* Try to preallocate memory required to save swizzling on put-pages */
->   	if (i915_gem_object_needs_bit17_swizzle(obj)) {
->   		if (!obj->bit_17) {
->   			obj->bit_17 = bitmap_zalloc(obj->base.size >> PAGE_SHIFT,
->   						    GFP_KERNEL);
->   		}
->   	} else {
->   		bitmap_free(obj->bit_17);
->   		obj->bit_17 = NULL;
->   	}
->   
-> +	i915_gem_object_unlock(obj);
-> +
-> +	/* Force the fence to be reacquired for GTT access */
-> +	i915_gem_object_release_mmap_gtt(obj);
-> +
->   	return 0;
->   }
->   
->   /**
->    * i915_gem_set_tiling_ioctl - IOCTL handler to set tiling mode
->    * @dev: DRM device
->    * @data: data pointer for the ioctl
->    * @file: DRM file for the ioctl call
->    *
->    * Sets the tiling mode of an object, returning the required swizzling of
