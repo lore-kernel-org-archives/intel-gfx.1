@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 589BFC54EED
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Jan 2023 10:18:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7097BC54EAA
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Jan 2023 10:18:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7143910E20D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C22410E20E;
 	Mon, 30 Jan 2023 10:17:58 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8AE510E222;
- Mon, 30 Jan 2023 10:17:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62BBC10E0DA;
+ Mon, 30 Jan 2023 10:17:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1675073875; x=1706609875;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=avSgsLstztOlD71v/wKLqEN3rbs4A7R8zN+WVMubBhw=;
- b=GIwnNt2Y6YiD59X0M2wNO47zD39cgX4eTfpgf2zPleOY4JhzWZIQUrtf
- r6osTrnzkgoKbFvKFXgYrmyscOnvbtcq/eJzF2LJ9gc0PFVrIcdvF9znK
- asFER6r7RmIwtJjioVr21/us4KT99qRNtoXamtivzfEhiHGZuzPCmZ1wj
- 0Yt4ABeM2UyeixZAmfSSQzAivgWfUQ1iDjdf0H0/w4KKISuuMKx/hBsov
- 3rWRj0pfxAIsLgk4271CCf64N/8Thqu1lGqrZBrmAub5yaNwRQRi0KIed
- hkHXyck2sEldUwTBNGNMdAsZKPwf8+04a6NUxD3kMWe1Nh1v6dq2Lw5y2 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10605"; a="328798969"
-X-IronPort-AV: E=Sophos;i="5.97,257,1669104000"; d="scan'208";a="328798969"
+ bh=XfOfAFj5gf+/AQiEluoe6T0Y7igC1cO9ZymBBcN0xrM=;
+ b=IgL8CQarCGD3/rmeFUNABICs6EqtFJX5om+vQclda1becrlua0cWc63H
+ VCqIk4Dm5tnT8wN9qcbGrel2+oIFft6eiHzs5/9o4SQ0+9eoZ7zZ9ULKq
+ zOh0daivz2uiEsbhvmte7uvZk4zfJRLNS8SgFETXP7HMmDS2ZIQc6NzRt
+ 8ifnkZJZ9Otkg5aSwzt/xipk2A56Elc3zZH36ouU3trt6LxWhygpqUawv
+ sEMT6NiwksFsiUzP5CZCOG15HgpFBsnwiKHaf1dp8bJsTNoNdPHXYNNeM
+ AdGo+1f6RWEjuwqtfUU2gWegBTRJpY+r5NLJdfWoCJZAD3nZln97IoFs9 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10605"; a="328798967"
+X-IronPort-AV: E=Sophos;i="5.97,257,1669104000"; d="scan'208";a="328798967"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2023 02:17:13 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10605"; a="696348881"
-X-IronPort-AV: E=Sophos;i="5.97,257,1669104000"; d="scan'208";a="696348881"
+ 30 Jan 2023 02:17:12 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10605"; a="696348856"
+X-IronPort-AV: E=Sophos;i="5.97,257,1669104000"; d="scan'208";a="696348856"
 Received: from dscheepe-mobl2.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.1.159])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2023 02:14:20 -0800
+ 30 Jan 2023 02:14:17 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 30 Jan 2023 10:12:29 +0000
-Message-Id: <20230130101230.25347-5-matthew.auld@intel.com>
+Date: Mon, 30 Jan 2023 10:12:27 +0000
+Message-Id: <20230130101230.25347-3-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230130101230.25347-1-matthew.auld@intel.com>
 References: <20230130101230.25347-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5/6] drm/ttm: stop allocating a dummy resource
- for pipelined gutting
+Subject: [Intel-gfx] [PATCH 3/6] drm/ttm: clear the ttm_tt when bo->resource
+ is NULL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,82 +59,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
  dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Christian König <christian.koenig@amd.com>
+In the next few patches, when initially creating a ttm BO, the
+bo->resource is NULL, and the driver is then expected to handle the
+initial dummy move.  However, if this is created as a system resource
+the first ttm_tt we create will always have the clear value set to
+false. Previously the initial ttm_tt would be created in
+ttm_bo_validate() with the clear parameter always set to true.
 
-That should not be necessary any more when drivers should at least be
-able to handle a move without a resource.
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Christian König <ckoenig.leichtzumerken@gmail.com>
+Reviewed-by: Christian König <ckoenig.leichtzumerken@gmail.com>
 ---
- drivers/gpu/drm/ttm/ttm_bo_util.c | 15 ++-------------
- 1 file changed, 2 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/ttm/ttm_bo.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-index 7635d7d6b13b..d9d2b0903b22 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-@@ -704,30 +704,23 @@ EXPORT_SYMBOL(ttm_bo_move_sync_cleanup);
-  */
- int ttm_bo_pipeline_gutting(struct ttm_buffer_object *bo)
- {
--	static const struct ttm_place sys_mem = { .mem_type = TTM_PL_SYSTEM };
- 	struct ttm_buffer_object *ghost;
--	struct ttm_resource *sys_res;
- 	struct ttm_tt *ttm;
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index 326a3d13a829..773080f48864 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -120,8 +120,7 @@ static int ttm_bo_handle_move_mem(struct ttm_buffer_object *bo,
+ 	bool old_use_tt, new_use_tt;
  	int ret;
  
--	ret = ttm_resource_alloc(bo, &sys_mem, &sys_res);
--	if (ret)
--		return ret;
--
- 	/* If already idle, no need for ghost object dance. */
- 	if (dma_resv_test_signaled(bo->base.resv, DMA_RESV_USAGE_BOOKKEEP)) {
- 		if (!bo->ttm) {
- 			/* See comment below about clearing. */
- 			ret = ttm_tt_create(bo, true);
- 			if (ret)
--				goto error_free_sys_mem;
-+				return ret;
- 		} else {
- 			ttm_tt_unpopulate(bo->bdev, bo->ttm);
- 			if (bo->type == ttm_bo_type_device)
- 				ttm_tt_mark_for_clear(bo->ttm);
- 		}
- 		ttm_resource_free(bo, &bo->resource);
--		ttm_bo_assign_mem(bo, sys_res);
- 		return 0;
- 	}
+-	old_use_tt = bo->resource &&
+-		ttm_manager_type(bdev, bo->resource->mem_type)->use_tt;
++	old_use_tt = !bo->resource || ttm_manager_type(bdev, bo->resource->mem_type)->use_tt;
+ 	new_use_tt = ttm_manager_type(bdev, mem->mem_type)->use_tt;
  
-@@ -744,7 +737,7 @@ int ttm_bo_pipeline_gutting(struct ttm_buffer_object *bo)
- 	ret = ttm_tt_create(bo, true);
- 	swap(bo->ttm, ttm);
- 	if (ret)
--		goto error_free_sys_mem;
-+		return ret;
- 
- 	ret = ttm_buffer_object_transfer(bo, &ghost);
- 	if (ret)
-@@ -760,13 +753,9 @@ int ttm_bo_pipeline_gutting(struct ttm_buffer_object *bo)
- 	dma_resv_unlock(&ghost->base._resv);
- 	ttm_bo_put(ghost);
- 	bo->ttm = ttm;
--	ttm_bo_assign_mem(bo, sys_res);
- 	return 0;
- 
- error_destroy_tt:
- 	ttm_tt_destroy(bo->bdev, ttm);
--
--error_free_sys_mem:
--	ttm_resource_free(bo, &sys_res);
- 	return ret;
- }
+ 	ttm_bo_unmap_virtual(bo);
 -- 
 2.39.1
 
