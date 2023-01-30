@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD3F5C54EED
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Jan 2023 12:07:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8740C636CD
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Jan 2023 12:07:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0420210E220;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A6BB10E222;
 	Mon, 30 Jan 2023 12:07:15 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E63A10E217;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E8F389E59;
  Mon, 30 Jan 2023 12:07:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1675080430; x=1706616430;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=OwK3D4DZ3f/ShgdvaZbVYusJxtLvjgeoP4IOPJTIuos=;
- b=C20cEIJ+ZS8ukPlUgxTTt4l14p85Txppz5D++ZNBBGa33ytlaAJ5ZimK
- 7WPOolxIt5OuxcB7Ua41/DG5KLTAWfTPqW8/EZDRNJ1CmmesjKQnc5Ytw
- kCM3KVwzMVKzfqLlEJK/cVgzgXjCR3BWKNc6SFbX6/WIli4g2n2IYDB5n
- 09ks0Vyej22SjkTCT8tjbNXBpWU1nRVN0Hmo6tQAA9EArGreUdktPcGEN
- jcZcYM5+1PP71kQ/SNKWYiVLjwbQfJXQ/ZSLlMl1wPihl7N6YnZkZ+cwN
- CfhHZnYrZgEP7oRXLU2THJGwQJVpsAJF7EuFunMo7FwIQm9UsDtixRqcL Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10605"; a="328816287"
-X-IronPort-AV: E=Sophos;i="5.97,257,1669104000"; d="scan'208";a="328816287"
+ bh=ZaT4EbQIZs0rcQzQfGUV9BXhBKPnUIQhy1h9051DvC0=;
+ b=WslJwogl0HrUpxvrXFtP/PKP98EPZYtTWCcDLLQzOlRG6ePPs4QndErq
+ jgUyo0MFrSzMH3KI78gwHxewK/KDR0EPuyHTHI/tE/ZhkkfHeXLquhBRU
+ QhSnowMWVLhqB4dNVbZk3ZN9+/NXaZgbx1HqoCrqcm6KshMtVG8NeUXz0
+ akbU9jwEfqC4rSVij/wMST/wFIJtSul/7kv4O1rrvab8pZD+APtNRNALY
+ KhK9sJV4Ld0M+9ZB157DOKV0rW3sFPfFRUQ7xlGrxXwgBwPNoa7EwG8IR
+ zm/+6WqaxUGvsfPDaUnCd9vao2BluFAzsdR5RwLxBpSZiJaV/UUR4EHsd w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10605"; a="328816298"
+X-IronPort-AV: E=Sophos;i="5.97,257,1669104000"; d="scan'208";a="328816298"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2023 04:07:06 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10605"; a="641521118"
-X-IronPort-AV: E=Sophos;i="5.97,257,1669104000"; d="scan'208";a="641521118"
+ 30 Jan 2023 04:07:09 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10605"; a="641521132"
+X-IronPort-AV: E=Sophos;i="5.97,257,1669104000"; d="scan'208";a="641521132"
 Received: from dscheepe-mobl2.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
  ([10.252.1.159])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2023 04:07:04 -0800
+ 30 Jan 2023 04:07:08 -0800
 From: Matthew Auld <matthew.auld@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 30 Jan 2023 12:06:32 +0000
-Message-Id: <20230130120636.63765-2-matthew.auld@intel.com>
+Date: Mon, 30 Jan 2023 12:06:34 +0000
+Message-Id: <20230130120636.63765-4-matthew.auld@intel.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230130120636.63765-1-matthew.auld@intel.com>
 References: <20230130120636.63765-1-matthew.auld@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 2/6] drm/i915/ttm: audit remaining
- bo->resource
+Subject: [Intel-gfx] [PATCH v2 4/6] drm/ttm: stop allocating dummy resources
+ during BO creation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,114 +59,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, dri-devel@lists.freedesktop.org,
- Nirmoy Das <nirmoy.das@intel.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In the near future TTM will have NULL bo->resource when the object is
-initially created, plus after calling into pipeline-gutting. Try to
-handle the remaining cases. In practice NULL bo->resource should be
-taken to mean swapped-out or purged object.
+From: Christian König <christian.koenig@amd.com>
 
-v2 (Andrzej):
-  - Rather make i915_ttm_cpu_maps_iomem() return false with NULL
-    resource.
+That should not be necessary any more when drivers should at least be
+able to handle the move without a resource.
 
-References: 516198d317d8 ("drm/i915: audit bo->resource usage v3")
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Cc: Christian König <ckoenig.leichtzumerken@gmail.com>
-Cc: Nirmoy Das <nirmoy.das@intel.com>
-Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_ttm.c      | 10 ++++++++--
- drivers/gpu/drm/i915/gem/i915_gem_ttm.h      |  2 +-
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c |  4 ++++
- drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c   |  7 +++++--
- 4 files changed, 18 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/ttm/ttm_bo.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-index 4758f21c91e1..341b94672abc 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-@@ -472,7 +472,7 @@ static int i915_ttm_shrink(struct drm_i915_gem_object *obj, unsigned int flags)
- 	struct ttm_placement place = {};
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index 773080f48864..169818b32be2 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -952,7 +952,6 @@ int ttm_bo_init_reserved(struct ttm_device *bdev, struct ttm_buffer_object *bo,
+ 			 struct sg_table *sg, struct dma_resv *resv,
+ 			 void (*destroy) (struct ttm_buffer_object *))
+ {
+-	static const struct ttm_place sys_mem = { .mem_type = TTM_PL_SYSTEM };
  	int ret;
  
--	if (!bo->ttm || bo->resource->mem_type != TTM_PL_SYSTEM)
-+	if (!bo->ttm || i915_ttm_cpu_maps_iomem(bo->resource))
- 		return 0;
+ 	kref_init(&bo->kref);
+@@ -969,12 +968,6 @@ int ttm_bo_init_reserved(struct ttm_device *bdev, struct ttm_buffer_object *bo,
+ 		bo->base.resv = &bo->base._resv;
+ 	atomic_inc(&ttm_glob.bo_count);
  
- 	GEM_BUG_ON(!i915_tt->is_shmem);
-@@ -511,7 +511,13 @@ static void i915_ttm_delete_mem_notify(struct ttm_buffer_object *bo)
- {
- 	struct drm_i915_gem_object *obj = i915_ttm_to_gem(bo);
- 
--	if (bo->resource && !i915_ttm_is_ghost_object(bo)) {
-+	/*
-+	 * This gets called twice by ttm, so long as we have a ttm resource or
-+	 * ttm_tt then we can still safely call this. Due to pipeline-gutting,
-+	 * we maybe have NULL bo->resource, but in that case we should always
-+	 * have a ttm alive (like if the pages are swapped out).
-+	 */
-+	if ((bo->resource || bo->ttm) && !i915_ttm_is_ghost_object(bo)) {
- 		__i915_gem_object_pages_fini(obj);
- 		i915_ttm_free_cached_io_rsgt(obj);
- 	}
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.h b/drivers/gpu/drm/i915/gem/i915_gem_ttm.h
-index 2a94a99ef76b..f8f6bed1b297 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.h
-@@ -98,7 +98,7 @@ static inline bool i915_ttm_gtt_binds_lmem(struct ttm_resource *mem)
- static inline bool i915_ttm_cpu_maps_iomem(struct ttm_resource *mem)
- {
- 	/* Once / if we support GGTT, this is also false for cached ttm_tts */
--	return mem->mem_type != I915_PL_SYSTEM;
-+	return mem && mem->mem_type != I915_PL_SYSTEM;
- }
- 
- bool i915_ttm_resource_mappable(struct ttm_resource *res);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-index 76dd9e5e1a8b..d030182ca176 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-@@ -711,6 +711,10 @@ int i915_gem_obj_copy_ttm(struct drm_i915_gem_object *dst,
- 
- 	assert_object_held(dst);
- 	assert_object_held(src);
-+
-+	if (GEM_WARN_ON(!src_bo->resource || !dst_bo->resource))
-+		return -EINVAL;
-+
- 	i915_deps_init(&deps, GFP_KERNEL | __GFP_NORETRY | __GFP_NOWARN);
- 
- 	ret = dma_resv_reserve_fences(src_bo->base.resv, 1);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
-index 7e67742bc65e..dfe39c8e74d8 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
-@@ -53,7 +53,7 @@ static int i915_ttm_backup(struct i915_gem_apply_to_region *apply,
- 	unsigned int flags;
- 	int err = 0;
- 
--	if (bo->resource->mem_type == I915_PL_SYSTEM || obj->ttm.backup)
-+	if (!i915_ttm_cpu_maps_iomem(bo->resource) || obj->ttm.backup)
- 		return 0;
- 
- 	if (pm_apply->allow_gpu && i915_gem_object_evictable(obj))
-@@ -187,7 +187,10 @@ static int i915_ttm_restore(struct i915_gem_apply_to_region *apply,
- 		return err;
- 
- 	/* Content may have been swapped. */
--	err = ttm_tt_populate(backup_bo->bdev, backup_bo->ttm, &ctx);
-+	if (!backup_bo->resource)
-+		err = ttm_bo_validate(backup_bo, i915_ttm_sys_placement(), &ctx);
-+	if (!err)
-+		err = ttm_tt_populate(backup_bo->bdev, backup_bo->ttm, &ctx);
- 	if (!err) {
- 		err = i915_gem_obj_copy_ttm(obj, backup, pm_apply->allow_gpu,
- 					    false);
+-	ret = ttm_resource_alloc(bo, &sys_mem, &bo->resource);
+-	if (unlikely(ret)) {
+-		ttm_bo_put(bo);
+-		return ret;
+-	}
+-
+ 	/*
+ 	 * For ttm_bo_type_device buffers, allocate
+ 	 * address space from the device.
 -- 
 2.39.1
 
