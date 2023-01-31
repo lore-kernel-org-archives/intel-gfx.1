@@ -4,49 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3485C38142
-	for <intel-gfx@archiver.kernel.org>; Tue, 31 Jan 2023 07:22:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C135EC636CC
+	for <intel-gfx@archiver.kernel.org>; Tue, 31 Jan 2023 07:23:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 352CA10E0F1;
-	Tue, 31 Jan 2023 07:22:35 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F258D10E0F1
- for <intel-gfx@lists.freedesktop.org>; Tue, 31 Jan 2023 07:22:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F03FD10E338;
+	Tue, 31 Jan 2023 07:23:53 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19AFF10E337
+ for <intel-gfx@lists.freedesktop.org>; Tue, 31 Jan 2023 07:23:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675149753; x=1706685753;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version:content-transfer-encoding;
- bh=gLzRyzMlOW7bu/sdJC/OZ6U4HVVk6I8s8Dh6n0W28rM=;
- b=OqHjbyzM4LySP3ICNBBWthNcOpfsWwFUZbTRYloNzTeHCouitNRiKcOE
- hIbvdbcMZQBuGftw8oKsXXW3Xxb32MztKSUEsCU/84GXWtu2huBoM5oHw
- ygHWSggGwIC4/SQC+QQ46lmNHlfw3Cm0V5K6QW5GisETcsW522y67Kb8u
- 3oPTVJIuHnVkv3JtGCT1vjwokAzgIr1TijO5g5L7u9NLFdKoDGUR070tn
- kElssjdqFapTeiFWUQczSJFWxrbeA5DRfG0HHtgyn6jmoew+Cs46KuY1N
- oDPBRIzOOy6fnYPZuwLWKkqAVMDT8cOY17M/Dq6M7O8JGk7UZx52MYFT9 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10606"; a="413989364"
-X-IronPort-AV: E=Sophos;i="5.97,259,1669104000"; d="scan'208";a="413989364"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2023 23:22:33 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10606"; a="753139461"
-X-IronPort-AV: E=Sophos;i="5.97,259,1669104000"; d="scan'208";a="753139461"
-Received: from akryuko1-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.252.34.35])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jan 2023 23:22:32 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20230130180540.8972-1-ville.syrjala@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230130180540.8972-1-ville.syrjala@linux.intel.com>
-Date: Tue, 31 Jan 2023 09:22:29 +0200
-Message-ID: <87r0vb2moa.fsf@intel.com>
+ t=1675149832; x=1706685832;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=X0hI0j+pewPJHwZzVEw9eaopVQCv9EhB2HTl/RDwmHE=;
+ b=NesflRdNMywIV2EbWqNKnDt987zldUloE16FJbfd6LCPYbg2zKfC6TRk
+ 7Lei6RWjBJO/4LWko4OZBXd+yOLkmIQVhqNyb8/LuWteH7prlUyUxDDvU
+ 4RliqAoh2Zr8jXqubSO+N92hgnO8naU+omPqJIGmCMvGi1pgYYGpKSpnu
+ Ii3FDGUmOkn624AwwU9eQ/qY32J7Q7SHfzIlNiZ9wA4ZDC+6Ry25YD7+V
+ LYHYEBodmoFoNwxMeYO379Pq8z56hAMcNOlm+RDkhQmFbPQ0VHjwDuMKH
+ VyKl/r4UicQ7RHC8UYCzpn50FvukEptHCtPVe/JzjhDyezofOTrzcw1pm g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10606"; a="307428166"
+X-IronPort-AV: E=Sophos;i="5.97,259,1669104000"; d="scan'208";a="307428166"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jan 2023 23:23:47 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10606"; a="696724832"
+X-IronPort-AV: E=Sophos;i="5.97,259,1669104000"; d="scan'208";a="696724832"
+Received: from sujaritha-z170x-ud5.fm.intel.com ([10.1.27.182])
+ by orsmga001.jf.intel.com with ESMTP; 30 Jan 2023 23:23:46 -0800
+From: Sujaritha Sundaresan <sujaritha.sundaresan@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 30 Jan 2023 22:25:50 -0800
+Message-Id: <20230131062550.11901-1-sujaritha.sundaresan@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH 0/8] drm/i915: LVDS cleanup
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2] drm/i915/gt: Add sysfs RAPL PL1 interface
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,36 +57,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 30 Jan 2023, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->
-> Some cleanup/modernization of the LVDS code.
+Adding sysfs attribute rapl_pl1_freq_mhz. This shows the RAPL PL1
+FREQUENCY LIMIT.
 
-Please spell check the commit messages, otherwise the series is
+Signed-off-by: Sujaritha Sundaresan <sujaritha.sundaresan@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h     |  4 ++++
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c | 15 +++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_rps.c         | 18 ++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_rps.h         |  1 +
+ 4 files changed, 38 insertions(+)
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index 7fa18a3b3957..1c78fc89a37a 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -1656,6 +1656,10 @@
+ #define GT0_PACKAGE_POWER_SKU_UNIT		_MMIO(0x250068)
+ #define GT0_PLATFORM_ENERGY_STATUS		_MMIO(0x25006c)
+ 
++#define XEHPSDV_RAPL_PL1_FREQ_LIMIT		_MMIO(0x250070)
++#define MTL_RAPL_PL1_FREQ_LIMIT		_MMIO(0x281070)
++#define   RAPL_PL1_FREQ_LIMIT_MASK		REG_GENMASK(15, 0)
++
+ /*
+  * Standalone Media's non-engine GT registers are located at their regular GT
+  * offsets plus 0x380000.  This extra offset is stored inside the intel_uncore
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
+index 28f27091cd3b..0b52962e2856 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
+@@ -451,6 +451,16 @@ static ssize_t punit_req_freq_mhz_show(struct kobject *kobj,
+ 	return sysfs_emit(buff, "%u\n", preq);
+ }
+ 
++static ssize_t rapl_pl1_freq_mhz_show(struct kobject *kobj,
++				      struct kobj_attribute *attr,
++				      char *buff)
++{
++	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(kobj, attr->attr.name);
++	u32 rapl_pl1 = intel_rps_read_rapl_pl1(&gt->rps);
++
++	return sysfs_emit(buff, "%u\n", rapl_pl1);
++}
++
+ struct intel_gt_bool_throttle_attr {
+ 	struct attribute attr;
+ 	ssize_t (*show)(struct kobject *kobj, struct kobj_attribute *attr,
+@@ -480,6 +490,7 @@ struct intel_gt_bool_throttle_attr attr_##sysfs_func__ = { \
+ }
+ 
+ INTEL_GT_ATTR_RO(punit_req_freq_mhz);
++INTEL_GT_ATTR_RO(rapl_pl1_freq_mhz);
+ static INTEL_GT_RPS_BOOL_ATTR_RO(throttle_reason_status, GT0_PERF_LIMIT_REASONS_MASK);
+ static INTEL_GT_RPS_BOOL_ATTR_RO(throttle_reason_pl1, POWER_LIMIT_1_MASK);
+ static INTEL_GT_RPS_BOOL_ATTR_RO(throttle_reason_pl2, POWER_LIMIT_2_MASK);
+@@ -744,6 +755,10 @@ void intel_gt_sysfs_pm_init(struct intel_gt *gt, struct kobject *kobj)
+ 	if (ret)
+ 		gt_warn(gt, "failed to create punit_req_freq_mhz sysfs (%pe)", ERR_PTR(ret));
+ 
++	ret = sysfs_create_file(kobj, &attr_rapl_pl1_freq_mhz.attr);
++	if (ret)
++		gt_warn(gt, "failed to create rapl_pl1_freq_mhz sysfs (%pe)", ERR_PTR(ret));
++
+ 	if (i915_mmio_reg_valid(intel_gt_perf_limit_reasons_reg(gt))) {
+ 		ret = sysfs_create_files(kobj, throttle_reason_attrs);
+ 		if (ret)
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+index f5d7b5126433..f66d6f47f2cf 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.c
++++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+@@ -2202,6 +2202,24 @@ u32 intel_rps_get_max_frequency(struct intel_rps *rps)
+ 		return intel_gpu_freq(rps, rps->max_freq_softlimit);
+ }
+ 
++u32 intel_rps_read_rapl_pl1(struct intel_rps *rps)
++{
++	struct drm_i915_private *i915 = rps_to_i915(rps);
++	u32 rapl_pl1;
++	u32 rapl;
++
++	if (IS_METEORLAKE(i915))
++		rapl_pl1 = intel_uncore_read(rps_to_gt(rps)->uncore, MTL_RAPL_PL1_FREQ_LIMIT);
++	else if (IS_XEHPSDV(i915))
++		rapl_pl1  = intel_uncore_read(rps_to_gt(rps)->uncore, XEHPSDV_RAPL_PL1_FREQ_LIMIT);
++
++
++	if (IS_METEORLAKE(i915) || IS_XEHPSDV(i915))
++		rapl = REG_FIELD_GET(RAPL_PL1_FREQ_LIMIT_MASK, rapl_pl1);
++
++	return rapl;
++}
++
+ /**
+  * intel_rps_get_max_raw_freq - returns the max frequency in some raw format.
+  * @rps: the intel_rps structure
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.h b/drivers/gpu/drm/i915/gt/intel_rps.h
+index c622962c6bef..c37d297c9d82 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.h
++++ b/drivers/gpu/drm/i915/gt/intel_rps.h
+@@ -51,6 +51,7 @@ u32 intel_rps_get_rp1_frequency(struct intel_rps *rps);
+ u32 intel_rps_get_rpn_frequency(struct intel_rps *rps);
+ u32 intel_rps_read_punit_req(struct intel_rps *rps);
+ u32 intel_rps_read_punit_req_frequency(struct intel_rps *rps);
++u32 intel_rps_read_rapl_pl1(struct intel_rps *rps);
+ u32 intel_rps_read_rpstat(struct intel_rps *rps);
+ u32 intel_rps_read_rpstat_fw(struct intel_rps *rps);
+ void gen6_rps_get_freq_caps(struct intel_rps *rps, struct intel_rps_freq_caps *caps);
+-- 
+2.34.1
 
->
-> Ville Syrj=C3=A4l=C3=A4 (8):
->   drm/i915/lvds: Split long lines
->   drm/i915/lvds: Use intel_de_rmw()
->   drm/i915/lvds: Use REG_BIT() & co.
->   drm/i915/lvds: Extract intel_lvds_regs.h
->   drm/i915/lvds: Fix whitespace
->   drm/i915/lvds: s/dev_priv/i915/
->   drm/i915/lvds: s/intel_encoder/encoder/ etc.
->   drm/i915/lvds: s/pipe_config/crtc_state/
->
->  drivers/gpu/drm/i915/display/intel_display.c  |   1 +
->  drivers/gpu/drm/i915/display/intel_lvds.c     | 332 +++++++++---------
->  .../gpu/drm/i915/display/intel_lvds_regs.h    |  65 ++++
->  drivers/gpu/drm/i915/display/intel_panel.c    |   1 +
->  .../gpu/drm/i915/display/intel_pch_display.c  |   1 +
->  drivers/gpu/drm/i915/display/intel_pps.c      |   1 +
->  drivers/gpu/drm/i915/i915_reg.h               |  56 ---
->  drivers/gpu/drm/i915/intel_gvt_mmio_table.c   |   1 +
->  8 files changed, 232 insertions(+), 226 deletions(-)
->  create mode 100644 drivers/gpu/drm/i915/display/intel_lvds_regs.h
-
---=20
-Jani Nikula, Intel Open Source Graphics Center
