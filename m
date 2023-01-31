@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58C76C636D3
-	for <intel-gfx@archiver.kernel.org>; Tue, 31 Jan 2023 15:06:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDCAFC38142
+	for <intel-gfx@archiver.kernel.org>; Tue, 31 Jan 2023 15:06:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4ED9710E382;
-	Tue, 31 Jan 2023 15:06:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13B2A10E390;
+	Tue, 31 Jan 2023 15:06:38 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 588C410E37D;
- Tue, 31 Jan 2023 15:06:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB3BC10E387;
+ Tue, 31 Jan 2023 15:06:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675177566; x=1706713566;
+ t=1675177579; x=1706713579;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=CzXPR9fbOjvOWoNDZCxlnpK9nAspI8MHULRhV517lHQ=;
- b=QQsXDwY5JjBiDVSr8HNtybnoTaUxYQIdR/NPGdMk1qkF763E/Id3njX6
- XIWecCyO2BKv+D7Vnx7a3343X5q4usiPTMRG6ivAPPRiFdBGJqAQxxvuL
- qjyPHgRVFr/dbPODNeydjuqRgPJ29vbo7XqzNLbQocdz9zlVJ1hg18Xit
- u9OUacZI78CwEfndYXipuKFjmO16ZQX1cb3iM1vBcgBGD6W4/FA4Pt0kI
- b9A7+SBNK10TSmnGlzwR2wV6DyRCp8gqEjFW0TFmrRgnf9mDze2UHZiyW
- TPriXMRq2N7EyYDq6lDjpBiEnKCTZyL9EF8q3p03X43MH394cM0NHqRsu Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10606"; a="308205566"
-X-IronPort-AV: E=Sophos;i="5.97,261,1669104000"; d="scan'208";a="308205566"
+ bh=RbhmnjYzjP8lLP96u1p49FbiVsEues3mWvBt3I/H+m0=;
+ b=jh8ffzvQnha+h82qLwGA7PWhzsRk9HWknxv7fK9Bj/wUqVwzvrR8TTKb
+ 7PTGZOGCev7NIVYUZh8E8mmGT5re6XIrqeiNuZ2dNLU0TSbmGVVhv/7x4
+ xwpLX5Thzt59jF2/gduD8ZnOiWG8/nf4MyQmJaon+hU/u5DU86VeftMkT
+ 4Avvbc1DeCW96kJTivOFEkDUXaeiqdPV+Hl4UI7jN/rBoPvO5IFvq9YMO
+ fYVV9VOO6zlWBTWHBl9OMfFC8RwaUY3yNDsGk5sArAUcAATU7Vk01fNCQ
+ rsci/SnsXWgWf9AZF7mNIilQ3oWK06dsjAVGs2WvzbVS/KRvXxHfBz7rv w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10606"; a="308205639"
+X-IronPort-AV: E=Sophos;i="5.97,261,1669104000"; d="scan'208";a="308205639"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jan 2023 07:06:06 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10606"; a="807155322"
-X-IronPort-AV: E=Sophos;i="5.97,261,1669104000"; d="scan'208";a="807155322"
+ 31 Jan 2023 07:06:19 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10606"; a="807155353"
+X-IronPort-AV: E=Sophos;i="5.97,261,1669104000"; d="scan'208";a="807155353"
 Received: from ideak-desk.fi.intel.com ([10.237.72.58])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Jan 2023 07:06:04 -0800
+ 31 Jan 2023 07:06:14 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 31 Jan 2023 17:05:40 +0200
-Message-Id: <20230131150548.1614458-10-imre.deak@intel.com>
+Date: Tue, 31 Jan 2023 17:05:46 +0200
+Message-Id: <20230131150548.1614458-16-imre.deak@intel.com>
 X-Mailer: git-send-email 2.31.1.189.g2e36527f23
 In-Reply-To: <20230131150548.1614458-1-imre.deak@intel.com>
 References: <20230131150548.1614458-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 09/17] drm/display/dp_mst: Add a helper to
- verify the MST payload state
+Subject: [Intel-gfx] [PATCH v2 15/17] drm/dp: Add a quirk for a DELL P2715Q
+ MST payload allocation problem
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,230 +62,55 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a function drivers can use to verify the MST payload state tracking
-and compare this to the sink's payload table.
+The DELL P2715Q monitor's MST hub has a payload allocation problem,
+where the VCPI used to reserve the last two time slots (at position
+0x3e, 0x3f) in the hub's payload table, this VCPI can't be reused for
+later payload configurations. To work around the problem in a follow-up
+patch the driver needs to reset the payload table after all payloads
+have been freed; add a quirk the driver can use to detect the monitor
+and apply the WA if needed.
 
 Cc: Lyude Paul <lyude@redhat.com>
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 169 ++++++++++++++++++
- include/drm/display/drm_dp.h                  |   3 +
- include/drm/display/drm_dp_mst_helper.h       |   3 +
- 3 files changed, 175 insertions(+)
+ drivers/gpu/drm/display/drm_dp_helper.c | 2 ++
+ include/drm/display/drm_dp_helper.h     | 8 ++++++++
+ 2 files changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 0c04b96ae614c..e57dd16955d52 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -4847,6 +4847,175 @@ void drm_dp_mst_dump_topology(struct seq_file *m,
- }
- EXPORT_SYMBOL(drm_dp_mst_dump_topology);
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index 16565a0a5da6d..e2cf4b4fe11ea 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -2244,6 +2244,8 @@ static const struct dpcd_quirk dpcd_quirk_list[] = {
+ 	{ OUI(0x90, 0xCC, 0x24), DEVICE_ID_ANY, true, BIT(DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD) },
+ 	/* Apple MacBookPro 2017 15 inch eDP Retina panel reports too low DP_MAX_LINK_RATE */
+ 	{ OUI(0x00, 0x10, 0xfa), DEVICE_ID(101, 68, 21, 101, 98, 97), false, BIT(DP_DPCD_QUIRK_CAN_DO_MAX_LINK_RATE_3_24_GBPS) },
++	/* DELL P2715Q MST payload table must be reset after the two last payload slots get allocated. */
++	{ OUI(0x00, 0xe0, 0x4c), DEVICE_ID('D', 'p', '1', '.', '2', 0), true, BIT(DP_DPCD_QUIRK_MST_PAYLOAD_TABLE_RESET_WA) },
+ };
  
-+static bool verify_mst_payload_state(struct drm_dp_mst_topology_state *mst_state)
-+{
-+	struct drm_dp_mst_topology_mgr *mgr = mst_state->mgr;
-+	struct drm_dp_mst_atomic_payload *payload;
-+	int payload_count = 0;
-+	u64 time_slot_mask = 0;
-+	u32 vcpi_mask = 0;
-+	int last_set;
-+
-+	if (BITS_PER_TYPE(time_slot_mask) < mst_state->total_avail_slots)
-+		return false;
-+
-+	list_for_each_entry(payload, &mst_state->payloads, next) {
-+		u64 mask;
-+
-+		if (payload->vc_start_slot == -1)
-+			continue;
-+
-+		if (!payload->time_slots)
-+			return false;
-+
-+		if (payload->vc_start_slot < mst_state->start_slot)
-+			return false;
-+
-+		if (payload->vc_start_slot + payload->time_slots - mst_state->start_slot >
-+		    mst_state->total_avail_slots)
-+			return false;
-+
-+		mask = GENMASK_ULL(payload->vc_start_slot + payload->time_slots - 1,
-+				   payload->vc_start_slot);
-+
-+		if (time_slot_mask & mask)
-+			return false;
-+
-+		time_slot_mask |= mask;
-+
-+		if (payload->vcpi < 1 ||
-+		    payload->vcpi & ~DP_PAYLOAD_ID_MASK ||
-+		    payload->vcpi > BITS_PER_TYPE(vcpi_mask))
-+			return false;
-+		if (BIT(payload->vcpi - 1) & vcpi_mask)
-+			return false;
-+		vcpi_mask |= BIT(payload->vcpi - 1);
-+
-+		payload_count++;
-+	}
-+
-+	if (payload_count != mgr->payload_count)
-+		return false;
-+
-+	last_set = fls64(time_slot_mask);
-+
-+	if (last_set &&
-+	    GENMASK_ULL(last_set - 1, mst_state->start_slot) != time_slot_mask)
-+		return false;
-+
-+	if (max(mst_state->start_slot, mgr->next_start_slot) !=
-+	    max_t(int, mst_state->start_slot, last_set))
-+		return false;
-+
-+	return true;
-+}
-+
-+static int get_payload_table_vcpi(const u8 *table, int slot)
-+{
-+	if (slot == 0)
-+		return FIELD_GET(DP_PAYLOAD_ID_SLOT0_5_0_MASK, table[0]) |
-+		       (FIELD_GET(DP_PAYLOAD_ID_SLOT0_6, table[1]) << 6);
-+	else
-+		return FIELD_GET(DP_PAYLOAD_ID_MASK, table[slot]);
-+}
-+
-+static bool verify_mst_payload_table(struct drm_dp_mst_topology_state *mst_state,
-+				     const u8 *payload_table)
-+{
-+	struct drm_dp_mst_topology_mgr *mgr = mst_state->mgr;
-+	struct drm_dp_mst_atomic_payload *payload;
-+	int i;
-+
-+	list_for_each_entry(payload, &mst_state->payloads, next) {
-+		if (payload->vc_start_slot == -1)
-+			continue;
-+
-+		if (payload->vc_start_slot + payload->time_slots > DP_PAYLOAD_TABLE_SIZE)
-+			return false;
-+
-+		for (i = 0; i < payload->time_slots; i++)
-+			if (get_payload_table_vcpi(payload_table,
-+						   payload->vc_start_slot + i) != payload->vcpi)
-+				return false;
-+	}
-+
-+	for (i = max(mgr->next_start_slot, mst_state->start_slot);
-+	     i < DP_PAYLOAD_TABLE_SIZE;
-+	     i++) {
-+		if (get_payload_table_vcpi(payload_table, i) != 0)
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
-+static void print_mst_payload_state(struct drm_dp_mst_topology_mgr *mgr,
-+				    struct drm_dp_mst_topology_state *mst_state,
-+				    const u8 *payload_table)
-+{
-+	struct drm_dp_mst_atomic_payload *payload;
-+	int i = 0;
-+
-+	drm_dbg(mgr->dev,
-+		"Payload state: start_slot %d total_avail_slots %d next_start_slot %d payload_count %d\n",
-+		mst_state->start_slot, mst_state->total_avail_slots,
-+		mgr->next_start_slot, mgr->payload_count);
-+
-+	list_for_each_entry(payload, &mst_state->payloads, next) {
-+		drm_dbg(mgr->dev,
-+			"  Payload#%d: port %p VCPI %d delete %d vc_start_slot %d time_slots %d\n",
-+			i, payload->port, payload->vcpi,
-+			payload->delete, payload->vc_start_slot, payload->time_slots);
-+		i++;
-+	}
-+
-+	if (!payload_table)
-+		return;
-+
-+	drm_dbg(mgr->dev, "Payload table:\n");
-+	print_hex_dump(KERN_DEBUG, "  Ptbl ",
-+		       DUMP_PREFIX_OFFSET, 16, 1,
-+		       payload_table, DP_PAYLOAD_TABLE_SIZE, false);
-+}
-+
-+/**
-+ * drm_dp_mst_verify_payload_state - Verify the atomic state for payloads and the related sink payload table
-+ * @state: atomic state
-+ * @mgr: manager to verify the state for
-+ * @verify_sink: %true if the sink payload table needs to be verified as well
-+ *
-+ * Verify @mgr's atomic state tracking all its payloads and optionally the
-+ * related sink payload table.
-+ */
-+void drm_dp_mst_verify_payload_state(struct drm_atomic_state *state,
-+				     struct drm_dp_mst_topology_mgr *mgr,
-+				     bool verify_sink)
-+{
-+	struct drm_dp_mst_topology_state *mst_state;
-+	u8 payload_table[DP_PAYLOAD_TABLE_SIZE];
-+
-+	mst_state = drm_atomic_get_new_mst_topology_state(state, mgr);
-+	if (drm_WARN_ON(mgr->dev, !mst_state))
-+		return;
-+
-+	if (drm_WARN_ON(mgr->dev, !verify_mst_payload_state(mst_state))) {
-+		print_mst_payload_state(mgr, mst_state, NULL);
-+		return;
-+	}
-+
-+	if (!verify_sink)
-+		return;
-+
-+	if (!dump_dp_payload_table(mgr, payload_table))
-+		return;
-+
-+	if (!verify_mst_payload_table(mst_state, payload_table)) {
-+		drm_err(mgr->dev, "MST payload state mismatches payload table\n");
-+		print_mst_payload_state(mgr, mst_state, payload_table);
-+	}
-+}
-+EXPORT_SYMBOL(drm_dp_mst_verify_payload_state);
-+
- static void drm_dp_tx_work(struct work_struct *work)
- {
- 	struct drm_dp_mst_topology_mgr *mgr = container_of(work, struct drm_dp_mst_topology_mgr, tx_work);
-diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
-index 632376c291db6..bcc5183188a68 100644
---- a/include/drm/display/drm_dp.h
-+++ b/include/drm/display/drm_dp.h
-@@ -925,9 +925,12 @@
- #define DP_PAYLOAD_TABLE_UPDATE_STATUS      0x2c0   /* 1.2 MST */
- # define DP_PAYLOAD_TABLE_UPDATED           (1 << 0)
- # define DP_PAYLOAD_ACT_HANDLED             (1 << 1)
-+# define DP_PAYLOAD_ID_SLOT0_5_0_MASK	    (0x3f << 2)
+ #undef OUI
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index ab55453f2d2cd..fcd445921ec9d 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -620,6 +620,14 @@ enum drm_dp_quirk {
+ 	 * the DP_MAX_LINK_RATE register reporting a lower max multiplier.
+ 	 */
+ 	DP_DPCD_QUIRK_CAN_DO_MAX_LINK_RATE_3_24_GBPS,
++	/**
++	 * @DP_DPCD_QUIRK_MST_PAYLOAD_TABLE_RESET_WA:
++	 *
++	 * An bug in the MST branch device's payload allocation logic requires
++	 * the payload table to be reset after its last two payload slots get
++	 * allocated.
++	 */
++	DP_DPCD_QUIRK_MST_PAYLOAD_TABLE_RESET_WA,
+ };
  
- #define DP_VC_PAYLOAD_ID_SLOT_1             0x2c1   /* 1.2 MST */
- /* up to ID_SLOT_63 at 0x2ff */
-+# define DP_PAYLOAD_ID_SLOT0_6		    (1 << 7)
-+# define DP_PAYLOAD_ID_MASK		    0x7f
- 
- /* Source Device-specific */
- #define DP_SOURCE_OUI			    0x300
-diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
-index 32c764fb9cb56..44c6710ebf315 100644
---- a/include/drm/display/drm_dp_mst_helper.h
-+++ b/include/drm/display/drm_dp_mst_helper.h
-@@ -848,6 +848,9 @@ int drm_dp_check_act_status(struct drm_dp_mst_topology_mgr *mgr);
- 
- void drm_dp_mst_dump_topology(struct seq_file *m,
- 			      struct drm_dp_mst_topology_mgr *mgr);
-+void drm_dp_mst_verify_payload_state(struct drm_atomic_state *state,
-+				     struct drm_dp_mst_topology_mgr *mgr,
-+				     bool verify_sink);
- 
- void drm_dp_mst_topology_mgr_suspend(struct drm_dp_mst_topology_mgr *mgr);
- int __must_check
+ /**
 -- 
 2.37.1
 
