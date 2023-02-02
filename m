@@ -4,46 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A448C05027
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 14:27:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F8B9C636D4
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 14:27:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3298F10E555;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A88F010E566;
 	Thu,  2 Feb 2023 14:27:04 +0000 (UTC)
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de
- [130.133.4.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCD4410E4E1;
- Mon, 23 Jan 2023 15:48:52 +0000 (UTC)
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
- by outpost.zedat.fu-berlin.de (Exim 4.95) with esmtps (TLS1.3)
- tls TLS_AES_256_GCM_SHA384
- (envelope-from <glaubitz@zedat.fu-berlin.de>)
- id 1pJz3x-002k25-LW; Mon, 23 Jan 2023 16:48:49 +0100
-Received: from dynamic-077-011-154-164.77.11.pool.telefonica.de
- ([77.11.154.164] helo=[192.168.1.11])
- by inpost2.zedat.fu-berlin.de (Exim 4.95) with esmtpsa (TLS1.3)
- tls TLS_AES_128_GCM_SHA256
- (envelope-from <glaubitz@physik.fu-berlin.de>)
- id 1pJz3x-003jRs-FI; Mon, 23 Jan 2023 16:48:49 +0100
-Message-ID: <acf90cab-49e3-2afd-5062-9996ba3dfbbf@physik.fu-berlin.de>
-Date: Mon, 23 Jan 2023 16:48:48 +0100
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9563510E548;
+ Thu,  2 Feb 2023 14:26:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1675347972; x=1706883972;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=f3HA4j/3sz9ZxloTe8PsLAHonqU/MTJv3W2yuiyZ67c=;
+ b=c2DtQs5Y4GqsemFMDxMC+ks8uXmurvmadj+hGftBSn0acb3jjdpcCa16
+ koGhRMcrlHdZKbKjeFABjqe3VN45sKb+82KVs5CFdiGGaZvqpJ6NYV8Fc
+ aKwaPcMwPg9Bi/6teGxi4/1pvHgiCCPEJuT4PpYtygtmZlMOof0tfQsDo
+ bgsuTBVtl0hVLht0mRu8CFwK0bw3T/ZGJF4cApPA0qXU1dCUX1iddGr21
+ AuHUyQ8Wl37rL6sIIeA35aCVao7LFHaesfnFkOn3Vphh6dNAAE64A7v11
+ QjT7gFUkn7PeuZtHaH4KQBlA4w0Mje8bzEF0iEJV6NhRM/KEjssaL+wMM A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="326151128"
+X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="326151128"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Feb 2023 06:26:11 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10608"; a="994112813"
+X-IronPort-AV: E=Sophos;i="5.97,267,1669104000"; d="scan'208";a="994112813"
+Received: from stirulak-mobl3.ger.corp.intel.com (HELO [10.213.219.106])
+ ([10.213.219.106])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Feb 2023 06:26:08 -0800
+Message-ID: <27b7882e-1201-b173-6f56-9ececb5780e8@linux.intel.com>
+Date: Thu, 2 Feb 2023 14:26:06 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.1
 Content-Language: en-US
-To: Thomas Zimmermann <tzimmermann@suse.de>
-References: <Y8kDk5YX7Yz3eRhM@linux-uq9g>
- <0df23fe5-40cb-c5f3-33e1-da57a7b23808@physik.fu-berlin.de>
- <43ed96bc-5a70-ba61-1959-fcb2fe86387e@suse.de>
- <3c426ff9-e2de-86ee-6b49-443fea3437ff@physik.fu-berlin.de>
- <d2345ff2-3fc3-1a44-6ace-d05a29feb5b3@suse.de>
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-In-Reply-To: <d2345ff2-3fc3-1a44-6ace-d05a29feb5b3@suse.de>
+To: Tejun Heo <tj@kernel.org>
+References: <20230112165609.1083270-1-tvrtko.ursulin@linux.intel.com>
+ <20230112165609.1083270-11-tvrtko.ursulin@linux.intel.com>
+ <Y9R2N8sl+7f8Zacv@slm.duckdns.org>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <Y9R2N8sl+7f8Zacv@slm.duckdns.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-Originating-IP: 77.11.154.164
-X-Mailman-Approved-At: Thu, 02 Feb 2023 14:24:10 +0000
-Subject: Re: [Intel-gfx] [PULL] drm-misc-next
+Subject: Re: [Intel-gfx] [RFC 10/12] cgroup/drm: Introduce weight based drm
+ cgroup control
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,43 +64,141 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, daniel.vetter@ffwll.ch,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rodrigo.vivi@intel.com
+Cc: Rob Clark <robdclark@chromium.org>, Kenny.Ho@amd.com,
+ Dave Airlie <airlied@redhat.com>,
+ =?UTF-8?Q?St=c3=a9phane_Marchesin?= <marcheu@chromium.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Zefan Li <lizefan.x@bytedance.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ cgroups@vger.kernel.org, "T . J . Mercier" <tjmercier@google.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Thomas!
 
-On 1/23/23 16:35, Thomas Zimmermann wrote:
->>> The only thing that is not supported any longer is hardware-accelerated 3d rendering.
->>> However, this has not worked anyway, as Mesa has dropped support for those chips a long
->>> time ago.
->>
->> Correct me if I'm wrong, but I thought that's what Mesa Classic was forked off for?
+On 28/01/2023 01:11, Tejun Heo wrote:
+> On Thu, Jan 12, 2023 at 04:56:07PM +0000, Tvrtko Ursulin wrote:
+> ...
+>> +	/*
+>> +	 * 1st pass - reset working values and update hierarchical weights and
+>> +	 * GPU utilisation.
+>> +	 */
+>> +	if (!__start_scanning(root, period_us))
+>> +		goto out_retry; /*
+>> +				 * Always come back later if scanner races with
+>> +				 * core cgroup management. (Repeated pattern.)
+>> +				 */
+>> +
+>> +	css_for_each_descendant_pre(node, &root->css) {
+>> +		struct drm_cgroup_state *drmcs = css_to_drmcs(node);
+>> +		struct cgroup_subsys_state *css;
+>> +		unsigned int over_weights = 0;
+>> +		u64 unused_us = 0;
+>> +
+>> +		if (!css_tryget_online(node))
+>> +			goto out_retry;
+>> +
+>> +		/*
+>> +		 * 2nd pass - calculate initial budgets, mark over budget
+>> +		 * siblings and add up unused budget for the group.
+>> +		 */
+>> +		css_for_each_child(css, &drmcs->css) {
+>> +			struct drm_cgroup_state *sibling = css_to_drmcs(css);
+>> +
+>> +			if (!css_tryget_online(css)) {
+>> +				css_put(node);
+>> +				goto out_retry;
+>> +			}
+>> +
+>> +			sibling->per_s_budget_us  =
+>> +				DIV_ROUND_UP_ULL(drmcs->per_s_budget_us *
+>> +						 sibling->weight,
+>> +						 drmcs->sum_children_weights);
+>> +
+>> +			sibling->over = sibling->active_us >
+>> +					sibling->per_s_budget_us;
+>> +			if (sibling->over)
+>> +				over_weights += sibling->weight;
+>> +			else
+>> +				unused_us += sibling->per_s_budget_us -
+>> +					     sibling->active_us;
+>> +
+>> +			css_put(css);
+>> +		}
+>> +
+>> +		/*
+>> +		 * 3rd pass - spread unused budget according to relative weights
+>> +		 * of over budget siblings.
+>> +		 */
+>> +		css_for_each_child(css, &drmcs->css) {
+>> +			struct drm_cgroup_state *sibling = css_to_drmcs(css);
+>> +
+>> +			if (!css_tryget_online(css)) {
+>> +				css_put(node);
+>> +				goto out_retry;
+>> +			}
+>> +
+>> +			if (sibling->over) {
+>> +				u64 budget_us =
+>> +					DIV_ROUND_UP_ULL(unused_us *
+>> +							 sibling->weight,
+>> +							 over_weights);
+>> +				sibling->per_s_budget_us += budget_us;
+>> +				sibling->over = sibling->active_us  >
+>> +						sibling->per_s_budget_us;
+>> +			}
+>> +
+>> +			css_put(css);
+>> +		}
+>> +
+>> +		css_put(node);
+>> +	}
+>> +
+>> +	/*
+>> +	 * 4th pass - send out over/under budget notifications.
+>> +	 */
+>> +	css_for_each_descendant_post(node, &root->css) {
+>> +		struct drm_cgroup_state *drmcs = css_to_drmcs(node);
+>> +
+>> +		if (!css_tryget_online(node))
+>> +			goto out_retry;
+>> +
+>> +		if (drmcs->over || drmcs->over_budget)
+>> +			signal_drm_budget(drmcs,
+>> +					  drmcs->active_us,
+>> +					  drmcs->per_s_budget_us);
+>> +		drmcs->over_budget = drmcs->over;
+>> +
+>> +		css_put(node);
+>> +	}
 > 
-> AFAIK Mesa classic is for old radeon, i915 and old nouveau code. The so-called amber branch:
+> It keeps bothering me that the distribution logic has no memory. Maybe this
+> is good enough for coarse control with long cycle durations but it likely
+> will get in trouble if pushed to finer grained control. State keeping
+> doesn't require a lot of complexity. The only state that needs tracking is
+> each cgroup's vtime and then the core should be able to tell specific
+> drivers how much each cgroup is over or under fairly accurately at any given
+> time.
 > 
->   https://docs.mesa3d.org/amber.html
-> 
-> But the removed code is for even older hardware.
-> 
->   https://docs.mesa3d.org/systems.html#deprecated-systems-and-drivers
+> That said, this isn't a blocker. What's implemented can work well enough
+> with coarse enough time grain and that might be enough for the time being
+> and we can get back to it later. I think Michal already mentioned it but it
+> might be a good idea to track active and inactive cgroups and build the
+> weight tree with only active ones. There are machines with a lot of mostly
+> idle cgroups (> tens of thousands) and tree wide scanning even at low
+> frequency can become a pretty bad bottleneck.
 
-OK, thanks a lot for the clarification!
+Right, that's the kind of experience (tens of thousands) I was missing, 
+thank you. Another one item on my TODO list then but I have a question 
+first.
 
-I'm glad the 2D drivers will still work and it seems that news article on Phoronix [1] is
-a little misleading as from reading the it, it seems that driver support for the afore-
-mentioned hardware is dropped completely which is it not the case.
+When you say active/inactive - to what you are referring in the cgroup 
+world? Offline/online? For those my understanding was offline was a 
+temporary state while css is getting destroyed.
 
-Thanks,
-Adrian
+Also, I am really postponing implementing those changes until I hear at 
+least something from the DRM community.
 
-> [1] https://www.phoronix.com/news/Linux-6.3-Dropping-Old-DRM
+Regards,
 
--- 
-  .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-   `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
-
+Tvrtko
