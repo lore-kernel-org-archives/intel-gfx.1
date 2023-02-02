@@ -4,46 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4DD5C61DA4
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 18:21:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2890C05027
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Feb 2023 19:01:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 665FA10E198;
-	Thu,  2 Feb 2023 18:21:18 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BE3F10E198
- for <intel-gfx@lists.freedesktop.org>; Thu,  2 Feb 2023 18:21:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675362076; x=1706898076;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=H0pr9N9T7s8s0wyvPAwp6MxcHkijednt5Wob3b0sATw=;
- b=jID+vmcApaHyLKMDnFBzNmdtKnuAtjKWa0QfFd0OzkDGpnTCeyh4rMdj
- MfEmn0lNpAG11+tf+ufpfxveUYJAeffhER1faz7C+XoRoKXP2ZK4JIUdr
- 0GBYvpXQQYnLs5fLwt+JTNUxNZ1C55ynn3yDuSDbqjiFOmThI49PikXse
- 110RSmGfqX2egOFW4KQpI4zKNxZ6kxQfrVDMy1M1D2LN/VBQjS6aZE2UU
- Hl1gWPBXoHHHDXCiK8+2n65OdBqvE/cCs+YYJah3cSPaFXufdqlMM1LX/
- /T13Tb0DUPkNg4dZ/9ue1t/sVN9ldRP8uxS5sFtH2ngclPiOUp+6Tq5lj A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10609"; a="393116050"
-X-IronPort-AV: E=Sophos;i="5.97,268,1669104000"; d="scan'208";a="393116050"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Feb 2023 10:21:15 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10609"; a="665402340"
-X-IronPort-AV: E=Sophos;i="5.97,268,1669104000"; d="scan'208";a="665402340"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by orsmga002.jf.intel.com with ESMTP; 02 Feb 2023 10:21:14 -0800
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  2 Feb 2023 23:50:12 +0530
-Message-Id: <20230202182012.3197674-1-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230202114613.3177235-2-suraj.kandpal@intel.com>
-References: <20230202114613.3177235-2-suraj.kandpal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DCD010E5E2;
+	Thu,  2 Feb 2023 19:01:54 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D79AE10E5E2;
+ Thu,  2 Feb 2023 19:01:52 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id CFF64A03D2;
+ Thu,  2 Feb 2023 19:01:52 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8688954245297249355=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2] drm/i915/dp: Increase slice_height for DP
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Nirmoy Das" <nirmoy.das@intel.com>
+Date: Thu, 02 Feb 2023 19:01:52 -0000
+Message-ID: <167536451281.11115.9387678333456456365@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230202180243.23637-1-nirmoy.das@intel.com>
+In-Reply-To: <20230202180243.23637-1-nirmoy.das@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915=3A_Make_sure_dsm=5Fsize_has_correct_granularity_=28rev2?=
+ =?utf-8?q?=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,75 +41,199 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-According VDSC spec 1.2a Section 3.8 Options for Slice
-implies that 108 lines is an optimal slice height, but any
-size can be used as long as vertical active
-integer multiple and maximum vertical slice count requirements are met.
+--===============8688954245297249355==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Bspec: 49259
+== Series Details ==
 
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: Swati Sharma <swati2.sharma@intel.com>
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Series: drm/i915: Make sure dsm_size has correct granularity (rev2)
+URL   : https://patchwork.freedesktop.org/series/113282/
+State : success
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 62cbab7402e9..cb4fbcd935db 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1415,6 +1415,30 @@ static int intel_dp_sink_dsc_version_minor(struct intel_dp *intel_dp)
- 		DP_DSC_MINOR_SHIFT;
- }
- 
-+static int intel_dp_get_slice_height(int vactive)
-+{
-+	int slice_height;
-+
-+	/*
-+	 * VDSC1.2a spec in Section 3.8 Options for Slices implies that
-+	 * 108 lines is an optimal slice height,
-+	 * but any size can be used as long as vertical active integer
-+	 * multiple and maximum vertical slice count requirements are met.
-+	 */
-+	for (slice_height = 108; slice_height <= vactive; slice_height += 2)
-+		if (vactive % slice_height == 0)
-+			return slice_height;
-+
-+	if (vactive % 8 == 0)
-+		slice_height = 8;
-+	else if (vactive % 4 == 0)
-+		slice_height = 4;
-+	else
-+		slice_height = 2;
-+
-+	return slice_height;
-+}
-+
- static int intel_dp_dsc_compute_params(struct intel_encoder *encoder,
- 				       struct intel_crtc_state *crtc_state)
- {
-@@ -1433,17 +1457,7 @@ static int intel_dp_dsc_compute_params(struct intel_encoder *encoder,
- 	vdsc_cfg->rc_model_size = DSC_RC_MODEL_SIZE_CONST;
- 	vdsc_cfg->pic_height = crtc_state->hw.adjusted_mode.crtc_vdisplay;
- 
--	/*
--	 * Slice Height of 8 works for all currently available panels. So start
--	 * with that if pic_height is an integral multiple of 8. Eventually add
--	 * logic to try multiple slice heights.
--	 */
--	if (vdsc_cfg->pic_height % 8 == 0)
--		vdsc_cfg->slice_height = 8;
--	else if (vdsc_cfg->pic_height % 4 == 0)
--		vdsc_cfg->slice_height = 4;
--	else
--		vdsc_cfg->slice_height = 2;
-+	vdsc_cfg->slice_height = intel_dp_get_slice_height(vdsc_cfg->pic_height);
- 
- 	ret = intel_dsc_compute_params(crtc_state);
- 	if (ret)
--- 
-2.25.1
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_12684 -> Patchwork_113282v2
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113282v2/index.html
+
+Participating hosts (27 -> 25)
+------------------------------
+
+  Missing    (2): fi-kbl-soraka fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_113282v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@kms_chamelium_hpd@common-hpd-after-suspend:
+    - bat-dg1-6:          NOTRUN -> [SKIP][1] ([i915#7828])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113282v2/bat-dg1-6/igt@kms_chamelium_hpd@common-hpd-after-suspend.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size:
+    - fi-bsw-n3050:       [PASS][2] -> [FAIL][3] ([i915#6298])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12684/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113282v2/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@gt_lrc:
+    - bat-dg1-6:          [ABORT][4] ([i915#4983]) -> [PASS][5]
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12684/bat-dg1-6/igt@i915_selftest@live@gt_lrc.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113282v2/bat-dg1-6/igt@i915_selftest@live@gt_lrc.html
+
+  * igt@i915_selftest@live@gt_pm:
+    - {bat-rpls-2}:       [DMESG-FAIL][6] ([i915#4258]) -> [PASS][7]
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12684/bat-rpls-2/igt@i915_selftest@live@gt_pm.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113282v2/bat-rpls-2/igt@i915_selftest@live@gt_pm.html
+
+  * igt@i915_selftest@live@reset:
+    - {bat-rpls-2}:       [ABORT][8] ([i915#4983]) -> [PASS][9]
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12684/bat-rpls-2/igt@i915_selftest@live@reset.html
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113282v2/bat-rpls-2/igt@i915_selftest@live@reset.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#1845]: https://gitlab.freedesktop.org/drm/intel/issues/1845
+  [i915#3546]: https://gitlab.freedesktop.org/drm/intel/issues/3546
+  [i915#4258]: https://gitlab.freedesktop.org/drm/intel/issues/4258
+  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
+  [i915#6298]: https://gitlab.freedesktop.org/drm/intel/issues/6298
+  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
+  [i915#7828]: https://gitlab.freedesktop.org/drm/intel/issues/7828
+  [i915#7996]: https://gitlab.freedesktop.org/drm/intel/issues/7996
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_12684 -> Patchwork_113282v2
+
+  CI-20190529: 20190529
+  CI_DRM_12684: 57eb8680d3ef1213de1d9c607b95e522035036e6 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7144: cda71bf809b981a646270963d6b1ccee4fd4643b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_113282v2: 57eb8680d3ef1213de1d9c607b95e522035036e6 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+8daa9156f25b drm/i915: Make sure dsm_size has correct granularity
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113282v2/index.html
+
+--===============8688954245297249355==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Make sure dsm_size has correct granularity (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/113282/">https://patchwork.freedesktop.org/series/113282/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113282v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113282v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_12684 -&gt; Patchwork_113282v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113282v2/index.html</p>
+<h2>Participating hosts (27 -&gt; 25)</h2>
+<p>Missing    (2): fi-kbl-soraka fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_113282v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@kms_chamelium_hpd@common-hpd-after-suspend:</p>
+<ul>
+<li>bat-dg1-6:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113282v2/bat-dg1-6/igt@kms_chamelium_hpd@common-hpd-after-suspend.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7828">i915#7828</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size:</p>
+<ul>
+<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12684/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113282v2/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6298">i915#6298</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@gt_lrc:</p>
+<ul>
+<li>bat-dg1-6:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12684/bat-dg1-6/igt@i915_selftest@live@gt_lrc.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113282v2/bat-dg1-6/igt@i915_selftest@live@gt_lrc.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_pm:</p>
+<ul>
+<li>{bat-rpls-2}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12684/bat-rpls-2/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4258">i915#4258</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113282v2/bat-rpls-2/igt@i915_selftest@live@gt_pm.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@reset:</p>
+<ul>
+<li>{bat-rpls-2}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12684/bat-rpls-2/igt@i915_selftest@live@reset.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113282v2/bat-rpls-2/igt@i915_selftest@live@reset.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_12684 -&gt; Patchwork_113282v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_12684: 57eb8680d3ef1213de1d9c607b95e522035036e6 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7144: cda71bf809b981a646270963d6b1ccee4fd4643b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_113282v2: 57eb8680d3ef1213de1d9c607b95e522035036e6 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>8daa9156f25b drm/i915: Make sure dsm_size has correct granularity</p>
+
+</body>
+</html>
+
+--===============8688954245297249355==--
