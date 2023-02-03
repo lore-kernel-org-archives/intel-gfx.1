@@ -4,71 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9024FC64EC6
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 10:02:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA165C64ED6
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 10:02:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A150B10E742;
-	Fri,  3 Feb 2023 10:02:52 +0000 (UTC)
-Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
- [IPv6:2607:f8b0:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C34610E733;
- Fri,  3 Feb 2023 10:02:48 +0000 (UTC)
-Received: by mail-pg1-x529.google.com with SMTP id n2so701929pgb.2;
- Fri, 03 Feb 2023 02:02:48 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 029E310E744;
+	Fri,  3 Feb 2023 10:02:53 +0000 (UTC)
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [IPv6:2607:f8b0:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2359810E735;
+ Fri,  3 Feb 2023 10:02:47 +0000 (UTC)
+Received: by mail-pl1-x62a.google.com with SMTP id u9so464780plf.3;
+ Fri, 03 Feb 2023 02:02:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=qZM2kRnUMq/5JxUqAj92h8CE9Ys20GpS+bcD8sHbxGY=;
- b=MoBwsiFh+PQwRc+ml6iuRDqdl5/NFddPFYIwdi7shrfKdxQojJlglETNVcoxcFbeq7
- UQJl43hvF2JW+oxHrqZ+PYm/8YFRae3V0NrPaa5mTWI15gXYGncVGae9cCjpG4CRqMiA
- 9Pj/x71a+1UhhPgRzHSlzVh6c2OeFmzl6woB/kPM1ATos4UIxHPHaPyDOJtH8wzgGaPO
- DkOEa4bmsfqANA9W0VKMMobCnKbwjAegUkH6avPb67JGriW6ySxlSlYNDw8esdDqQ5tq
- zt+gRScqxTBmdYI7AEl0bwX4sIa2Wv8t0T5OYVEzI8GAeVcWMrOHsv8qoHjy703uRwYJ
- T6rg==
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=BG2QYvy6NMh3jkUceNvjWVdBbpNIzuoerxuxOO9e15w=;
+ b=hNvMzC7RPAckWz7Z2Qk/u9uDSOaeNgibp3y0pbCj3dUMyWcnazq467VyDLAE7Uj3d+
+ Hp1zHYFUQ+ymjA7vvesMXLXQlR3ZCGtO9nDPjDrmvHtiqAoCVkotR9iYfdok792ktY22
+ dVbbMPbKQ8mPs/e46SBPxHxARgmpU+mJBjSHv7thd/lpp2k4Un9JMnxjGLuncHxF/RUL
+ pD8y2Ml8GRwWXIGIRZwhE+wB3poEavRbZNRLXJC2N5MOnf/NjtwXM+bJswMQEBnLw2+e
+ Xqlt9ngIcG5w09YsTnyzVSncicip44pBj1M14JwwvKa/zkHmDIBYC1WZD4vRNBzKI4e9
+ Xn4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=qZM2kRnUMq/5JxUqAj92h8CE9Ys20GpS+bcD8sHbxGY=;
- b=sLMmkhiwlUgtXFokP/sVukDuPieTY+Qdm4KYX4yE9WE9PbVNsTXmVfeMKPL+gbFUq4
- lWV/grgiGHtclbdlSNPD1nd8flDLOVxnrk1S0qol6auirKiB8XRpNix4r1O77C1beru2
- RYmWPaxOQKjd2+WAQqDVwaL6AQRfIJMB8VUZLobEo5oGql6dTZkJ9D6DuhLb7Q+ANh+R
- 5Px16Bgnx4PPHbvup7PaJJQyW+UdNJpxf5N5Enoo8wpZvrohbl3uek7LnOu3pBy5naaW
- miULOzB467lg1KTx2x9d/jv5/BQaOF4j5aWPC+8fhtGuCn44C0AxuKDKLOD5c4R2DYjT
- GzbQ==
-X-Gm-Message-State: AO0yUKVN6jHwr6OYC4kEMNkvSX9nxUWNXrF64aNmy5+16oz1sDAqWlLR
- OnqScDpCsmfDcXQzgDgZw7U=
-X-Google-Smtp-Source: AK7set90g3y3uA58nDdc57a7ikxwpTnV8UfDIaEQROixtGcb1zi0SwtESdeyB1ms4FZFJ3dF2+AdIg==
-X-Received: by 2002:a05:6a00:1d85:b0:593:a3f1:7c04 with SMTP id
- z5-20020a056a001d8500b00593a3f17c04mr8761934pfw.8.1675418567508; 
- Fri, 03 Feb 2023 02:02:47 -0800 (PST)
-Received: from debian.me (subs10b-223-255-225-232.three.co.id.
- [223.255.225.232]) by smtp.gmail.com with ESMTPSA id
- h2-20020a056a00230200b005898fcb7c1bsm1322187pfh.177.2023.02.03.02.02.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=BG2QYvy6NMh3jkUceNvjWVdBbpNIzuoerxuxOO9e15w=;
+ b=4Hx3LBkRxwQQyYAZDn3J5FstFhyns/FgAzrYkP8ttT+IxqDrQZdlzmQtKH4Jao91o6
+ 2a/eAZ2PMM6zbFoLjxmUrjUVGORCgyiVu9rOoTbkCH7cV/6n2/yTxSc2vg6CcdH6fjXx
+ nk3a9uXQaA+A8sx0OlXarCSfqKcve0iPuBJXUTfNw91LWnD3tm8oXwpYsxkTLJQgRocs
+ nAcvJp+l2vkgX6YLwHxCgCFOrvFW3rrirtaWvC6CqH/A0YiWd0uB69e8+pjevJ6pRfeQ
+ /O4HMeTVP43MY6/7P+f1RirpNPKgytYJm+z+JSxqwuCc7ipu+HBroKNDujHPLySUw5b/
+ JK5Q==
+X-Gm-Message-State: AO0yUKXqSAHQX7uCxe9Mt94O0ilsm4yay39WO/uEh1h1bM2vL8+8ZGzb
+ nlK9Q3DWoPO4pXvBBMEOzrA=
+X-Google-Smtp-Source: AK7set+R0TEkeypd3nINmPSzcBNxBayigz71nAlhY7yu1gmDzLP7p9w777hoCF2OhaAxhY11nHoCIQ==
+X-Received: by 2002:a17:903:234f:b0:194:4b98:42c8 with SMTP id
+ c15-20020a170903234f00b001944b9842c8mr11309975plh.28.1675418566654; 
  Fri, 03 Feb 2023 02:02:46 -0800 (PST)
+Received: from debian.me (subs09b-223-255-225-232.three.co.id.
+ [223.255.225.232]) by smtp.gmail.com with ESMTPSA id
+ e12-20020a170902784c00b00192b23b8451sm1194930pln.108.2023.02.03.02.02.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Feb 2023 02:02:45 -0800 (PST)
 Received: by debian.me (Postfix, from userid 1000)
- id 01B981055BB; Fri,  3 Feb 2023 17:02:41 +0700 (WIB)
+ id 7B73E1054B4; Fri,  3 Feb 2023 17:02:41 +0700 (WIB)
 From: Bagas Sanjaya <bagasdotme@gmail.com>
 To: Intel Graphics Development List <intel-gfx@lists.freedesktop.org>,
  DRI Development List <dri-devel@lists.freedesktop.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Linux Media Mailing List <linux-media@vger.kernel.org>,
  Linux Next Mailing List <linux-next@vger.kernel.org>
-Date: Fri,  3 Feb 2023 17:02:12 +0700
-Message-Id: <20230203100215.31852-1-bagasdotme@gmail.com>
+Date: Fri,  3 Feb 2023 17:02:14 +0700
+Message-Id: <20230203100215.31852-3-bagasdotme@gmail.com>
 X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20230203100215.31852-1-bagasdotme@gmail.com>
+References: <20230203100215.31852-1-bagasdotme@gmail.com>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=683; i=bagasdotme@gmail.com;
- h=from:subject; bh=nAqFypAiZuomaGsgK+qGsO/TWXGkM+TOboIWhpu6fPE=;
- b=owGbwMvMwCX2bWenZ2ig32LG02pJDMl3bs/Zx6DeNWPyHO/4uWqzTIRO5L1fe3PivJY695cfLve9
- 2OpQ2lHKwiDGxSArpsgyKZGv6fQuI5EL7WsdYeawMoEMYeDiFICJ9C1h+B84Z3HYYaODyTlujAbnnS
- eXeDVt2p+5bN2Vxf9OeC6IOjyBkWHPo5c2AmbLPigoTbEp/KQVInNX7vySwz7vK2fMMn66dg8fAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1195; i=bagasdotme@gmail.com;
+ h=from:subject; bh=qrXofAp66flXv+Lia5rtjdHHkc9E4+c8afVKnwKMo98=;
+ b=owGbwMvMwCX2bWenZ2ig32LG02pJDMl3bi8LuVLl4BMdt8Vjx6WHU75L7q76orZFacUmve8tRyp5
+ vLTyOkpZGMS4GGTFFFkmJfI1nd5lJHKhfa0jzBxWJpAhDFycAjAR7wkM/4v/hf88NL12XtLb9addPR
+ 9ETmTL89Vyub4v7u8H15mdgasYGVbbNJpdPNs3mVXUd8bzWzedfun4a+bJhHr5T7lnbZOdww8A
 X-Developer-Key: i=bagasdotme@gmail.com; a=openpgp;
  fpr=701B806FDCA5D3A58FFB8F7D7C276C64A5E44A1D
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/3] htmldocs fixes for next-20230203
+Subject: [Intel-gfx] [PATCH 2/3] drm/scheduler: Fix elapsed_ns kernel-doc
+ error
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,36 +85,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
+Cc: Srinivasan Shanmugam <srinivasan.s@intel.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Bagas Sanjaya <bagasdotme@gmail.com>,
+ David Airlie <airlied@gmail.com>, Stephen Rothwell <sfr@canb.auug.org.au>,
  Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Srinivasan Shanmugam <srinivasan.s@intel.com>,
- Linus Walleij <linus.walleij@linaro.org>,
+ Luben Tuikov <luben.tuikov@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Hans de Goede <hdegoede@redhat.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
  Sakari Ailus <sakari.ailus@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>, Luben Tuikov <luben.tuikov@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Bagas Sanjaya <bagasdotme@gmail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, David Airlie <airlied@gmail.com>,
  Lucas Stach <l.stach@pengutronix.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Here are small htmldocs fixes for htmldocs warnings that are recently
-reported for next-20230203. Each patch can be applied separately by
-respective maintainers.
+Stephen Rothwell reported htmldocs warnings:
 
-Bagas Sanjaya (3):
-  drm/i915/doc: Escape wildcard in method names
-  drm/scheduler: Fix elapsed_ns kernel-doc error
-  media: v4l2-core: Describe privacy_led field of v4l2_subdev
+include/drm/gpu_scheduler.h:232: warning: Incorrect use of kernel-doc format:          * @elapsed_ns
+include/drm/gpu_scheduler.h:238: warning: Function parameter or member 'elapsed_ns' not described in 'drm_sched_entity'
 
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 6 +++---
- include/drm/gpu_scheduler.h                 | 2 +-
- include/media/v4l2-subdev.h                 | 1 +
- 3 files changed, 5 insertions(+), 4 deletions(-)
+Fix the error by appending missing colon to @elapsed_ns name in its
+kernel-doc comment.
 
+Link: https://lore.kernel.org/linux-next/20230203135027.1a4679d3@canb.auug.org.au/
+Fixes: 248cd9b265fca6 ("drm/scheduler: track GPU active time per entity")
+Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
+Signed-off-by: Bagas Sanjaya <bagasdotme@gmail.com>
+---
+ include/drm/gpu_scheduler.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-base-commit: 4fafd96910add124586b549ad005dcd179de8a18
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 9a50365621ed8d..9db9e5e504eeb3 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -229,7 +229,7 @@ struct drm_sched_entity {
+ 	struct rb_node			rb_tree_node;
+ 
+ 	/**
+-	 * @elapsed_ns
++	 * @elapsed_ns:
+ 	 *
+ 	 * Records the amount of time where jobs from this entity were active
+ 	 * on the GPU.
 -- 
 An old man doll... just what I always wanted! - Clara
 
