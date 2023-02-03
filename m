@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AE33C61DA4
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 00:12:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77B85C61DA4
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Feb 2023 00:12:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 781C710E6BC;
-	Fri,  3 Feb 2023 00:11:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D475610E6CD;
+	Fri,  3 Feb 2023 00:11:47 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1443610E6B1;
- Fri,  3 Feb 2023 00:11:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E89110E6AF;
+ Fri,  3 Feb 2023 00:11:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675383102; x=1706919102;
+ t=1675383101; x=1706919101;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=IQvqbkvPulDnNgO8Gu13UNytQ4xrMpjPquh/b/NPgsA=;
- b=fy7jdF5aIktfXsqpFdNzJbakqxMHYK3SVul3gvspY6qD//u9GDe4uDrp
- bs78ycZfXx6kQLBjrfV+lDiCR90AxG1vou1RFZv0tJSW5IZBjK3pyG2HU
- wzhxGMVafzXYuFbspPXsrc15ApXBQIHYWWqJLqlsad3NjBVTCUL5hRoPx
- hjXlll6DzZo9Dic2fuFK58zG3FOSEnbn5sQUDQT43Zggoe7rnWB4plg79
- Ix2ObpMiuDVwMqdW+nbbbwZDSj7X58AZkoain7y1Kss1XJQYWvPXiXDh2
- hqrGhzWw8d88XgM0WfitMGxTU3i4krWVluSlZtmGatr3yWuB6sf3QbTBX g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10609"; a="393204049"
-X-IronPort-AV: E=Sophos;i="5.97,268,1669104000"; d="scan'208";a="393204049"
+ bh=HTD8Ig0JDrvodNgwIPVAerGVLelk4nQ/jkUpoQ+xyJ4=;
+ b=NX4zuF6i19S1IcOZURTSBL493vJykuphSybcHT73WarHq3nzsy5p4dSN
+ X3kgKoMW/OA+URqutZ9X0MciJPFpq+Wh391EZrfuFAf5C4aUzOIqpbODJ
+ wg61a4SHk36p+fbLU5Y2wcY7z1Ahiza8DiTY8McQrf4H/P2dq7r3CbymE
+ 18oPdCAfD9umQdbFAlYBTgULMp0qYN5iD400Zo0HvAvx9erTAtjR/fzDG
+ Ox+ILbNyEXuhj08LUB/LQqlwHWpYjACvJuV/cX1GFPSze7yLKcI0hQiDg
+ x5IN/WWiKRnmL01UlaEVuGugUDUIRdu4YgR/0Eb3dcojkLvlwkToYjLHD w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10609"; a="393204045"
+X-IronPort-AV: E=Sophos;i="5.97,268,1669104000"; d="scan'208";a="393204045"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Feb 2023 16:11:40 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10609"; a="789487446"
-X-IronPort-AV: E=Sophos;i="5.97,268,1669104000"; d="scan'208";a="789487446"
+X-IronPort-AV: E=McAfee;i="6500,9779,10609"; a="789487434"
+X-IronPort-AV: E=Sophos;i="5.97,268,1669104000"; d="scan'208";a="789487434"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
- by orsmga004.jf.intel.com with ESMTP; 02 Feb 2023 16:11:40 -0800
+ by orsmga004.jf.intel.com with ESMTP; 02 Feb 2023 16:11:39 -0800
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu,  2 Feb 2023 16:11:43 -0800
-Message-Id: <20230203001143.3323433-7-John.C.Harrison@Intel.com>
+Date: Thu,  2 Feb 2023 16:11:39 -0800
+Message-Id: <20230203001143.3323433-3-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230203001143.3323433-1-John.C.Harrison@Intel.com>
 References: <20230203001143.3323433-1-John.C.Harrison@Intel.com>
@@ -45,8 +45,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/6] drm/i915/guc: More debug print updates -
- GuC logging
+Subject: [Intel-gfx] [PATCH 2/6] drm/i915/guc: More debug print updates -
+ GSC firmware
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,52 +69,81 @@ Update a bunch more debug prints to use the new GT based scheme.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_print.h     | 3 +++
- drivers/gpu/drm/i915/gt/uc/intel_guc_log.c   | 3 +--
- drivers/gpu/drm/i915/gt/uc/intel_guc_print.h | 3 +++
- 3 files changed, 7 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c | 8 +++-----
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c | 7 +++----
+ 2 files changed, 6 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_print.h b/drivers/gpu/drm/i915/gt/intel_gt_print.h
-index 5d9da355ce242..55a336a9ff061 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_print.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_print.h
-@@ -28,6 +28,9 @@
- #define gt_err_ratelimited(_gt, _fmt, ...) \
- 	drm_err_ratelimited(&(_gt)->i915->drm, "GT%u: " _fmt, (_gt)->info.id, ##__VA_ARGS__)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
+index e73d4440c5e82..8e0c736fa4e94 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
+@@ -6,6 +6,7 @@
+ #include "gt/intel_engine_pm.h"
+ #include "gt/intel_gpu_commands.h"
+ #include "gt/intel_gt.h"
++#include "gt/intel_gt_print.h"
+ #include "gt/intel_ring.h"
+ #include "intel_gsc_fw.h"
  
-+#define gt_notice_ratelimited(_gt, _fmt, ...) \
-+	dev_notice_ratelimited((_gt)->i915->drm.dev, "GT%u: " _fmt, (_gt)->info.id, ##__VA_ARGS__)
-+
- #define gt_probe_error(_gt, _fmt, ...) \
- 	do { \
- 		if (i915_error_injected()) \
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-index c3792ddeec802..818e9e0e66a83 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_log.c
-@@ -333,8 +333,7 @@ bool intel_guc_check_log_buf_overflow(struct intel_guc_log *log,
- 			log->stats[type].sampled_overflow += 16;
- 		}
+@@ -88,9 +89,7 @@ static int gsc_fw_load(struct intel_gsc_uc *gsc)
+ 	i915_request_put(rq);
  
--		dev_notice_ratelimited(guc_to_gt(log_to_guc(log))->i915->drm.dev,
--				       "GuC log buffer overflow\n");
-+		guc_notice_ratelimited(log_to_guc(log), "log buffer overflow\n");
+ 	if (err)
+-		drm_err(&gsc_uc_to_gt(gsc)->i915->drm,
+-			"Request submission for GSC load failed (%d)\n",
+-			err);
++		gt_err(gsc_uc_to_gt(gsc), "Request submission for GSC load failed (%d)\n", err);
+ 
+ 	return err;
+ }
+@@ -200,8 +199,7 @@ int intel_gsc_uc_fw_upload(struct intel_gsc_uc *gsc)
+ 	/* FW is not fully operational until we enable SW proxy */
+ 	intel_uc_fw_change_status(gsc_fw, INTEL_UC_FIRMWARE_TRANSFERRED);
+ 
+-	drm_info(&gt->i915->drm, "Loaded GSC firmware %s\n",
+-		 gsc_fw->file_selected.path);
++	gt_info(gt, "Loaded GSC firmware %s\n", gsc_fw->file_selected.path);
+ 
+ 	return 0;
+ 
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c
+index fd21dbd2663be..6e7d5aa4dcf5e 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c
+@@ -6,6 +6,7 @@
+ #include <linux/types.h>
+ 
+ #include "gt/intel_gt.h"
++#include "gt/intel_gt_print.h"
+ #include "intel_gsc_uc.h"
+ #include "intel_gsc_fw.h"
+ #include "i915_drv.h"
+@@ -59,7 +60,6 @@ int intel_gsc_uc_init(struct intel_gsc_uc *gsc)
+ {
+ 	static struct lock_class_key gsc_lock;
+ 	struct intel_gt *gt = gsc_uc_to_gt(gsc);
+-	struct drm_i915_private *i915 = gt->i915;
+ 	struct intel_engine_cs *engine = gt->engine[GSC0];
+ 	struct intel_context *ce;
+ 	struct i915_vma *vma;
+@@ -81,8 +81,7 @@ int intel_gsc_uc_init(struct intel_gsc_uc *gsc)
+ 						I915_GEM_HWS_GSC_ADDR,
+ 						&gsc_lock, "gsc_context");
+ 	if (IS_ERR(ce)) {
+-		drm_err(&gt->i915->drm,
+-			"failed to create GSC CS ctx for FW communication\n");
++		gt_err(gt, "failed to create GSC CS ctx for FW communication\n");
+ 		err =  PTR_ERR(ce);
+ 		goto out_vma;
  	}
- 
- 	return overflow;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_print.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_print.h
-index e75989d4ba067..2465d05638b40 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_print.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_print.h
-@@ -30,6 +30,9 @@
- #define guc_err_ratelimited(_guc, _fmt, ...) \
- 	guc_printk((_guc), err_ratelimited, _fmt, ##__VA_ARGS__)
- 
-+#define guc_notice_ratelimited(_guc, _fmt, ...) \
-+	guc_printk((_guc), notice_ratelimited, _fmt, ##__VA_ARGS__)
-+
- #define guc_probe_error(_guc, _fmt, ...) \
- 	guc_printk((_guc), probe_error, _fmt, ##__VA_ARGS__)
+@@ -98,7 +97,7 @@ int intel_gsc_uc_init(struct intel_gsc_uc *gsc)
+ out_fw:
+ 	intel_uc_fw_fini(&gsc->fw);
+ out:
+-	i915_probe_error(i915, "failed with %d\n", err);
++	gt_probe_error(gt, "GSC init failed with %d\n", err);
+ 	return err;
+ }
  
 -- 
 2.39.1
