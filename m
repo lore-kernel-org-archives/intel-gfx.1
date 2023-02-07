@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59C81C636D4
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 07:45:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3605C636CD
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 07:45:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD91410E45E;
-	Tue,  7 Feb 2023 07:45:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98DAB10E45F;
+	Tue,  7 Feb 2023 07:45:39 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A379C10E446
- for <intel-gfx@lists.freedesktop.org>; Tue,  7 Feb 2023 07:45:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE18E10E45E
+ for <intel-gfx@lists.freedesktop.org>; Tue,  7 Feb 2023 07:45:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675755933; x=1707291933;
+ t=1675755936; x=1707291936;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=aXUz/m4zbl4WKC7y3ud/bU4Ydeh6EE8T+vUficha83k=;
- b=PHFeDKT4lR5VqsmiUBcZdqgTVmgj4oKLSf6SRLHV3m8B5HTQNBWc7waj
- TG8YlGBnU5/WOlj97CwlYa++HfSvg+bnxMoShbqsLrXz1Ncb8UrfKUaoO
- kSWgxae9ALzoGljRfJ9mMiIZy2NLpBHPUyCwNfKWTe3GNGqlJw1UomYo8
- qWPy2ILIb93Jc/TFgBboVoRe/G/JQ2TS2dTqppXcGPNA8tYGG2HLdSliT
- 5QhzLzeHbTa5Od/NeuuF3YyrSOUxllkQUoSj0BNkj2CT5oHdyPl81mB6f
- 7ngw3shgfQaC/c0ydxme8gAgvHINAx2hfP1B5i7896Jt6TzgBn3guVE4n w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="317449136"
-X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="317449136"
+ bh=s4nJ73q47Lg+ITOWNFxtlNAsOmHk8rdYTBE9RP01Mi0=;
+ b=PiBtZ7VdDDxmMjtw4TVYZSDWAgNilBH9PryYTp5IV9sW0jMqlwiPue//
+ maGeG/QfhJ+jDzabQMnOseJH2YrjvOeODnqiLxMGxGzyzLedVQskuBC+F
+ KEUXvfntHllnKpQ/sofQfx94eQkaKGwlG5nqLZifIIlZNECanR8O9e/rA
+ en0AnGLcgBTmVHfuoDM2/KbM4gnhMNoFGASRWgQezuMcUneYwaqL+XN/F
+ ANwcaw7lCzjLRCKHafpDMn2YIYsEmTU0zU3kG0zJCnSJdfGxLkukrxnZt
+ L82ddr+qUzRtITmvdmbCUrKpgM97ovFNxdIz/EdhB5vyc4mT/BWPRKJHJ g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="317449178"
+X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="317449178"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2023 23:45:25 -0800
+ 06 Feb 2023 23:45:32 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="840674629"
-X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="840674629"
+X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="840674672"
+X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="840674672"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by orsmga005.jf.intel.com with ESMTP; 06 Feb 2023 23:45:23 -0800
+ by orsmga005.jf.intel.com with ESMTP; 06 Feb 2023 23:45:29 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  7 Feb 2023 13:14:12 +0530
-Message-Id: <20230207074416.3209722-4-suraj.kandpal@intel.com>
+Date: Tue,  7 Feb 2023 13:14:15 +0530
+Message-Id: <20230207074416.3209722-7-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230207074416.3209722-1-suraj.kandpal@intel.com>
 References: <20230207074416.3209722-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 3/7] drm/i915: Adding the new registers for
- DSC
+Subject: [Intel-gfx] [PATCH v9 6/7] drm/i915/vdsc: Check slice design
+ requirement
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,60 +60,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Adding new DSC register which are introducted MTL onwards
+Add function to check if slice design requirements are being
+met as defined in Bspec: 49259 in the section
+Slice Design Requirement
+
+--v7
+-remove full bspec link [Jani]
+-rename intel_dsc_check_slice_design_req to
+intel_dsc_slice_dimensions_valid [Jani]
+
+--v8
+-fix condition to check if slice width and height are
+of two
+-fix minimum pixel in slice condition
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Vandita Kulkarni <Vandita.kulkarni@intel.com>
 ---
- drivers/gpu/drm/i915/i915_reg.h | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ drivers/gpu/drm/i915/display/intel_vdsc.c | 32 +++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 596efc940ee7..9e25e21d37e4 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -7715,6 +7715,8 @@ enum skl_power_gate {
- #define ICL_DSC1_PICTURE_PARAMETER_SET_0(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
- 							   _ICL_DSC1_PICTURE_PARAMETER_SET_0_PB, \
- 							   _ICL_DSC1_PICTURE_PARAMETER_SET_0_PC)
-+#define  DSC_NATIVE_422_ENABLE		BIT(23)
-+#define  DSC_NATIVE_420_ENABLE		BIT(22)
- #define  DSC_ALT_ICH_SEL		(1 << 20)
- #define  DSC_VBR_ENABLE			(1 << 19)
- #define  DSC_422_ENABLE			(1 << 18)
-@@ -7959,6 +7961,32 @@ enum skl_power_gate {
- #define  DSC_SLICE_PER_LINE(slice_per_line)		((slice_per_line) << 16)
- #define  DSC_SLICE_CHUNK_SIZE(slice_chunk_size)		((slice_chunk_size) << 0)
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+index 13ad853e24eb..6ebefc195e83 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.c
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+@@ -447,6 +447,29 @@ calculate_rc_params(struct rc_parameters *rc,
+ 	}
+ }
  
-+/* MTL Display Stream Compression registers */
-+#define _MTL_DSC0_PICTURE_PARAMETER_SET_17_PB	0x782B4
-+#define _MTL_DSC1_PICTURE_PARAMETER_SET_17_PB	0x783B4
-+#define _MTL_DSC0_PICTURE_PARAMETER_SET_17_PC	0x784B4
-+#define _MTL_DSC1_PICTURE_PARAMETER_SET_17_PC	0x785B4
-+#define MTL_DSC0_PICTURE_PARAMETER_SET_17(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
-+							   _MTL_DSC0_PICTURE_PARAMETER_SET_17_PB, \
-+							   _MTL_DSC0_PICTURE_PARAMETER_SET_17_PC)
-+#define MTL_DSC1_PICTURE_PARAMETER_SET_17(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
-+							   _MTL_DSC1_PICTURE_PARAMETER_SET_17_PB, \
-+							   _MTL_DSC1_PICTURE_PARAMETER_SET_17_PC)
-+#define DSC_SL_BPG_OFFSET(offset)		((offset) << 27)
++static int intel_dsc_slice_dimensions_valid(struct intel_crtc_state *pipe_config,
++					    struct drm_dsc_config *vdsc_cfg)
++{
++	if (pipe_config->output_format == INTEL_OUTPUT_FORMAT_RGB ||
++	    pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR444) {
++		if (vdsc_cfg->slice_height > 4095)
++			return -EINVAL;
++		if (vdsc_cfg->slice_height * vdsc_cfg->slice_width >= 15000)
++			return -EINVAL;
++	} else if (pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR420) {
++		if (vdsc_cfg->slice_width % 2)
++			return -EINVAL;
++		if (vdsc_cfg->slice_height % 2)
++			return -EINVAL;
++		if (vdsc_cfg->slice_height > 4094)
++			return -EINVAL;
++		if (vdsc_cfg->slice_height * vdsc_cfg->slice_width >= 30000)
++			return -EINVAL;
++	}
 +
-+#define _MTL_DSC0_PICTURE_PARAMETER_SET_18_PB	0x782B8
-+#define _MTL_DSC1_PICTURE_PARAMETER_SET_18_PB	0x783B8
-+#define _MTL_DSC0_PICTURE_PARAMETER_SET_18_PC	0x784B8
-+#define _MTL_DSC1_PICTURE_PARAMETER_SET_18_PC	0x785B8
-+#define MTL_DSC0_PICTURE_PARAMETER_SET_18(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
-+							   _MTL_DSC0_PICTURE_PARAMETER_SET_18_PB, \
-+							   _MTL_DSC0_PICTURE_PARAMETER_SET_18_PC)
-+#define MTL_DSC1_PICTURE_PARAMETER_SET_18(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
-+							   _MTL_DSC1_PICTURE_PARAMETER_SET_18_PB, \
-+							   _MTL_DSC1_PICTURE_PARAMETER_SET_18_PC)
-+#define DSC_NSL_BPG_OFFSET(offset)		((offset) << 16)
-+#define DSC_SL_OFFSET_ADJ(offset)		((offset) << 0)
++	return 0;
++}
 +
- /* Icelake Rate Control Buffer Threshold Registers */
- #define DSCA_RC_BUF_THRESH_0			_MMIO(0x6B230)
- #define DSCA_RC_BUF_THRESH_0_UDW		_MMIO(0x6B230 + 4)
+ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(pipe_config->uapi.crtc);
+@@ -455,11 +478,20 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
+ 	u16 compressed_bpp = pipe_config->dsc.compressed_bpp;
+ 	const struct rc_parameters *rc_params;
+ 	struct rc_parameters *rc = NULL;
++	int err;
+ 	u8 i = 0;
+ 
+ 	vdsc_cfg->pic_width = pipe_config->hw.adjusted_mode.crtc_hdisplay;
+ 	vdsc_cfg->slice_width = DIV_ROUND_UP(vdsc_cfg->pic_width,
+ 					     pipe_config->dsc.slice_count);
++
++	err = intel_dsc_slice_dimensions_valid(pipe_config, vdsc_cfg);
++
++	if (err) {
++		drm_dbg_kms(&dev_priv->drm, "Slice dimension requirements not met\n");
++		return err;
++	}
++
+ 	/*
+ 	 * According to DSC 1.2 specs if colorspace is YCbCr then convert_rgb is 0
+ 	 * else 1
 -- 
 2.25.1
 
