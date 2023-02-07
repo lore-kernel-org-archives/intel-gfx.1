@@ -4,54 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DBA0C636CC
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 09:33:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC1BFC636CC
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 09:33:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A59710E474;
-	Tue,  7 Feb 2023 09:33:15 +0000 (UTC)
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [IPv6:2a00:1450:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8957F10E094;
- Tue,  7 Feb 2023 09:33:13 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id o20so21506773lfk.5;
- Tue, 07 Feb 2023 01:33:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=eijivl1ANPuVp5wmE3ro4xbyX2qtwhdfnM7SSH99g5I=;
- b=D/TfzWaMuRK2xsZZgNFvf1p1iOGf14QXzjmz0v2nL/9nlHLXXpjsXHcPDkueiIDAZJ
- 0+vkD6R8bG0/lplsUXBkelrQkC6u/3V5KNEz2cnLUclaBbitN1HnTpM3Ur5S7opoXOy1
- 9LOaAjtymq5RqKuJMgTb3AxIsVf/vve/wCuTWl7d7POhcq3Zxo+D6dCt19Y8CsOzyoQD
- Zsht9upIZNNTcWjSQFpSBKBnkt6GDvYea4jh4Vjpr9/LE8vtwhLwGNL1NJeCiaaLBFqV
- edf6ojBNon553kibo29c/ReGXCq0sEVPoJIjiv4pxRteG0h3bH1R/pg4rQ6TI+12egjU
- FMZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=eijivl1ANPuVp5wmE3ro4xbyX2qtwhdfnM7SSH99g5I=;
- b=PeHxTGzmUks5frMCAZtJRNeqvtVaBoguE+Y0s3ZWTKOyRO02ZN/iryAvw8DPWRccPs
- IdWY0DTK/loO1OOxKdfPYPOFyNuXlEDiCDqwuYI3ynE5D1gE9L3VTVVRos3S6Z4JBynd
- x7DGD7YtGA2oWO9y7DWjGjTWOoEtea0vL48douFfV85xFA00jNy2qEky+NFmHAPyAs3x
- eocoEz+fcISdxBMDDU3Vg+EM+iH+7eOS7IhkU+JlxWAmPophoamHcg9TlVTnnHVnWU1P
- 8QaoJvj2JZIDwI/Bb9H/mSQ+zYa6XZ6Izmi9m2uucd+rjhXy34MsdA5VafKFInU5oBoR
- pkRw==
-X-Gm-Message-State: AO0yUKVvJxtoOAGWRnK7LNnThuM/01bToRyKLJeoivuMG6f4nNJzoPQg
- MFU+HBL2sCbrUxgdZ4eGRMnsyZbvTNvWVU4RldX31bGd19jHfQ==
-X-Google-Smtp-Source: AK7set9qpE8+mdek+WDFffvZ0XdSI6YCvNdGUTBJpdVd3NHkwpE+WxJ51WLjmzFgYDWKyM/j4Bi9PXw3X/69JYO2jq4=
-X-Received: by 2002:ac2:562d:0:b0:4d5:7b89:7b67 with SMTP id
- b13-20020ac2562d000000b004d57b897b67mr310919lff.17.1675762391746; Tue, 07 Feb
- 2023 01:33:11 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41C4F10E074;
+	Tue,  7 Feb 2023 09:33:41 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9998510E491
+ for <intel-gfx@lists.freedesktop.org>; Tue,  7 Feb 2023 09:33:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1675762418; x=1707298418;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=shxlFdbo+IQeq4jMbAy0V6h25PVc3TvINQxOt1PJoig=;
+ b=ZhxDGWzRWH6I792xBtf+vttzqhP4wroBcQjArNOaWWtklABGh0frTAh1
+ ZoyKgjkCUrwKdODe2QP5N49HJxmAtefq5l5h+UAnFcGN2tIeU2iGtabyW
+ og2lOXQXiAjDzN2XlearAz1TD/mfZVSwCLcGqAXziYqDoGRfsOckAHu+t
+ rMehjuQBhRCqz08fBUEWe5MKpI6h7pANDReLywG7QO3qqkqLqOaQhK2X1
+ f0p6A34ELXm2KhJUxtP8FSwnK64p3zPzKNHTQpn8jKQIKBo8WQelgylT5
+ tPgX9/AJzc61HJqiGQ6sCofEV3hzhpJkjO1zK2sLWe/nFamZJ6CvaYFyw Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="327149367"
+X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="327149367"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Feb 2023 01:33:38 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="699194571"
+X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="699194571"
+Received: from tronach-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.36.11])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Feb 2023 01:33:36 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+In-Reply-To: <Y+IUV8OBG0P2mt2b@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20230207064337.18697-1-ville.syrjala@linux.intel.com>
+ <20230207064337.18697-2-ville.syrjala@linux.intel.com>
+ <877cwtzw93.fsf@intel.com> <Y+IUV8OBG0P2mt2b@intel.com>
+Date: Tue, 07 Feb 2023 11:33:34 +0200
+Message-ID: <87wn4tyg41.fsf@intel.com>
 MIME-Version: 1.0
-References: <20230203155309.1042297-1-ashutosh.dixit@intel.com>
-In-Reply-To: <20230203155309.1042297-1-ashutosh.dixit@intel.com>
-From: Matthew Auld <matthew.william.auld@gmail.com>
-Date: Tue, 7 Feb 2023 09:32:44 +0000
-Message-ID: <CAM0jSHN421CatemTLzZMccGcjSQ_MJEA_vpqbCHgDrtuE_xC9w@mail.gmail.com>
-To: Ashutosh Dixit <ashutosh.dixit@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/hwmon: Enable PL1 power limit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH 1/3] drm/i915: Fix VBT DSI DVO port handling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,50 +60,123 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 3 Feb 2023 at 15:54, Ashutosh Dixit <ashutosh.dixit@intel.com> wrote:
+On Tue, 07 Feb 2023, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
+> wrote:
+> On Tue, Feb 07, 2023 at 10:59:36AM +0200, Jani Nikula wrote:
+>> On Tue, 07 Feb 2023, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+>> > From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>> >
+>> > Turns out modern (icl+) VBTs still declare their DSI ports
+>> > as MIPI-A and MIPI-C despite the PHYs now being A and B.
+>> > Remap appropriately to allow the panels declared as MIPI-C
+>> > to work.
+>> >
+>> > Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/8016
+>> > Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>> > ---
+>> >  drivers/gpu/drm/i915/display/intel_bios.c | 33 ++++++++++++++++-------
+>> >  1 file changed, 23 insertions(+), 10 deletions(-)
+>> >
+>> > diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/d=
+rm/i915/display/intel_bios.c
+>> > index e6ca51232dcf..06a2d98d2277 100644
+>> > --- a/drivers/gpu/drm/i915/display/intel_bios.c
+>> > +++ b/drivers/gpu/drm/i915/display/intel_bios.c
+>> > @@ -2467,6 +2467,22 @@ static enum port dvo_port_to_port(struct drm_i9=
+15_private *i915,
+>> >  					  dvo_port);
+>> >  }
+>> >=20=20
+>> > +static enum port
+>> > +dsi_dvo_port_to_port(struct drm_i915_private *i915, u8 dvo_port)
+>> > +{
+>> > +	switch (dvo_port) {
+>> > +	case DVO_PORT_MIPIA:
+>> > +		return PORT_A;
+>>=20
+>> I think I would add:
+>>=20
+>> 	case DVO_PORT_MIPIB:
+>> 		if (DISPLAY_VER(i915) >=3D 11)
+>> 			return PORT_B;
+>> 		else
+>> 			return PORT_NONE;
+>>=20
+>> just in case.
 >
-> Previous documentation suggested that PL1 power limit is always
-> enabled. However we now find this not to be the case on some
-> platforms (such as ATSM). Therefore enable PL1 power limit during hwmon
-> initialization.
+> Looks like Windows doesn't expect MIPI-B to be used ever.
+> So I'm tempted to leave it out as well.
 
-For some reason it looks like this change is impacting the atsm in CI:
-https://intel-gfx-ci.01.org/tree/drm-tip/bat-atsm-1.html
+Okay then. $EXPLETIVE.
+
+J.
 
 >
-> Bspec: 51864
->
-> v2: Add Bspec reference (Gwan-gyeong)
-> v3: Add Fixes tag
->
-> Fixes: 99f55efb79114 ("drm/i915/hwmon: Power PL1 limit and TDP setting")
-> Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
-> Reviewed-by: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-> ---
->  drivers/gpu/drm/i915/i915_hwmon.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/i915_hwmon.c b/drivers/gpu/drm/i915/i915_hwmon.c
-> index 1225bc432f0d5..4683a5b96eff1 100644
-> --- a/drivers/gpu/drm/i915/i915_hwmon.c
-> +++ b/drivers/gpu/drm/i915/i915_hwmon.c
-> @@ -687,6 +687,11 @@ hwm_get_preregistration_info(struct drm_i915_private *i915)
->                 for_each_gt(gt, i915, i)
->                         hwm_energy(&hwmon->ddat_gt[i], &energy);
->         }
-> +
-> +       /* Enable PL1 power limit */
-> +       if (i915_mmio_reg_valid(hwmon->rg.pkg_rapl_limit))
-> +               hwm_locked_with_pm_intel_uncore_rmw(ddat, hwmon->rg.pkg_rapl_limit,
-> +                                                   PKG_PWR_LIM_1_EN, PKG_PWR_LIM_1_EN);
->  }
->
->  void i915_hwmon_register(struct drm_i915_private *i915)
-> --
-> 2.38.0
->
+>>=20
+>> With that,
+>>=20
+>> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+>>=20
+>> > +	case DVO_PORT_MIPIC:
+>> > +		if (DISPLAY_VER(i915) >=3D 11)
+>> > +			return PORT_B;
+>> > +		else
+>> > +			return PORT_C;
+>> > +	default:
+>> > +		return PORT_NONE;
+>> > +	}
+>> > +}
+>> > +
+>> >  static int parse_bdb_230_dp_max_link_rate(const int vbt_max_link_rate)
+>> >  {
+>> >  	switch (vbt_max_link_rate) {
+>> > @@ -3442,19 +3458,16 @@ bool intel_bios_is_dsi_present(struct drm_i915=
+_private *i915,
+>> >=20=20
+>> >  		dvo_port =3D child->dvo_port;
+>> >=20=20
+>> > -		if (dvo_port =3D=3D DVO_PORT_MIPIA ||
+>> > -		    (dvo_port =3D=3D DVO_PORT_MIPIB && DISPLAY_VER(i915) >=3D 11) ||
+>> > -		    (dvo_port =3D=3D DVO_PORT_MIPIC && DISPLAY_VER(i915) < 11)) {
+>> > -			if (port)
+>> > -				*port =3D dvo_port - DVO_PORT_MIPIA;
+>> > -			return true;
+>> > -		} else if (dvo_port =3D=3D DVO_PORT_MIPIB ||
+>> > -			   dvo_port =3D=3D DVO_PORT_MIPIC ||
+>> > -			   dvo_port =3D=3D DVO_PORT_MIPID) {
+>> > +		if (dsi_dvo_port_to_port(i915, dvo_port) =3D=3D PORT_NONE) {
+>>=20
+>> Yeah that monstrosity should've been a separate function a long time ago!
+>>=20
+>> >  			drm_dbg_kms(&i915->drm,
+>> >  				    "VBT has unsupported DSI port %c\n",
+>> >  				    port_name(dvo_port - DVO_PORT_MIPIA));
+>> > +			continue;
+>> >  		}
+>> > +
+>> > +		if (port)
+>> > +			*port =3D dsi_dvo_port_to_port(i915, dvo_port);
+>> > +		return true;
+>> >  	}
+>> >=20=20
+>> >  	return false;
+>> > @@ -3539,7 +3552,7 @@ bool intel_bios_get_dsc_params(struct intel_enco=
+der *encoder,
+>> >  		if (!(child->device_type & DEVICE_TYPE_MIPI_OUTPUT))
+>> >  			continue;
+>> >=20=20
+>> > -		if (child->dvo_port - DVO_PORT_MIPIA =3D=3D encoder->port) {
+>> > +		if (dsi_dvo_port_to_port(i915, child->dvo_port) =3D=3D encoder->por=
+t) {
+>> >  			if (!devdata->dsc)
+>> >  				return false;
+>>=20
+>> --=20
+>> Jani Nikula, Intel Open Source Graphics Center
+
+--=20
+Jani Nikula, Intel Open Source Graphics Center
