@@ -4,48 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94458C636CC
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 17:21:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F9D1C636D3
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 17:25:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA6AF10E101;
-	Tue,  7 Feb 2023 17:21:34 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9619710E1E9;
- Tue,  7 Feb 2023 17:21:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675790492; x=1707326492;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=HAM9bQDFxlH/EhH1WIAz6lDlb1Nt74UfKDXlh3LRyxA=;
- b=HPmobpM59esY+p+TnsicI534QBFUCmb2aa/tPGkoWLO7ZiC2fLE6x8O+
- KdCosrhq7i7/1dtmvNnkA6tgoyO5yK0yU9nxYxozwgk6ELwNDEmECJGUE
- fNY4rIjBm9xNAWD8wx7DMV1uKQw2w4XJVGlzc/nyqCU35lBLFMl8UWPZS
- s3t8FSqCcj12hsrYMssADkuRSu4Wh/zw4qlphu4xStp5RSiEQdLMbmdEa
- JTQmDPz0QCG7ip8VpO85K8nFQUsZMLpC6c1e7r/9E8WEEA34M2Wkf031k
- S5E6WRjJfbfcoNkc2+2/JW/7nTpUH2OsOZev8/JSicprA5fsWZh+VRPGQ Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="317534431"
-X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="317534431"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Feb 2023 06:33:46 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="755641535"
-X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="755641535"
-Received: from tronach-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.36.11])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Feb 2023 06:33:42 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Tue,  7 Feb 2023 16:33:37 +0200
-Message-Id: <20230207143337.2126678-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B4CA10E1E9;
+	Tue,  7 Feb 2023 17:25:01 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6775F10E1E9;
+ Tue,  7 Feb 2023 17:24:59 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 62323AADD4;
+ Tue,  7 Feb 2023 17:24:59 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm: Disable dynamic debug as broken
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Swati Sharma" <swati2.sharma@intel.com>
+Date: Tue, 07 Feb 2023 17:24:59 -0000
+Message-ID: <167579069937.13140.2376936178263008041@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230207140557.18164-1-swati2.sharma@intel.com>
+In-Reply-To: <20230207140557.18164-1-swati2.sharma@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/display/selftest=3A_Add_pcode_selftest?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,59 +40,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>, jani.nikula@intel.com,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Maxime Ripard <mripard@kernel.org>, Jim Cromie <jim.cromie@gmail.com>,
- stable@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+== Series Details ==
 
-CONFIG_DRM_USE_DYNAMIC_DEBUG breaks debug prints for (at least modular)
-drm drivers. The debug prints can be reinstated by manually frobbing
-/sys/module/drm/parameters/debug after the fact, but at that point the
-damage is done and all debugs from driver probe are lost. This makes
-drivers totally undebuggable.
+Series: drm/i915/display/selftest: Add pcode selftest
+URL   : https://patchwork.freedesktop.org/series/113745/
+State : warning
 
-There's a more complete fix in progress [1], with further details, but
-we need this fixed in stable kernels. Mark the feature as broken and
-disable it by default, with hopes distros follow suit and disable it as
-well.
+== Summary ==
 
-[1] https://lore.kernel.org/r/20230125203743.564009-1-jim.cromie@gmail.com
+Error: dim checkpatch failed
+d149647441a7 drm/i915/display/selftest: Add pcode selftest
+Traceback (most recent call last):
+  File "scripts/spdxcheck.py", line 6, in <module>
+    from ply import lex, yacc
+ModuleNotFoundError: No module named 'ply'
+Traceback (most recent call last):
+  File "scripts/spdxcheck.py", line 6, in <module>
+    from ply import lex, yacc
+ModuleNotFoundError: No module named 'ply'
+-:42: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#42: 
+new file mode 100644
 
-Fixes: 84ec67288c10 ("drm_print: wrap drm_*_dbg in dyndbg descriptor factory macro")
-Cc: Jim Cromie <jim.cromie@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.1+
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/Kconfig | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+-:131: WARNING:SPDX_LICENSE_TAG: Improper SPDX comment style for 'drivers/gpu/drm/i915/display/selftests/selftest_display.h', please use '/*' instead
+#131: FILE: drivers/gpu/drm/i915/display/selftests/selftest_display.h:1:
++// SPDX-License-Identifier: MIT
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index f42d4c6a19f2..dc0f94f02a82 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -52,7 +52,8 @@ config DRM_DEBUG_MM
- 
- config DRM_USE_DYNAMIC_DEBUG
- 	bool "use dynamic debug to implement drm.debug"
--	default y
-+	default n
-+	depends on BROKEN
- 	depends on DRM
- 	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
- 	depends on JUMP_LABEL
--- 
-2.34.1
+-:131: WARNING:SPDX_LICENSE_TAG: Missing or malformed SPDX-License-Identifier tag in line 1
+#131: FILE: drivers/gpu/drm/i915/display/selftests/selftest_display.h:1:
++// SPDX-License-Identifier: MIT
+
+total: 0 errors, 3 warnings, 0 checks, 101 lines checked
+
 
