@@ -4,54 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 969FFC636CD
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 07:41:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 991B0C636CC
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 07:45:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0096510E454;
-	Tue,  7 Feb 2023 07:41:41 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2873310E454
- for <intel-gfx@lists.freedesktop.org>; Tue,  7 Feb 2023 07:41:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8CEF10E454;
+	Tue,  7 Feb 2023 07:45:32 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B122A10E454
+ for <intel-gfx@lists.freedesktop.org>; Tue,  7 Feb 2023 07:45:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675755699; x=1707291699;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=RIti6W116giMFdmoujktmdWJYMLXncqQlaQPm6lC2KU=;
- b=XbX9fYBcaUl5a+Gxsl71DxXvIQvxev3KQDyiGLtbXUldV1ktrnuoAkUj
- kNzkoXMXhIPYH2TiAX5+PTj8yZ8MclzZb1E62out4bYz+ofkrBpa27X/B
- xgXaE9+R7ANvXu6rOQLe/h1Jze5Vsd604XJrvv/sYLqQVC841+G4R7TxR
- hRyyQVZbz+J5PPSFJ5eiNMklPJuQsxvedQm0Cg+VNCLge8MWXRg60FyHi
- dViQ+5eQA2rIU2PQNoRuaQBMMhRwYVeF3O9kGfwgHIhH+DMrnKb8eSfIh
- 1WAZQ7IWy6J2Dg+Sg34CI0zTNOlnBrwL1Guydk5tWi/aW+zhewFwkYY98 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="328071563"
-X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="328071563"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2023 23:41:38 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="699146240"
-X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="699146240"
-Received: from swatish2-mobl2.gar.corp.intel.com (HELO [10.215.126.214])
- ([10.215.126.214])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2023 23:41:36 -0800
-Message-ID: <65336d7f-47d3-7231-511f-cabb6a2d18e5@intel.com>
-Date: Tue, 7 Feb 2023 13:11:33 +0530
+ t=1675755931; x=1707291931;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=RgUtPlJKvNBvYaob7xBuC6CA42eQAvLr42wKf+jHlzw=;
+ b=jw3/4Jh//BCQjUTCbmNWwHvwPfCTSyqrRoBQ3TeyQQUzTRE9p6j2A1GQ
+ PEyFhrxah5PPzekbOJNhU/5Qvzf62DC7p4kH8+F/xHNeO6dPCj34WBBtA
+ irnnEwpGpEAK1+IiDRFrq2pk52gBaUAr2yk7h8lwSt71xUzUBPJowdilM
+ jig10rsOKa2jQhaAlv8gs2NJ9DDh8gNJ8qe8ak4sy0fmzmL5ae594oetD
+ jt5t3vNBTSDx7Q+pjwQn81ZeTS+DtxazgsHSKEU/WW3+cGWwzC/qaEQkp
+ TnY00hdZmTGscjkcosu5obZOHMcToBLWxxd/A1rMmx2my15w1UJRAquxt g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="317449117"
+X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="317449117"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Feb 2023 23:45:21 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="840674606"
+X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="840674606"
+Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
+ by orsmga005.jf.intel.com with ESMTP; 06 Feb 2023 23:45:20 -0800
+From: Suraj Kandpal <suraj.kandpal@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue,  7 Feb 2023 13:14:10 +0530
+Message-Id: <20230207074416.3209722-2-suraj.kandpal@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230207074416.3209722-1-suraj.kandpal@intel.com>
+References: <20230207074416.3209722-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Content-Language: en-US
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Suraj Kandpal <suraj.kandpal@intel.com>, intel-gfx@lists.freedesktop.org
-References: <20230111053837.1608588-1-suraj.kandpal@intel.com>
- <20230111053837.1608588-9-suraj.kandpal@intel.com> <87zgapgorz.fsf@intel.com>
-From: Swati Sharma <swati2.sharma@intel.com>
-Organization: Intel
-In-Reply-To: <87zgapgorz.fsf@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v6 8/9] drm/i915/dsc: Allow DSC only with
- YCbCr420 format when forced from debugfs
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v9 1/7] drm/dp_helper: Add helper to check if
+ the sink supports given format with DSC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,53 +60,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Jani,
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-Thanks for the review.
-Have floated https://patchwork.freedesktop.org/patch/521301/
-addressing your review comments.
-Corresponding IGT https://patchwork.freedesktop.org/series/113253/
+Add helper function to check if the DP sink supports DSC with the given
+output format.
 
-On 11-Jan-23 7:24 PM, Jani Nikula wrote:
-> On Wed, 11 Jan 2023, Suraj Kandpal <suraj.kandpal@intel.com> wrote:
->> From: Swati Sharma <swati2.sharma@intel.com>
->>
->> If force_dsc_ycbcr420_en is set through debugfs allow DSC iff
->> output_format is INTEL_OUTPUT_FORMAT_YCBCR420.
-> 
-> Squash this with the previous patch.
-> 
->>
->> Signed-off-by: Swati Sharma <swati2.sharma@intel.com>
->> ---
->>   drivers/gpu/drm/i915/display/intel_dp.c | 4 ++++
->>   1 file changed, 4 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
->> index 2adac42e585d..666ee85dd23a 100644
->> --- a/drivers/gpu/drm/i915/display/intel_dp.c
->> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
->> @@ -1528,6 +1528,10 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
->>   	if (!intel_dp_dsc_supports_format(intel_dp, pipe_config->output_format))
->>   		return -EINVAL;
->>   
->> +	if (intel_dp->force_dsc_ycbcr420_en &&
->> +	    pipe_config->output_format != INTEL_OUTPUT_FORMAT_YCBCR420)
->> +		return -EINVAL;
-> 
-> It would be more generally useful, and perhaps even cleaner to
-> implement, to force the output format, as in *any* output format,
-> instead of having a specific force_dsc_ycbcr420_en.
-> 
-> BR,
-> Jani.
-> 
-> 
->> +
->>   	if (compute_pipe_bpp)
->>   		pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, conn_state->max_requested_bpc);
->>   	else
-> 
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+---
+ include/drm/display/drm_dp_helper.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index ab55453f2d2c..d529d0254b68 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -194,6 +194,13 @@ drm_dp_dsc_sink_max_slice_width(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
+ 		DP_DSC_SLICE_WIDTH_MULTIPLIER;
+ }
+ 
++/* Check if sink supports DSC with given output format */
++static inline bool
++drm_dp_dsc_sink_supports_format(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE], u8 output_format)
++{
++	return dsc_dpcd[DP_DSC_DEC_COLOR_FORMAT_CAP - DP_DSC_SUPPORT] & output_format;
++}
++
+ /* Forward Error Correction Support on DP 1.4 */
+ static inline bool
+ drm_dp_sink_supports_fec(const u8 fec_capable)
 -- 
-~Swati Sharma
+2.25.1
+
