@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81CA6C636D4
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 16:04:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 856A5C636CC
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 16:04:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6852410E547;
-	Tue,  7 Feb 2023 16:04:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00C4610E550;
+	Tue,  7 Feb 2023 16:04:43 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 416C410E53D
- for <intel-gfx@lists.freedesktop.org>; Tue,  7 Feb 2023 16:04:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57AEA10E552
+ for <intel-gfx@lists.freedesktop.org>; Tue,  7 Feb 2023 16:04:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675785866; x=1707321866;
+ t=1675785880; x=1707321880;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=lJX0GejQ41L+IhlIJyVRvXpHLOH7zp13lnow4TvywMQ=;
- b=nlCeoPJwbXw3BpFcWRly5bZCveEBu8UcMnSHCovkjAXkMEdmkyUbiy4b
- E2uzcOKHd8fT/0ieZWvrLfvlbuhV7HkPWHgTcyY/pq8przwTqyfwWXwY8
- olXyVT/Ft/McwQCZSK4LEOE8QQBnxbhQptqqYy7Si+I35RlQ7Sv7yQdG7
- ZC3bxNr6ZUYaXxkyipv4q8TbuGI5uQVNwJyLmDNQKVSj7UHNn/MBIR/Nl
- a91GChpWYe1hVvzjy8WOfz7mS8u3hYF7OTYlG7zyIi5EC5PHEWEOplQGO
- FUwoeRTl7eMAZxknXX8dxry/1Hgv4vOQF5t/6vMWMbxEJ12BXRf/qZChL g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="356915838"
-X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="356915838"
+ bh=6v4WYo24Jo3YwZONIYeQ59hN/TUWn4sDvLAe0HHUUIs=;
+ b=OO+GQYFlYtW7MPdWYWHdjIonhR4qw0xdRkBNL8H3RSSCZ9ARi+Xq0lks
+ Oac/olSE3mX3+00Z1LIWKuAZM8I8ySz+4IOdCnpkrsRT6g4fIS9dyxfJ1
+ UJ47u1uAVTDfw2vuFo0zrplT+zWklVKHT6+qZ1UbZqMlpFj0u8Wfa2Nb+
+ 8VhAxujyorVnuOf4eQTL14iHH4AmG7DCLAinANUfCSx8xGSl/xYxlFWti
+ ej0egc7bS6Es/am/HHnX7612hvNp03lfxGgTF/p70090kj7sh7taHxDNu
+ uMIo9HuXs0ptrlfAlKiPdzs56ufOIzLjOHLLUxWC/3IXIK+L7U3glDP7X Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="356915883"
+X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="356915883"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Feb 2023 08:03:27 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="840821366"
-X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="840821366"
+ 07 Feb 2023 08:03:33 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="840821397"
+X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="840821397"
 Received: from kfurnanz-mobl.ger.corp.intel.com (HELO
  vgovind2-mobl3.intel.com) ([10.252.48.81])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Feb 2023 08:03:25 -0800
+ 07 Feb 2023 08:03:30 -0800
 From: Vinod Govindapillai <vinod.govindapillai@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  7 Feb 2023 18:03:09 +0200
-Message-Id: <20230207160311.930772-2-vinod.govindapillai@intel.com>
+Date: Tue,  7 Feb 2023 18:03:11 +0200
+Message-Id: <20230207160311.930772-4-vinod.govindapillai@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230207160311.930772-1-vinod.govindapillai@intel.com>
 References: <20230207160311.930772-1-vinod.govindapillai@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 1/3] drm/i915/display: ignore long HPDs based
- on a flag
+Subject: [Intel-gfx] [PATCH v3 3/3] drm/i915/display: ignore link training
+ failures in CI
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,62 +62,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Some panels generate long HPD events even while connected to
-the port. This cause some unexpected CI execution issues. A
-new flag is added to track if such spurious long HPDs can be
-ignored and are not processed further if the flag is set.
-
-v2: Address patch styling comments (Jani Nikula)
-
-v3: Ignoring the HPD moved to hotplug handler and now applies
-    to all types of outputs (Imre Deak)
+If the ignore long HPD flag is set, ignore the link training
+failures as well. Because of spurious HPDs, some unexpected link
+training failures are happening while executing IGT test cases.
+Ignore the link training failures for the time being if the long
+HPDs are also ignored in the environments like CI.
 
 Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_core.h | 11 +++++++++++
- drivers/gpu/drm/i915/display/intel_hotplug.c      |  7 +++++++
- 2 files changed, 18 insertions(+)
+ .../drm/i915/display/intel_dp_link_training.c | 24 +++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index fb8670aa2932..251f774bd590 100644
---- a/drivers/gpu/drm/i915/display/intel_display_core.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -182,6 +182,17 @@ struct intel_hotplug {
- 	 * blocked behind the non-DP one.
- 	 */
- 	struct workqueue_struct *dp_wq;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index 3d3efcf02011..f90c627ab553 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -1433,7 +1433,11 @@ intel_dp_128b132b_link_train(struct intel_dp *intel_dp,
+ void intel_dp_start_link_train(struct intel_dp *intel_dp,
+ 			       const struct intel_crtc_state *crtc_state)
+ {
++	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
++	struct intel_connector *connector = intel_dp->attached_connector;
++	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
+ 	bool passed;
 +
+ 	/*
+ 	 * TODO: Reiniting LTTPRs here won't be needed once proper connector
+ 	 * HW state readout is added.
+@@ -1451,6 +1455,26 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
+ 	else
+ 		passed = intel_dp_link_train_all_phys(intel_dp, crtc_state, lttpr_count);
+ 
 +	/*
-+	 * Flag to track if long HPDs need not to be processed
++	 * Ignore the link failure in CI
 +	 *
-+	 * Some panels generate long HPDs while keep connected to the port.
-+	 * This can cause issues with CI tests results. In CI systems we
-+	 * don't expect to disconnect the panels and could ignore the long
-+	 * HPDs generated from the faulty panels. This flag can be used as
-+	 * cue to ignore the long HPDs and can be set / unset using debugfs.
++	 * In fixed enviroments like CI, sometimes unexpected long HPDs are
++	 * generated by the displays. If ignore_long_hpd flag is set, such long
++	 * HPDs are ignored. And probably as a consequence of these ignored
++	 * long HPDs, subsequent link trainings are failed resulting into CI
++	 * execution failures.
++	 *
++	 * For test cases which rely on the link training or processing of HPDs
++	 * ignore_long_hpd flag can unset from the testcase.
 +	 */
-+	bool ignore_long_hpd;
- };
- 
- struct intel_vbt_data {
-diff --git a/drivers/gpu/drm/i915/display/intel_hotplug.c b/drivers/gpu/drm/i915/display/intel_hotplug.c
-index 907ab7526cb4..f0a2aa648bb8 100644
---- a/drivers/gpu/drm/i915/display/intel_hotplug.c
-+++ b/drivers/gpu/drm/i915/display/intel_hotplug.c
-@@ -389,6 +389,13 @@ static void i915_hotplug_work_func(struct work_struct *work)
- 
- 	spin_unlock_irq(&dev_priv->irq_lock);
- 
-+	/* Skip calling encode hotplug handlers if ignore long HPD set*/
-+	if (dev_priv->display.hotplug.ignore_long_hpd) {
-+		drm_dbg_kms(&dev_priv->drm, "Ignore HPD flag on - skip encoder hotplug handlers\n");
-+		mutex_unlock(&dev_priv->drm.mode_config.mutex);
++	if (!passed && i915->display.hotplug.ignore_long_hpd) {
++		drm_dbg_kms(&i915->drm,
++			    "[CONNECTOR:%d:%s][ENCODER:%d:%s] Ignore the link failure\n",
++			    connector->base.base.id, connector->base.name,
++			    encoder->base.base.id, encoder->base.name);
 +		return;
 +	}
 +
- 	drm_connector_list_iter_begin(&dev_priv->drm, &conn_iter);
- 	for_each_intel_connector_iter(connector, &conn_iter) {
- 		enum hpd_pin pin;
+ 	if (!passed)
+ 		intel_dp_schedule_fallback_link_training(intel_dp, crtc_state);
+ }
 -- 
 2.34.1
 
