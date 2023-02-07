@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 194DEC636CC
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 05:07:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CFADC636CD
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 05:07:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BF5510E2E2;
-	Tue,  7 Feb 2023 05:07:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 326A910E2E7;
+	Tue,  7 Feb 2023 05:07:11 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 874FA10E2E4;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 022CD10E2E6;
  Tue,  7 Feb 2023 05:07:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675746428; x=1707282428;
+ t=1675746429; x=1707282429;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=MqjEXGHfjnK05E5llCnVFsaB/lGD+T6jh/XcwX+bNaY=;
- b=K39eXlp8QT2CP9jsXB2SQ5jBh/QmH/w7ePMxYgGbdBjJscrdCeANlmUI
- LZl/NXtEnM+4qG32W6MW6BRY+fVDGnAeVxbaTElykyGoXZF707BgRhxmQ
- eqGtDHC1YdHakvtbe/xoW20bjclG5zAaurJNbDfnyJxplJ0s9g2JFprKn
- rSHs83LoGkWdrA4og0ngxxO5ShX+F2AAD44+uX0vaE9BGxnyeYCsmbz7a
- KRlzA7w+iy4j4Zkdljs9JzGJUabfkZr5KLpUsNZ9Ryra/0ZzuCGNSlT4s
- QaX6IoL++g+4bU1hw2ncg+mLhp/JTMwHe8GCj+4seMvUliHwbx6FTxMfH g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="309049935"
-X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="309049935"
+ bh=VlWrJxb4K9LbQgkYC4ocsUoNp8bNplZpPDd2WFwAf2U=;
+ b=jv26s4yTq3TVO7S8q3mNPI1IblWDgSzhTjS9l7TTAvYQf18GqhfO55dp
+ qibfAvYbUWQh0TQ3l6FPhAST0nFWKRPsJv2oGjT09fD8KCXe49B+elOP8
+ 3A1r5oucIATpNPtEKnq2tA+BXh5TjbUkkH8ODh64IB4HP26/EakPgdmPk
+ OCcbTyAna5IYT/DPrGWvzT5oM1ZEwP5m8620Ix/ItllXxb/Wd5RX12odo
+ Mglz0erQH70Hn7a14bXtYpNA2flaRTfGGUiCXFDrxr5XXIpkeDzBIxy+3
+ qpTi2vErCC8Lz9xtqpXledueWBcvKUvzcUrmZ8aKamqHfRszRECpfgP2w A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="309049944"
+X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="309049944"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2023 21:07:07 -0800
+ 06 Feb 2023 21:07:08 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="840631492"
-X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="840631492"
+X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="840631509"
+X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="840631509"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
  by orsmga005.jf.intel.com with ESMTP; 06 Feb 2023 21:07:07 -0800
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Mon,  6 Feb 2023 21:07:12 -0800
-Message-Id: <20230207050717.1833718-2-John.C.Harrison@Intel.com>
+Date: Mon,  6 Feb 2023 21:07:16 -0800
+Message-Id: <20230207050717.1833718-6-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230207050717.1833718-1-John.C.Harrison@Intel.com>
 References: <20230207050717.1833718-1-John.C.Harrison@Intel.com>
@@ -45,8 +45,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/6] drm/i915/guc: More debug print updates -
- UC firmware
+Subject: [Intel-gfx] [PATCH v2 5/6] drm/i915/guc: More debug print updates -
+ GuC SLPC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,316 +70,251 @@ Update a bunch more debug prints to use the new GT based scheme.
 v2: Also change prints to use %pe for error values (MichalW).
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Acked-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_uc.c    |  42 ++++----
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 116 +++++++++++------------
- 2 files changed, 73 insertions(+), 85 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c   |  8 +--
+ drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c | 61 ++++++++-------------
+ 2 files changed, 26 insertions(+), 43 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index de7f987cf6111..6648691bd6450 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -83,15 +83,15 @@ static int __intel_uc_reset_hw(struct intel_uc *uc)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c
+index b5855091cf6a9..23b287cefb943 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c
+@@ -6,6 +6,7 @@
+ #include <linux/string_helpers.h>
  
- static void __confirm_options(struct intel_uc *uc)
- {
--	struct drm_i915_private *i915 = uc_to_gt(uc)->i915;
-+	struct intel_gt *gt = uc_to_gt(uc);
-+	struct drm_i915_private *i915 = gt->i915;
+ #include "intel_guc_rc.h"
++#include "intel_guc_print.h"
+ #include "gt/intel_gt.h"
+ #include "i915_drv.h"
  
--	drm_dbg(&i915->drm,
--		"enable_guc=%d (guc:%s submission:%s huc:%s slpc:%s)\n",
--		i915->params.enable_guc,
--		str_yes_no(intel_uc_wants_guc(uc)),
--		str_yes_no(intel_uc_wants_guc_submission(uc)),
--		str_yes_no(intel_uc_wants_huc(uc)),
--		str_yes_no(intel_uc_wants_guc_slpc(uc)));
-+	gt_dbg(gt, "enable_guc=%d (guc:%s submission:%s huc:%s slpc:%s)\n",
-+	       i915->params.enable_guc,
-+	       str_yes_no(intel_uc_wants_guc(uc)),
-+	       str_yes_no(intel_uc_wants_guc_submission(uc)),
-+	       str_yes_no(intel_uc_wants_huc(uc)),
-+	       str_yes_no(intel_uc_wants_guc_slpc(uc)));
+@@ -70,13 +71,12 @@ static int __guc_rc_control(struct intel_guc *guc, bool enable)
  
- 	if (i915->params.enable_guc == 0) {
- 		GEM_BUG_ON(intel_uc_wants_guc(uc));
-@@ -102,26 +102,22 @@ static void __confirm_options(struct intel_uc *uc)
+ 	ret = guc_action_control_gucrc(guc, enable);
+ 	if (ret) {
+-		i915_probe_error(guc_to_gt(guc)->i915, "Failed to %s GuC RC (%pe)\n",
+-				 str_enable_disable(enable), ERR_PTR(ret));
++		guc_probe_error(guc, "Failed to %s RC (%pe)\n",
++				str_enable_disable(enable), ERR_PTR(ret));
+ 		return ret;
  	}
  
- 	if (!intel_uc_supports_guc(uc))
--		drm_info(&i915->drm,
--			 "Incompatible option enable_guc=%d - %s\n",
--			 i915->params.enable_guc, "GuC is not supported!");
-+		gt_info(gt,  "Incompatible option enable_guc=%d - %s\n",
-+			i915->params.enable_guc, "GuC is not supported!");
- 
- 	if (i915->params.enable_guc & ENABLE_GUC_LOAD_HUC &&
- 	    !intel_uc_supports_huc(uc))
--		drm_info(&i915->drm,
--			 "Incompatible option enable_guc=%d - %s\n",
--			 i915->params.enable_guc, "HuC is not supported!");
-+		gt_info(gt, "Incompatible option enable_guc=%d - %s\n",
-+			i915->params.enable_guc, "HuC is not supported!");
- 
- 	if (i915->params.enable_guc & ENABLE_GUC_SUBMISSION &&
- 	    !intel_uc_supports_guc_submission(uc))
--		drm_info(&i915->drm,
--			 "Incompatible option enable_guc=%d - %s\n",
--			 i915->params.enable_guc, "GuC submission is N/A");
-+		gt_info(gt, "Incompatible option enable_guc=%d - %s\n",
-+			i915->params.enable_guc, "GuC submission is N/A");
- 
- 	if (i915->params.enable_guc & ~ENABLE_GUC_MASK)
--		drm_info(&i915->drm,
--			 "Incompatible option enable_guc=%d - %s\n",
--			 i915->params.enable_guc, "undocumented flag");
-+		gt_info(gt, "Incompatible option enable_guc=%d - %s\n",
-+			i915->params.enable_guc, "undocumented flag");
- }
- 
- void intel_uc_init_early(struct intel_uc *uc)
-@@ -549,10 +545,8 @@ static int __uc_init_hw(struct intel_uc *uc)
- 
- 	intel_gsc_uc_load_start(&uc->gsc);
- 
--	gt_info(gt, "GuC submission %s\n",
--		str_enabled_disabled(intel_uc_uses_guc_submission(uc)));
--	gt_info(gt, "GuC SLPC %s\n",
--		str_enabled_disabled(intel_uc_uses_guc_slpc(uc)));
-+	guc_info(guc, "submission %s\n", str_enabled_disabled(intel_uc_uses_guc_submission(uc)));
-+	guc_info(guc, "SLPC %s\n", str_enabled_disabled(intel_uc_uses_guc_slpc(uc)));
+-	drm_info(&gt->i915->drm, "GuC RC: %s\n",
+-		 str_enabled_disabled(enable));
++	guc_info(guc, "RC: %s\n", str_enabled_disabled(enable));
  
  	return 0;
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-index 65672ff826054..264c952f777bb 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-@@ -11,6 +11,7 @@
- #include <drm/drm_print.h>
- 
- #include "gem/i915_gem_lmem.h"
-+#include "gt/intel_gt_print.h"
- #include "intel_uc_fw.h"
- #include "intel_uc_fw_abi.h"
- #include "i915_drv.h"
-@@ -44,11 +45,10 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
- 			       enum intel_uc_fw_status status)
- {
- 	uc_fw->__status =  status;
--	drm_dbg(&__uc_fw_to_gt(uc_fw)->i915->drm,
--		"%s firmware -> %s\n",
--		intel_uc_fw_type_repr(uc_fw->type),
--		status == INTEL_UC_FIRMWARE_SELECTED ?
--		uc_fw->file_selected.path : intel_uc_fw_status_repr(status));
-+	gt_dbg(__uc_fw_to_gt(uc_fw), "%s firmware -> %s\n",
-+	       intel_uc_fw_type_repr(uc_fw->type),
-+	       status == INTEL_UC_FIRMWARE_SELECTED ?
-+	       uc_fw->file_selected.path : intel_uc_fw_status_repr(status));
  }
- #endif
- 
-@@ -562,15 +562,14 @@ static int check_ccs_header(struct intel_gt *gt,
- 			    const struct firmware *fw,
- 			    struct intel_uc_fw *uc_fw)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+index 63464933cbceb..026d73855f36c 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c
+@@ -9,6 +9,7 @@
+ #include "i915_drv.h"
+ #include "i915_reg.h"
+ #include "intel_guc_slpc.h"
++#include "intel_guc_print.h"
+ #include "intel_mchbar_regs.h"
+ #include "gt/intel_gt.h"
+ #include "gt/intel_gt_regs.h"
+@@ -171,14 +172,12 @@ static int guc_action_slpc_query(struct intel_guc *guc, u32 offset)
+ static int slpc_query_task_state(struct intel_guc_slpc *slpc)
  {
--	struct drm_i915_private *i915 = gt->i915;
- 	struct uc_css_header *css;
- 	size_t size;
+ 	struct intel_guc *guc = slpc_to_guc(slpc);
+-	struct drm_i915_private *i915 = slpc_to_i915(slpc);
+ 	u32 offset = intel_guc_ggtt_offset(guc, slpc->vma);
+ 	int ret;
  
- 	/* Check the size of the blob before examining buffer contents */
- 	if (unlikely(fw->size < sizeof(struct uc_css_header))) {
--		drm_warn(&i915->drm, "%s firmware %s: invalid size: %zu < %zu\n",
--			 intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
--			 fw->size, sizeof(struct uc_css_header));
-+		gt_warn(gt, "%s firmware %s: invalid size: %zu < %zu\n",
-+			intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
-+			fw->size, sizeof(struct uc_css_header));
- 		return -ENODATA;
- 	}
+ 	ret = guc_action_slpc_query(guc, offset);
+ 	if (unlikely(ret))
+-		i915_probe_error(i915, "Failed to query task state (%pe)\n",
+-				 ERR_PTR(ret));
++		guc_probe_error(guc, "Failed to query task state: %pe\n", ERR_PTR(ret));
  
-@@ -580,10 +579,9 @@ static int check_ccs_header(struct intel_gt *gt,
- 	size = (css->header_size_dw - css->key_size_dw - css->modulus_size_dw -
- 		css->exponent_size_dw) * sizeof(u32);
- 	if (unlikely(size != sizeof(struct uc_css_header))) {
--		drm_warn(&i915->drm,
--			 "%s firmware %s: unexpected header size: %zu != %zu\n",
--			 intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
--			 fw->size, sizeof(struct uc_css_header));
-+		gt_warn(gt, "%s firmware %s: unexpected header size: %zu != %zu\n",
-+			intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
-+			fw->size, sizeof(struct uc_css_header));
- 		return -EPROTO;
- 	}
+ 	drm_clflush_virt_range(slpc->vaddr, SLPC_PAGE_SIZE_BYTES);
  
-@@ -596,18 +594,18 @@ static int check_ccs_header(struct intel_gt *gt,
- 	/* At least, it should have header, uCode and RSA. Size of all three. */
- 	size = sizeof(struct uc_css_header) + uc_fw->ucode_size + uc_fw->rsa_size;
- 	if (unlikely(fw->size < size)) {
--		drm_warn(&i915->drm, "%s firmware %s: invalid size: %zu < %zu\n",
--			 intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
--			 fw->size, size);
-+		gt_warn(gt, "%s firmware %s: invalid size: %zu < %zu\n",
-+			intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
-+			fw->size, size);
- 		return -ENOEXEC;
- 	}
+@@ -188,15 +187,14 @@ static int slpc_query_task_state(struct intel_guc_slpc *slpc)
+ static int slpc_set_param(struct intel_guc_slpc *slpc, u8 id, u32 value)
+ {
+ 	struct intel_guc *guc = slpc_to_guc(slpc);
+-	struct drm_i915_private *i915 = slpc_to_i915(slpc);
+ 	int ret;
  
- 	/* Sanity check whether this fw is not larger than whole WOPCM memory */
- 	size = __intel_uc_fw_get_upload_size(uc_fw);
- 	if (unlikely(size >= gt->wopcm.size)) {
--		drm_warn(&i915->drm, "%s firmware %s: invalid size: %zu > %zu\n",
--			 intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
--			 size, (size_t)gt->wopcm.size);
-+		gt_warn(gt, "%s firmware %s: invalid size: %zu > %zu\n",
-+			intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
-+			size, (size_t)gt->wopcm.size);
- 		return -E2BIG;
- 	}
+ 	GEM_BUG_ON(id >= SLPC_MAX_PARAM);
  
-@@ -635,20 +633,20 @@ static bool guc_check_version_range(struct intel_uc_fw *uc_fw)
- 	 */
- 
- 	if (!is_ver_8bit(&uc_fw->file_selected.ver)) {
--		drm_warn(&__uc_fw_to_gt(uc_fw)->i915->drm, "%s firmware: invalid file version: 0x%02X:%02X:%02X\n",
--			 intel_uc_fw_type_repr(uc_fw->type),
--			 uc_fw->file_selected.ver.major,
--			 uc_fw->file_selected.ver.minor,
--			 uc_fw->file_selected.ver.patch);
-+		gt_warn(__uc_fw_to_gt(uc_fw), "%s firmware: invalid file version: 0x%02X:%02X:%02X\n",
-+			intel_uc_fw_type_repr(uc_fw->type),
-+			uc_fw->file_selected.ver.major,
-+			uc_fw->file_selected.ver.minor,
-+			uc_fw->file_selected.ver.patch);
- 		return false;
- 	}
- 
- 	if (!is_ver_8bit(&guc->submission_version)) {
--		drm_warn(&__uc_fw_to_gt(uc_fw)->i915->drm, "%s firmware: invalid submit version: 0x%02X:%02X:%02X\n",
--			 intel_uc_fw_type_repr(uc_fw->type),
--			 guc->submission_version.major,
--			 guc->submission_version.minor,
--			 guc->submission_version.patch);
-+		gt_warn(__uc_fw_to_gt(uc_fw), "%s firmware: invalid submit version: 0x%02X:%02X:%02X\n",
-+			intel_uc_fw_type_repr(uc_fw->type),
-+			guc->submission_version.major,
-+			guc->submission_version.minor,
-+			guc->submission_version.patch);
- 		return false;
- 	}
- 
-@@ -687,10 +685,9 @@ static int try_firmware_load(struct intel_uc_fw *uc_fw, const struct firmware **
- 		return err;
- 
- 	if ((*fw)->size > INTEL_UC_RSVD_GGTT_PER_FW) {
--		drm_err(&gt->i915->drm,
--			"%s firmware %s: size (%zuKB) exceeds max supported size (%uKB)\n",
--			intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
--			(*fw)->size / SZ_1K, INTEL_UC_RSVD_GGTT_PER_FW / SZ_1K);
-+		gt_err(gt, "%s firmware %s: size (%zuKB) exceeds max supported size (%uKB)\n",
-+		       intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
-+		       (*fw)->size / SZ_1K, INTEL_UC_RSVD_GGTT_PER_FW / SZ_1K);
- 
- 		/* try to find another blob to load */
- 		release_firmware(*fw);
-@@ -768,10 +765,10 @@ int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw)
- 	if (uc_fw->file_wanted.ver.major && uc_fw->file_selected.ver.major) {
- 		/* Check the file's major version was as it claimed */
- 		if (uc_fw->file_selected.ver.major != uc_fw->file_wanted.ver.major) {
--			drm_notice(&i915->drm, "%s firmware %s: unexpected version: %u.%u != %u.%u\n",
--				   intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
--				   uc_fw->file_selected.ver.major, uc_fw->file_selected.ver.minor,
--				   uc_fw->file_wanted.ver.major, uc_fw->file_wanted.ver.minor);
-+			gt_notice(gt, "%s firmware %s: unexpected version: %u.%u != %u.%u\n",
-+				  intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
-+				  uc_fw->file_selected.ver.major, uc_fw->file_selected.ver.minor,
-+				  uc_fw->file_wanted.ver.major, uc_fw->file_wanted.ver.minor);
- 			if (!intel_uc_fw_is_overridden(uc_fw)) {
- 				err = -ENOEXEC;
- 				goto fail;
-@@ -786,16 +783,14 @@ int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw)
- 		/* Preserve the version that was really wanted */
- 		memcpy(&uc_fw->file_wanted, &file_ideal, sizeof(uc_fw->file_wanted));
- 
--		drm_notice(&i915->drm,
--			   "%s firmware %s (%d.%d) is recommended, but only %s (%d.%d) was found\n",
--			   intel_uc_fw_type_repr(uc_fw->type),
--			   uc_fw->file_wanted.path,
--			   uc_fw->file_wanted.ver.major, uc_fw->file_wanted.ver.minor,
--			   uc_fw->file_selected.path,
--			   uc_fw->file_selected.ver.major, uc_fw->file_selected.ver.minor);
--		drm_info(&i915->drm,
--			 "Consider updating your linux-firmware pkg or downloading from %s\n",
--			 INTEL_UC_FIRMWARE_URL);
-+		gt_notice(gt, "%s firmware %s (%d.%d) is recommended, but only %s (%d.%d) was found\n",
-+			  intel_uc_fw_type_repr(uc_fw->type),
-+			  uc_fw->file_wanted.path,
-+			  uc_fw->file_wanted.ver.major, uc_fw->file_wanted.ver.minor,
-+			  uc_fw->file_selected.path,
-+			  uc_fw->file_selected.ver.major, uc_fw->file_selected.ver.minor);
-+		gt_info(gt, "Consider updating your linux-firmware pkg or downloading from %s\n",
-+			INTEL_UC_FIRMWARE_URL);
- 	}
- 
- 	if (HAS_LMEM(i915)) {
-@@ -823,10 +818,10 @@ int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw)
- 				  INTEL_UC_FIRMWARE_MISSING :
- 				  INTEL_UC_FIRMWARE_ERROR);
- 
--	i915_probe_error(i915, "%s firmware %s: fetch failed with error %d\n",
--			 intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path, err);
--	drm_info(&i915->drm, "%s firmware(s) can be downloaded from %s\n",
--		 intel_uc_fw_type_repr(uc_fw->type), INTEL_UC_FIRMWARE_URL);
-+	gt_probe_error(gt, "%s firmware %s: fetch failed %pe\n",
-+		       intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path, ERR_PTR(err));
-+	gt_info(gt, "%s firmware(s) can be downloaded from %s\n",
-+		intel_uc_fw_type_repr(uc_fw->type), INTEL_UC_FIRMWARE_URL);
- 
- 	release_firmware(fw);		/* OK even if fw is NULL */
- 	return err;
-@@ -932,9 +927,9 @@ static int uc_fw_xfer(struct intel_uc_fw *uc_fw, u32 dst_offset, u32 dma_flags)
- 	/* Wait for DMA to finish */
- 	ret = intel_wait_for_register_fw(uncore, DMA_CTRL, START_DMA, 0, 100);
+ 	ret = guc_action_slpc_set_param(guc, id, value);
  	if (ret)
--		drm_err(&gt->i915->drm, "DMA for %s fw failed, DMA_CTRL=%u\n",
--			intel_uc_fw_type_repr(uc_fw->type),
--			intel_uncore_read_fw(uncore, DMA_CTRL));
-+		gt_err(gt, "DMA for %s fw failed, DMA_CTRL=%u\n",
-+		       intel_uc_fw_type_repr(uc_fw->type),
-+		       intel_uncore_read_fw(uncore, DMA_CTRL));
+-		i915_probe_error(i915, "Failed to set param %d to %u (%pe)\n",
+-				 id, value, ERR_PTR(ret));
++		guc_probe_error(guc, "Failed to set param %d to %u: %pe\n",
++				id, value, ERR_PTR(ret));
  
- 	/* Disable the bits once DMA is over */
- 	intel_uncore_write_fw(uncore, DMA_CTRL, _MASKED_BIT_DISABLE(dma_flags));
-@@ -950,9 +945,8 @@ int intel_uc_fw_mark_load_failed(struct intel_uc_fw *uc_fw, int err)
+ 	return ret;
+ }
+@@ -212,8 +210,8 @@ static int slpc_unset_param(struct intel_guc_slpc *slpc, u8 id)
  
- 	GEM_BUG_ON(!intel_uc_fw_is_loadable(uc_fw));
+ static int slpc_force_min_freq(struct intel_guc_slpc *slpc, u32 freq)
+ {
+-	struct drm_i915_private *i915 = slpc_to_i915(slpc);
+ 	struct intel_guc *guc = slpc_to_guc(slpc);
++	struct drm_i915_private *i915 = slpc_to_i915(slpc);
+ 	intel_wakeref_t wakeref;
+ 	int ret = 0;
  
--	i915_probe_error(gt->i915, "Failed to load %s firmware %s (%d)\n",
--			 intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
--			 err);
-+	gt_probe_error(gt, "Failed to load %s firmware %s %pe\n",
-+		       intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path, ERR_PTR(err));
- 	intel_uc_fw_change_status(uc_fw, INTEL_UC_FIRMWARE_LOAD_FAIL);
+@@ -236,9 +234,8 @@ static int slpc_force_min_freq(struct intel_guc_slpc *slpc, u32 freq)
+ 					SLPC_PARAM_GLOBAL_MIN_GT_UNSLICE_FREQ_MHZ,
+ 					freq);
+ 		if (ret)
+-			drm_notice(&i915->drm,
+-				   "Failed to send set_param for min freq(%d): (%d)\n",
+-				   freq, ret);
++			guc_notice(guc, "Failed to send set_param for min freq(%d): %pe\n",
++				   freq, ERR_PTR(ret));
+ 	}
  
- 	return err;
-@@ -1078,15 +1072,15 @@ int intel_uc_fw_init(struct intel_uc_fw *uc_fw)
+ 	return ret;
+@@ -267,7 +264,6 @@ static void slpc_boost_work(struct work_struct *work)
+ int intel_guc_slpc_init(struct intel_guc_slpc *slpc)
+ {
+ 	struct intel_guc *guc = slpc_to_guc(slpc);
+-	struct drm_i915_private *i915 = slpc_to_i915(slpc);
+ 	u32 size = PAGE_ALIGN(sizeof(struct slpc_shared_data));
+ 	int err;
  
- 	err = i915_gem_object_pin_pages_unlocked(uc_fw->obj);
- 	if (err) {
--		DRM_DEBUG_DRIVER("%s fw pin-pages err=%d\n",
--				 intel_uc_fw_type_repr(uc_fw->type), err);
-+		gt_dbg(__uc_fw_to_gt(uc_fw), "%s fw pin-pages failed %pe\n",
-+		       intel_uc_fw_type_repr(uc_fw->type), ERR_PTR(err));
+@@ -275,9 +271,7 @@ int intel_guc_slpc_init(struct intel_guc_slpc *slpc)
+ 
+ 	err = intel_guc_allocate_and_map_vma(guc, size, &slpc->vma, (void **)&slpc->vaddr);
+ 	if (unlikely(err)) {
+-		i915_probe_error(i915,
+-				 "Failed to allocate SLPC struct (err=%pe)\n",
+-				 ERR_PTR(err));
++		guc_probe_error(guc, "Failed to allocate SLPC struct: %pe\n", ERR_PTR(err));
+ 		return err;
+ 	}
+ 
+@@ -338,7 +332,6 @@ static int guc_action_slpc_reset(struct intel_guc *guc, u32 offset)
+ 
+ static int slpc_reset(struct intel_guc_slpc *slpc)
+ {
+-	struct drm_i915_private *i915 = slpc_to_i915(slpc);
+ 	struct intel_guc *guc = slpc_to_guc(slpc);
+ 	u32 offset = intel_guc_ggtt_offset(guc, slpc->vma);
+ 	int ret;
+@@ -346,15 +339,14 @@ static int slpc_reset(struct intel_guc_slpc *slpc)
+ 	ret = guc_action_slpc_reset(guc, offset);
+ 
+ 	if (unlikely(ret < 0)) {
+-		i915_probe_error(i915, "SLPC reset action failed (%pe)\n",
+-				 ERR_PTR(ret));
++		guc_probe_error(guc, "SLPC reset action failed: %pe\n", ERR_PTR(ret));
+ 		return ret;
+ 	}
+ 
+ 	if (!ret) {
+ 		if (wait_for(slpc_is_running(slpc), SLPC_RESET_TIMEOUT_MS)) {
+-			i915_probe_error(i915, "SLPC not enabled! State = %s\n",
+-					 slpc_get_state_string(slpc));
++			guc_probe_error(guc, "SLPC not enabled! State = %s\n",
++					slpc_get_state_string(slpc));
+ 			return -EIO;
+ 		}
+ 	}
+@@ -495,8 +487,8 @@ int intel_guc_slpc_set_min_freq(struct intel_guc_slpc *slpc, u32 val)
+ 			     SLPC_PARAM_IGNORE_EFFICIENT_FREQUENCY,
+ 			     val < slpc->rp1_freq);
+ 	if (ret) {
+-		i915_probe_error(i915, "Failed to toggle efficient freq (%pe)\n",
+-				 ERR_PTR(ret));
++		guc_probe_error(slpc_to_guc(slpc), "Failed to toggle efficient freq: %pe\n",
++				ERR_PTR(ret));
  		goto out;
  	}
  
- 	err = uc_fw_rsa_data_create(uc_fw);
- 	if (err) {
--		DRM_DEBUG_DRIVER("%s fw rsa data creation failed, err=%d\n",
--				 intel_uc_fw_type_repr(uc_fw->type), err);
-+		gt_dbg(__uc_fw_to_gt(uc_fw), "%s fw rsa data creation failed %pe\n",
-+		       intel_uc_fw_type_repr(uc_fw->type), ERR_PTR(err));
- 		goto out_unpin;
+@@ -611,15 +603,12 @@ static int slpc_set_softlimits(struct intel_guc_slpc *slpc)
+ 
+ static bool is_slpc_min_freq_rpmax(struct intel_guc_slpc *slpc)
+ {
+-	struct drm_i915_private *i915 = slpc_to_i915(slpc);
+ 	int slpc_min_freq;
+ 	int ret;
+ 
+ 	ret = intel_guc_slpc_get_min_freq(slpc, &slpc_min_freq);
+ 	if (ret) {
+-		drm_err(&i915->drm,
+-			"Failed to get min freq: (%d)\n",
+-			ret);
++		guc_err(slpc_to_guc(slpc), "Failed to get min freq: %pe\n", ERR_PTR(ret));
+ 		return false;
+ 	}
+ 
+@@ -685,9 +674,8 @@ int intel_guc_slpc_override_gucrc_mode(struct intel_guc_slpc *slpc, u32 mode)
+ 	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
+ 		ret = slpc_set_param(slpc, SLPC_PARAM_PWRGATE_RC_MODE, mode);
+ 		if (ret)
+-			drm_err(&i915->drm,
+-				"Override gucrc mode %d failed %d\n",
+-				mode, ret);
++			guc_err(slpc_to_guc(slpc), "Override RC mode %d failed: %pe\n",
++				mode, ERR_PTR(ret));
+ 	}
+ 
+ 	return ret;
+@@ -702,9 +690,7 @@ int intel_guc_slpc_unset_gucrc_mode(struct intel_guc_slpc *slpc)
+ 	with_intel_runtime_pm(&i915->runtime_pm, wakeref) {
+ 		ret = slpc_unset_param(slpc, SLPC_PARAM_PWRGATE_RC_MODE);
+ 		if (ret)
+-			drm_err(&i915->drm,
+-				"Unsetting gucrc mode failed %d\n",
+-				ret);
++			guc_err(slpc_to_guc(slpc), "Unsetting RC mode failed: %pe\n", ERR_PTR(ret));
+ 	}
+ 
+ 	return ret;
+@@ -725,7 +711,7 @@ int intel_guc_slpc_unset_gucrc_mode(struct intel_guc_slpc *slpc)
+  */
+ int intel_guc_slpc_enable(struct intel_guc_slpc *slpc)
+ {
+-	struct drm_i915_private *i915 = slpc_to_i915(slpc);
++	struct intel_guc *guc = slpc_to_guc(slpc);
+ 	int ret;
+ 
+ 	GEM_BUG_ON(!slpc->vma);
+@@ -734,8 +720,7 @@ int intel_guc_slpc_enable(struct intel_guc_slpc *slpc)
+ 
+ 	ret = slpc_reset(slpc);
+ 	if (unlikely(ret < 0)) {
+-		i915_probe_error(i915, "SLPC Reset event returned (%pe)\n",
+-				 ERR_PTR(ret));
++		guc_probe_error(guc, "SLPC Reset event returned: %pe\n", ERR_PTR(ret));
+ 		return ret;
+ 	}
+ 
+@@ -743,7 +728,7 @@ int intel_guc_slpc_enable(struct intel_guc_slpc *slpc)
+ 	if (unlikely(ret < 0))
+ 		return ret;
+ 
+-	intel_guc_pm_intrmsk_enable(to_gt(i915));
++	intel_guc_pm_intrmsk_enable(slpc_to_gt(slpc));
+ 
+ 	slpc_get_rp_values(slpc);
+ 
+@@ -753,16 +738,14 @@ int intel_guc_slpc_enable(struct intel_guc_slpc *slpc)
+ 	/* Set SLPC max limit to RP0 */
+ 	ret = slpc_use_fused_rp0(slpc);
+ 	if (unlikely(ret)) {
+-		i915_probe_error(i915, "Failed to set SLPC max to RP0 (%pe)\n",
+-				 ERR_PTR(ret));
++		guc_probe_error(guc, "Failed to set SLPC max to RP0: %pe\n", ERR_PTR(ret));
+ 		return ret;
+ 	}
+ 
+ 	/* Revert SLPC min/max to softlimits if necessary */
+ 	ret = slpc_set_softlimits(slpc);
+ 	if (unlikely(ret)) {
+-		i915_probe_error(i915, "Failed to set SLPC softlimits (%pe)\n",
+-				 ERR_PTR(ret));
++		guc_probe_error(guc, "Failed to set SLPC softlimits: %pe\n", ERR_PTR(ret));
+ 		return ret;
  	}
  
 -- 
