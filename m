@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CAABC636CC
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 07:45:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59C81C636D4
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Feb 2023 07:45:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6DB210E457;
-	Tue,  7 Feb 2023 07:45:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD91410E45E;
+	Tue,  7 Feb 2023 07:45:38 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27EBF10E446
- for <intel-gfx@lists.freedesktop.org>; Tue,  7 Feb 2023 07:45:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A379C10E446
+ for <intel-gfx@lists.freedesktop.org>; Tue,  7 Feb 2023 07:45:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675755931; x=1707291931;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=04b4D5dSQS2K8vTbbsOhXn8pTpLq8vs2scEY6HCWJkI=;
- b=nIPv/ENXG9LmStcSmfDO1ivV9J3rq7zAs8WgV4wgPja0ZCKdoOQsIpzz
- 2U3fTDnuVfNEwhN7L23DJv0doOshvRnjvtxj2vAVHO0DJMZBvjkwdpmPh
- zgCgdNXcLzQbY7kAW5Il64oNslnJ18j+WSwuF5KFnhSbj5m6Sl1mbJvFj
- VEFUBK/Szq02LRZSI5pcKhsmXUmRMsLGDzNEZ1tdlqz4hKdp4tqWgI+qB
- p/so7oFfZHo1A2H77NHP/o01igwmOfG5vvGK6jNDIPlHcBpZfoq3QcdrX
- CeJaXNoQT+Gu2uQgAGOZirv2PNvCmtCTULW/NuLel+DFzTYkVxDXTQJe5 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="317449111"
-X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="317449111"
+ t=1675755933; x=1707291933;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=aXUz/m4zbl4WKC7y3ud/bU4Ydeh6EE8T+vUficha83k=;
+ b=PHFeDKT4lR5VqsmiUBcZdqgTVmgj4oKLSf6SRLHV3m8B5HTQNBWc7waj
+ TG8YlGBnU5/WOlj97CwlYa++HfSvg+bnxMoShbqsLrXz1Ncb8UrfKUaoO
+ kSWgxae9ALzoGljRfJ9mMiIZy2NLpBHPUyCwNfKWTe3GNGqlJw1UomYo8
+ qWPy2ILIb93Jc/TFgBboVoRe/G/JQ2TS2dTqppXcGPNA8tYGG2HLdSliT
+ 5QhzLzeHbTa5Od/NeuuF3YyrSOUxllkQUoSj0BNkj2CT5oHdyPl81mB6f
+ 7ngw3shgfQaC/c0ydxme8gAgvHINAx2hfP1B5i7896Jt6TzgBn3guVE4n w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="317449136"
+X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="317449136"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2023 23:45:20 -0800
+ 06 Feb 2023 23:45:25 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="840674598"
-X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="840674598"
+X-IronPort-AV: E=McAfee;i="6500,9779,10613"; a="840674629"
+X-IronPort-AV: E=Sophos;i="5.97,278,1669104000"; d="scan'208";a="840674629"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by orsmga005.jf.intel.com with ESMTP; 06 Feb 2023 23:45:18 -0800
+ by orsmga005.jf.intel.com with ESMTP; 06 Feb 2023 23:45:23 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  7 Feb 2023 13:14:09 +0530
-Message-Id: <20230207074416.3209722-1-suraj.kandpal@intel.com>
+Date: Tue,  7 Feb 2023 13:14:12 +0530
+Message-Id: <20230207074416.3209722-4-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230207074416.3209722-1-suraj.kandpal@intel.com>
+References: <20230207074416.3209722-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 0/7] Enable YCbCr420 for VDSC
+Subject: [Intel-gfx] [PATCH v9 3/7] drm/i915: Adding the new registers for
+ DSC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,69 +60,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch series aims to enable the YCbCr420 format
-for DSC. Changes are mostly compute params related for
-hdmi,dp and dsi along with the addition of new rc_tables
-for native_420 and corresponding changes to macros used to
-fetch them.
+Adding new DSC register which are introducted MTL onwards
 
----v2
--add fields missed for vdsc_cfg [Vandita]
--add corresponding registers and writing to the [Vandita]
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Reviewed-by: Vandita Kulkarni <Vandita.kulkarni@intel.com>
+---
+ drivers/gpu/drm/i915/i915_reg.h | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
----v3
--add 11 bit left shift missed in nsl_bpg_offset calculation
-
----v4
--add display version check before writing in new pps register
-
----v5
--add helper to check if sink supports given format with DSC
--add debugfs entry to enforce DSC with YCbCr420 format only
-
---v6
--add patch to check dsc slice design requirement [Vandita]
-
---v7
--fix function name to intel_slice_dimensions_valid [Jani]
--remove full bspec link just add the ref number [Jani]
--remove patches for debug fs will float them as a seprate series
--Add more description for YUV420 Enablement [Vandita]
-
---v8
--fix slice width and height 2's multiple check
--fix minimum pixel requirement in slice check
-
---v9 
--Add debugfs entry to validate output format
-
-Ankit Nautiyal (2):
-  drm/dp_helper: Add helper to check if the sink supports given format
-    with DSC
-  drm/i915/dp: Check if DSC supports the given output_format
-
-Suraj Kandpal (4):
-  drm/i915: Adding the new registers for DSC
-  drm/i915: Enable YCbCr420 for VDSC
-  drm/i915: Fill in native_420 field
-  drm/i915/vdsc: Check slice design requirement
-
-Swati Sharma (1):
-  drm/i915/dsc: Add debugfs entry to validate DSC output formats
-
- drivers/gpu/drm/i915/display/icl_dsi.c        |   2 -
- .../drm/i915/display/intel_crtc_state_dump.c  |   4 +-
- .../drm/i915/display/intel_crtc_state_dump.h  |   2 +
- .../drm/i915/display/intel_display_debugfs.c  |  77 ++++++++
- .../drm/i915/display/intel_display_types.h    |   1 +
- drivers/gpu/drm/i915/display/intel_dp.c       |  44 ++++-
- .../gpu/drm/i915/display/intel_qp_tables.c    | 187 ++++++++++++++++--
- .../gpu/drm/i915/display/intel_qp_tables.h    |   4 +-
- drivers/gpu/drm/i915/display/intel_vdsc.c     | 106 +++++++++-
- drivers/gpu/drm/i915/i915_reg.h               |  28 +++
- include/drm/display/drm_dp_helper.h           |   7 +
- 11 files changed, 438 insertions(+), 24 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 596efc940ee7..9e25e21d37e4 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -7715,6 +7715,8 @@ enum skl_power_gate {
+ #define ICL_DSC1_PICTURE_PARAMETER_SET_0(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
+ 							   _ICL_DSC1_PICTURE_PARAMETER_SET_0_PB, \
+ 							   _ICL_DSC1_PICTURE_PARAMETER_SET_0_PC)
++#define  DSC_NATIVE_422_ENABLE		BIT(23)
++#define  DSC_NATIVE_420_ENABLE		BIT(22)
+ #define  DSC_ALT_ICH_SEL		(1 << 20)
+ #define  DSC_VBR_ENABLE			(1 << 19)
+ #define  DSC_422_ENABLE			(1 << 18)
+@@ -7959,6 +7961,32 @@ enum skl_power_gate {
+ #define  DSC_SLICE_PER_LINE(slice_per_line)		((slice_per_line) << 16)
+ #define  DSC_SLICE_CHUNK_SIZE(slice_chunk_size)		((slice_chunk_size) << 0)
+ 
++/* MTL Display Stream Compression registers */
++#define _MTL_DSC0_PICTURE_PARAMETER_SET_17_PB	0x782B4
++#define _MTL_DSC1_PICTURE_PARAMETER_SET_17_PB	0x783B4
++#define _MTL_DSC0_PICTURE_PARAMETER_SET_17_PC	0x784B4
++#define _MTL_DSC1_PICTURE_PARAMETER_SET_17_PC	0x785B4
++#define MTL_DSC0_PICTURE_PARAMETER_SET_17(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
++							   _MTL_DSC0_PICTURE_PARAMETER_SET_17_PB, \
++							   _MTL_DSC0_PICTURE_PARAMETER_SET_17_PC)
++#define MTL_DSC1_PICTURE_PARAMETER_SET_17(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
++							   _MTL_DSC1_PICTURE_PARAMETER_SET_17_PB, \
++							   _MTL_DSC1_PICTURE_PARAMETER_SET_17_PC)
++#define DSC_SL_BPG_OFFSET(offset)		((offset) << 27)
++
++#define _MTL_DSC0_PICTURE_PARAMETER_SET_18_PB	0x782B8
++#define _MTL_DSC1_PICTURE_PARAMETER_SET_18_PB	0x783B8
++#define _MTL_DSC0_PICTURE_PARAMETER_SET_18_PC	0x784B8
++#define _MTL_DSC1_PICTURE_PARAMETER_SET_18_PC	0x785B8
++#define MTL_DSC0_PICTURE_PARAMETER_SET_18(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
++							   _MTL_DSC0_PICTURE_PARAMETER_SET_18_PB, \
++							   _MTL_DSC0_PICTURE_PARAMETER_SET_18_PC)
++#define MTL_DSC1_PICTURE_PARAMETER_SET_18(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
++							   _MTL_DSC1_PICTURE_PARAMETER_SET_18_PB, \
++							   _MTL_DSC1_PICTURE_PARAMETER_SET_18_PC)
++#define DSC_NSL_BPG_OFFSET(offset)		((offset) << 16)
++#define DSC_SL_OFFSET_ADJ(offset)		((offset) << 0)
++
+ /* Icelake Rate Control Buffer Threshold Registers */
+ #define DSCA_RC_BUF_THRESH_0			_MMIO(0x6B230)
+ #define DSCA_RC_BUF_THRESH_0_UDW		_MMIO(0x6B230 + 4)
 -- 
 2.25.1
 
