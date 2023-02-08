@@ -4,54 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 429FAC05027
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 12:31:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA264C636D7
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 12:38:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 905E710E76C;
-	Wed,  8 Feb 2023 12:31:48 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00EBB10E769;
- Wed,  8 Feb 2023 12:31:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C8A310E76C;
+	Wed,  8 Feb 2023 12:38:07 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB2A310E776
+ for <intel-gfx@lists.freedesktop.org>; Wed,  8 Feb 2023 12:38:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675859506; x=1707395506;
+ t=1675859885; x=1707395885;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=6KZsL++023J+OB6Ik+OVKqYUV01/584WDCGmA8ZCfkU=;
- b=BPkLW0MY05QlTfuWuOv/k+rcTrPWDF9EY1plxrW63X/3CuzlUkHNYZhI
- XnZ3YnBIPjZMPe8gtWd8fOm8NVDIQKu5fFI2UzWJbxrbS4PWjdZMEqgkf
- NKzzi2IlCSqvp7cWELtRv574rYaj+/g7VfGcNgiUtstdnoqtLrGwS5RaG
- +oI9vtNZGlniKMOx1Ut8DTglckm9anQYx+MxwXeh6fyv0abkFGqb0hTv/
- U6A6QKYPA9xlR8WOcXw6l0CGsI7T5nTuFoWNUSwoJ9yqVGsotgYnVV13N
- wBIip0o7+buZQTpNNl7oLh99KGSdD+yECKXpfCcGLj1tp1So3mOHlsUcZ w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="327479613"
-X-IronPort-AV: E=Sophos;i="5.97,280,1669104000"; d="scan'208";a="327479613"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2023 04:31:45 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="730849017"
-X-IronPort-AV: E=Sophos;i="5.97,280,1669104000"; d="scan'208";a="730849017"
-Received: from kwolowsk-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.213.9.40])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2023 04:31:44 -0800
-Date: Wed, 8 Feb 2023 13:31:42 +0100
-From: Kamil Konieczny <kamil.konieczny@linux.intel.com>
-To: igt-dev@lists.freedesktop.org
-Message-ID: <20230208123142.zudgou6bjt7qbin4@kamilkon-desk1>
-Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- igt-dev@lists.freedesktop.org,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Intel-gfx@lists.freedesktop.org,
- Caleb Callaway <caleb.callaway@intel.com>
-References: <20230203111636.4138202-1-tvrtko.ursulin@linux.intel.com>
- <20230203111636.4138202-2-tvrtko.ursulin@linux.intel.com>
+ bh=9MTIc1tdFbH0n1cBv/CkzSH7Uc8zTFL+pAKK3lgOxOQ=;
+ b=c71CcvurjayvPKLJ1OHFpMI3JgWCZEBhoFeOg91KuqXBDZ86neOg2mVi
+ greH5IUE9tEIr8xW2gcaREL6OxAElIzvsvH2jG7BF9+CUBUBU9WKNzkyH
+ sZc6/bX2IzALOn2iyO+q1YsCqlbEBHZ9lq/7EucA9WJ7LUbdDIBEireCi
+ CX/UqYmc3CWzAppW4fALl17EY976lQ0mVmCrVYDT464Vwgg8VtPYdlNvn
+ ACHCOBxJ6oHDsCBvJ7s0ZolNP4T22hwRMtaTcGXdbI46bPVJGC1yUCKNJ
+ t3lktC5xZmRdm06Dazz+WtAxaXlX+KoSrWwQd8aoBeG+9FtVg022O120M Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="394379188"
+X-IronPort-AV: E=Sophos;i="5.97,280,1669104000"; d="scan'208";a="394379188"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2023 04:38:05 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="756036674"
+X-IronPort-AV: E=Sophos;i="5.97,280,1669104000"; d="scan'208";a="756036674"
+Received: from lkp-server01.sh.intel.com (HELO 4455601a8d94) ([10.239.97.150])
+ by FMSMGA003.fm.intel.com with ESMTP; 08 Feb 2023 04:38:04 -0800
+Received: from kbuild by 4455601a8d94 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pPji7-0004RW-1E;
+ Wed, 08 Feb 2023 12:38:03 +0000
+Date: Wed, 8 Feb 2023 20:37:21 +0800
+From: kernel test robot <lkp@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org
+Message-ID: <202302082023.fQH3CQDb-lkp@intel.com>
+References: <6fc335ec79f163b7a612af012ce07be6d98f2ef9.1675849634.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230203111636.4138202-2-tvrtko.ursulin@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH i-g-t 1/3] intel_gpu_top: Do not repeat
- header lines in non-interactive output
+In-Reply-To: <6fc335ec79f163b7a612af012ce07be6d98f2ef9.1675849634.git.jani.nikula@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 04/10] drm/i915/wm: add .get_hw_state to
+ watermark funcs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,84 +60,80 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel-gfx@lists.freedesktop.org, Caleb Callaway <caleb.callaway@intel.com>
+Cc: jani.nikula@intel.com, oe-kbuild-all@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Tvrtko,
+Hi Jani,
 
-one small nit, see below.
+I love your patch! Yet something to improve:
 
-On 2023-02-03 at 11:16:34 +0000, Tvrtko Ursulin wrote:
-> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> 
-> If output is redirected to a file, or a pipe, lets not repeat the headers
-> because that can usually mean user is trying to parse the data later and
-> so repeated headers are a hindrance.
-> 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> Cc: Caleb Callaway <caleb.callaway@intel.com>
-> ---
->  tools/intel_gpu_top.c | 19 ++++++++++++++-----
->  1 file changed, 14 insertions(+), 5 deletions(-)
-> 
-> diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
-> index 0a1de41b3374..e2a7f4753099 100644
-> --- a/tools/intel_gpu_top.c
-> +++ b/tools/intel_gpu_top.c
-> @@ -1391,6 +1391,7 @@ static unsigned int stdout_level;
->  
->  #define STDOUT_HEADER_REPEAT 20
->  static unsigned int stdout_lines = STDOUT_HEADER_REPEAT;
-> +static bool stdout_header_repeat;
->  
->  static void
->  stdout_open_struct(const char *name)
-> @@ -1580,16 +1581,22 @@ static const struct print_operations term_pops = {
->  
->  static bool print_groups(struct cnt_group **groups)
->  {
-> -	unsigned int headers = stdout_lines % STDOUT_HEADER_REPEAT + 1;
-> +	static bool headers_printed = false;
------------------------------------ ^
-Remove this initialization (use checkpatch from Linux kernel).
+[auto build test ERROR on drm-tip/drm-tip]
 
-Please correct and resend (you can keep my r-b).
+url:    https://github.com/intel-lab-lkp/linux/commits/Jani-Nikula/drm-i915-move-memory-frequency-detection-to-intel_dram-c/20230208-175057
+base:   git://anongit.freedesktop.org/drm/drm-tip drm-tip
+patch link:    https://lore.kernel.org/r/6fc335ec79f163b7a612af012ce07be6d98f2ef9.1675849634.git.jani.nikula%40intel.com
+patch subject: [Intel-gfx] [PATCH 04/10] drm/i915/wm: add .get_hw_state to watermark funcs
+config: i386-defconfig (https://download.01.org/0day-ci/archive/20230208/202302082023.fQH3CQDb-lkp@intel.com/config)
+compiler: gcc-11 (Debian 11.3.0-8) 11.3.0
+reproduce (this is a W=1 build):
+        # https://github.com/intel-lab-lkp/linux/commit/3be1dad7406a8c767260601b10af82797025aae3
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Jani-Nikula/drm-i915-move-memory-frequency-detection-to-intel_dram-c/20230208-175057
+        git checkout 3be1dad7406a8c767260601b10af82797025aae3
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        make W=1 O=build_dir ARCH=i386 olddefconfig
+        make W=1 O=build_dir ARCH=i386 SHELL=/bin/bash
 
-Regards,
-Kamil
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
 
->  	bool print_data = true;
->  
-> -	if (output_mode == STDOUT && (headers == 1 || headers == 2)) {
-> -		for (struct cnt_group **grp = groups; *grp; grp++)
-> -			print_data = pops->print_group(*grp, headers);
-> +	if (output_mode == STDOUT &&
-> +	    (stdout_header_repeat || !headers_printed)) {
-> +		unsigned int headers = stdout_lines % STDOUT_HEADER_REPEAT + 1;
-> +
-> +		if (headers == 1 || headers == 2)
-> +			for (struct cnt_group **grp = groups; *grp; grp++)
-> +				print_data = pops->print_group(*grp, headers);
-> +
-> +		headers_printed = print_data;
->  	}
->  
->  	for (struct cnt_group **grp = groups; print_data && *grp; grp++)
-> -		pops->print_group(*grp, false);
-> +		pops->print_group(*grp, 0);
->  
->  	return print_data;
->  }
-> @@ -2512,6 +2519,8 @@ int main(int argc, char **argv)
->  		out = stdout;
->  	}
->  
-> +	stdout_header_repeat = output_mode == STDOUT && isatty(fileno(out));
-> +
->  	if (signal(SIGINT, sigint_handler) == SIG_ERR)
->  		fprintf(stderr, "Failed to install signal handler!\n");
->  
-> -- 
-> 2.34.1
-> 
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/i915/display/i9xx_wm.c:3824:6: error: no previous prototype for 'ilk_wm_get_hw_state' [-Werror=missing-prototypes]
+    3824 | void ilk_wm_get_hw_state(struct drm_i915_private *dev_priv)
+         |      ^~~~~~~~~~~~~~~~~~~
+   cc1: all warnings being treated as errors
+
+
+vim +/ilk_wm_get_hw_state +3824 drivers/gpu/drm/i915/display/i9xx_wm.c
+
+f21b5d6fc26440 Jani Nikula 2023-02-08  3823  
+f21b5d6fc26440 Jani Nikula 2023-02-08 @3824  void ilk_wm_get_hw_state(struct drm_i915_private *dev_priv)
+f21b5d6fc26440 Jani Nikula 2023-02-08  3825  {
+f21b5d6fc26440 Jani Nikula 2023-02-08  3826  	struct ilk_wm_values *hw = &dev_priv->display.wm.hw;
+f21b5d6fc26440 Jani Nikula 2023-02-08  3827  	struct intel_crtc *crtc;
+f21b5d6fc26440 Jani Nikula 2023-02-08  3828  
+f21b5d6fc26440 Jani Nikula 2023-02-08  3829  	ilk_init_lp_watermarks(dev_priv);
+f21b5d6fc26440 Jani Nikula 2023-02-08  3830  
+f21b5d6fc26440 Jani Nikula 2023-02-08  3831  	for_each_intel_crtc(&dev_priv->drm, crtc)
+f21b5d6fc26440 Jani Nikula 2023-02-08  3832  		ilk_pipe_wm_get_hw_state(crtc);
+f21b5d6fc26440 Jani Nikula 2023-02-08  3833  
+f21b5d6fc26440 Jani Nikula 2023-02-08  3834  	hw->wm_lp[0] = intel_uncore_read(&dev_priv->uncore, WM1_LP_ILK);
+f21b5d6fc26440 Jani Nikula 2023-02-08  3835  	hw->wm_lp[1] = intel_uncore_read(&dev_priv->uncore, WM2_LP_ILK);
+f21b5d6fc26440 Jani Nikula 2023-02-08  3836  	hw->wm_lp[2] = intel_uncore_read(&dev_priv->uncore, WM3_LP_ILK);
+f21b5d6fc26440 Jani Nikula 2023-02-08  3837  
+f21b5d6fc26440 Jani Nikula 2023-02-08  3838  	hw->wm_lp_spr[0] = intel_uncore_read(&dev_priv->uncore, WM1S_LP_ILK);
+f21b5d6fc26440 Jani Nikula 2023-02-08  3839  	if (DISPLAY_VER(dev_priv) >= 7) {
+f21b5d6fc26440 Jani Nikula 2023-02-08  3840  		hw->wm_lp_spr[1] = intel_uncore_read(&dev_priv->uncore, WM2S_LP_IVB);
+f21b5d6fc26440 Jani Nikula 2023-02-08  3841  		hw->wm_lp_spr[2] = intel_uncore_read(&dev_priv->uncore, WM3S_LP_IVB);
+f21b5d6fc26440 Jani Nikula 2023-02-08  3842  	}
+f21b5d6fc26440 Jani Nikula 2023-02-08  3843  
+f21b5d6fc26440 Jani Nikula 2023-02-08  3844  	if (IS_HASWELL(dev_priv) || IS_BROADWELL(dev_priv))
+f21b5d6fc26440 Jani Nikula 2023-02-08  3845  		hw->partitioning = (intel_uncore_read(&dev_priv->uncore, WM_MISC) &
+f21b5d6fc26440 Jani Nikula 2023-02-08  3846  				    WM_MISC_DATA_PARTITION_5_6) ?
+f21b5d6fc26440 Jani Nikula 2023-02-08  3847  			INTEL_DDB_PART_5_6 : INTEL_DDB_PART_1_2;
+f21b5d6fc26440 Jani Nikula 2023-02-08  3848  	else if (IS_IVYBRIDGE(dev_priv))
+f21b5d6fc26440 Jani Nikula 2023-02-08  3849  		hw->partitioning = (intel_uncore_read(&dev_priv->uncore, DISP_ARB_CTL2) &
+f21b5d6fc26440 Jani Nikula 2023-02-08  3850  				    DISP_DATA_PARTITION_5_6) ?
+f21b5d6fc26440 Jani Nikula 2023-02-08  3851  			INTEL_DDB_PART_5_6 : INTEL_DDB_PART_1_2;
+f21b5d6fc26440 Jani Nikula 2023-02-08  3852  
+f21b5d6fc26440 Jani Nikula 2023-02-08  3853  	hw->enable_fbc_wm =
+f21b5d6fc26440 Jani Nikula 2023-02-08  3854  		!(intel_uncore_read(&dev_priv->uncore, DISP_ARB_CTL) & DISP_FBC_WM_DIS);
+f21b5d6fc26440 Jani Nikula 2023-02-08  3855  }
+f21b5d6fc26440 Jani Nikula 2023-02-08  3856  
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
