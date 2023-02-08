@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E408EC636D6
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 11:43:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 964E9C05027
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 11:43:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89F7410E753;
-	Wed,  8 Feb 2023 11:43:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 192CF10E754;
+	Wed,  8 Feb 2023 11:43:11 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDBD910E752
- for <intel-gfx@lists.freedesktop.org>; Wed,  8 Feb 2023 11:43:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CBBD10E744
+ for <intel-gfx@lists.freedesktop.org>; Wed,  8 Feb 2023 11:43:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675856588; x=1707392588;
+ t=1675856586; x=1707392586;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=GPzzUQ1cevoLmDe0bbz+IiOcnX4kcBoEAMLkJqANHdI=;
- b=X+nmA+yy/Ay/xD5dy2WQ3tqzCqeR6dlgihq2fvkCKEp0Ty2tau2DY4I0
- sQnPDJY/UANWL0g2BCR4uftZHa8Gjtbf5qDS/m8NU2Hg96SUAWezgO+Un
- AV6dYpY777ETajHX5pUU+CKsuqhOLssXlhMCDmGd0gIrN0HVWrJRsX+3X
- hgjiRd0v0QnafzK2rWcMgBe+ToTMrQH4r/wRk62c+LCEyPV9s2PGQk0SP
- uy2M99x9jBXPxtLNP8w6ffjI6bMbrQ+P2D7KhpOGaW7+1QqmwuLLfYfkK
- doTszntCAkbTVxyuO84Bj+cCjG5cG6Uvj7t1x6/484yauXdSYDpXbJool A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="313415506"
-X-IronPort-AV: E=Sophos;i="5.97,280,1669104000"; d="scan'208";a="313415506"
+ bh=bad3zioElFR4iOrfZwwggXy8NnitIvzl7wBCglVTA6A=;
+ b=ccMlDU7yg4lHGaWwn+Wyb6vOlwzVSP8Q25RS4D0QL7/oGg1IcjJM1F+l
+ J61PaJyVpWxHv9RSnDnM05PZf+KJAnyt6NeETgQ20kyLR7RfItwujsq4J
+ xlS9XEXCJm5J0XLGKVC2mR5+ZpQcrYRQdD+pThtWluLNLCx59FMo0bLDi
+ F5zbfm6F2Od1kVjEzzPj8/LOuTLbQUytJaDT2sX31mFpemKp5YZXie/HE
+ xYxB4Q8EA2jWAVDoiwe5WUXXqn61R9ylyF4ZcRVTuF8l49DuvQWzV/kl/
+ p1XRBlxR2GaocrqomXuIOM+2V8yiZSCKWfCojKrrP+IKnPW9pFcPjUZiN Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="313415491"
+X-IronPort-AV: E=Sophos;i="5.97,280,1669104000"; d="scan'208";a="313415491"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2023 03:43:08 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="699620690"
-X-IronPort-AV: E=Sophos;i="5.97,280,1669104000"; d="scan'208";a="699620690"
+ 08 Feb 2023 03:43:06 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="699620685"
+X-IronPort-AV: E=Sophos;i="5.97,280,1669104000"; d="scan'208";a="699620685"
 Received: from ideak-desk.fi.intel.com ([10.237.72.58])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2023 03:43:07 -0800
+ 08 Feb 2023 03:43:04 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  8 Feb 2023 13:42:59 +0200
-Message-Id: <20230208114300.3123934-4-imre.deak@intel.com>
+Date: Wed,  8 Feb 2023 13:42:57 +0200
+Message-Id: <20230208114300.3123934-2-imre.deak@intel.com>
 X-Mailer: git-send-email 2.31.1.189.g2e36527f23
 In-Reply-To: <20230208114300.3123934-1-imre.deak@intel.com>
 References: <20230208114300.3123934-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 3/4] drm/i915/dgfx,
- mtl+: Disable display functionality if the display is not present
+Subject: [Intel-gfx] [PATCH v2 1/4] drm/i915: Fix system suspend without
+ fbdev being initialized
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,118 +57,97 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DG1/DG2 and MTL+ has added a new display-present HW flag. Check this
-flag and if cleared, disable the driver's display functionality.
+If fbdev is not initialized for some reason - in practice on platforms
+without display - suspending fbdev should be skipped during system
+suspend, fix this up. While at it add an assert that suspending fbdev
+only happens with the display present.
 
-So far the missing check resulted in running the display initialization
-sequence, and the WARNs below, due to the display register accesses
-timing out:
+This fixes the following:
 
-[    3.902843] ------------[ cut here ]------------
-[    3.902848] i915 0000:03:00.0: drm_WARN_ON(intel_de_wait_for_set(dev_priv, ((const i915_reg_t){ .reg = (0x42000) }), (1 << (27 - (pg))), 1))
-[    3.902879] WARNING: CPU: 6 PID: 462 at drivers/gpu/drm/i915/display/intel_display_power_well.c:326 gen9_wait_for_power_well_fuses+0x71/0x80 [i915]
-[    3.903009] Modules linked in: hid_sensor_hub intel_ishtp_hid i915(+) rtsx_pci_sdmmc drm_buddy mmc_core drm_display_helper crct10dif_pclmul nvme cec crc32_pclmul intel_ish_ipc crc32c_intel ucsi_acpi hid_multitouch nvme_core ghash_clmulni_intel typec_ucsi rtsx_pci ttm sha512_ssse3 serio_raw intel_ishtp typec video i2c_hid_acpi i2c_hid wmi pinctrl_tigerlake ip6_tables ip_tables x_tables fuse
-[    3.903021] CPU: 6 PID: 462 Comm: systemd-udevd Tainted: G     U             6.2.0-rc6+ #50
-[    3.903023] Hardware name: LENOVO 82VB/LNVNB161216, BIOS KMCN09WW 04/26/2022
-[    3.903023] RIP: 0010:gen9_wait_for_power_well_fuses+0x71/0x80 [i915]
-[    3.903105] Code: 48 8b 5f 50 48 85 db 75 03 48 8b 1f e8 98 bb 0d e9 48 c7 c1 00 65 a1 c0 48 89 da 48 c7 c7 4b c5 a3 c0 48 89 c6 e8 e3 df 53 e9 <0f> 0b 5b c3 cc cc cc cc 0f 1f 80 00 00 00 00 90 90 90 90 90 90 90
-[    3.903106] RSP: 0018:ffffa7cec0b07a98 EFLAGS: 00010292
-[    3.903107] RAX: 0000000000000080 RBX: ffff9a05430eaaa0 RCX: 0000000000000000
-[    3.903108] RDX: 0000000000000001 RSI: ffffffffaa7ab69e RDI: 00000000ffffffff
-[    3.903108] RBP: ffff9a0552ba2020 R08: ffffffffab062ce0 R09: 00000000abd3ffc2
-[    3.903109] R10: ffffffffffffffff R11: 0000000000000081 R12: 0000000000000000
-[    3.903109] R13: ffff9a05532a9cb0 R14: ffffffffc09e1670 R15: ffff9a0543132000
-[    3.903110] FS:  00007f24d0fe5b40(0000) GS:ffff9a0ccf780000(0000) knlGS:0000000000000000
-[    3.903110] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    3.903111] CR2: 00005643d7a31a28 CR3: 0000000111614002 CR4: 0000000000770ee0
-[    3.903112] PKRU: 55555554
-[    3.903112] Call Trace:
-[    3.903113]  <TASK>
-[    3.903114]  hsw_power_well_enable+0x12f/0x1a0 [i915]
-[    3.903191]  intel_power_well_enable+0x21/0x70 [i915]
-[    3.903265]  icl_display_core_init+0x92/0x6a0 [i915]
-[    3.903346]  intel_power_domains_init_hw+0x1da/0x5b0 [i915]
-[    3.903422]  intel_modeset_init_noirq+0x60/0x250 [i915]
-[    3.903497]  i915_driver_probe+0x562/0xe10 [i915]
-[    3.903557]  ? i915_pci_probe+0x87/0x180 [i915]
-[    3.903617]  local_pci_probe+0x3e/0x80
-[    3.903621]  pci_device_probe+0xb3/0x210
-[    3.903622]  really_probe+0xdb/0x380
-[    3.903624]  ? pm_runtime_barrier+0x50/0x90
-[    3.903626]  __driver_probe_device+0x78/0x170
-[    3.903627]  driver_probe_device+0x1f/0x90
-[    3.903628]  __driver_attach+0xce/0x1c0
-[    3.903629]  ? __pfx___driver_attach+0x10/0x10
-[    3.903630]  bus_for_each_dev+0x5f/0x90
-[    3.903631]  bus_add_driver+0x1ae/0x200
-[    3.903632]  driver_register+0x89/0xe0
-[    3.903634]  i915_init+0x1f/0x7f [i915]
-[    3.903695]  ? __pfx_init_module+0x10/0x10 [i915]
-[    3.903751]  do_one_initcall+0x43/0x220
-[    3.903753]  ? kmalloc_trace+0x26/0x90
-[    3.903756]  do_init_module+0x4a/0x200
-[    3.903758]  __do_sys_init_module+0x157/0x180
-[    3.903760]  do_syscall_64+0x58/0xc0
-[    3.903762]  ? do_syscall_64+0x67/0xc0
-[    3.903762]  ? exc_page_fault+0x70/0x170
-[    3.903764]  entry_SYSCALL_64_after_hwframe+0x72/0xdc
+[   91.227923] PM: suspend entry (s2idle)
+[   91.254598] Filesystems sync: 0.025 seconds
+[   91.270518] Freezing user space processes
+[   91.272266] Freezing user space processes completed (elapsed 0.001 seconds)
+[   91.272686] OOM killer disabled.
+[   91.272872] Freezing remaining freezable tasks
+[   91.274295] Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
+[   91.659622] BUG: kernel NULL pointer dereference, address: 00000000000001c8
+[   91.659981] #PF: supervisor write access in kernel mode
+[   91.660252] #PF: error_code(0x0002) - not-present page
+[   91.660511] PGD 0 P4D 0
+[   91.660647] Oops: 0002 [#1] PREEMPT SMP NOPTI
+[   91.660875] CPU: 4 PID: 917 Comm: bash Not tainted 6.2.0-rc7+ #54
+[   91.661185] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS edk2-20221117gitfff6d81270b5-9.fc37 unknown
+[   91.661680] RIP: 0010:mutex_lock+0x19/0x30
+[   91.661914] Code: 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 44 00 00 53 48 89 fb e8 62 d3 ff ff 31 c0 65 48 8b 14 25 00 15 03 00 <f0> 48 0f b1 13 75 06 5b c3 cc cc cc cc 48 89 df 5b eb b4 0f 1f 40
+[   91.662840] RSP: 0018:ffffa1e8011ffc08 EFLAGS: 00010246
+[   91.663087] RAX: 0000000000000000 RBX: 00000000000001c8 RCX: 0000000000000000
+[   91.663440] RDX: ffff8be455eb0000 RSI: 0000000000000001 RDI: 00000000000001c8
+[   91.663802] RBP: ffff8be459440000 R08: ffff8be459441f08 R09: ffffffff8e1432c0
+[   91.664167] R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000001
+[   91.664532] R13: 00000000000001c8 R14: 0000000000000000 R15: ffff8be442f4fb20
+[   91.664905] FS:  00007f28ffc16740(0000) GS:ffff8be4bb900000(0000) knlGS:0000000000000000
+[   91.665334] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   91.665626] CR2: 00000000000001c8 CR3: 0000000114926006 CR4: 0000000000770ee0
+[   91.665988] PKRU: 55555554
+[   91.666131] Call Trace:
+[   91.666265]  <TASK>
+[   91.666381]  intel_fbdev_set_suspend+0x97/0x1b0 [i915]
+[   91.666738]  i915_drm_suspend+0xb9/0x100 [i915]
+[   91.667029]  pci_pm_suspend+0x78/0x170
+[   91.667234]  ? __pfx_pci_pm_suspend+0x10/0x10
+[   91.667461]  dpm_run_callback+0x47/0x150
+[   91.667673]  __device_suspend+0x10a/0x4e0
+[   91.667880]  dpm_suspend+0x134/0x270
+[   91.668069]  dpm_suspend_start+0x79/0x80
+[   91.668272]  suspend_devices_and_enter+0x11b/0x890
+[   91.668526]  pm_suspend.cold+0x270/0x2fc
+[   91.668737]  state_store+0x46/0x90
+[   91.668916]  kernfs_fop_write_iter+0x11b/0x200
+[   91.669153]  vfs_write+0x1e1/0x3a0
+[   91.669336]  ksys_write+0x53/0xd0
+[   91.669510]  do_syscall_64+0x58/0xc0
+[   91.669699]  ? syscall_exit_to_user_mode_prepare+0x18e/0x1c0
+[   91.669980]  ? syscall_exit_to_user_mode_prepare+0x18e/0x1c0
+[   91.670278]  ? syscall_exit_to_user_mode+0x17/0x40
+[   91.670524]  ? do_syscall_64+0x67/0xc0
+[   91.670717]  ? __irq_exit_rcu+0x3d/0x140
+[   91.670931]  entry_SYSCALL_64_after_hwframe+0x72/0xdc
+[   91.671202] RIP: 0033:0x7f28ffd14284
 
-Bspec: 49189, 53112
-
-v2: (Jani)
-- Change "Display fused off" dmesg info to "Display not present".
-- Zero only runtime->pipe_mask, other fields being zeroed based on this
-  later.
-- Detect display presence already before the fused-off checks and only for
-  HAS_DISPLAY().
-
-Reported-and-tested-by: iczero <iczero@hellomouse.net>
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/8015
+Fixes: f8cc091e0530 ("drm/i915/fbdev: suspend HPD before fbdev unregistration")
+References: https://gitlab.freedesktop.org/drm/intel/-/issues/8015
+Tested-by: iczero <iczero@hellomouse.net>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>
 Cc: iczero <iczero@hellomouse.net>
-Cc: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/i915_reg.h          | 3 +++
- drivers/gpu/drm/i915/intel_device_info.c | 8 ++++++++
- 2 files changed, 11 insertions(+)
+ drivers/gpu/drm/i915/display/intel_fbdev.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 596efc940ee70..a22a0fa299645 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -116,6 +116,9 @@
-  *  #define GEN8_BAR                    _MMIO(0xb888)
-  */
+diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+index 81b41148e592b..e719202d831f0 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbdev.c
++++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+@@ -632,7 +632,13 @@ void intel_fbdev_set_suspend(struct drm_device *dev, int state, bool synchronous
+ 	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
+ 	struct fb_info *info;
  
-+#define GU_CNTL_PROTECTED		_MMIO(0x10100C)
-+#define   DEPRESENT			REG_BIT(9)
+-	if (!ifbdev || !ifbdev->vma)
++	if (!ifbdev)
++		return;
 +
- #define GU_CNTL				_MMIO(0x101010)
- #define   LMEM_INIT			REG_BIT(7)
- #define   DRIVERFLR			REG_BIT(31)
-diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index 98769e5f2c3d1..e07deb4630f97 100644
---- a/drivers/gpu/drm/i915/intel_device_info.c
-+++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -436,6 +436,14 @@ void intel_device_info_runtime_init(struct drm_i915_private *dev_priv)
- 			runtime->num_sprites[pipe] = 1;
- 	}
++	if (drm_WARN_ON(&dev_priv->drm, !HAS_DISPLAY(dev_priv)))
++		return;
++
++	if (!ifbdev->vma)
+ 		goto set_suspend;
  
-+	if (HAS_DISPLAY(dev_priv) &&
-+	    (IS_DGFX(dev_priv) || DISPLAY_VER(dev_priv) >= 14) &&
-+	    !(intel_de_read(dev_priv, GU_CNTL_PROTECTED) & DEPRESENT)) {
-+		drm_info(&dev_priv->drm, "Display not preset, disabling\n");
-+
-+		runtime->pipe_mask = 0;
-+	}
-+
- 	if (HAS_DISPLAY(dev_priv) && IS_GRAPHICS_VER(dev_priv, 7, 8) &&
- 	    HAS_PCH_SPLIT(dev_priv)) {
- 		u32 fuse_strap = intel_de_read(dev_priv, FUSE_STRAP);
+ 	info = ifbdev->helper.info;
 -- 
 2.37.1
 
