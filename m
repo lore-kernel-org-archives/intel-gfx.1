@@ -4,30 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D360C636CC
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 14:55:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C490C05027
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 14:57:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F73E10E7B0;
-	Wed,  8 Feb 2023 14:55:25 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id E2D4510E7AB;
- Wed,  8 Feb 2023 14:55:22 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id D9BA3A00E6;
- Wed,  8 Feb 2023 14:55:22 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE49310E7A7;
+	Wed,  8 Feb 2023 14:57:24 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1DAD10E7A7;
+ Wed,  8 Feb 2023 14:57:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1675868241; x=1707404241;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=kEW+4ZCMPZv85JnRlMwAygJ7zE/yoIahsudEfBAJaM0=;
+ b=jxke0MkTlYYlY/5jAOEPuWs2fhumMcvJIDeEYAyoVdw7PsQXVdLkdJC6
+ df12DiHfWuO7k0fYfdig8T/vmAxjsorxlBl7dQ5KeyV8WtXNc2KEy1swV
+ XM7kDi/Blx74CcfNDyt4lTbvtCq/MGJbRHohA3PnckM+R3XvNtivo1eTe
+ uC96Lz357mRmWxl4cqA8jIdf9zb+9BwEbAaiOoucvcvIqyFLxZAkyIf5U
+ dMeTdjvunpfaMv9IW37sxil6tcFrI0xsaiW1Mmo4jKU73dbOgEp0q/kmQ
+ A+R3zAb+J+O+UX4dJnVjbsHPVZSS8fa8CILmbAP7868pWZt2X78uK3KNM A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10615"; a="328469187"
+X-IronPort-AV: E=Sophos;i="5.97,281,1669104000"; d="scan'208";a="328469187"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2023 06:57:21 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10615"; a="617233445"
+X-IronPort-AV: E=Sophos;i="5.97,281,1669104000"; d="scan'208";a="617233445"
+Received: from hassanka-mobl1.ger.corp.intel.com (HELO mwauld-desk1.intel.com)
+ ([10.252.31.252])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2023 06:57:19 -0800
+From: Matthew Auld <matthew.auld@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed,  8 Feb 2023 14:53:16 +0000
+Message-Id: <20230208145319.397235-1-matthew.auld@intel.com>
+X-Mailer: git-send-email 2.39.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Tomas Winkler" <tomas.winkler@intel.com>
-Date: Wed, 08 Feb 2023 14:55:22 -0000
-Message-ID: <167586812286.385.7681152187769261049@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20230208142358.1401618-1-tomas.winkler@intel.com>
-In-Reply-To: <20230208142358.1401618-1-tomas.winkler@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_mei=3A_gsc_proxy_component?=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 1/4] drm/gem-vram: handle NULL bo->resource in
+ move callback
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,47 +57,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+The ttm BO now initially has NULL bo->resource, and leaves the driver
+the handle that. However it looks like we forgot to handle that for
+ttm_bo_move_memcpy() users, like with vram-gem, since it just silently
+returns zero. This seems to then trigger warnings like:
 
-Series: mei: gsc proxy component
-URL   : https://patchwork.freedesktop.org/series/113786/
-State : warning
+WARNING: CPU: 0 PID: 1 at drivers/gpu/drm/drm_gem_vram_helper.c:255 drm_gem_vram_offset (??:?)
 
-== Summary ==
+Fix this by calling move_null() if the new resource is TTM_PL_SYSTEM,
+otherwise do the multi-hop sequence to ensure can safely call into
+ttm_bo_move_memcpy(), since it might also need to clear the memory.
+This should give the same behaviour as before.
 
-Error: dim checkpatch failed
-18b0d2ae5b42 drm/i915/mtl: Define GSC Proxy component interface
-Traceback (most recent call last):
-  File "scripts/spdxcheck.py", line 6, in <module>
-    from ply import lex, yacc
-ModuleNotFoundError: No module named 'ply'
--:29: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#29: 
-new file mode 100644
+While we are here let's also treat calling ttm_bo_move_memcpy() with
+NULL bo->resource as programmer error, where expectation is that upper
+layers should now handle it.
 
-total: 0 errors, 1 warnings, 0 checks, 45 lines checked
-1c1166a052a4 mei: gsc_proxy: add gsc proxy driver
-Traceback (most recent call last):
-  File "scripts/spdxcheck.py", line 6, in <module>
-    from ply import lex, yacc
-ModuleNotFoundError: No module named 'ply'
-Traceback (most recent call last):
-  File "scripts/spdxcheck.py", line 6, in <module>
-    from ply import lex, yacc
-ModuleNotFoundError: No module named 'ply'
-Traceback (most recent call last):
-  File "scripts/spdxcheck.py", line 6, in <module>
-    from ply import lex, yacc
-ModuleNotFoundError: No module named 'ply'
--:34: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#34: 
-new file mode 100644
+Fixes: 180253782038 ("drm/ttm: stop allocating dummy resources during BO creation")
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/drm_gem_vram_helper.c | 11 +++++++++++
+ drivers/gpu/drm/ttm/ttm_bo_util.c     |  4 ++--
+ 2 files changed, 13 insertions(+), 2 deletions(-)
 
-total: 0 errors, 1 warnings, 0 checks, 238 lines checked
-
+diff --git a/drivers/gpu/drm/drm_gem_vram_helper.c b/drivers/gpu/drm/drm_gem_vram_helper.c
+index d40b3edb52d0..0bea3df2a16d 100644
+--- a/drivers/gpu/drm/drm_gem_vram_helper.c
++++ b/drivers/gpu/drm/drm_gem_vram_helper.c
+@@ -916,6 +916,17 @@ static int bo_driver_move(struct ttm_buffer_object *bo,
+ {
+ 	struct drm_gem_vram_object *gbo;
+ 
++	if (!bo->resource) {
++		if (new_mem->mem_type != TTM_PL_SYSTEM) {
++			hop->mem_type = TTM_PL_SYSTEM;
++			hop->flags = TTM_PL_FLAG_TEMPORARY;
++			return -EMULTIHOP;
++		}
++
++		ttm_bo_move_null(bo, new_mem);
++		return 0;
++	}
++
+ 	gbo = drm_gem_vram_of_bo(bo);
+ 
+ 	return drm_gem_vram_bo_driver_move(gbo, evict, ctx, new_mem);
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+index d9d2b0903b22..fd9fd3d15101 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo_util.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+@@ -157,8 +157,8 @@ int ttm_bo_move_memcpy(struct ttm_buffer_object *bo,
+ 	bool clear;
+ 	int ret = 0;
+ 
+-	if (!src_mem)
+-		return 0;
++	if (WARN_ON(!src_mem))
++		return -EINVAL;
+ 
+ 	src_man = ttm_manager_type(bdev, src_mem->mem_type);
+ 	if (ttm && ((ttm->page_flags & TTM_TT_FLAG_SWAPPED) ||
+-- 
+2.39.1
 
