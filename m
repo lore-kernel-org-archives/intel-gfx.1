@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1519BC6379F
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 09:49:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9958EC6379F
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 09:49:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4229110E73E;
-	Wed,  8 Feb 2023 09:49:38 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98AF310E732
- for <intel-gfx@lists.freedesktop.org>; Wed,  8 Feb 2023 09:49:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22A7510E741;
+	Wed,  8 Feb 2023 09:49:42 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 425B310E73E
+ for <intel-gfx@lists.freedesktop.org>; Wed,  8 Feb 2023 09:49:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675849771; x=1707385771;
+ t=1675849777; x=1707385777;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ladS6a15OxJrLaieByadwdN9gjC8UX+GgWnZCBne5ao=;
- b=HDchH3O2IOmDB8JLh0nxMyAgnJvtwy89s1nV2+0L1JGXwRxcxy38F7ov
- iiwVG/xAxJSWwHmp9sNMnk9UyXAmQbplPOdknN7yc/oQjk4/NboMmVKCc
- rxoVI+/rJ74Oc06oWYtfmwdV/1f4HFFWJubSVbXCMFVUKXf4d4U6/a54X
- H7rnr9I8u1is35Cs5DZOV2xsXQqkxpQWgQX1kZzqEO5JOsWDRX5JfRFh0
- L6A9M/qx2ECq0sJ/i/EyWVQdCqoGAV8BGIH2MvxBWObc9kH+GM+1hS1gJ
- WKRlpLGLayyFcrxwt9N2987obH1XeuM9q9ijYGTsTC5xIrFIOUJlUKHqK Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="357146070"
-X-IronPort-AV: E=Sophos;i="5.97,280,1669104000"; d="scan'208";a="357146070"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2023 01:49:23 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="755990568"
-X-IronPort-AV: E=Sophos;i="5.97,280,1669104000"; d="scan'208";a="755990568"
+ bh=AMQ/SSR803tkU0Bwt0lwrqfEtJ1i1v7/zAnvmxrTyaI=;
+ b=TmITuzVut77RV5VHO3sBr2FgLvaWSnoPIH8a9QfdSGS8THj8CVnDbvCL
+ mv1sEmGBG/45+6kg/LuNofpiWbcaWUx3rZ1mVKIb1PjK6PgdlySx3CsLK
+ 9nywHwb/63UDQ6XxuZ90LFV+67VzOqxHWjNvGomUE2x/DXt2uDD3CBTz9
+ nyR33PQaUNffLgK05E1f5W9ZHV22oBgRMXOMhZK0nlAwXGnl1TSM10siN
+ wfuibr9NcodydXM4sFpActAgz2n1d9IWQDM1Ob8n+gjG26NGkt9nRBe6m
+ ONgUsGmGr4wK52+z/LuOlexoKGQgMrRoovdqLFyW3zPp/4Bb3W99+BtRt A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="394348247"
+X-IronPort-AV: E=Sophos;i="5.97,280,1669104000"; d="scan'208";a="394348247"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2023 01:49:37 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="697619099"
+X-IronPort-AV: E=Sophos;i="5.97,280,1669104000"; d="scan'208";a="697619099"
 Received: from joergber-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.48.82])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2023 01:49:21 -0800
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Feb 2023 01:49:35 -0800
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  8 Feb 2023 11:48:45 +0200
-Message-Id: <af392a89c7951cda25ff4bb347b093a70bc169e2.1675849634.git.jani.nikula@intel.com>
+Date: Wed,  8 Feb 2023 11:48:48 +0200
+Message-Id: <311b2064f2a573a716b736ac8a435599441e9fa9.1675849634.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1675849634.git.jani.nikula@intel.com>
 References: <cover.1675849634.git.jani.nikula@intel.com>
@@ -46,8 +46,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/10] drm/i915/wm: add *_wm_num_levels()
- functions
+Subject: [Intel-gfx] [PATCH 10/10] drm/i915: rename intel_pm_types.h ->
+ display/intel_wm_types.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,171 +64,82 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add intel_wm_num_levels(), i9xx_wm_num_levels() and skl_wm_num_levels()
-functions.
-
-There's a difference between i9xx_wm_num_levels() and
-g4x_wm_num_levels(), but leave that unresolved for now to avoid
-functional changes.
+The file was never really about pm types, and now it's even more
+obvious. Move under display as intel_wm_types.h.
 
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/i9xx_wm.c        | 17 +++++++++++++++++
- drivers/gpu/drm/i915/display/i9xx_wm.h        |  1 +
- .../drm/i915/display/intel_display_debugfs.c  | 19 +++----------------
- drivers/gpu/drm/i915/display/intel_wm.c       |  8 ++++++++
- drivers/gpu/drm/i915/display/intel_wm.h       |  1 +
- drivers/gpu/drm/i915/display/skl_watermark.c  |  8 ++++++++
- drivers/gpu/drm/i915/display/skl_watermark.h  |  1 +
- 7 files changed, 39 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_core.h           | 2 +-
+ drivers/gpu/drm/i915/display/intel_display_types.h          | 2 +-
+ .../drm/i915/{intel_pm_types.h => display/intel_wm_types.h} | 6 +++---
+ drivers/gpu/drm/i915/display/skl_watermark.h                | 2 +-
+ 4 files changed, 6 insertions(+), 6 deletions(-)
+ rename drivers/gpu/drm/i915/{intel_pm_types.h => display/intel_wm_types.h} (93%)
 
-diff --git a/drivers/gpu/drm/i915/display/i9xx_wm.c b/drivers/gpu/drm/i915/display/i9xx_wm.c
-index 1247a23e29af..b5f75fe2f414 100644
---- a/drivers/gpu/drm/i915/display/i9xx_wm.c
-+++ b/drivers/gpu/drm/i915/display/i9xx_wm.c
-@@ -2684,6 +2684,23 @@ int ilk_wm_max_level(const struct drm_i915_private *dev_priv)
- 		return 2;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
+index 176dbe52025b..93087ad78bda 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_core.h
++++ b/drivers/gpu/drm/i915/display/intel_display_core.h
+@@ -25,7 +25,7 @@
+ #include "intel_global_state.h"
+ #include "intel_gmbus.h"
+ #include "intel_opregion.h"
+-#include "intel_pm_types.h"
++#include "intel_wm_types.h"
+ 
+ struct drm_i915_private;
+ struct drm_property;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 6e94be7c3e7f..748b0cd411fa 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -53,7 +53,7 @@
+ #include "intel_display_limits.h"
+ #include "intel_display_power.h"
+ #include "intel_dpll_mgr.h"
+-#include "intel_pm_types.h"
++#include "intel_wm_types.h"
+ 
+ struct drm_printer;
+ struct __intel_global_objs_state;
+diff --git a/drivers/gpu/drm/i915/intel_pm_types.h b/drivers/gpu/drm/i915/display/intel_wm_types.h
+similarity index 93%
+rename from drivers/gpu/drm/i915/intel_pm_types.h
+rename to drivers/gpu/drm/i915/display/intel_wm_types.h
+index 93152537b420..bac2b6fdc5d0 100644
+--- a/drivers/gpu/drm/i915/intel_pm_types.h
++++ b/drivers/gpu/drm/i915/display/intel_wm_types.h
+@@ -3,8 +3,8 @@
+  * Copyright © 2021 Intel Corporation
+  */
+ 
+-#ifndef __INTEL_PM_TYPES_H__
+-#define __INTEL_PM_TYPES_H__
++#ifndef __INTEL_WM_TYPES_H__
++#define __INTEL_WM_TYPES_H__
+ 
+ #include <linux/types.h>
+ 
+@@ -73,4 +73,4 @@ static inline bool skl_ddb_entry_equal(const struct skl_ddb_entry *e1,
+ 	return false;
  }
  
-+/* FIXME: reconcile the difference with g4x_wm_num_levels() */
-+int i9xx_wm_num_levels(const struct drm_i915_private *i915)
-+{
-+	int num_levels;
-+
-+	if (IS_CHERRYVIEW(i915))
-+		num_levels = 3;
-+	else if (IS_VALLEYVIEW(i915))
-+		num_levels = 1;
-+	else if (IS_G4X(i915))
-+		num_levels = 3;
-+	else
-+		num_levels = ilk_wm_max_level(i915) + 1;
-+
-+	return num_levels;
-+}
-+
- static bool ilk_increase_wm_latency(struct drm_i915_private *dev_priv,
- 				    u16 wm[5], u16 min)
- {
-diff --git a/drivers/gpu/drm/i915/display/i9xx_wm.h b/drivers/gpu/drm/i915/display/i9xx_wm.h
-index e5293a4ff540..62250e1f7931 100644
---- a/drivers/gpu/drm/i915/display/i9xx_wm.h
-+++ b/drivers/gpu/drm/i915/display/i9xx_wm.h
-@@ -13,6 +13,7 @@ struct intel_crtc_state;
- struct intel_plane_state;
- 
- int ilk_wm_max_level(const struct drm_i915_private *i915);
-+int i9xx_wm_num_levels(const struct drm_i915_private *i915);
- bool ilk_disable_lp_wm(struct drm_i915_private *i915);
- bool intel_set_memory_cxsr(struct drm_i915_private *i915, bool enable);
- void i9xx_wm_init(struct drm_i915_private *i915);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index 539dae1ec83c..4ab86cec683e 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -30,6 +30,7 @@
- #include "intel_pm.h"
- #include "intel_psr.h"
- #include "intel_sprite.h"
-+#include "intel_wm.h"
- #include "skl_watermark.h"
- 
- static inline struct drm_i915_private *node_to_i915(struct drm_info_node *node)
-@@ -1289,14 +1290,7 @@ static void wm_latency_show(struct seq_file *m, const u16 wm[8])
- 	int level;
- 	int num_levels;
- 
--	if (IS_CHERRYVIEW(dev_priv))
--		num_levels = 3;
--	else if (IS_VALLEYVIEW(dev_priv))
--		num_levels = 1;
--	else if (IS_G4X(dev_priv))
--		num_levels = 3;
--	else
--		num_levels = ilk_wm_max_level(dev_priv) + 1;
-+	num_levels = intel_wm_num_levels(dev_priv);
- 
- 	drm_modeset_lock_all(&dev_priv->drm);
- 
-@@ -1408,14 +1402,7 @@ static ssize_t wm_latency_write(struct file *file, const char __user *ubuf,
- 	int ret;
- 	char tmp[32];
- 
--	if (IS_CHERRYVIEW(dev_priv))
--		num_levels = 3;
--	else if (IS_VALLEYVIEW(dev_priv))
--		num_levels = 1;
--	else if (IS_G4X(dev_priv))
--		num_levels = 3;
--	else
--		num_levels = ilk_wm_max_level(dev_priv) + 1;
-+	num_levels = intel_wm_num_levels(dev_priv);
- 
- 	if (len >= sizeof(tmp))
- 		return -EINVAL;
-diff --git a/drivers/gpu/drm/i915/display/intel_wm.c b/drivers/gpu/drm/i915/display/intel_wm.c
-index be6ffb5f2d3b..8f8ab7978208 100644
---- a/drivers/gpu/drm/i915/display/intel_wm.c
-+++ b/drivers/gpu/drm/i915/display/intel_wm.c
-@@ -292,6 +292,14 @@ void intel_wm_sanitize(struct drm_i915_private *dev_priv)
- 	drm_modeset_acquire_fini(&ctx);
- }
- 
-+int intel_wm_num_levels(const struct drm_i915_private *i915)
-+{
-+	if (DISPLAY_VER(i915) >= 9)
-+		return skl_wm_num_levels(i915);
-+	else
-+		return i9xx_wm_num_levels(i915);
-+}
-+
- void intel_wm_init(struct drm_i915_private *i915)
- {
- 	if (DISPLAY_VER(i915) >= 9)
-diff --git a/drivers/gpu/drm/i915/display/intel_wm.h b/drivers/gpu/drm/i915/display/intel_wm.h
-index 80a99348bf6a..06257e19be6f 100644
---- a/drivers/gpu/drm/i915/display/intel_wm.h
-+++ b/drivers/gpu/drm/i915/display/intel_wm.h
-@@ -32,6 +32,7 @@ bool intel_wm_plane_visible(const struct intel_crtc_state *crtc_state,
- void intel_print_wm_latency(struct drm_i915_private *i915,
- 			    const char *name, const u16 wm[]);
- void intel_wm_sanitize(struct drm_i915_private *i915);
-+int intel_wm_num_levels(const struct drm_i915_private *i915);
- void intel_wm_init(struct drm_i915_private *i915);
- 
- #endif /* __INTEL_WM_H__ */
-diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
-index bb09fdca7161..9ff3f2000f37 100644
---- a/drivers/gpu/drm/i915/display/skl_watermark.c
-+++ b/drivers/gpu/drm/i915/display/skl_watermark.c
-@@ -3278,6 +3278,14 @@ static const struct intel_wm_funcs skl_wm_funcs = {
- 	.get_hw_state = skl_wm_get_hw_state_and_sanitize,
- };
- 
-+int skl_wm_num_levels(const struct drm_i915_private *i915)
-+{
-+	if (HAS_HW_SAGV_WM(i915))
-+		return 6;
-+	else
-+		return 8;
-+}
-+
- void skl_wm_init(struct drm_i915_private *i915)
- {
- 	intel_sagv_init(i915);
+-#endif /* __INTEL_PM_TYPES_H__ */
++#endif /* __INTEL_WM_TYPES_H__ */
 diff --git a/drivers/gpu/drm/i915/display/skl_watermark.h b/drivers/gpu/drm/i915/display/skl_watermark.h
-index f03fd991b189..22002782aee5 100644
+index 22002782aee5..9e527c3d41b6 100644
 --- a/drivers/gpu/drm/i915/display/skl_watermark.h
 +++ b/drivers/gpu/drm/i915/display/skl_watermark.h
-@@ -46,6 +46,7 @@ void skl_watermark_ipc_update(struct drm_i915_private *i915);
- bool skl_watermark_ipc_enabled(struct drm_i915_private *i915);
- void skl_watermark_debugfs_register(struct drm_i915_private *i915);
+@@ -10,7 +10,7 @@
  
-+int skl_wm_num_levels(const struct drm_i915_private *i915);
- void skl_wm_init(struct drm_i915_private *i915);
+ #include "intel_display_limits.h"
+ #include "intel_global_state.h"
+-#include "intel_pm_types.h"
++#include "intel_wm_types.h"
  
- struct intel_dbuf_state {
+ struct drm_i915_private;
+ struct intel_atomic_state;
 -- 
 2.34.1
 
