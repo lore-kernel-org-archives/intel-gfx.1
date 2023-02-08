@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B527FC05027
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 11:43:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEA5CC05027
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Feb 2023 11:43:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BFCB10E744;
-	Wed,  8 Feb 2023 11:43:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 865FA10E752;
+	Wed,  8 Feb 2023 11:43:09 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2E2710E744
- for <intel-gfx@lists.freedesktop.org>; Wed,  8 Feb 2023 11:43:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46AAA10E752
+ for <intel-gfx@lists.freedesktop.org>; Wed,  8 Feb 2023 11:43:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1675856584; x=1707392584;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=M4n2BP8NikOmQ4teE19I2RSjaylMUt0TcXYvmXdSeXI=;
- b=Brfk7El+N6q2p3Juich4lTbx86Hgyi1ZKryY63xRhn/hrUCWVo8GEIKY
- DlJ5ZXDAXil8FaP+oRl50VJNhOgcDuqgJZc7gQZmHpcsI6C4wuZzK8gDQ
- peJ4hP8RBwBFu/zJkmjjXTcFKMSXql8wsfIVgcgsBwjELkr4ki04eLKlE
- aDzEhe6wXBKL5v0doveeOl0COma9ubsZPmwc0eaEX2mRIsm55qqK//sCS
- CUeLK8VVOK8oMVWQBKKGFM68vs1LSBQhrmaC30FsLX+hKvjQnYPbPr4i4
- Pl4nBHZzgXQqh8RROGUg1IZGmBAAZKgG2d+Tw6NH0FSCVYBwfwSz2poqK w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="313415483"
-X-IronPort-AV: E=Sophos;i="5.97,280,1669104000"; d="scan'208";a="313415483"
+ t=1675856587; x=1707392587;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=GYFJ4RRO8sMS4IIaBrtM9H0VOhtO57IEX8V6ZGCUXXU=;
+ b=SwCzsKTho2VbKJJj4rf2HAumLVH82JXGdS75na887FeSxE0NfHl73qUR
+ /+1ZXX0jU5q1VqtZX2khCXpyMlTIix1etIXmRaq8YLAhAAINXL9x19uGn
+ MOtx449jWIxWyTWbODrMBe/r2q7k3GrcZLiWWwDW0lcHOBrZZkCtduTcs
+ 8KF5wdImS11T2dB+uMHPmzwjRJ3YAdprXLWtB3p5za2NC5QLr2CAmBWp5
+ a55T8q7jD+aM8X6emNYXpYiBjYV78yKG4jWsqSXIA8w3VgnXuEuatj6Cd
+ GGkkSOQiOShtx1MjfYFfHupn7OfjOx5MFORwLtpPeOeA6Qqnjr6+YXp1O Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="313415499"
+X-IronPort-AV: E=Sophos;i="5.97,280,1669104000"; d="scan'208";a="313415499"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2023 03:43:04 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="699620677"
-X-IronPort-AV: E=Sophos;i="5.97,280,1669104000"; d="scan'208";a="699620677"
+ 08 Feb 2023 03:43:07 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10614"; a="699620687"
+X-IronPort-AV: E=Sophos;i="5.97,280,1669104000"; d="scan'208";a="699620687"
 Received: from ideak-desk.fi.intel.com ([10.237.72.58])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Feb 2023 03:43:03 -0800
+ 08 Feb 2023 03:43:06 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  8 Feb 2023 13:42:56 +0200
-Message-Id: <20230208114300.3123934-1-imre.deak@intel.com>
+Date: Wed,  8 Feb 2023 13:42:58 +0200
+Message-Id: <20230208114300.3123934-3-imre.deak@intel.com>
 X-Mailer: git-send-email 2.31.1.189.g2e36527f23
+In-Reply-To: <20230208114300.3123934-1-imre.deak@intel.com>
+References: <20230208114300.3123934-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/4] drm/i915/dg2: Fix platforms without
- display
+Subject: [Intel-gfx] [PATCH v2 2/4] drm/i915: Move display power
+ initialization during driver probing later
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,33 +57,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is v2 of [1] fixing DG2 platforms without display, addressing the
-review comments from Jani and fixing one related issue noticed by the
-bug reporter.
+Determining whether the display engine is present on a platform happens
+only in intel_device_info_runtime_init(). Initializing the display power
+functionality depends on this condition, so move
+intel_power_domains_init() later after the runtime init function has
+been called.
 
-[1] https://patchwork.freedesktop.org/series/113711/
+The next patch fixing platforms without display, depends on this patch.
 
-Cc: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 5 +++++
+ drivers/gpu/drm/i915/i915_driver.c           | 7 -------
+ 2 files changed, 5 insertions(+), 7 deletions(-)
 
-Imre Deak (4):
-  drm/i915: Fix system suspend without fbdev being initialized
-  drm/i915: Move display power initialization during driver probing
-    later
-  drm/i915/dgfx, mtl+: Disable display functionality if the display is
-    not present
-  drm/i915: Sanitize the display fused-off check on GEN7/8
-
- drivers/gpu/drm/i915/display/intel_display.c |  5 +++++
- drivers/gpu/drm/i915/display/intel_fbdev.c   |  8 +++++++-
- drivers/gpu/drm/i915/i915_driver.c           |  7 -------
- drivers/gpu/drm/i915/i915_reg.h              |  3 +++
- drivers/gpu/drm/i915/intel_device_info.c     | 10 ++++++++--
- 5 files changed, 23 insertions(+), 10 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 166662ade593c..b3e7ed3866cde 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -8634,6 +8634,10 @@ int intel_modeset_init_noirq(struct drm_i915_private *i915)
+ 		goto cleanup_bios;
+ 
+ 	/* FIXME: completely on the wrong abstraction layer */
++	ret = intel_power_domains_init(i915);
++	if (ret < 0)
++		goto cleanup_vga;
++
+ 	intel_power_domains_init_hw(i915, false);
+ 
+ 	if (!HAS_DISPLAY(i915))
+@@ -8676,6 +8680,7 @@ int intel_modeset_init_noirq(struct drm_i915_private *i915)
+ cleanup_vga_client_pw_domain_dmc:
+ 	intel_dmc_ucode_fini(i915);
+ 	intel_power_domains_driver_remove(i915);
++cleanup_vga:
+ 	intel_vga_unregister(i915);
+ cleanup_bios:
+ 	intel_bios_driver_remove(i915);
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 13bf4fe52f9fe..fe2870a6ae631 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -251,9 +251,6 @@ static int i915_driver_early_probe(struct drm_i915_private *dev_priv)
+ 	intel_detect_pch(dev_priv);
+ 
+ 	intel_pm_setup(dev_priv);
+-	ret = intel_power_domains_init(dev_priv);
+-	if (ret < 0)
+-		goto err_gem;
+ 	intel_irq_init(dev_priv);
+ 	intel_init_display_hooks(dev_priv);
+ 	intel_init_clock_gating_hooks(dev_priv);
+@@ -262,10 +259,6 @@ static int i915_driver_early_probe(struct drm_i915_private *dev_priv)
+ 
+ 	return 0;
+ 
+-err_gem:
+-	i915_gem_cleanup_early(dev_priv);
+-	intel_gt_driver_late_release_all(dev_priv);
+-	i915_drm_clients_fini(&dev_priv->clients);
+ err_rootgt:
+ 	intel_region_ttm_device_fini(dev_priv);
+ err_ttm:
 -- 
 2.37.1
 
