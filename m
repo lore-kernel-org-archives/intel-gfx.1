@@ -4,30 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95AA3C61DA4
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Feb 2023 00:17:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E706DC05027
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Feb 2023 00:42:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02FAC10E087;
-	Fri, 10 Feb 2023 00:17:23 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1831010E087;
- Fri, 10 Feb 2023 00:17:21 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 0F195A73C9;
- Fri, 10 Feb 2023 00:17:21 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============6554261844881680074=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 015CD10EC19;
+	Fri, 10 Feb 2023 00:42:15 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 172C710EC17;
+ Fri, 10 Feb 2023 00:42:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1675989733; x=1707525733;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Pe1OQsYVdubuBFzBCr7K8P4kl2yRdPmn9WywJP5mzIQ=;
+ b=Lb/CvPexcrRJw2hkeBKR3O3049syyceZqVkfgpsFQClqu915GpMWkn31
+ vX8lQxtUCR8HZHwsFEtXuoR7Vmu5f+eQPlgNL2SuoTvTzuEhGg+YF0pqn
+ e3FbeTqDdle4dfWKExpBcgRbKXPcxyz1au4WSx8VBAKCFe7IyFJMnZUC7
+ H6VqZ3KnETCMlEK0BLJGyUXE93xuq3zRwUOTXM7Jz1caJFHJFKC/BZG02
+ TGOHdbi6Egc/2DVMk5KuoTKA0WRgNluxpkZ6lA8mmXALwZ+HBlykye0ko
+ Ku8OrN1uco0AhOM8HZIxWek/g5D3WfPRIXdM7g5F/JeALpG5H5uQa+cr2 w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10616"; a="327990100"
+X-IronPort-AV: E=Sophos;i="5.97,285,1669104000"; d="scan'208";a="327990100"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Feb 2023 16:42:11 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10616"; a="913342493"
+X-IronPort-AV: E=Sophos;i="5.97,285,1669104000"; d="scan'208";a="913342493"
+Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
+ by fmsmga006.fm.intel.com with ESMTP; 09 Feb 2023 16:42:11 -0800
+From: Alan Previn <alan.previn.teres.alexis@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  9 Feb 2023 16:42:05 -0800
+Message-Id: <20230210004209.1877143-5-alan.previn.teres.alexis@intel.com>
+X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20230210004209.1877143-1-alan.previn.teres.alexis@intel.com>
+References: <20230210004209.1877143-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Matt Roper" <matthew.d.roper@intel.com>
-Date: Fri, 10 Feb 2023 00:17:21 -0000
-Message-ID: <167598824102.7875.17183592313617927415@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20230209232228.859317-1-matthew.d.roper@intel.com>
-In-Reply-To: <20230209232228.859317-1-matthew.d.roper@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/xehp=3A_LNCF/LBCF_workarounds_should_be_on_the_GT_list?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v4 4/8] drm/i915/pxp: Add GSC-CS backend to send
+ GSC fw messages
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,235 +57,336 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ Alan Previn <alan.previn.teres.alexis@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============6554261844881680074==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Add GSC engine based method for sending PXP firmware packets
+to the GSC firmware for MTL (and future) products.
 
-== Series Details ==
+Use the newly added helpers to populate the GSC-CS memory
+header and send the message packet to the FW by dispatching
+the GSC_HECI_CMD_PKT instruction on the GSC engine.
 
-Series: drm/i915/xehp: LNCF/LBCF workarounds should be on the GT list
-URL   : https://patchwork.freedesktop.org/series/113857/
-State : success
+We use non-priveleged batches for submission to GSC engine
+and require two buffers for the request:
+     - a buffer for the HECI packet that contains PXP FW commands
+     - a batch-buffer that contains the engine instruction for
+       sending the HECI packet to the GSC firmware.
 
-== Summary ==
+Thus, add the allocation and freeing of these buffers in gsccs
+init and fini.
 
-CI Bug Log - changes from CI_DRM_12722 -> Patchwork_113857v1
-====================================================
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+---
+ .../drm/i915/pxp/intel_pxp_cmd_interface_43.h |   4 +
+ drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c    | 223 +++++++++++++++++-
+ drivers/gpu/drm/i915/pxp/intel_pxp_types.h    |   7 +
+ 3 files changed, 232 insertions(+), 2 deletions(-)
 
-Summary
--------
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_43.h b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_43.h
+index ad67e3f49c20..b2523d6918c7 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_43.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_43.h
+@@ -12,6 +12,10 @@
+ /* PXP-Cmd-Op definitions */
+ #define PXP43_CMDID_START_HUC_AUTH 0x0000003A
+ 
++/* PXP-Packet sizes for MTL's GSCCS-HECI instruction */
++#define PXP43_MAX_HECI_IN_SIZE (SZ_32K)
++#define PXP43_MAX_HECI_OUT_SIZE (SZ_32K)
++
+ /* PXP-Input-Packet: HUC-Authentication */
+ struct pxp43_start_huc_auth_in {
+ 	struct pxp_cmd_header header;
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c b/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
+index 13693e78b57e..51b9959f7813 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
+@@ -6,19 +6,210 @@
+ #include "gem/i915_gem_internal.h"
+ 
+ #include "gt/intel_context.h"
++#include "gt/uc/intel_gsc_uc_heci_cmd_submit.h"
+ 
+ #include "i915_drv.h"
+ #include "intel_pxp_cmd_interface_43.h"
+ #include "intel_pxp_gsccs.h"
+ #include "intel_pxp_types.h"
+ 
++static int gsccs_send_message(struct intel_pxp *pxp,
++			      void *msg_in, size_t msg_in_size,
++			      void *msg_out, size_t msg_out_size_max,
++			      size_t *msg_out_len,
++			      u64 *gsc_msg_handle_retry)
++{
++	struct intel_gt *gt = pxp->ctrl_gt;
++	struct drm_i915_private *i915 = gt->i915;
++	struct gsccs_session_resources *exec =  &pxp->gsccs_res;
++	struct intel_gsc_mtl_header *header = exec->pkt_vaddr;
++	struct intel_gsc_heci_non_priv_pkt pkt;
++	size_t max_msg_size;
++	u32 reply_size;
++	int ret;
++
++	if (!exec->ce)
++		return -ENODEV;
++
++	max_msg_size = PXP43_MAX_HECI_IN_SIZE - sizeof(*header);
++
++	if (msg_in_size > max_msg_size || msg_out_size_max > max_msg_size)
++		return -ENOSPC;
++
++	mutex_lock(&pxp->tee_mutex);
++
++	if (!exec->pkt_vma || !exec->bb_vma)
++		return -ENOENT;
++
++	memset(header, 0, sizeof(*header));
++	intel_gsc_uc_heci_cmd_emit_mtl_header(header, GSC_HECI_MEADDRESS_PXP,
++					      msg_in_size + sizeof(*header),
++					      exec->host_session_handle);
++
++	/* check if this is a host-session-handle cleanup call */
++	if (!msg_in && !msg_out)
++		header->flags |= GSC_HECI_FLAG_MSG_CLEANUP;
++
++	/* copy caller provided gsc message handle if this is polling for a prior msg completion */
++	header->gsc_message_handle = *gsc_msg_handle_retry;
++
++	/* NOTE: zero size packets are used for session-cleanups */
++	if (msg_in && msg_in_size)
++		memcpy(exec->pkt_vaddr + sizeof(*header), msg_in, msg_in_size);
++
++	pkt.addr_in = i915_vma_offset(exec->pkt_vma);
++	pkt.size_in = header->message_size;
++	pkt.addr_out = pkt.addr_in + PXP43_MAX_HECI_IN_SIZE;
++	pkt.size_out = msg_out_size_max + sizeof(*header);
++	pkt.heci_pkt_vma = exec->pkt_vma;
++	pkt.bb_vma = exec->bb_vma;
++
++	ret = intel_gsc_uc_heci_cmd_submit_nonpriv(&gt->uc.gsc,
++						   exec->ce, &pkt, exec->bb_vaddr, 500);
++	if (ret) {
++		drm_err(&i915->drm, "failed to send gsc PXP msg (%d)\n", ret);
++		goto unlock;
++	}
++
++	/* we keep separate location for reply, so get the response header loc first */
++	header = exec->pkt_vaddr + PXP43_MAX_HECI_IN_SIZE;
++
++	/* Response validity marker, status and busyness */
++	if (header->validity_marker != GSC_HECI_VALIDITY_MARKER) {
++		drm_err(&i915->drm, "gsc PXP reply with invalid validity marker\n");
++		ret = -EINVAL;
++		goto unlock;
++	}
++	if (header->status != 0) {
++		drm_dbg(&i915->drm, "gsc PXP reply status has error = 0x%08x\n",
++			header->status);
++		ret = -EINVAL;
++		goto unlock;
++	}
++	if (header->flags & GSC_HECI_FLAG_MSG_PENDING) {
++		drm_dbg(&i915->drm, "gsc PXP reply is busy\n");
++		/*
++		 * When the GSC firmware replies with pending bit, it means that the requested
++		 * operation has begun but the completion is pending and the caller needs
++		 * to re-request with the gsc_message_handle that was returned by the firmware.
++		 * until the pending bit is turned off.
++		 */
++		*gsc_msg_handle_retry = header->gsc_message_handle;
++		ret = -EAGAIN;
++		goto unlock;
++	}
++
++	reply_size = header->message_size - sizeof(*header);
++	if (reply_size > msg_out_size_max) {
++		drm_warn(&i915->drm, "caller with insufficient PXP reply size %u (%ld)\n",
++			 reply_size, msg_out_size_max);
++		reply_size = msg_out_size_max;
++	} else if (reply_size != msg_out_size_max) {
++		drm_dbg(&i915->drm, "caller unexpected PXP reply size %u (%ld)\n",
++			reply_size, msg_out_size_max);
++	}
++
++	if (msg_out)
++		memcpy(msg_out, exec->pkt_vaddr + PXP43_MAX_HECI_IN_SIZE + sizeof(*header),
++		       reply_size);
++	if (msg_out_len)
++		*msg_out_len = reply_size;
++
++unlock:
++	mutex_unlock(&pxp->tee_mutex);
++	return ret;
++}
++
++static int
++gsccs_create_buffer(struct intel_gt *gt,
++		    const char *bufname, size_t size,
++		    struct i915_vma **vma, void **map)
++{
++	struct drm_i915_private *i915 = gt->i915;
++	struct drm_i915_gem_object *obj;
++	int err = 0;
++
++	obj = i915_gem_object_create_internal(i915, size);
++	if (IS_ERR(obj)) {
++		drm_err(&i915->drm, "Failed to allocate gsccs backend %s.\n", bufname);
++		err = PTR_ERR(obj);
++		goto out_none;
++	}
++
++	*vma = i915_vma_instance(obj, gt->vm, NULL);
++	if (IS_ERR(*vma)) {
++		drm_err(&i915->drm, "Failed to vma-instance gsccs backend %s.\n", bufname);
++		err = PTR_ERR(*vma);
++		goto out_put;
++	}
++
++	/* return a virtual pointer */
++	*map = i915_gem_object_pin_map_unlocked(obj, i915_coherent_map_type(i915, obj, true));
++	if (IS_ERR(*map)) {
++		drm_err(&i915->drm, "Failed to map gsccs backend %s.\n", bufname);
++		err = PTR_ERR(*map);
++		goto out_put;
++	}
++
++	/* all PXP sessions commands are treated as non-priveleged */
++	err = i915_vma_pin(*vma, 0, 0, PIN_USER);
++	if (err) {
++		drm_err(&i915->drm, "Failed to vma-pin gsccs backend %s.\n", bufname);
++		goto out_unmap;
++	}
++
++	return 0;
++
++out_unmap:
++	i915_gem_object_unpin_map(obj);
++out_put:
++	i915_gem_object_put(obj);
++out_none:
++	*vma = NULL;
++	*map = NULL;
++
++	return err;
++}
++
++static void
++gsccs_cleanup_fw_host_session_handle(struct intel_pxp *pxp)
++{
++	struct drm_i915_private *i915 = pxp->ctrl_gt->i915;
++	u64 gsc_session_retry = 0;
++	int ret, tries = 0;
++
++	/*
++	 * Keep sending request if GSC firmware was busy.
++	 * Based on specs, we can expects a worst case pending-bit
++	 * delay of 2000 milisecs.
++	 */
++	do {
++		ret = gsccs_send_message(pxp, NULL, 0, NULL, 0, NULL, &gsc_session_retry);
++		/* Only try again if gsc says so */
++		if (ret != -EAGAIN)
++			break;
++
++		msleep(20);
++	} while (++tries < 100);
++
++	if (ret)
++		drm_dbg(&i915->drm, "Failed to send gsccs msg host-session-cleanup: ret=[%d]\n",
++			ret);
++}
++
+ static void
+ gsccs_destroy_execution_resource(struct intel_pxp *pxp)
+ {
+ 	struct gsccs_session_resources *strm_res = &pxp->gsccs_res;
+ 
++	if (strm_res->host_session_handle)
++		gsccs_cleanup_fw_host_session_handle(pxp);
+ 	if (strm_res->ce)
+ 		intel_context_put(strm_res->ce);
++	if (strm_res->bb_vma)
++		i915_vma_unpin_and_release(&strm_res->bb_vma, I915_VMA_RELEASE_MAP);
++	if (strm_res->pkt_vma)
++		i915_vma_unpin_and_release(&strm_res->pkt_vma, I915_VMA_RELEASE_MAP);
+ 
+ 	memset(strm_res, 0, sizeof(*strm_res));
+ }
+@@ -30,6 +221,7 @@ gsccs_allocate_execution_resource(struct intel_pxp *pxp)
+ 	struct gsccs_session_resources *strm_res = &pxp->gsccs_res;
+ 	struct intel_engine_cs *engine = gt->engine[GSC0];
+ 	struct intel_context *ce;
++	int err = 0;
+ 
+ 	/*
+ 	 * First, ensure the GSC engine is present.
+@@ -38,16 +230,43 @@ gsccs_allocate_execution_resource(struct intel_pxp *pxp)
+ 	if (!engine)
+ 		return -ENODEV;
+ 
++	/*
++	 * Now, allocate, pin and map two objects, one for the heci message packet
++	 * and another for the batch buffer we submit into GSC engine (that includes the packet).
++	 * NOTE: GSC-CS backend is currently only supported on MTL, so we allocate shmem.
++	 */
++	err = gsccs_create_buffer(pxp->ctrl_gt, "Heci Packet",
++				  PXP43_MAX_HECI_IN_SIZE + PXP43_MAX_HECI_OUT_SIZE,
++				  &strm_res->pkt_vma, &strm_res->pkt_vaddr);
++	if (err)
++		return err;
++
++	err = gsccs_create_buffer(pxp->ctrl_gt, "Batch Buffer", PAGE_SIZE,
++				  &strm_res->bb_vma, &strm_res->bb_vaddr);
++	if (err)
++		goto free_pkt;
++
+ 	/* Finally, create an intel_context to be used during the submission */
+ 	ce = intel_context_create(engine);
+ 	if (IS_ERR(ce)) {
+ 		drm_err(&gt->i915->drm, "Failed creating gsccs backend ctx\n");
+-		return PTR_ERR(ce);
++		err = PTR_ERR(ce);
++		goto free_batch;
+ 	}
+-
+ 	strm_res->ce = ce;
+ 
++	/* initialize host-session-handle (for all i915-to-gsc-firmware PXP cmds) */
++	get_random_bytes(&strm_res->host_session_handle, sizeof(strm_res->host_session_handle));
++
+ 	return 0;
++
++free_pkt:
++	i915_vma_unpin_and_release(&strm_res->pkt_vma, I915_VMA_RELEASE_MAP);
++free_batch:
++	i915_vma_unpin_and_release(&strm_res->bb_vma, I915_VMA_RELEASE_MAP);
++	memset(strm_res, 0, sizeof(*strm_res));
++
++	return err;
+ }
+ 
+ void intel_pxp_gsccs_fini(struct intel_pxp *pxp)
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+index d3819ec81a0c..329d58adddd8 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+@@ -37,6 +37,13 @@ struct intel_pxp {
+ 	 */
+ 	struct gsccs_session_resources {
+ 		struct intel_context *ce; /* context for gsc command submission */
++		u64 host_session_handle; /* used by firmware to tie commands to processes */
++
++		struct i915_vma *pkt_vma; /* GSC FW cmd packet vma */
++		void *pkt_vaddr;  /* GSC FW cmd packet virt pointer */
++
++		struct i915_vma *bb_vma; /* HECI_PKT batch buffer vma */
++		void *bb_vaddr; /* HECI_PKT batch buffer virt pointer */
+ 	} gsccs_res;
+ 
+ 	/**
+-- 
+2.39.0
 
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/index.html
-
-Participating hosts (38 -> 37)
-------------------------------
-
-  Missing    (1): fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_113857v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@gt_heartbeat:
-    - fi-kbl-soraka:      [PASS][1] -> [DMESG-FAIL][2] ([i915#5334] / [i915#7872])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12722/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html
-
-  * igt@kms_chamelium_hpd@common-hpd-after-suspend:
-    - fi-bsw-nick:        NOTRUN -> [SKIP][3] ([fdo#109271]) +1 similar issue
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/fi-bsw-nick/igt@kms_chamelium_hpd@common-hpd-after-suspend.html
-    - fi-skl-6600u:       NOTRUN -> [SKIP][4] ([fdo#109271])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/fi-skl-6600u/igt@kms_chamelium_hpd@common-hpd-after-suspend.html
-
-  * igt@kms_pipe_crc_basic@suspend-read-crc@pipe-b-hdmi-a-1:
-    - fi-rkl-11600:       [PASS][5] -> [FAIL][6] ([fdo#103375])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12722/fi-rkl-11600/igt@kms_pipe_crc_basic@suspend-read-crc@pipe-b-hdmi-a-1.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/fi-rkl-11600/igt@kms_pipe_crc_basic@suspend-read-crc@pipe-b-hdmi-a-1.html
-
-  
-#### Possible fixes ####
-
-  * igt@dmabuf@all-tests@dma_fence_chain:
-    - fi-bsw-nick:        [ABORT][7] -> [PASS][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12722/fi-bsw-nick/igt@dmabuf@all-tests@dma_fence_chain.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/fi-bsw-nick/igt@dmabuf@all-tests@dma_fence_chain.html
-
-  * igt@dmabuf@all-tests@dma_fence_unwrap:
-    - fi-bsw-nick:        [DMESG-FAIL][9] -> [PASS][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12722/fi-bsw-nick/igt@dmabuf@all-tests@dma_fence_unwrap.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/fi-bsw-nick/igt@dmabuf@all-tests@dma_fence_unwrap.html
-
-  * igt@gem_exec_suspend@basic-s0@smem:
-    - fi-skl-6600u:       [ABORT][11] ([i915#5122]) -> [PASS][12]
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12722/fi-skl-6600u/igt@gem_exec_suspend@basic-s0@smem.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/fi-skl-6600u/igt@gem_exec_suspend@basic-s0@smem.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size:
-    - fi-bsw-n3050:       [FAIL][13] ([i915#6298]) -> [PASS][14]
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12722/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#103375]: https://bugs.freedesktop.org/show_bug.cgi?id=103375
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [i915#2867]: https://gitlab.freedesktop.org/drm/intel/issues/2867
-  [i915#3546]: https://gitlab.freedesktop.org/drm/intel/issues/3546
-  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
-  [i915#5122]: https://gitlab.freedesktop.org/drm/intel/issues/5122
-  [i915#5251]: https://gitlab.freedesktop.org/drm/intel/issues/5251
-  [i915#5334]: https://gitlab.freedesktop.org/drm/intel/issues/5334
-  [i915#6298]: https://gitlab.freedesktop.org/drm/intel/issues/6298
-  [i915#6311]: https://gitlab.freedesktop.org/drm/intel/issues/6311
-  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
-  [i915#6997]: https://gitlab.freedesktop.org/drm/intel/issues/6997
-  [i915#7359]: https://gitlab.freedesktop.org/drm/intel/issues/7359
-  [i915#7699]: https://gitlab.freedesktop.org/drm/intel/issues/7699
-  [i915#7872]: https://gitlab.freedesktop.org/drm/intel/issues/7872
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_12722 -> Patchwork_113857v1
-
-  CI-20190529: 20190529
-  CI_DRM_12722: ec3cb908765a89bf72518590473c464a543372ff @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7155: 75c508d4e19c65683d4060cb3a772df600aaf23e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_113857v1: ec3cb908765a89bf72518590473c464a543372ff @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-efd9a7da2dd5 drm/i915/xehp: LNCF/LBCF workarounds should be on the GT list
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/index.html
-
---===============6554261844881680074==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/xehp: LNCF/LBCF workarounds should be on the GT list</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/113857/">https://patchwork.freedesktop.org/series/113857/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_12722 -&gt; Patchwork_113857v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/index.html</p>
-<h2>Participating hosts (38 -&gt; 37)</h2>
-<p>Missing    (1): fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_113857v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@gt_heartbeat:</p>
-<ul>
-<li>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12722/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7872">i915#7872</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium_hpd@common-hpd-after-suspend:</p>
-<ul>
-<li>
-<p>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/fi-bsw-nick/igt@kms_chamelium_hpd@common-hpd-after-suspend.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +1 similar issue</p>
-</li>
-<li>
-<p>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/fi-skl-6600u/igt@kms_chamelium_hpd@common-hpd-after-suspend.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>)</p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@suspend-read-crc@pipe-b-hdmi-a-1:</p>
-<ul>
-<li>fi-rkl-11600:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12722/fi-rkl-11600/igt@kms_pipe_crc_basic@suspend-read-crc@pipe-b-hdmi-a-1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/fi-rkl-11600/igt@kms_pipe_crc_basic@suspend-read-crc@pipe-b-hdmi-a-1.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=103375">fdo#103375</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@dmabuf@all-tests@dma_fence_chain:</p>
-<ul>
-<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12722/fi-bsw-nick/igt@dmabuf@all-tests@dma_fence_chain.html">ABORT</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/fi-bsw-nick/igt@dmabuf@all-tests@dma_fence_chain.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@dmabuf@all-tests@dma_fence_unwrap:</p>
-<ul>
-<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12722/fi-bsw-nick/igt@dmabuf@all-tests@dma_fence_unwrap.html">DMESG-FAIL</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/fi-bsw-nick/igt@dmabuf@all-tests@dma_fence_unwrap.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@gem_exec_suspend@basic-s0@smem:</p>
-<ul>
-<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12722/fi-skl-6600u/igt@gem_exec_suspend@basic-s0@smem.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5122">i915#5122</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/fi-skl-6600u/igt@gem_exec_suspend@basic-s0@smem.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size:</p>
-<ul>
-<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12722/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6298">i915#6298</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113857v1/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions-varying-size.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_12722 -&gt; Patchwork_113857v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_12722: ec3cb908765a89bf72518590473c464a543372ff @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7155: 75c508d4e19c65683d4060cb3a772df600aaf23e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_113857v1: ec3cb908765a89bf72518590473c464a543372ff @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>efd9a7da2dd5 drm/i915/xehp: LNCF/LBCF workarounds should be on the GT list</p>
-
-</body>
-</html>
-
---===============6554261844881680074==--
