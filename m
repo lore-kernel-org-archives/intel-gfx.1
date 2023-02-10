@@ -4,146 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E5E6C636CD
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Feb 2023 12:28:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 767C7C05027
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Feb 2023 13:07:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB49D10E25C;
-	Fri, 10 Feb 2023 12:27:59 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E66CC10ED04
- for <intel-gfx@lists.freedesktop.org>; Fri, 10 Feb 2023 12:27:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E363210E135;
+	Fri, 10 Feb 2023 13:07:00 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57F2010E1D1;
+ Fri, 10 Feb 2023 13:06:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1676032078; x=1707568078;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=PBhq+eDTjLTrdcgXdz8p4hBOD6+x95oxn8W8NctDwVc=;
- b=Aotdz6ArxB4VVLNu6nwRB2MeTSB9tL7JNcYP0dFgb3dnSgThjfYKAxJO
- wmWhcO8kUvIQK5oEJP6QuXDdn4Y1GUZ67f42L8G9rH+JQ0CI4/va09a9Z
- 33ab4pYS+KBnH8pSpkBiayKNVmCDabI7sptcxHki64jtt/DLag2+jRJE5
- jcl7YuB1asitkIf72+C1piTGlBytJeDKfkZ9gR46ZT+VcorH9aJehxB5n
- cko5u+7GT8sNirceH/tuSCiDuZe1agCl1MyqzUdFUfo4J6CkBQ1oH3gzP
- 9IONLKJOyOA1d3NlpDmzR03mlzH8mhqDPq52+0A2bvA+xawk8dCAUaXcX g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10616"; a="331711708"
-X-IronPort-AV: E=Sophos;i="5.97,287,1669104000"; d="scan'208";a="331711708"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2023 04:27:58 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10616"; a="700467398"
-X-IronPort-AV: E=Sophos;i="5.97,287,1669104000"; d="scan'208";a="700467398"
-Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
- by orsmga001.jf.intel.com with ESMTP; 10 Feb 2023 04:27:58 -0800
-Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Fri, 10 Feb 2023 04:27:57 -0800
-Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16 via Frontend Transport; Fri, 10 Feb 2023 04:27:57 -0800
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.168)
- by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.16; Fri, 10 Feb 2023 04:27:57 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n+q+sCa5ca2MgeikeQ9wABjTYtoGq7d5sUeCla0jC8mPiBM6qMXTuv+fO+CrWJBZw/Lo9T1ErcVxzhP36rGOppo0vDyCcE4ijlfVcG2XWAtscxB40ozHxZPKlwLRiWoY4xgarM2a4qX1oRuinZGS6O1X/i3XeWWBpDtWdGymT1uMUdoZOqS2c/8jlouiSinM8Ng4t55an14T6NJwO45oATfHzGTPywfgVv0N91Cc9jAOwwO5jh/ODROXNMdWBj/nJfLA8lBRlAUfIV6EeAHke/GH0oHdQMjRwJNxDXKabLaGzgGDg1/NeEZaSTDFeE+SwdDl2/JMRDqFTSHIZsSLYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xNXIU+hxZb+AOVxXzaS1E1QmkiYk2TBeb/O7HTcaqGQ=;
- b=LVP6GMkH2TrqkRFCIHjh5DP/5k391PqLJNuBUuUPdLdqtBpJleD0hrnh4oTqJqqYs1zquYO0jryMMsIe6H6VEbPCWHQiglJDEGMCGfKC+DEPDE4qghPG5IbmrcQBIZHNO406lX49nBMq3mBrtsl+JsiiJ1YJOpho3ra8HigKsPOQncsRXQN87FmusLCiCmtoYNog9NImY8d7JB/PUR+6ZeRMt3KsdQaDHamgdxoYDWg9ahKPhs6J0VbtGJhPyKL84HGgokJuB2EoqUArTd8d3JDrCpJgcqMn4tbm89JiC+eldHSTv2K69FuL2KjAO5bqB0wVapGlNVdC/J6joRpZLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from BL0PR11MB2961.namprd11.prod.outlook.com (2603:10b6:208:76::23)
- by SA1PR11MB5899.namprd11.prod.outlook.com (2603:10b6:806:22a::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.19; Fri, 10 Feb
- 2023 12:27:55 +0000
-Received: from BL0PR11MB2961.namprd11.prod.outlook.com
- ([fe80::9f31:130:ef4c:97d6]) by BL0PR11MB2961.namprd11.prod.outlook.com
- ([fe80::9f31:130:ef4c:97d6%6]) with mapi id 15.20.6086.019; Fri, 10 Feb 2023
- 12:27:55 +0000
-Message-ID: <5e1eb840-c70a-0e07-b60f-9b408506955c@intel.com>
-Date: Fri, 10 Feb 2023 13:27:49 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Content-Language: en-US
-To: Andi Shyti <andi.shyti@linux.intel.com>, Jani Nikula
- <jani.nikula@linux.intel.com>
-References: <20230119095808.28004-1-nirmoy.das@intel.com>
- <87k01iaizc.fsf@intel.com> <Y+Y21jAdUlobK3dC@ashyti-mobl2.lan>
-From: "Das, Nirmoy" <nirmoy.das@intel.com>
-In-Reply-To: <Y+Y21jAdUlobK3dC@ashyti-mobl2.lan>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0142.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:96::15) To BL0PR11MB2961.namprd11.prod.outlook.com
- (2603:10b6:208:76::23)
+ t=1676034419; x=1707570419;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=J2sRuMIZR4XQkaZEw8inbQKQmbjNad/gTnJ7tpE5A5k=;
+ b=TxPTfGsa+hzyEPcaw90+i0HDlu7PCluHASfFkE7T6+iKA9ULRvOa6AMR
+ 3hQnlKeTqN+ZbQ2hSMm81Qqm+wfZAO9DxHNZt3PLlpwoL8cpzDaoLd4FI
+ R/ghLC0WQvamVv7m3x3D5zufw1hAb/xj3y/LhEJoj0uB3dwjyfPXWrBwf
+ 1OM/YLomZ8SypUzoehHoxGbf7cf8Dtp0AKCh3g0YiO/c/MugaU4JbSwqU
+ 0dtyuAHJzWXL+G+Zasm448RrEUacoKutuwj4qx6IhEO4j8o0Mgo7M2/oR
+ rxvTJbSpop2qUTi+PZp7Mo9h9JvxIVSkCJEO8STF+hKI49s73ajZfcnpo g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10616"; a="329045872"
+X-IronPort-AV: E=Sophos;i="5.97,287,1669104000"; d="scan'208";a="329045872"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2023 05:06:59 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10616"; a="731711283"
+X-IronPort-AV: E=Sophos;i="5.97,287,1669104000"; d="scan'208";a="731711283"
+Received: from athornbe-mobl1.ger.corp.intel.com (HELO localhost.localdomain)
+ ([10.213.209.249])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2023 05:06:57 -0800
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: Intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Fri, 10 Feb 2023 13:06:43 +0000
+Message-Id: <20230210130647.580135-2-tvrtko.ursulin@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230210130647.580135-1-tvrtko.ursulin@linux.intel.com>
+References: <20230210130647.580135-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR11MB2961:EE_|SA1PR11MB5899:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ac607ab-d458-4e2e-6923-08db0b623c57
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LJE/BSBgi59m6HFG4MxNAxiAn24J4F6swAe+3d2pz2Ska5jebDLbxRk6Q1bG0ArYryyyx90+dKKUEuYy8mWYtAT4sPLLxUzzdj0PmeQCvay6yaqvrESbunbkNvSapkIEMW2Q+TFK2lI/IfKoe7bv0n/D01GSxT8RQuETTtMGGDNDLsR5KkgbH8RxbkO3nSia0/JHQHsHyecXLlb+ueIadSQ/mnoTT7uf4hOcv7wL8qNvjC5lQ/Tt5wgHd+ZHGNuIfmUJjj89IcXqBv4k6sb0ki1oUcBXFVuS2g8jtP7R6neP6LLmzGZ7guYcz3FAGLIIAVHTel9vR/6mv+Ri4Pm2sCZuTGD5ke0JzM2y44s/4tOv8iE3WaPkn93qOtTQO7T2OTSaz+ynHcuEzwT0T1ySphrtbFt0HFJqmF0Cl+Kyd3qo9mUgebm4xwniH5BEF6glhscHZjFy5cX9mBZLJYjl5hyJG/KGY5Ovk+AiaQTY396JqkJXMs+IcHl3k19IXH1wXw3A2UvK285aMx2vAT2eEzuijiJKJasjYihzSJdy+qWRWTrPFxx36AVdcfmNk2JsOCnjBlSNmGr9S2ox2233cCRYXHxiDOcgrteZ6cXVOEfdY0xZHg/WpTXUMaD2aBgYkeh+wYABQXNqDAR+dvSDjLGK1XGanygjSTjls8FjoL1KDh03WC2waCDsF4Ndt6bb
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR11MB2961.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(396003)(346002)(366004)(376002)(136003)(39860400002)(451199018)(2616005)(26005)(86362001)(478600001)(966005)(6486002)(31696002)(8936002)(53546011)(6666004)(186003)(6512007)(6506007)(31686004)(110136005)(66476007)(8676002)(4326008)(38100700002)(82960400001)(66946007)(41300700001)(66556008)(83380400001)(2906002)(316002)(5660300002)(36756003)(43740500002)(45980500001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S0lLOTYxZXRVOE9HZHJwZ1pkaWtKMGROS0JsM21qa3l0TWNLNkVmdFdIYmd4?=
- =?utf-8?B?RkdIaWFYRlNPY0xNS3hwRGZhQ2FUbngrRUtOaU1WVFlGL0gwaVhIM3QyVS82?=
- =?utf-8?B?WjZaenZ6MHpDZHFuc21yVjRmRmZtSmkvUWlpUGdIRjgrSkpjT3A2M1F6bnFC?=
- =?utf-8?B?d1VtQUhNclNnUnRiditIRmVxQklsMEorUm8zNkdaMjhjSGJNbmF5NzVOcVpk?=
- =?utf-8?B?a1NTTVhQWW1SNzg1bi9UakRwNHpuSU11UW1XL2toalZwaXNpa3pDRVNxNmd2?=
- =?utf-8?B?K0dSM3FwZ3FpN1BQamZldnk1bDV2Y3J4WkdJQTBrSmI4aUFKbkNnbG1EWWNh?=
- =?utf-8?B?SXN3VUtZQ2QwcU1FYTlIYk5jVHdNdGkvSEZGdDg1L09XcU1kRStxUDZ0NU1s?=
- =?utf-8?B?Zm1HU3BITlZKcFdIMG5rVnB2ODlBM1ZwUzNTd1VKZ2xIcFRKcTdpaU45eVBn?=
- =?utf-8?B?dHlzdlJXbm02WkN3QXpXeXJoeDRHblpEN3gySERrR0xkeTlUdHZhSmNhYVBK?=
- =?utf-8?B?emJ2NU5TNXJzZHlmVnNMeU1zeHBRN2JxRmtOam04VzFBTTE2b3BNcG8rSzlw?=
- =?utf-8?B?MFAyN2xCOGJqQkwzQk5JcVpDMzhVdEhxUlk3UVVLbS9KQ0p2Umlsc0xrQVFo?=
- =?utf-8?B?UkpwTFRSazZZSWJlM24xaEpwUnlHN2xiZ1VFeGlMZWwrdVA4OGpMUXNYZXZa?=
- =?utf-8?B?aE1kVlJqZ3dtV0J3UndFNStzYUFZMGUrT1RLa1V2eFJadzZjQ05uRXJVcnpX?=
- =?utf-8?B?YStuK1dGS1V3dHY3UGhLR2VxUUlJMzN6WFRxWVNTbHQ0OUNvL0Z4WWxXZ29x?=
- =?utf-8?B?aHhJSTB5cEErM2JoRC9SWlN1MnBDNXEwc0h5c3VEZFp6eUNKcVVwSE9YVUFM?=
- =?utf-8?B?MTRaMG5HTjFaYjFSMHQ2eUdwVlJnaWFBRWlFUHRjdzkxdDdLSDNhdi9YTG10?=
- =?utf-8?B?QzBQTHoxNzYzTzAwd01Mb3NwT3JnWktyQWVVaXFzd0pKQ0lTY241b21GOVVG?=
- =?utf-8?B?V1FxNlp1cjJ0aGMyV1pWK09GamxWWHdGUkFTYnRST1NpRU5Qb2k2MVZpZVMr?=
- =?utf-8?B?Ly9IYTM4ME1TWWhxeG1uTmJwQzJDV0FQTkhWMms3UGphb1l4UG5LeDdNb2Fu?=
- =?utf-8?B?YmdKMWQzQWhkV2RPdFpYdklaR3VvUFdiNzZEeEw5QjJxR1VmNC85UnVkMDl1?=
- =?utf-8?B?elUwMi83RGhrRXFYMjlvNXFSQU1pSDZ4anNNZHRmanVSWEdTdkNoRGcrQkFD?=
- =?utf-8?B?VDZObnhFRVNuY3NhOVk0WHlYSERUT3ZKbHRReWQ2MmFwYnowOUUwQVc1ZXox?=
- =?utf-8?B?d3pWd3o2RCtzWXVVTmEzNW5UdzRjTzdNb1pPcUxMempuNnFtOTBLdWxGRENV?=
- =?utf-8?B?S0M2RWp4V01KMmh6a29PYUh5cXBHK0ZHa0U2RXUxV25HbE1jQzJDeGpnUUhw?=
- =?utf-8?B?VUVhd2lwQjI2QXk5dExUTjU0aVVEbDJUL1V0K1FnOUYyc1pHMFFoZDRWeGo2?=
- =?utf-8?B?Yk5FN210dGVqQ3pxT1I5bTJKRkFRTGFCNCt5bWtmM3dxU21KU1N3M21qNm9w?=
- =?utf-8?B?L3Qyb2hmdE1OQXB1Q1I2eEx6aFQ5QW0vNWwydGwvMjhmUTJDOGp3TUNDeXRo?=
- =?utf-8?B?MkhqUVZlcUg3VXpiM0pld2RWQk9wQXpSWDhVR3dEYVdBWnBIZWMvVWRQTjBm?=
- =?utf-8?B?MFM1TjFxZFdiWnFMYkU4WXdmM29USzYxbHBJanhQTHJNRjcyY25ncGNlZ3ZX?=
- =?utf-8?B?SVk4U3lrbi9zVmt5dzYxSEE5RDZEVmlralB0bzZ6b0NSMWpneW90WFdDK2Uy?=
- =?utf-8?B?Qmd5QVRIbUFiMEJOUk4xVUpNTlNWeUVwYkIrR2tneVIzbXJzMnN6b2tHMkVm?=
- =?utf-8?B?eUcxakJPQXlZUmFTQzRhd2MxRGVjV2xFdldXNU5FUk9zWk1DMGNQS2E0Y0Y4?=
- =?utf-8?B?ZXhCem4zR2lnNkloNEZ6ZkFueFhrajRFalcvdkl5cE42Mm9TSTVQUlFvcDFE?=
- =?utf-8?B?cjdsK2poalByYjFoanQxVGozSXpIdlprUTZhN2dYV045aXI4N3YvL1pWRTR4?=
- =?utf-8?B?aDl5WWtHOWVNTG5aY3FJSWhzZVA5NGlLanhRWVRsNEVWdVQ1aWdnNGhWRHZN?=
- =?utf-8?Q?993tplENfA2z7sIaTfp91o250?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ac607ab-d458-4e2e-6923-08db0b623c57
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR11MB2961.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2023 12:27:55.1681 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eigAEP1DqefyMiXETY3mJ8jAoL+6yZTlRcMTfy0fPi4mnEiUGwCwWGLsUl7PkaX70Uy3hmmblsCSYNGv+Nr2Rw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB5899
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/display: Pass drm_i915_private as
- param to i915 funcs
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [RFC 1/5] dma-fence: Track explicit waiters
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,141 +58,273 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-On 2/10/2023 1:21 PM, Andi Shyti wrote:
-> Hi Jani,
->
-> On Thu, Jan 19, 2023 at 12:58:47PM +0200, Jani Nikula wrote:
->> On Thu, 19 Jan 2023, Nirmoy Das <nirmoy.das@intel.com> wrote:
->>> For i915 functions pass struct drm_i915_private directly instead of
->>> struct drm_device.
->> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
->>
->> but maybe let's wait until we've synced up with drm-misc-next to avoid
->> the unnecessary conflict in drm-tip and linux-next?
-> can we push it now? Do you want me to take care of it?
+Track how many callers are explicity waiting on a fence to signal and
+allow querying that via new dma_fence_wait_count() API.
 
+This provides infrastructure on top of which generic "waitboost" concepts
+can be implemented by individual drivers. Wait-boosting is any reactive
+activity, such as raising the GPU clocks, which happens while there are
+active external waiters.
 
-Would be nice if this is gets picked, though I still didn't manage to 
-work on Jani's follow up "dev_privs to i915" cleanup patches.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+---
+ drivers/dma-buf/dma-fence.c               | 102 ++++++++++++++++------
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c |   1 -
+ include/linux/dma-fence.h                 |  14 +++
+ 3 files changed, 88 insertions(+), 29 deletions(-)
 
-FYI: this v1, I have a v2 for this 
-https://patchwork.freedesktop.org/patch/520148/?series=113083&rev=3
+diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+index 0de0482cd36e..ed43290c0bdf 100644
+--- a/drivers/dma-buf/dma-fence.c
++++ b/drivers/dma-buf/dma-fence.c
+@@ -344,6 +344,24 @@ void __dma_fence_might_wait(void)
+ }
+ #endif
+ 
++static void incr_wait_count(struct dma_fence *fence, struct dma_fence_cb *cb)
++{
++	lockdep_assert_held(fence->lock);
++
++	__set_bit(DMA_FENCE_CB_FLAG_WAITCOUNT_BIT, &cb->flags);
++	fence->waitcount++;
++	WARN_ON_ONCE(!fence->waitcount);
++}
++
++static void decr_wait_count(struct dma_fence *fence, struct dma_fence_cb *cb)
++{
++	lockdep_assert_held(fence->lock);
++
++	if (__test_and_clear_bit(DMA_FENCE_CB_FLAG_WAITCOUNT_BIT, &cb->flags)) {
++		WARN_ON_ONCE(!fence->waitcount);
++		fence->waitcount--;
++	}
++}
+ 
+ /**
+  * dma_fence_signal_timestamp_locked - signal completion of a fence
+@@ -384,6 +402,7 @@ int dma_fence_signal_timestamp_locked(struct dma_fence *fence,
+ 
+ 	list_for_each_entry_safe(cur, tmp, &cb_list, node) {
+ 		INIT_LIST_HEAD(&cur->node);
++		decr_wait_count(fence, cur);
+ 		cur->func(fence, cur);
+ 	}
+ 
+@@ -612,35 +631,15 @@ void dma_fence_enable_sw_signaling(struct dma_fence *fence)
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(fence->lock, flags);
++	fence->waitcount++;
++	WARN_ON_ONCE(!fence->waitcount);
+ 	__dma_fence_enable_signaling(fence);
+ 	spin_unlock_irqrestore(fence->lock, flags);
+ }
+ EXPORT_SYMBOL(dma_fence_enable_sw_signaling);
+ 
+-/**
+- * dma_fence_add_callback - add a callback to be called when the fence
+- * is signaled
+- * @fence: the fence to wait on
+- * @cb: the callback to register
+- * @func: the function to call
+- *
+- * Add a software callback to the fence. The caller should keep a reference to
+- * the fence.
+- *
+- * @cb will be initialized by dma_fence_add_callback(), no initialization
+- * by the caller is required. Any number of callbacks can be registered
+- * to a fence, but a callback can only be registered to one fence at a time.
+- *
+- * If fence is already signaled, this function will return -ENOENT (and
+- * *not* call the callback).
+- *
+- * Note that the callback can be called from an atomic context or irq context.
+- *
+- * Returns 0 in case of success, -ENOENT if the fence is already signaled
+- * and -EINVAL in case of error.
+- */
+-int dma_fence_add_callback(struct dma_fence *fence, struct dma_fence_cb *cb,
+-			   dma_fence_func_t func)
++static int add_callback(struct dma_fence *fence, struct dma_fence_cb *cb,
++			dma_fence_func_t func, bool wait)
+ {
+ 	unsigned long flags;
+ 	int ret = 0;
+@@ -655,10 +654,15 @@ int dma_fence_add_callback(struct dma_fence *fence, struct dma_fence_cb *cb,
+ 
+ 	spin_lock_irqsave(fence->lock, flags);
+ 
++	if (wait)
++		incr_wait_count(fence, cb);
++
+ 	if (__dma_fence_enable_signaling(fence)) {
+ 		cb->func = func;
+ 		list_add_tail(&cb->node, &fence->cb_list);
+ 	} else {
++		if (test_bit(DMA_FENCE_CB_FLAG_WAITCOUNT_BIT, &cb->flags))
++			decr_wait_count(fence, cb);
+ 		INIT_LIST_HEAD(&cb->node);
+ 		ret = -ENOENT;
+ 	}
+@@ -667,8 +671,44 @@ int dma_fence_add_callback(struct dma_fence *fence, struct dma_fence_cb *cb,
+ 
+ 	return ret;
+ }
++
++/**
++ * dma_fence_add_callback - add a callback to be called when the fence
++ * is signaled
++ * @fence: the fence to wait on
++ * @cb: the callback to register
++ * @func: the function to call
++ *
++ * Add a software callback to the fence. The caller should keep a reference to
++ * the fence.
++ *
++ * @cb will be initialized by dma_fence_add_callback(), no initialization
++ * by the caller is required. Any number of callbacks can be registered
++ * to a fence, but a callback can only be registered to one fence at a time.
++ *
++ * If fence is already signaled, this function will return -ENOENT (and
++ * *not* call the callback).
++ *
++ * Note that the callback can be called from an atomic context or irq context.
++ *
++ * Returns 0 in case of success, -ENOENT if the fence is already signaled
++ * and -EINVAL in case of error.
++ */
++int dma_fence_add_callback(struct dma_fence *fence, struct dma_fence_cb *cb,
++			   dma_fence_func_t func)
++{
++	return add_callback(fence, cb, func, false);
++}
+ EXPORT_SYMBOL(dma_fence_add_callback);
+ 
++int dma_fence_add_wait_callback(struct dma_fence *fence,
++				struct dma_fence_cb *cb,
++				dma_fence_func_t func)
++{
++	return add_callback(fence, cb, func, true);
++}
++EXPORT_SYMBOL(dma_fence_add_wait_callback);
++
+ /**
+  * dma_fence_get_status - returns the status upon completion
+  * @fence: the dma_fence to query
+@@ -721,8 +761,10 @@ dma_fence_remove_callback(struct dma_fence *fence, struct dma_fence_cb *cb)
+ 	spin_lock_irqsave(fence->lock, flags);
+ 
+ 	ret = !list_empty(&cb->node);
+-	if (ret)
++	if (ret) {
++		decr_wait_count(fence, cb);
+ 		list_del_init(&cb->node);
++	}
+ 
+ 	spin_unlock_irqrestore(fence->lock, flags);
+ 
+@@ -780,6 +822,7 @@ dma_fence_default_wait(struct dma_fence *fence, bool intr, signed long timeout)
+ 
+ 	cb.base.func = dma_fence_default_wait_cb;
+ 	cb.task = current;
++	incr_wait_count(fence, &cb.base);
+ 	list_add(&cb.base.node, &fence->cb_list);
+ 
+ 	while (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags) && ret > 0) {
+@@ -796,8 +839,10 @@ dma_fence_default_wait(struct dma_fence *fence, bool intr, signed long timeout)
+ 			ret = -ERESTARTSYS;
+ 	}
+ 
+-	if (!list_empty(&cb.base.node))
++	if (!list_empty(&cb.base.node)) {
++		decr_wait_count(fence, &cb.base);
+ 		list_del(&cb.base.node);
++	}
+ 	__set_current_state(TASK_RUNNING);
+ 
+ out:
+@@ -875,8 +920,8 @@ dma_fence_wait_any_timeout(struct dma_fence **fences, uint32_t count,
+ 		struct dma_fence *fence = fences[i];
+ 
+ 		cb[i].task = current;
+-		if (dma_fence_add_callback(fence, &cb[i].base,
+-					   dma_fence_default_wait_cb)) {
++		if (dma_fence_add_wait_callback(fence, &cb[i].base,
++						dma_fence_default_wait_cb)) {
+ 			/* This fence is already signaled */
+ 			if (idx)
+ 				*idx = i;
+@@ -957,6 +1002,7 @@ dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+ 	fence->context = context;
+ 	fence->seqno = seqno;
+ 	fence->flags = 0UL;
++	fence->waitcount = 0;
+ 	fence->error = 0;
+ 
+ 	trace_dma_fence_init(fence);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+index e971b153fda9..2693a0151a6b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+@@ -218,7 +218,6 @@ static bool switch_to_kernel_context(struct intel_engine_cs *engine)
+ 		 * until the background request retirement running every
+ 		 * second or two).
+ 		 */
+-		BUILD_BUG_ON(sizeof(rq->duration) > sizeof(rq->submitq));
+ 		dma_fence_add_callback(&rq->fence, &rq->duration.cb, duration);
+ 		rq->duration.emitted = ktime_get();
+ 	}
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index 775cdc0b4f24..d0ed923e4545 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -92,6 +92,7 @@ struct dma_fence {
+ 	u64 seqno;
+ 	unsigned long flags;
+ 	struct kref refcount;
++	unsigned int waitcount;
+ 	int error;
+ };
+ 
+@@ -116,6 +117,11 @@ typedef void (*dma_fence_func_t)(struct dma_fence *fence,
+ struct dma_fence_cb {
+ 	struct list_head node;
+ 	dma_fence_func_t func;
++	unsigned long flags;
++};
++
++enum dma_fence_cb_flag_bits {
++	DMA_FENCE_CB_FLAG_WAITCOUNT_BIT,
+ };
+ 
+ /**
+@@ -377,6 +383,9 @@ signed long dma_fence_default_wait(struct dma_fence *fence,
+ int dma_fence_add_callback(struct dma_fence *fence,
+ 			   struct dma_fence_cb *cb,
+ 			   dma_fence_func_t func);
++int dma_fence_add_wait_callback(struct dma_fence *fence,
++				struct dma_fence_cb *cb,
++				dma_fence_func_t func);
+ bool dma_fence_remove_callback(struct dma_fence *fence,
+ 			       struct dma_fence_cb *cb);
+ void dma_fence_enable_sw_signaling(struct dma_fence *fence);
+@@ -528,6 +537,11 @@ static inline int dma_fence_get_status_locked(struct dma_fence *fence)
+ 
+ int dma_fence_get_status(struct dma_fence *fence);
+ 
++static inline unsigned int dma_fence_wait_count(struct dma_fence *fence)
++{
++	return fence->waitcount;
++}
++
+ /**
+  * dma_fence_set_error - flag an error condition on the fence
+  * @fence: the dma_fence
+-- 
+2.34.1
 
-
-Regards,
-
-Nirmoy
-
->
-> Andi
->
->>> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
->>> Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
->>> Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
->>> ---
->>>   drivers/gpu/drm/i915/display/intel_display.c | 2 +-
->>>   drivers/gpu/drm/i915/display/intel_fbdev.c   | 8 ++++----
->>>   drivers/gpu/drm/i915/display/intel_fbdev.h   | 8 ++++----
->>>   drivers/gpu/drm/i915/i915_driver.c           | 4 +++-
->>>   4 files changed, 12 insertions(+), 10 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
->>> index c38a54efedbe..7584f65c6a7e 100644
->>> --- a/drivers/gpu/drm/i915/display/intel_display.c
->>> +++ b/drivers/gpu/drm/i915/display/intel_display.c
->>> @@ -8999,7 +8999,7 @@ void intel_display_driver_register(struct drm_i915_private *i915)
->>>   	 * enabled. We do it last so that the async config cannot run
->>>   	 * before the connectors are registered.
->>>   	 */
->>> -	intel_fbdev_initial_config_async(&i915->drm);
->>> +	intel_fbdev_initial_config_async(i915);
->>>   
->>>   	/*
->>>   	 * We need to coordinate the hotplugs with the asynchronous
->>> diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
->>> index 19f3b5d92a55..c2c52f8e5887 100644
->>> --- a/drivers/gpu/drm/i915/display/intel_fbdev.c
->>> +++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
->>> @@ -547,9 +547,9 @@ static void intel_fbdev_initial_config(void *data, async_cookie_t cookie)
->>>   		intel_fbdev_unregister(to_i915(ifbdev->helper.dev));
->>>   }
->>>   
->>> -void intel_fbdev_initial_config_async(struct drm_device *dev)
->>> +void intel_fbdev_initial_config_async(struct drm_i915_private *dev_priv)
->>>   {
->>> -	struct intel_fbdev *ifbdev = to_i915(dev)->display.fbdev.fbdev;
->>> +	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
->>>   
->>>   	if (!ifbdev)
->>>   		return;
->>> @@ -686,9 +686,9 @@ void intel_fbdev_output_poll_changed(struct drm_device *dev)
->>>   		drm_fb_helper_hotplug_event(&ifbdev->helper);
->>>   }
->>>   
->>> -void intel_fbdev_restore_mode(struct drm_device *dev)
->>> +void intel_fbdev_restore_mode(struct drm_i915_private *dev_priv)
->>>   {
->>> -	struct intel_fbdev *ifbdev = to_i915(dev)->display.fbdev.fbdev;
->>> +	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
->>>   
->>>   	if (!ifbdev)
->>>   		return;
->>> diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.h b/drivers/gpu/drm/i915/display/intel_fbdev.h
->>> index 0e95e9472fa3..04fd523a5023 100644
->>> --- a/drivers/gpu/drm/i915/display/intel_fbdev.h
->>> +++ b/drivers/gpu/drm/i915/display/intel_fbdev.h
->>> @@ -15,12 +15,12 @@ struct intel_framebuffer;
->>>   
->>>   #ifdef CONFIG_DRM_FBDEV_EMULATION
->>>   int intel_fbdev_init(struct drm_device *dev);
->>> -void intel_fbdev_initial_config_async(struct drm_device *dev);
->>> +void intel_fbdev_initial_config_async(struct drm_i915_private *dev_priv);
->>>   void intel_fbdev_unregister(struct drm_i915_private *dev_priv);
->>>   void intel_fbdev_fini(struct drm_i915_private *dev_priv);
->>>   void intel_fbdev_set_suspend(struct drm_device *dev, int state, bool synchronous);
->>>   void intel_fbdev_output_poll_changed(struct drm_device *dev);
->>> -void intel_fbdev_restore_mode(struct drm_device *dev);
->>> +void intel_fbdev_restore_mode(struct drm_i915_private *dev_priv);
->>>   struct intel_framebuffer *intel_fbdev_framebuffer(struct intel_fbdev *fbdev);
->>>   #else
->>>   static inline int intel_fbdev_init(struct drm_device *dev)
->>> @@ -28,7 +28,7 @@ static inline int intel_fbdev_init(struct drm_device *dev)
->>>   	return 0;
->>>   }
->>>   
->>> -static inline void intel_fbdev_initial_config_async(struct drm_device *dev)
->>> +static inline void intel_fbdev_initial_config_async(struct drm_i915_private *dev_priv)
->>>   {
->>>   }
->>>   
->>> @@ -48,7 +48,7 @@ static inline void intel_fbdev_output_poll_changed(struct drm_device *dev)
->>>   {
->>>   }
->>>   
->>> -static inline void intel_fbdev_restore_mode(struct drm_device *dev)
->>> +static inline void intel_fbdev_restore_mode(struct drm_i915_private *i915)
->>>   {
->>>   }
->>>   static inline struct intel_framebuffer *intel_fbdev_framebuffer(struct intel_fbdev *fbdev)
->>> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
->>> index 6469c7c1e154..cd6069c1762d 100644
->>> --- a/drivers/gpu/drm/i915/i915_driver.c
->>> +++ b/drivers/gpu/drm/i915/i915_driver.c
->>> @@ -1071,7 +1071,9 @@ static int i915_driver_open(struct drm_device *dev, struct drm_file *file)
->>>    */
->>>   static void i915_driver_lastclose(struct drm_device *dev)
->>>   {
->>> -	intel_fbdev_restore_mode(dev);
->>> +	struct drm_i915_private *i915 = to_i915(dev);
->>> +
->>> +	intel_fbdev_restore_mode(i915);
->>>   
->>>   	vga_switcheroo_process_delayed_switch();
->>>   }
->> -- 
->> Jani Nikula, Intel Open Source Graphics Center
