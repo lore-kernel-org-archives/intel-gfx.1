@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23B25C636CC
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Feb 2023 14:05:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4022CC636D4
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Feb 2023 14:35:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EB9910E5D0;
-	Mon, 13 Feb 2023 14:05:47 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30BFF10E9CE;
- Thu,  9 Feb 2023 11:51:10 +0000 (UTC)
-Received: from eldfell (unknown [194.136.85.206])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested) (Authenticated sender: pq)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 617F466020BA;
- Thu,  9 Feb 2023 11:51:08 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1675943468;
- bh=gEcYXKCtlo6yQqNyxWeotIj7uH3rY7t8jNu+XMLrCEE=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=OxFBkh4bINEoSBBmZtKh3H9MQIy9+ce2V2Q/lhCJQm2ik6v3OtQZQf2dV/UL0dQTZ
- zmAVU4rahNyEz0/P+q8mukbn7CBDmm+NhwwIn8ZuT0wsvID+5pq7R9MkdKjmKeZn7N
- h/1PLjEXma88YRIsRM00FrQg1iE/yYrQgVTWiJpOdtXqNlzhScmUC0DPLRP+70FsKM
- I5AiuWk8F/o1pgWLb+GrCVU8TLRqY7hib+qLrIdp5H8NvUlk87SEf/LXutZU5lE7Wi
- /nwaDYhALdz879QOkolj7FE6mw2emWpJOQbFx1C24cgjRYXbZ+VBWBfgMF+g5b7E2i
- 73q/OZ6yPhYSA==
-Date: Thu, 9 Feb 2023 13:51:05 +0200
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Message-ID: <20230209135105.4137872c.pekka.paalanen@collabora.com>
-In-Reply-To: <Y+QRSH3kLD4Xrktc@intel.com>
-References: <20230208040911.12590-1-ville.syrjala@linux.intel.com>
- <20230208040911.12590-2-ville.syrjala@linux.intel.com>
- <20230208141312.76df0cb0.pekka.paalanen@collabora.com>
- <Y+OdtR78JnQOTj38@intel.com> <Y+QRSH3kLD4Xrktc@intel.com>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 62DE810E5CD;
+	Mon, 13 Feb 2023 14:35:15 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9BF810E5CD;
+ Mon, 13 Feb 2023 14:35:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1676298912; x=1707834912;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=RLdy+YDxRqkkPnSQmk44oeoTfc/iFkmV40ZihiWJCmI=;
+ b=mgwcOAAY5xEro8XBodrmqawTxf1jK/64BS3hYN7OmsmWichOC/SOe6yW
+ v0s7RgQptEI+K7nwsZzv/2oZ0ExaBrcCNUdiHp53U+kGpSZ2Xl4mZWR+Q
+ 6hpRLAgTf7AcILsB8xQGbk3TQsbTEEL+asrvToQ7c8dpK8H2DebqlVP3f
+ 1ROa/XkcPWkwH1ulADjQ0mneaPyImPHLDY7WmpIhrvV/DLg5G+DABDgmq
+ VOYw6u6LM5LjRdWnL7OHmzsgKCwe/CQd3cozuRXd6qeDfXYAijGpsBEIc
+ Izp6MYlxXkwgdHPqXk32wDwQv8BjGeOjPWs34JgHbzTzl+i7s37rJOh92 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10620"; a="310533206"
+X-IronPort-AV: E=Sophos;i="5.97,294,1669104000"; d="scan'208";a="310533206"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Feb 2023 06:35:11 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10620"; a="914343932"
+X-IronPort-AV: E=Sophos;i="5.97,294,1669104000"; d="scan'208";a="914343932"
+Received: from jkrzyszt-mobl1.ger.corp.intel.com ([10.213.19.172])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Feb 2023 06:35:09 -0800
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: igt-dev@lists.freedesktop.org
+Date: Mon, 13 Feb 2023 15:34:45 +0100
+Message-Id: <20230213143445.24228-1-janusz.krzysztofik@linux.intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 13 Feb 2023 14:05:37 +0000
-Subject: Re: [Intel-gfx] [PATCH 1/2] drm: Introduce plane SIZE_HINTS property
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH i-g-t v2] tests/i915_suspend: Refresh device
+ list after *-without-i915 subtests
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,126 +55,121 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, Simon Ser <contact@emersion.fr>,
- intel-gfx@lists.freedesktop.org,
- Jonas =?UTF-8?B?w4VkYWhs?= <jadahl@redhat.com>,
- Daniel Stone <daniel@fooishbar.org>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 8 Feb 2023 23:16:56 +0200
-Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
+If any of *-without-i915 subtests fails or skips for any reason, it may
+leave the i915 module unloaded while keeping our device list populated
+with initially collected data.  In a follow up igt_fixture section we then
+try to reopen the device.  If the test has been executed with a device
+filter specified, an attempt to open the device finds a matching entry
+that belongs to the no longer existing device in that initially collected
+device list, fails to stat() it, concludes that's because of the device
+having been already open, and returns an error.  While that error,
+triggered after subtests completion, doesn't affect results of the
+subtest, reported by CI togethger with those results it is confusing to
+users reviewing those reports.
 
-> On Wed, Feb 08, 2023 at 03:03:49PM +0200, Ville Syrj=C3=A4l=C3=A4 wrote:
-> > On Wed, Feb 08, 2023 at 02:13:12PM +0200, Pekka Paalanen wrote: =20
-> > > On Wed,  8 Feb 2023 06:09:10 +0200
-> > > Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> > >  =20
-> > > > From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> > > >=20
-> > > > Add a new immutable plane property by which a plane can advertise
-> > > > a handful of recommended plane sizes. This would be mostly exposed
-> > > > by cursor planes as a slightly more capable replacement for
-> > > > the DRM_CAP_CURSOR_WIDTH/HEIGHT caps, which can only declare
-> > > > a one size fits all limit for the whole device.
-> > > >=20
-> > > > Currently eg. amdgpu/i915/nouveau just advertize the max cursor
-> > > > size via the cursor size caps. But always using the max sized
-> > > > cursor can waste a surprising amount of power, so a better
-> > > > stragey is desirable.
-> > > >=20
-> > > > Most other drivers don't specify any cursor size at all, in
-> > > > which case the ioctl code just claims that 64x64 is a great
-> > > > choice. Whether that is actually true is debatable.
-> > > >=20
-> > > > A poll of various compositor developers informs us that
-> > > > blindly probing with setcursor/atomic ioctl to determine
-> > > > suitable cursor sizes is not acceptable, thus the
-> > > > introduction of the new property to supplant the cursor
-> > > > size caps. The compositor will now be free to select a
-> > > > more optimal cursor size from the short list of options.
-> > > >=20
-> > > > Note that the reported sizes (either via the property or the
-> > > > caps) make no claims about things such as plane scaling. So
-> > > > these things should only really be consulted for simple
-> > > > "cursor like" use cases.
-> > > >=20
-> > > > Cc: Simon Ser <contact@emersion.fr>
-> > > > Cc: Jonas =C3=85dahl <jadahl@redhat.com>
-> > > > Cc: Daniel Stone <daniel@fooishbar.org>
-> > > > Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
-> > > > Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.c=
-om>
-> > > > ---
-> > > >  drivers/gpu/drm/drm_mode_config.c |  7 +++++++
-> > > >  drivers/gpu/drm/drm_plane.c       | 33 +++++++++++++++++++++++++++=
-++++
-> > > >  include/drm/drm_mode_config.h     |  5 +++++
-> > > >  include/drm/drm_plane.h           |  4 ++++
-> > > >  include/uapi/drm/drm_mode.h       |  5 +++++
-> > > >  5 files changed, 54 insertions(+)
+Fix this issue by refreshing the potentially outdated device list before
+continuing with drm_open_driver() if we've been called with a device
+filter specified.
 
-...
+While being at it, add a comment that explains why we call
+igt_devices_scan() from __igt_device_card_match() but don't force device
+rescan, and emit a debug message if we fail in _is_already_opened() on
+unsuccessful device stat().
 
-> > > > diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mod=
-e.h
-> > > > index 46becedf5b2f..4f0551d7f481 100644
-> > > > --- a/include/uapi/drm/drm_mode.h
-> > > > +++ b/include/uapi/drm/drm_mode.h
-> > > > @@ -849,6 +849,11 @@ struct drm_color_lut {
-> > > >  	__u16 reserved;
-> > > >  };
-> > > > =20
-> > > > +struct drm_plane_size_hint {
-> > > > +	__u16 width;
-> > > > +	__u16 height;
-> > > > +}; =20
-> > >=20
-> > > Hi Ville,
-> > >=20
-> > > uAPI documentation is missing.
-> > >=20
-> > > When there is just a single recommended size listed, userspace has it
-> > > easy: allocate a pair of DRM dumb buffers for each active CRTC, do
-> > > atomic test commits with those, and if the test succeeds, copy in the
-> > > pixels and fill the padding.
-> > >=20
-> > > What if we have multiple or a huge number of possible sizes? Probably
-> > > for each KMS reconfiguration cycle (which could be up to every refresh
-> > > cycle) userspace would need to allocate a new dumb buffer to have the
-> > > right size, and then test. Is that something we can actually afford to
-> > > do? I don't know. =20
-> >=20
-> > Why would you allocate multiple buffers? Just allocate one
-> > with the max size and then you can reuse it at any smaller
-> > size as needed. =20
+v2: don't free the device list -- we can't tell if it has been populated,
+    and igt_devices_free() fails if it hasn't,
+  - commit message updated, description improved.
 
-We also need to double-buffer.
+Subtest basic-s3-without-i915: FAIL (9.572s)
+(i915_suspend:9050) drmtest-WARNING: card maching filter 0 is already opened
+(i915_suspend:9050) drmtest-CRITICAL: Test abort in function drm_open_driver, file ../lib/drmtest.c:639:
+(i915_suspend:9050) drmtest-CRITICAL: abort condition: fd < 0
+(i915_suspend:9050) drmtest-CRITICAL: Last errno: 2, No such file or directory
+(i915_suspend:9050) drmtest-CRITICAL: No known gpu found for chipset flags 0x1 (intel)
+Test i915_suspend failed.
+**** DEBUG ****
+(i915_suspend:9050) drmtest-DEBUG: Looking for devices to open using filter 0: pci:vendor=intel,device=dg2
+(i915_suspend:9050) drmtest-DEBUG: Filter matched /dev/dri/card0 | /dev/dri/renderD128
+(i915_suspend:9050) drmtest-WARNING: card maching filter 0 is already opened
+(i915_suspend:9050) drmtest-CRITICAL: Test abort in function drm_open_driver, file ../lib/drmtest.c:639:
+(i915_suspend:9050) drmtest-CRITICAL: abort condition: fd < 0
+(i915_suspend:9050) drmtest-CRITICAL: Last errno: 2, No such file or directory
+(i915_suspend:9050) drmtest-CRITICAL: No known gpu found for chipset flags 0x1 (intel)
+(i915_suspend:9050) igt_core-INFO: Stack trace:
+(i915_suspend:9050) igt_core-INFO:   #0 ../lib/igt_core.c:2066 __igt_abort()
+(i915_suspend:9050) igt_core-INFO:   #1 ../lib/drmtest.c:573 drm_open_driver()
+(i915_suspend:9050) igt_core-INFO:   #2 ../tests/i915/i915_suspend.c:258 __igt_unique____real_main245()
+(i915_suspend:9050) igt_core-INFO:   #3 ../tests/i915/i915_suspend.c:245 main()
+(i915_suspend:9050) igt_core-INFO:   #4 ../sysdeps/nptl/libc_start_call_main.h:58 __libc_start_call_main()
+(i915_suspend:9050) igt_core-INFO:   #5 ../csu/libc-start.c:128 __libc_start_main@@GLIBC_2.34()
+(i915_suspend:9050) igt_core-INFO:   #6 [_start+0x2a]
+****  END  ****
 
-> Unfortunately the use of gbm here means the stride would
-> be wrong for the smaller sizes. So I guess a different
-> buffer for each size is what you need to do. Unless you
-> can just ignore the original stride when filling the buffer.
+Fixes: f7aff600ab16 ("tests/i915/i915_suspend: Disable d3cold_allowed for basic-s2idle-without-i915")
+Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Cc: Riana Tauro <riana.tauro@intel.com>
+---
+ lib/drmtest.c             |  2 +-
+ lib/igt_device_scan.c     |  4 ++++
+ tests/i915/i915_suspend.c | 12 +++++++++++-
+ 3 files changed, 16 insertions(+), 2 deletions(-)
 
-Why would the stride be wrong? AddFB2 carries explicit stride.
+diff --git a/lib/drmtest.c b/lib/drmtest.c
+index 16e80bdfcf..8e2d1ac50b 100644
+--- a/lib/drmtest.c
++++ b/lib/drmtest.c
+@@ -260,7 +260,7 @@ static bool _is_already_opened(const char *path, int as_idx)
+ 	 * we cannot even stat the device, so it's of no use - let's claim it's
+ 	 * already opened
+ 	 */
+-	if (stat(path, &new) != 0)
++	if (igt_debug_on(stat(path, &new) != 0))
+ 		return true;
+ 
+ 	for (int i = 0; i < as_idx; ++i) {
+diff --git a/lib/igt_device_scan.c b/lib/igt_device_scan.c
+index 8b767eed20..ae69ed09f1 100644
+--- a/lib/igt_device_scan.c
++++ b/lib/igt_device_scan.c
+@@ -1918,6 +1918,10 @@ static bool __igt_device_card_match(const char *filter,
+ 		return false;
+ 	memset(card, 0, sizeof(*card));
+ 
++	/*
++	 * Scan devices in case the user hasn't yet,
++	 * but leave a decision on forced rescan on the user side.
++	 */
+ 	igt_devices_scan(false);
+ 
+ 	if (igt_device_filter_apply(filter) == false)
+diff --git a/tests/i915/i915_suspend.c b/tests/i915/i915_suspend.c
+index 815f1c8a2c..1d304a9317 100644
+--- a/tests/i915/i915_suspend.c
++++ b/tests/i915/i915_suspend.c
+@@ -253,8 +253,18 @@ igt_main
+ 	igt_subtest("basic-s3-without-i915")
+ 		test_suspend_without_i915(SUSPEND_STATE_S3);
+ 
+-	igt_fixture
++	igt_fixture {
++		/*
++		 * Since above subtests may fail, leaving i915 module unloaded
++		 * but device list populated, refresh the device list before
++		 * reopening the i915 device if we've been called with a device
++		 * filter specified, otherwise drm_open_driver() will fail
++		 * instead of reloading the i915 module.
++		 */
++		if (igt_device_filter_count())
++			igt_devices_scan(true);
+ 		fd = drm_open_driver(DRIVER_INTEL);
++	}
+ 
+ 	igt_subtest("fence-restore-tiled2untiled") {
+ 		gem_require_mappable_ggtt(fd);
+-- 
+2.25.1
 
-You mean hardware would likely not accept the row padding?
-
-When filling the buffer, we can simply fill the real buffer size.
-That's what we already do to pad smaller surfaces up to the cursor size.
-
-So essentially we would just re-do AddFB2 with any smaller size while
-keeping the real stride. That's a good idea.
-
-Maybe we could refine this so that userspace uses the stride and height
-implied by the caps for allocation, and then use the exact cursor image
-size for AddFB2? And have drivers pick any size between those two they
-can use. The kernel would need the userspace to promise that the
-padding is always zero-initialized, so the driver can simply scan out
-any area of the buffer it needs.
-
-Then we don't need SIZE_HINTS.
-
-
-Thanks,
-pq
