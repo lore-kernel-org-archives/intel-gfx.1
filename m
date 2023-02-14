@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7565AC05027
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 05:34:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78E7CC6379F
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 05:34:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0795310E625;
-	Tue, 14 Feb 2023 05:33:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C110010E203;
+	Tue, 14 Feb 2023 05:33:53 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB26210E09E;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F28FE10E0B7;
  Tue, 14 Feb 2023 05:33:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1676352827; x=1707888827;
+ t=1676352828; x=1707888828;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=IJ/xMsE8oYbVrFStu5170dGaUb4//n7xTmCg6/+dk7U=;
- b=UGJLDlXA7oEkJTVPlfBKdgrHl8f+G+xo1Hnoqx+Pfdxbhv/hXSPadpko
- sBFOE1uSfsSoq6QS6g3b9QPHiJ32GCb6n2Re6rB5ztb9012krpaFBcujK
- fkI7gp6yeQaVi4GUYRj6cxMuQNkCyWPpJHcXEhqOKfrHUkG0fvcsP62Nz
- FOk021J9dP0homk2Id9mjCzrCHQC8WPHd9ZNNvw9DFq/dNnr6IauYSW/I
- KtNihqz6L99StHsM2FcadXrYoFEe5REATCa4q4VYpHXkllURG+VlwVLFl
- fewRpv5T9XqaDazdhkampVu8x+fJNRVlwHKMn3CoI59Pisf5o9gJ/IDPc A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10620"; a="358491794"
-X-IronPort-AV: E=Sophos;i="5.97,294,1669104000"; d="scan'208";a="358491794"
+ bh=D/DB8ssistwkFOCctlaSKlXWf6HIBZVDLjugqwQLmoE=;
+ b=OZ/CA7cNrj8oyt4qPeNXsofB6Vr1XIAN44pYhOPmPJk2LcoHAS0cXtlW
+ yRxcF58ZwWsPGXm1is3O9dSwRevf2WIoQdiy+p7Vlsmx2byyC/f+F3YDS
+ NgZMjteJv+GLUbLk6T+DDKnaOrjEqSM8i718tkXihkuwj2xnKnD0cEMCz
+ qMprGSj7sW4//3KtGXZip+01Z+uUgKi6k7b4T5uxQtiaxZ0setenR/cgD
+ HNCJr1/YU5yq4T0HQuCdTPHACXolaYpf3PU698+zNGLq6jFJGV9VEeJ+q
+ IMJUu/4lQokdaEVUuXPU/wKEI7OuE48inBB+7VUgc1u8cpHTcYVcUOxUq g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10620"; a="358491797"
+X-IronPort-AV: E=Sophos;i="5.97,294,1669104000"; d="scan'208";a="358491797"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Feb 2023 21:33:46 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10620"; a="669047078"
-X-IronPort-AV: E=Sophos;i="5.97,294,1669104000"; d="scan'208";a="669047078"
+ 13 Feb 2023 21:33:47 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10620"; a="669047084"
+X-IronPort-AV: E=Sophos;i="5.97,294,1669104000"; d="scan'208";a="669047084"
 Received: from orsosgc001.jf.intel.com ([10.165.21.138])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  13 Feb 2023 21:33:46 -0800
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 13 Feb 2023 21:33:40 -0800
-Message-Id: <20230214053342.1952226-2-ashutosh.dixit@intel.com>
+Date: Mon, 13 Feb 2023 21:33:42 -0800
+Message-Id: <20230214053342.1952226-4-ashutosh.dixit@intel.com>
 X-Mailer: git-send-email 2.38.0
 In-Reply-To: <20230214053342.1952226-1-ashutosh.dixit@intel.com>
 References: <20230214053342.1952226-1-ashutosh.dixit@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/3] drm/i915/hwmon: Replace
- hwm_field_scale_and_write with hwm_power_max_write
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915/hwmon: Expose power1_max_enable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,82 +60,112 @@ Cc: linux-hwmon@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-hwm_field_scale_and_write has a single caller hwm_power_write and is
-specific to hwm_power_write but makes it appear that it is a general
-function which can have multiple callers. Replace the function with
-hwm_power_max_write which is specific to hwm_power_write and use that in
-future patches where the function needs to be extended.
+On ATSM the PL1 power limit is disabled at power up. The previous uapi
+assumed that the PL1 limit is always enabled and therefore did not have a
+notion of a disabled PL1 limit. This results in erroneous PL1 limit values
+when PL1 limit is disabled. For example at power up, the disabled ATSM PL1
+limit is shown as 0 which means a low PL1 limit whereas the limit being
+disabled actually implies a high effective PL1 limit value.
+
+To get round this problem, expose power1_max_enable as a custom hwmon
+attribute. power1_max_enable can be used in conjunction with power1_max to
+interpret power1_max (PL1 limit) values correctly. It can also be used to
+enable/disable the PL1 power limit.
 
 Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/i915_hwmon.c | 36 ++++++++++++++-----------------
- 1 file changed, 16 insertions(+), 20 deletions(-)
+ .../ABI/testing/sysfs-driver-intel-i915-hwmon |  7 +++
+ drivers/gpu/drm/i915/i915_hwmon.c             | 48 +++++++++++++++++--
+ 2 files changed, 51 insertions(+), 4 deletions(-)
 
+diff --git a/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon b/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
+index 2d6a472eef885..edd94a44b4570 100644
+--- a/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
++++ b/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
+@@ -18,6 +18,13 @@ Description:	RW. Card reactive sustained  (PL1/Tau) power limit in microwatts.
+ 
+ 		Only supported for particular Intel i915 graphics platforms.
+ 
++What:		/sys/devices/.../hwmon/hwmon<i>/power1_max_enable
++Date:		May 2023
++KernelVersion:	6.3
++Contact:	intel-gfx@lists.freedesktop.org
++Description:	RW. Enable/disable the PL1 power limit (power1_max).
++
++		Only supported for particular Intel i915 graphics platforms.
+ What:		/sys/devices/.../hwmon/hwmon<i>/power1_rated_max
+ Date:		February 2023
+ KernelVersion:	6.2
 diff --git a/drivers/gpu/drm/i915/i915_hwmon.c b/drivers/gpu/drm/i915/i915_hwmon.c
-index 1225bc432f0d5..85195d61f89c7 100644
+index 7c20a6f47b92e..5665869d8602b 100644
 --- a/drivers/gpu/drm/i915/i915_hwmon.c
 +++ b/drivers/gpu/drm/i915/i915_hwmon.c
-@@ -99,20 +99,6 @@ hwm_field_read_and_scale(struct hwm_drvdata *ddat, i915_reg_t rgadr,
- 	return mul_u64_u32_shr(reg_value, scale_factor, nshift);
+@@ -230,13 +230,52 @@ hwm_power1_max_interval_store(struct device *dev,
+ 					    PKG_PWR_LIM_1_TIME, rxy);
+ 	return count;
  }
++static SENSOR_DEVICE_ATTR_RW(power1_max_interval, hwm_power1_max_interval, 0);
  
--static void
--hwm_field_scale_and_write(struct hwm_drvdata *ddat, i915_reg_t rgadr,
--			  int nshift, unsigned int scale_factor, long lval)
--{
--	u32 nval;
--
--	/* Computation in 64-bits to avoid overflow. Round to nearest. */
--	nval = DIV_ROUND_CLOSEST_ULL((u64)lval << nshift, scale_factor);
--
--	hwm_locked_with_pm_intel_uncore_rmw(ddat, rgadr,
--					    PKG_PWR_LIM_1,
--					    REG_FIELD_PREP(PKG_PWR_LIM_1, nval));
--}
--
- /*
-  * hwm_energy - Obtain energy value
-  *
-@@ -391,6 +377,21 @@ hwm_power_max_read(struct hwm_drvdata *ddat, long *val)
- 	return 0;
- }
- 
-+static int
-+hwm_power_max_write(struct hwm_drvdata *ddat, long val)
+-static SENSOR_DEVICE_ATTR(power1_max_interval, 0664,
+-			  hwm_power1_max_interval_show,
+-			  hwm_power1_max_interval_store, 0);
++static ssize_t
++hwm_power1_max_enable_show(struct device *dev, struct device_attribute *attr, char *buf)
 +{
-+	struct i915_hwmon *hwmon = ddat->hwmon;
-+	u32 nval;
++	struct hwm_drvdata *ddat = dev_get_drvdata(dev);
++	intel_wakeref_t wakeref;
++	u32 r;
 +
-+	/* Computation in 64-bits to avoid overflow. Round to nearest. */
-+	nval = DIV_ROUND_CLOSEST_ULL((u64)val << hwmon->scl_shift_power, SF_POWER);
++	with_intel_runtime_pm(ddat->uncore->rpm, wakeref)
++		r = intel_uncore_read(ddat->uncore, ddat->hwmon->rg.pkg_rapl_limit);
 +
-+	hwm_locked_with_pm_intel_uncore_rmw(ddat, hwmon->rg.pkg_rapl_limit,
-+					    PKG_PWR_LIM_1,
-+					    REG_FIELD_PREP(PKG_PWR_LIM_1, nval));
-+	return 0;
++	return sysfs_emit(buf, "%u\n", !!(r & PKG_PWR_LIM_1_EN));
 +}
 +
- static int
- hwm_power_read(struct hwm_drvdata *ddat, u32 attr, int chan, long *val)
- {
-@@ -425,16 +426,11 @@ hwm_power_read(struct hwm_drvdata *ddat, u32 attr, int chan, long *val)
- static int
- hwm_power_write(struct hwm_drvdata *ddat, u32 attr, int chan, long val)
- {
--	struct i915_hwmon *hwmon = ddat->hwmon;
- 	u32 uval;
++static ssize_t
++hwm_power1_max_enable_store(struct device *dev, struct device_attribute *attr,
++			    const char *buf, size_t count)
++{
++	struct hwm_drvdata *ddat = dev_get_drvdata(dev);
++	intel_wakeref_t wakeref;
++	u32 en, r;
++	bool _en;
++	int ret;
++
++	ret = kstrtobool(buf, &_en);
++	if (ret)
++		return ret;
++
++	en = REG_FIELD_PREP(PKG_PWR_LIM_1_EN, _en);
++	hwm_locked_with_pm_intel_uncore_rmw(ddat, ddat->hwmon->rg.pkg_rapl_limit,
++					    PKG_PWR_LIM_1_EN, en);
++
++	/* Verify, because PL1 limit cannot be disabled on all platforms */
++	with_intel_runtime_pm(ddat->uncore->rpm, wakeref)
++		r = intel_uncore_read(ddat->uncore, ddat->hwmon->rg.pkg_rapl_limit);
++	if ((r & PKG_PWR_LIM_1_EN) != en)
++		return -EPERM;
++
++	return count;
++}
++static SENSOR_DEVICE_ATTR_RW(power1_max_enable, hwm_power1_max_enable, 0);
  
- 	switch (attr) {
- 	case hwmon_power_max:
--		hwm_field_scale_and_write(ddat,
--					  hwmon->rg.pkg_rapl_limit,
--					  hwmon->scl_shift_power,
--					  SF_POWER, val);
--		return 0;
-+		return hwm_power_max_write(ddat, val);
- 	case hwmon_power_crit:
- 		uval = DIV_ROUND_CLOSEST_ULL(val << POWER_SETUP_I1_SHIFT, SF_POWER);
- 		return hwm_pcode_write_i1(ddat->uncore->i915, uval);
+ static struct attribute *hwm_attributes[] = {
+ 	&sensor_dev_attr_power1_max_interval.dev_attr.attr,
++	&sensor_dev_attr_power1_max_enable.dev_attr.attr,
+ 	NULL
+ };
+ 
+@@ -247,7 +286,8 @@ static umode_t hwm_attributes_visible(struct kobject *kobj,
+ 	struct hwm_drvdata *ddat = dev_get_drvdata(dev);
+ 	struct i915_hwmon *hwmon = ddat->hwmon;
+ 
+-	if (attr == &sensor_dev_attr_power1_max_interval.dev_attr.attr)
++	if (attr == &sensor_dev_attr_power1_max_interval.dev_attr.attr ||
++	    attr == &sensor_dev_attr_power1_max_enable.dev_attr.attr)
+ 		return i915_mmio_reg_valid(hwmon->rg.pkg_rapl_limit) ? attr->mode : 0;
+ 
+ 	return 0;
 -- 
 2.38.0
 
