@@ -4,30 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8D88C61DA4
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 23:27:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0238DC05027
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 23:42:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D16410E9BA;
-	Tue, 14 Feb 2023 23:27:52 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id D308810E10C;
- Tue, 14 Feb 2023 23:27:49 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id C7F27AADDC;
- Tue, 14 Feb 2023 23:27:49 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============4381086559211616351=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46F2110E064;
+	Tue, 14 Feb 2023 23:42:45 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4103710E10C
+ for <intel-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 23:42:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1676418162;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZUUIJ0cR3hLFYeEAbqlgShBHqdmwbGBdBl0fRIuzsMc=;
+ b=S9+yx2Xz8MgtgpdQ/xRh0pJuIIvnuKqkId+SOv29VcivcN6E5OSAJCv8g/6HLe20VQqEOM
+ 8YiyaHPM0Ibot8Jp5Zsx5sdDNzovUDDU8j1NnMctvI+3bw7+KRrJsu1mwjljfdGwKf5uo6
+ lXhCdy9Z5I1409lSWPf8q5qnRTNAC/0=
+Received: from mail-il1-f199.google.com (mail-il1-f199.google.com
+ [209.85.166.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-549-N6Bo3tFwNPCcXrRtO3jc6g-1; Tue, 14 Feb 2023 18:42:38 -0500
+X-MC-Unique: N6Bo3tFwNPCcXrRtO3jc6g-1
+Received: by mail-il1-f199.google.com with SMTP id
+ w3-20020a92d2c3000000b003152aeb055eso7295271ilg.11
+ for <intel-gfx@lists.freedesktop.org>; Tue, 14 Feb 2023 15:42:38 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ZUUIJ0cR3hLFYeEAbqlgShBHqdmwbGBdBl0fRIuzsMc=;
+ b=ZvMLtjByGNKB8jXkSnTXzYaGlgP1swgEgI2zGc8j5Kq6NCjRQMA5ywwDyUPkvEhqRW
+ fdgrwvacFZKG7gxKY9dOoir4o6po6uIuM8CjeMmk82HuJMa15iaYhY5SzLoh6MPG0CUE
+ BTWxVFVGnOduFTu/W/mF9nR+a2XFcQm5rUGiZRfL9zm1bcS8tbWrUSzuj3lgZudsYxUg
+ pYf0360oMV26MEg54FOlJuth4fX1V5l4aaFmVM0+OFARYUijBeV3/VgKnKlRfHKmdjuW
+ tcTq0QB+8mXXgksdhcV3elPWRR8PE7DaJyodRCIEVNcr+9e3ScThCFahz2jFB5sbmine
+ AjTw==
+X-Gm-Message-State: AO0yUKUq4ElWAJwjqxpL/HcXqwmymzs1X0cuOQcpEROEZ0ONDJ48vKS5
+ bvVQoAjp/NXNuv3pqdxEiYSdAdn6hZNrGqDQm33FslKhGxYD5jw+NwSxZgEqy3B0ptvy4Lp567G
+ uPahO84lcokcAelS7EZ0+446ZKkhW
+X-Received: by 2002:a05:6e02:1989:b0:311:66d:47aa with SMTP id
+ g9-20020a056e02198900b00311066d47aamr486645ilf.26.1676418158125; 
+ Tue, 14 Feb 2023 15:42:38 -0800 (PST)
+X-Google-Smtp-Source: AK7set+cnwaRu+xYLJYwKfQ18mKejRaIiksmj5ioXJ6on5Mp2TS8hLl7ygq6BKPlyKgT13iA1wicDA==
+X-Received: by 2002:a05:6e02:1989:b0:311:66d:47aa with SMTP id
+ g9-20020a056e02198900b00311066d47aamr486634ilf.26.1676418157875; 
+ Tue, 14 Feb 2023 15:42:37 -0800 (PST)
+Received: from redhat.com ([38.15.36.239]) by smtp.gmail.com with ESMTPSA id
+ b4-20020a02a584000000b003c4e8efcd09sm310027jam.32.2023.02.14.15.42.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Feb 2023 15:42:37 -0800 (PST)
+Date: Tue, 14 Feb 2023 16:42:35 -0700
+From: Alex Williamson <alex.williamson@redhat.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Message-ID: <20230214164235.64e2dccb.alex.williamson@redhat.com>
+In-Reply-To: <Y+wYX34sPvPQmGSr@nvidia.com>
+References: <20230213151348.56451-1-yi.l.liu@intel.com>
+ <20230213151348.56451-6-yi.l.liu@intel.com>
+ <20230214152627.3a399523.alex.williamson@redhat.com>
+ <Y+wYX34sPvPQmGSr@nvidia.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.35; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Alan Previn" <alan.previn.teres.alexis@intel.com>
-Date: Tue, 14 Feb 2023 23:27:49 -0000
-Message-ID: <167641726980.8403.12273060614879714021@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20230214213844.2890382-1-alan.previn.teres.alexis@intel.com>
-In-Reply-To: <20230214213844.2890382-1-alan.previn.teres.alexis@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/pxp=3A_Add_MTL_PXP_Support_=28rev5=29?=
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v3 05/15] kvm/vfio: Accept vfio device file
+ from userspace
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,255 +86,81 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: linux-s390@vger.kernel.org, Yi Liu <yi.l.liu@intel.com>,
+ yi.y.sun@linux.intel.com, mjrosato@linux.ibm.com, kvm@vger.kernel.org,
+ Michael Ellerman <mpe@ellerman.id.au>, intel-gvt-dev@lists.freedesktop.org,
+ joro@8bytes.org, cohuck@redhat.com, peterx@redhat.com, eric.auger@redhat.com,
+ Timothy Pearson <tpearson@raptorengineering.com>, nicolinc@nvidia.com,
+ shameerali.kolothum.thodi@huawei.com, suravee.suthikulpanit@amd.com,
+ intel-gfx@lists.freedesktop.org, chao.p.peng@linux.intel.com, lulu@redhat.com,
+ robin.murphy@arm.com, jasowang@redhat.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============4381086559211616351==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Tue, 14 Feb 2023 19:25:19 -0400
+Jason Gunthorpe <jgg@nvidia.com> wrote:
 
-== Series Details ==
+> On Tue, Feb 14, 2023 at 03:26:27PM -0700, Alex Williamson wrote:
+> > > index 857d6ba349e1..d869913baafd 100644
+> > > --- a/virt/kvm/vfio.c
+> > > +++ b/virt/kvm/vfio.c
+> > > @@ -286,18 +286,18 @@ static int kvm_vfio_set_file(struct kvm_device *dev, long attr,
+> > >  	int32_t fd;
+> > >  
+> > >  	switch (attr) {
+> > > -	case KVM_DEV_VFIO_GROUP_ADD:
+> > > +	case KVM_DEV_VFIO_FILE_ADD:
+> > >  		if (get_user(fd, argp))
+> > >  			return -EFAULT;
+> > >  		return kvm_vfio_file_add(dev, fd);
+> > >  
+> > > -	case KVM_DEV_VFIO_GROUP_DEL:
+> > > +	case KVM_DEV_VFIO_FILE_DEL:
+> > >  		if (get_user(fd, argp))
+> > >  			return -EFAULT;
+> > >  		return kvm_vfio_file_del(dev, fd);
+> > >  
+> > >  #ifdef CONFIG_SPAPR_TCE_IOMMU
+> > > -	case KVM_DEV_VFIO_GROUP_SET_SPAPR_TCE:
+> > > +	case KVM_DEV_VFIO_FILE_SET_SPAPR_TCE:
+> > >  		return kvm_vfio_file_set_spapr_tce(dev, arg);  
+> > 
+> > I don't see that the SPAPR code is so easily fungible to a device
+> > file descriptor.  The kvm_vfio_spapr_tce data structure includes a
+> > groupfd, which is required to match a groupfd on the file_list.  So
+> > a SPAPR user cannot pass a cdev via FILE_ADD if they intend to use
+> > this TCE code.  
+> 
+> SPAPR cannot use cdev at all, cdev mode only works with iommufd.
+> 
+> So with my other remark about blocking unbound cdevs, in SPAPR mode
+> you can never open a cdev and make it bound thus
+> kvm_vfio_file_iommu_group() and others will return NULL always for
+> cdev.
+> 
+> Thus AFAICT this is all fine.
 
-Series: drm/i915/pxp: Add MTL PXP Support (rev5)
-URL   : https://patchwork.freedesktop.org/series/112647/
-State : success
+A device file opened through a group could be passed through this
+interface though, right?  Do we just chalk that up to user error?
+Maybe the SPAPR extension at least needs to be documented as relying on
+registering groups rather than devices.
+ 
+> Yi, you should also add some kconfig stuff to ensure that SPAPR always
+> has the group interface compiled in.
+> 
+> > That also makes me wonder what we're really gaining in forcing this
+> > generalization from group to file.    
+> 
+> I think it is just less code overall. Otherwise we need to needlessly
+> double quite a lot of stuff, rather pointlessly, IMHO.
+> 
+> I'm still thinking about proposing to just delete all this SPAPR
+> stuff. Power still hasn't had the patches applied to make it work
+> again so it seems to all be dead.
 
-== Summary ==
+There's been some off-list discussion about at least fixing SPAPR
+support, but yes, it either needs to get some love or we ought to think
+about its future.  Thanks,
 
-CI Bug Log - changes from CI_DRM_12739 -> Patchwork_112647v5
-====================================================
+Alex
 
-Summary
--------
-
-  **WARNING**
-
-  Minor unknown changes coming with Patchwork_112647v5 need to be verified
-  manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_112647v5, please notify your bug team to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112647v5/index.html
-
-Participating hosts (39 -> 38)
-------------------------------
-
-  Missing    (1): fi-snb-2520m 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_112647v5:
-
-### IGT changes ###
-
-#### Warnings ####
-
-  * igt@i915_selftest@live@gt_heartbeat:
-    - fi-kbl-soraka:      [DMESG-FAIL][1] ([i915#5334] / [i915#7872]) -> [ABORT][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112647v5/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html
-
-  
-#### Suppressed ####
-
-  The following results come from untrusted machines, tests, or statuses.
-  They do not affect the overall result.
-
-  * igt@i915_suspend@basic-s2idle-without-i915:
-    - {bat-rpls-1}:       NOTRUN -> [ABORT][3]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112647v5/bat-rpls-1/igt@i915_suspend@basic-s2idle-without-i915.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_112647v5 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions:
-    - fi-bsw-n3050:       [PASS][4] -> [FAIL][5] ([i915#6298])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112647v5/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html
-
-  
-#### Possible fixes ####
-
-  * igt@gem_exec_gttfill@basic:
-    - fi-pnv-d510:        [FAIL][6] ([i915#7229]) -> [PASS][7]
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/fi-pnv-d510/igt@gem_exec_gttfill@basic.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112647v5/fi-pnv-d510/igt@gem_exec_gttfill@basic.html
-
-  * igt@i915_selftest@live@gt_heartbeat:
-    - fi-apl-guc:         [DMESG-FAIL][8] ([i915#5334]) -> [PASS][9]
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112647v5/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html
-
-  * igt@i915_selftest@live@reset:
-    - {bat-rpls-1}:       [ABORT][10] ([i915#4983]) -> [PASS][11]
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/bat-rpls-1/igt@i915_selftest@live@reset.html
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112647v5/bat-rpls-1/igt@i915_selftest@live@reset.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
-  [i915#5334]: https://gitlab.freedesktop.org/drm/intel/issues/5334
-  [i915#6298]: https://gitlab.freedesktop.org/drm/intel/issues/6298
-  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
-  [i915#7229]: https://gitlab.freedesktop.org/drm/intel/issues/7229
-  [i915#7872]: https://gitlab.freedesktop.org/drm/intel/issues/7872
-  [i915#7932]: https://gitlab.freedesktop.org/drm/intel/issues/7932
-  [i915#7977]: https://gitlab.freedesktop.org/drm/intel/issues/7977
-  [i915#7996]: https://gitlab.freedesktop.org/drm/intel/issues/7996
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_12739 -> Patchwork_112647v5
-
-  CI-20190529: 20190529
-  CI_DRM_12739: 5fc904286af94038fbf2c7cda50ed871b70cf4e8 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7160: 45da871dd2684227e93a2fc002b87dfc58bd5fd9 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_112647v5: 5fc904286af94038fbf2c7cda50ed871b70cf4e8 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-f4d42a743541 drm/i915/pxp: Enable PXP with MTL-GSC-CS
-5604da0f5507 drm/i915/pxp: On MTL, KCR enabling doesn't wait on tee component
-ba1c0f52684b drm/i915/pxp: MTL-KCR interrupt ctrl's are in GT-0
-6addf55bed82 drm/i915/pxp: Add ARB session creation and cleanup
-9d13e02eecce drm/i915/pxp: Add GSC-CS backend to send GSC fw messages
-2e34fc4a4adb drm/i915/pxp: Add MTL helpers to submit Heci-Cmd-Packet to GSC
-13734f3abe7b drm/i915/pxp: Add MTL hw-plumbing enabling for KCR operation
-4da6c8db5196 drm/i915/pxp: Add GSC-CS back-end resource init and cleanup
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112647v5/index.html
-
---===============4381086559211616351==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/pxp: Add MTL PXP Support (rev5)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/112647/">https://patchwork.freedesktop.org/series/112647/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112647v5/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112647v5/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_12739 -&gt; Patchwork_112647v5</h1>
-<h2>Summary</h2>
-<p><strong>WARNING</strong></p>
-<p>Minor unknown changes coming with Patchwork_112647v5 need to be verified<br />
-  manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_112647v5, please notify your bug team to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112647v5/index.html</p>
-<h2>Participating hosts (39 -&gt; 38)</h2>
-<p>Missing    (1): fi-snb-2520m </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_112647v5:</p>
-<h3>IGT changes</h3>
-<h4>Warnings</h4>
-<ul>
-<li>igt@i915_selftest@live@gt_heartbeat:<ul>
-<li>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7872">i915#7872</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112647v5/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html">ABORT</a></li>
-</ul>
-</li>
-</ul>
-<h4>Suppressed</h4>
-<p>The following results come from untrusted machines, tests, or statuses.<br />
-  They do not affect the overall result.</p>
-<ul>
-<li>igt@i915_suspend@basic-s2idle-without-i915:<ul>
-<li>{bat-rpls-1}:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112647v5/bat-rpls-1/igt@i915_suspend@basic-s2idle-without-i915.html">ABORT</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_112647v5 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions:<ul>
-<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112647v5/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6298">i915#6298</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@gem_exec_gttfill@basic:</p>
-<ul>
-<li>fi-pnv-d510:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/fi-pnv-d510/igt@gem_exec_gttfill@basic.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7229">i915#7229</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112647v5/fi-pnv-d510/igt@gem_exec_gttfill@basic.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@gt_heartbeat:</p>
-<ul>
-<li>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112647v5/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@reset:</p>
-<ul>
-<li>{bat-rpls-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/bat-rpls-1/igt@i915_selftest@live@reset.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_112647v5/bat-rpls-1/igt@i915_selftest@live@reset.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_12739 -&gt; Patchwork_112647v5</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_12739: 5fc904286af94038fbf2c7cda50ed871b70cf4e8 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7160: 45da871dd2684227e93a2fc002b87dfc58bd5fd9 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_112647v5: 5fc904286af94038fbf2c7cda50ed871b70cf4e8 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>f4d42a743541 drm/i915/pxp: Enable PXP with MTL-GSC-CS<br />
-5604da0f5507 drm/i915/pxp: On MTL, KCR enabling doesn't wait on tee component<br />
-ba1c0f52684b drm/i915/pxp: MTL-KCR interrupt ctrl's are in GT-0<br />
-6addf55bed82 drm/i915/pxp: Add ARB session creation and cleanup<br />
-9d13e02eecce drm/i915/pxp: Add GSC-CS backend to send GSC fw messages<br />
-2e34fc4a4adb drm/i915/pxp: Add MTL helpers to submit Heci-Cmd-Packet to GSC<br />
-13734f3abe7b drm/i915/pxp: Add MTL hw-plumbing enabling for KCR operation<br />
-4da6c8db5196 drm/i915/pxp: Add GSC-CS back-end resource init and cleanup</p>
-
-</body>
-</html>
-
---===============4381086559211616351==--
