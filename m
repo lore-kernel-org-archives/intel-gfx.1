@@ -4,66 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59D4EC05027
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 07:43:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A76A8C61DA4
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Feb 2023 08:05:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE70910E7FD;
-	Tue, 14 Feb 2023 07:42:49 +0000 (UTC)
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [IPv6:2a00:1450:4864:20::42d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 893DE10E7EE;
- Tue, 14 Feb 2023 07:42:44 +0000 (UTC)
-Received: by mail-wr1-x42d.google.com with SMTP id k3so7034015wrv.5;
- Mon, 13 Feb 2023 23:42:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=VJcYwsYAXbDZie3h/U5uPdvDTCfa7cGCraXZW9wLkas=;
- b=QkjW7ocNAXD4a1SlnGCn6j3l0LFfMrXU8ACts9gV39M2YfTBYl5AZeSiGabgsavK9l
- Ica6uq59VLs+29CZrYW3Afi806D/CgomcYXxEyqpeODqOsNCHhE2gUeTTAuMa7CsaDs4
- gAbXdxhvCOO7tMbWlakfixBhHmUt6994TpAhLL++WAFiKKgNdfac8dCm0Xbp4nGx7emI
- I+8ihJ4VawQx4qmvR3MFZ7g0JY3zOH869tc7aCpSDJzjoAHZAsWVV6FWX59PDIa+xvWn
- OOi2lL9GDXVwTS8N1W60+E0Qo85XOwHJlqARBWOag+UkUNT4TCCIqb8GuBBFkPQigTTp
- dpZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=VJcYwsYAXbDZie3h/U5uPdvDTCfa7cGCraXZW9wLkas=;
- b=34dU3dgcD3D9lasypC3oOeEn7eYdd5Hx/qsrgxZ4TKVsM2a3sT18nJqBkAQ9iTEykO
- B6q+Z65GnlamiEd2IMy7MpHI5lTMGZMDW3wSvwwwZjJ96Cx/WmwZCeleFZPM0JXcNAEb
- 9+JNUvtBzl110sBf7oHFBmDDUw3TFEwRwH2u0nzsU9tiQz6f20jxTd2celeyyksO/oHV
- m4GliGyFKpwg4anQi1psEiXXggVppen5AFq8gSRqrtqZmrqS3yFmplPhI0jyNidF6cF9
- 5kbPgLLRZw3IqwVmWqHTLQ13w/ZsZZFElVvJxP31C9LfVjz0ldI/Q/6W5u6pcJwse1WL
- HaTA==
-X-Gm-Message-State: AO0yUKXZuTmu97GzLFe6/QhysLj8OInRAgb63rYHwe0XrPQ3UKigKckI
- zqOiLpOG827QpOSHlmJFJa+TgdERkRs=
-X-Google-Smtp-Source: AK7set9FHucIM88s+DLeGFDtSQnMRBnQFDglmTapyX0bo7H0FzIL8K1gVBii7MGgLLgMjEg/UV0cOw==
-X-Received: by 2002:adf:de8d:0:b0:2c5:588f:84a0 with SMTP id
- w13-20020adfde8d000000b002c5588f84a0mr1251931wrl.3.1676360563022; 
- Mon, 13 Feb 2023 23:42:43 -0800 (PST)
-Received: from able.fritz.box (p5b0ea2e7.dip0.t-ipconnect.de. [91.14.162.231])
- by smtp.gmail.com with ESMTPSA id
- e14-20020a5d65ce000000b002c561805a4csm1679855wrw.45.2023.02.13.23.42.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Feb 2023 23:42:42 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Date: Tue, 14 Feb 2023 08:42:37 +0100
-Message-Id: <20230214074238.65865-3-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230214074238.65865-1-christian.koenig@amd.com>
-References: <20230214074238.65865-1-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5135910E80A;
+	Tue, 14 Feb 2023 08:05:45 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B35E10E808;
+ Tue, 14 Feb 2023 08:05:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1676361942; x=1707897942;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=CWIV/X4A8G0EevjiVH0XxRulHNGz994WUMSOVSJoSvA=;
+ b=AEUkzCFQ4nAuZ41VoD7T0dIhnyuOyoTfecdkvc0er078buClaEtHh8IC
+ Iq5eXAFSmJ+DWvO5ipzm8DnONwol9wZKOKh02qWKQ/Ndp6y8eS+ot6cV/
+ Y+DioKNQCFXVtf82Sz+MfJnkIHTqPnxM4eBU96I9lWeva1JpbwWsegyHx
+ yoj/O3PbjuORz9KrT81P23lZz/WlLorQMJFDGqbIipu6W6Nd0tTHwcn57
+ b3DG84o2W8KQAIU/vYz6xkBP+RW+iw6+MuoFIbjXAAGinromaD08zcnM1
+ E9YsJyzdhzGoEthyHL5uTTqQBCg0PsiwwI7OHPH8sJgdY0aQzGyc635aH g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10620"; a="310738269"
+X-IronPort-AV: E=Sophos;i="5.97,296,1669104000"; d="scan'208";a="310738269"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2023 00:05:41 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10620"; a="811931261"
+X-IronPort-AV: E=Sophos;i="5.97,296,1669104000"; d="scan'208";a="811931261"
+Received: from jkrzyszt-mobl1.ger.corp.intel.com ([10.213.19.67])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2023 00:05:35 -0800
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Date: Tue, 14 Feb 2023 09:05:32 +0100
+Message-ID: <13632284.RDIVbhacDa@jkrzyszt-mobl1.ger.corp.intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <167633350233.8399.5809547591125640488@emeril.freedesktop.org>
+References: <20230213232128.59217-1-janusz.krzysztofik@linux.intel.com>
+ <167633350233.8399.5809547591125640488@emeril.freedesktop.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/3] drm/ttm: Change the parameters of
- ttm_range_man_init() from pages to bytes
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Subject: Re: [Intel-gfx] 
+ =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgUmVz?=
+ =?utf-8?q?olve_barrier_tasks_list_related_issues?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,147 +62,175 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Amaranath.Somalapuram@amd.com
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, dri-devel@lists.freedesktop.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Chris Wilson <chris.p.wilson@linux.intel.com>,
+ Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
+On Tuesday, 14 February 2023 01:11:42 CET Patchwork wrote:
+> == Series Details ==
+> 
+> Series: Resolve barrier tasks list related issues
+> URL   : https://patchwork.freedesktop.org/series/113975/
+> State : success
+> 
+> == Summary ==
+> 
+> CI Bug Log - changes from CI_DRM_12734 -> Patchwork_113975v1
+> ====================================================
+> 
+> Summary
+> -------
+> 
+>   **SUCCESS**
+> 
+>   No regressions found.
+> 
+>   External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113975v1/
+index.html
+> 
+> Participating hosts (39 -> 37)
+> ------------------------------
+> 
+>   Missing    (2): fi-kbl-soraka fi-snb-2520m 
+> 
+> Possible new issues
+> -------------------
+> 
+>   Here are the unknown changes that may have been introduced in 
+Patchwork_113975v1:
+> 
+> ### IGT changes ###
+> 
+> #### Possible regressions ####
+> 
+>   * {igt@gem_barrier_race@remote-request@rcs0} (NEW):
+>     - bat-dg1-5:          NOTRUN -> [ABORT][1]
+>    [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113975v1/bat-dg1-5/igt@gem_barrier_race@remote-request@rcs0.html
+>     - fi-kbl-guc:         NOTRUN -> [ABORT][2]
+>    [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113975v1/fi-kbl-guc/igt@gem_barrier_race@remote-request@rcs0.html
+> 
+>   
+> #### Suppressed ####
+> 
+>   The following results come from untrusted machines, tests, or statuses.
+>   They do not affect the overall result.
+> 
+>   * igt@i915_selftest@live@uncore:
+>     - {bat-adlp-9}:       [PASS][3] -> [DMESG-WARN][4] +5 similar issues
+>    [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12734/bat-adlp-9/
+igt@i915_selftest@live@uncore.html
+>    [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113975v1/bat-adlp-9/igt@i915_selftest@live@uncore.html
+> 
+>   
+> New tests
+> ---------
+> 
+>   New tests have been introduced between CI_DRM_12734 and 
+Patchwork_113975v1:
+> 
+> ### New IGT tests (2) ###
+> 
+>   * igt@gem_barrier_race@remote-request:
+>     - Statuses :
+>     - Exec time: [None] s
+> 
+>   * igt@gem_barrier_race@remote-request@rcs0:
+>     - Statuses : 2 abort(s) 29 pass(s) 4 skip(s)
+>     - Exec time: [0.0] s
+> 
+>   
+> 
+> Known issues
+> ------------
+> 
+>   Here are the changes found in Patchwork_113975v1 that come from known 
+issues:
+> 
+> ### IGT changes ###
+> 
+> #### Issues hit ####
+> 
+>   * {igt@gem_barrier_race@remote-request@rcs0} (NEW):
+>     - fi-pnv-d510:        NOTRUN -> [SKIP][5] ([fdo#109271])
+>    [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113975v1/fi-pnv-d510/igt@gem_barrier_race@remote-request@rcs0.html
+>     - fi-blb-e6850:       NOTRUN -> [SKIP][6] ([fdo#109271])
+>    [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113975v1/fi-blb-e6850/igt@gem_barrier_race@remote-request@rcs0.html
+>     - fi-ivb-3770:        NOTRUN -> [SKIP][7] ([fdo#109271])
+>    [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113975v1/fi-ivb-3770/igt@gem_barrier_race@remote-request@rcs0.html
+>     - fi-ilk-650:         NOTRUN -> [SKIP][8] ([fdo#109271])
+>    [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113975v1/fi-ilk-650/igt@gem_barrier_race@remote-request@rcs0.html
+> 
+>   
+> #### Possible fixes ####
+> 
+>   * igt@i915_selftest@live@gt_heartbeat:
+>     - fi-glk-j4005:       [DMESG-FAIL][9] ([i915#5334]) -> [PASS][10]
+>    [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12734/fi-glk-j4005/
+igt@i915_selftest@live@gt_heartbeat.html
+>    [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113975v1/fi-glk-j4005/igt@i915_selftest@live@gt_heartbeat.html
 
-Change the parameters of ttm_range_man_init_nocheck()
-size from page size to byte size.
-Cleanup the PAGE_SHIFT operation on the depended caller functions.
+Hmm, results from this pre-merge run, unlike my former trybot attempts, show 
+that my patches still don't resolve the issue of timeout on infinite 
+__i915_active_wait().  Maybe I should retry with still more rigorous locking, 
+or keep looking for still another root cause if that doesn't help.
 
-Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 4 ++--
- drivers/gpu/drm/drm_gem_vram_helper.c   | 2 +-
- drivers/gpu/drm/radeon/radeon_ttm.c     | 4 ++--
- drivers/gpu/drm/ttm/ttm_range_manager.c | 8 ++++----
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c     | 2 +-
- include/drm/ttm/ttm_range_manager.h     | 6 +++---
- 6 files changed, 13 insertions(+), 13 deletions(-)
+Thanks,
+Janusz
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index f62e5398e620..77c2da886f5b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -75,10 +75,10 @@ static void amdgpu_ttm_backend_unbind(struct ttm_device *bdev,
- 
- static int amdgpu_ttm_init_on_chip(struct amdgpu_device *adev,
- 				    unsigned int type,
--				    uint64_t size_in_page)
-+				    uint64_t size)
- {
- 	return ttm_range_man_init(&adev->mman.bdev, type,
--				  false, size_in_page);
-+				  false, size << PAGE_SHIFT);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/drm_gem_vram_helper.c b/drivers/gpu/drm/drm_gem_vram_helper.c
-index d40b3edb52d0..f70d11e1cd47 100644
---- a/drivers/gpu/drm/drm_gem_vram_helper.c
-+++ b/drivers/gpu/drm/drm_gem_vram_helper.c
-@@ -999,7 +999,7 @@ static int drm_vram_mm_init(struct drm_vram_mm *vmm, struct drm_device *dev,
- 		return ret;
- 
- 	ret = ttm_range_man_init(&vmm->bdev, TTM_PL_VRAM,
--				 false, vram_size >> PAGE_SHIFT);
-+				 false, vram_size);
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
-index 67075c85f847..78dd6a87fb65 100644
---- a/drivers/gpu/drm/radeon/radeon_ttm.c
-+++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-@@ -70,13 +70,13 @@ struct radeon_device *radeon_get_rdev(struct ttm_device *bdev)
- static int radeon_ttm_init_vram(struct radeon_device *rdev)
- {
- 	return ttm_range_man_init(&rdev->mman.bdev, TTM_PL_VRAM,
--				  false, rdev->mc.real_vram_size >> PAGE_SHIFT);
-+				  false, rdev->mc.real_vram_size);
- }
- 
- static int radeon_ttm_init_gtt(struct radeon_device *rdev)
- {
- 	return ttm_range_man_init(&rdev->mman.bdev, TTM_PL_TT,
--				  true, rdev->mc.gtt_size >> PAGE_SHIFT);
-+				  true, rdev->mc.gtt_size);
- }
- 
- static void radeon_evict_flags(struct ttm_buffer_object *bo,
-diff --git a/drivers/gpu/drm/ttm/ttm_range_manager.c b/drivers/gpu/drm/ttm/ttm_range_manager.c
-index ae11d07eb63a..62fddcc59f02 100644
---- a/drivers/gpu/drm/ttm/ttm_range_manager.c
-+++ b/drivers/gpu/drm/ttm/ttm_range_manager.c
-@@ -169,7 +169,7 @@ static const struct ttm_resource_manager_func ttm_range_manager_func = {
-  * @bdev: ttm device
-  * @type: memory manager type
-  * @use_tt: if the memory manager uses tt
-- * @p_size: size of area to be managed in pages.
-+ * @size: size of area to be managed in bytes.
-  *
-  * The range manager is installed for this device in the type slot.
-  *
-@@ -177,7 +177,7 @@ static const struct ttm_resource_manager_func ttm_range_manager_func = {
-  */
- int ttm_range_man_init_nocheck(struct ttm_device *bdev,
- 		       unsigned type, bool use_tt,
--		       unsigned long p_size)
-+		       u64 size)
- {
- 	struct ttm_resource_manager *man;
- 	struct ttm_range_manager *rman;
-@@ -191,9 +191,9 @@ int ttm_range_man_init_nocheck(struct ttm_device *bdev,
- 
- 	man->func = &ttm_range_manager_func;
- 
--	ttm_resource_manager_init(man, bdev, p_size);
-+	ttm_resource_manager_init(man, bdev, size);
- 
--	drm_mm_init(&rman->mm, 0, p_size);
-+	drm_mm_init(&rman->mm, 0, size);
- 	spin_lock_init(&rman->lock);
- 
- 	ttm_set_driver_manager(bdev, type, &rman->manager);
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-index 2588615a2a38..18cf4edea197 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-@@ -706,7 +706,7 @@ static int vmw_vram_manager_init(struct vmw_private *dev_priv)
- {
- 	int ret;
- 	ret = ttm_range_man_init(&dev_priv->bdev, TTM_PL_VRAM, false,
--				 dev_priv->vram_size >> PAGE_SHIFT);
-+				 dev_priv->vram_size);
- 	ttm_resource_manager_set_used(ttm_manager_type(&dev_priv->bdev, TTM_PL_VRAM), false);
- 	return ret;
- }
-diff --git a/include/drm/ttm/ttm_range_manager.h b/include/drm/ttm/ttm_range_manager.h
-index 7963b957e9ef..05bffded1b53 100644
---- a/include/drm/ttm/ttm_range_manager.h
-+++ b/include/drm/ttm/ttm_range_manager.h
-@@ -36,15 +36,15 @@ to_ttm_range_mgr_node(struct ttm_resource *res)
- 
- int ttm_range_man_init_nocheck(struct ttm_device *bdev,
- 		       unsigned type, bool use_tt,
--		       unsigned long p_size);
-+		       u64 size);
- int ttm_range_man_fini_nocheck(struct ttm_device *bdev,
- 		       unsigned type);
- static __always_inline int ttm_range_man_init(struct ttm_device *bdev,
- 		       unsigned int type, bool use_tt,
--		       unsigned long p_size)
-+		       u64 size)
- {
- 	BUILD_BUG_ON(__builtin_constant_p(type) && type >= TTM_NUM_MEM_TYPES);
--	return ttm_range_man_init_nocheck(bdev, type, use_tt, p_size);
-+	return ttm_range_man_init_nocheck(bdev, type, use_tt, size);
- }
- 
- static __always_inline int ttm_range_man_fini(struct ttm_device *bdev,
--- 
-2.34.1
+> 
+>   * igt@i915_selftest@live@hangcheck:
+>     - fi-skl-guc:         [DMESG-WARN][11] ([i915#8073]) -> [PASS][12]
+>    [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12734/fi-skl-guc/
+igt@i915_selftest@live@hangcheck.html
+>    [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113975v1/fi-skl-guc/igt@i915_selftest@live@hangcheck.html
+> 
+>   
+>   {name}: This element is suppressed. This means it is ignored when 
+computing
+>           the status of the difference (SUCCESS, WARNING, or FAILURE).
+> 
+>   [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+>   [i915#2867]: https://gitlab.freedesktop.org/drm/intel/issues/2867
+>   [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
+>   [i915#5334]: https://gitlab.freedesktop.org/drm/intel/issues/5334
+>   [i915#7699]: https://gitlab.freedesktop.org/drm/intel/issues/7699
+>   [i915#7911]: https://gitlab.freedesktop.org/drm/intel/issues/7911
+>   [i915#7981]: https://gitlab.freedesktop.org/drm/intel/issues/7981
+>   [i915#8073]: https://gitlab.freedesktop.org/drm/intel/issues/8073
+> 
+> 
+> Build changes
+> -------------
+> 
+>   * IGT: IGT_7160 -> TrybotIGT_706
+>   * Linux: CI_DRM_12734 -> Patchwork_113975v1
+> 
+>   CI-20190529: 20190529
+>   CI_DRM_12734: ffa7027c353c6821636559f42584dd11f527b0e0 @ git://
+anongit.freedesktop.org/gfx-ci/linux
+>   IGT_7160: 45da871dd2684227e93a2fc002b87dfc58bd5fd9 @ https://
+gitlab.freedesktop.org/drm/igt-gpu-tools.git
+>   Patchwork_113975v1: ffa7027c353c6821636559f42584dd11f527b0e0 @ git://
+anongit.freedesktop.org/gfx-ci/linux
+>   TrybotIGT_706: https://intel-gfx-ci.01.org/tree/drm-tip/TrybotIGT_706/
+index.html
+> 
+> 
+> ### Linux commits
+> 
+> 33537b06edaa drm/i915/active: Serialize access to barrier tasks lists
+> bc4b58c4f439 drm/i915/active: Fix misuse of non-idle barriers as fence 
+trackers
+> 
+> == Logs ==
+> 
+> For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/
+Patchwork_113975v1/index.html
+> 
+
+
+
 
