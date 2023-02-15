@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 213D7C05027
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Feb 2023 00:54:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D35B5C61DA4
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Feb 2023 00:54:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 912EF10E9FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDA8A10E10B;
 	Wed, 15 Feb 2023 00:54:21 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89C2D10E9FC
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E03AC10E10B
  for <intel-gfx@lists.freedesktop.org>; Wed, 15 Feb 2023 00:54:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1676422460; x=1707958460;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=KSHze+qnD95ogtex2ULaIxgPXWWGiVmgdRwjVcH7d58=;
- b=fnaRLVECQFbXOZwc2O5BNNQQWuPyGK+wm6/F9JcD+4Hjkg1caRY8+U5t
- gfzBPidjd8Q1ox8clZpe4WQsoJgKZVt/i/9E+e5ShHwstK4bPuoXkMxvJ
- eqVDy0O4tYy+yUXPnWEhK9dPt44SpJA4dneQmkOt1sBkN34knJ/ToLqsN
- 86S7ojA8DdiNcmgK9ETSjSpvSLkEic4tuQv2zqBbz8gfA5SaEfQT/AwcE
- ePNrosi/KhexF90zD/C3nhroOegQiXRihWKGyJA7g2fH6hNHBTEa9UWGh
- pHOOGleXsMzBGZ3ejCNLVsdT6AnJsMeKodqSO1i5OxwLI3AWbWBdZWF3Q Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10621"; a="417536035"
-X-IronPort-AV: E=Sophos;i="5.97,298,1669104000"; d="scan'208";a="417536035"
+ bh=QcKsdoptDrJqrihqTlAIAS3FXBjVmoCiWjnM6pXa5kI=;
+ b=cX1Eg8uTHQotIvsHhN56ehdOXlJq+Cdy2zLSi4QhWUEpbJ14r+iB5C6O
+ 7tm/7uooMayhcOVA0keyNCTmruo7+iYN74BrglFYgW+ydzF+S6DVWXo1W
+ buL1us202NV6RB+//D9rYrtJAnbygBLHX5misQqxWxsYnbxzvhNKrXbeF
+ LH42hUdLqOKmhfQr2lDa3RDxIdso8bfKYq6ZQyZTYHzmdV8snI40ZotHI
+ YXGEm7Ss7cXVYIAswPZWscnZ3luvQPJyBZOaMob0QwSUEGLTZM+/PjY82
+ RChJN4wuclYMdIVuPp5KDDN4MpHcmVwEv+rv1f8CEXadMDn+ojvBCaTj4 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10621"; a="417536039"
+X-IronPort-AV: E=Sophos;i="5.97,298,1669104000"; d="scan'208";a="417536039"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  14 Feb 2023 16:54:20 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10621"; a="914951613"
-X-IronPort-AV: E=Sophos;i="5.97,298,1669104000"; d="scan'208";a="914951613"
+X-IronPort-AV: E=McAfee;i="6500,9779,10621"; a="914951622"
+X-IronPort-AV: E=Sophos;i="5.97,298,1669104000"; d="scan'208";a="914951622"
 Received: from orsosgc001.jf.intel.com ([10.165.21.138])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2023 16:54:19 -0800
+ 14 Feb 2023 16:54:20 -0800
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 14 Feb 2023 16:54:11 -0800
-Message-Id: <20230215005419.2100887-2-umesh.nerlige.ramappa@intel.com>
+Date: Tue, 14 Feb 2023 16:54:14 -0800
+Message-Id: <20230215005419.2100887-5-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20230215005419.2100887-1-umesh.nerlige.ramappa@intel.com>
 References: <20230215005419.2100887-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/9] drm/i915/perf: Drop wakeref on GuC RC error
+Subject: [Intel-gfx] [PATCH 4/9] drm/i915/perf: Fail modprobe if
+ i915_perf_init fails
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,89 +61,66 @@ Cc: Lionel G Landwerlin <lionel.g.landwerlin@linux.intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Chris Wilson <chris.p.wilson@linux.intel.com>
+Check for return value from i915_perf_init and fail driver init if perf
+init fails.
 
-If we fail to adjust the GuC run-control on opening the perf stream,
-make sure we unwind the wakeref just taken.
-
-Fixes: 01e742746785 ("drm/i915/guc: Support OA when Wa_16011777198 is enabled")
-Signed-off-by: Chris Wilson <chris.p.wilson@linux.intel.com>
-Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 ---
- drivers/gpu/drm/i915/i915_perf.c       | 18 +++++++++++-------
- drivers/gpu/drm/i915/i915_perf_types.h |  6 ++++++
- 2 files changed, 17 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/i915_driver.c | 4 +++-
+ drivers/gpu/drm/i915/i915_perf.c   | 4 +++-
+ drivers/gpu/drm/i915/i915_perf.h   | 2 +-
+ 3 files changed, 7 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 0c0ae3eabb4b..998ca41c9713 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -477,7 +477,9 @@ static int i915_driver_hw_probe(struct drm_i915_private *dev_priv)
+ 	if (ret)
+ 		return ret;
+ 
+-	i915_perf_init(dev_priv);
++	ret = i915_perf_init(dev_priv);
++	if (ret)
++		return ret;
+ 
+ 	ret = i915_ggtt_probe_hw(dev_priv);
+ 	if (ret)
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 824a34ec0b83..393a0da8b7c8 100644
+index 0b2097ad000e..e134523576f8 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -1592,9 +1592,7 @@ static void i915_oa_stream_destroy(struct i915_perf_stream *stream)
- 	/*
- 	 * Wa_16011777198:dg2: Unset the override of GUCRC mode to enable rc6.
- 	 */
--	if (intel_uc_uses_guc_rc(&gt->uc) &&
--	    (IS_DG2_GRAPHICS_STEP(gt->i915, G10, STEP_A0, STEP_C0) ||
--	     IS_DG2_GRAPHICS_STEP(gt->i915, G11, STEP_A0, STEP_B0)))
-+	if (stream->override_gucrc)
- 		drm_WARN_ON(&gt->i915->drm,
- 			    intel_guc_slpc_unset_gucrc_mode(&gt->uc.guc.slpc));
+@@ -4845,7 +4845,7 @@ static void i915_perf_init_info(struct drm_i915_private *i915)
+  * Note: i915-perf initialization is split into an 'init' and 'register'
+  * phase with the i915_perf_register() exposing state to userspace.
+  */
+-void i915_perf_init(struct drm_i915_private *i915)
++int i915_perf_init(struct drm_i915_private *i915)
+ {
+ 	struct i915_perf *perf = &i915->perf;
  
-@@ -3305,13 +3303,15 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
- 		if (ret) {
- 			drm_dbg(&stream->perf->i915->drm,
- 				"Unable to override gucrc mode\n");
--			goto err_config;
-+			goto err_fw;
- 		}
-+
-+		stream->override_gucrc = true;
+@@ -4962,6 +4962,8 @@ void i915_perf_init(struct drm_i915_private *i915)
+ 
+ 		oa_init_supported_formats(perf);
  	}
- 
- 	ret = alloc_oa_buffer(stream);
- 	if (ret)
--		goto err_oa_buf_alloc;
-+		goto err_gucrc;
- 
- 	stream->ops = &i915_oa_stream_ops;
- 
-@@ -3344,12 +3344,16 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
- 
- 	free_oa_buffer(stream);
- 
--err_oa_buf_alloc:
--	free_oa_configs(stream);
-+err_gucrc:
-+	if (stream->override_gucrc)
-+		intel_guc_slpc_unset_gucrc_mode(&gt->uc.guc.slpc);
- 
-+err_fw:
- 	intel_uncore_forcewake_put(stream->uncore, FORCEWAKE_ALL);
- 	intel_engine_pm_put(stream->engine);
- 
-+	free_oa_configs(stream);
 +
- err_config:
- 	free_noa_wait(stream);
++	return 0;
+ }
  
-diff --git a/drivers/gpu/drm/i915/i915_perf_types.h b/drivers/gpu/drm/i915/i915_perf_types.h
-index ca150b7af3f2..e36f046fe2b6 100644
---- a/drivers/gpu/drm/i915/i915_perf_types.h
-+++ b/drivers/gpu/drm/i915/i915_perf_types.h
-@@ -316,6 +316,12 @@ struct i915_perf_stream {
- 	 * buffer should be checked for available data.
- 	 */
- 	u64 poll_oa_period;
-+
-+	/**
-+	 * @override_gucrc: GuC RC has been overridden for the perf stream,
-+	 * and we need to restore the default configuration on release.
-+	 */
-+	bool override_gucrc:1;
- };
+ static int destroy_config(int id, void *p, void *data)
+diff --git a/drivers/gpu/drm/i915/i915_perf.h b/drivers/gpu/drm/i915/i915_perf.h
+index f96e09a4af04..253637651d5e 100644
+--- a/drivers/gpu/drm/i915/i915_perf.h
++++ b/drivers/gpu/drm/i915/i915_perf.h
+@@ -18,7 +18,7 @@ struct i915_oa_config;
+ struct intel_context;
+ struct intel_engine_cs;
  
- /**
+-void i915_perf_init(struct drm_i915_private *i915);
++int i915_perf_init(struct drm_i915_private *i915);
+ void i915_perf_fini(struct drm_i915_private *i915);
+ void i915_perf_register(struct drm_i915_private *i915);
+ void i915_perf_unregister(struct drm_i915_private *i915);
 -- 
 2.36.1
 
