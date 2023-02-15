@@ -4,30 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12D38C05027
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Feb 2023 00:31:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 213D7C05027
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Feb 2023 00:54:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D05C10E09A;
-	Wed, 15 Feb 2023 00:31:47 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id E19F710E09A;
- Wed, 15 Feb 2023 00:31:44 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id D99E0A7DFB;
- Wed, 15 Feb 2023 00:31:44 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============7303424086876677455=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 912EF10E9FE;
+	Wed, 15 Feb 2023 00:54:21 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89C2D10E9FC
+ for <intel-gfx@lists.freedesktop.org>; Wed, 15 Feb 2023 00:54:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1676422460; x=1707958460;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=KSHze+qnD95ogtex2ULaIxgPXWWGiVmgdRwjVcH7d58=;
+ b=fnaRLVECQFbXOZwc2O5BNNQQWuPyGK+wm6/F9JcD+4Hjkg1caRY8+U5t
+ gfzBPidjd8Q1ox8clZpe4WQsoJgKZVt/i/9E+e5ShHwstK4bPuoXkMxvJ
+ eqVDy0O4tYy+yUXPnWEhK9dPt44SpJA4dneQmkOt1sBkN34knJ/ToLqsN
+ 86S7ojA8DdiNcmgK9ETSjSpvSLkEic4tuQv2zqBbz8gfA5SaEfQT/AwcE
+ ePNrosi/KhexF90zD/C3nhroOegQiXRihWKGyJA7g2fH6hNHBTEa9UWGh
+ pHOOGleXsMzBGZ3ejCNLVsdT6AnJsMeKodqSO1i5OxwLI3AWbWBdZWF3Q Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10621"; a="417536035"
+X-IronPort-AV: E=Sophos;i="5.97,298,1669104000"; d="scan'208";a="417536035"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2023 16:54:20 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10621"; a="914951613"
+X-IronPort-AV: E=Sophos;i="5.97,298,1669104000"; d="scan'208";a="914951613"
+Received: from orsosgc001.jf.intel.com ([10.165.21.138])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2023 16:54:19 -0800
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 14 Feb 2023 16:54:11 -0800
+Message-Id: <20230215005419.2100887-2-umesh.nerlige.ramappa@intel.com>
+X-Mailer: git-send-email 2.36.1
+In-Reply-To: <20230215005419.2100887-1-umesh.nerlige.ramappa@intel.com>
+References: <20230215005419.2100887-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: john.c.harrison@intel.com
-Date: Wed, 15 Feb 2023 00:31:44 -0000
-Message-ID: <167642110486.30602.16754897491389197513@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20230214234856.744573-1-John.C.Harrison@Intel.com>
-In-Reply-To: <20230214234856.744573-1-John.C.Harrison@Intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915=3A_Don=27t_use_stolen_memory_for_ring_buffers?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 1/9] drm/i915/perf: Drop wakeref on GuC RC error
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,224 +56,93 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Lionel G Landwerlin <lionel.g.landwerlin@linux.intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============7303424086876677455==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+From: Chris Wilson <chris.p.wilson@linux.intel.com>
 
-== Series Details ==
+If we fail to adjust the GuC run-control on opening the perf stream,
+make sure we unwind the wakeref just taken.
 
-Series: drm/i915: Don't use stolen memory for ring buffers
-URL   : https://patchwork.freedesktop.org/series/114030/
-State : success
+Fixes: 01e742746785 ("drm/i915/guc: Support OA when Wa_16011777198 is enabled")
+Signed-off-by: Chris Wilson <chris.p.wilson@linux.intel.com>
+Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
+---
+ drivers/gpu/drm/i915/i915_perf.c       | 18 +++++++++++-------
+ drivers/gpu/drm/i915/i915_perf_types.h |  6 ++++++
+ 2 files changed, 17 insertions(+), 7 deletions(-)
 
-== Summary ==
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 824a34ec0b83..393a0da8b7c8 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -1592,9 +1592,7 @@ static void i915_oa_stream_destroy(struct i915_perf_stream *stream)
+ 	/*
+ 	 * Wa_16011777198:dg2: Unset the override of GUCRC mode to enable rc6.
+ 	 */
+-	if (intel_uc_uses_guc_rc(&gt->uc) &&
+-	    (IS_DG2_GRAPHICS_STEP(gt->i915, G10, STEP_A0, STEP_C0) ||
+-	     IS_DG2_GRAPHICS_STEP(gt->i915, G11, STEP_A0, STEP_B0)))
++	if (stream->override_gucrc)
+ 		drm_WARN_ON(&gt->i915->drm,
+ 			    intel_guc_slpc_unset_gucrc_mode(&gt->uc.guc.slpc));
+ 
+@@ -3305,13 +3303,15 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 		if (ret) {
+ 			drm_dbg(&stream->perf->i915->drm,
+ 				"Unable to override gucrc mode\n");
+-			goto err_config;
++			goto err_fw;
+ 		}
++
++		stream->override_gucrc = true;
+ 	}
+ 
+ 	ret = alloc_oa_buffer(stream);
+ 	if (ret)
+-		goto err_oa_buf_alloc;
++		goto err_gucrc;
+ 
+ 	stream->ops = &i915_oa_stream_ops;
+ 
+@@ -3344,12 +3344,16 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 
+ 	free_oa_buffer(stream);
+ 
+-err_oa_buf_alloc:
+-	free_oa_configs(stream);
++err_gucrc:
++	if (stream->override_gucrc)
++		intel_guc_slpc_unset_gucrc_mode(&gt->uc.guc.slpc);
+ 
++err_fw:
+ 	intel_uncore_forcewake_put(stream->uncore, FORCEWAKE_ALL);
+ 	intel_engine_pm_put(stream->engine);
+ 
++	free_oa_configs(stream);
++
+ err_config:
+ 	free_noa_wait(stream);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_perf_types.h b/drivers/gpu/drm/i915/i915_perf_types.h
+index ca150b7af3f2..e36f046fe2b6 100644
+--- a/drivers/gpu/drm/i915/i915_perf_types.h
++++ b/drivers/gpu/drm/i915/i915_perf_types.h
+@@ -316,6 +316,12 @@ struct i915_perf_stream {
+ 	 * buffer should be checked for available data.
+ 	 */
+ 	u64 poll_oa_period;
++
++	/**
++	 * @override_gucrc: GuC RC has been overridden for the perf stream,
++	 * and we need to restore the default configuration on release.
++	 */
++	bool override_gucrc:1;
+ };
+ 
+ /**
+-- 
+2.36.1
 
-CI Bug Log - changes from CI_DRM_12739 -> Patchwork_114030v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114030v1/index.html
-
-Participating hosts (39 -> 37)
-------------------------------
-
-  Missing    (2): fi-tgl-1115g4 fi-snb-2520m 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_114030v1:
-
-### IGT changes ###
-
-#### Suppressed ####
-
-  The following results come from untrusted machines, tests, or statuses.
-  They do not affect the overall result.
-
-  * igt@i915_suspend@basic-s2idle-without-i915:
-    - {bat-rpls-1}:       NOTRUN -> [ABORT][1]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114030v1/bat-rpls-1/igt@i915_suspend@basic-s2idle-without-i915.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_114030v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@execlists:
-    - fi-bsw-n3050:       [PASS][2] -> [ABORT][3] ([i915#7911])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/fi-bsw-n3050/igt@i915_selftest@live@execlists.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114030v1/fi-bsw-n3050/igt@i915_selftest@live@execlists.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions:
-    - fi-bsw-n3050:       [PASS][4] -> [FAIL][5] ([i915#6298])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114030v1/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@gt_heartbeat:
-    - fi-kbl-soraka:      [DMESG-FAIL][6] ([i915#5334] / [i915#7872]) -> [PASS][7]
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114030v1/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html
-    - fi-apl-guc:         [DMESG-FAIL][8] ([i915#5334]) -> [PASS][9]
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114030v1/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html
-
-  * igt@i915_selftest@live@reset:
-    - {bat-rpls-1}:       [ABORT][10] ([i915#4983]) -> [PASS][11]
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/bat-rpls-1/igt@i915_selftest@live@reset.html
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114030v1/bat-rpls-1/igt@i915_selftest@live@reset.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
-  [i915#5334]: https://gitlab.freedesktop.org/drm/intel/issues/5334
-  [i915#6298]: https://gitlab.freedesktop.org/drm/intel/issues/6298
-  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
-  [i915#7872]: https://gitlab.freedesktop.org/drm/intel/issues/7872
-  [i915#7911]: https://gitlab.freedesktop.org/drm/intel/issues/7911
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_12739 -> Patchwork_114030v1
-
-  CI-20190529: 20190529
-  CI_DRM_12739: 5fc904286af94038fbf2c7cda50ed871b70cf4e8 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7160: 45da871dd2684227e93a2fc002b87dfc58bd5fd9 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_114030v1: 5fc904286af94038fbf2c7cda50ed871b70cf4e8 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-da4b6027a0f2 drm/i915: Don't use stolen memory for ring buffers
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114030v1/index.html
-
---===============7303424086876677455==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Don&#39;t use stolen memory for ring buffers</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/114030/">https://patchwork.freedesktop.org/series/114030/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114030v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114030v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_12739 -&gt; Patchwork_114030v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114030v1/index.html</p>
-<h2>Participating hosts (39 -&gt; 37)</h2>
-<p>Missing    (2): fi-tgl-1115g4 fi-snb-2520m </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_114030v1:</p>
-<h3>IGT changes</h3>
-<h4>Suppressed</h4>
-<p>The following results come from untrusted machines, tests, or statuses.<br />
-  They do not affect the overall result.</p>
-<ul>
-<li>igt@i915_suspend@basic-s2idle-without-i915:<ul>
-<li>{bat-rpls-1}:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114030v1/bat-rpls-1/igt@i915_suspend@basic-s2idle-without-i915.html">ABORT</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_114030v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@execlists:</p>
-<ul>
-<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/fi-bsw-n3050/igt@i915_selftest@live@execlists.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114030v1/fi-bsw-n3050/igt@i915_selftest@live@execlists.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7911">i915#7911</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions:</p>
-<ul>
-<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114030v1/fi-bsw-n3050/igt@kms_cursor_legacy@basic-busy-flip-before-cursor@atomic-transitions.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6298">i915#6298</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@gt_heartbeat:</p>
-<ul>
-<li>
-<p>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7872">i915#7872</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114030v1/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html">PASS</a></p>
-</li>
-<li>
-<p>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114030v1/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html">PASS</a></p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@reset:</p>
-<ul>
-<li>{bat-rpls-1}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12739/bat-rpls-1/igt@i915_selftest@live@reset.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114030v1/bat-rpls-1/igt@i915_selftest@live@reset.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_12739 -&gt; Patchwork_114030v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_12739: 5fc904286af94038fbf2c7cda50ed871b70cf4e8 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7160: 45da871dd2684227e93a2fc002b87dfc58bd5fd9 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_114030v1: 5fc904286af94038fbf2c7cda50ed871b70cf4e8 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>da4b6027a0f2 drm/i915: Don't use stolen memory for ring buffers</p>
-
-</body>
-</html>
-
---===============7303424086876677455==--
