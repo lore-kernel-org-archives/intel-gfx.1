@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB175C636D6
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 10:59:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BADF7C61DA4
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 10:59:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4841310ED3D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C46910ED40;
 	Thu, 16 Feb 2023 10:59:38 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5062610ED2F;
- Thu, 16 Feb 2023 10:59:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1FFA10ED38;
+ Thu, 16 Feb 2023 10:59:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1676545173; x=1708081173;
+ t=1676545175; x=1708081175;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=QUM037SnX+6+bUI57gXj5vZBxJj3sCZQwdIJxBGM6ZA=;
- b=ZiZeG++0o32DP1QDUAldYCfHRR5rs9zXvtQB+DYrytxHotTmW3LqxZqN
- weQp2EbExyFtnKV0k75r2Hvd43A7aJYUlXELq7nAsftu6vbVI3Rz2pOte
- Xnbv5aEwkBFH9yVK+NS5hxic7MN1d5DM7vCML376dbyMiKKGczaS4ASaP
- K+1md7CF5UUbB9jWUQk/JS5rJzkN/i2t2AKcSKvB0e2xP3bZZJUKqRNjE
- ptBBRIVNulPZETKb49aKNMrULJWBoOaVDJPu5eYueUUeNQhpNLtlhTfq2
- yO0jpecoMeUfLGhVe/yvEa3HFlTX2ki8Hjp/GxX+V4QHM3sMuUalpsYjh w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10622"; a="311317602"
-X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="311317602"
+ bh=zD70VZdjgnOic3K1qhG8DBPtshCjC6Dxxa8vF3F1mg4=;
+ b=bh/1/GyxwTdvLRjXJoniti/8I7lqszqO2aexYcLW3bYF4VQDmdsag2Ul
+ D8ROa8B5MjEBQPy9+hlXmKARan7SAyRdR7IuNgcyFBh57wk7GXdzbxU8y
+ MUcTiFsoIob/0LcOGAhtwLQkV1RHYicGSsZtVchZm/STMitJQZd6pzhEp
+ AK+mR8h1YwCxPpP/b4mDo3k4n/UipvtfcJoUM1k+XWPTZ8wdgBy/Qs1MZ
+ F3o2IYWAApiqskG3F7eSgmsNVqiPOupEbwcOF7GtP7KMJMTuj6d5rcOll
+ Iw6sehUIXxzhnaP+djyAHbAfuecYZA6ohsDi/6JW6HTCH3lGST+GTGhci w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10622"; a="311317610"
+X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="311317610"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2023 02:59:33 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10622"; a="812917913"
-X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="812917913"
+ 16 Feb 2023 02:59:35 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10622"; a="812917919"
+X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="812917919"
 Received: from murrayal-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.229.164])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2023 02:59:32 -0800
+ 16 Feb 2023 02:59:34 -0800
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 16 Feb 2023 10:59:16 +0000
-Message-Id: <20230216105921.624960-5-tvrtko.ursulin@linux.intel.com>
+Date: Thu, 16 Feb 2023 10:59:18 +0000
+Message-Id: <20230216105921.624960-7-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230216105921.624960-1-tvrtko.ursulin@linux.intel.com>
 References: <20230216105921.624960-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 4/9] drm/vmwgfx: Use fence callback initialization
- helper
+Subject: [Intel-gfx] [RFC 6/9] drm/syncobj: Mark syncobj waits as external
+ waiters
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,28 +64,30 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Use the previously added initialization helper to ensure correct operation
-of the common code.
+Use the previously added dma-fence tracking of explicit waiters.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: Zack Rusin <zackr@vmware.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_fence.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_syncobj.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c b/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c
-index 2a0cda324703..0306596765e5 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c
-@@ -200,7 +200,7 @@ static long vmw_fence_wait(struct dma_fence *f, bool intr, signed long timeout)
- 		goto out;
- 	}
- 
--	cb.base.func = vmwgfx_wait_cb;
-+	__dma_fence_cb_init(&cb.base, vmwgfx_wait_cb);
- 	cb.task = current;
- 	list_add(&cb.base.node, &f->cb_list);
- 
+diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+index 0c2be8360525..776b90774a64 100644
+--- a/drivers/gpu/drm/drm_syncobj.c
++++ b/drivers/gpu/drm/drm_syncobj.c
+@@ -1065,9 +1065,9 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+ 			if ((flags & DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE) ||
+ 			    dma_fence_is_signaled(fence) ||
+ 			    (!entries[i].fence_cb.func &&
+-			     dma_fence_add_callback(fence,
+-						    &entries[i].fence_cb,
+-						    syncobj_wait_fence_func))) {
++			     dma_fence_add_wait_callback(fence,
++							 &entries[i].fence_cb,
++							 syncobj_wait_fence_func))) {
+ 				/* The fence has been signaled */
+ 				if (flags & DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL) {
+ 					signaled_count++;
 -- 
 2.34.1
 
