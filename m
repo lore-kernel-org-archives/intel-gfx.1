@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83C45C636CC
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 11:57:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2AE0C636D6
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 12:26:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA0C910E0D1;
-	Thu, 16 Feb 2023 11:57:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1847110E17F;
+	Thu, 16 Feb 2023 12:26:25 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6D4E610E0D1;
- Thu, 16 Feb 2023 11:57:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id CA07310E17F;
+ Thu, 16 Feb 2023 12:26:23 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 64DD1A7DFB;
- Thu, 16 Feb 2023 11:57:15 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id C2933A0169;
+ Thu, 16 Feb 2023 12:26:23 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Tvrtko Ursulin" <tvrtko.ursulin@linux.intel.com>
-Date: Thu, 16 Feb 2023 11:57:15 -0000
-Message-ID: <167654863537.17988.16662796838321016393@emeril.freedesktop.org>
+Date: Thu, 16 Feb 2023 12:26:23 -0000
+Message-ID: <167655038379.17990.16724109481152278525@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20230216092123.159085-1-tvrtko.ursulin@linux.intel.com>
-In-Reply-To: <20230216092123.159085-1-tvrtko.ursulin@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Consolidate_TLB_invalidation_flow_=28rev4=29?=
+References: <20230216105921.624960-1-tvrtko.ursulin@linux.intel.com>
+In-Reply-To: <20230216105921.624960-1-tvrtko.ursulin@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?Waitboost_drm_syncobj_waits_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,18 +47,14 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm/i915: Consolidate TLB invalidation flow (rev4)
-URL   : https://patchwork.freedesktop.org/series/113563/
+Series: Waitboost drm syncobj waits (rev3)
+URL   : https://patchwork.freedesktop.org/series/113846/
 State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-229b87b1e195 drm/i915: Consolidate TLB invalidation flow
--:29: WARNING:BAD_SIGN_OFF: Duplicate signature
-#29: 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-
-total: 0 errors, 1 warnings, 0 checks, 324 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
