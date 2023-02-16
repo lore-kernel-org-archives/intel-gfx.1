@@ -4,80 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E799C636CC
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 17:47:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80B0CC636CC
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 17:55:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2676B10E16E;
-	Thu, 16 Feb 2023 17:47:18 +0000 (UTC)
-X-Greylist: delayed 1552 seconds by postgrey-1.36 at gabe;
- Thu, 16 Feb 2023 17:47:16 UTC
-Received: from mx0b-00190b01.pphosted.com (mx0b-00190b01.pphosted.com
- [IPv6:2620:100:9005:57f::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9725810E149;
- Thu, 16 Feb 2023 17:47:16 +0000 (UTC)
-Received: from pps.filterd (m0122330.ppops.net [127.0.0.1])
- by mx0b-00190b01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 31GEZ3Un025145; Thu, 16 Feb 2023 17:21:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akamai.com;
- h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=jan2016.eng;
- bh=po1mytrc3hGhewQZJTcWp8dBR/9WcyX5DTv6Q2tYDWo=;
- b=WM3f14GuKAHQGpQjNmQZoBbiM2ql3S2f3qF4CYY+mpzMFgjkJIUO7+h0cbg+6uv94Scj
- yO6rAcSsh8ktrYcQy/wggtZ20DOVb+Uo0TU41stNZg8PQWNLkSXfVNshYIqn+gxNuLU6
- Gichax9EThpFI9k7UFXnKolhpkrBh9agd0egPL5p2SmvIhxaYGiiq16c+2blYaNUy6CO
- OM7EdVoPCZYxOQ7hhgZhKHMMn9FdWjJ4nsCkt7fEDgWuCmPwduDH70iqX2b50Uv357oa
- FDjTu7E1a+nKHOt+Y76iuYTzFYN1gvFTHfY6oAbrP1KfZCkATrzATfJ2HpYyTXnTMD4Y 1Q== 
-Received: from prod-mail-ppoint4
- (a72-247-45-32.deploy.static.akamaitechnologies.com [72.247.45.32] (may be
- forged))
- by mx0b-00190b01.pphosted.com (PPS) with ESMTPS id 3np3j7w1ry-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 16 Feb 2023 17:21:09 +0000
-Received: from pps.filterd (prod-mail-ppoint4.akamai.com [127.0.0.1])
- by prod-mail-ppoint4.akamai.com (8.17.1.19/8.17.1.19) with ESMTP id
- 31GH2bZI003816; Thu, 16 Feb 2023 12:21:08 -0500
-Received: from prod-mail-relay19.dfw02.corp.akamai.com ([172.27.165.173])
- by prod-mail-ppoint4.akamai.com (PPS) with ESMTP id 3np783pxg5-1;
- Thu, 16 Feb 2023 12:21:08 -0500
-Received: from [172.19.46.2] (bos-lpa4700a.bos01.corp.akamai.com [172.19.46.2])
- by prod-mail-relay19.dfw02.corp.akamai.com (Postfix) with ESMTP id 40F1060278; 
- Thu, 16 Feb 2023 17:21:07 +0000 (GMT)
-Message-ID: <8ca08fba-1120-ca86-6129-0b33afb4a1da@akamai.com>
-Date: Thu, 16 Feb 2023 12:21:06 -0500
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0431F10EE55;
+	Thu, 16 Feb 2023 17:55:30 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD23710E16E
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 Feb 2023 17:55:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1676570127; x=1708106127;
+ h=date:from:to:cc:subject:message-id:reply-to:references:
+ mime-version:in-reply-to;
+ bh=Dha4LDpWZOSM4Ehcx76ChMBtQSJamHgnJa8TSsOdyhk=;
+ b=eDq42lG89/rRUF14ZY+DWBXBrBFOc9mK0yNhjOZTtGB3Qz5kH266kNkH
+ GMb2Wjz8xwgFItsb2B67IYjt1hm/y2y7PCvd4UbhHfSpDEn2vVk5BBHrH
+ 7ZvePfPm1v5XdYuvDFVG1B7gIoNy4ClctCaby6Z7dTFZwMrkkA+Y/RfWB
+ IFHQwY3UcP9w8Mhl0Aty3DlDSvPcnm2hswcW1I5OI8GO028ZG2gAF/lTL
+ bvAnCvIv2K9pbYxMCHk1McITIGEYVRXobugnwMBkY9/gKO+mSV+JNMMRy
+ W/RtBfWttNLuttldVoxjVla8/X2Or7esXUlMsvc0iyPt1YgGaL+CjU5Qr g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="396459088"
+X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="396459088"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Feb 2023 09:53:26 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="620091333"
+X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="620091333"
+Received: from ideak-desk.fi.intel.com ([10.237.72.58])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Feb 2023 09:53:25 -0800
+Date: Thu, 16 Feb 2023 19:53:22 +0200
+From: Imre Deak <imre.deak@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Message-ID: <Y+5tkrN4CJFdtfDE@ideak-desk.fi.intel.com>
+References: <20230216161739.668294-1-jani.nikula@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-To: Peter Zijlstra <peterz@infradead.org>, Jim Cromie <jim.cromie@gmail.com>
-References: <20230113193016.749791-1-jim.cromie@gmail.com>
- <20230113193016.749791-21-jim.cromie@gmail.com>
- <Y8aNMxHpvZ8qecSc@hirez.programming.kicks-ass.net>
-Content-Language: en-US
-From: Jason Baron <jbaron@akamai.com>
-In-Reply-To: <Y8aNMxHpvZ8qecSc@hirez.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
- definitions=2023-02-16_13,2023-02-16_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- mlxscore=0 suspectscore=0
- phishscore=0 malwarescore=0 adultscore=0 mlxlogscore=999 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
- definitions=main-2302160150
-X-Proofpoint-ORIG-GUID: erwF1POyva0bWaz2e82KJguAff2y8qIj
-X-Proofpoint-GUID: erwF1POyva0bWaz2e82KJguAff2y8qIj
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
- definitions=2023-02-16_13,2023-02-16_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 suspectscore=0
- spamscore=0 clxscore=1011 bulkscore=0 mlxscore=0 priorityscore=1501
- phishscore=0 adultscore=0 impostorscore=0 malwarescore=0 mlxlogscore=999
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
- definitions=main-2302160150
-Subject: Re: [Intel-gfx] [PATCH v2 20/20] jump_label: RFC - tolerate toggled
- state
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230216161739.668294-1-jani.nikula@intel.com>
+Subject: Re: [Intel-gfx] [PATCH v2 1/3] drm/i915/power: move dc state
+ members to struct i915_power_domains
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,72 +57,296 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, seanpaul@chromium.org,
- dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
- intel-gvt-dev@lists.freedesktop.org
+Reply-To: imre.deak@intel.com
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 1/17/23 6:57 AM, Peter Zijlstra wrote:
-> On Fri, Jan 13, 2023 at 12:30:16PM -0700, Jim Cromie wrote:
->> __jump_label_patch currently will "crash the box" if it finds a
->> jump_entry not as expected.  ISTM this overly harsh; it doesn't
->> distinguish between "alternate/opposite" state, and truly
->> "insane/corrupted".
->>
->> The "opposite" (but well-formed) state is a milder mis-initialization
->> problem, and some less severe mitigation seems practical.  ATM this
->> just warns about it; a range/enum of outcomes: warn, crash, silence,
->> ok, fixup-continue, etc, are possible on a case-by-case basis.
->>
->> Ive managed to create this mis-initialization condition with
->> test_dynamic_debug.ko & _submod.ko.  These replicate DRM's regression
->> on DRM_USE_DYNAMIC_DEBUG=y; drm.debug callsites in drivers/helpers
->> (dependent modules) are not enabled along with those in drm.ko itself.
->>
+On Thu, Feb 16, 2023 at 06:17:37PM +0200, Jani Nikula wrote:
+> There's only one reference to the struct intel_dmc members dc_state,
+> target_dc_state, and allowed_dc_mask within intel_dmc.c, begging the
+> question why they are under struct intel_dmc to begin with.
 > 
->> Ive hit this case a few times, but havent been able to isolate the
->> when and why.
->>
->> warn-only is something of a punt, and I'm still left with remaining
->> bugs which are likely related; I'm able to toggle the p-flag on
->> callsites in the submod, but their enablement still doesn't yield
->> logging activity.
+> Moreover, the only references to i915->display.dmc outside of
+> intel_dmc.c are to these members.
 > 
-> Right; having been in this is state is bad since it will generate
-> inconsistent code-flow. Full on panic *might* not be warranted (as it
-> does for corrupted text) but it is still a fairly bad situation -- so
-> I'm not convinced we want to warn and carry on.
+> They don't belong. Move them from struct intel_dmc to struct
+> i915_power_domains, which seems like a more suitable place.
 > 
-> It would be really good to figure out why the site was skipped over and
-> got out of skew.
+> Cc: Imre Deak <imre.deak@intel.com>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+
+Reviewed-by: Imre Deak <imre.deak@intel.com>
+
+> ---
+>  .../drm/i915/display/intel_display_power.c    | 25 ++++++++-------
+>  .../drm/i915/display/intel_display_power.h    |  4 +++
+>  .../i915/display/intel_display_power_well.c   | 31 +++++++++++--------
+>  drivers/gpu/drm/i915/display/intel_dmc.c      |  3 +-
+>  drivers/gpu/drm/i915/display/intel_dmc.h      |  3 --
+>  drivers/gpu/drm/i915/display/intel_psr.c      |  3 +-
+>  6 files changed, 39 insertions(+), 30 deletions(-)
 > 
-> Given it's all module stuff, the 'obvious' case would be something like
-> a race between adding the new sites and flipping it, but I'm not seeing
-> how -- things are rather crudely serialized by jump_label_mutex.
-
-Indeed, looks like dynamic debug introduces a new path in this series to 
-that tries to toggle the jump label sites before they have been 
-initialized, which ends up with the jump label key enabled but only some 
-of the sites in the correct state. Then when the key is subsequently 
-disabled it finds some in the wrong state. I just posted a patch for 
-dynamic debug to use the module callback notifiers so it's ordered 
-properly against jump label.
-
-Note this isn't an issue in the current tree b/c there is no path to 
-toggle the sites currently before they are initialized, but Jim's series 
-here adds such a path.
-
-Thanks,
-
--Jason
-
-
-> 
-> The only other option I can come up with is that somehow the update
-> condition in jump_label_add_module() is somehow wrong.
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+> index 7222502a760c..4ed7e50e1c21 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+> @@ -264,9 +264,10 @@ bool intel_display_power_is_enabled(struct drm_i915_private *dev_priv,
+>  }
+>  
+>  static u32
+> -sanitize_target_dc_state(struct drm_i915_private *dev_priv,
+> +sanitize_target_dc_state(struct drm_i915_private *i915,
+>  			 u32 target_dc_state)
+>  {
+> +	struct i915_power_domains *power_domains = &i915->display.power.domains;
+>  	static const u32 states[] = {
+>  		DC_STATE_EN_UPTO_DC6,
+>  		DC_STATE_EN_UPTO_DC5,
+> @@ -279,7 +280,7 @@ sanitize_target_dc_state(struct drm_i915_private *dev_priv,
+>  		if (target_dc_state != states[i])
+>  			continue;
+>  
+> -		if (dev_priv->display.dmc.allowed_dc_mask & target_dc_state)
+> +		if (power_domains->allowed_dc_mask & target_dc_state)
+>  			break;
+>  
+>  		target_dc_state = states[i + 1];
+> @@ -312,7 +313,7 @@ void intel_display_power_set_target_dc_state(struct drm_i915_private *dev_priv,
+>  
+>  	state = sanitize_target_dc_state(dev_priv, state);
+>  
+> -	if (state == dev_priv->display.dmc.target_dc_state)
+> +	if (state == power_domains->target_dc_state)
+>  		goto unlock;
+>  
+>  	dc_off_enabled = intel_power_well_is_enabled(dev_priv, power_well);
+> @@ -323,7 +324,7 @@ void intel_display_power_set_target_dc_state(struct drm_i915_private *dev_priv,
+>  	if (!dc_off_enabled)
+>  		intel_power_well_enable(dev_priv, power_well);
+>  
+> -	dev_priv->display.dmc.target_dc_state = state;
+> +	power_domains->target_dc_state = state;
+>  
+>  	if (!dc_off_enabled)
+>  		intel_power_well_disable(dev_priv, power_well);
+> @@ -992,10 +993,10 @@ int intel_power_domains_init(struct drm_i915_private *dev_priv)
+>  	dev_priv->params.disable_power_well =
+>  		sanitize_disable_power_well_option(dev_priv,
+>  						   dev_priv->params.disable_power_well);
+> -	dev_priv->display.dmc.allowed_dc_mask =
+> +	power_domains->allowed_dc_mask =
+>  		get_allowed_dc_mask(dev_priv, dev_priv->params.enable_dc);
+>  
+> -	dev_priv->display.dmc.target_dc_state =
+> +	power_domains->target_dc_state =
+>  		sanitize_target_dc_state(dev_priv, DC_STATE_EN_UPTO_DC6);
+>  
+>  	mutex_init(&power_domains->lock);
+> @@ -2053,7 +2054,7 @@ void intel_power_domains_suspend(struct drm_i915_private *i915,
+>  	 * resources as required and also enable deeper system power states
+>  	 * that would be blocked if the firmware was inactive.
+>  	 */
+> -	if (!(i915->display.dmc.allowed_dc_mask & DC_STATE_EN_DC9) &&
+> +	if (!(power_domains->allowed_dc_mask & DC_STATE_EN_DC9) &&
+>  	    suspend_mode == I915_DRM_SUSPEND_IDLE &&
+>  	    intel_dmc_has_payload(i915)) {
+>  		intel_display_power_flush_work(i915);
+> @@ -2242,22 +2243,22 @@ void intel_display_power_suspend(struct drm_i915_private *i915)
+>  
+>  void intel_display_power_resume(struct drm_i915_private *i915)
+>  {
+> +	struct i915_power_domains *power_domains = &i915->display.power.domains;
+> +
+>  	if (DISPLAY_VER(i915) >= 11) {
+>  		bxt_disable_dc9(i915);
+>  		icl_display_core_init(i915, true);
+>  		if (intel_dmc_has_payload(i915)) {
+> -			if (i915->display.dmc.allowed_dc_mask &
+> -			    DC_STATE_EN_UPTO_DC6)
+> +			if (power_domains->allowed_dc_mask & DC_STATE_EN_UPTO_DC6)
+>  				skl_enable_dc6(i915);
+> -			else if (i915->display.dmc.allowed_dc_mask &
+> -				 DC_STATE_EN_UPTO_DC5)
+> +			else if (power_domains->allowed_dc_mask & DC_STATE_EN_UPTO_DC5)
+>  				gen9_enable_dc5(i915);
+>  		}
+>  	} else if (IS_GEMINILAKE(i915) || IS_BROXTON(i915)) {
+>  		bxt_disable_dc9(i915);
+>  		bxt_display_core_init(i915, true);
+>  		if (intel_dmc_has_payload(i915) &&
+> -		    (i915->display.dmc.allowed_dc_mask & DC_STATE_EN_UPTO_DC5))
+> +		    (power_domains->allowed_dc_mask & DC_STATE_EN_UPTO_DC5))
+>  			gen9_enable_dc5(i915);
+>  	} else if (IS_HASWELL(i915) || IS_BROADWELL(i915)) {
+>  		hsw_disable_pc8(i915);
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
+> index 2154d900b1aa..8e96be8e6330 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_power.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_power.h
+> @@ -137,6 +137,10 @@ struct i915_power_domains {
+>  	bool display_core_suspended;
+>  	int power_well_count;
+>  
+> +	u32 dc_state;
+> +	u32 target_dc_state;
+> +	u32 allowed_dc_mask;
+> +
+>  	intel_wakeref_t init_wakeref;
+>  	intel_wakeref_t disable_wakeref;
+>  
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.c b/drivers/gpu/drm/i915/display/intel_display_power_well.c
+> index 56a20bf5825b..57df9fc985bf 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_power_well.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_power_well.c
+> @@ -713,19 +713,20 @@ static u32 gen9_dc_mask(struct drm_i915_private *dev_priv)
+>  	return mask;
+>  }
+>  
+> -void gen9_sanitize_dc_state(struct drm_i915_private *dev_priv)
+> +void gen9_sanitize_dc_state(struct drm_i915_private *i915)
+>  {
+> +	struct i915_power_domains *power_domains = &i915->display.power.domains;
+>  	u32 val;
+>  
+> -	if (!HAS_DISPLAY(dev_priv))
+> +	if (!HAS_DISPLAY(i915))
+>  		return;
+>  
+> -	val = intel_de_read(dev_priv, DC_STATE_EN) & gen9_dc_mask(dev_priv);
+> +	val = intel_de_read(i915, DC_STATE_EN) & gen9_dc_mask(i915);
+>  
+> -	drm_dbg_kms(&dev_priv->drm,
+> +	drm_dbg_kms(&i915->drm,
+>  		    "Resetting DC state tracking from %02x to %02x\n",
+> -		    dev_priv->display.dmc.dc_state, val);
+> -	dev_priv->display.dmc.dc_state = val;
+> +		    power_domains->dc_state, val);
+> +	power_domains->dc_state = val;
+>  }
+>  
+>  /**
+> @@ -753,6 +754,7 @@ void gen9_sanitize_dc_state(struct drm_i915_private *dev_priv)
+>   */
+>  void gen9_set_dc_state(struct drm_i915_private *dev_priv, u32 state)
+>  {
+> +	struct i915_power_domains *power_domains = &dev_priv->display.power.domains;
+>  	u32 val;
+>  	u32 mask;
+>  
+> @@ -760,8 +762,8 @@ void gen9_set_dc_state(struct drm_i915_private *dev_priv, u32 state)
+>  		return;
+>  
+>  	if (drm_WARN_ON_ONCE(&dev_priv->drm,
+> -			     state & ~dev_priv->display.dmc.allowed_dc_mask))
+> -		state &= dev_priv->display.dmc.allowed_dc_mask;
+> +			     state & ~power_domains->allowed_dc_mask))
+> +		state &= power_domains->allowed_dc_mask;
+>  
+>  	val = intel_de_read(dev_priv, DC_STATE_EN);
+>  	mask = gen9_dc_mask(dev_priv);
+> @@ -769,16 +771,16 @@ void gen9_set_dc_state(struct drm_i915_private *dev_priv, u32 state)
+>  		    val & mask, state);
+>  
+>  	/* Check if DMC is ignoring our DC state requests */
+> -	if ((val & mask) != dev_priv->display.dmc.dc_state)
+> +	if ((val & mask) != power_domains->dc_state)
+>  		drm_err(&dev_priv->drm, "DC state mismatch (0x%x -> 0x%x)\n",
+> -			dev_priv->display.dmc.dc_state, val & mask);
+> +			power_domains->dc_state, val & mask);
+>  
+>  	val &= ~mask;
+>  	val |= state;
+>  
+>  	gen9_write_dc_state(dev_priv, val);
+>  
+> -	dev_priv->display.dmc.dc_state = val & mask;
+> +	power_domains->dc_state = val & mask;
+>  }
+>  
+>  static void tgl_enable_dc3co(struct drm_i915_private *dev_priv)
+> @@ -970,9 +972,10 @@ static void gen9_assert_dbuf_enabled(struct drm_i915_private *dev_priv)
+>  
+>  void gen9_disable_dc_states(struct drm_i915_private *dev_priv)
+>  {
+> +	struct i915_power_domains *power_domains = &dev_priv->display.power.domains;
+>  	struct intel_cdclk_config cdclk_config = {};
+>  
+> -	if (dev_priv->display.dmc.target_dc_state == DC_STATE_EN_DC3CO) {
+> +	if (power_domains->target_dc_state == DC_STATE_EN_DC3CO) {
+>  		tgl_disable_dc3co(dev_priv);
+>  		return;
+>  	}
+> @@ -1011,10 +1014,12 @@ static void gen9_dc_off_power_well_enable(struct drm_i915_private *dev_priv,
+>  static void gen9_dc_off_power_well_disable(struct drm_i915_private *dev_priv,
+>  					   struct i915_power_well *power_well)
+>  {
+> +	struct i915_power_domains *power_domains = &dev_priv->display.power.domains;
+> +
+>  	if (!intel_dmc_has_payload(dev_priv))
+>  		return;
+>  
+> -	switch (dev_priv->display.dmc.target_dc_state) {
+> +	switch (power_domains->target_dc_state) {
+>  	case DC_STATE_EN_DC3CO:
+>  		tgl_enable_dc3co(dev_priv);
+>  		break;
+> diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
+> index f70ada2357dc..ab4fdedd4c5f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dmc.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dmc.c
+> @@ -449,6 +449,7 @@ void intel_dmc_disable_pipe(struct drm_i915_private *i915, enum pipe pipe)
+>   */
+>  void intel_dmc_load_program(struct drm_i915_private *dev_priv)
+>  {
+> +	struct i915_power_domains *power_domains = &dev_priv->display.power.domains;
+>  	struct intel_dmc *dmc = &dev_priv->display.dmc;
+>  	enum intel_dmc_id dmc_id;
+>  	u32 i;
+> @@ -481,7 +482,7 @@ void intel_dmc_load_program(struct drm_i915_private *dev_priv)
+>  		}
+>  	}
+>  
+> -	dev_priv->display.dmc.dc_state = 0;
+> +	power_domains->dc_state = 0;
+>  
+>  	gen9_set_dc_state_debugmask(dev_priv);
+>  
+> diff --git a/drivers/gpu/drm/i915/display/intel_dmc.h b/drivers/gpu/drm/i915/display/intel_dmc.h
+> index c9808bbe7162..90910cecc2f6 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dmc.h
+> +++ b/drivers/gpu/drm/i915/display/intel_dmc.h
+> @@ -40,9 +40,6 @@ struct intel_dmc {
+>  		bool present;
+>  	} dmc_info[DMC_FW_MAX];
+>  
+> -	u32 dc_state;
+> -	u32 target_dc_state;
+> -	u32 allowed_dc_mask;
+>  	intel_wakeref_t wakeref;
+>  };
+>  
+> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+> index 2954759e9d12..cf13580af34a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_psr.c
+> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
+> @@ -702,6 +702,7 @@ tgl_dc3co_exitline_compute_config(struct intel_dp *intel_dp,
+>  {
+>  	const u32 crtc_vdisplay = crtc_state->uapi.adjusted_mode.crtc_vdisplay;
+>  	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
+> +	struct i915_power_domains *power_domains = &dev_priv->display.power.domains;
+>  	u32 exit_scanlines;
+>  
+>  	/*
+> @@ -718,7 +719,7 @@ tgl_dc3co_exitline_compute_config(struct intel_dp *intel_dp,
+>  	if (crtc_state->enable_psr2_sel_fetch)
+>  		return;
+>  
+> -	if (!(dev_priv->display.dmc.allowed_dc_mask & DC_STATE_EN_DC3CO))
+> +	if (!(power_domains->allowed_dc_mask & DC_STATE_EN_DC3CO))
+>  		return;
+>  
+>  	if (!dc3co_is_pipe_port_compatible(intel_dp, crtc_state))
+> -- 
+> 2.34.1
 > 
