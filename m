@@ -4,48 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ABF1C636CC
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 20:12:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 362C1C636D7
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 20:13:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0536410E377;
-	Thu, 16 Feb 2023 20:12:01 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F18510E377
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Feb 2023 20:11:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F8D110E199;
+	Thu, 16 Feb 2023 20:13:55 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5718910E199;
+ Thu, 16 Feb 2023 20:13:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1676578319; x=1708114319;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- mime-version:in-reply-to;
- bh=hN+6s+eAJRDalVcf8M8aYbSS23fs3pVU72ieO84xDHQ=;
- b=TmqdVHC2Mq/QOc6miEayA8R8AnWb1ChPpNrDKOPTfwzsQHM9xETvQS+Y
- RH/z2tpI5qg6ZTfLS6yV6KdOYLItB47Lsu9l4zxRBzYg8Iqp+wB1OgQl+
- d90AVJuSLCexYRfBaU0OstBx7y/q9TJ0U6nemji9cR9ryEosXmr8Z30lq
- hUsTn1XvWIoQpVZ7QxHZ/k2+lR/2tiZ589dJ0qc2ehhkBYSihbafqEPZ+
- A9VbD0T08g5ouLKKOn40Xd/WGyFLnimqkFaAuXFNGPfp7EFrjI31Ib/lO
- BpCG6XGqAPnJCxtyHFlStKD0W1RqcPC3hYNqldk19BuLx/VVvuLM4d02H w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="331826995"
-X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="331826995"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2023 12:11:58 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="702723698"
-X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="702723698"
-Received: from ideak-desk.fi.intel.com ([10.237.72.58])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2023 12:11:56 -0800
-Date: Thu, 16 Feb 2023 22:11:52 +0200
-From: Imre Deak <imre.deak@intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Message-ID: <Y+6OCCJ4tzIIdSIV@ideak-desk.fi.intel.com>
-References: <20230216161739.668294-1-jani.nikula@intel.com>
- <20230216161739.668294-3-jani.nikula@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+ t=1676578433; x=1708114433;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=UQkRLve58P1nDkB7upnPTTnALIGYNxxyNDTIvflZgpk=;
+ b=FaClJIEb6rz8BJB1SI0cYmdr0OPGFnhoAz9MZn/b2uPuFeSKK5YoKjRR
+ rU3upzHfnZ8dNQpdZWwJ/F9WhClsxVG6l3a/I2bzXYRKn/VdT8ks8u3ks
+ Gk0VA8Ls0qbpToMGYStRyGxdiDLEX8reEMrBmDieAb7zfjNY9kKIPYUaP
+ wQ4riu1P+YaQ5OzxoN938oNwQFVfFxBg9Hv5o+2QhIj4w9ja2jEVXm9l7
+ 8ogJTPKBHuNZt71xlvY6od6DbR3jdpZ4ULTUDvyElr8PpUqbgdQnfUwHm
+ vSLyBGDFiST3k56bIgZNZfG2wxjhNBn5MZl7mdY5OPkEFJct89Vrzohdl g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="359268762"
+X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="359268762"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Feb 2023 12:13:52 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="734040412"
+X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="734040412"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by fmsmga008.fm.intel.com with ESMTP; 16 Feb 2023 12:13:52 -0800
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.16; Thu, 16 Feb 2023 12:13:52 -0800
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.16; Thu, 16 Feb 2023 12:13:52 -0800
+Received: from FMSEDG603.ED.cps.intel.com (10.1.192.133) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.16 via Frontend Transport; Thu, 16 Feb 2023 12:13:52 -0800
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.169)
+ by edgegateway.intel.com (192.55.55.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.16; Thu, 16 Feb 2023 12:13:51 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RNmv4ElDWcQ2jQrlvdOHxklSNW6UjfncHieLq4tj1rVTdsSb1Q34v95jL1oGKS6zMdFPQPefs5YPgFSLWLqN+dBTzt1BJEfW0MM3J5QrjPdv/RROImg2A9tIK/DZ1+W/TA2prOAvzGYoyUjpbzoEEIm71MAA9ogTWg9Nrc0mvU5QWi+PgU65KbQNeYO8ca4P1Dm0dQd9UuRKaeJaRBI3SKtzhDeL41hbl56S4B6EAZL9V3o3HdOFyDT699rvAnIq2M2CMsvobzrm5eo8MbQyb7T9NK19uqrkTVmmG6Bl/IUEWYVogmNsZUrr03326SM9UuB/+s6LSpQp401ouXtXUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ob6PJB1FDlPL8KZJ2IiBJt8oDMfHRxMJ0WkKga0QOY0=;
+ b=AW1JZ/X4bu5WWyy0N7JF9nNrc25+wTcTyru2W5qNRRkwOhurM8Lq1bso93eu8/vtogEdFLV5jw/NgcksSd5F4lKWPsIJ4656HbD2eNKCqMPcGNazDz82f636jHd1M7bLSbJiwueUmCe3WLI9wifT1/iAur+hknYOkbKV8LdF5kYlVnZlEzegMj9cnyMjSDsKCsoGP3qQNlBC0FuJ2ee0IzUzTOG7db70t64s2tNe7E7vKD7TmxaB5vLNMXARs21ndeTkEw7sKeFCcFA54xa8NeiE2kW+Xms2/wTIuLGdPwGJj2tAUl8Ocoa/Mf1FgYVE5ummh8vZddWJqHYhFOHysw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MN0PR11MB6059.namprd11.prod.outlook.com (2603:10b6:208:377::9)
+ by PH8PR11MB7096.namprd11.prod.outlook.com (2603:10b6:510:214::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.23; Thu, 16 Feb
+ 2023 20:13:49 +0000
+Received: from MN0PR11MB6059.namprd11.prod.outlook.com
+ ([fe80::3bd5:710c:ebab:6158]) by MN0PR11MB6059.namprd11.prod.outlook.com
+ ([fe80::3bd5:710c:ebab:6158%9]) with mapi id 15.20.6086.024; Thu, 16 Feb 2023
+ 20:13:49 +0000
+Date: Thu, 16 Feb 2023 15:13:43 -0500
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <Y+6Odz2Kvqdk3D/k@intel.com>
+References: <20230214053342.1952226-1-ashutosh.dixit@intel.com>
+ <20230214053342.1952226-4-ashutosh.dixit@intel.com>
+ <f7a7e280-804f-b397-a8c5-c4dae0451111@roeck-us.net>
+ <87sff7tygb.wl-ashutosh.dixit@intel.com>
+ <Y+58hLJYJYVQ5KyP@intel.com>
+ <03a57aad-b5f8-3483-8444-4334a03482dc@roeck-us.net>
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20230216161739.668294-3-jani.nikula@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v2 3/3] drm/i915/dmc: allocate dmc structure
- dynamically
+In-Reply-To: <03a57aad-b5f8-3483-8444-4334a03482dc@roeck-us.net>
+X-ClientProxiedBy: SJ0PR03CA0041.namprd03.prod.outlook.com
+ (2603:10b6:a03:33e::16) To MN0PR11MB6059.namprd11.prod.outlook.com
+ (2603:10b6:208:377::9)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR11MB6059:EE_|PH8PR11MB7096:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b2c5ef8-3cd7-4cda-92f4-08db105a5094
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 0InaZRkEw7H+otEPlETj2Eu2EKz8u1HJd1tCHVGjd/t/oH+vsYII5fUoGhZBOwsDYAC/1lmPwTfX+t8zyFvL4ECm8Pe/kE0qAKYsgOY+P3tYz58An3KGBuvL7RhUZyEgbzRV71MKR93l/iUAf1SnK+KrqJeEiOxoL+BMKz4d3sf3pKZQKcRbwd3Iox14ZO65FRKx0jhev5risyJVMwFnBthiulWnSF7P+Ra3z095NVZ9Av6uwxG0ieBkZlzMSm6c5HShjQe59o63l+TmVmygDVALWERZbdlX2/gvPCeGwnHkLcz8k+91j1zz/oQy0zwUAcskWZGLcPL0iwcHxBPVF1Q4iNscudsPdGDzzOpDTgDhPNgkRGAnDEQLDYKNagj3FYsDmeQZBHTYp1MvDRXkoQWff4l/X/UswTQ5nCmFK/OjSBtonjGYARKUj5hJ0yVqvkkcxV2ymVOcF5CO4tsRgwsRqCWQ3PWsxsHu4QEwb+WZXyiUGvgG294lfu60wU2d4uzPcL38jD9bShyvDODTX7goJ+bsvkBuRiKR7TQDpHyrRB8wepQe7s5JG15bB7SLfOYyU6THG59C5UCGAYxdb9WjwuxXDQp16iTAQICuRZP25YBrVtqbYG+qHEjL8iVY
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN0PR11MB6059.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(39860400002)(366004)(396003)(376002)(346002)(136003)(451199018)(41300700001)(8936002)(36756003)(6916009)(2906002)(38100700002)(5660300002)(82960400001)(44832011)(186003)(6506007)(53546011)(478600001)(83380400001)(86362001)(6512007)(8676002)(6486002)(4326008)(66476007)(66556008)(6666004)(26005)(966005)(66946007)(316002)(54906003)(2616005);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?vo8mnRhsgKDKSTLXG6jtxGe1tXi0D/Zs75Gf08v0hqLKLTFZt+P88zCqLsMR?=
+ =?us-ascii?Q?gc1fbEcev3b3jX5yLlCzzN/QOy3HLu1AJEw0lFjeRsY9/SOWO+3sZA4W7s7p?=
+ =?us-ascii?Q?HIg/TP9gFU/uDRvX00k9rQfrGIINfcQb6DYxgqa/cCHt9z7pHKZ3SeW4/3sh?=
+ =?us-ascii?Q?fjvlnChX4CcLE7tGkO4tx6cEFnokeDh1llSCVkencaO/OO+8R+k5UaRvhTA3?=
+ =?us-ascii?Q?06z/RXd8TJgLRY7Ie5BOuCKJphseHr8jrqRHLDdRt00aGOKbw+ui/JkrOch0?=
+ =?us-ascii?Q?dAJremcPXzTYs1KJDMJ9MA88PlziuSX7ProPraRZ9CPD5G3KBgwjGvN4YCqi?=
+ =?us-ascii?Q?8xvNeywr9GcwW1sKQBUiJ1H3fi/5evFSlaVLSqQyCkLAHhSeQzx3V9H0w1VD?=
+ =?us-ascii?Q?9ZILujbyopFgvWTORBhohc3AT+sb5qEaD1Be4n1kIWaYLR05yIEKnyUY1IaO?=
+ =?us-ascii?Q?U+K7Qh0spBjOKoWkFUMvUzcYhpn5guNkQAVc9eL2DSCHPCrFcb7JzvYVjKYi?=
+ =?us-ascii?Q?jsC6A/odVQ9PJOipr8bJo4OHg6N44ljCJMste7gx/8qclpHeqr2KpwZ0KrUE?=
+ =?us-ascii?Q?FqcJn4sYGK+0qD0fn1fhmUoU5leC7Sk4zCvE/UAFMHnlHeHsDeYBV6E79uHj?=
+ =?us-ascii?Q?UCpX7l4QIgXatcJZ3Zq6HjGVXdPeKrrvx1O/gWOkvFWMELOk4USLR/2Z8Uxb?=
+ =?us-ascii?Q?4tchClLfRebLzqsU8yeCvhnF/CnW7MnvfLRQp3XETyknzsT6yTBSlaDGoA5M?=
+ =?us-ascii?Q?AA4XezxFsgVq2gYdzIVWTq4BapiR5EdHOp3uzH2vN+SZoohY1X0Hq/sowQTD?=
+ =?us-ascii?Q?POEqK8uXhN3b7tfLl6OvzLIMtzW1nt+3BeFTIHTsZSracolkWTCBm/SULvBK?=
+ =?us-ascii?Q?95lUYNJtDDL5ZqetgY6vD/F49ylpJDOHP25cnai7/2hmi/SWixwibP6H5mOE?=
+ =?us-ascii?Q?QipX6zSZ2gNfHm7qfDXtXw8JMj88eCLo39wcVjvw9MELkHdatr+//PE6FQfh?=
+ =?us-ascii?Q?EL4zzJpZ6y/y7hT6IiJPR5swBHLALGE/X1YTM+uRe7H/FWJlzo4KtA4KQKoD?=
+ =?us-ascii?Q?Hgt1BJdA1JOwtpEZhe541xauqIxIoasEm2rY+v/wP1GQUvVqA4NkMj9pv0W/?=
+ =?us-ascii?Q?A9kSY9i/o4cFKTYJGcBq8ylsSdxPhzPXw8SvYluVu10xwqO7h0CHk3XYlmZ9?=
+ =?us-ascii?Q?vKHQYKXYyvgcz1TH22lqwvNufxLgTaqHQespkw1KtpP3eVtWgb6YI2h/fMlN?=
+ =?us-ascii?Q?jD/O4W0QYkriSRrTK+kFr8VYYJlLEITB9Zx4Gr2Z1KSQqQvGGwq7ffxFVp5C?=
+ =?us-ascii?Q?/Iqb1H6J2lpgStuBWxhE5aW2NFiZVHjgJvl0yc8rY9whqetdby8/wT5MsTzd?=
+ =?us-ascii?Q?8RTfjL5OCAPLwlsb/cA9NQyutKLlsyLJutetgmFKObkwVbN18whx+caMw1ja?=
+ =?us-ascii?Q?nvqazRZ7TXXpTNyTz/jN9UyWNdRfIZNXrdlg7/5yEaHuU/9cOd+gfzhHjMK+?=
+ =?us-ascii?Q?WO0fAjWPa9Z8uaRkH7kChor65xiru1ca5/aWeUIwD2BhqszlmTu0yiPpSGrk?=
+ =?us-ascii?Q?SVzQt7DBSNboqAsdxYohrvaCjgIdHWNgLib3jGXTqZFZVDbN5SYOyYcEZOEL?=
+ =?us-ascii?Q?FA=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b2c5ef8-3cd7-4cda-92f4-08db105a5094
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR11MB6059.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2023 20:13:49.1990 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Q+z61hNUGOyH/iS3eNGcuCwFE/1nEQq0LNYDlyk+3iqT0LhYK5pPJU9REGjxjc6ElZIjustdDUwMP7TMFTPZrA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB7096
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH 3/3] drm/i915/hwmon: Expose power1_max_enable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,235 +151,117 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: imre.deak@intel.com
-Cc: intel-gfx@lists.freedesktop.org
+Cc: linux-hwmon@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 16, 2023 at 06:17:39PM +0200, Jani Nikula wrote:
-> sizeof(struct intel_dmc) > 1024 bytes, allocated on all platforms as
-> part of struct drm_i915_private, whether they have DMC or not.
+On Thu, Feb 16, 2023 at 11:25:50AM -0800, Guenter Roeck wrote:
+> On 2/16/23 10:57, Rodrigo Vivi wrote:
+> > On Tue, Feb 14, 2023 at 07:11:16PM -0800, Dixit, Ashutosh wrote:
+> > > On Mon, 13 Feb 2023 22:16:44 -0800, Guenter Roeck wrote:
+> > > > 
+> > > 
+> > > Hi Guenter,
+> > > 
+> > > > On 2/13/23 21:33, Ashutosh Dixit wrote:
+> > > > > On ATSM the PL1 power limit is disabled at power up. The previous uapi
+> > > > > assumed that the PL1 limit is always enabled and therefore did not have a
+> > > > > notion of a disabled PL1 limit. This results in erroneous PL1 limit values
+> > > > > when PL1 limit is disabled. For example at power up, the disabled ATSM PL1
+> > > > > limit is shown as 0 which means a low PL1 limit whereas the limit being
+> > > > > disabled actually implies a high effective PL1 limit value.
+> > > > > 
+> > > > > To get round this problem, expose power1_max_enable as a custom hwmon
+> > > > > attribute. power1_max_enable can be used in conjunction with power1_max to
+> > > > > interpret power1_max (PL1 limit) values correctly. It can also be used to
+> > > > > enable/disable the PL1 power limit.
+> > > > > 
+> > > > > Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+> > > > > ---
+> > > > >    .../ABI/testing/sysfs-driver-intel-i915-hwmon |  7 +++
+> > > > >    drivers/gpu/drm/i915/i915_hwmon.c             | 48 +++++++++++++++++--
+> > > > >    2 files changed, 51 insertions(+), 4 deletions(-)
+> > > > > 
+> > > > > diff --git a/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon b/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
+> > > > > index 2d6a472eef885..edd94a44b4570 100644
+> > > > > --- a/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
+> > > > > +++ b/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
+> > > > > @@ -18,6 +18,13 @@ Description:	RW. Card reactive sustained  (PL1/Tau) power limit in microwatts.
+> > > > > 			Only supported for particular Intel i915 graphics
+> > > > > platforms.
+> > > > >    +What:		/sys/devices/.../hwmon/hwmon<i>/power1_max_enable
+> > > > 
+> > > > This is not a standard hwmon attribute. The standard attribute would be
+> > > > power1_enable.
+> > > > 
+> > > > So from hwmon perspective this is a NACK.
+> > > 
+> > > Thanks for the feedback. I did consider power1_enable but decided to go
+> > > with the power1_max_enable custom attribute. Documentation for
+> > > power1_enable says it is to "Enable or disable the sensors" but in our case
+> > > we are not enabling/disabling sensors (which we don't have any ability to,
+> > > neither do we expose any power measurements, only energy from which power
+> > > can be derived) but enabling/disabling a "power limit" (a limit beyond
+> > > which HW takes steps to limit power).
+> > 
+> > Hi Guenter,
+> > 
+> > are you okay with this explanation to release the previous 'nack'?
+> > 
 > 
-> Allocate struct intel_dmc dynamically, and hide all the dmc details
-> behind an opaque pointer in intel_dmc.c.
+> Not really. My suggested solution would have been to use a value of '0'
+> to indicate 'disabled' and document it accordingly.
 > 
-> Care must be taken to take into account all cases: DMC not supported on
-> the platform, DMC supported but not initialized, and DMC initialized but
-> not loaded. For the second case, we need to move the wakeref out of
-> struct intel_dmc.
+> > For me it looks like this case really doesn't fit in the standard ones.
+> > 
+> > But also this made me wonder what are the rules for non-standard cases?
+> > 
+> > I couldn't find any clear guidelines in here:
+> > https://docs.kernel.org/hwmon/hwmon-kernel-api.html#driver-provided-sysfs-attributes
+> > 
+> > We are seeing drivers around to freely use non-standard hwmon.
 > 
-> Cc: Imre Deak <imre.deak@intel.com>
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> ---
->  .../gpu/drm/i915/display/intel_display_core.h |  8 ++-
->  drivers/gpu/drm/i915/display/intel_dmc.c      | 50 +++++++++++++++++--
->  drivers/gpu/drm/i915/display/intel_dmc.h      | 34 +------------
->  .../drm/i915/display/intel_modeset_setup.c    |  1 +
->  4 files changed, 53 insertions(+), 40 deletions(-)
+> Yes, sure, freely. You conveniently ignore
 > 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-> index b870f7f47f2b..ff51149c5fcb 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_core.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-> @@ -19,7 +19,6 @@
->  #include "intel_cdclk.h"
->  #include "intel_display_limits.h"
->  #include "intel_display_power.h"
-> -#include "intel_dmc.h"
->  #include "intel_dpll_mgr.h"
->  #include "intel_fbc.h"
->  #include "intel_global_state.h"
-> @@ -40,6 +39,7 @@ struct intel_cdclk_vals;
->  struct intel_color_funcs;
->  struct intel_crtc;
->  struct intel_crtc_state;
-> +struct intel_dmc;
->  struct intel_dpll_funcs;
->  struct intel_dpll_mgr;
->  struct intel_fbdev;
-> @@ -340,6 +340,11 @@ struct intel_display {
->  		spinlock_t phy_lock;
->  	} dkl;
->  
-> +	struct {
-> +		struct intel_dmc *dmc;
-> +		intel_wakeref_t wakeref;
-> +	} dmc;
-> +
->  	struct {
->  		/* VLV/CHV/BXT/GLK DSI MMIO register base address */
->  		u32 mmio_base;
-> @@ -467,7 +472,6 @@ struct intel_display {
->  
->  	/* Grouping using named structs. Keep sorted. */
->  	struct intel_audio audio;
-> -	struct intel_dmc dmc;
->  	struct intel_dpll dpll;
->  	struct intel_fbc *fbc[I915_MAX_FBCS];
->  	struct intel_frontbuffer_tracking fb_tracking;
-> diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
-> index 1d156ac2eb4c..8428d08e0c3d 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dmc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-> @@ -38,9 +38,37 @@
->   * low-power state and comes back to normal.
->   */
->  
-> +enum intel_dmc_id {
-> +	DMC_FW_MAIN = 0,
-> +	DMC_FW_PIPEA,
-> +	DMC_FW_PIPEB,
-> +	DMC_FW_PIPEC,
-> +	DMC_FW_PIPED,
-> +	DMC_FW_MAX
-> +};
-> +
-> +struct intel_dmc {
-> +	struct drm_i915_private *i915;
-> +	struct work_struct work;
-> +	const char *fw_path;
-> +	u32 max_fw_size; /* bytes */
-> +	u32 version;
-> +	struct dmc_fw_info {
-> +		u32 mmio_count;
-> +		i915_reg_t mmioaddr[20];
-> +		u32 mmiodata[20];
-> +		u32 dmc_offset;
-> +		u32 start_mmioaddr;
-> +		u32 dmc_fw_size; /*dwords */
-> +		u32 *payload;
-> +		bool present;
-> +	} dmc_info[DMC_FW_MAX];
-> +};
-> +
-> +/* Note: This may be NULL. */
->  static struct intel_dmc *i915_to_dmc(struct drm_i915_private *i915)
->  {
-> -	return &i915->display.dmc;
-> +	return i915->display.dmc.dmc;
->  }
->  
->  #define DMC_VERSION(major, minor)	((major) << 16 | (minor))
-> @@ -937,7 +965,10 @@ void intel_dmc_init(struct drm_i915_private *dev_priv)
->  	if (!HAS_DMC(dev_priv))
->  		return;
->  
-> -	dmc = i915_to_dmc(dev_priv);
-> +	dmc = kzalloc(sizeof(*dmc), GFP_KERNEL);
-> +	if (!dmc)
-> +		return;
+> Do not create non-standard attributes unless really needed. If you have to use
+> non-standard attributes, or you believe you do, discuss it on the mailing list
+> first. Either case, provide a detailed explanation why you need the non-standard
+> attribute(s). Standard attributes are specified in Naming and data format
+> standards for sysfs files.
+> 
+> from Documentation/hwmon/submitting-patches.rst.
 
-Couldn't driver loading fail in this case instead (simplifying the
-dmc==NULL checks elsewhere)?
+I'm sorry for having missed this part. It is not that I ignored it, I
+hadn't opened it because the title is on how to get patches
+"accepted into the hwmon subsystem".
 
-> +
->  	dmc->i915 = dev_priv;
->  
->  	INIT_WORK(&dmc->work, dmc_load_work_fn);
-> @@ -991,10 +1022,9 @@ void intel_dmc_init(struct drm_i915_private *dev_priv)
->  
->  	if (dev_priv->params.dmc_firmware_path) {
->  		if (strlen(dev_priv->params.dmc_firmware_path) == 0) {
-> -			dmc->fw_path = NULL;
->  			drm_info(&dev_priv->drm,
->  				 "Disabling DMC firmware and runtime PM\n");
-> -			return;
-> +			goto out;
->  		}
->  
->  		dmc->fw_path = dev_priv->params.dmc_firmware_path;
-> @@ -1003,11 +1033,18 @@ void intel_dmc_init(struct drm_i915_private *dev_priv)
->  	if (!dmc->fw_path) {
->  		drm_dbg_kms(&dev_priv->drm,
->  			    "No known DMC firmware for platform, disabling runtime PM\n");
-> -		return;
-> +		goto out;
->  	}
->  
-> +	dev_priv->display.dmc.dmc = dmc;
-> +
->  	drm_dbg_kms(&dev_priv->drm, "Loading %s\n", dmc->fw_path);
->  	schedule_work(&dmc->work);
-> +
-> +	return;
-> +
-> +out:
-> +	kfree(dmc);
->  }
->  
->  /**
-> @@ -1074,6 +1111,9 @@ void intel_dmc_fini(struct drm_i915_private *dev_priv)
->  	if (dmc) {
->  		for_each_dmc_id(dmc_id)
->  			kfree(dmc->dmc_info[dmc_id].payload);
-> +
-> +		kfree(dmc);
-> +		dev_priv->display.dmc.dmc = NULL;
->  	}
->  }
->  
-> diff --git a/drivers/gpu/drm/i915/display/intel_dmc.h b/drivers/gpu/drm/i915/display/intel_dmc.h
-> index b74635497aa7..fd607afff2ef 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dmc.h
-> +++ b/drivers/gpu/drm/i915/display/intel_dmc.h
-> @@ -6,44 +6,12 @@
->  #ifndef __INTEL_DMC_H__
->  #define __INTEL_DMC_H__
->  
-> -#include "i915_reg_defs.h"
-> -#include "intel_wakeref.h"
-> -#include <linux/workqueue.h>
-> +#include <linux/types.h>
->  
->  struct drm_i915_error_state_buf;
->  struct drm_i915_private;
-> -
->  enum pipe;
->  
-> -enum intel_dmc_id {
-> -	DMC_FW_MAIN = 0,
-> -	DMC_FW_PIPEA,
-> -	DMC_FW_PIPEB,
-> -	DMC_FW_PIPEC,
-> -	DMC_FW_PIPED,
-> -	DMC_FW_MAX
-> -};
-> -
-> -struct intel_dmc {
-> -	struct drm_i915_private *i915;
-> -	struct work_struct work;
-> -	const char *fw_path;
-> -	u32 max_fw_size; /* bytes */
-> -	u32 version;
-> -	struct dmc_fw_info {
-> -		u32 mmio_count;
-> -		i915_reg_t mmioaddr[20];
-> -		u32 mmiodata[20];
-> -		u32 dmc_offset;
-> -		u32 start_mmioaddr;
-> -		u32 dmc_fw_size; /*dwords */
-> -		u32 *payload;
-> -		bool present;
-> -	} dmc_info[DMC_FW_MAX];
-> -
-> -	intel_wakeref_t wakeref;
-> -};
-> -
->  void intel_dmc_init(struct drm_i915_private *i915);
->  void intel_dmc_load_program(struct drm_i915_private *i915);
->  void intel_dmc_disable_program(struct drm_i915_private *i915);
-> diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-> index 5359b9663a07..42bfd56fcbe4 100644
-> --- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-> +++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-> @@ -22,6 +22,7 @@
->  #include "intel_display.h"
->  #include "intel_display_power.h"
->  #include "intel_display_types.h"
-> +#include "intel_dmc.h"
->  #include "intel_modeset_setup.h"
->  #include "intel_pch_display.h"
->  #include "intel_pm.h"
-> -- 
-> 2.34.1
+I was only reading the docs related to use hwmon in the drivers,
+not yet at the point were I thought this case was generic enough
+to get that *into* hwmon subsystem.
+
+> 
+> > Are we free to add non standard ones as long if doesn't fit in the defined
+> > standards, or should we really limit the use and do our own thing on our own?
+> > 
+> 
+> > I mean, for the new Xe driver I was considering to standardize everything
+> > related to freq and power on top of the hwmon instead of separated sysfs
+> > files. But this would mean a lot of non-standard stuff on top of a few
+> > standard hwmon stuff. But I will hold this plan if you tell me that we
+> > should avoid and limit the non-standard cases.
+> > 
+> 
+> Oh, I really don't want to keep arguing, especially after your "freely"
+> above. Do whatever you want, just keep it out of drivers/hwmon.
+
+For the record, I am also not arguing. I'm just trying to understand the
+rules. I believe hwmon is such a good infra and based on the basic docs
+I had the impression that the expansion of non-standards was allowed
+and desireable on non-standard cases and that the contribution to get
+standard into hwmon would just come on things that it really looks that
+more devices have in common.
+
+> 
+> Guenter
 > 
