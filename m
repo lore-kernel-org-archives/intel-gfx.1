@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7946EC636CC
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 11:00:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 278A9C636D6
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 11:00:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9216810ED41;
-	Thu, 16 Feb 2023 10:59:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBC0810ED42;
+	Thu, 16 Feb 2023 10:59:41 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11A9C10ED19;
- Thu, 16 Feb 2023 10:59:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEDFF10ED3B;
+ Thu, 16 Feb 2023 10:59:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1676545172; x=1708081172;
+ t=1676545178; x=1708081178;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=uk/GmpuW79W2EydXmlCYOB17kdJavbWT9XM7VhTE0PY=;
- b=JofHkxif2i9xyNTbwcZKleb+uDHYaKiN75D4lnuu+AyCd/Kj/Kj+1+Mg
- AUUZSGEf+OFPYGOs64DwPeX47hCplhJKmTno7snu2tAmM8giGiafYNg22
- J7dzwVGmT25bZMMZaX4hzHjecWFSJHRaLJR3KRib3vhgaWSMnXJjRJzE6
- nPTNWy1+WjcNmpVne9Tj4yeXVNAUkZlHksWryGesyxr2TWqxOR72eL+/j
- tEnfO8HhBAIPlMOFqE5c3Z7gKiQjzkulLCF7D77wOvUj+BxVzPf2BdhvG
- PZOW2IvwLY6+SBugV6DaW131qVhgIFCFmjhcctZ9D6OK4EnyFjJyERbH5 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10622"; a="311317601"
-X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="311317601"
+ bh=fBvOEzsEUpuULwaHPJM994RuIgwkgHj0Lxh3VNlA7mU=;
+ b=ei/zzFZAh5heFGAl5qo1K8UxFCG3YyO9kKGVsVFNhT4AD3oeS9kjQPX4
+ pAY7lPzOcrCLooHB/j9CPOOYsU4X12f+CtxiqYW5MBulxkFwqU36+OcL4
+ vjfocTPMrKpYH/TqT78aoPD1VJQT5jsTiLGPBBXtiPttSNH4rt9LAnH+I
+ I1+DFRzuhGR7s9/xFtykY9m+mry/3BDwZgmrSoGDDr7acDFSncUWnxqZ7
+ oGlUzuwBjmzIT14lhl1CHVNqA3zLErm4qsneGC5c8MoJu4E2iNiqNqXpU
+ shVJrSKgb6o36bek8mtMBuE6uYh2oyLwH9twNi7tl0p+QjxBIq2hufGXw g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10622"; a="311317617"
+X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="311317617"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2023 02:59:31 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10622"; a="812917912"
-X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="812917912"
+ 16 Feb 2023 02:59:37 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10622"; a="812917923"
+X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="812917923"
 Received: from murrayal-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.229.164])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2023 02:59:30 -0800
+ 16 Feb 2023 02:59:36 -0800
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 16 Feb 2023 10:59:15 +0000
-Message-Id: <20230216105921.624960-4-tvrtko.ursulin@linux.intel.com>
+Date: Thu, 16 Feb 2023 10:59:20 +0000
+Message-Id: <20230216105921.624960-9-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230216105921.624960-1-tvrtko.ursulin@linux.intel.com>
 References: <20230216105921.624960-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 3/9] drm/i915: Use fence callback initialization
- helper
+Subject: [Intel-gfx] [RFC 8/9] drm/i915: Mark waits as explicit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,41 +63,29 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Use the previously added initialization helper to ensure correct operation
-of the common code.
+Use the previously added dma-fence API to mark the direct i915 waits as
+explicit. This has no significant effect apart from following the new
+pattern.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/i915_active.c | 2 +-
- drivers/gpu/drm/i915/i915_active.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/i915_request.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
-index 7412abf166a8..a9483aadb0ff 100644
---- a/drivers/gpu/drm/i915/i915_active.c
-+++ b/drivers/gpu/drm/i915/i915_active.c
-@@ -887,7 +887,7 @@ int i915_active_acquire_preallocate_barrier(struct i915_active *ref,
- 				goto unwind;
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 8989f62a7fba..488b180f8821 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -2046,7 +2046,8 @@ long i915_request_wait_timeout(struct i915_request *rq,
+ 		intel_rps_boost(rq);
  
- 			RCU_INIT_POINTER(node->base.fence, NULL);
--			node->base.cb.func = node_retire;
-+			__dma_fence_cb_init(&node->base.cb, node_retire);
- 			node->timeline = idx;
- 			node->ref = ref;
- 		}
-diff --git a/drivers/gpu/drm/i915/i915_active.h b/drivers/gpu/drm/i915/i915_active.h
-index 7eb44132183a..da0c5b917cb1 100644
---- a/drivers/gpu/drm/i915/i915_active.h
-+++ b/drivers/gpu/drm/i915/i915_active.h
-@@ -65,7 +65,7 @@ __i915_active_fence_init(struct i915_active_fence *active,
- 			 dma_fence_func_t fn)
- {
- 	RCU_INIT_POINTER(active->fence, fence);
--	active->cb.func = fn ?: i915_active_noop;
-+	__dma_fence_cb_init(&active->cb, fn ?: i915_active_noop);
- }
+ 	wait.tsk = current;
+-	if (dma_fence_add_callback(&rq->fence, &wait.cb, request_wait_wake))
++	if (dma_fence_add_wait_callback(&rq->fence, &wait.cb,
++					request_wait_wake))
+ 		goto out;
  
- #define INIT_ACTIVE_FENCE(A) \
+ 	/*
 -- 
 2.34.1
 
