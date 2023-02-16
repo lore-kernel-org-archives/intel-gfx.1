@@ -4,150 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A5B7C636CC
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 17:37:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E799C636CC
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 17:47:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F2E410E33C;
-	Thu, 16 Feb 2023 17:37:50 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13B2410E33C
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Feb 2023 17:37:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1676569069; x=1708105069;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=cRUstPzoWopL+BDQ4Q3dqtMrNUcVtDl45igVxwXA4mY=;
- b=ZO9jZWqrIpqUjv/CZkUX7H5bNVcgvTw9Co+7KSUdaVYnMF4wGwWhQUfd
- E45sJeQQDVfpiiTSGZ0iXiy/aBKC+dd+ImZ/CbD5uwHnMsbHY7g9cXS3U
- GhM6AlJ0XPNiaTUp2bRsM6KH1kZqPXJAvC1wmLtM7f0FZK+yfAajG1djK
- ZQeHBPJGTj6kH4Opbw76GzSY97RQmQjRfyAtzmEb0t0+xFkZljcExfMxB
- V1r1D2lDQTiiSmZu6Ew8t2EUPcUYWjOk/JRgU/3A4kv6sGmt8j6UDiBSW
- F9AzYsgHeLoJKHnoirPZEHVEQTPj1Guusp113AVrOwT5lVxb4kLVxElK5 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="329504587"
-X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="329504587"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2023 09:37:48 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="670199464"
-X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="670199464"
-Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
- by orsmga002.jf.intel.com with ESMTP; 16 Feb 2023 09:37:48 -0800
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Thu, 16 Feb 2023 09:37:47 -0800
-Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
- fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Thu, 16 Feb 2023 09:37:47 -0800
-Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
- fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16 via Frontend Transport; Thu, 16 Feb 2023 09:37:47 -0800
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com (104.47.74.48) by
- edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.16; Thu, 16 Feb 2023 09:37:47 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YUPKLAkWDufkxKUKRHky3rgS50S7afd8EGRK+c4eVK5+CuQtUumn9Inmwl+z2QTNmHhKqJ2jwfYGizgW6+Fm2EpQ+z+d+eGGyJUjC0PpNIslwipANPpsOZPZzDaHCyGSNZqohVXyX2lhpQ+fYu6+NyAByCFO2znqBb7APpFK6QQS2B086Dfci5DxFcDZ0TSYk9+hgXC7axIV6RsU2ySig1OHuGYIQw+ZgLMBiV0AESZF81ompc9Nba9pShhZI97p5KTFue/f9oxBpgscMUZSi/tWZRNJDQ1QE87utdHWfwadRTz1LXhfMHF6Z8WwoWNE0nvrJ7SyqoiGc3v8ktFCZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/P+QN3pfQ/6lWZ7xz7/KZLTepky1R92SRdGwO/PwQ9A=;
- b=KOQ8GnqZPN10F/mWLl93kiFZ18W1LTYXK1VW0fdZH+fRxjHAQx2dmSQ8vaHWpkqYeBB0j1adCKpEJb59CPiItwvxb1XwR5prGyKQYAPZ/Xc7UvTWVkuPyNpLdjGRQUPpZ1YbRojkxAHmd4nDW+gb6iGdvr4kvhcUwJxVkUFo1W7Ta2gNCO9q4LsdIsY3AtDn8Vu/AqXRxoAA9Vcog4IizCQ8HoWIfXFbc2zlURNVeoxOmchgwYSNhEuQZF+JevUryLJzUbSevTRW4OFeQKKxuKbjMeWJwN1zL/6dVGMBqdfHAYF4JBtSjhPAfM2pe9JGofpPxJ01jjEt1JI4Y6CoEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM6PR11MB2987.namprd11.prod.outlook.com (2603:10b6:5:65::14) by
- CO1PR11MB4979.namprd11.prod.outlook.com (2603:10b6:303:99::16) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6086.26; Thu, 16 Feb 2023 17:37:45 +0000
-Received: from DM6PR11MB2987.namprd11.prod.outlook.com
- ([fe80::9bf9:4252:3ddc:7ac2]) by DM6PR11MB2987.namprd11.prod.outlook.com
- ([fe80::9bf9:4252:3ddc:7ac2%6]) with mapi id 15.20.6111.013; Thu, 16 Feb 2023
- 17:37:45 +0000
-Date: Thu, 16 Feb 2023 09:37:42 -0800
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-To: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
-Message-ID: <Y+5p5o7uRSQ2Mtm2@orsosgc001.jf.intel.com>
-References: <20230215005419.2100887-1-umesh.nerlige.ramappa@intel.com>
- <20230215005419.2100887-4-umesh.nerlige.ramappa@intel.com>
- <87zg9emc2s.wl-ashutosh.dixit@intel.com>
- <87y1oymarx.wl-ashutosh.dixit@intel.com>
- <87ttzlmv1i.wl-ashutosh.dixit@intel.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Disposition: inline
-In-Reply-To: <87ttzlmv1i.wl-ashutosh.dixit@intel.com>
-X-ClientProxiedBy: BY3PR03CA0001.namprd03.prod.outlook.com
- (2603:10b6:a03:39a::6) To DM6PR11MB2987.namprd11.prod.outlook.com
- (2603:10b6:5:65::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2676B10E16E;
+	Thu, 16 Feb 2023 17:47:18 +0000 (UTC)
+X-Greylist: delayed 1552 seconds by postgrey-1.36 at gabe;
+ Thu, 16 Feb 2023 17:47:16 UTC
+Received: from mx0b-00190b01.pphosted.com (mx0b-00190b01.pphosted.com
+ [IPv6:2620:100:9005:57f::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9725810E149;
+ Thu, 16 Feb 2023 17:47:16 +0000 (UTC)
+Received: from pps.filterd (m0122330.ppops.net [127.0.0.1])
+ by mx0b-00190b01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 31GEZ3Un025145; Thu, 16 Feb 2023 17:21:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akamai.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=jan2016.eng;
+ bh=po1mytrc3hGhewQZJTcWp8dBR/9WcyX5DTv6Q2tYDWo=;
+ b=WM3f14GuKAHQGpQjNmQZoBbiM2ql3S2f3qF4CYY+mpzMFgjkJIUO7+h0cbg+6uv94Scj
+ yO6rAcSsh8ktrYcQy/wggtZ20DOVb+Uo0TU41stNZg8PQWNLkSXfVNshYIqn+gxNuLU6
+ Gichax9EThpFI9k7UFXnKolhpkrBh9agd0egPL5p2SmvIhxaYGiiq16c+2blYaNUy6CO
+ OM7EdVoPCZYxOQ7hhgZhKHMMn9FdWjJ4nsCkt7fEDgWuCmPwduDH70iqX2b50Uv357oa
+ FDjTu7E1a+nKHOt+Y76iuYTzFYN1gvFTHfY6oAbrP1KfZCkATrzATfJ2HpYyTXnTMD4Y 1Q== 
+Received: from prod-mail-ppoint4
+ (a72-247-45-32.deploy.static.akamaitechnologies.com [72.247.45.32] (may be
+ forged))
+ by mx0b-00190b01.pphosted.com (PPS) with ESMTPS id 3np3j7w1ry-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 16 Feb 2023 17:21:09 +0000
+Received: from pps.filterd (prod-mail-ppoint4.akamai.com [127.0.0.1])
+ by prod-mail-ppoint4.akamai.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 31GH2bZI003816; Thu, 16 Feb 2023 12:21:08 -0500
+Received: from prod-mail-relay19.dfw02.corp.akamai.com ([172.27.165.173])
+ by prod-mail-ppoint4.akamai.com (PPS) with ESMTP id 3np783pxg5-1;
+ Thu, 16 Feb 2023 12:21:08 -0500
+Received: from [172.19.46.2] (bos-lpa4700a.bos01.corp.akamai.com [172.19.46.2])
+ by prod-mail-relay19.dfw02.corp.akamai.com (Postfix) with ESMTP id 40F1060278; 
+ Thu, 16 Feb 2023 17:21:07 +0000 (GMT)
+Message-ID: <8ca08fba-1120-ca86-6129-0b33afb4a1da@akamai.com>
+Date: Thu, 16 Feb 2023 12:21:06 -0500
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR11MB2987:EE_|CO1PR11MB4979:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7aa93275-8ca0-47da-3f87-08db1044832d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QuHAJs9kbuaAbqMlhuDSZEvz/upFLd6shAcqUU1bvD744ZN+gd43iM4pET70MKBqrvMS7uaunF7RU2yzYqpBqnPnkIioZbZr+fogrRTsBQg1w0HRzXWu4bDUyF62qYLP8GlPvQd3xsLAYdCTfv3JwyW9JAa0i8Ywb6K5fVOQ/AMckRveNNJUVYyvlyEKKoFqTpBWDTKeBJM5bWt4EVrTwAvsfJ+EVNbqFOOB8jJmkkWo6uHJF8b4R+JJl3cHRoPm0DvmAY7II1lgHg0gpBgpncZa5IFMuUB3j5l/P42ZI808cYeHr6JLO4TiVodzpDqXZ9IiFPR1YzIlr1SS71aTR1te8HYIU+Inf+EKiMckqMIQAP8G/VXV4aqqINSisOIvg5Gr+dAKWjyE+0t73SCs4VSJWO7YsMtpNbJ5+Io3KNdhGPS1aoZZIpqtW89WemTzRoFHsLAEwMOJk4+XLdAjYNIQYJfy12KHS5t+QJJXmASO8Jp45/uEuIZABbGNU9IxuleErh1rUykt7/b0D+6I6IegyhkP94XudeAz2vPXgJJbmC/f1ArimJkUbsmsUzYIy+iKf+GAzreWCtwVx2HD7PGhnfdgr5QqeOJZAsNdQuk4tsgRnIE96YArvxc0UZJbrOw+YASHBfLP2TXNprtJo49mceoCnfEDIiMb01pBLC2AsEa2/QXfdEzfAz7964n3
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR11MB2987.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(366004)(376002)(136003)(396003)(346002)(39860400002)(451199018)(6486002)(83380400001)(26005)(186003)(6666004)(478600001)(6506007)(86362001)(66476007)(6512007)(4326008)(38100700002)(82960400001)(41300700001)(6862004)(8936002)(316002)(15650500001)(6636002)(66946007)(5660300002)(8676002)(66556008)(2906002)(67856001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S2R4L1NSRzJsZ2czc210N2F2LzJFcHRIOEFUQy8wSUFvV2xydUROQ21ObVVl?=
- =?utf-8?B?aThnVHovWVgyZ1VvYVFQend1WXZlQ2QwZTA3ZGJJRllpa3kycUN4dXc1bGwy?=
- =?utf-8?B?cFpaNDNlYi9iU01tTlVEMWY5VU1aSHhNQ3JhcmNpYndYZzhJR296QnZna2Y5?=
- =?utf-8?B?b1p0WFNoOVl5KzRXZkNLZ2FSME1PV1lPZmR1WTZ6Z1VTdVBZd2RhTDJTK1Zy?=
- =?utf-8?B?TjBwUUMzYTNidCt5MVNpUVJ3Njl6Q3RwU3pySjVjYXZRSHkzSjVxaEdWenNp?=
- =?utf-8?B?M1Nwenp4cVYrTlhZeCt3MXNKSUZWaGQxWCtNQklIZXZ5TXFSOE9nZ0Q1NFJy?=
- =?utf-8?B?U2drRGhzVmJXekJxaktkZXB5azlHMWpBazl6cVZmcThPWmtVYmNLUy91aHdD?=
- =?utf-8?B?STc1UjRCM1JQWVdrTHVaVmRsclg5TjYyNlhiYzJxMTJTckRNcUhyS0dvWjlS?=
- =?utf-8?B?WHRQSWdzaGsxSG5KNVNkdUJUMWZoTGE0K0V2NXdLMHpxNEo0S1BSY2ZZMU9j?=
- =?utf-8?B?ajVvcGpzbnRRck5iSGN5VVBnZklIdHJlbjlIRG9mWTNibDJFQlJUaGc2NHNr?=
- =?utf-8?B?bzl5aFNNQUg2S3VUYUIzM25IN0lWRmZHdHo3ckp0M2ZsU0VRWkprMDA2QmM2?=
- =?utf-8?B?QTVEOUZCbGU1VFhucTJsN3piQkczVlBEN29tRlRTVFlsWXlHMjgwRW03dUR0?=
- =?utf-8?B?MHoreW8yN3kyYmorMWRVSFVKQ2tFWlNPVEVaU1BPWGR5YUlPLzZ3dW9aRHk3?=
- =?utf-8?B?WE1JOUgrNGVCWDl3eE1pL28veitGYWU0YnlxSVZEREkrOU1CY0FGb0F5NGtQ?=
- =?utf-8?B?ODVLWGpPbXdWRHZLUjdIazlzWk82cUNvdHNVYnpQMWhEMjlySnF0dVQ5WUZE?=
- =?utf-8?B?Qk5xL0VtdGRMM01ucVM2aG5qNkpoSWJ1OEQzMUtLcURhY1BDZkZobEN1WHd5?=
- =?utf-8?B?bk9sQVFVYWh0OTZwV0RRbU1YMVZaMFVsNkYvSFlDTWVKMm5QS0ZhOHFCN2F4?=
- =?utf-8?B?R3VZNFNMNHpnQXJybUNrQ2orUlFia1hOVVQ0WnZNM01aS1RlTUpQQXN6cDhP?=
- =?utf-8?B?V2tkcC9naWlOTDN3eVJYM0hWS2NlNEx1QjRMSEwwb0xHZksxbDdITndhaFhO?=
- =?utf-8?B?eWNLNHp2b3FCU0ZMcFhFUUxlbHVETzhHaWh5TjNIVjB1NmxxYStCa3J0WFo4?=
- =?utf-8?B?WG5kdXd2NHpzMHZ1NHMzcHl6VGcrSXB5WUtMTVhObERSMjJYL1lONlQ1WDgw?=
- =?utf-8?B?WWR3RFEzMVduVTd1Q3crVkNhQWpOcnd3QVBjREkrY2JraVRDRUk0RXdHSmRv?=
- =?utf-8?B?UXZYRmVkalJKU2V4cGl5UytqVW5HNmJwOHlsUFpnaFdFc1ZZMXY3bDkwQ25E?=
- =?utf-8?B?dEZDUzByUE9jQkd1dWdDcitSaDRJWXJjbWo3SHFKZlVJcEp3YW80M3E0TTBS?=
- =?utf-8?B?RzFsRm91YjZaTDBKSzQxWnkwUzZLR3RUNitwSUpaTlh2WWVKTksxUytOMHNS?=
- =?utf-8?B?cnF4OGYrMlVnOElzTE80MzkxU3cyN0taWlZWWklWWXBwbGVkbmh6dGlzbEla?=
- =?utf-8?B?cFFFb3Q5TzNoUUpscWlRa3cwWlVYbi9FZEk3VFBWUEVhNUI2Y0dRL2ZHcGlI?=
- =?utf-8?B?QjVGN2M1TjBJbHpCTFd3VE5QL1dsT3RtQnhNUWtwV3RCUnlwZkpSMFIwdlVy?=
- =?utf-8?B?ZWJWeXk4OWhoQWpzZXVJSFVZZFlPVGt2bU5UNG92Z2lQZ1NhVGlRZXVYQmNp?=
- =?utf-8?B?UXpXV3ZaeFczNGtOZVNUVUg5K3VBM3d2MGVtRHB2M05DS2R6V3RrZnRpUUNX?=
- =?utf-8?B?OFUyRStwekU0UXlkK2VmSjJ1TjQ1YU4yM3NLZ2hGQ04rNjBtVXl0M2EwaUhw?=
- =?utf-8?B?akxvWFJHNzlaeTZ5Q0tjMzZMQnpxRU15SVdackJEbTNVdDZiK1daR0VrMHcv?=
- =?utf-8?B?eERJTXpaNVVBSE9QeUZ6TE9STG5MOHZwRW9TQmg5Y2laOEx0NTJZN3dibzZL?=
- =?utf-8?B?S3lmbzdTZHg3T3hKUjFuQVRRakp0Z0Z6ZVl5aWZtbGJadGpXU284enZta3Np?=
- =?utf-8?B?ZVVQM290a3pwVnorVWo4SmxOeFJzcjJzZTk3eHM1STlmcHVlbzcxUnpONmpj?=
- =?utf-8?B?cG5YUmdCMUt6c0w2ZkRzTWdLdEE5bGR4eHFVQWZvaXNUUXV0YmRTekNNai9D?=
- =?utf-8?Q?Fo9iCPWJW1HN85stk7qJA30=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7aa93275-8ca0-47da-3f87-08db1044832d
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB2987.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2023 17:37:44.8752 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VziTscskLsUK5wmkO/wRwhWCKVnhQWKztGecLLjRvLCpISSqeOYjJcJbVK1PE9qJF4IgIJiz3luRLiNXifvsyKdVjeOcBx8oz68KZyKZRxY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB4979
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH 3/9] drm/i915/perf: Validate OA sseu config
- outside switch
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+To: Peter Zijlstra <peterz@infradead.org>, Jim Cromie <jim.cromie@gmail.com>
+References: <20230113193016.749791-1-jim.cromie@gmail.com>
+ <20230113193016.749791-21-jim.cromie@gmail.com>
+ <Y8aNMxHpvZ8qecSc@hirez.programming.kicks-ass.net>
+Content-Language: en-US
+From: Jason Baron <jbaron@akamai.com>
+In-Reply-To: <Y8aNMxHpvZ8qecSc@hirez.programming.kicks-ass.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
+ definitions=2023-02-16_13,2023-02-16_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ mlxscore=0 suspectscore=0
+ phishscore=0 malwarescore=0 adultscore=0 mlxlogscore=999 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
+ definitions=main-2302160150
+X-Proofpoint-ORIG-GUID: erwF1POyva0bWaz2e82KJguAff2y8qIj
+X-Proofpoint-GUID: erwF1POyva0bWaz2e82KJguAff2y8qIj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
+ definitions=2023-02-16_13,2023-02-16_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ lowpriorityscore=0 suspectscore=0
+ spamscore=0 clxscore=1011 bulkscore=0 mlxscore=0 priorityscore=1501
+ phishscore=0 adultscore=0 impostorscore=0 malwarescore=0 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
+ definitions=main-2302160150
+Subject: Re: [Intel-gfx] [PATCH v2 20/20] jump_label: RFC - tolerate toggled
+ state
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,47 +90,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lionel G Landwerlin <lionel.g.landwerlin@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, seanpaul@chromium.org,
+ dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
+ intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 16, 2023 at 08:31:21AM -0800, Dixit, Ashutosh wrote:
->On Wed, 15 Feb 2023 21:36:50 -0800, Dixit, Ashutosh wrote:
->>
->> On Wed, 15 Feb 2023 21:08:43 -0800, Dixit, Ashutosh wrote:
->> >
->> > On Tue, 14 Feb 2023 16:54:13 -0800, Umesh Nerlige Ramappa wrote:
->> > >
->> > > Validate the OA sseu config after all params are parsed.
->> >
->> > Commit messages for all patches need to answer the "why" or the reason for
->> > the patch. In this case maybe an overkill but probably something like:
->> >
->> > Validate the OA sseu config after all params are parsed since the engine
->> > can be passed in as part of perf properties.
->>
->> Also, if we do this the patch should probably be later in the series after
->> the patch which introduces engine class/instance in the perf properties.
->
->General guidelines for submitting a patch series for review (for the
->future):
->
->1. The commit message should explain "why" or reason for a patch
->2. As far as possible patches should be in a logical order so the series
->   should "tell a story"
->3. The patches should be small (each patch being a single logical change if
->   possible)
->
->So after we've done the hard part of figuring out the code and getting it
->to work, the above guidelines also make the review process easier.
 
-will do and post a new revision.
+
+On 1/17/23 6:57 AM, Peter Zijlstra wrote:
+> On Fri, Jan 13, 2023 at 12:30:16PM -0700, Jim Cromie wrote:
+>> __jump_label_patch currently will "crash the box" if it finds a
+>> jump_entry not as expected.  ISTM this overly harsh; it doesn't
+>> distinguish between "alternate/opposite" state, and truly
+>> "insane/corrupted".
+>>
+>> The "opposite" (but well-formed) state is a milder mis-initialization
+>> problem, and some less severe mitigation seems practical.  ATM this
+>> just warns about it; a range/enum of outcomes: warn, crash, silence,
+>> ok, fixup-continue, etc, are possible on a case-by-case basis.
+>>
+>> Ive managed to create this mis-initialization condition with
+>> test_dynamic_debug.ko & _submod.ko.  These replicate DRM's regression
+>> on DRM_USE_DYNAMIC_DEBUG=y; drm.debug callsites in drivers/helpers
+>> (dependent modules) are not enabled along with those in drm.ko itself.
+>>
+> 
+>> Ive hit this case a few times, but havent been able to isolate the
+>> when and why.
+>>
+>> warn-only is something of a punt, and I'm still left with remaining
+>> bugs which are likely related; I'm able to toggle the p-flag on
+>> callsites in the submod, but their enablement still doesn't yield
+>> logging activity.
+> 
+> Right; having been in this is state is bad since it will generate
+> inconsistent code-flow. Full on panic *might* not be warranted (as it
+> does for corrupted text) but it is still a fairly bad situation -- so
+> I'm not convinced we want to warn and carry on.
+> 
+> It would be really good to figure out why the site was skipped over and
+> got out of skew.
+> 
+> Given it's all module stuff, the 'obvious' case would be something like
+> a race between adding the new sites and flipping it, but I'm not seeing
+> how -- things are rather crudely serialized by jump_label_mutex.
+
+Indeed, looks like dynamic debug introduces a new path in this series to 
+that tries to toggle the jump label sites before they have been 
+initialized, which ends up with the jump label key enabled but only some 
+of the sites in the correct state. Then when the key is subsequently 
+disabled it finds some in the wrong state. I just posted a patch for 
+dynamic debug to use the module callback notifiers so it's ordered 
+properly against jump label.
+
+Note this isn't an issue in the current tree b/c there is no path to 
+toggle the sites currently before they are initialized, but Jim's series 
+here adds such a path.
 
 Thanks,
-Umesh
 
->
->Thanks.
->--
->Ashutosh
+-Jason
+
+
+> 
+> The only other option I can come up with is that somehow the update
+> condition in jump_label_add_module() is somehow wrong.
+> 
