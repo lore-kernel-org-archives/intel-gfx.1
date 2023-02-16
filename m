@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD72CC61DA4
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 10:59:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7166AC636CC
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 10:59:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BC6E10ED2A;
-	Thu, 16 Feb 2023 10:59:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FFCA10ED30;
+	Thu, 16 Feb 2023 10:59:34 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEC0C10E2BE;
- Thu, 16 Feb 2023 10:59:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAF9810E2BE;
+ Thu, 16 Feb 2023 10:59:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1676545169; x=1708081169;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=4Pkn9PSYJ5E+ITtnoLCo59F8QKqtW+QZqBQ0zPJSloY=;
- b=g+6QLqUuisFoxZGn1fDIFG3SkQS0Q3zbHgpaHmDYoKiSnRuLS3r4bXXI
- /TSQ7RD1vOoA/ndHVnxFmjZXdBGI8evYQoOfgIK1jISLwSwlAOIwApaWj
- 5M2VLP5ThA5JKHPuzFbywNSFs4n6DPAcLxdC8X+WnrkYOkhjrZwV/upVA
- CrWDR9VmSXY7HRCBXw2+vB+E2900xV2NA418xV+N8hAECYb+1g0L8xrj8
- j+JITdPb9ZXA3ezBR/SuEd6nk2OPPuylo5oLm4E/cjvVtQZroRlMwXcUG
- VD7BJzRpGOa/nk/q37jpwag5mqz2NL8x5bXhr21wwui4igPl5Et8x9/9a Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10622"; a="311317593"
-X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="311317593"
+ t=1676545170; x=1708081170;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=QutN+efEVB8E3nC/YDlbdNrmmmnI/0o9j6soojqaUuk=;
+ b=bJJqDo34/36xl5jE8A7bU5hfBsLIcwEn9u+03Ap4SL4JZovFTxmIdoXP
+ z7zKE13KMhJWztUIBZV6MQv6M+d+1mB1Dnw0AdjNSVBwksHv3ACBJ3tyw
+ eMlgsJxpbjqoXbNPVilulcvRO2H1kF0BKt7vcOgaFad6KgJPy2Gx2JbI5
+ 4mUVSEKG2oeS+BnFKlQ/cRud75+f9ZJt7JWReY0Tr3rdpa8NZzx4nU9Tx
+ xnNma3wYnpJPy9xMbbOPbSlGnv9x9fbRL7mqpK2LngQ5RqVYXQbSbVmuw
+ 7vfhmSZqefySHERHXBHTBLsMXTKG+tlX30r+s56UnUTxhjUUbdO1kByRa w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10622"; a="311317599"
+X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="311317599"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2023 02:59:28 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10622"; a="812917903"
-X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="812917903"
+ 16 Feb 2023 02:59:30 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10622"; a="812917909"
+X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="812917909"
 Received: from murrayal-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.229.164])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2023 02:59:27 -0800
+ 16 Feb 2023 02:59:29 -0800
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 16 Feb 2023 10:59:12 +0000
-Message-Id: <20230216105921.624960-1-tvrtko.ursulin@linux.intel.com>
+Date: Thu, 16 Feb 2023 10:59:14 +0000
+Message-Id: <20230216105921.624960-3-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230216105921.624960-1-tvrtko.ursulin@linux.intel.com>
+References: <20230216105921.624960-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC v3 0/9] Waitboost drm syncobj waits
+Subject: [Intel-gfx] [RFC 2/9] dma-fence: Add callback initialization helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,64 +63,71 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-In i915 we have this concept of "wait boosting" where we give a priority boost
-for instance to fences which are actively waited upon from userspace. This has
-it's pros and cons and can certainly be discussed at lenght. However fact is
-some workloads really like it.
+In preparation of adding a new field to struct dma_fence_cb we will need
+an initialization helper for those callers who add callbacks by open-
+coding. That will ensure they initialize all the fields so common code
+does not get confused by potential garbage in some fields.
 
-Problem is that with the arrival of drm syncobj and a new userspace waiting
-entry point it added, the waitboost mechanism was bypassed. AFAIU this mostly
-happens with all Vulkan based userspaces. Hence I cooked up this mini series to
-see if discussion about restoring the waitboost can be had.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+---
+ drivers/dma-buf/dma-fence.c | 10 ++++------
+ include/linux/dma-fence.h   |  7 +++++++
+ 2 files changed, 11 insertions(+), 6 deletions(-)
 
-The series adds a concept of "wait count" to dma fence which is intended to
-represent explicit userspace waits. It is therefore incremented for every
-explicit dma_fence_enable_sw_signaling and dma_fence_add_wait_callback (like
-dma_fence_add_callback but from explicit/userspace wait paths). Individual
-drivers can then inspect this via dma_fence_wait_count() and decide to wait
-boost the waits on such fences.
-
-Patch has been slightly tested for performance impact by Google using some clvk
-workloads and shows a good improvement (frame time improved from 16ms to 13ms).
-
-It is also important to mention that benefits of waitboosting are not only about
-workloads related to frame presentation time, but also for serialized
-computations which constantly move between the CPU and GPU.
-
-*)
-https://gitlab.freedesktop.org/drm/intel/-/issues/8014
-
-v2:
- * Small fixups based on CI feedback:
-    * Handle decrement correctly for already signalled case while adding callback.
-    * Remove i915 assert which was making sure struct i915_request does not grow.
- * Split out the i915 patch into three separate functional changes.
-
-v3:
- * Handle drivers which open-code callback additions.
-
-Tvrtko Ursulin (9):
-  dma-fence: Move i915 helpers into common
-  dma-fence: Add callback initialization helper
-  drm/i915: Use fence callback initialization helper
-  drm/vmwgfx: Use fence callback initialization helper
-  dma-fence: Track explicit waiters
-  drm/syncobj: Mark syncobj waits as external waiters
-  drm/i915: Waitboost external waits
-  drm/i915: Mark waits as explicit
-  drm/i915: Wait boost requests waited upon by others
-
- drivers/dma-buf/dma-fence.c                 | 137 ++++++++++++++------
- drivers/gpu/drm/drm_syncobj.c               |   6 +-
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c |  22 ----
- drivers/gpu/drm/i915/gt/intel_engine_pm.c   |   1 -
- drivers/gpu/drm/i915/i915_active.c          |   2 +-
- drivers/gpu/drm/i915/i915_active.h          |   2 +-
- drivers/gpu/drm/i915/i915_request.c         |  13 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_fence.c       |   2 +-
- include/linux/dma-fence.h                   |  26 ++++
- 9 files changed, 141 insertions(+), 70 deletions(-)
-
+diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+index 41da0da17eba..ea4a1f82c9bf 100644
+--- a/drivers/dma-buf/dma-fence.c
++++ b/drivers/dma-buf/dma-fence.c
+@@ -662,21 +662,19 @@ int dma_fence_add_callback(struct dma_fence *fence, struct dma_fence_cb *cb,
+ 	unsigned long flags;
+ 	int ret = 0;
+ 
++	__dma_fence_cb_init(cb, func);
++
+ 	if (WARN_ON(!fence || !func))
+ 		return -EINVAL;
+ 
+-	if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)) {
+-		INIT_LIST_HEAD(&cb->node);
++	if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
+ 		return -ENOENT;
+-	}
+ 
+ 	spin_lock_irqsave(fence->lock, flags);
+ 
+ 	if (__dma_fence_enable_signaling(fence)) {
+-		cb->func = func;
+ 		list_add_tail(&cb->node, &fence->cb_list);
+ 	} else {
+-		INIT_LIST_HEAD(&cb->node);
+ 		ret = -ENOENT;
+ 	}
+ 
+@@ -795,7 +793,7 @@ dma_fence_default_wait(struct dma_fence *fence, bool intr, signed long timeout)
+ 		goto out;
+ 	}
+ 
+-	cb.base.func = dma_fence_default_wait_cb;
++	__dma_fence_cb_init(&cb.base, dma_fence_default_wait_cb);
+ 	cb.task = current;
+ 	list_add(&cb.base.node, &fence->cb_list);
+ 
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index 2af328a89468..35933e0ae62c 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -629,4 +629,11 @@ static inline bool dma_fence_is_container(struct dma_fence *fence)
+ 	return dma_fence_is_array(fence) || dma_fence_is_chain(fence);
+ }
+ 
++static inline void __dma_fence_cb_init(struct dma_fence_cb *cb,
++				       dma_fence_func_t func)
++{
++	INIT_LIST_HEAD(&cb->node);
++	cb->func = func;
++}
++
+ #endif /* __LINUX_DMA_FENCE_H */
 -- 
 2.34.1
 
