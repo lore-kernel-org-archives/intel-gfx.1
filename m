@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0F04C636D6
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 13:25:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2851EC636CC
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 13:25:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA24F10E2C0;
-	Thu, 16 Feb 2023 13:24:57 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C54510E162;
- Wed, 15 Feb 2023 15:58:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
- From:Subject:Message-ID:Sender:Reply-To:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=5kMmQ7eQcRUHs3Kq/pFvqrTP19hP+D8jOA/195A6v+U=; b=CN5JZavErT2GtiRNe7NS/9n4Sj
- EI6/3HoUEtsPZndThG/3XBasMLBnWH2HuTkuC6q9B4DFEOz2yNdd6fCk9pVzuZ2GROSUQe8AAzxTe
- jN1WUwzR1xrMjRtZVXDAq/Nkn6jgzapueLoPGa3fCFv59YOB/11DnkMX9HR4Sye5O+6gqJj+TYTec
- WV1PmnHeyINzjL0kPpfxaal2WzMbWjUSSTxeGJ2XcmkvnpGV5hAvr5XNkOdt6G5Jd/f/gfK54pt0Z
- qtZThkM54Iamz1MLWuxwW6BpbM8W6ba+Gcbj+ttD3W9QCOoX/STkAZW3Yz8b8besgscamYmFi7i/t
- 0I80XCjw==;
-Received: from 137.red-83-52-2.dynamicip.rima-tde.net ([83.52.2.137]
- helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1pSKAW-0038Cf-H3; Wed, 15 Feb 2023 16:58:04 +0100
-Message-ID: <ef4e39301a769ef83668074c341274e30db57f95.camel@igalia.com>
-From: Ricardo Garcia <rgarcia@igalia.com>
-To: members@x.org, events@lists.x.org, xorg-devel@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- libre-soc-dev@lists.libre-soc.org
-Date: Wed, 15 Feb 2023 16:58:03 +0100
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id A99E310ED5D;
+	Thu, 16 Feb 2023 13:24:59 +0000 (UTC)
+X-Greylist: delayed 547 seconds by postgrey-1.36 at gabe;
+ Thu, 16 Feb 2023 01:14:43 UTC
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3BBA10E2BA
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 Feb 2023 01:14:43 +0000 (UTC)
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=weissschuh.net;
+ s=mail; t=1676509534;
+ bh=IVBAbq+p3hoTXWJlTZmLI/40oSSDdV0kZu4KVH+IXTU=;
+ h=From:Date:Subject:To:Cc:From;
+ b=KZVerghpYl9EniP5JD5JDJPwaYLf0qJbVq/OwA8lTrs48a6VquniofrHaf/nsMg40
+ on7rRTjKRDEq5Ba+udGj0aaFuuQ027fqXPOoOL4rn5HWOBZmSW7V2Ws6AYWdMpmlnk
+ 8NDg8yai1NgjZtZwm6VGUZj8xe9/X2kfrZNcOdRQ=
+Date: Thu, 16 Feb 2023 01:05:30 +0000
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20230216-kobj_type-i915-v1-1-ca65c9b93518@weissschuh.net>
+X-B4-Tracking: v=1; b=H4sIAFmB7WMC/x2NUQqDMBAFryL73YBJMKhXkVKycaurEiWp0iLe3
+ aWfM4/hnZApMWVoixMSHZx5jQL6UUAYfRxIcS8MpjS2NNqpecXp9fltMjS6UnXtkDBYp00DEqH
+ PpDD5GEbJ4r4sIrdEb/7+X7rndd3pJkikdQAAAA==
+To: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, 
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+X-Mailer: b4 0.12.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1676509531; l=1627;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=IVBAbq+p3hoTXWJlTZmLI/40oSSDdV0kZu4KVH+IXTU=;
+ b=aIk/xPnRJGbvs8WW/pbryE5nyXYrxV32q9QWxWXyvNiJdzUCmtbetX0pMdJrPwLDPXagAALvt
+ gskrXgwRwvcDKdJ4nHFUnGBIb3I57Pg+AdOpk3dVby4wF8bw30972kY
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 X-Mailman-Approved-At: Thu, 16 Feb 2023 13:24:56 +0000
-Subject: [Intel-gfx] 2023 X.Org Foundation Membership deadline for voting in
- the election
+Subject: [Intel-gfx] [PATCH] drm/i915: Make kobj_type structures constant
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,20 +57,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: board <board@foundation.x.org>
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The 2023 X.Org Foundation elections are rapidly approaching. We will be
-forwarding the election schedule and nominating process to the
-membership shortly.
+Since commit ee6d3dd4ed48 ("driver core: make kobj_type constant.")
+the driver core allows the usage of const struct kobj_type.
 
-Please note that only current members can vote in the upcoming election,
-and that the deadline for new memberships or renewals to vote in the
-upcoming election is 26 March 2023 at 23:59 UTC.
+Take advantage of this to constify the structure definitions to prevent
+modification at runtime.
 
-If you are interested in joining the X.Org Foundation or in renewing
-your membership, please visit the membership system site at:
-https://members.x.org/
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+---
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs.c | 2 +-
+ drivers/gpu/drm/i915/gt/sysfs_engines.c  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Ricardo Garcia, on behalf of the X.Org elections committee
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c b/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
+index 9486dd3bed99..df15b17caf89 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs.c
+@@ -71,7 +71,7 @@ static void kobj_gt_release(struct kobject *kobj)
+ {
+ }
+ 
+-static struct kobj_type kobj_gt_type = {
++static const struct kobj_type kobj_gt_type = {
+ 	.release = kobj_gt_release,
+ 	.sysfs_ops = &kobj_sysfs_ops,
+ 	.default_groups = id_groups,
+diff --git a/drivers/gpu/drm/i915/gt/sysfs_engines.c b/drivers/gpu/drm/i915/gt/sysfs_engines.c
+index f2d9858d827c..b5e0fe5dbf6c 100644
+--- a/drivers/gpu/drm/i915/gt/sysfs_engines.c
++++ b/drivers/gpu/drm/i915/gt/sysfs_engines.c
+@@ -421,7 +421,7 @@ static void kobj_engine_release(struct kobject *kobj)
+ 	kfree(kobj);
+ }
+ 
+-static struct kobj_type kobj_engine_type = {
++static const struct kobj_type kobj_engine_type = {
+ 	.release = kobj_engine_release,
+ 	.sysfs_ops = &kobj_sysfs_ops
+ };
+
+---
+base-commit: 033c40a89f55525139fd5b6342281b09b97d05bf
+change-id: 20230216-kobj_type-i915-886bebc36129
+
+Best regards,
+-- 
+Thomas Weißschuh <linux@weissschuh.net>
+
