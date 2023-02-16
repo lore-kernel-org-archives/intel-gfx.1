@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68513C636CC
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 16:53:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EB6CC61DA4
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 16:53:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9579410EE1F;
-	Thu, 16 Feb 2023 16:52:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0834F10EE13;
+	Thu, 16 Feb 2023 16:53:03 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 037EB10E353;
- Thu, 16 Feb 2023 16:52:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5071310EE13;
+ Thu, 16 Feb 2023 16:53:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1676566376; x=1708102376;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=xQ5jA+YAezjneh7cAmb3U3QrSDpmZtfvRMo2guCbWeI=;
- b=SQ1L4DF2n57wRpGax0UBuOI1uny3lqnVTHAZRUi0ushIai/R2qAOIkkg
- 9BeDUQf2UETpw8gXDrHvb+fOovE8huxKHVkLP3HQIsOcToFxJy71BlKuZ
- am5NF+oeGySDrGl1bKVbeyFXlOQGTkyRTHUH99GEB33Gy6gZLRxI0amXW
- LehrO9IE1m/YqdU7kbsdO0tX7KTtW19OfUCuydsZ6m0aoYCIYuOLosU/P
- 6NmI8Fs4QGrAPkvUPj2195W32NxUmj+XribWsBiZASfcGD88JEewZJ044
- BiJo4WSRp0J9Tshi5k0f0NMkUIo4l+sE4EANEKDiTdIav68o1aFsi6vND w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="333961931"
-X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="333961931"
+ t=1676566381; x=1708102381;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=qeLDDJ7AghdjK7aE5kixMFDGXs0hb6Ovtv9Mj14GC0c=;
+ b=JgHXT/UCJGk4UfePv0gcTW8J3tbUuxpTj0ihAjISGoeLhLO8hqAVRWsX
+ KzqwUgPTC35xJx0fR3Io31pZSuGobaWHiebGv/z2JHVuP5Z+y4rT4XExP
+ 3eLX0RvtjI67bZSaq+VfIoiEPGlilyNVxvnZ7bpwaMDSmueXf+wjjEZW9
+ T3vi2frOyZoCFW4uhHLGwb3vHFsg5aDRBBjdljIV1J5HzfyTV/dUUJLSS
+ hjtEzYPU1fUs6qB3VpMuNLev31CNXVSfZJMfc4o8NkxOW7MOm3DOS1hJg
+ gcbxqDHLC29HuN5CfSs8XLDDd6oRHfSCWrM9IArp5iZGGXFHuLuRWRxmL w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="333961935"
+X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="333961935"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2023 08:49:48 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="915738619"
-X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="915738619"
+ 16 Feb 2023 08:49:49 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="915738627"
+X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="915738627"
 Received: from orsosgc001.jf.intel.com ([10.165.21.138])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  16 Feb 2023 08:49:48 -0800
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 16 Feb 2023 08:49:42 -0800
-Message-Id: <20230216164944.2366150-1-ashutosh.dixit@intel.com>
+Date: Thu, 16 Feb 2023 08:49:44 -0800
+Message-Id: <20230216164944.2366150-3-ashutosh.dixit@intel.com>
 X-Mailer: git-send-email 2.38.0
+In-Reply-To: <20230216164944.2366150-1-ashutosh.dixit@intel.com>
+References: <20230216164944.2366150-1-ashutosh.dixit@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/2] PL1 power limit fixes for ATSM
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/hwmon: Enable PL1 limit when
+ writing limit value to HW
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,23 +61,37 @@ Cc: dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Previous PL1 power limit implementation assumed that the PL1 limit is
-always enabled in HW. However we now find this not to be the case on ATSM
-where the PL1 limit is disabled at power up. This requires changes in the
-previous PL1 limit implementation.
+Previous documentation suggested that the PL1 power limit is always enabled
+in HW. However we now find this not to be the case on some platforms (such
+as ATSM). Therefore enable the PL1 power limit (by setting the enable bit)
+when writing the PL1 limit value to HW.
 
-v2: Dropping Patch 3 (since it is NAK'd by hwmon) so that the first two
-    patches can get merged. The first two patches are sufficient to fix the
-    main ATSM issue.
+Bspec: 51864
 
-Ashutosh Dixit (2):
-  drm/i915/hwmon: Replace hwm_field_scale_and_write with
-    hwm_power_max_write
-  drm/i915/hwmon: Enable PL1 limit when writing limit value to HW
+Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+---
+ drivers/gpu/drm/i915/i915_hwmon.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
- drivers/gpu/drm/i915/i915_hwmon.c | 37 ++++++++++++++-----------------
- 1 file changed, 17 insertions(+), 20 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/i915_hwmon.c b/drivers/gpu/drm/i915/i915_hwmon.c
+index 85195d61f89c7..7c20a6f47b92e 100644
+--- a/drivers/gpu/drm/i915/i915_hwmon.c
++++ b/drivers/gpu/drm/i915/i915_hwmon.c
+@@ -385,10 +385,11 @@ hwm_power_max_write(struct hwm_drvdata *ddat, long val)
+ 
+ 	/* Computation in 64-bits to avoid overflow. Round to nearest. */
+ 	nval = DIV_ROUND_CLOSEST_ULL((u64)val << hwmon->scl_shift_power, SF_POWER);
++	nval = PKG_PWR_LIM_1_EN | REG_FIELD_PREP(PKG_PWR_LIM_1, nval);
+ 
+ 	hwm_locked_with_pm_intel_uncore_rmw(ddat, hwmon->rg.pkg_rapl_limit,
+-					    PKG_PWR_LIM_1,
+-					    REG_FIELD_PREP(PKG_PWR_LIM_1, nval));
++					    PKG_PWR_LIM_1_EN | PKG_PWR_LIM_1,
++					    nval);
+ 	return 0;
+ }
+ 
 -- 
 2.38.0
 
