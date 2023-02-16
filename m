@@ -4,47 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F0DFC636D6
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 00:24:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51EB0C636D4
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 00:34:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9256B10EB81;
-	Thu, 16 Feb 2023 00:23:50 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6619810E004;
- Thu, 16 Feb 2023 00:23:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1676507026; x=1708043026;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=RnesDDgqepqfT0uWzAdgo5yHmLl6tJ95OG6mwtT+4eQ=;
- b=HNysJIK1LkSIG3AJvpPF85zSF/BSAnaqXgfc8c57lWNpC50PggJb7yNi
- Z5w3Ry0jtclK5nXSsLn7tUEiAE8R/hdA0RNInGzTjz2oJ9F/u2tq8zCAe
- 27ztl8Gp0Z3Y8NWpx19AhqCuvkjqodt/JdYHhjwTgRguO4XHdXEcuxVC5
- iOLgRleu9vrwz8SG8Vq4S10YJUZ2lZwwtKJplQ2iIQ1KbVYlf/28z7o7b
- 5D3Lipge88l/Z9lYAXbSjgTQYPW4jZSx7i3+b84sNhbCFWWVziuhEfUi1
- Xm610r6sQ6Ol+0sv1/qVWuBgCOyv3AjC7KvE6HnFvnaNSvDQRmLPa67PE w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10622"; a="311945703"
-X-IronPort-AV: E=Sophos;i="5.97,301,1669104000"; d="scan'208";a="311945703"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Feb 2023 16:23:45 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10622"; a="843928656"
-X-IronPort-AV: E=Sophos;i="5.97,301,1669104000"; d="scan'208";a="843928656"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
- by orsmga005.jf.intel.com with ESMTP; 15 Feb 2023 16:23:32 -0800
-From: John.C.Harrison@Intel.com
-To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Wed, 15 Feb 2023 16:22:46 -0800
-Message-Id: <20230216002248.1851966-1-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.39.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id C75C210E004;
+	Thu, 16 Feb 2023 00:34:39 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id CCB3810E004;
+ Thu, 16 Feb 2023 00:34:37 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id C25A8AADD8;
+ Thu, 16 Feb 2023 00:34:37 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/2] Don't use stolen memory or BAR mappings
- for ring buffers
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
+Date: Thu, 16 Feb 2023 00:34:37 -0000
+Message-ID: <167650767776.17990.3516011579570318320@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230214231925.26535-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20230214231925.26535-1-ville.syrjala@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5Bv2=2C1/3=5D_drm/i915=3A_Use_encoder?=
+ =?utf-8?q?-=3Edevdata_more_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,34 +41,32 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: DRI-Devel@Lists.FreeDesktop.Org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+== Series Details ==
 
-Instruction from hardware arch is that stolen memory and BAR mappings
-are unsafe for use as ring buffers. There can be issues with cache
-aliasing due to the CPU access going to memory via the BAR. So, don't
-do it.
+Series: series starting with [v2,1/3] drm/i915: Use encoder->devdata more (rev2)
+URL   : https://patchwork.freedesktop.org/series/114029/
+State : warning
 
-v2: Dont use BAR mappings either.
-Make conditional on LLC so as not to change platforms that don't need
-to change (Daniele).
-Add 'Fixes' tags (Tvrtko).
+== Summary ==
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Error: dim checkpatch failed
+6d862c28ab08 drm/i915: Use encoder->devdata more
+c197ab2941f5 drm/i915: Sanitize child devices later
+f80b5f236011 drm/i915: Try to initialize DDI ports for every VBT child device
+-:29: ERROR:OPEN_BRACE: that open brace { should be on the previous line
+#29: FILE: drivers/gpu/drm/i915/display/intel_bios.c:2614:
++intel_bios_for_each_child(struct drm_i915_private *i915,
++			  enum port port,
++			  bool (*func)(struct drm_i915_private *i915,
++				       struct intel_bios_encoder_data *devdata,
++				       enum port port))
++{
 
+total: 1 errors, 0 warnings, 0 checks, 197 lines checked
 
-Daniele Ceraolo Spurio (1):
-  drm/i915: Don't use BAR mappings for ring buffers with LLC
-
-John Harrison (1):
-  drm/i915: Don't use stolen memory for ring buffers with LLC
-
- drivers/gpu/drm/i915/gt/intel_ring.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
--- 
-2.39.1
 
