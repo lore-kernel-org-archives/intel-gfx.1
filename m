@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CC75C636D6
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 11:00:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B86DDC61DA4
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Feb 2023 11:00:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE4FE10ED43;
-	Thu, 16 Feb 2023 10:59:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D2F910ED38;
+	Thu, 16 Feb 2023 10:59:46 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14D0C10ED42;
- Thu, 16 Feb 2023 10:59:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D805310ED3B;
+ Thu, 16 Feb 2023 10:59:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1676545179; x=1708081179;
+ t=1676545176; x=1708081176;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=/CcC0aOeeAtqrOsPao/E+8cmDCKIM6s5J/aBXV6fZRc=;
- b=YOd5oEjHsZbpTwrSBFC34yseSXvmok4GErqCgzQySB8ubLtkB8ie/Kf5
- De5QXzG1zWq60hnQ4a9oOAd3/MQKcyIENZFtPa27SCBTFTOcajczxZJje
- kh6qtQUXND9/KEAC48o2NDg5fqL/rcvf3knwbFlAlKCO67fwjvUdflyWY
- iBbVHhmMUAeBz5pFBtTlB0jmHW0UYI+8nHGzjuwAVddqLGcdmNVxAOvHX
- LeaFavkFZ/hPeNg5O828M468+ixDEKHvzDKX5cGmR7qzezCmV9idFA1fq
- KSSzj2CXEfLE6zrEPGQGXQu0uCU5Z2WUb1rBAW01EIsqkcJ+PYgWRx75S A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10622"; a="311317620"
-X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="311317620"
+ bh=Q9YTKJ3u8YMMvKwr50O9Cd1SSM69KoIu6lzAW0teqGY=;
+ b=QRNy8kzY0/WKisNzeQ+dlVwtYfVCaJXGfs6vhFKhqHIXnyjULX9opGZI
+ mvUwspOhEa4O+5+YdHr+X4Tx3IPxc9Gda32J62+RUkici4bT0+RWgtDXz
+ 2nEtKFZMqcckedoUmpseeP9l88QRTdkK/TfolMIKJ+50nTNxgDsXnpDzd
+ aVH+KeRln3URBSXinot94uqNzfOaREcxba/V7/pzRJP9gNJ/U90fTWP3O
+ dxK7epZ0HtS++5twudETrJyXKVH+vLsolKH0Wx27MWzpPpuOGQkgayfkg
+ UX6cB1xkKrwYKNcBTva8KWUDnRlCCIdCI0aGd+7zQ7IKUoF3HLW+L5915 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10622"; a="311317612"
+X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="311317612"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2023 02:59:38 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10622"; a="812917926"
-X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="812917926"
+ 16 Feb 2023 02:59:36 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10622"; a="812917920"
+X-IronPort-AV: E=Sophos;i="5.97,302,1669104000"; d="scan'208";a="812917920"
 Received: from murrayal-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.229.164])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2023 02:59:37 -0800
+ 16 Feb 2023 02:59:35 -0800
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 16 Feb 2023 10:59:21 +0000
-Message-Id: <20230216105921.624960-10-tvrtko.ursulin@linux.intel.com>
+Date: Thu, 16 Feb 2023 10:59:19 +0000
+Message-Id: <20230216105921.624960-8-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230216105921.624960-1-tvrtko.ursulin@linux.intel.com>
 References: <20230216105921.624960-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 9/9] drm/i915: Wait boost requests waited upon by
- others
+Subject: [Intel-gfx] [RFC 7/9] drm/i915: Waitboost external waits
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,30 +63,38 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Use the newly added dma-fence API to apply waitboost not only requests
-which have been marked with I915_WAIT_PRIORITY by i915, but which may be
-waited upon by others (such as for instance buffer sharing in multi-GPU
-scenarios).
+Userspace waits coming via the drm_syncobj route have so far been
+bypassing the waitboost mechanism.
+
+Use the previously added dma-fence wait tracking API and apply the
+same waitboosting logic which applies to other entry points.
+
+This should fix the perfomance regressions experience by clvk and
+similar userspace which relies on drm_syncobj.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- drivers/gpu/drm/i915/i915_request.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_request.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 488b180f8821..e24fac5c1567 100644
+index 7503dcb9043b..8989f62a7fba 100644
 --- a/drivers/gpu/drm/i915/i915_request.c
 +++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -2042,7 +2042,8 @@ long i915_request_wait_timeout(struct i915_request *rq,
- 	 * but at a cost of spending more power processing the workload
- 	 * (bad for battery).
- 	 */
--	if (flags & I915_WAIT_PRIORITY && !i915_request_started(rq))
-+	if (((flags & I915_WAIT_PRIORITY) || dma_fence_wait_count(&rq->fence))
-+	    && !i915_request_started(rq))
- 		intel_rps_boost(rq);
+@@ -94,7 +94,12 @@ static bool i915_fence_signaled(struct dma_fence *fence)
  
- 	wait.tsk = current;
+ static bool i915_fence_enable_signaling(struct dma_fence *fence)
+ {
+-	return i915_request_enable_breadcrumb(to_request(fence));
++	struct i915_request *rq = to_request(fence);
++
++	if (dma_fence_wait_count(&rq->fence) && !i915_request_started(rq))
++		intel_rps_boost(rq);
++
++	return i915_request_enable_breadcrumb(rq);
+ }
+ 
+ static signed long i915_fence_wait(struct dma_fence *fence,
 -- 
 2.34.1
 
