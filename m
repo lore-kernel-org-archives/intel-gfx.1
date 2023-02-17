@@ -4,49 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4233EC636CC
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Feb 2023 02:25:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D4EFC636CC
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Feb 2023 03:02:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 613C810E3C9;
-	Fri, 17 Feb 2023 02:25:13 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D6A210E195;
- Fri, 17 Feb 2023 02:25:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1676600704; x=1708136704;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=9xJ78ZPjSwZj2s9QdeqUFq5jM7hTALRDfyEnmi9fAbM=;
- b=nUb2nnGpawPFVP0ROiLzwl7fE0OKoTXtxa18gLr7aKI4AUzdZo0g3Zl1
- 1PtSOhAQL2XqBV9g8fprt2whzC1jDN6se5VOZhuLNiXDrlX4T5rIto6S4
- sjiOD+8GA0Cn4stdl26ZAfoOYeBO58QHIaStbncOEsw6ZhhTkucI+xIsK
- MW1gaeJOjclFUgKi8evXXcAW3VKKpU4Sk/b5Bhy1wc38FypF5EBGPwRzc
- Xph7XWIYO+i2EzwbtFxtNfSRBlX19Kqdkz2tFgiThw4NSNMaQ+XL0NIJN
- 0L1LzQ+9NZA4LwayhiGzcTVeqcxfFWFuX4noohxDs+IZ1Wl9eeOwewg+V w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="334093365"
-X-IronPort-AV: E=Sophos;i="5.97,304,1669104000"; d="scan'208";a="334093365"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2023 18:25:02 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="670389089"
-X-IronPort-AV: E=Sophos;i="5.97,304,1669104000"; d="scan'208";a="670389089"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
- by orsmga002.jf.intel.com with ESMTP; 16 Feb 2023 18:25:02 -0800
-From: John.C.Harrison@Intel.com
-To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu, 16 Feb 2023 18:24:19 -0800
-Message-Id: <20230217022420.2664116-3-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230217022420.2664116-1-John.C.Harrison@Intel.com>
-References: <20230217022420.2664116-1-John.C.Harrison@Intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5932A10E12C;
+	Fri, 17 Feb 2023 03:02:18 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id F060910E12C;
+ Fri, 17 Feb 2023 03:02:15 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id E8CBEA0099;
+ Fri, 17 Feb 2023 03:02:15 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 2/3] drm/i915/guc: Clean up of register
- capture search
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: john.c.harrison@intel.com
+Date: Fri, 17 Feb 2023 03:02:15 -0000
+Message-ID: <167660293590.7013.17092552559178699332@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230217022420.2664116-1-John.C.Harrison@Intel.com>
+In-Reply-To: <20230217022420.2664116-1-John.C.Harrison@Intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_More_error_capture_improvements_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,41 +40,27 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- DRI-Devel@Lists.FreeDesktop.Org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+== Series Details ==
 
-The comparison in the search for a matching register capture node was
-not the most readable. It was also assuming that a zero GuC id means
-invalid, which it does not. So remove one invalid term, one redundant
-term and re-format to keep each term on a single line, and only one
-term per line.
+Series: More error capture improvements (rev2)
+URL   : https://patchwork.freedesktop.org/series/113628/
+State : warning
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Reviewed-by: Alan Previn <alan.previn.teres.alexis@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-index 36196cbb24c6b..cf49188db6a6e 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-@@ -1616,9 +1616,8 @@ void intel_guc_capture_get_matching_node(struct intel_gt *gt,
- 	list_for_each_entry_safe(n, ntmp, &guc->capture->outlist, link) {
- 		if (n->eng_inst == GUC_ID_TO_ENGINE_INSTANCE(ee->engine->guc_id) &&
- 		    n->eng_class == GUC_ID_TO_ENGINE_CLASS(ee->engine->guc_id) &&
--		    n->guc_id && n->guc_id == ce->guc_id.id &&
--		    (n->lrca & CTX_GTT_ADDRESS_MASK) && (n->lrca & CTX_GTT_ADDRESS_MASK) ==
--		    (ce->lrc.lrca & CTX_GTT_ADDRESS_MASK)) {
-+		    n->guc_id == ce->guc_id.id &&
-+		    (n->lrca & CTX_GTT_ADDRESS_MASK) == (ce->lrc.lrca & CTX_GTT_ADDRESS_MASK)) {
- 			list_del(&n->link);
- 			ee->guc_capture_node = n;
- 			ee->guc_capture = guc->capture;
--- 
-2.39.1
+Error: dim checkpatch failed
+ee9d337e5e7f drm/i915/guc: Fix missing ecodes
+-:15: WARNING:REPEATED_WORD: Possible repeated word: 'if'
+#15: 
+v2: if else if instead of if if (Alan)
+
+total: 0 errors, 1 warnings, 0 checks, 34 lines checked
+fa6abadc061c drm/i915/guc: Clean up of register capture search
+f2ef1d45f6b2 drm/i915: Include timeline seqno in error capture
+
 
