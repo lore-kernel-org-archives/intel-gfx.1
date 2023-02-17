@@ -4,47 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 398BDC64EC4
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Feb 2023 00:59:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F91DC636CC
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Feb 2023 00:59:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 884AD10E1AA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B608010E3BB;
 	Fri, 17 Feb 2023 00:58:57 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E16610E138
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 623A910E138
  for <intel-gfx@lists.freedesktop.org>; Fri, 17 Feb 2023 00:58:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1676595535; x=1708131535;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=StQ0O80B+1jcck+WzVG/j96wxez2gsy5oF1lakYeS+k=;
- b=LPsU+QhB3ejJwaiM5zL3SVTsItejQWIj9IvuZOCG1l749P83Ai/6QNjA
- MN1yJ1GPdYK/hHQYUF8JfWqBKl/V0JGwx4la8LyTs2OhybDjJ04Ow/tIs
- wWOUE+TlXrwd0OSFrXaKLrYzRjRFn2xHK/mIWdmAn8HLtMw+1Q06f0XeI
- L8jUOPa6aY0FWsjg6uBGNvkXB4hRsAmuMhra4DluSnetp0HYwBRnFTOK+
- spFcRGM0Ao/+/tpUMREApWfigthiXRQAyhHq/nCf3quVJoScyncoQ9W3W
- opmW4Bx97s3PNWSbKdKD23CKoK8N9qfM4xsJK4mnAiRxhx35pOympBbPN Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="311512377"
-X-IronPort-AV: E=Sophos;i="5.97,304,1669104000"; d="scan'208";a="311512377"
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=JG0OJ3qV9yRtWEY9KmVARIXbtTl4kGUvrTVUzlkn+hk=;
+ b=Yj2SGCyLglOew0W62cX1piJEfKS+LstffesChdBIBxVqGhYDXsgxyzBm
+ ZsRJp3pVNo/ytiufeqwGD1e1n6oZ0R1BQjCU8cygbCCSPz5VrReRUDV/L
+ zFXCIw8WgMYOFmSJjMKSUw1O3fi0hi/2iqNkk8jZsPDKFYTn3nlB3Jdt1
+ 8Y/+aAIWQbS/Nkf5BU5PBxmuvjeifgLK/LpwUQ1mWUdxB87j8BrztUjGY
+ H2wAu+MKLThiXlrBTwQDDzQ6UdTXY2Nw7Zoi2go50OxkRMyItYdzgYIAE
+ gPH9flAGj0rG1wk0rBRcfQcw3pIpQPbDheOt5fhE4x7sxhRtuxvd0gWXV w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="311512375"
+X-IronPort-AV: E=Sophos;i="5.97,304,1669104000"; d="scan'208";a="311512375"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2023 16:58:55 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="844390206"
-X-IronPort-AV: E=Sophos;i="5.97,304,1669104000"; d="scan'208";a="844390206"
+ 16 Feb 2023 16:58:54 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="844390195"
+X-IronPort-AV: E=Sophos;i="5.97,304,1669104000"; d="scan'208";a="844390195"
 Received: from orsosgc001.jf.intel.com ([10.165.21.138])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  16 Feb 2023 16:58:54 -0800
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 16 Feb 2023 16:58:44 -0800
-Message-Id: <20230217005850.2511422-4-umesh.nerlige.ramappa@intel.com>
+Date: Thu, 16 Feb 2023 16:58:41 -0800
+Message-Id: <20230217005850.2511422-1-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20230217005850.2511422-1-umesh.nerlige.ramappa@intel.com>
-References: <20230217005850.2511422-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 3/9] drm/i915/perf: Validate OA sseu config
- outside switch
+Subject: [Intel-gfx] [PATCH v2 0/9] Add OAM support for MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,77 +57,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Once OA supports media engine class:instance, the engine can only be
-validated outside the switch since class and instance parameters are
-separate entities. Since OA sseu config depends on engine
-class:instance, validate OA sseu config outside the switch.
+The OAM unit captures OA reports specific to the media engines. Add support to
+program the OAM unit on media tile on MTL.
 
-v2: (Ashutosh)
-- Clarify commit message
-- Use drm_dbg instead of DRM_DEBUG
-- Reorder stack variables
+The OAM unit is selected by passing the class:instance of a media engine to perf
+parameters. Corresponding UMD changes are posted to the igt-dev repo as part of
+supporting the GPUvis tool.
+
+v2: Incorporate review feedback (Jani, Ashutosh)
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
----
- drivers/gpu/drm/i915/i915_perf.c | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
+Test-with: 20230215004648.2100655-1-umesh.nerlige.ramappa@intel.com
+Cc: "Ashutosh Dixit <ashutosh.dixit@intel.com>"
+Cc: "Lionel G Landwerlin <lionel.g.landwerlin@linux.intel.com>"
+Cc: "Joonas Lahtinen <joonas.lahtinen@linux.intel.com>"
+Cc: "Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>"
 
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index b0e1acbe90fc..1229f65534e2 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -3950,7 +3950,9 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 				    u32 n_props,
- 				    struct perf_open_properties *props)
- {
-+	struct drm_i915_gem_context_param_sseu user_sseu;
- 	u64 __user *uprop = uprops;
-+	bool config_sseu = false;
- 	u32 i;
- 	int ret;
- 
-@@ -4079,8 +4081,6 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 			props->hold_preemption = !!value;
- 			break;
- 		case DRM_I915_PERF_PROP_GLOBAL_SSEU: {
--			struct drm_i915_gem_context_param_sseu user_sseu;
--
- 			if (GRAPHICS_VER_FULL(perf->i915) >= IP_VER(12, 50)) {
- 				drm_dbg(&perf->i915->drm,
- 					"SSEU config not supported on gfx %x\n",
-@@ -4095,14 +4095,7 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 					"Unable to copy global sseu parameter\n");
- 				return -EFAULT;
- 			}
--
--			ret = get_sseu_config(&props->sseu, props->engine, &user_sseu);
--			if (ret) {
--				drm_dbg(&perf->i915->drm,
--					"Invalid SSEU configuration\n");
--				return ret;
--			}
--			props->has_sseu = true;
-+			config_sseu = true;
- 			break;
- 		}
- 		case DRM_I915_PERF_PROP_POLL_OA_PERIOD:
-@@ -4122,6 +4115,16 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 		uprop += 2;
- 	}
- 
-+	if (config_sseu) {
-+		ret = get_sseu_config(&props->sseu, props->engine, &user_sseu);
-+		if (ret) {
-+			drm_dbg(&perf->i915->drm,
-+				"Invalid SSEU configuration\n");
-+			return ret;
-+		}
-+		props->has_sseu = true;
-+	}
-+
- 	return 0;
- }
- 
+Chris Wilson (1):
+  drm/i915/perf: Drop wakeref on GuC RC error
+
+Umesh Nerlige Ramappa (8):
+  drm/i915/perf: Add helper to check supported OA engines
+  drm/i915/perf: Validate OA sseu config outside switch
+  drm/i915/perf: Group engines into respective OA groups
+  drm/i915/perf: Fail modprobe if i915_perf_init fails on OOM
+  drm/i915/perf: Parse 64bit report header formats correctly
+  drm/i915/perf: Handle non-power-of-2 reports
+  drm/i915/perf: Add engine class instance parameters to perf
+  drm/i915/perf: Add support for OA media units
+
+ drivers/gpu/drm/i915/gt/intel_engine_types.h |   4 +
+ drivers/gpu/drm/i915/gt/intel_sseu.c         |   3 +-
+ drivers/gpu/drm/i915/i915_driver.c           |   4 +-
+ drivers/gpu/drm/i915/i915_drv.h              |   2 +
+ drivers/gpu/drm/i915/i915_pci.c              |   1 +
+ drivers/gpu/drm/i915/i915_perf.c             | 626 +++++++++++++++----
+ drivers/gpu/drm/i915/i915_perf.h             |   2 +-
+ drivers/gpu/drm/i915/i915_perf_oa_regs.h     |  78 +++
+ drivers/gpu/drm/i915/i915_perf_types.h       | 103 ++-
+ drivers/gpu/drm/i915/intel_device_info.h     |   1 +
+ include/uapi/drm/i915_drm.h                  |  24 +
+ 11 files changed, 731 insertions(+), 117 deletions(-)
+
 -- 
 2.36.1
 
