@@ -4,65 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61266C6379F
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Feb 2023 12:23:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5EB6C636D4
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Feb 2023 12:24:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9792A10EFB8;
-	Fri, 17 Feb 2023 12:22:41 +0000 (UTC)
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [IPv6:2a00:1450:4864:20::533])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 882C010EF99;
- Fri, 17 Feb 2023 12:22:31 +0000 (UTC)
-Received: by mail-ed1-x533.google.com with SMTP id m17so4063892edc.9;
- Fri, 17 Feb 2023 04:22:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=rexHsYzVpgv7QGvwm4JZRgCynN9IfMSmYFd1wUGPksU=;
- b=lVv8n0SxtKCxBPCwdqQh+1Z2D/SGcrXGS5Sk3eT6nQ38siO/qwXdhrpuGPzRQPxBTR
- wLFDbx9Rr09cBtVE45FvGjslQxGYeyrCghuzOLN/9aZCvUvbRtqHgTUJs9FWp31/ugxm
- hmcfkYih2OGLvq7uXCO1HP/dUrsCclkU3NqyLPnq595XxlK3ezm12tRnXCagVLmOhMAT
- vtAbrLfUTcPBUq1O7PpU1JchJ1u3OlgOrZPGDOgX3Iuo3t6DkE105WkPlconsULL3wEu
- jgXUeisMGds0hvDeoFJn5/dFt7/LuC1aQrmBLaeYdHoAjlBWXGDzDZixitNLqw3A3nxQ
- /9nA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=rexHsYzVpgv7QGvwm4JZRgCynN9IfMSmYFd1wUGPksU=;
- b=61bzitWdWA+d8FX1ybtYrqHucSkj+xa98+lY+5/Hrd1ZquFIqeNK3Qv4ybpoSL2Vwx
- QM+FJN4KAreLAsE8U5QYA0praxpjTzCKwnV6KhjDE0Hy027jOrIZMUcmxaCTuqP3j1wR
- beTlFaI/g+nVn4cjQgBegiQ3HFSYslojGEw1Tp85EWE1fWG4XeyErElZY0nSPJQEYvVc
- gJdz4mZrp9SMFwRUGbPNqpfOiTMNCa+7BnoXS1pnp7qRVWwaFX1Ka+h7rhbGirSrNq5b
- P+eUkGBSSmdXFqkVcBi+hXkRUsAqatqxj5816ZOrurShyIvsjZgI0vjSaGWjaIaHwKEX
- CqSw==
-X-Gm-Message-State: AO0yUKUCWbqWSSr8cZVw0iyipM8kY001bBfnB0d7I1iOlz6CANyAXmx9
- efKw66puURsTyoDLhWCUEiFv2aiT180=
-X-Google-Smtp-Source: AK7set//x9AeIoBlUIDuxNBucV1uRwMq4jKtnnHuskCDi122fvB1eD/vo3mdXqeLrgndN/NtOQcLGA==
-X-Received: by 2002:a17:906:edc1:b0:872:6bd0:d2b with SMTP id
- sb1-20020a170906edc100b008726bd00d2bmr9044022ejb.45.1676636550018; 
- Fri, 17 Feb 2023 04:22:30 -0800 (PST)
-Received: from able.fritz.box (p5b0ea2e7.dip0.t-ipconnect.de. [91.14.162.231])
- by smtp.gmail.com with ESMTPSA id
- h10-20020a50c38a000000b004ad75c5c0fdsm1373472edf.18.2023.02.17.04.22.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Feb 2023 04:22:29 -0800 (PST)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Date: Fri, 17 Feb 2023 13:22:22 +0100
-Message-Id: <20230217122224.29243-5-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230217122224.29243-1-christian.koenig@amd.com>
-References: <20230217122224.29243-1-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14E9410EF91;
+	Fri, 17 Feb 2023 12:24:41 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8407F10EFB7;
+ Fri, 17 Feb 2023 12:24:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1676636676; x=1708172676;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=fohFRf4ky8BzUUod0wl6yyQp55taY4mQFvCQTTqlNW4=;
+ b=nINMUmP6Adc3PyBaewYfhEQ0vnlnzCaAuSKBLZCbM1uQhJ/0pfjSPgwv
+ pfXtPkSbbGRNSIPmVQFro4QFu9Hd5ZJJdZ9vyKJ6SJ0VEkfqrLNlKK11r
+ oQ2UiOTAr90qbdalriR+/6i9jn0g+llBxQ0ULRmLVIsSFN5Wzys2Jlq7j
+ qjBPMgq03mehVSDE8pBAtoPgwYZeFCbpGoXXQw+kxAgQ6lsChEbKjAstW
+ BS/3Mhcj3XGWq5FAHLOprDLPwqHs5ezpKKr86tTk6KPBOh+j1NzOeLb1W
+ cRx0siMreqwEYHKMW7VzvFwrbxh8vqmGKZ4zzy19MBpgjoT46kywV77q9 Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="359423401"
+X-IronPort-AV: E=Sophos;i="5.97,304,1669104000"; d="scan'208";a="359423401"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Feb 2023 04:24:31 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="670525503"
+X-IronPort-AV: E=Sophos;i="5.97,304,1669104000"; d="scan'208";a="670525503"
+Received: from akocherg-mobl1.ccr.corp.intel.com (HELO localhost)
+ ([10.252.53.1])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Feb 2023 04:24:26 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Date: Fri, 17 Feb 2023 14:24:23 +0200
+Message-ID: <87v8k0xyx4.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5/7] drm/gem: Remove BUG_ON in
- drm_gem_private_object_init
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: [Intel-gfx] [PULL] drm-intel-next-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,34 +56,86 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
 
-ttm_resource can allocate size in bytes to support less than page size.
+Hi Dave & Daniel -
 
-Signed-off-by: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20230208090106.9659-1-Amaranath.Somalapuram@amd.com
----
- drivers/gpu/drm/drm_gem.c | 2 --
- 1 file changed, 2 deletions(-)
+Fixes for drm-next and the upcoming merge window.
 
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index aa15c52ae182..5a3ca3363f82 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -152,8 +152,6 @@ EXPORT_SYMBOL(drm_gem_object_init);
- void drm_gem_private_object_init(struct drm_device *dev,
- 				 struct drm_gem_object *obj, size_t size)
- {
--	BUG_ON((size & (PAGE_SIZE - 1)) != 0);
--
- 	obj->dev = dev;
- 	obj->filp = NULL;
- 
--- 
-2.34.1
+drm-intel-next-fixes-2023-02-17:
+drm/i915 fixes for the v6.3 merge window:
+- Fix eDP+DSI dual panel systems
+- Fix system suspend when fbdev isn't initialized
+- Fix memory leaks in scatterlist
+- Fix some MCR register annotations
+- Fix documentation build warnings
 
+BR,
+Jani.
+
+The following changes since commit 48075a66fca613477ac1969b576a93ef5db0164f:
+
+  Merge branch 'etnaviv/next' of https://git.pengutronix.de/git/lst/linux i=
+nto drm-next (2023-02-09 16:16:44 +1000)
+
+are available in the Git repository at:
+
+  git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-next-fixes-202=
+3-02-17
+
+for you to fetch changes up to 8038510b1fe443ffbc0e356db5f47cbb8678a594:
+
+  drm/i915: Fix system suspend without fbdev being initialized (2023-02-15 =
+17:33:07 +0200)
+
+----------------------------------------------------------------
+drm/i915 fixes for the v6.3 merge window:
+- Fix eDP+DSI dual panel systems
+- Fix system suspend when fbdev isn't initialized
+- Fix memory leaks in scatterlist
+- Fix some MCR register annotations
+- Fix documentation build warnings
+
+----------------------------------------------------------------
+Bagas Sanjaya (1):
+      drm/i915/doc: Escape wildcard in method names
+
+Imre Deak (1):
+      drm/i915: Fix system suspend without fbdev being initialized
+
+Jani Nikula (1):
+      drm/i915/bios: set default backlight controller index
+
+Lucas De Marchi (1):
+      drm/i915: Fix GEN8_MISCCPCTL
+
+Matt Atwood (1):
+      drm/i915: Fix memory leaks in scatterlist
+
+Matt Roper (1):
+      drm/i915/pvc: Annotate two more workaround/tuning registers as MCR
+
+Ville Syrj=C3=A4l=C3=A4 (3):
+      drm/i915: Fix VBT DSI DVO port handling
+      drm/i915: Populate encoder->devdata for DSI on icl+
+      drm/i915: Pick the backlight controller based on VBT on ICP+
+
+ drivers/gpu/drm/i915/display/icl_dsi.c         |  3 +-
+ drivers/gpu/drm/i915/display/intel_backlight.c | 34 ++++++++++++++++--
+ drivers/gpu/drm/i915/display/intel_bios.c      | 49 +++++++++++++++++++---=
+----
+ drivers/gpu/drm/i915/display/intel_fbdev.c     |  8 ++++-
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h        |  9 ++---
+ drivers/gpu/drm/i915/gt/intel_workarounds.c    | 24 ++++++++-----
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c      |  5 ++-
+ drivers/gpu/drm/i915/i915_scatterlist.c        |  8 +++--
+ drivers/gpu/drm/i915/intel_pm.c                | 10 +++---
+ 9 files changed, 107 insertions(+), 43 deletions(-)
+
+--=20
+Jani Nikula, Intel Open Source Graphics Center
