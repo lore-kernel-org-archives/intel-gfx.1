@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8BE4C61DA4
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Feb 2023 02:25:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 576CEC636D7
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Feb 2023 02:25:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 174EE10E3C7;
-	Fri, 17 Feb 2023 02:25:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E052C10E3C2;
+	Fri, 17 Feb 2023 02:25:09 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C78910E1A3;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 922E910E1A3;
  Fri, 17 Feb 2023 02:25:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1676600704; x=1708136704;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=7J7lRFZPUr3BHW7/m3oEBmgCduD9y0HNKFUPix8KbTs=;
- b=fZXmIHOgfPIeqXI+vyz5Nu+a2Sp7EjhqrQspW6b4Na3jfu7FX6/gfb/i
- TcA7MymdsC861LC2LOjMPESGXsM/xFIIDbnC3S+XgRHAZLoiUpVS3fOMX
- qb0ZlRFsSl8q0rVXIA2FucwPqHCaf0DObJHddsljgUMhwTGy8hQioEb1f
- ACX/2t6PW2laomW1Gfguk2eyWWZ0RQehs/k0yIYfCcmAeGLK8u2hsU4+p
- jofoEgG3md6V4kIMXmWykE/PjgmqCROkpcoum+3EPzIhcFkn0db/wjTEl
- CkLV3EKj0i1hnyMrrvztaz6GYSxu2h7cM+V7F0YaDsQy0ef8nmxsyZPSo A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="334093364"
-X-IronPort-AV: E=Sophos;i="5.97,304,1669104000"; d="scan'208";a="334093364"
+ bh=PCzGL8HyoQjOxs2uE0Tn4vpdvjpxrJIyAJdOPd2gJAo=;
+ b=Vl0UpMmZC9Wl/au4ltYrCF+yNr6NA4OviHy4YCb7B7dosB3NDS7YX8td
+ b57a7OhI+sGY5gDEfRuew21Zu1ufTwak27GGJ40CJNmfGbqitdOUFp4nN
+ u1G9j6HuP0R8qTYT9LtNA574SJxd3hBQSiJgKyFGBx/mYPzn+r4UBtvcQ
+ XisDYhAdM+0OayqgXo4Et4dTPT5ygH3S9BEWgH8l4mYx+za9cW32OqAqH
+ b7tNRE3EPKCqqRBp1NdVmDMVEGJ/oW+gL12rKn4SZTLEys9NwW+FUstY9
+ +gYWjnyW+xY9y3Wf+46c1vzCpdErm/i6vz99JWrNMLmQewEOZV9x4/oh/ w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="334093367"
+X-IronPort-AV: E=Sophos;i="5.97,304,1669104000"; d="scan'208";a="334093367"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2023 18:25:02 -0800
+ 16 Feb 2023 18:25:03 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="670389085"
-X-IronPort-AV: E=Sophos;i="5.97,304,1669104000"; d="scan'208";a="670389085"
+X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="670389092"
+X-IronPort-AV: E=Sophos;i="5.97,304,1669104000"; d="scan'208";a="670389092"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
  by orsmga002.jf.intel.com with ESMTP; 16 Feb 2023 18:25:02 -0800
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu, 16 Feb 2023 18:24:18 -0800
-Message-Id: <20230217022420.2664116-2-John.C.Harrison@Intel.com>
+Date: Thu, 16 Feb 2023 18:24:20 -0800
+Message-Id: <20230217022420.2664116-4-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230217022420.2664116-1-John.C.Harrison@Intel.com>
 References: <20230217022420.2664116-1-John.C.Harrison@Intel.com>
@@ -45,7 +45,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/3] drm/i915/guc: Fix missing ecodes
+Subject: [Intel-gfx] [PATCH v2 3/3] drm/i915: Include timeline seqno in
+ error capture
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,88 +59,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Michael Cheng <michael.cheng@intel.com>,
- Alan Previn <alan.previn.teres.alexis@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, DRI-Devel@Lists.FreeDesktop.Org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: DRI-Devel@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-Error captures are tagged with an 'ecode'. This is a pseduo-unique magic
-number that is meant to distinguish similar seeming bugs with
-different underlying signatures. It is a combination of two ring state
-registers. Unfortunately, the register state being used is only valid
-in execlist mode. In GuC mode, the register state exists in a separate
-list of arbitrary register address/value pairs rather than the named
-entry structure. So, search through that list to find the two exciting
-registers and copy them over to the structure's named members.
-
-v2: if else if instead of if if (Alan)
+The seqno value actually written out to memory is no longer in the
+regular HWSP. Instead, it is now in its own private timeline buffer.
+Thus, it is no longer visible in an error capture. So, explicitly read
+the value and include that in the capture.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Reviewed-by: Alan Previn <alan.previn.teres.alexis@intel.com>
-Fixes: a6f0f9cf330a ("drm/i915/guc: Plumb GuC-capture into gpu_coredump")
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
-Cc: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
-Cc: Michael Cheng <michael.cheng@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Bruce Chang <yu.bruce.chang@intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 22 +++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/gpu/drm/i915/i915_gpu_error.c | 3 +++
+ drivers/gpu/drm/i915/i915_gpu_error.h | 1 +
+ 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-index 101d44de729b1..36196cbb24c6b 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-@@ -1562,6 +1562,27 @@ int intel_guc_capture_print_engine_node(struct drm_i915_error_state_buf *ebuf,
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index 904f21e1380cd..036a65c9cbf67 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -505,6 +505,7 @@ static void error_print_context(struct drm_i915_error_state_buf *m,
+ 		   header, ctx->comm, ctx->pid, ctx->sched_attr.priority,
+ 		   ctx->guilty, ctx->active,
+ 		   ctx->total_runtime, ctx->avg_runtime);
++	err_printf(m, "  context timeline seqno %d\n", ctx->hwsp_seqno);
+ }
  
- #endif //CONFIG_DRM_I915_CAPTURE_ERROR
+ static struct i915_vma_coredump *
+@@ -1395,6 +1396,8 @@ static bool record_context(struct i915_gem_context_coredump *e,
+ 	e->sched_attr = ctx->sched;
+ 	e->guilty = atomic_read(&ctx->guilty_count);
+ 	e->active = atomic_read(&ctx->active_count);
++	e->hwsp_seqno = (ce->timeline && ce->timeline->hwsp_seqno) ?
++				*ce->timeline->hwsp_seqno : ~0U;
  
-+static void guc_capture_find_ecode(struct intel_engine_coredump *ee)
-+{
-+	struct gcap_reg_list_info *reginfo;
-+	struct guc_mmio_reg *regs;
-+	i915_reg_t reg_ipehr = RING_IPEHR(0);
-+	i915_reg_t reg_instdone = RING_INSTDONE(0);
-+	int i;
-+
-+	if (!ee->guc_capture_node)
-+		return;
-+
-+	reginfo = ee->guc_capture_node->reginfo + GUC_CAPTURE_LIST_TYPE_ENGINE_INSTANCE;
-+	regs = reginfo->regs;
-+	for (i = 0; i < reginfo->num_regs; i++) {
-+		if (regs[i].offset == reg_ipehr.reg)
-+			ee->ipehr = regs[i].value;
-+		else if (regs[i].offset == reg_instdone.reg)
-+			ee->instdone.instdone = regs[i].value;
-+	}
-+}
-+
- void intel_guc_capture_free_node(struct intel_engine_coredump *ee)
- {
- 	if (!ee || !ee->guc_capture_node)
-@@ -1601,6 +1622,7 @@ void intel_guc_capture_get_matching_node(struct intel_gt *gt,
- 			list_del(&n->link);
- 			ee->guc_capture_node = n;
- 			ee->guc_capture = guc->capture;
-+			guc_capture_find_ecode(ee);
- 			return;
- 		}
- 	}
+ 	e->total_runtime = intel_context_get_total_runtime_ns(ce);
+ 	e->avg_runtime = intel_context_get_avg_runtime_ns(ce);
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.h b/drivers/gpu/drm/i915/i915_gpu_error.h
+index 56027ffbce51f..a91932cc65317 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.h
++++ b/drivers/gpu/drm/i915/i915_gpu_error.h
+@@ -107,6 +107,7 @@ struct intel_engine_coredump {
+ 		int active;
+ 		int guilty;
+ 		struct i915_sched_attr sched_attr;
++		u32 hwsp_seqno;
+ 	} context;
+ 
+ 	struct i915_vma_coredump *vma;
 -- 
 2.39.1
 
