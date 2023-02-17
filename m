@@ -4,149 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 413C3C61DA4
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Feb 2023 00:53:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8FEDC61DA4
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Feb 2023 00:58:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB80E10E138;
-	Fri, 17 Feb 2023 00:53:44 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A63610E138
- for <intel-gfx@lists.freedesktop.org>; Fri, 17 Feb 2023 00:53:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A08D10E138;
+	Fri, 17 Feb 2023 00:58:57 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB7A610E3BB
+ for <intel-gfx@lists.freedesktop.org>; Fri, 17 Feb 2023 00:58:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1676595223; x=1708131223;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=FNEzzFr7wDpCIYJOCUhJenOr1m09hwx19wyoPnSLypA=;
- b=UXLegBIJGl4v/gD85Jf/YQ7sPUnZZvhGETTvR1eJAYY3qOJqOIFOY0r4
- 6a3tY9hQITn5L8jSak8z00jGFPfygPMESS8euDLxr+jeVR+uandmgeGHI
- on+NwGDwqBKlM7sc+I0j9NVx6XRnY7UmrgSzDBLIzQX1Ryoa+i1WCGUh6
- b7e/CLIEC/CG2rArVegt3bXz1AmGL5ObMP88+ldnfJF0YPONEJuATbLK5
- zI+KznmqSP+fa1ABGuNppyVYLRJgh+hM4RJ91CWLjkKcd8Z+U+2m02D3M
- Jp+lRDYdIYnX+V3xlCuGDHLI7bO1Ra0b9rDMSMIFT4OddDWimfrgkhx1r w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="359322456"
-X-IronPort-AV: E=Sophos;i="5.97,304,1669104000"; d="scan'208";a="359322456"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2023 16:53:42 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="999269430"
-X-IronPort-AV: E=Sophos;i="5.97,304,1669104000"; d="scan'208";a="999269430"
-Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
- by fmsmga005.fm.intel.com with ESMTP; 16 Feb 2023 16:53:42 -0800
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Thu, 16 Feb 2023 16:53:42 -0800
-Received: from fmsmsx602.amr.corp.intel.com (10.18.126.82) by
- fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16; Thu, 16 Feb 2023 16:53:41 -0800
-Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
- fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.16 via Frontend Transport; Thu, 16 Feb 2023 16:53:41 -0800
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com (104.47.56.41) by
- edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.16; Thu, 16 Feb 2023 16:53:41 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ex5FZUr62jlxFQvxHMY0UVGFu3muaoCU+zgoUt3o1nKXS2/0qUJPqJgGSjBD/dc2Bhlo4VGAFCefiLMM1dfAQ5sOfz3x3SUwpVhjuaB1LBfIePFDNG9cLvlVAeWT3CvmeqxcxRMbQxldvscdLyxQ800lqnoSSas4M2JJ+C4Vc/+V4YD1qU9XZV1+/a/mzMKZYAwwSfDgJv2mxI4USZoGCY43gx8e/TILmnd9US16iNtwpWXqEBBoqkqUxkFLNE36SLSmAgkYKPp3/HGNvQjpkOGPj7RCkA4siQGHV4Wq62PNFHNGoe1Q2DZTcEW6K6l9OA/m1Qoc6ZpbsN4015QhRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=spuhX5xbiDgi9R/ycMF7ucHSaSQQwuqJfIa84Gxf+Bg=;
- b=Kw2Fd4xAo2nnUeVpoR8ibhsIDgIp0ypghuT/DUVwgcJjCaqQ0k8oKyNhjKTiexP+X6flesgT+j0vbnu3Z2MuURR56e+qhbSy6zswwEuGgMkpQSTncMwUxbQdICiBcplrC3yDxpNspNqW3bO34tXyTGnyK83SP6YifG73GE3pvtx4bVXj9eufQkS+zP1vhIWilzGoTEL8Oa0M0stsbyEDF3UQRpVGOmP6xH3L7F8lFNW3mE5O2VIh3AXpUWX70kO+yauf/q00s1sEZ54Q7oU1yFZnFf0G982FhcqjupuyCSAkUbLZpVQbmJPGf1z4ZOG7NQMb8MmGqMEjG+gC/Mx6gw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM6PR11MB2987.namprd11.prod.outlook.com (2603:10b6:5:65::14) by
- BL3PR11MB5700.namprd11.prod.outlook.com (2603:10b6:208:33f::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.13; Fri, 17 Feb
- 2023 00:53:40 +0000
-Received: from DM6PR11MB2987.namprd11.prod.outlook.com
- ([fe80::9bf9:4252:3ddc:7ac2]) by DM6PR11MB2987.namprd11.prod.outlook.com
- ([fe80::9bf9:4252:3ddc:7ac2%6]) with mapi id 15.20.6111.013; Fri, 17 Feb 2023
- 00:53:40 +0000
-Date: Thu, 16 Feb 2023 16:53:29 -0800
+ t=1676595535; x=1708131535;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=o7xDM+0KTKEd+/iu6BeTA7upkPCQNI36mBA+Y8W1PU4=;
+ b=Sj7fJ4pltI2Isi55tSJsQubSf0A9f7UcI5yJ4m3ewIANalUpVRgyB6zg
+ J/a2Cm1ZiLcH6V+iWOgIceo6TVdhnhruIjPGUAqB2X/3Q4AQJusmQexUm
+ 3BBs+69x/vxhqig7Y2cA6Zw4wGO/aZezWm3MQZyj9zlC6Wsv5IF4LALhG
+ 0/vprKJ3CT4SDv9wDIk2PActw4CHhdEKWKYG4YfmIh0UKJwmcG1qvg/k9
+ FvhWJtq1xb1saNIY+3FGFKF6+Rx6RahCzJxAF248onMzCC8m2LS+dZ4aD
+ xuZLgPE9bc7q1BMjLc6ZtDzsvXxQsgQMWIhtR+tI2q8AJG1HNKFQiSYgW Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="311512380"
+X-IronPort-AV: E=Sophos;i="5.97,304,1669104000"; d="scan'208";a="311512380"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Feb 2023 16:58:55 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10623"; a="844390210"
+X-IronPort-AV: E=Sophos;i="5.97,304,1669104000"; d="scan'208";a="844390210"
+Received: from orsosgc001.jf.intel.com ([10.165.21.138])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Feb 2023 16:58:54 -0800
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-To: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
-Message-ID: <Y+7QCQy0quJa6Nle@orsosgc001.jf.intel.com>
-References: <20230215005419.2100887-1-umesh.nerlige.ramappa@intel.com>
- <20230215005419.2100887-3-umesh.nerlige.ramappa@intel.com>
- <871qmqntx1.wl-ashutosh.dixit@intel.com>
- <Y+5oUVso8T0MYaOa@orsosgc001.jf.intel.com>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Disposition: inline
-In-Reply-To: <Y+5oUVso8T0MYaOa@orsosgc001.jf.intel.com>
-X-ClientProxiedBy: BYAPR07CA0016.namprd07.prod.outlook.com
- (2603:10b6:a02:bc::29) To DM6PR11MB2987.namprd11.prod.outlook.com
- (2603:10b6:5:65::14)
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 16 Feb 2023 16:58:45 -0800
+Message-Id: <20230217005850.2511422-5-umesh.nerlige.ramappa@intel.com>
+X-Mailer: git-send-email 2.36.1
+In-Reply-To: <20230217005850.2511422-1-umesh.nerlige.ramappa@intel.com>
+References: <20230217005850.2511422-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR11MB2987:EE_|BL3PR11MB5700:EE_
-X-MS-Office365-Filtering-Correlation-Id: 869c47a2-37ad-46f2-241a-08db1081689d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: p3QxMNVCBxSra1/ay5TOm0qrJ/FThd1yAsveFceCkfVA7LwyD/pOKRVmQ36ZUUiwSFiIgi1DnUgcByj+HfnaNxyyedbavzaG10hjNfvL2+7SPKR52ONAhvIIo1g+wg86Dl49oMqm8N1XowzOIKi6GHgy1cQuaROshPJRk4Duvl9cxI2oCUsfeepem0ijCZa2QyJBAoctZZ49ngl20w9TN65aXTvWdKyKdguGgsRBFZXSon3h0yRBl8S+TBjQqH5sJqHPeFFMMwi/t3IiR5krXsB1UQvK97RyeQpmL1LzvHtbt5ZwQLwK5vJDEzAHMyi1Ak1BOe7pXScItm3T2ghWRUtryXaf65t2oiaV0hw7BNkrnk8EH5H8nzRdxU9WzWQlzMG+7bCWNQTnJgKVooY8DMx2aYGf0Kk8dRfMIaqGitDU4+TtekV+pg5wg594FHmqRPrGAFsd8coMW/tC80ZExapX7u7oaksfh2A2M/xAaHVbZwlo49VeroXDJj9eIa8IAoxEogagRZS08euhaM6g2yJAfqYP/h9NCvbD8MqBcPVq59ubNsfgft4Og2rOhSEg817mk2WCdprR40C8KjmxLViZOgtIHxCDyfAgy+jyKixozx7QYYN+OdDyC0GvsV4vG1vDmk8BNm5QPyPkSNyFg6ck4hqdYGaVOo0SPl2WlsmuJikr8Ip0mrQ306vwGvU6
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR11MB2987.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(396003)(346002)(39860400002)(376002)(136003)(366004)(451199018)(2906002)(86362001)(83380400001)(38100700002)(82960400001)(66556008)(66946007)(8676002)(66476007)(6636002)(316002)(8936002)(6862004)(41300700001)(4326008)(5660300002)(6512007)(6506007)(6666004)(26005)(186003)(478600001)(6486002)(67856001);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q25kekJXTStpVjlKVXk2eVBFL3JFUll2MjB0YWpzeTU3ZGxObnBpZGUzQzNM?=
- =?utf-8?B?Z2NGTFVBbmZWcDQ0SnluZzYrVHJSbUtreDdvY3pDMC9ZOGk0NkxzSnczVDVp?=
- =?utf-8?B?WkxGRjBMVlVLOGV0VHpJSk53cFREWjJtdk4rWDhRSDUrbldtcXhKYUxzSHUz?=
- =?utf-8?B?VEVaOU8va3ZTeUxUa3NzTTV4MUlYbVdXNUg4UVUzcFExQXpvOHliMmRZMTkv?=
- =?utf-8?B?K1N5RStHY1VoM0pkUDNjYytvdVZwYjJwT0FXQ2Y4OVVpTDhuV2pkS25IWVYy?=
- =?utf-8?B?TFZCZmJFamZLK042OGF4TnkwZzRiMXpkYmYwOTJYWWpDMXdjT0twQ3RnL1Nu?=
- =?utf-8?B?RlFEMm5YanRmTkFuaWZHZTV4aEdZdGhtYVZLNFE1dXdadnJhTXY2U0FXTUVP?=
- =?utf-8?B?UmhMNFRCSGFoaUFiUUtKdkZZcEV3YWlzdDVhdy91V0NUemVLN1piQlBhMXdB?=
- =?utf-8?B?S3FLNEhVaHJtSmVFY0kvb0M0NjJYTDQ0YXk3SlEvSEp6MDRja0MzcE1MTTUv?=
- =?utf-8?B?b3psdFFxMlJmdklsK0cwVDZubDByMjROK3pXejcvclRQS2hoNTEyeW9LN2RE?=
- =?utf-8?B?bThqZjVHZ28xbzZTWFBaRVp4VldlV210T2lBUnZJOGxMT01HbFg5QTBCUkN3?=
- =?utf-8?B?dWpYVnpqQndrVGZUR09hZTQ2NWFYSjJ2czRnMDB3MW9UWEx0bHV5Y0o5VkhB?=
- =?utf-8?B?Q1JpMDJFanA2RmZ2NDZHZ1RWK3BmQlRETE9zZjZ2RjFkRUV3enlKMDNxcFJx?=
- =?utf-8?B?NFlxQlphZHJBMlNNdnN1NSsrK1B4c2dOdklJL05nUjhva2Q4N08zajE5bTdp?=
- =?utf-8?B?am5XVHpUSm4wbXR3WDhFVTVnaStLMWp0T1ozRko3SExjYldZWnBwOHk2aHU5?=
- =?utf-8?B?aGhlSWNrbllHQnMzL0l3aERWQ1JDSit1aEkveG9nN3lEN0RYL3dXMk52MlhI?=
- =?utf-8?B?dnRkUHVTNjZ3YWdZZmNDSDZ6RHV4SkxOVjVQSUZYWWNuaDlRdklhNE5LUHpG?=
- =?utf-8?B?SEpyNTREbEJtWW92c2dUUDk5N1p2ZTJaNUNJSFY3VTZTUTliY1V5NVo4QVNZ?=
- =?utf-8?B?anIzb1JVc1gwKzlSQ241VUlrdEdkRk9HNUZBTGVxSUt6YWpGeEpRc0RIOUR1?=
- =?utf-8?B?Z2d1Wjc4NG9SWlpnMW9PaG9sSnR3amxrN3crMTdhZXRSQVgzVnZmUWZ0aVAy?=
- =?utf-8?B?VTQyam5tTERjUHRwMXlZZkpWaS9yQVlBeGY4NTBvUExWSlNXcnV2YTVETUFU?=
- =?utf-8?B?VGw0RDBKM1ZzQ1VrTXI5cm9taTRJOHVPMXlWQ2M2bkxSYmNqdUNQZURhemNo?=
- =?utf-8?B?aThEcFA1UkVOdExqZ2NDZ3FVdFd6Q0tKQlRmNWRiLzQ1RnluYnF2bFA1bU1L?=
- =?utf-8?B?OGN3dWNINGJQT3Q4WDNCU3pGV2szQkdERThPbHp2V3RQQXpwQjBCdERxZWts?=
- =?utf-8?B?azN1SFZHK3pLUGJabUFGQ1poRTQyQkpxRnN1QVVIcmF3ZFdyQUl3VG9jVkU2?=
- =?utf-8?B?bVFLemh0YWg3UXVVemhDYzQ4Z2xPT0RrRVVrUFZ0bTVScklnMUltUERXQVNI?=
- =?utf-8?B?UjF1QjFWazBYMmxDWStUUUQ2UzBmWGlFUWlYd05zQVlpN3NVd2JkakFBT1Zt?=
- =?utf-8?B?YWZ1NlJpTjQ4UERWMnhuSHMzTEdGL2d0UFlMcVpzMzVMNFRpeTA4V25wdEZz?=
- =?utf-8?B?Qlo5ajE2c2dFM1BMUWJUU3ozNDVINWkzZHNoNUJYb2g4N1NJdjdxYjZueDdh?=
- =?utf-8?B?bFJGK3Q2NE9KdzVqdnZFOVBHa0dMalFYVUY4RjNwNGF5UGhBTXNtelRrVmwz?=
- =?utf-8?B?ZEFwTy9EWE1ZbFF4SWd1RDlLYUd1UEhlK210WjlMVFFBL3BWZDdlYWxsSSt1?=
- =?utf-8?B?Y1czaVo3QklrWENzM21hanJzejc4SG5OcUNZVkJzWHltM1k2VXlTbTljNVhM?=
- =?utf-8?B?YmJ4YjhSRUprMENBTVpFR3NPcUZFRi9yTGdFSkFpSVR0bW5TNUNBWXc5eFdG?=
- =?utf-8?B?bkdNZ0tIQ0VIajRSZUpzZ2tKMTYwQUo1OXdxNit2OHlydk0vUEFkeHpzWGVh?=
- =?utf-8?B?bnlNRWJvUW9IaHRsR2lLQmUya21YSnZ5bVRxMnB1WnVvRSt4Ny9tcmdld2Y2?=
- =?utf-8?B?UXBLcm4rUE5aS2h3NFlmamYzaHNuaHEzZjhVQVZrY1hWZE9yNlpqOHhyUUVW?=
- =?utf-8?Q?iAod/vu2zDZGFAsomXhaQLs=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 869c47a2-37ad-46f2-241a-08db1081689d
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB2987.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2023 00:53:39.7042 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Sd4coe9W5W4WZaOJoldKmBuG8nlC90YKCLutIZj4xg1CcZdG0/ppVmUSft6l8rscHmyDJwEL8H/SleCsTohRLu39jsQqeqELrhyHMS3UYUg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR11MB5700
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH 2/9] drm/i915/perf: Add helper to check
- supported OA engines
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 4/9] drm/i915/perf: Group engines into
+ respective OA groups
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,72 +57,380 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lionel G Landwerlin <lionel.g.landwerlin@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 16, 2023 at 09:30:57AM -0800, Umesh Nerlige Ramappa wrote:
->On Wed, Feb 15, 2023 at 07:58:02PM -0800, Dixit, Ashutosh wrote:
->>On Tue, 14 Feb 2023 16:54:12 -0800, Umesh Nerlige Ramappa wrote:
->>>
->>>Add helper to check for supported OA engines.
->>>
->>>Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
->>>---
->>> drivers/gpu/drm/i915/i915_perf.c | 19 ++++++++++++++++---
->>> 1 file changed, 16 insertions(+), 3 deletions(-)
->>>
->>>diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
->>>index 393a0da8b7c8..a879ae4bf8d7 100644
->>>--- a/drivers/gpu/drm/i915/i915_perf.c
->>>+++ b/drivers/gpu/drm/i915/i915_perf.c
->>>@@ -1570,6 +1570,19 @@ free_noa_wait(struct i915_perf_stream *stream)
->>>	i915_vma_unpin_and_release(&stream->noa_wait, 0);
->>> }
->>>
->>>+static bool engine_supports_oa(const struct intel_engine_cs *engine)
->>>+{
->>>+	enum intel_platform platform = INTEL_INFO(engine->i915)->platform;
->>>+
->>>+	if (intel_engine_is_virtual(engine))
->>>+		return false;
->>
->>Let's move this check to a different (or a separate) patch (with
->>explanation about OA and virtual engines in case of separate patch). It is
->>strange to see this check in this patch since previously we have only
->>supported render (I think there is only a single render engine so no
->>virtual render engines are possible, correct?).
->
->will do.
->
->>
->>With the changes above this is:
->>
->>Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
->>
->>Is there anything intrinsically wrong with virtual engines that we cannot
->>get OA data for them? Since we get OA data from an OA unit not engines so
->>wondering why this restriction. So if I have a virtual engine consisting of
->>two VDBOX engines attached to a single OAM unit we cannot get OA data for
->>this virtual engine?
->>
->>Or is just that we haven't handled such cases? In that case it is fine to
->>disallow virtual engines till we can support them. Sorry just trying to
->>understand the restriction.
->
->iirc, we cannot modify the context image for the virtual engine.  
->Something to do with lrc state for such engines. Also OA supports only 
->a concept of one engine instance passed to it, so a virtual engine 
->does not fit the interface definition.
+Now that we may have multiple OA units in a single GT as well as on
+separate GTs, create an engine group that maps to a single OA unit.
 
-Actually, it's not the lrc state, but getting engine_pm wakeref for 
-virtual engine was failing, so we had to use this check, but at this 
-moment the check is not required in OA like you said - there's just one 
-render.
+v2: (Jani)
+- Drop warning on ENOMEM
+- Reorder patch in the series
 
-Thanks,
-Umesh
->
->Thanks,
->Umesh
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_engine_types.h |   4 +
+ drivers/gpu/drm/i915/gt/intel_sseu.c         |   3 +-
+ drivers/gpu/drm/i915/i915_perf.c             | 124 +++++++++++++++++--
+ drivers/gpu/drm/i915/i915_perf_types.h       |  51 +++++++-
+ 4 files changed, 169 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index 4fd54fb8810f..8a8b0dce241b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -53,6 +53,8 @@ struct intel_gt;
+ struct intel_ring;
+ struct intel_uncore;
+ struct intel_breadcrumbs;
++struct intel_engine_cs;
++struct i915_perf_group;
+ 
+ typedef u32 intel_engine_mask_t;
+ #define ALL_ENGINES ((intel_engine_mask_t)~0ul)
+@@ -603,6 +605,8 @@ struct intel_engine_cs {
+ 	} props, defaults;
+ 
+ 	I915_SELFTEST_DECLARE(struct fault_attr reset_timeout);
++
++	struct i915_perf_group *oa_group;
+ };
+ 
+ static inline bool
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.c b/drivers/gpu/drm/i915/gt/intel_sseu.c
+index 6c6198a257ac..1141f875f5bd 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu.c
++++ b/drivers/gpu/drm/i915/gt/intel_sseu.c
+@@ -6,6 +6,7 @@
+ #include <linux/string_helpers.h>
+ 
+ #include "i915_drv.h"
++#include "i915_perf_types.h"
+ #include "intel_engine_regs.h"
+ #include "intel_gt_regs.h"
+ #include "intel_sseu.h"
+@@ -677,7 +678,7 @@ u32 intel_sseu_make_rpcs(struct intel_gt *gt,
+ 	 * If i915/perf is active, we want a stable powergating configuration
+ 	 * on the system. Use the configuration pinned by i915/perf.
+ 	 */
+-	if (gt->perf.exclusive_stream)
++	if (gt->perf.group && gt->perf.group[PERF_GROUP_OAG].exclusive_stream)
+ 		req_sseu = &gt->perf.sseu;
+ 
+ 	slices = hweight8(req_sseu->slice_mask);
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 1229f65534e2..37c4cc44d68c 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -1584,8 +1584,9 @@ static void i915_oa_stream_destroy(struct i915_perf_stream *stream)
+ {
+ 	struct i915_perf *perf = stream->perf;
+ 	struct intel_gt *gt = stream->engine->gt;
++	struct i915_perf_group *g = stream->engine->oa_group;
+ 
+-	if (WARN_ON(stream != gt->perf.exclusive_stream))
++	if (WARN_ON(stream != g->exclusive_stream))
+ 		return;
+ 
+ 	/*
+@@ -1594,7 +1595,7 @@ static void i915_oa_stream_destroy(struct i915_perf_stream *stream)
+ 	 *
+ 	 * See i915_oa_init_reg_state() and lrc_configure_all_contexts()
+ 	 */
+-	WRITE_ONCE(gt->perf.exclusive_stream, NULL);
++	WRITE_ONCE(g->exclusive_stream, NULL);
+ 	perf->ops.disable_metric_set(stream);
+ 
+ 	free_oa_buffer(stream);
+@@ -3192,6 +3193,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ {
+ 	struct drm_i915_private *i915 = stream->perf->i915;
+ 	struct i915_perf *perf = stream->perf;
++	struct i915_perf_group *g;
+ 	struct intel_gt *gt;
+ 	int ret;
+ 
+@@ -3202,6 +3204,12 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 	}
+ 	gt = props->engine->gt;
+ 
++	g = props->engine->oa_group;
++	if (!g) {
++		DRM_DEBUG("Perf group invalid\n");
++		return -EINVAL;
++	}
++
+ 	/*
+ 	 * If the sysfs metrics/ directory wasn't registered for some
+ 	 * reason then don't let userspace try their luck with config
+@@ -3231,7 +3239,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 	 * counter reports and marshal to the appropriate client
+ 	 * we currently only allow exclusive access
+ 	 */
+-	if (gt->perf.exclusive_stream) {
++	if (g->exclusive_stream) {
+ 		drm_dbg(&stream->perf->i915->drm,
+ 			"OA unit already in use\n");
+ 		return -EBUSY;
+@@ -3326,7 +3334,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 	stream->ops = &i915_oa_stream_ops;
+ 
+ 	stream->engine->gt->perf.sseu = props->sseu;
+-	WRITE_ONCE(gt->perf.exclusive_stream, stream);
++	WRITE_ONCE(g->exclusive_stream, stream);
+ 
+ 	ret = i915_perf_stream_enable_sync(stream);
+ 	if (ret) {
+@@ -3349,7 +3357,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 	return 0;
+ 
+ err_enable:
+-	WRITE_ONCE(gt->perf.exclusive_stream, NULL);
++	WRITE_ONCE(g->exclusive_stream, NULL);
+ 	perf->ops.disable_metric_set(stream);
+ 
+ 	free_oa_buffer(stream);
+@@ -3378,12 +3386,13 @@ void i915_oa_init_reg_state(const struct intel_context *ce,
+ 			    const struct intel_engine_cs *engine)
+ {
+ 	struct i915_perf_stream *stream;
++	struct i915_perf_group *g = engine->oa_group;
+ 
+-	if (!engine_supports_oa(engine))
++	if (!g)
+ 		return;
+ 
+ 	/* perf.exclusive_stream serialised by lrc_configure_all_contexts() */
+-	stream = READ_ONCE(engine->gt->perf.exclusive_stream);
++	stream = READ_ONCE(g->exclusive_stream);
+ 	if (stream && GRAPHICS_VER(stream->perf->i915) < 12)
+ 		gen8_update_reg_state_unlocked(ce, stream);
+ }
+@@ -4753,6 +4762,95 @@ static struct ctl_table oa_table[] = {
+ 	{}
+ };
+ 
++static u32 __num_perf_groups_per_gt(struct intel_gt *gt)
++{
++	enum intel_platform platform = INTEL_INFO(gt->i915)->platform;
++
++	switch (platform) {
++	default:
++		return 1;
++	}
++}
++
++static u32 __oa_engine_group(struct intel_engine_cs *engine)
++{
++	if (!engine_supports_oa(engine))
++		return PERF_GROUP_INVALID;
++
++	switch (engine->class) {
++	case RENDER_CLASS:
++		return PERF_GROUP_OAG;
++
++	default:
++		return PERF_GROUP_INVALID;
++	}
++}
++
++static void oa_init_groups(struct intel_gt *gt)
++{
++	int i, num_groups = gt->perf.num_perf_groups;
++	struct i915_perf *perf = &gt->i915->perf;
++
++	for (i = 0; i < num_groups; i++) {
++		struct i915_perf_group *g = &gt->perf.group[i];
++
++		/* Fused off engines can result in a group with num_engines == 0 */
++		if (g->num_engines == 0)
++			continue;
++
++		/* Set oa_unit_ids now to ensure ids remain contiguous. */
++		g->oa_unit_id = perf->oa_unit_ids++;
++
++		g->gt = gt;
++	}
++}
++
++static int oa_init_gt(struct intel_gt *gt)
++{
++	u32 num_groups = __num_perf_groups_per_gt(gt);
++	struct intel_engine_cs *engine;
++	struct i915_perf_group *g;
++	intel_engine_mask_t tmp;
++
++	g = kcalloc(num_groups, sizeof(*g), GFP_KERNEL);
++	if (!g)
++		return -ENOMEM;
++
++	for_each_engine_masked(engine, gt, ALL_ENGINES, tmp) {
++		u32 index;
++
++		index = __oa_engine_group(engine);
++		if (index < num_groups) {
++			g[index].engine_mask |= BIT(engine->id);
++			g[index].num_engines++;
++			engine->oa_group = &g[index];
++		} else {
++			engine->oa_group = NULL;
++		}
++	}
++
++	gt->perf.num_perf_groups = num_groups;
++	gt->perf.group = g;
++
++	oa_init_groups(gt);
++
++	return 0;
++}
++
++static int oa_init_engine_groups(struct i915_perf *perf)
++{
++	struct intel_gt *gt;
++	int i, ret;
++
++	for_each_gt(gt, perf->i915, i) {
++		ret = oa_init_gt(gt);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
+ static void oa_init_supported_formats(struct i915_perf *perf)
+ {
+ 	struct drm_i915_private *i915 = perf->i915;
+@@ -4919,7 +5017,7 @@ void i915_perf_init(struct drm_i915_private *i915)
+ 
+ 	if (perf->ops.enable_metric_set) {
+ 		struct intel_gt *gt;
+-		int i;
++		int i, ret;
+ 
+ 		for_each_gt(gt, i915, i)
+ 			mutex_init(&gt->perf.lock);
+@@ -4958,6 +5056,11 @@ void i915_perf_init(struct drm_i915_private *i915)
+ 
+ 		perf->i915 = i915;
+ 
++		ret = oa_init_engine_groups(perf);
++		if (ret)
++			drm_err(&i915->drm,
++				"OA initialization failed %d\n", ret);
++
+ 		oa_init_supported_formats(perf);
+ 	}
+ }
+@@ -4986,10 +5089,15 @@ void i915_perf_sysctl_unregister(void)
+ void i915_perf_fini(struct drm_i915_private *i915)
+ {
+ 	struct i915_perf *perf = &i915->perf;
++	struct intel_gt *gt;
++	int i;
+ 
+ 	if (!perf->i915)
+ 		return;
+ 
++	for_each_gt(gt, perf->i915, i)
++		kfree(gt->perf.group);
++
+ 	idr_for_each(&perf->metrics_idr, destroy_config, perf);
+ 	idr_destroy(&perf->metrics_idr);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_perf_types.h b/drivers/gpu/drm/i915/i915_perf_types.h
+index e36f046fe2b6..ce99551ad0fd 100644
+--- a/drivers/gpu/drm/i915/i915_perf_types.h
++++ b/drivers/gpu/drm/i915/i915_perf_types.h
+@@ -17,6 +17,7 @@
+ #include <linux/wait.h>
+ #include <uapi/drm/i915_drm.h>
+ 
++#include "gt/intel_engine_types.h"
+ #include "gt/intel_sseu.h"
+ #include "i915_reg_defs.h"
+ #include "intel_wakeref.h"
+@@ -30,6 +31,13 @@ struct i915_vma;
+ struct intel_context;
+ struct intel_engine_cs;
+ 
++enum {
++	PERF_GROUP_OAG = 0,
++
++	PERF_GROUP_MAX,
++	PERF_GROUP_INVALID = U32_MAX,
++};
++
+ struct i915_oa_format {
+ 	u32 format;
+ 	int size;
+@@ -390,6 +398,35 @@ struct i915_oa_ops {
+ 	u32 (*oa_hw_tail_read)(struct i915_perf_stream *stream);
+ };
+ 
++struct i915_perf_group {
++	/*
++	 * @type: Identifier for the OA unit.
++	 */
++	u32 oa_unit_id;
++
++	/*
++	 * @gt: gt that this group belongs to
++	 */
++	struct intel_gt *gt;
++
++	/*
++	 * @exclusive_stream: The stream currently using the OA unit. This is
++	 * sometimes accessed outside a syscall associated to its file
++	 * descriptor.
++	 */
++	struct i915_perf_stream *exclusive_stream;
++
++	/*
++	 * @num_engines: The number of engines using this OA buffer.
++	 */
++	u32 num_engines;
++
++	/*
++	 * @engine_mask: A mask of engines using a single OA buffer.
++	 */
++	intel_engine_mask_t engine_mask;
++};
++
+ struct i915_perf_gt {
+ 	/*
+ 	 * Lock associated with anything below within this structure.
+@@ -402,12 +439,15 @@ struct i915_perf_gt {
+ 	 */
+ 	struct intel_sseu sseu;
+ 
++	/**
++	 * @num_perf_groups: number of perf groups per gt.
++	 */
++	u32 num_perf_groups;
++
+ 	/*
+-	 * @exclusive_stream: The stream currently using the OA unit. This is
+-	 * sometimes accessed outside a syscall associated to its file
+-	 * descriptor.
++	 * @group: list of OA groups - one for each OA buffer.
+ 	 */
+-	struct i915_perf_stream *exclusive_stream;
++	struct i915_perf_group *group;
+ };
+ 
+ struct i915_perf {
+@@ -461,6 +501,9 @@ struct i915_perf {
+ 	unsigned long format_mask[FORMAT_MASK_SIZE];
+ 
+ 	atomic64_t noa_programming_delay;
++
++	/* oa unit ids */
++	u32 oa_unit_ids;
+ };
+ 
+ #endif /* _I915_PERF_TYPES_H_ */
+-- 
+2.36.1
+
