@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 578FAC05027
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Feb 2023 17:45:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B89E5C05027
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Feb 2023 17:45:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C78010E740;
-	Mon, 20 Feb 2023 17:45:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B2AC10E741;
+	Mon, 20 Feb 2023 17:45:20 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BDA010E73B
- for <intel-gfx@lists.freedesktop.org>; Mon, 20 Feb 2023 17:45:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 717D310E741
+ for <intel-gfx@lists.freedesktop.org>; Mon, 20 Feb 2023 17:45:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1676915112; x=1708451112;
+ t=1676915118; x=1708451118;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=yJSCYWnk6nxB5cfAdzMSGnHaPROx2SRs5MImYDOGL9U=;
- b=W24jclfvAwtmzWvNaDnHO6ZklfU+aoX4weeabFMtT1fiYwkVuPdtQ2eB
- WCsCT3oNDMd/lEXcBTxrrE+0xJqxATZvZpazLF5BCbIAUrGk7fBdWh3Xx
- c16b2mz9C2JjmGnkzynWOnu8CKnmnmQNp37aX2P8E5onPEkxMXPInlju6
- /G3BU6jwOsCi1DmwC8N4b6W61afoDEXoDXNPUE70fqV0Y+pJAZYyh/Ew6
- 6D7QgQrGk+irCVnjFstJQy7ONRAQ00DhDJkCPks/w3dy/g5pbV98KZJ3C
- 8zBvwTbwi6OLVCj9X1Ua4gMfsITt2ASLcUBJYbqUDWZHtM3A4o5uOE69c A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10627"; a="312085316"
-X-IronPort-AV: E=Sophos;i="5.97,313,1669104000"; d="scan'208";a="312085316"
+ bh=Cr4B8QSgTHAOQvF3uQzl36OceIVyRAscn9A7AAaOGD4=;
+ b=mMrGQRCiPZvPS9N4Gw/A4P7HIb5EyHhGxBFvLFRgZHkb2rehTcgVSCXC
+ VbROJ7HsD3YifZiFSv0lEEEFzwLPtGcDwE3Zjeyz/GMMbqLgdcKLWbzYV
+ JPXnN39Pnh+Itm9tgCskSCRudEBZPVNnXmR56Fu7x0Lrdp0OwRM3EX/i9
+ omZbF0ey+DXqe8CZgFFuc7OUOevt6Xlt26SPWW4uLEcaGtnrsOyDXZSqg
+ lXsp9OpGyzGd3aeGDB0K7ojfiWIRoBr09rgBA4cHAscvboIc0U75gDR0y
+ 2Bl5+feiEuWsW6ooIy+x16wHl6cxQdLOyPDHzgGK4PDJQ9inpep7+Kknl A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10627"; a="312085345"
+X-IronPort-AV: E=Sophos;i="5.97,313,1669104000"; d="scan'208";a="312085345"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Feb 2023 09:45:12 -0800
+ 20 Feb 2023 09:45:18 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10627"; a="701745202"
-X-IronPort-AV: E=Sophos;i="5.97,313,1669104000"; d="scan'208";a="701745202"
+X-IronPort-AV: E=McAfee;i="6500,9779,10627"; a="701745253"
+X-IronPort-AV: E=Sophos;i="5.97,313,1669104000"; d="scan'208";a="701745253"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by orsmga008.jf.intel.com with SMTP; 20 Feb 2023 09:45:10 -0800
+ by orsmga008.jf.intel.com with SMTP; 20 Feb 2023 09:45:16 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 20 Feb 2023 19:45:09 +0200
+ Mon, 20 Feb 2023 19:45:15 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 20 Feb 2023 19:44:38 +0200
-Message-Id: <20230220174448.7611-8-ville.syrjala@linux.intel.com>
+Date: Mon, 20 Feb 2023 19:44:40 +0200
+Message-Id: <20230220174448.7611-10-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230220174448.7611-1-ville.syrjala@linux.intel.com>
 References: <20230220174448.7611-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/17] drm/i915: Split map_aux_ch() into
- per-platform arrays
+Subject: [Intel-gfx] [PATCH 09/17] drm/i915: Nuke
+ intel_bios_is_port_dp_dual_mode()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,191 +65,127 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-The big switch+if statement mess in map_aux_ch() is
-illegible. Split up into cleaner per-platform arrays
-like we already have for the gmbus pins.
+Now that we have encoder->devdata everwhere we don't need
+the intel_bios_is_port_dp_dual_mode() wrapper any more.
 
-We use enum aux_ch as the index and the VBT thing as
-the value. Slightly non-intuitive perhaps but if we
-did it the other way around we'd have problems with
-AUX_CH_A being zero, and thus any non-populated
-element would look like AUX_CH_A.
-
-v2: flip the index vs. value around
-
-TODO: Didn't bother with the platform variants beyond the
-      ones that really need remapping, which means if the
-      VBT is bogus we end up with a nonexistent aux ch.
-      Might be nice to check this a bit better.
-      Yet another bitmask in device info?
+And while at it let's include it in the child device log
+dump as well since the logic in there is a bit more complex
+than just DP&&HDMI.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bios.c | 144 +++++++++++-----------
- 1 file changed, 71 insertions(+), 73 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bios.c | 14 +++-----------
+ drivers/gpu/drm/i915/display/intel_bios.h |  2 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c |  6 +++---
+ 3 files changed, 7 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index 19be8862261b..5eae34295d4e 100644
+index cec38ed935e0..4ddced8c049c 100644
 --- a/drivers/gpu/drm/i915/display/intel_bios.c
 +++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -3584,86 +3584,84 @@ bool intel_bios_get_dsc_params(struct intel_encoder *encoder,
+@@ -2676,10 +2676,11 @@ static void print_ddi_port(const struct intel_bios_encoder_data *devdata,
+ 	supports_typec_usb = intel_bios_encoder_supports_typec_usb(devdata);
+ 	supports_tbt = intel_bios_encoder_supports_tbt(devdata);
+ 
+ 	drm_dbg_kms(&i915->drm,
+-		    "Port %c VBT info: CRT:%d DVI:%d HDMI:%d DP:%d eDP:%d DSI:%d LSPCON:%d USB-Type-C:%d TBT:%d DSC:%d\n",
++		    "Port %c VBT info: CRT:%d DVI:%d HDMI:%d DP:%d eDP:%d DSI:%d DP++:%d LSPCON:%d USB-Type-C:%d TBT:%d DSC:%d\n",
+ 		    port_name(port), is_crt, is_dvi, is_hdmi, is_dp, is_edp, is_dsi,
++		    intel_bios_encoder_supports_dp_dual_mode(devdata),
+ 		    intel_bios_encoder_is_lspcon(devdata),
+ 		    supports_typec_usb, supports_tbt,
+ 		    devdata->dsc != NULL);
+ 
+@@ -3432,9 +3433,9 @@ bool intel_bios_is_port_present(struct drm_i915_private *i915, enum port port)
  
  	return false;
  }
  
-+static const u8 xelpd_aux_ch_map[] = {
-+	[AUX_CH_A] = DP_AUX_A,
-+	[AUX_CH_B] = DP_AUX_B,
-+	[AUX_CH_C] = DP_AUX_C,
-+	[AUX_CH_D_XELPD] = DP_AUX_D,
-+	[AUX_CH_E_XELPD] = DP_AUX_E,
-+	[AUX_CH_USBC1] = DP_AUX_F,
-+	[AUX_CH_USBC2] = DP_AUX_G,
-+	[AUX_CH_USBC3] = DP_AUX_H,
-+	[AUX_CH_USBC4] = DP_AUX_I,
-+};
-+
-+/*
-+ * ADL-S VBT uses PHY based mapping. Combo PHYs A,B,C,D,E
-+ * map to DDI A,TC1,TC2,TC3,TC4 respectively.
-+ */
-+static const u8 adls_aux_ch_map[] = {
-+	[AUX_CH_A] = DP_AUX_A,
-+	[AUX_CH_USBC1] = DP_AUX_B,
-+	[AUX_CH_USBC2] = DP_AUX_C,
-+	[AUX_CH_USBC3] = DP_AUX_D,
-+	[AUX_CH_USBC4] = DP_AUX_E,
-+};
-+
-+/*
-+ * RKL/DG1 VBT uses PHY based mapping. Combo PHYs A,B,C,D
-+ * map to DDI A,B,TC1,TC2 respectively.
-+ */
-+static const u8 rkl_aux_ch_map[] = {
-+	[AUX_CH_A] = DP_AUX_A,
-+	[AUX_CH_B] = DP_AUX_B,
-+	[AUX_CH_USBC1] = DP_AUX_C,
-+	[AUX_CH_USBC2] = DP_AUX_D,
-+};
-+
-+static const u8 direct_aux_ch_map[] = {
-+	[AUX_CH_A] = DP_AUX_A,
-+	[AUX_CH_B] = DP_AUX_B,
-+	[AUX_CH_C] = DP_AUX_C,
-+	[AUX_CH_D] = DP_AUX_D, /* aka AUX_CH_USBC1 */
-+	[AUX_CH_E] = DP_AUX_E, /* aka AUX_CH_USBC2 */
-+	[AUX_CH_F] = DP_AUX_F, /* aka AUX_CH_USBC3 */
-+	[AUX_CH_G] = DP_AUX_G, /* aka AUX_CH_USBC4 */
-+	[AUX_CH_H] = DP_AUX_H, /* aka AUX_CH_USBC5 */
-+	[AUX_CH_I] = DP_AUX_I, /* aka AUX_CH_USBC6 */
-+};
-+
- static enum aux_ch map_aux_ch(struct drm_i915_private *i915, u8 aux_channel)
+-static bool intel_bios_encoder_supports_dp_dual_mode(const struct intel_bios_encoder_data *devdata)
++bool intel_bios_encoder_supports_dp_dual_mode(const struct intel_bios_encoder_data *devdata)
  {
--	enum aux_ch aux_ch;
-+	const u8 *aux_ch_map;
-+	int i, n_entries;
+ 	const struct child_device_config *child = &devdata->child;
  
--	/*
--	 * RKL/DG1 VBT uses PHY based mapping. Combo PHYs A,B,C,D
--	 * map to DDI A,B,TC1,TC2 respectively.
--	 *
--	 * ADL-S VBT uses PHY based mapping. Combo PHYs A,B,C,D,E
--	 * map to DDI A,TC1,TC2,TC3,TC4 respectively.
--	 */
--	switch (aux_channel) {
--	case DP_AUX_A:
--		aux_ch = AUX_CH_A;
--		break;
--	case DP_AUX_B:
--		if (IS_ALDERLAKE_S(i915))
--			aux_ch = AUX_CH_USBC1;
--		else
--			aux_ch = AUX_CH_B;
--		break;
--	case DP_AUX_C:
--		if (IS_ALDERLAKE_S(i915))
--			aux_ch = AUX_CH_USBC2;
--		else if (IS_DG1(i915) || IS_ROCKETLAKE(i915))
--			aux_ch = AUX_CH_USBC1;
--		else
--			aux_ch = AUX_CH_C;
--		break;
--	case DP_AUX_D:
--		if (DISPLAY_VER(i915) >= 13)
--			aux_ch = AUX_CH_D_XELPD;
--		else if (IS_ALDERLAKE_S(i915))
--			aux_ch = AUX_CH_USBC3;
--		else if (IS_DG1(i915) || IS_ROCKETLAKE(i915))
--			aux_ch = AUX_CH_USBC2;
--		else
--			aux_ch = AUX_CH_D;
--		break;
--	case DP_AUX_E:
--		if (DISPLAY_VER(i915) >= 13)
--			aux_ch = AUX_CH_E_XELPD;
--		else if (IS_ALDERLAKE_S(i915))
--			aux_ch = AUX_CH_USBC4;
--		else
--			aux_ch = AUX_CH_E;
--		break;
--	case DP_AUX_F:
--		if (DISPLAY_VER(i915) >= 13)
--			aux_ch = AUX_CH_USBC1;
--		else
--			aux_ch = AUX_CH_F;
--		break;
--	case DP_AUX_G:
--		if (DISPLAY_VER(i915) >= 13)
--			aux_ch = AUX_CH_USBC2;
--		else
--			aux_ch = AUX_CH_G;
--		break;
--	case DP_AUX_H:
--		if (DISPLAY_VER(i915) >= 13)
--			aux_ch = AUX_CH_USBC3;
--		else
--			aux_ch = AUX_CH_H;
--		break;
--	case DP_AUX_I:
--		if (DISPLAY_VER(i915) >= 13)
--			aux_ch = AUX_CH_USBC4;
--		else
--			aux_ch = AUX_CH_I;
--		break;
--	default:
--		MISSING_CASE(aux_channel);
--		aux_ch = AUX_CH_A;
--		break;
-+	if (DISPLAY_VER(i915) >= 13) {
-+		aux_ch_map = xelpd_aux_ch_map;
-+		n_entries = ARRAY_SIZE(xelpd_aux_ch_map);
-+	} else if (IS_ALDERLAKE_S(i915)) {
-+		aux_ch_map = adls_aux_ch_map;
-+		n_entries = ARRAY_SIZE(adls_aux_ch_map);
-+	} else if (IS_DG1(i915) || IS_ROCKETLAKE(i915)) {
-+		aux_ch_map = rkl_aux_ch_map;
-+		n_entries = ARRAY_SIZE(rkl_aux_ch_map);
-+	} else {
-+		aux_ch_map = direct_aux_ch_map;
-+		n_entries = ARRAY_SIZE(direct_aux_ch_map);
- 	}
+ 	if (!intel_bios_encoder_supports_dp(devdata) ||
+@@ -3451,17 +3452,8 @@ static bool intel_bios_encoder_supports_dp_dual_mode(const struct intel_bios_enc
  
--	return aux_ch;
-+	for (i = 0; i < n_entries; i++) {
-+		if (aux_ch_map[i] == aux_channel)
-+			return i;
-+	}
-+
-+	drm_dbg_kms(&i915->drm,
-+		    "Ignoring alternate AUX CH: VBT claims AUX 0x%x, which is not valid for this platform\n",
-+		    aux_channel);
-+
-+	return AUX_CH_NONE;
+ 	return false;
  }
  
- enum aux_ch intel_bios_dp_aux_ch(const struct intel_bios_encoder_data *devdata)
+-bool intel_bios_is_port_dp_dual_mode(struct drm_i915_private *i915,
+-				     enum port port)
+-{
+-	const struct intel_bios_encoder_data *devdata =
+-		intel_bios_encoder_data_lookup(i915, port);
+-
+-	return devdata && intel_bios_encoder_supports_dp_dual_mode(devdata);
+-}
+-
+ /**
+  * intel_bios_is_dsi_present - is DSI present in VBT
+  * @i915:	i915 device instance
+  * @port:	port for DSI if present
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.h b/drivers/gpu/drm/i915/display/intel_bios.h
+index a3ff67c41128..3c4f7d5e909b 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.h
++++ b/drivers/gpu/drm/i915/display/intel_bios.h
+@@ -246,9 +246,8 @@ bool intel_bios_is_valid_vbt(const void *buf, size_t size);
+ bool intel_bios_is_tv_present(struct drm_i915_private *dev_priv);
+ bool intel_bios_is_lvds_present(struct drm_i915_private *dev_priv, u8 *i2c_pin);
+ bool intel_bios_is_port_present(struct drm_i915_private *dev_priv, enum port port);
+ bool intel_bios_is_port_edp(struct drm_i915_private *dev_priv, enum port port);
+-bool intel_bios_is_port_dp_dual_mode(struct drm_i915_private *dev_priv, enum port port);
+ bool intel_bios_is_dsi_present(struct drm_i915_private *dev_priv, enum port *port);
+ bool intel_bios_get_dsc_params(struct intel_encoder *encoder,
+ 			       struct intel_crtc_state *crtc_state,
+ 			       int dsc_max_bpc);
+@@ -265,8 +264,9 @@ bool intel_bios_encoder_supports_hdmi(const struct intel_bios_encoder_data *devd
+ bool intel_bios_encoder_supports_dp(const struct intel_bios_encoder_data *devdata);
+ bool intel_bios_encoder_supports_edp(const struct intel_bios_encoder_data *devdata);
+ bool intel_bios_encoder_supports_typec_usb(const struct intel_bios_encoder_data *devdata);
+ bool intel_bios_encoder_supports_tbt(const struct intel_bios_encoder_data *devdata);
++bool intel_bios_encoder_supports_dp_dual_mode(const struct intel_bios_encoder_data *devdata);
+ bool intel_bios_encoder_is_lspcon(const struct intel_bios_encoder_data *devdata);
+ bool intel_bios_encoder_lane_reversal(const struct intel_bios_encoder_data *devdata);
+ bool intel_bios_encoder_hpd_invert(const struct intel_bios_encoder_data *devdata);
+ enum aux_ch intel_bios_dp_aux_ch(const struct intel_bios_encoder_data *devdata);
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index c7e9e1fbed37..e6f887d75a70 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2371,9 +2371,9 @@ static void
+ intel_hdmi_dp_dual_mode_detect(struct drm_connector *connector)
  {
+ 	struct drm_i915_private *dev_priv = to_i915(connector->dev);
+ 	struct intel_hdmi *hdmi = intel_attached_hdmi(to_intel_connector(connector));
+-	enum port port = hdmi_to_dig_port(hdmi)->base.port;
++	struct intel_encoder *encoder = &hdmi_to_dig_port(hdmi)->base;
+ 	struct i2c_adapter *adapter =
+ 		intel_gmbus_get_adapter(dev_priv, hdmi->ddc_bus);
+ 	enum drm_dp_dual_mode_type type = drm_dp_dual_mode_detect(&dev_priv->drm, adapter);
+ 
+@@ -2387,9 +2387,9 @@ intel_hdmi_dp_dual_mode_detect(struct drm_connector *connector)
+ 	 * if the port is a dual mode capable DP port.
+ 	 */
+ 	if (type == DRM_DP_DUAL_MODE_UNKNOWN) {
+ 		if (!connector->force &&
+-		    intel_bios_is_port_dp_dual_mode(dev_priv, port)) {
++		    intel_bios_encoder_supports_dp_dual_mode(encoder->devdata)) {
+ 			drm_dbg_kms(&dev_priv->drm,
+ 				    "Assuming DP dual mode adaptor presence based on VBT\n");
+ 			type = DRM_DP_DUAL_MODE_TYPE1_DVI;
+ 		} else {
+@@ -2410,9 +2410,9 @@ intel_hdmi_dp_dual_mode_detect(struct drm_connector *connector)
+ 		    hdmi->dp_dual_mode.max_tmds_clock);
+ 
+ 	/* Older VBTs are often buggy and can't be trusted :( Play it safe. */
+ 	if ((DISPLAY_VER(dev_priv) >= 8 || IS_HASWELL(dev_priv)) &&
+-	    !intel_bios_is_port_dp_dual_mode(dev_priv, port)) {
++	    !intel_bios_encoder_supports_dp_dual_mode(encoder->devdata)) {
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "Ignoring DP dual mode adaptor max TMDS clock for native HDMI port\n");
+ 		hdmi->dp_dual_mode.max_tmds_clock = 0;
+ 	}
 -- 
 2.39.2
 
