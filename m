@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7177C64ED6
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Feb 2023 23:03:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9235C61DA3
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Feb 2023 23:03:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E970910E3DE;
-	Tue, 21 Feb 2023 23:03:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A22610E51A;
+	Tue, 21 Feb 2023 23:03:08 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEB1E10E3A2
- for <intel-gfx@lists.freedesktop.org>; Tue, 21 Feb 2023 23:02:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 863DC10E51A
+ for <intel-gfx@lists.freedesktop.org>; Tue, 21 Feb 2023 23:03:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677020576; x=1708556576;
+ t=1677020582; x=1708556582;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=8i+hVbKFiptmN+pCD2V0Om4TJWArJxIXmTk1TkTbSxc=;
- b=OACWrlgw6Gus30xoEAZV7KEXjpkNwYI6/88kQKPSuKybdwuJBWlITtBX
- o7vOkwoCGUyEoeQne/to+B33y4Ma45dSR8y0LtQ9MfTv2TRk6b7lIHeYx
- M7QOlbEIWL7gEg+HFb+ybcHskPgOOvlQxtqGPVFZ1RDvgbf6KDSgzNjTB
- YaR0jfbBTw5KsJS58mMVcQyIHcs1dF2V5r7GaB1YhWNoRQX7Kc3Cpzr9c
- VORNmyyinVMM7GbrgxIBdYzQ6WoaBUgbkCyxL5T0NA9GoOrLNj/bz9pTP
- kRgdPCDK1r9x7c2cZ22WG8mK4zDGjI2JgwVDoR/A46GIwKfKDilVlvwGE g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="330501715"
-X-IronPort-AV: E=Sophos;i="5.97,317,1669104000"; d="scan'208";a="330501715"
+ bh=Z5elQqMKHBukttMxgn/VR0/E/gGxCeVaZqYra0+mxpI=;
+ b=N0MIL2U/ADfpMYJKvBU2ZN3gzCkBGIEzKjI3wjQ+RO45EgQL5QSwNeVd
+ 5G34WoPzol2BZ/2i6Fsh0X6i4PIvtw8wcjHxER91cUt1uRqljYlCr0MLo
+ fQ5okk3x8DzELc475PYT9L9teMESae2xPzCGXOo7EqAUdOTnUVs203dTA
+ pgj0ZcI/msR/HN+udj9C3LL61CYrMtNTAS3p33utn9XbTtt1Wd39gntRd
+ aQYGQSeqmrZrchP66FG2OUOSfQlwTP7rXcvwW7e47jAta1g+IgOulK7i4
+ HlfQRT0E4Vb/X/Htx9SdMiXmDOTLw7K0HABqfCQZk4VrtNtxRQtDy87hk A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="330501776"
+X-IronPort-AV: E=Sophos;i="5.97,317,1669104000"; d="scan'208";a="330501776"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2023 15:02:41 -0800
+ 21 Feb 2023 15:02:56 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="814690126"
-X-IronPort-AV: E=Sophos;i="5.97,317,1669104000"; d="scan'208";a="814690126"
+X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="814690153"
+X-IronPort-AV: E=Sophos;i="5.97,317,1669104000"; d="scan'208";a="814690153"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by fmsmga001.fm.intel.com with SMTP; 21 Feb 2023 15:02:39 -0800
+ by fmsmga001.fm.intel.com with SMTP; 21 Feb 2023 15:02:54 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 22 Feb 2023 01:02:39 +0200
+ Wed, 22 Feb 2023 01:02:53 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 22 Feb 2023 01:02:09 +0200
-Message-Id: <20230221230227.6244-5-ville.syrjala@linux.intel.com>
+Date: Wed, 22 Feb 2023 01:02:14 +0200
+Message-Id: <20230221230227.6244-10-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230221230227.6244-1-ville.syrjala@linux.intel.com>
 References: <20230221230227.6244-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 04/22] drm/i915: Introduce
- <platoform>_hotplug_mask()
+Subject: [Intel-gfx] [PATCH v3 09/22] drm/i915: Flip VBT DDC pin maps around
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,399 +64,129 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Pair each <platform>_hotplug_enables() function with
-a corresponding <platform>_hotplug_mask() function so that
-we can determine right bits to clear on a per hpd_pin basis.
-We'll need this for turning on HPD sense for a specific
-encoder rather than just all of them.
+Swap the roles of the index vs. value for the VBT DDC pin
+mapping tables. This is not strictly necessary for DDC pins
+but it will make this work exactly like the AUX CH mapping
+tables where the role reversal is necessary (or at least makes
+things easier). Consistency is good.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_irq.c | 231 ++++++++++++++++++++++----------
- 1 file changed, 160 insertions(+), 71 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bios.c | 70 ++++++++++++-----------
+ 1 file changed, 36 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index 13ada0916c2a..ecfa6dad145a 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -2835,8 +2835,25 @@ static void cherryview_irq_reset(struct drm_i915_private *dev_priv)
- 		vlv_display_irq_reset(dev_priv);
- 	spin_unlock_irq(&dev_priv->irq_lock);
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 5eae34295d4e..cec38ed935e0 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -2134,60 +2134,60 @@ static u8 translate_iboost(u8 val)
  }
  
-+static u32 ibx_hotplug_mask(struct drm_i915_private *i915,
-+			    enum hpd_pin hpd_pin)
-+{
-+	switch (hpd_pin) {
-+	case HPD_PORT_A:
-+		return PORTA_HOTPLUG_ENABLE;
-+	case HPD_PORT_B:
-+		return PORTB_HOTPLUG_ENABLE | PORTB_PULSE_DURATION_MASK;
-+	case HPD_PORT_C:
-+		return PORTC_HOTPLUG_ENABLE | PORTC_PULSE_DURATION_MASK;
-+	case HPD_PORT_D:
-+		return PORTD_HOTPLUG_ENABLE | PORTD_PULSE_DURATION_MASK;
-+	default:
-+		return 0;
-+	}
-+}
-+
- static u32 ibx_hotplug_enables(struct intel_encoder *encoder)
+ static const u8 cnp_ddc_pin_map[] = {
+ 	[0] = 0, /* N/A */
+-	[DDC_BUS_DDI_B] = GMBUS_PIN_1_BXT,
+-	[DDC_BUS_DDI_C] = GMBUS_PIN_2_BXT,
+-	[DDC_BUS_DDI_D] = GMBUS_PIN_4_CNP, /* sic */
+-	[DDC_BUS_DDI_F] = GMBUS_PIN_3_BXT, /* sic */
++	[GMBUS_PIN_1_BXT] = DDC_BUS_DDI_B,
++	[GMBUS_PIN_2_BXT] = DDC_BUS_DDI_C,
++	[GMBUS_PIN_4_CNP] = DDC_BUS_DDI_D, /* sic */
++	[GMBUS_PIN_3_BXT] = DDC_BUS_DDI_F, /* sic */
+ };
+ 
+ static const u8 icp_ddc_pin_map[] = {
+-	[ICL_DDC_BUS_DDI_A] = GMBUS_PIN_1_BXT,
+-	[ICL_DDC_BUS_DDI_B] = GMBUS_PIN_2_BXT,
+-	[TGL_DDC_BUS_DDI_C] = GMBUS_PIN_3_BXT,
+-	[ICL_DDC_BUS_PORT_1] = GMBUS_PIN_9_TC1_ICP,
+-	[ICL_DDC_BUS_PORT_2] = GMBUS_PIN_10_TC2_ICP,
+-	[ICL_DDC_BUS_PORT_3] = GMBUS_PIN_11_TC3_ICP,
+-	[ICL_DDC_BUS_PORT_4] = GMBUS_PIN_12_TC4_ICP,
+-	[TGL_DDC_BUS_PORT_5] = GMBUS_PIN_13_TC5_TGP,
+-	[TGL_DDC_BUS_PORT_6] = GMBUS_PIN_14_TC6_TGP,
++	[GMBUS_PIN_1_BXT] = ICL_DDC_BUS_DDI_A,
++	[GMBUS_PIN_2_BXT] = ICL_DDC_BUS_DDI_B,
++	[GMBUS_PIN_3_BXT] = TGL_DDC_BUS_DDI_C,
++	[GMBUS_PIN_9_TC1_ICP] = ICL_DDC_BUS_PORT_1,
++	[GMBUS_PIN_10_TC2_ICP] = ICL_DDC_BUS_PORT_2,
++	[GMBUS_PIN_11_TC3_ICP] = ICL_DDC_BUS_PORT_3,
++	[GMBUS_PIN_12_TC4_ICP] = ICL_DDC_BUS_PORT_4,
++	[GMBUS_PIN_13_TC5_TGP] = TGL_DDC_BUS_PORT_5,
++	[GMBUS_PIN_14_TC6_TGP] = TGL_DDC_BUS_PORT_6,
+ };
+ 
+ static const u8 rkl_pch_tgp_ddc_pin_map[] = {
+-	[ICL_DDC_BUS_DDI_A] = GMBUS_PIN_1_BXT,
+-	[ICL_DDC_BUS_DDI_B] = GMBUS_PIN_2_BXT,
+-	[RKL_DDC_BUS_DDI_D] = GMBUS_PIN_9_TC1_ICP,
+-	[RKL_DDC_BUS_DDI_E] = GMBUS_PIN_10_TC2_ICP,
++	[GMBUS_PIN_1_BXT] = ICL_DDC_BUS_DDI_A,
++	[GMBUS_PIN_2_BXT] = ICL_DDC_BUS_DDI_B,
++	[GMBUS_PIN_9_TC1_ICP] = RKL_DDC_BUS_DDI_D,
++	[GMBUS_PIN_10_TC2_ICP] = RKL_DDC_BUS_DDI_E,
+ };
+ 
+ static const u8 adls_ddc_pin_map[] = {
+-	[ICL_DDC_BUS_DDI_A] = GMBUS_PIN_1_BXT,
+-	[ADLS_DDC_BUS_PORT_TC1] = GMBUS_PIN_9_TC1_ICP,
+-	[ADLS_DDC_BUS_PORT_TC2] = GMBUS_PIN_10_TC2_ICP,
+-	[ADLS_DDC_BUS_PORT_TC3] = GMBUS_PIN_11_TC3_ICP,
+-	[ADLS_DDC_BUS_PORT_TC4] = GMBUS_PIN_12_TC4_ICP,
++	[GMBUS_PIN_1_BXT] = ICL_DDC_BUS_DDI_A,
++	[GMBUS_PIN_9_TC1_ICP] = ADLS_DDC_BUS_PORT_TC1,
++	[GMBUS_PIN_10_TC2_ICP] = ADLS_DDC_BUS_PORT_TC2,
++	[GMBUS_PIN_11_TC3_ICP] = ADLS_DDC_BUS_PORT_TC3,
++	[GMBUS_PIN_12_TC4_ICP] = ADLS_DDC_BUS_PORT_TC4,
+ };
+ 
+ static const u8 gen9bc_tgp_ddc_pin_map[] = {
+-	[DDC_BUS_DDI_B] = GMBUS_PIN_2_BXT,
+-	[DDC_BUS_DDI_C] = GMBUS_PIN_9_TC1_ICP,
+-	[DDC_BUS_DDI_D] = GMBUS_PIN_10_TC2_ICP,
++	[GMBUS_PIN_2_BXT] = DDC_BUS_DDI_B,
++	[GMBUS_PIN_9_TC1_ICP] = DDC_BUS_DDI_C,
++	[GMBUS_PIN_10_TC2_ICP] = DDC_BUS_DDI_D,
+ };
+ 
+ static const u8 adlp_ddc_pin_map[] = {
+-	[ICL_DDC_BUS_DDI_A] = GMBUS_PIN_1_BXT,
+-	[ICL_DDC_BUS_DDI_B] = GMBUS_PIN_2_BXT,
+-	[ADLP_DDC_BUS_PORT_TC1] = GMBUS_PIN_9_TC1_ICP,
+-	[ADLP_DDC_BUS_PORT_TC2] = GMBUS_PIN_10_TC2_ICP,
+-	[ADLP_DDC_BUS_PORT_TC3] = GMBUS_PIN_11_TC3_ICP,
+-	[ADLP_DDC_BUS_PORT_TC4] = GMBUS_PIN_12_TC4_ICP,
++	[GMBUS_PIN_1_BXT] = ICL_DDC_BUS_DDI_A,
++	[GMBUS_PIN_2_BXT] = ICL_DDC_BUS_DDI_B,
++	[GMBUS_PIN_9_TC1_ICP] = ADLP_DDC_BUS_PORT_TC1,
++	[GMBUS_PIN_10_TC2_ICP] = ADLP_DDC_BUS_PORT_TC2,
++	[GMBUS_PIN_11_TC3_ICP] = ADLP_DDC_BUS_PORT_TC3,
++	[GMBUS_PIN_12_TC4_ICP] = ADLP_DDC_BUS_PORT_TC4,
+ };
+ 
+ static u8 map_ddc_pin(struct drm_i915_private *i915, u8 vbt_pin)
  {
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	const u8 *ddc_pin_map;
+-	int n_entries;
++	int i, n_entries;
  
-@@ -2869,15 +2886,12 @@ static void ibx_hpd_detection_setup(struct drm_i915_private *dev_priv)
- 	 * duration to 2ms (which is the minimum in the Display Port spec).
- 	 * The pulse duration bits are reserved on LPT+.
- 	 */
- 	intel_uncore_rmw(&dev_priv->uncore, PCH_PORT_HOTPLUG,
--			 PORTA_HOTPLUG_ENABLE |
--			 PORTB_HOTPLUG_ENABLE |
--			 PORTC_HOTPLUG_ENABLE |
--			 PORTD_HOTPLUG_ENABLE |
--			 PORTB_PULSE_DURATION_MASK |
--			 PORTC_PULSE_DURATION_MASK |
--			 PORTD_PULSE_DURATION_MASK,
-+			 ibx_hotplug_mask(dev_priv, HPD_PORT_A) |
-+			 ibx_hotplug_mask(dev_priv, HPD_PORT_B) |
-+			 ibx_hotplug_mask(dev_priv, HPD_PORT_C) |
-+			 ibx_hotplug_mask(dev_priv, HPD_PORT_D),
- 			 intel_hpd_hotplug_enables(dev_priv, ibx_hotplug_enables));
- }
- 
- static void ibx_hpd_irq_setup(struct drm_i915_private *dev_priv)
-@@ -2891,55 +2905,75 @@ static void ibx_hpd_irq_setup(struct drm_i915_private *dev_priv)
- 
- 	ibx_hpd_detection_setup(dev_priv);
- }
- 
-+static u32 _icp_ddi_hotplug_enables(enum hpd_pin hpd_pin)
-+{
-+	switch (hpd_pin) {
-+	case HPD_PORT_A:
-+	case HPD_PORT_B:
-+	case HPD_PORT_C:
-+	case HPD_PORT_D:
-+		return SHOTPLUG_CTL_DDI_HPD_ENABLE(hpd_pin);
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static u32 icp_ddi_hotplug_mask(struct drm_i915_private *i915, enum hpd_pin hpd_pin)
-+{
-+	return _icp_ddi_hotplug_enables(hpd_pin);
-+}
-+
- static u32 icp_ddi_hotplug_enables(struct intel_encoder *encoder)
- {
--	switch (encoder->hpd_pin) {
--	case HPD_PORT_A:
--	case HPD_PORT_B:
--	case HPD_PORT_C:
--	case HPD_PORT_D:
--		return SHOTPLUG_CTL_DDI_HPD_ENABLE(encoder->hpd_pin);
-+	return _icp_ddi_hotplug_enables(encoder->hpd_pin);
-+}
-+
-+static u32 _icp_tc_hotplug_enables(enum hpd_pin hpd_pin)
-+{
-+	switch (hpd_pin) {
-+	case HPD_PORT_TC1:
-+	case HPD_PORT_TC2:
-+	case HPD_PORT_TC3:
-+	case HPD_PORT_TC4:
-+	case HPD_PORT_TC5:
-+	case HPD_PORT_TC6:
-+		return ICP_TC_HPD_ENABLE(hpd_pin);
- 	default:
- 		return 0;
- 	}
- }
- 
-+static u32 icp_tc_hotplug_mask(struct drm_i915_private *i915, enum hpd_pin hpd_pin)
-+{
-+	return _icp_tc_hotplug_enables(hpd_pin);
-+}
-+
- static u32 icp_tc_hotplug_enables(struct intel_encoder *encoder)
- {
--	switch (encoder->hpd_pin) {
--	case HPD_PORT_TC1:
--	case HPD_PORT_TC2:
--	case HPD_PORT_TC3:
--	case HPD_PORT_TC4:
--	case HPD_PORT_TC5:
--	case HPD_PORT_TC6:
--		return ICP_TC_HPD_ENABLE(encoder->hpd_pin);
--	default:
--		return 0;
--	}
-+	return _icp_tc_hotplug_enables(encoder->hpd_pin);
- }
- 
- static void icp_ddi_hpd_detection_setup(struct drm_i915_private *dev_priv)
- {
- 	intel_uncore_rmw(&dev_priv->uncore, SHOTPLUG_CTL_DDI,
--			 SHOTPLUG_CTL_DDI_HPD_ENABLE(HPD_PORT_A) |
--			 SHOTPLUG_CTL_DDI_HPD_ENABLE(HPD_PORT_B) |
--			 SHOTPLUG_CTL_DDI_HPD_ENABLE(HPD_PORT_C) |
--			 SHOTPLUG_CTL_DDI_HPD_ENABLE(HPD_PORT_D),
-+			 icp_ddi_hotplug_mask(dev_priv, HPD_PORT_A) |
-+			 icp_ddi_hotplug_mask(dev_priv, HPD_PORT_B) |
-+			 icp_ddi_hotplug_mask(dev_priv, HPD_PORT_C) |
-+			 icp_ddi_hotplug_mask(dev_priv, HPD_PORT_D),
- 			 intel_hpd_hotplug_enables(dev_priv, icp_ddi_hotplug_enables));
- }
- 
- static void icp_tc_hpd_detection_setup(struct drm_i915_private *dev_priv)
- {
- 	intel_uncore_rmw(&dev_priv->uncore, SHOTPLUG_CTL_TC,
--			 ICP_TC_HPD_ENABLE(HPD_PORT_TC1) |
--			 ICP_TC_HPD_ENABLE(HPD_PORT_TC2) |
--			 ICP_TC_HPD_ENABLE(HPD_PORT_TC3) |
--			 ICP_TC_HPD_ENABLE(HPD_PORT_TC4) |
--			 ICP_TC_HPD_ENABLE(HPD_PORT_TC5) |
--			 ICP_TC_HPD_ENABLE(HPD_PORT_TC6),
-+			 icp_tc_hotplug_mask(dev_priv, HPD_PORT_TC1) |
-+			 icp_tc_hotplug_mask(dev_priv, HPD_PORT_TC2) |
-+			 icp_tc_hotplug_mask(dev_priv, HPD_PORT_TC3) |
-+			 icp_tc_hotplug_mask(dev_priv, HPD_PORT_TC4) |
-+			 icp_tc_hotplug_mask(dev_priv, HPD_PORT_TC5) |
-+			 icp_tc_hotplug_mask(dev_priv, HPD_PORT_TC6),
- 			 intel_hpd_hotplug_enables(dev_priv, icp_tc_hotplug_enables));
- }
- 
- static void icp_hpd_irq_setup(struct drm_i915_private *dev_priv)
-@@ -2957,21 +2991,31 @@ static void icp_hpd_irq_setup(struct drm_i915_private *dev_priv)
- 	icp_ddi_hpd_detection_setup(dev_priv);
- 	icp_tc_hpd_detection_setup(dev_priv);
- }
- 
-+static u32 _gen11_hotplug_enables(enum hpd_pin hpd_pin)
-+{
-+	switch (hpd_pin) {
-+	case HPD_PORT_TC1:
-+	case HPD_PORT_TC2:
-+	case HPD_PORT_TC3:
-+	case HPD_PORT_TC4:
-+	case HPD_PORT_TC5:
-+	case HPD_PORT_TC6:
-+		return GEN11_HOTPLUG_CTL_ENABLE(hpd_pin);
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static u32 gen11_hotplug_mask(struct drm_i915_private *i915, enum hpd_pin hpd_pin)
-+{
-+	return _gen11_hotplug_enables(hpd_pin);
-+}
-+
- static u32 gen11_hotplug_enables(struct intel_encoder *encoder)
- {
--	switch (encoder->hpd_pin) {
--	case HPD_PORT_TC1:
--	case HPD_PORT_TC2:
--	case HPD_PORT_TC3:
--	case HPD_PORT_TC4:
--	case HPD_PORT_TC5:
--	case HPD_PORT_TC6:
--		return GEN11_HOTPLUG_CTL_ENABLE(encoder->hpd_pin);
--	default:
--		return 0;
--	}
-+	return _gen11_hotplug_enables(encoder->hpd_pin);
- }
- 
- static void dg1_hpd_invert(struct drm_i915_private *i915)
- {
-@@ -2990,26 +3034,26 @@ static void dg1_hpd_irq_setup(struct drm_i915_private *dev_priv)
- 
- static void gen11_tc_hpd_detection_setup(struct drm_i915_private *dev_priv)
- {
- 	intel_uncore_rmw(&dev_priv->uncore, GEN11_TC_HOTPLUG_CTL,
--			 GEN11_HOTPLUG_CTL_ENABLE(HPD_PORT_TC1) |
--			 GEN11_HOTPLUG_CTL_ENABLE(HPD_PORT_TC2) |
--			 GEN11_HOTPLUG_CTL_ENABLE(HPD_PORT_TC3) |
--			 GEN11_HOTPLUG_CTL_ENABLE(HPD_PORT_TC4) |
--			 GEN11_HOTPLUG_CTL_ENABLE(HPD_PORT_TC5) |
--			 GEN11_HOTPLUG_CTL_ENABLE(HPD_PORT_TC6),
-+			 gen11_hotplug_mask(dev_priv, HPD_PORT_TC1) |
-+			 gen11_hotplug_mask(dev_priv, HPD_PORT_TC2) |
-+			 gen11_hotplug_mask(dev_priv, HPD_PORT_TC3) |
-+			 gen11_hotplug_mask(dev_priv, HPD_PORT_TC4) |
-+			 gen11_hotplug_mask(dev_priv, HPD_PORT_TC5) |
-+			 gen11_hotplug_mask(dev_priv, HPD_PORT_TC6),
- 			 intel_hpd_hotplug_enables(dev_priv, gen11_hotplug_enables));
- }
- 
- static void gen11_tbt_hpd_detection_setup(struct drm_i915_private *dev_priv)
- {
- 	intel_uncore_rmw(&dev_priv->uncore, GEN11_TBT_HOTPLUG_CTL,
--			 GEN11_HOTPLUG_CTL_ENABLE(HPD_PORT_TC1) |
--			 GEN11_HOTPLUG_CTL_ENABLE(HPD_PORT_TC2) |
--			 GEN11_HOTPLUG_CTL_ENABLE(HPD_PORT_TC3) |
--			 GEN11_HOTPLUG_CTL_ENABLE(HPD_PORT_TC4) |
--			 GEN11_HOTPLUG_CTL_ENABLE(HPD_PORT_TC5) |
--			 GEN11_HOTPLUG_CTL_ENABLE(HPD_PORT_TC6),
-+			 gen11_hotplug_mask(dev_priv, HPD_PORT_TC1) |
-+			 gen11_hotplug_mask(dev_priv, HPD_PORT_TC2) |
-+			 gen11_hotplug_mask(dev_priv, HPD_PORT_TC3) |
-+			 gen11_hotplug_mask(dev_priv, HPD_PORT_TC4) |
-+			 gen11_hotplug_mask(dev_priv, HPD_PORT_TC5) |
-+			 gen11_hotplug_mask(dev_priv, HPD_PORT_TC6),
- 			 intel_hpd_hotplug_enables(dev_priv, gen11_hotplug_enables));
- }
- 
- static void gen11_hpd_irq_setup(struct drm_i915_private *dev_priv)
-@@ -3029,11 +3073,11 @@ static void gen11_hpd_irq_setup(struct drm_i915_private *dev_priv)
- 	if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
- 		icp_hpd_irq_setup(dev_priv);
- }
- 
--static u32 spt_hotplug_enables(struct intel_encoder *encoder)
-+static u32 _spt_hotplug_enables(enum hpd_pin hpd_pin)
- {
--	switch (encoder->hpd_pin) {
-+	switch (hpd_pin) {
- 	case HPD_PORT_A:
- 		return PORTA_HOTPLUG_ENABLE;
- 	case HPD_PORT_B:
- 		return PORTB_HOTPLUG_ENABLE;
-@@ -3045,18 +3089,38 @@ static u32 spt_hotplug_enables(struct intel_encoder *encoder)
- 		return 0;
- 	}
- }
- 
--static u32 spt_hotplug2_enables(struct intel_encoder *encoder)
-+static u32 spt_hotplug_mask(struct drm_i915_private *i915, enum hpd_pin hpd_pin)
- {
--	switch (encoder->hpd_pin) {
-+	return _spt_hotplug_enables(hpd_pin);
-+}
-+
-+static u32 spt_hotplug_enables(struct intel_encoder *encoder)
-+{
-+	return _spt_hotplug_enables(encoder->hpd_pin);
-+}
-+
-+static u32 _spt_hotplug2_enables(enum hpd_pin hpd_pin)
-+{
-+	switch (hpd_pin) {
- 	case HPD_PORT_E:
- 		return PORTE_HOTPLUG_ENABLE;
- 	default:
- 		return 0;
- 	}
- }
- 
-+static u32 spt_hotplug2_mask(struct drm_i915_private *i915, enum hpd_pin hpd_pin)
-+{
-+	return _spt_hotplug2_enables(hpd_pin);
-+}
-+
-+static u32 spt_hotplug2_enables(struct intel_encoder *encoder)
-+{
-+	return _spt_hotplug2_enables(encoder->hpd_pin);
-+}
-+
- static void spt_hpd_detection_setup(struct drm_i915_private *dev_priv)
- {
- 	/* Display WA #1179 WaHardHangonHotPlug: cnp */
- 	if (HAS_PCH_CNP(dev_priv)) {
-@@ -3065,15 +3129,16 @@ static void spt_hpd_detection_setup(struct drm_i915_private *dev_priv)
+ 	if (HAS_PCH_MTP(i915) || IS_ALDERLAKE_P(i915)) {
+ 		ddc_pin_map = adlp_ddc_pin_map;
+ 		n_entries = ARRAY_SIZE(adlp_ddc_pin_map);
+@@ -2212,10 +2212,12 @@ static u8 map_ddc_pin(struct drm_i915_private *i915, u8 vbt_pin)
+ 		/* Assuming direct map */
+ 		return vbt_pin;
  	}
  
- 	/* Enable digital hotplug on the PCH */
- 	intel_uncore_rmw(&dev_priv->uncore, PCH_PORT_HOTPLUG,
--			 PORTA_HOTPLUG_ENABLE |
--			 PORTB_HOTPLUG_ENABLE |
--			 PORTC_HOTPLUG_ENABLE |
--			 PORTD_HOTPLUG_ENABLE,
-+			 spt_hotplug_mask(dev_priv, HPD_PORT_A) |
-+			 spt_hotplug_mask(dev_priv, HPD_PORT_B) |
-+			 spt_hotplug_mask(dev_priv, HPD_PORT_C) |
-+			 spt_hotplug_mask(dev_priv, HPD_PORT_D),
- 			 intel_hpd_hotplug_enables(dev_priv, spt_hotplug_enables));
- 
--	intel_uncore_rmw(&dev_priv->uncore, PCH_PORT_HOTPLUG2, PORTE_HOTPLUG_ENABLE,
-+	intel_uncore_rmw(&dev_priv->uncore, PCH_PORT_HOTPLUG2,
-+			 spt_hotplug2_mask(dev_priv, HPD_PORT_E),
- 			 intel_hpd_hotplug_enables(dev_priv, spt_hotplug2_enables));
- }
- 
- static void spt_hpd_irq_setup(struct drm_i915_private *dev_priv)
-@@ -3090,8 +3155,19 @@ static void spt_hpd_irq_setup(struct drm_i915_private *dev_priv)
- 
- 	spt_hpd_detection_setup(dev_priv);
- }
- 
-+static u32 ilk_hotplug_mask(struct drm_i915_private *i915, enum hpd_pin hpd_pin)
-+{
-+	switch (hpd_pin) {
-+	case HPD_PORT_A:
-+		return DIGITAL_PORTA_HOTPLUG_ENABLE |
-+			DIGITAL_PORTA_PULSE_DURATION_MASK;
-+	default:
-+		return 0;
+-	if (vbt_pin < n_entries && ddc_pin_map[vbt_pin] != 0)
+-		return ddc_pin_map[vbt_pin];
++	for (i = 0; i < n_entries; i++) {
++		if (ddc_pin_map[i] == vbt_pin)
++			return i;
 +	}
-+}
-+
- static u32 ilk_hotplug_enables(struct intel_encoder *encoder)
- {
- 	switch (encoder->hpd_pin) {
- 	case HPD_PORT_A:
-@@ -3109,9 +3185,9 @@ static void ilk_hpd_detection_setup(struct drm_i915_private *dev_priv)
- 	 * duration to 2ms (which is the minimum in the Display Port spec)
- 	 * The pulse duration bits are reserved on HSW+.
- 	 */
- 	intel_uncore_rmw(&dev_priv->uncore, DIGITAL_PORT_HOTPLUG_CNTRL,
--			 DIGITAL_PORTA_HOTPLUG_ENABLE | DIGITAL_PORTA_PULSE_DURATION_MASK,
-+			 ilk_hotplug_mask(dev_priv, HPD_PORT_A),
- 			 intel_hpd_hotplug_enables(dev_priv, ilk_hotplug_enables));
- }
  
- static void ilk_hpd_irq_setup(struct drm_i915_private *dev_priv)
-@@ -3130,8 +3206,22 @@ static void ilk_hpd_irq_setup(struct drm_i915_private *dev_priv)
- 
- 	ibx_hpd_irq_setup(dev_priv);
- }
- 
-+static u32 bxt_hotplug_mask(struct drm_i915_private *i915, enum hpd_pin hpd_pin)
-+{
-+	switch (hpd_pin) {
-+	case HPD_PORT_A:
-+		return PORTA_HOTPLUG_ENABLE | BXT_DDIA_HPD_INVERT;
-+	case HPD_PORT_B:
-+		return PORTB_HOTPLUG_ENABLE | BXT_DDIB_HPD_INVERT;
-+	case HPD_PORT_C:
-+		return PORTC_HOTPLUG_ENABLE | BXT_DDIC_HPD_INVERT;
-+	default:
-+		return 0;
-+	}
-+}
-+
- static u32 bxt_hotplug_enables(struct intel_encoder *encoder)
- {
- 	u32 hotplug;
- 
-@@ -3158,12 +3248,11 @@ static u32 bxt_hotplug_enables(struct intel_encoder *encoder)
- 
- static void bxt_hpd_detection_setup(struct drm_i915_private *dev_priv)
- {
- 	intel_uncore_rmw(&dev_priv->uncore, PCH_PORT_HOTPLUG,
--			 PORTA_HOTPLUG_ENABLE |
--			 PORTB_HOTPLUG_ENABLE |
--			 PORTC_HOTPLUG_ENABLE |
--			 BXT_DDI_HPD_INVERT_MASK,
-+			 bxt_hotplug_mask(dev_priv, HPD_PORT_A) |
-+			 bxt_hotplug_mask(dev_priv, HPD_PORT_B) |
-+			 bxt_hotplug_mask(dev_priv, HPD_PORT_C),
- 			 intel_hpd_hotplug_enables(dev_priv, bxt_hotplug_enables));
- }
- 
- static void bxt_hpd_irq_setup(struct drm_i915_private *dev_priv)
+ 	drm_dbg_kms(&i915->drm,
+ 		    "Ignoring alternate pin: VBT claims DDC pin %d, which is not valid for this platform\n",
+ 		    vbt_pin);
 -- 
 2.39.2
 
