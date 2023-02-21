@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 020DEC636D7
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Feb 2023 23:02:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24E77C61DA3
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Feb 2023 23:03:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65C0D10E3A2;
-	Tue, 21 Feb 2023 23:02:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FC9B10E3A8;
+	Tue, 21 Feb 2023 23:03:00 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BAD410E39A
- for <intel-gfx@lists.freedesktop.org>; Tue, 21 Feb 2023 23:02:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 967AA10E3A2
+ for <intel-gfx@lists.freedesktop.org>; Tue, 21 Feb 2023 23:02:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677020575; x=1708556575;
+ t=1677020577; x=1708556577;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=bBBwcG98GZtvcwRYoIDaGxiKO1HTn9/fLT9HZmsV3mk=;
- b=HMo8d4RH1XcXO8HdjzURn04PWRskCmwFIrbb/00dqu2IYmg4+LeIXBwV
- d0ISKgcbJfF1ziVVDbWOz0s1ZybIylBYKVtVWD4o13D/OKbpPGXbsAh/a
- 0nSCzJn+n3heEnOMDt6YR++ScbcJK0urRzDfQPLWMc41Rd6YBcV8BPa71
- BcW7BDSdjtGp9NAkxWT9qLFjQVCAhupe0OwD72v7RztDAFICNj3QQ3DU7
- SWyGogV8+tPDEs0In3wvL1AWjiirE/92SwZ/RSCmMK+0CakO5RjixpU+Y
- 8dGxaul7jcZDuLH1ljusPotfTH5FjxibHhB3Az79bSoTLGKEHY/bj/+Zk Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="330501700"
-X-IronPort-AV: E=Sophos;i="5.97,317,1669104000"; d="scan'208";a="330501700"
+ bh=V+59385l7M7e3P0PaD1StPkuGKUQ2z7Fx9gBjfac+eA=;
+ b=OUMzosFADJ2WyOK1pfbJSc1bdMVdZyAxItrNNCOzU/eK9NmYxTlynoBs
+ z5A3YXDiD3VuGg7Y33BMv3ytHH1+h6s+oUGQR1EVbXGDoCVl8YVWGT+v7
+ YRWHQhENRH4quLniRoivPDQEqcJgl++K+9lGS9kezouOpDadsTWETnDOP
+ hw2f0ZmfzcOQXgZhOF7nHZNBZqJGVDv8+Souc6ngyUq3fGNU5kNYDzs1R
+ HfZnOFXGW41R4ld7O6xqiqpwXxszPNTS/rQ4TTdiZ3r8raOxQ02SZjkNR
+ dHWshLhjD8NAafWefKUWjQsqiHBq0kSwWo1PhnP+vfAebVyr619UUu1N9 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="330501734"
+X-IronPort-AV: E=Sophos;i="5.97,317,1669104000"; d="scan'208";a="330501734"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2023 15:02:38 -0800
+ 21 Feb 2023 15:02:44 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="814690122"
-X-IronPort-AV: E=Sophos;i="5.97,317,1669104000"; d="scan'208";a="814690122"
+X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="814690129"
+X-IronPort-AV: E=Sophos;i="5.97,317,1669104000"; d="scan'208";a="814690129"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by fmsmga001.fm.intel.com with SMTP; 21 Feb 2023 15:02:37 -0800
+ by fmsmga001.fm.intel.com with SMTP; 21 Feb 2023 15:02:42 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 22 Feb 2023 01:02:36 +0200
+ Wed, 22 Feb 2023 01:02:42 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 22 Feb 2023 01:02:08 +0200
-Message-Id: <20230221230227.6244-4-ville.syrjala@linux.intel.com>
+Date: Wed, 22 Feb 2023 01:02:10 +0200
+Message-Id: <20230221230227.6244-6-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230221230227.6244-1-ville.syrjala@linux.intel.com>
 References: <20230221230227.6244-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 03/22] drm/i915: Get rid of the gm45 HPD live
- state nonsense
+Subject: [Intel-gfx] [PATCH v3 05/22] drm/i915: Introduce
+ intel_hpd_detection()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,131 +65,301 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-The idea that ctg uses different HPD live state bits is
-total nonsense, at least on my machine (Dell Latitude
-E5400).
+Add a mechanism by which we can toggle the HPD sense for
+individual encoders.
 
-The only reason DP-B even works on my ctg is that DP-D
-live state is stuck high, even though there is no physical
-DP-D port. So when the detect checks DP-B live state it
-sees the stuck live state of DP-D instead. If I hack
-the driver to not register DP-D at all, and thus we never
-enabe DP-D HPD, DP-B stops working as well.
+This will be used during eDP probing to figure out if
+anything is actually connected. The normal intel_hpd_irq_setup()
+thing doesn't work since we only do that after probing the
+outputs, and we only enable HPD sense for encoders that were
+successfully probed.
 
-Just to put some conclusive evidence into this mess,
-here are the actual hotplug register values for each port:
- Everything disconnected:
-                    PORT_HOTPLUG_EN (0x00061110): 0x00000000
-                  PORT_HOTPLUG_STAT (0x00061114): 0x00000000
-                    PORT_HOTPLUG_EN (0x00061110): 0x08000000
-                  PORT_HOTPLUG_STAT (0x00061114): 0x08000000
-                    PORT_HOTPLUG_EN (0x00061110): 0x10000000
-                  PORT_HOTPLUG_STAT (0x00061114): 0x00000000
-                    PORT_HOTPLUG_EN (0x00061110): 0x20000000
-                  PORT_HOTPLUG_STAT (0x00061114): 0x00000000
- Only port B connected:
-                    PORT_HOTPLUG_EN (0x00061110): 0x00000000
-                  PORT_HOTPLUG_STAT (0x00061114): 0x00000000
-                    PORT_HOTPLUG_EN (0x00061110): 0x08000000
-                  PORT_HOTPLUG_STAT (0x00061114): 0x08000000
-                    PORT_HOTPLUG_EN (0x00061110): 0x10000000
-                  PORT_HOTPLUG_STAT (0x00061114): 0x00000000
-                    PORT_HOTPLUG_EN (0x00061110): 0x20000000
-                  PORT_HOTPLUG_STAT (0x00061114): 0x20000000
- Only port C connected:
-                    PORT_HOTPLUG_EN (0x00061110): 0x00000000
-                  PORT_HOTPLUG_STAT (0x00061114): 0x00000000
-                    PORT_HOTPLUG_EN (0x00061110): 0x08000000
-                  PORT_HOTPLUG_STAT (0x00061114): 0x08000000
-                    PORT_HOTPLUG_EN (0x00061110): 0x10000000
-                  PORT_HOTPLUG_STAT (0x00061114): 0x10000000
-                    PORT_HOTPLUG_EN (0x00061110): 0x20000000
-                  PORT_HOTPLUG_STAT (0x00061114): 0x00000000
-
-So the enable bit and live state bit always match 1:1.
+The other idea that crossed my minds was to just turn on
+HPD sense for all pins before output probing and let hpd_irq_setup()
+clean it up afterwards. But that doesn't work for BXT/GLK where
+the HPD invert information comes from the VBT child device.
+So looks like this really needs to be per-encoder.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/g4x_dp.c | 28 +--------------------------
- drivers/gpu/drm/i915/i915_reg.h       | 13 +------------
- 2 files changed, 2 insertions(+), 39 deletions(-)
+ drivers/gpu/drm/i915/i915_irq.c | 132 ++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/i915_irq.h |   2 +
+ 2 files changed, 134 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/g4x_dp.c b/drivers/gpu/drm/i915/display/g4x_dp.c
-index a50ad0fff57c..920d570f7594 100644
---- a/drivers/gpu/drm/i915/display/g4x_dp.c
-+++ b/drivers/gpu/drm/i915/display/g4x_dp.c
-@@ -1196,31 +1196,8 @@ static bool g4x_digital_port_connected(struct intel_encoder *encoder)
- 
- 	return intel_de_read(dev_priv, PORT_HOTPLUG_STAT) & bit;
+diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
+index ecfa6dad145a..c5058d834f99 100644
+--- a/drivers/gpu/drm/i915/i915_irq.c
++++ b/drivers/gpu/drm/i915/i915_irq.c
+@@ -2893,8 +2893,17 @@ static void ibx_hpd_detection_setup(struct drm_i915_private *dev_priv)
+ 			 ibx_hotplug_mask(dev_priv, HPD_PORT_D),
+ 			 intel_hpd_hotplug_enables(dev_priv, ibx_hotplug_enables));
  }
  
--static bool gm45_digital_port_connected(struct intel_encoder *encoder)
--{
--	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
--	u32 bit;
--
--	switch (encoder->hpd_pin) {
--	case HPD_PORT_B:
--		bit = PORTB_HOTPLUG_LIVE_STATUS_GM45;
--		break;
--	case HPD_PORT_C:
--		bit = PORTC_HOTPLUG_LIVE_STATUS_GM45;
--		break;
--	case HPD_PORT_D:
--		bit = PORTD_HOTPLUG_LIVE_STATUS_GM45;
--		break;
--	default:
--		MISSING_CASE(encoder->hpd_pin);
--		return false;
--	}
--
--	return intel_de_read(dev_priv, PORT_HOTPLUG_STAT) & bit;
--}
--
- static bool ilk_digital_port_connected(struct intel_encoder *encoder)
++static void ibx_hpd_detection(struct intel_encoder *encoder, bool enable)
++{
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++
++	intel_uncore_rmw(&i915->uncore, PCH_PORT_HOTPLUG,
++			 ibx_hotplug_mask(i915, encoder->hpd_pin),
++			 enable ? ibx_hotplug_enables(encoder) : 0);
++}
++
+ static void ibx_hpd_irq_setup(struct drm_i915_private *dev_priv)
  {
- 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
- 	u32 bit = dev_priv->display.hotplug.hpd[encoder->hpd_pin];
-@@ -1383,12 +1360,9 @@ bool g4x_dp_init(struct drm_i915_private *dev_priv,
+ 	u32 hotplug_irqs, enabled_irqs;
  
- 	dig_port->hpd_pulse = intel_dp_hpd_pulse;
+@@ -2963,8 +2972,17 @@ static void icp_ddi_hpd_detection_setup(struct drm_i915_private *dev_priv)
+ 			 icp_ddi_hotplug_mask(dev_priv, HPD_PORT_D),
+ 			 intel_hpd_hotplug_enables(dev_priv, icp_ddi_hotplug_enables));
+ }
  
- 	if (HAS_GMCH(dev_priv)) {
--		if (IS_GM45(dev_priv))
--			dig_port->connected = gm45_digital_port_connected;
--		else
--			dig_port->connected = g4x_digital_port_connected;
-+		dig_port->connected = g4x_digital_port_connected;
- 	} else {
- 		if (port == PORT_A)
- 			dig_port->connected = ilk_digital_port_connected;
- 		else
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index c1efa655fb68..de58695ad1c0 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -2482,20 +2482,9 @@
- #define CRT_HOTPLUG_DETECT_VOLTAGE_325MV	(0 << 2)
- #define CRT_HOTPLUG_DETECT_VOLTAGE_475MV	(1 << 2)
++static void icp_ddi_hpd_detection(struct intel_encoder *encoder, bool enable)
++{
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++
++	intel_uncore_rmw(&i915->uncore, SHOTPLUG_CTL_DDI,
++			 icp_ddi_hotplug_mask(i915, encoder->hpd_pin),
++			 enable ? icp_ddi_hotplug_enables(encoder) : 0);
++}
++
+ static void icp_tc_hpd_detection_setup(struct drm_i915_private *dev_priv)
+ {
+ 	intel_uncore_rmw(&dev_priv->uncore, SHOTPLUG_CTL_TC,
+ 			 icp_tc_hotplug_mask(dev_priv, HPD_PORT_TC1) |
+@@ -2975,8 +2993,23 @@ static void icp_tc_hpd_detection_setup(struct drm_i915_private *dev_priv)
+ 			 icp_tc_hotplug_mask(dev_priv, HPD_PORT_TC6),
+ 			 intel_hpd_hotplug_enables(dev_priv, icp_tc_hotplug_enables));
+ }
  
- #define PORT_HOTPLUG_STAT	_MMIO(DISPLAY_MMIO_BASE(dev_priv) + 0x61114)
--/*
-- * HDMI/DP bits are g4x+
-- *
-- * WARNING: Bspec for hpd status bits on gen4 seems to be completely confused.
-- * Please check the detailed lore in the commit message for for experimental
-- * evidence.
-- */
--/* Bspec says GM45 should match G4X/VLV/CHV, but reality disagrees */
--#define   PORTD_HOTPLUG_LIVE_STATUS_GM45	(1 << 29)
--#define   PORTC_HOTPLUG_LIVE_STATUS_GM45	(1 << 28)
--#define   PORTB_HOTPLUG_LIVE_STATUS_GM45	(1 << 27)
--/* G4X/VLV/CHV DP/HDMI bits again match Bspec */
-+/* HDMI/DP bits are g4x+ */
- #define   PORTD_HOTPLUG_LIVE_STATUS_G4X		(1 << 27)
- #define   PORTC_HOTPLUG_LIVE_STATUS_G4X		(1 << 28)
- #define   PORTB_HOTPLUG_LIVE_STATUS_G4X		(1 << 29)
- #define   PORTD_HOTPLUG_INT_STATUS		(3 << 21)
++static void icp_tc_hpd_detection(struct intel_encoder *encoder, bool enable)
++{
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++
++	intel_uncore_rmw(&i915->uncore, SHOTPLUG_CTL_TC,
++			 icp_tc_hotplug_mask(i915, encoder->hpd_pin),
++			 enable ? icp_tc_hotplug_enables(encoder) : 0);
++}
++
++static void icp_hpd_detection(struct intel_encoder *encoder, bool enable)
++{
++	icp_ddi_hpd_detection(encoder, enable);
++	icp_tc_hpd_detection(encoder, enable);
++}
++
+ static void icp_hpd_irq_setup(struct drm_i915_private *dev_priv)
+ {
+ 	u32 hotplug_irqs, enabled_irqs;
+ 
+@@ -3025,8 +3058,16 @@ static void dg1_hpd_invert(struct drm_i915_private *i915)
+ 		   INVERT_DDID_HPD);
+ 	intel_uncore_rmw(&i915->uncore, SOUTH_CHICKEN1, 0, val);
+ }
+ 
++static void dg1_hpd_detection(struct intel_encoder *encoder, bool enable)
++{
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++
++	dg1_hpd_invert(i915);
++	icp_hpd_detection(encoder, enable);
++}
++
+ static void dg1_hpd_irq_setup(struct drm_i915_private *dev_priv)
+ {
+ 	dg1_hpd_invert(dev_priv);
+ 	icp_hpd_irq_setup(dev_priv);
+@@ -3043,8 +3084,17 @@ static void gen11_tc_hpd_detection_setup(struct drm_i915_private *dev_priv)
+ 			 gen11_hotplug_mask(dev_priv, HPD_PORT_TC6),
+ 			 intel_hpd_hotplug_enables(dev_priv, gen11_hotplug_enables));
+ }
+ 
++static void gen11_tc_hpd_detection(struct intel_encoder *encoder, bool enable)
++{
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++
++	intel_uncore_rmw(&i915->uncore, GEN11_TC_HOTPLUG_CTL,
++			 gen11_hotplug_mask(i915, encoder->hpd_pin),
++			 enable ? gen11_hotplug_enables(encoder) : 0);
++}
++
+ static void gen11_tbt_hpd_detection_setup(struct drm_i915_private *dev_priv)
+ {
+ 	intel_uncore_rmw(&dev_priv->uncore, GEN11_TBT_HOTPLUG_CTL,
+ 			 gen11_hotplug_mask(dev_priv, HPD_PORT_TC1) |
+@@ -3055,8 +3105,28 @@ static void gen11_tbt_hpd_detection_setup(struct drm_i915_private *dev_priv)
+ 			 gen11_hotplug_mask(dev_priv, HPD_PORT_TC6),
+ 			 intel_hpd_hotplug_enables(dev_priv, gen11_hotplug_enables));
+ }
+ 
++static void gen11_tbt_hpd_detection(struct intel_encoder *encoder, bool enable)
++{
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++
++	intel_uncore_rmw(&i915->uncore, GEN11_TBT_HOTPLUG_CTL,
++			 gen11_hotplug_mask(i915, encoder->hpd_pin),
++			 enable ? gen11_hotplug_enables(encoder) : 0);
++}
++
++static void gen11_hpd_detection(struct intel_encoder *encoder, bool enable)
++{
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++
++	gen11_tc_hpd_detection(encoder, enable);
++	gen11_tbt_hpd_detection(encoder, enable);
++
++	if (INTEL_PCH_TYPE(i915) >= PCH_ICP)
++		icp_hpd_detection(encoder, enable);
++}
++
+ static void gen11_hpd_irq_setup(struct drm_i915_private *dev_priv)
+ {
+ 	u32 hotplug_irqs, enabled_irqs;
+ 
+@@ -3140,8 +3210,28 @@ static void spt_hpd_detection_setup(struct drm_i915_private *dev_priv)
+ 			 spt_hotplug2_mask(dev_priv, HPD_PORT_E),
+ 			 intel_hpd_hotplug_enables(dev_priv, spt_hotplug2_enables));
+ }
+ 
++static void spt_hpd_detection(struct intel_encoder *encoder, bool enable)
++{
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++
++	/* Display WA #1179 WaHardHangonHotPlug: cnp */
++	if (HAS_PCH_CNP(i915)) {
++		intel_uncore_rmw(&i915->uncore, SOUTH_CHICKEN1,
++				 CHASSIS_CLK_REQ_DURATION_MASK,
++				 CHASSIS_CLK_REQ_DURATION(0xf));
++	}
++
++	intel_uncore_rmw(&i915->uncore, PCH_PORT_HOTPLUG,
++			 spt_hotplug_mask(i915, encoder->hpd_pin),
++			 enable ? spt_hotplug_enables(encoder) : 0);
++
++	intel_uncore_rmw(&i915->uncore, PCH_PORT_HOTPLUG2,
++			 spt_hotplug2_mask(i915, encoder->hpd_pin),
++			 enable ? spt_hotplug2_enables(encoder) : 0);
++}
++
+ static void spt_hpd_irq_setup(struct drm_i915_private *dev_priv)
+ {
+ 	u32 hotplug_irqs, enabled_irqs;
+ 
+@@ -3189,8 +3279,19 @@ static void ilk_hpd_detection_setup(struct drm_i915_private *dev_priv)
+ 			 ilk_hotplug_mask(dev_priv, HPD_PORT_A),
+ 			 intel_hpd_hotplug_enables(dev_priv, ilk_hotplug_enables));
+ }
+ 
++static void ilk_hpd_detection(struct intel_encoder *encoder, bool enable)
++{
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++
++	intel_uncore_rmw(&i915->uncore, DIGITAL_PORT_HOTPLUG_CNTRL,
++			 ilk_hotplug_mask(i915, encoder->hpd_pin),
++			 enable ? ilk_hotplug_enables(encoder) : 0);
++
++	ibx_hpd_detection(encoder, enable);
++}
++
+ static void ilk_hpd_irq_setup(struct drm_i915_private *dev_priv)
+ {
+ 	u32 hotplug_irqs, enabled_irqs;
+ 
+@@ -3254,8 +3355,17 @@ static void bxt_hpd_detection_setup(struct drm_i915_private *dev_priv)
+ 			 bxt_hotplug_mask(dev_priv, HPD_PORT_C),
+ 			 intel_hpd_hotplug_enables(dev_priv, bxt_hotplug_enables));
+ }
+ 
++static void bxt_hpd_detection(struct intel_encoder *encoder, bool enable)
++{
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++
++	intel_uncore_rmw(&i915->uncore, PCH_PORT_HOTPLUG,
++			 bxt_hotplug_mask(i915, encoder->hpd_pin),
++			 enable ? bxt_hotplug_enables(encoder) : 0);
++}
++
+ static void bxt_hpd_irq_setup(struct drm_i915_private *dev_priv)
+ {
+ 	u32 hotplug_irqs, enabled_irqs;
+ 
+@@ -3885,8 +3995,18 @@ static void i965_irq_postinstall(struct drm_i915_private *dev_priv)
+ 
+ 	i915_enable_asle_pipestat(dev_priv);
+ }
+ 
++static void i915_hpd_detection(struct intel_encoder *encoder, bool enable)
++{
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++	u32 hotplug_en = hpd_mask_i915[encoder->hpd_pin];
++
++	/* HPD sense and interrupt enable are one and the same */
++	i915_hotplug_interrupt_update(i915, hotplug_en,
++				      enable ? hotplug_en : 0);
++}
++
+ static void i915_hpd_irq_setup(struct drm_i915_private *dev_priv)
+ {
+ 	u32 hotplug_en;
+ 
+@@ -3970,14 +4090,18 @@ static irqreturn_t i965_irq_handler(int irq, void *arg)
+ 	return ret;
+ }
+ 
+ struct intel_hotplug_funcs {
++	/* Enable HPD sense and interrupts for all present encoders */
+ 	void (*hpd_irq_setup)(struct drm_i915_private *i915);
++	/* Enable/disable HPD sense for a single encoder */
++	void (*hpd_detection)(struct intel_encoder *encoder, bool enable);
+ };
+ 
+ #define HPD_FUNCS(platform)					 \
+ static const struct intel_hotplug_funcs platform##_hpd_funcs = { \
+ 	.hpd_irq_setup = platform##_hpd_irq_setup,		 \
++	.hpd_detection = platform##_hpd_detection,		 \
+ }
+ 
+ HPD_FUNCS(i915);
+ HPD_FUNCS(dg1);
+@@ -3987,8 +4111,16 @@ HPD_FUNCS(icp);
+ HPD_FUNCS(spt);
+ HPD_FUNCS(ilk);
+ #undef HPD_FUNCS
+ 
++void intel_hpd_detection(struct intel_encoder *encoder, bool enable)
++{
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++
++	if (i915->display.funcs.hotplug)
++		i915->display.funcs.hotplug->hpd_detection(encoder, enable);
++}
++
+ void intel_hpd_irq_setup(struct drm_i915_private *i915)
+ {
+ 	if (i915->display_irqs_enabled && i915->display.funcs.hotplug)
+ 		i915->display.funcs.hotplug->hpd_irq_setup(i915);
+diff --git a/drivers/gpu/drm/i915/i915_irq.h b/drivers/gpu/drm/i915/i915_irq.h
+index 03ee4c8b1ed3..a5eb85ed7537 100644
+--- a/drivers/gpu/drm/i915/i915_irq.h
++++ b/drivers/gpu/drm/i915/i915_irq.h
+@@ -16,8 +16,9 @@ struct drm_crtc;
+ struct drm_device;
+ struct drm_display_mode;
+ struct drm_i915_private;
+ struct intel_crtc;
++struct intel_encoder;
+ struct intel_uncore;
+ 
+ void intel_irq_init(struct drm_i915_private *dev_priv);
+ void intel_irq_fini(struct drm_i915_private *dev_priv);
+@@ -36,8 +37,9 @@ i915_disable_pipestat(struct drm_i915_private *dev_priv, enum pipe pipe,
+ 
+ void valleyview_enable_display_irqs(struct drm_i915_private *dev_priv);
+ void valleyview_disable_display_irqs(struct drm_i915_private *dev_priv);
+ 
++void intel_hpd_detection(struct intel_encoder *encoder, bool enable);
+ void intel_hpd_irq_setup(struct drm_i915_private *i915);
+ void i915_hotplug_interrupt_update(struct drm_i915_private *dev_priv,
+ 				   u32 mask,
+ 				   u32 bits);
 -- 
 2.39.2
 
