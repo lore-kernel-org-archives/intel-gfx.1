@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06C38C636D7
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Feb 2023 22:17:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68240C636D7
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Feb 2023 23:02:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E126D10E380;
-	Tue, 21 Feb 2023 22:17:41 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 197CC10E380
- for <intel-gfx@lists.freedesktop.org>; Tue, 21 Feb 2023 22:17:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA62E10E396;
+	Tue, 21 Feb 2023 23:02:53 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF7C210E396
+ for <intel-gfx@lists.freedesktop.org>; Tue, 21 Feb 2023 23:02:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677017859; x=1708553859;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=LIWdo1kSC0fN6UUYk9MzA39d5F1GSd3Hu5YTCrFiwQI=;
- b=OAl1hRPCyp9+KGR9oJ2Wg7l8Pnjka7Zwhlj95Ctlw8hkPfOCb684WNm+
- DBwrusA2i9qCsnr1nURHfaY9aeZzJ4YKeMsCaC7is4pTTrjKqW8UEkUx5
- zXCgEp6iCosRnkf1Rohz4GfQow1FF4oAXwYayuIhKTOhp1nOTphkTCr7E
- l/Y4a7Xb3bvbZrN2GPuThhI5QfKMLEZVsUB0BznaUV1sMQUpsryE4k5be
- VbvzBudxT9GjG9dPx8npgt0CFP5y6yDc3OaY9YdKT7f65udchiNig7vFK
- ihlH6Kcm+Ng7IVlQwjVdOD5HlnlckrrKr1c/lbCcZmjgx6bs0rcCUTrJP g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="332771130"
-X-IronPort-AV: E=Sophos;i="5.97,317,1669104000"; d="scan'208";a="332771130"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2023 14:17:38 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="781165814"
-X-IronPort-AV: E=Sophos;i="5.97,317,1669104000"; d="scan'208";a="781165814"
-Received: from dut-internal-9dd7.jf.intel.com ([10.24.14.53])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2023 14:17:38 -0800
-From: Jonathan Cavitt <jonathan.cavitt@intel.com>
+ t=1677020573; x=1708556573;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=McF8D65ddjjXqs/JKdgRCidPRvMBP9F7EkHaGOWYJfw=;
+ b=YNP5NzVTOOtKZDf/jj2+CfRTbmYYbponR3yv0amCPRhz6ZUMLazJoPES
+ BdM8xSARaYN3ZrP3c9tjEim247PaKRwTxHIm282c5DcHm90pkMzllB6aa
+ vVGOK812QkT3g39KM+U35NfPcR2NIUAYdzuc0fPEKkUzZ7dmtoI2VNJCT
+ w4AWnxwTd6mTwesJdkPayPBq8+lLL7R6goW0WHa/7NnQ6FGskt+fzujRn
+ PPhIzpIHxponD6/+Ct5SpfgIoOu5PKGEcrRuyY/puK17WFy4Xxf0IgddH
+ BxlIo4kOAUK+FR/TOE3HBZC0Z5QX+HewcBEGqVeAM3Jm+nU0e8+jlNw+K A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="330501667"
+X-IronPort-AV: E=Sophos;i="5.97,317,1669104000"; d="scan'208";a="330501667"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Feb 2023 15:02:30 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="814690113"
+X-IronPort-AV: E=Sophos;i="5.97,317,1669104000"; d="scan'208";a="814690113"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
+ by fmsmga001.fm.intel.com with SMTP; 21 Feb 2023 15:02:28 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 22 Feb 2023 01:02:27 +0200
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 21 Feb 2023 14:13:09 -0800
-Message-Id: <20230221221309.1467995-2-jonathan.cavitt@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230221221309.1467995-1-jonathan.cavitt@intel.com>
-References: <20230221221309.1467995-1-jonathan.cavitt@intel.com>
+Date: Wed, 22 Feb 2023 01:02:05 +0200
+Message-Id: <20230221230227.6244-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/2] drm/i915/gt: Poll aux invalidation register
- bit on invalidation
+Subject: [Intel-gfx] [PATCH v3 00/22] drm/i915: Init DDI ports in VBT order
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,76 +57,87 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jonathan.cavitt@intel.com, gregory.f.germano@intel.com,
- saurabhg.gupta@intel.com, chris.p.wilson@linux.intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For platforms that use Aux CCS, we must wait for aux
-invalidation to complete by checking the aux
-invalidation register bit is cleared.
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
----
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c     | 17 +++++++++++++----
- drivers/gpu/drm/i915/gt/intel_gpu_commands.h |  1 +
- 2 files changed, 14 insertions(+), 4 deletions(-)
+I just wanted to init DDI ports in VBT child device order
+without any up front assumptions about which conflicting
+child device defition is valid. That is pretty much what
+we need to do for the ADL laptops with the phantom eDP vs.
+native HDMI on DDI B.
 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-index 6f830f80eb0f..d93484211abd 100644
---- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-@@ -174,6 +174,16 @@ u32 *gen12_emit_aux_table_inv(struct intel_gt *gt, u32 *cs, const i915_reg_t inv
- 	*cs++ = AUX_INV;
- 	*cs++ = MI_NOOP;
- 
-+	*cs++ = MI_SEMAPHORE_WAIT_TOKEN |
-+		MI_SEMAPHORE_REGISTER_POLL |
-+		MI_SEMAPHORE_POLL |
-+		MI_SEMAPHORE_SAD_EQ_SDD;
-+	*cs++ = 0;
-+	*cs++ = i915_mmio_reg_offset(inv_reg) + gsi_offset;
-+	*cs++ = 0;
-+	*cs++ = 0;
-+	*cs++ = MI_NOOP;
-+
- 	return cs;
- }
- 
-@@ -243,10 +253,9 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
- 		else if (engine->class == COMPUTE_CLASS)
- 			flags &= ~PIPE_CONTROL_3D_ENGINE_FLAGS;
- 
-+		count = 8;
- 		if (!HAS_FLAT_CCS(rq->engine->i915))
--			count = 8 + 4;
--		else
--			count = 8;
-+			count += 10;
- 
- 		cs = intel_ring_begin(rq, count);
- 		if (IS_ERR(cs))
-@@ -289,7 +298,7 @@ int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
- 			aux_inv = rq->engine->mask &
- 				~GENMASK(_BCS(I915_MAX_BCS - 1), BCS0);
- 			if (aux_inv)
--				cmd += 4;
-+				cmd += 10;
- 		}
- 	}
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-index e10507fa71ce..8026b6a89192 100644
---- a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-@@ -121,6 +121,7 @@
- #define   MI_SEMAPHORE_TARGET(engine)	((engine)<<15)
- #define MI_SEMAPHORE_WAIT	MI_INSTR(0x1c, 2) /* GEN8+ */
- #define MI_SEMAPHORE_WAIT_TOKEN	MI_INSTR(0x1c, 3) /* GEN12+ */
-+#define   MI_SEMAPHORE_REGISTER_POLL	(1 << 16)
- #define   MI_SEMAPHORE_POLL		(1 << 15)
- #define   MI_SEMAPHORE_SAD_GT_SDD	(0 << 12)
- #define   MI_SEMAPHORE_SAD_GTE_SDD	(1 << 12)
+However that approach doesn't work for some of the weird
+SKL boards that have a phantom eDP on DDI A+AUX A and
+and a real DP->VGA converter on DDI E+AUX A. For those
+I had to introduce HPD live status check during eDP init.
+
+One of the remaining concerns I still have is what happens
+when we encounter VBTs with more AUX CH/DDC pin conflicts?
+I think what we might want to do eventually is ignore the
+conflicts as much as possible, and just init everything
+based on VBT, trusting HPD to take care of things in the
+end. That of course does have certain issues wrt. connector
+forcing, but dunno if we can avoid those at all.
+
+Also I think we need to nuke all the platform default AUX
+CH/DDC pin stuff, or at least only try to utilize those
+only once we've consumed the VBT fully.
+
+v2: Fix SKL DDI A HPD live state
+v3: Replace AUX CH/DDC pin sanitation with availability checks
+
+Ville Syrjälä (22):
+  drm/i915: Populate dig_port->connected() before connector init
+  drm/i915: Fix SKL DDI A digital port .connected()
+  drm/i915: Get rid of the gm45 HPD live state nonsense
+  drm/i915: Introduce <platoform>_hotplug_mask()
+  drm/i915: Introduce intel_hpd_detection()
+  drm/i915: Check HPD live state during eDP probe
+  drm/i915: Sanitize child devices later
+  drm/i915: Split map_aux_ch() into per-platform arrays
+  drm/i915: Flip VBT DDC pin maps around
+  drm/i915: Nuke intel_bios_is_port_dp_dual_mode()
+  drm/i915: Remove bogus DDI-F from hsw/bdw output init
+  drm/i915: Introduce device info port_mask
+  drm/i915: Assert that device info bitmasks have enough bits
+  drm/i915: Assert that the port being initialized is valid
+  drm/i915: Beef up SDVO/HDMI port checks
+  drm/i915: Init DDI outputs based on port_mask on skl+
+  drm/i915: Try to initialize DDI/ICL+ DSI ports for every VBT child
+    device
+  drm/i915: Convert HSW/BDW to use VBT driven DDI probe
+  drm/i915: Remove DDC pin sanitation
+  drm/i915: Remove AUX CH sanitation
+  drm/i915: Initialize dig_port->aux_ch to NONE to be sure
+  drm/i915: Only populate aux_ch is really needed
+
+ drivers/gpu/drm/i915/display/g4x_dp.c         |  39 +-
+ drivers/gpu/drm/i915/display/g4x_hdmi.c       |  26 +-
+ drivers/gpu/drm/i915/display/icl_dsi.c        |  11 +-
+ drivers/gpu/drm/i915/display/icl_dsi.h        |   6 +-
+ drivers/gpu/drm/i915/display/intel_bios.c     | 422 +++++++-----------
+ drivers/gpu/drm/i915/display/intel_bios.h     |  12 +-
+ drivers/gpu/drm/i915/display/intel_crt.c      |   2 +
+ drivers/gpu/drm/i915/display/intel_ddi.c      | 148 ++++--
+ drivers/gpu/drm/i915/display/intel_ddi.h      |   5 +-
+ drivers/gpu/drm/i915/display/intel_display.c  |  89 +---
+ drivers/gpu/drm/i915/display/intel_display.h  |   2 +
+ .../gpu/drm/i915/display/intel_display_core.h |   2 -
+ drivers/gpu/drm/i915/display/intel_dp.c       |  28 ++
+ drivers/gpu/drm/i915/display/intel_dp_aux.c   |  51 ++-
+ drivers/gpu/drm/i915/display/intel_dvo.c      |   2 +
+ drivers/gpu/drm/i915/display/intel_hdmi.c     |  78 +++-
+ drivers/gpu/drm/i915/display/intel_sdvo.c     |  20 +-
+ drivers/gpu/drm/i915/i915_irq.c               | 365 ++++++++++++---
+ drivers/gpu/drm/i915/i915_irq.h               |   2 +
+ drivers/gpu/drm/i915/i915_pci.c               |  31 ++
+ drivers/gpu/drm/i915/i915_reg.h               |  13 +-
+ drivers/gpu/drm/i915/intel_device_info.c      |   9 +
+ drivers/gpu/drm/i915/intel_device_info.h      |   1 +
+ 23 files changed, 843 insertions(+), 521 deletions(-)
+
 -- 
-2.25.1
+2.39.2
 
