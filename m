@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 621CEC61DA3
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Feb 2023 23:03:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40E94C678D5
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Feb 2023 23:03:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF50510E81D;
-	Tue, 21 Feb 2023 23:03:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BE7410E8F9;
+	Tue, 21 Feb 2023 23:03:13 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C46510E3A2
- for <intel-gfx@lists.freedesktop.org>; Tue, 21 Feb 2023 23:02:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CD3710E3B1
+ for <intel-gfx@lists.freedesktop.org>; Tue, 21 Feb 2023 23:03:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677020579; x=1708556579;
+ t=1677020587; x=1708556587;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=cGMyuKa5GSzmcJmR1BUkRrCat2O2aKQdhNS8qaBCsQ4=;
- b=Zf5Te/VBilKLi2D58Dx81V/f1XvglaUInoezJWd0pve3Hov6aaOhK+EJ
- smtHRBvF4vmaASTSGBcteltQ+eSqOrVVeMeKe2AAdPMao5qgKjVrI2Am3
- CIQJPzqEm9FUbXSwLywQJRi49jjET/eO/3uWpOuiJc7NFdA86J0w7F849
- 11k0aebttljcvy3Jo9DdDMUefEXbK8tuJZYqtlkYU97j9mcaKE2Ityj7W
- sAc5Itzh4rd4D+F4HVCP2+EQ7bdYhnUhwRtxYY7tjBxccbd/LighCVbBK
- +Iudn0qggEwS1M4H0smPlB4UBSSrzm9JYUZF2YkL4xqproojl7EuGDoUS Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="330501749"
-X-IronPort-AV: E=Sophos;i="5.97,317,1669104000"; d="scan'208";a="330501749"
+ bh=Cr4B8QSgTHAOQvF3uQzl36OceIVyRAscn9A7AAaOGD4=;
+ b=mhrk4jQQ/JDC7HAXgl86aQXtxWT2W/8uEDoI8I6pGWB5K9cQepQUGN+9
+ 0/LF2zT/u93CPPYb8zQkTkk2+fDePiEXGASJW6Qb0PNwk4c8xzTX4/VE6
+ jYaQ6+PD/lDeRueXXnDrFDQUJeT1jHvgQgWeDrMJ7HCcgUfnuDKfJv6UC
+ ghHyKThU0oGThZe3Hg2/ZJ+TpUKoBoa4mUTOCZIR4moExlTCm8rWsNzqX
+ A2WkxRDK1wLXnm2MyWpG7WGsLT9CL71JxDA1imWW7bYPDXZGlRFhz9I08
+ wnLV6wYSpOSH/yH4sFLaihjhHUaQjs++N/Xn5vlJOGQJBaYWwfg+S8Wxz g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="330501796"
+X-IronPort-AV: E=Sophos;i="5.97,317,1669104000"; d="scan'208";a="330501796"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2023 15:02:47 -0800
+ 21 Feb 2023 15:03:00 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="814690134"
-X-IronPort-AV: E=Sophos;i="5.97,317,1669104000"; d="scan'208";a="814690134"
+X-IronPort-AV: E=McAfee;i="6500,9779,10628"; a="814690156"
+X-IronPort-AV: E=Sophos;i="5.97,317,1669104000"; d="scan'208";a="814690156"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by fmsmga001.fm.intel.com with SMTP; 21 Feb 2023 15:02:45 -0800
+ by fmsmga001.fm.intel.com with SMTP; 21 Feb 2023 15:02:57 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 22 Feb 2023 01:02:44 +0200
+ Wed, 22 Feb 2023 01:02:56 +0200
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 22 Feb 2023 01:02:11 +0200
-Message-Id: <20230221230227.6244-7-ville.syrjala@linux.intel.com>
+Date: Wed, 22 Feb 2023 01:02:15 +0200
+Message-Id: <20230221230227.6244-11-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230221230227.6244-1-ville.syrjala@linux.intel.com>
 References: <20230221230227.6244-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 06/22] drm/i915: Check HPD live state during
- eDP probe
+Subject: [Intel-gfx] [PATCH v3 10/22] drm/i915: Nuke
+ intel_bios_is_port_dp_dual_mode()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,136 +65,127 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-We need to untangle the mess where some SKL machines (at least)
-declare both DDI A and DDI E to be present in their VBT, and
-both using AUX A. DDI A is a ghost eDP, wheres DDI E may be a
-real DP->VGA converter.
+Now that we have encoder->devdata everwhere we don't need
+the intel_bios_is_port_dp_dual_mode() wrapper any more.
 
-Currently that is handled by checking the VBT child devices
-for conflicts before output probing. But that kind of solution
-will not work for the ADL phantom dual eDP VBTs. I think on
-those we just have to probe the eDP first. And would be nice
-to use the same probe scheme for everything.
+And while at it let's include it in the child device log
+dump as well since the logic in there is a bit more complex
+than just DP&&HDMI.
 
-On these SKL systems if we probe DDI A first (which is only
-natural given it's declared by VBT first) we will get an answer
-via AUX, but it came from the DP->VGA converter hooked to the
-DDI E, not DDI A. Thus we mistakenly register eDP on DDI A
-and screw up the real DP device in DDI E.
-
-To fix this let's check the HPD live state during the eDP probe.
-If we got an answer via DPCD but HPD is still down let's assume
-we got the answer from someone else.
-
-Smoke tested on all my eDP machines (ilk,hsw-ult,tgl,adl) and
-I also tested turning off all HPD hardware prior to loading
-i915 to make sure it all comes up properly. And I simulated
-the failure path too by not turning on HPD sense and that
-correctly gave up on eDP.
-
-I *think* Windows might just fully depend on HPD here. I
-couldn't really find any other way they probe displays. And
-I did find code where they also check the live state prior
-to AUX transfers (something Imre and I have also talked
-about perhaps doing). That would also solve this as we'd
-not succeed in the eDP probe DPCD reads.
-
-Other solutions I've considered:
-
-- Reintrduce DDI strap checks on SKL. Unfortunately we just
-  don't have any idea how reliable they are on real production
-  hardware, and commit 5a2376d1360b ("drm/i915/skl: WaIgnoreDDIAStrap
-  is forever, always init DDI A") does suggest that not very.
-  Sadly that commit is very poor in details :/
-
-  Also the systems (Asrock B250M-HDV at least) fixed by commit
-  41e35ffb380b ("drm/i915: Favor last VBT child device with
-  conflicting AUX ch/DDC pin") might still not work since we
-  don't know what their straps indicate. Stupid me for not
-  asking the reporter to check those at the time :(
-
-  We have currently two CI machines (fi-cfl-guc,fi-cfl-8700k
-  both MS-7B54/Z370M) that also declare both DDI A and DDI E
-  in VBT to use AUX A, and on these the DDI A strap is also
-  set. There doesn't seem to be anything hooked up to either
-  DDI however. But given the DDI A strap is wrong on these it
-  might well be wrong on the Asrock too.
-
-  Most other CI machines seem to have straps that generally
-  match the VBT. fi-kbl-soraka is an exception though as DDI D
-  strap is not set, but it is declared in VBT as a DP++ port.
-  No idea if there's a real physical port to go with it or not.
-
-- Some kind of quirk just for the cases where both DDI A and DDI E
-  are present in VBT. Might be feasible given we've ignored
-  DDI A in these cases up to now successfully. But feels rather
-  unsatisfactory, and not very future proof against funny VBTs.
-
-References: https://bugs.freedesktop.org/show_bug.cgi?id=111966
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 28 +++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ drivers/gpu/drm/i915/display/intel_bios.c | 14 +++-----------
+ drivers/gpu/drm/i915/display/intel_bios.h |  2 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c |  6 +++---
+ 3 files changed, 7 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index b77bd4565864..8a871a657b74 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -45,8 +45,9 @@
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index cec38ed935e0..4ddced8c049c 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -2676,10 +2676,11 @@ static void print_ddi_port(const struct intel_bios_encoder_data *devdata,
+ 	supports_typec_usb = intel_bios_encoder_supports_typec_usb(devdata);
+ 	supports_tbt = intel_bios_encoder_supports_tbt(devdata);
  
- #include "g4x_dp.h"
- #include "i915_debugfs.h"
- #include "i915_drv.h"
-+#include "i915_irq.h"
- #include "i915_reg.h"
- #include "intel_atomic.h"
- #include "intel_audio.h"
- #include "intel_backlight.h"
-@@ -5303,8 +5304,17 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
- 		 */
- 		goto out_vdd_off;
+ 	drm_dbg_kms(&i915->drm,
+-		    "Port %c VBT info: CRT:%d DVI:%d HDMI:%d DP:%d eDP:%d DSI:%d LSPCON:%d USB-Type-C:%d TBT:%d DSC:%d\n",
++		    "Port %c VBT info: CRT:%d DVI:%d HDMI:%d DP:%d eDP:%d DSI:%d DP++:%d LSPCON:%d USB-Type-C:%d TBT:%d DSC:%d\n",
+ 		    port_name(port), is_crt, is_dvi, is_hdmi, is_dp, is_edp, is_dsi,
++		    intel_bios_encoder_supports_dp_dual_mode(devdata),
+ 		    intel_bios_encoder_is_lspcon(devdata),
+ 		    supports_typec_usb, supports_tbt,
+ 		    devdata->dsc != NULL);
+ 
+@@ -3432,9 +3433,9 @@ bool intel_bios_is_port_present(struct drm_i915_private *i915, enum port port)
+ 
+ 	return false;
+ }
+ 
+-static bool intel_bios_encoder_supports_dp_dual_mode(const struct intel_bios_encoder_data *devdata)
++bool intel_bios_encoder_supports_dp_dual_mode(const struct intel_bios_encoder_data *devdata)
+ {
+ 	const struct child_device_config *child = &devdata->child;
+ 
+ 	if (!intel_bios_encoder_supports_dp(devdata) ||
+@@ -3451,17 +3452,8 @@ static bool intel_bios_encoder_supports_dp_dual_mode(const struct intel_bios_enc
+ 
+ 	return false;
+ }
+ 
+-bool intel_bios_is_port_dp_dual_mode(struct drm_i915_private *i915,
+-				     enum port port)
+-{
+-	const struct intel_bios_encoder_data *devdata =
+-		intel_bios_encoder_data_lookup(i915, port);
+-
+-	return devdata && intel_bios_encoder_supports_dp_dual_mode(devdata);
+-}
+-
+ /**
+  * intel_bios_is_dsi_present - is DSI present in VBT
+  * @i915:	i915 device instance
+  * @port:	port for DSI if present
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.h b/drivers/gpu/drm/i915/display/intel_bios.h
+index a3ff67c41128..3c4f7d5e909b 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.h
++++ b/drivers/gpu/drm/i915/display/intel_bios.h
+@@ -246,9 +246,8 @@ bool intel_bios_is_valid_vbt(const void *buf, size_t size);
+ bool intel_bios_is_tv_present(struct drm_i915_private *dev_priv);
+ bool intel_bios_is_lvds_present(struct drm_i915_private *dev_priv, u8 *i2c_pin);
+ bool intel_bios_is_port_present(struct drm_i915_private *dev_priv, enum port port);
+ bool intel_bios_is_port_edp(struct drm_i915_private *dev_priv, enum port port);
+-bool intel_bios_is_port_dp_dual_mode(struct drm_i915_private *dev_priv, enum port port);
+ bool intel_bios_is_dsi_present(struct drm_i915_private *dev_priv, enum port *port);
+ bool intel_bios_get_dsc_params(struct intel_encoder *encoder,
+ 			       struct intel_crtc_state *crtc_state,
+ 			       int dsc_max_bpc);
+@@ -265,8 +264,9 @@ bool intel_bios_encoder_supports_hdmi(const struct intel_bios_encoder_data *devd
+ bool intel_bios_encoder_supports_dp(const struct intel_bios_encoder_data *devdata);
+ bool intel_bios_encoder_supports_edp(const struct intel_bios_encoder_data *devdata);
+ bool intel_bios_encoder_supports_typec_usb(const struct intel_bios_encoder_data *devdata);
+ bool intel_bios_encoder_supports_tbt(const struct intel_bios_encoder_data *devdata);
++bool intel_bios_encoder_supports_dp_dual_mode(const struct intel_bios_encoder_data *devdata);
+ bool intel_bios_encoder_is_lspcon(const struct intel_bios_encoder_data *devdata);
+ bool intel_bios_encoder_lane_reversal(const struct intel_bios_encoder_data *devdata);
+ bool intel_bios_encoder_hpd_invert(const struct intel_bios_encoder_data *devdata);
+ enum aux_ch intel_bios_dp_aux_ch(const struct intel_bios_encoder_data *devdata);
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index c7e9e1fbed37..e6f887d75a70 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2371,9 +2371,9 @@ static void
+ intel_hdmi_dp_dual_mode_detect(struct drm_connector *connector)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(connector->dev);
+ 	struct intel_hdmi *hdmi = intel_attached_hdmi(to_intel_connector(connector));
+-	enum port port = hdmi_to_dig_port(hdmi)->base.port;
++	struct intel_encoder *encoder = &hdmi_to_dig_port(hdmi)->base;
+ 	struct i2c_adapter *adapter =
+ 		intel_gmbus_get_adapter(dev_priv, hdmi->ddc_bus);
+ 	enum drm_dp_dual_mode_type type = drm_dp_dual_mode_detect(&dev_priv->drm, adapter);
+ 
+@@ -2387,9 +2387,9 @@ intel_hdmi_dp_dual_mode_detect(struct drm_connector *connector)
+ 	 * if the port is a dual mode capable DP port.
+ 	 */
+ 	if (type == DRM_DP_DUAL_MODE_UNKNOWN) {
+ 		if (!connector->force &&
+-		    intel_bios_is_port_dp_dual_mode(dev_priv, port)) {
++		    intel_bios_encoder_supports_dp_dual_mode(encoder->devdata)) {
+ 			drm_dbg_kms(&dev_priv->drm,
+ 				    "Assuming DP dual mode adaptor presence based on VBT\n");
+ 			type = DRM_DP_DUAL_MODE_TYPE1_DVI;
+ 		} else {
+@@ -2410,9 +2410,9 @@ intel_hdmi_dp_dual_mode_detect(struct drm_connector *connector)
+ 		    hdmi->dp_dual_mode.max_tmds_clock);
+ 
+ 	/* Older VBTs are often buggy and can't be trusted :( Play it safe. */
+ 	if ((DISPLAY_VER(dev_priv) >= 8 || IS_HASWELL(dev_priv)) &&
+-	    !intel_bios_is_port_dp_dual_mode(dev_priv, port)) {
++	    !intel_bios_encoder_supports_dp_dual_mode(encoder->devdata)) {
+ 		drm_dbg_kms(&dev_priv->drm,
+ 			    "Ignoring DP dual mode adaptor max TMDS clock for native HDMI port\n");
+ 		hdmi->dp_dual_mode.max_tmds_clock = 0;
  	}
- 
-+	/*
-+	 * Enable HPD sense for live status check.
-+	 * intel_hpd_irq_setup() will turn it off again
-+	 * if it's no longer needed later.
-+	 *
-+	 * The DPCD probe below will make sure VDD is on.
-+	 */
-+	intel_hpd_detection(encoder, true);
-+
- 	/* Cache DPCD and EDID for edp. */
- 	has_dpcd = intel_edp_init_dpcd(intel_dp);
- 
- 	if (!has_dpcd) {
-@@ -5314,8 +5324,26 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
- 			 encoder->base.base.id, encoder->base.name);
- 		goto out_vdd_off;
- 	}
- 
-+	/*
-+	 * VBT and straps are liars. Also check HPD as that seems
-+	 * to be the most reliable piece of information available.
-+	 */
-+	if (!intel_digital_port_connected(encoder)) {
-+		/*
-+		 * If this fails, presume the DPCD answer came
-+		 * from some other port using the same AUX CH.
-+		 *
-+		 * FIXME maybe cleaner to check this before the
-+		 * DPCD read? Would need sort out the VDD handling...
-+		 */
-+		drm_info(&dev_priv->drm,
-+			 "[ENCODER:%d:%s] HPD is down, disabling eDP\n",
-+			 encoder->base.base.id, encoder->base.name);
-+		goto out_vdd_off;
-+	}
-+
- 	mutex_lock(&dev_priv->drm.mode_config.mutex);
- 	drm_edid = drm_edid_read_ddc(connector, &intel_dp->aux.ddc);
- 	if (!drm_edid) {
- 		/* Fallback to EDID from ACPI OpRegion, if any */
 -- 
 2.39.2
 
