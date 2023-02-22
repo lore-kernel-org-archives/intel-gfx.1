@@ -4,54 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8D8AC61DA4
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Feb 2023 14:25:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B745C61DA4
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Feb 2023 14:26:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D226810E9D1;
-	Wed, 22 Feb 2023 14:25:21 +0000 (UTC)
-X-Greylist: delayed 437 seconds by postgrey-1.36 at gabe;
- Wed, 22 Feb 2023 14:25:19 UTC
-Received: from srv6.fidu.org (srv6.fidu.org [IPv6:2a01:4f8:231:de0::2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C97ED10E9BD;
- Wed, 22 Feb 2023 14:25:19 +0000 (UTC)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id 84F9DC800A7;
- Wed, 22 Feb 2023 15:18:00 +0100 (CET)
-Authentication-Results: srv6.fidu.org (amavisd-new); dkim=pass (1024-bit key)
- reason="pass (just generated, assumed good)"
- header.d=tuxedocomputers.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=
- tuxedocomputers.com; h=content-transfer-encoding:mime-version
- :x-mailer:message-id:date:date:subject:subject:from:from; s=
- default; t=1677075480; x=1678889881; bh=ujp8UtH/HkS7PA/cnHZUF8LF
- g6XQmk9qH7vri3P5DdQ=; b=fHH/Yxcvf63Bcaq6ys0nw4zUtAqBHpYn6uB541qX
- nGalq1BNBLlvNU5mtpuSdqwYdHfuPcsT27B22JjVwCituLLBHO5VWsMnmfNYM6uF
- fQtO9hXG8IP9dP3+5//M5XAMSR+n+GxV42Cpv2CKIm+7XohWiEhHyByi4HCpknqe
- h3o=
-X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
-Received: from srv6.fidu.org ([127.0.0.1])
- by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10026)
- with LMTP id YHOPEZUT_uB0; Wed, 22 Feb 2023 15:18:00 +0100 (CET)
-Received: from wsembach-tuxedo.fritz.box
- (host-88-217-226-44.customer.m-online.net [88.217.226.44])
- (Authenticated sender: wse@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPA id 164F1C800A2;
- Wed, 22 Feb 2023 15:17:59 +0100 (CET)
-From: Werner Sembach <wse@tuxedocomputers.com>
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tvrtko.ursulin@linux.intel.com, airlied@gmail.com,
- daniel@ffwll.ch, jose.souza@intel.com, jouni.hogander@intel.com,
- mika.kahola@intel.com, ville.syrjala@linux.intel.com,
- lucas.demarchi@intel.com, Diego.SantaCruz@spinetix.com,
- wse@tuxedocomputers.com, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Wed, 22 Feb 2023 15:17:53 +0100
-Message-Id: <20230222141755.1060162-1-wse@tuxedocomputers.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B51410E9D9;
+	Wed, 22 Feb 2023 14:26:05 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5C8A910E9D8;
+ Wed, 22 Feb 2023 14:26:04 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 52341A0BCB;
+ Wed, 22 Feb 2023 14:26:04 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/2] Add quirk to disable PSR 2 on Tongfang
- PHxTxX1 and PHxTQx1
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Werner Sembach" <wse@tuxedocomputers.com>
+Date: Wed, 22 Feb 2023 14:26:04 -0000
+Message-ID: <167707596433.6088.6339572797723995498@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230222141755.1060162-1-wse@tuxedocomputers.com>
+In-Reply-To: <20230222141755.1060162-1-wse@tuxedocomputers.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBB?=
+ =?utf-8?q?dd_quirk_to_disable_PSR_2_on_Tongfang_PHxTxX1_and_PHxTQx1?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,21 +40,28 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On these Barebones PSR 2 is recognized as supported but is very buggy:
-- Upper third of screen does sometimes not updated, resulting in
-disappearing cursors or ghosts of already closed Windows saying behind.
-- Approximately 40 px from the bottom edge a 3 pixel wide strip of randomly
-colored pixels is flickering.
+== Series Details ==
 
-PSR 1 is working fine however.
+Series: Add quirk to disable PSR 2 on Tongfang PHxTxX1 and PHxTQx1
+URL   : https://patchwork.freedesktop.org/series/114256/
+State : failure
 
-This patchset introduces a new quirk to disable PSR 2 specifically on known
-buggy devices and applies it to the Tongfang PHxTxX1 and PHxTQx1 barebones.
+== Summary ==
 
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-Cc: <stable@vger.kernel.org>
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/114256/revisions/1/mbox/ not applied
+Applying: Add quirk to disable PSR 2 on a per device basis
+Applying: Apply quirk to disable PSR 2 on Tongfang PHxTxX1 and PHxTQx1
+error: sha1 information is lacking or useless (drivers/gpu/drm/i915/display/intel_quirks.c).
+error: could not build fake ancestor
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0002 Apply quirk to disable PSR 2 on Tongfang PHxTxX1 and PHxTQx1
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
 
 
