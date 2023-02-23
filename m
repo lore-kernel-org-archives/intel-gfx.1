@@ -4,45 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37F6EC636D6
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Feb 2023 18:44:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26C35C636D6
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Feb 2023 18:48:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0E9B10E0CD;
-	Thu, 23 Feb 2023 18:44:26 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B379810E0CD
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Feb 2023 18:44:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677177864; x=1708713864;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=nMOwGa0FQnkF8AsaMToYlyJ+v0mbsQslbZG3d90irP0=;
- b=U0NxfFUGiwzIMcFKTEKFTzAi7jv3UEmD22BQcZfHbLaFc/qFUaIyuDmM
- CeKyYg22Azdz9G/Xn4joAVliIExKDkmtg4M9KH4eqDwXNovhHa3/SI8VB
- QX/z58sn13c+uwwlEC26R9NjJ04WJn+wfM7CPxwGqVYncVCz75dxYY4ID
- dpEe1yJvrEoIWz3pEoo/ve/tHRV9M7Mx3g3MMCcuXFibME9ThAxtn3s+m
- vb+MbP762Uki09khG3EXRHoIiDqyO6nQtrhlWT/Qqc9WJufmr1F99RT4f
- aOaQcxdvu0ivmTfdsf7pOaJ+CKWWso0p7ceMy2MroUheToUE41PCJlqZq A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10630"; a="419526478"
-X-IronPort-AV: E=Sophos;i="5.97,322,1669104000"; d="scan'208";a="419526478"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2023 10:44:24 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10630"; a="622427587"
-X-IronPort-AV: E=Sophos;i="5.97,322,1669104000"; d="scan'208";a="622427587"
-Received: from dut-internal-9dd7.jf.intel.com ([10.24.14.53])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2023 10:44:23 -0800
-From: Jonathan Cavitt <jonathan.cavitt@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 23 Feb 2023 10:39:54 -0800
-Message-Id: <20230223183954.1817632-1-jonathan.cavitt@intel.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1021810E0EE;
+	Thu, 23 Feb 2023 18:48:54 +0000 (UTC)
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A0FD10E056;
+ Thu, 23 Feb 2023 18:48:51 +0000 (UTC)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id AD210320097D;
+ Thu, 23 Feb 2023 13:48:47 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Thu, 23 Feb 2023 13:48:49 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
+ :cc:content-type:date:date:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to; s=fm2; t=1677178127; x=1677264527; bh=BpYQ/oNHui
+ kb98jCNEtNQWYMqBRN0mOzyY1zSw9A/3g=; b=Xggmm49AJArmMI0ra/GpcMzSH3
+ hQforTjfLUMLyHlMzOgjLZzo9wheMboqfZ+RWTWr/NfIuZWeiBuGoSLiAhE9ht72
+ li3a9FTp0xe4Q3lEfpeCx6rY4jziUm/MkR6ijB1UbRyzGhtcoRacfIrgIwSlO7nf
+ mwPambK7Roup87CmnyT244u4p7qgq/ujE8I83jUqhIlfM29DawnhTH6zm2LaxjrE
+ raZyVVIy+r8jN6RokvzA+XKeLd9ErX2PsXz0Pr0Flpl3BNpRgZU08A84nAoFXY+w
+ CM6vvUrF838IHMCwx5z/n1fLMY0n31soKJtWjV0qu+4ug750sLXZpTkkxtjg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+ :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:sender:subject:subject:to:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; t=1677178127; x=1677264527; bh=BpYQ/oNHuikb98jCNEtNQWYMqBRN
+ 0mOzyY1zSw9A/3g=; b=X19F0GdBfNG6n7LDLHicN3trSdDueA8btQNYLMoENFMe
+ wBihD3iKnJyHEiGztB+RCSddMoln3V1a9yshi5GyyRalVthqune9l17nIMGaQH/d
+ Z4Xgwfz6ZKey8YP65CXET8Lgn2ZP5ywudE8UspWbmkWVBhKlQaFLwQhIWOZqPMcJ
+ 9qrRf7Y9BbK6fm+KJ0nU4fjQqyZI3vRSR56BtF/XN/oFHZxC1H2IelhId5a1sCgS
+ 7ZYruGghfsC8ktrXRxpBQErP7ig7CgSR3BwOu19wFqAoYYVH7qJ4lFCmcNRAKhZw
+ Ofxq/pfCNG3N91fQI2TDox3rkuFyX1vmQxfcxQmVxg==
+X-ME-Sender: <xms:DrX3Y68NPUvQ47SGHfhfgBUK6i9fZ74UxBrtYKdIyByJI2x72yZiRA>
+ <xme:DrX3Y6splIoX8iPU5mTwCceIr95iDq-W3TBVKawN4LoA6Eq4ux4lcCsue7NZ1iSNA
+ ONTS1YJqCIOVtyu54g>
+X-ME-Received: <xmr:DrX3YwC4iclzqnkZauHgH7aoHeuUQuGOtLwlnPfm1hDWLS4VjQ212tnzyL2QBKHcRYLsQ6VZ3UzJizWstQ-Mzz30gIbR9CA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudekuddguddugecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeforgig
+ ihhmvgcutfhiphgrrhguuceomhgrgihimhgvsegtvghrnhhordhtvggthheqnecuggftrf
+ grthhtvghrnhepteefffefgfektdefgfeludfgtdejfeejvddttdekteeiffejvdfgheeh
+ fffhvedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
+ epmhgrgihimhgvsegtvghrnhhordhtvggthh
+X-ME-Proxy: <xmx:DrX3YyfE1m9IWLFNB4697OzZ-PmsOLPp_M-yfjxBnpI3qSHCKJabFg>
+ <xmx:DrX3Y_NS5HQ-RJSYpU8FNtWkE5pOwrsOGLPXKxYeaUaUbLH0Qy_kvQ>
+ <xmx:DrX3Y8k_qJqoGunNE47kqDi5lZjsPXG15vbMb1sRYnK8u_2vOfpqJA>
+ <xmx:D7X3Y6EYtdwaYHCZJap2ACzaCm0vmWFeOXh0ibG1aMT1hOU_V9XBRQ>
+Feedback-ID: i8771445c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 23 Feb 2023 13:48:45 -0500 (EST)
+Date: Thu, 23 Feb 2023 19:48:43 +0100
+From: Maxime Ripard <maxime@cerno.tech>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Message-ID: <20230223184843.7lkgilnk7kguax2e@houat>
+References: <407a36f9-9f12-127e-a0e7-a17a1e8f3e79@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/mtl: X-Tile support changes to client
- blits
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="r5bqapkm7bp63h5r"
+Content-Disposition: inline
+In-Reply-To: <407a36f9-9f12-127e-a0e7-a17a1e8f3e79@linux.intel.com>
+Subject: Re: [Intel-gfx] [PULL] drm-misc-next-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,66 +82,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lucas.demarchi@intel.com, matthew.d.roper@intel.com,
- jonathan.cavitt@intel.com, saurabhg.gupta@intel.com,
- chris.p.wilson@linux.intel.com
+Cc: dim-tools@lists.freedesktop.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Dave Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Refactor the supports_x_tiling and fast_blit_ok helper
-functions in the live client selftest to better reflect
-when XY_FAST_COPY_BLT supports X-tile and can be used.
 
-Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
----
- .../i915/gem/selftests/i915_gem_client_blt.c  | 19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
+--r5bqapkm7bp63h5r
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
-index 3bb1f7f0110e..ff81af4c8202 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_client_blt.c
-@@ -108,31 +108,30 @@ struct tiled_blits {
- 	u32 height;
- };
- 
--static bool supports_x_tiling(const struct drm_i915_private *i915)
-+static bool fastblit_supports_x_tiling(const struct drm_i915_private *i915)
- {
- 	int gen = GRAPHICS_VER(i915);
- 
-+	/* XY_FAST_COPY_BLT does not exist on pre-gen9 platforms */
-+	drm_WARN_ON(&i915->drm, gen < 9);
-+
- 	if (gen < 12)
- 		return true;
- 
--	if (!HAS_LMEM(i915) || IS_DG1(i915))
-+	if (GRAPHICS_VER_FULL(i915) < IP_VER(12, 50))
- 		return false;
- 
--	return true;
-+	return HAS_DISPLAY(i915);
- }
- 
- static bool fast_blit_ok(const struct blit_buffer *buf)
- {
--	int gen = GRAPHICS_VER(buf->vma->vm->i915);
--
--	if (gen < 9)
-+	/* XY_FAST_COPY_BLT does not exist on pre-gen9 platforms */
-+	if (GRAPHICS_VER(buf->vma->vm->i915) < 9)
- 		return false;
- 
--	if (gen < 12)
--		return true;
--
- 	/* filter out platforms with unsupported X-tile support in fastblit */
--	if (buf->tiling == CLIENT_TILING_X && !supports_x_tiling(buf->vma->vm->i915))
-+	if (buf->tiling == CLIENT_TILING_X && !fastblit_supports_x_tiling(buf->vma->vm->i915))
- 		return false;
- 
- 	return true;
--- 
-2.25.1
+Hi Maarten,
 
+On Thu, Feb 23, 2023 at 07:25:23PM +0100, Maarten Lankhorst wrote:
+> Hi Dave and Daniel,
+>=20
+> Here's the first pull request for v6.4-rc1.
+>=20
+> Enjoy!
+>=20
+> ~Maarten
+>=20
+> drm-misc-next-2023-02-23:
+> drm-misc-next for v6.4-rc1:
+>=20
+> First pull request to keep the delta from growing too big.
+
+This isn't drm-misc-next-fixes but drm-misc-next?
+
+Maxime
+
+--r5bqapkm7bp63h5r
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCY/e1CwAKCRDj7w1vZxhR
+xUulAQDwAk9ysrfLm2K7GPy12JpYE+ms8CwW9nj1Mn8VDteClgEAxBJ/zGWttWSQ
+emUnzLHswjeDqnIDHYbjjeVG6rAIBA4=
+=y729
+-----END PGP SIGNATURE-----
+
+--r5bqapkm7bp63h5r--
