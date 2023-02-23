@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA0DDC61DA4
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Feb 2023 13:46:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89808C61DA4
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Feb 2023 13:46:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 664F210EB9B;
-	Thu, 23 Feb 2023 13:46:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E129D10EB97;
+	Thu, 23 Feb 2023 13:46:19 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB80610E4F2
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Feb 2023 13:45:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E10CD10EB97
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 Feb 2023 13:46:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677159957; x=1708695957;
+ t=1677159970; x=1708695970;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=lcfQiPh+Q/i9xVGqHNflMXiIzV3kWh1PvCuze9ATfN8=;
- b=RyPSZN5HsyzznkTHNT0B5v+6liFwXGz7wAg8EUFo5tMNw4TY/7NUM/u4
- L2gIxeIgU17y2CpeCQa2Bl5X4afX8z0b/64otpD9ZwzMRjSWl1r2x9x6P
- K80M77H+LDdGuStjimPOj/rUUh/mumGvXQKV+P12fkcSfiscbBco4TqRT
- +E9veihoEG5TRrRtLk6D2Kdu2cEgNK0ETsxQAgFa0sHYHurpDF1l8YZAX
- l9apoBiWA42UX2tC+qyZ91tXCG25EKNaG2GXxzMxO9qyy0g7nzDbEXntI
- qaLNc0JGjpM0knykI5hrcg9SM9O6I++w1c77n1LSXLL+McTP4xhI3Vjo9 w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10630"; a="334581688"
-X-IronPort-AV: E=Sophos;i="5.97,320,1669104000"; d="scan'208";a="334581688"
+ bh=IwPYV4oAA8CfG3FNxbtEZqr0ogXh0Y3BWHYn/P8yJcI=;
+ b=mMb420eHGMpNISt0eQnZL6caUBzqTO5rpxolhK42hGCVQP+V4DsRj2rW
+ /BNBWJogFoySSmCsu3dR3NreCRfJpOb4PBiQohQ+tmo/jkvAM9LwaUhbu
+ Tspgd0/75Pc8luxGTHFJZAzrql693AYXvavDMriOkYrT4YMD+dI5bXwOx
+ Q+ankKicy+IqMDPghqt16QVZ8EgL+Ju3emxRlX4UFCPOA9uLcxGEtQdQE
+ Lczr8Gc8JkVyKSbql22tKF6iiCxIQsCplfxJ7zTUOG+8rppx83l3Hlcpb
+ F8hftrB53jKmTSDpyL8qHr2bOKMTZZxJb6foqQeBqbC1PuTorwahNABkX Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10630"; a="334581735"
+X-IronPort-AV: E=Sophos;i="5.97,320,1669104000"; d="scan'208";a="334581735"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2023 05:45:57 -0800
+ 23 Feb 2023 05:46:09 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10630"; a="846562552"
-X-IronPort-AV: E=Sophos;i="5.97,320,1669104000"; d="scan'208";a="846562552"
+X-IronPort-AV: E=McAfee;i="6500,9779,10630"; a="846562673"
+X-IronPort-AV: E=Sophos;i="5.97,320,1669104000"; d="scan'208";a="846562673"
 Received: from sorvi2.fi.intel.com ([10.237.72.194])
- by orsmga005.jf.intel.com with ESMTP; 23 Feb 2023 05:45:56 -0800
+ by orsmga005.jf.intel.com with ESMTP; 23 Feb 2023 05:46:07 -0800
 From: Mika Kahola <mika.kahola@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 23 Feb 2023 15:40:14 +0200
-Message-Id: <20230223134021.2236889-16-mika.kahola@intel.com>
+Date: Thu, 23 Feb 2023 15:40:21 +0200
+Message-Id: <20230223134021.2236889-23-mika.kahola@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230223134021.2236889-1-mika.kahola@intel.com>
 References: <20230223134021.2236889-1-mika.kahola@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 15/22] drm/i915/mtl: Enabling/disabling
- sequence Thunderbolt pll
+Subject: [Intel-gfx] [PATCH v3 22/22] drm/i915/mtl: Pin assignment for TypeC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,228 +56,82 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Matt Roper <matthew.d.roper@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enabling and disabling sequence for Thunderbolt PLL.
+From: Anusha Srivatsa <anusha.srivatsa@intel.com>
 
-v2: Use __intel_de_wait_for_register() instead of
-    __intel_wait_for_register() (Jani)
-    Use '0' instead of ~XELPDP_TBT_CLOCK_ACK (Gustavo)
+Unlike previous platforms that used PORT_TX_DFLEXDPSP
+for max_lane calculation, MTL uses only PORT_TX_DFLEXPA1
+from which the max_lanes has to be calculated.
 
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
+Bspec: 50235, 65380
+
+Cc: Mika Kahola <mika.kahola@intel.com>
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Signed-off-by: Jose Roberto de Souza <jose.souza@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 136 ++++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_cx0_phy.h |   7 +-
- drivers/gpu/drm/i915/display/intel_ddi.c     |   4 +-
- 3 files changed, 138 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/display/intel_tc.c | 30 +++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index fb16ad7396f6..6ce3b8aaf773 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -15,7 +15,6 @@
- #include "intel_panel.h"
- #include "intel_tc.h"
- #include "intel_psr.h"
--#include "intel_uncore.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
+index 5756daac91d9..694d74088980 100644
+--- a/drivers/gpu/drm/i915/display/intel_tc.c
++++ b/drivers/gpu/drm/i915/display/intel_tc.c
+@@ -15,6 +15,10 @@
+ #include "intel_mg_phy_regs.h"
  #include "intel_tc.h"
  
- bool intel_is_c10phy(struct drm_i915_private *dev_priv, enum phy phy)
-@@ -2460,8 +2459,8 @@ static u32 intel_cx0_get_pclk_pll_ack(u8 lane)
- 		       XELPDP_LANE1_PCLK_PLL_ACK;
- }
- 
--void intel_cx0pll_enable(struct intel_encoder *encoder,
--			 const struct intel_crtc_state *crtc_state)
-+static void intel_cx0pll_enable(struct intel_encoder *encoder,
-+				const struct intel_crtc_state *crtc_state)
++#define DP_PIN_ASSIGNMENT_C	0x3
++#define DP_PIN_ASSIGNMENT_D	0x4
++#define DP_PIN_ASSIGNMENT_E	0x5
++
+ static const char *tc_port_mode_name(enum tc_port_mode mode)
  {
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	enum phy phy = intel_port_to_phy(i915, encoder->port);
-@@ -2534,7 +2533,86 @@ void intel_cx0pll_enable(struct intel_encoder *encoder,
- 	intel_cx0_phy_transaction_end(encoder, wakeref);
+ 	static const char * const names[] = {
+@@ -147,6 +151,29 @@ u32 intel_tc_port_get_pin_assignment_mask(struct intel_digital_port *dig_port)
+ 	       DP_PIN_ASSIGNMENT_SHIFT(dig_port->tc_phy_fia_idx);
  }
  
--void intel_cx0pll_disable(struct intel_encoder *encoder)
-+static int intel_mtl_tbt_clock_select(struct drm_i915_private *i915, int clock)
++static int mtl_tc_port_get_pin_assignment_mask(struct intel_digital_port *dig_port)
 +{
-+	switch (clock) {
-+	case 162000:
-+		return XELPDP_DDI_CLOCK_SELECT_TBT_162;
-+	case 270000:
-+		return XELPDP_DDI_CLOCK_SELECT_TBT_270;
-+	case 540000:
-+		return XELPDP_DDI_CLOCK_SELECT_TBT_540;
-+	case 810000:
-+		return XELPDP_DDI_CLOCK_SELECT_TBT_810;
++	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++	intel_wakeref_t wakeref;
++	u32 pin_mask;
++
++	assert_tc_cold_blocked(dig_port);
++
++	with_intel_display_power(i915, POWER_DOMAIN_DISPLAY_CORE, wakeref)
++		pin_mask = intel_tc_port_get_pin_assignment_mask(dig_port);
++
++	switch(pin_mask) {
 +	default:
-+		MISSING_CASE(clock);
-+		return XELPDP_DDI_CLOCK_SELECT_TBT_162;
-+       }
++		MISSING_CASE(pin_mask);
++		fallthrough;
++	case DP_PIN_ASSIGNMENT_D:
++		return 2;
++	case DP_PIN_ASSIGNMENT_C:
++	case DP_PIN_ASSIGNMENT_E:
++		return 4;
++	}
 +}
 +
-+static void intel_mtl_tbt_pll_enable(struct intel_encoder *encoder,
-+				     const struct intel_crtc_state *crtc_state)
-+{
-+	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
-+	enum phy phy = intel_port_to_phy(i915, encoder->port);
-+	u32 val = 0;
-+
-+	/*
-+	 * 1. Program PORT_CLOCK_CTL REGISTER to configure
-+	 * clock muxes, gating and SSC
-+	 */
-+	val |= XELPDP_DDI_CLOCK_SELECT(intel_mtl_tbt_clock_select(i915, crtc_state->port_clock));
-+	val |= XELPDP_FORWARD_CLOCK_UNGATE;
-+	intel_de_rmw(i915, XELPDP_PORT_CLOCK_CTL(encoder->port),
-+		     XELPDP_DDI_CLOCK_SELECT_MASK | XELPDP_FORWARD_CLOCK_UNGATE, val);
-+
-+	/* 2. Read back PORT_CLOCK_CTL REGISTER */
-+	val = intel_de_read(i915, XELPDP_PORT_CLOCK_CTL(encoder->port));
-+
-+	/*
-+	 * 3. Follow the Display Voltage Frequency Switching - Sequence
-+	 * Before Frequency Change. We handle this step in bxt_set_cdclk().
-+	 */
-+
-+	/*
-+	 * 4. Set PORT_CLOCK_CTL register TBT CLOCK Request to "1" to enable PLL.
-+	 */
-+	val |= XELPDP_TBT_CLOCK_REQUEST;
-+	intel_de_write(i915, XELPDP_PORT_CLOCK_CTL(encoder->port), val);
-+
-+	/* 5. Poll on PORT_CLOCK_CTL TBT CLOCK Ack == "1". */
-+	if (__intel_de_wait_for_register(i915, XELPDP_PORT_CLOCK_CTL(encoder->port),
-+				         XELPDP_TBT_CLOCK_ACK,
-+				         XELPDP_TBT_CLOCK_ACK,
-+				         100, 0, NULL))
-+		drm_warn(&i915->drm, "[ENCODER:%d:%s][%c] PHY PLL not locked after 100us.\n",
-+			 encoder->base.base.id, encoder->base.name, phy_name(phy));
-+
-+	/*
-+	 * 6. Follow the Display Voltage Frequency Switching Sequence After
-+	 * Frequency Change. We handle this step in bxt_set_cdclk().
-+	 */
-+
-+	/*
-+	 * 7. Program DDI_CLK_VALFREQ to match intended DDI
-+	 * clock frequency.
-+	 */
-+	intel_de_write(i915, DDI_CLK_VALFREQ(encoder->port),
-+		       crtc_state->port_clock);
-+}
-+
-+void intel_mtl_pll_enable(struct intel_encoder *encoder,
-+			  const struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
-+
-+	if (intel_tc_port_in_tbt_alt_mode(dig_port))
-+		intel_mtl_tbt_pll_enable(encoder, crtc_state);
-+	else
-+		intel_cx0pll_enable(encoder, crtc_state);
-+}
-+
-+static void intel_cx0pll_disable(struct intel_encoder *encoder)
+ int intel_tc_port_fia_max_lane_count(struct intel_digital_port *dig_port)
  {
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	enum phy phy = intel_port_to_phy(i915, encoder->port);
-@@ -2586,6 +2664,56 @@ void intel_cx0pll_disable(struct intel_encoder *encoder)
- 	intel_cx0_phy_transaction_end(encoder, wakeref);
- }
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+@@ -156,6 +183,9 @@ int intel_tc_port_fia_max_lane_count(struct intel_digital_port *dig_port)
+ 	if (dig_port->tc_mode != TC_PORT_DP_ALT)
+ 		return 4;
  
-+static void intel_mtl_tbt_pll_disable(struct intel_encoder *encoder)
-+{
-+	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
-+	enum phy phy = intel_port_to_phy(i915, encoder->port);
++	if (DISPLAY_VER(i915) >= 14)
++		return mtl_tc_port_get_pin_assignment_mask(dig_port);
 +
-+	/*
-+	 * 1. Follow the Display Voltage Frequency Switching Sequence Before
-+	 * Frequency Change. We handle this step in bxt_set_cdclk().
-+	 */
-+
-+	/*
-+	 * 2. Set PORT_CLOCK_CTL register TBT CLOCK Request to "0" to disable PLL.
-+	 */
-+	intel_de_rmw(i915, XELPDP_PORT_CLOCK_CTL(encoder->port),
-+		     XELPDP_TBT_CLOCK_REQUEST, 0);
-+
-+	/* 3. Poll on PORT_CLOCK_CTL TBT CLOCK Ack == "0". */
-+	if (__intel_de_wait_for_register(i915, XELPDP_PORT_CLOCK_CTL(encoder->port),
-+				         XELPDP_TBT_CLOCK_ACK,
-+				         0,
-+				         10, 0, NULL))
-+		drm_warn(&i915->drm, "[ENCODER:%d:%s][%c] PHY PLL not unlocked after 10us.\n",
-+			 encoder->base.base.id, encoder->base.name, phy_name(phy));
-+
-+	/*
-+	 * 4. Follow the Display Voltage Frequency Switching Sequence After
-+	 * Frequency Change. We handle this step in bxt_set_cdclk().
-+	 */
-+
-+	/*
-+	 * 5. Program PORT CLOCK CTRL register to disable and gate clocks
-+	 */
-+	intel_de_rmw(i915, XELPDP_PORT_CLOCK_CTL(encoder->port),
-+		     XELPDP_DDI_CLOCK_SELECT_MASK |
-+		     XELPDP_FORWARD_CLOCK_UNGATE, 0);
-+
-+	/* 6. Program DDI_CLK_VALFREQ to 0. */
-+	intel_de_write(i915, DDI_CLK_VALFREQ(encoder->port), 0);
-+}
-+
-+void intel_mtl_pll_disable(struct intel_encoder *encoder)
-+{
-+	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
-+
-+	if (intel_tc_port_in_tbt_alt_mode(dig_port))
-+		intel_mtl_tbt_pll_disable(encoder);
-+	else
-+		intel_cx0pll_disable(encoder);
-+}
-+
- void intel_c10mpllb_state_verify(struct intel_atomic_state *state,
- 				 struct intel_crtc_state *new_crtc_state)
- {
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.h b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-index 0a8e76fd101e..f8a86da4a3f7 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-@@ -26,9 +26,9 @@ enum phy;
- #define MB_WRITE_UNCOMMITTED		0
+ 	assert_tc_cold_blocked(dig_port);
  
- bool intel_is_c10phy(struct drm_i915_private *dev_priv, enum phy phy);
--void intel_cx0pll_enable(struct intel_encoder *encoder,
--			 const struct intel_crtc_state *crtc_state);
--void intel_cx0pll_disable(struct intel_encoder *encoder);
-+void intel_mtl_pll_enable(struct intel_encoder *encoder,
-+			  const struct intel_crtc_state *crtc_state);
-+void intel_mtl_pll_disable(struct intel_encoder *encoder);
- void intel_c10mpllb_readout_hw_state(struct intel_encoder *encoder,
- 				     struct intel_c10mpllb_state *pll_state);
- int intel_cx0mpllb_calc_state(struct intel_crtc_state *crtc_state,
-@@ -53,4 +53,5 @@ int intel_c20_phy_check_hdmi_link_rate(int clock);
- void intel_cx0_phy_ddi_vswing_sequence(struct intel_encoder *encoder,
- 				       const struct intel_crtc_state *crtc_state,
- 				       u32 level);
-+int intel_mtl_tbt_readout_hw_state(struct intel_encoder *encoder);
- #endif /* __INTEL_CX0_PHY_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 5ec856e3c3bf..5e940d2a39d2 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -4405,8 +4405,8 @@ void intel_ddi_init(struct drm_i915_private *dev_priv, enum port port)
- 	encoder->pipe_mask = ~0;
- 
- 	if (DISPLAY_VER(dev_priv) >= 14) {
--		encoder->enable_clock = intel_cx0pll_enable;
--		encoder->disable_clock = intel_cx0pll_disable;
-+		encoder->enable_clock = intel_mtl_pll_enable;
-+		encoder->disable_clock = intel_mtl_pll_disable;
- 		encoder->get_config = mtl_ddi_get_config;
- 	} else if (IS_DG2(dev_priv)) {
- 		encoder->enable_clock = intel_mpllb_enable;
+ 	lane_mask = 0;
 -- 
 2.34.1
 
