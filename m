@@ -4,47 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E23E5C6FA9D
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Feb 2023 10:20:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74E8AC64ED8
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Feb 2023 10:23:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46C0510E873;
-	Fri, 24 Feb 2023 10:20:18 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 474E510E852
- for <intel-gfx@lists.freedesktop.org>; Fri, 24 Feb 2023 10:19:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677233993; x=1708769993;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=LTpemj40iKHNdWnqmCUxWx9GaHs2ssrfGmkzRPqigJE=;
- b=U4NYX47LuI/RR8u4uhw+fVYGYT98wLfzOnGaheVW4W4CLZH31aQphiWY
- aGKCpBn3V75OayVlz7T00WPbbaKHTdUsVLzYcCudxXVxyieoC9m6MWe5K
- Ec5OCJA4C6M2PdQcFUsxqHN9WweTSCznx5D5z+QNjI+p93eNopTkj4ZFz
- DQ6TyHNZBEJSqqgMZUTFeF+4d3ab6Q6gqcGQub+qHSg6IJ4MdKvjJYaLR
- JjlauVbQeyzmOlVEZXvQFhu7+akKBHFvPamMyiGi77z0B00J0/FVyCQz7
- t/qzQitT4LxaTNuAkICucmX9Y7KNWZ3PxrUsTayzoIjZzI0wzihZ29QUK w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10630"; a="332129929"
-X-IronPort-AV: E=Sophos;i="5.97,324,1669104000"; d="scan'208";a="332129929"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2023 02:19:42 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10630"; a="672846660"
-X-IronPort-AV: E=Sophos;i="5.97,324,1669104000"; d="scan'208";a="672846660"
-Received: from sorvi2.fi.intel.com ([10.237.72.194])
- by orsmga002.jf.intel.com with ESMTP; 24 Feb 2023 02:19:40 -0800
-From: Mika Kahola <mika.kahola@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 24 Feb 2023 12:13:55 +0200
-Message-Id: <20230224101356.2390838-22-mika.kahola@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230224101356.2390838-1-mika.kahola@intel.com>
-References: <20230224101356.2390838-1-mika.kahola@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FB6710E878;
+	Fri, 24 Feb 2023 10:23:53 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id F15EC10E878;
+ Fri, 24 Feb 2023 10:23:51 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id E8C50A0BCB;
+ Fri, 24 Feb 2023 10:23:51 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 21/22] drm/i915/mtl: TypeC HPD live status
- query
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Date: Fri, 24 Feb 2023 10:23:51 -0000
+Message-ID: <167723423192.4565.11431432261582258157@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230224095152.30134-1-thomas.hellstrom@linux.intel.com>
+In-Reply-To: <20230224095152.30134-1-thomas.hellstrom@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/helpers=3A_Make_the_suballocation_manager_drm_generic_?=
+ =?utf-8?b?KHJldjIp?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,67 +41,73 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Imre Deak <imre.deak@intel.com>
+== Series Details ==
 
-The HPD live status for MTL has to be read from different set of
-registers. MTL deserves a new function for this purpose
-and cannot reuse the existing  HPD live status detection
+Series: drm/helpers: Make the suballocation manager drm generic (rev2)
+URL   : https://patchwork.freedesktop.org/series/114299/
+State : warning
 
-Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Signed-off-by: Imre Deak <imre.deak@intel.com>
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
----
- drivers/gpu/drm/i915/display/intel_tc.c | 30 +++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
-index 89dfc19de1b8..5756daac91d9 100644
---- a/drivers/gpu/drm/i915/display/intel_tc.c
-+++ b/drivers/gpu/drm/i915/display/intel_tc.c
-@@ -297,10 +297,40 @@ static u32 adl_tc_port_live_status_mask(struct intel_digital_port *dig_port)
- 	return mask;
- }
- 
-+static u32 xelpdp_tc_port_live_status_mask(struct intel_digital_port *dig_port)
-+{
-+	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
-+	enum tc_port tc_port = intel_port_to_tc(i915, dig_port->base.port);
-+	u32 isr_bit = i915->display.hotplug.pch_hpd[dig_port->base.hpd_pin];
-+	struct intel_uncore *uncore = &i915->uncore;
-+	u32 val, mask = 0;
-+	enum hpd_pin pin;
-+
-+	val = intel_uncore_read(uncore, PICAINTERRUPT_ISR);
-+	pin = HPD_PORT_TC1 + tc_port - TC_PORT_1;
-+	if (val & XELPDP_DP_ALT_HOTPLUG(pin))
-+		mask |= BIT(TC_PORT_DP_ALT);
-+	if (val & XELPDP_TBT_HOTPLUG(pin))
-+		mask |= BIT(TC_PORT_TBT_ALT);
-+
-+	if (dig_port->tc_legacy_port &&
-+	    intel_uncore_read(uncore, SDEISR) & isr_bit)
-+		mask |= BIT(TC_PORT_LEGACY);
-+
-+	/* The sink can be connected only in a single mode. */
-+	if (!drm_WARN_ON(&i915->drm, hweight32(mask) > 1))
-+		tc_port_fixup_legacy_flag(dig_port, mask);
-+
-+	return mask;
-+}
-+
- static u32 tc_port_live_status_mask(struct intel_digital_port *dig_port)
- {
- 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
- 
-+	if (DISPLAY_VER(i915) >= 14)
-+		return xelpdp_tc_port_live_status_mask(dig_port);
-+
- 	if (DISPLAY_VER(i915) >= 13)
- 		return adl_tc_port_live_status_mask(dig_port);
- 
--- 
-2.34.1
+Error: dim checkpatch failed
+9a396adf2225 drm/suballoc: Extract amdgpu_sa.c as generic suballocation helper
+Traceback (most recent call last):
+  File "scripts/spdxcheck.py", line 6, in <module>
+    from ply import lex, yacc
+ModuleNotFoundError: No module named 'ply'
+Traceback (most recent call last):
+  File "scripts/spdxcheck.py", line 6, in <module>
+    from ply import lex, yacc
+ModuleNotFoundError: No module named 'ply'
+-:66: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#66: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 584 lines checked
+32ed88e340b0 drm/amd: Convert amdgpu to use suballocation helper.
+-:62: CHECK:PREFER_KERNEL_TYPES: Prefer kernel type 'u64' over 'uint64_t'
+#62: FILE: drivers/gpu/drm/amd/amdgpu/amdgpu.h:430:
++	uint64_t			gpu_addr;
+
+total: 0 errors, 0 warnings, 1 checks, 487 lines checked
+c71372f410ef drm/radeon: Use the drm suballocation manager implementation.
+-:95: CHECK:PREFER_KERNEL_TYPES: Prefer kernel type 'u64' over 'uint64_t'
+#95: FILE: drivers/gpu/drm/radeon/radeon.h:518:
++	uint64_t			gpu_addr;
+
+-:156: CHECK:SPACING: spaces preferred around that '*' (ctx:VxV)
+#156: FILE: drivers/gpu/drm/radeon/radeon_ib.c:204:
++					      RADEON_IB_POOL_SIZE*64*1024, 256,
+ 					                         ^
+
+-:156: CHECK:SPACING: spaces preferred around that '*' (ctx:VxV)
+#156: FILE: drivers/gpu/drm/radeon/radeon_ib.c:204:
++					      RADEON_IB_POOL_SIZE*64*1024, 256,
+ 					                            ^
+
+-:166: CHECK:SPACING: spaces preferred around that '*' (ctx:VxV)
+#166: FILE: drivers/gpu/drm/radeon/radeon_ib.c:212:
++					      RADEON_IB_POOL_SIZE*64*1024, 256,
+ 					                         ^
+
+-:166: CHECK:SPACING: spaces preferred around that '*' (ctx:VxV)
+#166: FILE: drivers/gpu/drm/radeon/radeon_ib.c:212:
++					      RADEON_IB_POOL_SIZE*64*1024, 256,
+ 					                            ^
+
+-:211: CHECK:AVOID_EXTERNS: extern prototypes should be avoided in .h files
+#211: FILE: drivers/gpu/drm/radeon/radeon_object.h:200:
++extern int radeon_sa_bo_new(struct radeon_sa_manager *sa_manager,
+
+-:214: CHECK:AVOID_EXTERNS: extern prototypes should be avoided in .h files
+#214: FILE: drivers/gpu/drm/radeon/radeon_object.h:203:
++extern void radeon_sa_bo_free(struct drm_suballoc **sa_bo,
+
+total: 0 errors, 0 warnings, 7 checks, 551 lines checked
+
 
