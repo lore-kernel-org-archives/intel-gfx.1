@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AB6DC61DA3
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Feb 2023 10:19:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CFDCC64ED8
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Feb 2023 10:20:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A1C610E8AD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1F3C10E8B2;
 	Fri, 24 Feb 2023 10:19:58 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 867AF10E8AA
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E930910E8B3
  for <intel-gfx@lists.freedesktop.org>; Fri, 24 Feb 2023 10:19:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1677233992; x=1708769992;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ITXVXF2/nEYDr7DlovSH3xUQEYRSwszm3Qyqwtx2RjE=;
- b=RAIyuRBOkF0BwepOfUk8LLmk5yJnoPMzlSabjvcODZwJGl9zV0M60T7r
- wCjXhZCh83uDhRIxNhXM+d7ond4nTewOnT5lgepy0eKg4w4CB1RUfTofx
- CHqv4uL1r58G0QBiMWe5zx/miT9E8KRUBbqRT4e88UCAqFG9kDAnt0IgD
- t1q0TB0/lh/Po5wKKXspXVjrcMvRqC3aELJ9a1ENuCnB36BcnNxWU00iz
- 5zy3wM555KVKiRmwrki6yEYn/FQ2nPmP4kMbtqqpexqV5KuoLeKn0be7g
- qLA59IfZbUybopfKV3L6Tc5J0/K26k/R5MaZ3WTIxkqmWS4ZA34yoRE/H Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10630"; a="332129920"
-X-IronPort-AV: E=Sophos;i="5.97,324,1669104000"; d="scan'208";a="332129920"
+ bh=eTk0qSYwFuh2NPSbB6g5doT4YsQmWumDFaIUDTndSMk=;
+ b=PVcCI157Wf80q2Sx+mnX+adPxJP3EDaOkamjunBucBMftwrW5VnK8kfK
+ UUq6U/sE8IKQN0D+shBtpV7MnOEuCDUSxbH/aUgMdubjJ4pwoC1otN7ja
+ 93caTbJY5RLopWKsZickH3NyrW+TGwpBMVUT0WZjqvtT5eThyKNXmPm+v
+ WvUufzRg0yJaKT6BMLw1Do4F/GVwDhF/UWTYJm8JhTXgqquk65+vZexmS
+ OT8swrnvWfzcufRez2yxN/bErersoEXqDSjIPRcZfrcB3hr5qlPQVHoXL
+ A4i8wkFx3RYalpMq0zeBi0OH9Vh2ijqilw6Kj7fyRrriKyA+RVB7kYh+I w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10630"; a="332129928"
+X-IronPort-AV: E=Sophos;i="5.97,324,1669104000"; d="scan'208";a="332129928"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2023 02:19:37 -0800
+ 24 Feb 2023 02:19:40 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10630"; a="672846645"
-X-IronPort-AV: E=Sophos;i="5.97,324,1669104000"; d="scan'208";a="672846645"
+X-IronPort-AV: E=McAfee;i="6500,9779,10630"; a="672846653"
+X-IronPort-AV: E=Sophos;i="5.97,324,1669104000"; d="scan'208";a="672846653"
 Received: from sorvi2.fi.intel.com ([10.237.72.194])
- by orsmga002.jf.intel.com with ESMTP; 24 Feb 2023 02:19:35 -0800
+ by orsmga002.jf.intel.com with ESMTP; 24 Feb 2023 02:19:38 -0800
 From: Mika Kahola <mika.kahola@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 24 Feb 2023 12:13:52 +0200
-Message-Id: <20230224101356.2390838-19-mika.kahola@intel.com>
+Date: Fri, 24 Feb 2023 12:13:54 +0200
+Message-Id: <20230224101356.2390838-21-mika.kahola@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230224101356.2390838-1-mika.kahola@intel.com>
 References: <20230224101356.2390838-1-mika.kahola@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 18/22] drm/i915/mtl: MTL PICA hotplug
- detection
+Subject: [Intel-gfx] [PATCH v4 20/22] drm/i915/mtl: Power up TCSS
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,442 +59,238 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-PICA is used for DP alt mode and TBT modes. Hotplug interruption is routed
-from PICA chip to south display engine and from there to north display
-engine. This patch adds functionality to enable hotplug detection for
-all Type-C ports (4 ports available).
+Add register writes to enable powering up Type-C subsystem i.e. TCSS.
+For MeteorLake we need to request TCSS to power up and check the TCSS
+power state after 500 us.
 
-Differently from HPD in south display, PICA provides a dedicated HPD
-control register for each supported port, so we loop over ports
-ourselves instead of using intel_hpd_hotplug_enables() or
-intel_get_hpd_pins().
+In addition, for PICA we need to set/clear the Type-C PHY ownnership
+bit when Type-C device is connected/disconnected.
 
-BSpec: 49305, 55726, 65107, 65300
+v2: Call tcss power request with correct parameter.
+v3: Use de variant for register wait (Jani)
 
 Signed-off-by: Mika Kahola <mika.kahola@intel.com>
-Signed-off-by: Madhumitha Tolakanahalli Pradeep <madhumitha.tolakanahalli.pradeep@intel.com>
-Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
-Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/i915_irq.c | 249 +++++++++++++++++++++++++++++++-
- drivers/gpu/drm/i915/i915_reg.h |  31 +++-
- 2 files changed, 273 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c |   2 +-
+ drivers/gpu/drm/i915/display/intel_tc.c      | 117 ++++++++++++++++++-
+ 2 files changed, 114 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index a0d0dd84c429..374c760ad4be 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -161,6 +161,13 @@ static const u32 hpd_gen11[HPD_NUM_PINS] = {
- 	[HPD_PORT_TC6] = GEN11_TC_HOTPLUG(HPD_PORT_TC6) | GEN11_TBT_HOTPLUG(HPD_PORT_TC6),
- };
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index cb008cf222da..a7eeb059fbf2 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1977,7 +1977,7 @@ bool intel_phy_is_tc(struct drm_i915_private *dev_priv, enum phy phy)
+ 	if (IS_DG2(dev_priv))
+ 		/* DG2's "TC1" output uses a SNPS PHY */
+ 		return false;
+-	else if (IS_ALDERLAKE_P(dev_priv))
++	else if (IS_ALDERLAKE_P(dev_priv) || IS_METEORLAKE(dev_priv))
+ 		return phy >= PHY_F && phy <= PHY_I;
+ 	else if (IS_TIGERLAKE(dev_priv))
+ 		return phy >= PHY_D && phy <= PHY_I;
+diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
+index f45328712bff..89dfc19de1b8 100644
+--- a/drivers/gpu/drm/i915/display/intel_tc.c
++++ b/drivers/gpu/drm/i915/display/intel_tc.c
+@@ -5,6 +5,7 @@
  
-+static const u32 hpd_xelpdp[HPD_NUM_PINS] = {
-+	[HPD_PORT_TC1] = XELPDP_TBT_HOTPLUG(HPD_PORT_TC1) | XELPDP_DP_ALT_HOTPLUG(HPD_PORT_TC1),
-+	[HPD_PORT_TC2] = XELPDP_TBT_HOTPLUG(HPD_PORT_TC2) | XELPDP_DP_ALT_HOTPLUG(HPD_PORT_TC2),
-+	[HPD_PORT_TC3] = XELPDP_TBT_HOTPLUG(HPD_PORT_TC3) | XELPDP_DP_ALT_HOTPLUG(HPD_PORT_TC3),
-+	[HPD_PORT_TC4] = XELPDP_TBT_HOTPLUG(HPD_PORT_TC4) | XELPDP_DP_ALT_HOTPLUG(HPD_PORT_TC4),
-+};
-+
- static const u32 hpd_icp[HPD_NUM_PINS] = {
- 	[HPD_PORT_A] = SDE_DDI_HOTPLUG_ICP(HPD_PORT_A),
- 	[HPD_PORT_B] = SDE_DDI_HOTPLUG_ICP(HPD_PORT_B),
-@@ -181,6 +188,16 @@ static const u32 hpd_sde_dg1[HPD_NUM_PINS] = {
- 	[HPD_PORT_TC1] = SDE_TC_HOTPLUG_DG2(HPD_PORT_TC1),
- };
- 
-+static const u32 hpd_mtp[HPD_NUM_PINS] = {
-+	[HPD_PORT_A] = SDE_DDI_HOTPLUG_ICP(HPD_PORT_A),
-+	[HPD_PORT_B] = SDE_DDI_HOTPLUG_ICP(HPD_PORT_B),
-+	[HPD_PORT_TC1] = SDE_TC_HOTPLUG_ICP(HPD_PORT_TC1),
-+	[HPD_PORT_TC2] = SDE_TC_HOTPLUG_ICP(HPD_PORT_TC2),
-+	[HPD_PORT_TC3] = SDE_TC_HOTPLUG_ICP(HPD_PORT_TC3),
-+	[HPD_PORT_TC4] = SDE_TC_HOTPLUG_ICP(HPD_PORT_TC4),
-+};
-+
-+
- static void intel_hpd_init_pins(struct drm_i915_private *dev_priv)
+ #include "i915_drv.h"
+ #include "i915_reg.h"
++#include "intel_cx0_phy_regs.h"
+ #include "intel_de.h"
+ #include "intel_display.h"
+ #include "intel_display_power_map.h"
+@@ -300,7 +301,7 @@ static u32 tc_port_live_status_mask(struct intel_digital_port *dig_port)
  {
- 	struct intel_hotplug *hpd = &dev_priv->display.hotplug;
-@@ -194,7 +211,9 @@ static void intel_hpd_init_pins(struct drm_i915_private *dev_priv)
- 		return;
- 	}
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
  
--	if (DISPLAY_VER(dev_priv) >= 11)
-+	if (DISPLAY_VER(dev_priv) >= 14)
-+		hpd->hpd = hpd_xelpdp;
-+	else if (DISPLAY_VER(dev_priv) >= 11)
- 		hpd->hpd = hpd_gen11;
- 	else if (IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv))
- 		hpd->hpd = hpd_bxt;
-@@ -211,6 +230,8 @@ static void intel_hpd_init_pins(struct drm_i915_private *dev_priv)
+-	if (IS_ALDERLAKE_P(i915))
++	if (DISPLAY_VER(i915) >= 13)
+ 		return adl_tc_port_live_status_mask(dig_port);
  
- 	if (INTEL_PCH_TYPE(dev_priv) >= PCH_DG1)
- 		hpd->pch_hpd = hpd_sde_dg1;
-+	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_MTP)
-+		hpd->pch_hpd = hpd_mtp;
- 	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
- 		hpd->pch_hpd = hpd_icp;
- 	else if (HAS_PCH_CNP(dev_priv) || HAS_PCH_SPT(dev_priv))
-@@ -1556,6 +1577,44 @@ static void cpt_irq_handler(struct drm_i915_private *dev_priv, u32 pch_iir)
- 		cpt_serr_int_handler(dev_priv);
+ 	return icl_tc_port_live_status_mask(dig_port);
+@@ -354,11 +355,69 @@ static bool adl_tc_phy_status_complete(struct intel_digital_port *dig_port)
+ 	return val & TCSS_DDI_STATUS_READY;
  }
  
-+static void xelpdp_pica_irq_handler(struct drm_i915_private *dev_priv, u32 iir)
++static bool xelpdp_wait_phy_status_complete(struct intel_digital_port *dig_port)
 +{
-+	enum hpd_pin pin;
-+	u32 hotplug_trigger = iir & (XELPDP_DP_ALT_HOTPLUG_MASK | XELPDP_TBT_HOTPLUG_MASK);
-+	u32 trigger_aux = iir & XELPDP_AUX_TC_MASK;
-+	u32 pin_mask = 0, long_mask = 0;
++	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++	enum tc_port tc_port = intel_port_to_tc(i915, dig_port->base.port);
 +
-+	for (pin = HPD_PORT_TC1; pin <= HPD_PORT_TC4; pin++) {
-+		u32 val;
-+
-+		if (!(dev_priv->display.hotplug.hpd[pin] & hotplug_trigger))
-+			continue;
-+
-+		pin_mask |= BIT(pin);
-+
-+		val = intel_uncore_read(&dev_priv->uncore, XELPDP_PORT_HOTPLUG_CTL(pin));
-+		intel_uncore_write(&dev_priv->uncore, XELPDP_PORT_HOTPLUG_CTL(pin), val);
-+
-+		if (val & (XELPDP_DP_ALT_HPD_LONG_DETECT | XELPDP_TBT_HPD_LONG_DETECT))
-+			long_mask |= BIT(pin);
++	if (intel_de_wait_for_register(i915,
++				       TCSS_DDI_STATUS(tc_port),
++				       TCSS_DDI_STATUS_READY,
++				       TCSS_DDI_STATUS_READY,
++				       1)) {
++		drm_dbg_kms(&i915->drm,
++			    "Port %s: PHY in TCCOLD, assuming not complete\n",
++			    dig_port->tc_port_name);
++		return false;
 +	}
 +
-+	if (pin_mask) {
-+		drm_dbg(&dev_priv->drm,
-+			"pica hotplug event received, stat 0x%08x, pins 0x%08x, long 0x%08x\n",
-+			hotplug_trigger, pin_mask, long_mask);
++	return true;
++}
 +
-+		intel_hpd_irq_handler(dev_priv, pin_mask, long_mask);
++static bool xelpdp_wait_for_tcss_power(struct intel_digital_port *dig_port,
++				       bool enabled)
++{
++	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++
++	if (intel_de_wait_for_register(i915,
++				       XELPDP_PORT_BUF_CTL1(dig_port->base.port),
++				       XELPDP_TCSS_POWER_STATE,
++				       enabled ? XELPDP_TCSS_POWER_STATE : 0,
++				       5)) {
++		drm_dbg_kms(&i915->drm,
++			    "Port %s: TCSS power state not as expected\n",
++			    dig_port->tc_port_name);
++		return false;
 +	}
 +
-+	if (trigger_aux)
-+		dp_aux_irq_handler(dev_priv);
-+
-+	if (!pin_mask && !trigger_aux)
-+		drm_err(&dev_priv->drm,
-+			"Unexpected DE HPD/AUX interrupt 0x%08x\n", iir);
++	return true;
 +}
 +
- static void icp_irq_handler(struct drm_i915_private *dev_priv, u32 pch_iir)
- {
- 	u32 ddi_hotplug_trigger = pch_iir & SDE_DDI_HOTPLUG_MASK_ICP;
-@@ -2043,6 +2102,34 @@ u32 gen8_de_pipe_underrun_mask(struct drm_i915_private *dev_priv)
- 	return mask;
- }
- 
-+static void gen8_read_and_ack_pch_irqs(struct drm_i915_private *i915, u32 *pch_iir, u32 *pica_iir)
++static bool xelpdp_tc_power_request(struct intel_digital_port *dig_port, bool request)
 +{
-+	u32 pica_ier = 0;
-+
-+	*pica_iir = 0;
-+	*pch_iir = intel_de_read(i915, SDEIIR);
-+	if (!*pch_iir)
-+		return;
-+
-+	/**
-+	 * PICA IER must be disabled/re-enabled around clearing PICA IIR and
-+	 * SDEIIR, to avoid losing PICA IRQs and to ensure that such IRQs set
-+	 * their flags both in the PICA and SDE IIR.
-+	 */
-+	if (*pch_iir & SDE_PICAINTERRUPT) {
-+		drm_WARN_ON(&i915->drm, INTEL_PCH_TYPE(i915) < PCH_MTP);
-+
-+		pica_ier = intel_de_rmw(i915, PICAINTERRUPT_IER, ~0, 0);
-+		*pica_iir = intel_de_read(i915, PICAINTERRUPT_IIR);
-+		intel_de_write(i915, PICAINTERRUPT_IIR, *pica_iir);
-+	}
-+
-+	intel_de_write(i915, SDEIIR, *pch_iir);
-+
-+	if (pica_ier)
-+		intel_de_write(i915, PICAINTERRUPT_IER, pica_ier);
-+}
-+
- static irqreturn_t
- gen8_de_irq_handler(struct drm_i915_private *dev_priv, u32 master_ctl)
- {
-@@ -2167,16 +2254,20 @@ gen8_de_irq_handler(struct drm_i915_private *dev_priv, u32 master_ctl)
- 
- 	if (HAS_PCH_SPLIT(dev_priv) && !HAS_PCH_NOP(dev_priv) &&
- 	    master_ctl & GEN8_DE_PCH_IRQ) {
-+		u32 pica_iir;
-+
- 		/*
- 		 * FIXME(BDW): Assume for now that the new interrupt handling
- 		 * scheme also closed the SDE interrupt handling race we've seen
- 		 * on older pch-split platforms. But this needs testing.
- 		 */
--		iir = intel_uncore_read(&dev_priv->uncore, SDEIIR);
-+		gen8_read_and_ack_pch_irqs(dev_priv, &iir, &pica_iir);
- 		if (iir) {
--			intel_uncore_write(&dev_priv->uncore, SDEIIR, iir);
- 			ret = IRQ_HANDLED;
- 
-+			if (pica_iir)
-+				xelpdp_pica_irq_handler(dev_priv, pica_iir);
-+
- 			if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
- 				icp_irq_handler(dev_priv, iir);
- 			else if (INTEL_PCH_TYPE(dev_priv) >= PCH_SPT)
-@@ -2754,7 +2845,11 @@ static void gen11_display_irq_reset(struct drm_i915_private *dev_priv)
- 
- 	GEN3_IRQ_RESET(uncore, GEN8_DE_PORT_);
- 	GEN3_IRQ_RESET(uncore, GEN8_DE_MISC_);
--	GEN3_IRQ_RESET(uncore, GEN11_DE_HPD_);
-+
-+	if (DISPLAY_VER(dev_priv) >= 14)
-+		GEN3_IRQ_RESET(uncore, PICAINTERRUPT_);
-+	else
-+		GEN3_IRQ_RESET(uncore, GEN11_DE_HPD_);
- 
- 	if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
- 		GEN3_IRQ_RESET(uncore, SDE);
-@@ -3045,6 +3140,127 @@ static void gen11_hpd_irq_setup(struct drm_i915_private *dev_priv)
- 		icp_hpd_irq_setup(dev_priv);
- }
- 
-+static u32 mtp_ddi_hotplug_enables(struct intel_encoder *encoder)
-+{
-+	switch (encoder->hpd_pin) {
-+	case HPD_PORT_A:
-+	case HPD_PORT_B:
-+		return SHOTPLUG_CTL_DDI_HPD_ENABLE(encoder->hpd_pin);
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static u32 mtp_tc_hotplug_enables(struct intel_encoder *encoder)
-+{
-+	switch (encoder->hpd_pin) {
-+	case HPD_PORT_TC1:
-+	case HPD_PORT_TC2:
-+	case HPD_PORT_TC3:
-+	case HPD_PORT_TC4:
-+		return ICP_TC_HPD_ENABLE(encoder->hpd_pin);
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static void mtp_ddi_hpd_detection_setup(struct drm_i915_private *dev_priv)
-+{
-+	u32 hotplug;
-+
-+	hotplug = intel_uncore_read(&dev_priv->uncore, SHOTPLUG_CTL_DDI);
-+	hotplug &= ~(SHOTPLUG_CTL_DDI_HPD_ENABLE(HPD_PORT_A) |
-+		     SHOTPLUG_CTL_DDI_HPD_ENABLE(HPD_PORT_B));
-+	hotplug |= intel_hpd_hotplug_enables(dev_priv, mtp_ddi_hotplug_enables);
-+	intel_uncore_write(&dev_priv->uncore, SHOTPLUG_CTL_DDI, hotplug);
-+}
-+
-+static void mtp_tc_hpd_detection_setup(struct drm_i915_private *dev_priv)
-+{
-+	u32 hotplug;
-+
-+	hotplug = intel_uncore_read(&dev_priv->uncore, SHOTPLUG_CTL_TC);
-+	hotplug &= ~(ICP_TC_HPD_ENABLE(HPD_PORT_TC1) |
-+		     ICP_TC_HPD_ENABLE(HPD_PORT_TC2) |
-+		     ICP_TC_HPD_ENABLE(HPD_PORT_TC3) |
-+		     ICP_TC_HPD_ENABLE(HPD_PORT_TC4));
-+	hotplug |= intel_hpd_hotplug_enables(dev_priv, mtp_tc_hotplug_enables);
-+	intel_uncore_write(&dev_priv->uncore, SHOTPLUG_CTL_TC, hotplug);
-+}
-+
-+static void mtp_hpd_invert(struct drm_i915_private *i915)
-+{
-+	u32 val = (INVERT_DDIA_HPD |
-+		   INVERT_DDIB_HPD |
-+		   INVERT_DDIC_HPD |
-+		   INVERT_TC1_HPD |
-+		   INVERT_TC2_HPD |
-+		   INVERT_TC3_HPD |
-+		   INVERT_TC4_HPD |
-+		   INVERT_DDID_HPD_MTP |
-+		   INVERT_DDIE_HPD);
-+	intel_uncore_rmw(&i915->uncore, SOUTH_CHICKEN1, 0, val);
-+}
-+
-+static void mtp_hpd_irq_setup(struct drm_i915_private *dev_priv)
-+{
-+	u32 hotplug_irqs, enabled_irqs;
-+
-+	enabled_irqs = intel_hpd_enabled_irqs(dev_priv, dev_priv->display.hotplug.pch_hpd);
-+	hotplug_irqs = intel_hpd_hotplug_irqs(dev_priv, dev_priv->display.hotplug.pch_hpd);
-+
-+	intel_uncore_write(&dev_priv->uncore, SHPD_FILTER_CNT, SHPD_FILTER_CNT_500_ADJ);
-+
-+	mtp_hpd_invert(dev_priv);
-+	ibx_display_interrupt_update(dev_priv, hotplug_irqs, enabled_irqs);
-+
-+	mtp_ddi_hpd_detection_setup(dev_priv);
-+	mtp_tc_hpd_detection_setup(dev_priv);
-+}
-+
-+static void xelpdp_pica_hpd_detection_setup(struct drm_i915_private *dev_priv)
-+{
-+	struct intel_encoder *encoder;
-+	enum hpd_pin pin;
-+	u32 available_pins = 0;
-+
-+	BUILD_BUG_ON(BITS_PER_TYPE(available_pins) < HPD_NUM_PINS);
-+
-+	for_each_intel_encoder(&dev_priv->drm, encoder)
-+		available_pins |= BIT(encoder->hpd_pin);
-+
-+	for (pin = HPD_PORT_TC1; pin <= HPD_PORT_TC4; pin++) {
-+		u32 mask = (available_pins & BIT(pin)) ? ~(u32)0 : 0;
-+		u32 val = XELPDP_TBT_HOTPLUG_ENABLE |
-+			  XELPDP_DP_ALT_HOTPLUG_ENABLE;
-+
-+		intel_uncore_rmw(&dev_priv->uncore,
-+				 XELPDP_PORT_HOTPLUG_CTL(pin),
-+				 ~mask & val, mask & val);
-+	}
-+}
-+
-+static void xelpdp_hpd_irq_setup(struct drm_i915_private *dev_priv)
-+{
-+	u32 hotplug_irqs, enabled_irqs;
++	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++	struct intel_uncore *uncore = &i915->uncore;
++	enum port port = dig_port->base.port;
 +	u32 val;
 +
-+	enabled_irqs = intel_hpd_enabled_irqs(dev_priv, dev_priv->display.hotplug.hpd);
-+	hotplug_irqs = intel_hpd_hotplug_irqs(dev_priv, dev_priv->display.hotplug.hpd);
++	val = intel_uncore_read(uncore, XELPDP_PORT_BUF_CTL1(port));
++	if (request)
++		val |= XELPDP_TCSS_POWER_REQUEST;
++	else
++		val &= ~XELPDP_TCSS_POWER_REQUEST;
++	intel_uncore_write(uncore, XELPDP_PORT_BUF_CTL1(port), val);
 +
-+	val = intel_uncore_read(&dev_priv->uncore, PICAINTERRUPT_IMR);
-+	val &= ~hotplug_irqs;
-+	val |= ~enabled_irqs & hotplug_irqs;
-+	intel_uncore_write(&dev_priv->uncore, PICAINTERRUPT_IMR, val);
-+	intel_uncore_posting_read(&dev_priv->uncore, PICAINTERRUPT_IMR);
-+
-+	xelpdp_pica_hpd_detection_setup(dev_priv);
-+
-+	if (INTEL_PCH_TYPE(dev_priv) >= PCH_MTP) {
-+		mtp_hpd_irq_setup(dev_priv);
-+	}
++	return xelpdp_wait_phy_status_complete(dig_port) &&
++	       xelpdp_wait_for_tcss_power(dig_port, request);
 +}
 +
- static u32 spt_hotplug_enables(struct intel_encoder *encoder)
+ static bool tc_phy_status_complete(struct intel_digital_port *dig_port)
  {
- 	switch (encoder->hpd_pin) {
-@@ -3380,7 +3596,7 @@ static void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
- 	GEN3_IRQ_INIT(uncore, GEN8_DE_PORT_, ~de_port_masked, de_port_enables);
- 	GEN3_IRQ_INIT(uncore, GEN8_DE_MISC_, ~de_misc_masked, de_misc_masked);
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
  
--	if (DISPLAY_VER(dev_priv) >= 11) {
-+	if (IS_DISPLAY_VER(dev_priv, 11, 13)) {
- 		u32 de_hpd_masked = 0;
- 		u32 de_hpd_enables = GEN11_DE_TC_HOTPLUG_MASK |
- 				     GEN11_DE_TBT_HOTPLUG_MASK;
-@@ -3390,6 +3606,20 @@ static void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
- 	}
+-	if (IS_ALDERLAKE_P(i915))
++	if (DISPLAY_VER(i915) >= 14)
++		return xelpdp_wait_phy_status_complete(dig_port);
++	else if (IS_ALDERLAKE_P(i915))
+ 		return adl_tc_phy_status_complete(dig_port);
+ 
+ 	return icl_tc_phy_status_complete(dig_port);
+@@ -400,11 +459,31 @@ static bool adl_tc_phy_take_ownership(struct intel_digital_port *dig_port,
+ 	return true;
  }
  
-+static void mtp_irq_postinstall(struct drm_i915_private *dev_priv)
++static bool xelpdp_tc_phy_take_ownership(struct intel_digital_port *dig_port,
++					 bool take)
 +{
-+	struct intel_uncore *uncore = &dev_priv->uncore;
-+	u32 sde_mask = SDE_GMBUS_ICP | SDE_PICAINTERRUPT;
-+	u32 de_hpd_mask = XELPDP_AUX_TC_MASK;
-+	u32 de_hpd_enables = de_hpd_mask | XELPDP_DP_ALT_HOTPLUG_MASK |
-+			     XELPDP_TBT_HOTPLUG_MASK;
++	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++	struct intel_uncore *uncore = &i915->uncore;
++	enum port port = dig_port->base.port;
++	u32 val;
 +
-+	GEN3_IRQ_INIT(uncore, PICAINTERRUPT_, ~de_hpd_mask,
-+		      de_hpd_enables);
++	val = intel_uncore_read(uncore, XELPDP_PORT_BUF_CTL1(port));
++	if (take)
++		val |= XELPDP_TC_PHY_OWNERSHIP;
++	else
++		val &= ~XELPDP_TC_PHY_OWNERSHIP;
++	intel_uncore_write(uncore, XELPDP_PORT_BUF_CTL1(port), val);
 +
-+	GEN3_IRQ_INIT(uncore, SDE, ~sde_mask, 0xffffffff);
++	return true;
 +}
 +
- static void icp_irq_postinstall(struct drm_i915_private *dev_priv)
+ static bool tc_phy_take_ownership(struct intel_digital_port *dig_port, bool take)
  {
- 	struct intel_uncore *uncore = &dev_priv->uncore;
-@@ -3451,7 +3681,11 @@ static void dg1_irq_postinstall(struct drm_i915_private *dev_priv)
- 	GEN3_IRQ_INIT(uncore, GEN11_GU_MISC_, ~gu_misc_masked, gu_misc_masked);
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
  
- 	if (HAS_DISPLAY(dev_priv)) {
--		icp_irq_postinstall(dev_priv);
-+		if (DISPLAY_VER(dev_priv) >= 14)
-+			mtp_irq_postinstall(dev_priv);
-+		else
-+			icp_irq_postinstall(dev_priv);
-+
- 		gen8_de_irq_postinstall(dev_priv);
- 		intel_uncore_write(&dev_priv->uncore, GEN11_DISPLAY_INT_CTL,
- 				   GEN11_DISPLAY_IRQ_ENABLE);
-@@ -3937,6 +4171,7 @@ static const struct intel_hotplug_funcs platform##_hpd_funcs = { \
+-	if (IS_ALDERLAKE_P(i915))
++	if (DISPLAY_VER(i915) >= 14)
++		return xelpdp_tc_phy_take_ownership(dig_port, take);
++	else if (IS_ALDERLAKE_P(i915))
+ 		return adl_tc_phy_take_ownership(dig_port, take);
+ 
+ 	return icl_tc_phy_take_ownership(dig_port, take);
+@@ -436,11 +515,23 @@ static bool adl_tc_phy_is_owned(struct intel_digital_port *dig_port)
+ 	return val & DDI_BUF_CTL_TC_PHY_OWNERSHIP;
  }
  
- HPD_FUNCS(i915);
-+HPD_FUNCS(xelpdp);
- HPD_FUNCS(dg1);
- HPD_FUNCS(gen11);
- HPD_FUNCS(bxt);
-@@ -3997,6 +4232,8 @@ void intel_irq_init(struct drm_i915_private *dev_priv)
- 			dev_priv->display.funcs.hotplug = &icp_hpd_funcs;
- 		else if (HAS_PCH_DG1(dev_priv))
- 			dev_priv->display.funcs.hotplug = &dg1_hpd_funcs;
-+		else if (DISPLAY_VER(dev_priv) >= 14)
-+			dev_priv->display.funcs.hotplug = &xelpdp_hpd_funcs;
- 		else if (DISPLAY_VER(dev_priv) >= 11)
- 			dev_priv->display.funcs.hotplug = &gen11_hpd_funcs;
- 		else if (IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv))
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index d4706ec3cbb7..9ca9826bb96f 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -5562,6 +5562,28 @@
- #define  GEN11_HOTPLUG_CTL_SHORT_DETECT(hpd_pin)	(1 << (_HPD_PIN_TC(hpd_pin) * 4))
- #define  GEN11_HOTPLUG_CTL_NO_DETECT(hpd_pin)		(0 << (_HPD_PIN_TC(hpd_pin) * 4))
++static bool xelpdp_tc_phy_is_owned(struct intel_digital_port *dig_port)
++{
++	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++	struct intel_uncore *uncore = &i915->uncore;
++	enum port port = dig_port->base.port;
++
++	return intel_uncore_read(uncore, XELPDP_PORT_BUF_CTL1(port)) &
++	       XELPDP_TC_PHY_OWNERSHIP;
++}
++
+ static bool tc_phy_is_owned(struct intel_digital_port *dig_port)
+ {
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
  
-+#define PICAINTERRUPT_ISR		_MMIO(0x16FE50)
-+#define PICAINTERRUPT_IMR		_MMIO(0x16FE54)
-+#define PICAINTERRUPT_IIR		_MMIO(0x16FE58)
-+#define PICAINTERRUPT_IER		_MMIO(0x16FE5C)
-+
-+#define  XELPDP_DP_ALT_HOTPLUG(hpd_pin)		REG_BIT(16 + _HPD_PIN_TC(hpd_pin))
-+#define  XELPDP_DP_ALT_HOTPLUG_MASK		REG_GENMASK(19, 16)
-+
-+#define  XELPDP_AUX_TC(hpd_pin)			REG_BIT(8 + _HPD_PIN_TC(hpd_pin))
-+#define  XELPDP_AUX_TC_MASK			REG_GENMASK(11, 8)
-+
-+#define  XELPDP_TBT_HOTPLUG(hpd_pin)		REG_BIT(_HPD_PIN_TC(hpd_pin))
-+#define  XELPDP_TBT_HOTPLUG_MASK		REG_GENMASK(3, 0)
-+
-+#define XELPDP_PORT_HOTPLUG_CTL(hpd_pin)	_MMIO(0x16F270 + (_HPD_PIN_TC(hpd_pin) * 0x200))
-+#define  XELPDP_TBT_HOTPLUG_ENABLE		REG_BIT(6)
-+#define  XELPDP_TBT_HPD_LONG_DETECT		REG_BIT(5)
-+#define  XELPDP_TBT_HPD_SHORT_DETECT		REG_BIT(4)
-+#define  XELPDP_DP_ALT_HOTPLUG_ENABLE		REG_BIT(2)
-+#define  XELPDP_DP_ALT_HPD_LONG_DETECT		REG_BIT(1)
-+#define  XELPDP_DP_ALT_HPD_SHORT_DETECT		REG_BIT(0)
-+
- #define XELPDP_INITIATE_PMDEMAND_REQUEST(dword)		_MMIO(0x45230 + 4 * (dword))
- #define  XELPDP_PMDEMAND_QCLK_GV_BW_MASK		REG_GENMASK(31, 16)
- #define  XELPDP_PMDEMAND_QCLK_GV_BW(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_QCLK_GV_BW_MASK, x)
-@@ -5898,7 +5920,8 @@
- 				 SDE_FDI_RXB_CPT | \
- 				 SDE_FDI_RXA_CPT)
+-	if (IS_ALDERLAKE_P(i915))
++	if (DISPLAY_VER(i915) >= 14)
++		return xelpdp_tc_phy_is_owned(dig_port);
++	else if (IS_ALDERLAKE_P(i915))
+ 		return adl_tc_phy_is_owned(dig_port);
  
--/* south display engine interrupt: ICP/TGP */
-+/* south display engine interrupt: ICP/TGP/MTP */
-+#define SDE_PICAINTERRUPT		REG_BIT(31)
- #define SDE_GMBUS_ICP			(1 << 23)
- #define SDE_TC_HOTPLUG_ICP(hpd_pin)	REG_BIT(24 + _HPD_PIN_TC(hpd_pin))
- #define SDE_TC_HOTPLUG_DG2(hpd_pin)	REG_BIT(25 + _HPD_PIN_TC(hpd_pin)) /* sigh */
-@@ -6252,6 +6275,12 @@
- #define SOUTH_CHICKEN1		_MMIO(0xc2000)
- #define  FDIA_PHASE_SYNC_SHIFT_OVR	19
- #define  FDIA_PHASE_SYNC_SHIFT_EN	18
-+#define  INVERT_DDIE_HPD			REG_BIT(28)
-+#define  INVERT_DDID_HPD_MTP			REG_BIT(27)
-+#define  INVERT_TC4_HPD				REG_BIT(26)
-+#define  INVERT_TC3_HPD				REG_BIT(25)
-+#define  INVERT_TC2_HPD				REG_BIT(24)
-+#define  INVERT_TC1_HPD				REG_BIT(23)
- #define  INVERT_DDID_HPD			(1 << 18)
- #define  INVERT_DDIC_HPD			(1 << 17)
- #define  INVERT_DDIB_HPD			(1 << 16)
+ 	return icl_tc_phy_is_owned(dig_port);
+@@ -464,6 +555,11 @@ static void icl_tc_phy_connect(struct intel_digital_port *dig_port,
+ 	u32 live_status_mask;
+ 	int max_lanes;
+ 
++	if (DISPLAY_VER(i915) >= 14) {
++		if (!xelpdp_tc_power_request(dig_port, true))
++			goto out_release_phy;
++	}
++
+ 	if (!tc_phy_status_complete(dig_port)) {
+ 		drm_dbg_kms(&i915->drm, "Port %s: PHY not ready\n",
+ 			    dig_port->tc_port_name);
+@@ -514,6 +610,10 @@ static void icl_tc_phy_connect(struct intel_digital_port *dig_port,
+ 
+ out_release_phy:
+ 	tc_phy_take_ownership(dig_port, false);
++
++	if (DISPLAY_VER(i915) >= 14)
++		xelpdp_tc_power_request(dig_port, false);
++
+ out_set_tbt_alt_mode:
+ 	dig_port->tc_mode = TC_PORT_TBT_ALT;
+ }
+@@ -524,6 +624,8 @@ static void icl_tc_phy_connect(struct intel_digital_port *dig_port,
+  */
+ static void icl_tc_phy_disconnect(struct intel_digital_port *dig_port)
+ {
++	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++
+ 	switch (dig_port->tc_mode) {
+ 	case TC_PORT_LEGACY:
+ 	case TC_PORT_DP_ALT:
+@@ -537,6 +639,9 @@ static void icl_tc_phy_disconnect(struct intel_digital_port *dig_port)
+ 	default:
+ 		MISSING_CASE(dig_port->tc_mode);
+ 	}
++
++	if (DISPLAY_VER(i915) >= 14)
++		xelpdp_tc_power_request(dig_port, false);
+ }
+ 
+ static bool icl_tc_phy_is_connected(struct intel_digital_port *dig_port)
+@@ -886,6 +991,10 @@ tc_has_modular_fia(struct drm_i915_private *i915, struct intel_digital_port *dig
+ 	if (!INTEL_INFO(i915)->display.has_modular_fia)
+ 		return false;
+ 
++	/* for MTL, FIA is always modular */
++	if (DISPLAY_VER(i915) >= 14)
++		return true;
++
+ 	mutex_lock(&dig_port->tc_lock);
+ 	wakeref = tc_cold_block(dig_port, &domain);
+ 	val = intel_de_read(i915, PORT_TX_DFLEXDPSP(FIA1));
 -- 
 2.34.1
 
