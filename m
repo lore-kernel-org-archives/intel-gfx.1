@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79B82C64ED8
-	for <intel-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 21:08:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 917D3C64ED8
+	for <intel-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 21:09:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB08110E3F9;
-	Mon, 27 Feb 2023 21:08:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A349910E43D;
+	Mon, 27 Feb 2023 21:08:52 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 559EA10E3F9;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDB7B10E3F9;
  Mon, 27 Feb 2023 21:08:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1677532129; x=1709068129;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=xQdmnNz0wy2zumlRPdmu5npk6Gs+ByLF9iRjVoHFfFM=;
- b=khJYExYuwJ6ojKZe0DVbjGlT9F1uOdMonDHEFnfBRQUHFhGprX3uEf6q
- 5qvUgDp0I1W5BXJDYe7MaZp5lYa8wT4Gim1WO/b3OBo4KJCzt+mlfTjpP
- IGlzUybWlpP0ei2rK+a26FfVisNwkFQLBV4qttpVyqvRTf3Hl8FzjiOGI
- wxy1n7JN2OCRloR65C3qMzN73BFRo7aIVU86lsu6O3S0myxRksZ1WHjy7
- ePXVVvDr13pRQ6x7qyL5loD9LRTfrMkia5sDAqcgNHAfHBr5pgO3NIWMw
- rATEe5dWFBycviSKtql3KoG2z33e9ehDsmlpXVDl05MB06I4ZFnCscp7J w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="317767922"
-X-IronPort-AV: E=Sophos;i="5.98,220,1673942400"; d="scan'208";a="317767922"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=zlufpHQrUeVdax+rXCKOTACvlDVewlpw8fFjAcPbqxI=;
+ b=bVLmWj9RCXL/zQMfM4qupz0AyFryXpcFIRoPuWRurDeaC8wlBFmtt8Qj
+ Oq7aGMZhsPWnGJRuS5TubU3KPLKPkDn/ymx7gJhALVvYsh/iLRyJoCLa1
+ 7yWrzjJn1sDWx7jqNNYXnOJ/BYsCilqGEKKSHxJ+84d1B2schNrnro0Ib
+ dD5CATG1W3+VCMArexnq0g3VmdmbrTygbjGFQRTbI8AHVxO8aUq0WZMQj
+ JugOCUdkAlyRL+S/FMG5bjRMTPP8Bs6Y8uL/7/d6JRkt6+rBUYB/QsjIh
+ /rCJPTFusr2U9RTAP0XvVhlXMrfQ0Z9zLrmrGO7m7T5R948ZVhoCt9xja w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="317767929"
+X-IronPort-AV: E=Sophos;i="5.98,220,1673942400"; d="scan'208";a="317767929"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2023 13:08:48 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="623761623"
-X-IronPort-AV: E=Sophos;i="5.98,220,1673942400"; d="scan'208";a="623761623"
+ 27 Feb 2023 13:08:49 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="623761628"
+X-IronPort-AV: E=Sophos;i="5.98,220,1673942400"; d="scan'208";a="623761628"
 Received: from jrissane-mobl2.ger.corp.intel.com (HELO intel.com)
  ([10.249.41.42])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2023 13:08:28 -0800
+ 27 Feb 2023 13:08:40 -0800
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  stable@vger.kernel.org
-Date: Mon, 27 Feb 2023 22:08:16 +0100
-Message-Id: <20230227210818.1731172-1-andi.shyti@linux.intel.com>
+Date: Mon, 27 Feb 2023 22:08:18 +0100
+Message-Id: <20230227210818.1731172-3-andi.shyti@linux.intel.com>
 X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20230227210818.1731172-1-andi.shyti@linux.intel.com>
+References: <20230227210818.1731172-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/2] Fix error propagation amongst requests
+Subject: [Intel-gfx] [PATCH v2 2/2] drm/i915/gt: Make sure that errors are
+ propagated through request chains
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,50 +59,125 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris.p.wilson@linux.intel.com>,
+Cc: Chris Wilson <chris@chris-wilson.co.uk>,
  Matthew Auld <matthew.auld@intel.com>,
+ Chris Wilson <chris.p.wilson@linux.intel.com>,
  Maciej Patelczyk <maciej.patelczyk@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Currently, when we perform operations such as clearing or copying
+large blocks of memory, we generate multiple requests that are
+executed in a chain.
 
-This series of two patches fixes the issue introduced in
-cf586021642d80 ("drm/i915/gt: Pipelined page migration") where,
-as reported by Matt, in a chain of requests an error is reported
-only if happens in the last request.
+However, if one of these requests fails, we may not realize it
+unless it happens to be the last request in the chain. This is
+because errors are not properly propagated.
 
-However Chris noticed that without ensuring exclusivity in the
-locking we might end up in some deadlock. That's why patch 1
-throttles for the ringspace in order to make sure that no one is
-holding it.
+For this we need to keep propagating the chain of fence
+notification in order to always reach the final fence associated
+to the final request.
 
-Version 1 of this patch has been reviewed by matt and this
-version is adding Chris exclusive locking.
+To address this issue, we need to ensure that the chain of fence
+notifications is always propagated so that we can reach the final
+fence associated with the last request. By doing so, we will be
+able to detect any memory operation  failures and determine
+whether the memory is still invalid.
 
-Thanks Chris for this work.
+On copy and clear migration signal fences upon completion.
 
-Andi
+On copy and clear migration, signal fences upon request
+completion to ensure that we have a reliable perpetuation of the
+operation outcome.
 
-Changelog
-=========
-v1 -> v2
- - Add patch 1 for ensuring exclusive locking of the timeline
- - Reword git commit of patch 2.
+Fixes: cf586021642d80 ("drm/i915/gt: Pipelined page migration")
+Reported-by: Matthew Auld <matthew.auld@intel.com>
+Suggested-by: Chris Wilson <chris@chris-wilson.co.uk>
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: stable@vger.kernel.org
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_migrate.c | 31 +++++++++++++++++--------
+ 1 file changed, 21 insertions(+), 10 deletions(-)
 
-Andi Shyti (1):
-  drm/i915/gt: Make sure that errors are propagated through request
-    chains
-
-Chris Wilson (1):
-  drm/i915: Throttle for ringspace prior to taking the timeline mutex
-
- drivers/gpu/drm/i915/gt/intel_context.c | 41 +++++++++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_context.h |  2 ++
- drivers/gpu/drm/i915/gt/intel_migrate.c | 31 +++++++++++++------
- drivers/gpu/drm/i915/i915_request.c     |  3 ++
- 4 files changed, 67 insertions(+), 10 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_migrate.c b/drivers/gpu/drm/i915/gt/intel_migrate.c
+index 3f638f1987968..8a293045a7b96 100644
+--- a/drivers/gpu/drm/i915/gt/intel_migrate.c
++++ b/drivers/gpu/drm/i915/gt/intel_migrate.c
+@@ -748,7 +748,7 @@ intel_context_migrate_copy(struct intel_context *ce,
+ 		rq = i915_request_create(ce);
+ 		if (IS_ERR(rq)) {
+ 			err = PTR_ERR(rq);
+-			goto out_ce;
++			break;
+ 		}
+ 
+ 		if (deps) {
+@@ -878,10 +878,14 @@ intel_context_migrate_copy(struct intel_context *ce,
+ 
+ 		/* Arbitration is re-enabled between requests. */
+ out_rq:
+-		if (*out)
+-			i915_request_put(*out);
+-		*out = i915_request_get(rq);
++		i915_sw_fence_await(&rq->submit);
++		i915_request_get(rq);
+ 		i915_request_add(rq);
++		if (*out) {
++			i915_sw_fence_complete(&(*out)->submit);
++			i915_request_put(*out);
++		}
++		*out = rq;
+ 
+ 		if (err)
+ 			break;
+@@ -905,7 +909,8 @@ intel_context_migrate_copy(struct intel_context *ce,
+ 		cond_resched();
+ 	} while (1);
+ 
+-out_ce:
++	if (*out)
++		i915_sw_fence_complete(&(*out)->submit);
+ 	return err;
+ }
+ 
+@@ -1005,7 +1010,7 @@ intel_context_migrate_clear(struct intel_context *ce,
+ 		rq = i915_request_create(ce);
+ 		if (IS_ERR(rq)) {
+ 			err = PTR_ERR(rq);
+-			goto out_ce;
++			break;
+ 		}
+ 
+ 		if (deps) {
+@@ -1056,17 +1061,23 @@ intel_context_migrate_clear(struct intel_context *ce,
+ 
+ 		/* Arbitration is re-enabled between requests. */
+ out_rq:
+-		if (*out)
+-			i915_request_put(*out);
+-		*out = i915_request_get(rq);
++		i915_sw_fence_await(&rq->submit);
++		i915_request_get(rq);
+ 		i915_request_add(rq);
++		if (*out) {
++			i915_sw_fence_complete(&(*out)->submit);
++			i915_request_put(*out);
++		}
++		*out = rq;
++
+ 		if (err || !it.sg || !sg_dma_len(it.sg))
+ 			break;
+ 
+ 		cond_resched();
+ 	} while (1);
+ 
+-out_ce:
++	if (*out)
++		i915_sw_fence_complete(&(*out)->submit);
+ 	return err;
+ }
+ 
 -- 
 2.39.1
 
