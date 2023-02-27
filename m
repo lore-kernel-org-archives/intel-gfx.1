@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF20EC7EE37
-	for <intel-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 11:11:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8C8BC7EE33
+	for <intel-gfx@archiver.kernel.org>; Mon, 27 Feb 2023 11:11:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B83210E3B6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE9D610E3C9;
 	Mon, 27 Feb 2023 11:11:46 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52BE610E3C7;
- Mon, 27 Feb 2023 11:11:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADAB010E3B3;
+ Mon, 27 Feb 2023 11:11:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677496303; x=1709032303;
+ t=1677496298; x=1709032298;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=6ZaF8JkDYY/jvMlsMYPJyshk8VGnixUPCa12yodh7y0=;
- b=LzWlRUdH6Ils8HRjJ51YOrcIHD/r+vfNp1d4aXnDTFkc/X0iheSSMwfN
- HYRUpX9SnNBac4nlorsEzD183PaAFBY5Og+VepMc0OF+H5IVw9gT7e5Ym
- 7We9fkb/0ivnZKzyqUBr61M1j/XQLv9ipJYvwB5Nj31Arw44mt1pcLxSS
- jS65XZQ8pOq0OXlH4NS4de0cQDPf9DHSD3VdX+N6sRVb5Pc+vNl7l7usP
- E+cCmjDPRxdRzINiae83Vnove7mBCmREaAsmdIvGBZBfkltMB7u+2ZxBo
- KJ+SjhgrToVkwMP/9NlQwjEwugb/Gkg0A0HBssGc6pryHz1DZqmlmCAoP w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10633"; a="420097626"
-X-IronPort-AV: E=Sophos;i="5.97,331,1669104000"; d="scan'208";a="420097626"
+ bh=dgqmCI+yH9ZDKSbRN3+HASlXu0vVio1RZfjTUvWTSvc=;
+ b=e6dj2cNEYDtneL2v9o5hubEXTuDGD8Jbp805gVrwugJXs9E7EsLX/2O+
+ lXQimQPcdjvPTpivKwjO2nx+coAVmfKJDk3PIOoe54pSTSY27535ZbW/H
+ eRNGL/WFQkRfP+PF7zLnr33PJS/I74Y0C/0+qWbJz0RHYNYQzRY7hftD/
+ kyq321WgBC6nKveB4br4SbO/sjYrK+I/WetCR/545/3D5v0MTKystdm/7
+ GcjViqfEX1IJ+Yjp1tAYHyVi6FoHELKK++qJf+o2+tR/ZLm+q8x2SdYU9
+ tFKgBJvJbn4/FqjNSZlJdO+r4mSLBBK+wGHFwqa+eWwNYXDCUFdfOXZgd Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10633"; a="420097550"
+X-IronPort-AV: E=Sophos;i="5.97,331,1669104000"; d="scan'208";a="420097550"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2023 03:11:42 -0800
+ 27 Feb 2023 03:11:38 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10633"; a="651189465"
-X-IronPort-AV: E=Sophos;i="5.97,331,1669104000"; d="scan'208";a="651189465"
+X-IronPort-AV: E=McAfee;i="6500,9779,10633"; a="651189413"
+X-IronPort-AV: E=Sophos;i="5.97,331,1669104000"; d="scan'208";a="651189413"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by orsmga006.jf.intel.com with ESMTP; 27 Feb 2023 03:11:42 -0800
+ by orsmga006.jf.intel.com with ESMTP; 27 Feb 2023 03:11:38 -0800
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Mon, 27 Feb 2023 03:11:23 -0800
-Message-Id: <20230227111135.61728-8-yi.l.liu@intel.com>
+Date: Mon, 27 Feb 2023 03:11:18 -0800
+Message-Id: <20230227111135.61728-3-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230227111135.61728-1-yi.l.liu@intel.com>
 References: <20230227111135.61728-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 07/19] vfio: Block device access via device
- fd until device is opened
+Subject: [Intel-gfx] [PATCH v5 02/19] vfio: Refine vfio file kAPIs for KVM
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,113 +69,267 @@ Cc: linux-s390@vger.kernel.org, yi.l.liu@intel.com, yi.y.sun@linux.intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Allow the vfio_device file to be in a state where the device FD is
-opened but the device cannot be used by userspace (i.e. its .open_device()
-hasn't been called). This inbetween state is not used when the device
-FD is spawned from the group FD, however when we create the device FD
-directly by opening a cdev it will be opened in the blocked state.
+This prepares for making the below kAPIs to accept both group file
+and device file instead of only vfio group file.
 
-The reason for the inbetween state is that userspace only gets a FD but
-doesn't gain access permission until binding the FD to an iommufd. So in
-the blocked state, only the bind operation is allowed. Completing bind
-will allow user to further access the device.
+  bool vfio_file_enforced_coherent(struct file *file);
+  void vfio_file_set_kvm(struct file *file, struct kvm *kvm);
 
-This is implemented by adding a flag in struct vfio_device_file to mark
-the blocked state and using a simple smp_load_acquire() to obtain the
-flag value and serialize all the device setup with the thread accessing
-this device.
+Besides the above change, vfio_file_is_valid() is added to check if a
+given file is a valid vfio file. It would be extended to check both
+vfio group file and vfio device file later.
 
-Following this lockless scheme, it can safely handle the device FD
-unbound->bound but it cannot handle bound->unbound. To allow this we'd
-need to add a lock on all the vfio ioctls which seems costly. So once
-device FD is bound, it remains bound until the FD is closed.
+vfio_file_is_group() is kept to for the VFIO PCI hot reset path.
 
-Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Reviewed-by: Eric Auger <eric.auger@redhat.com>
 ---
- drivers/vfio/group.c     |  6 ++++++
- drivers/vfio/vfio.h      |  1 +
- drivers/vfio/vfio_main.c | 16 ++++++++++++++++
- 3 files changed, 23 insertions(+)
+ drivers/vfio/group.c     | 57 +++++++++++++++-------------------------
+ drivers/vfio/vfio.h      |  3 +++
+ drivers/vfio/vfio_main.c | 45 +++++++++++++++++++++++++++++++
+ include/linux/vfio.h     |  1 +
+ virt/kvm/vfio.c          | 10 +++----
+ 5 files changed, 75 insertions(+), 41 deletions(-)
 
 diff --git a/drivers/vfio/group.c b/drivers/vfio/group.c
-index 960b1bcb606b..d8771d585cb1 100644
+index cf51e1a0fd96..742003e4a796 100644
 --- a/drivers/vfio/group.c
 +++ b/drivers/vfio/group.c
-@@ -197,6 +197,12 @@ static int vfio_device_group_open(struct vfio_device_file *df)
- 	if (device->open_count == 0)
- 		vfio_device_put_kvm(device);
+@@ -751,6 +751,15 @@ bool vfio_device_has_container(struct vfio_device *device)
+ 	return device->group->container;
+ }
  
-+	/*
-+	 * Paired with smp_load_acquire() in vfio_device_fops::ioctl/
-+	 * read/write/mmap
-+	 */
-+	smp_store_release(&df->access_granted, true);
++struct vfio_group *vfio_group_from_file(struct file *file)
++{
++	struct vfio_group *group = file->private_data;
 +
- 	mutex_unlock(&device->dev_set->lock);
++	if (file->f_op != &vfio_group_fops)
++		return NULL;
++	return group;
++}
++
+ /**
+  * vfio_file_iommu_group - Return the struct iommu_group for the vfio group file
+  * @file: VFIO group file
+@@ -761,13 +770,13 @@ bool vfio_device_has_container(struct vfio_device *device)
+  */
+ struct iommu_group *vfio_file_iommu_group(struct file *file)
+ {
+-	struct vfio_group *group = file->private_data;
++	struct vfio_group *group = vfio_group_from_file(file);
+ 	struct iommu_group *iommu_group = NULL;
  
- out_unlock:
+ 	if (!IS_ENABLED(CONFIG_SPAPR_TCE_IOMMU))
+ 		return NULL;
+ 
+-	if (!vfio_file_is_group(file))
++	if (!group)
+ 		return NULL;
+ 
+ 	mutex_lock(&group->group_lock);
+@@ -781,33 +790,20 @@ struct iommu_group *vfio_file_iommu_group(struct file *file)
+ EXPORT_SYMBOL_GPL(vfio_file_iommu_group);
+ 
+ /**
+- * vfio_file_is_group - True if the file is usable with VFIO aPIS
++ * vfio_file_is_group - True if the file is a vfio group file
+  * @file: VFIO group file
+  */
+ bool vfio_file_is_group(struct file *file)
+ {
+-	return file->f_op == &vfio_group_fops;
++	return vfio_group_from_file(file);
+ }
+ EXPORT_SYMBOL_GPL(vfio_file_is_group);
+ 
+-/**
+- * vfio_file_enforced_coherent - True if the DMA associated with the VFIO file
+- *        is always CPU cache coherent
+- * @file: VFIO group file
+- *
+- * Enforced coherency means that the IOMMU ignores things like the PCIe no-snoop
+- * bit in DMA transactions. A return of false indicates that the user has
+- * rights to access additional instructions such as wbinvd on x86.
+- */
+-bool vfio_file_enforced_coherent(struct file *file)
++bool vfio_group_enforced_coherent(struct vfio_group *group)
+ {
+-	struct vfio_group *group = file->private_data;
+ 	struct vfio_device *device;
+ 	bool ret = true;
+ 
+-	if (!vfio_file_is_group(file))
+-		return true;
+-
+ 	/*
+ 	 * If the device does not have IOMMU_CAP_ENFORCE_CACHE_COHERENCY then
+ 	 * any domain later attached to it will also not support it. If the cap
+@@ -825,28 +821,17 @@ bool vfio_file_enforced_coherent(struct file *file)
+ 	mutex_unlock(&group->device_lock);
+ 	return ret;
+ }
+-EXPORT_SYMBOL_GPL(vfio_file_enforced_coherent);
+ 
+-/**
+- * vfio_file_set_kvm - Link a kvm with VFIO drivers
+- * @file: VFIO group file
+- * @kvm: KVM to link
+- *
+- * When a VFIO device is first opened the KVM will be available in
+- * device->kvm if one was associated with the group.
+- */
+-void vfio_file_set_kvm(struct file *file, struct kvm *kvm)
++void vfio_group_set_kvm(struct vfio_group *group, struct kvm *kvm)
+ {
+-	struct vfio_group *group = file->private_data;
+-
+-	if (!vfio_file_is_group(file))
+-		return;
+-
++	/*
++	 * When a VFIO device is first opened the KVM will be available in
++	 * device->kvm if one was associated with the group.
++	 */
+ 	spin_lock(&group->kvm_ref_lock);
+ 	group->kvm = kvm;
+ 	spin_unlock(&group->kvm_ref_lock);
+ }
+-EXPORT_SYMBOL_GPL(vfio_file_set_kvm);
+ 
+ /**
+  * vfio_file_has_dev - True if the VFIO file is a handle for device
+@@ -857,9 +842,9 @@ EXPORT_SYMBOL_GPL(vfio_file_set_kvm);
+  */
+ bool vfio_file_has_dev(struct file *file, struct vfio_device *device)
+ {
+-	struct vfio_group *group = file->private_data;
++	struct vfio_group *group = vfio_group_from_file(file);
+ 
+-	if (!vfio_file_is_group(file))
++	if (!group)
+ 		return false;
+ 
+ 	return group == device->group;
 diff --git a/drivers/vfio/vfio.h b/drivers/vfio/vfio.h
-index 7c1ea870d8f3..2e3cb284711d 100644
+index 61bbf673e672..4612cadb6c56 100644
 --- a/drivers/vfio/vfio.h
 +++ b/drivers/vfio/vfio.h
-@@ -18,6 +18,7 @@ struct vfio_container;
- 
- struct vfio_device_file {
- 	struct vfio_device *device;
-+	bool access_granted;
- 	spinlock_t kvm_ref_lock; /* protect kvm field */
- 	struct kvm *kvm;
- 	struct iommufd_ctx *iommufd; /* protected by struct vfio_device_set::lock */
+@@ -90,6 +90,9 @@ void vfio_device_group_unregister(struct vfio_device *device);
+ int vfio_device_group_use_iommu(struct vfio_device *device);
+ void vfio_device_group_unuse_iommu(struct vfio_device *device);
+ void vfio_device_group_close(struct vfio_device *device);
++struct vfio_group *vfio_group_from_file(struct file *file);
++bool vfio_group_enforced_coherent(struct vfio_group *group);
++void vfio_group_set_kvm(struct vfio_group *group, struct kvm *kvm);
+ bool vfio_device_has_container(struct vfio_device *device);
+ int __init vfio_group_init(void);
+ void vfio_group_cleanup(void);
 diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
-index 609700748082..d16ac573e290 100644
+index d99fa0cec18e..42ed3955814f 100644
 --- a/drivers/vfio/vfio_main.c
 +++ b/drivers/vfio/vfio_main.c
-@@ -1106,6 +1106,10 @@ static long vfio_device_fops_unl_ioctl(struct file *filep,
- 	struct vfio_device *device = df->device;
- 	int ret;
+@@ -1167,6 +1167,51 @@ const struct file_operations vfio_device_fops = {
+ 	.mmap		= vfio_device_fops_mmap,
+ };
  
-+	/* Paired with smp_store_release() in vfio_device_group_open() */
-+	if (!smp_load_acquire(&df->access_granted))
-+		return -EINVAL;
++/**
++ * vfio_file_is_valid - True if the file is valid vfio file
++ * @file: VFIO group file or VFIO device file
++ */
++bool vfio_file_is_valid(struct file *file)
++{
++	return vfio_group_from_file(file);
++}
++EXPORT_SYMBOL_GPL(vfio_file_is_valid);
 +
- 	ret = vfio_device_pm_runtime_get(device);
- 	if (ret)
- 		return ret;
-@@ -1133,6 +1137,10 @@ static ssize_t vfio_device_fops_read(struct file *filep, char __user *buf,
- 	struct vfio_device_file *df = filep->private_data;
- 	struct vfio_device *device = df->device;
- 
-+	/* Paired with smp_store_release() in vfio_device_group_open() */
-+	if (!smp_load_acquire(&df->access_granted))
-+		return -EINVAL;
++/**
++ * vfio_file_enforced_coherent - True if the DMA associated with the VFIO file
++ *        is always CPU cache coherent
++ * @file: VFIO group file or VFIO device file
++ *
++ * Enforced coherency means that the IOMMU ignores things like the PCIe no-snoop
++ * bit in DMA transactions. A return of false indicates that the user has
++ * rights to access additional instructions such as wbinvd on x86.
++ */
++bool vfio_file_enforced_coherent(struct file *file)
++{
++	struct vfio_group *group = vfio_group_from_file(file);
 +
- 	if (unlikely(!device->ops->read))
- 		return -EINVAL;
- 
-@@ -1146,6 +1154,10 @@ static ssize_t vfio_device_fops_write(struct file *filep,
- 	struct vfio_device_file *df = filep->private_data;
- 	struct vfio_device *device = df->device;
- 
-+	/* Paired with smp_store_release() in vfio_device_group_open() */
-+	if (!smp_load_acquire(&df->access_granted))
-+		return -EINVAL;
++	if (group)
++		return vfio_group_enforced_coherent(group);
 +
- 	if (unlikely(!device->ops->write))
- 		return -EINVAL;
- 
-@@ -1157,6 +1169,10 @@ static int vfio_device_fops_mmap(struct file *filep, struct vm_area_struct *vma)
- 	struct vfio_device_file *df = filep->private_data;
- 	struct vfio_device *device = df->device;
- 
-+	/* Paired with smp_store_release() in vfio_device_group_open() */
-+	if (!smp_load_acquire(&df->access_granted))
-+		return -EINVAL;
++	return true;
++}
++EXPORT_SYMBOL_GPL(vfio_file_enforced_coherent);
 +
- 	if (unlikely(!device->ops->mmap))
- 		return -EINVAL;
++/**
++ * vfio_file_set_kvm - Link a kvm with VFIO drivers
++ * @file: VFIO group file or VFIO device file
++ * @kvm: KVM to link
++ *
++ */
++void vfio_file_set_kvm(struct file *file, struct kvm *kvm)
++{
++	struct vfio_group *group = vfio_group_from_file(file);
++
++	if (group)
++		vfio_group_set_kvm(group, kvm);
++}
++EXPORT_SYMBOL_GPL(vfio_file_set_kvm);
++
+ /*
+  * Sub-module support
+  */
+diff --git a/include/linux/vfio.h b/include/linux/vfio.h
+index 93134b023968..f2d3d6997ad7 100644
+--- a/include/linux/vfio.h
++++ b/include/linux/vfio.h
+@@ -246,6 +246,7 @@ int vfio_mig_get_next_state(struct vfio_device *device,
+  */
+ struct iommu_group *vfio_file_iommu_group(struct file *file);
+ bool vfio_file_is_group(struct file *file);
++bool vfio_file_is_valid(struct file *file);
+ bool vfio_file_enforced_coherent(struct file *file);
+ void vfio_file_set_kvm(struct file *file, struct kvm *kvm);
+ bool vfio_file_has_dev(struct file *file, struct vfio_device *device);
+diff --git a/virt/kvm/vfio.c b/virt/kvm/vfio.c
+index 9584eb57e0ed..8bac308ba630 100644
+--- a/virt/kvm/vfio.c
++++ b/virt/kvm/vfio.c
+@@ -64,18 +64,18 @@ static bool kvm_vfio_file_enforced_coherent(struct file *file)
+ 	return ret;
+ }
  
+-static bool kvm_vfio_file_is_group(struct file *file)
++static bool kvm_vfio_file_is_valid(struct file *file)
+ {
+ 	bool (*fn)(struct file *file);
+ 	bool ret;
+ 
+-	fn = symbol_get(vfio_file_is_group);
++	fn = symbol_get(vfio_file_is_valid);
+ 	if (!fn)
+ 		return false;
+ 
+ 	ret = fn(file);
+ 
+-	symbol_put(vfio_file_is_group);
++	symbol_put(vfio_file_is_valid);
+ 
+ 	return ret;
+ }
+@@ -154,8 +154,8 @@ static int kvm_vfio_group_add(struct kvm_device *dev, unsigned int fd)
+ 	if (!filp)
+ 		return -EBADF;
+ 
+-	/* Ensure the FD is a vfio group FD.*/
+-	if (!kvm_vfio_file_is_group(filp)) {
++	/* Ensure the FD is a vfio FD.*/
++	if (!kvm_vfio_file_is_valid(filp)) {
+ 		ret = -EINVAL;
+ 		goto err_fput;
+ 	}
 -- 
 2.34.1
 
