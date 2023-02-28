@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29334C7EE2E
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Feb 2023 02:22:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F09F8C7EE23
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Feb 2023 02:23:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36E2E10E648;
-	Tue, 28 Feb 2023 02:22:13 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 696FE10E471;
- Tue, 28 Feb 2023 02:21:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88C1E10E471;
+	Tue, 28 Feb 2023 02:23:36 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C673F10E471
+ for <intel-gfx@lists.freedesktop.org>; Tue, 28 Feb 2023 02:23:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677550913; x=1709086913;
+ t=1677551015; x=1709087015;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=0iWN4NSVxcAJpQGBzzVwSRfHUDfhGGCncm1XHjLRQjE=;
- b=fqX1CwVapuXOCBR2PTpxIBM5xTOCRI8B5Mb4uXxGlToGIRNcN2VIzLVy
- 9L79+gxG+QB3ZqmX1haq6pzSXuOmfhMy0FldCkSQGx6Gi3EnomietoDAV
- tY3hvJZLYnKPxEzp6utZ5Hsk5bBl0qDGlIPOCIff3DwHVXhukGTdWNlWh
- ADHQ2mrP4r24CQeX2d78jzI5ilwetkGJcnsS+yVB+5RpC1840S8P0ybLM
- vKB26SKkEMOFG6eeUNrbD8+cF5DSQ/IC+4XyGtrSFpRD/6PTyHj4LXSEg
- oLI7kSrVacW65PhRZuAq85JhTljRd71eel5g4Ymtl9m+bfZEXXnA+Krk9 Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="334070739"
-X-IronPort-AV: E=Sophos;i="5.98,220,1673942400"; d="scan'208";a="334070739"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2023 18:21:52 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="919601741"
-X-IronPort-AV: E=Sophos;i="5.98,220,1673942400"; d="scan'208";a="919601741"
-Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by fmsmga006.fm.intel.com with ESMTP; 27 Feb 2023 18:21:52 -0800
-From: Alan Previn <alan.previn.teres.alexis@intel.com>
+ bh=2y+JodBWya1uCUdnw6FJ6BwF/neAPlGG8I1pgj8ECRU=;
+ b=kGsRCxhEIsUK6qstE6LqR0KvyHoTGe+EBcvpeoQqNtzXoSCbGPaINAy9
+ Gyy7Y6eWP3dtnlvVpE7tKENSxypQVkul9Fm6bihq1JJ2+bJQ75xf2KgxV
+ Yn9CAy8odGmqune1PU/Wl5M6XXP+5bj3vYabM/IJT92Bn5Ot2QAABng5f
+ lKPDRToTs3I9g9CuEJ1oNr8pj3uqEUONUWsdZroT6Hh2YaxCu76v8qvAw
+ hxMizRNv95XfFIuDbE2oS9mKTz7x3V3eN4BnTokAebgqTvsSb5S4d08O3
+ HUp4fZhKqDxGNLLpBMUJTAuELd/crbvfM8Av1XI2Hk1doicZWdJcQmMvA A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="331504072"
+X-IronPort-AV: E=Sophos;i="5.98,220,1673942400"; d="scan'208";a="331504072"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Feb 2023 18:23:35 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="676129219"
+X-IronPort-AV: E=Sophos;i="5.98,220,1673942400"; d="scan'208";a="676129219"
+Received: from orsosgc001.jf.intel.com ([10.165.21.138])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Feb 2023 18:23:35 -0800
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 27 Feb 2023 18:21:50 -0800
-Message-Id: <20230228022150.1657843-9-alan.previn.teres.alexis@intel.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230228022150.1657843-1-alan.previn.teres.alexis@intel.com>
-References: <20230228022150.1657843-1-alan.previn.teres.alexis@intel.com>
+Date: Mon, 27 Feb 2023 18:23:22 -0800
+Message-Id: <20230228022329.3615793-3-umesh.nerlige.ramappa@intel.com>
+X-Mailer: git-send-email 2.36.1
+In-Reply-To: <20230228022329.3615793-1-umesh.nerlige.ramappa@intel.com>
+References: <20230228022329.3615793-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 8/8] drm/i915/pxp: Enable PXP with MTL-GSC-CS
+Subject: [Intel-gfx] [PATCH v3 2/9] drm/i915/perf: Add helper to check
+ supported OA engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,82 +57,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org,
- Alan Previn <alan.previn.teres.alexis@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable PXP with MTL-GSC-CS: add the has_pxp into device info
-and increase the debugfs teardown timeouts to align with
-new GSC-CS + firmware specs.
+With an intention to add more engines that are supported by OA, add
+helper to check for supported OA engines.
 
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+v2: (Ashutosh)
+- Update commit message
+- Drop virtual engine check since we support only one render engine
+
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/i915_pci.c              | 1 +
- drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c | 9 ++++++++-
- drivers/gpu/drm/i915/pxp/intel_pxp_session.c | 2 +-
- 3 files changed, 10 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/i915_perf.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index a8d942b16223..4ecf0f2ab6ec 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -1150,6 +1150,7 @@ static const struct intel_device_info mtl_info = {
- 	.has_guc_deprivilege = 1,
- 	.has_mslice_steering = 0,
- 	.has_snoop = 1,
-+	.has_pxp = 1,
- 	.__runtime.memory_regions = REGION_SMEM | REGION_STOLEN_LMEM,
- 	.__runtime.platform_engine_mask = BIT(RCS0) | BIT(BCS0) | BIT(CCS0),
- 	.require_force_probe = 1,
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c b/drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c
-index 9f6e300486b4..ddf9f8bb7791 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c
-@@ -14,6 +14,7 @@
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 283a4a3c6862..b0e1acbe90fc 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -1570,6 +1570,16 @@ free_noa_wait(struct i915_perf_stream *stream)
+ 	i915_vma_unpin_and_release(&stream->noa_wait, 0);
+ }
  
- #include "intel_pxp.h"
- #include "intel_pxp_debugfs.h"
-+#include "intel_pxp_gsccs.h"
- #include "intel_pxp_irq.h"
- #include "intel_pxp_types.h"
- 
-@@ -45,6 +46,7 @@ static int pxp_terminate_set(void *data, u64 val)
- {
- 	struct intel_pxp *pxp = data;
- 	struct intel_gt *gt = intel_pxp_get_irq_gt(pxp);
-+	int timeout_ms;
- 
- 	if (!intel_pxp_is_active(pxp))
- 		return -ENODEV;
-@@ -54,8 +56,13 @@ static int pxp_terminate_set(void *data, u64 val)
- 	intel_pxp_irq_handler(pxp, GEN12_DISPLAY_PXP_STATE_TERMINATED_INTERRUPT);
- 	spin_unlock_irq(gt->irq_lock);
- 
-+	if (HAS_ENGINE(pxp->ctrl_gt, GSC0))
-+		timeout_ms = GSC_PENDING_RETRY_LATENCY_MS;
-+	else
-+		timeout_ms = 250;
++static bool engine_supports_oa(const struct intel_engine_cs *engine)
++{
++	enum intel_platform platform = INTEL_INFO(engine->i915)->platform;
 +
- 	if (!wait_for_completion_timeout(&pxp->termination,
--					 msecs_to_jiffies(100)))
-+					 msecs_to_jiffies(timeout_ms)))
- 		return -ETIMEDOUT;
++	switch (platform) {
++	default:
++		return engine->class == RENDER_CLASS;
++	}
++}
++
+ static void i915_oa_stream_destroy(struct i915_perf_stream *stream)
+ {
+ 	struct i915_perf *perf = stream->perf;
+@@ -2505,7 +2515,7 @@ static int gen8_configure_context(struct i915_gem_context *ctx,
+ 	for_each_gem_engine(ce, i915_gem_context_lock_engines(ctx), it) {
+ 		GEM_BUG_ON(ce == ce->engine->kernel_context);
  
- 	return 0;
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-index 4ddf2ee60222..03f006f9dc2e 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-@@ -44,7 +44,7 @@ static int pxp_wait_for_session_state(struct intel_pxp *pxp, u32 id, bool in_pla
- 				      KCR_SIP(pxp->kcr_base),
- 				      mask,
- 				      in_play ? mask : 0,
--				      100);
-+				      250);
+-		if (ce->engine->class != RENDER_CLASS)
++		if (!engine_supports_oa(ce->engine))
+ 			continue;
  
- 	intel_runtime_pm_put(uncore->rpm, wakeref);
+ 		/* Otherwise OA settings will be set upon first use */
+@@ -2656,7 +2666,7 @@ oa_configure_all_contexts(struct i915_perf_stream *stream,
+ 	for_each_uabi_engine(engine, i915) {
+ 		struct intel_context *ce = engine->kernel_context;
  
+-		if (engine->class != RENDER_CLASS)
++		if (!engine_supports_oa(ce->engine))
+ 			continue;
+ 
+ 		regs[0].value = intel_sseu_make_rpcs(engine->gt, &ce->sseu);
+@@ -3369,7 +3379,7 @@ void i915_oa_init_reg_state(const struct intel_context *ce,
+ {
+ 	struct i915_perf_stream *stream;
+ 
+-	if (engine->class != RENDER_CLASS)
++	if (!engine_supports_oa(engine))
+ 		return;
+ 
+ 	/* perf.exclusive_stream serialised by lrc_configure_all_contexts() */
 -- 
-2.39.0
+2.36.1
 
