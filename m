@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7547CC64ED6
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Feb 2023 02:23:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84D57C64ED6
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Feb 2023 02:23:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA1FA10E495;
-	Tue, 28 Feb 2023 02:23:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC02710E4A6;
+	Tue, 28 Feb 2023 02:23:43 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0D8510E495
- for <intel-gfx@lists.freedesktop.org>; Tue, 28 Feb 2023 02:23:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BFF610E495
+ for <intel-gfx@lists.freedesktop.org>; Tue, 28 Feb 2023 02:23:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677551015; x=1709087015;
+ t=1677551016; x=1709087016;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=t1+6XmqX8VrvVqyM9CgE1F8nCJbsymYnYBUPFeifRAA=;
- b=nM2taCOAuXK2APY+cII1CxVlkeVwhJcQ6JW+spwUQbYKhrhP4d9FiZ6P
- ++DPtEWhvTQMjkEZ/mbkhExmNSJC3IJzyTQKhkhRfvSTyzYytmu8xPdSV
- Z/uP49P/Oy9vGHRjRmskUhtocNVFqRqFuBk+ICLITgCvqM5bgkW1StVqR
- thatwoPAuXDWTRR7tyL8C2667VagN1jZfF3um9aoVz+F5B2WYOnYGyi+K
- xe4fRgX8LSry//GsfJYyOtpjzTzaUR58MAqayUK7HWeqztvfJv89+GEqa
- KF8kSgOKuP83zC2RYqSEYTIArOuTaKlLHrS028yZHU0o1lsT2XM6Ve/EW g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="331504073"
-X-IronPort-AV: E=Sophos;i="5.98,220,1673942400"; d="scan'208";a="331504073"
+ bh=MCrkNiDR6ytUCnyXbL8PNj9TuXEBtTwDmiVW/bHSD8A=;
+ b=TcIC7Nxgy0lRqE6F2lFeiKc2fIMtiYqvYMSrO7OPW7PJdlGRzZDW6a1n
+ mqIZ4XC7yibsoea3vV8sT599I18GBRH4TEqx8QNsiIC9D5jcf8yBE4Igo
+ rIEDCOlVRFMlV/MDLtjgcOwYpqbDTKF6fNwlwj155grxqHwUSA/5n0Bxj
+ bYjfQ3XiEPZgsjcimcRhC73MZQd6i6tjSf6axvcNVlDARqmFKr6JLUhdz
+ OoNu3Iuc/0/GcYBxSqUqgpnzUYpFPSsZts4iGi2O4Az3HfZq+FaJl9Pxo
+ 5+6BTDPyRgSFpO8cnNQtWbUNBHguPXxp1Yppc/x6jUUA8+YoMXaUMygOR A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="331504077"
+X-IronPort-AV: E=Sophos;i="5.98,220,1673942400"; d="scan'208";a="331504077"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2023 18:23:35 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="676129222"
-X-IronPort-AV: E=Sophos;i="5.98,220,1673942400"; d="scan'208";a="676129222"
+ 27 Feb 2023 18:23:36 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10634"; a="676129234"
+X-IronPort-AV: E=Sophos;i="5.98,220,1673942400"; d="scan'208";a="676129234"
 Received: from orsosgc001.jf.intel.com ([10.165.21.138])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2023 18:23:35 -0800
+ 27 Feb 2023 18:23:36 -0800
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 27 Feb 2023 18:23:23 -0800
-Message-Id: <20230228022329.3615793-4-umesh.nerlige.ramappa@intel.com>
+Date: Mon, 27 Feb 2023 18:23:27 -0800
+Message-Id: <20230228022329.3615793-8-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20230228022329.3615793-1-umesh.nerlige.ramappa@intel.com>
 References: <20230228022329.3615793-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 3/9] drm/i915/perf: Validate OA sseu config
- outside switch
+Subject: [Intel-gfx] [PATCH v3 7/9] drm/i915/perf: Handle non-power-of-2
+ reports
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,78 +60,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Once OA supports media engine class:instance, the engine can only be
-validated outside the switch since class and instance parameters are
-separate entities. Since OA sseu config depends on engine
-class:instance, validate OA sseu config outside the switch.
+Some of the newer OA formats are not powers of 2. For those formats,
+adjust the hw_tail accordingly when checking for new reports.
 
 v2: (Ashutosh)
-- Clarify commit message
-- Use drm_dbg instead of DRM_DEBUG
-- Reorder stack variables
+- Switch to OA_TAKEN for diff calculation
+- Use OA_BUFFER_SIZE instead of the vma size
+- Update comments
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/i915_perf.c | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/i915_perf.c | 51 +++++++++++++++++---------------
+ 1 file changed, 27 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index b0e1acbe90fc..1229f65534e2 100644
+index b8f7ddf63530..a8eb37be2aa2 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -3950,7 +3950,9 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 				    u32 n_props,
- 				    struct perf_open_properties *props)
- {
-+	struct drm_i915_gem_context_param_sseu user_sseu;
- 	u64 __user *uprop = uprops;
-+	bool config_sseu = false;
- 	u32 i;
- 	int ret;
+@@ -534,6 +534,7 @@ static bool oa_buffer_check_unlocked(struct i915_perf_stream *stream)
+ 	bool pollin;
+ 	u32 hw_tail;
+ 	u64 now;
++	u32 partial_report_size;
  
-@@ -4079,8 +4081,6 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 			props->hold_preemption = !!value;
- 			break;
- 		case DRM_I915_PERF_PROP_GLOBAL_SSEU: {
--			struct drm_i915_gem_context_param_sseu user_sseu;
--
- 			if (GRAPHICS_VER_FULL(perf->i915) >= IP_VER(12, 50)) {
- 				drm_dbg(&perf->i915->drm,
- 					"SSEU config not supported on gfx %x\n",
-@@ -4095,14 +4095,7 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 					"Unable to copy global sseu parameter\n");
- 				return -EFAULT;
- 			}
--
--			ret = get_sseu_config(&props->sseu, props->engine, &user_sseu);
--			if (ret) {
--				drm_dbg(&perf->i915->drm,
--					"Invalid SSEU configuration\n");
--				return ret;
--			}
--			props->has_sseu = true;
-+			config_sseu = true;
- 			break;
- 		}
- 		case DRM_I915_PERF_PROP_POLL_OA_PERIOD:
-@@ -4122,6 +4115,16 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 		uprop += 2;
- 	}
+ 	/* We have to consider the (unlikely) possibility that read() errors
+ 	 * could result in an OA buffer reset which might reset the head and
+@@ -543,10 +544,15 @@ static bool oa_buffer_check_unlocked(struct i915_perf_stream *stream)
  
-+	if (config_sseu) {
-+		ret = get_sseu_config(&props->sseu, props->engine, &user_sseu);
-+		if (ret) {
-+			drm_dbg(&perf->i915->drm,
-+				"Invalid SSEU configuration\n");
-+			return ret;
-+		}
-+		props->has_sseu = true;
-+	}
+ 	hw_tail = stream->perf->ops.oa_hw_tail_read(stream);
+ 
+-	/* The tail pointer increases in 64 byte increments,
+-	 * not in report_size steps...
++	/* The tail pointer increases in 64 byte increments, not in report_size
++	 * steps. Also the report size may not be a power of 2. Compute
++	 * potentially partially landed report in the OA buffer
+ 	 */
+-	hw_tail &= ~(report_size - 1);
++	partial_report_size = OA_TAKEN(hw_tail, stream->oa_buffer.tail);
++	partial_report_size %= report_size;
 +
- 	return 0;
- }
++	/* Subtract partial amount off the tail */
++	hw_tail = gtt_offset + OA_TAKEN(hw_tail, partial_report_size);
  
+ 	now = ktime_get_mono_fast_ns();
+ 
+@@ -669,6 +675,8 @@ static int append_oa_sample(struct i915_perf_stream *stream,
+ {
+ 	int report_size = stream->oa_buffer.format->size;
+ 	struct drm_i915_perf_record_header header;
++	int report_size_partial;
++	u8 *oa_buf_end;
+ 
+ 	header.type = DRM_I915_PERF_RECORD_SAMPLE;
+ 	header.pad = 0;
+@@ -682,8 +690,20 @@ static int append_oa_sample(struct i915_perf_stream *stream,
+ 		return -EFAULT;
+ 	buf += sizeof(header);
+ 
+-	if (copy_to_user(buf, report, report_size))
++	oa_buf_end = stream->oa_buffer.vaddr + OA_BUFFER_SIZE;
++	report_size_partial = oa_buf_end - report;
++
++	if (report_size_partial < report_size) {
++		if (copy_to_user(buf, report, report_size_partial))
++			return -EFAULT;
++		buf += report_size_partial;
++
++		if (copy_to_user(buf, stream->oa_buffer.vaddr,
++				 report_size - report_size_partial))
++			return -EFAULT;
++	} else if (copy_to_user(buf, report, report_size)) {
+ 		return -EFAULT;
++	}
+ 
+ 	(*offset) += header.size;
+ 
+@@ -747,12 +767,11 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
+ 	 * An out of bounds or misaligned head or tail pointer implies a driver
+ 	 * bug since we validate + align the tail pointers we read from the
+ 	 * hardware and we are in full control of the head pointer which should
+-	 * only be incremented by multiples of the report size (notably also
+-	 * all a power of two).
++	 * only be incremented by multiples of the report size.
+ 	 */
+ 	if (drm_WARN_ONCE(&uncore->i915->drm,
+-			  head > OA_BUFFER_SIZE || head % report_size ||
+-			  tail > OA_BUFFER_SIZE || tail % report_size,
++			  head > OA_BUFFER_SIZE ||
++			  tail > OA_BUFFER_SIZE,
+ 			  "Inconsistent OA buffer pointers: head = %u, tail = %u\n",
+ 			  head, tail))
+ 		return -EIO;
+@@ -766,22 +785,6 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
+ 		u32 ctx_id;
+ 		u64 reason;
+ 
+-		/*
+-		 * All the report sizes factor neatly into the buffer
+-		 * size so we never expect to see a report split
+-		 * between the beginning and end of the buffer.
+-		 *
+-		 * Given the initial alignment check a misalignment
+-		 * here would imply a driver bug that would result
+-		 * in an overrun.
+-		 */
+-		if (drm_WARN_ON(&uncore->i915->drm,
+-				(OA_BUFFER_SIZE - head) < report_size)) {
+-			drm_err(&uncore->i915->drm,
+-				"Spurious OA head ptr: non-integral report offset\n");
+-			break;
+-		}
+-
+ 		/*
+ 		 * The reason field includes flags identifying what
+ 		 * triggered this specific report (mostly timer
 -- 
 2.36.1
 
