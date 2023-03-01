@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E383C7EE23
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Mar 2023 20:11:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2BA7C7EE30
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Mar 2023 20:11:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0737110E241;
-	Wed,  1 Mar 2023 20:11:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BD2910E24D;
+	Wed,  1 Mar 2023 20:11:50 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B25A10E241
- for <intel-gfx@lists.freedesktop.org>; Wed,  1 Mar 2023 20:11:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12E7510E24B
+ for <intel-gfx@lists.freedesktop.org>; Wed,  1 Mar 2023 20:11:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677701507; x=1709237507;
+ t=1677701508; x=1709237508;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=oxP7y9nxIsVXhDSJYI88qNHTJ24iNgXRzGb0wlKSQ98=;
- b=d1onNfEAr982ycVoHhq3H0ICpWAfNumexZLbxfHmwf2LHkcRKgOBofUY
- SwROrSAPSuPDVlSpOJp6qPx9Z6qne1R8CTK76leKRGV8WkX3k8I7EJ85Q
- 9BfmFLA/LgO6VmCGFFEMcYbb6wwPrMvBTf4X5Hecsn/lR+ZjQl4e+rF+M
- s99XHA8jgVMBIclhUQks5WV6rp0kSqgePuqseP14yBRnyghB7YogLGRUs
- O8AbjfJ4a/e78bEc7qvjna5Z5WpFKM14hvpYdgzxLW3tz6zIZ/Ko/uMWz
- YlDxGfCeJGExNWkIAxMW5i4tvOJ6L0ZXoZtYyBagD56nuujbdAKvybBrE w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10636"; a="314933480"
-X-IronPort-AV: E=Sophos;i="5.98,225,1673942400"; d="scan'208";a="314933480"
+ bh=Gn6zGOnEfxlc6H1QFJNZZ1b/nc79QxLXeNUqRpagSzA=;
+ b=ETxzxo1D5KdbvYXNtgg6+1BdSXwL+PwzptTIZqfrt2F/QhWI43wfLclK
+ ee7m4VgGTy4GSIk901M/BlDBlZMn3KMrbGOpobjChaIhWXyUkSp7itR+g
+ ncaVT67nX7Tg2PG2iGB0W9X4EvwhFtAxoMXx+RJ8GuiW4mJrCzSsTSx3H
+ EW2HsoKqATEz9dOV7oOZN0IlkkLQ5xtN/iHiKCOiEKycjRf9DFwoV0YyT
+ 6iMbC4MsBBLW+TZf/UftjvQm1dOKeXry9uHUSxyIYeRsvGdWvwGQ6G7me
+ 6c8ZipNwT0tK/Ay19srMJJkjL5ZzFjIQbHNBaeBGwxV8jPaAYQGJYtTUl g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10636"; a="314933487"
+X-IronPort-AV: E=Sophos;i="5.98,225,1673942400"; d="scan'208";a="314933487"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Mar 2023 12:11:46 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10636"; a="674691935"
-X-IronPort-AV: E=Sophos;i="5.98,225,1673942400"; d="scan'208";a="674691935"
+ 01 Mar 2023 12:11:47 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10636"; a="674691946"
+X-IronPort-AV: E=Sophos;i="5.98,225,1673942400"; d="scan'208";a="674691946"
 Received: from invictus.jf.intel.com ([10.165.21.134])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  01 Mar 2023 12:11:45 -0800
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  1 Mar 2023 12:10:49 -0800
-Message-Id: <20230301201053.928709-2-radhakrishna.sripada@intel.com>
+Date: Wed,  1 Mar 2023 12:10:53 -0800
+Message-Id: <20230301201053.928709-6-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230301201053.928709-1-radhakrishna.sripada@intel.com>
 References: <20230301201053.928709-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 1/5] drm/i915/mtl: Fix Wa_16015201720
- implementation
+Subject: [Intel-gfx] [PATCH v3 5/5] drm/i915/display/mtl: Program latch to
+ phy reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,96 +58,67 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The commit 2357f2b271ad ("drm/i915/mtl: Initial display workarounds")
-extended the workaround Wa_16015201720 to MTL. However the registers
-that the original WA implemented moved for MTL.
+From: José Roberto de Souza <jose.souza@intel.com>
 
-Implement the workaround with the correct register.
+Latch reset of phys during DC9 and when driver is unloaded to avoid
+phy reset.
 
-v3: Skip clock gating for pipe C, D DMC's and fix the title
+Specification ask us to program it closer to the step that enables
+DC9 in DC_STATE_EN but doing this way allow us to sanitize the phy
+latch during driver load.
 
-Fixes: 2357f2b271ad ("drm/i915/mtl: Initial display workarounds")
-Cc: Matt Atwood <matthew.s.atwood@intel.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+BSpec: 49197
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dmc.c | 26 +++++++++++++++++++-----
- drivers/gpu/drm/i915/i915_reg.h          | 10 ++++++---
- 2 files changed, 28 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_power.c | 8 ++++++++
+ drivers/gpu/drm/i915/i915_reg.h                    | 2 ++
+ 2 files changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
-index f70ada2357dc..b4283cf319f2 100644
---- a/drivers/gpu/drm/i915/display/intel_dmc.c
-+++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-@@ -389,15 +389,12 @@ static void disable_all_event_handlers(struct drm_i915_private *i915)
- 	}
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 743b919bb2cf..50098c77e3be 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -1624,6 +1624,10 @@ static void icl_display_core_init(struct drm_i915_private *dev_priv,
+ 	intel_power_well_enable(dev_priv, well);
+ 	mutex_unlock(&power_domains->lock);
  
--static void pipedmc_clock_gating_wa(struct drm_i915_private *i915, bool enable)
-+static void adlp_pipedmc_clock_gating_wa(struct drm_i915_private *i915, bool enable)
- {
- 	enum pipe pipe;
++	if (DISPLAY_VER(dev_priv) == 14)
++		intel_de_rmw(dev_priv, DC_STATE_EN,
++			     HOLD_PHY_PG1_LATCH | HOLD_PHY_CLKREQ_PG1_LATCH, 0);
++
+ 	/* 4. Enable CDCLK. */
+ 	intel_cdclk_init_hw(dev_priv);
  
--	if (DISPLAY_VER(i915) < 13)
--		return;
--
+@@ -1677,6 +1681,10 @@ static void icl_display_core_uninit(struct drm_i915_private *dev_priv)
+ 	/* 3. Disable CD clock */
+ 	intel_cdclk_uninit_hw(dev_priv);
+ 
++	if (DISPLAY_VER(dev_priv) == 14)
++		intel_de_rmw(dev_priv, DC_STATE_EN, 0,
++			     HOLD_PHY_PG1_LATCH | HOLD_PHY_CLKREQ_PG1_LATCH);
++
  	/*
--	 * Wa_16015201720:adl-p,dg2, mtl
-+	 * Wa_16015201720:adl-p,dg2
- 	 * The WA requires clock gating to be disabled all the time
- 	 * for pipe A and B.
- 	 * For pipe C and D clock gating needs to be disabled only
-@@ -413,6 +410,25 @@ static void pipedmc_clock_gating_wa(struct drm_i915_private *i915, bool enable)
- 				     PIPEDMC_GATING_DIS, 0);
- }
- 
-+static void mtl_pipedmc_clock_gating_wa(struct drm_i915_private *i915)
-+{
-+	/*
-+	 * Wa_16015201720
-+	 * The WA requires clock gating to be disabled all the time
-+	 * for pipe A and B.
-+	 */
-+	intel_de_rmw(i915, GEN9_CLKGATE_DIS_0, 0,
-+		     MTL_PIPEDMC_GATING_DIS_A | MTL_PIPEDMC_GATING_DIS_B);
-+}
-+
-+static void pipedmc_clock_gating_wa(struct drm_i915_private *i915, bool enable)
-+{
-+	if (DISPLAY_VER(i915) >= 14 && enable)
-+		return mtl_pipedmc_clock_gating_wa(i915);
-+	else if (DISPLAY_VER(i915) == 13)
-+		return adlp_pipedmc_clock_gating_wa(i915, enable);
-+}
-+
- void intel_dmc_enable_pipe(struct drm_i915_private *i915, enum pipe pipe)
- {
- 	enum intel_dmc_id dmc_id = PIPE_TO_DMC_ID(pipe);
+ 	 * 4. Disable Power Well 1 (PG1).
+ 	 *    The AUX IO power wells are toggled on demand, so they are already
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index c1efa655fb68..7c9ac5b43831 100644
+index 7c9ac5b43831..fa1905cc5a99 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -1794,9 +1794,13 @@
-  * GEN9 clock gating regs
-  */
- #define GEN9_CLKGATE_DIS_0		_MMIO(0x46530)
--#define   DARBF_GATING_DIS		(1 << 27)
--#define   PWM2_GATING_DIS		(1 << 14)
--#define   PWM1_GATING_DIS		(1 << 13)
-+#define   DARBF_GATING_DIS		REG_BIT(27)
-+#define   MTL_PIPEDMC_GATING_DIS_A	REG_BIT(15)
-+#define   MTL_PIPEDMC_GATING_DIS_B	REG_BIT(14)
-+#define   PWM2_GATING_DIS		REG_BIT(14)
-+#define   MTL_PIPEDMC_GATING_DIS_C	REG_BIT(13)
-+#define   PWM1_GATING_DIS		REG_BIT(13)
-+#define   MTL_PIPEDMC_GATING_DIS_D	REG_BIT(12)
- 
- #define GEN9_CLKGATE_DIS_3		_MMIO(0x46538)
- #define   TGL_VRH_GATING_DIS		REG_BIT(31)
+@@ -7360,6 +7360,8 @@ enum skl_power_gate {
+ #define  DC_STATE_DISABLE		0
+ #define  DC_STATE_EN_DC3CO		REG_BIT(30)
+ #define  DC_STATE_DC3CO_STATUS		REG_BIT(29)
++#define  HOLD_PHY_CLKREQ_PG1_LATCH	REG_BIT(21)
++#define  HOLD_PHY_PG1_LATCH		REG_BIT(20)
+ #define  DC_STATE_EN_UPTO_DC5		(1 << 0)
+ #define  DC_STATE_EN_DC9		(1 << 3)
+ #define  DC_STATE_EN_UPTO_DC6		(2 << 0)
 -- 
 2.34.1
 
