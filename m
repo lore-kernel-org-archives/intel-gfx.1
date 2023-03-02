@@ -4,55 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60BA6C6FA8E
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Mar 2023 11:01:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FEEBC7EE36
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Mar 2023 11:35:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EDB410E275;
-	Thu,  2 Mar 2023 11:01:00 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E18610E14F
- for <intel-gfx@lists.freedesktop.org>; Thu,  2 Mar 2023 11:00:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5710310E111;
+	Thu,  2 Mar 2023 11:35:21 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68B5310E111
+ for <intel-gfx@lists.freedesktop.org>; Thu,  2 Mar 2023 11:35:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1677754858; x=1709290858;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=T8mOp+Kr2gEIUgmcAH1/CnnQcc5azTxS4fa+3qlsMyk=;
- b=m6WJYTRGMCBjo7CNY22FvK1mJur+X3PBeFs+PXCkg9fgN7alwgVizPQ7
- HFUmr2mETmJnQf0WtXU12I0nweQdvhDZ07hhjabwTi+lS+yzyj2hmJz1S
- RjYbSrVjhv+D8+HT5EiVGDdvY5EEM32vnklce9RX3KrpAvgarUwPYTCl5
- i6M8YU1opD/L50ae3pCZ7zov+6S/IMQnPglvHSjQ04uUv0WXhH8n9s4lk
- 6decezeR8JdKgYnTdp2QTWlZoNAaZ3agV4FjyKrbvywqSwArVpuFsYBe3
- PIqWoPU7sqbASzdPobom/m/yfdrCD6ZRC9V6ckU0bBVvKfcisWcIDjSx/ g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10636"; a="362280603"
-X-IronPort-AV: E=Sophos;i="5.98,227,1673942400"; d="scan'208";a="362280603"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Mar 2023 03:00:58 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10636"; a="1004066606"
-X-IronPort-AV: E=Sophos;i="5.98,227,1673942400"; d="scan'208";a="1004066606"
-Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.8.166])
- ([10.213.8.166])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Mar 2023 03:00:56 -0800
-Message-ID: <3d44e317-1491-d610-109c-0b14dd252aba@intel.com>
-Date: Thu, 2 Mar 2023 12:00:54 +0100
+ t=1677756919; x=1709292919;
+ h=date:from:to:cc:subject:message-id:reply-to:references:
+ mime-version:in-reply-to;
+ bh=YN+h5BBq9g0CbxK3tsgpp4B0z9mmQlAcqraUqFXXi0w=;
+ b=iQf7Ip4xxF3ihny8N9j0yHzeDd3Bpfoj6QgPu5/YXbIXafz3dg4T1bzW
+ YQw+4/Pvvr09yA5f2DPsmE7PhqNhdex6U5rFL6bokLZCl8zK9DE+84ypV
+ zaw0vWVLukM7q+oSrOnA7EpDLUATL2y2hZqg+F7WKfHDVg4+MoGBNhFY1
+ dr/saOlv9+N9DxtDmG9ymn78mg0+C6slogEJi9SAd0CJhgIPRIRIBTR7s
+ hxFhTENdD/2O1nEt1xHXmF4HhSfTaxsrEx2KTdKuOUdnSV7I8PAuq+HnW
+ zeQ+bJxDcnumA4s+7/CIu+6F16Xw3mS0VJohzTZ6Ia6vylFtt4FN0SPoC w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10636"; a="336195185"
+X-IronPort-AV: E=Sophos;i="5.98,227,1673942400"; d="scan'208";a="336195185"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Mar 2023 03:35:18 -0800
+X-IronPort-AV: E=McAfee;i="6500,9779,10636"; a="668200836"
+X-IronPort-AV: E=Sophos;i="5.98,227,1673942400"; d="scan'208";a="668200836"
+Received: from ideak-desk.fi.intel.com ([10.237.72.58])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Mar 2023 03:35:17 -0800
+Date: Thu, 2 Mar 2023 13:35:15 +0200
+From: Imre Deak <imre.deak@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Message-ID: <ZACJ80onyvv9/HX0@ideak-desk.fi.intel.com>
+References: <20230301122944.1298929-1-jani.nikula@intel.com>
+ <20230301122944.1298929-5-jani.nikula@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.8.0
-Content-Language: en-US
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-References: <20230208105130.3233420-1-andrzej.hajda@intel.com>
- <947b8217-7d3e-974f-8690-7cfdfcbeb516@linux.intel.com>
-From: Andrzej Hajda <andrzej.hajda@intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
- Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <947b8217-7d3e-974f-8690-7cfdfcbeb516@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH v4] drm/i915: add guard page to
- ggtt->error_capture
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230301122944.1298929-5-jani.nikula@intel.com>
+Subject: Re: [Intel-gfx] [PATCH v4 5/5] drm/i915/dmc: mass rename dev_priv
+ to i915
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,170 +58,426 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@intel.com>,
- Matthew Auld <matthew.auld@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- chris.p.wilson@linux.intel.com
+Reply-To: imre.deak@intel.com
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Wed, Mar 01, 2023 at 02:29:44PM +0200, Jani Nikula wrote:
+> Follow the contemporary convention for struct drm_i915_private * naming.
+> 
+> Cc: Imre Deak <imre.deak@intel.com>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
+Looks ok to me, on the patchset:
+Reviewed-by: Imre Deak <imre.deak@intel.com>
 
-On 02.03.2023 11:43, Tvrtko Ursulin wrote:
->
-> On 08/02/2023 10:51, Andrzej Hajda wrote:
->> Write-combining memory allows speculative reads by CPU.
->> ggtt->error_capture is WC mapped to CPU, so CPU/MMU can try
->> to prefetch memory beyond the error_capture, ie it tries
->> to read memory pointed by next PTE in GGTT.
->> If this PTE points to invalid address DMAR errors will occur.
->> This behaviour was observed on ADL, RPL, DG2 platforms.
->> To avoid it, guard scratch page should be added after error_capture.
->> The patch fixes the most annoying issue with error capture but
->> since WC reads are used also in other places there is a risk similar
->> problem can affect them as well.
->>
->> Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
->> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
->
-> Research tells the explanation is plausible so:
->
-> Acked-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
->
-
-Thanks for looking at it.
-
-> On patch details below.
->
-> What about "simiar risk in other places" - are there any plans to 
-> asses the potential impact elsewhere?
-
-Yes, merging this patch is the 1st step, as error_capture is responsible 
-for most (maybe even all) regular
-DMAR read errors. After removing this noise it will be much easier to 
-spot other DMAR read errors.
-There are also multiple regular DMAR write errors (less frequent, but 
-still), which I hope to debug if time permits.
-
-Regards
-Andrzej
-
->
->> ---
->> This patch tries to diminish plague of DMAR read errors present
->> in CI for ADL*, RPL*, DG2 platforms, see for example [1] (grep DMAR).
->> CI is usually tolerant for these errors, so the scale of the problem
->> is not really visible.
->> To show it I have counted lines containing DMAR read errors in dmesgs
->> produced by CI for all three versions of the patch, but in contrast 
->> to v2
->> I have grepped only for lines containing "PTE Read access".
->> Below stats for kernel w/o patch vs patched one.
->> v1: 210 vs 0
->> v2: 201 vs 0
->> v3: 214 vs 0
->> Apparently the patch fixes all common PTE read errors.
->>
->> In previous version there were different numbers due to less exact 
->> grepping,
->> "grep DMAR" catched write errors and "DMAR: DRHD: handling fault 
->> status reg"
->> lines, anyway the actual number of errors is much bigger - DMAR errors
->> are rate-limited.
->>
->> [1]: 
->> http://gfx-ci.igk.intel.com/tree/drm-tip/CI_DRM_12678/bat-adln-1/dmesg0.txt
->>
->> Changelog:
->> v2:
->>      - modified commit message (I hope the diagnosis is correct),
->>      - added bug checks to ensure scratch is initialized on gen3 
->> platforms.
->>        CI produces strange stacktrace for it suggesting scratch[0] is 
->> NULL,
->>        to be removed after resolving the issue with gen3 platforms.
->> v3:
->>      - removed bug checks, replaced with gen check.
->> v4:
->>      - change code for scratch page insertion to support all platforms,
->>      - add info in commit message there could be more similar issues
->>
->> Regards
->> Andrzej
->> ---
->>   drivers/gpu/drm/i915/gt/intel_ggtt.c | 31 ++++++++++++++++++++++++----
->>   1 file changed, 27 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c 
->> b/drivers/gpu/drm/i915/gt/intel_ggtt.c
->> index 842e69c7b21e49..6566d2066f1f8b 100644
->> --- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
->> +++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
->> @@ -503,6 +503,21 @@ static void cleanup_init_ggtt(struct i915_ggtt 
->> *ggtt)
->>       mutex_destroy(&ggtt->error_mutex);
->>   }
->>   +static void
->> +ggtt_insert_scratch_pages(struct i915_ggtt *ggtt, u64 offset, u64 
->> length)
->> +{
->> +    struct i915_address_space *vm = &ggtt->vm;
->> +
->> +    if (GRAPHICS_VER(ggtt->vm.i915) < 8)
->> +        return vm->clear_range(vm, offset, length);
->> +    /* clear_range since gen8 is nop */
->
-> It would also work to simply drop the <gen8 case and just do the loop 
-> below, right? If so would that be clearer?
->
->> +    while (length > 0) {
->
-> Maybe add a GEM_BUG_ON if length is not aligned? Granted it may be a 
-> huge stretch of imagination..
->
-> Regards,
->
-> Tvrtko
->
->> +        vm->insert_page(vm, px_dma(vm->scratch[0]), offset, 
->> I915_CACHE_NONE, 0);
->> +        offset += I915_GTT_PAGE_SIZE;
->> +        length -= I915_GTT_PAGE_SIZE;
->> +    }
->> +}
->> +
->>   static int init_ggtt(struct i915_ggtt *ggtt)
->>   {
->>       /*
->> @@ -551,8 +566,12 @@ static int init_ggtt(struct i915_ggtt *ggtt)
->>            * paths, and we trust that 0 will remain reserved. However,
->>            * the only likely reason for failure to insert is a driver
->>            * bug, which we expect to cause other failures...
->> +         *
->> +         * Since CPU can perform speculative reads on error capture
->> +         * (write-combining allows it) add scratch page after error
->> +         * capture to avoid DMAR errors.
->>            */
->> -        ggtt->error_capture.size = I915_GTT_PAGE_SIZE;
->> +        ggtt->error_capture.size = 2 * I915_GTT_PAGE_SIZE;
->>           ggtt->error_capture.color = I915_COLOR_UNEVICTABLE;
->>           if (drm_mm_reserve_node(&ggtt->vm.mm, &ggtt->error_capture))
->>               drm_mm_insert_node_in_range(&ggtt->vm.mm,
->> @@ -562,11 +581,15 @@ static int init_ggtt(struct i915_ggtt *ggtt)
->>                               0, ggtt->mappable_end,
->>                               DRM_MM_INSERT_LOW);
->>       }
->> -    if (drm_mm_node_allocated(&ggtt->error_capture))
->> +    if (drm_mm_node_allocated(&ggtt->error_capture)) {
->> +        u64 start = ggtt->error_capture.start;
->> +        u64 size = ggtt->error_capture.size;
->> +
->> +        ggtt_insert_scratch_pages(ggtt, start, size);
->>           drm_dbg(&ggtt->vm.i915->drm,
->>               "Reserved GGTT:[%llx, %llx] for use by error capture\n",
->> -            ggtt->error_capture.start,
->> -            ggtt->error_capture.start + ggtt->error_capture.size);
->> +            start, start + size);
->> +    }
->>         /*
->>        * The upper portion of the GuC address space has a sizeable hole
-
+> ---
+>  drivers/gpu/drm/i915/display/intel_dmc.c | 166 +++++++++++------------
+>  1 file changed, 81 insertions(+), 85 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
+> index 302a465ceb1f..6b162f77340e 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dmc.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dmc.c
+> @@ -313,12 +313,12 @@ intel_get_stepping_info(struct drm_i915_private *i915,
+>  	return si;
+>  }
+>  
+> -static void gen9_set_dc_state_debugmask(struct drm_i915_private *dev_priv)
+> +static void gen9_set_dc_state_debugmask(struct drm_i915_private *i915)
+>  {
+>  	/* The below bit doesn't need to be cleared ever afterwards */
+> -	intel_de_rmw(dev_priv, DC_STATE_DEBUG, 0,
+> +	intel_de_rmw(i915, DC_STATE_DEBUG, 0,
+>  		     DC_STATE_DEBUG_MASK_CORES | DC_STATE_DEBUG_MASK_MEMORY_UP);
+> -	intel_de_posting_read(dev_priv, DC_STATE_DEBUG);
+> +	intel_de_posting_read(i915, DC_STATE_DEBUG);
+>  }
+>  
+>  static void disable_event_handler(struct drm_i915_private *i915,
+> @@ -476,33 +476,33 @@ void intel_dmc_disable_pipe(struct drm_i915_private *i915, enum pipe pipe)
+>  
+>  /**
+>   * intel_dmc_load_program() - write the firmware from memory to register.
+> - * @dev_priv: i915 drm device.
+> + * @i915: i915 drm device.
+>   *
+>   * DMC firmware is read from a .bin file and kept in internal memory one time.
+>   * Everytime display comes back from low power state this function is called to
+>   * copy the firmware from internal memory to registers.
+>   */
+> -void intel_dmc_load_program(struct drm_i915_private *dev_priv)
+> +void intel_dmc_load_program(struct drm_i915_private *i915)
+>  {
+> -	struct i915_power_domains *power_domains = &dev_priv->display.power.domains;
+> -	struct intel_dmc *dmc = i915_to_dmc(dev_priv);
+> +	struct i915_power_domains *power_domains = &i915->display.power.domains;
+> +	struct intel_dmc *dmc = i915_to_dmc(i915);
+>  	enum intel_dmc_id dmc_id;
+>  	u32 i;
+>  
+> -	if (!intel_dmc_has_payload(dev_priv))
+> +	if (!intel_dmc_has_payload(i915))
+>  		return;
+>  
+> -	pipedmc_clock_gating_wa(dev_priv, true);
+> +	pipedmc_clock_gating_wa(i915, true);
+>  
+> -	disable_all_event_handlers(dev_priv);
+> +	disable_all_event_handlers(i915);
+>  
+> -	assert_rpm_wakelock_held(&dev_priv->runtime_pm);
+> +	assert_rpm_wakelock_held(&i915->runtime_pm);
+>  
+>  	preempt_disable();
+>  
+>  	for_each_dmc_id(dmc_id) {
+>  		for (i = 0; i < dmc->dmc_info[dmc_id].dmc_fw_size; i++) {
+> -			intel_de_write_fw(dev_priv,
+> +			intel_de_write_fw(i915,
+>  					  DMC_PROGRAM(dmc->dmc_info[dmc_id].start_mmioaddr, i),
+>  					  dmc->dmc_info[dmc_id].payload[i]);
+>  		}
+> @@ -512,23 +512,23 @@ void intel_dmc_load_program(struct drm_i915_private *dev_priv)
+>  
+>  	for_each_dmc_id(dmc_id) {
+>  		for (i = 0; i < dmc->dmc_info[dmc_id].mmio_count; i++) {
+> -			intel_de_write(dev_priv, dmc->dmc_info[dmc_id].mmioaddr[i],
+> +			intel_de_write(i915, dmc->dmc_info[dmc_id].mmioaddr[i],
+>  				       dmc->dmc_info[dmc_id].mmiodata[i]);
+>  		}
+>  	}
+>  
+>  	power_domains->dc_state = 0;
+>  
+> -	gen9_set_dc_state_debugmask(dev_priv);
+> +	gen9_set_dc_state_debugmask(i915);
+>  
+>  	/*
+>  	 * Flip queue events need to be disabled before enabling DC5/6.
+>  	 * i915 doesn't use the flip queue feature, so disable it already
+>  	 * here.
+>  	 */
+> -	disable_all_flip_queue_events(dev_priv);
+> +	disable_all_flip_queue_events(i915);
+>  
+> -	pipedmc_clock_gating_wa(dev_priv, false);
+> +	pipedmc_clock_gating_wa(i915, false);
+>  }
+>  
+>  /**
+> @@ -839,12 +839,12 @@ static u32 parse_dmc_fw_css(struct intel_dmc *dmc,
+>  
+>  static void parse_dmc_fw(struct intel_dmc *dmc, const struct firmware *fw)
+>  {
+> -	struct drm_i915_private *dev_priv = dmc->i915;
+> +	struct drm_i915_private *i915 = dmc->i915;
+>  	struct intel_css_header *css_header;
+>  	struct intel_package_header *package_header;
+>  	struct intel_dmc_header_base *dmc_header;
+>  	struct stepping_info display_info = { '*', '*'};
+> -	const struct stepping_info *si = intel_get_stepping_info(dev_priv, &display_info);
+> +	const struct stepping_info *si = intel_get_stepping_info(i915, &display_info);
+>  	enum intel_dmc_id dmc_id;
+>  	u32 readcount = 0;
+>  	u32 r, offset;
+> @@ -874,7 +874,7 @@ static void parse_dmc_fw(struct intel_dmc *dmc, const struct firmware *fw)
+>  
+>  		offset = readcount + dmc->dmc_info[dmc_id].dmc_offset * 4;
+>  		if (offset > fw->size) {
+> -			drm_err(&dev_priv->drm, "Reading beyond the fw_size\n");
+> +			drm_err(&i915->drm, "Reading beyond the fw_size\n");
+>  			continue;
+>  		}
+>  
+> @@ -883,19 +883,18 @@ static void parse_dmc_fw(struct intel_dmc *dmc, const struct firmware *fw)
+>  	}
+>  }
+>  
+> -static void intel_dmc_runtime_pm_get(struct drm_i915_private *dev_priv)
+> +static void intel_dmc_runtime_pm_get(struct drm_i915_private *i915)
+>  {
+> -	drm_WARN_ON(&dev_priv->drm, dev_priv->display.dmc.wakeref);
+> -	dev_priv->display.dmc.wakeref =
+> -		intel_display_power_get(dev_priv, POWER_DOMAIN_INIT);
+> +	drm_WARN_ON(&i915->drm, i915->display.dmc.wakeref);
+> +	i915->display.dmc.wakeref = intel_display_power_get(i915, POWER_DOMAIN_INIT);
+>  }
+>  
+> -static void intel_dmc_runtime_pm_put(struct drm_i915_private *dev_priv)
+> +static void intel_dmc_runtime_pm_put(struct drm_i915_private *i915)
+>  {
+>  	intel_wakeref_t wakeref __maybe_unused =
+> -		fetch_and_zero(&dev_priv->display.dmc.wakeref);
+> +		fetch_and_zero(&i915->display.dmc.wakeref);
+>  
+> -	intel_display_power_put(dev_priv, POWER_DOMAIN_INIT, wakeref);
+> +	intel_display_power_put(i915, POWER_DOMAIN_INIT, wakeref);
+>  }
+>  
+>  static const char *dmc_fallback_path(struct drm_i915_private *i915)
+> @@ -909,21 +908,19 @@ static const char *dmc_fallback_path(struct drm_i915_private *i915)
+>  static void dmc_load_work_fn(struct work_struct *work)
+>  {
+>  	struct intel_dmc *dmc = container_of(work, typeof(*dmc), work);
+> -	struct drm_i915_private *dev_priv = dmc->i915;
+> +	struct drm_i915_private *i915 = dmc->i915;
+>  	const struct firmware *fw = NULL;
+>  	const char *fallback_path;
+>  	int err;
+>  
+> -	err = request_firmware(&fw, dmc->fw_path, dev_priv->drm.dev);
+> +	err = request_firmware(&fw, dmc->fw_path, i915->drm.dev);
+>  
+> -	if (err == -ENOENT && !dev_priv->params.dmc_firmware_path) {
+> -		fallback_path = dmc_fallback_path(dev_priv);
+> +	if (err == -ENOENT && !i915->params.dmc_firmware_path) {
+> +		fallback_path = dmc_fallback_path(i915);
+>  		if (fallback_path) {
+> -			drm_dbg_kms(&dev_priv->drm,
+> -				    "%s not found, falling back to %s\n",
+> -				    dmc->fw_path,
+> -				    fallback_path);
+> -			err = request_firmware(&fw, fallback_path, dev_priv->drm.dev);
+> +			drm_dbg_kms(&i915->drm, "%s not found, falling back to %s\n",
+> +				    dmc->fw_path, fallback_path);
+> +			err = request_firmware(&fw, fallback_path, i915->drm.dev);
+>  			if (err == 0)
+>  				dmc->fw_path = fallback_path;
+>  		}
+> @@ -931,20 +928,19 @@ static void dmc_load_work_fn(struct work_struct *work)
+>  
+>  	parse_dmc_fw(dmc, fw);
+>  
+> -	if (intel_dmc_has_payload(dev_priv)) {
+> -		intel_dmc_load_program(dev_priv);
+> -		intel_dmc_runtime_pm_put(dev_priv);
+> +	if (intel_dmc_has_payload(i915)) {
+> +		intel_dmc_load_program(i915);
+> +		intel_dmc_runtime_pm_put(i915);
+>  
+> -		drm_info(&dev_priv->drm,
+> -			 "Finished loading DMC firmware %s (v%u.%u)\n",
+> +		drm_info(&i915->drm, "Finished loading DMC firmware %s (v%u.%u)\n",
+>  			 dmc->fw_path, DMC_VERSION_MAJOR(dmc->version),
+>  			 DMC_VERSION_MINOR(dmc->version));
+>  	} else {
+> -		drm_notice(&dev_priv->drm,
+> +		drm_notice(&i915->drm,
+>  			   "Failed to load DMC firmware %s."
+>  			   " Disabling runtime power management.\n",
+>  			   dmc->fw_path);
+> -		drm_notice(&dev_priv->drm, "DMC firmware homepage: %s",
+> +		drm_notice(&i915->drm, "DMC firmware homepage: %s",
+>  			   INTEL_UC_FIRMWARE_URL);
+>  	}
+>  
+> @@ -953,16 +949,16 @@ static void dmc_load_work_fn(struct work_struct *work)
+>  
+>  /**
+>   * intel_dmc_init() - initialize the firmware loading.
+> - * @dev_priv: i915 drm device.
+> + * @i915: i915 drm device.
+>   *
+>   * This function is called at the time of loading the display driver to read
+>   * firmware from a .bin file and copied into a internal memory.
+>   */
+> -void intel_dmc_init(struct drm_i915_private *dev_priv)
+> +void intel_dmc_init(struct drm_i915_private *i915)
+>  {
+>  	struct intel_dmc *dmc;
+>  
+> -	if (!HAS_DMC(dev_priv))
+> +	if (!HAS_DMC(i915))
+>  		return;
+>  
+>  	/*
+> @@ -973,72 +969,72 @@ void intel_dmc_init(struct drm_i915_private *dev_priv)
+>  	 * suspend as runtime suspend *requires* a working DMC for whatever
+>  	 * reason.
+>  	 */
+> -	intel_dmc_runtime_pm_get(dev_priv);
+> +	intel_dmc_runtime_pm_get(i915);
+>  
+>  	dmc = kzalloc(sizeof(*dmc), GFP_KERNEL);
+>  	if (!dmc)
+>  		return;
+>  
+> -	dmc->i915 = dev_priv;
+> +	dmc->i915 = i915;
+>  
+>  	INIT_WORK(&dmc->work, dmc_load_work_fn);
+>  
+> -	if (IS_DG2(dev_priv)) {
+> +	if (IS_DG2(i915)) {
+>  		dmc->fw_path = DG2_DMC_PATH;
+>  		dmc->max_fw_size = DISPLAY_VER13_DMC_MAX_FW_SIZE;
+> -	} else if (IS_ALDERLAKE_P(dev_priv)) {
+> +	} else if (IS_ALDERLAKE_P(i915)) {
+>  		dmc->fw_path = ADLP_DMC_PATH;
+>  		dmc->max_fw_size = DISPLAY_VER13_DMC_MAX_FW_SIZE;
+> -	} else if (IS_ALDERLAKE_S(dev_priv)) {
+> +	} else if (IS_ALDERLAKE_S(i915)) {
+>  		dmc->fw_path = ADLS_DMC_PATH;
+>  		dmc->max_fw_size = DISPLAY_VER12_DMC_MAX_FW_SIZE;
+> -	} else if (IS_DG1(dev_priv)) {
+> +	} else if (IS_DG1(i915)) {
+>  		dmc->fw_path = DG1_DMC_PATH;
+>  		dmc->max_fw_size = DISPLAY_VER12_DMC_MAX_FW_SIZE;
+> -	} else if (IS_ROCKETLAKE(dev_priv)) {
+> +	} else if (IS_ROCKETLAKE(i915)) {
+>  		dmc->fw_path = RKL_DMC_PATH;
+>  		dmc->max_fw_size = DISPLAY_VER12_DMC_MAX_FW_SIZE;
+> -	} else if (IS_TIGERLAKE(dev_priv)) {
+> +	} else if (IS_TIGERLAKE(i915)) {
+>  		dmc->fw_path = TGL_DMC_PATH;
+>  		dmc->max_fw_size = DISPLAY_VER12_DMC_MAX_FW_SIZE;
+> -	} else if (DISPLAY_VER(dev_priv) == 11) {
+> +	} else if (DISPLAY_VER(i915) == 11) {
+>  		dmc->fw_path = ICL_DMC_PATH;
+>  		dmc->max_fw_size = ICL_DMC_MAX_FW_SIZE;
+> -	} else if (IS_GEMINILAKE(dev_priv)) {
+> +	} else if (IS_GEMINILAKE(i915)) {
+>  		dmc->fw_path = GLK_DMC_PATH;
+>  		dmc->max_fw_size = GLK_DMC_MAX_FW_SIZE;
+> -	} else if (IS_KABYLAKE(dev_priv) ||
+> -		   IS_COFFEELAKE(dev_priv) ||
+> -		   IS_COMETLAKE(dev_priv)) {
+> +	} else if (IS_KABYLAKE(i915) ||
+> +		   IS_COFFEELAKE(i915) ||
+> +		   IS_COMETLAKE(i915)) {
+>  		dmc->fw_path = KBL_DMC_PATH;
+>  		dmc->max_fw_size = KBL_DMC_MAX_FW_SIZE;
+> -	} else if (IS_SKYLAKE(dev_priv)) {
+> +	} else if (IS_SKYLAKE(i915)) {
+>  		dmc->fw_path = SKL_DMC_PATH;
+>  		dmc->max_fw_size = SKL_DMC_MAX_FW_SIZE;
+> -	} else if (IS_BROXTON(dev_priv)) {
+> +	} else if (IS_BROXTON(i915)) {
+>  		dmc->fw_path = BXT_DMC_PATH;
+>  		dmc->max_fw_size = BXT_DMC_MAX_FW_SIZE;
+>  	}
+>  
+> -	if (dev_priv->params.dmc_firmware_path) {
+> -		if (strlen(dev_priv->params.dmc_firmware_path) == 0) {
+> -			drm_info(&dev_priv->drm,
+> +	if (i915->params.dmc_firmware_path) {
+> +		if (strlen(i915->params.dmc_firmware_path) == 0) {
+> +			drm_info(&i915->drm,
+>  				 "Disabling DMC firmware and runtime PM\n");
+>  			goto out;
+>  		}
+>  
+> -		dmc->fw_path = dev_priv->params.dmc_firmware_path;
+> +		dmc->fw_path = i915->params.dmc_firmware_path;
+>  	}
+>  
+>  	if (!dmc->fw_path) {
+> -		drm_dbg_kms(&dev_priv->drm,
+> +		drm_dbg_kms(&i915->drm,
+>  			    "No known DMC firmware for platform, disabling runtime PM\n");
+>  		goto out;
+>  	}
+>  
+> -	dev_priv->display.dmc.dmc = dmc;
+> +	i915->display.dmc.dmc = dmc;
+>  
+> -	drm_dbg_kms(&dev_priv->drm, "Loading %s\n", dmc->fw_path);
+> +	drm_dbg_kms(&i915->drm, "Loading %s\n", dmc->fw_path);
+>  	schedule_work(&dmc->work);
+>  
+>  	return;
+> @@ -1049,71 +1045,71 @@ void intel_dmc_init(struct drm_i915_private *dev_priv)
+>  
+>  /**
+>   * intel_dmc_suspend() - prepare DMC firmware before system suspend
+> - * @dev_priv: i915 drm device
+> + * @i915: i915 drm device
+>   *
+>   * Prepare the DMC firmware before entering system suspend. This includes
+>   * flushing pending work items and releasing any resources acquired during
+>   * init.
+>   */
+> -void intel_dmc_suspend(struct drm_i915_private *dev_priv)
+> +void intel_dmc_suspend(struct drm_i915_private *i915)
+>  {
+> -	struct intel_dmc *dmc = i915_to_dmc(dev_priv);
+> +	struct intel_dmc *dmc = i915_to_dmc(i915);
+>  
+> -	if (!HAS_DMC(dev_priv))
+> +	if (!HAS_DMC(i915))
+>  		return;
+>  
+>  	if (dmc)
+>  		flush_work(&dmc->work);
+>  
+>  	/* Drop the reference held in case DMC isn't loaded. */
+> -	if (!intel_dmc_has_payload(dev_priv))
+> -		intel_dmc_runtime_pm_put(dev_priv);
+> +	if (!intel_dmc_has_payload(i915))
+> +		intel_dmc_runtime_pm_put(i915);
+>  }
+>  
+>  /**
+>   * intel_dmc_resume() - init DMC firmware during system resume
+> - * @dev_priv: i915 drm device
+> + * @i915: i915 drm device
+>   *
+>   * Reinitialize the DMC firmware during system resume, reacquiring any
+>   * resources released in intel_dmc_suspend().
+>   */
+> -void intel_dmc_resume(struct drm_i915_private *dev_priv)
+> +void intel_dmc_resume(struct drm_i915_private *i915)
+>  {
+> -	if (!HAS_DMC(dev_priv))
+> +	if (!HAS_DMC(i915))
+>  		return;
+>  
+>  	/*
+>  	 * Reacquire the reference to keep RPM disabled in case DMC isn't
+>  	 * loaded.
+>  	 */
+> -	if (!intel_dmc_has_payload(dev_priv))
+> -		intel_dmc_runtime_pm_get(dev_priv);
+> +	if (!intel_dmc_has_payload(i915))
+> +		intel_dmc_runtime_pm_get(i915);
+>  }
+>  
+>  /**
+>   * intel_dmc_fini() - unload the DMC firmware.
+> - * @dev_priv: i915 drm device.
+> + * @i915: i915 drm device.
+>   *
+>   * Firmmware unloading includes freeing the internal memory and reset the
+>   * firmware loading status.
+>   */
+> -void intel_dmc_fini(struct drm_i915_private *dev_priv)
+> +void intel_dmc_fini(struct drm_i915_private *i915)
+>  {
+> -	struct intel_dmc *dmc = i915_to_dmc(dev_priv);
+> +	struct intel_dmc *dmc = i915_to_dmc(i915);
+>  	enum intel_dmc_id dmc_id;
+>  
+> -	if (!HAS_DMC(dev_priv))
+> +	if (!HAS_DMC(i915))
+>  		return;
+>  
+> -	intel_dmc_suspend(dev_priv);
+> -	drm_WARN_ON(&dev_priv->drm, dev_priv->display.dmc.wakeref);
+> +	intel_dmc_suspend(i915);
+> +	drm_WARN_ON(&i915->drm, i915->display.dmc.wakeref);
+>  
+>  	if (dmc) {
+>  		for_each_dmc_id(dmc_id)
+>  			kfree(dmc->dmc_info[dmc_id].payload);
+>  
+>  		kfree(dmc);
+> -		dev_priv->display.dmc.dmc = NULL;
+> +		i915->display.dmc.dmc = NULL;
+>  	}
+>  }
+>  
+> -- 
+> 2.39.1
+> 
