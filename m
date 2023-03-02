@@ -4,52 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D7C0C678D4
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Mar 2023 14:32:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D52F7C61DA4
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Mar 2023 14:43:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBBE010E246;
-	Mon,  6 Mar 2023 14:32:49 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1ABB010E245;
- Mon,  6 Mar 2023 14:32:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678113168; x=1709649168;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=1O7cMkx9/E9v8B5FjS74qJQ2rlDzNhvPdeLIFoee4xI=;
- b=I22t/iXyGFO70ErOuFlrhZvZa5dAqaNfkpnTrPVwdb55T+vFnNuIn3Qp
- zt+vZYlRJUQ2/vhRIFaznbACRxfDpNzEqlDkhXvikQ/4jxaiDZtGm0poo
- xLamfpeRq8t18Z+yfWnywx6zFr3kiPNbpbJct0o2r9yDyyKUqFfbw8qIi
- zbmlh1y8EZLmNpgu5nOcc//jA8ie3PRnRDCQeBry5Keo+RYK9QGkLpvgf
- ciWc/PLeW+CdHls3lcwT9hd801POuUnfQJPbHEvM1qhsjVfw5eUAUaDD2
- OSUI8BB3HW5kVhZQfmughn0dSMJ4Jo4gD5FNJTS3DpZZXiu41QWNKLyAh Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="337884921"
-X-IronPort-AV: E=Sophos;i="5.98,238,1673942400"; d="scan'208";a="337884921"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Mar 2023 06:32:47 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="708669703"
-X-IronPort-AV: E=Sophos;i="5.98,238,1673942400"; d="scan'208";a="708669703"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by orsmga001.jf.intel.com with SMTP; 06 Mar 2023 06:32:45 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 06 Mar 2023 16:32:44 +0200
-Date: Mon, 6 Mar 2023 16:32:44 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Nirmoy Das <nirmoy.das@intel.com>
-Message-ID: <ZAX5jC+E/aUgUW9X@intel.com>
-References: <20230306102850.18299-1-nirmoy.das@intel.com>
- <20230306102850.18299-3-nirmoy.das@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40BD410E109;
+	Mon,  6 Mar 2023 14:43:48 +0000 (UTC)
+X-Greylist: delayed 6065 seconds by postgrey-1.36 at gabe;
+ Thu, 02 Mar 2023 13:34:30 UTC
+Received: from out-54.mta0.migadu.com (out-54.mta0.migadu.com [91.218.175.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0414D10E50F
+ for <intel-gfx@lists.freedesktop.org>; Thu,  2 Mar 2023 13:34:29 +0000 (UTC)
+Date: Thu, 2 Mar 2023 21:34:24 +0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1677764068;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=9o3HlvhUfST65yAZugk+1j+5MhQJzpO2pgB0VxiBWp8=;
+ b=sVemfa/F9Evmv4FCYHUcXm2bWc3Otrct1IT6U9+jxV9kL1uGeRJOlbsqGpxkgczb76cmt9
+ s9ktXBx2cdKfPPW6PVIknEMdgQc5TJlgrst+HzyftDP7nLhBNa1FvPz0eINZCM/vdVmPeg
+ kQiTOtb+ipnStkVKPi/U/J6IbdjotCw=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Cai Huoqing <cai.huoqing@linux.dev>
+To: Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Message-ID: <ZACl4IMd44jN1uqV@chq-MS-7D45>
+References: <20230302115318.79487-1-cai.huoqing@linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230306102850.18299-3-nirmoy.das@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH RFC 3/3] drm/i915/display: Implement fb_mmap
- callback function
+In-Reply-To: <20230302115318.79487-1-cai.huoqing@linux.dev>
+X-Migadu-Flow: FLOW_OUT
+X-Mailman-Approved-At: Mon, 06 Mar 2023 14:43:47 +0000
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gvt: Make use of idr_find and
+ idr_for_each_entry in dmabuf
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,81 +60,198 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 06, 2023 at 11:28:50AM +0100, Nirmoy Das wrote:
-> If stolen memory allocation fails for fbdev, the driver will
-> fallback to system memory. Calculation of smem_start is wrong
-> for such framebuffer objs if the platform comes with no gmadr or
-> no aperture. Solve this by adding fb_mmap callback which also gives
-> driver more control.
+On 02 3æœˆ 23 19:53:18, Cai Huoqing wrote:
+> This patch uses the already existing IDR mechanism to simplify
+> and improve the dmabuf code.
 > 
-> Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
+> Using 'vgpu.object_idr' directly instead of 'dmabuf_obj_list_head'
+> or 'dmabuf.list', because the dmabuf_obj can be found by 'idr_find'
+> or 'idr_for_each_entry'.
+> 
+> Signed-off-by: Cai Huoqing <cai.huoqing@linux.dev>
 > ---
->  drivers/gpu/drm/i915/display/intel_fbdev.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
+>  drivers/gpu/drm/i915/gvt/dmabuf.c | 69 +++++++------------------------
+>  drivers/gpu/drm/i915/gvt/dmabuf.h |  1 -
+>  drivers/gpu/drm/i915/gvt/gvt.h    |  1 -
+>  drivers/gpu/drm/i915/gvt/vgpu.c   |  1 -
+>  4 files changed, 16 insertions(+), 56 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-> index 98ae3a3a986a..ed0f9e2af3ed 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-> +++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-> @@ -40,8 +40,10 @@
->  #include <drm/drm_crtc.h>
->  #include <drm/drm_fb_helper.h>
->  #include <drm/drm_fourcc.h>
-> +#include <drm/drm_gem_framebuffer_helper.h>
+> diff --git a/drivers/gpu/drm/i915/gvt/dmabuf.c b/drivers/gpu/drm/i915/gvt/dmabuf.c
+> index 6834f9fe40cf..7933bd843ae8 100644
+> --- a/drivers/gpu/drm/i915/gvt/dmabuf.c
+> +++ b/drivers/gpu/drm/i915/gvt/dmabuf.c
+> @@ -133,21 +133,15 @@ static void dmabuf_gem_object_free(struct kref *kref)
+>  	struct intel_vgpu_dmabuf_obj *obj =
+>  		container_of(kref, struct intel_vgpu_dmabuf_obj, kref);
+>  	struct intel_vgpu *vgpu = obj->vgpu;
+> -	struct list_head *pos;
+>  	struct intel_vgpu_dmabuf_obj *dmabuf_obj;
+> +	int id;
 >  
->  #include "gem/i915_gem_lmem.h"
-> +#include "gem/i915_gem_mman.h"
+> -	if (vgpu && test_bit(INTEL_VGPU_STATUS_ACTIVE, vgpu->status) &&
+> -	    !list_empty(&vgpu->dmabuf_obj_list_head)) {
+> -		list_for_each(pos, &vgpu->dmabuf_obj_list_head) {
+> -			dmabuf_obj = list_entry(pos, struct intel_vgpu_dmabuf_obj, list);
+> -			if (dmabuf_obj == obj) {
+> -				list_del(pos);
+> -				idr_remove(&vgpu->object_idr,
+> -					   dmabuf_obj->dmabuf_id);
+> -				kfree(dmabuf_obj->info);
+> -				kfree(dmabuf_obj);
+> -				break;
+> -			}
+> +	if (vgpu && test_bit(INTEL_VGPU_STATUS_ACTIVE, vgpu->status)) {
+Here should add '&& !idr_is_empty()' like '&& !list_empty()',
+I will fix it in patch v2
+
+Thanks
+Cai-
+> +		idr_for_each_entry(&vgpu->object_idr, dmabuf_obj, id) {
+> +			idr_remove(&vgpu->object_idr, id);
+> +			kfree(dmabuf_obj->info);
+> +			kfree(dmabuf_obj);
+> +			break;
+>  		}
+>  	} else {
+>  		/* Free the orphan dmabuf_objs here */
+> @@ -340,13 +334,11 @@ static struct intel_vgpu_dmabuf_obj *
+>  pick_dmabuf_by_info(struct intel_vgpu *vgpu,
+>  		    struct intel_vgpu_fb_info *latest_info)
+>  {
+> -	struct list_head *pos;
+>  	struct intel_vgpu_fb_info *fb_info;
+>  	struct intel_vgpu_dmabuf_obj *dmabuf_obj = NULL;
+> -	struct intel_vgpu_dmabuf_obj *ret = NULL;
+> +	int id;
 >  
->  #include "i915_drv.h"
->  #include "intel_display_types.h"
-> @@ -120,6 +122,23 @@ static int intel_fbdev_pan_display(struct fb_var_screeninfo *var,
->  	return ret;
+> -	list_for_each(pos, &vgpu->dmabuf_obj_list_head) {
+> -		dmabuf_obj = list_entry(pos, struct intel_vgpu_dmabuf_obj, list);
+> +	idr_for_each_entry(&vgpu->object_idr, dmabuf_obj, id) {
+>  		if (!dmabuf_obj->info)
+>  			continue;
+>  
+> @@ -357,31 +349,11 @@ pick_dmabuf_by_info(struct intel_vgpu *vgpu,
+>  		    (fb_info->drm_format_mod == latest_info->drm_format_mod) &&
+>  		    (fb_info->drm_format == latest_info->drm_format) &&
+>  		    (fb_info->width == latest_info->width) &&
+> -		    (fb_info->height == latest_info->height)) {
+> -			ret = dmabuf_obj;
+> -			break;
+> -		}
+> -	}
+> -
+> -	return ret;
+> -}
+> -
+> -static struct intel_vgpu_dmabuf_obj *
+> -pick_dmabuf_by_num(struct intel_vgpu *vgpu, u32 id)
+> -{
+> -	struct list_head *pos;
+> -	struct intel_vgpu_dmabuf_obj *dmabuf_obj = NULL;
+> -	struct intel_vgpu_dmabuf_obj *ret = NULL;
+> -
+> -	list_for_each(pos, &vgpu->dmabuf_obj_list_head) {
+> -		dmabuf_obj = list_entry(pos, struct intel_vgpu_dmabuf_obj, list);
+> -		if (dmabuf_obj->dmabuf_id == id) {
+> -			ret = dmabuf_obj;
+> -			break;
+> -		}
+> +		    (fb_info->height == latest_info->height))
+> +			return dmabuf_obj;
+>  	}
+>  
+> -	return ret;
+> +	return dmabuf_obj;
 >  }
 >  
-> +#define to_intel_fbdev(x) container_of(x, struct intel_fbdev, helper)
-> +static int intel_fbdev_mmap(struct fb_info *info, struct vm_area_struct *vma)
-> +{
-> +	struct intel_fbdev *fbdev = to_intel_fbdev(info->par);
-> +	struct drm_gem_object *bo = drm_gem_fb_get_obj(&fbdev->fb->base, 0);
-> +	struct drm_i915_gem_object *obj = to_intel_bo(bo);
-> +	struct drm_device *dev = fbdev->helper.dev;
-
-You seem to be missing the fb vs. mmio handling here entirely.
-
-> +
-> +	vma->vm_page_prot =
-> +			pgprot_writecombine(vm_get_page_prot(vma->vm_flags));
-
-Does that do something sane on eg. !PAT?
-
-> +
-> +	if (obj->stolen)
-> +		return vm_iomap_memory(vma, info->fix.smem_start,
-> +				       info->fix.smem_len);
-
-Why doesn't i915_gem_object_mmap() know how to handle stolen?
-
-> +
-> +	return i915_gem_object_mmap(obj, vma);
-> +}
->  static const struct fb_ops intelfb_ops = {
->  	.owner = THIS_MODULE,
->  	DRM_FB_HELPER_DEFAULT_OPS,
-> @@ -131,6 +150,7 @@ static const struct fb_ops intelfb_ops = {
->  	.fb_imageblit = drm_fb_helper_cfb_imageblit,
->  	.fb_pan_display = intel_fbdev_pan_display,
->  	.fb_blank = intel_fbdev_blank,
-> +	.fb_mmap = intel_fbdev_mmap,
+>  static void update_fb_info(struct vfio_device_gfx_plane_info *gvt_dmabuf,
+> @@ -477,11 +449,6 @@ int intel_vgpu_query_plane(struct intel_vgpu *vgpu, void *args)
+>  
+>  	update_fb_info(gfx_plane_info, &fb_info);
+>  
+> -	INIT_LIST_HEAD(&dmabuf_obj->list);
+> -	mutex_lock(&vgpu->dmabuf_lock);
+> -	list_add_tail(&dmabuf_obj->list, &vgpu->dmabuf_obj_list_head);
+> -	mutex_unlock(&vgpu->dmabuf_lock);
+> -
+>  	gvt_dbg_dpy("vgpu%d: %s new dmabuf_obj ref %d, id %d\n", vgpu->id,
+>  		    __func__, kref_read(&dmabuf_obj->kref), ret);
+>  
+> @@ -508,7 +475,7 @@ int intel_vgpu_get_dmabuf(struct intel_vgpu *vgpu, unsigned int dmabuf_id)
+>  
+>  	mutex_lock(&vgpu->dmabuf_lock);
+>  
+> -	dmabuf_obj = pick_dmabuf_by_num(vgpu, dmabuf_id);
+> +	dmabuf_obj = idr_find(&vgpu->object_idr, dmabuf_id);
+>  	if (dmabuf_obj == NULL) {
+>  		gvt_vgpu_err("invalid dmabuf id:%d\n", dmabuf_id);
+>  		ret = -EINVAL;
+> @@ -570,23 +537,19 @@ int intel_vgpu_get_dmabuf(struct intel_vgpu *vgpu, unsigned int dmabuf_id)
+>  
+>  void intel_vgpu_dmabuf_cleanup(struct intel_vgpu *vgpu)
+>  {
+> -	struct list_head *pos, *n;
+>  	struct intel_vgpu_dmabuf_obj *dmabuf_obj;
+> +	int id;
+>  
+>  	mutex_lock(&vgpu->dmabuf_lock);
+> -	list_for_each_safe(pos, n, &vgpu->dmabuf_obj_list_head) {
+> -		dmabuf_obj = list_entry(pos, struct intel_vgpu_dmabuf_obj, list);
+> +	idr_for_each_entry(&vgpu->object_idr, dmabuf_obj, id) {
+>  		dmabuf_obj->vgpu = NULL;
+>  
+> -		idr_remove(&vgpu->object_idr, dmabuf_obj->dmabuf_id);
+> -		list_del(pos);
+> -
+> +		idr_remove(&vgpu->object_idr, id);
+>  		/* dmabuf_obj might be freed in dmabuf_obj_put */
+>  		if (dmabuf_obj->initref) {
+>  			dmabuf_obj->initref = false;
+>  			dmabuf_obj_put(dmabuf_obj);
+>  		}
+> -
+>  	}
+>  	mutex_unlock(&vgpu->dmabuf_lock);
+>  }
+> diff --git a/drivers/gpu/drm/i915/gvt/dmabuf.h b/drivers/gpu/drm/i915/gvt/dmabuf.h
+> index 3dcdb6570eda..93c0e00bdab9 100644
+> --- a/drivers/gpu/drm/i915/gvt/dmabuf.h
+> +++ b/drivers/gpu/drm/i915/gvt/dmabuf.h
+> @@ -57,7 +57,6 @@ struct intel_vgpu_dmabuf_obj {
+>  	__u32 dmabuf_id;
+>  	struct kref kref;
+>  	bool initref;
+> -	struct list_head list;
 >  };
 >  
->  static int intelfb_alloc(struct drm_fb_helper *helper,
+>  int intel_vgpu_query_plane(struct intel_vgpu *vgpu, void *args);
+> diff --git a/drivers/gpu/drm/i915/gvt/gvt.h b/drivers/gpu/drm/i915/gvt/gvt.h
+> index 2d65800d8e93..1100c789f207 100644
+> --- a/drivers/gpu/drm/i915/gvt/gvt.h
+> +++ b/drivers/gpu/drm/i915/gvt/gvt.h
+> @@ -211,7 +211,6 @@ struct intel_vgpu {
+>  
+>  	struct dentry *debugfs;
+>  
+> -	struct list_head dmabuf_obj_list_head;
+>  	struct mutex dmabuf_lock;
+>  	struct idr object_idr;
+>  	struct intel_vgpu_vblank_timer vblank_timer;
+> diff --git a/drivers/gpu/drm/i915/gvt/vgpu.c b/drivers/gpu/drm/i915/gvt/vgpu.c
+> index 08ad1bd651f1..0a511cfef067 100644
+> --- a/drivers/gpu/drm/i915/gvt/vgpu.c
+> +++ b/drivers/gpu/drm/i915/gvt/vgpu.c
+> @@ -329,7 +329,6 @@ int intel_gvt_create_vgpu(struct intel_vgpu *vgpu,
+>  	vgpu->sched_ctl.weight = conf->weight;
+>  	mutex_init(&vgpu->vgpu_lock);
+>  	mutex_init(&vgpu->dmabuf_lock);
+> -	INIT_LIST_HEAD(&vgpu->dmabuf_obj_list_head);
+>  	INIT_RADIX_TREE(&vgpu->page_track_tree, GFP_KERNEL);
+>  	idr_init_base(&vgpu->object_idr, 1);
+>  	intel_vgpu_init_cfg_space(vgpu, 1);
 > -- 
-> 2.39.0
-
--- 
-Ville Syrjälä
-Intel
+> 2.34.1
+> 
