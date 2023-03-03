@@ -4,25 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27E1EC64EC4
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 16:06:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA562C64EC4
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Mar 2023 16:38:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8F1E10E6F7;
-	Fri,  3 Mar 2023 16:06:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4112410E70E;
+	Fri,  3 Mar 2023 16:38:19 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0EF1910E6F7;
- Fri,  3 Mar 2023 16:06:40 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3114810E70E;
+ Fri,  3 Mar 2023 16:38:17 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 05B0EAADE6;
- Fri,  3 Mar 2023 16:06:40 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 27E30A0BCB;
+ Fri,  3 Mar 2023 16:38:17 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============4833046588648860945=="
+ boundary="===============1975105669718423489=="
 MIME-Version: 1.0
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Janusz Krzysztofik" <janusz.krzysztofik@linux.intel.com>
-Date: Fri, 03 Mar 2023 16:06:39 -0000
-Message-ID: <167785959998.9998.9116773087520925757@emeril.freedesktop.org>
+Date: Fri, 03 Mar 2023 16:38:17 -0000
+Message-ID: <167786149712.9998.178095718571546103@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20230301091017.31725-1-janusz.krzysztofik@linux.intel.com>
 In-Reply-To: <20230301091017.31725-1-janusz.krzysztofik@linux.intel.com>
@@ -46,7 +46,7 @@ Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============4833046588648860945==
+--===============1975105669718423489==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -901,7 +901,7 @@ Build changes
 
 For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_113950v6/index.html
 
---===============4833046588648860945==
+--===============1975105669718423489==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -1872,4 +1872,4 @@ Content-Transfer-Encoding: 7bit
 </body>
 </html>
 
---===============4833046588648860945==--
+--===============1975105669718423489==--
