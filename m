@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA009C6FD1D
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Mar 2023 14:44:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81A67C678D4
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Mar 2023 14:44:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F42710E369;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6063510E36D;
 	Mon,  6 Mar 2023 14:43:50 +0000 (UTC)
-X-Greylist: delayed 1033 seconds by postgrey-1.36 at gabe;
- Thu, 02 Mar 2023 10:00:17 UTC
 Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
  [185.176.79.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2271210E424;
- Thu,  2 Mar 2023 10:00:17 +0000 (UTC)
-Received: from lhrpeml100002.china.huawei.com (unknown [172.18.147.207])
- by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4PS5kJ48fpz689Rs;
- Thu,  2 Mar 2023 17:42:48 +0800 (CST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E0C589CE3;
+ Fri,  3 Mar 2023 15:01:07 +0000 (UTC)
+Received: from lhrpeml500005.china.huawei.com (unknown [172.18.147.200])
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4PSrdJ6cxfz6H7B7;
+ Fri,  3 Mar 2023 22:56:04 +0800 (CST)
 Received: from lhrpeml500005.china.huawei.com (7.191.163.240) by
- lhrpeml100002.china.huawei.com (7.191.160.241) with Microsoft SMTP Server
+ lhrpeml500005.china.huawei.com (7.191.163.240) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Thu, 2 Mar 2023 09:43:00 +0000
+ 15.1.2507.21; Fri, 3 Mar 2023 15:01:03 +0000
 Received: from lhrpeml500005.china.huawei.com ([7.191.163.240]) by
  lhrpeml500005.china.huawei.com ([7.191.163.240]) with mapi id 15.01.2507.021; 
- Thu, 2 Mar 2023 09:43:00 +0000
+ Fri, 3 Mar 2023 15:01:03 +0000
 From: Shameerali Kolothum Thodi <shameerali.kolothum.thodi@huawei.com>
-To: Nicolin Chen <nicolinc@nvidia.com>, "Xu, Terrence" <terrence.xu@intel.com>
+To: Nicolin Chen <nicolinc@nvidia.com>
 Thread-Topic: [PATCH v5 00/19] Add vfio_device cdev for iommufd support
-Thread-Index: AQHZSpxHUh/YYv3qukeFp+lKFtoCf67jLB2AgACBDoCAAOlEAIAAn5IAgAIKi/A=
-Date: Thu, 2 Mar 2023 09:43:00 +0000
-Message-ID: <b7c1f9d5b4b647f0b0686c3b99f3d006@huawei.com>
+Thread-Index: AQHZSpxHUh/YYv3qukeFp+lKFtoCf67jLB2AgACBDoCAAOlEAIAAn5IAgAIKi/CAAO3wAIAA+kPA
+Date: Fri, 3 Mar 2023 15:01:03 +0000
+Message-ID: <d59a0262d5bf423c9e49ad4ac6015296@huawei.com>
 References: <20230227111135.61728-1-yi.l.liu@intel.com>
  <Y/0Cr/tcNCzzIAhi@nvidia.com>
  <DS0PR11MB7529A422D4361B39CCA3D248C3AC9@DS0PR11MB7529.namprd11.prod.outlook.com>
  <SA1PR11MB5873479F73CFBAA170717624F0AC9@SA1PR11MB5873.namprd11.prod.outlook.com>
  <Y/64ejbhMiV77uUA@Asurada-Nvidia>
-In-Reply-To: <Y/64ejbhMiV77uUA@Asurada-Nvidia>
+ <b7c1f9d5b4b647f0b0686c3b99f3d006@huawei.com>
+ <ZAE2J0I1LiBjWUnm@Asurada-Nvidia>
+In-Reply-To: <ZAE2J0I1LiBjWUnm@Asurada-Nvidia>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -61,67 +61,104 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>, "Liu,
- Yi L" <yi.l.liu@intel.com>,
- "yi.y.sun@linux.intel.com" <yi.y.sun@linux.intel.com>,
- "mjrosato@linux.ibm.com" <mjrosato@linux.ibm.com>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
- "joro@8bytes.org" <joro@8bytes.org>, "cohuck@redhat.com" <cohuck@redhat.com>,
- "Hao, Xudong" <xudong.hao@intel.com>, "peterx@redhat.com" <peterx@redhat.com>,
- "suravee.suthikulpanit@amd.com" <suravee.suthikulpanit@amd.com>, "Zhao, 
- Yan Y" <yan.y.zhao@intel.com>, "eric.auger@redhat.com" <eric.auger@redhat.com>,
- Jason Gunthorpe <jgg@nvidia.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+Cc: "mjrosato@linux.ibm.com" <mjrosato@linux.ibm.com>,
+ "jasowang@redhat.com" <jasowang@redhat.com>, "Hao,
+ Xudong" <xudong.hao@intel.com>, "peterx@redhat.com" <peterx@redhat.com>, "Xu,
+ Terrence" <terrence.xu@intel.com>,
  "chao.p.peng@linux.intel.com" <chao.p.peng@linux.intel.com>,
- "lulu@redhat.com" <lulu@redhat.com>,
- "robin.murphy@arm.com" <robin.murphy@arm.com>,
- "jasowang@redhat.com" <jasowang@redhat.com>
+ "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>, "Liu,
+ Yi L" <yi.l.liu@intel.com>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "lulu@redhat.com" <lulu@redhat.com>, "joro@8bytes.org" <joro@8bytes.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, "Zhao, Yan Y" <yan.y.zhao@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "eric.auger@redhat.com" <eric.auger@redhat.com>,
+ "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
+ "yi.y.sun@linux.intel.com" <yi.y.sun@linux.intel.com>,
+ "cohuck@redhat.com" <cohuck@redhat.com>,
+ "suravee.suthikulpanit@amd.com" <suravee.suthikulpanit@amd.com>,
+ "robin.murphy@arm.com" <robin.murphy@arm.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
+
 > -----Original Message-----
 > From: Nicolin Chen [mailto:nicolinc@nvidia.com]
-> Sent: 01 March 2023 02:29
-> To: Xu, Terrence <terrence.xu@intel.com>
-> Cc: Liu, Yi L <yi.l.liu@intel.com>; Jason Gunthorpe <jgg@nvidia.com>;
-> alex.williamson@redhat.com; Tian, Kevin <kevin.tian@intel.com>;
-> joro@8bytes.org; robin.murphy@arm.com; cohuck@redhat.com;
-> eric.auger@redhat.com; kvm@vger.kernel.org; mjrosato@linux.ibm.com;
-> chao.p.peng@linux.intel.com; yi.y.sun@linux.intel.com; peterx@redhat.com;
-> jasowang@redhat.com; Shameerali Kolothum Thodi
-> <shameerali.kolothum.thodi@huawei.com>; lulu@redhat.com;
-> suravee.suthikulpanit@amd.com; intel-gvt-dev@lists.freedesktop.org;
-> intel-gfx@lists.freedesktop.org; linux-s390@vger.kernel.org; Hao, Xudong
-> <xudong.hao@intel.com>; Zhao, Yan Y <yan.y.zhao@intel.com>
+> Sent: 02 March 2023 23:51
+> To: Shameerali Kolothum Thodi <shameerali.kolothum.thodi@huawei.com>
+> Cc: Xu, Terrence <terrence.xu@intel.com>; Liu, Yi L <yi.l.liu@intel.com>;
+> Jason Gunthorpe <jgg@nvidia.com>; alex.williamson@redhat.com; Tian,
+> Kevin <kevin.tian@intel.com>; joro@8bytes.org; robin.murphy@arm.com;
+> cohuck@redhat.com; eric.auger@redhat.com; kvm@vger.kernel.org;
+> mjrosato@linux.ibm.com; chao.p.peng@linux.intel.com;
+> yi.y.sun@linux.intel.com; peterx@redhat.com; jasowang@redhat.com;
+> lulu@redhat.com; suravee.suthikulpanit@amd.com;
+> intel-gvt-dev@lists.freedesktop.org; intel-gfx@lists.freedesktop.org;
+> linux-s390@vger.kernel.org; Hao, Xudong <xudong.hao@intel.com>; Zhao,
+> Yan Y <yan.y.zhao@intel.com>
 > Subject: Re: [PATCH v5 00/19] Add vfio_device cdev for iommufd support
 >=20
-> On Tue, Feb 28, 2023 at 04:58:06PM +0000, Xu, Terrence wrote:
+> On Thu, Mar 02, 2023 at 09:43:00AM +0000, Shameerali Kolothum Thodi
+> wrote:
 >=20
-> > Verified this series by "Intel GVT-g GPU device mediated passthrough" a=
-nd
-> "Intel GVT-d GPU device direct passthrough" technologies.
-> > Both passed VFIO legacy mode / compat mode / cdev mode, including
-> negative tests.
+> > Hi Nicolin,
 > >
-> > Tested-by: Terrence Xu <terrence.xu@intel.com>
+> > Thanks for the latest ARM64 branch. Do you have a working Qemu branch
+> corresponding to the
+> > above one?
+> >
+> > I tried the
+> https://github.com/nicolinc/qemu/tree/wip/iommufd_rfcv3%2Bnesting%2B
+> smmuv3
+> > but for some reason not able to launch the Guest.
+> >
+> > Please let me know.
 >=20
-> Sanity-tested this series on ARM64 with my wip branch:
-> https://github.com/nicolinc/iommufd/commits/wip/iommufd-v6.2-nesting
-> (Covering new iommufd and vfio-compat)
+> I do use that branch. It might not be that robust though as it
+> went through a big rebase.
 
-Hi Nicolin,
+Ok. The issue seems to be quite random in nature and only happens when ther=
+e
+are multiple vCPUs. Also doesn't look like related to VFIO device assignmen=
+t
+as I can reproduce Guest hang without it by only having nested-smmuv3 and
+iommufd object.
 
-Thanks for the latest ARM64 branch. Do you have a working Qemu branch corre=
-sponding to the
-above one?
+./qemu-system-aarch64-iommuf -machine virt,gic-version=3D3,iommu=3Dnested-s=
+mmuv3,iommufd=3Diommufd0 \
+-enable-kvm -cpu host -m 1G -smp cpus=3D8,maxcpus=3D8 \
+-object iommufd,id=3Diommufd0 \
+-bios QEMU_EFI.fd \
+-kernel Image-6.2-iommufd \
+-initrd rootfs-iperf.cpio \
+-net none \
+-nographic \
+-append "rdinit=3Dinit console=3DttyAMA0 root=3D/dev/vda rw earlycon=3Dpl01=
+1,0x9000000" \
+-trace events=3Devents \
+-D trace_iommufd=20
 
-I tried the https://github.com/nicolinc/qemu/tree/wip/iommufd_rfcv3%2Bnesti=
-ng%2Bsmmuv3
-but for some reason not able to launch the Guest.
+When the issue happens, no output on terminal as if Qemu is in a locked sta=
+te.
 
-Please let me know.
+ Can you try with the followings?
+>=20
+> --trace "iommufd*" --trace "smmu*" --trace "vfio_*" --trace "pci_*" --tra=
+ce
+> "msi_*" --trace "nvme_*"
+
+The only trace events with above are this,
+
+iommufd_backend_connect fd=3D22 owned=3D1 users=3D1 (0)
+smmu_add_mr smmuv3-iommu-memory-region-0-0
+
+I haven't debugged this further. Please let me know if issue is reproducibl=
+e=20
+with multiple vCPUs at your end. For now will focus on VFIO dev specific te=
+sts.
 
 Thanks,
-Shameer
+Shameer=20
+
+
+
