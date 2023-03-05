@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FE62C6FA8E
-	for <intel-gfx@archiver.kernel.org>; Sun,  5 Mar 2023 22:11:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35699C6FA8E
+	for <intel-gfx@archiver.kernel.org>; Sun,  5 Mar 2023 22:11:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 417C010E04B;
-	Sun,  5 Mar 2023 22:11:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7DC510E05C;
+	Sun,  5 Mar 2023 22:11:33 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk
  [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E504410E013;
- Sun,  5 Mar 2023 22:11:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DABCF10E013;
+ Sun,  5 Mar 2023 22:11:31 +0000 (UTC)
 Received: from workpc.. (unknown [109.252.117.89])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 9DEDE6602097;
- Sun,  5 Mar 2023 22:11:25 +0000 (GMT)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 2C81666020F5;
+ Sun,  5 Mar 2023 22:11:29 +0000 (GMT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1678054287;
- bh=VtlMAkBh8fY9xCWhTSNCidwaxxi7vJ8HsX8hoUdvt7A=;
- h=From:To:Cc:Subject:Date:From;
- b=WRPw6sZ8reGpJm+GDgk7+XNUy9kCbuV/JN9gd3zHRY0eDYVrEr7JzQaSA3j3EIKDp
- 7WbOo1Pjlr6Cu+Wz8TU7pd2Ni0jdGcEGRxeuo/qAYxMtdgNYyVfJyAoRlc0wCnry/M
- 5BE0IQb3zvm6R3WUQROVT06/GSWR0Yh2O+sLj58R2zkxN7vDD5I/iz8bHXBZUCknqv
- NSGnqeK84a/9TuOPso+HBImBC55AkJ6nHuSMJB92O2M4m6ugkiW5RwdFqi/jzuV0VQ
- c79TRjmirRP30J2y3lqwlY+w3LNBcqJU7bcJ/HhY+XM6T/kbkrzSGa1kjzoFweSp1I
- mldqGDPJY50fw==
+ s=mail; t=1678054290;
+ bh=CQuK/0mx8fcX8m0D0MEcKjqr9lA4ND+Aj+s1RvwAUnI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=A0n+DdLpmEy1quKkcKSC6n1ldd/SmnjFrl1QWhN/JI68GF49XUzaSzm8L8yesda1b
+ yg/DivhGtHRefuPBpUX/C+wLrCNrq0T3LpihR9yR0eALNVTgvxnNzplnEzUZ9KAqQu
+ VDkuwdwF9CgFaP2BtHXkwBZIkYjlwMUa7pRFqoULi4kDI1tLXKurHKydsMGgr1pqYd
+ cy+50oT+7mkj1b9hb0CHCerpT0tSpSqfkTaGgTervDAi+cBnuXuHBT7qyCoHxeXZfU
+ pdqc2cNlY0+Th55OlUv/1B7r0WrebKCbersyZxU8Ma7vltUFY38jlJOs9I66RXBLlX
+ laRWud9NzZzjg==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -45,13 +45,15 @@ To: David Airlie <airlied@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
  Qiang Yu <yuq825@gmail.com>, Steven Price <steven.price@arm.com>,
  Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
  Rob Herring <robh@kernel.org>
-Date: Mon,  6 Mar 2023 01:10:00 +0300
-Message-Id: <20230305221011.1404672-1-dmitry.osipenko@collabora.com>
+Date: Mon,  6 Mar 2023 01:10:02 +0300
+Message-Id: <20230305221011.1404672-3-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230305221011.1404672-1-dmitry.osipenko@collabora.com>
+References: <20230305221011.1404672-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v12 00/11] Add generic memory shrinker to
- VirtIO-GPU and Panfrost DRM drivers
+Subject: [Intel-gfx] [PATCH v12 02/11] drm/shmem-helper: Factor out pages
+ alloc/release from drm_gem_shmem_get/put_pages()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,102 +72,124 @@ Cc: intel-gfx@lists.freedesktop.org, kernel@collabora.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series:
+Factor out pages allocation from drm_gem_shmem_get_pages() into
+drm_gem_shmem_acquire_pages() function and similar for the put_pages()
+in a preparation for addition of shrinker support to drm-shmem.
 
-  1. Adds common drm-shmem memory shrinker
-  2. Enables shrinker for VirtIO-GPU driver
-  3. Switches Panfrost driver to the common shrinker
+Once shrinker will be added, the pages_use_count>0 will no longer determine
+whether pages are pinned because pages could be swapped out by the shrinker
+and then pages_use_count will be greater than 0 in this case. We will add
+new pages_pin_count in a later patch.
 
-Changelog:
+The new common drm_gem_shmem_acquire/release_pages() will be used by
+shrinker code for performing the page swapping.
 
-v12:- Fixed the "no previous prototype for function" warning reported by
-      kernel build bot for v11.
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+---
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 67 +++++++++++++++++++++-----
+ 1 file changed, 54 insertions(+), 13 deletions(-)
 
-    - Fixed the missing reservation lock reported by Intel CI for VGEM
-      driver. Other drivers using drm-shmem were affected similarly to
-      VGEM. The problem was in the dma-buf attachment code path that led
-      to drm-shmem pinning function which assumed the held reservation lock
-      by drm_gem_pin(). In the past that code path was causing trouble for
-      i915 driver and we've changed the locking scheme for the attachment
-      code path in the dma-buf core to let exporters to handle the locking
-      themselves. After a closer investigation, I realized that my assumption
-      about testing of dma-buf export code path using Panfrost driver was
-      incorrect. Now I created additional local test to exrecise the Panfrost
-      export path. I also reproduced the issue reported by the Intel CI for
-      v10. It's all fixed now by making the drm_gem_shmem_pin() to take the
-      resv lock by itself.
-
-    - Patches are based on top of drm-tip, CC'd intel-gfx CI for testing.
-
-v11:- Rebased on a recent linux-next. Added new patch as a result:
-
-        drm/shmem-helper: Export drm_gem_shmem_get_pages_sgt_locked()
-
-        It's needed by the virtio-gpu driver to swap-in/unevict shmem
-        object, previously get_pages_sgt() didn't use locking.
-
-    - Separated the "Add memory shrinker" patch into smaller parts to ease
-      the reviewing, as was requested by Thomas Zimmermann:
-
-        drm/shmem-helper: Factor out pages alloc/release from
-          drm_gem_shmem_get/put_pages()
-        drm/shmem-helper: Add pages_pin_count field
-        drm/shmem-helper: Switch drm_gem_shmem_vmap/vunmap to use pin/unpin
-        drm/shmem-helper: Factor out unpinning part from drm_gem_shmem_purge()
-
-    - Addessed the v10 review comments from Thomas Zimmermann: return errno
-      instead of bool, sort code alphabetically, rename function and etc
-      minor changes.
-
-    - Added new patch to remove the "map->is_iomem" from drm-shmem, as
-      was suggested by Thomas Zimmermann.
-
-    - Added acks and r-b's that were given to v10.
-
-v10:- Was partially applied to misc-fixes/next.
-
-      https://lore.kernel.org/dri-devel/6c16f303-81df-7ebe-85e9-51bb40a8b301@collabora.com/T/
-
-Dmitry Osipenko (11):
-  drm/shmem-helper: Switch to reservation lock
-  drm/shmem-helper: Factor out pages alloc/release from
-    drm_gem_shmem_get/put_pages()
-  drm/shmem-helper: Add pages_pin_count field
-  drm/shmem-helper: Switch drm_gem_shmem_vmap/vunmap to use pin/unpin
-  drm/shmem-helper: Factor out unpinning part from drm_gem_shmem_purge()
-  drm/shmem-helper: Add memory shrinker
-  drm/shmem-helper: Remove obsoleted is_iomem test
-  drm/shmem-helper: Export drm_gem_shmem_get_pages_sgt_locked()
-  drm/gem: Export drm_gem_pin/unpin()
-  drm/virtio: Support memory shrinking
-  drm/panfrost: Switch to generic memory shrinker
-
- drivers/gpu/drm/drm_gem.c                     |   2 +
- drivers/gpu/drm/drm_gem_shmem_helper.c        | 613 ++++++++++++++----
- drivers/gpu/drm/drm_internal.h                |   2 -
- drivers/gpu/drm/lima/lima_gem.c               |   8 +-
- drivers/gpu/drm/panfrost/Makefile             |   1 -
- drivers/gpu/drm/panfrost/panfrost_device.h    |   4 -
- drivers/gpu/drm/panfrost/panfrost_drv.c       |  34 +-
- drivers/gpu/drm/panfrost/panfrost_gem.c       |  30 +-
- drivers/gpu/drm/panfrost/panfrost_gem.h       |   9 -
- .../gpu/drm/panfrost/panfrost_gem_shrinker.c  | 122 ----
- drivers/gpu/drm/panfrost/panfrost_job.c       |  18 +-
- drivers/gpu/drm/panfrost/panfrost_mmu.c       |  19 +-
- drivers/gpu/drm/virtio/virtgpu_drv.h          |  18 +-
- drivers/gpu/drm/virtio/virtgpu_gem.c          |  52 ++
- drivers/gpu/drm/virtio/virtgpu_ioctl.c        |  37 ++
- drivers/gpu/drm/virtio/virtgpu_kms.c          |   8 +
- drivers/gpu/drm/virtio/virtgpu_object.c       | 137 +++-
- drivers/gpu/drm/virtio/virtgpu_plane.c        |  22 +-
- drivers/gpu/drm/virtio/virtgpu_vq.c           |  40 ++
- include/drm/drm_device.h                      |  10 +-
- include/drm/drm_gem.h                         |   3 +
- include/drm/drm_gem_shmem_helper.h            |  83 ++-
- include/uapi/drm/virtgpu_drm.h                |  14 +
- 23 files changed, 917 insertions(+), 369 deletions(-)
- delete mode 100644 drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index 651ca7f380a2..a62c41336a7f 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -165,19 +165,26 @@ void drm_gem_shmem_free(struct drm_gem_shmem_object *shmem)
+ }
+ EXPORT_SYMBOL_GPL(drm_gem_shmem_free);
+ 
+-static int drm_gem_shmem_get_pages(struct drm_gem_shmem_object *shmem)
++static int
++drm_gem_shmem_acquire_pages(struct drm_gem_shmem_object *shmem)
+ {
+ 	struct drm_gem_object *obj = &shmem->base;
+ 	struct page **pages;
+ 
+-	if (shmem->pages_use_count++ > 0)
+-		return 0;
++	dma_resv_assert_held(shmem->base.resv);
++
++	if (shmem->madv < 0) {
++		drm_WARN_ON(obj->dev, shmem->pages);
++		return -ENOMEM;
++	}
++
++	if (drm_WARN_ON(obj->dev, !shmem->pages_use_count))
++		return -EINVAL;
+ 
+ 	pages = drm_gem_get_pages(obj);
+ 	if (IS_ERR(pages)) {
+ 		drm_dbg_kms(obj->dev, "Failed to get pages (%ld)\n",
+ 			    PTR_ERR(pages));
+-		shmem->pages_use_count = 0;
+ 		return PTR_ERR(pages);
+ 	}
+ 
+@@ -196,6 +203,48 @@ static int drm_gem_shmem_get_pages(struct drm_gem_shmem_object *shmem)
+ 	return 0;
+ }
+ 
++static int drm_gem_shmem_get_pages(struct drm_gem_shmem_object *shmem)
++{
++	int err;
++
++	dma_resv_assert_held(shmem->base.resv);
++
++	if (shmem->madv < 0)
++		return -ENOMEM;
++
++	if (shmem->pages_use_count++ > 0)
++		return 0;
++
++	err = drm_gem_shmem_acquire_pages(shmem);
++	if (err)
++		goto err_zero_use;
++
++	return 0;
++
++err_zero_use:
++	shmem->pages_use_count = 0;
++
++	return err;
++}
++
++static void
++drm_gem_shmem_release_pages(struct drm_gem_shmem_object *shmem)
++{
++	struct drm_gem_object *obj = &shmem->base;
++
++	dma_resv_assert_held(shmem->base.resv);
++
++#ifdef CONFIG_X86
++	if (shmem->map_wc)
++		set_pages_array_wb(shmem->pages, obj->size >> PAGE_SHIFT);
++#endif
++
++	drm_gem_put_pages(obj, shmem->pages,
++			  shmem->pages_mark_dirty_on_put,
++			  shmem->pages_mark_accessed_on_put);
++	shmem->pages = NULL;
++}
++
+ /*
+  * drm_gem_shmem_put_pages - Decrease use count on the backing pages for a shmem GEM object
+  * @shmem: shmem GEM object
+@@ -214,15 +263,7 @@ void drm_gem_shmem_put_pages(struct drm_gem_shmem_object *shmem)
+ 	if (--shmem->pages_use_count > 0)
+ 		return;
+ 
+-#ifdef CONFIG_X86
+-	if (shmem->map_wc)
+-		set_pages_array_wb(shmem->pages, obj->size >> PAGE_SHIFT);
+-#endif
+-
+-	drm_gem_put_pages(obj, shmem->pages,
+-			  shmem->pages_mark_dirty_on_put,
+-			  shmem->pages_mark_accessed_on_put);
+-	shmem->pages = NULL;
++	drm_gem_shmem_release_pages(shmem);
+ }
+ EXPORT_SYMBOL(drm_gem_shmem_put_pages);
+ 
 -- 
 2.39.2
 
