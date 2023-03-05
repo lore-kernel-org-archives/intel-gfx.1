@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26D9FC6FA8E
-	for <intel-gfx@archiver.kernel.org>; Sun,  5 Mar 2023 22:11:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FCCEC6FD18
+	for <intel-gfx@archiver.kernel.org>; Sun,  5 Mar 2023 22:11:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BE5310E058;
-	Sun,  5 Mar 2023 22:11:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5859210E076;
+	Sun,  5 Mar 2023 22:11:41 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8257910E062;
- Sun,  5 Mar 2023 22:11:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B10E10E058;
+ Sun,  5 Mar 2023 22:11:34 +0000 (UTC)
 Received: from workpc.. (unknown [109.252.117.89])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id BDB686602154;
- Sun,  5 Mar 2023 22:11:32 +0000 (GMT)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id F1A806602121;
+ Sun,  5 Mar 2023 22:11:30 +0000 (GMT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1678054294;
- bh=A9/W4octTMJpwdtQTQZ+kGQ8wjAhQ4OpeboOYQ6R2gM=;
+ s=mail; t=1678054292;
+ bh=vvZQ1RzmWw+OhpZUUylpU4+SHylZhdfi8PierOA2nl4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=e9QH2DffeTGtg8nm6Stilf2msOQvAGXnBffuvVUWNnA2oR9e19ep9ixRFotz9eUPA
- kG7IRt7QNkUXQlKA9ZuNRqc0QjwrwaDkMEoxLdvGdhsxrVyqPh34sEDUbOoUw0oA0M
- nmfWi5b18hAxiOpDE2se7JxgCixXNUsrFS9NGawtCmqcKjiD+ZuJPabNBiq+UlDTkT
- JN88dGvpyDNYsqNlcF6WQU1a7gIHTcD3/AUZ6fA6vNQFSVjDX/vHQYuMRIsqiAlGCi
- JmxAlIIAl3PaJKfe69Khhl+YG+YApEBUjxTiePBLGSKKgEo9bk7Vm4Y/z//AMaBRHQ
- xPOyAuJkPF4VQ==
+ b=A6JoELeIio5uDjTp77vGHYZqgmGnLfqBufBVhxN2xFxzH8Q3OiXSukm0GBoLLPc8X
+ wx1o+i8PiZqdNOATaINiEBOi/e5+db10UYxFvrDfyjgPGjaz6lA+kRQp7m+y/rrXzr
+ 4IdHvSzR8N7N37APrVdEjfrv9OPlvCeHUyzFK2cOF/ZiM0PjVZepAqzhsQKRyN9Hm1
+ ltUwKfvdqkLY7UvreyWPYmpHF8/AqXqrR0GCKCi+B76Iikic7UmO5+eb7bRUdvbS7h
+ jF6Us72kGta6+s66Pjq1ZjR6HSr9JYgtGVF6LBvlpmViUUhTx+KeCBUJbCkl8h7/LM
+ FeffoWuji2Qow==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -44,15 +44,15 @@ To: David Airlie <airlied@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
  Qiang Yu <yuq825@gmail.com>, Steven Price <steven.price@arm.com>,
  Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
  Rob Herring <robh@kernel.org>
-Date: Mon,  6 Mar 2023 01:10:04 +0300
-Message-Id: <20230305221011.1404672-5-dmitry.osipenko@collabora.com>
+Date: Mon,  6 Mar 2023 01:10:03 +0300
+Message-Id: <20230305221011.1404672-4-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230305221011.1404672-1-dmitry.osipenko@collabora.com>
 References: <20230305221011.1404672-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v12 04/11] drm/shmem-helper: Switch
- drm_gem_shmem_vmap/vunmap to use pin/unpin
+Subject: [Intel-gfx] [PATCH v12 03/11] drm/shmem-helper: Add pages_pin_count
+ field
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,49 +71,63 @@ Cc: intel-gfx@lists.freedesktop.org, kernel@collabora.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The vmapped pages shall be pinned in memory. Previously get/put pages were
-implicitly pinning/unpinning the pages. This will no longer be the case
-with addition of memory shrinker because pages_use_count>0 won't determine
-whether pages are pinned anymore, while the new pages_pin_count will do
-that. Switch the vmap/vunmap to use pin/unpin functions in a preparation
-of addition of the memory shrinker support.
+And new pages_pin_count field to struct drm_gem_shmem_object that will
+determine whether pages are evictable by memory shrinker. The pages will
+be evictable only when pages_pin_count=0. This patch prepares code for
+addition of the memory shrinker that will utilize the new field.
 
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/drm_gem_shmem_helper.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 7 +++++++
+ include/drm/drm_gem_shmem_helper.h     | 9 +++++++++
+ 2 files changed, 16 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index 0c3abb0c2ea2..e2324e857847 100644
+index a62c41336a7f..0c3abb0c2ea2 100644
 --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
 +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -380,7 +380,7 @@ int drm_gem_shmem_vmap(struct drm_gem_shmem_object *shmem,
- 			return 0;
- 		}
+@@ -277,6 +277,8 @@ static int drm_gem_shmem_pin_locked(struct drm_gem_shmem_object *shmem)
+ 	drm_WARN_ON(obj->dev, obj->import_attach);
  
--		ret = drm_gem_shmem_get_pages(shmem);
-+		ret = drm_gem_shmem_pin_locked(shmem);
- 		if (ret)
- 			goto err_zero_use;
+ 	ret = drm_gem_shmem_get_pages(shmem);
++	if (!ret)
++		shmem->pages_pin_count++;
  
-@@ -403,7 +403,7 @@ int drm_gem_shmem_vmap(struct drm_gem_shmem_object *shmem,
+ 	return ret;
+ }
+@@ -289,7 +291,12 @@ static void drm_gem_shmem_unpin_locked(struct drm_gem_shmem_object *shmem)
  
- err_put_pages:
- 	if (!obj->import_attach)
--		drm_gem_shmem_put_pages(shmem);
-+		drm_gem_shmem_unpin_locked(shmem);
- err_zero_use:
- 	shmem->vmap_use_count = 0;
+ 	drm_WARN_ON(obj->dev, obj->import_attach);
  
-@@ -440,7 +440,7 @@ void drm_gem_shmem_vunmap(struct drm_gem_shmem_object *shmem,
- 			return;
++	if (drm_WARN_ON_ONCE(obj->dev, !shmem->pages_pin_count))
++		return;
++
+ 	drm_gem_shmem_put_pages(shmem);
++
++	shmem->pages_pin_count--;
+ }
  
- 		vunmap(shmem->vaddr);
--		drm_gem_shmem_put_pages(shmem);
-+		drm_gem_shmem_unpin_locked(shmem);
- 	}
+ /**
+diff --git a/include/drm/drm_gem_shmem_helper.h b/include/drm/drm_gem_shmem_helper.h
+index 20ddcd799df9..7d823c9fc480 100644
+--- a/include/drm/drm_gem_shmem_helper.h
++++ b/include/drm/drm_gem_shmem_helper.h
+@@ -39,6 +39,15 @@ struct drm_gem_shmem_object {
+ 	 */
+ 	unsigned int pages_use_count;
  
- 	shmem->vaddr = NULL;
++	/**
++	 * @pages_pin_count:
++	 *
++	 * Reference count on the pinned pages table.
++	 * The pages allowed to be evicted by memory shrinker
++	 * only when the count is zero.
++	 */
++	unsigned int pages_pin_count;
++
+ 	/**
+ 	 * @madv: State for madvise
+ 	 *
 -- 
 2.39.2
 
