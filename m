@@ -4,48 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3129C6FD1A
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Mar 2023 20:50:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39F0FC61DA4
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Mar 2023 20:58:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D300C10E476;
-	Mon,  6 Mar 2023 20:50:22 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33B8510E233;
- Mon,  6 Mar 2023 20:50:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD3A710E478;
+	Mon,  6 Mar 2023 20:58:24 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8B0F10E256;
+ Mon,  6 Mar 2023 20:58:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678135820; x=1709671820;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ooHw4yZNO6MOLf7e1yiQ8wJN+YuLMBg0dV2Qp6y9lSU=;
- b=USQr7hDfoRGTRbA/bL1zyqIATh19UV7O+5JhmB7Pel/7/tv2xa8i7ZNy
- fssfHIYZV//MWDUIZ8Cfec+3Mo6+1HBdSoO70xPp+RqZzxNtm9zwhPINs
- 4UR35tP/RXKY/2cmhdqL22lGsHtwqTk+blYl1X3/0uZ6/hmvGZqw2bzJA
- yMCtZWgV2s40oc3J3HZEVFsdEaDLvoJELWUDIjXU+Hx2Df/zmiOPxjzi2
- vAe84ZejyZDpgO1WQOAjzWgEX0Bt4OnBYHZpux9F6KKqT4HqxhHLbtdnm
- 4jxdG+jdHj3PyM6jLMFQ+TNtuGHs2onEndC5eBiLhl2bC3Gh5Hdyqecq9 A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="319499960"
-X-IronPort-AV: E=Sophos;i="5.98,238,1673942400"; d="scan'208";a="319499960"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Mar 2023 12:50:19 -0800
+ t=1678136302; x=1709672302;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=h6cgX8CyjSm/MG4jqDf8fqwxmN9I9o3Ae7dthw4Zd5U=;
+ b=CjJmGNQHLwUjJM05N//qKMiLf1w93ShUEjBoUwr1MwmCKsTtBhWbB9+i
+ uhv4KgqEJ4+Iq61VUTJuiDToGo1U2lhYB2keDcKk6bGlvHi7aB/Zmz+k6
+ l760s/sD4NJiedBlEY8i5iUK6Mh4syjKSTtsTG6H37JFxscUQ6jMr24c2
+ BDDaURx5XllqH5rzVvmHQhZf2uZYSKxkTeUpgcTRpBnDcpjW6OnPow7+k
+ aEh7arXUeYCsVvUxSNxf/yKJ2c1Yu/rLIrlrucvOcUxt6ate/AHogLRz/
+ 2bgVOfjPfagsRolM/NXJBCECxdD36H9nD5iqa6sjwlU/hUQdUEGG+kST7 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="323981720"
+X-IronPort-AV: E=Sophos;i="5.98,238,1673942400"; d="scan'208";a="323981720"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2023 12:58:22 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="669615311"
-X-IronPort-AV: E=Sophos;i="5.98,238,1673942400"; d="scan'208";a="669615311"
-Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Mar 2023 12:50:19 -0800
-From: Lucas De Marchi <lucas.demarchi@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon,  6 Mar 2023 12:49:53 -0800
-Message-Id: <20230306204954.753739-2-lucas.demarchi@intel.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230306204954.753739-1-lucas.demarchi@intel.com>
-References: <20230306204954.753739-1-lucas.demarchi@intel.com>
+X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="708795400"
+X-IronPort-AV: E=Sophos;i="5.98,238,1673942400"; d="scan'208";a="708795400"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
+ by orsmga001.jf.intel.com with SMTP; 06 Mar 2023 12:58:19 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Mon, 06 Mar 2023 22:58:18 +0200
+Date: Mon, 6 Mar 2023 22:58:18 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Message-ID: <ZAZT6jJlsiTF1A5a@intel.com>
+References: <20230306141638.196359-1-maarten.lankhorst@linux.intel.com>
+ <edae44735190c4d5fbbe8959f999ad7ca65f3677.camel@intel.com>
+ <073f5ef3-523a-2997-c7e9-771cce8f4c24@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/3] drm/i915: Move DG2 tuning to the right
- function
+In-Reply-To: <073f5ef3-523a-2997-c7e9-771cce8f4c24@linux.intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [Intel-xe] [PATCH] drm/xe/display: Do not use i915
+ frontbuffer tracking implementation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,48 +63,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use gt_tuning_settings() for the recommended tunings rather than the one
-for workarounds.
+On Mon, Mar 06, 2023 at 09:23:50PM +0100, Maarten Lankhorst wrote:
+> Hey,
+> 
+> On 2023-03-06 16:23, Souza, Jose wrote:
+> > On Mon, 2023-03-06 at 15:16 +0100, Maarten Lankhorst wrote:
+> >> As a fallback if we decide not to merge the frontbuffer tracking, allow
+> >> i915 to keep its own implementation, and do the right thing in Xe.
+> >>
+> >> The frontbuffer tracking for Xe is still done per-fb, while i915 can
+> >> keep doing the weird intel_frontbuffer + i915_active thing without
+> >> blocking Xe.
+> > Please also disable PSR and FBC with this or at least add a way for users to disable those features.
+> > Without frontbuffer tracker those two features will break in some cases.
+> 
+> FBC and PSR work completely as expected. I don't remove frontbuffer 
+> tracking; I only remove the GEM parts.
+> 
+> Explicit invalidation using pageflip or CPU rendering + DirtyFB continue 
+> to work, as I validated on my laptop with FBC.
 
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+Neither of which are relevant to the removal of the gem hooks.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index eb6cc4867d67..389bfcd299af 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -1653,13 +1653,6 @@ dg2_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
- 	/* Wa_14014830051:dg2 */
- 	wa_mcr_write_clr(wal, SARB_CHICKEN1, COMP_CKN_IN);
- 
--	/*
--	 * The following are not actually "workarounds" but rather
--	 * recommended tuning settings documented in the bspec's
--	 * performance guide section.
--	 */
--	wa_mcr_write_or(wal, XEHP_SQCM, EN_32B_ACCESS);
--
- 	/* Wa_14015795083 */
- 	wa_write_clr(wal, GEN7_MISCCPCTL, GEN12_DOP_CLOCK_GATE_RENDER_ENABLE);
- 
-@@ -1752,8 +1745,10 @@ static void gt_tuning_settings(struct intel_gt *gt, struct i915_wa_list *wal)
- 		wa_mcr_masked_en(wal, XEHPC_LNCFMISCCFGREG0, XEHPC_HOSTCACHEEN);
- 	}
- 
--	if (IS_DG2(gt->i915))
-+	if (IS_DG2(gt->i915)) {
- 		wa_mcr_write_or(wal, XEHP_L3SCQREG7, BLEND_FILL_CACHING_OPT_DIS);
-+		wa_mcr_write_or(wal, XEHP_SQCM, EN_32B_ACCESS);
-+	}
- }
- 
- static void
+Like I already said ~10 times in the last meeting, we need a proper
+testcase. Here's a rough idea what it should do:
+
+prepare a batch with
+1. spinner
+2. something that clobbers the fb
+
+Then
+1. grab reference crc
+2. execbuffer
+3. dirtyfb
+4. wait long enough for fbc to recompress
+5. terminate spinner
+6. gem_sync
+7. grab crc and compare with reference
+
+No idea what the current status of PSR+CRC is, so not sure
+whether we can actually test PSR or not.
+
 -- 
-2.39.0
-
+Ville Syrjälä
+Intel
