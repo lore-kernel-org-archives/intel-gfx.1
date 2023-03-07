@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC2C1C678D5
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Mar 2023 09:46:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0862C678D4
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Mar 2023 10:15:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 229E010E114;
-	Tue,  7 Mar 2023 09:45:54 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 894E110E112;
- Tue,  7 Mar 2023 09:45:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 958A510E0FD;
+	Tue,  7 Mar 2023 10:15:04 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C4D210E0FD;
+ Tue,  7 Mar 2023 10:15:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678182351; x=1709718351;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=SJ/2AwXzarDVShG6oGH338mQVh6Nfv4yMwFXH/EgR/U=;
- b=Zk0whIY3K85dbvTDxxPEY882hC/hFPf53kkWTr5rOi+Jygi8WfjbuF37
- 63Qn14h0TmtN8CTz0815oyhq2dRLJLVQMxmBeanVkWEznJPdyBbCaGSGQ
- YR6AKgRuRMTGhO+kjSNeucavTGZqkjBWFEKjMK8RowxGbdTX+gJN5oUXY
- zeUeuc0EcWvnI3r8Gejg5BNw1ib/svBZxl249ETTaoaLqflL8MrPcfXuh
- qzyu8ua+/LUoYsV+iTudTddrrfiGKcDY+xuSf/hvHt1qGZctCQI7KkTb8
- QJhhTRKPdZG9xtlAiGg3uoECv52imZv6bhDrZFYaWqxWK2+1DnUdUuc7X A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="334525636"
-X-IronPort-AV: E=Sophos;i="5.98,240,1673942400"; d="scan'208";a="334525636"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Mar 2023 01:45:30 -0800
+ t=1678184101; x=1709720101;
+ h=message-id:date:mime-version:from:subject:to:cc;
+ bh=y/0485fu39kmHHomQmrCRTYSMh4OCzigYeoUbgnE23o=;
+ b=oDxoCNl0O7e2gqA2FLZgo2/y9a6AUfptAFV0CXrDKyyxG464z4yo/Sve
+ sbAktFPK7lTuK73dDuPTdgGjhC7/6nCeB0tQIFjxv0q0lK9aSX4Kldypy
+ tfq9K94ONrHEyGh61VgXwLH6I6XjcdZxY2C/2R3hO5a00KR3g143iI6ub
+ yWQ9MqZqQCMv2J0X7kNxRWwKL8e3HtWh4ENE+VBOkjitoeDHCGr6Wb8nW
+ FBU6jUGlx5DKQYNJZbnKlT32QiyRwq14kMXNvO24E5Um6jvflcJSlxlyY
+ 7kpDpDHE0L0IjU/Lr2kxzXQEG5TosWlo8H/rN8Hw1EP9RaqBFGqM56One A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="315467625"
+X-IronPort-AV: E=Sophos;i="5.98,240,1673942400"; 
+ d="scan'208,217";a="315467625"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Mar 2023 02:15:00 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="819697635"
-X-IronPort-AV: E=Sophos;i="5.98,240,1673942400"; d="scan'208";a="819697635"
-Received: from gaertgee-mobl.ger.corp.intel.com (HELO intel.com)
- ([10.249.43.130])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Mar 2023 01:45:28 -0800
-Date: Tue, 7 Mar 2023 10:45:26 +0100
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-Message-ID: <ZAcHtsmKkwlPwCz7@ashyti-mobl2.lan>
-References: <20230228021142.1905349-1-andi.shyti@linux.intel.com>
- <24b04551-8f13-3669-e3b7-d567ca8b35f6@intel.com>
+X-IronPort-AV: E=McAfee;i="6500,9779,10641"; a="708998481"
+X-IronPort-AV: E=Sophos;i="5.98,240,1673942400"; 
+ d="scan'208,217";a="708998481"
+Received: from szymansk-mobl1.ger.corp.intel.com (HELO [10.249.43.98])
+ ([10.249.43.98])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Mar 2023 02:14:56 -0800
+Content-Type: multipart/alternative;
+ boundary="------------CkLPkpAqpkmxCX2Tle66aEoP"
+Message-ID: <ac1f5186-54bb-02f4-ac56-907f5b76f3de@linux.intel.com>
+Date: Tue, 7 Mar 2023 11:14:54 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <24b04551-8f13-3669-e3b7-d567ca8b35f6@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v3 0/2] Fix error propagation amongst request
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.8.0
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Content-Language: en-US
+Subject: [Intel-gfx] [PULL] drm-misc-next
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,186 +60,974 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maciej Patelczyk <maciej.patelczyk@intel.com>,
- intel-gfx@lists.freedesktop.org, stable@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Chris Wilson <chris.p.wilson@linux.intel.com>,
- Matthew Auld <matthew.auld@intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>, dim-tools@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi GG,
+This is a multi-part message in MIME format.
+--------------CkLPkpAqpkmxCX2Tle66aEoP
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Mar 07, 2023 at 09:33:12AM +0200, Gwan-gyeong Mun wrote:
-> Hi Andi,
-> 
-> After applying these two patches, deadlock is being detected in the call
-> stack below. Please review whether the patch to update the
-> intel_context_migrate_copy() part affected the deadlock.
-> 
-> https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114451v1/bat-dg2-8/igt@i915_module_load@load.html#dmesg-warnings1037
+Hi Dave, Daniel,
 
-Thanks for looking into this. Yes, there is a basic locking issue
-here coming from migrate. migrate() takes the timeline lock and
-then calls the request_create() which tries to lock again. We
-inevitably fall into deadlock.
+I apparently didn't send my 2023-02-23 pull request or at least don't see it on dri-devel, so I added both shortlogs here.
 
-The locking of the timeline is quite exotic, it's started in
-request_create() and released in request_add().
+Enjoy!
+~Maarten
 
-It's still in trybot, but this is supposed to be the next
-version:
+drm-misc-next-2023-03-07:
+drm-misc-next for v6.4-rc1:
 
-https://patchwork.freedesktop.org/series/114645/
+UAPI Changes:
 
-This creates new version of request_create_locked() and
-request_add_locked() where there the timeline is not locked in
-the process.
+Cross-subsystem Changes:
+- Add Neil Armstrong as linaro maintainer.
 
-There are still some selftests that need to be fixed, though.
+Core Changes:
+- Add function for adding syncobj dep to sched_job and use it in panfrost, v3d.
+- Improve DisplayID 2.0 topology parsing and EDID parsing in general.
+- Add a gem eviction function and callback for generic GEM shrinker
+   purposes.
+- Prepare to convert shmem helper to use the GEM reservation lock instead of own
+   locking. (Actual commit itself got reverted for now)
+- Move the suballocator from radeon and amdgpu drivers to core in preparation
+   for Xe.
+- Assorted small fixes and documentation.
 
-Andi
+Driver Changes:
+- Use drm_gem_objects_lookup in vc4.
+- Assorted small fixes to virtio, ast, bridge/tc358762, meson, nouveau.
+- Allow virtio KMS to be disabled and compiled out.
 
-> <4> [33.070967] ============================================
-> <4> [33.070968] WARNING: possible recursive locking detected
-> <4> [33.070969] 6.2.0-Patchwork_114451v1-g8589fd9227ca+ #1 Not tainted
-> <4> [33.070970] --------------------------------------------
-> <4> [33.070971] i915_module_loa/948 is trying to acquire lock:
-> <4> [33.070972] ffff8881127f0478 (migrate){+.+.}-{3:3}, at:
-> i915_request_create+0x1c6/0x230 [i915]
-> <4> [33.071215]
-> but task is already holding lock:
-> <4> [33.071235] ffff8881127f0478 (migrate){+.+.}-{3:3}, at:
-> intel_context_migrate_copy+0x1b3/0xa80 [i915]
-> <4> [33.071484]
-> other info that might help us debug this:
-> <4> [33.071504]  Possible unsafe locking scenario:
-> <4> [33.071522]        CPU0
-> <4> [33.071532]        ----
-> <4> [33.071541]   lock(migrate);
-> <4> [33.071554]   lock(migrate);
-> <4> [33.071567]
->  *** DEADLOCK ***
-> <4> [33.071585]  May be due to missing lock nesting notation
-> <4> [33.071606] 3 locks held by i915_module_loa/948:
-> <4> [33.071622]  #0: ffffc90001eb7b70
-> (reservation_ww_class_acquire){+.+.}-{0:0}, at:
-> i915_gem_do_execbuffer+0xae2/0x21c0 [i915]
-> <4> [33.071893]  #1: ffff8881127b9c28
-> (reservation_ww_class_mutex){+.+.}-{3:3}, at:
-> __intel_context_do_pin_ww+0x7a/0xa30 [i915]
-> <4> [33.072133]  #2: ffff8881127f0478 (migrate){+.+.}-{3:3}, at:
-> intel_context_migrate_copy+0x1b3/0xa80 [i915]
-> <4> [33.072384]
-> stack backtrace:
-> <4> [33.072399] CPU: 7 PID: 948 Comm: i915_module_loa Not tainted
-> 6.2.0-Patchwork_114451v1-g8589fd9227ca+ #1
-> <4> [33.072428] Hardware name: Intel Corporation CoffeeLake Client
-> Platform/CoffeeLake S UDIMM RVP, BIOS CNLSFWR1.R00.X220.B00.2103302221
-> 03/30/2021
-> <4> [33.072465] Call Trace:
-> <4> [33.072475]  <TASK>
-> <4> [33.072486]  dump_stack_lvl+0x5b/0x85
-> <4> [33.072503]  __lock_acquire.cold+0x158/0x33b
-> <4> [33.072524]  lock_acquire+0xd6/0x310
-> <4> [33.072541]  ? i915_request_create+0x1c6/0x230 [i915]
-> <4> [33.072812]  __mutex_lock+0x95/0xf40
-> <4> [33.072829]  ? i915_request_create+0x1c6/0x230 [i915]
-> <4> [33.073093]  ? rcu_read_lock_sched_held+0x55/0x80
-> <4> [33.073112]  ? __mutex_lock+0x133/0xf40
-> <4> [33.073128]  ? i915_request_create+0x1c6/0x230 [i915]
-> <4> [33.073388]  ? intel_context_migrate_copy+0x1b3/0xa80 [i915]
-> <4> [33.073619]  ? i915_request_create+0x1c6/0x230 [i915]
-> <4> [33.073876]  i915_request_create+0x1c6/0x230 [i915]
-> <4> [33.074135]  intel_context_migrate_copy+0x1d0/0xa80 [i915]
-> <4> [33.074360]  __i915_ttm_move+0x7a8/0x940 [i915]
-> <4> [33.074538]  ? _raw_spin_unlock_irqrestore+0x41/0x70
-> <4> [33.074552]  ? dma_resv_iter_next+0x91/0xb0
-> <4> [33.074564]  ? dma_resv_iter_first+0x42/0xb0
-> <4> [33.074576]  ? i915_deps_add_resv+0x4c/0xc0 [i915]
-> <4> [33.074744]  i915_ttm_move+0x2ac/0x430 [i915]
-> <4> [33.074910]  ttm_bo_handle_move_mem+0xb5/0x140 [ttm]
-> <4> [33.074930]  ttm_bo_validate+0xe9/0x1a0 [ttm]
-> <4> [33.074947]  __i915_ttm_get_pages+0x4e/0x190 [i915]
-> <4> [33.075112]  i915_ttm_get_pages+0xf3/0x160 [i915]
-> <4> [33.075280]  ____i915_gem_object_get_pages+0x36/0xb0 [i915]
-> <4> [33.075446]  __i915_gem_object_get_pages+0x95/0xa0 [i915]
-> <4> [33.075608]  i915_vma_get_pages+0xfa/0x160 [i915]
-> <4> [33.075779]  i915_vma_pin_ww+0xdc/0xb50 [i915]
-> <4> [33.075953]  eb_validate_vmas+0x1c6/0xac0 [i915]
-> <4> [33.076114]  i915_gem_do_execbuffer+0xb2a/0x21c0 [i915]
-> <4> [33.076276]  ? __stack_depot_save+0x3f/0x4e0
-> <4> [33.076292]  ? 0xffffffff81000000
-> <4> [33.076301]  ? _raw_spin_unlock_irq+0x41/0x50
-> <4> [33.076312]  ? lockdep_hardirqs_on+0xc3/0x140
-> <4> [33.076325]  ? set_track_update+0x25/0x50
-> <4> [33.076338]  ? __lock_acquire+0x5f2/0x2130
-> <4> [33.076356]  i915_gem_execbuffer2_ioctl+0x123/0x2e0 [i915]
-> <4> [33.076519]  ? __pfx_i915_gem_execbuffer2_ioctl+0x10/0x10 [i915]
-> <4> [33.076679]  drm_ioctl_kernel+0xb4/0x150
-> <4> [33.076692]  drm_ioctl+0x21d/0x420
-> <4> [33.076703]  ? __pfx_i915_gem_execbuffer2_ioctl+0x10/0x10 [i915]
-> <4> [33.076864]  ? __vm_munmap+0xd3/0x170
-> <4> [33.076877]  __x64_sys_ioctl+0x76/0xb0
-> <4> [33.076889]  do_syscall_64+0x3c/0x90
-> <4> [33.076900]  entry_SYSCALL_64_after_hwframe+0x72/0xdc
-> <4> [33.076913] RIP: 0033:0x7f304aa903ab
-> <4> [33.076923] Code: 0f 1e fa 48 8b 05 e5 7a 0d 00 64 c7 00 26 00 00 00 48
-> c7 c0 ff ff ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa b8 10 00 00 00 0f 05 <48>
-> 3d 01 f0 ff ff 73 01 c3 48 8b 0d b5 7a 0d 00 f7 d8 64 89 01 48
-> <4> [33.076957] RSP: 002b:00007fffb1424cf8 EFLAGS: 00000246 ORIG_RAX:
-> 0000000000000010
-> <4> [33.076975] RAX: ffffffffffffffda RBX: 00007fffb1424da0 RCX:
-> 00007f304aa903ab
-> <4> [33.076990] RDX: 00007fffb1424da0 RSI: 0000000040406469 RDI:
-> 0000000000000005
-> <4> [33.077004] RBP: 0000000040406469 R08: 0000000000000005 R09:
-> 0000000100003000
-> <4> [33.077019] R10: 0000000000000001 R11: 0000000000000246 R12:
-> 0000000000010000
-> <4> [33.077034] R13: 0000000000000005 R14: 00000000ffffffff R15:
-> 00000000000056a0
-> <4> [33.077052]  </TASK>
-> 
-> Br,
-> 
-> G.G.
-> 
-> On 2/28/23 4:11 AM, Andi Shyti wrote:
-> > Hi,
-> > 
-> > This series of two patches fixes the issue introduced in
-> > cf586021642d80 ("drm/i915/gt: Pipelined page migration") where,
-> > as reported by Matt, in a chain of requests an error is reported
-> > only if happens in the last request.
-> > 
-> > However Chris noticed that without ensuring exclusivity in the
-> > locking we might end up in some deadlock. That's why patch 1
-> > throttles for the ringspace in order to make sure that no one is
-> > holding it.
-> > 
-> > Version 1 of this patch has been reviewed by matt and this
-> > version is adding Chris exclusive locking.
-> > 
-> > Thanks Chris for this work.
-> > 
-> > Andi
-> > 
-> > Changelog
-> > =========
-> > v1 -> v2
-> >   - Add patch 1 for ensuring exclusive locking of the timeline
-> >   - Reword git commit of patch 2.
-> > 
-> > Andi Shyti (1):
-> >    drm/i915/gt: Make sure that errors are propagated through request
-> >      chains
-> > 
-> > Chris Wilson (1):
-> >    drm/i915: Throttle for ringspace prior to taking the timeline mutex
-> > 
-> >   drivers/gpu/drm/i915/gt/intel_context.c | 41 +++++++++++++++++++++++++
-> >   drivers/gpu/drm/i915/gt/intel_context.h |  2 ++
-> >   drivers/gpu/drm/i915/gt/intel_migrate.c | 39 +++++++++++++++++------
-> >   drivers/gpu/drm/i915/i915_request.c     |  3 ++
-> >   4 files changed, 75 insertions(+), 10 deletions(-)
-> > 
+--------------------
+drm-misc-next-2023-02-23:
+drm-misc-next for v6.4-rc1: First pull request to keep the delta from 
+growing too big. UAPI Changes: - Convert rockchip bindings to YAML. - 
+Constify kobj_type structure in dma-buf. - FBDEV cmdline parser fixes, 
+and other small fbdev fixes for mode  parsing. Cross-subsystem Changes: 
+- Actually signal the private stub dma-fence. Core Changes: - Fixes to 
+HPD polling. - Assorted small fixes in simpledrm, bridge, accel, 
+shmem-helper,  and the selftest of format-helper. - Remove dummy 
+resource when ttm bo is created, and during pipelined  gutting. Fix all 
+drivers to accept a NULL ttm_bo->resource. - Handle pinned BO moving 
+prevention in ttm core. - Set drm panel-bridge orientation before 
+connector is registered. - Remove dumb_destroy callback. - Add 
+documentation to GEM_CLOSE, PRIME_HANDLE_TO_FD, PRIME_FD_TO_HANDLE, 
+GETFB2 ioctl's. - Add atomic enable_plane callback, use it in ast, 
+mgag200, tidss. Driver Changes: - Add Radxa 8/10HD, Samsung AMS495QA01 
+panels. - Fix ivpu compiler errors. - Assorted fixes to drm/panel, 
+malidp, rockchip, ivpu, amdgpu, vgem,  nouveau, vc4. - Assorted 
+cleanups, simplifications and fixes to vmwgfx.
+--------------------
+
+The following changes since commit aebd8f0c6f8280ba35bc989f4a9ea47469d3589a:
+
+   Merge v6.2-rc6 into drm-next (2023-01-31 12:23:23 +0100)
+
+are available in the Git repository at:
+
+   git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-next-2023-03-07
+
+for you to fetch changes up to 9228742caf899fa72230dd8da19ca4c7528badb8:
+
+   drm/nouveau/hwmon: Use sysfs_emit in show function callsbacks (2023-03-06 19:42:50 -0500)
+
+----------------------------------------------------------------
+Andrzej Kacprowski (2):
+       accel/ivpu: Fix FW API data alignment issues
+       accel/ivpu: Send VPU_JSM_MSG_CONTEXT_DELETE when deleting context
+
+Arnd Bergmann (3):
+       accel/ivpu: PM: remove broken ivpu_dbg() statements
+       accel: fix CONFIG_DRM dependencies
+       accel/ivpu: avoid duplicate assignment
+
+Asahi Lina (1):
+       drm/shmem-helper: Fix locking for drm_gem_shmem_get_pages_sgt()
+
+Brian Norris (1):
+       drm/rockchip: vop: Quiet always-warning AFBC log
+
+Carlo Caione (1):
+       drm/meson/meson_venc: Relax the supported mode checks
+
+Chris Morgan (3):
+       drm: of: Add drm_of_get_dsi_bus helper function
+       dt-bindings: display: panel: Add Samsung AMS495QA01
+       drm/panel: Add Magnachip D53E6EA8966 Panel Driver
+
+Christian König (4):
+       drm/ttm: stop allocating dummy resources during BO creation
+       drm/ttm: stop allocating a dummy resource for pipelined gutting
+       drm/ttm: prevent moving of pinned BOs
+       drm: remove dumb_destroy callback
+
+Dan Carpenter (1):
+       drm/simpledrm: Fix an NULL vs IS_ERR() bug
+
+Danilo Krummrich (1):
+       dma-buf: actually set signaling bit for private stub fences
+
+Deepak R Varma (2):
+       drm/arm/malidp: use sysfs_emit in show function callback
+       drm/nouveau/hwmon: Use sysfs_emit in show function callsbacks
+
+Dmitry Baryshkov (2):
+       drm/probe_helper: extract two helper functions
+       drm/probe_helper: sort out poll_running vs poll_enabled
+
+Dmitry Osipenko (6):
+       drm/gem: Add evict() callback to drm_gem_object_funcs
+       drm/shmem-helper: Put booleans in the end of struct drm_gem_shmem_object
+       drm/shmem-helper: Switch to use drm_* debug helpers
+       drm/shmem-helper: Don't use vmap_use_count for dma-bufs
+       drm/shmem-helper: Switch to reservation lock
+       drm/virtio: Fix handling CONFIG_DRM_VIRTIO_GPU_KMS option
+
+Dom Cobley (1):
+       drm/probe-helper: Cancel previous job before starting new one
+
+Douglas Anderson (1):
+       drm/bridge: tc358762: Set pre_enable_prev_first
+
+Geert Uytterhoeven (1):
+       drivers: Restore alignment and newline in Makefile
+
+Harry Wentland (2):
+       drm/display: Don't block HDR_OUTPUT_METADATA on unknown EOTF
+       drm/connector: print max_requested_bpc in state debugfs
+
+Jagan Teki (4):
+       dt-bindings: display: panel: jadard,jd9365da-h3: Add Radxa Display 10HD
+       drm: panel: jd9365da-h3: Add Radxa Display 10HD
+       dt-bindings: display: panel: jadard,jd9365da-h3: Add Radxa Display 8HD
+       drm: panel: jd9365da-h3: Add Radxa Display 8HD
+
+Jani Nikula (5):
+       drm/displayid: add displayid_get_header() and check bounds better
+       drm/displayid: return struct displayid_header from validate_displayid()
+       drm/displayid: provide access to DisplayID version and primary use case
+       drm/edid: update non-desktop use also from DisplayID
+       drm/edid: parse Tiled Display Topology Data Block for DisplayID 2.0
+
+Jiri Slaby (SUSE) (1):
+       drm/nouveau/kms/nv50: fix nv50_wndw_new_ prototype
+
+Johan Jonker (7):
+       dt-bindings: display: rockchip: convert rockchip-lvds.txt to YAML
+       dt-bindings: soc: rockchip: grf: add rockchip,lvds.yaml
+       dt-bindings: display: dsi-controller: move clock-master property
+       dt-bindings: display: bridge: snps,dw-mipi-dsi: fix clock properties
+       dt-bindings: display: rockchip: convert dw_mipi_dsi_rockchip.txt to yaml
+       dt-bindings: display: bridge: convert analogix_dp.txt to yaml
+       dt-bindings: display: rockchip: convert analogix_dp-rockchip.txt to yaml
+
+John Keeping (2):
+       drm/rockchip: avoid duplicate mappings for IOMMU devices
+       drm/bridge: panel: Set orientation on panel_bridge connector
+
+Maarten Lankhorst (3):
+       drm/suballoc: Extract amdgpu_sa.c as generic suballocation helper
+       drm/amd: Convert amdgpu to use suballocation helper.
+       drm/radeon: Use the drm suballocation manager implementation.
+
+Matthew Auld (6):
+       drm/i915/ttm: fix sparse warning
+       drm/i915/ttm: audit remaining bo->resource
+       drm/ttm: clear the ttm_tt when bo->resource is NULL
+       drm/gem-vram: handle NULL bo->resource in move callback
+       drm/qxl: handle NULL bo->resource in move callback
+       drm/radeon: handle NULL bo->resource in move callback
+
+Maxime Ripard (4):
+       drm/vc4: hdmi: Replace hardcoded value by define
+       drm/vc4: hdmi: Enable power domain before setting minimum
+       Revert "drm/vc4: hdmi: Fix HSM clock too low on Pi4"
+       Revert "drm/vc4: hdmi: Enforce the minimum rate at runtime_resume"
+
+Maíra Canal (8):
+       drm/format-helper: Use KUNIT_EXPECT_MEMEQ macro
+       drm/vgem: add missing mutex_destroy
+       drm/sched: Create wrapper to add a syncobj dependency to job
+       drm/panfrost: Use drm_sched_job_add_syncobj_dependency()
+       drm/v3d: Use drm_sched_job_add_syncobj_dependency()
+       drm/vc4: replace drm_gem_dma_object for drm_gem_object in vc4_exec_info
+       drm/vc4: replace obj lookup steps with drm_gem_objects_lookup
+       dma-buf: Include missing parentheses to documentation
+
+Michael Riesch (5):
+       drm/rockchip: vop2: initialize possible_crtcs properly
+       drm/rockchip: rgb: embed drm_encoder into rockchip_encoder
+       drm/rockchip: rgb: add video_port parameter to init function
+       drm/rockchip: vop2: use symmetric function pair vop2_{create,destroy}_crtcs
+       drm/rockchip: vop2: add support for the rgb output block
+
+Neil Armstrong (1):
+       MAINTAINERS: Add myself as maintainer for DRM Panels drivers
+
+Randy Dunlap (1):
+       drm/bridge: Kconfig: fix a spelling mistake
+
+Rayyan Ansari (2):
+       drm/simpledrm: Allow physical width and height configuration via panel node
+       dt-bindings: display: simple-framebuffer: Document the panel node
+
+Rob Clark (3):
+       drm/shmem: Cleanup drm_gem_shmem_create_with_handle()
+       drm/rockchip: Drop unbalanced obj unref
+       drm/virtio: Add option to disable KMS support
+
+Simon Ser (5):
+       drm: document DRM_IOCTL_GEM_CLOSE
+       drm: document expectations for GETFB2 handles
+       drm: document DRM_IOCTL_PRIME_HANDLE_TO_FD and PRIME_FD_TO_HANDLE
+       drm: document connector margin properties
+       drm: remove outdated doc TODO for subconnector property
+
+Somalapuram Amaranath (1):
+       drm/amdgpu: Remove TTM resource->start visible VRAM condition v2
+
+Stanislaw Gruszka (2):
+       accel/ivpu: Set dma max_segment_size
+       accel/ivpu: Fix old dma_buf api usage
+
+Stephen Boyd (1):
+       drm/panel: boe-tv101wum-nl6: Ensure DSI writes succeed during disable
+
+Thomas Weißschuh (2):
+       drm/nouveau/led: explicitly include linux/leds.h
+       dma-buf: make kobj_type structure constant
+
+Thomas Zimmermann (23):
+       Merge drm/drm-next into drm-misc-next
+       fbdev: Fix contact info in fb_cmdline.c
+       fbdev: Transfer video= option strings to caller; clarify ownership
+       fbdev: Support NULL for name in option-string lookup
+       drivers/ps3: Read video= option with fb_get_option()
+       fbdev: Read video= option with fb_get_option() in modedb
+       fbdev: Unexport fb_mode_option
+       fbdev: Move option-string lookup into helper
+       fbdev: Handle video= parameter in video/cmdline.c
+       driver/ps3: Include <video/cmdline.h> for mode parsing
+       drm: Include <video/cmdline.h> for mode parsing
+       drm: Fix comment on mode parsing
+       drm/atomic-helper: Add atomic_enable plane-helper callback
+       drm/ast: Implement struct drm_plane_helper_funcs.atomic_enable
+       drm/mgag200: Remove disable handling from atomic_update
+       drm/mgag200: Implement struct drm_plane_helper_funcs.atomic_enable
+       drm/tidss: Remove return values from dispc_plane_{setup, enable}()
+       drm/tidss: Implement struct drm_plane_helper_funcs.atomic_enable
+       Revert "drm/shmem-helper: Switch to reservation lock"
+       drm/ast: Remove little-endianism from I/O helpers
+       drm/ast: Rework definition of I/O read and write helpers
+       drm/ast: Rename struct ast_private to struct ast_device
+       drm/ast: Rename to_ast_private() to to_ast_device()
+
+Ville Syrjälä (1):
+       drm/edid: Fix csync detailed mode parsing
+
+Xu Panda (1):
+       drm/virtio: use strscpy() to instead of strncpy()
+
+Zack Rusin (11):
+       drm/vmwgfx: Use the common gem mmap instead of the custom code
+       drm/vmwgfx: Remove the duplicate bo_free function
+       drm/vmwgfx: Rename vmw_buffer_object to vmw_bo
+       drm/vmwgfx: Simplify fb pinning
+       drm/vmwgfx: Cleanup the vmw bo usage in the cursor paths
+       drm/vmwgfx: Rename dummy to is_iomem
+       drm/vmwgfx: Abstract placement selection
+       drm/vmwgfx: Stop using raw ttm_buffer_object's
+       drm/vmwgfx: Make the driver work without the dummy resources
+       drm/vmwgfx: Stop accessing buffer objects which failed init
+       drm/vmwgfx: Do not drop the reference to the handle too soon
+
+suijingfeng (1):
+       ttm/ttm_device.h: fix a trival typo
+
+  .../bindings/display/bridge/analogix,dp.yaml       |  63 +++
+  .../bindings/display/bridge/analogix_dp.txt        |  51 --
+  .../bindings/display/bridge/snps,dw-mipi-dsi.yaml  |  16 +-
+  .../bindings/display/dsi-controller.yaml           |  18 +-
+  .../bindings/display/exynos/exynos_dp.txt          |   2 +-
+  .../bindings/display/panel/jadard,jd9365da-h3.yaml |   2 +
+  .../bindings/display/panel/samsung,ams495qa01.yaml |  57 +++
+  .../display/rockchip/analogix_dp-rockchip.txt      |  98 ----
+  .../display/rockchip/dw_mipi_dsi_rockchip.txt      |  94 ----
+  .../display/rockchip/rockchip,analogix-dp.yaml     | 103 ++++
+  .../display/rockchip/rockchip,dw-mipi-dsi.yaml     | 166 +++++++
+  .../bindings/display/rockchip/rockchip,lvds.yaml   | 170 +++++++
+  .../bindings/display/rockchip/rockchip-lvds.txt    |  92 ----
+  .../bindings/display/simple-framebuffer.yaml       |   9 +
+  .../devicetree/bindings/soc/rockchip/grf.yaml      |  10 +-
+  MAINTAINERS                                        |   2 +-
+  drivers/accel/Kconfig                              |   5 +-
+  drivers/accel/ivpu/ivpu_drv.c                      |   3 +-
+  drivers/accel/ivpu/ivpu_fw.c                       |  37 +-
+  drivers/accel/ivpu/ivpu_gem.c                      |   8 +-
+  drivers/accel/ivpu/ivpu_job.c                      |   5 +-
+  drivers/accel/ivpu/ivpu_jsm_msg.c                  |  11 +
+  drivers/accel/ivpu/ivpu_jsm_msg.h                  |   2 +-
+  drivers/accel/ivpu/ivpu_pm.c                       |  10 -
+  drivers/accel/ivpu/vpu_jsm_api.h                   |  67 +--
+  drivers/dma-buf/dma-buf-sysfs-stats.c              |   2 +-
+  drivers/dma-buf/dma-buf.c                          |   2 +-
+  drivers/dma-buf/dma-fence.c                        |   2 +-
+  drivers/gpu/drm/Kconfig                            |   6 +-
+  drivers/gpu/drm/Makefile                           |   3 +
+  drivers/gpu/drm/amd/amdgpu/Kconfig                 |   1 +
+  drivers/gpu/drm/amd/amdgpu/amdgpu.h                |  26 +-
+  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c             |   5 +-
+  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |   9 +-
+  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h         |  23 +-
+  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h           |   3 +-
+  drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c             | 324 +------------
+  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |   4 -
+  drivers/gpu/drm/arm/malidp_drv.c                   |   2 +-
+  drivers/gpu/drm/ast/ast_dp.c                       |  10 +-
+  drivers/gpu/drm/ast/ast_dp501.c                    |  40 +-
+  drivers/gpu/drm/ast/ast_drv.c                      |   2 +-
+  drivers/gpu/drm/ast/ast_drv.h                      |  84 ++--
+  drivers/gpu/drm/ast/ast_i2c.c                      |   8 +-
+  drivers/gpu/drm/ast/ast_main.c                     |  24 +-
+  drivers/gpu/drm/ast/ast_mm.c                       |   4 +-
+  drivers/gpu/drm/ast/ast_mode.c                     | 104 ++--
+  drivers/gpu/drm/ast/ast_post.c                     |  94 ++--
+  drivers/gpu/drm/bridge/Kconfig                     |   2 +-
+  drivers/gpu/drm/bridge/panel.c                     |   2 +
+  drivers/gpu/drm/bridge/tc358762.c                  |   1 +
+  drivers/gpu/drm/display/drm_hdmi_helper.c          |   6 +-
+  drivers/gpu/drm/drm_atomic.c                       |   1 +
+  drivers/gpu/drm/drm_atomic_helper.c                |  20 +-
+  drivers/gpu/drm/drm_connector.c                    |  28 +-
+  drivers/gpu/drm/drm_displayid.c                    |  62 ++-
+  drivers/gpu/drm/drm_dumb_buffers.c                 |   5 +-
+  drivers/gpu/drm/drm_edid.c                         |  65 ++-
+  drivers/gpu/drm/drm_gem.c                          |  25 +-
+  drivers/gpu/drm/drm_gem_shmem_helper.c             | 132 +++---
+  drivers/gpu/drm/drm_gem_vram_helper.c              |  11 +
+  drivers/gpu/drm/drm_internal.h                     |   3 -
+  drivers/gpu/drm/drm_modes.c                        |   3 +-
+  drivers/gpu/drm/drm_of.c                           |  51 ++
+  drivers/gpu/drm/drm_probe_helper.c                 | 113 +++--
+  drivers/gpu/drm/drm_suballoc.c                     | 457 ++++++++++++++++++
+  drivers/gpu/drm/i915/gem/i915_gem_ttm.c            |  15 +-
+  drivers/gpu/drm/i915/gem/i915_gem_ttm.h            |   2 +-
+  drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c       |   4 +
+  drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c         |   7 +-
+  drivers/gpu/drm/meson/meson_venc.c                 |   4 +-
+  drivers/gpu/drm/mgag200/mgag200_drv.h              |   3 +
+  drivers/gpu/drm/mgag200/mgag200_mode.c             |  22 +-
+  drivers/gpu/drm/nouveau/dispnv50/wndw.h            |   5 +-
+  drivers/gpu/drm/nouveau/nouveau_bo.c               |   3 -
+  drivers/gpu/drm/nouveau/nouveau_hwmon.c            |  10 +-
+  drivers/gpu/drm/nouveau/nouveau_led.h              |   2 +-
+  drivers/gpu/drm/panel/Kconfig                      |  11 +
+  drivers/gpu/drm/panel/Makefile                     |   1 +
+  drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c     |  16 +-
+  drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c   | 209 ++++++++-
+  .../gpu/drm/panel/panel-magnachip-d53e6ea8966.c    | 522 +++++++++++++++++++++
+  drivers/gpu/drm/panfrost/panfrost_drv.c            |  11 +-
+  drivers/gpu/drm/qxl/qxl_ttm.c                      |  11 +
+  drivers/gpu/drm/radeon/Kconfig                     |   1 +
+  drivers/gpu/drm/radeon/radeon.h                    |  55 +--
+  drivers/gpu/drm/radeon/radeon_ib.c                 |  12 +-
+  drivers/gpu/drm/radeon/radeon_object.h             |  25 +-
+  drivers/gpu/drm/radeon/radeon_sa.c                 | 316 +------------
+  drivers/gpu/drm/radeon/radeon_semaphore.c          |   4 +-
+  drivers/gpu/drm/radeon/radeon_ttm.c                |   7 +-
+  drivers/gpu/drm/rockchip/rockchip_drm_gem.c        |  16 +-
+  drivers/gpu/drm/rockchip/rockchip_drm_vop.c        |   7 +-
+  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c       |  80 +++-
+  drivers/gpu/drm/rockchip/rockchip_rgb.c            |  19 +-
+  drivers/gpu/drm/rockchip/rockchip_rgb.h            |   6 +-
+  drivers/gpu/drm/scheduler/sched_main.c             |  29 ++
+  drivers/gpu/drm/tests/drm_format_helper_test.c     |  10 +-
+  drivers/gpu/drm/tidss/tidss_dispc.c                |  12 +-
+  drivers/gpu/drm/tidss/tidss_dispc.h                |   8 +-
+  drivers/gpu/drm/tidss/tidss_plane.c                |  20 +-
+  drivers/gpu/drm/tiny/simpledrm.c                   |  35 +-
+  drivers/gpu/drm/ttm/ttm_bo.c                       |  30 +-
+  drivers/gpu/drm/ttm/ttm_bo_util.c                  |  19 +-
+  drivers/gpu/drm/ttm/ttm_resource.c                 |   1 -
+  drivers/gpu/drm/v3d/v3d_gem.c                      |  26 +-
+  drivers/gpu/drm/vc4/vc4_drv.h                      |   2 +-
+  drivers/gpu/drm/vc4/vc4_gem.c                      |  78 +--
+  drivers/gpu/drm/vc4/vc4_hdmi.c                     |  46 +-
+  drivers/gpu/drm/vc4/vc4_hdmi.h                     |   1 -
+  drivers/gpu/drm/vc4/vc4_validate.c                 |   4 +-
+  drivers/gpu/drm/vgem/vgem_fence.c                  |   1 +
+  drivers/gpu/drm/virtio/Kconfig                     |  11 +
+  drivers/gpu/drm/virtio/virtgpu_display.c           |   6 +
+  drivers/gpu/drm/virtio/virtgpu_drv.c               |   4 +
+  drivers/gpu/drm/virtio/virtgpu_kms.c               |  39 +-
+  drivers/gpu/drm/virtio/virtgpu_vq.c                |   3 +-
+  drivers/gpu/drm/vmwgfx/Makefile                    |   2 +-
+  drivers/gpu/drm/vmwgfx/vmwgfx_bo.c                 | 413 ++++++++--------
+  drivers/gpu/drm/vmwgfx/vmwgfx_bo.h                 | 203 ++++++++
+  drivers/gpu/drm/vmwgfx/vmwgfx_cmd.c                |  14 +-
+  drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c             |  53 +--
+  drivers/gpu/drm/vmwgfx/vmwgfx_context.c            |  36 +-
+  drivers/gpu/drm/vmwgfx/vmwgfx_cotable.c            |  65 +--
+  drivers/gpu/drm/vmwgfx/vmwgfx_drv.c                |  26 +-
+  drivers/gpu/drm/vmwgfx/vmwgfx_drv.h                | 245 ++--------
+  drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c            | 103 ++--
+  drivers/gpu/drm/vmwgfx/vmwgfx_fence.c              |   2 +-
+  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c                |  95 ++--
+  drivers/gpu/drm/vmwgfx/vmwgfx_kms.c                | 234 ++++-----
+  drivers/gpu/drm/vmwgfx/vmwgfx_kms.h                |  43 +-
+  drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c                |  57 ++-
+  drivers/gpu/drm/vmwgfx/vmwgfx_mob.c                |  45 +-
+  drivers/gpu/drm/vmwgfx/vmwgfx_overlay.c            |  21 +-
+  drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c         |  68 ++-
+  drivers/gpu/drm/vmwgfx/vmwgfx_resource.c           | 246 +++++-----
+  drivers/gpu/drm/vmwgfx/vmwgfx_resource_priv.h      |  10 +-
+  drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c               |  53 ++-
+  drivers/gpu/drm/vmwgfx/vmwgfx_shader.c             |  66 +--
+  drivers/gpu/drm/vmwgfx/vmwgfx_so.c                 |   6 +-
+  drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c               | 323 ++-----------
+  drivers/gpu/drm/vmwgfx/vmwgfx_streamoutput.c       |  20 +-
+  drivers/gpu/drm/vmwgfx/vmwgfx_surface.c            | 115 ++---
+  drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c         | 134 ++----
+  drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c           | 110 -----
+  drivers/gpu/drm/vmwgfx/vmwgfx_va.c                 |   6 +-
+  drivers/gpu/drm/vmwgfx/vmwgfx_validation.c         | 150 +++---
+  drivers/gpu/drm/vmwgfx/vmwgfx_validation.h         |  10 +-
+  drivers/ps3/ps3av.c                                |   9 +-
+  drivers/video/Kconfig                              |   3 +
+  drivers/video/Makefile                             |   1 +
+  drivers/video/cmdline.c                            | 133 ++++++
+  drivers/video/fbdev/Kconfig                        |   5 +-
+  drivers/video/fbdev/core/Makefile                  |   3 +-
+  drivers/video/fbdev/core/fb_cmdline.c              |  94 +---
+  drivers/video/fbdev/core/modedb.c                  |   8 +-
+  include/drm/drm_atomic_helper.h                    |  26 +
+  include/drm/drm_displayid.h                        |  12 +-
+  include/drm/drm_drv.h                              |  19 -
+  include/drm/drm_edid.h                             |  12 +-
+  include/drm/drm_gem.h                              |  12 +
+  include/drm/drm_gem_shmem_helper.h                 |  30 +-
+  include/drm/drm_modeset_helper_vtables.h           |  29 +-
+  include/drm/drm_of.h                               |  12 +
+  include/drm/drm_suballoc.h                         | 108 +++++
+  include/drm/gpu_scheduler.h                        |   6 +
+  include/drm/ttm/ttm_device.h                       |   2 +-
+  include/linux/fb.h                                 |   1 -
+  include/uapi/drm/drm.h                             |  57 ++-
+  include/video/cmdline.h                            |  20 +
+  170 files changed, 4650 insertions(+), 3587 deletions(-)
+  create mode 100644 Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
+  delete mode 100644 Documentation/devicetree/bindings/display/bridge/analogix_dp.txt
+  create mode 100644 Documentation/devicetree/bindings/display/panel/samsung,ams495qa01.yaml
+  delete mode 100644 Documentation/devicetree/bindings/display/rockchip/analogix_dp-rockchip.txt
+  delete mode 100644 Documentation/devicetree/bindings/display/rockchip/dw_mipi_dsi_rockchip.txt
+  create mode 100644 Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+  create mode 100644 Documentation/devicetree/bindings/display/rockchip/rockchip,dw-mipi-dsi.yaml
+  create mode 100644 Documentation/devicetree/bindings/display/rockchip/rockchip,lvds.yaml
+  delete mode 100644 Documentation/devicetree/bindings/display/rockchip/rockchip-lvds.txt
+  create mode 100644 drivers/gpu/drm/drm_suballoc.c
+  create mode 100644 drivers/gpu/drm/panel/panel-magnachip-d53e6ea8966.c
+  create mode 100644 drivers/gpu/drm/vmwgfx/vmwgfx_bo.h
+  delete mode 100644 drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c
+  create mode 100644 drivers/video/cmdline.c
+  create mode 100644 include/drm/drm_suballoc.h
+  create mode 100644 include/video/cmdline.h
+
+--------------CkLPkpAqpkmxCX2Tle66aEoP
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <pre>Hi Dave, Daniel,
+
+I apparently didn't send my 2023-02-23 pull request or at least don't see it on dri-devel, so I added both shortlogs here.
+
+Enjoy!
+~Maarten
+
+drm-misc-next-2023-03-07:
+drm-misc-next for v6.4-rc1:
+
+UAPI Changes:
+
+Cross-subsystem Changes:
+- Add Neil Armstrong as linaro maintainer.
+
+Core Changes:
+- Add function for adding syncobj dep to sched_job and use it in panfrost, v3d.
+- Improve DisplayID 2.0 topology parsing and EDID parsing in general.
+- Add a gem eviction function and callback for generic GEM shrinker
+  purposes.
+- Prepare to convert shmem helper to use the GEM reservation lock instead of own
+  locking. (Actual commit itself got reverted for now)
+- Move the suballocator from radeon and amdgpu drivers to core in preparation
+  for Xe.
+- Assorted small fixes and documentation.
+
+Driver Changes:
+- Use drm_gem_objects_lookup in vc4.
+- Assorted small fixes to virtio, ast, bridge/tc358762, meson, nouveau.
+- Allow virtio KMS to be disabled and compiled out.
+
+--------------------
+drm-misc-next-2023-02-23:
+<span style="font-family:monospace"><span style="color:#000000;background-color:#ffffff;">drm-misc-next for v6.4-rc1:
+</span>
+First pull request to keep the delta from growing too big.
+
+UAPI Changes:
+- Convert rockchip bindings to YAML.
+- Constify kobj_type structure in dma-buf.
+- FBDEV cmdline parser fixes, and other small fbdev fixes for mode
+  parsing.
+
+Cross-subsystem Changes:
+- Actually signal the private stub dma-fence.
+
+Core Changes:
+- Fixes to HPD polling.
+- Assorted small fixes in simpledrm, bridge, accel, shmem-helper,
+  and the selftest of format-helper.
+- Remove dummy resource when ttm bo is created, and during pipelined
+  gutting. Fix all drivers to accept a NULL ttm_bo-&gt;resource.
+- Handle pinned BO moving prevention in ttm core.
+- Set drm panel-bridge orientation before connector is registered.
+- Remove dumb_destroy callback.
+- Add documentation to GEM_CLOSE, PRIME_HANDLE_TO_FD, PRIME_FD_TO_HANDLE, GETFB2 ioctl's.
+- Add atomic enable_plane callback, use it in ast, mgag200, tidss.
+
+Driver Changes:
+- Add Radxa 8/10HD, Samsung AMS495QA01 panels.
+- Fix ivpu compiler errors.
+- Assorted fixes to drm/panel, malidp, rockchip, ivpu, amdgpu, vgem,
+  nouveau, vc4.
+- Assorted cleanups, simplifications and fixes to vmwgfx.
+</span>
+--------------------
+
+The following changes since commit aebd8f0c6f8280ba35bc989f4a9ea47469d3589a:
+
+  Merge v6.2-rc6 into drm-next (2023-01-31 12:23:23 +0100)
+
+are available in the Git repository at:
+
+  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-next-2023-03-07
+
+for you to fetch changes up to 9228742caf899fa72230dd8da19ca4c7528badb8:
+
+  drm/nouveau/hwmon: Use sysfs_emit in show function callsbacks (2023-03-06 19:42:50 -0500)
+
+----------------------------------------------------------------
+Andrzej Kacprowski (2):
+      accel/ivpu: Fix FW API data alignment issues
+      accel/ivpu: Send VPU_JSM_MSG_CONTEXT_DELETE when deleting context
+
+Arnd Bergmann (3):
+      accel/ivpu: PM: remove broken ivpu_dbg() statements
+      accel: fix CONFIG_DRM dependencies
+      accel/ivpu: avoid duplicate assignment
+
+Asahi Lina (1):
+      drm/shmem-helper: Fix locking for drm_gem_shmem_get_pages_sgt()
+
+Brian Norris (1):
+      drm/rockchip: vop: Quiet always-warning AFBC log
+
+Carlo Caione (1):
+      drm/meson/meson_venc: Relax the supported mode checks
+
+Chris Morgan (3):
+      drm: of: Add drm_of_get_dsi_bus helper function
+      dt-bindings: display: panel: Add Samsung AMS495QA01
+      drm/panel: Add Magnachip D53E6EA8966 Panel Driver
+
+Christian König (4):
+      drm/ttm: stop allocating dummy resources during BO creation
+      drm/ttm: stop allocating a dummy resource for pipelined gutting
+      drm/ttm: prevent moving of pinned BOs
+      drm: remove dumb_destroy callback
+
+Dan Carpenter (1):
+      drm/simpledrm: Fix an NULL vs IS_ERR() bug
+
+Danilo Krummrich (1):
+      dma-buf: actually set signaling bit for private stub fences
+
+Deepak R Varma (2):
+      drm/arm/malidp: use sysfs_emit in show function callback
+      drm/nouveau/hwmon: Use sysfs_emit in show function callsbacks
+
+Dmitry Baryshkov (2):
+      drm/probe_helper: extract two helper functions
+      drm/probe_helper: sort out poll_running vs poll_enabled
+
+Dmitry Osipenko (6):
+      drm/gem: Add evict() callback to drm_gem_object_funcs
+      drm/shmem-helper: Put booleans in the end of struct drm_gem_shmem_object
+      drm/shmem-helper: Switch to use drm_* debug helpers
+      drm/shmem-helper: Don't use vmap_use_count for dma-bufs
+      drm/shmem-helper: Switch to reservation lock
+      drm/virtio: Fix handling CONFIG_DRM_VIRTIO_GPU_KMS option
+
+Dom Cobley (1):
+      drm/probe-helper: Cancel previous job before starting new one
+
+Douglas Anderson (1):
+      drm/bridge: tc358762: Set pre_enable_prev_first
+
+Geert Uytterhoeven (1):
+      drivers: Restore alignment and newline in Makefile
+
+Harry Wentland (2):
+      drm/display: Don't block HDR_OUTPUT_METADATA on unknown EOTF
+      drm/connector: print max_requested_bpc in state debugfs
+
+Jagan Teki (4):
+      dt-bindings: display: panel: jadard,jd9365da-h3: Add Radxa Display 10HD
+      drm: panel: jd9365da-h3: Add Radxa Display 10HD
+      dt-bindings: display: panel: jadard,jd9365da-h3: Add Radxa Display 8HD
+      drm: panel: jd9365da-h3: Add Radxa Display 8HD
+
+Jani Nikula (5):
+      drm/displayid: add displayid_get_header() and check bounds better
+      drm/displayid: return struct displayid_header from validate_displayid()
+      drm/displayid: provide access to DisplayID version and primary use case
+      drm/edid: update non-desktop use also from DisplayID
+      drm/edid: parse Tiled Display Topology Data Block for DisplayID 2.0
+
+Jiri Slaby (SUSE) (1):
+      drm/nouveau/kms/nv50: fix nv50_wndw_new_ prototype
+
+Johan Jonker (7):
+      dt-bindings: display: rockchip: convert rockchip-lvds.txt to YAML
+      dt-bindings: soc: rockchip: grf: add rockchip,lvds.yaml
+      dt-bindings: display: dsi-controller: move clock-master property
+      dt-bindings: display: bridge: snps,dw-mipi-dsi: fix clock properties
+      dt-bindings: display: rockchip: convert dw_mipi_dsi_rockchip.txt to yaml
+      dt-bindings: display: bridge: convert analogix_dp.txt to yaml
+      dt-bindings: display: rockchip: convert analogix_dp-rockchip.txt to yaml
+
+John Keeping (2):
+      drm/rockchip: avoid duplicate mappings for IOMMU devices
+      drm/bridge: panel: Set orientation on panel_bridge connector
+
+Maarten Lankhorst (3):
+      drm/suballoc: Extract amdgpu_sa.c as generic suballocation helper
+      drm/amd: Convert amdgpu to use suballocation helper.
+      drm/radeon: Use the drm suballocation manager implementation.
+
+Matthew Auld (6):
+      drm/i915/ttm: fix sparse warning
+      drm/i915/ttm: audit remaining bo-&gt;resource
+      drm/ttm: clear the ttm_tt when bo-&gt;resource is NULL
+      drm/gem-vram: handle NULL bo-&gt;resource in move callback
+      drm/qxl: handle NULL bo-&gt;resource in move callback
+      drm/radeon: handle NULL bo-&gt;resource in move callback
+
+Maxime Ripard (4):
+      drm/vc4: hdmi: Replace hardcoded value by define
+      drm/vc4: hdmi: Enable power domain before setting minimum
+      Revert "drm/vc4: hdmi: Fix HSM clock too low on Pi4"
+      Revert "drm/vc4: hdmi: Enforce the minimum rate at runtime_resume"
+
+Maíra Canal (8):
+      drm/format-helper: Use KUNIT_EXPECT_MEMEQ macro
+      drm/vgem: add missing mutex_destroy
+      drm/sched: Create wrapper to add a syncobj dependency to job
+      drm/panfrost: Use drm_sched_job_add_syncobj_dependency()
+      drm/v3d: Use drm_sched_job_add_syncobj_dependency()
+      drm/vc4: replace drm_gem_dma_object for drm_gem_object in vc4_exec_info
+      drm/vc4: replace obj lookup steps with drm_gem_objects_lookup
+      dma-buf: Include missing parentheses to documentation
+
+Michael Riesch (5):
+      drm/rockchip: vop2: initialize possible_crtcs properly
+      drm/rockchip: rgb: embed drm_encoder into rockchip_encoder
+      drm/rockchip: rgb: add video_port parameter to init function
+      drm/rockchip: vop2: use symmetric function pair vop2_{create,destroy}_crtcs
+      drm/rockchip: vop2: add support for the rgb output block
+
+Neil Armstrong (1):
+      MAINTAINERS: Add myself as maintainer for DRM Panels drivers
+
+Randy Dunlap (1):
+      drm/bridge: Kconfig: fix a spelling mistake
+
+Rayyan Ansari (2):
+      drm/simpledrm: Allow physical width and height configuration via panel node
+      dt-bindings: display: simple-framebuffer: Document the panel node
+
+Rob Clark (3):
+      drm/shmem: Cleanup drm_gem_shmem_create_with_handle()
+      drm/rockchip: Drop unbalanced obj unref
+      drm/virtio: Add option to disable KMS support
+
+Simon Ser (5):
+      drm: document DRM_IOCTL_GEM_CLOSE
+      drm: document expectations for GETFB2 handles
+      drm: document DRM_IOCTL_PRIME_HANDLE_TO_FD and PRIME_FD_TO_HANDLE
+      drm: document connector margin properties
+      drm: remove outdated doc TODO for subconnector property
+
+Somalapuram Amaranath (1):
+      drm/amdgpu: Remove TTM resource-&gt;start visible VRAM condition v2
+
+Stanislaw Gruszka (2):
+      accel/ivpu: Set dma max_segment_size
+      accel/ivpu: Fix old dma_buf api usage
+
+Stephen Boyd (1):
+      drm/panel: boe-tv101wum-nl6: Ensure DSI writes succeed during disable
+
+Thomas Weißschuh (2):
+      drm/nouveau/led: explicitly include linux/leds.h
+      dma-buf: make kobj_type structure constant
+
+Thomas Zimmermann (23):
+      Merge drm/drm-next into drm-misc-next
+      fbdev: Fix contact info in fb_cmdline.c
+      fbdev: Transfer video= option strings to caller; clarify ownership
+      fbdev: Support NULL for name in option-string lookup
+      drivers/ps3: Read video= option with fb_get_option()
+      fbdev: Read video= option with fb_get_option() in modedb
+      fbdev: Unexport fb_mode_option
+      fbdev: Move option-string lookup into helper
+      fbdev: Handle video= parameter in video/cmdline.c
+      driver/ps3: Include &lt;video/cmdline.h&gt; for mode parsing
+      drm: Include &lt;video/cmdline.h&gt; for mode parsing
+      drm: Fix comment on mode parsing
+      drm/atomic-helper: Add atomic_enable plane-helper callback
+      drm/ast: Implement struct drm_plane_helper_funcs.atomic_enable
+      drm/mgag200: Remove disable handling from atomic_update
+      drm/mgag200: Implement struct drm_plane_helper_funcs.atomic_enable
+      drm/tidss: Remove return values from dispc_plane_{setup, enable}()
+      drm/tidss: Implement struct drm_plane_helper_funcs.atomic_enable
+      Revert "drm/shmem-helper: Switch to reservation lock"
+      drm/ast: Remove little-endianism from I/O helpers
+      drm/ast: Rework definition of I/O read and write helpers
+      drm/ast: Rename struct ast_private to struct ast_device
+      drm/ast: Rename to_ast_private() to to_ast_device()
+
+Ville Syrjälä (1):
+      drm/edid: Fix csync detailed mode parsing
+
+Xu Panda (1):
+      drm/virtio: use strscpy() to instead of strncpy()
+
+Zack Rusin (11):
+      drm/vmwgfx: Use the common gem mmap instead of the custom code
+      drm/vmwgfx: Remove the duplicate bo_free function
+      drm/vmwgfx: Rename vmw_buffer_object to vmw_bo
+      drm/vmwgfx: Simplify fb pinning
+      drm/vmwgfx: Cleanup the vmw bo usage in the cursor paths
+      drm/vmwgfx: Rename dummy to is_iomem
+      drm/vmwgfx: Abstract placement selection
+      drm/vmwgfx: Stop using raw ttm_buffer_object's
+      drm/vmwgfx: Make the driver work without the dummy resources
+      drm/vmwgfx: Stop accessing buffer objects which failed init
+      drm/vmwgfx: Do not drop the reference to the handle too soon
+
+suijingfeng (1):
+      ttm/ttm_device.h: fix a trival typo
+
+ .../bindings/display/bridge/analogix,dp.yaml       |  63 +++
+ .../bindings/display/bridge/analogix_dp.txt        |  51 --
+ .../bindings/display/bridge/snps,dw-mipi-dsi.yaml  |  16 +-
+ .../bindings/display/dsi-controller.yaml           |  18 +-
+ .../bindings/display/exynos/exynos_dp.txt          |   2 +-
+ .../bindings/display/panel/jadard,jd9365da-h3.yaml |   2 +
+ .../bindings/display/panel/samsung,ams495qa01.yaml |  57 +++
+ .../display/rockchip/analogix_dp-rockchip.txt      |  98 ----
+ .../display/rockchip/dw_mipi_dsi_rockchip.txt      |  94 ----
+ .../display/rockchip/rockchip,analogix-dp.yaml     | 103 ++++
+ .../display/rockchip/rockchip,dw-mipi-dsi.yaml     | 166 +++++++
+ .../bindings/display/rockchip/rockchip,lvds.yaml   | 170 +++++++
+ .../bindings/display/rockchip/rockchip-lvds.txt    |  92 ----
+ .../bindings/display/simple-framebuffer.yaml       |   9 +
+ .../devicetree/bindings/soc/rockchip/grf.yaml      |  10 +-
+ MAINTAINERS                                        |   2 +-
+ drivers/accel/Kconfig                              |   5 +-
+ drivers/accel/ivpu/ivpu_drv.c                      |   3 +-
+ drivers/accel/ivpu/ivpu_fw.c                       |  37 +-
+ drivers/accel/ivpu/ivpu_gem.c                      |   8 +-
+ drivers/accel/ivpu/ivpu_job.c                      |   5 +-
+ drivers/accel/ivpu/ivpu_jsm_msg.c                  |  11 +
+ drivers/accel/ivpu/ivpu_jsm_msg.h                  |   2 +-
+ drivers/accel/ivpu/ivpu_pm.c                       |  10 -
+ drivers/accel/ivpu/vpu_jsm_api.h                   |  67 +--
+ drivers/dma-buf/dma-buf-sysfs-stats.c              |   2 +-
+ drivers/dma-buf/dma-buf.c                          |   2 +-
+ drivers/dma-buf/dma-fence.c                        |   2 +-
+ drivers/gpu/drm/Kconfig                            |   6 +-
+ drivers/gpu/drm/Makefile                           |   3 +
+ drivers/gpu/drm/amd/amdgpu/Kconfig                 |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                |  26 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c             |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |   9 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h         |  23 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h           |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c             | 324 +------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |   4 -
+ drivers/gpu/drm/arm/malidp_drv.c                   |   2 +-
+ drivers/gpu/drm/ast/ast_dp.c                       |  10 +-
+ drivers/gpu/drm/ast/ast_dp501.c                    |  40 +-
+ drivers/gpu/drm/ast/ast_drv.c                      |   2 +-
+ drivers/gpu/drm/ast/ast_drv.h                      |  84 ++--
+ drivers/gpu/drm/ast/ast_i2c.c                      |   8 +-
+ drivers/gpu/drm/ast/ast_main.c                     |  24 +-
+ drivers/gpu/drm/ast/ast_mm.c                       |   4 +-
+ drivers/gpu/drm/ast/ast_mode.c                     | 104 ++--
+ drivers/gpu/drm/ast/ast_post.c                     |  94 ++--
+ drivers/gpu/drm/bridge/Kconfig                     |   2 +-
+ drivers/gpu/drm/bridge/panel.c                     |   2 +
+ drivers/gpu/drm/bridge/tc358762.c                  |   1 +
+ drivers/gpu/drm/display/drm_hdmi_helper.c          |   6 +-
+ drivers/gpu/drm/drm_atomic.c                       |   1 +
+ drivers/gpu/drm/drm_atomic_helper.c                |  20 +-
+ drivers/gpu/drm/drm_connector.c                    |  28 +-
+ drivers/gpu/drm/drm_displayid.c                    |  62 ++-
+ drivers/gpu/drm/drm_dumb_buffers.c                 |   5 +-
+ drivers/gpu/drm/drm_edid.c                         |  65 ++-
+ drivers/gpu/drm/drm_gem.c                          |  25 +-
+ drivers/gpu/drm/drm_gem_shmem_helper.c             | 132 +++---
+ drivers/gpu/drm/drm_gem_vram_helper.c              |  11 +
+ drivers/gpu/drm/drm_internal.h                     |   3 -
+ drivers/gpu/drm/drm_modes.c                        |   3 +-
+ drivers/gpu/drm/drm_of.c                           |  51 ++
+ drivers/gpu/drm/drm_probe_helper.c                 | 113 +++--
+ drivers/gpu/drm/drm_suballoc.c                     | 457 ++++++++++++++++++
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c            |  15 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.h            |   2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c       |   4 +
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c         |   7 +-
+ drivers/gpu/drm/meson/meson_venc.c                 |   4 +-
+ drivers/gpu/drm/mgag200/mgag200_drv.h              |   3 +
+ drivers/gpu/drm/mgag200/mgag200_mode.c             |  22 +-
+ drivers/gpu/drm/nouveau/dispnv50/wndw.h            |   5 +-
+ drivers/gpu/drm/nouveau/nouveau_bo.c               |   3 -
+ drivers/gpu/drm/nouveau/nouveau_hwmon.c            |  10 +-
+ drivers/gpu/drm/nouveau/nouveau_led.h              |   2 +-
+ drivers/gpu/drm/panel/Kconfig                      |  11 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-boe-tv101wum-nl6.c     |  16 +-
+ drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c   | 209 ++++++++-
+ .../gpu/drm/panel/panel-magnachip-d53e6ea8966.c    | 522 +++++++++++++++++++++
+ drivers/gpu/drm/panfrost/panfrost_drv.c            |  11 +-
+ drivers/gpu/drm/qxl/qxl_ttm.c                      |  11 +
+ drivers/gpu/drm/radeon/Kconfig                     |   1 +
+ drivers/gpu/drm/radeon/radeon.h                    |  55 +--
+ drivers/gpu/drm/radeon/radeon_ib.c                 |  12 +-
+ drivers/gpu/drm/radeon/radeon_object.h             |  25 +-
+ drivers/gpu/drm/radeon/radeon_sa.c                 | 316 +------------
+ drivers/gpu/drm/radeon/radeon_semaphore.c          |   4 +-
+ drivers/gpu/drm/radeon/radeon_ttm.c                |   7 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.c        |  16 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop.c        |   7 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c       |  80 +++-
+ drivers/gpu/drm/rockchip/rockchip_rgb.c            |  19 +-
+ drivers/gpu/drm/rockchip/rockchip_rgb.h            |   6 +-
+ drivers/gpu/drm/scheduler/sched_main.c             |  29 ++
+ drivers/gpu/drm/tests/drm_format_helper_test.c     |  10 +-
+ drivers/gpu/drm/tidss/tidss_dispc.c                |  12 +-
+ drivers/gpu/drm/tidss/tidss_dispc.h                |   8 +-
+ drivers/gpu/drm/tidss/tidss_plane.c                |  20 +-
+ drivers/gpu/drm/tiny/simpledrm.c                   |  35 +-
+ drivers/gpu/drm/ttm/ttm_bo.c                       |  30 +-
+ drivers/gpu/drm/ttm/ttm_bo_util.c                  |  19 +-
+ drivers/gpu/drm/ttm/ttm_resource.c                 |   1 -
+ drivers/gpu/drm/v3d/v3d_gem.c                      |  26 +-
+ drivers/gpu/drm/vc4/vc4_drv.h                      |   2 +-
+ drivers/gpu/drm/vc4/vc4_gem.c                      |  78 +--
+ drivers/gpu/drm/vc4/vc4_hdmi.c                     |  46 +-
+ drivers/gpu/drm/vc4/vc4_hdmi.h                     |   1 -
+ drivers/gpu/drm/vc4/vc4_validate.c                 |   4 +-
+ drivers/gpu/drm/vgem/vgem_fence.c                  |   1 +
+ drivers/gpu/drm/virtio/Kconfig                     |  11 +
+ drivers/gpu/drm/virtio/virtgpu_display.c           |   6 +
+ drivers/gpu/drm/virtio/virtgpu_drv.c               |   4 +
+ drivers/gpu/drm/virtio/virtgpu_kms.c               |  39 +-
+ drivers/gpu/drm/virtio/virtgpu_vq.c                |   3 +-
+ drivers/gpu/drm/vmwgfx/Makefile                    |   2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.c                 | 413 ++++++++--------
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.h                 | 203 ++++++++
+ drivers/gpu/drm/vmwgfx/vmwgfx_cmd.c                |  14 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_cmdbuf.c             |  53 +--
+ drivers/gpu/drm/vmwgfx/vmwgfx_context.c            |  36 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_cotable.c            |  65 +--
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c                |  26 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.h                | 245 ++--------
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c            | 103 ++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_fence.c              |   2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_gem.c                |  95 ++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.c                | 234 ++++-----
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.h                |  43 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c                |  57 ++-
+ drivers/gpu/drm/vmwgfx/vmwgfx_mob.c                |  45 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_overlay.c            |  21 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c         |  68 ++-
+ drivers/gpu/drm/vmwgfx/vmwgfx_resource.c           | 246 +++++-----
+ drivers/gpu/drm/vmwgfx/vmwgfx_resource_priv.h      |  10 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c               |  53 ++-
+ drivers/gpu/drm/vmwgfx/vmwgfx_shader.c             |  66 +--
+ drivers/gpu/drm/vmwgfx/vmwgfx_so.c                 |   6 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c               | 323 ++-----------
+ drivers/gpu/drm/vmwgfx/vmwgfx_streamoutput.c       |  20 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c            | 115 ++---
+ drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c         | 134 ++----
+ drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c           | 110 -----
+ drivers/gpu/drm/vmwgfx/vmwgfx_va.c                 |   6 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_validation.c         | 150 +++---
+ drivers/gpu/drm/vmwgfx/vmwgfx_validation.h         |  10 +-
+ drivers/ps3/ps3av.c                                |   9 +-
+ drivers/video/Kconfig                              |   3 +
+ drivers/video/Makefile                             |   1 +
+ drivers/video/cmdline.c                            | 133 ++++++
+ drivers/video/fbdev/Kconfig                        |   5 +-
+ drivers/video/fbdev/core/Makefile                  |   3 +-
+ drivers/video/fbdev/core/fb_cmdline.c              |  94 +---
+ drivers/video/fbdev/core/modedb.c                  |   8 +-
+ include/drm/drm_atomic_helper.h                    |  26 +
+ include/drm/drm_displayid.h                        |  12 +-
+ include/drm/drm_drv.h                              |  19 -
+ include/drm/drm_edid.h                             |  12 +-
+ include/drm/drm_gem.h                              |  12 +
+ include/drm/drm_gem_shmem_helper.h                 |  30 +-
+ include/drm/drm_modeset_helper_vtables.h           |  29 +-
+ include/drm/drm_of.h                               |  12 +
+ include/drm/drm_suballoc.h                         | 108 +++++
+ include/drm/gpu_scheduler.h                        |   6 +
+ include/drm/ttm/ttm_device.h                       |   2 +-
+ include/linux/fb.h                                 |   1 -
+ include/uapi/drm/drm.h                             |  57 ++-
+ include/video/cmdline.h                            |  20 +
+ 170 files changed, 4650 insertions(+), 3587 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
+ delete mode 100644 Documentation/devicetree/bindings/display/bridge/analogix_dp.txt
+ create mode 100644 Documentation/devicetree/bindings/display/panel/samsung,ams495qa01.yaml
+ delete mode 100644 Documentation/devicetree/bindings/display/rockchip/analogix_dp-rockchip.txt
+ delete mode 100644 Documentation/devicetree/bindings/display/rockchip/dw_mipi_dsi_rockchip.txt
+ create mode 100644 Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/rockchip/rockchip,dw-mipi-dsi.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/rockchip/rockchip,lvds.yaml
+ delete mode 100644 Documentation/devicetree/bindings/display/rockchip/rockchip-lvds.txt
+ create mode 100644 drivers/gpu/drm/drm_suballoc.c
+ create mode 100644 drivers/gpu/drm/panel/panel-magnachip-d53e6ea8966.c
+ create mode 100644 drivers/gpu/drm/vmwgfx/vmwgfx_bo.h
+ delete mode 100644 drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c
+ create mode 100644 drivers/video/cmdline.c
+ create mode 100644 include/drm/drm_suballoc.h
+ create mode 100644 include/video/cmdline.h
+
+</pre>
+  </body>
+</html>
+
+--------------CkLPkpAqpkmxCX2Tle66aEoP--
