@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 979D4C6FA99
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Mar 2023 20:16:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA4EFC678D5
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Mar 2023 20:16:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B820610E552;
-	Tue,  7 Mar 2023 20:16:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6736810E553;
+	Tue,  7 Mar 2023 20:16:28 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B283510E548
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2653A10E548
  for <intel-gfx@lists.freedesktop.org>; Tue,  7 Mar 2023 20:16:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1678220178; x=1709756178;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=2BnYVi9/YWKdODdxbBUPBZE6qECW9ZmSc5arohS0Ehs=;
- b=W1Ii4V4O9THexnk63a5XK8uzoG6hUvf6lDE+fmvEZ7UjC0RP0glS7KKt
- AwGJVeTsplJ/bj0ka1+55wD1pm7h52yp0rVSCX60DsiNXTDJNjDExlo0g
- Cbd37sdF2DSANgmxDUQnEU4LjpnWuqB5mFfp5at0CpIqTbo1DdHjvo7db
- 1JnC8dGV0VZySVtuBysAZbrl4beVmz3c4PwlI1CTD1JgenMLS32RBAtbi
- UJPn1MBAk6MKsFLkH8mlOO7xQOEERhx1jmsIeC5E5dXAjdepmaFpkNoxS
- R1wfs7Z6X3a3OY2CFtumEkRdEwveMOIb5F7+GePt9pl/O/4yP5hbhHQZ7 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="338283943"
-X-IronPort-AV: E=Sophos;i="5.98,241,1673942400"; d="scan'208";a="338283943"
+ bh=2y+JodBWya1uCUdnw6FJ6BwF/neAPlGG8I1pgj8ECRU=;
+ b=CoL2PJYOYM7rsVOqjJ1CiqCBSIW0djQ5wJyxvdbTMtpA/w9H5+OaQgkV
+ ZPsD9BYK5kCI4OuWZc0FiogMJcNqXYFGv6xtABjtO838ajwkBjXRUhKfD
+ 9K93BAQ2j4uYRCCKq8gV8HLowdSK5lNXA3m+Cbknt3R/Rqq+qmcMvUCur
+ kYhntGZs2L+7GEGXozqLK4sZ/Z9x2Hi6L+ANeO/N5QDQItTpp5ULyjqPT
+ XdbJvRrZMkJuFAR4pP7ttPrNvVUHdHFvZQ4bxT/XGi4oVnhEI3ZXivnca
+ 7RYCh1P0CPo4inhPJ5iFTz5Nkt5nK5LeVUZrVY2zcDI1fvShW32oCS8bD Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="338283936"
+X-IronPort-AV: E=Sophos;i="5.98,241,1673942400"; d="scan'208";a="338283936"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Mar 2023 12:16:17 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="679085939"
-X-IronPort-AV: E=Sophos;i="5.98,241,1673942400"; d="scan'208";a="679085939"
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="679085920"
+X-IronPort-AV: E=Sophos;i="5.98,241,1673942400"; d="scan'208";a="679085920"
 Received: from orsosgc001.jf.intel.com ([10.165.21.138])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Mar 2023 12:16:17 -0800
+ 07 Mar 2023 12:16:16 -0800
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  7 Mar 2023 12:16:07 -0800
-Message-Id: <20230307201611.773103-6-umesh.nerlige.ramappa@intel.com>
+Date: Tue,  7 Mar 2023 12:16:04 -0800
+Message-Id: <20230307201611.773103-3-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20230307201611.773103-1-umesh.nerlige.ramappa@intel.com>
 References: <20230307201611.773103-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 5/9] drm/i915/perf: Fail modprobe if
- i915_perf_init fails on OOM
+Subject: [Intel-gfx] [PATCH v4 2/9] drm/i915/perf: Add helper to check
+ supported OA engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,79 +61,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-i915_perf_init can fail due to OOM. Fail driver init if i915_perf_init
-fails.
+With an intention to add more engines that are supported by OA, add
+helper to check for supported OA engines.
 
-v2: (Jani)
-- Reorder patch in the series
+v2: (Ashutosh)
+- Update commit message
+- Drop virtual engine check since we support only one render engine
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/i915_driver.c | 4 +++-
- drivers/gpu/drm/i915/i915_perf.c   | 8 ++++++--
- drivers/gpu/drm/i915/i915_perf.h   | 2 +-
- 3 files changed, 10 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/i915_perf.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index 0c0ae3eabb4b..998ca41c9713 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -477,7 +477,9 @@ static int i915_driver_hw_probe(struct drm_i915_private *dev_priv)
- 	if (ret)
- 		return ret;
- 
--	i915_perf_init(dev_priv);
-+	ret = i915_perf_init(dev_priv);
-+	if (ret)
-+		return ret;
- 
- 	ret = i915_ggtt_probe_hw(dev_priv);
- 	if (ret)
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 26ee8377cece..536de16b83b3 100644
+index 283a4a3c6862..b0e1acbe90fc 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -4902,7 +4902,7 @@ static void i915_perf_init_info(struct drm_i915_private *i915)
-  * Note: i915-perf initialization is split into an 'init' and 'register'
-  * phase with the i915_perf_register() exposing state to userspace.
-  */
--void i915_perf_init(struct drm_i915_private *i915)
-+int i915_perf_init(struct drm_i915_private *i915)
- {
- 	struct i915_perf *perf = &i915->perf;
- 
-@@ -5018,12 +5018,16 @@ void i915_perf_init(struct drm_i915_private *i915)
- 		perf->i915 = i915;
- 
- 		ret = oa_init_engine_groups(perf);
--		if (ret)
-+		if (ret) {
- 			drm_err(&i915->drm,
- 				"OA initialization failed %d\n", ret);
-+			return ret;
-+		}
- 
- 		oa_init_supported_formats(perf);
- 	}
-+
-+	return 0;
+@@ -1570,6 +1570,16 @@ free_noa_wait(struct i915_perf_stream *stream)
+ 	i915_vma_unpin_and_release(&stream->noa_wait, 0);
  }
  
- static int destroy_config(int id, void *p, void *data)
-diff --git a/drivers/gpu/drm/i915/i915_perf.h b/drivers/gpu/drm/i915/i915_perf.h
-index f96e09a4af04..253637651d5e 100644
---- a/drivers/gpu/drm/i915/i915_perf.h
-+++ b/drivers/gpu/drm/i915/i915_perf.h
-@@ -18,7 +18,7 @@ struct i915_oa_config;
- struct intel_context;
- struct intel_engine_cs;
++static bool engine_supports_oa(const struct intel_engine_cs *engine)
++{
++	enum intel_platform platform = INTEL_INFO(engine->i915)->platform;
++
++	switch (platform) {
++	default:
++		return engine->class == RENDER_CLASS;
++	}
++}
++
+ static void i915_oa_stream_destroy(struct i915_perf_stream *stream)
+ {
+ 	struct i915_perf *perf = stream->perf;
+@@ -2505,7 +2515,7 @@ static int gen8_configure_context(struct i915_gem_context *ctx,
+ 	for_each_gem_engine(ce, i915_gem_context_lock_engines(ctx), it) {
+ 		GEM_BUG_ON(ce == ce->engine->kernel_context);
  
--void i915_perf_init(struct drm_i915_private *i915);
-+int i915_perf_init(struct drm_i915_private *i915);
- void i915_perf_fini(struct drm_i915_private *i915);
- void i915_perf_register(struct drm_i915_private *i915);
- void i915_perf_unregister(struct drm_i915_private *i915);
+-		if (ce->engine->class != RENDER_CLASS)
++		if (!engine_supports_oa(ce->engine))
+ 			continue;
+ 
+ 		/* Otherwise OA settings will be set upon first use */
+@@ -2656,7 +2666,7 @@ oa_configure_all_contexts(struct i915_perf_stream *stream,
+ 	for_each_uabi_engine(engine, i915) {
+ 		struct intel_context *ce = engine->kernel_context;
+ 
+-		if (engine->class != RENDER_CLASS)
++		if (!engine_supports_oa(ce->engine))
+ 			continue;
+ 
+ 		regs[0].value = intel_sseu_make_rpcs(engine->gt, &ce->sseu);
+@@ -3369,7 +3379,7 @@ void i915_oa_init_reg_state(const struct intel_context *ce,
+ {
+ 	struct i915_perf_stream *stream;
+ 
+-	if (engine->class != RENDER_CLASS)
++	if (!engine_supports_oa(engine))
+ 		return;
+ 
+ 	/* perf.exclusive_stream serialised by lrc_configure_all_contexts() */
 -- 
 2.36.1
 
