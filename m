@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96CF3C742A7
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Mar 2023 20:16:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 979D4C6FA99
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Mar 2023 20:16:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B724710E653;
-	Tue,  7 Mar 2023 20:16:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B820610E552;
+	Tue,  7 Mar 2023 20:16:26 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65E8610E548
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B283510E548
  for <intel-gfx@lists.freedesktop.org>; Tue,  7 Mar 2023 20:16:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1678220178; x=1709756178;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=t1+6XmqX8VrvVqyM9CgE1F8nCJbsymYnYBUPFeifRAA=;
- b=HMMPuUdkmTQ3pxuUk9K1mcWmK3sK/MWk6xzLvWZx4mdG2nDXHzT2rCQZ
- 6pWvYz3r1XYAfZajeaQdv7dJTKkukmIO5EzFAHlmRCYrZFQLcgw2eVepJ
- ZXNxduAPMtRfNJYTF6JWHObJiv/wKtndoS2VD+uWjlLW4dC8IOniR8bca
- rgQ3EEl2oFYccBf5/BwHgvh9BYvhkysrTADVHtGiBbY1Iyir/Jhwa16JA
- cIyOA3SQnARTp5SEyClxrbnwsU4ULUj1yfw7GxUrkQzZmUYd0u09gk+We
- 6pg6OPMJXqq+n/9nI8B1SFU5/GtxaXlBeaUOxIFD6C43zZqf82NcZ1MBO Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="338283938"
-X-IronPort-AV: E=Sophos;i="5.98,241,1673942400"; d="scan'208";a="338283938"
+ bh=2BnYVi9/YWKdODdxbBUPBZE6qECW9ZmSc5arohS0Ehs=;
+ b=W1Ii4V4O9THexnk63a5XK8uzoG6hUvf6lDE+fmvEZ7UjC0RP0glS7KKt
+ AwGJVeTsplJ/bj0ka1+55wD1pm7h52yp0rVSCX60DsiNXTDJNjDExlo0g
+ Cbd37sdF2DSANgmxDUQnEU4LjpnWuqB5mFfp5at0CpIqTbo1DdHjvo7db
+ 1JnC8dGV0VZySVtuBysAZbrl4beVmz3c4PwlI1CTD1JgenMLS32RBAtbi
+ UJPn1MBAk6MKsFLkH8mlOO7xQOEERhx1jmsIeC5E5dXAjdepmaFpkNoxS
+ R1wfs7Z6X3a3OY2CFtumEkRdEwveMOIb5F7+GePt9pl/O/4yP5hbhHQZ7 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="338283943"
+X-IronPort-AV: E=Sophos;i="5.98,241,1673942400"; d="scan'208";a="338283943"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Mar 2023 12:16:17 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="679085924"
-X-IronPort-AV: E=Sophos;i="5.98,241,1673942400"; d="scan'208";a="679085924"
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="679085939"
+X-IronPort-AV: E=Sophos;i="5.98,241,1673942400"; d="scan'208";a="679085939"
 Received: from orsosgc001.jf.intel.com ([10.165.21.138])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Mar 2023 12:16:17 -0800
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  7 Mar 2023 12:16:05 -0800
-Message-Id: <20230307201611.773103-4-umesh.nerlige.ramappa@intel.com>
+Date: Tue,  7 Mar 2023 12:16:07 -0800
+Message-Id: <20230307201611.773103-6-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20230307201611.773103-1-umesh.nerlige.ramappa@intel.com>
 References: <20230307201611.773103-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 3/9] drm/i915/perf: Validate OA sseu config
- outside switch
+Subject: [Intel-gfx] [PATCH v4 5/9] drm/i915/perf: Fail modprobe if
+ i915_perf_init fails on OOM
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,78 +61,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Once OA supports media engine class:instance, the engine can only be
-validated outside the switch since class and instance parameters are
-separate entities. Since OA sseu config depends on engine
-class:instance, validate OA sseu config outside the switch.
+i915_perf_init can fail due to OOM. Fail driver init if i915_perf_init
+fails.
 
-v2: (Ashutosh)
-- Clarify commit message
-- Use drm_dbg instead of DRM_DEBUG
-- Reorder stack variables
+v2: (Jani)
+- Reorder patch in the series
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/i915_perf.c | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/i915_driver.c | 4 +++-
+ drivers/gpu/drm/i915/i915_perf.c   | 8 ++++++--
+ drivers/gpu/drm/i915/i915_perf.h   | 2 +-
+ 3 files changed, 10 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 0c0ae3eabb4b..998ca41c9713 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -477,7 +477,9 @@ static int i915_driver_hw_probe(struct drm_i915_private *dev_priv)
+ 	if (ret)
+ 		return ret;
+ 
+-	i915_perf_init(dev_priv);
++	ret = i915_perf_init(dev_priv);
++	if (ret)
++		return ret;
+ 
+ 	ret = i915_ggtt_probe_hw(dev_priv);
+ 	if (ret)
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index b0e1acbe90fc..1229f65534e2 100644
+index 26ee8377cece..536de16b83b3 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -3950,7 +3950,9 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 				    u32 n_props,
- 				    struct perf_open_properties *props)
+@@ -4902,7 +4902,7 @@ static void i915_perf_init_info(struct drm_i915_private *i915)
+  * Note: i915-perf initialization is split into an 'init' and 'register'
+  * phase with the i915_perf_register() exposing state to userspace.
+  */
+-void i915_perf_init(struct drm_i915_private *i915)
++int i915_perf_init(struct drm_i915_private *i915)
  {
-+	struct drm_i915_gem_context_param_sseu user_sseu;
- 	u64 __user *uprop = uprops;
-+	bool config_sseu = false;
- 	u32 i;
- 	int ret;
+ 	struct i915_perf *perf = &i915->perf;
  
-@@ -4079,8 +4081,6 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 			props->hold_preemption = !!value;
- 			break;
- 		case DRM_I915_PERF_PROP_GLOBAL_SSEU: {
--			struct drm_i915_gem_context_param_sseu user_sseu;
--
- 			if (GRAPHICS_VER_FULL(perf->i915) >= IP_VER(12, 50)) {
- 				drm_dbg(&perf->i915->drm,
- 					"SSEU config not supported on gfx %x\n",
-@@ -4095,14 +4095,7 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 					"Unable to copy global sseu parameter\n");
- 				return -EFAULT;
- 			}
--
--			ret = get_sseu_config(&props->sseu, props->engine, &user_sseu);
--			if (ret) {
--				drm_dbg(&perf->i915->drm,
--					"Invalid SSEU configuration\n");
--				return ret;
--			}
--			props->has_sseu = true;
-+			config_sseu = true;
- 			break;
- 		}
- 		case DRM_I915_PERF_PROP_POLL_OA_PERIOD:
-@@ -4122,6 +4115,16 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 		uprop += 2;
- 	}
+@@ -5018,12 +5018,16 @@ void i915_perf_init(struct drm_i915_private *i915)
+ 		perf->i915 = i915;
  
-+	if (config_sseu) {
-+		ret = get_sseu_config(&props->sseu, props->engine, &user_sseu);
+ 		ret = oa_init_engine_groups(perf);
+-		if (ret)
 +		if (ret) {
-+			drm_dbg(&perf->i915->drm,
-+				"Invalid SSEU configuration\n");
+ 			drm_err(&i915->drm,
+ 				"OA initialization failed %d\n", ret);
 +			return ret;
 +		}
-+		props->has_sseu = true;
-+	}
+ 
+ 		oa_init_supported_formats(perf);
+ 	}
 +
- 	return 0;
++	return 0;
  }
  
+ static int destroy_config(int id, void *p, void *data)
+diff --git a/drivers/gpu/drm/i915/i915_perf.h b/drivers/gpu/drm/i915/i915_perf.h
+index f96e09a4af04..253637651d5e 100644
+--- a/drivers/gpu/drm/i915/i915_perf.h
++++ b/drivers/gpu/drm/i915/i915_perf.h
+@@ -18,7 +18,7 @@ struct i915_oa_config;
+ struct intel_context;
+ struct intel_engine_cs;
+ 
+-void i915_perf_init(struct drm_i915_private *i915);
++int i915_perf_init(struct drm_i915_private *i915);
+ void i915_perf_fini(struct drm_i915_private *i915);
+ void i915_perf_register(struct drm_i915_private *i915);
+ void i915_perf_unregister(struct drm_i915_private *i915);
 -- 
 2.36.1
 
