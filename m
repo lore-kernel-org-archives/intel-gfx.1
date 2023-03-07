@@ -4,60 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B34E3C678D4
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Mar 2023 18:40:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56F4EC678D4
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Mar 2023 18:43:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8D6B10E153;
-	Tue,  7 Mar 2023 18:40:40 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 765CF10E133;
- Tue,  7 Mar 2023 18:40:37 +0000 (UTC)
-Received: from [192.168.2.57] (109-252-117-89.nat.spd-mgts.ru [109.252.117.89])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
+	by gabe.freedesktop.org (Postfix) with ESMTP id C894C10E119;
+	Tue,  7 Mar 2023 18:43:46 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E84C10E119
+ for <intel-gfx@lists.freedesktop.org>; Tue,  7 Mar 2023 18:43:45 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 8FF316602081;
- Tue,  7 Mar 2023 18:40:33 +0000 (GMT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1678214435;
- bh=kzZgEsXwj2D2bZ03kYGGGhV7+F4z+DUuitiRMuVlXeU=;
- h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
- b=JlISTHDejcbW8NV11WI1CuuJHLAVvg86nvzAHQUnlx9smrgfeepdwDLIw0neniFTj
- emP0FJY2JL2TzcVvPfCzr8ZFaO8OKtdRunCfJqGnzvjcVtlpJOFpp8cuheQ3OXbzs6
- V9N9BGpBN92sIZ5uNWI4YJ4/DiI7W4V2oIfJiVv4IMxBJ0nz/99Y24G/9+vtGd//4h
- oHtYSSKuxJeE9dlu7sBJepgBb2EYDmj094VB+dW7MFHpyPsVV8TsXvI120JVWipihx
- SyeAWoZl+XKIvkfD1SZPrtLr9ERswBo4rWgvIPsyPPghPQ5vX8vjAvTRTxDOmrIXNu
- 7MxWNPThh9UeQ==
-Message-ID: <a49fb815-1f02-e8c1-fd8e-128f3b43e490@collabora.com>
-Date: Tue, 7 Mar 2023 21:40:30 +0300
+ by sin.source.kernel.org (Postfix) with ESMTPS id 330BCCE1B42;
+ Tue,  7 Mar 2023 18:43:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 041C5C4339B;
+ Tue,  7 Mar 2023 18:43:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1678214619;
+ bh=kOz2Ku7XhOjq2b6BWWyE6jt3Eqg6VwTeGTTfFzpchiA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=zkrixZ+cDR4b9Gge+hyz/ZMU0+WsO9fBwmkIxGE9l6rEQv+IQs8MEEEcZzqcyVu/q
+ +vVHkFM+EV+EZvqMJumymFJy842u2vczrQuOw7LPWSMfh+Hra0Z4bJyCq/XiIxzp+4
+ zxBKdriFnGZItl6LFMnUigvp9Hy24DooYI2/ZdVs=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Date: Tue,  7 Mar 2023 18:03:35 +0100
+Message-Id: <20230307170040.062243648@linuxfoundation.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230307170001.594919529@linuxfoundation.org>
+References: <20230307170001.594919529@linuxfoundation.org>
+User-Agent: quilt/0.67
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Qiang Yu <yuq825@gmail.com>, Steven Price <steven.price@arm.com>,
- Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Rob Herring <robh@kernel.org>
-References: <20230305221011.1404672-1-dmitry.osipenko@collabora.com>
- <20230305221011.1404672-11-dmitry.osipenko@collabora.com>
- <3afbc965-4117-7d45-9a8f-b726c04d1b0c@suse.de>
- <66ddf54c-8396-2eb4-49ae-da479a997219@collabora.com>
-In-Reply-To: <66ddf54c-8396-2eb4-49ae-da479a997219@collabora.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v12 10/11] drm/virtio: Support memory
- shrinking
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 6.1 881/885] drm/i915: Dont use stolen memory
+ for ring buffers with LLC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,23 +51,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, kernel@collabora.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org
+Cc: Jani Nikula <jani.nikula@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ intel-gfx@lists.freedesktop.org, patches@lists.linux.dev,
+ Chris Wilson <chris@chris-wilson.co.uk>, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 3/7/23 21:25, Dmitry Osipenko wrote:
->> Not really a problem with this patchset, but having such branches looks
->> like a bug in the driver's GEM design. Whatever your GEM object needs or
->> does, it should be hidden in the implementation. Why is virtio doing this?
-> There is another "VRAM" VirtIO-GPU BO type that doesn't implement the
-> pin/unpin callbacks. Perhaps another option was to add the callbacks.
+From: John Harrison <John.C.Harrison@Intel.com>
 
-Although, the pin/unpin are optional. So yes, there was no need for the
-extra branch, good catch.
+commit 690e0ec8e63da9a29b39fedc6ed5da09c7c82651 upstream.
 
--- 
-Best regards,
-Dmitry
+Direction from hardware is that stolen memory should never be used for
+ring buffer allocations on platforms with LLC. There are too many
+caching pitfalls due to the way stolen memory accesses are routed. So
+it is safest to just not use it.
+
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Fixes: c58b735fc762 ("drm/i915: Allocate rings from stolen")
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v4.9+
+Tested-by: Jouni Högander <jouni.hogander@intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20230216011101.1909009-2-John.C.Harrison@Intel.com
+(cherry picked from commit f54c1f6c697c4297f7ed94283c184acc338a5cf8)
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/i915/gt/intel_ring.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/drivers/gpu/drm/i915/gt/intel_ring.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring.c
+@@ -116,7 +116,7 @@ static struct i915_vma *create_ring_vma(
+ 
+ 	obj = i915_gem_object_create_lmem(i915, size, I915_BO_ALLOC_VOLATILE |
+ 					  I915_BO_ALLOC_PM_VOLATILE);
+-	if (IS_ERR(obj) && i915_ggtt_has_aperture(ggtt))
++	if (IS_ERR(obj) && i915_ggtt_has_aperture(ggtt) && !HAS_LLC(i915))
+ 		obj = i915_gem_object_create_stolen(i915, size);
+ 	if (IS_ERR(obj))
+ 		obj = i915_gem_object_create_internal(i915, size);
+
 
