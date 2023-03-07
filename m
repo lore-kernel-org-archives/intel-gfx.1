@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F355C678D5
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Mar 2023 18:43:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17858C678D5
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Mar 2023 19:13:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6FB510E254;
-	Tue,  7 Mar 2023 18:43:50 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BEC610E18C
- for <intel-gfx@lists.freedesktop.org>; Tue,  7 Mar 2023 18:43:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 808A810E530;
+	Tue,  7 Mar 2023 19:13:11 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4D9910E530
+ for <intel-gfx@lists.freedesktop.org>; Tue,  7 Mar 2023 19:13:09 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id EF592B819C8;
- Tue,  7 Mar 2023 18:43:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C06EC433EF;
- Tue,  7 Mar 2023 18:43:45 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CB90F6150D;
+ Tue,  7 Mar 2023 19:13:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B98EC433EF;
+ Tue,  7 Mar 2023 19:13:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1678214625;
- bh=dYwR5rcLIabzIirgUlRVhd2HlYqELRPof6l9xWUaAIg=;
+ s=korg; t=1678216388;
+ bh=cyEnrYpXsnZOy1MKketWp6wTLUm03WwqL6ud0l6wyT8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ccmssKBTW4UubDRMyHCBfg584AmHjsQSjGmrSH7Jj4j01P+rTKeuGYKPktJelAPNP
- bPkjl2uFCqbeXk/Kl3HK65taQwgC+bJkUZVqhYOZEFj2RhTOu9B9q0/zvMFKWqKmjY
- vKmn3mIQOF+PLfwuEnsjzNVxBSvsaKPhc9zeYudA=
+ b=ZhNdJXX3Mk1UvVna57y//8sa2Eow9cDzoGeEjEIJXi3nHP0hR0rF2r5jPcO/1ihCH
+ YXGz6JIgbiIviaoRkjREBXIYRs3p3Xf96UEvBshLZOHQpAvY24M1bmF9Ni7+rrwLP9
+ 5dP2pwMrECpBmJMKxBG292D2ZCJqFhyoQvSS6yzM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Date: Tue,  7 Mar 2023 18:03:36 +0100
-Message-Id: <20230307170040.101657104@linuxfoundation.org>
+Date: Tue,  7 Mar 2023 18:05:02 +0100
+Message-Id: <20230307165930.480053867@linuxfoundation.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230307170001.594919529@linuxfoundation.org>
-References: <20230307170001.594919529@linuxfoundation.org>
+In-Reply-To: <20230307165905.838066027@linuxfoundation.org>
+References: <20230307165905.838066027@linuxfoundation.org>
 User-Agent: quilt/0.67
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6.1 882/885] drm/i915: Dont use BAR mappings for
- ring buffers with LLC
+Subject: [Intel-gfx] [PATCH 5.15 566/567] drm/i915: Dont use BAR mappings
+ for ring buffers with LLC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,7 +88,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/gpu/drm/i915/gt/intel_ring.c
 +++ b/drivers/gpu/drm/i915/gt/intel_ring.c
-@@ -53,7 +53,7 @@ int intel_ring_pin(struct intel_ring *ri
+@@ -51,7 +51,7 @@ int intel_ring_pin(struct intel_ring *ri
  	if (unlikely(ret))
  		goto err_unpin;
  
@@ -97,7 +97,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  		addr = (void __force *)i915_vma_pin_iomap(vma);
  	} else {
  		int type = i915_coherent_map_type(vma->vm->i915, vma->obj, false);
-@@ -98,7 +98,7 @@ void intel_ring_unpin(struct intel_ring
+@@ -96,7 +96,7 @@ void intel_ring_unpin(struct intel_ring
  		return;
  
  	i915_vma_unset_ggtt_write(vma);
