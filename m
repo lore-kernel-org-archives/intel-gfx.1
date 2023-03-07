@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F4FFC6FD1A
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Mar 2023 16:35:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F4F1C6FD1A
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Mar 2023 16:38:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B0DD10E11E;
-	Tue,  7 Mar 2023 16:35:37 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11D6710E11E
- for <intel-gfx@lists.freedesktop.org>; Tue,  7 Mar 2023 16:35:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21B3F10E663;
+	Tue,  7 Mar 2023 16:38:54 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05A4B10E64E
+ for <intel-gfx@lists.freedesktop.org>; Tue,  7 Mar 2023 16:38:51 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4CAB7B81964;
- Tue,  7 Mar 2023 16:35:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B583EC4339B;
- Tue,  7 Mar 2023 16:35:31 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3DD6F61265;
+ Tue,  7 Mar 2023 16:38:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55EDCC433D2;
+ Tue,  7 Mar 2023 16:38:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1678206932;
- bh=Mfb96I2VFG1jpW1qgStd8AFHQ6ZOY9jOScdNDE1YN+c=;
+ s=korg; t=1678207130;
+ bh=3I+U0513nIA0yyc6K6NhvBvo9Wh2oYnWubhlk2mMD2I=;
  h=Subject:To:Cc:From:Date:From;
- b=OCtjbhyhZdHdIuInGDVykc3gvp7ckOf4TtHn6lpqNL1yfcsyUsVivcEleKVtNGPW/
- dO3+kpI9Xox7uJ7MtQJ20cGhEmnETB3Wr3EI0z1jjEyBO2bnLOAEwbx9y40ot6r0Mf
- 8dPcY5fzPzpQvehnr1J+lE5JehjphV0GEt29bTG4=
+ b=NA9yKKt7umLiV6zZziRONMZYa04YzY4GcHwEj13FhPtTsyaoeGUebGedzj4jjaKC5
+ +fYDoL35z7Kt2UGKFcdxNsGahVhS2MKgGGVkoxkB4gHBrZrdElgmTqorvEUAJPlqjz
+ //xDJcOq0R8rw7S+kseJRfXxv3LBMnbmfnQ7CXHY=
 To: John.C.Harrison@Intel.com, chris@chris-wilson.co.uk,
  daniele.ceraolospurio@intel.com, gregkh@linuxfoundation.org,
  intel-gfx@lists.freedesktop.org, jani.nikula@intel.com,
@@ -33,15 +33,15 @@ To: John.C.Harrison@Intel.com, chris@chris-wilson.co.uk,
  jouni.hogander@intel.com, rodrigo.vivi@intel.com,
  tvrtko.ursulin@linux.intel.com
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 07 Mar 2023 17:35:11 +0100
-Message-ID: <1678206911113154@kroah.com>
+Date: Tue, 07 Mar 2023 17:38:47 +0100
+Message-ID: <1678207127163103@kroah.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-stable: commit
 X-Patchwork-Hint: ignore 
 Subject: [Intel-gfx] Patch "drm/i915: Don't use BAR mappings for ring
- buffers with LLC" has been added to the 6.1-stable tree
+ buffers with LLC" has been added to the 5.15-stable tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,12 +63,12 @@ This is a note to let you know that I've just added the patch titled
 
     drm/i915: Don't use BAR mappings for ring buffers with LLC
 
-to the 6.1-stable tree which can be found at:
+to the 5.15-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      drm-i915-don-t-use-bar-mappings-for-ring-buffers-with-llc.patch
-and it can be found in the queue-6.1 subdirectory.
+and it can be found in the queue-5.15 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -112,7 +112,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/gpu/drm/i915/gt/intel_ring.c
 +++ b/drivers/gpu/drm/i915/gt/intel_ring.c
-@@ -53,7 +53,7 @@ int intel_ring_pin(struct intel_ring *ri
+@@ -51,7 +51,7 @@ int intel_ring_pin(struct intel_ring *ri
  	if (unlikely(ret))
  		goto err_unpin;
  
@@ -121,7 +121,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  		addr = (void __force *)i915_vma_pin_iomap(vma);
  	} else {
  		int type = i915_coherent_map_type(vma->vm->i915, vma->obj, false);
-@@ -98,7 +98,7 @@ void intel_ring_unpin(struct intel_ring
+@@ -96,7 +96,7 @@ void intel_ring_unpin(struct intel_ring
  		return;
  
  	i915_vma_unset_ggtt_write(vma);
@@ -134,5 +134,4 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from John.C.Harrison@Intel.com are
 
-queue-6.1/drm-i915-don-t-use-bar-mappings-for-ring-buffers-with-llc.patch
-queue-6.1/drm-i915-don-t-use-stolen-memory-for-ring-buffers-with-llc.patch
+queue-5.15/drm-i915-don-t-use-bar-mappings-for-ring-buffers-with-llc.patch
