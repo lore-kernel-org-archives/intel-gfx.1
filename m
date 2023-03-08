@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18E13C74A4B
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 13:29:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35400C678D5
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 13:34:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71FE310E68A;
-	Wed,  8 Mar 2023 13:29:50 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D59B10E62F;
- Wed,  8 Mar 2023 13:29:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A99410E5DB;
+	Wed,  8 Mar 2023 13:34:28 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88FDF10E5D3
+ for <intel-gfx@lists.freedesktop.org>; Wed,  8 Mar 2023 13:34:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678282188; x=1709818188;
+ t=1678282466; x=1709818466;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=wbdrYtzM9mN4gwBAKIFy0X9kmMhAGDOr+1bYvr2M9k8=;
- b=kwOvAstFdXiXm3oFu4sEV3pzW1jsAp71TI0AkeQTxcOc1KbiMC2QuzXo
- sy/vsUnB5QqpfoVfkDLsYCp2ccZ7a1/1KsZZY+CXb8TMo9aYfi7hycAyf
- DEZXjblpClhxW+lX7hc76zKgWTApgexVe3K0FktLIPJFAShzVp8u9eQbs
- JOl9cRsi3XdO106Hq1y8Fnb2IXX8aBSURHFXUJhPg1dGve0PD9A90y7gE
- WEmmX6eOflouAvG3SiAprSn5oSoTI7fvXeWFgqzaLi403dVPs0UJlW4eI
- 4/BnzwJaRbBlpe/8XHFpMLOnNr/BDWZjLceQG6vC3VoKd9rbKy0ucpzGi g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="336165375"
-X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="336165375"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2023 05:29:47 -0800
+ bh=128pKHju1glcK2Y4aZZFsdU96kC+W/FZzjPR30K+2eg=;
+ b=aV8sshRKkcaalNlqI0V2QFPz/fLf5/EIKPp5L+nwTskgBlsD4cAbR6Bg
+ JCg2R9+D1xSVvV2wXjxMIXXligbk0tqE5XvdOoSnOzaDLIHqGCx3Aa/qS
+ 0E215yJMZxeBmJNpta7WXrXrq7J0g6joQMH4dfidGPadsmEN8Kr/ZHqgO
+ /UIbKCC3bwhlUsw//SQUlu3sRrCziUvO84nGvQTkQ1iLv9my0ACzhUS9e
+ IYIYfpSzBOPzQ5EKqMB5opIOLt1InyxROBwI5HuxtAYBvE0qjHuZwCpgZ
+ 77d7VTQV7e/i5fAKhEOqxMjI7WN9LW5pAImvAAMHdM/5+acoiXEf2wPxw g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="363787820"
+X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="363787820"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2023 05:34:25 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="922789474"
-X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="922789474"
-Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by fmsmga006.fm.intel.com with ESMTP; 08 Mar 2023 05:29:46 -0800
-From: Yi Liu <yi.l.liu@intel.com>
-To: alex.williamson@redhat.com,
-	jgg@nvidia.com,
-	kevin.tian@intel.com
-Date: Wed,  8 Mar 2023 05:29:03 -0800
-Message-Id: <20230308132903.465159-25-yi.l.liu@intel.com>
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="670336609"
+X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="670336609"
+Received: from lab-ah.igk.intel.com ([10.102.42.211])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2023 05:34:21 -0800
+From: Andrzej Hajda <andrzej.hajda@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed,  8 Mar 2023 14:34:09 +0100
+Message-Id: <20230308133409.2127638-1-andrzej.hajda@intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230308132903.465159-1-yi.l.liu@intel.com>
-References: <20230308132903.465159-1-yi.l.liu@intel.com>
+In-Reply-To: <ZAiKuulQBp0569s/@intel.com>
+References: <ZAiKuulQBp0569s/@intel.com>
 MIME-Version: 1.0
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 24/24] docs: vfio: Add vfio device cdev
- description
+Subject: [Intel-gfx] [PATCH] drm/i915/gt: prevent forcewake releases during
+ BAR resize
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,164 +60,59 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-s390@vger.kernel.org, yi.l.liu@intel.com, yi.y.sun@linux.intel.com,
- mjrosato@linux.ibm.com, kvm@vger.kernel.org,
- intel-gvt-dev@lists.freedesktop.org, joro@8bytes.org, cohuck@redhat.com,
- xudong.hao@intel.com, peterx@redhat.com, yan.y.zhao@intel.com,
- eric.auger@redhat.com, terrence.xu@intel.com, nicolinc@nvidia.com,
- shameerali.kolothum.thodi@huawei.com, suravee.suthikulpanit@amd.com,
- intel-gfx@lists.freedesktop.org, chao.p.peng@linux.intel.com, lulu@redhat.com,
- robin.murphy@arm.com, jasowang@redhat.com
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ chris.p.wilson@linux.intel.com, Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This gives notes for userspace applications on device cdev usage.
+Tests on DG2 machines show that releasing forcewakes during BAR resize
+results later in forcewake ack timeouts. Since forcewakes can be realeased
+asynchronously the simplest way to prevent it is to get all forcewakes
+for duration of BAR resizing.
 
-Signed-off-by: Yi Liu <yi.l.liu@intel.com>
+Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
 ---
- Documentation/driver-api/vfio.rst | 125 ++++++++++++++++++++++++++++++
- 1 file changed, 125 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_region_lmem.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/Documentation/driver-api/vfio.rst b/Documentation/driver-api/vfio.rst
-index 44527420f20d..227940e5224f 100644
---- a/Documentation/driver-api/vfio.rst
-+++ b/Documentation/driver-api/vfio.rst
-@@ -239,6 +239,123 @@ group and can access them as follows::
- 	/* Gratuitous device reset and go... */
- 	ioctl(device, VFIO_DEVICE_RESET);
+diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+index 89fdfc67f8d1e0..5a01dc6ca08324 100644
+--- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
++++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+@@ -54,6 +54,7 @@ static void i915_resize_lmem_bar(struct drm_i915_private *i915, resource_size_t
+ 	struct resource *root_res;
+ 	resource_size_t rebar_size;
+ 	resource_size_t current_size;
++	intel_wakeref_t wakeref;
+ 	u32 pci_cmd;
+ 	int i;
  
-+IOMMUFD and vfio_iommu_type1
-+----------------------------
-+
-+IOMMUFD is the new user API to manage I/O page tables from userspace.
-+It intends to be the portal of delivering advanced userspace DMA
-+features (nested translation [5], PASID [6], etc.) and backward
-+compatible with the vfio_iommu_type1 driver. Eventually vfio_iommu_type1
-+will be deprecated.
-+
-+With the backward compatibility, no change is required for legacy VFIO
-+drivers or applications to connect a VFIO device to IOMMUFD.
-+
-+	When CONFIG_IOMMUFD_VFIO_CONTAINER=n, VFIO container still provides
-+	/dev/vfio/vfio which connects to vfio_iommu_type1. To disable VFIO
-+	container and vfio_iommu_type1, the administrator could symbol link
-+	/dev/vfio/vfio to /dev/iommu to enable VFIO container emulation
-+	in IOMMUFD.
-+
-+	When CONFIG_IOMMUFD_VFIO_CONTAINER=y, IOMMUFD directly provides
-+	/dev/vfio/vfio while the VFIO container and vfio_iommu_type1 are
-+	explicitly disabled.
-+
-+VFIO Device cdev
-+----------------
-+
-+Traditionally user acquires a device fd via VFIO_GROUP_GET_DEVICE_FD
-+in a VFIO group.
-+
-+With CONFIG_VFIO_DEVICE_CDEV=y the user can now acquire a device fd
-+by directly opening a character device /dev/vfio/devices/vfioX where
-+"X" is the number allocated uniquely by VFIO for registered devices.
-+
-+The cdev only works with IOMMUFD. Both VFIO drivers and applications
-+must adapt to the new cdev security model which requires using
-+VFIO_DEVICE_BIND_IOMMUFD to claim DMA ownership before starting to
-+actually use the device. Once bind succeeds then a VFIO device can
-+be fully accessed by the user.
-+
-+VFIO device cdev doesn't rely on VFIO group/container/iommu drivers.
-+Hence those modules can be fully compiled out in an environment
-+where no legacy VFIO application exists.
-+
-+So far SPAPR does not support IOMMUFD yet. So it cannot support device
-+cdev either.
-+
-+Device cdev Example
-+-------------------
-+
-+Assume user wants to access PCI device 0000:6a:01.0::
-+
-+	$ ls /sys/bus/pci/devices/0000:6a:01.0/vfio-dev/
-+	vfio0
-+
-+This device is therefore represented as vfio0. The user can verify
-+its existence::
-+
-+	$ ls -l /dev/vfio/devices/vfio0
-+	crw------- 1 root root 511, 0 Feb 16 01:22 /dev/vfio/devices/vfio0
-+	$ cat /sys/bus/pci/devices/0000:6a:01.0/vfio-dev/vfio0/dev
-+	511:0
-+	$ ls -l /dev/char/511\:0
-+	lrwxrwxrwx 1 root root 21 Feb 16 01:22 /dev/char/511:0 -> ../vfio/devices/vfio0
-+
-+Then provide the user with access to the device if unprivileged
-+operation is desired::
-+
-+	$ chown user:user /dev/vfio/devices/vfio0
-+
-+Finally the user could get cdev fd by::
-+
-+	cdev_fd = open("/dev/vfio/devices/vfio0", O_RDWR);
-+
-+An opened cdev_fd doesn't give the user any permission of accessing
-+the device except binding the cdev_fd to an iommufd. After that point
-+then the device is fully accessible including attaching it to an
-+IOMMUFD IOAS/HWPT to enable userspace DMA::
-+
-+	struct vfio_device_bind_iommufd bind = {
-+		.argsz = sizeof(bind),
-+		.flags = 0,
-+	};
-+	struct iommu_ioas_alloc alloc_data  = {
-+		.size = sizeof(alloc_data),
-+		.flags = 0,
-+	};
-+	struct vfio_device_attach_iommufd_pt attach_data = {
-+		.argsz = sizeof(attach_data),
-+		.flags = 0,
-+	};
-+	struct iommu_ioas_map map = {
-+		.size = sizeof(map),
-+		.flags = IOMMU_IOAS_MAP_READABLE |
-+			 IOMMU_IOAS_MAP_WRITEABLE |
-+			 IOMMU_IOAS_MAP_FIXED_IOVA,
-+		.__reserved = 0,
-+	};
-+
-+	iommufd = open("/dev/iommu", O_RDWR);
-+
-+	bind.iommufd = iommufd; // negative iommufd means vfio-noiommu mode
-+	ioctl(cdev_fd, VFIO_DEVICE_BIND_IOMMUFD, &bind);
-+
-+	ioctl(iommufd, IOMMU_IOAS_ALLOC, &alloc_data);
-+	attach_data.pt_id = alloc_data.out_ioas_id;
-+	ioctl(cdev_fd, VFIO_DEVICE_ATTACH_IOMMUFD_PT, &attach_data);
-+
-+	/* Allocate some space and setup a DMA mapping */
-+	map.user_va = (int64_t)mmap(0, 1024 * 1024, PROT_READ | PROT_WRITE,
-+				    MAP_PRIVATE | MAP_ANONYMOUS, 0, 0);
-+	map.iova = 0; /* 1MB starting at 0x0 from device view */
-+	map.length = 1024 * 1024;
-+	map.ioas_id = alloc_data.out_ioas_id;;
-+
-+	ioctl(iommufd, IOMMU_IOAS_MAP, &map);
-+
-+	/* Other device operations as stated in "VFIO Usage Example" */
-+
- VFIO User API
- -------------------------------------------------------------------------------
+@@ -102,6 +103,14 @@ static void i915_resize_lmem_bar(struct drm_i915_private *i915, resource_size_t
+ 		return;
+ 	}
  
-@@ -566,3 +683,11 @@ This implementation has some specifics:
- 				\-0d.1
++	/*
++	 * Releasing forcewake during BAR resizing results in later forcewake
++	 * ack timeouts and former can happen any time - it is asynchronous.
++	 * Grabbing all forcewakes prevents it.
++	 */
++	with_intel_runtime_pm(i915->uncore.rpm, wakeref)
++		intel_uncore_forcewake_get(&i915->uncore, FORCEWAKE_ALL);
++
+ 	/* First disable PCI memory decoding references */
+ 	pci_read_config_dword(pdev, PCI_COMMAND, &pci_cmd);
+ 	pci_write_config_dword(pdev, PCI_COMMAND,
+@@ -111,6 +120,9 @@ static void i915_resize_lmem_bar(struct drm_i915_private *i915, resource_size_t
  
- 	00:1e.0 PCI bridge: Intel Corporation 82801 PCI Bridge (rev 90)
+ 	pci_assign_unassigned_bus_resources(pdev->bus);
+ 	pci_write_config_dword(pdev, PCI_COMMAND, pci_cmd);
 +
-+.. [5] Nested translation is an IOMMU feature which supports two stage
-+   address translations. This improves the address translation efficiency
-+   in IOMMU virtualization.
-+
-+.. [6] PASID stands for Process Address Space ID, introduced by PCI
-+   Express. It is a prerequisite for Shared Virtual Addressing (SVA)
-+   and Scalable I/O Virtualization (Scalable IOV).
++	with_intel_runtime_pm(i915->uncore.rpm, wakeref)
++		intel_uncore_forcewake_put(&i915->uncore, FORCEWAKE_ALL);
+ }
+ #else
+ static void i915_resize_lmem_bar(struct drm_i915_private *i915, resource_size_t lmem_size) {}
 -- 
 2.34.1
 
