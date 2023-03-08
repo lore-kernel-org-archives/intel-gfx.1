@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8F50C6FD20
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 13:29:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 354B5C742A7
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 13:29:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6914D10E678;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6FB410E67F;
 	Wed,  8 Mar 2023 13:29:49 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C35F10E62E;
- Wed,  8 Mar 2023 13:29:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2F4D10E5E1;
+ Wed,  8 Mar 2023 13:29:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678282181; x=1709818181;
+ t=1678282166; x=1709818166;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=dzJYS+VtE+jQFaZ2CI9x4Pdab307ftN0Unh+/w+lcnc=;
- b=ORRKautpLbQA6YiQpBNDDAxMubXrTQaomh8f13lG4OJxct9+JYFnnUsc
- vRIHTa/5+EAT7alOaVfpahWzOaujWlyUd0aXqo+3yKqQNY5qJlUIwGZ31
- IoQMx3+sFkKuIs8zvNxggd2rWNVaH1WhIIPJ2/49ml7QIjOs71FTfzU9t
- yY60mqKdPLEWQByKD7s/UwEwUpu1Huho66hyB1/LnvJhBD+HDzSUbhp5m
- qYdIaQ/b1c0YgO1ZK49jSmV9xGUC7CpEc+JD1/6Pl1wsi9K03+oSw5Pp6
- pJfVe8fzjCjv/Wziegv9jSp0esPGfZNfJOeUBZoU0rnuYIwI50WxsrL+Y g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="336165326"
-X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="336165326"
+ bh=0L0vMMuWTJTwe95x2UEU2BefzXax/kTZVXcty/RFtNc=;
+ b=TYfbn25KFbts+yju3XD/Svzkp8GK/0WA2MBUPkdZZVHl0mjfZD9C9CuV
+ WFXBUiI1uky1rAYGLYKhlbZPJyhnjNfQ3oOKbuzPNGCQlMb9kk1tVCMyJ
+ efDU+PKw2FaRwI+vZDIRlwmVEf7knlQiZDTM+2wWlbSdvTxQ+IgrlxEMl
+ iwNKvnlPIL3g7L0NURcW18qfijOSMm5QIgAJmIJ98y0k7dc+9sSL+tnyn
+ bCIF8AVfwvi7cZXX2A581sV8s8VnystNDGNsCKvHppLTjnAW510OjDCcy
+ 8Npoa1HFByJbl/2cZqDOYm3HIC/mCQrCLk7dbdTDX+tBM/6pLz7WG7t4n Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="336165217"
+X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="336165217"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2023 05:29:40 -0800
+ 08 Mar 2023 05:29:25 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="922789449"
-X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="922789449"
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="922789376"
+X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="922789376"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by fmsmga006.fm.intel.com with ESMTP; 08 Mar 2023 05:29:39 -0800
+ by fmsmga006.fm.intel.com with ESMTP; 08 Mar 2023 05:29:24 -0800
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Wed,  8 Mar 2023 05:28:59 -0800
-Message-Id: <20230308132903.465159-21-yi.l.liu@intel.com>
+Date: Wed,  8 Mar 2023 05:28:50 -0800
+Message-Id: <20230308132903.465159-12-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230308132903.465159-1-yi.l.liu@intel.com>
 References: <20230308132903.465159-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 20/24] vfio: Add cdev for vfio_device
+Subject: [Intel-gfx] [PATCH v6 11/24] vfio/pci: Accept device fd in
+ VFIO_DEVICE_PCI_HOT_RESET ioctl
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,327 +70,206 @@ Cc: linux-s390@vger.kernel.org, yi.l.liu@intel.com, yi.y.sun@linux.intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This allows user to directly open a vfio device w/o using the legacy
-container/group interface, as a prerequisite for supporting new iommu
-features like nested translation.
-
-The device fd opened in this manner doesn't have the capability to access
-the device as the fops open() doesn't open the device until the successful
-BIND_IOMMUFD which be added in next patch.
-
-With this patch, devices registered to vfio core have both group and device
-interface created.
-
-- group interface : /dev/vfio/$groupID
-- device interface: /dev/vfio/devices/vfioX  (X is the minor number and
-					      is unique across devices)
-
-Given a vfio device the user can identify the matching vfioX by checking
-the sysfs path of the device. Take PCI device (0000:6a:01.0) for example,
-/sys/bus/pci/devices/0000\:6a\:01.0/vfio-dev/vfio0/dev contains the
-major:minor of the matching vfioX.
-
-Userspace then opens the /dev/vfio/devices/vfioX and checks with fstat
-that the major:minor matches.
-
-The vfio_device cdev logic in this patch:
-*) __vfio_register_dev() path ends up doing cdev_device_add() for each
-   vfio_device if VFIO_DEVICE_CDEV configured.
-*) vfio_unregister_group_dev() path does cdev_device_del();
+VFIO PCI device hot reset requires user to provide a set of FDs to prove
+ownership on the affected devices in the hot reset. Either group fd or
+device fd can be used. But when user uses vfio device cdev, there is only
+device fd, hence VFIO_DEVICE_PCI_HOT_RESET needs to be extended to accept
+device fds.
 
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Tested-by: Terrence Xu <terrence.xu@intel.com>
-Tested-by: Nicolin Chen <nicolinc@nvidia.com>
-Tested-by: Matthew Rosato <mjrosato@linux.ibm.com>
 ---
- drivers/vfio/Kconfig       | 11 +++++++
- drivers/vfio/Makefile      |  1 +
- drivers/vfio/device_cdev.c | 62 ++++++++++++++++++++++++++++++++++++++
- drivers/vfio/vfio.h        | 46 ++++++++++++++++++++++++++++
- drivers/vfio/vfio_main.c   | 34 ++++++++++++++++-----
- include/linux/vfio.h       |  4 +++
- 6 files changed, 151 insertions(+), 7 deletions(-)
- create mode 100644 drivers/vfio/device_cdev.c
+ drivers/vfio/group.c             | 15 +-----------
+ drivers/vfio/pci/vfio_pci_core.c | 22 +++++++++++------
+ drivers/vfio/vfio.h              |  1 +
+ drivers/vfio/vfio_main.c         | 42 ++++++++++++++++++++++++++++++++
+ include/linux/vfio.h             |  1 +
+ include/uapi/linux/vfio.h        |  6 +++--
+ 6 files changed, 63 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/vfio/Kconfig b/drivers/vfio/Kconfig
-index 89e06c981e43..e2105b4dac2d 100644
---- a/drivers/vfio/Kconfig
-+++ b/drivers/vfio/Kconfig
-@@ -12,6 +12,17 @@ menuconfig VFIO
- 	  If you don't know what to do here, say N.
+diff --git a/drivers/vfio/group.c b/drivers/vfio/group.c
+index 4a220d5bf79b..6280368eb0bd 100644
+--- a/drivers/vfio/group.c
++++ b/drivers/vfio/group.c
+@@ -852,23 +852,10 @@ void vfio_group_set_kvm(struct vfio_group *group, struct kvm *kvm)
+ 	spin_unlock(&group->kvm_ref_lock);
+ }
  
- if VFIO
-+config VFIO_DEVICE_CDEV
-+	bool "Support for the VFIO cdev /dev/vfio/devices/vfioX"
-+	depends on IOMMUFD
-+	help
-+	  The VFIO device cdev is another way for userspace to get device
-+	  access. Userspace gets device fd by opening device cdev under
-+	  /dev/vfio/devices/vfioX, and then bind the device fd with an iommufd
-+	  to set up secure DMA context for device access.
-+
-+	  If you don't know what to do here, say N.
-+
- config VFIO_CONTAINER
- 	bool "Support for the VFIO container /dev/vfio/vfio"
- 	select VFIO_IOMMU_TYPE1 if MMU && (X86 || S390 || ARM || ARM64)
-diff --git a/drivers/vfio/Makefile b/drivers/vfio/Makefile
-index 70e7dcb302ef..245394aeb94b 100644
---- a/drivers/vfio/Makefile
-+++ b/drivers/vfio/Makefile
-@@ -4,6 +4,7 @@ obj-$(CONFIG_VFIO) += vfio.o
- vfio-y += vfio_main.o \
- 	  group.o \
- 	  iova_bitmap.o
-+vfio-$(CONFIG_VFIO_DEVICE_CDEV) += device_cdev.o
- vfio-$(CONFIG_IOMMUFD) += iommufd.o
- vfio-$(CONFIG_VFIO_CONTAINER) += container.o
- vfio-$(CONFIG_VFIO_VIRQFD) += virqfd.o
-diff --git a/drivers/vfio/device_cdev.c b/drivers/vfio/device_cdev.c
-new file mode 100644
-index 000000000000..1c640016a824
---- /dev/null
-+++ b/drivers/vfio/device_cdev.c
-@@ -0,0 +1,62 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) 2023 Intel Corporation.
-+ */
-+#include <linux/vfio.h>
-+
-+#include "vfio.h"
-+
-+static dev_t device_devt;
-+
-+void vfio_init_device_cdev(struct vfio_device *device)
-+{
-+	device->device.devt = MKDEV(MAJOR(device_devt), device->index);
-+	cdev_init(&device->cdev, &vfio_device_fops);
-+	device->cdev.owner = THIS_MODULE;
-+}
-+
-+/*
-+ * device access via the fd opened by this function is blocked until
-+ * .open_device() is called successfully during BIND_IOMMUFD.
-+ */
-+int vfio_device_fops_cdev_open(struct inode *inode, struct file *filep)
-+{
-+	struct vfio_device *device = container_of(inode->i_cdev,
-+						  struct vfio_device, cdev);
-+	struct vfio_device_file *df;
-+	int ret;
-+
-+	if (!vfio_device_try_get_registration(device))
-+		return -ENODEV;
-+
-+	df = vfio_allocate_device_file(device);
-+	if (IS_ERR(df)) {
-+		ret = PTR_ERR(df);
-+		goto err_put_registration;
-+	}
-+
-+	filep->private_data = df;
-+
-+	return 0;
-+
-+err_put_registration:
-+	vfio_device_put_registration(device);
-+	return ret;
-+}
-+
-+static char *vfio_device_devnode(const struct device *dev, umode_t *mode)
-+{
-+	return kasprintf(GFP_KERNEL, "vfio/devices/%s", dev_name(dev));
-+}
-+
-+int vfio_cdev_init(struct class *device_class)
-+{
-+	device_class->devnode = vfio_device_devnode;
-+	return alloc_chrdev_region(&device_devt, 0,
-+				   MINORMASK + 1, "vfio-dev");
-+}
-+
-+void vfio_cdev_cleanup(void)
-+{
-+	unregister_chrdev_region(device_devt, MINORMASK + 1);
-+}
+-/**
+- * vfio_file_has_dev - True if the VFIO file is a handle for device
+- * @file: VFIO file to check
+- * @device: Device that must be part of the file
+- *
+- * Returns true if given file has permission to manipulate the given device.
+- */
+-bool vfio_file_has_dev(struct file *file, struct vfio_device *device)
++bool vfio_group_has_dev(struct vfio_group *group, struct vfio_device *device)
+ {
+-	struct vfio_group *group = vfio_group_from_file(file);
+-
+-	if (!group)
+-		return false;
+-
+ 	return group == device->group;
+ }
+-EXPORT_SYMBOL_GPL(vfio_file_has_dev);
+ 
+ static char *vfio_devnode(const struct device *dev, umode_t *mode)
+ {
+diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+index 265a0058436c..123b468ead73 100644
+--- a/drivers/vfio/pci/vfio_pci_core.c
++++ b/drivers/vfio/pci/vfio_pci_core.c
+@@ -1300,7 +1300,7 @@ static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
+ 		return -ENOMEM;
+ 	}
+ 
+-	if (copy_from_user(user_fds, arg->group_fds,
++	if (copy_from_user(user_fds, arg->fds,
+ 			   hdr.count * sizeof(*user_fds))) {
+ 		kfree(user_fds);
+ 		kfree(files);
+@@ -1308,8 +1308,8 @@ static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
+ 	}
+ 
+ 	/*
+-	 * Get the group file for each fd to ensure the group held across
+-	 * the reset
++	 * Get the file for each fd to ensure the group/device file
++	 * is held across the reset
+ 	 */
+ 	for (file_idx = 0; file_idx < hdr.count; file_idx++) {
+ 		struct file *file = fget(user_fds[file_idx]);
+@@ -1319,8 +1319,14 @@ static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
+ 			break;
+ 		}
+ 
+-		/* Ensure the FD is a vfio group FD.*/
+-		if (!vfio_file_is_group(file)) {
++		/*
++		 * For vfio group FD, sanitize the file is enough.
++		 * For vfio device FD, needs to ensure it has got the
++		 * access to device, otherwise it cannot be used as
++		 * proof of device ownership.
++		 */
++		if (!vfio_file_is_valid(file) ||
++		    (!vfio_file_is_group(file) && !vfio_file_has_device_access(file))) {
+ 			fput(file);
+ 			ret = -EINVAL;
+ 			break;
+@@ -2440,9 +2446,9 @@ static int vfio_pci_dev_set_hot_reset(struct vfio_device_set *dev_set,
+ 		 * by other users.
+ 		 *
+ 		 * For the devices that have been opened, needs to check the
+-		 * ownership.  If the user provides a set of group fds, test
+-		 * whether all the opened affected devices are contained by the
+-		 * set of groups provided by the user.
++		 * ownership.  If the user provides a set of group/device
++		 * fds, test whether all the opened devices are contained
++		 * by the set of groups/devices provided by the user.
+ 		 */
+ 		if (cur_vma->vdev.open_count &&
+ 		    !vfio_dev_in_user_fds(cur_vma, user_info)) {
 diff --git a/drivers/vfio/vfio.h b/drivers/vfio/vfio.h
-index 98cee2f765e9..3f359f04b754 100644
+index e60c409868f8..464263288d16 100644
 --- a/drivers/vfio/vfio.h
 +++ b/drivers/vfio/vfio.h
-@@ -260,6 +260,52 @@ static inline int vfio_iommufd_attach_compat_ioas(struct vfio_device *vdev,
- }
- #endif
- 
-+#if IS_ENABLED(CONFIG_VFIO_DEVICE_CDEV)
-+static inline int vfio_device_add(struct vfio_device *device)
-+{
-+	return cdev_device_add(&device->cdev, &device->device);
-+}
-+
-+static inline void vfio_device_del(struct vfio_device *device)
-+{
-+	cdev_device_del(&device->cdev, &device->device);
-+}
-+
-+void vfio_init_device_cdev(struct vfio_device *device);
-+int vfio_device_fops_cdev_open(struct inode *inode, struct file *filep);
-+int vfio_cdev_init(struct class *device_class);
-+void vfio_cdev_cleanup(void);
-+#else
-+static inline int vfio_device_add(struct vfio_device *device)
-+{
-+	return device_add(&device->device);
-+}
-+
-+static inline void vfio_device_del(struct vfio_device *device)
-+{
-+	device_del(&device->device);
-+}
-+
-+static inline void vfio_init_device_cdev(struct vfio_device *device)
-+{
-+}
-+
-+static inline int vfio_device_fops_cdev_open(struct inode *inode,
-+					     struct file *filep)
-+{
-+	return 0;
-+}
-+
-+static inline int vfio_cdev_init(struct class *device_class)
-+{
-+	return 0;
-+}
-+
-+static inline void vfio_cdev_cleanup(void)
-+{
-+}
-+#endif /* CONFIG_VFIO_DEVICE_CDEV */
-+
- #if IS_ENABLED(CONFIG_VFIO_VIRQFD)
- int __init vfio_virqfd_init(void);
- void vfio_virqfd_exit(void);
+@@ -96,6 +96,7 @@ void vfio_device_group_close(struct vfio_device_file *df);
+ struct vfio_group *vfio_group_from_file(struct file *file);
+ bool vfio_group_enforced_coherent(struct vfio_group *group);
+ void vfio_group_set_kvm(struct vfio_group *group, struct kvm *kvm);
++bool vfio_group_has_dev(struct vfio_group *group, struct vfio_device *device);
+ bool vfio_device_has_container(struct vfio_device *device);
+ int __init vfio_group_init(void);
+ void vfio_group_cleanup(void);
 diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
-index da5cc4c5c63f..b0c2a7544524 100644
+index 027410e8d4a8..cf9994a65df3 100644
 --- a/drivers/vfio/vfio_main.c
 +++ b/drivers/vfio/vfio_main.c
-@@ -242,6 +242,7 @@ static int vfio_init_device(struct vfio_device *device, struct device *dev,
- 	device->device.release = vfio_device_release;
- 	device->device.class = vfio.device_class;
- 	device->device.parent = device->dev;
-+	vfio_init_device_cdev(device);
- 	return 0;
- 
- out_uninit:
-@@ -277,7 +278,7 @@ static int __vfio_register_dev(struct vfio_device *device,
- 	if (ret)
- 		return ret;
- 
--	ret = device_add(&device->device);
-+	ret = vfio_device_add(device);
- 	if (ret)
- 		goto err_out;
- 
-@@ -317,6 +318,20 @@ void vfio_unregister_group_dev(struct vfio_device *device)
- 	bool interrupted = false;
- 	long rc;
- 
-+	/*
-+	 * Placing it before vfio_device_put_registration() to prevent
-+	 * new registration refcount increment by VFIO_GROUP_GET_DEVICE_FD
-+	 * during the unregister time.
-+	 */
-+	vfio_device_group_unregister(device);
-+
-+	/*
-+	 * Balances vfio_device_add() in the register path. Placing it before
-+	 * vfio_device_put_registration() to prevent new registration refcount
-+	 * increment by the device cdev open during the unregister time.
-+	 */
-+	vfio_device_del(device);
-+
- 	vfio_device_put_registration(device);
- 	rc = try_wait_for_completion(&device->comp);
- 	while (rc <= 0) {
-@@ -340,11 +355,6 @@ void vfio_unregister_group_dev(struct vfio_device *device)
- 		}
- 	}
- 
--	vfio_device_group_unregister(device);
--
--	/* Balances device_add in register path */
--	device_del(&device->device);
--
- 	/* Balances vfio_device_set_group in register path */
- 	vfio_device_remove_group(device);
+@@ -1277,6 +1277,48 @@ void vfio_file_set_kvm(struct file *file, struct kvm *kvm)
  }
-@@ -563,7 +573,8 @@ static int vfio_device_fops_release(struct inode *inode, struct file *filep)
- 	struct vfio_device_file *df = filep->private_data;
- 	struct vfio_device *device = df->device;
+ EXPORT_SYMBOL_GPL(vfio_file_set_kvm);
  
--	vfio_device_group_close(df);
-+	if (df->group)
-+		vfio_device_group_close(df);
- 
- 	vfio_device_put_registration(device);
- 
-@@ -1212,6 +1223,7 @@ static int vfio_device_fops_mmap(struct file *filep, struct vm_area_struct *vma)
- 
- const struct file_operations vfio_device_fops = {
- 	.owner		= THIS_MODULE,
-+	.open		= vfio_device_fops_cdev_open,
- 	.release	= vfio_device_fops_release,
- 	.read		= vfio_device_fops_read,
- 	.write		= vfio_device_fops_write,
-@@ -1603,9 +1615,16 @@ static int __init vfio_init(void)
- 		goto err_dev_class;
- 	}
- 
-+	ret = vfio_cdev_init(vfio.device_class);
-+	if (ret)
-+		goto err_alloc_dev_chrdev;
++/**
++ * vfio_file_has_device_access - True if the file has opened device
++ * @file: VFIO device file
++ */
++bool vfio_file_has_device_access(struct file *file)
++{
++	struct vfio_device_file *df;
 +
- 	pr_info(DRIVER_DESC " version: " DRIVER_VERSION "\n");
- 	return 0;
- 
-+err_alloc_dev_chrdev:
-+	class_destroy(vfio.device_class);
-+	vfio.device_class = NULL;
- err_dev_class:
- 	vfio_virqfd_exit();
- err_virqfd:
-@@ -1616,6 +1635,7 @@ static int __init vfio_init(void)
- static void __exit vfio_cleanup(void)
- {
- 	ida_destroy(&vfio.device_ida);
-+	vfio_cdev_cleanup();
- 	class_destroy(vfio.device_class);
- 	vfio.device_class = NULL;
- 	vfio_virqfd_exit();
++	if (vfio_group_from_file(file) ||
++	    !vfio_device_from_file(file))
++		return false;
++
++	df = file->private_data;
++
++	return READ_ONCE(df->access_granted);
++}
++EXPORT_SYMBOL_GPL(vfio_file_has_device_access);
++
++/**
++ * vfio_file_has_dev - True if the VFIO file is a handle for device
++ * @file: VFIO file to check
++ * @device: Device that must be part of the file
++ *
++ * Returns true if given file has permission to manipulate the given device.
++ */
++bool vfio_file_has_dev(struct file *file, struct vfio_device *device)
++{
++	struct vfio_group *group;
++	struct vfio_device *vdev;
++
++	group = vfio_group_from_file(file);
++	if (group)
++		return vfio_group_has_dev(group, device);
++
++	vdev = vfio_device_from_file(file);
++	if (device)
++		return vdev == device;
++
++	return false;
++}
++EXPORT_SYMBOL_GPL(vfio_file_has_dev);
++
+ /*
+  * Sub-module support
+  */
 diff --git a/include/linux/vfio.h b/include/linux/vfio.h
-index 5a1c5b6f1a63..34adfcb5b7bd 100644
+index b14dcdd0b71f..1c69be2d687e 100644
 --- a/include/linux/vfio.h
 +++ b/include/linux/vfio.h
-@@ -13,6 +13,7 @@
- #include <linux/mm.h>
- #include <linux/workqueue.h>
- #include <linux/poll.h>
-+#include <linux/cdev.h>
- #include <uapi/linux/vfio.h>
- #include <linux/iova_bitmap.h>
+@@ -248,6 +248,7 @@ bool vfio_file_is_group(struct file *file);
+ bool vfio_file_is_valid(struct file *file);
+ bool vfio_file_enforced_coherent(struct file *file);
+ void vfio_file_set_kvm(struct file *file, struct kvm *kvm);
++bool vfio_file_has_device_access(struct file *file);
+ bool vfio_file_has_dev(struct file *file, struct vfio_device *device);
  
-@@ -51,6 +52,9 @@ struct vfio_device {
- 	/* Members below here are private, not for driver use */
- 	unsigned int index;
- 	struct device device;	/* device.kref covers object life circle */
-+#if IS_ENABLED(CONFIG_VFIO_DEVICE_CDEV)
-+	struct cdev cdev;
-+#endif
- 	refcount_t refcount;	/* user count on registered device*/
- 	unsigned int open_count;
- 	struct completion comp;
+ #define VFIO_PIN_PAGES_MAX_ENTRIES	(PAGE_SIZE/sizeof(unsigned long))
+diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
+index f96e5689cffc..d80141969cd1 100644
+--- a/include/uapi/linux/vfio.h
++++ b/include/uapi/linux/vfio.h
+@@ -679,7 +679,9 @@ struct vfio_pci_hot_reset_info {
+  * the calling user must ensure all affected devices, if opened, are
+  * owned by itself.
+  *
+- * The ownership is proved by an array of group fds.
++ * The ownership can be proved by:
++ *   - An array of group fds
++ *   - An array of device fds
+  *
+  * Return: 0 on success, -errno on failure.
+  */
+@@ -687,7 +689,7 @@ struct vfio_pci_hot_reset {
+ 	__u32	argsz;
+ 	__u32	flags;
+ 	__u32	count;
+-	__s32	group_fds[];
++	__s32	fds[];
+ };
+ 
+ #define VFIO_DEVICE_PCI_HOT_RESET	_IO(VFIO_TYPE, VFIO_BASE + 13)
 -- 
 2.34.1
 
