@@ -4,63 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ED0EC742A7
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 15:53:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AA64C74A44
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 15:53:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 073F310E635;
-	Wed,  8 Mar 2023 15:53:41 +0000 (UTC)
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
- [IPv6:2607:f8b0:4864:20::636])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA27310E630;
- Wed,  8 Mar 2023 15:53:39 +0000 (UTC)
-Received: by mail-pl1-x636.google.com with SMTP id p6so18139919plf.0;
- Wed, 08 Mar 2023 07:53:39 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30CAB10E623;
+	Wed,  8 Mar 2023 15:53:42 +0000 (UTC)
+Received: from mail-pj1-x1033.google.com (mail-pj1-x1033.google.com
+ [IPv6:2607:f8b0:4864:20::1033])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E3C310E62D;
+ Wed,  8 Mar 2023 15:53:36 +0000 (UTC)
+Received: by mail-pj1-x1033.google.com with SMTP id
+ u3-20020a17090a450300b00239db6d7d47so2169036pjg.4; 
+ Wed, 08 Mar 2023 07:53:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678290819;
+ d=gmail.com; s=20210112; t=1678290815;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=EbDlebxpAu8Jy85TzCfB9W36IqqFAcxu6Fybm4OXr4E=;
- b=ethz/tcwIqxFWg8rZBESWLcOnT61/jBqhZ80v/RzAbQGK9r71sa+/VkQDJQ0hy3kH+
- U+Fjw1NchSL9RPnrrB1wdh6tIP4BlONOBmM6iaVq2iwntSf6u0XRhCW498JKQWMCHFnR
- sUK6bxrJaxdKbLVowayRpYLDwtKOUPrDd5mxalopjtFm3hp+JSWX36YRFS55vc68xz88
- 7I9tq39ZkOTeOaBg3vLUx8cGb2B8ic0XTkmgpWnrfAgQtG/+Yv/VionLfPnX+jBL4EQS
- Gd89Z0mQTGAVzfJUdSLH4EttscP7iHcz73ZvNI3VRZA7/bAl5JyyD/Gm5tRcsYQ7RTpg
- LwVw==
+ bh=lcraofrhRDAdrHGa0UzQfcfeN59LkTANHVsK7xkfU0Q=;
+ b=hpCfI9KDoIpsurVFvi6JvaCUXX5V8whc+Mt2IXW2uSOKz1Q5dxdtHiQPVq9AM6tUPq
+ sCk6nrAsOY0qx5qi93O60+KSvFUlcqYXolDmY6IaV1mxU2SPBhwXNjArN22qgCeWCJJe
+ fSRxj7YAkbEoJg+AsCJxxqqPGDHWTusIaKafAqQARUTvnru8GsWdU19lLWZjfZMnLG5q
+ 2aGL4M/jwCBSO49iC5E4wCZyOeonSOiwMDtNWhIQAZqezZ/H8I9KLd5FmTgctqbptQGE
+ b0Jp2fx5HIZ7CuqdQOX1R9PbAc2Yj9x8cvWgU9S1PS2hlr985tWoNfwGVqQ33VOxtSUd
+ DmOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678290819;
+ d=1e100.net; s=20210112; t=1678290815;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=EbDlebxpAu8Jy85TzCfB9W36IqqFAcxu6Fybm4OXr4E=;
- b=d5Ohp1ln2hbAoRy+JvY0oRUDIJGzIxHmN2SbC1cEPC0X/O30oY0vqUANADr/NyrkNN
- tnxQd435pJd63lfsfR+WwOs42GqBvYMsUG6RxT0FUTPnyMyP0bFpqqIjDZJrKzXoTYvJ
- R8mRdEf1AryJEWaSaIdbG44mCcq8ThxpPVtv3b8nLlodbS8t0o2fdzTzo4IB83AzmxsC
- DqnHeuAv5RBSoJRu999tcNdnAWYpZCnHIGz8AIrU9eVr9Dk2vvTIAcvTwF5aFHyq/EdJ
- fiEISgWXyhxKux/mTgkJdsc85oME+r4t2ckuQbsChoqhRxzp6FxCSqgs9N1GJfaqb5CI
- klGA==
-X-Gm-Message-State: AO0yUKUiUx0Wvp+2RE5clC9ZF/8RkTT2/ibBYQtzHjjWsW9H5M7Lng+O
- QdI3GGV9a2QTxHgRrOEUFfSkpF4SzT8=
-X-Google-Smtp-Source: AK7set9ehM4kiJT0VFaO2tzlGH0SSkFEDrNpXRegxJcLPydnEdmlO2KUXBQAXEOBo017es2DfICPBA==
-X-Received: by 2002:a17:902:f54f:b0:19d:164e:5565 with SMTP id
- h15-20020a170902f54f00b0019d164e5565mr18271427plf.56.1678290819198; 
- Wed, 08 Mar 2023 07:53:39 -0800 (PST)
+ bh=lcraofrhRDAdrHGa0UzQfcfeN59LkTANHVsK7xkfU0Q=;
+ b=gkmlRI0AmeqC2cok/sJVKZlzvA42b5trtbHfDQGAk1WWwjTspL5oX0zMHuf6IybT9D
+ H4OFrUzbs1JpvIHxtOw2cQYeW4w7lCm7xDn1erbHx0w9TwrYnExgTg5wvxEZVT53dTNR
+ 8kcDDC9y7IwYCMHIuJqFLT3WsEMHxAdn2naAve8VM3WXH1xiMjKKBMugh/MqTtsAwdCs
+ sWddMf6GwMrjDRKmsh+VFW3vSURSW+dIIDpmOn2ur6rdIOPGUKUbSfgUbTBWs99taDQq
+ dBsQDAQ1G55RYCV3MCUl/VEQRZRLrLj94Jo0Nygz2Y9Gam7Jsm1YnhivLTmYH3aQH0+J
+ bWwQ==
+X-Gm-Message-State: AO0yUKVXYHEaGSr1tmbhDpWQF0qgviH9Qp1gmLBIuQpigVQLctZSSA2g
+ Ehim/ptLQQ1czxcWN5MNINqRGlAdM74=
+X-Google-Smtp-Source: AK7set/2eF5m88UMlszgcFp7cgo5yOQOxbJycIrpK9ko8JpPSABVkued0J6pMJtqfFLipyBKXl6Sjw==
+X-Received: by 2002:a17:903:22c5:b0:198:fded:3b69 with SMTP id
+ y5-20020a17090322c500b00198fded3b69mr23560954plg.53.1678290815231; 
+ Wed, 08 Mar 2023 07:53:35 -0800 (PST)
 Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
  by smtp.gmail.com with ESMTPSA id
- kd13-20020a17090313cd00b0019a8e559345sm8518732plb.167.2023.03.08.07.53.38
+ j7-20020a170902690700b001991942dde7sm9951550plk.125.2023.03.08.07.53.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Mar 2023 07:53:38 -0800 (PST)
+ Wed, 08 Mar 2023 07:53:34 -0800 (PST)
 From: Rob Clark <robdclark@gmail.com>
 To: dri-devel@lists.freedesktop.org
-Date: Wed,  8 Mar 2023 07:52:56 -0800
-Message-Id: <20230308155322.344664-6-robdclark@gmail.com>
+Date: Wed,  8 Mar 2023 07:52:54 -0800
+Message-Id: <20230308155322.344664-4-robdclark@gmail.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230308155322.344664-1-robdclark@gmail.com>
 References: <20230308155322.344664-1-robdclark@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 05/15] dma-buf/sync_file: Surface sync-file
- uABI
+Subject: [Intel-gfx] [PATCH v10 03/15] dma-buf/fence-chain: Add fence
+ deadline support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,153 +76,61 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Jonathan Corbet <corbet@lwn.net>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
  intel-gfx@lists.freedesktop.org, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
  open list <linux-kernel@vger.kernel.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
  "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
  Luben Tuikov <luben.tuikov@amd.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Gustavo Padovan <gustavo@padovan.org>, Matt Turner <mattst88@gmail.com>,
- freedreno@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+ freedreno@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "open list:SYNC FILE FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Rob Clark <robdclark@chromium.org>
 
-We had all of the internal driver APIs, but not the all important
-userspace uABI, in the dma-buf doc.  Fix that.  And re-arrange the
-comments slightly as otherwise the comments for the ioctl nr defines
-would not show up.
+Propagate the deadline to all the fences in the chain.
 
-v2: Fix docs build warning coming from newly including the uabi header
-    in the docs build
+v2: Use dma_fence_chain_contained [Tvrtko]
 
 Signed-off-by: Rob Clark <robdclark@chromium.org>
-Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+Reviewed-by: Christian König <christian.koenig@amd.com> for this one.
 ---
- Documentation/driver-api/dma-buf.rst | 10 ++++++--
- include/uapi/linux/sync_file.h       | 37 +++++++++++-----------------
- 2 files changed, 23 insertions(+), 24 deletions(-)
+ drivers/dma-buf/dma-fence-chain.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/Documentation/driver-api/dma-buf.rst b/Documentation/driver-api/dma-buf.rst
-index 183e480d8cea..ff3f8da296af 100644
---- a/Documentation/driver-api/dma-buf.rst
-+++ b/Documentation/driver-api/dma-buf.rst
-@@ -203,8 +203,8 @@ DMA Fence unwrap
- .. kernel-doc:: include/linux/dma-fence-unwrap.h
-    :internal:
+diff --git a/drivers/dma-buf/dma-fence-chain.c b/drivers/dma-buf/dma-fence-chain.c
+index a0d920576ba6..9663ba1bb6ac 100644
+--- a/drivers/dma-buf/dma-fence-chain.c
++++ b/drivers/dma-buf/dma-fence-chain.c
+@@ -206,6 +206,17 @@ static void dma_fence_chain_release(struct dma_fence *fence)
+ 	dma_fence_free(fence);
+ }
  
--DMA Fence uABI/Sync File
--~~~~~~~~~~~~~~~~~~~~~~~~
-+DMA Fence Sync File
-+~~~~~~~~~~~~~~~~~~~
- 
- .. kernel-doc:: drivers/dma-buf/sync_file.c
-    :export:
-@@ -212,6 +212,12 @@ DMA Fence uABI/Sync File
- .. kernel-doc:: include/linux/sync_file.h
-    :internal:
- 
-+DMA Fence Sync File uABI
-+~~~~~~~~~~~~~~~~~~~~~~~~
 +
-+.. kernel-doc:: include/uapi/linux/sync_file.h
-+   :internal:
++static void dma_fence_chain_set_deadline(struct dma_fence *fence,
++					 ktime_t deadline)
++{
++	dma_fence_chain_for_each(fence, fence) {
++		struct dma_fence *f = dma_fence_chain_contained(fence);
 +
- Indefinite DMA Fences
- ~~~~~~~~~~~~~~~~~~~~~
- 
-diff --git a/include/uapi/linux/sync_file.h b/include/uapi/linux/sync_file.h
-index ee2dcfb3d660..7e42a5b7558b 100644
---- a/include/uapi/linux/sync_file.h
-+++ b/include/uapi/linux/sync_file.h
-@@ -16,12 +16,16 @@
- #include <linux/types.h>
- 
- /**
-- * struct sync_merge_data - data passed to merge ioctl
-+ * struct sync_merge_data - SYNC_IOC_MERGE: merge two fences
-  * @name:	name of new fence
-  * @fd2:	file descriptor of second fence
-  * @fence:	returns the fd of the new fence to userspace
-  * @flags:	merge_data flags
-  * @pad:	padding for 64-bit alignment, should always be zero
-+ *
-+ * Creates a new fence containing copies of the sync_pts in both
-+ * the calling fd and sync_merge_data.fd2.  Returns the new fence's
-+ * fd in sync_merge_data.fence
-  */
- struct sync_merge_data {
- 	char	name[32];
-@@ -34,8 +38,8 @@ struct sync_merge_data {
- /**
-  * struct sync_fence_info - detailed fence information
-  * @obj_name:		name of parent sync_timeline
--* @driver_name:	name of driver implementing the parent
--* @status:		status of the fence 0:active 1:signaled <0:error
-+ * @driver_name:	name of driver implementing the parent
-+ * @status:		status of the fence 0:active 1:signaled <0:error
-  * @flags:		fence_info flags
-  * @timestamp_ns:	timestamp of status change in nanoseconds
-  */
-@@ -48,14 +52,19 @@ struct sync_fence_info {
++		dma_fence_set_deadline(f, deadline);
++	}
++}
++
+ const struct dma_fence_ops dma_fence_chain_ops = {
+ 	.use_64bit_seqno = true,
+ 	.get_driver_name = dma_fence_chain_get_driver_name,
+@@ -213,6 +224,7 @@ const struct dma_fence_ops dma_fence_chain_ops = {
+ 	.enable_signaling = dma_fence_chain_enable_signaling,
+ 	.signaled = dma_fence_chain_signaled,
+ 	.release = dma_fence_chain_release,
++	.set_deadline = dma_fence_chain_set_deadline,
  };
+ EXPORT_SYMBOL(dma_fence_chain_ops);
  
- /**
-- * struct sync_file_info - data returned from fence info ioctl
-+ * struct sync_file_info - SYNC_IOC_FILE_INFO: get detailed information on a sync_file
-  * @name:	name of fence
-  * @status:	status of fence. 1: signaled 0:active <0:error
-  * @flags:	sync_file_info flags
-  * @num_fences	number of fences in the sync_file
-  * @pad:	padding for 64-bit alignment, should always be zero
-- * @sync_fence_info: pointer to array of structs sync_fence_info with all
-+ * @sync_fence_info: pointer to array of struct &sync_fence_info with all
-  *		 fences in the sync_file
-+ *
-+ * Takes a struct sync_file_info. If num_fences is 0, the field is updated
-+ * with the actual number of fences. If num_fences is > 0, the system will
-+ * use the pointer provided on sync_fence_info to return up to num_fences of
-+ * struct sync_fence_info, with detailed fence information.
-  */
- struct sync_file_info {
- 	char	name[32];
-@@ -69,30 +78,14 @@ struct sync_file_info {
- 
- #define SYNC_IOC_MAGIC		'>'
- 
--/**
-+/*
-  * Opcodes  0, 1 and 2 were burned during a API change to avoid users of the
-  * old API to get weird errors when trying to handling sync_files. The API
-  * change happened during the de-stage of the Sync Framework when there was
-  * no upstream users available.
-  */
- 
--/**
-- * DOC: SYNC_IOC_MERGE - merge two fences
-- *
-- * Takes a struct sync_merge_data.  Creates a new fence containing copies of
-- * the sync_pts in both the calling fd and sync_merge_data.fd2.  Returns the
-- * new fence's fd in sync_merge_data.fence
-- */
- #define SYNC_IOC_MERGE		_IOWR(SYNC_IOC_MAGIC, 3, struct sync_merge_data)
--
--/**
-- * DOC: SYNC_IOC_FILE_INFO - get detailed information on a sync_file
-- *
-- * Takes a struct sync_file_info. If num_fences is 0, the field is updated
-- * with the actual number of fences. If num_fences is > 0, the system will
-- * use the pointer provided on sync_fence_info to return up to num_fences of
-- * struct sync_fence_info, with detailed fence information.
-- */
- #define SYNC_IOC_FILE_INFO	_IOWR(SYNC_IOC_MAGIC, 4, struct sync_file_info)
- 
- #endif /* _UAPI_LINUX_SYNC_H */
 -- 
 2.39.2
 
