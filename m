@@ -4,58 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F0E9C678D5
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 12:59:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 174ABC64EC4
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 13:13:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4938A10E5B4;
-	Wed,  8 Mar 2023 12:59:37 +0000 (UTC)
-Received: from mail-yb1-xb31.google.com (mail-yb1-xb31.google.com
- [IPv6:2607:f8b0:4864:20::b31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CC6F10E5C9
- for <intel-gfx@lists.freedesktop.org>; Wed,  8 Mar 2023 12:59:35 +0000 (UTC)
-Received: by mail-yb1-xb31.google.com with SMTP id v13so14513210ybu.0
- for <intel-gfx@lists.freedesktop.org>; Wed, 08 Mar 2023 04:59:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1678280375;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=vuZ96zJVKWNmZEH17q/c2pi8K6hjpfwOw4TxoGdfv5c=;
- b=gPNBiMVjt77oqXb/SLjJnEEh7TBZRE8kwzONEnLWHMZ9d+DDVtxz1vR2dwK4aGfC7u
- XnklS1yYklntt1gve4fRqRgPleMSJHBJENZrrGDnWBLRYupl6N8fVZ6Pn9RhAp6AIzOB
- DF7PSyLKbucxRWFv/Tn6PS1ziEQVC2ZGlbFcpeT67KI+qM59eo7AvbENQKqPm9cpliHo
- lssbDq5XjLiR3l3ZZei30Whe3yZ6AYTrZ4GNZC/JeJwtPAfmPecI51ZOuI6ul62A7xi+
- 4uKBmuQOorS+ZfirUsp3bCcoAKxftza0iShIPu2607tCyHSUGIPgVoU59j7aCGjCii4T
- +CEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678280375;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=vuZ96zJVKWNmZEH17q/c2pi8K6hjpfwOw4TxoGdfv5c=;
- b=U7IgGtu2q8gxLnTm/8TKVklYz9vA4t0zYd9lcI74CLgELMaOP+5vfAycKshjlfKBTa
- yp5DgX7JeQ4AKsb0uVBJZuNTgQqVmvK2O5PsqSIHTeItljVF/nuJleNQ19lQtl0nR/Mx
- qlsrnVXoWpKWFFoFMGYFvYBh0LAR4cphOKkOlIlN+rQj2lJ18QR6olXHJgZs0Nf0cQYe
- id/5eTp+fFw1B9yydXkE9+L9awWfWC21dBJ1P0du/j2tXkmg/Pr0RZFkEfPwu4chPbSO
- fymFscV675NZSOWlxN2J8Ps03PL4hzwv/UAP1JDNTL+okd8BLM/HLRT9+qDIGdEzrSkl
- 6biQ==
-X-Gm-Message-State: AO0yUKXmUgWk/3cGxZFdqT8vGDa2v2R7MvDFqnw3x23cpKTpztH2zTYa
- h0JxxQt34jyK/JCs1Sy3za/LD+EQXIi7vT42ZsnWtg==
-X-Google-Smtp-Source: AK7set+ZMDJIom1EJY7ctY0iU5XOeviK9nz4J/6dQRP8TvKmBP7sAwSlGgCZUz733434EvfAnl9/HgLhHN0BNRwzYOU=
-X-Received: by 2002:a25:9f84:0:b0:8ac:72e3:c743 with SMTP id
- u4-20020a259f84000000b008ac72e3c743mr1393881ybq.9.1678280374584; Wed, 08 Mar
- 2023 04:59:34 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABFD810E5D8;
+	Wed,  8 Mar 2023 13:13:53 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8ADA410E5D8;
+ Wed,  8 Mar 2023 13:13:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1678281232; x=1709817232;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=/7uHDLMJQYCvcCQ6zBOH4f4vyYcLAIgagJQ2fPM8N2Y=;
+ b=bwj0SczW3nN/qDtTw0/qO/MzYiLAqdnJJLP0w338dbN7p8iLZo2HSEVX
+ 7ePs9OF1LKw4sG4062EQ6//RORnZfk+kKmRtE+5P/miCh5wRtKo2BD7wx
+ e0aEagGWA/5K+Rxg7U1mQ+f+84sloeM5Kr3jL+9Eyzw8hsclZZ8viOvmi
+ BdFF3fR3c3NBmFgxk23+OT/50VKtDZ6qVwyQviUa+XL/PCzuaYdg8kqJ3
+ aa25xbZniZI8MbP3lilko6sEzWnHAuuOQtYAdWNuVmB5sXp0ioulFRF/p
+ c8tnc6xX0FPcv8faZ+t1snUQbmzWXGP7VBylII8seIJFCR+5vH55eCZ8S Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="338474809"
+X-IronPort-AV: E=Sophos;i="5.98,243,1673942400"; d="scan'208";a="338474809"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2023 05:13:47 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="670330907"
+X-IronPort-AV: E=Sophos;i="5.98,243,1673942400"; d="scan'208";a="670330907"
+Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
+ by orsmga007.jf.intel.com with ESMTP; 08 Mar 2023 05:13:42 -0800
+From: Yi Liu <yi.l.liu@intel.com>
+To: alex.williamson@redhat.com,
+	jgg@nvidia.com,
+	kevin.tian@intel.com
+Date: Wed,  8 Mar 2023 05:13:36 -0800
+Message-Id: <20230308131340.459224-2-yi.l.liu@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230308131340.459224-1-yi.l.liu@intel.com>
+References: <20230308131340.459224-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
-References: <20230307134901.322560-1-dmitry.baryshkov@linaro.org>
- <20230307134901.322560-7-dmitry.baryshkov@linaro.org>
- <874jqvczy1.fsf@intel.com>
-In-Reply-To: <874jqvczy1.fsf@intel.com>
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Date: Wed, 8 Mar 2023 14:59:23 +0200
-Message-ID: <CAA8EJprgvhS0YavBi2QfMLnkr+KhRge4FhfQz09ani794uYDcQ@mail.gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Intel-gfx] [PATCH v2 06/10] drm/display/dsc: split DSC 1.2 and
- DSC 1.1 (pre-SCR) parameters
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v1 1/5] iommufd: Create access in
+ vfio_iommufd_emulated_bind()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,330 +59,368 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Abhinav Kumar <quic_abhinavk@quicinc.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- freedreno@lists.freedesktop.org, David Airlie <airlied@gmail.com>
+Cc: linux-s390@vger.kernel.org, yi.l.liu@intel.com, yi.y.sun@linux.intel.com,
+ mjrosato@linux.ibm.com, kvm@vger.kernel.org,
+ intel-gvt-dev@lists.freedesktop.org, joro@8bytes.org, cohuck@redhat.com,
+ xudong.hao@intel.com, peterx@redhat.com, yan.y.zhao@intel.com,
+ eric.auger@redhat.com, terrence.xu@intel.com, nicolinc@nvidia.com,
+ shameerali.kolothum.thodi@huawei.com, suravee.suthikulpanit@amd.com,
+ intel-gfx@lists.freedesktop.org, chao.p.peng@linux.intel.com, lulu@redhat.com,
+ robin.murphy@arm.com, jasowang@redhat.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 8 Mar 2023 at 12:14, Jani Nikula <jani.nikula@linux.intel.com> wrote:
->
-> On Tue, 07 Mar 2023, Dmitry Baryshkov <dmitry.baryshkov@linaro.org> wrote:
-> > The array of rc_parameters contains a mixture of parameters from DSC 1.1
-> > and DSC 1.2 standards. Split these tow configuration arrays in
-> > preparation to adding more configuration data.
-> >
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-> > ---
-> >  drivers/gpu/drm/display/drm_dsc_helper.c  | 127 ++++++++++++++++++----
-> >  drivers/gpu/drm/i915/display/intel_vdsc.c |  10 +-
-> >  include/drm/display/drm_dsc_helper.h      |   7 +-
-> >  3 files changed, 119 insertions(+), 25 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/display/drm_dsc_helper.c b/drivers/gpu/drm/display/drm_dsc_helper.c
-> > index acb93d4116e0..35b39f3109c4 100644
-> > --- a/drivers/gpu/drm/display/drm_dsc_helper.c
-> > +++ b/drivers/gpu/drm/display/drm_dsc_helper.c
-> > @@ -324,11 +324,81 @@ struct rc_parameters_data {
-> >
-> >  #define DSC_BPP(bpp) ((bpp) << 4)
-> >
-> > +static const struct rc_parameters_data rc_parameters_pre_scr[] = {
-> > +     {
-> > +             .bpp = DSC_BPP(8), .bpc = 8,
-> > +             { 512, 12, 6144, 3, 12, 11, 11, {
-> > +                     { 0, 4, 2 }, { 0, 4, 0 }, { 1, 5, 0 }, { 1, 6, -2 },
-> > +                     { 3, 7, -4 }, { 3, 7, -6 }, { 3, 7, -8 }, { 3, 8, -8 },
-> > +                     { 3, 9, -8 }, { 3, 10, -10 }, { 5, 11, -10 }, { 5, 12, -12 },
-> > +                     { 5, 13, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
-> > +                     }
-> > +             }
-> > +     },
-> > +     {
-> > +             .bpp = DSC_BPP(8), .bpc = 10,
-> > +             { 512, 12, 6144, 7, 16, 15, 15, {
-> > +                     /*
-> > +                      * DSC model/pre-SCR-cfg has 8 for range_max_qp[0], however
-> > +                      * VESA DSC 1.1 Table E-5 sets it to 4.
-> > +                      */
-> > +                     { 0, 4, 2 }, { 4, 8, 0 }, { 5, 9, 0 }, { 5, 10, -2 },
-> > +                     { 7, 11, -4 }, { 7, 11, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
-> > +                     { 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
-> > +                     { 9, 17, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
-> > +                     }
-> > +             }
-> > +     },
-> > +     {
-> > +             .bpp = DSC_BPP(8), .bpc = 12,
-> > +             { 512, 12, 6144, 11, 20, 19, 19, {
-> > +                     { 0, 12, 2 }, { 4, 12, 0 }, { 9, 13, 0 }, { 9, 14, -2 },
-> > +                     { 11, 15, -4 }, { 11, 15, -6 }, { 11, 15, -8 }, { 11, 16, -8 },
-> > +                     { 11, 17, -8 }, { 11, 18, -10 }, { 13, 19, -10 },
-> > +                     { 13, 20, -12 }, { 13, 21, -12 }, { 15, 21, -12 },
-> > +                     { 21, 23, -12 }
-> > +                     }
-> > +             }
-> > +     },
-> > +     {
-> > +             .bpp = DSC_BPP(12), .bpc = 8,
-> > +             { 341, 15, 2048, 3, 12, 11, 11, {
-> > +                     { 0, 2, 2 }, { 0, 4, 0 }, { 1, 5, 0 }, { 1, 6, -2 },
-> > +                     { 3, 7, -4 }, { 3, 7, -6 }, { 3, 7, -8 }, { 3, 8, -8 },
-> > +                     { 3, 9, -8 }, { 3, 10, -10 }, { 5, 11, -10 },
-> > +                     { 5, 12, -12 }, { 5, 13, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
-> > +                     }
-> > +             }
-> > +     },
-> > +     {
-> > +             .bpp = DSC_BPP(12), .bpc = 10,
-> > +             { 341, 15, 2048, 7, 16, 15, 15, {
-> > +                     { 0, 2, 2 }, { 2, 5, 0 }, { 3, 7, 0 }, { 4, 8, -2 },
-> > +                     { 6, 9, -4 }, { 7, 10, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
-> > +                     { 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
-> > +                     { 9, 17, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
-> > +                     }
-> > +             }
-> > +     },
-> > +     {
-> > +             .bpp = DSC_BPP(12), .bpc = 12,
-> > +             { 341, 15, 2048, 11, 20, 19, 19, {
-> > +                     { 0, 6, 2 }, { 4, 9, 0 }, { 7, 11, 0 }, { 8, 12, -2 },
-> > +                     { 10, 13, -4 }, { 11, 14, -6 }, { 11, 15, -8 }, { 11, 16, -8 },
-> > +                     { 11, 17, -8 }, { 11, 18, -10 }, { 13, 19, -10 },
-> > +                     { 13, 20, -12 }, { 13, 21, -12 }, { 15, 21, -12 },
-> > +                     { 21, 23, -12 }
-> > +                     }
-> > +             }
-> > +     },
-> > +     { /* sentinel */ }
-> > +};
-> > +
-> >  /*
-> >   * Selected Rate Control Related Parameter Recommended Values
-> >   * from DSC_v1.11 spec & C Model release: DSC_model_20161212
-> >   */
->
-> The comment is no longer accurate, is it?
+From: Nicolin Chen <nicolinc@nvidia.com>
 
-Ugh, yes. it is no longer DSC 1.1. I cross-checked, the rc*cfg files
-are the same between 20161212 and 20210623
+There are needs to created iommufd_access prior to have an IOAS and set
+IOAS later. Like the vfio device cdev needs to have an iommufd object
+to represent the bond (iommufd_access) and IOAS replacement.
 
->
-> There are various ways to determine the parameters to use. There's even
-> an application note "VESA DSC v1.2a Guidance on Deriving DSC Rate
-> Control Parameters" that lists the options. They are all valid and
-> should "provide visually lossless quality".
->
-> Would it be simplest to always use the C model parameters in the tables
-> here, referencing the zip file name with date above each table? That
-> could at least be consistent, and drivers could override parameters
-> using other methods if they desire. And it would be easiest to review.
+This moves iommufd_access_create() call into vfio_iommufd_emulated_bind(),
+making it symmetric with the __vfio_iommufd_access_destroy() call in
+vfio_iommufd_emulated_unbind(). This means an access is created/destroyed
+by the bind()/unbind(), and the vfio_iommufd_emulated_attach_ioas() only
+updates the access->ioas pointer.
 
-Do you mean the calculated RC parameters? As I mentioned in another
-email, it is at least worth investigating. I haven't looked into that,
-as my primary goal (driven by the forthcoming drm/msm needs) were the
-.cfg tables. I targeted cleaning up the simplest path to reduce
-duplication (see [1]). Anyway, with the proposed patches we have the
-API, which tells nothing about the way it fills out the RC tables.
-They can be based on top of the cfg files (method 2) or calculated
-(methods 3, 4).
+Since there's no longer an ioas_id input for iommufd_access_create(), add
+a new helper iommufd_access_set_ioas() to set access->ioas. We can later
+add a "replace" feature simply to the new iommufd_access_set_ioas() too.
 
-[1] https://patchwork.freedesktop.org/patch/524051/?series=114355&rev=1
+Leaving the access->ioas in vfio_iommufd_emulated_attach_ioas(), however,
+can introduce some potential of a race condition during pin_/unpin_pages()
+call where access->ioas->iopt is getting referenced. So, add an ioas_lock
+to protect it.
 
->
-> I'm having a hard time finding time to review all this in a timely
-> fashion. Would be good to try to get other folks to review the rest,
-> it's really not very i915 specific anyway. In the mean time I think
-> patches 1-5 are okay to merge via drm-misc.
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+Signed-off-by: Yi Liu <yi.l.liu@intel.com>
+---
+ drivers/iommu/iommufd/device.c          | 103 ++++++++++++++++++------
+ drivers/iommu/iommufd/iommufd_private.h |   1 +
+ drivers/iommu/iommufd/selftest.c        |   5 +-
+ drivers/vfio/iommufd.c                  |  23 +++---
+ include/linux/iommufd.h                 |   3 +-
+ 5 files changed, 100 insertions(+), 35 deletions(-)
 
-For reference, the tables here are a direct conversion of the rc*cfg
-files found in the DSC model. If you wish, I can post the program that
-I used to convert these files into C arrays. Will that help the
-review?
-
->
-> BR,
-> Jani.
->
-> > -static const struct rc_parameters_data rc_parameters[] = {
-> > +static const struct rc_parameters_data rc_parameters_1_2_444[] = {
-> >       {
-> >               .bpp = DSC_BPP(6), .bpc = 8,
-> >               { 768, 15, 6144, 3, 13, 11, 11, {
-> > @@ -388,22 +458,18 @@ static const struct rc_parameters_data rc_parameters[] = {
-> >               { 512, 12, 6144, 3, 12, 11, 11, {
-> >                       { 0, 4, 2 }, { 0, 4, 0 }, { 1, 5, 0 }, { 1, 6, -2 },
-> >                       { 3, 7, -4 }, { 3, 7, -6 }, { 3, 7, -8 }, { 3, 8, -8 },
-> > -                     { 3, 9, -8 }, { 3, 10, -10 }, { 5, 11, -10 }, { 5, 12, -12 },
-> > -                     { 5, 13, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
-> > +                     { 3, 9, -8 }, { 3, 10, -10 }, { 5, 10, -10 }, { 5, 11, -12 },
-> > +                     { 5, 11, -12 }, { 9, 12, -12 }, { 12, 13, -12 }
-> >                       }
-> >               }
-> >       },
-> >       {
-> >               .bpp = DSC_BPP(8), .bpc = 10,
-> >               { 512, 12, 6144, 7, 16, 15, 15, {
-> > -                     /*
-> > -                      * DSC model/pre-SCR-cfg has 8 for range_max_qp[0], however
-> > -                      * VESA DSC 1.1 Table E-5 sets it to 4.
-> > -                      */
-> > -                     { 0, 4, 2 }, { 4, 8, 0 }, { 5, 9, 0 }, { 5, 10, -2 },
-> > +                     { 0, 8, 2 }, { 4, 8, 0 }, { 5, 9, 0 }, { 5, 10, -2 },
-> >                       { 7, 11, -4 }, { 7, 11, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
-> > -                     { 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
-> > -                     { 9, 17, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
-> > +                     { 7, 13, -8 }, { 7, 14, -10 }, { 9, 14, -10 }, { 9, 15, -12 },
-> > +                     { 9, 15, -12 }, { 13, 16, -12 }, { 16, 17, -12 }
-> >                       }
-> >               }
-> >       },
-> > @@ -412,9 +478,9 @@ static const struct rc_parameters_data rc_parameters[] = {
-> >               { 512, 12, 6144, 11, 20, 19, 19, {
-> >                       { 0, 12, 2 }, { 4, 12, 0 }, { 9, 13, 0 }, { 9, 14, -2 },
-> >                       { 11, 15, -4 }, { 11, 15, -6 }, { 11, 15, -8 }, { 11, 16, -8 },
-> > -                     { 11, 17, -8 }, { 11, 18, -10 }, { 13, 19, -10 },
-> > -                     { 13, 20, -12 }, { 13, 21, -12 }, { 15, 21, -12 },
-> > -                     { 21, 23, -12 }
-> > +                     { 11, 17, -8 }, { 11, 18, -10 }, { 13, 18, -10 },
-> > +                     { 13, 19, -12 }, { 13, 19, -12 }, { 17, 20, -12 },
-> > +                     { 20, 21, -12 }
-> >                       }
-> >               }
-> >       },
-> > @@ -498,8 +564,8 @@ static const struct rc_parameters_data rc_parameters[] = {
-> >               { 341, 15, 2048, 3, 12, 11, 11, {
-> >                       { 0, 2, 2 }, { 0, 4, 0 }, { 1, 5, 0 }, { 1, 6, -2 },
-> >                       { 3, 7, -4 }, { 3, 7, -6 }, { 3, 7, -8 }, { 3, 8, -8 },
-> > -                     { 3, 9, -8 }, { 3, 10, -10 }, { 5, 11, -10 },
-> > -                     { 5, 12, -12 }, { 5, 13, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
-> > +                     { 3, 8, -8 }, { 3, 9, -10 }, { 5, 9, -10 }, { 5, 9, -12 },
-> > +                     { 5, 9, -12 }, { 7, 10, -12 }, { 10, 11, -12 }
-> >                       }
-> >               }
-> >       },
-> > @@ -508,8 +574,8 @@ static const struct rc_parameters_data rc_parameters[] = {
-> >               { 341, 15, 2048, 7, 16, 15, 15, {
-> >                       { 0, 2, 2 }, { 2, 5, 0 }, { 3, 7, 0 }, { 4, 8, -2 },
-> >                       { 6, 9, -4 }, { 7, 10, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
-> > -                     { 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
-> > -                     { 9, 17, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
-> > +                     { 7, 12, -8 }, { 7, 13, -10 }, { 9, 13, -10 }, { 9, 13, -12 },
-> > +                     { 9, 13, -12 }, { 11, 14, -12 }, { 14, 15, -12 }
-> >                       }
-> >               }
-> >       },
-> > @@ -518,9 +584,9 @@ static const struct rc_parameters_data rc_parameters[] = {
-> >               { 341, 15, 2048, 11, 20, 19, 19, {
-> >                       { 0, 6, 2 }, { 4, 9, 0 }, { 7, 11, 0 }, { 8, 12, -2 },
-> >                       { 10, 13, -4 }, { 11, 14, -6 }, { 11, 15, -8 }, { 11, 16, -8 },
-> > -                     { 11, 17, -8 }, { 11, 18, -10 }, { 13, 19, -10 },
-> > -                     { 13, 20, -12 }, { 13, 21, -12 }, { 15, 21, -12 },
-> > -                     { 21, 23, -12 }
-> > +                     { 11, 16, -8 }, { 11, 17, -10 }, { 13, 17, -10 },
-> > +                     { 13, 17, -12 }, { 13, 17, -12 }, { 15, 18, -12 },
-> > +                     { 18, 19, -12 }
-> >                       }
-> >               }
-> >       },
-> > @@ -602,7 +668,8 @@ static const struct rc_parameters_data rc_parameters[] = {
-> >       { /* sentinel */ }
-> >  };
-> >
-> > -static const struct rc_parameters *get_rc_params(u16 dsc_bpp,
-> > +static const struct rc_parameters *get_rc_params(const struct rc_parameters_data *rc_parameters,
-> > +                                              u16 dsc_bpp,
-> >                                                u8 bits_per_component)
-> >  {
-> >       int i;
-> > @@ -622,11 +689,13 @@ static const struct rc_parameters *get_rc_params(u16 dsc_bpp,
-> >   * function.
-> >   *
-> >   * @vdsc_cfg: DSC Configuration data partially filled by driver
-> > + * @kind: operating mode and standard to follow
-> >   *
-> >   * Return: 0 or -error code in case of an error
-> >   */
-> > -int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg)
-> > +int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg, enum drm_dsc_params_kind kind)
-> >  {
-> > +     const struct rc_parameters_data *data;
-> >       const struct rc_parameters *rc_params;
-> >       int i;
-> >
-> > @@ -634,7 +703,19 @@ int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg)
-> >                        !vdsc_cfg->bits_per_component))
-> >               return -EINVAL;
-> >
-> > -     rc_params = get_rc_params(vdsc_cfg->bits_per_pixel,
-> > +     switch (kind) {
-> > +     case DRM_DSC_1_2_444:
-> > +             data = rc_parameters_1_2_444;
-> > +             break;
-> > +     case DRM_DSC_1_1_PRE_SCR:
-> > +             data = rc_parameters_pre_scr;
-> > +             break;
-> > +     default:
-> > +             return -EINVAL;
-> > +     }
-> > +
-> > +     rc_params = get_rc_params(data,
-> > +                               vdsc_cfg->bits_per_pixel,
-> >                                 vdsc_cfg->bits_per_component);
-> >       if (!rc_params)
-> >               return -EINVAL;
-> > diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-> > index 20a4c2f343fe..a4d1d2ba71bb 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-> > @@ -157,7 +157,15 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
-> >       if (DISPLAY_VER(dev_priv) >= 13) {
-> >               calculate_rc_params(vdsc_cfg);
-> >       } else {
-> > -             ret = drm_dsc_setup_rc_params(vdsc_cfg);
-> > +             if ((compressed_bpp == 8 ||
-> > +                  compressed_bpp == 12) &&
-> > +                 (vdsc_cfg->bits_per_component == 8 ||
-> > +                  vdsc_cfg->bits_per_component == 10 ||
-> > +                  vdsc_cfg->bits_per_component == 12))
-> > +                     ret = drm_dsc_setup_rc_params(vdsc_cfg, DRM_DSC_1_1_PRE_SCR);
-> > +             else
-> > +                     ret = drm_dsc_setup_rc_params(vdsc_cfg, DRM_DSC_1_2_444);
-> > +
-> >               if (ret)
-> >                       return ret;
-> >
-> > diff --git a/include/drm/display/drm_dsc_helper.h b/include/drm/display/drm_dsc_helper.h
-> > index 1681791f65a5..c634bb2935d3 100644
-> > --- a/include/drm/display/drm_dsc_helper.h
-> > +++ b/include/drm/display/drm_dsc_helper.h
-> > @@ -10,12 +10,17 @@
-> >
-> >  #include <drm/display/drm_dsc.h>
-> >
-> > +enum drm_dsc_params_kind {
-> > +     DRM_DSC_1_2_444,
-> > +     DRM_DSC_1_1_PRE_SCR, /* legacy params from DSC 1.1 */
-> > +};
-> > +
-> >  void drm_dsc_dp_pps_header_init(struct dp_sdp_header *pps_header);
-> >  int drm_dsc_dp_rc_buffer_size(u8 rc_buffer_block_size, u8 rc_buffer_size);
-> >  void drm_dsc_pps_payload_pack(struct drm_dsc_picture_parameter_set *pps_sdp,
-> >                             const struct drm_dsc_config *dsc_cfg);
-> >  void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg);
-> > -int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg);
-> > +int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg, enum drm_dsc_params_kind kind);
-> >  int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg);
-> >
-> >  #endif /* _DRM_DSC_HELPER_H_ */
->
-> --
-> Jani Nikula, Intel Open Source Graphics Center
-
-
-
+diff --git a/drivers/iommu/iommufd/device.c b/drivers/iommu/iommufd/device.c
+index a0c66f47a65a..71c4d38994b3 100644
+--- a/drivers/iommu/iommufd/device.c
++++ b/drivers/iommu/iommufd/device.c
+@@ -412,9 +412,12 @@ void iommufd_access_destroy_object(struct iommufd_object *obj)
+ 	struct iommufd_access *access =
+ 		container_of(obj, struct iommufd_access, obj);
+ 
+-	iopt_remove_access(&access->ioas->iopt, access);
++	if (access->ioas) {
++		iopt_remove_access(&access->ioas->iopt, access);
++		refcount_dec(&access->ioas->obj.users);
++	}
+ 	iommufd_ctx_put(access->ictx);
+-	refcount_dec(&access->ioas->obj.users);
++	mutex_destroy(&access->ioas_lock);
+ }
+ 
+ /**
+@@ -431,12 +434,10 @@ void iommufd_access_destroy_object(struct iommufd_object *obj)
+  * The provided ops are required to use iommufd_access_pin_pages().
+  */
+ struct iommufd_access *
+-iommufd_access_create(struct iommufd_ctx *ictx, u32 ioas_id,
++iommufd_access_create(struct iommufd_ctx *ictx,
+ 		      const struct iommufd_access_ops *ops, void *data)
+ {
+ 	struct iommufd_access *access;
+-	struct iommufd_object *obj;
+-	int rc;
+ 
+ 	/*
+ 	 * There is no uAPI for the access object, but to keep things symmetric
+@@ -449,33 +450,18 @@ iommufd_access_create(struct iommufd_ctx *ictx, u32 ioas_id,
+ 	access->data = data;
+ 	access->ops = ops;
+ 
+-	obj = iommufd_get_object(ictx, ioas_id, IOMMUFD_OBJ_IOAS);
+-	if (IS_ERR(obj)) {
+-		rc = PTR_ERR(obj);
+-		goto out_abort;
+-	}
+-	access->ioas = container_of(obj, struct iommufd_ioas, obj);
+-	iommufd_ref_to_users(obj);
+-
+ 	if (ops->needs_pin_pages)
+ 		access->iova_alignment = PAGE_SIZE;
+ 	else
+ 		access->iova_alignment = 1;
+-	rc = iopt_add_access(&access->ioas->iopt, access);
+-	if (rc)
+-		goto out_put_ioas;
+ 
+ 	/* The calling driver is a user until iommufd_access_destroy() */
+ 	refcount_inc(&access->obj.users);
++	mutex_init(&access->ioas_lock);
+ 	access->ictx = ictx;
+ 	iommufd_ctx_get(ictx);
+ 	iommufd_object_finalize(ictx, &access->obj);
+ 	return access;
+-out_put_ioas:
+-	refcount_dec(&access->ioas->obj.users);
+-out_abort:
+-	iommufd_object_abort(ictx, &access->obj);
+-	return ERR_PTR(rc);
+ }
+ EXPORT_SYMBOL_NS_GPL(iommufd_access_create, IOMMUFD);
+ 
+@@ -494,6 +480,50 @@ void iommufd_access_destroy(struct iommufd_access *access)
+ }
+ EXPORT_SYMBOL_NS_GPL(iommufd_access_destroy, IOMMUFD);
+ 
++int iommufd_access_set_ioas(struct iommufd_access *access, u32 ioas_id)
++{
++	struct iommufd_ioas *new_ioas = NULL, *cur_ioas;
++	struct iommufd_ctx *ictx = access->ictx;
++	struct iommufd_object *obj;
++	int rc = 0;
++
++	if (ioas_id) {
++		obj = iommufd_get_object(ictx, ioas_id, IOMMUFD_OBJ_IOAS);
++		if (IS_ERR(obj))
++			return PTR_ERR(obj);
++		new_ioas = container_of(obj, struct iommufd_ioas, obj);
++	}
++
++	mutex_lock(&access->ioas_lock);
++	cur_ioas = access->ioas;
++	if (cur_ioas == new_ioas)
++		goto out_unlock;
++
++	if (new_ioas) {
++		rc = iopt_add_access(&new_ioas->iopt, access);
++		if (rc)
++			goto out_unlock;
++		iommufd_ref_to_users(obj);
++	}
++
++	if (cur_ioas) {
++		iopt_remove_access(&cur_ioas->iopt, access);
++		refcount_dec(&cur_ioas->obj.users);
++	}
++
++	access->ioas = new_ioas;
++	mutex_unlock(&access->ioas_lock);
++
++	return 0;
++
++out_unlock:
++	mutex_unlock(&access->ioas_lock);
++	if (new_ioas)
++		iommufd_put_object(obj);
++	return rc;
++}
++EXPORT_SYMBOL_NS_GPL(iommufd_access_set_ioas, IOMMUFD);
++
+ /**
+  * iommufd_access_notify_unmap - Notify users of an iopt to stop using it
+  * @iopt: iopt to work on
+@@ -544,8 +574,8 @@ void iommufd_access_notify_unmap(struct io_pagetable *iopt, unsigned long iova,
+ void iommufd_access_unpin_pages(struct iommufd_access *access,
+ 				unsigned long iova, unsigned long length)
+ {
+-	struct io_pagetable *iopt = &access->ioas->iopt;
+ 	struct iopt_area_contig_iter iter;
++	struct io_pagetable *iopt;
+ 	unsigned long last_iova;
+ 	struct iopt_area *area;
+ 
+@@ -553,6 +583,13 @@ void iommufd_access_unpin_pages(struct iommufd_access *access,
+ 	    WARN_ON(check_add_overflow(iova, length - 1, &last_iova)))
+ 		return;
+ 
++	mutex_lock(&access->ioas_lock);
++	if (!access->ioas) {
++		mutex_unlock(&access->ioas_lock);
++		return;
++	}
++	iopt = &access->ioas->iopt;
++
+ 	down_read(&iopt->iova_rwsem);
+ 	iopt_for_each_contig_area(&iter, area, iopt, iova, last_iova)
+ 		iopt_area_remove_access(
+@@ -562,6 +599,7 @@ void iommufd_access_unpin_pages(struct iommufd_access *access,
+ 				min(last_iova, iopt_area_last_iova(area))));
+ 	up_read(&iopt->iova_rwsem);
+ 	WARN_ON(!iopt_area_contig_done(&iter));
++	mutex_unlock(&access->ioas_lock);
+ }
+ EXPORT_SYMBOL_NS_GPL(iommufd_access_unpin_pages, IOMMUFD);
+ 
+@@ -607,8 +645,8 @@ int iommufd_access_pin_pages(struct iommufd_access *access, unsigned long iova,
+ 			     unsigned long length, struct page **out_pages,
+ 			     unsigned int flags)
+ {
+-	struct io_pagetable *iopt = &access->ioas->iopt;
+ 	struct iopt_area_contig_iter iter;
++	struct io_pagetable *iopt;
+ 	unsigned long last_iova;
+ 	struct iopt_area *area;
+ 	int rc;
+@@ -623,6 +661,13 @@ int iommufd_access_pin_pages(struct iommufd_access *access, unsigned long iova,
+ 	if (check_add_overflow(iova, length - 1, &last_iova))
+ 		return -EOVERFLOW;
+ 
++	mutex_lock(&access->ioas_lock);
++	if (!access->ioas) {
++		mutex_unlock(&access->ioas_lock);
++		return -ENOENT;
++	}
++	iopt = &access->ioas->iopt;
++
+ 	down_read(&iopt->iova_rwsem);
+ 	iopt_for_each_contig_area(&iter, area, iopt, iova, last_iova) {
+ 		unsigned long last = min(last_iova, iopt_area_last_iova(area));
+@@ -653,6 +698,7 @@ int iommufd_access_pin_pages(struct iommufd_access *access, unsigned long iova,
+ 	}
+ 
+ 	up_read(&iopt->iova_rwsem);
++	mutex_unlock(&access->ioas_lock);
+ 	return 0;
+ 
+ err_remove:
+@@ -667,6 +713,7 @@ int iommufd_access_pin_pages(struct iommufd_access *access, unsigned long iova,
+ 						  iopt_area_last_iova(area))));
+ 	}
+ 	up_read(&iopt->iova_rwsem);
++	mutex_unlock(&access->ioas_lock);
+ 	return rc;
+ }
+ EXPORT_SYMBOL_NS_GPL(iommufd_access_pin_pages, IOMMUFD);
+@@ -686,8 +733,8 @@ EXPORT_SYMBOL_NS_GPL(iommufd_access_pin_pages, IOMMUFD);
+ int iommufd_access_rw(struct iommufd_access *access, unsigned long iova,
+ 		      void *data, size_t length, unsigned int flags)
+ {
+-	struct io_pagetable *iopt = &access->ioas->iopt;
+ 	struct iopt_area_contig_iter iter;
++	struct io_pagetable *iopt;
+ 	struct iopt_area *area;
+ 	unsigned long last_iova;
+ 	int rc;
+@@ -697,6 +744,13 @@ int iommufd_access_rw(struct iommufd_access *access, unsigned long iova,
+ 	if (check_add_overflow(iova, length - 1, &last_iova))
+ 		return -EOVERFLOW;
+ 
++	mutex_lock(&access->ioas_lock);
++	if (!access->ioas) {
++		mutex_unlock(&access->ioas_lock);
++		return -ENOENT;
++	}
++	iopt = &access->ioas->iopt;
++
+ 	down_read(&iopt->iova_rwsem);
+ 	iopt_for_each_contig_area(&iter, area, iopt, iova, last_iova) {
+ 		unsigned long last = min(last_iova, iopt_area_last_iova(area));
+@@ -723,6 +777,7 @@ int iommufd_access_rw(struct iommufd_access *access, unsigned long iova,
+ 		rc = -ENOENT;
+ err_out:
+ 	up_read(&iopt->iova_rwsem);
++	mutex_unlock(&access->ioas_lock);
+ 	return rc;
+ }
+ EXPORT_SYMBOL_NS_GPL(iommufd_access_rw, IOMMUFD);
+diff --git a/drivers/iommu/iommufd/iommufd_private.h b/drivers/iommu/iommufd/iommufd_private.h
+index 9d7f71510ca1..820251b83ae4 100644
+--- a/drivers/iommu/iommufd/iommufd_private.h
++++ b/drivers/iommu/iommufd/iommufd_private.h
+@@ -263,6 +263,7 @@ struct iommufd_access {
+ 	struct iommufd_object obj;
+ 	struct iommufd_ctx *ictx;
+ 	struct iommufd_ioas *ioas;
++	struct mutex ioas_lock;
+ 	const struct iommufd_access_ops *ops;
+ 	void *data;
+ 	unsigned long iova_alignment;
+diff --git a/drivers/iommu/iommufd/selftest.c b/drivers/iommu/iommufd/selftest.c
+index cfb5fe9a5e0e..db4011bdc8a9 100644
+--- a/drivers/iommu/iommufd/selftest.c
++++ b/drivers/iommu/iommufd/selftest.c
+@@ -571,7 +571,7 @@ static int iommufd_test_create_access(struct iommufd_ucmd *ucmd,
+ 	}
+ 
+ 	access = iommufd_access_create(
+-		ucmd->ictx, ioas_id,
++		ucmd->ictx,
+ 		(flags & MOCK_FLAGS_ACCESS_CREATE_NEEDS_PIN_PAGES) ?
+ 			&selftest_access_ops_pin :
+ 			&selftest_access_ops,
+@@ -580,6 +580,9 @@ static int iommufd_test_create_access(struct iommufd_ucmd *ucmd,
+ 		rc = PTR_ERR(access);
+ 		goto out_put_fdno;
+ 	}
++	rc = iommufd_access_set_ioas(access, ioas_id);
++	if (rc)
++		goto out_destroy;
+ 	cmd->create_access.out_access_fd = fdno;
+ 	rc = iommufd_ucmd_respond(ucmd, sizeof(*cmd));
+ 	if (rc)
+diff --git a/drivers/vfio/iommufd.c b/drivers/vfio/iommufd.c
+index db4efbd56042..1f87294c1931 100644
+--- a/drivers/vfio/iommufd.c
++++ b/drivers/vfio/iommufd.c
+@@ -138,10 +138,18 @@ static const struct iommufd_access_ops vfio_user_ops = {
+ int vfio_iommufd_emulated_bind(struct vfio_device *vdev,
+ 			       struct iommufd_ctx *ictx, u32 *out_device_id)
+ {
++	struct iommufd_access *user;
++
+ 	lockdep_assert_held(&vdev->dev_set->lock);
+ 
+-	vdev->iommufd_ictx = ictx;
+ 	iommufd_ctx_get(ictx);
++	user = iommufd_access_create(ictx, &vfio_user_ops, vdev);
++	if (IS_ERR(user)) {
++		iommufd_ctx_put(ictx);
++		return PTR_ERR(user);
++	}
++	vdev->iommufd_access = user;
++	vdev->iommufd_ictx = ictx;
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(vfio_iommufd_emulated_bind);
+@@ -161,15 +169,12 @@ EXPORT_SYMBOL_GPL(vfio_iommufd_emulated_unbind);
+ 
+ int vfio_iommufd_emulated_attach_ioas(struct vfio_device *vdev, u32 *pt_id)
+ {
+-	struct iommufd_access *user;
+-
+ 	lockdep_assert_held(&vdev->dev_set->lock);
+ 
+-	user = iommufd_access_create(vdev->iommufd_ictx, *pt_id, &vfio_user_ops,
+-				     vdev);
+-	if (IS_ERR(user))
+-		return PTR_ERR(user);
+-	vdev->iommufd_access = user;
+-	return 0;
++	if (!vdev->iommufd_ictx)
++		return -EINVAL;
++	if (!vdev->iommufd_access)
++		return -ENOENT;
++	return iommufd_access_set_ioas(vdev->iommufd_access, *pt_id);
+ }
+ EXPORT_SYMBOL_GPL(vfio_iommufd_emulated_attach_ioas);
+diff --git a/include/linux/iommufd.h b/include/linux/iommufd.h
+index c0b5b3ac34f1..247b11609c79 100644
+--- a/include/linux/iommufd.h
++++ b/include/linux/iommufd.h
+@@ -40,9 +40,10 @@ enum {
+ };
+ 
+ struct iommufd_access *
+-iommufd_access_create(struct iommufd_ctx *ictx, u32 ioas_id,
++iommufd_access_create(struct iommufd_ctx *ictx,
+ 		      const struct iommufd_access_ops *ops, void *data);
+ void iommufd_access_destroy(struct iommufd_access *access);
++int iommufd_access_set_ioas(struct iommufd_access *access, u32 ioas_id);
+ 
+ void iommufd_ctx_get(struct iommufd_ctx *ictx);
+ 
 -- 
-With best wishes
-Dmitry
+2.34.1
+
