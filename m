@@ -4,34 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3AC5C6FA99
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 02:26:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BC3AC64EC4
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 05:33:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5E1710E130;
-	Wed,  8 Mar 2023 02:26:21 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A438A10E130;
- Wed,  8 Mar 2023 02:26:19 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D395E615F8;
- Wed,  8 Mar 2023 02:26:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60965C433D2;
- Wed,  8 Mar 2023 02:26:17 +0000 (UTC)
-Date: Tue, 7 Mar 2023 21:26:15 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: LKML <linux-kernel@vger.kernel.org>, Linus Torvalds
- <torvalds@linux-foundation.org>
-Message-ID: <20230307212615.7a099103@gandalf.local.home>
-In-Reply-To: <20230307212223.7e49384a@gandalf.local.home>
-References: <20230307212223.7e49384a@gandalf.local.home>
-X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 837C610E309;
+	Wed,  8 Mar 2023 05:33:28 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2725910E309;
+ Wed,  8 Mar 2023 05:33:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1678253607; x=1709789607;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=L77nGrkX09htK6OOMq92wxbOoKCiw1KxlZZzJBkmSu4=;
+ b=P/xdDUEbWcETrzmS6H+uRiw38hP74zicy9YAZmeJ3PWPvyKxir7qih0u
+ yrHBlEg1a/t2ROT5qQ0sVdGHrKhw9A9Atstr7NJwCKj0S9yyiJaiLjxsV
+ BzkXteqRdcxlmWP3/0iYJ1axUOAeacuei4dokgYGKv2wOy6NeEgwi4s6O
+ zjVKtXi8/+wbBLd0t8z70rU42nVgDKbTuhR5FGE9lcrnAp8GE97BtLHPJ
+ KZVFZWz+7yDxyUdMUkBV7l2dZopEIAw+HwS+YcKeOiXkLDM3XOWYPtb3F
+ ZA0P9hIv/JmbGn8ljUJu45Xgr/kijnzRlb0svylkALawJFMOgD2Vr4HKJ w==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="334781364"
+X-IronPort-AV: E=Sophos;i="5.98,242,1673942400"; d="scan'208";a="334781364"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Mar 2023 21:33:26 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="820071519"
+X-IronPort-AV: E=Sophos;i="5.98,242,1673942400"; d="scan'208";a="820071519"
+Received: from orsosgc001.jf.intel.com ([10.165.21.138])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Mar 2023 21:33:26 -0800
+From: Ashutosh Dixit <ashutosh.dixit@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue,  7 Mar 2023 21:33:19 -0800
+Message-Id: <20230308053321.939906-2-ashutosh.dixit@intel.com>
+X-Mailer: git-send-email 2.38.0
+In-Reply-To: <20230308053321.939906-1-ashutosh.dixit@intel.com>
+References: <20230308053321.939906-1-ashutosh.dixit@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [BUG 6.3-rc1] Bad lock in ttm_bo_delayed_delete()
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 1/3] drm/i915/rps: Expose
+ read_actual_frequency_fw for PMU
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,51 +58,111 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 7 Mar 2023 21:22:23 -0500
-Steven Rostedt <rostedt@goodmis.org> wrote:
+Expose intel_rps_read_actual_frequency_fw to read the actual/granted freq
+without taking forcewake. This is done for use by PMU which does not take
+forcewake when reading freq. The code is refactored to use a common set of
+functions across sysfs and PMU. It also allows PMU to support MTL as well
+as older generations (before Gen6) which were previously missed due to the
+non-use of common functions across sysfs and PMU.
 
-> Looks like there was a lock possibly used after free. But as commit
-> 9bff18d13473a9fdf81d5158248472a9d8ecf2bd ("drm/ttm: use per BO cleanup
-> workers") changed a lot of this code, I figured it may be the culprit.
+Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_rps.c | 36 +++++++++++++++++++++++++----
+ drivers/gpu/drm/i915/gt/intel_rps.h |  1 +
+ 2 files changed, 32 insertions(+), 5 deletions(-)
 
-If I bothered to look at the second warning after this one (I usually stop
-after the first), it appears to state there was a use after free issue.
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+index 4d0dc9de23f9..0a8e24bcb874 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.c
++++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+@@ -2089,10 +2089,11 @@ u32 intel_rps_get_cagf(struct intel_rps *rps, u32 rpstat)
+ 	return cagf;
+ }
+ 
+-static u32 read_cagf(struct intel_rps *rps)
++static u32 __read_cagf(struct intel_rps *rps, bool take_fw)
+ {
+ 	struct drm_i915_private *i915 = rps_to_i915(rps);
+ 	struct intel_uncore *uncore = rps_to_uncore(rps);
++	i915_reg_t r = INVALID_MMIO_REG;
+ 	u32 freq;
+ 
+ 	/*
+@@ -2100,22 +2101,30 @@ static u32 read_cagf(struct intel_rps *rps)
+ 	 * registers will return 0 freq when GT is in RC6
+ 	 */
+ 	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70)) {
+-		freq = intel_uncore_read(uncore, MTL_MIRROR_TARGET_WP1);
++		r = MTL_MIRROR_TARGET_WP1;
+ 	} else if (GRAPHICS_VER(i915) >= 12) {
+-		freq = intel_uncore_read(uncore, GEN12_RPSTAT1);
++		r = GEN12_RPSTAT1;
+ 	} else if (IS_VALLEYVIEW(i915) || IS_CHERRYVIEW(i915)) {
+ 		vlv_punit_get(i915);
+ 		freq = vlv_punit_read(i915, PUNIT_REG_GPU_FREQ_STS);
+ 		vlv_punit_put(i915);
++		goto exit;
+ 	} else if (GRAPHICS_VER(i915) >= 6) {
+-		freq = intel_uncore_read(uncore, GEN6_RPSTAT1);
++		r = GEN6_RPSTAT1;
+ 	} else {
+-		freq = intel_uncore_read(uncore, MEMSTAT_ILK);
++		r = MEMSTAT_ILK;
+ 	}
+ 
++	freq = take_fw ? intel_uncore_read(uncore, r) : intel_uncore_read_fw(uncore, r);
++exit:
+ 	return intel_rps_get_cagf(rps, freq);
+ }
+ 
++static u32 read_cagf(struct intel_rps *rps)
++{
++	return __read_cagf(rps, true);
++}
++
+ u32 intel_rps_read_actual_frequency(struct intel_rps *rps)
+ {
+ 	struct intel_runtime_pm *rpm = rps_to_uncore(rps)->rpm;
+@@ -2128,6 +2137,23 @@ u32 intel_rps_read_actual_frequency(struct intel_rps *rps)
+ 	return freq;
+ }
+ 
++static u32 read_cagf_fw(struct intel_rps *rps)
++{
++	return __read_cagf(rps, false);
++}
++
++u32 intel_rps_read_actual_frequency_fw(struct intel_rps *rps)
++{
++	struct intel_runtime_pm *rpm = rps_to_uncore(rps)->rpm;
++	intel_wakeref_t wakeref;
++	u32 freq = 0;
++
++	with_intel_runtime_pm_if_in_use(rpm, wakeref)
++		freq = intel_gpu_freq(rps, read_cagf_fw(rps));
++
++	return freq;
++}
++
+ u32 intel_rps_read_punit_req(struct intel_rps *rps)
+ {
+ 	struct intel_uncore *uncore = rps_to_uncore(rps);
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.h b/drivers/gpu/drm/i915/gt/intel_rps.h
+index c622962c6bef..63511b826a97 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.h
++++ b/drivers/gpu/drm/i915/gt/intel_rps.h
+@@ -39,6 +39,7 @@ int intel_gpu_freq(struct intel_rps *rps, int val);
+ int intel_freq_opcode(struct intel_rps *rps, int val);
+ u32 intel_rps_get_cagf(struct intel_rps *rps, u32 rpstat1);
+ u32 intel_rps_read_actual_frequency(struct intel_rps *rps);
++u32 intel_rps_read_actual_frequency_fw(struct intel_rps *rps);
+ u32 intel_rps_get_requested_frequency(struct intel_rps *rps);
+ u32 intel_rps_get_min_frequency(struct intel_rps *rps);
+ u32 intel_rps_get_min_raw_freq(struct intel_rps *rps);
+-- 
+2.38.0
 
-[  206.692285] ------------[ cut here ]------------
-[  206.706333] refcount_t: underflow; use-after-free.
-[  206.720577] WARNING: CPU: 0 PID: 332 at lib/refcount.c:28 refcount_warn_saturate+0xb6/0xfc
-[  206.735810] Modules linked in:
-[  206.749493] CPU: 0 PID: 332 Comm: kworker/0:13H Tainted: G        W          6.3.0-rc1-test-00001-ga98bd42762ed-dirty #965
-[  206.765833] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.0-debian-1.16.0-5 04/01/2014
-[  206.781767] Workqueue: ttm ttm_bo_delayed_delete
-[  206.796500] EIP: refcount_warn_saturate+0xb6/0xfc
-[  206.811121] Code: 68 50 1c 0d cf e8 66 b3 a9 ff 0f 0b 58 c9 c3 90 80 3d 57 c6 38 cf 00 75 8a c6 05 57 c6 38 cf 01 68 7c 1c 0d cf e8 46 b3 a9 ff <0f> 0b 59 c9 c3 80 3d 55 c6 38 cf 00 0f 85 67 ff ff ff c6 05 55 c6
-[  206.844560] EAX: 00000026 EBX: c2d5f150 ECX: c3ae5e40 EDX: 00000002
-[  206.862109] ESI: c2d5f0bc EDI: f6f91200 EBP: c3ae5f18 ESP: c3ae5f14
-[  206.878773] DS: 007b ES: 007b FS: 00d8 GS: 0000 SS: 0068 EFLAGS: 00010246
-[  206.895665] CR0: 80050033 CR2: ff9ff000 CR3: 0f512000 CR4: 00150ef0
-[  206.912303] Call Trace:
-[  206.927940]  ttm_bo_delayed_delete+0x8c/0x94
-[  206.944179]  process_one_work+0x21a/0x538
-[  206.960605]  worker_thread+0x146/0x398
-[  206.976839]  kthread+0xea/0x10c
-[  206.992696]  ? process_one_work+0x538/0x538
-[  207.008827]  ? kthread_complete_and_exit+0x1c/0x1c
-[  207.025150]  ret_from_fork+0x1c/0x28
-[  207.041307] irq event stamp: 4219
-[  207.056883] hardirqs last  enabled at (4219): [<ced2a039>] _raw_spin_unlock_irqrestore+0x2d/0x58
-[  207.074298] hardirqs last disabled at (4218): [<ce1d3a65>] kvfree_call_rcu+0x155/0x2ec
-[  207.091461] softirqs last  enabled at (3570): [<ced2b113>] __do_softirq+0x2f3/0x48b
-[  207.107979] softirqs last disabled at (3565): [<ce0c84e9>] call_on_stack+0x45/0x4c
-[  207.123827] ---[ end trace 0000000000000000 ]---
-
-
--- Steve
