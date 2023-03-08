@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 630CEC6FD1E
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 15:40:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0ADBC6FD1E
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 15:40:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40AEA10E61F;
-	Wed,  8 Mar 2023 15:39:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53ED510E622;
+	Wed,  8 Mar 2023 15:39:59 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D901F10E610;
- Wed,  8 Mar 2023 15:39:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D30610E61E;
+ Wed,  8 Mar 2023 15:39:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678289989; x=1709825989;
+ t=1678289994; x=1709825994;
  h=from:date:subject:mime-version:content-transfer-encoding:
  message-id:references:in-reply-to:to:cc;
- bh=Se/biot0lVFjHYoy6HUt2Ws+mFr0uN1AGnXhhRrqKoQ=;
- b=eQF3cUZkaONnArQ3/cLOCk8JJSrEYKm02OqjUyJ3rstHF4YSmuJqgVCS
- JmNf9XRCYk4SVKBYVcfDUjeb+xMH45qkHIrbZQ84Cf+qu8AGtO2+F/tcG
- 2XBRsKVN3Xf2GwIImv+zK2xgzDwe7ggcvpalhO7RmIQeC0G4fmt/cvmAl
- zbe5rUrakFRKNl82Clx08otZHNoShCLyN38m4n9+bTzVHgPQ0ehwdae65
- gMvs2XE1TiFEjaK8j4lYAK+HslBpqGhjoD1FhpQUdRa+ikOKsmmTPD0pg
- RirjLpC8KNvMaC+rumn9ADa7htlMxttezYp8P+Gh1qy8+oEypveoza+Uf Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="337703560"
-X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="337703560"
+ bh=W+jwVlTRdjvktA1nEkWNcAT5iygeBJ8dB2aSEBElQ1U=;
+ b=csvQDlhokR5QCJmRhryHrkhtbXIO4qAFkofp/Se/T7Nlg+EvA4Y4D9Q7
+ p60uC3+U6xnhjnEiqnVBv8DMfcZCSfTwUcUjztb8PobBnWTr9uryONIVE
+ Hg0Hc7X97k6hMUnELfHZ0GIwzA2anAisyCYhAw6rcQpkxD7+b+JAJrdNE
+ 781q6mX05gjQJBIAlf6at6Ae2Ys7f5cXMapOz++L8hS7k3LL4t3rF+8fA
+ fW7Kwt2eQteh1Zc6nbEfgGI4fJqqAl+oaaRuin8MY/w+ftf6Hlg2RLOYz
+ LCHdSwpTGbKh9cYf9XOYeMg+WFnLEgKYgNAn6OF8XPgZ6qGN+Nr7ol1RR g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="337703593"
+X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="337703593"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2023 07:39:49 -0800
+ 08 Mar 2023 07:39:53 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="787160261"
-X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="787160261"
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="787160296"
+X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="787160296"
 Received: from lab-ah.igk.intel.com ([10.102.42.211])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2023 07:39:46 -0800
+ 08 Mar 2023 07:39:51 -0800
 From: Andrzej Hajda <andrzej.hajda@intel.com>
-Date: Wed, 08 Mar 2023 16:39:04 +0100
+Date: Wed, 08 Mar 2023 16:39:06 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230308-guard_error_capture-v5-2-6d1410d13540@intel.com>
+Message-Id: <20230308-guard_error_capture-v5-4-6d1410d13540@intel.com>
 References: <20230308-guard_error_capture-v5-0-6d1410d13540@intel.com>
 In-Reply-To: <20230308-guard_error_capture-v5-0-6d1410d13540@intel.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
@@ -48,8 +48,8 @@ To: Jani Nikula <jani.nikula@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 X-Mailer: b4 0.11.1
-Subject: [Intel-gfx] [PATCH v5 2/4] drm/i915/display: use nop_clear_range
- instead of local function
+Subject: [Intel-gfx] [PATCH v5 4/4] drm/i915: add guard page to
+ ggtt->error_capture
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,38 +69,107 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>, intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since nop_clear_range is visible it can be used here.
+Write-combining memory allows speculative reads by CPU.
+ggtt->error_capture is WC mapped to CPU, so CPU/MMU can try
+to prefetch memory beyond the error_capture, ie it tries
+to read memory pointed by next PTE in GGTT.
+If this PTE points to invalid address DMAR errors will occur.
+This behaviour was observed on ADL and RPL platforms.
+To avoid it, guard scratch page should be added after error_capture.
+The patch fixes the most annoying issue with error capture but
+since WC reads are used also in other places there is a risk similar
+problem can affect them as well.
+
+v2:
+  - modified commit message (I hope the diagnosis is correct),
+  - added bug checks to ensure scratch is initialized on gen3 platforms.
+    CI produces strange stacktrace for it suggesting scratch[0] is NULL,
+    to be removed after resolving the issue with gen3 platforms.
+v3:
+  - removed bug checks, replaced with gen check.
+v4:
+  - change code for scratch page insertion to support all platforms,
+  - add info in commit message there could be more similar issues
+v5:
+  - check for nop_clear_range instead of gen8 (Tvrtko),
+  - re-insert scratch pages on resume (Tvrtko)
 
 Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dpt.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_ggtt.c | 35 +++++++++++++++++++++++++++++++----
+ 1 file changed, 31 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpt.c b/drivers/gpu/drm/i915/display/intel_dpt.c
-index ad1a37b515fb1c..eb9d1a6cbfb9dd 100644
---- a/drivers/gpu/drm/i915/display/intel_dpt.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpt.c
-@@ -73,11 +73,6 @@ static void dpt_insert_entries(struct i915_address_space *vm,
- 		gen8_set_pte(&base[i++], pte_encode | addr);
+diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+index b925da42c7cfc4..8fb700fde85c8f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+@@ -502,6 +502,21 @@ static void cleanup_init_ggtt(struct i915_ggtt *ggtt)
+ 	mutex_destroy(&ggtt->error_mutex);
  }
  
--static void dpt_clear_range(struct i915_address_space *vm,
--			    u64 start, u64 length)
--{
--}
--
- static void dpt_bind_vma(struct i915_address_space *vm,
- 			 struct i915_vm_pt_stash *stash,
- 			 struct i915_vma_resource *vma_res,
-@@ -291,7 +286,7 @@ intel_dpt_create(struct intel_framebuffer *fb)
- 	i915_address_space_init(vm, VM_CLASS_DPT);
++static void
++ggtt_insert_scratch_pages(struct i915_ggtt *ggtt, u64 offset, u64 length)
++{
++	struct i915_address_space *vm = &ggtt->vm;
++
++	if (vm->clear_range != nop_clear_range)
++		return vm->clear_range(vm, offset, length);
++
++	while (length > 0) {
++		vm->insert_page(vm, px_dma(vm->scratch[0]), offset, I915_CACHE_NONE, 0);
++		offset += I915_GTT_PAGE_SIZE;
++		length -= I915_GTT_PAGE_SIZE;
++	}
++}
++
+ static int init_ggtt(struct i915_ggtt *ggtt)
+ {
+ 	/*
+@@ -550,8 +565,12 @@ static int init_ggtt(struct i915_ggtt *ggtt)
+ 		 * paths, and we trust that 0 will remain reserved. However,
+ 		 * the only likely reason for failure to insert is a driver
+ 		 * bug, which we expect to cause other failures...
++		 *
++		 * Since CPU can perform speculative reads on error capture
++		 * (write-combining allows it) add scratch page after error
++		 * capture to avoid DMAR errors.
+ 		 */
+-		ggtt->error_capture.size = I915_GTT_PAGE_SIZE;
++		ggtt->error_capture.size = 2 * I915_GTT_PAGE_SIZE;
+ 		ggtt->error_capture.color = I915_COLOR_UNEVICTABLE;
+ 		if (drm_mm_reserve_node(&ggtt->vm.mm, &ggtt->error_capture))
+ 			drm_mm_insert_node_in_range(&ggtt->vm.mm,
+@@ -561,11 +580,15 @@ static int init_ggtt(struct i915_ggtt *ggtt)
+ 						    0, ggtt->mappable_end,
+ 						    DRM_MM_INSERT_LOW);
+ 	}
+-	if (drm_mm_node_allocated(&ggtt->error_capture))
++	if (drm_mm_node_allocated(&ggtt->error_capture)) {
++		u64 start = ggtt->error_capture.start;
++		u64 size = ggtt->error_capture.size;
++
++		ggtt_insert_scratch_pages(ggtt, start, size);
+ 		drm_dbg(&ggtt->vm.i915->drm,
+ 			"Reserved GGTT:[%llx, %llx] for use by error capture\n",
+-			ggtt->error_capture.start,
+-			ggtt->error_capture.start + ggtt->error_capture.size);
++			start, start + size);
++	}
  
- 	vm->insert_page = dpt_insert_page;
--	vm->clear_range = dpt_clear_range;
-+	vm->clear_range = nop_clear_range;
- 	vm->insert_entries = dpt_insert_entries;
- 	vm->cleanup = dpt_cleanup;
+ 	/*
+ 	 * The upper portion of the GuC address space has a sizeable hole
+@@ -1256,6 +1279,10 @@ void i915_ggtt_resume(struct i915_ggtt *ggtt)
  
+ 	flush = i915_ggtt_resume_vm(&ggtt->vm);
+ 
++	if (drm_mm_node_allocated(&ggtt->error_capture))
++		ggtt_insert_scratch_pages(ggtt, ggtt->error_capture.start,
++					  ggtt->error_capture.size);
++
+ 	ggtt->invalidate(ggtt);
+ 
+ 	if (flush)
 
 -- 
 2.34.1
