@@ -4,48 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB654C678D5
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 21:33:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78794C64EC4
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 21:33:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F30FF10E71F;
-	Wed,  8 Mar 2023 21:33:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E21B910E71E;
+	Wed,  8 Mar 2023 21:33:16 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B21AF10E71E
- for <intel-gfx@lists.freedesktop.org>; Wed,  8 Mar 2023 21:32:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14F5D10E720
+ for <intel-gfx@lists.freedesktop.org>; Wed,  8 Mar 2023 21:33:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678311179; x=1709847179;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=ZoI1PjNuPPuI/0oYChrx0wlHzDKLHxhE3d2+LhCQQTA=;
- b=P7zeM2ExGkN00OkqbUYqgiosf298PR/dTLN6Gcs65C+lyJREyd2Qw/K7
- XPyJTYVbmYthE7ixvRQae0Jesr2au/2Md3OAx5xLtsXXx1IdpXRvzpMhL
- xcnMq51fRQP1bqK7srLTXgUkUl9W89TKPFSGItHAAl4Gwj9gG6S9qMAJC
- GbvLfilhcVxkmYQbIUVASobuI8LFuOgvvTgLQhEft7Ze1OT1VIiclcg3W
- iYMaOI/1Gv8Bgcbs5e0SX0DreMknykh4KFewFBMTv76CTjIaBMpTa2Rfq
- 5v5idyxxH/2QS1fzPR7twTA41o7wr68P9MrZAVsBLk38S0aYWmUWuLGEW A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10643"; a="338617141"
-X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="338617141"
+ t=1678311195; x=1709847195;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=qoKp3EgeQBDyb/xA4tRQoxTA4SILGmgRk3VIzilq5bE=;
+ b=B05Kxy+3eiPHdYbkH0QBTP4VtIpOUXZlAmNqVhheS1KUH7YfVIboP7Zk
+ xjjKdNmdKSUE4CEQQjq36rqBiFJWh9Lc/JN6+JJOrULr3hLzPgUBONrNS
+ E0QOeq6ieI7iQZLCMukfpeMShi5wxBHN4Jw9BGknGbK2pq2BJ5uIqwKM7
+ ZljlGW0TJRXqFuiIBnnBC27n1fwr5c7Es4M1/MsCkJbjI/ilGQj9+ImmM
+ E2Wl5KFbSq1aWHwiTeqiJ02Cyru+vBkJmILLrCWYbNDJWsLvumfpwDFcE
+ eJ8xIzbpz1BKhz+0PzMKxq3xkFoAVtGaHVGkbRifn31yuOsAheyvg9beP A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10643"; a="338617233"
+X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="338617233"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2023 13:32:57 -0800
+ 08 Mar 2023 13:33:09 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10643"; a="677141829"
-X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="677141829"
+X-IronPort-AV: E=McAfee;i="6500,9779,10643"; a="677141899"
+X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="677141899"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by orsmga002.jf.intel.com with SMTP; 08 Mar 2023 13:26:28 -0800
+ by orsmga002.jf.intel.com with SMTP; 08 Mar 2023 13:28:08 -0800
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 08 Mar 2023 23:26:27 +0200
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed,  8 Mar 2023 23:26:26 +0200
-Message-Id: <20230308212627.7601-1-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.39.2
+ Wed, 08 Mar 2023 23:28:07 +0200
+Date: Wed, 8 Mar 2023 23:28:07 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Imre Deak <imre.deak@intel.com>
+Message-ID: <ZAj8FHyaMWi+EGyY@intel.com>
+References: <20230214134348.11020-1-ville.syrjala@linux.intel.com>
+ <20230214134348.11020-3-ville.syrjala@linux.intel.com>
+ <ZADzDhPBjkhNsT7+@ideak-desk.fi.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/2] drm/i915: Don't switch to TPS1 when
- disabling DP_TP_CTL
+In-Reply-To: <ZADzDhPBjkhNsT7+@ideak-desk.fi.intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH 3/3] drm/i915: Fix idle pattern enabling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,65 +62,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
+On Thu, Mar 02, 2023 at 09:03:42PM +0200, Imre Deak wrote:
+> On Tue, Feb 14, 2023 at 03:43:48PM +0200, Ville Syrjala wrote:
+> > From: Ville Syrj‰l‰ <ville.syrjala@linux.intel.com>
+> > 
+> > Currently we are always switching to the idle pattern after the
+> > link training, but we don't always wait for the minimum number
+> > of idle patterns sent. That doesn't look to be what Bspec
+> > asks of us.
+> > 
+> > According to bspec what we should do is switch to idle pattern
+> > and wait for it only in DP1.4 MST cases. In all other cases we
+> > should apparently do neither.
+> > 
+> > What confuses matters further is that the port sync SST sequence
+> > asks us to "stay in idle pattern". But if we never switched to it
+> > how can we stay in it? This still needs further clarificaiton.
+> 
+> HSW seems to require it also for SST, but yes for all other platforms
+> bspec only requires it for MST.
 
-AFAICS Bspec has never asked us to switch to TPS1 when *disabling*
-DP_TP_CTL. Let's stop doing that in case it confuses something.
-We do have to switch before we *enable* DP_TP_CTL, but that
-is already being handled correctly.
+commit 3ab9c63705cb ("drm/i915: hsw: fix link training for eDP on
+port-A") (written by you it seems :) says there was some problem on
+HSW that needed it for DDI A SST as well. But it's not really obvious
+why you skipped the IDLE_DONE thing there. Maybe just an optimization?
 
-v2: Do the same for FDI
-v3: Rebase
+Anyways, that does suggest that perhaps the current code is more
+correct than what I'm proposing here.
 
-Reviewed-by: Imre Deak <imre.deak@intel.com> #v1
-Signed-off-by: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_ddi.c | 6 ++----
- drivers/gpu/drm/i915/display/intel_fdi.c | 4 +---
- 2 files changed, 3 insertions(+), 7 deletions(-)
+> The DP2.1 standard has some addition
+> (3.5.1.2.6) referring to idle pattern to be sent after TPS even for SST.
+> Not sure if this would be done automatically by HW w/o manually
+> switching to it.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 0950bcfea4c0..c531fee888a4 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -2618,8 +2618,7 @@ static void intel_disable_ddi_buf(struct intel_encoder *encoder,
- 
- 	if (intel_crtc_has_dp_encoder(crtc_state))
- 		intel_de_rmw(dev_priv, dp_tp_ctl_reg(encoder, crtc_state),
--			     DP_TP_CTL_ENABLE | DP_TP_CTL_LINK_TRAIN_MASK,
--			     DP_TP_CTL_LINK_TRAIN_PAT1);
-+			     DP_TP_CTL_ENABLE, 0);
- 
- 	/* Disable FEC in DP Sink */
- 	intel_ddi_disable_fec_state(encoder, crtc_state);
-@@ -3140,8 +3139,7 @@ static void intel_ddi_prepare_link_retrain(struct intel_dp *intel_dp,
- 			wait = true;
- 		}
- 
--		dp_tp_ctl &= ~(DP_TP_CTL_ENABLE | DP_TP_CTL_LINK_TRAIN_MASK);
--		dp_tp_ctl |= DP_TP_CTL_LINK_TRAIN_PAT1;
-+		dp_tp_ctl &= ~DP_TP_CTL_ENABLE;
- 		intel_de_write(dev_priv, dp_tp_ctl_reg(encoder, crtc_state), dp_tp_ctl);
- 		intel_de_posting_read(dev_priv, dp_tp_ctl_reg(encoder, crtc_state));
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_fdi.c b/drivers/gpu/drm/i915/display/intel_fdi.c
-index f55b4893c00f..c08c26a321b3 100644
---- a/drivers/gpu/drm/i915/display/intel_fdi.c
-+++ b/drivers/gpu/drm/i915/display/intel_fdi.c
-@@ -845,9 +845,7 @@ void hsw_fdi_link_train(struct intel_encoder *encoder,
- 		intel_de_posting_read(dev_priv, DDI_BUF_CTL(PORT_E));
- 
- 		/* Disable DP_TP_CTL and FDI_RX_CTL and retry */
--		intel_de_rmw(dev_priv, DP_TP_CTL(PORT_E),
--			     DP_TP_CTL_ENABLE | DP_TP_CTL_LINK_TRAIN_MASK,
--			     DP_TP_CTL_LINK_TRAIN_PAT1);
-+		intel_de_rmw(dev_priv, DP_TP_CTL(PORT_E), DP_TP_CTL_ENABLE, 0);
- 		intel_de_posting_read(dev_priv, DP_TP_CTL(PORT_E));
- 
- 		intel_wait_ddi_buf_idle(dev_priv, PORT_E);
+I did at some point spot some DP state machine status bits in some
+debug register. If I get bored I might see if I can spot the idle
+pattern transmission on those when we don't explicitly enable it.
+
 -- 
-2.39.2
-
+Ville Syrj‰l‰
+Intel
