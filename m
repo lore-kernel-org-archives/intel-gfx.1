@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA523C74A44
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 15:53:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC020C64EC4
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 15:53:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B356810E62C;
-	Wed,  8 Mar 2023 15:53:35 +0000 (UTC)
-Received: from mail-pj1-x102e.google.com (mail-pj1-x102e.google.com
- [IPv6:2607:f8b0:4864:20::102e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AD1110E623;
- Wed,  8 Mar 2023 15:53:32 +0000 (UTC)
-Received: by mail-pj1-x102e.google.com with SMTP id
- p3-20020a17090ad30300b0023a1cd5065fso2201837pju.0; 
- Wed, 08 Mar 2023 07:53:32 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6135C10E630;
+	Wed,  8 Mar 2023 15:53:40 +0000 (UTC)
+Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
+ [IPv6:2607:f8b0:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 278E910E630;
+ Wed,  8 Mar 2023 15:53:38 +0000 (UTC)
+Received: by mail-pl1-x62d.google.com with SMTP id a2so18088493plm.4;
+ Wed, 08 Mar 2023 07:53:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678290811;
+ d=gmail.com; s=20210112; t=1678290817;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=R7rI0HySL5zudRz4HuKhYN0exIGOWsfBmXbch8fe/1U=;
- b=ZZz9jOMZZuUhCof2k7IC+UxhUe78kx1LpuGivmR4e4F6P+7GlcN89ubaXkLjrfKacv
- dlaKNN9r2heQZqcwSWpova/LLu7CvdwPnFPha7q16bycW4EvUsJG7uEI0u2XDaK4nh0Z
- uvgkd+62Fa4fNTTYpAMPjznXTRUIjDgdRddJZbxocfPCJJyjr8SbpGIdoLfFwPyQmuYA
- 69w8qjSEhpF0GIu9IUXN/3hfbBfr2IqJWn389DfRXt41hND3MlgbfVTJAKMkSEIWVNvn
- n3Gx30RNuK50pKnuMjks5RxeuT7jMlBoWZDoPglK061udCdR46QJNmtG0BzyexE2NJSq
- VkMg==
+ bh=V0O2Ww3Cm9WKvcOgcLWcXNiHRtUzq1XNv4cTGeNjGUs=;
+ b=cKLTDwB0Xy7r9Ppx1Na+PUt8wGSmaLtS7mPtyVg1TcoZtWLLqiD42GBRsgcTokYjk/
+ +o52Z76Vk2/EJPDg6TOZPJ2wr0ebyu/jrWhY2t7jcssnmD56pgTiiS26e/5bAnsbCDkS
+ dam2mgWt8Cn5zCaBaM6123GRms9tvWowVnSpqMr5pdj7aDaJkySCCEw2heRKqV8ZHn8n
+ fsz0o9F0wOklPSEPkjTOc91tffQHuDWyaycUGr/IKUCWRhozjDBQybV/CKv8NcAaH6rI
+ cov6SDsFDN4JEMZujhnJis1V8E65zeWDjoazY2pw+iN3gBWH1T21Ur6IfpIZWNu7NH1b
+ 8xaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678290811;
+ d=1e100.net; s=20210112; t=1678290817;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=R7rI0HySL5zudRz4HuKhYN0exIGOWsfBmXbch8fe/1U=;
- b=cGUgy5faoTfF9UGSqwHqaKPxXQQbksqj2PrdCmU+6PJlB8xrvz2mgfWogZXquuEiL0
- wTwt6KLfaMO3/Ivq6UzzndCYt8EQWQKcF6LL8E+ebwnxF9q/HilcOHDVj7PASaH80yN1
- iLF4kRcomLQ2d96QCWYTMOqp6VApsLEkzrd/CB1hieja8fZD5CjFXENFYYQlKpIpycwQ
- z3sTxtivBXYmpC8yPbnzvWKpoeb/OtP8UVd2So7SK+VrBePeNNCuSyC+pWI1Qsv2okx+
- Nor6iI19Y1mVNQ9i5sktNMxwiT7qv5l6lEJLEde1UbUrRJfx4HR1NHUBVLmSmMLnDZEI
- yiUw==
-X-Gm-Message-State: AO0yUKU3JkIS1roP1ncGuWS1QTeg+GRDcLOpJBNsviZCO/fMZkBUNEON
- FRR3Fd5TwZO1SXhgGu7B3TXdwvmKEnY=
-X-Google-Smtp-Source: AK7set80iHNnuuwkVMvUGHiSUpjdHyNwKBVSG4gfwmLyorJB/wum7fkh3ST1L18jjlzpU+x15vlVMw==
-X-Received: by 2002:a05:6a20:4fa4:b0:cb:af96:9687 with SMTP id
- gh36-20020a056a204fa400b000cbaf969687mr14262670pzb.15.1678290811353; 
- Wed, 08 Mar 2023 07:53:31 -0800 (PST)
+ bh=V0O2Ww3Cm9WKvcOgcLWcXNiHRtUzq1XNv4cTGeNjGUs=;
+ b=aFUIYuoXS00t0xSSrvqc3q9p3q+zaBVNXZ8QxRRSRwlvv6VDG+yC9dTwKqOk6P6Mnv
+ HTZ1nBppIAu+0fJIR9rmSyuJizI5IGpHF3iWTbWXu+vHAT5JWpfX49D4Kz0NQV0jT3uk
+ dcibdQ0uqAhcdX6YTAeeqnct1Niu8fuVRxNxf5exB47Y5V2F/jxTnigbMbsQEcm1XLzf
+ CQYOTEe91Gga11Q+2R+jh58SABpQYBrjuuFpB+7SqiS0pCfjnnU6bRWhgfqqJF8eTotW
+ h4/qwhywUr1zEOeEtLwLqLfkajNoNF4C6qSpjvqNZZJ22AhpvY5aQ6fRSuoQt/eUZAry
+ PDRA==
+X-Gm-Message-State: AO0yUKVObIR6yfGhCQYhdfToUANBLlE4guJ5SFhbJFpMUXMc5z//CaOk
+ V3hZItJDPjMSSQXwo0FQ6BmBj9/Vsyc=
+X-Google-Smtp-Source: AK7set96zWJ64oh1bpggyeyTLr/2ieL59AK11mtNd342xYu679A/tHaLq9ev58BsNkm68KVtEeIcOg==
+X-Received: by 2002:a17:902:e80d:b0:19c:cb64:dacc with SMTP id
+ u13-20020a170902e80d00b0019ccb64daccmr23386540plg.61.1678290817169; 
+ Wed, 08 Mar 2023 07:53:37 -0800 (PST)
 Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
  by smtp.gmail.com with ESMTPSA id
- m22-20020aa78a16000000b005a8f1d76d46sm9844809pfa.13.2023.03.08.07.53.30
+ w14-20020a170902e88e00b0019e88d9bed3sm9969603plg.210.2023.03.08.07.53.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Mar 2023 07:53:30 -0800 (PST)
+ Wed, 08 Mar 2023 07:53:36 -0800 (PST)
 From: Rob Clark <robdclark@gmail.com>
 To: dri-devel@lists.freedesktop.org
-Date: Wed,  8 Mar 2023 07:52:52 -0800
-Message-Id: <20230308155322.344664-2-robdclark@gmail.com>
+Date: Wed,  8 Mar 2023 07:52:55 -0800
+Message-Id: <20230308155322.344664-5-robdclark@gmail.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230308155322.344664-1-robdclark@gmail.com>
 References: <20230308155322.344664-1-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 01/15] dma-buf/dma-fence: Add deadline
- awareness
+Subject: [Intel-gfx] [PATCH v10 04/15] dma-buf/dma-resv: Add a way to set
+ fence deadline
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,16 +75,12 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Rob Clark <robdclark@chromium.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Jonathan Corbet <corbet@lwn.net>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
  intel-gfx@lists.freedesktop.org, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
  open list <linux-kernel@vger.kernel.org>,
  Sumit Semwal <sumit.semwal@linaro.org>,
  "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Luben Tuikov <luben.tuikov@amd.com>, Bagas Sanjaya <bagasdotme@gmail.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Gustavo Padovan <gustavo@padovan.org>,
+ Luben Tuikov <luben.tuikov@amd.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Matt Turner <mattst88@gmail.com>, freedreno@lists.freedesktop.org,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
@@ -94,159 +89,62 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Rob Clark <robdclark@chromium.org>
 
-Add a way to hint to the fence signaler of an upcoming deadline, such as
-vblank, which the fence waiter would prefer not to miss.  This is to aid
-the fence signaler in making power management decisions, like boosting
-frequency as the deadline approaches and awareness of missing deadlines
-so that can be factored in to the frequency scaling.
-
-v2: Drop dma_fence::deadline and related logic to filter duplicate
-    deadlines, to avoid increasing dma_fence size.  The fence-context
-    implementation will need similar logic to track deadlines of all
-    the fences on the same timeline.  [ckoenig]
-v3: Clarify locking wrt. set_deadline callback
-v4: Clarify in docs comment that this is a hint
-v5: Drop DMA_FENCE_FLAG_HAS_DEADLINE_BIT.
-v6: More docs
-v7: Fix typo, clarify past deadlines
+Add a way to set a deadline on remaining resv fences according to the
+requested usage.
 
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 Reviewed-by: Christian König <christian.koenig@amd.com>
-Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
-Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
 ---
- Documentation/driver-api/dma-buf.rst |  6 +++
- drivers/dma-buf/dma-fence.c          | 59 ++++++++++++++++++++++++++++
- include/linux/dma-fence.h            | 22 +++++++++++
- 3 files changed, 87 insertions(+)
+ drivers/dma-buf/dma-resv.c | 22 ++++++++++++++++++++++
+ include/linux/dma-resv.h   |  2 ++
+ 2 files changed, 24 insertions(+)
 
-diff --git a/Documentation/driver-api/dma-buf.rst b/Documentation/driver-api/dma-buf.rst
-index 622b8156d212..183e480d8cea 100644
---- a/Documentation/driver-api/dma-buf.rst
-+++ b/Documentation/driver-api/dma-buf.rst
-@@ -164,6 +164,12 @@ DMA Fence Signalling Annotations
- .. kernel-doc:: drivers/dma-buf/dma-fence.c
-    :doc: fence signalling annotation
- 
-+DMA Fence Deadline Hints
-+~~~~~~~~~~~~~~~~~~~~~~~~
-+
-+.. kernel-doc:: drivers/dma-buf/dma-fence.c
-+   :doc: deadline hints
-+
- DMA Fences Functions Reference
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index 0de0482cd36e..f177c56269bb 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -912,6 +912,65 @@ dma_fence_wait_any_timeout(struct dma_fence **fences, uint32_t count,
+diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+index 1c76aed8e262..2a594b754af1 100644
+--- a/drivers/dma-buf/dma-resv.c
++++ b/drivers/dma-buf/dma-resv.c
+@@ -684,6 +684,28 @@ long dma_resv_wait_timeout(struct dma_resv *obj, enum dma_resv_usage usage,
  }
- EXPORT_SYMBOL(dma_fence_wait_any_timeout);
+ EXPORT_SYMBOL_GPL(dma_resv_wait_timeout);
  
 +/**
-+ * DOC: deadline hints
++ * dma_resv_set_deadline - Set a deadline on reservation's objects fences
++ * @obj: the reservation object
++ * @usage: controls which fences to include, see enum dma_resv_usage.
++ * @deadline: the requested deadline (MONOTONIC)
 + *
-+ * In an ideal world, it would be possible to pipeline a workload sufficiently
-+ * that a utilization based device frequency governor could arrive at a minimum
-+ * frequency that meets the requirements of the use-case, in order to minimize
-+ * power consumption.  But in the real world there are many workloads which
-+ * defy this ideal.  For example, but not limited to:
-+ *
-+ * * Workloads that ping-pong between device and CPU, with alternating periods
-+ *   of CPU waiting for device, and device waiting on CPU.  This can result in
-+ *   devfreq and cpufreq seeing idle time in their respective domains and in
-+ *   result reduce frequency.
-+ *
-+ * * Workloads that interact with a periodic time based deadline, such as double
-+ *   buffered GPU rendering vs vblank sync'd page flipping.  In this scenario,
-+ *   missing a vblank deadline results in an *increase* in idle time on the GPU
-+ *   (since it has to wait an additional vblank period), sending a signal to
-+ *   the GPU's devfreq to reduce frequency, when in fact the opposite is what is
-+ *   needed.
-+ *
-+ * To this end, deadline hint(s) can be set on a &dma_fence via &dma_fence_set_deadline.
-+ * The deadline hint provides a way for the waiting driver, or userspace, to
-+ * convey an appropriate sense of urgency to the signaling driver.
-+ *
-+ * A deadline hint is given in absolute ktime (CLOCK_MONOTONIC for userspace
-+ * facing APIs).  The time could either be some point in the future (such as
-+ * the vblank based deadline for page-flipping, or the start of a compositor's
-+ * composition cycle), or the current time to indicate an immediate deadline
-+ * hint (Ie. forward progress cannot be made until this fence is signaled).
-+ *
-+ * Multiple deadlines may be set on a given fence, even in parallel.  See the
-+ * documentation for &dma_fence_ops.set_deadline.
-+ *
-+ * The deadline hint is just that, a hint.  The driver that created the fence
-+ * may react by increasing frequency, making different scheduling choices, etc.
-+ * Or doing nothing at all.
++ * May be called without holding the dma_resv lock.  Sets @deadline on
++ * all fences filtered by @usage.
 + */
-+
-+/**
-+ * dma_fence_set_deadline - set desired fence-wait deadline hint
-+ * @fence:    the fence that is to be waited on
-+ * @deadline: the time by which the waiter hopes for the fence to be
-+ *            signaled
-+ *
-+ * Give the fence signaler a hint about an upcoming deadline, such as
-+ * vblank, by which point the waiter would prefer the fence to be
-+ * signaled by.  This is intended to give feedback to the fence signaler
-+ * to aid in power management decisions, such as boosting GPU frequency
-+ * if a periodic vblank deadline is approaching but the fence is not
-+ * yet signaled..
-+ */
-+void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
++void dma_resv_set_deadline(struct dma_resv *obj, enum dma_resv_usage usage,
++			   ktime_t deadline)
 +{
-+	if (fence->ops->set_deadline && !dma_fence_is_signaled(fence))
-+		fence->ops->set_deadline(fence, deadline);
++	struct dma_resv_iter cursor;
++	struct dma_fence *fence;
++
++	dma_resv_iter_begin(&cursor, obj, usage);
++	dma_resv_for_each_fence_unlocked(&cursor, fence) {
++		dma_fence_set_deadline(fence, deadline);
++	}
++	dma_resv_iter_end(&cursor);
 +}
-+EXPORT_SYMBOL(dma_fence_set_deadline);
-+
++EXPORT_SYMBOL_GPL(dma_resv_set_deadline);
+ 
  /**
-  * dma_fence_describe - Dump fence describtion into seq_file
-  * @fence: the 6fence to describe
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index 775cdc0b4f24..d54b595a0fe0 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -257,6 +257,26 @@ struct dma_fence_ops {
- 	 */
- 	void (*timeline_value_str)(struct dma_fence *fence,
- 				   char *str, int size);
-+
-+	/**
-+	 * @set_deadline:
-+	 *
-+	 * Callback to allow a fence waiter to inform the fence signaler of
-+	 * an upcoming deadline, such as vblank, by which point the waiter
-+	 * would prefer the fence to be signaled by.  This is intended to
-+	 * give feedback to the fence signaler to aid in power management
-+	 * decisions, such as boosting GPU frequency.
-+	 *
-+	 * This is called without &dma_fence.lock held, it can be called
-+	 * multiple times and from any context.  Locking is up to the callee
-+	 * if it has some state to manage.  If multiple deadlines are set,
-+	 * the expectation is to track the soonest one.  If the deadline is
-+	 * before the current time, it should be interpreted as an immediate
-+	 * deadline.
-+	 *
-+	 * This callback is optional.
-+	 */
-+	void (*set_deadline)(struct dma_fence *fence, ktime_t deadline);
- };
+  * dma_resv_test_signaled - Test if a reservation object's fences have been
+diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
+index 0637659a702c..8d0e34dad446 100644
+--- a/include/linux/dma-resv.h
++++ b/include/linux/dma-resv.h
+@@ -479,6 +479,8 @@ int dma_resv_get_singleton(struct dma_resv *obj, enum dma_resv_usage usage,
+ int dma_resv_copy_fences(struct dma_resv *dst, struct dma_resv *src);
+ long dma_resv_wait_timeout(struct dma_resv *obj, enum dma_resv_usage usage,
+ 			   bool intr, unsigned long timeout);
++void dma_resv_set_deadline(struct dma_resv *obj, enum dma_resv_usage usage,
++			   ktime_t deadline);
+ bool dma_resv_test_signaled(struct dma_resv *obj, enum dma_resv_usage usage);
+ void dma_resv_describe(struct dma_resv *obj, struct seq_file *seq);
  
- void dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
-@@ -583,6 +603,8 @@ static inline signed long dma_fence_wait(struct dma_fence *fence, bool intr)
- 	return ret < 0 ? ret : 0;
- }
- 
-+void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline);
-+
- struct dma_fence *dma_fence_get_stub(void);
- struct dma_fence *dma_fence_allocate_private_stub(void);
- u64 dma_fence_context_alloc(unsigned num);
 -- 
 2.39.2
 
