@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82E1DC64EC4
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 15:39:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EA94C64EC4
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 15:40:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2195F10E616;
-	Wed,  8 Mar 2023 15:39:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2ACF10E620;
+	Wed,  8 Mar 2023 15:39:56 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C30A710E610;
- Wed,  8 Mar 2023 15:39:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA9F210E616;
+ Wed,  8 Mar 2023 15:39:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678289988; x=1709825988;
+ t=1678289991; x=1709825991;
  h=from:date:subject:mime-version:content-transfer-encoding:
  message-id:references:in-reply-to:to:cc;
- bh=UFsc11qcv0An3YTgsx2jUXx1nEcHzBdMgxW2w6BVW+0=;
- b=OKBocwngBdvTZveqUmBsJhRaFQizq1w0db24LoKVCUE/+65660Omtk/q
- FkVcrfl5GfY5z1Y+tLRpWuDAb7Lqp3A86w1Pxr+Fs2NDbJvcB4fJm1NV7
- ByZK7dQPoCGl1P8JGe7jXswTf1gaJnXCnyiiQQsEt0vauaN++QVT3CM6J
- 6wSV4/Zz5sjA9R0qMJJm7J7xXr2dAruCCx5WA+xuIat+3LJeSXw16RoDW
- OjmOZykulnQPej95C2qwZdvs/QCGb5nE2TT6IOw3US9uoh3Pn6xWIcKHF
- inmLJfF5Gb8oAxKHM+6A5JkNwedi6jueuKEgE7Rci+9AJ/Qo9sGsQ2Cet Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="337703538"
-X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="337703538"
+ bh=wG3vf2+xlpzOKdj5dCj9/rgBBguHqYIRNINuZ3j1/Dc=;
+ b=B/H5xVnw5dK5S0V3k4FIXXu51SOH/RcZ6clyaFwkzkky976nDUTTtiNT
+ o+kqaPE9Z8Pncd/1OnJO9OBzPX4hqBcFtqWZaN2rzVJVfguGUmhGr7GQc
+ FOfo73djKMCU5nHS2c1U4ADQLxuBXOGZZkeB7or10O5t4kB+tSDUGbQAY
+ pfgCcZDm8JITYqo2pGGYAnbvqx8rYBnSKQzMzDEpHJiR/ILKd9ZzMrGmj
+ sL2Ee8/kWuiBToy9EGIugZ/MYTv1c520AzMFTNoU01ArqvADdQ/JjwU9B
+ UTGSsDQjZ0CBOaEGehanxf+IdM9MKzhbT4NtzEiZ97PYMSNPvys3zSHyu A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="337703577"
+X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="337703577"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2023 07:39:46 -0800
+ 08 Mar 2023 07:39:51 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="787160246"
-X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="787160246"
+X-IronPort-AV: E=McAfee;i="6500,9779,10642"; a="787160279"
+X-IronPort-AV: E=Sophos;i="5.98,244,1673942400"; d="scan'208";a="787160279"
 Received: from lab-ah.igk.intel.com ([10.102.42.211])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2023 07:39:44 -0800
+ 08 Mar 2023 07:39:49 -0800
 From: Andrzej Hajda <andrzej.hajda@intel.com>
-Date: Wed, 08 Mar 2023 16:39:03 +0100
+Date: Wed, 08 Mar 2023 16:39:05 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230308-guard_error_capture-v5-1-6d1410d13540@intel.com>
+Message-Id: <20230308-guard_error_capture-v5-3-6d1410d13540@intel.com>
 References: <20230308-guard_error_capture-v5-0-6d1410d13540@intel.com>
 In-Reply-To: <20230308-guard_error_capture-v5-0-6d1410d13540@intel.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
@@ -48,7 +48,8 @@ To: Jani Nikula <jani.nikula@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 X-Mailer: b4 0.11.1
-Subject: [Intel-gfx] [PATCH v5 1/4] drm/i915/gt: make nop_clear_range public
+Subject: [Intel-gfx] [PATCH v5 3/4] drm/i915/selftests: use nop_clear_range
+ instead of local function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,39 +69,47 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>, intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Function nop_clear_range can be used instead of local implementations.
+Since nop_clear_range is visible it can be used here.
 
 Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_ggtt.c | 3 +--
- drivers/gpu/drm/i915/gt/intel_gtt.h  | 2 ++
- 2 files changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/selftests/mock_gtt.c | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-index 842e69c7b21e49..b925da42c7cfc4 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-@@ -345,8 +345,7 @@ static void gen6_ggtt_insert_entries(struct i915_address_space *vm,
- 	ggtt->invalidate(ggtt);
- }
- 
--static void nop_clear_range(struct i915_address_space *vm,
--			    u64 start, u64 length)
-+void nop_clear_range(struct i915_address_space *vm, u64 start, u64 length)
+diff --git a/drivers/gpu/drm/i915/selftests/mock_gtt.c b/drivers/gpu/drm/i915/selftests/mock_gtt.c
+index ece97e4faacb97..89119e3970279f 100644
+--- a/drivers/gpu/drm/i915/selftests/mock_gtt.c
++++ b/drivers/gpu/drm/i915/selftests/mock_gtt.c
+@@ -57,11 +57,6 @@ static void mock_cleanup(struct i915_address_space *vm)
  {
  }
  
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index 5a775310d3fcb5..c15a4892e9f45d 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -672,4 +672,6 @@ static inline struct sgt_dma {
- 	return (struct sgt_dma){ sg, addr, addr + sg_dma_len(sg) };
- }
+-static void mock_clear_range(struct i915_address_space *vm,
+-			     u64 start, u64 length)
+-{
+-}
+-
+ struct i915_ppgtt *mock_ppgtt(struct drm_i915_private *i915, const char *name)
+ {
+ 	struct i915_ppgtt *ppgtt;
+@@ -80,7 +75,7 @@ struct i915_ppgtt *mock_ppgtt(struct drm_i915_private *i915, const char *name)
+ 	ppgtt->vm.alloc_pt_dma = alloc_pt_dma;
+ 	ppgtt->vm.alloc_scratch_dma = alloc_pt_dma;
  
-+void nop_clear_range(struct i915_address_space *vm, u64 start, u64 length);
-+
- #endif
+-	ppgtt->vm.clear_range = mock_clear_range;
++	ppgtt->vm.clear_range = nop_clear_range;
+ 	ppgtt->vm.insert_page = mock_insert_page;
+ 	ppgtt->vm.insert_entries = mock_insert_entries;
+ 	ppgtt->vm.cleanup = mock_cleanup;
+@@ -119,7 +114,7 @@ void mock_init_ggtt(struct intel_gt *gt)
+ 	ggtt->vm.alloc_pt_dma = alloc_pt_dma;
+ 	ggtt->vm.alloc_scratch_dma = alloc_pt_dma;
+ 
+-	ggtt->vm.clear_range = mock_clear_range;
++	ggtt->vm.clear_range = nop_clear_range;
+ 	ggtt->vm.insert_page = mock_insert_page;
+ 	ggtt->vm.insert_entries = mock_insert_entries;
+ 	ggtt->vm.cleanup = mock_cleanup;
 
 -- 
 2.34.1
