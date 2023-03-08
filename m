@@ -4,62 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2788DC678D5
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 15:54:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88D0CC678D5
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Mar 2023 15:54:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18A8B10E683;
-	Wed,  8 Mar 2023 15:54:07 +0000 (UTC)
-Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
- [IPv6:2607:f8b0:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DA7E10E646;
- Wed,  8 Mar 2023 15:53:56 +0000 (UTC)
-Received: by mail-pf1-x435.google.com with SMTP id y10so10519613pfi.8;
- Wed, 08 Mar 2023 07:53:56 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC9C010E62E;
+	Wed,  8 Mar 2023 15:54:37 +0000 (UTC)
+Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com
+ [IPv6:2607:f8b0:4864:20::532])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB88910E62C;
+ Wed,  8 Mar 2023 15:54:30 +0000 (UTC)
+Received: by mail-pg1-x532.google.com with SMTP id q23so9885401pgt.7;
+ Wed, 08 Mar 2023 07:54:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678290836;
+ d=gmail.com; s=20210112; t=1678290870;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=YdpWGjES0Y3k3qZ7i2dzOojVVvIPqxdmlaSdfT3piAE=;
- b=bPsykuRekJqvfgn0QphkXZW1kbOC2zL+9xvl5K1J0hPbszzO0yc2plNdnxjifY6/Kn
- 8kUDyXlvkjolExMm7MNqhvI1LqddINmHW9/2wvWogVuY/idOhg9WrqMt88UVfCY/r/gF
- ms9lu7V9w+IaOaoC19uWO8s2PJnwRu4wXb86hP18wyj8iUZT1LzPvADYm2kBtvnz9Cov
- 6UfOMnB52gA6MndIhCiFF+SX1oWfXsIZhsZME9S0RSHW3hB72gn3HrWYNzteoxJA0+yz
- 8ewaOc0d/XIumHSWkMLZFwe7+RYHALUcHLNa8yIQWqF+q55eVydyD1xckvbrMZanwNJU
- iiYQ==
+ bh=qRQ1dHdIY/cau10a8E821pdOJBm+YYqmFlRisJrtcpU=;
+ b=VInRsevL5hoOa24Y230bcVyeMLhH1aYIW9bUbR0nGfdeB6sMlUDfsB/IW5G+fFUrdS
+ xq6loIUgrztEsywE69ZAUqsW/L7mtKOytKAxltZ3p9YKFi2P++DogG9K8Wzc4VJz9IkR
+ eIWO7Ytce4BgJ/1k5T/PIexTpPW9HU/10m6MSvCYXZGAWm6rKl2YTRWJh9dj9zV/5Xcm
+ ECw0NTffFqx4DWlIb59auEPRrYN6tUrv0DAG1fPg6lIXMqGtWwUlR9x0+Muci1Ohe032
+ oiCRyrQ7zikzViwwCe93VCwvd/UimZPs2bcwJ5HysU/y6zbQohofGorhDeC9UnlH4d6l
+ t5jQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678290836;
+ d=1e100.net; s=20210112; t=1678290870;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=YdpWGjES0Y3k3qZ7i2dzOojVVvIPqxdmlaSdfT3piAE=;
- b=kuWG2TMJCqpI/ysiT8xHINYl0JQOl0Q/rW3Rlc36S1hYxtRtRhKYLZbeKOY4zQHBib
- WeHNoyG1lf7CEyySN1yD86EzR4kcwMgxE2GPum/2BgLuM9IhytqOKKYJr2IQ6yFl1h2U
- T97Di+iiWVs6SA/miW7olz2LKualT13TCFdR9c9PMzlDWVpRn7gePvx1pIgm7sgNfKHV
- uhe4Rk1G7YA0RzOcIrKGAZknOGqMcdD39ObDmQhg6liAbsLwDeD1hbOaws5+8XT0cQox
- xSUNJXa+B/s2aH+5c/0BokTLyQt4f3pFRYUdJdf7cxXwkQ/u1zQ546KlCFPs8O/LkvWp
- Zisw==
-X-Gm-Message-State: AO0yUKVObQvnS6JOmhD/ICx0DkO6kFvNVzKW2v5IvrUTplos6GuOeUxD
- AX7+SOw7suFvES71tdUA+vrJB1IrrXY=
-X-Google-Smtp-Source: AK7set/golHYQrcgsxdjgbRRvUAr3kWxuVqTtG/RHJrceMV4N+LNFOTKe2AsJ/U+/1faG3XFRkogdA==
-X-Received: by 2002:a62:6583:0:b0:5cd:81a7:4094 with SMTP id
- z125-20020a626583000000b005cd81a74094mr15501800pfb.5.1678290835774; 
- Wed, 08 Mar 2023 07:53:55 -0800 (PST)
+ bh=qRQ1dHdIY/cau10a8E821pdOJBm+YYqmFlRisJrtcpU=;
+ b=1BotfAEDiByJzWh1HVWKVLdhh7C6y1mP4GN/7oe1KWBdQyralk+F3GS+DcPMhKFele
+ xvPOeiUQkkyTwX0GXdze/K/7nBAqi0Ub5w169X9OzS7SBjx2eJVQG8pCmSesTm4HSMi0
+ dPYgxrJ2UEiCM98Esou0+ozRNQrnMRN79YhShoVBXU+eRxM7kUlQOSBXlLEzZ+BVk1WY
+ SKRQyKo8hRVd7pL0/QowDbnbhl4xnE8r3DTr880rLz1R7ZICmHarDu51o16B92/fBfLh
+ VEm83Dk/xPr/9pyJc6e1X7ezDZHk/u0Z7+4NrTJVi7StJ7uVnT/+ypKJ7JDb7jmoF3SG
+ Dlzg==
+X-Gm-Message-State: AO0yUKUSsMJrLOO5wIz3+bdmfQ8Wr2IGLVJkeCJnJy/uAoPN9C1SSWXG
+ 9PEGsMP0V5ea7NvLSyd1ZEHLnCRxliI=
+X-Google-Smtp-Source: AK7set/qurbajmx0drbw1A0UnfJ3nB9Otb6mpv7CbrkCjVlUVasHmbmab9vdSeIaq9fwrT8DYoD/PA==
+X-Received: by 2002:a62:7bc4:0:b0:5e2:62b7:f785 with SMTP id
+ w187-20020a627bc4000000b005e262b7f785mr15546331pfc.29.1678290870363; 
+ Wed, 08 Mar 2023 07:54:30 -0800 (PST)
 Received: from localhost ([2a00:79e1:abd:4a00:61b:48ed:72ab:435b])
  by smtp.gmail.com with ESMTPSA id
- s1-20020aa78281000000b0059435689e36sm9823399pfm.170.2023.03.08.07.53.55
+ u5-20020aa78385000000b005a91d570972sm9486660pfm.41.2023.03.08.07.54.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Mar 2023 07:53:55 -0800 (PST)
+ Wed, 08 Mar 2023 07:54:29 -0800 (PST)
 From: Rob Clark <robdclark@gmail.com>
 To: dri-devel@lists.freedesktop.org
-Date: Wed,  8 Mar 2023 07:53:04 -0800
-Message-Id: <20230308155322.344664-14-robdclark@gmail.com>
+Date: Wed,  8 Mar 2023 07:53:06 -0800
+Message-Id: <20230308155322.344664-16-robdclark@gmail.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230308155322.344664-1-robdclark@gmail.com>
 References: <20230308155322.344664-1-robdclark@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 13/15] drm/msm: Add wait-boost support
+Subject: [Intel-gfx] [PATCH v10 15/15] drm/i915: Add deadline based boost
+ support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,136 +73,67 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+Cc: Rob Clark <robdclark@chromium.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
  intel-gfx@lists.freedesktop.org, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- open list <linux-kernel@vger.kernel.org>, Luben Tuikov <luben.tuikov@amd.com>,
- David Airlie <airlied@gmail.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ David Airlie <airlied@gmail.com>, Luben Tuikov <luben.tuikov@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Matt Turner <mattst88@gmail.com>, freedreno@lists.freedesktop.org,
- "open list:DRM DRIVER FOR MSM ADRENO GPU" <linux-arm-msm@vger.kernel.org>
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Rob Clark <robdclark@chromium.org>
 
-Add a way for various userspace waits to signal urgency.
+I expect this patch to be replaced by someone who knows i915 better.
 
 Signed-off-by: Rob Clark <robdclark@chromium.org>
 ---
- drivers/gpu/drm/msm/msm_drv.c | 12 ++++++++----
- drivers/gpu/drm/msm/msm_gem.c |  5 +++++
- include/uapi/drm/msm_drm.h    | 14 ++++++++++++--
- 3 files changed, 25 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/i915_request.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index aca48c868c14..f6764a86b2da 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -46,6 +46,7 @@
-  * - 1.8.0 - Add MSM_BO_CACHED_COHERENT for supported GPUs (a6xx)
-  * - 1.9.0 - Add MSM_SUBMIT_FENCE_SN_IN
-  * - 1.10.0 - Add MSM_SUBMIT_BO_NO_IMPLICIT
-+ * - 1.11.0 - Add wait boost (MSM_WAIT_FENCE_BOOST, MSM_PREP_BOOST)
-  */
- #define MSM_VERSION_MAJOR	1
- #define MSM_VERSION_MINOR	10
-@@ -899,7 +900,7 @@ static int msm_ioctl_gem_info(struct drm_device *dev, void *data,
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index 7503dcb9043b..44491e7e214c 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -97,6 +97,25 @@ static bool i915_fence_enable_signaling(struct dma_fence *fence)
+ 	return i915_request_enable_breadcrumb(to_request(fence));
  }
  
- static int wait_fence(struct msm_gpu_submitqueue *queue, uint32_t fence_id,
--		      ktime_t timeout)
-+		      ktime_t timeout, uint32_t flags)
- {
- 	struct dma_fence *fence;
- 	int ret;
-@@ -929,6 +930,9 @@ static int wait_fence(struct msm_gpu_submitqueue *queue, uint32_t fence_id,
- 	if (!fence)
- 		return 0;
- 
-+	if (flags & MSM_WAIT_FENCE_BOOST)
-+		dma_fence_set_deadline(fence, ktime_get());
++static void i915_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
++{
++	struct i915_request *rq = to_request(fence);
 +
- 	ret = dma_fence_wait_timeout(fence, true, timeout_to_jiffies(&timeout));
- 	if (ret == 0) {
- 		ret = -ETIMEDOUT;
-@@ -949,8 +953,8 @@ static int msm_ioctl_wait_fence(struct drm_device *dev, void *data,
- 	struct msm_gpu_submitqueue *queue;
- 	int ret;
- 
--	if (args->pad) {
--		DRM_ERROR("invalid pad: %08x\n", args->pad);
-+	if (args->flags & ~MSM_WAIT_FENCE_FLAGS) {
-+		DRM_ERROR("invalid flags: %08x\n", args->flags);
- 		return -EINVAL;
- 	}
- 
-@@ -961,7 +965,7 @@ static int msm_ioctl_wait_fence(struct drm_device *dev, void *data,
- 	if (!queue)
- 		return -ENOENT;
- 
--	ret = wait_fence(queue, args->fence, to_ktime(args->timeout));
-+	ret = wait_fence(queue, args->fence, to_ktime(args->timeout), args->flags);
- 
- 	msm_submitqueue_put(queue);
- 
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index 1dee0d18abbb..dd4a0d773f6e 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -846,6 +846,11 @@ int msm_gem_cpu_prep(struct drm_gem_object *obj, uint32_t op, ktime_t *timeout)
- 		op & MSM_PREP_NOSYNC ? 0 : timeout_to_jiffies(timeout);
- 	long ret;
- 
-+	if (op & MSM_PREP_BOOST) {
-+		dma_resv_set_deadline(obj->resv, dma_resv_usage_rw(write),
-+				      ktime_get());
-+	}
++	if (i915_request_completed(rq))
++		return;
 +
- 	ret = dma_resv_wait_timeout(obj->resv, dma_resv_usage_rw(write),
- 				    true,  remain);
- 	if (ret == 0)
-diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
-index 329100016e7c..dbf0d6f43fa9 100644
---- a/include/uapi/drm/msm_drm.h
-+++ b/include/uapi/drm/msm_drm.h
-@@ -151,8 +151,13 @@ struct drm_msm_gem_info {
- #define MSM_PREP_READ        0x01
- #define MSM_PREP_WRITE       0x02
- #define MSM_PREP_NOSYNC      0x04
-+#define MSM_PREP_BOOST       0x08
- 
--#define MSM_PREP_FLAGS       (MSM_PREP_READ | MSM_PREP_WRITE | MSM_PREP_NOSYNC)
-+#define MSM_PREP_FLAGS       (MSM_PREP_READ | \
-+			      MSM_PREP_WRITE | \
-+			      MSM_PREP_NOSYNC | \
-+			      MSM_PREP_BOOST | \
-+			      0)
- 
- struct drm_msm_gem_cpu_prep {
- 	__u32 handle;         /* in */
-@@ -286,6 +291,11 @@ struct drm_msm_gem_submit {
- 
++	if (i915_request_started(rq))
++		return;
++
++	/*
++	 * TODO something more clever for deadlines that are in the
++	 * future.  I think probably track the nearest deadline in
++	 * rq->timeline and set timer to trigger boost accordingly?
++	 */
++
++	intel_rps_boost(rq);
++}
++
+ static signed long i915_fence_wait(struct dma_fence *fence,
+ 				   bool interruptible,
+ 				   signed long timeout)
+@@ -182,6 +201,7 @@ const struct dma_fence_ops i915_fence_ops = {
+ 	.signaled = i915_fence_signaled,
+ 	.wait = i915_fence_wait,
+ 	.release = i915_fence_release,
++	.set_deadline = i915_fence_set_deadline,
  };
  
-+#define MSM_WAIT_FENCE_BOOST	0x00000001
-+#define MSM_WAIT_FENCE_FLAGS	( \
-+		MSM_WAIT_FENCE_BOOST | \
-+		0)
-+
- /* The normal way to synchronize with the GPU is just to CPU_PREP on
-  * a buffer if you need to access it from the CPU (other cmdstream
-  * submission from same or other contexts, PAGE_FLIP ioctl, etc, all
-@@ -295,7 +305,7 @@ struct drm_msm_gem_submit {
-  */
- struct drm_msm_wait_fence {
- 	__u32 fence;          /* in */
--	__u32 pad;
-+	__u32 flags;          /* in, bitmask of MSM_WAIT_FENCE_x */
- 	struct drm_msm_timespec timeout;   /* in */
- 	__u32 queueid;         /* in, submitqueue id */
- };
+ static void irq_execute_cb(struct irq_work *wrk)
 -- 
 2.39.2
 
