@@ -4,56 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA8DCC61DA4
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 07:54:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23C9DC64EC4
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Mar 2023 07:55:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7396F10E7A5;
-	Thu,  9 Mar 2023 07:54:57 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75C9410E7A5
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Mar 2023 07:54:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77CC710E7A8;
+	Thu,  9 Mar 2023 07:55:23 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7166610E7A6
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Mar 2023 07:55:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678348495; x=1709884495;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=7wselACG4fIE9JsGtdtFe8rIi1PyCkV9HFZEiDtaxQI=;
- b=YF6IFXh6UijLv1htvaDY1dGHPhNUJ+fTGkBd4nMbDk0OfphX59KNr7ga
- xXgodejTkJMycli8OZ8QXiQ0HdZMoxfeTQlYIwY2OZNpfHe+hCNhqqavM
- rsnNnRnq622YTGpH2kVp4qpN5Uk/lmq9aKa22aWfjmMQa46qzZVAg25sO
- z5m+YJK056Zthx9IZoSUNu37+GJxjwyy2z9U1RdK9o8ZkILQTYVnjHO4L
- 7kOLJw7DHlgLg1NjlP8H5tSobhowBWPKF7SEQcunFMpaggbTIdBI76fsm
- +vdS04TGGTINmaVxcHwdp9bDFAC3njtjJH8RAzW8VxIMjnUDx9IhJlRTv Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10643"; a="324701729"
-X-IronPort-AV: E=Sophos;i="5.98,245,1673942400"; d="scan'208";a="324701729"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2023 23:54:54 -0800
+ t=1678348521; x=1709884521;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=XKgccGK4uMZBhdHsrhmyXriU+VC9TqOfsxtZwUH8h04=;
+ b=ZlenpNT9CwSa5/quLXyJQp2In/LbzvVxj1k5F1NymKBwgQr+hDWJDRZn
+ zunClNoekvZ5wfvCKkOIbAD6YPazE3/JlqIA3cP8+QfosfQD6v4G4NCoz
+ U8hpkN7bI+meHSM9qznydzE14e7nwm9lJaf8sGagP9RVAij4nuE+XQ17E
+ vuOaWz3F0W6BG9rgk8yYKtKKmTwmKj54WTtXdUPC5pmf8G8xXL5nqxpar
+ /TluHe4ll+q2mNl5+Wo6vkuRSSM69C5vXnX+lZlGpzDX4Nstd7k5Tzvm6
+ JeuwO5AgUObE3QR+rT4+jqZDucyvN/x3YUxvoRvjazAEQWvhaLfATHjFr A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10643"; a="398960431"
+X-IronPort-AV: E=Sophos;i="5.98,245,1673942400"; d="scan'208";a="398960431"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2023 23:55:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10643"; a="1006635942"
-X-IronPort-AV: E=Sophos;i="5.98,245,1673942400"; d="scan'208";a="1006635942"
-Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.18.176])
- ([10.213.18.176])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2023 23:54:53 -0800
-Message-ID: <baa52f92-3a17-ce60-9ed1-39e12b396f13@intel.com>
-Date: Thu, 9 Mar 2023 08:54:51 +0100
+X-IronPort-AV: E=McAfee;i="6500,9779,10643"; a="707510379"
+X-IronPort-AV: E=Sophos;i="5.98,245,1673942400"; d="scan'208";a="707510379"
+Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
+ by orsmga008.jf.intel.com with ESMTP; 08 Mar 2023 23:55:18 -0800
+From: Suraj Kandpal <suraj.kandpal@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  9 Mar 2023 13:24:17 +0530
+Message-Id: <20230309075423.409402-1-suraj.kandpal@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.8.0
-Content-Language: en-US
-To: "Das, Nirmoy" <nirmoy.das@linux.intel.com>, intel-gfx@lists.freedesktop.org
-References: <ZAiKuulQBp0569s/@intel.com>
- <20230308133624.2131582-1-andrzej.hajda@intel.com>
- <c743ac87-27d8-c986-ae2a-874b8381afe5@linux.intel.com>
-From: Andrzej Hajda <andrzej.hajda@intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
- Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <c743ac87-27d8-c986-ae2a-874b8381afe5@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/gt: prevent forcewake releases
- during BAR resize
+Subject: [Intel-gfx] [PATCH v12 0/6] Enable HDCP2.x via GSC CS
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,96 +54,98 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, chris.p.wilson@linux.intel.com,
- Matthew Auld <matthew.auld@intel.com>, Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 08.03.2023 18:29, Das, Nirmoy wrote:
-> 
-> On 3/8/2023 2:36 PM, Andrzej Hajda wrote:
->> Tests on DG2 machines show that releasing forcewakes during BAR resize
->> results later in forcewake ack timeouts.
-> Do we have a fdo/issues url for that? Having that as References would be 
-> nice.
+These patches enable HDCP2.x on machines MTL and above.
+From MTL onwards CSME is spilt into GSC and CSC and now
+we use GSC CS instead of MEI to talk to firmware to start
+HDCP authentication
 
-The patch is result of issue reported internally, but...grepping 
-bugtracker I've found potential candidates:
+--v2
+-Fixing some checkpatch changes which I forgot before sending
+out the series
 
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/6530
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/7853
+--v3
+-Drop cp and fw to make naming more agnostic[Jani]
+-Sort header[Jani]
+-remove static inline function from i915_hdcp_interface[Jani]
+-abstract DISPLAY_VER check[Jani]
 
-Maybe it would be good to add them on merge.
-Anyway thx for a-b.
+--v4
+-Remove stale comment P2 [Jani]
+-Fix part where file rename looks like its removed in P2 and
+added in P3 [Jani]
+-Add bitmask definition for host session id[Alan]
+-Seprating gsc load and heci cmd submission into different funcs[Alan]
+-Create comman function to fill gsc_mtl_header[Alan]
 
-Regards
-Andrzej
+--v5
+-No need to make hdcp_message field null as we use kzalloc [Alan]
+-use i915->drm instead of gt->i915->drm [Alan]
 
->>   Since forcewakes can be realeased
->> asynchronously the simplest way to prevent it is to get all forcewakes
->> for duration of BAR resizing.
->>
->> v2: hold rpm as well during resizing (Rodrigo)
->>
->> Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
-> 
-> 
-> Acked-by: Nirmoy Das <nirmoy.das@intel.com>
-> 
-> 
->> ---
->> Please ignore resend of v1, my mistake.
->>
->> Regards
->> Andrzej
->> ---
->>   drivers/gpu/drm/i915/gt/intel_region_lmem.c | 25 +++++++++++++++------
->>   1 file changed, 18 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c 
->> b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
->> index 89fdfc67f8d1e0..2a3217e2890fc7 100644
->> --- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
->> +++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
->> @@ -54,6 +54,7 @@ static void i915_resize_lmem_bar(struct 
->> drm_i915_private *i915, resource_size_t
->>       struct resource *root_res;
->>       resource_size_t rebar_size;
->>       resource_size_t current_size;
->> +    intel_wakeref_t wakeref;
->>       u32 pci_cmd;
->>       int i;
->> @@ -102,15 +103,25 @@ static void i915_resize_lmem_bar(struct 
->> drm_i915_private *i915, resource_size_t
->>           return;
->>       }
->> -    /* First disable PCI memory decoding references */
->> -    pci_read_config_dword(pdev, PCI_COMMAND, &pci_cmd);
->> -    pci_write_config_dword(pdev, PCI_COMMAND,
->> -                   pci_cmd & ~PCI_COMMAND_MEMORY);
->> +    /*
->> +     * Releasing forcewake during BAR resizing results in later 
->> forcewake
->> +     * ack timeouts and former can happen any time - it is asynchronous.
->> +     * Grabbing all forcewakes prevents it.
->> +     */
->> +    with_intel_runtime_pm(i915->uncore.rpm, wakeref) {
->> +        intel_uncore_forcewake_get(&i915->uncore, FORCEWAKE_ALL);
->> -    _resize_bar(i915, GEN12_LMEM_BAR, rebar_size);
->> +        /* First disable PCI memory decoding references */
->> +        pci_read_config_dword(pdev, PCI_COMMAND, &pci_cmd);
->> +        pci_write_config_dword(pdev, PCI_COMMAND,
->> +                       pci_cmd & ~PCI_COMMAND_MEMORY);
->> -    pci_assign_unassigned_bus_resources(pdev->bus);
->> -    pci_write_config_dword(pdev, PCI_COMMAND, pci_cmd);
->> +        _resize_bar(i915, GEN12_LMEM_BAR, rebar_size);
->> +
->> +        pci_assign_unassigned_bus_resources(pdev->bus);
->> +        pci_write_config_dword(pdev, PCI_COMMAND, pci_cmd);
->> +        intel_uncore_forcewake_put(&i915->uncore, FORCEWAKE_ALL);
->> +    }
->>   }
->>   #else
->>   static void i915_resize_lmem_bar(struct drm_i915_private *i915, 
->> resource_size_t lmem_size) {}
+--v6
+-Make each patch build individually [Jani]
+-drop cp_fw stale commit subject [Jani]
+-fix the date on license [Jani]
+-revert back to orginal design where mei and gsc fill their own header
+
+--v7
+-remove RB by Ankit
+
+--v8
+-change design to allocate and deallocate hdcp_message only at
+enablement and disabling of hdcp [Alan]
+-fix few formatting issue [Ankit]
+-fix stale comments [Ankit]
+
+--v9
+-move allocation dealloc of hdcp messgae to init and teardown [Alan]
+-remove obj from hdcp message , use i915_vma_unpin_and_release [Alan]
+-remove return statement from intel_hdcp_gsc_fini [Ankit]
+
+--v10
+-remove unnecessary i915_vma_unpin [Alan]
+
+--v11
+-commit message and header fix [Uma]
+-comment style fix [Uma]
+-add line gap [Uma]
+
+--v12
+-rename comp to arbiter [Uma]
+
+Anshuman Gupta (1):
+  drm/i915/hdcp: Use generic names for HDCP helpers and structs
+
+Suraj Kandpal (5):
+  drm/i915/gsc: Create GSC request submission mechanism
+  drm/i915/hdcp: HDCP2.x Refactoring to agnostic hdcp
+  drm/i915/hdcp: Refactor HDCP API structures
+  drm/i915/mtl: Add function to send command to GSC CS
+  drm/i915/mtl: Add HDCP GSC interface
+
+ drivers/gpu/drm/i915/Makefile                 |   2 +
+ .../gpu/drm/i915/display/intel_display_core.h |   8 +-
+ .../drm/i915/display/intel_display_types.h    |   2 +-
+ drivers/gpu/drm/i915/display/intel_hdcp.c     | 158 ++--
+ drivers/gpu/drm/i915/display/intel_hdcp_gsc.c | 831 ++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_hdcp_gsc.h |  26 +
+ drivers/gpu/drm/i915/gt/intel_gpu_commands.h  |   2 +
+ .../i915/gt/uc/intel_gsc_uc_heci_cmd_submit.c | 109 +++
+ .../i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h |  61 ++
+ drivers/misc/mei/hdcp/mei_hdcp.c              | 105 ++-
+ drivers/misc/mei/hdcp/mei_hdcp.h              | 354 --------
+ include/drm/i915_hdcp_interface.h             | 539 ++++++++++++
+ include/drm/i915_mei_hdcp_interface.h         | 184 ----
+ 13 files changed, 1718 insertions(+), 663 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/display/intel_hdcp_gsc.c
+ create mode 100644 drivers/gpu/drm/i915/display/intel_hdcp_gsc.h
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_heci_cmd_submit.c
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h
+ create mode 100644 include/drm/i915_hdcp_interface.h
+ delete mode 100644 include/drm/i915_mei_hdcp_interface.h
+
+-- 
+2.25.1
 
