@@ -4,48 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2F01C64EC4
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Mar 2023 00:59:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 940F7C61DA4
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Mar 2023 00:59:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A58510E910;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C4D610E914;
 	Fri, 10 Mar 2023 00:59:50 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55D8710E909;
- Fri, 10 Mar 2023 00:59:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E980510E909;
+ Fri, 10 Mar 2023 00:59:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1678409988; x=1709945988;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=/gyv1n1/HVMu6dQAmDj8+WCA53iPH5TlKaYEqLNv5m4=;
- b=f8GT5uY7PACqgC8powCWbp9PHgzMgRm1FlzEhIBpOkBYwpAeZixr4ytn
- kkYXR9waBZZtM5F+AI3Tg7TwAc+BunBYGAjJXSTGfuYWhwXimSBs3jRgS
- 9uQzr7Gpae0gtjP3qYRDDAFl7E4clUhlLNoBRS4fdj9OheHpK3hZMV7PP
- ql898mvnJ7ql4Je4MMXGOlmrujRrtldwsA+HieRsl+oKEeNlzEi0Co7mv
- QlCY2W/yyp99D1mgETJx9oREyfUlrtZmmWxkoYqlxV0KW75JNEvLEd9y6
- 8SlBWDuXMYTdQHWnoj/9vbkW0qEGaGy7ZWI+uHgALoA0Pl4Lj0DzS6/5Q Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10644"; a="324964508"
-X-IronPort-AV: E=Sophos;i="5.98,248,1673942400"; d="scan'208";a="324964508"
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=4i+CbRf17pj+9JbPiILrT7Y7i+TV1Tz1B85E68hysjk=;
+ b=MV8NNxkipUFbc4pgcaQx92BBtfbf8XU0g66exglxLn47pa+MJ+Jem3mE
+ DIhxkk9cDBBP7RVqVMUcH45lDjg7SMrc3CynDV4Dsvp9LryMCo6Ej8jM5
+ X6EGnOy8iU+Wxo9eW8M4RNe4G2fEPxEfbMZcFBIzBaHDUHrRynSNnVCJ4
+ zqUYPTCQk/auq9gAO8PV2VOdE948rcZV7WwtDstl7HMgJD5fruUpbauZb
+ jnMD93/uQUUGIEgL2VO413+p4A+i1TjBWDwFNAfuv5G8FzgPLQOHIfrje
+ u3vIe4VqbPVIU5+ctcrDTfIgQDjlT4XHRH6xq6mVmlnkcRiQq5T8bGBE6 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10644"; a="324964506"
+X-IronPort-AV: E=Sophos;i="5.98,248,1673942400"; d="scan'208";a="324964506"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  09 Mar 2023 16:59:47 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10644"; a="677616403"
-X-IronPort-AV: E=Sophos;i="5.98,248,1673942400"; d="scan'208";a="677616403"
+X-IronPort-AV: E=McAfee;i="6500,9779,10644"; a="677616397"
+X-IronPort-AV: E=Sophos;i="5.98,248,1673942400"; d="scan'208";a="677616397"
 Received: from orsosgc001.jf.intel.com ([10.165.21.138])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  09 Mar 2023 16:59:47 -0800
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  9 Mar 2023 16:59:43 -0800
-Message-Id: <20230310005943.1029333-3-ashutosh.dixit@intel.com>
+Date: Thu,  9 Mar 2023 16:59:41 -0800
+Message-Id: <20230310005943.1029333-1-ashutosh.dixit@intel.com>
 X-Mailer: git-send-email 2.38.0
-In-Reply-To: <20230310005943.1029333-1-ashutosh.dixit@intel.com>
-References: <20230310005943.1029333-1-ashutosh.dixit@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/2] drm/i915/pmu: Remove fallback to requested
- freq for SLPC
+Subject: [Intel-gfx] [PATCH 0/2] drm/i915/pmu: Use common freq functions
+ with sysfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,38 +60,22 @@ Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The fallback to requested freq does not work for SLPC because SLPC does not
-use 'struct intel_rps'. Also for SLPC requested freq can only be obtained
-from a hw register after acquiring forcewake which we don't want to do for
-PMU. Therefore remove fallback to requested freq for SLPC. The actual freq
-will be 0 when gt is in RC6 which is correct. Also this is rare since PMU
-freq sampling happens only when gt is unparked.
+Expose intel_rps_read_actual_frequency_fw to read the actual freq without
+taking forcewake for use by PMU. The code is refactored to use a common set
+of functions across sysfs and PMU. Using common functions with sysfs in PMU
+solves the issues of missing support for MTL and missing support for older
+generations (prior to Gen6). It also future proofs the PMU where sometimes
+code has been updated for sysfs and PMU has been missed.
 
-Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
----
- drivers/gpu/drm/i915/i915_pmu.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+Ashutosh Dixit (2):
+  drm/i915/pmu: Use functions common with sysfs to read actual freq
+  drm/i915/pmu: Remove fallback to requested freq for SLPC
 
-diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-index 7ece883a7d95..f697fabed64a 100644
---- a/drivers/gpu/drm/i915/i915_pmu.c
-+++ b/drivers/gpu/drm/i915/i915_pmu.c
-@@ -393,7 +393,14 @@ frequency_sample(struct intel_gt *gt, unsigned int period_ns)
- 		 * frequency. Fortunately, the read should rarely fail!
- 		 */
- 		val = intel_rps_read_actual_frequency_fw(rps);
--		if (!val)
-+
-+		/*
-+		 * SLPC does not use 'struct intel_rps'. Also for SLPC
-+		 * requested freq can only be obtained after acquiring
-+		 * forcewake and reading a hw register. For SLPC just
-+		 * let val be 0
-+		 */
-+		if (!val && !intel_uc_uses_guc_slpc(&gt->uc))
- 			val = intel_gpu_freq(rps, rps->cur_freq);
- 
- 		add_sample_mult(&pmu->sample[__I915_SAMPLE_FREQ_ACT],
+ drivers/gpu/drm/i915/gt/intel_rps.c | 34 ++++++++++++++++-------------
+ drivers/gpu/drm/i915/gt/intel_rps.h |  2 +-
+ drivers/gpu/drm/i915/i915_pmu.c     | 17 ++++++++++-----
+ 3 files changed, 31 insertions(+), 22 deletions(-)
+
 -- 
 2.38.0
 
