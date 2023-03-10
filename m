@@ -4,42 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEB42C6FA99
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Mar 2023 14:08:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68C88C6FA99
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Mar 2023 14:12:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20C4C10E2BD;
-	Fri, 10 Mar 2023 14:08:48 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05DCA10E2BD;
- Fri, 10 Mar 2023 14:08:46 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7411E6191F;
- Fri, 10 Mar 2023 14:08:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5527C433D2;
- Fri, 10 Mar 2023 14:08:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1678457325;
- bh=FiGWTSRi8jwQPxcgYZ80FI0oc0kERnP0xwXyK8GlclA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FyNuBhpoMrdlrhL/jRt1l617Bdp01O/XInLgMmhModzYCZODGil09HH9+16D41Eyf
- jR7VPo0qUBRMy5ZwrM/sFP4aJwgCFPXvrxC2WAqeh4UJNsQqsF9voGM5gzvc+ljpEE
- PMIbniSxC4O+TxR+nwMAGCk8hIJtsYMXp7n0Gjhw=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Date: Fri, 10 Mar 2023 14:37:55 +0100
-Message-Id: <20230310133719.213346000@linuxfoundation.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230310133717.050159289@linuxfoundation.org>
-References: <20230310133717.050159289@linuxfoundation.org>
-User-Agent: quilt/0.67
+	by gabe.freedesktop.org (Postfix) with ESMTP id D367910E2DD;
+	Fri, 10 Mar 2023 14:12:01 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C40810E2DD
+ for <intel-gfx@lists.freedesktop.org>; Fri, 10 Mar 2023 14:12:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1678457520; x=1709993520;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=i6ItQ63j+Yxjwed91mU6bmJf4zav9uIxwHbyZs+qIsE=;
+ b=ntdZj2EtlM8lB+sKd70T0x6HE7UJTfMm006j5f2qqQaH4bQujt7yAdl1
+ ZiL2eR/FJk1eHfUK1TjGZIfOIcpGZpl/OTXUqvgKBRDR1SEMiQpr/D28W
+ BqVx/OiWuKpJH4rBVgRhRIgCGaH/SZvUuduE2/M5C++TQEx5GXaV3Nz18
+ 6bUTnKFNyk4z7vX/nuBbyxsL803Ykv6q0Nkdhm8/mcLIrELnYnL11p2ja
+ 1Z7XYHD1xiph6IuTDWSSs2s0kj12Ufs1QaYBCOIwr9P3ddGJ2Trr6WDJI
+ K8bBzuVs7tbdsmN8K2zdzWUCxqchK3X2lj6WHxSVQmKvIjG9BSNLpqKie Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10645"; a="336753659"
+X-IronPort-AV: E=Sophos;i="5.98,249,1673942400"; d="scan'208";a="336753659"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Mar 2023 06:11:59 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10645"; a="923701871"
+X-IronPort-AV: E=Sophos;i="5.98,249,1673942400"; d="scan'208";a="923701871"
+Received: from nirmoyda-desk.igk.intel.com ([10.102.42.231])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Mar 2023 06:11:58 -0800
+From: Nirmoy Das <nirmoy.das@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 10 Mar 2023 15:11:38 +0100
+Message-Id: <20230310141138.6592-1-nirmoy.das@intel.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
+Organization: Intel Deutschland GmbH, Registered Address: Am Campeon 10,
+ 85579 Neubiberg, Germany,
+ Commercial Register: Amtsgericht Muenchen HRB 186928 
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6.1 068/200] drm/i915: move a Kconfig symbol to
- unbreak the menu presentation
+Subject: [Intel-gfx] [PATCH] drm/i915/active: Fix missing debug object
+ activation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,69 +60,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- intel-gfx@lists.freedesktop.org, Randy Dunlap <rdunlap@infradead.org>,
- patches@lists.linux.dev, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- intel-gvt-dev@lists.freedesktop.org, Christoph Hellwig <hch@lst.de>
+Cc: stable@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@intel.com>,
+ Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Randy Dunlap <rdunlap@infradead.org>
+debug_active_activate() expected ref->count to be zero
+which is not true anymore as __i915_active_activate() calls
+debug_active_activate() after incrementing the count.
 
-[ Upstream commit 0b93efca3659f6d55ed31cff6722dca5f6e4d6e2 ]
-
-Inserting a Kconfig symbol that does not have a dependency (DRM_I915_GVT)
-into a list of other symbols that do have a dependency (on DRM_I915)
-breaks the driver menu presentation in 'make *config'.
-
-Relocate the DRM_I915_GVT symbol so that it does not cause this
-problem.
-
-Fixes: 8b750bf74418 ("drm/i915/gvt: move the gvt code into kvmgt.ko")
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Zhi Wang <zhi.a.wang@intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: Zhenyu Wang <zhenyuw@linux.intel.com>
+Fixes: 04240e30ed06 ("drm/i915: Skip taking acquire mutex for no ref->active callback")
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@intel.com>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Cc: intel-gvt-dev@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Acked-by: Zhenyu Wang <zhenyuw@linux.intel.com>
-Signed-off-by: Zhenyu Wang <zhenyuw@linux.intel.com>
-Link: http://patchwork.freedesktop.org/patch/msgid/20230215044533.4847-1-rdunlap@infradead.org
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: <stable@vger.kernel.org> # v5.10+
+Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
 ---
- drivers/gpu/drm/i915/Kconfig | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/i915_active.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-index 3efce05d7b57c..3a6e176d77aa5 100644
---- a/drivers/gpu/drm/i915/Kconfig
-+++ b/drivers/gpu/drm/i915/Kconfig
-@@ -107,9 +107,6 @@ config DRM_I915_USERPTR
+diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
+index a9fea115f2d2..1c3066eb359a 100644
+--- a/drivers/gpu/drm/i915/i915_active.c
++++ b/drivers/gpu/drm/i915/i915_active.c
+@@ -92,7 +92,7 @@ static void debug_active_init(struct i915_active *ref)
+ static void debug_active_activate(struct i915_active *ref)
+ {
+ 	lockdep_assert_held(&ref->tree_lock);
+-	if (!atomic_read(&ref->count)) /* before the first inc */
++	if (atomic_read(&ref->count) == 1) /* after the first inc */
+ 		debug_object_activate(ref, &active_debug_desc);
+ }
  
- 	  If in doubt, say "Y".
- 
--config DRM_I915_GVT
--	bool
--
- config DRM_I915_GVT_KVMGT
- 	tristate "Enable KVM host support Intel GVT-g graphics virtualization"
- 	depends on DRM_I915
-@@ -160,3 +157,6 @@ menu "drm/i915 Unstable Evolution"
- 	depends on DRM_I915
- 	source "drivers/gpu/drm/i915/Kconfig.unstable"
- endmenu
-+
-+config DRM_I915_GVT
-+	bool
 -- 
-2.39.2
-
-
+2.39.0
 
