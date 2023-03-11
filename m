@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25CC5C6FD19
-	for <intel-gfx@archiver.kernel.org>; Sat, 11 Mar 2023 00:23:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E61DEC6FD19
+	for <intel-gfx@archiver.kernel.org>; Sat, 11 Mar 2023 00:23:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D57710EA4C;
-	Sat, 11 Mar 2023 00:23:34 +0000 (UTC)
-Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
- [IPv6:2607:f8b0:4864:20::b49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D32C10EA47
- for <intel-gfx@lists.freedesktop.org>; Sat, 11 Mar 2023 00:23:31 +0000 (UTC)
-Received: by mail-yb1-xb49.google.com with SMTP id
- m6-20020a056902118600b00aeb1e3dbd1bso7319017ybu.9
- for <intel-gfx@lists.freedesktop.org>; Fri, 10 Mar 2023 16:23:31 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 314AA10EA4D;
+	Sat, 11 Mar 2023 00:23:37 +0000 (UTC)
+Received: from mail-pf1-x449.google.com (mail-pf1-x449.google.com
+ [IPv6:2607:f8b0:4864:20::449])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F8D810EA4E
+ for <intel-gfx@lists.freedesktop.org>; Sat, 11 Mar 2023 00:23:34 +0000 (UTC)
+Received: by mail-pf1-x449.google.com with SMTP id
+ w3-20020aa78583000000b005d244af158eso3648189pfn.23
+ for <intel-gfx@lists.freedesktop.org>; Fri, 10 Mar 2023 16:23:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20210112; t=1678494210;
+ d=google.com; s=20210112; t=1678494214;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
- bh=mbfokw6SfssUbU6cRB8EBVuRgsuGh3GvzrnTHWP4v/w=;
- b=L+aPyQ9eudQKqhuQmVhN78/Im8AKZDgw5zsVXO6h59EZ+tE2ci0NZC1fR42hBuBC5U
- jz/TIRY7hm98RuznxZdktcTuzYmihP5FVoky+f1Z8KvuM2vPWllzHD3UqlbDhV5qPHHl
- K6dpxv3FaVZz2McBCBpsOP4oR/X9iw6/UeVysx0E+Km1CDXR5ZlDJo5wxAfuzXFdV+XA
- FBDhZeVUhSLRyacD1Kr5BRnlYrxZ1kd2l+2TqrSKeQ2HwO0xpHRMLTajtmRuuXlhfaA7
- t+VVXVGX6RZywNa33DcPA34DDD+vAO7xrBY6gsG5sPUka77r+y0WJ0QMXQ/ao7kfoWB/
- 1bgg==
+ bh=ESyGipRYk4Ln/Kp6qC+rdgnoNy41fSsqxhODjzs0Phg=;
+ b=nrjkFrHs9nfahticnmpPuzM1CYGMtDvBGeJ80H++4AvdgBokB4ZvMSpboVXR6DnKwz
+ rIrMxNOEpTJIbuDC451LiJD1sJD3A8vuRizVcYrS9DGK3p2ELkmjCt5Z04Ew7mYeQG99
+ abO3WqdodG/z7VlBDvMGTwDpoYnVcdAyUjfitCfgT/YOhex7js+4OGHeNDmUtaacWeFR
+ lakQe7TmqrZXF1uwepDOEl2OXS6bzVd4Nf2hJUarjHWDJiq3nKrS93ZACBW4D6ZXsdik
+ ggHfLj17lKdB6jzVaXg1+OIqfai9+ixjDr2YJPEQHHKfDgh2ts89Xy1knXUupwP/3zLt
+ MYWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678494210;
+ d=1e100.net; s=20210112; t=1678494214;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=mbfokw6SfssUbU6cRB8EBVuRgsuGh3GvzrnTHWP4v/w=;
- b=sL35NXAvVsvtsZ+gDkhvzc9TvpM8kzzscWpWwkk+mUxk1nPR4OIVAElU4/PS0jISXm
- /RtHvi85syrAGB2846Osn+gx0+PEZg8pDm56eJfFNGbF81tTATHSqA9a+Q36oYQfxcLB
- Se7obj0BYlhsRWbcMWt/FzDSAeWMpPiicViB0hoFiDK5nrn7n0HVb8Gn2pkgvpdlL1F9
- ewlOthFO80DANd18ZCLSPb85g6ndMAn67q+CH0xS4UXWn0Luh+00erBzQxTyA0EdgJOo
- A9tykXDXEVtpwn/UCCyxX59qIMZfRXYTuOtImOn3d0Eia69BYVjF92l7vzR1ndj5oYFv
- WGSA==
-X-Gm-Message-State: AO0yUKU/v1IVrhRJ5iymisadTDKJuK9U8lWBtECUDDiEDQ0e05lwXMan
- OOU5zhY2hKjKyz35UMGEfYi+1rdPpZA=
-X-Google-Smtp-Source: AK7set+7rYCP+XNSH5GJISmhmRLApRaRlrDHIoQoq/cUevBD2kV2PyuUC3KwpF5yVh9RU2o80SoVitZ/HLo=
+ bh=ESyGipRYk4Ln/Kp6qC+rdgnoNy41fSsqxhODjzs0Phg=;
+ b=IuwBCD4QNfBkqKiX/vM72UxMVrzv9dx7JSZsVv/OjICMnLxz6c/3Ja92pcyHNl0lqE
+ SXPilvF0V41glUiVHxjeiro/7BpKXlGGI1kkugq+DTmYYgfjlIz5Memz7Osipk0eB6FJ
+ k50qYCUEEcum1dCWX+5jAtSI07SL8QZ4M9GUtZa7ofK99MHusVWaMMdxozXL3rA9u0G4
+ UzXhas2u5YrSAmqv8bYpUpAYCskNYeljywBfxh7Wbx9/mQt3sVYcigj6Jia5UHXQJ01t
+ X8mByZM94CYc3fJALRheWe9sNPkfYiIB6OndjXFm5hZoGbmgWw7sVI+xQzEsMg3rpKoG
+ bzFQ==
+X-Gm-Message-State: AO0yUKXAUJ4ykMiCkeiRXCWYZqR5J1PpPhieJk2W0xtqlWz6JnKC07ut
+ iE+DRUZjJnkKC6iYCRSbR1JqfBHK94Q=
+X-Google-Smtp-Source: AK7set8ALguNt/xEXYjM2EKJOWmie4pyNNfYyh6xWvVQ0vhlbgx8Y3S01gp5F3vekW87OoBuxJLe6aI201U=
 X-Received: from zagreus.c.googlers.com
  ([fda3:e722:ac3:cc00:7f:e700:c0a8:5c37])
- (user=seanjc job=sendgmr) by 2002:a5b:2cc:0:b0:a02:a3a6:78fa with SMTP id
- h12-20020a5b02cc000000b00a02a3a678famr13313899ybp.12.1678494210465; Fri, 10
- Mar 2023 16:23:30 -0800 (PST)
-Date: Fri, 10 Mar 2023 16:22:44 -0800
+ (user=seanjc job=sendgmr) by 2002:a17:90b:1088:b0:237:6178:297d with SMTP id
+ gj8-20020a17090b108800b002376178297dmr10196936pjb.2.1678494214249; Fri, 10
+ Mar 2023 16:23:34 -0800 (PST)
+Date: Fri, 10 Mar 2023 16:22:46 -0800
 In-Reply-To: <20230311002258.852397-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20230311002258.852397-1-seanjc@google.com>
 X-Mailer: git-send-email 2.40.0.rc1.284.g88254d51c5-goog
-Message-ID: <20230311002258.852397-14-seanjc@google.com>
+Message-ID: <20230311002258.852397-16-seanjc@google.com>
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>,
  Paolo Bonzini <pbonzini@redhat.com>, 
  Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: [Intel-gfx] [PATCH v2 13/27] KVM: drm/i915/gvt: Drop @vcpu from
- KVM's ->track_write() hook
+Subject: [Intel-gfx] [PATCH v2 15/27] drm/i915/gvt: Don't bother removing
+ write-protection on to-be-deleted slot
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,79 +79,37 @@ Cc: Yan Zhao <yan.y.zhao@intel.com>, kvm@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Drop @vcpu from KVM's ->track_write() hook provided for external users of
-the page-track APIs now that KVM itself doesn't use the page-track
-mechanism.
+When handling a slot "flush", don't call back into KVM to drop write
+protection for gfns in the slot.  Now that KVM rejects attempts to move
+memory slots while KVMGT is attached, the only time a slot is "flushed"
+is when it's being removed, i.e. the memslot and all its write-tracking
+metadata is about to be deleted.
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/include/asm/kvm_page_track.h |  5 ++---
- arch/x86/kvm/mmu/page_track.c         |  2 +-
- drivers/gpu/drm/i915/gvt/kvmgt.c      | 10 ++++------
- 3 files changed, 7 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/gvt/kvmgt.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/arch/x86/include/asm/kvm_page_track.h b/arch/x86/include/asm/kvm_page_track.h
-index 3f72c7a172fc..0d65ae203fd6 100644
---- a/arch/x86/include/asm/kvm_page_track.h
-+++ b/arch/x86/include/asm/kvm_page_track.h
-@@ -26,14 +26,13 @@ struct kvm_page_track_notifier_node {
- 	 * It is called when guest is writing the write-tracked page
- 	 * and write emulation is finished at that time.
- 	 *
--	 * @vcpu: the vcpu where the write access happened.
- 	 * @gpa: the physical address written by guest.
- 	 * @new: the data was written to the address.
- 	 * @bytes: the written length.
- 	 * @node: this node
- 	 */
--	void (*track_write)(struct kvm_vcpu *vcpu, gpa_t gpa, const u8 *new,
--			    int bytes, struct kvm_page_track_notifier_node *node);
-+	void (*track_write)(gpa_t gpa, const u8 *new, int bytes,
-+			    struct kvm_page_track_notifier_node *node);
- 	/*
- 	 * It is called when memory slot is being moved or removed
- 	 * users can drop write-protection for the pages in that memory slot
-diff --git a/arch/x86/kvm/mmu/page_track.c b/arch/x86/kvm/mmu/page_track.c
-index f39f190ad4ae..39a0863af8b4 100644
---- a/arch/x86/kvm/mmu/page_track.c
-+++ b/arch/x86/kvm/mmu/page_track.c
-@@ -272,7 +272,7 @@ void kvm_page_track_write(struct kvm_vcpu *vcpu, gpa_t gpa, const u8 *new,
- 	hlist_for_each_entry_srcu(n, &head->track_notifier_list, node,
- 				srcu_read_lock_held(&head->track_srcu))
- 		if (n->track_write)
--			n->track_write(vcpu, gpa, new, bytes, n);
-+			n->track_write(gpa, new, bytes, n);
- 	srcu_read_unlock(&head->track_srcu, idx);
- 
- 	kvm_mmu_track_write(vcpu, gpa, new, bytes);
 diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-index 9824d075562e..292750dc819f 100644
+index 292750dc819f..577712ea4893 100644
 --- a/drivers/gpu/drm/i915/gvt/kvmgt.c
 +++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
-@@ -106,9 +106,8 @@ struct gvt_dma {
- #define vfio_dev_to_vgpu(vfio_dev) \
- 	container_of((vfio_dev), struct intel_vgpu, vfio_device)
+@@ -1644,14 +1644,8 @@ static void kvmgt_page_track_flush_slot(struct kvm *kvm,
  
--static void kvmgt_page_track_write(struct kvm_vcpu *vcpu, gpa_t gpa,
--		const u8 *val, int len,
--		struct kvm_page_track_notifier_node *node);
-+static void kvmgt_page_track_write(gpa_t gpa, const u8 *val, int len,
-+				   struct kvm_page_track_notifier_node *node);
- static void kvmgt_page_track_flush_slot(struct kvm *kvm,
- 		struct kvm_memory_slot *slot,
- 		struct kvm_page_track_notifier_node *node);
-@@ -1617,9 +1616,8 @@ int intel_gvt_page_track_remove(struct intel_vgpu *info, u64 gfn)
- 	return 0;
+ 	for (i = 0; i < slot->npages; i++) {
+ 		gfn = slot->base_gfn + i;
+-		if (kvmgt_gfn_is_write_protected(info, gfn)) {
+-			write_lock(&kvm->mmu_lock);
+-			kvm_slot_page_track_remove_page(kvm, slot, gfn,
+-						KVM_PAGE_TRACK_WRITE);
+-			write_unlock(&kvm->mmu_lock);
+-
++		if (kvmgt_gfn_is_write_protected(info, gfn))
+ 			kvmgt_protect_table_del(info, gfn);
+-		}
+ 	}
+ 	mutex_unlock(&info->vgpu_lock);
  }
- 
--static void kvmgt_page_track_write(struct kvm_vcpu *vcpu, gpa_t gpa,
--		const u8 *val, int len,
--		struct kvm_page_track_notifier_node *node)
-+static void kvmgt_page_track_write(gpa_t gpa, const u8 *val, int len,
-+				   struct kvm_page_track_notifier_node *node)
- {
- 	struct intel_vgpu *info =
- 		container_of(node, struct intel_vgpu, track_node);
 -- 
 2.40.0.rc1.284.g88254d51c5-goog
 
