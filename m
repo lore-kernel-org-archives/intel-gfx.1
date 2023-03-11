@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2F70C74A5B
-	for <intel-gfx@archiver.kernel.org>; Sat, 11 Mar 2023 00:23:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E742DC6FD1F
+	for <intel-gfx@archiver.kernel.org>; Sat, 11 Mar 2023 00:23:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67A0210EA3D;
-	Sat, 11 Mar 2023 00:23:18 +0000 (UTC)
-Received: from mail-pf1-x449.google.com (mail-pf1-x449.google.com
- [IPv6:2607:f8b0:4864:20::449])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB13710EA38
- for <intel-gfx@lists.freedesktop.org>; Sat, 11 Mar 2023 00:23:13 +0000 (UTC)
-Received: by mail-pf1-x449.google.com with SMTP id
- h14-20020aa786ce000000b005a89856900eso3613496pfo.14
- for <intel-gfx@lists.freedesktop.org>; Fri, 10 Mar 2023 16:23:13 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4949710EA3A;
+	Sat, 11 Mar 2023 00:23:21 +0000 (UTC)
+Received: from mail-pj1-x1049.google.com (mail-pj1-x1049.google.com
+ [IPv6:2607:f8b0:4864:20::1049])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C183C10EA3D
+ for <intel-gfx@lists.freedesktop.org>; Sat, 11 Mar 2023 00:23:17 +0000 (UTC)
+Received: by mail-pj1-x1049.google.com with SMTP id
+ cl18-20020a17090af69200b0023470d96ae6so5261599pjb.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 10 Mar 2023 16:23:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20210112; t=1678494193;
+ d=google.com; s=20210112; t=1678494197;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
- bh=GxkVI4HQZUPjFtqWtq8zWKxzvCJDOEnAK71W0aJ+/Qw=;
- b=p2UvAf1DVD1I9Vv3IyqhkRPRi2ht61bry9FiYRjI1G9P2ZXtw/ThDSOk8tTC7ERcfy
- GYocsDfpOEp7b4OBhddgwPABFim5wgx2XnaAAlmczmszC5HUtG0Ou8RhddIcH0zFtTIK
- tUoTXo2GkZQNfpn4UE+t22hdQe0kzr3rVl+uhiNqcR6Y6q8CReaMqpPwSCtSsHmkgL+Y
- RS0eY2/Nc79o/TZQChAvsgVXQ6L31YHySo8tCZRAlDheLEaAH7j5Ux5F9PmWx7a1ufi2
- ZqOBTYZ1hM+mIHDi5SuFZKMCKlYtcDuhho/6juXL5ZItmBxXm9EL3vcETYxOt23otyU+
- Tc9g==
+ bh=QHerbQhjH53h/ZHwU5QVI9hxX7GhCGiNGgQsrmW50t4=;
+ b=UOOoJWfUcA7GC/99pLDncOCYw/ZSKy8cgsGXbxX58KzT3NzGZc7wH8lCmf0oAQfpKq
+ hjcxQRGgLkPGKlCawvxwrkvukATCRtgPYnMbqSBD5uscgj39B0vmTkhnvMgcmdk9NbiB
+ K64ViJd4ne0EYEYjfGG5d6kPwirzxEw5lqcOzrUdA91bj/3z7WW2O16cfG50mdYHyi+F
+ 8belCrRQbBfaK2WzD/PQejUgzYcU2vR3vMegxSCF5ZB4v6jnYTOpdFATSuu9h0apkhxu
+ Icms8xYjSzdS9QnEO7gSP/EblQydpusmTx4NQaAaKuJOjwYY/5w93+mXKPJyeqcneA5b
+ krDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678494193;
+ d=1e100.net; s=20210112; t=1678494197;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=GxkVI4HQZUPjFtqWtq8zWKxzvCJDOEnAK71W0aJ+/Qw=;
- b=JD3Hx1SvkgRnYWq1kjW+5j9lYFcfn236GlGr9UEXrr2llqBckeOgIdVjFCQmE21J4F
- iAfltUzNHRsFupnMHAqVUw00Iekvp83O+TRS6661eHs8r5ptt2U1uzstRYFpv5qvc0V2
- 1JbZYLGlxezfJ6pWh6ZWhKEkUdA62ItkoSlet/+wRBUt2ZrUWic+oeX5qFFzxA2jPXLu
- +IbIYXKeFWNjtZztjaq4TGVp1EvxQrMzWjTcJSvKWXg32dWDBgCgrLbrdRXDIOJhbXbn
- 61a1QSA4FCs15RAqmpBUPKBW4R9QukfiBxfUlMV/MF6mgPH3qBNCsaovpEnNj0nqRu8+
- ErMA==
-X-Gm-Message-State: AO0yUKUu7LzJne9LaJ6eSmzLtRpu0pcQ2inzwUM+pbdBk7wye4QTGZq9
- lnHe0dqm7wpCIAK5uhHDyCykdbSfoSI=
-X-Google-Smtp-Source: AK7set83btvjSQZKjEV5leWaffCmnkftpRMOhK46UUzcSKRH6pCrd+ozRzIvde3BLDYjpzbSCL+vg/1+zvQ=
+ bh=QHerbQhjH53h/ZHwU5QVI9hxX7GhCGiNGgQsrmW50t4=;
+ b=CaSZpgYHVPZwz2y31kEQ4VrEaJRziDc/uQXEZ0crf0OxMSpKJC5QzYIPAEYwKX3PoY
+ akvq0pPcJzHDJcU+kkKVvtSvok/Gn30N06ocsgMGGHf8j1U+CbCiadynspaJIv/HrCb5
+ X2mmQ+qF6Ahp/75AjBUU7oRrOWRu8PnHjS8s+1K0zkssPi7t2hh6sexkctXNnYHfKTzB
+ iGpycSducyOMc07WeheVE/YtTip94IWlnzf01STVIdRjKFiSiSJi4aEAQzmHMgXRG9sp
+ Kp8e7cr4XtKq6kGQQ7z4bMQUmzpfJE9Oj223tA4sPg0nd/UFifuN2cJVNY5y7bqnaXPs
+ Iccw==
+X-Gm-Message-State: AO0yUKWEGzqp8kGvP29jBBLipnS4fIHNfAGGKSow+BJ2x54/9GfJnSFD
+ 0QCRC91PF8wc4zpAzMDk5UhZbM8mMgg=
+X-Google-Smtp-Source: AK7set+gdgZfxdjSIjTd5RQzPMMLwiEtm11ePUcERkI8TTwlF9ygfQgPOwzIK/GJCHY+nwoJewM4Elogmg8=
 X-Received: from zagreus.c.googlers.com
  ([fda3:e722:ac3:cc00:7f:e700:c0a8:5c37])
- (user=seanjc job=sendgmr) by 2002:a17:902:f7c4:b0:19a:f80f:9619 with SMTP id
- h4-20020a170902f7c400b0019af80f9619mr10451565plw.3.1678494193558; Fri, 10 Mar
- 2023 16:23:13 -0800 (PST)
-Date: Fri, 10 Mar 2023 16:22:35 -0800
+ (user=seanjc job=sendgmr) by 2002:a17:902:ef8b:b0:19b:370:f7b3 with SMTP id
+ iz11-20020a170902ef8b00b0019b0370f7b3mr10076584plb.6.1678494197458; Fri, 10
+ Mar 2023 16:23:17 -0800 (PST)
+Date: Fri, 10 Mar 2023 16:22:37 -0800
 In-Reply-To: <20230311002258.852397-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20230311002258.852397-1-seanjc@google.com>
 X-Mailer: git-send-email 2.40.0.rc1.284.g88254d51c5-goog
-Message-ID: <20230311002258.852397-5-seanjc@google.com>
+Message-ID: <20230311002258.852397-7-seanjc@google.com>
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>,
  Paolo Bonzini <pbonzini@redhat.com>, 
  Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: [Intel-gfx] [PATCH v2 04/27] drm/i915/gvt: Incorporate KVM memslot
- info into check for 2MiB GTT entry
+Subject: [Intel-gfx] [PATCH v2 06/27] drm/i915/gvt: Put the page reference
+ obtained by KVM's gfn_to_pfn()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,96 +79,41 @@ Cc: Yan Zhao <yan.y.zhao@intel.com>, kvm@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Honor KVM's max allowed page size when determining whether or not a 2MiB
-GTT shadow page can be created for the guest.  Querying KVM's max allowed
-size is somewhat odd as there's no strict requirement that KVM's memslots
-and VFIO's mappings are configured with the same gfn=>hva mapping, but
-the check will be accurate if userspace wants to have a functional guest,
-and at the very least checking KVM's memslots guarantees that the entire
-2MiB range has been exposed to the guest.
+Put the struct page reference acquired by gfn_to_pfn(), KVM's API is that
+the caller is ultimately responsible for dropping any reference.
 
-Note, KVM may also restrict the mapping size for reasons that aren't
-relevant to KVMGT, e.g. for KVM's iTLB multi-hit workaround or if the gfn
-is write-tracked (KVM's write-tracking only handles writes from vCPUs).
-However, such scenarios are unlikely to occur with a well-behaved guest,
-and at worst will result in sub-optimal performance.
+Note, kvm_release_pfn_clean() ensures the pfn is actually a refcounted
+struct page before trying to put any references.
 
 Fixes: b901b252b6cf ("drm/i915/gvt: Add 2M huge gtt support")
-Signed-off-by: Yan Zhao <yan.y.zhao@intel.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/include/asm/kvm_page_track.h |  2 ++
- arch/x86/kvm/mmu/page_track.c         | 18 ++++++++++++++++++
- drivers/gpu/drm/i915/gvt/gtt.c        | 10 +++++++++-
- 3 files changed, 29 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gvt/gtt.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/include/asm/kvm_page_track.h b/arch/x86/include/asm/kvm_page_track.h
-index eb186bc57f6a..3f72c7a172fc 100644
---- a/arch/x86/include/asm/kvm_page_track.h
-+++ b/arch/x86/include/asm/kvm_page_track.h
-@@ -51,6 +51,8 @@ void kvm_page_track_cleanup(struct kvm *kvm);
- 
- bool kvm_page_track_write_tracking_enabled(struct kvm *kvm);
- int kvm_page_track_write_tracking_alloc(struct kvm_memory_slot *slot);
-+enum pg_level kvm_page_track_max_mapping_level(struct kvm *kvm, gfn_t gfn,
-+					       enum pg_level max_level);
- 
- void kvm_page_track_free_memslot(struct kvm_memory_slot *slot);
- int kvm_page_track_create_memslot(struct kvm *kvm,
-diff --git a/arch/x86/kvm/mmu/page_track.c b/arch/x86/kvm/mmu/page_track.c
-index 0a2ac438d647..e739dcc3375c 100644
---- a/arch/x86/kvm/mmu/page_track.c
-+++ b/arch/x86/kvm/mmu/page_track.c
-@@ -301,3 +301,21 @@ void kvm_page_track_flush_slot(struct kvm *kvm, struct kvm_memory_slot *slot)
- 			n->track_flush_slot(kvm, slot, n);
- 	srcu_read_unlock(&head->track_srcu, idx);
- }
-+
-+enum pg_level kvm_page_track_max_mapping_level(struct kvm *kvm, gfn_t gfn,
-+					       enum pg_level max_level)
-+{
-+	struct kvm_memory_slot *slot;
-+	int idx;
-+
-+	idx = srcu_read_lock(&kvm->srcu);
-+	slot = gfn_to_memslot(kvm, gfn);
-+	if (!slot || slot->flags & KVM_MEMSLOT_INVALID)
-+		max_level = PG_LEVEL_4K;
-+	else
-+		max_level = kvm_mmu_max_slot_mapping_level(slot, gfn, max_level);
-+	srcu_read_unlock(&kvm->srcu, idx);
-+
-+	return max_level;
-+}
-+EXPORT_SYMBOL_GPL(kvm_page_track_max_mapping_level);
 diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
-index f30922c55a0c..d59c7ab9d224 100644
+index d59c7ab9d224..15848b041a0d 100644
 --- a/drivers/gpu/drm/i915/gvt/gtt.c
 +++ b/drivers/gpu/drm/i915/gvt/gtt.c
-@@ -1157,14 +1157,22 @@ static int is_2MB_gtt_possible(struct intel_vgpu *vgpu,
- 	struct intel_gvt_gtt_entry *entry)
- {
- 	const struct intel_gvt_gtt_pte_ops *ops = vgpu->gvt->gtt.pte_ops;
-+	unsigned long gfn = ops->get_pfn(entry);
+@@ -1160,6 +1160,7 @@ static int is_2MB_gtt_possible(struct intel_vgpu *vgpu,
+ 	unsigned long gfn = ops->get_pfn(entry);
  	kvm_pfn_t pfn;
-+	int max_level;
+ 	int max_level;
++	int ret;
  
  	if (!HAS_PAGE_SIZES(vgpu->gvt->gt->i915, I915_GTT_PAGE_SIZE_2M))
  		return 0;
- 
- 	if (!test_bit(INTEL_VGPU_STATUS_ATTACHED, vgpu->status))
- 		return -EINVAL;
--	pfn = gfn_to_pfn(vgpu->vfio_device.kvm, ops->get_pfn(entry));
-+
-+	max_level = kvm_page_track_max_mapping_level(vgpu->vfio_device.kvm,
-+						     gfn, PG_LEVEL_2M);
-+	if (max_level < PG_LEVEL_2M)
-+		return 0;
-+
-+	pfn = gfn_to_pfn(vgpu->vfio_device.kvm, gfn);
- 	if (is_error_noslot_pfn(pfn))
+@@ -1179,7 +1180,9 @@ static int is_2MB_gtt_possible(struct intel_vgpu *vgpu,
+ 	if (!pfn_valid(pfn))
  		return -EINVAL;
  
+-	return PageTransHuge(pfn_to_page(pfn));
++	ret = PageTransHuge(pfn_to_page(pfn));
++	kvm_release_pfn_clean(pfn);
++	return ret;
+ }
+ 
+ static int split_2MB_gtt_entry(struct intel_vgpu *vgpu,
 -- 
 2.40.0.rc1.284.g88254d51c5-goog
 
