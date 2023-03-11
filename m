@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 826EAC6FD1F
-	for <intel-gfx@archiver.kernel.org>; Sat, 11 Mar 2023 00:23:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D582C74A4B
+	for <intel-gfx@archiver.kernel.org>; Sat, 11 Mar 2023 00:23:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76A0310EA51;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E012110EA60;
 	Sat, 11 Mar 2023 00:23:54 +0000 (UTC)
-Received: from mail-pj1-x1049.google.com (mail-pj1-x1049.google.com
- [IPv6:2607:f8b0:4864:20::1049])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C9CA10EA5C
- for <intel-gfx@lists.freedesktop.org>; Sat, 11 Mar 2023 00:23:51 +0000 (UTC)
-Received: by mail-pj1-x1049.google.com with SMTP id
- mm13-20020a17090b358d00b002377ec65e7aso5040154pjb.7
- for <intel-gfx@lists.freedesktop.org>; Fri, 10 Mar 2023 16:23:51 -0800 (PST)
+Received: from mail-yw1-x1149.google.com (mail-yw1-x1149.google.com
+ [IPv6:2607:f8b0:4864:20::1149])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8C4210EA5C
+ for <intel-gfx@lists.freedesktop.org>; Sat, 11 Mar 2023 00:23:44 +0000 (UTC)
+Received: by mail-yw1-x1149.google.com with SMTP id
+ 00721157ae682-536a5a0b6e3so71270287b3.10
+ for <intel-gfx@lists.freedesktop.org>; Fri, 10 Mar 2023 16:23:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20210112; t=1678494231;
+ d=google.com; s=20210112; t=1678494224;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
- bh=SrFDAuRQYSdVAaKU/q0bsjDCV6a1lvsfWXmA+4AWzfU=;
- b=e4d4/rxV1Zgd2/D2y/bvvJYmV3VmIQ2B+veoJmhzc1zL/Ok45X7QCHORoet2h5BRER
- OvyYYPlh+KjYyFnv51fNVwfqcSMtD3WCJ3Dqeqpl8zagOMT++Eucp+7VKyux3vDcum/n
- u9VknqIpRRzz39zajw9cxBkBioWmO1SWPo2U1WH/VlF4FCggvbOg5jwd9GdtQN3D8cqC
- W0uG+lHUt7Mn55Zg9Xqf5SpsPLYT4yMyWxbEUOBF9UBxuJPXodDGsYKKGfKZHMDtKzMP
- 2bN5l34k5e0hHNkV4u1rXG+4w/2uckITEagP6WXSw7O+XpcZrmBXZmwNn3YKoGEGngXh
- 8FUQ==
+ bh=N+pTW/7tamt2IbWqj09PuRke2TPGqju0w/Y+Ey0MO8s=;
+ b=TX207gWxU4fl6z+RQW+zgREYFd4cytj/8tZI2zkqObrsMjl10KdJrGM7q7WTP5BOZO
+ DLzQ5VWBQnNxCbVf2+cQfzIXI2zYHKEkWEpr61vTyWUf1I6R86u7aEJttHbobxIZO1Rr
+ wVnaUWJDjIJy9hGRnN9kp5vaAQq8hjOjzD3OwUEvbaSXDsqjfNp+/9yet1+LMyjg+hSH
+ Z9+g65wP4Zbnz/J9mWJkkvJA7OGYRysmwD27lA/eCXxws3+k9tERGBRPk5aJu3/Qu5AP
+ cC1dzmy98Ceg7CX3vuaG00oNgtqXqbPeF9m0P0uprlHmrwBfXlYgWw3L9RzBsjlqF1nF
+ Fqkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678494231;
+ d=1e100.net; s=20210112; t=1678494224;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=SrFDAuRQYSdVAaKU/q0bsjDCV6a1lvsfWXmA+4AWzfU=;
- b=3vXB5rY/YRWzrwNWwlCswv9ZRaOfuB4+PCJhHJqrLKQJOA27dG8fKNW8FqqoO1iLyd
- cHQpbvUOoY+k6B/g+TIHY9LWJlZJx/8uwfrUv3nLtQE42YSrbRRageRmGe3N4DWp97ES
- vgX+C/58ljYL8VDhWC0iqfyFhtqoJ8b58LEUkeVK99ucfMOuHL8HhObg2JzjhBpm50Iv
- Xmnr/x+y7r5IWJ1D/hLtyUMaFmYzbO10w5Fi2sZNiAzN+XB4IcpL5x/QJ4A7+FSuT5WC
- dyHCWbAgz0m9TPPXVTf8Rp2krjtJEI+atlKKhg5ERAQfTuHq6SiHmHTfMEafGa+7eT2b
- otKw==
-X-Gm-Message-State: AO0yUKUQfFaeOsePlJ3WYSuRmlR75xggXhPXs2KBO3ANirCW1dmqotok
- O63qru/Ir9K64b0m0hFUOon0xaDsCKQ=
-X-Google-Smtp-Source: AK7set9BOLwk0C6I6vnhUGAunlnaX/wB1YqK0ADUomrGZYyzsFfITpGsZimZf1dbvl+kuQhlqQKywNF53cc=
+ bh=N+pTW/7tamt2IbWqj09PuRke2TPGqju0w/Y+Ey0MO8s=;
+ b=WPo/WVFh4UFRi7JYCVxo2ACvWEzAsMyPby2DTY8pTpN2Nj50L68DjnRynoiN3/u5qQ
+ OuQ9AREMBasOPdREOVkFW4091A3TD7aiM4uta9OrKlJuSIP74ctrDTDdYLbYViax9OzP
+ mb9FmWte1/ggJ8UWS8Ayt1pJhFzAAoThOnWX5svtI8N9+kqrw/hA2HYrO4lAKxKNJCMG
+ VGbLrr9GThZSnM2yyBI6jrGotGlMaZrcsfBbwwwSvv0TtbC1stZTwRxPXoelaDXM9zL2
+ 5rpaL2fovynUIG8gNdjCDj1C9KNZREznRSgOPxs0MokovVZCX/Yya/oxw4q5EMXI2qbe
+ vmEg==
+X-Gm-Message-State: AO0yUKWUlGytyEJXacE11WjT0Uh44wU4uRpxWLQi/dkYgNpf8haAAIRD
+ w49kdY4dJ0vMM1dDPl+awNKgML7TBoo=
+X-Google-Smtp-Source: AK7set+PhmN8Vt5Sg9+9k+BbkcNTAAL0L3IO4DJekk9kppHHOYe5KBYbxmQ3nKmARwfzkGtntaBVjMChv4E=
 X-Received: from zagreus.c.googlers.com
  ([fda3:e722:ac3:cc00:7f:e700:c0a8:5c37])
- (user=seanjc job=sendgmr) by 2002:a17:903:334f:b0:19f:22aa:692e with SMTP id
- ka15-20020a170903334f00b0019f22aa692emr312103plb.4.1678494231283; Fri, 10 Mar
- 2023 16:23:51 -0800 (PST)
-Date: Fri, 10 Mar 2023 16:22:55 -0800
+ (user=seanjc job=sendgmr) by 2002:a5b:c0b:0:b0:80b:4f92:1623 with SMTP id
+ f11-20020a5b0c0b000000b0080b4f921623mr9ybq.370.1678494223739; Fri, 10 Mar
+ 2023 16:23:43 -0800 (PST)
+Date: Fri, 10 Mar 2023 16:22:51 -0800
 In-Reply-To: <20230311002258.852397-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20230311002258.852397-1-seanjc@google.com>
 X-Mailer: git-send-email 2.40.0.rc1.284.g88254d51c5-goog
-Message-ID: <20230311002258.852397-25-seanjc@google.com>
+Message-ID: <20230311002258.852397-21-seanjc@google.com>
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>,
  Paolo Bonzini <pbonzini@redhat.com>, 
  Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: [Intel-gfx] [PATCH v2 24/27] KVM: x86/mmu: Bug the VM if
- write-tracking is used but not enabled
+Subject: [Intel-gfx] [PATCH v2 20/27] KVM: x86/mmu: Use page-track notifiers
+ iff there are external users
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,38 +79,147 @@ Cc: Yan Zhao <yan.y.zhao@intel.com>, kvm@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Bug the VM if something attempts to write-track a gfn, but write-tracking
-isn't enabled.  The VM is doomed (and KVM has an egregious bug) if KVM or
-KVMGT wants to shadow guest page tables but can't because write-tracking
-isn't enabled.
+Disable the page-track notifier code at compile time if there are no
+external users, i.e. if CONFIG_KVM_EXTERNAL_WRITE_TRACKING=n.  KVM itself
+now hooks emulated writes directly instead of relying on the page-track
+mechanism.
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/mmu/page_track.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/x86/include/asm/kvm_host.h       |  2 ++
+ arch/x86/include/asm/kvm_page_track.h |  2 ++
+ arch/x86/kvm/mmu/page_track.c         |  9 ++++-----
+ arch/x86/kvm/mmu/page_track.h         | 29 +++++++++++++++++++++++----
+ 4 files changed, 33 insertions(+), 9 deletions(-)
 
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index 1a4225237564..a3423711e403 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -1265,7 +1265,9 @@ struct kvm_arch {
+ 	 * create an NX huge page (without hanging the guest).
+ 	 */
+ 	struct list_head possible_nx_huge_pages;
++#ifdef CONFIG_KVM_EXTERNAL_WRITE_TRACKING
+ 	struct kvm_page_track_notifier_head track_notifier_head;
++#endif
+ 	/*
+ 	 * Protects marking pages unsync during page faults, as TDP MMU page
+ 	 * faults only take mmu_lock for read.  For simplicity, the unsync
+diff --git a/arch/x86/include/asm/kvm_page_track.h b/arch/x86/include/asm/kvm_page_track.h
+index deece45936a5..53c2adb25a07 100644
+--- a/arch/x86/include/asm/kvm_page_track.h
++++ b/arch/x86/include/asm/kvm_page_track.h
+@@ -55,6 +55,7 @@ void kvm_slot_page_track_remove_page(struct kvm *kvm,
+ 				     struct kvm_memory_slot *slot, gfn_t gfn,
+ 				     enum kvm_page_track_mode mode);
+ 
++#ifdef CONFIG_KVM_EXTERNAL_WRITE_TRACKING
+ enum pg_level kvm_page_track_max_mapping_level(struct kvm *kvm, gfn_t gfn,
+ 					       enum pg_level max_level);
+ 
+@@ -64,5 +65,6 @@ kvm_page_track_register_notifier(struct kvm *kvm,
+ void
+ kvm_page_track_unregister_notifier(struct kvm *kvm,
+ 				   struct kvm_page_track_notifier_node *n);
++#endif /* CONFIG_KVM_EXTERNAL_WRITE_TRACKING */
+ 
+ #endif
 diff --git a/arch/x86/kvm/mmu/page_track.c b/arch/x86/kvm/mmu/page_track.c
-index ffcd7ac66f9e..327e73be62d6 100644
+index a21200df515d..619ec8e5fd32 100644
 --- a/arch/x86/kvm/mmu/page_track.c
 +++ b/arch/x86/kvm/mmu/page_track.c
-@@ -90,7 +90,7 @@ void kvm_write_track_add_gfn(struct kvm *kvm, struct kvm_memory_slot *slot,
- 	lockdep_assert_once(lockdep_is_held(&kvm->slots_lock) ||
- 			    srcu_read_lock_held(&kvm->srcu));
+@@ -194,6 +194,7 @@ bool kvm_slot_page_track_is_active(struct kvm *kvm,
+ 	return !!READ_ONCE(slot->arch.gfn_track[mode][index]);
+ }
  
--	if (WARN_ON(!kvm_page_track_write_tracking_enabled(kvm)))
-+	if (KVM_BUG_ON(!kvm_page_track_write_tracking_enabled(kvm), kvm))
++#ifdef CONFIG_KVM_EXTERNAL_WRITE_TRACKING
+ void kvm_page_track_cleanup(struct kvm *kvm)
+ {
+ 	struct kvm_page_track_notifier_head *head;
+@@ -255,14 +256,13 @@ EXPORT_SYMBOL_GPL(kvm_page_track_unregister_notifier);
+  * The node should figure out if the written page is the one that node is
+  * interested in by itself.
+  */
+-void kvm_page_track_write(struct kvm_vcpu *vcpu, gpa_t gpa, const u8 *new,
+-			  int bytes)
++void __kvm_page_track_write(struct kvm *kvm, gpa_t gpa, const u8 *new, int bytes)
+ {
+ 	struct kvm_page_track_notifier_head *head;
+ 	struct kvm_page_track_notifier_node *n;
+ 	int idx;
+ 
+-	head = &vcpu->kvm->arch.track_notifier_head;
++	head = &kvm->arch.track_notifier_head;
+ 
+ 	if (hlist_empty(&head->track_notifier_list))
  		return;
+@@ -273,8 +273,6 @@ void kvm_page_track_write(struct kvm_vcpu *vcpu, gpa_t gpa, const u8 *new,
+ 		if (n->track_write)
+ 			n->track_write(gpa, new, bytes, n);
+ 	srcu_read_unlock(&head->track_srcu, idx);
+-
+-	kvm_mmu_track_write(vcpu, gpa, new, bytes);
+ }
  
- 	update_gfn_write_track(slot, gfn, 1);
-@@ -122,7 +122,7 @@ void kvm_write_track_remove_gfn(struct kvm *kvm,
- 	lockdep_assert_once(lockdep_is_held(&kvm->slots_lock) ||
- 			    srcu_read_lock_held(&kvm->srcu));
+ /*
+@@ -317,3 +315,4 @@ enum pg_level kvm_page_track_max_mapping_level(struct kvm *kvm, gfn_t gfn,
+ 	return max_level;
+ }
+ EXPORT_SYMBOL_GPL(kvm_page_track_max_mapping_level);
++#endif
+diff --git a/arch/x86/kvm/mmu/page_track.h b/arch/x86/kvm/mmu/page_track.h
+index 89712f123ad3..931b26b8fc8f 100644
+--- a/arch/x86/kvm/mmu/page_track.h
++++ b/arch/x86/kvm/mmu/page_track.h
+@@ -6,8 +6,6 @@
  
--	if (WARN_ON(!kvm_page_track_write_tracking_enabled(kvm)))
-+	if (KVM_BUG_ON(!kvm_page_track_write_tracking_enabled(kvm), kvm))
- 		return;
+ #include <asm/kvm_page_track.h>
  
- 	update_gfn_write_track(slot, gfn, -1);
+-int kvm_page_track_init(struct kvm *kvm);
+-void kvm_page_track_cleanup(struct kvm *kvm);
+ 
+ bool kvm_page_track_write_tracking_enabled(struct kvm *kvm);
+ int kvm_page_track_write_tracking_alloc(struct kvm_memory_slot *slot);
+@@ -21,13 +19,36 @@ bool kvm_slot_page_track_is_active(struct kvm *kvm,
+ 				   const struct kvm_memory_slot *slot,
+ 				   gfn_t gfn, enum kvm_page_track_mode mode);
+ 
+-void kvm_page_track_write(struct kvm_vcpu *vcpu, gpa_t gpa, const u8 *new,
+-			  int bytes);
++#ifdef CONFIG_KVM_EXTERNAL_WRITE_TRACKING
++int kvm_page_track_init(struct kvm *kvm);
++void kvm_page_track_cleanup(struct kvm *kvm);
++
++void __kvm_page_track_write(struct kvm *kvm, gpa_t gpa, const u8 *new, int bytes);
+ void kvm_page_track_delete_slot(struct kvm *kvm, struct kvm_memory_slot *slot);
+ 
+ static inline bool kvm_page_track_has_external_user(struct kvm *kvm)
+ {
+ 	return hlist_empty(&kvm->arch.track_notifier_head.track_notifier_list);
+ }
++#else
++static inline int kvm_page_track_init(struct kvm *kvm) { return 0; }
++static inline void kvm_page_track_cleanup(struct kvm *kvm) { }
++
++static inline void __kvm_page_track_write(struct kvm *kvm, gpa_t gpa,
++					  const u8 *new, int bytes) { }
++static inline void kvm_page_track_delete_slot(struct kvm *kvm,
++					      struct kvm_memory_slot *slot) { }
++
++static inline bool kvm_page_track_has_external_user(struct kvm *kvm) { return false; }
++
++#endif /* CONFIG_KVM_EXTERNAL_WRITE_TRACKING */
++
++static inline void kvm_page_track_write(struct kvm_vcpu *vcpu, gpa_t gpa,
++					const u8 *new, int bytes)
++{
++	__kvm_page_track_write(vcpu->kvm, gpa, new, bytes);
++
++	kvm_mmu_track_write(vcpu, gpa, new, bytes);
++}
+ 
+ #endif /* __KVM_X86_PAGE_TRACK_H */
 -- 
 2.40.0.rc1.284.g88254d51c5-goog
 
