@@ -4,32 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 495EDC6FD19
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Mar 2023 02:28:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7D39C6FD1D
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Mar 2023 02:28:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5913710E6D6;
-	Tue, 14 Mar 2023 02:28:21 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67CA910E6CF;
- Tue, 14 Mar 2023 02:28:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C192F10E6D9;
+	Tue, 14 Mar 2023 02:28:24 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0DDC10E6D7;
+ Tue, 14 Mar 2023 02:28:21 +0000 (UTC)
 Received: from workpc.. (109-252-120-116.nat.spd-mgts.ru [109.252.120.116])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 921C86603084;
- Tue, 14 Mar 2023 02:28:14 +0000 (GMT)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 66DB0660308E;
+ Tue, 14 Mar 2023 02:28:18 +0000 (GMT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1678760896;
- bh=xAjXeiazAopZ09RgQtUq/RZsVGdSUXMGWJpbnkE989I=;
+ s=mail; t=1678760900;
+ bh=/0B/Gvt+XzcmXa2dz3mV2+2TZchur7pJD1BN8+9L7Ww=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=F5UldR46GSDJKIean+MrSBdfgoSERmGddNPsk74fROY9CjaVYyk95aMu4wD+peZcF
- DsesVaRnWoF91TgMvjZV2qD0akKjVDIlNRjE9lx9qPME/S0B2lBdqAl1EHnNroLYfZ
- qWfztjTkGx+5dcKUUe67WPejASjmSvoCNS0ljPR0+KPS9e37Yd1Jd3ZmOBRVVJ1gmQ
- CJbbJ+3Q4bMUa1XhJ+hdjmCFxFmWIslk3LhboX9pyhUOVBJ2zeylXE8SYVi4mE8ArY
- otZrIGjEMXLc+DHn0D9ZtqeIXldLK0SiB/0nRYtDTfsMqHglvNkpKYpHiWpBM90U/g
- RqSDNtnbCSnNQ==
+ b=Cpi3l88gdptoP9z5juaEOv+1FTJ7gU6LGZAHCOwCugrokhKjeMpXb9dOIcleQMSYV
+ RuCOjdpo9uBHBizvCMijcCCS784Jzi7Mb7uwtx3p9lQUt5+Ar1Z3EV2uGcWX/8uvTy
+ 5XXn/AX1HU4Q5QX7u573aEmIKsuIpc05HM4vE7Lane6epewwDtkaA9G3JPrRzy10I4
+ 2qSHI0sLJAZB6J7S5dFe9TiwOn46zIJFE1UQxHvnWsZoxMdu305g2QYR4OCKT6jTZo
+ T8JFtem3YNViRYMiPMfG7Cv32AdanwD/UoK7GwsLCBYXZUpAvzLJq74V7EfjUMrthV
+ hKSNeZSelh6hQ==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -45,15 +44,15 @@ To: David Airlie <airlied@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
  Qiang Yu <yuq825@gmail.com>, Steven Price <steven.price@arm.com>,
  Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
  Rob Herring <robh@kernel.org>
-Date: Tue, 14 Mar 2023 05:26:54 +0300
-Message-Id: <20230314022659.1816246-6-dmitry.osipenko@collabora.com>
+Date: Tue, 14 Mar 2023 05:26:56 +0300
+Message-Id: <20230314022659.1816246-8-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230314022659.1816246-1-dmitry.osipenko@collabora.com>
 References: <20230314022659.1816246-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v13 05/10] drm/shmem-helper: Factor out
- unpinning part from drm_gem_shmem_purge()
+Subject: [Intel-gfx] [PATCH v13 07/10] drm/shmem-helper: Remove obsoleted
+ is_iomem test
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,64 +71,33 @@ Cc: intel-gfx@lists.freedesktop.org, kernel@collabora.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Factor out pages unpinning code from drm_gem_shmem_purge() into new
-drm_gem_shmem_unpin_pages(). This prepares code for addition of memory
-shrinker support. The new common function will be used by shrinker for
-eviction of shmem pages.
+Everything that uses the mapped buffer should by agnostic to is_iomem.
+The only reason for the is_iomem test is is that we're setting shmem->vaddr
+to the returned map->vaddr. Now that the shmem->vaddr code is gone, remove
+the obsoleted is_iomem test to clean up the code.
 
+Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/drm_gem_shmem_helper.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index 1fcb7d850cc7..48df4e87da26 100644
+index a02377a5131b..9e94652a141c 100644
 --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
 +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -486,25 +486,29 @@ int drm_gem_shmem_madvise(struct drm_gem_shmem_object *shmem, int madv)
- }
- EXPORT_SYMBOL(drm_gem_shmem_madvise);
+@@ -432,12 +432,6 @@ int drm_gem_shmem_vmap(struct drm_gem_shmem_object *shmem,
  
--void drm_gem_shmem_purge(struct drm_gem_shmem_object *shmem)
-+static void drm_gem_shmem_unpin_pages(struct drm_gem_shmem_object *shmem)
- {
- 	struct drm_gem_object *obj = &shmem->base;
- 	struct drm_device *dev = obj->dev;
- 
- 	dma_resv_assert_held(shmem->base.resv);
- 
--	drm_WARN_ON(obj->dev, !drm_gem_shmem_is_purgeable(shmem));
--
- 	dma_unmap_sgtable(dev->dev, shmem->sgt, DMA_BIDIRECTIONAL, 0);
-+	drm_gem_shmem_release_pages(shmem);
-+	drm_vma_node_unmap(&obj->vma_node, dev->anon_inode->i_mapping);
-+
- 	sg_free_table(shmem->sgt);
- 	kfree(shmem->sgt);
- 	shmem->sgt = NULL;
-+}
- 
--	drm_gem_shmem_put_pages(shmem);
-+void drm_gem_shmem_purge(struct drm_gem_shmem_object *shmem)
-+{
-+	struct drm_gem_object *obj = &shmem->base;
- 
--	shmem->madv = -1;
-+	drm_WARN_ON(obj->dev, !drm_gem_shmem_is_purgeable(shmem));
- 
--	drm_vma_node_unmap(&obj->vma_node, dev->anon_inode->i_mapping);
-+	drm_gem_shmem_unpin_pages(shmem);
- 	drm_gem_free_mmap_offset(obj);
- 
- 	/* Our goal here is to return as much of the memory as
-@@ -515,6 +519,8 @@ void drm_gem_shmem_purge(struct drm_gem_shmem_object *shmem)
- 	shmem_truncate_range(file_inode(obj->filp), 0, (loff_t)-1);
- 
- 	invalidate_mapping_pages(file_inode(obj->filp)->i_mapping, 0, (loff_t)-1);
-+
-+	shmem->madv = -1;
- }
- EXPORT_SYMBOL(drm_gem_shmem_purge);
+ 	if (obj->import_attach) {
+ 		ret = dma_buf_vmap(obj->import_attach->dmabuf, map);
+-		if (!ret) {
+-			if (drm_WARN_ON(obj->dev, map->is_iomem)) {
+-				dma_buf_vunmap(obj->import_attach->dmabuf, map);
+-				return -EIO;
+-			}
+-		}
+ 	} else {
+ 		pgprot_t prot = PAGE_KERNEL;
  
 -- 
 2.39.2
