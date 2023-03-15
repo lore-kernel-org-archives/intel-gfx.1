@@ -4,44 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E47C6C6FD1D
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Mar 2023 07:51:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57DE3C6FD1D
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Mar 2023 07:54:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B82510E9C5;
-	Wed, 15 Mar 2023 07:51:06 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D956B10E95B
- for <intel-gfx@lists.freedesktop.org>; Wed, 15 Mar 2023 07:51:03 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2AC7EB81CED;
- Wed, 15 Mar 2023 07:51:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4492DC4339B;
- Wed, 15 Mar 2023 07:51:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1678866660;
- bh=PbzIkIV5Yp5BX7SazyOI2jpBxHjvewHqqBQss9Njn4A=;
- h=Subject:To:Cc:From:Date:From;
- b=gfhKq3CTrZ1OYtwKas35SPC3qUEkH1hRD161insqDxZ2zBjKUlSW3TwpeHDjLt9IJ
- /xnExy95yTfpAQORxeFDBmwPn2R6uNFmGDdS6fAUkC8vMnNKgw+KBt3C9xG2Gl553j
- C8lgv0mGrbZ5TuT21I0H8w/HHfr6vuZ8mNQPhr24=
-To: John.C.Harrison@Intel.com, chris@chris-wilson.co.uk,
- daniele.ceraolospurio@intel.com, gregkh@linuxfoundation.org,
- intel-gfx@lists.freedesktop.org, jani.nikula@intel.com,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- jouni.hogander@intel.com, rodrigo.vivi@intel.com,
- tvrtko.ursulin@linux.intel.com
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 15 Mar 2023 08:50:58 +0100
-Message-ID: <16788666586206@kroah.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDEDC10E94E;
+	Wed, 15 Mar 2023 07:54:18 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C84C410E94E
+ for <intel-gfx@lists.freedesktop.org>; Wed, 15 Mar 2023 07:54:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1678866856; x=1710402856;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=OxJi/3znSg+Qg6FqppA2XxOjuxvYrglYwXgvh5MHH0k=;
+ b=OORTIp3wO6WImmBtaOkstDt+gnk7C43gkX7OaNZc7dVd3tfOzbRyBGla
+ M+GmFWvb/0Qb6lLqZ0o/MonPLa9Ng8L0OFT2Gkz6obhl1UtGTHHhGAVh1
+ l8kOJ8vioMbxocWwp6ly51EOf69hd0fxMzDlRHMwQJ/mIUwUVxSs5pf52
+ GWYQ6QpJv/PIqbODulEXG+Xvu1VdnHdU8ZBSIZsQgLgnh75qoRx6bMjll
+ 5CbUifuL8al0g7y488lWw6rfPvd/B5a6MtsneL52ZuOXUrqNz3nMRIyz2
+ TLT2iUYDNcNcmdCM0Q4bq0c+zvYweMkt05sx2iRn5koJZgPPEivHxFVjm g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="335124359"
+X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="335124359"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2023 00:54:16 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="748325963"
+X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="748325963"
+Received: from unknown (HELO intel.com) ([10.237.72.65])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2023 00:54:14 -0700
+Date: Wed, 15 Mar 2023 09:54:11 +0200
+From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+To: "Govindapillai, Vinod" <vinod.govindapillai@intel.com>
+Message-ID: <ZBF5o7lRodJy23y4@intel.com>
+References: <20230310144035.30754-1-stanislav.lisovskiy@intel.com>
+ <7ddeaf24abf10e7e2728150310e154f4366a076c.camel@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
-Subject: [Intel-gfx] Patch "drm/i915: Don't use BAR mappings for ring
- buffers with LLC" has been added to the 5.10-stable tree
+In-Reply-To: <7ddeaf24abf10e7e2728150310e154f4366a076c.camel@intel.com>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Power management SAGV/QGV
+ calculation rounding fix
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,85 +60,103 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable-commits@vger.kernel.org
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "Roper,
+ Matthew D" <matthew.d.roper@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Mar 14, 2023 at 11:27:35AM +0200, Govindapillai, Vinod wrote:
+> Hi Stan,
+> 
+> 
+> 
+> On Fri, 2023-03-10 at 16:40 +0200, Stanislav Lisovskiy wrote:
+> > Currently in our bandwidth calculations for QGV
+> > points we round up the calculations.
+> > Recently there was an update to BSpec, recommending
+> > to floor those calculations.
+> > The reasoning behind this was that, overestimating
+> > BW demand with that rounding can cause SAGV to use
+> > next QGV point, even though the less demanding could
+> > be used, thus resulting in waste of power.
+> > 
+> > BSpec: 64636
+> > 
+> > Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_bw.c | 10 +++++-----
+> >  1 file changed, 5 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
+> > index 202321ffbe2a..8723ddd4d568 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_bw.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_bw.c
+> > @@ -50,7 +50,7 @@ static int dg1_mchbar_read_qgv_point_info(struct drm_i915_private *dev_priv,
+> >                 dclk_reference = 6; /* 6 * 16.666 MHz = 100 MHz */
+> >         else
+> >                 dclk_reference = 8; /* 8 * 16.666 MHz = 133 MHz */
+> > -       sp->dclk = DIV_ROUND_UP((16667 * dclk_ratio * dclk_reference) + 500, 1000);
+> > +       sp->dclk = ((16667 * dclk_ratio * dclk_reference) + 500) / 1000;
+> >  
+> >         val = intel_uncore_read(&dev_priv->uncore, SKL_MC_BIOS_DATA_0_0_0_MCHBAR_PCU);
+> >         if (val & DG1_GEAR_TYPE)
+> > @@ -87,7 +87,7 @@ static int icl_pcode_read_qgv_point_info(struct drm_i915_private *dev_priv,
+> >                 return ret;
+> >  
+> >         dclk = val & 0xffff;
+> > -       sp->dclk = DIV_ROUND_UP((16667 * dclk) + (DISPLAY_VER(dev_priv) > 11 ? 500 : 0), 1000);
+> > +       sp->dclk = ((16667 * dclk) + (DISPLAY_VER(dev_priv) > 11 ? 500 : 0)) / 1000;
+> >         sp->t_rp = (val & 0xff0000) >> 16;
+> >         sp->t_rcd = (val & 0xff000000) >> 24;
+> >  
+> > @@ -179,7 +179,7 @@ static int mtl_read_qgv_point_info(struct drm_i915_private *dev_priv,
+> >         val2 = intel_uncore_read(&dev_priv->uncore,
+> >                                  MTL_MEM_SS_INFO_QGV_POINT_HIGH(point));
+> >         dclk = REG_FIELD_GET(MTL_DCLK_MASK, val);
+> > -       sp->dclk = DIV_ROUND_UP((16667 * dclk), 1000);
+> > +       sp->dclk = (16667 * dclk) / 1000;
+> 
+> Not related to this patch. But as per Bspec 64631 and 64636
+>   sp->dclk = (16667 * dclk + 500) / 1000;
+> 
+> Does that need to be corrected as well?
 
-This is a note to let you know that I've just added the patch titled
+It looks like again rounding up stuff, we divide by 1000,
+so we obviously add 500 just to round up by one the end result.
+But considering the recent instructions, that we must "floor/int"
+all the results, I would say this needs to be corrected in BSpec,
+rather than here(wondering why it was implemented initially that way
+here, could be that BSpec was initially like this or the one doing
+that here was actually smarter than BSpec :) )
 
-    drm/i915: Don't use BAR mappings for ring buffers with LLC
+Stan
 
-to the 5.10-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     drm-i915-don-t-use-bar-mappings-for-ring-buffers-with-llc.patch
-and it can be found in the queue-5.10 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From 85636167e3206c3fbd52254fc432991cc4e90194 Mon Sep 17 00:00:00 2001
-From: John Harrison <John.C.Harrison@Intel.com>
-Date: Wed, 15 Feb 2023 17:11:01 -0800
-Subject: drm/i915: Don't use BAR mappings for ring buffers with LLC
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-From: John Harrison <John.C.Harrison@Intel.com>
-
-commit 85636167e3206c3fbd52254fc432991cc4e90194 upstream.
-
-Direction from hardware is that ring buffers should never be mapped
-via the BAR on systems with LLC. There are too many caching pitfalls
-due to the way BAR accesses are routed. So it is safest to just not
-use it.
-
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Fixes: 9d80841ea4c9 ("drm/i915: Allow ringbuffers to be bound anywhere")
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v4.9+
-Tested-by: Jouni HÃ¶gander <jouni.hogander@intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20230216011101.1909009-3-John.C.Harrison@Intel.com
-(cherry picked from commit 65c08339db1ada87afd6cfe7db8e60bb4851d919)
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/i915/gt/intel_ring.c |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
---- a/drivers/gpu/drm/i915/gt/intel_ring.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring.c
-@@ -49,7 +49,7 @@ int intel_ring_pin(struct intel_ring *ri
- 	if (unlikely(ret))
- 		goto err_unpin;
- 
--	if (i915_vma_is_map_and_fenceable(vma))
-+	if (i915_vma_is_map_and_fenceable(vma) && !HAS_LLC(vma->vm->i915))
- 		addr = (void __force *)i915_vma_pin_iomap(vma);
- 	else
- 		addr = i915_gem_object_pin_map(vma->obj,
-@@ -91,7 +91,7 @@ void intel_ring_unpin(struct intel_ring
- 		return;
- 
- 	i915_vma_unset_ggtt_write(vma);
--	if (i915_vma_is_map_and_fenceable(vma))
-+	if (i915_vma_is_map_and_fenceable(vma) && !HAS_LLC(vma->vm->i915))
- 		i915_vma_unpin_iomap(vma);
- 	else
- 		i915_gem_object_unpin_map(vma->obj);
-
-
-Patches currently in stable-queue which might be from John.C.Harrison@Intel.com are
-
-queue-5.10/drm-i915-don-t-use-bar-mappings-for-ring-buffers-with-llc.patch
+> 
+> BR
+> vinod
+> 
+> 
+> >         sp->t_rp = REG_FIELD_GET(MTL_TRP_MASK, val);
+> >         sp->t_rcd = REG_FIELD_GET(MTL_TRCD_MASK, val);
+> >  
+> > @@ -425,7 +425,7 @@ static int icl_get_bw_info(struct drm_i915_private *dev_priv, const struct
+> > intel
+> >                          */
+> >                         ct = max_t(int, sp->t_rc, sp->t_rp + sp->t_rcd +
+> >                                    (clpchgroup - 1) * qi.t_bl + sp->t_rdpre);
+> > -                       bw = DIV_ROUND_UP(sp->dclk * clpchgroup * 32 * num_channels, ct);
+> > +                       bw = (sp->dclk * clpchgroup * 32 * num_channels) / ct;
+> >  
+> >                         bi->deratedbw[j] = min(maxdebw,
+> >                                                bw * (100 - sa->derating) / 100);
+> > @@ -527,7 +527,7 @@ static int tgl_get_bw_info(struct drm_i915_private *dev_priv, const struct
+> > intel
+> >                          */
+> >                         ct = max_t(int, sp->t_rc, sp->t_rp + sp->t_rcd +
+> >                                    (clpchgroup - 1) * qi.t_bl + sp->t_rdpre);
+> > -                       bw = DIV_ROUND_UP(sp->dclk * clpchgroup * 32 * num_channels, ct);
+> > +                       bw = (sp->dclk * clpchgroup * 32 * num_channels) / ct;
+> >  
+> >                         bi->deratedbw[j] = min(maxdebw,
+> >                                                bw * (100 - sa->derating) / 100);
+> 
