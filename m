@@ -4,31 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46815C61DA4
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Mar 2023 08:00:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF59CC61DA4
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Mar 2023 08:00:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADF0910E9DE;
-	Wed, 15 Mar 2023 08:00:19 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id F1C6110EA07;
- Wed, 15 Mar 2023 08:00:17 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id EA308A3ECB;
- Wed, 15 Mar 2023 08:00:17 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3CA210E958;
+	Wed, 15 Mar 2023 08:00:51 +0000 (UTC)
+X-Greylist: delayed 569 seconds by postgrey-1.36 at gabe;
+ Wed, 15 Mar 2023 08:00:50 UTC
+Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
+ [66.111.4.229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF43910E958
+ for <intel-gfx@lists.freedesktop.org>; Wed, 15 Mar 2023 08:00:50 +0000 (UTC)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailnew.nyi.internal (Postfix) with ESMTP id B77E8581D4B;
+ Wed, 15 Mar 2023 03:51:17 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Wed, 15 Mar 2023 03:51:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:sender:subject:subject:to:to; s=fm2; t=
+ 1678866677; x=1678873877; bh=aNNQwQzVCna7Ns3n6BIaF6xnV4h5OB3sXJx
+ Eet6WtvI=; b=AoX0YRtx60/GyCP5Pl5C/3NEAIrDfj6bVizZsn+iolVqge4yWWq
+ 3ly8MZ1OepeqQpI1D11wYodztO4Pk/bukfJuj72xH5loKvfG6GM9kR2QN6tnBVem
+ UYv5uo4eABD+teMpY6x6ZRLw+V1aCZToFAbGndPQE9aDnwqJm3vAp8IXPfx0wrUP
+ TrKsH2fLXCtzbURBMsf2+ffnv00YBDm2unZJ92Kq2Ov5p2ZOJWdocrOzyaQNipmf
+ CSjH+i56xnuT3wV2CcjaDdJ0+TeF2bplcQTACgi2Uv+y7UpqQ2UE0YBI8lSynK5g
+ GanOwJSFGIZahM9Jx1KxTkwnu9Rj785Qe7g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:sender:subject:subject:to:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+ 1678866677; x=1678873877; bh=aNNQwQzVCna7Ns3n6BIaF6xnV4h5OB3sXJx
+ Eet6WtvI=; b=e4+sFXbrYfNrq6Md3CAaUb2PMMRL1BkxB/dBHXE8GvzTfOngDQZ
+ MjQXj2w+xhNaypZh4CxSi2SOFxw0XsmcVXrBq/0PRihnGnsJ9MoPvoadfmYl3LVj
+ KrvogBkdfg+o3cCE/lthP8+Xb4ryXUAOU7qq65cb3RUM9PN06ofNPPcZI6cNalXg
+ syiYce7tdSduPq66/2uOwp1kJBxLGeeA9jU75XBh2BRv7sZuGz1jSKncvgq5cOej
+ 7Caad7oS+1ZExNu9o6Do+4Mx/RcmBQNNWgJ3qkuF/DjLiH3hB1mMw43rns58NtPJ
+ hbtQlV0omJtvEn7z3rr01cbSIgVA30LLDcg==
+X-ME-Sender: <xms:9XgRZMKtJ-4oUMtaqFIgifUHkyjJAOKRPPpEQrQVIAnBq00LAThz-g>
+ <xme:9XgRZMJjz7_SH7I0Oe0R0lK2VrelxMH5EltcHhIGvG5WaPFJ9N9rDpIoTmXy9TlUk
+ MrKoHpDo2SYZg>
+X-ME-Received: <xmr:9XgRZMsdJinBK9ycCAMqAoynT1Abt707Vz7mzpALRqtU5Fg_XAvtBCX11_4vtILANiFErgEFF1LBL94f3Ir0KAXWQdwbG1hySdGyVg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvddvjedguddutdcutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpeffhffvvefukfhfgggtugfgjgesthekredttddtudenucfhrhhomhepifhr
+ vghgucfmjfcuoehgrhgvgheskhhrohgrhhdrtghomheqnecuggftrfgrthhtvghrnhepge
+ evleehjedtgfethfetveetheejtdeugeekgeevleetkeehvefghfdtueegteeknecuffho
+ mhgrihhnpehfrhgvvgguvghskhhtohhprdhorhhgnecuvehluhhsthgvrhfuihiivgeptd
+ enucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorghhrdgtohhm
+X-ME-Proxy: <xmx:9XgRZJZ9BoqNsCIyjg5o3OsRmy3UhDDy173YN7pwk9V9AmhGN-971A>
+ <xmx:9XgRZDYBJLCuvpZhgh1I5iXmjKkcNiKpcPsW8_jr0D9_6lV2tqRQcg>
+ <xmx:9XgRZFCkGcu8y2N9E-OFeKSpSsox9fC2LnQhw0JwIZJdpOuKKEcaXQ>
+ <xmx:9XgRZNZGkAhjP33C3wk_SE8g33GP8FQpz0b2ieWDTqt2MNAz8QIqnQ>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 15 Mar 2023 03:51:16 -0400 (EDT)
+Date: Wed, 15 Mar 2023 08:51:14 +0100
+From: Greg KH <greg@kroah.com>
+To: John.C.Harrison@intel.com
+Message-ID: <ZBF48kVhFmXIsR+K@kroah.com>
+References: <167820543971229@kroah.com>
+ <20230314022211.1393031-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: gregkh@linuxfoundation.org
-Date: Wed, 15 Mar 2023 08:00:17 -0000
-Message-ID: <167886721793.19838.3340842857477726426@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <1678866649227103@kroah.com>
-In-Reply-To: <1678866649227103@kroah.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBQ?=
- =?utf-8?q?atch_=22drm/i915=3A_Don=27t_use_BAR_mappings_for_ring_buffers_w?=
- =?utf-8?q?ith_LLC=22_has_been_added_to_the_5=2E4-stable_tree?=
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230314022211.1393031-1-John.C.Harrison@Intel.com>
+Subject: Re: [Intel-gfx] [PATCH 5.4.y] drm/i915: Don't use BAR mappings for
+ ring buffers with LLC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,24 +88,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>, stable@vger.kernel.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+On Mon, Mar 13, 2023 at 07:22:11PM -0700, John.C.Harrison@Intel.com wrote:
+> From: John Harrison <John.C.Harrison@Intel.com>
+> 
+> Direction from hardware is that ring buffers should never be mapped
+> via the BAR on systems with LLC. There are too many caching pitfalls
+> due to the way BAR accesses are routed. So it is safest to just not
+> use it.
+> 
+> Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+> Fixes: 9d80841ea4c9 ("drm/i915: Allow ringbuffers to be bound anywhere")
+> Cc: Chris Wilson <chris@chris-wilson.co.uk>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+> Cc: intel-gfx@lists.freedesktop.org
+> Cc: <stable@vger.kernel.org> # v4.9+
+> Tested-by: Jouni Högander <jouni.hogander@intel.com>
+> Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+> Link: https://patchwork.freedesktop.org/patch/msgid/20230216011101.1909009-3-John.C.Harrison@Intel.com
+> (cherry picked from commit 65c08339db1ada87afd6cfe7db8e60bb4851d919)
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> (cherry picked from commit 85636167e3206c3fbd52254fc432991cc4e90194)
+> Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+> ---
+>  drivers/gpu/drm/i915/gt/intel_ringbuffer.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 
-Series: Patch "drm/i915: Don't use BAR mappings for ring buffers with LLC" has been added to the 5.4-stable tree
-URL   : https://patchwork.freedesktop.org/series/115166/
-State : failure
+Also queued up for 5.10.y, you forgot that one :)
 
-== Summary ==
+thanks,
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/115166/revisions/1/mbox/ not applied
-Patch is empty.
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To record the empty patch as an empty commit, run "git am --allow-empty".
-To restore the original branch and stop patching, run "git am --abort".
-
-
+greg k-h
