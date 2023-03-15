@@ -4,54 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 629B8C6FD1D
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Mar 2023 09:20:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AB01C6FD1D
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Mar 2023 09:38:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E59F210E028;
-	Wed, 15 Mar 2023 09:20:54 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7BD010E028;
- Wed, 15 Mar 2023 09:20:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678872053; x=1710408053;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=VToJ+hT7t5Ir5fX7X1PbI/PvrKbWdzgNvXOVGo94AaU=;
- b=YHD8/ZxglS5xScS2yV5P+3ZbFJvnSpkgPFrFHxv0/zM/Sx4T0YpJ1CZ4
- Z3kx0JhwFdbjL2GyZuLnW4f1+LQE3fn54CIhTUbK5jB4c9NOPN/zdIGnA
- H0saHHGYapyXmSbtRbpIddpKBDNRPISmXNB7meK1hX1padFbpqZtuMlWa
- vsU7l6yMbyt8qdaDpt6O/tLaUS6Wbvm5ILpEwPmVfyYUQRq+eTUsj8IT1
- KWWe2DrH50qc0TXfG5yMD2dqc7MuHWA4XPKM8DiEtcyhYFSKnc5HHH5+U
- 7BvL/B+bdB82VeOn5NQsxYbzEIGz8dP1OcycmlPkeQ2m4xjvZTcrmoP+Q A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="365333116"
-X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="365333116"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2023 02:20:53 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="629387359"
-X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="629387359"
-Received: from mchanan-mobl.ger.corp.intel.com (HELO [10.213.222.39])
- ([10.213.222.39])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2023 02:20:51 -0700
-Message-ID: <6f83991b-e4d6-b573-9e1c-074f2c612ff7@linux.intel.com>
-Date: Wed, 15 Mar 2023 09:20:49 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id C78B610E997;
+	Wed, 15 Mar 2023 09:38:27 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D68DC10E996;
+ Wed, 15 Mar 2023 09:38:25 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id C20FFAADF3;
+ Wed, 15 Mar 2023 09:38:25 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============5761320462674664395=="
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-US
-To: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-References: <20230314121740.1195358-1-tvrtko.ursulin@linux.intel.com>
- <ZBC8GxZjeR5+bHOm@orsosgc001.jf.intel.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <ZBC8GxZjeR5+bHOm@orsosgc001.jf.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH i-g-t] intel_gpu_top: Use actual period when
- calculating client busyness
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Date: Wed, 15 Mar 2023 09:38:25 -0000
+Message-ID: <167887310575.19840.4462754521478553155@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230309131701.65312-1-thomas.hellstrom@linux.intel.com>
+In-Reply-To: <20230309131701.65312-1-thomas.hellstrom@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/ttm=3A_Small_fixes_/_cleanups_in_prep_for_shrinking_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,142 +40,170 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: igt-dev@lists.freedesktop.org, Intel-gfx@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============5761320462674664395==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Hi Umesh,
+== Series Details ==
 
-On 14/03/2023 18:25, Umesh Nerlige Ramappa wrote:
-> lgtm,
-> 
-> Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Series: drm/ttm: Small fixes / cleanups in prep for shrinking (rev2)
+URL   : https://patchwork.freedesktop.org/series/114774/
+State : success
 
-Thanks - I had one second thought though. See below please.
+== Summary ==
 
-> On Tue, Mar 14, 2023 at 12:17:40PM +0000, Tvrtko Ursulin wrote:
->> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
->>
->> On a slow machine, or with many processes and/or file descriptors to
->> parse, the period of the scanning loop can drift significantly from the
->> assumed value. This results in artificially inflated client busyness
->> percentages.
->>
->> To alleviate the issue take some real timestamps and use actual elapsed
->> time when calculating relative busyness.
->>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
->> ---
->> tools/intel_gpu_top.c | 39 ++++++++++++++++++++++++++++++++++++++-
->> 1 file changed, 38 insertions(+), 1 deletion(-)
->>
->> diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
->> index e13e35b71f4b..af4b350da8e4 100644
->> --- a/tools/intel_gpu_top.c
->> +++ b/tools/intel_gpu_top.c
->> @@ -43,6 +43,7 @@
->> #include <sys/types.h>
->> #include <unistd.h>
->> #include <termios.h>
->> +#include <time.h>
->> #include <sys/sysmacros.h>
->>
->> #include "igt_perf.h"
->> @@ -2524,6 +2525,38 @@ static void show_help_screen(void)
->> "\n");
->> }
->>
->> +static int gettime(struct timespec *ts)
->> +{
->> +    memset(ts, 0, sizeof(*ts));
->> +
->> +#ifdef CLOCK_MONOTONIC_RAW
->> +    if (!clock_gettime(CLOCK_MONOTONIC_RAW, ts))
->> +        return 0;
->> +#endif
->> +#ifdef CLOCK_MONOTONIC_COARSE
->> +    if (!clock_gettime(CLOCK_MONOTONIC_COARSE, ts))
->> +        return 0;
->> +#endif
+CI Bug Log - changes from CI_DRM_12829 -> Patchwork_114774v2
+====================================================
 
-So I copied this (with some edits) from igt_core.c but I think I should 
-actually remove the CLOCK_MONOTONIC_COARSE option. The usage in 
-intel_gpu_top is not performance sensitive and tick granularity actually 
-defeats to point of this patch.
+Summary
+-------
 
-Okay to keep the r-b if I remove it?
+  **SUCCESS**
 
-Regards,
+  No regressions found.
 
-Tvrtko
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114774v2/index.html
 
->> +
->> +    return clock_gettime(CLOCK_MONOTONIC, ts);
->> +}
->> +
->> +static unsigned long elapsed_us(struct timespec *prev, unsigned int 
->> period_us)
->> +{
->> +    unsigned long elapsed;
->> +    struct timespec now;
->> +
->> +    if (gettime(&now))
->> +        return period_us;
->> +
->> +    elapsed = ((now.tv_nsec - prev->tv_nsec) / 1000 +
->> +               (unsigned long)USEC_PER_SEC * (now.tv_sec - 
->> prev->tv_sec));
->> +
->> +    *prev = now;
->> +
->> +    return elapsed;
->> +}
->> +
->> int main(int argc, char **argv)
->> {
->>     unsigned int period_us = DEFAULT_PERIOD_MS * 1000;
->> @@ -2537,6 +2570,7 @@ int main(int argc, char **argv)
->>     char *pmu_device, *opt_device = NULL;
->>     struct igt_device_card card;
->>     char *codename = NULL;
->> +    struct timespec ts;
->>
->>     /* Parse options */
->>     while ((ch = getopt(argc, argv, "o:s:d:pcJLlh")) != -1) {
->> @@ -2690,6 +2724,7 @@ int main(int argc, char **argv)
->>
->>     pmu_sample(engines);
->>     scan_clients(clients, false);
->> +    gettime(&ts);
->>     codename = igt_device_get_pretty_name(&card, false);
->>
->>     if (output_mode == JSON)
->> @@ -2698,6 +2733,7 @@ int main(int argc, char **argv)
->>     while (!stop_top) {
->>         struct clients *disp_clients;
->>         bool consumed = false;
->> +        unsigned int scan_us;
->>         int j, lines = 0;
->>         struct winsize ws;
->>         struct client *c;
->> @@ -2720,6 +2756,7 @@ int main(int argc, char **argv)
->>         t = (double)(engines->ts.cur - engines->ts.prev) / 1e9;
->>
->>         disp_clients = scan_clients(clients, true);
->> +        scan_us = elapsed_us(&ts, period_us);
->>
->>         if (stop_top)
->>             break;
->> @@ -2757,7 +2794,7 @@ int main(int argc, char **argv)
->>
->>                     lines = print_client(c, engines, t,
->>                                  lines, con_w,
->> -                                 con_h, period_us,
->> +                                 con_h, scan_us,
->>                                  &class_w);
->>                 }
->>
->> -- 
->> 2.37.2
->>
+Participating hosts (36 -> 33)
+------------------------------
+
+  Missing    (3): bat-rpls-2 fi-snb-2520m fi-bsw-n3050 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_114774v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@mman:
+    - bat-rpls-1:         [PASS][1] -> [TIMEOUT][2] ([i915#6794])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12829/bat-rpls-1/igt@i915_selftest@live@mman.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114774v2/bat-rpls-1/igt@i915_selftest@live@mman.html
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:
+    - bat-dg2-11:         NOTRUN -> [SKIP][3] ([i915#5354]) +2 similar issues
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114774v2/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@gt_heartbeat:
+    - fi-kbl-soraka:      [DMESG-FAIL][4] ([i915#5334] / [i915#7872]) -> [PASS][5]
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12829/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114774v2/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html
+
+  
+  [i915#5334]: https://gitlab.freedesktop.org/drm/intel/issues/5334
+  [i915#5354]: https://gitlab.freedesktop.org/drm/intel/issues/5354
+  [i915#6794]: https://gitlab.freedesktop.org/drm/intel/issues/6794
+  [i915#7872]: https://gitlab.freedesktop.org/drm/intel/issues/7872
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_12829 -> Patchwork_114774v2
+
+  CI-20190529: 20190529
+  CI_DRM_12829: d947159409deea43f404f35cc758740c714c8888 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7185: 6707461ddb214bb8a75c5fcf2747941c9d9b11ae @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_114774v2: d947159409deea43f404f35cc758740c714c8888 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+8fdd9b2fa76c drm/ttm: Make the call to ttm_tt_populate() interruptible when faulting
+a70b4b93a66d drm/ttm: Reduce the number of used allocation orders for TTM pages
+8b35e90ab971 drm/ttm/pool: Fix ttm_pool_alloc error path
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114774v2/index.html
+
+--===============5761320462674664395==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/ttm: Small fixes / cleanups in prep for shrinking (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/114774/">https://patchwork.freedesktop.org/series/114774/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114774v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114774v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_12829 -&gt; Patchwork_114774v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114774v2/index.html</p>
+<h2>Participating hosts (36 -&gt; 33)</h2>
+<p>Missing    (3): bat-rpls-2 fi-snb-2520m fi-bsw-n3050 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_114774v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@mman:</p>
+<ul>
+<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12829/bat-rpls-1/igt@i915_selftest@live@mman.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114774v2/bat-rpls-1/igt@i915_selftest@live@mman.html">TIMEOUT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6794">i915#6794</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:</p>
+<ul>
+<li>bat-dg2-11:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114774v2/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5354">i915#5354</a>) +2 similar issues</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@gt_heartbeat:<ul>
+<li>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12829/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7872">i915#7872</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114774v2/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_12829 -&gt; Patchwork_114774v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_12829: d947159409deea43f404f35cc758740c714c8888 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7185: 6707461ddb214bb8a75c5fcf2747941c9d9b11ae @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_114774v2: d947159409deea43f404f35cc758740c714c8888 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>8fdd9b2fa76c drm/ttm: Make the call to ttm_tt_populate() interruptible when faulting<br />
+a70b4b93a66d drm/ttm: Reduce the number of used allocation orders for TTM pages<br />
+8b35e90ab971 drm/ttm/pool: Fix ttm_pool_alloc error path</p>
+
+</body>
+</html>
+
+--===============5761320462674664395==--
