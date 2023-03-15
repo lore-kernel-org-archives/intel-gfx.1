@@ -4,52 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D70D5C7618B
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Mar 2023 10:05:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5AFCC6FD1D
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Mar 2023 10:15:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5064789D39;
-	Wed, 15 Mar 2023 10:05:53 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4725F10E9A5
- for <intel-gfx@lists.freedesktop.org>; Wed, 15 Mar 2023 10:05:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D45B10E9A1;
+	Wed, 15 Mar 2023 10:15:11 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BA2510E991;
+ Wed, 15 Mar 2023 10:15:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678874750; x=1710410750;
+ t=1678875309; x=1710411309;
  h=message-id:date:mime-version:subject:to:cc:references:
  from:in-reply-to:content-transfer-encoding;
- bh=jlNTIndgJ+6IJ0xyY04pEo5moIZeG+rH+AmfVxoB78U=;
- b=bgSKES/oChJxx+d+zwnkBpBs6ex3Texle7pbTSMLMfVUUeoCJHd5OA5y
- pEPP9jgM9ZHcKNDbMJWliEJ4rytbAJazs7aoHg/HojNYTlrH5KqYuMKUs
- r3lPU3t7dQKKR5a0ZEJ6Vx0tSZk0waDS1yhGEfvrnAKmp3iZN/vABR9wn
- 6MAwXumY/A0tpW+yAk4XgBE0EOakv+D625924eL0OB9kqae3aixX1d4ho
- Umv/afGGvfY2LfiKJ6NUGm1LH6qtk0x1psb4uv4COpuBNtIBkFmqzJdKl
- nwELIZ5ko38xpZtB2R/I0Q4ywTfYydoARzvZPNVAAbWVwqRKhubab/Rrl A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="321503642"
-X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="321503642"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2023 03:05:49 -0700
+ bh=rmJrMBCDLfJET/OCfZDk2lk9cUIq2z0NoHpCnWGNLN4=;
+ b=KZfJYh7n9OOnoZZiDOpz+pztD8CHPNbMsCBvoUXUKXDRGaCNwAzfORhv
+ Z1Hb63zA4TytKrFonkWOtGgAOMuDmLHQ2+tsSbMtSV6WscRG2nRpK5pyi
+ UIoLHFK6uizuRC5cIB//V35UobXRkyYJrVHm3XPusAkNcTbMpU71/HoHg
+ IrIeWffGRE/Yu7HJwrOb8pn04cGJW1pO/Xc0gtg7TrLP0f0XW8ISvf9Y8
+ vHGBMdVROCuuXHwplBhuZg1hiucsiOOuRMQmscQEJLpxFMcDdggiu50um
+ NwrpNMlLrt76SJaZCiwEp8+QZJpBNF7xoLa7B2fF3B88SKgwCRpZ8iwIx Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="337684892"
+X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="337684892"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2023 03:15:08 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="656700507"
-X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="656700507"
-Received: from nirmoyda-mobl.ger.corp.intel.com (HELO [10.252.62.75])
- ([10.252.62.75])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2023 03:05:47 -0700
-Message-ID: <3958487c-1110-aa2b-2b53-56a3fe23bf9a@linux.intel.com>
-Date: Wed, 15 Mar 2023 11:05:33 +0100
+X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="709630303"
+X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="709630303"
+Received: from mchanan-mobl.ger.corp.intel.com (HELO [10.213.222.39])
+ ([10.213.222.39])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2023 03:15:04 -0700
+Message-ID: <caf1095e-8237-c79e-e0fa-27022363ffb2@linux.intel.com>
+Date: Wed, 15 Mar 2023 10:15:01 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-To: Andrzej Hajda <andrzej.hajda@intel.com>, intel-gfx@lists.freedesktop.org
-References: <20230314151920.1065847-1-andrzej.hajda@intel.com>
 Content-Language: en-US
-From: "Das, Nirmoy" <nirmoy.das@linux.intel.com>
-In-Reply-To: <20230314151920.1065847-1-andrzej.hajda@intel.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org
+References: <20230313182918.1312597-1-gregkh@linuxfoundation.org>
+ <20230313182918.1312597-30-gregkh@linuxfoundation.org>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <20230313182918.1312597-30-gregkh@linuxfoundation.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/gt: perform uc late init after
- probe error injection
+Subject: Re: [Intel-gfx] [PATCH 30/36] drm/i915/huc: use const struct
+ bus_type pointers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,42 +65,90 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nirmoy Das <nirmoy.das@intel.com>, chris.p.wilson@linux.intel.com,
- Matthew Auld <matthew.auld@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>, rafael@kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, Vitaly Lubart <vitaly.lubart@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
-On 3/14/2023 4:19 PM, Andrzej Hajda wrote:
-> Probe pseudo errors should be injected only in places where real errors
-> can be encountered, otherwise unwinding code can be broken.
-> Placing intel_uc_init_late before i915_inject_probe_error violated
-> this rule, resulting in following bug:
-> __intel_gt_disable:655 GEM_BUG_ON(intel_gt_pm_is_awake(gt))
->
-> Fixes: 481d458caede ("drm/i915/guc: Add golden context to GuC ADS")
-> Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
-Acked-by: Nirmoy Das <nirmoy.das@intel.com>
+On 13/03/2023 18:29, Greg Kroah-Hartman wrote:
+> The struct bus_type pointers in the functions
+> intel_huc_register_gsc_notifier() and
+> intel_huc_unregister_gsc_notifier() should be a const pointer, as the
+> structure is not modified anywhere in the functions, and the pointer
+> they are passed will be a const * in the near future.
+> 
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+> Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
+> Cc: John Harrison <John.C.Harrison@Intel.com>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Tony Ye <tony.ye@intel.com>
+> Cc: Vitaly Lubart <vitaly.lubart@intel.com>
+> Cc: intel-gfx@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 > ---
->   drivers/gpu/drm/i915/gt/intel_gt.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-> index 6ca944d01eb677..38c62e4ad3eba2 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_gt.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-> @@ -736,12 +736,12 @@ int intel_gt_init(struct intel_gt *gt)
->   	if (err)
->   		goto err_gt;
+> Note, this is a patch that is a prepatory cleanup as part of a larger
+> series of patches that is working on resolving some old driver core
+> design mistakes.  It will build and apply cleanly on top of 6.3-rc2 on
+> its own, but I'd prefer if I could take it through my driver-core tree
+> so that the driver core changes can be taken through there for 6.4-rc1.
+
+Sounds fine to me.
+
+Acked-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+
+Regards,
+
+Tvrtko
+
+> 
+>   drivers/gpu/drm/i915/gt/uc/intel_huc.c | 4 ++--
+>   drivers/gpu/drm/i915/gt/uc/intel_huc.h | 4 ++--
+>   2 files changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.c b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+> index 410905da8e97..8b453bd7c953 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+> @@ -183,7 +183,7 @@ static int gsc_notifier(struct notifier_block *nb, unsigned long action, void *d
+>   	return 0;
+>   }
 >   
-> -	intel_uc_init_late(&gt->uc);
-> -
->   	err = i915_inject_probe_error(gt->i915, -EIO);
->   	if (err)
->   		goto err_gt;
+> -void intel_huc_register_gsc_notifier(struct intel_huc *huc, struct bus_type *bus)
+> +void intel_huc_register_gsc_notifier(struct intel_huc *huc, const struct bus_type *bus)
+>   {
+>   	int ret;
 >   
-> +	intel_uc_init_late(&gt->uc);
-> +
->   	intel_migrate_init(&gt->migrate, gt);
+> @@ -200,7 +200,7 @@ void intel_huc_register_gsc_notifier(struct intel_huc *huc, struct bus_type *bus
+>   	}
+>   }
 >   
->   	goto out_fw;
+> -void intel_huc_unregister_gsc_notifier(struct intel_huc *huc, struct bus_type *bus)
+> +void intel_huc_unregister_gsc_notifier(struct intel_huc *huc, const struct bus_type *bus)
+>   {
+>   	if (!huc->delayed_load.nb.notifier_call)
+>   		return;
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.h b/drivers/gpu/drm/i915/gt/uc/intel_huc.h
+> index 52db03620c60..05d4832f8461 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_huc.h
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.h
+> @@ -51,8 +51,8 @@ int intel_huc_check_status(struct intel_huc *huc);
+>   void intel_huc_update_auth_status(struct intel_huc *huc);
+>   bool intel_huc_is_authenticated(struct intel_huc *huc);
+>   
+> -void intel_huc_register_gsc_notifier(struct intel_huc *huc, struct bus_type *bus);
+> -void intel_huc_unregister_gsc_notifier(struct intel_huc *huc, struct bus_type *bus);
+> +void intel_huc_register_gsc_notifier(struct intel_huc *huc, const struct bus_type *bus);
+> +void intel_huc_unregister_gsc_notifier(struct intel_huc *huc, const struct bus_type *bus);
+>   
+>   static inline int intel_huc_sanitize(struct intel_huc *huc)
+>   {
