@@ -4,139 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 840C0C6FD1D
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Mar 2023 09:09:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D6E7C6FD1D
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Mar 2023 09:16:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1241E10E979;
-	Wed, 15 Mar 2023 09:09:00 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A051E10E977;
- Wed, 15 Mar 2023 09:08:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF7EC10E9D7;
+	Wed, 15 Mar 2023 09:16:24 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3B7B10E98B;
+ Wed, 15 Mar 2023 09:16:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678871337; x=1710407337;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- in-reply-to:mime-version;
- bh=NY4xfpFPYTiH5ydX7sYrVQqrtRs8ubRVth75bfZPwrE=;
- b=gYa9AeJGfNhvbqRX0hlxreMF76rdj8BEGn5eOmDH5JQpS4i3DBIvonMM
- NzHGBi3fcg47eb1fMW7jRf3o9oiMuRds/rFmGvKYJETWbeMdZo5H8oKNR
- ucBN5ydPrAPC/oCSuA+k+8ExFQ2SSMbx3XHJd1Qwj7ncr17/xxRLuftNq
- M43D8dD16NAh135vM24B3L6tMhGUgqtOfTli3C3JEIqOIEohRsLHQuQq6
- HYbFwazep4VRazdCaf58tBfHThWE9LIvl2Z7yZPdeTNT9bDIF7mvnlvHv
- M44sR6PHQA8F3b2bCXkQmWuw8JLTO/0YBMk1+qYSu9CoaD27R4qLcw5e8 g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="339193359"
-X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="339193359"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2023 02:08:57 -0700
+ t=1678871782; x=1710407782;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=6zu71dEOVPVS2BWnImOqjsrVz2JqGQvSt6WoeVfcT18=;
+ b=N2dQ8Yeprw/zT7SfiibaAB0Br9Hgw6oJOQYwlxiBBqHVpIl/sYN00XpE
+ WTwpFIiz4b0om+YsZKM4GBAZBxQ4+ycgFC3lj2G+QVvuYDLspZ25rDL9P
+ vEdytuMtOS5mlLA0TpeiF3CEOYBSNDbB8c+4LkcPBUeXTRDxnLPG7o/wa
+ HY32XjFxTWJXrdlwUZxqzzFP+x1kWSjQwZqJ37WrNpYSwthN+N6lntLpb
+ UfZu28gFFlknb59LlzrQaTG1h2oSD17jPWxKpyhtxQ7ZrSZmThqqmY93d
+ fOci5arzeIipAouRxGge0O79L6MtII/dBdkMhNOkTuEq9+XWJsMqOZy16 A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="321494545"
+X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="321494545"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2023 02:16:21 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="789720912"
-X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="789720912"
-Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
- by fmsmga002.fm.intel.com with ESMTP; 15 Mar 2023 02:08:56 -0700
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Wed, 15 Mar 2023 02:08:56 -0700
-Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
- fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Wed, 15 Mar 2023 02:08:56 -0700
-Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
- fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21 via Frontend Transport; Wed, 15 Mar 2023 02:08:56 -0700
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com (104.47.73.44) by
- edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.21; Wed, 15 Mar 2023 02:08:54 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HAW8OOG++xX7+EdYI/NgRpMO++IETAs+iMmWdYAYIG7+WUKuRPSjhcBp5m9bYAN3wNSlqkQIU1KmNNSlkyDAJERYQuUhkv9P1gfFFCXARFAHSe7fxgOWgSpAj4O+qscgbLsG5vkKkMEE5bBqRG+hSCBHrkloWporzdEtLmBJkZXla60rfvYXfkLxKE+UAhKzJV1qKro/IcGUSkAaeP7IlMxpuVGADxrJ9slCPmFTdIemcor5wYLNmEqtCLPMQr6knAkpJ462pv8GH0AI6VDy/smTVeJGo2s7uSaVPtlIFk5ooMrO3L0CNC9ClogbcXL/uo07mn1dkjH4SscR64vcLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wP4O4W02X7+FbB8VGJbKvjKfDzqv54RQU66G9GnjYLs=;
- b=BQ5nkG6y2zf+LuuHHWjmMzaXB2K1gRw871maEwzOvykjInRb25s8+rn1EMAwNVZGcHUOjCqjNimMdfe4OSC2zk5ZJZYZHu4SVn57p/7DblxRK0prSQaxctVUSKjU+Tf+saq0CtRzfEOLf+zKvOc0kP8Z03MwZKECXzr0778g1XlejCu7T+tnL70t6dOl6vNBfAPFyVx9pMvLmylcfiUB2KlA5ASKkOvGL/ntSLsYqcRyHhz/YX+0Mx64krUPiuB+yeG/ppJ6mJ+9k9YXYonDo0iHY7/IYrgs/axkfOr81IZ/uKKxJMJgXaXyaDiTFIvPkY3ZHXFtivhVvv7pgBc29w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS7PR11MB5966.namprd11.prod.outlook.com (2603:10b6:8:71::6) by
- DS0PR11MB7649.namprd11.prod.outlook.com (2603:10b6:8:146::16) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6178.26; Wed, 15 Mar 2023 09:08:51 +0000
-Received: from DS7PR11MB5966.namprd11.prod.outlook.com
- ([fe80::b00e:ac74:158e:1c7e]) by DS7PR11MB5966.namprd11.prod.outlook.com
- ([fe80::b00e:ac74:158e:1c7e%4]) with mapi id 15.20.6178.026; Wed, 15 Mar 2023
- 09:08:51 +0000
-Date: Wed, 15 Mar 2023 16:44:14 +0800
-From: Yan Zhao <yan.y.zhao@intel.com>
-To: Sean Christopherson <seanjc@google.com>
-Message-ID: <ZBGFXrpSXpF5NUlV@yzhao56-desk.sh.intel.com>
-References: <20230311002258.852397-1-seanjc@google.com>
- <20230311002258.852397-20-seanjc@google.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230311002258.852397-20-seanjc@google.com>
-X-ClientProxiedBy: SG2PR02CA0044.apcprd02.prod.outlook.com
- (2603:1096:3:18::32) To DS7PR11MB5966.namprd11.prod.outlook.com
- (2603:10b6:8:71::6)
+X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="853538720"
+X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="853538720"
+Received: from kjeldbeg-mobl.ger.corp.intel.com (HELO [10.249.254.225])
+ ([10.249.254.225])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2023 02:16:19 -0700
+Message-ID: <6cff8c19-0ab6-4b03-d778-ad57aa207b98@intel.com>
+Date: Wed, 15 Mar 2023 11:16:16 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR11MB5966:EE_|DS0PR11MB7649:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d842227-b818-4440-13e9-08db2534e48b
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: pPXz18qk8V62eygpy8WYTRihMGL8Sru+1sOOZscnAh5e6bvURHiapSLGBAy2vHg1gtGPrA/CV2gRnOSHBLuLiCzQjwGlRZ8FD/oy5CSR2Pw6k018la513pNSfDLEHdrSibwZpzvwKTeGEUNjUwLilUPKJqHlk/DmXMyxrTIVfo7Je3r2oHjz7+POdZD1r3yvaufXhUxRLgs3ZwTTN0uoVJ7qwEQpzx+NDfpXooLQ8kNJbxK9vig2EvnDEnH35rBOM6T+eF37aJpeSOrIGmic/p6c3o/Bc0Xowcis88vZoJg8+P+POPC4E/1/kTUezoNVLa0PVszKA94MTkyPqn1DoAbb60MpECiv+fgtBQTRwf5BWSUU1HZTiCZwMjMMzr7HH98eRt6TWfs4Tgy1dg9B/ttHFtXjLbmVT8pokYL+6rTjcgYDpRyW9N9rq8sYc55XPpG0f+Yd3KlLMnaVLih1lS9tgbvXW/my38PhJRUrZY1p16F44S+WjSgCyEc2rcURwdFqR4kPUCvn1ppYANfvuufErn8Xk62gXKub8ez8y96yTaAO3N+Ja7Xe4GXp3Ic4hElvNhMpTRsUI7PUP1Zq6sLmFn2dI0/vDC9v5ILezcqDpQfxLni3Bq3r3Sz5CmSk/UdPrNK04TTJoptrT4L78g==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR11MB5966.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(396003)(39860400002)(136003)(376002)(346002)(366004)(451199018)(38100700002)(2906002)(82960400001)(3450700001)(316002)(478600001)(6666004)(6512007)(6506007)(54906003)(86362001)(26005)(41300700001)(4326008)(66556008)(66476007)(8676002)(6916009)(66946007)(8936002)(6486002)(186003)(83380400001)(5660300002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?MTSQBuwd8bv/nIUeertNd9laLRWlw5gjlYx4ipbcPasN9h5YK8GGAXuSoN1F?=
- =?us-ascii?Q?LqNn69B7xeYENGEKMaRaRqtri7jkOLZebvNgNA2FZ1zz4PCdYUcbHmIUB1jh?=
- =?us-ascii?Q?GvyGghVrtg6sJWSM7gd7Bqmj8II0wAHW4eC/kl32tUqynSEPBAX2+FR+aZIg?=
- =?us-ascii?Q?GkYKRSjz0dp7NEBBFyagnGWJSw9NvYdA7aF94MAvqZ8dBIDFeP++RSPczsms?=
- =?us-ascii?Q?IY1eQS8vVn7/Ab9VFxj612s+FTGeKSKAlwqI2Uo5IFv1eVj8R5BfNE8h0MWq?=
- =?us-ascii?Q?yjZfFBpA2LuT81Dq3Glm++uf56M4iV8dfIdHB3sop7icSd2EMwwoOdZM1lcN?=
- =?us-ascii?Q?L5YzR8JXiMQZ0iaNKB2llc3sSgeImcKZ8N8ks0aKJTRxNM+rVksSIACLJoAG?=
- =?us-ascii?Q?mrHQtqfcm1eatTRHU8wByz64I1DtLaKkTBpsF+YiUCDkrl0Do8jg9Xaa3WQE?=
- =?us-ascii?Q?xdGvnvS5z5WTE2/r2uMh0frqVIP0jypAtDros2xoC4L8uH6AFhCg3N0ZNngd?=
- =?us-ascii?Q?IyyRzX7SpmU06KFR6Z+IrsC1ACh7re/eUlXuxev0FwWjxcr5Ze5GPlnwwjNU?=
- =?us-ascii?Q?eA2rwuLy47JgDGWg4eBkQEngJXYaUVzM28Bz/dlG7+hZEbETRj4ry6RyhZOm?=
- =?us-ascii?Q?/N/4CgclnKaQdO9CPE+pT6EIm+T3PcNltrve7BvH4XxCC3ERtvny21hiYF4H?=
- =?us-ascii?Q?yxaCtz+mZDMl0CDASynrvvDV1fEOMW83Zbxrb4w4uYOOGIAKFTAf8srfBHWZ?=
- =?us-ascii?Q?uvQfssQFQyBwVDMbEzF5+Vpj4eM+EGrezkkXGFZ7bKIHYBnDnhlBqJKnB/i5?=
- =?us-ascii?Q?8HktnRYcF0KjwSzL8NNYjHqZ3XBh9JiNMOeq/JetDEW2L+7uce1CEwMKblZJ?=
- =?us-ascii?Q?VkWuLnHhwLJDXrXWBxUlR60+5VnrBocTLxw35pvAbmB5XkuBKZtk042K1NBl?=
- =?us-ascii?Q?jKyMhDk5fwIrQAzcW/eTZP76gJd62W+db5hNtyAZdMNDqkULQIiXVLN6wUMs?=
- =?us-ascii?Q?m3a9LxNNoF5Q9glffIbW8u4Vj/ytulg3qOI6n9/KtBZ5mQv1JEn+NDmMnGJj?=
- =?us-ascii?Q?GZbBuIW/yd4ynC0LeCHvdMl3ugbhifVTVqRelvGEEBw8mwcgY7+3XgMd4K+7?=
- =?us-ascii?Q?KtH/l5/mmvwb/VdzBPdYyxXnCv42tzJ7Zwczm/Fx05R9nxVjWOI3M3P102zk?=
- =?us-ascii?Q?oanESQvMccVkte6J2/aUmHE5MCNgu05I0BoZHSMJ8KpIWNdeSfSJnG/8Bnz3?=
- =?us-ascii?Q?8CJy6SFs6yADLQUf2cVHexf61gcN1Hc2WkMq+lJtE6tLoZlJEHz1xNeKdFGH?=
- =?us-ascii?Q?AMrj4F+LwYTV6ZN+FtHcZWsSSncjizxBKCfMoFhlU8oHincBsAfxYH2aEyFN?=
- =?us-ascii?Q?HP+e+7dpiXd99VrbQU+9p9evVufbWqBMX9iKmtdl1JHD3DINHUqUYNLqoI/R?=
- =?us-ascii?Q?KgqJZGfMBGGeMO7VPnql5HRg/2YjFW35RP9hk0jPjmgRPtZlbDJeVdy4Zu+6?=
- =?us-ascii?Q?m/g5Mg6AgKf+lyUM9/da3kO0xqLf2x3LM1BD7JGY5/nx5TxZ4B72q8t0CLAo?=
- =?us-ascii?Q?hP1saeGnTKH7VozCRSVmQNw3U3LoL20wlg0rs2Qo+TFcSg9s4bloWH+aSEcW?=
- =?us-ascii?Q?Hw=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d842227-b818-4440-13e9-08db2534e48b
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR11MB5966.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2023 09:08:50.7466 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BYthy5EuaIlbvpMMr0A9GP96MOXodWivWR3EiiI7jHYqH14259jiYUAUgBDP51ziQSlEl/1l/mvgnqho0U1aIA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7649
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH v2 19/27] KVM: x86/mmu: Move KVM-only
- page-track declarations to internal header
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.8.0
+To: Alan Previn <alan.previn.teres.alexis@intel.com>,
+ intel-gfx@lists.freedesktop.org
+References: <20230314175832.1506427-1-alan.previn.teres.alexis@intel.com>
+Content-Language: en-US, en-GB
+From: Eero Tamminen <eero.t.tamminen@intel.com>
+Organization: Intel
+In-Reply-To: <20230314175832.1506427-1-alan.previn.teres.alexis@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v3] drm/i915/pxp: limit drm-errors or
+ warning on firmware API failures
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,39 +64,216 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Yan Zhao <yan.y.zhao@intel.com>
-Cc: kvm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Ben Gardon <bgardon@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, intel-gvt-dev@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 10, 2023 at 04:22:50PM -0800, Sean Christopherson wrote:
-> Bury the declaration of the page-track helpers that are intended only for
-> internal KVM use in a "private" header.  In addition to guarding against
-> unwanted usage of the internal-only helpers, dropping their definitions
-> avoids exposing other structures that should be KVM-internal, e.g. for
-> memslots.  This is a baby step toward making kvm_host.h a KVM-internal
-> header in the very distant future.
+Hi,
+
+Tested the patch with Ubuntu 22.04 desktop + Linux 6.2-rc3 (drm-tip) 
+kernel, on TGL-H HW.
+
+With it, this log spam has disappeared:
+----------------------------------------------------
+[ 8691.608933] i915 0000:00:02.0: [drm] PXP firmware failed arb session 
+init request ret=[0x0000101f]
+[ 8691.709442] i915 0000:00:02.0: [drm] *ERROR* arb session failed to go 
+in play
+----------------------------------------------------
+
+There's now just a single message on boot:
+----------------------------------------------------
+[   11.674177] ------------[ cut here ]------------
+[   11.674183] i915 0000:00:02.0: PXP init-arb-session-15 failed due to 
+BIOS/SOC:0x0000101a:ERR_PLATFORM_CONFIG
+[   11.674222] WARNING: CPU: 12 PID: 123 at 
+drivers/gpu/drm/i915/pxp/intel_pxp_tee.c:345 
+intel_pxp_tee_cmd_create_arb_session+0x19a/0x1e0 [i915]
+...
+[   11.674961] Call Trace:
+[   11.674966]  <TASK>
+[   11.674970]  ? pxp_session_work+0x123/0x1d0 [i915]
+[   11.675130]  pxp_session_work+0x123/0x1d0 [i915]
+[   11.675286]  process_one_work+0x1d9/0x3e0
+[   11.675295]  worker_thread+0x21b/0x3d0
+[   11.675301]  ? __pfx_worker_thread+0x10/0x10
+[   11.675307]  kthread+0xe9/0x110
+[   11.675311]  ? __pfx_kthread+0x10/0x10
+[   11.675315]  ret_from_fork+0x29/0x50
+[   11.675323]  </TASK>
+[   11.675325] ---[ end trace 0000000000000000 ]---
+----------------------------------------------------
+
+
+	- Eero
+
+On 14.3.2023 19.58, Alan Previn wrote:
+> MESA driver is creating protected context on every driver handle
+> creation to query caps bits for app. So when running CI tests,
+> they are observing hundreds of drm_errors when enabling PXP
+> in .config but using SOC fusing or BIOS configuration that cannot
+> support PXP sessions.
 > 
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> The fixes tag referenced below was to resolve a related issue
+> where we wanted to silence error messages, but that case was due
+> to outdated IFWI (firmware) that definitely needed an upgrade and
+> was, at that point, considered a one-off case as opposed to today's
+> realization that default CI was enabling PXP in kernel config for
+> all testing.
+> 
+> So with this patch, let's strike a balance between issues that is
+> critical but are root-caused from HW/platform gaps (louder drm-warn
+> but just ONCE) vs other cases where it could also come from session
+> state machine (which cannot be a WARN_ONCE since it can be triggered
+> due to runtime operation events).
+> 
+> Let's use helpers for these so as more functions are added in future
+> features / HW (or as FW designers continue to bless upstreaming of
+> the error codes and meanings), we only need to update the helpers.
+> 
+> NOTE: Don't completely remove FW errors (via drm_debug) or else cusomer
+> apps that really needs to know that content protection failed won't
+> be aware of it.
+> 
+> v2: - Add fixes tag (Trvtko)
+> v3: - Break multi-line drm_dbg strings into separate drm_dbg (Daniele)
+>      - Fix couple of typecasting nits (Daniele)
+> 
+> Fixes: b762787bf767 ("drm/i915/pxp: Use drm_dbg if arb session failed due to fw version")
+> Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 > ---
->  arch/x86/include/asm/kvm_page_track.h | 26 ++++-----------------
->  arch/x86/kvm/mmu/mmu.c                |  3 ++-
->  arch/x86/kvm/mmu/page_track.c         |  8 +------
->  arch/x86/kvm/mmu/page_track.h         | 33 +++++++++++++++++++++++++++
->  arch/x86/kvm/x86.c                    |  1 +
->  5 files changed, 42 insertions(+), 29 deletions(-)
->  create mode 100644 arch/x86/kvm/mmu/page_track.h
+>   .../i915/pxp/intel_pxp_cmd_interface_cmn.h    |  3 +
+>   drivers/gpu/drm/i915/pxp/intel_pxp_session.c  |  2 +-
+>   drivers/gpu/drm/i915/pxp/intel_pxp_tee.c      | 77 +++++++++++++++----
+>   3 files changed, 67 insertions(+), 15 deletions(-)
 > 
-> diff --git a/arch/x86/include/asm/kvm_page_track.h b/arch/x86/include/asm/kvm_page_track.h
-> index e5eb98ca4fce..deece45936a5 100644
-> --- a/arch/x86/include/asm/kvm_page_track.h
-> +++ b/arch/x86/include/asm/kvm_page_track.h
-
-A curious question:
-are arch/x86/include/asm/kvm_*.h all expected to be external accessible?
-
-Thanks
-Yan
-
+> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_cmn.h b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_cmn.h
+> index ae9b151b7cb7..6f6541d5e49a 100644
+> --- a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_cmn.h
+> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_cmn.h
+> @@ -18,6 +18,9 @@
+>   enum pxp_status {
+>   	PXP_STATUS_SUCCESS = 0x0,
+>   	PXP_STATUS_ERROR_API_VERSION = 0x1002,
+> +	PXP_STATUS_NOT_READY = 0x100e,
+> +	PXP_STATUS_PLATFCONFIG_KF1_NOVERIF = 0x101a,
+> +	PXP_STATUS_PLATFCONFIG_KF1_BAD = 0x101f,
+>   	PXP_STATUS_OP_NOT_PERMITTED = 0x4013
+>   };
+>   
+> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
+> index 448cacb0465d..7de849cb6c47 100644
+> --- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
+> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
+> @@ -74,7 +74,7 @@ static int pxp_create_arb_session(struct intel_pxp *pxp)
+>   
+>   	ret = pxp_wait_for_session_state(pxp, ARB_SESSION, true);
+>   	if (ret) {
+> -		drm_err(&gt->i915->drm, "arb session failed to go in play\n");
+> +		drm_dbg(&gt->i915->drm, "arb session failed to go in play\n");
+>   		return ret;
+>   	}
+>   	drm_dbg(&gt->i915->drm, "PXP ARB session is alive\n");
+> diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+> index d9d248b48093..6f89cd850251 100644
+> --- a/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+> +++ b/drivers/gpu/drm/i915/pxp/intel_pxp_tee.c
+> @@ -19,6 +19,37 @@
+>   #include "intel_pxp_tee.h"
+>   #include "intel_pxp_types.h"
+>   
+> +static bool
+> +is_fw_err_platform_config(u32 type)
+> +{
+> +	switch (type) {
+> +	case PXP_STATUS_ERROR_API_VERSION:
+> +	case PXP_STATUS_PLATFCONFIG_KF1_NOVERIF:
+> +	case PXP_STATUS_PLATFCONFIG_KF1_BAD:
+> +		return true;
+> +	default:
+> +		break;
+> +	}
+> +	return false;
+> +}
+> +
+> +static const char *
+> +fw_err_to_string(u32 type)
+> +{
+> +	switch (type) {
+> +	case PXP_STATUS_ERROR_API_VERSION:
+> +		return "ERR_API_VERSION";
+> +	case PXP_STATUS_NOT_READY:
+> +		return "ERR_NOT_READY";
+> +	case PXP_STATUS_PLATFCONFIG_KF1_NOVERIF:
+> +	case PXP_STATUS_PLATFCONFIG_KF1_BAD:
+> +		return "ERR_PLATFORM_CONFIG";
+> +	default:
+> +		break;
+> +	}
+> +	return NULL;
+> +}
+> +
+>   static int intel_pxp_tee_io_message(struct intel_pxp *pxp,
+>   				    void *msg_in, u32 msg_in_size,
+>   				    void *msg_out, u32 msg_out_max_size,
+> @@ -307,15 +338,22 @@ int intel_pxp_tee_cmd_create_arb_session(struct intel_pxp *pxp,
+>   				       &msg_out, sizeof(msg_out),
+>   				       NULL);
+>   
+> -	if (ret)
+> -		drm_err(&i915->drm, "Failed to send tee msg ret=[%d]\n", ret);
+> -	else if (msg_out.header.status == PXP_STATUS_ERROR_API_VERSION)
+> -		drm_dbg(&i915->drm, "PXP firmware version unsupported, requested: "
+> -			"CMD-ID-[0x%08x] on API-Ver-[0x%08x]\n",
+> -			msg_in.header.command_id, msg_in.header.api_version);
+> -	else if (msg_out.header.status != 0x0)
+> -		drm_warn(&i915->drm, "PXP firmware failed arb session init request ret=[0x%08x]\n",
+> -			 msg_out.header.status);
+> +	if (ret) {
+> +		drm_err(&i915->drm, "Failed to send tee msg init arb session, ret=[%d]\n", ret);
+> +	} else if (msg_out.header.status != 0) {
+> +		if (is_fw_err_platform_config(msg_out.header.status)) {
+> +			drm_WARN_ONCE(&i915->drm, true,
+> +				      "PXP init-arb-session-%d failed due to BIOS/SOC:0x%08x:%s\n",
+> +				      arb_session_id, msg_out.header.status,
+> +				      fw_err_to_string(msg_out.header.status));
+> +		} else {
+> +			drm_dbg(&i915->drm, "PXP init-arb-session--%d failed 0x%08x:%st:\n",
+> +				arb_session_id, msg_out.header.status,
+> +				fw_err_to_string(msg_out.header.status));
+> +			drm_dbg(&i915->drm, "     cmd-detail: ID=[0x%08x],API-Ver-[0x%08x]\n",
+> +				msg_in.header.command_id, msg_in.header.api_version);
+> +		}
+> +	}
+>   
+>   	return ret;
+>   }
+> @@ -347,10 +385,21 @@ void intel_pxp_tee_end_arb_fw_session(struct intel_pxp *pxp, u32 session_id)
+>   	if ((ret || msg_out.header.status != 0x0) && ++trials < 3)
+>   		goto try_again;
+>   
+> -	if (ret)
+> -		drm_err(&i915->drm, "Failed to send tee msg for inv-stream-key-%d, ret=[%d]\n",
+> +	if (ret) {
+> +		drm_err(&i915->drm, "Failed to send tee msg for inv-stream-key-%u, ret=[%d]\n",
+>   			session_id, ret);
+> -	else if (msg_out.header.status != 0x0)
+> -		drm_warn(&i915->drm, "PXP firmware failed inv-stream-key-%d with status 0x%08x\n",
+> -			 session_id, msg_out.header.status);
+> +	} else if (msg_out.header.status != 0) {
+> +		if (is_fw_err_platform_config(msg_out.header.status)) {
+> +			drm_WARN_ONCE(&i915->drm, true,
+> +				      "PXP inv-stream-key-%u failed due to BIOS/SOC :0x%08x:%s\n",
+> +				      session_id, msg_out.header.status,
+> +				      fw_err_to_string(msg_out.header.status));
+> +		} else {
+> +			drm_dbg(&i915->drm, "PXP inv-stream-key-%u failed 0x%08x:%s:\n",
+> +				session_id, msg_out.header.status,
+> +				fw_err_to_string(msg_out.header.status));
+> +			drm_dbg(&i915->drm, "     cmd-detail: ID=[0x%08x],API-Ver-[0x%08x]\n",
+> +				msg_in.header.command_id, msg_in.header.api_version);
+> +		}
+> +	}
+>   }
+> 
+> base-commit: 07f982ec08c9bfc4aa82d98022111126cd638a0b
