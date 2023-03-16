@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6F64C6FD1F
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 13:40:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1119C74A5B
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 13:40:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25F6410E212;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA50110E226;
 	Thu, 16 Mar 2023 13:40:36 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3381610E1EB
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 13:40:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A86310E1F5
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 13:40:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678974028; x=1710510028;
+ t=1678974031; x=1710510031;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=/DpCe4Cg+sAszdBzGNW0hbmv+2AP2mvZHJjeE4Ir+sY=;
- b=gxMCLM0x8OEgajIAT/ebIZ+hfjzJrUk/V3SlhRq7ArE2zLkHLssIDlOr
- mTJ4ryeqdYmeCpxngUtbbjX+t3fDU/y0SmSvMzkc1+1vRB2R1v1WcJ8fI
- pzkD5Rry6R/T4N9W31NIHKMnyKIoKYjpm/CPfztxme1Lbg+7ozn4hfMJC
- sjQtA8WKvQ1a+/9hMZkf4hHDMmJ+DW8f2DWgHOevzGccmyQ2N7/pdpAWN
- n8mK4C+PG1d9qWP1oLSnAOk2QhBOqrax2RwuS2WBGsKIGVgBQ8Q2TQ5fq
- DbZk9w1dvLxlg+/i8wbUBI3h2pQfvsqWiDOztkyPT65HxWBkT4eU1mWqp Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="339524672"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="339524672"
+ bh=ABznAQIoxBbrlUohCcVhQj9C4Jk+U1ss53MEChKwhuE=;
+ b=Q2glFr1MKKAcrMlK0XFlXcDpDoxR485MEFsLDI9iO3cyChfVYGgItQio
+ lJC5ZPuIO5MV911nh+FQJtz6mVqUcyfqiy+lferR7n/4ztrsyPEJ8IuCt
+ vdB+f9iw2Z2p7P16SeHK6L262yZC1j+GQLm6nBPUrDNjgQxfdAqhNzQc/
+ ocxqwct2GJW6IwRZ34AW6QZZVz4erxc1sz66bN3nyMvSUJUexcY2mRcz1
+ kuHHen5Kp3XnJKKa+ldJ6KkkNmBzjdg9RGtJvO/aJh2T9/qGzg42vv3Fc
+ +25h/WUTpNsYjwDzEUrDptLKk2nEzZp8fvK1o9gsZsbjjkrubXFu9Gs/b A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="339524713"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="339524713"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 06:17:32 -0700
+ 16 Mar 2023 06:17:34 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="657171275"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="657171275"
+X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="657171278"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="657171278"
 Received: from ideak-desk.fi.intel.com ([10.237.72.58])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 06:17:31 -0700
+ 16 Mar 2023 06:17:33 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 16 Mar 2023 15:17:15 +0200
-Message-Id: <20230316131724.359612-6-imre.deak@intel.com>
+Date: Thu, 16 Mar 2023 15:17:17 +0200
+Message-Id: <20230316131724.359612-8-imre.deak@intel.com>
 X-Mailer: git-send-email 2.31.1.189.g2e36527f23
 In-Reply-To: <20230316131724.359612-1-imre.deak@intel.com>
 References: <20230316131724.359612-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 05/14] drm/i915/tc: Wait for IOM/FW PHY
- initialization of legacy TC ports
+Subject: [Intel-gfx] [PATCH 07/14] drm/i915/tc: Fix target TC mode for a
+ disconnected legacy port
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,54 +61,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-During boot-up/system resume, the TC PHY on legacy ports will be
-initialized by the IOM/TCSS firmware regardless of a sink being
-connected or not (as opposed to DP-alt/TBT ports, which the FW only
-inits once a sink is connected).
+Atm, the target TC mode - which the PHY should be switched to at any
+point it's used - is TBT in case there is no sink connected. However
+legacy ports are only used in the legacy mode regardless of the sink
+connected state. Fix the mode returned by
+intel_tc_port_get_target_mode() accordingly.
 
-Wait for the above initialization to complete during HW readout, so that
-connecting the PHY later will already see the expected PHY ready state.
+Despite of the above issue, the PHY got disconnected as expected in
+response to a sink disconnect event, causing only a redundant
+PHY disconnect->reconnect sequence whenever the port was used.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_tc.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ drivers/gpu/drm/i915/display/intel_tc.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
-index e8cf3b506fb7f..2116c82831a53 100644
+index 002e142cc746f..e39c8a870df06 100644
 --- a/drivers/gpu/drm/i915/display/intel_tc.c
 +++ b/drivers/gpu/drm/i915/display/intel_tc.c
-@@ -582,6 +582,15 @@ static bool icl_tc_phy_is_connected(struct intel_digital_port *dig_port)
- 	       dig_port->tc_mode == TC_PORT_LEGACY;
+@@ -635,15 +635,23 @@ intel_tc_port_get_current_mode(struct intel_digital_port *dig_port)
+ 	return mode;
  }
  
-+static void tc_phy_wait_for_ready(struct intel_digital_port *dig_port)
++static enum tc_port_mode default_tc_mode(struct intel_digital_port *dig_port)
 +{
-+	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++	if (dig_port->tc_legacy_port)
++		return TC_PORT_LEGACY;
 +
-+	if (wait_for(tc_phy_status_complete(dig_port), 100))
-+		drm_err(&i915->drm, "Port %s: timeout waiting for PHY ready\n",
-+			dig_port->tc_port_name);
++	return TC_PORT_TBT_ALT;
 +}
 +
  static enum tc_port_mode
- intel_tc_port_get_current_mode(struct intel_digital_port *dig_port)
+-hpd_mask_to_target_mode(u32 live_status_mask)
++hpd_mask_to_target_mode(struct intel_digital_port *dig_port, u32 live_status_mask)
  {
-@@ -589,6 +598,14 @@ intel_tc_port_get_current_mode(struct intel_digital_port *dig_port)
- 	u32 live_status_mask = tc_port_live_status_mask(dig_port);
- 	enum tc_port_mode mode;
+ 	enum tc_port_mode mode = hpd_mask_to_tc_mode(live_status_mask);
  
-+	/*
-+	 * For legacy ports the IOM firmware initializes the PHY during boot-up
-+	 * and system resume whether or not a sink is connected. Wait here for
-+	 * the initialization to get ready.
-+	 */
-+	if (dig_port->tc_legacy_port)
-+		tc_phy_wait_for_ready(dig_port);
-+
- 	if (!tc_phy_is_owned(dig_port) ||
- 	    drm_WARN_ON(&i915->drm, !tc_phy_status_complete(dig_port)))
- 		return TC_PORT_TBT_ALT;
+ 	if (mode != TC_PORT_DISCONNECTED)
+ 		return mode;
+ 
+-	return TC_PORT_TBT_ALT;
++	return default_tc_mode(dig_port);
+ }
+ 
+ static enum tc_port_mode
+@@ -651,7 +659,7 @@ intel_tc_port_get_target_mode(struct intel_digital_port *dig_port)
+ {
+ 	u32 live_status_mask = tc_port_live_status_mask(dig_port);
+ 
+-	return hpd_mask_to_target_mode(live_status_mask);
++	return hpd_mask_to_target_mode(dig_port, live_status_mask);
+ }
+ 
+ static void intel_tc_port_reset_mode(struct intel_digital_port *dig_port,
 -- 
 2.37.1
 
