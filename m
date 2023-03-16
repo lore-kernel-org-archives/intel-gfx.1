@@ -4,49 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B8D9C6FD1F
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 12:15:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 572DEC6FD1F
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 12:27:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFC7010ECCC;
-	Thu, 16 Mar 2023 12:15:42 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 547B310E19F;
- Thu, 16 Mar 2023 12:15:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678968930; x=1710504930;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=LylctBNPn6Ia5HGzTinxDoCCLNEoFcLFW6Mz/3oYHs0=;
- b=i/OdIchYl4q+O8dc0Vuszv/hY9s/NnTCcjeWRB+XoRyc8Y9IkgkeNkhM
- 8rfsuB/veowJskyerJE8g14bhKQFqTheJcWxgAynJiQVMt0soBsULH7tk
- wxPGge0i+/OICgFhYxbXC8qE1qzlaSzb+lyF4Hquv5aHfVE7ENndcMQD1
- 3PabkA1P23sp1b2oC11MYRacrVVIPnoAIjUdrDSq2t5s8rjbNwOX/V5fx
- vxLxCAjWUjzE9y0lcLN2zPU8NmqjDzDgQ661rLp5RuAP1ig3/lyBY3eYl
- mqjB4Ety4jIeznU2zC+P6PqzQnsD0T61riVU8LqkdfSNRmPONFZxcOocn A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="336661394"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="336661394"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 05:15:29 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="679874215"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="679874215"
-Received: from unknown (HELO 984fee00a4c6.jf.intel.com) ([10.165.58.231])
- by orsmga002.jf.intel.com with ESMTP; 16 Mar 2023 05:15:29 -0700
-From: Yi Liu <yi.l.liu@intel.com>
-To: alex.williamson@redhat.com,
-	jgg@nvidia.com,
-	kevin.tian@intel.com
-Date: Thu, 16 Mar 2023 05:15:24 -0700
-Message-Id: <20230316121526.5644-4-yi.l.liu@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230316121526.5644-1-yi.l.liu@intel.com>
-References: <20230316121526.5644-1-yi.l.liu@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FBAB10E0B0;
+	Thu, 16 Mar 2023 12:27:45 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8898210ECE0;
+ Thu, 16 Mar 2023 12:27:43 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 7C259A0169;
+ Thu, 16 Mar 2023 12:27:43 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 3/5] vfio-iommufd: Make
- vfio_iommufd_emulated_bind() return iommufd_access ID
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Yan Zhao" <yan.y.zhao@intel.com>
+Date: Thu, 16 Mar 2023 12:27:43 -0000
+Message-ID: <167896966346.19095.4966929792564221143@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230311002258.852397-1-seanjc@google.com>
+In-Reply-To: <20230311002258.852397-1-seanjc@google.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/gvt=3A_KVM=3A_KVMGT_fixes_and_page-track_cleanups_?=
+ =?utf-8?b?KHJldjUp?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,106 +41,67 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-s390@vger.kernel.org, yi.l.liu@intel.com, yi.y.sun@linux.intel.com,
- mjrosato@linux.ibm.com, kvm@vger.kernel.org,
- intel-gvt-dev@lists.freedesktop.org, joro@8bytes.org, cohuck@redhat.com,
- xudong.hao@intel.com, peterx@redhat.com, yan.y.zhao@intel.com,
- eric.auger@redhat.com, terrence.xu@intel.com, nicolinc@nvidia.com,
- shameerali.kolothum.thodi@huawei.com, suravee.suthikulpanit@amd.com,
- intel-gfx@lists.freedesktop.org, chao.p.peng@linux.intel.com, lulu@redhat.com,
- robin.murphy@arm.com, jasowang@redhat.com
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-vfio device cdev needs to return iommufd_access ID to userspace if
-bind_iommufd succeeds.
+== Series Details ==
 
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Yi Liu <yi.l.liu@intel.com>
----
- drivers/iommu/iommufd/device.c   | 4 +++-
- drivers/iommu/iommufd/selftest.c | 3 ++-
- drivers/vfio/iommufd.c           | 2 +-
- include/linux/iommufd.h          | 2 +-
- 4 files changed, 7 insertions(+), 4 deletions(-)
+Series: drm/i915/gvt: KVM: KVMGT fixes and page-track cleanups (rev5)
+URL   : https://patchwork.freedesktop.org/series/112196/
+State : warning
 
-diff --git a/drivers/iommu/iommufd/device.c b/drivers/iommu/iommufd/device.c
-index 99d34c81d786..0295140dd384 100644
---- a/drivers/iommu/iommufd/device.c
-+++ b/drivers/iommu/iommufd/device.c
-@@ -426,6 +426,7 @@ void iommufd_access_destroy_object(struct iommufd_object *obj)
-  * @ioas_id: ID for a IOMMUFD_OBJ_IOAS
-  * @ops: Driver's ops to associate with the access
-  * @data: Opaque data to pass into ops functions
-+ * @id: Output ID number to return to userspace for this access
-  *
-  * An iommufd_access allows a driver to read/write to the IOAS without using
-  * DMA. The underlying CPU memory can be accessed using the
-@@ -435,7 +436,7 @@ void iommufd_access_destroy_object(struct iommufd_object *obj)
-  */
- struct iommufd_access *
- iommufd_access_create(struct iommufd_ctx *ictx,
--		      const struct iommufd_access_ops *ops, void *data)
-+		      const struct iommufd_access_ops *ops, void *data, u32 *id)
- {
- 	struct iommufd_access *access;
- 
-@@ -460,6 +461,7 @@ iommufd_access_create(struct iommufd_ctx *ictx,
- 	access->ictx = ictx;
- 	iommufd_ctx_get(ictx);
- 	iommufd_object_finalize(ictx, &access->obj);
-+	*id = access->obj.id;
- 	return access;
- }
- EXPORT_SYMBOL_NS_GPL(iommufd_access_create, IOMMUFD);
-diff --git a/drivers/iommu/iommufd/selftest.c b/drivers/iommu/iommufd/selftest.c
-index 0eabda430c9f..65e3bdaadd67 100644
---- a/drivers/iommu/iommufd/selftest.c
-+++ b/drivers/iommu/iommufd/selftest.c
-@@ -554,6 +554,7 @@ static int iommufd_test_create_access(struct iommufd_ucmd *ucmd,
- 	struct iommu_test_cmd *cmd = ucmd->cmd;
- 	struct selftest_access *staccess;
- 	struct iommufd_access *access;
-+	u32 id;
- 	int fdno;
- 	int rc;
- 
-@@ -575,7 +576,7 @@ static int iommufd_test_create_access(struct iommufd_ucmd *ucmd,
- 		(flags & MOCK_FLAGS_ACCESS_CREATE_NEEDS_PIN_PAGES) ?
- 			&selftest_access_ops_pin :
- 			&selftest_access_ops,
--		staccess);
-+		staccess, &id);
- 	if (IS_ERR(access)) {
- 		rc = PTR_ERR(access);
- 		goto out_put_fdno;
-diff --git a/drivers/vfio/iommufd.c b/drivers/vfio/iommufd.c
-index b576d4c7b79b..e40c0e9fea30 100644
---- a/drivers/vfio/iommufd.c
-+++ b/drivers/vfio/iommufd.c
-@@ -142,7 +142,7 @@ int vfio_iommufd_emulated_bind(struct vfio_device *vdev,
- 
- 	lockdep_assert_held(&vdev->dev_set->lock);
- 
--	user = iommufd_access_create(ictx, &vfio_user_ops, vdev);
-+	user = iommufd_access_create(ictx, &vfio_user_ops, vdev, out_device_id);
- 	if (IS_ERR(user))
- 		return PTR_ERR(user);
- 	vdev->iommufd_access = user;
-diff --git a/include/linux/iommufd.h b/include/linux/iommufd.h
-index 155d3630aedc..1129a36a74c4 100644
---- a/include/linux/iommufd.h
-+++ b/include/linux/iommufd.h
-@@ -41,7 +41,7 @@ enum {
- 
- struct iommufd_access *
- iommufd_access_create(struct iommufd_ctx *ictx,
--		      const struct iommufd_access_ops *ops, void *data);
-+		      const struct iommufd_access_ops *ops, void *data, u32 *id);
- void iommufd_access_destroy(struct iommufd_access *access);
- int iommufd_access_attach(struct iommufd_access *access, u32 ioas_id);
- 
--- 
-2.34.1
+== Summary ==
+
+Error: dim checkpatch failed
+25a3d4a31296 drm/i915/gvt: Verify pfn is "valid" before dereferencing "struct page"
+7616ee93a101 KVM: x86/mmu: Factor out helper to get max mapping size of a memslot
+fcb516cf24af drm/i915/gvt: remove interface intel_gvt_is_valid_gfn
+4e9589b9266b drm/i915/gvt: Incorporate KVM memslot info into check for 2MiB GTT entry
+7e1387732ec3 drm/i915/gvt: Verify VFIO-pinned page is THP when shadowing 2M gtt entry
+8b245ebb321a drm/i915/gvt: Put the page reference obtained by KVM's gfn_to_pfn()
+fd92a12e9d0c drm/i915/gvt: Don't rely on KVM's gfn_to_pfn() to query possible 2M GTT
+-:37: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#37: FILE: drivers/gpu/drm/i915/gvt/gtt.c:1157:
++static int try_map_2MB_gtt_entry(struct intel_vgpu *vgpu,
++	struct intel_gvt_gtt_entry *entry, dma_addr_t *dma_addr)
+
+total: 0 errors, 0 warnings, 1 checks, 78 lines checked
+d33f165a76b9 drm/i915/gvt: Use an "unsigned long" to iterate over memslot gfns
+2f00c4873260 drm/i915/gvt: Drop unused helper intel_vgpu_reset_gtt()
+524b8ca6b867 drm/i915/gvt: Protect gfn hash table with vgpu_lock
+da08c5987ad9 KVM: x86/mmu: Don't rely on page-track mechanism to flush on memslot change
+7395b953521e KVM: x86/mmu: Don't bounce through page-track mechanism for guest PTEs
+e0945379e27a KVM: drm/i915/gvt: Drop @vcpu from KVM's ->track_write() hook
+ac3d05c84e2f KVM: x86: Reject memslot MOVE operations if KVMGT is attached
+b7d633d0df47 drm/i915/gvt: Don't bother removing write-protection on to-be-deleted slot
+641942aa6bc1 KVM: x86: Add a new page-track hook to handle memslot deletion
+-:84: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#84: FILE: arch/x86/kvm/mmu/page_track.c:324:
++	hlist_for_each_entry_srcu(n, &head->track_notifier_list, node,
++				srcu_read_lock_held(&head->track_srcu))
+
+total: 0 errors, 0 warnings, 1 checks, 62 lines checked
+813496703fa8 drm/i915/gvt: switch from ->track_flush_slot() to ->track_remove_region()
+9747b5c46647 KVM: x86: Remove the unused page-track hook track_flush_slot()
+22cac1f2fb48 KVM: x86/mmu: Move KVM-only page-track declarations to internal header
+Traceback (most recent call last):
+  File "scripts/spdxcheck.py", line 6, in <module>
+    from ply import lex, yacc
+ModuleNotFoundError: No module named 'ply'
+-:119: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#119: 
+new file mode 100644
+
+total: 0 errors, 1 warnings, 0 checks, 118 lines checked
+900cdc374edb KVM: x86/mmu: Use page-track notifiers iff there are external users
+edc7b922b08c KVM: x86/mmu: Drop infrastructure for multiple page-track modes
+8e372f22d215 KVM: x86/mmu: Rename page-track APIs to reflect the new reality
+722952f3cee5 KVM: x86/mmu: Assert that correct locks are held for page write-tracking
+0ccb4868c921 KVM: x86/mmu: Bug the VM if write-tracking is used but not enabled
+e4fbe25725a8 KVM: x86/mmu: Drop @slot param from exported/external page-track APIs
+a000d410d307 KVM: x86/mmu: Handle KVM bookkeeping in page-track APIs, not callers
+d5ce069cc421 drm/i915/gvt: Drop final dependencies on KVM internal details
+
 
