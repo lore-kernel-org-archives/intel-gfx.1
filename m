@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DE56C74A5B
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 12:56:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A3ACC7618D
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 12:56:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8259310ECFC;
-	Thu, 16 Mar 2023 12:56:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D084910ECDF;
+	Thu, 16 Mar 2023 12:56:10 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0CD010ECDC;
- Thu, 16 Mar 2023 12:56:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4D2F10E230;
+ Thu, 16 Mar 2023 12:56:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678971361; x=1710507361;
+ t=1678971365; x=1710507365;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=UDyCXL9Kwvfstf4sPJ2SpNZV4z820q9njRJwl408WyI=;
- b=dcWvTfTfoLNfaFGh6gpWUbnDrTbDZUAk3QpVG82F5cijhZGQE25I/TWT
- OBmsOWC/7TCYVYyaAwoUbhhQDxYJUjL9hC2Bv8E9/9Sj8OTDcFTQuyyNd
- hXoTdrOr6RnJY58u90jzS/Bxu5El485Q8yu+U7IW2mBa6c5D4QM5CvtzC
- a/eEadUC1TwzKjnlawFrnzvLYeLQd8suaMHD+KHpbfyI+glCCIXxg8Js6
- zEwZGmRNvUwnW6HuMoX7oqfw53UghSFQvQdWriHgDPCocLzEY6+vUAZSA
- ExHdcjMnBwsLVP5UejJldkJQFVXKPW1PwvsXff4fyWpuMg3PwCdY/jTva A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="336668186"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="336668186"
+ bh=22fk7h9kyqgQxLZKd3Z85noEys/Ejz9EipQjLeneFNY=;
+ b=d+X7tMBUcVEGSwXbCmXk6rHwmYO9G0ykHS9OHd35MwxqVF6yKoz8VObE
+ vu8wvs4MGwr1Aveo2HAKDN1w0AocBvTCtdStI5tr6bFuWMC5s31ZXtyzt
+ KH6CTUKsheiQVLkhDpQvxstlfyjeQP2W33ZpR4vDwUzadzg4/VzfvZxbb
+ p5od3xX7senoc1zYfemEpmfujhKFsOiah9icKA77Alh0Yz+EB0OcjnI89
+ Zk2e8yVYk5QhlvA8XU39TjladQYrn6PIZyBg4SPLC5Ve6k9+7E58yEvBz
+ 2+WsgLerXHoUxLTGmcC9LshD/LmmaMBdv7+Mp8Ch1Pr3sobqfQJORsehS g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="336668231"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="336668231"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 05:56:01 -0700
+ 16 Mar 2023 05:56:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="790277866"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="790277866"
+X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="790277887"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="790277887"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by fmsmga002.fm.intel.com with ESMTP; 16 Mar 2023 05:56:00 -0700
+ by fmsmga002.fm.intel.com with ESMTP; 16 Mar 2023 05:56:04 -0700
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Thu, 16 Mar 2023 05:55:28 -0700
-Message-Id: <20230316125534.17216-17-yi.l.liu@intel.com>
+Date: Thu, 16 Mar 2023 05:55:31 -0700
+Message-Id: <20230316125534.17216-20-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230316125534.17216-1-yi.l.liu@intel.com>
 References: <20230316125534.17216-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 16/22] iommufd/device: Add
- iommufd_access_detach() API
+Subject: [Intel-gfx] [PATCH v7 19/22] vfio: Add VFIO_DEVICE_BIND_IOMMUFD
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,238 +69,295 @@ Cc: linux-s390@vger.kernel.org, yi.l.liu@intel.com, yi.y.sun@linux.intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Nicolin Chen <nicolinc@nvidia.com>
+This adds ioctl for userspace to bind device cdev fd to iommufd.
 
-Previously, the detach routine is only done by the destroy(). And it was
-called by vfio_iommufd_emulated_unbind() when the device runs close(), so
-all the mappings in iopt were cleaned in that setup, when the call trace
-reaches this detach() routine.
+    VFIO_DEVICE_BIND_IOMMUFD: bind device to an iommufd, hence gain DMA
+			      control provided by the iommufd. open_device
+			      op is called after bind_iommufd op.
+			      VFIO no iommu mode is indicated by passing
+			      a negative iommufd value.
 
-Now, there's a need of a detach uAPI, meaning that it does not only need
-a new iommufd_access_detach() API, but also requires access->ops->unmap()
-call as a cleanup. So add one.
-
-However, leaving that unprotected can introduce some potential of a race
-condition during the pin_/unpin_pages() call, where access->ioas->iopt is
-getting referenced. So, add an ioas_lock to protect the context of iopt
-referencings.
-
-Also, to allow the iommufd_access_unpin_pages() callback to happen via
-this unmap() call, add an ioas_unpin pointer, so the unpin routine won't
-be affected by the "access->ioas = NULL" trick.
-
-Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 ---
- drivers/iommu/iommufd/device.c          | 75 +++++++++++++++++++++++--
- drivers/iommu/iommufd/iommufd_private.h |  2 +
- include/linux/iommufd.h                 |  1 +
- 3 files changed, 73 insertions(+), 5 deletions(-)
+ drivers/vfio/device_cdev.c | 153 +++++++++++++++++++++++++++++++++++++
+ drivers/vfio/vfio.h        |  13 ++++
+ drivers/vfio/vfio_main.c   |   5 ++
+ include/uapi/linux/vfio.h  |  37 +++++++++
+ 4 files changed, 208 insertions(+)
 
-diff --git a/drivers/iommu/iommufd/device.c b/drivers/iommu/iommufd/device.c
-index 2ca12716db98..404496ffd1d2 100644
---- a/drivers/iommu/iommufd/device.c
-+++ b/drivers/iommu/iommufd/device.c
-@@ -487,28 +487,68 @@ void iommufd_access_destroy(struct iommufd_access *access)
- }
- EXPORT_SYMBOL_NS_GPL(iommufd_access_destroy, IOMMUFD);
+diff --git a/drivers/vfio/device_cdev.c b/drivers/vfio/device_cdev.c
+index 1c640016a824..73430290e7d1 100644
+--- a/drivers/vfio/device_cdev.c
++++ b/drivers/vfio/device_cdev.c
+@@ -3,6 +3,7 @@
+  * Copyright (c) 2023 Intel Corporation.
+  */
+ #include <linux/vfio.h>
++#include <linux/iommufd.h>
  
-+static void __iommufd_access_detach(struct iommufd_access *access)
+ #include "vfio.h"
+ 
+@@ -44,6 +45,158 @@ int vfio_device_fops_cdev_open(struct inode *inode, struct file *filep)
+ 	return ret;
+ }
+ 
++static void vfio_device_get_kvm_safe(struct vfio_device_file *df)
 +{
-+	struct iommufd_ioas *cur_ioas = access->ioas;
++	spin_lock(&df->kvm_ref_lock);
++	if (df->kvm)
++		_vfio_device_get_kvm_safe(df->device, df->kvm);
++	spin_unlock(&df->kvm_ref_lock);
++}
 +
-+	lockdep_assert_held(&access->ioas_lock);
++void vfio_device_cdev_close(struct vfio_device_file *df)
++{
++	struct vfio_device *device = df->device;
++
 +	/*
-+	 * Set ioas to NULL to block any further iommufd_access_pin_pages().
-+	 * iommufd_access_unpin_pages() can continue using access->ioas_unpin.
++	 * As df->access_granted writer is under dev_set->lock as well,
++	 * so this read no need to use smp_load_acquire() to pair with
++	 * smp_store_release() in the caller of vfio_device_open().
 +	 */
-+	access->ioas = NULL;
-+
-+	if (access->ops->unmap) {
-+		mutex_unlock(&access->ioas_lock);
-+		access->ops->unmap(access->data, 0, ULONG_MAX);
-+		mutex_lock(&access->ioas_lock);
-+	}
-+	iopt_remove_access(&cur_ioas->iopt, access);
-+	refcount_dec(&cur_ioas->obj.users);
-+}
-+
-+void iommufd_access_detach(struct iommufd_access *access)
-+{
-+	mutex_lock(&access->ioas_lock);
-+	if (WARN_ON(!access->ioas))
-+		goto out;
-+	__iommufd_access_detach(access);
-+out:
-+	access->ioas_unpin = NULL;
-+	mutex_unlock(&access->ioas_lock);
-+}
-+EXPORT_SYMBOL_NS_GPL(iommufd_access_detach, IOMMUFD);
-+
- int iommufd_access_attach(struct iommufd_access *access, u32 ioas_id)
- {
- 	struct iommufd_ioas *new_ioas;
- 	struct iommufd_object *obj;
- 	int rc = 0;
- 
--	if (access->ioas != NULL && access->ioas->obj.id != ioas_id)
-+	mutex_lock(&access->ioas_lock);
-+	if (access->ioas != NULL && access->ioas->obj.id != ioas_id) {
-+		mutex_unlock(&access->ioas_lock);
- 		return -EINVAL;
-+	}
- 
- 	obj = iommufd_get_object(access->ictx, ioas_id, IOMMUFD_OBJ_IOAS);
--	if (IS_ERR(obj))
-+	if (IS_ERR(obj)) {
-+		mutex_unlock(&access->ioas_lock);
- 		return PTR_ERR(obj);
-+	}
- 	new_ioas = container_of(obj, struct iommufd_ioas, obj);
- 
- 	rc = iopt_add_access(&new_ioas->iopt, access);
- 	if (rc) {
-+		mutex_unlock(&access->ioas_lock);
- 		iommufd_put_object(obj);
- 		return rc;
- 	}
- 	iommufd_ref_to_users(obj);
- 
- 	access->ioas = new_ioas;
-+	access->ioas_unpin = new_ioas;
-+	mutex_unlock(&access->ioas_lock);
- 	return 0;
- }
- EXPORT_SYMBOL_NS_GPL(iommufd_access_attach, IOMMUFD);
-@@ -563,8 +603,8 @@ void iommufd_access_notify_unmap(struct io_pagetable *iopt, unsigned long iova,
- void iommufd_access_unpin_pages(struct iommufd_access *access,
- 				unsigned long iova, unsigned long length)
- {
--	struct io_pagetable *iopt = &access->ioas->iopt;
- 	struct iopt_area_contig_iter iter;
-+	struct io_pagetable *iopt;
- 	unsigned long last_iova;
- 	struct iopt_area *area;
- 
-@@ -572,6 +612,13 @@ void iommufd_access_unpin_pages(struct iommufd_access *access,
- 	    WARN_ON(check_add_overflow(iova, length - 1, &last_iova)))
- 		return;
- 
-+	mutex_lock(&access->ioas_lock);
-+	if (!access->ioas_unpin) {
-+		mutex_unlock(&access->ioas_lock);
++	if (!df->access_granted)
 +		return;
-+	}
-+	iopt = &access->ioas_unpin->iopt;
 +
- 	down_read(&iopt->iova_rwsem);
- 	iopt_for_each_contig_area(&iter, area, iopt, iova, last_iova)
- 		iopt_area_remove_access(
-@@ -581,6 +628,7 @@ void iommufd_access_unpin_pages(struct iommufd_access *access,
- 				min(last_iova, iopt_area_last_iova(area))));
- 	up_read(&iopt->iova_rwsem);
- 	WARN_ON(!iopt_area_contig_done(&iter));
-+	mutex_unlock(&access->ioas_lock);
- }
- EXPORT_SYMBOL_NS_GPL(iommufd_access_unpin_pages, IOMMUFD);
- 
-@@ -626,8 +674,8 @@ int iommufd_access_pin_pages(struct iommufd_access *access, unsigned long iova,
- 			     unsigned long length, struct page **out_pages,
- 			     unsigned int flags)
++	mutex_lock(&device->dev_set->lock);
++	vfio_device_close(df);
++	vfio_device_put_kvm(device);
++	if (df->iommufd)
++		iommufd_ctx_put(df->iommufd);
++	mutex_unlock(&device->dev_set->lock);
++	vfio_device_unblock_group(device);
++}
++
++static int vfio_device_cdev_enable_noiommu(struct vfio_device *device)
++{
++	if (!vfio_device_is_noiommu(device))
++		return -EINVAL;
++
++	if (!capable(CAP_SYS_RAWIO))
++		return -EPERM;
++
++	return 0;
++}
++
++static struct iommufd_ctx *vfio_get_iommufd_from_fd(int fd)
++{
++	struct fd f;
++	struct iommufd_ctx *iommufd;
++
++	f = fdget(fd);
++	if (!f.file)
++		return ERR_PTR(-EBADF);
++
++	iommufd = iommufd_ctx_from_file(f.file);
++
++	fdput(f);
++	return iommufd;
++}
++
++long vfio_device_ioctl_bind_iommufd(struct vfio_device_file *df,
++				    struct vfio_device_bind_iommufd __user *arg)
++{
++	struct vfio_device *device = df->device;
++	struct vfio_device_bind_iommufd bind;
++	struct iommufd_ctx *iommufd = NULL;
++	unsigned long minsz;
++	int ret;
++
++	static_assert(__same_type(arg->out_devid, bind.out_devid));
++
++	minsz = offsetofend(struct vfio_device_bind_iommufd, out_devid);
++
++	if (copy_from_user(&bind, arg, minsz))
++		return -EFAULT;
++
++	if (bind.argsz < minsz || bind.flags)
++		return -EINVAL;
++
++	if (!device->ops->bind_iommufd)
++		return -ENODEV;
++
++	/* BIND_IOMMUFD only allowed for cdev fds */
++	if (df->group)
++		return -EINVAL;
++
++	ret = vfio_device_block_group(device);
++	if (ret)
++		return ret;
++
++	mutex_lock(&device->dev_set->lock);
++	/* one device cannot be bound twice */
++	if (df->access_granted) {
++		ret = -EINVAL;
++		goto out_unlock;
++	}
++
++	/* iommufd < 0 means noiommu mode */
++	if (bind.iommufd < 0) {
++		ret = vfio_device_cdev_enable_noiommu(device);
++		if (ret)
++			goto out_unlock;
++	} else {
++		iommufd = vfio_get_iommufd_from_fd(bind.iommufd);
++		if (IS_ERR(iommufd)) {
++			ret = PTR_ERR(iommufd);
++			goto out_unlock;
++		}
++	}
++
++	/*
++	 * Before the device open, get the KVM pointer currently
++	 * associated with the device file (if there is) and obtain
++	 * a reference.  This reference is held until device closed.
++	 * Save the pointer in the device for use by drivers.
++	 */
++	vfio_device_get_kvm_safe(df);
++
++	df->iommufd = iommufd;
++	ret = vfio_device_open(df);
++	if (ret)
++		goto out_put_kvm;
++
++	if (df->iommufd)
++		bind.out_devid = df->devid;
++
++	ret = copy_to_user(&arg->out_devid, &bind.out_devid,
++			   sizeof(bind.out_devid)) ? -EFAULT : 0;
++	if (ret)
++		goto out_close_device;
++
++	if (bind.iommufd < 0)
++		dev_warn(device->dev, "device is bound to vfio-noiommu by user "
++			 "(%s:%d)\n", current->comm, task_pid_nr(current));
++
++	/*
++	 * Paired with smp_load_acquire() in vfio_device_fops::ioctl/
++	 * read/write/mmap
++	 */
++	smp_store_release(&df->access_granted, true);
++	mutex_unlock(&device->dev_set->lock);
++
++	return 0;
++
++out_close_device:
++	vfio_device_close(df);
++out_put_kvm:
++	df->iommufd = NULL;
++	vfio_device_put_kvm(device);
++	if (iommufd)
++		iommufd_ctx_put(iommufd);
++out_unlock:
++	mutex_unlock(&device->dev_set->lock);
++	vfio_device_unblock_group(device);
++	return ret;
++}
++
+ static char *vfio_device_devnode(const struct device *dev, umode_t *mode)
  {
--	struct io_pagetable *iopt = &access->ioas->iopt;
- 	struct iopt_area_contig_iter iter;
-+	struct io_pagetable *iopt;
- 	unsigned long last_iova;
- 	struct iopt_area *area;
- 	int rc;
-@@ -642,6 +690,13 @@ int iommufd_access_pin_pages(struct iommufd_access *access, unsigned long iova,
- 	if (check_add_overflow(iova, length - 1, &last_iova))
- 		return -EOVERFLOW;
+ 	return kasprintf(GFP_KERNEL, "vfio/devices/%s", dev_name(dev));
+diff --git a/drivers/vfio/vfio.h b/drivers/vfio/vfio.h
+index 5a53d0862d08..87b536a06f91 100644
+--- a/drivers/vfio/vfio.h
++++ b/drivers/vfio/vfio.h
+@@ -281,6 +281,9 @@ static inline void vfio_device_del(struct vfio_device *device)
  
-+	mutex_lock(&access->ioas_lock);
-+	if (!access->ioas) {
-+		mutex_unlock(&access->ioas_lock);
-+		return -ENOENT;
-+	}
-+	iopt = &access->ioas->iopt;
-+
- 	down_read(&iopt->iova_rwsem);
- 	iopt_for_each_contig_area(&iter, area, iopt, iova, last_iova) {
- 		unsigned long last = min(last_iova, iopt_area_last_iova(area));
-@@ -672,6 +727,7 @@ int iommufd_access_pin_pages(struct iommufd_access *access, unsigned long iova,
- 	}
- 
- 	up_read(&iopt->iova_rwsem);
-+	mutex_unlock(&access->ioas_lock);
+ void vfio_init_device_cdev(struct vfio_device *device);
+ int vfio_device_fops_cdev_open(struct inode *inode, struct file *filep);
++void vfio_device_cdev_close(struct vfio_device_file *df);
++long vfio_device_ioctl_bind_iommufd(struct vfio_device_file *df,
++				    struct vfio_device_bind_iommufd __user *arg);
+ int vfio_cdev_init(struct class *device_class);
+ void vfio_cdev_cleanup(void);
+ #else
+@@ -304,6 +307,16 @@ static inline int vfio_device_fops_cdev_open(struct inode *inode,
  	return 0;
- 
- err_remove:
-@@ -686,6 +742,7 @@ int iommufd_access_pin_pages(struct iommufd_access *access, unsigned long iova,
- 						  iopt_area_last_iova(area))));
- 	}
- 	up_read(&iopt->iova_rwsem);
-+	mutex_unlock(&access->ioas_lock);
- 	return rc;
  }
- EXPORT_SYMBOL_NS_GPL(iommufd_access_pin_pages, IOMMUFD);
-@@ -705,8 +762,8 @@ EXPORT_SYMBOL_NS_GPL(iommufd_access_pin_pages, IOMMUFD);
- int iommufd_access_rw(struct iommufd_access *access, unsigned long iova,
- 		      void *data, size_t length, unsigned int flags)
- {
--	struct io_pagetable *iopt = &access->ioas->iopt;
- 	struct iopt_area_contig_iter iter;
-+	struct io_pagetable *iopt;
- 	struct iopt_area *area;
- 	unsigned long last_iova;
- 	int rc;
-@@ -716,6 +773,13 @@ int iommufd_access_rw(struct iommufd_access *access, unsigned long iova,
- 	if (check_add_overflow(iova, length - 1, &last_iova))
- 		return -EOVERFLOW;
  
-+	mutex_lock(&access->ioas_lock);
-+	if (!access->ioas) {
-+		mutex_unlock(&access->ioas_lock);
-+		return -ENOENT;
-+	}
-+	iopt = &access->ioas->iopt;
++static inline void vfio_device_cdev_close(struct vfio_device_file *df)
++{
++}
 +
- 	down_read(&iopt->iova_rwsem);
- 	iopt_for_each_contig_area(&iter, area, iopt, iova, last_iova) {
- 		unsigned long last = min(last_iova, iopt_area_last_iova(area));
-@@ -742,6 +806,7 @@ int iommufd_access_rw(struct iommufd_access *access, unsigned long iova,
- 		rc = -ENOENT;
- err_out:
- 	up_read(&iopt->iova_rwsem);
-+	mutex_unlock(&access->ioas_lock);
- 	return rc;
- }
- EXPORT_SYMBOL_NS_GPL(iommufd_access_rw, IOMMUFD);
-diff --git a/drivers/iommu/iommufd/iommufd_private.h b/drivers/iommu/iommufd/iommufd_private.h
-index 9d7f71510ca1..50382cbceafa 100644
---- a/drivers/iommu/iommufd/iommufd_private.h
-+++ b/drivers/iommu/iommufd/iommufd_private.h
-@@ -263,6 +263,8 @@ struct iommufd_access {
- 	struct iommufd_object obj;
- 	struct iommufd_ctx *ictx;
- 	struct iommufd_ioas *ioas;
-+	struct iommufd_ioas *ioas_unpin;
-+	struct mutex ioas_lock;
- 	const struct iommufd_access_ops *ops;
- 	void *data;
- 	unsigned long iova_alignment;
-diff --git a/include/linux/iommufd.h b/include/linux/iommufd.h
-index 035d5d28e612..18cbcfa2ce27 100644
---- a/include/linux/iommufd.h
-+++ b/include/linux/iommufd.h
-@@ -45,6 +45,7 @@ iommufd_access_create(struct iommufd_ctx *ictx,
- 		      const struct iommufd_access_ops *ops, void *data, u32 *id);
- void iommufd_access_destroy(struct iommufd_access *access);
- int iommufd_access_attach(struct iommufd_access *access, u32 ioas_id);
-+void iommufd_access_detach(struct iommufd_access *access);
++static inline long vfio_device_ioctl_bind_iommufd(struct vfio_device_file *df,
++						  struct vfio_device_bind_iommufd __user *arg)
++{
++	return -EOPNOTSUPP;
++}
++
+ static inline int vfio_cdev_init(struct class *device_class)
+ {
+ 	return 0;
+diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
+index a979df2794d2..867c1353ede2 100644
+--- a/drivers/vfio/vfio_main.c
++++ b/drivers/vfio/vfio_main.c
+@@ -556,6 +556,8 @@ static int vfio_device_fops_release(struct inode *inode, struct file *filep)
  
- void iommufd_ctx_get(struct iommufd_ctx *ictx);
+ 	if (df->group)
+ 		vfio_device_group_close(df);
++	else
++		vfio_device_cdev_close(df);
  
+ 	vfio_device_put_registration(device);
+ 
+@@ -1129,6 +1131,9 @@ static long vfio_device_fops_unl_ioctl(struct file *filep,
+ 	struct vfio_device *device = df->device;
+ 	int ret;
+ 
++	if (cmd == VFIO_DEVICE_BIND_IOMMUFD)
++		return vfio_device_ioctl_bind_iommufd(df, (void __user *)arg);
++
+ 	/* Paired with smp_store_release() following vfio_device_open() */
+ 	if (!smp_load_acquire(&df->access_granted))
+ 		return -EINVAL;
+diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
+index 25432ef213ee..e902670dcbaa 100644
+--- a/include/uapi/linux/vfio.h
++++ b/include/uapi/linux/vfio.h
+@@ -194,6 +194,43 @@ struct vfio_group_status {
+ 
+ /* --------------- IOCTLs for DEVICE file descriptors --------------- */
+ 
++/*
++ * VFIO_DEVICE_BIND_IOMMUFD - _IOR(VFIO_TYPE, VFIO_BASE + 19,
++ *				   struct vfio_device_bind_iommufd)
++ *
++ * Bind a vfio_device to the specified iommufd.
++ *
++ * The user should provide a device cookie when calling this ioctl. The
++ * cookie is carried only in event e.g. I/O fault reported to userspace
++ * via iommufd. The user should use devid returned by this ioctl to mark
++ * the target device in other ioctls (e.g. iommu hardware infomration query
++ * via iommufd, and etc.).
++ *
++ * User is not allowed to access the device before the binding operation
++ * is completed.
++ *
++ * Unbind is automatically conducted when device fd is closed.
++ *
++ * @argsz:	 user filled size of this data.
++ * @flags:	 reserved for future extension.
++ * @dev_cookie:	 a per device cookie provided by userspace.
++ * @iommufd:	 iommufd to bind. a negative value means noiommu.
++ * @out_devid:	 the device id generated by this bind. This field is valid
++ *		as long as the input @iommufd is valid. Otherwise, it is
++ *		meaningless.
++ *
++ * Return: 0 on success, -errno on failure.
++ */
++struct vfio_device_bind_iommufd {
++	__u32		argsz;
++	__u32		flags;
++	__aligned_u64	dev_cookie;
++	__s32		iommufd;
++	__u32		out_devid;
++};
++
++#define VFIO_DEVICE_BIND_IOMMUFD	_IO(VFIO_TYPE, VFIO_BASE + 19)
++
+ /**
+  * VFIO_DEVICE_GET_INFO - _IOR(VFIO_TYPE, VFIO_BASE + 7,
+  *						struct vfio_device_info)
 -- 
 2.34.1
 
