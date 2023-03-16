@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BEA9C6FD19
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 13:57:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 903B8C6FD19
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 14:27:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E47A410E1EB;
-	Thu, 16 Mar 2023 13:57:52 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDCFB10E1EB
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 13:57:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDACC10E22F;
+	Thu, 16 Mar 2023 14:27:40 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC3A610E22F;
+ Thu, 16 Mar 2023 14:27:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678975070; x=1710511070;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- mime-version:in-reply-to;
- bh=Yp27y1e1Y0W59VyUTLUPe+Lpis2egXvtrnQvzm0UiXg=;
- b=LEllItQa1GS4UYTBvEU4zc2jIJMlaDHMFhdgolnFoVogkf1jBLpPVA01
- y/4SSj45nQ6YYQHfjAANzVTCvSf+4zDiSGIw1B6BzPT4nOzHSi5VxrcnZ
- 5eG1A1l5z8TIOhwLOmCRlrf9mkcuguVdSfin6swZqfXbIxAjeqCMOB7MQ
- hZ1wr3j7Bt1FQLDgk0jKKLvbvGW0vEbuS+5in0DBAWWBZvWg6/aCir8SY
- 9E81j4uqNlv8cRRIrCsgS6vayJ80aSxcMg83CFh+G1qoMuZdE4ZI4fo1d
- uTG5J4q+AmaHIcqpf5BdDr+CUBlq/17+/dnV33m5035N5zRecRvJlBJXs w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="326362775"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="326362775"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 06:38:16 -0700
+ t=1678976858; x=1710512858;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=xwhg1JIzBUZg/gGP8L22oiOdAsouTlYpiMUgeAawU6I=;
+ b=JTta88fXeVHfcT1MN1Dr72zBMI8r4K7aJ7IroiMGoxAiK/sDCbRdAdTb
+ 6RefxKmo/3lC8ltWG+yrnZG774PR4YTnZ/OMqNguROiEnvybgrwfahBuG
+ tClhBmEHKs6DrvYriFHHk6aZhHnGjXeKcwAjDw7zagFQn78WST/rGf0ON
+ IdqYXfBi/sVmjKqfXZ5tSPHtyRwLvXQMrCCgKlyMHaq15gPE3wiY3JsbA
+ Pyq34c4+93sWFoUfW9CJpBRMywiT7HHBubBqPYfr9nsKEjvqHHsGcntGO
+ SJbhH2OKHEYdgjUtinb4qjY2C3rIMw2Od3ySNYXX8xsccUvyV3EN5A510 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="400590766"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="400590766"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2023 07:27:38 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="673166970"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="673166970"
-Received: from ideak-desk.fi.intel.com ([10.237.72.58])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 06:38:14 -0700
-Date: Thu, 16 Mar 2023 15:38:11 +0200
-From: Imre Deak <imre.deak@intel.com>
-To: "Das, Nirmoy" <nirmoy.das@linux.intel.com>
-Message-ID: <ZBMbwwJ5rW+zw88w@ideak-desk.fi.intel.com>
-References: <20230314092728.3977741-1-imre.deak@intel.com>
- <3238742c-0c57-b8cf-11fe-fd4a57979049@linux.intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="629896434"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="629896434"
+Received: from kflynn1-mobl3.ger.corp.intel.com (HELO localhost.localdomain)
+ ([10.213.236.25])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2023 07:27:36 -0700
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: Intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Thu, 16 Mar 2023 14:27:28 +0000
+Message-Id: <20230316142728.1335239-1-tvrtko.ursulin@linux.intel.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3238742c-0c57-b8cf-11fe-fd4a57979049@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/opregion: Fix CONFIG_ACPI=n builds
- adding missing intel_opregion_cleanup() prototype
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH] drm/i915: Simplify vcs/bsc engine selection
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,42 +57,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: imre.deak@intel.com
-Cc: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: Jonathan Cavitt <jonathan.cavitt@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 14, 2023 at 10:43:50AM +0100, Das, Nirmoy wrote:
-> 
-> On 3/14/2023 10:27 AM, Imre Deak wrote:
-> > Add the missing intel_opregion_cleanup() prototype fixing CONFIG_ACPI=n
-> > builds.
-> > 
-> > Fixes: 3e226e4a2180 ("drm/i915/opregion: Cleanup opregion after errors during driver loading")
-> > Cc: Jani Nikula <jani.nikula@intel.com>
-> > Reported-by: kernel test robot <lkp@intel.com>
-> > Link: https://lore.kernel.org/oe-kbuild-all/202303141610.6L1VO7Gw-lkp@intel.com/
-> > Signed-off-by: Imre Deak <imre.deak@intel.com>
-> 
-> Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Thanks for the review, pushed the patch to din.
+No need to look at the mask of present engines when we already have a
+count stored ever since e2d0ff3525b9 ("drm/i915: Count engine instances
+per uabi class").
 
-> > ---
-> >   drivers/gpu/drm/i915/display/intel_opregion.h | 4 ++++
-> >   1 file changed, 4 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/display/intel_opregion.h b/drivers/gpu/drm/i915/display/intel_opregion.h
-> > index 181eb3e9abbf3..fd2ea8ef0fa20 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_opregion.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_opregion.h
-> > @@ -86,6 +86,10 @@ static inline int intel_opregion_setup(struct drm_i915_private *dev_priv)
-> >   	return 0;
-> >   }
-> > +static inline void intel_opregion_cleanup(struct drm_i915_private *i915)
-> > +{
-> > +}
-> > +
-> >   static inline void intel_opregion_register(struct drm_i915_private *dev_priv)
-> >   {
-> >   }
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Jonathan Cavitt <jonathan.cavitt@intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 9dce2957b4e5..3aeede6aee4d 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -2449,11 +2449,6 @@ static int eb_submit(struct i915_execbuffer *eb)
+ 	return err;
+ }
+ 
+-static int num_vcs_engines(struct drm_i915_private *i915)
+-{
+-	return hweight_long(VDBOX_MASK(to_gt(i915)));
+-}
+-
+ /*
+  * Find one BSD ring to dispatch the corresponding BSD command.
+  * The engine index is returned.
+@@ -2467,7 +2462,7 @@ gen8_dispatch_bsd_engine(struct drm_i915_private *dev_priv,
+ 	/* Check whether the file_priv has already selected one ring. */
+ 	if ((int)file_priv->bsd_engine < 0)
+ 		file_priv->bsd_engine =
+-			get_random_u32_below(num_vcs_engines(dev_priv));
++			get_random_u32_below(dev_priv->engine_uabi_class_count[I915_ENGINE_CLASS_VIDEO]);
+ 
+ 	return file_priv->bsd_engine;
+ }
+@@ -2655,7 +2650,8 @@ eb_select_legacy_ring(struct i915_execbuffer *eb)
+ 		return -1;
+ 	}
+ 
+-	if (user_ring_id == I915_EXEC_BSD && num_vcs_engines(i915) > 1) {
++	if (user_ring_id == I915_EXEC_BSD &&
++	    i915->engine_uabi_class_count[I915_ENGINE_CLASS_VIDEO] > 1) {
+ 		unsigned int bsd_idx = args->flags & I915_EXEC_BSD_MASK;
+ 
+ 		if (bsd_idx == I915_EXEC_BSD_DEFAULT) {
+-- 
+2.37.2
+
