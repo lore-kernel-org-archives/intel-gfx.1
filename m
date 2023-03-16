@@ -4,49 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBAEEC7618A
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 22:07:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C275FC74A5B
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 22:22:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3DFA10E37B;
-	Thu, 16 Mar 2023 22:07:32 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CC4410E337;
- Thu, 16 Mar 2023 22:07:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679004450; x=1710540450;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=yNeCEy0emauqWMVLDyrhqEcpwA8OLOIGAhGKPEReVsA=;
- b=nzC4AI2L2pvOYc+RC6eJHUIR28mNiAr0lTRsw2kQfLJgDimPNMjRqJU4
- seQw7uHB8U3qjBWEuJRBCTRsw+4TR6mz6D5PqWcjvR2FvQ2mDMcW7NOii
- qFWMma+TaJ8m1XCaEez3z3RnJBIHj4JbMX5QWnkZU1NfhL5ApMz/33+e6
- xurThWxtFkkwhj7EzOeAi2t3p7zPW41iSA3ONUXqL5IuJ7o96L3ui9xpl
- 2BTutAae7xTkgzHt374FfzVWmU+zK/90hWlpJ8oPHaaITg3qyUTCGD/kK
- 4j6+tyVE9Xc6BpCtw8g0jCBci4/eRsZu+uGHJ1RVboI3JZYrEhxirbymD Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="326490516"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="326490516"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 15:07:25 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="712515384"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="712515384"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
- by orsmga001.jf.intel.com with ESMTP; 16 Mar 2023 15:07:25 -0700
-From: John.C.Harrison@Intel.com
-To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu, 16 Mar 2023 15:06:31 -0700
-Message-Id: <20230316220632.3312218-2-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230316220632.3312218-1-John.C.Harrison@Intel.com>
-References: <20230316220632.3312218-1-John.C.Harrison@Intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F94B10E331;
+	Thu, 16 Mar 2023 22:22:41 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7295D10E37B
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 22:22:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1679005359;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=FiNRrqqvSuubpSuuWdFDbGPDB+qkVipo+igQfKYRoHk=;
+ b=epIaSK2gOQw3c3Dc7KrZQ2JyvTaxbyMpuJSXjm9CqV68zAOOFSi2bRYVe4yhPc9Vs/alEp
+ ohxJQwmy3LIqPBPCYRN2KpdAMOzTRs5o4GfCs59VzdlMXUOeUhjuX58pB/0qnby1CyxlQ6
+ 0n89EoRTsI9FhmxBByp8Z85JT+pu17A=
+Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
+ [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-659-r_UdYm-XP-aLf-I4x_z63w-1; Thu, 16 Mar 2023 18:22:38 -0400
+X-MC-Unique: r_UdYm-XP-aLf-I4x_z63w-1
+Received: by mail-lf1-f72.google.com with SMTP id
+ e9-20020a196909000000b004cca10c5ae6so1324703lfc.9
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 15:22:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1679005357;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=FiNRrqqvSuubpSuuWdFDbGPDB+qkVipo+igQfKYRoHk=;
+ b=T8SUv2e0/3W9r3S5NhTThi2NO7xXe6LM3/GOaFCPr8jO+l1vAAQ7bFt2CMHSRtNtpD
+ Rljntk7AXVxlOkPDM7KfzY2jOQzk+hXEeZMcUft7PjIEXcECHkl6t0OCgXd3+kS+3Cso
+ t7ZMd9um7VZOKRHD+zxcj3QXKcddpb6Ye+EDinXnTkQMzV9TNrGXtlr/952r+YBFLdkU
+ 8P8vvf7Es1eEP9rnZXwPNX4p9g3PsSlOb04ibeaKAn0wq/UINvQdp1gJ4BynwTHxTaDo
+ F6QSrx1L7224RZzzmujwHt0jHsMa9U1P3APmbJVpoya9irSRI38tNEYLMqBrIfKXW0Cl
+ /csQ==
+X-Gm-Message-State: AO0yUKVqhTuwB/6H9o5MNSJxUR7V631oY2lUCoNO7sl7puT45E9KmrNI
+ UrCajDwh5ZBPhljqEsNV1JMTSIMXOXV88me5qL2xbZUz/G+Cr/uRHI3DbfF0HKip3d2lVgEbl4k
+ NMQDe4nKXVDF1FiW5BLNFrtxEo8OiX3ympFwYyQ4K8py4
+X-Received: by 2002:ac2:4857:0:b0:4e8:4117:67c8 with SMTP id
+ 23-20020ac24857000000b004e8411767c8mr3732221lfy.7.1679005356715; 
+ Thu, 16 Mar 2023 15:22:36 -0700 (PDT)
+X-Google-Smtp-Source: AK7set8G08laVUog1RwsYZrLKcASLbIgQyaWUhPxFNOKZSNNfixtvrswrY1dJy7CT6DWclONJBFpHH/j6fESF/DrUps=
+X-Received: by 2002:ac2:4857:0:b0:4e8:4117:67c8 with SMTP id
+ 23-20020ac24857000000b004e8411767c8mr3732197lfy.7.1679005356306; Thu, 16 Mar
+ 2023 15:22:36 -0700 (PDT)
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/2] drm/i915/guc: Improve GuC load error
- reporting
+References: <20230308155322.344664-1-robdclark@gmail.com>
+ <20230308155322.344664-2-robdclark@gmail.com>
+ <ZAtQspuFjPtGy7ze@gmail.com>
+ <CAF6AEGsGOr5+Q10wX=5ttrWCSUJfn7gzHW8QhxFC0GDLgagMHg@mail.gmail.com>
+ <ZBHNvT3BLgS3qvV5@gmail.com>
+ <CAF6AEGu1S2CXzRxV_c5tE_H+XUGiO=n0tXjLZ_u_tW-eMqMsQw@mail.gmail.com>
+ <ZBLg0t0tTVvuPuiJ@gmail.com>
+ <CAF6AEGvV5arZThTyju_=xFFDWRbMaexgO_kkdKZuK-zeCxrN7Q@mail.gmail.com>
+In-Reply-To: <CAF6AEGvV5arZThTyju_=xFFDWRbMaexgO_kkdKZuK-zeCxrN7Q@mail.gmail.com>
+From: Sebastian Wick <sebastian.wick@redhat.com>
+Date: Thu, 16 Mar 2023 23:22:24 +0100
+Message-ID: <CA+hFU4xbssR+=Sf4ia5kPdsSb4y9SQUd4nx_2p1Szcbtna28CA@mail.gmail.com>
+To: Rob Clark <robdclark@gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH v10 01/15] dma-buf/dma-fence: Add deadline
+ awareness
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,228 +85,355 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: DRI-Devel@Lists.FreeDesktop.Org
+Cc: Rob Clark <robdclark@chromium.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ =?UTF-8?B?Sm9uYXMgw4VkYWhs?= <jadahl@gmail.com>,
+ Jonathan Corbet <corbet@lwn.net>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ intel-gfx@lists.freedesktop.org,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Luben Tuikov <luben.tuikov@amd.com>, Bagas Sanjaya <bagasdotme@gmail.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Gustavo Padovan <gustavo@padovan.org>,
+ Matt Turner <mattst88@gmail.com>, freedreno@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+On Thu, Mar 16, 2023 at 5:29=E2=80=AFPM Rob Clark <robdclark@gmail.com> wro=
+te:
+>
+> On Thu, Mar 16, 2023 at 2:26=E2=80=AFAM Jonas =C3=85dahl <jadahl@gmail.co=
+m> wrote:
+> >
+> > On Wed, Mar 15, 2023 at 09:19:49AM -0700, Rob Clark wrote:
+> > > On Wed, Mar 15, 2023 at 6:53=E2=80=AFAM Jonas =C3=85dahl <jadahl@gmai=
+l.com> wrote:
+> > > >
+> > > > On Fri, Mar 10, 2023 at 09:38:18AM -0800, Rob Clark wrote:
+> > > > > On Fri, Mar 10, 2023 at 7:45=E2=80=AFAM Jonas =C3=85dahl <jadahl@=
+gmail.com> wrote:
+> > > > > >
+> > > > > > On Wed, Mar 08, 2023 at 07:52:52AM -0800, Rob Clark wrote:
+> > > > > > > From: Rob Clark <robdclark@chromium.org>
+> > > > > > >
+> > > > > > > Add a way to hint to the fence signaler of an upcoming deadli=
+ne, such as
+> > > > > > > vblank, which the fence waiter would prefer not to miss.  Thi=
+s is to aid
+> > > > > > > the fence signaler in making power management decisions, like=
+ boosting
+> > > > > > > frequency as the deadline approaches and awareness of missing=
+ deadlines
+> > > > > > > so that can be factored in to the frequency scaling.
+> > > > > > >
+> > > > > > > v2: Drop dma_fence::deadline and related logic to filter dupl=
+icate
+> > > > > > >     deadlines, to avoid increasing dma_fence size.  The fence=
+-context
+> > > > > > >     implementation will need similar logic to track deadlines=
+ of all
+> > > > > > >     the fences on the same timeline.  [ckoenig]
+> > > > > > > v3: Clarify locking wrt. set_deadline callback
+> > > > > > > v4: Clarify in docs comment that this is a hint
+> > > > > > > v5: Drop DMA_FENCE_FLAG_HAS_DEADLINE_BIT.
+> > > > > > > v6: More docs
+> > > > > > > v7: Fix typo, clarify past deadlines
+> > > > > > >
+> > > > > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > > > > > > Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > > > > > Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+> > > > > > > Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
+> > > > > > > ---
+> > > > > >
+> > > > > > Hi Rob!
+> > > > > >
+> > > > > > >  Documentation/driver-api/dma-buf.rst |  6 +++
+> > > > > > >  drivers/dma-buf/dma-fence.c          | 59 ++++++++++++++++++=
+++++++++++
+> > > > > > >  include/linux/dma-fence.h            | 22 +++++++++++
+> > > > > > >  3 files changed, 87 insertions(+)
+> > > > > > >
+> > > > > > > diff --git a/Documentation/driver-api/dma-buf.rst b/Documenta=
+tion/driver-api/dma-buf.rst
+> > > > > > > index 622b8156d212..183e480d8cea 100644
+> > > > > > > --- a/Documentation/driver-api/dma-buf.rst
+> > > > > > > +++ b/Documentation/driver-api/dma-buf.rst
+> > > > > > > @@ -164,6 +164,12 @@ DMA Fence Signalling Annotations
+> > > > > > >  .. kernel-doc:: drivers/dma-buf/dma-fence.c
+> > > > > > >     :doc: fence signalling annotation
+> > > > > > >
+> > > > > > > +DMA Fence Deadline Hints
+> > > > > > > +~~~~~~~~~~~~~~~~~~~~~~~~
+> > > > > > > +
+> > > > > > > +.. kernel-doc:: drivers/dma-buf/dma-fence.c
+> > > > > > > +   :doc: deadline hints
+> > > > > > > +
+> > > > > > >  DMA Fences Functions Reference
+> > > > > > >  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> > > > > > >
+> > > > > > > diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dm=
+a-fence.c
+> > > > > > > index 0de0482cd36e..f177c56269bb 100644
+> > > > > > > --- a/drivers/dma-buf/dma-fence.c
+> > > > > > > +++ b/drivers/dma-buf/dma-fence.c
+> > > > > > > @@ -912,6 +912,65 @@ dma_fence_wait_any_timeout(struct dma_fe=
+nce **fences, uint32_t count,
+> > > > > > >  }
+> > > > > > >  EXPORT_SYMBOL(dma_fence_wait_any_timeout);
+> > > > > > >
+> > > > > > > +/**
+> > > > > > > + * DOC: deadline hints
+> > > > > > > + *
+> > > > > > > + * In an ideal world, it would be possible to pipeline a wor=
+kload sufficiently
+> > > > > > > + * that a utilization based device frequency governor could =
+arrive at a minimum
+> > > > > > > + * frequency that meets the requirements of the use-case, in=
+ order to minimize
+> > > > > > > + * power consumption.  But in the real world there are many =
+workloads which
+> > > > > > > + * defy this ideal.  For example, but not limited to:
+> > > > > > > + *
+> > > > > > > + * * Workloads that ping-pong between device and CPU, with a=
+lternating periods
+> > > > > > > + *   of CPU waiting for device, and device waiting on CPU.  =
+This can result in
+> > > > > > > + *   devfreq and cpufreq seeing idle time in their respectiv=
+e domains and in
+> > > > > > > + *   result reduce frequency.
+> > > > > > > + *
+> > > > > > > + * * Workloads that interact with a periodic time based dead=
+line, such as double
+> > > > > > > + *   buffered GPU rendering vs vblank sync'd page flipping. =
+ In this scenario,
+> > > > > > > + *   missing a vblank deadline results in an *increase* in i=
+dle time on the GPU
+> > > > > > > + *   (since it has to wait an additional vblank period), sen=
+ding a signal to
+> > > > > > > + *   the GPU's devfreq to reduce frequency, when in fact the=
+ opposite is what is
+> > > > > > > + *   needed.
+> > > > > >
+> > > > > > This is the use case I'd like to get some better understanding =
+about how
+> > > > > > this series intends to work, as the problematic scheduling beha=
+vior
+> > > > > > triggered by missed deadlines has plagued compositing display s=
+ervers
+> > > > > > for a long time.
+> > > > > >
+> > > > > > I apologize, I'm not a GPU driver developer, nor an OpenGL driv=
+er
+> > > > > > developer, so I will need some hand holding when it comes to
+> > > > > > understanding exactly what piece of software is responsible for
+> > > > > > communicating what piece of information.
+> > > > > >
+> > > > > > > + *
+> > > > > > > + * To this end, deadline hint(s) can be set on a &dma_fence =
+via &dma_fence_set_deadline.
+> > > > > > > + * The deadline hint provides a way for the waiting driver, =
+or userspace, to
+> > > > > > > + * convey an appropriate sense of urgency to the signaling d=
+river.
+> > > > > > > + *
+> > > > > > > + * A deadline hint is given in absolute ktime (CLOCK_MONOTON=
+IC for userspace
+> > > > > > > + * facing APIs).  The time could either be some point in the=
+ future (such as
+> > > > > > > + * the vblank based deadline for page-flipping, or the start=
+ of a compositor's
+> > > > > > > + * composition cycle), or the current time to indicate an im=
+mediate deadline
+> > > > > > > + * hint (Ie. forward progress cannot be made until this fenc=
+e is signaled).
+> > > > > >
+> > > > > > Is it guaranteed that a GPU driver will use the actual start of=
+ the
+> > > > > > vblank as the effective deadline? I have some memories of seing
+> > > > > > something about vblank evasion browsing driver code, which I mi=
+ght have
+> > > > > > misunderstood, but I have yet to find whether this is something
+> > > > > > userspace can actually expect to be something it can rely on.
+> > > > >
+> > > > > I guess you mean s/GPU driver/display driver/ ?  It makes things =
+more
+> > > > > clear if we talk about them separately even if they happen to be =
+the
+> > > > > same device.
+> > > >
+> > > > Sure, sorry about being unclear about that.
+> > > >
+> > > > >
+> > > > > Assuming that is what you mean, nothing strongly defines what the
+> > > > > deadline is.  In practice there is probably some buffering in the
+> > > > > display controller.  For ex, block based (including bandwidth
+> > > > > compressed) formats, you need to buffer up a row of blocks to
+> > > > > efficiently linearize for scanout.  So you probably need to latch=
+ some
+> > > > > time before you start sending pixel data to the display.  But det=
+ails
+> > > > > like this are heavily implementation dependent.  I think the most
+> > > > > reasonable thing to target is start of vblank.
+> > > >
+> > > > The driver exposing those details would be quite useful for userspa=
+ce
+> > > > though, so that it can delay committing updates to late, but not to=
+o
+> > > > late. Setting a deadline to be the vblank seems easy enough, but it
+> > > > isn't enough for scheduling the actual commit.
+> > >
+> > > I'm not entirely sure how that would even work.. but OTOH I think you
+> > > are talking about something on the order of 100us?  But that is a bit
+> > > of another topic.
+> >
+> > Yes, something like that. But yea, it's not really related. Scheduling
+> > commits closer to the deadline has more complex behavior than that too,
+> > e.g. the need for real time scheduling, and knowing how long it usually
+> > takes to create and commit and for the kernel to process.
 
-There are multiple ways in which the GuC load can fail. The driver was
-reporting the status register as is, but not everyone can read the
-matrix unfiltered. So add decoding of the common error cases.
+Vblank can be really long, especially with VRR where the additional
+time you get to finish the frame comes from making vblank longer.
+Using the start of vblank as a deadline makes VRR useless. It really
+would be nice to have some feedback about the actual deadline from the
+kernel, maybe in `struct drm_event_vblank`.
 
-Also, remove the comment about interrupt based load completion
-checking being not recommended. The interrupt was removed from the GuC
-firmware some time ago so it is no longer an option anyway. While at
-it, also abort the timeout if a known error code is reported. No need
-to keep waiting if the GuC has already given up the load.
+But yes, sorry, off topic...
 
-v2: Fix mis-matched case and confusing 'success' variable (Daniele).
+> > >
+> >
+> > 8-< *snip* 8-<
+> >
+> > > > >
+> > > > > You need a fence to set the deadline, and for that work needs to =
+be
+> > > > > flushed.  But you can't associate a deadline with work that the k=
+ernel
+> > > > > is unaware of anyways.
+> > > >
+> > > > That makes sense, but it might also a bit inadequate to have it as =
+the
+> > > > only way to tell the kernel it should speed things up. Even with th=
+e
+> > > > trick i915 does, with GNOME Shell, we still end up with the feedbac=
+k
+> > > > loop this series aims to mitigate. Doing triple buffering, i.e. del=
+aying
+> > > > or dropping the first frame is so far the best work around that wor=
+ks,
+> > > > except doing other tricks that makes the kernel to ramp up its cloc=
+k.
+> > > > Having to rely on choosing between latency and frame drops should
+> > > > ideally not have to be made.
+> > >
+> > > Before you have a fence, the thing you want to be speeding up is the
+> > > CPU, not the GPU.  There are existing mechanisms for that.
+> >
+> > Is there no benefit to let the GPU know earlier that it should speed up=
+,
+> > so that when the job queue arrives, it's already up to speed?
+>
+> Downstream we have input notifier that resumes the GPU so we can
+> pipeline the 1-2ms it takes to boot up the GPU with userspace.  But we
+> wait to boost freq until we have cmdstream to submit, since that
+> doesn't take as long.  What needs help initially after input is all
+> the stuff that happens on the CPU before the GPU can start to do
+> anything ;-)
+>
+> Btw, I guess I haven't made this clear, dma-fence deadline is trying
+> to help the steady-state situation, rather than the input-latency
+> situation.  It might take a frame or two of missed deadlines for
+> gpufreq to arrive at a good steady-state freq.
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
----
- .../gpu/drm/i915/gt/uc/abi/guc_errors_abi.h   | 17 ++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c     | 95 +++++++++++++++----
- drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h    |  4 +-
- 3 files changed, 95 insertions(+), 21 deletions(-)
+The mutter issue also is about a suboptimal steady-state.
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_errors_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_errors_abi.h
-index 8085fb1812748..bcb1129b36102 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_errors_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_errors_abi.h
-@@ -21,6 +21,9 @@ enum intel_guc_load_status {
- 	INTEL_GUC_LOAD_STATUS_ERROR_DEVID_BUILD_MISMATCH       = 0x02,
- 	INTEL_GUC_LOAD_STATUS_GUC_PREPROD_BUILD_MISMATCH       = 0x03,
- 	INTEL_GUC_LOAD_STATUS_ERROR_DEVID_INVALID_GUCTYPE      = 0x04,
-+	INTEL_GUC_LOAD_STATUS_HWCONFIG_START                   = 0x05,
-+	INTEL_GUC_LOAD_STATUS_HWCONFIG_DONE                    = 0x06,
-+	INTEL_GUC_LOAD_STATUS_HWCONFIG_ERROR                   = 0x07,
- 	INTEL_GUC_LOAD_STATUS_GDT_DONE                         = 0x10,
- 	INTEL_GUC_LOAD_STATUS_IDT_DONE                         = 0x20,
- 	INTEL_GUC_LOAD_STATUS_LAPIC_DONE                       = 0x30,
-@@ -38,4 +41,18 @@ enum intel_guc_load_status {
- 	INTEL_GUC_LOAD_STATUS_READY                            = 0xF0,
- };
- 
-+enum intel_bootrom_load_status {
-+	INTEL_BOOTROM_STATUS_NO_KEY_FOUND                 = 0x13,
-+	INTEL_BOOTROM_STATUS_AES_PROD_KEY_FOUND           = 0x1A,
-+	INTEL_BOOTROM_STATUS_RSA_FAILED                   = 0x50,
-+	INTEL_BOOTROM_STATUS_PAVPC_FAILED                 = 0x73,
-+	INTEL_BOOTROM_STATUS_WOPCM_FAILED                 = 0x74,
-+	INTEL_BOOTROM_STATUS_LOADLOC_FAILED               = 0x75,
-+	INTEL_BOOTROM_STATUS_JUMP_PASSED                  = 0x76,
-+	INTEL_BOOTROM_STATUS_JUMP_FAILED                  = 0x77,
-+	INTEL_BOOTROM_STATUS_RC6CTXCONFIG_FAILED          = 0x79,
-+	INTEL_BOOTROM_STATUS_MPUMAP_INCORRECT             = 0x7A,
-+	INTEL_BOOTROM_STATUS_EXCEPTION                    = 0x7E,
-+};
-+
- #endif /* _ABI_GUC_ERRORS_ABI_H */
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-index 69133420c78b2..0b49d84a8a9c2 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-@@ -88,31 +88,64 @@ static int guc_xfer_rsa(struct intel_uc_fw *guc_fw,
- /*
-  * Read the GuC status register (GUC_STATUS) and store it in the
-  * specified location; then return a boolean indicating whether
-- * the value matches either of two values representing completion
-- * of the GuC boot process.
-+ * the value matches either completion or a known failure code.
-  *
-  * This is used for polling the GuC status in a wait_for()
-  * loop below.
-  */
--static inline bool guc_ready(struct intel_uncore *uncore, u32 *status)
-+static inline bool guc_load_done(struct intel_uncore *uncore, u32 *status, bool *success)
- {
- 	u32 val = intel_uncore_read(uncore, GUC_STATUS);
- 	u32 uk_val = REG_FIELD_GET(GS_UKERNEL_MASK, val);
-+	u32 br_val = REG_FIELD_GET(GS_BOOTROM_MASK, val);
- 
- 	*status = val;
--	return uk_val == INTEL_GUC_LOAD_STATUS_READY;
-+	switch (uk_val) {
-+	case INTEL_GUC_LOAD_STATUS_READY:
-+		*success = true;
-+		return true;
-+
-+	case INTEL_GUC_LOAD_STATUS_ERROR_DEVID_BUILD_MISMATCH:
-+	case INTEL_GUC_LOAD_STATUS_GUC_PREPROD_BUILD_MISMATCH:
-+	case INTEL_GUC_LOAD_STATUS_ERROR_DEVID_INVALID_GUCTYPE:
-+	case INTEL_GUC_LOAD_STATUS_HWCONFIG_ERROR:
-+	case INTEL_GUC_LOAD_STATUS_DPC_ERROR:
-+	case INTEL_GUC_LOAD_STATUS_EXCEPTION:
-+	case INTEL_GUC_LOAD_STATUS_INIT_DATA_INVALID:
-+	case INTEL_GUC_LOAD_STATUS_MPU_DATA_INVALID:
-+	case INTEL_GUC_LOAD_STATUS_INIT_MMIO_SAVE_RESTORE_INVALID:
-+		*success = false;
-+		return true;
-+	}
-+
-+	switch (br_val) {
-+	case INTEL_BOOTROM_STATUS_NO_KEY_FOUND:
-+	case INTEL_BOOTROM_STATUS_RSA_FAILED:
-+	case INTEL_BOOTROM_STATUS_PAVPC_FAILED:
-+	case INTEL_BOOTROM_STATUS_WOPCM_FAILED:
-+	case INTEL_BOOTROM_STATUS_LOADLOC_FAILED:
-+	case INTEL_BOOTROM_STATUS_JUMP_FAILED:
-+	case INTEL_BOOTROM_STATUS_RC6CTXCONFIG_FAILED:
-+	case INTEL_BOOTROM_STATUS_MPUMAP_INCORRECT:
-+	case INTEL_BOOTROM_STATUS_EXCEPTION:
-+		*success = false;
-+		return true;
-+	}
-+
-+	return false;
- }
- 
- static int guc_wait_ucode(struct intel_guc *guc)
- {
- 	struct intel_gt *gt = guc_to_gt(guc);
- 	struct intel_uncore *uncore = gt->uncore;
-+	bool success;
- 	u32 status;
- 	int ret;
- 
- 	/*
- 	 * Wait for the GuC to start up.
--	 * NB: Docs recommend not using the interrupt for completion.
-+	 *
- 	 * Measurements indicate this should take no more than 20ms
- 	 * (assuming the GT clock is at maximum frequency). So, a
- 	 * timeout here indicates that the GuC has failed and is unusable.
-@@ -127,28 +160,52 @@ static int guc_wait_ucode(struct intel_guc *guc)
- 	 * 200ms. Even at slowest clock, this should be sufficient. And
- 	 * in the working case, a larger timeout makes no difference.
- 	 */
--	ret = wait_for(guc_ready(uncore, &status), 200);
--	if (ret) {
--		guc_info(guc, "load failed: status = 0x%08X\n", status);
--		guc_info(guc, "load failed: status: Reset = %d, "
--			"BootROM = 0x%02X, UKernel = 0x%02X, "
--			"MIA = 0x%02X, Auth = 0x%02X\n",
--			REG_FIELD_GET(GS_MIA_IN_RESET, status),
--			REG_FIELD_GET(GS_BOOTROM_MASK, status),
--			REG_FIELD_GET(GS_UKERNEL_MASK, status),
--			REG_FIELD_GET(GS_MIA_MASK, status),
--			REG_FIELD_GET(GS_AUTH_STATUS_MASK, status));
--
--		if ((status & GS_BOOTROM_MASK) == GS_BOOTROM_RSA_FAILED) {
-+	ret = wait_for(guc_load_done(uncore, &status, &success), 200);
-+	if (ret || !success) {
-+		u32 ukernel = REG_FIELD_GET(GS_UKERNEL_MASK, status);
-+		u32 bootrom = REG_FIELD_GET(GS_BOOTROM_MASK, status);
-+
-+		guc_info(guc, "load failed: status = 0x%08X, ret = %d\n", status, ret);
-+		guc_info(guc, "load failed: status: Reset = %d, BootROM = 0x%02X, UKernel = 0x%02X, MIA = 0x%02X, Auth = 0x%02X\n",
-+			 REG_FIELD_GET(GS_MIA_IN_RESET, status),
-+			 bootrom, ukernel,
-+			 REG_FIELD_GET(GS_MIA_MASK, status),
-+			 REG_FIELD_GET(GS_AUTH_STATUS_MASK, status));
-+
-+		switch (bootrom) {
-+		case INTEL_BOOTROM_STATUS_NO_KEY_FOUND:
-+			guc_info(guc, "invalid key requested, header = 0x%08X\n",
-+				 intel_uncore_read(uncore, GUC_HEADER_INFO));
-+			ret = -ENOEXEC;
-+			break;
-+
-+		case INTEL_BOOTROM_STATUS_RSA_FAILED:
- 			guc_info(guc, "firmware signature verification failed\n");
- 			ret = -ENOEXEC;
-+			break;
- 		}
- 
--		if (REG_FIELD_GET(GS_UKERNEL_MASK, status) == INTEL_GUC_LOAD_STATUS_EXCEPTION) {
-+		switch (ukernel) {
-+		case INTEL_GUC_LOAD_STATUS_EXCEPTION:
- 			guc_info(guc, "firmware exception. EIP: %#x\n",
- 				 intel_uncore_read(uncore, SOFT_SCRATCH(13)));
- 			ret = -ENXIO;
-+			break;
-+
-+		case INTEL_GUC_LOAD_STATUS_INIT_MMIO_SAVE_RESTORE_INVALID:
-+			guc_info(guc, "illegal register in save/restore workaround list\n");
-+			ret = -EPERM;
-+			break;
-+
-+		case INTEL_GUC_LOAD_STATUS_HWCONFIG_START:
-+			guc_info(guc, "still extracting hwconfig table.\n");
-+			ret = -ETIMEDOUT;
-+			break;
- 		}
-+
-+		/* Uncommon/unexpected error, see earlier status code print for details */
-+		if (ret == 0)
-+			ret = -ENXIO;
- 	}
- 
- 	return ret;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h
-index 9915de32e894e..3fd7988375020 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_reg.h
-@@ -18,8 +18,6 @@
- #define   GS_MIA_IN_RESET		  (0x01 << GS_RESET_SHIFT)
- #define   GS_BOOTROM_SHIFT		1
- #define   GS_BOOTROM_MASK		  (0x7F << GS_BOOTROM_SHIFT)
--#define   GS_BOOTROM_RSA_FAILED		  (0x50 << GS_BOOTROM_SHIFT)
--#define   GS_BOOTROM_JUMP_PASSED	  (0x76 << GS_BOOTROM_SHIFT)
- #define   GS_UKERNEL_SHIFT		8
- #define   GS_UKERNEL_MASK		  (0xFF << GS_UKERNEL_SHIFT)
- #define   GS_MIA_SHIFT			16
-@@ -32,6 +30,8 @@
- #define   GS_AUTH_STATUS_BAD		  (0x01 << GS_AUTH_STATUS_SHIFT)
- #define   GS_AUTH_STATUS_GOOD		  (0x02 << GS_AUTH_STATUS_SHIFT)
- 
-+#define GUC_HEADER_INFO			_MMIO(0xc014)
-+
- #define SOFT_SCRATCH(n)			_MMIO(0xc180 + (n) * 4)
- #define SOFT_SCRATCH_COUNT		16
- 
--- 
-2.39.1
+Truth be told, I'm not sure if this fence deadline idea fixes the
+issue we're seeing or at least helps sometimes. It might, it might
+not. What annoys me is that the compositor *knows* before any work is
+submitted that some work will be submitted and when it has to finish.
+We could maximize the chances to get everything right but having to
+wait for a fence to materialize in the compositor to do anything about
+it is suboptimal.
+
+> > >
+> > > TBF I'm of the belief that there is still a need for input based cpu
+> > > boost (and early wake-up trigger for GPU).. we have something like
+> > > this in CrOS kernel.  That is a bit of a different topic, but my poin=
+t
+> > > is that fence deadlines are just one of several things we need to
+> > > optimize power/perf and responsiveness, rather than the single thing
+> > > that solves every problem under the sun ;-)
+> >
+> > Perhaps; but I believe it's a bit of a back channel of intent; the piec=
+e
+> > of the puzzle that has the information to know whether there is need
+> > actually speed up is the compositor, not the kernel.
+> >
+> > For example, pressing 'p' while a terminal is focused does not need hig=
+h
+> > frequency clocks, it just needs the terminal emulator to draw a 'p' and
+> > the compositor to composite that update. Pressing <Super> may however
+> > trigger a non-trivial animation moving a lot of stuff around on screen,
+> > maybe triggering Wayland clients to draw and what not, and should most
+> > arguably have the ability to "warn" the kernel about the upcoming flood
+> > of work before it is already knocking on its door step.
+>
+> The super key is problematic, but not for the reason you think.  It is
+> because it is a case where we should boost on key-up instead of
+> key-down.. and the second key-up event comes after the cpu-boost is
+> already in it's cool-down period.  But even if suboptimal in cases
+> like this, it is still useful for touch/stylus cases where the
+> slightest of lag is much more perceptible.
+>
+> This is getting off topic but I kinda favor coming up with some sort
+> of static definition that userspace could give the kernel to let the
+> kernel know what input to boost on.  Or maybe something could be done
+> with BPF?
+
+Why? Do you think user space is so slow that it can't process the
+input events and then do a syscall? We need to have all input devices
+open anyway that can affect the system and know more about how they
+affect behavior than the kernel can ever know.
+
+>
+> > >
+> >
+> > 8-< *snip* 8-<
+> >
+> > > >
+> > > > Is it expected that WSI's will set their own deadlines, or should t=
+hat
+> > > > be the job of the compositor? For example by using compositors usin=
+g
+> > > > DMA_BUF_IOCTL_EXPORT_SYNC_FILE that you mentioned, using it to set =
+a
+> > > > deadline matching the vsync it most ideally will be committed to?
+> > > >
+> > >
+> > > I'm kind of assuming compositors, but if the WSI somehow has more
+> > > information about ideal presentation time, then I suppose it could be
+> > > in the WSI?  I'll defer to folks who spend more time on WSI and
+> > > compositors to hash out the details ;-)
+> >
+> > With my compositor developer hat on, it might be best to let it be up t=
+o
+> > the compositor, it's the one that knows if a client's content will
+> > actually end up anywhere visible.
+> >
+>
+> wfm
+>
+> BR,
+> -R
+>
+> >
+> > Jonas
+> >
+> > >
+> > > BR,
+> > > -R
+>
 
