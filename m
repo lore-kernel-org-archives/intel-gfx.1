@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F3A0C6FD19
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 12:56:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F350C6FD1F
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 12:56:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50A3410ECCF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C136410ECE0;
 	Thu, 16 Mar 2023 12:56:11 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8211210ECF7;
- Thu, 16 Mar 2023 12:56:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CC6110E1A0;
+ Thu, 16 Mar 2023 12:55:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678971367; x=1710507367;
+ t=1678971357; x=1710507357;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=pKtoqyIcsOni7xcr/e6Cd8W7cA013GE3F3mm4eqp3Kc=;
- b=jglTH23ZEHr/Guoausfpk5kIkDUt6E8fvxrI9KVW65tGXUMZ4Qt4eUYp
- Glyko1hbRG/vUQh+ivA7DENXcuuHIIZwwyvI1g65OtrBkkecZzHDWNR0v
- LnD4+VDHLsdqKTvYLS+8E9QO+vghUorp2L+WVXH7U1QYY1tE8ZA4wykvI
- GDBMbmJIFUnmsMxrT4WqdAH5+6QJf9EEWAbBIcPQE9FfcxJFXrWGLw6Ay
- zqrpmRjKDCRYXXSmmXEA4C5hMX8npNSiad1Vlx6wq2qPjEnaULa+gagbf
- OWcIQL1ciEilreWzPKLNb8eJIQSJtci1Ki9BCk/vCppbwae5MtKbzyWkj A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="336668243"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="336668243"
+ bh=oDDHD3Ae7NG5GC4LKURBgpBaOzuTUSDgeTMIrOuq0hA=;
+ b=BOOxgzGo8fZ3p9r2f+TdXGAmHyOaB8Lr6SXi5Qsecg+Uge+3oiqXqgXb
+ qekXofsKgIugVz7jRRJK97wi17/B5P9/GnP/19nERprv5BEAK8MZgQav+
+ tdArTjsa+l5cwxkRFdaeEbcNbKnqrUYQvKcPPmtMo52WzsA4zAPqX0pJ0
+ uNJJH480rnkdNmZXkOAs9XTHIoJbPI9pmwdXUkEj+acSVEEfxQwAqeO4B
+ liM0KXsYL2UkaVTGoFXaWhpDrzy1bJ5kKYWEwyOFXp/o3gTuv/lMW1UGy
+ MlIQVFiJVIbUHRu/ANAVqmeByEvxsUiAABokEOYOKrp8kbFBBqKcrQwLs A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="336668144"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="336668144"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 05:56:07 -0700
+ 16 Mar 2023 05:55:57 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="790277895"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="790277895"
+X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="790277845"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="790277845"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by fmsmga002.fm.intel.com with ESMTP; 16 Mar 2023 05:56:06 -0700
+ by fmsmga002.fm.intel.com with ESMTP; 16 Mar 2023 05:55:56 -0700
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Thu, 16 Mar 2023 05:55:32 -0700
-Message-Id: <20230316125534.17216-21-yi.l.liu@intel.com>
+Date: Thu, 16 Mar 2023 05:55:25 -0700
+Message-Id: <20230316125534.17216-14-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230316125534.17216-1-yi.l.liu@intel.com>
 References: <20230316125534.17216-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 20/22] vfio: Add
- VFIO_DEVICE_AT[DE]TACH_IOMMUFD_PT
+Subject: [Intel-gfx] [PATCH v7 13/22] vfio-iommufd: Split bind/attach into
+ two steps
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,240 +70,135 @@ Cc: linux-s390@vger.kernel.org, yi.l.liu@intel.com, yi.y.sun@linux.intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This adds ioctl for userspace to attach device cdev fd to and detach
-from IOAS/hw_pagetable managed by iommufd.
+to align with the coming vfio device cdev support.
 
-    VFIO_DEVICE_ATTACH_IOMMUFD_PT: attach vfio device to IOAS, hw_pagetable
-				   managed by iommufd. Attach can be
-				   undo by VFIO_DEVICE_DETACH_IOMMUFD_PT
-				   or device fd close.
-    VFIO_DEVICE_DETACH_IOMMUFD_PT: detach vfio device from the current attached
-				   IOAS or hw_pagetable managed by iommufd.
-
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Tested-by: Terrence Xu <terrence.xu@intel.com>
-Tested-by: Nicolin Chen <nicolinc@nvidia.com>
-Tested-by: Matthew Rosato <mjrosato@linux.ibm.com>
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 ---
- drivers/vfio/device_cdev.c | 85 ++++++++++++++++++++++++++++++++++++++
- drivers/vfio/vfio.h        | 16 +++++++
- drivers/vfio/vfio_main.c   |  8 ++++
- include/uapi/linux/vfio.h  | 52 +++++++++++++++++++++++
- 4 files changed, 161 insertions(+)
+ drivers/vfio/group.c   | 18 ++++++++++++++----
+ drivers/vfio/iommufd.c | 33 ++++++++++++++-------------------
+ drivers/vfio/vfio.h    |  9 +++++++++
+ 3 files changed, 37 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/vfio/device_cdev.c b/drivers/vfio/device_cdev.c
-index 73430290e7d1..cb6a4b1ed7e7 100644
---- a/drivers/vfio/device_cdev.c
-+++ b/drivers/vfio/device_cdev.c
-@@ -197,6 +197,91 @@ long vfio_device_ioctl_bind_iommufd(struct vfio_device_file *df,
- 	return ret;
- }
+diff --git a/drivers/vfio/group.c b/drivers/vfio/group.c
+index 1ad8df9b295f..70bdecff4785 100644
+--- a/drivers/vfio/group.c
++++ b/drivers/vfio/group.c
+@@ -203,9 +203,14 @@ static int vfio_device_group_open(struct vfio_device_file *df)
+ 	}
  
-+int vfio_ioctl_device_attach(struct vfio_device_file *df,
-+			     struct vfio_device_attach_iommufd_pt __user *arg)
+ 	ret = vfio_device_open(df);
+-	if (ret) {
+-		df->iommufd = NULL;
++	if (ret)
+ 		goto out_put_kvm;
++
++	if (df->iommufd) {
++		ret = vfio_iommufd_attach_compat_ioas(device,
++						      df->iommufd);
++		if (ret)
++			goto out_close_device;
+ 	}
+ 
+ 	/*
+@@ -214,12 +219,17 @@ static int vfio_device_group_open(struct vfio_device_file *df)
+ 	 */
+ 	smp_store_release(&df->access_granted, true);
+ 
++	mutex_unlock(&device->dev_set->lock);
++	mutex_unlock(&device->group->group_lock);
++	return 0;
++
++out_close_device:
++	vfio_device_close(df);
+ out_put_kvm:
++	df->iommufd = NULL;
+ 	if (device->open_count == 0)
+ 		vfio_device_put_kvm(device);
+-
+ 	mutex_unlock(&device->dev_set->lock);
+-
+ out_unlock:
+ 	mutex_unlock(&device->group->group_lock);
+ 	return ret;
+diff --git a/drivers/vfio/iommufd.c b/drivers/vfio/iommufd.c
+index 7334b67dbb8a..2daef60fe439 100644
+--- a/drivers/vfio/iommufd.c
++++ b/drivers/vfio/iommufd.c
+@@ -30,33 +30,28 @@ int vfio_iommufd_enable_noiommu_compat(struct vfio_device *device,
+ 
+ int vfio_iommufd_bind(struct vfio_device *vdev, struct iommufd_ctx *ictx)
+ {
+-	u32 ioas_id;
+ 	u32 device_id;
+-	int ret;
+ 
+ 	lockdep_assert_held(&vdev->dev_set->lock);
+ 
+-	ret = vdev->ops->bind_iommufd(vdev, ictx, &device_id);
+-	if (ret)
+-		return ret;
++	/* The legacy path has no way to return the device id */
++	return vdev->ops->bind_iommufd(vdev, ictx, &device_id);
++}
++
++int vfio_iommufd_attach_compat_ioas(struct vfio_device *vdev,
++				    struct iommufd_ctx *ictx)
 +{
-+	struct vfio_device *device = df->device;
-+	struct vfio_device_attach_iommufd_pt attach;
-+	unsigned long minsz;
++	u32 ioas_id;
 +	int ret;
 +
-+	static_assert(__same_type(arg->pt_id, attach.pt_id));
-+
-+	minsz = offsetofend(struct vfio_device_attach_iommufd_pt, pt_id);
-+
-+	if (copy_from_user(&attach, arg, minsz))
-+		return -EFAULT;
-+
-+	if (attach.argsz < minsz || attach.flags)
-+		return -EINVAL;
-+
-+	if (!device->ops->bind_iommufd)
-+		return -ENODEV;
-+
-+	/* ATTACH only allowed for cdev fds */
-+	if (df->group)
-+		return -EINVAL;
-+
-+	mutex_lock(&device->dev_set->lock);
-+	/* noiommufd mode doesn't allow attach */
-+	if (!df->iommufd) {
-+		ret = -EOPNOTSUPP;
-+		goto out_unlock;
-+	}
-+
-+	ret = device->ops->attach_ioas(device, &attach.pt_id);
-+	if (ret)
-+		goto out_unlock;
-+
-+	ret = copy_to_user(&arg->pt_id, &attach.pt_id,
-+			   sizeof(attach.pt_id)) ? -EFAULT : 0;
-+	if (ret)
-+		goto out_detach;
-+	mutex_unlock(&device->dev_set->lock);
-+
-+	return 0;
-+
-+out_detach:
-+	device->ops->detach_ioas(device);
-+out_unlock:
-+	mutex_unlock(&device->dev_set->lock);
-+	return ret;
-+}
-+
-+int vfio_ioctl_device_detach(struct vfio_device_file *df,
-+			     struct vfio_device_detach_iommufd_pt __user *arg)
-+{
-+	struct vfio_device *device = df->device;
-+	struct vfio_device_detach_iommufd_pt detach;
-+	unsigned long minsz;
-+
-+	minsz = offsetofend(struct vfio_device_detach_iommufd_pt, flags);
-+
-+	if (copy_from_user(&detach, arg, minsz))
-+		return -EFAULT;
-+
-+	if (detach.argsz < minsz || detach.flags)
-+		return -EINVAL;
-+
-+	if (!device->ops->bind_iommufd)
-+		return -ENODEV;
-+
-+	/* DETACH only allowed for cdev fds */
-+	if (df->group)
-+		return -EINVAL;
-+
-+	mutex_lock(&device->dev_set->lock);
-+	/* noiommufd mode doesn't support detach */
-+	if (!df->iommufd) {
-+		mutex_unlock(&device->dev_set->lock);
-+		return -EOPNOTSUPP;
-+	}
-+	device->ops->detach_ioas(device);
-+	mutex_unlock(&device->dev_set->lock);
-+
-+	return 0;
-+}
-+
- static char *vfio_device_devnode(const struct device *dev, umode_t *mode)
- {
- 	return kasprintf(GFP_KERNEL, "vfio/devices/%s", dev_name(dev));
++	lockdep_assert_held(&vdev->dev_set->lock);
+ 
+ 	ret = iommufd_vfio_compat_ioas_get_id(ictx, &ioas_id);
+ 	if (ret)
+-		goto err_unbind;
+-	ret = vdev->ops->attach_ioas(vdev, &ioas_id);
+-	if (ret)
+-		goto err_unbind;
+-
+-	/*
+-	 * The legacy path has no way to return the device id or the selected
+-	 * pt_id
+-	 */
+-	return 0;
++		return ret;
+ 
+-err_unbind:
+-	if (vdev->ops->unbind_iommufd)
+-		vdev->ops->unbind_iommufd(vdev);
+-	return ret;
++	/* The legacy path has no way to return the selected pt_id */
++	return vdev->ops->attach_ioas(vdev, &ioas_id);
+ }
+ 
+ void vfio_iommufd_unbind(struct vfio_device *vdev)
 diff --git a/drivers/vfio/vfio.h b/drivers/vfio/vfio.h
-index 87b536a06f91..907c12d53ce2 100644
+index 136137b8618d..abfaf85cc266 100644
 --- a/drivers/vfio/vfio.h
 +++ b/drivers/vfio/vfio.h
-@@ -284,6 +284,10 @@ int vfio_device_fops_cdev_open(struct inode *inode, struct file *filep);
- void vfio_device_cdev_close(struct vfio_device_file *df);
- long vfio_device_ioctl_bind_iommufd(struct vfio_device_file *df,
- 				    struct vfio_device_bind_iommufd __user *arg);
-+int vfio_ioctl_device_attach(struct vfio_device_file *df,
-+			     struct vfio_device_attach_iommufd_pt __user *arg);
-+int vfio_ioctl_device_detach(struct vfio_device_file *df,
-+			     struct vfio_device_detach_iommufd_pt __user *arg);
- int vfio_cdev_init(struct class *device_class);
- void vfio_cdev_cleanup(void);
+@@ -238,6 +238,8 @@ static inline void vfio_container_cleanup(void)
+ #if IS_ENABLED(CONFIG_IOMMUFD)
+ int vfio_iommufd_enable_noiommu_compat(struct vfio_device *device,
+ 				       struct iommufd_ctx *ictx);
++int vfio_iommufd_attach_compat_ioas(struct vfio_device *device,
++				    struct iommufd_ctx *ictx);
+ int vfio_iommufd_bind(struct vfio_device *device, struct iommufd_ctx *ictx);
+ void vfio_iommufd_unbind(struct vfio_device *device);
  #else
-@@ -317,6 +321,18 @@ static inline long vfio_device_ioctl_bind_iommufd(struct vfio_device_file *df,
+@@ -248,6 +250,13 @@ vfio_iommufd_enable_noiommu_compat(struct vfio_device *device,
  	return -EOPNOTSUPP;
  }
  
-+static inline int vfio_ioctl_device_attach(struct vfio_device_file *df,
-+					   struct vfio_device_attach_iommufd_pt __user *arg)
++static inline int
++vfio_iommufd_attach_compat_ioas(struct vfio_device *device,
++				struct iommufd_ctx *ictx)
 +{
 +	return -EOPNOTSUPP;
 +}
 +
-+static inline int vfio_ioctl_device_detach(struct vfio_device_file *df,
-+					   struct vfio_device_detach_iommufd_pt __user *arg)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
- static inline int vfio_cdev_init(struct class *device_class)
+ static inline int vfio_iommufd_bind(struct vfio_device *device,
+ 				    struct iommufd_ctx *ictx)
  {
- 	return 0;
-diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
-index 867c1353ede2..426ebfc0ee1c 100644
---- a/drivers/vfio/vfio_main.c
-+++ b/drivers/vfio/vfio_main.c
-@@ -1147,6 +1147,14 @@ static long vfio_device_fops_unl_ioctl(struct file *filep,
- 		ret = vfio_ioctl_device_feature(device, (void __user *)arg);
- 		break;
- 
-+	case VFIO_DEVICE_ATTACH_IOMMUFD_PT:
-+		ret = vfio_ioctl_device_attach(df, (void __user *)arg);
-+		break;
-+
-+	case VFIO_DEVICE_DETACH_IOMMUFD_PT:
-+		ret = vfio_ioctl_device_detach(df, (void __user *)arg);
-+		break;
-+
- 	default:
- 		if (unlikely(!device->ops->ioctl))
- 			ret = -EINVAL;
-diff --git a/include/uapi/linux/vfio.h b/include/uapi/linux/vfio.h
-index e902670dcbaa..53c72e26ecd3 100644
---- a/include/uapi/linux/vfio.h
-+++ b/include/uapi/linux/vfio.h
-@@ -231,6 +231,58 @@ struct vfio_device_bind_iommufd {
- 
- #define VFIO_DEVICE_BIND_IOMMUFD	_IO(VFIO_TYPE, VFIO_BASE + 19)
- 
-+/*
-+ * VFIO_DEVICE_ATTACH_IOMMUFD_PT - _IOW(VFIO_TYPE, VFIO_BASE + 20,
-+ *					struct vfio_device_attach_iommufd_pt)
-+ *
-+ * Attach a vfio device to an iommufd address space specified by IOAS
-+ * id or hw_pagetable (hwpt) id.
-+ *
-+ * Available only after a device has been bound to iommufd via
-+ * VFIO_DEVICE_BIND_IOMMUFD
-+ *
-+ * Undo by VFIO_DEVICE_DETACH_IOMMUFD_PT or device fd close.
-+ *
-+ * @argsz:	user filled size of this data.
-+ * @flags:	must be 0.
-+ * @pt_id:	Input the target id which can represent an ioas or a hwpt
-+ *		allocated via iommufd subsystem.
-+ *		Output the attached hwpt id which could be the specified
-+ *		hwpt itself or a hwpt automatically created for the
-+ *		specified ioas by kernel during the attachment.
-+ *
-+ * Return: 0 on success, -errno on failure.
-+ */
-+struct vfio_device_attach_iommufd_pt {
-+	__u32	argsz;
-+	__u32	flags;
-+	__u32	pt_id;
-+};
-+
-+#define VFIO_DEVICE_ATTACH_IOMMUFD_PT		_IO(VFIO_TYPE, VFIO_BASE + 20)
-+
-+/*
-+ * VFIO_DEVICE_DETACH_IOMMUFD_PT - _IOW(VFIO_TYPE, VFIO_BASE + 21,
-+ *					struct vfio_device_detach_iommufd_pt)
-+ *
-+ * Detach a vfio device from the iommufd address space it has been
-+ * attached to. After it, device should be in a blocking DMA state.
-+ *
-+ * Available only after a device has been bound to iommufd via
-+ * VFIO_DEVICE_BIND_IOMMUFD.
-+ *
-+ * @argsz:	user filled size of this data.
-+ * @flags:	must be 0.
-+ *
-+ * Return: 0 on success, -errno on failure.
-+ */
-+struct vfio_device_detach_iommufd_pt {
-+	__u32	argsz;
-+	__u32	flags;
-+};
-+
-+#define VFIO_DEVICE_DETACH_IOMMUFD_PT		_IO(VFIO_TYPE, VFIO_BASE + 21)
-+
- /**
-  * VFIO_DEVICE_GET_INFO - _IOR(VFIO_TYPE, VFIO_BASE + 7,
-  *						struct vfio_device_info)
 -- 
 2.34.1
 
