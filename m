@@ -4,48 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B44A2C61DA4
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 01:01:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1B15C6FD1D
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 01:29:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C8CD10EA53;
-	Thu, 16 Mar 2023 01:01:36 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60A1010E905
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 01:01:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678928475; x=1710464475;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=/rhoIQHuyh2E3BT636EmwDrT8BoZe2b7GOqqiJPBbR8=;
- b=Byn/DFu/6/QGOeWO/Zw1B0BS5vWD0QT/G7UGMvh4oLtEUCxDOlta+vk+
- zuMJk35yRcP21fK9+fJvf5RXPc+CkesDoa2tRMWHlvBj9mLwiw2iRsV38
- b7s4i8z1TkfEURPktBqELIxnMfpq8YvyxC/8wukZDXOfteQ5vusy2eSEs
- Wo33W3tXJP5ADsxB340vx+EiQ916BUNrtSmsB8d2+haF3V0pFvLLwhjHd
- IofDpDdQkv3xk60fobQBt9b+doDg2fGxb+Ih6NfufaV9Zoih+TPGP90mm
- AtjJsrGF2f73VbjlwipKOeiwy+wU4m4ZmwduggUc9l1KMCiyL3yj5LEIu w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="400434074"
-X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="400434074"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2023 18:01:06 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="743916705"
-X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="743916705"
-Received: from orsosgc001.jf.intel.com ([10.165.21.138])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2023 18:01:06 -0700
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 15 Mar 2023 18:01:00 -0700
-Message-Id: <20230316010101.2590309-12-umesh.nerlige.ramappa@intel.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20230316010101.2590309-1-umesh.nerlige.ramappa@intel.com>
-References: <20230316010101.2590309-1-umesh.nerlige.ramappa@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A1CE10E308;
+	Thu, 16 Mar 2023 01:29:33 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 17A9510E04B;
+ Thu, 16 Mar 2023 01:29:32 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 076D0AADD6;
+ Thu, 16 Mar 2023 01:29:32 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============5612963069136553070=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 11/12] drm/i915/perf: Pass i915 object to
- perf revision helper
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
+Date: Thu, 16 Mar 2023 01:29:31 -0000
+Message-ID: <167893017199.19097.13217331841068217652@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230316004800.2539753-1-ashutosh.dixit@intel.com>
+In-Reply-To: <20230316004800.2539753-1-ashutosh.dixit@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915/pmu=3A_Use_functions_common_with_sysfs_to_read_actual_fre?=
+ =?utf-8?q?q?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,59 +41,189 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In some cases, perf revision may rely on specific steppings of a
-platform. To determine the platform, pass i915 object to the perf
-revision helper.
+--===============5612963069136553070==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
----
- drivers/gpu/drm/i915/i915_getparam.c | 2 +-
- drivers/gpu/drm/i915/i915_perf.c     | 2 +-
- drivers/gpu/drm/i915/i915_perf.h     | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/i915_getparam.c b/drivers/gpu/drm/i915/i915_getparam.c
-index 61ef2d9cfa62..2238e096c957 100644
---- a/drivers/gpu/drm/i915/i915_getparam.c
-+++ b/drivers/gpu/drm/i915/i915_getparam.c
-@@ -173,7 +173,7 @@ int i915_getparam_ioctl(struct drm_device *dev, void *data,
- 		value = INTEL_INFO(i915)->has_coherent_ggtt;
- 		break;
- 	case I915_PARAM_PERF_REVISION:
--		value = i915_perf_ioctl_version();
-+		value = i915_perf_ioctl_version(i915);
- 		break;
- 	case I915_PARAM_OA_TIMESTAMP_FREQUENCY:
- 		value = i915_perf_oa_timestamp_frequency(i915);
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index f68a66cc387b..77fae3d80128 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -5290,7 +5290,7 @@ void i915_perf_fini(struct drm_i915_private *i915)
-  *
-  * This version number is used by userspace to detect available features.
-  */
--int i915_perf_ioctl_version(void)
-+int i915_perf_ioctl_version(struct drm_i915_private *i915)
- {
- 	/*
- 	 * 1: Initial version
-diff --git a/drivers/gpu/drm/i915/i915_perf.h b/drivers/gpu/drm/i915/i915_perf.h
-index 253637651d5e..accf626f2b13 100644
---- a/drivers/gpu/drm/i915/i915_perf.h
-+++ b/drivers/gpu/drm/i915/i915_perf.h
-@@ -22,7 +22,7 @@ int i915_perf_init(struct drm_i915_private *i915);
- void i915_perf_fini(struct drm_i915_private *i915);
- void i915_perf_register(struct drm_i915_private *i915);
- void i915_perf_unregister(struct drm_i915_private *i915);
--int i915_perf_ioctl_version(void);
-+int i915_perf_ioctl_version(struct drm_i915_private *i915);
- int i915_perf_sysctl_register(void);
- void i915_perf_sysctl_unregister(void);
- 
--- 
-2.36.1
+Series: drm/i915/pmu: Use functions common with sysfs to read actual freq
+URL   : https://patchwork.freedesktop.org/series/115225/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_12867 -> Patchwork_115225v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115225v1/index.html
+
+Participating hosts (38 -> 37)
+------------------------------
+
+  Missing    (1): fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_115225v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@migrate:
+    - bat-dg2-11:         [PASS][1] -> [DMESG-WARN][2] ([i915#7699])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12867/bat-dg2-11/igt@i915_selftest@live@migrate.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115225v1/bat-dg2-11/igt@i915_selftest@live@migrate.html
+
+  * igt@kms_chamelium_hpd@common-hpd-after-suspend:
+    - fi-bsw-nick:        NOTRUN -> [SKIP][3] ([fdo#109271]) +1 similar issue
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115225v1/fi-bsw-nick/igt@kms_chamelium_hpd@common-hpd-after-suspend.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@execlists:
+    - fi-bsw-nick:        [ABORT][4] ([i915#7911] / [i915#7913]) -> [PASS][5]
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12867/fi-bsw-nick/igt@i915_selftest@live@execlists.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115225v1/fi-bsw-nick/igt@i915_selftest@live@execlists.html
+
+  * igt@i915_selftest@live@gt_heartbeat:
+    - fi-kbl-soraka:      [DMESG-FAIL][6] ([i915#5334] / [i915#7872]) -> [PASS][7]
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12867/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115225v1/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html
+    - bat-jsl-3:          [DMESG-FAIL][8] ([i915#5334]) -> [PASS][9]
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12867/bat-jsl-3/igt@i915_selftest@live@gt_heartbeat.html
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115225v1/bat-jsl-3/igt@i915_selftest@live@gt_heartbeat.html
+
+  
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#5334]: https://gitlab.freedesktop.org/drm/intel/issues/5334
+  [i915#7699]: https://gitlab.freedesktop.org/drm/intel/issues/7699
+  [i915#7872]: https://gitlab.freedesktop.org/drm/intel/issues/7872
+  [i915#7911]: https://gitlab.freedesktop.org/drm/intel/issues/7911
+  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_12867 -> Patchwork_115225v1
+
+  CI-20190529: 20190529
+  CI_DRM_12867: 67d4276f8342780b8eaa6e9f5c15d979254a5675 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7196: 9b8c5dbe8cd82163ee198c43b81222d2b9b75fd4 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_115225v1: 67d4276f8342780b8eaa6e9f5c15d979254a5675 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+6387e80ee2bf drm/i915/pmu: Use functions common with sysfs to read actual freq
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115225v1/index.html
+
+--===============5612963069136553070==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/pmu: Use functions common with sysfs to read actual freq</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/115225/">https://patchwork.freedesktop.org/series/115225/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115225v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115225v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_12867 -&gt; Patchwork_115225v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115225v1/index.html</p>
+<h2>Participating hosts (38 -&gt; 37)</h2>
+<p>Missing    (1): fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_115225v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@migrate:</p>
+<ul>
+<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12867/bat-dg2-11/igt@i915_selftest@live@migrate.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115225v1/bat-dg2-11/igt@i915_selftest@live@migrate.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7699">i915#7699</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium_hpd@common-hpd-after-suspend:</p>
+<ul>
+<li>fi-bsw-nick:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115225v1/fi-bsw-nick/igt@kms_chamelium_hpd@common-hpd-after-suspend.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +1 similar issue</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@execlists:</p>
+<ul>
+<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12867/fi-bsw-nick/igt@i915_selftest@live@execlists.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7911">i915#7911</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115225v1/fi-bsw-nick/igt@i915_selftest@live@execlists.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_heartbeat:</p>
+<ul>
+<li>
+<p>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12867/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7872">i915#7872</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115225v1/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html">PASS</a></p>
+</li>
+<li>
+<p>bat-jsl-3:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12867/bat-jsl-3/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115225v1/bat-jsl-3/igt@i915_selftest@live@gt_heartbeat.html">PASS</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_12867 -&gt; Patchwork_115225v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_12867: 67d4276f8342780b8eaa6e9f5c15d979254a5675 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7196: 9b8c5dbe8cd82163ee198c43b81222d2b9b75fd4 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_115225v1: 67d4276f8342780b8eaa6e9f5c15d979254a5675 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>6387e80ee2bf drm/i915/pmu: Use functions common with sysfs to read actual freq</p>
+
+</body>
+</html>
+
+--===============5612963069136553070==--
