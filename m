@@ -4,138 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C19D7C6FD1F
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 12:15:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 565F9C74A5B
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 12:15:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED1BE10E154;
-	Thu, 16 Mar 2023 12:15:27 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D89810E154
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 12:15:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E803410E1EE;
+	Thu, 16 Mar 2023 12:15:31 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CD1E10E1EE;
+ Thu, 16 Mar 2023 12:15:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678968925; x=1710504925;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=jlTvMrE0XU4kCqoycCBjAAnfRmex3FVkiq9WKbMr9aE=;
- b=QTLIQVy8/nlctbHB0RjgADuI0sdBFtEj118egq83KYTBrRRP3IcbKH3D
- Pps4VZNHyCWznsWGe7V2DCOmOmufy/bd/1C5+MEXrWYyG4JIJ78oDcAWV
- 4R7fR6/tVnStUqDZ7LspPx/BvNqEKChS1MFq9p/W2hOSCsCXamYlqmSBL
- DN9XN7V1tf4h3fbewbahiJcRrxePHXocy8mbUn0n8uJldJKkFSRveRBEn
- 2/S9J9dOowGR9wSLh7dhnt6D1KrV1IHVLptkxQDRTH30dn4Xr9SzqaAB/
- FMbBZzJ2dc8ZvyRM6jAnO47LekIJJaQXOrpTcfDsb7CRMes6+46JAbFMC Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="337987928"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="337987928"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 05:15:24 -0700
+ t=1678968929; x=1710504929;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=HRt/jhmEWktmeQl2Z3qMgDPXRjAq6O/tlsvEz+Xv+nc=;
+ b=IVnd41yobdyMjbKQubrkIA3dSJLs9SNWTV332OHJ86Ppd/kIPk6Aj4eD
+ ARhiZinAaHJyp3kBZfoh3pmNwsYlZ/Trc0I5GXCliIuKLaHcA67f/1vLe
+ J0ACUeXDT9uLWtqkIQspPkvpbyS1GnqvQFFKXfPn522dYOi4FnpdTT3Mz
+ E6raMyIS/dAJfxYWtOcIjQ4chYw5NGT2R87Dc+T13gcNPFeXqsByzG3Pm
+ f1Epp8APrJQP//PRleUPXvjcERFpKqK1gGBXfUAy3hkcExgj+wXBunrCA
+ GExA5dehUA0sjJdAnN+VN5RVbPE4dcRbZhlh7oXmSMiZ1vWRpEbAfBVLG A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="336661371"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="336661371"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2023 05:15:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="925755751"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="925755751"
-Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
- by fmsmga006.fm.intel.com with ESMTP; 16 Mar 2023 05:15:24 -0700
-Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
- fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Thu, 16 Mar 2023 05:15:24 -0700
-Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
- fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21 via Frontend Transport; Thu, 16 Mar 2023 05:15:24 -0700
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.109)
- by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.21; Thu, 16 Mar 2023 05:15:23 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OgmjQCuS4KEubGw2VOINWPtzeMp7BSkpSCJoNWaH6d45jO+WdLckXRwVA2vEZN3V4vkQiaO9x6AO+vnTH2VFE+Ym0sTOZZp3BygLcWDaOyFlvKT+vd1b319O0xUg+X49dhILKJznmCP5bKnmlwsSSlul0Yq3MYYHSCP0kltysr8zZ5EoWHo0G52444P04FsBUyd60y6k55yS5cOH01Lfkws91kOQsCQcXrDuZvxvzvoR8W3n5esjE0diz3zAbcB3pw1gnib+xHywJ7h29OJfXboz4u0d993Zcj7RGJ2j0xBPEEEEyo5968X8G8H2sUoIjyRKnzN0Q1JwU/Rp0/5ixA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QC84b3R6ZzSvyTnrIh6QHF0TvSp7RzuX83jSJnlcnsU=;
- b=lsd2cz/KjkahxRWGU2gZ+1FG6pCLS3qIDbwcI4xbJRzN+/ioe6ZEvDIXXApO/0Xf6QM5HvtD+hbF56P6fLds+wmwOi83jpuT1NXUUyoa8y5KQcEzNppWdwtAsz7Fw3Tlaspt9uJxN9iL48JmclxIe+b4IV6DnXSShljUgcVidHJWGYYWtBOluztPZPGMG8LHx6/x1zowa3dPlcuB73OFd3AjSrRrMaF3L+sXsO6OS597qRQxohnlwGNO9Geym/JpptX81EVEuB2HHueGiQIATZ/sfxfj+SIfPlQwyDDT8eMAVvYYDoFggm8ENMCZlY+YljgS2AKW+wAaZCL4b4RsOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from MWHPR11MB1741.namprd11.prod.outlook.com (2603:10b6:300:10d::20)
- by SA1PR11MB6847.namprd11.prod.outlook.com (2603:10b6:806:29e::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.31; Thu, 16 Mar
- 2023 12:15:21 +0000
-Received: from MWHPR11MB1741.namprd11.prod.outlook.com
- ([fe80::469:cdec:dfa7:2c73]) by MWHPR11MB1741.namprd11.prod.outlook.com
- ([fe80::469:cdec:dfa7:2c73%7]) with mapi id 15.20.6178.031; Thu, 16 Mar 2023
- 12:15:21 +0000
-From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
-To: =?iso-8859-1?Q?Ville_Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-Thread-Topic: [Intel-gfx] [PATCH] drm/i915/hdcp: Remove drm_modeset_lock in
- intel_conn_to_vcpi
-Thread-Index: AQHZV+CVHhrovmDT102z9qZK1Mhen679LdkAgAAiyvA=
-Date: Thu, 16 Mar 2023 12:15:20 +0000
-Message-ID: <MWHPR11MB1741A4E04E78BC7804D01D3DE3BC9@MWHPR11MB1741.namprd11.prod.outlook.com>
-References: <20230316082232.666630-1-suraj.kandpal@intel.com>
- <ZBLp2jMspLQ9i3ef@intel.com>
-In-Reply-To: <ZBLp2jMspLQ9i3ef@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MWHPR11MB1741:EE_|SA1PR11MB6847:EE_
-x-ms-office365-filtering-correlation-id: b971f74a-ebff-4002-b009-08db26181cf3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: CrRJE7D/QxyYBshYSi0Pjkqx/6eq3H5xoAlSGTU6II3GaexEW4k4o0nyjlDATA2YdoUyt4xCT8N4EB2o+oBFE2z9c+YECILM5n7G3F0in103FhI968AhnRlLGU/7AJJCE9cxB3iZtyA1uZHCY2WUIcplMiMqZJdo0wGMP+onrLZdzvKNYCzRiZJZuuEDDXDnbUHmXXgl9jIPHYzFfJ1ZPxbE2vYIjatQOhE+RpKdU4P8xuNVsozU+3oUafKN7JxcM7oKSdoTuWyNNBaC8cQqR8mljZdiubwy9jelItIOrJN4XqOQpjJ1s5mVaoFZofJE0Zb7xCrHLCh42diCu04TXjEzHucBrIHWErWdcKkkgWxgKEQyFI6Ta5ymRgEyZijBnPYIqQYKtjbLh++tV17y8YgaL1RutGX5zbkqU/t51lT6oiuoDFz4v9SXMB76NxMHnuffeN5NEq1ByqM0j8j0nNGCzTYRK48Jp1nju7uDdH5dfAzw25di32zP1AQ7zKQtXB2thQkm+y6jk563EoF6Vjer18hTJy3dt0DW6XaeY/585+KViiVE9AY48HRE1Vj3/mtKi9B0RcReVNCp98mW0s4EiWCsqr4Uc5VNVmDMadZknJA77YrU08POjsQxlIiCYCWs/ygSk8uY7HQgNdPrYhWB3kYR94mq0gatH6D57d6YUK22GIAHA3ZGgz38relLepdojstzRVNRNm+meYa1Cg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MWHPR11MB1741.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(366004)(136003)(376002)(346002)(39860400002)(396003)(451199018)(33656002)(52536014)(41300700001)(5660300002)(8936002)(2906002)(38100700002)(86362001)(38070700005)(82960400001)(122000001)(64756008)(71200400001)(8676002)(66946007)(478600001)(66556008)(76116006)(6916009)(66446008)(4326008)(66476007)(55016003)(66574015)(316002)(7696005)(83380400001)(186003)(9686003)(26005)(6506007);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?crpuYTSKAk4M6IdhSBUzWCCQXO1XXVe0RemqQ14XUsq2bVPJJq4pNnw/XG?=
- =?iso-8859-1?Q?rX4xgDaxmnbT0yfvfJao6NxhuI8h74r5VqLWve5m2bApVY0QP32kQ7cmFv?=
- =?iso-8859-1?Q?B8WSW4vtQWLsVWKBCDWdyHOvDF028czKnht+jrfqYtKVhM/FQrbCdfqJ6t?=
- =?iso-8859-1?Q?B8oJqO8yEjkPVqeb6lq85hDTUZPu6v++VDyG5N8Xw4UfY/ta67OlUzKDgL?=
- =?iso-8859-1?Q?/KoC9LBZHbv8Z8MPX17+uT10GcJRsnGNxg3nNyGkKAyb8HLoTwp2oq5/eI?=
- =?iso-8859-1?Q?oIwicwne35BbcbV5K76fngW/FieqZvsKCOidX8yXwMTqJM5KtHJ8YjlDyC?=
- =?iso-8859-1?Q?FKUz0yAXH0j1J5CdlsmA/LwhIj2su5a6fCXf3AjlGj5fIsi7WRUckK2vi+?=
- =?iso-8859-1?Q?GI3hfr4KnUUHbVy3/sm7ObA9POl+JotgCFzKFxx+ZLIJsl91aFC662+uob?=
- =?iso-8859-1?Q?5e6DJbbmxWht53XYSwbDCqF2GBPDhCUGxTEMBniD4kx62UXKcn9Hqvnxxo?=
- =?iso-8859-1?Q?2G3XkFupBGfPodABF1PLGmjmJVr3a1OYJQORfC/Wht7E/kHCvaKpX/RI/a?=
- =?iso-8859-1?Q?Kpe4Q/UsgCeTYJQ4qH5akTe9r0bmehhMQCNMDpR3gqKhYsY0No44fsqSxK?=
- =?iso-8859-1?Q?1x9TnF5sSNuxro5N/SZEiu69jLx8SbxEntwpQSmsKsn/e2e42ZJkKvr60z?=
- =?iso-8859-1?Q?/7R0LUQyp4kk22SVD6WTZdsH51UtsRhrzlap4a/+MAfDsTsLz31psHrci2?=
- =?iso-8859-1?Q?JzXL0o2A/Gd39lNikIS8FQ6ZchBzDdclZhUAQu/PTV/2jrA8JFyOluOpgT?=
- =?iso-8859-1?Q?xxZfdzxB3YWsY619ZHZ7RdipJOsghIu0ajXFNm96rdQ/kWZQ1IG+GGiBBx?=
- =?iso-8859-1?Q?RHxbi+CH9ad+vp5FQ+7bS1FjVM5+cXEfcLNUHqt+iX3HGPaPHsxk9LW9cB?=
- =?iso-8859-1?Q?xJNCVBUGPAx8K+TlXiqLFH0fi/ZqkMFwkk0l2/s4lzNDyPFzM3O0vze9Kh?=
- =?iso-8859-1?Q?tDbIJ8jcw+j0/hur7mNCbHpPHp8JB3Zul1ZdW7xGh98nt7IZbrNdt2v19L?=
- =?iso-8859-1?Q?eVjOhGxCEjpzvoZIP2pHLv71Rm2IxAVQZ28Xl02h5DsxCq/ikG1/fCg+4V?=
- =?iso-8859-1?Q?oU+pWmTLxXj4azXVNSm1hV+TZZVryniNO2PMRVCVle81uc8W0lRbamXgfh?=
- =?iso-8859-1?Q?FJRalInX6XqliKSQgqrogZTp9f4/OMFDYOiONBAKKRb6JVQUiDsVTe1puF?=
- =?iso-8859-1?Q?cQ8leuOaWr70dbn2xCCc6hqxO4zx8es12WL5x6tZ2AiL3XZK5XAWrbmeff?=
- =?iso-8859-1?Q?wCTdpyutrdnOtXd7O4OF8hK6B0NE9EMCh/VXqf1csoZgz16gPVre6Vlp0E?=
- =?iso-8859-1?Q?VjUm7nRdw8LKqShKoxJUDEBntTykiMiAKj+XCNO5aFRk2S9g0Ty+J8pLax?=
- =?iso-8859-1?Q?BXMquOqOXcn44IByxqMdSQLHV3jSlXYQ58zGBR01htcw6iBSomfEMo/bSc?=
- =?iso-8859-1?Q?ejEqN3y6UeXYlhmB01gEqZDIrssxZHOAvQNHu71p5incoCyXvEWvh6lfO/?=
- =?iso-8859-1?Q?RFr9buRUoNLikMn+WVfMGKCFujmvIDxZqNgguzpAVyjpuWJXAcNHLO+pYJ?=
- =?iso-8859-1?Q?AEWzhdD2nj7mjWP2gVuXwrflHL1yvWt2gj?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="679874208"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="679874208"
+Received: from unknown (HELO 984fee00a4c6.jf.intel.com) ([10.165.58.231])
+ by orsmga002.jf.intel.com with ESMTP; 16 Mar 2023 05:15:28 -0700
+From: Yi Liu <yi.l.liu@intel.com>
+To: alex.williamson@redhat.com,
+	jgg@nvidia.com,
+	kevin.tian@intel.com
+Date: Thu, 16 Mar 2023 05:15:22 -0700
+Message-Id: <20230316121526.5644-2-yi.l.liu@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230316121526.5644-1-yi.l.liu@intel.com>
+References: <20230316121526.5644-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR11MB1741.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b971f74a-ebff-4002-b009-08db26181cf3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Mar 2023 12:15:20.9703 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hOIgbDnr50x7QMeaPpUYVHITa3wT8trvtFu/hRZdBSHuf5+tLy1vexlqCLU+7LcaTn9AgGtjeFWA0tdbrGsRzw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB6847
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/hdcp: Remove drm_modeset_lock in
- intel_conn_to_vcpi
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 1/5] iommufd: Create access in
+ vfio_iommufd_emulated_bind()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,70 +59,242 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Cc: linux-s390@vger.kernel.org, yi.l.liu@intel.com, yi.y.sun@linux.intel.com,
+ mjrosato@linux.ibm.com, kvm@vger.kernel.org,
+ intel-gvt-dev@lists.freedesktop.org, joro@8bytes.org, cohuck@redhat.com,
+ xudong.hao@intel.com, peterx@redhat.com, yan.y.zhao@intel.com,
+ eric.auger@redhat.com, terrence.xu@intel.com, nicolinc@nvidia.com,
+ shameerali.kolothum.thodi@huawei.com, suravee.suthikulpanit@amd.com,
+ intel-gfx@lists.freedesktop.org, chao.p.peng@linux.intel.com, lulu@redhat.com,
+ robin.murphy@arm.com, jasowang@redhat.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
->=20
-> On Thu, Mar 16, 2023 at 01:52:32PM +0530, Suraj Kandpal wrote:
-> > Remove drm_modeset_lock in intel_conn_to_vcpi as we don't need it
-> > anymore since all the required locks are taken in atomic check and
-> > prepare phases.
-> >
-> > Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_hdcp.c | 2 --
-> >  1 file changed, 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c
-> > b/drivers/gpu/drm/i915/display/intel_hdcp.c
-> > index 2984d2810e42..f957b4bd9c26 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-> > @@ -41,7 +41,6 @@ static int intel_conn_to_vcpi(struct intel_connector
-> *connector)
-> >  		return 0;
-> >  	mgr =3D connector->port->mgr;
-> >
-> > -	drm_modeset_lock(&mgr->base.lock, NULL);
-> >  	mst_state =3D to_drm_dp_mst_topology_state(mgr->base.state);
-> >  	payload =3D drm_atomic_get_mst_payload_state(mst_state,
-> connector->port);
-> >  	if (drm_WARN_ON(mgr->dev, !payload)) @@ -53,7 +52,6 @@ static
-> int
-> > intel_conn_to_vcpi(struct intel_connector *connector)
-> >  		goto out;
-> >  	}
-> >  out:
-> > -	drm_modeset_unlock(&mgr->base.lock);
-> >  	return vcpi;
-> >  }
->=20
-> That whole function looks like it something that should be part of the
-> drm_dp_mst_helper.c.
->=20
-> Also, it's directly accessing mgr->base.state which is just wrong.
->=20
-> And it looks like it can get called from outside the normal atomic commit
-> flows (like so many other things in the hdcp code, sigh), so what you're =
-doing
-> here is also wrong in that case.
->=20
+From: Nicolin Chen <nicolinc@nvidia.com>
 
-Okay but as of now we are seeing a lock error which does not allow us to en=
-able
-HDCP (VLK-45132) when DPMST is connected so how do I move forward in a way =
-that solves the
-Issue and we access mgr->base.state in an acceptable manner
+There are needs to created iommufd_access prior to have an IOAS and set
+IOAS later. Like the vfio device cdev needs to have an iommufd object
+to represent the bond (iommufd_access) and IOAS replacement.
 
-Regards,
-Suraj Kandpal
-> So the whole thing looks just very broken to me. Not to mention the HDCP =
-vs.
-> MST<->SST switch is also still fundementally broken. I'm really tempted t=
-o
-> just send a patch to nuke the entire HDCP MST code.
->=20
-> --
-> Ville Syrj=E4l=E4
-> Intel
+Moves the iommufd_access_create() call into vfio_iommufd_emulated_bind(),
+making it symmetric with the __vfio_iommufd_access_destroy() call in the
+vfio_iommufd_emulated_unbind(). This means an access is created/destroyed
+by the bind()/unbind(), and the vfio_iommufd_emulated_attach_ioas() only
+updates the access->ioas pointer.
+
+Since vfio_iommufd_emulated_bind() does not provide ioas_id, drop it from
+the argument list of iommufd_access_create(). Instead, add a new access
+API iommufd_access_attach() to set the access->ioas pointer. Also, set
+vdev->iommufd_attached accordingly, similar to the physical pathway.
+
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+Signed-off-by: Yi Liu <yi.l.liu@intel.com>
+---
+ drivers/iommu/iommufd/device.c   | 53 +++++++++++++++++++-------------
+ drivers/iommu/iommufd/selftest.c |  5 ++-
+ drivers/vfio/iommufd.c           | 28 ++++++++++++-----
+ include/linux/iommufd.h          |  3 +-
+ 4 files changed, 59 insertions(+), 30 deletions(-)
+
+diff --git a/drivers/iommu/iommufd/device.c b/drivers/iommu/iommufd/device.c
+index a0c66f47a65a..99d34c81d786 100644
+--- a/drivers/iommu/iommufd/device.c
++++ b/drivers/iommu/iommufd/device.c
+@@ -412,9 +412,12 @@ void iommufd_access_destroy_object(struct iommufd_object *obj)
+ 	struct iommufd_access *access =
+ 		container_of(obj, struct iommufd_access, obj);
+ 
+-	iopt_remove_access(&access->ioas->iopt, access);
++	if (access->ioas) {
++		iopt_remove_access(&access->ioas->iopt, access);
++		refcount_dec(&access->ioas->obj.users);
++		access->ioas = NULL;
++	}
+ 	iommufd_ctx_put(access->ictx);
+-	refcount_dec(&access->ioas->obj.users);
+ }
+ 
+ /**
+@@ -431,12 +434,10 @@ void iommufd_access_destroy_object(struct iommufd_object *obj)
+  * The provided ops are required to use iommufd_access_pin_pages().
+  */
+ struct iommufd_access *
+-iommufd_access_create(struct iommufd_ctx *ictx, u32 ioas_id,
++iommufd_access_create(struct iommufd_ctx *ictx,
+ 		      const struct iommufd_access_ops *ops, void *data)
+ {
+ 	struct iommufd_access *access;
+-	struct iommufd_object *obj;
+-	int rc;
+ 
+ 	/*
+ 	 * There is no uAPI for the access object, but to keep things symmetric
+@@ -449,21 +450,10 @@ iommufd_access_create(struct iommufd_ctx *ictx, u32 ioas_id,
+ 	access->data = data;
+ 	access->ops = ops;
+ 
+-	obj = iommufd_get_object(ictx, ioas_id, IOMMUFD_OBJ_IOAS);
+-	if (IS_ERR(obj)) {
+-		rc = PTR_ERR(obj);
+-		goto out_abort;
+-	}
+-	access->ioas = container_of(obj, struct iommufd_ioas, obj);
+-	iommufd_ref_to_users(obj);
+-
+ 	if (ops->needs_pin_pages)
+ 		access->iova_alignment = PAGE_SIZE;
+ 	else
+ 		access->iova_alignment = 1;
+-	rc = iopt_add_access(&access->ioas->iopt, access);
+-	if (rc)
+-		goto out_put_ioas;
+ 
+ 	/* The calling driver is a user until iommufd_access_destroy() */
+ 	refcount_inc(&access->obj.users);
+@@ -471,11 +461,6 @@ iommufd_access_create(struct iommufd_ctx *ictx, u32 ioas_id,
+ 	iommufd_ctx_get(ictx);
+ 	iommufd_object_finalize(ictx, &access->obj);
+ 	return access;
+-out_put_ioas:
+-	refcount_dec(&access->ioas->obj.users);
+-out_abort:
+-	iommufd_object_abort(ictx, &access->obj);
+-	return ERR_PTR(rc);
+ }
+ EXPORT_SYMBOL_NS_GPL(iommufd_access_create, IOMMUFD);
+ 
+@@ -494,6 +479,32 @@ void iommufd_access_destroy(struct iommufd_access *access)
+ }
+ EXPORT_SYMBOL_NS_GPL(iommufd_access_destroy, IOMMUFD);
+ 
++int iommufd_access_attach(struct iommufd_access *access, u32 ioas_id)
++{
++	struct iommufd_ioas *new_ioas;
++	struct iommufd_object *obj;
++	int rc = 0;
++
++	if (access->ioas != NULL && access->ioas->obj.id != ioas_id)
++		return -EINVAL;
++
++	obj = iommufd_get_object(access->ictx, ioas_id, IOMMUFD_OBJ_IOAS);
++	if (IS_ERR(obj))
++		return PTR_ERR(obj);
++	new_ioas = container_of(obj, struct iommufd_ioas, obj);
++
++	rc = iopt_add_access(&new_ioas->iopt, access);
++	if (rc) {
++		iommufd_put_object(obj);
++		return rc;
++	}
++	iommufd_ref_to_users(obj);
++
++	access->ioas = new_ioas;
++	return 0;
++}
++EXPORT_SYMBOL_NS_GPL(iommufd_access_attach, IOMMUFD);
++
+ /**
+  * iommufd_access_notify_unmap - Notify users of an iopt to stop using it
+  * @iopt: iopt to work on
+diff --git a/drivers/iommu/iommufd/selftest.c b/drivers/iommu/iommufd/selftest.c
+index cfb5fe9a5e0e..0eabda430c9f 100644
+--- a/drivers/iommu/iommufd/selftest.c
++++ b/drivers/iommu/iommufd/selftest.c
+@@ -571,7 +571,7 @@ static int iommufd_test_create_access(struct iommufd_ucmd *ucmd,
+ 	}
+ 
+ 	access = iommufd_access_create(
+-		ucmd->ictx, ioas_id,
++		ucmd->ictx,
+ 		(flags & MOCK_FLAGS_ACCESS_CREATE_NEEDS_PIN_PAGES) ?
+ 			&selftest_access_ops_pin :
+ 			&selftest_access_ops,
+@@ -580,6 +580,9 @@ static int iommufd_test_create_access(struct iommufd_ucmd *ucmd,
+ 		rc = PTR_ERR(access);
+ 		goto out_put_fdno;
+ 	}
++	rc = iommufd_access_attach(access, ioas_id);
++	if (rc)
++		goto out_destroy;
+ 	cmd->create_access.out_access_fd = fdno;
+ 	rc = iommufd_ucmd_respond(ucmd, sizeof(*cmd));
+ 	if (rc)
+diff --git a/drivers/vfio/iommufd.c b/drivers/vfio/iommufd.c
+index db4efbd56042..6b4b495b24c4 100644
+--- a/drivers/vfio/iommufd.c
++++ b/drivers/vfio/iommufd.c
+@@ -138,10 +138,18 @@ static const struct iommufd_access_ops vfio_user_ops = {
+ int vfio_iommufd_emulated_bind(struct vfio_device *vdev,
+ 			       struct iommufd_ctx *ictx, u32 *out_device_id)
+ {
++	struct iommufd_access *user;
++
+ 	lockdep_assert_held(&vdev->dev_set->lock);
+ 
+-	vdev->iommufd_ictx = ictx;
+ 	iommufd_ctx_get(ictx);
++	user = iommufd_access_create(ictx, &vfio_user_ops, vdev);
++	if (IS_ERR(user)) {
++		iommufd_ctx_put(ictx);
++		return PTR_ERR(user);
++	}
++	vdev->iommufd_access = user;
++	vdev->iommufd_ictx = ictx;
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(vfio_iommufd_emulated_bind);
+@@ -152,6 +160,7 @@ void vfio_iommufd_emulated_unbind(struct vfio_device *vdev)
+ 
+ 	if (vdev->iommufd_access) {
+ 		iommufd_access_destroy(vdev->iommufd_access);
++		vdev->iommufd_attached = false;
+ 		vdev->iommufd_access = NULL;
+ 	}
+ 	iommufd_ctx_put(vdev->iommufd_ictx);
+@@ -161,15 +170,20 @@ EXPORT_SYMBOL_GPL(vfio_iommufd_emulated_unbind);
+ 
+ int vfio_iommufd_emulated_attach_ioas(struct vfio_device *vdev, u32 *pt_id)
+ {
+-	struct iommufd_access *user;
++	int rc;
+ 
+ 	lockdep_assert_held(&vdev->dev_set->lock);
+ 
+-	user = iommufd_access_create(vdev->iommufd_ictx, *pt_id, &vfio_user_ops,
+-				     vdev);
+-	if (IS_ERR(user))
+-		return PTR_ERR(user);
+-	vdev->iommufd_access = user;
++	if (WARN_ON(!vdev->iommufd_ictx))
++		return -EINVAL;
++	if (WARN_ON(!vdev->iommufd_access))
++		return -ENOENT;
++	if (vdev->iommufd_attached)
++		return -EBUSY;
++	rc = iommufd_access_attach(vdev->iommufd_access, *pt_id);
++	if (rc)
++		return rc;
++	vdev->iommufd_attached = true;
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(vfio_iommufd_emulated_attach_ioas);
+diff --git a/include/linux/iommufd.h b/include/linux/iommufd.h
+index c0b5b3ac34f1..155d3630aedc 100644
+--- a/include/linux/iommufd.h
++++ b/include/linux/iommufd.h
+@@ -40,9 +40,10 @@ enum {
+ };
+ 
+ struct iommufd_access *
+-iommufd_access_create(struct iommufd_ctx *ictx, u32 ioas_id,
++iommufd_access_create(struct iommufd_ctx *ictx,
+ 		      const struct iommufd_access_ops *ops, void *data);
+ void iommufd_access_destroy(struct iommufd_access *access);
++int iommufd_access_attach(struct iommufd_access *access, u32 ioas_id);
+ 
+ void iommufd_ctx_get(struct iommufd_ctx *ictx);
+ 
+-- 
+2.34.1
+
