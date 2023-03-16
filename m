@@ -4,53 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9B49C6FD19
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 09:44:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1306AC7618A
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 09:52:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 739CF10E0F2;
-	Thu, 16 Mar 2023 09:44:46 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BBBA10E0F2
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 09:44:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7203A10EC35;
+	Thu, 16 Mar 2023 09:52:29 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B132E10EC1E;
+ Thu, 16 Mar 2023 09:52:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678959885; x=1710495885;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=Wp6NZIc74K/WM5VNmaYG2CFOx3mzKWOv/j78NTpsJ7A=;
- b=RTpBZGwnOrbRSgoRXXbR7pfftZgByRqOUasqgCSrkVYBw3JmvmHaLgIM
- F4zjhdO5yrBNwyaLUnN/IywcvconXNSRghVgvtYulwy4Roh8VLKmVkNxw
- ISYrR95Uz63FPiEr+vuc/brt91MY6fcEZqJZaDyS+anMpN04HOn1lb2pd
- aEJpI282i/vC9YiK09XBLh1PV4uD0bHZ8laAk0RgU9vM61iUoCHwtH8+3
- Wz05FN9iOIDVdnnje2CSf/KALY3gmfet21n6TZPAAkZnCMxwyo2B9d7dU
- yZ8WkMREhLwVVnKL5T16JN6iuKLzB+eAUX5zgu4hlLrvIPZYM4HBSvSFe w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="339468386"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="339468386"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 02:44:44 -0700
+ t=1678960347; x=1710496347;
+ h=date:from:to:cc:subject:message-id:reply-to:references:
+ in-reply-to:mime-version;
+ bh=syLpTQDl8H23kWz02lHeTqn1WOZ/IfhWv6nbT44lSco=;
+ b=H0ryg89phy3IuvTQ8DSK7F5PFfIFxXQYKz6D8EHUSdbGHRc4eK9oyg0N
+ 2msUkwgh728r/NOkV6YgLQgVvfZNZC1rhzlAx30fclkjUQ0KxSv20Ep9B
+ z9r2LXoC+4W0TQ583pnN5RQPeuOuORhMDLvp8kGb+FXdeHQ49nMH4umCJ
+ I3x2aLQFNiTsTzcu7lcuv4u0IRmb7fCzfJcBJ++K0PG03i+7LXiaD4S6Z
+ nUo1tRXgwbwO0zca4RW9m/pQABHflNa6an8a2CpXD/LYAsheQIHsFpwzX
+ r/pnKPz+9N1/Kh8ed3TO6Vhlr6KtC3aDXGfOuFeDWpHhsPZiY27Ijtvpr g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="317592043"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="317592043"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2023 02:52:27 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="710028778"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="710028778"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by orsmga008.jf.intel.com with SMTP; 16 Mar 2023 02:44:42 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 16 Mar 2023 11:44:41 +0200
-Date: Thu, 16 Mar 2023 11:44:41 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: "Hogander, Jouni" <jouni.hogander@intel.com>
-Message-ID: <ZBLlCQOB11u8IadA@intel.com>
-References: <20230314130255.23273-1-ville.syrjala@linux.intel.com>
- <20230314130255.23273-4-ville.syrjala@linux.intel.com>
- <e69701372c2527fbfb67011a08b0322e4933f3c3.camel@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="679843700"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="679843700"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by orsmga002.jf.intel.com with ESMTP; 16 Mar 2023 02:52:26 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21; Thu, 16 Mar 2023 02:52:26 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21; Thu, 16 Mar 2023 02:52:25 -0700
+Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21 via Frontend Transport; Thu, 16 Mar 2023 02:52:25 -0700
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.168)
+ by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.21; Thu, 16 Mar 2023 02:52:25 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OcxfzV53ulhFdpbUKj2gZT9cpuI8GSGG5F14X73u3CiN37BJhyZBQOP/6jwJAPJoV8SIL/e0uLBIcFsCBC7cTjTcde8v+ZO1KnIzez68TsHQ9fdTODVvsd3Bi2QzDqbTif/8chH3MZ1CrfBOnNHCeVCC59Tos4hpKADxmQE8ITmaDLkoQ7VrujmXaQ1AKSnl6EflfvShvcJX+cZfoZ/tgy/LW/9vDsMZe86ogZhpaGKdQ2YLnMqCHSmfneXARQOxtCRNZx2tiDMwkbJoQhFHALSDQ9zmFna/x5jksxD7ucppmGvGxutCN4/pUc1WqXpgrkq4l8aVw5yJeA+o4DTKKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MWpg5BA2Hi1rcvyjJFmck8E9zWKVSMtBgyBOP9EHwfQ=;
+ b=fbU3bz67x+XljVwwBT/wbUkGyzbCbNi96X+ZrHRxzoPCa2xR4wb+z09luLZn9z8N0DxYX7lrjhXsW2Q94edtD2LRdnG2veiPfaRbOe742fXqT7TRrwRGxV/SBcCktghp6ATPRdShzLbv5McCLQkZDU3s4tn/FQWYKPt6H801QlGUmYhCse/9Qo0YMXGsdS/VNmLgAV71+KZRavWLhc5LMkZ2JG11JYRAnwCl1FclSuTUvZkkrT0nkwMDJWwffhv++9KtckVg8UK3PWry9qZSU9bT1yKnwws/uT9Q7stlHHgJwiVRPhktZ/OXGMkd1r0qLa4SgbRhh3epk63+DpMi3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS7PR11MB5966.namprd11.prod.outlook.com (2603:10b6:8:71::6) by
+ PH0PR11MB5674.namprd11.prod.outlook.com (2603:10b6:510:ec::10) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6178.31; Thu, 16 Mar 2023 09:52:23 +0000
+Received: from DS7PR11MB5966.namprd11.prod.outlook.com
+ ([fe80::b00e:ac74:158e:1c7e]) by DS7PR11MB5966.namprd11.prod.outlook.com
+ ([fe80::b00e:ac74:158e:1c7e%4]) with mapi id 15.20.6178.026; Thu, 16 Mar 2023
+ 09:52:23 +0000
+Date: Thu, 16 Mar 2023 17:27:47 +0800
+From: Yan Zhao <yan.y.zhao@intel.com>
+To: Sean Christopherson <seanjc@google.com>
+Message-ID: <ZBLhE3jyx/n54XQS@yzhao56-desk.sh.intel.com>
+References: <20230311002258.852397-1-seanjc@google.com>
+ <20230311002258.852397-15-seanjc@google.com>
+ <ZBF72+flVlEbfg70@yzhao56-desk.sh.intel.com>
+ <ZBHnugUe0SSmQKGI@google.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e69701372c2527fbfb67011a08b0322e4933f3c3.camel@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH 3/9] drm/i915: Define more pipe timestamp
- registers
+In-Reply-To: <ZBHnugUe0SSmQKGI@google.com>
+X-ClientProxiedBy: SG2PR04CA0169.apcprd04.prod.outlook.com (2603:1096:4::31)
+ To DS7PR11MB5966.namprd11.prod.outlook.com (2603:10b6:8:71::6)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR11MB5966:EE_|PH0PR11MB5674:EE_
+X-MS-Office365-Filtering-Correlation-Id: 78be38e3-28f9-4f12-3f9b-08db260423ee
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: K6YBGSbM7myzxKpsfvcjtPz3/LT/vQykk8yf3RQVmKzEwN3TiNd0TmWtTy2sRyzq8JeITJv4uwch6YFoF+Jpc+7T5bWU5m/5FPd9Gt751fKj/KuzVvXWyk7bqKbDpPnPAbWVnM99pMQn4lZcdOSNifiuT+Fun5JdGPmzDNldZCZBXT5SFzLJt9AXVHH0XRKZm5UaXEhLXbOZxAicD1g/PNI5INnw2TjWHBDh2UJ3NtX5l5dT3WZiCsFDnsNk4+XklZxVDydxTAUhR0n7RLGPsbH1BjTilCDH+J7A2w6Q8IfpPL4lN4WVx3EbPibaiNWfNvq5wfjcdtU2M/YuJ38IfhiIKQSs0I0fh5pkfrDiJw5n7PTG0483DyDUsv1W5VjnAMmOcNHqnDC8OxH+m591+UEOWRAIy9ae7k1hYLrGkOw1N9ZpC2J+lSsAUCbbWzU8UBPpCW2bQ7nQXBYx29NejL9m2B/4aNJq9SJuYdON/vSWB+lpQkX+sgxm4XSUmmTJX3ncudDiQGfD0CMnNNeEpoUwqZx1JqCW3d3TAZuMyw7aC4XDFXd1ypdZk4fR5jFcpnQno7e4jAbgqlCFLAUzdZk5644nX2SykohZSZzSd0zLFVE5EPOX4YexDiLb+Mm1Y5SxUQlC4hjF0cBX+H5wtA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR11MB5966.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(366004)(396003)(376002)(346002)(136003)(39860400002)(451199018)(8936002)(4744005)(5660300002)(41300700001)(4326008)(6916009)(86362001)(2906002)(38100700002)(3450700001)(82960400001)(8676002)(6486002)(6666004)(186003)(478600001)(6512007)(6506007)(26005)(66946007)(66556008)(54906003)(66476007)(66899018)(316002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?cGVlTJ2E+SvN2yIhuMvGOFUXZbuIjNRkVVxZIoNfM+PHMrt9qbArk2eddxjG?=
+ =?us-ascii?Q?0rs82rq2Ne6eZo/IB5Hd05vPxrcRUia7W5K89fEx4YlcSLjk/wWhoTHcMWml?=
+ =?us-ascii?Q?lBYIMPWwAD0c/Eu/EvO3nsdOmbYnfy50tdmVjveBOpT6qv1N9qhPbWAg6fD7?=
+ =?us-ascii?Q?Q8Ubq/eSq23j+m2ErmIMyTA17xBQciYxptk1VxiaYal7cKOXaehphm7Vk11L?=
+ =?us-ascii?Q?hM3m9LbAtajZqEj36vBImow8iq2nLFVc2uaPe6xPFNZw0iPFZu5ZMRNLpVUL?=
+ =?us-ascii?Q?2jURGmW32dtKQ8iiV4w0y0aV4ga0KuF40lKbwD+RrV/vpNoH6G/8zuKOG0+u?=
+ =?us-ascii?Q?GeuwTbZwR2snuRkGAFwCCJm9q5slejMgBTWzAj84lD1Hgilp7juBSSEUaD6k?=
+ =?us-ascii?Q?/7Zw4j1u3xIWO6pnqYrH7JGJz/veSHV4Tw8Datj7QbLnI8VfA7SYMX7nt0eu?=
+ =?us-ascii?Q?9mzeRkNqzjocjq0/HY5jM3+LzPSCGBd0ofxLO1TCZy6V7NuO8W0G4umvXrur?=
+ =?us-ascii?Q?aqXZib8onYj3NGrXDHtrO3g+7aUSR7nHnrlpu+RKhieYBf/PDSoMuVfsKJqC?=
+ =?us-ascii?Q?JrFGlUVJz32RXSZGSvSL6sfoZe25j8BBMFR3kKiDiUqIWCDkOLDidBTYwmkD?=
+ =?us-ascii?Q?YelSPVQ/Bm9vCeZhVua5yvkVMPEvLzy2X2s5UkqDszrM0zrZF3FhKbngaFH7?=
+ =?us-ascii?Q?q+Mzu2kl2dBGQoUhy+gzAtGA0xG3x7FXbIzoqdLKKVfPsPGmzbOvk/M/jgPY?=
+ =?us-ascii?Q?yK84ry3HZtWqqqyncw8+ohvVrxjWNY7Vq/d9r2c1EHEdNzR1mrXvMGBsEJqE?=
+ =?us-ascii?Q?sG2AEX+q4ct3BYcyHesNgkujKfk4i88TNeQdXhRkaEAw8JojTR5m8L3qnNIf?=
+ =?us-ascii?Q?YS8px6isdZHLuVzZSL+/fzKdLHcqz4hWUxoTn1lNbuYDa88PQXZ3GWcU+aJY?=
+ =?us-ascii?Q?54i3EzDeuPc9AXO1fugGcZ5SWifcX8rktLItOQ1WSOPMVu9H/RhBVf2SOfxv?=
+ =?us-ascii?Q?7dBWcKjtWAZRVvR8tNVr2EzSU7xNIDjoM6I5/QRPs8NBb4uUIT3n45sS4LPS?=
+ =?us-ascii?Q?kGeI6E1s9TQEbZcBlXq6wJvmzN+Cl8wu93CCO8EwqXKfiqvS2OSKKEaEZApr?=
+ =?us-ascii?Q?nrEFTjM45Mratpdcf7RCnBwJMTUDkfD5yNZB/byn8G/yWHhnp61vpg5NNCSO?=
+ =?us-ascii?Q?W3yH8l7xIyLRDIj3ZSY52FYqptkNJU+uGOLU7KGKco4a2TNaRs+Oc0TaLrN/?=
+ =?us-ascii?Q?+jz99rE0ybIaWv9imgUu/EVuWLjGDDaB4O4zrGTcOPpbUbIeqicR6pRe5JlN?=
+ =?us-ascii?Q?613YFC1uIIyvsoLNdcYfO2K4M38lUJ5cs+eQiOBnvIDeDKwwwQA+v0T6ewTl?=
+ =?us-ascii?Q?vgK9a04MYRiwYtDbWraVXiFPQC+Yc+0g01fBT5Ic0P6PtfuLv4/1GfXFHOrH?=
+ =?us-ascii?Q?fmSFEOnlmjgy1lr7DILxcvzVAaLg6oKgVE3MzK+B1ja/scZ0VLMRO+lNocWq?=
+ =?us-ascii?Q?QdW9QTWMigsoPMKLsoS568Ya+H/0bkNd3Jh8jBv2D8h7CE8MwoUNg2E3BGeX?=
+ =?us-ascii?Q?fPB+vKsXdPihchbcqBewae4+ClGsUFegh8vjNRn0nhFi3c8S3wEG2cLFQSjc?=
+ =?us-ascii?Q?nA=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 78be38e3-28f9-4f12-3f9b-08db260423ee
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR11MB5966.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2023 09:52:23.0111 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 69Wig+UnqQlzZAr4bUOiTOMfrWRJRKe7Vd/1RYM349FdKYV3eucvcEp+t+YZaQB7bpjKlltXTJY64iCmLcgf3Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB5674
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH v2 14/27] KVM: x86: Reject memslot MOVE
+ operations if KVMGT is attached
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,104 +150,29 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Reply-To: Yan Zhao <yan.y.zhao@intel.com>
+Cc: kvm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Ben
+ Gardon <bgardon@google.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 16, 2023 at 08:43:12AM +0000, Hogander, Jouni wrote:
-> On Tue, 2023-03-14 at 15:02 +0200, Ville Syrjala wrote:
-> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Wed, Mar 15, 2023 at 08:43:54AM -0700, Sean Christopherson wrote:
+> > So, in theory, the new GFNs are not write tracked though the old ones are.
 > > 
-> > Add definitions for various pipe timestamp registers:
-> > - frame timestamp (last start of vblank) (g4x+), already had this
-> > defined
-> > - flip timestamp (when SURF was last written) (g4x+)
-> > - flipdone timestamp (when last flipdone was signalled) (tgl+)
-> > 
-> > Note that on pre-tgl the flip related timestamps are only updated
-> > for primary plane flips, but on tgl+ we can select which plane
-> > updates them (via PIPE_MISC2). Let's define those related bits
-> > as well.
-> > 
-> > Curiously VLV/CHV do not have the frame/flip timestamp registers,
-> > despite all the other related registers being inherited from g4x.
-> > This means we can get rid of the pipe_offsets[] usage for these,
-> > and thus the implicit dev_priv is gone as well.
+> > Is that acceptable for the internal page-track user?
 > 
-> According to bspec these exist in VLV (Bspec: 8264, 8261) ?
+> It works because KVM zaps all SPTEs when a memslot is moved, i.e. the fact that
+Oh, yes!
+And KVM will not shadow SPTEs for a invalid memslot, so there's no
+problem.
+Thanks~
 
-It is lying to you.
-
+> KVM loses the write-tracking counts is benign.  I suspect no VMM actually does
+> does KVM_MR_MOVE in conjunction with shadow paging, but the ongoing maintenance
+> cost of supporting KVM_MR_MOVE is quite low at this point, so trying to rip it
+> out isn't worth the pain of having to deal with potential ABI breakage.
 > 
-> > 
-> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/i915_reg.h | 18 +++++++++++++++++-
-> >  1 file changed, 17 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/i915_reg.h
-> > b/drivers/gpu/drm/i915/i915_reg.h
-> > index a383397ebeca..66b6f451b80a 100644
-> > --- a/drivers/gpu/drm/i915/i915_reg.h
-> > +++ b/drivers/gpu/drm/i915/i915_reg.h
-> > @@ -3526,6 +3526,8 @@
-> >  #define   PIPE_MISC2_BUBBLE_COUNTER_MASK       REG_GENMASK(31, 24)
-> >  #define  
-> > PIPE_MISC2_BUBBLE_COUNTER_SCALER_EN  REG_FIELD_PREP(PIPE_MISC2_BUBBLE
-> > _COUNTER_MASK, 80)
-> >  #define  
-> > PIPE_MISC2_BUBBLE_COUNTER_SCALER_DIS REG_FIELD_PREP(PIPE_MISC2_BUBBLE
-> > _COUNTER_MASK, 20)
-> > +#define  
-> > PIPE_MISC2_FLIP_INFO_PLANE_SEL_MASK          REG_GENMASK(2, 0) /*
-> > tgl+ */
-> > +#define  
-> > PIPE_MISC2_FLIP_INFO_PLANE_SEL(plane_id)     REG_FIELD_PREP(PIPE_MISC
-> > 2_FLIP_INFO_PLANE_SEL_MASK, (plane_id))
-> >  #define PIPE_MISC2(pipe)               _MMIO_PIPE(pipe,
-> > _PIPE_MISC2_A, _PIPE_MISC2_B)
-> >  
-> >  /* Skylake+ pipe bottom (background) color */
-> > @@ -7545,9 +7547,23 @@ enum skl_power_gate {
-> >  #define  GEN9_TIMESTAMP_OVERRIDE_US_COUNTER_DENOMINATOR_SHIFT  12
-> >  #define  GEN9_TIMESTAMP_OVERRIDE_US_COUNTER_DENOMINATOR_MASK   (0xf
-> > << 12)
-> >  
-> > +/* g4x+, except vlv/chv! */
-> >  #define _PIPE_FRMTMSTMP_A              0x70048
-> > +#define _PIPE_FRMTMSTMP_B              0x71048
-> >  #define PIPE_FRMTMSTMP(pipe)           \
-> > -                       _MMIO_PIPE2(pipe, _PIPE_FRMTMSTMP_A)
-> > +       _MMIO_PIPE(pipe, _PIPE_FRMTMSTMP_A, _PIPE_FRMTMSTMP_B)
-> > +
-> > +/* g4x+, except vlv/chv! */
-> > +#define _PIPE_FLIPTMSTMP_A             0x7004C
-> > +#define _PIPE_FLIPTMSTMP_B             0x7104C
-> > +#define PIPE_FLIPTMSTMP(pipe)          \
-> > +       _MMIO_PIPE(pipe, _PIPE_FLIPTMSTMP_A, _PIPE_FLIPTMSTMP_B)
-> > +
-> > +/* tgl+ */
-> 
-> This is mentioned in pre tgl documentation as well? (Bspec: 29591)
-
-I think that is only a leftover artifact from before the
-gen12+ split. If you set the filter to ICLLP (or earlier)
-the register should disappear for you.
-
-> 
-> > +#define _PIPE_FLIPDONETMSTMP_A         0x70054
-> > +#define _PIPE_FLIPDONETMSTMP_B         0x71054
-> > +#define PIPE_FLIPDONETIMSTMP(pipe)     \
-> > +       _MMIO_PIPE(pipe, _PIPE_FLIPDONETMSTMP_A,
-> > _PIPE_FLIPDONETMSTMP_B)
-> >  
-> >  #define GGC                            _MMIO(0x108040)
-> >  #define   GMS_MASK                     REG_GENMASK(15, 8)
-> 
-> BR,
-> 
-> Jouni Högander
-
--- 
-Ville Syrjälä
-Intel
+> Though in hindsight I wish I had tried disallowed moving memslots instead of
+> fixing the various bugs a few years back. :-(
