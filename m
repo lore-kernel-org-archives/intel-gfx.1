@@ -4,47 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95BACC6FD19
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 09:30:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74E30C6FD19
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 09:40:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E75F10EA5A;
-	Thu, 16 Mar 2023 09:30:37 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 192BD10E0BD
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 09:30:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03FEA10EC78;
+	Thu, 16 Mar 2023 09:40:41 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE80E10EC78
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 09:40:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678959030; x=1710495030;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Hfs9aO/NZR1sfTMdyJd+x8HpkSs6H3GG/szwP7vzK84=;
- b=NBIEqYuxCwtz1QnqSQtuRK7XkqiuOuOGfJbImRPqja5LtoMTEKBd8W3K
- OoabVl+qAOdIIfy9PSTQHqLUIrQXuWbmojkmHbBFUP+hojlP2wFAi6g4v
- b13vR9163XYZdTRbFOCNjKmLkPadJnC2gY+o0081RTo7UovOClCGB0ls7
- gsvJxaHJ9dDkatmoodfcE/ph5TtSgjfeTLeQD11/RghqDKYI64hiv7f2E
- lsNBSJZ22EjEsycZkHYaKN4mE/JpqgNnyD5o6Xx/Ea0L9IyIH6ydLnUPW
- qBD88X2/S876N8TbIxvIDfDpl/b5eV1vqjtkcC+NPZQjjN0Dwgebe+NmZ A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="317587692"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="317587692"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 02:30:29 -0700
+ t=1678959638; x=1710495638;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=tcVL7Ilq48i/2KL6PPYlQarxL/2LW2m+pD5WBJMOfxo=;
+ b=ltgK2qTXPXuEYlvFDu6GqvUDUO5tiHzMTBI64Eh6GUnzNxp9iD+K4XB4
+ 2kAUO1wiRMO9yID+rEnJ0iqP8DCqecsM3H9qCPob2qrV9jlcfdz5FMp7z
+ eGPM37ROdn8W/jpTksZMKgBPuWyIG7jvW2l5PA/eobOftJxwLopnhwXN0
+ JD3d/pi9b+hXe0YZ+ZZtcPtW5LhQtL9dEccwTBPwd6AVeVAwP1WHVyajc
+ 5w3AioLu3hdb1FcRcbkA2QnHTvES73XVTIOQFw7ILxOAmORrxSvHAzZbE
+ Q1KLaBgBfVVqhEtQTbckAyPjSkHZql2n9UHjlwsIK/9u23Ry4v3+L5JCt g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="339467653"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="339467653"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2023 02:40:38 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="853942486"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="853942486"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by orsmga005.jf.intel.com with ESMTP; 16 Mar 2023 02:30:22 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 16 Mar 2023 14:59:24 +0530
-Message-Id: <20230316092927.668980-4-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230316092927.668980-1-suraj.kandpal@intel.com>
-References: <20230316092927.668980-1-suraj.kandpal@intel.com>
+X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="710028098"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="710028098"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
+ by orsmga008.jf.intel.com with SMTP; 16 Mar 2023 02:40:36 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Thu, 16 Mar 2023 11:40:35 +0200
+Date: Thu, 16 Mar 2023 11:40:35 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: "Hogander, Jouni" <jouni.hogander@intel.com>
+Message-ID: <ZBLkE6dzplun045y@intel.com>
+References: <20230314130255.23273-1-ville.syrjala@linux.intel.com>
+ <20230314130255.23273-5-ville.syrjala@linux.intel.com>
+ <7972a12266ecd7f407358690b5485f700d3e17e1.camel@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v13 3/6] drm/i915/hdcp: HDCP2.x Refactoring to
- agnostic hdcp
+In-Reply-To: <7972a12266ecd7f407358690b5485f700d3e17e1.camel@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH 4/9] drm/i915: Program VLV/CHV PIPE_MSA_MISC
+ register
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,56 +63,77 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tomas Winkler <tomas.winkler@intel.com>
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are more than type of content protection security firmware.
-Make the name generic
-%s/_mei_/_
+On Thu, Mar 16, 2023 at 08:55:01AM +0000, Hogander, Jouni wrote:
+> On Tue, 2023-03-14 at 15:02 +0200, Ville Syrjala wrote:
+> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > 
+> > VLV/CHV have an extra register to configure some stereo3d
+> > signalling details via DP MSA. Make sure we reset that
+> > register to zero (since we don't do any stereo3d stuff).
+> 
+> Maybe add Bspec here? It took me a while to find this documentation.
 
---v3
--Changing names to drop cp_fw to make naming more agnostic[Jani]
+Bpec + vlv/chv is lost cause. I never even bother looking there.
 
---v4
--remove header reference in intel_display_core.h [Uma]
--fix commit message and prefix drm [Uma]
+> 
+> Can you please check also Bspec: 8125 ?
 
-Cc: Tomas Winkler <tomas.winkler@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Uma Shankar <uma.shankar@intel.com>
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Uma Shankar <uma.shankar@intel.com>
----
- drivers/gpu/drm/i915/display/intel_hdcp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+That's the HSW+ MSA register. Different beast.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index 1ae0882dc1d4..3b9bdc4a764d 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -1409,7 +1409,7 @@ static int hdcp2_authenticate_port(struct intel_connector *connector)
- 	return ret;
- }
- 
--static int hdcp2_close_mei_session(struct intel_connector *connector)
-+static int hdcp2_close_session(struct intel_connector *connector)
- {
- 	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
-@@ -1433,7 +1433,7 @@ static int hdcp2_close_mei_session(struct intel_connector *connector)
- 
- static int hdcp2_deauthenticate_port(struct intel_connector *connector)
- {
--	return hdcp2_close_mei_session(connector);
-+	return hdcp2_close_session(connector);
- }
- 
- /* Authentication flow starts from here */
+> 
+> > 
+> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_display.c | 2 ++
+> >  drivers/gpu/drm/i915/i915_reg.h              | 6 ++++++
+> >  2 files changed, 8 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display.c
+> > b/drivers/gpu/drm/i915/display/intel_display.c
+> > index d95817288966..7b371d2746b5 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> > @@ -2139,6 +2139,8 @@ static void valleyview_crtc_enable(struct
+> > intel_atomic_state *state,
+> >  
+> >         intel_set_pipe_src_size(new_crtc_state);
+> >  
+> > +       intel_de_write(dev_priv, VLV_PIPE_MSA_MISC(pipe), 0);
+> > +
+> >         if (IS_CHERRYVIEW(dev_priv) && pipe == PIPE_B) {
+> >                 intel_de_write(dev_priv, CHV_BLEND(pipe),
+> > CHV_BLEND_LEGACY);
+> >                 intel_de_write(dev_priv, CHV_CANVAS(pipe), 0);
+> > diff --git a/drivers/gpu/drm/i915/i915_reg.h
+> > b/drivers/gpu/drm/i915/i915_reg.h
+> > index 66b6f451b80a..8f301bf4e2b6 100644
+> > --- a/drivers/gpu/drm/i915/i915_reg.h
+> > +++ b/drivers/gpu/drm/i915/i915_reg.h
+> > @@ -7565,6 +7565,12 @@ enum skl_power_gate {
+> >  #define PIPE_FLIPDONETIMSTMP(pipe)     \
+> >         _MMIO_PIPE(pipe, _PIPE_FLIPDONETMSTMP_A,
+> > _PIPE_FLIPDONETMSTMP_B)
+> >  
+> > +#define _VLV_PIPE_MSA_MISC_A                   0x70048
+> > +#define VLV_PIPE_MSA_MISC(pipe)                \
+> > +                       _MMIO_PIPE2(pipe, _VLV_PIPE_MSA_MISC_A)
+> > +#define   VLV_MSA_MISC1_HW_ENABLE                      REG_BIT(31)
+> > +#define  
+> > VLV_MSA_MISC1_SW_S3D_MASK                    REG_GENMASK(2, 0) /* MSA
+> > MISC1 3:1 */
+> > +
+> >  #define GGC                            _MMIO(0x108040)
+> >  #define   GMS_MASK                     REG_GENMASK(15, 8)
+> >  #define   GGMS_MASK                    REG_GENMASK(7, 6)
+> 
+> BR,
+> 
+> Jouni Högander
+
 -- 
-2.25.1
-
+Ville Syrjälä
+Intel
