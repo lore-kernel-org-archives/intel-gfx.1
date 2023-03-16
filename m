@@ -4,69 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DF86C6FD19
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 09:26:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E3B8C6FD1F
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 09:30:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DA1110E0BD;
-	Thu, 16 Mar 2023 09:26:50 +0000 (UTC)
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5CEC10E048;
- Thu, 16 Mar 2023 09:26:47 +0000 (UTC)
-Received: by mail-lf1-x132.google.com with SMTP id j11so1433228lfg.13;
- Thu, 16 Mar 2023 02:26:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1678958806;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=zBKJ7NrmRBzfIDjKoSTC1cqlNppklEr7/ciolYVooCM=;
- b=bX2R5z9vZ9k8MunExNWNbR2qhqPbDGh5Ky72E8Sp1Y0UHuyd/b0KLGbZHa4Ex5xEPI
- kHLg0w6UdDoNp7XBuf3jGJOZY+whBMVnvL9FRVcVCo9kYqPiE6UrAprn1RAx2mZOUKRR
- SegPo444hHt+KAEPRC1ybGmuzAXPck6YYfwaz+vWnDC6/I0R9yrM2u0G3EOqPssD7kr2
- 6Hh7dQ4wFv0IZbYBawDoGO4zQP7vZy+ajAJUiIfilZEUSftEkDzccq5o0g8InSL74Moj
- 3yYFoee/xCFn9+vD/ot5L/TsgOusK17LD78eLcWEcTEMjIfHQhCD4/Wvq2S2IponQjF2
- cN4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1678958806;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=zBKJ7NrmRBzfIDjKoSTC1cqlNppklEr7/ciolYVooCM=;
- b=csu87wGLfYo6EWbDBSMAU7ceQjXQRtlK4QZty20ytnOGzMqhhqWUmKUQjBiVaNXqZ1
- C2esaG0NoTZlOdU3RoKwAftAPYE7V5JMP/6JeRvocLfc69zBEWzNdStnUb/rnTM6seW3
- 7ALVvcZktMGCI0W0wPBekxAKwPXtQB9egZnneRbJ6pIqWagtzO9B1Mj5IDrTdUhjE4XV
- 9vF0wO08783mCjyD1r74nQS1rb+RtZX2Z5sIjTwHusdSoMNq+orfSiPayOs6BqBRbNl1
- ChRJjcUEDO/7OAydpAK/58KnI6HYAJ9kCk93zp2xwHJDbCLYP8Ivu8+QIasfM90TsCUA
- CoWg==
-X-Gm-Message-State: AO0yUKWiF44hRDO6PHmaZt8tCIAFZjfJ9ZaDHXgTgJ/OKa9n8Tb+03qk
- FqpxZDFooUyG+7Zdy7s5vq0=
-X-Google-Smtp-Source: AK7set8XenzJd+qCQYfLErlwcIu2Egv84C+weYpJ6G8Z39ksch9yfmUxE7pBpR5VirTCsEkHe7uUYQ==
-X-Received: by 2002:ac2:46e1:0:b0:4a4:68b8:f4bd with SMTP id
- q1-20020ac246e1000000b004a468b8f4bdmr3030555lfo.3.1678958805808; 
- Thu, 16 Mar 2023 02:26:45 -0700 (PDT)
-Received: from gmail.com (host-95-193-64-255.mobileonline.telia.com.
- [95.193.64.255]) by smtp.gmail.com with ESMTPSA id
- y18-20020ac255b2000000b004db4936c866sm1149034lfg.38.2023.03.16.02.26.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Mar 2023 02:26:45 -0700 (PDT)
-Date: Thu, 16 Mar 2023 10:26:42 +0100
-From: Jonas =?iso-8859-1?Q?=C5dahl?= <jadahl@gmail.com>
-To: Rob Clark <robdclark@gmail.com>
-Message-ID: <ZBLg0t0tTVvuPuiJ@gmail.com>
-References: <20230308155322.344664-1-robdclark@gmail.com>
- <20230308155322.344664-2-robdclark@gmail.com>
- <ZAtQspuFjPtGy7ze@gmail.com>
- <CAF6AEGsGOr5+Q10wX=5ttrWCSUJfn7gzHW8QhxFC0GDLgagMHg@mail.gmail.com>
- <ZBHNvT3BLgS3qvV5@gmail.com>
- <CAF6AEGu1S2CXzRxV_c5tE_H+XUGiO=n0tXjLZ_u_tW-eMqMsQw@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D257610E048;
+	Thu, 16 Mar 2023 09:30:15 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8906F10E048
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 09:30:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1678959014; x=1710495014;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=r88v6CTZfnpaPEzwsm2AdMVc32CHkREIPVZFOUMaVrs=;
+ b=H2InfImigzFpU4LgqX4yiKdA5jNRY+05peU/b+XgZ63Cx4e41BbWjo06
+ icsoQ/D+vbdvrxV5c3SEyJ3lBIZmfNg02op07Nec501rcwhNcOkSDO1f8
+ qX9fR1SH05SQmI1ML8NPrivmTA2yTXYNE/YZBg9YwDuKyaK0W7ObUrfky
+ +uZaMXdVv/8+qx1ZJxZDhwxf7xzRxGQm2JGk1i1293A9khIJw/eouJy1a
+ wEPBZidtSVMEJ+swt/lQ/0Xltk3NUeaJe9FzQuHlvfhu1dBRiIL7D5Qvm
+ pz3kpKgEzDyxlRVAH6JKLj0vG5haP+UE4rnVHP4/Mg7bLEH5/czPqWTlb A==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="317587583"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="317587583"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2023 02:30:13 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="853942279"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="853942279"
+Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
+ by orsmga005.jf.intel.com with ESMTP; 16 Mar 2023 02:30:12 -0700
+From: Suraj Kandpal <suraj.kandpal@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 16 Mar 2023 14:59:21 +0530
+Message-Id: <20230316092927.668980-1-suraj.kandpal@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAF6AEGu1S2CXzRxV_c5tE_H+XUGiO=n0tXjLZ_u_tW-eMqMsQw@mail.gmail.com>
-Subject: Re: [Intel-gfx] [PATCH v10 01/15] dma-buf/dma-fence: Add deadline
- awareness
+Subject: [Intel-gfx] [PATCH v13 0/6] Enable HDCP2.x via GSC CS
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,231 +54,100 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Jonathan Corbet <corbet@lwn.net>,
- Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- intel-gfx@lists.freedesktop.org,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- Luben Tuikov <luben.tuikov@amd.com>, Bagas Sanjaya <bagasdotme@gmail.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Gustavo Padovan <gustavo@padovan.org>,
- Matt Turner <mattst88@gmail.com>, freedreno@lists.freedesktop.org,
- Sumit Semwal <sumit.semwal@linaro.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 15, 2023 at 09:19:49AM -0700, Rob Clark wrote:
-> On Wed, Mar 15, 2023 at 6:53 AM Jonas Ådahl <jadahl@gmail.com> wrote:
-> >
-> > On Fri, Mar 10, 2023 at 09:38:18AM -0800, Rob Clark wrote:
-> > > On Fri, Mar 10, 2023 at 7:45 AM Jonas Ådahl <jadahl@gmail.com> wrote:
-> > > >
-> > > > On Wed, Mar 08, 2023 at 07:52:52AM -0800, Rob Clark wrote:
-> > > > > From: Rob Clark <robdclark@chromium.org>
-> > > > >
-> > > > > Add a way to hint to the fence signaler of an upcoming deadline, such as
-> > > > > vblank, which the fence waiter would prefer not to miss.  This is to aid
-> > > > > the fence signaler in making power management decisions, like boosting
-> > > > > frequency as the deadline approaches and awareness of missing deadlines
-> > > > > so that can be factored in to the frequency scaling.
-> > > > >
-> > > > > v2: Drop dma_fence::deadline and related logic to filter duplicate
-> > > > >     deadlines, to avoid increasing dma_fence size.  The fence-context
-> > > > >     implementation will need similar logic to track deadlines of all
-> > > > >     the fences on the same timeline.  [ckoenig]
-> > > > > v3: Clarify locking wrt. set_deadline callback
-> > > > > v4: Clarify in docs comment that this is a hint
-> > > > > v5: Drop DMA_FENCE_FLAG_HAS_DEADLINE_BIT.
-> > > > > v6: More docs
-> > > > > v7: Fix typo, clarify past deadlines
-> > > > >
-> > > > > Signed-off-by: Rob Clark <robdclark@chromium.org>
-> > > > > Reviewed-by: Christian König <christian.koenig@amd.com>
-> > > > > Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
-> > > > > Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
-> > > > > ---
-> > > >
-> > > > Hi Rob!
-> > > >
-> > > > >  Documentation/driver-api/dma-buf.rst |  6 +++
-> > > > >  drivers/dma-buf/dma-fence.c          | 59 ++++++++++++++++++++++++++++
-> > > > >  include/linux/dma-fence.h            | 22 +++++++++++
-> > > > >  3 files changed, 87 insertions(+)
-> > > > >
-> > > > > diff --git a/Documentation/driver-api/dma-buf.rst b/Documentation/driver-api/dma-buf.rst
-> > > > > index 622b8156d212..183e480d8cea 100644
-> > > > > --- a/Documentation/driver-api/dma-buf.rst
-> > > > > +++ b/Documentation/driver-api/dma-buf.rst
-> > > > > @@ -164,6 +164,12 @@ DMA Fence Signalling Annotations
-> > > > >  .. kernel-doc:: drivers/dma-buf/dma-fence.c
-> > > > >     :doc: fence signalling annotation
-> > > > >
-> > > > > +DMA Fence Deadline Hints
-> > > > > +~~~~~~~~~~~~~~~~~~~~~~~~
-> > > > > +
-> > > > > +.. kernel-doc:: drivers/dma-buf/dma-fence.c
-> > > > > +   :doc: deadline hints
-> > > > > +
-> > > > >  DMA Fences Functions Reference
-> > > > >  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > > > >
-> > > > > diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> > > > > index 0de0482cd36e..f177c56269bb 100644
-> > > > > --- a/drivers/dma-buf/dma-fence.c
-> > > > > +++ b/drivers/dma-buf/dma-fence.c
-> > > > > @@ -912,6 +912,65 @@ dma_fence_wait_any_timeout(struct dma_fence **fences, uint32_t count,
-> > > > >  }
-> > > > >  EXPORT_SYMBOL(dma_fence_wait_any_timeout);
-> > > > >
-> > > > > +/**
-> > > > > + * DOC: deadline hints
-> > > > > + *
-> > > > > + * In an ideal world, it would be possible to pipeline a workload sufficiently
-> > > > > + * that a utilization based device frequency governor could arrive at a minimum
-> > > > > + * frequency that meets the requirements of the use-case, in order to minimize
-> > > > > + * power consumption.  But in the real world there are many workloads which
-> > > > > + * defy this ideal.  For example, but not limited to:
-> > > > > + *
-> > > > > + * * Workloads that ping-pong between device and CPU, with alternating periods
-> > > > > + *   of CPU waiting for device, and device waiting on CPU.  This can result in
-> > > > > + *   devfreq and cpufreq seeing idle time in their respective domains and in
-> > > > > + *   result reduce frequency.
-> > > > > + *
-> > > > > + * * Workloads that interact with a periodic time based deadline, such as double
-> > > > > + *   buffered GPU rendering vs vblank sync'd page flipping.  In this scenario,
-> > > > > + *   missing a vblank deadline results in an *increase* in idle time on the GPU
-> > > > > + *   (since it has to wait an additional vblank period), sending a signal to
-> > > > > + *   the GPU's devfreq to reduce frequency, when in fact the opposite is what is
-> > > > > + *   needed.
-> > > >
-> > > > This is the use case I'd like to get some better understanding about how
-> > > > this series intends to work, as the problematic scheduling behavior
-> > > > triggered by missed deadlines has plagued compositing display servers
-> > > > for a long time.
-> > > >
-> > > > I apologize, I'm not a GPU driver developer, nor an OpenGL driver
-> > > > developer, so I will need some hand holding when it comes to
-> > > > understanding exactly what piece of software is responsible for
-> > > > communicating what piece of information.
-> > > >
-> > > > > + *
-> > > > > + * To this end, deadline hint(s) can be set on a &dma_fence via &dma_fence_set_deadline.
-> > > > > + * The deadline hint provides a way for the waiting driver, or userspace, to
-> > > > > + * convey an appropriate sense of urgency to the signaling driver.
-> > > > > + *
-> > > > > + * A deadline hint is given in absolute ktime (CLOCK_MONOTONIC for userspace
-> > > > > + * facing APIs).  The time could either be some point in the future (such as
-> > > > > + * the vblank based deadline for page-flipping, or the start of a compositor's
-> > > > > + * composition cycle), or the current time to indicate an immediate deadline
-> > > > > + * hint (Ie. forward progress cannot be made until this fence is signaled).
-> > > >
-> > > > Is it guaranteed that a GPU driver will use the actual start of the
-> > > > vblank as the effective deadline? I have some memories of seing
-> > > > something about vblank evasion browsing driver code, which I might have
-> > > > misunderstood, but I have yet to find whether this is something
-> > > > userspace can actually expect to be something it can rely on.
-> > >
-> > > I guess you mean s/GPU driver/display driver/ ?  It makes things more
-> > > clear if we talk about them separately even if they happen to be the
-> > > same device.
-> >
-> > Sure, sorry about being unclear about that.
-> >
-> > >
-> > > Assuming that is what you mean, nothing strongly defines what the
-> > > deadline is.  In practice there is probably some buffering in the
-> > > display controller.  For ex, block based (including bandwidth
-> > > compressed) formats, you need to buffer up a row of blocks to
-> > > efficiently linearize for scanout.  So you probably need to latch some
-> > > time before you start sending pixel data to the display.  But details
-> > > like this are heavily implementation dependent.  I think the most
-> > > reasonable thing to target is start of vblank.
-> >
-> > The driver exposing those details would be quite useful for userspace
-> > though, so that it can delay committing updates to late, but not too
-> > late. Setting a deadline to be the vblank seems easy enough, but it
-> > isn't enough for scheduling the actual commit.
-> 
-> I'm not entirely sure how that would even work.. but OTOH I think you
-> are talking about something on the order of 100us?  But that is a bit
-> of another topic.
+These patches enable HDCP2.x on machines MTL and above.
+From MTL onwards CSME is spilt into GSC and CSC and now
+we use GSC CS instead of MEI to talk to firmware to start
+HDCP authentication
 
-Yes, something like that. But yea, it's not really related. Scheduling
-commits closer to the deadline has more complex behavior than that too,
-e.g. the need for real time scheduling, and knowing how long it usually
-takes to create and commit and for the kernel to process.
+--v2
+-Fixing some checkpatch changes which I forgot before sending
+out the series
 
-> 
+--v3
+-Drop cp and fw to make naming more agnostic[Jani]
+-Sort header[Jani]
+-remove static inline function from i915_hdcp_interface[Jani]
+-abstract DISPLAY_VER check[Jani]
 
-8-< *snip* 8-<
+--v4
+-Remove stale comment P2 [Jani]
+-Fix part where file rename looks like its removed in P2 and
+added in P3 [Jani]
+-Add bitmask definition for host session id[Alan]
+-Seprating gsc load and heci cmd submission into different funcs[Alan]
+-Create comman function to fill gsc_mtl_header[Alan]
 
-> > >
-> > > You need a fence to set the deadline, and for that work needs to be
-> > > flushed.  But you can't associate a deadline with work that the kernel
-> > > is unaware of anyways.
-> >
-> > That makes sense, but it might also a bit inadequate to have it as the
-> > only way to tell the kernel it should speed things up. Even with the
-> > trick i915 does, with GNOME Shell, we still end up with the feedback
-> > loop this series aims to mitigate. Doing triple buffering, i.e. delaying
-> > or dropping the first frame is so far the best work around that works,
-> > except doing other tricks that makes the kernel to ramp up its clock.
-> > Having to rely on choosing between latency and frame drops should
-> > ideally not have to be made.
-> 
-> Before you have a fence, the thing you want to be speeding up is the
-> CPU, not the GPU.  There are existing mechanisms for that.
+--v5
+-No need to make hdcp_message field null as we use kzalloc [Alan]
+-use i915->drm instead of gt->i915->drm [Alan]
 
-Is there no benefit to let the GPU know earlier that it should speed up,
-so that when the job queue arrives, it's already up to speed?
+--v6
+-Make each patch build individually [Jani]
+-drop cp_fw stale commit subject [Jani]
+-fix the date on license [Jani]
+-revert back to orginal design where mei and gsc fill their own header
 
-> 
-> TBF I'm of the belief that there is still a need for input based cpu
-> boost (and early wake-up trigger for GPU).. we have something like
-> this in CrOS kernel.  That is a bit of a different topic, but my point
-> is that fence deadlines are just one of several things we need to
-> optimize power/perf and responsiveness, rather than the single thing
-> that solves every problem under the sun ;-)
+--v7
+-remove RB by Ankit
 
-Perhaps; but I believe it's a bit of a back channel of intent; the piece
-of the puzzle that has the information to know whether there is need
-actually speed up is the compositor, not the kernel.
+--v8
+-change design to allocate and deallocate hdcp_message only at
+enablement and disabling of hdcp [Alan]
+-fix few formatting issue [Ankit]
+-fix stale comments [Ankit]
 
-For example, pressing 'p' while a terminal is focused does not need high
-frequency clocks, it just needs the terminal emulator to draw a 'p' and
-the compositor to composite that update. Pressing <Super> may however 
-trigger a non-trivial animation moving a lot of stuff around on screen,
-maybe triggering Wayland clients to draw and what not, and should most
-arguably have the ability to "warn" the kernel about the upcoming flood
-of work before it is already knocking on its door step.
+--v9
+-move allocation dealloc of hdcp messgae to init and teardown [Alan]
+-remove obj from hdcp message , use i915_vma_unpin_and_release [Alan]
+-remove return statement from intel_hdcp_gsc_fini [Ankit]
 
-> 
+--v10
+-remove unnecessary i915_vma_unpin [Alan]
 
-8-< *snip* 8-<
+--v11
+-commit message and header fix [Uma]
+-comment style fix [Uma]
+-add line gap [Uma]
 
-> >
-> > Is it expected that WSI's will set their own deadlines, or should that
-> > be the job of the compositor? For example by using compositors using
-> > DMA_BUF_IOCTL_EXPORT_SYNC_FILE that you mentioned, using it to set a
-> > deadline matching the vsync it most ideally will be committed to?
-> >
-> 
-> I'm kind of assuming compositors, but if the WSI somehow has more
-> information about ideal presentation time, then I suppose it could be
-> in the WSI?  I'll defer to folks who spend more time on WSI and
-> compositors to hash out the details ;-)
-
-With my compositor developer hat on, it might be best to let it be up to
-the compositor, it's the one that knows if a client's content will
-actually end up anywhere visible.
+--v12
+-rename comp to arbiter [Uma]
 
 
-Jonas
 
-> 
-> BR,
-> -R
+Anshuman Gupta (1):
+  drm/i915/hdcp: Use generic names for HDCP helpers and structs
+
+Suraj Kandpal (5):
+  drm/i915/gsc: Create GSC request submission mechanism
+  drm/i915/hdcp: HDCP2.x Refactoring to agnostic hdcp
+  drm/i915/hdcp: Refactor HDCP API structures
+  drm/i915/mtl: Add function to send command to GSC CS
+  drm/i915/mtl: Add HDCP GSC interface
+
+ drivers/gpu/drm/i915/Makefile                 |   2 +
+ .../gpu/drm/i915/display/intel_display_core.h |   8 +-
+ .../drm/i915/display/intel_display_types.h    |   2 +-
+ drivers/gpu/drm/i915/display/intel_hdcp.c     | 158 ++--
+ drivers/gpu/drm/i915/display/intel_hdcp_gsc.c | 831 ++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_hdcp_gsc.h |  26 +
+ drivers/gpu/drm/i915/gt/intel_gpu_commands.h  |   2 +
+ .../i915/gt/uc/intel_gsc_uc_heci_cmd_submit.c | 109 +++
+ .../i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h |  61 ++
+ drivers/misc/mei/hdcp/mei_hdcp.c              | 105 ++-
+ drivers/misc/mei/hdcp/mei_hdcp.h              | 354 --------
+ include/drm/i915_hdcp_interface.h             | 539 ++++++++++++
+ include/drm/i915_mei_hdcp_interface.h         | 184 ----
+ 13 files changed, 1718 insertions(+), 663 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/display/intel_hdcp_gsc.c
+ create mode 100644 drivers/gpu/drm/i915/display/intel_hdcp_gsc.h
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_heci_cmd_submit.c
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h
+ create mode 100644 include/drm/i915_hdcp_interface.h
+ delete mode 100644 include/drm/i915_mei_hdcp_interface.h
+
+-- 
+2.25.1
+
