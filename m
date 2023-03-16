@@ -4,47 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10195C6FD19
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 09:19:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA885C6FD19
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 09:26:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5348310E080;
-	Thu, 16 Mar 2023 09:19:49 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 311F910E080
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 09:19:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678958388; x=1710494388;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Hfs9aO/NZR1sfTMdyJd+x8HpkSs6H3GG/szwP7vzK84=;
- b=JR4uCliMYu/FzE4FNH22iTm+bkG0A+f3B+USnMNDVq5O65OU5knpHlHi
- t5ZrJ4lgjtETkJIzYwIuL/Gk+VR++cVYrou8lIXqVCrusxS7qOq4y5ndl
- 586uhFXR04l6T+Z3ZJ6mq0D+pb7TxSbrNwXpVv9hZ4riTX+6nciK74qwl
- x1CbbOMwGBis35elRfJQQn8RP2W7IbGuYFG+8dPQyXAGEfJUEZ+9nfUUi
- w5rbqDMXZeOowzAkDgdf8Ybt2Vj6rx2Y2BAqV3n7t4zxYtUvsID5aRJdU
- Tjea9EjBYBOqgNaxP5M2gQY6ANJLi9Qt7g2jleuA9dXLGr7NEu/luj9zD Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="424209125"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="424209125"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 02:19:47 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="712277786"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="712277786"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by orsmga001.jf.intel.com with ESMTP; 16 Mar 2023 02:19:44 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 16 Mar 2023 14:48:55 +0530
-Message-Id: <20230316091855.668319-1-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230316084417.667359-1-suraj.kandpal@intel.com>
-References: <20230316084417.667359-1-suraj.kandpal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41CB689238;
+	Thu, 16 Mar 2023 09:26:08 +0000 (UTC)
+X-Greylist: delayed 305 seconds by postgrey-1.36 at gabe;
+ Thu, 16 Mar 2023 09:26:06 UTC
+Received: from out199-17.us.a.mail.aliyun.com (out199-17.us.a.mail.aliyun.com
+ [47.90.199.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43A7789238
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 09:26:05 +0000 (UTC)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R551e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046051;
+ MF=yang.lee@linux.alibaba.com; NM=1; PH=DS; RN=11; SR=0;
+ TI=SMTPD_---0VdzzZt9_1678958451; 
+Received: from localhost(mailfrom:yang.lee@linux.alibaba.com
+ fp:SMTPD_---0VdzzZt9_1678958451) by smtp.aliyun-inc.com;
+ Thu, 16 Mar 2023 17:20:52 +0800
+From: Yang Li <yang.lee@linux.alibaba.com>
+To: jani.nikula@linux.intel.com
+Date: Thu, 16 Mar 2023 17:20:50 +0800
+Message-Id: <20230316092050.28622-1-yang.lee@linux.alibaba.com>
+X-Mailer: git-send-email 2.20.1.7.g153144c
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v13 3/6] drm/i915/hdcp: HDCP2.x Refactoring to
- agnostic hdcp
+Subject: [Intel-gfx] [PATCH -next] drm/i915/wm: Fix some kernel-doc comments
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,56 +42,37 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tomas Winkler <tomas.winkler@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, Abaci Robot <abaci@linux.alibaba.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Yang Li <yang.lee@linux.alibaba.com>, daniel@ffwll.ch, rodrigo.vivi@intel.com,
+ airlied@gmail.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are more than type of content protection security firmware.
-Make the name generic
-%s/_mei_/_
+Make the description of @dev_priv to @i915 to silence the warnings:
+drivers/gpu/drm/i915/display/intel_wm.c:46: warning: Function parameter or member 'i915' not described in 'intel_update_watermarks'
+drivers/gpu/drm/i915/display/intel_wm.c:46: warning: Excess function parameter 'dev_priv' description in 'intel_update_watermarks'
 
---v3
--Changing names to drop cp_fw to make naming more agnostic[Jani]
-
---v4
--remove header reference in intel_display_core.h [Uma]
--fix commit message and prefix drm [Uma]
-
-Cc: Tomas Winkler <tomas.winkler@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Uma Shankar <uma.shankar@intel.com>
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=4546
+Signed-off-by: Yang Li <yang.lee@linux.alibaba.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdcp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_wm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index 1ae0882dc1d4..3b9bdc4a764d 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -1409,7 +1409,7 @@ static int hdcp2_authenticate_port(struct intel_connector *connector)
- 	return ret;
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_wm.c b/drivers/gpu/drm/i915/display/intel_wm.c
+index bb99179cd5fd..b615449e70b4 100644
+--- a/drivers/gpu/drm/i915/display/intel_wm.c
++++ b/drivers/gpu/drm/i915/display/intel_wm.c
+@@ -11,7 +11,7 @@
  
--static int hdcp2_close_mei_session(struct intel_connector *connector)
-+static int hdcp2_close_session(struct intel_connector *connector)
- {
- 	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
-@@ -1433,7 +1433,7 @@ static int hdcp2_close_mei_session(struct intel_connector *connector)
- 
- static int hdcp2_deauthenticate_port(struct intel_connector *connector)
- {
--	return hdcp2_close_mei_session(connector);
-+	return hdcp2_close_session(connector);
- }
- 
- /* Authentication flow starts from here */
+ /**
+  * intel_update_watermarks - update FIFO watermark values based on current modes
+- * @dev_priv: i915 device
++ * @i915: i915 device
+  *
+  * Calculate watermark values for the various WM regs based on current mode
+  * and plane configuration.
 -- 
-2.25.1
+2.20.1.7.g153144c
 
