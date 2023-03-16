@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8EFFC61DA4
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 01:01:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31CF0C7618B
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 01:01:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1483A10E81F;
-	Thu, 16 Mar 2023 01:01:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C77F010EA2E;
+	Thu, 16 Mar 2023 01:01:16 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E7DC10EA2E
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C98610E905
  for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 01:01:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1678928475; x=1710464475;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=L0FceqIFJhof6Hx0cfpW0CQFmz4RMcHKlDOYelRWfKg=;
- b=FWkFVLF/dwsIG1N7t40lgPh9wNoxfYyk1SCuUY8TQ+KzUVOyLxGfxEFu
- wwYNhUezvcWycBhxZhULvM04O9GE6OezdvwxhPkt8aSARFI3LCnzYDqaj
- Z/TAZLhuO/AWqzz6W+LZExFJmUh93/27Z02Vm9fZZLF26vyNxWopby+I3
- dVlAqChY8BJLXFlRksGWXjromqMfUPfSMikAKJNJIHMqdq6g99l80FEXP
- B7iYquMbrz37F6gpFvgLqgtKVMc3RuqT5ZyWKUSDzem/OR0ZOLx3TZpnD
- rtUc4YjDYINx7nfpHxl1s1Eke5zXr3wIy2VP+Pauq/r9RUE/my+PSzSmv g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="400434075"
-X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="400434075"
+ bh=m6W27a8UcsAbAYIlxnkwNk3dCacE7GlfTHXPVnZ56aQ=;
+ b=PQG3A+pBSqqUUB91CP+Yf/B5dnLRmKUlZqwGyJfp7viXw1BvBo8sdp9r
+ lAOMQfGPaMyEHxcTW0XWROPZKnAQ01NojNXlFPHt6rnsNivy/K8Aap7Sx
+ 1X+qF6C006N5+nC+L6Fh1ez90BkoJjU2oW6EYi46MHVnxWKQsPJq+ob0t
+ M3/TQX2GfqYwtXnB8xo7FmAmA5FMxuz9hQzIcBNZyoyQWUpK9iHXcC9Hi
+ ALx+MyLAFCfG71NtSEnEtlnIE8QEDBdJfByEeRa3+48TYVcO7cgtL9k4J
+ eQ+Kn2KDUID5aOER4wbytwf+AeTgH0IghKQ6PAiJuy2qYJ+0AoR2jFrw3 g==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="400434069"
+X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="400434069"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Mar 2023 18:01:06 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="743916710"
-X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="743916710"
+X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="743916689"
+X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="743916689"
 Received: from orsosgc001.jf.intel.com ([10.165.21.138])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2023 18:01:06 -0700
+ 15 Mar 2023 18:01:05 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 15 Mar 2023 18:01:01 -0700
-Message-Id: <20230316010101.2590309-13-umesh.nerlige.ramappa@intel.com>
+Date: Wed, 15 Mar 2023 18:00:56 -0700
+Message-Id: <20230316010101.2590309-8-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20230316010101.2590309-1-umesh.nerlige.ramappa@intel.com>
 References: <20230316010101.2590309-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 12/12] drm/i915/perf: Wa_14017512683: Disable
- OAM if media C6 is enabled in BIOS
+Subject: [Intel-gfx] [PATCH v6 07/12] drm/i915/perf: Parse 64bit report
+ header formats correctly
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,69 +62,216 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-OAM does not work with media C6 enabled on some steppings of MTL.
-Disable OAM if we detect that media C6 was enabled in bios.
+Now that OA formats come in flavor of 64 bit reports, the report header
+has 64 bit report-id, timestamp, context-id and gpu-ticks fields. When
+filtering these reports, use the right width for these fields.
+
+Note that upper dword of context id is reserved, so squash lower dword
+only.
+
+v2: (Ashutosh)
+- Drop inline
+- Update comment with dword definitions - report id and timestamp
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/i915_perf.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ drivers/gpu/drm/i915/i915_perf.c       | 109 +++++++++++++++++++------
+ drivers/gpu/drm/i915/i915_perf_types.h |   6 ++
+ 2 files changed, 90 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 77fae3d80128..4ac6535a0356 100644
+index 536de16b83b3..8336430aa27f 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -209,6 +209,7 @@
- #include "gt/intel_gt_regs.h"
- #include "gt/intel_lrc.h"
- #include "gt/intel_lrc_reg.h"
-+#include "gt/intel_rc6.h"
- #include "gt/intel_ring.h"
- #include "gt/uc/intel_guc_slpc.h"
- 
-@@ -4898,6 +4899,18 @@ static u32 num_perf_groups_per_gt(struct intel_gt *gt)
- 
- static u32 __oam_engine_group(struct intel_engine_cs *engine)
- {
-+	/*
-+	 * Wa_14017512683: mtl[a0..c0): Use of OAM must be preceded with Media
-+	 * C6 disable in BIOS. Do not enable OA for media classes if MC6 is
-+	 * enabled in BIOS.
-+	 */
-+	if (IS_MTL_MEDIA_STEP(engine->i915, STEP_A0, STEP_C0) &&
-+	    intel_check_bios_c6_setup(&engine->gt->rc6)) {
-+		drm_notice_once(&engine->i915->drm,
-+				"OAM requires media C6 to be disabled in BIOS\n");
-+		return PERF_GROUP_INVALID;
-+	}
-+
- 	if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 70)) {
- 		/*
- 		 * There's 1 SAMEDIA gt and 1 OAM per SAMEDIA gt. All media slices
-@@ -5317,6 +5330,23 @@ int i915_perf_ioctl_version(struct drm_i915_private *i915)
- 	 *
- 	 * 7: Add support for video decode and enhancement classes.
- 	 */
-+
-+	/*
-+	 * Wa_14017512683: mtl[a0..c0): Use of OAM must be preceded with Media
-+	 * C6 disable in BIOS. Do not enable OA for media classes if MC6 is
-+	 * enabled in BIOS.
-+	 */
-+	if (IS_MTL_MEDIA_STEP(i915, STEP_A0, STEP_C0)) {
-+		struct intel_gt *gt;
-+		int i;
-+
-+		for_each_gt(gt, i915, i) {
-+			if (gt->type == GT_MEDIA &&
-+			    intel_check_bios_c6_setup(&gt->rc6))
-+				return 6;
-+		}
-+	}
-+
- 	return 7;
+@@ -441,6 +441,67 @@ static u32 gen7_oa_hw_tail_read(struct i915_perf_stream *stream)
+ 	return oastatus1 & GEN7_OASTATUS1_TAIL_MASK;
  }
  
++#define oa_report_header_64bit(__s) \
++	((__s)->oa_buffer.format->header == HDR_64_BIT)
++
++static u64 oa_report_id(struct i915_perf_stream *stream, void *report)
++{
++	return oa_report_header_64bit(stream) ? *(u64 *)report : *(u32 *)report;
++}
++
++static u64 oa_report_reason(struct i915_perf_stream *stream, void *report)
++{
++	return (oa_report_id(stream, report) >> OAREPORT_REASON_SHIFT) &
++	       (GRAPHICS_VER(stream->perf->i915) == 12 ?
++		OAREPORT_REASON_MASK_EXTENDED :
++		OAREPORT_REASON_MASK);
++}
++
++static void oa_report_id_clear(struct i915_perf_stream *stream, u32 *report)
++{
++	if (oa_report_header_64bit(stream))
++		*(u64 *)report = 0;
++	else
++		*report = 0;
++}
++
++static bool oa_report_ctx_invalid(struct i915_perf_stream *stream, void *report)
++{
++	return !(oa_report_id(stream, report) &
++	       stream->perf->gen8_valid_ctx_bit) &&
++	       GRAPHICS_VER(stream->perf->i915) <= 11;
++}
++
++static u64 oa_timestamp(struct i915_perf_stream *stream, void *report)
++{
++	return oa_report_header_64bit(stream) ?
++		*((u64 *)report + 1) :
++		*((u32 *)report + 1);
++}
++
++static void oa_timestamp_clear(struct i915_perf_stream *stream, u32 *report)
++{
++	if (oa_report_header_64bit(stream))
++		*(u64 *)&report[2] = 0;
++	else
++		report[1] = 0;
++}
++
++static u32 oa_context_id(struct i915_perf_stream *stream, u32 *report)
++{
++	u32 ctx_id = oa_report_header_64bit(stream) ? report[4] : report[2];
++
++	return ctx_id & stream->specific_ctx_id_mask;
++}
++
++static void oa_context_id_squash(struct i915_perf_stream *stream, u32 *report)
++{
++	if (oa_report_header_64bit(stream))
++		report[4] = INVALID_CTX_ID;
++	else
++		report[2] = INVALID_CTX_ID;
++}
++
+ /**
+  * oa_buffer_check_unlocked - check for data and update tail ptr state
+  * @stream: i915 stream instance
+@@ -509,21 +570,22 @@ static bool oa_buffer_check_unlocked(struct i915_perf_stream *stream)
+ 		hw_tail -= gtt_offset;
+ 		tail = hw_tail;
+ 
+-		/* Walk the stream backward until we find a report with dword 0
+-		 * & 1 not at 0. Since the circular buffer pointers progress by
+-		 * increments of 64 bytes and that reports can be up to 256
+-		 * bytes long, we can't tell whether a report has fully landed
+-		 * in memory before the first 2 dwords of the following report
+-		 * have effectively landed.
++		/* Walk the stream backward until we find a report with report
++		 * id and timestmap not at 0. Since the circular buffer pointers
++		 * progress by increments of 64 bytes and that reports can be up
++		 * to 256 bytes long, we can't tell whether a report has fully
++		 * landed in memory before the report id and timestamp of the
++		 * following report have effectively landed.
+ 		 *
+ 		 * This is assuming that the writes of the OA unit land in
+ 		 * memory in the order they were written to.
+ 		 * If not : (╯°□°）╯︵ ┻━┻
+ 		 */
+ 		while (OA_TAKEN(tail, aged_tail) >= report_size) {
+-			u32 *report32 = (void *)(stream->oa_buffer.vaddr + tail);
++			void *report = stream->oa_buffer.vaddr + tail;
+ 
+-			if (report32[0] != 0 || report32[1] != 0)
++			if (oa_report_id(stream, report) ||
++			    oa_timestamp(stream, report))
+ 				break;
+ 
+ 			tail = (tail - report_size) & (OA_BUFFER_SIZE - 1);
+@@ -702,7 +764,7 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
+ 		u8 *report = oa_buf_base + head;
+ 		u32 *report32 = (void *)report;
+ 		u32 ctx_id;
+-		u32 reason;
++		u64 reason;
+ 
+ 		/*
+ 		 * All the report sizes factor neatly into the buffer
+@@ -725,16 +787,12 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
+ 		 * triggered this specific report (mostly timer
+ 		 * triggered or e.g. due to a context switch).
+ 		 *
+-		 * This field is never expected to be zero so we can
+-		 * check that the report isn't invalid before copying
+-		 * it to userspace...
++		 * In MMIO triggered reports, some platforms do not set the
++		 * reason bit in this field and it is valid to have a reason
++		 * field of zero.
+ 		 */
+-		reason = ((report32[0] >> OAREPORT_REASON_SHIFT) &
+-			  (GRAPHICS_VER(stream->perf->i915) == 12 ?
+-			   OAREPORT_REASON_MASK_EXTENDED :
+-			   OAREPORT_REASON_MASK));
+-
+-		ctx_id = report32[2] & stream->specific_ctx_id_mask;
++		reason = oa_report_reason(stream, report);
++		ctx_id = oa_context_id(stream, report32);
+ 
+ 		/*
+ 		 * Squash whatever is in the CTX_ID field if it's marked as
+@@ -744,9 +802,10 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
+ 		 * Note: that we don't clear the valid_ctx_bit so userspace can
+ 		 * understand that the ID has been squashed by the kernel.
+ 		 */
+-		if (!(report32[0] & stream->perf->gen8_valid_ctx_bit) &&
+-		    GRAPHICS_VER(stream->perf->i915) <= 11)
+-			ctx_id = report32[2] = INVALID_CTX_ID;
++		if (oa_report_ctx_invalid(stream, report)) {
++			ctx_id = INVALID_CTX_ID;
++			oa_context_id_squash(stream, report32);
++		}
+ 
+ 		/*
+ 		 * NB: For Gen 8 the OA unit no longer supports clock gating
+@@ -790,7 +849,7 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
+ 			 */
+ 			if (stream->ctx &&
+ 			    stream->specific_ctx_id != ctx_id) {
+-				report32[2] = INVALID_CTX_ID;
++				oa_context_id_squash(stream, report32);
+ 			}
+ 
+ 			ret = append_oa_sample(stream, buf, count, offset,
+@@ -802,11 +861,11 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
+ 		}
+ 
+ 		/*
+-		 * Clear out the first 2 dword as a mean to detect unlanded
++		 * Clear out the report id and timestamp as a means to detect unlanded
+ 		 * reports.
+ 		 */
+-		report32[0] = 0;
+-		report32[1] = 0;
++		oa_report_id_clear(stream, report32);
++		oa_timestamp_clear(stream, report32);
+ 	}
+ 
+ 	if (start_offset != *offset) {
+diff --git a/drivers/gpu/drm/i915/i915_perf_types.h b/drivers/gpu/drm/i915/i915_perf_types.h
+index 9b4e9fb8e95b..0342134a0012 100644
+--- a/drivers/gpu/drm/i915/i915_perf_types.h
++++ b/drivers/gpu/drm/i915/i915_perf_types.h
+@@ -38,9 +38,15 @@ enum {
+ 	PERF_GROUP_INVALID = U32_MAX,
+ };
+ 
++enum report_header {
++	HDR_32_BIT = 0,
++	HDR_64_BIT,
++};
++
+ struct i915_oa_format {
+ 	u32 format;
+ 	int size;
++	enum report_header header;
+ };
+ 
+ struct i915_oa_reg {
 -- 
 2.36.1
 
