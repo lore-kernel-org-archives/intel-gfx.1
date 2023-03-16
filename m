@@ -4,50 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52783C6FD19
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 13:29:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E9B6C6FD19
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 13:40:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D156A10E1DF;
-	Thu, 16 Mar 2023 13:29:54 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6BA410E1DF
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 13:29:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 863F210E19F;
+	Thu, 16 Mar 2023 13:40:21 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14CE010E1DE
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 13:40:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678973393; x=1710509393;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=u69CW3jNWH8J05QXvXeY7zkveloKyEfiTv0n3Z96P8Y=;
- b=E4wtTRjbVzB/GNLe7q65MDIR0ONPB/309W5AJSuYeCRwfEqaCWC9fyPN
- aTcAKY9kdEBBQ7x8ILMwtAtr5X2JE8+Ys7WKYuobmcmQgFpVx1Kh3/DBc
- aSmclvXeyLS835BJMZKf7+ZHi6VVyDFt2mpke3ZXahWoyF/a/GyGpSrLN
- VVlrUKqe+eC+fsIzANuUeGZmZMr87DtNGGX21xT4dQWG9qlEApDwE8jx4
- +VScBchsxDQQdDNEa1Uu4twqpM/SgcdHm5h73UfiIQ9pf3V2VIag4MoKa
- WeRF6/dMwP5HlXuhIqsGRlQhRJcouFydwL3uA1HNR9L2LeEqd5apO7aZp Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="317639123"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="317639123"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 06:29:53 -0700
+ t=1678974019; x=1710510019;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=4S94O3LotnaVqqkpOCf7m6iLZqpuzBRliMZpNwNd2do=;
+ b=IehYM//QlnmWxlrHJPzd7gy3PZZ2GocJlZWlIQVWZzAsfQ/zfeOHuQP+
+ EpSo8r+CG8XchgLeJHhjjCnvIDsdHJefAIoMyKYw00N2LiBW0tsSbN/7H
+ WP/SoTHgElsALFiplwsa5trMtxfOEXA/sCMwvcZ7xt584XqieX99JlLyU
+ Lp/LUALnn5WBCuTTc9sqWKGotZqfprnRfS7bsTSc2fsPlgMIP7reorrVO
+ AWn0fxQCPBdG2SijMumKIKXdtsWz5gcAceu9Dw1OVdgwVG5ba+eRVLJe4
+ v7SbHi0U8TavQH9rdATS2cKfNd+L4AtjC7P6/4oxTReVsEAiRhozHrNC3 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="339524571"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="339524571"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2023 06:17:27 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="712358867"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="712358867"
-Received: from jnikula-mobl4.fi.intel.com (HELO localhost) ([10.237.66.158])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 06:29:52 -0700
-From: Jani Nikula <jani.nikula@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="657171260"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="657171260"
+Received: from ideak-desk.fi.intel.com ([10.237.72.58])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2023 06:17:26 -0700
+From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 16 Mar 2023 15:29:32 +0200
-Message-Id: <aa93b34e786c5566acf8f053ffed96c160a23898.1678973282.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1678973282.git.jani.nikula@intel.com>
-References: <cover.1678973282.git.jani.nikula@intel.com>
+Date: Thu, 16 Mar 2023 15:17:10 +0200
+Message-Id: <20230316131724.359612-1-imre.deak@intel.com>
+X-Mailer: git-send-email 2.31.1.189.g2e36527f23
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/7] drm/i915/aux: split out DP AUX regs to a
- separate file
+Subject: [Intel-gfx] [PATCH 00/14] drm/i915/tc: Fix a few TypeC / MST issues
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,259 +56,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Clean up i915_reg.h by splitting out DP AUX regs to
-display/intel_dp_aux_regs.h.
+This patchset fixes a few issues on TypeC ports, related to the legacy
+port handling, HW state readout/verification. It also fixes an issue on
+TC port/MST outputs during system suspend/resume, where the modeset
+restoring the pre-suspend state fails atm.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- .../i915/display/intel_display_power_well.c   |  1 +
- drivers/gpu/drm/i915/display/intel_dp_aux.c   |  1 +
- .../gpu/drm/i915/display/intel_dp_aux_regs.h  | 84 +++++++++++++++++++
- drivers/gpu/drm/i915/gvt/edid.c               |  1 +
- drivers/gpu/drm/i915/gvt/handlers.c           |  1 +
- drivers/gpu/drm/i915/i915_reg.h               | 73 ----------------
- drivers/gpu/drm/i915/intel_gvt_mmio_table.c   |  1 +
- 7 files changed, 89 insertions(+), 73 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/display/intel_dp_aux_regs.h
+Tested on ICL, TGL, ADLP.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.c b/drivers/gpu/drm/i915/display/intel_display_power_well.c
-index 1676df1dc066..9accc24db7f7 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_well.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_well.c
-@@ -15,6 +15,7 @@
- #include "intel_dkl_phy.h"
- #include "intel_dkl_phy_regs.h"
- #include "intel_dmc.h"
-+#include "intel_dp_aux_regs.h"
- #include "intel_dpio_phy.h"
- #include "intel_dpll.h"
- #include "intel_hotplug.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-index 96967e21c94c..83317115b51b 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-@@ -10,6 +10,7 @@
- #include "intel_de.h"
- #include "intel_display_types.h"
- #include "intel_dp_aux.h"
-+#include "intel_dp_aux_regs.h"
- #include "intel_pps.h"
- #include "intel_tc.h"
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_regs.h b/drivers/gpu/drm/i915/display/intel_dp_aux_regs.h
-new file mode 100644
-index 000000000000..5702f318d537
---- /dev/null
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux_regs.h
-@@ -0,0 +1,84 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2023 Intel Corporation
-+ */
-+
-+#ifndef __INTEL_DP_AUX_REGS_H__
-+#define __INTEL_DP_AUX_REGS_H__
-+
-+#include "intel_display_reg_defs.h"
-+
-+/*
-+ * The aux channel provides a way to talk to the signal sink for DDC etc. Max
-+ * packet size supported is 20 bytes in each direction, hence the 5 fixed data
-+ * registers
-+ */
-+#define _DPA_AUX_CH_CTL		(DISPLAY_MMIO_BASE(dev_priv) + 0x64010)
-+#define _DPA_AUX_CH_DATA1	(DISPLAY_MMIO_BASE(dev_priv) + 0x64014)
-+
-+#define _DPB_AUX_CH_CTL		(DISPLAY_MMIO_BASE(dev_priv) + 0x64110)
-+#define _DPB_AUX_CH_DATA1	(DISPLAY_MMIO_BASE(dev_priv) + 0x64114)
-+
-+#define DP_AUX_CH_CTL(aux_ch)	_MMIO_PORT(aux_ch, _DPA_AUX_CH_CTL, _DPB_AUX_CH_CTL)
-+#define DP_AUX_CH_DATA(aux_ch, i)	_MMIO(_PORT(aux_ch, _DPA_AUX_CH_DATA1, _DPB_AUX_CH_DATA1) + (i) * 4) /* 5 registers */
-+
-+#define _XELPDP_USBC1_AUX_CH_CTL	0x16F210
-+#define _XELPDP_USBC2_AUX_CH_CTL	0x16F410
-+#define _XELPDP_USBC3_AUX_CH_CTL	0x16F610
-+#define _XELPDP_USBC4_AUX_CH_CTL	0x16F810
-+
-+#define XELPDP_DP_AUX_CH_CTL(aux_ch)		_MMIO(_PICK(aux_ch, \
-+						       _DPA_AUX_CH_CTL, \
-+						       _DPB_AUX_CH_CTL, \
-+						       0, /* port/aux_ch C is non-existent */ \
-+						       _XELPDP_USBC1_AUX_CH_CTL, \
-+						       _XELPDP_USBC2_AUX_CH_CTL, \
-+						       _XELPDP_USBC3_AUX_CH_CTL, \
-+						       _XELPDP_USBC4_AUX_CH_CTL))
-+
-+#define _XELPDP_USBC1_AUX_CH_DATA1      0x16F214
-+#define _XELPDP_USBC2_AUX_CH_DATA1      0x16F414
-+#define _XELPDP_USBC3_AUX_CH_DATA1      0x16F614
-+#define _XELPDP_USBC4_AUX_CH_DATA1      0x16F814
-+
-+#define XELPDP_DP_AUX_CH_DATA(aux_ch, i)	_MMIO(_PICK(aux_ch, \
-+						       _DPA_AUX_CH_DATA1, \
-+						       _DPB_AUX_CH_DATA1, \
-+						       0, /* port/aux_ch C is non-existent */ \
-+						       _XELPDP_USBC1_AUX_CH_DATA1, \
-+						       _XELPDP_USBC2_AUX_CH_DATA1, \
-+						       _XELPDP_USBC3_AUX_CH_DATA1, \
-+						       _XELPDP_USBC4_AUX_CH_DATA1) + (i) * 4)
-+
-+#define   DP_AUX_CH_CTL_SEND_BUSY	    (1 << 31)
-+#define   DP_AUX_CH_CTL_DONE		    (1 << 30)
-+#define   DP_AUX_CH_CTL_INTERRUPT	    (1 << 29)
-+#define   DP_AUX_CH_CTL_TIME_OUT_ERROR	    (1 << 28)
-+#define   DP_AUX_CH_CTL_TIME_OUT_400us	    (0 << 26)
-+#define   DP_AUX_CH_CTL_TIME_OUT_600us	    (1 << 26)
-+#define   DP_AUX_CH_CTL_TIME_OUT_800us	    (2 << 26)
-+#define   DP_AUX_CH_CTL_TIME_OUT_MAX	    (3 << 26) /* Varies per platform */
-+#define   DP_AUX_CH_CTL_TIME_OUT_MASK	    (3 << 26)
-+#define   DP_AUX_CH_CTL_RECEIVE_ERROR	    (1 << 25)
-+#define   DP_AUX_CH_CTL_MESSAGE_SIZE_MASK    (0x1f << 20)
-+#define   DP_AUX_CH_CTL_MESSAGE_SIZE_SHIFT   20
-+#define   XELPDP_DP_AUX_CH_CTL_POWER_REQUEST REG_BIT(19)
-+#define   XELPDP_DP_AUX_CH_CTL_POWER_STATUS  REG_BIT(18)
-+#define   DP_AUX_CH_CTL_PRECHARGE_2US_MASK   (0xf << 16)
-+#define   DP_AUX_CH_CTL_PRECHARGE_2US_SHIFT  16
-+#define   DP_AUX_CH_CTL_AUX_AKSV_SELECT	    (1 << 15)
-+#define   DP_AUX_CH_CTL_MANCHESTER_TEST	    (1 << 14)
-+#define   DP_AUX_CH_CTL_SYNC_TEST	    (1 << 13)
-+#define   DP_AUX_CH_CTL_DEGLITCH_TEST	    (1 << 12)
-+#define   DP_AUX_CH_CTL_PRECHARGE_TEST	    (1 << 11)
-+#define   DP_AUX_CH_CTL_BIT_CLOCK_2X_MASK    (0x7ff)
-+#define   DP_AUX_CH_CTL_BIT_CLOCK_2X_SHIFT   0
-+#define   DP_AUX_CH_CTL_PSR_DATA_AUX_REG_SKL	(1 << 14)
-+#define   DP_AUX_CH_CTL_FS_DATA_AUX_REG_SKL	(1 << 13)
-+#define   DP_AUX_CH_CTL_GTC_DATA_AUX_REG_SKL	(1 << 12)
-+#define   DP_AUX_CH_CTL_TBT_IO			(1 << 11)
-+#define   DP_AUX_CH_CTL_FW_SYNC_PULSE_SKL_MASK (0x1f << 5)
-+#define   DP_AUX_CH_CTL_FW_SYNC_PULSE_SKL(c) (((c) - 1) << 5)
-+#define   DP_AUX_CH_CTL_SYNC_PULSE_SKL(c)   ((c) - 1)
-+
-+#endif /* __INTEL_DP_AUX_REGS_H__ */
-diff --git a/drivers/gpu/drm/i915/gvt/edid.c b/drivers/gpu/drm/i915/gvt/edid.c
-index 1b509c1a1e33..7c49a3d673a5 100644
---- a/drivers/gpu/drm/i915/gvt/edid.c
-+++ b/drivers/gpu/drm/i915/gvt/edid.c
-@@ -32,6 +32,7 @@
-  *
-  */
- 
-+#include "display/intel_dp_aux_regs.h"
- #include "display/intel_gmbus_regs.h"
- #include "gvt.h"
- #include "i915_drv.h"
-diff --git a/drivers/gpu/drm/i915/gvt/handlers.c b/drivers/gpu/drm/i915/gvt/handlers.c
-index d670abd2e6f9..70f8e35aa0af 100644
---- a/drivers/gpu/drm/i915/gvt/handlers.c
-+++ b/drivers/gpu/drm/i915/gvt/handlers.c
-@@ -43,6 +43,7 @@
- #include "intel_mchbar_regs.h"
- #include "display/intel_display_types.h"
- #include "display/intel_dmc_regs.h"
-+#include "display/intel_dp_aux_regs.h"
- #include "display/intel_dpio_phy.h"
- #include "display/intel_fbc.h"
- #include "display/intel_pps_regs.h"
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 30e745762424..c1a0f8c746ba 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -2686,79 +2686,6 @@
- /* A fantasy */
- #define   DP_DETECTED			(1 << 2)
- 
--/* The aux channel provides a way to talk to the
-- * signal sink for DDC etc. Max packet size supported
-- * is 20 bytes in each direction, hence the 5 fixed
-- * data registers
-- */
--#define _DPA_AUX_CH_CTL		(DISPLAY_MMIO_BASE(dev_priv) + 0x64010)
--#define _DPA_AUX_CH_DATA1	(DISPLAY_MMIO_BASE(dev_priv) + 0x64014)
--
--#define _DPB_AUX_CH_CTL		(DISPLAY_MMIO_BASE(dev_priv) + 0x64110)
--#define _DPB_AUX_CH_DATA1	(DISPLAY_MMIO_BASE(dev_priv) + 0x64114)
--
--#define DP_AUX_CH_CTL(aux_ch)	_MMIO_PORT(aux_ch, _DPA_AUX_CH_CTL, _DPB_AUX_CH_CTL)
--#define DP_AUX_CH_DATA(aux_ch, i)	_MMIO(_PORT(aux_ch, _DPA_AUX_CH_DATA1, _DPB_AUX_CH_DATA1) + (i) * 4) /* 5 registers */
--
--#define _XELPDP_USBC1_AUX_CH_CTL	0x16F210
--#define _XELPDP_USBC2_AUX_CH_CTL	0x16F410
--#define _XELPDP_USBC3_AUX_CH_CTL	0x16F610
--#define _XELPDP_USBC4_AUX_CH_CTL	0x16F810
--
--#define XELPDP_DP_AUX_CH_CTL(aux_ch)		_MMIO(_PICK(aux_ch, \
--						       _DPA_AUX_CH_CTL, \
--						       _DPB_AUX_CH_CTL, \
--						       0, /* port/aux_ch C is non-existent */ \
--						       _XELPDP_USBC1_AUX_CH_CTL, \
--						       _XELPDP_USBC2_AUX_CH_CTL, \
--						       _XELPDP_USBC3_AUX_CH_CTL, \
--						       _XELPDP_USBC4_AUX_CH_CTL))
--
--#define _XELPDP_USBC1_AUX_CH_DATA1      0x16F214
--#define _XELPDP_USBC2_AUX_CH_DATA1      0x16F414
--#define _XELPDP_USBC3_AUX_CH_DATA1      0x16F614
--#define _XELPDP_USBC4_AUX_CH_DATA1      0x16F814
--
--#define XELPDP_DP_AUX_CH_DATA(aux_ch, i)	_MMIO(_PICK(aux_ch, \
--						       _DPA_AUX_CH_DATA1, \
--						       _DPB_AUX_CH_DATA1, \
--						       0, /* port/aux_ch C is non-existent */ \
--						       _XELPDP_USBC1_AUX_CH_DATA1, \
--						       _XELPDP_USBC2_AUX_CH_DATA1, \
--						       _XELPDP_USBC3_AUX_CH_DATA1, \
--						       _XELPDP_USBC4_AUX_CH_DATA1) + (i) * 4)
--
--#define   DP_AUX_CH_CTL_SEND_BUSY	    (1 << 31)
--#define   DP_AUX_CH_CTL_DONE		    (1 << 30)
--#define   DP_AUX_CH_CTL_INTERRUPT	    (1 << 29)
--#define   DP_AUX_CH_CTL_TIME_OUT_ERROR	    (1 << 28)
--#define   DP_AUX_CH_CTL_TIME_OUT_400us	    (0 << 26)
--#define   DP_AUX_CH_CTL_TIME_OUT_600us	    (1 << 26)
--#define   DP_AUX_CH_CTL_TIME_OUT_800us	    (2 << 26)
--#define   DP_AUX_CH_CTL_TIME_OUT_MAX	    (3 << 26) /* Varies per platform */
--#define   DP_AUX_CH_CTL_TIME_OUT_MASK	    (3 << 26)
--#define   DP_AUX_CH_CTL_RECEIVE_ERROR	    (1 << 25)
--#define   DP_AUX_CH_CTL_MESSAGE_SIZE_MASK    (0x1f << 20)
--#define   DP_AUX_CH_CTL_MESSAGE_SIZE_SHIFT   20
--#define   XELPDP_DP_AUX_CH_CTL_POWER_REQUEST REG_BIT(19)
--#define   XELPDP_DP_AUX_CH_CTL_POWER_STATUS  REG_BIT(18)
--#define   DP_AUX_CH_CTL_PRECHARGE_2US_MASK   (0xf << 16)
--#define   DP_AUX_CH_CTL_PRECHARGE_2US_SHIFT  16
--#define   DP_AUX_CH_CTL_AUX_AKSV_SELECT	    (1 << 15)
--#define   DP_AUX_CH_CTL_MANCHESTER_TEST	    (1 << 14)
--#define   DP_AUX_CH_CTL_SYNC_TEST	    (1 << 13)
--#define   DP_AUX_CH_CTL_DEGLITCH_TEST	    (1 << 12)
--#define   DP_AUX_CH_CTL_PRECHARGE_TEST	    (1 << 11)
--#define   DP_AUX_CH_CTL_BIT_CLOCK_2X_MASK    (0x7ff)
--#define   DP_AUX_CH_CTL_BIT_CLOCK_2X_SHIFT   0
--#define   DP_AUX_CH_CTL_PSR_DATA_AUX_REG_SKL	(1 << 14)
--#define   DP_AUX_CH_CTL_FS_DATA_AUX_REG_SKL	(1 << 13)
--#define   DP_AUX_CH_CTL_GTC_DATA_AUX_REG_SKL	(1 << 12)
--#define   DP_AUX_CH_CTL_TBT_IO			(1 << 11)
--#define   DP_AUX_CH_CTL_FW_SYNC_PULSE_SKL_MASK (0x1f << 5)
--#define   DP_AUX_CH_CTL_FW_SYNC_PULSE_SKL(c) (((c) - 1) << 5)
--#define   DP_AUX_CH_CTL_SYNC_PULSE_SKL(c)   ((c) - 1)
--
- /*
-  * Computing GMCH M and N values for the Display Port link
-  *
-diff --git a/drivers/gpu/drm/i915/intel_gvt_mmio_table.c b/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
-index 2b3fe469b360..145543b3aff0 100644
---- a/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
-+++ b/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
-@@ -7,6 +7,7 @@
- #include "display/intel_backlight_regs.h"
- #include "display/intel_display_types.h"
- #include "display/intel_dmc_regs.h"
-+#include "display/intel_dp_aux_regs.h"
- #include "display/intel_dpio_phy.h"
- #include "display/intel_lvds_regs.h"
- #include "display/vlv_dsi_pll_regs.h"
+Imre Deak (14):
+  drm/i915/tc: Abort DP AUX transfer on a disconnected TC port
+  drm/i915/tc: Fix TC port link ref init for DP MST during HW readout
+  drm/i915/tc: Fix the ICL PHY ownership check in TC-cold state
+  drm/i915/tc: Fix system resume MST mode restore for DP-alt sinks
+  drm/i915/tc: Wait for IOM/FW PHY initialization of legacy TC ports
+  drm/i915/tc: Factor out helpers converting HPD mask to TC mode
+  drm/i915/tc: Fix target TC mode for a disconnected legacy port
+  drm/i915/tc: Fix TC mode for a legacy port if the PHY is not ready
+  drm/i915/tc: Fix initial TC mode on disabled legacy ports
+  drm/i915/tc: Make the TC mode readout consistent in all PHY states
+  drm/i915/tc: Assume a TC port is legacy if VBT says the port has HDMI
+  drm/i915: Add encoder hook to get the PLL type used by TC ports
+  drm/i915/tc: Factor out a function querying active links on a TC port
+  drm/i915/tc: Check the PLL type used by an enabled TC port
+
+ drivers/gpu/drm/i915/display/intel_ddi.c      |  44 ++-
+ drivers/gpu/drm/i915/display/intel_ddi.h      |   3 +
+ .../drm/i915/display/intel_display_types.h    |   6 +
+ drivers/gpu/drm/i915/display/intel_dp_aux.c   |  15 +-
+ drivers/gpu/drm/i915/display/intel_tc.c       | 319 ++++++++++++++----
+ drivers/gpu/drm/i915/display/intel_tc.h       |   1 +
+ 6 files changed, 320 insertions(+), 68 deletions(-)
+
 -- 
-2.39.2
+2.37.1
 
