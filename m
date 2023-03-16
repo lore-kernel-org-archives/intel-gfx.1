@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73AD3C6FD19
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 13:40:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 199F1C6FD1F
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 13:40:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FC6A10E1F5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A69A910E230;
 	Thu, 16 Mar 2023 13:40:43 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6638010E1F5
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 13:40:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D615210E212
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 13:40:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678974040; x=1710510040;
+ t=1678974035; x=1710510035;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=Fn2ZZFfLjbqMSunQXi2jYcByEFLhS7eIs5bZMA+aYdA=;
- b=oJyoai1Z7bzfvBIHkATZZhV9DJy0EBCQsX4Ycg92X+vIFtUgLWU6uJV3
- lKgqJ/vUdp49Ae3GVfcMC4QfoEDDrqMkmeh22q4pgk2pRAtE7PLse7btQ
- Lbz7jwI1sbAcurht7xwc5MnKTQnNa21qmPGQH0TkS4ftcnhVM9HjsZ6/5
- IY5L1/h/HzyI6R8bn5MPp+6wf/0v1acW8ZQvQ0/ICMiqNecHJ1dE7lb9v
- H4qLQNFQwMOYJTxIcNnaPK1EQhrenrY4lXR/7C082T/PMnkoDPYaGxup2
- 0Kr/aOSqqtaqM5hwCxSeVCzXC8dJa9AS57El4hl6vMzp1d6TBb6tY5jIi Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="339524804"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="339524804"
+ bh=ENqni64pueszcUb/0ykB9zhbd2JLlZ+8pK+QjCWJeJI=;
+ b=i7yuQDzCg9gMsZS8EZMFgTcrFUqiAV7qW2JnvO7nmOYXMk2G//y1mrZk
+ gM4YlSQ+quNFygFm3ThJYQJFn4S0YzJmAU4gWlw7WRkeWfUiO1EFK1lHp
+ 6ULz0CSCjxuM5tnJOivQNzNKBzFk5EkG4i/xXo7/0kc+WbjAOQdb8T3e4
+ tdghExdW/cNL73kRcFaK62bRwaOyBxrmj+WPDc8u5rJ6pPkcdGCZpTuUq
+ GMzUMYPglnlZhOnXX28vgwxrJO65bqmq45FbNiMyz+uoFwuo6D+jNnRZh
+ Sn8MwtaTMuenZsiqX7RWIexCou/LoH6NjI9tVKFu9GA6HaohQ65ANkFvI g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="339524735"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="339524735"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 06:17:38 -0700
+ 16 Mar 2023 06:17:35 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="657171283"
-X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="657171283"
+X-IronPort-AV: E=McAfee;i="6600,9927,10650"; a="657171280"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; d="scan'208";a="657171280"
 Received: from ideak-desk.fi.intel.com ([10.237.72.58])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 06:17:38 -0700
+ 16 Mar 2023 06:17:34 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 16 Mar 2023 15:17:21 +0200
-Message-Id: <20230316131724.359612-12-imre.deak@intel.com>
+Date: Thu, 16 Mar 2023 15:17:18 +0200
+Message-Id: <20230316131724.359612-9-imre.deak@intel.com>
 X-Mailer: git-send-email 2.31.1.189.g2e36527f23
 In-Reply-To: <20230316131724.359612-1-imre.deak@intel.com>
 References: <20230316131724.359612-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 11/14] drm/i915/tc: Assume a TC port is legacy
- if VBT says the port has HDMI
+Subject: [Intel-gfx] [PATCH 08/14] drm/i915/tc: Fix TC mode for a legacy
+ port if the PHY is not ready
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,33 +61,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since an HDMI output can only be enabled in legacy mode on TC ports,
-assume that VBT is wrong and the port is legacy if VBT says the port is
-non-legacy and has HDMI.
+A legacy TC port can't be switched to TBT mode, even if the PHY
+initialization wasn't ready yet for some reason, so prevent this.
+
+This shouldn't normally happen as the driver waits for the IOM/TCSS
+PHY initialization during driver loading and system resume.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/i915/display/intel_tc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index c531fee888a49..e79da640759c3 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -4494,6 +4494,13 @@ void intel_ddi_init(struct drm_i915_private *dev_priv, enum port port)
- 			!intel_bios_encoder_supports_typec_usb(devdata) &&
- 			!intel_bios_encoder_supports_tbt(devdata);
+diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
+index e39c8a870df06..f66129494cc40 100644
+--- a/drivers/gpu/drm/i915/display/intel_tc.c
++++ b/drivers/gpu/drm/i915/display/intel_tc.c
+@@ -482,7 +482,8 @@ static void icl_tc_phy_connect(struct intel_digital_port *dig_port,
+ 	u32 live_status_mask;
+ 	int max_lanes;
  
-+		if (!is_legacy && init_hdmi) {
-+			drm_dbg_kms(&dev_priv->drm,
-+				    "VBT says port %c is non-legacy TC and has HDMI, assume it's legacy TC\n",
-+				    port_name(port));
-+			is_legacy = true;
-+		}
-+
- 		intel_tc_port_init(dig_port, is_legacy);
- 
- 		encoder->update_prepare = intel_ddi_update_prepare;
+-	if (!tc_phy_status_complete(dig_port)) {
++	if (!tc_phy_status_complete(dig_port) &&
++	    !drm_WARN_ON(&i915->drm, dig_port->tc_legacy_port)) {
+ 		drm_dbg_kms(&i915->drm, "Port %s: PHY not ready\n",
+ 			    dig_port->tc_port_name);
+ 		goto out_set_tbt_alt_mode;
 -- 
 2.37.1
 
