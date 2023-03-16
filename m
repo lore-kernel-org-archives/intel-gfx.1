@@ -4,48 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32751C61DA4
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 00:10:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10C02C6FD1D
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Mar 2023 00:13:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B19A710EBF4;
-	Thu, 16 Mar 2023 00:10:02 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F9FC10EA3B
- for <intel-gfx@lists.freedesktop.org>; Thu, 16 Mar 2023 00:09:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1678925374; x=1710461374;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=t1+6XmqX8VrvVqyM9CgE1F8nCJbsymYnYBUPFeifRAA=;
- b=NVX70V6mi74I92GNNQmIM6/BnWaha+2uCqHnrbYHkMk1gVZyN715ZVwx
- Ol+u31ErT7U/Y9tMOgCJpfujeTIY9CithLPcEnTe/mnnwzdUXtVyamXAC
- +G0KO9skZ9qVRChmwJ1B0PUQMKmvQPq4TT9bnCj3/boZ0aoeRIJBxIK4w
- P1ymtFWZn0fdt3bIOEIchK3KFUZGkzeFHNbshObm+dtjQFLATCykQaTNg
- DguJE0LMKw4KaRfsJrs5mVUgxMYoa41O+F2cHDHJShgiFRp3qU5SEGDQS
- aMWqwtOWRPp+lzdKKzkLyREsYmEPQ9DDfjj4fPhnju9vxIjWHZHhe3ERT w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="402718811"
-X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="402718811"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2023 17:09:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10650"; a="709863701"
-X-IronPort-AV: E=Sophos;i="5.98,262,1673942400"; d="scan'208";a="709863701"
-Received: from orsosgc001.jf.intel.com ([10.165.21.138])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Mar 2023 17:09:33 -0700
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 15 Mar 2023 17:09:24 -0700
-Message-Id: <20230316000932.2525744-5-umesh.nerlige.ramappa@intel.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20230316000932.2525744-1-umesh.nerlige.ramappa@intel.com>
-References: <20230316000932.2525744-1-umesh.nerlige.ramappa@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id F075C10EA2D;
+	Thu, 16 Mar 2023 00:13:18 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E635710E35F;
+ Thu, 16 Mar 2023 00:13:16 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id DDACDAADE0;
+ Thu, 16 Mar 2023 00:13:16 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 04/12] drm/i915/perf: Validate OA sseu config
- outside switch
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Umesh Nerlige Ramappa" <umesh.nerlige.ramappa@intel.com>
+Date: Thu, 16 Mar 2023 00:13:16 -0000
+Message-ID: <167892559687.19094.6345033746556692659@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230316000932.2525744-1-umesh.nerlige.ramappa@intel.com>
+In-Reply-To: <20230316000932.2525744-1-umesh.nerlige.ramappa@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBB?=
+ =?utf-8?q?dd_OAM_support_for_MTL?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,81 +40,32 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Once OA supports media engine class:instance, the engine can only be
-validated outside the switch since class and instance parameters are
-separate entities. Since OA sseu config depends on engine
-class:instance, validate OA sseu config outside the switch.
+== Series Details ==
 
-v2: (Ashutosh)
-- Clarify commit message
-- Use drm_dbg instead of DRM_DEBUG
-- Reorder stack variables
+Series: Add OAM support for MTL
+URL   : https://patchwork.freedesktop.org/series/115224/
+State : failure
 
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
----
- drivers/gpu/drm/i915/i915_perf.c | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index b0e1acbe90fc..1229f65534e2 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -3950,7 +3950,9 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 				    u32 n_props,
- 				    struct perf_open_properties *props)
- {
-+	struct drm_i915_gem_context_param_sseu user_sseu;
- 	u64 __user *uprop = uprops;
-+	bool config_sseu = false;
- 	u32 i;
- 	int ret;
- 
-@@ -4079,8 +4081,6 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 			props->hold_preemption = !!value;
- 			break;
- 		case DRM_I915_PERF_PROP_GLOBAL_SSEU: {
--			struct drm_i915_gem_context_param_sseu user_sseu;
--
- 			if (GRAPHICS_VER_FULL(perf->i915) >= IP_VER(12, 50)) {
- 				drm_dbg(&perf->i915->drm,
- 					"SSEU config not supported on gfx %x\n",
-@@ -4095,14 +4095,7 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 					"Unable to copy global sseu parameter\n");
- 				return -EFAULT;
- 			}
--
--			ret = get_sseu_config(&props->sseu, props->engine, &user_sseu);
--			if (ret) {
--				drm_dbg(&perf->i915->drm,
--					"Invalid SSEU configuration\n");
--				return ret;
--			}
--			props->has_sseu = true;
-+			config_sseu = true;
- 			break;
- 		}
- 		case DRM_I915_PERF_PROP_POLL_OA_PERIOD:
-@@ -4122,6 +4115,16 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 		uprop += 2;
- 	}
- 
-+	if (config_sseu) {
-+		ret = get_sseu_config(&props->sseu, props->engine, &user_sseu);
-+		if (ret) {
-+			drm_dbg(&perf->i915->drm,
-+				"Invalid SSEU configuration\n");
-+			return ret;
-+		}
-+		props->has_sseu = true;
-+	}
-+
- 	return 0;
- }
- 
--- 
-2.36.1
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/115224/revisions/1/mbox/ not applied
+Applying: drm/i915/perf: Drop wakeref on GuC RC error
+Applying: drm/i915/mtl: Synchronize i915/BIOS on C6 enabling
+Using index info to reconstruct a base tree...
+M	drivers/gpu/drm/i915/gt/intel_rc6.c
+Falling back to patching base and 3-way merge...
+Auto-merging drivers/gpu/drm/i915/gt/intel_rc6.c
+CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/gt/intel_rc6.c
+error: Failed to merge in the changes.
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0002 drm/i915/mtl: Synchronize i915/BIOS on C6 enabling
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+
 
