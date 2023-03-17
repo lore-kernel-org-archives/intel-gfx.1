@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9064BC76195
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 23:17:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F048C6FD1D
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 23:17:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C27A810E444;
-	Fri, 17 Mar 2023 23:17:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0D8710E447;
+	Fri, 17 Mar 2023 23:17:10 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BB5C10E2A0
- for <intel-gfx@lists.freedesktop.org>; Fri, 17 Mar 2023 23:16:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C483410E426
+ for <intel-gfx@lists.freedesktop.org>; Fri, 17 Mar 2023 23:16:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679095007; x=1710631007;
+ t=1679095006; x=1710631006;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=zRWmDn7M2SvGTBc38rTUcW+Og4F0vUP7pJbHnGg2Lvw=;
- b=lDGl+Kxj++p+5TZf3kKGMHgGOPOSdiQoyAWHdOH69NFeX6Hbm3BYCkEX
- PDX0fAH3GSv5VhYAdPfqRAjyyYHZZBrRKrIGroRBZBhSwPav/KrIT1zoV
- w9F+TJ0WtPEFOeVvWjET1AaSC26XkXY59epOmqOQwgK5GjgxQ/yqZ+jex
- 7E7zgL7OqBbJVVWJBdjEZ5blA48PIFe93ZF0Afl/TBbnWxYILIiASyFGR
- 2WHd0Oic0kSLx3x8ChCCYKDFd6DfbcuF+8rrFlDlTi8NACbnkHgYEtcB9
- 7vEMScTXUWN2k6r7o2O/EHMR7o5hWzW2V3jhTILFunWTVqT0D+ZWJ+hAa g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10652"; a="335877105"
-X-IronPort-AV: E=Sophos;i="5.98,270,1673942400"; d="scan'208";a="335877105"
+ bh=UZQ9SmgeyVFS4Pg73zEqZJeVI45yjQGC/Q1KsevXccA=;
+ b=QTntdKovWH3DQVMrt3g7cM4bbjJbcmC1/MF+yBI7w4cUu0rQC2SVuEA0
+ OSs7K7s70Udkwgu6N0av/zHlRoWMr13doGHbofdEZkEUCTQCSnG3+uS4F
+ 22V7sbjgC+n0Dv6BP0dqKhPhDLC2tuYG7ut1A1+Lo5qdD4x9CTqws2MuT
+ mBQbmi+xR6Q2Q/uuQTD2cxvCgaztOleVezb7UgP2IVSh0EPS13h7JPk9c
+ pHSu+uqZ4e+5jJk0bGVFspugYdImIr4Tw4FQ7zovkIi1h6dn0l/1v2cZp
+ OjMiqbD81sWJmwS4OJUHggA3blOoi+x8kmqkJEPjKLDDRDHAh930s6HjP g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10652"; a="335877101"
+X-IronPort-AV: E=Sophos;i="5.98,270,1673942400"; d="scan'208";a="335877101"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  17 Mar 2023 16:16:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10652"; a="712914892"
-X-IronPort-AV: E=Sophos;i="5.98,270,1673942400"; d="scan'208";a="712914892"
+X-IronPort-AV: E=McAfee;i="6600,9927,10652"; a="712914876"
+X-IronPort-AV: E=Sophos;i="5.98,270,1673942400"; d="scan'208";a="712914876"
 Received: from orsosgc001.jf.intel.com ([10.165.21.138])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  17 Mar 2023 16:16:46 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 17 Mar 2023 16:16:37 -0700
-Message-Id: <20230317231641.2815418-8-umesh.nerlige.ramappa@intel.com>
+Date: Fri, 17 Mar 2023 16:16:32 -0700
+Message-Id: <20230317231641.2815418-3-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20230317231641.2815418-1-umesh.nerlige.ramappa@intel.com>
 References: <20230317231641.2815418-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 07/11] drm/i915/perf: Handle non-power-of-2
- reports
+Subject: [Intel-gfx] [PATCH v7 02/11] drm/i915/mtl: Synchronize i915/BIOS on
+ C6 enabling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,121 +61,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Some of the newer OA formats are not powers of 2. For those formats,
-adjust the hw_tail accordingly when checking for new reports.
+From: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 
-v2: (Ashutosh)
-- Switch to OA_TAKEN for diff calculation
-- Use OA_BUFFER_SIZE instead of the vma size
-- Update comments
+If BIOS enables/disables C6, i915 should do the same. Also, retain
+this value across driver reloads. This is needed only for MTL as
+of now due to an existing bug in OA which needs C6 disabled for
+it to function. BIOS behavior is also different across platforms
+in terms of how C6 is enabled.
 
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Signed-off-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/i915_perf.c | 51 +++++++++++++++++---------------
- 1 file changed, 27 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_rc6.c       | 26 ++++++++++++++++++++---
+ drivers/gpu/drm/i915/gt/intel_rc6.h       |  2 ++
+ drivers/gpu/drm/i915/gt/intel_rc6_types.h |  2 ++
+ 3 files changed, 27 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index d1f7266bec6d..8c4bcdce8019 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -534,6 +534,7 @@ static bool oa_buffer_check_unlocked(struct i915_perf_stream *stream)
- 	bool pollin;
- 	u32 hw_tail;
- 	u64 now;
-+	u32 partial_report_size;
+diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.c b/drivers/gpu/drm/i915/gt/intel_rc6.c
+index f4150f61f39c..f760586f9f46 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rc6.c
++++ b/drivers/gpu/drm/i915/gt/intel_rc6.c
+@@ -420,6 +420,21 @@ static void vlv_rc6_enable(struct intel_rc6 *rc6)
+ 	    GEN7_RC_CTL_TO_MODE | VLV_RC_CTL_CTX_RST_PARALLEL;
+ }
  
- 	/* We have to consider the (unlikely) possibility that read() errors
- 	 * could result in an OA buffer reset which might reset the head and
-@@ -543,10 +544,15 @@ static bool oa_buffer_check_unlocked(struct i915_perf_stream *stream)
- 
- 	hw_tail = stream->perf->ops.oa_hw_tail_read(stream);
- 
--	/* The tail pointer increases in 64 byte increments,
--	 * not in report_size steps...
-+	/* The tail pointer increases in 64 byte increments, not in report_size
-+	 * steps. Also the report size may not be a power of 2. Compute
-+	 * potentially partially landed report in the OA buffer
- 	 */
--	hw_tail &= ~(report_size - 1);
-+	partial_report_size = OA_TAKEN(hw_tail, stream->oa_buffer.tail);
-+	partial_report_size %= report_size;
++bool intel_check_bios_c6_setup(struct intel_rc6 *rc6)
++{
++	if (!rc6->bios_state_captured) {
++		struct intel_uncore *uncore = rc6_to_uncore(rc6);
++		intel_wakeref_t wakeref;
 +
-+	/* Subtract partial amount off the tail */
-+	hw_tail = gtt_offset + OA_TAKEN(hw_tail, partial_report_size);
- 
- 	now = ktime_get_mono_fast_ns();
- 
-@@ -669,6 +675,8 @@ static int append_oa_sample(struct i915_perf_stream *stream,
- {
- 	int report_size = stream->oa_buffer.format->size;
- 	struct drm_i915_perf_record_header header;
-+	int report_size_partial;
-+	u8 *oa_buf_end;
- 
- 	header.type = DRM_I915_PERF_RECORD_SAMPLE;
- 	header.pad = 0;
-@@ -682,8 +690,20 @@ static int append_oa_sample(struct i915_perf_stream *stream,
- 		return -EFAULT;
- 	buf += sizeof(header);
- 
--	if (copy_to_user(buf, report, report_size))
-+	oa_buf_end = stream->oa_buffer.vaddr + OA_BUFFER_SIZE;
-+	report_size_partial = oa_buf_end - report;
++		with_intel_runtime_pm(uncore->rpm, wakeref)
++			rc6->bios_rc_state = intel_uncore_read(uncore, GEN6_RC_STATE);
 +
-+	if (report_size_partial < report_size) {
-+		if (copy_to_user(buf, report, report_size_partial))
-+			return -EFAULT;
-+		buf += report_size_partial;
-+
-+		if (copy_to_user(buf, stream->oa_buffer.vaddr,
-+				 report_size - report_size_partial))
-+			return -EFAULT;
-+	} else if (copy_to_user(buf, report, report_size)) {
- 		return -EFAULT;
++		rc6->bios_state_captured = true;
 +	}
++
++	return rc6->bios_rc_state & RC_SW_TARGET_STATE_MASK;
++}
++
+ static bool bxt_check_bios_rc6_setup(struct intel_rc6 *rc6)
+ {
+ 	struct intel_uncore *uncore = rc6_to_uncore(rc6);
+@@ -503,10 +518,10 @@ static bool rc6_supported(struct intel_rc6 *rc6)
+ 		return false;
+ 	}
  
- 	(*offset) += header.size;
+-	if (IS_MTL_MEDIA_STEP(gt->i915, STEP_A0, STEP_B0) &&
+-	    gt->type == GT_MEDIA) {
++	if (IS_METEORLAKE(gt->i915) &&
++	    !intel_check_bios_c6_setup(rc6)) {
+ 		drm_notice(&i915->drm,
+-			   "Media RC6 disabled on A step\n");
++			   "C6 disabled by BIOS\n");
+ 		return false;
+ 	}
  
-@@ -747,12 +767,11 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
- 	 * An out of bounds or misaligned head or tail pointer implies a driver
- 	 * bug since we validate + align the tail pointers we read from the
- 	 * hardware and we are in full control of the head pointer which should
--	 * only be incremented by multiples of the report size (notably also
--	 * all a power of two).
-+	 * only be incremented by multiples of the report size.
- 	 */
- 	if (drm_WARN_ONCE(&uncore->i915->drm,
--			  head > OA_BUFFER_SIZE || head % report_size ||
--			  tail > OA_BUFFER_SIZE || tail % report_size,
-+			  head > OA_BUFFER_SIZE ||
-+			  tail > OA_BUFFER_SIZE,
- 			  "Inconsistent OA buffer pointers: head = %u, tail = %u\n",
- 			  head, tail))
- 		return -EIO;
-@@ -766,22 +785,6 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
- 		u32 ctx_id;
- 		u64 reason;
+@@ -707,9 +722,14 @@ void intel_rc6_disable(struct intel_rc6 *rc6)
+ void intel_rc6_fini(struct intel_rc6 *rc6)
+ {
+ 	struct drm_i915_gem_object *pctx;
++	struct intel_uncore *uncore = rc6_to_uncore(rc6);
  
--		/*
--		 * All the report sizes factor neatly into the buffer
--		 * size so we never expect to see a report split
--		 * between the beginning and end of the buffer.
--		 *
--		 * Given the initial alignment check a misalignment
--		 * here would imply a driver bug that would result
--		 * in an overrun.
--		 */
--		if (drm_WARN_ON(&uncore->i915->drm,
--				(OA_BUFFER_SIZE - head) < report_size)) {
--			drm_err(&uncore->i915->drm,
--				"Spurious OA head ptr: non-integral report offset\n");
--			break;
--		}
--
- 		/*
- 		 * The reason field includes flags identifying what
- 		 * triggered this specific report (mostly timer
+ 	intel_rc6_disable(rc6);
+ 
++	/* We want the BIOS C6 state preserved across loads for MTL */
++	if (IS_METEORLAKE(rc6_to_i915(rc6)) && rc6->bios_state_captured)
++		set(uncore, GEN6_RC_STATE, rc6->bios_rc_state);
++
+ 	pctx = fetch_and_zero(&rc6->pctx);
+ 	if (pctx)
+ 		i915_gem_object_put(pctx);
+diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.h b/drivers/gpu/drm/i915/gt/intel_rc6.h
+index 456fa668a276..e137c2c397c2 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rc6.h
++++ b/drivers/gpu/drm/i915/gt/intel_rc6.h
+@@ -27,4 +27,6 @@ u64 intel_rc6_residency_us(struct intel_rc6 *rc6, enum intel_rc6_res_type id);
+ void intel_rc6_print_residency(struct seq_file *m, const char *title,
+ 			       enum intel_rc6_res_type id);
+ 
++bool intel_check_bios_c6_setup(struct intel_rc6 *rc6);
++
+ #endif /* INTEL_RC6_H */
+diff --git a/drivers/gpu/drm/i915/gt/intel_rc6_types.h b/drivers/gpu/drm/i915/gt/intel_rc6_types.h
+index fa23c4dce00b..cd4587098162 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rc6_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_rc6_types.h
+@@ -29,6 +29,7 @@ struct intel_rc6 {
+ 	u64 cur_residency[INTEL_RC6_RES_MAX];
+ 
+ 	u32 ctl_enable;
++	u32 bios_rc_state;
+ 
+ 	struct drm_i915_gem_object *pctx;
+ 
+@@ -36,6 +37,7 @@ struct intel_rc6 {
+ 	bool enabled : 1;
+ 	bool manual : 1;
+ 	bool wakeref : 1;
++	bool bios_state_captured : 1;
+ };
+ 
+ #endif /* INTEL_RC6_TYPES_H */
 -- 
 2.36.1
 
