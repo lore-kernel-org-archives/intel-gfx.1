@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E49E6C74A5B
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 18:43:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6619CC6FD1D
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 18:43:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D09D10E251;
-	Fri, 17 Mar 2023 18:43:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7ECE10E11E;
+	Fri, 17 Mar 2023 18:43:53 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id B5D5410E11D;
- Fri, 17 Mar 2023 18:43:48 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 28C0510E1FF;
+ Fri, 17 Mar 2023 18:43:51 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id B1CCDAADF3;
- Fri, 17 Mar 2023 18:43:48 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 23EE0AADE0;
+ Fri, 17 Mar 2023 18:43:51 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Date: Fri, 17 Mar 2023 18:43:48 -0000
-Message-ID: <167907862872.12995.8569792134214102202@emeril.freedesktop.org>
+Date: Fri, 17 Mar 2023 18:43:51 -0000
+Message-ID: <167907863114.12996.15770914418869769138@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <ZBSu2QsUJy31kjSE@work>
 In-Reply-To: <ZBSu2QsUJy31kjSE@work>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?drm/i915/uapi=3A_Replace_fake_flex-array_with_flexible-array_me?=
- =?utf-8?q?mber?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
+ =?utf-8?q?m/i915/uapi=3A_Replace_fake_flex-array_with_flexible-array_memb?=
+ =?utf-8?q?er?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
