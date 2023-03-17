@@ -4,60 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96651C74A5B
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 16:21:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E7DDC74A5B
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 16:28:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFAA710E3C6;
-	Fri, 17 Mar 2023 16:21:01 +0000 (UTC)
-Received: from mail-pl1-x649.google.com (mail-pl1-x649.google.com
- [IPv6:2607:f8b0:4864:20::649])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64A7A10E3CF
- for <intel-gfx@lists.freedesktop.org>; Fri, 17 Mar 2023 16:21:00 +0000 (UTC)
-Received: by mail-pl1-x649.google.com with SMTP id
- i6-20020a170902c94600b0019d16e4ac0bso2964451pla.5
- for <intel-gfx@lists.freedesktop.org>; Fri, 17 Mar 2023 09:21:00 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13EE610E3DF;
+	Fri, 17 Mar 2023 16:28:11 +0000 (UTC)
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D030010E3DF
+ for <intel-gfx@lists.freedesktop.org>; Fri, 17 Mar 2023 16:28:09 +0000 (UTC)
+Received: by mail-ed1-x532.google.com with SMTP id z21so22645465edb.4
+ for <intel-gfx@lists.freedesktop.org>; Fri, 17 Mar 2023 09:28:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20210112; t=1679070060;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=7o24l6fiOGywvlphm2ivpMOdYXRizefraPoQnT9L//E=;
- b=Q6gE273gkihi8mp0lUkxiT8ezb4i1bDN5mWojYXiFSbCt1gdV+GSm119e73GRHWveU
- BX7oyl+NnMHXsGN0MoPCc5ADNRD9sMejdGVqQyg1BFFO+uKHTSqgfBCRkwOUFIMy3VRm
- e9vrQ82Ak82Vfdr9u6yGZj6llbXvEMnk70DuJ6YhG9BhuixwafqpMoEX7hMO/92chbuY
- bowzGc908/CczWahD6JUJnaErwDYpFxrNsajMOceS8iF7nwQloz2BK0RucdP6gGBXynX
- TFjqAiKOslA8OqK+bdesF3cFxwkvsaaR83lJqgaTZQjWZJ8ETLkbSOmv3RxQ5lOu3Quv
- FfgQ==
+ d=gmail.com; s=20210112; t=1679070488;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=sM+dgA1qJekrwZUnv1JRioekXpIxgoz4g8TBkXglJrg=;
+ b=ERIurE41vo/1q7+ch26aXDWBoDa6ERGJoxkX2agpSlOzlN0G6f+SUkpJGXDs1/AqeJ
+ IU7hRV/3VB0J4dYk0lcil8hiW0T9vOG16lKHppFUezP+QOPJK1Jr8xcFR7mMC2+ON7dP
+ 69WL96k28ZqMAA53w0ES0hAnZLD7qbuyPOWCWnMxqap6uBUmgxgZMi46ozT/LcKMANIG
+ g2kfHGtGVENleOx640sfvI+i1h7dMtxooPePFmdyU+S0sbRTEF2cfz5b0wqF1/Cf9va7
+ eaI1/ZgqEK4RN49XBRQsqXfAknMQpaZyR0vFpoZmaegOikFYwQJq8wGaVUjvGqTbQK8s
+ KcDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679070060;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7o24l6fiOGywvlphm2ivpMOdYXRizefraPoQnT9L//E=;
- b=Digk3NBGBHYn0XA+znWP+LvWgV03e25cgBUktnzbWb0ZJtf2e9yw60x2ubIN4Qmt3M
- PVBZkws/0V6XWSjmxkXHl8uWegiCfiI9zR2nkZzZmDrMpbuf4VmX0WP0ZKLifymZSl3Q
- cHzDGMN1IHv5MNFGPLoGjX/bamAWywRT7YIXJ9xpT9maciv9FQPjINo6crMrCepZp+u6
- DFhS+rV5NrK/WsKgE2VDjm9Mja+KqzWFK75WPTHu8lBPC+roQQ0Xj+GvULK6JevrdO3v
- hXDtULYPDap5Qb+MLTLxccry8t6aObnkIaS5S7XvEcmLJmFNSMZughVLdhcBmQnPafji
- GZUg==
-X-Gm-Message-State: AO0yUKV1B3j/GuYSsomRtnfT2JzhQzck1MpHuJ2IcrAhIsVSd73SNULh
- AkZWtASxerNVIkgAnwWcuXiFI9blU18=
-X-Google-Smtp-Source: AK7set/8zojERNqCXTgL/pFzMwr+KZPa+uB5aM7ijsiHAnfP0EdMkqyDGbo32YXbT/II5YP93V991/QrGl8=
-X-Received: from zagreus.c.googlers.com
- ([fda3:e722:ac3:cc00:7f:e700:c0a8:5c37])
- (user=seanjc job=sendgmr) by 2002:a17:90a:17a7:b0:23d:34db:f5be with SMTP id
- q36-20020a17090a17a700b0023d34dbf5bemr2467306pja.4.1679070059931; Fri, 17 Mar
- 2023 09:20:59 -0700 (PDT)
-Date: Fri, 17 Mar 2023 09:20:58 -0700
-In-Reply-To: <ZBQaFRdRawenuEan@yzhao56-desk.sh.intel.com>
-Mime-Version: 1.0
-References: <20230311002258.852397-1-seanjc@google.com>
- <20230311002258.852397-17-seanjc@google.com>
- <ZBQaFRdRawenuEan@yzhao56-desk.sh.intel.com>
-Message-ID: <ZBSTapUu+VzWmIfQ@google.com>
-From: Sean Christopherson <seanjc@google.com>
-To: Yan Zhao <yan.y.zhao@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Subject: Re: [Intel-gfx] [PATCH v2 16/27] KVM: x86: Add a new page-track
- hook to handle memslot deletion
+ d=1e100.net; s=20210112; t=1679070488;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=sM+dgA1qJekrwZUnv1JRioekXpIxgoz4g8TBkXglJrg=;
+ b=GtEby52MGT2iVko0Ov//IoPFf6ylpnXZJcGEHDQQUAo2fRXFFcVKpnjzgFmE85PsEe
+ 50WcJO3feM4hOK7c1vOYJy3MjzjZH2tztbacTM19wil4UwaYeN/p85GQBA+r4TmfO8mT
+ X/iA57Zxsi6vYmMIiVxaK34afk3IcErryI8gwMyJ++P1k/rg6HfssMYfiC+wkPlUQAo3
+ 7ynLrcxHZAp9Pe3lSpDR8Kcd7TUJBrsghOxQTyUw3jM77xr8WDPvwNmPCQix4oh2qxLF
+ eUQQBvMxhKKbBwmEKiTGin+OMi5hcwubdBh7wcEL84cDXNT/AvpeOP/5Hu/PlXtWlMzg
+ FUUA==
+X-Gm-Message-State: AO0yUKUufwUurffTpd1dCvyCUobRkvZn6NT97+MbhNlQ74hQn9NQT6aA
+ WpZUgYv5KBFthibtaBLV+X6c3wzJn2MlRRZqzjc=
+X-Google-Smtp-Source: AK7set/t2C7YiSG4njN2lPhwC/PbBKecrkAqU4JdADOsqb4X3uxx37D/X05JZ6VpBn9NXnJ4svHDNw1CtdTeBBIsbU0=
+X-Received: by 2002:a17:907:36e:b0:877:747d:4a85 with SMTP id
+ rs14-20020a170907036e00b00877747d4a85mr7798535ejb.3.1679070488213; Fri, 17
+ Mar 2023 09:28:08 -0700 (PDT)
+MIME-Version: 1.0
+References: <167820543971229@kroah.com>
+ <20230314022211.1393031-1-John.C.Harrison@Intel.com>
+ <ZBF48kVhFmXIsR+K@kroah.com> <a5cf5572-4160-3efb-4f80-aaf53aa06efe@intel.com>
+ <ZBIHJD5FkxiammjB@kroah.com> <5ed286b7-c2df-9e63-d85a-be9994f93eec@intel.com>
+ <ZBRkAZwItdidH32z@kroah.com>
+In-Reply-To: <ZBRkAZwItdidH32z@kroah.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Fri, 17 Mar 2023 12:27:56 -0400
+Message-ID: <CAKf6xpvo6suOZWF1QKYp1fy3kyMhD05snebpSq5+ha5osPxJLg@mail.gmail.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH 5.4.y] drm/i915: Don't use BAR mappings for
+ ring buffers with LLC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,60 +72,99 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kvm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Ben Gardon <bgardon@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, intel-gvt-dev@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
+ stable@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 17, 2023, Yan Zhao wrote:
-> On Fri, Mar 10, 2023 at 04:22:47PM -0800, Sean Christopherson wrote:
-> > From: Yan Zhao <yan.y.zhao@intel.com>
-> > 
-> > Add a new page-track hook, track_remove_region(), that is called when a
-> > memslot DELETE operation is about to be committed.  The "remove" hook
-> > will be used by KVMGT and will effectively replace the existing
-> > track_flush_slot() altogether now that KVM itself doesn't rely on the
-> > "flush" hook either.
-> > 
-> > The "flush" hook is flawed as it's invoked before the memslot operation
-> > is guaranteed to succeed, i.e. KVM might ultimately keep the existing
-> > memslot without notifying external page track users, a.k.a. KVMGT.  In
-> > practice, this can't currently happen on x86, but there are no guarantees
-> > that won't change in the future, not to mention that "flush" does a very
-> > poor job of describing what is happening.
-> > 
-> > Pass in the gfn+nr_pages instead of the slot itself so external users,
-> > i.e. KVMGT, don't need to exposed to KVM internals (memslots).  This will
-> > help set the stage for additional cleanups to the page-track APIs.
-> > 
-> > Cc: Zhenyu Wang <zhenyuw@linux.intel.com>
-> > Signed-off-by: Yan Zhao <yan.y.zhao@intel.com>
-> > Co-developed-by: Sean Christopherson <seanjc@google.com>
-> > Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ...
-> 
-> > +void kvm_page_track_delete_slot(struct kvm *kvm, struct kvm_memory_slot *slot)
-> > +{
-> > +	struct kvm_page_track_notifier_head *head;
-> > +	struct kvm_page_track_notifier_node *n;
-> > +	int idx;
-> > +
-> > +	head = &kvm->arch.track_notifier_head;
-> > +
-> > +	if (hlist_empty(&head->track_notifier_list))
-> > +		return;
-> > +
-> > +	idx = srcu_read_lock(&head->track_srcu);
-> > +	hlist_for_each_entry_srcu(n, &head->track_notifier_list, node,
-> > +				srcu_read_lock_held(&head->track_srcu))
-> Sorry, not sure why the alignment here is not right.
-> Patchwork just sent me a mail to complain about it.
-> Would you mind helping fix it in the next version?
+On Fri, Mar 17, 2023 at 8:58=E2=80=AFAM Greg KH <gregkh@linuxfoundation.org=
+> wrote:
+>
+> On Thu, Mar 16, 2023 at 01:58:35PM -0700, John Harrison wrote:
+> > On 3/15/2023 10:57, Greg KH wrote:
+> > > On Wed, Mar 15, 2023 at 10:07:53AM -0700, John Harrison wrote:
+> > > > On 3/15/2023 00:51, Greg KH wrote:
+> > > > > On Mon, Mar 13, 2023 at 07:22:11PM -0700, John.C.Harrison@Intel.c=
+om wrote:
+> > > > > > From: John Harrison <John.C.Harrison@Intel.com>
+> > > > > >
+> > > > > > Direction from hardware is that ring buffers should never be ma=
+pped
+> > > > > > via the BAR on systems with LLC. There are too many caching pit=
+falls
+> > > > > > due to the way BAR accesses are routed. So it is safest to just=
+ not
+> > > > > > use it.
+> > > > > >
+> > > > > > Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+> > > > > > Fixes: 9d80841ea4c9 ("drm/i915: Allow ringbuffers to be bound a=
+nywhere")
+> > > > > > Cc: Chris Wilson <chris@chris-wilson.co.uk>
+> > > > > > Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> > > > > > Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> > > > > > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> > > > > > Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+> > > > > > Cc: intel-gfx@lists.freedesktop.org
+> > > > > > Cc: <stable@vger.kernel.org> # v4.9+
+> > > > > > Tested-by: Jouni H=C3=B6gander <jouni.hogander@intel.com>
+> > > > > > Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@inte=
+l.com>
+> > > > > > Link: https://patchwork.freedesktop.org/patch/msgid/20230216011=
+101.1909009-3-John.C.Harrison@Intel.com
+> > > > > > (cherry picked from commit 65c08339db1ada87afd6cfe7db8e60bb4851=
+d919)
+> > > > > > Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> > > > > > (cherry picked from commit 85636167e3206c3fbd52254fc432991cc4e9=
+0194)
+> > > > > > Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+> > > > > > ---
+> > > > > >    drivers/gpu/drm/i915/gt/intel_ringbuffer.c | 4 ++--
+> > > > > >    1 file changed, 2 insertions(+), 2 deletions(-)
+> > > > > Also queued up for 5.10.y, you forgot that one :)
+> > > > I'm still working through the backlog of them.
+> > > >
+> > > > Note that these patches must all be applied as a pair. The 'don't u=
+se
+> > > > stolen' can be applied in isolation but won't totally fix the probl=
+em.
+> > > > However, applying 'don't use BAR mappings' without applying the sto=
+len patch
+> > > > first will results in problems such as the failure to boot that was=
+ recently
+> > > > reported and resulted in a revert in one of the trees.
+> > > I do not understand, you only submitted 1 patch here, what is the
+> > > "pair"?
+> > The original patch series was two patches -
+> > https://patchwork.freedesktop.org/series/114080/. One to not use stolen
+> > memory and the other to not use BAR mappings. If the anti-BAR patch is
+> > applied without the anti-stolen patch then the i915 driver will attempt=
+ to
+> > access stolen memory directly which will fail. So both patches must be
+> > applied and in the correct order to fix the problem of cache aliasing w=
+hen
+> > using BAR accesses on LLC systems.
+> >
+> > As above, I am working my way through the bunch of 'FAILED patch' email=
+s.
+> > The what-to-do instructions in those emails explicitly say to send the =
+patch
+> > individually in reply to the 'FAILED' message rather than as part of an=
+y
+> > original series.
+>
+> So what commits exactly in Linus's tree should be in these stable
+> branches?  Sorry, I still do not understand if we are missing one or if
+> we need to revert something.
 
-Ah, it's off by two spaces, should be 
+Hi, Greg,
 
-	hlist_for_each_entry_srcu(n, &head->track_notifier_list, node,
-				  srcu_read_lock_held(&head->track_srcu))
+5.4.237 fails to boot as a Xen PV Dom0.  It hangs after modprobe
+i915.ko with no further output, though it seems to response to magic
+sysrq.
 
-I'll get it fixed in the next version.
+Reverting 5.4.y commit 1aed78cfda7f17f3cc71cb127a85a188eafc679a
+("drm/i915: Don't use BAR mappings for ring buffers with LLC") lets it
+boot properly.
+
+Thanks,
+Jason
