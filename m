@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD40DC74A5B
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 23:16:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F4C6C6FD1D
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 23:16:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5C8710E2A0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 912C410E285;
 	Fri, 17 Mar 2023 23:16:48 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8F7A10E2A0
- for <intel-gfx@lists.freedesktop.org>; Fri, 17 Mar 2023 23:16:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 795C910E434
+ for <intel-gfx@lists.freedesktop.org>; Fri, 17 Mar 2023 23:16:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679095006; x=1710631006;
+ t=1679095007; x=1710631007;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=FoJksIlq1krCkJcCoMW2JtYe/HolqRK7vnjr3034iRE=;
- b=EbCJ3L7OBXq6Pe0l7cWu3T1NIJBFEYWCOjVaDQV39SjFGEp474Xbb/HJ
- 4YKG1mqA3v5sYEhex4HNX7NoAhs2WlFjbmvK/FB1QB6i3ge5HYjDTsWcr
- 98QXGQYqomirIIQOGvrsGAKhSBFoDb/HshYfwejfbXbijyiGSPuLSE+9z
- Vb6wO/kpLSi2aiRzvYLF93ZRAeGpXnPcT6lejoKKz4P3S3uILqwi1648W
- 6lseTcVz9Y+JlWMzgki26Q5fkpf1E2Pu14AlLVlU4mOZeVsyWSTAPssQN
- /1aJBMIU5GrBZlt2wv4ECJEm6377YhzF3f9t5ClYG74UV+SM6JVVU5ZLw A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10652"; a="335877100"
-X-IronPort-AV: E=Sophos;i="5.98,270,1673942400"; d="scan'208";a="335877100"
+ bh=y3svrqJqQcKfKFFnb2qPzu4i2eNeoaJA0XgxB+kSJ5Y=;
+ b=Pi2e+nX42Sh6SRO6c1/phrQmP9MuVPLy96PW7jRKYWaWp8FqdUa7Mkp1
+ 4YCYa8oo3QWCeoQBll652Dex7SCS1QixQaJyjWkbqIVvnT20rLmSA3hNp
+ bSKQoG8/ye+yicNZTd2gUj0mGmE2MBZWtAYNEi/+yRO4NdSjc1JILmACc
+ Bd75mDskPwBW3SBeOrjNNrvRwKFev22AdBGevzpiCE1rw7hWLmwrsz4hk
+ YENLirs0TluchNdWMPaKh2YMWVrJ7srVkjU2ubOz0aON/DCQ3vwvelfo5
+ RlBpkgImRr567k9hMQi7thvE9cCEy/7jI7PDTXTyObFe+20ErLk6mjX7N g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10652"; a="335877109"
+X-IronPort-AV: E=Sophos;i="5.98,270,1673942400"; d="scan'208";a="335877109"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  17 Mar 2023 16:16:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10652"; a="712914880"
-X-IronPort-AV: E=Sophos;i="5.98,270,1673942400"; d="scan'208";a="712914880"
+X-IronPort-AV: E=McAfee;i="6600,9927,10652"; a="712914904"
+X-IronPort-AV: E=Sophos;i="5.98,270,1673942400"; d="scan'208";a="712914904"
 Received: from orsosgc001.jf.intel.com ([10.165.21.138])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  17 Mar 2023 16:16:46 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 17 Mar 2023 16:16:33 -0700
-Message-Id: <20230317231641.2815418-4-umesh.nerlige.ramappa@intel.com>
+Date: Fri, 17 Mar 2023 16:16:41 -0700
+Message-Id: <20230317231641.2815418-12-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20230317231641.2815418-1-umesh.nerlige.ramappa@intel.com>
 References: <20230317231641.2815418-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 03/11] drm/i915/perf: Validate OA sseu config
- outside switch
+Subject: [Intel-gfx] [PATCH v7 11/11] drm/i915/perf: Wa_14017512683: Disable
+ OAM if media C6 is enabled in BIOS
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,76 +61,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Once OA supports media engine class:instance, the engine can only be
-validated outside the switch since class and instance parameters are
-separate entities. Since OA sseu config depends on engine
-class:instance, validate OA sseu config outside the switch.
+OAM does not work with media C6 enabled on some steppings of MTL.
+Disable OAM if we detect that media C6 was enabled in bios.
 
 v2: (Ashutosh)
-- Clarify commit message
-- Use drm_dbg instead of DRM_DEBUG
-- Reorder stack variables
+- Remove drm_notice from the driver load path
+- Log a drm_err when opening an OAM stream on affected steppings
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/i915_perf.c | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/i915_perf.c | 41 ++++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 283a4a3c6862..ebd76b5c9712 100644
+index 18afa76653b7..823379d63caf 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -3940,7 +3940,9 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 				    u32 n_props,
- 				    struct perf_open_properties *props)
- {
-+	struct drm_i915_gem_context_param_sseu user_sseu;
- 	u64 __user *uprop = uprops;
-+	bool config_sseu = false;
- 	u32 i;
- 	int ret;
+@@ -209,6 +209,7 @@
+ #include "gt/intel_gt_regs.h"
+ #include "gt/intel_lrc.h"
+ #include "gt/intel_lrc_reg.h"
++#include "gt/intel_rc6.h"
+ #include "gt/intel_ring.h"
+ #include "gt/uc/intel_guc_slpc.h"
  
-@@ -4069,8 +4071,6 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 			props->hold_preemption = !!value;
- 			break;
- 		case DRM_I915_PERF_PROP_GLOBAL_SSEU: {
--			struct drm_i915_gem_context_param_sseu user_sseu;
--
- 			if (GRAPHICS_VER_FULL(perf->i915) >= IP_VER(12, 50)) {
- 				drm_dbg(&perf->i915->drm,
- 					"SSEU config not supported on gfx %x\n",
-@@ -4085,14 +4085,7 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 					"Unable to copy global sseu parameter\n");
- 				return -EFAULT;
- 			}
--
--			ret = get_sseu_config(&props->sseu, props->engine, &user_sseu);
--			if (ret) {
--				drm_dbg(&perf->i915->drm,
--					"Invalid SSEU configuration\n");
--				return ret;
--			}
--			props->has_sseu = true;
-+			config_sseu = true;
- 			break;
- 		}
- 		case DRM_I915_PERF_PROP_POLL_OA_PERIOD:
-@@ -4112,6 +4105,16 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 		uprop += 2;
+@@ -4216,6 +4217,20 @@ static int read_properties_unlocked(struct i915_perf *perf,
+ 		return -EINVAL;
  	}
  
-+	if (config_sseu) {
-+		ret = get_sseu_config(&props->sseu, props->engine, &user_sseu);
-+		if (ret) {
-+			drm_dbg(&perf->i915->drm,
-+				"Invalid SSEU configuration\n");
-+			return ret;
-+		}
-+		props->has_sseu = true;
++	/*
++	 * Wa_14017512683: mtl[a0..c0): Use of OAM must be preceded with Media
++	 * C6 disable in BIOS. Fail if Media C6 is enabled on steppings where OAM
++	 * does not work as expected.
++	 */
++	if (IS_MTL_MEDIA_STEP(props->engine->i915, STEP_A0, STEP_C0) &&
++	    props->engine->gt->type == GT_MEDIA &&
++	    intel_check_bios_c6_setup(&props->engine->gt->rc6)) {
++		drm_dbg(&perf->i915->drm,
++			"OAM requires media C6 to be disabled in BIOS\n");
++		return -EINVAL;
 +	}
 +
- 	return 0;
++
+ 	if (!engine_supports_oa(props->engine)) {
+ 		drm_dbg(&perf->i915->drm,
+ 			"Engine not supported by OA %d:%d\n",
+@@ -4897,6 +4912,15 @@ static u32 num_perf_groups_per_gt(struct intel_gt *gt)
+ 
+ static u32 __oam_engine_group(struct intel_engine_cs *engine)
+ {
++	/*
++	 * Wa_14017512683: mtl[a0..c0): Use of OAM must be preceded with Media
++	 * C6 disable in BIOS. To disable use of OAM with media engines, set the
++	 * oa_group to PERF_GROUP_INVALID.
++	 */
++	if (IS_MTL_MEDIA_STEP(engine->i915, STEP_A0, STEP_C0) &&
++	    intel_check_bios_c6_setup(&engine->gt->rc6))
++		return PERF_GROUP_INVALID;
++
+ 	if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 70)) {
+ 		/*
+ 		 * There's 1 SAMEDIA gt and 1 OAM per SAMEDIA gt. All media slices
+@@ -5316,6 +5340,23 @@ int i915_perf_ioctl_version(struct drm_i915_private *i915)
+ 	 *
+ 	 * 7: Add support for video decode and enhancement classes.
+ 	 */
++
++	/*
++	 * Wa_14017512683: mtl[a0..c0): Use of OAM must be preceded with Media
++	 * C6 disable in BIOS. If Media C6 is enabled in BIOS, return version 6
++	 * to indicate that OA media is not supported.
++	 */
++	if (IS_MTL_MEDIA_STEP(i915, STEP_A0, STEP_C0)) {
++		struct intel_gt *gt;
++		int i;
++
++		for_each_gt(gt, i915, i) {
++			if (gt->type == GT_MEDIA &&
++			    intel_check_bios_c6_setup(&gt->rc6))
++				return 6;
++		}
++	}
++
+ 	return 7;
  }
  
 -- 
