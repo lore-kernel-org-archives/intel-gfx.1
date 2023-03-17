@@ -4,139 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8667EC6FD1D
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 09:17:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E172C6FD1D
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 09:17:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 095D810EEA8;
-	Fri, 17 Mar 2023 09:17:37 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6597310EEA8;
- Fri, 17 Mar 2023 09:17:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679044655; x=1710580655;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- in-reply-to:mime-version;
- bh=vnFPUNSik6INpAg3LHdFDAyYcgd0QGpx6Lm5OI9hi7c=;
- b=XsR+BpruLHc/V/A9COCBnHKdiPTXMYPdYeMPUB0ACPTncNEVFQzPZPmR
- uvWNR9gm5QhA33i4zGv69S4BG/dGfWpOkByLLkwxyDN6DIMq6tSAsaLjR
- b4IQuQv8HAo27NQuimkh9gsdw+KStKPrz65aB0H/GRN+Nfjxe8V4V4WaV
- GNMPWL+c/IplpECo0UjznStLBZyt6GF1eoqavR6aqv6EXl0MSoc7KFwbj
- WAXvXxJHYn1kDYx8wqx8YKVCQBw1oYgJDqyrifYz6P+apO0MHqN4E1FFo
- UzJBEaN0AIpV08EGxCBl36Di7TGwtFEi8HQbgSiLXjzo/EUK2P+kM17kG g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="317875168"
-X-IronPort-AV: E=Sophos;i="5.98,268,1673942400"; d="scan'208";a="317875168"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2023 02:17:34 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="769298713"
-X-IronPort-AV: E=Sophos;i="5.98,268,1673942400"; d="scan'208";a="769298713"
-Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
- by FMSMGA003.fm.intel.com with ESMTP; 17 Mar 2023 02:17:34 -0700
-Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
- ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Fri, 17 Mar 2023 02:17:33 -0700
-Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
- ORSMSX611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Fri, 17 Mar 2023 02:17:33 -0700
-Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
- orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21 via Frontend Transport; Fri, 17 Mar 2023 02:17:32 -0700
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.172)
- by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.21; Fri, 17 Mar 2023 02:17:32 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HnnhUQXfbVDSaMC9vtTwgXKFPH13Aj71bNCxnZqrtbyLUWzZi63HGMpRRILulVtCwXdSduGinoeYgjfXPeCpyF+C+ywVoaPtNOv39+uMBEzJr3Je2cSaksoA24TesdBfuAkgIHIPcE2GIJPHIWBd2YgUz6xzNoqwlizq4/kVGy854vnGRzlVzKpZpnwiVn0QghlTvqUBFPClvk86Yki0TOnohGoVaQgPwpgcWNMBVaBLuFevil+n8UcyzBKLuUrKplBpr+2Dw2Jzh2WidDiSY1GmVt9OvfedfSpie3UiqKAXe1441cNvNL2183EQTnzBIPlu7cNp8MYXjH03RTzKmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NK8MP0hYwcxGpFnhSHLT/ltk2uRq56ddvzjNoNFoEQI=;
- b=LgO94RXa/Z6zzy5R4nS6M5y/uxhQd9xmSzHfc4doUUVWvpAIv9nrJH+wD5yo9lLd/8+v+jJ2YHXVia7WMeV+U2DpTtKxMNBzcl33ttZPe4Y3lK2TTkgjebD/eHEmgm1h29K8VxrWecHgyJCXfXDq8rRp6X9div91qGg1zqgvTyKjPPE2Lxnre2VwSQqeLynAUOTWGcIcxY8lxaRzsZ3AjkKwMnuzg9omBHoIiYspI9iC6f773nwPvAlMer7VsGmQdEN96L/9Q0gxDpwnP/U7bDWxPTWuk0Y6oYuCo6OpM/E0uFekyp+BU7gD5ZV5SWOE1HaWK5AmO7ntGE9aIHlPcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS7PR11MB5966.namprd11.prod.outlook.com (2603:10b6:8:71::6) by
- DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6178.33; Fri, 17 Mar 2023 09:17:28 +0000
-Received: from DS7PR11MB5966.namprd11.prod.outlook.com
- ([fe80::b00e:ac74:158e:1c7e]) by DS7PR11MB5966.namprd11.prod.outlook.com
- ([fe80::b00e:ac74:158e:1c7e%4]) with mapi id 15.20.6178.026; Fri, 17 Mar 2023
- 09:17:28 +0000
-Date: Fri, 17 Mar 2023 16:52:48 +0800
-From: Yan Zhao <yan.y.zhao@intel.com>
-To: Sean Christopherson <seanjc@google.com>
-Message-ID: <ZBQqYNKeHIHLGRLR@yzhao56-desk.sh.intel.com>
-References: <20230311002258.852397-1-seanjc@google.com>
- <20230311002258.852397-27-seanjc@google.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230311002258.852397-27-seanjc@google.com>
-X-ClientProxiedBy: SG2PR03CA0090.apcprd03.prod.outlook.com
- (2603:1096:4:7c::18) To DS7PR11MB5966.namprd11.prod.outlook.com
- (2603:10b6:8:71::6)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70E6B10EEAF;
+	Fri, 17 Mar 2023 09:17:45 +0000 (UTC)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1C8610EEAF;
+ Fri, 17 Mar 2023 09:17:43 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id g18so4375512ljl.3;
+ Fri, 17 Mar 2023 02:17:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20210112; t=1679044662;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=3uLwGBxnZ1mAAqp3kTFoVsk1Zncv2fMmnt4yJjzaSC8=;
+ b=ThkJ4upO2U9CB7ruJSqqqRCeWvmgm8ZAj4QsOTm1eC4gVChNyzDjQlKVuwvk1pO1Fw
+ xt7F2HUHYa0c/ylvlXnMBydDEKBF6iDyMDFGwBfHgSp4mHudp+up9hMsJ6HgiUK1EFOY
+ pUkT03WY1yR7BwkS4KhtxBEQTsqrR6kGVXk9Cytg4D3yo1j2ojLdWH5oE8RZHoJXgF2x
+ Kd1CBEoJEqNmdG9tBeHLiowK59HhG6w+afImzrcdPPUKxmomDpY69VWFAs9DiyBq4zbt
+ njWqSx1+A4HuZHg4uS+TAYcgNDOaHLpJFor6KennsYkCUG4gcAa6kw3mk1bxPTAzIaBN
+ iGgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1679044662;
+ h=mime-version:references:in-reply-to:message-id:subject:cc:to:from
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=3uLwGBxnZ1mAAqp3kTFoVsk1Zncv2fMmnt4yJjzaSC8=;
+ b=5zw1SyOlskI/JvW+J4YFAEv+rnG2Zq+uWuToYwUI5c3HDszDE9tUsi6GL2O0vOa4Hl
+ WvnztUeIzz947txOHtYiSJ2mZakR5xw0/JP/bJseVajnz/HQXYYQfmu+SuJHxllBW3a6
+ jHgPQGLESNpy/aETZY1eLkhdctTbleeRLJj1eB8WFnJDRnm2TNJim0JfKQ+ry8KnR7/d
+ 4Jh/+icFyVOhQU+NZnRq45bo9c26MSYOEPDmOelBUcOjoNZBLsNxtDp5VrOlUMbw8Itp
+ mAK07T29rr2u8YFvaS8XxaoMdxNtDAQvMsDbkPaUnN2iFT11kHJ01Vp+OWzMP4Ujb/LB
+ W3Pg==
+X-Gm-Message-State: AO0yUKUSq6uCp0F4rekXB+k908gzmsd4OVjXVUzLCiBHTjNrgpLtlrCK
+ i9nd6SLiPhxopu3oWjV4/yA=
+X-Google-Smtp-Source: AK7set8Wy+EAASUZlw92CKWNn4SHSF73SNcbsJZangV3rMR/ZtM8l7f1OxSnUfUPci3N1EtDFWGHmg==
+X-Received: by 2002:a2e:6816:0:b0:299:ac58:1c4 with SMTP id
+ c22-20020a2e6816000000b00299ac5801c4mr1330636lja.1.1679044661786; 
+ Fri, 17 Mar 2023 02:17:41 -0700 (PDT)
+Received: from eldfell ([194.136.85.206]) by smtp.gmail.com with ESMTPSA id
+ v5-20020a056512048500b004db513b0175sm280708lfq.136.2023.03.17.02.17.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 17 Mar 2023 02:17:41 -0700 (PDT)
+Date: Fri, 17 Mar 2023 11:17:37 +0200
+From: Pekka Paalanen <ppaalanen@gmail.com>
+To: Sebastian Wick <sebastian.wick@redhat.com>
+Message-ID: <20230317111737.48702bca@eldfell>
+In-Reply-To: <20230317110921.0862cc8b@eldfell>
+References: <20230308155322.344664-1-robdclark@gmail.com>
+ <20230308155322.344664-2-robdclark@gmail.com>
+ <ZAtQspuFjPtGy7ze@gmail.com>
+ <CAF6AEGsGOr5+Q10wX=5ttrWCSUJfn7gzHW8QhxFC0GDLgagMHg@mail.gmail.com>
+ <ZBHNvT3BLgS3qvV5@gmail.com>
+ <CAF6AEGu1S2CXzRxV_c5tE_H+XUGiO=n0tXjLZ_u_tW-eMqMsQw@mail.gmail.com>
+ <ZBLg0t0tTVvuPuiJ@gmail.com>
+ <CAF6AEGvV5arZThTyju_=xFFDWRbMaexgO_kkdKZuK-zeCxrN7Q@mail.gmail.com>
+ <CA+hFU4xbssR+=Sf4ia5kPdsSb4y9SQUd4nx_2p1Szcbtna28CA@mail.gmail.com>
+ <20230317110921.0862cc8b@eldfell>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.24; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR11MB5966:EE_|DM4PR11MB6020:EE_
-X-MS-Office365-Filtering-Correlation-Id: 19d13eab-b844-4898-93c5-08db26c86db8
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OU/8Z34KpLi4QF6MGsw/5R86Fh/he5bck2mPDToKDYMOh5LhIZiIFj27NimRsHHcBwtbDGPZQ1OORjCCHpST6b6CWIZH/nZ37vjLXywIPhyRqlvVuiETgwX1dyhN1uYbESdbxdghRqAPD1yAtNbnlYRbstaXlo3ZQ13kYv2Lg4w5+IxSr8n/AzC/A+GOqkGZCCEKkOiZHlXwteY8NiM22495Qyz1xNTFgZS/Qd18sP0GpehGLo6ypxzsHBXUhU6prbCgiDUpX/Y/q8qyUUMC71I7h15+mGn+wXRpMmkkAWEQDcRs7xlem69ou0oo5BUS8+zPxAxBznCOdYUTwrD8AroKlg9QmOi2m0Wdbv1eCdzNfOEuF0JM/RMVxcKaoZ4DNcFe8aEyCkIqZ2/Z/SGiQg87G4+TqZGVJs/1edV3N7REUEDy/x1w5L2hTJBz+OtAfZ6q4Z1uMGEJmSiQaRTTLaCCvnBagAPNrzM9lJxyUQN1S+XGYvF9Yr14L1V7R53KrPDBbE03GSFREgvcV2dSjGbv17hZE0YhvZySfrJbAk4q3SEBNcGpUkRL7wUDcSXtORH1UGRqLCRbAeHG7FItmrnNyvg8YuwRuedwuZsxOb2xDTx8DIaNXmGPnnVoVAwYwUcHIJxAlkQJySUZ55pwTw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR11MB5966.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(136003)(366004)(376002)(39860400002)(396003)(346002)(451199018)(8936002)(5660300002)(4744005)(41300700001)(38100700002)(82960400001)(86362001)(3450700001)(2906002)(6506007)(54906003)(316002)(6512007)(478600001)(6666004)(26005)(6486002)(186003)(66556008)(8676002)(66946007)(66476007)(6916009)(4326008);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?pDr03Ru1ujLZ/Pjw32DiW/3gPaQBsHSlL0muiQDAPY+do9RMtahJZnwOMUjb?=
- =?us-ascii?Q?JZ6zoTq788hxQ6tdmsVlt1GdFIdN65bSCPwkei3qziu04ECcZ2rSXBtFsrmW?=
- =?us-ascii?Q?EyD662QnM+pry4lYHtbXf9LyRxOXNqhPUDbjqpBUqUPKiqBefzkmdoW06W8p?=
- =?us-ascii?Q?ELq7PteSduAMyyQJ2h7337dMRdi+4ZvqQ6NH2Y2f5SaF+XqUc5kb72/3WXBc?=
- =?us-ascii?Q?KnA2z6r4+QUTHTlEo1sOgPw1W7RUMISCviJjJT8jPRLY2dITZTk1vFkn021L?=
- =?us-ascii?Q?j0eN8P9YgOc7Ov57vRtgKXlu+6Tb7CPbaFzR+E41LnJxMrKqUZlZSpbda/4F?=
- =?us-ascii?Q?scWWn9XrA4cxz5jRIx86Mpa3pf1KeOwtmeOgnJYheAw9dI8vRlRCs7Dm742I?=
- =?us-ascii?Q?mIcvn/JVruWZ5ryEoKuAeUArVDdASBoclgf+ku43GwUYIwQ3RbwG/mqP0Kw0?=
- =?us-ascii?Q?XodZOy3ygbWzxoRSR1ZpXnaE3DqO/6696O4YEPREraJmH/T1ba9/AowvMW3D?=
- =?us-ascii?Q?8IhQMNjllLRR0EUEsI66Ne/zK8Y/TXARB+zZCuHZlSRNiFSM/jLFY/LQGFgq?=
- =?us-ascii?Q?9HkQLriM0bVhWwuNc0AVvHBMvARIcYsX40WDwCgjrdlpG2h9HKSdETY3O/fy?=
- =?us-ascii?Q?vY7FoAQw9Vl0Vr+i+Wrcjy/R+xHm+aHUnCjJx90T86+FsjhEepYm0Wb7b34E?=
- =?us-ascii?Q?pPJG1eFbRDt39VtbvC27AvMxzWNatA84S0dgmz+5AnlW82dwAAY4ph6DFCUr?=
- =?us-ascii?Q?DPvV/o3HYQoxxZDiswReXjnhv30YPUfzPCmK993vA8ShEU6sqyA2/v+Z7RVd?=
- =?us-ascii?Q?VR6mGt0wViu7kFAU2RFV2X66WyDD8sqk+VmMYeVzDfzJkfluMyGTWyp1aNbb?=
- =?us-ascii?Q?p/hcb7cBojnDzByGquF9wKSWUsUxKewveDvd2/OZxJ+stpFTcuzKVkyFx4PP?=
- =?us-ascii?Q?+rbO1TaqPYEGTHFt5vcwghRQTsMIPNdjALeYpSTgZDn70QRLWjLs2V4yH2v+?=
- =?us-ascii?Q?bPCOyn/geMgVNQoi35RzXie02zwgi+uPSVHBi6ypgOkkl3wy85EsNnXWq/nS?=
- =?us-ascii?Q?oI8Cuy7Li9sGlp8UtZMU8R3G5ipWYqzID7PF5Y55sIDXZ3bRUpsvkzpvGP/3?=
- =?us-ascii?Q?LIpVb0UE63DXeUQpPFKMfu6KZUW3lWEwCrIgvAAp7b5MYI9onUj8wG/qf7e2?=
- =?us-ascii?Q?chNIu9GuCX3tsM6W1QYjwZkdjS6nPIR0dRkjrr2rcNOJCUL3tgRnN5u4nK55?=
- =?us-ascii?Q?Pbwm9qz0v0i+JTCl4m4C6MGZPMml3wqBv8fcArRzCZ6DmFGSfYY6VreIFaNO?=
- =?us-ascii?Q?BWD2QNRWlaUZD4YdR1hlOaNT79GsVA51NCwzC+LQU0KUmqovjG5cUaaO4o0b?=
- =?us-ascii?Q?u0abhRdVukXzO2nkztDwFjd35VPXHIwQZ+QIwuuS+XTSOVDCOlzp1Tmgr+G0?=
- =?us-ascii?Q?mSOpuQ2iBCsKnW1u+ZmljAOIbD12T4Bm8TpCeEj/hUCVZ/2RVPWjpyvHszES?=
- =?us-ascii?Q?bRQQKGYE5j4INZLy4xuT0P60/Fkv3j2ZFftGEpqm/J0dQMH/iNNnhghkLNk0?=
- =?us-ascii?Q?LAJN+hALnPv8fTYxgfX8GlJ2joS7Re+IubkG+0E0T/VN7fy5KrvkIBO+AMew?=
- =?us-ascii?Q?ng=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19d13eab-b844-4898-93c5-08db26c86db8
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR11MB5966.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2023 09:17:28.1058 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VkGk5Iz35ZOGhChibn6+Em6TaSrTRc717+9tedV3F3TYtVfk7Xad/7kYUSFWUIKlRiwgN2RuTlzh83x1ap94Ng==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6020
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH v2 26/27] KVM: x86/mmu: Handle KVM
- bookkeeping in page-track APIs, not callers
+Content-Type: multipart/signed; boundary="Sig_/Q5zE_g6+8PZb=tpp8CN.PRC";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Subject: Re: [Intel-gfx] [PATCH v10 01/15] dma-buf/dma-fence: Add deadline
+ awareness
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,20 +80,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Yan Zhao <yan.y.zhao@intel.com>
-Cc: kvm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Ben Gardon <bgardon@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, intel-gvt-dev@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, DMA@freedesktop.org,
+	Jonas =?UTF-8?B?w4VkYWhs?= <jadahl@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christian =?UTF-8?B?S8O2bmln?= <ckoenig.leichtzumerken@gmail.com>,
+	intel-gfx@lists.freedesktop.org,
+	"open  list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Yan Zhao <yan.y.zhao@intel.com>
+--Sig_/Q5zE_g6+8PZb=tpp8CN.PRC
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Mar 10, 2023 at 04:22:57PM -0800, Sean Christopherson wrote:
-> Get/put references to KVM when a page-track notifier is (un)registered
-> instead of relying on the caller to do so.  Forcing the caller to do the
-> bookkeeping is unnecessary and adds one more thing for users to get
-> wrong, e.g. see commit 9ed1fdee9ee3 ("drm/i915/gvt: Get reference to KVM
-> iff attachment to VM is successful").
-Just realized that "iff" stands for "if and only if" :) 
+On Fri, 17 Mar 2023 11:09:21 +0200
+Pekka Paalanen <ppaalanen@gmail.com> wrote:
 
+> On Thu, 16 Mar 2023 23:22:24 +0100
+> Sebastian Wick <sebastian.wick@redhat.com> wrote:
+
+> > Vblank can be really long, especially with VRR where the additional
+> > time you get to finish the frame comes from making vblank longer.
+
+Btw. VRR extends front porch, not vblank.
+
+
+Thanks,
+pq
+
+--Sig_/Q5zE_g6+8PZb=tpp8CN.PRC
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmQUMDEACgkQI1/ltBGq
+qqdONw//Rgotd8hOFTtCdsTpbSF7YOFikuzzzDIDxuXPRDAkMFSndLcsdjesT/3L
+KZqIPV4Ep1pelG71zllYvYB/cRQ9tMa8iITUhMVcAwYCp7I1645/1yhOJ2HHDiFZ
+sWHoek/TEIB46ReOidtjFo2xHX4xWMF5+MNqOevoo3ZB54nqvCTmNZSbisuGaBsn
+IVtV98giR2ioxwxsPmrhKufULtu+DP2eQmZv8Y9SIQBIIqlAr6dqF5Z0jwaITRsw
+/XK1o0CpJv/L1SEo5Of8XhT7YCU5l16cpUXA4OjPQsHZdIiZ/1+4wcm7seJNSM6Q
+D/HKZuvmmE5FJV8M6O7rhKeYmxRefMntg5wngAxwqpuu80PxZa3MRH0dk1wcuvei
+EinMcr4IukkOijVlQQ05yDy6SpNUGTOaez0zWy6ftLUI7bNk8jL2DVsgyfU9zkUZ
+7QT5CDKTIUtLuCs+5QT7iphcGo+iBq1M9bgQyM2MU26oOOnP95dIFAEXw5Ofcuab
+ZxcQDNE22dJlDOj5zGz2r9B30zzaX6E+Tw2CFq6Tm58BBRBv9o9MuM3StNUNuOQ8
+lsF9q7BZiuBDr3pFks+YIWt6Ia5Wz/LMw92UYkSx+vnNKcZO3k/kcAYYnpU0izfH
+gd082Gvt7zd/rjURoruKFxaG6hQOIzqHZuRukX6Oj4rTSva/mPQ=
+=kkpl
+-----END PGP SIGNATURE-----
+
+--Sig_/Q5zE_g6+8PZb=tpp8CN.PRC--
