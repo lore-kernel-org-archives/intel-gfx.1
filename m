@@ -4,138 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F27CC7618E
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 06:02:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18D3DC74A5B
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Mar 2023 06:06:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3242B10E096;
-	Fri, 17 Mar 2023 06:02:08 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 883BC10E096;
- Fri, 17 Mar 2023 06:02:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 064B610E286;
+	Fri, 17 Mar 2023 06:06:17 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C1A410E096
+ for <intel-gfx@lists.freedesktop.org>; Fri, 17 Mar 2023 06:06:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679032925; x=1710568925;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- in-reply-to:mime-version;
- bh=9uJ3MkfA/qwcgaYzN5ANURWlB8iYIiA//moMDgAR3Aw=;
- b=gMjlc4+GMcFHuXkZyasW3OIDX5oby4mBbFLTLJuA/pQkUhE7d9IngzfL
- WLbf93HdsQGYd+k/BPTcQ1cFbf66nz3faJmPYwSpYJFky8mlZF4GJFTXz
- 6xDMA8IAufzga0Ol3rkgCbEqUw4GOfN+j0eJ1efcMszERIpOT8zo6/RzO
- F9VNBmgOGd+QBswnabWFaoFo0zI4ZBbUuMj2jBklRk9In+emMLnB30JRP
- rgo5tKbYoX/5Gy0RRH82ECNjmF56iFnwuAJPEzaGHiJCy7UYgiECX2PyC
- LnifD/y6uJgzlvAQ82afL0hMisgFpuTGLlbLxOxFidnNKlNCeRNLYX9+s Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="326551213"
-X-IronPort-AV: E=Sophos;i="5.98,268,1673942400"; d="scan'208";a="326551213"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2023 23:02:04 -0700
+ t=1679033170; x=1710569170;
+ h=date:message-id:from:to:cc:subject:in-reply-to:
+ references:mime-version;
+ bh=4PGLwOANIdf8IYjG7BZUczbjKpooADnPyyjwK+ZpyL4=;
+ b=iPmRscKkZE2lQgx5mw/cuidYLxzmTq1ZsHR4mBJ4JwlIK2ZNYa2srN1G
+ BZNEM2xs0HiljZHB62uPfsGjp9BKSolQ46SSvwA5rcf5aEoPNQ9i7ukAx
+ TbnIAAO3tztpGtGBsJzAHzflXIU/Z2fsghqCC7beNV5fggwb1qD85rJbc
+ Bz4BiMfUic7EiXr0r91+v+g1FRd3PrU5TX1G9Jw8SoN0X9kv69EalWpvy
+ 6N6FJNEBZswZhce39xYXqF40vY2vs1MaIZFN/diAavHTBVDZT1yoBFpIe
+ l8OSpIY8syWq8nOy25/w0OjMRPgN2yzV+ggb8iXlBFPreTueZja5uG/AD A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="403063165"
+X-IronPort-AV: E=Sophos;i="5.98,268,1673942400"; d="scan'208";a="403063165"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2023 23:06:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="710396322"
-X-IronPort-AV: E=Sophos;i="5.98,268,1673942400"; d="scan'208";a="710396322"
-Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
- by orsmga008.jf.intel.com with ESMTP; 16 Mar 2023 23:02:03 -0700
-Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
- fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Thu, 16 Mar 2023 23:02:03 -0700
-Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
- fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Thu, 16 Mar 2023 23:02:03 -0700
-Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
- fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21 via Frontend Transport; Thu, 16 Mar 2023 23:02:03 -0700
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com (104.47.70.104)
- by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.21; Thu, 16 Mar 2023 23:02:02 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Kb5TS4ntLdlqsIw1899bTdtKjeKPX3QOl2cucj6wsmBg0iZnFIVuOuHUm50KKVpUZcNK4otrvCJwkEgn3qD49InwkMo20VxM33P6b0rf3P3XlDrgg3fHseNGX3PQJ4qnboBCsPRwOL7OZ2yUpVnT/4/8rMuS1n9owhFdbcbziWq3xYUlLunD7CWSuEiQ4BUnRIqGEFiQJpk3sNBdnCVrAwRazXpMSGome7M2BMAffy2hmzZf9t1FuqNpwQAD7SjKu6HqUMjJDuHj7ptdjNZoVVAYf14GDambykb0XdcP+eFoasWrL5biXDppoOa8zc30kNjFWkddCXt5OXgmwh6ZBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NbF2lqX7uO8xlAIvD+rHKCfsIVsO+17heK2Dll2MBik=;
- b=FPPY1mhUoBHnbdnMVBes5sJT5oPt98FOwY+/ZeIFGrLHmRah+tY/h3biBqTlqlIaBV/HXychGvzvasIWdXLzUZh27w+ZGqz6e7tV85NNKXtt130zJV/VMSDGUQKU2Gl7ZT1fMgg0s2iZ1vAGPEsHCMCd51PKARnJ+37eB91nt9FfyQjJ5Q/ooAuXfG0JQyua9gakZQuXUqdpv+ruba0qTbX7LfaQztupw7GWIOSSAg4c5sTLpdEmDxnWnukpbt7bgY1UZHLdSXG25rGEVLbVUfQ2bWXD5KkmB2fL+sa2qok8inoJZlEi9x5Rkws7wu/TNftyIM+QXKkg+dwhTs5CYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS7PR11MB5966.namprd11.prod.outlook.com (2603:10b6:8:71::6) by
- BL1PR11MB5271.namprd11.prod.outlook.com (2603:10b6:208:31a::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.35; Fri, 17 Mar
- 2023 06:01:58 +0000
-Received: from DS7PR11MB5966.namprd11.prod.outlook.com
- ([fe80::b00e:ac74:158e:1c7e]) by DS7PR11MB5966.namprd11.prod.outlook.com
- ([fe80::b00e:ac74:158e:1c7e%4]) with mapi id 15.20.6178.026; Fri, 17 Mar 2023
- 06:01:59 +0000
-Date: Fri, 17 Mar 2023 13:37:21 +0800
-From: Yan Zhao <yan.y.zhao@intel.com>
-To: Sean Christopherson <seanjc@google.com>
-Message-ID: <ZBP8kd+4+HjdekPZ@yzhao56-desk.sh.intel.com>
-References: <20230311002258.852397-1-seanjc@google.com>
- <20230311002258.852397-8-seanjc@google.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230311002258.852397-8-seanjc@google.com>
-X-ClientProxiedBy: SG2P153CA0001.APCP153.PROD.OUTLOOK.COM (2603:1096::11) To
- DS7PR11MB5966.namprd11.prod.outlook.com (2603:10b6:8:71::6)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR11MB5966:EE_|BL1PR11MB5271:EE_
-X-MS-Office365-Filtering-Correlation-Id: e412e039-f46d-46b4-abfa-08db26ad1ea9
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sJiuyUAvbCDldKNS3My6nyo6h3rGPKwpnRPENeHcp3yq/o6ks/rV+kLaYBf+qHPETwpzvPy4TyreFTkRc1Glp0AWObh1ic5xSLQQbAF1zuoBMI1rlZ6twCt0pnOx20+K5jTp+7bwFrCi/OT4H/gPwy/SBXr4rtaKyVjTJef3FWa2gXGbm88KSM9SdPBJ1D9c6ztgvx7TXqUfkjfFUrZB+tUCxVxXvAdcBFIkwHCgClP+ZhqVD+rQBfrkh210MyEupqexSBFS6Du+X2IBrj2Yk0JARREfqhuDmlb1d7Jul7bqNIHQLw015vs/ApVJzMgCF/4fY4Voptek83TfLyxIgNZhSekC69jljHPV2xVfb2ksDF5OVi60IRKAxT+jtPtxYC8pcjlaGtQT4kG0sR7YbUKYzExE+R4cYnNSvKgw2QnYms3W+gTxctn+/P4exoASXcngYDRcDdnC/5I1iLFH4cao3wio3gXRSjuiryuHq3xcAKdNWfRV6YqzI4+FHHX476JYwyATUO1c3fD+kjDwZuk/1jHQHmPA4nLkE9FRiyp3R5Ihyk0aP32mZyDqb9CJUQk9V43qD5FgZGkdqYzbVrdYjIUvnoRjLDAJGRYdKkdIrEEcFZ2skv4znsl+MDVLVRArCZ6gCyhU/VaSmv/rQA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR11MB5966.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(366004)(376002)(136003)(396003)(346002)(39860400002)(451199018)(3450700001)(8936002)(2906002)(5660300002)(38100700002)(82960400001)(86362001)(186003)(6512007)(6506007)(26005)(6666004)(54906003)(316002)(478600001)(41300700001)(6916009)(4326008)(6486002)(66946007)(66556008)(8676002)(66476007);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?nmfQzzflTY5dvvJDGWttAaarotu+A2CjnJbJOj1/Uku+qPdzijuYHjD2FjZt?=
- =?us-ascii?Q?DGdtkw5tfjzp91nAuUs3l90fTmCTWsQxcTjbMwGO92o5yVPa9OBdXR2m19vq?=
- =?us-ascii?Q?UiI69ofM6/U50oGBcdDB+CBk2kLp0kwTlKf66vFNafynyE6oVxJHmf0Ysqi8?=
- =?us-ascii?Q?Z6Qb9qeQvn2KBWh6JWtWvIQ0m0PYBx+oAb3rnrSd3VXtn4LMmWKYxzcwuXOK?=
- =?us-ascii?Q?JxmhUBoBxUOrnubCmoz2EylH6d8Ph6cCl8c7TPabyP+ldI8kpFAih3E1BMPa?=
- =?us-ascii?Q?c4edkqIWwYYk2VcQ3QQo0vJJUQlY68uLHoG4k5jQWF5Q3U9yUMLM9TJ3Nba1?=
- =?us-ascii?Q?MQxPyc274diUw07qx58gDatCAio0PPi+5LJOuNeh75E8uSSHFOBngkawb8Hl?=
- =?us-ascii?Q?ro2A0q3FAWH4SA0sj6uldJRyeB3l3bUy/tdaC2PbQmQst/8mc33qukthdXyQ?=
- =?us-ascii?Q?C1/JjfhURGyVYaJ2kJ9Kn0280xj5noEqJKxoNCCF9lnDLORdkS3L5ya8a5ys?=
- =?us-ascii?Q?8FAUGMU44PHqj/6C6p2WZ1T0/Im29zqbKavm3nNa5pofut0W5HvL68PE55+V?=
- =?us-ascii?Q?lEzSx7k7UOkMXYwWORgL3IAKKtrE2ZHUp9bl/0kHm3ncGvfl0tA85vwKbh6z?=
- =?us-ascii?Q?YjW0DlFMXwhgJfh9i67lpRtRUP+7r1kxP5f5TkfyeuUH7d8I4kLwNXsASUnI?=
- =?us-ascii?Q?LJLbn0o/o2w1toYTWcH4Wt0miCLhT6fQC4JEdGkqJ+50klbYPN2Y/uhoeXvm?=
- =?us-ascii?Q?7bek56S9Y6X/5vmX2aOdaw2W3MPXRnEg8WR0H7C4xhtxidrPx/zhDPteW6+b?=
- =?us-ascii?Q?Dlsfei5VtwYD+Rbpr/Iaz94gLhPq4d0/yD2cF4MXVaf3iik7LkNJd2uhV9Pl?=
- =?us-ascii?Q?B8iiG67PQlnx+iX/4tK4kkWbACgbcCHMpB0sqDaTSiyoAHbchqa3RsQFiDmF?=
- =?us-ascii?Q?y3LFd+gb4HQhKDghPnzdSUSqS//lU6WQcizsvWtfABsVYw6omo4l3PrqQCVu?=
- =?us-ascii?Q?x2VBoLPEm8p/csDI77WQ8FCJopREzxxs7frhw9u+1KXiI6c1JShZcsUFsjSF?=
- =?us-ascii?Q?Yuubktin9rvG+wDv02PT3eVWbYaEundFxUZZDBQY/a5hWuF5T5+RB9JCXdsT?=
- =?us-ascii?Q?C/pumyT0Ty43uHtUde+h9vq78CsZnmVbdDy5btaPgZOEHJH9r13gE4x/vF0F?=
- =?us-ascii?Q?st0zg2go32muFA7szT4wQs84xeSh9aNfXT52Kv/cJeVk7phtFMN+t4m7Mpgn?=
- =?us-ascii?Q?iyCPHGCOClNDx4K1wZuRhhgBI+ZIbP7M+nafUFg9E6/E6tHHCTngEhnntcCV?=
- =?us-ascii?Q?a2eLM0YFIULeVMFv0WEypqc0TQ6W/gw7uhl3+nPzuTFT7iFqdQiBnovs22U6?=
- =?us-ascii?Q?Mlj/bjh+2V+nfthQOUTcJaMeHfv1oQOvxf0pRAd4YM6g9uEtShUzpWZJrzTH?=
- =?us-ascii?Q?jX+s1bCUTc9rPWmZD52Tjir5vFGGxVwUlmrvQKdWUmcH6j2iHI1SyejHy6Pu?=
- =?us-ascii?Q?wLyU7IcG0QI/16rd9EmLH2wziz7vq/Nmgl3Gq/84MrxprfFEX7dIr45dVazK?=
- =?us-ascii?Q?uGetooX5kY3yTWe2qFhgps+ge4WmaqbPIQshr21tZdaz2VCRcKDVYDDYv92i?=
- =?us-ascii?Q?xg=3D=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: e412e039-f46d-46b4-abfa-08db26ad1ea9
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR11MB5966.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2023 06:01:59.0878 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DGGHkXlG3ZfK7UYQuvXbi5mmsU71oOnIr+vU8DDq3aRHS9ljQ0WkDuzNzFqigXDxyNzcazFK5EybTA5LTCJpyw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR11MB5271
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH v2 07/27] drm/i915/gvt: Don't rely on KVM's
- gfn_to_pfn() to query possible 2M GTT
+X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="790608765"
+X-IronPort-AV: E=Sophos;i="5.98,268,1673942400"; d="scan'208";a="790608765"
+Received: from adixit-mobl.amr.corp.intel.com (HELO adixit-arch.intel.com)
+ ([10.209.119.150])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2023 23:06:09 -0700
+Date: Thu, 16 Mar 2023 23:06:08 -0700
+Message-ID: <87cz57x67j.wl-ashutosh.dixit@intel.com>
+From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
+To: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+In-Reply-To: <87fsa4vu0j.wl-ashutosh.dixit@intel.com>
+References: <20230316010101.2590309-1-umesh.nerlige.ramappa@intel.com>	<20230316010101.2590309-13-umesh.nerlige.ramappa@intel.com>	<87fsa4vu0j.wl-ashutosh.dixit@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
+ Emacs/28.2 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Subject: Re: [Intel-gfx] [PATCH v6 12/12] drm/i915/perf: Wa_14017512683:
+ Disable OAM if media C6 is enabled in BIOS
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,56 +61,110 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Yan Zhao <yan.y.zhao@intel.com>
-Cc: kvm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Ben Gardon <bgardon@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, intel-gvt-dev@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 10, 2023 at 04:22:38PM -0800, Sean Christopherson wrote:
->  /*
-> - * Check if can do 2M page
-> + * Try to map a 2M gtt entry.
->   * @vgpu: target vgpu
->   * @entry: target pfn's gtt entry
->   *
-> - * Return 1 if 2MB huge gtt shadowing is possible, 0 if miscondition,
-> - * negative if found err.
-> + * Return 1 if 2MB huge gtt shadow was creation, 0 if the entry needs to be
-> + * split, negative if found err.
->   */
-> -static int is_2MB_gtt_possible(struct intel_vgpu *vgpu,
-> -	struct intel_gvt_gtt_entry *entry)
-> +static int try_map_2MB_gtt_entry(struct intel_vgpu *vgpu,
-> +	struct intel_gvt_gtt_entry *entry, dma_addr_t *dma_addr)
->  {
->  	const struct intel_gvt_gtt_pte_ops *ops = vgpu->gvt->gtt.pte_ops;
->  	unsigned long gfn = ops->get_pfn(entry);
-> -	kvm_pfn_t pfn;
->  	int max_level;
-> -	int ret;
->  
->  	if (!HAS_PAGE_SIZES(vgpu->gvt->gt->i915, I915_GTT_PAGE_SIZE_2M))
->  		return 0;
-> @@ -1173,16 +1171,7 @@ static int is_2MB_gtt_possible(struct intel_vgpu *vgpu,
->  	if (max_level < PG_LEVEL_2M)
->  		return 0;
->  
-> -	pfn = gfn_to_pfn(vgpu->vfio_device.kvm, gfn);
-> -	if (is_error_noslot_pfn(pfn))
-> -		return -EINVAL;
-> -
-> -	if (!pfn_valid(pfn))
-> -		return -EINVAL;
-> -
-> -	ret = PageTransHuge(pfn_to_page(pfn));
-> -	kvm_release_pfn_clean(pfn);
-> -	return ret;
-> +	return intel_gvt_dma_map_guest_page(vgpu, gfn, I915_GTT_PAGE_SIZE_2M, dma_addr);
-intel_gvt_dma_map_guest_page() returns 0 on success, which is not in
-consistent with the expected return value of this function, i.e.
-"
-Return 1 if 2MB huge gtt shadow was creation, 0 if the entry needs to be
-split, negative if found err.
-"
+On Thu, 16 Mar 2023 22:14:52 -0700, Dixit, Ashutosh wrote:
+>
+> On Wed, 15 Mar 2023 18:01:01 -0700, Umesh Nerlige Ramappa wrote:
+> >
+>
+> Hi Umesh,
+>
+> Mostly looks good but one nit below.
+>
+> > OAM does not work with media C6 enabled on some steppings of MTL.
+> > Disable OAM if we detect that media C6 was enabled in bios.
+> >
+> > Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/i915_perf.c | 30 ++++++++++++++++++++++++++++++
+> >  1 file changed, 30 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+> > index 77fae3d80128..4ac6535a0356 100644
+> > --- a/drivers/gpu/drm/i915/i915_perf.c
+> > +++ b/drivers/gpu/drm/i915/i915_perf.c
+> > @@ -209,6 +209,7 @@
+> >  #include "gt/intel_gt_regs.h"
+> >  #include "gt/intel_lrc.h"
+> >  #include "gt/intel_lrc_reg.h"
+> > +#include "gt/intel_rc6.h"
+> >  #include "gt/intel_ring.h"
+> >  #include "gt/uc/intel_guc_slpc.h"
+> >
+> > @@ -4898,6 +4899,18 @@ static u32 num_perf_groups_per_gt(struct intel_gt *gt)
+> >
+> >  static u32 __oam_engine_group(struct intel_engine_cs *engine)
+> >  {
+> > +	/*
+> > +	 * Wa_14017512683: mtl[a0..c0): Use of OAM must be preceded with Media
+> > +	 * C6 disable in BIOS. Do not enable OA for media classes if MC6 is
+> > +	 * enabled in BIOS.
+> > +	 */
+> > +	if (IS_MTL_MEDIA_STEP(engine->i915, STEP_A0, STEP_C0) &&
+> > +	    intel_check_bios_c6_setup(&engine->gt->rc6)) {
+> > +		drm_notice_once(&engine->i915->drm,
+> > +				"OAM requires media C6 to be disabled in BIOS\n");
+>
+> I think the typical mode of working with MTL would be to enable C6 unless OA
+> is needed. But this will print out this notice on every MTL system. So IMO
+> we should print this out only when a OAM perf stream is opened and that
+> fails.
+>
+> Though not sure if it's ok to add a line to an already cluttered dmesg? The
+> default console log level is 4 (WARNING) so maybe ok?
+>
+> https://linuxconfig.org/introduction-to-the-linux-kernel-log-levels
+>
+> Though if we fail the opening of an OAM stream we could make it a drm_warn?
+
+Another idea: there is a drm_notice in Patch 2 when C6 is disabled, maybe
+we could just change it to "C6 disabled by BIOS, OAM availbable\n" or
+something like that and just remove the notice from here. I think we should
+avoid the notice when C6 is enabled since that is likely to be the default
+mode.
+
+>
+> > +		return PERF_GROUP_INVALID;
+> > +	}
+> > +
+> >	if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 70)) {
+> >		/*
+> >		 * There's 1 SAMEDIA gt and 1 OAM per SAMEDIA gt. All media slices
+> > @@ -5317,6 +5330,23 @@ int i915_perf_ioctl_version(struct drm_i915_private *i915)
+> >	 *
+> >	 * 7: Add support for video decode and enhancement classes.
+> >	 */
+> > +
+> > +	/*
+> > +	 * Wa_14017512683: mtl[a0..c0): Use of OAM must be preceded with Media
+> > +	 * C6 disable in BIOS. Do not enable OA for media classes if MC6 is
+> > +	 * enabled in BIOS.
+>
+> Maybe add something like "Return version 6 to indicate non-support for OAM."
+> just to make clear.
+>
+> > +	 */
+> > +	if (IS_MTL_MEDIA_STEP(i915, STEP_A0, STEP_C0)) {
+> > +		struct intel_gt *gt;
+> > +		int i;
+> > +
+> > +		for_each_gt(gt, i915, i) {
+> > +			if (gt->type == GT_MEDIA &&
+> > +			    intel_check_bios_c6_setup(&gt->rc6))
+> > +				return 6;
+> > +		}
+> > +	}
+> > +
+> >	return 7;
+> >  }
+> >
+> > --
+> > 2.36.1
+> >
+>
+> Thanks.
+> --
+> Ashutosh
