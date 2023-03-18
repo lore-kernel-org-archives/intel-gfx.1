@@ -4,30 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C0E1C61DA4
-	for <intel-gfx@archiver.kernel.org>; Sat, 18 Mar 2023 15:20:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBDBFC74A5B
+	for <intel-gfx@archiver.kernel.org>; Sat, 18 Mar 2023 15:20:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB29110E106;
-	Sat, 18 Mar 2023 15:20:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E361510E10A;
+	Sat, 18 Mar 2023 15:20:30 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 76BA010E106;
- Sat, 18 Mar 2023 15:20:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id D410210E10A;
+ Sat, 18 Mar 2023 15:20:28 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 6DAC4A3ECB;
- Sat, 18 Mar 2023 15:20:26 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id CFDC8A3ECB;
+ Sat, 18 Mar 2023 15:20:28 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
-Date: Sat, 18 Mar 2023 15:20:26 -0000
-Message-ID: <167915282641.6192.3063244157368187580@emeril.freedesktop.org>
+Date: Sat, 18 Mar 2023 15:20:28 -0000
+Message-ID: <167915282884.6191.17314850119408945281@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20230318145952.2829819-1-ashutosh.dixit@intel.com>
 In-Reply-To: <20230318145952.2829819-1-ashutosh.dixit@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiB3YXJuaW5nIGZvciBS?=
- =?utf-8?q?evert_=22drm/i915/hwmon=3A_Enable_PL1_power_limit=22_=28rev2=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Revert_=22drm/i915/hwmon=3A_Enable_PL1_power_limit=22_=28re?=
+ =?utf-8?b?djIp?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
