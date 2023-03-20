@@ -4,41 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5C84C76195
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 15:18:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A280C7618A
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 15:30:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A68610E59A;
-	Mon, 20 Mar 2023 15:18:03 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63E9010E59A
- for <intel-gfx@lists.freedesktop.org>; Mon, 20 Mar 2023 15:18:01 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BDA79615AA;
- Mon, 20 Mar 2023 15:18:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54CB8C433D2;
- Mon, 20 Mar 2023 15:17:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1679325479;
- bh=Ldv6k/1TwC5j1UcwCZIez4KZZrzPuPDzc2xQnIi0j9M=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DHdZvbxiOvtMNRwINu4DIRoKag9xmPgrpKQVVkX1nKpaq5lyv3grIL6VbVQY8nqOa
- nTYOPTGFE6NAxmBWSFxF3w8aXsTQnFt6iCSKZbkf6UyJL9QHJjUPoxq9MqVnPohQK1
- ZIx1uGS+RMgLs3PJO5QkWBi0/cjfjmHU1s+fUT6Y=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Date: Mon, 20 Mar 2023 15:55:21 +0100
-Message-Id: <20230320145454.014250102@linuxfoundation.org>
-X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230320145449.336983711@linuxfoundation.org>
-References: <20230320145449.336983711@linuxfoundation.org>
-User-Agent: quilt/0.67
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B30E10E5CE;
+	Mon, 20 Mar 2023 15:30:44 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A62910E5CE;
+ Mon, 20 Mar 2023 15:30:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1679326242; x=1710862242;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=YLTTzXJrZjbA4Wxj46rjaO2JWSkZPqUuFi5sx1rWTvc=;
+ b=GP2l2jKzcyJQDRvdERqeJGH4Irwy3f2uUZKlxVRwzvzVGftQuYmyeAPI
+ VGrBI9gXpKJsaZr+D1M5L4IlBQ2ryQBiN12uPpkdgb6VKWZ4YlpZIUqWm
+ wR1XaE2NGnRxKeJWQX+WFIK0+ElA6qXanutY1VS8evpRLBMkxSZYum58P
+ X0Dy/5B7/ojw3nMfb2Y5ZkxNr6dhMceVQ+ofw4I8UvkGcPzk7REyRDVWt
+ g5O4YfWgummN3/FZaMzNtHht7Xfwf1VU4gk1HQJj30pQDDu+O+NU4MZed
+ ATjPsXx4AcpBy6epkPC9JV3pL7b5y7d+oc1p8wJ0Saq481tXcLCB5TlmS A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10655"; a="322533718"
+X-IronPort-AV: E=Sophos;i="5.98,274,1673942400"; d="scan'208";a="322533718"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Mar 2023 08:30:41 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10655"; a="791648659"
+X-IronPort-AV: E=Sophos;i="5.98,274,1673942400"; d="scan'208";a="791648659"
+Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.6.65])
+ ([10.213.6.65])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Mar 2023 08:30:38 -0700
+Message-ID: <1b9729c0-8831-87bd-8cc2-2cc23e929351@intel.com>
+Date: Mon, 20 Mar 2023 16:30:36 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5.15 109/115] drm/i915: Dont use stolen memory
- for ring buffers with LLC
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.9.0
+Content-Language: en-US
+To: Andi Shyti <andi.shyti@linux.intel.com>
+References: <20230224-track_gt-v4-0-464e8ab4c9ab@intel.com>
+ <20230224-track_gt-v4-1-464e8ab4c9ab@intel.com>
+ <ZBeT5cWWqY4hkqu6@ashyti-mobl2.lan>
+From: Andrzej Hajda <andrzej.hajda@intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <ZBeT5cWWqY4hkqu6@ashyti-mobl2.lan>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v4 01/10] lib/ref_tracker: add unlocked leak
+ print helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,52 +66,95 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- intel-gfx@lists.freedesktop.org, patches@lists.linux.dev,
- Chris Wilson <chris@chris-wilson.co.uk>, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: netdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Chris Wilson <chris.p.wilson@intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>, Eric Dumazet <edumazet@google.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Jakub Kicinski <kuba@kernel.org>,
+ David Airlie <airlied@gmail.com>, Dmitry Vyukov <dvyukov@google.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+On 19.03.2023 23:59, Andi Shyti wrote:
+> Hi Andrzej,
+> 
+> [...]
+> 
+>> diff --git a/lib/ref_tracker.c b/lib/ref_tracker.c
+>> index dc7b14aa3431e2..5e9f90bbf771b0 100644
+>> --- a/lib/ref_tracker.c
+>> +++ b/lib/ref_tracker.c
+>> @@ -14,6 +14,38 @@ struct ref_tracker {
+>>   	depot_stack_handle_t	free_stack_handle;
+>>   };
+>>   
+>> +void __ref_tracker_dir_print(struct ref_tracker_dir *dir,
+>> +			   unsigned int display_limit)
+> 
+> can we call this ref_tracker_dir_print_locked() instead of using
+> the '__'?
+> 
 
-commit 690e0ec8e63da9a29b39fedc6ed5da09c7c82651 upstream.
+OK, 'locked' convention looks better.
 
-Direction from hardware is that stolen memory should never be used for
-ring buffer allocations on platforms with LLC. There are too many
-caching pitfalls due to the way stolen memory accesses are routed. So
-it is safest to just not use it.
+Regards
+Andrzej
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Fixes: c58b735fc762 ("drm/i915: Allocate rings from stolen")
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v4.9+
-Tested-by: Jouni Högander <jouni.hogander@intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20230216011101.1909009-2-John.C.Harrison@Intel.com
-(cherry picked from commit f54c1f6c697c4297f7ed94283c184acc338a5cf8)
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/i915/gt/intel_ring.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/drivers/gpu/drm/i915/gt/intel_ring.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring.c
-@@ -113,7 +113,7 @@ static struct i915_vma *create_ring_vma(
- 	struct i915_vma *vma;
- 
- 	obj = i915_gem_object_create_lmem(i915, size, I915_BO_ALLOC_VOLATILE);
--	if (IS_ERR(obj) && i915_ggtt_has_aperture(ggtt))
-+	if (IS_ERR(obj) && i915_ggtt_has_aperture(ggtt) && !HAS_LLC(i915))
- 		obj = i915_gem_object_create_stolen(i915, size);
- 	if (IS_ERR(obj))
- 		obj = i915_gem_object_create_internal(i915, size);
-
+>> +{
+>> +	struct ref_tracker *tracker;
+>> +	unsigned int i = 0;
+>> +
+>> +	lockdep_assert_held(&dir->lock);
+>> +
+>> +	list_for_each_entry(tracker, &dir->list, head) {
+>> +		if (i < display_limit) {
+>> +			pr_err("leaked reference.\n");
+>> +			if (tracker->alloc_stack_handle)
+>> +				stack_depot_print(tracker->alloc_stack_handle);
+>> +			i++;
+>> +		} else {
+>> +			break;
+>> +		}
+>> +	}
+>> +}
+>> +EXPORT_SYMBOL(__ref_tracker_dir_print);
+>> +
+>> +void ref_tracker_dir_print(struct ref_tracker_dir *dir,
+>> +			   unsigned int display_limit)
+>> +{
+>> +	unsigned long flags;
+>> +
+>> +	spin_lock_irqsave(&dir->lock, flags);
+>> +	__ref_tracker_dir_print(dir, display_limit);
+>> +	spin_unlock_irqrestore(&dir->lock, flags);
+>> +}
+>> +EXPORT_SYMBOL(ref_tracker_dir_print);
+>> +
+>>   void ref_tracker_dir_exit(struct ref_tracker_dir *dir)
+>>   {
+>>   	struct ref_tracker *tracker, *n;
+>> @@ -27,13 +59,13 @@ void ref_tracker_dir_exit(struct ref_tracker_dir *dir)
+>>   		kfree(tracker);
+>>   		dir->quarantine_avail++;
+>>   	}
+>> -	list_for_each_entry_safe(tracker, n, &dir->list, head) {
+>> -		pr_err("leaked reference.\n");
+>> -		if (tracker->alloc_stack_handle)
+>> -			stack_depot_print(tracker->alloc_stack_handle);
+>> +	if (!list_empty(&dir->list)) {
+>> +		__ref_tracker_dir_print(dir, 16);
+>>   		leak = true;
+>> -		list_del(&tracker->head);
+>> -		kfree(tracker);
+>> +		list_for_each_entry_safe(tracker, n, &dir->list, head) {
+>> +			list_del(&tracker->head);
+>> +			kfree(tracker);
+>> +		}
+> 
+> Just thinking whether this should go on a different patch, but I
+> don't have a strong opinion.
+> 
+> Looks good!
+> 
+> Andi
 
