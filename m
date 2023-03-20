@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4C53C6FD1C
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 23:15:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38276C761A6
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 23:15:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DD1010E33D;
-	Mon, 20 Mar 2023 23:15:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A59989135;
+	Mon, 20 Mar 2023 23:15:53 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 733B810E00F;
- Mon, 20 Mar 2023 23:15:46 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0BF6510E340;
+ Mon, 20 Mar 2023 23:15:49 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 6B9F9AADD2;
- Mon, 20 Mar 2023 23:15:46 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id E6E3EAADEA;
+ Mon, 20 Mar 2023 23:15:48 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Alexandre Oliva" <oliva@gnu.org>
-Date: Mon, 20 Mar 2023 23:15:46 -0000
-Message-ID: <167935414641.26307.5095672800406677617@emeril.freedesktop.org>
+Date: Mon, 20 Mar 2023 23:15:48 -0000
+Message-ID: <167935414894.26309.12146292033768806543@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <orjzzlhhg8.fsf@lxoliva.fsfla.org>
 In-Reply-To: <orjzzlhhg8.fsf@lxoliva.fsfla.org>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiB3YXJuaW5nIGZvciBh?=
- =?utf-8?q?void_infinite_retries_in_GuC/HuC_loading?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_avoid_infinite_retries_in_GuC/HuC_loading?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
