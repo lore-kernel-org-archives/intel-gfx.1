@@ -4,41 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F196C7618D
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 15:12:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E88FC7619A
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Mar 2023 15:14:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 887C010E5C9;
-	Mon, 20 Mar 2023 15:12:21 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E612010E5A0
- for <intel-gfx@lists.freedesktop.org>; Mon, 20 Mar 2023 15:12:02 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 62998B80EDC;
- Mon, 20 Mar 2023 15:12:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7549C433A0;
- Mon, 20 Mar 2023 15:11:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1679325119;
- bh=n8INzP9xrlxiMR2igTI6U9yfxcAygakj9Q9XUBxLdlI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RMRfzJYxZ6ZrILRR50haD4Vp0SoiZk51zcYrbtu06RF39ksKnE+vUGjXc4i3y2w/u
- Zng3QbF6ScW8yvLQ7IaZFcxkLVti4KKLm20wBZQ2iNqjVo+WfsS6vVBowDVcBTH4EC
- wcmuxm+O8OcELvu3okBaN02/8s+bJapde/of7wdw=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Date: Mon, 20 Mar 2023 15:54:55 +0100
-Message-Id: <20230320145446.626338296@linuxfoundation.org>
-X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230320145443.333824603@linuxfoundation.org>
-References: <20230320145443.333824603@linuxfoundation.org>
-User-Agent: quilt/0.67
+	by gabe.freedesktop.org (Postfix) with ESMTP id D569010E5C4;
+	Mon, 20 Mar 2023 15:14:34 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AB0810E2D9;
+ Mon, 20 Mar 2023 15:14:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1679325272; x=1710861272;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=wEJa0GP3/V393lo37hu+c7/l6uvFaV1Uh+P3Q5auMJA=;
+ b=YVU5RG74+pQXoeemrIZaY8ao/S2BOpm0YAcHhN6xzVnLi646mP5AU2uj
+ JfjvevIwEgr1k2yMndo+MPXt2fOAOwOVGYUltkrCxFMsM1V94IBWVMkdI
+ Udl9YNz/wxHJ2nj9wBEzxWXulKBNLxrDc37AwCdWnwSFZslNh2vXpogaw
+ F6wwg1Hl7zVrn8NLvhYjbqzIpMXH4esNF5+8WmMFMYwH6IXWAhu6CN6ei
+ LnaP9ktQ4HcTWeZpPPXreH60a60cJXTUOGcITjN+f7sRlxlhq2XO2Tu8d
+ 8K4R+QFtFy22e38Gcptvymvr2DrlLLQYaHQ6NWgDvzyWANsxZrvA3kaca Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10655"; a="322529499"
+X-IronPort-AV: E=Sophos;i="5.98,274,1673942400"; d="scan'208";a="322529499"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Mar 2023 08:14:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10655"; a="770231521"
+X-IronPort-AV: E=Sophos;i="5.98,274,1673942400"; d="scan'208";a="770231521"
+Received: from sbrieffi-mobl.ger.corp.intel.com (HELO localhost.localdomain)
+ ([10.213.210.83])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Mar 2023 08:14:29 -0700
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: Intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Mon, 20 Mar 2023 15:14:23 +0000
+Message-Id: <20230320151423.1708436-1-tvrtko.ursulin@linux.intel.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5.10 77/99] drm/i915: Dont use stolen memory for
- ring buffers with LLC
+Subject: [Intel-gfx] [PATCH] drm/i915: Fix context runtime accounting
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,52 +57,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- intel-gfx@lists.freedesktop.org, patches@lists.linux.dev,
- Chris Wilson <chris@chris-wilson.co.uk>, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: stable@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-commit 690e0ec8e63da9a29b39fedc6ed5da09c7c82651 upstream.
+When considering whether to mark one context as stopped and another as
+started we need to look at whether the previous and new _contexts_ are
+different and not just requests. Otherwise the software tracked context
+start time was incorrectly updated to the most recent lite-restore time-
+stamp, which was in some cases resulting in active time going backward,
+until the context switch (typically the hearbeat pulse) would synchronise
+with the hardware tracked context runtime. Easiest use case to observe
+this behaviour was with a full screen clients with close to 100% engine
+load.
 
-Direction from hardware is that stolen memory should never be used for
-ring buffer allocations on platforms with LLC. There are too many
-caching pitfalls due to the way stolen memory accesses are routed. So
-it is safest to just not use it.
-
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Fixes: c58b735fc762 ("drm/i915: Allocate rings from stolen")
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v4.9+
-Tested-by: Jouni Högander <jouni.hogander@intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20230216011101.1909009-2-John.C.Harrison@Intel.com
-(cherry picked from commit f54c1f6c697c4297f7ed94283c184acc338a5cf8)
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Fixes: bb6287cb1886 ("drm/i915: Track context current active time")
+Cc: <stable@vger.kernel.org> # v5.19+
 ---
- drivers/gpu/drm/i915/gt/intel_ring.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
---- a/drivers/gpu/drm/i915/gt/intel_ring.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring.c
-@@ -108,7 +108,7 @@ static struct i915_vma *create_ring_vma(
- 	struct i915_vma *vma;
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 1bbe6708d0a7..750326434677 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -2018,6 +2018,8 @@ process_csb(struct intel_engine_cs *engine, struct i915_request **inactive)
+ 	 * inspecting the queue to see if we need to resumbit.
+ 	 */
+ 	if (*prev != *execlists->active) { /* elide lite-restores */
++		struct intel_context *prev_ce = NULL, *active_ce = NULL;
++
+ 		/*
+ 		 * Note the inherent discrepancy between the HW runtime,
+ 		 * recorded as part of the context switch, and the CPU
+@@ -2029,9 +2031,15 @@ process_csb(struct intel_engine_cs *engine, struct i915_request **inactive)
+ 		 * and correct overselves later when updating from HW.
+ 		 */
+ 		if (*prev)
+-			lrc_runtime_stop((*prev)->context);
++			prev_ce = (*prev)->context;
+ 		if (*execlists->active)
+-			lrc_runtime_start((*execlists->active)->context);
++			active_ce = (*execlists->active)->context;
++		if (prev_ce != active_ce) {
++			if (prev_ce)
++				lrc_runtime_stop(prev_ce);
++			if (active_ce)
++				lrc_runtime_start(active_ce);
++		}
+ 		new_timeslice(execlists);
+ 	}
  
- 	obj = ERR_PTR(-ENODEV);
--	if (i915_ggtt_has_aperture(ggtt))
-+	if (i915_ggtt_has_aperture(ggtt) && !HAS_LLC(i915))
- 		obj = i915_gem_object_create_stolen(i915, size);
- 	if (IS_ERR(obj))
- 		obj = i915_gem_object_create_internal(i915, size);
-
+-- 
+2.37.2
 
