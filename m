@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5ED0C6FD1D
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Mar 2023 06:54:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1556CC74A5B
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Mar 2023 06:54:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEC0C10E6E5;
-	Tue, 21 Mar 2023 06:54:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E21210E6E3;
+	Tue, 21 Mar 2023 06:54:40 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id AF2BF10E6E3;
- Tue, 21 Mar 2023 06:54:35 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 18EE710E6E3;
+ Tue, 21 Mar 2023 06:54:38 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id A8821A66C9;
- Tue, 21 Mar 2023 06:54:35 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 15B2AAADF8;
+ Tue, 21 Mar 2023 06:54:38 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Cavitt, Jonathan" <jonathan.cavitt@intel.com>
-Date: Tue, 21 Mar 2023 06:54:35 -0000
-Message-ID: <167938167566.18679.595361939333082158@emeril.freedesktop.org>
+Date: Tue, 21 Mar 2023 06:54:38 -0000
+Message-ID: <167938167808.18680.11387861895705456090@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20230320192117.287374-1-andi.shyti@linux.intel.com>
 In-Reply-To: <20230320192117.287374-1-andi.shyti@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/selftests=3A_Drop_igt=5Fcs=5Ftlb_=28rev3=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915/selftests=3A_Drop_igt=5Fcs=5Ftlb_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
