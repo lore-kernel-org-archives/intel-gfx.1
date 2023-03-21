@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A6B1C76195
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Mar 2023 05:24:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98176C6FD1D
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Mar 2023 05:24:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55CBF10E02B;
-	Tue, 21 Mar 2023 05:24:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05FB510E031;
+	Tue, 21 Mar 2023 05:24:54 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6DDF510E02B;
- Tue, 21 Mar 2023 05:24:50 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C6D4C10E031;
+ Tue, 21 Mar 2023 05:24:52 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 37624AADD5;
- Tue, 21 Mar 2023 05:24:50 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id C38CAAADD5;
+ Tue, 21 Mar 2023 05:24:52 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: =?utf-8?q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>
-Date: Tue, 21 Mar 2023 05:24:50 -0000
-Message-ID: <167937629019.18680.13607248997448884356@emeril.freedesktop.org>
+Date: Tue, 21 Mar 2023 05:24:52 -0000
+Message-ID: <167937629279.18680.16438851999982529002@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20230320165945.3564891-1-jouni.hogander@intel.com>
 In-Reply-To: <20230320165945.3564891-1-jouni.hogander@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_High_refresh_rate_PSR_fixes_=28rev3=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?High_refresh_rate_PSR_fixes_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
