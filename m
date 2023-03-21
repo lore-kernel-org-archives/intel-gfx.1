@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C4C1C76195
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Mar 2023 22:01:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BDB6C6FD20
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Mar 2023 22:01:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87BA110E0A7;
-	Tue, 21 Mar 2023 22:01:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A55CA10E883;
+	Tue, 21 Mar 2023 22:01:15 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1611D10E0A7
- for <intel-gfx@lists.freedesktop.org>; Tue, 21 Mar 2023 22:01:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B98A10E0A7
+ for <intel-gfx@lists.freedesktop.org>; Tue, 21 Mar 2023 22:01:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679436069; x=1710972069;
+ t=1679436070; x=1710972070;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=bYuLcu+oIGSOOT72KxiyZJvRqwSx/4L1Fj9v7ScTgGY=;
- b=hX8aRu9AHAur2/IUq2tBcrS9GE52D1Ud9T3LV3D+sM6E1OyOaaWeWoeE
- mzM0EgxIUcW+Hx9COQcu5CCdMt9dOfCrgtcBeNf7Bjyl0nqraxhgtTTIh
- gljAZdS6Lz01hTH9pYfjHgBuUTcXWJS9DoLJ2toGylzwoqr2Kv5R9wzPl
- kqEtSE/vCfh5CnkvsRLlE+EvtvOHtZZQUX0hR299o2015YVqE/76nHcu1
- 0jUybw4VQoBNr5kjE5ijvf9+ruKSL3kZLWeAgyVNP22LuvKDF3mdphpw6
- fZF1me+lUpQu0Sgd0xy6RumxihTvRlxo0kqMdbO2WdAtcWnkcJmZzcNDD g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="336573810"
-X-IronPort-AV: E=Sophos;i="5.98,279,1673942400"; d="scan'208";a="336573810"
+ bh=SQo/itz14CpgkjPYNXiyYmj1//jhx9qIGkCHCK41bos=;
+ b=I9rXOJ5g7D/YcGOJm1mfqoq+mD9b1smbgo4LoRCoatmTKdl7snVklnjd
+ fboCRICyo5w6xPIEWcMQQsi0rfCG2zs/h7Q5pOZSN8am9XQymM0PGzHi8
+ jGn6a1+W2r+VfQo+veSQF7FifGzMG4hrfW99a4kXr4FaPQ+HnH6gT6hWW
+ CKbfoQKAQgqf50srHoy8WlV7BpgsodYRfIB+G4y7pqZd4Wmp6AmcSlBxw
+ OR6ZtvLtVPj9CZat/BQP2IPGFfjmU6KIIq74dQs/hyuL8PJHxaKxxbdwP
+ jJfQchJdLzJWxLwMsmNaR/Mr0DTFjXiT7IP2pAuH7JpoqXI9j1WzfKLjx A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="336573816"
+X-IronPort-AV: E=Sophos;i="5.98,279,1673942400"; d="scan'208";a="336573816"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2023 15:01:08 -0700
+ 21 Mar 2023 15:01:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="805584593"
-X-IronPort-AV: E=Sophos;i="5.98,279,1673942400"; d="scan'208";a="805584593"
+X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="805584649"
+X-IronPort-AV: E=Sophos;i="5.98,279,1673942400"; d="scan'208";a="805584649"
 Received: from ideak-desk.fi.intel.com ([10.237.72.58])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2023 15:01:05 -0700
+ 21 Mar 2023 15:01:08 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 22 Mar 2023 00:00:59 +0200
-Message-Id: <20230321220101.983366-1-imre.deak@intel.com>
+Date: Wed, 22 Mar 2023 00:01:01 +0200
+Message-Id: <20230321220101.983366-3-imre.deak@intel.com>
 X-Mailer: git-send-email 2.31.1.189.g2e36527f23
-In-Reply-To: <20230316131724.359612-12-imre.deak@intel.com>
-References: <20230316131724.359612-12-imre.deak@intel.com>
+In-Reply-To: <20230316131724.359612-15-imre.deak@intel.com>
+References: <20230316131724.359612-15-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 11/14] drm/i915/tc: Assume a TC port is
- legacy if VBT says the port has HDMI
+Subject: [Intel-gfx] [PATCH v2 14/14] drm/i915/tc: Check the PLL type used
+ by an enabled TC port
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,41 +62,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since an HDMI output can only be enabled in legacy mode on TC ports,
-assume that VBT is wrong and the port is legacy if VBT says the port is
-non-legacy and has HDMI. If VBT says to enable DP as well leave the
-non-legacy flag enabled, relying on the flag getting fixed up based on
-the HPD status during sink detection.
+The current way to determine during HW state sanitization if a PHY is
+connected in the expected way doesn't work in all cases. The check for
+this considers only the PHY ready/owned state and the initial TC mode
+which was determined earlier by the TC port HW readout - using the
+sink's HPD and the same PHY ready/owned states.
 
-v2: Fix the legacy port flag only if DP is not enabled.
+For instance for an enabled DP-alt/TBT port without the PHY ready/owned
+flags set the initial mode will be TBT, and this will be regarded as a
+valid PHY state. However it's possible that the port is actually enabled
+in DP-alt mode, but for some reason the PHY ownership was not acquired.
+
+Make sure the driver can detect invalid PHY states as in the above
+example by checking the PHY ready/owned state wrt. the PLL type used.
+This should be the TBT PLL if the PHY is not owned and the MG (non-TBT)
+PLL if the PHY is owned.
+
+v2: Rebased on change passing crtc_state in the previous patch.
 
 Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/i915/display/intel_tc.c | 44 ++++++++++++++-----------
+ 1 file changed, 24 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 3d6d27409ebe8..8805676cc3a65 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -4497,6 +4497,16 @@ void intel_ddi_init(struct drm_i915_private *dev_priv, enum port port)
- 			!intel_bios_encoder_supports_typec_usb(devdata) &&
- 			!intel_bios_encoder_supports_tbt(devdata);
+diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
+index c5bfd9f11d7de..bd8c9df5f98fe 100644
+--- a/drivers/gpu/drm/i915/display/intel_tc.c
++++ b/drivers/gpu/drm/i915/display/intel_tc.c
+@@ -5,6 +5,7 @@
  
-+		if (!is_legacy && init_hdmi) {
-+			is_legacy = !init_dp;
-+
-+			drm_dbg_kms(&dev_priv->drm,
-+				    "VBT says port %c is non-legacy TC and has HDMI (with DP: %s), assume it's %s\n",
-+				    port_name(port),
-+				    str_yes_no(init_dp),
-+				    is_legacy ? "legacy" : "non-legacy");
-+		}
-+
- 		intel_tc_port_init(dig_port, is_legacy);
+ #include "i915_drv.h"
+ #include "i915_reg.h"
++#include "intel_ddi.h"
+ #include "intel_de.h"
+ #include "intel_display.h"
+ #include "intel_display_power_map.h"
+@@ -568,29 +569,29 @@ static bool tc_phy_is_ready_and_owned(struct intel_digital_port *dig_port,
+ 	return phy_is_ready && phy_is_owned;
+ }
  
- 		encoder->update_prepare = intel_ddi_update_prepare;
+-static bool icl_tc_phy_is_connected(struct intel_digital_port *dig_port)
++static bool tc_phy_is_connected(struct intel_digital_port *dig_port,
++				enum icl_port_dpll_id port_pll_type)
+ {
+-	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+-
+-	if (!tc_phy_status_complete(dig_port)) {
+-		drm_dbg_kms(&i915->drm, "Port %s: PHY status not complete\n",
+-			    dig_port->tc_port_name);
+-		return dig_port->tc_mode == TC_PORT_TBT_ALT;
+-	}
+-
+-	/* On ADL-P the PHY complete flag is set in TBT mode as well. */
+-	if (IS_ALDERLAKE_P(i915) && dig_port->tc_mode == TC_PORT_TBT_ALT)
+-		return true;
++	struct intel_encoder *encoder = &dig_port->base;
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++	bool phy_is_ready = tc_phy_status_complete(dig_port);
++	bool phy_is_owned = tc_phy_is_owned(dig_port);
++	bool is_connected;
+ 
+-	if (!tc_phy_is_owned(dig_port)) {
+-		drm_dbg_kms(&i915->drm, "Port %s: PHY not owned\n",
+-			    dig_port->tc_port_name);
++	if (tc_phy_is_ready_and_owned(dig_port, phy_is_ready, phy_is_owned))
++		is_connected = port_pll_type == ICL_PORT_DPLL_MG_PHY;
++	else
++		is_connected = port_pll_type == ICL_PORT_DPLL_DEFAULT;
+ 
+-		return false;
+-	}
++	drm_dbg_kms(&i915->drm,
++		    "Port %s: PHY connected: %s (ready: %s, owned: %s, pll_type: %s)\n",
++		    dig_port->tc_port_name,
++		    str_yes_no(is_connected),
++		    str_yes_no(phy_is_ready),
++		    str_yes_no(phy_is_owned),
++		    port_pll_type == ICL_PORT_DPLL_DEFAULT ? "tbt" : "non-tbt");
+ 
+-	return dig_port->tc_mode == TC_PORT_DP_ALT ||
+-	       dig_port->tc_mode == TC_PORT_LEGACY;
++	return is_connected;
+ }
+ 
+ static void tc_phy_wait_for_ready(struct intel_digital_port *dig_port)
+@@ -876,15 +877,18 @@ static bool tc_port_has_active_links(struct intel_digital_port *dig_port,
+ 				     const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++	enum icl_port_dpll_id pll_type = ICL_PORT_DPLL_DEFAULT;
+ 	int active_links = 0;
+ 
+ 	if (dig_port->dp.is_mst) {
++		/* TODO: get the PLL type for MST, once HW readout is done for it. */
+ 		active_links = intel_dp_mst_encoder_active_links(dig_port);
+ 	} else if (crtc_state && crtc_state->hw.active) {
++		pll_type = intel_ddi_port_pll_type(&dig_port->base, crtc_state);
+ 		active_links = 1;
+ 	}
+ 
+-	if (active_links && !icl_tc_phy_is_connected(dig_port))
++	if (active_links && !tc_phy_is_connected(dig_port, pll_type))
+ 		drm_err(&i915->drm,
+ 			"Port %s: PHY disconnected with %d active link(s)\n",
+ 			dig_port->tc_port_name, active_links);
 -- 
 2.37.1
 
