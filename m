@@ -4,31 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D905C6FD1C
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Mar 2023 03:00:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09B1FC76195
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Mar 2023 03:00:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DF9410E6CD;
-	Tue, 21 Mar 2023 03:00:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B19D10E6D1;
+	Tue, 21 Mar 2023 03:00:05 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8CBED10E6CD;
- Tue, 21 Mar 2023 02:59:59 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1324E10E6CD;
+ Tue, 21 Mar 2023 03:00:02 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 89304AADF8;
- Tue, 21 Mar 2023 02:59:59 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id F352AA7DFF;
+ Tue, 21 Mar 2023 03:00:01 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Nirmoy Das" <nirmoy.das@intel.com>
-Date: Tue, 21 Mar 2023 02:59:59 -0000
-Message-ID: <167936759955.18678.17874071441802161912@emeril.freedesktop.org>
+Date: Tue, 21 Mar 2023 03:00:01 -0000
+Message-ID: <167936760199.18676.5961789894320788076@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20230316165918.13074-1-nirmoy.das@intel.com>
 In-Reply-To: <20230316165918.13074-1-nirmoy.das@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?drm/i915/gem=3A_Flush_lmem_contents_after_construction_=28rev2?=
- =?utf-8?q?=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkRPQ1M6IHdhcm5pbmcgZm9yIGRy?=
+ =?utf-8?q?m/i915/gem=3A_Flush_lmem_contents_after_construction_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
