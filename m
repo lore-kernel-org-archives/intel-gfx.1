@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70A81C6FD1F
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Mar 2023 10:34:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65414C6FD1F
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Mar 2023 11:17:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8938210E901;
-	Wed, 22 Mar 2023 10:34:53 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D09610E8E8
- for <intel-gfx@lists.freedesktop.org>; Wed, 22 Mar 2023 10:34:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8033310E91D;
+	Wed, 22 Mar 2023 11:17:27 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CFFC10E91C;
+ Wed, 22 Mar 2023 11:17:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679481282; x=1711017282;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=E3MxHmggTumlTIgLzmBnxWGg8GqqriU6T/dEDBKr+pc=;
- b=PPF4t2mA33NrWVhpEsy/mt0lzg9eO3RA8yeIY84AaoN480olI3h6aHem
- UJmwoqgbjJ3dYYNKLZ+XcGyGhifDV+hadHjgwN/zOt5c55UUwqTQcRH55
- 9L08uFMlQ/bFSXuQzhmMZyM4YilAfPa8WOEKTJHz2fm3lCM9fcrJaSsTF
- 0bw/xxztF9dtvYLE5+nqaL82FpEGy9tTjZkQvb83i81QTnHPfyizz3mam
- XPXm2hFptmctz+MoKrTAbTCBHMmw3JasnWOHblBMvtGi5bsX9DEq7Cj4t
- MpNLt0wxZEOhAuETjucMWBEjyC17GSaRl7FKKwjhtIa78XUM3qWuWEsa3 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="340716634"
-X-IronPort-AV: E=Sophos;i="5.98,281,1673942400"; d="scan'208";a="340716634"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2023 03:34:41 -0700
+ t=1679483844; x=1711019844;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=q68J+MDaPByG+mcBJ1l0TszGxrB4T860tUhC7J/+pkM=;
+ b=XjlaTGYnJvoRVP9sIUdaW1bCqSnLChjNQ7lh3cnTNOao17qclejr2mX/
+ CNrOmtnNj62dKfXtESrOQrDCnlcD6EMNjRKzZjRcQrvqBfvA/Z1JGtn3w
+ 6FkozSsWRccm0mwvLrbZi9GkaYrPJMsBtaWpixQxs2AX+nHKBtUGbA3Wz
+ K4wdmss008DU0aU+qFW2IiwVSmUAF7O7d6Olpk1Fk2zqQkHXbr/SlApWQ
+ jilBTcg2EfvTX7bwu6B9sw0ukjjptuZ76J/Zfdp5AvKwf/dia6xcp9raJ
+ +uIcaoV4XRF62My7SvTLFwjjiycikY9J5UAIQnqQ13WLnLlAr1GGvnOr3 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="337908693"
+X-IronPort-AV: E=Sophos;i="5.98,281,1673942400"; d="scan'208";a="337908693"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Mar 2023 04:17:23 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="746249852"
-X-IronPort-AV: E=Sophos;i="5.98,281,1673942400"; d="scan'208";a="746249852"
-Received: from swcompto-mobl1.amr.corp.intel.com (HELO
- jhogande-mobl1.ger.corp.intel.com) ([10.252.63.36])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2023 03:34:35 -0700
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 22 Mar 2023 12:34:07 +0200
-Message-Id: <20230322103412.123943-2-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230322103412.123943-1-jouni.hogander@intel.com>
-References: <20230322103412.123943-1-jouni.hogander@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="675227070"
+X-IronPort-AV: E=Sophos;i="5.98,281,1673942400"; d="scan'208";a="675227070"
+Received: from joe-255.igk.intel.com (HELO localhost) ([10.91.220.57])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Mar 2023 04:17:20 -0700
+Date: Wed, 22 Mar 2023 12:17:19 +0100
+From: Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <20230322111719.GA2066233@linux.intel.com>
+References: <20230316082035.567520-1-christian.koenig@amd.com>
+ <20230316082035.567520-5-christian.koenig@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 1/6] drm/i915/psr: Unify pre/post hooks
+In-Reply-To: <20230316082035.567520-5-christian.koenig@amd.com>
+Subject: Re: [Intel-gfx] [PATCH 4/7] drm/debugfs: rework debugfs directory
+ creation v2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,49 +60,27 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: quic_jhugo@quicinc.com, dri-devel@lists.freedesktop.org, ogabbay@kernel.org,
+ mcanal@igalia.com, mwen@igalia.com, maxime@cerno.tech, daniel@ffwll.ch,
+ intel-gfx@lists.freedesktop.org, wambui.karugax@gmail.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-pre/post hooks are doing things differently. Unify them.
+On Thu, Mar 16, 2023 at 09:20:32AM +0100, Christian König wrote:
+> Instead of the per minor directories only create a single debugfs
+> directory for the whole device directly when the device is initialized.
+> 
+> For DRM devices each minor gets a symlink to the per device directory
+> for now until we can be sure that this isn't useful any more in any way.
+> 
+> Accel devices create only the per device directory and also drops the mid
+> layer callback to create driver specific files.
+> 
+> v2: cleanup accel component as well
+> 
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>  drivers/accel/drm_accel.c           | 30 ++++++++-------
 
-Signed-off-by: Jouni HÃ¶gander <jouni.hogander@intel.com>
----
- drivers/gpu/drm/i915/display/intel_psr.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 31084d95711d..8dbf452d63c2 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1954,23 +1954,22 @@ static void _intel_psr_post_plane_update(const struct intel_atomic_state *state,
- 					     crtc_state->uapi.encoder_mask) {
- 		struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
- 		struct intel_psr *psr = &intel_dp->psr;
-+		bool keep_disabled = false;
- 
- 		mutex_lock(&psr->lock);
- 
--		if (psr->sink_not_reliable)
--			goto exit;
--
- 		drm_WARN_ON(&dev_priv->drm, psr->enabled && !crtc_state->active_planes);
- 
--		/* Only enable if there is active planes */
--		if (!psr->enabled && crtc_state->active_planes)
-+		keep_disabled |= psr->sink_not_reliable;
-+		keep_disabled |= !crtc_state->active_planes;
-+
-+		if (!psr->enabled && !keep_disabled)
- 			intel_psr_enable_locked(intel_dp, crtc_state);
- 
- 		/* Force a PSR exit when enabling CRC to avoid CRC timeouts */
- 		if (crtc_state->crc_enabled && psr->enabled)
- 			psr_force_hw_tracking_exit(intel_dp);
- 
--exit:
- 		mutex_unlock(&psr->lock);
- 	}
- }
--- 
-2.34.1
+Tested-by: Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>
 
