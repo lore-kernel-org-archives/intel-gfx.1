@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96FA0C76195
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Mar 2023 00:09:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 657B0C6FD1D
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Mar 2023 00:09:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 265CF10E299;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC43B10E2FB;
 	Wed, 22 Mar 2023 00:09:24 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8717210E222
- for <intel-gfx@lists.freedesktop.org>; Wed, 22 Mar 2023 00:08:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8B0610E195
+ for <intel-gfx@lists.freedesktop.org>; Wed, 22 Mar 2023 00:08:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679443737; x=1710979737;
+ t=1679443736; x=1710979736;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=xYw7Wyg5wMFjnpHZpkBeRLhfPGqKrgj7d/CCAQmxMK0=;
- b=mmWRRFDNtltiTsHt5GQlcTG8/PFPc07+UceQHrQ2AD8FMwLAka0KiZCo
- R7bw7c9CTQ9mBn5MTosDPCdTztS7PbDVOrsGvnmv7NxXJ72j5+gaq8U6B
- cBFFX/kmVy3F8/xZuwL1iDuxYrCXkHxL+Qs1gfmQF0/aIIGOXxkfIVNbS
- IwCYWOE4NB2kSG7Q2emvni59wGuglVb3X1mUYzyaq8UYv7bVFnrOY6LpN
- KwcY+Yrie3gju49Y75Y5g4Cgw2MxXrgHNUmtitOm+75e90DF0COyKi0I2
- t4Uz3X/1CY7v1vldR8kopdDOCeFHT7r7H4+84kqxpux22aMZyd+s8c7VQ g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="319476663"
-X-IronPort-AV: E=Sophos;i="5.98,280,1673942400"; d="scan'208";a="319476663"
+ bh=uCc7fUShkojDvM8G9lWxN/pp9SGIESdwlgmFase3CL4=;
+ b=e9hqG8R6+vFI69Btb2NjNikSxzIWVvZYpzK32Zz1lY3Drax5mYPxZfuE
+ nkZ0gG1bCTYSM9IkhtDce4/hBl+3m4VnhjSPlxh65jcU28YU9U9JFK0Wn
+ 6OWA1oryibbsb3gllDPhbKZ555rBCaUk1K5LnyOQ5qDsjp3ieDHub/D+q
+ 3FAmcggod2VW0A3XcZfUarV7oUjr8Hz4SFeIUlhfHBTSVk2BVFh4Y1ldi
+ rMUkmdcapEDRsVESs8+55feb4Bim+PqSLxbIS7h23Z4aqMIZrD77IZ78Z
+ 3Wr1VAkOCdZxoiSEIa3Uuv5Hlp49WyJ2j3gh5VdMm0vC3Ajdqn2vMXSBd A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="319476659"
+X-IronPort-AV: E=Sophos;i="5.98,280,1673942400"; d="scan'208";a="319476659"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2023 17:08:57 -0700
+ 21 Mar 2023 17:08:56 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="825180353"
-X-IronPort-AV: E=Sophos;i="5.98,280,1673942400"; d="scan'208";a="825180353"
+X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="825180344"
+X-IronPort-AV: E=Sophos;i="5.98,280,1673942400"; d="scan'208";a="825180344"
 Received: from orsosgc001.jf.intel.com ([10.165.21.138])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2023 17:08:57 -0700
+ 21 Mar 2023 17:08:56 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 21 Mar 2023 17:08:54 -0700
-Message-Id: <20230322000854.3310481-12-umesh.nerlige.ramappa@intel.com>
+Date: Tue, 21 Mar 2023 17:08:51 -0700
+Message-Id: <20230322000854.3310481-9-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20230322000854.3310481-1-umesh.nerlige.ramappa@intel.com>
 References: <20230322000854.3310481-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 11/11] drm/i915/perf: Wa_14017512683: Disable
- OAM if media C6 is enabled in BIOS
+Subject: [Intel-gfx] [PATCH v8 08/11] drm/i915/perf: Add engine class
+ instance parameters to perf
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,77 +61,191 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-OAM does not work with media C6 enabled on some steppings of MTL.
-Disable OAM if we detect that media C6 was enabled in bios.
+One or more engines map to a specific OA unit. All reports from these
+engines are captured in the OA buffer managed by this OA unit.
+
+Current i915 OA implementation supports only the OAG unit. OAG primarily
+caters to render engine, so i915 OA uses render as the default engine
+in the OA implementation. Since there are more OA units on newer
+hardware that map to other engines, allow user to pass engine class and
+instance to select and program specific OA units.
+
+UMD specific changes for GPUvis support:
+https://patchwork.freedesktop.org/patch/522827/?series=114023
+https://patchwork.freedesktop.org/patch/522822/?series=114023
+https://patchwork.freedesktop.org/patch/522826/?series=114023
+https://patchwork.freedesktop.org/patch/522828/?series=114023
+https://patchwork.freedesktop.org/patch/522816/?series=114023
+https://patchwork.freedesktop.org/patch/522825/?series=114023
 
 v2: (Ashutosh)
-- Remove drm_notice from the driver load path
-- Log a drm_err when opening an OAM stream on affected steppings
+- Clarify commit message
+- Add drm_dbg
+- Clarify uapi description
 
-v3:
-- Initialize the engine group even if mc6 is enabled (Ashutosh)
-- Checkpatch fix
+v3: (Ashutosh)
+- Remove irrelevant info from the uapi comment
+
+v4: Ensure engine class:instance is passed together (Ashutosh)
+v5: Remove unnecessary quote (Ashutosh)
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/i915_perf.c | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ drivers/gpu/drm/i915/i915_perf.c | 71 ++++++++++++++++++++------------
+ include/uapi/drm/i915_drm.h      | 19 +++++++++
+ 2 files changed, 63 insertions(+), 27 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 18afa76653b7..c035dbb84c9b 100644
+index 8c4bcdce8019..081d1dd743e0 100644
 --- a/drivers/gpu/drm/i915/i915_perf.c
 +++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -209,6 +209,7 @@
- #include "gt/intel_gt_regs.h"
- #include "gt/intel_lrc.h"
- #include "gt/intel_lrc_reg.h"
-+#include "gt/intel_rc6.h"
- #include "gt/intel_ring.h"
- #include "gt/uc/intel_guc_slpc.h"
+@@ -4012,48 +4012,32 @@ static int read_properties_unlocked(struct i915_perf *perf,
+ {
+ 	struct drm_i915_gem_context_param_sseu user_sseu;
+ 	u64 __user *uprop = uprops;
++	bool config_instance = false;
++	bool config_class = false;
+ 	bool config_sseu = false;
++	u8 class, instance;
+ 	u32 i;
+ 	int ret;
  
-@@ -4223,6 +4224,19 @@ static int read_properties_unlocked(struct i915_perf *perf,
+ 	memset(props, 0, sizeof(struct perf_open_properties));
+ 	props->poll_oa_period = DEFAULT_POLL_PERIOD_NS;
+ 
+-	if (!n_props) {
+-		drm_dbg(&perf->i915->drm,
+-			"No i915 perf properties given\n");
+-		return -EINVAL;
+-	}
+-
+-	/* At the moment we only support using i915-perf on the RCS. */
+-	props->engine = intel_engine_lookup_user(perf->i915,
+-						 I915_ENGINE_CLASS_RENDER,
+-						 0);
+-	if (!props->engine) {
+-		drm_dbg(&perf->i915->drm,
+-			"No RENDER-capable engines\n");
+-		return -EINVAL;
+-	}
+-
+-	if (!engine_supports_oa(props->engine)) {
+-		drm_dbg(&perf->i915->drm,
+-			"Engine not supported by OA %d:%d\n",
+-			I915_ENGINE_CLASS_RENDER, 0);
+-		return -EINVAL;
+-	}
+-
+ 	/* Considering that ID = 0 is reserved and assuming that we don't
+ 	 * (currently) expect any configurations to ever specify duplicate
+ 	 * values for a particular property ID then the last _PROP_MAX value is
+ 	 * one greater than the maximum number of properties we expect to get
+ 	 * from userspace.
+ 	 */
+-	if (n_props >= DRM_I915_PERF_PROP_MAX) {
++	if (!n_props || n_props >= DRM_I915_PERF_PROP_MAX) {
+ 		drm_dbg(&perf->i915->drm,
+-			"More i915 perf properties specified than exist\n");
++			"Invalid number of i915 perf properties given\n");
  		return -EINVAL;
  	}
  
-+	/*
-+	 * Wa_14017512683: mtl[a0..c0): Use of OAM must be preceded with Media
-+	 * C6 disable in BIOS. Fail if Media C6 is enabled on steppings where OAM
-+	 * does not work as expected.
-+	 */
-+	if (IS_MTL_MEDIA_STEP(props->engine->i915, STEP_A0, STEP_C0) &&
-+	    props->engine->oa_group->type == TYPE_OAM &&
-+	    intel_check_bios_c6_setup(&props->engine->gt->rc6)) {
++	/* Defaults when class:instance is not passed */
++	class = I915_ENGINE_CLASS_RENDER;
++	instance = 0;
++
+ 	for (i = 0; i < n_props; i++) {
+ 		u64 oa_period, oa_freq_hz;
+ 		u64 id, value;
+@@ -4174,7 +4158,15 @@ static int read_properties_unlocked(struct i915_perf *perf,
+ 			}
+ 			props->poll_oa_period = value;
+ 			break;
+-		case DRM_I915_PERF_PROP_MAX:
++		case DRM_I915_PERF_PROP_OA_ENGINE_CLASS:
++			class = (u8)value;
++			config_class = true;
++			break;
++		case DRM_I915_PERF_PROP_OA_ENGINE_INSTANCE:
++			instance = (u8)value;
++			config_instance = true;
++			break;
++		default:
+ 			MISSING_CASE(id);
+ 			return -EINVAL;
+ 		}
+@@ -4182,6 +4174,28 @@ static int read_properties_unlocked(struct i915_perf *perf,
+ 		uprop += 2;
+ 	}
+ 
++	if ((config_class && !config_instance) ||
++	    (config_instance && !config_class)) {
 +		drm_dbg(&perf->i915->drm,
-+			"OAM requires media C6 to be disabled in BIOS\n");
++			"OA engine-class and engine-instance parameters must be passed together\n");
 +		return -EINVAL;
 +	}
 +
- 	i = array_index_nospec(props->oa_format, I915_OA_FORMAT_MAX);
- 	f = &perf->oa_formats[i];
- 	if (!engine_supports_oa_format(props->engine, f->type)) {
-@@ -5316,6 +5330,23 @@ int i915_perf_ioctl_version(struct drm_i915_private *i915)
- 	 *
- 	 * 7: Add support for video decode and enhancement classes.
- 	 */
-+
-+	/*
-+	 * Wa_14017512683: mtl[a0..c0): Use of OAM must be preceded with Media
-+	 * C6 disable in BIOS. If Media C6 is enabled in BIOS, return version 6
-+	 * to indicate that OA media is not supported.
-+	 */
-+	if (IS_MTL_MEDIA_STEP(i915, STEP_A0, STEP_C0)) {
-+		struct intel_gt *gt;
-+		int i;
-+
-+		for_each_gt(gt, i915, i) {
-+			if (gt->type == GT_MEDIA &&
-+			    intel_check_bios_c6_setup(&gt->rc6))
-+				return 6;
-+		}
++	props->engine = intel_engine_lookup_user(perf->i915, class, instance);
++	if (!props->engine) {
++		drm_dbg(&perf->i915->drm,
++			"OA engine class and instance invalid %d:%d\n",
++			class, instance);
++		return -EINVAL;
 +	}
 +
- 	return 7;
++	if (!engine_supports_oa(props->engine)) {
++		drm_dbg(&perf->i915->drm,
++			"Engine not supported by OA %d:%d\n",
++			class, instance);
++		return -EINVAL;
++	}
++
+ 	if (config_sseu) {
+ 		ret = get_sseu_config(&props->sseu, props->engine, &user_sseu);
+ 		if (ret) {
+@@ -5158,8 +5172,11 @@ int i915_perf_ioctl_version(void)
+ 	 *
+ 	 * 5: Add DRM_I915_PERF_PROP_POLL_OA_PERIOD parameter that controls the
+ 	 *    interval for the hrtimer used to check for OA data.
++	 *
++	 * 6: Add DRM_I915_PERF_PROP_OA_ENGINE_CLASS and
++	 *    DRM_I915_PERF_PROP_OA_ENGINE_INSTANCE
+ 	 */
+-	return 5;
++	return 6;
  }
+ 
+ #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index 5e458d6f2895..384e74cac539 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -2758,6 +2758,25 @@ enum drm_i915_perf_property_id {
+ 	 */
+ 	DRM_I915_PERF_PROP_POLL_OA_PERIOD,
+ 
++	/**
++	 * Multiple engines may be mapped to the same OA unit. The OA unit is
++	 * identified by class:instance of any engine mapped to it.
++	 *
++	 * This parameter specifies the engine class and must be passed along
++	 * with DRM_I915_PERF_PROP_OA_ENGINE_INSTANCE.
++	 *
++	 * This property is available in perf revision 6.
++	 */
++	DRM_I915_PERF_PROP_OA_ENGINE_CLASS,
++
++	/**
++	 * This parameter specifies the engine instance and must be passed along
++	 * with DRM_I915_PERF_PROP_OA_ENGINE_CLASS.
++	 *
++	 * This property is available in perf revision 6.
++	 */
++	DRM_I915_PERF_PROP_OA_ENGINE_INSTANCE,
++
+ 	DRM_I915_PERF_PROP_MAX /* non-ABI */
+ };
  
 -- 
 2.36.1
