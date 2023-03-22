@@ -4,49 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA595C761AF
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Mar 2023 14:22:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8942CC6FD1C
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Mar 2023 14:36:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F18D710E38A;
-	Wed, 22 Mar 2023 14:22:27 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE51110E38A;
- Wed, 22 Mar 2023 14:22:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED3CA10E976;
+	Wed, 22 Mar 2023 14:36:34 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74DAF10E976
+ for <intel-gfx@lists.freedesktop.org>; Wed, 22 Mar 2023 14:36:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679494946; x=1711030946;
+ t=1679495791; x=1711031791;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=StLSUG9jSdG4qzMIdPRlmgOzudWc7UibT0yv+xP5TNI=;
- b=lknA6XlkU4H+l8j21jG53FbM8/Pp292PGvpmqyKXQQA5/FRi5SCOksvP
- zdLlrPQCO2MjnjwE9Cr6UJsMg/tRq2K7t2ojowYqwlIcj7GBb5A5VlHqw
- 74VEtHV7GxJxGQI66iBeJfKL3qlfVcYbELxw7CGcM+hwngjUJKV+gft3Z
- kzCIz/kC62l9C2yZNZXksKElMWlobwO+D71hcjLc4nLavp2ZaZFXhh6jo
- pB87uiAT5D10V9fS7UKQYG/mf2/CcB0pkcCgMY/jESIpug1Th5AUOKbco
- xhyMvEI+lBg9B5dBECd7M8giV7SQPNFQT7xp+HDzGFZCe9OUPh/et7ysE w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="340760578"
-X-IronPort-AV: E=Sophos;i="5.98,282,1673942400"; d="scan'208";a="340760578"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Mar 2023 07:22:26 -0700
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=59G3zI6ZnIn8wjZ1We6q03CpProvUmg9KeUGhP6hHEQ=;
+ b=VcsD/8L7eACmL1ycEvqh8/mvxZrw1Fp2R+96QJMhkXfuQtZyQel83TwT
+ zWKwdEPqa1aL+5FOCePQLMfm/EUc2BN2huE6Tqrca7JABo4uPNAtSyf4/
+ 9NgIFYNwUGwlePCdto3Q2uR3BapYCeBaI4uQPH8mXOUjKSc/x8DaC6avK
+ bQ50CheaM4YJYV5lNStsAQwh4LhFPPlGqX8Ja+aif+RD8D9ZYU4IKK+bl
+ 1m4SFQa4x77oBjfqurZJugx64TSSfoKNDyG4DoiBzg2V9f3+XOQdkTQ/B
+ vmILTAJBA18EQEHT2mrHQO8SxCJG8zKQEfKtmiUQ0q509SMqcrIpeNQFU w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="337951546"
+X-IronPort-AV: E=Sophos;i="5.98,282,1673942400"; d="scan'208";a="337951546"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Mar 2023 07:36:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="927846116"
-X-IronPort-AV: E=Sophos;i="5.98,282,1673942400"; d="scan'208";a="927846116"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost)
- ([10.239.159.165])
- by fmsmga006.fm.intel.com with ESMTP; 22 Mar 2023 07:22:20 -0700
-Date: Wed, 22 Mar 2023 22:10:55 +0800
-From: Xu Yilun <yilun.xu@intel.com>
-To: Yi Liu <yi.l.liu@intel.com>
-Message-ID: <ZBsMb3L4LmmK5tHW@yilunxu-OptiPlex-7050>
-References: <20230308132903.465159-1-yi.l.liu@intel.com>
- <20230308132903.465159-6-yi.l.liu@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="684334331"
+X-IronPort-AV: E=Sophos;i="5.98,282,1673942400"; d="scan'208";a="684334331"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
+ by fmsmga007.fm.intel.com with SMTP; 22 Mar 2023 07:36:28 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 22 Mar 2023 16:36:28 +0200
+Date: Wed, 22 Mar 2023 16:36:28 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Vinod Govindapillai <vinod.govindapillai@intel.com>
+Message-ID: <ZBsSbERoJlz0KE9z@intel.com>
+References: <20230322142051.714161-1-vinod.govindapillai@intel.com>
+ <20230322142051.714161-2-vinod.govindapillai@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20230308132903.465159-6-yi.l.liu@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v6 05/24] kvm/vfio: Accept vfio device file
- from userspace
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230322142051.714161-2-vinod.govindapillai@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH v2 1/2] drm/i915/reg: fix QGV points
+ register access offsets
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,111 +62,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
- peterx@redhat.com, terrence.xu@intel.com, chao.p.peng@linux.intel.com,
- linux-s390@vger.kernel.org, kvm@vger.kernel.org, lulu@redhat.com,
- joro@8bytes.org, nicolinc@nvidia.com, jgg@nvidia.com, yan.y.zhao@intel.com,
- intel-gfx@lists.freedesktop.org, eric.auger@redhat.com,
- intel-gvt-dev@lists.freedesktop.org, yi.y.sun@linux.intel.com,
- cohuck@redhat.com, shameerali.kolothum.thodi@huawei.com,
- suravee.suthikulpanit@amd.com, robin.murphy@arm.com
+Cc: intel-gfx@lists.freedesktop.org, ville.syrjala@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2023-03-08 at 05:28:44 -0800, Yi Liu wrote:
-> This defines KVM_DEV_VFIO_FILE* and make alias with KVM_DEV_VFIO_GROUP*.
-> Old userspace uses KVM_DEV_VFIO_GROUP* works as well.
+On Wed, Mar 22, 2023 at 04:20:50PM +0200, Vinod Govindapillai wrote:
+> Wrong offsets are calculated to read QGV point registers. Fix it
+> to read from the correct registers.
 > 
-> Signed-off-by: Yi Liu <yi.l.liu@intel.com>
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> Tested-by: Terrence Xu <terrence.xu@intel.com>
-> Tested-by: Nicolin Chen <nicolinc@nvidia.com>
-> Tested-by: Matthew Rosato <mjrosato@linux.ibm.com>
+> v2: Avoid magic number and better handling the second bitgroup
+> 
+> Bspec: 64602
+> 
+> Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
+> Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 > ---
->  Documentation/virt/kvm/devices/vfio.rst | 52 +++++++++++++++++--------
->  include/uapi/linux/kvm.h                | 16 ++++++--
->  virt/kvm/vfio.c                         | 16 ++++----
->  3 files changed, 55 insertions(+), 29 deletions(-)
+>  drivers/gpu/drm/i915/i915_reg.h | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 > 
-> diff --git a/Documentation/virt/kvm/devices/vfio.rst b/Documentation/virt/kvm/devices/vfio.rst
-> index 79b6811bb4f3..5b05b48abaab 100644
-> --- a/Documentation/virt/kvm/devices/vfio.rst
-> +++ b/Documentation/virt/kvm/devices/vfio.rst
-> @@ -9,24 +9,37 @@ Device types supported:
->    - KVM_DEV_TYPE_VFIO
+> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+> index d22ffd7a32dc..74468ed9dc9d 100644
+> --- a/drivers/gpu/drm/i915/i915_reg.h
+> +++ b/drivers/gpu/drm/i915/i915_reg.h
+> @@ -7724,12 +7724,13 @@ enum skl_power_gate {
+>  #define   MTL_N_OF_POPULATED_CH_MASK		REG_GENMASK(7, 4)
+>  #define   MTL_DDR_TYPE_MASK			REG_GENMASK(3, 0)
 >  
->  Only one VFIO instance may be created per VM.  The created device
-> -tracks VFIO groups in use by the VM and features of those groups
-> -important to the correctness and acceleration of the VM.  As groups
-> -are enabled and disabled for use by the VM, KVM should be updated
-> -about their presence.  When registered with KVM, a reference to the
-> -VFIO-group is held by KVM.
-> +tracks VFIO files (group or device) in use by the VM and features
-> +of those groups/devices important to the correctness and acceleration
-> +of the VM.  As groups/devices are enabled and disabled for use by the
-> +VM, KVM should be updated about their presence.  When registered with
-> +KVM, a reference to the VFIO file is held by KVM.
+> -#define MTL_MEM_SS_INFO_QGV_POINT_LOW(point)	 _MMIO(0x45710 + (point) * 2)
+> +#define MTL_MEM_SS_INFO_QGV_POINT_OFFSET	0x45710
+> +#define MTL_MEM_SS_INFO_QGV_POINT_LOW(point)	_MMIO(MTL_MEM_SS_INFO_QGV_POINT_OFFSET + (point) * 2 * 0x4)
+>  #define   MTL_TRCD_MASK			REG_GENMASK(31, 24)
+>  #define   MTL_TRP_MASK			REG_GENMASK(23, 16)
+>  #define   MTL_DCLK_MASK			REG_GENMASK(15, 0)
 >  
->  Groups:
-> -  KVM_DEV_VFIO_GROUP
-> -
-> -KVM_DEV_VFIO_GROUP attributes:
-> -  KVM_DEV_VFIO_GROUP_ADD: Add a VFIO group to VFIO-KVM device tracking
-> -	kvm_device_attr.addr points to an int32_t file descriptor
-> -	for the VFIO group.
-> -  KVM_DEV_VFIO_GROUP_DEL: Remove a VFIO group from VFIO-KVM device tracking
-> -	kvm_device_attr.addr points to an int32_t file descriptor
-> -	for the VFIO group.
-> -  KVM_DEV_VFIO_GROUP_SET_SPAPR_TCE: attaches a guest visible TCE table
-> +  KVM_DEV_VFIO_FILE
-> +	alias: KVM_DEV_VFIO_GROUP
-> +
-> +KVM_DEV_VFIO_FILE attributes:
-> +  KVM_DEV_VFIO_FILE_ADD: Add a VFIO file (group/device) to VFIO-KVM device
-> +	tracking
-> +
-> +	alias: KVM_DEV_VFIO_GROUP_ADD
-> +
-> +	kvm_device_attr.addr points to an int32_t file descriptor for the
-> +	VFIO file.
+> -#define MTL_MEM_SS_INFO_QGV_POINT_HIGH(point)	 _MMIO(0x45714 + (point) * 2)
+> +#define MTL_MEM_SS_INFO_QGV_POINT_HIGH(point)	_MMIO(MTL_MEM_SS_INFO_QGV_POINT_OFFSET + 4 + (point) * 2 * 0x4)
 
-A blank line here to be consistent with other attibutes.
+The normal style is to just do '(point) * 8' and '(point) * 8 + 4'
 
-> +  KVM_DEV_VFIO_FILE_DEL: Remove a VFIO file (group/device) from VFIO-KVM
-> +	device tracking
-> +
-> +	alias: KVM_DEV_VFIO_GROUP_DEL
-> +
-> +	kvm_device_attr.addr points to an int32_t file descriptor for the
-> +	VFIO file.
-> +
-> +  KVM_DEV_VFIO_FILE_SET_SPAPR_TCE: attaches a guest visible TCE table
->  	allocated by sPAPR KVM.
-> +
-> +	alias: KVM_DEV_VFIO_GROUP_SET_SPAPR_TCE
-> +
->  	kvm_device_attr.addr points to a struct::
+>  #define   MTL_TRAS_MASK			REG_GENMASK(16, 8)
+>  #define   MTL_TRDPRE_MASK		REG_GENMASK(7, 0)
 >  
->  		struct kvm_vfio_spapr_tce {
-> @@ -40,9 +53,14 @@ KVM_DEV_VFIO_GROUP attributes:
->  	- @tablefd is a file descriptor for a TCE table allocated via
->  	  KVM_CREATE_SPAPR_TCE.
->  
-> +	only accepts vfio group file as SPAPR has no iommufd support
-> +
->  ::
->  
-> -The GROUP_ADD operation above should be invoked prior to accessing the
-> +The FILE/GROUP_ADD operation above should be invoked prior to accessing the
->  device file descriptor via VFIO_GROUP_GET_DEVICE_FD in order to support
->  drivers which require a kvm pointer to be set in their .open_device()
-> -callback.
-> +callback.  It is the same for device file descriptor via character device
-> +open which gets device access via VFIO_DEVICE_BIND_IOMMUFD.  For such file
-> +descriptors, FILE_ADD should be invoked before VFIO_DEVICE_BIND_IOMMUFD
-> +to support the drivers mentioned in piror sentence as well.
+> -- 
+> 2.34.1
 
-s/piror/prior
-
-Thanks,
-Yilun
+-- 
+Ville Syrjälä
+Intel
