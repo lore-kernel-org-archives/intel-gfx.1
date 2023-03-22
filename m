@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9E8CC76195
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Mar 2023 00:09:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04BABC6FD1D
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Mar 2023 00:09:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5954910E21F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C34010E222;
 	Wed, 22 Mar 2023 00:09:06 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 323C610E195
- for <intel-gfx@lists.freedesktop.org>; Wed, 22 Mar 2023 00:08:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11A2A10E114
+ for <intel-gfx@lists.freedesktop.org>; Wed, 22 Mar 2023 00:08:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679443737; x=1710979737;
+ t=1679443736; x=1710979736;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=v62QfCCDfMg5GpkLQnez3QlTOE+N8Glt0Fp+QGYhiFw=;
- b=hykFTmLkNL/zTqhGRFQDDSgZgqMbcjh2kRxjLay/jWHfNtuQdpo/LC43
- cbz09H0O/SuboY8lAkF7DBGrbHCKlpw/3x4xebkmPc1CTTlm9agCGgWJR
- Ej9O7vgobwgqhrZB/MNCFikDKLezennNLNRWXEh3XaB8CwnPTTuY331N2
- 8ExothN1RaF/kXVSoz/0icFFYtOwf3N/nJduzSmIPXTsl2iIJZsrrSCCW
- dGFhbfvrMxHTXd4qiVlDcVjue9t88MgJh+70mVhasCHxAbCDo4wSSiOTX
- cURiP7pwGGDsfCo1yUTfWtYZiufhWhue4J89bK4v5MDHyjiQxQP8oE3PA Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="319476661"
-X-IronPort-AV: E=Sophos;i="5.98,280,1673942400"; d="scan'208";a="319476661"
+ bh=bg9QqY3QcQz5iOe435jwvzbg2fXI520E71AGCJsmcxg=;
+ b=BAf/sUBuzcLnaJIrC08E+u8ls07aZe+XDiU9TXDZ5ntA0uB9Y4Y3/Dw/
+ OxDcX8JOE8Z9SXAmdGe8Y8HThJUs93rCEkGyz3YY3+NJbvEY/AgpQUPRZ
+ AQmtCTw5LaCKGDL3m6XThaW84+u3Wcs/L2RxsGeail0Z9xe/iVFitxOlx
+ y7gxKb/RvWsRpQ0yfISVET5xUQhppysh/Hx+8SbkbN2A8ZWH8ylUpGjrc
+ 5f+JxuEehJPpZhYEzQZ6cbvrfwPdu6B3x07DG8ev+vkzJnIrsT+W+jBXK
+ dB7JRYOf5NuKNhz0dewC2iDV9KB+FyeGxF/LSZ6CM3AYfLuswHNpS+x10 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="319476652"
+X-IronPort-AV: E=Sophos;i="5.98,280,1673942400"; d="scan'208";a="319476652"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2023 17:08:57 -0700
+ 21 Mar 2023 17:08:55 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="825180347"
-X-IronPort-AV: E=Sophos;i="5.98,280,1673942400"; d="scan'208";a="825180347"
+X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="825180331"
+X-IronPort-AV: E=Sophos;i="5.98,280,1673942400"; d="scan'208";a="825180331"
 Received: from orsosgc001.jf.intel.com ([10.165.21.138])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Mar 2023 17:08:56 -0700
+ 21 Mar 2023 17:08:55 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 21 Mar 2023 17:08:52 -0700
-Message-Id: <20230322000854.3310481-10-umesh.nerlige.ramappa@intel.com>
+Date: Tue, 21 Mar 2023 17:08:47 -0700
+Message-Id: <20230322000854.3310481-5-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20230322000854.3310481-1-umesh.nerlige.ramappa@intel.com>
 References: <20230322000854.3310481-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 09/11] drm/i915/perf: Add support for OA
- media units
+Subject: [Intel-gfx] [PATCH v8 04/11] drm/i915/perf: Group engines into
+ respective OA groups
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,634 +61,345 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-MTL introduces additional OA units dedicated to media use cases. Add
-support for programming these OA units by passing the media engine class
-and instance parameters.
+Now that we may have multiple OA units in a single GT as well as on
+separate GTs, create an engine group that maps to a single OA unit.
 
-UMD specific changes for GPUvis support:
-https://patchwork.freedesktop.org/patch/522827/?series=114023
-https://patchwork.freedesktop.org/patch/522822/?series=114023
-https://patchwork.freedesktop.org/patch/522826/?series=114023
-https://patchwork.freedesktop.org/patch/522828/?series=114023
-https://patchwork.freedesktop.org/patch/522816/?series=114023
-https://patchwork.freedesktop.org/patch/522825/?series=114023
-
-v2: (Ashutosh)
-- check for IP_VER(12, 70) instead of MTL
-- remove PERF_GROUP_OAG comment in mtl_oa_base
-- remove oa_buffer.group
-- use engine->oa_group->type in engine_supports_oa_format
-- remove fw_domains and use FORCEWAKE_ALL
-- remove MPES/MPEC comment
-- s/xehp/mtl/ in b counter validation function name
-- remove engine_supports_oa in __oa_engine_group
-- remove warn_ON from __oam_engine_group
-- refactor oa_init_groups and oa_init_regs
-- assign g->type correctly
-- use enum oa_type definition
+v2: (Jani)
+- Drop warning on ENOMEM
+- Reorder patch in the series
 
 v3: (Ashutosh)
-- Drop oa_unit_functional as engine_supports_oa is enough
+- Remove unused members from perf structs
+- Update comments
+- Update engine_supports_oa check
+- Just return 1 in num_perf_groups_per_gt for now
+- Set engine->oa_group to NULL to begin with
 
-v4:
-- s/DRM_DEBUG/drm_dbg/
+v4: Use engine_supports_oa() check in oa_init_reg_state (Ashutosh)
+v5: Rebase after dropping engine_supports_oa helper
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h          |   2 +
- drivers/gpu/drm/i915/i915_pci.c          |   1 +
- drivers/gpu/drm/i915/i915_perf.c         | 184 ++++++++++++++++++++---
- drivers/gpu/drm/i915/i915_perf_oa_regs.h |  78 ++++++++++
- drivers/gpu/drm/i915/i915_perf_types.h   |  30 ++++
- drivers/gpu/drm/i915/intel_device_info.h |   1 +
- include/uapi/drm/i915_drm.h              |   4 +
- 7 files changed, 278 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_types.h | 10 +++
+ drivers/gpu/drm/i915/gt/intel_sseu.c         |  3 +-
+ drivers/gpu/drm/i915/i915_perf.c             | 93 ++++++++++++++++++--
+ drivers/gpu/drm/i915/i915_perf_types.h       | 33 ++++++-
+ 4 files changed, 127 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 6254aa977398..d81c35407d25 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -858,6 +858,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- 	(INTEL_INFO(dev_priv)->has_oa_bpc_reporting)
- #define HAS_OA_SLICE_CONTRIB_LIMITS(dev_priv) \
- 	(INTEL_INFO(dev_priv)->has_oa_slice_contrib_limits)
-+#define HAS_OAM(dev_priv) \
-+	(INTEL_INFO(dev_priv)->has_oam)
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_types.h b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+index 0a071e5da1a8..960291f88fd6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_types.h
+@@ -53,6 +53,8 @@ struct intel_gt;
+ struct intel_ring;
+ struct intel_uncore;
+ struct intel_breadcrumbs;
++struct intel_engine_cs;
++struct i915_perf_group;
  
- /*
-  * Set this flag, when platform requires 64K GTT page sizes or larger for
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index a8d942b16223..621730b6551c 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -1028,6 +1028,7 @@ static const struct intel_device_info adl_p_info = {
- 	.has_mslice_steering = 1, \
- 	.has_oa_bpc_reporting = 1, \
- 	.has_oa_slice_contrib_limits = 1, \
-+	.has_oam = 1, \
- 	.has_rc6 = 1, \
- 	.has_reset_engine = 1, \
- 	.has_rps = 1, \
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 081d1dd743e0..247dad57ab89 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -192,6 +192,7 @@
-  */
+ typedef u32 intel_engine_mask_t;
+ #define ALL_ENGINES ((intel_engine_mask_t)~0ul)
+@@ -617,6 +619,14 @@ struct intel_engine_cs {
+ 	} props, defaults;
  
- #include <linux/anon_inodes.h>
-+#include <linux/nospec.h>
- #include <linux/sizes.h>
- #include <linux/uuid.h>
- 
-@@ -326,6 +327,12 @@ static const struct i915_oa_format oa_formats[I915_OA_FORMAT_MAX] = {
- 	[I915_OA_FORMAT_A32u40_A4u32_B8_C8] = { 5, 256 },
- 	[I915_OAR_FORMAT_A32u40_A4u32_B8_C8]    = { 5, 256 },
- 	[I915_OA_FORMAT_A24u40_A14u32_B8_C8]    = { 5, 256 },
-+	[I915_OAM_FORMAT_MPEC8u64_B8_C8]	= { 1, 192, TYPE_OAM, HDR_64_BIT },
-+	[I915_OAM_FORMAT_MPEC8u32_B8_C8]	= { 2, 128, TYPE_OAM, HDR_64_BIT },
-+};
+ 	I915_SELFTEST_DECLARE(struct fault_attr reset_timeout);
 +
-+static const u32 mtl_oa_base[] = {
-+	[PERF_GROUP_OAM_SAMEDIA_0] = 0x393000,
++	/*
++	 * The perf group maps to one OA unit which controls one OA buffer. All
++	 * reports corresponding to this engine will be reported to this OA
++	 * buffer. An engine will map to a single OA unit, but a single OA unit
++	 * can generate reports for multiple engines.
++	 */
++	struct i915_perf_group *oa_group;
  };
  
- #define SAMPLE_OA_REPORT      (1<<0)
-@@ -418,11 +425,17 @@ static void free_oa_config_bo(struct i915_oa_config_bo *oa_bo)
- 	kfree(oa_bo);
+ static inline bool
+diff --git a/drivers/gpu/drm/i915/gt/intel_sseu.c b/drivers/gpu/drm/i915/gt/intel_sseu.c
+index 6c6198a257ac..1141f875f5bd 100644
+--- a/drivers/gpu/drm/i915/gt/intel_sseu.c
++++ b/drivers/gpu/drm/i915/gt/intel_sseu.c
+@@ -6,6 +6,7 @@
+ #include <linux/string_helpers.h>
+ 
+ #include "i915_drv.h"
++#include "i915_perf_types.h"
+ #include "intel_engine_regs.h"
+ #include "intel_gt_regs.h"
+ #include "intel_sseu.h"
+@@ -677,7 +678,7 @@ u32 intel_sseu_make_rpcs(struct intel_gt *gt,
+ 	 * If i915/perf is active, we want a stable powergating configuration
+ 	 * on the system. Use the configuration pinned by i915/perf.
+ 	 */
+-	if (gt->perf.exclusive_stream)
++	if (gt->perf.group && gt->perf.group[PERF_GROUP_OAG].exclusive_stream)
+ 		req_sseu = &gt->perf.sseu;
+ 
+ 	slices = hweight8(req_sseu->slice_mask);
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index ebd76b5c9712..cf4ea5e389a5 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -1570,12 +1570,18 @@ free_noa_wait(struct i915_perf_stream *stream)
+ 	i915_vma_unpin_and_release(&stream->noa_wait, 0);
  }
  
-+static inline const
-+struct i915_perf_regs *__oa_regs(struct i915_perf_stream *stream)
++static bool engine_supports_oa(const struct intel_engine_cs *engine)
 +{
-+	return &stream->engine->oa_group->regs;
-+}
-+
- static u32 gen12_oa_hw_tail_read(struct i915_perf_stream *stream)
- {
- 	struct intel_uncore *uncore = stream->uncore;
- 
--	return intel_uncore_read(uncore, GEN12_OAG_OATAILPTR) &
-+	return intel_uncore_read(uncore, __oa_regs(stream)->oa_tail_ptr) &
- 	       GEN12_OAG_OATAILPTR_MASK;
- }
- 
-@@ -875,7 +888,8 @@ static int gen8_append_oa_reports(struct i915_perf_stream *stream,
- 		i915_reg_t oaheadptr;
- 
- 		oaheadptr = GRAPHICS_VER(stream->perf->i915) == 12 ?
--			    GEN12_OAG_OAHEADPTR : GEN8_OAHEADPTR;
-+			    __oa_regs(stream)->oa_head_ptr :
-+			    GEN8_OAHEADPTR;
- 
- 		spin_lock_irqsave(&stream->oa_buffer.ptr_lock, flags);
- 
-@@ -928,7 +942,8 @@ static int gen8_oa_read(struct i915_perf_stream *stream,
- 		return -EIO;
- 
- 	oastatus_reg = GRAPHICS_VER(stream->perf->i915) == 12 ?
--		       GEN12_OAG_OASTATUS : GEN8_OASTATUS;
-+		       __oa_regs(stream)->oa_status :
-+		       GEN8_OASTATUS;
- 
- 	oastatus = intel_uncore_read(uncore, oastatus_reg);
- 
-@@ -1637,6 +1652,11 @@ static bool engine_supports_oa(const struct intel_engine_cs *engine)
- 	return engine->oa_group;
- }
- 
-+static bool engine_supports_oa_format(struct intel_engine_cs *engine, int type)
-+{
-+	return engine->oa_group && engine->oa_group->type == type;
++	return engine->oa_group;
 +}
 +
  static void i915_oa_stream_destroy(struct i915_perf_stream *stream)
  {
  	struct i915_perf *perf = stream->perf;
-@@ -1788,8 +1808,8 @@ static void gen12_init_oa_buffer(struct i915_perf_stream *stream)
+ 	struct intel_gt *gt = stream->engine->gt;
++	struct i915_perf_group *g = stream->engine->oa_group;
  
- 	spin_lock_irqsave(&stream->oa_buffer.ptr_lock, flags);
- 
--	intel_uncore_write(uncore, GEN12_OAG_OASTATUS, 0);
--	intel_uncore_write(uncore, GEN12_OAG_OAHEADPTR,
-+	intel_uncore_write(uncore, __oa_regs(stream)->oa_status, 0);
-+	intel_uncore_write(uncore, __oa_regs(stream)->oa_head_ptr,
- 			   gtt_offset & GEN12_OAG_OAHEADPTR_MASK);
- 	stream->oa_buffer.head = gtt_offset;
- 
-@@ -1801,9 +1821,9 @@ static void gen12_init_oa_buffer(struct i915_perf_stream *stream)
- 	 *  to enable proper functionality of the overflow
- 	 *  bit."
- 	 */
--	intel_uncore_write(uncore, GEN12_OAG_OABUFFER, gtt_offset |
-+	intel_uncore_write(uncore, __oa_regs(stream)->oa_buffer, gtt_offset |
- 			   OABUFFER_SIZE_16M | GEN8_OABUFFER_MEM_SELECT_GGTT);
--	intel_uncore_write(uncore, GEN12_OAG_OATAILPTR,
-+	intel_uncore_write(uncore, __oa_regs(stream)->oa_tail_ptr,
- 			   gtt_offset & GEN12_OAG_OATAILPTR_MASK);
- 
- 	/* Mark that we need updated tail pointers to read from... */
-@@ -2563,7 +2583,8 @@ gen8_modify_self(struct intel_context *ce,
- 	return err;
- }
- 
--static int gen8_configure_context(struct i915_gem_context *ctx,
-+static int gen8_configure_context(struct i915_perf_stream *stream,
-+				  struct i915_gem_context *ctx,
- 				  struct flex *flex, unsigned int count)
- {
- 	struct i915_gem_engines_iter it;
-@@ -2704,7 +2725,7 @@ oa_configure_all_contexts(struct i915_perf_stream *stream,
- 
- 		spin_unlock(&i915->gem.contexts.lock);
- 
--		err = gen8_configure_context(ctx, regs, num_regs);
-+		err = gen8_configure_context(stream, ctx, regs, num_regs);
- 		if (err) {
- 			i915_gem_context_put(ctx);
- 			return err;
-@@ -2749,6 +2770,9 @@ gen12_configure_all_contexts(struct i915_perf_stream *stream,
- 		},
- 	};
- 
-+	if (stream->engine->class != RENDER_CLASS)
-+		return 0;
-+
- 	return oa_configure_all_contexts(stream,
- 					 regs, ARRAY_SIZE(regs),
- 					 active);
-@@ -2878,7 +2902,7 @@ gen12_enable_metric_set(struct i915_perf_stream *stream,
- 				   _MASKED_BIT_ENABLE(GEN12_DISABLE_DOP_GATING));
- 	}
- 
--	intel_uncore_write(uncore, GEN12_OAG_OA_DEBUG,
-+	intel_uncore_write(uncore, __oa_regs(stream)->oa_debug,
- 			   /* Disable clk ratio reports, like previous Gens. */
- 			   _MASKED_BIT_ENABLE(GEN12_OAG_OA_DEBUG_DISABLE_CLK_RATIO_REPORTS |
- 					      GEN12_OAG_OA_DEBUG_INCLUDE_CLK_RATIO) |
-@@ -2888,7 +2912,7 @@ gen12_enable_metric_set(struct i915_perf_stream *stream,
- 			    */
- 			   oag_report_ctx_switches(stream));
- 
--	intel_uncore_write(uncore, GEN12_OAG_OAGLBCTXCTRL, periodic ?
-+	intel_uncore_write(uncore, __oa_regs(stream)->oa_ctx_ctrl, periodic ?
- 			   (GEN12_OAG_OAGLBCTXCTRL_COUNTER_RESUME |
- 			    GEN12_OAG_OAGLBCTXCTRL_TIMER_ENABLE |
- 			    (period_exponent << GEN12_OAG_OAGLBCTXCTRL_TIMER_PERIOD_SHIFT))
-@@ -3042,8 +3066,8 @@ static void gen8_oa_enable(struct i915_perf_stream *stream)
- 
- static void gen12_oa_enable(struct i915_perf_stream *stream)
- {
--	struct intel_uncore *uncore = stream->uncore;
--	u32 report_format = stream->oa_buffer.format->format;
-+	const struct i915_perf_regs *regs;
-+	u32 val;
+-	if (WARN_ON(stream != gt->perf.exclusive_stream))
++	if (WARN_ON(stream != g->exclusive_stream))
+ 		return;
  
  	/*
- 	 * If we don't want OA reports from the OA buffer, then we don't even
-@@ -3054,9 +3078,11 @@ static void gen12_oa_enable(struct i915_perf_stream *stream)
+@@ -1584,7 +1590,7 @@ static void i915_oa_stream_destroy(struct i915_perf_stream *stream)
+ 	 *
+ 	 * See i915_oa_init_reg_state() and lrc_configure_all_contexts()
+ 	 */
+-	WRITE_ONCE(gt->perf.exclusive_stream, NULL);
++	WRITE_ONCE(g->exclusive_stream, NULL);
+ 	perf->ops.disable_metric_set(stream);
  
- 	gen12_init_oa_buffer(stream);
+ 	free_oa_buffer(stream);
+@@ -3182,6 +3188,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ {
+ 	struct drm_i915_private *i915 = stream->perf->i915;
+ 	struct i915_perf *perf = stream->perf;
++	struct i915_perf_group *g;
+ 	struct intel_gt *gt;
+ 	int ret;
  
--	intel_uncore_write(uncore, GEN12_OAG_OACONTROL,
--			   (report_format << GEN12_OAG_OACONTROL_OA_COUNTER_FORMAT_SHIFT) |
--			   GEN12_OAG_OACONTROL_OA_COUNTER_ENABLE);
-+	regs = __oa_regs(stream);
-+	val = (stream->oa_buffer.format->format << regs->oa_ctrl_counter_format_shift) |
-+	      GEN12_OAG_OACONTROL_OA_COUNTER_ENABLE;
-+
-+	intel_uncore_write(stream->uncore, regs->oa_ctrl, val);
+@@ -3191,6 +3198,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 		return -EINVAL;
+ 	}
+ 	gt = props->engine->gt;
++	g = props->engine->oa_group;
+ 
+ 	/*
+ 	 * If the sysfs metrics/ directory wasn't registered for some
+@@ -3221,7 +3229,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 	 * counter reports and marshal to the appropriate client
+ 	 * we currently only allow exclusive access
+ 	 */
+-	if (gt->perf.exclusive_stream) {
++	if (g->exclusive_stream) {
+ 		drm_dbg(&stream->perf->i915->drm,
+ 			"OA unit already in use\n");
+ 		return -EBUSY;
+@@ -3316,7 +3324,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 	stream->ops = &i915_oa_stream_ops;
+ 
+ 	stream->engine->gt->perf.sseu = props->sseu;
+-	WRITE_ONCE(gt->perf.exclusive_stream, stream);
++	WRITE_ONCE(g->exclusive_stream, stream);
+ 
+ 	ret = i915_perf_stream_enable_sync(stream);
+ 	if (ret) {
+@@ -3339,7 +3347,7 @@ static int i915_oa_stream_init(struct i915_perf_stream *stream,
+ 	return 0;
+ 
+ err_enable:
+-	WRITE_ONCE(gt->perf.exclusive_stream, NULL);
++	WRITE_ONCE(g->exclusive_stream, NULL);
+ 	perf->ops.disable_metric_set(stream);
+ 
+ 	free_oa_buffer(stream);
+@@ -3373,7 +3381,7 @@ void i915_oa_init_reg_state(const struct intel_context *ce,
+ 		return;
+ 
+ 	/* perf.exclusive_stream serialised by lrc_configure_all_contexts() */
+-	stream = READ_ONCE(engine->gt->perf.exclusive_stream);
++	stream = READ_ONCE(engine->oa_group->exclusive_stream);
+ 	if (stream && GRAPHICS_VER(stream->perf->i915) < 12)
+ 		gen8_update_reg_state_unlocked(ce, stream);
  }
- 
- /**
-@@ -3108,9 +3134,9 @@ static void gen12_oa_disable(struct i915_perf_stream *stream)
- {
- 	struct intel_uncore *uncore = stream->uncore;
- 
--	intel_uncore_write(uncore, GEN12_OAG_OACONTROL, 0);
-+	intel_uncore_write(uncore, __oa_regs(stream)->oa_ctrl, 0);
- 	if (intel_wait_for_register(uncore,
--				    GEN12_OAG_OACONTROL,
-+				    __oa_regs(stream)->oa_ctrl,
- 				    GEN12_OAG_OACONTROL_OA_COUNTER_ENABLE, 0,
- 				    50))
- 		drm_err(&stream->perf->i915->drm,
-@@ -4011,6 +4037,7 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 				    struct perf_open_properties *props)
- {
- 	struct drm_i915_gem_context_param_sseu user_sseu;
-+	const struct i915_oa_format *f;
- 	u64 __user *uprop = uprops;
- 	bool config_instance = false;
- 	bool config_class = false;
-@@ -4196,6 +4223,15 @@ static int read_properties_unlocked(struct i915_perf *perf,
+@@ -3965,6 +3973,13 @@ static int read_properties_unlocked(struct i915_perf *perf,
  		return -EINVAL;
  	}
  
-+	i = array_index_nospec(props->oa_format, I915_OA_FORMAT_MAX);
-+	f = &perf->oa_formats[i];
-+	if (!engine_supports_oa_format(props->engine, f->type)) {
++	if (!engine_supports_oa(props->engine)) {
 +		drm_dbg(&perf->i915->drm,
-+			"Invalid OA format %d for class %d\n",
-+			f->type, props->engine->class);
++			"Engine not supported by OA %d:%d\n",
++			I915_ENGINE_CLASS_RENDER, 0);
 +		return -EINVAL;
 +	}
 +
- 	if (config_sseu) {
- 		ret = get_sseu_config(&props->sseu, props->engine, &user_sseu);
- 		if (ret) {
-@@ -4376,6 +4412,14 @@ static const struct i915_range gen12_oa_b_counters[] = {
+ 	/* Considering that ID = 0 is reserved and assuming that we don't
+ 	 * (currently) expect any configurations to ever specify duplicate
+ 	 * values for a particular property ID then the last _PROP_MAX value is
+@@ -4743,6 +4758,60 @@ static struct ctl_table oa_table[] = {
  	{}
  };
  
-+static const struct i915_range mtl_oam_b_counters[] = {
-+	{ .start = 0x393000, .end = 0x39301c },	/* GEN12_OAM_STARTTRIG1[1-8] */
-+	{ .start = 0x393020, .end = 0x39303c },	/* GEN12_OAM_REPORTTRIG1[1-8] */
-+	{ .start = 0x393040, .end = 0x39307c },	/* GEN12_OAM_CEC[0-7][0-1] */
-+	{ .start = 0x393200, .end = 0x39323C },	/* MPES[0-7] */
-+	{}
-+};
-+
- static const struct i915_range xehp_oa_b_counters[] = {
- 	{ .start = 0xdc48, .end = 0xdc48 },	/* OAA_ENABLE_REG */
- 	{ .start = 0xdd00, .end = 0xdd48 },	/* OAG_LCE0_0 - OAA_LENABLE_REG */
-@@ -4429,6 +4473,8 @@ static const struct i915_range mtl_oa_mux_regs[] = {
- 	{ .start = 0x0d0c, .end = 0x0d2c },	/* NOA_CONFIG[0-8] */
- 	{ .start = 0x9840, .end = 0x9840 },	/* GDT_CHICKEN_BITS */
- 	{ .start = 0x9884, .end = 0x9888 },	/* NOA_WRITE */
-+	{ .start = 0x38d100, .end = 0x38d114},	/* VISACTL */
-+	{}
- };
- 
- static bool gen7_is_valid_b_counter_addr(struct i915_perf *perf, u32 addr)
-@@ -4466,10 +4512,20 @@ static bool gen12_is_valid_b_counter_addr(struct i915_perf *perf, u32 addr)
- 	return reg_in_range_table(addr, gen12_oa_b_counters);
- }
- 
-+static bool mtl_is_valid_oam_b_counter_addr(struct i915_perf *perf, u32 addr)
++static u32 num_perf_groups_per_gt(struct intel_gt *gt)
 +{
-+	if (HAS_OAM(perf->i915) &&
-+	    GRAPHICS_VER_FULL(perf->i915) >= IP_VER(12, 70))
-+		return reg_in_range_table(addr, mtl_oam_b_counters);
-+
-+	return false;
++	return 1;
 +}
 +
- static bool xehp_is_valid_b_counter_addr(struct i915_perf *perf, u32 addr)
- {
- 	return reg_in_range_table(addr, xehp_oa_b_counters) ||
--		reg_in_range_table(addr, gen12_oa_b_counters);
-+		reg_in_range_table(addr, gen12_oa_b_counters) ||
-+		mtl_is_valid_oam_b_counter_addr(perf, addr);
- }
- 
- static bool gen12_is_valid_mux_addr(struct i915_perf *perf, u32 addr)
-@@ -4839,12 +4895,86 @@ static u32 num_perf_groups_per_gt(struct intel_gt *gt)
- 	return 1;
- }
- 
-+static u32 __oam_engine_group(struct intel_engine_cs *engine)
++static u32 __oa_engine_group(struct intel_engine_cs *engine)
 +{
-+	if (GRAPHICS_VER_FULL(engine->i915) >= IP_VER(12, 70)) {
-+		/*
-+		 * There's 1 SAMEDIA gt and 1 OAM per SAMEDIA gt. All media slices
-+		 * within the gt use the same OAM. All MTL SKUs list 1 SA MEDIA.
-+		 */
-+		drm_WARN_ON(&engine->i915->drm,
-+			    engine->gt->type != GT_MEDIA);
-+
-+		return PERF_GROUP_OAM_SAMEDIA_0;
-+	}
-+
-+	return PERF_GROUP_INVALID;
++	if (engine->class == RENDER_CLASS)
++		return PERF_GROUP_OAG;
++	else
++		return PERF_GROUP_INVALID;
 +}
 +
- static u32 __oa_engine_group(struct intel_engine_cs *engine)
- {
--	if (engine->class == RENDER_CLASS)
-+	switch (engine->class) {
-+	case RENDER_CLASS:
- 		return PERF_GROUP_OAG;
--	else
-+
-+	case VIDEO_DECODE_CLASS:
-+	case VIDEO_ENHANCEMENT_CLASS:
-+		return __oam_engine_group(engine);
-+
-+	default:
- 		return PERF_GROUP_INVALID;
-+	}
-+}
-+
-+static struct i915_perf_regs __oam_regs(u32 base)
++static int oa_init_gt(struct intel_gt *gt)
 +{
-+	return (struct i915_perf_regs) {
-+		base,
-+		GEN12_OAM_HEAD_POINTER(base),
-+		GEN12_OAM_TAIL_POINTER(base),
-+		GEN12_OAM_BUFFER(base),
-+		GEN12_OAM_CONTEXT_CONTROL(base),
-+		GEN12_OAM_CONTROL(base),
-+		GEN12_OAM_DEBUG(base),
-+		GEN12_OAM_STATUS(base),
-+		GEN12_OAM_CONTROL_COUNTER_FORMAT_SHIFT,
-+	};
-+}
++	u32 num_groups = num_perf_groups_per_gt(gt);
++	struct intel_engine_cs *engine;
++	struct i915_perf_group *g;
++	intel_engine_mask_t tmp;
 +
-+static struct i915_perf_regs __oag_regs(void)
-+{
-+	return (struct i915_perf_regs) {
-+		0,
-+		GEN12_OAG_OAHEADPTR,
-+		GEN12_OAG_OATAILPTR,
-+		GEN12_OAG_OABUFFER,
-+		GEN12_OAG_OAGLBCTXCTRL,
-+		GEN12_OAG_OACONTROL,
-+		GEN12_OAG_OA_DEBUG,
-+		GEN12_OAG_OASTATUS,
-+		GEN12_OAG_OACONTROL_OA_COUNTER_FORMAT_SHIFT,
-+	};
-+}
++	g = kcalloc(num_groups, sizeof(*g), GFP_KERNEL);
++	if (!g)
++		return -ENOMEM;
 +
-+static void oa_init_groups(struct intel_gt *gt)
-+{
-+	int i, num_groups = gt->perf.num_perf_groups;
++	for_each_engine_masked(engine, gt, ALL_ENGINES, tmp) {
++		u32 index = __oa_engine_group(engine);
 +
-+	for (i = 0; i < num_groups; i++) {
-+		struct i915_perf_group *g = &gt->perf.group[i];
-+
-+		/* Fused off engines can result in a group with num_engines == 0 */
-+		if (g->num_engines == 0)
-+			continue;
-+
-+		if (i == PERF_GROUP_OAG && gt->type != GT_MEDIA) {
-+			g->regs = __oag_regs();
-+			g->type = TYPE_OAG;
-+		} else if (GRAPHICS_VER_FULL(gt->i915) >= IP_VER(12, 70)) {
-+			g->regs = __oam_regs(mtl_oa_base[i]);
-+			g->type = TYPE_OAM;
++		engine->oa_group = NULL;
++		if (index < num_groups) {
++			g[index].num_engines++;
++			engine->oa_group = &g[index];
 +		}
 +	}
++
++	gt->perf.num_perf_groups = num_groups;
++	gt->perf.group = g;
++
++	return 0;
++}
++
++static int oa_init_engine_groups(struct i915_perf *perf)
++{
++	struct intel_gt *gt;
++	int i, ret;
++
++	for_each_gt(gt, perf->i915, i) {
++		ret = oa_init_gt(gt);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
+ static void oa_init_supported_formats(struct i915_perf *perf)
+ {
+ 	struct drm_i915_private *i915 = perf->i915;
+@@ -4909,7 +4978,7 @@ void i915_perf_init(struct drm_i915_private *i915)
+ 
+ 	if (perf->ops.enable_metric_set) {
+ 		struct intel_gt *gt;
+-		int i;
++		int i, ret;
+ 
+ 		for_each_gt(gt, i915, i)
+ 			mutex_init(&gt->perf.lock);
+@@ -4948,6 +5017,11 @@ void i915_perf_init(struct drm_i915_private *i915)
+ 
+ 		perf->i915 = i915;
+ 
++		ret = oa_init_engine_groups(perf);
++		if (ret)
++			drm_err(&i915->drm,
++				"OA initialization failed %d\n", ret);
++
+ 		oa_init_supported_formats(perf);
+ 	}
  }
+@@ -4976,10 +5050,15 @@ void i915_perf_sysctl_unregister(void)
+ void i915_perf_fini(struct drm_i915_private *i915)
+ {
+ 	struct i915_perf *perf = &i915->perf;
++	struct intel_gt *gt;
++	int i;
  
- static int oa_init_gt(struct intel_gt *gt)
-@@ -4871,6 +5001,8 @@ static int oa_init_gt(struct intel_gt *gt)
- 	gt->perf.num_perf_groups = num_groups;
- 	gt->perf.group = g;
+ 	if (!perf->i915)
+ 		return;
  
-+	oa_init_groups(gt);
++	for_each_gt(gt, perf->i915, i)
++		kfree(gt->perf.group);
 +
- 	return 0;
- }
+ 	idr_for_each(&perf->metrics_idr, destroy_config, perf);
+ 	idr_destroy(&perf->metrics_idr);
  
-@@ -4928,9 +5060,15 @@ static void oa_init_supported_formats(struct i915_perf *perf)
- 		break;
- 
- 	case INTEL_DG2:
-+		oa_format_add(perf, I915_OAR_FORMAT_A32u40_A4u32_B8_C8);
-+		oa_format_add(perf, I915_OA_FORMAT_A24u40_A14u32_B8_C8);
-+		break;
-+
- 	case INTEL_METEORLAKE:
- 		oa_format_add(perf, I915_OAR_FORMAT_A32u40_A4u32_B8_C8);
- 		oa_format_add(perf, I915_OA_FORMAT_A24u40_A14u32_B8_C8);
-+		oa_format_add(perf, I915_OAM_FORMAT_MPEC8u64_B8_C8);
-+		oa_format_add(perf, I915_OAM_FORMAT_MPEC8u32_B8_C8);
- 		break;
- 
- 	default:
-@@ -5175,8 +5313,10 @@ int i915_perf_ioctl_version(void)
- 	 *
- 	 * 6: Add DRM_I915_PERF_PROP_OA_ENGINE_CLASS and
- 	 *    DRM_I915_PERF_PROP_OA_ENGINE_INSTANCE
-+	 *
-+	 * 7: Add support for video decode and enhancement classes.
- 	 */
--	return 6;
-+	return 7;
- }
- 
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
-diff --git a/drivers/gpu/drm/i915/i915_perf_oa_regs.h b/drivers/gpu/drm/i915/i915_perf_oa_regs.h
-index 381d94101610..ba103875e19f 100644
---- a/drivers/gpu/drm/i915/i915_perf_oa_regs.h
-+++ b/drivers/gpu/drm/i915/i915_perf_oa_regs.h
-@@ -138,4 +138,82 @@
- #define   GEN12_SQCNT1_PMON_ENABLE		REG_BIT(30)
- #define   GEN12_SQCNT1_OABPC			REG_BIT(29)
- 
-+/* Gen12 OAM unit */
-+#define GEN12_OAM_HEAD_POINTER_OFFSET   (0x1a0)
-+#define  GEN12_OAM_HEAD_POINTER_MASK    0xffffffc0
-+
-+#define GEN12_OAM_TAIL_POINTER_OFFSET   (0x1a4)
-+#define  GEN12_OAM_TAIL_POINTER_MASK    0xffffffc0
-+
-+#define GEN12_OAM_BUFFER_OFFSET         (0x1a8)
-+#define  GEN12_OAM_BUFFER_SIZE_MASK     (0x7)
-+#define  GEN12_OAM_BUFFER_SIZE_SHIFT    (3)
-+#define  GEN12_OAM_BUFFER_MEMORY_SELECT REG_BIT(0) /* 0: PPGTT, 1: GGTT */
-+
-+#define GEN12_OAM_CONTEXT_CONTROL_OFFSET              (0x1bc)
-+#define  GEN12_OAM_CONTEXT_CONTROL_TIMER_PERIOD_SHIFT 2
-+#define  GEN12_OAM_CONTEXT_CONTROL_TIMER_ENABLE       REG_BIT(1)
-+#define  GEN12_OAM_CONTEXT_CONTROL_COUNTER_RESUME     REG_BIT(0)
-+
-+#define GEN12_OAM_CONTROL_OFFSET                (0x194)
-+#define  GEN12_OAM_CONTROL_COUNTER_FORMAT_SHIFT 1
-+#define  GEN12_OAM_CONTROL_COUNTER_ENABLE       REG_BIT(0)
-+
-+#define GEN12_OAM_DEBUG_OFFSET                      (0x198)
-+#define  GEN12_OAM_DEBUG_BUFFER_SIZE_SELECT         REG_BIT(12)
-+#define  GEN12_OAM_DEBUG_INCLUDE_CLK_RATIO          REG_BIT(6)
-+#define  GEN12_OAM_DEBUG_DISABLE_CLK_RATIO_REPORTS  REG_BIT(5)
-+#define  GEN12_OAM_DEBUG_DISABLE_GO_1_0_REPORTS     REG_BIT(2)
-+#define  GEN12_OAM_DEBUG_DISABLE_CTX_SWITCH_REPORTS REG_BIT(1)
-+
-+#define GEN12_OAM_STATUS_OFFSET            (0x19c)
-+#define  GEN12_OAM_STATUS_COUNTER_OVERFLOW REG_BIT(2)
-+#define  GEN12_OAM_STATUS_BUFFER_OVERFLOW  REG_BIT(1)
-+#define  GEN12_OAM_STATUS_REPORT_LOST      REG_BIT(0)
-+
-+#define GEN12_OAM_MMIO_TRG_OFFSET	(0x1d0)
-+
-+#define GEN12_OAM_MMIO_TRG(base) \
-+	_MMIO((base) + GEN12_OAM_MMIO_TRG_OFFSET)
-+
-+#define GEN12_OAM_HEAD_POINTER(base) \
-+	_MMIO((base) + GEN12_OAM_HEAD_POINTER_OFFSET)
-+#define GEN12_OAM_TAIL_POINTER(base) \
-+	_MMIO((base) + GEN12_OAM_TAIL_POINTER_OFFSET)
-+#define GEN12_OAM_BUFFER(base) \
-+	_MMIO((base) + GEN12_OAM_BUFFER_OFFSET)
-+#define GEN12_OAM_CONTEXT_CONTROL(base) \
-+	_MMIO((base) + GEN12_OAM_CONTEXT_CONTROL_OFFSET)
-+#define GEN12_OAM_CONTROL(base) \
-+	_MMIO((base) + GEN12_OAM_CONTROL_OFFSET)
-+#define GEN12_OAM_DEBUG(base) \
-+	_MMIO((base) + GEN12_OAM_DEBUG_OFFSET)
-+#define GEN12_OAM_STATUS(base) \
-+	_MMIO((base) + GEN12_OAM_STATUS_OFFSET)
-+
-+#define GEN12_OAM_CEC0_0_OFFSET		(0x40)
-+#define GEN12_OAM_CEC7_1_OFFSET		(0x7c)
-+#define GEN12_OAM_CEC0_0(base) \
-+	_MMIO((base) + GEN12_OAM_CEC0_0_OFFSET)
-+#define GEN12_OAM_CEC7_1(base) \
-+	_MMIO((base) + GEN12_OAM_CEC7_1_OFFSET)
-+
-+#define GEN12_OAM_STARTTRIG1_OFFSET	(0x00)
-+#define GEN12_OAM_STARTTRIG8_OFFSET	(0x1c)
-+#define GEN12_OAM_STARTTRIG1(base) \
-+	_MMIO((base) + GEN12_OAM_STARTTRIG1_OFFSET)
-+#define GEN12_OAM_STARTTRIG8(base) \
-+	_MMIO((base) + GEN12_OAM_STARTTRIG8_OFFSET)
-+
-+#define GEN12_OAM_REPORTTRIG1_OFFSET	(0x20)
-+#define GEN12_OAM_REPORTTRIG8_OFFSET	(0x3c)
-+#define GEN12_OAM_REPORTTRIG1(base) \
-+	_MMIO((base) + GEN12_OAM_REPORTTRIG1_OFFSET)
-+#define GEN12_OAM_REPORTTRIG8(base) \
-+	_MMIO((base) + GEN12_OAM_REPORTTRIG8_OFFSET)
-+
-+#define GEN12_OAM_PERF_COUNTER_B0_OFFSET	(0x84)
-+#define GEN12_OAM_PERF_COUNTER_B(base, idx) \
-+	_MMIO((base) + GEN12_OAM_PERF_COUNTER_B0_OFFSET + 4 * (idx))
-+
- #endif /* __INTEL_PERF_OA_REGS__ */
 diff --git a/drivers/gpu/drm/i915/i915_perf_types.h b/drivers/gpu/drm/i915/i915_perf_types.h
-index d8b92508a632..66dd5f74de05 100644
+index 4d5d8c365d9e..e7c83dcbec08 100644
 --- a/drivers/gpu/drm/i915/i915_perf_types.h
 +++ b/drivers/gpu/drm/i915/i915_perf_types.h
-@@ -20,6 +20,7 @@
- #include "gt/intel_engine_types.h"
+@@ -17,6 +17,7 @@
+ #include <linux/wait.h>
+ #include <uapi/drm/i915_drm.h>
+ 
++#include "gt/intel_engine_types.h"
  #include "gt/intel_sseu.h"
  #include "i915_reg_defs.h"
-+#include "intel_uncore.h"
  #include "intel_wakeref.h"
+@@ -30,6 +31,13 @@ struct i915_vma;
+ struct intel_context;
+ struct intel_engine_cs;
  
- struct drm_i915_private;
-@@ -33,6 +34,7 @@ struct intel_engine_cs;
- 
- enum {
- 	PERF_GROUP_OAG = 0,
-+	PERF_GROUP_OAM_SAMEDIA_0 = 0,
- 
- 	PERF_GROUP_MAX,
- 	PERF_GROUP_INVALID = U32_MAX,
-@@ -43,9 +45,27 @@ enum report_header {
- 	HDR_64_BIT,
- };
- 
-+struct i915_perf_regs {
-+	u32 base;
-+	i915_reg_t oa_head_ptr;
-+	i915_reg_t oa_tail_ptr;
-+	i915_reg_t oa_buffer;
-+	i915_reg_t oa_ctx_ctrl;
-+	i915_reg_t oa_ctrl;
-+	i915_reg_t oa_debug;
-+	i915_reg_t oa_status;
-+	u32 oa_ctrl_counter_format_shift;
-+};
++enum {
++	PERF_GROUP_OAG = 0,
 +
-+enum oa_type {
-+	TYPE_OAG,
-+	TYPE_OAM,
++	PERF_GROUP_MAX,
++	PERF_GROUP_INVALID = U32_MAX,
 +};
 +
  struct i915_oa_format {
  	u32 format;
  	int size;
-+	int type;
- 	enum report_header header;
+@@ -390,6 +398,20 @@ struct i915_oa_ops {
+ 	u32 (*oa_hw_tail_read)(struct i915_perf_stream *stream);
  };
  
-@@ -416,6 +436,16 @@ struct i915_perf_group {
- 	 * @num_engines: The number of engines using this OA unit.
- 	 */
- 	u32 num_engines;
++struct i915_perf_group {
++	/*
++	 * @exclusive_stream: The stream currently using the OA unit. This is
++	 * sometimes accessed outside a syscall associated to its file
++	 * descriptor.
++	 */
++	struct i915_perf_stream *exclusive_stream;
 +
 +	/*
-+	 * @regs: OA buffer register group for programming the OA unit.
++	 * @num_engines: The number of engines using this OA unit.
 +	 */
-+	struct i915_perf_regs regs;
++	u32 num_engines;
++};
 +
-+	/*
-+	 * @type: Type of OA unit - OAM, OAG etc.
-+	 */
-+	enum oa_type type;
- };
- 
  struct i915_perf_gt {
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index b30cc8b97c3a..0aad8e48d27d 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -167,6 +167,7 @@ enum intel_ppgtt_type {
- 	func(has_mslice_steering); \
- 	func(has_oa_bpc_reporting); \
- 	func(has_oa_slice_contrib_limits); \
-+	func(has_oam); \
- 	func(has_one_eu_per_fuse_bit); \
- 	func(has_pxp); \
- 	func(has_rc6); \
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 384e74cac539..dba7c5a5b25e 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -2676,6 +2676,10 @@ enum drm_i915_oa_format {
- 	I915_OAR_FORMAT_A32u40_A4u32_B8_C8,
- 	I915_OA_FORMAT_A24u40_A14u32_B8_C8,
+ 	/*
+ 	 * Lock associated with anything below within this structure.
+@@ -402,12 +424,15 @@ struct i915_perf_gt {
+ 	 */
+ 	struct intel_sseu sseu;
  
-+	/* MTL OAM */
-+	I915_OAM_FORMAT_MPEC8u64_B8_C8,
-+	I915_OAM_FORMAT_MPEC8u32_B8_C8,
++	/**
++	 * @num_perf_groups: number of perf groups per gt.
++	 */
++	u32 num_perf_groups;
 +
- 	I915_OA_FORMAT_MAX	    /* non-ABI */
+ 	/*
+-	 * @exclusive_stream: The stream currently using the OA unit. This is
+-	 * sometimes accessed outside a syscall associated to its file
+-	 * descriptor.
++	 * @group: list of OA groups - one for each OA buffer.
+ 	 */
+-	struct i915_perf_stream *exclusive_stream;
++	struct i915_perf_group *group;
  };
  
+ struct i915_perf {
 -- 
 2.36.1
 
