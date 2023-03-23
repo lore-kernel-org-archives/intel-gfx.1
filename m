@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9BD5C6FD1C
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 14:21:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10ED6C7619A
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 14:21:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FFC210E48F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDADF10EABF;
 	Thu, 23 Mar 2023 14:20:55 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E50710EAAE
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Mar 2023 14:20:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 570EA10EAB0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 Mar 2023 14:20:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679581246; x=1711117246;
+ t=1679581252; x=1711117252;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=hN+scrSRpukLLDAM64T+6o/L9YTsZm3qvSdJOISME/E=;
- b=SmxFgVP9CbOm4Bcee+CSYhjoMatZasxhFI3zM5sBDnOoUhBOLIUvXRlG
- IOjjZmHd23g/E1hMMFqz5nSJbpzgWFOv+dM0kEc7gkWt7CIMFhfqBBFon
- lnSBYhXROQLVYbp3oDVXolDbKfyGxGBmqWVnFOVKCJPblY/GPBWXy6ioA
- Y+AQCj2maiWpgIz4O1bF0ttdI35n5SZMErqg5TIuzOv4Vu3Y6jXT2Nxb2
- nxBo0Uhzp0VDexfWTy7p9RsyRaYyWRLnl0PPak6pNEObGTV0dxhWfErLt
- sIJ7YH/YgXGz4n6S4wQaKFAYoSPaxwjBKpqlGOHCHxCVYNYD0JLuyDbl4 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="327892264"
-X-IronPort-AV: E=Sophos;i="5.98,285,1673942400"; d="scan'208";a="327892264"
+ bh=2WH9Y0GLszjASqmAn6vrpK8TGtnGk2PlpeU+bdgMyuw=;
+ b=n8l0IQ7VGUjm7m5UpvLXzMB8MRZccRSIfCXGCpJnKC7wJt/sUi6FylsT
+ icUQmDxu/taCYjSnUfF+HlyUZldTF6zWmyOz4eQNV/H+PBmxSdt9m7keB
+ 1KkQOGMjNmDReiybheN2S3fWQ9pa/yeHeJhIXZHcg4/qU+Id8+aF03lEW
+ 2KOD1u2o/8ejpQq7wkKyWsssdRC5P34HvkXHSacNsTuuRJvyO6ULVom4R
+ sGvGXXNv57l/iyK7iLuTHYerdHVKncPqGiutw59dkhOge+w7VAIOxS2NG
+ iuW74KWHvjR3yqumecs0yi8PcAPc+uDfKield6bBDhfhsoJFoSsM+MrQp g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="327892288"
+X-IronPort-AV: E=Sophos;i="5.98,285,1673942400"; d="scan'208";a="327892288"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2023 07:20:46 -0700
+ 23 Mar 2023 07:20:52 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="746722634"
-X-IronPort-AV: E=Sophos;i="5.98,285,1673942400"; d="scan'208";a="746722634"
+X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="746722659"
+X-IronPort-AV: E=Sophos;i="5.98,285,1673942400"; d="scan'208";a="746722659"
 Received: from ideak-desk.fi.intel.com ([10.237.72.58])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2023 07:20:45 -0700
+ 23 Mar 2023 07:20:51 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 23 Mar 2023 16:20:12 +0200
-Message-Id: <20230323142035.1432621-7-imre.deak@intel.com>
+Date: Thu, 23 Mar 2023 16:20:18 +0200
+Message-Id: <20230323142035.1432621-13-imre.deak@intel.com>
 X-Mailer: git-send-email 2.31.1.189.g2e36527f23
 In-Reply-To: <20230323142035.1432621-1-imre.deak@intel.com>
 References: <20230323142035.1432621-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/29] drm/i915/tc: Check for TC PHY explicitly
- in intel_tc_port_fia_max_lane_count()
+Subject: [Intel-gfx] [PATCH 12/29] drm/i915/tc: Factor out
+ tc_phy_verify_legacy_or_dp_alt_mode()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,32 +61,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Check explicitly if the port passed to
-intel_tc_port_fia_max_lane_count() has a TC PHY, instead of relying on
-the default TC mode value set for non-TC PHY ports.
+Factor out a function verifying the PHY connected state in legacy or
+DP-alt mode. This is common to all platforms, which can be reused in
+platform specific connect hooks added in follow-up patches.
+
+No functional changes.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_tc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_tc.c | 47 +++++++++++++++----------
+ 1 file changed, 29 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
-index 70771044a2fe8..48a59a675cd57 100644
+index 9179f86287ab0..ee4db9d0eb978 100644
 --- a/drivers/gpu/drm/i915/display/intel_tc.c
 +++ b/drivers/gpu/drm/i915/display/intel_tc.c
-@@ -188,10 +188,11 @@ int intel_tc_port_fia_max_lane_count(struct intel_digital_port *dig_port)
+@@ -434,27 +434,13 @@ static void icl_tc_phy_get_hw_state(struct intel_tc_port *tc)
+  * connect and disconnect to cleanly transfer ownership with the controller and
+  * set the type-C power state.
+  */
+-static bool icl_tc_phy_connect(struct intel_tc_port *tc,
+-			       int required_lanes)
++static bool tc_phy_verify_legacy_or_dp_alt_mode(struct intel_tc_port *tc,
++						int required_lanes)
  {
- 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
- 	struct intel_tc_port *tc = to_tc_port(dig_port);
-+	enum phy phy = intel_port_to_phy(i915, dig_port->base.port);
- 	intel_wakeref_t wakeref;
- 	u32 lane_mask;
+ 	struct drm_i915_private *i915 = tc_to_i915(tc);
+ 	struct intel_digital_port *dig_port = tc->dig_port;
+ 	int max_lanes;
  
--	if (tc->mode != TC_PORT_DP_ALT)
-+	if (!intel_phy_is_tc(i915, phy) || tc->mode != TC_PORT_DP_ALT)
- 		return 4;
+-	if (tc->mode == TC_PORT_TBT_ALT)
+-		return true;
+-
+-	if (!tc_phy_is_ready(tc) &&
+-	    !drm_WARN_ON(&i915->drm, tc->legacy_port)) {
+-		drm_dbg_kms(&i915->drm, "Port %s: PHY not ready\n",
+-			    tc->port_name);
+-		return false;
+-	}
+-
+-	if (!tc_phy_take_ownership(tc, true) &&
+-	    !drm_WARN_ON(&i915->drm, tc->legacy_port))
+-		return false;
+-
+ 	max_lanes = intel_tc_port_fia_max_lane_count(dig_port);
+ 	if (tc->legacy_port) {
+ 		drm_WARN_ON(&i915->drm, max_lanes != 4);
+@@ -470,7 +456,7 @@ static bool icl_tc_phy_connect(struct intel_tc_port *tc,
+ 	if (!(tc_phy_hpd_live_status(tc) & BIT(TC_PORT_DP_ALT))) {
+ 		drm_dbg_kms(&i915->drm, "Port %s: PHY sudden disconnect\n",
+ 			    tc->port_name);
+-		goto out_release_phy;
++		return false;
+ 	}
  
- 	assert_tc_cold_blocked(tc);
+ 	if (max_lanes < required_lanes) {
+@@ -478,9 +464,34 @@ static bool icl_tc_phy_connect(struct intel_tc_port *tc,
+ 			    "Port %s: PHY max lanes %d < required lanes %d\n",
+ 			    tc->port_name,
+ 			    max_lanes, required_lanes);
+-		goto out_release_phy;
++		return false;
++	}
++
++	return true;
++}
++
++static bool icl_tc_phy_connect(struct intel_tc_port *tc,
++			       int required_lanes)
++{
++	struct drm_i915_private *i915 = tc_to_i915(tc);
++
++	if (tc->mode == TC_PORT_TBT_ALT)
++		return true;
++
++	if (!tc_phy_is_ready(tc) &&
++	    !drm_WARN_ON(&i915->drm, tc->legacy_port)) {
++		drm_dbg_kms(&i915->drm, "Port %s: PHY not ready\n",
++			    tc->port_name);
++		return false;
+ 	}
+ 
++	if (!tc_phy_take_ownership(tc, true) &&
++	    !drm_WARN_ON(&i915->drm, tc->legacy_port))
++		return false;
++
++	if (!tc_phy_verify_legacy_or_dp_alt_mode(tc, required_lanes))
++		goto out_release_phy;
++
+ 	return true;
+ 
+ out_release_phy:
 -- 
 2.37.1
 
