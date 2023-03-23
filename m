@@ -4,48 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35909C7619A
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 22:59:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EC9BC74A5B
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 22:59:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 931D910EB82;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BE7F10EB7D;
 	Thu, 23 Mar 2023 22:59:05 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5087710E4A2
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Mar 2023 22:59:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 614FD10E13F
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 Mar 2023 22:59:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679612343; x=1711148343;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=uCc7fUShkojDvM8G9lWxN/pp9SGIESdwlgmFase3CL4=;
- b=hRYx2XIcazy4zZRUp2sZkmW/x4Hnf08qF7nMH8J7JR0zVEi7N139+w+u
- Tki+JyYeKgI1A2dtFVExLtAghiRH8Pr1+SKmmtDUut2h+OrLXKmw98wdv
- Wh2ucLzrkqtEpp+PBfNlbJQTxZJ2kBzwpAmRFpuciShOirDzEwYKBC6Yl
- Uv+waosHMbLftyB0kSFHE/pEKo6oBzfqMmN9JSYj/v59SJ1OwWy4jfPnP
- kOGnbch09C2gJ1KEswaVvXkvGDbNQRjxrhDQStlMUWj/Tmshf+vh4xDCy
- FtsJWap1oaYLPx5Uk5oii8r8zJdJ4l9Spiedw1Ul3nu7BMaw6B4wFt3bR Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="320033256"
-X-IronPort-AV: E=Sophos;i="5.98,286,1673942400"; d="scan'208";a="320033256"
+ t=1679612342; x=1711148342;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=AbCCWncZhauAFZZcG671lN4PgbibslDqu545KICRot0=;
+ b=CDLhJykp0zXOOoB5xocjxeU9apm0A47hWmi7tDYSBY711WBCvQ5x3Ysf
+ Tcg7ViFVLcPa0bhEkp+bQRXJ6EH5yr2e7KY7jUNsWM8d5sfoZEG91oSKP
+ vsaOofkUbsaDk6Dw2OnoXlD+M8lG3gEkvQLN3XJvR9sgjr5bW+Sq9nOgZ
+ tlFU4ieZ71+KgePXektVlxEMFUV4Se39H+nH/Y3EEfyaDV01o+dDHQ4k7
+ 3PQ/y6IKOnl5cj81rFRxTANQ5WGdqHQTh67AHqUKNdWsT4nyo3GvE68DV
+ 7e71jsalCSrmh4TvYJuq7yBIOmGuGsijmsckCCZ5Z0JauAKN4PmOg9HdA w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="320033247"
+X-IronPort-AV: E=Sophos;i="5.98,286,1673942400"; d="scan'208";a="320033247"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Mar 2023 15:59:02 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="771639221"
-X-IronPort-AV: E=Sophos;i="5.98,286,1673942400"; d="scan'208";a="771639221"
+X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="771639212"
+X-IronPort-AV: E=Sophos;i="5.98,286,1673942400"; d="scan'208";a="771639212"
 Received: from orsosgc001.jf.intel.com ([10.165.21.138])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2023 15:59:02 -0700
+ 23 Mar 2023 15:59:01 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 23 Mar 2023 15:58:58 -0700
-Message-Id: <20230323225901.3743681-9-umesh.nerlige.ramappa@intel.com>
+Date: Thu, 23 Mar 2023 15:58:50 -0700
+Message-Id: <20230323225901.3743681-1-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20230323225901.3743681-1-umesh.nerlige.ramappa@intel.com>
-References: <20230323225901.3743681-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/11] drm/i915/perf: Add engine class instance
- parameters to perf
+Subject: [Intel-gfx] [PATCH 00/11] Add OAM support for MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,192 +58,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-One or more engines map to a specific OA unit. All reports from these
-engines are captured in the OA buffer managed by this OA unit.
+The OAM unit captures OA reports specific to the media engines. Add support to
+program the OAM unit on media tile on MTL.
 
-Current i915 OA implementation supports only the OAG unit. OAG primarily
-caters to render engine, so i915 OA uses render as the default engine
-in the OA implementation. Since there are more OA units on newer
-hardware that map to other engines, allow user to pass engine class and
-instance to select and program specific OA units.
+The OAM unit is selected by passing the class:instance of a media engine to perf
+parameters. Corresponding UMD changes are posted to the igt-dev repo as part of
+supporting the GPUvis tool.
 
-UMD specific changes for GPUvis support:
-https://patchwork.freedesktop.org/patch/522827/?series=114023
-https://patchwork.freedesktop.org/patch/522822/?series=114023
-https://patchwork.freedesktop.org/patch/522826/?series=114023
-https://patchwork.freedesktop.org/patch/522828/?series=114023
-https://patchwork.freedesktop.org/patch/522816/?series=114023
-https://patchwork.freedesktop.org/patch/522825/?series=114023
+v2: Incorporate review feedback (Jani, Ashutosh)
+v3: Incorporate review feedback (Jani, Ashutosh)
+v4: Incorporate review feedback (Ashutosh)
+v5:
+- Enforce paired engine-class and engine-instance configuration
+- Include fix for Wa_14017512683
 
-v2: (Ashutosh)
-- Clarify commit message
-- Add drm_dbg
-- Clarify uapi description
+v6: Rebase to fix build failure
+v7: Incorporate review comments
+v8:
+- Checkpatch fixes
+- Initialize perf group irrespective of MC6 state (Ashutosh)
+- Use group type check when opening perf stream (Ashutosh)
 
-v3: (Ashutosh)
-- Remove irrelevant info from the uapi comment
-
-v4: Ensure engine class:instance is passed together (Ashutosh)
-v5: Remove unnecessary quote (Ashutosh)
+v9: No changes, just a CI rerun with modified IGT (v5).
 
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
----
- drivers/gpu/drm/i915/i915_perf.c | 71 ++++++++++++++++++++------------
- include/uapi/drm/i915_drm.h      | 19 +++++++++
- 2 files changed, 63 insertions(+), 27 deletions(-)
+Test-with: 20230323225534.3739835-1-umesh.nerlige.ramappa@intel.com
 
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 8c4bcdce8019..081d1dd743e0 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -4012,48 +4012,32 @@ static int read_properties_unlocked(struct i915_perf *perf,
- {
- 	struct drm_i915_gem_context_param_sseu user_sseu;
- 	u64 __user *uprop = uprops;
-+	bool config_instance = false;
-+	bool config_class = false;
- 	bool config_sseu = false;
-+	u8 class, instance;
- 	u32 i;
- 	int ret;
- 
- 	memset(props, 0, sizeof(struct perf_open_properties));
- 	props->poll_oa_period = DEFAULT_POLL_PERIOD_NS;
- 
--	if (!n_props) {
--		drm_dbg(&perf->i915->drm,
--			"No i915 perf properties given\n");
--		return -EINVAL;
--	}
--
--	/* At the moment we only support using i915-perf on the RCS. */
--	props->engine = intel_engine_lookup_user(perf->i915,
--						 I915_ENGINE_CLASS_RENDER,
--						 0);
--	if (!props->engine) {
--		drm_dbg(&perf->i915->drm,
--			"No RENDER-capable engines\n");
--		return -EINVAL;
--	}
--
--	if (!engine_supports_oa(props->engine)) {
--		drm_dbg(&perf->i915->drm,
--			"Engine not supported by OA %d:%d\n",
--			I915_ENGINE_CLASS_RENDER, 0);
--		return -EINVAL;
--	}
--
- 	/* Considering that ID = 0 is reserved and assuming that we don't
- 	 * (currently) expect any configurations to ever specify duplicate
- 	 * values for a particular property ID then the last _PROP_MAX value is
- 	 * one greater than the maximum number of properties we expect to get
- 	 * from userspace.
- 	 */
--	if (n_props >= DRM_I915_PERF_PROP_MAX) {
-+	if (!n_props || n_props >= DRM_I915_PERF_PROP_MAX) {
- 		drm_dbg(&perf->i915->drm,
--			"More i915 perf properties specified than exist\n");
-+			"Invalid number of i915 perf properties given\n");
- 		return -EINVAL;
- 	}
- 
-+	/* Defaults when class:instance is not passed */
-+	class = I915_ENGINE_CLASS_RENDER;
-+	instance = 0;
-+
- 	for (i = 0; i < n_props; i++) {
- 		u64 oa_period, oa_freq_hz;
- 		u64 id, value;
-@@ -4174,7 +4158,15 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 			}
- 			props->poll_oa_period = value;
- 			break;
--		case DRM_I915_PERF_PROP_MAX:
-+		case DRM_I915_PERF_PROP_OA_ENGINE_CLASS:
-+			class = (u8)value;
-+			config_class = true;
-+			break;
-+		case DRM_I915_PERF_PROP_OA_ENGINE_INSTANCE:
-+			instance = (u8)value;
-+			config_instance = true;
-+			break;
-+		default:
- 			MISSING_CASE(id);
- 			return -EINVAL;
- 		}
-@@ -4182,6 +4174,28 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 		uprop += 2;
- 	}
- 
-+	if ((config_class && !config_instance) ||
-+	    (config_instance && !config_class)) {
-+		drm_dbg(&perf->i915->drm,
-+			"OA engine-class and engine-instance parameters must be passed together\n");
-+		return -EINVAL;
-+	}
-+
-+	props->engine = intel_engine_lookup_user(perf->i915, class, instance);
-+	if (!props->engine) {
-+		drm_dbg(&perf->i915->drm,
-+			"OA engine class and instance invalid %d:%d\n",
-+			class, instance);
-+		return -EINVAL;
-+	}
-+
-+	if (!engine_supports_oa(props->engine)) {
-+		drm_dbg(&perf->i915->drm,
-+			"Engine not supported by OA %d:%d\n",
-+			class, instance);
-+		return -EINVAL;
-+	}
-+
- 	if (config_sseu) {
- 		ret = get_sseu_config(&props->sseu, props->engine, &user_sseu);
- 		if (ret) {
-@@ -5158,8 +5172,11 @@ int i915_perf_ioctl_version(void)
- 	 *
- 	 * 5: Add DRM_I915_PERF_PROP_POLL_OA_PERIOD parameter that controls the
- 	 *    interval for the hrtimer used to check for OA data.
-+	 *
-+	 * 6: Add DRM_I915_PERF_PROP_OA_ENGINE_CLASS and
-+	 *    DRM_I915_PERF_PROP_OA_ENGINE_INSTANCE
- 	 */
--	return 5;
-+	return 6;
- }
- 
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index 5e458d6f2895..384e74cac539 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -2758,6 +2758,25 @@ enum drm_i915_perf_property_id {
- 	 */
- 	DRM_I915_PERF_PROP_POLL_OA_PERIOD,
- 
-+	/**
-+	 * Multiple engines may be mapped to the same OA unit. The OA unit is
-+	 * identified by class:instance of any engine mapped to it.
-+	 *
-+	 * This parameter specifies the engine class and must be passed along
-+	 * with DRM_I915_PERF_PROP_OA_ENGINE_INSTANCE.
-+	 *
-+	 * This property is available in perf revision 6.
-+	 */
-+	DRM_I915_PERF_PROP_OA_ENGINE_CLASS,
-+
-+	/**
-+	 * This parameter specifies the engine instance and must be passed along
-+	 * with DRM_I915_PERF_PROP_OA_ENGINE_CLASS.
-+	 *
-+	 * This property is available in perf revision 6.
-+	 */
-+	DRM_I915_PERF_PROP_OA_ENGINE_INSTANCE,
-+
- 	DRM_I915_PERF_PROP_MAX /* non-ABI */
- };
- 
+Chris Wilson (1):
+  drm/i915/perf: Drop wakeref on GuC RC error
+
+Umesh Nerlige Ramappa (9):
+  drm/i915/perf: Validate OA sseu config outside switch
+  drm/i915/perf: Group engines into respective OA groups
+  drm/i915/perf: Fail modprobe if i915_perf_init fails on OOM
+  drm/i915/perf: Parse 64bit report header formats correctly
+  drm/i915/perf: Handle non-power-of-2 reports
+  drm/i915/perf: Add engine class instance parameters to perf
+  drm/i915/perf: Add support for OA media units
+  drm/i915/perf: Pass i915 object to perf revision helper
+  drm/i915/perf: Wa_14017512683: Disable OAM if media C6 is enabled in
+    BIOS
+
+Vinay Belgaumkar (1):
+  drm/i915/mtl: Synchronize i915/BIOS on C6 enabling
+
+ drivers/gpu/drm/i915/gt/intel_engine_types.h |  10 +
+ drivers/gpu/drm/i915/gt/intel_rc6.c          |  26 +-
+ drivers/gpu/drm/i915/gt/intel_rc6.h          |   2 +
+ drivers/gpu/drm/i915/gt/intel_rc6_types.h    |   2 +
+ drivers/gpu/drm/i915/gt/intel_sseu.c         |   3 +-
+ drivers/gpu/drm/i915/i915_driver.c           |   4 +-
+ drivers/gpu/drm/i915/i915_drv.h              |   2 +
+ drivers/gpu/drm/i915/i915_getparam.c         |   2 +-
+ drivers/gpu/drm/i915/i915_pci.c              |   1 +
+ drivers/gpu/drm/i915/i915_perf.c             | 564 +++++++++++++++----
+ drivers/gpu/drm/i915/i915_perf.h             |   4 +-
+ drivers/gpu/drm/i915/i915_perf_oa_regs.h     |  78 +++
+ drivers/gpu/drm/i915/i915_perf_types.h       |  75 ++-
+ drivers/gpu/drm/i915/intel_device_info.h     |   1 +
+ include/uapi/drm/i915_drm.h                  |  23 +
+ 15 files changed, 673 insertions(+), 124 deletions(-)
+
 -- 
 2.36.1
 
