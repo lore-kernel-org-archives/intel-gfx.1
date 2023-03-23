@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AD73C6FD1D
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 08:00:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49788C6FD1C
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 08:24:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70CFD10EA43;
-	Thu, 23 Mar 2023 08:00:56 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FA6A10EA43;
- Thu, 23 Mar 2023 08:00:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679558455; x=1711094455;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=bSKsCiwKEcMLBa0evmEIV2cW2Z+RXVvhMh4pXPysk9I=;
- b=JEdvA2qVEabu8fNTuBQFm7tMTjSsF2829BDS9uml4s8nn76/tyndZoLD
- 2cZGM1v8LxKfXDuzek3uXeGeUh1ergRr1p1B8TxG+7bjGVN1cwpUPiQSu
- K7tBEEw2pfnCEiyEftYlWTPg7TM8nnDdOy7GIN7MtibviwW6bSmSCmjLD
- RbPXUK3vh7NDGEqofIyvyK2h+e+NmLEUHqpm+xogzWFm25U+PhwVhTgs9
- G+V7YlxiSNRl8qAPJk3uhLOQ8AppnBQmqKe9e5wN28svPdRryS8pmsbc0
- vZaX5s30sXv7oeuALYCJzMo0t5V4jgAc4/0ApziefzQqtb+ymxKN1wrQd A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="404310796"
-X-IronPort-AV: E=Sophos;i="5.98,283,1673942400"; d="scan'208";a="404310796"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2023 01:00:54 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="659503088"
-X-IronPort-AV: E=Sophos;i="5.98,283,1673942400"; d="scan'208";a="659503088"
-Received: from nirmoyda-mobl.ger.corp.intel.com (HELO [10.252.62.49])
- ([10.252.62.49])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2023 01:00:52 -0700
-Message-ID: <f1d57967-0671-88c0-5c08-3b79ec188360@linux.intel.com>
-Date: Thu, 23 Mar 2023 09:00:50 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73B4E10E0ED;
+	Thu, 23 Mar 2023 08:24:06 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C08710E0ED;
+ Thu, 23 Mar 2023 08:24:04 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 16D1A33B63;
+ Thu, 23 Mar 2023 08:24:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1679559843; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=4w9r6Q0E7jeLVI2fkecPUDfIAXkoMgIQoXKd2lmMmOk=;
+ b=z5ZIHi0xQ4zbmIKmsrpLKB1lCXejTXb5q6SBqQvizvXLA3b9oVkEQ2uJj+8V8adiLE9vto
+ CZ3QphN7JTZjj5/P7EeHfN/qBOjpE3BcWaqGzBo4E7QeTWzakPUs4fZqF7vCFKgY7OUHop
+ wfFpwYTrouDOimEnfHNXYNiAUBPfo+8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1679559843;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=4w9r6Q0E7jeLVI2fkecPUDfIAXkoMgIQoXKd2lmMmOk=;
+ b=9n4InMC90+EwT+u7JkVhhVICj6cKli4g6MqRdTVxC01kkRMNkZh/N3GH1yBZAizmHrHDXz
+ 0d2GW8p4Vp3znPDQ==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CBEAD132C2;
+ Thu, 23 Mar 2023 08:24:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 9WTcMKIMHGSPIQAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 23 Mar 2023 08:24:02 +0000
+Date: Thu, 23 Mar 2023 09:24:01 +0100
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20230323082401.GA8371@linux-uq9g>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Content-Language: en-US
-To: Andrzej Hajda <andrzej.hajda@intel.com>, Nirmoy Das
- <nirmoy.das@intel.com>, intel-gfx@lists.freedesktop.org
-References: <20230320100903.23588-1-nirmoy.das@intel.com>
- <c1b797a5-92d6-6590-9c47-6606ec409a12@intel.com>
-From: "Das, Nirmoy" <nirmoy.das@linux.intel.com>
-In-Reply-To: <c1b797a5-92d6-6590-9c47-6606ec409a12@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH v2: 1/3] drm/i915: Add a function to mmap
- framebuffer obj
+Subject: [Intel-gfx] [PULL] drm-misc-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,223 +64,61 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, Matthew Auld <matthew.auld@intel.com>,
- dri-devel@lists.freedesktop.org
+Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Dave and Daniel,
 
-On 3/20/2023 3:02 PM, Andrzej Hajda wrote:
-> On 20.03.2023 11:09, Nirmoy Das wrote:
->> Implement i915_gem_fb_mmap() to enable fb_ops.fb_mmap()
->> callback for i915's framebuffer objects.
->>
->> v2: add a comment why i915_gem_object_get() needed(Andi).
->>
->> Cc: Matthew Auld <matthew.auld@intel.com>
->> Cc: Andi Shyti <andi.shyti@linux.intel.com>
->> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
->> Cc: Jani Nikula <jani.nikula@intel.com>
->> Cc: Imre Deak <imre.deak@intel.com>
->> Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
->> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
->
-> Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
+here's the weekly PR for drm-misc-fixes.
 
+Best regards
+Thomas
 
-Thanks, Andrzej.
+drm-misc-fixes-2023-03-23:
+Short summary of fixes pull:
 
+ * fixes for bind and probing error handling
+ * panel-orientation fixes for Lenovo Book X90F
+The following changes since commit 4028cbf867f70a3c599c9b0c9509334c56ed97d7:
 
-Going to resend it without RFC now as there are two r-bs and no one 
-complained.
+  drm/meson: dw-hdmi: Fix devm_regulator_*get_enable*() conversion again (2023-03-15 10:06:46 +0100)
 
+are available in the Git repository at:
 
-Regards,
+  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-fixes-2023-03-23
 
-Nirmoy
+for you to fetch changes up to 1a70ca89d59c7c8af006d29b965a95ede0abb0da:
 
->
-> Regards
-> Andrzej
->
->> ---
->>   drivers/gpu/drm/i915/gem/i915_gem_mman.c | 127 +++++++++++++++--------
->>   drivers/gpu/drm/i915/gem/i915_gem_mman.h |   2 +-
->>   2 files changed, 83 insertions(+), 46 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c 
->> b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
->> index d3c1dee16af2..341e952d3510 100644
->> --- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
->> +++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
->> @@ -927,53 +927,15 @@ static struct file *mmap_singleton(struct 
->> drm_i915_private *i915)
->>       return file;
->>   }
->>   -/*
->> - * This overcomes the limitation in drm_gem_mmap's assignment of a
->> - * drm_gem_object as the vma->vm_private_data. Since we need to
->> - * be able to resolve multiple mmap offsets which could be tied
->> - * to a single gem object.
->> - */
->> -int i915_gem_mmap(struct file *filp, struct vm_area_struct *vma)
->> +static int
->> +i915_gem_object_mmap(struct drm_i915_gem_object *obj,
->> +             struct i915_mmap_offset *mmo,
->> +             struct vm_area_struct *vma)
->>   {
->> -    struct drm_vma_offset_node *node;
->> -    struct drm_file *priv = filp->private_data;
->> -    struct drm_device *dev = priv->minor->dev;
->> -    struct drm_i915_gem_object *obj = NULL;
->> -    struct i915_mmap_offset *mmo = NULL;
->> +    struct drm_i915_private *i915 = to_i915(obj->base.dev);
->> +    struct drm_device *dev = &i915->drm;
->>       struct file *anon;
->>   -    if (drm_dev_is_unplugged(dev))
->> -        return -ENODEV;
->> -
->> -    rcu_read_lock();
->> -    drm_vma_offset_lock_lookup(dev->vma_offset_manager);
->> -    node = drm_vma_offset_exact_lookup_locked(dev->vma_offset_manager,
->> -                          vma->vm_pgoff,
->> -                          vma_pages(vma));
->> -    if (node && drm_vma_node_is_allowed(node, priv)) {
->> -        /*
->> -         * Skip 0-refcnted objects as it is in the process of being
->> -         * destroyed and will be invalid when the vma manager lock
->> -         * is released.
->> -         */
->> -        if (!node->driver_private) {
->> -            mmo = container_of(node, struct i915_mmap_offset, 
->> vma_node);
->> -            obj = i915_gem_object_get_rcu(mmo->obj);
->> -
->> -            GEM_BUG_ON(obj && obj->ops->mmap_ops);
->> -        } else {
->> -            obj = i915_gem_object_get_rcu
->> -                (container_of(node, struct drm_i915_gem_object,
->> -                          base.vma_node));
->> -
->> -            GEM_BUG_ON(obj && !obj->ops->mmap_ops);
->> -        }
->> -    }
->> -    drm_vma_offset_unlock_lookup(dev->vma_offset_manager);
->> -    rcu_read_unlock();
->> -    if (!obj)
->> -        return node ? -EACCES : -EINVAL;
->> -
->>       if (i915_gem_object_is_readonly(obj)) {
->>           if (vma->vm_flags & VM_WRITE) {
->>               i915_gem_object_put(obj);
->> @@ -1005,7 +967,7 @@ int i915_gem_mmap(struct file *filp, struct 
->> vm_area_struct *vma)
->>       if (obj->ops->mmap_ops) {
->>           vma->vm_page_prot = 
->> pgprot_decrypted(vm_get_page_prot(vma->vm_flags));
->>           vma->vm_ops = obj->ops->mmap_ops;
->> -        vma->vm_private_data = node->driver_private;
->> +        vma->vm_private_data = obj->base.vma_node.driver_private;
->>           return 0;
->>       }
->>   @@ -1043,6 +1005,81 @@ int i915_gem_mmap(struct file *filp, struct 
->> vm_area_struct *vma)
->>       return 0;
->>   }
->>   +/*
->> + * This overcomes the limitation in drm_gem_mmap's assignment of a
->> + * drm_gem_object as the vma->vm_private_data. Since we need to
->> + * be able to resolve multiple mmap offsets which could be tied
->> + * to a single gem object.
->> + */
->> +int i915_gem_mmap(struct file *filp, struct vm_area_struct *vma)
->> +{
->> +    struct drm_vma_offset_node *node;
->> +    struct drm_file *priv = filp->private_data;
->> +    struct drm_device *dev = priv->minor->dev;
->> +    struct drm_i915_gem_object *obj = NULL;
->> +    struct i915_mmap_offset *mmo = NULL;
->> +
->> +    if (drm_dev_is_unplugged(dev))
->> +        return -ENODEV;
->> +
->> +    rcu_read_lock();
->> +    drm_vma_offset_lock_lookup(dev->vma_offset_manager);
->> +    node = drm_vma_offset_exact_lookup_locked(dev->vma_offset_manager,
->> +                          vma->vm_pgoff,
->> +                          vma_pages(vma));
->> +    if (node && drm_vma_node_is_allowed(node, priv)) {
->> +        /*
->> +         * Skip 0-refcnted objects as it is in the process of being
->> +         * destroyed and will be invalid when the vma manager lock
->> +         * is released.
->> +         */
->> +        if (!node->driver_private) {
->> +            mmo = container_of(node, struct i915_mmap_offset, 
->> vma_node);
->> +            obj = i915_gem_object_get_rcu(mmo->obj);
->> +
->> +            GEM_BUG_ON(obj && obj->ops->mmap_ops);
->> +        } else {
->> +            obj = i915_gem_object_get_rcu
->> +                (container_of(node, struct drm_i915_gem_object,
->> +                          base.vma_node));
->> +
->> +            GEM_BUG_ON(obj && !obj->ops->mmap_ops);
->> +        }
->> +    }
->> +    drm_vma_offset_unlock_lookup(dev->vma_offset_manager);
->> +    rcu_read_unlock();
->> +    if (!obj)
->> +        return node ? -EACCES : -EINVAL;
->> +
->> +    return i915_gem_object_mmap(obj, mmo, vma);
->> +}
->> +
->> +int i915_gem_fb_mmap(struct drm_i915_gem_object *obj, struct 
->> vm_area_struct *vma)
->> +{
->> +    struct drm_i915_private *i915 = to_i915(obj->base.dev);
->> +    struct drm_device *dev = &i915->drm;
->> +    struct i915_mmap_offset *mmo = NULL;
->> +    enum i915_mmap_type mmap_type;
->> +    struct i915_ggtt *ggtt = to_gt(i915)->ggtt;
->> +
->> +    if (drm_dev_is_unplugged(dev))
->> +        return -ENODEV;
->> +
->> +    mmap_type = i915_ggtt_has_aperture(ggtt) ? I915_MMAP_TYPE_GTT : 
->> I915_MMAP_TYPE_WC;
->> +    mmo = mmap_offset_attach(obj, mmap_type, NULL);
->> +    if (!mmo)
->> +        return -ENODEV;
->> +
->> +    /*
->> +     * When we install vm_ops for mmap we are too late for
->> +     * the vm_ops->open() which increases the ref_count of
->> +     * this obj and then it gets decreased by the vm_ops->close().
->> +     * To balance this increase the obj ref_count here.
->> +     */
->> +    obj = i915_gem_object_get(mmo->obj);
->> +    return i915_gem_object_mmap(obj, mmo, vma);
->> +}
->> +
->>   #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
->>   #include "selftests/i915_gem_mman.c"
->>   #endif
->> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.h 
->> b/drivers/gpu/drm/i915/gem/i915_gem_mman.h
->> index 1fa91b3033b3..196417fd0f5c 100644
->> --- a/drivers/gpu/drm/i915/gem/i915_gem_mman.h
->> +++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.h
->> @@ -29,5 +29,5 @@ void i915_gem_object_release_mmap_gtt(struct 
->> drm_i915_gem_object *obj);
->>     void i915_gem_object_runtime_pm_release_mmap_offset(struct 
->> drm_i915_gem_object *obj);
->>   void i915_gem_object_release_mmap_offset(struct drm_i915_gem_object 
->> *obj);
->> -
->> +int i915_gem_fb_mmap(struct drm_i915_gem_object *obj, struct 
->> vm_area_struct *vma);
->>   #endif
->
+  drm/bridge: lt8912b: return EPROBE_DEFER if bridge is not found (2023-03-22 18:01:57 +0100)
+
+----------------------------------------------------------------
+Short summary of fixes pull:
+
+ * fixes for bind and probing error handling
+ * panel-orientation fixes for Lenovo Book X90F
+
+----------------------------------------------------------------
+Hans de Goede (1):
+      drm: panel-orientation-quirks: Add quirk for Lenovo Yoga Book X90F
+
+Johan Hovold (1):
+      drm/meson: fix missing component unbind on bind errors
+
+Matheus Castello (1):
+      drm/bridge: lt8912b: return EPROBE_DEFER if bridge is not found
+
+ drivers/gpu/drm/bridge/lontium-lt8912b.c       |  4 ++--
+ drivers/gpu/drm/drm_panel_orientation_quirks.c | 13 ++++++++++---
+ drivers/gpu/drm/meson/meson_drv.c              | 13 ++++++++-----
+ 3 files changed, 20 insertions(+), 10 deletions(-)
+
+-- 
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N�rnberg, Germany
+(HRB 36809, AG N�rnberg)
+Gesch�ftsf�hrer: Felix Imend�rffer
