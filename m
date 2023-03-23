@@ -4,47 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 056DDC6FD1C
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 11:44:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E08BEC6FD1D
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 11:44:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 727C710EA7A;
-	Thu, 23 Mar 2023 11:44:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E78D10EA7C;
+	Thu, 23 Mar 2023 11:44:49 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DA8410EA7A
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Mar 2023 11:44:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF38C10EA7C
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 Mar 2023 11:44:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679571882; x=1711107882;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Z9/4DizTQXkdngM9xg1EW7P1tJCVaS0V0kF6kp/1v1c=;
- b=T00jYFTTb8MTdymLMuzSOREOliM9kBw29smU1eTKNFNNI/D/RDPNDGA7
- SIUslxm7zuhN4283EW3heG2aFaWkZBRpZERb9RJRbbEfhU02MptqqJT7u
- 7ol3CD4H4X3TCAcTonkPfujXYwXjK/PWMWR8/4W5DzDuOMKB8Lqu0dG3b
- GGFDVbcMwlQpwv7N6sDtis27aIU/8+RGuRJGtF6fw8MkoWfs6h4V8QErO
- xgN27snO1fno7I2wWqEsVWJ5ZehDPMc0OaLtOUNFtysNlMy6GF/S+aY8Q
- Ebyz4XK0Nf+U3XQperoYLcrUKH08CMLVP8GAIJAzWhEvlwTQ5w/NLsfSB A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="425742109"
-X-IronPort-AV: E=Sophos;i="5.98,283,1673942400"; d="scan'208";a="425742109"
+ t=1679571887; x=1711107887;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=cYRisyr7HCRqUEcGPfKCrx8q0+rYnWo32ZlD17XCg88=;
+ b=cjEF+4abQxFa7RWwefthH5YhPU8FMxRBnu6t3KI8p2DoEj79IAHf/96M
+ dARPGcSHxMQIJFQKa795PxyqXt4YJQsdOR+ZF/ItNBGGCOC4uc5qCttN2
+ dd+GJSGMBb4KgueK4BUfA9hAu/n77S8Fo6/uK2k9daHr9lWERyEH7+zPU
+ imfCzYUXX4wU3QmmgWw6xzfCBCJMkNEsnpfRIk0R0lvYzL36kfxwEGLPT
+ dZq8yd1EjufPg1Rz3si7RS3zQoAQJEuX5D1xfQ3z3ntaWVR0Qb0k3ScCt
+ V4cDzw5tEKL1nsqUsSL1BSspZylcfh30bHqFFqzP+NqzI76P/4Fd2ix0z w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="425742122"
+X-IronPort-AV: E=Sophos;i="5.98,283,1673942400"; d="scan'208";a="425742122"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2023 04:44:41 -0700
+ 23 Mar 2023 04:44:47 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="746688496"
-X-IronPort-AV: E=Sophos;i="5.98,283,1673942400"; d="scan'208";a="746688496"
+X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="746688516"
+X-IronPort-AV: E=Sophos;i="5.98,283,1673942400"; d="scan'208";a="746688516"
 Received: from unknown (HELO vgovind2-mobl3.fi.intel.com) ([10.237.66.37])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2023 04:44:40 -0700
+ 23 Mar 2023 04:44:46 -0700
 From: Vinod Govindapillai <vinod.govindapillai@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 23 Mar 2023 13:44:24 +0200
-Message-Id: <20230323114426.41136-1-vinod.govindapillai@intel.com>
+Date: Thu, 23 Mar 2023 13:44:26 +0200
+Message-Id: <20230323114426.41136-3-vinod.govindapillai@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230323114426.41136-1-vinod.govindapillai@intel.com>
+References: <20230323114426.41136-1-vinod.govindapillai@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 0/2] Correction to QGV related register
- addresses
+Subject: [Intel-gfx] [PATCH v3 2/2] drm/i915/reg: use the correct register
+ to access SAGV block time
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,17 +63,30 @@ Cc: ville.syrjala@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Wrong offsets are calculated to read QGV points from mem ss. Also
-a wrong register address is used to get the sagv block time. Fix
-these two issues.
+Wrong register address is used to read the SAG block time. Fix
+the register address according to the bspec.
 
-Vinod Govindapillai (2):
-  drm/i915/reg: fix QGV points register access offsets
-  drm/i915/reg: use the correct register to access SAGV block time
+Bspec: 64608
 
- drivers/gpu/drm/i915/i915_reg.h | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
+Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+---
+ drivers/gpu/drm/i915/i915_reg.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 8917774dc680..caa39b5614d4 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -7716,7 +7716,7 @@ enum skl_power_gate {
+ #define  MTL_LATENCY_LEVEL_EVEN_MASK	REG_GENMASK(12, 0)
+ #define  MTL_LATENCY_LEVEL_ODD_MASK	REG_GENMASK(28, 16)
+ 
+-#define MTL_LATENCY_SAGV		_MMIO(0x4578b)
++#define MTL_LATENCY_SAGV		_MMIO(0x4578c)
+ #define   MTL_LATENCY_QCLK_SAGV		REG_GENMASK(12, 0)
+ 
+ #define MTL_MEM_SS_INFO_GLOBAL			_MMIO(0x45700)
 -- 
 2.34.1
 
