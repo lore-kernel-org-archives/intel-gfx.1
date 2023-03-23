@@ -4,48 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4891BC6FD1C
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 22:59:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC32CC74A5B
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 23:19:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84EC110EB80;
-	Thu, 23 Mar 2023 22:59:06 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C22110E4C4
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Mar 2023 22:59:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B92310E121;
+	Thu, 23 Mar 2023 23:19:35 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 646FC10E121
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 Mar 2023 23:19:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679612343; x=1711148343;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=aFtA0MXVAYnXOyX1W/69cXiBdft+SYwnw3QwG2NaqOs=;
- b=NVWLH7M5kbN8UTYfMu3w5/Se6vIlzIw7LvkNV4wBsM5vWd/Hf0CLgz/k
- 6O/ZB8neKA9MxAtV7VuELEtR1Na1QH8qq2B8kwjbm5DSNwr84CXBaW8ne
- KvTOhO3KNo2SLsz2gL9//8R9HKO2lNrulAA3Hx6WUTGV3OzTcHFd2nIuV
- w9JmoBtmedd4ohFS0y43IY93Unf5uMI40NqiYRTlA5fbK8BD9F5mO2Hax
- FolwqRj6HCdeuYOZtoG0BTw5IUwF4YfXQ5ZbPN/IjPT+TVTvHVNUfd9eg
- FK5Pdg98Y+tpG0DypXVvfbVG2rJELm86HGY8kE/6LUkAk/ggT9nVRdAHT g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="320033258"
-X-IronPort-AV: E=Sophos;i="5.98,286,1673942400"; d="scan'208";a="320033258"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2023 15:59:02 -0700
+ t=1679613573; x=1711149573;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=M/CZP/XYi88uURwJu3pOSUC/ikXcXcZ0V9dE39VjvBg=;
+ b=Pinj9f4o1XyrPBeQpBW6sKhzoqBowG1uQ+urGe1t8XvJ6gg23B3RdcF9
+ umvKFh/Jones8NLqAZI/iOgKSnyc12IGPyrBnNQftoLOe5VX820q/JdJS
+ 6mJ0tmY71yCuKTi/noqnpWsdznpqSKh0CQe0ZsDTc7p58LIoiQ8EcSe/g
+ UwpQ++phq4N58UsYQ3lLPSyhCyROC8tyvi0exG5u7Wmlo60E62bAXXlvM
+ tXE8lPDcSGlwDGqcLBntPOWqxoksnuv7tnsV0qrrF3tgFqQrhE/1vktMG
+ xd90/qJHhMclwprvOFQlBzrcI1aI+GmUL4gZM+ok9ISwFVWZD91YU6c9M Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="402232264"
+X-IronPort-AV: E=Sophos;i="5.98,286,1673942400"; d="scan'208";a="402232264"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Mar 2023 16:19:24 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="771639224"
-X-IronPort-AV: E=Sophos;i="5.98,286,1673942400"; d="scan'208";a="771639224"
-Received: from orsosgc001.jf.intel.com ([10.165.21.138])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2023 15:59:02 -0700
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="715011509"
+X-IronPort-AV: E=Sophos;i="5.98,286,1673942400"; d="scan'208";a="715011509"
+Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Mar 2023 16:19:24 -0700
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 23 Mar 2023 15:59:00 -0700
-Message-Id: <20230323225901.3743681-11-umesh.nerlige.ramappa@intel.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20230323225901.3743681-1-umesh.nerlige.ramappa@intel.com>
-References: <20230323225901.3743681-1-umesh.nerlige.ramappa@intel.com>
+Date: Thu, 23 Mar 2023 16:18:56 -0700
+Message-Id: <20230323231857.2194435-1-daniele.ceraolospurio@intel.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 10/11] drm/i915/perf: Pass i915 object to perf
- revision helper
+Subject: [Intel-gfx] [CI 1/2] drm/i915: limit double GT reset to pre-MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,57 +58,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In some cases, perf revision may rely on specific steppings of a
-platform. To determine the platform, pass i915 object to the perf
-revision helper.
+Commit 3db9d590557d ("drm/i915/gt: Reset twice") modified the code to
+always hit the GDRST register twice when doing a reset, with the
+reported aim to fix invalid post-reset engine state on some platforms
+(Jasperlake being the only one actually mentioned).
 
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+This is a problem on MTL, due to the fact that we have to apply a time
+consuming WA (coming in the next patch) every time we hit the GDRST
+register in a way that can include the GSC engine. Even post MTL, the
+expectation is that we'll have some work to do before and after hitting
+the GDRST if the GSC is involved.
+
+Since the issue requiring the double reset seems to be limited to older
+platforms, instead of trying to handle the double-reset on MTL and
+future platforms it is just easier to turn it off. The default on MTL is
+also for GuC to own engine reset, with i915 only covering full-GT reset.
+
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Cc: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_getparam.c | 2 +-
- drivers/gpu/drm/i915/i915_perf.c     | 2 +-
- drivers/gpu/drm/i915/i915_perf.h     | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_reset.c | 35 +++++++++++++++------------
+ 1 file changed, 20 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_getparam.c b/drivers/gpu/drm/i915/i915_getparam.c
-index 61ef2d9cfa62..2238e096c957 100644
---- a/drivers/gpu/drm/i915/i915_getparam.c
-+++ b/drivers/gpu/drm/i915/i915_getparam.c
-@@ -173,7 +173,7 @@ int i915_getparam_ioctl(struct drm_device *dev, void *data,
- 		value = INTEL_INFO(i915)->has_coherent_ggtt;
- 		break;
- 	case I915_PARAM_PERF_REVISION:
--		value = i915_perf_ioctl_version();
-+		value = i915_perf_ioctl_version(i915);
- 		break;
- 	case I915_PARAM_OA_TIMESTAMP_FREQUENCY:
- 		value = i915_perf_oa_timestamp_frequency(i915);
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 247dad57ab89..18afa76653b7 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -5289,7 +5289,7 @@ void i915_perf_fini(struct drm_i915_private *i915)
-  *
-  * This version number is used by userspace to detect available features.
-  */
--int i915_perf_ioctl_version(void)
-+int i915_perf_ioctl_version(struct drm_i915_private *i915)
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index 0bb9094fdacd..2c3463f77e5c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -268,9 +268,27 @@ static int ilk_do_reset(struct intel_gt *gt, intel_engine_mask_t engine_mask,
+ static int gen6_hw_domain_reset(struct intel_gt *gt, u32 hw_domain_mask)
  {
- 	/*
- 	 * 1: Initial version
-diff --git a/drivers/gpu/drm/i915/i915_perf.h b/drivers/gpu/drm/i915/i915_perf.h
-index 253637651d5e..accf626f2b13 100644
---- a/drivers/gpu/drm/i915/i915_perf.h
-+++ b/drivers/gpu/drm/i915/i915_perf.h
-@@ -22,7 +22,7 @@ int i915_perf_init(struct drm_i915_private *i915);
- void i915_perf_fini(struct drm_i915_private *i915);
- void i915_perf_register(struct drm_i915_private *i915);
- void i915_perf_unregister(struct drm_i915_private *i915);
--int i915_perf_ioctl_version(void);
-+int i915_perf_ioctl_version(struct drm_i915_private *i915);
- int i915_perf_sysctl_register(void);
- void i915_perf_sysctl_unregister(void);
+ 	struct intel_uncore *uncore = gt->uncore;
+-	int loops = 2;
++	int loops;
+ 	int err;
  
++	/*
++	 * On some platforms, e.g. Jasperlake, we see that the engine register
++	 * state is not cleared until shortly after GDRST reports completion,
++	 * causing a failure as we try to immediately resume while the internal
++	 * state is still in flux. If we immediately repeat the reset, the
++	 * second reset appears to serialise with the first, and since it is a
++	 * no-op, the registers should retain their reset value. However, there
++	 * is still a concern that upon leaving the second reset, the internal
++	 * engine state is still in flux and not ready for resuming.
++	 *
++	 * Starting on MTL, there are some prep steps that we need to do when
++	 * resetting some engines that need to be applied every time we write to
++	 * GEN6_GDRST. As those are time consuming (tens of ms), we don't want
++	 * to perform that twice, so, since the Jasperlake issue hasn't been
++	 * observed on MTL, we avoid repeating the reset on newer platforms.
++	 */
++	loops = GRAPHICS_VER_FULL(gt->i915) < IP_VER(12, 70) ? 2 : 1;
++
+ 	/*
+ 	 * GEN6_GDRST is not in the gt power well, no need to check
+ 	 * for fifo space for the write or forcewake the chip for
+@@ -279,20 +297,7 @@ static int gen6_hw_domain_reset(struct intel_gt *gt, u32 hw_domain_mask)
+ 	do {
+ 		intel_uncore_write_fw(uncore, GEN6_GDRST, hw_domain_mask);
+ 
+-		/*
+-		 * Wait for the device to ack the reset requests.
+-		 *
+-		 * On some platforms, e.g. Jasperlake, we see that the
+-		 * engine register state is not cleared until shortly after
+-		 * GDRST reports completion, causing a failure as we try
+-		 * to immediately resume while the internal state is still
+-		 * in flux. If we immediately repeat the reset, the second
+-		 * reset appears to serialise with the first, and since
+-		 * it is a no-op, the registers should retain their reset
+-		 * value. However, there is still a concern that upon
+-		 * leaving the second reset, the internal engine state
+-		 * is still in flux and not ready for resuming.
+-		 */
++		/* Wait for the device to ack the reset requests. */
+ 		err = __intel_wait_for_register_fw(uncore, GEN6_GDRST,
+ 						   hw_domain_mask, 0,
+ 						   2000, 0,
 -- 
-2.36.1
+2.37.3
 
