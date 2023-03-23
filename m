@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E696C6FD1D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9EFEC76195
 	for <intel-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 14:21:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04FCB10EAC2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F28C10EAC3;
 	Thu, 23 Mar 2023 14:21:21 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 455DA10EAC2
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Mar 2023 14:21:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A16810EAC2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 Mar 2023 14:21:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679581262; x=1711117262;
+ t=1679581266; x=1711117266;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=QzuKZ83hofiom+PFFuw52WbNpcyhtL5489lX8e8dZEs=;
- b=g+qmtI4eNFDFRxHpHgOfXGyAO/4JXNP8D58PRrA6czSMTYZrN4lBgSAU
- l5oBgqeLG0E27PJBGncTJh/XfYfcSqCPXZA7LT72yjVeeL6BTdeUI+OS7
- kyRJbvfQssiZJbNCfxmUk8QST66R+NyJkjXED+gInX1Zbnc1PyAvUD+um
- B+ztD1ioH5zAQLdQRJi+bTK+CiHlS651EQRW+jAQnguo945DIbaD/xE8t
- ywUnV0iIApAZzliTVXJByZ1+Ex9RYZ/Xwk2dGN5BSsn+tRHiFHc2+fF/7
- P76yat1cH7R3A5Qlbw/osm534BeLe60l0M2Isq10R05rWfXFd5eGFatVf Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="327892336"
-X-IronPort-AV: E=Sophos;i="5.98,285,1673942400"; d="scan'208";a="327892336"
+ bh=8NTFKlm4jffXDB03v3plp6o19nUJ5d0+q39NSK3h++Y=;
+ b=mMxPsSLx5IKOahZvoALVOpalyJoysFlF9Ck/F1KN5SVUWFpLGivfmZ2C
+ JeINR5QDJSDdYKgMiDWo2qqX0bGginLW2jhLgvPGhEfvj34BHbBoszgYy
+ EqxSV5m4CyJWoNwaOeqIfln2Rgks9VyukSriYbS6HTiSPenv5WdeDwfv2
+ JZLTuUUvjfbzHi9RO785aqqSRZq9MqpFjyS8Az1+FQ5BtNDf6nMS1MU/J
+ k529aB03prXsJ8eBXfTVLkJSQT2eaRMEUL2rX3g5ug5A3iQoiuds15gh/
+ 4V4GO7TRHxpZdmvZDIIqT32LmCdUvqn51AHnQyHLLRMGDFbm/qxAGlA+1 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="327892348"
+X-IronPort-AV: E=Sophos;i="5.98,285,1673942400"; d="scan'208";a="327892348"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2023 07:21:02 -0700
+ 23 Mar 2023 07:21:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="746722715"
-X-IronPort-AV: E=Sophos;i="5.98,285,1673942400"; d="scan'208";a="746722715"
+X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="746722751"
+X-IronPort-AV: E=Sophos;i="5.98,285,1673942400"; d="scan'208";a="746722751"
 Received: from ideak-desk.fi.intel.com ([10.237.72.58])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2023 07:21:01 -0700
+ 23 Mar 2023 07:21:04 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 23 Mar 2023 16:20:28 +0200
-Message-Id: <20230323142035.1432621-23-imre.deak@intel.com>
+Date: Thu, 23 Mar 2023 16:20:32 +0200
+Message-Id: <20230323142035.1432621-27-imre.deak@intel.com>
 X-Mailer: git-send-email 2.31.1.189.g2e36527f23
 In-Reply-To: <20230323142035.1432621-1-imre.deak@intel.com>
 References: <20230323142035.1432621-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 22/29] drm/i915/adlp/tc: Use the DE HPD ISR
- register for hotplug detection
+Subject: [Intel-gfx] [PATCH 26/29] drm/i915: Move shared DPLL disabling into
+ CRTC disable hook
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,52 +61,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The spec says to use the CPU ISR registers for DP-alt/TBT HPD detection
-on ADLP, so do that instead of using the related IOM/TCSS registers.
-
-Bspec: 55480, 55482, 49212, 49305
+The spec requires disabling the PLL on TC ports before disconnecting the
+port's PHY. Prepare for that by moving the PLL disabling to the CRTC
+disable hook, while disconnecting the PHY will be moved to the
+post_pll_disable() encoder hook in the next patch.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_tc.c | 21 +++++++++------------
- 1 file changed, 9 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
-index 8f159ded501f8..3122f7ce8c9a0 100644
---- a/drivers/gpu/drm/i915/display/intel_tc.c
-+++ b/drivers/gpu/drm/i915/display/intel_tc.c
-@@ -688,22 +688,19 @@ static u32 adlp_tc_phy_hpd_live_status(struct intel_tc_port *tc)
- {
- 	struct drm_i915_private *i915 = tc_to_i915(tc);
- 	struct intel_digital_port *dig_port = tc->dig_port;
--	enum tc_port tc_port = intel_port_to_tc(i915, dig_port->base.port);
--	u32 isr_bit = i915->display.hotplug.pch_hpd[dig_port->base.hpd_pin];
--	u32 val, mask = 0;
-+	enum hpd_pin hpd_pin = dig_port->base.hpd_pin;
-+	u32 cpu_isr_bits = i915->display.hotplug.hpd[hpd_pin];
-+	u32 pch_isr_bit = i915->display.hotplug.pch_hpd[hpd_pin];
-+	u32 cpu_isr;
-+	u32 mask = 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 5a386c7c0bc92..ca024f288ab65 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1905,6 +1905,8 @@ static void ilk_crtc_disable(struct intel_atomic_state *state,
  
--	/*
--	 * On ADL-P HW/FW will wake from TCCOLD to complete the read access of
--	 * registers in IOM. Note that this doesn't apply to PHY and FIA
--	 * registers.
--	 */
--	val = intel_de_read(i915, TCSS_DDI_STATUS(tc_port));
--	if (val & TCSS_DDI_STATUS_HPD_LIVE_STATUS_ALT)
-+	cpu_isr = intel_de_read(i915, GEN11_DE_HPD_ISR);
-+	if (cpu_isr & (cpu_isr_bits & GEN11_DE_TC_HOTPLUG_MASK))
- 		mask |= BIT(TC_PORT_DP_ALT);
--	if (val & TCSS_DDI_STATUS_HPD_LIVE_STATUS_TBT)
-+	if (cpu_isr & (cpu_isr_bits & GEN11_DE_TBT_HOTPLUG_MASK))
- 		mask |= BIT(TC_PORT_TBT_ALT);
+ 	intel_set_cpu_fifo_underrun_reporting(dev_priv, pipe, true);
+ 	intel_set_pch_fifo_underrun_reporting(dev_priv, pipe, true);
++
++	intel_disable_shared_dpll(old_crtc_state);
+ }
  
--	if (intel_de_read(i915, SDEISR) & isr_bit)
-+	if (intel_de_read(i915, SDEISR) & pch_isr_bit)
- 		mask |= BIT(TC_PORT_LEGACY);
+ static void hsw_crtc_disable(struct intel_atomic_state *state,
+@@ -1923,6 +1925,8 @@ static void hsw_crtc_disable(struct intel_atomic_state *state,
+ 		intel_encoders_post_disable(state, crtc);
+ 	}
  
- 	return mask;
++	intel_disable_shared_dpll(old_crtc_state);
++
+ 	intel_dmc_disable_pipe(i915, crtc->pipe);
+ }
+ 
+@@ -7035,7 +7039,6 @@ static void intel_old_crtc_state_disables(struct intel_atomic_state *state,
+ 	dev_priv->display.funcs.display->crtc_disable(state, crtc);
+ 	crtc->active = false;
+ 	intel_fbc_disable(crtc);
+-	intel_disable_shared_dpll(old_crtc_state);
+ 
+ 	if (!new_crtc_state->hw.active)
+ 		intel_initial_watermarks(state, crtc);
 -- 
 2.37.1
 
