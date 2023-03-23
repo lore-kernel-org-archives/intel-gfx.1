@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCD72C761AF
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 14:21:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE22EC6FD1D
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Mar 2023 14:21:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51D4E10EACD;
-	Thu, 23 Mar 2023 14:21:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14D44882D0;
+	Thu, 23 Mar 2023 14:21:51 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DE1910EAC2
- for <intel-gfx@lists.freedesktop.org>; Thu, 23 Mar 2023 14:21:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 488E810EAC2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 Mar 2023 14:20:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679581269; x=1711117269;
+ t=1679581258; x=1711117258;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=RPenNow5MGIhp+4fsbk/BM8p9AQJY2ugZyKHuSgVYXg=;
- b=SlUPEABW7oVNy76kSbZQqVwB7Qkh8AXS1TFyLYudz64tEi78F33h3b/Q
- rZNCMgtnbp6gOmSW1iWPB3qejgAnAr5xwVR9XFQrHwcMBZH1aAhpQI5pC
- FxDFN4MpsjZY7dEuPbfa4LUK0yvkVY6dCQZV5UDTVSV+9UXB5bBMQHSdb
- Iwos20dWjKdNvWyyHcTGAoKr8PaS8Y1fJD6/OMFtFa0H74DiLMEd16ypb
- dHSwIDdkO1b6LlutBYCCp4TCbLQDoZ4Nmueic5QV2TWdmx0OW8bmOwMa4
- 5Zz5lcgkcVjUGbJGJ/GNiAgpdCiOK1ng/UEWnTNrnABZ/S5A427sZakm6 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="327892359"
-X-IronPort-AV: E=Sophos;i="5.98,285,1673942400"; d="scan'208";a="327892359"
+ bh=aXrDnw3hNq4YQM2g1o2+BXq+iUV7sNrvG/kVz5IoDFY=;
+ b=NUjyC4k1u97PlH7C+Rzj3nc0Pl2EwrNRyOrVr48QH9gzQAkYlSeWkkDy
+ kD7vCCln3dwp9mMTxnXuqgp34cbFTnHrz0nNn27Llfjuz/m9Sj7UTZF/W
+ qeZ9I6L5IAjb+UThn1tqGicrnzsTqUzAjeIDVRosvGD5wPBwQfFIg/u7z
+ Y67vNq7frhLDARs92ObAUwpWt2mdITl+lEuQ0ubPOvX9r360OxKe7yyiP
+ BqVK4S5yinkMVitczvndYMUxhr83QPiWhmvPXbax66liiQWdGlNVWh2PT
+ kzpgJ0plSzdbbk/Qk3UHgV0wSnTuUKmySTWhyxW8zcsUaVvgqWJ4WjqAm Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="327892318"
+X-IronPort-AV: E=Sophos;i="5.98,285,1673942400"; d="scan'208";a="327892318"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2023 07:21:08 -0700
+ 23 Mar 2023 07:20:58 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="746722771"
-X-IronPort-AV: E=Sophos;i="5.98,285,1673942400"; d="scan'208";a="746722771"
+X-IronPort-AV: E=McAfee;i="6600,9927,10657"; a="746722693"
+X-IronPort-AV: E=Sophos;i="5.98,285,1673942400"; d="scan'208";a="746722693"
 Received: from ideak-desk.fi.intel.com ([10.237.72.58])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2023 07:21:07 -0700
+ 23 Mar 2023 07:20:57 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 23 Mar 2023 16:20:35 +0200
-Message-Id: <20230323142035.1432621-30-imre.deak@intel.com>
+Date: Thu, 23 Mar 2023 16:20:24 +0200
+Message-Id: <20230323142035.1432621-19-imre.deak@intel.com>
 X-Mailer: git-send-email 2.31.1.189.g2e36527f23
 In-Reply-To: <20230323142035.1432621-1-imre.deak@intel.com>
 References: <20230323142035.1432621-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 29/29] drm/i915: Remove the encoder
- update_prepare()/complete() hooks
+Subject: [Intel-gfx] [PATCH 18/29] drm/i915/tc: Drop
+ tc_cold_block()/unblock()'s power domain parameter
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,231 +61,191 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The encoder update_prepare()/complete() hooks were added to hold a
-TC port link reference for all outputs in the atomic state around the
-whole modeset enable sequence - thus locking the ports' TC mode - and
-set the TBT/DP-alt PLL type corresponding to the current TC mode.
+Simplify tc_cold_block()/unblock() by dropping their power domain
+parameter. The power domain depends on the current TC mode, which -
+after the previous patch - can't change while the PHY is connected,
+holding a TC-cold-off power domain reference. Based on this the domain
+can be deducted from the current TC mode instead of having to pass this
+as a parameter.
 
-Since nothing depends on the PLL selection before/after then encoder's
-pre_pll_enable/post_pll_disable hooks are called, the above steps can be
-moved to these hooks, so do that and remove the
-update_prepare()/complete() hooks.
+Blocking TC-cold for the PHY HW readout happens before the current TC
+mode is determined, so here the initial power domain must be still
+manually passed.
+
+For debugging still keep track of the domain used for tc_cold_block()
+and verify that it remained the same until tc_cold_unblock().
+
+While at it rename tc_cold_get_power_domain() to
+tc_phy_cold_off_domain(), reflecting the name of platform specific hook
+added in the next patch.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c      | 49 +++---------
- drivers/gpu/drm/i915/display/intel_display.c  | 78 -------------------
- .../drm/i915/display/intel_display_types.h    |  6 --
- 3 files changed, 12 insertions(+), 121 deletions(-)
+ drivers/gpu/drm/i915/display/intel_tc.c | 61 +++++++++++++++----------
+ 1 file changed, 37 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 62bd4196dc464..dc294717bcdf4 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3060,39 +3060,6 @@ void intel_ddi_update_pipe(struct intel_atomic_state *state,
- 	intel_hdcp_update_pipe(state, encoder, crtc_state, conn_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
+index 21c6ef8064883..943660044e37a 100644
+--- a/drivers/gpu/drm/i915/display/intel_tc.c
++++ b/drivers/gpu/drm/i915/display/intel_tc.c
+@@ -40,7 +40,9 @@ struct intel_tc_port {
+ 
+ 	struct mutex lock;	/* protects the TypeC port mode */
+ 	intel_wakeref_t lock_wakeref;
++#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_RUNTIME_PM)
+ 	enum intel_display_power_domain lock_power_domain;
++#endif
+ 	struct delayed_work disconnect_phy_work;
+ 	int link_refcount;
+ 	bool legacy_port:1;
+@@ -116,43 +118,60 @@ bool intel_tc_cold_requires_aux_pw(struct intel_digital_port *dig_port)
  }
  
--static void
--intel_ddi_update_prepare(struct intel_atomic_state *state,
--			 struct intel_encoder *encoder,
--			 struct intel_crtc *crtc)
--{
--	struct drm_i915_private *i915 = to_i915(state->base.dev);
--	struct intel_crtc_state *crtc_state =
--		crtc ? intel_atomic_get_new_crtc_state(state, crtc) : NULL;
--	int required_lanes = crtc_state ? crtc_state->lane_count : 1;
--
--	drm_WARN_ON(state->base.dev, crtc && crtc->active);
--
--	intel_tc_port_get_link(enc_to_dig_port(encoder),
--		               required_lanes);
--	if (crtc_state && crtc_state->hw.active) {
--		struct intel_crtc *slave_crtc;
--
--		intel_update_active_dpll(state, crtc, encoder);
--
--		for_each_intel_crtc_in_pipe_mask(&i915->drm, slave_crtc,
--						 intel_crtc_bigjoiner_slave_pipes(crtc_state))
--			intel_update_active_dpll(state, slave_crtc, encoder);
--	}
--}
--
--static void
--intel_ddi_update_complete(struct intel_atomic_state *state,
--			  struct intel_encoder *encoder,
--			  struct intel_crtc *crtc)
--{
--	intel_tc_port_put_link(enc_to_dig_port(encoder));
--}
--
- static void
- intel_ddi_pre_pll_enable(struct intel_atomic_state *state,
- 			 struct intel_encoder *encoder,
-@@ -3104,9 +3071,20 @@ intel_ddi_pre_pll_enable(struct intel_atomic_state *state,
- 	enum phy phy = intel_port_to_phy(dev_priv, encoder->port);
- 	bool is_tc_port = intel_phy_is_tc(dev_priv, phy);
- 
--	if (is_tc_port)
-+	if (is_tc_port) {
-+		struct intel_crtc *master_crtc =
-+			to_intel_crtc(crtc_state->uapi.crtc);
-+		struct intel_crtc *slave_crtc;
-+
- 		intel_tc_port_get_link(dig_port, crtc_state->lane_count);
- 
-+		intel_update_active_dpll(state, master_crtc, encoder);
-+
-+		for_each_intel_crtc_in_pipe_mask(&dev_priv->drm, slave_crtc,
-+						 intel_crtc_bigjoiner_slave_pipes(crtc_state))
-+			intel_update_active_dpll(state, slave_crtc, encoder);
-+	}
-+
- 	main_link_aux_power_domain_get(dig_port, crtc_state);
- 
- 	if (is_tc_port && !intel_tc_port_in_tbt_alt_mode(dig_port))
-@@ -4552,9 +4530,6 @@ void intel_ddi_init(struct drm_i915_private *dev_priv, enum port port)
- 
- 		if (intel_tc_port_init(dig_port, is_legacy) < 0)
- 			goto err;
--
--		encoder->update_prepare = intel_ddi_update_prepare;
--		encoder->update_complete = intel_ddi_update_complete;
- 	}
- 
- 	drm_WARN_ON(&dev_priv->drm, port > PORT_I);
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 0e171f66d6983..cdf2c33cd544d 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -1320,36 +1320,11 @@ static void intel_crtc_disable_planes(struct intel_atomic_state *state,
- 	intel_frontbuffer_flip(dev_priv, fb_bits);
- }
- 
--/*
-- * intel_connector_primary_encoder - get the primary encoder for a connector
-- * @connector: connector for which to return the encoder
-- *
-- * Returns the primary encoder for a connector. There is a 1:1 mapping from
-- * all connectors to their encoder, except for DP-MST connectors which have
-- * both a virtual and a primary encoder. These DP-MST primary encoders can be
-- * pointed to by as many DP-MST connectors as there are pipes.
-- */
--static struct intel_encoder *
--intel_connector_primary_encoder(struct intel_connector *connector)
--{
--	struct intel_encoder *encoder;
--
--	if (connector->mst_port)
--		return &dp_to_dig_port(connector->mst_port)->base;
--
--	encoder = intel_attached_encoder(connector);
--	drm_WARN_ON(connector->base.dev, !encoder);
--
--	return encoder;
--}
--
- static void intel_encoders_update_prepare(struct intel_atomic_state *state)
+ static enum intel_display_power_domain
+-tc_cold_get_power_domain(struct intel_tc_port *tc, enum tc_port_mode mode)
++tc_phy_cold_off_domain(struct intel_tc_port *tc)
  {
- 	struct drm_i915_private *i915 = to_i915(state->base.dev);
- 	struct intel_crtc_state *new_crtc_state, *old_crtc_state;
- 	struct intel_crtc *crtc;
--	struct drm_connector_state *new_conn_state;
--	struct drm_connector *connector;
- 	int i;
+ 	struct drm_i915_private *i915 = tc_to_i915(tc);
+ 	struct intel_digital_port *dig_port = tc->dig_port;
  
- 	/*
-@@ -1365,57 +1340,6 @@ static void intel_encoders_update_prepare(struct intel_atomic_state *state)
- 			new_crtc_state->dpll_hw_state = old_crtc_state->dpll_hw_state;
- 		}
- 	}
--
--	if (!state->modeset)
--		return;
--
--	for_each_new_connector_in_state(&state->base, connector, new_conn_state,
--					i) {
--		struct intel_connector *intel_connector;
--		struct intel_encoder *encoder;
--		struct intel_crtc *crtc;
--
--		if (!intel_connector_needs_modeset(state, connector))
--			continue;
--
--		intel_connector = to_intel_connector(connector);
--		encoder = intel_connector_primary_encoder(intel_connector);
--		if (!encoder->update_prepare)
--			continue;
--
--		crtc = new_conn_state->crtc ?
--			to_intel_crtc(new_conn_state->crtc) : NULL;
--		encoder->update_prepare(state, encoder, crtc);
--	}
--}
--
--static void intel_encoders_update_complete(struct intel_atomic_state *state)
--{
--	struct drm_connector_state *new_conn_state;
--	struct drm_connector *connector;
--	int i;
--
--	if (!state->modeset)
--		return;
--
--	for_each_new_connector_in_state(&state->base, connector, new_conn_state,
--					i) {
--		struct intel_connector *intel_connector;
--		struct intel_encoder *encoder;
--		struct intel_crtc *crtc;
--
--		if (!intel_connector_needs_modeset(state, connector))
--			continue;
--
--		intel_connector = to_intel_connector(connector);
--		encoder = intel_connector_primary_encoder(intel_connector);
--		if (!encoder->update_complete)
--			continue;
--
--		crtc = new_conn_state->crtc ?
--			to_intel_crtc(new_conn_state->crtc) : NULL;
--		encoder->update_complete(state, encoder, crtc);
--	}
+-	if (mode == TC_PORT_TBT_ALT || !intel_tc_cold_requires_aux_pw(dig_port))
++	if (tc->mode == TC_PORT_TBT_ALT || !intel_tc_cold_requires_aux_pw(dig_port))
+ 		return POWER_DOMAIN_TC_COLD_OFF;
+ 
+ 	return intel_display_power_legacy_aux_domain(i915, dig_port->aux_ch);
  }
  
- static void intel_encoders_pre_pll_enable(struct intel_atomic_state *state,
-@@ -7439,8 +7363,6 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 	/* Now enable the clocks, plane, pipe, and connectors that we set up. */
- 	dev_priv->display.funcs.display->commit_modeset_enables(state);
+ static intel_wakeref_t
+-tc_cold_block_in_mode(struct intel_tc_port *tc, enum tc_port_mode mode,
+-		      enum intel_display_power_domain *domain)
++__tc_cold_block(struct intel_tc_port *tc, enum intel_display_power_domain *domain)
+ {
+ 	struct drm_i915_private *i915 = tc_to_i915(tc);
  
--	intel_encoders_update_complete(state);
--
- 	if (state->modeset)
- 		intel_set_cdclk_post_plane_update(state);
+-	*domain = tc_cold_get_power_domain(tc, mode);
++	*domain = tc_phy_cold_off_domain(tc);
  
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index ce24e58b2a825..fbdc94ad1d081 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -170,9 +170,6 @@ struct intel_encoder {
- 	int (*compute_config_late)(struct intel_encoder *,
- 				   struct intel_crtc_state *,
- 				   struct drm_connector_state *);
--	void (*update_prepare)(struct intel_atomic_state *,
--			       struct intel_encoder *,
--			       struct intel_crtc *);
- 	void (*pre_pll_enable)(struct intel_atomic_state *,
- 			       struct intel_encoder *,
- 			       const struct intel_crtc_state *,
-@@ -185,9 +182,6 @@ struct intel_encoder {
- 		       struct intel_encoder *,
- 		       const struct intel_crtc_state *,
- 		       const struct drm_connector_state *);
--	void (*update_complete)(struct intel_atomic_state *,
--				struct intel_encoder *,
--				struct intel_crtc *);
- 	void (*disable)(struct intel_atomic_state *,
- 			struct intel_encoder *,
- 			const struct intel_crtc_state *,
+ 	return intel_display_power_get(i915, *domain);
+ }
+ 
+ static intel_wakeref_t
+-tc_cold_block(struct intel_tc_port *tc, enum intel_display_power_domain *domain)
++tc_cold_block(struct intel_tc_port *tc)
+ {
+-	return tc_cold_block_in_mode(tc, tc->mode, domain);
++	enum intel_display_power_domain domain;
++	intel_wakeref_t wakeref;
++
++	wakeref = __tc_cold_block(tc, &domain);
++#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_RUNTIME_PM)
++	tc->lock_power_domain = domain;
++#endif
++	return wakeref;
+ }
+ 
+ static void
+-tc_cold_unblock(struct intel_tc_port *tc, enum intel_display_power_domain domain,
+-		intel_wakeref_t wakeref)
++__tc_cold_unblock(struct intel_tc_port *tc, enum intel_display_power_domain domain,
++		  intel_wakeref_t wakeref)
+ {
+ 	struct drm_i915_private *i915 = tc_to_i915(tc);
+ 
+ 	intel_display_power_put(i915, domain, wakeref);
+ }
+ 
++static void
++tc_cold_unblock(struct intel_tc_port *tc, intel_wakeref_t wakeref)
++{
++	enum intel_display_power_domain domain = tc_phy_cold_off_domain(tc);
++
++#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_RUNTIME_PM)
++	drm_WARN_ON(&tc_to_i915(tc)->drm, tc->lock_power_domain != domain);
++#endif
++	__tc_cold_unblock(tc, domain, wakeref);
++}
++
+ static void
+ assert_tc_cold_blocked(struct intel_tc_port *tc)
+ {
+@@ -160,8 +179,7 @@ assert_tc_cold_blocked(struct intel_tc_port *tc)
+ 	bool enabled;
+ 
+ 	enabled = intel_display_power_is_enabled(i915,
+-						 tc_cold_get_power_domain(tc,
+-									  tc->mode));
++						 tc_phy_cold_off_domain(tc));
+ 	drm_WARN_ON(&i915->drm, !enabled);
+ }
+ 
+@@ -413,13 +431,13 @@ static void icl_tc_phy_get_hw_state(struct intel_tc_port *tc)
+ 	enum intel_display_power_domain domain;
+ 	intel_wakeref_t tc_cold_wref;
+ 
+-	tc_cold_wref = tc_cold_block(tc, &domain);
++	tc_cold_wref = __tc_cold_block(tc, &domain);
+ 
+ 	tc->mode = tc_phy_get_current_mode(tc);
+ 	if (tc->mode != TC_PORT_DISCONNECTED)
+-		tc->lock_wakeref = tc_cold_block(tc, &tc->lock_power_domain);
++		tc->lock_wakeref = tc_cold_block(tc);
+ 
+-	tc_cold_unblock(tc, domain, tc_cold_wref);
++	__tc_cold_unblock(tc, domain, tc_cold_wref);
+ }
+ 
+ /*
+@@ -474,7 +492,7 @@ static bool icl_tc_phy_connect(struct intel_tc_port *tc,
+ {
+ 	struct drm_i915_private *i915 = tc_to_i915(tc);
+ 
+-	tc->lock_wakeref = tc_cold_block(tc, &tc->lock_power_domain);
++	tc->lock_wakeref = tc_cold_block(tc);
+ 
+ 	if (tc->mode == TC_PORT_TBT_ALT)
+ 		return true;
+@@ -497,9 +515,7 @@ static bool icl_tc_phy_connect(struct intel_tc_port *tc,
+ out_release_phy:
+ 	tc_phy_take_ownership(tc, false);
+ out_unblock_tc_cold:
+-	tc_cold_unblock(tc,
+-			tc->lock_power_domain,
+-			fetch_and_zero(&tc->lock_wakeref));
++	tc_cold_unblock(tc, fetch_and_zero(&tc->lock_wakeref));
+ 
+ 	return false;
+ }
+@@ -516,9 +532,7 @@ static void icl_tc_phy_disconnect(struct intel_tc_port *tc)
+ 		tc_phy_take_ownership(tc, false);
+ 		fallthrough;
+ 	case TC_PORT_TBT_ALT:
+-		tc_cold_unblock(tc,
+-				tc->lock_power_domain,
+-				fetch_and_zero(&tc->lock_wakeref));
++		tc_cold_unblock(tc, fetch_and_zero(&tc->lock_wakeref));
+ 		break;
+ 	default:
+ 		MISSING_CASE(tc->mode);
+@@ -1177,7 +1191,6 @@ void intel_tc_port_put_link(struct intel_digital_port *dig_port)
+ static bool
+ tc_has_modular_fia(struct drm_i915_private *i915, struct intel_tc_port *tc)
+ {
+-	enum intel_display_power_domain domain;
+ 	intel_wakeref_t wakeref;
+ 	u32 val;
+ 
+@@ -1185,9 +1198,9 @@ tc_has_modular_fia(struct drm_i915_private *i915, struct intel_tc_port *tc)
+ 		return false;
+ 
+ 	mutex_lock(&tc->lock);
+-	wakeref = tc_cold_block(tc, &domain);
++	wakeref = tc_cold_block(tc);
+ 	val = intel_de_read(i915, PORT_TX_DFLEXDPSP(FIA1));
+-	tc_cold_unblock(tc, domain, wakeref);
++	tc_cold_unblock(tc, wakeref);
+ 	mutex_unlock(&tc->lock);
+ 
+ 	drm_WARN_ON(&i915->drm, val == 0xffffffff);
 -- 
 2.37.1
 
