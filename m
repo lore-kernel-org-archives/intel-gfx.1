@@ -4,66 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE30BC76195
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Mar 2023 19:56:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98136C6FD1C
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Mar 2023 19:56:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3FE310EC8C;
-	Fri, 24 Mar 2023 19:56:35 +0000 (UTC)
-Received: from mail-yw1-x112b.google.com (mail-yw1-x112b.google.com
- [IPv6:2607:f8b0:4864:20::112b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96FA210EC92
- for <intel-gfx@lists.freedesktop.org>; Fri, 24 Mar 2023 19:56:19 +0000 (UTC)
-Received: by mail-yw1-x112b.google.com with SMTP id
- 00721157ae682-5447d217bc6so52461017b3.7
- for <intel-gfx@lists.freedesktop.org>; Fri, 24 Mar 2023 12:56:19 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 234E410EC92;
+	Fri, 24 Mar 2023 19:56:36 +0000 (UTC)
+Received: from mail-yw1-x112d.google.com (mail-yw1-x112d.google.com
+ [IPv6:2607:f8b0:4864:20::112d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C3BC10EC95
+ for <intel-gfx@lists.freedesktop.org>; Fri, 24 Mar 2023 19:56:27 +0000 (UTC)
+Received: by mail-yw1-x112d.google.com with SMTP id
+ 00721157ae682-544787916d9so51987647b3.13
+ for <intel-gfx@lists.freedesktop.org>; Fri, 24 Mar 2023 12:56:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1679687779;
+ d=chromium.org; s=google; t=1679687787;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kriTaZfC9ovCIlPEYngC+XavDN/MNyeHVaA952htTr0=;
- b=dvwLA1kLx4VUuQcfKWU74BC/b8c6k/Ne79KEGWtA5FvsE4QvplVebxgj5eOapJD9H5
- LKLdTYnasMTQQTErY212nrCix6mkXHDDsQgViwOZW7w2igQj+i3vGlBA13QojYdX9M+s
- 0BtGjJKnW5mBSt/bCxQn1OctVs6iiT/Hl/ITM=
+ bh=lJ8XMXUhDPNrl814nUboxXrW9LkyTici68uktBtSFp8=;
+ b=P2zFpErnEFQsp7uPKvsd3TV5DcP5rEYW4cUIR/DZg2F7Bjo6Fuo7TB81xa4HUve9mN
+ f83wkGhGCLXt8pH/1NA9mpjGLxNwwWWLuHuVctnuEOdYIwAA+YedxbsIijurA1cI4QmS
+ 6AA07fYrVRdkiyJ5UKRqq7ba8hcI44Krtm/Ys=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679687779;
+ d=1e100.net; s=20210112; t=1679687787;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=kriTaZfC9ovCIlPEYngC+XavDN/MNyeHVaA952htTr0=;
- b=7rBSQV9uyKuhQX6ZuJR29JA0+0kZ/Pi8+32/3yXeCWTxiKhgQkRPC+DhO7OxPKicd5
- 7WXYii6BFyfz7RXWVyQpgxWjSST8Lx/JQY0MYW/4DQFmbZanDpM3lgJ4ZoyLi3+0xAiK
- 0dujqIw6DiKyiuKDd0G55tQcOTcFKs5Hpn0pM94/opFUwNsWaDjHJrDeW3YbUAVAiZKD
- RQElN/RMtveuBt0gMIfQ/kA4nZDD3L9HjdykIazwevEIxIyKFw395TMNn834m3wn0iZ8
- 8D3G2m7MNWcGbixDkzhv6C62KEOVFUMPK+dS4RLiwlHUnhy3nTnr3JcGiGlfLf/TXbNe
- pE8w==
-X-Gm-Message-State: AAQBX9cCJXH6irzo/QxKX/bmRyfu4j8QPusDKOtmuF952kyeuRsOTrmG
- Ww17V61okLkcMO65JhLOPfpKeQ==
-X-Google-Smtp-Source: AKy350bsTJqa9Fh0fW1cPlZHb7uDJQwbxe+TFgtmqVyro72SR24pj9vc3v3W15JZPDMj6+T42y0Tzg==
-X-Received: by 2002:a81:6d97:0:b0:541:64d4:6c4f with SMTP id
- i145-20020a816d97000000b0054164d46c4fmr4024783ywc.6.1679687779209; 
- Fri, 24 Mar 2023 12:56:19 -0700 (PDT)
+ bh=lJ8XMXUhDPNrl814nUboxXrW9LkyTici68uktBtSFp8=;
+ b=RpTCv5cxeeUL7/DetWI9O30WwW6prM4dFTJ/67ZVGR/VCo52Lac/kXxwKcLOoDL128
+ 51oiHNXBhVo7Qb210TIbBkV2s8lafg1KkWP+KNqPyoKDoGAFb0PaMlCKcNTTgbh0upP0
+ 5q8BOF0os0J5rJi02isSzAjyYOh87ZumA0DUMrlv9f5fnVnkmq/uWclxOzHSwTRw6FDp
+ mdCfoa4trzvAiT6HPCin43xLii1edV30/dOx8ZJPW8oOx9R4BI1gGTkt4/XGk8RFrH39
+ QBmaDVADJPfbSH3HQAS9o3+neK6RATU7b16vp/dgTdK2aFH8+blBlwTGTExVBkVh9eyW
+ vmQA==
+X-Gm-Message-State: AAQBX9dK9wvClylSCqv+CfjrnAMlUK9O1o2Bi2iwu4c4pZHCNZ81kkE4
+ 3Y5KemKzfwQiMNLwqMacUCNz9g==
+X-Google-Smtp-Source: AKy350btG7JZAXhOS+MiHIcxvyNWthfjiPWQRq04uR4hey+5zvIW3E5kjhsx4yNIl9eMj7A92K+cIQ==
+X-Received: by 2002:a0d:e80d:0:b0:541:a219:2b61 with SMTP id
+ r13-20020a0de80d000000b00541a2192b61mr3298134ywe.35.1679687787185; 
+ Fri, 24 Mar 2023 12:56:27 -0700 (PDT)
 Received: from localhost ([2620:0:1035:15:5509:ec45:2b32:b39f])
  by smtp.gmail.com with UTF8SMTPSA id
- ci27-20020a05690c0a9b00b00545a0818477sm581652ywb.7.2023.03.24.12.56.18
+ o19-20020a81ef13000000b00545a0818500sm579522ywm.144.2023.03.24.12.56.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Mar 2023 12:56:18 -0700 (PDT)
+ Fri, 24 Mar 2023 12:56:26 -0700 (PDT)
 From: Mark Yacoub <markyacoub@chromium.org>
 X-Google-Original-From: Mark Yacoub <markyacoub@google.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Date: Fri, 24 Mar 2023 15:55:49 -0400
-Message-Id: <20230324195555.3921170-6-markyacoub@google.com>
+To: Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+ Kuogee Hsieh <quic_khsieh@quicinc.com>
+Date: Fri, 24 Mar 2023 15:55:52 -0400
+Message-Id: <20230324195555.3921170-9-markyacoub@google.com>
 X-Mailer: git-send-email 2.40.0.348.gf938b09366-goog
 In-Reply-To: <20230324195555.3921170-1-markyacoub@google.com>
 References: <20230324195555.3921170-1-markyacoub@google.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 05/10] drm/i915/hdcp: Consolidate HDCP
- setup/state cache
+Subject: [Intel-gfx] [PATCH v7 08/10] dt-bindings: msm/dp: Add bindings for
+ HDCP registers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,121 +77,85 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ Mark Yacoub <markyacoub@chromium.org>, intel-gfx@lists.freedesktop.org,
  dianders@chromium.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, seanpaul@chromium.org,
- freedreno@lists.freedesktop.org
+ Stephen Boyd <swboyd@chromium.org>, seanpaul@chromium.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Sean Paul <seanpaul@chromium.org>
 
-Stick all of the setup for HDCP into a dedicated function. No functional
-change, but this will facilitate moving HDCP logic into helpers.
+Add the bindings for the MSM DisplayPort HDCP registers
+which are required to write the HDCP key into the display controller as
+well as the registers to enable HDCP authentication/key
+exchange/encryption.
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Stephen Boyd <swboyd@chromium.org>
+Reviewed-by: Rob Herring <robh@kernel.org>
 Signed-off-by: Sean Paul <seanpaul@chromium.org>
+Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
 
 ---
 Changes in v2:
--None
+-Drop register range names (Stephen)
+-Fix yaml errors (Rob)
 Changes in v3:
--None
+-Add new compatible string for dp-hdcp
+-Add descriptions to reg
+-Add minItems/maxItems to reg
+-Make reg depend on the new hdcp compatible string
 Changes in v4:
--None
+-Rebase on Bjorn's multi-dp patchset
+Changes in v4.5:
+-Remove maxItems from reg (Rob)
+-Remove leading zeros in example (Rob)
 Changes in v5:
 -None
 Changes in v6:
--None
+-Rebased: modify minItems instead of adding it as new line.
 Changes in v7:
-- None
+-Revert the change to minItems
+-Added the maxItems to Reg
 
- drivers/gpu/drm/i915/display/intel_hdcp.c | 52 +++++++++++++++--------
- 1 file changed, 35 insertions(+), 17 deletions(-)
+ .../devicetree/bindings/display/msm/dp-controller.yaml     | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index 396d2cef000aa..0a20bc41be55d 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -2190,6 +2190,37 @@ static enum mei_fw_tc intel_get_mei_fw_tc(enum transcoder cpu_transcoder)
- 	}
- }
+diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+index 774ccb5184b88..c47ade3a4ae17 100644
+--- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
+@@ -31,6 +31,8 @@ properties:
+       - description: link register block
+       - description: p0 register block
+       - description: p1 register block
++      - description: (Optional) Registers for HDCP device key injection
++      - description: (Optional) Registers for HDCP TrustZone interaction
  
-+static int
-+_intel_hdcp_setup(struct intel_connector *connector,
-+		  const struct intel_crtc_state *pipe_config, u8 content_type)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
-+	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
-+	struct intel_hdcp *hdcp = &connector->hdcp;
-+	int ret = 0;
-+
-+	if (!connector->encoder) {
-+		drm_err(&dev_priv->drm, "[%s:%d] encoder is not initialized\n",
-+			connector->base.name, connector->base.base.id);
-+		return -ENODEV;
-+	}
-+
-+	hdcp->content_type = content_type;
-+
-+	if (intel_crtc_has_type(pipe_config, INTEL_OUTPUT_DP_MST)) {
-+		hdcp->cpu_transcoder = pipe_config->mst_master_transcoder;
-+		hdcp->stream_transcoder = pipe_config->cpu_transcoder;
-+	} else {
-+		hdcp->cpu_transcoder = pipe_config->cpu_transcoder;
-+		hdcp->stream_transcoder = INVALID_TRANSCODER;
-+	}
-+
-+	if (DISPLAY_VER(dev_priv) >= 12)
-+		dig_port->hdcp_port_data.fw_tc = intel_get_mei_fw_tc(hdcp->cpu_transcoder);
-+
-+	return ret;
-+}
-+
- static int initialize_hdcp_port_data(struct intel_connector *connector,
- 				     struct intel_digital_port *dig_port,
- 				     const struct intel_hdcp_shim *shim)
-@@ -2329,28 +2360,14 @@ int intel_hdcp_enable(struct intel_connector *connector,
- 	if (!hdcp->shim)
- 		return -ENOENT;
+   interrupts:
+     maxItems: 1
+@@ -158,6 +160,7 @@ allOf:
+         aux-bus: false
+         reg:
+           minItems: 5
++          maxItems: 7
+       required:
+         - "#sound-dai-cells"
  
--	if (!connector->encoder) {
--		drm_err(&dev_priv->drm, "[%s:%d] encoder is not initialized\n",
--			connector->base.name, connector->base.base.id);
--		return -ENODEV;
--	}
--
- 	mutex_lock(&hdcp->mutex);
- 	mutex_lock(&dig_port->hdcp_mutex);
- 	drm_WARN_ON(&dev_priv->drm,
- 		    hdcp->value == DRM_MODE_CONTENT_PROTECTION_ENABLED);
--	hdcp->content_type = content_type;
--
--	if (intel_crtc_has_type(pipe_config, INTEL_OUTPUT_DP_MST)) {
--		hdcp->cpu_transcoder = pipe_config->mst_master_transcoder;
--		hdcp->stream_transcoder = pipe_config->cpu_transcoder;
--	} else {
--		hdcp->cpu_transcoder = pipe_config->cpu_transcoder;
--		hdcp->stream_transcoder = INVALID_TRANSCODER;
--	}
- 
--	if (DISPLAY_VER(dev_priv) >= 12)
--		dig_port->hdcp_port_data.fw_tc = intel_get_mei_fw_tc(hdcp->cpu_transcoder);
-+	ret = _intel_hdcp_setup(connector, pipe_config, content_type);
-+	if (ret)
-+		goto out;
- 
- 	/*
- 	 * Considering that HDCP2.2 is more secure than HDCP1.4, If the setup
-@@ -2378,6 +2395,7 @@ int intel_hdcp_enable(struct intel_connector *connector,
- 					true);
- 	}
- 
-+out:
- 	mutex_unlock(&dig_port->hdcp_mutex);
- 	mutex_unlock(&hdcp->mutex);
- 	return ret;
+@@ -175,7 +178,9 @@ examples:
+               <0xae90200 0x200>,
+               <0xae90400 0xc00>,
+               <0xae91000 0x400>,
+-              <0xae91400 0x400>;
++              <0xae91400 0x400>,
++              <0xaed1000 0x174>,
++              <0xaee1000 0x2c>;
+         interrupt-parent = <&mdss>;
+         interrupts = <12>;
+         clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
 -- 
 2.40.0.348.gf938b09366-goog
 
