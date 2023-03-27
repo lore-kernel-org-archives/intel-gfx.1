@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC8F3C761AF
-	for <intel-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 09:34:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20B44C7619A
+	for <intel-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 09:34:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3D1510E374;
-	Mon, 27 Mar 2023 09:34:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 200B610E393;
+	Mon, 27 Mar 2023 09:34:07 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 613DD10E374;
- Mon, 27 Mar 2023 09:34:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93D8710E36D;
+ Mon, 27 Mar 2023 09:33:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679909640; x=1711445640;
+ t=1679909637; x=1711445637;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ch/bYiwA/al8uDthOgkt0aUcLuMsxVz1xbwcQeNOOX8=;
- b=iFukY4sZWSCeJQwnFk2DAQ9HPZBbC3os3oPFvcOauX0EQMg3EIF19N1A
- HtB1rRQYBb1/hz3fM85QG5QwY8pr7Ov4AymnsCSM9elLjyxyx3KEN1G/0
- 0qRsR68bzZDkXJHBdad3B+zSNqe3oefPxXRO/PrT7ZZwDWM11HcTnL4X0
- PKiEICZvzfoHtCd11PaBqdMlJVk2WW36SoX72lb36DZkeRtNaliuhpfl9
- Ky15VRup1qfV3/8U4qF7wQ6RlDzyK15DZROxIeWWX0z8ylYNk6HsCuu+k
- KqVOV0Ovh4ow8wCrUoHp8mVy8OZ6+67CaBXGcvHvEL9n9xEL2f/HKiS7f Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="402817969"
-X-IronPort-AV: E=Sophos;i="5.98,294,1673942400"; d="scan'208";a="402817969"
+ bh=okGxzd81Q5tsYlJwDdxwAay9Wu2nwtxEkgJJaf6riOA=;
+ b=Y3o/L5MIssX4jkApvtBuSiJu8B/GkSiNcZy+AJ+GZRrkw01+bSQAeePz
+ rjsqnJel3JPx9QT+06Vk3URD3WSqmmJK5hJjpQAe2FO689C5tP4fCc4nZ
+ zm1dqYY0xkrDfRcK/cednNB4+kVVj4nOQjRV5dJoIHleoWCeGxK2hw6ah
+ p0J9CTv62AwkwXmIDa9LKqzelSTdxTaO7OH/rPQWIXWFUy3A+AlbIp4s5
+ NP7nc845T7prJfKWsT20DjhaLI2ZzQbDvsUNY/gZP871oIp4nRg1F6W0/
+ g/HZ2jaLVWQBH21Cibt4X6ZVpc4/66DFMtm3b/4Rar0otYTOaj0ZDVSLv A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="402817933"
+X-IronPort-AV: E=Sophos;i="5.98,294,1673942400"; d="scan'208";a="402817933"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2023 02:34:00 -0700
+ 27 Mar 2023 02:33:57 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="685908094"
-X-IronPort-AV: E=Sophos;i="5.98,294,1673942400"; d="scan'208";a="685908094"
+X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="685908082"
+X-IronPort-AV: E=Sophos;i="5.98,294,1673942400"; d="scan'208";a="685908082"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by fmsmga007.fm.intel.com with ESMTP; 27 Mar 2023 02:33:59 -0700
+ by fmsmga007.fm.intel.com with ESMTP; 27 Mar 2023 02:33:56 -0700
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Mon, 27 Mar 2023 02:33:51 -0700
-Message-Id: <20230327093351.44505-7-yi.l.liu@intel.com>
+Date: Mon, 27 Mar 2023 02:33:48 -0700
+Message-Id: <20230327093351.44505-4-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230327093351.44505-1-yi.l.liu@intel.com>
 References: <20230327093351.44505-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 6/6] vfio: Check the presence for iommufd
- callbacks in __vfio_register_dev()
+Subject: [Intel-gfx] [PATCH v3 3/6] vfio-iommufd: No need to record
+ iommufd_ctx in vfio_device
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,49 +70,60 @@ Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After making the no-DMA drivers (samples/vfio-mdev) providing iommufd
-callbacks, __vfio_register_dev() should check the presence of the iommufd
-callbacks if CONFIG_IOMMUFD is enabled.
+iommufd_ctx is stored in vfio_device for emulated devices per bind_iommufd.
+However, as iommufd_access is created in bind, no more need to stored it
+since iommufd_access implicitly stores it.
 
 Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 Reviewed-by: Kevin Tian <kevin.tian@intel.com>
 Tested-by: Terrence Xu <terrence.xu@intel.com>
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 ---
- drivers/vfio/iommufd.c   | 3 ---
- drivers/vfio/vfio_main.c | 5 +++--
- 2 files changed, 3 insertions(+), 5 deletions(-)
+ drivers/vfio/iommufd.c | 8 +-------
+ include/linux/vfio.h   | 1 -
+ 2 files changed, 1 insertion(+), 8 deletions(-)
 
 diff --git a/drivers/vfio/iommufd.c b/drivers/vfio/iommufd.c
-index 890ea101685c..88b00c501015 100644
+index 0695a06db30d..78e2486586d7 100644
 --- a/drivers/vfio/iommufd.c
 +++ b/drivers/vfio/iommufd.c
-@@ -32,9 +32,6 @@ int vfio_iommufd_bind(struct vfio_device *vdev, struct iommufd_ctx *ictx)
- 		return 0;
+@@ -142,14 +142,10 @@ int vfio_iommufd_emulated_bind(struct vfio_device *vdev,
+ 
+ 	lockdep_assert_held(&vdev->dev_set->lock);
+ 
+-	iommufd_ctx_get(ictx);
+ 	user = iommufd_access_create(ictx, &vfio_user_ops, vdev);
+-	if (IS_ERR(user)) {
+-		iommufd_ctx_put(ictx);
++	if (IS_ERR(user))
+ 		return PTR_ERR(user);
+-	}
+ 	vdev->iommufd_access = user;
+-	vdev->iommufd_ictx = ictx;
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(vfio_iommufd_emulated_bind);
+@@ -163,8 +159,6 @@ void vfio_iommufd_emulated_unbind(struct vfio_device *vdev)
+ 		vdev->iommufd_attached = false;
+ 		vdev->iommufd_access = NULL;
  	}
+-	iommufd_ctx_put(vdev->iommufd_ictx);
+-	vdev->iommufd_ictx = NULL;
+ }
+ EXPORT_SYMBOL_GPL(vfio_iommufd_emulated_unbind);
  
--	if (WARN_ON(!vdev->ops->bind_iommufd))
--		return -ENODEV;
--
- 	ret = vdev->ops->bind_iommufd(vdev, ictx, &device_id);
- 	if (ret)
- 		return ret;
-diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
-index 43bd6b76e2b6..89497c933490 100644
---- a/drivers/vfio/vfio_main.c
-+++ b/drivers/vfio/vfio_main.c
-@@ -255,8 +255,9 @@ static int __vfio_register_dev(struct vfio_device *device,
- {
- 	int ret;
- 
--	if (WARN_ON(device->ops->bind_iommufd &&
--		    (!device->ops->unbind_iommufd ||
-+	if (WARN_ON(IS_ENABLED(CONFIG_IOMMUFD) &&
-+		    (!device->ops->bind_iommufd ||
-+		     !device->ops->unbind_iommufd ||
- 		     !device->ops->attach_ioas)))
- 		return -EINVAL;
- 
+diff --git a/include/linux/vfio.h b/include/linux/vfio.h
+index 93134b023968..3188d8a374bd 100644
+--- a/include/linux/vfio.h
++++ b/include/linux/vfio.h
+@@ -60,7 +60,6 @@ struct vfio_device {
+ 	void (*put_kvm)(struct kvm *kvm);
+ #if IS_ENABLED(CONFIG_IOMMUFD)
+ 	struct iommufd_device *iommufd_device;
+-	struct iommufd_ctx *iommufd_ictx;
+ 	bool iommufd_attached;
+ #endif
+ };
 -- 
 2.34.1
 
