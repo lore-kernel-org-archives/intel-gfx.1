@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71701C7619A
-	for <intel-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 09:40:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6DF2C761AF
+	for <intel-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 09:40:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5CC510E389;
-	Mon, 27 Mar 2023 09:40:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9C5010E3B0;
+	Mon, 27 Mar 2023 09:40:54 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F34D710E36D;
- Mon, 27 Mar 2023 09:40:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 208B910E36E;
+ Mon, 27 Mar 2023 09:40:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679910051; x=1711446051;
+ t=1679910050; x=1711446050;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=sQbomtpxKk9OYrNRZAPa6vDhDDjp7Q007RS+G2Nbq0Q=;
- b=bGLxucViqYx4paNIv7NfQRRq/BIIfuhgJWLbPjdqjvMOi1uZpk/Do4XW
- xfhI/H0x5GGUCn3aGjmw1TAFqQzvMvCnWNUD1luBf4AKETUWaLsKHdJbg
- cq5GIyHUiJT28s/kyjIotn7s8jBgxN2SCOz9+8vJ2768kZX3I/8W/BFNT
- MSoaeQfR8fLnPgiKflmNdr7s+XlqbWFQOHIAkjFiaeVJNxdyPRMBKU67K
- AhAh5e8k+pwVnaR4RpjcXJx3XGN8IWDV85XPFbzrxisTgmsVfEH8ks0Oh
- IJOoGQiup1Uuxt1Yp/Nvk9MDrU+ZutdzKmn09QSTcoyywxWMtj0vjbV4k w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="426485238"
-X-IronPort-AV: E=Sophos;i="5.98,294,1673942400"; d="scan'208";a="426485238"
+ bh=8seZCXB3celVVDfQAMECL1Hn/d7SvWwsCAvyGyN4R+4=;
+ b=jh97gKvX7a2Kl0pmwXAxxUIo8Ulce5kQyrunqBf48yQpNhz1buiIrv0z
+ wsytWMtqA+tGmRE/0F9JlKqdXPnyl6udiNJdcTuXNYH3bL8qzR+u6zNVK
+ xAtxsnDSH8exhefhAKxaNUkpXkqweKJdw4k8PIH14DIwpD2IgCRSGe3bF
+ 9x68x1AIyEjAp5k3t+k2YmRLxcl0O93GPQasklaPyHdfeOZrUeRInhVEd
+ tiDKMatyXG+iPgux8irAuU+hlTir1fmOuM4Ee3dZrim44m+B+3ZrT+ks1
+ T7lzDS4PLQ/5JCSMELYTOL7RuLhoxHWiOjESQRvcCsm5f/KDMWqd9tPLp w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="426485207"
+X-IronPort-AV: E=Sophos;i="5.98,294,1673942400"; d="scan'208";a="426485207"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2023 02:40:51 -0700
+ 27 Mar 2023 02:40:49 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="660775647"
-X-IronPort-AV: E=Sophos;i="5.98,294,1673942400"; d="scan'208";a="660775647"
+X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="660775627"
+X-IronPort-AV: E=Sophos;i="5.98,294,1673942400"; d="scan'208";a="660775627"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by orsmga006.jf.intel.com with ESMTP; 27 Mar 2023 02:40:51 -0700
+ by orsmga006.jf.intel.com with ESMTP; 27 Mar 2023 02:40:49 -0700
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Mon, 27 Mar 2023 02:40:26 -0700
-Message-Id: <20230327094047.47215-4-yi.l.liu@intel.com>
+Date: Mon, 27 Mar 2023 02:40:24 -0700
+Message-Id: <20230327094047.47215-2-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230327094047.47215-1-yi.l.liu@intel.com>
 References: <20230327094047.47215-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 03/24] vfio: Remove vfio_file_is_group()
+Subject: [Intel-gfx] [PATCH v8 01/24] vfio: Allocate per device file
+ structure
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,49 +70,192 @@ Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-since no user of vfio_file_is_group() now.
+This is preparation for adding vfio device cdev support. vfio device
+cdev requires:
+1) A per device file memory to store the kvm pointer set by KVM. It will
+   be propagated to vfio_device:kvm after the device cdev file is bound
+   to an iommufd.
+2) A mechanism to block device access through device cdev fd before it
+   is bound to an iommufd.
+
+To address above requirements, this adds a per device file structure
+named vfio_device_file. For now, it's only a wrapper of struct vfio_device
+pointer. Other fields will be added to this per file structure in future
+commits.
 
 Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Reviewed-by: Eric Auger <eric.auger@redhat.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 Tested-by: Terrence Xu <terrence.xu@intel.com>
+Tested-by: Nicolin Chen <nicolinc@nvidia.com>
+Tested-by: Matthew Rosato <mjrosato@linux.ibm.com>
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 ---
- drivers/vfio/group.c | 10 ----------
- include/linux/vfio.h |  1 -
- 2 files changed, 11 deletions(-)
+ drivers/vfio/group.c     | 13 +++++++++++--
+ drivers/vfio/vfio.h      |  6 ++++++
+ drivers/vfio/vfio_main.c | 35 ++++++++++++++++++++++++++++-------
+ 3 files changed, 45 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/vfio/group.c b/drivers/vfio/group.c
-index ede4723c5f72..4f937ebaf6f7 100644
+index d0c95d033605..8a13cea43f49 100644
 --- a/drivers/vfio/group.c
 +++ b/drivers/vfio/group.c
-@@ -792,16 +792,6 @@ struct iommu_group *vfio_file_iommu_group(struct file *file)
- }
- EXPORT_SYMBOL_GPL(vfio_file_iommu_group);
+@@ -218,19 +218,26 @@ void vfio_device_group_close(struct vfio_device *device)
  
--/**
-- * vfio_file_is_group - True if the file is a vfio group file
-- * @file: VFIO group file
-- */
--bool vfio_file_is_group(struct file *file)
--{
--	return vfio_group_from_file(file);
--}
--EXPORT_SYMBOL_GPL(vfio_file_is_group);
--
- bool vfio_group_enforced_coherent(struct vfio_group *group)
+ static struct file *vfio_device_open_file(struct vfio_device *device)
  {
- 	struct vfio_device *device;
-diff --git a/include/linux/vfio.h b/include/linux/vfio.h
-index 79c47733ae0d..3b55dd71299b 100644
---- a/include/linux/vfio.h
-+++ b/include/linux/vfio.h
-@@ -257,7 +257,6 @@ int vfio_mig_get_next_state(struct vfio_device *device,
-  * External user API
++	struct vfio_device_file *df;
+ 	struct file *filep;
+ 	int ret;
+ 
++	df = vfio_allocate_device_file(device);
++	if (IS_ERR(df)) {
++		ret = PTR_ERR(df);
++		goto err_out;
++	}
++
+ 	ret = vfio_device_group_open(device);
+ 	if (ret)
+-		goto err_out;
++		goto err_free;
+ 
+ 	/*
+ 	 * We can't use anon_inode_getfd() because we need to modify
+ 	 * the f_mode flags directly to allow more than just ioctls
+ 	 */
+ 	filep = anon_inode_getfile("[vfio-device]", &vfio_device_fops,
+-				   device, O_RDWR);
++				   df, O_RDWR);
+ 	if (IS_ERR(filep)) {
+ 		ret = PTR_ERR(filep);
+ 		goto err_close_device;
+@@ -254,6 +261,8 @@ static struct file *vfio_device_open_file(struct vfio_device *device)
+ 
+ err_close_device:
+ 	vfio_device_group_close(device);
++err_free:
++	kfree(df);
+ err_out:
+ 	return ERR_PTR(ret);
+ }
+diff --git a/drivers/vfio/vfio.h b/drivers/vfio/vfio.h
+index c0aeea24fbd6..250fbd3786c5 100644
+--- a/drivers/vfio/vfio.h
++++ b/drivers/vfio/vfio.h
+@@ -16,11 +16,17 @@ struct iommufd_ctx;
+ struct iommu_group;
+ struct vfio_container;
+ 
++struct vfio_device_file {
++	struct vfio_device *device;
++};
++
+ void vfio_device_put_registration(struct vfio_device *device);
+ bool vfio_device_try_get_registration(struct vfio_device *device);
+ int vfio_device_open(struct vfio_device *device, struct iommufd_ctx *iommufd);
+ void vfio_device_close(struct vfio_device *device,
+ 		       struct iommufd_ctx *iommufd);
++struct vfio_device_file *
++vfio_allocate_device_file(struct vfio_device *device);
+ 
+ extern const struct file_operations vfio_device_fops;
+ 
+diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
+index ebbb6b91a498..89722bf87edc 100644
+--- a/drivers/vfio/vfio_main.c
++++ b/drivers/vfio/vfio_main.c
+@@ -404,6 +404,20 @@ static bool vfio_assert_device_open(struct vfio_device *device)
+ 	return !WARN_ON_ONCE(!READ_ONCE(device->open_count));
+ }
+ 
++struct vfio_device_file *
++vfio_allocate_device_file(struct vfio_device *device)
++{
++	struct vfio_device_file *df;
++
++	df = kzalloc(sizeof(*df), GFP_KERNEL_ACCOUNT);
++	if (!df)
++		return ERR_PTR(-ENOMEM);
++
++	df->device = device;
++
++	return df;
++}
++
+ static int vfio_device_first_open(struct vfio_device *device,
+ 				  struct iommufd_ctx *iommufd)
+ {
+@@ -517,12 +531,15 @@ static inline void vfio_device_pm_runtime_put(struct vfio_device *device)
   */
- struct iommu_group *vfio_file_iommu_group(struct file *file);
--bool vfio_file_is_group(struct file *file);
- bool vfio_file_is_valid(struct file *file);
- bool vfio_file_enforced_coherent(struct file *file);
- void vfio_file_set_kvm(struct file *file, struct kvm *kvm);
+ static int vfio_device_fops_release(struct inode *inode, struct file *filep)
+ {
+-	struct vfio_device *device = filep->private_data;
++	struct vfio_device_file *df = filep->private_data;
++	struct vfio_device *device = df->device;
+ 
+ 	vfio_device_group_close(device);
+ 
+ 	vfio_device_put_registration(device);
+ 
++	kfree(df);
++
+ 	return 0;
+ }
+ 
+@@ -1087,7 +1104,8 @@ static int vfio_ioctl_device_feature(struct vfio_device *device,
+ static long vfio_device_fops_unl_ioctl(struct file *filep,
+ 				       unsigned int cmd, unsigned long arg)
+ {
+-	struct vfio_device *device = filep->private_data;
++	struct vfio_device_file *df = filep->private_data;
++	struct vfio_device *device = df->device;
+ 	int ret;
+ 
+ 	ret = vfio_device_pm_runtime_get(device);
+@@ -1114,7 +1132,8 @@ static long vfio_device_fops_unl_ioctl(struct file *filep,
+ static ssize_t vfio_device_fops_read(struct file *filep, char __user *buf,
+ 				     size_t count, loff_t *ppos)
+ {
+-	struct vfio_device *device = filep->private_data;
++	struct vfio_device_file *df = filep->private_data;
++	struct vfio_device *device = df->device;
+ 
+ 	if (unlikely(!device->ops->read))
+ 		return -EINVAL;
+@@ -1126,7 +1145,8 @@ static ssize_t vfio_device_fops_write(struct file *filep,
+ 				      const char __user *buf,
+ 				      size_t count, loff_t *ppos)
+ {
+-	struct vfio_device *device = filep->private_data;
++	struct vfio_device_file *df = filep->private_data;
++	struct vfio_device *device = df->device;
+ 
+ 	if (unlikely(!device->ops->write))
+ 		return -EINVAL;
+@@ -1136,7 +1156,8 @@ static ssize_t vfio_device_fops_write(struct file *filep,
+ 
+ static int vfio_device_fops_mmap(struct file *filep, struct vm_area_struct *vma)
+ {
+-	struct vfio_device *device = filep->private_data;
++	struct vfio_device_file *df = filep->private_data;
++	struct vfio_device *device = df->device;
+ 
+ 	if (unlikely(!device->ops->mmap))
+ 		return -EINVAL;
+@@ -1156,11 +1177,11 @@ const struct file_operations vfio_device_fops = {
+ 
+ static struct vfio_device *vfio_device_from_file(struct file *file)
+ {
+-	struct vfio_device *device = file->private_data;
++	struct vfio_device_file *df = file->private_data;
+ 
+ 	if (file->f_op != &vfio_device_fops)
+ 		return NULL;
+-	return device;
++	return df->device;
+ }
+ 
+ /**
 -- 
 2.34.1
 
