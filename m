@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35593C7619A
-	for <intel-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 09:34:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC8F3C761AF
+	for <intel-gfx@archiver.kernel.org>; Mon, 27 Mar 2023 09:34:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9271D10E389;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3D1510E374;
 	Mon, 27 Mar 2023 09:34:06 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87B2E10E36E;
- Mon, 27 Mar 2023 09:33:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 613DD10E374;
+ Mon, 27 Mar 2023 09:34:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1679909638; x=1711445638;
+ t=1679909640; x=1711445640;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=qedyzAr3ZT/2tq4uIb2AV1+jHBg7xabozASdmKvcQSU=;
- b=bg/cb3dlvGkMoBROiewQsJJJiOjt+1/QLea4568wKzb/aLRSteQKclsP
- kSuvcsJPDG3WsZxmFmHKwP5zSZNGp5hMaxSDhdTEzee3TgxXjsQWw6j4t
- rOspEjaKqNPGebSCR1ox8ENPw9CjVkPOguwyRgBSD4chj5fdwtJE/E1wC
- wPlfJY70dSlVQYlgCO8yh24vs1G1+y2rHX9Mi7WPn2Ej3hA7QKNiIhbHg
- xPNIklpEL/adaAfhF5g5C8gZwcux1MnOEKZ0DCProJLENgrsjejyzLDMc
- E40BZ84JL4XsU4YmjYmZZd+r9o/tWMbuTVHuohuzE1DO3rgj33/nS6ubx g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="402817945"
-X-IronPort-AV: E=Sophos;i="5.98,294,1673942400"; d="scan'208";a="402817945"
+ bh=ch/bYiwA/al8uDthOgkt0aUcLuMsxVz1xbwcQeNOOX8=;
+ b=iFukY4sZWSCeJQwnFk2DAQ9HPZBbC3os3oPFvcOauX0EQMg3EIF19N1A
+ HtB1rRQYBb1/hz3fM85QG5QwY8pr7Ov4AymnsCSM9elLjyxyx3KEN1G/0
+ 0qRsR68bzZDkXJHBdad3B+zSNqe3oefPxXRO/PrT7ZZwDWM11HcTnL4X0
+ PKiEICZvzfoHtCd11PaBqdMlJVk2WW36SoX72lb36DZkeRtNaliuhpfl9
+ Ky15VRup1qfV3/8U4qF7wQ6RlDzyK15DZROxIeWWX0z8ylYNk6HsCuu+k
+ KqVOV0Ovh4ow8wCrUoHp8mVy8OZ6+67CaBXGcvHvEL9n9xEL2f/HKiS7f Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="402817969"
+X-IronPort-AV: E=Sophos;i="5.98,294,1673942400"; d="scan'208";a="402817969"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Mar 2023 02:33:58 -0700
+ 27 Mar 2023 02:34:00 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="685908086"
-X-IronPort-AV: E=Sophos;i="5.98,294,1673942400"; d="scan'208";a="685908086"
+X-IronPort-AV: E=McAfee;i="6600,9927,10661"; a="685908094"
+X-IronPort-AV: E=Sophos;i="5.98,294,1673942400"; d="scan'208";a="685908094"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by fmsmga007.fm.intel.com with ESMTP; 27 Mar 2023 02:33:57 -0700
+ by fmsmga007.fm.intel.com with ESMTP; 27 Mar 2023 02:33:59 -0700
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Mon, 27 Mar 2023 02:33:49 -0700
-Message-Id: <20230327093351.44505-5-yi.l.liu@intel.com>
+Date: Mon, 27 Mar 2023 02:33:51 -0700
+Message-Id: <20230327093351.44505-7-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230327093351.44505-1-yi.l.liu@intel.com>
 References: <20230327093351.44505-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 4/6] vfio-iommufd: Make
- vfio_iommufd_emulated_bind() return iommufd_access ID
+Subject: [Intel-gfx] [PATCH v3 6/6] vfio: Check the presence for iommufd
+ callbacks in __vfio_register_dev()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,95 +70,48 @@ Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-vfio device cdev needs to return iommufd_access ID to userspace if
-bind_iommufd succeeds.
+After making the no-DMA drivers (samples/vfio-mdev) providing iommufd
+callbacks, __vfio_register_dev() should check the presence of the iommufd
+callbacks if CONFIG_IOMMUFD is enabled.
 
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
 Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
 Tested-by: Terrence Xu <terrence.xu@intel.com>
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 ---
- drivers/iommu/iommufd/device.c   | 4 +++-
- drivers/iommu/iommufd/selftest.c | 3 ++-
- drivers/vfio/iommufd.c           | 2 +-
- include/linux/iommufd.h          | 2 +-
- 4 files changed, 7 insertions(+), 4 deletions(-)
+ drivers/vfio/iommufd.c   | 3 ---
+ drivers/vfio/vfio_main.c | 5 +++--
+ 2 files changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/iommu/iommufd/device.c b/drivers/iommu/iommufd/device.c
-index 6999a10b5496..25115d401d8f 100644
---- a/drivers/iommu/iommufd/device.c
-+++ b/drivers/iommu/iommufd/device.c
-@@ -426,6 +426,7 @@ void iommufd_access_destroy_object(struct iommufd_object *obj)
-  * @ioas_id: ID for a IOMMUFD_OBJ_IOAS
-  * @ops: Driver's ops to associate with the access
-  * @data: Opaque data to pass into ops functions
-+ * @id: Output ID number to return to userspace for this access
-  *
-  * An iommufd_access allows a driver to read/write to the IOAS without using
-  * DMA. The underlying CPU memory can be accessed using the
-@@ -435,7 +436,7 @@ void iommufd_access_destroy_object(struct iommufd_object *obj)
-  */
- struct iommufd_access *
- iommufd_access_create(struct iommufd_ctx *ictx,
--		      const struct iommufd_access_ops *ops, void *data)
-+		      const struct iommufd_access_ops *ops, void *data, u32 *id)
- {
- 	struct iommufd_access *access;
- 
-@@ -460,6 +461,7 @@ iommufd_access_create(struct iommufd_ctx *ictx,
- 	access->ictx = ictx;
- 	iommufd_ctx_get(ictx);
- 	iommufd_object_finalize(ictx, &access->obj);
-+	*id = access->obj.id;
- 	return access;
- }
- EXPORT_SYMBOL_NS_GPL(iommufd_access_create, IOMMUFD);
-diff --git a/drivers/iommu/iommufd/selftest.c b/drivers/iommu/iommufd/selftest.c
-index 1e89e1a8c5f0..e6e04dceffe3 100644
---- a/drivers/iommu/iommufd/selftest.c
-+++ b/drivers/iommu/iommufd/selftest.c
-@@ -554,6 +554,7 @@ static int iommufd_test_create_access(struct iommufd_ucmd *ucmd,
- 	struct iommu_test_cmd *cmd = ucmd->cmd;
- 	struct selftest_access *staccess;
- 	struct iommufd_access *access;
-+	u32 id;
- 	int fdno;
- 	int rc;
- 
-@@ -575,7 +576,7 @@ static int iommufd_test_create_access(struct iommufd_ucmd *ucmd,
- 		(flags & MOCK_FLAGS_ACCESS_CREATE_NEEDS_PIN_PAGES) ?
- 			&selftest_access_ops_pin :
- 			&selftest_access_ops,
--		staccess);
-+		staccess, &id);
- 	if (IS_ERR(access)) {
- 		rc = PTR_ERR(access);
- 		goto out_put_fdno;
 diff --git a/drivers/vfio/iommufd.c b/drivers/vfio/iommufd.c
-index 78e2486586d7..1ee558c0be25 100644
+index 890ea101685c..88b00c501015 100644
 --- a/drivers/vfio/iommufd.c
 +++ b/drivers/vfio/iommufd.c
-@@ -142,7 +142,7 @@ int vfio_iommufd_emulated_bind(struct vfio_device *vdev,
+@@ -32,9 +32,6 @@ int vfio_iommufd_bind(struct vfio_device *vdev, struct iommufd_ctx *ictx)
+ 		return 0;
+ 	}
  
- 	lockdep_assert_held(&vdev->dev_set->lock);
+-	if (WARN_ON(!vdev->ops->bind_iommufd))
+-		return -ENODEV;
+-
+ 	ret = vdev->ops->bind_iommufd(vdev, ictx, &device_id);
+ 	if (ret)
+ 		return ret;
+diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
+index 43bd6b76e2b6..89497c933490 100644
+--- a/drivers/vfio/vfio_main.c
++++ b/drivers/vfio/vfio_main.c
+@@ -255,8 +255,9 @@ static int __vfio_register_dev(struct vfio_device *device,
+ {
+ 	int ret;
  
--	user = iommufd_access_create(ictx, &vfio_user_ops, vdev);
-+	user = iommufd_access_create(ictx, &vfio_user_ops, vdev, out_device_id);
- 	if (IS_ERR(user))
- 		return PTR_ERR(user);
- 	vdev->iommufd_access = user;
-diff --git a/include/linux/iommufd.h b/include/linux/iommufd.h
-index 155d3630aedc..1129a36a74c4 100644
---- a/include/linux/iommufd.h
-+++ b/include/linux/iommufd.h
-@@ -41,7 +41,7 @@ enum {
- 
- struct iommufd_access *
- iommufd_access_create(struct iommufd_ctx *ictx,
--		      const struct iommufd_access_ops *ops, void *data);
-+		      const struct iommufd_access_ops *ops, void *data, u32 *id);
- void iommufd_access_destroy(struct iommufd_access *access);
- int iommufd_access_attach(struct iommufd_access *access, u32 ioas_id);
+-	if (WARN_ON(device->ops->bind_iommufd &&
+-		    (!device->ops->unbind_iommufd ||
++	if (WARN_ON(IS_ENABLED(CONFIG_IOMMUFD) &&
++		    (!device->ops->bind_iommufd ||
++		     !device->ops->unbind_iommufd ||
+ 		     !device->ops->attach_ioas)))
+ 		return -EINVAL;
  
 -- 
 2.34.1
