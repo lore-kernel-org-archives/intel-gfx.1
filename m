@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB1E2C761A6
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Mar 2023 22:24:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74C13C6FD18
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Mar 2023 22:35:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C07610E9DD;
-	Tue, 28 Mar 2023 22:24:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB7A310E496;
+	Tue, 28 Mar 2023 22:35:57 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0675610E9DD;
- Tue, 28 Mar 2023 22:24:20 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6454610E0BC;
+ Tue, 28 Mar 2023 22:35:55 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id F19C9AADD6;
- Tue, 28 Mar 2023 22:24:19 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 59BC7A47DF;
+ Tue, 28 Mar 2023 22:35:55 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
-Date: Tue, 28 Mar 2023 22:24:19 -0000
-Message-ID: <168004225998.29055.4068016636312746234@emeril.freedesktop.org>
+To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
+Date: Tue, 28 Mar 2023 22:35:55 -0000
+Message-ID: <168004295536.29054.11734700976589782062@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20230328122357.1697-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20230328122357.1697-1-ville.syrjala@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Flag_purely_internal_commits_to_not_clear_crtc?=
- =?utf-8?q?=5Fstate-=3Einherited?=
+References: <1680007625114205@kroah.com>
+In-Reply-To: <1680007625114205@kroah.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBQ?=
+ =?utf-8?q?atch_=22drm/i915/active=3A_Fix_missing_debug_object_activation?=
+ =?utf-8?q?=22_has_been_added_to_the_5=2E10-stable_tree?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,18 +48,18 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm/i915: Flag purely internal commits to not clear crtc_state->inherited
-URL   : https://patchwork.freedesktop.org/series/115718/
-State : warning
+Series: Patch "drm/i915/active: Fix missing debug object activation" has been added to the 5.10-stable tree
+URL   : https://patchwork.freedesktop.org/series/115721/
+State : failure
 
 == Summary ==
 
-Error: dim checkpatch failed
-42da1a902c21 drm/i915: Flag purely internal commits to not clear crtc_state->inherited
--:31: WARNING:COMMIT_LOG_USE_LINK: Unknown link reference 'Closes:', use 'Link:' instead
-#31: 
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/5260
-
-total: 0 errors, 1 warnings, 0 checks, 131 lines checked
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/115721/revisions/1/mbox/ not applied
+Patch is empty.
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To record the empty patch as an empty commit, run "git am --allow-empty".
+To restore the original branch and stop patching, run "git am --abort".
+Build failed, no error log produced
 
 
