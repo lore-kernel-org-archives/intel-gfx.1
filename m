@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D41AC76196
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Mar 2023 15:15:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D025C77B61
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Mar 2023 15:16:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C810610E935;
-	Tue, 28 Mar 2023 15:15:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC81610E0E0;
+	Tue, 28 Mar 2023 15:15:59 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EA8610E91C;
- Tue, 28 Mar 2023 15:15:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23DAD10E94A;
+ Tue, 28 Mar 2023 15:15:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680016551; x=1711552551;
+ t=1680016557; x=1711552557;
  h=from:date:subject:mime-version:content-transfer-encoding:
  message-id:references:in-reply-to:to:cc;
- bh=k2hx/WBFqL7VuFz0I6+8fGkxNCCWOhJe2NR5annG8QI=;
- b=Wy/x9NANPixK0qDrUIrbk7hbVbXtTtMgsCJI7m0V/Cuts+IYqdC0sNco
- lil+p17MpmVvFkKhO0NYQwo/R83gonrdk+esgx0Aa1N7mDTLiZCQW8Hlh
- +zAVOkb4QFwbkTlGkTlajgdJoY4Xa/5QMfBGbT75B0m+WGucW98qMZXtS
- UQBb6WsTWe6RoeXg4/WQ8GuqKpLwcfxgy/l39GDgD9PpGE1zRd2xC+ryW
- ElkvxKHOHgygoKhZZy7n6hEjybp7QVjcPoNwa8dLIcNuHmTToJMAnRkZl
- OQLcekksBtCmWLWYSX6pPQciW5h5W4yHUKbOoUVASoZ3kOsicO1QU+PUv g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="403208618"
-X-IronPort-AV: E=Sophos;i="5.98,297,1673942400"; d="scan'208";a="403208618"
+ bh=SjGS/NBEg10FgFcG60Eo0L1khFE2QrsMt8Dx57P3heg=;
+ b=fApYyAlaFpvFfdzK1ftu3miUomMenOH3dkf4XHg4tDBcPdd4gM1ZDz25
+ 9GWblRxugz9lbG+jY7dIgvK/um+cLmj1z4WIyXFMUqjOMqdtv8dXjf2sY
+ gyIxiw/zbJkk2FR+PhCxuClhyDogOwZGHbqSwNGk/ePBy7gJ33sTu+6oJ
+ qU86aKWx2GHttmNZyjrcYUR2mYZN8c88El7nO61aCPTxRJVHs/q8A06ey
+ +V2zPnOroKeaZ+u7F8x1B2Net38b1y4bhQDFhEVDnTmRU0fUek0B4gpWc
+ d2HlL9Gh8B7sxFyyftmCbWyJEaMcFWqMvXLv/GYQYCy5lGTvm9347ACSQ Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="403208673"
+X-IronPort-AV: E=Sophos;i="5.98,297,1673942400"; d="scan'208";a="403208673"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2023 08:15:49 -0700
+ 28 Mar 2023 08:15:56 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="773181739"
-X-IronPort-AV: E=Sophos;i="5.98,297,1673942400"; d="scan'208";a="773181739"
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="773181761"
+X-IronPort-AV: E=Sophos;i="5.98,297,1673942400"; d="scan'208";a="773181761"
 Received: from lab-ah.igk.intel.com ([10.102.138.202])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Mar 2023 08:15:46 -0700
+ 28 Mar 2023 08:15:53 -0700
 From: Andrzej Hajda <andrzej.hajda@intel.com>
-Date: Tue, 28 Mar 2023 17:15:24 +0200
+Date: Tue, 28 Mar 2023 17:15:26 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230224-track_gt-v5-1-77be86f2c872@intel.com>
+Message-Id: <20230224-track_gt-v5-3-77be86f2c872@intel.com>
 References: <20230224-track_gt-v5-0-77be86f2c872@intel.com>
 In-Reply-To: <20230224-track_gt-v5-0-77be86f2c872@intel.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
@@ -49,8 +49,8 @@ To: Jani Nikula <jani.nikula@linux.intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
 X-Mailer: b4 0.11.1
-Subject: [Intel-gfx] [PATCH v5 1/8] lib/ref_tracker: add unlocked leak print
- helper
+Subject: [Intel-gfx] [PATCH v5 3/8] lib/ref_tracker: add printing to memory
+ buffer
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,135 +71,139 @@ Cc: netdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-To have reliable detection of leaks, caller must be able to check under the same
-lock both: tracked counter and the leaks. dir.lock is natural candidate for such
-lock and unlocked print helper can be called with this lock taken.
-As a bonus we can reuse this helper in ref_tracker_dir_exit.
+Similar to stack_(depot|trace)_snprint the patch
+adds helper to printing stats to memory buffer.
+It will be helpful in case of debugfs.
 
 Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
 ---
- include/linux/ref_tracker.h |  8 ++++++
- lib/ref_tracker.c           | 66 ++++++++++++++++++++++++++-------------------
- 2 files changed, 46 insertions(+), 28 deletions(-)
+ include/linux/ref_tracker.h |  8 +++++++
+ lib/ref_tracker.c           | 56 ++++++++++++++++++++++++++++++++++++++-------
+ 2 files changed, 56 insertions(+), 8 deletions(-)
 
 diff --git a/include/linux/ref_tracker.h b/include/linux/ref_tracker.h
-index 9ca353ab712b5e..87a92f2bec1b88 100644
+index fc9ef9952f01fd..4cd260efc4023f 100644
 --- a/include/linux/ref_tracker.h
 +++ b/include/linux/ref_tracker.h
-@@ -36,6 +36,9 @@ static inline void ref_tracker_dir_init(struct ref_tracker_dir *dir,
- 
- void ref_tracker_dir_exit(struct ref_tracker_dir *dir);
- 
-+void ref_tracker_dir_print_locked(struct ref_tracker_dir *dir,
-+				  unsigned int display_limit);
-+
+@@ -50,6 +50,8 @@ void ref_tracker_dir_print_locked(struct ref_tracker_dir *dir,
  void ref_tracker_dir_print(struct ref_tracker_dir *dir,
  			   unsigned int display_limit);
  
-@@ -56,6 +59,11 @@ static inline void ref_tracker_dir_exit(struct ref_tracker_dir *dir)
++int ref_tracker_dir_snprint(struct ref_tracker_dir *dir, char *buf, size_t size);
++
+ int ref_tracker_alloc(struct ref_tracker_dir *dir,
+ 		      struct ref_tracker **trackerp, gfp_t gfp);
+ 
+@@ -78,6 +80,12 @@ static inline void ref_tracker_dir_print(struct ref_tracker_dir *dir,
  {
  }
  
-+static inline void ref_tracker_dir_print_locked(struct ref_tracker_dir *dir,
-+						unsigned int display_limit)
++static inline int ref_tracker_dir_snprint(struct ref_tracker_dir *dir,
++					  char *buf, size_t size)
 +{
++	return 0;
 +}
 +
- static inline void ref_tracker_dir_print(struct ref_tracker_dir *dir,
- 					 unsigned int display_limit)
- {
+ static inline int ref_tracker_alloc(struct ref_tracker_dir *dir,
+ 				    struct ref_tracker **trackerp,
+ 				    gfp_t gfp)
 diff --git a/lib/ref_tracker.c b/lib/ref_tracker.c
-index dc7b14aa3431e2..d4eb0929af8f96 100644
+index 2ffe79c90c1771..cce4614b07940f 100644
 --- a/lib/ref_tracker.c
 +++ b/lib/ref_tracker.c
-@@ -14,6 +14,38 @@ struct ref_tracker {
- 	depot_stack_handle_t	free_stack_handle;
- };
+@@ -62,8 +62,27 @@ ref_tracker_get_stats(struct ref_tracker_dir *dir, unsigned int limit)
+ 	return stats;
+ }
  
+-void ref_tracker_dir_print_locked(struct ref_tracker_dir *dir,
+-				  unsigned int display_limit)
++struct ostream {
++	char *buf;
++	int size, used;
++};
++
++#define pr_ostream(stream, fmt, args...) \
++({ \
++	struct ostream *_s = (stream); \
++\
++	if (!_s->buf) { \
++		pr_err(fmt, ##args); \
++	} else { \
++		int ret, len = _s->size - _s->used; \
++		ret = snprintf(_s->buf + _s->used, len, pr_fmt(fmt), ##args); \
++		_s->used += min(ret, len); \
++	} \
++})
++
++static void
++__ref_tracker_dir_pr_ostream(struct ref_tracker_dir *dir,
++			     unsigned int display_limit, struct ostream *s)
+ {
+ 	struct ref_tracker_dir_stats *stats;
+ 	unsigned int i = 0, skipped;
+@@ -77,8 +96,8 @@ void ref_tracker_dir_print_locked(struct ref_tracker_dir *dir,
+ 
+ 	stats = ref_tracker_get_stats(dir, display_limit);
+ 	if (IS_ERR(stats)) {
+-		pr_err("%s@%pK: couldn't get stats, error %pe\n",
+-		       dir->name, dir, stats);
++		pr_ostream(s, "%s@%pK: couldn't get stats, error %pe\n",
++			   dir->name, dir, stats);
+ 		return;
+ 	}
+ 
+@@ -88,19 +107,27 @@ void ref_tracker_dir_print_locked(struct ref_tracker_dir *dir,
+ 		stack = stats->stacks[i].stack_handle;
+ 		if (sbuf && !stack_depot_snprint(stack, sbuf, STACK_BUF_SIZE, 4))
+ 			sbuf[0] = 0;
+-		pr_err("%s@%pK has %d/%d users at\n%s\n", dir->name, dir,
+-		       stats->stacks[i].count, stats->total, sbuf);
++		pr_ostream(s, "%s@%pK has %d/%d users at\n%s\n", dir->name, dir,
++			   stats->stacks[i].count, stats->total, sbuf);
+ 		skipped -= stats->stacks[i].count;
+ 	}
+ 
+ 	if (skipped)
+-		pr_err("%s@%pK skipped reports about %d/%d users.\n",
+-		       dir->name, dir, skipped, stats->total);
++		pr_ostream(s, "%s@%pK skipped reports about %d/%d users.\n",
++			   dir->name, dir, skipped, stats->total);
+ 
+ 	kfree(sbuf);
+ 
+ 	kfree(stats);
+ }
++
 +void ref_tracker_dir_print_locked(struct ref_tracker_dir *dir,
 +				  unsigned int display_limit)
 +{
-+	struct ref_tracker *tracker;
-+	unsigned int i = 0;
++	struct ostream os = {};
 +
-+	lockdep_assert_held(&dir->lock);
-+
-+	list_for_each_entry(tracker, &dir->list, head) {
-+		if (i < display_limit) {
-+			pr_err("leaked reference.\n");
-+			if (tracker->alloc_stack_handle)
-+				stack_depot_print(tracker->alloc_stack_handle);
-+			i++;
-+		} else {
-+			break;
-+		}
-+	}
++	__ref_tracker_dir_pr_ostream(dir, display_limit, &os);
 +}
-+EXPORT_SYMBOL(ref_tracker_dir_print_locked);
-+
-+void ref_tracker_dir_print(struct ref_tracker_dir *dir,
-+			   unsigned int display_limit)
+ EXPORT_SYMBOL(ref_tracker_dir_print_locked);
+ 
+ void ref_tracker_dir_print(struct ref_tracker_dir *dir,
+@@ -114,6 +141,19 @@ void ref_tracker_dir_print(struct ref_tracker_dir *dir,
+ }
+ EXPORT_SYMBOL(ref_tracker_dir_print);
+ 
++int ref_tracker_dir_snprint(struct ref_tracker_dir *dir, char *buf, size_t size)
 +{
++	struct ostream os = { .buf = buf, .size = size };
 +	unsigned long flags;
 +
 +	spin_lock_irqsave(&dir->lock, flags);
-+	ref_tracker_dir_print_locked(dir, display_limit);
++	__ref_tracker_dir_pr_ostream(dir, 16, &os);
 +	spin_unlock_irqrestore(&dir->lock, flags);
++
++	return os.used;
 +}
-+EXPORT_SYMBOL(ref_tracker_dir_print);
++EXPORT_SYMBOL(ref_tracker_dir_snprint);
 +
  void ref_tracker_dir_exit(struct ref_tracker_dir *dir)
  {
  	struct ref_tracker *tracker, *n;
-@@ -27,13 +59,13 @@ void ref_tracker_dir_exit(struct ref_tracker_dir *dir)
- 		kfree(tracker);
- 		dir->quarantine_avail++;
- 	}
--	list_for_each_entry_safe(tracker, n, &dir->list, head) {
--		pr_err("leaked reference.\n");
--		if (tracker->alloc_stack_handle)
--			stack_depot_print(tracker->alloc_stack_handle);
-+	if (!list_empty(&dir->list)) {
-+		ref_tracker_dir_print_locked(dir, 16);
- 		leak = true;
--		list_del(&tracker->head);
--		kfree(tracker);
-+		list_for_each_entry_safe(tracker, n, &dir->list, head) {
-+			list_del(&tracker->head);
-+			kfree(tracker);
-+		}
- 	}
- 	spin_unlock_irqrestore(&dir->lock, flags);
- 	WARN_ON_ONCE(leak);
-@@ -42,28 +74,6 @@ void ref_tracker_dir_exit(struct ref_tracker_dir *dir)
- }
- EXPORT_SYMBOL(ref_tracker_dir_exit);
- 
--void ref_tracker_dir_print(struct ref_tracker_dir *dir,
--			   unsigned int display_limit)
--{
--	struct ref_tracker *tracker;
--	unsigned long flags;
--	unsigned int i = 0;
--
--	spin_lock_irqsave(&dir->lock, flags);
--	list_for_each_entry(tracker, &dir->list, head) {
--		if (i < display_limit) {
--			pr_err("leaked reference.\n");
--			if (tracker->alloc_stack_handle)
--				stack_depot_print(tracker->alloc_stack_handle);
--			i++;
--		} else {
--			break;
--		}
--	}
--	spin_unlock_irqrestore(&dir->lock, flags);
--}
--EXPORT_SYMBOL(ref_tracker_dir_print);
--
- int ref_tracker_alloc(struct ref_tracker_dir *dir,
- 		      struct ref_tracker **trackerp,
- 		      gfp_t gfp)
 
 -- 
 2.34.1
