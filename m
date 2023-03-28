@@ -4,42 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5707EC77B61
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Mar 2023 15:12:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E68DC6FD18
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Mar 2023 15:15:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B03B910E0F1;
-	Tue, 28 Mar 2023 15:12:11 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75EB610E0F1
- for <intel-gfx@lists.freedesktop.org>; Tue, 28 Mar 2023 15:12:08 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 1F382B81D77;
- Tue, 28 Mar 2023 15:12:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 584F1C433EF;
- Tue, 28 Mar 2023 15:12:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1680016325;
- bh=dU4cXv3GN5nyO7RK1N6UM13F/DcpChRh/3UE/JMFQWw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=UT8zNHOW9W58in444r0YNAMHXT/mBiMs3+M5oScFsj/czBV2H4b2TjpVpHSk0UpFA
- yVKC4oapnLVW/+yRiJS+ETZT3//Ele2zuJnLekNhW3x0gGP4Nobzklbc+5q/r9O4bg
- 2hN7zmoDRX9/ar//Ga4UlPPK23xKyvLyEuaL5t2s=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Date: Tue, 28 Mar 2023 16:43:41 +0200
-Message-Id: <20230328142608.175023979@linuxfoundation.org>
-X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230328142602.660084725@linuxfoundation.org>
-References: <20230328142602.660084725@linuxfoundation.org>
-User-Agent: quilt/0.67
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0D3810E933;
+	Tue, 28 Mar 2023 15:15:50 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D86C910E918;
+ Tue, 28 Mar 2023 15:15:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1680016547; x=1711552547;
+ h=from:subject:date:message-id:mime-version:
+ content-transfer-encoding:to:cc;
+ bh=8UzayBLRBQ8s0UpLIwh56xr9xEKmxU+0z/KLnW55M0o=;
+ b=Bf05bgqud4hWQI9hu7CFl27KwB5UD+TPYjGsnnpLHp+us0fV+9jdg9PS
+ uaPe7Rn91eXaX3cvUJJVHZ0XGk8CcNuFavpkYpFrom8eokib7PYDnmVEA
+ WYmwpCNmhpDDwX860HVz8+U4FdnOWtjt6deNMMT5x/m2oC2YtjMwoY+We
+ tTCVUeLB50haThkJ4wjFObozdGA6DmY+pmW3COqkUghlaZpy3Lg2b1rNe
+ B+pfdOJpCnOshwX/jKSDSVULgDN8LwJJqJB0vAb2asSW8PRtzw4f1GReG
+ waAc+p1JagtfzAkBf0UyZoEa+Fub0EvQ5JCi/zqi3ezCBUmw/wzi2ybC0 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="403208592"
+X-IronPort-AV: E=Sophos;i="5.98,297,1673942400"; d="scan'208";a="403208592"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2023 08:15:47 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="773181732"
+X-IronPort-AV: E=Sophos;i="5.98,297,1673942400"; d="scan'208";a="773181732"
+Received: from lab-ah.igk.intel.com ([10.102.138.202])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2023 08:15:43 -0700
+From: Andrzej Hajda <andrzej.hajda@intel.com>
+Date: Tue, 28 Mar 2023 17:15:24 +0200
+Message-Id: <20230224-track_gt-v5-0-77be86f2c872@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5.15 132/146] drm/i915/active: Fix missing debug
- object activation
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIwEI2QC/3WNQQ7CIBREr9KwFqUUq3XlPYwxH/htiZY2gETT9
+ O5CVy50+SbzZmbi0Rn05FTMxGE03ow2wX5TENWD7ZAanZhwxivGuaDBgbrfukBLWWk4Sg1KH0iq
+ S/BIpQOr+iw8Jx8cwrDTbqDBTLkyOWzNa327XBP3xofRvdfzWOb0x08sKaMp4qypW6VVfTY24GO
+ rxoHkkSj+iSKJohZ4BClUA/JbXJblA8iW3In8AAAA
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+X-Mailer: b4 0.11.1
+Subject: [Intel-gfx] [PATCH v5 0/8] drm/i915: use ref_tracker library for
+ tracking wakerefs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,57 +65,103 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Jani Nikula <jani.nikula@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- intel-gfx@lists.freedesktop.org, patches@lists.linux.dev,
- Chris Wilson <chris@chris-wilson.co.uk>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@intel.com>,
- Nirmoy Das <nirmoy.das@intel.com>
+Cc: netdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>, Eric Dumazet <edumazet@google.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Jakub Kicinski <kuba@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Dmitry Vyukov <dvyukov@google.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Nirmoy Das <nirmoy.das@intel.com>
+Gently ping for network developers, could you look at ref_tracker patches,
+as the ref_tracker library was developed for network.
 
-commit e92eb246feb9019b0b137706c934b8891cdfe3c2 upstream.
+This is revived patchset improving ref_tracker library and converting
+i915 internal tracker to ref_tracker.
+The old thread ended without consensus about small kernel allocations,
+which are performed under spinlock.
+I have tried to solve the problem by splitting the calls, but it results
+in complicated API, so I went back to original solution.
+If there are better solutions I am glad to discuss them.
+Meanwhile I send original patchset with addressed remaining comments.
 
-debug_active_activate() expected ref->count to be zero
-which is not true anymore as __i915_active_activate() calls
-debug_active_activate() after incrementing the count.
-
-v2: No need to check for "ref->count == 1" as __i915_active_activate()
-already make sure of that(Janusz).
-
-Fixes: 04240e30ed06 ("drm/i915: Skip taking acquire mutex for no ref->active callback")
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@intel.com>
-Cc: Andi Shyti <andi.shyti@linux.intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: David Airlie <airlied@gmail.com>
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-kernel@vger.kernel.org
 Cc: intel-gfx@lists.freedesktop.org
-Cc: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Cc: <stable@vger.kernel.org> # v5.10+
-Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
-Reviewed-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20230313114613.9874-1-nirmoy.das@intel.com
-(cherry picked from commit bfad380c542438a9b642f8190b7fd37bc77e2723)
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: dri-devel@lists.freedesktop.org
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: netdev@vger.kernel.org
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Dmitry Vyukov <dvyukov@google.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
+
 ---
- drivers/gpu/drm/i915/i915_active.c |    3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Changes in v5 (thx Andi for review):
+- use *_locked convention instead of __*,
+- improved commit messages,
+- re-worked i915 patches, squashed separation and conversion patches,
+- added tags,
+- Link to v4: https://lore.kernel.org/r/20230224-track_gt-v4-0-464e8ab4c9ab@intel.com
 
---- a/drivers/gpu/drm/i915/i915_active.c
-+++ b/drivers/gpu/drm/i915/i915_active.c
-@@ -92,8 +92,7 @@ static void debug_active_init(struct i91
- static void debug_active_activate(struct i915_active *ref)
- {
- 	lockdep_assert_held(&ref->tree_lock);
--	if (!atomic_read(&ref->count)) /* before the first inc */
--		debug_object_activate(ref, &active_debug_desc);
-+	debug_object_activate(ref, &active_debug_desc);
- }
- 
- static void debug_active_deactivate(struct i915_active *ref)
+Changes in v4:
+- split "Separate wakeref tracking" to smaller parts
+- fixed typos,
+- Link to v1-v3: https://patchwork.freedesktop.org/series/100327/
 
+---
+Andrzej Hajda (7):
+      lib/ref_tracker: add unlocked leak print helper
+      lib/ref_tracker: improve printing stats
+      lib/ref_tracker: add printing to memory buffer
+      lib/ref_tracker: remove warnings in case of allocation failure
+      drm/i915: Correct type of wakeref variable
+      drm/i915: Replace custom intel runtime_pm tracker with ref_tracker library
+      drm/i915: track gt pm wakerefs
 
+Chris Wilson (1):
+      drm/i915/gt: Hold a wakeref for the active VM
+
+ drivers/gpu/drm/i915/Kconfig.debug                 |  19 ++
+ drivers/gpu/drm/i915/display/intel_display_power.c |   2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c     |   7 +-
+ .../drm/i915/gem/selftests/i915_gem_coherency.c    |  10 +-
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c |  14 +-
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c        |  13 +-
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h  |   3 +-
+ drivers/gpu/drm/i915/gt/intel_context.h            |  15 +-
+ drivers/gpu/drm/i915/gt/intel_context_types.h      |   2 +
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c          |  10 +-
+ drivers/gpu/drm/i915/gt/intel_engine_types.h       |   2 +
+ .../gpu/drm/i915/gt/intel_execlists_submission.c   |   2 +-
+ drivers/gpu/drm/i915/gt/intel_gt_pm.c              |  12 +-
+ drivers/gpu/drm/i915/gt/intel_gt_pm.h              |  38 +++-
+ drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c      |   4 +-
+ drivers/gpu/drm/i915/gt/selftest_engine_cs.c       |  20 +-
+ drivers/gpu/drm/i915/gt/selftest_gt_pm.c           |   5 +-
+ drivers/gpu/drm/i915/gt/selftest_reset.c           |  10 +-
+ drivers/gpu/drm/i915/gt/selftest_rps.c             |  17 +-
+ drivers/gpu/drm/i915/gt/selftest_slpc.c            |   5 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c  |  11 +-
+ drivers/gpu/drm/i915/i915_driver.c                 |   2 +-
+ drivers/gpu/drm/i915/i915_pmu.c                    |  16 +-
+ drivers/gpu/drm/i915/intel_runtime_pm.c            | 221 ++-------------------
+ drivers/gpu/drm/i915/intel_runtime_pm.h            |  11 +-
+ drivers/gpu/drm/i915/intel_wakeref.c               |   7 +-
+ drivers/gpu/drm/i915/intel_wakeref.h               |  99 ++++++++-
+ include/linux/ref_tracker.h                        |  31 ++-
+ lib/ref_tracker.c                                  | 179 ++++++++++++++---
+ 29 files changed, 456 insertions(+), 331 deletions(-)
+---
+base-commit: c6137ecf40b2dc5bdf1ed8928122b700bfc91fea
+change-id: 20230224-track_gt-1b3da8bdacd7
+
+Best regards,
+-- 
+Andrzej Hajda <andrzej.hajda@intel.com>
