@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFD9CC6FD18
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Mar 2023 12:50:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DFEDC76196
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Mar 2023 12:54:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 779E610E8A0;
-	Tue, 28 Mar 2023 12:50:08 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7513310E89D
- for <intel-gfx@lists.freedesktop.org>; Tue, 28 Mar 2023 12:50:06 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id DEA1061724;
- Tue, 28 Mar 2023 12:50:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE174C4339B;
- Tue, 28 Mar 2023 12:50:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1680007805;
- bh=cAHlpNInHbXxg2X5AKvtLfzVJyTKUGD/4HLxxcbk/BE=;
- h=Subject:To:Cc:From:Date:From;
- b=RaLx3pR6KWPTQ4+cv5PAbWJQVPv+p5rCjP/Lauxk/D2tXAvnG8f6XtYytjayB4HAz
- BRgnPO92sISzBI7hRIsVsfyI9/Ki493hVONSrest2MeBQ0p0Qe18VsGT9B5KRTZFRF
- GcM2L+nqF6q4t+79snoF0pDLTV0d8H1Zn39BEP1c=
-To: andi.shyti@linux.intel.com, andrzej.hajda@intel.com,
- chris@chris-wilson.co.uk, gregkh@linuxfoundation.org,
- intel-gfx@lists.freedesktop.org, jani.nikula@intel.com,
- janusz.krzysztofik@linux.intel.com, nirmoy.das@intel.com,
- thomas.hellstrom@intel.com, tvrtko.ursulin@intel.com
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 28 Mar 2023 14:47:41 +0200
-Message-ID: <168000766157163@kroah.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75F2210E8A5;
+	Tue, 28 Mar 2023 12:54:42 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6363D10E457;
+ Tue, 28 Mar 2023 12:54:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1680008079; x=1711544079;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=dNRn3cDmKjvRWYWuP0H+vh04G6CNvm1GCDqSGy615cE=;
+ b=OUkxFs+Q5pAtzfeVA/VsimRhoUh5//KF787DEuilr+ZV4ti0bFoKZdsm
+ xImnl/tMLWtTec8HOAZ2Kz0x/gcV1hn8pvF5LrSETrPalMCRQxgy8ygH5
+ lyC2MIUzNyJM7bCaBJYbLAaiElnuHXBQLbpDL+1wilIyZq06Sq82dn4T2
+ i/q+hZn65qsduti+tBv9wvTAHPOnP960B9Q2hUep5JEtPLbOaNd3wEbYR
+ cd5FI9lMu978/yKHIRDwO0Gy20W8xt7l8Vya/+4SJS2kT4SLPIJ0OTlzF
+ WREbXUHpSWXpvnP3RLjruUPz2KNQVDyZSwbxi0qZ7X/FeVsxU4Hzlapk6 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10662"; a="342141784"
+X-IronPort-AV: E=Sophos;i="5.98,297,1673942400"; d="scan'208";a="342141784"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2023 05:54:38 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10662"; a="794793261"
+X-IronPort-AV: E=Sophos;i="5.98,297,1673942400"; d="scan'208";a="794793261"
+Received: from wheelerj-mobl.ger.corp.intel.com (HELO localhost.localdomain)
+ ([10.213.213.242])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2023 05:54:37 -0700
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: igt-dev@lists.freedesktop.org,
+	Intel-gfx@lists.freedesktop.org
+Date: Tue, 28 Mar 2023 13:54:26 +0100
+Message-Id: <20230328125429.1970202-1-tvrtko.ursulin@linux.intel.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
-Subject: [Intel-gfx] Patch "drm/i915/active: Fix missing debug object
- activation" has been added to the 6.2-stable tree
+Subject: [Intel-gfx] [PATCH i-g-t 0/3] Assorted intel_gpu_top tweaks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,80 +57,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable-commits@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-This is a note to let you know that I've just added the patch titled
+Just some display formatting and display tweaks and fixes.
 
-    drm/i915/active: Fix missing debug object activation
+Tvrtko Ursulin (3):
+  intel_gpu_top: Display large pids nicely in interactive mode
+  intel_gpu_top: Use full console width for global metrics
+  intel_gpu_top: Show non-normalized client usage in numeric mode
 
-to the 6.2-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+ tools/intel_gpu_top.c | 90 +++++++++++++++++++++++++++++++++----------
+ 1 file changed, 70 insertions(+), 20 deletions(-)
 
-The filename of the patch is:
-     drm-i915-active-fix-missing-debug-object-activation.patch
-and it can be found in the queue-6.2 subdirectory.
+-- 
+2.37.2
 
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From e92eb246feb9019b0b137706c934b8891cdfe3c2 Mon Sep 17 00:00:00 2001
-From: Nirmoy Das <nirmoy.das@intel.com>
-Date: Tue, 14 Mar 2023 15:29:14 +0100
-Subject: drm/i915/active: Fix missing debug object activation
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-From: Nirmoy Das <nirmoy.das@intel.com>
-
-commit e92eb246feb9019b0b137706c934b8891cdfe3c2 upstream.
-
-debug_active_activate() expected ref->count to be zero
-which is not true anymore as __i915_active_activate() calls
-debug_active_activate() after incrementing the count.
-
-v2: No need to check for "ref->count == 1" as __i915_active_activate()
-already make sure of that(Janusz).
-
-References: https://gitlab.freedesktop.org/drm/intel/-/issues/6733
-Fixes: 04240e30ed06 ("drm/i915: Skip taking acquire mutex for no ref->active callback")
-Cc: Chris Wilson <chris@chris-wilson.co.uk>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: Thomas Hellström <thomas.hellstrom@intel.com>
-Cc: Andi Shyti <andi.shyti@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Cc: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Cc: <stable@vger.kernel.org> # v5.10+
-Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
-Reviewed-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20230313114613.9874-1-nirmoy.das@intel.com
-(cherry picked from commit bfad380c542438a9b642f8190b7fd37bc77e2723)
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/i915/i915_active.c |    3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
---- a/drivers/gpu/drm/i915/i915_active.c
-+++ b/drivers/gpu/drm/i915/i915_active.c
-@@ -92,8 +92,7 @@ static void debug_active_init(struct i91
- static void debug_active_activate(struct i915_active *ref)
- {
- 	lockdep_assert_held(&ref->tree_lock);
--	if (!atomic_read(&ref->count)) /* before the first inc */
--		debug_object_activate(ref, &active_debug_desc);
-+	debug_object_activate(ref, &active_debug_desc);
- }
- 
- static void debug_active_deactivate(struct i915_active *ref)
-
-
-Patches currently in stable-queue which might be from nirmoy.das@intel.com are
-
-queue-6.2/drm-i915-gt-perform-uc-late-init-after-probe-error-i.patch
-queue-6.2/drm-i915-active-fix-missing-debug-object-activation.patch
