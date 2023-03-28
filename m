@@ -4,79 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA39CC77B61
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Mar 2023 14:46:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BAA8C76196
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Mar 2023 14:54:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40F5A10E484;
-	Tue, 28 Mar 2023 14:46:23 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A502B10E8F7
- for <intel-gfx@lists.freedesktop.org>; Tue, 28 Mar 2023 14:46:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1680014780;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/pgdm+jy/b4Tdk4we3XCQptlzzAEZ6DctjGUY0MhFMw=;
- b=JJSWrf40HM9r3Mrzb3rOTwY6Kd97HtzBl/RcZydpH4GzmlhoSIst5C5wx5Mex0625kInzX
- y4Aij0QlNcJ8R/iLRspVNCy51uURFfSTRSoxFLb2W7uyRNOwu23e3ZAQiTRtLNRgYlLDZb
- Z16nHFsyZ6TqNfiRBscDum3qg4XIwO4=
-Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
- [209.85.166.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-664-w5PzY4GnOW-IkhPtd62H9Q-1; Tue, 28 Mar 2023 10:46:19 -0400
-X-MC-Unique: w5PzY4GnOW-IkhPtd62H9Q-1
-Received: by mail-io1-f72.google.com with SMTP id
- h136-20020a6bb78e000000b00758b105cdd3so7840334iof.23
- for <intel-gfx@lists.freedesktop.org>; Tue, 28 Mar 2023 07:46:19 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680014779;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=/pgdm+jy/b4Tdk4we3XCQptlzzAEZ6DctjGUY0MhFMw=;
- b=fxw8h0BlOgnJJKx6swayJ4AXXsTJsRIWE3SLOYzZjbNzJZ0u0J7T8u0n5wd4AwBUz8
- sYmQtwlda8zDgl/XqXoNiBtD+dkMZScfJb4mWHJwzlmqsLAYhxAC7Rmol6x7h6yaarxv
- AsgIMji5Uz9TFtUUuGzMvn1cR8OwESbrpA7fb3YqeqXOshinPEKe4JT0UBE5ETLxV2Cr
- wPsF1KwsLz9ZFt1zePMuBnTCw8LldIBqYeVrC6dcs4EAe3ZkZ75jh9XQKXHP8RYn2RHm
- 9qOJFUntynNPzksXOGNuQdHZBYefXj+mWXL8CkGhfRmnNzCRDKGrIP+gWPtmpU0djDTk
- FLwA==
-X-Gm-Message-State: AAQBX9cUy/cpa4mgaOhWlWZk7E88kHwtoXoRdQCIufQS7buFO6CnDxbq
- JV4RxOELEEJwaPpQHsowrJYFer8K6dmanjt5FY7tPfP7HEXFoGmsie1hHR3SiBMAkWNE3qx3vBZ
- K2xdxNsIFs1eA5YuJUxUE+GlfkeiO
-X-Received: by 2002:a92:cb03:0:b0:316:ac37:1692 with SMTP id
- s3-20020a92cb03000000b00316ac371692mr11709223ilo.1.1680014778766; 
- Tue, 28 Mar 2023 07:46:18 -0700 (PDT)
-X-Google-Smtp-Source: AKy350aTliduwAnIwWl0SZjOQEj8WhTrU9CjmbJwxlCOGlgjQmiDfHr6STEw1BtQugPCCt1EmjAPaA==
-X-Received: by 2002:a92:cb03:0:b0:316:ac37:1692 with SMTP id
- s3-20020a92cb03000000b00316ac371692mr11709198ilo.1.1680014778463; 
- Tue, 28 Mar 2023 07:46:18 -0700 (PDT)
-Received: from redhat.com ([38.15.36.239]) by smtp.gmail.com with ESMTPSA id
- m16-20020a056e020df000b003261b677e09sm661997ilj.33.2023.03.28.07.46.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Mar 2023 07:46:17 -0700 (PDT)
-Date: Tue, 28 Mar 2023 08:46:16 -0600
-From: Alex Williamson <alex.williamson@redhat.com>
-To: "Liu, Yi L" <yi.l.liu@intel.com>
-Message-ID: <20230328084616.3361a293.alex.williamson@redhat.com>
-In-Reply-To: <DS0PR11MB7529B6782565BE8489D922F9C3889@DS0PR11MB7529.namprd11.prod.outlook.com>
-References: <20230327093458.44939-1-yi.l.liu@intel.com>
- <20230327093458.44939-11-yi.l.liu@intel.com>
- <20230327132619.5ab15440.alex.williamson@redhat.com>
- <DS0PR11MB7529E969C27995D535A24EC0C3889@DS0PR11MB7529.namprd11.prod.outlook.com>
- <BL1PR11MB52717FB9E6D5C10BF4B7DA0A8C889@BL1PR11MB5271.namprd11.prod.outlook.com>
- <20230328082536.5400da67.alex.williamson@redhat.com>
- <DS0PR11MB7529B6782565BE8489D922F9C3889@DS0PR11MB7529.namprd11.prod.outlook.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.35; x86_64-redhat-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A3EB10E8FA;
+	Tue, 28 Mar 2023 14:54:17 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B56C10E8FA
+ for <intel-gfx@lists.freedesktop.org>; Tue, 28 Mar 2023 14:54:14 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 6ED10B81BBF;
+ Tue, 28 Mar 2023 14:54:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B459DC433D2;
+ Tue, 28 Mar 2023 14:54:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1680015252;
+ bh=dU4cXv3GN5nyO7RK1N6UM13F/DcpChRh/3UE/JMFQWw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=pxg+5kl0LxbTa7BSR9MpCodqm5fYd+Cc9tajw+Fl/MJO8FJ54atAfrw1d9KMpvz7N
+ dZWryGmEtXE3y0InZPLYueBVjg7Je/bYI5GJKOplyoeEvzGlMRhTti6coj+NBSWPAn
+ 6YAqNZ2xRRbP5zh+h+FSMAWraQCRzexRZV0ARHsk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Date: Tue, 28 Mar 2023 16:43:04 +0200
+Message-Id: <20230328142628.917550978@linuxfoundation.org>
+X-Mailer: git-send-email 2.40.0
+In-Reply-To: <20230328142619.643313678@linuxfoundation.org>
+References: <20230328142619.643313678@linuxfoundation.org>
+User-Agent: quilt/0.67
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v2 10/10] vfio/pci: Add
- VFIO_DEVICE_GET_PCI_HOT_RESET_GROUP_INFO
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 6.2 221/240] drm/i915/active: Fix missing debug
+ object activation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,89 +51,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "mjrosato@linux.ibm.com" <mjrosato@linux.ibm.com>,
- "jasowang@redhat.com" <jasowang@redhat.com>, "Hao,
- Xudong" <xudong.hao@intel.com>, "peterx@redhat.com" <peterx@redhat.com>, "Xu,
- Terrence" <terrence.xu@intel.com>,
- "chao.p.peng@linux.intel.com" <chao.p.peng@linux.intel.com>,
- "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "lulu@redhat.com" <lulu@redhat.com>, "Jiang,
- Yanting" <yanting.jiang@intel.com>, "joro@8bytes.org" <joro@8bytes.org>,
- "nicolinc@nvidia.com" <nicolinc@nvidia.com>, "jgg@nvidia.com" <jgg@nvidia.com>,
- "Zhao, Yan Y" <yan.y.zhao@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "eric.auger@redhat.com" <eric.auger@redhat.com>,
- "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
- "yi.y.sun@linux.intel.com" <yi.y.sun@linux.intel.com>,
- "cohuck@redhat.com" <cohuck@redhat.com>,
- "shameerali.kolothum.thodi@huawei.com" <shameerali.kolothum.thodi@huawei.com>,
- "suravee.suthikulpanit@amd.com" <suravee.suthikulpanit@amd.com>,
- "robin.murphy@arm.com" <robin.murphy@arm.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Jani Nikula <jani.nikula@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ intel-gfx@lists.freedesktop.org, patches@lists.linux.dev,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@intel.com>,
+ Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 28 Mar 2023 14:38:12 +0000
-"Liu, Yi L" <yi.l.liu@intel.com> wrote:
+From: Nirmoy Das <nirmoy.das@intel.com>
 
-> > From: Alex Williamson <alex.williamson@redhat.com>
-> > Sent: Tuesday, March 28, 2023 10:26 PM
-> > 
-> > On Tue, 28 Mar 2023 06:19:06 +0000
-> > "Tian, Kevin" <kevin.tian@intel.com> wrote:
-> >   
-> > > > From: Liu, Yi L <yi.l.liu@intel.com>
-> > > > Sent: Tuesday, March 28, 2023 11:32 AM
-> > > >  
-> > > > > From: Alex Williamson <alex.williamson@redhat.com>
-> > > > > Sent: Tuesday, March 28, 2023 3:26 AM
-> > > > >
-> > > > > Additionally, VFIO_DEVICE_GET_PCI_HOT_RESET_INFO has a flags arg  
-> > that  
-> > > > > isn't used, why do we need a new ioctl vs defining
-> > > > > VFIO_PCI_HOT_RESET_FLAG_IOMMUFD_DEV_ID.  
-> > > >
-> > > > Sure. I can follow this suggestion. BTW. I have a doubt here. This new  
-> > flag  
-> > > > is set by user. What if in the future kernel has new extensions and needs
-> > > > to report something new to the user and add new flags to tell user? Such
-> > > > flag is set by kernel. Then the flags field may have two kinds of flags  
-> > (some  
-> > > > set by user while some set by kernel). Will it mess up the flags space?
-> > > >  
-> > >
-> > > flags in a GET_INFO ioctl is for output.
-> > >
-> > > if user needs to use flags as input to select different type of info then it  
-> > should  
-> > > be split into multiple GET_INFO cmds.  
-> > 
-> > I don't know that that's actually a rule, however we don't currently
-> > test flags is zero for input, so in this case I think we are stuck with
-> > it only being for output.
-> > 
-> > Alternatively, should VFIO_DEVICE_GET_PCI_HOT_RESET_INFO
-> > automatically
-> > return the dev_id variant of the output and set a flag to indicate this
-> > is the case when called on a device fd opened as a cdev?  Thanks,  
-> 
-> Personally I prefer that user asks for dev_id info explicitly. The major reason
-> that we return dev_id is that the group/bdf info is not enough for the device
-> fd passing case. But if qemu opens device by itself, the group/bdf info is still
-> enough. So a device opened as a cdev doesn't mean it should return dev_id,
-> it depends on if user has the bdf knowledge.
+commit e92eb246feb9019b0b137706c934b8891cdfe3c2 upstream.
 
-But if QEMU opens the cdev, vs getting it from the group, does it make
-any sense to return a set of group-ids + bdf in the host-reset info?
-I'm inclined to think the answer is no.
+debug_active_activate() expected ref->count to be zero
+which is not true anymore as __i915_active_activate() calls
+debug_active_activate() after incrementing the count.
 
-Per my previous suggestion, I think we should always return the bdf. We
-can't know if the user is accessing through an fd they opened
-themselves or were passed, but it allows an actually useful debugging
-report if userspace can know "I can't perform a hot reset of this
-device because my iommufd context doesn't know about device <bdf>", vs
-an opaque -EPERM.  Therefore I think we're only discussing the data
-conveyed in the u32, a group-id or dev_id.  Thanks,
+v2: No need to check for "ref->count == 1" as __i915_active_activate()
+already make sure of that(Janusz).
 
-Alex
+Fixes: 04240e30ed06 ("drm/i915: Skip taking acquire mutex for no ref->active callback")
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@intel.com>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Cc: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Cc: <stable@vger.kernel.org> # v5.10+
+Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
+Reviewed-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20230313114613.9874-1-nirmoy.das@intel.com
+(cherry picked from commit bfad380c542438a9b642f8190b7fd37bc77e2723)
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/i915/i915_active.c |    3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+--- a/drivers/gpu/drm/i915/i915_active.c
++++ b/drivers/gpu/drm/i915/i915_active.c
+@@ -92,8 +92,7 @@ static void debug_active_init(struct i91
+ static void debug_active_activate(struct i915_active *ref)
+ {
+ 	lockdep_assert_held(&ref->tree_lock);
+-	if (!atomic_read(&ref->count)) /* before the first inc */
+-		debug_object_activate(ref, &active_debug_desc);
++	debug_object_activate(ref, &active_debug_desc);
+ }
+ 
+ static void debug_active_deactivate(struct i915_active *ref)
+
 
