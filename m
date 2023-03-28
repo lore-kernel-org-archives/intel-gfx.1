@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37D26C6FD18
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Mar 2023 14:37:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D5CEC761AF
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Mar 2023 14:37:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6076410E8E2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CEEF10E8ED;
 	Tue, 28 Mar 2023 14:37:18 +0000 (UTC)
 Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
  [IPv6:2a00:1450:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5945410E484
- for <intel-gfx@lists.freedesktop.org>; Tue, 28 Mar 2023 14:37:15 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id y4so50704967edo.2
- for <intel-gfx@lists.freedesktop.org>; Tue, 28 Mar 2023 07:37:15 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76D5510E3DE
+ for <intel-gfx@lists.freedesktop.org>; Tue, 28 Mar 2023 14:37:13 +0000 (UTC)
+Received: by mail-ed1-x52e.google.com with SMTP id ek18so50631804edb.6
+ for <intel-gfx@lists.freedesktop.org>; Tue, 28 Mar 2023 07:37:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680014233;
+ d=gmail.com; s=20210112; t=1680014232;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=jdDrasKnuFImEGYPj3qUm+5j8Z1jrJwObDLLEIo8ztQ=;
- b=LYG8TuIvaYP1jqpOzwTH5ZgGUdUat4VF4kTgW6ao8F8xKRIQE64b91l0QDZtUw8OxM
- VoAw6uJuK1wXIPJVWQIbOYXzECSZuxk7G3QCGHSxNgi3mePK7SWe18WRbiLL8AXwyRsk
- +t7Y6BO4l13fewbBNhobyux4eOvSycOEaJrWr/yxJr8mWxejOdO3gDEq5RVsSQt1hbLA
- z/+RpSJxKGQtkYnXl3Un4yS03iPCYtEXlvjEkPPLMcw+OlDi8d6IQ/ce0EPJy4cGTDcR
- 1g/ZktnzDnIxZJNsGUcMcCOOnf9elmlLZfkmi/20gcSLnRRo2foXDp+f7VM2Po2q/CMH
- oUWQ==
+ :reply-to; bh=HrZn+uiQ1qRJiBfpmbNQstscVS4mTiUl6EVg29xRBVg=;
+ b=REUz22udDP7BkWzN9glDuv4sL5mIxwXPpgZ3kQBWvQ8cHttM5tJkmpvdIwrC1aVYpr
+ l08J1FVex6mkHv3xL6dxlUnY5ChyuJrUTX83lj4uHelOHmmUu0bHe4Akqmw8ZArnwl7d
+ sUKyDiCZFxDEJM8gxY7wsxV7iifs2es+M8P2quybENe7zm842rGXtGQ7Qb+YPD/FYsG8
+ elVuAhj26ai85YW8qh/Ukft/UErL8i4Aczi0OUyk7EfLKxQ5Arrru2S4GV+vX6J/xOvp
+ 58q4IQGtwT2uFjxLEwU4PQWCkgsBoONYhN7AjfVFlFWc7AoufYfbvnn3SBtHpwJD9XH3
+ R7FQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680014233;
+ d=1e100.net; s=20210112; t=1680014232;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=jdDrasKnuFImEGYPj3qUm+5j8Z1jrJwObDLLEIo8ztQ=;
- b=YJzCml2tohO36/ufmVg+oB1kyIStVvzSi1QgVXrZ+71IMlnPQisLYMzdTLIdg31a1F
- YFk7PKLYo+vEGuKlR+VzPwjC8Czm2w3mxkSin8+nhcBMDzc97asj4gfR4RwjCCb0dgDQ
- 98C+vXlNLPKYY/1Am8fanE1qpp+EHYfeMFWzo5lW5LK4w8ET/v7arINqcSttKbb/kdtp
- l3vGfr6JDhh2CV3u2jO/659Unkqv2Qy8lXONG1P6K6FZw++Bv6HcvYokDOWRILGhCdef
- bQwX4iUTZdVQH6oSsQE53LGR0j8Bptj0ceeZCCGkENiWH3hGq4w45OkHsXPLgb4hpRp/
- Z2Pg==
-X-Gm-Message-State: AAQBX9enfzMOVA29avUxrNmPOKNNgMnZCC/xszyHN6ivRahIrwSG00YY
- tMYbGEh21+gWi38oWhzv79tB/kKuxGQ=
-X-Google-Smtp-Source: AKy350YpiD5XvKKglayoVr4RGD/3rAqVPJwd95r0v5D4djWbpc9Btb+dqezQOI/sPW9UpAJLa9aW7A==
-X-Received: by 2002:aa7:d74b:0:b0:4fb:5607:6a24 with SMTP id
- a11-20020aa7d74b000000b004fb56076a24mr15363510eds.8.1680014233551; 
- Tue, 28 Mar 2023 07:37:13 -0700 (PDT)
+ bh=HrZn+uiQ1qRJiBfpmbNQstscVS4mTiUl6EVg29xRBVg=;
+ b=Av66mj4q0iLNuk4E57VUec9wjWZe95+YyHVB0VTUIWEQev0rveOsKYpbEbtscU6oNk
+ 1iOXjL1/og5AY4/+GM/dgoYBvGDtRMLPBYW63yBgKfMR0sIIJe61ccTzIlgyJtpN0lDx
+ z+Nx/G40v1KFKXg66TyICGga9o/bBXW4DNpOAkqR8LFLEjmdo7oyiL4MRoQOLnhA6dKr
+ gKx+u7+8MAynL5YXZYVCITXAwwPnKqLYA5OqcEfvA5LjpdwZWbtn68WBXeGRX7qwvIKs
+ QYMRsrA4gtN6Fknz7MYozCZ8cCE/LjEhQIJQjrEYyWJlf0AAZudWJHlCEa/TYcoJlIuC
+ xAYw==
+X-Gm-Message-State: AAQBX9d9lOQjgMyIWCElEqAEqtiIhFgpEikaZ/eLTpef/uLkosHnYsqI
+ foRx2vWvGYf188vFHrgQGc7WrG6OgiU=
+X-Google-Smtp-Source: AKy350ZMRZtw+IzKpRiUcXZdqdLeJnARQf5kA+vt6dSmFXX5g996dnvqnomhicFVkGmCp3lLEf6kag==
+X-Received: by 2002:a17:906:507:b0:907:9bda:93b9 with SMTP id
+ j7-20020a170906050700b009079bda93b9mr15729084eja.17.1680014231803; 
+ Tue, 28 Mar 2023 07:37:11 -0700 (PDT)
 Received: from able.fritz.box (p4fc2092b.dip0.t-ipconnect.de. [79.194.9.43])
  by smtp.gmail.com with ESMTPSA id
- jx3-20020a170907760300b00930876176e2sm15396215ejc.29.2023.03.28.07.37.12
+ jx3-20020a170907760300b00930876176e2sm15396215ejc.29.2023.03.28.07.37.10
  for <intel-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Mar 2023 07:37:13 -0700 (PDT)
+ Tue, 28 Mar 2023 07:37:11 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 28 Mar 2023 16:37:08 +0200
-Message-Id: <20230328143709.86644-4-christian.koenig@amd.com>
+Date: Tue, 28 Mar 2023 16:37:06 +0200
+Message-Id: <20230328143709.86644-2-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230328143709.86644-1-christian.koenig@amd.com>
 References: <20230328143709.86644-1-christian.koenig@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/5] drm/debugfs: rework
- drm_debugfs_create_files implementation
+Subject: [Intel-gfx] [PATCH 2/5] drm/debugfs: rework debugfs directory
+ creation v2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,281 +79,431 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use managed memory allocation for this. That allows us to not keep
-track of all the files any more.
+Instead of the per minor directories only create a single debugfs
+directory for the whole device directly when the device is initialized.
+
+For DRM devices each minor gets a symlink to the per device directory
+for now until we can be sure that this isn't useful any more in any way.
+
+Accel devices create only the per device directory and also drops the mid
+layer callback to create driver specific files.
+
+v2: cleanup accel component as well
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/accel/drm_accel.c      |  2 -
- drivers/gpu/drm/drm_debugfs.c  | 75 +++++++++-------------------------
- drivers/gpu/drm/drm_drv.c      |  2 -
- drivers/gpu/drm/drm_internal.h |  5 ---
- drivers/gpu/drm/tegra/dc.c     |  9 +++-
- drivers/gpu/drm/tegra/dsi.c    |  1 +
- drivers/gpu/drm/tegra/hdmi.c   |  3 +-
- drivers/gpu/drm/tegra/sor.c    |  1 +
- include/drm/drm_debugfs.h      |  4 +-
- include/drm/drm_file.h         |  4 --
- 10 files changed, 34 insertions(+), 72 deletions(-)
+ drivers/accel/drm_accel.c           | 27 ++++++++-----
+ drivers/gpu/drm/drm_atomic.c        |  4 +-
+ drivers/gpu/drm/drm_client.c        |  4 +-
+ drivers/gpu/drm/drm_crtc_internal.h |  2 +-
+ drivers/gpu/drm/drm_debugfs.c       | 60 ++++++++++++++++++-----------
+ drivers/gpu/drm/drm_drv.c           | 18 +++++++--
+ drivers/gpu/drm/drm_framebuffer.c   |  4 +-
+ drivers/gpu/drm/drm_internal.h      | 16 +++++---
+ include/drm/drm_accel.h             |  9 ++++-
+ include/drm/drm_client.h            |  2 +-
+ include/drm/drm_device.h            |  7 ++++
+ include/drm/drm_drv.h               |  8 ++++
+ include/drm/drm_file.h              |  1 +
+ 13 files changed, 110 insertions(+), 52 deletions(-)
 
 diff --git a/drivers/accel/drm_accel.c b/drivers/accel/drm_accel.c
-index e28fb64cbd5e..82c54bc2dcad 100644
+index d473388ee807..e28fb64cbd5e 100644
 --- a/drivers/accel/drm_accel.c
 +++ b/drivers/accel/drm_accel.c
-@@ -100,8 +100,6 @@ void accel_debugfs_register(struct drm_device *dev)
- {
- 	struct drm_minor *minor = dev->accel;
+@@ -79,26 +79,33 @@ static const struct drm_info_list accel_debugfs_list[] = {
+ #define ACCEL_DEBUGFS_ENTRIES ARRAY_SIZE(accel_debugfs_list)
  
--	INIT_LIST_HEAD(&minor->debugfs_list);
--	mutex_init(&minor->debugfs_lock);
- 	minor->debugfs_root = dev->debugfs_root;
+ /**
+- * accel_debugfs_init() - Initialize debugfs for accel minor
++ * accel_debugfs_init() - Register debugfs for accel minor
++ * @dev: Pointer to the device instance.
++ *
++ * This function creates a root directory for the device in debugfs.
++ */
++void accel_debugfs_init(struct drm_device *dev)
++{
++	drm_debugfs_dev_init(dev, accel_debugfs_root);
++}
++
++/**
++ * accel_debugfs_register() - Register debugfs for device
+  * @minor: Pointer to the drm_minor instance.
+  * @minor_id: The minor's id
+  *
+- * This function initializes the drm minor's debugfs members and creates
+- * a root directory for the minor in debugfs. It also creates common files
+- * for accelerators and calls the driver's debugfs init callback.
++ * Creates common files for accelerators.
+  */
+-void accel_debugfs_init(struct drm_minor *minor, int minor_id)
++void accel_debugfs_register(struct drm_device *dev)
+ {
+-	struct drm_device *dev = minor->dev;
+-	char name[64];
++	struct drm_minor *minor = dev->accel;
+ 
+ 	INIT_LIST_HEAD(&minor->debugfs_list);
+ 	mutex_init(&minor->debugfs_lock);
+-	sprintf(name, "%d", minor_id);
+-	minor->debugfs_root = debugfs_create_dir(name, accel_debugfs_root);
++	minor->debugfs_root = dev->debugfs_root;
  
  	drm_debugfs_create_files(accel_debugfs_list, ACCEL_DEBUGFS_ENTRIES,
+-				 minor->debugfs_root, minor);
++				 dev->debugfs_root, minor);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index fed41800fea7..1cc11b948f64 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -1771,9 +1771,9 @@ static const struct drm_debugfs_info drm_atomic_debugfs_list[] = {
+ 	{"state", drm_state_info, 0},
+ };
+ 
+-void drm_atomic_debugfs_init(struct drm_minor *minor)
++void drm_atomic_debugfs_init(struct drm_device *dev)
+ {
+-	drm_debugfs_add_files(minor->dev, drm_atomic_debugfs_list,
++	drm_debugfs_add_files(dev, drm_atomic_debugfs_list,
+ 			      ARRAY_SIZE(drm_atomic_debugfs_list));
+ }
+ #endif
+diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
+index f6292ba0e6fc..a91132276f21 100644
+--- a/drivers/gpu/drm/drm_client.c
++++ b/drivers/gpu/drm/drm_client.c
+@@ -514,9 +514,9 @@ static const struct drm_debugfs_info drm_client_debugfs_list[] = {
+ 	{ "internal_clients", drm_client_debugfs_internal_clients, 0 },
+ };
+ 
+-void drm_client_debugfs_init(struct drm_minor *minor)
++void drm_client_debugfs_init(struct drm_device *dev)
+ {
+-	drm_debugfs_add_files(minor->dev, drm_client_debugfs_list,
++	drm_debugfs_add_files(dev, drm_client_debugfs_list,
+ 			      ARRAY_SIZE(drm_client_debugfs_list));
+ }
+ #endif
+diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
+index 501a10edd0e1..8556c3b3ff88 100644
+--- a/drivers/gpu/drm/drm_crtc_internal.h
++++ b/drivers/gpu/drm/drm_crtc_internal.h
+@@ -232,7 +232,7 @@ int drm_mode_dirtyfb_ioctl(struct drm_device *dev,
+ /* drm_atomic.c */
+ #ifdef CONFIG_DEBUG_FS
+ struct drm_minor;
+-void drm_atomic_debugfs_init(struct drm_minor *minor);
++void drm_atomic_debugfs_init(struct drm_device *dev);
+ #endif
+ 
+ int __drm_atomic_helper_disable_plane(struct drm_plane *plane,
 diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
-index f4fdda5b0153..cdf512c77f14 100644
+index 54376e2400bb..dfcc2fa3b368 100644
 --- a/drivers/gpu/drm/drm_debugfs.c
 +++ b/drivers/gpu/drm/drm_debugfs.c
-@@ -201,7 +201,7 @@ void drm_debugfs_create_files(const struct drm_info_list *files, int count,
- 		if (features && !drm_core_check_all_features(dev, features))
- 			continue;
- 
--		tmp = kmalloc(sizeof(struct drm_info_node), GFP_KERNEL);
-+		tmp = drmm_kzalloc(dev, sizeof(*tmp), GFP_KERNEL);
- 		if (tmp == NULL)
- 			continue;
- 
-@@ -210,14 +210,28 @@ void drm_debugfs_create_files(const struct drm_info_list *files, int count,
- 						0444, root, tmp,
- 						&drm_debugfs_fops);
- 		tmp->info_ent = &files[i];
--
--		mutex_lock(&minor->debugfs_lock);
--		list_add(&tmp->list, &minor->debugfs_list);
--		mutex_unlock(&minor->debugfs_lock);
- 	}
+@@ -218,8 +218,31 @@ void drm_debugfs_create_files(const struct drm_info_list *files, int count,
  }
  EXPORT_SYMBOL(drm_debugfs_create_files);
  
-+int drm_debugfs_remove_files(const struct drm_info_list *files, int count,
-+			     struct dentry *root, struct drm_minor *minor)
+-int drm_debugfs_init(struct drm_minor *minor, int minor_id,
+-		     struct dentry *root)
++void drm_debugfs_dev_init(struct drm_device *dev, struct dentry *root)
 +{
-+	int i;
-+
-+	for (i = 0; i < count; i++) {
-+		struct dentry *dent = debugfs_lookup(files[i].name, root);
-+
-+		if (!dent)
-+			continue;
-+
-+		drmm_kfree(minor->dev, d_inode(dent)->i_private);
-+		debugfs_remove(dent);
-+	}
-+	return 0;
++	dev->debugfs_root = debugfs_create_dir(dev->unique, root);
 +}
-+EXPORT_SYMBOL(drm_debugfs_remove_files);
 +
- void drm_debugfs_dev_init(struct drm_device *dev, struct dentry *root)
++void drm_debugfs_dev_fini(struct drm_device *dev)
++{
++	debugfs_remove_recursive(dev->debugfs_root);
++	dev->debugfs_root = NULL;
++}
++
++void drm_debugfs_dev_register(struct drm_device *dev)
++{
++	drm_debugfs_add_files(dev, drm_debugfs_list, DRM_DEBUGFS_ENTRIES);
++
++	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
++		drm_framebuffer_debugfs_init(dev);
++		drm_client_debugfs_init(dev);
++	}
++	if (drm_drv_uses_atomic_modeset(dev))
++		drm_atomic_debugfs_init(dev);
++}
++
++int drm_debugfs_register(struct drm_minor *minor, int minor_id,
++			 struct dentry *root)
  {
- 	dev->debugfs_root = debugfs_create_dir(dev->unique, root);
-@@ -247,11 +261,8 @@ int drm_debugfs_register(struct drm_minor *minor, int minor_id,
  	struct drm_device *dev = minor->dev;
- 	char name[64];
- 
--	INIT_LIST_HEAD(&minor->debugfs_list);
--	mutex_init(&minor->debugfs_lock);
+ 	struct drm_debugfs_entry *entry, *tmp;
+@@ -228,19 +251,11 @@ int drm_debugfs_init(struct drm_minor *minor, int minor_id,
+ 	INIT_LIST_HEAD(&minor->debugfs_list);
+ 	mutex_init(&minor->debugfs_lock);
  	sprintf(name, "%d", minor_id);
--	minor->debugfs_symlink = debugfs_create_symlink(name, root,
--							dev->unique);
-+	debugfs_create_symlink(name, root, dev->unique);
+-	minor->debugfs_root = debugfs_create_dir(name, root);
++	minor->debugfs_symlink = debugfs_create_symlink(name, root,
++							dev->unique);
  
- 	/* TODO: Only for compatibility with drivers */
- 	minor->debugfs_root = dev->debugfs_root;
-@@ -262,52 +273,6 @@ int drm_debugfs_register(struct drm_minor *minor, int minor_id,
- 	return 0;
+-	drm_debugfs_add_files(minor->dev, drm_debugfs_list, DRM_DEBUGFS_ENTRIES);
+-
+-	if (drm_drv_uses_atomic_modeset(dev)) {
+-		drm_atomic_debugfs_init(minor);
+-	}
+-
+-	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
+-		drm_framebuffer_debugfs_init(minor);
+-
+-		drm_client_debugfs_init(minor);
+-	}
++	/* TODO: Only for compatibility with drivers */
++	minor->debugfs_root = dev->debugfs_root;
+ 
+ 	if (dev->driver->debugfs_init && dev->render != minor)
+ 		dev->driver->debugfs_init(minor);
+@@ -307,13 +322,12 @@ static void drm_debugfs_remove_all_files(struct drm_minor *minor)
+ 
+ void drm_debugfs_cleanup(struct drm_minor *minor)
+ {
+-	if (!minor->debugfs_root)
++	if (!minor->debugfs_symlink)
+ 		return;
+ 
+ 	drm_debugfs_remove_all_files(minor);
+-
+-	debugfs_remove_recursive(minor->debugfs_root);
+-	minor->debugfs_root = NULL;
++	debugfs_remove(minor->debugfs_symlink);
++	minor->debugfs_symlink = NULL;
  }
  
--int drm_debugfs_remove_files(const struct drm_info_list *files, int count,
--			     struct drm_minor *minor)
--{
--	struct list_head *pos, *q;
--	struct drm_info_node *tmp;
--	int i;
--
--	mutex_lock(&minor->debugfs_lock);
--	for (i = 0; i < count; i++) {
--		list_for_each_safe(pos, q, &minor->debugfs_list) {
--			tmp = list_entry(pos, struct drm_info_node, list);
--			if (tmp->info_ent == &files[i]) {
--				debugfs_remove(tmp->dent);
--				list_del(pos);
--				kfree(tmp);
--			}
--		}
--	}
--	mutex_unlock(&minor->debugfs_lock);
--	return 0;
--}
--EXPORT_SYMBOL(drm_debugfs_remove_files);
--
--static void drm_debugfs_remove_all_files(struct drm_minor *minor)
--{
--	struct drm_info_node *node, *tmp;
--
--	mutex_lock(&minor->debugfs_lock);
--	list_for_each_entry_safe(node, tmp, &minor->debugfs_list, list) {
--		debugfs_remove(node->dent);
--		list_del(&node->list);
--		kfree(node);
--	}
--	mutex_unlock(&minor->debugfs_lock);
--}
--
--void drm_debugfs_cleanup(struct drm_minor *minor)
--{
--	if (!minor->debugfs_symlink)
--		return;
--
--	drm_debugfs_remove_all_files(minor);
--	debugfs_remove(minor->debugfs_symlink);
--	minor->debugfs_symlink = NULL;
--}
--
  /**
-  * drm_debugfs_add_file - Add a given file to the DRM device debugfs file list
-  * @dev: drm device for the ioctl
+@@ -498,13 +512,13 @@ static const struct file_operations drm_connector_fops = {
+ 
+ void drm_debugfs_connector_add(struct drm_connector *connector)
+ {
+-	struct drm_minor *minor = connector->dev->primary;
++	struct drm_device *dev = connector->dev;
+ 	struct dentry *root;
+ 
+-	if (!minor->debugfs_root)
++	if (dev->debugfs_root)
+ 		return;
+ 
+-	root = debugfs_create_dir(connector->name, minor->debugfs_root);
++	root = debugfs_create_dir(connector->name, dev->debugfs_root);
+ 	connector->debugfs_entry = root;
+ 
+ 	/* force */
+@@ -539,7 +553,7 @@ void drm_debugfs_connector_remove(struct drm_connector *connector)
+ 
+ void drm_debugfs_crtc_add(struct drm_crtc *crtc)
+ {
+-	struct drm_minor *minor = crtc->dev->primary;
++	struct drm_device *dev = crtc->dev;
+ 	struct dentry *root;
+ 	char *name;
+ 
+@@ -547,7 +561,7 @@ void drm_debugfs_crtc_add(struct drm_crtc *crtc)
+ 	if (!name)
+ 		return;
+ 
+-	root = debugfs_create_dir(name, minor->debugfs_root);
++	root = debugfs_create_dir(name, dev->debugfs_root);
+ 	kfree(name);
+ 
+ 	crtc->debugfs_entry = root;
 diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index f928b4490ece..9466349769fa 100644
+index cee0cc522ed9..05b831f9fe71 100644
 --- a/drivers/gpu/drm/drm_drv.c
 +++ b/drivers/gpu/drm/drm_drv.c
-@@ -198,7 +198,6 @@ static int drm_minor_register(struct drm_device *dev, unsigned int type)
+@@ -172,10 +172,9 @@ static int drm_minor_register(struct drm_device *dev, unsigned int type)
+ 	if (!minor)
+ 		return 0;
+ 
+-	if (minor->type == DRM_MINOR_ACCEL) {
+-		accel_debugfs_init(minor, minor->index);
+-	} else {
+-		ret = drm_debugfs_init(minor, minor->index, drm_debugfs_root);
++	if (minor->type != DRM_MINOR_ACCEL) {
++		ret = drm_debugfs_register(minor, minor->index,
++					   drm_debugfs_root);
+ 		if (ret) {
+ 			DRM_ERROR("DRM: Failed to initialize /sys/kernel/debug/dri.\n");
+ 			goto err_debugfs;
+@@ -697,6 +696,11 @@ static int drm_dev_init(struct drm_device *dev,
+ 		goto err;
+ 	}
+ 
++	if (drm_core_check_feature(dev, DRIVER_COMPUTE_ACCEL))
++		accel_debugfs_init(dev);
++	else
++		drm_debugfs_dev_init(dev, drm_debugfs_root);
++
  	return 0;
  
- err_debugfs:
--	drm_debugfs_cleanup(minor);
- 	return ret;
+ err:
+@@ -916,6 +920,11 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
+ 	if (drm_dev_needs_global_mutex(dev))
+ 		mutex_lock(&drm_global_mutex);
+ 
++	if (drm_core_check_feature(dev, DRIVER_COMPUTE_ACCEL))
++		accel_debugfs_register(dev);
++	else
++		drm_debugfs_dev_register(dev);
++
+ 	ret = drm_minor_register(dev, DRM_MINOR_RENDER);
+ 	if (ret)
+ 		goto err_minors;
+@@ -999,6 +1008,7 @@ void drm_dev_unregister(struct drm_device *dev)
+ 	drm_minor_unregister(dev, DRM_MINOR_ACCEL);
+ 	drm_minor_unregister(dev, DRM_MINOR_PRIMARY);
+ 	drm_minor_unregister(dev, DRM_MINOR_RENDER);
++	drm_debugfs_dev_fini(dev);
  }
+ EXPORT_SYMBOL(drm_dev_unregister);
  
-@@ -222,7 +221,6 @@ static void drm_minor_unregister(struct drm_device *dev, unsigned int type)
+diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/drm_framebuffer.c
+index aff3746dedfb..ba51deb6d042 100644
+--- a/drivers/gpu/drm/drm_framebuffer.c
++++ b/drivers/gpu/drm/drm_framebuffer.c
+@@ -1222,9 +1222,9 @@ static const struct drm_debugfs_info drm_framebuffer_debugfs_list[] = {
+ 	{ "framebuffer", drm_framebuffer_info, 0 },
+ };
  
- 	device_del(minor->kdev);
- 	dev_set_drvdata(minor->kdev, NULL); /* safety belt */
--	drm_debugfs_cleanup(minor);
+-void drm_framebuffer_debugfs_init(struct drm_minor *minor)
++void drm_framebuffer_debugfs_init(struct drm_device *dev)
+ {
+-	drm_debugfs_add_files(minor->dev, drm_framebuffer_debugfs_list,
++	drm_debugfs_add_files(dev, drm_framebuffer_debugfs_list,
+ 			      ARRAY_SIZE(drm_framebuffer_debugfs_list));
  }
- 
- /*
+ #endif
 diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
-index c7f967c0f152..fac86d1998e1 100644
+index d7e023bbb0d5..608b9c581726 100644
 --- a/drivers/gpu/drm/drm_internal.h
 +++ b/drivers/gpu/drm/drm_internal.h
-@@ -184,7 +184,6 @@ void drm_debugfs_dev_fini(struct drm_device *dev);
- void drm_debugfs_dev_register(struct drm_device *dev);
- int drm_debugfs_register(struct drm_minor *minor, int minor_id,
- 			 struct dentry *root);
--void drm_debugfs_cleanup(struct drm_minor *minor);
+@@ -180,8 +180,10 @@ void drm_gem_vunmap(struct drm_gem_object *obj, struct iosys_map *map);
+ 
+ /* drm_debugfs.c drm_debugfs_crc.c */
+ #if defined(CONFIG_DEBUG_FS)
+-int drm_debugfs_init(struct drm_minor *minor, int minor_id,
+-		     struct dentry *root);
++void drm_debugfs_dev_fini(struct drm_device *dev);
++void drm_debugfs_dev_register(struct drm_device *dev);
++int drm_debugfs_register(struct drm_minor *minor, int minor_id,
++			 struct dentry *root);
+ void drm_debugfs_cleanup(struct drm_minor *minor);
+ void drm_debugfs_late_register(struct drm_device *dev);
  void drm_debugfs_connector_add(struct drm_connector *connector);
- void drm_debugfs_connector_remove(struct drm_connector *connector);
- void drm_debugfs_crtc_add(struct drm_crtc *crtc);
-@@ -201,10 +200,6 @@ static inline int drm_debugfs_register(struct drm_minor *minor, int minor_id,
+@@ -190,8 +192,12 @@ void drm_debugfs_crtc_add(struct drm_crtc *crtc);
+ void drm_debugfs_crtc_remove(struct drm_crtc *crtc);
+ void drm_debugfs_crtc_crc_add(struct drm_crtc *crtc);
+ #else
+-static inline int drm_debugfs_init(struct drm_minor *minor, int minor_id,
+-				   struct dentry *root)
++static drm_debugfs_dev_register(struct drm_device *dev)
++{
++}
++
++static inline int drm_debugfs_register(struct drm_minor *minor, int minor_id,
++				       struct dentry *root)
+ {
  	return 0;
  }
+@@ -257,4 +263,4 @@ int drm_syncobj_query_ioctl(struct drm_device *dev, void *data,
+ /* drm_framebuffer.c */
+ void drm_framebuffer_print_info(struct drm_printer *p, unsigned int indent,
+ 				const struct drm_framebuffer *fb);
+-void drm_framebuffer_debugfs_init(struct drm_minor *minor);
++void drm_framebuffer_debugfs_init(struct drm_device *dev);
+diff --git a/include/drm/drm_accel.h b/include/drm/drm_accel.h
+index d4955062c77e..f4d3784b1dce 100644
+--- a/include/drm/drm_accel.h
++++ b/include/drm/drm_accel.h
+@@ -58,7 +58,8 @@ int accel_minor_alloc(void);
+ void accel_minor_replace(struct drm_minor *minor, int index);
+ void accel_set_device_instance_params(struct device *kdev, int index);
+ int accel_open(struct inode *inode, struct file *filp);
+-void accel_debugfs_init(struct drm_minor *minor, int minor_id);
++void accel_debugfs_init(struct drm_device *dev);
++void accel_debugfs_register(struct drm_device *dev);
  
--static inline void drm_debugfs_cleanup(struct drm_minor *minor)
--{
--}
--
- static inline void drm_debugfs_connector_add(struct drm_connector *connector)
+ #else
+ 
+@@ -89,7 +90,11 @@ static inline void accel_set_device_instance_params(struct device *kdev, int ind
  {
  }
-diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
-index a67453cee883..e53d1b88dc99 100644
---- a/drivers/gpu/drm/tegra/dc.c
-+++ b/drivers/gpu/drm/tegra/dc.c
-@@ -1745,8 +1745,15 @@ static void tegra_dc_early_unregister(struct drm_crtc *crtc)
- 	unsigned int count = ARRAY_SIZE(debugfs_files);
- 	struct drm_minor *minor = crtc->dev->primary;
- 	struct tegra_dc *dc = to_tegra_dc(crtc);
-+	struct dentry *root;
+ 
+-static inline void accel_debugfs_init(struct drm_minor *minor, int minor_id)
++static inline void accel_debugfs_init(struct drm_device *dev)
++{
++}
 +
-+#ifdef CONFIG_DEBUG_FS
-+	root = crtc->debugfs_entry;
++static inline void accel_debugfs_register(struct drm_device *dev)
+ {
+ }
+ 
+diff --git a/include/drm/drm_client.h b/include/drm/drm_client.h
+index c0a14b40c039..d47458ecdac4 100644
+--- a/include/drm/drm_client.h
++++ b/include/drm/drm_client.h
+@@ -195,6 +195,6 @@ int drm_client_modeset_dpms(struct drm_client_dev *client, int mode);
+ 	drm_for_each_connector_iter(connector, iter) \
+ 		if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK)
+ 
+-void drm_client_debugfs_init(struct drm_minor *minor);
++void drm_client_debugfs_init(struct drm_device *dev);
+ 
+ #endif
+diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+index 7cf4afae2e79..3cf12b14232d 100644
+--- a/include/drm/drm_device.h
++++ b/include/drm/drm_device.h
+@@ -311,6 +311,13 @@ struct drm_device {
+ 	 */
+ 	struct drm_fb_helper *fb_helper;
+ 
++	/**
++	 * @debugfs_root:
++	 *
++	 * Root directory for debugfs files.
++	 */
++	struct dentry *debugfs_root;
++
+ 	/**
+ 	 * @debugfs_mutex:
+ 	 *
+diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+index b419c59c4bef..14d5337f4297 100644
+--- a/include/drm/drm_drv.h
++++ b/include/drm/drm_drv.h
+@@ -590,4 +590,12 @@ static inline bool drm_firmware_drivers_only(void)
+ 	return video_firmware_drivers_only();
+ }
+ 
++#if defined(CONFIG_DEBUG_FS)
++void drm_debugfs_dev_init(struct drm_device *dev, struct dentry *root);
 +#else
-+	root = NULL;
++static void drm_debugfs_dev_init(struct drm_device *dev, struct dentry *root)
++{
++}
 +#endif
- 
--	drm_debugfs_remove_files(dc->debugfs_files, count, minor);
-+	drm_debugfs_remove_files(dc->debugfs_files, count, root, minor);
- 	kfree(dc->debugfs_files);
- 	dc->debugfs_files = NULL;
- }
-diff --git a/drivers/gpu/drm/tegra/dsi.c b/drivers/gpu/drm/tegra/dsi.c
-index de1333dc0d86..90c6782a663c 100644
---- a/drivers/gpu/drm/tegra/dsi.c
-+++ b/drivers/gpu/drm/tegra/dsi.c
-@@ -256,6 +256,7 @@ static void tegra_dsi_early_unregister(struct drm_connector *connector)
- 	struct tegra_dsi *dsi = to_dsi(output);
- 
- 	drm_debugfs_remove_files(dsi->debugfs_files, count,
-+				 connector->debugfs_entry,
- 				 connector->dev->primary);
- 	kfree(dsi->debugfs_files);
- 	dsi->debugfs_files = NULL;
-diff --git a/drivers/gpu/drm/tegra/hdmi.c b/drivers/gpu/drm/tegra/hdmi.c
-index 40ec3e6cf204..53387aa8b147 100644
---- a/drivers/gpu/drm/tegra/hdmi.c
-+++ b/drivers/gpu/drm/tegra/hdmi.c
-@@ -1114,7 +1114,8 @@ static void tegra_hdmi_early_unregister(struct drm_connector *connector)
- 	unsigned int count = ARRAY_SIZE(debugfs_files);
- 	struct tegra_hdmi *hdmi = to_hdmi(output);
- 
--	drm_debugfs_remove_files(hdmi->debugfs_files, count, minor);
-+	drm_debugfs_remove_files(hdmi->debugfs_files, count,
-+				 connector->debugfs_entry, minor);
- 	kfree(hdmi->debugfs_files);
- 	hdmi->debugfs_files = NULL;
- }
-diff --git a/drivers/gpu/drm/tegra/sor.c b/drivers/gpu/drm/tegra/sor.c
-index 8af632740673..cd286a5c2a9f 100644
---- a/drivers/gpu/drm/tegra/sor.c
-+++ b/drivers/gpu/drm/tegra/sor.c
-@@ -1707,6 +1707,7 @@ static void tegra_sor_early_unregister(struct drm_connector *connector)
- 	struct tegra_sor *sor = to_sor(output);
- 
- 	drm_debugfs_remove_files(sor->debugfs_files, count,
-+				 connector->debugfs_entry,
- 				 connector->dev->primary);
- 	kfree(sor->debugfs_files);
- 	sor->debugfs_files = NULL;
-diff --git a/include/drm/drm_debugfs.h b/include/drm/drm_debugfs.h
-index 7616f457ce70..84ee27dc2317 100644
---- a/include/drm/drm_debugfs.h
-+++ b/include/drm/drm_debugfs.h
-@@ -126,8 +126,8 @@ struct drm_debugfs_entry {
- void drm_debugfs_create_files(const struct drm_info_list *files,
- 			      int count, struct dentry *root,
- 			      struct drm_minor *minor);
--int drm_debugfs_remove_files(const struct drm_info_list *files,
--			     int count, struct drm_minor *minor);
-+int drm_debugfs_remove_files(const struct drm_info_list *files, int count,
-+			     struct dentry *root, struct drm_minor *minor);
- 
- void drm_debugfs_add_file(struct drm_device *dev, const char *name,
- 			  int (*show)(struct seq_file*, void*), void *data);
++
+ #endif
 diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-index 1fe08fcaa149..e687ce27624e 100644
+index ecffe24e2b1b..1fe08fcaa149 100644
 --- a/include/drm/drm_file.h
 +++ b/include/drm/drm_file.h
-@@ -78,11 +78,7 @@ struct drm_minor {
+@@ -78,6 +78,7 @@ struct drm_minor {
  	struct device *kdev;		/* Linux device */
  	struct drm_device *dev;
  
--	struct dentry *debugfs_symlink;
++	struct dentry *debugfs_symlink;
  	struct dentry *debugfs_root;
--
--	struct list_head debugfs_list;
--	struct mutex debugfs_lock; /* Protects debugfs_list. */
- };
  
- /**
+ 	struct list_head debugfs_list;
 -- 
 2.34.1
 
