@@ -4,45 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D99EC74A5B
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 08:47:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C3FCC761A6
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 09:10:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8868410E51B;
-	Wed, 29 Mar 2023 08:47:21 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0808A10E506
- for <intel-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 08:47:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86C0E10E516;
+	Wed, 29 Mar 2023 09:10:04 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C915810E516
+ for <intel-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 09:10:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680079633; x=1711615633;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=gisHwk4lwex2emjvrmYkIqNOOp5SaGPv/l9guK07Dvk=;
- b=BHqFnHhEpCCZjZJarISnD+mVbaIdFcH+8hQFRgfC+Ukik6yh12XA4Z21
- 1oSPlMDiTf+acw4VjHiW5jG2c0F5OKsp+fjq6mmhUHKWDlmVXN58ZT7RP
- hAIdP/GTdRnPhTcNsrZA6g48uEOF8DSc/cV+BX643iF0MzkK3z6QWNJYA
- hsabs0PMBXNYvhBbtRq9kVhhS9AugqOxu41DVQM9mDFMYsFl2ydwElJ7a
- MQL5HbK3K3VlizvNWsw/gRff9cWwyfSCUbv4F3gbn+Kp6cEAOZcBDeCLx
- v9DHp3TN9rF5nGPYyJF2MwXMSAUFC5tW695pfPYJkUw0C16f6PDnTKF2g A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="427093291"
-X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="427093291"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2023 01:46:57 -0700
+ t=1680081002; x=1711617002;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=xXYQ3mPcDmWW+4nDBnZTzP/d8oeg0KPK65G3A2UmgnU=;
+ b=Lk+uwaxrq8us/pJGf4qiENJmDgjEvmCyVzeWW9CyeqKk5ib+ADw9zu7J
+ gLrDHA1I68NhyxjWsJ66DVP89LJBFXr1m1Zeafmx1c0e+pkhlYc1ZhX9f
+ BLJSA6FcKVzRHfSZlyRyXL+EIr7CUmOg0kuJMd/AoTc2287D8i7pZtKCs
+ tYapc40HUlX0dF7AabBzKIXyct8NvatdMQu8uLrw6ty9VPRrt0nyUgM/4
+ HDaeNj+FFibVFK2QnMC6tsRMACCXrRrCYC8WL1JZEb5+Cw2ou6e51SqZi
+ LPnozwEnUklDm9VCqB32j8GZysO377bsSy2E+yPOA5NGXh8FXh9iXPPPz g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="320478087"
+X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="320478087"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Mar 2023 02:09:59 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="773487348"
-X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="773487348"
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="684188026"
+X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="684188026"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2023 01:46:55 -0700
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Mar 2023 02:09:55 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 29 Mar 2023 14:14:47 +0530
-Message-Id: <20230329084449.717954-1-ankit.k.nautiyal@intel.com>
+Date: Wed, 29 Mar 2023 14:37:45 +0530
+Message-Id: <20230329090745.719672-1-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230329084449.717954-2-ankit.k.nautiyal@intel.com>
+References: <20230329084449.717954-2-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/2] Update DSC Bigjoiner BW check
+Subject: [Intel-gfx] [PATCH v2 1/2] drm/i915/dp: Update Bigjoiner interface
+ bits for computing compressed bpp
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,22 +61,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Update the DSC Bigjoiner BW check for computing compressed bpp:
--As per latest Bspec update bigjoiner interface bits for DP for
-DISPLAY > 12 is 36.
--Use current cdclk for the calculation of compressed_bpp instead of
-maxcdclk.
+In Bigjoiner check for DSC, bigjoiner interface bits for DP for
+DISPLAY > 13 is 36 (Bspec: 49259).
 
-Ankit Nautiyal (2):
-  drm/i915/dp: Update Bigjoiner interface bits for computing compressed
-    bpp
-  drm/i915/dp: Use current cdclk for DSC Bigjoiner BW check
+v2: Corrected Display ver to 13.
 
- drivers/gpu/drm/i915/display/intel_dp.c     | 10 +++++++---
- drivers/gpu/drm/i915/display/intel_dp.h     |  1 +
- drivers/gpu/drm/i915/display/intel_dp_mst.c |  1 +
- 3 files changed, 9 insertions(+), 3 deletions(-)
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index da1c00ee92fb..0b59c1e53678 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -756,8 +756,9 @@ u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
+ 	bits_per_pixel = min(bits_per_pixel, max_bpp_small_joiner_ram);
+ 
+ 	if (bigjoiner) {
++		int bigjoiner_interface_bits = DISPLAY_VER(i915) <= 13 ? 24 : 36;
+ 		u32 max_bpp_bigjoiner =
+-			i915->display.cdclk.max_cdclk_freq * 48 /
++			i915->display.cdclk.max_cdclk_freq * 2 * bigjoiner_interface_bits /
+ 			intel_dp_mode_to_fec_clock(mode_clock);
+ 
+ 		bits_per_pixel = min(bits_per_pixel, max_bpp_bigjoiner);
 -- 
 2.25.1
 
