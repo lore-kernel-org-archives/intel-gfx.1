@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBDFDC77B6C
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 09:46:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B578CC74A5B
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 09:46:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64EBF10EA60;
-	Wed, 29 Mar 2023 09:46:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C20110EA64;
+	Wed, 29 Mar 2023 09:46:29 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07D0B10EA50
- for <intel-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 09:46:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0B5C10EA60
+ for <intel-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 09:46:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680083178; x=1711619178;
+ t=1680083182; x=1711619182;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=8lT39a3o3pRDQ+KnDlUx78mg5wroB8V2jICafu4roxU=;
- b=FVJqvOXUxIyPZ8EgfbvM/9ZtcgCcnukdQ3SN+JGZGsDyJ4zSsf5kkShv
- 7qP0bPWq63pN4EsRxjOQYdYhR5uPIiVaxod731Yyg997kYbtiT2cxEFL+
- 70XtK3/w7dJwoiGjF0Z6j1RPYy679nomoTe8IAOskKup04LYPK2iTSXLz
- s3r2ZQO6KTAW1E+RM61mU7CaQUSrIX6iNKnXCY+oSGXhKcPubTSEiioIL
- UwieiKaKrkuhz9sEshWWTMFKvE/QWjmhnCARFGVNgrWaB7YM6Rfo8FT+N
- w7sJOdwA4VZvZpAW/GWoI1kBAgINVdeyTLdrCDbCcr4Nf9RBhksj5wHrY Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="342424863"
-X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="342424863"
+ bh=OCrq+u33TVJR/z+Ter3k3tFKcI/ZVnJhNw9BGlUI7KI=;
+ b=macgo6MKbN1WbRaLjgBXpkLsbyJi5zKuA6xH7GIP2R41EL6j3XXJy4EX
+ 6GU0OpjJCqSL5J8qBRnx/TJRI1Xl51qRLGIyZRS8AaHppPFn8PKYXJNxd
+ JUEzTieRAaihqKIqjv0+2ykqwdPfULphkB/jOkNOi1O3JqyYt3BWayXJl
+ lFajvphW4NbJ4+VjklV8OqJW2X+0EtzlO7DldCc79F8sLRT2rhMilny+d
+ zxkiRJpxCrG0wbw+hPIMWDo0+wFvdbgngZHe22GoFvkU9GZaCDHv8S+Tk
+ Ykm1dXH2Rizy2iddXD4DxzrgZh84bcTY6wQ+RPGX2W6InSxKchLiuBiti w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="342424881"
+X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="342424881"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2023 02:46:08 -0700
+ 29 Mar 2023 02:46:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="677724758"
-X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="677724758"
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="677724777"
+X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="677724777"
 Received: from pgarraul-mobl2.ger.corp.intel.com (HELO
  jhogande-mobl1.ger.corp.intel.com) ([10.251.223.204])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2023 02:46:04 -0700
+ 29 Mar 2023 02:46:07 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 29 Mar 2023 12:45:28 +0300
-Message-Id: <20230329094532.221450-3-jouni.hogander@intel.com>
+Date: Wed, 29 Mar 2023 12:45:30 +0300
+Message-Id: <20230329094532.221450-5-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230329094532.221450-1-jouni.hogander@intel.com>
 References: <20230329094532.221450-1-jouni.hogander@intel.com>
@@ -47,8 +47,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 2/6] drm/i915/psr: Modify/Fix Wa_16013835468
- and prepare for Wa_14015648006
+Subject: [Intel-gfx] [PATCH v6 4/6] drm/i915/psr: Add helpers for block
+ count number handling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,85 +64,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Wa_16013835468 is a separate from Wa_14015648006 and needs to be
-applied for TGL onwards. Fix this by removing all the references to
-Wa_14015648006 and apply Wa_16013835468 according to Bspec.
-
-Also move workaround into separate function as a preparation for
-Wa_14015648006 implementation.
-
-Bspec: 55378
-
-v2:
- - keep applying the wa in intel_psr_enable_source
+Add helpers to make it more clear how PSR2_CTL[Block Count Number]
+is configured.
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 35 ++++++++++++++++--------
- 1 file changed, 24 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 8dbf452d63c2..26ad4365960f 100644
+index 9c416b301555..28d06e347fe6 100644
 --- a/drivers/gpu/drm/i915/display/intel_psr.c
 +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1134,6 +1134,28 @@ static u32 wa_16013835468_bit_get(struct intel_dp *intel_dp)
- 	}
+@@ -519,6 +519,17 @@ static u32 intel_psr2_get_tp_time(struct intel_dp *intel_dp)
+ 	return val;
  }
  
-+/*
-+ * Wa_16013835468
-+ */
-+static void wm_optimization_wa(struct intel_dp *intel_dp,
-+			       const struct intel_crtc_state *crtc_state)
++static int psr2_block_count_lines(struct intel_dp *intel_dp)
 +{
-+	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
-+	bool set_wa_bit = false;
-+
-+	/* Wa_16013835468 */
-+	if (DISPLAY_VER(dev_priv) >= 12)
-+		set_wa_bit |= crtc_state->hw.adjusted_mode.crtc_vblank_start !=
-+			crtc_state->hw.adjusted_mode.crtc_vdisplay;
-+
-+	if (set_wa_bit)
-+		intel_de_rmw(dev_priv, GEN8_CHICKEN_DCPR_1, 0,
-+			     wa_16013835468_bit_get(intel_dp));
-+	else
-+		intel_de_rmw(dev_priv, GEN8_CHICKEN_DCPR_1,
-+			     wa_16013835468_bit_get(intel_dp), 0);
++	return intel_dp->psr.io_wake_lines < 9 &&
++		intel_dp->psr.fast_wake_lines < 9 ? 8 : 12;
 +}
 +
- static void intel_psr_enable_source(struct intel_dp *intel_dp,
- 				    const struct intel_crtc_state *crtc_state)
++static int psr2_block_count(struct intel_dp *intel_dp)
++{
++	return psr2_block_count_lines(intel_dp) / 4;
++}
++
+ static void hsw_activate_psr2(struct intel_dp *intel_dp)
  {
-@@ -1175,15 +1197,8 @@ static void intel_psr_enable_source(struct intel_dp *intel_dp,
+ 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
+@@ -536,11 +547,10 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
+ 	val |= intel_psr2_get_tp_time(intel_dp);
  
- 	/*
- 	 * Wa_16013835468
--	 * Wa_14015648006
- 	 */
--	if (IS_MTL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0) ||
--	    IS_DISPLAY_VER(dev_priv, 12, 13)) {
--		if (crtc_state->hw.adjusted_mode.crtc_vblank_start !=
--		    crtc_state->hw.adjusted_mode.crtc_vdisplay)
--			intel_de_rmw(dev_priv, GEN8_CHICKEN_DCPR_1, 0,
--				     wa_16013835468_bit_get(intel_dp));
--	}
-+	wm_optimization_wa(intel_dp, crtc_state);
+ 	if (DISPLAY_VER(dev_priv) >= 12) {
+-		if (intel_dp->psr.io_wake_lines < 9 &&
+-		    intel_dp->psr.fast_wake_lines < 9)
+-			val |= TGL_EDP_PSR2_BLOCK_COUNT_NUM_2;
+-		else
++		if (psr2_block_count(intel_dp) > 2)
+ 			val |= TGL_EDP_PSR2_BLOCK_COUNT_NUM_3;
++		else
++			val |= TGL_EDP_PSR2_BLOCK_COUNT_NUM_2;
+ 	}
  
- 	if (intel_dp->psr.psr2_enabled) {
- 		if (DISPLAY_VER(dev_priv) == 9)
-@@ -1359,10 +1374,8 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
- 
- 	/*
- 	 * Wa_16013835468
--	 * Wa_14015648006
- 	 */
--	if (IS_MTL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0) ||
--	    IS_DISPLAY_VER(dev_priv, 12, 13))
-+	if (DISPLAY_VER(dev_priv) >= 12)
- 		intel_de_rmw(dev_priv, GEN8_CHICKEN_DCPR_1,
- 			     wa_16013835468_bit_get(intel_dp), 0);
- 
+ 	/* Wa_22012278275:adl-p */
 -- 
 2.34.1
 
