@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17C8CC6FD18
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 13:50:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7911EC74A5B
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 13:50:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AB2310EAED;
-	Wed, 29 Mar 2023 13:50:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E574910EAF9;
+	Wed, 29 Mar 2023 13:50:41 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F18E10EAFA
- for <intel-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 13:50:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBF7D10EAFE
+ for <intel-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 13:50:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680097825; x=1711633825;
+ t=1680097836; x=1711633836;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=Dqnsw2/pNTt8dOOlJxXY3FWfIG6ZymmPl8K4VawBNY4=;
- b=ZIrp2MdKRKYNiohehE3jsSWACpMWoy3Jf2Kbwih2c25Db1wArhaSNdUD
- M6gVlFV54aCTEAVRQ4YQbcLSzkw05VtdC6y0hPJSXyqS6em/Gc4tyl4zt
- 3EZMCP2akKiuCcJdD/2QZUlR1/WCh0HYqYHfvIUrau9ipLlEbS26FDwxV
- pXEI0xfMRTNvd2Km28ygg7WExvRJbkyUrJdzxtvc/yQNGDW29R08A75IC
- EEr9QFp40GLvRSifzk7vcIAvU26c1vjWOouNH/xNdxS8g+9ESf+HH0rUE
- SZEESFv32PO061ChTnsU7bVUSvq2IsB1m6mQSNA/Ca9TErR3upSTE1Wcz A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="338379059"
-X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="338379059"
+ bh=Q5urDJsskuWWNG3pStiOS5fJAlxFiNbgrJo6PFqPX/U=;
+ b=FDETCv9yj/PtrdsRewvj5SJWOlyJ0U9ynp4CltmkvgpR9MuIjMcoWrBu
+ hbU16p085SD2l1jwTvnWsG6m2yG4wC9fRzDzrMmu+6EIbIeuLpxP6f9w0
+ YUKPvjux9d55CU7g7ztdTBg6d7fEw2gREflBFgHFo7cNoHqBiQ3jERm2Y
+ WL9HJZ6FLZLzqyJqRVxs4gxQ/NNRHR7UbK/RCPbVw/VGgd+kDR9GHI6yv
+ c5bEOV4DpKoGjzlg1mmBpeQHl3m7xMzHaZ2w1bikUgUZayXcM1AJYesOo
+ udMq4Py55CRhQ1UFmPs9whIZhykQEnnjv2Im13gAd4l4+7usTpL9bkQnC Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="338379100"
+X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="338379100"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2023 06:50:25 -0700
+ 29 Mar 2023 06:50:36 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="1014029463"
-X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="1014029463"
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="1014029509"
+X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="1014029509"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by fmsmga005.fm.intel.com with SMTP; 29 Mar 2023 06:50:23 -0700
+ by fmsmga005.fm.intel.com with SMTP; 29 Mar 2023 06:50:34 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 29 Mar 2023 16:50:22 +0300
+ Wed, 29 Mar 2023 16:50:34 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 29 Mar 2023 16:49:57 +0300
-Message-Id: <20230329135002.3096-8-ville.syrjala@linux.intel.com>
+Date: Wed, 29 Mar 2023 16:50:01 +0300
+Message-Id: <20230329135002.3096-12-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230329135002.3096-1-ville.syrjala@linux.intel.com>
 References: <20230329135002.3096-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/12] drm/i915: Sprinke a few sanity check
- WARNS during csc assignment
+Subject: [Intel-gfx] [PATCH 11/12] drm/i915: Hook up csc into state checker
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,78 +64,53 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Make sure the csc enable bit(s) match the way we're about to
-fill the csc matrices.
+Have the state checker validate that the csc matrices
+look correct when read back from the hardware.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/gpu/drm/i915/display/intel_display.c | 21 ++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index 7e8820583942..2988c91d8ff6 100644
---- a/drivers/gpu/drm/i915/display/intel_color.c
-+++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -373,10 +373,16 @@ static void ilk_assign_csc(struct intel_crtc_state *crtc_state)
- 	bool limited_color_range = ilk_csc_limited_range(crtc_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index aa22241c971c..763f7fdfb27c 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -5643,6 +5643,24 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 	} \
+ } while (0)
  
- 	if (crtc_state->hw.ctm) {
-+		drm_WARN_ON(&i915->drm, !crtc_state->csc_enable);
++#define PIPE_CONF_CHECK_CSC(name) do { \
++	PIPE_CONF_CHECK_X(name.preoff[0]); \
++	PIPE_CONF_CHECK_X(name.preoff[1]); \
++	PIPE_CONF_CHECK_X(name.preoff[2]); \
++	PIPE_CONF_CHECK_X(name.coeff[0]); \
++	PIPE_CONF_CHECK_X(name.coeff[1]); \
++	PIPE_CONF_CHECK_X(name.coeff[2]); \
++	PIPE_CONF_CHECK_X(name.coeff[3]); \
++	PIPE_CONF_CHECK_X(name.coeff[4]); \
++	PIPE_CONF_CHECK_X(name.coeff[5]); \
++	PIPE_CONF_CHECK_X(name.coeff[6]); \
++	PIPE_CONF_CHECK_X(name.coeff[7]); \
++	PIPE_CONF_CHECK_X(name.coeff[8]); \
++	PIPE_CONF_CHECK_X(name.postoff[0]); \
++	PIPE_CONF_CHECK_X(name.postoff[1]); \
++	PIPE_CONF_CHECK_X(name.postoff[2]); \
++} while (0)
 +
- 		ilk_csc_convert_ctm(crtc_state, &crtc_state->csc, limited_color_range);
- 	} else if (crtc_state->output_format != INTEL_OUTPUT_FORMAT_RGB) {
-+		drm_WARN_ON(&i915->drm, !crtc_state->csc_enable);
-+
- 		ilk_csc_copy(i915, &crtc_state->csc, &ilk_csc_matrix_rgb_to_ycbcr);
- 	} else if (limited_color_range) {
-+		drm_WARN_ON(&i915->drm, !crtc_state->csc_enable);
-+
- 		ilk_csc_copy(i915, &crtc_state->csc, &ilk_csc_matrix_limited_range);
- 	} else if (crtc_state->csc_enable) {
- 		/*
-@@ -406,16 +412,26 @@ static void icl_assign_csc(struct intel_crtc_state *crtc_state)
- 	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
+ #define PIPE_CONF_QUIRK(quirk) \
+ 	((current_config->quirks | pipe_config->quirks) & (quirk))
  
- 	if (crtc_state->hw.ctm) {
-+		drm_WARN_ON(&i915->drm, (crtc_state->csc_mode & ICL_CSC_ENABLE) == 0);
-+
- 		ilk_csc_convert_ctm(crtc_state, &crtc_state->csc, false);
- 	} else {
-+		drm_WARN_ON(&i915->drm, (crtc_state->csc_mode & ICL_CSC_ENABLE) != 0);
-+
- 		intel_csc_clear(&crtc_state->csc);
- 	}
+@@ -5740,6 +5758,9 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 		PIPE_CONF_CHECK_COLOR_LUT(pre_csc_lut, true);
+ 		PIPE_CONF_CHECK_COLOR_LUT(post_csc_lut, false);
  
- 	if (crtc_state->output_format != INTEL_OUTPUT_FORMAT_RGB) {
-+		drm_WARN_ON(&i915->drm, (crtc_state->csc_mode & ICL_OUTPUT_CSC_ENABLE) == 0);
++		PIPE_CONF_CHECK_CSC(csc);
++		PIPE_CONF_CHECK_CSC(output_csc);
 +
- 		ilk_csc_copy(i915, &crtc_state->output_csc, &ilk_csc_matrix_rgb_to_ycbcr);
- 	} else if (crtc_state->limited_color_range) {
-+		drm_WARN_ON(&i915->drm, (crtc_state->csc_mode & ICL_OUTPUT_CSC_ENABLE) == 0);
-+
- 		ilk_csc_copy(i915, &crtc_state->output_csc, &ilk_csc_matrix_limited_range);
- 	} else {
-+		drm_WARN_ON(&i915->drm, (crtc_state->csc_mode & ICL_OUTPUT_CSC_ENABLE) != 0);
-+
- 		intel_csc_clear(&crtc_state->output_csc);
- 	}
- }
-@@ -476,9 +492,15 @@ static void chv_load_cgm_csc(struct intel_crtc *crtc,
- 
- static void chv_assign_csc(struct intel_crtc_state *crtc_state)
- {
-+	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
-+
- 	if (crtc_state->hw.ctm) {
-+		drm_WARN_ON(&i915->drm, (crtc_state->cgm_mode & CGM_PIPE_MODE_CSC) == 0);
-+
- 		chv_cgm_csc_convert_ctm(crtc_state, &crtc_state->csc);
- 	} else {
-+		drm_WARN_ON(&i915->drm, (crtc_state->cgm_mode & CGM_PIPE_MODE_CSC) != 0);
-+
- 		intel_csc_clear(&crtc_state->csc);
- 	}
- }
+ 		if (current_config->active_planes) {
+ 			PIPE_CONF_CHECK_BOOL(has_psr);
+ 			PIPE_CONF_CHECK_BOOL(has_psr2);
 -- 
 2.39.2
 
