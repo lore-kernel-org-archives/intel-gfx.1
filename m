@@ -4,59 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14334C74A5B
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 07:24:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CABDC761AF
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 07:24:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75A9E10E4F3;
-	Wed, 29 Mar 2023 07:24:51 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EDEB10E4F3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F5DA10E502;
+	Wed, 29 Mar 2023 07:24:54 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F91110E4F4;
  Wed, 29 Mar 2023 07:24:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1680074690; x=1711610690;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=eFmVjsv1DCN0/J2TIleZPCjZ8XDr2WxmZ0GRJxV4ib4=;
- b=ErV2poLEXN2+dV/dAwSWvWM0oegJ0bof6vraxMM9QyWl3e9QKPE8EncL
- 2+d7d6syOxrO8cgEwJWnaox6egOYWLlkWbyTP47jC+EDf1ylreppEHaNX
- w/7UYMjf+HAopb5KlPOjQsGIxMIVOxcrgHvvts546ezCRjsF6V+T51jKU
- pRggXmhB0p+0i21kJdA/ryvop3z6TdHm1Ft4rUYrLxPnWnpkd69YE/ddj
- +WkcAsIbz/wLPBphfXR2sSUpIpVGYBm54bfD8Q27AVM/vwz2q7UMG97JG
- bKMB10VW3mOGkCi0EqMUSPUA9i4LIvObZhF0+rw9Rl5lZAhzZHeQ2YXTI g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="405746036"
-X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="405746036"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2023 00:24:39 -0700
+ h=from:subject:date:message-id:mime-version:
+ content-transfer-encoding:to:cc;
+ bh=uO6H5d7ujBaMtGJO8fnHc2FQaPStl0RbKc0I2B12ijM=;
+ b=ieF+hteKO0cDC713oCS/pv21qOyLGG4kONPxNIVRmql+X3HJY8Or4Ehe
+ pt6NF++tClbpnD8Qefcxj25LjfL1alLB1Lvt49NBd9XiY73Qq3q+778q1
+ Sj+jLg/+IK0LgKIHC9ZFfT+LfzrJUDQQ3HdibobtGSbFmhlui0S2HVlU5
+ NpPhV8011J9iEnVN6jYgu7d273D/ZwBsXcv3o3ShcrxqhZSeFAsjcC3S7
+ wwZuECrzlGFkjpeLKAzH2/BA2Xt9yNPeNHXzKwBF12SYJ7M45Qw9fclq/
+ jonX8+HtI063p9CzMCNL7Rp/3EKCbDeD3Q0O4hOAZ9am0U+JPnAaeHvSO g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="368569521"
+X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="368569521"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Mar 2023 00:24:35 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="684160597"
-X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="684160597"
-Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.112])
- by orsmga002.jf.intel.com with ESMTP; 29 Mar 2023 00:24:34 -0700
-From: Zhao Liu <zhao1.liu@linux.intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="827772771"
+X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="827772771"
+Received: from lab-ah.igk.intel.com ([10.102.138.202])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Mar 2023 00:24:31 -0700
+From: Andrzej Hajda <andrzej.hajda@intel.com>
+Date: Wed, 29 Mar 2023 09:24:12 +0200
+Message-Id: <20230224-track_gt-v6-0-0dc8601fd02f@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJznI2QC/3XNQQ6CMBAF0KuYrq1CrQVceQ9jzHQ6QKMU0laiM
+ dzd4soYWf6fefNfLJC3FNhh9WKeRhts71JQ6xXDFlxD3JqUmcjELhNC8ugBr5cm8lzvDJTaAJqC
+ pXMNgbj24LCdwX0I0RN0W+M7Hu0wnwyeavv4rJ3OKbc2xN4/P+NjPrd/dsacZzxVIqtUjQbV0bp
+ Itw32HZufjHIJygSlklSClliB/oX7JbhPsCg0laoWWBbiG07T9AaXOoS4NQEAAA==
 To: Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Matthew Auld <matthew.auld@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Nirmoy Das <nirmoy.das@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 29 Mar 2023 15:32:16 +0800
-Message-Id: <20230329073220.3982460-6-zhao1.liu@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230329073220.3982460-1-zhao1.liu@linux.intel.com>
-References: <20230329073220.3982460-1-zhao1.liu@linux.intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 5/9] drm/i915: Use kmap_local_page() in
- gem/selftests/i915_gem_coherency.c
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+X-Mailer: b4 0.11.1
+Subject: [Intel-gfx] [PATCH v6 0/8] drm/i915: use ref_tracker library for
+ tracking wakerefs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,124 +65,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Fabio M . De Francesco" <fmdefrancesco@gmail.com>,
- Ira Weiny <ira.weiny@intel.com>, Zhao Liu <zhao1.liu@intel.com>,
- Zhenyu Wang <zhenyu.z.wang@intel.com>, Dave Hansen <dave.hansen@intel.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, netdev@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Dmitry Vyukov <dvyukov@google.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Zhao Liu <zhao1.liu@intel.com>
+Gently ping for network developers, could you look at ref_tracker patches,
+as the ref_tracker library was developed for network.
 
-The use of kmap_atomic() is being deprecated in favor of
-kmap_local_page()[1], and this patch converts the call from
-kmap_atomic() to kmap_local_page().
+This is revived patchset improving ref_tracker library and converting
+i915 internal tracker to ref_tracker.
+The old thread ended without consensus about small kernel allocations,
+which are performed under spinlock.
+I have tried to solve the problem by splitting the calls, but it results
+in complicated API, so I went back to original solution.
+If there are better solutions I am glad to discuss them.
+Meanwhile I send original patchset with addressed remaining comments.
 
-The main difference between atomic and local mappings is that local
-mappings doesn't disable page faults or preemption (the preemption is
-disabled for !PREEMPT_RT case, otherwise it only disables migration)..
+To: Jani Nikula <jani.nikula@linux.intel.com>
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: David Airlie <airlied@gmail.com>
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-kernel@vger.kernel.org
+Cc: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: netdev@vger.kernel.org
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Dmitry Vyukov <dvyukov@google.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Das, Nirmoy <nirmoy.das@linux.intel.com>
+Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
 
-With kmap_local_page(), we can avoid the often unwanted side effect of
-unnecessary page faults or preemption disables.
-
-In drm/i915/gem/selftests/i915_gem_coherency.c, functions cpu_set()
-and cpu_get() mainly uses mapping to flush cache and assign the value.
-There're 2 reasons why cpu_set() and cpu_get() don't need to disable
-pagefaults and preemption for mapping:
-
-1. The flush operation is safe. cpu_set() and cpu_get() call
-drm_clflush_virt_range() to use CLFLUSHOPT or WBINVD to flush. Since
-CLFLUSHOPT is global on x86 and WBINVD is called on each cpu in
-drm_clflush_virt_range(), the flush operation is global.
-
-2. Any context switch caused by preemption or page faults (page fault
-may cause sleep) doesn't affect the validity of local mapping.
-
-Therefore, cpu_set() and cpu_get() are functions where the use of
-kmap_local_page() in place of kmap_atomic() is correctly suited.
-
-Convert the calls of kmap_atomic() / kunmap_atomic() to
-kmap_local_page() / kunmap_local().
-
-[1]: https://lore.kernel.org/all/20220813220034.806698-1-ira.weiny@intel.com
-
-v2:
-* Dropped hot plug related description since it has nothing to do with
-  kmap_local_page().
-* No code change since v1, and added description of the motivation of
-  using kmap_local_page().
-
-Suggested-by: Dave Hansen <dave.hansen@intel.com>
-Suggested-by: Ira Weiny <ira.weiny@intel.com>
-Suggested-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
-Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
-Suggested by credits:
-  Dave: Referred to his explanation about cache flush.
-  Ira: Referred to his task document, review comments and explanation
-       about cache flush.
-  Fabio: Referred to his boiler plate commit message and his description
-         about why kmap_local_page() should be preferred.
----
- .../gpu/drm/i915/gem/selftests/i915_gem_coherency.c  | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+Changes in v6:
+- rebased to solve minor conflict and allow CI testing
+- Link to v5: https://lore.kernel.org/r/20230224-track_gt-v5-0-77be86f2c872@intel.com
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
-index 3bef1beec7cb..beeb3e12eccc 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_coherency.c
-@@ -24,7 +24,6 @@ static int cpu_set(struct context *ctx, unsigned long offset, u32 v)
- {
- 	unsigned int needs_clflush;
- 	struct page *page;
--	void *map;
- 	u32 *cpu;
- 	int err;
- 
-@@ -34,8 +33,7 @@ static int cpu_set(struct context *ctx, unsigned long offset, u32 v)
- 		goto out;
- 
- 	page = i915_gem_object_get_page(ctx->obj, offset >> PAGE_SHIFT);
--	map = kmap_atomic(page);
--	cpu = map + offset_in_page(offset);
-+	cpu = kmap_local_page(page) + offset_in_page(offset);
- 
- 	if (needs_clflush & CLFLUSH_BEFORE)
- 		drm_clflush_virt_range(cpu, sizeof(*cpu));
-@@ -45,7 +43,7 @@ static int cpu_set(struct context *ctx, unsigned long offset, u32 v)
- 	if (needs_clflush & CLFLUSH_AFTER)
- 		drm_clflush_virt_range(cpu, sizeof(*cpu));
- 
--	kunmap_atomic(map);
-+	kunmap_local(cpu);
- 	i915_gem_object_finish_access(ctx->obj);
- 
- out:
-@@ -57,7 +55,6 @@ static int cpu_get(struct context *ctx, unsigned long offset, u32 *v)
- {
- 	unsigned int needs_clflush;
- 	struct page *page;
--	void *map;
- 	u32 *cpu;
- 	int err;
- 
-@@ -67,15 +64,14 @@ static int cpu_get(struct context *ctx, unsigned long offset, u32 *v)
- 		goto out;
- 
- 	page = i915_gem_object_get_page(ctx->obj, offset >> PAGE_SHIFT);
--	map = kmap_atomic(page);
--	cpu = map + offset_in_page(offset);
-+	cpu = kmap_local_page(page) + offset_in_page(offset);
- 
- 	if (needs_clflush & CLFLUSH_BEFORE)
- 		drm_clflush_virt_range(cpu, sizeof(*cpu));
- 
- 	*v = *cpu;
- 
--	kunmap_atomic(map);
-+	kunmap_local(cpu);
- 	i915_gem_object_finish_access(ctx->obj);
- 
- out:
+Changes in v5 (thx Andi for review):
+- use *_locked convention instead of __*,
+- improved commit messages,
+- re-worked i915 patches, squashed separation and conversion patches,
+- added tags,
+- Link to v4: https://lore.kernel.org/r/20230224-track_gt-v4-0-464e8ab4c9ab@intel.com
+
+Changes in v4:
+- split "Separate wakeref tracking" to smaller parts
+- fixed typos,
+- Link to v1-v3: https://patchwork.freedesktop.org/series/100327/
+
+---
+Andrzej Hajda (7):
+      lib/ref_tracker: add unlocked leak print helper
+      lib/ref_tracker: improve printing stats
+      lib/ref_tracker: add printing to memory buffer
+      lib/ref_tracker: remove warnings in case of allocation failure
+      drm/i915: Correct type of wakeref variable
+      drm/i915: Replace custom intel runtime_pm tracker with ref_tracker library
+      drm/i915: track gt pm wakerefs
+
+Chris Wilson (1):
+      drm/i915/gt: Hold a wakeref for the active VM
+
+ drivers/gpu/drm/i915/Kconfig.debug                 |  19 ++
+ drivers/gpu/drm/i915/display/intel_display_power.c |   2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c     |   7 +-
+ .../drm/i915/gem/selftests/i915_gem_coherency.c    |  10 +-
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c |  14 +-
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c        |  13 +-
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h  |   3 +-
+ drivers/gpu/drm/i915/gt/intel_context.h            |  15 +-
+ drivers/gpu/drm/i915/gt/intel_context_types.h      |   2 +
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c          |  10 +-
+ drivers/gpu/drm/i915/gt/intel_engine_types.h       |   2 +
+ .../gpu/drm/i915/gt/intel_execlists_submission.c   |   2 +-
+ drivers/gpu/drm/i915/gt/intel_gt_pm.c              |  12 +-
+ drivers/gpu/drm/i915/gt/intel_gt_pm.h              |  38 +++-
+ drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c      |   4 +-
+ drivers/gpu/drm/i915/gt/selftest_engine_cs.c       |  20 +-
+ drivers/gpu/drm/i915/gt/selftest_gt_pm.c           |   5 +-
+ drivers/gpu/drm/i915/gt/selftest_reset.c           |  10 +-
+ drivers/gpu/drm/i915/gt/selftest_rps.c             |  17 +-
+ drivers/gpu/drm/i915/gt/selftest_slpc.c            |   5 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c  |  11 +-
+ drivers/gpu/drm/i915/i915_driver.c                 |   2 +-
+ drivers/gpu/drm/i915/i915_pmu.c                    |  16 +-
+ drivers/gpu/drm/i915/intel_runtime_pm.c            | 221 ++-------------------
+ drivers/gpu/drm/i915/intel_runtime_pm.h            |  11 +-
+ drivers/gpu/drm/i915/intel_wakeref.c               |   7 +-
+ drivers/gpu/drm/i915/intel_wakeref.h               |  99 ++++++++-
+ include/linux/ref_tracker.h                        |  31 ++-
+ lib/ref_tracker.c                                  | 179 ++++++++++++++---
+ 29 files changed, 456 insertions(+), 331 deletions(-)
+---
+base-commit: d4c9fe2c8c9b66c5e5954f6ded7bc934dd6afe3e
+change-id: 20230224-track_gt-1b3da8bdacd7
+
+Best regards,
 -- 
-2.34.1
-
+Andrzej Hajda <andrzej.hajda@intel.com>
