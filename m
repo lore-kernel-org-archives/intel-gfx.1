@@ -4,70 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60346C761A6
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 00:37:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 762BAC6FD18
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 00:48:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D508B10EA21;
-	Wed, 29 Mar 2023 00:37:25 +0000 (UTC)
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C3B810E233
- for <intel-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 00:37:15 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id k37so18114643lfv.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 28 Mar 2023 17:37:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680050235;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=I5ZDpcdoL+KLSLmlSGRToNOcyJEuWnFhO5426QllXEM=;
- b=w643O7ILBaOnEtv7C2MHG7Fq+VF1TWtDLrCdCa6KpNx2Vrp29gzHH6gf9qfaxdnJpq
- AyOa0X/9BnO5Razg+ze7Fjtx9vKDy7+9PKjdabSihr5BoaLH3K1kcNNCxTqPPFoizuSJ
- PAKbf7eBOvJOPmp6MyjtnGOy8y5s4DMzjb4X94tBlvYhEYNZgV4wb0LRb6YhSalP0R6V
- iBT93Q8fzyH7U/53/8WAJ9bSDxkndE6ztkEN0qHpcZMdhjX5qLLGoPt4PDiC+oS1nsfF
- C/3S6fyoDVF0H3fwNDoiitCQg5qLUG/S5b+n2xXPW/GIWG250d+9qutYgNVW1Fsf4UEK
- mhkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680050235;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=I5ZDpcdoL+KLSLmlSGRToNOcyJEuWnFhO5426QllXEM=;
- b=ayRwWVEP8R8K06mKRaKRrXTgRZ9e4LnXOH61m68DOubrD7HfXTCOUwKfduH3GXW6g0
- HS6L9exhmMNKgwTLxwy4otWkzGGe0XdRSYdUOUhQI0Qr5JvpPF5wfAwA/OwjK8Ib/944
- 4xoGb1SIxkkj2IWq/ZqcXJ9H3Mxfedh5DeqpqqYnYAdUnUhaBPWKH0kEMe6exRjvUQUC
- Mv3H89gmTuuQHO+IBtlMeA+bjp6IDQQ3Y5XbKpd+PirYXaVL//EI1XoL9qkMXNTD54Sg
- CjHCi59tLLS9whDigGKsCVqWlCoQieBZE7I8ksPFRx2NIvYaC588uufbAaDstE0aZl+I
- qc6g==
-X-Gm-Message-State: AAQBX9eIIEwRuss7ReMk4uK2RmHxDrfsxoNK+k7YSxklJYge4A9706bY
- 3LscqznajSbcr8UUmFuRpiZTOg==
-X-Google-Smtp-Source: AKy350ZQBt9PNBCSjHdM+hvyiHz/aLyoK0XZKsUV+Dp9IZIxgc1aTm2vJF9WItRwT8Gt+eQMg8lOQA==
-X-Received: by 2002:ac2:43ca:0:b0:4e8:50e8:b96d with SMTP id
- u10-20020ac243ca000000b004e850e8b96dmr4382727lfl.39.1680050234837; 
- Tue, 28 Mar 2023 17:37:14 -0700 (PDT)
-Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- y3-20020ac24463000000b004db00b4c671sm5254138lfl.7.2023.03.28.17.37.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Mar 2023 17:37:14 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Suraj Kandpal <suraj.kandpal@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
-Date: Wed, 29 Mar 2023 03:37:04 +0300
-Message-Id: <20230329003710.1073261-5-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230329003710.1073261-1-dmitry.baryshkov@linaro.org>
-References: <20230329003710.1073261-1-dmitry.baryshkov@linaro.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE63F10E11A;
+	Wed, 29 Mar 2023 00:48:30 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 321D310E08D;
+ Wed, 29 Mar 2023 00:48:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1680050909; x=1711586909;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=ffdu0Gs3QwNzZwqcaJ8dLDay37fR6GAyMAEl+Obz3To=;
+ b=Td9vsbsCpCUj0rMi5WwNtU+oB7xadia18v7i4Gw7LloynIDwhLk38lEZ
+ X0+g3tdH7rq6Q+b4lVJUMQOpI1oQJw2CDAJg9PhPD/B7raDAz9TnN2LKb
+ EydPlkzpY1YF22qNRKK21NLxfR238U7iyGY7JgUQkStccgBg7XLVAN0sX
+ AK91OQ9rKY2BNnrciPTLw1Y5FiXqHs8CObWxnqZPnhgeh6ie619os92yF
+ J4k5dW3S4LdY3cBVKFtVtIWiApZYKh+98BJ187IhTRqpBMtfENLdmoZpK
+ YBvSuSDy1Xg3nuTn+ma1DS8gy76syy0IcWukPcuQ7Gc+JeuHnetTaf0Gc A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="324635571"
+X-IronPort-AV: E=Sophos;i="5.98,299,1673942400"; d="scan'208";a="324635571"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Mar 2023 17:48:21 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="716679249"
+X-IronPort-AV: E=Sophos;i="5.98,299,1673942400"; d="scan'208";a="716679249"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by orsmga001.jf.intel.com with ESMTP; 28 Mar 2023 17:48:20 -0700
+Received: from fmsmsx601.amr.corp.intel.com (10.18.126.81) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21; Tue, 28 Mar 2023 17:48:20 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21 via Frontend Transport; Tue, 28 Mar 2023 17:48:20 -0700
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com (104.47.57.176)
+ by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.21; Tue, 28 Mar 2023 17:48:20 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kUySTYgoVZIQMAuixNreC/vTJfyqfpw/Ru4Clf+Hxssmb3kNqQGPumsC0H6aYfOK1nm8q3Ga1yKhC+Cxk99jtllULUFlbncQDdQqqbNYXOMPg0l78q5k+ksKcA86zSboc17eePVrQx4Nf7nEanscFbcMMZT3DPoVWrrvdlHNkJAdr2X/9LMlHq+gTwbceQC8/rxAtPRJCWYn9Jc8bo3g7MtqMWR1y+mnKjBRubf/rffMXprMzWnzK4wBfEgawrDsdAoR853JKIfKs1xuyYAN7udKpWzsF3F74Kzh1QSDag3AQRlrGlhrddww3T65sh5tvOa/F4H7DI95NBFrYWRc5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fbvMvYqnG7YL4N0ZI5u1LPWQglk0VC13JaHniDxPcx4=;
+ b=baDt0aMCypqIWcoXEIOkZ3azpX4s6Fj5adwDZILp/7KGLiYMw+/+10DM/heXlMezP5CsEO7BERkEWwNwV8QwOFBypr1SCT6kmk/CijAF3hjMEA9o0EP7FZZXjbTMG4raLGsJ0VtK6zpOml+2getq1SU3YLl7R4DHx2sd1nv+fIERtcxNLXoeytqPuCF7QQePzvpNKJnemwok100Mkaa8m50I20Og90LjjJwb8/btjl2yM1g69rQ9VDLTtCm6W2ioRGB/eXvyytvUPpsiMEYKyT4RVW8RPgf+nsqIkYuv/UjkYxTE5H4pVKyHTPByGeNp4MVG84w9yMh0JGeYa0HAFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM6PR11MB2987.namprd11.prod.outlook.com (2603:10b6:5:65::14) by
+ MN2PR11MB4709.namprd11.prod.outlook.com (2603:10b6:208:267::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.30; Wed, 29 Mar
+ 2023 00:48:18 +0000
+Received: from DM6PR11MB2987.namprd11.prod.outlook.com
+ ([fe80::110a:8742:df45:10ed]) by DM6PR11MB2987.namprd11.prod.outlook.com
+ ([fe80::110a:8742:df45:10ed%4]) with mapi id 15.20.6222.033; Wed, 29 Mar 2023
+ 00:48:18 +0000
+Date: Tue, 28 Mar 2023 17:48:15 -0700
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Message-ID: <ZCOKz62qE7jASyg1@orsosgc001.jf.intel.com>
+References: <20230328093627.5067-1-lm0963hack@gmail.com>
+ <e7541f73-f100-3b1f-de80-376fa55f2479@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Disposition: inline
+In-Reply-To: <e7541f73-f100-3b1f-de80-376fa55f2479@linux.intel.com>
+X-ClientProxiedBy: BYAPR06CA0034.namprd06.prod.outlook.com
+ (2603:10b6:a03:d4::47) To DM6PR11MB2987.namprd11.prod.outlook.com
+ (2603:10b6:5:65::14)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 04/10] drm/i915/dsc: stop using interim
- structure for calculated params
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR11MB2987:EE_|MN2PR11MB4709:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7c4527f8-0c5b-46cf-8c53-08db2fef49a9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: OqTBl92DMyuCnq5QQQEwinMuzj9iylzzGpQGe3Z3vVm+tDIoXe2KEKqy+niR5gWhvoJQRySSf1p3RjKGsQOBbyY8gF5hxMNxwDJMkJz2JI3gKelgf2MlLmMjxepGuqVAH1h+3jRT5QTW//n8XFQbKmnzrsY7zKJrAG9g8PIApwYdFPSQby6y/Wiy+haSn2RgTuaLay7G3ETF/BW+AZHNbcLECA9LzcXxSmIaeHvSTpemoAJRjxA0g9vct5BktGh5p48TipAbDzlutQyF+b8mrk4Ki8aCoxFBmD7c7mfnaYh9Lui5eAfwVPimkEpWvfOyRCb+uWQECXOGvlOknMhqWtTujOK7hWJpvSyMqp1ydvgtPmkiM0MoUhr1LZV66AQqNzaX8RIECIuf42j2Ke+RqshicnuNz5YS/djYItyPSa+NY8RsnARKPDC4MtrR6ZsGIDtgVnuYOIHOH/fooTlZCJk64y3V8UYEyjANd99aiNuBCiexy6KMmJu9bChWx/MA+4I9uq9AjpCgf7BKepQe9IN7LpcPF1/fbbV9sHJ06OB8L4HtA3CmpHj+orYe7E4q
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR11MB2987.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(136003)(396003)(366004)(39860400002)(376002)(346002)(451199021)(5660300002)(6512007)(6506007)(2906002)(86362001)(6666004)(186003)(83380400001)(6486002)(26005)(8936002)(82960400001)(41300700001)(38100700002)(478600001)(66946007)(4326008)(6916009)(54906003)(66556008)(8676002)(66476007)(316002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M0tWcHNCNFBWVldvUkpvQkF1Um83Yk5BNXBjMmx4bkd4dlh2SzVmL2sya2NP?=
+ =?utf-8?B?TVh0UDZNR2lXSVh3b1BWc1pHeGJVaDdlTWNOdnR4ajBiTDNISkxlQ21BM2xY?=
+ =?utf-8?B?SXRjOEl2WUVNVEFSK0RVOEVrLzlmanRTWUtqR1lWdE9pQXMyb1JTbFBHeUdU?=
+ =?utf-8?B?bkxEZzV1OGl2MmxPWUdvMjVJRGg2NnNKSTl1OFd4bURZbDVTcGxDbmZuR0ZD?=
+ =?utf-8?B?Q2YvUHZZd0VMMk9iV05jYmVzblZabVUyYWo1K01jdUd3SThUeTUrb0J2a0xw?=
+ =?utf-8?B?Y1lKNVpvSU00dzNYdFQ3dHYyaDhicFcrTU5kMk5NaytNRCs5MTZrckJLc3I3?=
+ =?utf-8?B?UXgrZzZyR28rSWpOc09nTFdISGIyejZ3MGMrY1dRRHpFT3NSaXltT2lWRnly?=
+ =?utf-8?B?WkFxVDJtUFdRS3ZHK1Z4bWJ2Ni9XYWZCMWZ0Z1BLb2tUenhvRFJiZnRMamtl?=
+ =?utf-8?B?SmhLMTlhclJDbXVEZEgxaWlpbkhSRStwKzQxRHM5dnJhMGVsZUxuaklKbUl4?=
+ =?utf-8?B?R2V6SDFsMkpXN0RHenJLR2Q2Z1Q5bjVKVDNxTUFlQTJpeVpVSytpZHhWOWw0?=
+ =?utf-8?B?dzhxZkZ4QmF6QUU4Nk5jN3VVSXJVWmtMNHBvQjBoQUZ1VlNpQi8wKzVYQlBs?=
+ =?utf-8?B?a1pzdUpxZGpENGZRMHByK3dwSTIxdkVqUkFINGJIWVN5ZERTdXlrVS85Qkxk?=
+ =?utf-8?B?UGdBZTJITWZqSDBKcFVGMGM1OXJIRkZWTkZVcWJWUVl1S2JlWGpmMFBLNElB?=
+ =?utf-8?B?THk1R21QaFRiTHhqSy80UkVqN1FJeVh3elNyVFJFbGZPTzRYWTJRSFZ2K00v?=
+ =?utf-8?B?UlR1Ym4wcnBVcWNuRlhUREdMQ0VvanpicndpYVNWQ0JjRXVzQVFzelRlNXJZ?=
+ =?utf-8?B?Q3prZWdkSDJuTWczVmZJeDc2Nm1ZMzBxTytHc1VqQ3VoQTI2V0tsbVNZU3VC?=
+ =?utf-8?B?MkQ0c2hhZkNydnFkNmJKQ3B0RVpSWnRRa21IYVd1MGJxVFJyYk96SHB0ZzJV?=
+ =?utf-8?B?OG43MktBNzhxNzVyall1aHhrOTJ0SXpwOUVUcnF0OGs1aGg1MTRMaWlncUQ5?=
+ =?utf-8?B?bDR0YmdwY1VxSkVTT1RjN2dncmRUU1RWSC81aXVHTnhpYjJQSDlFNHdOWmRl?=
+ =?utf-8?B?V3FKT1M3TTRQaStGTFZsbTNHTW9SWnZWOGZ4UXVFZ1U0RWVoNVA2Tlp0cklC?=
+ =?utf-8?B?ZnJsdDFvVktyaGE3TGU4My93ekp4a0ppamFCS3NLc3VJbmI0QWp0aFpwTTli?=
+ =?utf-8?B?OE1CUWxuRzhzRllTWnBEazlRTWtwQ0QwTWhFRjBxSnYrU1pRaDJYNHlPQW01?=
+ =?utf-8?B?QjliQTdXNVRYei9HOEFDeUM1clFIQVZMdEdoUU1QTnZNTFVoY1pTL3RYTUds?=
+ =?utf-8?B?WGNFNEtPTnlqRFJYUmVDV1B5MlI2WGZSazNLbzZESGIzbytLeG8zNThDd1Fk?=
+ =?utf-8?B?cnJJbXBhQStKUkVyU04xTm01c3JLb3NjcGoyMU16T0I5VnBma0dSdmNPNHJk?=
+ =?utf-8?B?WW9tZ1gwVTc3RUJCUlJiQjFOLzR6YURDZUFrSWR1ajhHQXNoRnJ6T3hmb2Nw?=
+ =?utf-8?B?QVRBYUR3NmxvclNjL2MxK1RtUG56VXloT20vdVgvNFVRKzlqR3JKT3gvaTNa?=
+ =?utf-8?B?R2thZEhXZUtvTVZIUTFjLzRRN1ZHT2VTc29idFMyTzErS3V3anFRa1lyVVR4?=
+ =?utf-8?B?b0FLSEx1K3JyckFDTHR2NXBMdlVrbElVQmg0TDBXdDZkY0dsbGpFcXNmMzZN?=
+ =?utf-8?B?dm81cVlRQ2pNdnBRT2k5NEhRbjQ1VjhBaUo4VWhHOCtqUXVrU0xqVmVSalhy?=
+ =?utf-8?B?MUdWdDZobVRiL01rcXd1R2JOR29YRHgwMlZKUE9TWngwMU9QOXVVUnJIdTJn?=
+ =?utf-8?B?RzN4S21Ud3NDRDA1djUxS3FybnFtMDNCZTc1MWdvSWcwWGd2NE9ES3JTQUFH?=
+ =?utf-8?B?d3VDTXRHWmRqdXhUVFRRSkZOMTBuL2lTK1ZDOFIrWVRvSnpqcEFoNklnMThh?=
+ =?utf-8?B?dDF2NWxjYkVEZ0kwRkpYWHZRd3M0anRQTGlFb3JUMERlZXBYSEZqeEI1dUE5?=
+ =?utf-8?B?MWhobExuRHhkc3g1MXkzN1VjZTJKdE9LUjV1YnNoblFDMmVONjgzQyt5empY?=
+ =?utf-8?B?SDZmQnZ0b2FNNHZoQ3N0YWFGcHZIc3ZaQWZiWWtBaVNhdVFkL2RoRzB5bjgz?=
+ =?utf-8?Q?GdRTP8a1ptGZlxLo4xpMSgE=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c4527f8-0c5b-46cf-8c53-08db2fef49a9
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB2987.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2023 00:48:18.4380 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Z9TE3p8CwFrcY/QIpcDd+qGVyiUofJwCYNW+QzeCrAPXFUdIcDK2PCin9C1a+PCHSEI3NLIu0RmwpkXDJTKJGkuHNwerkZ3RWHaKQXL2IGk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4709
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH 1/1] drm/i915: fix race condition UAF in
+ i915_perf_add_config_ioctl
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,207 +153,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Min Li <lm0963hack@gmail.com>,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, daniel@ffwll.ch,
+ rodrigo.vivi@intel.com, airlied@gmail.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Stop using an interim structure rc_parameters for storing calculated
-params and then setting drm_dsc_config using that structure. Instead put
-calculated params into the struct drm_dsc_config directly.
+On Tue, Mar 28, 2023 at 02:08:47PM +0100, Tvrtko Ursulin wrote:
+>
+>On 28/03/2023 10:36, Min Li wrote:
+>>Userspace can guess the id value and try to race oa_config object creation
+>>with config remove, resulting in a use-after-free if we dereference the
+>>object after unlocking the metrics_lock.  For that reason, unlocking the
+>>metrics_lock must be done after we are done dereferencing the object.
+>>
+>>Signed-off-by: Min Li <lm0963hack@gmail.com>
+>
+>Fixes: f89823c21224 ("drm/i915/perf: Implement I915_PERF_ADD/REMOVE_CONFIG interface")
+>Cc: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+>Cc: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+>Cc: <stable@vger.kernel.org> # v4.14+
+>
+>>---
+>>  drivers/gpu/drm/i915/i915_perf.c | 6 +++---
+>>  1 file changed, 3 insertions(+), 3 deletions(-)
+>>
+>>diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+>>index 824a34ec0b83..93748ca2c5da 100644
+>>--- a/drivers/gpu/drm/i915/i915_perf.c
+>>+++ b/drivers/gpu/drm/i915/i915_perf.c
+>>@@ -4634,13 +4634,13 @@ int i915_perf_add_config_ioctl(struct drm_device *dev, void *data,
+>>  		err = oa_config->id;
+>>  		goto sysfs_err;
+>>  	}
+>>-
+>>-	mutex_unlock(&perf->metrics_lock);
+>>+	id = oa_config->id;
+>>  	drm_dbg(&perf->i915->drm,
+>>  		"Added config %s id=%i\n", oa_config->uuid, oa_config->id);
+>>+	mutex_unlock(&perf->metrics_lock);
+>>-	return oa_config->id;
+>>+	return id;
+>>  sysfs_err:
+>>  	mutex_unlock(&perf->metrics_lock);
+>
+>LGTM.
+>
+>Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>
+>Umesh or Lionel could you please double check? I can merge if confirmed okay.
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/i915/display/intel_vdsc.c | 100 ++++++----------------
- 1 file changed, 26 insertions(+), 74 deletions(-)
+LGTM,
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index 2ff795e0f5fb..e4b698d04103 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -19,17 +19,6 @@
- #include "intel_vdsc.h"
- #include "intel_vdsc_regs.h"
- 
--struct rc_parameters {
--	u16 initial_xmit_delay;
--	u8 first_line_bpg_offset;
--	u16 initial_offset;
--	u8 flatness_min_qp;
--	u8 flatness_max_qp;
--	u8 rc_quant_incr_limit0;
--	u8 rc_quant_incr_limit1;
--	struct drm_dsc_rc_range_parameters rc_range_params[DSC_NUM_BUF_RANGES];
--};
--
- bool intel_dsc_source_support(const struct intel_crtc_state *crtc_state)
- {
- 	const struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-@@ -64,8 +53,7 @@ static bool is_pipe_dsc(struct intel_crtc *crtc, enum transcoder cpu_transcoder)
- }
- 
- static void
--calculate_rc_params(struct rc_parameters *rc,
--		    struct drm_dsc_config *vdsc_cfg)
-+calculate_rc_params(struct drm_dsc_config *vdsc_cfg)
- {
- 	int bpc = vdsc_cfg->bits_per_component;
- 	int bpp = vdsc_cfg->bits_per_pixel >> 4;
-@@ -85,56 +73,57 @@ calculate_rc_params(struct rc_parameters *rc,
- 	u32 res, buf_i, bpp_i;
- 
- 	if (vdsc_cfg->slice_height >= 8)
--		rc->first_line_bpg_offset =
-+		vdsc_cfg->first_line_bpg_offset =
- 			12 + DIV_ROUND_UP((9 * min(34, vdsc_cfg->slice_height - 8)), 100);
- 	else
--		rc->first_line_bpg_offset = 2 * (vdsc_cfg->slice_height - 1);
-+		vdsc_cfg->first_line_bpg_offset = 2 * (vdsc_cfg->slice_height - 1);
- 
- 	/* Our hw supports only 444 modes as of today */
- 	if (bpp >= 12)
--		rc->initial_offset = 2048;
-+		vdsc_cfg->initial_offset = 2048;
- 	else if (bpp >= 10)
--		rc->initial_offset = 5632 - DIV_ROUND_UP(((bpp - 10) * 3584), 2);
-+		vdsc_cfg->initial_offset = 5632 - DIV_ROUND_UP(((bpp - 10) * 3584), 2);
- 	else if (bpp >= 8)
--		rc->initial_offset = 6144 - DIV_ROUND_UP(((bpp - 8) * 512), 2);
-+		vdsc_cfg->initial_offset = 6144 - DIV_ROUND_UP(((bpp - 8) * 512), 2);
- 	else
--		rc->initial_offset = 6144;
-+		vdsc_cfg->initial_offset = 6144;
- 
- 	/* initial_xmit_delay = rc_model_size/2/compression_bpp */
--	rc->initial_xmit_delay = DIV_ROUND_UP(DSC_RC_MODEL_SIZE_CONST, 2 * bpp);
-+	vdsc_cfg->initial_xmit_delay = DIV_ROUND_UP(DSC_RC_MODEL_SIZE_CONST, 2 * bpp);
- 
--	rc->flatness_min_qp = 3 + qp_bpc_modifier;
--	rc->flatness_max_qp = 12 + qp_bpc_modifier;
-+	vdsc_cfg->flatness_min_qp = 3 + qp_bpc_modifier;
-+	vdsc_cfg->flatness_max_qp = 12 + qp_bpc_modifier;
- 
--	rc->rc_quant_incr_limit0 = 11 + qp_bpc_modifier;
--	rc->rc_quant_incr_limit1 = 11 + qp_bpc_modifier;
-+	vdsc_cfg->rc_quant_incr_limit0 = 11 + qp_bpc_modifier;
-+	vdsc_cfg->rc_quant_incr_limit1 = 11 + qp_bpc_modifier;
- 
- 	bpp_i  = (2 * (bpp - 6));
- 	for (buf_i = 0; buf_i < DSC_NUM_BUF_RANGES; buf_i++) {
-+		u8 range_bpg_offset;
-+
- 		/* Read range_minqp and range_max_qp from qp tables */
--		rc->rc_range_params[buf_i].range_min_qp =
-+		vdsc_cfg->rc_range_params[buf_i].range_min_qp =
- 			intel_lookup_range_min_qp(bpc, buf_i, bpp_i);
--		rc->rc_range_params[buf_i].range_max_qp =
-+		vdsc_cfg->rc_range_params[buf_i].range_max_qp =
- 			intel_lookup_range_max_qp(bpc, buf_i, bpp_i);
- 
--		/* Calculate range_bgp_offset */
-+		/* Calculate range_bpg_offset */
- 		if (bpp <= 6) {
--			rc->rc_range_params[buf_i].range_bpg_offset = ofs_und6[buf_i];
-+			range_bpg_offset = ofs_und6[buf_i];
- 		} else if (bpp <= 8) {
- 			res = DIV_ROUND_UP(((bpp - 6) * (ofs_und8[buf_i] - ofs_und6[buf_i])), 2);
--			rc->rc_range_params[buf_i].range_bpg_offset =
--								ofs_und6[buf_i] + res;
-+			range_bpg_offset = ofs_und6[buf_i] + res;
- 		} else if (bpp <= 12) {
--			rc->rc_range_params[buf_i].range_bpg_offset =
--								ofs_und8[buf_i];
-+			range_bpg_offset = ofs_und8[buf_i];
- 		} else if (bpp <= 15) {
- 			res = DIV_ROUND_UP(((bpp - 12) * (ofs_und15[buf_i] - ofs_und12[buf_i])), 3);
--			rc->rc_range_params[buf_i].range_bpg_offset =
--								ofs_und12[buf_i] + res;
-+			range_bpg_offset = ofs_und12[buf_i] + res;
- 		} else {
--			rc->rc_range_params[buf_i].range_bpg_offset =
--								ofs_und15[buf_i];
-+			range_bpg_offset = ofs_und15[buf_i];
- 		}
-+
-+		vdsc_cfg->rc_range_params[buf_i].range_bpg_offset =
-+			range_bpg_offset & DSC_RANGE_BPG_OFFSET_MASK;
- 	}
- }
- 
-@@ -144,9 +133,6 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	struct drm_dsc_config *vdsc_cfg = &pipe_config->dsc.config;
- 	u16 compressed_bpp = pipe_config->dsc.compressed_bpp;
--	const struct rc_parameters *rc_params;
--	struct rc_parameters *rc = NULL;
--	u8 i = 0;
- 	int ret;
- 
- 	vdsc_cfg->pic_width = pipe_config->hw.adjusted_mode.crtc_hdisplay;
-@@ -170,43 +156,12 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
- 	 * parameters
- 	 */
- 	if (DISPLAY_VER(dev_priv) >= 13) {
--		rc = kmalloc(sizeof(*rc), GFP_KERNEL);
--		if (!rc)
--			return -ENOMEM;
--
--		calculate_rc_params(rc, vdsc_cfg);
--		rc_params = rc;
-+		calculate_rc_params(vdsc_cfg);
- 	} else {
- 		ret = drm_dsc_setup_rc_params(vdsc_cfg);
- 		if (ret)
- 			return ret;
- 
--		goto out;
--	}
--
--	vdsc_cfg->first_line_bpg_offset = rc_params->first_line_bpg_offset;
--	vdsc_cfg->initial_xmit_delay = rc_params->initial_xmit_delay;
--	vdsc_cfg->initial_offset = rc_params->initial_offset;
--	vdsc_cfg->flatness_min_qp = rc_params->flatness_min_qp;
--	vdsc_cfg->flatness_max_qp = rc_params->flatness_max_qp;
--	vdsc_cfg->rc_quant_incr_limit0 = rc_params->rc_quant_incr_limit0;
--	vdsc_cfg->rc_quant_incr_limit1 = rc_params->rc_quant_incr_limit1;
--
--	for (i = 0; i < DSC_NUM_BUF_RANGES; i++) {
--		vdsc_cfg->rc_range_params[i].range_min_qp =
--			rc_params->rc_range_params[i].range_min_qp;
--		vdsc_cfg->rc_range_params[i].range_max_qp =
--			rc_params->rc_range_params[i].range_max_qp;
--		/*
--		 * Range BPG Offset uses 2's complement and is only a 6 bits. So
--		 * mask it to get only 6 bits.
--		 */
--		vdsc_cfg->rc_range_params[i].range_bpg_offset =
--			rc_params->rc_range_params[i].range_bpg_offset &
--			DSC_RANGE_BPG_OFFSET_MASK;
--	}
--
--	if (DISPLAY_VER(dev_priv) < 13) {
- 		/*
- 		 * FIXME: verify that the hardware actually needs these
- 		 * modifications rather than them being simple typos.
-@@ -220,7 +175,6 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
- 			vdsc_cfg->rc_range_params[0].range_bpg_offset = 0;
- 	}
- 
--out:
- 	/*
- 	 * BitsPerComponent value determines mux_word_size:
- 	 * When BitsPerComponent is less than or 10bpc, muxWordSize will be equal to
-@@ -235,8 +189,6 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
- 	vdsc_cfg->initial_scale_value = (vdsc_cfg->rc_model_size << 3) /
- 		(vdsc_cfg->rc_model_size - vdsc_cfg->initial_offset);
- 
--	kfree(rc);
--
- 	return 0;
- }
- 
--- 
-2.39.2
+Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 
+Thanks,
+Umesh
+
+>
+>Regards,
+>
+>Tvrtko
