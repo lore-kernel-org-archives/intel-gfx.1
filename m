@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F28BC74A5B
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 15:11:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07682C74A5B
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 15:19:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 938E010EB2B;
-	Wed, 29 Mar 2023 15:11:30 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46E0010EB25
- for <intel-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 15:11:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680102675; x=1711638675;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Q5C5FRyVA0pdIY5t+Zl8AUe9aGcMjKWPXxm8xPMVWMo=;
- b=X91UMLfe/WEPAXYeVc6Y9zoiarkUmkpMB9HDGGWUt+MwwKvkyE+xWJwO
- CvXFAYpeImDs2Uv6KvI9BtrirRLQGsl1Nyl0ptqHSCBn+RZEXHGkCYG4F
- /9GJJ2hKW21Y/lh+KVXwEpdsUCizWV8cLwbsG07DUZkMwt4DXxuGImG5/
- 4tTarFMYiGw8rdipZUnQ2egZMkcTAXIRWUWcU5EFpUbaIWX/o0Ktca4Xl
- 1R6I9y5WQT7J33Uv06ePe/hSmyY0lHwF0NzAix2eB+McWO7zlPLPI6j6W
- FyYdgYxVgRaVr+rNEqxCoJq8spWNtSzoPrOOapL6MNryjstdiJz7RsFaX w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="368672933"
-X-IronPort-AV: E=Sophos;i="5.98,301,1673942400"; d="scan'208";a="368672933"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2023 08:07:49 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="753626069"
-X-IronPort-AV: E=Sophos;i="5.98,301,1673942400"; d="scan'208";a="753626069"
-Received: from pgarraul-mobl2.ger.corp.intel.com (HELO
- jhogande-mobl1.ger.corp.intel.com) ([10.251.223.204])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2023 08:07:47 -0700
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 29 Mar 2023 18:07:02 +0300
-Message-Id: <20230329150703.432072-6-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230329150703.432072-1-jouni.hogander@intel.com>
-References: <20230329150703.432072-1-jouni.hogander@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80DF110E19A;
+	Wed, 29 Mar 2023 15:19:41 +0000 (UTC)
+X-Greylist: delayed 964 seconds by postgrey-1.36 at gabe;
+ Wed, 29 Mar 2023 15:19:40 UTC
+Received: from mailrelay1-1.pub.mailoutpod2-cph3.one.com
+ (mailrelay1-1.pub.mailoutpod2-cph3.one.com [IPv6:2a02:2350:5:400::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3398410E19A
+ for <intel-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 15:19:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ravnborg.org; s=rsa2;
+ h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
+ from:date:from;
+ bh=KFNxHE0QXa2PWKJfN5y9uL4Qs71FXfuJ+fonDr5o8kI=;
+ b=itk4HvEbpN8zUXdBdxPPXbN92iWD8GSnQgkIfAqb3sM/7L60UqYkid2BXrGGJOHgeuaenweaJ/yBu
+ nAcLZ9R3d0SOZrZ6+h0WqAPrWj/YXELR6/lR1OzP91uE90slqIaVbjnkGMBzv1yRZK3a2OZcozeh1B
+ RokVSMlaEr+28zZfHPeDpz6KVoO591VsW840uN+Z75m6c37faX7IwI6GU/BtDN414AfJrQuOxHJBuV
+ t6H+CSZwNcQyH0zrKlWv7kXHiU9emWOOzoB5A+DDjJgarPRah7JiQhn3a3197byX7U4eLWQT2VsgD4
+ t9+rFLHJWOlG29I+lnJHuR+gvGnrs0A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed;
+ d=ravnborg.org; s=ed2;
+ h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
+ from:date:from;
+ bh=KFNxHE0QXa2PWKJfN5y9uL4Qs71FXfuJ+fonDr5o8kI=;
+ b=Sb+klSISZzKyB9yU2nHp9Pg7csbh7hCXm/seICmhlZgRhgXx2N+7Gk9VeuDPUAZoL6qUaCR37Bce8
+ MFK7UOYBw==
+X-HalOne-ID: de3d27f9-ce42-11ed-9a1a-99461c6a3fe8
+Received: from ravnborg.org (2-105-2-98-cable.dk.customer.tdc.net [2.105.2.98])
+ by mailrelay1 (Halon) with ESMTPSA
+ id de3d27f9-ce42-11ed-9a1a-99461c6a3fe8;
+ Wed, 29 Mar 2023 15:03:34 +0000 (UTC)
+Date: Wed, 29 Mar 2023 17:03:32 +0200
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Message-ID: <20230329150332.GA1201392@ravnborg.org>
+References: <20230328111422.23986-1-tzimmermann@suse.de>
+ <20230328111422.23986-3-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 5/6] drm/i915/psr: Check that vblank is long
- enough for psr2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230328111422.23986-3-tzimmermann@suse.de>
+Subject: Re: [Intel-gfx] [PATCH 2/4] drm/i915: Initialize fbdev DRM client
+ with callback functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,43 +60,16 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: javierm@redhat.com, dri-devel@lists.freedesktop.org, daniel@ffwll.ch,
+ rodrigo.vivi@intel.com, airlied@gmail.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ensure vblank >= psr2 vblank
-where
-Psr2 vblank = PSR2_CTL Block Count Number maximum line count.
+Hi Thomas,
 
-Bspec: 71580, 49274
+On Tue, Mar 28, 2023 at 01:14:20PM +0200, Thomas Zimmermann wrote:
+> Initialize i915's fbdev client by giving an instance of struct
+> drm_client_funcsi to drm_client_init(). Also clean up with
+An extra i had sneaked in here
 
-v2: Use calculated block count number maximum line count
-
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_psr.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 07b0c016e78a..446c8acc265b 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -968,6 +968,15 @@ static bool intel_psr2_config_valid(struct intel_dp *intel_dp,
- 		return false;
- 	}
- 
-+	/* Vblank >= PSR2_CTL Block Count Number maximum line count */
-+	if (crtc_state->hw.adjusted_mode.crtc_vblank_end -
-+	    crtc_state->hw.adjusted_mode.crtc_vblank_start <
-+	    psr2_block_count_lines(intel_dp)) {
-+		drm_dbg_kms(&dev_priv->drm,
-+			    "PSR2 not enabled, too short vblank time\n");
-+		return false;
-+	}
-+
- 	if (HAS_PSR2_SEL_FETCH(dev_priv)) {
- 		if (!intel_psr2_sel_fetch_config_valid(intel_dp, crtc_state) &&
- 		    !HAS_PSR_HW_TRACKING(dev_priv)) {
--- 
-2.34.1
-
+	Sam
