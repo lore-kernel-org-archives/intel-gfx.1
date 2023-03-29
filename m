@@ -4,52 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA0D8C74A5B
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 07:25:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C9E4C761AF
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 07:25:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2320010E4FB;
-	Wed, 29 Mar 2023 07:25:03 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB62810E4D5;
- Wed, 29 Mar 2023 07:25:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 544BC10E4D5;
+	Wed, 29 Mar 2023 07:25:04 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCB5410E4FE;
+ Wed, 29 Mar 2023 07:25:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680074701; x=1711610701;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:references:in-reply-to:to:cc;
- bh=kEFDoIdEQUaoXtYqPzYKibOwd36nmghIfH3/F6UGSm4=;
- b=X7A5uMCUJslzDjrZrWUHW16+W+gR7JuI1gl62AYEDsxcnM1R0yavbSyb
- ZJ8v+qY1sSQLLFSX26gCPOgvPqJ3TwbFWu07Ndj4JkNLa9XF6XfVGNkfX
- y4axITmTYOpEBC8jMmtgX26Io47Kq+VRmWUPexCqgfNzZd1OK/R17hHBL
- 84uxAlPS5+gSkmoAlLs6yTbtxNkF1wOAMc2PjPSlJIj1KQYObPjoU/dQY
- IfMazKn1nJ8FFs8Dr2521lDMkN48DiRug7Dh4UBrOCcLHSIO8l4jHMtv0
- HHUBcc6p8xUHdlt0837b5c5taQVvj0mJ8qWUY5GixMr8Fv0qZtU8EEPhJ g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="368569624"
-X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="368569624"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2023 00:24:41 -0700
+ t=1680074700; x=1711610700;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=GMpKo8ThZ2YBrIiNDv5DIUoRW6Piin/4x6sH+rZpkMU=;
+ b=N8SOof7zkbbECzwuzNHEYGNELDAnjm5FRzrTaUH5Vn4ILm5YOuPPd4u3
+ ttZa/H3J04Wf/rFzSypUwdJtxSnserWGnIkCLKbSMOFzim5LHBp2XhwU7
+ BMbPG2mwwaL7IUpgwgzBg+RIyzAoeNt2dgaZb/XOFxZ6yuJINj7qthM6R
+ xtjdnZc2il0tckucZ90KWT4MNkGPZCOmJgC5nadikl1nBUFKJ3EmxsGJz
+ DcPotdxbUzHDveF8w9QroLy4Eltnr4zqUnvqIqFu8OQEHyr7u+J83g2w8
+ CNF1uylvzPYib24AMAFbHJlMCFanf2DJ0IJnTUIuTbwr48oKovs3hfHkQ A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="405746130"
+X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="405746130"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Mar 2023 00:24:45 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="827772785"
-X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="827772785"
-Received: from lab-ah.igk.intel.com ([10.102.138.202])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2023 00:24:38 -0700
-From: Andrzej Hajda <andrzej.hajda@intel.com>
-Date: Wed, 29 Mar 2023 09:24:13 +0200
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230224-track_gt-v6-2-0dc8601fd02f@intel.com>
-References: <20230224-track_gt-v6-0-0dc8601fd02f@intel.com>
-In-Reply-To: <20230224-track_gt-v6-0-0dc8601fd02f@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="684160621"
+X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="684160621"
+Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.112])
+ by orsmga002.jf.intel.com with ESMTP; 29 Mar 2023 00:24:40 -0700
+From: Zhao Liu <zhao1.liu@linux.intel.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-X-Mailer: b4 0.11.1
-Subject: [Intel-gfx] [PATCH v6 2/8] lib/ref_tracker: improve printing stats
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Matthew Auld <matthew.auld@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Nirmoy Das <nirmoy.das@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 29 Mar 2023 15:32:17 +0800
+Message-Id: <20230329073220.3982460-7-zhao1.liu@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230329073220.3982460-1-zhao1.liu@linux.intel.com>
+References: <20230329073220.3982460-1-zhao1.liu@linux.intel.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 6/9] drm/i915: Use kmap_local_page() in
+ gem/selftests/i915_gem_context.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,194 +69,105 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, netdev@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Dmitry Vyukov <dvyukov@google.com>
+Cc: "Fabio M . De Francesco" <fmdefrancesco@gmail.com>,
+ Ira Weiny <ira.weiny@intel.com>, Zhao Liu <zhao1.liu@intel.com>,
+ Zhenyu Wang <zhenyu.z.wang@intel.com>, Dave Hansen <dave.hansen@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In case the library is tracking busy subsystem, simply
-printing stack for every active reference will spam log
-with long, hard to read, redundant stack traces. To improve
-readabilty following changes have been made:
-- reports are printed per stack_handle - log is more compact,
-- added display name for ref_tracker_dir - it will differentiate
-  multiple subsystems,
-- stack trace is printed indented, in the same printk call,
-- info about dropped references is printed as well.
+From: Zhao Liu <zhao1.liu@intel.com>
 
-Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
+The use of kmap_atomic() is being deprecated in favor of
+kmap_local_page()[1], and this patch converts the call from
+kmap_atomic() to kmap_local_page().
+
+The main difference between atomic and local mappings is that local
+mappings doesn't disable page faults or preemption.
+
+With kmap_local_page(), we can avoid the often unwanted side effect of
+unnecessary page faults or preemption disables.
+
+In drm/i915/gem/selftests/i915_gem_context.c, functions cpu_fill() and
+cpu_check() mainly uses mapping to flush cache and check/assign the
+value.
+
+There're 2 reasons why cpu_fill() and cpu_check() don't need to disable
+pagefaults and preemption for mapping:
+
+1. The flush operation is safe. cpu_fill() and cpu_check() call
+drm_clflush_virt_range() to use CLFLUSHOPT or WBINVD to flush. Since
+CLFLUSHOPT is global on x86 and WBINVD is called on each cpu in
+drm_clflush_virt_range(), the flush operation is global.
+
+2. Any context switch caused by preemption or page faults (page fault
+may cause sleep) doesn't affect the validity of local mapping.
+
+Therefore, cpu_fill() and cpu_check() are functions where the use of
+kmap_local_page() in place of kmap_atomic() is correctly suited.
+
+Convert the calls of kmap_atomic() / kunmap_atomic() to
+kmap_local_page() / kunmap_local().
+
+[1]: https://lore.kernel.org/all/20220813220034.806698-1-ira.weiny@intel.com
+
+v2:
+* Dropped hot plug related description since it has nothing to do with
+  kmap_local_page().
+* No code change since v1, and added description of the motivation of
+  using kmap_local_page().
+
+Suggested-by: Dave Hansen <dave.hansen@intel.com>
+Suggested-by: Ira Weiny <ira.weiny@intel.com>
+Suggested-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
+Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- include/linux/ref_tracker.h | 15 ++++++--
- lib/ref_tracker.c           | 90 +++++++++++++++++++++++++++++++++++++++------
- 2 files changed, 91 insertions(+), 14 deletions(-)
+Suggested by credits:
+  Dave: Referred to his explanation about cache flush.
+  Ira: Referred to his task document, review comments and explanation
+       about cache flush.
+  Fabio: Referred to his boiler plate commit message and his description
+         about why kmap_local_page() should be preferred.
+---
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/ref_tracker.h b/include/linux/ref_tracker.h
-index 87a92f2bec1b88..fc9ef9952f01fd 100644
---- a/include/linux/ref_tracker.h
-+++ b/include/linux/ref_tracker.h
-@@ -17,12 +17,19 @@ struct ref_tracker_dir {
- 	bool			dead;
- 	struct list_head	list; /* List of active trackers */
- 	struct list_head	quarantine; /* List of dead trackers */
-+	char			name[32];
- #endif
- };
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+index a81fa6a20f5a..dcbc0b8e3323 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+@@ -481,12 +481,12 @@ static int cpu_fill(struct drm_i915_gem_object *obj, u32 value)
+ 	for (n = 0; n < real_page_count(obj); n++) {
+ 		u32 *map;
  
- #ifdef CONFIG_REF_TRACKER
--static inline void ref_tracker_dir_init(struct ref_tracker_dir *dir,
--					unsigned int quarantine_count)
-+
-+/* Temporary allow two and three arguments, until consumers are converted */
-+#define ref_tracker_dir_init(_d, _q, args...) _ref_tracker_dir_init(_d, _q, ##args, #_d)
-+#define _ref_tracker_dir_init(_d, _q, _n, ...) __ref_tracker_dir_init(_d, _q, _n)
-+
-+static inline void __ref_tracker_dir_init(struct ref_tracker_dir *dir,
-+					unsigned int quarantine_count,
-+					const char *name)
- {
- 	INIT_LIST_HEAD(&dir->list);
- 	INIT_LIST_HEAD(&dir->quarantine);
-@@ -31,6 +38,7 @@ static inline void ref_tracker_dir_init(struct ref_tracker_dir *dir,
- 	dir->dead = false;
- 	refcount_set(&dir->untracked, 1);
- 	refcount_set(&dir->no_tracker, 1);
-+	strlcpy(dir->name, name, sizeof(dir->name));
- 	stack_depot_init();
- }
- 
-@@ -51,7 +59,8 @@ int ref_tracker_free(struct ref_tracker_dir *dir,
- #else /* CONFIG_REF_TRACKER */
- 
- static inline void ref_tracker_dir_init(struct ref_tracker_dir *dir,
--					unsigned int quarantine_count)
-+					unsigned int quarantine_count,
-+					...)
- {
- }
- 
-diff --git a/lib/ref_tracker.c b/lib/ref_tracker.c
-index d4eb0929af8f96..2ffe79c90c1771 100644
---- a/lib/ref_tracker.c
-+++ b/lib/ref_tracker.c
-@@ -1,11 +1,16 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
-+
-+#define pr_fmt(fmt) "ref_tracker: " fmt
-+
- #include <linux/export.h>
-+#include <linux/list_sort.h>
- #include <linux/ref_tracker.h>
- #include <linux/slab.h>
- #include <linux/stacktrace.h>
- #include <linux/stackdepot.h>
- 
- #define REF_TRACKER_STACK_ENTRIES 16
-+#define STACK_BUF_SIZE 1024
- 
- struct ref_tracker {
- 	struct list_head	head;   /* anchor into dir->list or dir->quarantine */
-@@ -14,24 +19,87 @@ struct ref_tracker {
- 	depot_stack_handle_t	free_stack_handle;
- };
- 
--void ref_tracker_dir_print_locked(struct ref_tracker_dir *dir,
--				  unsigned int display_limit)
-+struct ref_tracker_dir_stats {
-+	int total;
-+	int count;
-+	struct {
-+		depot_stack_handle_t stack_handle;
-+		unsigned int count;
-+	} stacks[];
-+};
-+
-+static struct ref_tracker_dir_stats *
-+ref_tracker_get_stats(struct ref_tracker_dir *dir, unsigned int limit)
- {
-+	struct ref_tracker_dir_stats *stats;
- 	struct ref_tracker *tracker;
--	unsigned int i = 0;
- 
--	lockdep_assert_held(&dir->lock);
-+	stats = kmalloc(struct_size(stats, stacks, limit),
-+			GFP_NOWAIT | __GFP_NOWARN);
-+	if (!stats)
-+		return ERR_PTR(-ENOMEM);
-+	stats->total = 0;
-+	stats->count = 0;
- 
- 	list_for_each_entry(tracker, &dir->list, head) {
--		if (i < display_limit) {
--			pr_err("leaked reference.\n");
--			if (tracker->alloc_stack_handle)
--				stack_depot_print(tracker->alloc_stack_handle);
--			i++;
--		} else {
--			break;
-+		depot_stack_handle_t stack = tracker->alloc_stack_handle;
-+		int i;
-+
-+		++stats->total;
-+		for (i = 0; i < stats->count; ++i)
-+			if (stats->stacks[i].stack_handle == stack)
-+				break;
-+		if (i >= limit)
-+			continue;
-+		if (i >= stats->count) {
-+			stats->stacks[i].stack_handle = stack;
-+			stats->stacks[i].count = 0;
-+			++stats->count;
- 		}
-+		++stats->stacks[i].count;
-+	}
-+
-+	return stats;
-+}
-+
-+void ref_tracker_dir_print_locked(struct ref_tracker_dir *dir,
-+				  unsigned int display_limit)
-+{
-+	struct ref_tracker_dir_stats *stats;
-+	unsigned int i = 0, skipped;
-+	depot_stack_handle_t stack;
-+	char *sbuf;
-+
-+	lockdep_assert_held(&dir->lock);
-+
-+	if (list_empty(&dir->list))
-+		return;
-+
-+	stats = ref_tracker_get_stats(dir, display_limit);
-+	if (IS_ERR(stats)) {
-+		pr_err("%s@%pK: couldn't get stats, error %pe\n",
-+		       dir->name, dir, stats);
-+		return;
+-		map = kmap_atomic(i915_gem_object_get_page(obj, n));
++		map = kmap_local_page(i915_gem_object_get_page(obj, n));
+ 		for (m = 0; m < DW_PER_PAGE; m++)
+ 			map[m] = value;
+ 		if (!has_llc)
+ 			drm_clflush_virt_range(map, PAGE_SIZE);
+-		kunmap_atomic(map);
++		kunmap_local(map);
  	}
-+
-+	sbuf = kmalloc(STACK_BUF_SIZE, GFP_NOWAIT | __GFP_NOWARN);
-+
-+	for (i = 0, skipped = stats->total; i < stats->count; ++i) {
-+		stack = stats->stacks[i].stack_handle;
-+		if (sbuf && !stack_depot_snprint(stack, sbuf, STACK_BUF_SIZE, 4))
-+			sbuf[0] = 0;
-+		pr_err("%s@%pK has %d/%d users at\n%s\n", dir->name, dir,
-+		       stats->stacks[i].count, stats->total, sbuf);
-+		skipped -= stats->stacks[i].count;
-+	}
-+
-+	if (skipped)
-+		pr_err("%s@%pK skipped reports about %d/%d users.\n",
-+		       dir->name, dir, skipped, stats->total);
-+
-+	kfree(sbuf);
-+
-+	kfree(stats);
- }
- EXPORT_SYMBOL(ref_tracker_dir_print_locked);
  
-
+ 	i915_gem_object_finish_access(obj);
+@@ -512,7 +512,7 @@ static noinline int cpu_check(struct drm_i915_gem_object *obj,
+ 	for (n = 0; n < real_page_count(obj); n++) {
+ 		u32 *map, m;
+ 
+-		map = kmap_atomic(i915_gem_object_get_page(obj, n));
++		map = kmap_local_page(i915_gem_object_get_page(obj, n));
+ 		if (needs_flush & CLFLUSH_BEFORE)
+ 			drm_clflush_virt_range(map, PAGE_SIZE);
+ 
+@@ -538,7 +538,7 @@ static noinline int cpu_check(struct drm_i915_gem_object *obj,
+ 		}
+ 
+ out_unmap:
+-		kunmap_atomic(map);
++		kunmap_local(map);
+ 		if (err)
+ 			break;
+ 	}
 -- 
 2.34.1
+
