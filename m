@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE688C74A5B
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 07:18:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A8E8C74A5B
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 07:24:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E59E10E257;
-	Wed, 29 Mar 2023 07:18:57 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 425FF10E257
- for <intel-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 07:18:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E31A10E4D6;
+	Wed, 29 Mar 2023 07:24:17 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2215410E4D3;
+ Wed, 29 Mar 2023 07:24:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680074335; x=1711610335;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=HytrNlUpcTXma0LA1JBLs3w+5i+5ZTS/IWYnuRMBFwY=;
- b=YL7IpkCBTQpUv5H83ypBKs0PWS4tvQVN18v7PcAE5Yvp1x17EDEX3zc/
- nb3Z2lD7tGxPhbhAkdd+K2aBtXtuRwf6MNVBf7NziycDPRa3C4ddkkkGk
- PWspsD7zlC0g5cIdxBG7ebICa/YY5Xj6MVgp+kEON+JPVtVs3/x2Jt2CH
- QyxdbAAUXbC0ngW/MaKZsz4uq2PqKcqxoeQOXtXchlsL+XMV4Q3d+pI/n
- ptUw/iNwZZFAlo+Z6u1BK+I+fvGoLrrmmYiHqQVWbaFDax8vDCY4bizIo
- dn3c5sq5PAR//pOLEmpfDFBgdXkIGNaCPS2TksSm1kilGmUFHNkgG+G+R A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="339528085"
-X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="339528085"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2023 00:18:54 -0700
+ t=1680074654; x=1711610654;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ggmwxoc7/dils5MWJi70ypc6lFx8cadwyL7s3JUR9cA=;
+ b=dPLqZ93q/44tUma7uapeVHve6LICMIcBKF5uBV9No+MIZaMY/7Kwguj0
+ zxJdV1bm1dvtygN6+syq5BNVzJTnqqWoshA/d8lQHBCoxkrm0E+Vp2Al0
+ l5G466JquhoFlhKyKlOJ2JIQc5rKWk//QvyAbcE58PCPhKPTAKnBkLsLM
+ dmMgxx/3YMU5HPHqpTK1XKYuLK+JFOe7XB+rITuyUVLp9LdQS4QCLPyoR
+ XkV+bseLAtTbWbfGetBsWs1SVG2RwVZ0FAlvsvavdel1IpeZk1tF3nKAT
+ F2hPPjiYUyCd+VMCsZQ1+E7wIkMTlzi9o4dpIbxJYv4MAnDZTBcxOYpdK w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="405745835"
+X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="405745835"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Mar 2023 00:24:14 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="677675685"
-X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="677675685"
-Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.27.52])
- ([10.213.27.52])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2023 00:18:53 -0700
-Message-ID: <5f845aa2-30ec-cf90-59e8-70664bd3d73b@intel.com>
-Date: Wed, 29 Mar 2023 09:18:50 +0200
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="684160540"
+X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="684160540"
+Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.112])
+ by orsmga002.jf.intel.com with ESMTP; 29 Mar 2023 00:24:09 -0700
+From: Zhao Liu <zhao1.liu@linux.intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Matthew Auld <matthew.auld@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Nirmoy Das <nirmoy.das@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 29 Mar 2023 15:32:11 +0800
+Message-Id: <20230329073220.3982460-1-zhao1.liu@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.9.0
-Content-Language: en-US
-To: intel-gfx@lists.freedesktop.org
-References: <20230224-track_gt-v5-0-77be86f2c872@intel.com>
- <168004589720.29056.1047692060430299041@emeril.freedesktop.org>
-From: Andrzej Hajda <andrzej.hajda@intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
- Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <168004589720.29056.1047692060430299041@emeril.freedesktop.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] 
- =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
- =?utf-8?q?rm/i915=3A_use_ref=5Ftracker_library_for_tracking_wakerefs_=28r?=
- =?utf-8?q?ev6=29?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 0/9] drm/i915: Replace kmap_atomic() with
+ kmap_local_page()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,41 +67,96 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Fabio M . De Francesco" <fmdefrancesco@gmail.com>,
+ Ira Weiny <ira.weiny@intel.com>, Zhao Liu <zhao1.liu@intel.com>,
+ Zhenyu Wang <zhenyu.z.wang@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 29.03.2023 01:24, Patchwork wrote:
-> == Series Details ==
-> 
-> Series: drm/i915: use ref_tracker library for tracking wakerefs (rev6)
-> URL   : https://patchwork.freedesktop.org/series/100327/
-> State : failure
-> 
-> == Summary ==
-> 
-> Error: patch https://patchwork.freedesktop.org/api/1.0/series/100327/revisions/6/mbox/ not applied
-> Applying: lib/ref_tracker: add unlocked leak print helper
-> Applying: lib/ref_tracker: improve printing stats
-> Applying: lib/ref_tracker: add printing to memory buffer
-> Applying: lib/ref_tracker: remove warnings in case of allocation failure
-> Applying: drm/i915: Correct type of wakeref variable
-> Applying: drm/i915: Replace custom intel runtime_pm tracker with ref_tracker library
-> Applying: drm/i915: track gt pm wakerefs
-> error: sha1 information is lacking or useless (drivers/gpu/drm/i915/Kconfig.debug).
-> error: could not build fake ancestor
-> hint: Use 'git am --show-current-patch=diff' to see the failed patch
-> Patch failed at 0007 drm/i915: track gt pm wakerefs
+From: Zhao Liu <zhao1.liu@intel.com>
 
-I will rebase on the latest drm-tip.
+Hi list,
 
-Regards
-Andrzej
+Sorry for a long delay since v1 [1]. This patchset is based on 197b6b6
+(Linux 6.3-rc4).
+
+Welcome and thanks for your review and comments!
 
 
-> When you have resolved this problem, run "git am --continue".
-> If you prefer to skip this patch, run "git am --skip" instead.
-> To restore the original branch and stop patching, run "git am --abort".
-> Build failed, no error log produced
-> 
-> 
+# Purpose of this patchset
+
+The purpose of this pacthset is to replace all uses of kmap_atomic() in
+i915 with kmap_local_page() because the use of kmap_atomic() is being
+deprecated in favor of kmap_local_page()[1]. And 92b64bd (mm/highmem:
+add notes about conversions from kmap{,_atomic}()) has declared the
+deprecation of kmap_atomic().
+
+
+# Motivation for deprecating kmap_atomic() and using kmap_local_page()
+
+The main difference between atomic and local mappings is that local
+mappings doesn't disable page faults or preemption (the preemption is
+disabled for !PREEMPT_RT case, otherwise it only disables migration).
+
+With kmap_local_page(), we can avoid the often unwanted side effect of
+unnecessary page faults and preemption disables.
+
+
+# Patch summary
+
+Patch 1, 4-6 and 8-9 replace kamp_atomic()/kunmap_atomic() with
+        kmap_local_page()/kunmap_local() directly. With thses local
+        mappings, the page faults and preemption are allowed.
+
+Patch 2 and 7 use memcpy_from_page() and memcpy_to_page() to replace
+        kamp_atomic()/kunmap_atomic(). These two variants of memcpy()
+        are based on the local mapping, so page faults and preemption
+        are also allowed in these two interfaces.
+
+Patch 3 replaces kamp_atomic()/kunmap_atomic() with kmap_local_page()/
+        kunmap_local() and also diable page fault since the for special
+        handling (pls see the commit message).
+
+
+# Changes since v1
+
+* Dropped hot plug related description in commit message since it has
+  nothing to do with kmap_local_page().
+* Emphasized the motivation for using kmap_local_page() in commit
+  message.
+* Rebased patch 1 on f47e630 (drm/i915/gem: Typecheck page lookups) to
+  keep the "idx" variable of type pgoff_t here.
+* Used memcpy_from_page() and memcpy_to_page() to replace
+  kmap_local_page() + memcpy() in patch 2.
+
+
+# Reference
+
+[1]: https://lore.kernel.org/lkml/20221017093726.2070674-1-zhao1.liu@linux.intel.com/
+[1]: https://lore.kernel.org/all/20220813220034.806698-1-ira.weiny@intel.com
+---
+Zhao Liu (9):
+  drm/i915: Use kmap_local_page() in gem/i915_gem_object.c
+  drm/i915: Use memcpy_[from/to]_page() in gem/i915_gem_pyhs.c
+  drm/i915: Use kmap_local_page() in gem/i915_gem_shmem.c
+  drm/i915: Use kmap_local_page() in gem/selftests/huge_pages.c
+  drm/i915: Use kmap_local_page() in gem/selftests/i915_gem_coherency.c
+  drm/i915: Use kmap_local_page() in gem/selftests/i915_gem_context.c
+  drm/i915: Use memcpy_from_page() in gt/uc/intel_uc_fw.c
+  drm/i915: Use kmap_local_page() in i915_cmd_parser.c
+  drm/i915: Use kmap_local_page() in gem/i915_gem_execbuffer.c
+
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c       | 10 +++++-----
+ drivers/gpu/drm/i915/gem/i915_gem_object.c           |  8 +++-----
+ drivers/gpu/drm/i915/gem/i915_gem_phys.c             | 10 ++--------
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c            |  6 ++++--
+ drivers/gpu/drm/i915/gem/selftests/huge_pages.c      |  6 +++---
+ .../gpu/drm/i915/gem/selftests/i915_gem_coherency.c  | 12 ++++--------
+ .../gpu/drm/i915/gem/selftests/i915_gem_context.c    |  8 ++++----
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c             |  5 +----
+ drivers/gpu/drm/i915/i915_cmd_parser.c               |  4 ++--
+ 9 files changed, 28 insertions(+), 41 deletions(-)
+
+-- 
+2.34.1
 
