@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5797C76196
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 00:37:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C618C77B60
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 00:37:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 098D410E9FC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 495BE10EA20;
 	Wed, 29 Mar 2023 00:37:25 +0000 (UTC)
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [IPv6:2a00:1450:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3128F10E233
- for <intel-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 00:37:14 +0000 (UTC)
-Received: by mail-lf1-x133.google.com with SMTP id k37so18114544lfv.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 28 Mar 2023 17:37:14 -0700 (PDT)
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F25210E9A4
+ for <intel-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 00:37:20 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id j11so18029305lfg.13
+ for <intel-gfx@lists.freedesktop.org>; Tue, 28 Mar 2023 17:37:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680050232;
+ d=linaro.org; s=google; t=1680050240;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=IhYtgESoUxti0I4eqk/Ys6kBYaDG3yBiWNS4ylb1Lfs=;
- b=eFmdP4fGKPd5u/EwUxLwn1tDvmwc/8jiWQJpRwkEo88EWvwyA0QdcpdYxd1u9rH4eE
- eopGs/cwnn/Ji4o47HZglQGG/OQcTy1yxiufuNFlqT5TaWJQ4IBnQd0AXPF5X4VhPkT2
- YRUNlpJHisCGchoaGYzbwqG5n1bnuYUUZKAzMBMIA0hv34dsS5iwMr3utx9zWHhwRwPl
- CRiQ9pZXaJwKco4LnC8QVpWcF7xQP+yzBvzmsJTEiMoGQmB4J7GnDZfR2q0igAXulKDE
- fmsqerhXxN0GK1yLUPZbn4i1nTj/Nm9ytRAHM9Q3gU0NofwCl5pAQMpyVjOKHiqcYxAu
- VEtQ==
+ bh=AXWuxeHMpQCt72Y6URHGm/0rqCv9ixM2ky1A1nPsEmM=;
+ b=hqU3ki1Q6/iWlUzswF/kh0d7F4xfgz2At6Aw7rBzVSCGJgu1fGg6DyVkc3kCsr+lh5
+ JpwbZnSbNYmu4r2nVr4MZNik83G+5rJ5scblXrzJ+eAD1ZhYpD4p7JRq7MI1wFXfI+iO
+ 2upTmNcKfv1cTamizstEzS/jenx01HTJQ8tHXxnM+3TcpejsRClf2QKQLL29J7yE3Wcl
+ RqLEnQRSu6kX/ia9yDQ+qkSnWH+bJ2W7MSNb7hegRWi9F53ieJbTOSxaYws63U3Lu4se
+ /sd8P3CSqpzCGedTBiiL5e4ezlypJtdfsYaSeLUTNfSvYq5toOw5ExCci5ktz3Qk3R6p
+ UjjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680050232;
+ d=1e100.net; s=20210112; t=1680050240;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=IhYtgESoUxti0I4eqk/Ys6kBYaDG3yBiWNS4ylb1Lfs=;
- b=UC9U8QyQ22x+gMiK1DpQ5gnWXG83xpD6iM9vAGpNG58Gvt/iw7h5ije1IDak0gDxCI
- BZY9ukWeZaJ1bxGPR//Q5IONSlNpEFIN+UKmPrw+NmcY3x8BKyLMyX1dbp/YHwYWSLlS
- SDMbp6CIyp97zhuZBOcp2PNh/dUjSK8CNPJaTwFXVXLdB9zwV/I4vcC2n8+eQQLJYvA5
- UdqqLfSVOHrpsYt4nMkKYxhDKIk4L9IhGto2dCtR3EbeP5pb0P/vPP8Xb/goSH6g+f5F
- Bb9AambG4rv1OfA1mPjbKMCQSTf0R+2Sf40qzxN+7yIMiT4UUP0ljlh6msvldfev75HO
- aRFQ==
-X-Gm-Message-State: AAQBX9eYAK3uTf4O0UvYdtEEsVLkZiVgN8E49PpNucgmTy8dmVucyek4
- IXkDb2QEptBFjc/OZbNf3r6z1g==
-X-Google-Smtp-Source: AKy350YsxNAR3dIFM6gNbYMX9hu5HKdvPE6BBviLRfb+id2jBHvxinkzYkEE7vjDdFoCanpbb3L5+A==
-X-Received: by 2002:ac2:518d:0:b0:4a4:68b9:66f3 with SMTP id
- u13-20020ac2518d000000b004a468b966f3mr5070433lfi.62.1680050232299; 
- Tue, 28 Mar 2023 17:37:12 -0700 (PDT)
+ bh=AXWuxeHMpQCt72Y6URHGm/0rqCv9ixM2ky1A1nPsEmM=;
+ b=DVUjvQjNU8/A+I9RqejS/KNQnIE3TimEBgPT8J3YpslfDkGAa/N1b+9WBA+c0AqebH
+ /3u9GT80jzTkuyA42BSZrkCmtvPd8OVB+fgjPoexKZGvt1UYEylYtaw5XeJyCJaiDJyW
+ Ji3kbcWmh6z89VOGw8noRO34sI3LS6jAws1iAcIVfsmw7NLLBMm2fXxczmnY9GUPaDeO
+ FIM/NYh47DN7p9BC2jzalP692/qkB77MLB2bIwCZKpImLxu9lWrid+13TMpNsuhNfN7j
+ C6sipboQpVY6aLaUrR/3XMMSkwIlgGtviBUtZfll4xZZPwA0NR08wfJeRDrnAYq5+HfD
+ 101g==
+X-Gm-Message-State: AAQBX9fWZNWZER6jb0onFbfW3gTisPg/+VATm56DQKSihSmWq/V+IxrS
+ g0lkW0LpEsu44DZDXyWSWORB6Q==
+X-Google-Smtp-Source: AKy350aO16EGApaQ88+8KjUEilQMRGi6JlibmmkIedsK2TcF7sV227xOvVzIS6LwpXCFnfxgC0Geuw==
+X-Received: by 2002:a19:f009:0:b0:4eb:1213:ce2d with SMTP id
+ p9-20020a19f009000000b004eb1213ce2dmr2335523lfc.61.1680050239847; 
+ Tue, 28 Mar 2023 17:37:19 -0700 (PDT)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- y3-20020ac24463000000b004db00b4c671sm5254138lfl.7.2023.03.28.17.37.11
+ y3-20020ac24463000000b004db00b4c671sm5254138lfl.7.2023.03.28.17.37.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Mar 2023 17:37:11 -0700 (PDT)
+ Tue, 28 Mar 2023 17:37:19 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -59,15 +59,15 @@ To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
-Date: Wed, 29 Mar 2023 03:37:01 +0300
-Message-Id: <20230329003710.1073261-2-dmitry.baryshkov@linaro.org>
+Date: Wed, 29 Mar 2023 03:37:10 +0300
+Message-Id: <20230329003710.1073261-11-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230329003710.1073261-1-dmitry.baryshkov@linaro.org>
 References: <20230329003710.1073261-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 01/10] drm/i915/dsc: change DSC param tables
- to follow the DSC model
+Subject: [Intel-gfx] [PATCH v3 10/10] drm/msm/dsi: use new helpers for DSC
+ setup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,80 +80,111 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After cross-checking DSC models (20150914, 20161212, 20210623) change
-values in rc_parameters tables to follow config files present inside
-the DSC model. Handle two places, where i915 tables diverged from the
-model, by patching the rc values in the code.
+Use new DRM DSC helpers to setup DSI DSC configuration. The
+initial_scale_value needs to be adjusted according to the standard, but
+this is a separate change.
 
-Note: I left one case uncorrected, 8bpp/10bpc/range_max_qp[0], because
-the table in the VESA DSC 1.1 sets it to 4.
-
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/i915/display/intel_vdsc.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 61 ++++--------------------------
+ 1 file changed, 8 insertions(+), 53 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index 09b32ffdc552..20ce13b0a16b 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -87,7 +87,7 @@ static const struct rc_parameters rc_parameters[][MAX_COLUMN_INDEX] = {
- 		}
- 	},
- 	/* 6BPP/14BPC */
--	{ 768, 15, 6144, 15, 25, 23, 27, {
-+	{ 768, 15, 6144, 15, 25, 23, 23, {
- 		{ 0, 16, 0 }, { 7, 18, -2 }, { 15, 20, -2 }, { 16, 20, -4 },
- 		{ 17, 21, -6 }, { 17, 21, -6 }, { 18, 21, -6 }, { 18, 22, -8 },
- 		{ 19, 23, -8 }, { 20, 24, -10 }, { 21, 24, -10 },
-@@ -116,6 +116,10 @@ static const struct rc_parameters rc_parameters[][MAX_COLUMN_INDEX] = {
- 	},
- 	/* 8BPP/10BPC */
- 	{ 512, 12, 6144, 7, 16, 15, 15, {
-+		/*
-+		 * DSC model/pre-SCR-cfg has 8 for range_max_qp[0], however
-+		 * VESA DSC 1.1 Table E-5 sets it to 4.
-+		 */
- 		{ 0, 4, 2 }, { 4, 8, 0 }, { 5, 9, 0 }, { 5, 10, -2 },
- 		{ 7, 11, -4 }, { 7, 11, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
- 		{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
-@@ -133,7 +137,7 @@ static const struct rc_parameters rc_parameters[][MAX_COLUMN_INDEX] = {
- 	},
- 	/* 8BPP/14BPC */
- 	{ 512, 12, 6144, 15, 24, 23, 23, {
--		{ 0, 12, 0 }, { 5, 13, 0 }, { 11, 15, 0 }, { 12, 17, -2 },
-+		{ 0, 12, 2 }, { 5, 13, 0 }, { 11, 15, 0 }, { 12, 17, -2 },
- 		{ 15, 19, -4 }, { 15, 19, -6 }, { 15, 19, -8 }, { 15, 20, -8 },
- 		{ 15, 21, -8 }, { 15, 22, -10 }, { 17, 22, -10 },
- 		{ 17, 23, -12 }, { 17, 23, -12 }, { 21, 24, -12 },
-@@ -530,6 +534,20 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
- 			DSC_RANGE_BPG_OFFSET_MASK;
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 18fa30e1e858..dda989727921 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1735,28 +1735,9 @@ static int dsi_host_parse_lane_data(struct msm_dsi_host *msm_host,
+ 	return -EINVAL;
+ }
+ 
+-static u32 dsi_dsc_rc_buf_thresh[DSC_NUM_BUF_RANGES - 1] = {
+-	0x0e, 0x1c, 0x2a, 0x38, 0x46, 0x54, 0x62,
+-	0x69, 0x70, 0x77, 0x79, 0x7b, 0x7d, 0x7e
+-};
+-
+-/* only 8bpc, 8bpp added */
+-static char min_qp[DSC_NUM_BUF_RANGES] = {
+-	0, 0, 1, 1, 3, 3, 3, 3, 3, 3, 5, 5, 5, 7, 13
+-};
+-
+-static char max_qp[DSC_NUM_BUF_RANGES] = {
+-	4, 4, 5, 6, 7, 7, 7, 8, 9, 10, 11, 12, 13, 13, 15
+-};
+-
+-static char bpg_offset[DSC_NUM_BUF_RANGES] = {
+-	2, 0, 0, -2, -4, -6, -8, -8, -8, -10, -10, -12, -12, -12, -12
+-};
+-
+ static int dsi_populate_dsc_params(struct msm_dsi_host *msm_host, struct drm_dsc_config *dsc)
+ {
+-	int i;
+-	u16 bpp = dsc->bits_per_pixel >> 4;
++	int ret;
+ 
+ 	if (dsc->bits_per_pixel & 0xf) {
+ 		DRM_DEV_ERROR(&msm_host->pdev->dev, "DSI does not support fractional bits_per_pixel\n");
+@@ -1768,49 +1749,23 @@ static int dsi_populate_dsc_params(struct msm_dsi_host *msm_host, struct drm_dsc
+ 		return -EOPNOTSUPP;
  	}
  
-+	if (DISPLAY_VER(dev_priv) < 13) {
-+		/*
-+		 * FIXME: verify that the hardware actually needs these
-+		 * modifications rather than them being simple typos.
-+		 */
-+		if (compressed_bpp == 6 &&
-+		    vdsc_cfg->bits_per_component == 8)
-+			vdsc_cfg->rc_quant_incr_limit1 = 23;
-+
-+		if (compressed_bpp == 8 &&
-+		    vdsc_cfg->bits_per_component == 14)
-+			vdsc_cfg->rc_range_params[0].range_bpg_offset = 0;
-+	}
-+
- 	/*
- 	 * BitsPerComponent value determines mux_word_size:
- 	 * When BitsPerComponent is less than or 10bpc, muxWordSize will be equal to
+-	dsc->rc_model_size = 8192;
+-	dsc->first_line_bpg_offset = 12;
+-	dsc->rc_edge_factor = 6;
+-	dsc->rc_tgt_offset_high = 3;
+-	dsc->rc_tgt_offset_low = 3;
+ 	dsc->simple_422 = 0;
+ 	dsc->convert_rgb = 1;
+ 	dsc->vbr_enable = 0;
+ 
+-	/* handle only bpp = bpc = 8 */
+-	for (i = 0; i < DSC_NUM_BUF_RANGES - 1 ; i++)
+-		dsc->rc_buf_thresh[i] = dsi_dsc_rc_buf_thresh[i];
++	drm_dsc_set_const_params(dsc);
++	drm_dsc_set_rc_buf_thresh(dsc);
+ 
+-	for (i = 0; i < DSC_NUM_BUF_RANGES; i++) {
+-		dsc->rc_range_params[i].range_min_qp = min_qp[i];
+-		dsc->rc_range_params[i].range_max_qp = max_qp[i];
+-		/*
+-		 * Range BPG Offset contains two's-complement signed values that fill
+-		 * 8 bits, yet the registers and DCS PPS field are only 6 bits wide.
+-		 */
+-		dsc->rc_range_params[i].range_bpg_offset = bpg_offset[i] & DSC_RANGE_BPG_OFFSET_MASK;
++	/* handle only bpp = bpc = 8, pre-SCR panels */
++	ret = drm_dsc_setup_rc_params(dsc, DRM_DSC_1_1_PRE_SCR);
++	if (ret) {
++		DRM_DEV_ERROR(&msm_host->pdev->dev, "could not find DSC RC parameters\n");
++		return ret;
+ 	}
+ 
+-	dsc->initial_offset = 6144;		/* Not bpp 12 */
+-	if (bpp != 8)
+-		dsc->initial_offset = 2048;	/* bpp = 12 */
+-
+-	if (dsc->bits_per_component <= 10)
+-		dsc->mux_word_size = DSC_MUX_WORD_SIZE_8_10_BPC;
+-	else
+-		dsc->mux_word_size = DSC_MUX_WORD_SIZE_12_BPC;
+-
+-	dsc->initial_xmit_delay = 512;
+ 	dsc->initial_scale_value = 32;
+-	dsc->first_line_bpg_offset = 12;
+ 	dsc->line_buf_depth = dsc->bits_per_component + 1;
+ 
+-	/* bpc 8 */
+-	dsc->flatness_min_qp = 3;
+-	dsc->flatness_max_qp = 12;
+-	dsc->rc_quant_incr_limit0 = 11;
+-	dsc->rc_quant_incr_limit1 = 11;
+-
+ 	return drm_dsc_compute_rc_parameters(dsc);
+ }
+ 
 -- 
 2.39.2
 
