@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AC9EC6FD18
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 13:50:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B2F4C74A5B
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 13:50:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D55710EADD;
-	Wed, 29 Mar 2023 13:50:12 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12ACB10EADD
- for <intel-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 13:50:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB09F10EAE8;
+	Wed, 29 Mar 2023 13:50:15 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D04110EAE4
+ for <intel-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 13:50:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680097809; x=1711633809;
+ t=1680097814; x=1711633814;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=qpLibc1fDEPKymL6grt+uKu6xxUihgZbglI819BwPVY=;
- b=c74yG8X5Z9L2KWO231TBmfzFRf83uTFF2w0Pq5VlYiIBom8ja8eG5naX
- c42adbN0OJuzLFYrjtgMZ7beRR3tRmNxVo+bIhvL5ZeP9y3GtHs5zZqY9
- ZUP9NUOKdAfJqFQq8SmVY8oKxxFxM8LjGybMSZH1u3g7ic2mJvTp67/3/
- aSH+xEQblE4C2Lr1SlmoBkqg7hyXBJzkVZgn7H8spXza+MvGHWAe7Hjle
- cVxu6Fh92PqOXDDFGyIDaodU43W7EAeNZ6FNZJ8iSNQVBa6kh45Ka44Vt
- /YQnnY/1F5mztIc/BbwZV8BL4qxAk6Z919B9roXfJX9Ukx9fRmuIOpJyZ Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="321273939"
-X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="321273939"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2023 06:50:08 -0700
+ bh=A83I0H8sl1rlcwbE7JeYrJskLbPsSGx7oA7X3JBSH9E=;
+ b=crllecSImvF6N3cpPnJYlQd0eV8hG3xN8V9H2bF36rnDq/K8WCvR8OoJ
+ MUOTIh/b6bRIdF33rTimQqFKsIbcwWUr11zHUsUe9algY3RQ8oHB+Y44C
+ ohN5hqiB3nyInzNQLG5grSRLLLqcRNbGhPbespnhr8ENdpI71qpzWFB72
+ +FuMXqcR42aoXd8wLUBmj8ZENJAi4UFInEap1olERRk+RP+Gt8JgHZCPu
+ kLAaHyPGWZLQnEkV8pA7lnxhjWKwuASgXBZLJISeo9D0SLZLxawUSBZ+D
+ fQ/nfP0VPII04e2Za7uz9N3Aw0Dy3ErppyG9m497x3WvP+rtNzOmXtUtO w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="338379019"
+X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="338379019"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Mar 2023 06:50:14 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="714622644"
-X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="714622644"
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="1014029406"
+X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="1014029406"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by orsmga008.jf.intel.com with SMTP; 29 Mar 2023 06:50:06 -0700
+ by fmsmga005.fm.intel.com with SMTP; 29 Mar 2023 06:50:12 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 29 Mar 2023 16:50:05 +0300
+ Wed, 29 Mar 2023 16:50:11 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 29 Mar 2023 16:49:51 +0300
-Message-Id: <20230329135002.3096-2-ville.syrjala@linux.intel.com>
+Date: Wed, 29 Mar 2023 16:49:53 +0300
+Message-Id: <20230329135002.3096-4-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230329135002.3096-1-ville.syrjala@linux.intel.com>
 References: <20230329135002.3096-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 01/12] drm/i915: Fix limited range csc matrix
+Subject: [Intel-gfx] [PATCH 03/12] drm/i915: Split chv_load_cgm_csc() into
+ pieces
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,53 +65,56 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Our current limited range matrix is a bit off. I think it
-was originally calculated with rounding, as if we wanted
-the normal pixel replication type of behaviour.
-That is, since the 8bpc max value is 0xeb we assumed the
-16bpc max value should be 0xebeb, but what the HDMI spec
-actually says it should be is 0xeb00.
-
-So to get what we want we make the formula
- out = in * (235-16) << (12-8) / in_max + 16 << (12-8),
-with 12 being precision of the csc, 8 being the precision
-of the constants we used.
-
-The hardware takes its coefficients as floating point
-values, but the (235−16)/255 = ~.86, so exponent 0
-is what we want anyway, so it works out perfectly without
-having to hardcode it in hex or start playing with floats.
-
-In terms of raw numbers we are feeding the hardware the
-post offset changes from 0x101 to 0x100, and the coefficient
-changes from 0xdc0 to 0xdb0 (~.860->~.855). So this should
-make everything come out just a tad darker.
-
-I already used better constants in lut_limited_range() earlier
-so the output of the two paths should be closer now.
+Split chv_cgm_csc_convert_ctm() out from chv_load_cgm_csc() so
+that we have functions with clear jobs. This is also how the ilk+
+code is already structured.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_color.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index 36aac88143ac..3c3e2f5a5cde 100644
+index b1059e0c0665..47af24e64a7e 100644
 --- a/drivers/gpu/drm/i915/display/intel_color.c
 +++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -116,10 +116,9 @@ struct intel_color_funcs {
- #define ILK_CSC_COEFF_FP(coeff, fbits)	\
- 	(clamp_val(((coeff) >> (32 - (fbits) - 3)) + 4, 0, 0xfff) & 0xff8)
+@@ -399,16 +399,13 @@ static void icl_load_csc_matrix(const struct intel_crtc_state *crtc_state)
+ 	}
+ }
  
--#define ILK_CSC_COEFF_LIMITED_RANGE 0x0dc0
- #define ILK_CSC_COEFF_1_0 0x7800
--
--#define ILK_CSC_POSTOFF_LIMITED_RANGE (16 * (1 << 12) / 255)
-+#define ILK_CSC_COEFF_LIMITED_RANGE ((235 - 16) << (12 - 8)) /* exponent 0 */
-+#define ILK_CSC_POSTOFF_LIMITED_RANGE (16 << (12 - 8))
+-static void chv_load_cgm_csc(struct intel_crtc *crtc,
+-			     const struct drm_property_blob *blob)
++static void chv_cgm_csc_convert_ctm(u16 coeffs[9],
++				    const struct drm_property_blob *blob)
+ {
+-	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+ 	const struct drm_color_ctm *ctm = blob->data;
+-	enum pipe pipe = crtc->pipe;
+-	u16 coeffs[9];
+ 	int i;
  
- /* Nop pre/post offsets */
- static const u16 ilk_csc_off_zero[3] = {};
+-	for (i = 0; i < ARRAY_SIZE(coeffs); i++) {
++	for (i = 0; i < 9; i++) {
+ 		u64 abs_coeff = ((1ULL << 63) - 1) & ctm->matrix[i];
+ 
+ 		/* Round coefficient. */
+@@ -425,6 +422,16 @@ static void chv_load_cgm_csc(struct intel_crtc *crtc,
+ 		coeffs[i] |= ((abs_coeff >> 32) & 7) << 12;
+ 		coeffs[i] |= (abs_coeff >> 20) & 0xfff;
+ 	}
++}
++
++static void chv_load_cgm_csc(struct intel_crtc *crtc,
++			     const struct drm_property_blob *blob)
++{
++	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
++	enum pipe pipe = crtc->pipe;
++	u16 coeffs[9];
++
++	chv_cgm_csc_convert_ctm(coeffs, blob);
+ 
+ 	intel_de_write_fw(i915, CGM_PIPE_CSC_COEFF01(pipe),
+ 			  coeffs[1] << 16 | coeffs[0]);
 -- 
 2.39.2
 
