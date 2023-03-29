@@ -4,53 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 791FDC6FD18
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 07:25:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B9A1C74A5B
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 07:25:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBF9E10EA2C;
-	Wed, 29 Mar 2023 07:25:20 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C89E610E4FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93DAC10E4FE;
+	Wed, 29 Mar 2023 07:25:23 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4242110E4FC;
  Wed, 29 Mar 2023 07:25:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1680074709; x=1711610709;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:references:in-reply-to:to:cc;
- bh=SjGS/NBEg10FgFcG60Eo0L1khFE2QrsMt8Dx57P3heg=;
- b=XDvNFXJgE+AFBk4igFgAtAPrZF6nMVE4C7boeZRlT8Ugovel7owmIy1j
- Cvih9vWpNaBIqKUDg4mKIEmEPq2UmPOe0rkrHjMLyCylTvtNcdGYxdahX
- jVzc+lR9yqHE7ziOiYbAMJ1W2sk1JRbm1VA0WZ1ovRQsqRfmLnpmkQ7AK
- v6y0kju/rGQ3SwOgmtjcq7UyXS5zxkThIUQKD539cZpuo+xaItKxlnALh
- fMBiU8txhLfrXX1dMYX6CvnYJidFiehRyrfcf2jE2ceOv9yKTosliDLOd
- c+L/NpTWov4bSD48uQY+xVPcqQWltAZaBqRNP6VETek/SuK6aAAAeI1Og w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="368569693"
-X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="368569693"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2023 00:24:45 -0700
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=ctlg4NjY5kelpxf9KaNbuOy8AYhBpUiiPegXpU79lsk=;
+ b=IXeSWYKhMXZJGUviW+UGlsw7EQ/LenITdZnTDbWWuyd8Ew3q1GZv2WTp
+ PMw+0OuQRC/kr8HBpSs+LW5EmKJsgDC/f60LTVrVHWfEhrDpgK5OPJ+si
+ j9fY9btqjZHH2/DoJ0kAv2xFHsjHLELKSt15EY7XMClUmR8K2u+ooqiuy
+ V/x2DZiYJhd8thWKQaG5YOao13E543xcU5RmHYEQa2PV+bbIJFgZOe1xk
+ ZZl5/IqFmqHWgtE1Mrqn1Y21GIngA3ZkeqdMNXrfDmXZBYjbu0gwDq/SR
+ yspKCJyrpJrgrmXbrV8cTOPm6j4CWttq69v+iiPxKW2LgnNcb0UuzArLN A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="405746207"
+X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="405746207"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Mar 2023 00:24:49 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="827772817"
-X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="827772817"
-Received: from lab-ah.igk.intel.com ([10.102.138.202])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2023 00:24:41 -0700
-From: Andrzej Hajda <andrzej.hajda@intel.com>
-Date: Wed, 29 Mar 2023 09:24:14 +0200
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230224-track_gt-v6-3-0dc8601fd02f@intel.com>
-References: <20230224-track_gt-v6-0-0dc8601fd02f@intel.com>
-In-Reply-To: <20230224-track_gt-v6-0-0dc8601fd02f@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10663"; a="684160631"
+X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="684160631"
+Received: from liuzhao-optiplex-7080.sh.intel.com ([10.239.160.112])
+ by orsmga002.jf.intel.com with ESMTP; 29 Mar 2023 00:24:45 -0700
+From: Zhao Liu <zhao1.liu@linux.intel.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-X-Mailer: b4 0.11.1
-Subject: [Intel-gfx] [PATCH v6 3/8] lib/ref_tracker: add printing to memory
- buffer
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Matthew Auld <matthew.auld@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Nirmoy Das <nirmoy.das@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 29 Mar 2023 15:32:18 +0800
+Message-Id: <20230329073220.3982460-8-zhao1.liu@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230329073220.3982460-1-zhao1.liu@linux.intel.com>
+References: <20230329073220.3982460-1-zhao1.liu@linux.intel.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 7/9] drm/i915: Use memcpy_from_page() in
+ gt/uc/intel_uc_fw.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,147 +69,78 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, netdev@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Dmitry Vyukov <dvyukov@google.com>
+Cc: "Fabio M . De Francesco" <fmdefrancesco@gmail.com>,
+ Ira Weiny <ira.weiny@intel.com>, Zhao Liu <zhao1.liu@intel.com>,
+ Zhenyu Wang <zhenyu.z.wang@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Similar to stack_(depot|trace)_snprint the patch
-adds helper to printing stats to memory buffer.
-It will be helpful in case of debugfs.
+From: Zhao Liu <zhao1.liu@intel.com>
 
-Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
+The use of kmap_atomic() is being deprecated in favor of
+kmap_local_page()[1], and this patch converts the call from
+kmap_atomic() to kmap_local_page().
+
+The main difference between atomic and local mappings is that local
+mappings doesn't disable page faults or preemption  (the preemption is
+disabled for !PREEMPT_RT case, otherwise it only disables migration).
+
+With kmap_local_page(), we can avoid the often unwanted side effect of
+unnecessary page faults or preemption disables.
+
+In drm/i915/gt/uc/intel_us_fw.c, the function intel_uc_fw_copy_rsa()
+just use the mapping to do memory copy so it doesn't need to disable
+pagefaults and preemption for mapping. Thus the local mapping without
+atomic context (not disable pagefaults / preemption) is enough.
+
+Therefore, intel_uc_fw_copy_rsa() is a function where the use of
+memcpy_from_page() with kmap_local_page() in place of memcpy() with
+kmap_atomic() is correctly suited.
+
+Convert the calls of memcpy() with kmap_atomic() / kunmap_atomic() to
+memcpy_from_page() which uses local mapping to copy.
+
+[1]: https://lore.kernel.org/all/20220813220034.806698-1-ira.weiny@intel.com/T/#u
+
+v2: No code change since v1, and added description of the motivation of
+    using kmap_local_page().
+
+Suggested-by: Ira Weiny <ira.weiny@intel.com>
+Suggested-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
+Reviewed-by: Ira Weiny <ira.weiny@intel.com>
+Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 ---
- include/linux/ref_tracker.h |  8 +++++++
- lib/ref_tracker.c           | 56 ++++++++++++++++++++++++++++++++++++++-------
- 2 files changed, 56 insertions(+), 8 deletions(-)
+Suggested by credits:
+  Ira: Referred to his task document and suggestions about using
+       memcpy_from_page() directly.
+  Fabio: Referred to his boiler plate commit message and his description
+         about why kmap_local_page() should be preferred.
+---
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/include/linux/ref_tracker.h b/include/linux/ref_tracker.h
-index fc9ef9952f01fd..4cd260efc4023f 100644
---- a/include/linux/ref_tracker.h
-+++ b/include/linux/ref_tracker.h
-@@ -50,6 +50,8 @@ void ref_tracker_dir_print_locked(struct ref_tracker_dir *dir,
- void ref_tracker_dir_print(struct ref_tracker_dir *dir,
- 			   unsigned int display_limit);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index 65672ff82605..5bbde4abd565 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -1152,16 +1152,13 @@ size_t intel_uc_fw_copy_rsa(struct intel_uc_fw *uc_fw, void *dst, u32 max_len)
  
-+int ref_tracker_dir_snprint(struct ref_tracker_dir *dir, char *buf, size_t size);
-+
- int ref_tracker_alloc(struct ref_tracker_dir *dir,
- 		      struct ref_tracker **trackerp, gfp_t gfp);
+ 		for_each_sgt_page(page, iter, uc_fw->obj->mm.pages) {
+ 			u32 len = min_t(u32, size, PAGE_SIZE - offset);
+-			void *vaddr;
  
-@@ -78,6 +80,12 @@ static inline void ref_tracker_dir_print(struct ref_tracker_dir *dir,
- {
- }
+ 			if (idx > 0) {
+ 				idx--;
+ 				continue;
+ 			}
  
-+static inline int ref_tracker_dir_snprint(struct ref_tracker_dir *dir,
-+					  char *buf, size_t size)
-+{
-+	return 0;
-+}
-+
- static inline int ref_tracker_alloc(struct ref_tracker_dir *dir,
- 				    struct ref_tracker **trackerp,
- 				    gfp_t gfp)
-diff --git a/lib/ref_tracker.c b/lib/ref_tracker.c
-index 2ffe79c90c1771..cce4614b07940f 100644
---- a/lib/ref_tracker.c
-+++ b/lib/ref_tracker.c
-@@ -62,8 +62,27 @@ ref_tracker_get_stats(struct ref_tracker_dir *dir, unsigned int limit)
- 	return stats;
- }
+-			vaddr = kmap_atomic(page);
+-			memcpy(dst, vaddr + offset, len);
+-			kunmap_atomic(vaddr);
++			memcpy_from_page(dst, page, offset, len);
  
--void ref_tracker_dir_print_locked(struct ref_tracker_dir *dir,
--				  unsigned int display_limit)
-+struct ostream {
-+	char *buf;
-+	int size, used;
-+};
-+
-+#define pr_ostream(stream, fmt, args...) \
-+({ \
-+	struct ostream *_s = (stream); \
-+\
-+	if (!_s->buf) { \
-+		pr_err(fmt, ##args); \
-+	} else { \
-+		int ret, len = _s->size - _s->used; \
-+		ret = snprintf(_s->buf + _s->used, len, pr_fmt(fmt), ##args); \
-+		_s->used += min(ret, len); \
-+	} \
-+})
-+
-+static void
-+__ref_tracker_dir_pr_ostream(struct ref_tracker_dir *dir,
-+			     unsigned int display_limit, struct ostream *s)
- {
- 	struct ref_tracker_dir_stats *stats;
- 	unsigned int i = 0, skipped;
-@@ -77,8 +96,8 @@ void ref_tracker_dir_print_locked(struct ref_tracker_dir *dir,
- 
- 	stats = ref_tracker_get_stats(dir, display_limit);
- 	if (IS_ERR(stats)) {
--		pr_err("%s@%pK: couldn't get stats, error %pe\n",
--		       dir->name, dir, stats);
-+		pr_ostream(s, "%s@%pK: couldn't get stats, error %pe\n",
-+			   dir->name, dir, stats);
- 		return;
- 	}
- 
-@@ -88,19 +107,27 @@ void ref_tracker_dir_print_locked(struct ref_tracker_dir *dir,
- 		stack = stats->stacks[i].stack_handle;
- 		if (sbuf && !stack_depot_snprint(stack, sbuf, STACK_BUF_SIZE, 4))
- 			sbuf[0] = 0;
--		pr_err("%s@%pK has %d/%d users at\n%s\n", dir->name, dir,
--		       stats->stacks[i].count, stats->total, sbuf);
-+		pr_ostream(s, "%s@%pK has %d/%d users at\n%s\n", dir->name, dir,
-+			   stats->stacks[i].count, stats->total, sbuf);
- 		skipped -= stats->stacks[i].count;
- 	}
- 
- 	if (skipped)
--		pr_err("%s@%pK skipped reports about %d/%d users.\n",
--		       dir->name, dir, skipped, stats->total);
-+		pr_ostream(s, "%s@%pK skipped reports about %d/%d users.\n",
-+			   dir->name, dir, skipped, stats->total);
- 
- 	kfree(sbuf);
- 
- 	kfree(stats);
- }
-+
-+void ref_tracker_dir_print_locked(struct ref_tracker_dir *dir,
-+				  unsigned int display_limit)
-+{
-+	struct ostream os = {};
-+
-+	__ref_tracker_dir_pr_ostream(dir, display_limit, &os);
-+}
- EXPORT_SYMBOL(ref_tracker_dir_print_locked);
- 
- void ref_tracker_dir_print(struct ref_tracker_dir *dir,
-@@ -114,6 +141,19 @@ void ref_tracker_dir_print(struct ref_tracker_dir *dir,
- }
- EXPORT_SYMBOL(ref_tracker_dir_print);
- 
-+int ref_tracker_dir_snprint(struct ref_tracker_dir *dir, char *buf, size_t size)
-+{
-+	struct ostream os = { .buf = buf, .size = size };
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&dir->lock, flags);
-+	__ref_tracker_dir_pr_ostream(dir, 16, &os);
-+	spin_unlock_irqrestore(&dir->lock, flags);
-+
-+	return os.used;
-+}
-+EXPORT_SYMBOL(ref_tracker_dir_snprint);
-+
- void ref_tracker_dir_exit(struct ref_tracker_dir *dir)
- {
- 	struct ref_tracker *tracker, *n;
-
+ 			offset = 0;
+ 			dst += len;
 -- 
 2.34.1
+
