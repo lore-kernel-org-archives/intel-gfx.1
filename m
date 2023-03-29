@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7911EC74A5B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F9C3C6FD18
 	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 13:50:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E574910EAF9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 901C710EAF1;
 	Wed, 29 Mar 2023 13:50:41 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBF7D10EAFE
- for <intel-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 13:50:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3654210EAEB
+ for <intel-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 13:50:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680097836; x=1711633836;
+ t=1680097831; x=1711633831;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=Q5urDJsskuWWNG3pStiOS5fJAlxFiNbgrJo6PFqPX/U=;
- b=FDETCv9yj/PtrdsRewvj5SJWOlyJ0U9ynp4CltmkvgpR9MuIjMcoWrBu
- hbU16p085SD2l1jwTvnWsG6m2yG4wC9fRzDzrMmu+6EIbIeuLpxP6f9w0
- YUKPvjux9d55CU7g7ztdTBg6d7fEw2gREflBFgHFo7cNoHqBiQ3jERm2Y
- WL9HJZ6FLZLzqyJqRVxs4gxQ/NNRHR7UbK/RCPbVw/VGgd+kDR9GHI6yv
- c5bEOV4DpKoGjzlg1mmBpeQHl3m7xMzHaZ2w1bikUgUZayXcM1AJYesOo
- udMq4Py55CRhQ1UFmPs9whIZhykQEnnjv2Im13gAd4l4+7usTpL9bkQnC Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="338379100"
-X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="338379100"
+ bh=LYT6TGyMMCuKEsX7jN7e5tJgtdpQwkexyhUiJxYDk8E=;
+ b=eoEL89/o+uncrMa1T3dtJuE9Wum6b/bOkkV5A/xUQSaoQLveh2gKz8bK
+ PgJ/GNG3d7mdlJ8rGBQe6Pe+aUKtsQ6UDmRIMKGkPWu2geQ0bf2tI6+0F
+ VimqmOrnaoqDUF0K8C8fDypgSthEQ5XThRLSxJsrrOKZuBMDJ5Yz1zKdP
+ wL2DIF/dn/JzDV2QP5n6Y29QP4KZpa6T+HXVZeJZWOSqU+iV2kZnzR1Rh
+ pOwZXqDpZPqvWWYwvdzDBIp7zMuB61R12Jq+s0FcqD4M9rKY+iawC+iI8
+ ufWRN4epKMcMkVFFjmCO2q315SL31XYv+rM2oqvS4yBZKZnOVYtgvmeTt w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="338379076"
+X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="338379076"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2023 06:50:36 -0700
+ 29 Mar 2023 06:50:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="1014029509"
-X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="1014029509"
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="1014029492"
+X-IronPort-AV: E=Sophos;i="5.98,300,1673942400"; d="scan'208";a="1014029492"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by fmsmga005.fm.intel.com with SMTP; 29 Mar 2023 06:50:34 -0700
+ by fmsmga005.fm.intel.com with SMTP; 29 Mar 2023 06:50:29 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 29 Mar 2023 16:50:34 +0300
+ Wed, 29 Mar 2023 16:50:28 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 29 Mar 2023 16:50:01 +0300
-Message-Id: <20230329135002.3096-12-ville.syrjala@linux.intel.com>
+Date: Wed, 29 Mar 2023 16:49:59 +0300
+Message-Id: <20230329135002.3096-10-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230329135002.3096-1-ville.syrjala@linux.intel.com>
 References: <20230329135002.3096-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 11/12] drm/i915: Hook up csc into state checker
+Subject: [Intel-gfx] [PATCH 09/12] drm/i915: Implement chv cgm csc readout
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,53 +64,68 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Have the state checker validate that the csc matrices
-look correct when read back from the hardware.
+Read out the csc matrix on chv, and stash the result into the
+correct spot in the crtc state.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 21 ++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ drivers/gpu/drm/i915/display/intel_color.c | 36 ++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index aa22241c971c..763f7fdfb27c 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -5643,6 +5643,24 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 	} \
- } while (0)
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index 86b0d8260574..baadf62aabb4 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -612,6 +612,41 @@ static void chv_load_cgm_csc(struct intel_crtc *crtc,
+ 			  csc->coeff[8]);
+ }
  
-+#define PIPE_CONF_CHECK_CSC(name) do { \
-+	PIPE_CONF_CHECK_X(name.preoff[0]); \
-+	PIPE_CONF_CHECK_X(name.preoff[1]); \
-+	PIPE_CONF_CHECK_X(name.preoff[2]); \
-+	PIPE_CONF_CHECK_X(name.coeff[0]); \
-+	PIPE_CONF_CHECK_X(name.coeff[1]); \
-+	PIPE_CONF_CHECK_X(name.coeff[2]); \
-+	PIPE_CONF_CHECK_X(name.coeff[3]); \
-+	PIPE_CONF_CHECK_X(name.coeff[4]); \
-+	PIPE_CONF_CHECK_X(name.coeff[5]); \
-+	PIPE_CONF_CHECK_X(name.coeff[6]); \
-+	PIPE_CONF_CHECK_X(name.coeff[7]); \
-+	PIPE_CONF_CHECK_X(name.coeff[8]); \
-+	PIPE_CONF_CHECK_X(name.postoff[0]); \
-+	PIPE_CONF_CHECK_X(name.postoff[1]); \
-+	PIPE_CONF_CHECK_X(name.postoff[2]); \
-+} while (0)
++static void chv_read_cgm_csc(struct intel_crtc *crtc,
++			     struct intel_csc_matrix *csc)
++{
++	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
++	enum pipe pipe = crtc->pipe;
++	u32 tmp;
 +
- #define PIPE_CONF_QUIRK(quirk) \
- 	((current_config->quirks | pipe_config->quirks) & (quirk))
- 
-@@ -5740,6 +5758,9 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 		PIPE_CONF_CHECK_COLOR_LUT(pre_csc_lut, true);
- 		PIPE_CONF_CHECK_COLOR_LUT(post_csc_lut, false);
- 
-+		PIPE_CONF_CHECK_CSC(csc);
-+		PIPE_CONF_CHECK_CSC(output_csc);
++	tmp = intel_de_read_fw(i915, CGM_PIPE_CSC_COEFF01(pipe));
++	csc->coeff[0] = tmp & 0xffff;
++	csc->coeff[1] = tmp >> 16;
 +
- 		if (current_config->active_planes) {
- 			PIPE_CONF_CHECK_BOOL(has_psr);
- 			PIPE_CONF_CHECK_BOOL(has_psr2);
++	tmp = intel_de_read_fw(i915, CGM_PIPE_CSC_COEFF23(pipe));
++	csc->coeff[2] = tmp & 0xffff;
++	csc->coeff[3] = tmp >> 16;
++
++	tmp = intel_de_read_fw(i915, CGM_PIPE_CSC_COEFF45(pipe));
++	csc->coeff[4] = tmp & 0xffff;
++	csc->coeff[5] = tmp >> 16;
++
++	tmp = intel_de_read_fw(i915, CGM_PIPE_CSC_COEFF67(pipe));
++	csc->coeff[6] = tmp & 0xffff;
++	csc->coeff[7] = tmp >> 16;
++
++	tmp = intel_de_read_fw(i915, CGM_PIPE_CSC_COEFF8(pipe));
++	csc->coeff[8] = tmp & 0xffff;
++}
++
++static void chv_read_csc(struct intel_crtc_state *crtc_state)
++{
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++
++	if (crtc_state->cgm_mode & CGM_PIPE_MODE_CSC)
++		chv_read_cgm_csc(crtc, &crtc_state->csc);
++}
++
+ static void chv_assign_csc(struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
+@@ -3329,6 +3364,7 @@ static const struct intel_color_funcs chv_color_funcs = {
+ 	.load_luts = chv_load_luts,
+ 	.read_luts = chv_read_luts,
+ 	.lut_equal = chv_lut_equal,
++	.read_csc = chv_read_csc,
+ };
+ 
+ static const struct intel_color_funcs i965_color_funcs = {
 -- 
 2.39.2
 
