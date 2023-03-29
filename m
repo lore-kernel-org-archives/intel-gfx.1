@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2CC0C6FD18
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 00:37:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62591C761A6
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Mar 2023 00:37:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB7B910E266;
-	Wed, 29 Mar 2023 00:37:14 +0000 (UTC)
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [IPv6:2a00:1450:4864:20::22e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 535E510E197
- for <intel-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 00:37:13 +0000 (UTC)
-Received: by mail-lj1-x22e.google.com with SMTP id o20so11483831ljp.3
- for <intel-gfx@lists.freedesktop.org>; Tue, 28 Mar 2023 17:37:13 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41C3F10E977;
+	Wed, 29 Mar 2023 00:37:20 +0000 (UTC)
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [IPv6:2a00:1450:4864:20::136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA4C310E962
+ for <intel-gfx@lists.freedesktop.org>; Wed, 29 Mar 2023 00:37:17 +0000 (UTC)
+Received: by mail-lf1-x136.google.com with SMTP id q16so18041228lfe.10
+ for <intel-gfx@lists.freedesktop.org>; Tue, 28 Mar 2023 17:37:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680050231;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=BoN+U4KTTFxXWQmwg13Yxlkx1E7Pohg3WEKsSIowviU=;
- b=uKWAwoxBzBWP0lm4jboJdDtbdnJQFPCUPy64D25rIUT6v7Iw2HVipwvHwuZBBIA3nd
- lDbGgXUvGX5TLQH367xV+SpRrOzokAqVyK8x52/0933V4EM7LdPupCFkQuYUwkIT2b4w
- Vem8bKb2NLTOsfHs0ULO+Sgy1KGBX3UyGpJzWlofXfJg2T6r5TeHLViHEVefh6optPpr
- +eBOo/spXoY3XSCqTkumK8CI9tqgizGBXI0kOuhYpM9EOFqbRtd9bdKqbf1saQVaZ54/
- 6vQ40EgFMFDgqwKDzyqF0Lsm8Npz9On5Phvkp7ut0jiDQKnIHxIkNpFdW9j11p7bE2yh
- Ty6g==
+ d=linaro.org; s=google; t=1680050237;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=En6Mc/WtUVj/NeVz0q33ivE5D8wBC5ClMkHoJkmE8sE=;
+ b=QxF1mC58vYfpy7QiqssYPyNZPfds0bMRph5o3kqCpAgfdp12y5SwqYoHIKULtL7Hki
+ kFxjqOOfjx7tS8Pgap1bhLNwR5gDgb/yd0Qai5+XwcYmvU5jAhKF7iYB4yBt+YrGWcPN
+ OZxGUozJdY3pLmA2x1YugHfI1pSCQEgj7YSQU4hKCCILcTs42xhucbWWuToQdc7QIgZw
+ RNfh52nweKTbCJUKeaAK/s7HVIUXLUboH3/EmHJTaEdUvs3g3/EIY3dcP4pbnlmj0doa
+ VESosvFhOSRIr2+2YuW/4Xfjak2r+cjse+pHwlTse56RAamgkCMOQY4AZGbvccHiFHZ4
+ pGPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680050231;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=BoN+U4KTTFxXWQmwg13Yxlkx1E7Pohg3WEKsSIowviU=;
- b=gdzN7R7XUFlOZRmgwz1YXHD3xHXdwWwZEHqlyWeQbPao1pRXS1dmK4ZApVZC8JBUpk
- 8tzabTVwJco3o5vHi7Bu9g6WS69i0O6G4QxxtbEL90y6NHDlcok6s5SG6WPfKadLwPCl
- OKNEe/ydrwRA/Om8yHqKiHk9gK/EiPaQSFCdzrKWQgAO8GHJLSdS6zyQLP68j2H8FIAB
- IStuh7cygNzvOD0NMp1IKqttELVP/85/Er6cH6ikIApj9p9sKf+1zBEUQYRm2oSiM9R7
- 3ZD2E+GGDPS9YeLmaf3zgVTLn0KFnwG/504lus0D3won/72n9kf58LANnRybBXh21wjT
- LDBA==
-X-Gm-Message-State: AAQBX9dQ4D3NT3qUsE+Ulj4pjyMhU81cch71iFgBF1vlLb8bx++4Qywu
- HCmPRz59ymGGfT25jhjFMR/xfg==
-X-Google-Smtp-Source: AKy350a2RS08zoZZOG+BWubmWseK/rNgE24Z6x1MnkaDt3fQcNspibs70tW9EreTz3AVcoQITjjJIg==
-X-Received: by 2002:a2e:910e:0:b0:29a:fe9:3b2 with SMTP id
- m14-20020a2e910e000000b0029a0fe903b2mr5273444ljg.36.1680050231542; 
- Tue, 28 Mar 2023 17:37:11 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1680050237;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=En6Mc/WtUVj/NeVz0q33ivE5D8wBC5ClMkHoJkmE8sE=;
+ b=ol3i6h9Yq/ze3EcklDV7QajjAuZmzroTV6xCNcWo59sm/j5B9GjIoz15fCfbD/I4pX
+ AKdtiyvY9PTQdL4EIc1ROYob85EB/ODzk/NsRZ+7ts8hbbiJyJSHjv3iLBYPfY/+cY2i
+ y8dD+7VcWypSYG25HD5ZeFYg2Q1AbxEmMR9CXHfoFaHkiv5nUfCGwVqONGbKzn0R+cvk
+ 8KHXWxBg9AmpuDd2YYWVWlAAvuM3qpmcernYtde81nO+FeFax7MaFAYqRsua6Kn0R5vi
+ h1M4gQwP162oVEstgi9p3m/CglfEA+etWYt9EwGlAO/ULHzVxDL1afkUDyUOTjlY+p/y
+ Kiog==
+X-Gm-Message-State: AAQBX9fqHmiyB5KNe2rs3t4ndZxXCvePTpmm+tpC3Yh35/JKwDOUadig
+ ipah5q/SKfIU2ubead1hMHnrmpNOAh0o3ryYGNA=
+X-Google-Smtp-Source: AKy350aB8+YSWQuTl2ERD/6F3hb48RtXd07T6MJfHq2qGR4HBUxrO13N0K3jdOG0Toj5i3lmT/GxSA==
+X-Received: by 2002:ac2:48aa:0:b0:4b3:d6e1:26bb with SMTP id
+ u10-20020ac248aa000000b004b3d6e126bbmr4739435lfg.29.1680050237368; 
+ Tue, 28 Mar 2023 17:37:17 -0700 (PDT)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- y3-20020ac24463000000b004db00b4c671sm5254138lfl.7.2023.03.28.17.37.10
+ y3-20020ac24463000000b004db00b4c671sm5254138lfl.7.2023.03.28.17.37.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Mar 2023 17:37:11 -0700 (PDT)
+ Tue, 28 Mar 2023 17:37:16 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -58,13 +59,15 @@ To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
-Date: Wed, 29 Mar 2023 03:37:00 +0300
-Message-Id: <20230329003710.1073261-1-dmitry.baryshkov@linaro.org>
+Date: Wed, 29 Mar 2023 03:37:07 +0300
+Message-Id: <20230329003710.1073261-8-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230329003710.1073261-1-dmitry.baryshkov@linaro.org>
+References: <20230329003710.1073261-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 00/10] drm/i915: move DSC RC tables to
- drm_dsc_helper.c
+Subject: [Intel-gfx] [PATCH v3 07/10] drm/display/dsc: include the rest of
+ pre-SCR parameters
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,51 +85,111 @@ Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Other platforms (msm) will benefit from sharing the DSC config setup
-functions. This series moves parts of static DSC config data from the
-i915 driver to the common helpers to be used by other drivers.
+DSC model contains pre-SCR RC parameters for other bpp/bpc combinations,
+include them here for completeness.
 
-Note: the RC parameters were cross-checked against config files found in
-DSC model 2021062, 20161212 (and 20150914). The first patch modifies
-tables according to those config files, while preserving parameter
-values using the code. I have not changed one of the values in the
-pre-SCR config file as it clearly looks like a typo in the config file,
-considering the table E in DSC 1.1 and in the DSC 1.1 SCR.
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/display/drm_dsc_helper.c | 72 ++++++++++++++++++++++++
+ 1 file changed, 72 insertions(+)
 
-Chances since v2:
-- Rebased on top of drm-intel-next
-
-Chances since v1:
-- Made drm_dsc_rc_buf_thresh static rather than exporting it
-- Switched drm_dsc_rc_buf_thresh loop to use ARRAY_SIZE. Added
-  BUILD_BUG_ON's to be sure that array sizes are correct
-- Fixed rc_parameters_data indentation to be logical and tidy
-- Fixed drm_dsc_setup_rc_params() kerneldoc
-- Added a clause to drm_dsc_setup_rc_params() to verify bpp and bpc
-  being set.
-- Fixed range_bpg_offset programming in calculate_rc_params()
-- Fixed bpp vs bpc bug in intel_dsc_compute_params()
-- Added FIXME comment next to the customizations in
-  intel_dsc_compute_params().
-
-Dmitry Baryshkov (10):
-  drm/i915/dsc: change DSC param tables to follow the DSC model
-  drm/i915/dsc: move rc_buf_thresh values to common helper
-  drm/i915/dsc: move DSC tables to DRM DSC helper
-  drm/i915/dsc: stop using interim structure for calculated params
-  drm/display/dsc: use flat array for rc_parameters lookup
-  drm/display/dsc: split DSC 1.2 and DSC 1.1 (pre-SCR) parameters
-  drm/display/dsc: include the rest of pre-SCR parameters
-  drm/display/dsc: add YCbCr 4:2:2 and 4:2:0 RC parameters
-  drm/display/dsc: add helper to set semi-const parameters
-  drm/msm/dsi: use new helpers for DSC setup
-
- drivers/gpu/drm/display/drm_dsc_helper.c  | 1007 +++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_vdsc.c |  443 +--------
- drivers/gpu/drm/msm/dsi/dsi_host.c        |   61 +-
- include/drm/display/drm_dsc_helper.h      |   10 +
- 4 files changed, 1072 insertions(+), 449 deletions(-)
-
+diff --git a/drivers/gpu/drm/display/drm_dsc_helper.c b/drivers/gpu/drm/display/drm_dsc_helper.c
+index 35b39f3109c4..aec6f8c201af 100644
+--- a/drivers/gpu/drm/display/drm_dsc_helper.c
++++ b/drivers/gpu/drm/display/drm_dsc_helper.c
+@@ -325,6 +325,16 @@ struct rc_parameters_data {
+ #define DSC_BPP(bpp)	((bpp) << 4)
+ 
+ static const struct rc_parameters_data rc_parameters_pre_scr[] = {
++	{
++		.bpp = DSC_BPP(6), .bpc = 8,
++		{ 683, 15, 6144, 3, 13, 11, 11, {
++			{ 0, 2, 0 }, { 1, 4, -2 }, { 3, 6, -2 }, { 4, 6, -4 },
++			{ 5, 7, -6 }, { 5, 7, -6 }, { 6, 7, -6 }, { 6, 8, -8 },
++			{ 7, 9, -8 }, { 8, 10, -10 }, { 9, 11, -10 }, { 10, 12, -12 },
++			{ 10, 13, -12 }, { 12, 14, -12 }, { 15, 15, -12 }
++			}
++		}
++	},
+ 	{
+ 		.bpp = DSC_BPP(8), .bpc = 8,
+ 		{ 512, 12, 6144, 3, 12, 11, 11, {
+@@ -360,6 +370,37 @@ static const struct rc_parameters_data rc_parameters_pre_scr[] = {
+ 			}
+ 		}
+ 	},
++	{
++		.bpp = DSC_BPP(10), .bpc = 8,
++		{ 410, 12, 5632, 3, 12, 11, 11, {
++			{ 0, 3, 2 }, { 0, 4, 0 }, { 1, 5, 0 }, { 2, 6, -2 },
++			{ 3, 7, -4 }, { 3, 7, -6 }, { 3, 7, -8 }, { 3, 8, -8 },
++			{ 3, 9, -8 }, { 3, 9, -10 }, { 5, 10, -10 }, { 5, 11, -10 },
++			{ 5, 12, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
++			}
++		}
++	},
++	{
++		.bpp = DSC_BPP(10), .bpc = 10,
++		{ 410, 12, 5632, 7, 16, 15, 15, {
++			{ 0, 7, 2 }, { 4, 8, 0 }, { 5, 9, 0 }, { 6, 10, -2 },
++			{ 7, 11, -4 }, { 7, 11, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
++			{ 7, 13, -8 }, { 7, 13, -10 }, { 9, 14, -10 }, { 9, 15, -10 },
++			{ 9, 16, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
++			}
++		}
++	},
++	{
++		.bpp = DSC_BPP(10), .bpc = 12,
++		{ 410, 12, 5632, 11, 20, 19, 19, {
++			{ 0, 11, 2 }, { 4, 12, 0 }, { 9, 13, 0 }, { 10, 14, -2 },
++			{ 11, 15, -4 }, { 11, 15, -6 }, { 11, 15, -8 }, { 11, 16, -8 },
++			{ 11, 17, -8 }, { 11, 17, -10 }, { 13, 18, -10 },
++			{ 13, 19, -10 }, { 13, 20, -12 }, { 15, 21, -12 },
++			{ 21, 23, -12 }
++			}
++		}
++	},
+ 	{
+ 		.bpp = DSC_BPP(12), .bpc = 8,
+ 		{ 341, 15, 2048, 3, 12, 11, 11, {
+@@ -391,6 +432,37 @@ static const struct rc_parameters_data rc_parameters_pre_scr[] = {
+ 			}
+ 		}
+ 	},
++	{
++		.bpp = DSC_BPP(15), .bpc = 8,
++		{ 273, 15, 2048, 3, 12, 11, 11, {
++			{ 0, 0, 10 }, { 0, 1, 8 }, { 0, 1, 6 }, { 0, 2, 4 },
++			{ 1, 2, 2 }, { 1, 3, 0 }, { 1, 4, -2 }, { 2, 4, -4 },
++			{ 3, 4, -6 }, { 3, 5, -8 }, { 4, 6, -10 }, { 5, 7, -10 },
++			{ 5, 8, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
++			}
++		}
++	},
++	{
++		.bpp = DSC_BPP(15), .bpc = 10,
++		{ 273, 15, 2048, 7, 16, 15, 15, {
++			{ 0, 2, 10 }, { 2, 5, 8 }, { 3, 5, 6 }, { 4, 6, 4 },
++			{ 5, 6, 2 }, { 5, 7, 0 }, { 5, 8, -2 }, { 6, 8, -4 },
++			{ 7, 8, -6 }, { 7, 9, -8 }, { 8, 10, -10 }, { 9, 11, -10 },
++			{ 9, 12, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
++			}
++		}
++	},
++	{
++		.bpp = DSC_BPP(15), .bpc = 12,
++		{ 273, 15, 2048, 11, 20, 19, 19, {
++			{ 0, 4, 10 }, { 2, 7, 8 }, { 4, 9, 6 }, { 6, 11, 4 },
++			{ 9, 11, 2 }, { 9, 11, 0 }, { 9, 12, -2 }, { 10, 12, -4 },
++			{ 11, 12, -6 }, { 11, 13, -8 }, { 12, 14, -10 },
++			{ 13, 15, -10 }, { 13, 16, -12 }, { 15, 21, -12 },
++			{ 21, 23, -12 }
++			}
++		}
++	},
+ 	{ /* sentinel */ }
+ };
+ 
 -- 
 2.39.2
 
