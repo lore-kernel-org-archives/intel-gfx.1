@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F071CC74A5B
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 00:41:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC52AC761A6
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 00:41:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D67D10ECC2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3014D10ECCD;
 	Thu, 30 Mar 2023 00:41:13 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDF1410ECA2
- for <intel-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 00:41:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1376310EC94
+ for <intel-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 00:41:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680136864; x=1711672864;
+ t=1680136865; x=1711672865;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ouSJCwNN6PUG1ASC3l4ex50/aQQ8eT0M44+7ZeRF7CA=;
- b=OqC+UKlo5+3ny6AxrrP8Qs9Ocaio1MHQWcsCY17sGmlP4rsFZvouhzYG
- F/5qY13Fp4XQ8rOJXtrwuCmXP2+mUvbuqS/XptBxwcb/FYwlSh3F4cXRI
- djVGTP9YNk7kHXFx6Sfz+A1ktqrfZ+FkDkH65YsBtdVSxbzLP0Pv6E8h2
- 6K44ebpIB14V06GCMfSRZLsJbj4c94Jj0wA8rrsC0lr6t/CiEOH0hNAdu
- pIX7avxRYDdUqbWRcuAQc5ke5heH4hit6pbbAaQTAgYU24Rom/kt5CWQz
- 2wDK8K0dLodExKNRjk7JvHx3H7HncfnuGkKUSUsaoTTncgOcwtqZzwU7O Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="427310373"
-X-IronPort-AV: E=Sophos;i="5.98,301,1673942400"; d="scan'208";a="427310373"
+ bh=TplmR7BiFldWX+J5NStJ5yy09BcNKireEkoAw1wEEsI=;
+ b=FDgViSGeTlvEZ+JZB0PmPEz4ur7LSW4JvjrpKf1T+5WYiDKLNjVesPBZ
+ MdwnQddinhcVOuU/TLmfc9rrK1RTD48iHu6E7aPzElOWJiiFpJ4qVhVYL
+ 4InwqdXTtYkp/DnzTbD9vCg0kHN0RK438Rj+1313Y1KrmNwNXH66CyUMs
+ pFr1Kf1eVy/jUv8ma4/lTxv2G4WgmqqulmneBKJtu4D7IJ8ysO9c47Qat
+ KR/MewYvS6i1J2QStQtvpVTC4qnCHv0btOWznRPb92M/VGQ6ab5HkQ4gy
+ JRRxboFIxON6vxqeR+Mx700qU7Lr4zGUSEqCU8BGqnpCjYjfxBAlIOoaW g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="427310375"
+X-IronPort-AV: E=Sophos;i="5.98,301,1673942400"; d="scan'208";a="427310375"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  29 Mar 2023 17:41:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="634668675"
-X-IronPort-AV: E=Sophos;i="5.98,301,1673942400"; d="scan'208";a="634668675"
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="634668687"
+X-IronPort-AV: E=Sophos;i="5.98,301,1673942400"; d="scan'208";a="634668687"
 Received: from orsosgc001.jf.intel.com ([10.165.21.138])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  29 Mar 2023 17:41:03 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 29 Mar 2023 17:40:58 -0700
-Message-Id: <20230330004103.1295413-5-umesh.nerlige.ramappa@intel.com>
+Date: Wed, 29 Mar 2023 17:41:02 -0700
+Message-Id: <20230330004103.1295413-9-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20230330004103.1295413-1-umesh.nerlige.ramappa@intel.com>
 References: <20230330004103.1295413-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/9] drm/i915/pmu: Add reference counting to the
- sampling timer
+Subject: [Intel-gfx] [PATCH 8/9] drm/i915/pmu: Split reading engine and
+ other events into helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,73 +61,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Split the event reading function into engine and other helpers.
 
-We do not want to have timers per tile and waste CPU cycles and energy via
-multiple wake-up sources, for a relatively un-important task of PMU
-sampling, so keeping a single timer works well. But we also do not want
-the first GT which goes idle to turn off the timer.
-
-Add some reference counting, via a mask of unparked GTs, to solve this.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 ---
- drivers/gpu/drm/i915/i915_pmu.c | 12 ++++++++++--
- drivers/gpu/drm/i915/i915_pmu.h |  4 ++++
- 2 files changed, 14 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/i915_pmu.c | 93 ++++++++++++++++++---------------
+ 1 file changed, 52 insertions(+), 41 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-index 6f7f9b40860d..c00b94c7f509 100644
+index 40ce1dc00067..9bd9605d2662 100644
 --- a/drivers/gpu/drm/i915/i915_pmu.c
 +++ b/drivers/gpu/drm/i915/i915_pmu.c
-@@ -251,7 +251,9 @@ void i915_pmu_gt_parked(struct intel_gt *gt)
- 	 * Signal sampling timer to stop if only engine events are enabled and
- 	 * GPU went idle.
- 	 */
--	pmu->timer_enabled = pmu_needs_timer(pmu, false);
-+	pmu->unparked &= ~BIT(gt->info.id);
-+	if (pmu->unparked == 0)
-+		pmu->timer_enabled = pmu_needs_timer(pmu, false);
- 
- 	spin_unlock_irq(&pmu->lock);
+@@ -641,58 +641,69 @@ static u64 read_sample_us(struct i915_pmu *pmu, unsigned int gt_id, int sample)
+ 	return div_u64(read_sample(pmu, gt_id, sample), USEC_PER_SEC);
  }
-@@ -268,7 +270,10 @@ void i915_pmu_gt_unparked(struct intel_gt *gt)
- 	/*
- 	 * Re-enable sampling timer when GPU goes active.
- 	 */
--	__i915_pmu_maybe_start_timer(pmu);
-+	if (pmu->unparked == 0)
-+		__i915_pmu_maybe_start_timer(pmu);
-+
-+	pmu->unparked |= BIT(gt->info.id);
  
- 	spin_unlock_irq(&pmu->lock);
+-static u64 __i915_pmu_event_read(struct perf_event *event)
++static u64 __i915_pmu_event_read_engine(struct perf_event *event)
+ {
+-	struct drm_i915_private *i915 =
+-		container_of(event->pmu, typeof(*i915), pmu.base);
+-	struct i915_pmu *pmu = &i915->pmu;
++	struct drm_i915_private *i915 = container_of(event->pmu, typeof(*i915), pmu.base);
++	u8 sample = engine_event_sample(event);
++	struct intel_engine_cs *engine;
+ 	u64 val = 0;
+ 
+-	if (is_engine_event(event)) {
+-		u8 sample = engine_event_sample(event);
+-		struct intel_engine_cs *engine;
+-
+-		engine = intel_engine_lookup_user(i915,
+-						  engine_event_class(event),
+-						  engine_event_instance(event));
++	engine = intel_engine_lookup_user(i915,
++					  engine_event_class(event),
++					  engine_event_instance(event));
+ 
+-		if (drm_WARN_ON_ONCE(&i915->drm, !engine)) {
+-			/* Do nothing */
+-		} else if (sample == I915_SAMPLE_BUSY &&
+-			   intel_engine_supports_stats(engine)) {
+-			ktime_t unused;
++	if (drm_WARN_ON_ONCE(&i915->drm, !engine)) {
++		/* Do nothing */
++	} else if (sample == I915_SAMPLE_BUSY &&
++		   intel_engine_supports_stats(engine)) {
++		ktime_t unused;
+ 
+-			val = ktime_to_ns(intel_engine_get_busy_time(engine,
+-								     &unused));
+-		} else {
+-			val = engine->pmu.sample[sample].cur;
+-		}
++		val = ktime_to_ns(intel_engine_get_busy_time(engine,
++							     &unused));
+ 	} else {
+-		const unsigned int gt_id = config_gt_id(event->attr.config);
+-		const u64 config = config_counter(event->attr.config);
+-
+-		switch (config) {
+-		case I915_PMU_ACTUAL_FREQUENCY:
+-			val = read_sample_us(pmu, gt_id, __I915_SAMPLE_FREQ_ACT);
+-			break;
+-		case I915_PMU_REQUESTED_FREQUENCY:
+-			val = read_sample_us(pmu, gt_id, __I915_SAMPLE_FREQ_REQ);
+-			break;
+-		case I915_PMU_INTERRUPTS:
+-			val = READ_ONCE(pmu->irq_count);
+-			break;
+-		case I915_PMU_RC6_RESIDENCY:
+-			val = get_rc6(i915->gt[gt_id]);
+-			break;
+-		case I915_PMU_SOFTWARE_GT_AWAKE_TIME:
+-			val = ktime_to_ns(intel_gt_get_awake_time(to_gt(i915)));
+-			break;
+-		}
++		val = engine->pmu.sample[sample].cur;
+ 	}
+ 
+ 	return val;
  }
-@@ -438,6 +443,9 @@ static enum hrtimer_restart i915_sample(struct hrtimer *hrtimer)
- 	 */
  
- 	for_each_gt(gt, i915, i) {
-+		if (!(pmu->unparked & BIT(i)))
-+			continue;
++static u64 __i915_pmu_event_read_other(struct perf_event *event)
++{
++	struct drm_i915_private *i915 = container_of(event->pmu, typeof(*i915), pmu.base);
++	const unsigned int gt_id = config_gt_id(event->attr.config);
++	const u64 config = config_counter(event->attr.config);
++	struct i915_pmu *pmu = &i915->pmu;
++	u64 val = 0;
 +
- 		engines_sample(gt, period_ns);
- 
- 		/* Sample only gt0 until gt support is added for frequency */
-diff --git a/drivers/gpu/drm/i915/i915_pmu.h b/drivers/gpu/drm/i915/i915_pmu.h
-index d98fbc7a2f45..1b04c79907e8 100644
---- a/drivers/gpu/drm/i915/i915_pmu.h
-+++ b/drivers/gpu/drm/i915/i915_pmu.h
-@@ -76,6 +76,10 @@ struct i915_pmu {
- 	 * @lock: Lock protecting enable mask and ref count handling.
- 	 */
- 	spinlock_t lock;
-+	/**
-+	 * @unparked: GT unparked mask.
-+	 */
-+	unsigned int unparked;
- 	/**
- 	 * @timer: Timer for internal i915 PMU sampling.
- 	 */
++	switch (config) {
++	case I915_PMU_ACTUAL_FREQUENCY:
++		val = read_sample_us(pmu, gt_id, __I915_SAMPLE_FREQ_ACT);
++		break;
++	case I915_PMU_REQUESTED_FREQUENCY:
++		val = read_sample_us(pmu, gt_id, __I915_SAMPLE_FREQ_REQ);
++		break;
++	case I915_PMU_INTERRUPTS:
++		val = READ_ONCE(pmu->irq_count);
++		break;
++	case I915_PMU_RC6_RESIDENCY:
++		val = get_rc6(i915->gt[gt_id]);
++		break;
++	case I915_PMU_SOFTWARE_GT_AWAKE_TIME:
++		val = ktime_to_ns(intel_gt_get_awake_time(to_gt(i915)));
++		break;
++	}
++
++	return val;
++}
++
++static u64 __i915_pmu_event_read(struct perf_event *event)
++{
++	if (is_engine_event(event))
++		return __i915_pmu_event_read_engine(event);
++	else
++		return __i915_pmu_event_read_other(event);
++}
++
+ static void i915_pmu_event_read(struct perf_event *event)
+ {
+ 	struct drm_i915_private *i915 =
 -- 
 2.36.1
 
