@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D087C74A5B
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 00:41:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55374C6FD18
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 00:41:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8FDE10ECAD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F01F10ECAC;
 	Thu, 30 Mar 2023 00:41:11 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AC2610EC94
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73DA910ECA2
  for <intel-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 00:41:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1680136865; x=1711672865;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=CSfvlI0W8vv88LSEsjxCJpMW52kc8GUXo574i7RZjB8=;
- b=ksqQ6QWkWD5r1b7OFNzP7DlWTlUbwcYhZTwYxX6miT0sgUrJKifx37Te
- v1Q7qddKZFLffHzs81lfcgUmxF3RKNGbfrMGeDGKePzdkTeG9mfYjJcJC
- 3mPDQZVWNdfTbcLVy5UjYlK6osJf3/Qp+MEamhCRKo3Ie+Sn9HlJW24gU
- dCY/ugJgwkaDXyRUp2YQC7KEC3fq/9AYWAlIFyVbnu8GlRIymmRUDwsnW
- LA13X8MExFKBjf1OpgCFaW2DR352l+MmL8eLcKCZQMSS3LkeNAR6HjYlL
- MfuTwCwe7ih+qD37fc9G50S5AfuGC8lcVxV94jXot/ZINibnIZaYCTz2z Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="427310377"
-X-IronPort-AV: E=Sophos;i="5.98,301,1673942400"; d="scan'208";a="427310377"
+ bh=UjbXSdzSG9mpHdVpUCXOsCof6Z27giUadqbQbdH4IR0=;
+ b=JyiVbEU3WnjuTKdC/7dJJTNS8E2qXJyXN5k+H93h4pEOTwXS/nYXTqrr
+ 0RWrRzaPgiPFuwyBSuFDJ0iQxvy+d8/4b2B7KalIKk5lCaDUy51iteqXH
+ f8p01iSFvIbXcG9jcc8uRSfA0r/WfcKh6RZcLpBMjLP4Yyxrf5JbOGT4Q
+ 1gxkHUlqBhp8sukcWEUJ493aC2VEJUZ6ZBWLnNY4/tOiSbN1Pfe3sobfn
+ PolUaHkNerAPzqw/1RHqkaeAzCU9Z7nV6nlMQ4qscwkQZyleCqjXjmSTL
+ PKNYB7ORZ4TNt/fAnrOrhdBN1POEUtSE+CeICqvc5jZ2jWN8kOAGzQ4wm g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="427310378"
+X-IronPort-AV: E=Sophos;i="5.98,301,1673942400"; d="scan'208";a="427310378"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  29 Mar 2023 17:41:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="634668681"
-X-IronPort-AV: E=Sophos;i="5.98,301,1673942400"; d="scan'208";a="634668681"
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="634668690"
+X-IronPort-AV: E=Sophos;i="5.98,301,1673942400"; d="scan'208";a="634668690"
 Received: from orsosgc001.jf.intel.com ([10.165.21.138])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  29 Mar 2023 17:41:03 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 29 Mar 2023 17:41:00 -0700
-Message-Id: <20230330004103.1295413-7-umesh.nerlige.ramappa@intel.com>
+Date: Wed, 29 Mar 2023 17:41:03 -0700
+Message-Id: <20230330004103.1295413-10-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20230330004103.1295413-1-umesh.nerlige.ramappa@intel.com>
 References: <20230330004103.1295413-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/9] drm/i915/pmu: Export counters from all tiles
+Subject: [Intel-gfx] [PATCH 9/9] drm/i915/pmu: Enable legacy PMU events for
+ MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,188 +61,367 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+MTL introduces separate GTs for render and media. This complicates the
+definition of frequency and rc6 counters for the GPU as a whole since
+each GT has an independent counter. The best way to support this change
+is to deprecate the GPU-specific counters and create GT-specific
+counters, however that just breaks ABI. Since perf tools and scripts may
+be decentralized with probably many users, it's hard to deprecate the
+legacy counters and have all the users on board with that.
 
-Start exporting frequency and RC6 counters from all tiles.
+Re-introduce the legacy counters and support them as min/max of
+GT-specific counters as necessary to ensure backwards compatibility.
 
-Existing counters keep their names and config values and new one use the
-namespace added in the previous patch, with the "-gtN" added to their
-names.
+I915_PMU_ACTUAL_FREQUENCY - will show max of GT-specific counters
+I915_PMU_REQUESTED_FREQUENCY - will show max of GT-specific counters
+I915_PMU_INTERRUPTS - no changes since it is GPU specific on all platforms
+I915_PMU_RC6_RESIDENCY - will show min of GT-specific counters
+I915_PMU_SOFTWARE_GT_AWAKE_TIME - will show max of GT-specific counters
 
-Interrupts counter is an odd one off. Because it is the global device
-counters (not only GT) we choose not to add per tile versions for now.
+Note:
+- For deeper debugging of performance issues, tools must be upgraded to
+  read the GT-specific counters.
+- This patch deserves to be separate from the other PMU features so that
+  it can be easily dropped if legacy events are ever deprecated.
+- Internal implementation relies on creating an extra entry in the
+  arrays used for GT specific counters. Index 0 is empty.
+  Index 1 through N are mapped to GTs 0 through N - 1.
+- User interface will use GT numbers indexed from 0 to specify the GT of
+  interest.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 ---
- drivers/gpu/drm/i915/i915_pmu.c | 96 ++++++++++++++++++++++++++-------
- 1 file changed, 77 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/i915/i915_pmu.c | 134 +++++++++++++++++++++++++++-----
+ drivers/gpu/drm/i915/i915_pmu.h |   2 +-
+ include/uapi/drm/i915_drm.h     |  14 ++--
+ 3 files changed, 125 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-index 5d1de98d86b4..2a5deabff088 100644
+index 9bd9605d2662..0dc7711c3b4b 100644
 --- a/drivers/gpu/drm/i915/i915_pmu.c
 +++ b/drivers/gpu/drm/i915/i915_pmu.c
-@@ -548,8 +548,9 @@ config_status(struct drm_i915_private *i915, u64 config)
- 	struct intel_gt *gt = to_gt(i915);
+@@ -221,7 +221,7 @@ add_sample_mult(struct i915_pmu *pmu, unsigned int gt_id, int sample, u32 val,
+ static u64 get_rc6(struct intel_gt *gt)
+ {
+ 	struct drm_i915_private *i915 = gt->i915;
+-	const unsigned int gt_id = gt->info.id;
++	const unsigned int gt_id = gt->info.id + 1;
+ 	struct i915_pmu *pmu = &i915->pmu;
+ 	unsigned long flags;
+ 	bool awake = false;
+@@ -267,24 +267,26 @@ static void init_rc6(struct i915_pmu *pmu)
  
+ 	for_each_gt(gt, i915, i) {
+ 		intel_wakeref_t wakeref;
++		const unsigned int gt_id = i + 1;
+ 
+ 		with_intel_runtime_pm(gt->uncore->rpm, wakeref) {
+ 			u64 val = __get_rc6(gt);
+ 
+-			store_sample(pmu, i, __I915_SAMPLE_RC6, val);
+-			store_sample(pmu, i, __I915_SAMPLE_RC6_LAST_REPORTED,
++			store_sample(pmu, gt_id, __I915_SAMPLE_RC6, val);
++			store_sample(pmu, gt_id, __I915_SAMPLE_RC6_LAST_REPORTED,
+ 				     val);
+-			pmu->sleep_last[i] = ktime_get_raw();
++			pmu->sleep_last[gt_id] = ktime_get_raw();
+ 		}
+ 	}
+ }
+ 
+ static void park_rc6(struct intel_gt *gt)
+ {
++	const unsigned int gt_id = gt->info.id + 1;
+ 	struct i915_pmu *pmu = &gt->i915->pmu;
+ 
+-	store_sample(pmu, gt->info.id, __I915_SAMPLE_RC6, __get_rc6(gt));
+-	pmu->sleep_last[gt->info.id] = ktime_get_raw();
++	store_sample(pmu, gt_id, __I915_SAMPLE_RC6, __get_rc6(gt));
++	pmu->sleep_last[gt_id] = ktime_get_raw();
+ }
+ 
+ static void __i915_pmu_maybe_start_timer(struct i915_pmu *pmu)
+@@ -436,18 +438,18 @@ static void
+ frequency_sample(struct intel_gt *gt, unsigned int period_ns)
+ {
+ 	struct drm_i915_private *i915 = gt->i915;
+-	const unsigned int gt_id = gt->info.id;
++	const unsigned int gt_id = gt->info.id + 1;
+ 	struct i915_pmu *pmu = &i915->pmu;
+ 	struct intel_rps *rps = &gt->rps;
+ 
+-	if (!frequency_sampling_enabled(pmu, gt_id))
++	if (!frequency_sampling_enabled(pmu, gt->info.id))
+ 		return;
+ 
+ 	/* Report 0/0 (actual/requested) frequency while parked. */
+ 	if (!intel_gt_pm_get_if_awake(gt))
+ 		return;
+ 
+-	if (pmu->enable & config_mask(__I915_PMU_ACTUAL_FREQUENCY(gt_id))) {
++	if (pmu->enable & config_mask(__I915_PMU_ACTUAL_FREQUENCY(gt->info.id))) {
+ 		u32 val;
+ 
+ 		/*
+@@ -467,7 +469,7 @@ frequency_sample(struct intel_gt *gt, unsigned int period_ns)
+ 				val, period_ns / 1000);
+ 	}
+ 
+-	if (pmu->enable & config_mask(__I915_PMU_REQUESTED_FREQUENCY(gt_id))) {
++	if (pmu->enable & config_mask(__I915_PMU_REQUESTED_FREQUENCY(gt->info.id))) {
+ 		add_sample_mult(pmu, gt_id, __I915_SAMPLE_FREQ_REQ,
+ 				intel_rps_get_requested_frequency(rps),
+ 				period_ns / 1000);
+@@ -545,14 +547,15 @@ engine_event_status(struct intel_engine_cs *engine,
+ static int
+ config_status(struct drm_i915_private *i915, u64 config)
+ {
+-	struct intel_gt *gt = to_gt(i915);
+-
  	unsigned int gt_id = config_gt_id(config);
-+	unsigned int max_gt_id = HAS_EXTRA_GT_LIST(i915) ? 1 : 0;
+-	unsigned int max_gt_id = HAS_EXTRA_GT_LIST(i915) ? 1 : 0;
++	unsigned int max_gt_id = HAS_EXTRA_GT_LIST(i915) ? 2 : 1;
++	struct intel_gt *gt;
  
--	if (gt_id)
-+	if (gt_id > max_gt_id)
+ 	if (gt_id > max_gt_id)
  		return -ENOENT;
  
++	gt = !gt_id ? to_gt(i915) : i915->gt[gt_id - 1];
++
  	switch (config_counter(config)) {
-@@ -563,6 +564,8 @@ config_status(struct drm_i915_private *i915, u64 config)
- 			return -ENODEV;
+ 	case I915_PMU_ACTUAL_FREQUENCY:
+ 		if (IS_VALLEYVIEW(i915) || IS_CHERRYVIEW(i915))
+@@ -673,23 +676,58 @@ static u64 __i915_pmu_event_read_other(struct perf_event *event)
+ 	const unsigned int gt_id = config_gt_id(event->attr.config);
+ 	const u64 config = config_counter(event->attr.config);
+ 	struct i915_pmu *pmu = &i915->pmu;
++	struct intel_gt *gt;
+ 	u64 val = 0;
++	int i;
+ 
+ 	switch (config) {
+ 	case I915_PMU_ACTUAL_FREQUENCY:
+-		val = read_sample_us(pmu, gt_id, __I915_SAMPLE_FREQ_ACT);
++		if (gt_id)
++			return read_sample_us(pmu, gt_id, __I915_SAMPLE_FREQ_ACT);
++
++		if (!HAS_EXTRA_GT_LIST(i915))
++			return read_sample_us(pmu, 1, __I915_SAMPLE_FREQ_ACT);
++
++		for_each_gt(gt, i915, i)
++			val = max(val, read_sample_us(pmu, i + 1, __I915_SAMPLE_FREQ_ACT));
++
+ 		break;
+ 	case I915_PMU_REQUESTED_FREQUENCY:
+-		val = read_sample_us(pmu, gt_id, __I915_SAMPLE_FREQ_REQ);
++		if (gt_id)
++			return read_sample_us(pmu, gt_id, __I915_SAMPLE_FREQ_REQ);
++
++		if (!HAS_EXTRA_GT_LIST(i915))
++			return read_sample_us(pmu, 1, __I915_SAMPLE_FREQ_REQ);
++
++		for_each_gt(gt, i915, i)
++			val = max(val, read_sample_us(pmu, i + 1, __I915_SAMPLE_FREQ_REQ));
++
  		break;
  	case I915_PMU_INTERRUPTS:
-+		if (gt_id)
-+			return -ENOENT;
+ 		val = READ_ONCE(pmu->irq_count);
  		break;
  	case I915_PMU_RC6_RESIDENCY:
- 		if (!gt->rc6.supported)
-@@ -932,9 +935,9 @@ static const struct attribute_group i915_pmu_cpumask_attr_group = {
- 	.attrs = i915_cpumask_attrs,
- };
+-		val = get_rc6(i915->gt[gt_id]);
++		if (gt_id)
++			return get_rc6(i915->gt[gt_id - 1]);
++
++		if (!HAS_EXTRA_GT_LIST(i915))
++			return get_rc6(i915->gt[0]);
++
++		val = U64_MAX;
++		for_each_gt(gt, i915, i)
++			val = min(val, get_rc6(gt));
++
+ 		break;
+ 	case I915_PMU_SOFTWARE_GT_AWAKE_TIME:
+-		val = ktime_to_ns(intel_gt_get_awake_time(to_gt(i915)));
++		if (gt_id)
++			return ktime_to_ns(intel_gt_get_awake_time(i915->gt[gt_id - 1]));
++
++		if (!HAS_EXTRA_GT_LIST(i915))
++			return ktime_to_ns(intel_gt_get_awake_time(i915->gt[0]));
++
++		val = 0;
++		for_each_gt(gt, i915, i)
++			val = max((s64)val, ktime_to_ns(intel_gt_get_awake_time(gt)));
+ 		break;
+ 	}
  
--#define __event(__config, __name, __unit) \
-+#define __event(__counter, __name, __unit) \
- { \
--	.config = (__config), \
-+	.counter = (__counter), \
- 	.name = (__name), \
- 	.unit = (__unit), \
- }
-@@ -975,15 +978,21 @@ create_event_attributes(struct i915_pmu *pmu)
+@@ -728,11 +766,14 @@ static void i915_pmu_event_read(struct perf_event *event)
+ 
+ static void i915_pmu_enable(struct perf_event *event)
  {
- 	struct drm_i915_private *i915 = container_of(pmu, typeof(*i915), pmu);
- 	static const struct {
--		u64 config;
-+		unsigned int counter;
++	const unsigned int gt_id = config_gt_id(event->attr.config);
+ 	struct drm_i915_private *i915 =
+ 		container_of(event->pmu, typeof(*i915), pmu.base);
+ 	struct i915_pmu *pmu = &i915->pmu;
++	struct intel_gt *gt;
+ 	unsigned long flags;
+ 	unsigned int bit;
++	u64 i;
+ 
+ 	bit = event_bit(event);
+ 	if (bit == -1)
+@@ -745,12 +786,42 @@ static void i915_pmu_enable(struct perf_event *event)
+ 	 * the event reference counter.
+ 	 */
+ 	BUILD_BUG_ON(ARRAY_SIZE(pmu->enable_count) != I915_PMU_MASK_BITS);
++	BUILD_BUG_ON(BITS_PER_TYPE(pmu->enable) < I915_PMU_MASK_BITS);
+ 	GEM_BUG_ON(bit >= ARRAY_SIZE(pmu->enable_count));
+ 	GEM_BUG_ON(pmu->enable_count[bit] == ~0);
+ 
+ 	pmu->enable |= BIT_ULL(bit);
+ 	pmu->enable_count[bit]++;
+ 
++	/*
++	 * The arrays that i915_pmu maintains are now indexed as
++	 *
++	 * 0 - aggregate events (a.k.a !gt_id)
++	 * 1 - gt0
++	 * 2 - gt1
++	 *
++	 * The same logic applies to event_bit masks. The first set of mask are
++	 * for aggregate, followed by gt0 and gt1 masks. The idea here is to
++	 * enable the event on all gts if the aggregate event bit is set. This
++	 * applies only to the non-engine-events.
++	 */
++	if (!gt_id && !is_engine_event(event)) {
++		for_each_gt(gt, i915, i) {
++			u64 counter = config_counter(event->attr.config);
++			u64 config = ((i + 1) << __I915_PMU_GT_SHIFT) | counter;
++			unsigned int bit = config_bit(config);
++
++			if (bit == -1)
++				continue;
++
++			GEM_BUG_ON(bit >= ARRAY_SIZE(pmu->enable_count));
++			GEM_BUG_ON(pmu->enable_count[bit] == ~0);
++
++			pmu->enable |= BIT_ULL(bit);
++			pmu->enable_count[bit]++;
++		}
++	}
++
+ 	/*
+ 	 * Start the sampling timer if needed and not already enabled.
+ 	 */
+@@ -793,6 +864,7 @@ static void i915_pmu_enable(struct perf_event *event)
+ 
+ static void i915_pmu_disable(struct perf_event *event)
+ {
++	const unsigned int gt_id = config_gt_id(event->attr.config);
+ 	struct drm_i915_private *i915 =
+ 		container_of(event->pmu, typeof(*i915), pmu.base);
+ 	unsigned int bit = event_bit(event);
+@@ -822,6 +894,26 @@ static void i915_pmu_disable(struct perf_event *event)
+ 		 */
+ 		if (--engine->pmu.enable_count[sample] == 0)
+ 			engine->pmu.enable &= ~BIT(sample);
++	} else if (!gt_id) {
++		struct intel_gt *gt;
++		u64 i;
++
++		for_each_gt(gt, i915, i) {
++			u64 counter = config_counter(event->attr.config);
++			u64 config = ((i + 1) << __I915_PMU_GT_SHIFT) | counter;
++			unsigned int bit = config_bit(config);
++
++			if (bit == -1)
++				continue;
++
++			GEM_BUG_ON(bit >= ARRAY_SIZE(pmu->enable_count));
++			GEM_BUG_ON(pmu->enable_count[bit] == 0);
++
++			if (--pmu->enable_count[bit] == 0) {
++				pmu->enable &= ~BIT_ULL(bit);
++				pmu->timer_enabled &= pmu_needs_timer(pmu, true);
++			}
++		}
+ 	}
+ 
+ 	GEM_BUG_ON(bit >= ARRAY_SIZE(pmu->enable_count));
+@@ -1002,7 +1094,11 @@ create_event_attributes(struct i915_pmu *pmu)
  		const char *name;
  		const char *unit;
- 	} events[] = {
--		__event(I915_PMU_ACTUAL_FREQUENCY, "actual-frequency", "M"),
--		__event(I915_PMU_REQUESTED_FREQUENCY, "requested-frequency", "M"),
--		__event(I915_PMU_INTERRUPTS, "interrupts", NULL),
--		__event(I915_PMU_RC6_RESIDENCY, "rc6-residency", "ns"),
--		__event(I915_PMU_SOFTWARE_GT_AWAKE_TIME, "software-gt-awake-time", "ns"),
+ 	} global_events[] = {
 +		__event(0, "actual-frequency", "M"),
 +		__event(1, "requested-frequency", "M"),
+ 		__event(2, "interrupts", NULL),
 +		__event(3, "rc6-residency", "ns"),
 +		__event(4, "software-gt-awake-time", "ns"),
-+	};
-+	static const struct {
-+		unsigned int counter;
-+		const char *name;
-+		const char *unit;
-+	} global_events[] = {
-+		__event(2, "interrupts", NULL),
  	};
  	static const struct {
  		enum drm_i915_pmu_engine_sample sample;
-@@ -998,14 +1007,29 @@ create_event_attributes(struct i915_pmu *pmu)
- 	struct i915_ext_attribute *i915_attr = NULL, *i915_iter;
- 	struct attribute **attr = NULL, **attr_iter;
- 	struct intel_engine_cs *engine;
--	unsigned int i;
-+	struct intel_gt *gt;
-+	unsigned int i, j;
+@@ -1024,7 +1120,7 @@ create_event_attributes(struct i915_pmu *pmu)
+ 	/* per gt counters */
+ 	for_each_gt(gt, i915, j) {
+ 		for (i = 0; i < ARRAY_SIZE(events); i++) {
+-			u64 config = ___I915_PMU_OTHER(j, events[i].counter);
++			u64 config = ___I915_PMU_OTHER(j + 1, events[i].counter);
  
- 	/* Count how many counters we will be exposing. */
--	for (i = 0; i < ARRAY_SIZE(events); i++) {
--		if (!config_status(i915, events[i].config))
-+	/* per gt counters */
-+	for_each_gt(gt, i915, j) {
-+		for (i = 0; i < ARRAY_SIZE(events); i++) {
-+			u64 config = ___I915_PMU_OTHER(j, events[i].counter);
-+
-+			if (!config_status(i915, config))
-+				count++;
-+		}
-+	}
-+
-+	/* global (per GPU) counters */
-+	for (i = 0; i < ARRAY_SIZE(global_events); i++) {
-+		u64 config = ___I915_PMU_OTHER(0, global_events[i].counter);
-+
-+		if (!config_status(i915, config))
- 			count++;
- 	}
+ 			if (!config_status(i915, config))
+ 				count++;
+@@ -1070,7 +1166,7 @@ create_event_attributes(struct i915_pmu *pmu)
+ 	/* per gt counters */
+ 	for_each_gt(gt, i915, j) {
+ 		for (i = 0; i < ARRAY_SIZE(events); i++) {
+-			u64 config = ___I915_PMU_OTHER(j, events[i].counter);
++			u64 config = ___I915_PMU_OTHER(j + 1, events[i].counter);
+ 			char *str;
  
-+	/* per engine counters */
- 	for_each_uabi_engine(engine, i915) {
- 		for (i = 0; i < ARRAY_SIZE(engine_events); i++) {
- 			if (!engine_event_status(engine,
-@@ -1033,26 +1057,60 @@ create_event_attributes(struct i915_pmu *pmu)
- 	attr_iter = attr;
+ 			if (config_status(i915, config))
+diff --git a/drivers/gpu/drm/i915/i915_pmu.h b/drivers/gpu/drm/i915/i915_pmu.h
+index a708e44a227e..a4cc1eb218fc 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.h
++++ b/drivers/gpu/drm/i915/i915_pmu.h
+@@ -38,7 +38,7 @@ enum {
+ 	__I915_NUM_PMU_SAMPLERS
+ };
  
- 	/* Initialize supported non-engine counters. */
--	for (i = 0; i < ARRAY_SIZE(events); i++) {
-+	/* per gt counters */
-+	for_each_gt(gt, i915, j) {
-+		for (i = 0; i < ARRAY_SIZE(events); i++) {
-+			u64 config = ___I915_PMU_OTHER(j, events[i].counter);
-+			char *str;
+-#define I915_PMU_MAX_GTS (4) /* FIXME */
++#define I915_PMU_MAX_GTS (4 + 1) /* FIXME */
+ 
+ /**
+  * How many different events we track in the global PMU mask.
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index bbab7f3dbeb4..18794c30027f 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -290,6 +290,7 @@ enum drm_i915_pmu_engine_sample {
+ 	(((__u64)__I915_PMU_ENGINE(0xff, 0xff, 0xf) + 1 + (x)) | \
+ 	((__u64)(gt) << __I915_PMU_GT_SHIFT))
+ 
++/* Aggregate from all gts */
+ #define __I915_PMU_OTHER(x) ___I915_PMU_OTHER(0, x)
+ 
+ #define I915_PMU_ACTUAL_FREQUENCY	__I915_PMU_OTHER(0)
+@@ -300,11 +301,14 @@ enum drm_i915_pmu_engine_sample {
+ 
+ #define I915_PMU_LAST /* Deprecated - do not use */ I915_PMU_RC6_RESIDENCY
+ 
+-#define __I915_PMU_ACTUAL_FREQUENCY(gt)		___I915_PMU_OTHER(gt, 0)
+-#define __I915_PMU_REQUESTED_FREQUENCY(gt)	___I915_PMU_OTHER(gt, 1)
+-#define __I915_PMU_INTERRUPTS(gt)		___I915_PMU_OTHER(gt, 2)
+-#define __I915_PMU_RC6_RESIDENCY(gt)		___I915_PMU_OTHER(gt, 3)
+-#define __I915_PMU_SOFTWARE_GT_AWAKE_TIME(gt)	___I915_PMU_OTHER(gt, 4)
++/* GT specific counters */
++#define ____I915_PMU_OTHER(gt, x) ___I915_PMU_OTHER(((gt) + 1), x)
 +
-+			if (config_status(i915, config))
-+				continue;
-+
-+			str = kasprintf(GFP_KERNEL, "%s-gt%u",
-+					events[i].name, j);
-+			if (!str)
-+				goto err;
-+
-+			*attr_iter++ = &i915_iter->attr.attr;
-+			i915_iter = add_i915_attr(i915_iter, str, config);
-+
-+			if (events[i].unit) {
-+				str = kasprintf(GFP_KERNEL, "%s-gt%u.unit",
-+						events[i].name, j);
-+				if (!str)
-+					goto err;
-+
-+				*attr_iter++ = &pmu_iter->attr.attr;
-+				pmu_iter = add_pmu_attr(pmu_iter, str,
-+							events[i].unit);
-+			}
-+		}
-+	}
-+
-+	/* global (per GPU) counters */
-+	for (i = 0; i < ARRAY_SIZE(global_events); i++) {
-+		u64 config = ___I915_PMU_OTHER(0, global_events[i].counter);
- 		char *str;
++#define __I915_PMU_ACTUAL_FREQUENCY(gt)		____I915_PMU_OTHER(gt, 0)
++#define __I915_PMU_REQUESTED_FREQUENCY(gt)	____I915_PMU_OTHER(gt, 1)
++#define __I915_PMU_INTERRUPTS(gt)		____I915_PMU_OTHER(gt, 2)
++#define __I915_PMU_RC6_RESIDENCY(gt)		____I915_PMU_OTHER(gt, 3)
++#define __I915_PMU_SOFTWARE_GT_AWAKE_TIME(gt)	____I915_PMU_OTHER(gt, 4)
  
--		if (config_status(i915, events[i].config))
-+		if (config_status(i915, config))
- 			continue;
- 
--		str = kstrdup(events[i].name, GFP_KERNEL);
-+		str = kstrdup(global_events[i].name, GFP_KERNEL);
- 		if (!str)
- 			goto err;
- 
- 		*attr_iter++ = &i915_iter->attr.attr;
--		i915_iter = add_i915_attr(i915_iter, str, events[i].config);
-+		i915_iter = add_i915_attr(i915_iter, str, config);
- 
--		if (events[i].unit) {
--			str = kasprintf(GFP_KERNEL, "%s.unit", events[i].name);
-+		if (global_events[i].unit) {
-+			str = kasprintf(GFP_KERNEL, "%s.unit",
-+					global_events[i].name);
- 			if (!str)
- 				goto err;
- 
- 			*attr_iter++ = &pmu_iter->attr.attr;
--			pmu_iter = add_pmu_attr(pmu_iter, str, events[i].unit);
-+			pmu_iter = add_pmu_attr(pmu_iter, str,
-+						global_events[i].unit);
- 		}
- 	}
- 
+ /* Each region is a minimum of 16k, and there are at most 255 of them.
+  */
 -- 
 2.36.1
 
