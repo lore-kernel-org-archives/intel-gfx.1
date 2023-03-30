@@ -4,48 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93A12C7619A
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 21:59:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98D22C6FD1D
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 22:18:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AA4910F085;
-	Thu, 30 Mar 2023 21:59:16 +0000 (UTC)
-X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
- Thu, 30 Mar 2023 21:59:14 UTC
-Received: from eu-smtp-delivery-151.mimecast.com
- (eu-smtp-delivery-151.mimecast.com [185.58.85.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F8DE10F087
- for <intel-gfx@lists.freedesktop.org>; Thu, 30 Mar 2023 21:59:13 +0000 (UTC)
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
- relay.mimecast.com with ESMTP with both STARTTLS and AUTH (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- uk-mta-13-XNRIvLOrOXesN_kJbVyF0A-1; Thu, 30 Mar 2023 22:53:05 +0100
-X-MC-Unique: XNRIvLOrOXesN_kJbVyF0A-1
-Received: from AcuMS.Aculab.com (10.202.163.6) by AcuMS.aculab.com
- (10.202.163.6) with Microsoft SMTP Server (TLS) id 15.0.1497.48; Thu, 30 Mar
- 2023 22:53:04 +0100
-Received: from AcuMS.Aculab.com ([::1]) by AcuMS.aculab.com ([::1]) with mapi
- id 15.00.1497.048; Thu, 30 Mar 2023 22:53:04 +0100
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Andrew Morton' <akpm@linux-foundation.org>, Jani Nikula
- <jani.nikula@intel.com>
-Thread-Topic: [PATCH 0/4] log2: make is_power_of_2() more generic
-Thread-Index: AQHZY0DwWI19nDCca0eIs2l7T1UA9K8T1qTw
-Date: Thu, 30 Mar 2023 21:53:03 +0000
-Message-ID: <549987e4967d45159573901d330c96a0@AcuMS.aculab.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C98BA10F070;
+	Thu, 30 Mar 2023 22:18:51 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45DCD10F06D;
+ Thu, 30 Mar 2023 22:18:49 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7F98062181;
+ Thu, 30 Mar 2023 22:18:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD8D3C433EF;
+ Thu, 30 Mar 2023 22:18:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux-foundation.org;
+ s=korg; t=1680214727;
+ bh=J6+yEMlbNsjNChezrO163A6g35jo86cAh2v0lik6h6M=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=iZ/wQMpkWb4s0aY/X31v5rqUAUvTqDBmTw7ZekRAv+F0th/P+6EEZFRNNobe8SWcz
+ FCDN+oQE7zdIdgp01NP3R8bu4Lv77fXpSJk/3f5a6o7XFVcIfmWd3taWcjGrdK4ZCP
+ HVund6J9Uejk+L/1aBCT00wUt8jhxQEvurav9wUk=
+Date: Thu, 30 Mar 2023 15:18:46 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: David Laight <David.Laight@ACULAB.COM>
+Message-Id: <20230330151846.fdbc8edbfbaa6eaddb056dc7@linux-foundation.org>
+In-Reply-To: <549987e4967d45159573901d330c96a0@AcuMS.aculab.com>
 References: <20230330104243.2120761-1-jani.nikula@intel.com>
  <20230330125041.83b0f39fa3a4ec1a42dfd95f@linux-foundation.org>
-In-Reply-To: <20230330125041.83b0f39fa3a4ec1a42dfd95f@linux-foundation.org>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.202.205.107]
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: aculab.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+ <549987e4967d45159573901d330c96a0@AcuMS.aculab.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 Subject: Re: [Intel-gfx] [PATCH 0/4] log2: make is_power_of_2() more generic
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,74 +52,73 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Gow <davidgow@google.com>,
+Cc: Jani Nikula <jani.nikula@intel.com>,
  "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
+ David Gow <davidgow@google.com>,
+ Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Andrew Morton
-> Sent: 30 March 2023 20:51
->=20
-> On Thu, 30 Mar 2023 13:42:39 +0300 Jani Nikula <jani.nikula@intel.com> wr=
-ote:
->=20
-> > is_power_of_2() only works for types <=3D sizeof(unsigned long) and it'=
-s
-> > also not a constant expression. There are a number of places in kernel
-> > where is_power_of_2() is called on u64, which fails on 32-bit
-> > builds. Try to remedy that. While at it, make it a constant expression
-> > when possible.
->=20
-> Yes, the current `is_power_of_2(unsigned long n)' isn't very general.
->=20
-> But wouldn't all these issues be addressed by simply doing
->=20
-> #define is_power_of_2(n) (n !=3D 0 && ((n & (n - 1)) =3D=3D 0))
->=20
-> ?
->=20
-> (With suitable tweaks to avoid evaluating `n' more than once)
+On Thu, 30 Mar 2023 21:53:03 +0000 David Laight <David.Laight@ACULAB.COM> wrote:
 
-I think you need to use the 'horrid tricks' from min() to get
-a constant expression from constant inputs.
+> > But wouldn't all these issues be addressed by simply doing
+> > 
+> > #define is_power_of_2(n) (n != 0 && ((n & (n - 1)) == 0))
+> > 
+> > ?
+> > 
+> > (With suitable tweaks to avoid evaluating `n' more than once)
+> 
+> I think you need to use the 'horrid tricks' from min() to get
+> a constant expression from constant inputs.
 
-For non-constants this looks ok (see https://godbolt.org/z/G73MTr9jn)
+This
 
-=09David
+--- a/include/linux/log2.h~a
++++ a/include/linux/log2.h
+@@ -41,11 +41,11 @@ int __ilog2_u64(u64 n)
+  * *not* considered a power of two.
+  * Return: true if @n is a power of 2, otherwise false.
+  */
+-static inline __attribute__((const))
+-bool is_power_of_2(unsigned long n)
+-{
+-	return (n != 0 && ((n & (n - 1)) == 0));
+-}
++#define is_power_of_2(_n)				\
++	({						\
++		typeof(_n) n = (_n);			\
++		n != 0 && ((n & (n - 1)) == 0);		\
++	})
+ 
+ /**
+  * __roundup_pow_of_two() - round up to nearest power of two
+_
 
-static inline int lisp2(unsigned long n)
-{
-    return n && !(n & (n - 1));
-}
+worked for me in a simple test.
 
-static inline int llisp2(unsigned long long lln)
-{
-#if 0  // I think this looks worse, esp. for gcc on x86
-    return lln && !(lln & (lln - 1));
-#else
-    unsigned long n =3D lln;
-    if (lln >=3D 1ull << 32) {
-        if (n)
-            return 0;
-        n =3D lln >> 32;=20
-    }
-    return lisp2(n);
-#endif
-}
+--- a/fs/open.c~b
++++ a/fs/open.c
+@@ -1564,3 +1564,10 @@ int stream_open(struct inode *inode, str
+ }
+ 
+ EXPORT_SYMBOL(stream_open);
++
++#include <linux/log2.h>
++
++int foo(void)
++{
++	return is_power_of_2(43);
++}
+_
 
-#define isp2(n) (sizeof ((n)+0) =3D=3D sizeof (long) ? lisp2(n) : llisp2(n)=
-)
 
-int is12(unsigned long long  i)
-{
-    return isp2(i);
-}
+foo:
+# fs/open.c:1573: }
+	xorl	%eax, %eax	#
+	ret	
 
--
-Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1=
-PT, UK
-Registration No: 1397386 (Wales)
 
+Is there some more tricky situation where it breaks?
