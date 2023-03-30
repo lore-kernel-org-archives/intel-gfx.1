@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7796AC6FD1D
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 10:43:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 151EFC761A6
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 10:43:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5B4C10EDA5;
-	Thu, 30 Mar 2023 10:43:40 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEC6B10E208;
- Thu, 30 Mar 2023 10:43:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3903310EDAA;
+	Thu, 30 Mar 2023 10:43:41 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A1AE10E1FE;
+ Thu, 30 Mar 2023 10:43:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680173008; x=1711709008;
+ t=1680173018; x=1711709018;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=CDN8ZE/1vjjcivVa5naMdgZ0tYuSIPBlqDkTp4fXFOE=;
- b=LX6PrKnKVL8xkZzJLAA+f6mI7z0dj+c1K0wgBzJX9CWRZ6a8uaNcuHI5
- iCmZPmJXwt463U0dq6Yo/08ig5/i8njWEgqNJ4sb6MiHA3GwHmEc4Zagc
- nPhAR8d9bIO+o27U21oHvo5LnEZl5xCl+pnRfNimuIER07PbKifpu+0he
- dCh4zJzn9rArGjgs7ANfc7Q3mKDvMBHxkRoxiFjugnCt8ZGMFv6/HVnH5
- iSDgbaKMCYdGWiM3RcbOiPZVPCLdKawEbLUpUhbiy5OvgMSQNB02qPxep
- qLoBFeAYfswMRQ56GVBrEzKeRLLJcmY2s67Tq/5XO8/Vzz6Wtm/zKCUeT g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="406096371"
-X-IronPort-AV: E=Sophos;i="5.98,303,1673942400"; d="scan'208";a="406096371"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2023 03:43:28 -0700
+ bh=GqcGwxyn7j7iLNNmU5/jcjr9hX502H2AgCkR+SUtUOU=;
+ b=SD5LNcgrSzvNtPEYb8/jLE5lRo1uZdZWqVYAKtieJagduAeK+XsbudLK
+ c0qsZobJaOc21Lt6iK/qhiupEX+ntCh36TmrZjyrEdPyHtjKpZToi9Muc
+ vic7sKEAoIdVfXtG4bubfFEBIX8OrpvMLeghginG9iajr8Z6DX+z7ce2T
+ 3O4HvS2xO1815w9tFm4s7z2LUeIcgHTdZqLwPUMrV4yQWKX4jKyYqVtyw
+ DSeETKdZ0sselsEAlHLUNv/QS2VkbXjPHzwEowka8BHZhw5pUndh06Bpe
+ AtV6SUqd44QG33DrZnF9jZNzrbowRdytEWKkIrpdRBrfbdaHeNtZVX0A4 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="321517781"
+X-IronPort-AV: E=Sophos;i="5.98,303,1673942400"; d="scan'208";a="321517781"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2023 03:43:38 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="687197245"
-X-IronPort-AV: E=Sophos;i="5.98,303,1673942400"; d="scan'208";a="687197245"
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="661951495"
+X-IronPort-AV: E=Sophos;i="5.98,303,1673942400"; d="scan'208";a="661951495"
 Received: from unknown (HELO localhost) ([10.237.66.160])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2023 03:43:26 -0700
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2023 03:43:35 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: linux-kernel@vger.kernel.org
-Date: Thu, 30 Mar 2023 13:42:41 +0300
-Message-Id: <20230330104243.2120761-3-jani.nikula@intel.com>
+Date: Thu, 30 Mar 2023 13:42:43 +0300
+Message-Id: <20230330104243.2120761-5-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230330104243.2120761-1-jani.nikula@intel.com>
 References: <20230330104243.2120761-1-jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/4] log2: have is_power_of_2() support bigger
- types than unsigned long
+Subject: [Intel-gfx] [PATCH 4/4] drm/i915/reg: use is_power_of_2() from
+ log2.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,58 +66,38 @@ Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-is_power_of_2() does not work properly for e.g. u64 in 32-bit
-builds. Choose an unsigned long long version if the argument is bigger
-than unsigned long.
+Now that log2.h is_power_of_2() supports constant expressions, use it.
 
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: David Gow <davidgow@google.com>
-Link: https://lore.kernel.org/r/20230329065532.2122295-2-davidgow@google.com
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- include/linux/log2.h | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/i915_reg_defs.h | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
-diff --git a/include/linux/log2.h b/include/linux/log2.h
-index 19e773116ae3..4027d1eecd7f 100644
---- a/include/linux/log2.h
-+++ b/include/linux/log2.h
-@@ -35,6 +35,18 @@ int __ilog2_u64(u64 n)
+diff --git a/drivers/gpu/drm/i915/i915_reg_defs.h b/drivers/gpu/drm/i915/i915_reg_defs.h
+index be43580a6979..44e99a9a381f 100644
+--- a/drivers/gpu/drm/i915/i915_reg_defs.h
++++ b/drivers/gpu/drm/i915/i915_reg_defs.h
+@@ -52,11 +52,6 @@
+ 				 __is_constexpr(__low) &&		\
+ 				 ((__low) < 0 || (__high) > 63 || (__low) > (__high)))))
  
- #define __IS_POWER_OF_2(n) ((n) != 0 && (((n) & ((n) - 1)) == 0))
- 
-+static inline __attribute__((const))
-+bool __is_power_of_2_ull(unsigned long long n)
-+{
-+	return __IS_POWER_OF_2(n);
-+}
-+
-+static inline __attribute__((const))
-+bool __is_power_of_2(unsigned long n)
-+{
-+	return __IS_POWER_OF_2(n);
-+}
-+
+-/*
+- * Local integer constant expression version of is_power_of_2().
+- */
+-#define IS_POWER_OF_2(__x)		((__x) && (((__x) & ((__x) - 1)) == 0))
+-
  /**
-  * is_power_of_2() - check if a value is a power of two
-  * @n: the value to check
-@@ -43,11 +55,10 @@ int __ilog2_u64(u64 n)
-  * *not* considered a power of two.
-  * Return: true if @n is a power of 2, otherwise false.
-  */
--static inline __attribute__((const))
--bool is_power_of_2(unsigned long n)
--{
--	return __IS_POWER_OF_2(n);
--}
-+#define is_power_of_2(n)						\
-+	__builtin_choose_expr(sizeof(n) > sizeof(unsigned long),	\
-+			      __is_power_of_2_ull(n),			\
-+			      __is_power_of_2(n))
+  * REG_FIELD_PREP() - Prepare a u32 bitfield value
+  * @__mask: shifted mask defining the field's length and position
+@@ -71,7 +66,7 @@
+ 	((u32)((((typeof(__mask))(__val) << __bf_shf(__mask)) & (__mask)) +	\
+ 	       BUILD_BUG_ON_ZERO(!__is_constexpr(__mask)) +		\
+ 	       BUILD_BUG_ON_ZERO((__mask) == 0 || (__mask) > U32_MAX) +		\
+-	       BUILD_BUG_ON_ZERO(!IS_POWER_OF_2((__mask) + (1ULL << __bf_shf(__mask)))) + \
++	       BUILD_BUG_ON_ZERO(!is_power_of_2((__mask) + (1ULL << __bf_shf(__mask)))) + \
+ 	       BUILD_BUG_ON_ZERO(__builtin_choose_expr(__is_constexpr(__val), (~((__mask) >> __bf_shf(__mask)) & (__val)), 0))))
  
  /**
-  * __roundup_pow_of_two() - round up to nearest power of two
 -- 
 2.39.2
 
