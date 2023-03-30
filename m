@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C55E5C77B60
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 15:41:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64BB3C77B62
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 15:41:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46CC010EECA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE22010EEF7;
 	Thu, 30 Mar 2023 15:41:19 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3B3010EEDD;
- Thu, 30 Mar 2023 15:41:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 741C810EEDD;
+ Thu, 30 Mar 2023 15:41:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680190873; x=1711726873;
+ t=1680190875; x=1711726875;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=1I+tValqQeHIgImoR7kpRtE0U+EgMNCzeIU/wxgbpQk=;
- b=gj85bGNIagx0prxuUqJDhmTjZLJvkg1mIM5VNibamBa26m8TgVF3wLAZ
- SnP2QiRCVV8EZpfhVhp96pAJ8qYtnD1cKWzT6iN9npuiLXHCAg0crIlQC
- rsB6MIuaw8DecigyUfGRpv9bEbOBy58sPDAC22dmxUjfMal7o1MKJxJFk
- hDT5s6wR0Rh8HKW5JRp8s9+meNm4izBizuuFuVe4jBmQZ6rLFPTVBbyx1
- BEwGF+2N+gwmHbMGIH7wdg6RaAknYW4YRG6TktIEZSZ3n2sXypbzarG1b
- YbXwCcLCoJRZFVmPSfOvJDdCCKuO6SvycS7paU+i+pfyI6XHK37swpjZA g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="406196701"
-X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; d="scan'208";a="406196701"
+ bh=1bWoPoWQaCVN0/mOsD5PrsT3h4bTLxrhMvfS/tk12Lc=;
+ b=m/t7COWcDoPyzqtRO4o+qfskk5F3rAvMVdKlNgtlOcjifLD3IvPrqgRO
+ OyQrh0Elt5TnpV/kftq5oTP8P7Y2/c+Dfv9VDMvXR4Q9lfZdJSKHIl44/
+ QZpFtwgbu5wKqxc8QQRUl69Iu+Y2ZrweofSjbJwsYu0AeqeZc51URCJU2
+ yyouhXGlqUmoSKYShJ3V4ylxJ87yZ1C/RRchvQrpcF/NXEHs7p8v0m3o9
+ fn7iePKYndqtSwo6KRLK0xrCYZDWI5Cs86gXr2eJzN0usEz9Yqh/Vi05L
+ 8njgD8wwGMDAE50qHdETZKInaLQabqePUF9QCwJhKA+ZG9S/LPQyKbH2p w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="406196752"
+X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; d="scan'208";a="406196752"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2023 08:40:42 -0700
+ 30 Mar 2023 08:40:50 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="662068011"
-X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; d="scan'208";a="662068011"
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="662068080"
+X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; d="scan'208";a="662068080"
 Received: from unknown (HELO localhost) ([10.237.66.160])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2023 08:40:40 -0700
+ 30 Mar 2023 08:40:49 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Thu, 30 Mar 2023 18:39:47 +0300
-Message-Id: <e7c6d561ab086e2348611c374cb590eaa7b27dce.1680190534.git.jani.nikula@intel.com>
+Date: Thu, 30 Mar 2023 18:39:49 +0300
+Message-Id: <187a36d3274f2e33e7a57143d59382528f2730d9.1680190534.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1680190534.git.jani.nikula@intel.com>
 References: <cover.1680190534.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 10/12] drm/rockchip: cdn-dp: call
- drm_connector_update_edid_property() unconditionally
+Subject: [Intel-gfx] [PATCH 12/12] drm/connector: update edid_blob_ptr
+ documentation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,39 +59,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
- Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>
+Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Calling drm_connector_update_edid_property() should be done
-unconditionally instead of depending on the number of modes added. Also
-match the call order in inno_hdmi and rk3066_hdmi.
+Accessing the EDID via edid_blob_ptr causes chicken-and-egg
+problems. Keep edid_blob_ptr as the userspace interface that should be
+updated via dedicated functions.
 
-Cc: Sandy Huang <hjc@rock-chips.com>
-Cc: Heiko Stübner <heiko@sntech.de>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/rockchip/cdn-dp-core.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ include/drm/drm_connector.h | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/rockchip/cdn-dp-core.c b/drivers/gpu/drm/rockchip/cdn-dp-core.c
-index 8526dda91931..b6afe3786b74 100644
---- a/drivers/gpu/drm/rockchip/cdn-dp-core.c
-+++ b/drivers/gpu/drm/rockchip/cdn-dp-core.c
-@@ -273,10 +273,9 @@ static int cdn_dp_connector_get_modes(struct drm_connector *connector)
- 				  edid->width_cm, edid->height_cm);
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index c8be6a343589..56ecfcbe2ae2 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -1551,8 +1551,12 @@ struct drm_connector {
  
- 		dp->sink_has_audio = drm_detect_monitor_audio(edid);
-+
-+		drm_connector_update_edid_property(connector, edid);
- 		ret = drm_add_edid_modes(connector, edid);
--		if (ret)
--			drm_connector_update_edid_property(connector,
--								edid);
- 	}
- 	mutex_unlock(&dp->lock);
+ 	/**
+ 	 * @edid_blob_ptr: DRM property containing EDID if present. Protected by
+-	 * &drm_mode_config.mutex. This should be updated only by calling
++	 * &drm_mode_config.mutex.
++	 *
++	 * This should be updated only by calling drm_edid_connector_update() or
+ 	 * drm_connector_update_edid_property().
++	 *
++	 * This should not be used by drivers directly.
+ 	 */
+ 	struct drm_property_blob *edid_blob_ptr;
  
 -- 
 2.39.2
