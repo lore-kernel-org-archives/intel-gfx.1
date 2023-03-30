@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09C5DC6FD1D
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 15:40:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62754C6FD1D
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 15:40:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B48210EECA;
-	Thu, 30 Mar 2023 15:40:20 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E6F710EECA;
- Thu, 30 Mar 2023 15:40:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF03310EEE1;
+	Thu, 30 Mar 2023 15:40:28 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE74410EEDE;
+ Thu, 30 Mar 2023 15:40:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680190819; x=1711726819;
+ t=1680190826; x=1711726826;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=9j02iyN1z0oGbiLOKEigIWxMKS4gDUjrc2/jm7bQPAY=;
- b=lOiHev37SaV/p5bTipPHray+sFN93MvPP7qMCxvjYLccWw3CYjqUQJcq
- nAG9Ds86zCZA/cpjuarVjn2SWjKCcGNGV2JaZID7alO+mKDV5lfu80fcZ
- v0YusfqbYrwTBFh6+TvQXkF/RrXJ5nn0gcUIqiw2DfnC5ihuBvDOyI3+y
- WtGG5FJOqivkHY1uoKRHg0xl+7e6ZCs+gMbKCeCH/OvUV+ZbuSacr16ZE
- r/KVSP3E+IIJqBsRaLLgi2UooitdD8uCBnmsqzpTi6bTkAANCQwLZ+h07
- odcVc9idO8owqVgWEf+mE7cjZQ0sz+fgTCWotGXBV60XMbd1BEPNv6sz+ A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="342844349"
-X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; d="scan'208";a="342844349"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2023 08:40:18 -0700
+ bh=V0kGArqC6sg6/LpD4tfBM6qpSA9zuWWvJU9RuLFuH44=;
+ b=UYGusATTVow4uU3uBbiD0YLjRWpp3elMHiw5qe8Cf6XrgdRSLRlV1umQ
+ 7fw0yoD4vfQNjlRD4hkKTgMqNQAuvYlQCV6NcId1BStub1VaffiOpeiiK
+ +MLRj7QID9AElmmhDBIJ4x/FZeGMLCLP1UUlaHnBjAuIuND1435P17jEu
+ tZ2PKPimEuKM1YDNNMcRA30a/0+4i3MTKXvyFkSLBzz3RQV6zEtjcV8uY
+ SuzmOVySUx1FpkZDCLU9va0vPdLbbHTFoxyTb7vTTltd6byTLw4LHzFMG
+ yP1W5OrN2BYDz9uT6ealUZtfIvKkFDZMU/UTKWardtx2J3md6H5MQCcNE g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="427480513"
+X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; d="scan'208";a="427480513"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2023 08:40:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="774032124"
-X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; d="scan'208";a="774032124"
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="795702251"
+X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; d="scan'208";a="795702251"
 Received: from unknown (HELO localhost) ([10.237.66.160])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2023 08:40:15 -0700
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2023 08:40:02 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Thu, 30 Mar 2023 18:39:41 +0300
-Message-Id: <e4cb7b0c7217511429e69c1c78729f0e864c5b24.1680190534.git.jani.nikula@intel.com>
+Date: Thu, 30 Mar 2023 18:39:38 +0300
+Message-Id: <cfcb90eb4d7ba383ee4550013bd12404d978c850.1680190534.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1680190534.git.jani.nikula@intel.com>
 References: <cover.1680190534.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 04/12] drm/radeon: remove
- radeon_connector_edid() and stop using edid_blob_ptr
+Subject: [Intel-gfx] [PATCH 01/12] drm/edid: parse display info has_audio
+ similar to is_hdmi
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,95 +59,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
-	Xinhui <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Pan@freedesktop.org
+Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-radeon_connector_edid() copies the EDID from edid_blob_ptr as a side
-effect if radeon_connector->edid isn't initialized. However, everywhere
-that the returned EDID is used, the EDID should have been set
-beforehands.
+Since we already iterate everything that's needed for determining audio,
+reduce the need to call drm_detect_monitor_audio() by storing has_audio
+to connector info.
 
-Only the EDID code and sysfs should look at the EDID property, anyway,
-so stop using it.
-
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Pan, Xinhui <Xinhui.Pan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/radeon/radeon_audio.c      |  5 ++---
- drivers/gpu/drm/radeon/radeon_connectors.c | 15 ---------------
- drivers/gpu/drm/radeon/radeon_mode.h       |  2 --
- 3 files changed, 2 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/drm_edid.c  | 6 ++++++
+ include/drm/drm_connector.h | 8 ++++++++
+ 2 files changed, 14 insertions(+)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_audio.c b/drivers/gpu/drm/radeon/radeon_audio.c
-index 947de91e13f6..759b5dfaca15 100644
---- a/drivers/gpu/drm/radeon/radeon_audio.c
-+++ b/drivers/gpu/drm/radeon/radeon_audio.c
-@@ -309,7 +309,7 @@ static void radeon_audio_write_sad_regs(struct drm_encoder *encoder)
- 	if (!connector)
- 		return;
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 0454da505687..813ce00a106a 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6243,6 +6243,9 @@ static void drm_parse_cea_ext(struct drm_connector *connector,
+ 			info->color_formats |= DRM_COLOR_FORMAT_YCBCR444;
+ 		if (edid_ext[3] & EDID_CEA_YCRCB422)
+ 			info->color_formats |= DRM_COLOR_FORMAT_YCBCR422;
++		if (edid_ext[3] & EDID_BASIC_AUDIO)
++			info->has_audio = true;
++
+ 	}
+ 	drm_edid_iter_end(&edid_iter);
  
--	sad_count = drm_edid_to_sad(radeon_connector_edid(connector), &sads);
-+	sad_count = drm_edid_to_sad(radeon_connector->edid, &sads);
- 	if (sad_count < 0)
- 		DRM_ERROR("Couldn't read SADs: %d\n", sad_count);
- 	if (sad_count <= 0)
-@@ -332,8 +332,7 @@ static void radeon_audio_write_speaker_allocation(struct drm_encoder *encoder)
- 	if (!connector)
- 		return;
+@@ -6268,6 +6271,8 @@ static void drm_parse_cea_ext(struct drm_connector *connector,
+ 			drm_parse_hdr_metadata_block(connector, data);
+ 		else if (cea_db_tag(db) == CTA_DB_VIDEO)
+ 			parse_cta_vdb(connector, db);
++		else if (cea_db_tag(db) == CTA_DB_AUDIO)
++			info->has_audio = true;
+ 	}
+ 	cea_db_iter_end(&iter);
  
--	sad_count = drm_edid_to_speaker_allocation(radeon_connector_edid(connector),
--						   &sadb);
-+	sad_count = drm_edid_to_speaker_allocation(radeon_connector->edid, &sadb);
- 	if (sad_count < 0) {
- 		DRM_DEBUG("Couldn't read Speaker Allocation Data Block: %d\n",
- 			  sad_count);
-diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
-index adebf8e9d2bd..99e8f387fe21 100644
---- a/drivers/gpu/drm/radeon/radeon_connectors.c
-+++ b/drivers/gpu/drm/radeon/radeon_connectors.c
-@@ -256,21 +256,6 @@ static struct drm_encoder *radeon_find_encoder(struct drm_connector *connector,
- 	return NULL;
- }
+@@ -6424,6 +6429,7 @@ static void drm_reset_display_info(struct drm_connector *connector)
+ 	info->max_tmds_clock = 0;
+ 	info->dvi_dual = false;
+ 	info->is_hdmi = false;
++	info->has_audio = false;
+ 	info->has_hdmi_infoframe = false;
+ 	info->rgb_quant_range_selectable = false;
+ 	memset(&info->hdmi, 0, sizeof(info->hdmi));
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 7b5048516185..c8be6a343589 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -653,6 +653,14 @@ struct drm_display_info {
+ 	 */
+ 	bool is_hdmi;
  
--struct edid *radeon_connector_edid(struct drm_connector *connector)
--{
--	struct radeon_connector *radeon_connector = to_radeon_connector(connector);
--	struct drm_property_blob *edid_blob = connector->edid_blob_ptr;
--
--	if (radeon_connector->edid) {
--		return radeon_connector->edid;
--	} else if (edid_blob) {
--		struct edid *edid = kmemdup(edid_blob->data, edid_blob->length, GFP_KERNEL);
--		if (edid)
--			radeon_connector->edid = edid;
--	}
--	return radeon_connector->edid;
--}
--
- static void radeon_connector_get_edid(struct drm_connector *connector)
- {
- 	struct drm_device *dev = connector->dev;
-diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
-index 3a59d016e8cd..ab71a744d2b2 100644
---- a/drivers/gpu/drm/radeon/radeon_mode.h
-+++ b/drivers/gpu/drm/radeon/radeon_mode.h
-@@ -708,8 +708,6 @@ extern u16 radeon_connector_encoder_get_dp_bridge_encoder_id(struct drm_connecto
- extern bool radeon_connector_is_dp12_capable(struct drm_connector *connector);
- extern int radeon_get_monitor_bpc(struct drm_connector *connector);
- 
--extern struct edid *radeon_connector_edid(struct drm_connector *connector);
--
- extern void radeon_connector_hotplug(struct drm_connector *connector);
- extern int radeon_dp_mode_valid_helper(struct drm_connector *connector,
- 				       struct drm_display_mode *mode);
++	/**
++	 * @has_audio: True if the sink supports audio.
++	 *
++	 * This field shall be used instead of calling
++	 * drm_detect_monitor_audio() when possible.
++	 */
++	bool has_audio;
++
+ 	/**
+ 	 * @has_hdmi_infoframe: Does the sink support the HDMI infoframe?
+ 	 */
 -- 
 2.39.2
 
