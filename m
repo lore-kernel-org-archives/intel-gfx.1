@@ -4,48 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 946E2C761A6
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 15:40:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09C5DC6FD1D
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Mar 2023 15:40:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 223DF10EEDB;
-	Thu, 30 Mar 2023 15:40:09 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A01F310EED9;
- Thu, 30 Mar 2023 15:40:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B48210EECA;
+	Thu, 30 Mar 2023 15:40:20 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E6F710EECA;
+ Thu, 30 Mar 2023 15:40:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680190807; x=1711726807;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=0FhdH0p/HcWeBfk5OJ7HWQw0UUWQdBGYy04tFYP7/6M=;
- b=n89gg+p7ASW5oF+nA56LbsoUEeRJ/hGtSkOEZKYiqDKoLJgsBT4E++L+
- UHg1ZyNyc9p5b/Hyrfts8qX6W/zrsxndtVKRSsEQRcFvgBQblqhH4iwiR
- 0lkrNHPnxHTsGnZWc0LhQl0pxp2wnPvN/vy/QxGqUMocRx5aTbOa+aWo5
- HsRUtSogOLxaYuyaTEjE2FOF28wYBHMh89Wn3DeKubwDlet/UyWuwbgeW
- Vqa+d1o1wTIvNEyMPH4fttMGfBxLf9eQonp6bA4DUknvJm55eEbfvw0v8
- oWbbk8NoltNB7Jm32BoheJSx0+iMBldE0eTCCmJfYYwkK0GBnQbwpb5g2 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="329722047"
-X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; d="scan'208";a="329722047"
+ t=1680190819; x=1711726819;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=9j02iyN1z0oGbiLOKEigIWxMKS4gDUjrc2/jm7bQPAY=;
+ b=lOiHev37SaV/p5bTipPHray+sFN93MvPP7qMCxvjYLccWw3CYjqUQJcq
+ nAG9Ds86zCZA/cpjuarVjn2SWjKCcGNGV2JaZID7alO+mKDV5lfu80fcZ
+ v0YusfqbYrwTBFh6+TvQXkF/RrXJ5nn0gcUIqiw2DfnC5ihuBvDOyI3+y
+ WtGG5FJOqivkHY1uoKRHg0xl+7e6ZCs+gMbKCeCH/OvUV+ZbuSacr16ZE
+ r/KVSP3E+IIJqBsRaLLgi2UooitdD8uCBnmsqzpTi6bTkAANCQwLZ+h07
+ odcVc9idO8owqVgWEf+mE7cjZQ0sz+fgTCWotGXBV60XMbd1BEPNv6sz+ A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="342844349"
+X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; d="scan'208";a="342844349"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2023 08:40:00 -0700
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2023 08:40:18 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="774032104"
-X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; d="scan'208";a="774032104"
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="774032124"
+X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; d="scan'208";a="774032124"
 Received: from unknown (HELO localhost) ([10.237.66.160])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2023 08:39:55 -0700
+ 30 Mar 2023 08:40:15 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Thu, 30 Mar 2023 18:39:37 +0300
-Message-Id: <cover.1680190534.git.jani.nikula@intel.com>
+Date: Thu, 30 Mar 2023 18:39:41 +0300
+Message-Id: <e4cb7b0c7217511429e69c1c78729f0e864c5b24.1680190534.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <cover.1680190534.git.jani.nikula@intel.com>
+References: <cover.1680190534.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 00/12] drm: reduce
- drm_detect_monitor_audio/drm_detect_hdmi_monitor/edid_blob_ptr usage
+Subject: [Intel-gfx] [PATCH 04/12] drm/radeon: remove
+ radeon_connector_edid() and stop using edid_blob_ptr
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,93 +60,95 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
-	Karol Herbst <kherbst@redhat.com>, jani.nikula@intel.com,
-	nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
-	Xinhui <Xinhui.Pan@amd.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
-	Russell King <linux@armlinux.org.uk>, amd-gfx@lists.freedesktop.org,
-	Sandy Huang <hjc@rock-chips.com>, Inki Dae <inki.dae@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	Ben Skeggs <bskeggs@redhat.com>,
+Cc: jani.nikula@intel.com, intel-gfx@lists.freedesktop.org,
+	Xinhui <Xinhui.Pan@amd.com>, amd-gfx@lists.freedesktop.org,
 	Alex Deucher <alexander.deucher@amd.com>,
-	Alain Volmat <alain.volmat@foss.st.com>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
 	Pan@freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-THIS IS UNTESTED for anything other than i915.
+radeon_connector_edid() copies the EDID from edid_blob_ptr as a side
+effect if radeon_connector->edid isn't initialized. However, everywhere
+that the returned EDID is used, the EDID should have been set
+beforehands.
 
-Use previously parsed EDID where possible for display audio/hdmi
-detection. This in turn reduces edid_blob_ptr usage in a number of
-places. Further reduce edid_blob_ptr usage, and document that it should
-not be used by drivers directly.
+Only the EDID code and sysfs should look at the EDID property, anyway,
+so stop using it.
 
-BR,
-Jani.
-
-
-Cc: Alain Volmat <alain.volmat@foss.st.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: Ben Skeggs <bskeggs@redhat.com>
 Cc: Christian König <christian.koenig@amd.com>
-Cc: Heiko Stübner <heiko@sntech.de>
-Cc: Inki Dae <inki.dae@samsung.com>
-Cc: Karol Herbst <kherbst@redhat.com>
-Cc: Kyungmin Park <kyungmin.park@samsung.com>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: nouveau@lists.freedesktop.org
 Cc: Pan, Xinhui <Xinhui.Pan@amd.com>
-Cc: Russell King <linux@armlinux.org.uk>
-Cc: Sandy Huang <hjc@rock-chips.com>
-Cc: Seung-Woo Kim <sw0312.kim@samsung.com>
+Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/radeon/radeon_audio.c      |  5 ++---
+ drivers/gpu/drm/radeon/radeon_connectors.c | 15 ---------------
+ drivers/gpu/drm/radeon/radeon_mode.h       |  2 --
+ 3 files changed, 2 insertions(+), 20 deletions(-)
 
-
-Jani Nikula (12):
-  drm/edid: parse display info has_audio similar to is_hdmi
-  drm/nouveau: convert to using is_hdmi and has_audio from display info
-  drm/radeon: convert to using is_hdmi and has_audio from display info
-  drm/radeon: remove radeon_connector_edid() and stop using
-    edid_blob_ptr
-  drm/amdgpu: remove amdgpu_connector_edid() and stop using
-    edid_blob_ptr
-  drm/i915/debugfs: stop using edid_blob_ptr
-  drm/exynos: fix is_hdmi usage
-  drm/i2c/tda998x: convert to using has_audio from display_info
-  drm/sti/sti_hdmi: convert to using is_hdmi from display info
-  drm/rockchip: cdn-dp: call drm_connector_update_edid_property()
-    unconditionally
-  drm/rockchip: convert to using has_audio from display_info
-  drm/connector: update edid_blob_ptr documentation
-
- .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 15 -----------
- .../gpu/drm/amd/amdgpu/amdgpu_connectors.h    |  1 -
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  4 +--
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |  4 +--
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  4 +--
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  4 +--
- drivers/gpu/drm/drm_edid.c                    |  6 +++++
- drivers/gpu/drm/exynos/exynos_hdmi.c          |  3 ++-
- drivers/gpu/drm/i2c/tda998x_drv.c             |  2 +-
- .../drm/i915/display/intel_display_debugfs.c  | 10 +++----
- drivers/gpu/drm/nouveau/dispnv50/disp.c       |  8 +++---
- drivers/gpu/drm/nouveau/dispnv50/head.c       |  8 +-----
- drivers/gpu/drm/nouveau/nouveau_connector.c   |  2 +-
- drivers/gpu/drm/radeon/atombios_encoders.c    | 10 +++----
- drivers/gpu/drm/radeon/evergreen_hdmi.c       |  5 ++--
- drivers/gpu/drm/radeon/radeon_audio.c         | 11 ++++----
- drivers/gpu/drm/radeon/radeon_connectors.c    | 27 +++++--------------
- drivers/gpu/drm/radeon/radeon_display.c       |  2 +-
- drivers/gpu/drm/radeon/radeon_encoders.c      |  4 +--
- drivers/gpu/drm/radeon/radeon_mode.h          |  2 --
- drivers/gpu/drm/rockchip/cdn-dp-core.c        |  7 +++--
- drivers/gpu/drm/rockchip/inno_hdmi.c          |  3 ++-
- drivers/gpu/drm/sti/sti_hdmi.c                | 11 ++++----
- drivers/gpu/drm/sti/sti_hdmi.h                |  2 --
- include/drm/drm_connector.h                   | 14 +++++++++-
- 25 files changed, 73 insertions(+), 96 deletions(-)
-
+diff --git a/drivers/gpu/drm/radeon/radeon_audio.c b/drivers/gpu/drm/radeon/radeon_audio.c
+index 947de91e13f6..759b5dfaca15 100644
+--- a/drivers/gpu/drm/radeon/radeon_audio.c
++++ b/drivers/gpu/drm/radeon/radeon_audio.c
+@@ -309,7 +309,7 @@ static void radeon_audio_write_sad_regs(struct drm_encoder *encoder)
+ 	if (!connector)
+ 		return;
+ 
+-	sad_count = drm_edid_to_sad(radeon_connector_edid(connector), &sads);
++	sad_count = drm_edid_to_sad(radeon_connector->edid, &sads);
+ 	if (sad_count < 0)
+ 		DRM_ERROR("Couldn't read SADs: %d\n", sad_count);
+ 	if (sad_count <= 0)
+@@ -332,8 +332,7 @@ static void radeon_audio_write_speaker_allocation(struct drm_encoder *encoder)
+ 	if (!connector)
+ 		return;
+ 
+-	sad_count = drm_edid_to_speaker_allocation(radeon_connector_edid(connector),
+-						   &sadb);
++	sad_count = drm_edid_to_speaker_allocation(radeon_connector->edid, &sadb);
+ 	if (sad_count < 0) {
+ 		DRM_DEBUG("Couldn't read Speaker Allocation Data Block: %d\n",
+ 			  sad_count);
+diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
+index adebf8e9d2bd..99e8f387fe21 100644
+--- a/drivers/gpu/drm/radeon/radeon_connectors.c
++++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+@@ -256,21 +256,6 @@ static struct drm_encoder *radeon_find_encoder(struct drm_connector *connector,
+ 	return NULL;
+ }
+ 
+-struct edid *radeon_connector_edid(struct drm_connector *connector)
+-{
+-	struct radeon_connector *radeon_connector = to_radeon_connector(connector);
+-	struct drm_property_blob *edid_blob = connector->edid_blob_ptr;
+-
+-	if (radeon_connector->edid) {
+-		return radeon_connector->edid;
+-	} else if (edid_blob) {
+-		struct edid *edid = kmemdup(edid_blob->data, edid_blob->length, GFP_KERNEL);
+-		if (edid)
+-			radeon_connector->edid = edid;
+-	}
+-	return radeon_connector->edid;
+-}
+-
+ static void radeon_connector_get_edid(struct drm_connector *connector)
+ {
+ 	struct drm_device *dev = connector->dev;
+diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
+index 3a59d016e8cd..ab71a744d2b2 100644
+--- a/drivers/gpu/drm/radeon/radeon_mode.h
++++ b/drivers/gpu/drm/radeon/radeon_mode.h
+@@ -708,8 +708,6 @@ extern u16 radeon_connector_encoder_get_dp_bridge_encoder_id(struct drm_connecto
+ extern bool radeon_connector_is_dp12_capable(struct drm_connector *connector);
+ extern int radeon_get_monitor_bpc(struct drm_connector *connector);
+ 
+-extern struct edid *radeon_connector_edid(struct drm_connector *connector);
+-
+ extern void radeon_connector_hotplug(struct drm_connector *connector);
+ extern int radeon_dp_mode_valid_helper(struct drm_connector *connector,
+ 				       struct drm_display_mode *mode);
 -- 
 2.39.2
 
