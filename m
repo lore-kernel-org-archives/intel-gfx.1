@@ -4,66 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42571C76196
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 22:13:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E180C76196
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 22:14:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88E4B10F308;
-	Fri, 31 Mar 2023 22:13:55 +0000 (UTC)
-Received: from mail-yw1-x112f.google.com (mail-yw1-x112f.google.com
- [IPv6:2607:f8b0:4864:20::112f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D04310F32A
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 22:12:20 +0000 (UTC)
-Received: by mail-yw1-x112f.google.com with SMTP id
- 00721157ae682-5456249756bso440838127b3.5
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 15:12:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72B7210F319;
+	Fri, 31 Mar 2023 22:14:56 +0000 (UTC)
+Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
+ [IPv6:2001:4860:4864:20::32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F110910F319;
+ Fri, 31 Mar 2023 22:14:42 +0000 (UTC)
+Received: by mail-oa1-x32.google.com with SMTP id
+ 586e51a60fabf-17997ccf711so24703182fac.0; 
+ Fri, 31 Mar 2023 15:14:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1680300740;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20210112; t=1680300882;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qZuaeI2NbvCBfBMRGGvq+S9k09VZQWz1w9ljulNq50E=;
- b=Iu2vFEXw7fvHYskrAoRtS3ueCnnQMQt2rszei65kmJs9H5F1PLnMw4lY5cBNskPlO4
- DYy7GbC6aTbcrWvZJTAI9TddMmyh944J13vI06eIuxXS3d6Xk/89vsz2mMbNyToEGjny
- 0S+bNLtQadnyt1X5SURdYk89upGr3NpW//sWQ=
+ bh=qhw/OpQ+FTAQa8APFrGD6JT5CNzO4/5k8nMc9QF0/qg=;
+ b=CxOAhKlaTRq0fx+JuXpqBCSp8v/LdxBC+cjZUy3qiYgcmWdrB/pEfsSBMQ9pZtM9m7
+ 7ybeWmtVoDGRZ1e4ijiYNRyqWOJPDCV86aY6RDI3HtpI5fKsHWxZmZJ6awLViAOuCjOO
+ nbeBKa8kyE3mKxAYsjm+LzyniqNVS/Y59c+379e2+D9CJCrKgESnQOomTUpnLePx589s
+ 61p0iiSyqUiqgYn5TSKB5z2px+iVLzHRFIhDHsiAcru2GwuSKPRjqnJl1P90w1EuYzsH
+ 2w8dPpJWd6u8cT2r8ePg8m71qoyH4WH1D2IiaqqjIIjB/y5jdo8p3jGUcqfquYL2YMjF
+ 6HzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680300740;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20210112; t=1680300882;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=qZuaeI2NbvCBfBMRGGvq+S9k09VZQWz1w9ljulNq50E=;
- b=qR8DT9FXAWbUnO1Vp4REKUDjfcpz4nIhxd0NbFj0J1rCQvSV7uN9d/O4c8bedOZhuO
- 3FHmQmw0OEemaBdT+6yYCbW6YaAg9k2LRnvtToZTNl8b8KsG43HO1TpeW/vsZ3flOfjr
- nNW1rvIX2+DCDGvlIzpdaG3B35Nd+EJX83McUM0gYffT0ttpm1frY1beRqiTuEiPDWCx
- xF87D9IU2rGKVZEQL5dfuQkvW50vgn92MNcoZ5ebb7VIOS0Z1UOEDaopL/z+ek+dTxQG
- IdHS38QSk9tBg4iuMCSJKUWr9DyN7MW0wwviDyZZU0kqVqpdkxn9zczr186CAHx//E4l
- byNQ==
-X-Gm-Message-State: AAQBX9dHR6zvb7DBgIr5LZEfg/GoYNbdKLKibz2VLsZQuSDmdVEySsdy
- G5qBBLgjIYRt/+L5QuVfptNtI8BBUhDkBcAQFOw=
-X-Google-Smtp-Source: AKy350Z1iL6EsI2Wjmh2Kggauq8YsS4JxBKhskbn0KDnJ969R/xa1R0pnvfpSF8C614iEvVq32o7dg==
-X-Received: by 2002:a81:a249:0:b0:52d:ff16:edb1 with SMTP id
- z9-20020a81a249000000b0052dff16edb1mr23446137ywg.17.1680300740369; 
- Fri, 31 Mar 2023 15:12:20 -0700 (PDT)
-Received: from localhost ([2620:0:1035:15:a8f6:869a:3ef5:e1d])
- by smtp.gmail.com with UTF8SMTPSA id
- df7-20020a05690c0f8700b00545a08184desm781939ywb.110.2023.03.31.15.12.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 31 Mar 2023 15:12:20 -0700 (PDT)
-From: Mark Yacoub <markyacoub@chromium.org>
-X-Google-Original-From: Mark Yacoub <markyacoub@google.com>
-To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Date: Fri, 31 Mar 2023 18:12:04 -0400
-Message-Id: <20230331221213.1691997-3-markyacoub@google.com>
-X-Mailer: git-send-email 2.40.0.348.gf938b09366-goog
-In-Reply-To: <20230331221213.1691997-1-markyacoub@google.com>
-References: <20230331221213.1691997-1-markyacoub@google.com>
+ bh=qhw/OpQ+FTAQa8APFrGD6JT5CNzO4/5k8nMc9QF0/qg=;
+ b=5X45+g/tmPZoFVYLUbqLVWmLZ+RPjKRrsCc9cN21+OAx3ekJ0bI1eMl/Q7HSMej7la
+ 18kaTsgF7xUAeSBOURAE9xKE1C8lgEcxn0Crm2PojhRHAEd8/0A+6EspXQoR2uXFHB3L
+ EOVsUn2cHH0AuxhuLdLMuVDxpgraPT+svZu5GA4JsoM834yZZrefMVlkn5/WtyEjoy1V
+ vQwiDPoLbjlgZj5sRwKJCqD631izWcttGH74XnGlqYylLRXqSUTXB6X3Q/00ph7Zc4rD
+ kENCWJACcIp3DqdRN/Z676AlDN8SPDAj5xbIecR8zZ9lplG4WRU+k77a9SVz0cinqwQi
+ ryLw==
+X-Gm-Message-State: AO0yUKX4HfvNXIAaBMw10HT1jhxVDEDvqrTrmJtdmjjLLLF//FRZFjnK
+ kkYo5UrWKbDYPVvY9Kq8Ahv4yecVqRhJvVrQ8Zo=
+X-Google-Smtp-Source: AK7set+TIiqW+SlcAs5j+DlIk2js9/F7vT5UohC/ygHDwfIiQbwxPxumypst5Hl96OQNeNdW/yj1g8ynQkCtaMC4KbQ=
+X-Received: by 2002:a05:687c:198:b0:17e:3201:41b0 with SMTP id
+ yo24-20020a05687c019800b0017e320141b0mr9239508oab.5.1680300882090; Fri, 31
+ Mar 2023 15:14:42 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 02/10] drm/hdcp: Avoid changing crtc state in
- hdcp atomic check
+References: <20230308155322.344664-1-robdclark@gmail.com>
+ <20230308155322.344664-12-robdclark@gmail.com>
+ <20230331204412.GA396777@dev-arch.thelio-3990X>
+In-Reply-To: <20230331204412.GA396777@dev-arch.thelio-3990X>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 31 Mar 2023 15:14:30 -0700
+Message-ID: <CAF6AEGtDbSDNBBdONQ6YubZDaKMpDQ-BJx5mP+aGw4uy9qbXDQ@mail.gmail.com>
+To: Nathan Chancellor <nathan@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH v10 11/15] drm/atomic-helper: Set fence
+ deadline for vblank
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,163 +71,184 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, Mark Yacoub <markyacoub@chromium.org>,
- intel-gfx@lists.freedesktop.org, dianders@chromium.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- seanpaul@chromium.org, freedreno@lists.freedesktop.org
+Cc: Rob Clark <robdclark@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ intel-gfx@lists.freedesktop.org, Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
+ open list <linux-kernel@vger.kernel.org>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Luben Tuikov <luben.tuikov@amd.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matt Turner <mattst88@gmail.com>, freedreno@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Sean Paul <seanpaul@chromium.org>
+On Fri, Mar 31, 2023 at 1:44=E2=80=AFPM Nathan Chancellor <nathan@kernel.or=
+g> wrote:
+>
+> Hi Rob,
+>
+> On Wed, Mar 08, 2023 at 07:53:02AM -0800, Rob Clark wrote:
+> > From: Rob Clark <robdclark@chromium.org>
+> >
+> > For an atomic commit updating a single CRTC (ie. a pageflip) calculate
+> > the next vblank time, and inform the fence(s) of that deadline.
+> >
+> > v2: Comment typo fix (danvet)
+> > v3: If there are multiple CRTCs, consider the time of the soonest vblan=
+k
+> >
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+> > Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> > Signed-off-by: Rob Clark <robdclark@chromium.org>
+>
+> I apologize if this has already been reported or fixed, I searched lore
+> but did not find anything.
+>
+> This change as commit d39e48ca80c0 ("drm/atomic-helper: Set fence
+> deadline for vblank") in -next causes a hang while running LTP's
+> read_all test on /proc on my Ampere Altra system (it seems it is hanging
+> on a pagemap file?). Additionally, I have this splat in dmesg, which
+> seems related based on the call stack.
 
-Instead of forcing a modeset in the hdcp atomic check, rename to
-drm_hdcp_has_changed and return true if the content protection value
-is changing and let the driver decide whether a modeset is required or not.
+Hi, I'm not familiar with this hardware.. do you know which drm driver
+is used?  I can't tell from the call-stack.
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Sean Paul <seanpaul@chromium.org>
-Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
+BR,
+-R
 
----
-Changes in v2:
--None
-Changes in v3:
--None
-Changes in v4:
--None
-Changes in v5:
--None
-Changes in v6:
--Rebase: modifications in drm_hdcp_helper.c instead of drm_hdcp.c
-Changes in v7:
--Renamed the function from drm_hdcp_atomic_check to drm_hdcp_has_changed
-(Dmitry Baryshkov)
-Changes in v8:
--None
 
- drivers/gpu/drm/display/drm_hdcp_helper.c   | 39 ++++++++++++++-------
- drivers/gpu/drm/i915/display/intel_atomic.c |  6 ++--
- include/drm/display/drm_hdcp_helper.h       |  2 +-
- 3 files changed, 30 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/gpu/drm/display/drm_hdcp_helper.c b/drivers/gpu/drm/display/drm_hdcp_helper.c
-index 7ca390b3ea106..34baf2b97cd87 100644
---- a/drivers/gpu/drm/display/drm_hdcp_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdcp_helper.c
-@@ -422,18 +422,21 @@ void drm_hdcp_update_content_protection(struct drm_connector *connector,
- EXPORT_SYMBOL(drm_hdcp_update_content_protection);
- 
- /**
-- * drm_hdcp_atomic_check - Helper for drivers to call during connector->atomic_check
-+ * drm_hdcp_has_changed - Helper for drivers to call during connector->atomic_check
-  *
-  * @state: pointer to the atomic state being checked
-  * @connector: drm_connector on which content protection state needs an update
-  *
-  * This function can be used by display drivers to perform an atomic check on the
-- * hdcp state elements. If hdcp state has changed, this function will set
-- * mode_changed on the crtc driving the connector so it can update its hardware
-- * to match the hdcp state.
-+ * hdcp state elements. If hdcp state has changed in a manner which requires the
-+ * driver to enable or disable content protection, this function will return
-+ * true.
-+ *
-+ * Returns:
-+ * true if the driver must enable/disable hdcp, false otherwise
-  */
--void drm_hdcp_atomic_check(struct drm_connector *connector,
--			   struct drm_atomic_state *state)
-+bool drm_hdcp_has_changed(struct drm_connector *connector,
-+			  struct drm_atomic_state *state)
- {
- 	struct drm_connector_state *new_conn_state, *old_conn_state;
- 	struct drm_crtc_state *new_crtc_state;
-@@ -450,19 +453,31 @@ void drm_hdcp_atomic_check(struct drm_connector *connector,
- 		 * If the connector is being disabled with CP enabled, mark it
- 		 * desired so it's re-enabled when the connector is brought back
- 		 */
--		if (old_hdcp == DRM_MODE_CONTENT_PROTECTION_ENABLED)
-+		if (old_hdcp == DRM_MODE_CONTENT_PROTECTION_ENABLED) {
- 			new_conn_state->content_protection =
- 				DRM_MODE_CONTENT_PROTECTION_DESIRED;
--		return;
-+			return true;
-+		}
-+		return false;
- 	}
- 
- 	new_crtc_state =
- 		drm_atomic_get_new_crtc_state(state, new_conn_state->crtc);
- 	if (drm_atomic_crtc_needs_modeset(new_crtc_state) &&
- 	    (old_hdcp == DRM_MODE_CONTENT_PROTECTION_ENABLED &&
--	     new_hdcp != DRM_MODE_CONTENT_PROTECTION_UNDESIRED))
-+	     new_hdcp != DRM_MODE_CONTENT_PROTECTION_UNDESIRED)) {
- 		new_conn_state->content_protection =
- 			DRM_MODE_CONTENT_PROTECTION_DESIRED;
-+		return true;
-+	}
-+
-+	/*
-+	 * Coming back from UNDESIRED state, CRTC change or re-enablement requires
-+	 * the driver to try CP enable.
-+	 */
-+	if (new_hdcp == DRM_MODE_CONTENT_PROTECTION_DESIRED &&
-+	    new_conn_state->crtc != old_conn_state->crtc)
-+		return true;
- 
- 	/*
- 	 * Nothing to do if content type is unchanged and one of:
-@@ -477,9 +492,9 @@ void drm_hdcp_atomic_check(struct drm_connector *connector,
- 	     new_hdcp == DRM_MODE_CONTENT_PROTECTION_DESIRED)) {
- 		if (old_conn_state->hdcp_content_type ==
- 		    new_conn_state->hdcp_content_type)
--			return;
-+			return false;
- 	}
- 
--	new_crtc_state->mode_changed = true;
-+	return true;
- }
--EXPORT_SYMBOL(drm_hdcp_atomic_check);
-+EXPORT_SYMBOL(drm_hdcp_has_changed);
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
-index e9d00b6a63d39..23a6ba315a22e 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic.c
-@@ -124,8 +124,6 @@ int intel_digital_connector_atomic_check(struct drm_connector *conn,
- 		to_intel_digital_connector_state(old_state);
- 	struct drm_crtc_state *crtc_state;
- 
--	drm_hdcp_atomic_check(conn, state);
--
- 	if (!new_state->crtc)
- 		return 0;
- 
-@@ -141,8 +139,8 @@ int intel_digital_connector_atomic_check(struct drm_connector *conn,
- 	    new_conn_state->base.picture_aspect_ratio != old_conn_state->base.picture_aspect_ratio ||
- 	    new_conn_state->base.content_type != old_conn_state->base.content_type ||
- 	    new_conn_state->base.scaling_mode != old_conn_state->base.scaling_mode ||
--	    new_conn_state->base.privacy_screen_sw_state != old_conn_state->base.privacy_screen_sw_state ||
--	    !drm_connector_atomic_hdr_metadata_equal(old_state, new_state))
-+	    !drm_connector_atomic_hdr_metadata_equal(old_state, new_state) ||
-+	    drm_hdcp_has_changed(conn, state))
- 		crtc_state->mode_changed = true;
- 
- 	return 0;
-diff --git a/include/drm/display/drm_hdcp_helper.h b/include/drm/display/drm_hdcp_helper.h
-index dd02b2e72a502..703421fcdf96c 100644
---- a/include/drm/display/drm_hdcp_helper.h
-+++ b/include/drm/display/drm_hdcp_helper.h
-@@ -19,7 +19,7 @@ int drm_hdcp_check_ksvs_revoked(struct drm_device *dev, u8 *ksvs, u32 ksv_count)
- int drm_connector_attach_content_protection_property(struct drm_connector *connector,
- 						     bool hdcp_content_type);
- void drm_hdcp_update_content_protection(struct drm_connector *connector, u64 val);
--void drm_hdcp_atomic_check(struct drm_connector *connector,
-+bool drm_hdcp_has_changed(struct drm_connector *connector,
- 			   struct drm_atomic_state *state);
- 
- #endif
--- 
-2.40.0.348.gf938b09366-goog
-
+> [   20.542591] fbcon: Taking over console
+> [   20.550772] Unable to handle kernel NULL pointer dereference at virtua=
+l address 0000000000000074
+> [   20.550776] Mem abort info:
+> [   20.550777]   ESR =3D 0x0000000096000004
+> [   20.550779]   EC =3D 0x25: DABT (current EL), IL =3D 32 bits
+> [   20.550781]   SET =3D 0, FnV =3D 0
+> [   20.550782]   EA =3D 0, S1PTW =3D 0
+> [   20.550784]   FSC =3D 0x04: level 0 translation fault
+> [   20.550785] Data abort info:
+> [   20.550786]   ISV =3D 0, ISS =3D 0x00000004
+> [   20.550788]   CM =3D 0, WnR =3D 0
+> [   20.550789] user pgtable: 4k pages, 48-bit VAs, pgdp=3D0000080009d1600=
+0
+> [   20.550791] [0000000000000074] pgd=3D0000000000000000, p4d=3D000000000=
+0000000
+> [   20.550796] Internal error: Oops: 0000000096000004 [#1] SMP
+> [   20.550800] Modules linked in: ip6table_nat tun nft_fib_inet nft_fib_i=
+pv4 nft_fib_ipv6 nft_fib nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 nft_=
+reject nft_ct nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ip=
+v4 rfkill ip_set nf_tables nfnetlink qrtr sunrpc binfmt_misc vfat fat xfs s=
+nd_usb_audio snd_hwdep snd_usbmidi_lib snd_seq snd_pcm snd_rawmidi snd_time=
+r snd_seq_device snd soundcore joydev mc ipmi_ssif ipmi_devintf ipmi_msghan=
+dler arm_spe_pmu arm_cmn arm_dsu_pmu arm_dmc620_pmu cppc_cpufreq loop zram =
+crct10dif_ce polyval_ce nvme polyval_generic ghash_ce sbsa_gwdt igb nvme_co=
+re ast nvme_common i2c_algo_bit xgene_hwmon gpio_dwapb scsi_dh_rdac scsi_dh=
+_emc scsi_dh_alua ip6_tables ip_tables dm_multipath fuse
+> [   20.550869] CPU: 12 PID: 469 Comm: kworker/12:1 Not tainted 6.3.0-rc2-=
+00008-gd39e48ca80c0 #1
+> [   20.550872] Hardware name: ADLINK AVA Developer Platform/AVA Developer=
+ Platform, BIOS TianoCore 2.04.100.07 (SYS: 2.06.20220308) 09/08/2022
+> [   20.550875] Workqueue: events fbcon_register_existing_fbs
+> [   20.550884] pstate: 20400009 (nzCv daif +PAN -UAO -TCO -DIT -SSBS BTYP=
+E=3D--)
+> [   20.550888] pc : drm_crtc_next_vblank_start+0x2c/0x98
+> [   20.550894] lr : drm_atomic_helper_wait_for_fences+0x90/0x240
+> [   20.550898] sp : ffff80000d583960
+> [   20.550900] x29: ffff80000d583960 x28: ffff07ff8fc187b0 x27: 000000000=
+0000000
+> [   20.550904] x26: ffff07ff99c08c00 x25: 0000000000000038 x24: ffff07ff9=
+9c0c000
+> [   20.550908] x23: 0000000000000001 x22: 0000000000000038 x21: 000000000=
+0000000
+> [   20.550912] x20: ffff07ff9640a280 x19: 0000000000000000 x18: fffffffff=
+fffffff
+> [   20.550915] x17: 0000000000000000 x16: ffffb24d2eece1c0 x15: 000000303=
+8303178
+> [   20.550919] x14: 3032393100000048 x13: 0000000000000000 x12: 000000000=
+0000000
+> [   20.550923] x11: 0000000000000000 x10: 0000000000000000 x9 : ffffb24d2=
+eeeaca0
+> [   20.550926] x8 : ffff80000d583628 x7 : 0000080077783000 x6 : 000000000=
+0000000
+> [   20.550930] x5 : ffff80000d584000 x4 : ffff07ff99c0c000 x3 : 000000000=
+0000130
+> [   20.550934] x2 : 0000000000000000 x1 : ffff80000d5839c0 x0 : ffff07ff9=
+9c0cc08
+> [   20.550937] Call trace:
+> [   20.550939]  drm_crtc_next_vblank_start+0x2c/0x98
+> [   20.550942]  drm_atomic_helper_wait_for_fences+0x90/0x240
+> [   20.550946]  drm_atomic_helper_commit+0xb0/0x188
+> [   20.550949]  drm_atomic_commit+0xb0/0xf0
+> [   20.550953]  drm_client_modeset_commit_atomic+0x218/0x280
+> [   20.550957]  drm_client_modeset_commit_locked+0x64/0x1a0
+> [   20.550961]  drm_client_modeset_commit+0x38/0x68
+> [   20.550965]  __drm_fb_helper_restore_fbdev_mode_unlocked+0xb0/0xf8
+> [   20.550970]  drm_fb_helper_set_par+0x44/0x88
+> [   20.550973]  fbcon_init+0x1e0/0x4a8
+> [   20.550976]  visual_init+0xbc/0x118
+> [   20.550981]  do_bind_con_driver.isra.0+0x194/0x3a0
+> [   20.550984]  do_take_over_console+0x50/0x70
+> [   20.550987]  do_fbcon_takeover+0x74/0xf8
+> [   20.550989]  do_fb_registered+0x13c/0x158
+> [   20.550992]  fbcon_register_existing_fbs+0x78/0xc0
+> [   20.550995]  process_one_work+0x1ec/0x478
+> [   20.551000]  worker_thread+0x74/0x418
+> [   20.551002]  kthread+0xec/0x100
+> [   20.551005]  ret_from_fork+0x10/0x20
+> [   20.551011] Code: f9400004 b9409013 f940a082 9ba30a73 (b9407662)
+> [   20.551013] ---[ end trace 0000000000000000 ]---
+>
+> If there is any additional information that I can provide or patches I
+> can test, I am more than happy to do so.
+>
+> Cheers,
+> Nathan
+>
+> # bad: [4b0f4525dc4fe8af17b3daefe585f0c2eb0fe0a5] Add linux-next specific=
+ files for 20230331
+> # good: [b2bc47e9b2011a183f9d3d3454a294a938082fb9] Merge tag 'net-6.3-rc5=
+' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net
+> git bisect start '4b0f4525dc4fe8af17b3daefe585f0c2eb0fe0a5' 'b2bc47e9b201=
+1a183f9d3d3454a294a938082fb9'
+> # good: [ed5f95f3349003d74a4a11b27b0f05d6794c382a] Merge branch 'master' =
+of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/cryptodev-2.6.git
+> git bisect good ed5f95f3349003d74a4a11b27b0f05d6794c382a
+> # bad: [85f7d1bfa30a05df2c9d8a0e9f6b1f23b4a6f13b] Merge branch 'for-next'=
+ of git://git.kernel.org/pub/scm/linux/kernel/git/krzk/linux-dt.git
+> git bisect bad 85f7d1bfa30a05df2c9d8a0e9f6b1f23b4a6f13b
+> # bad: [fbd0f79f200f8e5cb73fb3d7b788de09a8f33a6f] Merge branch 'msm-next'=
+ of https://gitlab.freedesktop.org/drm/msm.git
+> git bisect bad fbd0f79f200f8e5cb73fb3d7b788de09a8f33a6f
+> # good: [90031bc33f7525f0cc7a9ef0b1df62a1a4463382] Merge tag 'amd-drm-nex=
+t-6.4-2023-03-17' of https://gitlab.freedesktop.org/agd5f/linux into drm-ne=
+xt
+> git bisect good 90031bc33f7525f0cc7a9ef0b1df62a1a4463382
+> # good: [d4e04817db670083aed73de1fadd3b21758e69ba] drm/amdgpu: Return fro=
+m switch early for EEPROM I2C address
+> git bisect good d4e04817db670083aed73de1fadd3b21758e69ba
+> # good: [70e360f9b548d99f959668d4f047d1363d42fe8e] drm: exynos: dsi: Cons=
+olidate component and bridge
+> git bisect good 70e360f9b548d99f959668d4f047d1363d42fe8e
+> # bad: [0b43595d0cbb06736d1e572e79e29a410a273573] Merge branch 'drm-next'=
+ of https://gitlab.freedesktop.org/agd5f/linux
+> git bisect bad 0b43595d0cbb06736d1e572e79e29a410a273573
+> # good: [fbb3b3500f76ec8b741bd2d0e761ca3e856ad924] dt-bindings: display: =
+boe,tv101wum-nl6: document rotation
+> git bisect good fbb3b3500f76ec8b741bd2d0e761ca3e856ad924
+> # bad: [82bbec189ab34873688484cd14189a5392946fbb] Merge v6.3-rc4 into drm=
+-next
+> git bisect bad 82bbec189ab34873688484cd14189a5392946fbb
+> # bad: [d39e48ca80c0960b039cb38633957f0040f63e1a] drm/atomic-helper: Set =
+fence deadline for vblank
+> git bisect bad d39e48ca80c0960b039cb38633957f0040f63e1a
+> # good: [d7d5a21dd6b4706c04fbba5d25db8da5f25aab68] dma-buf/dma-resv: Add =
+a way to set fence deadline
+> git bisect good d7d5a21dd6b4706c04fbba5d25db8da5f25aab68
+> # good: [f3823da7e4ba7d4781375c2bb786a8a78efc6591] drm/scheduler: Add fen=
+ce deadline support
+> git bisect good f3823da7e4ba7d4781375c2bb786a8a78efc6591
+> # good: [b2c077d001b612b1f34f7e528b2dc6072bd6794e] drm/vblank: Add helper=
+ to get next vblank time
+> git bisect good b2c077d001b612b1f34f7e528b2dc6072bd6794e
+> # first bad commit: [d39e48ca80c0960b039cb38633957f0040f63e1a] drm/atomic=
+-helper: Set fence deadline for vblank
