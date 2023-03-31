@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99292C76196
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 12:10:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE43AC6FD18
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 12:10:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 307AE10F20A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E30E310F216;
 	Fri, 31 Mar 2023 12:10:26 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org
  [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E0AC10F182;
- Fri, 31 Mar 2023 09:26:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 617A310F185;
+ Fri, 31 Mar 2023 09:26:58 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C7198B82DB0;
- Fri, 31 Mar 2023 09:26:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E241FC433D2;
- Fri, 31 Mar 2023 09:26:32 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id E4915B82DB7;
+ Fri, 31 Mar 2023 09:26:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84951C4339B;
+ Fri, 31 Mar 2023 09:26:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1680254795;
- bh=ngC/W6NnsF+/WMMI/twPoOWsX6vUYeGknc0YjZdw5Pw=;
+ s=k20201202; t=1680254814;
+ bh=8AGKbu3+LbNahQA9+BV8cpQ9XSnkvlPrI5KbjVo54Ak=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=UWGJNuqrC4qenXiXXTKsAZBAHi0NuRJ93rb+421/6cAQMW52yplSH773ZCxdG2idt
- jDBm6HevZ7/qjEPw5IwpyvVb8E3u9sCFjWELkjFC+d1Onmbll2P5Hb7druUp/3KHn9
- fpGeMEzgq5SCTUsJgxExlLwRhNXlgIzZIXOA1A3nbNXIn0oLcmcB13UIstJV6qBKBv
- wNnUfMqbYw3zk/ubSDGR6p936NQ+sq67AOV0FS9zljl2KsW62vDtpwAlhzWxu2j42S
- VWLZRpQo7wBebjtmCLS8OGmaPOcsqHtex+QwzFg1WXQzklUuNGeMLpA42avvJ5e/JG
- 0SyQVkl+kQ6Wg==
+ b=eOBqcE0mA4J73g2ftWRNsZm8U23TaA9r3zmLGid83WDxH83+j6lZmu6iTDkz+1Ixp
+ edyH7ctvVVfYJLJWhtOWkFab3tPyj22/KkSY9B3QX6TQWBdtrko2Wh7YbFuAkBGON4
+ RfAr1UYWHGhDhx7foA032phVxjc5VnLXR7JHaFp8oIJRJPL6h4aDYF2U6+RpID3P9w
+ neQ+BgnjrTjI5jg/DD4POag6DK0uUpvVhLqciOVk3pywVqTr6p6BUJKj9v/iTXtB/9
+ mv4TcglI+DcH7TxABC97+keY4Q4zc/AU0I7YpXbqjJa8Yc9g5QzerI+QD9LVvburH0
+ 4XVFCk8T3LRLQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org
-Date: Fri, 31 Mar 2023 10:25:56 +0100
-Message-Id: <20230331092607.700644-9-lee@kernel.org>
+Date: Fri, 31 Mar 2023 10:26:02 +0100
+Message-Id: <20230331092607.700644-15-lee@kernel.org>
 X-Mailer: git-send-email 2.40.0.348.gf938b09366-goog
 In-Reply-To: <20230331092607.700644-1-lee@kernel.org>
 References: <20230331092607.700644-1-lee@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 31 Mar 2023 12:10:00 +0000
-Subject: [Intel-gfx] [PATCH 08/19] drm/i915/gem/i915_gem_domain: Provide
- function names to complete proper kerneldoc
+Subject: [Intel-gfx] [PATCH 14/19] drm/i915/i915_gem: Provide function names
+ to complete the expected kerneldoc format
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,18 +55,18 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>
+ Eric Anholt <eric@anholt.net>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Fixes the following W=1 kernel build warning(s):
 
- drivers/gpu/drm/i915/gem/i915_gem_domain.c:119: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- drivers/gpu/drm/i915/gem/i915_gem_domain.c:180: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- drivers/gpu/drm/i915/gem/i915_gem_domain.c:265: warning: expecting prototype for Changes the cache(). Prototype was for i915_gem_object_set_cache_level() instead
- drivers/gpu/drm/i915/gem/i915_gem_domain.c:470: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- drivers/gpu/drm/i915/gem/i915_gem_domain.c:514: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ drivers/gpu/drm/i915/i915_gem.c:447: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ drivers/gpu/drm/i915/i915_gem.c:536: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ drivers/gpu/drm/i915/i915_gem.c:726: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ drivers/gpu/drm/i915/i915_gem.c:811: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
 
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
@@ -74,66 +74,54 @@ Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 Cc: David Airlie <airlied@gmail.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Eric Anholt <eric@anholt.net>
 Cc: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_domain.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/i915_gem.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-index 497de40b8e688..d2d5a24301b25 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-@@ -116,7 +116,8 @@ void i915_gem_object_flush_if_display_locked(struct drm_i915_gem_object *obj)
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index 35950fa914068..6a00d13db2893 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -444,7 +444,7 @@ i915_gem_gtt_pread(struct drm_i915_gem_object *obj,
  }
  
  /**
-- * Moves a single object to the WC read, and possibly write domain.
-+ * i915_gem_object_set_to_wc_domain - Moves a single object to the WC read, and
-+ *                                    possibly write domain.
-  * @obj: object to act on
-  * @write: ask for write access or read only
-  *
-@@ -177,7 +178,8 @@ i915_gem_object_set_to_wc_domain(struct drm_i915_gem_object *obj, bool write)
+- * Reads data from the object referenced by handle.
++ * i915_gem_pread_ioctl - Reads data from the object referenced by handle.
+  * @dev: drm device pointer
+  * @data: ioctl data blob
+  * @file: drm file pointer
+@@ -533,7 +533,7 @@ ggtt_write(struct io_mapping *mapping,
  }
  
  /**
-- * Moves a single object to the GTT read, and possibly write domain.
-+ * i915_gem_object_set_to_gtt_domain - Moves a single object to the GTT read,
-+ *                                     and possibly write domain.
-  * @obj: object to act on
-  * @write: ask for write access or read only
-  *
-@@ -246,7 +248,7 @@ i915_gem_object_set_to_gtt_domain(struct drm_i915_gem_object *obj, bool write)
+- * This is the fast pwrite path, where we copy the data directly from the
++ * i915_gem_gtt_pwrite_fast - This is the fast pwrite path, where we copy the data directly from the
+  * user into the GTT, uncached.
+  * @obj: i915 GEM object
+  * @args: pwrite arguments structure
+@@ -723,7 +723,7 @@ i915_gem_shmem_pwrite(struct drm_i915_gem_object *obj,
  }
  
  /**
-- * Changes the cache-level of an object across all VMA.
-+ * i915_gem_object_set_cache_level - Changes the cache-level of an object across all VMA.
-  * @obj: object to act on
-  * @cache_level: new cache level to set for the object
-  *
-@@ -467,7 +469,8 @@ i915_gem_object_pin_to_display_plane(struct drm_i915_gem_object *obj,
- }
- 
- /**
-- * Moves a single object to the CPU read, and possibly write domain.
-+ * i915_gem_object_set_to_cpu_domain - Moves a single object to the CPU read,
-+ *                                     and possibly write domain.
-  * @obj: object to act on
-  * @write: requesting write or read-only access
-  *
-@@ -511,7 +514,8 @@ i915_gem_object_set_to_cpu_domain(struct drm_i915_gem_object *obj, bool write)
- }
- 
- /**
-- * Called when user space prepares to use an object with the CPU, either
-+ * i915_gem_set_domain_ioctl - Called when user space prepares to use an
-+ *                             object with the CPU, either
-  * through the mmap ioctl's mapping or a GTT mapping.
+- * Writes data to the object referenced by handle.
++ * i915_gem_pwrite_ioctl - Writes data to the object referenced by handle.
   * @dev: drm device
   * @data: ioctl data blob
+  * @file: drm file
+@@ -808,7 +808,7 @@ i915_gem_pwrite_ioctl(struct drm_device *dev, void *data,
+ }
+ 
+ /**
+- * Called when user space has done writes to this buffer
++ * i915_gem_sw_finish_ioct - Called when user space has done writes to this buffer
+  * @dev: drm device
+  * @data: ioctl data blob
+  * @file: drm file
 -- 
 2.40.0.348.gf938b09366-goog
 
