@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D75C3C6FD18
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 12:10:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD427C77B62
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 12:10:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EFD410F221;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5271F10F222;
 	Fri, 31 Mar 2023 12:10:28 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52D1E10F14C;
- Fri, 31 Mar 2023 09:26:20 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38EE710F182;
+ Fri, 31 Mar 2023 09:26:33 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CFD1762654;
- Fri, 31 Mar 2023 09:26:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1833FC4339E;
- Fri, 31 Mar 2023 09:26:16 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9CFD56266D;
+ Fri, 31 Mar 2023 09:26:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 219BBC4339B;
+ Fri, 31 Mar 2023 09:26:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1680254779;
- bh=JNGe4Stkfx4U8PEelqzPaQWET75d/oi6wGG9GBuzGjg=;
+ s=k20201202; t=1680254792;
+ bh=ta2pbVKeW086ExcAdggWjg7nNpPFLKl54oJMSC9ka1Y=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nxD+CR5W+M4FMA4u7Hve2K2JQHHfpYrFTxcrzo1+D3s9MFvxrft5XY2qstmWV0U9b
- Dcihw64MldAHjYk5Nu4uAVf1bD0M+vHq8MjU9fFglHhvT3juY9hxLJP6J1mNK+Lpiq
- bRYgOkTu73CBFuOtEJKjmVsZTQfaJuaap1FntnI8LO14tvm9hxT/e4r9YDeBmRGSb+
- tdXfN3XV/IZVyIYAXTp4UEVQgqHuRrP9KOFV8uEbsgKZ8zeoKRZ0f7Knn7Sgyr+6a/
- tIyR7WqeSSP+Asl/BYPWoGv60k9WGCg/Aeak+jN7+o5Mer9rfEVJLgX/HOAs4Ck4o+
- Re9zsLs21/OgQ==
+ b=j3gsDsoVQRjqVXWT3xex2OuYoYat0CyfY2hZdt9DGVD0jmEecHiZC8mlheKaXzyMK
+ 4J/M6Wb2D0GdWJqYSGnAGzax9sa39rCsWw6XB8PaXvmVDGfcGHNSxE5DnzyLKXI8B3
+ j4KuBztziW1CycbQiFYbMPSuSKXVX4TqHNr2R/PhrLT5SK/JZgpSvXmX8FMEEyzxqd
+ HgkdDrOoDsnanNom9Qu58oID52zl2K3/BNeoQWP/ogQvgktk2mKgCZHpn/0uDCR4J0
+ p5SG9phpT0uqF29qnfcNMZAxun/JuUG6uwJFhgKG4XR30IOs6pK1CT/dN4wqM0FJlY
+ /O25w0TrzyFdQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org
-Date: Fri, 31 Mar 2023 10:25:50 +0100
-Message-Id: <20230331092607.700644-3-lee@kernel.org>
+Date: Fri, 31 Mar 2023 10:25:55 +0100
+Message-Id: <20230331092607.700644-8-lee@kernel.org>
 X-Mailer: git-send-email 2.40.0.348.gf938b09366-goog
 In-Reply-To: <20230331092607.700644-1-lee@kernel.org>
 References: <20230331092607.700644-1-lee@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 31 Mar 2023 12:10:00 +0000
-Subject: [Intel-gfx] [PATCH 02/19] drm/i915/intel_region_ttm: Provide
- missing description for 'offset' param
+Subject: [Intel-gfx] [PATCH 07/19] drm/i915/gem/i915_gem_create: Provide the
+ function names for proper kerneldoc headers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,15 +54,18 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Matthew Auld <matthew.auld@intel.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Fixes the following W=1 kernel build warning(s):
 
- drivers/gpu/drm/i915/intel_region_ttm.c:201: warning: Function parameter or member 'offset' not described in 'intel_region_ttm_resource_alloc'
+ drivers/gpu/drm/i915/gem/i915_gem_create.c:147: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ drivers/gpu/drm/i915/gem/i915_gem_create.c:218: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ drivers/gpu/drm/i915/gem/i915_gem_create.c:402: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
 
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
@@ -69,25 +73,46 @@ Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 Cc: David Airlie <airlied@gmail.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Matthew Auld <matthew.auld@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/gpu/drm/i915/intel_region_ttm.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/i915/gem/i915_gem_create.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i915/intel_region_ttm.c
-index b7fbd5abb42a5..bf6097e7433d5 100644
---- a/drivers/gpu/drm/i915/intel_region_ttm.c
-+++ b/drivers/gpu/drm/i915/intel_region_ttm.c
-@@ -181,6 +181,7 @@ intel_region_ttm_resource_to_rsgt(struct intel_memory_region *mem,
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_create.c b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+index e76c9703680ef..4270575f88908 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_create.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+@@ -144,7 +144,8 @@ __i915_gem_object_create_user_ext(struct drm_i915_private *i915, u64 size,
+ }
+ 
  /**
-  * intel_region_ttm_resource_alloc - Allocate memory resources from a region
-  * @mem: The memory region,
-+ * @offset: BO offset
-  * @size: The requested size in bytes
-  * @flags: Allocation flags
-  *
+- * Creates a new object using the same path as DRM_I915_GEM_CREATE_EXT
++ * __i915_gem_object_create_user - Creates a new object using the same path as
++ *                                 DRM_I915_GEM_CREATE_EXT
+  * @i915: i915 private
+  * @size: size of the buffer, in bytes
+  * @placements: possible placement regions, in priority order
+@@ -215,7 +216,7 @@ i915_gem_dumb_create(struct drm_file *file,
+ }
+ 
+ /**
+- * Creates a new mm object and returns a handle to it.
++ * i915_gem_create_ioctl - Creates a new mm object and returns a handle to it.
+  * @dev: drm device pointer
+  * @data: ioctl data blob
+  * @file: drm file pointer
+@@ -399,7 +400,7 @@ static const i915_user_extension_fn create_extensions[] = {
+ };
+ 
+ /**
+- * Creates a new mm object and returns a handle to it.
++ * i915_gem_create_ext_ioct - Creates a new mm object and returns a handle to it.
+  * @dev: drm device pointer
+  * @data: ioctl data blob
+  * @file: drm file pointer
 -- 
 2.40.0.348.gf938b09366-goog
 
