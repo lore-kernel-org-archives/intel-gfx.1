@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44DC3C6FD18
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 12:10:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62BB5C76196
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 12:10:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 322E410F20B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CC6410F209;
 	Fri, 31 Mar 2023 12:10:03 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D531B10F188;
- Fri, 31 Mar 2023 09:26:52 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94FC910F15A;
+ Fri, 31 Mar 2023 09:26:29 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4246662660;
- Fri, 31 Mar 2023 09:26:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3188C433EF;
- Fri, 31 Mar 2023 09:26:48 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4B933B82DAC;
+ Fri, 31 Mar 2023 09:26:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6210C4339B;
+ Fri, 31 Mar 2023 09:26:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1680254812;
- bh=Br+vno0fyLfK0vDswtuXDu7r0uipb+c1SKUt2eq3Kbw=;
+ s=k20201202; t=1680254787;
+ bh=iistdlhu4w0I2/CmfXzNavb5iLcbcIHzclr1yyY04LY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SkUG3+i1jOY+ZEq6u8LzdDURgEfUOlF4Z7UiHPMkVapNIeNGaMOyzsrIzdkCEmx0W
- 3nA24C0K7BqYIC9ZqtAHfsTRVFi3iTF0HKxSJOEMgVmy7ca6Tiax8sX13sQoOqwyy2
- I1zhwSuIKil8isuOeF4SrJDxDZvyXBVUfXSvamyNZyyO1UhbcKgCJlhnvivt1buAKL
- /zTPC6+rLWaRpQWPLTtxTW+fYTH6o1x4fbuWuE77rKyweF1tf3fx000sHfczmMBI3s
- KZNAiwpypQvIa5QkLy+df8VMnGfvHHiA1yd96VZwgVvQPTJ0CEVoYgiZKY+KTK4orD
- xXg0CZqn+Ko/w==
+ b=JBMBGg+5x+5/0/DDfOyE9fcIfl8eW49WC8vHHiuIxCpHZ8AlQcsYvLvnF0oBX1rSP
+ su3kCXz60f/Vl9BYBRbifih+ckCQEXeEOytJt+NAZB45DvfPhf2wvzQcb6p82MJakt
+ XFSe9scn3arsz1P3U1VOdx9TNL/oHBAPuGRwP2lIgeWWW9Gkl+fKR75gweWnq17sGM
+ vIc5IlWso2dNzS2GsVcc/CAaYpZaJQpImT9619XZza+FXFuGWmHcfIBPPOuWpDzrzm
+ niA0QPM1aLNsab9MPvUVlPWkEnmfDElmFkpBX53QtMY7IVRsww96aGevm7097/wu/7
+ rhXyeGgzrLWsA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org
-Date: Fri, 31 Mar 2023 10:26:01 +0100
-Message-Id: <20230331092607.700644-14-lee@kernel.org>
+Date: Fri, 31 Mar 2023 10:25:53 +0100
+Message-Id: <20230331092607.700644-6-lee@kernel.org>
 X-Mailer: git-send-email 2.40.0.348.gf938b09366-goog
 In-Reply-To: <20230331092607.700644-1-lee@kernel.org>
 References: <20230331092607.700644-1-lee@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 31 Mar 2023 12:10:00 +0000
-Subject: [Intel-gfx] [PATCH 13/19] drm/i915/gem/i915_gem_object: Demote
- non-kerneldoc header with no param descriptions
+Subject: [Intel-gfx] [PATCH 05/19] drm/i915/gt/intel_engine_cs: Fix a couple
+ of incorrectly named functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,19 +54,16 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- linaro-mm-sig@lists.linaro.org, Matthew Auld <matthew.auld@intel.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- linux-media@vger.kernel.org, David Airlie <airlied@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Nirmoy Das <nirmoy.das@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Fixes the following W=1 kernel build warning(s):
 
- drivers/gpu/drm/i915/gem/i915_gem_object.c:887: warning: Function parameter or member 'obj' not described in 'i915_gem_object_has_unknown_state'
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c:1324: warning: expecting prototype for intel_engines_init_common(). Prototype was for engine_init_common() instead
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c:1406: warning: expecting prototype for intel_engines_cleanup_common(). Prototype was for intel_engine_cleanup_common() instead
 
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
@@ -75,32 +71,37 @@ Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 Cc: David Airlie <airlied@gmail.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Nirmoy Das <nirmoy.das@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
-Cc: linux-media@vger.kernel.org
-Cc: linaro-mm-sig@lists.linaro.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_object.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-index e6d4efde4fc51..4666bb82f312c 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-@@ -875,7 +875,7 @@ int i915_gem_object_wait_moving_fence(struct drm_i915_gem_object *obj,
- 	return ret < 0 ? ret : 0;
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 2966aed422239..03c5e3df0a7e0 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -1429,7 +1429,7 @@ create_kernel_context(struct intel_engine_cs *engine)
  }
  
--/**
-+/*
-  * i915_gem_object_has_unknown_state - Return true if the object backing pages are
-  * in an unknown_state. This means that userspace must NEVER be allowed to touch
-  * the pages, with either the GPU or CPU.
+ /**
+- * intel_engines_init_common - initialize cengine state which might require hw access
++ * engine_init_common - initialize cengine state which might require hw access
+  * @engine: Engine to initialize.
+  *
+  * Initializes @engine@ structure members shared between legacy and execlists
+@@ -1515,8 +1515,8 @@ int intel_engines_init(struct intel_gt *gt)
+ }
+ 
+ /**
+- * intel_engines_cleanup_common - cleans up the engine state created by
+- *                                the common initiailizers.
++ * intel_engine_cleanup_common - cleans up the engine state created by
++ *                               the common initiailizers.
+  * @engine: Engine to cleanup.
+  *
+  * This cleans up everything created by the common helpers.
 -- 
 2.40.0.348.gf938b09366-goog
 
