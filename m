@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 495CBC6FD18
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 10:18:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDF4AC761AF
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 10:18:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A18410F1B7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 682F310F1B9;
 	Fri, 31 Mar 2023 10:18:34 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7609810F1BB
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 10:18:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4767910F1B7
+ for <intel-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 10:18:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680257907; x=1711793907;
+ t=1680257911; x=1711793911;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=TWWjjKNSlpVoHx1qOY5uTjE1KitTMkvCM6yg2N9ujUg=;
- b=SLqU2Uxpf8etIQP4U4n8unl4CKVXB0DTu7bhbXZ4jbG/hVSW7n/vQPnX
- yO2e990++wZY7lMRIIX71/v7bEXDaRxAtQW7FHrfhrDugy5UixFzNbHYV
- Il5VjkFMJbjNtJLk9tbskDebdbHgu4LuRBOrM1JDgEK25qTHpyVSUbrjZ
- GVcgBlN3Crzp4aFh54FX2538NTbVE0OTopyO8rQYTw7960CS8EMqOmhf+
- g+CpYbKc7orQZUdjG5lk3+8HVcCkERmjtcpFDs3rJ0/iY7CoYLEkW/UlP
- IDWDeMwtb0DvOeoKG6EoqbiC/BeTY1eXSZk7vWNGiLD+C+J0GHm9rkG+i g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="340141748"
-X-IronPort-AV: E=Sophos;i="5.98,307,1673942400"; d="scan'208";a="340141748"
+ bh=AsLYXe1/DmBi0aGY20Tc1UwRzZi7Alhg3QBg4yUt1bs=;
+ b=Oc7oRik9c6mho0BXoGUz3Y+oWm/QqvmcRzaoqdTN1X1t0cF8fp4g13XF
+ msSIixQDzjSiU1inDRjoSTA/YXfK2XLQC/MaUFzpPbXphLXTjgkG1QqnM
+ n9PEkGNFKYSYTDSZOJM82eyKjZ8z/9pxLHOjqJI653bpLTIfBW8pdNr+v
+ VIYoo1waON+JouJtbDtnjDthl1vKBpEYOxObYlBb4zyBSoyR8wqFqY2Fu
+ IaHEUuVRpXuh1h+LEeCRGHefqoHVdVEemsDKyF3eaFSP4OsYvF7KEsFT6
+ dpl2pUypYcnoTq/fHNn9imyM/Dl7o9uBKvsYx9K4TdAF86EWoey36BprZ w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="340141765"
+X-IronPort-AV: E=Sophos;i="5.98,307,1673942400"; d="scan'208";a="340141765"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2023 03:18:27 -0700
+ 31 Mar 2023 03:18:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="796068332"
-X-IronPort-AV: E=Sophos;i="5.98,307,1673942400"; d="scan'208";a="796068332"
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="796068341"
+X-IronPort-AV: E=Sophos;i="5.98,307,1673942400"; d="scan'208";a="796068341"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2023 03:18:25 -0700
+ 31 Mar 2023 03:18:29 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 31 Mar 2023 15:46:04 +0530
-Message-Id: <20230331101613.936776-5-ankit.k.nautiyal@intel.com>
+Date: Fri, 31 Mar 2023 15:46:06 +0530
+Message-Id: <20230331101613.936776-7-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230331101613.936776-1-ankit.k.nautiyal@intel.com>
 References: <20230331101613.936776-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 04/13] drm/i915/dp: Configure PCON for
- conversion of output_format to YCbCr444
+Subject: [Intel-gfx] [PATCH 06/13] drm/i915/dp: Add helper to get sink_format
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,42 +60,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Handle the case with DP to HDMI PCON, where sink_format is set to YCbCr444.
-In that case PCON is required to be configured to convert from given
-output_format to YCbCR444.
+Common function to get the sink format for a given mode for DP.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp.c | 30 ++++++++++++-------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 837532952936..c3f3003c52ca 100644
+index ce9384a0d153..352b5fbd805a 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2862,6 +2862,22 @@ void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp,
- 			MISSING_CASE(crtc_state->output_format);
- 			break;
- 		}
-+	} else if (crtc_state->sink_format == INTEL_OUTPUT_FORMAT_YCBCR444) {
-+		switch (crtc_state->output_format) {
-+		case INTEL_OUTPUT_FORMAT_YCBCR420:
-+			drm_WARN(&i915->drm,
-+				 crtc_state->output_format == INTEL_OUTPUT_FORMAT_YCBCR420,
-+				 "Cannot convert YCbCr420->YCbCr444\n");
-+			break;
-+		case INTEL_OUTPUT_FORMAT_YCBCR444:
-+			break;
-+		case INTEL_OUTPUT_FORMAT_RGB:
-+			rgb_to_ycbcr = true;
-+			break;
-+		default:
-+			MISSING_CASE(crtc_state->output_format);
-+			break;
-+		}
+@@ -936,17 +936,25 @@ static int intel_dp_output_bpp(enum intel_output_format output_format, int bpp)
+ 	return bpp;
+ }
+ 
++static enum intel_output_format
++intel_dp_sink_format(struct intel_connector *connector,
++		     const struct drm_display_mode *mode)
++{
++	const struct drm_display_info *info = &connector->base.display_info;
++
++	if (drm_mode_is_420_only(info, mode))
++		return INTEL_OUTPUT_FORMAT_YCBCR420;
++
++	return INTEL_OUTPUT_FORMAT_RGB;
++}
++
+ static int
+ intel_dp_mode_min_output_bpp(struct intel_connector *connector,
+ 			     const struct drm_display_mode *mode)
+ {
+-	const struct drm_display_info *info = &connector->base.display_info;
+ 	enum intel_output_format output_format, sink_format;
+ 
+-	if (drm_mode_is_420_only(info, mode))
+-		sink_format = INTEL_OUTPUT_FORMAT_YCBCR420;
+-	else
+-		sink_format = INTEL_OUTPUT_FORMAT_RGB;
++	sink_format = intel_dp_sink_format(connector, mode);
+ 
+ 	output_format = intel_dp_output_format(connector, sink_format);
+ 
+@@ -1018,7 +1026,6 @@ intel_dp_mode_valid_downstream(struct intel_connector *connector,
+ 	struct intel_dp *intel_dp = intel_attached_dp(connector);
+ 	const struct drm_display_info *info = &connector->base.display_info;
+ 	enum drm_mode_status status;
+-	bool ycbcr_420_only;
+ 	enum intel_output_format sink_format;
+ 
+ 	/* If PCON supports FRL MODE, check FRL bandwidth constraints */
+@@ -1044,12 +1051,7 @@ intel_dp_mode_valid_downstream(struct intel_connector *connector,
+ 	    target_clock > intel_dp->dfp.max_dotclock)
+ 		return MODE_CLOCK_HIGH;
+ 
+-	ycbcr_420_only = drm_mode_is_420_only(info, mode);
+-
+-	if (ycbcr_420_only)
+-		sink_format = INTEL_OUTPUT_FORMAT_YCBCR420;
+-	else
+-		sink_format = INTEL_OUTPUT_FORMAT_RGB;
++	sink_format = intel_dp_sink_format(connector, mode);
+ 
+ 	/* Assume 8bpc for the DP++/HDMI/DVI TMDS clock check */
+ 	status = intel_dp_tmds_clock_valid(intel_dp, target_clock,
+@@ -2127,10 +2129,8 @@ intel_dp_compute_output_format(struct intel_encoder *encoder,
+ 		drm_dbg_kms(&i915->drm,
+ 			    "YCbCr 4:2:0 mode but YCbCr 4:2:0 output not possible. Falling back to RGB.\n");
+ 		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_RGB;
+-	} else if (ycbcr_420_only) {
+-		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_YCBCR420;
+ 	} else {
+-		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_RGB;
++		crtc_state->sink_format = intel_dp_sink_format(connector, adjusted_mode);
  	}
  
- 	tmp = ycbcr444_to_420 ? DP_CONVERSION_TO_YCBCR420_ENABLE : 0;
+ 	crtc_state->output_format = intel_dp_output_format(connector, crtc_state->sink_format);
 -- 
 2.25.1
 
