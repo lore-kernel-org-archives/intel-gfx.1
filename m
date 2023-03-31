@@ -4,88 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65D70C6FD18
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 03:51:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9E4DC76196
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 04:21:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7B6410F0DB;
-	Fri, 31 Mar 2023 03:51:28 +0000 (UTC)
-X-Greylist: delayed 427 seconds by postgrey-1.36 at gabe;
- Fri, 31 Mar 2023 03:51:27 UTC
-Received: from omta39.uswest2.a.cloudfilter.net
- (omta39.uswest2.a.cloudfilter.net [35.89.44.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C97C10F0DB;
- Fri, 31 Mar 2023 03:51:27 +0000 (UTC)
-Received: from eig-obgw-5001a.ext.cloudfilter.net ([10.0.29.139])
- by cmsmtp with ESMTP
- id i4znpsbdvCarni5gZpi4FX; Fri, 31 Mar 2023 03:44:20 +0000
-Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with ESMTP
- id i5gYpWA01Tmcdi5gYpuxEN; Fri, 31 Mar 2023 03:44:19 +0000
-X-Authority-Analysis: v=2.4 cv=EePb/dqC c=1 sm=1 tr=0 ts=64265713
- a=1YbLdUo/zbTtOZ3uB5T3HA==:117 a=wTog8WU66it3cfrESHnF4A==:17
- a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19 a=IkcTkHD0fZMA:10 a=k__wU0fu6RkA:10
- a=wYkD_t78qR0A:10 a=NEAV23lmAAAA:8 a=mDV3o1hIAAAA:8 a=VwQbUJbxAAAA:8
- a=mvvmVGHGh8sE2eZWOBoA:9 a=QEXdDO2ut3YA:10 a=3IOs8h2EC4YA:10
- a=_FVE-zBwftR9WsbkzFJk:22 a=AjGcO6oz07-iQ99wixmX:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=5eXprcIlSCmNP0+hXkCotLeio81d6PPi52X+rolr6Bs=; b=x5tY3CALKqh0FtZknddMXTC50W
- m1K4lxEWe1p11l++HQJ+fNplppv50prQ5m2JM7gpVe5/SUGR1yw44c99RrLGNxMk4Bhc9LnxkSBkN
- yOIZcXiwHkNGQcJZxr7ZB4F/8Lfg+k9Eo50GRaqjYQcE8IeHWpt4Sl4nARkXwYCudsAPPbgsc+MD7
- KR20RZbQ0K303ZW0xyvhPT9lipNa93CjRo4gWhcLHPwb+nEqfJG4puxhGxVn130P5ODP3SLEWiXwP
- w8ZxTIh5Jv5DzrNlrcMY+qiPaVRsvtYGVqT7kpZR3qtlNTPJRJ5EighAursOyrapN8B8BsNsy7341
- nsCY6FBw==;
-Received: from 187-162-31-110.static.axtel.net ([187.162.31.110]:36470
- helo=[192.168.15.7])
- by gator4166.hostgator.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.95)
- (envelope-from <gustavo@embeddedor.com>) id 1phydu-002oqq-Ra;
- Thu, 30 Mar 2023 15:13:06 -0500
-Message-ID: <ef8d083a-a82b-669c-0b0a-959e0f120a26@embeddedor.com>
-Date: Thu, 30 Mar 2023 14:13:41 -0600
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2232410E04B;
+	Fri, 31 Mar 2023 04:21:03 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BE6B10E025;
+ Fri, 31 Mar 2023 04:21:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1680236461; x=1711772461;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=f9eKYmqwtdNvwYU7uC8mwvOyCnxXJ+tOe5PKPSNDG0E=;
+ b=AMWRVfyM8aFB3Q+KhUFP4v7y4OFvnm8Kpa35/O4KCNnccHjN/sqgzrKy
+ fD/UoHh42jBJdFH0p/4GRuTEerT/bt3xksmFpY2vjAtfg8LLDXl79iMDg
+ rhIyD5XsWIqRuHcLqailsffnRl/4COHVtO/4v8yv/m2WgNXwzZg4Jo2bz
+ Z97EDf5KmtMs79K8SEvjXDrUlG8jy6X3Xb4Fys9O8HS275IOBHKuFUDGk
+ OwiBT7l2hdW9qO8LLGhnKroxQMau3uwcq97GURgJiyLaUtBBFFRmM2x7N
+ jKe6O0Dw7NMOU3R+Yj0/p5RRyLs3PnUWSFvWgiU9fqf8DjaZ2k4QKX1A+ Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="340082231"
+X-IronPort-AV: E=Sophos;i="5.98,306,1673942400"; d="scan'208";a="340082231"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2023 21:18:15 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="635153141"
+X-IronPort-AV: E=Sophos;i="5.98,306,1673942400"; d="scan'208";a="635153141"
+Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
+ by orsmga003.jf.intel.com with ESMTP; 30 Mar 2023 21:18:14 -0700
+Received: from fmsmsx611.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21; Thu, 30 Mar 2023 21:18:14 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx611.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21; Thu, 30 Mar 2023 21:18:13 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21 via Frontend Transport; Thu, 30 Mar 2023 21:18:13 -0700
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.168)
+ by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.21; Thu, 30 Mar 2023 21:18:13 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iJ0YTFBCeVYq1MtLQtPERYpiLEN0He4VUAsz076L9cIQnic4CAUkpqrm30NI4QZOKn0QtiOjbnfmUaaiweawzrVBaXzY6c8Y9ofyfvYmhnVCC8Y5bO0uUXiCL54qHYDNgcKFwyydvSLbLF+RwiyHwr3c7hZYbwJBwDRI89aTtjFDICcMMHlSjvY6vS1esXFNT1qoBFSWJC5jCXpeYXkrifdF1+Yj8DoQ1Jt1lfoVenUV+IBvEXBIWrxW+OTrmsZt/H84GOYk03jJ6swxp9a+dJe+7jRXjZCuM8hW0t3Vp517+J/ewqLgnkQpnDHzs6RZOYGB2pyDfZKpTLJcuepF6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pY6lVtOqGpaLkl5tJnLTHEnjMhEXfMQf16OKr96XTJQ=;
+ b=m9m0STlvaxUkHtTcTgnVp8nWbchx95+o7hI6DkcWKwSsjv+sOr419dSBlCT6e/EZKCrbDOdAgpeRJiN8IVJntC6hMulwGUGpBgQzVwlrQIgKvykJbXlvQj1GivVF3nbGh4900G0loNgfAMlhUpb0RWbc80FwgPurj1BslNKmZVuM99KdbknZYjcV3D4sCuVCC3rdDbQ3Kwzl2YSY3pqubhrdqoFLvydAEuYmCXgrykg03L6EgK5QTs4ayJIvWZ2DJtFa+faK+fPw7p9/4GaYyD+QMTZT/2dVkvzwUWlB57JU6ZjUQ/YHohDBckvl/IJspk0wxaEPb/Rla7e/U+I2PQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SA1PR11MB6733.namprd11.prod.outlook.com (2603:10b6:806:25c::17)
+ by MW4PR11MB7006.namprd11.prod.outlook.com (2603:10b6:303:22f::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.29; Fri, 31 Mar
+ 2023 04:18:06 +0000
+Received: from SA1PR11MB6733.namprd11.prod.outlook.com
+ ([fe80::c5b2:6996:5aee:91db]) by SA1PR11MB6733.namprd11.prod.outlook.com
+ ([fe80::c5b2:6996:5aee:91db%5]) with mapi id 15.20.6222.033; Fri, 31 Mar 2023
+ 04:18:06 +0000
+Date: Thu, 30 Mar 2023 21:18:00 -0700
+From: Ira Weiny <ira.weiny@intel.com>
+To: Zhao Liu <zhao1.liu@linux.intel.com>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, David Airlie
+ <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, Matthew Auld
+ <matthew.auld@intel.com>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, Nirmoy Das <nirmoy.das@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Chris Wilson
+ <chris@chris-wilson.co.uk>, Christian =?iso-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, <intel-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Message-ID: <64265ef8725fe_375f7e294a@iweiny-mobl.notmuch>
+References: <20230329073220.3982460-1-zhao1.liu@linux.intel.com>
+ <20230329073220.3982460-10-zhao1.liu@linux.intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20230329073220.3982460-10-zhao1.liu@linux.intel.com>
+X-ClientProxiedBy: BYAPR01CA0068.prod.exchangelabs.com (2603:10b6:a03:94::45)
+ To SA1PR11MB6733.namprd11.prod.outlook.com
+ (2603:10b6:806:25c::17)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-US
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-References: <ZBSu2QsUJy31kjSE@work>
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <ZBSu2QsUJy31kjSE@work>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 187.162.31.110
-X-Source-L: No
-X-Exim-ID: 1phydu-002oqq-Ra
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 187-162-31-110.static.axtel.net ([192.168.15.7])
- [187.162.31.110]:36470
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 0
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfDMMmW1J6LWW73TJEsEL7rpYhjhxWo4C6kZHI/lJ2OSVMr/4I7L7wNuQfuUK1/Vum76Sy/awGk8HrtFPqwwEkj4xASLXJ4/40HiEOwFUeoHBhh1ZmfVZ
- xKdW2ynbIqkKIOPkQJohmHiVynPSkl52ZmqTJfdIgQ5TYzcCYItMMPq+PxS6JGBFdjMGW/objjusRG78X/diu0lqufi33WTs3pcnf6lwfUr2bwDNO+b0rzv+
- BZKtSr35YCO9WCz9YhavhuPG9GDNJb4vuBENK45Py9k=
-Subject: Re: [Intel-gfx] [PATCH][next] drm/i915/uapi: Replace fake
- flex-array with flexible-array member
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA1PR11MB6733:EE_|MW4PR11MB7006:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac2573e3-15a6-45cd-a3ce-08db319eece9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: mp2/lTyTY/ARcfiTLQwpg+orGtFI4C7djUdxJXBsdHaNNrmbR3g3j3XFvc3a2f0mbLa/oiXw3uCoBVS/rWP/2BierFwnFvfJVFU9bbJWJ0bmwbMpwOtvkftQP0c1bNQOM3uCbiVYjMiUaXgbB2rQOp7pyxmKIEVZ6e6xdcc5LVX2GAzTTP8oPZ3TtkSuTIr8B6sBU7lmGSLDWkxsFGKyeh+h2DgNQl8sZ21AvHiTYVGLxb27flYw1NE9qUCBD9GzYJabNy+cMXPCuz9MBMyilGHPdjF/783A6px4Kwpg2ow3+UQ1y0terOTCXDdDSM9+rQz44+9Lhfy3xTurPfAJWtACIPZi9A0lcqytMNCtYPBCaETC1B26f/uDvxS/B/DnppZyd+81UwvsLPLeOwTIlVGIBdcVKm8j2Pmo1IwVxOOQeMkY/2mTkB7i8FXLVOWDRrDrsxm7a7i8xtZ+eo2Qu/xPlhZ1CMKVjzJqfyO1mXqyN6uRWNZETU0xMlXliXgCDEw6dGeoQt0FBjUF9d75UzNLs8wwvO5CTf1SaqyMoQ7U8dTkFE7yUzk5W9YX71z6iyIHj2YH21xSbz8zB0J09o8czakWsLv2n5ZY/ABE034=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR11MB6733.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(136003)(376002)(366004)(346002)(39860400002)(396003)(451199021)(6512007)(2906002)(83380400001)(54906003)(4326008)(66476007)(7416002)(66556008)(66946007)(8676002)(478600001)(110136005)(316002)(6506007)(26005)(44832011)(6666004)(186003)(9686003)(86362001)(38100700002)(82960400001)(6486002)(921005)(5660300002)(966005)(41300700001)(8936002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?kHb9TR0bMnSO12teK+Bz0IoMR978KLplOl2/WcNRJc9jFzWJ7oBPcw03By4t?=
+ =?us-ascii?Q?PUpizDFOmMJ9tvAVfj+oWbsbDrsrWeMjvnHBjl936tQwuaZxX4YFWXQdjMKw?=
+ =?us-ascii?Q?uTYaF2pT81GR7IJvms6cGut3zX0bipjDmtjFKBJ5jswJGUF7nWI3JPtOQxU5?=
+ =?us-ascii?Q?eMjAEKmYDsSm8D/Ez3f2pFHGWJRMb9oBH5BPyr9+oylQCWLQHlRLReCHBc44?=
+ =?us-ascii?Q?yuvmALdXe96ZRwk5caLQtDwdikc7x8Px1y4+Sa46uBlnnvQZwYLxYNWl8uvX?=
+ =?us-ascii?Q?DJAcu4YvSp9WxxIjeyqXAtw/Wmbr9XHsExZSGN7685svcFlegxFXEu/jvqBb?=
+ =?us-ascii?Q?RWmtCwEt0J8VsCQ/n1hqUYAqzGji5m3Oq78Fmw75cJrF3j3ZDd/jEjcGABJo?=
+ =?us-ascii?Q?TTVmEW4CPjz28jcXVSS3Dp2NmDFigDlA/WWhNsDfWuO8+qWB0gXTJxPjD67h?=
+ =?us-ascii?Q?hwkRmsdX+kPY2B6t1uAoR85Ot1N1vOOe8evJ9N6wQthGJhfWOgaZGTTcP0nh?=
+ =?us-ascii?Q?v3Eody7GeH9AbiZJaknxhOteWlacFKY5UXOZYxBY0uo5GU6zWfByeXkjL8eX?=
+ =?us-ascii?Q?074k3nWVB+471MEIKaYzSF4VVevymlqOpc9ov5bxOHWhqrmxgvJ/a53P4yVo?=
+ =?us-ascii?Q?FNZ+WOyEc4FdGBbf5SbAOCvivPGnTkUMcPysDF/s6vhFnqUo8yWRMa3WqynJ?=
+ =?us-ascii?Q?DQQB1n6afjlYFDxcocJDnAxKjl7ZNQKKrDZ24QKvCAPkTMgWNE7MDrzIsmj3?=
+ =?us-ascii?Q?RhGO9++tB5ppWZ7Y822ZJOFny9m87DLKhM8AbIcSBcxuTHlwUW0bmq2jVKqh?=
+ =?us-ascii?Q?svTmkUfcV6MjTTuNweFSHc8RhRshMZnUR+0k8us08RWcZSiB7XqRRYC+82Ou?=
+ =?us-ascii?Q?ZqGZctlsUNxUSzokgZCwF+teT4bF4K5K370Q/ef6bnGSRlKgDACqMEkayANG?=
+ =?us-ascii?Q?C2JV1RIoa7NtvP6KkUlMXKM8qdpYs3TtMlYTiBF8Qgnf4EvL5Biznkeqj6rt?=
+ =?us-ascii?Q?IsFTcRfTQg+WnsFV33g54aBs5Hfl9VzhbXq1VYQEBd9u9sLpGCphVOaW2nNM?=
+ =?us-ascii?Q?gBbDRBGLFjgMyQKHFy9SEmR7MCOVgsYvycH8sN71JODpGvrIdsp8COwuyy4e?=
+ =?us-ascii?Q?yC3jD9qoRUlH48UIf/Tc5QxW63conLNhy+is1cZqjNbOsmX+bEoopzLcHjtM?=
+ =?us-ascii?Q?JIzH9y6GH4ryOqwZhiEsa/PLi4bt+y3K1X9njrKulEi7e4sLERjkUJhpLkYi?=
+ =?us-ascii?Q?yLMzsMKCsM5khTpOEnbGDDpzzcCSeyAuhodekBORU/WJekUG8DASKd6CzXUp?=
+ =?us-ascii?Q?faLMnxjCkUjNTu4wfSTN2lSupQsVjMBnHdOSWVB7WOWEGfTr8oRya/ouO1rX?=
+ =?us-ascii?Q?5nC6J2l54j00wiSa0MIDli7uIoRdXruNp0skFdT/oJWOJO4hin3cwzguRxe2?=
+ =?us-ascii?Q?Q/QiaFOTq4ySrXxjl/aR61DfVWt0EQDby7fN3fo/kyyMZkTqjGa0xpvfFMo1?=
+ =?us-ascii?Q?5yIHJey95DL/5tJPtevFt4mFW8YAN+Sfp/1JgTgmADoWYlmn0DVC1pXrMvZY?=
+ =?us-ascii?Q?Nf3hCyoR8HpyKSlqIQ1AsBi6bNL2xIvut/awumBK?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac2573e3-15a6-45cd-a3ce-08db319eece9
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR11MB6733.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2023 04:18:05.5729 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KeaMWVqt58v4ajfJbeibqK8Cwc7yUrjWsLtPIN5Z+vW2o0yX8ac7o/mQIrX7CONAjqt0ptKfAPpNJ4v4dRDHfA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB7006
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH v2 9/9] drm/i915: Use kmap_local_page() in
+ gem/i915_gem_execbuffer.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,54 +157,158 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-hardening@vger.kernel.org
+Cc: "Fabio M . De Francesco" <fmdefrancesco@gmail.com>,
+ Ira Weiny <ira.weiny@intel.com>, Zhao Liu <zhao1.liu@intel.com>,
+ Zhenyu Wang <zhenyu.z.wang@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi all,
-
-Friendly ping: who can take this, please? 😄
-
-Thanks
--- 
-Gustavo
-
-On 3/17/23 12:18, Gustavo A. R. Silva wrote:
-> Zero-length arrays as fake flexible arrays are deprecated and we are
-> moving towards adopting C99 flexible-array members instead.
+Zhao Liu wrote:
+> From: Zhao Liu <zhao1.liu@intel.com>
 > 
-> Address the following warning found with GCC-13 and
-> -fstrict-flex-arrays=3 enabled:
-> drivers/gpu/drm/i915/gem/i915_gem_context.c: In function ‘set_proto_ctx_engines.isra’:
-> drivers/gpu/drm/i915/gem/i915_gem_context.c:769:41: warning: array subscript n is outside array bounds of ‘struct i915_engine_class_instance[0]’ [-Warray-bounds=]
->    769 |                 if (copy_from_user(&ci, &user->engines[n], sizeof(ci))) {
->        |                                         ^~~~~~~~~~~~~~~~~
-> ./include/uapi/drm/i915_drm.h:2494:43: note: while referencing ‘engines’
->   2494 |         struct i915_engine_class_instance engines[0];
+> The use of kmap_atomic() is being deprecated in favor of
+> kmap_local_page()[1], and this patch converts the calls from
+> kmap_atomic() to kmap_local_page().
 > 
-> This helps with the ongoing efforts to tighten the FORTIFY_SOURCE
-> routines on memcpy() and help us make progress towards globally
-> enabling -fstrict-flex-arrays=3 [1].
+> The main difference between atomic and local mappings is that local
+> mappings doesn't disable page faults or preemption (the preemption is
+> disabled for !PREEMPT_RT case, otherwise it only disables migration).
 > 
-> Link: https://github.com/KSPP/linux/issues/21
-> Link: https://github.com/KSPP/linux/issues/271
-> Link: https://gcc.gnu.org/pipermail/gcc-patches/2022-October/602902.html [1]
-> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+> With kmap_local_page(), we can avoid the often unwanted side effect of
+> unnecessary page faults and preemption disables.
+> 
+> In i915_gem_execbuffer.c, eb->reloc_cache.vaddr is mapped by
+> kmap_atomic() in eb_relocate_entry(), and is unmapped by
+> kunmap_atomic() in reloc_cache_reset().
+
+First off thanks for the series and sticking with this.  That said this
+patch kind of threw me for a loop because tracing the map/unmap calls did
+not make sense to me.  See below.
+
+> 
+> And this mapping/unmapping occurs in two places: one is in
+> eb_relocate_vma(), and another is in eb_relocate_vma_slow().
+> 
+> The function eb_relocate_vma() or eb_relocate_vma_slow() doesn't
+> need to disable pagefaults and preemption during the above mapping/
+> unmapping.
+> 
+> So it can simply use kmap_local_page() / kunmap_local() that can
+> instead do the mapping / unmapping regardless of the context.
+> 
+> Convert the calls of kmap_atomic() / kunmap_atomic() to
+> kmap_local_page() / kunmap_local().
+> 
+> [1]: https://lore.kernel.org/all/20220813220034.806698-1-ira.weiny@intel.com
+> 
+> v2: No code change since v1. Added description of the motivation of
+>     using kmap_local_page() and "Suggested-by" tag of Fabio.
+> 
+> Suggested-by: Ira Weiny <ira.weiny@intel.com>
+> Suggested-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
+> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
 > ---
->   include/uapi/drm/i915_drm.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+> Suggested by credits:
+>   Ira: Referred to his task document, review comments.
+>   Fabio: Referred to his boiler plate commit message and his description
+>          about why kmap_local_page() should be preferred.
+> ---
+>  drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
 > 
-> diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-> index 8df261c5ab9b..5e458d6f2895 100644
-> --- a/include/uapi/drm/i915_drm.h
-> +++ b/include/uapi/drm/i915_drm.h
-> @@ -2491,7 +2491,7 @@ struct i915_context_param_engines {
->   #define I915_CONTEXT_ENGINES_EXT_LOAD_BALANCE 0 /* see i915_context_engines_load_balance */
->   #define I915_CONTEXT_ENGINES_EXT_BOND 1 /* see i915_context_engines_bond */
->   #define I915_CONTEXT_ENGINES_EXT_PARALLEL_SUBMIT 2 /* see i915_context_engines_parallel_submit */
-> -	struct i915_engine_class_instance engines[0];
-> +	struct i915_engine_class_instance engines[];
->   } __attribute__((packed));
->   
->   #define I915_DEFINE_CONTEXT_PARAM_ENGINES(name__, N__) struct { \
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+> index 9dce2957b4e5..805565edd148 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+> @@ -1151,7 +1151,7 @@ static void reloc_cache_unmap(struct reloc_cache *cache)
+>  
+>  	vaddr = unmask_page(cache->vaddr);
+>  	if (cache->vaddr & KMAP)
+> -		kunmap_atomic(vaddr);
+> +		kunmap_local(vaddr);
+
+In the cover letter you don't mention this unmap path.  Rather you mention
+only reloc_cache_reset().
+
+After digging into this and considering these are kmap_atomic() calls I
+_think_ what you have is ok.  But I think I'd like to see the call paths
+documented a bit more clearly.  Or perhaps cleaned up a lot.
+
+For example I see the following call possibility from a user ioctl.  In
+this trace I see 2 examples where something is unmapped first.  I don't
+understand why that is required?  I would assume reloc_cache_unmap() and
+reloc_kmap() are helpers called from somewhere else requiring a remapping
+of the cache but I don't see it.
+
+i915_gem_execbuffer2_ioctl()
+eb_relocate_parse()
+eb_relocate_parse_slow()
+eb_relocate_vma_slow()
+	eb_relocate_entry()
+		reloc_cache_unmap()
+			kunmap_atomic()  <=== HERE!
+		reloc_cache_remap()
+			kmap_atomic()
+		relocate_entry()
+			reloc_vaddr()
+				reloc_kmap()
+					kunmap_atomic() <== HERE!
+					kmap_atomic()
+
+	reloc_cache_reset()
+		kunmap_atomic()
+
+Could these mappings be cleaned up a lot more?  Perhaps by removing some
+of the helper functions which AFAICT are left over from older versions of
+the code?
+
+Also as an aside I think it is really bad that eb_relocate_entry() returns
+negative errors in a u64.  Better to get the types right IMO.
+
+Thanks for the series!
+Ira
+
+>  	else
+>  		io_mapping_unmap_atomic((void __iomem *)vaddr);
+>  }
+> @@ -1167,7 +1167,7 @@ static void reloc_cache_remap(struct reloc_cache *cache,
+>  	if (cache->vaddr & KMAP) {
+>  		struct page *page = i915_gem_object_get_page(obj, cache->page);
+>  
+> -		vaddr = kmap_atomic(page);
+> +		vaddr = kmap_local_page(page);
+>  		cache->vaddr = unmask_flags(cache->vaddr) |
+>  			(unsigned long)vaddr;
+>  	} else {
+> @@ -1197,7 +1197,7 @@ static void reloc_cache_reset(struct reloc_cache *cache, struct i915_execbuffer
+>  		if (cache->vaddr & CLFLUSH_AFTER)
+>  			mb();
+>  
+> -		kunmap_atomic(vaddr);
+> +		kunmap_local(vaddr);
+>  		i915_gem_object_finish_access(obj);
+>  	} else {
+>  		struct i915_ggtt *ggtt = cache_to_ggtt(cache);
+> @@ -1229,7 +1229,7 @@ static void *reloc_kmap(struct drm_i915_gem_object *obj,
+>  	struct page *page;
+>  
+>  	if (cache->vaddr) {
+> -		kunmap_atomic(unmask_page(cache->vaddr));
+> +		kunmap_local(unmask_page(cache->vaddr));
+>  	} else {
+>  		unsigned int flushes;
+>  		int err;
+> @@ -1251,7 +1251,7 @@ static void *reloc_kmap(struct drm_i915_gem_object *obj,
+>  	if (!obj->mm.dirty)
+>  		set_page_dirty(page);
+>  
+> -	vaddr = kmap_atomic(page);
+> +	vaddr = kmap_local_page(page);
+>  	cache->vaddr = unmask_flags(cache->vaddr) | (unsigned long)vaddr;
+>  	cache->page = pageno;
+>  
+> -- 
+> 2.34.1
+> 
+
+
