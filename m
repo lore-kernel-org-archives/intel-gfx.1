@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01DADC761AF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99292C76196
 	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 12:10:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6686510F213;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 307AE10F20A;
 	Fri, 31 Mar 2023 12:10:26 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEC0B10F13F;
- Fri, 31 Mar 2023 09:26:17 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E0AC10F182;
+ Fri, 31 Mar 2023 09:26:37 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 367C262288;
- Fri, 31 Mar 2023 09:26:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C3E0C4339C;
- Fri, 31 Mar 2023 09:26:14 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id C7198B82DB0;
+ Fri, 31 Mar 2023 09:26:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E241FC433D2;
+ Fri, 31 Mar 2023 09:26:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1680254776;
- bh=JZf0svDcEcGog0NsSz5cUzUNXsqZCcAN5I+gmpPDgzg=;
+ s=k20201202; t=1680254795;
+ bh=ngC/W6NnsF+/WMMI/twPoOWsX6vUYeGknc0YjZdw5Pw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XgdsOUyLaKZBHIvB9GPVLk4X9CeQ4pHXp0fBiu28DVZBvm43qBKIVCFL/sdqsJECq
- M6EbfJ6qLZvvrwd0m97u25a66HakrZhKSyhJwVb48M5K3Bhqo9uS/rCyoc9CfZ2pBQ
- NP2Ei7jihGLSnvmdd49aH6AjEpDiArG+97ca2E2XQ8UHA1xXBDTxMyDg0kr7ockqzZ
- OKV8BB64V/G2tKuBK3YQELLfvtgjvf+ON2XVZnRjZs6f64TVvNJYc3/zgMgSz85GiB
- GhFWGxCl3fq4/F6H6fKnQNwKm0Q14hOIh3eVxjyWNGqP9LWgeHDeiZBG0VSU9HTzu1
- pnljvPt9fz31A==
+ b=UWGJNuqrC4qenXiXXTKsAZBAHi0NuRJ93rb+421/6cAQMW52yplSH773ZCxdG2idt
+ jDBm6HevZ7/qjEPw5IwpyvVb8E3u9sCFjWELkjFC+d1Onmbll2P5Hb7druUp/3KHn9
+ fpGeMEzgq5SCTUsJgxExlLwRhNXlgIzZIXOA1A3nbNXIn0oLcmcB13UIstJV6qBKBv
+ wNnUfMqbYw3zk/ubSDGR6p936NQ+sq67AOV0FS9zljl2KsW62vDtpwAlhzWxu2j42S
+ VWLZRpQo7wBebjtmCLS8OGmaPOcsqHtex+QwzFg1WXQzklUuNGeMLpA42avvJ5e/JG
+ 0SyQVkl+kQ6Wg==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org
-Date: Fri, 31 Mar 2023 10:25:49 +0100
-Message-Id: <20230331092607.700644-2-lee@kernel.org>
+Date: Fri, 31 Mar 2023 10:25:56 +0100
+Message-Id: <20230331092607.700644-9-lee@kernel.org>
 X-Mailer: git-send-email 2.40.0.348.gf938b09366-goog
 In-Reply-To: <20230331092607.700644-1-lee@kernel.org>
 References: <20230331092607.700644-1-lee@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 31 Mar 2023 12:10:00 +0000
-Subject: [Intel-gfx] [PATCH 01/19] drm/i915/i915_scatterlist: Fix kerneldoc
- formatting issue - missing '@'
+Subject: [Intel-gfx] [PATCH 08/19] drm/i915/gem/i915_gem_domain: Provide
+ function names to complete proper kerneldoc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,7 +62,11 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Fixes the following W=1 kernel build warning(s):
 
- drivers/gpu/drm/i915/i915_scatterlist.c:62: warning: Function parameter or member 'size' not described in 'i915_refct_sgt_init'
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c:119: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c:180: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c:265: warning: expecting prototype for Changes the cache(). Prototype was for i915_gem_object_set_cache_level() instead
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c:470: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c:514: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
 
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
@@ -74,22 +78,62 @@ Cc: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/gpu/drm/i915/i915_scatterlist.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_scatterlist.c b/drivers/gpu/drm/i915/i915_scatterlist.c
-index 7c7a86921b1c7..e93d2538f2988 100644
---- a/drivers/gpu/drm/i915/i915_scatterlist.c
-+++ b/drivers/gpu/drm/i915/i915_scatterlist.c
-@@ -56,7 +56,7 @@ static const struct i915_refct_sgt_ops rsgt_ops = {
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+index 497de40b8e688..d2d5a24301b25 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+@@ -116,7 +116,8 @@ void i915_gem_object_flush_if_display_locked(struct drm_i915_gem_object *obj)
+ }
+ 
  /**
-  * i915_refct_sgt_init - Initialize a struct i915_refct_sgt with default ops
-  * @rsgt: The struct i915_refct_sgt to initialize.
-- * size: The size of the underlying memory buffer.
-+ * @size: The size of the underlying memory buffer.
-  */
- void i915_refct_sgt_init(struct i915_refct_sgt *rsgt, size_t size)
- {
+- * Moves a single object to the WC read, and possibly write domain.
++ * i915_gem_object_set_to_wc_domain - Moves a single object to the WC read, and
++ *                                    possibly write domain.
+  * @obj: object to act on
+  * @write: ask for write access or read only
+  *
+@@ -177,7 +178,8 @@ i915_gem_object_set_to_wc_domain(struct drm_i915_gem_object *obj, bool write)
+ }
+ 
+ /**
+- * Moves a single object to the GTT read, and possibly write domain.
++ * i915_gem_object_set_to_gtt_domain - Moves a single object to the GTT read,
++ *                                     and possibly write domain.
+  * @obj: object to act on
+  * @write: ask for write access or read only
+  *
+@@ -246,7 +248,7 @@ i915_gem_object_set_to_gtt_domain(struct drm_i915_gem_object *obj, bool write)
+ }
+ 
+ /**
+- * Changes the cache-level of an object across all VMA.
++ * i915_gem_object_set_cache_level - Changes the cache-level of an object across all VMA.
+  * @obj: object to act on
+  * @cache_level: new cache level to set for the object
+  *
+@@ -467,7 +469,8 @@ i915_gem_object_pin_to_display_plane(struct drm_i915_gem_object *obj,
+ }
+ 
+ /**
+- * Moves a single object to the CPU read, and possibly write domain.
++ * i915_gem_object_set_to_cpu_domain - Moves a single object to the CPU read,
++ *                                     and possibly write domain.
+  * @obj: object to act on
+  * @write: requesting write or read-only access
+  *
+@@ -511,7 +514,8 @@ i915_gem_object_set_to_cpu_domain(struct drm_i915_gem_object *obj, bool write)
+ }
+ 
+ /**
+- * Called when user space prepares to use an object with the CPU, either
++ * i915_gem_set_domain_ioctl - Called when user space prepares to use an
++ *                             object with the CPU, either
+  * through the mmap ioctl's mapping or a GTT mapping.
+  * @dev: drm device
+  * @data: ioctl data blob
 -- 
 2.40.0.348.gf938b09366-goog
 
