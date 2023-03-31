@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 053B6C76196
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D75C3C6FD18
 	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 12:10:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD64210F21B;
-	Fri, 31 Mar 2023 12:10:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EFD410F221;
+	Fri, 31 Mar 2023 12:10:28 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B4C810F182;
- Fri, 31 Mar 2023 09:26:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52D1E10F14C;
+ Fri, 31 Mar 2023 09:26:20 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D07EB62670;
- Fri, 31 Mar 2023 09:26:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82BC2C433EF;
- Fri, 31 Mar 2023 09:26:27 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id CFD1762654;
+ Fri, 31 Mar 2023 09:26:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1833FC4339E;
+ Fri, 31 Mar 2023 09:26:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1680254789;
- bh=KiXF3LYVu3KrlWgglMJh8IlNjIF1YPLM2PZ/FiGHP9U=;
+ s=k20201202; t=1680254779;
+ bh=JNGe4Stkfx4U8PEelqzPaQWET75d/oi6wGG9GBuzGjg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oALhkUyVSDBvPDldu6mPEnFEqxUY6av6K0MJOpSnZ7IZtnV2CgenCiwHuLPHu7vPb
- yYma2Q42wt7oakc2RS2bFT3fnkVtvkZ+HaKfhrJBsj2AygNx6uK0mDeTtQbHjrAsS5
- O158zgxJb28qq/ger5SZbZeR+PhJZNBcbKwANJIlm9eYTzlQaB7qjBGkY/rGkngmtX
- +g0thBRH0RufBJG/VJ08tA7h+6E3SkbJkLmGj9RLk9j78EKi5YZjgs18QV0+DhSW78
- 03Z/k0JSwl9tAHxh2MyyhgvEBD7m5G2h+wZIGkm9pZ9mBhNmxiS65LjUpMK+sP4QkV
- zTw9KQxHKjFGg==
+ b=nxD+CR5W+M4FMA4u7Hve2K2JQHHfpYrFTxcrzo1+D3s9MFvxrft5XY2qstmWV0U9b
+ Dcihw64MldAHjYk5Nu4uAVf1bD0M+vHq8MjU9fFglHhvT3juY9hxLJP6J1mNK+Lpiq
+ bRYgOkTu73CBFuOtEJKjmVsZTQfaJuaap1FntnI8LO14tvm9hxT/e4r9YDeBmRGSb+
+ tdXfN3XV/IZVyIYAXTp4UEVQgqHuRrP9KOFV8uEbsgKZ8zeoKRZ0f7Knn7Sgyr+6a/
+ tIyR7WqeSSP+Asl/BYPWoGv60k9WGCg/Aeak+jN7+o5Mer9rfEVJLgX/HOAs4Ck4o+
+ Re9zsLs21/OgQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org
-Date: Fri, 31 Mar 2023 10:25:54 +0100
-Message-Id: <20230331092607.700644-7-lee@kernel.org>
+Date: Fri, 31 Mar 2023 10:25:50 +0100
+Message-Id: <20230331092607.700644-3-lee@kernel.org>
 X-Mailer: git-send-email 2.40.0.348.gf938b09366-goog
 In-Reply-To: <20230331092607.700644-1-lee@kernel.org>
 References: <20230331092607.700644-1-lee@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 31 Mar 2023 12:10:00 +0000
-Subject: [Intel-gfx] [PATCH 06/19] drm/i915/gt/intel_rps: Demote a kerneldoc
- abuse for ips_ping_for_i915_load()
+Subject: [Intel-gfx] [PATCH 02/19] drm/i915/intel_region_ttm: Provide
+ missing description for 'offset' param
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,7 +61,7 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Fixes the following W=1 kernel build warning(s):
 
- drivers/gpu/drm/i915/gt/intel_rps.c:2646: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ drivers/gpu/drm/i915/intel_region_ttm.c:201: warning: Function parameter or member 'offset' not described in 'intel_region_ttm_resource_alloc'
 
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
@@ -73,21 +73,20 @@ Cc: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/gpu/drm/i915/gt/intel_rps.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/intel_region_ttm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
-index e97c52c90689a..301359b500a3e 100644
---- a/drivers/gpu/drm/i915/gt/intel_rps.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -2646,7 +2646,7 @@ bool rps_read_mask_mmio(struct intel_rps *rps,
- 
- static struct drm_i915_private __rcu *ips_mchdev;
- 
--/**
-+/*
-  * Tells the intel_ips driver that the i915 driver is now loaded, if
-  * IPS got loaded first.
+diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i915/intel_region_ttm.c
+index b7fbd5abb42a5..bf6097e7433d5 100644
+--- a/drivers/gpu/drm/i915/intel_region_ttm.c
++++ b/drivers/gpu/drm/i915/intel_region_ttm.c
+@@ -181,6 +181,7 @@ intel_region_ttm_resource_to_rsgt(struct intel_memory_region *mem,
+ /**
+  * intel_region_ttm_resource_alloc - Allocate memory resources from a region
+  * @mem: The memory region,
++ * @offset: BO offset
+  * @size: The requested size in bytes
+  * @flags: Allocation flags
   *
 -- 
 2.40.0.348.gf938b09366-goog
