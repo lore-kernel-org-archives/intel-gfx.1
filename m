@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 130F5C76196
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D90EC6FD18
 	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 10:18:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 847A610F1BC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B44FD10F1BD;
 	Fri, 31 Mar 2023 10:18:57 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B14F010F1C1
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 10:18:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25C6810F1B4
+ for <intel-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 10:18:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680257914; x=1711793914;
+ t=1680257918; x=1711793918;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=sabbctzoYwYTKc+dWnxD9tS3z9Vwo4GrjlVhxfIbDMg=;
- b=Wji//EAnoTfMUXXxI+GyVHqBQeqyByHFVwkOnfqa6LjO87IFqahK3Nu2
- hZ/Nu9NvKJfoe7vY5CEcIHRFM08ZybeCGYnEfuoRV5eaZmt9cxWzFW4FH
- sspicxDxgUDAndpgojd/LtR/SmmXcufgc6OFVBZccfBRflyzzrJDsilye
- sjSZAVz9sLsLb+2o8+ZQUBFjrItuY7/ZFQ1Hgy3Ptd4fWpSxdXI0QymJ0
- SA5ai+5zVB5ipYoXqI+FKN2j3poQXg1OPg6VamdG1MnjoK2Tokx0iy8Zt
- GGlICW5qXgupmwfGSzQzN9NmbxniKiPpfbXuyU2QVb4MJPO/CNTzQ5JLU A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="340141780"
-X-IronPort-AV: E=Sophos;i="5.98,307,1673942400"; d="scan'208";a="340141780"
+ bh=7tCS6Gkv7EoSmX5OqApreT77IJJimEuzMUZh/FpQwZM=;
+ b=RL4lZi48QtOO4mIpLyOSiMCTNH6NdlXbH/MfsqoYieQDkQmmOV89O1fH
+ HU4jHeo14Zz7qS4ui0x9ktTTojJk3zCyRlMdYl0DN0zTOVHgfuX/SvLAT
+ SNwLd80+qfLHpsZN5+pIj0LzM2drdLdi33zISudhZhy8kyLIAzkHLJhKU
+ RdR5FDRuK5buUa0oD95fntg36QEBu1gwZ6AHoQ2FHls404ZKwHyxkVNI7
+ 2DvDPmDLNMFxyNbiUFEnPXtn3doZOkkruFIq5d4XxaQsJUGjwinqvz9C7
+ spPsHo/4WwkobML8TVRrblwt8TPY1c7Dd70Kd24WYsEVEnWD5LoR0/6Sc A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="340141794"
+X-IronPort-AV: E=Sophos;i="5.98,307,1673942400"; d="scan'208";a="340141794"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2023 03:18:34 -0700
+ 31 Mar 2023 03:18:38 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="796068348"
-X-IronPort-AV: E=Sophos;i="5.98,307,1673942400"; d="scan'208";a="796068348"
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="796068359"
+X-IronPort-AV: E=Sophos;i="5.98,307,1673942400"; d="scan'208";a="796068359"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2023 03:18:32 -0700
+ 31 Mar 2023 03:18:36 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 31 Mar 2023 15:46:08 +0530
-Message-Id: <20230331101613.936776-9-ankit.k.nautiyal@intel.com>
+Date: Fri, 31 Mar 2023 15:46:10 +0530
+Message-Id: <20230331101613.936776-11-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230331101613.936776-1-ankit.k.nautiyal@intel.com>
 References: <20230331101613.936776-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/13] drm/i915/dp: Consider output_format while
- computing dsc bpp
+Subject: [Intel-gfx] [PATCH 10/13] drm/i915/dp: Handle BPP where HDMI2.1 DFP
+ doesn't support DSC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,101 +61,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-While using DSC the compressed bpp is computed assuming RGB output
-format. Consider the output_format and compute the compressed bpp
-during mode valid and compute config steps.
+Currently we use the highest input BPC supported by DP sink while using
+DSC.In cases where PCON with HDMI2.1 as branch device, if PCON supports
+DSC but HDMI2.1 sink does not supports DSC, The PCON tries to use same
+input BPC that is used between Source and the PCON without DSC, which
+might not work even with the maximum FRL rate supported by HDMI2.1
+sink.
 
-For DP-MST we currently use RGB output format only, so continue
-using RGB while computing compressed bpp for MST case.
+This patch calculates the max BPC that can be sufficient with either
+RGB or YCBCR420 format for the maximum FRL rate supported.
+
+v2: Rebase
+
+v3: Use the sink_format in the functions instead of ycbcr420 flag.
+
+v4: Rebase
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c     | 14 +++++++++++++-
- drivers/gpu/drm/i915/display/intel_dp.h     |  1 +
- drivers/gpu/drm/i915/display/intel_dp_mst.c |  1 +
- 3 files changed, 15 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 61 +++++++++++++++++++++++--
+ 1 file changed, 58 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 4d5c74a1bd29..e5903b5e511b 100644
+index 8d819b2963de..f5d9243f9e49 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -712,6 +712,7 @@ u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
- 				u32 link_clock, u32 lane_count,
- 				u32 mode_clock, u32 mode_hdisplay,
- 				bool bigjoiner,
-+				enum intel_output_format output_format,
- 				u32 pipe_bpp,
- 				u32 timeslots)
+@@ -116,6 +116,7 @@ bool intel_dp_is_edp(struct intel_dp *intel_dp)
+ 	return dig_port->base.type == INTEL_OUTPUT_EDP;
+ }
+ 
++static bool intel_dp_is_hdmi_2_1_sink(struct intel_dp *intel_dp);
+ static void intel_dp_unset_edid(struct intel_dp *intel_dp);
+ 
+ /* Is link rate UHBR and thus 128b/132b? */
+@@ -1601,6 +1602,39 @@ static int intel_dp_dsc_compute_params(struct intel_encoder *encoder,
+ 	return drm_dsc_compute_rc_parameters(vdsc_cfg);
+ }
+ 
++static int
++intel_dp_pcon_hdmi21_get_bpp_nodsc(struct intel_dp *intel_dp,
++				   struct intel_crtc_state *pipe_config,
++				   int max_bpc)
++{
++	struct intel_connector *intel_connector = intel_dp->attached_connector;
++	struct drm_connector *connector = &intel_connector->base;
++	const struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
++	int i, num_bpc;
++	u8 dsc_bpc[3] = {0};
++	int req_rate_gbps;
++	int max_frl_rate = connector->display_info.hdmi.max_lanes *
++			   connector->display_info.hdmi.max_frl_rate_per_lane;
++
++	num_bpc = drm_dp_dsc_sink_supported_input_bpcs(intel_dp->dsc_dpcd,
++						       dsc_bpc);
++	for (i = 0; i < num_bpc; i++) {
++		if (dsc_bpc[i] > max_bpc)
++			continue;
++
++		req_rate_gbps = DIV_ROUND_UP(dsc_bpc[i] * 3 * adjusted_mode->clock, 1000000);
++
++		/* YCBCR420 reduces data rate by 2 */
++		if (pipe_config->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420)
++			req_rate_gbps /= 2;
++
++		if (req_rate_gbps < max_frl_rate)
++			return dsc_bpc[i] * 3;
++	}
++
++	return 0;
++}
++
+ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 				struct intel_crtc_state *pipe_config,
+ 				struct drm_connector_state *conn_state,
+@@ -1609,6 +1643,8 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 				bool compute_pipe_bpp)
  {
-@@ -736,6 +737,10 @@ u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
- 	bits_per_pixel = ((link_clock * lane_count) * timeslots) /
- 			 (intel_dp_mode_to_fec_clock(mode_clock) * 8);
+ 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
++	struct intel_connector *intel_connector = intel_dp->attached_connector;
++	struct drm_connector *connector = &intel_connector->base;
+ 	struct drm_i915_private *dev_priv = to_i915(dig_port->base.base.dev);
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&pipe_config->hw.adjusted_mode;
+@@ -1620,11 +1656,30 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
  
-+	/* Bandwidth required for 420 is half, that of 444 format */
-+	if (output_format == INTEL_OUTPUT_FORMAT_YCBCR420)
-+		bits_per_pixel *= 2;
-+
- 	drm_dbg_kms(&i915->drm, "Max link bpp is %u for %u timeslots "
- 				"total bw %u pixel clock %u\n",
- 				bits_per_pixel, timeslots,
-@@ -1133,11 +1138,16 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+ 	if (!intel_dp_supports_dsc(intel_dp, pipe_config))
+ 		return -EINVAL;
+-
+-	if (compute_pipe_bpp)
++	/*
++	 * In cases where PCON with HDMI2.1 as branch device, if PCON supports
++	 * DSC but HDMI2.1 sink does not supports DSC, there can be issues due
++	 * to the bpc used.
++	 * With DSC, a source-PCON pair can support the mode with higher bpcs.
++	 * But PCON->Sink pair, cannot support the same bpc without sink having
++	 * DSC support.
++	 * So use the max BPC as input BPC that will be sufficient to show the
++	 * mode without DSC from PCON->HDMI2.1
++	 */
++	if (intel_dp_is_hdmi_2_1_sink(intel_dp) &&
++	    !connector->display_info.hdmi.dsc_cap.v_1p2) {
++		pipe_bpp = intel_dp_pcon_hdmi21_get_bpp_nodsc(intel_dp, pipe_config,
++							      conn_state->max_requested_bpc);
++		if (!pipe_bpp) {
++			drm_dbg_kms(&dev_priv->drm,
++				    "No BPC possible to support the mode without HDMI2.1 DSC\n");
++			return -EINVAL;
++		}
++	} else if (compute_pipe_bpp) {
+ 		pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, conn_state->max_requested_bpc);
+-	else
++	} else {
+ 		pipe_bpp = pipe_config->pipe_bpp;
++	}
  
- 	if (HAS_DSC(dev_priv) &&
- 	    drm_dp_sink_supports_dsc(intel_dp->dsc_dpcd)) {
-+		enum intel_output_format sink_format, output_format;
-+		int pipe_bpp;
-+
-+		sink_format = intel_dp_sink_format(connector, mode);
-+		output_format = intel_dp_output_format(connector, sink_format);
- 		/*
- 		 * TBD pass the connector BPC,
- 		 * for now U8_MAX so that max BPC on that platform would be picked
- 		 */
--		int pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, U8_MAX);
-+		pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, U8_MAX);
- 
- 		/*
- 		 * Output bpp is stored in 6.4 format so right shift by 4 to get the
-@@ -1157,6 +1167,7 @@ intel_dp_mode_valid(struct drm_connector *_connector,
- 							    target_clock,
- 							    mode->hdisplay,
- 							    bigjoiner,
-+							    output_format,
- 							    pipe_bpp, 64) >> 4;
- 			dsc_slice_count =
- 				intel_dp_dsc_get_slice_count(intel_dp,
-@@ -1655,6 +1666,7 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 							    adjusted_mode->crtc_clock,
- 							    adjusted_mode->crtc_hdisplay,
- 							    pipe_config->bigjoiner_pipes,
-+							    pipe_config->output_format,
- 							    pipe_bpp,
- 							    timeslots);
- 			if (!dsc_max_output_bpp) {
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index ef39e4f7a329..db86c2b71c1f 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -107,6 +107,7 @@ u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
- 				u32 link_clock, u32 lane_count,
- 				u32 mode_clock, u32 mode_hdisplay,
- 				bool bigjoiner,
-+				enum intel_output_format output_format,
- 				u32 pipe_bpp,
- 				u32 timeslots);
- u8 intel_dp_dsc_get_slice_count(struct intel_dp *intel_dp,
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 2cc4239cfa5b..daa1591a9ae8 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -927,6 +927,7 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
- 							    target_clock,
- 							    mode->hdisplay,
- 							    bigjoiner,
-+							    INTEL_OUTPUT_FORMAT_RGB,
- 							    pipe_bpp, 64) >> 4;
- 			dsc_slice_count =
- 				intel_dp_dsc_get_slice_count(intel_dp,
+ 	if (intel_dp->force_dsc_bpc) {
+ 		pipe_bpp = intel_dp->force_dsc_bpc * 3;
 -- 
 2.25.1
 
