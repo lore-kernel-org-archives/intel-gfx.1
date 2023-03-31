@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE43AC6FD18
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 12:10:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECBFEC77B62
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 12:10:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E30E310F216;
-	Fri, 31 Mar 2023 12:10:26 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 617A310F185;
- Fri, 31 Mar 2023 09:26:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04E5710F21D;
+	Fri, 31 Mar 2023 12:10:27 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 966CB10F1A9;
+ Fri, 31 Mar 2023 09:27:10 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E4915B82DB7;
- Fri, 31 Mar 2023 09:26:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84951C4339B;
- Fri, 31 Mar 2023 09:26:52 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1CF2662649;
+ Fri, 31 Mar 2023 09:27:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9099DC433A0;
+ Fri, 31 Mar 2023 09:27:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1680254814;
- bh=8AGKbu3+LbNahQA9+BV8cpQ9XSnkvlPrI5KbjVo54Ak=;
+ s=k20201202; t=1680254829;
+ bh=q94izLl3IZgGvkKrUY20PN7lYkSiE2LwGs8Cj3mJZ74=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=eOBqcE0mA4J73g2ftWRNsZm8U23TaA9r3zmLGid83WDxH83+j6lZmu6iTDkz+1Ixp
- edyH7ctvVVfYJLJWhtOWkFab3tPyj22/KkSY9B3QX6TQWBdtrko2Wh7YbFuAkBGON4
- RfAr1UYWHGhDhx7foA032phVxjc5VnLXR7JHaFp8oIJRJPL6h4aDYF2U6+RpID3P9w
- neQ+BgnjrTjI5jg/DD4POag6DK0uUpvVhLqciOVk3pywVqTr6p6BUJKj9v/iTXtB/9
- mv4TcglI+DcH7TxABC97+keY4Q4zc/AU0I7YpXbqjJa8Yc9g5QzerI+QD9LVvburH0
- 4XVFCk8T3LRLQ==
+ b=WWWE2lUsVb8TTMqOUSSf9JvM1P043iDZAbpWP4lDy9c2SbmizGgxIatWILrD2r+Jw
+ VRlIVW9z3L3Jf9R//bIt92G80do478ZWtZ4Z2wdqmQq0+EAemK7uAoGpNJuk4C9CwK
+ q51jc8bJ/aKQYT507TmrORLBmMTKKIA85L8VK2Gs8rD+E0VC55h11lEzGIO26XlwBT
+ UOA2ybn4v6hx6dZ1QgP9KGQAJPQ9WbGHx0TCrO8p3KM1aX7XY+G4jn8VZPFhA4sRhV
+ 8dDEBXpDaGVDQnk+yaOaRc2NxClQWpYz85+UeOLcI/c2vxnWK8uq/JISgeRbP6DKIt
+ 1TDOlovDJ9CmA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org
-Date: Fri, 31 Mar 2023 10:26:02 +0100
-Message-Id: <20230331092607.700644-15-lee@kernel.org>
+Date: Fri, 31 Mar 2023 10:26:07 +0100
+Message-Id: <20230331092607.700644-20-lee@kernel.org>
 X-Mailer: git-send-email 2.40.0.348.gf938b09366-goog
 In-Reply-To: <20230331092607.700644-1-lee@kernel.org>
 References: <20230331092607.700644-1-lee@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 31 Mar 2023 12:10:00 +0000
-Subject: [Intel-gfx] [PATCH 14/19] drm/i915/i915_gem: Provide function names
- to complete the expected kerneldoc format
+Subject: [Intel-gfx] [PATCH 19/19] drm/i915/display/intel_wm: Fix a little
+ doc-rot in intel_update_watermarks()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,18 +55,15 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Eric Anholt <eric@anholt.net>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@gmail.com>
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Fixes the following W=1 kernel build warning(s):
 
- drivers/gpu/drm/i915/i915_gem.c:447: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- drivers/gpu/drm/i915/i915_gem.c:536: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- drivers/gpu/drm/i915/i915_gem.c:726: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
- drivers/gpu/drm/i915/i915_gem.c:811: warning: This comment starts with '/**', but isn't a kernel-doc comment. Refer Documentation/doc-guide/kernel-doc.rst
+ drivers/gpu/drm/i915/display/intel_wm.c:46: warning: Function parameter or member 'i915' not described in 'intel_update_watermarks'
+ drivers/gpu/drm/i915/display/intel_wm.c:46: warning: Excess function parameter 'dev_priv' description in 'intel_update_watermarks'
 
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
@@ -74,54 +71,27 @@ Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 Cc: David Airlie <airlied@gmail.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Eric Anholt <eric@anholt.net>
+Cc: "Ville Syrjälä" <ville.syrjala@linux.intel.com>
 Cc: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/gpu/drm/i915/i915_gem.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_wm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 35950fa914068..6a00d13db2893 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -444,7 +444,7 @@ i915_gem_gtt_pread(struct drm_i915_gem_object *obj,
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_wm.c b/drivers/gpu/drm/i915/display/intel_wm.c
+index bb99179cd5fd1..b615449e70b47 100644
+--- a/drivers/gpu/drm/i915/display/intel_wm.c
++++ b/drivers/gpu/drm/i915/display/intel_wm.c
+@@ -11,7 +11,7 @@
  
  /**
-- * Reads data from the object referenced by handle.
-+ * i915_gem_pread_ioctl - Reads data from the object referenced by handle.
-  * @dev: drm device pointer
-  * @data: ioctl data blob
-  * @file: drm file pointer
-@@ -533,7 +533,7 @@ ggtt_write(struct io_mapping *mapping,
- }
- 
- /**
-- * This is the fast pwrite path, where we copy the data directly from the
-+ * i915_gem_gtt_pwrite_fast - This is the fast pwrite path, where we copy the data directly from the
-  * user into the GTT, uncached.
-  * @obj: i915 GEM object
-  * @args: pwrite arguments structure
-@@ -723,7 +723,7 @@ i915_gem_shmem_pwrite(struct drm_i915_gem_object *obj,
- }
- 
- /**
-- * Writes data to the object referenced by handle.
-+ * i915_gem_pwrite_ioctl - Writes data to the object referenced by handle.
-  * @dev: drm device
-  * @data: ioctl data blob
-  * @file: drm file
-@@ -808,7 +808,7 @@ i915_gem_pwrite_ioctl(struct drm_device *dev, void *data,
- }
- 
- /**
-- * Called when user space has done writes to this buffer
-+ * i915_gem_sw_finish_ioct - Called when user space has done writes to this buffer
-  * @dev: drm device
-  * @data: ioctl data blob
-  * @file: drm file
+  * intel_update_watermarks - update FIFO watermark values based on current modes
+- * @dev_priv: i915 device
++ * @i915: i915 device
+  *
+  * Calculate watermark values for the various WM regs based on current mode
+  * and plane configuration.
 -- 
 2.40.0.348.gf938b09366-goog
 
