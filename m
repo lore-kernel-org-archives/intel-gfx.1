@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB7D8C76196
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 22:13:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBCEEC761A6
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 22:13:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D62E910F31D;
-	Fri, 31 Mar 2023 22:13:38 +0000 (UTC)
-Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com
- [IPv6:2607:f8b0:4864:20::b35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFCBD10F324
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 22:12:27 +0000 (UTC)
-Received: by mail-yb1-xb35.google.com with SMTP id j7so29073613ybg.4
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 15:12:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 513B110F32A;
+	Fri, 31 Mar 2023 22:13:51 +0000 (UTC)
+Received: from mail-yw1-x1129.google.com (mail-yw1-x1129.google.com
+ [IPv6:2607:f8b0:4864:20::1129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B728910F316
+ for <intel-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 22:12:37 +0000 (UTC)
+Received: by mail-yw1-x1129.google.com with SMTP id
+ 00721157ae682-544f7c176easo440815197b3.9
+ for <intel-gfx@lists.freedesktop.org>; Fri, 31 Mar 2023 15:12:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1680300747;
+ d=chromium.org; s=google; t=1680300757;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=QQCW7qAlPoCanMOibyvaqreXBiUzfYEQ1+FdC/VaNrE=;
- b=BLvvTR2NCPvzRNBZZoGIZ3hzWnaS8cQouhgQLf6NorLhzUp1z4yXGygAwFflmH42mE
- Cje843BRgJtS+shb2nkKP8KLxs691CP0pPCanL4oyl5ODn3QD+8abYXozduHf0t+DZBV
- w8ET/tVCap4TTvInAg926pMpeFGnmRPMCA2kk=
+ bh=SuHM3Ml3PogV+x216rKe1L3nHLFo1MwYXwE4UpoFNeE=;
+ b=PJ8MIaChYf1hyLs02a/4OwDicqZnjK09rM5XKqAm5kRJiZa5OJwqNVE7oFW2ZdibeK
+ DLhFewEDf6gi51fE2aKpYzwFuKnIE7aVvhhw078JOMiJbWaIWwJmypIV5qLpDRY/ZbNb
+ ZGa4ZNgtOSJlDdYCu/11y+DUkz9cd1EB5gMpE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680300747;
+ d=1e100.net; s=20210112; t=1680300757;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=QQCW7qAlPoCanMOibyvaqreXBiUzfYEQ1+FdC/VaNrE=;
- b=bNNhO3fhga8x6JJiV2j/zMeN1l2N5UfRd4wU/kDKf9eoZIvsmGkf8iaPUrNXlH+KEp
- zLnLCN/RMzgQKunbQWQhaF+jt2tGCiienKcaGsd+gms0ruAEw5edBs9MpzKWh93Q8iqJ
- HKy3QVVrU2Yqom6yoXdLcyYZfNdAh3zcIhDwG8pcVKFnzb5JF3AJe/fHsr8UtYv5RqyS
- Rd2rWlpEJVM4g8AOdpdGY5NHXCTJ6y2xNlcbm5lArcdBpX80YsLI7bfu7/CQOClkj9T4
- PhU40+x5n6SVLhAuUq2/aX7Q3mUlISPdVsdbfJDhtHMaYio3xRHBCO10noW/JVvCbZTs
- SFsA==
-X-Gm-Message-State: AAQBX9foj4u6TxkD6tvPwMqc8kGJ7tO0WQNBP/g9CBjlChI8YX7AWAvb
- 1j/1Mw7KIFjyevmsol5VtuwrEg==
-X-Google-Smtp-Source: AKy350ZOc5RDf5J2kc0TLzAC0z0GmRU+8srPDqhPDFOpaoU5OD6YsojA+Uu6XHtS/F1APzWJLFI2UQ==
-X-Received: by 2002:a25:2392:0:b0:b73:ae6e:464 with SMTP id
- j140-20020a252392000000b00b73ae6e0464mr24928252ybj.21.1680300746791; 
- Fri, 31 Mar 2023 15:12:26 -0700 (PDT)
+ bh=SuHM3Ml3PogV+x216rKe1L3nHLFo1MwYXwE4UpoFNeE=;
+ b=JMhVvaIMm/XJjr+LB1nIi9cjyKMLrYhhCjpG6cbTzgBqU0o0Yz+S87U0rAV47QMH5m
+ A1Ha5MfQ/T75lvAY9C87OJYrqr3+Oe7P3JWO3uVayLPfhh0s5tbF7sYqVOXUdqbGzEQz
+ UcVr4dPNwx9tUUrdyQGV2HoAkcdmWzJjvmGP/iNEfFk1STnvCBbXE5AMpIO0vAn2wKBa
+ zvVs0NCAwxbJ5RYexAGmVL975fru05FbmCffZFnHfazkP/0YsJb5TfO8Tit0Ihsz6rxQ
+ cElQ2KE25uVj0ocauN+qwv/7cgaaWdZ+NcOPHNllpoKcx2bRx3/WEplQKyNm8Xvh8+ch
+ E+0Q==
+X-Gm-Message-State: AAQBX9cNkFyExy3rEuHYbm+sfFrCe0xxg0kLJC38vuRiMAjJTUtLeVE/
+ QTvOOjCsYJTL/3qnu63mctqSuw==
+X-Google-Smtp-Source: AKy350ZF5Y47obuwMo5tN+7rE24Wl2VFFeifocBWiFVazpaCUbskHkorQPmYpadclKW6c2w3vyqWDQ==
+X-Received: by 2002:a0d:cb15:0:b0:541:8864:c4b5 with SMTP id
+ n21-20020a0dcb15000000b005418864c4b5mr9469428ywd.12.1680300756885; 
+ Fri, 31 Mar 2023 15:12:36 -0700 (PDT)
 Received: from localhost ([2620:0:1035:15:a8f6:869a:3ef5:e1d])
  by smtp.gmail.com with UTF8SMTPSA id
- t4-20020a817804000000b00545a0818493sm799378ywc.35.2023.03.31.15.12.25
+ 123-20020a810381000000b00545a4ec318dsm796675ywd.13.2023.03.31.15.12.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 31 Mar 2023 15:12:26 -0700 (PDT)
+ Fri, 31 Mar 2023 15:12:36 -0700 (PDT)
 From: Mark Yacoub <markyacoub@chromium.org>
 X-Google-Original-From: Mark Yacoub <markyacoub@google.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
-Date: Fri, 31 Mar 2023 18:12:07 -0400
-Message-Id: <20230331221213.1691997-6-markyacoub@google.com>
+To: Andy Gross <agross@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>
+Date: Fri, 31 Mar 2023 18:12:11 -0400
+Message-Id: <20230331221213.1691997-10-markyacoub@google.com>
 X-Mailer: git-send-email 2.40.0.348.gf938b09366-goog
 In-Reply-To: <20230331221213.1691997-1-markyacoub@google.com>
 References: <20230331221213.1691997-1-markyacoub@google.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 05/10] drm/i915/hdcp: Consolidate HDCP
- setup/state cache
+Subject: [Intel-gfx] [PATCH v8 09/10] arm64: dts: qcom: sc7180: Add support
+ for HDCP in dp-controller
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,124 +74,61 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
- dianders@chromium.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, seanpaul@chromium.org,
+Cc: devicetree@vger.kernel.org, Mark Yacoub <markyacoub@chromium.org>,
+ intel-gfx@lists.freedesktop.org, dianders@chromium.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ seanpaul@chromium.org, linux-arm-msm@vger.kernel.org,
  freedreno@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Sean Paul <seanpaul@chromium.org>
 
-Stick all of the setup for HDCP into a dedicated function. No functional
-change, but this will facilitate moving HDCP logic into helpers.
+Add the register ranges required for HDCP key injection and
+HDCP TrustZone interaction as described in the dt-bindings for the
+sc7180 dp controller.
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Change-Id: Ib358a503fa4520d072e477f708f1705b19f1c4fc
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
 Signed-off-by: Sean Paul <seanpaul@chromium.org>
+Signed-off-by: Mark Yacoub <markyacoub@chromium.org>
 
 ---
-Changes in v2:
--None
 Changes in v3:
--None
+-Split off into a new patch containing just the dts change (Stephen)
+-Add hdcp compatible string (Stephen)
 Changes in v4:
--None
+-Rebase on Bjorn's multi-dp patchset
 Changes in v5:
--None
+-Put the tz register offsets in trogdor dtsi (Rob C)
 Changes in v6:
--None
+-Rebased: Removed modifications in sc7180.dtsi as it's already upstream
 Changes in v7:
-- None
+-Change registers offset
 Changes in v8:
 -None
 
- drivers/gpu/drm/i915/display/intel_hdcp.c | 52 +++++++++++++++--------
- 1 file changed, 35 insertions(+), 17 deletions(-)
+ arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index 396d2cef000aa..0a20bc41be55d 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -2190,6 +2190,37 @@ static enum mei_fw_tc intel_get_mei_fw_tc(enum transcoder cpu_transcoder)
- 	}
- }
+diff --git a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+index 423630c4d02c7..89d913fa6e3eb 100644
+--- a/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi
+@@ -822,6 +822,14 @@ &mdss_dp {
+ 	status = "okay";
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&dp_hot_plug_det>;
++
++	reg = <0 0x0ae90000 0 0x200>,
++	      <0 0x0ae90200 0 0x200>,
++	      <0 0x0ae90400 0 0xc00>,
++	      <0 0x0ae91000 0 0x400>,
++	      <0 0x0ae91400 0 0x400>,
++	      <0 0x0aed1000 0 0x174>,
++	      <0 0x0aee1000 0 0x2c>;
+ };
  
-+static int
-+_intel_hdcp_setup(struct intel_connector *connector,
-+		  const struct intel_crtc_state *pipe_config, u8 content_type)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
-+	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
-+	struct intel_hdcp *hdcp = &connector->hdcp;
-+	int ret = 0;
-+
-+	if (!connector->encoder) {
-+		drm_err(&dev_priv->drm, "[%s:%d] encoder is not initialized\n",
-+			connector->base.name, connector->base.base.id);
-+		return -ENODEV;
-+	}
-+
-+	hdcp->content_type = content_type;
-+
-+	if (intel_crtc_has_type(pipe_config, INTEL_OUTPUT_DP_MST)) {
-+		hdcp->cpu_transcoder = pipe_config->mst_master_transcoder;
-+		hdcp->stream_transcoder = pipe_config->cpu_transcoder;
-+	} else {
-+		hdcp->cpu_transcoder = pipe_config->cpu_transcoder;
-+		hdcp->stream_transcoder = INVALID_TRANSCODER;
-+	}
-+
-+	if (DISPLAY_VER(dev_priv) >= 12)
-+		dig_port->hdcp_port_data.fw_tc = intel_get_mei_fw_tc(hdcp->cpu_transcoder);
-+
-+	return ret;
-+}
-+
- static int initialize_hdcp_port_data(struct intel_connector *connector,
- 				     struct intel_digital_port *dig_port,
- 				     const struct intel_hdcp_shim *shim)
-@@ -2329,28 +2360,14 @@ int intel_hdcp_enable(struct intel_connector *connector,
- 	if (!hdcp->shim)
- 		return -ENOENT;
- 
--	if (!connector->encoder) {
--		drm_err(&dev_priv->drm, "[%s:%d] encoder is not initialized\n",
--			connector->base.name, connector->base.base.id);
--		return -ENODEV;
--	}
--
- 	mutex_lock(&hdcp->mutex);
- 	mutex_lock(&dig_port->hdcp_mutex);
- 	drm_WARN_ON(&dev_priv->drm,
- 		    hdcp->value == DRM_MODE_CONTENT_PROTECTION_ENABLED);
--	hdcp->content_type = content_type;
--
--	if (intel_crtc_has_type(pipe_config, INTEL_OUTPUT_DP_MST)) {
--		hdcp->cpu_transcoder = pipe_config->mst_master_transcoder;
--		hdcp->stream_transcoder = pipe_config->cpu_transcoder;
--	} else {
--		hdcp->cpu_transcoder = pipe_config->cpu_transcoder;
--		hdcp->stream_transcoder = INVALID_TRANSCODER;
--	}
- 
--	if (DISPLAY_VER(dev_priv) >= 12)
--		dig_port->hdcp_port_data.fw_tc = intel_get_mei_fw_tc(hdcp->cpu_transcoder);
-+	ret = _intel_hdcp_setup(connector, pipe_config, content_type);
-+	if (ret)
-+		goto out;
- 
- 	/*
- 	 * Considering that HDCP2.2 is more secure than HDCP1.4, If the setup
-@@ -2378,6 +2395,7 @@ int intel_hdcp_enable(struct intel_connector *connector,
- 					true);
- 	}
- 
-+out:
- 	mutex_unlock(&dig_port->hdcp_mutex);
- 	mutex_unlock(&hdcp->mutex);
- 	return ret;
+ &mdss_dp_out {
 -- 
 2.40.0.348.gf938b09366-goog
 
