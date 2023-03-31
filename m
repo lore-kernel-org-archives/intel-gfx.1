@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62BB5C76196
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 12:10:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01DADC761AF
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 Mar 2023 12:10:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CC6410F209;
-	Fri, 31 Mar 2023 12:10:03 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94FC910F15A;
- Fri, 31 Mar 2023 09:26:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6686510F213;
+	Fri, 31 Mar 2023 12:10:26 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEC0B10F13F;
+ Fri, 31 Mar 2023 09:26:17 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4B933B82DAC;
- Fri, 31 Mar 2023 09:26:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6210C4339B;
- Fri, 31 Mar 2023 09:26:24 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 367C262288;
+ Fri, 31 Mar 2023 09:26:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C3E0C4339C;
+ Fri, 31 Mar 2023 09:26:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1680254787;
- bh=iistdlhu4w0I2/CmfXzNavb5iLcbcIHzclr1yyY04LY=;
+ s=k20201202; t=1680254776;
+ bh=JZf0svDcEcGog0NsSz5cUzUNXsqZCcAN5I+gmpPDgzg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JBMBGg+5x+5/0/DDfOyE9fcIfl8eW49WC8vHHiuIxCpHZ8AlQcsYvLvnF0oBX1rSP
- su3kCXz60f/Vl9BYBRbifih+ckCQEXeEOytJt+NAZB45DvfPhf2wvzQcb6p82MJakt
- XFSe9scn3arsz1P3U1VOdx9TNL/oHBAPuGRwP2lIgeWWW9Gkl+fKR75gweWnq17sGM
- vIc5IlWso2dNzS2GsVcc/CAaYpZaJQpImT9619XZza+FXFuGWmHcfIBPPOuWpDzrzm
- niA0QPM1aLNsab9MPvUVlPWkEnmfDElmFkpBX53QtMY7IVRsww96aGevm7097/wu/7
- rhXyeGgzrLWsA==
+ b=XgdsOUyLaKZBHIvB9GPVLk4X9CeQ4pHXp0fBiu28DVZBvm43qBKIVCFL/sdqsJECq
+ M6EbfJ6qLZvvrwd0m97u25a66HakrZhKSyhJwVb48M5K3Bhqo9uS/rCyoc9CfZ2pBQ
+ NP2Ei7jihGLSnvmdd49aH6AjEpDiArG+97ca2E2XQ8UHA1xXBDTxMyDg0kr7ockqzZ
+ OKV8BB64V/G2tKuBK3YQELLfvtgjvf+ON2XVZnRjZs6f64TVvNJYc3/zgMgSz85GiB
+ GhFWGxCl3fq4/F6H6fKnQNwKm0Q14hOIh3eVxjyWNGqP9LWgeHDeiZBG0VSU9HTzu1
+ pnljvPt9fz31A==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org
-Date: Fri, 31 Mar 2023 10:25:53 +0100
-Message-Id: <20230331092607.700644-6-lee@kernel.org>
+Date: Fri, 31 Mar 2023 10:25:49 +0100
+Message-Id: <20230331092607.700644-2-lee@kernel.org>
 X-Mailer: git-send-email 2.40.0.348.gf938b09366-goog
 In-Reply-To: <20230331092607.700644-1-lee@kernel.org>
 References: <20230331092607.700644-1-lee@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 31 Mar 2023 12:10:00 +0000
-Subject: [Intel-gfx] [PATCH 05/19] drm/i915/gt/intel_engine_cs: Fix a couple
- of incorrectly named functions
+Subject: [Intel-gfx] [PATCH 01/19] drm/i915/i915_scatterlist: Fix kerneldoc
+ formatting issue - missing '@'
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,8 +62,7 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Fixes the following W=1 kernel build warning(s):
 
- drivers/gpu/drm/i915/gt/intel_engine_cs.c:1324: warning: expecting prototype for intel_engines_init_common(). Prototype was for engine_init_common() instead
- drivers/gpu/drm/i915/gt/intel_engine_cs.c:1406: warning: expecting prototype for intel_engines_cleanup_common(). Prototype was for intel_engine_cleanup_common() instead
+ drivers/gpu/drm/i915/i915_scatterlist.c:62: warning: Function parameter or member 'size' not described in 'i915_refct_sgt_init'
 
 Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
@@ -75,33 +74,22 @@ Cc: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/i915_scatterlist.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 2966aed422239..03c5e3df0a7e0 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1429,7 +1429,7 @@ create_kernel_context(struct intel_engine_cs *engine)
- }
- 
+diff --git a/drivers/gpu/drm/i915/i915_scatterlist.c b/drivers/gpu/drm/i915/i915_scatterlist.c
+index 7c7a86921b1c7..e93d2538f2988 100644
+--- a/drivers/gpu/drm/i915/i915_scatterlist.c
++++ b/drivers/gpu/drm/i915/i915_scatterlist.c
+@@ -56,7 +56,7 @@ static const struct i915_refct_sgt_ops rsgt_ops = {
  /**
-- * intel_engines_init_common - initialize cengine state which might require hw access
-+ * engine_init_common - initialize cengine state which might require hw access
-  * @engine: Engine to initialize.
-  *
-  * Initializes @engine@ structure members shared between legacy and execlists
-@@ -1515,8 +1515,8 @@ int intel_engines_init(struct intel_gt *gt)
- }
- 
- /**
-- * intel_engines_cleanup_common - cleans up the engine state created by
-- *                                the common initiailizers.
-+ * intel_engine_cleanup_common - cleans up the engine state created by
-+ *                               the common initiailizers.
-  * @engine: Engine to cleanup.
-  *
-  * This cleans up everything created by the common helpers.
+  * i915_refct_sgt_init - Initialize a struct i915_refct_sgt with default ops
+  * @rsgt: The struct i915_refct_sgt to initialize.
+- * size: The size of the underlying memory buffer.
++ * @size: The size of the underlying memory buffer.
+  */
+ void i915_refct_sgt_init(struct i915_refct_sgt *rsgt, size_t size)
+ {
 -- 
 2.40.0.348.gf938b09366-goog
 
