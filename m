@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 333F0C77B71
-	for <intel-gfx@archiver.kernel.org>; Sat,  1 Apr 2023 15:18:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DAD4C77B6D
+	for <intel-gfx@archiver.kernel.org>; Sat,  1 Apr 2023 15:18:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 198DC10E112;
-	Sat,  1 Apr 2023 15:18:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6040A10E23B;
+	Sat,  1 Apr 2023 15:18:58 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BE0010E113;
- Sat,  1 Apr 2023 15:18:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A98B10E139;
+ Sat,  1 Apr 2023 15:18:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680362320; x=1711898320;
+ t=1680362325; x=1711898325;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=VkJtqC84dVSmUDf6T6T0tY6zgWPAkWQawl0k0UKZ2ZE=;
- b=ldr3iSPcBlexnf88etXxWtvvuJB59hGp3cTzmd2dekXwBtMCTXSKxsof
- uTiMHHFs6RxhZ82ul2ZJpSr5elHVFl52tpuJO4BlYt3w20gyccuc7Ye3t
- IbG+AMKvOfELPK0usOfCfFk2b3ovBKnHoLvk5zll0vTfjAwF3MOX+38ls
- IWtdXWLCgsa7lj7pVdKgKqnGeLgwzdDgWayq1pfmlibGF5ix7PXPOw3Kr
- QT6Pcd/k5w1KHRI1cctsvcwFyPbBqIR/0BqOL589lATKHQDX0+pX0/Q6l
- uB97Bpvc3/D+IG0oXsFhebaBTxXgeSsyVTFAN7+W+39J1FPiPEV3G7iM4 Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10667"; a="404411226"
-X-IronPort-AV: E=Sophos;i="5.98,310,1673942400"; d="scan'208";a="404411226"
+ bh=jhycbiJB2gQIjPxNEaOUCxxLoPupQjQJSQK0WKWK3hQ=;
+ b=TyN6UWl3XcVQ+199sHHZRF5Ht2vqBWc3dU8PnAVVjZt8tOCNgQdH1PGl
+ E4IQLoCqVDg8tGgR+MzLOzm2k4sr8C50uMBhfDrSnppRvE0eH4R93e1J3
+ 31weyeKHa4jSxT4jw7bWYdnL/sqfHs+uAXssO8Xj9VDGpbWU90JFP0UQo
+ dvBt6CSldof1L7tH9sjLm3Y7LI49B/Udtr0W0/HWHa5EZJclC4ZZ8j3xM
+ q0uLtOSZ6UnKAlffAVHgSe6EkcLe/g5k2KvXnVYRFNwNb/Q/rF6Y7DIvi
+ b92o3PghO/yXjruEgE5ZZVtOMSqHXN1jULgTl5354yMuuqZDn8vmJ9JDi Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10667"; a="404411312"
+X-IronPort-AV: E=Sophos;i="5.98,310,1673942400"; d="scan'208";a="404411312"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2023 08:18:39 -0700
+ 01 Apr 2023 08:18:43 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10667"; a="678937168"
-X-IronPort-AV: E=Sophos;i="5.98,310,1673942400"; d="scan'208";a="678937168"
+X-IronPort-AV: E=McAfee;i="6600,9927,10667"; a="678937205"
+X-IronPort-AV: E=Sophos;i="5.98,310,1673942400"; d="scan'208";a="678937205"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by orsmga007.jf.intel.com with ESMTP; 01 Apr 2023 08:18:39 -0700
+ by orsmga007.jf.intel.com with ESMTP; 01 Apr 2023 08:18:43 -0700
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Sat,  1 Apr 2023 08:18:14 -0700
-Message-Id: <20230401151833.124749-7-yi.l.liu@intel.com>
+Date: Sat,  1 Apr 2023 08:18:22 -0700
+Message-Id: <20230401151833.124749-15-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230401151833.124749-1-yi.l.liu@intel.com>
 References: <20230401151833.124749-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 06/25] kvm/vfio: Accept vfio device file from
- userspace
+Subject: [Intel-gfx] [PATCH v9 14/25] vfio: Record devid in vfio_device_file
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,176 +69,126 @@ Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This defines KVM_DEV_VFIO_FILE* and make alias with KVM_DEV_VFIO_GROUP*.
-Old userspace uses KVM_DEV_VFIO_GROUP* works as well.
+.bind_iommufd() will generate an ID to represent this bond, which is
+needed by userspace for further usage. Store devid in vfio_device_file
+to avoid passing the pointer in multiple places.
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 Reviewed-by: Kevin Tian <kevin.tian@intel.com>
 Tested-by: Terrence Xu <terrence.xu@intel.com>
 Tested-by: Nicolin Chen <nicolinc@nvidia.com>
-Tested-by: Matthew Rosato <mjrosato@linux.ibm.com>
 Tested-by: Yanting Jiang <yanting.jiang@intel.com>
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 ---
- Documentation/virt/kvm/devices/vfio.rst | 53 +++++++++++++++++--------
- include/uapi/linux/kvm.h                | 16 ++++++--
- virt/kvm/vfio.c                         | 16 ++++----
- 3 files changed, 56 insertions(+), 29 deletions(-)
+ drivers/vfio/iommufd.c   | 12 +++++++-----
+ drivers/vfio/vfio.h      | 10 +++++-----
+ drivers/vfio/vfio_main.c |  6 +++---
+ 3 files changed, 15 insertions(+), 13 deletions(-)
 
-diff --git a/Documentation/virt/kvm/devices/vfio.rst b/Documentation/virt/kvm/devices/vfio.rst
-index 79b6811bb4f3..277d727ec1a2 100644
---- a/Documentation/virt/kvm/devices/vfio.rst
-+++ b/Documentation/virt/kvm/devices/vfio.rst
-@@ -9,24 +9,38 @@ Device types supported:
-   - KVM_DEV_TYPE_VFIO
+diff --git a/drivers/vfio/iommufd.c b/drivers/vfio/iommufd.c
+index 20fd250c247c..6ef9316a16a5 100644
+--- a/drivers/vfio/iommufd.c
++++ b/drivers/vfio/iommufd.c
+@@ -28,14 +28,14 @@ int vfio_iommufd_enable_noiommu_compat(struct vfio_device *device,
+ 	return 0;
+ }
  
- Only one VFIO instance may be created per VM.  The created device
--tracks VFIO groups in use by the VM and features of those groups
--important to the correctness and acceleration of the VM.  As groups
--are enabled and disabled for use by the VM, KVM should be updated
--about their presence.  When registered with KVM, a reference to the
--VFIO-group is held by KVM.
-+tracks VFIO files (group or device) in use by the VM and features
-+of those groups/devices important to the correctness and acceleration
-+of the VM.  As groups/devices are enabled and disabled for use by the
-+VM, KVM should be updated about their presence.  When registered with
-+KVM, a reference to the VFIO file is held by KVM.
+-int vfio_iommufd_bind(struct vfio_device *vdev, struct iommufd_ctx *ictx)
++int vfio_iommufd_bind(struct vfio_device_file *df)
+ {
+-	u32 device_id;
++	struct vfio_device *vdev = df->device;
++	struct iommufd_ctx *ictx = df->iommufd;
  
- Groups:
--  KVM_DEV_VFIO_GROUP
--
--KVM_DEV_VFIO_GROUP attributes:
--  KVM_DEV_VFIO_GROUP_ADD: Add a VFIO group to VFIO-KVM device tracking
--	kvm_device_attr.addr points to an int32_t file descriptor
--	for the VFIO group.
--  KVM_DEV_VFIO_GROUP_DEL: Remove a VFIO group from VFIO-KVM device tracking
--	kvm_device_attr.addr points to an int32_t file descriptor
--	for the VFIO group.
--  KVM_DEV_VFIO_GROUP_SET_SPAPR_TCE: attaches a guest visible TCE table
-+  KVM_DEV_VFIO_FILE
-+	alias: KVM_DEV_VFIO_GROUP
-+
-+KVM_DEV_VFIO_FILE attributes:
-+  KVM_DEV_VFIO_FILE_ADD: Add a VFIO file (group/device) to VFIO-KVM device
-+	tracking
-+
-+	alias: KVM_DEV_VFIO_GROUP_ADD
-+
-+	kvm_device_attr.addr points to an int32_t file descriptor for the
-+	VFIO file.
-+
-+  KVM_DEV_VFIO_FILE_DEL: Remove a VFIO file (group/device) from VFIO-KVM
-+	device tracking
-+
-+	alias: KVM_DEV_VFIO_GROUP_DEL
-+
-+	kvm_device_attr.addr points to an int32_t file descriptor for the
-+	VFIO file.
-+
-+  KVM_DEV_VFIO_FILE_SET_SPAPR_TCE: attaches a guest visible TCE table
- 	allocated by sPAPR KVM.
-+
-+	alias: KVM_DEV_VFIO_GROUP_SET_SPAPR_TCE
-+
- 	kvm_device_attr.addr points to a struct::
+ 	lockdep_assert_held(&vdev->dev_set->lock);
  
- 		struct kvm_vfio_spapr_tce {
-@@ -40,9 +54,14 @@ KVM_DEV_VFIO_GROUP attributes:
- 	- @tablefd is a file descriptor for a TCE table allocated via
- 	  KVM_CREATE_SPAPR_TCE.
+-	/* The legacy path has no way to return the device id */
+-	return vdev->ops->bind_iommufd(vdev, ictx, &device_id);
++	return vdev->ops->bind_iommufd(vdev, ictx, &df->devid);
+ }
  
-+	only accepts vfio group file as SPAPR has no iommufd support
+ int vfio_iommufd_attach_compat_ioas(struct vfio_device *vdev,
+@@ -54,8 +54,10 @@ int vfio_iommufd_attach_compat_ioas(struct vfio_device *vdev,
+ 	return vdev->ops->attach_ioas(vdev, &ioas_id);
+ }
+ 
+-void vfio_iommufd_unbind(struct vfio_device *vdev)
++void vfio_iommufd_unbind(struct vfio_device_file *df)
+ {
++	struct vfio_device *vdev = df->device;
 +
- ::
+ 	lockdep_assert_held(&vdev->dev_set->lock);
  
--The GROUP_ADD operation above should be invoked prior to accessing the
-+The FILE/GROUP_ADD operation above should be invoked prior to accessing the
- device file descriptor via VFIO_GROUP_GET_DEVICE_FD in order to support
- drivers which require a kvm pointer to be set in their .open_device()
--callback.
-+callback.  It is the same for device file descriptor via character device
-+open which gets device access via VFIO_DEVICE_BIND_IOMMUFD.  For such file
-+descriptors, FILE_ADD should be invoked before VFIO_DEVICE_BIND_IOMMUFD
-+to support the drivers mentioned in prior sentence as well.
-diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
-index d77aef872a0a..a8eeca70a498 100644
---- a/include/uapi/linux/kvm.h
-+++ b/include/uapi/linux/kvm.h
-@@ -1410,10 +1410,18 @@ struct kvm_device_attr {
- 	__u64	addr;		/* userspace address of attr data */
+ 	if (vdev->ops->unbind_iommufd)
+diff --git a/drivers/vfio/vfio.h b/drivers/vfio/vfio.h
+index abfaf85cc266..b47b186573ac 100644
+--- a/drivers/vfio/vfio.h
++++ b/drivers/vfio/vfio.h
+@@ -24,6 +24,7 @@ struct vfio_device_file {
+ 	spinlock_t kvm_ref_lock; /* protect kvm field */
+ 	struct kvm *kvm;
+ 	struct iommufd_ctx *iommufd; /* protected by struct vfio_device_set::lock */
++	u32 devid; /* only valid when iommufd is valid */
  };
  
--#define  KVM_DEV_VFIO_GROUP			1
--#define   KVM_DEV_VFIO_GROUP_ADD			1
--#define   KVM_DEV_VFIO_GROUP_DEL			2
--#define   KVM_DEV_VFIO_GROUP_SET_SPAPR_TCE		3
-+#define  KVM_DEV_VFIO_FILE	1
-+
-+#define   KVM_DEV_VFIO_FILE_ADD			1
-+#define   KVM_DEV_VFIO_FILE_DEL			2
-+#define   KVM_DEV_VFIO_FILE_SET_SPAPR_TCE	3
-+
-+/* KVM_DEV_VFIO_GROUP aliases are for compile time uapi compatibility */
-+#define  KVM_DEV_VFIO_GROUP	KVM_DEV_VFIO_FILE
-+
-+#define   KVM_DEV_VFIO_GROUP_ADD	KVM_DEV_VFIO_FILE_ADD
-+#define   KVM_DEV_VFIO_GROUP_DEL	KVM_DEV_VFIO_FILE_DEL
-+#define   KVM_DEV_VFIO_GROUP_SET_SPAPR_TCE	KVM_DEV_VFIO_FILE_SET_SPAPR_TCE
+ void vfio_device_put_registration(struct vfio_device *device);
+@@ -240,8 +241,8 @@ int vfio_iommufd_enable_noiommu_compat(struct vfio_device *device,
+ 				       struct iommufd_ctx *ictx);
+ int vfio_iommufd_attach_compat_ioas(struct vfio_device *device,
+ 				    struct iommufd_ctx *ictx);
+-int vfio_iommufd_bind(struct vfio_device *device, struct iommufd_ctx *ictx);
+-void vfio_iommufd_unbind(struct vfio_device *device);
++int vfio_iommufd_bind(struct vfio_device_file *df);
++void vfio_iommufd_unbind(struct vfio_device_file *df);
+ #else
+ static inline int
+ vfio_iommufd_enable_noiommu_compat(struct vfio_device *device,
+@@ -257,13 +258,12 @@ vfio_iommufd_attach_compat_ioas(struct vfio_device *device,
+ 	return -EOPNOTSUPP;
+ }
  
- enum kvm_device_type {
- 	KVM_DEV_TYPE_FSL_MPIC_20	= 1,
-diff --git a/virt/kvm/vfio.c b/virt/kvm/vfio.c
-index 857d6ba349e1..d869913baafd 100644
---- a/virt/kvm/vfio.c
-+++ b/virt/kvm/vfio.c
-@@ -286,18 +286,18 @@ static int kvm_vfio_set_file(struct kvm_device *dev, long attr,
- 	int32_t fd;
- 
- 	switch (attr) {
--	case KVM_DEV_VFIO_GROUP_ADD:
-+	case KVM_DEV_VFIO_FILE_ADD:
- 		if (get_user(fd, argp))
- 			return -EFAULT;
- 		return kvm_vfio_file_add(dev, fd);
- 
--	case KVM_DEV_VFIO_GROUP_DEL:
-+	case KVM_DEV_VFIO_FILE_DEL:
- 		if (get_user(fd, argp))
- 			return -EFAULT;
- 		return kvm_vfio_file_del(dev, fd);
- 
- #ifdef CONFIG_SPAPR_TCE_IOMMU
--	case KVM_DEV_VFIO_GROUP_SET_SPAPR_TCE:
-+	case KVM_DEV_VFIO_FILE_SET_SPAPR_TCE:
- 		return kvm_vfio_file_set_spapr_tce(dev, arg);
- #endif
- 	}
-@@ -309,7 +309,7 @@ static int kvm_vfio_set_attr(struct kvm_device *dev,
- 			     struct kvm_device_attr *attr)
+-static inline int vfio_iommufd_bind(struct vfio_device *device,
+-				    struct iommufd_ctx *ictx)
++static inline int vfio_iommufd_bind(struct vfio_device_file *df)
  {
- 	switch (attr->group) {
--	case KVM_DEV_VFIO_GROUP:
-+	case KVM_DEV_VFIO_FILE:
- 		return kvm_vfio_set_file(dev, attr->attr,
- 					 u64_to_user_ptr(attr->addr));
- 	}
-@@ -321,12 +321,12 @@ static int kvm_vfio_has_attr(struct kvm_device *dev,
- 			     struct kvm_device_attr *attr)
+ 	return -EOPNOTSUPP;
+ }
+ 
+-static inline void vfio_iommufd_unbind(struct vfio_device *device)
++static inline void vfio_iommufd_unbind(struct vfio_device_file *df)
  {
- 	switch (attr->group) {
--	case KVM_DEV_VFIO_GROUP:
-+	case KVM_DEV_VFIO_FILE:
- 		switch (attr->attr) {
--		case KVM_DEV_VFIO_GROUP_ADD:
--		case KVM_DEV_VFIO_GROUP_DEL:
-+		case KVM_DEV_VFIO_FILE_ADD:
-+		case KVM_DEV_VFIO_FILE_DEL:
- #ifdef CONFIG_SPAPR_TCE_IOMMU
--		case KVM_DEV_VFIO_GROUP_SET_SPAPR_TCE:
-+		case KVM_DEV_VFIO_FILE_SET_SPAPR_TCE:
+ }
  #endif
- 			return 0;
- 		}
+diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
+index f4c9c27c7d74..74da44973594 100644
+--- a/drivers/vfio/vfio_main.c
++++ b/drivers/vfio/vfio_main.c
+@@ -435,7 +435,7 @@ static int vfio_device_first_open(struct vfio_device_file *df)
+ 	 * noiommu mode then just go ahead to open it.
+ 	 */
+ 	if (iommufd)
+-		ret = vfio_iommufd_bind(device, iommufd);
++		ret = vfio_iommufd_bind(df);
+ 	else if (vfio_device_group_uses_container(df))
+ 		ret = vfio_device_group_use_iommu(device);
+ 	if (ret)
+@@ -450,7 +450,7 @@ static int vfio_device_first_open(struct vfio_device_file *df)
+ 
+ err_unuse_iommu:
+ 	if (iommufd)
+-		vfio_iommufd_unbind(device);
++		vfio_iommufd_unbind(df);
+ 	else if (vfio_device_group_uses_container(df))
+ 		vfio_device_group_unuse_iommu(device);
+ err_module_put:
+@@ -468,7 +468,7 @@ static void vfio_device_last_close(struct vfio_device_file *df)
+ 	if (device->ops->close_device)
+ 		device->ops->close_device(device);
+ 	if (iommufd)
+-		vfio_iommufd_unbind(device);
++		vfio_iommufd_unbind(df);
+ 	else if (vfio_device_group_uses_container(df))
+ 		vfio_device_group_unuse_iommu(device);
+ 	module_put(device->dev->driver->owner);
 -- 
 2.34.1
 
