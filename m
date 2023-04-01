@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05F97C77B6E
-	for <intel-gfx@archiver.kernel.org>; Sat,  1 Apr 2023 15:19:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A574C76196
+	for <intel-gfx@archiver.kernel.org>; Sat,  1 Apr 2023 15:19:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDC5010E2FB;
-	Sat,  1 Apr 2023 15:19:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CEE710E330;
+	Sat,  1 Apr 2023 15:19:26 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9E8810E10B;
- Sat,  1 Apr 2023 15:18:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C82610E122;
+ Sat,  1 Apr 2023 15:18:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680362321; x=1711898321;
+ t=1680362323; x=1711898323;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=DUxZkfCi6OQ0x/puexaodV/sQy1kiF7rc8iDtDgi5ZI=;
- b=aBmZ9m7EvlfO5PNQ2K59qywNsWleQWyxmdniNhkjO91epuDEjl9d3Q0j
- 3e9RAH5MGi7hpKhX9yMuutPL7XxZtB0RlyeIUwGKVVuJ/BJRjODKedjUQ
- mD/JfrCUZxLdcO3Gp1btLpnhuEvY5nSssUkrcLrkpejUCS30sF4oIgWK0
- rN35nfo3QNhgpz/fV13A8rZBm6tPmgRDSdcI9ApymWeUkyyzHvwM8VT3L
- sUwSRSV5+1sG8KibatweBTsPQ1FrQEVvoLeG5AtOZdkPqu8XqvRfATja9
- cm//UdmJt7xE/eENraPpU+h2Otc5uIZBLh6gyAek2gk3mvRMzX0/rLSVT A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10667"; a="404411257"
-X-IronPort-AV: E=Sophos;i="5.98,310,1673942400"; d="scan'208";a="404411257"
+ bh=PirptMYKJTaup2Gvl84lhjR2Vgw3w06sDHqdMR/RpfQ=;
+ b=BAUOgqLDOGF631JAqoEE1qnGUPXOSONP+/OBcYUW5hN53OZiyO5FbXup
+ 0y7vghwjzVJZIaUaYik/j+HnEDdhTY7uVfVKhg6ElNCKES81br/d6onaV
+ XSg1AZ/ioQTwRdUed5WIFpHwT33pZAQtsFRBxxAMM6HwfSQuFgzRORb+7
+ YGCK4kwP1E3qDlmYJDcWoGDB5ABLvSRl6LbKGtbf6303dTgmafQYa3iIo
+ tInZeNsRtP7xl2YK5UuEzpZUAptg2dozaS9GdHcuxdyjA2XqfRGIaxQZC
+ 4z5PIEocrHwHDJL0JP585A1RvYkXVFPH/rWWI72uh+E8yj9KMDd3rybjF g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10667"; a="404411290"
+X-IronPort-AV: E=Sophos;i="5.98,310,1673942400"; d="scan'208";a="404411290"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2023 08:18:41 -0700
+ 01 Apr 2023 08:18:42 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10667"; a="678937186"
-X-IronPort-AV: E=Sophos;i="5.98,310,1673942400"; d="scan'208";a="678937186"
+X-IronPort-AV: E=McAfee;i="6600,9927,10667"; a="678937197"
+X-IronPort-AV: E=Sophos;i="5.98,310,1673942400"; d="scan'208";a="678937197"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by orsmga007.jf.intel.com with ESMTP; 01 Apr 2023 08:18:40 -0700
+ by orsmga007.jf.intel.com with ESMTP; 01 Apr 2023 08:18:42 -0700
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Sat,  1 Apr 2023 08:18:17 -0700
-Message-Id: <20230401151833.124749-10-yi.l.liu@intel.com>
+Date: Sat,  1 Apr 2023 08:18:20 -0700
+Message-Id: <20230401151833.124749-13-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230401151833.124749-1-yi.l.liu@intel.com>
 References: <20230401151833.124749-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 09/25] vfio: Add cdev_device_open_cnt to
- vfio_group
+Subject: [Intel-gfx] [PATCH v9 12/25] vfio-iommufd: Move noiommu support out
+ of vfio_iommufd_bind()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,98 +70,123 @@ Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-for counting the devices that are opened via the cdev path. This count
-is increased and decreased by the cdev path. The group path checks it
-to achieve exclusion with the cdev path. With this, only one path (group
-path or cdev path) will claim DMA ownership. This avoids scenarios in
-which devices within the same group may be opened via different paths.
+into vfio_device_group_open(). This is also more consistent with what
+will be done in vfio device cdev path.
 
 Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 Tested-by: Terrence Xu <terrence.xu@intel.com>
 Tested-by: Nicolin Chen <nicolinc@nvidia.com>
-Tested-by: Matthew Rosato <mjrosato@linux.ibm.com>
 Tested-by: Yanting Jiang <yanting.jiang@intel.com>
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 ---
- drivers/vfio/group.c | 33 +++++++++++++++++++++++++++++++++
- drivers/vfio/vfio.h  |  3 +++
- 2 files changed, 36 insertions(+)
+ drivers/vfio/group.c   |  9 +++++++++
+ drivers/vfio/iommufd.c | 35 ++++++++++++++++++-----------------
+ drivers/vfio/vfio.h    |  9 +++++++++
+ 3 files changed, 36 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/vfio/group.c b/drivers/vfio/group.c
-index 71f0a9a4016e..d55ce3ca44b7 100644
+index 63a4bf06ab9f..6178ac5d0b10 100644
 --- a/drivers/vfio/group.c
 +++ b/drivers/vfio/group.c
-@@ -383,6 +383,33 @@ static long vfio_group_fops_unl_ioctl(struct file *filep,
- 	}
- }
+@@ -192,6 +192,15 @@ static int vfio_device_group_open(struct vfio_device_file *df)
+ 		vfio_device_group_get_kvm_safe(device);
  
-+int vfio_device_block_group(struct vfio_device *device)
-+{
-+	struct vfio_group *group = device->group;
-+	int ret = 0;
-+
-+	mutex_lock(&group->group_lock);
-+	if (group->opened_file) {
-+		ret = -EBUSY;
-+		goto out_unlock;
+ 	df->iommufd = device->group->iommufd;
++	if (df->iommufd && vfio_device_is_noiommu(device)) {
++		if (device->open_count == 0) {
++			ret = vfio_iommufd_enable_noiommu_compat(device,
++								 df->iommufd);
++			if (ret)
++				goto out_put_kvm;
++		}
++		df->iommufd = NULL;
 +	}
-+
-+	group->cdev_device_open_cnt++;
-+
-+out_unlock:
-+	mutex_unlock(&group->group_lock);
-+	return ret;
-+}
-+
-+void vfio_device_unblock_group(struct vfio_device *device)
+ 
+ 	ret = vfio_device_open(df);
+ 	if (ret) {
+diff --git a/drivers/vfio/iommufd.c b/drivers/vfio/iommufd.c
+index 809f2dd73b9e..11f5148b446e 100644
+--- a/drivers/vfio/iommufd.c
++++ b/drivers/vfio/iommufd.c
+@@ -10,6 +10,24 @@
+ MODULE_IMPORT_NS(IOMMUFD);
+ MODULE_IMPORT_NS(IOMMUFD_VFIO);
+ 
++int vfio_iommufd_enable_noiommu_compat(struct vfio_device *device,
++				       struct iommufd_ctx *ictx)
 +{
-+	struct vfio_group *group = device->group;
++	u32 ioas_id;
 +
-+	mutex_lock(&group->group_lock);
-+	group->cdev_device_open_cnt--;
-+	mutex_unlock(&group->group_lock);
++	if (!capable(CAP_SYS_RAWIO))
++		return -EPERM;
++
++	/*
++	 * Require no compat ioas to be assigned to proceed.  The basic
++	 * statement is that the user cannot have done something that
++	 * implies they expected translation to exist
++	 */
++	if (!iommufd_vfio_compat_ioas_get_id(ictx, &ioas_id))
++		return -EPERM;
++	return 0;
 +}
 +
- static int vfio_group_fops_open(struct inode *inode, struct file *filep)
+ int vfio_iommufd_bind(struct vfio_device *vdev, struct iommufd_ctx *ictx)
  {
- 	struct vfio_group *group =
-@@ -405,6 +432,11 @@ static int vfio_group_fops_open(struct inode *inode, struct file *filep)
- 		goto out_unlock;
- 	}
+ 	u32 ioas_id;
+@@ -18,20 +36,6 @@ int vfio_iommufd_bind(struct vfio_device *vdev, struct iommufd_ctx *ictx)
  
-+	if (group->cdev_device_open_cnt) {
-+		ret = -EBUSY;
-+		goto out_unlock;
-+	}
-+
- 	/*
- 	 * Do we need multiple instances of the group open?  Seems not.
- 	 */
-@@ -479,6 +511,7 @@ static void vfio_group_release(struct device *dev)
- 	mutex_destroy(&group->device_lock);
- 	mutex_destroy(&group->group_lock);
- 	WARN_ON(group->iommu_group);
-+	WARN_ON(group->cdev_device_open_cnt);
- 	ida_free(&vfio.group_ida, MINOR(group->dev.devt));
- 	kfree(group);
+ 	lockdep_assert_held(&vdev->dev_set->lock);
+ 
+-	if (vfio_device_is_noiommu(vdev)) {
+-		if (!capable(CAP_SYS_RAWIO))
+-			return -EPERM;
+-
+-		/*
+-		 * Require no compat ioas to be assigned to proceed. The basic
+-		 * statement is that the user cannot have done something that
+-		 * implies they expected translation to exist
+-		 */
+-		if (!iommufd_vfio_compat_ioas_get_id(ictx, &ioas_id))
+-			return -EPERM;
+-		return 0;
+-	}
+-
+ 	ret = vdev->ops->bind_iommufd(vdev, ictx, &device_id);
+ 	if (ret)
+ 		return ret;
+@@ -59,9 +63,6 @@ void vfio_iommufd_unbind(struct vfio_device *vdev)
+ {
+ 	lockdep_assert_held(&vdev->dev_set->lock);
+ 
+-	if (vfio_device_is_noiommu(vdev))
+-		return;
+-
+ 	if (vdev->ops->unbind_iommufd)
+ 		vdev->ops->unbind_iommufd(vdev);
  }
 diff --git a/drivers/vfio/vfio.h b/drivers/vfio/vfio.h
-index 854f2c97cb9a..b2f20b78a707 100644
+index 7d4108cbc185..136137b8618d 100644
 --- a/drivers/vfio/vfio.h
 +++ b/drivers/vfio/vfio.h
-@@ -83,8 +83,11 @@ struct vfio_group {
- 	struct blocking_notifier_head	notifier;
- 	struct iommufd_ctx		*iommufd;
- 	spinlock_t			kvm_ref_lock;
-+	unsigned int			cdev_device_open_cnt;
- };
+@@ -236,9 +236,18 @@ static inline void vfio_container_cleanup(void)
+ #endif
  
-+int vfio_device_block_group(struct vfio_device *device);
-+void vfio_device_unblock_group(struct vfio_device *device);
- int vfio_device_set_group(struct vfio_device *device,
- 			  enum vfio_group_type type);
- void vfio_device_remove_group(struct vfio_device *device);
+ #if IS_ENABLED(CONFIG_IOMMUFD)
++int vfio_iommufd_enable_noiommu_compat(struct vfio_device *device,
++				       struct iommufd_ctx *ictx);
+ int vfio_iommufd_bind(struct vfio_device *device, struct iommufd_ctx *ictx);
+ void vfio_iommufd_unbind(struct vfio_device *device);
+ #else
++static inline int
++vfio_iommufd_enable_noiommu_compat(struct vfio_device *device,
++				   struct iommufd_ctx *ictx)
++{
++	return -EOPNOTSUPP;
++}
++
+ static inline int vfio_iommufd_bind(struct vfio_device *device,
+ 				    struct iommufd_ctx *ictx)
+ {
 -- 
 2.34.1
 
