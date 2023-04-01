@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB70EC77B77
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34F4BC77B72
 	for <intel-gfx@archiver.kernel.org>; Sat,  1 Apr 2023 15:19:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C78F010E105;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F41310E113;
 	Sat,  1 Apr 2023 15:19:02 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8ECE210E105;
- Sat,  1 Apr 2023 15:18:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38DED10E24B;
+ Sat,  1 Apr 2023 15:18:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680362327; x=1711898327;
+ t=1680362326; x=1711898326;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=UGMAQSzJDGu2jFNVvQm9xR08gZhYc2KjsQ3tE+TSPbo=;
- b=Pl+pPJabRkYLQPS3A1BCS4/iHzIe/wh8GMZcaX20U0nGAtmw7miiaAlV
- 3CG+Q0AMd8HwURVsDuJIrhAYD+N3fy/H1XGWi+EArA+WqcCiyuPhZzyly
- zXjcyHhR1jtMtjgZTyfK2Ent8uv1q2McQvAuoxeN/3fy7tbe+8i8O2kxm
- 4gTNqPe3cZ5ima0XII3TPPNPYsZ5Glh3WLRYeTMhEwAsS2RcOEviwHUSS
- LJ7L+enlZu4pc0gwwKHJon4XrY/69b53jT5uQ5SNXWmmADqr7fvrl5DaD
- cLQ41TSlMZLZ8ZJrvuTACKaVPXM+TBgnzYq6K1o1/nN3Tgu1UObHuNz6n g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10667"; a="404411370"
-X-IronPort-AV: E=Sophos;i="5.98,310,1673942400"; d="scan'208";a="404411370"
+ bh=opGN95o7pF1df9Ozf4TXyBS5az+9mr8bUEPUq1TuJqs=;
+ b=QRRSgHjAPNVtiPxODl2L+TkzFKIbZvCarKzcB5cTZXW3LriuBNL0qQW8
+ PICW+pn5vj9cUlBhphnsFXh+p4NwNYBR6pSpm0qC0Ma5hlQ9PqXPlaI5Y
+ Sody69iL2EoBzfhyPX+7LzZ0YtNascdlWMBwixmNXDKsVMUviDLHOQHTn
+ GqcRPSP024Ju57yoVLn7VmEAPQLlqRunsad9MHT+PtxC6M7PACt6Tlvum
+ EfSAEsy0qXe5E2W5XWlYKimaoFW3cbxk9IwJwNacEymVuJ0Kz37luYxMg
+ FQKb+fj4xtEl06jcN77tmlPB0EIxf3ewj6aTkm4IuYtGKB7QRy3IMpF8Y Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10667"; a="404411349"
+X-IronPort-AV: E=Sophos;i="5.98,310,1673942400"; d="scan'208";a="404411349"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2023 08:18:47 -0700
+ 01 Apr 2023 08:18:45 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10667"; a="678937225"
-X-IronPort-AV: E=Sophos;i="5.98,310,1673942400"; d="scan'208";a="678937225"
+X-IronPort-AV: E=McAfee;i="6600,9927,10667"; a="678937218"
+X-IronPort-AV: E=Sophos;i="5.98,310,1673942400"; d="scan'208";a="678937218"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by orsmga007.jf.intel.com with ESMTP; 01 Apr 2023 08:18:46 -0700
+ by orsmga007.jf.intel.com with ESMTP; 01 Apr 2023 08:18:45 -0700
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Sat,  1 Apr 2023 08:18:28 -0700
-Message-Id: <20230401151833.124749-21-yi.l.liu@intel.com>
+Date: Sat,  1 Apr 2023 08:18:26 -0700
+Message-Id: <20230401151833.124749-19-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230401151833.124749-1-yi.l.liu@intel.com>
 References: <20230401151833.124749-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 20/25] vfio: Move
- vfio_device_group_unregister() to be the first operation in unregister
+Subject: [Intel-gfx] [PATCH v9 18/25] vfio: Determine noiommu in vfio_device
+ registration
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,40 +70,77 @@ Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This can avoid endless vfio_device refcount increasement by userspace,
-which would keep blocking the vfio_unregister_group_dev().
+This adds a noiommu flag in vfio_device, hence caller of the
+vfio_device_is_noiommu() just refers to the flag for noiommu
+check.
 
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Tested-by: Nicolin Chen <nicolinc@nvidia.com>
+Tested-by: Yanting Jiang <yanting.jiang@intel.com>
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 ---
- drivers/vfio/vfio_main.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/vfio/group.c     | 2 +-
+ drivers/vfio/vfio.h      | 6 +++---
+ drivers/vfio/vfio_main.c | 2 ++
+ include/linux/vfio.h     | 1 +
+ 4 files changed, 7 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/vfio/group.c b/drivers/vfio/group.c
+index de9f09c7cf00..8c88bff0fc59 100644
+--- a/drivers/vfio/group.c
++++ b/drivers/vfio/group.c
+@@ -192,7 +192,7 @@ static int vfio_device_group_open(struct vfio_device_file *df)
+ 		vfio_device_group_get_kvm_safe(device);
+ 
+ 	df->iommufd = device->group->iommufd;
+-	if (df->iommufd && vfio_device_is_noiommu(device)) {
++	if (df->iommufd && device->noiommu) {
+ 		if (device->open_count == 0) {
+ 			ret = vfio_iommufd_enable_noiommu_compat(device,
+ 								 df->iommufd);
+diff --git a/drivers/vfio/vfio.h b/drivers/vfio/vfio.h
+index b47b186573ac..41dfc9d5205a 100644
+--- a/drivers/vfio/vfio.h
++++ b/drivers/vfio/vfio.h
+@@ -108,10 +108,10 @@ bool vfio_device_has_container(struct vfio_device *device);
+ int __init vfio_group_init(void);
+ void vfio_group_cleanup(void);
+ 
+-static inline bool vfio_device_is_noiommu(struct vfio_device *vdev)
++static inline void vfio_device_set_noiommu(struct vfio_device *device)
+ {
+-	return IS_ENABLED(CONFIG_VFIO_NOIOMMU) &&
+-	       vdev->group->type == VFIO_NO_IOMMU;
++	device->noiommu = IS_ENABLED(CONFIG_VFIO_NOIOMMU) &&
++			  device->group->type == VFIO_NO_IOMMU;
+ }
+ 
+ #if IS_ENABLED(CONFIG_VFIO_CONTAINER)
 diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
-index 0337d1ace716..6c31212740fa 100644
+index bc2ecbb7c22a..989c40a49171 100644
 --- a/drivers/vfio/vfio_main.c
 +++ b/drivers/vfio/vfio_main.c
-@@ -320,6 +320,12 @@ void vfio_unregister_group_dev(struct vfio_device *device)
- 	bool interrupted = false;
- 	long rc;
+@@ -277,6 +277,8 @@ static int __vfio_register_dev(struct vfio_device *device,
+ 	if (ret)
+ 		return ret;
  
-+	/*
-+	 * Prevent new device opened by userspace via the
-+	 * VFIO_GROUP_GET_DEVICE_FD in the group path.
-+	 */
-+	vfio_device_group_unregister(device);
++	vfio_device_set_noiommu(device);
 +
- 	vfio_device_put_registration(device);
- 	rc = try_wait_for_completion(&device->comp);
- 	while (rc <= 0) {
-@@ -343,8 +349,6 @@ void vfio_unregister_group_dev(struct vfio_device *device)
- 		}
- 	}
+ 	ret = device_add(&device->device);
+ 	if (ret)
+ 		goto err_out;
+diff --git a/include/linux/vfio.h b/include/linux/vfio.h
+index 1445eb185121..672c0d9ac3fa 100644
+--- a/include/linux/vfio.h
++++ b/include/linux/vfio.h
+@@ -63,6 +63,7 @@ struct vfio_device {
+ 	bool iommufd_attached;
+ #endif
+ 	bool cdev_opened;
++	bool noiommu;
+ };
  
--	vfio_device_group_unregister(device);
--
- 	/* Balances device_add in register path */
- 	device_del(&device->device);
- 
+ /**
 -- 
 2.34.1
 
