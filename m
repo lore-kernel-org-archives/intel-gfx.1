@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15C68C76196
-	for <intel-gfx@archiver.kernel.org>; Sat,  1 Apr 2023 14:44:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AF76C6FD1D
+	for <intel-gfx@archiver.kernel.org>; Sat,  1 Apr 2023 14:44:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 782B110E1BE;
-	Sat,  1 Apr 2023 14:44:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4207710E26C;
+	Sat,  1 Apr 2023 14:44:46 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AEBB10E224;
- Sat,  1 Apr 2023 14:44:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A637A10E24F;
+ Sat,  1 Apr 2023 14:44:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680360277; x=1711896277;
+ t=1680360279; x=1711896279;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Hl2dkQNmXDpUh7X8DM3A4uL+zEobUvRXjuLA5s2BKLk=;
- b=COfd50x+LqZGnlZjsmaA7CO2kE3icabD4NoN0W9SHhQRAFSax5Wmax42
- b8zYUTbKcMO5AorxI8YqqPzwWpSP5VdatvEdEW7QA7PKYz2BNs33WT9zR
- nVaIRwmqds9Tm2mOXTwSfBIsqJnwPkSyD/pFBcra/Xf1gmZvELaxfk+5M
- AfuJMXgCDAWl7O5ZHgFd4RP+cWW5DpIQw8yA7h24PiOg7ta6kBLY7PE3E
- EwvX5WYrXKKsQkrrY0tlIckBf6SOvOZclRMXJjG+Z2wVqpvI0xSLv2j68
- ZVL80PxDSYGmJqSZ6G7ToLYfpJD1K2t1CphvbUQIzsQg0ztrn2KlJj0qx Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10667"; a="340385137"
-X-IronPort-AV: E=Sophos;i="5.98,310,1673942400"; d="scan'208";a="340385137"
+ bh=r+71o8G6Wo9sr6JKZnAb0/po7K9Eq9HOWBlcp5zMc44=;
+ b=ZBFu/Ap+M6dMT9a0dGOSGmmVfbIY7x8Fl16M3gZYnrP9g3Ko1j7SLOw6
+ 6aDDnoU0BMOtGrLY0bTiChlG8IjT8VAZQCJscZzZdGoEsxp4b7geNsPNA
+ FUIOTc0dtUUbkoRkCHHmRBUKJhDB4q+kx6ehTg6P5v5CpKK95/dV7yyLA
+ 2Igjo8X9SHq4/hN/JoiMy2icEWIO5oEj/AT/rrKkmktoh0G3pxkTfQZgg
+ e4NT2tOguVfBmGKjX4YI3NC7V8Xv0d+zwxCDfieddnfXIkjpFwJdCCwYN
+ fLuei1lO+m3Xh9V6YGjOQpi35VM2Wjx/Q6C9Ku2ME60aK1Mck4F6gM7z8 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10667"; a="340385170"
+X-IronPort-AV: E=Sophos;i="5.98,310,1673942400"; d="scan'208";a="340385170"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2023 07:44:36 -0700
+ 01 Apr 2023 07:44:39 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10667"; a="662705841"
-X-IronPort-AV: E=Sophos;i="5.98,310,1673942400"; d="scan'208";a="662705841"
+X-IronPort-AV: E=McAfee;i="6600,9927,10667"; a="662705855"
+X-IronPort-AV: E=Sophos;i="5.98,310,1673942400"; d="scan'208";a="662705855"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by orsmga006.jf.intel.com with ESMTP; 01 Apr 2023 07:44:36 -0700
+ by orsmga006.jf.intel.com with ESMTP; 01 Apr 2023 07:44:38 -0700
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Sat,  1 Apr 2023 07:44:24 -0700
-Message-Id: <20230401144429.88673-8-yi.l.liu@intel.com>
+Date: Sat,  1 Apr 2023 07:44:27 -0700
+Message-Id: <20230401144429.88673-11-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230401144429.88673-1-yi.l.liu@intel.com>
 References: <20230401144429.88673-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 07/12] vfio: Accpet device file from vfio PCI
- hot reset path
+Subject: [Intel-gfx] [PATCH v3 10/12] vfio: Mark cdev usage in vfio_device
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,67 +69,41 @@ Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This extends both vfio_file_is_valid() and vfio_file_has_dev() to accept
-device file from the vfio PCI hot reset.
+There are users that need to check if vfio_device is opened as cdev.
+e.g. vfio-pci. This adds a flag in vfio_device, it will be set in the
+cdev path when device is opened. This is not used at this moment, but
+a preparation for vfio device cdev support.
 
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Tested-by: Yanting Jiang <yanting.jiang@intel.com>
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 ---
- drivers/vfio/vfio_main.c | 23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
+ include/linux/vfio.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
-index fe7446805afd..ebbb6b91a498 100644
---- a/drivers/vfio/vfio_main.c
-+++ b/drivers/vfio/vfio_main.c
-@@ -1154,13 +1154,23 @@ const struct file_operations vfio_device_fops = {
- 	.mmap		= vfio_device_fops_mmap,
+diff --git a/include/linux/vfio.h b/include/linux/vfio.h
+index f8fb9ab25188..d9a0770e5fc1 100644
+--- a/include/linux/vfio.h
++++ b/include/linux/vfio.h
+@@ -62,6 +62,7 @@ struct vfio_device {
+ 	struct iommufd_device *iommufd_device;
+ 	bool iommufd_attached;
+ #endif
++	bool cdev_opened;
  };
  
-+static struct vfio_device *vfio_device_from_file(struct file *file)
+ /**
+@@ -151,6 +152,12 @@ vfio_iommufd_physical_devid(struct vfio_device *vdev, u32 *id)
+ 	((int (*)(struct vfio_device *vdev, u32 *pt_id)) NULL)
+ #endif
+ 
++static inline bool vfio_device_cdev_opened(struct vfio_device *device)
 +{
-+	struct vfio_device *device = file->private_data;
-+
-+	if (file->f_op != &vfio_device_fops)
-+		return NULL;
-+	return device;
++	lockdep_assert_held(&device->dev_set->lock);
++	return device->cdev_opened;
 +}
 +
  /**
-  * vfio_file_is_valid - True if the file is valid vfio file
-  * @file: VFIO group file or VFIO device file
-  */
- bool vfio_file_is_valid(struct file *file)
- {
--	return vfio_group_from_file(file);
-+	return vfio_group_from_file(file) ||
-+	       vfio_device_from_file(file);
- }
- EXPORT_SYMBOL_GPL(vfio_file_is_valid);
- 
-@@ -1174,12 +1184,17 @@ EXPORT_SYMBOL_GPL(vfio_file_is_valid);
- bool vfio_file_has_dev(struct file *file, struct vfio_device *device)
- {
- 	struct vfio_group *group;
-+	struct vfio_device *vdev;
- 
- 	group = vfio_group_from_file(file);
--	if (!group)
--		return false;
-+	if (group)
-+		return vfio_group_has_dev(group, device);
-+
-+	vdev = vfio_device_from_file(file);
-+	if (vdev)
-+		return vdev == device;
- 
--	return vfio_group_has_dev(group, device);
-+	return false;
- }
- EXPORT_SYMBOL_GPL(vfio_file_has_dev);
- 
+  * @migration_set_state: Optional callback to change the migration state for
+  *         devices that support migration. It's mandatory for
 -- 
 2.34.1
 
