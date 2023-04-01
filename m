@@ -4,54 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 137BAC6FD1D
-	for <intel-gfx@archiver.kernel.org>; Sat,  1 Apr 2023 03:49:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C68F1C6FD1D
+	for <intel-gfx@archiver.kernel.org>; Sat,  1 Apr 2023 06:37:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B86C10F37D;
-	Sat,  1 Apr 2023 03:49:05 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63D5D10E2BC;
- Sat,  1 Apr 2023 03:49:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DEE510E04A;
+	Sat,  1 Apr 2023 06:37:04 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A130010E04A;
+ Sat,  1 Apr 2023 06:37:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680320943; x=1711856943;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=iKRGjxyuVPlp7bjfbPORRfcTp1PxnLq+Mx9fXMULy44=;
- b=UoxNKzpmKvc9xeO0MgwwXbKI1+eEvgnHMyAmT6nqLZFi92slQYHIyRQR
- iLrfz2BOoSz/GH+DhT2QmC9d5ngAsstOOLw/qNCMjCMPb3+jCzj2Lg9LM
- Fx9TYvSiZXgacFP0gaM9mJZUv052asGxZK8p4Mkl1z+kia+ETfUJ3taXn
- lTHwRre+bpxbq6w4gKa4wDfs8VIy0iW9UXydbA76ORH6H3DDCn5RW2N3u
- iCR/HWSoUZiJ2/COTdU3p3Ldfa2Y7SRrJBqmMkkGPsvSOoMg/cRqBLF3G
- SSlTwxF2wrH0d6Mi7Xy4JRpsvme6OCWHIA2uAZwIb8epfLZIOx+Vaylx+ w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10666"; a="321268515"
-X-IronPort-AV: E=Sophos;i="5.98,308,1673942400"; d="scan'208";a="321268515"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2023 20:45:15 -0700
+ t=1680331021; x=1711867021;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=/kAlfC9k+PLdshUGMM0GnNYUulmjKHmdT3mpko4ndNM=;
+ b=G1vfxIUK6uZg5a5SIvpFpuI3hmPBEYjiuq7R+eCgvVatIdqAHYoS921w
+ XeU+HNSlEdqjgcO6C8p2TrA2b7paUAAztw/wBo1gR32u1aL7u1yetNdB5
+ hDWBGtUmcn3BAIFwh/iiBdcwbpGFGda/K4X+7NF49Y3dcpeDAr1lahTXe
+ nhjPTtPIspGxY+MbTTK1uZez14xL3taCs/xr7AlxU74s1eTyz+/K/t+DT
+ /pVrLw0T13BhOmy6z7StJ/AguQs3iH+ovyE84cX1PM88PQ0lZgEpoM8lZ
+ usY+CousNE/w9Ml3Qvz1mVsUyGefij9xVwdVVg50SMpXSjdQjKC1vvAgo w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10666"; a="340349505"
+X-IronPort-AV: E=Sophos;i="5.98,308,1673942400"; d="scan'208";a="340349505"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2023 23:37:01 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10666"; a="662612093"
-X-IronPort-AV: E=Sophos;i="5.98,308,1673942400"; d="scan'208";a="662612093"
-Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
- by orsmga006.jf.intel.com with ESMTP; 31 Mar 2023 20:45:10 -0700
-Received: from kbuild by b613635ddfff with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1piSAv-000MQR-2Z;
- Sat, 01 Apr 2023 03:45:09 +0000
-Date: Sat, 1 Apr 2023 11:44:50 +0800
-From: kernel test robot <lkp@intel.com>
-To: Mark Yacoub <markyacoub@chromium.org>, Rob Clark <robdclark@gmail.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Sean Paul <sean@poorly.run>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Message-ID: <202304011152.dsr8g6yX-lkp@intel.com>
-References: <20230331221213.1691997-11-markyacoub@google.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10666"; a="635539617"
+X-IronPort-AV: E=Sophos;i="5.98,308,1673942400"; d="scan'208";a="635539617"
+Received: from fyang16-desk.jf.intel.com ([10.24.96.243])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2023 23:37:00 -0700
+From: fei.yang@intel.com
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 31 Mar 2023 23:38:23 -0700
+Message-Id: <20230401063830.438127-1-fei.yang@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230331221213.1691997-11-markyacoub@google.com>
-Subject: Re: [Intel-gfx] [PATCH v8 10/10] drm/msm: Implement HDCP 1.x using
- the new drm HDCP helpers
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 0/7] drm/i915/mtl: Define MOCS and PAT tables
+ for MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,77 +56,78 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, Mark Yacoub <markyacoub@chromium.org>,
- intel-gfx@lists.freedesktop.org, dianders@chromium.org,
- dri-devel@lists.freedesktop.org, Stephen Boyd <swboyd@chromium.org>,
- seanpaul@chromium.org, oe-kbuild-all@lists.linux.dev,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Mark,
+From: Fei Yang <fei.yang@intel.com>
 
-I love your patch! Yet something to improve:
+The series includes patches needed to enable MTL.
+Also add new extension for GEM_CREATE uAPI to let
+user space set cache policy for buffer objects.
 
-[auto build test ERROR on drm-intel/for-linux-next-fixes]
-[also build test ERROR on linus/master v6.3-rc4]
-[cannot apply to drm-misc/drm-misc-next drm-intel/for-linux-next drm/drm-next next-20230331]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Fei Yang (7):
+  drm/i915/mtl: Define MOCS and PAT tables for MTL
+  drm/i915/mtl: workaround coherency issue for Media
+  drm/i915/mtl: end support for set caching ioctl
+  drm/i915: preparation for using PAT index
+  drm/i915: use pat_index instead of cache_level
+  drm/i915: make sure correct pte encode is used
+  drm/i915: Allow user to set cache at BO creation
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Mark-Yacoub/drm-hdcp-Add-drm_hdcp_atomic_check/20230401-061425
-base:   git://anongit.freedesktop.org/drm-intel for-linux-next-fixes
-patch link:    https://lore.kernel.org/r/20230331221213.1691997-11-markyacoub%40google.com
-patch subject: [Intel-gfx] [PATCH v8 10/10] drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
-config: arc-randconfig-r043-20230329 (https://download.01.org/0day-ci/archive/20230401/202304011152.dsr8g6yX-lkp@intel.com/config)
-compiler: arc-elf-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/697c762c590d862f4f6ed4a8cac97ac2de815f73
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Mark-Yacoub/drm-hdcp-Add-drm_hdcp_atomic_check/20230401-061425
-        git checkout 697c762c590d862f4f6ed4a8cac97ac2de815f73
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arc olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=arc SHELL=/bin/bash
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202304011152.dsr8g6yX-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   arc-elf-ld: drivers/gpu/drm/msm/msm_atomic.o: in function `msm_atomic_commit_tail':
->> drivers/gpu/drm/msm/msm_atomic.c:193: undefined reference to `dp_drm_is_bridge_msm_dp'
->> arc-elf-ld: drivers/gpu/drm/msm/msm_atomic.c:193: undefined reference to `dp_drm_is_bridge_msm_dp'
->> arc-elf-ld: drivers/gpu/drm/msm/msm_atomic.c:194: undefined reference to `dp_drm_atomic_commit'
->> arc-elf-ld: drivers/gpu/drm/msm/msm_atomic.c:194: undefined reference to `dp_drm_atomic_commit'
-   arc-elf-ld: drivers/gpu/drm/msm/dp/dp_debug.o: in function `dp_hdcp_key_write':
->> drivers/gpu/drm/msm/dp/dp_debug.c:219: undefined reference to `dp_hdcp_ingest_key'
->> arc-elf-ld: drivers/gpu/drm/msm/dp/dp_debug.c:219: undefined reference to `dp_hdcp_ingest_key'
-
-
-vim +193 drivers/gpu/drm/msm/msm_atomic.c
-
-   184	
-   185	static void msm_atomic_commit_connectors(struct drm_atomic_state *state)
-   186	{
-   187		struct drm_device *dev = state->dev;
-   188		struct msm_drm_private *priv = dev->dev_private;
-   189		int i;
-   190	
-   191		for (i = 0; i < priv->num_bridges; ++i) {
-   192			struct drm_bridge *bridge = priv->bridges[i];
- > 193			if (dp_drm_is_bridge_msm_dp(bridge)) {
- > 194				dp_drm_atomic_commit(bridge, state);
-   195			}
-   196		}
-   197	}
-   198	
+ drivers/gpu/drm/i915/display/intel_dpt.c      | 14 ++--
+ drivers/gpu/drm/i915/gem/i915_gem_create.c    | 33 ++++++++
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c    | 30 +++----
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 10 ++-
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c      |  3 +-
+ drivers/gpu/drm/i915/gem/i915_gem_object.c    | 48 ++++++++++-
+ drivers/gpu/drm/i915/gem/i915_gem_object.h    |  8 ++
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  | 19 +++--
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c     |  5 +-
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c     |  9 +-
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |  2 -
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c    |  4 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  | 16 ++--
+ .../gpu/drm/i915/gem/selftests/huge_pages.c   |  2 +-
+ .../drm/i915/gem/selftests/i915_gem_migrate.c |  2 +-
+ .../drm/i915/gem/selftests/i915_gem_mman.c    |  2 +-
+ drivers/gpu/drm/i915/gt/gen6_ppgtt.c          | 10 ++-
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c          | 81 +++++++++++++-----
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.h          |  6 +-
+ drivers/gpu/drm/i915/gt/intel_ggtt.c          | 84 +++++++++++++------
+ drivers/gpu/drm/i915/gt/intel_gtt.c           | 23 ++++-
+ drivers/gpu/drm/i915/gt/intel_gtt.h           | 38 ++++++---
+ drivers/gpu/drm/i915/gt/intel_migrate.c       | 47 ++++++-----
+ drivers/gpu/drm/i915/gt/intel_migrate.h       | 13 ++-
+ drivers/gpu/drm/i915/gt/intel_mocs.c          | 76 ++++++++++++++++-
+ drivers/gpu/drm/i915/gt/intel_ppgtt.c         |  6 +-
+ drivers/gpu/drm/i915/gt/selftest_migrate.c    | 47 ++++++-----
+ drivers/gpu/drm/i915/gt/selftest_mocs.c       |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_reset.c      |  8 +-
+ drivers/gpu/drm/i915/gt/selftest_timeline.c   |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_tlb.c        |  4 +-
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c     | 13 +++
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c        |  7 ++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     | 18 ++--
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c      | 10 ++-
+ drivers/gpu/drm/i915/i915_debugfs.c           | 55 +++++++++---
+ drivers/gpu/drm/i915/i915_gem.c               | 16 +++-
+ drivers/gpu/drm/i915/i915_gpu_error.c         |  8 +-
+ drivers/gpu/drm/i915/i915_pci.c               | 76 +++++++++++++++--
+ drivers/gpu/drm/i915/i915_vma.c               | 16 ++--
+ drivers/gpu/drm/i915/i915_vma.h               |  2 +-
+ drivers/gpu/drm/i915/i915_vma_types.h         |  2 -
+ drivers/gpu/drm/i915/intel_device_info.h      |  5 ++
+ drivers/gpu/drm/i915/selftests/i915_gem.c     |  5 +-
+ .../gpu/drm/i915/selftests/i915_gem_evict.c   |  4 +-
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 15 ++--
+ .../drm/i915/selftests/intel_memory_region.c  |  4 +-
+ .../gpu/drm/i915/selftests/mock_gem_device.c  |  6 ++
+ drivers/gpu/drm/i915/selftests/mock_gtt.c     |  8 +-
+ include/uapi/drm/i915_drm.h                   | 36 ++++++++
+ tools/include/uapi/drm/i915_drm.h             | 36 ++++++++
+ 51 files changed, 763 insertions(+), 233 deletions(-)
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+2.25.1
+
