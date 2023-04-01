@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2E51C76196
-	for <intel-gfx@archiver.kernel.org>; Sat,  1 Apr 2023 02:26:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18858C761AF
+	for <intel-gfx@archiver.kernel.org>; Sat,  1 Apr 2023 02:26:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6C2310F376;
-	Sat,  1 Apr 2023 02:26:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0784810F377;
+	Sat,  1 Apr 2023 02:26:20 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5DE6310E23E;
- Sat,  1 Apr 2023 02:26:14 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3B7D810E23E;
+ Sat,  1 Apr 2023 02:26:17 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id D0446A7DFF;
- Sat,  1 Apr 2023 02:26:13 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 12907A7DFF;
+ Sat,  1 Apr 2023 02:26:17 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Vinay Belgaumkar" <vinay.belgaumkar@intel.com>
-Date: Sat, 01 Apr 2023 02:26:13 -0000
-Message-ID: <168031597382.8634.15543550340801643980@emeril.freedesktop.org>
+Date: Sat, 01 Apr 2023 02:26:17 -0000
+Message-ID: <168031597707.8631.6271861720477663794@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20230401020049.3843873-1-vinay.belgaumkar@intel.com>
 In-Reply-To: <20230401020049.3843873-1-vinay.belgaumkar@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_i915/guc/slpc=3A_Provide_sysfs_for_efficient_freq?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?i915/guc/slpc=3A_Provide_sysfs_for_efficient_freq?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,17 +53,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-e3bff4466926 i915/guc/slpc: Provide sysfs for efficient freq
--:26: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
-#26: FILE: drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c:455:
-+static ssize_t slpc_ignore_eff_freq_show(struct kobject *kobj,
-+				     struct kobj_attribute *attr,
-
--:42: CHECK:PREFER_KERNEL_TYPES: Prefer kernel type 'u32' over 'uint32_t'
-#42: FILE: drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c:471:
-+	uint32_t val;
-
-total: 0 errors, 0 warnings, 2 checks, 152 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
