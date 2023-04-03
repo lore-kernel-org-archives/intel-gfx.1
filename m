@@ -4,49 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAA8BC76196
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 Apr 2023 22:37:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22DFFC76196
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 Apr 2023 22:57:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D63A10E5B9;
-	Mon,  3 Apr 2023 22:37:21 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20B2410E5AA;
- Mon,  3 Apr 2023 22:37:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680561439; x=1712097439;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=zmsQCCz5OOdmCY5WAXGcv7g7OgmNPhSALS9lTIjXjm8=;
- b=AN/7d4pPsWsbrgTpR50uAdD8OSe9Xfh/4JOPLi5IlCMju1MNb/HYa+iH
- AAuA0IVzYFIAQtwjYGC0fYZXByMj3n9m1dZEurj6N9hON3b6wrv8vJLSy
- RswEPDtdgjbactuJ4KAfh34fA3Wtj0DYCyqrVcaeiDVU4kA9aZlrOb2N0
- DlSLGQkvOGA46AfuNv0Zk3u6SEkxceOwOYAhQZAeOSEfmZCbeLF7kbkMC
- dr7qdKT19klK6QOzMgiDytarJJzfyVJfklxLdyWaZAbXA1rOcDANKxm3f
- bf/3uy0N3T7jb7Qhg3LJ435vZrF/kH9aBXJIh46vy+9ZdOWm3AJDByWJ8 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10669"; a="326043755"
-X-IronPort-AV: E=Sophos;i="5.98,315,1673942400"; d="scan'208";a="326043755"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2023 15:36:58 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10669"; a="829731911"
-X-IronPort-AV: E=Sophos;i="5.98,315,1673942400"; d="scan'208";a="829731911"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by fmsmga001.fm.intel.com with SMTP; 03 Apr 2023 15:36:53 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 04 Apr 2023 01:36:52 +0300
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Date: Tue,  4 Apr 2023 01:36:52 +0300
-Message-Id: <20230403223652.18848-1-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230329171402.2772-1-ville.syrjala@linux.intel.com>
-References: <20230329171402.2772-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A5F610E05F;
+	Mon,  3 Apr 2023 22:57:56 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id BE79F10E05F;
+ Mon,  3 Apr 2023 22:57:54 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id B9C15AADE3;
+ Mon,  3 Apr 2023 22:57:54 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3568125958066247050=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2] drm/scdc-helper: Pimp SCDC debugs
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: john.c.harrison@intel.com
+Date: Mon, 03 Apr 2023 22:57:54 -0000
+Message-ID: <168056267475.24310.11046956784898079382@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230403213334.1655239-1-John.C.Harrison@Intel.com>
+In-Reply-To: <20230403213334.1655239-1-John.C.Harrison@Intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
+ =?utf-8?q?/i915/guc=3A_Don=27t_capture_Gen8_regs_on_Gen12_devices?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,380 +40,265 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Emma Anholt <emma@anholt.net>, Jonas Karlman <jonas@kwiboo.se>,
- intel-gfx@lists.freedesktop.org, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, linux-tegra@vger.kernel.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+--===============3568125958066247050==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Include the device and connector information in the SCDC
-debugs. Makes it easier to figure out who did what.
+== Series Details ==
 
-v2: Rely on connector->ddc (Maxime)
+Series: drm/i915/guc: Don't capture Gen8 regs on Gen12 devices
+URL   : https://patchwork.freedesktop.org/series/116051/
+State : failure
 
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Robert Foss <rfoss@kernel.org>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-Cc: Jonas Karlman <jonas@kwiboo.se>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>
-Cc: Emma Anholt <emma@anholt.net>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: intel-gfx@lists.freedesktop.org
-Cc: linux-tegra@vger.kernel.org
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c |  8 ++--
- drivers/gpu/drm/display/drm_scdc_helper.c | 46 +++++++++++++++--------
- drivers/gpu/drm/i915/display/intel_ddi.c  |  4 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c |  8 +---
- drivers/gpu/drm/tegra/sor.c               | 15 +++-----
- drivers/gpu/drm/vc4/vc4_hdmi.c            | 21 ++++++-----
- include/drm/display/drm_scdc_helper.h     |  7 ++--
- 7 files changed, 59 insertions(+), 50 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index aa51c61a78c7..603bb3c51027 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -1426,9 +1426,9 @@ void dw_hdmi_set_high_tmds_clock_ratio(struct dw_hdmi *hdmi,
- 	/* Control for TMDS Bit Period/TMDS Clock-Period Ratio */
- 	if (dw_hdmi_support_scdc(hdmi, display)) {
- 		if (mtmdsclock > HDMI14_MAX_TMDSCLK)
--			drm_scdc_set_high_tmds_clock_ratio(hdmi->ddc, 1);
-+			drm_scdc_set_high_tmds_clock_ratio(&hdmi->connector, 1);
- 		else
--			drm_scdc_set_high_tmds_clock_ratio(hdmi->ddc, 0);
-+			drm_scdc_set_high_tmds_clock_ratio(&hdmi->connector, 0);
- 	}
- }
- EXPORT_SYMBOL_GPL(dw_hdmi_set_high_tmds_clock_ratio);
-@@ -2116,7 +2116,7 @@ static void hdmi_av_composer(struct dw_hdmi *hdmi,
- 				min_t(u8, bytes, SCDC_MIN_SOURCE_VERSION));
- 
- 			/* Enabled Scrambling in the Sink */
--			drm_scdc_set_scrambling(hdmi->ddc, 1);
-+			drm_scdc_set_scrambling(&hdmi->connector, 1);
- 
- 			/*
- 			 * To activate the scrambler feature, you must ensure
-@@ -2132,7 +2132,7 @@ static void hdmi_av_composer(struct dw_hdmi *hdmi,
- 			hdmi_writeb(hdmi, 0, HDMI_FC_SCRAMBLER_CTRL);
- 			hdmi_writeb(hdmi, (u8)~HDMI_MC_SWRSTZ_TMDSSWRST_REQ,
- 				    HDMI_MC_SWRSTZ);
--			drm_scdc_set_scrambling(hdmi->ddc, 0);
-+			drm_scdc_set_scrambling(&hdmi->connector, 0);
- 		}
- 	}
- 
-diff --git a/drivers/gpu/drm/display/drm_scdc_helper.c b/drivers/gpu/drm/display/drm_scdc_helper.c
-index c3ad4ab2b456..6d2f244e5830 100644
---- a/drivers/gpu/drm/display/drm_scdc_helper.c
-+++ b/drivers/gpu/drm/display/drm_scdc_helper.c
-@@ -26,6 +26,8 @@
- #include <linux/delay.h>
- 
- #include <drm/display/drm_scdc_helper.h>
-+#include <drm/drm_connector.h>
-+#include <drm/drm_device.h>
- #include <drm/drm_print.h>
- 
- /**
-@@ -140,7 +142,7 @@ EXPORT_SYMBOL(drm_scdc_write);
- 
- /**
-  * drm_scdc_get_scrambling_status - what is status of scrambling?
-- * @adapter: I2C adapter for DDC channel
-+ * @connector: connector
-  *
-  * Reads the scrambler status over SCDC, and checks the
-  * scrambling status.
-@@ -148,14 +150,16 @@ EXPORT_SYMBOL(drm_scdc_write);
-  * Returns:
-  * True if the scrambling is enabled, false otherwise.
-  */
--bool drm_scdc_get_scrambling_status(struct i2c_adapter *adapter)
-+bool drm_scdc_get_scrambling_status(struct drm_connector *connector)
- {
- 	u8 status;
- 	int ret;
- 
--	ret = drm_scdc_readb(adapter, SCDC_SCRAMBLER_STATUS, &status);
-+	ret = drm_scdc_readb(connector->ddc, SCDC_SCRAMBLER_STATUS, &status);
- 	if (ret < 0) {
--		DRM_DEBUG_KMS("Failed to read scrambling status: %d\n", ret);
-+		drm_dbg_kms(connector->dev,
-+			    "[CONNECTOR:%d:%s] Failed to read scrambling status: %d\n",
-+			    connector->base.id, connector->name, ret);
- 		return false;
- 	}
- 
-@@ -165,7 +169,7 @@ EXPORT_SYMBOL(drm_scdc_get_scrambling_status);
- 
- /**
-  * drm_scdc_set_scrambling - enable scrambling
-- * @adapter: I2C adapter for DDC channel
-+ * @connector: connector
-  * @enable: bool to indicate if scrambling is to be enabled/disabled
-  *
-  * Writes the TMDS config register over SCDC channel, and:
-@@ -175,14 +179,17 @@ EXPORT_SYMBOL(drm_scdc_get_scrambling_status);
-  * Returns:
-  * True if scrambling is set/reset successfully, false otherwise.
-  */
--bool drm_scdc_set_scrambling(struct i2c_adapter *adapter, bool enable)
-+bool drm_scdc_set_scrambling(struct drm_connector *connector,
-+			     bool enable)
- {
- 	u8 config;
- 	int ret;
- 
--	ret = drm_scdc_readb(adapter, SCDC_TMDS_CONFIG, &config);
-+	ret = drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
- 	if (ret < 0) {
--		DRM_DEBUG_KMS("Failed to read TMDS config: %d\n", ret);
-+		drm_dbg_kms(connector->dev,
-+			    "[CONNECTOR:%d:%s] Failed to read TMDS config: %d\n",
-+			    connector->base.id, connector->name, ret);
- 		return false;
- 	}
- 
-@@ -191,9 +198,11 @@ bool drm_scdc_set_scrambling(struct i2c_adapter *adapter, bool enable)
- 	else
- 		config &= ~SCDC_SCRAMBLING_ENABLE;
- 
--	ret = drm_scdc_writeb(adapter, SCDC_TMDS_CONFIG, config);
-+	ret = drm_scdc_writeb(connector->ddc, SCDC_TMDS_CONFIG, config);
- 	if (ret < 0) {
--		DRM_DEBUG_KMS("Failed to enable scrambling: %d\n", ret);
-+		drm_dbg_kms(connector->dev,
-+			    "[CONNECTOR:%d:%s] Failed to enable scrambling: %d\n",
-+			    connector->base.id, connector->name, ret);
- 		return false;
- 	}
- 
-@@ -203,7 +212,7 @@ EXPORT_SYMBOL(drm_scdc_set_scrambling);
- 
- /**
-  * drm_scdc_set_high_tmds_clock_ratio - set TMDS clock ratio
-- * @adapter: I2C adapter for DDC channel
-+ * @connector: connector
-  * @set: ret or reset the high clock ratio
-  *
-  *
-@@ -230,14 +239,17 @@ EXPORT_SYMBOL(drm_scdc_set_scrambling);
-  * Returns:
-  * True if write is successful, false otherwise.
-  */
--bool drm_scdc_set_high_tmds_clock_ratio(struct i2c_adapter *adapter, bool set)
-+bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector,
-+					bool set)
- {
- 	u8 config;
- 	int ret;
- 
--	ret = drm_scdc_readb(adapter, SCDC_TMDS_CONFIG, &config);
-+	ret = drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
- 	if (ret < 0) {
--		DRM_DEBUG_KMS("Failed to read TMDS config: %d\n", ret);
-+		drm_dbg_kms(connector->dev,
-+			    "[CONNECTOR:%d:%s] Failed to read TMDS config: %d\n",
-+			    connector->base.id, connector->name, ret);
- 		return false;
- 	}
- 
-@@ -246,9 +258,11 @@ bool drm_scdc_set_high_tmds_clock_ratio(struct i2c_adapter *adapter, bool set)
- 	else
- 		config &= ~SCDC_TMDS_BIT_CLOCK_RATIO_BY_40;
- 
--	ret = drm_scdc_writeb(adapter, SCDC_TMDS_CONFIG, config);
-+	ret = drm_scdc_writeb(connector->ddc, SCDC_TMDS_CONFIG, config);
- 	if (ret < 0) {
--		DRM_DEBUG_KMS("Failed to set TMDS clock ratio: %d\n", ret);
-+		drm_dbg_kms(connector->dev,
-+			    "[CONNECTOR:%d:%s] Failed to set TMDS clock ratio: %d\n",
-+			    connector->base.id, connector->name, ret);
- 		return false;
- 	}
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index dc294717bcdf..d0bb3a52ae5c 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3974,8 +3974,8 @@ static int intel_hdmi_reset_link(struct intel_encoder *encoder,
- 
- 	ret = drm_scdc_readb(adapter, SCDC_TMDS_CONFIG, &config);
- 	if (ret < 0) {
--		drm_err(&dev_priv->drm, "Failed to read TMDS config: %d\n",
--			ret);
-+		drm_err(&dev_priv->drm, "[CONNECTOR:%d:%s] Failed to read TMDS config: %d\n",
-+			connector->base.base.id, connector->base.name, ret);
- 		return 0;
- 	}
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index c7e9e1fbed37..a690a5616506 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2646,11 +2646,8 @@ bool intel_hdmi_handle_sink_scrambling(struct intel_encoder *encoder,
- 				       bool scrambling)
- {
- 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
--	struct intel_hdmi *intel_hdmi = enc_to_intel_hdmi(encoder);
- 	struct drm_scrambling *sink_scrambling =
- 		&connector->display_info.hdmi.scdc.scrambling;
--	struct i2c_adapter *adapter =
--		intel_gmbus_get_adapter(dev_priv, intel_hdmi->ddc_bus);
- 
- 	if (!sink_scrambling->supported)
- 		return true;
-@@ -2661,9 +2658,8 @@ bool intel_hdmi_handle_sink_scrambling(struct intel_encoder *encoder,
- 		    str_yes_no(scrambling), high_tmds_clock_ratio ? 40 : 10);
- 
- 	/* Set TMDS bit clock ratio to 1/40 or 1/10, and enable/disable scrambling */
--	return drm_scdc_set_high_tmds_clock_ratio(adapter,
--						  high_tmds_clock_ratio) &&
--		drm_scdc_set_scrambling(adapter, scrambling);
-+	return drm_scdc_set_high_tmds_clock_ratio(connector, high_tmds_clock_ratio) &&
-+		drm_scdc_set_scrambling(connector, scrambling);
- }
- 
- static u8 chv_port_to_ddc_pin(struct drm_i915_private *dev_priv, enum port port)
-diff --git a/drivers/gpu/drm/tegra/sor.c b/drivers/gpu/drm/tegra/sor.c
-index 8af632740673..34af6724914f 100644
---- a/drivers/gpu/drm/tegra/sor.c
-+++ b/drivers/gpu/drm/tegra/sor.c
-@@ -2140,10 +2140,8 @@ static void tegra_sor_hdmi_disable_scrambling(struct tegra_sor *sor)
- 
- static void tegra_sor_hdmi_scdc_disable(struct tegra_sor *sor)
- {
--	struct i2c_adapter *ddc = sor->output.ddc;
--
--	drm_scdc_set_high_tmds_clock_ratio(ddc, false);
--	drm_scdc_set_scrambling(ddc, false);
-+	drm_scdc_set_high_tmds_clock_ratio(&sor->output.connector, false);
-+	drm_scdc_set_scrambling(&sor->output.connector, false);
- 
- 	tegra_sor_hdmi_disable_scrambling(sor);
- }
-@@ -2168,10 +2166,8 @@ static void tegra_sor_hdmi_enable_scrambling(struct tegra_sor *sor)
- 
- static void tegra_sor_hdmi_scdc_enable(struct tegra_sor *sor)
- {
--	struct i2c_adapter *ddc = sor->output.ddc;
--
--	drm_scdc_set_high_tmds_clock_ratio(ddc, true);
--	drm_scdc_set_scrambling(ddc, true);
-+	drm_scdc_set_high_tmds_clock_ratio(&sor->output.connector, true);
-+	drm_scdc_set_scrambling(&sor->output.connector, true);
- 
- 	tegra_sor_hdmi_enable_scrambling(sor);
- }
-@@ -2179,9 +2175,8 @@ static void tegra_sor_hdmi_scdc_enable(struct tegra_sor *sor)
- static void tegra_sor_hdmi_scdc_work(struct work_struct *work)
- {
- 	struct tegra_sor *sor = container_of(work, struct tegra_sor, scdc.work);
--	struct i2c_adapter *ddc = sor->output.ddc;
- 
--	if (!drm_scdc_get_scrambling_status(ddc)) {
-+	if (!drm_scdc_get_scrambling_status(&sor->output.connector)) {
- 		DRM_DEBUG_KMS("SCDC not scrambled\n");
- 		tegra_sor_hdmi_scdc_enable(sor);
- 	}
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 464c3cc8e6fb..06713d8b82b5 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -885,7 +885,8 @@ static void vc4_hdmi_set_infoframes(struct drm_encoder *encoder)
- static void vc4_hdmi_enable_scrambling(struct drm_encoder *encoder)
- {
- 	struct vc4_hdmi *vc4_hdmi = encoder_to_vc4_hdmi(encoder);
--	struct drm_device *drm = vc4_hdmi->connector.dev;
-+	struct drm_connector *connector = &vc4_hdmi->connector;
-+	struct drm_device *drm = connector->dev;
- 	const struct drm_display_mode *mode = &vc4_hdmi->saved_adjusted_mode;
- 	unsigned long flags;
- 	int idx;
-@@ -903,8 +904,8 @@ static void vc4_hdmi_enable_scrambling(struct drm_encoder *encoder)
- 	if (!drm_dev_enter(drm, &idx))
- 		return;
- 
--	drm_scdc_set_high_tmds_clock_ratio(vc4_hdmi->ddc, true);
--	drm_scdc_set_scrambling(vc4_hdmi->ddc, true);
-+	drm_scdc_set_high_tmds_clock_ratio(connector, true);
-+	drm_scdc_set_scrambling(connector, true);
- 
- 	spin_lock_irqsave(&vc4_hdmi->hw_lock, flags);
- 	HDMI_WRITE(HDMI_SCRAMBLER_CTL, HDMI_READ(HDMI_SCRAMBLER_CTL) |
-@@ -922,7 +923,8 @@ static void vc4_hdmi_enable_scrambling(struct drm_encoder *encoder)
- static void vc4_hdmi_disable_scrambling(struct drm_encoder *encoder)
- {
- 	struct vc4_hdmi *vc4_hdmi = encoder_to_vc4_hdmi(encoder);
--	struct drm_device *drm = vc4_hdmi->connector.dev;
-+	struct drm_connector *connector = &vc4_hdmi->connector;
-+	struct drm_device *drm = connector->dev;
- 	unsigned long flags;
- 	int idx;
- 
-@@ -944,8 +946,8 @@ static void vc4_hdmi_disable_scrambling(struct drm_encoder *encoder)
- 		   ~VC5_HDMI_SCRAMBLER_CTL_ENABLE);
- 	spin_unlock_irqrestore(&vc4_hdmi->hw_lock, flags);
- 
--	drm_scdc_set_scrambling(vc4_hdmi->ddc, false);
--	drm_scdc_set_high_tmds_clock_ratio(vc4_hdmi->ddc, false);
-+	drm_scdc_set_scrambling(connector, false);
-+	drm_scdc_set_high_tmds_clock_ratio(connector, false);
- 
- 	drm_dev_exit(idx);
- }
-@@ -955,12 +957,13 @@ static void vc4_hdmi_scrambling_wq(struct work_struct *work)
- 	struct vc4_hdmi *vc4_hdmi = container_of(to_delayed_work(work),
- 						 struct vc4_hdmi,
- 						 scrambling_work);
-+	struct drm_connector *connector = &vc4_hdmi->connector;
- 
--	if (drm_scdc_get_scrambling_status(vc4_hdmi->ddc))
-+	if (drm_scdc_get_scrambling_status(connector))
- 		return;
- 
--	drm_scdc_set_high_tmds_clock_ratio(vc4_hdmi->ddc, true);
--	drm_scdc_set_scrambling(vc4_hdmi->ddc, true);
-+	drm_scdc_set_high_tmds_clock_ratio(connector, true);
-+	drm_scdc_set_scrambling(connector, true);
- 
- 	queue_delayed_work(system_wq, &vc4_hdmi->scrambling_work,
- 			   msecs_to_jiffies(SCRAMBLING_POLLING_DELAY_MS));
-diff --git a/include/drm/display/drm_scdc_helper.h b/include/drm/display/drm_scdc_helper.h
-index ded01fd948b4..34600476a1b9 100644
---- a/include/drm/display/drm_scdc_helper.h
-+++ b/include/drm/display/drm_scdc_helper.h
-@@ -28,6 +28,7 @@
- 
- #include <drm/display/drm_scdc.h>
- 
-+struct drm_connector;
- struct i2c_adapter;
- 
- ssize_t drm_scdc_read(struct i2c_adapter *adapter, u8 offset, void *buffer,
-@@ -71,9 +72,9 @@ static inline int drm_scdc_writeb(struct i2c_adapter *adapter, u8 offset,
- 	return drm_scdc_write(adapter, offset, &value, sizeof(value));
- }
- 
--bool drm_scdc_get_scrambling_status(struct i2c_adapter *adapter);
-+bool drm_scdc_get_scrambling_status(struct drm_connector *connector);
- 
--bool drm_scdc_set_scrambling(struct i2c_adapter *adapter, bool enable);
--bool drm_scdc_set_high_tmds_clock_ratio(struct i2c_adapter *adapter, bool set);
-+bool drm_scdc_set_scrambling(struct drm_connector *connector, bool enable);
-+bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector, bool set);
- 
- #endif
--- 
-2.39.2
+CI Bug Log - changes from CI_DRM_12961 -> Patchwork_116051v1
+====================================================
 
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_116051v1 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_116051v1, please notify your bug team to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/index.html
+
+Participating hosts (36 -> 36)
+------------------------------
+
+  Additional (1): fi-pnv-d510 
+  Missing    (1): fi-snb-2520m 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_116051v1:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@dmabuf@all-tests@dma_fence:
+    - fi-glk-j4005:       [PASS][1] -> [DMESG-FAIL][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12961/fi-glk-j4005/igt@dmabuf@all-tests@dma_fence.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/fi-glk-j4005/igt@dmabuf@all-tests@dma_fence.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_116051v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@dmabuf@all-tests@sanitycheck:
+    - fi-glk-j4005:       [PASS][3] -> [ABORT][4] ([i915#8143])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12961/fi-glk-j4005/igt@dmabuf@all-tests@sanitycheck.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/fi-glk-j4005/igt@dmabuf@all-tests@sanitycheck.html
+
+  * igt@i915_selftest@live@requests:
+    - bat-rpls-2:         [PASS][5] -> [ABORT][6] ([i915#7913] / [i915#7982])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12961/bat-rpls-2/igt@i915_selftest@live@requests.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/bat-rpls-2/igt@i915_selftest@live@requests.html
+
+  * igt@i915_suspend@basic-s3-without-i915:
+    - bat-rpls-1:         [PASS][7] -> [ABORT][8] ([i915#6687] / [i915#7978])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12961/bat-rpls-1/igt@i915_suspend@basic-s3-without-i915.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/bat-rpls-1/igt@i915_suspend@basic-s3-without-i915.html
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-1:
+    - bat-dg2-8:          [PASS][9] -> [FAIL][10] ([i915#7932])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12961/bat-dg2-8/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-1.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/bat-dg2-8/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-1.html
+
+  * igt@kms_psr@primary_page_flip:
+    - fi-pnv-d510:        NOTRUN -> [SKIP][11] ([fdo#109271]) +38 similar issues
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/fi-pnv-d510/igt@kms_psr@primary_page_flip.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_pm_rps@basic-api:
+    - bat-dg2-11:         [FAIL][12] ([i915#8308]) -> [PASS][13]
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12961/bat-dg2-11/igt@i915_pm_rps@basic-api.html
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/bat-dg2-11/igt@i915_pm_rps@basic-api.html
+
+  * igt@i915_selftest@live@gt_pm:
+    - bat-rpls-2:         [DMESG-FAIL][14] ([i915#4258]) -> [PASS][15]
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12961/bat-rpls-2/igt@i915_selftest@live@gt_pm.html
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/bat-rpls-2/igt@i915_selftest@live@gt_pm.html
+
+  * igt@i915_selftest@live@slpc:
+    - bat-rpls-1:         [DMESG-FAIL][16] ([i915#6367]) -> [PASS][17]
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12961/bat-rpls-1/igt@i915_selftest@live@slpc.html
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/bat-rpls-1/igt@i915_selftest@live@slpc.html
+
+  
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#4258]: https://gitlab.freedesktop.org/drm/intel/issues/4258
+  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
+  [i915#6687]: https://gitlab.freedesktop.org/drm/intel/issues/6687
+  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
+  [i915#7932]: https://gitlab.freedesktop.org/drm/intel/issues/7932
+  [i915#7978]: https://gitlab.freedesktop.org/drm/intel/issues/7978
+  [i915#7982]: https://gitlab.freedesktop.org/drm/intel/issues/7982
+  [i915#8143]: https://gitlab.freedesktop.org/drm/intel/issues/8143
+  [i915#8308]: https://gitlab.freedesktop.org/drm/intel/issues/8308
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_12961 -> Patchwork_116051v1
+
+  CI-20190529: 20190529
+  CI_DRM_12961: 82f1e99798a184af2c21c9c8748f3fba4bdc4556 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7233: 716520b469a2745e1882780f2aabbc88eb19332c @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_116051v1: 82f1e99798a184af2c21c9c8748f3fba4bdc4556 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+89f2ba64d435 drm/i915/guc: Don't capture Gen8 regs on Gen12 devices
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/index.html
+
+--===============3568125958066247050==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/guc: Don&#39;t capture Gen8 regs on Gen12 devices</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/116051/">https://patchwork.freedesktop.org/series/116051/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_12961 -&gt; Patchwork_116051v1</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_116051v1 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_116051v1, please notify your bug team to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/index.html</p>
+<h2>Participating hosts (36 -&gt; 36)</h2>
+<p>Additional (1): fi-pnv-d510 <br />
+  Missing    (1): fi-snb-2520m </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_116051v1:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@dmabuf@all-tests@dma_fence:<ul>
+<li>fi-glk-j4005:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12961/fi-glk-j4005/igt@dmabuf@all-tests@dma_fence.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/fi-glk-j4005/igt@dmabuf@all-tests@dma_fence.html">DMESG-FAIL</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_116051v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@dmabuf@all-tests@sanitycheck:</p>
+<ul>
+<li>fi-glk-j4005:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12961/fi-glk-j4005/igt@dmabuf@all-tests@sanitycheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/fi-glk-j4005/igt@dmabuf@all-tests@sanitycheck.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8143">i915#8143</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@requests:</p>
+<ul>
+<li>bat-rpls-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12961/bat-rpls-2/igt@i915_selftest@live@requests.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/bat-rpls-2/igt@i915_selftest@live@requests.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7982">i915#7982</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_suspend@basic-s3-without-i915:</p>
+<ul>
+<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12961/bat-rpls-1/igt@i915_suspend@basic-s3-without-i915.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/bat-rpls-1/igt@i915_suspend@basic-s3-without-i915.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6687">i915#6687</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7978">i915#7978</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-1:</p>
+<ul>
+<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12961/bat-dg2-8/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/bat-dg2-8/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-1.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7932">i915#7932</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@primary_page_flip:</p>
+<ul>
+<li>fi-pnv-d510:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/fi-pnv-d510/igt@kms_psr@primary_page_flip.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +38 similar issues</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_pm_rps@basic-api:</p>
+<ul>
+<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12961/bat-dg2-11/igt@i915_pm_rps@basic-api.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8308">i915#8308</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/bat-dg2-11/igt@i915_pm_rps@basic-api.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_pm:</p>
+<ul>
+<li>bat-rpls-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12961/bat-rpls-2/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4258">i915#4258</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/bat-rpls-2/igt@i915_selftest@live@gt_pm.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@slpc:</p>
+<ul>
+<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12961/bat-rpls-1/igt@i915_selftest@live@slpc.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6367">i915#6367</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116051v1/bat-rpls-1/igt@i915_selftest@live@slpc.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_12961 -&gt; Patchwork_116051v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_12961: 82f1e99798a184af2c21c9c8748f3fba4bdc4556 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7233: 716520b469a2745e1882780f2aabbc88eb19332c @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_116051v1: 82f1e99798a184af2c21c9c8748f3fba4bdc4556 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>89f2ba64d435 drm/i915/guc: Don't capture Gen8 regs on Gen12 devices</p>
+
+</body>
+</html>
+
+--===============3568125958066247050==--
