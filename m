@@ -4,45 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97B47C76196
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 Apr 2023 08:55:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD7F3C76196
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 Apr 2023 08:58:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE76C10E3B8;
-	Mon,  3 Apr 2023 08:55:58 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68CE210E3B8
- for <intel-gfx@lists.freedesktop.org>; Mon,  3 Apr 2023 08:55:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BBF810E3B9;
+	Mon,  3 Apr 2023 08:58:20 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 881AA10E3D1
+ for <intel-gfx@lists.freedesktop.org>; Mon,  3 Apr 2023 08:58:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680512156; x=1712048156;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=F93NA195UracAbWUEKDDZVCb9cJPr6uIRKOxHZt9f0M=;
- b=cGrLloxVzPMVxZBx17hEdZJ2vj4jbI+IIK1GuLvUDe52TadXCV5QpzUo
- /WK/b+o0+QTxvBmm92+qM9CuXi/dKcwhXVRZpH0c3fQpIrGTNcbmC2kYw
- FkBwlqV7uMLFNohQWf7LrMVCn8AeMaJRdjBma4LuOCu9YDbU/gvJEhp7t
- v0Ge2PSfaHa0hcKz/TN0jnBCmrXl28cIAbyjKBDUBBjvt1KZ9cVQPV51q
- RE/tcUlmugFLG3JREUuMLoHm2OE4hmV1U8ZttofUp9D71NmQvTuqFvhFc
- ZAR88iTbu2Y95I5owrVvX5vaeh9cQzUWZilYwsqywzHtKR3Wx2zjF/rJY w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10668"; a="325846620"
-X-IronPort-AV: E=Sophos;i="5.98,314,1673942400"; d="scan'208";a="325846620"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2023 01:55:55 -0700
+ t=1680512297; x=1712048297;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to; bh=M2GWXz1MzSQCbyP7x+nOTSp6M9aXXwmV9T9qYuCOAMg=;
+ b=VivLmk0lCgSP9AXN69r7FoQEYMcvcQzfC5oQ0vydxAlz5E9yMGuyXlO6
+ Ctdj95PzBIFdTWGY3mQ0cicHKu2PxyImD5PMMUtDUSBS/gpJWrzQM7ucC
+ cPIO8XOx57m6S1jRmeAPDrReiSuQP4mT95gzqVFNHFR1qj9qOtWyucxiJ
+ gws/3gRP6GcIE3Pbkbg7Zcejsslf0zQh3V6GBDD6iTrgMRLo+N3/BFYJU
+ 1+WQdF8MjGjGRbhFiHdJRDzEdQ/y7rFQNimu8IT0otcUjiEmRsbLXDnx2
+ TjkyM3S/JBgKpJLxKu+mImWnlCZhvgCafaMjQPV5kcaInvvEJml58plWp g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10668"; a="344398224"
+X-IronPort-AV: E=Sophos;i="5.98,314,1673942400"; 
+ d="scan'208,217";a="344398224"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Apr 2023 01:58:16 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10668"; a="636048681"
-X-IronPort-AV: E=Sophos;i="5.98,314,1673942400"; d="scan'208";a="636048681"
-Received: from sorvi2.fi.intel.com ([10.237.72.194])
- by orsmga003.jf.intel.com with ESMTP; 03 Apr 2023 01:55:52 -0700
-From: Mika Kahola <mika.kahola@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon,  3 Apr 2023 11:50:43 +0300
-Message-Id: <20230403085043.2219092-1-mika.kahola@intel.com>
-X-Mailer: git-send-email 2.34.1
+X-IronPort-AV: E=McAfee;i="6600,9927,10668"; a="755155392"
+X-IronPort-AV: E=Sophos;i="5.98,314,1673942400"; 
+ d="scan'208,217";a="755155392"
+Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.28.167])
+ ([10.213.28.167])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Apr 2023 01:58:15 -0700
+Content-Type: multipart/alternative;
+ boundary="------------zVxwY0aPRl7YR2mSH8QTZ4ya"
+Message-ID: <efdd1c4c-8545-76c9-e0b4-05af2b0b4f5e@intel.com>
+Date: Mon, 3 Apr 2023 10:58:13 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/mtl: Add support for PM DEMAND
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.9.1
+Content-Language: en-US
+To: intel-gfx@lists.freedesktop.org
+References: <20230330-hold_wakeref_for_active_vm-v2-1-724d201499c2@intel.com>
+ <168037214477.8633.716359384690927545@emeril.freedesktop.org>
+From: Andrzej Hajda <andrzej.hajda@intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <168037214477.8633.716359384690927545@emeril.freedesktop.org>
+Subject: Re: [Intel-gfx] 
+ =?utf-8?b?4pyXIEZpLkNJLklHVDogZmFpbHVyZSBmb3IgZHJt?=
+ =?utf-8?q?/i915/gt=3A_Hold_a_wakeref_for_the_active_VM_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,648 +67,581 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Display14 introduces a new way to instruct the PUnit with
-power and bandwidth requirements of DE. Add the functionality
-to program the registers and handle waits using interrupts.
-The current wait time for timeouts is programmed for 10 msecs to
-factor in the worst case scenarios. Changes made to use REG_BIT
-for a register that we touched(GEN8_DE_MISC_IER _MMIO).
+This is a multi-part message in MIME format.
+--------------zVxwY0aPRl7YR2mSH8QTZ4ya
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-v2:
-  - Removed repeated definition of dbuf, which has been moved to struct
-    intel_display. (Gustavo)
-  - s/dev_priv->dbuf/dev_priv->display.dbuf/ (Gustavo)
 
-Bspec: 66451, 64636, 64602, 64603
-Cc: Matt Atwood <matthew.s.atwood@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Gustavo Sousa <gustavo.sousa@intel.com>
-Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
-Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
----
- drivers/gpu/drm/i915/display/intel_bw.c       |   4 +-
- drivers/gpu/drm/i915/display/intel_bw.h       |   2 +
- drivers/gpu/drm/i915/display/intel_display.c  |  14 +
- .../drm/i915/display/intel_display_power.c    |   8 +
- drivers/gpu/drm/i915/i915_drv.h               |   6 +
- drivers/gpu/drm/i915/i915_irq.c               |  22 +-
- drivers/gpu/drm/i915/i915_reg.h               |  33 +-
- drivers/gpu/drm/i915/intel_pm.c               | 293 ++++++++++++++++++
- drivers/gpu/drm/i915/intel_pm.h               |  35 +++
- 9 files changed, 412 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
-index 202321ffbe2a..87c20bf52123 100644
---- a/drivers/gpu/drm/i915/display/intel_bw.c
-+++ b/drivers/gpu/drm/i915/display/intel_bw.c
-@@ -746,8 +746,8 @@ static unsigned int intel_bw_num_active_planes(struct drm_i915_private *dev_priv
- 	return num_active_planes;
- }
- 
--static unsigned int intel_bw_data_rate(struct drm_i915_private *dev_priv,
--				       const struct intel_bw_state *bw_state)
-+unsigned int intel_bw_data_rate(struct drm_i915_private *dev_priv,
-+				const struct intel_bw_state *bw_state)
- {
- 	unsigned int data_rate = 0;
- 	enum pipe pipe;
-diff --git a/drivers/gpu/drm/i915/display/intel_bw.h b/drivers/gpu/drm/i915/display/intel_bw.h
-index f20292143745..17fc0b61db04 100644
---- a/drivers/gpu/drm/i915/display/intel_bw.h
-+++ b/drivers/gpu/drm/i915/display/intel_bw.h
-@@ -62,6 +62,8 @@ int intel_bw_init(struct drm_i915_private *dev_priv);
- int intel_bw_atomic_check(struct intel_atomic_state *state);
- void intel_bw_crtc_update(struct intel_bw_state *bw_state,
- 			  const struct intel_crtc_state *crtc_state);
-+unsigned int intel_bw_data_rate(struct drm_i915_private *dev_priv,
-+				const struct intel_bw_state *bw_state);
- int icl_pcode_restrict_qgv_points(struct drm_i915_private *dev_priv,
- 				  u32 points_mask);
- int intel_bw_calc_min_cdclk(struct intel_atomic_state *state,
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index b53a1d969344..ee7ca33123b1 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -959,6 +959,9 @@ intel_get_crtc_new_encoder(const struct intel_atomic_state *state,
- 		num_encoders++;
- 	}
- 
-+	if (!encoder)
-+		return NULL;
-+
- 	drm_WARN(encoder->base.dev, num_encoders != 1,
- 		 "%d encoders for pipe %c\n",
- 		 num_encoders, pipe_name(master_crtc->pipe));
-@@ -6767,6 +6770,10 @@ int intel_atomic_check(struct drm_device *dev,
- 		ret = intel_modeset_calc_cdclk(state);
- 		if (ret)
- 			return ret;
-+
-+		ret = intel_pmdemand_atomic_check(state);
-+		if (ret)
-+			goto fail;
- 	}
- 
- 	ret = intel_atomic_check_crtcs(state);
-@@ -7411,6 +7418,7 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 	}
- 
- 	intel_sagv_pre_plane_update(state);
-+	intel_pmdemand_pre_plane_update(state);
- 
- 	/* Complete the events for pipes that have now been disabled */
- 	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
-@@ -7523,6 +7531,7 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 		intel_verify_planes(state);
- 
- 	intel_sagv_post_plane_update(state);
-+	intel_pmdemand_post_plane_update(state);
- 
- 	drm_atomic_helper_commit_hw_done(&state->base);
- 
-@@ -8250,6 +8259,7 @@ void intel_init_display_hooks(struct drm_i915_private *dev_priv)
- 	intel_color_init_hooks(dev_priv);
- 	intel_init_cdclk_hooks(dev_priv);
- 	intel_audio_hooks_init(dev_priv);
-+	intel_init_pmdemand(dev_priv);
- 
- 	intel_dpll_init_clock_hook(dev_priv);
- 
-@@ -8476,6 +8486,10 @@ int intel_modeset_init_noirq(struct drm_i915_private *i915)
- 	if (ret)
- 		goto cleanup_vga_client_pw_domain_dmc;
- 
-+	ret = intel_pmdemand_init(i915);
-+	if (ret)
-+		goto cleanup_vga_client_pw_domain_dmc;
-+
- 	init_llist_head(&i915->display.atomic_helper.free_list);
- 	INIT_WORK(&i915->display.atomic_helper.free_work,
- 		  intel_atomic_helper_free_state_worker);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index 5e85572dc8e4..04c172b5c17b 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -19,6 +19,7 @@
- #include "intel_mchbar_regs.h"
- #include "intel_pch_refclk.h"
- #include "intel_pcode.h"
-+#include "intel_pm.h"
- #include "intel_pps_regs.h"
- #include "intel_snps_phy.h"
- #include "skl_watermark.h"
-@@ -1083,6 +1084,10 @@ static void gen9_dbuf_enable(struct drm_i915_private *dev_priv)
- 	dev_priv->display.dbuf.enabled_slices =
- 		intel_enabled_dbuf_slices_mask(dev_priv);
- 
-+	if (DISPLAY_VER(dev_priv) >= 14)
-+		intel_program_dbuf_pmdemand(dev_priv, BIT(DBUF_S1) |
-+					    dev_priv->display.dbuf.enabled_slices);
-+
- 	/*
- 	 * Just power up at least 1 slice, we will
- 	 * figure out later which slices we have and what we need.
-@@ -1094,6 +1099,9 @@ static void gen9_dbuf_enable(struct drm_i915_private *dev_priv)
- static void gen9_dbuf_disable(struct drm_i915_private *dev_priv)
- {
- 	gen9_dbuf_slices_update(dev_priv, 0);
-+
-+	if (DISPLAY_VER(dev_priv) >= 14)
-+		intel_program_dbuf_pmdemand(dev_priv, 0);
- }
- 
- static void gen12_dbuf_slices_config(struct drm_i915_private *dev_priv)
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index e771fdc3099c..2a73e726c6ed 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -250,6 +250,12 @@ struct drm_i915_private {
- 	unsigned int hpll_freq;
- 	unsigned int czclk_freq;
- 
-+	struct {
-+		wait_queue_head_t waitqueue;
-+		struct mutex lock;
-+		struct intel_global_obj obj;
-+	} pmdemand;
-+
- 	/**
- 	 * wq - Driver workqueue for GEM.
- 	 *
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index c0888cc88d04..636033bb9650 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -1913,6 +1913,11 @@ static u32 gen8_de_pipe_fault_mask(struct drm_i915_private *dev_priv)
- 		return GEN8_DE_PIPE_IRQ_FAULT_ERRORS;
- }
- 
-+static void intel_pmdemand_irq_handler(struct drm_i915_private *dev_priv)
-+{
-+	wake_up_all(&dev_priv->pmdemand.waitqueue);
-+}
-+
- static void
- gen8_de_misc_irq_handler(struct drm_i915_private *dev_priv, u32 iir)
- {
-@@ -1949,6 +1954,18 @@ gen8_de_misc_irq_handler(struct drm_i915_private *dev_priv, u32 iir)
- 		}
- 	}
- 
-+	if (iir & XELPDP_PMDEMAND_RSPTOUT_ERR) {
-+		drm_dbg(&dev_priv->drm,
-+			"Error waiting for Punit PM Demand Response\n");
-+		intel_pmdemand_irq_handler(dev_priv);
-+		found = true;
-+	}
-+
-+	if (iir & XELPDP_PMDEMAND_RSP) {
-+		intel_pmdemand_irq_handler(dev_priv);
-+		found = true;
-+	}
-+
- 	if (!found)
- 		drm_err(&dev_priv->drm, "Unexpected DE Misc interrupt\n");
- }
-@@ -3315,7 +3332,10 @@ static void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
- 	if (IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv))
- 		de_port_masked |= BXT_DE_PORT_GMBUS;
- 
--	if (DISPLAY_VER(dev_priv) >= 11) {
-+	if (DISPLAY_VER(dev_priv) >= 14)
-+		de_misc_masked |= XELPDP_PMDEMAND_RSPTOUT_ERR |
-+				  XELPDP_PMDEMAND_RSP;
-+	else if (DISPLAY_VER(dev_priv) >= 11) {
- 		enum port port;
- 
- 		if (intel_bios_is_dsi_present(dev_priv, &port))
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 8d26fa2765c1..7f8e750665ed 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -4783,8 +4783,10 @@
- #define GEN8_DE_MISC_IMR _MMIO(0x44464)
- #define GEN8_DE_MISC_IIR _MMIO(0x44468)
- #define GEN8_DE_MISC_IER _MMIO(0x4446c)
--#define  GEN8_DE_MISC_GSE		(1 << 27)
--#define  GEN8_DE_EDP_PSR		(1 << 19)
-+#define  XELPDP_PMDEMAND_RSPTOUT_ERR	REG_BIT(27)
-+#define  GEN8_DE_MISC_GSE		REG_BIT(27)
-+#define  GEN8_DE_EDP_PSR		REG_BIT(19)
-+#define  XELPDP_PMDEMAND_RSP		REG_BIT(3)
- 
- #define GEN8_PCU_ISR _MMIO(0x444e0)
- #define GEN8_PCU_IMR _MMIO(0x444e4)
-@@ -4847,6 +4849,33 @@
- #define  GEN11_HOTPLUG_CTL_SHORT_DETECT(hpd_pin)	(1 << (_HPD_PIN_TC(hpd_pin) * 4))
- #define  GEN11_HOTPLUG_CTL_NO_DETECT(hpd_pin)		(0 << (_HPD_PIN_TC(hpd_pin) * 4))
- 
-+#define XELPDP_INITIATE_PMDEMAND_REQUEST(dword)		_MMIO(0x45230 + 4 * (dword))
-+#define  XELPDP_PMDEMAND_QCLK_GV_BW_MASK		REG_GENMASK(31, 16)
-+#define  XELPDP_PMDEMAND_QCLK_GV_BW(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_QCLK_GV_BW_MASK, x)
-+#define  XELPDP_PMDEMAND_VOLTAGE_INDEX_MASK		REG_GENMASK(14, 12)
-+#define  XELPDP_PMDEMAND_VOLTAGE_INDEX(x)		REG_FIELD_PREP(XELPDP_PMDEMAND_VOLTAGE_INDEX_MASK, x)
-+#define  XELPDP_PMDEMAND_QCLK_GV_INDEX_MASK		REG_GENMASK(11, 8)
-+#define  XELPDP_PMDEMAND_QCLK_GV_INDEX(x)		REG_FIELD_PREP(XELPDP_PMDEMAND_QCLK_GV_INDEX_MASK, x)
-+#define  XELPDP_PMDEMAND_PIPES_MASK			REG_GENMASK(7, 6)
-+#define  XELPDP_PMDEMAND_PIPES(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_PIPES_MASK, x)
-+#define  XELPDP_PMDEMAND_DBUFS_MASK			REG_GENMASK(5, 4)
-+#define  XELPDP_PMDEMAND_DBUFS(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_DBUFS_MASK, x)
-+#define  XELPDP_PMDEMAND_PHYS_MASK			REG_GENMASK(2, 0)
-+#define  XELPDP_PMDEMAND_PHYS(x)				REG_FIELD_PREP(XELPDP_PMDEMAND_PHYS_MASK, x)
-+
-+#define  XELPDP_PMDEMAND_REQ_ENABLE			REG_BIT(31)
-+#define  XELPDP_PMDEMAND_CDCLK_FREQ_MASK		REG_GENMASK(30, 20)
-+#define  XELPDP_PMDEMAND_CDCLK_FREQ(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_CDCLK_FREQ_MASK, x)
-+#define  XELPDP_PMDEMAND_DDICLK_FREQ_MASK		REG_GENMASK(18, 8)
-+#define  XELPDP_PMDEMAND_DDICLK_FREQ(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_DDICLK_FREQ_MASK, x)
-+#define  XELPDP_PMDEMAND_SCALERS_MASK			REG_GENMASK(6, 4)
-+#define  XELPDP_PMDEMAND_SCALERS(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_SCALERS_MASK, x)
-+#define  XELPDP_PMDEMAND_PLLS_MASK			REG_GENMASK(2, 0)
-+#define  XELPDP_PMDEMAND_PLLS(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_PLLS_MASK, x)
-+
-+#define GEN12_DCPR_STATUS_1				_MMIO(0x46440)
-+#define  XELPDP_PMDEMAND_INFLIGHT_STATUS		REG_BIT(26)
-+
- #define ILK_DISPLAY_CHICKEN2	_MMIO(0x42004)
- /* Required on all Ironlake and Sandybridge according to the B-Spec. */
- #define  ILK_ELPIN_409_SELECT	(1 << 25)
-diff --git a/drivers/gpu/drm/i915/intel_pm.c b/drivers/gpu/drm/i915/intel_pm.c
-index c45af0d981fd..877997e4141d 100644
---- a/drivers/gpu/drm/i915/intel_pm.c
-+++ b/drivers/gpu/drm/i915/intel_pm.c
-@@ -25,6 +25,10 @@
-  *
-  */
- 
-+#include <linux/bitops.h>
-+
-+#include "display/intel_bw.h"
-+#include "display/intel_cdclk.h"
- #include "display/intel_de.h"
- #include "display/intel_display.h"
- #include "display/intel_display_trace.h"
-@@ -40,6 +44,14 @@
- #include "intel_pm.h"
- #include "vlv_sideband.h"
- 
-+bool intel_is_c10phy(struct drm_i915_private *dev_priv, enum phy phy)
-+{
-+        if (IS_METEORLAKE(dev_priv) && (phy < PHY_C))
-+                return true;
-+
-+        return false;
-+}
-+
- struct drm_i915_clock_gating_funcs {
- 	void (*init_clock_gating)(struct drm_i915_private *i915);
- };
-@@ -124,6 +136,287 @@ static void glk_init_clock_gating(struct drm_i915_private *dev_priv)
- 		   PWM1_GATING_DIS | PWM2_GATING_DIS);
- }
- 
-+static struct intel_global_state *intel_pmdemand_duplicate_state(struct intel_global_obj *obj)
-+{
-+	struct intel_pmdemand_state *pmdmnd_state;
-+
-+	pmdmnd_state = kmemdup(obj->state, sizeof(*pmdmnd_state), GFP_KERNEL);
-+	if (!pmdmnd_state)
-+		return NULL;
-+
-+	return &pmdmnd_state->base;
-+}
-+
-+static void intel_pmdemand_destroy_state(struct intel_global_obj *obj,
-+					 struct intel_global_state *state)
-+{
-+	kfree(state);
-+}
-+
-+static const struct intel_global_state_funcs intel_pmdemand_funcs = {
-+	.atomic_duplicate_state = intel_pmdemand_duplicate_state,
-+	.atomic_destroy_state = intel_pmdemand_destroy_state,
-+};
-+
-+struct intel_pmdemand_state *
-+intel_atomic_get_pmdemand_state(struct intel_atomic_state *state)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
-+	struct intel_global_state *pmdemand_state;
-+
-+	pmdemand_state = intel_atomic_get_global_obj_state(state, &dev_priv->pmdemand.obj);
-+	if (IS_ERR(pmdemand_state))
-+		return ERR_CAST(pmdemand_state);
-+
-+	return to_intel_pmdemand_state(pmdemand_state);
-+}
-+
-+int intel_pmdemand_init(struct drm_i915_private *dev_priv)
-+{
-+	struct intel_pmdemand_state *pmdemand_state;
-+
-+	pmdemand_state = kzalloc(sizeof(*pmdemand_state), GFP_KERNEL);
-+	if (!pmdemand_state)
-+		return -ENOMEM;
-+
-+	intel_atomic_global_obj_init(dev_priv, &dev_priv->pmdemand.obj,
-+				     &pmdemand_state->base, &intel_pmdemand_funcs);
-+
-+	return 0;
-+}
-+
-+void intel_init_pmdemand(struct drm_i915_private *dev_priv)
-+{
-+	mutex_init(&dev_priv->pmdemand.lock);
-+	init_waitqueue_head(&dev_priv->pmdemand.waitqueue);
-+}
-+
-+int intel_pmdemand_atomic_check(struct intel_atomic_state *state)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
-+	struct intel_pmdemand_state *new_pmdemand_state = NULL;
-+	struct intel_crtc_state *old_crtc_state, *new_crtc_state;
-+	struct intel_crtc *crtc;
-+	struct intel_encoder *encoder;
-+	struct intel_bw_state *new_bw_state;
-+	const struct intel_dbuf_state *new_dbuf_state;
-+	const struct intel_cdclk_state *new_cdclk_state;
-+	int port_clock = 0;
-+	unsigned int data_rate;
-+	enum phy phy;
-+	int i, ret;
-+
-+	if (DISPLAY_VER(dev_priv) < 14)
-+		return 0;
-+
-+	new_pmdemand_state = intel_atomic_get_pmdemand_state(state);
-+	if (IS_ERR(new_pmdemand_state))
-+		return PTR_ERR(new_pmdemand_state);
-+
-+	ret = intel_atomic_lock_global_state(&new_pmdemand_state->base);
-+	if (ret)
-+		return ret;
-+
-+	/* Punit figures out the voltage index based on bandwidth*/
-+	new_bw_state = intel_atomic_get_bw_state(state);
-+	if (IS_ERR(new_bw_state))
-+		return PTR_ERR(new_bw_state);
-+
-+	/* firmware will calculate the qclck_gc_index, requirement is set to 0 */
-+	new_pmdemand_state->qclk_gv_index = 0;
-+
-+	data_rate = intel_bw_data_rate(dev_priv, new_bw_state);
-+	/* To MBs then to multiples of 100MBs */
-+	data_rate = DIV_ROUND_UP(data_rate, 1000);
-+	data_rate = DIV_ROUND_UP(data_rate, 100);
-+	new_pmdemand_state->qclk_gv_bw = data_rate;
-+
-+	new_dbuf_state = intel_atomic_get_dbuf_state(state);
-+	if (IS_ERR(new_dbuf_state))
-+		return PTR_ERR(new_dbuf_state);
-+
-+	i = hweight8(new_dbuf_state->active_pipes);
-+	new_pmdemand_state->active_pipes = min(i, 3);
-+
-+	new_cdclk_state = intel_atomic_get_cdclk_state(state);
-+	if (IS_ERR(new_cdclk_state))
-+		return PTR_ERR(new_cdclk_state);
-+
-+	new_pmdemand_state->voltage_index = new_cdclk_state->logical.voltage_level;
-+	/* KHz to MHz */
-+	new_pmdemand_state->cdclk_freq_mhz = DIV_ROUND_UP(new_cdclk_state->logical.cdclk, 1000);
-+
-+	new_pmdemand_state->active_phys_plls_mask = 0;
-+
-+	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
-+		if (!new_crtc_state->hw.active)
-+			continue;
-+
-+		encoder = intel_get_crtc_new_encoder(state, new_crtc_state);
-+		if (!encoder)
-+			continue;
-+
-+		phy = intel_port_to_phy(dev_priv, encoder->port);
-+
-+		if (intel_is_c10phy(dev_priv, phy))
-+			new_pmdemand_state->active_phys_plls_mask |= BIT(phy);
-+
-+		port_clock = max(port_clock, new_crtc_state->port_clock);
-+	}
-+
-+	/* To MHz */
-+	new_pmdemand_state->ddiclk_freq_mhz = DIV_ROUND_UP(port_clock, 1000);
-+
-+	/*
-+	 * Setting scalers to max as it can not be calculated during flips and
-+	 * fastsets without taking global states locks.
-+	 */
-+	new_pmdemand_state->scalers = 7;
-+
-+	return 0;
-+}
-+
-+static bool intel_pmdemand_check_prev_transaction(struct drm_i915_private *dev_priv)
-+{
-+	return !((intel_de_read(dev_priv, XELPDP_INITIATE_PMDEMAND_REQUEST(1)) & XELPDP_PMDEMAND_REQ_ENABLE) ||
-+		(intel_de_read(dev_priv, GEN12_DCPR_STATUS_1) & XELPDP_PMDEMAND_INFLIGHT_STATUS));
-+}
-+
-+static bool intel_pmdemand_req_complete(struct drm_i915_private *dev_priv)
-+{
-+	return !(intel_de_read(dev_priv, XELPDP_INITIATE_PMDEMAND_REQUEST(1)) & XELPDP_PMDEMAND_REQ_ENABLE);
-+}
-+
-+static int intel_pmdemand_wait(struct drm_i915_private *dev_priv)
-+{
-+	DEFINE_WAIT(wait);
-+	int ret;
-+	const unsigned int timeout_ms = 10;
-+
-+	add_wait_queue(&dev_priv->pmdemand.waitqueue, &wait);
-+
-+	ret = wait_event_timeout(dev_priv->pmdemand.waitqueue,
-+				 intel_pmdemand_req_complete(dev_priv),
-+				 msecs_to_jiffies_timeout(timeout_ms));
-+	if (ret < 0)
-+		drm_err(&dev_priv->drm,
-+			"timed out waiting for Punit PM Demand Response\n");
-+
-+	remove_wait_queue(&dev_priv->pmdemand.waitqueue, &wait);
-+
-+	return ret;
-+}
-+
-+/* Required to be programmed during Display Init Sequences. */
-+void intel_program_dbuf_pmdemand(struct drm_i915_private *dev_priv,
-+				 u8 dbuf_slices)
-+{
-+	mutex_lock(&dev_priv->pmdemand.lock);
-+	if (drm_WARN_ON(&dev_priv->drm,
-+			!intel_pmdemand_check_prev_transaction(dev_priv)))
-+		goto unlock;
-+
-+	intel_de_rmw(dev_priv, XELPDP_INITIATE_PMDEMAND_REQUEST(0),
-+		     XELPDP_PMDEMAND_DBUFS_MASK,
-+		     XELPDP_PMDEMAND_DBUFS(hweight32(dbuf_slices)));
-+	intel_de_rmw(dev_priv, XELPDP_INITIATE_PMDEMAND_REQUEST(1), 0,
-+		     XELPDP_PMDEMAND_REQ_ENABLE);
-+
-+	intel_pmdemand_wait(dev_priv);
-+unlock:
-+	mutex_unlock(&dev_priv->pmdemand.lock);
-+}
-+
-+static void intel_program_pmdemand(struct drm_i915_private *dev_priv,
-+				   const struct intel_pmdemand_state *new,
-+				   const struct intel_pmdemand_state *old)
-+{
-+	u32 val, tmp;
-+
-+#define UPDATE_PMDEMAND_VAL(val, F, f) do {            \
-+	val &= (~(XELPDP_PMDEMAND_##F##_MASK));         \
-+	val |= (XELPDP_PMDEMAND_##F((u32)(old ? max(old->f, new->f) : new->f))); \
-+} while (0)
-+
-+	mutex_lock(&dev_priv->pmdemand.lock);
-+	if (drm_WARN_ON(&dev_priv->drm,
-+			!intel_pmdemand_check_prev_transaction(dev_priv)))
-+		goto unlock;
-+
-+	/*
-+	 * TODO: Update programming PM Demand for
-+	 * PHYS, PLLS, DDI_CLKFREQ, SCALARS
-+	 */
-+	val = intel_de_read(dev_priv, XELPDP_INITIATE_PMDEMAND_REQUEST(0));
-+	UPDATE_PMDEMAND_VAL(val, QCLK_GV_INDEX, qclk_gv_index);
-+	UPDATE_PMDEMAND_VAL(val, QCLK_GV_BW, qclk_gv_bw);
-+	UPDATE_PMDEMAND_VAL(val, VOLTAGE_INDEX, voltage_index);
-+	UPDATE_PMDEMAND_VAL(val, PIPES, active_pipes);
-+	UPDATE_PMDEMAND_VAL(val, DBUFS, dbufs);
-+	tmp = hweight32(new->active_phys_plls_mask);
-+	if (old)
-+		tmp = max(tmp, hweight32(old->active_phys_plls_mask));
-+	val |= XELPDP_PMDEMAND_PHYS(tmp);
-+
-+	intel_de_write(dev_priv, XELPDP_INITIATE_PMDEMAND_REQUEST(0), val);
-+
-+	val = intel_de_read(dev_priv, XELPDP_INITIATE_PMDEMAND_REQUEST(1));
-+	UPDATE_PMDEMAND_VAL(val, CDCLK_FREQ, cdclk_freq_mhz);
-+	UPDATE_PMDEMAND_VAL(val, DDICLK_FREQ, ddiclk_freq_mhz);
-+	UPDATE_PMDEMAND_VAL(val, SCALERS, scalers);
-+	/*
-+	 * Active_PLLs starts with 1 because of CDCLK PLL.
-+	 * TODO: Missing to account genlock filter when it gets used.
-+	 */
-+	val |= XELPDP_PMDEMAND_PLLS(tmp + 1);
-+
-+	intel_de_write(dev_priv, XELPDP_INITIATE_PMDEMAND_REQUEST(1), val);
-+
-+#undef UPDATE_PM_DEMAND_VAL
-+
-+	intel_de_rmw(dev_priv, XELPDP_INITIATE_PMDEMAND_REQUEST(1), 0, XELPDP_PMDEMAND_REQ_ENABLE);
-+
-+	intel_pmdemand_wait(dev_priv);
-+unlock:
-+	mutex_unlock(&dev_priv->pmdemand.lock);
-+}
-+
-+void intel_pmdemand_pre_plane_update(struct intel_atomic_state *state)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
-+	const struct intel_pmdemand_state *new_pmdmnd_state =
-+		intel_atomic_get_new_pmdemand_state(state);
-+	const struct intel_pmdemand_state *old_pmdmnd_state =
-+		intel_atomic_get_old_pmdemand_state(state);
-+
-+	if (DISPLAY_VER(dev_priv) < 14)
-+		return;
-+
-+	if (!new_pmdmnd_state ||
-+	    memcmp(new_pmdmnd_state, old_pmdmnd_state, sizeof(*new_pmdmnd_state)) == 0)
-+		return;
-+
-+	intel_program_pmdemand(dev_priv, new_pmdmnd_state, old_pmdmnd_state);
-+}
-+
-+void intel_pmdemand_post_plane_update(struct intel_atomic_state *state)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
-+	const struct intel_pmdemand_state *new_pmdmnd_state =
-+		intel_atomic_get_new_pmdemand_state(state);
-+	const struct intel_pmdemand_state *old_pmdmnd_state =
-+		intel_atomic_get_old_pmdemand_state(state);
-+
-+	if (DISPLAY_VER(dev_priv) < 14)
-+		return;
-+
-+	if (!new_pmdmnd_state ||
-+	    memcmp(new_pmdmnd_state, old_pmdmnd_state, sizeof(*new_pmdmnd_state)) == 0)
-+		return;
-+
-+	intel_program_pmdemand(dev_priv, new_pmdmnd_state, NULL);
-+}
-+
- static void ibx_init_clock_gating(struct drm_i915_private *dev_priv)
- {
- 	/*
-diff --git a/drivers/gpu/drm/i915/intel_pm.h b/drivers/gpu/drm/i915/intel_pm.h
-index f774bddcdca6..2663bec408c7 100644
---- a/drivers/gpu/drm/i915/intel_pm.h
-+++ b/drivers/gpu/drm/i915/intel_pm.h
-@@ -8,11 +8,46 @@
- 
- #include <linux/types.h>
- 
-+#include "display/intel_global_state.h"
-+
- struct drm_i915_private;
- struct intel_crtc_state;
- struct intel_plane_state;
- 
- void intel_init_clock_gating(struct drm_i915_private *dev_priv);
-+void intel_init_pmdemand(struct drm_i915_private *dev_priv);
- void intel_init_clock_gating_hooks(struct drm_i915_private *dev_priv);
- 
-+struct intel_pmdemand_state {
-+	struct intel_global_state base;
-+
-+	u16 qclk_gv_bw;
-+	u8 voltage_index;
-+	u8 qclk_gv_index;
-+	u8 active_pipes;
-+	u8 dbufs;
-+	u8 active_phys_plls_mask;
-+	u16 cdclk_freq_mhz;
-+	u16 ddiclk_freq_mhz;
-+	u8 scalers;
-+};
-+
-+int intel_pmdemand_init(struct drm_i915_private *dev_priv);
-+
-+struct intel_pmdemand_state *
-+intel_atomic_get_pmdemand_state(struct intel_atomic_state *state);
-+
-+#define to_intel_pmdemand_state(x) container_of((x), struct intel_pmdemand_state, base)
-+#define intel_atomic_get_old_pmdemand_state(state) \
-+	to_intel_pmdemand_state(intel_atomic_get_old_global_obj_state(state, &to_i915(state->base.dev)->pmdemand.obj))
-+#define intel_atomic_get_new_pmdemand_state(state) \
-+	to_intel_pmdemand_state(intel_atomic_get_new_global_obj_state(state, &to_i915(state->base.dev)->pmdemand.obj))
-+
-+int intel_pmdemand_init(struct drm_i915_private *dev_priv);
-+void intel_program_dbuf_pmdemand(struct drm_i915_private *dev_priv,
-+				 u8 dbuf_slices);
-+void intel_pmdemand_pre_plane_update(struct intel_atomic_state *state);
-+void intel_pmdemand_post_plane_update(struct intel_atomic_state *state);
-+int intel_pmdemand_atomic_check(struct intel_atomic_state *state);
-+
- #endif /* __INTEL_PM_H__ */
--- 
-2.34.1
+On 01.04.2023 20:02, Patchwork wrote:
+> Project List - Patchwork *Patch Details*
+> *Series:* 	drm/i915/gt: Hold a wakeref for the active VM (rev2)
+> *URL:* 	https://patchwork.freedesktop.org/series/115873/
+> *State:* 	failure
+> *Details:* 
+> https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/index.html
+>
+>
+>   CI Bug Log - changes from CI_DRM_12951_full -> Patchwork_115873v2_full
+>
+>
+>     Summary
+>
+> *FAILURE*
+>
+> Serious unknown changes coming with Patchwork_115873v2_full absolutely 
+> need to be
+> verified manually.
+>
+> If you think the reported changes have nothing to do with the changes
+> introduced in Patchwork_115873v2_full, please notify your bug team to 
+> allow them
+> to document this new failure mode, which will reduce false positives 
+> in CI.
+>
+>
+>     Participating hosts (7 -> 7)
+>
+> No changes in participating hosts
+>
+>
+>     Possible new issues
+>
+> Here are the unknown changes that may have been introduced in 
+> Patchwork_115873v2_full:
+>
+>
+>       IGT changes
+>
+>
+>         Possible regressions
+>
+>   * igt@gem_exec_fence@syncobj-repeat:
+>       o shard-glk: PASS
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-glk5/igt@gem_exec_fence@syncobj-repeat.html>
+>         -> TIMEOUT
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-glk9/igt@gem_exec_fence@syncobj-repeat.html>
+>         +2 similar issues
+>
 
+The actual test did not even start, because of failure on previous tests.
+All tests since igt@perf@enable-disable@0-rcs0 timeouts on this machine[1].
+Since igt@perf@enable-disable is untrusted/suppressed I guess it is not 
+related.
+Moreover v1(which differs only by comment) passed.
+Summarizing apparently known bug in igt@perf@subtests [2].
+
+[1]: 
+http://gfx-ci.igk.intel.com/tree/drm-tip/Patchwork_115873v2/shard-glk9/igt_runner13.txt
+[2]: https://gitlab.freedesktop.org/drm/intel/-/issues/5213
+
+Regards
+Andrzej
+
+>  *
+>
+>
+>         Warnings
+>
+>   * igt@kms_frontbuffer_tracking@fbcpsr-1p-offscren-pri-shrfb-draw-pwrite:
+>
+>       o shard-glk: SKIP
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-glk5/igt@kms_frontbuffer_tracking@fbcpsr-1p-offscren-pri-shrfb-draw-pwrite.html>
+>         (fdo#109271
+>         <https://bugs.freedesktop.org/show_bug.cgi?id=109271>) ->
+>         TIMEOUT
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-glk9/igt@kms_frontbuffer_tracking@fbcpsr-1p-offscren-pri-shrfb-draw-pwrite.html>
+>         +2 similar issues
+>
+>
+>         Suppressed
+>
+> The following results come from untrusted machines, tests, or statuses.
+> They do not affect the overall result.
+>
+>   * {igt@perf@enable-disable@0-rcs0}:
+>       o shard-glk: PASS
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-glk5/igt@perf@enable-disable@0-rcs0.html>
+>         -> TIMEOUT
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-glk9/igt@perf@enable-disable@0-rcs0.html>
+>
+>
+>     Known issues
+>
+> Here are the changes found in Patchwork_115873v2_full that come from 
+> known issues:
+>
+>
+>       IGT changes
+>
+>
+>         Issues hit
+>
+>  *
+>
+>     igt@gem_exec_fair@basic-deadline:
+>
+>       o shard-glk: PASS
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-glk9/igt@gem_exec_fair@basic-deadline.html>
+>         -> FAIL
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-glk8/igt@gem_exec_fair@basic-deadline.html>
+>         (i915#2846 <https://gitlab.freedesktop.org/drm/intel/issues/2846>)
+>  *
+>
+>     igt@gen9_exec_parse@allowed-single:
+>
+>       o shard-apl: PASS
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-apl7/igt@gen9_exec_parse@allowed-single.html>
+>         -> ABORT
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-apl3/igt@gen9_exec_parse@allowed-single.html>
+>         (i915#5566 <https://gitlab.freedesktop.org/drm/intel/issues/5566>)
+>  *
+>
+>     igt@i915_selftest@live@gt_heartbeat:
+>
+>       o shard-apl: PASS
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-apl1/igt@i915_selftest@live@gt_heartbeat.html>
+>         -> DMESG-FAIL
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-apl2/igt@i915_selftest@live@gt_heartbeat.html>
+>         (i915#5334 <https://gitlab.freedesktop.org/drm/intel/issues/5334>)
+>  *
+>
+>     igt@kms_async_flips@alternate-sync-async-flip@pipe-a-vga-1:
+>
+>       o shard-snb: PASS
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-snb5/igt@kms_async_flips@alternate-sync-async-flip@pipe-a-vga-1.html>
+>         -> FAIL
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-snb2/igt@kms_async_flips@alternate-sync-async-flip@pipe-a-vga-1.html>
+>         (i915#2521 <https://gitlab.freedesktop.org/drm/intel/issues/2521>)
+>  *
+>
+>     igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions:
+>
+>       o shard-glk: PASS
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-glk1/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions.html>
+>         -> FAIL
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-glk2/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions.html>
+>         (i915#2346 <https://gitlab.freedesktop.org/drm/intel/issues/2346>)
+>  *
+>
+>     igt@kms_flip@flip-vs-expired-vblank@b-dp1:
+>
+>       o shard-apl: PASS
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-apl4/igt@kms_flip@flip-vs-expired-vblank@b-dp1.html>
+>         -> FAIL
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-apl7/igt@kms_flip@flip-vs-expired-vblank@b-dp1.html>
+>         (i915#79 <https://gitlab.freedesktop.org/drm/intel/issues/79>)
+>  *
+>
+>     igt@kms_plane@plane-panning-bottom-right-suspend@pipe-a-planes:
+>
+>       o shard-apl: PASS
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-apl7/igt@kms_plane@plane-panning-bottom-right-suspend@pipe-a-planes.html>
+>         -> ABORT
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-apl3/igt@kms_plane@plane-panning-bottom-right-suspend@pipe-a-planes.html>
+>         (i915#180 <https://gitlab.freedesktop.org/drm/intel/issues/180>)
+>
+>
+>         Possible fixes
+>
+>  *
+>
+>     igt@gem_ctx_exec@basic-nohangcheck:
+>
+>       o {shard-tglu}: FAIL
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-tglu-2/igt@gem_ctx_exec@basic-nohangcheck.html>
+>         (i915#6268
+>         <https://gitlab.freedesktop.org/drm/intel/issues/6268>) ->
+>         PASS
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-tglu-10/igt@gem_ctx_exec@basic-nohangcheck.html>
+>  *
+>
+>     igt@gem_eio@in-flight-contexts-1us:
+>
+>       o {shard-tglu}: TIMEOUT
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-tglu-7/igt@gem_eio@in-flight-contexts-1us.html>
+>         (i915#3063
+>         <https://gitlab.freedesktop.org/drm/intel/issues/3063>) ->
+>         PASS
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-tglu-3/igt@gem_eio@in-flight-contexts-1us.html>
+>  *
+>
+>     igt@gem_eio@reset-stress:
+>
+>       o {shard-dg1}: FAIL
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-dg1-14/igt@gem_eio@reset-stress.html>
+>         (i915#5784
+>         <https://gitlab.freedesktop.org/drm/intel/issues/5784>) ->
+>         PASS
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-dg1-15/igt@gem_eio@reset-stress.html>
+>  *
+>
+>     igt@kms_cursor_legacy@2x-long-flip-vs-cursor-atomic:
+>
+>       o shard-glk: FAIL
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-glk1/igt@kms_cursor_legacy@2x-long-flip-vs-cursor-atomic.html>
+>         (i915#72 <https://gitlab.freedesktop.org/drm/intel/issues/72>)
+>         -> PASS
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-glk2/igt@kms_cursor_legacy@2x-long-flip-vs-cursor-atomic.html>
+>  *
+>
+>     igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size:
+>
+>      o
+>
+>         shard-apl: FAIL
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-apl2/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size.html>
+>         (i915#2346
+>         <https://gitlab.freedesktop.org/drm/intel/issues/2346>) ->
+>         PASS
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-apl6/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size.html>
+>
+>      o
+>
+>         shard-glk: FAIL
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-glk2/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size.html>
+>         (i915#2346
+>         <https://gitlab.freedesktop.org/drm/intel/issues/2346>) ->
+>         PASS
+>         <https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-glk4/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size.html>
+>
+> {name}: This element is suppressed. This means it is ignored when 
+> computing
+> the status of the difference (SUCCESS, WARNING, or FAILURE).
+>
+>
+>     Build changes
+>
+>   * Linux: CI_DRM_12951 -> Patchwork_115873v2
+>
+> CI-20190529: 20190529
+> CI_DRM_12951: f128906b94b25a0f0c12dc8c647b8adc8d934d8c @ 
+> git://anongit.freedesktop.org/gfx-ci/linux
+> IGT_7230: f0485204004305dd3ee8f8bbbb9c552e53a4e050 @ 
+> https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+> Patchwork_115873v2: f128906b94b25a0f0c12dc8c647b8adc8d934d8c @ 
+> git://anongit.freedesktop.org/gfx-ci/linux
+> piglit_4509: fdc5a4ca11124ab8413c7988896eec4c97336694 @ 
+> git://anongit.freedesktop.org/piglit
+>
+
+--------------zVxwY0aPRl7YR2mSH8QTZ4ya
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <br>
+    <br>
+    <div class="moz-cite-prefix">On 01.04.2023 20:02, Patchwork wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:168037214477.8633.716359384690927545@emeril.freedesktop.org">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>Project List - Patchwork</title>
+      <style id="css-table-select" type="text/css">td { padding: 2pt; }</style>
+      <b>Patch Details</b>
+      <table>
+        <tbody>
+          <tr>
+            <td><b>Series:</b></td>
+            <td>drm/i915/gt: Hold a wakeref for the active VM (rev2)</td>
+          </tr>
+          <tr>
+            <td><b>URL:</b></td>
+            <td><a
+                href="https://patchwork.freedesktop.org/series/115873/"
+                moz-do-not-send="true" class="moz-txt-link-freetext">https://patchwork.freedesktop.org/series/115873/</a></td>
+          </tr>
+          <tr>
+            <td><b>State:</b></td>
+            <td>failure</td>
+          </tr>
+          <tr>
+            <td><b>Details:</b></td>
+            <td><a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/index.html"
+                moz-do-not-send="true" class="moz-txt-link-freetext">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/index.html</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <h1>CI Bug Log - changes from CI_DRM_12951_full -&gt;
+        Patchwork_115873v2_full</h1>
+      <h2>Summary</h2>
+      <p><strong>FAILURE</strong></p>
+      <p>Serious unknown changes coming with Patchwork_115873v2_full
+        absolutely need to be<br>
+        verified manually.</p>
+      <p>If you think the reported changes have nothing to do with the
+        changes<br>
+        introduced in Patchwork_115873v2_full, please notify your bug
+        team to allow them<br>
+        to document this new failure mode, which will reduce false
+        positives in CI.</p>
+      <h2>Participating hosts (7 -&gt; 7)</h2>
+      <p>No changes in participating hosts</p>
+      <h2>Possible new issues</h2>
+      <p>Here are the unknown changes that may have been introduced in
+        Patchwork_115873v2_full:</p>
+      <h3>IGT changes</h3>
+      <h4>Possible regressions</h4>
+      <ul>
+        <li>igt@gem_exec_fence@syncobj-repeat:
+          <ul>
+            <li>shard-glk: <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-glk5/igt@gem_exec_fence@syncobj-repeat.html"
+                moz-do-not-send="true">PASS</a> -&gt; <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-glk9/igt@gem_exec_fence@syncobj-repeat.html"
+                moz-do-not-send="true">TIMEOUT</a> +2 similar issues</li>
+          </ul>
+        </li>
+      </ul>
+    </blockquote>
+    <br>
+    The actual test did not even start, because of failure on previous
+    tests.<br>
+    All tests since igt@perf@enable-disable@0-rcs0 timeouts on this
+    machine[1].<br>
+    Since igt@perf@enable-disable is untrusted/suppressed I guess it is
+    not related.<br>
+    Moreover v1(which differs only by comment) passed.<br>
+    Summarizing apparently known bug in igt@perf@subtests [2].<br>
+    <br>
+    [1]:
+<a class="moz-txt-link-freetext" href="http://gfx-ci.igk.intel.com/tree/drm-tip/Patchwork_115873v2/shard-glk9/igt_runner13.txt">http://gfx-ci.igk.intel.com/tree/drm-tip/Patchwork_115873v2/shard-glk9/igt_runner13.txt</a><br>
+    [2]: <a class="moz-txt-link-freetext" href="https://gitlab.freedesktop.org/drm/intel/-/issues/5213">https://gitlab.freedesktop.org/drm/intel/-/issues/5213</a><br>
+    <br>
+    Regards<br>
+    Andrzej<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:168037214477.8633.716359384690927545@emeril.freedesktop.org">
+      <ul>
+        <li>
+          <ul>
+          </ul>
+        </li>
+      </ul>
+      <h4>Warnings</h4>
+      <ul>
+        <li>igt@kms_frontbuffer_tracking@fbcpsr-1p-offscren-pri-shrfb-draw-pwrite:
+          <ul>
+            <li>shard-glk: <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-glk5/igt@kms_frontbuffer_tracking@fbcpsr-1p-offscren-pri-shrfb-draw-pwrite.html"
+                moz-do-not-send="true">SKIP</a> (<a
+                href="https://bugs.freedesktop.org/show_bug.cgi?id=109271"
+                moz-do-not-send="true">fdo#109271</a>) -&gt; <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-glk9/igt@kms_frontbuffer_tracking@fbcpsr-1p-offscren-pri-shrfb-draw-pwrite.html"
+                moz-do-not-send="true">TIMEOUT</a> +2 similar issues</li>
+          </ul>
+        </li>
+      </ul>
+      <h4>Suppressed</h4>
+      <p>The following results come from untrusted machines, tests, or
+        statuses.<br>
+        They do not affect the overall result.</p>
+      <ul>
+        <li>{igt@perf@enable-disable@0-rcs0}:
+          <ul>
+            <li>shard-glk: <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-glk5/igt@perf@enable-disable@0-rcs0.html"
+                moz-do-not-send="true">PASS</a> -&gt; <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-glk9/igt@perf@enable-disable@0-rcs0.html"
+                moz-do-not-send="true">TIMEOUT</a></li>
+          </ul>
+        </li>
+      </ul>
+      <h2>Known issues</h2>
+      <p>Here are the changes found in Patchwork_115873v2_full that come
+        from known issues:</p>
+      <h3>IGT changes</h3>
+      <h4>Issues hit</h4>
+      <ul>
+        <li>
+          <p>igt@gem_exec_fair@basic-deadline:</p>
+          <ul>
+            <li>shard-glk: <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-glk9/igt@gem_exec_fair@basic-deadline.html"
+                moz-do-not-send="true">PASS</a> -&gt; <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-glk8/igt@gem_exec_fair@basic-deadline.html"
+                moz-do-not-send="true">FAIL</a> (<a
+                href="https://gitlab.freedesktop.org/drm/intel/issues/2846"
+                moz-do-not-send="true">i915#2846</a>)</li>
+          </ul>
+        </li>
+        <li>
+          <p>igt@gen9_exec_parse@allowed-single:</p>
+          <ul>
+            <li>shard-apl: <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-apl7/igt@gen9_exec_parse@allowed-single.html"
+                moz-do-not-send="true">PASS</a> -&gt; <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-apl3/igt@gen9_exec_parse@allowed-single.html"
+                moz-do-not-send="true">ABORT</a> (<a
+                href="https://gitlab.freedesktop.org/drm/intel/issues/5566"
+                moz-do-not-send="true">i915#5566</a>)</li>
+          </ul>
+        </li>
+        <li>
+          <p>igt@i915_selftest@live@gt_heartbeat:</p>
+          <ul>
+            <li>shard-apl: <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-apl1/igt@i915_selftest@live@gt_heartbeat.html"
+                moz-do-not-send="true">PASS</a> -&gt; <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-apl2/igt@i915_selftest@live@gt_heartbeat.html"
+                moz-do-not-send="true">DMESG-FAIL</a> (<a
+                href="https://gitlab.freedesktop.org/drm/intel/issues/5334"
+                moz-do-not-send="true">i915#5334</a>)</li>
+          </ul>
+        </li>
+        <li>
+          <p>igt@kms_async_flips@alternate-sync-async-flip@pipe-a-vga-1:</p>
+          <ul>
+            <li>shard-snb: <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-snb5/igt@kms_async_flips@alternate-sync-async-flip@pipe-a-vga-1.html"
+                moz-do-not-send="true">PASS</a> -&gt; <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-snb2/igt@kms_async_flips@alternate-sync-async-flip@pipe-a-vga-1.html"
+                moz-do-not-send="true">FAIL</a> (<a
+                href="https://gitlab.freedesktop.org/drm/intel/issues/2521"
+                moz-do-not-send="true">i915#2521</a>)</li>
+          </ul>
+        </li>
+        <li>
+          <p>igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions:</p>
+          <ul>
+            <li>shard-glk: <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-glk1/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions.html"
+                moz-do-not-send="true">PASS</a> -&gt; <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-glk2/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions.html"
+                moz-do-not-send="true">FAIL</a> (<a
+                href="https://gitlab.freedesktop.org/drm/intel/issues/2346"
+                moz-do-not-send="true">i915#2346</a>)</li>
+          </ul>
+        </li>
+        <li>
+          <p>igt@kms_flip@flip-vs-expired-vblank@b-dp1:</p>
+          <ul>
+            <li>shard-apl: <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-apl4/igt@kms_flip@flip-vs-expired-vblank@b-dp1.html"
+                moz-do-not-send="true">PASS</a> -&gt; <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-apl7/igt@kms_flip@flip-vs-expired-vblank@b-dp1.html"
+                moz-do-not-send="true">FAIL</a> (<a
+                href="https://gitlab.freedesktop.org/drm/intel/issues/79"
+                moz-do-not-send="true">i915#79</a>)</li>
+          </ul>
+        </li>
+        <li>
+          <p>igt@kms_plane@plane-panning-bottom-right-suspend@pipe-a-planes:</p>
+          <ul>
+            <li>shard-apl: <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-apl7/igt@kms_plane@plane-panning-bottom-right-suspend@pipe-a-planes.html"
+                moz-do-not-send="true">PASS</a> -&gt; <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-apl3/igt@kms_plane@plane-panning-bottom-right-suspend@pipe-a-planes.html"
+                moz-do-not-send="true">ABORT</a> (<a
+                href="https://gitlab.freedesktop.org/drm/intel/issues/180"
+                moz-do-not-send="true">i915#180</a>)</li>
+          </ul>
+        </li>
+      </ul>
+      <h4>Possible fixes</h4>
+      <ul>
+        <li>
+          <p>igt@gem_ctx_exec@basic-nohangcheck:</p>
+          <ul>
+            <li>{shard-tglu}: <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-tglu-2/igt@gem_ctx_exec@basic-nohangcheck.html"
+                moz-do-not-send="true">FAIL</a> (<a
+                href="https://gitlab.freedesktop.org/drm/intel/issues/6268"
+                moz-do-not-send="true">i915#6268</a>) -&gt; <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-tglu-10/igt@gem_ctx_exec@basic-nohangcheck.html"
+                moz-do-not-send="true">PASS</a></li>
+          </ul>
+        </li>
+        <li>
+          <p>igt@gem_eio@in-flight-contexts-1us:</p>
+          <ul>
+            <li>{shard-tglu}: <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-tglu-7/igt@gem_eio@in-flight-contexts-1us.html"
+                moz-do-not-send="true">TIMEOUT</a> (<a
+                href="https://gitlab.freedesktop.org/drm/intel/issues/3063"
+                moz-do-not-send="true">i915#3063</a>) -&gt; <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-tglu-3/igt@gem_eio@in-flight-contexts-1us.html"
+                moz-do-not-send="true">PASS</a></li>
+          </ul>
+        </li>
+        <li>
+          <p>igt@gem_eio@reset-stress:</p>
+          <ul>
+            <li>{shard-dg1}: <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-dg1-14/igt@gem_eio@reset-stress.html"
+                moz-do-not-send="true">FAIL</a> (<a
+                href="https://gitlab.freedesktop.org/drm/intel/issues/5784"
+                moz-do-not-send="true">i915#5784</a>) -&gt; <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-dg1-15/igt@gem_eio@reset-stress.html"
+                moz-do-not-send="true">PASS</a></li>
+          </ul>
+        </li>
+        <li>
+          <p>igt@kms_cursor_legacy@2x-long-flip-vs-cursor-atomic:</p>
+          <ul>
+            <li>shard-glk: <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-glk1/igt@kms_cursor_legacy@2x-long-flip-vs-cursor-atomic.html"
+                moz-do-not-send="true">FAIL</a> (<a
+                href="https://gitlab.freedesktop.org/drm/intel/issues/72"
+                moz-do-not-send="true">i915#72</a>) -&gt; <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-glk2/igt@kms_cursor_legacy@2x-long-flip-vs-cursor-atomic.html"
+                moz-do-not-send="true">PASS</a></li>
+          </ul>
+        </li>
+        <li>
+          <p>igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size:</p>
+          <ul>
+            <li>
+              <p>shard-apl: <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-apl2/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size.html"
+                  moz-do-not-send="true">FAIL</a> (<a
+                  href="https://gitlab.freedesktop.org/drm/intel/issues/2346"
+                  moz-do-not-send="true">i915#2346</a>) -&gt; <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-apl6/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size.html"
+                  moz-do-not-send="true">PASS</a></p>
+            </li>
+            <li>
+              <p>shard-glk: <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12951/shard-glk2/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size.html"
+                  moz-do-not-send="true">FAIL</a> (<a
+                  href="https://gitlab.freedesktop.org/drm/intel/issues/2346"
+                  moz-do-not-send="true">i915#2346</a>) -&gt; <a
+href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_115873v2/shard-glk4/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size.html"
+                  moz-do-not-send="true">PASS</a></p>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <p>{name}: This element is suppressed. This means it is ignored
+        when computing<br>
+        the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+      <h2>Build changes</h2>
+      <ul>
+        <li>Linux: CI_DRM_12951 -&gt; Patchwork_115873v2</li>
+      </ul>
+      <p>CI-20190529: 20190529<br>
+        CI_DRM_12951: f128906b94b25a0f0c12dc8c647b8adc8d934d8c @
+        git://anongit.freedesktop.org/gfx-ci/linux<br>
+        IGT_7230: f0485204004305dd3ee8f8bbbb9c552e53a4e050 @
+        <a class="moz-txt-link-freetext" href="https://gitlab.freedesktop.org/drm/igt-gpu-tools.git">https://gitlab.freedesktop.org/drm/igt-gpu-tools.git</a><br>
+        Patchwork_115873v2: f128906b94b25a0f0c12dc8c647b8adc8d934d8c @
+        git://anongit.freedesktop.org/gfx-ci/linux<br>
+        piglit_4509: fdc5a4ca11124ab8413c7988896eec4c97336694 @
+        git://anongit.freedesktop.org/piglit</p>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------zVxwY0aPRl7YR2mSH8QTZ4ya--
