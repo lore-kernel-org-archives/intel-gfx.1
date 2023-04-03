@@ -4,59 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB4E8C76188
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 13:07:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B222C76188
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 13:07:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 419A310E948;
-	Wed,  5 Apr 2023 13:07:21 +0000 (UTC)
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89A5B10E1EC;
- Tue,  4 Apr 2023 21:20:32 +0000 (UTC)
-Received: by mail-ed1-x52c.google.com with SMTP id r11so136116230edd.5;
- Tue, 04 Apr 2023 14:20:32 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9257010E94C;
+	Wed,  5 Apr 2023 13:07:22 +0000 (UTC)
+Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com
+ [IPv6:2607:f8b0:4864:20::532])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C09610E475
+ for <intel-gfx@lists.freedesktop.org>; Mon,  3 Apr 2023 13:36:27 +0000 (UTC)
+Received: by mail-pg1-x532.google.com with SMTP id q191so184620pgq.7
+ for <intel-gfx@lists.freedesktop.org>; Mon, 03 Apr 2023 06:36:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=googlemail.com; s=20210112; t=1680643230;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=q5+FAUacxS+s9wS9+WZNPmawepdrV15aiNOEp44JCVM=;
- b=La2q1cdEt1u8ad1MBI9z/YWXhjb1ddmFhaPLuOFZUYuelVrfE8HIhxNPyvFClV0P7g
- svtJ9lEKx+c3VSuhd0Oz8p5I/gXLjPr7+DglxX6aD7V5k0vz++j4xeNMqMgquRg3AEv3
- 4y4BFu26N3/RiY4pKwASDwLAlCj7SrYCR+5KaJHbmQQzEQUeT2zoiOUeE0TkZcOSvoLC
- Z38gr3u/CJgZr4/T46A4/jqp+5gxiDeMV+GgKpmdtndU+NCKQVBh1OgsPzu2NOAn8FYW
- Bej2iZ9mMb+l4XonfKUVNMU/JWDiqiU4JrOABkvWWYqw8U+GKBEdUHA0SZjHpeTvE4Kn
- ffXg==
+ d=gmail.com; s=20210112; t=1680528986; x=1683120986;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=a7N1WSWoZn0JJ7eOsORwGMrwNl3/fBDC6Q3/zMBlJ3g=;
+ b=k1bO+o1c5CeXjCUGLxpFwnplL3MFWBVxbpUoZcBKXnGeqGk2BbeugWKbmePaXU8TDn
+ JcRN5QBfOiCZ3VzApAAzyro2u27pFYKVmvSfpVxo04tOoIqDhnEd91ApPeBDs7/Ttao6
+ pdrDJ3Yl4JQwlX9hh65I5oCZCIJxfWsYttHsPn1j2dntZyy8N8usf0yzrv7Xj2X2RRgx
+ oyOVWgGQ+udEXZgd54tvHsB2Ex+kTbLE2FRXkPXMsma7mGBd9tHQxBUDnGCOjxOS+4gM
+ 5XXqnSlwYWMdarzYzLOowARRfp7w4q4uC0gqHD556eUFgDyu8sCCY2JsL6/GZzilRP1A
+ Vdfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680643230;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=q5+FAUacxS+s9wS9+WZNPmawepdrV15aiNOEp44JCVM=;
- b=IfHaJ82RM2IwjRIbvz/Q7q2onTVc5FSZhX+/onzQ7oru2trj/86QAIdMkz58AJv8Qd
- 2p5XiGQS3ptXhErLGBh2l9SFA+MSmx6lbf5fC9cE/pQQnC1VVNDp35jE3GVVpX9X2K+A
- b3xqtSGtJGwfqI4nQiQ0yuu88qEAqEoHFKAol4iLPHLc/ZMNMBy1iyIZc8Z/hWnuKgo8
- LfMKmJCtjQnXFW/Sy6hxjrFFQHqGpZPPmYg/4oEflOGFSoJfcqbBKGHnrGDjKFdF9t6U
- iDKl+zVX0//Q+8SwPSYGMMGGXEA8nmNee3qFFtNAtWfziX/xUT3IGrFE5xaClOVut5gP
- SoBA==
-X-Gm-Message-State: AAQBX9drW1/r5Tg1kFxukwUxuZib/W6DW7c974Uj2MKv7kRWThcFbBSv
- TRbq3pkyB51Tgdc9G63D41ptsI8rzk8u84IxkgUT0xfLIx0=
-X-Google-Smtp-Source: AKy350YQ8eox73r1Pc5Z61GA80cewysG9JVXMIiHYkLb+7yCzu/Auu3EHBU62rmW7kSappwZiTuB5zbuMVnl6rg80/s=
-X-Received: by 2002:a17:907:c80b:b0:8f5:2e0e:6def with SMTP id
- ub11-20020a170907c80b00b008f52e0e6defmr565741ejc.0.1680643230540; Tue, 04 Apr
- 2023 14:20:30 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1680528986; x=1683120986;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=a7N1WSWoZn0JJ7eOsORwGMrwNl3/fBDC6Q3/zMBlJ3g=;
+ b=1ZksGZHtC99Pph+2EoEZUmwznat4ca6zu9aqyBMWIGBnrXCAx7seASF1tDRblF2xeI
+ aWeTOXXjxtveuX85Lm+Dssnd1ZZxK9Z+sr3DWtzsuBVX4IyRpKje/Lff4S5urNEMEfz8
+ cN2o2EFTHHv2YekPyr5pj78psW1leKDNsLR/eRnGg9DZBwMqzH489arnG89cmZsGnwfj
+ mg9V372MMfGeBD5maeE33H8WS1XhSU71+DhfhvF2e5vOicPFU0iuTUeWLxF9oJB2GOLh
+ Bowncg1ZelAz763/qePt+TQ7+IjuxtFSP0TQdwWoXEV8ugSNQjVsldECiBeozR9j+PvZ
+ ttGQ==
+X-Gm-Message-State: AAQBX9fNoeDCCmMCCP6Sl2OaWe0v0YeRh+Bm2hYxbST95oBOJ1kuH2eF
+ pXMyO0iE5F0xuNSCAxUNXS0=
+X-Google-Smtp-Source: AKy350aSgBmaCUIUvuM/O6IAuSON3DYO21PDfoqt0lSsBOpJz0wHBLR8825IPUN0xBLKIC75AdoNpw==
+X-Received: by 2002:a62:790e:0:b0:628:1155:3a69 with SMTP id
+ u14-20020a62790e000000b0062811553a69mr20154864pfc.1.1680528986406; 
+ Mon, 03 Apr 2023 06:36:26 -0700 (PDT)
+Received: from toolbox.. ([104.28.240.148]) by smtp.gmail.com with ESMTPSA id
+ i17-20020aa787d1000000b00627ed4e23e0sm6978669pfo.101.2023.04.03.06.36.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Apr 2023 06:36:25 -0700 (PDT)
+From: Qiyu Yan <yanqiyu01@gmail.com>
+To: airlied@gmail.com,
+	daniel@ffwll.ch
+Date: Mon,  3 Apr 2023 21:36:20 +0800
+Message-Id: <20230403133620.42905-1-yanqiyu01@gmail.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
-References: <20230404201842.567344-1-daniel.vetter@ffwll.ch>
- <20230404201842.567344-3-daniel.vetter@ffwll.ch>
-In-Reply-To: <20230404201842.567344-3-daniel.vetter@ffwll.ch>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Tue, 4 Apr 2023 23:20:19 +0200
-Message-ID: <CAFBinCCQ+DRZ-T8rBO=fpP8s47X11iM4oZ5=LEjp_HqjAFSivg@mail.gmail.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 05 Apr 2023 13:07:20 +0000
-Subject: Re: [Intel-gfx] [PATCH 3/8] drm/aperture: Remove primary argument
+Subject: [Intel-gfx] [PATCH] i915: Correct description of default value for
+ enable_psr2_sel_fetch
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,33 +71,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-hyperv@vger.kernel.org, Emma Anholt <emma@anholt.net>,
- linux-fbdev@vger.kernel.org, DRI Development <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>, David Airlie <airlied@gmail.com>,
- Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>,
- Helge Deller <deller@gmx.de>, Javier Martinez Canillas <javierm@redhat.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Deepak Rawat <drawat.floss@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Maxime Ripard <mripard@kernel.org>, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Qiyu Yan <yanqiyu01@gmail.com>, intel-gfx@lists.freedesktop.org,
+ trivial@kernel.org, linux-kernel@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 4, 2023 at 10:18=E2=80=AFPM Daniel Vetter <daniel.vetter@ffwll.=
-ch> wrote:
->
-> Only really pci devices have a business setting this - it's for
-> figuring out whether the legacy vga stuff should be nuked too. And
-> with the preceeding two patches those are all using the pci version of
-I think it's spelled "preceding"
+The default value of i915.enable_psr2_sel_fetch is true while the
+description given in i915_params.c is 0. Changing to correct the
+description.
 
-[...]
->  drivers/gpu/drm/meson/meson_drv.c           |  2 +-
-for the meson driver:
-Acked-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Signed-off-by: Qiyu Yan <yanqiyu01@gmail.com>
+---
+ drivers/gpu/drm/i915/i915_params.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
+index ade744ccc..fa9ddcbe8 100644
+--- a/drivers/gpu/drm/i915/i915_params.c
++++ b/drivers/gpu/drm/i915/i915_params.c
+@@ -119,7 +119,7 @@ i915_param_named(psr_safest_params, bool, 0400,
+ i915_param_named_unsafe(enable_psr2_sel_fetch, bool, 0400,
+ 	"Enable PSR2 selective fetch "
+ 	"(0=disabled, 1=enabled) "
+-	"Default: 0");
++	"Default: 1");
+ 
+ i915_param_named_unsafe(force_probe, charp, 0400,
+ 	"Force probe options for specified supported devices. "
+-- 
+2.40.0
 
-Thank you and best regards,
-Martin
