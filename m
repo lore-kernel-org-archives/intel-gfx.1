@@ -4,59 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F911C761A6
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 Apr 2023 08:24:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3A8FC77B62
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 Apr 2023 08:51:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF2AA10E388;
-	Mon,  3 Apr 2023 08:24:34 +0000 (UTC)
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [IPv6:2a00:1450:4864:20::52d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3637010E388
- for <intel-gfx@lists.freedesktop.org>; Mon,  3 Apr 2023 08:24:32 +0000 (UTC)
-Received: by mail-ed1-x52d.google.com with SMTP id w9so113956533edc.3
- for <intel-gfx@lists.freedesktop.org>; Mon, 03 Apr 2023 01:24:32 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0D0C10E3B8;
+	Mon,  3 Apr 2023 08:51:42 +0000 (UTC)
+Received: from mail-ua1-x92e.google.com (mail-ua1-x92e.google.com
+ [IPv6:2607:f8b0:4864:20::92e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 376B110E38B;
+ Mon,  3 Apr 2023 08:51:40 +0000 (UTC)
+Received: by mail-ua1-x92e.google.com with SMTP id t20so2802823uaw.5;
+ Mon, 03 Apr 2023 01:51:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1680510269; x=1683102269;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=A5ZIIDRb2WmxRO1gKx0imZx06ZP7rg9RAMgLO9JVLV8=;
- b=PBh/ylCPalsuizyhlRxpd+7EKPW5FzwKn/Zh5h5TU3XcbyNtShRmb90rp/1ix/7F+O
- C9L3467D0lS4fe3CqRVheYi1nstPv56UlRCNZh/Q8VCuCq9tAsHgzTsrrf6kZggwsZAD
- IfuH71MXo7zRibB5WxSY+flQeY8wHujqqp4Ew=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680510269; x=1683102269;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20210112; t=1680511899;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=A5ZIIDRb2WmxRO1gKx0imZx06ZP7rg9RAMgLO9JVLV8=;
- b=NOX7+rexJJ4mzSBhgrG6Q63lBYgBDwRNkwq/HM0nv5whTkNhoj39DHUGG0bpv7wNZz
- F6DCw7AOcj/4X311FxTCyfR5THW+od55lGwHEm56W7Ju12AugxLP7dqm9basZMZIm+Nv
- txGtffBDgM8SZtqZRX8TETPPn1kOYpwnwkgbUGdsHYGDBeI6L1lu4VNS7znL/dyqRgno
- fXPlxTL4kXzhafKj+A/1peaGN96LrRP4QEvBEG3LPbrydb+856rUYyKNAoQCN1EL438f
- C/CdT8zv/EUyWHS1q8Odl9puflcxf19ryelZAdZpW63ZNmWtfStmLzKoHTIKYN16j0w2
- Z/hQ==
-X-Gm-Message-State: AAQBX9dxwhpHXJ7f3F9j9wdpevz9repAMRak3ws4Kc27taO7hHebeKxF
- w4WkjNhiTbZ9GPPd5Ibf9rlekQ==
-X-Google-Smtp-Source: AKy350aN8j920NpWMP94/w3VcTsBiT3wW/Htm4YasYhi1xQYk1WYoMeR294z8wVjhurZI9oNnGD6RQ==
-X-Received: by 2002:a17:906:297:b0:93e:22e6:e7d3 with SMTP id
- 23-20020a170906029700b0093e22e6e7d3mr11499431ejf.0.1680510269094; 
- Mon, 03 Apr 2023 01:24:29 -0700 (PDT)
-Received: from phenom.ffwll.local (212-51-149-33.fiber7.init7.net.
- [212.51.149.33]) by smtp.gmail.com with ESMTPSA id
- u1-20020a170906950100b00939faf4be97sm4170959ejx.215.2023.04.03.01.24.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Apr 2023 01:24:28 -0700 (PDT)
-Date: Mon, 3 Apr 2023 10:24:26 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Message-ID: <ZCqNOhgQQD+UdD+h@phenom.ffwll.local>
-References: <36f4efa4-26e9-49df-287e-d193422c990d@linux.intel.com>
+ bh=FymDryzt1xBzbE+SpKvnTozEFbclbNgIFpbMS++SyVU=;
+ b=WQLhONVAXpN5OHyuTesxZLQCVH84lLcS8R//4zp4N5W1jHxF5GlEOMu++thn0Z8osa
+ wse+65L8OESh9bizgwSYVrNCi5XOk2wqGxaeu9Jxmgn9TswzAZPTyxn8SbhIhHNbLlwk
+ giSe4Ewsddb2G9rIwlLNlJdMjHjB19E39XCmz6rhVoPMVxtkOKu0NmFmvPeczy7Lmq/+
+ Ne6t3WZ+wZXYABufxAHZokA+Q9B2D8HCKfkyK+yTg4Sa5g5/DiZnb7eYyOKjkmS56/BD
+ 13NPRof6md+4O6dicSgoOh5+j6l/+pCyvlFC5fZ2DLSyGJjreVZCYeHqHgz1x/zNg8lH
+ 0BnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680511899;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=FymDryzt1xBzbE+SpKvnTozEFbclbNgIFpbMS++SyVU=;
+ b=VmGGbxq3fYoAC4eQgc2Ldck8LB4+aKa8L5m3e3jpanbdx3p0BdqMxh+dxmaRjRXI5A
+ 5ozsLMzj2oKm1k8nc63xB5fhSTY8Jo7g2B/X+2BNqSFD3CY5oC9CIR4Gn3+FjfYhmr22
+ XR+yH5I3AyYrddCC99PVuZ05RzhMwwBjpi2WZm7CLLwOV2YSSxE2mUWSuTy7mc/nPYn8
+ d3QNeWu1H9eqSM/2wno3I1tms8i0pnqtPMjKnQt+Vlkt6Jl9V0MDXOH8YjcVbmvXNa9k
+ 4mFN+HCFv0szwzG5Rci3+cLm1ZzeTcNC5BL67h0KKCk8rgQCBthL+7uXZC82JQajkxYN
+ nCrQ==
+X-Gm-Message-State: AAQBX9elZt0B9nzmuMLvmtfPb8X1LnvL2Jpr0lrkzoz8uCaGKfEeCKKS
+ ka60fGBiOLSnLJhoBzqGat3AO/gpYkD/x/4YFP8=
+X-Google-Smtp-Source: AKy350b4qh7ooTYUZmD0lqPsElUdZR/+GMJIQH4u47foRbem0nU3YeXjFhuoxUqXFrG8UrY6FG7/2VR2qiQ4iBbIXAk=
+X-Received: by 2002:a1f:a8d4:0:b0:43c:6ef1:7200 with SMTP id
+ r203-20020a1fa8d4000000b0043c6ef17200mr1391338vke.3.1680511898929; Mon, 03
+ Apr 2023 01:51:38 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <36f4efa4-26e9-49df-287e-d193422c990d@linux.intel.com>
-X-Operating-System: Linux phenom 6.1.0-7-amd64 
-Subject: Re: [Intel-gfx] [PULL] drm-misc-next
+References: <20230403121617.61e2a929@canb.auug.org.au>
+In-Reply-To: <20230403121617.61e2a929@canb.auug.org.au>
+From: Qiang Yu <yuq825@gmail.com>
+Date: Mon, 3 Apr 2023 16:51:27 +0800
+Message-ID: <CAKGbVbv=eyaKPQM8QfD-999-=vbrrqnEXkhuE7dy=vpK7OFY6Q@mail.gmail.com>
+To: Stephen Rothwell <sfr@canb.auug.org.au>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] linux-next: build failure after merge of the
+ drm-misc tree
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,178 +68,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maxime Ripard <mripard@kernel.org>, dim-tools@lists.freedesktop.org,
- Daniel Vetter <daniel.vetter@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Dave Airlie <airlied@gmail.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ DRI <dri-devel@lists.freedesktop.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Lucas Stach <l.stach@pengutronix.de>, Erico Nunes <nunes.erico@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 31, 2023 at 05:42:25PM +0200, Maarten Lankhorst wrote:
-> Hi Dave, Daniel,
-> 
-> Small update. Slow week. Felt like sending a pull request regardless.
-> 
-> drm-misc-next-2023-03-31:
-> drm-misc-next for v6.4-rc1:
-> 
-> Cross-subsystem Changes:
-> - DT bindings update for adding Mali MT81xx devices.
-> - Assorted DT binding updates.
-> 
-> Core Changes:
-> - Documentation update to scheduler.
-> 
-> Driver Changes:
-> - Add support for the same mali devices.
-> - Add support for speed binning to panfrost.
-> - Add B133UAN01.0 eDP panel.
-> - Assorted small fixes to bridge/ps8640, bridge/it6505, panel/magnachip.
-> - Use of_property_read_bool in ps8622 and ofdrm.
-> The following changes since commit 82bbec189ab34873688484cd14189a5392946fbb:
-> 
->   Merge v6.3-rc4 into drm-next (2023-03-29 16:00:23 +0200)
-> 
-> are available in the Git repository at:
-> 
->   git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-next-2023-03-31
-> 
-> for you to fetch changes up to 7d690f936e9bc9fbd6394fb3d4ad181af03ee393:
-> 
->   drm/panfrost: Add basic support for speed binning (2023-03-31 11:44:11 +0200)
+I think you can just revert the following three lima commits when merge:
+* 4a66f3da99dc ("drm/lima: add show_fdinfo for drm usage stats")
+* 87767de835ed ("drm/lima: allocate unique id per drm_file")
+* bccafec957a5 ("drm/lima: add usage counting method to ctx_mgr")
 
-Pulled, thanks.
-> 
-> ----------------------------------------------------------------
-> drm-misc-next for v6.4-rc1:
-> 
-> Cross-subsystem Changes:
-> - DT bindings update for adding Mali MT81xx devices.
-> - Assorted DT binding updates.
-> 
-> Core Changes:
-> - Documentation update to scheduler.
-> 
-> Driver Changes:
-> - Add support for the same mali devices.
-> - Add support for speed binning to panfrost.
-> - Add B133UAN01.0 eDP panel.
-> - Assorted small fixes to bridge/ps8640, bridge/it6505, panel/magnachip.
-> - Use of_property_read_bool in ps8622 and ofdrm.
-> 
-> ----------------------------------------------------------------
-> Alyssa Rosenzweig (3):
->       drm/panfrost: Increase MAX_PM_DOMAINS to 5
->       drm/panfrost: Add the MT8192 GPU ID
->       drm/panfrost: Add mediatek,mt8192-mali compatible
-> 
-> AngeloGioacchino Del Regno (11):
->       dt-bindings: gpu: mali-bifrost: Split out MediaTek power-domains variation
->       dt-bindings: gpu: mali-bifrost: Set power-domains maxItems to 5
->       dt-bindings: gpu: mali-bifrost: Fix power-domain-names validation
->       dt-bindings: gpu: mali-bifrost: Add sub-schema for MT8192's power domains
->       dt-bindings: gpu: mali-bifrost: Add new MT8183 compatible
->       dt-bindings: gpu: mali-bifrost: Add support for MediaTek MT8186
->       dt-bindings: gpu: mali-bifrost: Add compatible for MT8195 SoC
->       drm/panfrost: Add new compatible for Mali on the MT8183 SoC
->       drm/panfrost: Add support for Mali on the MT8186 SoC
->       dt-bindings: gpu: mali-bifrost: Document nvmem for speedbin support
->       drm/panfrost: Add basic support for speed binning
-> 
-> Bjorn Andersson (1):
->       drm/panel-edp: Add B133UAN01.0 edp panel entry
-> 
-> Caio Novais (1):
->       drm/scheduler: Fix variable name in function description
-> 
-> Dan Carpenter (1):
->       drm/panel: magnachip: Prevent error pointer dereference in probe
-> 
-> Fabio Estevam (1):
->       dt-bindings: display: seiko,43wvf1g: Change the maintainer's contact
-> 
-> Hsin-Yi Wang (1):
->       drm/bridge: it6505: Add range and selector_reg
-> 
-> Krzysztof Kozlowski (6):
->       dt-bindings: display: panel-simple: merge Innolux p120zdg-bf1
->       dt-bindings: display: novatek,nt36672a: correct VDDIO supply
->       dt-bindings: display: panel-simple-dsi: allow vddio variant
->       dt-bindings: display: panel-simple-dsi: document port
->       dt-bindings: display: visionox,rm69299: document reg
->       dt-bindings: display: boe,tv101wum-nl6: document rotation
-> 
-> Maarten Lankhorst (1):
->       Merge remote-tracking branch 'drm/drm-next' into drm-misc-next
-> 
-> Pin-yen Lin (3):
->       drm/bridge: ps8640: Skip redundant bridge enable
->       drm/bridge: ps8640: Add a cache for EDID
->       drm/bridge: ps8640: Return NULL immediately when EDID read fail
-> 
-> Rob Herring (3):
->       dt-bindings: display: Drop unneeded quotes
->       drm: Use of_property_present() for testing DT property presence
->       drm: Use of_property_read_bool() for boolean properties
-> 
->  .../bindings/auxdisplay/holtek,ht16k33.yaml        |  2 +-
->  .../bindings/display/amlogic,meson-dw-hdmi.yaml    |  4 +-
->  .../bindings/display/amlogic,meson-vpu.yaml        |  4 +-
->  .../bindings/display/bridge/analogix,anx7625.yaml  |  4 +-
->  .../bindings/display/bridge/cdns,mhdp8546.yaml     |  4 +-
->  .../bindings/display/bridge/nxp,ptn3460.yaml       |  2 +-
->  .../bindings/display/bridge/toshiba,tc358767.yaml  |  2 +-
->  .../devicetree/bindings/display/dp-aux-bus.yaml    |  2 +-
->  .../bindings/display/imx/nxp,imx8mq-dcss.yaml      |  4 +-
->  .../bindings/display/mediatek/mediatek,hdmi.yaml   |  2 +-
->  .../bindings/display/msm/dsi-controller-main.yaml  |  8 +-
->  .../bindings/display/msm/dsi-phy-10nm.yaml         |  2 +-
->  .../devicetree/bindings/display/msm/gmu.yaml       |  4 +-
->  .../devicetree/bindings/display/msm/gpu.yaml       |  4 +-
->  .../devicetree/bindings/display/msm/mdp4.yaml      |  4 +-
->  .../bindings/display/panel/boe,tv101wum-nl6.yaml   |  1 +
->  .../display/panel/innolux,p120zdg-bf1.yaml         | 43 -----------
->  .../bindings/display/panel/novatek,nt36672a.yaml   |  6 +-
->  .../bindings/display/panel/panel-simple-dsi.yaml   | 24 +++++-
->  .../bindings/display/panel/panel-simple.yaml       |  2 +
->  .../bindings/display/panel/ronbo,rb070d30.yaml     |  2 +-
->  .../display/panel/samsung,s6e88a0-ams452ef01.yaml  |  8 ++
->  .../bindings/display/panel/seiko,43wvf1g.yaml      |  2 +-
->  .../bindings/display/panel/visionox,rm69299.yaml   | 25 +++++--
->  .../devicetree/bindings/display/renesas,du.yaml    |  4 +-
->  .../display/tegra/nvidia,tegra114-mipi.yaml        |  2 +-
->  .../display/tegra/nvidia,tegra124-sor.yaml         | 12 +--
->  .../bindings/display/tegra/nvidia,tegra186-dc.yaml |  4 +-
->  .../display/tegra/nvidia,tegra186-dsi-padctl.yaml  |  2 +-
->  .../bindings/display/tegra/nvidia,tegra20-dsi.yaml | 12 +--
->  .../display/tegra/nvidia,tegra20-hdmi.yaml         |  6 +-
->  .../bindings/display/ti/ti,am65x-dss.yaml          |  6 +-
->  .../bindings/display/ti/ti,j721e-dss.yaml          |  4 +-
->  .../devicetree/bindings/display/ti/ti,k2g-dss.yaml |  4 +-
->  .../bindings/display/xylon,logicvc-display.yaml    | 22 +++---
->  .../devicetree/bindings/gpu/arm,mali-bifrost.yaml  | 87 +++++++++++++++++++++-
->  drivers/gpu/drm/bridge/imx/imx8qxp-pixel-link.c    |  2 +-
->  drivers/gpu/drm/bridge/ite-it6505.c                | 34 ++++++---
->  drivers/gpu/drm/bridge/parade-ps8622.c             |  2 +-
->  drivers/gpu/drm/bridge/parade-ps8640.c             | 65 ++++++++++------
->  drivers/gpu/drm/drm_mipi_dsi.c                     |  2 +-
->  drivers/gpu/drm/msm/adreno/adreno_gpu.c            |  2 +-
->  drivers/gpu/drm/panel/panel-edp.c                  |  1 +
->  .../gpu/drm/panel/panel-magnachip-d53e6ea8966.c    |  2 +-
->  drivers/gpu/drm/panfrost/panfrost_devfreq.c        | 30 ++++++++
->  drivers/gpu/drm/panfrost/panfrost_device.h         |  2 +-
->  drivers/gpu/drm/panfrost/panfrost_drv.c            | 37 +++++++++
->  drivers/gpu/drm/panfrost/panfrost_gpu.c            |  8 ++
->  drivers/gpu/drm/scheduler/sched_main.c             |  2 +-
->  drivers/gpu/drm/sun4i/sun4i_backend.c              |  2 +-
->  drivers/gpu/drm/sun4i/sun8i_mixer.c                |  2 +-
->  drivers/gpu/drm/tiny/ofdrm.c                       |  8 +-
->  drivers/gpu/drm/tiny/simpledrm.c                   |  2 +-
->  drivers/gpu/drm/vc4/vc4_hdmi.c                     |  2 +-
->  54 files changed, 356 insertions(+), 179 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/display/panel/innolux,p120zdg-bf1.yaml
+Regards,
+Qiang
 
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+On Mon, Apr 3, 2023 at 10:16=E2=80=AFAM Stephen Rothwell <sfr@canb.auug.org=
+.au> wrote:
+>
+> Hi all,
+>
+> After merging the drm-misc tree, today's linux-next build (arm
+> multi_v7_defconfig) failed like this:
+>
+> drivers/gpu/drm/lima/lima_ctx.c: In function 'lima_ctx_do_release':
+> drivers/gpu/drm/lima/lima_ctx.c:53:45: error: 'struct drm_sched_entity' h=
+as no member named 'elapsed_ns'
+>    53 |                 mgr->elapsed_ns[i] +=3D entity->elapsed_ns;
+>       |                                             ^~
+> drivers/gpu/drm/lima/lima_ctx.c: In function 'lima_ctx_mgr_usage':
+> drivers/gpu/drm/lima/lima_ctx.c:125:43: error: 'struct drm_sched_entity' =
+has no member named 'elapsed_ns'
+>   125 |                         usage[i] +=3D entity->elapsed_ns;
+>       |                                           ^~
+>
+> Caused by commit
+>
+>   bccafec957a5 ("drm/lima: add usage counting method to ctx_mgr")
+>
+> interacting with commit
+>
+>   baad10973fdb ("Revert "drm/scheduler: track GPU active time per entity"=
+")
+>
+> from Linus' tree.
+>
+> I can't see any obvious way to fix this up, so I have used teh drm-misc
+> tree from next-20230331 for today.
+>
+> --
+> Cheers,
+> Stephen Rothwell
