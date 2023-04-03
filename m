@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 933BCC761A6
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 Apr 2023 09:23:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD68EC761A6
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 Apr 2023 09:23:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AE0B10E3E4;
-	Mon,  3 Apr 2023 09:23:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27A2010E3FB;
+	Mon,  3 Apr 2023 09:23:23 +0000 (UTC)
 Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
  [IPv6:2a00:1450:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7840210E3C1
- for <intel-gfx@lists.freedesktop.org>; Mon,  3 Apr 2023 09:23:17 +0000 (UTC)
-Received: by mail-lf1-x12a.google.com with SMTP id c9so26753757lfb.1
- for <intel-gfx@lists.freedesktop.org>; Mon, 03 Apr 2023 02:23:17 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A35E10E3C6
+ for <intel-gfx@lists.freedesktop.org>; Mon,  3 Apr 2023 09:23:19 +0000 (UTC)
+Received: by mail-lf1-x12a.google.com with SMTP id g17so37186287lfv.4
+ for <intel-gfx@lists.freedesktop.org>; Mon, 03 Apr 2023 02:23:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1680513795;
+ d=linaro.org; s=google; t=1680513797;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=FBAkVdbh6cPTMjC6o2ySkEa6jNcEcZVNqgzdILUk71Q=;
- b=mW5zsxokxFSqD0VOLzOoPISKQ/2q+466h0xpdWApnEASywpCxyylMl6k8ndEUVaCxE
- avluZJq0ttHI+BLm4nPGasfiKjsuRtiWwLVSYKC8C/i9LmH/dSrM0rUkMsO5WxuvqvfH
- erERt46V4PP7QSJofeNTi4VK7Rto78mvBe7x5i5asXbE7XpyMEP814+NgvDLlz+S6LrT
- spBGw7Fn7PKAUqlDTH67CrUUCA1fWnENhEZj7nqZNGo0XyBiuObYC0ro2guLq01U5fv2
- HHUDPF91RvfP1u7FF7UvDkyiyohmKI+/jnWB1JU+mPmWAfOudypZCR+ndf/X17GL4MLe
- CwkQ==
+ bh=LXzqr/RToWqdSBilcBzB6Tyuh1xIOzUWMTLtgk6Ssoc=;
+ b=fK1Y2zDngqmXWoLMuZI8lnMJsiJeFXTzMjTr17THKbD/ePl6foVE9bedeR08bhIhwZ
+ iGVRCO1Q4xNxZjEFeKWr3QxPMopFlVcFk+o7wKgmMopIhwGkGB4mYuDCLpA0HSOZA6DV
+ H+1vLTIgDsZWpwLi/l56qTRCshVdfSmVeSKL7ZWyT3FOvHPoHS1VhOEU3cZ3XXWFoqkv
+ hi2wc6qzb8fih5u48KqPqK5K1hRlmAi8+WQmFp6J9rvjaAjpAppzd3PqN71Hq86XQkDa
+ VuJLKH/bP+7/KnqJ65dUNiiJiEBRPaB8LOzfnAdNd8L48Cgu5DSNRa5yxbQ2kuGjcHkQ
+ F4Jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680513795;
+ d=1e100.net; s=20210112; t=1680513797;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=FBAkVdbh6cPTMjC6o2ySkEa6jNcEcZVNqgzdILUk71Q=;
- b=woTUapmEGfxG5BEzEYaKn9OSQ7OptzZDBFtnR/cTGQvRb5p3DVDCH/mYj3hzqC/L3j
- la9WzX8Ih9Hq+hOAnXzUx8SP8W/lY0q/SZ6vII+3uxEh3kdG5X1U3V63H2JeVBlVwz/M
- 1Hdr9nEsL8K/xdi9KWw7peF3simzuEpDEnrF6LGBg06lhCrm6GYRAYyaD0wgOate5+ZJ
- zvtbiaTj1ttG3zNTuZbrAf1eNwnVuhpFGVDVwhQdJdcavYqEJ2l9Lw0/KdhlzlaCpyIX
- jidZDOTra8mVAJqSoycPbzMGGx73GMqHdnLPUFSzpiyVAvFatrunp4WOYt1UE4ILWNZJ
- VxRA==
-X-Gm-Message-State: AAQBX9dmKzrISCT1QUwJE8qJnbJIuOhvoOOqt0wiWtgroQUsz3tHUi43
- x1tTJc3bVI7wNiB1nIHrG2hIvg==
-X-Google-Smtp-Source: AKy350bwkX9anuWjFWYU+EkbRorSzarG6MSFixoH3LUouL+Qi0BL4TAo4Y0ESx/Hz6sXw5IvkTr9vQ==
-X-Received: by 2002:ac2:53b0:0:b0:4e9:be7e:5827 with SMTP id
- j16-20020ac253b0000000b004e9be7e5827mr11160084lfh.62.1680513795380; 
- Mon, 03 Apr 2023 02:23:15 -0700 (PDT)
+ bh=LXzqr/RToWqdSBilcBzB6Tyuh1xIOzUWMTLtgk6Ssoc=;
+ b=QEpQ5I75E8qxskxa2yULLYf0ms2Rjlzh6HvBUSILkuClbsP8LhHZm562PQwgLgnEe7
+ h9CLKhywgJaN1KFKPfS8iMgB+vont88ixb8VnB+3cl5TTuus0mgqTFP4T6l3ohUqwPyJ
+ Dy5AXQ5JRHjL1TbWRZ9PmVO5et8K4rarxRM6MosAH8oikAMR6MkxU7u5mBMJqS8O8CPD
+ YX5QwX9IStLBJxn/msEBVccBSFZPyTN3LWVmMWAAT6uZeCHOhK0ggRsr3qQclx2KQCnA
+ L5DttQq8GXaMmuRCDv3GxD+T8Zpm4cSXvtACs4QpXwH1LfV5iaf1ZTTRggdwN0UfvtX8
+ z9Zw==
+X-Gm-Message-State: AAQBX9czUd/ilyqEGIk6n/kdIct8NcKu/v7qs7zyr9+HlNqy21zRFv0r
+ viQkg4ytlko1HrWLGnf23Lp6Mg==
+X-Google-Smtp-Source: AKy350aGpKYGFnwoAVdced4BqI5WDrLJKquS7OxlH4xCYJDCDTjlyCFMMRGF+BkNjZJ++nJmQgiong==
+X-Received: by 2002:a19:ee05:0:b0:4eb:274b:a6b with SMTP id
+ g5-20020a19ee05000000b004eb274b0a6bmr3995048lfb.47.1680513797397; 
+ Mon, 03 Apr 2023 02:23:17 -0700 (PDT)
 Received: from eriador.lan (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a085:4d00::8a5]) by smtp.gmail.com with ESMTPSA id
- w5-20020ac25985000000b004e844bb6939sm1680666lfn.2.2023.04.03.02.23.14
+ w5-20020ac25985000000b004e844bb6939sm1680666lfn.2.2023.04.03.02.23.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Apr 2023 02:23:15 -0700 (PDT)
+ Mon, 03 Apr 2023 02:23:17 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -59,15 +59,15 @@ To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
-Date: Mon,  3 Apr 2023 12:23:02 +0300
-Message-Id: <20230403092313.235320-2-dmitry.baryshkov@linaro.org>
+Date: Mon,  3 Apr 2023 12:23:05 +0300
+Message-Id: <20230403092313.235320-5-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230403092313.235320-1-dmitry.baryshkov@linaro.org>
 References: <20230403092313.235320-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 01/12] drm/i915/dsc: change DSC param tables
- to follow the DSC model
+Subject: [Intel-gfx] [PATCH v4 04/12] drm/i915/dsc: stop using interim
+ structure for calculated params
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,74 +86,202 @@ Cc: Jani Nikula <jani.nikula@intel.com>, linux-arm-msm@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After cross-checking DSC models (20150914, 20161212, 20210623) change
-values in rc_parameters tables to follow config files present inside
-the DSC model. Handle two places, where i915 tables diverged from the
-model, by patching the rc values in the code.
-
-Note: I left one case uncorrected, 8bpp/10bpc/range_max_qp[0], because
-the table in the VESA DSC 1.1 sets it to 4.
+Stop using an interim structure rc_parameters for storing calculated
+params and then setting drm_dsc_config using that structure. Instead put
+calculated params into the struct drm_dsc_config directly.
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 ---
- drivers/gpu/drm/i915/display/intel_vdsc.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vdsc.c | 100 ++++++----------------
+ 1 file changed, 26 insertions(+), 74 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index 8e787c13d26d..7003ae9f683a 100644
+index d0536582e4b9..d4340b18c18d 100644
 --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
 +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -87,7 +87,7 @@ static const struct rc_parameters rc_parameters[][MAX_COLUMN_INDEX] = {
+@@ -19,17 +19,6 @@
+ #include "intel_vdsc.h"
+ #include "intel_vdsc_regs.h"
+ 
+-struct rc_parameters {
+-	u16 initial_xmit_delay;
+-	u8 first_line_bpg_offset;
+-	u16 initial_offset;
+-	u8 flatness_min_qp;
+-	u8 flatness_max_qp;
+-	u8 rc_quant_incr_limit0;
+-	u8 rc_quant_incr_limit1;
+-	struct drm_dsc_rc_range_parameters rc_range_params[DSC_NUM_BUF_RANGES];
+-};
+-
+ bool intel_dsc_source_support(const struct intel_crtc_state *crtc_state)
+ {
+ 	const struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+@@ -64,8 +53,7 @@ static bool is_pipe_dsc(struct intel_crtc *crtc, enum transcoder cpu_transcoder)
+ }
+ 
+ static void
+-calculate_rc_params(struct rc_parameters *rc,
+-		    struct drm_dsc_config *vdsc_cfg)
++calculate_rc_params(struct drm_dsc_config *vdsc_cfg)
+ {
+ 	int bpc = vdsc_cfg->bits_per_component;
+ 	int bpp = vdsc_cfg->bits_per_pixel >> 4;
+@@ -85,56 +73,57 @@ calculate_rc_params(struct rc_parameters *rc,
+ 	u32 res, buf_i, bpp_i;
+ 
+ 	if (vdsc_cfg->slice_height >= 8)
+-		rc->first_line_bpg_offset =
++		vdsc_cfg->first_line_bpg_offset =
+ 			12 + DIV_ROUND_UP((9 * min(34, vdsc_cfg->slice_height - 8)), 100);
+ 	else
+-		rc->first_line_bpg_offset = 2 * (vdsc_cfg->slice_height - 1);
++		vdsc_cfg->first_line_bpg_offset = 2 * (vdsc_cfg->slice_height - 1);
+ 
+ 	/* Our hw supports only 444 modes as of today */
+ 	if (bpp >= 12)
+-		rc->initial_offset = 2048;
++		vdsc_cfg->initial_offset = 2048;
+ 	else if (bpp >= 10)
+-		rc->initial_offset = 5632 - DIV_ROUND_UP(((bpp - 10) * 3584), 2);
++		vdsc_cfg->initial_offset = 5632 - DIV_ROUND_UP(((bpp - 10) * 3584), 2);
+ 	else if (bpp >= 8)
+-		rc->initial_offset = 6144 - DIV_ROUND_UP(((bpp - 8) * 512), 2);
++		vdsc_cfg->initial_offset = 6144 - DIV_ROUND_UP(((bpp - 8) * 512), 2);
+ 	else
+-		rc->initial_offset = 6144;
++		vdsc_cfg->initial_offset = 6144;
+ 
+ 	/* initial_xmit_delay = rc_model_size/2/compression_bpp */
+-	rc->initial_xmit_delay = DIV_ROUND_UP(DSC_RC_MODEL_SIZE_CONST, 2 * bpp);
++	vdsc_cfg->initial_xmit_delay = DIV_ROUND_UP(DSC_RC_MODEL_SIZE_CONST, 2 * bpp);
+ 
+-	rc->flatness_min_qp = 3 + qp_bpc_modifier;
+-	rc->flatness_max_qp = 12 + qp_bpc_modifier;
++	vdsc_cfg->flatness_min_qp = 3 + qp_bpc_modifier;
++	vdsc_cfg->flatness_max_qp = 12 + qp_bpc_modifier;
+ 
+-	rc->rc_quant_incr_limit0 = 11 + qp_bpc_modifier;
+-	rc->rc_quant_incr_limit1 = 11 + qp_bpc_modifier;
++	vdsc_cfg->rc_quant_incr_limit0 = 11 + qp_bpc_modifier;
++	vdsc_cfg->rc_quant_incr_limit1 = 11 + qp_bpc_modifier;
+ 
+ 	bpp_i  = (2 * (bpp - 6));
+ 	for (buf_i = 0; buf_i < DSC_NUM_BUF_RANGES; buf_i++) {
++		u8 range_bpg_offset;
++
+ 		/* Read range_minqp and range_max_qp from qp tables */
+-		rc->rc_range_params[buf_i].range_min_qp =
++		vdsc_cfg->rc_range_params[buf_i].range_min_qp =
+ 			intel_lookup_range_min_qp(bpc, buf_i, bpp_i, vdsc_cfg->native_420);
+-		rc->rc_range_params[buf_i].range_max_qp =
++		vdsc_cfg->rc_range_params[buf_i].range_max_qp =
+ 			intel_lookup_range_max_qp(bpc, buf_i, bpp_i, vdsc_cfg->native_420);
+ 
+-		/* Calculate range_bgp_offset */
++		/* Calculate range_bpg_offset */
+ 		if (bpp <= 6) {
+-			rc->rc_range_params[buf_i].range_bpg_offset = ofs_und6[buf_i];
++			range_bpg_offset = ofs_und6[buf_i];
+ 		} else if (bpp <= 8) {
+ 			res = DIV_ROUND_UP(((bpp - 6) * (ofs_und8[buf_i] - ofs_und6[buf_i])), 2);
+-			rc->rc_range_params[buf_i].range_bpg_offset =
+-								ofs_und6[buf_i] + res;
++			range_bpg_offset = ofs_und6[buf_i] + res;
+ 		} else if (bpp <= 12) {
+-			rc->rc_range_params[buf_i].range_bpg_offset =
+-								ofs_und8[buf_i];
++			range_bpg_offset = ofs_und8[buf_i];
+ 		} else if (bpp <= 15) {
+ 			res = DIV_ROUND_UP(((bpp - 12) * (ofs_und15[buf_i] - ofs_und12[buf_i])), 3);
+-			rc->rc_range_params[buf_i].range_bpg_offset =
+-								ofs_und12[buf_i] + res;
++			range_bpg_offset = ofs_und12[buf_i] + res;
+ 		} else {
+-			rc->rc_range_params[buf_i].range_bpg_offset =
+-								ofs_und15[buf_i];
++			range_bpg_offset = ofs_und15[buf_i];
  		}
- 	},
- 	/* 6BPP/14BPC */
--	{ 768, 15, 6144, 15, 25, 23, 27, {
-+	{ 768, 15, 6144, 15, 25, 23, 23, {
- 		{ 0, 16, 0 }, { 7, 18, -2 }, { 15, 20, -2 }, { 16, 20, -4 },
- 		{ 17, 21, -6 }, { 17, 21, -6 }, { 18, 21, -6 }, { 18, 22, -8 },
- 		{ 19, 23, -8 }, { 20, 24, -10 }, { 21, 24, -10 },
-@@ -116,6 +116,10 @@ static const struct rc_parameters rc_parameters[][MAX_COLUMN_INDEX] = {
- 	},
- 	/* 8BPP/10BPC */
- 	{ 512, 12, 6144, 7, 16, 15, 15, {
-+		/*
-+		 * DSC model/pre-SCR-cfg has 8 for range_max_qp[0], however
-+		 * VESA DSC 1.1 Table E-5 sets it to 4.
-+		 */
- 		{ 0, 4, 2 }, { 4, 8, 0 }, { 5, 9, 0 }, { 5, 10, -2 },
- 		{ 7, 11, -4 }, { 7, 11, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
- 		{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
-@@ -133,7 +137,7 @@ static const struct rc_parameters rc_parameters[][MAX_COLUMN_INDEX] = {
- 	},
- 	/* 8BPP/14BPC */
- 	{ 512, 12, 6144, 15, 24, 23, 23, {
--		{ 0, 12, 0 }, { 5, 13, 0 }, { 11, 15, 0 }, { 12, 17, -2 },
-+		{ 0, 12, 2 }, { 5, 13, 0 }, { 11, 15, 0 }, { 12, 17, -2 },
- 		{ 15, 19, -4 }, { 15, 19, -6 }, { 15, 19, -8 }, { 15, 20, -8 },
- 		{ 15, 21, -8 }, { 15, 22, -10 }, { 17, 22, -10 },
- 		{ 17, 23, -12 }, { 17, 23, -12 }, { 21, 24, -12 },
-@@ -598,6 +602,20 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
- 			DSC_RANGE_BPG_OFFSET_MASK;
++
++		vdsc_cfg->rc_range_params[buf_i].range_bpg_offset =
++			range_bpg_offset & DSC_RANGE_BPG_OFFSET_MASK;
+ 	}
+ }
+ 
+@@ -167,10 +156,7 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+ 	struct drm_dsc_config *vdsc_cfg = &pipe_config->dsc.config;
+ 	u16 compressed_bpp = pipe_config->dsc.compressed_bpp;
+-	const struct rc_parameters *rc_params;
+-	struct rc_parameters *rc = NULL;
+ 	int err;
+-	u8 i = 0;
+ 	int ret;
+ 
+ 	vdsc_cfg->pic_width = pipe_config->hw.adjusted_mode.crtc_hdisplay;
+@@ -238,43 +224,12 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
+ 	 * parameters
+ 	 */
+ 	if (DISPLAY_VER(dev_priv) >= 13) {
+-		rc = kmalloc(sizeof(*rc), GFP_KERNEL);
+-		if (!rc)
+-			return -ENOMEM;
+-
+-		calculate_rc_params(rc, vdsc_cfg);
+-		rc_params = rc;
++		calculate_rc_params(vdsc_cfg);
+ 	} else {
+ 		ret = drm_dsc_setup_rc_params(vdsc_cfg);
+ 		if (ret)
+ 			return ret;
+ 
+-		goto out;
+-	}
+-
+-	vdsc_cfg->first_line_bpg_offset = rc_params->first_line_bpg_offset;
+-	vdsc_cfg->initial_xmit_delay = rc_params->initial_xmit_delay;
+-	vdsc_cfg->initial_offset = rc_params->initial_offset;
+-	vdsc_cfg->flatness_min_qp = rc_params->flatness_min_qp;
+-	vdsc_cfg->flatness_max_qp = rc_params->flatness_max_qp;
+-	vdsc_cfg->rc_quant_incr_limit0 = rc_params->rc_quant_incr_limit0;
+-	vdsc_cfg->rc_quant_incr_limit1 = rc_params->rc_quant_incr_limit1;
+-
+-	for (i = 0; i < DSC_NUM_BUF_RANGES; i++) {
+-		vdsc_cfg->rc_range_params[i].range_min_qp =
+-			rc_params->rc_range_params[i].range_min_qp;
+-		vdsc_cfg->rc_range_params[i].range_max_qp =
+-			rc_params->rc_range_params[i].range_max_qp;
+-		/*
+-		 * Range BPG Offset uses 2's complement and is only a 6 bits. So
+-		 * mask it to get only 6 bits.
+-		 */
+-		vdsc_cfg->rc_range_params[i].range_bpg_offset =
+-			rc_params->rc_range_params[i].range_bpg_offset &
+-			DSC_RANGE_BPG_OFFSET_MASK;
+-	}
+-
+-	if (DISPLAY_VER(dev_priv) < 13) {
+ 		/*
+ 		 * FIXME: verify that the hardware actually needs these
+ 		 * modifications rather than them being simple typos.
+@@ -288,7 +243,6 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
+ 			vdsc_cfg->rc_range_params[0].range_bpg_offset = 0;
  	}
  
-+	if (DISPLAY_VER(dev_priv) < 13) {
-+		/*
-+		 * FIXME: verify that the hardware actually needs these
-+		 * modifications rather than them being simple typos.
-+		 */
-+		if (compressed_bpp == 6 &&
-+		    vdsc_cfg->bits_per_component == 8)
-+			vdsc_cfg->rc_quant_incr_limit1 = 23;
-+
-+		if (compressed_bpp == 8 &&
-+		    vdsc_cfg->bits_per_component == 14)
-+			vdsc_cfg->rc_range_params[0].range_bpg_offset = 0;
-+	}
-+
+-out:
  	/*
  	 * BitsPerComponent value determines mux_word_size:
  	 * When BitsPerComponent is less than or 10bpc, muxWordSize will be equal to
+@@ -303,8 +257,6 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
+ 	vdsc_cfg->initial_scale_value = (vdsc_cfg->rc_model_size << 3) /
+ 		(vdsc_cfg->rc_model_size - vdsc_cfg->initial_offset);
+ 
+-	kfree(rc);
+-
+ 	return 0;
+ }
+ 
 -- 
 2.39.2
 
