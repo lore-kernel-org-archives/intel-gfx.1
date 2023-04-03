@@ -4,132 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9C89C76196
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 Apr 2023 17:29:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18D27C761AF
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 Apr 2023 18:06:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1203310E0BF;
-	Mon,  3 Apr 2023 17:29:43 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A937410E04E;
- Mon,  3 Apr 2023 17:29:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B0F810E548;
+	Mon,  3 Apr 2023 18:06:40 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBA4810E53F;
+ Mon,  3 Apr 2023 18:06:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680542980; x=1712078980;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=I6ifycd3uLuzWuQMkS/GOfIW3y2X+G63j9PqqI/eHps=;
- b=T2zaWcurPnrRoi4lATha0zjh6cxIbh7bBNm+7sSXIUxw13dgrlt5Xjnh
- 4ncWgtCnON/QBdKKBI3+0R8ZUEMR4VRQKzOHDcEsd22Do0ZjkYGiMW4FJ
- 6YRCJwZDayP1dH4TvpdgQJGo0S79urOPyRQuJMNs5RnB9G2ZYIAqivFm6
- mNyx9AVdMhOUN+ZfognO3gScDxzDpLoOko4hpUXb7xILm9vz6qeCUnPep
- XYRCVE18fWkYwSDE4FJqmL3JM6dG2GIxac+gdtZwjaxHg7Uo5jOiLYYfs
- y9wAHlOLdfO3QyEcNRcmME6hf3Kb0jv9X61CFIrR9/6dNKO0p9UdbzHXY w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10669"; a="428255121"
-X-IronPort-AV: E=Sophos;i="5.98,315,1673942400"; d="scan'208";a="428255121"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Apr 2023 10:29:40 -0700
+ t=1680545197; x=1712081197;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=9Qhg+gLjTt9TjDhVkmXTChyDBIAELJkQfdXoNMw2KCI=;
+ b=QlphmaTGXA6sPmg1LqbwIXum1jGoK7K+KKK8gasxedNoHxH6hRiYVvmT
+ zYYV186TzCTl3eEAnaoSt2VD43Be2HAsmCACE7tq1hRXt/csoBatxkrxk
+ jpNYJpq8MPtsgUFkeJNOYjXF0aPGDFcqxWS3jkKTVr5yhW0l8lNJbnFDp
+ Y2kxeo22JEhD9/0Z5kSF2+HOq5drh2W2SyF+ktX/eAkqbSTYMvIF10K3q
+ NUhgLchJnYux1+dWsfLEwLjyNnLNvQFH1ewy1h9UDxy7mZF5lnj5Vw3ev
+ OV7xL3KZwb4Qi0kSrlxpY+nkPsfYglf5E9YP5U5XM41oNpSi5J0RSIMJF Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10669"; a="369787232"
+X-IronPort-AV: E=Sophos;i="5.98,315,1673942400"; d="scan'208";a="369787232"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Apr 2023 11:06:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10669"; a="829650660"
-X-IronPort-AV: E=Sophos;i="5.98,315,1673942400"; d="scan'208";a="829650660"
-Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
- by fmsmga001.fm.intel.com with ESMTP; 03 Apr 2023 10:29:39 -0700
-Received: from fmsmsx601.amr.corp.intel.com (10.18.126.81) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Mon, 3 Apr 2023 10:29:39 -0700
-Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21 via Frontend Transport; Mon, 3 Apr 2023 10:29:39 -0700
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.173)
- by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.21; Mon, 3 Apr 2023 10:29:39 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QLL+gT49barnOEUKVU/oM1rOQo+unPE72B1puyz/j6sVS7cWXq4+73dI9EWZgyBm0TjdhE8S5yhUMH/74LNAAm94JatxzipPb9O2c3iWprTxr1dBhMtJWYZ90yKnuQNb2QAZJTOa+hkAv4mygZSUkzHJCjLKqDpVlBkbkV+G0aSPkGgeE4gLqa2rCoxFjc/dimxIvGzDoLSL0bOtGiGROOjKOk529JN1t1BjVkD28qZeVv4IlL6YLxW0J8Odx04yV7xAIk7t2NBNcWDPzm5oj8haH+7QsZGa2SpFv09vHlkanMPWd+8MAMWbDntbCaQcE6tLcK6urkjBR1Z0ptEpgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=foQrcJjtj9m4YficDzMevjDQnboPA24vD/s0wOLnKDA=;
- b=YibCQDxuyEB0aGnsowqpE588UzP6wEumPiZkQGbtY/8rxHp1Kr7bYHJDLR7qgnfTvMWxlI2CUk8OY0zc0x4xHAmRKA1rplrjpmBN8k/jC1Yf+9G8ujodtDUzEYGbGrME/nCSOUnVGd49pf4RtYiJPhFT9UgvjY3wSVmnZYuDYG0KluWejmKkhcNUdOIwx8G1d+JQtrQlmDs9J0nV8jGnxBaVUKySwYNgIIYJ2n7zii54UbwGzOdLY7RFCcUx1L7GoEWZwgBCY1NQ/I48mVPyHIsaqmsdTKY1Dobuphojra8O1lwk4+pUXIWHdCD7DMgUEjSNP6JuiFyNJhLxVvVgrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MN0PR11MB6059.namprd11.prod.outlook.com (2603:10b6:208:377::9)
- by SJ0PR11MB5868.namprd11.prod.outlook.com (2603:10b6:a03:42b::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.33; Mon, 3 Apr
- 2023 17:29:37 +0000
-Received: from MN0PR11MB6059.namprd11.prod.outlook.com
- ([fe80::2b57:646c:1b01:cd18]) by MN0PR11MB6059.namprd11.prod.outlook.com
- ([fe80::2b57:646c:1b01:cd18%9]) with mapi id 15.20.6254.033; Mon, 3 Apr 2023
- 17:29:37 +0000
-Date: Mon, 3 Apr 2023 13:29:32 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Ashutosh Dixit <ashutosh.dixit@intel.com>
-Message-ID: <ZCsM/JDVFmcTTSIT@intel.com>
-References: <20230401024146.1826092-1-ashutosh.dixit@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230401024146.1826092-1-ashutosh.dixit@intel.com>
-X-ClientProxiedBy: SJ0PR13CA0175.namprd13.prod.outlook.com
- (2603:10b6:a03:2c7::30) To MN0PR11MB6059.namprd11.prod.outlook.com
- (2603:10b6:208:377::9)
+X-IronPort-AV: E=McAfee;i="6600,9927,10669"; a="860307751"
+X-IronPort-AV: E=Sophos;i="5.98,315,1673942400"; d="scan'208";a="860307751"
+Received: from unknown (HELO josouza-mobl2.fso.intel.com) ([10.230.18.148])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Apr 2023 11:06:24 -0700
+From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
+To: intel-xe@lists.freedesktop.org
+Date: Mon,  3 Apr 2023 11:06:10 -0700
+Message-Id: <20230403180614.197711-2-jose.souza@intel.com>
+X-Mailer: git-send-email 2.40.0
+In-Reply-To: <20230403180614.197711-1-jose.souza@intel.com>
+References: <20230403180614.197711-1-jose.souza@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR11MB6059:EE_|SJ0PR11MB5868:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1133e7d3-88b3-40d2-a7ca-08db3468ff3c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JZm8SZ2QAPuQtA+AjcQ9KXrPBEr67viaEtQOIv9XVBzfZWkNMvRZtKU1R7bzPiTlnApPCerjcV/L2Nrzx8VTQ02TGNx7srHOSvptRhuuAAaj09clx+MYtzLnof0YoxqE2yKntsN0mbYIQNPKwV/PXL2im/jCGnPYyforrWKSSkHgu9Yz7IzUP2KrdKzsf29L11xsuAgbQ8/Qzu1O1oqCoN1KhfrmyxHPL1MOs7XsnaL+EDKQl2QM7429HKc2h2+5GcU6ZAuVgR6iTHZMsxl5b5mi0bOkNZuOGkjx0n7tf2MSC4p05r7DxRMb48LhbslW7xDsuy935wWDCABhvUT+J/+2kJTNOvs3TXSPJbSXD4XD7epcb8M2hW5pdKza7csPY0c+9ilQPMNun6qpDLExo8ZT6umBeELEawq66wASI6qR9yAQxom99c7rqFxj7q69DkhWu7Fn1P/k5q2iqcIxm5nMNEYqFXPkufP1qU5Jk6XdMCBqdPU2+Lr2TXGeGg9d
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR11MB6059.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(136003)(39860400002)(396003)(366004)(376002)(346002)(451199021)(6666004)(26005)(186003)(83380400001)(6506007)(2616005)(41300700001)(478600001)(82960400001)(8676002)(6636002)(4326008)(66556008)(54906003)(66946007)(37006003)(316002)(66476007)(6486002)(966005)(38100700002)(36756003)(2906002)(86362001)(8936002)(5660300002)(6862004)(44832011)(6512007);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?cXCb7+LuYXCkJCtE8EZ1yz6fw64t1RVtUNPZ8XSpyIPRW+Ty0dWxTtzb/us/?=
- =?us-ascii?Q?KiZuCWALVGtjx5q1mlOGO3bxsPZ/Wwzs5S6c+Q5ooW0vGtg6gIyeMrL8K2F7?=
- =?us-ascii?Q?ulkSEkSiy555SIz5Tw0eo2etVTYhSWhScMQLJvVMru6YJIS2d1m/d0wc5oFC?=
- =?us-ascii?Q?lpN63w0v3Fl4Td8hAxfdhatRsNzLbnqM3/CfFuFRCCuEMgPOpuxcpyPJXHqe?=
- =?us-ascii?Q?FJ6YR2E0z2TVwio9BzdKozt+oLfLPK989+QsLoRkbRxsxMgmvFCq/FLRrgts?=
- =?us-ascii?Q?nlVcOuAvHEQl4qmdY5hVrFCKUG+L8u6Mbkiu04b3RDg6iPaoI9Sh8LyfBvFV?=
- =?us-ascii?Q?JBIGUtxqbU0akUr7TT5O/jxQpmoyasXynKQisEOrIEqmsscl98KZVJf1BF/0?=
- =?us-ascii?Q?TEzwVWZtTainSSf6Bwbo7miT6F7iJxQP0aCSpD1WC0wsNU+VozTmaqNMErPG?=
- =?us-ascii?Q?IUSNNHsazjtVlzUEUsQu18X6nqRKeWpjPSiL7HhzEeRyeDT7pCCOFGNalSBR?=
- =?us-ascii?Q?1cyp7BUIfJoQAZdQBotwXcwtykIJH2G0cNVLN/OzcQsALIuE7aBieqL/fpVW?=
- =?us-ascii?Q?oiWzAWc9ByaYp+66711QocSRl06YcRlzVAtblN5QFXZP3oGtDDuZDAcotV+q?=
- =?us-ascii?Q?q2JO0mnjl06rbYmGwvTiGo0yw8mRnmFaIRGWXqEXi6F3tPB+u4YL4qk+87uI?=
- =?us-ascii?Q?P6bGuiZfleGF7o2fxXqsDRlK/G9JDL3dVDQOSG8RnSYwLIs8QsYoD81yXlgv?=
- =?us-ascii?Q?KIWFBKkBhuTfjp4sUhKGrF9VALf2E1RUtNcOF1CUxAYhPfdmGK7lkC/iK3Eh?=
- =?us-ascii?Q?Qt6gDOauqytnRnQebVjE9f2esye5+gOWqs323AdlrO8yvjV36Axp7C1EV8Qf?=
- =?us-ascii?Q?gF7k/Kwh7KGNzYYXkORnwwPv/K607YuzdOaRJ+TKYE5GrzXf+0i1r4q70XIR?=
- =?us-ascii?Q?PijU1yTTtP7e7DvbtOef6Ef4pat2y1AJ4xfKVtAwQlGGjb+e6FCpdtfDwVzS?=
- =?us-ascii?Q?OuEdtDNxeETLZVV2w9sZU/9xS7bhc0h/0njVBOhALUFPjJ7wdubO3RQjIXpE?=
- =?us-ascii?Q?7IAAPprU3Q8sR67fVdvrsU4JHf2KfCcQ3EgfrkspZ5UV2/Vstfvg6ofj/M6y?=
- =?us-ascii?Q?2GCvKCdO1dZ4Nt1Tvm6vR/nZ0tsurBCh4SnGiIqjVJieLWVNckh4CN/Sw1Zv?=
- =?us-ascii?Q?16KmJ59zd5g72MWLlQUvLXa32yT9oPRePzAkOo0ZsFOo6heSj/PLOM8LZvIq?=
- =?us-ascii?Q?gzH3P9D6KpIR1LTx+b31DXd8CgmcA9nOwmIx1zz1UHySJfmLDJ7YlisNQQjM?=
- =?us-ascii?Q?knlxTkmdgdaE2ywKK5wuB0qGshjfc8qj6uWQCCfMFuyKio5MTejuHgesvN5y?=
- =?us-ascii?Q?CXrlIvfPyTHe5ykqKLSKvQgwm5XUvMqpwJzlgL94lRGcE5vku5fVSGE1f1zS?=
- =?us-ascii?Q?B2QJlmP9fm+C+KAi06p1E6zg9WSJCuS3P4JdYEiuMm+k4pE7wGjW9dAjvXDd?=
- =?us-ascii?Q?zI/bwXgo3eigDghHn+2DZFFAPn16ei4A6eY4aLSINHVF1IcYIE37Umm3aVSN?=
- =?us-ascii?Q?qzDglJZ2yvMDmgAEcSviZB2s4Qmr4jZVRgArdXaU?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1133e7d3-88b3-40d2-a7ca-08db3468ff3c
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR11MB6059.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2023 17:29:36.9733 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PJco5Z+PYlAWVSV/fsuIE5skFBnLKlrYdAjSFu83LuI4uqXoZ1NRMbX/hU0vcRfsdq7ZyKfWRGDUX8JJdn6FiQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB5868
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH v3] drm/i915/hwmon: Use 0 to designate
- disabled PL1 power limit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 2/6] drm/i915: Initialize dkl_phy spin lock
+ from display code path
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,121 +59,145 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 31, 2023 at 07:41:46PM -0700, Ashutosh Dixit wrote:
-> On ATSM the PL1 limit is disabled at power up. The previous uapi assumed
-> that the PL1 limit is always enabled and therefore did not have a notion of
-> a disabled PL1 limit. This results in erroneous PL1 limit values when the
-> PL1 limit is disabled. For example at power up, the disabled ATSM PL1 limit
-> was previously shown as 0 which means a low PL1 limit whereas the limit
-> being disabled actually implies a high effective PL1 limit value.
-> 
-> To get round this problem, the PL1 limit uapi is expanded to include a
-> special value 0 to designate a disabled PL1 limit. A read value of 0 means
-> that the PL1 power limit is disabled, writing 0 disables the limit.
-> 
-> The link between this patch and the bugs mentioned below is as follows:
-> * Because on ATSM the PL1 power limit is disabled on power up and there
->   were no means to enable it, we previously implemented the means to
->   enable the limit when the PL1 hwmon entry (power1_max) was written to.
-> * Now there is a IGT igt@i915_hwmon@hwmon_write which (a) reads orig value
->   from all hwmon sysfs  (b) does a bunch of random writes and finally (c)
->   restores the orig value read. On ATSM since the orig value is 0, when
->   the IGT restores the 0 value, the PL1 limit is now enabled with a value
->   of 0.
-> * PL1 limit of 0 implies a low PL1 limit which causes GPU freq to fall to
->   100 MHz. This causes GuC FW load and several IGT's to start timing out
->   and gives rise to these Intel CI bugs. After this patch, writing 0 would
->   disable the PL1 limit instead of enabling it, avoiding the freq drop
->   issue.
-> 
-> v2: Add explanation for bugs mentioned below (Rodrigo)
-> v3: Eliminate race during PL1 disable and verify (Tvrtko)
->     Change return to -ENODEV if verify fails (Tvrtko)
-> 
-> Link: https://gitlab.freedesktop.org/drm/intel/-/issues/8062
-> Link: https://gitlab.freedesktop.org/drm/intel/-/issues/8060
-> Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
-> Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Start to move the initialization of some lock from
+i915_driver_early_probe().
+This will also fix a warning in Xe kmd:
 
-pushed to drm-intel-next
+[  201.894839] xe 0000:00:02.0: [drm] [ENCODER:235:DDI A/PHY A] failed to retrieve link info, disabling eDP
+[  202.136336] xe 0000:00:02.0: [drm] *ERROR* Failed to write source OUI
+[  202.175346] INFO: trying to register non-static key.
+[  202.175347] irq event stamp: 754060
+[  202.175359] hardirqs last  enabled at (754059): [<ffffffff8122cf79>] tick_nohz_idle_enter+0x59/0x80
+[  202.180294] The code is fine but needs lockdep annotation, or maybe
+[  202.183774] hardirqs last disabled at (754060): [<ffffffff811a5539>] do_idle+0x99/0x230
+[  202.192734] you didn't initialize this object before use?
+[  202.198951] softirqs last  enabled at (753948): [<ffffffff8114abae>] irq_exit_rcu+0xbe/0x130
+[  202.206882] turning off the locking correctness validator.
+[  202.212236] softirqs last disabled at (753943): [<ffffffff8114abae>] irq_exit_rcu+0xbe/0x130
+[  202.220592] CPU: 2 PID: 1415 Comm: modprobe Tainted: G        W          6.3.0-rc4+zeh-xe+ #909
+[  202.243002] Hardware name: Intel Corporation Raptor Lake Client Platform/RaptorLake-P LP5 RVP, BIOS RPLPFWI1.R00.3361.A14.2211151548 11/15/2022
+[  202.255737] Call Trace:
+[  202.258179]  <TASK>
+[  202.260275]  dump_stack_lvl+0x58/0xc0
+[  202.263922]  register_lock_class+0x756/0x7d0
+[  202.268165]  ? find_held_lock+0x2b/0x80
+[  202.271975]  __lock_acquire+0x72/0x28b0
+[  202.275786]  ? debug_object_free+0xb4/0x160
+[  202.279946]  lock_acquire+0xd1/0x2d0
+[  202.283503]  ? intel_dkl_phy_read+0x18/0x60 [xe]
+[  202.288181]  _raw_spin_lock+0x2a/0x40
+[  202.291825]  ? intel_dkl_phy_read+0x18/0x60 [xe]
+[  202.296475]  intel_dkl_phy_read+0x18/0x60 [xe]
+[  202.300949]  icl_aux_power_well_enable+0x2bd/0x400 [xe]
+[  202.306202]  ? intel_display_power_grab_async_put_ref+0x75/0x120 [xe]
+[  202.312649]  intel_power_well_enable+0x1c/0x70 [xe]
+[  202.317543]  __intel_display_power_get_domain.part.0+0x4d/0x70 [xe]
+[  202.323812]  intel_display_power_get+0x43/0x70 [xe]
+[  202.328708]  intel_tc_port_init+0x199/0x2a0 [xe]
+[  202.333363]  intel_ddi_init+0x6ad/0xb00 [xe]
+[  202.337678]  intel_modeset_init_nogem+0x536/0x6d0 [xe]
+[  202.342838]  xe_display_init_noaccel+0x19/0x40 [xe]
+[  202.347743]  xe_device_probe+0x1f5/0x2a0 [xe]
+[  202.352127]  xe_pci_probe+0x28c/0x480 [xe]
+[  202.356260]  pci_device_probe+0x9d/0x150
+[  202.360164]  really_probe+0x19a/0x400
+[  202.363809]  ? __pfx___driver_attach+0x10/0x10
+[  202.368226]  __driver_probe_device+0x73/0x170
+[  202.372558]  driver_probe_device+0x1a/0x90
+[  202.376632]  __driver_attach+0xcd/0x1c0
+[  202.380442]  bus_for_each_dev+0x72/0xc0
+[  202.384253]  bus_add_driver+0x110/0x210
+[  202.388063]  driver_register+0x50/0x100
+[  202.391873]  ? __pfx_init_module+0x10/0x10 [xe]
+[  202.396431]  do_one_initcall+0x55/0x260
+[  202.400245]  ? rcu_is_watching+0xd/0x40
+[  202.404058]  ? kmalloc_trace+0xa0/0xb0
+[  202.407786]  do_init_module+0x45/0x1e0
+[  202.411512]  __do_sys_finit_module+0xac/0x120
+[  202.415838]  do_syscall_64+0x37/0x90
+[  202.419397]  entry_SYSCALL_64_after_hwframe+0x72/0xdc
+[  202.424409] RIP: 0033:0x7fd11291ea3d
+[  202.427967] Code: 5b 41 5c c3 66 0f 1f 84 00 00 00 00 00 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d c3 a3 0f 00 f7 d8 64 89 01 48
+[  202.446530] RSP: 002b:00007ffffde11368 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+[  202.454031] RAX: ffffffffffffffda RBX: 00005616a617f210 RCX: 00007fd11291ea3d
+[  202.461106] RDX: 0000000000000000 RSI: 00005616a617fe60 RDI: 000000000000000e
+[  202.468182] RBP: 0000000000040000 R08: 0000000000000000 R09: 0000000000000002
+[  202.475250] R10: 000000000000000e R11: 0000000000000246 R12: 00005616a617fe60
+[  202.482319] R13: 00005616a617f340 R14: 0000000000000000 R15: 00005616a6180650
+[  202.489396]  </TASK>
 
-> ---
->  .../ABI/testing/sysfs-driver-intel-i915-hwmon |  4 ++-
->  drivers/gpu/drm/i915/i915_hwmon.c             | 26 +++++++++++++++++++
->  2 files changed, 29 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon b/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
-> index 2d6a472eef885..8d7d8f05f6cd0 100644
-> --- a/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
-> +++ b/Documentation/ABI/testing/sysfs-driver-intel-i915-hwmon
-> @@ -14,7 +14,9 @@ Description:	RW. Card reactive sustained  (PL1/Tau) power limit in microwatts.
->  
->  		The power controller will throttle the operating frequency
->  		if the power averaged over a window (typically seconds)
-> -		exceeds this limit.
-> +		exceeds this limit. A read value of 0 means that the PL1
-> +		power limit is disabled, writing 0 disables the
-> +		limit. Writing values > 0 will enable the power limit.
->  
->  		Only supported for particular Intel i915 graphics platforms.
->  
-> diff --git a/drivers/gpu/drm/i915/i915_hwmon.c b/drivers/gpu/drm/i915/i915_hwmon.c
-> index 596dd2c070106..8e7dccc8d3a0e 100644
-> --- a/drivers/gpu/drm/i915/i915_hwmon.c
-> +++ b/drivers/gpu/drm/i915/i915_hwmon.c
-> @@ -349,6 +349,8 @@ hwm_power_is_visible(const struct hwm_drvdata *ddat, u32 attr, int chan)
->  	}
->  }
->  
-> +#define PL1_DISABLE 0
-> +
->  /*
->   * HW allows arbitrary PL1 limits to be set but silently clamps these values to
->   * "typical but not guaranteed" min/max values in rg.pkg_power_sku. Follow the
-> @@ -362,6 +364,14 @@ hwm_power_max_read(struct hwm_drvdata *ddat, long *val)
->  	intel_wakeref_t wakeref;
->  	u64 r, min, max;
->  
-> +	/* Check if PL1 limit is disabled */
-> +	with_intel_runtime_pm(ddat->uncore->rpm, wakeref)
-> +		r = intel_uncore_read(ddat->uncore, hwmon->rg.pkg_rapl_limit);
-> +	if (!(r & PKG_PWR_LIM_1_EN)) {
-> +		*val = PL1_DISABLE;
-> +		return 0;
-> +	}
-> +
->  	*val = hwm_field_read_and_scale(ddat,
->  					hwmon->rg.pkg_rapl_limit,
->  					PKG_PWR_LIM_1,
-> @@ -385,8 +395,24 @@ static int
->  hwm_power_max_write(struct hwm_drvdata *ddat, long val)
->  {
->  	struct i915_hwmon *hwmon = ddat->hwmon;
-> +	intel_wakeref_t wakeref;
->  	u32 nval;
->  
-> +	/* Disable PL1 limit and verify, because the limit cannot be disabled on all platforms */
-> +	if (val == PL1_DISABLE) {
-> +		mutex_lock(&hwmon->hwmon_lock);
-> +		with_intel_runtime_pm(ddat->uncore->rpm, wakeref) {
-> +			intel_uncore_rmw(ddat->uncore, hwmon->rg.pkg_rapl_limit,
-> +					 PKG_PWR_LIM_1_EN, 0);
-> +			nval = intel_uncore_read(ddat->uncore, hwmon->rg.pkg_rapl_limit);
-> +		}
-> +		mutex_unlock(&hwmon->hwmon_lock);
-> +
-> +		if (nval & PKG_PWR_LIM_1_EN)
-> +			return -ENODEV;
-> +		return 0;
-> +	}
-> +
->  	/* Computation in 64-bits to avoid overflow. Round to nearest. */
->  	nval = DIV_ROUND_CLOSEST_ULL((u64)val << hwmon->scl_shift_power, SF_POWER);
->  	nval = PKG_PWR_LIM_1_EN | REG_FIELD_PREP(PKG_PWR_LIM_1, nval);
-> -- 
-> 2.38.0
-> 
+Cc: intel-gfx@lists.freedesktop.org
+Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 3 +++
+ drivers/gpu/drm/i915/display/intel_dkl_phy.c | 6 ++++++
+ drivers/gpu/drm/i915/display/intel_dkl_phy.h | 2 ++
+ drivers/gpu/drm/i915/i915_driver.c           | 1 -
+ 4 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 2d59330ff5abd..92e1b535b2798 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -85,6 +85,7 @@
+ #include "intel_display_debugfs.h"
+ #include "intel_display_power.h"
+ #include "intel_display_types.h"
++#include "intel_dkl_phy.h"
+ #include "intel_dmc.h"
+ #include "intel_dp.h"
+ #include "intel_dp_link_training.h"
+@@ -7890,6 +7891,8 @@ static void intel_setup_outputs(struct drm_i915_private *dev_priv)
+ 	if (!HAS_DISPLAY(dev_priv))
+ 		return;
+ 
++	intel_dkl_phy_init(dev_priv);
++
+ 	if (IS_DG2(dev_priv)) {
+ 		intel_ddi_init(dev_priv, PORT_A);
+ 		intel_ddi_init(dev_priv, PORT_B);
+diff --git a/drivers/gpu/drm/i915/display/intel_dkl_phy.c b/drivers/gpu/drm/i915/display/intel_dkl_phy.c
+index 57cc3edba0163..5bce7b5b27bc7 100644
+--- a/drivers/gpu/drm/i915/display/intel_dkl_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_dkl_phy.c
+@@ -104,3 +104,9 @@ intel_dkl_phy_posting_read(struct drm_i915_private *i915, struct intel_dkl_phy_r
+ 
+ 	spin_unlock(&i915->display.dkl.phy_lock);
+ }
++
++void
++intel_dkl_phy_init(struct drm_i915_private *i915)
++{
++	spin_lock_init(&i915->display.dkl.phy_lock);
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_dkl_phy.h b/drivers/gpu/drm/i915/display/intel_dkl_phy.h
+index 570ee36f9386f..615429b6392c5 100644
+--- a/drivers/gpu/drm/i915/display/intel_dkl_phy.h
++++ b/drivers/gpu/drm/i915/display/intel_dkl_phy.h
+@@ -20,5 +20,7 @@ void
+ intel_dkl_phy_rmw(struct drm_i915_private *i915, struct intel_dkl_phy_reg reg, u32 clear, u32 set);
+ void
+ intel_dkl_phy_posting_read(struct drm_i915_private *i915, struct intel_dkl_phy_reg reg);
++void
++intel_dkl_phy_init(struct drm_i915_private *i915);
+ 
+ #endif /* __INTEL_DKL_PHY_H__ */
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index ea2cc56d18a6e..617b3d0da267d 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -223,7 +223,6 @@ static int i915_driver_early_probe(struct drm_i915_private *dev_priv)
+ 	mutex_init(&dev_priv->display.wm.wm_mutex);
+ 	mutex_init(&dev_priv->display.pps.mutex);
+ 	mutex_init(&dev_priv->display.hdcp.comp_mutex);
+-	spin_lock_init(&dev_priv->display.dkl.phy_lock);
+ 
+ 	i915_memcpy_init_early(dev_priv);
+ 	intel_runtime_pm_init_early(&dev_priv->runtime_pm);
+-- 
+2.40.0
+
