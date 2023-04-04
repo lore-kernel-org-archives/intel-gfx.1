@@ -4,30 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A198C6FD1D
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Apr 2023 21:17:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64DB4C6FD1D
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Apr 2023 21:23:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7798910E1EC;
-	Tue,  4 Apr 2023 21:17:54 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0476210E1EC;
- Tue,  4 Apr 2023 21:17:53 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id F1759AA3D8;
- Tue,  4 Apr 2023 21:17:52 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============7620687441304307714=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB37210E1FD;
+	Tue,  4 Apr 2023 21:23:53 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50D9310E1FD
+ for <intel-gfx@lists.freedesktop.org>; Tue,  4 Apr 2023 21:23:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1680643431;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=wN65mwnOl0cJ7VCIj2dGHYdaX8HViyuK9uZH/ketQAk=;
+ b=fvpGBQuy+Jleh+OZOqlzEZobf0MJxbgoanYZhICah/OPjlguYvbIYqpNRtxFxdHwN73aYD
+ m+h2qkK+wzdGzuPZCs5ku0aE1d08N2j+XveJuATGpKsf5dZL3rja1IY2hMPjaGwheEFq67
+ QmLlt3C7iQtJmbfG6VVhofEkitSlLow=
+Received: from mail-il1-f200.google.com (mail-il1-f200.google.com
+ [209.85.166.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-404-ZqNswX4cMESSDGSZkN4Zuw-1; Tue, 04 Apr 2023 17:23:47 -0400
+X-MC-Unique: ZqNswX4cMESSDGSZkN4Zuw-1
+Received: by mail-il1-f200.google.com with SMTP id
+ a3-20020a92c543000000b0032651795968so8273236ilj.19
+ for <intel-gfx@lists.freedesktop.org>; Tue, 04 Apr 2023 14:23:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680643426;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=wN65mwnOl0cJ7VCIj2dGHYdaX8HViyuK9uZH/ketQAk=;
+ b=zkETSrH6YeB9RAC+HenkxFe8/zcoPAL/yUnVOYRvUrKpojmTGWD7R7oUzPlVbBrgt1
+ ikUOPA8/D3Z6fC/yRUN88hHWAhAdYkL1oFvw/PwkUKE+IZ5bufDATYBsv3T7MWfVJO7A
+ N1PyspOhZOHOOW+l4ayJrcB16E7PuSdyBaKm5TpZLHAW4SS7wa18YmP1Z/UFA9u1Ep0G
+ 8faEje26cpEbFX8nV6+IjG79J4t4IC/es45cLfZp7b298ad5OT3IIdIG+x/h8u0L8H+q
+ ISFxGYhd9JfnldQPxIOi9e9dIZTxWsW7VFzBoNrJxnAoIMB2tzJyOgCAoKzB9ZcT9YYt
+ GD9w==
+X-Gm-Message-State: AAQBX9c4hl+aWsK5HCwWESzFA6zXyP7Z3tVwPTcPP6eb5/551J7CBHtF
+ d6ScEoZu6A/pWnCYwMw7AQlIi/O7vOmc6DC0XCwkKrYvyQMCiT2++jcpYmhwdn+EIkOh4u0LsVc
+ CRGMqfqhBlQVMO4ujv5eJNvI0akHI
+X-Received: by 2002:a6b:f60a:0:b0:75a:abfc:27e4 with SMTP id
+ n10-20020a6bf60a000000b0075aabfc27e4mr3106508ioh.9.1680643426537; 
+ Tue, 04 Apr 2023 14:23:46 -0700 (PDT)
+X-Google-Smtp-Source: AKy350aSgkWP5XhDrBsbjSoZ+3Kif0QnEue2HBucu6oUQFbA8Hwc5thex8OPsB0pvMBLSJ/0rcTV8g==
+X-Received: by 2002:a6b:f60a:0:b0:75a:abfc:27e4 with SMTP id
+ n10-20020a6bf60a000000b0075aabfc27e4mr3106482ioh.9.1680643426207; 
+ Tue, 04 Apr 2023 14:23:46 -0700 (PDT)
+Received: from redhat.com ([38.15.36.239]) by smtp.gmail.com with ESMTPSA id
+ u20-20020a6be914000000b0074c8a021d4csm3563919iof.44.2023.04.04.14.23.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Apr 2023 14:23:45 -0700 (PDT)
+Date: Tue, 4 Apr 2023 15:23:43 -0600
+From: Alex Williamson <alex.williamson@redhat.com>
+To: Yi Liu <yi.l.liu@intel.com>
+Message-ID: <20230404152343.790d6e78.alex.williamson@redhat.com>
+In-Reply-To: <20230401144429.88673-9-yi.l.liu@intel.com>
+References: <20230401144429.88673-1-yi.l.liu@intel.com>
+ <20230401144429.88673-9-yi.l.liu@intel.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.35; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Daniel Vetter" <daniel@ffwll.ch>
-Date: Tue, 04 Apr 2023 21:17:52 -0000
-Message-ID: <168064307296.18899.16762546745397338879@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20230308155322.344664-1-robdclark@gmail.com>
-In-Reply-To: <20230308155322.344664-1-robdclark@gmail.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZG1h?=
- =?utf-8?q?-fence=3A_Deadline_awareness_=28rev2=29?=
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v3 08/12] vfio/pci: Renaming for accepting
+ device fd in hot reset path
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,258 +84,188 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
+ peterx@redhat.com, terrence.xu@intel.com, chao.p.peng@linux.intel.com,
+ linux-s390@vger.kernel.org, kvm@vger.kernel.org, lulu@redhat.com,
+ yanting.jiang@intel.com, joro@8bytes.org, nicolinc@nvidia.com, jgg@nvidia.com,
+ yan.y.zhao@intel.com, intel-gfx@lists.freedesktop.org, eric.auger@redhat.com,
+ intel-gvt-dev@lists.freedesktop.org, yi.y.sun@linux.intel.com,
+ cohuck@redhat.com, shameerali.kolothum.thodi@huawei.com,
+ suravee.suthikulpanit@amd.com, robin.murphy@arm.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============7620687441304307714==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Sat,  1 Apr 2023 07:44:25 -0700
+Yi Liu <yi.l.liu@intel.com> wrote:
 
-== Series Details ==
+> No functional change is intended.
+> 
+> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> Tested-by: Yanting Jiang <yanting.jiang@intel.com>
+> Signed-off-by: Yi Liu <yi.l.liu@intel.com>
+> ---
+>  drivers/vfio/pci/vfio_pci_core.c | 52 ++++++++++++++++----------------
+>  1 file changed, 26 insertions(+), 26 deletions(-)
+> 
+> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+> index 2a510b71edcb..da6325008872 100644
+> --- a/drivers/vfio/pci/vfio_pci_core.c
+> +++ b/drivers/vfio/pci/vfio_pci_core.c
+> @@ -177,10 +177,10 @@ static void vfio_pci_probe_mmaps(struct vfio_pci_core_device *vdev)
+>  	}
+>  }
+>  
+> -struct vfio_pci_group_info;
+> +struct vfio_pci_file_info;
+>  static void vfio_pci_dev_set_try_reset(struct vfio_device_set *dev_set);
+>  static int vfio_pci_dev_set_hot_reset(struct vfio_device_set *dev_set,
+> -				      struct vfio_pci_group_info *groups,
+> +				      struct vfio_pci_file_info *info,
+>  				      struct iommufd_ctx *iommufd_ctx);
+>  
+>  /*
+> @@ -800,7 +800,7 @@ static int vfio_pci_fill_devs(struct pci_dev *pdev, void *data)
+>  	return 0;
+>  }
+>  
+> -struct vfio_pci_group_info {
+> +struct vfio_pci_file_info {
+>  	int count;
+>  	struct file **files;
+>  };
+> @@ -1257,14 +1257,14 @@ static int vfio_pci_ioctl_get_pci_hot_reset_info(
+>  }
+>  
+>  static int
+> -vfio_pci_ioctl_pci_hot_reset_groups(struct vfio_pci_core_device *vdev,
+> -				    struct vfio_pci_hot_reset *hdr,
+> -				    bool slot,
+> -				    struct vfio_pci_hot_reset __user *arg)
+> +vfio_pci_ioctl_pci_hot_reset_files(struct vfio_pci_core_device *vdev,
+> +				   struct vfio_pci_hot_reset *hdr,
+> +				   bool slot,
+> +				   struct vfio_pci_hot_reset __user *arg)
+>  {
+> -	int32_t *group_fds;
+> +	int32_t *fds;
+>  	struct file **files;
+> -	struct vfio_pci_group_info info;
+> +	struct vfio_pci_file_info info;
+>  	int file_idx, count = 0, ret = 0;
+>  
+>  	/*
+> @@ -1281,17 +1281,17 @@ vfio_pci_ioctl_pci_hot_reset_groups(struct vfio_pci_core_device *vdev,
+>  	if (hdr->count > count)
+>  		return -EINVAL;
+>  
+> -	group_fds = kcalloc(hdr->count, sizeof(*group_fds), GFP_KERNEL);
+> +	fds = kcalloc(hdr->count, sizeof(*fds), GFP_KERNEL);
+>  	files = kcalloc(hdr->count, sizeof(*files), GFP_KERNEL);
+> -	if (!group_fds || !files) {
+> -		kfree(group_fds);
+> +	if (!fds || !files) {
+> +		kfree(fds);
+>  		kfree(files);
+>  		return -ENOMEM;
+>  	}
+>  
+> -	if (copy_from_user(group_fds, arg->group_fds,
+> -			   hdr->count * sizeof(*group_fds))) {
+> -		kfree(group_fds);
+> +	if (copy_from_user(fds, arg->group_fds,
+> +			   hdr->count * sizeof(*fds))) {
+> +		kfree(fds);
+>  		kfree(files);
+>  		return -EFAULT;
+>  	}
+> @@ -1301,7 +1301,7 @@ vfio_pci_ioctl_pci_hot_reset_groups(struct vfio_pci_core_device *vdev,
+>  	 * the reset
+>  	 */
+>  	for (file_idx = 0; file_idx < hdr->count; file_idx++) {
+> -		struct file *file = fget(group_fds[file_idx]);
+> +		struct file *file = fget(fds[file_idx]);
+>  
+>  		if (!file) {
+>  			ret = -EBADF;
+> @@ -1318,9 +1318,9 @@ vfio_pci_ioctl_pci_hot_reset_groups(struct vfio_pci_core_device *vdev,
+>  		files[file_idx] = file;
+>  	}
+>  
+> -	kfree(group_fds);
+> +	kfree(fds);
+>  
+> -	/* release reference to groups on error */
+> +	/* release reference to fds on error */
+>  	if (ret)
+>  		goto hot_reset_release;
+>  
+> @@ -1358,7 +1358,7 @@ static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
+>  		return -ENODEV;
+>  
+>  	if (hdr.count)
+> -		return vfio_pci_ioctl_pci_hot_reset_groups(vdev, &hdr, slot, arg);
+> +		return vfio_pci_ioctl_pci_hot_reset_files(vdev, &hdr, slot, arg);
+>  
+>  	iommufd = vfio_iommufd_physical_ictx(&vdev->vdev);
+>  
+> @@ -2329,16 +2329,16 @@ const struct pci_error_handlers vfio_pci_core_err_handlers = {
+>  };
+>  EXPORT_SYMBOL_GPL(vfio_pci_core_err_handlers);
+>  
+> -static bool vfio_dev_in_groups(struct vfio_pci_core_device *vdev,
+> -			       struct vfio_pci_group_info *groups)
+> +static bool vfio_dev_in_files(struct vfio_pci_core_device *vdev,
+> +			      struct vfio_pci_file_info *info)
+>  {
+>  	unsigned int i;
+>  
+> -	if (!groups)
+> +	if (!info)
+>  		return false;
+>  
+> -	for (i = 0; i < groups->count; i++)
+> -		if (vfio_file_has_dev(groups->files[i], &vdev->vdev))
+> +	for (i = 0; i < info->count; i++)
+> +		if (vfio_file_has_dev(info->files[i], &vdev->vdev))
+>  			return true;
+>  	return false;
+>  }
+> @@ -2429,7 +2429,7 @@ static bool vfio_dev_in_iommufd_ctx(struct vfio_pci_core_device *vdev,
+>   * get each memory_lock.
+>   */
+>  static int vfio_pci_dev_set_hot_reset(struct vfio_device_set *dev_set,
+> -				      struct vfio_pci_group_info *groups,
+> +				      struct vfio_pci_file_info *info,
+>  				      struct iommufd_ctx *iommufd_ctx)
+>  {
+>  	struct vfio_pci_core_device *cur_mem;
+> @@ -2478,7 +2478,7 @@ static int vfio_pci_dev_set_hot_reset(struct vfio_device_set *dev_set,
+>  		 * the calling device is in a singleton dev_set.
+>  		 */
+>  		if (cur_vma->vdev.open_count &&
+> -		    !vfio_dev_in_groups(cur_vma, groups) &&
+> +		    !vfio_dev_in_files(cur_vma, info) &&
+>  		    !vfio_dev_in_iommufd_ctx(cur_vma, iommufd_ctx) &&
+>  		    (dev_set->device_count > 1)) {
+>  			ret = -EINVAL;
 
-Series: dma-fence: Deadline awareness (rev2)
-URL   : https://patchwork.freedesktop.org/series/114863/
-State : success
+At this point, vfio_dev_in_files() supports both group and cdev fds and
+these can be used for both regular IOMMU protected and no-IOMMU
+devices AFAICT.  We only add this 1-off dev_set device count test and
+its subtle side-effects in order to support the null-array mode, which
+IMO really has yet to be shown as a requirement.
 
-== Summary ==
+IIRC, we were wanting to add that mode as part of the cdev interface so
+that the existence of cdevs implies this support, but now we're already
+making use of vfio_pci_hot_reset_info.flags to indicate group-id vs
+dev-id in the output, so does anything prevent us from setting another
+bit there if/when this feature proves itself useful and error free, to
+indicate it's an available mode for the hot-reset ioctl?
 
-CI Bug Log - changes from CI_DRM_12965 -> Patchwork_114863v2
-====================================================
+With that I think we could drop patches 4 & 5 with a plan for
+introducing them later without trying to strong arm the feature in
+without a proven and available use case now.  Thanks,
 
-Summary
--------
+Alex
 
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/index.html
-
-Participating hosts (38 -> 36)
-------------------------------
-
-  Missing    (2): fi-kbl-soraka fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_114863v2 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_pm_rpm@module-reload:
-    - fi-bsw-n3050:       [PASS][1] -> [DMESG-WARN][2] ([i915#1982])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12965/fi-bsw-n3050/igt@i915_pm_rpm@module-reload.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/fi-bsw-n3050/igt@i915_pm_rpm@module-reload.html
-
-  * igt@i915_selftest@live@slpc:
-    - bat-rpls-1:         NOTRUN -> [DMESG-FAIL][3] ([i915#6367])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/bat-rpls-1/igt@i915_selftest@live@slpc.html
-
-  * igt@kms_chamelium_hpd@common-hpd-after-suspend:
-    - bat-dg2-11:         NOTRUN -> [SKIP][4] ([i915#7828])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/bat-dg2-11/igt@kms_chamelium_hpd@common-hpd-after-suspend.html
-    - bat-rpls-1:         NOTRUN -> [SKIP][5] ([i915#7828])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/bat-rpls-1/igt@kms_chamelium_hpd@common-hpd-after-suspend.html
-
-  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:
-    - bat-dg2-11:         NOTRUN -> [SKIP][6] ([i915#5354]) +2 similar issues
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
-
-  * igt@kms_pipe_crc_basic@suspend-read-crc:
-    - bat-rpls-1:         NOTRUN -> [SKIP][7] ([i915#1845])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/bat-rpls-1/igt@kms_pipe_crc_basic@suspend-read-crc.html
-
-  * igt@kms_pipe_crc_basic@suspend-read-crc@pipe-c-hdmi-a-3:
-    - bat-dg2-11:         NOTRUN -> [INCOMPLETE][8] ([i915#7908])
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/bat-dg2-11/igt@kms_pipe_crc_basic@suspend-read-crc@pipe-c-hdmi-a-3.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@gt_heartbeat:
-    - fi-apl-guc:         [DMESG-FAIL][9] ([i915#5334]) -> [PASS][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12965/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html
-
-  * igt@i915_selftest@live@gt_lrc:
-    - bat-dg2-11:         [INCOMPLETE][11] ([i915#7609] / [i915#7913]) -> [PASS][12]
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12965/bat-dg2-11/igt@i915_selftest@live@gt_lrc.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/bat-dg2-11/igt@i915_selftest@live@gt_lrc.html
-
-  * igt@i915_selftest@live@requests:
-    - bat-rpls-1:         [ABORT][13] ([i915#4983] / [i915#7911]) -> [PASS][14]
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12965/bat-rpls-1/igt@i915_selftest@live@requests.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/bat-rpls-1/igt@i915_selftest@live@requests.html
-
-  
-  [i915#1845]: https://gitlab.freedesktop.org/drm/intel/issues/1845
-  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
-  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
-  [i915#5334]: https://gitlab.freedesktop.org/drm/intel/issues/5334
-  [i915#5354]: https://gitlab.freedesktop.org/drm/intel/issues/5354
-  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
-  [i915#7609]: https://gitlab.freedesktop.org/drm/intel/issues/7609
-  [i915#7828]: https://gitlab.freedesktop.org/drm/intel/issues/7828
-  [i915#7908]: https://gitlab.freedesktop.org/drm/intel/issues/7908
-  [i915#7911]: https://gitlab.freedesktop.org/drm/intel/issues/7911
-  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_12965 -> Patchwork_114863v2
-
-  CI-20190529: 20190529
-  CI_DRM_12965: 53e37ca502cfe620396e498fae8430c293fb2c83 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7236: bac5a4cc31b3212a205219a6cbc45a173d30d04b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_114863v2: 53e37ca502cfe620396e498fae8430c293fb2c83 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-06e6595f265f drm/i915: Add deadline based boost support
-cb9e982d5078 drm/msm/atomic: Switch to vblank_start helper
-bdf5bc55f225 drm/msm: Add wait-boost support
-5891ca38b3e1 drm/msm: Add deadline based boost support
-b4059a78d971 drm/atomic-helper: Set fence deadline for vblank
-a8d0c70c9462 drm/syncobj: Add deadline support for syncobj waits
-534713b057c0 dma-buf/sw_sync: Add fence deadline support
-b4fc4d4e67a0 dma-buf/sync_file: Add SET_DEADLINE ioctl
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/index.html
-
---===============7620687441304307714==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>dma-fence: Deadline awareness (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/114863/">https://patchwork.freedesktop.org/series/114863/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_12965 -&gt; Patchwork_114863v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/index.html</p>
-<h2>Participating hosts (38 -&gt; 36)</h2>
-<p>Missing    (2): fi-kbl-soraka fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_114863v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_pm_rpm@module-reload:</p>
-<ul>
-<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12965/fi-bsw-n3050/igt@i915_pm_rpm@module-reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/fi-bsw-n3050/igt@i915_pm_rpm@module-reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1982">i915#1982</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@slpc:</p>
-<ul>
-<li>bat-rpls-1:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/bat-rpls-1/igt@i915_selftest@live@slpc.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6367">i915#6367</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium_hpd@common-hpd-after-suspend:</p>
-<ul>
-<li>
-<p>bat-dg2-11:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/bat-dg2-11/igt@kms_chamelium_hpd@common-hpd-after-suspend.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7828">i915#7828</a>)</p>
-</li>
-<li>
-<p>bat-rpls-1:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/bat-rpls-1/igt@kms_chamelium_hpd@common-hpd-after-suspend.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7828">i915#7828</a>)</p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:</p>
-<ul>
-<li>bat-dg2-11:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5354">i915#5354</a>) +2 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@suspend-read-crc:</p>
-<ul>
-<li>bat-rpls-1:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/bat-rpls-1/igt@kms_pipe_crc_basic@suspend-read-crc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1845">i915#1845</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@suspend-read-crc@pipe-c-hdmi-a-3:</p>
-<ul>
-<li>bat-dg2-11:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/bat-dg2-11/igt@kms_pipe_crc_basic@suspend-read-crc@pipe-c-hdmi-a-3.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7908">i915#7908</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@gt_heartbeat:</p>
-<ul>
-<li>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12965/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@gt_lrc:</p>
-<ul>
-<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12965/bat-dg2-11/igt@i915_selftest@live@gt_lrc.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7609">i915#7609</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/bat-dg2-11/igt@i915_selftest@live@gt_lrc.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@requests:</p>
-<ul>
-<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12965/bat-rpls-1/igt@i915_selftest@live@requests.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7911">i915#7911</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_114863v2/bat-rpls-1/igt@i915_selftest@live@requests.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_12965 -&gt; Patchwork_114863v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_12965: 53e37ca502cfe620396e498fae8430c293fb2c83 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7236: bac5a4cc31b3212a205219a6cbc45a173d30d04b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_114863v2: 53e37ca502cfe620396e498fae8430c293fb2c83 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>06e6595f265f drm/i915: Add deadline based boost support<br />
-cb9e982d5078 drm/msm/atomic: Switch to vblank_start helper<br />
-bdf5bc55f225 drm/msm: Add wait-boost support<br />
-5891ca38b3e1 drm/msm: Add deadline based boost support<br />
-b4059a78d971 drm/atomic-helper: Set fence deadline for vblank<br />
-a8d0c70c9462 drm/syncobj: Add deadline support for syncobj waits<br />
-534713b057c0 dma-buf/sw_sync: Add fence deadline support<br />
-b4fc4d4e67a0 dma-buf/sync_file: Add SET_DEADLINE ioctl</p>
-
-</body>
-</html>
-
---===============7620687441304307714==--
