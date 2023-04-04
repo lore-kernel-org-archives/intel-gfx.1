@@ -4,77 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA962C761AF
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Apr 2023 08:15:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9313BC6FD1D
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Apr 2023 08:15:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EB6910E617;
-	Tue,  4 Apr 2023 08:15:48 +0000 (UTC)
-X-Greylist: delayed 565 seconds by postgrey-1.36 at gabe;
- Tue, 04 Apr 2023 08:15:46 UTC
-Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
- [66.111.4.224])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3BC710E617
- for <intel-gfx@lists.freedesktop.org>; Tue,  4 Apr 2023 08:15:46 +0000 (UTC)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailnew.nyi.internal (Postfix) with ESMTP id 0B063581E42;
- Tue,  4 Apr 2023 04:06:18 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Tue, 04 Apr 2023 04:06:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cerno.tech; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:sender:subject:subject:to:to; s=fm3; t=
- 1680595577; x=1680602777; bh=wvCuyZAuwEh94yyPjnRpCKIdQGJiyQn4/4B
- DEJQFbU0=; b=AtkH6rvUj5U5huHejp3uB3Zz5g/hfaZcg4lsnDaWzOdc/s6GMft
- NwOliXjFRM9vVv/5coyHFJSjD5zmTN/T37LeiJs0b2AZvqX/rt4tsMCrt/N/mUKn
- zRYtB4SI2VlvljEIKLsNOMgFgM6qyxGJDGJPN0945PL9ga3Ca/7lyRfVSG32mbeN
- LyeAFhMO7GP0Qj/HN/9Vez66bmAZNzuq0Q4iE8Wh1SaaaCaGIyR1YfW+Wuoivgzr
- /K48Uzq20/2G8SU91+mJb7xFLPNS7sY1U+r9OYBjgGGCWyxVevi31hiFgyJ3JIeS
- 0XXwam1+YzQ9WmyBH56dK3lhq0DPrrvXMzg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:sender:subject:subject:to:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
- 1680595577; x=1680602777; bh=wvCuyZAuwEh94yyPjnRpCKIdQGJiyQn4/4B
- DEJQFbU0=; b=UaMS3EDcjVFS4oxlGIxcvqHEj0KmZmkMx1ngoKgbdfNCdsqPX+l
- iqLDWwLjLB0rpf+Ve7rB2O4d4xQicHN2vw6D+Q7JB4R2qBHP3aWVEYjXwJZT4nG6
- Q9tEMq3jw28REojZB3Vhj7GSZ3b4x8ItQlK9nxgs77UR+uiXU1jWjH0XPom35e9e
- 7JjotqVoOu5S7nndrLkQ9/28cmv95coqNcScMuksL7V8NuS/li3XMoRCdAspyM/2
- hnhiWenn5ndLvQh4BHZZiq5zTucX1DhUayFte6tbFRfJAD799vNFlnFT8jkcxZN0
- FRy2ZIekTz5ZU6GGZYXol2pqjVipgsKy7Hg==
-X-ME-Sender: <xms:edorZHIIqODZo1ouiFGUdwEfH5urh1EIj0JkdajfjuRlvdvRs039SQ>
- <xme:edorZLIgMIyLPRMpb66mIZt06QdaBBMEuuNbk0r_DDNIBz0HcQD1V61hjniM3zcQF
- HhreuYgxcKdovAMXEA>
-X-ME-Received: <xmr:edorZPsvVmVs6jpuUnK5ghI97GyKWkpiB0SO0kXc_7VImZXehAfR201wB8M0zovQsenzlIc6mmnxCd16rbn0ztyMNt1I5gE>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdeikedgudduvdcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpeffhffvvefukfhfgggtugfgjgesthhqredttddtudenucfhrhhomhepofgr
- gihimhgvucftihhprghrugcuoehmrgigihhmvgestggvrhhnohdrthgvtghhqeenucggtf
- frrghtthgvrhhnpeelleefieelleetteefvdeikeeffeffvefhtdevgfehveduveehjedv
- vdeiledtieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
- hmpehmrgigihhmvgestggvrhhnohdrthgvtghh
-X-ME-Proxy: <xmx:edorZAZcFb_guoENutFxYld2KfQ381xhFJ-Z-w0jCc_rcxw-HlztJQ>
- <xmx:edorZOZWkdIO5ImT_hOE3FG8G4LsDz_sZ6DCxNM2E5KgFcP0ncmQ6g>
- <xmx:edorZEBA40wmGZl3MFznaF1dW2twdxRLJ1IHsvCRgI9ZIBTCKhhM1A>
- <xmx:edorZLJD1KYskIfRNoT51A9Zhc-Mk2yGgI6jyzWZrXY3Q9hLaZiJKw>
-Feedback-ID: i8771445c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 4 Apr 2023 04:06:16 -0400 (EDT)
-Date: Tue, 4 Apr 2023 10:06:14 +0200
-From: Maxime Ripard <maxime@cerno.tech>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>
-Message-ID: <20230404080614.zhfm5cq5uzx26ha5@houat>
-References: <20230329171402.2772-1-ville.syrjala@linux.intel.com>
- <20230403223652.18848-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 229D310E611;
+	Tue,  4 Apr 2023 08:15:57 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8508E10E611;
+ Tue,  4 Apr 2023 08:15:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1680596155; x=1712132155;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=DT1NhLLFa3XglX09CH2DPBTa+Kl3i+R5VfeAGkEkpv0=;
+ b=Q7f2hKTrBaYjaRDajagAK024KX5RaNsh5y9C76jdh9Bsi6tPalhaWfsM
+ j8mFmLrf8+QtqKkO/yJ9AGcGl086g/ReEghc6t2DmGhn3nX/TC2cN17Ai
+ Tik1MIggc3x8A3Dubl9n1ZN6FWVBda/KViC5jTlzkufmVmK963wCuXAud
+ Y2Vlm/kH3lAeWwHr/j0+/5LehidDeH8CZe5Vh4vBn2/vvbffklqhyntyv
+ D465kMIktZKlMsklyakGK80fxSrMh1zingC+HDFNPnuYdYRVI4KV5aqwD
+ LeOkty7L7og9H0V9QQb6tX8dE1pAD3M9NzmeXg5mTF3LnJWfejTiiyhpL Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10669"; a="407181277"
+X-IronPort-AV: E=Sophos;i="5.98,317,1673942400"; d="scan'208";a="407181277"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Apr 2023 01:15:54 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10669"; a="932366880"
+X-IronPort-AV: E=Sophos;i="5.98,317,1673942400"; d="scan'208";a="932366880"
+Received: from rjongalo-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.252.43.58])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Apr 2023 01:15:52 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>, "Souza, Jose" <jose.souza@intel.com>
+In-Reply-To: <ZCscKrjtYBanN1tU@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20230403164615.131633-1-jose.souza@intel.com>
+ <ZCsG32XI7XLljXGP@intel.com>
+ <bc6c151c44b46ce04da7760b7ce359f2bf1764fd.camel@intel.com>
+ <ZCscKrjtYBanN1tU@intel.com>
+Date: Tue, 04 Apr 2023 11:15:50 +0300
+Message-ID: <87bkk412rt.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20230403223652.18848-1-ville.syrjala@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH v2] drm/scdc-helper: Pimp SCDC debugs
+Subject: Re: [Intel-gfx] [Intel-xe] [PATCH 1/5] drm/i915: Split display
+ locks init from i915_driver_early_probe()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,37 +63,138 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Robert Foss <rfoss@kernel.org>,
- Emma Anholt <emma@anholt.net>, Jonas Karlman <jonas@kwiboo.se>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, linux-tegra@vger.kernel.org
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 04, 2023 at 01:36:52AM +0300, Ville Syrjala wrote:
-> From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
->=20
-> Include the device and connector information in the SCDC
-> debugs. Makes it easier to figure out who did what.
->=20
-> v2: Rely on connector->ddc (Maxime)
->=20
-> Cc: Andrzej Hajda <andrzej.hajda@intel.com>
-> Cc: Neil Armstrong <neil.armstrong@linaro.org>
-> Cc: Robert Foss <rfoss@kernel.org>
-> Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-> Cc: Jonas Karlman <jonas@kwiboo.se>
-> Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
-> Cc: Thierry Reding <thierry.reding@gmail.com>
-> Cc: Emma Anholt <emma@anholt.net>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: intel-gfx@lists.freedesktop.org
-> Cc: linux-tegra@vger.kernel.org
-> Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+On Mon, 03 Apr 2023, Rodrigo Vivi <rodrigo.vivi@intel.com> wrote:
+> On Mon, Apr 03, 2023 at 02:10:26PM -0400, Souza, Jose wrote:
+>> On Mon, 2023-04-03 at 13:03 -0400, Rodrigo Vivi wrote:
+>> > On Mon, Apr 03, 2023 at 09:46:11AM -0700, Jos=C3=A9 Roberto de Souza w=
+rote:
+>> > > No behavior changes here, just adding a function to make clear
+>> > > what locks initialized here are display related or not.
+>> > >=20
+>> > > Cc: intel-gfx@lists.freedesktop.org
+>> > > Signed-off-by: Jos=C3=A9 Roberto de Souza <jose.souza@intel.com>
+>> > > ---
+>> > >  drivers/gpu/drm/i915/i915_driver.c | 23 +++++++++++++++--------
+>> > >  1 file changed, 15 insertions(+), 8 deletions(-)
+>> > >=20
+>> > > diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i9=
+15/i915_driver.c
+>> > > index 066d79c2069c4..224cb4cb43335 100644
+>> > > --- a/drivers/gpu/drm/i915/i915_driver.c
+>> > > +++ b/drivers/gpu/drm/i915/i915_driver.c
+>> > > @@ -188,6 +188,20 @@ static void sanitize_gpu(struct drm_i915_privat=
+e *i915)
+>> > >  	}
+>> > >  }
+>> > >=20=20
+>> > > +static void
+>> > > +i915_driver_display_early_probe(struct drm_i915_private *dev_priv)
+>> > > +{
+>> > > +	spin_lock_init(&dev_priv->display.fb_tracking.lock);
+>> > > +	spin_lock_init(&dev_priv->display.wm.dsparb_lock);
+>> > > +	mutex_init(&dev_priv->display.backlight.lock);
+>> > > +
+>> > > +	mutex_init(&dev_priv->display.audio.mutex);
+>> > > +	mutex_init(&dev_priv->display.wm.wm_mutex);
+>> > > +	mutex_init(&dev_priv->display.pps.mutex);
+>> > > +	mutex_init(&dev_priv->display.hdcp.comp_mutex);
+>> > > +	spin_lock_init(&dev_priv->display.dkl.phy_lock);
+>> > > +}
+>> > > +
+>> >=20
+>> > hmmm... I like that, however Jani had indicated in another series [1]
+>> > that he would prefer the wm mutex inside the wm code for instance...
+>> >=20
+>> > So, should we move all of these to their own components instead of this
+>> > move?
+>> >=20
+>> > [1] https://patchwork.freedesktop.org/series/115675/
+>> >=20
+>> > I checked and for a few components it is simple to move them to their
+>> > own init functions. However for a few we would need to create new init
+>> > functions and call them here.
+>> >=20
+>> > Jani, more thoughts?
+>>=20
+>> Forgot to CC you two in the new version: https://patchwork.freedesktop.o=
+rg/series/116039/
+>>=20
+>> display.wm.dsparb_lock is not used anywhere.
+>
+> it currently doesn't exist on drm-intel. Not sure how it appeared in drm-=
+xe...
+> Probably a !fixup needed on initial display patches.
+>
+> Please notice that my series on the link I sent earlier re-introduce it w=
+ith a proper
+> usage. Ville had already reviewed the code, but I hold the push because J=
+ani
+> asked about a better placement.
+>
+> What I tried to say earlier here is that this patch is probably not follo=
+wing
+> Jani's vision on how to organize the initialization of these many
+> locks.
 
-Acked-by: Maxime Ripard <maxime@cerno.tech>
+That's right.
 
-Thanks!
-Maxime
+Audio init should initialize audio.mutex.
+
+Watermark init should initialize wm.wm_mutex.
+
+PPS init should initialize pps.mutex.
+
+Etc.
+
+Moreover, display.audio should only be accessed by intel_audio.c. Etc.
+
+BR,
+Jani.
+
+
+
+
+
+
+>
+>> Moved display.dkl.phy_lock, will leave the rest to someone to take over.
+>>=20
+>>=20
+>> >=20
+>> > >  /**
+>> > >   * i915_driver_early_probe - setup state not requiring device access
+>> > >   * @dev_priv: device private
+>> > > @@ -213,18 +227,11 @@ static int i915_driver_early_probe(struct drm_=
+i915_private *dev_priv)
+>> > >=20=20
+>> > >  	spin_lock_init(&dev_priv->irq_lock);
+>> > >  	spin_lock_init(&dev_priv->gpu_error.lock);
+>> > > -	spin_lock_init(&dev_priv->display.fb_tracking.lock);
+>> > > -	spin_lock_init(&dev_priv->display.wm.dsparb_lock);
+>> > > -	mutex_init(&dev_priv->display.backlight.lock);
+>> > >=20=20
+>> > >  	mutex_init(&dev_priv->sb_lock);
+>> > >  	cpu_latency_qos_add_request(&dev_priv->sb_qos, PM_QOS_DEFAULT_VALU=
+E);
+>> > >=20=20
+>> > > -	mutex_init(&dev_priv->display.audio.mutex);
+>> > > -	mutex_init(&dev_priv->display.wm.wm_mutex);
+>> > > -	mutex_init(&dev_priv->display.pps.mutex);
+>> > > -	mutex_init(&dev_priv->display.hdcp.comp_mutex);
+>> > > -	spin_lock_init(&dev_priv->display.dkl.phy_lock);
+>> > > +	i915_driver_display_early_probe(dev_priv);
+>> > >=20=20
+>> > >  	i915_memcpy_init_early(dev_priv);
+>> > >  	intel_runtime_pm_init_early(&dev_priv->runtime_pm);
+>> > > --=20
+>> > > 2.40.0
+>> > >=20
+>>=20
+
+--=20
+Jani Nikula, Intel Open Source Graphics Center
