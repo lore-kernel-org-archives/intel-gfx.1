@@ -4,36 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2EDBC76188
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Apr 2023 22:21:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49FF1C76188
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Apr 2023 22:25:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6385010E7D6;
-	Tue,  4 Apr 2023 22:21:52 +0000 (UTC)
-X-Greylist: delayed 401 seconds by postgrey-1.36 at gabe;
- Tue, 04 Apr 2023 22:21:50 UTC
-Received: from smtp97.iad3a.emailsrvr.com (smtp97.iad3a.emailsrvr.com
- [173.203.187.97])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1463510E7D6
- for <intel-gfx@lists.freedesktop.org>; Tue,  4 Apr 2023 22:21:49 +0000 (UTC)
-X-Auth-ID: kenneth@whitecape.org
-Received: by smtp29.relay.iad3a.emailsrvr.com (Authenticated sender:
- kenneth-AT-whitecape.org) with ESMTPSA id 93E0E23A6C; 
- Tue,  4 Apr 2023 18:15:07 -0400 (EDT)
-From: Kenneth Graunke <kenneth@whitecape.org>
-To: Matt Roper <matthew.d.roper@intel.com>, intel-gfx@lists.freedesktop.org,
- Chris Wilson <chris.p.wilson@linux.intel.com>
-Date: Tue, 04 Apr 2023 15:15:02 -0700
-Message-ID: <841291489.4Es8JzXQGL@mizzik>
-In-Reply-To: <ZCsDaDzyOyu9mYU3@intel.com>
-References: <20230401063830.438127-1-fei.yang@intel.com>
- <20230403163532.GT4085390@mdroper-desk1.amr.corp.intel.com>
- <ZCsDaDzyOyu9mYU3@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E14710E7D6;
+	Tue,  4 Apr 2023 22:25:18 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C38DE10E7D6;
+ Tue,  4 Apr 2023 22:25:16 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id ADC22A0BA8;
+ Tue,  4 Apr 2023 22:25:16 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0651532691950587615=="
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart6533292.K0ekAHHfTp";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
-X-Classification-ID: 43e8f2a4-730a-4a8d-b9b3-2a2d0a1f4921-1-1
-Subject: Re: [Intel-gfx] [PATCH 7/7] drm/i915: Allow user to set cache at BO
- creation
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Daniel Vetter" <daniel.vetter@ffwll.ch>
+Date: Tue, 04 Apr 2023 22:25:16 -0000
+Message-ID: <168064711667.18898.8574078510869608765@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230404193934.472457-1-daniel.vetter@ffwll.ch>
+In-Reply-To: <20230404193934.472457-1-daniel.vetter@ffwll.ch>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZmJt?=
+ =?utf-8?q?em=3A_Reject_FB=5FACTIVATE=5FKD=5FTEXT_from_userspace?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,122 +40,244 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---nextPart6533292.K0ekAHHfTp
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"; protected-headers="v1"
-From: Kenneth Graunke <kenneth@whitecape.org>
-Date: Tue, 04 Apr 2023 15:15:02 -0700
-Message-ID: <841291489.4Es8JzXQGL@mizzik>
-In-Reply-To: <ZCsDaDzyOyu9mYU3@intel.com>
+--===============0651532691950587615==
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On Monday, April 3, 2023 9:48:40 AM PDT Ville Syrj=E4l=E4 wrote:
-> On Mon, Apr 03, 2023 at 09:35:32AM -0700, Matt Roper wrote:
-> > On Mon, Apr 03, 2023 at 07:02:08PM +0300, Ville Syrj=E4l=E4 wrote:
-> > > On Fri, Mar 31, 2023 at 11:38:30PM -0700, fei.yang@intel.com wrote:
-> > > > From: Fei Yang <fei.yang@intel.com>
-> > > >=20
-> > > > To comply with the design that buffer objects shall have immutable
-> > > > cache setting through out its life cycle, {set, get}_caching ioctl's
-> > > > are no longer supported from MTL onward. With that change caching
-> > > > policy can only be set at object creation time. The current code
-> > > > applies a default (platform dependent) cache setting for all object=
-s.
-> > > > However this is not optimal for performance tuning. The patch exten=
-ds
-> > > > the existing gem_create uAPI to let user set PAT index for the obje=
-ct
-> > > > at creation time.
-> > >=20
-> > > This is missing the whole justification for the new uapi.
-> > > Why is MOCS not sufficient?
-> >=20
-> > PAT and MOCS are somewhat related, but they're not the same thing.  The
-> > general direction of the hardware architecture recently has been to
-> > slowly dumb down MOCS and move more of the important memory/cache
-> > control over to the PAT instead.  On current platforms there is some
-> > overlap (and MOCS has an "ignore PAT" setting that makes the MOCS "win"
-> > for the specific fields that both can control), but MOCS doesn't have a
-> > way to express things like snoop/coherency mode (on MTL), or class of
-> > service (on PVC).  And if you check some of the future platforms, the
-> > hardware design starts packing even more stuff into the PAT (not just
-> > cache behavior) which will never be handled by MOCS.
->=20
-> Sigh. So the hardware designers screwed up MOCS yet again and
-> instead of getting that fixed we are adding a new uapi to work
-> around it?
->=20
-> The IMO sane approach (which IIRC was the situation for a few
-> platform generations at least) is that you just shove the PAT
-> index into MOCS (or tell it to go look it up from the PTE).
-> Why the heck did they not just stick with that?
+== Series Details ==
 
-There are actually some use cases in newer APIs where MOCS doesn't
-work well.  For example, VK_KHR_buffer_device_address in Vulkan 1.2:
+Series: fbmem: Reject FB_ACTIVATE_KD_TEXT from userspace
+URL   : https://patchwork.freedesktop.org/series/116107/
+State : success
 
-https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_bu=
-ffer_device_address.html
+== Summary ==
 
-It essentially adds "pointers to buffer memory in shaders", where apps
-can just get a 64-bit pointer, and use it with an address.  On our EUs,
-that turns into A64 data port messages which refer directly to memory.
-Notably, there's no descriptor (i.e. SURFACE_STATE) where you could
-stuff a MOCS value.  So, you get one single MOCS entry for all such
-buffers...which is specified in STATE_BASE_ADDRESS.  Hope you wanted
-all of them to have the same cache & coherency settings!
+CI Bug Log - changes from CI_DRM_12966 -> Patchwork_116107v1
+====================================================
 
-With PAT/PTE, we can at least specify settings for each buffer, rather
-than one global setting.
+Summary
+-------
 
-Compression has also been moving towards virtual address-based solutions
-and handling in the caches and memory controller, rather than in e.g.
-the sampler reading SURFACE_STATE.  (It started evolving that way with
-Tigerlake, really, but continues.)
+  **SUCCESS**
 
-> > Also keep in mind that MOCS generally applies at the GPU instruction
-> > level; although a lot of instructions have a field to provide a MOCS
-> > index, or can use a MOCS already associated with a surface state, there
-> > are still some that don't. PAT is the source of memory access
-> > characteristics for anything that can't provide a MOCS directly.
->=20
-> So what are the things that don't have MOCS and where we need
-> some custom cache behaviour, and we already know all that at
-> buffer creation time?
+  No regressions found.
 
-=46or Meteorlake...we have MOCS for cache settings.  We only need to use
-PAT for coherency settings; I believe we can get away with deciding that
-up-front at buffer creation time.  If we were doing full cacheability,
-I'd be very nervous about deciding performance tuning at creation time.
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/index.html
 
-=2D-Ken
+Participating hosts (37 -> 36)
+------------------------------
 
---nextPart6533292.K0ekAHHfTp
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
+  Missing    (1): fi-snb-2520m 
 
------BEGIN PGP SIGNATURE-----
+Known issues
+------------
 
-iQIzBAABCAAdFiEE6OtbNAgc4e6ibv4ZW1vaBx1JzDgFAmQsoWYACgkQW1vaBx1J
-zDh7nw/+OdMoftQAugjEg3ahzqIEgMZYmgc6UKJYgyGu+Vuy9ipH+1CQJs0AsHGJ
-NBq07PvNAtPgNDQgCPB7unxrzXzGkokgfhJnTxpl+gd+nVimE9EQkku+L0k8eI9h
-1gXptoX0B//duToZgLIQnBSE2sT1In5mX2RcuGQ2ZHIXraVSsV2jvqM9zV4eTz8A
-CQAcmSDsggjhSF5jaciVaMa3wN38zscsF64xpVojMfuNl2Ra3Qc/QDzLlUtGwgu0
-0PxmV6qN5plViC3P2AXCVFmMiIwtvoFMnUmLrS+oicPk92SZaNxYwuVUCGZveMS1
-4bubTcFqq6dPcMf0KQ+qk1pRJK1AwDb9ncxlKxoRbaMVqdMY9Z91U8H2eiPp3cE2
-sDEptihFwnscTIVgr/NiNNTKK2FyDInZdF2Xkr0JZA/GWPf7EbCjyXA/yzAIqnF7
-J52XXOeYOGc3EIPLn8J53PTQ3dOV8i73CeWnKKaQIPeyvohR0ER6IBTdtZ9pxbNl
-zarROr78qInME3M582uHucxAR5QCfsQJ+zRa8iagmbsiYx3X2zeqNEkPl18f3IBR
-oh2LVGFNpf2gDglomsXQF5daB++pwKjtBAbF25tRksii+yf3pojs7BZGXCC+wUUW
-yOLhhwaH6MfHVJRLYfzy8hTY4EKTOZMac6P5ihVmofw68twwGNo=
-=bYu7
------END PGP SIGNATURE-----
+  Here are the changes found in Patchwork_116107v1 that come from known issues:
 
---nextPart6533292.K0ekAHHfTp--
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_exec_suspend@basic-s0@smem:
+    - bat-jsl-3:          [PASS][1] -> [ABORT][2] ([i915#5122])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12966/bat-jsl-3/igt@gem_exec_suspend@basic-s0@smem.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/bat-jsl-3/igt@gem_exec_suspend@basic-s0@smem.html
+
+  * igt@i915_selftest@live@hangcheck:
+    - fi-skl-guc:         [PASS][3] -> [DMESG-WARN][4] ([i915#8073])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12966/fi-skl-guc/igt@i915_selftest@live@hangcheck.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/fi-skl-guc/igt@i915_selftest@live@hangcheck.html
+
+  * igt@i915_selftest@live@requests:
+    - bat-rpls-1:         [PASS][5] -> [ABORT][6] ([i915#7911])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12966/bat-rpls-1/igt@i915_selftest@live@requests.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/bat-rpls-1/igt@i915_selftest@live@requests.html
+
+  * igt@i915_suspend@basic-s3-without-i915:
+    - bat-jsl-3:          [PASS][7] -> [FAIL][8] ([fdo#103375])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12966/bat-jsl-3/igt@i915_suspend@basic-s3-without-i915.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/bat-jsl-3/igt@i915_suspend@basic-s3-without-i915.html
+
+  * igt@kms_chamelium_hpd@common-hpd-after-suspend:
+    - bat-dg2-11:         NOTRUN -> [SKIP][9] ([i915#7828])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/bat-dg2-11/igt@kms_chamelium_hpd@common-hpd-after-suspend.html
+
+  
+#### Possible fixes ####
+
+  * igt@gem_exec_suspend@basic-s3@smem:
+    - fi-skl-6600u:       [FAIL][10] ([fdo#103375]) -> [PASS][11]
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12966/fi-skl-6600u/igt@gem_exec_suspend@basic-s3@smem.html
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/fi-skl-6600u/igt@gem_exec_suspend@basic-s3@smem.html
+
+  * igt@i915_selftest@live@gt_lrc:
+    - bat-dg2-11:         [INCOMPLETE][12] ([i915#7609] / [i915#7913]) -> [PASS][13]
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12966/bat-dg2-11/igt@i915_selftest@live@gt_lrc.html
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/bat-dg2-11/igt@i915_selftest@live@gt_lrc.html
+
+  * igt@kms_pipe_crc_basic@suspend-read-crc@pipe-c-hdmi-a-1:
+    - fi-rkl-11600:       [FAIL][14] ([fdo#103375]) -> [PASS][15]
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12966/fi-rkl-11600/igt@kms_pipe_crc_basic@suspend-read-crc@pipe-c-hdmi-a-1.html
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/fi-rkl-11600/igt@kms_pipe_crc_basic@suspend-read-crc@pipe-c-hdmi-a-1.html
+
+  
+#### Warnings ####
+
+  * igt@i915_selftest@live@slpc:
+    - bat-rpls-2:         [DMESG-FAIL][16] ([i915#6367] / [i915#7913] / [i915#7996]) -> [DMESG-FAIL][17] ([i915#6997] / [i915#7913])
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12966/bat-rpls-2/igt@i915_selftest@live@slpc.html
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/bat-rpls-2/igt@i915_selftest@live@slpc.html
+
+  
+  [fdo#103375]: https://bugs.freedesktop.org/show_bug.cgi?id=103375
+  [i915#5122]: https://gitlab.freedesktop.org/drm/intel/issues/5122
+  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
+  [i915#6997]: https://gitlab.freedesktop.org/drm/intel/issues/6997
+  [i915#7609]: https://gitlab.freedesktop.org/drm/intel/issues/7609
+  [i915#7828]: https://gitlab.freedesktop.org/drm/intel/issues/7828
+  [i915#7911]: https://gitlab.freedesktop.org/drm/intel/issues/7911
+  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
+  [i915#7996]: https://gitlab.freedesktop.org/drm/intel/issues/7996
+  [i915#8073]: https://gitlab.freedesktop.org/drm/intel/issues/8073
 
 
+Build changes
+-------------
 
+  * Linux: CI_DRM_12966 -> Patchwork_116107v1
+
+  CI-20190529: 20190529
+  CI_DRM_12966: 202141796dba6058f9f7623c0ee48ff4ebcc2607 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7236: bac5a4cc31b3212a205219a6cbc45a173d30d04b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_116107v1: 202141796dba6058f9f7623c0ee48ff4ebcc2607 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+e95669aaab2d fbmem: Reject FB_ACTIVATE_KD_TEXT from userspace
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/index.html
+
+--===============0651532691950587615==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>fbmem: Reject FB_ACTIVATE_KD_TEXT from userspace</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/116107/">https://patchwork.freedesktop.org/series/116107/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_12966 -&gt; Patchwork_116107v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/index.html</p>
+<h2>Participating hosts (37 -&gt; 36)</h2>
+<p>Missing    (1): fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_116107v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_exec_suspend@basic-s0@smem:</p>
+<ul>
+<li>bat-jsl-3:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12966/bat-jsl-3/igt@gem_exec_suspend@basic-s0@smem.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/bat-jsl-3/igt@gem_exec_suspend@basic-s0@smem.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5122">i915#5122</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>fi-skl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12966/fi-skl-guc/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/fi-skl-guc/igt@i915_selftest@live@hangcheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8073">i915#8073</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@requests:</p>
+<ul>
+<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12966/bat-rpls-1/igt@i915_selftest@live@requests.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/bat-rpls-1/igt@i915_selftest@live@requests.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7911">i915#7911</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_suspend@basic-s3-without-i915:</p>
+<ul>
+<li>bat-jsl-3:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12966/bat-jsl-3/igt@i915_suspend@basic-s3-without-i915.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/bat-jsl-3/igt@i915_suspend@basic-s3-without-i915.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=103375">fdo#103375</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium_hpd@common-hpd-after-suspend:</p>
+<ul>
+<li>bat-dg2-11:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/bat-dg2-11/igt@kms_chamelium_hpd@common-hpd-after-suspend.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7828">i915#7828</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@gem_exec_suspend@basic-s3@smem:</p>
+<ul>
+<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12966/fi-skl-6600u/igt@gem_exec_suspend@basic-s3@smem.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=103375">fdo#103375</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/fi-skl-6600u/igt@gem_exec_suspend@basic-s3@smem.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_lrc:</p>
+<ul>
+<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12966/bat-dg2-11/igt@i915_selftest@live@gt_lrc.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7609">i915#7609</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/bat-dg2-11/igt@i915_selftest@live@gt_lrc.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@suspend-read-crc@pipe-c-hdmi-a-1:</p>
+<ul>
+<li>fi-rkl-11600:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12966/fi-rkl-11600/igt@kms_pipe_crc_basic@suspend-read-crc@pipe-c-hdmi-a-1.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=103375">fdo#103375</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/fi-rkl-11600/igt@kms_pipe_crc_basic@suspend-read-crc@pipe-c-hdmi-a-1.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>igt@i915_selftest@live@slpc:<ul>
+<li>bat-rpls-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_12966/bat-rpls-2/igt@i915_selftest@live@slpc.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6367">i915#6367</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7996">i915#7996</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116107v1/bat-rpls-2/igt@i915_selftest@live@slpc.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6997">i915#6997</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_12966 -&gt; Patchwork_116107v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_12966: 202141796dba6058f9f7623c0ee48ff4ebcc2607 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7236: bac5a4cc31b3212a205219a6cbc45a173d30d04b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_116107v1: 202141796dba6058f9f7623c0ee48ff4ebcc2607 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>e95669aaab2d fbmem: Reject FB_ACTIVATE_KD_TEXT from userspace</p>
+
+</body>
+</html>
+
+--===============0651532691950587615==--
