@@ -4,60 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E06DC77B60
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Apr 2023 20:19:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BFF9C6FD1D
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Apr 2023 20:31:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8445910E7C1;
-	Tue,  4 Apr 2023 20:18:58 +0000 (UTC)
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [IPv6:2a00:1450:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C70FB10E7A7
- for <intel-gfx@lists.freedesktop.org>; Tue,  4 Apr 2023 20:18:49 +0000 (UTC)
-Received: by mail-ed1-x52c.google.com with SMTP id y4so135559178edo.2
- for <intel-gfx@lists.freedesktop.org>; Tue, 04 Apr 2023 13:18:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1680639528; x=1683231528;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uqZDoQFwLADtMnBtNxdxK9p4TWtkU10tx8tohL83pCs=;
- b=XaJU8sLM4wNDMz/DnkBo4IsRCNJhdOLI8hKhFK4bdDC9psxDRT7+0jIiZXorXw9RIK
- hzgkzrlF4Y0eBfz1IjRl1Ep9FIxjejhq5J5sT+ZBg8LGMr5Sa9Z5Wh8J8gyABm68wkby
- KpwDB7GbvVE/9JCoj/Tge9PJkDrwDxA2jWPDk=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9343010E057;
+	Tue,  4 Apr 2023 20:31:35 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE14610E057
+ for <intel-gfx@lists.freedesktop.org>; Tue,  4 Apr 2023 20:31:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1680640292;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=XqS1tmmJr7PAF8X4LNYoZBpPsb/UgoghZYeXc9m09Fg=;
+ b=V8EbIa6p494NRQllx1l36DRDHMMsORtz62l0HzqDIVteUQ0ln+cDxwHBIyOng1tH6T5UMO
+ WuzOVo4S/LH6VGkC0QW6cXX8NBXHJWxINKsUmst2MayvGngXP+hZwDo+TGhzLmu3GaSwYh
+ yKJmADWJ8qqSQth+BV7l+RP/x8l1Z3k=
+Received: from mail-io1-f69.google.com (mail-io1-f69.google.com
+ [209.85.166.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-510-qmkN3VfqPOSM6ufMTBL16Q-1; Tue, 04 Apr 2023 16:31:31 -0400
+X-MC-Unique: qmkN3VfqPOSM6ufMTBL16Q-1
+Received: by mail-io1-f69.google.com with SMTP id
+ c83-20020a6bb356000000b00758333e1ddfso20940849iof.14
+ for <intel-gfx@lists.freedesktop.org>; Tue, 04 Apr 2023 13:31:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680639528; x=1683231528;
+ d=1e100.net; s=20210112; t=1680640291;
  h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=uqZDoQFwLADtMnBtNxdxK9p4TWtkU10tx8tohL83pCs=;
- b=A145ltf2GN1Z7pMOtA5hxvF6JsuWbSFwAHNULnrcMDs9epgOHb6X1VbVCKpZBcJ6aJ
- WRQmKjI5yLX1wOJ/OqWJsrJxE4oQ3Kp9LAvB8ts0ZdzEwHOt/7KITNb7OpQOUPixTGr+
- cNT37lSFEHtg+PtUpeoT681x4b1GbWnvsW+8dFtcOKJjYUXdCk/6RFFlYQIMmb/W9VZI
- hJPKluSTl22Bvf9jYAfVWDTSdjHPaAKxElNyZrgXb9FTKcUwk/pgj7D9IdzhXZMJWqPh
- okjD0ocfrfxizYo94odLnRFixpn4EiEJpUnorv3nIE2+ippKwdGuLqFGRoSd+50dlyTS
- 5zdg==
-X-Gm-Message-State: AAQBX9ecK9L3yjonkIfJx7nzFy6hZrveAVAfywNZV3mrdTqUmacrIK5x
- 573kNDStNl/WLvFibYIvekfp+A==
-X-Google-Smtp-Source: AKy350acmaUwpjPBTn+dd4wIoYoC/vBQsq9f/Fcnf1fdPDCrTSCrW+/E+C1vVPofPrARR1z/KiBevw==
-X-Received: by 2002:a05:6402:268e:b0:502:ffd:74a1 with SMTP id
- w14-20020a056402268e00b005020ffd74a1mr41930edd.2.1680639528186; 
- Tue, 04 Apr 2023 13:18:48 -0700 (PDT)
-Received: from phenom.ffwll.local (212-51-149-33.fiber7.init7.net.
- [212.51.149.33]) by smtp.gmail.com with ESMTPSA id
- u12-20020a50c04c000000b004d8d2735251sm6367986edd.43.2023.04.04.13.18.47
+ bh=XqS1tmmJr7PAF8X4LNYoZBpPsb/UgoghZYeXc9m09Fg=;
+ b=mhdQbx+ktwR4FNMH1cyfl/55QeRKNIhRP1dyEKa259WB/+z7vE1rTpbLsMCyHKhdFt
+ WjdSPmv0ztjHuw5u988jAxthCNzVsrTj97D2fot3RoazuBT3Hdnu8TtF4JxOPZciglv5
+ 1sYm2VmY/EN5pHBesYJ5W5VMiwWDpNgFOom5EdNVTADi4H6zgNjLW9fE6t7AuSpw2GAq
+ lo7ylsJeD/ZtGkBinPhUvjGAjkzE126rENxsG6gi5u1XbkZVL2/BZfA8APlwYMdKMaLd
+ 9VYO7seQFwN66SkBxwSIMwSuSHILPy7DhR2cCSIP5UX2ufda4uaS/e3sBK6xQb1nS93K
+ Em4Q==
+X-Gm-Message-State: AAQBX9ccIQJZPuegbB8/PlK+VjXphmzxgxofRHSEMR0KU4h/0jKZX5Lf
+ 6sSaIRwVEO9LHBXh1MtXSel7w+kZ+miPI4LU5gHFbYExFhCzVysnIXry4hIZnZlsMuy8aFNlnSE
+ qt24saQez1NcnwmXVuuh7B8GrK22w
+X-Received: by 2002:a5d:818e:0:b0:75c:8ca2:c9dd with SMTP id
+ u14-20020a5d818e000000b0075c8ca2c9ddmr3054661ion.13.1680640290847; 
+ Tue, 04 Apr 2023 13:31:30 -0700 (PDT)
+X-Google-Smtp-Source: AKy350ZjUtpAYCx6yaQp4dhQD6EMAb3LqUkY7lWvfjoqBYl2aC4WHyIt9JLMzzeXtpK9Oh7S0irxFA==
+X-Received: by 2002:a5d:818e:0:b0:75c:8ca2:c9dd with SMTP id
+ u14-20020a5d818e000000b0075c8ca2c9ddmr3054643ion.13.1680640290625; 
+ Tue, 04 Apr 2023 13:31:30 -0700 (PDT)
+Received: from redhat.com ([38.15.36.239]) by smtp.gmail.com with ESMTPSA id
+ j195-20020a0263cc000000b003b331f0bbdfsm3476000jac.97.2023.04.04.13.31.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Apr 2023 13:18:47 -0700 (PDT)
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Tue,  4 Apr 2023 22:18:38 +0200
-Message-Id: <20230404201842.567344-4-daniel.vetter@ffwll.ch>
-X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230404201842.567344-1-daniel.vetter@ffwll.ch>
-References: <20230404201842.567344-1-daniel.vetter@ffwll.ch>
+ Tue, 04 Apr 2023 13:31:30 -0700 (PDT)
+Date: Tue, 4 Apr 2023 14:31:28 -0600
+From: Alex Williamson <alex.williamson@redhat.com>
+To: Yi Liu <yi.l.liu@intel.com>
+Message-ID: <20230404143128.52d8a256.alex.williamson@redhat.com>
+In-Reply-To: <20230401144429.88673-8-yi.l.liu@intel.com>
+References: <20230401144429.88673-1-yi.l.liu@intel.com>
+ <20230401144429.88673-8-yi.l.liu@intel.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.35; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/8] video/aperture: Only kick vgacon when the
- pdev is decoding vga
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v3 07/12] vfio: Accpet device file from vfio
+ PCI hot reset path
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,59 +84,84 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel.vetter@intel.com>, Helge Deller <deller@gmx.de>
+Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
+ peterx@redhat.com, terrence.xu@intel.com, chao.p.peng@linux.intel.com,
+ linux-s390@vger.kernel.org, kvm@vger.kernel.org, lulu@redhat.com,
+ yanting.jiang@intel.com, joro@8bytes.org, nicolinc@nvidia.com, jgg@nvidia.com,
+ yan.y.zhao@intel.com, intel-gfx@lists.freedesktop.org, eric.auger@redhat.com,
+ intel-gvt-dev@lists.freedesktop.org, yi.y.sun@linux.intel.com,
+ cohuck@redhat.com, shameerali.kolothum.thodi@huawei.com,
+ suravee.suthikulpanit@amd.com, robin.murphy@arm.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Otherwise it's bit silly, and we might throw out the driver for the
-screen the user is actually looking at. I haven't found a bug report
-for this case yet, but we did get bug reports for the analog case
-where we're throwing out the efifb driver.
+On Sat,  1 Apr 2023 07:44:24 -0700
+Yi Liu <yi.l.liu@intel.com> wrote:
 
-v2: Flip the check around to make it clear it's a special case for
-kicking out the vgacon driver only (Thomas)
+> This extends both vfio_file_is_valid() and vfio_file_has_dev() to accept
+> device file from the vfio PCI hot reset.
+> 
+> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+> Tested-by: Yanting Jiang <yanting.jiang@intel.com>
+> Signed-off-by: Yi Liu <yi.l.liu@intel.com>
+> ---
+>  drivers/vfio/vfio_main.c | 23 +++++++++++++++++++----
+>  1 file changed, 19 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
+> index fe7446805afd..ebbb6b91a498 100644
+> --- a/drivers/vfio/vfio_main.c
+> +++ b/drivers/vfio/vfio_main.c
+> @@ -1154,13 +1154,23 @@ const struct file_operations vfio_device_fops = {
+>  	.mmap		= vfio_device_fops_mmap,
+>  };
+>  
+> +static struct vfio_device *vfio_device_from_file(struct file *file)
+> +{
+> +	struct vfio_device *device = file->private_data;
+> +
+> +	if (file->f_op != &vfio_device_fops)
+> +		return NULL;
+> +	return device;
+> +}
+> +
+>  /**
+>   * vfio_file_is_valid - True if the file is valid vfio file
+>   * @file: VFIO group file or VFIO device file
+>   */
+>  bool vfio_file_is_valid(struct file *file)
+>  {
+> -	return vfio_group_from_file(file);
+> +	return vfio_group_from_file(file) ||
+> +	       vfio_device_from_file(file);
+>  }
+>  EXPORT_SYMBOL_GPL(vfio_file_is_valid);
+>  
+> @@ -1174,12 +1184,17 @@ EXPORT_SYMBOL_GPL(vfio_file_is_valid);
+>  bool vfio_file_has_dev(struct file *file, struct vfio_device *device)
+>  {
+>  	struct vfio_group *group;
+> +	struct vfio_device *vdev;
+>  
+>  	group = vfio_group_from_file(file);
+> -	if (!group)
+> -		return false;
+> +	if (group)
+> +		return vfio_group_has_dev(group, device);
+> +
+> +	vdev = vfio_device_from_file(file);
+> +	if (vdev)
+> +		return vdev == device;
+>  
+> -	return vfio_group_has_dev(group, device);
+> +	return false;
 
-References: https://bugzilla.kernel.org/show_bug.cgi?id=216303
-Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Javier Martinez Canillas <javierm@redhat.com>
-Cc: Helge Deller <deller@gmx.de>
-Cc: linux-fbdev@vger.kernel.org
----
- drivers/video/aperture.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+Nit, unless we expect to be testing against NULL devices, this could
+just be:
 
-diff --git a/drivers/video/aperture.c b/drivers/video/aperture.c
-index 8835d3bc39bf..552cffdb827b 100644
---- a/drivers/video/aperture.c
-+++ b/drivers/video/aperture.c
-@@ -341,13 +341,15 @@ int aperture_remove_conflicting_pci_devices(struct pci_dev *pdev, const char *na
- 			return ret;
- 	}
- 
--	/*
--	 * WARNING: Apparently we must kick fbdev drivers before vgacon,
--	 * otherwise the vga fbdev driver falls over.
--	 */
--	ret = vga_remove_vgacon(pdev);
--	if (ret)
--		return ret;
-+	if (primary) {
-+		/*
-+		 * WARNING: Apparently we must kick fbdev drivers before vgacon,
-+		 * otherwise the vga fbdev driver falls over.
-+		 */
-+		ret = vga_remove_vgacon(pdev);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	return 0;
- 
--- 
-2.40.0
+	return device == vfio_device_from_file(file);
+
+Thanks,
+Alex
 
