@@ -4,57 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2993FC77B62
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Apr 2023 19:40:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17A74C77B60
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Apr 2023 19:41:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C1A210E78D;
-	Tue,  4 Apr 2023 19:40:51 +0000 (UTC)
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [IPv6:2a00:1450:4864:20::529])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4E0510E791
- for <intel-gfx@lists.freedesktop.org>; Tue,  4 Apr 2023 19:40:49 +0000 (UTC)
-Received: by mail-ed1-x529.google.com with SMTP id t10so134946335edd.12
- for <intel-gfx@lists.freedesktop.org>; Tue, 04 Apr 2023 12:40:49 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 679B910E79D;
+	Tue,  4 Apr 2023 19:40:56 +0000 (UTC)
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [IPv6:2a00:1450:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4173C10E051
+ for <intel-gfx@lists.freedesktop.org>; Tue,  4 Apr 2023 19:40:51 +0000 (UTC)
+Received: by mail-ed1-x534.google.com with SMTP id h8so135141641ede.8
+ for <intel-gfx@lists.freedesktop.org>; Tue, 04 Apr 2023 12:40:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ffwll.ch; s=google; t=1680637248;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=L+bv+X+HUb7L5CiJGIhzyoiVMLKFlHsSpQjg6oJVXtI=;
- b=cYDXCCCUhljhT5VPYCL0i1wlKB9kZDxS20bKdGXohA3mKYc0j/VM8xuKBq++xsT/FO
- KOTG0d6xoIWtn15OGqzvEhNlUffM5bmo/uiCyflzgvlVsV2i35VpJGYGVSuDGn4c3Mdp
- NOWcerctpXLigN5ou2obCjphHR01ABKqLdzN4=
+ d=ffwll.ch; s=google; t=1680637249;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=c2Awfk5QL9D/F3Q8zIEOQEzEoAB93VdE7E9Enf3BSXc=;
+ b=dTqsYxHw0VxJyO1GEWOSymuYJ0/ANfF9UGweWelHCgqThBrfcgDAv34TERGodfPsom
+ 49jibnm7zIV0/ZDR/HsPuTn4+JXgBKF7xc53/ATYcEzkiCY9ZToXIbgMb09FEViaZxrT
+ k8X2klOSFx+r6ibzt/tM5CPJiQ5SzaVs2f/dA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680637248;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=L+bv+X+HUb7L5CiJGIhzyoiVMLKFlHsSpQjg6oJVXtI=;
- b=GsCMpnPIbJOCpVcqb8PdlDuU0WxMj3oXtLfGuxjbzZHVKuuBI54oQqzsHz9wYdWzwp
- y5455h0yq5Awsk1oeetTLXHy66TJd2lsd+pSeRGkIRxhEOpBRggIyEWc8jZ07fbYNIVn
- 0x2x/15ad1T4Sgz5z5T45fn7OJF3ljy/hdfkECw2myb+D1S2r14oXa1hpv13+Hu1L0tJ
- XoqH4ITNWbK80akVXRw05b2RReuBlFK83fHg5PrZVANiY9KzfeYfzEFWlk3w+pMRX9ZF
- 0ovTuV/0R/dkPuxZvus4wXtTViKmJDVUt7uRv28BFkZSCaBTjv4Vi1vEZw6vbdez7r2w
- GwzQ==
-X-Gm-Message-State: AAQBX9cLyKj1qgTT6ys2hN/voY2/P2kVQd+zvD162Sw+PbUbNWVKv3Nn
- W0meKSDxhuy2NQJItKEPkJtgQA==
-X-Google-Smtp-Source: AKy350ZtXHF1TPelo6oE7RtQoe5ej7WiN9rL6H4LQHP7Ad2sqMbJJjjz7lkfoAFWB9Zxq2T2ONeuMw==
-X-Received: by 2002:a05:6402:2811:b0:502:465:28e1 with SMTP id
- h17-20020a056402281100b00502046528e1mr4147038ede.0.1680637247791; 
- Tue, 04 Apr 2023 12:40:47 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1680637249;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=c2Awfk5QL9D/F3Q8zIEOQEzEoAB93VdE7E9Enf3BSXc=;
+ b=OHeckw4cHtasWdxpqesIzck/qSUdUwAWs277hkT0PhABlYThecAJ0j/SCyUn/btZfS
+ +/bDESn69z3pY4dg/ceRNB79LcosdbtdbgeOQH7fFwllYvHBPVJz15jCIzj2Q9Z6bJx/
+ mqfAd60jO5s57v+sK4vqdDNTYtHh5060TDWhemJAKk4BYiwteyTBJDH2BV1NQt5aCAoE
+ 1uASjKSkijltTe4aXYTBSYXzBqkwSe06CsNLJpoDAh/EGGR/K3TiwgjUmCQcj/Fc2OtC
+ igj30rwDEZpWxZZaWOhdZNTJl/rs8Wzn/+LOLws3Uu/dnnf+jhL3wQtqLq83DItgtHgI
+ l0Dw==
+X-Gm-Message-State: AAQBX9foaG79mTnLaa0SbrTXiCWUNl8RiQ4UBGD4Rp7lGIdL2u/Cs0rg
+ fqzIEr6yrWgliVWWn7QlfsopCQ==
+X-Google-Smtp-Source: AKy350a/2kuoOTDgk8X7NxVuU+g0JXxbm7z6oCovaurOeDmPHN2bIC/mfGa4Ljph4QSNk5LCrgFQ/w==
+X-Received: by 2002:a17:906:5195:b0:947:bff2:1c2b with SMTP id
+ y21-20020a170906519500b00947bff21c2bmr2915223ejk.1.1680637249384; 
+ Tue, 04 Apr 2023 12:40:49 -0700 (PDT)
 Received: from phenom.ffwll.local (212-51-149-33.fiber7.init7.net.
  [212.51.149.33]) by smtp.gmail.com with ESMTPSA id
- xb7-20020a170907070700b00948c2f245a9sm2472802ejb.110.2023.04.04.12.40.46
+ xb7-20020a170907070700b00948c2f245a9sm2472802ejb.110.2023.04.04.12.40.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Apr 2023 12:40:47 -0700 (PDT)
+ Tue, 04 Apr 2023 12:40:49 -0700 (PDT)
 From: Daniel Vetter <daniel.vetter@ffwll.ch>
 To: DRI Development <dri-devel@lists.freedesktop.org>
-Date: Tue,  4 Apr 2023 21:40:36 +0200
-Message-Id: <20230404194038.472803-1-daniel.vetter@ffwll.ch>
+Date: Tue,  4 Apr 2023 21:40:38 +0200
+Message-Id: <20230404194038.472803-3-daniel.vetter@ffwll.ch>
 X-Mailer: git-send-email 2.40.0
+In-Reply-To: <20230404194038.472803-1-daniel.vetter@ffwll.ch>
+References: <20230404194038.472803-1-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/3] drm/fb-helper: set x/yres_virtual in
- drm_fb_helper_check_var
+Subject: [Intel-gfx] [PATCH 3/3] drm/fb-helper: fix input validation gaps in
+ check_var
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,44 +70,114 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
  Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- syzbot+20dcf81733d43ddff661@syzkaller.appspotmail.com,
- Javier Martinez Canillas <javierm@redhat.com>, stable@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, Daniel Vetter <daniel.vetter@intel.com>
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Drivers are supposed to fix this up if needed if they don't outright
-reject it. Uncovered by 6c11df58fd1a ("fbmem: Check virtual screen
-sizes in fb_set_var()").
+Apparently drivers need to check all this stuff themselves, which for
+most things makes sense I guess. And for everything else we luck out,
+because modern distros stopped supporting any other fbdev drivers than
+drm ones and I really don't want to argue anymore about who needs to
+check stuff. Therefore fixing all this just for drm fbdev emulation is
+good enough.
 
-Reported-by: syzbot+20dcf81733d43ddff661@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?id=c5faf983bfa4a607de530cd3bb008888bf06cefc
-Cc: stable@vger.kernel.org # v5.4+
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Javier Martinez Canillas <javierm@redhat.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Note that var->active is not set or validated. This is just control
+flow for fbmem.c and needs to be validated in there as needed.
+
 Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/drm_fb_helper.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/drm_fb_helper.c | 49 +++++++++++++++++++++++++--------
+ 1 file changed, 38 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index 59409820f424..eb4ece3e0027 100644
+index b9696d13a741..ef4eb8b12766 100644
 --- a/drivers/gpu/drm/drm_fb_helper.c
 +++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -1595,6 +1595,9 @@ int drm_fb_helper_check_var(struct fb_var_screeninfo *var,
+@@ -1543,6 +1543,27 @@ static void drm_fb_helper_fill_pixel_fmt(struct fb_var_screeninfo *var,
+ 	}
+ }
+ 
++static void __fill_var(struct fb_var_screeninfo *var,
++		       struct drm_framebuffer *fb)
++{
++	int i;
++
++	var->xres_virtual = fb->width;
++	var->yres_virtual = fb->height;
++	var->accel_flags = FB_ACCELF_TEXT;
++	var->bits_per_pixel = drm_format_info_bpp(fb->format, 0);
++
++	var->height = var->width = 0;
++	var->left_margin = var->right_margin = 0;
++	var->upper_margin = var->lower_margin = 0;
++	var->hsync_len = var->vsync_len = 0;
++	var->sync = var->vmode = 0;
++	var->rotate = 0;
++	var->colorspace = 0;
++	for (i = 0; i < 4; i++)
++		var->reserved[i] = 0;
++}
++
+ /**
+  * drm_fb_helper_check_var - implementation for &fb_ops.fb_check_var
+  * @var: screeninfo to check
+@@ -1595,8 +1616,22 @@ int drm_fb_helper_check_var(struct fb_var_screeninfo *var,
  		return -EINVAL;
  	}
  
-+	var->xres_virtual = fb->width;
-+	var->yres_virtual = fb->height;
+-	var->xres_virtual = fb->width;
+-	var->yres_virtual = fb->height;
++	__fill_var(var, fb);
 +
++	/*
++	 * fb_pan_display() validates this, but fb_set_par() doesn't and just
++	 * falls over. Note that __fill_var above adjusts y/res_virtual.
++	 */
++	if (var->yoffset > var->yres_virtual - var->yres ||
++	    var->xoffset > var->xres_virtual - var->xres)
++		return -EINVAL;
++
++	/* We neither support grayscale nor FOURCC (also stored in here). */
++	if (var->grayscale > 0)
++		return -EINVAL;
++
++	if (var->nonstd)
++		return -EINVAL;
+ 
  	/*
  	 * Workaround for SDL 1.2, which is known to be setting all pixel format
- 	 * fields values to zero in some cases. We treat this situation as a
+@@ -1612,11 +1647,6 @@ int drm_fb_helper_check_var(struct fb_var_screeninfo *var,
+ 		drm_fb_helper_fill_pixel_fmt(var, format);
+ 	}
+ 
+-	/*
+-	 * Likewise, bits_per_pixel should be rounded up to a supported value.
+-	 */
+-	var->bits_per_pixel = bpp;
+-
+ 	/*
+ 	 * drm fbdev emulation doesn't support changing the pixel format at all,
+ 	 * so reject all pixel format changing requests.
+@@ -2040,12 +2070,9 @@ static void drm_fb_helper_fill_var(struct fb_info *info,
+ 	}
+ 
+ 	info->pseudo_palette = fb_helper->pseudo_palette;
+-	info->var.xres_virtual = fb->width;
+-	info->var.yres_virtual = fb->height;
+-	info->var.bits_per_pixel = drm_format_info_bpp(format, 0);
+-	info->var.accel_flags = FB_ACCELF_TEXT;
+ 	info->var.xoffset = 0;
+ 	info->var.yoffset = 0;
++	__fill_var(&info->var, fb);
+ 	info->var.activate = FB_ACTIVATE_NOW;
+ 
+ 	drm_fb_helper_fill_pixel_fmt(&info->var, format);
 -- 
 2.40.0
 
