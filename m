@@ -4,48 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F339EC7619A
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 07:14:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BA19C76188
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 07:14:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7F1810E84B;
-	Wed,  5 Apr 2023 07:14:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B6D610E84C;
+	Wed,  5 Apr 2023 07:14:38 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95F6E10E845
- for <intel-gfx@lists.freedesktop.org>; Wed,  5 Apr 2023 07:14:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4397F10E30F
+ for <intel-gfx@lists.freedesktop.org>; Wed,  5 Apr 2023 07:14:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1680678874; x=1712214874;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=UW655PThc//1ZpOaw1b6jAkm7C2sblC+gDbbNAAuOsE=;
- b=duEs6FseTeAGwSjqw+dU3t3WegIkK0BjsWtO5MKEgAFFGBatzY43myA6
- iFuICO0HQOot/mNkgKjO+7QOE5mSD7bt1a9XFh/8ivLpLFhz57Tc0BOHy
- QM64w2KNXYiuzbSTn57fh1gB4EsKtHAGRWmDcqaS6WPVweWhIEAg0P/Lg
- 8c8jiChTRs1Ibc/9lFTbcvOh14bw5bpQmO/BTV8P/trQQte+CUVIbrmPq
- pfosLr/euCzrp6E4R3JrbveYyM4I08l6mhtvJAMG6cxNC1hev9Y/BEEEK
- MuykpjyjGVI1KVbVTfY6vhidQE2ekCsj7Mo+LtLkfiLdKDlYydAkioxub g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10670"; a="370211202"
-X-IronPort-AV: E=Sophos;i="5.98,319,1673942400"; d="scan'208";a="370211202"
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=H0W/50PTyMQDD4rS/NAMkNzkMYX8H0KCq3EsWsL7pGQ=;
+ b=fgNu3t3BRv+GawY5VImQNT7RXgtlnBeSMNqyQoQQUf43KPh+wFnLRfsA
+ ko3KtoA5S3lMAxWq5lCdVUiD1c4PCGBCanFlxL9rVLJA+wfZNOH9wWEFU
+ bcl50UtMwOzYcfA93pw9RqxnmILvFDADv0ha/FV0Q1ZbI1JvfnnthaPFh
+ tY/HI41Oj/jc3hMGXtUru1WYSTzVcHkOyiCRUesXMZl/pJDHHzXgW8ZBw
+ QRhEW7awyyzfTS+wHrG63EYEoNht0Y37m48TtbnoRfgsI5+ri9ieVpgww
+ c5ntzWtBEoPOgkPucx1H/ZoR7Gd7CJ4QCzNPSXjt5teBV+ABENvaAaSsf g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10670"; a="370211190"
+X-IronPort-AV: E=Sophos;i="5.98,319,1673942400"; d="scan'208";a="370211190"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2023 00:14:31 -0700
+ 05 Apr 2023 00:14:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10670"; a="636797379"
-X-IronPort-AV: E=Sophos;i="5.98,319,1673942400"; d="scan'208";a="636797379"
+X-IronPort-AV: E=McAfee;i="6600,9927,10670"; a="636797363"
+X-IronPort-AV: E=Sophos;i="5.98,319,1673942400"; d="scan'208";a="636797363"
 Received: from rtauro-desk.iind.intel.com ([10.190.239.41])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Apr 2023 00:14:30 -0700
+ 05 Apr 2023 00:14:24 -0700
 From: Riana Tauro <riana.tauro@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  5 Apr 2023 12:44:32 +0530
-Message-Id: <20230405071432.3582592-5-riana.tauro@intel.com>
+Date: Wed,  5 Apr 2023 12:44:28 +0530
+Message-Id: <20230405071432.3582592-1-riana.tauro@intel.com>
 X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230405071432.3582592-1-riana.tauro@intel.com>
-References: <20230405071432.3582592-1-riana.tauro@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 4/4] drm/i915/selftests: skip comparison of
- power for discrete graphics
+Subject: [Intel-gfx] [PATCH v10 0/4] Add hwmon support for dgfx selftests
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,46 +58,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hwmon reads the energy/power consumed by discrete soc,
-i.e. energy/power includes the power drawn from non-gfx discrete
-components
+Rename librapl library to libpower. Add hwmon support in libpower for
+dgfx.
+Use libpower in selftests.
 
-This test uses the power consumed by GT to validate RC6
-power consumption.
-Skip comparison of power for discrete graphics
+Rev2 : Update commit message
+Rev3 : Remove redundant code
+Rev4 : Add hwmon per-gt support
+Rev5 : No functional changes.
+       Change author for last patch
+Rev6 : re-order libpower library patch
+       add check for single gt in hwmon function
+Rev7 : Same as Rev 5 with a single gt check
+       in hwmon function
+Rev8 : Skip power comparison in live_rc6_manual for
+       discrete graphics
+Rev9 : Update commit message
+Rev10: No functional changes
+       Fix a spelling
 
-TODO : measure power of GT in discrete graphics and modify the
-condition
+Riana Tauro (3):
+  drm/i915/selftests: Rename librapl library to libpower
+  drm/i915/hwmon: Add helper function to obtain energy values
+  drm/i915/selftests: skip comparison of power for discrete graphics
 
-v2: update commit message (Anshuman)
+Tilak Tangudu (1):
+  drm/i915/selftests: Add hwmon support in libpower for dgfx
 
-Signed-off-by: Riana Tauro <riana.tauro@intel.com>
-Reviewed-by: Anshuman Gupta <anshuman.gupta@intel.com>
----
- drivers/gpu/drm/i915/gt/selftest_rc6.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/Makefile             |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_rc6.c    | 22 ++++++++++-----
+ drivers/gpu/drm/i915/gt/selftest_rps.c    | 26 ++++++++---------
+ drivers/gpu/drm/i915/gt/selftest_slpc.c   |  4 +--
+ drivers/gpu/drm/i915/i915_hwmon.c         | 28 +++++++++++++++++++
+ drivers/gpu/drm/i915/i915_hwmon.h         |  3 ++
+ drivers/gpu/drm/i915/selftests/libpower.c | 33 ++++++++++++++++++++++
+ drivers/gpu/drm/i915/selftests/libpower.h | 19 +++++++++++++
+ drivers/gpu/drm/i915/selftests/librapl.c  | 34 -----------------------
+ drivers/gpu/drm/i915/selftests/librapl.h  | 17 ------------
+ 10 files changed, 114 insertions(+), 74 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/selftests/libpower.c
+ create mode 100644 drivers/gpu/drm/i915/selftests/libpower.h
+ delete mode 100644 drivers/gpu/drm/i915/selftests/librapl.c
+ delete mode 100644 drivers/gpu/drm/i915/selftests/librapl.h
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_rc6.c b/drivers/gpu/drm/i915/gt/selftest_rc6.c
-index 682f2fe67b3a..7040dac7acca 100644
---- a/drivers/gpu/drm/i915/gt/selftest_rc6.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_rc6.c
-@@ -107,7 +107,15 @@ int live_rc6_manual(void *arg)
- 				      ktime_to_ns(dt));
- 		pr_info("GPU consumed %llduW in RC0 and %llduW in RC6\n",
- 			rc0_power, rc6_power);
--		if (2 * rc6_power > rc0_power) {
-+
-+		/*
-+		 * Condition valid for integrated graphics
-+		 * On discrete graphics, hwmon reads the energy/power from
-+		 * discrete soc that includes non-gfx components.
-+		 * TODO : Measure power of GT for discrete graphics and
-+		 * modify the condition
-+		 */
-+		if (!IS_DGFX(gt->i915) && (2 * rc6_power > rc0_power)) {
- 			pr_err("GPU leaked energy while in RC6!\n");
- 			err = -EINVAL;
- 			goto out_unlock;
 -- 
 2.40.0
 
