@@ -4,77 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23658C7619A
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 15:36:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4805EC76188
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 16:06:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9140010E9FC;
-	Wed,  5 Apr 2023 15:36:55 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8AAE10E9FC
- for <intel-gfx@lists.freedesktop.org>; Wed,  5 Apr 2023 15:36:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1680709013;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=TuiXIjl7StR1lWcqJYYE1fB/Z6K6yMMeGx6F0a8wvVw=;
- b=ezjmmx8C+sXQZ7rZPQls9R5s0z/Lr2xCgBBXhbnHsbzeeJ1VRkwFyTueUSSdoDalOYH7Vt
- gusO7kd0ORcKH55S+rpzrsqLjyArxn9xKM0Zis9voocmzqZVQVLojhwCSMqbYMefchSD++
- P4S5StCd6MZ+nTwsZjz5ITod665Y5Z0=
-Received: from mail-il1-f198.google.com (mail-il1-f198.google.com
- [209.85.166.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-208-ETdyBfgjNdaxiVKJCH8q9g-1; Wed, 05 Apr 2023 11:36:49 -0400
-X-MC-Unique: ETdyBfgjNdaxiVKJCH8q9g-1
-Received: by mail-il1-f198.google.com with SMTP id
- g12-20020a056e021e0c00b00327c0e193b1so1092834ila.21
- for <intel-gfx@lists.freedesktop.org>; Wed, 05 Apr 2023 08:36:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680709008;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=TuiXIjl7StR1lWcqJYYE1fB/Z6K6yMMeGx6F0a8wvVw=;
- b=28pYbgCadrcReU4Qi60tAe/ZY/6jSdbNuyF0ecHE029hultNG6Yd1Qnldz3BMTrnzU
- bNIt9sReooQS8sNO3ly0KJz7jsUR1OkpywvWfKAgpzf8F9ES3G9awjDcIrwhlHXkAmoo
- J/N1GMIn4pHQdY1NFRvNGMidvB6I6mFMt6bFGLQATYKchLuXbREJJ+hlCmjB0xeqcRlF
- wThkqW1G73Fp4xV8QvzbTXN0+a1/UXPxyF97P3h0zTy6ht1A4pm7Ml+lPm/jwM35bmZ9
- DzF68oH6DYjjicSrFJJE7tlrrXHaeU0OhZfr4b8moblrKFVDxvHz3BakeyNxfJZx4VKB
- Mzng==
-X-Gm-Message-State: AAQBX9epV6QT2uNzbGhJFkCSdrpx00ED9A3tcgiNglTbW0sAmf1HAVZN
- TZN8VwtKgXtUr8DNPPRz2nf2FsUA2bKr3irF2jlwaARLo3ubgI+wLZwgv8r5vzYF5voyO+Ht/Xw
- 7vtenzcKE2JysQHePIch+IOdb8B6g
-X-Received: by 2002:a5e:da44:0:b0:760:1fb6:c7d2 with SMTP id
- o4-20020a5eda44000000b007601fb6c7d2mr3357756iop.5.1680709008440; 
- Wed, 05 Apr 2023 08:36:48 -0700 (PDT)
-X-Google-Smtp-Source: AKy350Yiu+6jYuVXySDhz9l7TaJE2CbZAprEqCSA9voKn6Sxg2Pef1TWywH9iD954/Pk6M8+1tZHJQ==
-X-Received: by 2002:a5e:da44:0:b0:760:1fb6:c7d2 with SMTP id
- o4-20020a5eda44000000b007601fb6c7d2mr3357742iop.5.1680709008129; 
- Wed, 05 Apr 2023 08:36:48 -0700 (PDT)
-Received: from redhat.com ([38.15.36.239]) by smtp.gmail.com with ESMTPSA id
- e11-20020a02210b000000b004050d92f6d4sm4046543jaa.50.2023.04.05.08.36.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Apr 2023 08:36:47 -0700 (PDT)
-Date: Wed, 5 Apr 2023 09:36:46 -0600
-From: Alex Williamson <alex.williamson@redhat.com>
-To: "Liu, Yi L" <yi.l.liu@intel.com>
-Message-ID: <20230405093646.337f0992.alex.williamson@redhat.com>
-In-Reply-To: <DS0PR11MB7529730CD29F2BD13F1DD9AEC3909@DS0PR11MB7529.namprd11.prod.outlook.com>
-References: <20230401144429.88673-1-yi.l.liu@intel.com>
- <20230401144429.88673-6-yi.l.liu@intel.com>
- <20230404141838.6a4efdd4.alex.williamson@redhat.com>
- <DS0PR11MB752919BC81CCCAB1A13998CAC3909@DS0PR11MB7529.namprd11.prod.outlook.com>
- <DS0PR11MB7529730CD29F2BD13F1DD9AEC3909@DS0PR11MB7529.namprd11.prod.outlook.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.35; x86_64-redhat-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A11D710EA08;
+	Wed,  5 Apr 2023 16:06:38 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D95710EA13;
+ Wed,  5 Apr 2023 16:06:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1680710797; x=1712246797;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=sqg0P88YoT8lsSN0phoEeZOOz98+mdr1CWyuLIJ3O8o=;
+ b=DgH9z4O4QNOcukmb8TMoRdMa+KW4FlyEf/LebEUp6YeMins629MoRESA
+ ErhvLfQpLi1c+4Xbn9WN5fcscYCaD063T4kZ4MmiRNJAnKouCQAXAdW7l
+ XEOrFhqN7webL/qJcZEFQboBEyJw2fWAdn41FhvYTg5LpvHqeFYGDm7XR
+ jKm+GcoSFqlD7zToIDNBi6xsHgrjIn6hhB9fLhGETtHxBXA1qJ8F9rGuj
+ npEB1hiEWEGyjzeUTE5co8a8QtZJywKhtNdZT/7OxyDUgA7Ek72pDxl2j
+ XryalJTSNrBwov1TH504CuDrifnvK9OyQsWK3g9MORa+wBWEr13ym8ADt A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10671"; a="428781600"
+X-IronPort-AV: E=Sophos;i="5.98,321,1673942400"; d="scan'208";a="428781600"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Apr 2023 09:06:36 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10671"; a="719374688"
+X-IronPort-AV: E=Sophos;i="5.98,321,1673942400"; d="scan'208";a="719374688"
+Received: from dlemiech-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.252.43.158])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Apr 2023 09:06:33 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Lee Jones <lee@kernel.org>
+In-Reply-To: <20230405134526.GE8371@google.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20230331092607.700644-1-lee@kernel.org>
+ <20230331092607.700644-2-lee@kernel.org> <87jzyt0yil.fsf@intel.com>
+ <20230403162059.GC8371@google.com> <878rf80ynz.fsf@intel.com>
+ <20230405134526.GE8371@google.com>
+Date: Wed, 05 Apr 2023 19:06:29 +0300
+Message-ID: <87jzyqz52y.fsf@intel.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v3 05/12] vfio/pci: Allow passing
- zero-length fd array in VFIO_DEVICE_PCI_HOT_RESET
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH 01/19] drm/i915/i915_scatterlist: Fix
+ kerneldoc formatting issue - missing '@'
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,74 +62,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "mjrosato@linux.ibm.com" <mjrosato@linux.ibm.com>,
- "jasowang@redhat.com" <jasowang@redhat.com>, "Hao,
- Xudong" <xudong.hao@intel.com>, "peterx@redhat.com" <peterx@redhat.com>, "Xu,
- Terrence" <terrence.xu@intel.com>,
- "chao.p.peng@linux.intel.com" <chao.p.peng@linux.intel.com>,
- "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "lulu@redhat.com" <lulu@redhat.com>, "Jiang,
- Yanting" <yanting.jiang@intel.com>, "joro@8bytes.org" <joro@8bytes.org>,
- "nicolinc@nvidia.com" <nicolinc@nvidia.com>, "jgg@nvidia.com" <jgg@nvidia.com>,
- "Zhao, Yan Y" <yan.y.zhao@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "eric.auger@redhat.com" <eric.auger@redhat.com>,
- "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
- "yi.y.sun@linux.intel.com" <yi.y.sun@linux.intel.com>,
- "cohuck@redhat.com" <cohuck@redhat.com>,
- "shameerali.kolothum.thodi@huawei.com" <shameerali.kolothum.thodi@huawei.com>,
- "suravee.suthikulpanit@amd.com" <suravee.suthikulpanit@amd.com>,
- "robin.murphy@arm.com" <robin.murphy@arm.com>
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 5 Apr 2023 08:01:49 +0000
-"Liu, Yi L" <yi.l.liu@intel.com> wrote:
+On Wed, 05 Apr 2023, Lee Jones <lee@kernel.org> wrote:
+> On Tue, 04 Apr 2023, Jani Nikula wrote:
+>
+>> On Mon, 03 Apr 2023, Lee Jones <lee@kernel.org> wrote:
+>> > On Mon, 03 Apr 2023, Jani Nikula wrote:
+>> >
+>> >> On Fri, 31 Mar 2023, Lee Jones <lee@kernel.org> wrote:
+>> >> > Fixes the following W=1 kernel build warning(s):
+>> >> >
+>> >> >  drivers/gpu/drm/i915/i915_scatterlist.c:62: warning: Function parameter or member 'size' not described in 'i915_refct_sgt_init'
+>> >> >
+>> >> > Cc: Jani Nikula <jani.nikula@linux.intel.com>
+>> >> > Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+>> >> > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+>> >> > Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+>> >> > Cc: David Airlie <airlied@gmail.com>
+>> >> > Cc: Daniel Vetter <daniel@ffwll.ch>
+>> >> > Cc: intel-gfx@lists.freedesktop.org
+>> >> > Cc: dri-devel@lists.freedesktop.org
+>> >> > Signed-off-by: Lee Jones <lee@kernel.org>
+>> >>
+>> >> Thanks for the patches!
+>> >>
+>> >> Applied all but one of the drm/i915 patches to drm-intel-next or
+>> >> drm-intel-gt-next depending on the area. There were a couple of issues
+>> >> that I fixed while applying. There was a conflict with patch 5/19
+>> >> against drm-intel-gt-next so I left that one out.
+>> >
+>> > Thanks Jani.  I'll rebase and see what's left.
+>>
+>> We also took notice and aim to track this more aggressively [1].
+>
+> Thanks.
+>
+> I did clean-up all of the GPU warnings already a couple of years ago,
+> but they seem to have crept back over time.  It would be great if we
+> could put some extra checks in place to prevent them in the future.
 
-> > From: Liu, Yi L <yi.l.liu@intel.com>
-> > Sent: Wednesday, April 5, 2023 3:55 PM  
->  
-> > >
-> > > Therefore, I think as written, the singleton dev_set hot-reset is
-> > > enabled for iommufd and (unintentionally?) for the group path, while
-> > > also negating a requirement for a group fd or that a provided group fd
-> > > actually matches the device in this latter case.  The null-array
-> > > approach is not however extended to groups for more general use.
-> > > Additionally, limiting no-iommu hot-reset to singleton dev_sets
-> > > provides only a marginal functional difference vs VFIO_DEVICE_RESET.  
-> > 
-> > I think the singletion dev_set hot-reset is for iommufd (or more accurately
-> > for the noiommu case in cdev path).  
-> 
-> but actually, singleton dev_set hot-reset can work for group path as well.
-> Based on this, I'm also wondering do we really want to have singleton dev_set
-> hot-reset only for cdev noiommu case? or we allow it generally or just
-> don't support it as it is equivalent with VFIO_DEVICE_RESET?
+We are pretty zealous about warnings in general in i915. We have a bunch
+of extra warnings in our local Makefile and use -Werror in
+development. Inspired by this series, we added kernel-doc check to the
+build, and hope to add kernel-doc -Werror too once we're done.
 
-I think you're taking the potential that VFIO_DEVICE_RESET and
-hot-reset could do the same thing too far.  The former is more likely
-to do an FLR, or even a PM reset.  QEMU even tries to guess what reset
-VFIO_DEVICE_RESET might use in order to choose to do a hot-reset if it
-seems like the device might only support a PM reset otherwise.
+> My aim, albeit ambitious, is to clean-up all of the W=1 warnings in the
+> kernel, then have them promoted to W=0, so they warn more loudly during
+> development, thus keeping them from reappearing.
 
-Changing the reset method of a device requires privilege, which is
-maybe something we'd compromise on for no-iommu, but the general
-expectation is that VFIO_DEVICE_RESET provides a device level scope and
-hot-reset provides a... hot-reset, and sometimes those are the same
-thing, but that doesn't mean we can lean on the former.
+I wish it was easier to do the equivalent of W=1 on a driver or Makefile
+basis. I like to keep i915 clean, but I don't like to use W=1 because
+there are just so many warnings currently.
 
-> If we don't support singletion dev_set hot-reset, noiommu devices in cdev
-> path shall fail the hot-reset if empty-fd array is provided. But we may just
-> document that empty-fd array does not work for noiommu. User should
-> use the device fd array.
+The other alternative is fixing and moving extra warnings from W=1 to
+W=0 one by one.
 
-I don't see any replies to my comment on 08/12 where I again question
-why we need an empty array option.  It's causing all sorts of headaches
-and I don't see the justification for it beyond some hand waving that
-it reduces complexity for the user.  This singleton dev-set notion
-seems equally unjustified.  Do we just need to deal with hot-reset
-being unsupported for no-iommu devices with iommufd?  Thanks,
 
-Alex
+BR,
+Jani.
 
+
+-- 
+Jani Nikula, Intel Open Source Graphics Center
