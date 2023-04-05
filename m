@@ -4,45 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5A2DC7619A
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 04:29:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD10BC76188
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 04:29:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14C9910E33C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2515610E81F;
 	Wed,  5 Apr 2023 04:29:29 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CCA710E2C9
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D166310E2C9
  for <intel-gfx@lists.freedesktop.org>; Wed,  5 Apr 2023 04:29:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1680668965; x=1712204965;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=zej9qk4GSHbRND9BilrViJuZ7y8z9bWpP24AVaK424I=;
- b=Vhts1mzD79XZBYlcHKjV/uEI5RkQhZ0osndycnku/ftfsf/gl+DH72eE
- QM13iCi67Cdqceiv7d6dYoH7eJrTUV89GOVJl9dOosBDuCPD7bYjqMrn4
- x/2jpBrsKbvqw4/SsVA9GHYLMYlFW8VhC4stzJt4gfH08kGp+CK1f3iMH
- U1QPhquSmk4Tj5PkI+hyGqvGLbxdT1Zvvf7U12xjTX+u8xuE+v6QQHB+p
- W6XvqewqVTViTw0PW/OfXROXFB1sx3d6zIxbN0GFw7Cyf6W+qWr6N6XWl
- jRxr1YGLbpKWAVd2q5RxeT9QyfvnAfBYxvl3lk8qJVPRNwAmzmkkOpTaj g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10670"; a="428652565"
-X-IronPort-AV: E=Sophos;i="5.98,319,1673942400"; d="scan'208";a="428652565"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Q3KCKDeyMXFGq/xWCYP2VDjEo2kfjNU/P9tl9yJH96A=;
+ b=Fl30/6N5UBYy+kJAVP/1rjAnjOJVFpD+0GgIoPhd3q3xyfWpq/R3dqD3
+ m1v0/hHFknfNx7vMeSBKPcCdcMgNaaGbubaOdJMFQd12Y5/A5RaMfb8kS
+ cS//RwWMYYfxPznbAeQ2c0C9eptlvQluwYZMUF0u9jA7FR0p2HP1aJVL3
+ 2GWJtv30XEXwGMjfyyTciRzcP02xt3foHwIkGmKM3Z5SEibw4McQKZmWI
+ YvyzHC96pzMr6c4tkcAhP/CCrVNV6vTj2oaBOgnrGj72Ubtgs8IrCTfJC
+ 3AsAFgLl9IMTHy59j6SFlnQAbHHpd9sRrqplRLd3y7xxcyxCT0121XykW g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10670"; a="428652578"
+X-IronPort-AV: E=Sophos;i="5.98,319,1673942400"; d="scan'208";a="428652578"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Apr 2023 21:29:16 -0700
+ 04 Apr 2023 21:29:19 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10670"; a="932682987"
-X-IronPort-AV: E=Sophos;i="5.98,319,1673942400"; d="scan'208";a="932682987"
+X-IronPort-AV: E=McAfee;i="6600,9927,10670"; a="932683013"
+X-IronPort-AV: E=Sophos;i="5.98,319,1673942400"; d="scan'208";a="932683013"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Apr 2023 21:29:15 -0700
+ 04 Apr 2023 21:29:18 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  5 Apr 2023 09:57:11 +0530
-Message-Id: <20230405042713.1225203-1-ankit.k.nautiyal@intel.com>
+Date: Wed,  5 Apr 2023 09:57:13 +0530
+Message-Id: <20230405042713.1225203-3-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230405042713.1225203-1-ankit.k.nautiyal@intel.com>
+References: <20230405042713.1225203-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/2] Update DSC Bigjoiner BW check
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/intel_cdclk: Add vdsc with
+ bigjoiner constraints on min_cdlck
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,24 +61,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Update the DSC Bigjoiner BW check for computing compressed bpp:
--As per latest Bspec update bigjoiner interface bits for DP for
-DISPLAY > 13 is 36.
--Account for the check during computing of min CDCLK.
+As per Bsepc:49259, Bigjoiner BW check puts restriction on the
+compressed bpp for a given CDCLK, pixelclock in cases where
+Bigjoiner + DSC are used.
 
-Rev2: Fixed display version
-Rev3: Added new patch to account for Bigjoiner BW check while
-computing min CDCLK.
+Currently compressed bpp is computed first, and it is ensured that
+the bpp will work at least with the max CDCLK freq.
 
-Ankit Nautiyal (2):
-  drm/i915/dp: Update Bigjoiner interface bits for computing compressed
-    bpp
-  drm/i915/intel_cdclk: Add vdsc with bigjoiner constraints on min_cdlck
+Since the CDCLK is computed later, lets account for Bigjoiner BW
+check while calculating Min CDCLK.
 
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+---
  drivers/gpu/drm/i915/display/intel_cdclk.c | 49 ++++++++++++++++++----
- drivers/gpu/drm/i915/display/intel_dp.c    |  3 +-
- 2 files changed, 44 insertions(+), 8 deletions(-)
+ 1 file changed, 42 insertions(+), 7 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 084a483f9776..4c0e0d605bf1 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -2400,6 +2400,46 @@ static int intel_planes_min_cdclk(const struct intel_crtc_state *crtc_state)
+ 	return min_cdclk;
+ }
+ 
++static int intel_vdsc_min_cdclk(const struct intel_crtc_state *crtc_state)
++{
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
++	int min_cdclk = 0;
++
++	/*
++	 * When we decide to use only one VDSC engine, since
++	 * each VDSC operates with 1 ppc throughput, pixel clock
++	 * cannot be higher than the VDSC clock (cdclk)
++	 */
++	if (!crtc_state->dsc.dsc_split)
++		min_cdclk = max(min_cdclk, (int)crtc_state->pixel_rate);
++
++	if (crtc_state->bigjoiner_pipes) {
++		/*
++		 * According to Bigjoiner bw check:
++		 * compressed_bpp <= PPC * CDCLK * Big joiner Interface bits / Pixel clock
++		 *
++		 * We have already computed compressed_bpp, so now compute the min CDCLK that
++		 * is required to support this compressed_bpp.
++		 *
++		 * => CDCLK >= compressed_bpp * Pixel clock / (PPC * Bigjoiner Interface bits)
++		 *
++		 * Since Num of pipes joined = 2, and PPC = 2 with bigjoiner
++		 * => CDCLK >= compressed_bpp * pixel_rate  / Bigjoiner Interface bits
++		 *
++		 * #TODO Bspec mentions to account for FEC overhead while using pixel clock.
++		 * Check if we need to use FEC overhead in the above calculations.
++		 */
++		int bigjoiner_interface_bits = DISPLAY_VER(i915) > 13 ? 36 : 24;
++		int min_cdclk_bj = crtc_state->dsc.compressed_bpp * crtc_state->pixel_rate /
++				   bigjoiner_interface_bits;
++
++		min_cdclk = max(min_cdclk, min_cdclk_bj);
++	}
++
++	return min_cdclk;
++}
++
+ int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv =
+@@ -2471,13 +2511,8 @@ int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
+ 	/* Account for additional needs from the planes */
+ 	min_cdclk = max(intel_planes_min_cdclk(crtc_state), min_cdclk);
+ 
+-	/*
+-	 * When we decide to use only one VDSC engine, since
+-	 * each VDSC operates with 1 ppc throughput, pixel clock
+-	 * cannot be higher than the VDSC clock (cdclk)
+-	 */
+-	if (crtc_state->dsc.compression_enable && !crtc_state->dsc.dsc_split)
+-		min_cdclk = max(min_cdclk, (int)crtc_state->pixel_rate);
++	if (crtc_state->dsc.compression_enable)
++		min_cdclk = max(min_cdclk, intel_vdsc_min_cdclk(crtc_state));
+ 
+ 	/*
+ 	 * HACK. Currently for TGL/DG2 platforms we calculate
 -- 
 2.25.1
 
