@@ -4,61 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B222C76188
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 13:07:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D64A5C7619A
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Apr 2023 13:18:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9257010E94C;
-	Wed,  5 Apr 2023 13:07:22 +0000 (UTC)
-Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com
- [IPv6:2607:f8b0:4864:20::532])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C09610E475
- for <intel-gfx@lists.freedesktop.org>; Mon,  3 Apr 2023 13:36:27 +0000 (UTC)
-Received: by mail-pg1-x532.google.com with SMTP id q191so184620pgq.7
- for <intel-gfx@lists.freedesktop.org>; Mon, 03 Apr 2023 06:36:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3622A10E94D;
+	Wed,  5 Apr 2023 13:18:37 +0000 (UTC)
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [IPv6:2a00:1450:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EB2210E94D
+ for <intel-gfx@lists.freedesktop.org>; Wed,  5 Apr 2023 13:18:35 +0000 (UTC)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-930bc91df7bso115450966b.1
+ for <intel-gfx@lists.freedesktop.org>; Wed, 05 Apr 2023 06:18:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20210112; t=1680528986; x=1683120986;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=a7N1WSWoZn0JJ7eOsORwGMrwNl3/fBDC6Q3/zMBlJ3g=;
- b=k1bO+o1c5CeXjCUGLxpFwnplL3MFWBVxbpUoZcBKXnGeqGk2BbeugWKbmePaXU8TDn
- JcRN5QBfOiCZ3VzApAAzyro2u27pFYKVmvSfpVxo04tOoIqDhnEd91ApPeBDs7/Ttao6
- pdrDJ3Yl4JQwlX9hh65I5oCZCIJxfWsYttHsPn1j2dntZyy8N8usf0yzrv7Xj2X2RRgx
- oyOVWgGQ+udEXZgd54tvHsB2Ex+kTbLE2FRXkPXMsma7mGBd9tHQxBUDnGCOjxOS+4gM
- 5XXqnSlwYWMdarzYzLOowARRfp7w4q4uC0gqHD556eUFgDyu8sCCY2JsL6/GZzilRP1A
- Vdfg==
+ d=ffwll.ch; s=google; t=1680700714;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=owIcXkaALEakCsyYCvhuFxjZnRn3/iobnF0iaYiSOmA=;
+ b=LUnCVrDHAXqWz7PAde65XvA6dVydLSE5W+URJKD7F9q/SBrCxWxUMvydfNro3bEswG
+ sLLsmnu4nTYjB0yEWGgecLSfuX9ueLmNLR9XY6AlP88wSLkSpuN9tvFDxsmpUVARgzpv
+ OUT7Ca8Zk47aUW24s1xwt815wzpgMEDYuefjs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680528986; x=1683120986;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=a7N1WSWoZn0JJ7eOsORwGMrwNl3/fBDC6Q3/zMBlJ3g=;
- b=1ZksGZHtC99Pph+2EoEZUmwznat4ca6zu9aqyBMWIGBnrXCAx7seASF1tDRblF2xeI
- aWeTOXXjxtveuX85Lm+Dssnd1ZZxK9Z+sr3DWtzsuBVX4IyRpKje/Lff4S5urNEMEfz8
- cN2o2EFTHHv2YekPyr5pj78psW1leKDNsLR/eRnGg9DZBwMqzH489arnG89cmZsGnwfj
- mg9V372MMfGeBD5maeE33H8WS1XhSU71+DhfhvF2e5vOicPFU0iuTUeWLxF9oJB2GOLh
- Bowncg1ZelAz763/qePt+TQ7+IjuxtFSP0TQdwWoXEV8ugSNQjVsldECiBeozR9j+PvZ
- ttGQ==
-X-Gm-Message-State: AAQBX9fNoeDCCmMCCP6Sl2OaWe0v0YeRh+Bm2hYxbST95oBOJ1kuH2eF
- pXMyO0iE5F0xuNSCAxUNXS0=
-X-Google-Smtp-Source: AKy350aSgBmaCUIUvuM/O6IAuSON3DYO21PDfoqt0lSsBOpJz0wHBLR8825IPUN0xBLKIC75AdoNpw==
-X-Received: by 2002:a62:790e:0:b0:628:1155:3a69 with SMTP id
- u14-20020a62790e000000b0062811553a69mr20154864pfc.1.1680528986406; 
- Mon, 03 Apr 2023 06:36:26 -0700 (PDT)
-Received: from toolbox.. ([104.28.240.148]) by smtp.gmail.com with ESMTPSA id
- i17-20020aa787d1000000b00627ed4e23e0sm6978669pfo.101.2023.04.03.06.36.24
+ d=1e100.net; s=20210112; t=1680700714;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=owIcXkaALEakCsyYCvhuFxjZnRn3/iobnF0iaYiSOmA=;
+ b=ytWvki3sXsrjs+269j2GpPP60M6KrO/pj/XTCJQF4njYT1fvBfOGAtJiEfmYHQ2Tj8
+ ngAav9C1PLCLVMXv5SXt9bv9MQgKcDehdEx1RcBj+eUXv2YGJY6DWZ6mv+C4TFSnuvQq
+ tu8GT/WXqFKWgQuJevyF+7Kbi06MA1gqbmnJIY25MIX4ftq208m1nPRMKJo0jx7AVkV3
+ zkanAmiSGzjL0U4Qhg1PpUePXMdNbEEfNQvakyPwIQMNxAgNwfKcq2obsLmGNpHA77tT
+ RyIuXS7D4NMPoii67NIxq6poWDKsdSCyEjljtIDKQRbXkhnctDuXV9VxdoX5Wze8bUk9
+ 98hg==
+X-Gm-Message-State: AAQBX9cst/dSNmJVSH/6YwGN9qfG47uJJgRg1s8StiUEHdSa4q9PjiAX
+ Qpr+p/wksHssMLnTjcbExOOLmg==
+X-Google-Smtp-Source: AKy350YtWekditYKvim982wRyxu6n6a6gkGscXRmZ+d/XmSbYzIOqG91UqVuUW+6cgA848mLo+sjmQ==
+X-Received: by 2002:a17:906:114:b0:947:f415:db23 with SMTP id
+ 20-20020a170906011400b00947f415db23mr2935923eje.1.1680700713794; 
+ Wed, 05 Apr 2023 06:18:33 -0700 (PDT)
+Received: from phenom.ffwll.local (212-51-149-33.fiber7.init7.net.
+ [212.51.149.33]) by smtp.gmail.com with ESMTPSA id
+ 11-20020a170906010b00b0093344ef3764sm7292273eje.57.2023.04.05.06.18.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Apr 2023 06:36:25 -0700 (PDT)
-From: Qiyu Yan <yanqiyu01@gmail.com>
-To: airlied@gmail.com,
-	daniel@ffwll.ch
-Date: Mon,  3 Apr 2023 21:36:20 +0800
-Message-Id: <20230403133620.42905-1-yanqiyu01@gmail.com>
-X-Mailer: git-send-email 2.40.0
+ Wed, 05 Apr 2023 06:18:33 -0700 (PDT)
+Date: Wed, 5 Apr 2023 15:18:31 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Javier Martinez Canillas <javierm@redhat.com>
+Message-ID: <ZC11J3og4Kc9ta6m@phenom.ffwll.local>
+References: <20230404201842.567344-1-daniel.vetter@ffwll.ch>
+ <5556a755-01a1-3620-8693-0fc69c6f627d@suse.de>
+ <3813a2f5-c74a-4760-34ce-1c88f187c91c@suse.de>
+ <ZC04hoHywz0ySzAW@phenom.ffwll.local>
+ <3fd03c4c-3be6-e56b-faec-bd67a58cda09@suse.de>
+ <ZC1BlNCbXPlmAhj0@phenom.ffwll.local>
+ <eee11545-2a78-4556-be82-5178ea09d0d8@suse.de>
+ <877cuqd1f8.fsf@minerva.mail-host-address-is-not-set>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 05 Apr 2023 13:07:20 +0000
-Subject: [Intel-gfx] [PATCH] i915: Correct description of default value for
- enable_psr2_sel_fetch
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <877cuqd1f8.fsf@minerva.mail-host-address-is-not-set>
+X-Operating-System: Linux phenom 6.1.0-7-amd64 
+Subject: Re: [Intel-gfx] [PATCH 1/8] drm/gma500: Use
+ drm_aperture_remove_conflicting_pci_framebuffers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,33 +78,102 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Qiyu Yan <yanqiyu01@gmail.com>, intel-gfx@lists.freedesktop.org,
- trivial@kernel.org, linux-kernel@vger.kernel.org
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Daniel Vetter <daniel.vetter@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The default value of i915.enable_psr2_sel_fetch is true while the
-description given in i915_params.c is 0. Changing to correct the
-description.
+On Wed, Apr 05, 2023 at 01:16:27PM +0200, Javier Martinez Canillas wrote:
+> Thomas Zimmermann <tzimmermann@suse.de> writes:
+> 
+> [...]
+> 
+> >
+> > Your comment says that it calls a PCI function to clean up to vgacon. 
+> > That comment explains what is happening, not why. And how the PCI and 
+> > vgacon code work together is non-obvious.
 
-Signed-off-by: Qiyu Yan <yanqiyu01@gmail.com>
----
- drivers/gpu/drm/i915/i915_params.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Would a better comment help then:
 
-diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
-index ade744ccc..fa9ddcbe8 100644
---- a/drivers/gpu/drm/i915/i915_params.c
-+++ b/drivers/gpu/drm/i915/i915_params.c
-@@ -119,7 +119,7 @@ i915_param_named(psr_safest_params, bool, 0400,
- i915_param_named_unsafe(enable_psr2_sel_fetch, bool, 0400,
- 	"Enable PSR2 selective fetch "
- 	"(0=disabled, 1=enabled) "
--	"Default: 0");
-+	"Default: 1");
- 
- i915_param_named_unsafe(force_probe, charp, 0400,
- 	"Force probe options for specified supported devices. "
+	/*
+	 * gma500 is a strange hybrid device, which both acts as a pci
+	 * device (for legacy vga functionality) but also more like an
+	 * integrated display on a SoC where the framebuffer simply
+	 * resides in main memory and not in a special pci bar (that
+	 * internally redirects to a stolen range of main memory) like all
+	 * other integrated pci display devices have.
+	 *
+	 * To catch all cases we need to both remove conflicting fw
+	 * drivers for the pci device and main memory.
+	 */
+> >
+> > Again, here's my proposal for gma500:
+> >
+> > // call this from psb_pci_probe()
+> > int gma_remove_conflicting_framebuffers(struct pci_dev *pdev, const
+> > 					struct drm_driver *req_driver)
+> > {
+> > 	resource_size_t base = 0;
+> > 	resource_size_t size = (resource_size_t)-1;
+> > 	const char *name = req_driver->name;
+> > 	int ret;
+> >
+> > 	/*
+> > 	 * We cannot yet easily find the framebuffer's location in
+> > 	 * memory. So remove all framebuffers here.
+> > 	 *
+> > 	 * TODO: Refactor psb_driver_load() to map vdc_reg earlier. Then
+> > 	 *       we might be able to read the framebuffer range from the
+> > 	 *       device.
+> > 	 */
+> > 	ret = aperture_remove_conflicting_devices(base, size, name);
+
+Why can't this be a call to drm_aperture_remove_framebuffers? At least as
+long as we don't implement the "read out actual fb base and size" code,
+which also none of the other soc drivers bother with?
+
+> > 	if (ret)
+> > 		return ret;
+> >
+> > 	/*
+> > 	 * WARNING: Apparently we must kick fbdev drivers before vgacon,
+> > 	 * otherwise the vga fbdev driver falls over.
+> > 	 */
+> > 	ret = vga_remove_vgacon(pdev);
+
+This isn't enough, we also nuke stuff that's mapping the vga fb range.
+Which is really the reason I don't want to open code random stuff, pci is
+self-describing, if it's decoding legacy vga it can figure this out and we
+only have to implement the "how do I nuke legacy vga fw drivers from a pci
+driver" once.
+
+Not twice like this would result in, with the gma500 version being only
+half the thing.
+
+If it absolutely has to be a separate function for the gma500 pci legacy
+vga (I still don't get why, it's just a pci vga device, there's absolutely
+nothing special about that part at all) then I think it needs to be at
+least a common "nuke a legacy vga device for me pls" function, which
+shares the implementation with the pci one.
+
+But not open-coding just half of it only.
+
+> > 	if (ret)
+> > 		return ret;
+> >
+> > 	return 0;
+> > }
+> >
+> 
+> If this is enough I agree that is much more easier code to understand.
+
+It's still two calls and more code with more bugs? I'm not seeing the
+point.
+-Daniel
 -- 
-2.40.0
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
