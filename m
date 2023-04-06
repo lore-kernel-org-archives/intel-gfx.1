@@ -4,47 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17748C77B6C
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Apr 2023 17:44:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33944C76196
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Apr 2023 17:53:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1E7A10EC97;
-	Thu,  6 Apr 2023 17:44:41 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D45510EC72;
- Thu,  6 Apr 2023 17:44:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680803069; x=1712339069;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=dT6Sl2eDrvNeTYuGb922fAYDEai8sPR7JcrlaJg87QQ=;
- b=WlV/D/rmZdHLJPk02ILk8cg+n0R3C/VplbIr1gNVodAxM4oSOyESzG8a
- SdlGooUjjowiF4pPUCdls30QZUX+9H7Yu86+i2iA3V2eux02va3bEPoeR
- mXCeASWnei3qXnOBSNuj0DE7KOazUn5tg45MuNfHD25GmnF+3lKU2btH6
- L0u18V8Fes06iqoD34FiptXcgMZmIkMSK74JktVf5I2oSwRniyHn26NlG
- vshuf3XEMseI3CgRD3aryccnrjFGZdnT8ngTDc6LpIX/ZkrxRlptvXRBU
- X1uQvldoJIjhgQ573VeG5O6zUlxGW6utHEoZnHMoR2hhZCIvleSMw7ZZb Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="345432464"
-X-IronPort-AV: E=Sophos;i="5.98,323,1673942400"; d="scan'208";a="345432464"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Apr 2023 10:44:29 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="680757361"
-X-IronPort-AV: E=Sophos;i="5.98,323,1673942400"; d="scan'208";a="680757361"
-Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga007.jf.intel.com with ESMTP; 06 Apr 2023 10:44:28 -0700
-From: Alan Previn <alan.previn.teres.alexis@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  6 Apr 2023 10:44:17 -0700
-Message-Id: <20230406174419.471256-7-alan.previn.teres.alexis@intel.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230406174419.471256-1-alan.previn.teres.alexis@intel.com>
-References: <20230406174419.471256-1-alan.previn.teres.alexis@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B428A10EC7E;
+	Thu,  6 Apr 2023 17:53:56 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13AF710EC7F
+ for <intel-gfx@lists.freedesktop.org>; Thu,  6 Apr 2023 17:53:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1680803633;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=7432+6OEWamz5qY/mgHPY11Z1KTJKe8+IEhwreLZ3sM=;
+ b=ZbLemHJ8cs5J1PqoLotGILxqKyf4b3jShOSJad7a523y09is50QDHtzL2lTuHFPjqD5qf5
+ z/9gaO/FL8H3LKrgEu+YRmHk/B8y2xpJec4UzDRrvaCxpHRoDqmGKWMGLUOBmQABmJhsSV
+ XnKa11fQN/z1O1YvUucZiTBWWGHRjG4=
+Received: from mail-il1-f199.google.com (mail-il1-f199.google.com
+ [209.85.166.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-147-zLqivsUIO3ybtObZI5EoSQ-1; Thu, 06 Apr 2023 13:53:50 -0400
+X-MC-Unique: zLqivsUIO3ybtObZI5EoSQ-1
+Received: by mail-il1-f199.google.com with SMTP id
+ r14-20020a056e02108e00b00326334613f0so16432949ilj.20
+ for <intel-gfx@lists.freedesktop.org>; Thu, 06 Apr 2023 10:53:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680803630; x=1683395630;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=7432+6OEWamz5qY/mgHPY11Z1KTJKe8+IEhwreLZ3sM=;
+ b=yo+9O8eqb3BDb5KjulZy0Y7xzGHf5yH0+FgnHyrQn0TUzt7NQf0acqynVUzCqok3r0
+ 5tIMJ21whZ+bdafy4NlVjNNAnQdf5KAYyL21BYqo3Pe13EEJSECwiyIHaJ+evs0PnQVw
+ zDIaVsJazZUxnEDIDHUCvoLe2kr1AAA2ZcK47G1QIFCmiTg7+KNre3lpmlMD8Tc0cTS3
+ mmjbrdxJiD2fZazRFLPOlEoWZzg2M3pZJdeFdjQNUxPfOgHjrBXGG8j6LLscaWOgbbXe
+ Lj10lJ2idN+p8cInJVGPdSyjGgfItPwXMzU+cqJ31N/wHmf9TUpB8SLt7sZYTpMN5APD
+ CaDA==
+X-Gm-Message-State: AAQBX9fepubDKsQDCMRLxt392XoOvKGFQMo8jgD7NcS5etHT86HwxNw0
+ TqaSDl+WY2aCfK1RnqqOU17YoK93B+ONN1VOyHUxFfQwti6YWXxckZoF68yDPt2GJYv4HQqWzuc
+ 87AJYNm9vUwcBP0Dd1xu95djrzAkw
+X-Received: by 2002:a05:6e02:1449:b0:325:ede7:b166 with SMTP id
+ p9-20020a056e02144900b00325ede7b166mr4688208ilo.3.1680803629709; 
+ Thu, 06 Apr 2023 10:53:49 -0700 (PDT)
+X-Google-Smtp-Source: AKy350a4MFsLMs30oCa+LYnnAaACb5bDlBMgSky/nYRVNUtYLOEQcrEn7bi092ewGn4aMFuU6a9oqg==
+X-Received: by 2002:a05:6e02:1449:b0:325:ede7:b166 with SMTP id
+ p9-20020a056e02144900b00325ede7b166mr4688190ilo.3.1680803629360; 
+ Thu, 06 Apr 2023 10:53:49 -0700 (PDT)
+Received: from redhat.com ([38.15.36.239]) by smtp.gmail.com with ESMTPSA id
+ cd9-20020a0566381a0900b00408c3aa8f4dsm528131jab.63.2023.04.06.10.53.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Apr 2023 10:53:48 -0700 (PDT)
+Date: Thu, 6 Apr 2023 11:53:47 -0600
+From: Alex Williamson <alex.williamson@redhat.com>
+To: "Liu, Yi L" <yi.l.liu@intel.com>
+Message-ID: <20230406115347.7af28448.alex.williamson@redhat.com>
+In-Reply-To: <DS0PR11MB75292DA91ED15AE94A85EB3DC3919@DS0PR11MB7529.namprd11.prod.outlook.com>
+References: <20230401144429.88673-13-yi.l.liu@intel.com>
+ <a937e622-ce32-6dda-d77c-7d8d76474ee0@redhat.com>
+ <DS0PR11MB7529D4E354C3B85D7698017DC3909@DS0PR11MB7529.namprd11.prod.outlook.com>
+ <20230405102545.41a61424.alex.williamson@redhat.com>
+ <ZC2jsQuWiMYM6JZb@nvidia.com>
+ <20230405105215.428fa9f5.alex.williamson@redhat.com>
+ <ZC2un1LaTUR1OrrJ@nvidia.com>
+ <20230405125621.4627ca19.alex.williamson@redhat.com>
+ <ZC3KJUxJa0O0M+9O@nvidia.com>
+ <20230405134945.29e967be.alex.williamson@redhat.com>
+ <ZC4CwH2ouTfZ9DNN@nvidia.com>
+ <DS0PR11MB75292DA91ED15AE94A85EB3DC3919@DS0PR11MB7529.namprd11.prod.outlook.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.35; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 6/8] drm/i915/uapi/pxp: Fix UAPI spec
- comments and add GET_PARAM for PXP
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v3 12/12] vfio/pci: Report dev_id in
+ VFIO_DEVICE_GET_PCI_HOT_RESET_INFO
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,110 +94,221 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: "mjrosato@linux.ibm.com" <mjrosato@linux.ibm.com>,
+ "jasowang@redhat.com" <jasowang@redhat.com>, "Hao,
+ Xudong" <xudong.hao@intel.com>, "Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
+ "peterx@redhat.com" <peterx@redhat.com>, "Xu,
+ Terrence" <terrence.xu@intel.com>,
+ "chao.p.peng@linux.intel.com" <chao.p.peng@linux.intel.com>,
+ "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "lulu@redhat.com" <lulu@redhat.com>, "Jiang,
+ Yanting" <yanting.jiang@intel.com>, "joro@8bytes.org" <joro@8bytes.org>,
+ "nicolinc@nvidia.com" <nicolinc@nvidia.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ "Zhao, Yan Y" <yan.y.zhao@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "eric.auger@redhat.com" <eric.auger@redhat.com>,
+ "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
+ "yi.y.sun@linux.intel.com" <yi.y.sun@linux.intel.com>,
+ "cohuck@redhat.com" <cohuck@redhat.com>,
+ "shameerali.kolothum.thodi@huawei.com" <shameerali.kolothum.thodi@huawei.com>,
+ "suravee.suthikulpanit@amd.com" <suravee.suthikulpanit@amd.com>,
+ "robin.murphy@arm.com" <robin.murphy@arm.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-1. UAPI update:
-Without actually changing backward compatible behavior, update
-i915's drm-uapi comments that describe the possible error values
-when creating a context with I915_CONTEXT_PARAM_PROTECTED_CONTENT.
-Since the first merge of PXP support on ADL, i915 returns
--ENXIO if a dependency such as firmware or component driver
-was yet to be loaded or returns -EIO if the creation attempt
-failed when requested by the PXP firmware (specific firmware
-error responses are reported in dmesg).
+On Thu, 6 Apr 2023 10:02:10 +0000
+"Liu, Yi L" <yi.l.liu@intel.com> wrote:
 
-2. GET_PARAM for PXP:
-Because of the additional firmware, component-driver and
-initialization depedencies required on MTL platform before a
-PXP context can be created, UMD calling for PXP creation as a
-way to get-caps can take a long time. An actual real world
-customer stack has seen this happen in the 4-to-8 second range
-after the kernel starts (which sees MESA's init appear in the
-middle of this range as the compositor comes up). To avoid
-unncessary delays experienced by the UMD for get-caps purposes,
-add a GET_PARAM for I915_PARAM_PXP_SUPPORT.
+> > From: Jason Gunthorpe <jgg@nvidia.com>
+> > Sent: Thursday, April 6, 2023 7:23 AM
+> > 
+> > On Wed, Apr 05, 2023 at 01:49:45PM -0600, Alex Williamson wrote:
+> >   
+> > > > > QEMU can make a policy decision today because the kernel provides a
+> > > > > sufficiently reliable interface, ie. based on the set of owned groups, a
+> > > > > hot-reset is all but guaranteed to work.  
+> > > >
+> > > > And we don't change that with cdev. If qemu wants to make the policy
+> > > > decision it keeps using the exact same _INFO interface to make that
+> > > > decision same it has always made.
+> > > >
+> > > > We weaken the actual reset action to only consider the security side.
+> > > >
+> > > > Applications that want this exclusive reset group policy simply must
+> > > > check it on their own. It is a reasonable API design.  
+> > >
+> > > I disagree, as I've argued before, the info ioctl becomes so weak and
+> > > effectively arbitrary from a user perspective at being able to predict
+> > > whether the hot-reset ioctl works that it becomes useless, diminishing
+> > > the entire hot-reset info/execute API.  
+> > 
+> > reset should be strictly more permissive than INFO. If INFO predicts
+> > reset is permitted then reset should succeed.
+> > 
+> > We don't change INFO so it cannot "becomes so weak"  ??
+> > 
+> > We don't care about the cases where INFO says it will not succeed but
+> > reset does (temporarily) succeed.
+> > 
+> > I don't get what argument you are trying to make or what you think is
+> > diminished..
+> > 
+> > Again, userspace calls INFO, if info says yes then reset *always
+> > works*, exactly just like today.
+> >
+> > Userspace will call reset with a 0 length FD list and it uses a
+> > security only check that is strictly more permissive than what
+> > get_info will return. So the new check is simple in the kernel and
+> > always works in the cases we need it to work.
+> > 
+> > What is getting things into trouble is insisting that RESET have
+> > additional restrictions beyond the minimum checks required for
+> > security.
+> >   
+> > > > I don't view it as a loophole, it is flexability to use the API in a
+> > > > way that is different from what qemu wants - eg an app like dpdk may
+> > > > be willing to tolerate a reset group that becomes unavailable after
+> > > > startup. Who knows, why should we force this in the kernel?  
+> > >
+> > > Because look at all the problems it's causing to try to introduce these
+> > > loopholes without also introducing subtle bugs.  
+> > 
+> > These problems are coming from tring to do this integrated version,
+> > not from my approach!
+> > 
+> > AFAICT there was nothing wrong with my original plan of using the
+> > empty fd list for reset. What Yi has here is some mashup of what you
+> > and I both suggested.  
+> 
+> Hi Alex, Jason,
+> 
+> could be this reason. So let me try to gather the changes of this series
+> does and the impact as far as I know.
+> 
+> 1) only check the ownership of opened devices in the dev_set
+>      in HOT_RESET ioctl.
+>      - Impact: it changes the relationship between _INFO  and HOT_RESET.
+>        As " Each group must have IOMMU protection established for the
+>        ioctl to succeed." in [1], existing design actually means userspace
+>        should own all the affected groups before heading to do HOT_RESET.
+>        With the change here, the user does not need to ensure all affected
+>        groups are opened and it can do hot-reset successfully as long as the
+>        devices in the affected group are just un-opened and can be reset.
+>     
+>        [1] https://patchwork.kernel.org/project/linux-pci/patch/20130814200845.21923.64284.stgit@bling.home/
 
-However, some failures can still occur after all the depedencies
-are met (such as firmware init flow failure, bios configurations
-or SOC fusing not allowing PXP enablement). Those scenarios will
-only be known to user space when it attempts creating a PXP context.
-
-With this change, large delays are only met by user-space procsses
-that explicitly need to create a PXP context and boot very early.
-There is no way to avoid this today.
-
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
----
- drivers/gpu/drm/i915/i915_getparam.c |  5 +++++
- include/uapi/drm/i915_drm.h          | 22 ++++++++++++++++++++++
- 2 files changed, 27 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/i915_getparam.c b/drivers/gpu/drm/i915/i915_getparam.c
-index 2238e096c957..9729384f033f 100644
---- a/drivers/gpu/drm/i915/i915_getparam.c
-+++ b/drivers/gpu/drm/i915/i915_getparam.c
-@@ -5,6 +5,8 @@
- #include "gem/i915_gem_mman.h"
- #include "gt/intel_engine_user.h"
+Where whether a device is opened is subject to change outside of the
+user's control.  This essentially allows the user to perform hot-resets
+of devices outside of their ownership so long as the device is not
+used elsewhere, versus the current requirement that the user own all the
+affected groups, which implies device ownership.  It's not been
+justified why this feature needs to exist, imo.
  
-+#include "pxp/intel_pxp.h"
-+
- #include "i915_cmd_parser.h"
- #include "i915_drv.h"
- #include "i915_getparam.h"
-@@ -102,6 +104,9 @@ int i915_getparam_ioctl(struct drm_device *dev, void *data,
- 		if (value < 0)
- 			return value;
- 		break;
-+	case I915_PARAM_PXP_STATUS:
-+		value = intel_pxp_is_enabled(i915->pxp) ? 0 : -ENODEV;
-+		break;
- 	case I915_PARAM_MMAP_GTT_VERSION:
- 		/* Though we've started our numbering from 1, and so class all
- 		 * earlier versions as 0, in effect their value is undefined as
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index dba7c5a5b25e..0c1729bd911d 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -771,6 +771,20 @@ typedef struct drm_i915_irq_wait {
-  */
- #define I915_PARAM_OA_TIMESTAMP_FREQUENCY 57
+> 2) Allow passing zero-length fd array to do hot reset
+>     - Impact: this uses the iommufd as ownership check in the kernel side.
+>       It is only supposed to be used by the users that open cdev instead of
+>       users that open group. The drawback is that it cannot cover the noiommu
+>       devices as noiommu does not use iommufd at all. But it works well for
+>       most cases.
+
+The "only supposed to be used" is problematic here, we're extending all
+the interfaces to transparently accept group and device fds, but here
+we need to make a distinction because the ioctl needs to perform one
+way for groups and another way for devices, which it currently doesn't
+do.  As above, I've not seen sufficient justification for this other
+than references to reducing complexity, but the only userspace expected
+to make use of this interface already has equivalent complexity.
  
-+/*
-+ * Query the status of PXP support in i915.
-+ *
-+ * The query can fail in the following scenarios with the listed error codes:
-+ *  -ENODEV = PXP support is not available on the GPU device or in the kernel
-+ *            due to missing component drivers or kernel configs.
-+ * If the IOCTL is successful, the returned parameter will be set to one of the
-+ * following values:
-+ *   0 = PXP support maybe available but underlying SOC fusing, BIOS or firmware
-+ *       configuration is unknown and a PXP-context-creation would be required
-+ *       for final verification of feature availibility.
-+ */
-+#define I915_PARAM_PXP_STATUS		 58
-+
- /* Must be kept compact -- no holes and well documented */
- 
- /**
-@@ -2096,6 +2110,14 @@ struct drm_i915_gem_context_param {
-  *
-  * -ENODEV: feature not available
-  * -EPERM: trying to mark a recoverable or not bannable context as protected
-+ * -ENXIO: A dependency such as a component driver or firmware is not yet
-+ *         loaded and user space may attempt again. Depending on the device
-+ *         this error may be reported if the protected context creation is
-+ *         attempted very early from kernel start (numbers vary depending on
-+ *         system and kernel config):
-+ *            - ADL/RPL: up to 3 seconds
-+ *            - MTL: up to 8 seconds
-+ * -EIO: The firmware did not succeed in creating the protected context.
-  */
- #define I915_CONTEXT_PARAM_PROTECTED_CONTENT    0xd
- /* Must be kept compact -- no holes and well documented */
--- 
-2.39.0
+> 3) Allow hot reset be successful when the dev_set is singleton
+>      - Impact: this makes sense but it seems to mess up the boundary between
+>      the group path and cdev path w.r.t. the usage of zero-length fd approach.
+>      The group path can succeed to do hot reset even if it is passing an empty
+>      fd array if the dev_set happens to be singleton.
+
+Again, what is the justification for requiring this, it seems to be
+only a hack towards no-iommu support with cdev, which we can achieve by
+other means.  Why have we not needed this in the group model?  It
+introduces subtle loopholes, so while maybe we could, I don't see why we
+should, therefore I cannot agree with "this makes sense".
+
+> 4) Allow passing device fd to do hot reset
+>     - Impact: this is a new way for hot reset. should have no impact.
+> 
+> 5) Extend the _INFO to report devid
+>     - Impact: this changes the way user to decode the info reported back.
+>     devid and groupid are returned per the way the queried device is opened.
+>     Since it was suggested to support the scenario in which some devices
+>     are opened via cdev while some devices are opened via group. This makes
+>     us to return invalid_devid for the device that is opened via group if
+>     it is affected by the hot reset of a device that is opened via cdev.
+>     
+>     This was proposed to support the future device fd passing usage which is
+>     only available in cdev path.
+
+I think this is fundamentally flawed because of the scope of the
+dev-id.  We can only provide dev-ids for devices which belong to the
+same iommufd of the calling device, thus there are multiple instances
+where no dev-id can be provided.  The group-id and bdf are static
+properties of the devices, regardless of their ownership.  The bdf
+provides the specific device level association while the group-id
+indicates implied, static ownership.
+
+> To me the major confusion is from 1) and 3). 1) changes the meaning of
+> _INFO and HOT_RESET, while 3) messes up the boundary.
+
+As above, I think 2) is also an issue.
+
+> Here is my thought:
+> 
+> For 1), it was proposed due to below reason[2]. We'd like to make a scenario
+> that works in the group path be workable in cdev path as well. But IMHO, we
+> may just accept that cdev path cannot work for such scenario to avoid sublte
+> change to uapi. Otherwise, we need to have another HOT_RESET ioctl or a
+> hint in HOT_RESET ioctl to tell the kernel  whether relaxed ownership check
+> is expected. Maybe this is awkward. But if we want to keep it, we'd do it
+> with the awareness by user.
+> 
+> [2] https://lore.kernel.org/kvm/Y%2FdobS6gdSkxnPH7@nvidia.com/
+
+The group association is that relaxed ownership test.  Yes, there are
+corner cases where we have a dual function card with separate IOMMU
+groups, where a user owning function 0 could do a bus reset because
+function 1 is temporarily unused, but so what, what good is that, have
+we ever had an issue raised because of this?  The user can't rely on
+the unopened state of the other function.  It's an entirely
+opportunistic optimization.
+
+The much more typical scenario is that a multi-function device does not
+provide isolation, all the functions are in the same group and because
+of the association of the group the user has implied ownership of the
+other devices for the purpose of a reset.
+
+> For 3), it was proposed when discussing the hot reset for noiommu[3]. But
+> it does not make hot reset always workable for noiommu in cdev, just in
+> case dev_set is singleton. So it is more of a general optimization that can
+> make the kernel skip the ownership check. But to make use of it, we may
+> need to test it before sanitizing the group fds from user or the iommufd
+> check. Maybe the dev_set singleton test in this series is not well placed.
+> If so, I can further modify it.
+> 
+> [3] https://lore.kernel.org/kvm/ZACX+Np%2FIY7ygqL5@nvidia.com/
+
+As above, this seems to be some optimization related to no-iommu for
+cdev because we don't have an iommufd association for the device in
+no-iommu mode.  Note however that the current group interface doesn't
+care about the IOMMU context of the devices.  We only need proof that
+the user owns the affected groups.  So why are we bringing iommufd
+context anywhere into this interface, here or the null-array interface?
+
+It seems like the minor difference with cdev is that a) we're passing
+device fds rather than group fds, and b) those device fds need to be
+validated as having device access to complete the proof of ownership
+relative to the group.  Otherwise we add capabilities to
+DEVICE_GET_INFO to support the device fd passing model where the user
+doesn't know the device group or bdf and allow the reset ioctl itself
+to accept device fds (extracting the group relationship for those which
+the user has configured for access).  Thanks,
+
+Alex
 
