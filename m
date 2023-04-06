@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DED7AC77B6E
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Apr 2023 17:44:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCC40C7618D
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Apr 2023 17:44:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8F3B10EC8F;
-	Thu,  6 Apr 2023 17:44:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72B6D10EC9B;
+	Thu,  6 Apr 2023 17:44:39 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7E5210E0F6;
- Thu,  6 Apr 2023 17:44:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B699E10EC7F;
+ Thu,  6 Apr 2023 17:44:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680803067; x=1712339067;
+ t=1680803069; x=1712339069;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=OpOk3qfsT4vOSEWKsEyhrV3YmoK37ZtL8PS/bHuSpe0=;
- b=bAAyMeQzgPgKxVV1Ni8j9dO0sS9qCZc5pVeVyWZvBDelO6aVs/OeVYKn
- 7DjqFCG4UXyFP4z/oWrRy/XdP7CJkq5lvLma8VcYoH9dgocTnzCFCQdMz
- r2lABULInALpPGo8w4cAkNe1mGQ0cL8CcJnLdWDnXzU1WDnIpVlyQkssU
- 1LOrGisvtEJnHaaDnsI+uwrjcCZHaBZbURBNmVEAqh6fT4Ul+b3KD4PNT
- vPsUIsylWYzT4FXsq0lpjF7kXltbuPxJjjH4QT18gmftgh7em4823J+SY
- iUKLdthZsYGXo8l9mApaWN9dg02pyVCmzcpuxexoYYj0TDYLQrYU+ZnSL A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="345432450"
-X-IronPort-AV: E=Sophos;i="5.98,323,1673942400"; d="scan'208";a="345432450"
+ bh=8SFcL0erINhukxTNL7GDSlNQ2j7cyUWzmStSlrDvxB0=;
+ b=UQNe4B1nGc6kautp1UfmVEJiQBNdLVu6uBFDayY9oxQ20iTTpKKsSchu
+ 1gCEt/wJad2iopmLsbMaGImWePPfjKKo+y0BSjq0yig9SKqqNuwyDnkiH
+ f7RTGzm1dAzNgeaz0kZRQlhRCTsJALeZt39m/p/TAQHGbDHfphahK20Ua
+ 88sKZYRlkxb+3SEnJXsz95Ab/B7Kf6wZ4xOlT6KRmaDjkTdseJr1U6jfe
+ t3QXv97Fo2aka8KhNsUyO0QFASpQcf7G5ytt7swCf2lnH4E4kGcuBZZGt
+ luPaCnU5sSUweSHqxjggChoIIs3q5TbPlIFW+GARzvukXe2tBgzeisuIt Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="345432467"
+X-IronPort-AV: E=Sophos;i="5.98,323,1673942400"; d="scan'208";a="345432467"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Apr 2023 10:44:27 -0700
+ 06 Apr 2023 10:44:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="680757347"
-X-IronPort-AV: E=Sophos;i="5.98,323,1673942400"; d="scan'208";a="680757347"
+X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="680757366"
+X-IronPort-AV: E=Sophos;i="5.98,323,1673942400"; d="scan'208";a="680757366"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by orsmga007.jf.intel.com with ESMTP; 06 Apr 2023 10:44:27 -0700
+ by orsmga007.jf.intel.com with ESMTP; 06 Apr 2023 10:44:29 -0700
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  6 Apr 2023 10:44:13 -0700
-Message-Id: <20230406174419.471256-3-alan.previn.teres.alexis@intel.com>
+Date: Thu,  6 Apr 2023 10:44:18 -0700
+Message-Id: <20230406174419.471256-8-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230406174419.471256-1-alan.previn.teres.alexis@intel.com>
 References: <20230406174419.471256-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 2/8] drm/i915/pxp: Add MTL hw-plumbing
- enabling for KCR operation
+Subject: [Intel-gfx] [PATCH v7 7/8] drm/i915/pxp: On MTL,
+ KCR enabling doesn't wait on tee component
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,213 +62,72 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add MTL hw-plumbing enabling for KCR operation under PXP
-which includes:
+On legacy platforms, KCR HW enabling is done at the time the mei
+component interface is bound. It's also disabled during unbind.
+However, for MTL onwards, we don't depend on a tee component
+to start sending GSC-CS firmware messages.
 
-1. Updating 'pick-gt' to get the media tile for
-   KCR interrupt handling
-2. Adding MTL's KCR registers for PXP operation
-   (init, status-checking, etc.).
-
-While doing #2, lets create a separate registers header file for PXP
-to be consistent with other i915 global subsystems.
+Thus, immediately enable (or disable) KCR HW on PXP's init,
+fini and resume.
 
 Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt_irq.c       |  3 +-
- drivers/gpu/drm/i915/pxp/intel_pxp.c         | 32 ++++++++++++--------
- drivers/gpu/drm/i915/pxp/intel_pxp_regs.h    | 27 +++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_session.c | 12 +++-----
- drivers/gpu/drm/i915/pxp/intel_pxp_types.h   |  6 ++++
- 5 files changed, 58 insertions(+), 22 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_regs.h
+ drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c | 15 ++++++++++++++-
+ drivers/gpu/drm/i915/pxp/intel_pxp_pm.c    |  3 ++-
+ 2 files changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq.c b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-index 1b25a6039152..c360776a98b5 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
-@@ -100,7 +100,8 @@ static struct intel_gt *pick_gt(struct intel_gt *gt, u8 class, u8 instance)
- 	case VIDEO_ENHANCEMENT_CLASS:
- 		return media_gt;
- 	case OTHER_CLASS:
--		if (instance == OTHER_GSC_INSTANCE && HAS_ENGINE(media_gt, GSC0))
-+		if ((instance == OTHER_GSC_INSTANCE || instance == OTHER_KCR_INSTANCE) &&
-+		    HAS_ENGINE(media_gt, GSC0))
- 			return media_gt;
- 		fallthrough;
- 	default:
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index f93aa171aa1e..8949d4be7882 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -14,6 +14,7 @@
- #include "intel_pxp.h"
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c b/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
+index 4bc276daca16..8dc41de3f6f7 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
+@@ -10,6 +10,7 @@
+ #include "gt/uc/intel_gsc_uc_heci_cmd_submit.h"
+ 
+ #include "i915_drv.h"
++#include "intel_pxp.h"
+ #include "intel_pxp_cmd_interface_42.h"
+ #include "intel_pxp_cmd_interface_43.h"
  #include "intel_pxp_gsccs.h"
- #include "intel_pxp_irq.h"
-+#include "intel_pxp_regs.h"
- #include "intel_pxp_session.h"
- #include "intel_pxp_tee.h"
- #include "intel_pxp_types.h"
-@@ -61,21 +62,22 @@ bool intel_pxp_is_active(const struct intel_pxp *pxp)
- 	return IS_ENABLED(CONFIG_DRM_I915_PXP) && pxp && pxp->arb_is_valid;
- }
+@@ -422,10 +423,22 @@ gsccs_allocate_execution_resource(struct intel_pxp *pxp)
  
--/* KCR register definitions */
--#define KCR_INIT _MMIO(0x320f0)
--/* Setting KCR Init bit is required after system boot */
--#define KCR_INIT_ALLOW_DISPLAY_ME_WRITES REG_BIT(14)
-+static void kcr_pxp_set_status(const struct intel_pxp *pxp, bool enable)
-+{
-+	u32 val = enable ? _MASKED_BIT_ENABLE(KCR_INIT_ALLOW_DISPLAY_ME_WRITES) :
-+		  _MASKED_BIT_DISABLE(KCR_INIT_ALLOW_DISPLAY_ME_WRITES);
-+
-+	intel_uncore_write(pxp->ctrl_gt->uncore, KCR_INIT(pxp->kcr_base), val);
-+}
- 
--static void kcr_pxp_enable(struct intel_gt *gt)
-+static void kcr_pxp_enable(const struct intel_pxp *pxp)
+ void intel_pxp_gsccs_fini(struct intel_pxp *pxp)
  {
--	intel_uncore_write(gt->uncore, KCR_INIT,
--			   _MASKED_BIT_ENABLE(KCR_INIT_ALLOW_DISPLAY_ME_WRITES));
-+	kcr_pxp_set_status(pxp, true);
++	intel_wakeref_t wakeref;
++
+ 	gsccs_destroy_execution_resource(pxp);
++	with_intel_runtime_pm(&pxp->ctrl_gt->i915->runtime_pm, wakeref)
++		intel_pxp_fini_hw(pxp);
  }
  
--static void kcr_pxp_disable(struct intel_gt *gt)
-+static void kcr_pxp_disable(const struct intel_pxp *pxp)
+ int intel_pxp_gsccs_init(struct intel_pxp *pxp)
  {
--	intel_uncore_write(gt->uncore, KCR_INIT,
--			   _MASKED_BIT_DISABLE(KCR_INIT_ALLOW_DISPLAY_ME_WRITES));
-+	kcr_pxp_set_status(pxp, false);
+-	return gsccs_allocate_execution_resource(pxp);
++	int ret;
++	intel_wakeref_t wakeref;
++
++	ret = gsccs_allocate_execution_resource(pxp);
++	if (!ret) {
++		with_intel_runtime_pm(&pxp->ctrl_gt->i915->runtime_pm, wakeref)
++			intel_pxp_init_hw(pxp);
++	}
++	return ret;
  }
- 
- static int create_vcs_context(struct intel_pxp *pxp)
-@@ -127,6 +129,11 @@ static void pxp_init_full(struct intel_pxp *pxp)
- 	init_completion(&pxp->termination);
- 	complete_all(&pxp->termination);
- 
-+	if (pxp->ctrl_gt->type == GT_MEDIA)
-+		pxp->kcr_base = MTL_KCR_BASE;
-+	else
-+		pxp->kcr_base = GEN12_KCR_BASE;
-+
- 	intel_pxp_session_management_init(pxp);
- 
- 	ret = create_vcs_context(pxp);
-@@ -369,14 +376,13 @@ int intel_pxp_start(struct intel_pxp *pxp)
- 
- void intel_pxp_init_hw(struct intel_pxp *pxp)
- {
--	kcr_pxp_enable(pxp->ctrl_gt);
-+	kcr_pxp_enable(pxp);
- 	intel_pxp_irq_enable(pxp);
- }
- 
- void intel_pxp_fini_hw(struct intel_pxp *pxp)
- {
--	kcr_pxp_disable(pxp->ctrl_gt);
--
-+	kcr_pxp_disable(pxp);
- 	intel_pxp_irq_disable(pxp);
- }
- 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_regs.h b/drivers/gpu/drm/i915/pxp/intel_pxp_regs.h
-new file mode 100644
-index 000000000000..a9e7e6efa4c7
---- /dev/null
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_regs.h
-@@ -0,0 +1,27 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright(c) 2023, Intel Corporation. All rights reserved.
-+ */
-+
-+#ifndef __INTEL_PXP_REGS_H__
-+#define __INTEL_PXP_REGS_H__
-+
-+#include "i915_reg_defs.h"
-+
-+/* KCR subsystem register base address */
-+#define GEN12_KCR_BASE 0x32000
-+#define MTL_KCR_BASE 0x386000
-+
-+/* KCR enable/disable control */
-+#define KCR_INIT(base) _MMIO((base) + 0xf0)
-+
-+/* Setting KCR Init bit is required after system boot */
-+#define KCR_INIT_ALLOW_DISPLAY_ME_WRITES REG_BIT(14)
-+
-+/* KCR hwdrm session in play status 0-31 */
-+#define KCR_SIP(base) _MMIO((base) + 0x260)
-+
-+/* PXP global terminate register for session termination */
-+#define KCR_GLOBAL_TERMINATE(base) _MMIO((base) + 0xf8)
-+
-+#endif /* __INTEL_PXP_REGS_H__ */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-index 7de849cb6c47..7899079e17b0 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-@@ -10,14 +10,10 @@
- #include "intel_pxp_session.h"
- #include "intel_pxp_tee.h"
- #include "intel_pxp_types.h"
-+#include "intel_pxp_regs.h"
- 
- #define ARB_SESSION I915_PROTECTED_CONTENT_DEFAULT_SESSION /* shorter define */
- 
--#define GEN12_KCR_SIP _MMIO(0x32260) /* KCR hwdrm session in play 0-31 */
--
--/* PXP global terminate register for session termination */
--#define PXP_GLOBAL_TERMINATE _MMIO(0x320f8)
--
- static bool intel_pxp_session_is_in_play(struct intel_pxp *pxp, u32 id)
- {
- 	struct intel_uncore *uncore = pxp->ctrl_gt->uncore;
-@@ -26,7 +22,7 @@ static bool intel_pxp_session_is_in_play(struct intel_pxp *pxp, u32 id)
- 
- 	/* if we're suspended the session is considered off */
- 	with_intel_runtime_pm_if_in_use(uncore->rpm, wakeref)
--		sip = intel_uncore_read(uncore, GEN12_KCR_SIP);
-+		sip = intel_uncore_read(uncore, KCR_SIP(pxp->kcr_base));
- 
- 	return sip & BIT(id);
- }
-@@ -44,7 +40,7 @@ static int pxp_wait_for_session_state(struct intel_pxp *pxp, u32 id, bool in_pla
- 		return in_play ? -ENODEV : 0;
- 
- 	ret = intel_wait_for_register(uncore,
--				      GEN12_KCR_SIP,
-+				      KCR_SIP(pxp->kcr_base),
- 				      mask,
- 				      in_play ? mask : 0,
- 				      100);
-@@ -108,7 +104,7 @@ static int pxp_terminate_arb_session_and_global(struct intel_pxp *pxp)
- 		return ret;
- 	}
- 
--	intel_uncore_write(gt->uncore, PXP_GLOBAL_TERMINATE, 1);
-+	intel_uncore_write(gt->uncore, KCR_GLOBAL_TERMINATE(pxp->kcr_base), 1);
- 
- 	intel_pxp_tee_end_arb_fw_session(pxp, ARB_SESSION);
- 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-index 1e01036d0455..fdd98911968d 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-@@ -26,6 +26,12 @@ struct intel_pxp {
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
+index 4f836b317424..1a04067f61fc 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_pm.c
+@@ -43,8 +43,9 @@ void intel_pxp_resume_complete(struct intel_pxp *pxp)
+ 	 * The PXP component gets automatically unbound when we go into S3 and
+ 	 * re-bound after we come out, so in that scenario we can defer the
+ 	 * hw init to the bind call.
++	 * NOTE: GSC-CS backend doesn't rely on components.
  	 */
- 	struct intel_gt *ctrl_gt;
+-	if (!pxp->pxp_component)
++	if (!HAS_ENGINE(pxp->ctrl_gt, GSC0) && !pxp->pxp_component)
+ 		return;
  
-+	/**
-+	 * @kcr_base: base mmio offset for the KCR engine which is different on legacy platforms
-+	 * vs newer platforms where the KCR is inside the media-tile.
-+	 */
-+	u32 kcr_base;
-+
- 	/**
- 	 * @gsccs_res: resources for request submission for platforms that have a GSC engine.
- 	 */
+ 	intel_pxp_init_hw(pxp);
 -- 
 2.39.0
 
