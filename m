@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C83FC77B71
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Apr 2023 13:33:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8182AC77B74
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Apr 2023 13:33:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EA5B10EBC6;
-	Thu,  6 Apr 2023 13:32:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE77210EBBD;
+	Thu,  6 Apr 2023 13:33:00 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE6E310EBBD
- for <intel-gfx@lists.freedesktop.org>; Thu,  6 Apr 2023 13:32:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CA3C10EBC4
+ for <intel-gfx@lists.freedesktop.org>; Thu,  6 Apr 2023 13:32:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680787967; x=1712323967;
+ t=1680787970; x=1712323970;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Oy+aQMZSxIfFIayYQmbs5uy9XWrDWJpGy/Ld+mP7wZw=;
- b=enzfnEN9BZ/go0rXAdbvwkQmLYVHWewrY4jLb6/3tRo84DiwkpnFz2Lm
- Iqy4taWBRz9bLamWRN8+puakOwAue1e8YjS2ohObccprgTJnXRheV0jm1
- hPyTzODgELj5YRFY//rTdb7xA2F3jk7379qReUNToG36jmAKKqK/6e+2/
- YIaCaP9TID+Dy+A+Pa33jcxehsBHR5phyoKeee1tOWy5mVdBvzXCyY+QY
- IxWxJ2ocGUzl3zuBSpfxXdY75DH/rY+rcZw8Hh87cQuxfzVhqulsQSKU3
- InF0AhxJQnPNW9LSaThgB7jX2F2ZWWLEFJ2dH8zkeGlCGj2U9dzuN8vWw w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="345352336"
-X-IronPort-AV: E=Sophos;i="5.98,323,1673942400"; d="scan'208";a="345352336"
+ bh=4CYr/MkDJsVtqvqJ3k+5d0NmuOzNZA7u9Z7nU1HAMKg=;
+ b=G4MhOXH13rT79ITK/r7k8nhPOJOn7gjUEts5hngicf7oTjp8Nb/m2+sM
+ ZDPZqnqNqdnB1cGMam1Q2liy4sFceBpMZYtezAXjnjyzJlmi4UHLI7iCi
+ 1sciJen9BClajiS0IgwHRborJRHa9iv1ZBmj3QoMGZ4obbsyyh2uNiNKt
+ MeORF8/Rm92LW7LUnE0gA+hYtubU8+aV+mEGvhQuF+uNG9PFDAU8PMry0
+ wBuTogYBqYvqt7sqYejZBmQz53PBDoPZ5jOITbBhzQ/yhoDW8B8lhFPmZ
+ TPi/bAso9h98uv4kmtaNm8Ndlc5jlCbrvUKYER8J/y7uP8ggsodHKChZm g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="345352352"
+X-IronPort-AV: E=Sophos;i="5.98,323,1673942400"; d="scan'208";a="345352352"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Apr 2023 06:07:42 -0700
+ 06 Apr 2023 06:07:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="751641715"
-X-IronPort-AV: E=Sophos;i="5.98,323,1673942400"; d="scan'208";a="751641715"
+X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="751641739"
+X-IronPort-AV: E=Sophos;i="5.98,323,1673942400"; d="scan'208";a="751641739"
 Received: from sorvi2.fi.intel.com ([10.237.72.194])
- by fmsmga008.fm.intel.com with ESMTP; 06 Apr 2023 06:07:40 -0700
+ by fmsmga008.fm.intel.com with ESMTP; 06 Apr 2023 06:07:44 -0700
 From: Mika Kahola <mika.kahola@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  6 Apr 2023 16:02:19 +0300
-Message-Id: <20230406130221.2998457-7-mika.kahola@intel.com>
+Date: Thu,  6 Apr 2023 16:02:21 +0300
+Message-Id: <20230406130221.2998457-9-mika.kahola@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230406130221.2998457-1-mika.kahola@intel.com>
 References: <20230406130221.2998457-1-mika.kahola@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 6/8] drm/i915/mtl: MTL PICA hotplug detection
+Subject: [Intel-gfx] [PATCH v3 8/8] drm/i915/mtl/display: Implement
+ DisplayPort sequences
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,447 +58,590 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Madhumitha Tolakanahalli Pradeep
- <madhumitha.tolakanahalli.pradeep@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-PICA is used for DP alt mode and TBT modes. Hotplug interruption is routed
-from PICA chip to south display engine and from there to north display
-engine. This patch adds functionality to enable hotplug detection for
-all Type-C ports (4 ports available).
+From: José Roberto de Souza <jose.souza@intel.com>
 
-Differently from HPD in south display, PICA provides a dedicated HPD
-control register for each supported port, so we loop over ports
-ourselves instead of using intel_hpd_hotplug_enables() or
-intel_get_hpd_pins().
+The differences between MTL and TGL DP sequences are big enough to
+MTL have its own functions.
 
-BSpec: 49305, 55726, 65107, 65300
+Also it is much easier to follow MTL sequences against spec with
+its own functions.
 
-Signed-off-by: Madhumitha Tolakanahalli Pradeep <madhumitha.tolakanahalli.pradeep@intel.com>
-Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
-Signed-off-by: Imre Deak <imre.deak@intel.com>
+One change worthy to mention is the move of
+'intel_display_power_get(dev_priv, dig_port->ddi_io_power_domain)'.
+This call is not necessary for MTL but we have _put() counter part in
+intel_ddi_post_disable_dp() that needs to balanced.
+We could add a display version check on it but instead here it is
+moving it to intel_ddi_pre_enable_dp() so it is executed for all
+platforms in a single place and this will not cause any harm in MTL
+and newer platforms.
+
+v2:
+ - Fix logic to wait for buf idle.
+ - Use the right register to wait for ddi active.(RK)
+v3:
+ - Increase wait timeout for ddi buf active (Mika)
+v4:
+ - Increase idle timeout for ddi buf idle (Mika)
+
+BSpec: 65448 65505
+Acked-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Satyeshwar Singh <satyeshwar.singh@intel.com>
+Signed-off-by: Clint Taylor <clinton.a.taylor@intel.com>
+Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
 Signed-off-by: Mika Kahola <mika.kahola@intel.com>
 ---
- drivers/gpu/drm/i915/i915_irq.c | 249 +++++++++++++++++++++++++++++++-
- drivers/gpu/drm/i915/i915_reg.h |  31 +++-
- 2 files changed, 273 insertions(+), 7 deletions(-)
+ .../gpu/drm/i915/display/intel_cx0_phy_regs.h |   8 +
+ drivers/gpu/drm/i915/display/intel_ddi.c      | 375 +++++++++++++++++-
+ drivers/gpu/drm/i915/i915_reg.h               |   5 +
+ 3 files changed, 373 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index d24bdea65a3d..54ca5b65493f 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -162,6 +162,13 @@ static const u32 hpd_gen11[HPD_NUM_PINS] = {
- 	[HPD_PORT_TC6] = GEN11_TC_HOTPLUG(HPD_PORT_TC6) | GEN11_TBT_HOTPLUG(HPD_PORT_TC6),
- };
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h b/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
+index a72f79ea5e6c..e23f921a5168 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
+@@ -59,8 +59,16 @@
+ 										 _XELPDP_PORT_BUF_CTL1_LN0_B, \
+ 										 _XELPDP_PORT_BUF_CTL1_LN0_USBC1, \
+ 										 _XELPDP_PORT_BUF_CTL1_LN0_USBC2))
++#define   XELPDP_PORT_BUF_D2D_LINK_ENABLE		REG_BIT(29)
++#define   XELPDP_PORT_BUF_D2D_LINK_STATE		REG_BIT(28)
+ #define   XELPDP_PORT_BUF_SOC_PHY_READY			REG_BIT(24)
++#define   XELPDP_PORT_BUF_PORT_DATA_WIDTH_MASK		REG_GENMASK(19, 18)
++#define   XELPDP_PORT_BUF_PORT_DATA_10BIT		REG_FIELD_PREP(XELPDP_PORT_BUF_PORT_DATA_WIDTH_MASK, 0)
++#define   XELPDP_PORT_BUF_PORT_DATA_20BIT		REG_FIELD_PREP(XELPDP_PORT_BUF_PORT_DATA_WIDTH_MASK, 1)
++#define   XELPDP_PORT_BUF_PORT_DATA_40BIT		REG_FIELD_PREP(XELPDP_PORT_BUF_PORT_DATA_WIDTH_MASK, 2)
+ #define   XELPDP_PORT_REVERSAL				REG_BIT(16)
++#define   XELPDP_PORT_BUF_IO_SELECTION			REG_BIT(11)
++#define   XELPDP_PORT_BUF_PHY_IDLE			REG_BIT(7)
+ #define   XELPDP_TC_PHY_OWNERSHIP			REG_BIT(6)
+ #define   XELPDP_TCSS_POWER_REQUEST			REG_BIT(5)
+ #define   XELPDP_TCSS_POWER_STATE			REG_BIT(4)
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 20b0844b8240..c3178cac3dee 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -40,6 +40,7 @@
+ #include "intel_connector.h"
+ #include "intel_crtc.h"
+ #include "intel_cx0_phy.h"
++#include "intel_cx0_phy_regs.h"
+ #include "intel_ddi.h"
+ #include "intel_ddi_buf_trans.h"
+ #include "intel_de.h"
+@@ -170,6 +171,18 @@ static void hsw_prepare_hdmi_ddi_buffers(struct intel_encoder *encoder,
+ 		       trans->entries[level].hsw.trans2);
+ }
  
-+static const u32 hpd_xelpdp[HPD_NUM_PINS] = {
-+	[HPD_PORT_TC1] = XELPDP_TBT_HOTPLUG(HPD_PORT_TC1) | XELPDP_DP_ALT_HOTPLUG(HPD_PORT_TC1),
-+	[HPD_PORT_TC2] = XELPDP_TBT_HOTPLUG(HPD_PORT_TC2) | XELPDP_DP_ALT_HOTPLUG(HPD_PORT_TC2),
-+	[HPD_PORT_TC3] = XELPDP_TBT_HOTPLUG(HPD_PORT_TC3) | XELPDP_DP_ALT_HOTPLUG(HPD_PORT_TC3),
-+	[HPD_PORT_TC4] = XELPDP_TBT_HOTPLUG(HPD_PORT_TC4) | XELPDP_DP_ALT_HOTPLUG(HPD_PORT_TC4),
-+};
++static void mtl_wait_ddi_buf_idle(struct drm_i915_private *i915, enum port port)
++{
++	int ret;
 +
- static const u32 hpd_icp[HPD_NUM_PINS] = {
- 	[HPD_PORT_A] = SDE_DDI_HOTPLUG_ICP(HPD_PORT_A),
- 	[HPD_PORT_B] = SDE_DDI_HOTPLUG_ICP(HPD_PORT_B),
-@@ -182,6 +189,16 @@ static const u32 hpd_sde_dg1[HPD_NUM_PINS] = {
- 	[HPD_PORT_TC1] = SDE_TC_HOTPLUG_DG2(HPD_PORT_TC1),
- };
- 
-+static const u32 hpd_mtp[HPD_NUM_PINS] = {
-+	[HPD_PORT_A] = SDE_DDI_HOTPLUG_ICP(HPD_PORT_A),
-+	[HPD_PORT_B] = SDE_DDI_HOTPLUG_ICP(HPD_PORT_B),
-+	[HPD_PORT_TC1] = SDE_TC_HOTPLUG_ICP(HPD_PORT_TC1),
-+	[HPD_PORT_TC2] = SDE_TC_HOTPLUG_ICP(HPD_PORT_TC2),
-+	[HPD_PORT_TC3] = SDE_TC_HOTPLUG_ICP(HPD_PORT_TC3),
-+	[HPD_PORT_TC4] = SDE_TC_HOTPLUG_ICP(HPD_PORT_TC4),
-+};
++	/* FIXME: find out why Bspec's 100us timeout is too short */
++	ret = wait_for_us((intel_de_read(i915, XELPDP_PORT_BUF_CTL1(port)) &
++			   XELPDP_PORT_BUF_PHY_IDLE), 10000);
++	if (ret)
++		drm_err(&i915->drm, "Timeout waiting for DDI BUF %c to get idle\n",
++			port_name(port));
++}
 +
-+
- static void intel_hpd_init_pins(struct drm_i915_private *dev_priv)
+ void intel_wait_ddi_buf_idle(struct drm_i915_private *dev_priv,
+ 			     enum port port)
  {
- 	struct intel_hotplug *hpd = &dev_priv->display.hotplug;
-@@ -195,7 +212,9 @@ static void intel_hpd_init_pins(struct drm_i915_private *dev_priv)
+@@ -197,7 +210,9 @@ static void intel_wait_ddi_buf_active(struct drm_i915_private *dev_priv,
  		return;
  	}
  
--	if (DISPLAY_VER(dev_priv) >= 11)
+-	if (IS_DG2(dev_priv)) {
++	if (DISPLAY_VER(dev_priv) >= 14) {
++		timeout_us = 10000;
++	} else if (IS_DG2(dev_priv)) {
+ 		timeout_us = 1200;
+ 	} else if (DISPLAY_VER(dev_priv) >= 12) {
+ 		if (intel_phy_is_tc(dev_priv, phy))
+@@ -208,8 +223,12 @@ static void intel_wait_ddi_buf_active(struct drm_i915_private *dev_priv,
+ 		timeout_us = 500;
+ 	}
+ 
+-	ret = _wait_for(!(intel_de_read(dev_priv, DDI_BUF_CTL(port)) &
+-			  DDI_BUF_IS_IDLE), timeout_us, 10, 10);
 +	if (DISPLAY_VER(dev_priv) >= 14)
-+		hpd->hpd = hpd_xelpdp;
-+	else if (DISPLAY_VER(dev_priv) >= 11)
- 		hpd->hpd = hpd_gen11;
- 	else if (IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv))
- 		hpd->hpd = hpd_bxt;
-@@ -214,6 +233,8 @@ static void intel_hpd_init_pins(struct drm_i915_private *dev_priv)
- 
- 	if (INTEL_PCH_TYPE(dev_priv) >= PCH_DG1)
- 		hpd->pch_hpd = hpd_sde_dg1;
-+	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_MTP)
-+		hpd->pch_hpd = hpd_mtp;
- 	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
- 		hpd->pch_hpd = hpd_icp;
- 	else if (HAS_PCH_CNP(dev_priv) || HAS_PCH_SPT(dev_priv))
-@@ -1559,6 +1580,44 @@ static void cpt_irq_handler(struct drm_i915_private *dev_priv, u32 pch_iir)
- 		cpt_serr_int_handler(dev_priv);
- }
- 
-+static void xelpdp_pica_irq_handler(struct drm_i915_private *dev_priv, u32 iir)
-+{
-+	enum hpd_pin pin;
-+	u32 hotplug_trigger = iir & (XELPDP_DP_ALT_HOTPLUG_MASK | XELPDP_TBT_HOTPLUG_MASK);
-+	u32 trigger_aux = iir & XELPDP_AUX_TC_MASK;
-+	u32 pin_mask = 0, long_mask = 0;
-+
-+	for (pin = HPD_PORT_TC1; pin <= HPD_PORT_TC4; pin++) {
-+		u32 val;
-+
-+		if (!(dev_priv->display.hotplug.hpd[pin] & hotplug_trigger))
-+			continue;
-+
-+		pin_mask |= BIT(pin);
-+
-+		val = intel_uncore_read(&dev_priv->uncore, XELPDP_PORT_HOTPLUG_CTL(pin));
-+		intel_uncore_write(&dev_priv->uncore, XELPDP_PORT_HOTPLUG_CTL(pin), val);
-+
-+		if (val & (XELPDP_DP_ALT_HPD_LONG_DETECT | XELPDP_TBT_HPD_LONG_DETECT))
-+			long_mask |= BIT(pin);
-+	}
-+
-+	if (pin_mask) {
-+		drm_dbg(&dev_priv->drm,
-+			"pica hotplug event received, stat 0x%08x, pins 0x%08x, long 0x%08x\n",
-+			hotplug_trigger, pin_mask, long_mask);
-+
-+		intel_hpd_irq_handler(dev_priv, pin_mask, long_mask);
-+	}
-+
-+	if (trigger_aux)
-+		dp_aux_irq_handler(dev_priv);
-+
-+	if (!pin_mask && !trigger_aux)
-+		drm_err(&dev_priv->drm,
-+			"Unexpected DE HPD/AUX interrupt 0x%08x\n", iir);
-+}
-+
- static void icp_irq_handler(struct drm_i915_private *dev_priv, u32 pch_iir)
- {
- 	u32 ddi_hotplug_trigger = pch_iir & SDE_DDI_HOTPLUG_MASK_ICP;
-@@ -2029,6 +2088,34 @@ u32 gen8_de_pipe_underrun_mask(struct drm_i915_private *dev_priv)
- 	return mask;
- }
- 
-+static void gen8_read_and_ack_pch_irqs(struct drm_i915_private *i915, u32 *pch_iir, u32 *pica_iir)
-+{
-+	u32 pica_ier = 0;
-+
-+	*pica_iir = 0;
-+	*pch_iir = intel_de_read(i915, SDEIIR);
-+	if (!*pch_iir)
-+		return;
-+
-+	/**
-+	 * PICA IER must be disabled/re-enabled around clearing PICA IIR and
-+	 * SDEIIR, to avoid losing PICA IRQs and to ensure that such IRQs set
-+	 * their flags both in the PICA and SDE IIR.
-+	 */
-+	if (*pch_iir & SDE_PICAINTERRUPT) {
-+		drm_WARN_ON(&i915->drm, INTEL_PCH_TYPE(i915) < PCH_MTP);
-+
-+		pica_ier = intel_de_rmw(i915, PICAINTERRUPT_IER, ~0, 0);
-+		*pica_iir = intel_de_read(i915, PICAINTERRUPT_IIR);
-+		intel_de_write(i915, PICAINTERRUPT_IIR, *pica_iir);
-+	}
-+
-+	intel_de_write(i915, SDEIIR, *pch_iir);
-+
-+	if (pica_ier)
-+		intel_de_write(i915, PICAINTERRUPT_IER, pica_ier);
-+}
-+
- static irqreturn_t
- gen8_de_irq_handler(struct drm_i915_private *dev_priv, u32 master_ctl)
- {
-@@ -2153,16 +2240,20 @@ gen8_de_irq_handler(struct drm_i915_private *dev_priv, u32 master_ctl)
- 
- 	if (HAS_PCH_SPLIT(dev_priv) && !HAS_PCH_NOP(dev_priv) &&
- 	    master_ctl & GEN8_DE_PCH_IRQ) {
-+		u32 pica_iir;
-+
- 		/*
- 		 * FIXME(BDW): Assume for now that the new interrupt handling
- 		 * scheme also closed the SDE interrupt handling race we've seen
- 		 * on older pch-split platforms. But this needs testing.
- 		 */
--		iir = intel_uncore_read(&dev_priv->uncore, SDEIIR);
-+		gen8_read_and_ack_pch_irqs(dev_priv, &iir, &pica_iir);
- 		if (iir) {
--			intel_uncore_write(&dev_priv->uncore, SDEIIR, iir);
- 			ret = IRQ_HANDLED;
- 
-+			if (pica_iir)
-+				xelpdp_pica_irq_handler(dev_priv, pica_iir);
-+
- 			if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
- 				icp_irq_handler(dev_priv, iir);
- 			else if (INTEL_PCH_TYPE(dev_priv) >= PCH_SPT)
-@@ -2740,7 +2831,11 @@ static void gen11_display_irq_reset(struct drm_i915_private *dev_priv)
- 
- 	GEN3_IRQ_RESET(uncore, GEN8_DE_PORT_);
- 	GEN3_IRQ_RESET(uncore, GEN8_DE_MISC_);
--	GEN3_IRQ_RESET(uncore, GEN11_DE_HPD_);
-+
-+	if (DISPLAY_VER(dev_priv) >= 14)
-+		GEN3_IRQ_RESET(uncore, PICAINTERRUPT_);
++		ret = _wait_for(!(intel_de_read(dev_priv, XELPDP_PORT_BUF_CTL1(port)) & XELPDP_PORT_BUF_PHY_IDLE),
++				timeout_us, 10, 10);
 +	else
-+		GEN3_IRQ_RESET(uncore, GEN11_DE_HPD_);
++		ret = _wait_for(!(intel_de_read(dev_priv, DDI_BUF_CTL(port)) & DDI_BUF_IS_IDLE),
++				timeout_us, 10, 10);
  
- 	if (INTEL_PCH_TYPE(dev_priv) >= PCH_ICP)
- 		GEN3_IRQ_RESET(uncore, SDE);
-@@ -3031,6 +3126,127 @@ static void gen11_hpd_irq_setup(struct drm_i915_private *dev_priv)
- 		icp_hpd_irq_setup(dev_priv);
+ 	if (ret)
+ 		drm_err(&dev_priv->drm, "Timeout waiting for DDI BUF %c to get active\n",
+@@ -314,6 +333,13 @@ static void intel_ddi_init_dp_buf_reg(struct intel_encoder *encoder,
+ 		DDI_PORT_WIDTH(crtc_state->lane_count) |
+ 		DDI_BUF_TRANS_SELECT(0);
+ 
++	if (DISPLAY_VER(i915) >= 14) {
++		if (intel_dp_is_uhbr(crtc_state))
++			intel_dp->DP |= DDI_BUF_PORT_DATA_40BIT;
++		else
++			intel_dp->DP |= DDI_BUF_PORT_DATA_10BIT;
++	}
++
+ 	if (IS_ALDERLAKE_P(i915) && intel_phy_is_tc(i915, phy)) {
+ 		intel_dp->DP |= ddi_buf_phy_link_rate(crtc_state->port_clock);
+ 		if (!intel_tc_port_in_tbt_alt_mode(dig_port))
+@@ -2312,6 +2338,179 @@ static void intel_ddi_mso_configure(const struct intel_crtc_state *crtc_state)
+ 		     OVERLAP_PIXELS_MASK, dss1);
  }
  
-+static u32 mtp_ddi_hotplug_enables(struct intel_encoder *encoder)
++static u8 mtl_get_port_width(u8 lane_count)
 +{
-+	switch (encoder->hpd_pin) {
-+	case HPD_PORT_A:
-+	case HPD_PORT_B:
-+		return SHOTPLUG_CTL_DDI_HPD_ENABLE(encoder->hpd_pin);
-+	default:
++	switch (lane_count) {
++	case 1:
 +		return 0;
-+	}
-+}
-+
-+static u32 mtp_tc_hotplug_enables(struct intel_encoder *encoder)
-+{
-+	switch (encoder->hpd_pin) {
-+	case HPD_PORT_TC1:
-+	case HPD_PORT_TC2:
-+	case HPD_PORT_TC3:
-+	case HPD_PORT_TC4:
-+		return ICP_TC_HPD_ENABLE(encoder->hpd_pin);
++	case 2:
++		return 1;
++	case 3:
++		return 4;
++	case 4:
++		return 3;
 +	default:
-+		return 0;
++		MISSING_CASE(lane_count);
++		return 4;
 +	}
 +}
 +
-+static void mtp_ddi_hpd_detection_setup(struct drm_i915_private *dev_priv)
++static void
++mtl_ddi_enable_d2d(struct intel_encoder *encoder)
 +{
-+	u32 hotplug;
++	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
++	enum port port = encoder->port;
 +
-+	hotplug = intel_uncore_read(&dev_priv->uncore, SHOTPLUG_CTL_DDI);
-+	hotplug &= ~(SHOTPLUG_CTL_DDI_HPD_ENABLE(HPD_PORT_A) |
-+		     SHOTPLUG_CTL_DDI_HPD_ENABLE(HPD_PORT_B));
-+	hotplug |= intel_hpd_hotplug_enables(dev_priv, mtp_ddi_hotplug_enables);
-+	intel_uncore_write(&dev_priv->uncore, SHOTPLUG_CTL_DDI, hotplug);
-+}
++	intel_de_rmw(dev_priv, XELPDP_PORT_BUF_CTL1(port), 0,
++		     XELPDP_PORT_BUF_D2D_LINK_ENABLE);
 +
-+static void mtp_tc_hpd_detection_setup(struct drm_i915_private *dev_priv)
-+{
-+	u32 hotplug;
-+
-+	hotplug = intel_uncore_read(&dev_priv->uncore, SHOTPLUG_CTL_TC);
-+	hotplug &= ~(ICP_TC_HPD_ENABLE(HPD_PORT_TC1) |
-+		     ICP_TC_HPD_ENABLE(HPD_PORT_TC2) |
-+		     ICP_TC_HPD_ENABLE(HPD_PORT_TC3) |
-+		     ICP_TC_HPD_ENABLE(HPD_PORT_TC4));
-+	hotplug |= intel_hpd_hotplug_enables(dev_priv, mtp_tc_hotplug_enables);
-+	intel_uncore_write(&dev_priv->uncore, SHOTPLUG_CTL_TC, hotplug);
-+}
-+
-+static void mtp_hpd_invert(struct drm_i915_private *i915)
-+{
-+	u32 val = (INVERT_DDIA_HPD |
-+		   INVERT_DDIB_HPD |
-+		   INVERT_DDIC_HPD |
-+		   INVERT_TC1_HPD |
-+		   INVERT_TC2_HPD |
-+		   INVERT_TC3_HPD |
-+		   INVERT_TC4_HPD |
-+		   INVERT_DDID_HPD_MTP |
-+		   INVERT_DDIE_HPD);
-+	intel_uncore_rmw(&i915->uncore, SOUTH_CHICKEN1, 0, val);
-+}
-+
-+static void mtp_hpd_irq_setup(struct drm_i915_private *dev_priv)
-+{
-+	u32 hotplug_irqs, enabled_irqs;
-+
-+	enabled_irqs = intel_hpd_enabled_irqs(dev_priv, dev_priv->display.hotplug.pch_hpd);
-+	hotplug_irqs = intel_hpd_hotplug_irqs(dev_priv, dev_priv->display.hotplug.pch_hpd);
-+
-+	intel_uncore_write(&dev_priv->uncore, SHPD_FILTER_CNT, SHPD_FILTER_CNT_500_ADJ);
-+
-+	mtp_hpd_invert(dev_priv);
-+	ibx_display_interrupt_update(dev_priv, hotplug_irqs, enabled_irqs);
-+
-+	mtp_ddi_hpd_detection_setup(dev_priv);
-+	mtp_tc_hpd_detection_setup(dev_priv);
-+}
-+
-+static void xelpdp_pica_hpd_detection_setup(struct drm_i915_private *dev_priv)
-+{
-+	struct intel_encoder *encoder;
-+	enum hpd_pin pin;
-+	u32 available_pins = 0;
-+
-+	BUILD_BUG_ON(BITS_PER_TYPE(available_pins) < HPD_NUM_PINS);
-+
-+	for_each_intel_encoder(&dev_priv->drm, encoder)
-+		available_pins |= BIT(encoder->hpd_pin);
-+
-+	for (pin = HPD_PORT_TC1; pin <= HPD_PORT_TC4; pin++) {
-+		u32 mask = (available_pins & BIT(pin)) ? ~(u32)0 : 0;
-+		u32 val = XELPDP_TBT_HOTPLUG_ENABLE |
-+			  XELPDP_DP_ALT_HOTPLUG_ENABLE;
-+
-+		intel_uncore_rmw(&dev_priv->uncore,
-+				 XELPDP_PORT_HOTPLUG_CTL(pin),
-+				 ~mask & val, mask & val);
++	if (wait_for_us((intel_de_read(dev_priv, XELPDP_PORT_BUF_CTL1(port)) &
++			 XELPDP_PORT_BUF_D2D_LINK_STATE), 100)) {
++		drm_err(&dev_priv->drm, "Timeout waiting for D2D Link enable for PORT_BUF_CTL %c\n",
++			port_name(port));
 +	}
 +}
 +
-+static void xelpdp_hpd_irq_setup(struct drm_i915_private *dev_priv)
++static void mtl_port_buf_ctl_program(struct intel_encoder *encoder,
++				     const struct intel_crtc_state *crtc_state)
 +{
-+	u32 hotplug_irqs, enabled_irqs;
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
++	enum port port = encoder->port;
 +	u32 val;
 +
-+	enabled_irqs = intel_hpd_enabled_irqs(dev_priv, dev_priv->display.hotplug.hpd);
-+	hotplug_irqs = intel_hpd_hotplug_irqs(dev_priv, dev_priv->display.hotplug.hpd);
++	val = intel_de_read(i915, XELPDP_PORT_BUF_CTL1(port));
++	val &= ~XELPDP_PORT_WIDTH_MASK;
++	val |= XELPDP_PORT_WIDTH(mtl_get_port_width(crtc_state->lane_count));
 +
-+	val = intel_uncore_read(&dev_priv->uncore, PICAINTERRUPT_IMR);
-+	val &= ~hotplug_irqs;
-+	val |= ~enabled_irqs & hotplug_irqs;
-+	intel_uncore_write(&dev_priv->uncore, PICAINTERRUPT_IMR, val);
-+	intel_uncore_posting_read(&dev_priv->uncore, PICAINTERRUPT_IMR);
++	val &= ~XELPDP_PORT_BUF_PORT_DATA_WIDTH_MASK;
++	if (intel_dp_is_uhbr(crtc_state))
++		val |= XELPDP_PORT_BUF_PORT_DATA_40BIT;
++	else
++		val |= XELPDP_PORT_BUF_PORT_DATA_10BIT;
 +
-+	xelpdp_pica_hpd_detection_setup(dev_priv);
++	if (dig_port->saved_port_bits & DDI_BUF_PORT_REVERSAL)
++		val |= XELPDP_PORT_REVERSAL;
 +
-+	if (INTEL_PCH_TYPE(dev_priv) >= PCH_MTP) {
-+		mtp_hpd_irq_setup(dev_priv);
-+	}
++	intel_de_write(i915, XELPDP_PORT_BUF_CTL1(port), val);
 +}
 +
- static u32 spt_hotplug_enables(struct intel_encoder *encoder)
- {
- 	switch (encoder->hpd_pin) {
-@@ -3363,7 +3579,7 @@ static void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
- 	GEN3_IRQ_INIT(uncore, GEN8_DE_PORT_, ~de_port_masked, de_port_enables);
- 	GEN3_IRQ_INIT(uncore, GEN8_DE_MISC_, ~de_misc_masked, de_misc_masked);
++static void mtl_port_buf_ctl_io_selection(struct intel_encoder *encoder)
++{
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
++	u32 val;
++
++	val = intel_tc_port_in_tbt_alt_mode(dig_port) ?
++	      XELPDP_PORT_BUF_IO_SELECTION : 0;
++	intel_de_rmw(i915, XELPDP_PORT_BUF_CTL1(encoder->port),
++		     XELPDP_PORT_BUF_IO_SELECTION, val);
++}
++
++static void mtl_ddi_pre_enable_dp(struct intel_atomic_state *state,
++				  struct intel_encoder *encoder,
++				  const struct intel_crtc_state *crtc_state,
++				  const struct drm_connector_state *conn_state)
++{
++	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
++	bool is_mst = intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST);
++
++	intel_dp_set_link_params(intel_dp,
++				 crtc_state->port_clock,
++				 crtc_state->lane_count);
++
++	/*
++	 * We only configure what the register value will be here.  Actual
++	 * enabling happens during link training farther down.
++	 */
++	intel_ddi_init_dp_buf_reg(encoder, crtc_state);
++
++	/*
++	 * 1. Enable Power Wells
++	 *
++	 * This was handled at the beginning of intel_atomic_commit_tail(),
++	 * before we called down into this function.
++	 */
++
++	/* 2. PMdemand was already set */
++
++	/* 3. Select Thunderbolt */
++	mtl_port_buf_ctl_io_selection(encoder);
++
++	/* 4. Enable Panel Power if PPS is required */
++	intel_pps_on(intel_dp);
++
++	/* 5. Enable the port PLL */
++	intel_ddi_enable_clock(encoder, crtc_state);
++
++	/*
++	 * 6.a Configure Transcoder Clock Select to direct the Port clock to the
++	 * Transcoder.
++	 */
++	intel_ddi_enable_transcoder_clock(encoder, crtc_state);
++
++	/*
++	 * 6.b If DP v2.0/128b mode - Configure TRANS_DP2_CTL register settings.
++	 */
++	intel_ddi_config_transcoder_dp2(encoder, crtc_state);
++
++	/*
++	 * 6.c Configure TRANS_DDI_FUNC_CTL DDI Select, DDI Mode Select & MST
++	 * Transport Select
++	 */
++	intel_ddi_config_transcoder_func(encoder, crtc_state);
++
++	/*
++	 * 6.e Program CoG/MSO configuration bits in DSS_CTL1 if selected.
++	 */
++	intel_ddi_mso_configure(crtc_state);
++
++	if (!is_mst)
++		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
++
++	intel_dp_configure_protocol_converter(intel_dp, crtc_state);
++	intel_dp_sink_set_decompression_state(intel_dp, crtc_state, true);
++	/*
++	 * DDI FEC: "anticipates enabling FEC encoding sets the FEC_READY bit
++	 * in the FEC_CONFIGURATION register to 1 before initiating link
++	 * training
++	 */
++	intel_dp_sink_set_fec_ready(intel_dp, crtc_state);
++
++	intel_dp_check_frl_training(intel_dp);
++	intel_dp_pcon_dsc_configure(intel_dp, crtc_state);
++
++	/*
++	 * 6. The rest of the below are substeps under the bspec's "Enable and
++	 * Train Display Port" step.  Note that steps that are specific to
++	 * MST will be handled by intel_mst_pre_enable_dp() before/after it
++	 * calls into this function.  Also intel_mst_pre_enable_dp() only calls
++	 * us when active_mst_links==0, so any steps designated for "single
++	 * stream or multi-stream master transcoder" can just be performed
++	 * unconditionally here.
++	 *
++	 * mtl_ddi_prepare_link_retrain() that is called by
++	 * intel_dp_start_link_train() will execute steps: 6.d, 6.f, 6.g, 6.h,
++	 * 6.i and 6.j
++	 *
++	 * 6.k Follow DisplayPort specification training sequence (see notes for
++	 *     failure handling)
++	 * 6.m If DisplayPort multi-stream - Set DP_TP_CTL link training to Idle
++	 *     Pattern, wait for 5 idle patterns (DP_TP_STATUS Min_Idles_Sent)
++	 *     (timeout after 800 us)
++	 */
++	intel_dp_start_link_train(intel_dp, crtc_state);
++
++	/* 6.n Set DP_TP_CTL link training to Normal */
++	if (!is_trans_port_sync_mode(crtc_state))
++		intel_dp_stop_link_train(intel_dp, crtc_state);
++
++	/* 6.o Configure and enable FEC if needed */
++	intel_ddi_enable_fec(encoder, crtc_state);
++
++	intel_dsc_dp_pps_write(encoder, crtc_state);
++}
++
+ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 				  struct intel_encoder *encoder,
+ 				  const struct intel_crtc_state *crtc_state,
+@@ -2526,7 +2725,9 @@ static void intel_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 		intel_dp_128b132b_sdp_crc16(enc_to_intel_dp(encoder),
+ 					    crtc_state);
  
--	if (DISPLAY_VER(dev_priv) >= 11) {
-+	if (IS_DISPLAY_VER(dev_priv, 11, 13)) {
- 		u32 de_hpd_masked = 0;
- 		u32 de_hpd_enables = GEN11_DE_TC_HOTPLUG_MASK |
- 				     GEN11_DE_TBT_HOTPLUG_MASK;
-@@ -3373,6 +3589,20 @@ static void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
+-	if (DISPLAY_VER(dev_priv) >= 12)
++	if (DISPLAY_VER(dev_priv) >= 14)
++		mtl_ddi_pre_enable_dp(state, encoder, crtc_state, conn_state);
++	else if (DISPLAY_VER(dev_priv) >= 12)
+ 		tgl_ddi_pre_enable_dp(state, encoder, crtc_state, conn_state);
+ 	else
+ 		hsw_ddi_pre_enable_dp(state, encoder, crtc_state, conn_state);
+@@ -2607,8 +2808,55 @@ static void intel_ddi_pre_enable(struct intel_atomic_state *state,
  	}
  }
  
-+static void mtp_irq_postinstall(struct drm_i915_private *dev_priv)
+-static void intel_disable_ddi_buf(struct intel_encoder *encoder,
+-				  const struct intel_crtc_state *crtc_state)
++static void
++mtl_ddi_disable_d2d_link(struct intel_encoder *encoder)
 +{
-+	struct intel_uncore *uncore = &dev_priv->uncore;
-+	u32 sde_mask = SDE_GMBUS_ICP | SDE_PICAINTERRUPT;
-+	u32 de_hpd_mask = XELPDP_AUX_TC_MASK;
-+	u32 de_hpd_enables = de_hpd_mask | XELPDP_DP_ALT_HOTPLUG_MASK |
-+			     XELPDP_TBT_HOTPLUG_MASK;
++	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
++	enum port port = encoder->port;
 +
-+	GEN3_IRQ_INIT(uncore, PICAINTERRUPT_, ~de_hpd_mask,
-+		      de_hpd_enables);
++	intel_de_rmw(dev_priv, XELPDP_PORT_BUF_CTL1(port),
++		     XELPDP_PORT_BUF_D2D_LINK_ENABLE, 0);
 +
-+	GEN3_IRQ_INIT(uncore, SDE, ~sde_mask, 0xffffffff);
++	if (wait_for_us(!(intel_de_read(dev_priv, XELPDP_PORT_BUF_CTL1(port)) &
++			  XELPDP_PORT_BUF_D2D_LINK_STATE), 100))
++		drm_err(&dev_priv->drm, "Timeout waiting for D2D Link disable for PORT_BUF_CTL %c\n",
++			port_name(port));
 +}
 +
- static void icp_irq_postinstall(struct drm_i915_private *dev_priv)
- {
- 	struct intel_uncore *uncore = &dev_priv->uncore;
-@@ -3434,7 +3664,11 @@ static void dg1_irq_postinstall(struct drm_i915_private *dev_priv)
- 	GEN3_IRQ_INIT(uncore, GEN11_GU_MISC_, ~gu_misc_masked, gu_misc_masked);
- 
- 	if (HAS_DISPLAY(dev_priv)) {
--		icp_irq_postinstall(dev_priv);
-+		if (DISPLAY_VER(dev_priv) >= 14)
-+			mtp_irq_postinstall(dev_priv);
-+		else
-+			icp_irq_postinstall(dev_priv);
++static void mtl_disable_ddi_buf(struct intel_encoder *encoder,
++				const struct intel_crtc_state *crtc_state)
++{
++	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
++	enum port port = encoder->port;
++	u32 val;
 +
- 		gen8_de_irq_postinstall(dev_priv);
- 		intel_uncore_write(&dev_priv->uncore, GEN11_DISPLAY_INT_CTL,
- 				   GEN11_DISPLAY_IRQ_ENABLE);
-@@ -3920,6 +4154,7 @@ static const struct intel_hotplug_funcs platform##_hpd_funcs = { \
++	/* 3.b Clear DDI_CTL_DE Enabel to 0. */
++	val = intel_de_read(dev_priv, DDI_BUF_CTL(port));
++	if (val & DDI_BUF_CTL_ENABLE) {
++		val &= ~DDI_BUF_CTL_ENABLE;
++		intel_de_write(dev_priv, DDI_BUF_CTL(port), val);
++
++		/* 3.c Poll for PORT_BUF_CTL Idle Status == 1, timeout after 100us */
++		mtl_wait_ddi_buf_idle(dev_priv, port);
++	}
++
++	/* 3.d Disable D2D Link */
++	mtl_ddi_disable_d2d_link(encoder);
++
++	/* 3.e Disable DP_TP_CTL */
++	if (intel_crtc_has_dp_encoder(crtc_state)) {
++		val = intel_de_read(dev_priv, dp_tp_ctl_reg(encoder, crtc_state));
++		val &= ~(DP_TP_CTL_ENABLE | DP_TP_CTL_LINK_TRAIN_MASK);
++		val |= DP_TP_CTL_LINK_TRAIN_PAT1;
++		intel_de_write(dev_priv, dp_tp_ctl_reg(encoder, crtc_state), val);
++	}
++
++	/* 3.f Disable DP_TP_CTL FEC Enable if it is needed */
++	intel_ddi_disable_fec_state(encoder, crtc_state);
++}
++
++static void disable_ddi_buf(struct intel_encoder *encoder,
++			    const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+ 	enum port port = encoder->port;
+@@ -2633,6 +2881,17 @@ static void intel_disable_ddi_buf(struct intel_encoder *encoder,
+ 		intel_wait_ddi_buf_idle(dev_priv, port);
  }
  
- HPD_FUNCS(i915);
-+HPD_FUNCS(xelpdp);
- HPD_FUNCS(dg1);
- HPD_FUNCS(gen11);
- HPD_FUNCS(bxt);
-@@ -3980,6 +4215,8 @@ void intel_irq_init(struct drm_i915_private *dev_priv)
- 			dev_priv->display.funcs.hotplug = &icp_hpd_funcs;
- 		else if (HAS_PCH_DG1(dev_priv))
- 			dev_priv->display.funcs.hotplug = &dg1_hpd_funcs;
-+		else if (DISPLAY_VER(dev_priv) >= 14)
-+			dev_priv->display.funcs.hotplug = &xelpdp_hpd_funcs;
- 		else if (DISPLAY_VER(dev_priv) >= 11)
- 			dev_priv->display.funcs.hotplug = &gen11_hpd_funcs;
- 		else if (IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv))
++static void intel_disable_ddi_buf(struct intel_encoder *encoder,
++				  const struct intel_crtc_state *crtc_state)
++{
++	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
++
++	if (DISPLAY_VER(dev_priv) >= 14)
++		mtl_disable_ddi_buf(encoder, crtc_state);
++	else
++		disable_ddi_buf(encoder, crtc_state);
++}
++
+ static void intel_ddi_post_disable_dp(struct intel_atomic_state *state,
+ 				      struct intel_encoder *encoder,
+ 				      const struct intel_crtc_state *old_crtc_state,
+@@ -2680,12 +2939,21 @@ static void intel_ddi_post_disable_dp(struct intel_atomic_state *state,
+ 	intel_pps_vdd_on(intel_dp);
+ 	intel_pps_off(intel_dp);
+ 
+-	if (!intel_tc_port_in_tbt_alt_mode(dig_port))
+-		intel_display_power_put(dev_priv,
+-					dig_port->ddi_io_power_domain,
+-					fetch_and_zero(&dig_port->ddi_io_wakeref));
++	if (!intel_tc_port_in_tbt_alt_mode(dig_port)) {
++		intel_wakeref_t wakeref = fetch_and_zero(&dig_port->ddi_io_wakeref);
++
++		if (wakeref)
++			intel_display_power_put(dev_priv,
++						dig_port->ddi_io_power_domain,
++						wakeref);
++	}
+ 
+ 	intel_ddi_disable_clock(encoder);
++
++	/* De-select Thunderbolt */
++	if (DISPLAY_VER(dev_priv) >= 14)
++		intel_de_rmw(dev_priv, XELPDP_PORT_BUF_CTL1(encoder->port),
++			     XELPDP_PORT_BUF_IO_SELECTION, 0);
+ }
+ 
+ static void intel_ddi_post_disable_hdmi(struct intel_atomic_state *state,
+@@ -2696,6 +2964,7 @@ static void intel_ddi_post_disable_hdmi(struct intel_atomic_state *state,
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+ 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
+ 	struct intel_hdmi *intel_hdmi = &dig_port->hdmi;
++	intel_wakeref_t wakeref;
+ 
+ 	dig_port->set_infoframes(encoder, false,
+ 				 old_crtc_state, old_conn_state);
+@@ -2708,9 +2977,11 @@ static void intel_ddi_post_disable_hdmi(struct intel_atomic_state *state,
+ 	if (DISPLAY_VER(dev_priv) >= 12)
+ 		intel_ddi_disable_transcoder_clock(old_crtc_state);
+ 
+-	intel_display_power_put(dev_priv,
+-				dig_port->ddi_io_power_domain,
+-				fetch_and_zero(&dig_port->ddi_io_wakeref));
++	wakeref = fetch_and_zero(&dig_port->ddi_io_wakeref);
++	if (wakeref)
++		intel_display_power_put(dev_priv,
++					dig_port->ddi_io_power_domain,
++					wakeref);
+ 
+ 	intel_ddi_disable_clock(encoder);
+ 
+@@ -2948,13 +3219,16 @@ static void intel_enable_ddi_hdmi(struct intel_atomic_state *state,
+ 	 * The same is required to be filled in PORT_BUF_CTL for C10/20 Phy.
+ 	 */
+ 	if (DISPLAY_VER(dev_priv) >= 14) {
++		const struct intel_bios_encoder_data *devdata =
++			intel_bios_encoder_data_lookup(dev_priv, port);
++
+ 		u32 ddi_buf = 0;
+ 		u8  lane_count = mtl_get_port_width(crtc_state->lane_count);
+ 		u32 port_buf = 0;
+ 
+ 		port_buf |= XELPDP_PORT_WIDTH(lane_count);
+ 
+-		if (intel_bios_is_lane_reversal_needed(dev_priv, port))
++		if (intel_bios_encoder_lane_reversal(devdata))
+ 			port_buf |= XELPDP_PORT_REVERSAL;
+ 
+ 		intel_de_rmw(dev_priv, XELPDP_PORT_BUF_CTL1(port), 0, port_buf);
+@@ -3141,6 +3415,73 @@ static void adlp_tbt_to_dp_alt_switch_wa(struct intel_encoder *encoder)
+ 		intel_dkl_phy_rmw(i915, DKL_PCS_DW5(tc_port, ln), DKL_PCS_DW5_CORE_SOFTRESET, 0);
+ }
+ 
++static void mtl_ddi_prepare_link_retrain(struct intel_dp *intel_dp,
++					 const struct intel_crtc_state *crtc_state)
++{
++	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
++	struct intel_encoder *encoder = &dig_port->base;
++	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
++	enum port port = encoder->port;
++	u32 dp_tp_ctl, ddi_buf_ctl;
++
++	/*
++	 * TODO: To train with only a different voltage swing entry is not
++	 * necessary disable and enable port
++	 */
++	dp_tp_ctl = intel_de_read(dev_priv, dp_tp_ctl_reg(encoder, crtc_state));
++	if (dp_tp_ctl & DP_TP_CTL_ENABLE) {
++		/* Disable sequence: 3.b Clear DDI_CTL_DE enable to 0. */
++		ddi_buf_ctl = intel_de_read(dev_priv, DDI_BUF_CTL(port));
++		if (ddi_buf_ctl & DDI_BUF_CTL_ENABLE) {
++			intel_de_write(dev_priv, DDI_BUF_CTL(port),
++				       ddi_buf_ctl & ~DDI_BUF_CTL_ENABLE);
++			/*
++			 * Disable sequence: 3.c Poll for PORT_BUF_CTL
++			 * Idle Status == 1, timeout after 100us
++			 */
++			mtl_wait_ddi_buf_idle(dev_priv, port);
++		}
++
++		/* Disable sequence: 3.d Disable D2D Link */
++		mtl_ddi_disable_d2d_link(encoder);
++
++		/* Disable sequence: 3.e Disable DP_TP_CTL */
++		dp_tp_ctl &= ~(DP_TP_CTL_ENABLE | DP_TP_CTL_LINK_TRAIN_MASK);
++		dp_tp_ctl |= DP_TP_CTL_LINK_TRAIN_PAT1;
++		intel_de_write(dev_priv, dp_tp_ctl_reg(encoder, crtc_state), dp_tp_ctl);
++		intel_de_posting_read(dev_priv, dp_tp_ctl_reg(encoder, crtc_state));
++	}
++
++	/* 6.d Configure and enable DP_TP_CTL with link training pattern 1 selected */
++	dp_tp_ctl = DP_TP_CTL_ENABLE | DP_TP_CTL_LINK_TRAIN_PAT1;
++	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST)) {
++		dp_tp_ctl |= DP_TP_CTL_MODE_MST;
++	} else {
++		dp_tp_ctl |= DP_TP_CTL_MODE_SST;
++		if (drm_dp_enhanced_frame_cap(intel_dp->dpcd))
++			dp_tp_ctl |= DP_TP_CTL_ENHANCED_FRAME_ENABLE;
++	}
++	intel_de_write(dev_priv, dp_tp_ctl_reg(encoder, crtc_state), dp_tp_ctl);
++	intel_de_posting_read(dev_priv, dp_tp_ctl_reg(encoder, crtc_state));
++
++	/* 6.f Enable D2D Link */
++	mtl_ddi_enable_d2d(encoder);
++
++	/* 6.g Configure voltage swing and related IO settings */
++	encoder->set_signal_levels(encoder, crtc_state);
++
++	/* 6.h Configure PORT_BUF_CTL1 */
++	mtl_port_buf_ctl_program(encoder, crtc_state);
++
++	/* 6.i Configure and enable DDI_CTL_DE to start sending valid data to port slice */
++	intel_dp->DP |= DDI_BUF_CTL_ENABLE;
++	intel_de_write(dev_priv, DDI_BUF_CTL(port), intel_dp->DP);
++	intel_de_posting_read(dev_priv, DDI_BUF_CTL(port));
++
++	/* 6.j Poll for PORT_BUF_CTL Idle Status == 0, timeout after 100 us */
++	intel_wait_ddi_buf_active(dev_priv, port);
++}
++
+ static void intel_ddi_prepare_link_retrain(struct intel_dp *intel_dp,
+ 					   const struct intel_crtc_state *crtc_state)
+ {
+@@ -3912,6 +4253,7 @@ static const struct drm_encoder_funcs intel_ddi_funcs = {
+ static struct intel_connector *
+ intel_ddi_init_dp_connector(struct intel_digital_port *dig_port)
+ {
++	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+ 	struct intel_connector *connector;
+ 	enum port port = dig_port->base.port;
+ 
+@@ -3920,7 +4262,10 @@ intel_ddi_init_dp_connector(struct intel_digital_port *dig_port)
+ 		return NULL;
+ 
+ 	dig_port->dp.output_reg = DDI_BUF_CTL(port);
+-	dig_port->dp.prepare_link_retrain = intel_ddi_prepare_link_retrain;
++	if (DISPLAY_VER(i915) >= 14)
++		dig_port->dp.prepare_link_retrain = mtl_ddi_prepare_link_retrain;
++	else
++		dig_port->dp.prepare_link_retrain = intel_ddi_prepare_link_retrain;
+ 	dig_port->dp.set_link_train = intel_ddi_set_link_train;
+ 	dig_port->dp.set_idle_link_train = intel_ddi_set_idle_link_train;
+ 
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 4bd047be51df..8d49676148f2 100644
+index c4d363248bd2..62f88c6c3a4c 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -4487,6 +4487,28 @@
- #define  GEN11_HOTPLUG_CTL_SHORT_DETECT(hpd_pin)	(1 << (_HPD_PIN_TC(hpd_pin) * 4))
- #define  GEN11_HOTPLUG_CTL_NO_DETECT(hpd_pin)		(0 << (_HPD_PIN_TC(hpd_pin) * 4))
- 
-+#define PICAINTERRUPT_ISR			_MMIO(0x16FE50)
-+#define PICAINTERRUPT_IMR			_MMIO(0x16FE54)
-+#define PICAINTERRUPT_IIR			_MMIO(0x16FE58)
-+#define PICAINTERRUPT_IER			_MMIO(0x16FE5C)
-+
-+#define  XELPDP_DP_ALT_HOTPLUG(hpd_pin)		REG_BIT(16 + _HPD_PIN_TC(hpd_pin))
-+#define  XELPDP_DP_ALT_HOTPLUG_MASK		REG_GENMASK(19, 16)
-+
-+#define  XELPDP_AUX_TC(hpd_pin)			REG_BIT(8 + _HPD_PIN_TC(hpd_pin))
-+#define  XELPDP_AUX_TC_MASK			REG_GENMASK(11, 8)
-+
-+#define  XELPDP_TBT_HOTPLUG(hpd_pin)		REG_BIT(_HPD_PIN_TC(hpd_pin))
-+#define  XELPDP_TBT_HOTPLUG_MASK		REG_GENMASK(3, 0)
-+
-+#define XELPDP_PORT_HOTPLUG_CTL(hpd_pin)	_MMIO(0x16F270 + (_HPD_PIN_TC(hpd_pin) * 0x200))
-+#define  XELPDP_TBT_HOTPLUG_ENABLE		REG_BIT(6)
-+#define  XELPDP_TBT_HPD_LONG_DETECT		REG_BIT(5)
-+#define  XELPDP_TBT_HPD_SHORT_DETECT		REG_BIT(4)
-+#define  XELPDP_DP_ALT_HOTPLUG_ENABLE		REG_BIT(2)
-+#define  XELPDP_DP_ALT_HPD_LONG_DETECT		REG_BIT(1)
-+#define  XELPDP_DP_ALT_HPD_SHORT_DETECT		REG_BIT(0)
-+
- #define ILK_DISPLAY_CHICKEN2	_MMIO(0x42004)
- /* Required on all Ironlake and Sandybridge according to the B-Spec. */
- #define  ILK_ELPIN_409_SELECT	(1 << 25)
-@@ -4773,7 +4795,8 @@
- 				 SDE_FDI_RXB_CPT | \
- 				 SDE_FDI_RXA_CPT)
- 
--/* south display engine interrupt: ICP/TGP */
-+/* south display engine interrupt: ICP/TGP/MTP */
-+#define SDE_PICAINTERRUPT		REG_BIT(31)
- #define SDE_GMBUS_ICP			(1 << 23)
- #define SDE_TC_HOTPLUG_ICP(hpd_pin)	REG_BIT(24 + _HPD_PIN_TC(hpd_pin))
- #define SDE_TC_HOTPLUG_DG2(hpd_pin)	REG_BIT(25 + _HPD_PIN_TC(hpd_pin)) /* sigh */
-@@ -5127,6 +5150,12 @@
- #define SOUTH_CHICKEN1		_MMIO(0xc2000)
- #define  FDIA_PHASE_SYNC_SHIFT_OVR	19
- #define  FDIA_PHASE_SYNC_SHIFT_EN	18
-+#define  INVERT_DDIE_HPD			REG_BIT(28)
-+#define  INVERT_DDID_HPD_MTP			REG_BIT(27)
-+#define  INVERT_TC4_HPD				REG_BIT(26)
-+#define  INVERT_TC3_HPD				REG_BIT(25)
-+#define  INVERT_TC2_HPD				REG_BIT(24)
-+#define  INVERT_TC1_HPD				REG_BIT(23)
- #define  INVERT_DDID_HPD			(1 << 18)
- #define  INVERT_DDIC_HPD			(1 << 17)
- #define  INVERT_DDIB_HPD			(1 << 16)
+@@ -5658,11 +5658,16 @@ enum skl_power_gate {
+ /* DDI Buffer Control */
+ #define _DDI_BUF_CTL_A				0x64000
+ #define _DDI_BUF_CTL_B				0x64100
++/* Known as DDI_CTL_DE in MTL+ */
+ #define DDI_BUF_CTL(port) _MMIO_PORT(port, _DDI_BUF_CTL_A, _DDI_BUF_CTL_B)
+ #define  DDI_BUF_CTL_ENABLE			(1 << 31)
+ #define  DDI_BUF_TRANS_SELECT(n)	((n) << 24)
+ #define  DDI_BUF_EMP_MASK			(0xf << 24)
+ #define  DDI_BUF_PHY_LINK_RATE(r)		((r) << 20)
++#define  DDI_BUF_PORT_DATA_MASK			REG_GENMASK(19, 18)
++#define  DDI_BUF_PORT_DATA_10BIT		REG_FIELD_PREP(DDI_BUF_PORT_DATA_MASK, 0)
++#define  DDI_BUF_PORT_DATA_20BIT		REG_FIELD_PREP(DDI_BUF_PORT_DATA_MASK, 1)
++#define  DDI_BUF_PORT_DATA_40BIT		REG_FIELD_PREP(DDI_BUF_PORT_DATA_MASK, 2)
+ #define  DDI_BUF_PORT_REVERSAL			(1 << 16)
+ #define  DDI_BUF_IS_IDLE			(1 << 7)
+ #define  DDI_BUF_CTL_TC_PHY_OWNERSHIP		REG_BIT(6)
 -- 
 2.34.1
 
