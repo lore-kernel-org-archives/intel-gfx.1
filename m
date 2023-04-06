@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 523B2C77B6E
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Apr 2023 22:26:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63FB3C77B6F
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Apr 2023 22:26:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE46A10ED4F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CED3110ED48;
 	Thu,  6 Apr 2023 22:26:45 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A13210ED3B;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A74DD10EA51;
  Thu,  6 Apr 2023 22:26:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1680820003; x=1712356003;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=uZTmfq4utfU0dL8rBk/k3Mu6mA/DFJJpFJ0B7slnigI=;
- b=QRU0t15Tw45/BVeqtYUEhJpUfP7HzbeAZsGfq6ErpLAb0YcjQvxmgNJh
- QEOuQLPwRcFIbvqknVzsUWAVnET5Y6DsndXRsafvTsAStgrJ9QQlowWpD
- bx5bwy7pra3aTkLNM6HN3lt3aydF/ojPxyEsjS8rnqBkILwtFRDaJJ1Ra
- d8IkM0uzh9CO3OiVq+q0x/HESDPdS3eQpfjRZmmvVLayVRR77N3806wUh
- gZjIcKiwg9W0MeOLk0hCTpzS8g/lbu2fp6i835+L9kDMQ8Uy9mT0cFELS
- Z/4qnETO+kc1xTxBG8iOAF0J8ISc+yDkcPQVJyo1iBttBjpZ+VCdoyGvA g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="341604980"
-X-IronPort-AV: E=Sophos;i="5.98,323,1673942400"; d="scan'208";a="341604980"
+ bh=nGnsDK6K+vYGCzopAusCQsPCN+w3ymdlW+hkNyKNSos=;
+ b=CzWY342GEqz9QXudECp/B0PmJ7vl6tUEsfnODSJYi+PPqm+Um/EXfQRq
+ Ewavph44tZfg3z9owA8CXz32Goe8fKz5B83/9g5Fn05XifoDIaaseSnEf
+ Q5KWuPUMCBy4FJFVRlnmDOLmxyiM6j1R8PT0sqBRX4mty9O9+GJICJ0R2
+ nx6oSmrauutEisGV9ZiancUhpRZCAb3q3mj8cYF+KqLOCDM60b0QrWGc9
+ qS2c5zeE8WcviiTrexn3EH1Cxk6D2r9A39rdyIN5PpKES+OfM8MlTyylU
+ Jl0hKIs8Eo66SUrTDwSzz7VECQKAnUV99LJ3/Zso2gNVXetOioUZUFoAf A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="341604983"
+X-IronPort-AV: E=Sophos;i="5.98,323,1673942400"; d="scan'208";a="341604983"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Apr 2023 15:26:42 -0700
+ 06 Apr 2023 15:26:43 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="776635890"
-X-IronPort-AV: E=Sophos;i="5.98,323,1673942400"; d="scan'208";a="776635890"
+X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="776635902"
+X-IronPort-AV: E=Sophos;i="5.98,323,1673942400"; d="scan'208";a="776635902"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
- by FMSMGA003.fm.intel.com with ESMTP; 06 Apr 2023 15:26:42 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 06 Apr 2023 15:26:43 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu,  6 Apr 2023 15:26:13 -0700
-Message-Id: <20230406222617.790484-2-John.C.Harrison@Intel.com>
+Date: Thu,  6 Apr 2023 15:26:16 -0700
+Message-Id: <20230406222617.790484-5-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230406222617.790484-1-John.C.Harrison@Intel.com>
 References: <20230406222617.790484-1-John.C.Harrison@Intel.com>
@@ -45,8 +45,7 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/5] drm/i915/guc: Don't capture Gen8 regs on Xe
- devices
+Subject: [Intel-gfx] [PATCH 4/5] drm/i915/guc: Capture list clean up - 3
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,62 +58,132 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>,
- Alan Previn <alan.previn.teres.alexis@intel.com>,
- Jani Nikula <jani.nikula@intel.com>, Matt Roper <matthew.d.roper@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, DRI-Devel@Lists.FreeDesktop.Org
+Cc: DRI-Devel@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-A pair of pre-Xe registers were being included in the Xe capture list.
-GuC was rejecting those as being invalid and logging errors about
-them. So, stop doing it.
+Fix Xe_LP name.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Fixes: dce2bd542337 ("drm/i915/guc: Add Gen9 registers for GuC error state capture.")
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
-Cc: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: John Harrison <John.C.Harrison@Intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 44 +++++++++----------
+ 1 file changed, 21 insertions(+), 23 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-index cf49188db6a6e..e0e793167d61b 100644
+index 7968a495fcfa8..fbd0be4afc6d5 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-@@ -31,12 +31,14 @@
- 	{ FORCEWAKE_MT,             0,      0, "FORCEWAKE" }
+@@ -96,47 +96,47 @@
+ 	{ GEN12_SFC_DONE(2),        0,      0, "SFC_DONE[2]" }, \
+ 	{ GEN12_SFC_DONE(3),        0,      0, "SFC_DONE[3]" }
  
- #define COMMON_GEN9BASE_GLOBAL \
--	{ GEN8_FAULT_TLB_DATA0,     0,      0, "GEN8_FAULT_TLB_DATA0" }, \
--	{ GEN8_FAULT_TLB_DATA1,     0,      0, "GEN8_FAULT_TLB_DATA1" }, \
- 	{ ERROR_GEN6,               0,      0, "ERROR_GEN6" }, \
- 	{ DONE_REG,                 0,      0, "DONE_REG" }, \
- 	{ HSW_GTT_CACHE_EN,         0,      0, "HSW_GTT_CACHE_EN" }
- 
-+#define GEN9_GLOBAL \
-+	{ GEN8_FAULT_TLB_DATA0,     0,      0, "GEN8_FAULT_TLB_DATA0" }, \
-+	{ GEN8_FAULT_TLB_DATA1,     0,      0, "GEN8_FAULT_TLB_DATA1" }
-+
- #define COMMON_GEN12BASE_GLOBAL \
- 	{ GEN12_FAULT_TLB_DATA0,    0,      0, "GEN12_FAULT_TLB_DATA0" }, \
- 	{ GEN12_FAULT_TLB_DATA1,    0,      0, "GEN12_FAULT_TLB_DATA1" }, \
-@@ -142,6 +144,7 @@ static const struct __guc_mmio_reg_descr xe_lpd_gsc_inst_regs[] = {
- static const struct __guc_mmio_reg_descr default_global_regs[] = {
+-/* XE_LPD - Global */
+-static const struct __guc_mmio_reg_descr xe_lpd_global_regs[] = {
++/* XE_LP Global */
++static const struct __guc_mmio_reg_descr xe_lp_global_regs[] = {
  	COMMON_BASE_GLOBAL,
  	COMMON_GEN9BASE_GLOBAL,
-+	GEN9_GLOBAL,
+ 	COMMON_GEN12BASE_GLOBAL,
  };
  
- static const struct __guc_mmio_reg_descr default_rc_class_regs[] = {
+-/* XE_LPD - Render / Compute Per-Class */
+-static const struct __guc_mmio_reg_descr xe_lpd_rc_class_regs[] = {
++/* XE_LP Render / Compute Per-Class */
++static const struct __guc_mmio_reg_descr xe_lp_rc_class_regs[] = {
+ 	COMMON_BASE_HAS_EU,
+ 	COMMON_BASE_RENDER,
+ 	COMMON_GEN12BASE_RENDER,
+ };
+ 
+-/* GEN9/XE_LPD - Render / Compute Per-Engine-Instance */
++/* GEN8+ Render / Compute Per-Engine-Instance */
+ static const struct __guc_mmio_reg_descr gen8_rc_inst_regs[] = {
+ 	COMMON_BASE_ENGINE_INSTANCE,
+ };
+ 
+-/* GEN9/XE_LPD - Media Decode/Encode Per-Engine-Instance */
++/* GEN8+ Media Decode/Encode Per-Engine-Instance */
+ static const struct __guc_mmio_reg_descr gen8_vd_inst_regs[] = {
+ 	COMMON_BASE_ENGINE_INSTANCE,
+ };
+ 
+-/* XE_LPD - Video Enhancement Per-Class */
+-static const struct __guc_mmio_reg_descr xe_lpd_vec_class_regs[] = {
++/* XE_LP Video Enhancement Per-Class */
++static const struct __guc_mmio_reg_descr xe_lp_vec_class_regs[] = {
+ 	COMMON_GEN12BASE_VEC,
+ };
+ 
+-/* GEN9/XE_LPD - Video Enhancement Per-Engine-Instance */
++/* GEN8+ Video Enhancement Per-Engine-Instance */
+ static const struct __guc_mmio_reg_descr gen8_vec_inst_regs[] = {
+ 	COMMON_BASE_ENGINE_INSTANCE,
+ };
+ 
+-/* GEN9/XE_LPD - Blitter Per-Engine-Instance */
++/* GEN8+ Blitter Per-Engine-Instance */
+ static const struct __guc_mmio_reg_descr gen8_blt_inst_regs[] = {
+ 	COMMON_BASE_ENGINE_INSTANCE,
+ };
+ 
+-/* XE_LPD - GSC Per-Engine-Instance */
+-static const struct __guc_mmio_reg_descr xe_lpd_gsc_inst_regs[] = {
++/* XE_LP - GSC Per-Engine-Instance */
++static const struct __guc_mmio_reg_descr xe_lp_gsc_inst_regs[] = {
+ 	COMMON_BASE_ENGINE_INSTANCE,
+ };
+ 
+@@ -153,10 +153,8 @@ static const struct __guc_mmio_reg_descr default_rc_class_regs[] = {
+ };
+ 
+ /*
+- * Empty lists:
+- * GEN9/XE_LPD - Blitter Per-Class
+- * GEN9/XE_LPD - Media Decode/Encode Per-Class
+- * GEN9 - VEC Class
++ * Empty list to prevent warnings about unknown class/instance types
++ * as not all class/instanace types have entries on all platforms.
+  */
+ static const struct __guc_mmio_reg_descr empty_regs_list[] = {
+ };
+@@ -191,20 +189,20 @@ static const struct __guc_mmio_reg_descr_group default_lists[] = {
+ 	{}
+ };
+ 
+-static const struct __guc_mmio_reg_descr_group xe_lpd_lists[] = {
+-	MAKE_REGLIST(xe_lpd_global_regs, PF, GLOBAL, 0),
+-	MAKE_REGLIST(xe_lpd_rc_class_regs, PF, ENGINE_CLASS, GUC_RENDER_CLASS),
++static const struct __guc_mmio_reg_descr_group xe_lp_lists[] = {
++	MAKE_REGLIST(xe_lp_global_regs, PF, GLOBAL, 0),
++	MAKE_REGLIST(xe_lp_rc_class_regs, PF, ENGINE_CLASS, GUC_RENDER_CLASS),
+ 	MAKE_REGLIST(gen8_rc_inst_regs, PF, ENGINE_INSTANCE, GUC_RENDER_CLASS),
+-	MAKE_REGLIST(xe_lpd_rc_class_regs, PF, ENGINE_CLASS, GUC_COMPUTE_CLASS),
++	MAKE_REGLIST(xe_lp_rc_class_regs, PF, ENGINE_CLASS, GUC_COMPUTE_CLASS),
+ 	MAKE_REGLIST(gen8_rc_inst_regs, PF, ENGINE_INSTANCE, GUC_COMPUTE_CLASS),
+ 	MAKE_REGLIST(empty_regs_list, PF, ENGINE_CLASS, GUC_VIDEO_CLASS),
+ 	MAKE_REGLIST(gen8_vd_inst_regs, PF, ENGINE_INSTANCE, GUC_VIDEO_CLASS),
+-	MAKE_REGLIST(xe_lpd_vec_class_regs, PF, ENGINE_CLASS, GUC_VIDEOENHANCE_CLASS),
++	MAKE_REGLIST(xe_lp_vec_class_regs, PF, ENGINE_CLASS, GUC_VIDEOENHANCE_CLASS),
+ 	MAKE_REGLIST(gen8_vec_inst_regs, PF, ENGINE_INSTANCE, GUC_VIDEOENHANCE_CLASS),
+ 	MAKE_REGLIST(empty_regs_list, PF, ENGINE_CLASS, GUC_BLITTER_CLASS),
+ 	MAKE_REGLIST(gen8_blt_inst_regs, PF, ENGINE_INSTANCE, GUC_BLITTER_CLASS),
+ 	MAKE_REGLIST(empty_regs_list, PF, ENGINE_CLASS, GUC_GSC_OTHER_CLASS),
+-	MAKE_REGLIST(xe_lpd_gsc_inst_regs, PF, ENGINE_INSTANCE, GUC_GSC_OTHER_CLASS),
++	MAKE_REGLIST(xe_lp_gsc_inst_regs, PF, ENGINE_INSTANCE, GUC_GSC_OTHER_CLASS),
+ 	{}
+ };
+ 
+@@ -366,7 +364,7 @@ guc_capture_get_device_reglist(struct intel_guc *guc)
+ 	const struct __guc_mmio_reg_descr_group *lists;
+ 
+ 	if (GRAPHICS_VER(i915) >= 12)
+-		lists = xe_lpd_lists;
++		lists = xe_lp_lists;
+ 	else
+ 		lists = default_lists;
+ 
 -- 
 2.39.1
 
