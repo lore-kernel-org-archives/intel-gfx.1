@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36886C6FD1D
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Apr 2023 07:11:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4595C6FD1D
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Apr 2023 07:11:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3903810E28C;
-	Fri,  7 Apr 2023 07:11:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD92D10ED9A;
+	Fri,  7 Apr 2023 07:11:26 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C8CA10E28C;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04D6510E28C;
  Fri,  7 Apr 2023 07:11:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1680851483; x=1712387483;
+ t=1680851484; x=1712387484;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=OQPdZJ6uq86fDdelr+3CJppVufDNxUytLNp6b889BE4=;
- b=kziX/OawPx1ayr1PxoGnlIKwTr1dTxIUhq6BhZ2FIRmOdQxqjLP4K0eQ
- TMkUahvxb7ZCU2iRuXTPVqmG8p355vGSWco4yI4tPvCeJRlAU+CAC7ls9
- a4Ej6UjSe2GW1ndNk3EmhVgRsIN6hGBaJlnT3q0QarxM2ry3FTn3HKzY4
- h1cMMBHUEPGc84EWtp0+GBlJRJr/0ZOhu64bKAMXwGBjiEYNLRYxFoIEU
- bs2QdUu0q7gWbkKwoqnye19K7CT+KO0RfZOEFgPtePmbZaIOEQSYITKQH
- W7uT7p44owj7jZEtRG9TYfTritDziVp/kWdAcxX5vTtusWAHizKpH2ugL A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="344711193"
-X-IronPort-AV: E=Sophos;i="5.98,326,1673942400"; d="scan'208";a="344711193"
+ bh=A4naRANSjsjYeplPa1kg1NbWiOttPOmgtjWLrvvRLew=;
+ b=ZMaR3IA+lizOJ3JEDBYQ9Xb0iU/dfGth2UL2ySFe4FLRfpaYAJRoTNr2
+ TKojxKqrSuT8SjG7aweYxPDGTKHbmWPg5WVohqPe/cd7UrHbmYdH0Lmp3
+ 2NZUe9dL8hKGBypEccJPQdfZJxlQH5tLM01jpkikuTdWGoyT+uT9QLz2k
+ M6ggog3RO/T0H19qDg/+EYy4S6DfPeh6We0hcXegDWJM40CQtzH6oAsLQ
+ jhzaFmWFwmDVCorKWasGuMuo4lz/4TdZqkJn/PG1Racv/R1vD5D6fwzcT
+ 3maq6ESbyh8O8+DkXAt13H57rfK8nXhILI5Pb660mp3SrCuO1cZF8q6EY Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="344711197"
+X-IronPort-AV: E=Sophos;i="5.98,326,1673942400"; d="scan'208";a="344711197"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Apr 2023 00:11:12 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="680953420"
-X-IronPort-AV: E=Sophos;i="5.98,326,1673942400"; d="scan'208";a="680953420"
+X-IronPort-AV: E=McAfee;i="6600,9927,10672"; a="680953431"
+X-IronPort-AV: E=Sophos;i="5.98,326,1673942400"; d="scan'208";a="680953431"
 Received: from fyang16-desk.jf.intel.com ([10.24.96.243])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  07 Apr 2023 00:11:12 -0700
 From: fei.yang@intel.com
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  7 Apr 2023 00:12:31 -0700
-Message-Id: <20230407071236.1960642-4-fei.yang@intel.com>
+Date: Fri,  7 Apr 2023 00:12:35 -0700
+Message-Id: <20230407071236.1960642-8-fei.yang@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230407071236.1960642-1-fei.yang@intel.com>
 References: <20230407071236.1960642-1-fei.yang@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/8] drm/i915/mtl: workaround coherency issue
- for Media
+Subject: [Intel-gfx] [PATCH 7/8] drm/i915: making mtl pte encode generic for
+ gen12
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,152 +58,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: Matt Roper <matthew.d.roper@intel.com>,
+ Chris Wilson <chris.p.wilson@linux.intel.com>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Fei Yang <fei.yang@intel.com>
 
-This patch implements Wa_22016122933.
+PTE encode is platform dependent. After replacing cache_level with
+pat_index, the newly introduced mtl_pte_encode is actually generic
+for all gen12 platforms, thus rename it to gen12_pte_encode and
+apply it to all gen12 platforms.
 
-In MTL, memory writes initiated by Media tile update the whole
-cache line even for partial writes. This creates a coherency
-problem for cacheable memory if both CPU and GPU are writing data
-to different locations within a single cache line. CTB communication
-is impacted by this issue because the head and tail pointers are
-adjacent words within a cache line (see struct guc_ct_buffer_desc),
-where one is written by GuC and the other by the host.
-This patch circumvents the issue by making CPU/GPU shared memory
-uncacheable (WC on CPU side, and PAT index 2 for GPU). Also for
-CTB which is being updated by both CPU and GuC, mfence instruction
-is added to make sure the CPU writes are visible to GPU right away
-(flush the write combining buffer).
-
-While fixing the CTB issue, we noticed some random GSC firmware
-loading failure because the share buffers are cacheable (WB) on CPU
-side but uncached on GPU side. To fix these issues we need to map
-such shared buffers as WC on CPU side. Since such allocations are
-not all done through GuC allocator, to avoid too many code changes,
-the i915_coherent_map_type() is now hard coded to return WC for MTL.
-
-BSpec: 45101
-
+Cc: Chris Wilson <chris.p.wilson@linux.intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>
 Signed-off-by: Fei Yang <fei.yang@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_pages.c |  5 ++++-
- drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c | 13 +++++++++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc.c    |  7 +++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 18 ++++++++++++------
- 4 files changed, 36 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-index ecd86130b74f..89fc8ea6bcfc 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
-@@ -469,7 +469,10 @@ enum i915_map_type i915_coherent_map_type(struct drm_i915_private *i915,
- 					  struct drm_i915_gem_object *obj,
- 					  bool always_coherent)
+diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+index f76ec2cb29ef..e393e20b5894 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+@@ -60,7 +60,7 @@ static u64 gen8_pte_encode(dma_addr_t addr,
+ 	return pte;
+ }
+ 
+-static u64 mtl_pte_encode(dma_addr_t addr,
++static u64 gen12_pte_encode(dma_addr_t addr,
+ 			  unsigned int pat_index,
+ 			  u32 flags)
  {
--	if (i915_gem_object_is_lmem(obj))
-+	/*
-+	 * Wa_22016122933: always return I915_MAP_WC for MTL
-+	 */
-+	if (i915_gem_object_is_lmem(obj) || IS_METEORLAKE(i915))
- 		return I915_MAP_WC;
- 	if (HAS_LLC(i915) || always_coherent)
- 		return I915_MAP_WB;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
-index 1d9fdfb11268..236673c02f9a 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
-@@ -110,6 +110,13 @@ static int gsc_fw_load_prepare(struct intel_gsc_uc *gsc)
- 	if (obj->base.size < gsc->fw.size)
- 		return -ENOSPC;
+@@ -999,8 +999,8 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt,
+ 	 */
+ 	ppgtt->vm.alloc_scratch_dma = alloc_pt_dma;
  
-+	/*
-+	 * Wa_22016122933: For MTL the shared memory needs to be mapped
-+	 * as WC on CPU side and UC (PAT index 2) on GPU side
-+	 */
-+	if (IS_METEORLAKE(i915))
-+		i915_gem_object_set_cache_coherency(obj, I915_CACHE_NONE);
-+
- 	dst = i915_gem_object_pin_map_unlocked(obj,
- 					       i915_coherent_map_type(i915, obj, true));
- 	if (IS_ERR(dst))
-@@ -125,6 +132,12 @@ static int gsc_fw_load_prepare(struct intel_gsc_uc *gsc)
- 	memset(dst, 0, obj->base.size);
- 	memcpy(dst, src, gsc->fw.size);
+-	if (GRAPHICS_VER_FULL(gt->i915) >= IP_VER(12, 70))
+-		ppgtt->vm.pte_encode = mtl_pte_encode;
++	if (GRAPHICS_VER(gt->i915) >= 12)
++		ppgtt->vm.pte_encode = gen12_pte_encode;
+ 	else
+ 		ppgtt->vm.pte_encode = gen8_pte_encode;
  
-+	/*
-+	 * Wa_22016122933: Making sure the data in dst is
-+	 * visible to GSC right away
-+	 */
-+	intel_guc_write_barrier(&gt->uc.guc);
-+
- 	i915_gem_object_unpin_map(gsc->fw.obj);
- 	i915_gem_object_unpin_map(obj);
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-index d76508fa3af7..f9bddaa876d9 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-@@ -743,6 +743,13 @@ struct i915_vma *intel_guc_allocate_vma(struct intel_guc *guc, u32 size)
- 	if (IS_ERR(obj))
- 		return ERR_CAST(obj);
- 
-+	/*
-+	 * Wa_22016122933: For MTL the shared memory needs to be mapped
-+	 * as WC on CPU side and UC (PAT index 2) on GPU side
-+	 */
-+	if (IS_METEORLAKE(gt->i915))
-+		i915_gem_object_set_cache_coherency(obj, I915_CACHE_NONE);
-+
- 	vma = i915_vma_instance(obj, &gt->ggtt->vm, NULL);
- 	if (IS_ERR(vma))
- 		goto err;
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 1803a633ed64..98e682b7df07 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -415,12 +415,6 @@ static int ct_write(struct intel_guc_ct *ct,
- 	}
- 	GEM_BUG_ON(tail > size);
- 
--	/*
--	 * make sure H2G buffer update and LRC tail update (if this triggering a
--	 * submission) are visible before updating the descriptor tail
--	 */
--	intel_guc_write_barrier(ct_to_guc(ct));
--
- 	/* update local copies */
- 	ctb->tail = tail;
- 	GEM_BUG_ON(atomic_read(&ctb->space) < len + GUC_CTB_HDR_LEN);
-@@ -429,6 +423,12 @@ static int ct_write(struct intel_guc_ct *ct,
- 	/* now update descriptor */
- 	WRITE_ONCE(desc->tail, tail);
- 
-+	/*
-+	 * make sure H2G buffer update and LRC tail update (if this triggering a
-+	 * submission) are visible before updating the descriptor tail
-+	 */
-+	intel_guc_write_barrier(ct_to_guc(ct));
-+
- 	return 0;
- 
- corrupted:
-@@ -902,6 +902,12 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
- 	/* now update descriptor */
- 	WRITE_ONCE(desc->head, head);
- 
-+	/*
-+	 * Wa_22016122933: Making sure the head update is
-+	 * visible to GuC right away
-+	 */
-+	intel_guc_write_barrier(ct_to_guc(ct));
-+
- 	return available - len;
- 
- corrupted:
 -- 
 2.25.1
 
