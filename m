@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 749FFC77B6F
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 22:29:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54214C76196
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 22:29:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC98C10E6B3;
-	Tue, 11 Apr 2023 22:29:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F79310E6A5;
+	Tue, 11 Apr 2023 22:29:55 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 442C610E1DB;
- Tue, 11 Apr 2023 22:29:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70A3A10E6B4;
+ Tue, 11 Apr 2023 22:29:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681252183; x=1712788183;
+ t=1681252192; x=1712788192;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=xt8zT1YZRdFHhWLsgQphruGj5/L9fb/AakwpLz1znqY=;
- b=dIG8ktJWk12cbIjjsLmB07gEb+Y0qptQTGe6Pyt4qyupHoRNLL/UJ0mB
- xH2rwQYq/YCRwgj/uZ+GvcFalWFthPvpYYpB9wQ3tFRrWGUZmv/OEczp6
- 35jnL6gtiQ9gCCEPtzUY+N3+WFiSReJYGKrH9/FL55HGXM27T210PZWIk
- 8SIlI8iJnGz1Ajc49v2aNjV9JXVUTnTevd1o1UekuH+aV2OHhy4oEB7eW
- hDsktVe01c9KHWM2Nw1S9cCkjF4nnQ7hdHxKJ8YR/q9ej2TcDsskpzrAB
- 2smxS+wreM1duW4Toq8oPyGPRkCOJtSFeq9rBnuwX9POZ/1HS2S7PVBx1 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10677"; a="342506246"
-X-IronPort-AV: E=Sophos;i="5.98,336,1673942400"; d="scan'208";a="342506246"
+ bh=utq7zjFIZnTbI517Po7IKHQ7PiuadAtLPEgHNn3pZ1c=;
+ b=FaeAPrJb1oxapGI8xOQ2jh755/vDEXGbaz45yYv3QW8dKsLRFKl5htuD
+ QL0nE90qMVIrINkI9tpB/ruvY2MsOkfWSqAEdTNd78GTjDXMqGbJnkHYI
+ KXBVwCbdczZcN+dYXj90DaNrb94amK2YvutOU3hBnzfWhu+AAaRoDDRtv
+ WipSFiQcE2uonquFy0b42scldNNG1rrbH2fSRB0boPGU9VtG/CnaeXR4s
+ VBPTVKKXoCnx/2ppah3rVnFkzhxfvzscWxJ7r21OEHL+ySv13WxHmXsQu
+ sQ1kZuudWDGGSXe6MAzA5zwffXcWPaD6DMWRw/VYPe74EAiSDjdB53piH A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10677"; a="342506275"
+X-IronPort-AV: E=Sophos;i="5.98,336,1673942400"; d="scan'208";a="342506275"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2023 15:29:43 -0700
+ 11 Apr 2023 15:29:52 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10677"; a="753296821"
-X-IronPort-AV: E=Sophos;i="5.98,336,1673942400"; d="scan'208";a="753296821"
+X-IronPort-AV: E=McAfee;i="6600,9927,10677"; a="753296842"
+X-IronPort-AV: E=Sophos;i="5.98,336,1673942400"; d="scan'208";a="753296842"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by fmsmga008.fm.intel.com with SMTP; 11 Apr 2023 15:29:41 -0700
+ by fmsmga008.fm.intel.com with SMTP; 11 Apr 2023 15:29:50 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 12 Apr 2023 01:29:40 +0300
+ Wed, 12 Apr 2023 01:29:49 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 12 Apr 2023 01:29:28 +0300
-Message-Id: <20230411222931.15127-4-ville.syrjala@linux.intel.com>
+Date: Wed, 12 Apr 2023 01:29:31 +0300
+Message-Id: <20230411222931.15127-7-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230411222931.15127-1-ville.syrjala@linux.intel.com>
 References: <20230411222931.15127-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/6] drm/i915: Fix CHV CGM CSC coefficient sign
- handling
+Subject: [Intel-gfx] [PATCH 6/6] drm/i915: Do state check for color
+ management changes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,79 +66,36 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-The CHV CGM CSC coefficients are in s4.12 two's complement
-format. Fix the CTM->CGM conversion to handle that correctly
-instead of pretending that the hw coefficients are also
-in some sign-magnitude format.
+In order to validate LUT programming more thoroughly let's
+do a state check for all color management updates as well.
 
+Not sure we really want this outside CI. It is rather heavy
+and color management updates could become rather common
+with all the HDR/etc. stuff happening. Maybe we should have
+an extra knob for this that we could enable in CI?
+
+v2: Skip for initial_commit to avoid FDI dotclock
+    sanity checks/etc. tripping up
+
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c | 46 ++++++++++++++--------
- 1 file changed, 29 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/i915/display/intel_modeset_verify.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index 4fc16cac052d..63141f4ed372 100644
---- a/drivers/gpu/drm/i915/display/intel_color.c
-+++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -568,29 +568,41 @@ static void icl_load_csc_matrix(const struct intel_crtc_state *crtc_state)
- 		icl_update_output_csc(crtc, &crtc_state->output_csc);
- }
- 
-+static u16 ctm_to_twos_complement(u64 coeff, int int_bits, int frac_bits)
-+{
-+	s64 c = CTM_COEFF_ABS(coeff);
-+
-+	/* leave an extra bit for rounding */
-+	c >>= 32 - frac_bits - 1;
-+
-+	/* round and drop the extra bit */
-+	c = (c + 1) >> 1;
-+
-+	if (CTM_COEFF_NEGATIVE(coeff))
-+		c = -c;
-+
-+	c = clamp(c, -(s64)BIT(int_bits + frac_bits - 1),
-+		  (s64)(BIT(int_bits + frac_bits - 1) - 1));
-+
-+	return c & (BIT(int_bits + frac_bits) - 1);
-+}
-+
-+/*
-+ * CHV Color Gamut Mapping (CGM) CSC
-+ * |r|   | c0 c1 c2 |   |r|
-+ * |g| = | c3 c4 c5 | x |g|
-+ * |b|   | c6 c7 c8 |   |b|
-+ *
-+ * Coefficients are two's complement s4.12.
-+ */
- static void chv_cgm_csc_convert_ctm(const struct intel_crtc_state *crtc_state,
- 				    struct intel_csc_matrix *csc)
+diff --git a/drivers/gpu/drm/i915/display/intel_modeset_verify.c b/drivers/gpu/drm/i915/display/intel_modeset_verify.c
+index 842d70f0dfd2..9e4767e1b900 100644
+--- a/drivers/gpu/drm/i915/display/intel_modeset_verify.c
++++ b/drivers/gpu/drm/i915/display/intel_modeset_verify.c
+@@ -228,6 +228,8 @@ void intel_modeset_verify_crtc(struct intel_crtc *crtc,
+ 			       struct intel_crtc_state *new_crtc_state)
  {
- 	const struct drm_color_ctm *ctm = crtc_state->hw.ctm->data;
- 	int i;
+ 	if (!intel_crtc_needs_modeset(new_crtc_state) &&
++	    (!intel_crtc_needs_color_update(new_crtc_state) ||
++	     new_crtc_state->inherited) &&
+ 	    !intel_crtc_needs_fastset(new_crtc_state))
+ 		return;
  
--	for (i = 0; i < 9; i++) {
--		u64 abs_coeff = ((1ULL << 63) - 1) & ctm->matrix[i];
--
--		/* Round coefficient. */
--		abs_coeff += 1 << (32 - 13);
--		/* Clamp to hardware limits. */
--		abs_coeff = clamp_val(abs_coeff, 0, CTM_COEFF_8_0 - 1);
--
--		csc->coeff[i] = 0;
--
--		/* Write coefficients in S3.12 format. */
--		if (ctm->matrix[i] & (1ULL << 63))
--			csc->coeff[i] |= 1 << 15;
--
--		csc->coeff[i] |= ((abs_coeff >> 32) & 7) << 12;
--		csc->coeff[i] |= (abs_coeff >> 20) & 0xfff;
--	}
-+	for (i = 0; i < 9; i++)
-+		csc->coeff[i] = ctm_to_twos_complement(ctm->matrix[i], 4, 12);
- }
- 
- static void chv_load_cgm_csc(struct intel_crtc *crtc,
 -- 
 2.39.2
 
