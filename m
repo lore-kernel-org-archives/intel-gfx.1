@@ -4,35 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB2A7C77B7D
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 14:10:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA533C77B7F
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 14:10:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8543010EE40;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E201F10EE38;
 	Fri, 21 Apr 2023 14:10:04 +0000 (UTC)
-Received: from exchange.fintech.ru (exchange.fintech.ru [195.54.195.159])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 552ED10E16E;
- Thu, 13 Apr 2023 14:22:59 +0000 (UTC)
-Received: from Ex16-01.fintech.ru (10.0.10.18) by exchange.fintech.ru
- (195.54.195.159) with Microsoft SMTP Server (TLS) id 14.3.498.0; Thu, 13 Apr
- 2023 17:22:55 +0300
-Received: from localhost (10.0.253.138) by Ex16-01.fintech.ru (10.0.10.18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Thu, 13 Apr
- 2023 17:22:55 +0300
-From: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
-To: David Airlie <airlied@gmail.com>
-Date: Thu, 13 Apr 2023 07:22:38 -0700
-Message-ID: <20230413142238.19011-1-n.zhandarovich@fintech.ru>
-X-Mailer: git-send-email 2.25.1
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 349CA10E5DC
+ for <intel-gfx@lists.freedesktop.org>; Tue, 11 Apr 2023 17:11:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1681233082;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Pru4wSn1J8eS15hl8Fm55x4gAkwrxfQ4lSZCtGAnlEY=;
+ b=BpZDqzkIe/bymfiUKbLS/85XMKP1OlDGyGlTAJuBrnA05HXDa1rq0dd2c81beKBrrh63Z9
+ TG7aOQji11YkjHmUWvSbb6ZgDpeTTXjXdNMiNyzxTohEHEdQapuD6ROIZX4TqqPtJwoiN7
+ Fhck+iF9/GurBBs/1BILT6ycxnHFEag=
+Received: from mail-il1-f197.google.com (mail-il1-f197.google.com
+ [209.85.166.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-327-Ca0LHNrXONG_HBoX-Ulc_g-1; Tue, 11 Apr 2023 13:11:21 -0400
+X-MC-Unique: Ca0LHNrXONG_HBoX-Ulc_g-1
+Received: by mail-il1-f197.google.com with SMTP id
+ b9-20020a923409000000b00326156e3a8bso829932ila.3
+ for <intel-gfx@lists.freedesktop.org>; Tue, 11 Apr 2023 10:11:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1681233080; x=1683825080;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Pru4wSn1J8eS15hl8Fm55x4gAkwrxfQ4lSZCtGAnlEY=;
+ b=f3Y61mLxaHue9sU7BCEZqlqyYvbKegwm7fhX1nJhu0B17+HOZU7bfsKd0bbRmxKV8L
+ DuJNH4R+LfvQPJEsrqSYR2H6rU8HQcIAmSvWKqH5nmGT1w/rQqrc/4NgIUKvehBjQnFa
+ ZTebsflZ10RibbgmXakIeeKVWTJoIAbrPEq0beOVSY1ygRyKyFNlLarhbuC5FZ4v9lHI
+ 1lAQ0BSMizebPhDc+8/DVTezh/2ULz/55S+ZdFxo5pqHEH2NfAvXeYwVXrMvb7VC+8Qq
+ W+8LOZ71ZCQP277YtMtbg7Wa0oIn6CMgMtsEZ6TK3B4fFneMk9xdswRVWOal0CJZKW1f
+ 2IjQ==
+X-Gm-Message-State: AAQBX9eblUOKbaDjvfqoxzoR08AsVXbvYnOWhif6DmUFuecoqyUqfJhI
+ NwQzoqpgymSbFLzeZffkDYwtELjI/tLJi1LtRdpiO5drXiHL7uoXZhW8LP7vsyemlRDs62GBnhP
+ ejh2veUjYzROdIyjtjTs7DbX4ZVxN
+X-Received: by 2002:a6b:c897:0:b0:760:a418:2507 with SMTP id
+ y145-20020a6bc897000000b00760a4182507mr188867iof.1.1681233080313; 
+ Tue, 11 Apr 2023 10:11:20 -0700 (PDT)
+X-Google-Smtp-Source: AKy350ZYsautaeHqRkRwEXJm6JG4hlSAmw0cm1T0Wkx7MrW3wE/+JenB6cHwiIQ+rkkkN+Jf4bTjMw==
+X-Received: by 2002:a6b:c897:0:b0:760:a418:2507 with SMTP id
+ y145-20020a6bc897000000b00760a4182507mr188846iof.1.1681233080012; 
+ Tue, 11 Apr 2023 10:11:20 -0700 (PDT)
+Received: from redhat.com ([38.15.36.239]) by smtp.gmail.com with ESMTPSA id
+ v3-20020a05663812c300b0040b64b68862sm4155947jas.165.2023.04.11.10.11.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 11 Apr 2023 10:11:19 -0700 (PDT)
+Date: Tue, 11 Apr 2023 11:11:17 -0600
+From: Alex Williamson <alex.williamson@redhat.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Message-ID: <20230411111117.0766ad52.alex.williamson@redhat.com>
+In-Reply-To: <20230411095417.240bac39.alex.williamson@redhat.com>
+References: <20230405102545.41a61424.alex.williamson@redhat.com>
+ <ZC2jsQuWiMYM6JZb@nvidia.com>
+ <20230405105215.428fa9f5.alex.williamson@redhat.com>
+ <ZC2un1LaTUR1OrrJ@nvidia.com>
+ <20230405125621.4627ca19.alex.williamson@redhat.com>
+ <ZC3KJUxJa0O0M+9O@nvidia.com>
+ <20230405134945.29e967be.alex.williamson@redhat.com>
+ <ZC4CwH2ouTfZ9DNN@nvidia.com>
+ <DS0PR11MB75292DA91ED15AE94A85EB3DC3919@DS0PR11MB7529.namprd11.prod.outlook.com>
+ <20230406115347.7af28448.alex.williamson@redhat.com>
+ <ZDVfqpOCnImKr//m@nvidia.com>
+ <20230411095417.240bac39.alex.williamson@redhat.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.35; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.0.253.138]
-X-ClientProxiedBy: Ex16-02.fintech.ru (10.0.10.19) To Ex16-01.fintech.ru
- (10.0.10.18)
-X-Mailman-Approved-At: Fri, 21 Apr 2023 14:09:19 +0000
-Subject: [Intel-gfx] [PATCH v2] video/hdmi: minor fixes for *_infoframe_init
- functions
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Fri, 21 Apr 2023 14:09:20 +0000
+Subject: Re: [Intel-gfx] [PATCH v3 12/12] vfio/pci: Report dev_id in
+ VFIO_DEVICE_GET_PCI_HOT_RESET_INFO
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,443 +95,158 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, lvc-project@linuxtesting.org,
- dri-devel@lists.freedesktop.org, Matthias
- Brugger <matthias.bgg@gmail.com>, Helge Deller <deller@gmx.de>,
- amd-gfx@lists.freedesktop.org, Nikita Zhandarovich <n.zhandarovich@fintech.ru>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, linux-mediatek@lists.infradead.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>
+Cc: Yanting@freedesktop.org,
+	"mjrosato@linux.ibm.com" <mjrosato@linux.ibm.com>,
+	"jasowang@redhat.com" <jasowang@redhat.com>,
+	"peterx@redhat.com" <peterx@redhat.com>,
+	"  <lulu@redhat.com>, "@freedesktop.org,
+	suravee.suthikulpanit@amd.com,
+	"chao.p.peng@linux.intel.com" <chao.p.peng@linux.intel.com>,
+	"Liu,  Yi L" <yi.l.liu@intel.com>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+	"joro@8bytes.org" <joro@8bytes.org>, Yan@freedesktop.org,
+	"nicolinc@nvidia.com" <nicolinc@nvidia.com>,
+	"     <intel-gvt-dev@lists.freedesktop.org>,  "@freedesktop.org,
+	intel-gfx@lists.freedesktop.org, <linux-s390@vger.kernel.org>, ,
+	Xudong@freedesktop.org, Zhenzhong@freedesktop.org,
+	"  <suravee.suthikulpanit@amd.com>, "@freedesktop.org,
+	intel-gvt-dev@lists.freedesktop.org,,
+	" <intel-gfx@lists.freedesktop.org>,   "@freedesktop.org,
+	linux-s390@vger.kernel.org, Terrence@freedesktop.org,
+	"yi.y.sun@linux.intel.com" <yi.y.sun@linux.intel.com>,
+	"eric.auger@redhat.com" <eric.auger@redhat.com>,
+	"cohuck@redhat.com" <cohuck@redhat.com>,
+	"robin.murphy@arm.com" <robin.murphy@arm.com>,
+	"shameerali.kolothum.thodi@huawei.com\"          <shameerali.kolothum.thodi@huawei.com>, "@freedesktop.org,
+	lulu@redhat.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Multiple hdmi_*_infoframe_init() functions that initialize different
-types of hdmi infoframes only return default 0 value (contrary to their
-descriptions). Yet these functions are still checked against possible
-errors in case of failure.
+[Appears the list got dropped, replying to my previous message to re-add]
 
-This patch removes redundant checks for errors in calls to following
-functions:
-- hdmi_spd_infoframe_init
-- hdmi_audio_infoframe_init
-- hdmi_vendor_infoframe_init
-- hdmi_drm_infoframe_init
+On Tue, 11 Apr 2023 13:32:16 -0300
+Jason Gunthorpe <jgg@nvidia.com> wrote:
 
-Also, change their return types to void and fix descriptions.
+> On Tue, Apr 11, 2023 at 09:54:17AM -0600, Alex Williamson wrote:
+> > On Tue, 11 Apr 2023 10:24:58 -0300
+> > Jason Gunthorpe <jgg@nvidia.com> wrote:
+> >   
+> > > On Thu, Apr 06, 2023 at 11:53:47AM -0600, Alex Williamson wrote:
+> > >   
+> > > > Where whether a device is opened is subject to change outside of the
+> > > > user's control.  This essentially allows the user to perform hot-resets
+> > > > of devices outside of their ownership so long as the device is not
+> > > > used elsewhere, versus the current requirement that the user own all the
+> > > > affected groups, which implies device ownership.  It's not been
+> > > > justified why this feature needs to exist, imo.    
+> > > 
+> > > The cdev API doesn't have the notion that owning a group means you
+> > > "own" some collection of devices. It still happens as a side effect,
+> > > but it isn't obviously part of the API. I'm really loath to
+> > > re-introduce that group-based concept just for this. We are trying
+> > > reduce the group API surface.
+> > > 
+> > > How about a different direction.
+> > > 
+> > > We add a new uAPI for cdev mode that is "take ownership of the reset
+> > > group". Maybe it can be a flag in during bind.
+> > > 
+> > > When requested vfio will ensure that every device in the reset group
+> > > is only bound to this iommufd_ctx or left closed. Now and in the
+> > > future. Since no-iommu has no iommufd_ctx this means we can open only
+> > > one device in the reset group.
+> > > 
+> > > With this flag RESET is guaranteed to always work by definition.
+> > > 
+> > > We continue with the zero-length FD, but we can just replace the
+> > > security checks with a check if we are in reset group ownership mode.
+> > > 
+> > > _INFO is unchanged.
+> > > 
+> > > We decide if we add a new IOCTL to return the BDF so the existing
+> > > _INFO can get back to the dev_id or a new IOCTL that returns the
+> > > dev_id list of the reset group.
+> > > 
+> > > Userspace is required to figure out the extent of the reset, but we
+> > > don't require that userspace prove to the kernel it did this when
+> > > requesting the reset.  
+> > 
+> > Take for example a multi-function PCIe device with ACS isolation between
+> > functions, are you going to allow a user who has only been granted
+> > ownership of a subset of functions control of the entire dev_set?  
+> 
+> Our cdev model says that opening a cdev locks out other cdevs from
+> independent use, eg because of the group sharing. Extending this to
+> include the reset group as well seems consistent.
 
-Fixes: 2c676f378edb ("[media] hdmi: added unpack and logging functions for InfoFrames")
-Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
----
-v2: Fix build warning by removing unnecessary call to drm_WARN_ON()
-    with uninitialized value.
-    Reported-by: kernel test robot <lkp@intel.com>
-    Link: https://lore.kernel.org/oe-kbuild-all/202304131234.hT3mzkju-lkp@intel.com/
+The DMA ownership model based on the IOMMU group is consistent with
+legacy vfio, but now you're proposing a new ownership model that
+optionally allows a user to extend their ownership, opportunistically
+lock out other users, and wreaking havoc for management utilities that
+also have no insight into dev_sets or userspace driver behavior.
 
- drivers/gpu/drm/display/drm_hdmi_helper.c |  5 +---
- drivers/gpu/drm/drm_edid.c                |  5 +---
- drivers/gpu/drm/i915/display/intel_hdmi.c |  4 +--
- drivers/gpu/drm/mediatek/mtk_hdmi.c       | 14 ++--------
- drivers/gpu/drm/radeon/r600_hdmi.c      
- drivers/gpu/drm/display/drm_hdmi_helper.c |  5 +---
- drivers/gpu/drm/drm_edid.c                |  5 +---
- drivers/gpu/drm/i915/display/intel_hdmi.c |  7 ++---
- drivers/gpu/drm/mediatek/mtk_hdmi.c       | 14 ++--------
- drivers/gpu/drm/radeon/r600_hdmi.c        |  6 +----
- drivers/gpu/drm/sti/sti_hdmi.c            |  6 +----
- drivers/gpu/drm/tegra/hdmi.c              |  7 +----
- drivers/gpu/drm/tegra/sor.c               |  6 +----
- drivers/gpu/drm/vc4/vc4_hdmi.c            |  7 +----
- drivers/video/hdmi.c                      | 44 ++++++-------------------------
- include/linux/hdmi.h                      |  8 +++---
- 11 files changed, 23 insertions(+), 92 deletions(-)
+> There is some security concern here, but that goes both ways, a 3rd
+> party should not be able to break an application that needs to use
+> this RESET and had sufficient privileges to assert an ownership.
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/display/drm_hdmi_helper.c
-index faf5e9efa7d3..ce7038a3a183 100644
---- a/drivers/gpu/drm/display/drm_hdmi_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
-@@ -27,7 +27,6 @@ int drm_hdmi_infoframe_set_hdr_metadata(struct hdmi_drm_infoframe *frame,
- {
- 	struct drm_connector *connector;
- 	struct hdr_output_metadata *hdr_metadata;
--	int err;
- 
- 	if (!frame || !conn_state)
- 		return -EINVAL;
-@@ -47,9 +46,7 @@ int drm_hdmi_infoframe_set_hdr_metadata(struct hdmi_drm_infoframe *frame,
- 	    connector->hdr_sink_metadata.hdmi_type1.eotf))
- 		DRM_DEBUG_KMS("Unknown EOTF %d\n", hdr_metadata->hdmi_metadata_type1.eotf);
- 
--	err = hdmi_drm_infoframe_init(frame);
--	if (err < 0)
--		return err;
-+	hdmi_drm_infoframe_init(frame);
- 
- 	frame->eotf = hdr_metadata->hdmi_metadata_type1.eotf;
- 	frame->metadata_type = hdr_metadata->hdmi_metadata_type1.metadata_type;
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 261a62e15934..c268148502d6 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -7159,7 +7159,6 @@ drm_hdmi_vendor_infoframe_from_display_mode(struct hdmi_vendor_infoframe *frame,
- 	 */
- 	bool has_hdmi_infoframe = connector ?
- 		connector->display_info.has_hdmi_infoframe : false;
--	int err;
- 
- 	if (!frame || !mode)
- 		return -EINVAL;
-@@ -7167,9 +7166,7 @@ drm_hdmi_vendor_infoframe_from_display_mode(struct hdmi_vendor_infoframe *frame,
- 	if (!has_hdmi_infoframe)
- 		return -EINVAL;
- 
--	err = hdmi_vendor_infoframe_init(frame);
--	if (err < 0)
--		return err;
-+	hdmi_vendor_infoframe_init(frame);
- 
- 	/*
- 	 * Even if it's not absolutely necessary to send the infoframe
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index c0ce6d3dc505..59e2f53015c0 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -778,12 +778,9 @@ intel_hdmi_compute_spd_infoframe(struct intel_encoder *encoder,
- 		intel_hdmi_infoframe_enable(HDMI_INFOFRAME_TYPE_SPD);
- 
- 	if (IS_DGFX(i915))
--		ret = hdmi_spd_infoframe_init(frame, "Intel", "Discrete gfx");
-+		hdmi_spd_infoframe_init(frame, "Intel", "Discrete gfx");
- 	else
--		ret = hdmi_spd_infoframe_init(frame, "Intel", "Integrated gfx");
--
--	if (drm_WARN_ON(encoder->base.dev, ret))
--		return false;
-+		hdmi_spd_infoframe_init(frame, "Intel", "Integrated gfx");
- 
- 	frame->sdi = HDMI_SPD_SDI_PC;
- 
-diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi.c b/drivers/gpu/drm/mediatek/mtk_hdmi.c
-index 0a8e0a13f516..75899e4a011f 100644
---- a/drivers/gpu/drm/mediatek/mtk_hdmi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_hdmi.c
-@@ -995,12 +995,7 @@ static int mtk_hdmi_setup_spd_infoframe(struct mtk_hdmi *hdmi,
- 	u8 buffer[HDMI_INFOFRAME_HEADER_SIZE + HDMI_SPD_INFOFRAME_SIZE];
- 	ssize_t err;
- 
--	err = hdmi_spd_infoframe_init(&frame, vendor, product);
--	if (err < 0) {
--		dev_err(hdmi->dev, "Failed to initialize SPD infoframe: %zd\n",
--			err);
--		return err;
--	}
-+	hdmi_spd_infoframe_init(&frame, vendor, product);
- 
- 	err = hdmi_spd_infoframe_pack(&frame, buffer, sizeof(buffer));
- 	if (err < 0) {
-@@ -1018,12 +1013,7 @@ static int mtk_hdmi_setup_audio_infoframe(struct mtk_hdmi *hdmi)
- 	u8 buffer[HDMI_INFOFRAME_HEADER_SIZE + HDMI_AUDIO_INFOFRAME_SIZE];
- 	ssize_t err;
- 
--	err = hdmi_audio_infoframe_init(&frame);
--	if (err < 0) {
--		dev_err(hdmi->dev, "Failed to setup audio infoframe: %zd\n",
--			err);
--		return err;
--	}
-+	hdmi_audio_infoframe_init(&frame);
- 
- 	frame.coding_type = HDMI_AUDIO_CODING_TYPE_STREAM;
- 	frame.sample_frequency = HDMI_AUDIO_SAMPLE_FREQUENCY_STREAM;
-diff --git a/drivers/gpu/drm/radeon/r600_hdmi.c b/drivers/gpu/drm/radeon/r600_hdmi.c
-index f3551ebaa2f0..b690254562e8 100644
---- a/drivers/gpu/drm/radeon/r600_hdmi.c
-+++ b/drivers/gpu/drm/radeon/r600_hdmi.c
-@@ -432,11 +432,7 @@ void r600_hdmi_update_audio_settings(struct drm_encoder *encoder)
- 	DRM_DEBUG("0x%02X IEC60958 status bits and 0x%02X category code\n",
- 		  (int)audio.status_bits, (int)audio.category_code);
- 
--	err = hdmi_audio_infoframe_init(&frame);
--	if (err < 0) {
--		DRM_ERROR("failed to setup audio infoframe\n");
--		return;
--	}
-+	hdmi_audio_infoframe_init(&frame);
- 
- 	frame.channels = audio.channels;
- 
-diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
-index 8539fe1fedc4..1f92db1fb960 100644
---- a/drivers/gpu/drm/sti/sti_hdmi.c
-+++ b/drivers/gpu/drm/sti/sti_hdmi.c
-@@ -1321,11 +1321,7 @@ static int sti_hdmi_bind(struct device *dev, struct device *master, void *data)
- 	}
- 
- 	/* Initialize audio infoframe */
--	err = hdmi_audio_infoframe_init(&hdmi->audio.cea);
--	if (err) {
--		DRM_ERROR("Failed to init audio infoframe\n");
--		goto err_sysfs;
--	}
-+	hdmi_audio_infoframe_init(&hdmi->audio.cea);
- 
- 	cec_fill_conn_info_from_drm(&conn_info, drm_connector);
- 	hdmi->notifier = cec_notifier_conn_register(&hdmi->dev, NULL,
-diff --git a/drivers/gpu/drm/tegra/hdmi.c b/drivers/gpu/drm/tegra/hdmi.c
-index 40ec3e6cf204..fe8fcd1b056b 100644
---- a/drivers/gpu/drm/tegra/hdmi.c
-+++ b/drivers/gpu/drm/tegra/hdmi.c
-@@ -747,12 +747,7 @@ static void tegra_hdmi_setup_audio_infoframe(struct tegra_hdmi *hdmi)
- 	u8 buffer[14];
- 	ssize_t err;
- 
--	err = hdmi_audio_infoframe_init(&frame);
--	if (err < 0) {
--		dev_err(hdmi->dev, "failed to setup audio infoframe: %zd\n",
--			err);
--		return;
--	}
-+	hdmi_audio_infoframe_init(&frame);
- 
- 	frame.channels = hdmi->format.channels;
- 
-diff --git a/drivers/gpu/drm/tegra/sor.c b/drivers/gpu/drm/tegra/sor.c
-index 8af632740673..d8cd93d5af10 100644
---- a/drivers/gpu/drm/tegra/sor.c
-+++ b/drivers/gpu/drm/tegra/sor.c
-@@ -2021,11 +2021,7 @@ static int tegra_sor_hdmi_enable_audio_infoframe(struct tegra_sor *sor)
- 	u32 value;
- 	int err;
- 
--	err = hdmi_audio_infoframe_init(&frame);
--	if (err < 0) {
--		dev_err(sor->dev, "failed to setup audio infoframe: %d\n", err);
--		return err;
--	}
-+	hdmi_audio_infoframe_init(&frame);
- 
- 	frame.channels = sor->format.channels;
- 
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index ea22c9bf223a..d7de86b41901 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -816,13 +816,8 @@ static void vc4_hdmi_set_avi_infoframe(struct drm_encoder *encoder)
- static void vc4_hdmi_set_spd_infoframe(struct drm_encoder *encoder)
- {
- 	union hdmi_infoframe frame;
--	int ret;
- 
--	ret = hdmi_spd_infoframe_init(&frame.spd, "Broadcom", "Videocore");
--	if (ret < 0) {
--		DRM_ERROR("couldn't fill SPD infoframe\n");
--		return;
--	}
-+	hdmi_spd_infoframe_init(&frame.spd, "Broadcom", "Videocore");
- 
- 	frame.spd.sdi = HDMI_SPD_SDI_PC;
- 
-diff --git a/drivers/video/hdmi.c b/drivers/video/hdmi.c
-index 03c7f27dde49..a4a1359415a0 100644
---- a/drivers/video/hdmi.c
-+++ b/drivers/video/hdmi.c
-@@ -216,10 +216,8 @@ EXPORT_SYMBOL(hdmi_avi_infoframe_pack);
-  * @frame: HDMI SPD infoframe
-  * @vendor: vendor string
-  * @product: product string
-- *
-- * Returns 0 on success or a negative error code on failure.
-  */
--int hdmi_spd_infoframe_init(struct hdmi_spd_infoframe *frame,
-+void hdmi_spd_infoframe_init(struct hdmi_spd_infoframe *frame,
- 			    const char *vendor, const char *product)
- {
- 	size_t len;
-@@ -234,8 +232,6 @@ int hdmi_spd_infoframe_init(struct hdmi_spd_infoframe *frame,
- 	memcpy(frame->vendor, vendor, min(len, sizeof(frame->vendor)));
- 	len = strlen(product);
- 	memcpy(frame->product, product, min(len, sizeof(frame->product)));
--
--	return 0;
- }
- EXPORT_SYMBOL(hdmi_spd_infoframe_init);
- 
-@@ -348,18 +344,14 @@ EXPORT_SYMBOL(hdmi_spd_infoframe_pack);
- /**
-  * hdmi_audio_infoframe_init() - initialize an HDMI audio infoframe
-  * @frame: HDMI audio infoframe
-- *
-- * Returns 0 on success or a negative error code on failure.
-  */
--int hdmi_audio_infoframe_init(struct hdmi_audio_infoframe *frame)
-+void hdmi_audio_infoframe_init(struct hdmi_audio_infoframe *frame)
- {
- 	memset(frame, 0, sizeof(*frame));
- 
- 	frame->type = HDMI_INFOFRAME_TYPE_AUDIO;
- 	frame->version = 1;
- 	frame->length = HDMI_AUDIO_INFOFRAME_SIZE;
--
--	return 0;
- }
- EXPORT_SYMBOL(hdmi_audio_infoframe_init);
- 
-@@ -526,10 +518,8 @@ EXPORT_SYMBOL(hdmi_audio_infoframe_pack_for_dp);
- /**
-  * hdmi_vendor_infoframe_init() - initialize an HDMI vendor infoframe
-  * @frame: HDMI vendor infoframe
-- *
-- * Returns 0 on success or a negative error code on failure.
-  */
--int hdmi_vendor_infoframe_init(struct hdmi_vendor_infoframe *frame)
-+void hdmi_vendor_infoframe_init(struct hdmi_vendor_infoframe *frame)
- {
- 	memset(frame, 0, sizeof(*frame));
- 
-@@ -544,8 +534,6 @@ int hdmi_vendor_infoframe_init(struct hdmi_vendor_infoframe *frame)
- 	 */
- 	frame->s3d_struct = HDMI_3D_STRUCTURE_INVALID;
- 	frame->length = HDMI_VENDOR_INFOFRAME_SIZE;
--
--	return 0;
- }
- EXPORT_SYMBOL(hdmi_vendor_infoframe_init);
- 
-@@ -698,18 +686,14 @@ hdmi_vendor_any_infoframe_check_only(const union hdmi_vendor_any_infoframe *fram
-  * hdmi_drm_infoframe_init() - initialize an HDMI Dynaminc Range and
-  * mastering infoframe
-  * @frame: HDMI DRM infoframe
-- *
-- * Returns 0 on success or a negative error code on failure.
-  */
--int hdmi_drm_infoframe_init(struct hdmi_drm_infoframe *frame)
-+void hdmi_drm_infoframe_init(struct hdmi_drm_infoframe *frame)
- {
- 	memset(frame, 0, sizeof(*frame));
- 
- 	frame->type = HDMI_INFOFRAME_TYPE_DRM;
- 	frame->version = 1;
- 	frame->length = HDMI_DRM_INFOFRAME_SIZE;
--
--	return 0;
- }
- EXPORT_SYMBOL(hdmi_drm_infoframe_init);
- 
-@@ -1661,7 +1645,6 @@ static int hdmi_spd_infoframe_unpack(struct hdmi_spd_infoframe *frame,
- 				     const void *buffer, size_t size)
- {
- 	const u8 *ptr = buffer;
--	int ret;
- 
- 	if (size < HDMI_INFOFRAME_SIZE(SPD))
- 		return -EINVAL;
-@@ -1677,9 +1660,7 @@ static int hdmi_spd_infoframe_unpack(struct hdmi_spd_infoframe *frame,
- 
- 	ptr += HDMI_INFOFRAME_HEADER_SIZE;
- 
--	ret = hdmi_spd_infoframe_init(frame, ptr, ptr + 8);
--	if (ret)
--		return ret;
-+	hdmi_spd_infoframe_init(frame, ptr, ptr + 8);
- 
- 	frame->sdi = ptr[24];
- 
-@@ -1703,7 +1684,6 @@ static int hdmi_audio_infoframe_unpack(struct hdmi_audio_infoframe *frame,
- 				       const void *buffer, size_t size)
- {
- 	const u8 *ptr = buffer;
--	int ret;
- 
- 	if (size < HDMI_INFOFRAME_SIZE(AUDIO))
- 		return -EINVAL;
-@@ -1717,9 +1697,7 @@ static int hdmi_audio_infoframe_unpack(struct hdmi_audio_infoframe *frame,
- 	if (hdmi_infoframe_checksum(buffer, HDMI_INFOFRAME_SIZE(AUDIO)) != 0)
- 		return -EINVAL;
- 
--	ret = hdmi_audio_infoframe_init(frame);
--	if (ret)
--		return ret;
-+	hdmi_audio_infoframe_init(frame);
- 
- 	ptr += HDMI_INFOFRAME_HEADER_SIZE;
- 
-@@ -1755,7 +1733,6 @@ hdmi_vendor_any_infoframe_unpack(union hdmi_vendor_any_infoframe *frame,
- {
- 	const u8 *ptr = buffer;
- 	size_t length;
--	int ret;
- 	u8 hdmi_video_format;
- 	struct hdmi_vendor_infoframe *hvf = &frame->hdmi;
- 
-@@ -1789,9 +1766,7 @@ hdmi_vendor_any_infoframe_unpack(union hdmi_vendor_any_infoframe *frame,
- 	if (hdmi_video_format > 0x2)
- 		return -EINVAL;
- 
--	ret = hdmi_vendor_infoframe_init(hvf);
--	if (ret)
--		return ret;
-+	hdmi_vendor_infoframe_init(hvf);
- 
- 	hvf->length = length;
- 
-@@ -1837,15 +1812,12 @@ int hdmi_drm_infoframe_unpack_only(struct hdmi_drm_infoframe *frame,
- 	const u8 *temp;
- 	u8 x_lsb, x_msb;
- 	u8 y_lsb, y_msb;
--	int ret;
- 	int i;
- 
- 	if (size < HDMI_DRM_INFOFRAME_SIZE)
- 		return -EINVAL;
- 
--	ret = hdmi_drm_infoframe_init(frame);
--	if (ret)
--		return ret;
-+	hdmi_drm_infoframe_init(frame);
- 
- 	frame->eotf = ptr[0] & 0x7;
- 	frame->metadata_type = ptr[1] & 0x7;
-diff --git a/include/linux/hdmi.h b/include/linux/hdmi.h
-index 2f4dcc8d060e..e60a28d181f2 100644
---- a/include/linux/hdmi.h
-+++ b/include/linux/hdmi.h
-@@ -214,7 +214,7 @@ ssize_t hdmi_avi_infoframe_pack(struct hdmi_avi_infoframe *frame, void *buffer,
- ssize_t hdmi_avi_infoframe_pack_only(const struct hdmi_avi_infoframe *frame,
- 				     void *buffer, size_t size);
- int hdmi_avi_infoframe_check(struct hdmi_avi_infoframe *frame);
--int hdmi_drm_infoframe_init(struct hdmi_drm_infoframe *frame);
-+void hdmi_drm_infoframe_init(struct hdmi_drm_infoframe *frame);
- ssize_t hdmi_drm_infoframe_pack(struct hdmi_drm_infoframe *frame, void *buffer,
- 				size_t size);
- ssize_t hdmi_drm_infoframe_pack_only(const struct hdmi_drm_infoframe *frame,
-@@ -249,7 +249,7 @@ struct hdmi_spd_infoframe {
- 	enum hdmi_spd_sdi sdi;
- };
- 
--int hdmi_spd_infoframe_init(struct hdmi_spd_infoframe *frame,
-+void hdmi_spd_infoframe_init(struct hdmi_spd_infoframe *frame,
- 			    const char *vendor, const char *product);
- ssize_t hdmi_spd_infoframe_pack(struct hdmi_spd_infoframe *frame, void *buffer,
- 				size_t size);
-@@ -331,7 +331,7 @@ struct hdmi_audio_infoframe {
- 
- };
- 
--int hdmi_audio_infoframe_init(struct hdmi_audio_infoframe *frame);
-+void hdmi_audio_infoframe_init(struct hdmi_audio_infoframe *frame);
- ssize_t hdmi_audio_infoframe_pack(struct hdmi_audio_infoframe *frame,
- 				  void *buffer, size_t size);
- ssize_t hdmi_audio_infoframe_pack_only(const struct hdmi_audio_infoframe *frame,
-@@ -393,7 +393,7 @@ struct hdr_sink_metadata {
- 	};
- };
- 
--int hdmi_vendor_infoframe_init(struct hdmi_vendor_infoframe *frame);
-+void hdmi_vendor_infoframe_init(struct hdmi_vendor_infoframe *frame);
- ssize_t hdmi_vendor_infoframe_pack(struct hdmi_vendor_infoframe *frame,
- 				   void *buffer, size_t size);
- ssize_t hdmi_vendor_infoframe_pack_only(const struct hdmi_vendor_infoframe *frame,
+There are clearly scenarios we have now that could break.  For example,
+today if QEMU doesn't own all the IOMMU groups for a mult-function
+device, it can't do a reset, the remaining functions are available for
+other users.  As I understand the proposal, QEMU now gets to attempt to
+claim ownership of the dev_set, so it opportunistically extends its
+ownership and may block other users from the affected devices.
+Ordering makes this effectively unpredictable, if a userspace like DPDK
+that doesn't assert dev_set ownership is started first, QEMU can start
+and be denied hot-reset support.  In the reverse ordering, the DPDK
+application can be locked out by QEMU.
+
+> I'd say anyone should be able to assert RESET ownership if, like
+> today, the iommufd_ctx has all the groups of the dev_set inside
+> it. Once asserted it becomes safe against all forms of hotplug, and
+> continues to be safe even if some of the devices are closed. eg hot
+> unplugging from the VM doesn't change the availability of RESET.
+> 
+> This comes from your ask that qemu know clearly if RESET works, and it
+> doesn't change while qemu is running. This seems stronger and clearer
+> than the current implicit scheme. It also doesn't require usespace to
+> do any calculations with groups or BDFs to figure out of RESET is
+> available, kernel confirms it directly.
+
+As above, clarity and predictability seem lacking in this proposal.
+With the current scheme, the ownership of the affected devices is
+implied if they exist within an owned group, but the strength of that
+ownership is clear.  Affected devices outside the set of owned groups
+says that hot-reset is unavailable without any of this "but QEMU might
+be able to request it" or "unless the affected device is currently
+unopened" variables.
+
+> > seems this proposal essentially extends the ownership model to the
+> > greater of the dev_set or iommu group, apparently neither of which
+> > are explicitly exposed to the user in the cdev API.  
+> 
+> IIRC the group id can be learned from sysfs before opening the cdev
+> file. Something like /sys/class/vfio/XX/../../iommu_group
+
+And in the passed cdev fd model... ?
+
+> We should also have an iommufd ioctl to report the "same ioas"
+> groupings of dev_ids to make it easy on userspace. I haven't checked
+> to see what the current qemu patches are doing with this..
+
+Seems we're ignoring that no-iommu doesn't have a valid iommufd.
+
+> > How does a user determine when devices cannot be used independently
+> > in the cdev API?   
+> 
+> We have this problem right now. The only way to learn the reset group
+> is to call the _INFO ioctl. We could add a sysfs "pci_reset_group"
+> under /sys/class/vfio/XX/ if something needs it earlier.
+
+For all the complaints about complexity, now we're asking management
+tools to not only take into account IOMMU groups, but also reset
+groups, and some inferred knowledge about the application and devices
+to speculate whether reset group ownership is taken by a given
+userspace??  Thanks,
+
+Alex
+
