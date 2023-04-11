@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F2C7C76196
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 04:25:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 881A3C76196
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Apr 2023 04:25:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F46710E49A;
-	Tue, 11 Apr 2023 04:25:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7D0110E4A4;
+	Tue, 11 Apr 2023 04:25:03 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34E0110E483;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A457810E489;
  Tue, 11 Apr 2023 04:24:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1681187095; x=1712723095;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=gg/XgKns0XIL2fpuuTTp+2vDPkG6SnWf/g8kTZvyBW8=;
- b=ZV/f+Rl50cELedA0xHGSKiZAnGzUu5EOyLmHWNq3EEj7W8xjU8laW80J
- GBmxFFNS1M4YIiLOnPu6NVrLOph1Bp97W+7WVSlkc+XTt57UCEKBH76lr
- 2zvzoPpTPCI7TAw5Mwh0iUjv21wflg/UL5UAoyGHCioqUcy2jXcYB1uZU
- R3cmlYHU80YEO8t7nqV5tVWfAATlxbAZkV/5ZdL7M48Gh7kPEVfoJ2gG0
- nHUFPaUtj36Ouux5OAmKA6i3lZDwK60Wk8AcrgUd5TSzno3u0/jNH1f9G
- AlpZNqz/Xh46IFE3cvODHKjM7yfiWTC/f14UsrdLFtA9sP9oVDeK1Izae g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10676"; a="343524154"
-X-IronPort-AV: E=Sophos;i="5.98,335,1673942400"; d="scan'208";a="343524154"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=2bQK38XuLuQQfIqThAXHM+bTA1oEHWA8qoitkyAAbA4=;
+ b=XY2Bnimitn/4P2jDnb6MeibbzPTDT9MCipEwGpj7gwUAf4iPKj+AQzzA
+ 94UxKAllRBOV2UsSt5A62gaDWUw+SjK0sJLWHLzE66PRsYZIom34uWoiN
+ +mCxzYDiHoTLxUUK2aq/KhfkySictbHnmlgd8ar4OGasGq91u+9d9U8dt
+ ph5vesa8DmbsiwvTKTTXnle/BcVU/jPRUihXEHC0EXvFrRyxY5z/PBbMV
+ m5PilRQ6tnLVr90EBDOrlHggk5PyI0+8sYAK292O93Zvh8tHBqEtY0WmL
+ kKSXwSMLzjk8sW+37wIXpx26O1ZMX57QFDfvbOV04+Vp1wnIbDxYd8Wez w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10676"; a="343524159"
+X-IronPort-AV: E=Sophos;i="5.98,335,1673942400"; d="scan'208";a="343524159"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Apr 2023 21:24:54 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10676"; a="777763896"
-X-IronPort-AV: E=Sophos;i="5.98,335,1673942400"; d="scan'208";a="777763896"
+X-IronPort-AV: E=McAfee;i="6600,9927,10676"; a="777763914"
+X-IronPort-AV: E=Sophos;i="5.98,335,1673942400"; d="scan'208";a="777763914"
 Received: from fyang16-desk.jf.intel.com ([10.24.96.243])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2023 21:24:53 -0700
+ 10 Apr 2023 21:24:54 -0700
 From: fei.yang@intel.com
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 10 Apr 2023 21:26:04 -0700
-Message-Id: <20230411042613.3178711-1-fei.yang@intel.com>
+Date: Mon, 10 Apr 2023 21:26:09 -0700
+Message-Id: <20230411042613.3178711-6-fei.yang@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230411042613.3178711-1-fei.yang@intel.com>
+References: <20230411042613.3178711-1-fei.yang@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/9] drm/i915/mtl: Define MOCS and PAT tables
- for MTL
+Subject: [Intel-gfx] [PATCH 5/9] drm/i915/mtl: end support for set caching
+ ioctl
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,74 +64,52 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Fei Yang <fei.yang@intel.com>
 
-The series includes patches needed to enable MTL.
-Also add new extension for GEM_CREATE uAPI to let
-user space set cache policy for buffer objects.
+The design is to keep Buffer Object's caching policy immutable through
+out its life cycle. This patch ends the support for set caching ioctl
+from MTL onward. While doing that we also set BO's to be 1-way coherent
+at creation time because GPU is no longer automatically snooping CPU
+cache.
 
-Fei Yang (9):
-  drm/i915/mtl: Set has_llc=0
-  drm/i915/mtl: Define MOCS and PAT tables for MTL
-  drm/i915/mtl: Add PTE encode function
-  drm/i915/mtl: workaround coherency issue for Media
-  drm/i915/mtl: end support for set caching ioctl
-  drm/i915: preparation for using PAT index
-  drm/i915: use pat_index instead of cache_level
-  drm/i915: making mtl pte encode generic for gen12
-  drm/i915: Allow user to set cache at BO creation
+Signed-off-by: Fei Yang <fei.yang@intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c | 3 +++
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c  | 9 ++++++++-
+ 2 files changed, 11 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/i915/display/intel_dpt.c      | 14 ++--
- drivers/gpu/drm/i915/gem/i915_gem_create.c    | 36 ++++++++
- drivers/gpu/drm/i915/gem/i915_gem_domain.c    | 30 +++----
- .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 10 ++-
- drivers/gpu/drm/i915/gem/i915_gem_mman.c      |  3 +-
- drivers/gpu/drm/i915/gem/i915_gem_object.c    | 67 ++++++++++++++-
- drivers/gpu/drm/i915/gem/i915_gem_object.h    |  8 ++
- .../gpu/drm/i915/gem/i915_gem_object_types.h  | 26 +++++-
- drivers/gpu/drm/i915/gem/i915_gem_pages.c     |  5 +-
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c     |  9 +-
- drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |  2 -
- drivers/gpu/drm/i915/gem/i915_gem_stolen.c    |  4 +-
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  | 16 ++--
- .../gpu/drm/i915/gem/selftests/huge_pages.c   |  2 +-
- .../drm/i915/gem/selftests/i915_gem_migrate.c |  2 +-
- .../drm/i915/gem/selftests/i915_gem_mman.c    |  2 +-
- drivers/gpu/drm/i915/gt/gen6_ppgtt.c          | 10 ++-
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c          | 81 +++++++++++++-----
- drivers/gpu/drm/i915/gt/gen8_ppgtt.h          |  6 +-
- drivers/gpu/drm/i915/gt/intel_ggtt.c          | 84 +++++++++++++------
- drivers/gpu/drm/i915/gt/intel_gtt.c           | 23 ++++-
- drivers/gpu/drm/i915/gt/intel_gtt.h           | 38 ++++++---
- drivers/gpu/drm/i915/gt/intel_migrate.c       | 47 ++++++-----
- drivers/gpu/drm/i915/gt/intel_migrate.h       | 13 ++-
- drivers/gpu/drm/i915/gt/intel_mocs.c          | 76 ++++++++++++++++-
- drivers/gpu/drm/i915/gt/intel_ppgtt.c         |  6 +-
- drivers/gpu/drm/i915/gt/selftest_migrate.c    | 47 ++++++-----
- drivers/gpu/drm/i915/gt/selftest_mocs.c       |  2 +-
- drivers/gpu/drm/i915/gt/selftest_reset.c      |  8 +-
- drivers/gpu/drm/i915/gt/selftest_timeline.c   |  2 +-
- drivers/gpu/drm/i915/gt/selftest_tlb.c        |  4 +-
- drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c     | 13 +++
- drivers/gpu/drm/i915/gt/uc/intel_guc.c        |  7 ++
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     | 18 ++--
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c      | 10 ++-
- drivers/gpu/drm/i915/i915_debugfs.c           | 55 +++++++++---
- drivers/gpu/drm/i915/i915_gem.c               | 16 +++-
- drivers/gpu/drm/i915/i915_gpu_error.c         |  8 +-
- drivers/gpu/drm/i915/i915_pci.c               | 76 +++++++++++++++--
- drivers/gpu/drm/i915/i915_vma.c               | 16 ++--
- drivers/gpu/drm/i915/i915_vma.h               |  2 +-
- drivers/gpu/drm/i915/i915_vma_types.h         |  2 -
- drivers/gpu/drm/i915/intel_device_info.h      |  5 ++
- drivers/gpu/drm/i915/selftests/i915_gem.c     |  5 +-
- .../gpu/drm/i915/selftests/i915_gem_evict.c   |  4 +-
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 15 ++--
- .../drm/i915/selftests/intel_memory_region.c  |  4 +-
- .../gpu/drm/i915/selftests/mock_gem_device.c  |  6 ++
- drivers/gpu/drm/i915/selftests/mock_gtt.c     |  8 +-
- include/uapi/drm/i915_drm.h                   | 36 ++++++++
- tools/include/uapi/drm/i915_drm.h             | 36 ++++++++
- 51 files changed, 794 insertions(+), 231 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+index d2d5a24301b2..bb3575b1479f 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
+@@ -337,6 +337,9 @@ int i915_gem_set_caching_ioctl(struct drm_device *dev, void *data,
+ 	if (IS_DGFX(i915))
+ 		return -ENODEV;
+ 
++	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70))
++		return -EOPNOTSUPP;
++
+ 	switch (args->caching) {
+ 	case I915_CACHING_NONE:
+ 		level = I915_CACHE_NONE;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+index 37d1efcd3ca6..e602c323896b 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+@@ -601,7 +601,14 @@ static int shmem_object_init(struct intel_memory_region *mem,
+ 	obj->write_domain = I915_GEM_DOMAIN_CPU;
+ 	obj->read_domains = I915_GEM_DOMAIN_CPU;
+ 
+-	if (HAS_LLC(i915))
++	/*
++	 * MTL doesn't snooping CPU cache by default for GPU access (namely
++	 * 1-way coherency). However some UMD's are currently depending on
++	 * that. Make 1-way coherent the default setting for MTL. A follow
++	 * up patch will extend the GEM_CREATE uAPI to allow UMD's specify
++	 * caching mode at BO creation time
++	 */
++	if (HAS_LLC(i915) || (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70)))
+ 		/* On some devices, we can have the GPU use the LLC (the CPU
+ 		 * cache) for about a 10% performance improvement
+ 		 * compared to uncached.  Graphics requests other than
 -- 
 2.25.1
 
