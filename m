@@ -4,49 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF307C77B6E
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 22:51:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 123DCC7619A
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 23:27:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EDD110E9F0;
-	Wed, 12 Apr 2023 22:51:06 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC59310E9D9
- for <intel-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 22:50:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681339847; x=1712875847;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=15SKBaYTEL4Ldkv8aSduthzrw/beglV6Rw/53Mrk7Yg=;
- b=d/qDbiReSUGa13U+q0rSrUnF6mw5R9TrZjHSXMh+HA2+2No7qc0MM6D5
- omY2B6LqsgjZymRml84i2bwnox5f9R6hJvwnROGM7UmPYg+6khtT44UVw
- gjLeqXYlwLv7PnjITxYE6gFC25RNXh6FByGyRP+8Fl/eX/k0TqVBuUaZA
- uKmu3oaNNRP3aVEANtUXR/u6DXqab6Glh6Pf9zcFTg0bvas/AkYX8XjQ9
- YVF7Jwqfy7OgWOOQRKuSRqv4GBDcUxAVK3gIQDOI8o4wsft6PTif/fcOY
- /V7nfQK+ZC0/y+f1QGImxMaZreIIW9Xxxt1Q6Mc/t7v8KwdwpWkzTV1wa A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="371890359"
-X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="371890359"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2023 15:50:46 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="1018906851"
-X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="1018906851"
-Received: from invictus.jf.intel.com ([10.165.21.201])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2023 15:50:45 -0700
-From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 12 Apr 2023 15:49:22 -0700
-Message-Id: <20230412224925.1309815-7-radhakrishna.sripada@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230412224925.1309815-1-radhakrishna.sripada@intel.com>
-References: <20230412224925.1309815-1-radhakrishna.sripada@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92C5B10E9DB;
+	Wed, 12 Apr 2023 23:27:25 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B1E0510E9DB;
+ Wed, 12 Apr 2023 23:27:23 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id A90CBA9932;
+ Wed, 12 Apr 2023 23:27:23 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/9] drm/i915/mtl/display: Implement DisplayPort
- sequences
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mika Kahola" <mika.kahola@intel.com>
+Date: Wed, 12 Apr 2023 23:27:23 -0000
+Message-ID: <168134204368.10846.6961081767822651611@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230412224925.1309815-1-radhakrishna.sripada@intel.com>
+In-Reply-To: <20230412224925.1309815-1-radhakrishna.sripada@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/mtl=3A_Add_Support_for_C10_phy_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,556 +40,341 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: José Roberto de Souza <jose.souza@intel.com>
+== Series Details ==
 
-The differences between MTL and TGL DP sequences are big enough to
-MTL have its own functions.
+Series: drm/i915/mtl: Add Support for C10 phy (rev2)
+URL   : https://patchwork.freedesktop.org/series/116191/
+State : warning
 
-Also it is much easier to follow MTL sequences against spec with
-its own functions.
+== Summary ==
 
-One change worthy to mention is the move of
-'intel_display_power_get(dev_priv, dig_port->ddi_io_power_domain)'.
-This call is not necessary for MTL but we have _put() counter part in
-intel_ddi_post_disable_dp() that needs to balanced.
-We could add a display version check on it but instead here it is
-moving it to intel_ddi_pre_enable_dp() so it is executed for all
-platforms in a single place and this will not cause any harm in MTL
-and newer platforms.
+Error: dim checkpatch failed
+643cdd1a6fc0 drm/i915/mtl: Add DP rates
+ad8be772880d drm/i915/mtl: Create separate reg file for PICA registers
+Traceback (most recent call last):
+  File "scripts/spdxcheck.py", line 6, in <module>
+    from ply import lex, yacc
+ModuleNotFoundError: No module named 'ply'
+-:19: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#19: 
+new file mode 100644
 
-v2:
- - Fix logic to wait for buf idle.
- - Use the right register to wait for ddi active.(RK)
-v3:
- - Increase wait timeout for ddi buf active (Mika)
-v4:
- - Increase idle timeout for ddi buf idle (Mika)
+-:39: WARNING:LONG_LINE: line length of 117 exceeds 100 columns
+#39: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:16:
++										 _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_A, \
 
-BSpec: 65448 65505
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Satyeshwar Singh <satyeshwar.singh@intel.com>
-Cc: Clint Taylor <clinton.a.taylor@intel.com>
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
-Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
----
- .../gpu/drm/i915/display/intel_cx0_phy_regs.h |   8 +
- drivers/gpu/drm/i915/display/intel_ddi.c      | 345 +++++++++++++++++-
- drivers/gpu/drm/i915/i915_reg.h               |   5 +
- 3 files changed, 346 insertions(+), 12 deletions(-)
+-:40: WARNING:LONG_LINE: line length of 117 exceeds 100 columns
+#40: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:17:
++										 _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_B, \
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h b/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
-index 9cfa7f508c90..fe2e3edef69b 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
-@@ -59,8 +59,16 @@
- 										 _XELPDP_PORT_BUF_CTL1_LN0_B, \
- 										 _XELPDP_PORT_BUF_CTL1_LN0_USBC1, \
- 										 _XELPDP_PORT_BUF_CTL1_LN0_USBC2))
-+#define   XELPDP_PORT_BUF_D2D_LINK_ENABLE		REG_BIT(29)
-+#define   XELPDP_PORT_BUF_D2D_LINK_STATE		REG_BIT(28)
- #define   XELPDP_PORT_BUF_SOC_PHY_READY			REG_BIT(24)
-+#define   XELPDP_PORT_BUF_PORT_DATA_WIDTH_MASK		REG_GENMASK(19, 18)
+-:41: WARNING:LONG_LINE: line length of 121 exceeds 100 columns
+#41: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:18:
++										 _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_USBC1, \
+
+-:42: WARNING:LONG_LINE: line length of 133 exceeds 100 columns
+#42: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:19:
++										 _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_USBC2) + (lane) * 4)
+
+-:45: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
+#45: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:22:
++#define   XELPDP_PORT_M2P_COMMAND_WRITE_UNCOMMITTED	REG_FIELD_PREP(XELPDP_PORT_M2P_COMMAND_TYPE_MASK, 0x1)
+
+-:46: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
+#46: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:23:
++#define   XELPDP_PORT_M2P_COMMAND_WRITE_COMMITTED	REG_FIELD_PREP(XELPDP_PORT_M2P_COMMAND_TYPE_MASK, 0x2)
+
+-:47: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
+#47: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:24:
++#define   XELPDP_PORT_M2P_COMMAND_READ			REG_FIELD_PREP(XELPDP_PORT_M2P_COMMAND_TYPE_MASK, 0x3)
+
+-:49: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#49: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:26:
++#define   XELPDP_PORT_M2P_DATA(val)			REG_FIELD_PREP(XELPDP_PORT_M2P_DATA_MASK, val)
+
+-:52: WARNING:LONG_LINE: line length of 105 exceeds 100 columns
+#52: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:29:
++#define   XELPDP_PORT_M2P_ADDRESS(val)			REG_FIELD_PREP(XELPDP_PORT_M2P_ADDRESS_MASK, val)
+
+-:54: WARNING:LONG_LINE: line length of 117 exceeds 100 columns
+#54: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:31:
++										 _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_A, \
+
+-:55: WARNING:LONG_LINE: line length of 117 exceeds 100 columns
+#55: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:32:
++										 _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_B, \
+
+-:56: WARNING:LONG_LINE: line length of 121 exceeds 100 columns
+#56: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:33:
++										 _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_USBC1, \
+
+-:57: WARNING:LONG_LINE: line length of 137 exceeds 100 columns
+#57: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:34:
++										 _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_USBC2) + (lane) * 4 + 8)
+
+-:63: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#63: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:40:
++#define   XELPDP_PORT_P2M_DATA(val)			REG_FIELD_PREP(XELPDP_PORT_P2M_DATA_MASK, val)
+
+-:81: WARNING:LONG_LINE: line length of 111 exceeds 100 columns
+#81: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:58:
++										 _XELPDP_PORT_BUF_CTL1_LN0_A, \
+
+-:82: WARNING:LONG_LINE: line length of 111 exceeds 100 columns
+#82: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:59:
++										 _XELPDP_PORT_BUF_CTL1_LN0_B, \
+
+-:83: WARNING:LONG_LINE: line length of 115 exceeds 100 columns
+#83: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:60:
++										 _XELPDP_PORT_BUF_CTL1_LN0_USBC1, \
+
+-:84: WARNING:LONG_LINE: line length of 114 exceeds 100 columns
+#84: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:61:
++										 _XELPDP_PORT_BUF_CTL1_LN0_USBC2))
+
+-:94: WARNING:LONG_LINE: line length of 111 exceeds 100 columns
+#94: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:71:
++										 _XELPDP_PORT_BUF_CTL1_LN0_A, \
+
+-:95: WARNING:LONG_LINE: line length of 111 exceeds 100 columns
+#95: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:72:
++										 _XELPDP_PORT_BUF_CTL1_LN0_B, \
+
+-:96: WARNING:LONG_LINE: line length of 115 exceeds 100 columns
+#96: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:73:
++										 _XELPDP_PORT_BUF_CTL1_LN0_USBC1, \
+
+-:97: WARNING:LONG_LINE: line length of 118 exceeds 100 columns
+#97: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:74:
++										 _XELPDP_PORT_BUF_CTL1_LN0_USBC2) + 4)
+
+-:103: WARNING:LONG_LINE: line length of 115 exceeds 100 columns
+#103: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:80:
++#define   _XELPDP_LANE0_POWERDOWN_NEW_STATE(val)	REG_FIELD_PREP(_XELPDP_LANE0_POWERDOWN_NEW_STATE_MASK, val)
+
+-:105: WARNING:LONG_LINE: line length of 115 exceeds 100 columns
+#105: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:82:
++#define   _XELPDP_LANE1_POWERDOWN_NEW_STATE(val)	REG_FIELD_PREP(_XELPDP_LANE1_POWERDOWN_NEW_STATE_MASK, val)
+
+-:106: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'val' - possible side-effects?
+#106: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:83:
++#define   XELPDP_LANE_POWERDOWN_NEW_STATE(lane, val)	_PICK(lane, \
++							      _XELPDP_LANE0_POWERDOWN_NEW_STATE(val), \
++							      _XELPDP_LANE1_POWERDOWN_NEW_STATE(val))
+
+-:107: WARNING:LONG_LINE: line length of 103 exceeds 100 columns
+#107: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:84:
++							      _XELPDP_LANE0_POWERDOWN_NEW_STATE(val), \
+
+-:108: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#108: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:85:
++							      _XELPDP_LANE1_POWERDOWN_NEW_STATE(val))
+
+-:111: WARNING:LONG_LINE: line length of 106 exceeds 100 columns
+#111: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:88:
++#define   XELPDP_POWER_STATE_READY(val)			REG_FIELD_PREP(XELPDP_POWER_STATE_READY_MASK, val)
+
+-:114: WARNING:LONG_LINE: line length of 111 exceeds 100 columns
+#114: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:91:
++										 _XELPDP_PORT_BUF_CTL1_LN0_A, \
+
+-:115: WARNING:LONG_LINE: line length of 111 exceeds 100 columns
+#115: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:92:
++										 _XELPDP_PORT_BUF_CTL1_LN0_B, \
+
+-:116: WARNING:LONG_LINE: line length of 115 exceeds 100 columns
+#116: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:93:
++										 _XELPDP_PORT_BUF_CTL1_LN0_USBC1, \
+
+-:117: WARNING:LONG_LINE: line length of 118 exceeds 100 columns
+#117: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:94:
++										 _XELPDP_PORT_BUF_CTL1_LN0_USBC2) + 8)
+
+-:119: WARNING:LONG_LINE: line length of 114 exceeds 100 columns
+#119: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:96:
++#define   XELPDP_PLL_LANE_STAGGERING_DELAY(val)		REG_FIELD_PREP(XELPDP_PLL_LANE_STAGGERING_DELAY_MASK, val)
+
+-:121: WARNING:LONG_LINE: line length of 107 exceeds 100 columns
+#121: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:98:
++#define   XELPDP_POWER_STATE_ACTIVE(val)		REG_FIELD_PREP(XELPDP_POWER_STATE_ACTIVE_MASK, val)
+
+-:128: WARNING:LONG_LINE: line length of 108 exceeds 100 columns
+#128: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:105:
++										 _XELPDP_PORT_CLOCK_CTL_A, \
+
+-:129: WARNING:LONG_LINE: line length of 108 exceeds 100 columns
+#129: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:106:
++										 _XELPDP_PORT_CLOCK_CTL_B, \
+
+-:130: WARNING:LONG_LINE: line length of 112 exceeds 100 columns
+#130: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:107:
++										 _XELPDP_PORT_CLOCK_CTL_USBC1, \
+
+-:131: WARNING:LONG_LINE: line length of 111 exceeds 100 columns
+#131: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:108:
++										 _XELPDP_PORT_CLOCK_CTL_USBC2))
+
+-:143: WARNING:LONG_LINE: line length of 105 exceeds 100 columns
+#143: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:120:
++#define   XELPDP_DDI_CLOCK_SELECT(val)			REG_FIELD_PREP(XELPDP_DDI_CLOCK_SELECT_MASK, val)
+
+total: 0 errors, 39 warnings, 1 checks, 133 lines checked
+f222ea734769 drm/i915/mtl: Add Support for C10 PHY message bus and pll programming
+Traceback (most recent call last):
+  File "scripts/spdxcheck.py", line 6, in <module>
+    from ply import lex, yacc
+ModuleNotFoundError: No module named 'ply'
+-:24: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#24: 
+    Move register definitions to a new file i.e. intel_cx0_reg_defs.h (Jani)
+
+-:66: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
+#66: 
+new file mode 100644
+
+-:89: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__lane' - possible side-effects?
+#89: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:19:
++#define for_each_cx0_lane_in_mask(__lane_mask, __lane) \
++	for ((__lane) = 0; (__lane) < 2; (__lane)++) \
++		for_each_if((__lane_mask) & BIT(__lane))
+
+-:99: CHECK:UNNECESSARY_PARENTHESES: Unnecessary parentheses around 'phy < PHY_C'
+#99: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:29:
++	if (IS_METEORLAKE(i915) && (phy < PHY_C))
+
+-:188: WARNING:LONG_LINE: line length of 113 exceeds 100 columns
+#188: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:118:
++		drm_dbg_kms(&i915->drm, "PHY %c Error occurred during %s command. Status: 0x%x\n", phy_name(phy),
+
+-:195: WARNING:LONG_LINE: line length of 106 exceeds 100 columns
+#195: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:125:
++		drm_dbg_kms(&i915->drm, "PHY %c Not a %s response. MSGBUS Status: 0x%x.\n", phy_name(phy),
+
+-:215: WARNING:LONG_LINE: line length of 134 exceeds 100 columns
+#215: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:145:
++			    "PHY %c Timeout waiting for previous transaction to complete. Reset the bus and retry.\n", phy_name(phy));
+
+-:276: WARNING:LONG_LINE: line length of 128 exceeds 100 columns
+#276: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:206:
++			    "PHY %c Timeout waiting for previous transaction to complete. Resetting the bus.\n", phy_name(phy));
+
+-:292: WARNING:LONG_LINE: line length of 113 exceeds 100 columns
+#292: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:222:
++			    "PHY %c Timeout waiting for write to complete. Resetting the bus.\n", phy_name(phy));
+
+-:298: WARNING:LONG_LINE: line length of 108 exceeds 100 columns
+#298: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:228:
++		if (intel_cx0_wait_for_ack(i915, port, XELPDP_PORT_P2M_COMMAND_WRITE_ACK, lane, &val) < 0) {
+
+-:752: WARNING:LONG_LINE: line length of 118 exceeds 100 columns
+#752: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:682:
++	intel_cx0_write(i915, encoder->port, INTEL_CX0_LANE0, PHY_C10_VDR_CMN(0), pll_state->cmn, MB_WRITE_COMMITTED);
+
+-:753: WARNING:LONG_LINE: line length of 116 exceeds 100 columns
+#753: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:683:
++	intel_cx0_write(i915, encoder->port, INTEL_CX0_LANE0, PHY_C10_VDR_TX(0), pll_state->tx, MB_WRITE_COMMITTED);
+
+-:875: WARNING:LONG_LINE: line length of 111 exceeds 100 columns
+#875: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.c:805:
++		     intel_cx0_get_powerdown_state(INTEL_CX0_BOTH_LANES, XELPDP_LANE_POWERDOWN_NEW_STATE_MASK),
+
+-:1284: WARNING:SPDX_LICENSE_TAG: Improper SPDX comment style for 'drivers/gpu/drm/i915/display/intel_cx0_phy.h', please use '/*' instead
+#1284: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.h:1:
++// SPDX-License-Identifier: MIT
+
+-:1284: WARNING:SPDX_LICENSE_TAG: Missing or malformed SPDX-License-Identifier tag in line 1
+#1284: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.h:1:
++// SPDX-License-Identifier: MIT
+
+-:1308: WARNING:LONG_LINE: line length of 104 exceeds 100 columns
+#1308: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy.h:25:
++void intel_c10pll_readout_hw_state(struct intel_encoder *encoder, struct intel_c10pll_state *pll_state);
+
+-:1421: WARNING:LONG_LINE: line length of 102 exceeds 100 columns
+#1421: FILE: drivers/gpu/drm/i915/display/intel_ddi.c:3502:
++	crtc_state->port_clock = intel_c10pll_calc_port_clock(encoder, &crtc_state->cx0pll_state.c10);
+
+-:1503: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
+#1503: FILE: drivers/gpu/drm/i915/display/intel_dpll.c:998:
++		crtc_state->port_clock = intel_c10pll_calc_port_clock(encoder, &crtc_state->cx0pll_state.c10);
+
+-:1611: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__n' - possible side-effects?
+#1611: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:33:
++#define REG_BIT8(__n)                                                   \
++	((u8)(BIT(__n) +                                                \
++	       BUILD_BUG_ON_ZERO(__is_constexpr(__n) &&         \
++				 ((__n) < 0 || (__n) > 7))))
+
+-:1632: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__high' - possible side-effects?
+#1632: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:77:
++#define REG_GENMASK8(__high, __low)                                     \
++	((u8)(GENMASK(__high, __low) +                                  \
++	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&      \
++				 __is_constexpr(__low) &&               \
++				 ((__low) < 0 || (__high) > 7 || (__low) > (__high)))))
+
+-:1632: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__low' - possible side-effects?
+#1632: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:77:
++#define REG_GENMASK8(__high, __low)                                     \
++	((u8)(GENMASK(__high, __low) +                                  \
++	       BUILD_BUG_ON_ZERO(__is_constexpr(__high) &&      \
++				 __is_constexpr(__low) &&               \
++				 ((__low) < 0 || (__high) > 7 || (__low) > (__high)))))
+
+-:1655: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__mask' - possible side-effects?
+#1655: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:115:
++#define REG_FIELD_PREP8(__mask, __val)                                          \
++	((u8)((((typeof(__mask))(__val) << __bf_shf(__mask)) & (__mask)) +      \
++	       BUILD_BUG_ON_ZERO(!__is_constexpr(__mask)) +             \
++	       BUILD_BUG_ON_ZERO((__mask) == 0 || (__mask) > U8_MAX) +          \
++	       BUILD_BUG_ON_ZERO(!IS_POWER_OF_2((__mask) + (1ULL << __bf_shf(__mask)))) + \
++	       BUILD_BUG_ON_ZERO(__builtin_choose_expr(__is_constexpr(__val), (~((__mask) >> __bf_shf(__mask)) & (__val)), 0))))
+
+-:1655: CHECK:MACRO_ARG_REUSE: Macro argument reuse '__val' - possible side-effects?
+#1655: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:115:
++#define REG_FIELD_PREP8(__mask, __val)                                          \
++	((u8)((((typeof(__mask))(__val) << __bf_shf(__mask)) & (__mask)) +      \
++	       BUILD_BUG_ON_ZERO(!__is_constexpr(__mask)) +             \
++	       BUILD_BUG_ON_ZERO((__mask) == 0 || (__mask) > U8_MAX) +          \
++	       BUILD_BUG_ON_ZERO(!IS_POWER_OF_2((__mask) + (1ULL << __bf_shf(__mask)))) + \
++	       BUILD_BUG_ON_ZERO(__builtin_choose_expr(__is_constexpr(__val), (~((__mask) >> __bf_shf(__mask)) & (__val)), 0))))
+
+-:1660: WARNING:LONG_LINE: line length of 128 exceeds 100 columns
+#1660: FILE: drivers/gpu/drm/i915/i915_reg_defs.h:120:
++	       BUILD_BUG_ON_ZERO(__builtin_choose_expr(__is_constexpr(__val), (~((__mask) >> __bf_shf(__mask)) & (__val)), 0))))
+
+total: 0 errors, 17 warnings, 7 checks, 1561 lines checked
+5736f1d0bee7 drm/i915/mtl: Add vswing programming for C10 phys
+-:6: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#6: 
+C10 phys uses direct mapping internally for voltage and pre-emphasis levels.
+
+total: 0 errors, 1 warnings, 0 checks, 217 lines checked
+e323843be2a2 drm/i915/mtl: MTL PICA hotplug detection
+9e74b6f57a59 drm/i915/mtl/display: Implement DisplayPort sequences
+-:54: WARNING:LONG_LINE: line length of 111 exceeds 100 columns
+#54: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:66:
 +#define   XELPDP_PORT_BUF_PORT_DATA_10BIT		REG_FIELD_PREP(XELPDP_PORT_BUF_PORT_DATA_WIDTH_MASK, 0)
+
+-:55: WARNING:LONG_LINE: line length of 111 exceeds 100 columns
+#55: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:67:
 +#define   XELPDP_PORT_BUF_PORT_DATA_20BIT		REG_FIELD_PREP(XELPDP_PORT_BUF_PORT_DATA_WIDTH_MASK, 1)
+
+-:56: WARNING:LONG_LINE: line length of 111 exceeds 100 columns
+#56: FILE: drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h:68:
 +#define   XELPDP_PORT_BUF_PORT_DATA_40BIT		REG_FIELD_PREP(XELPDP_PORT_BUF_PORT_DATA_WIDTH_MASK, 2)
- #define   XELPDP_PORT_REVERSAL				REG_BIT(16)
-+#define   XELPDP_PORT_BUF_IO_SELECT_TBT			REG_BIT(11)
-+#define   XELPDP_PORT_BUF_PHY_IDLE			REG_BIT(7)
- #define   XELPDP_TC_PHY_OWNERSHIP			REG_BIT(6)
- #define   XELPDP_TCSS_POWER_REQUEST			REG_BIT(5)
- #define   XELPDP_TCSS_POWER_STATE			REG_BIT(4)
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index b30e3ed7aedb..9df3da46fdca 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -40,6 +40,7 @@
- #include "intel_connector.h"
- #include "intel_crtc.h"
- #include "intel_cx0_phy.h"
-+#include "intel_cx0_phy_regs.h"
- #include "intel_ddi.h"
- #include "intel_ddi_buf_trans.h"
- #include "intel_de.h"
-@@ -169,6 +170,18 @@ static void hsw_prepare_hdmi_ddi_buffers(struct intel_encoder *encoder,
- 		       trans->entries[level].hsw.trans2);
- }
- 
-+static void mtl_wait_ddi_buf_idle(struct drm_i915_private *i915, enum port port)
-+{
-+	int ret;
-+
-+	/* FIXME: find out why Bspec's 100us timeout is too short */
-+	ret = wait_for_us((intel_de_read(i915, XELPDP_PORT_BUF_CTL1(port)) &
-+			   XELPDP_PORT_BUF_PHY_IDLE), 10000);
-+	if (ret)
-+		drm_err(&i915->drm, "Timeout waiting for DDI BUF %c to get idle\n",
-+			port_name(port));
-+}
-+
- void intel_wait_ddi_buf_idle(struct drm_i915_private *dev_priv,
- 			     enum port port)
- {
-@@ -196,7 +209,9 @@ static void intel_wait_ddi_buf_active(struct drm_i915_private *dev_priv,
- 		return;
- 	}
- 
--	if (IS_DG2(dev_priv)) {
-+	if (DISPLAY_VER(dev_priv) >= 14) {
-+		timeout_us = 10000;
-+	} else if (IS_DG2(dev_priv)) {
- 		timeout_us = 1200;
- 	} else if (DISPLAY_VER(dev_priv) >= 12) {
- 		if (intel_phy_is_tc(dev_priv, phy))
-@@ -207,8 +222,12 @@ static void intel_wait_ddi_buf_active(struct drm_i915_private *dev_priv,
- 		timeout_us = 500;
- 	}
- 
--	ret = _wait_for(!(intel_de_read(dev_priv, DDI_BUF_CTL(port)) &
--			  DDI_BUF_IS_IDLE), timeout_us, 10, 10);
-+	if (DISPLAY_VER(dev_priv) >= 14)
+
+-:112: WARNING:LONG_LINE: line length of 114 exceeds 100 columns
+#112: FILE: drivers/gpu/drm/i915/display/intel_ddi.c:226:
 +		ret = _wait_for(!(intel_de_read(dev_priv, XELPDP_PORT_BUF_CTL1(port)) & XELPDP_PORT_BUF_PHY_IDLE),
-+				timeout_us, 10, 10);
-+	else
-+		ret = _wait_for(!(intel_de_read(dev_priv, DDI_BUF_CTL(port)) & DDI_BUF_IS_IDLE),
-+				timeout_us, 10, 10);
- 
- 	if (ret)
- 		drm_err(&dev_priv->drm, "Timeout waiting for DDI BUF %c to get active\n",
-@@ -313,6 +332,13 @@ static void intel_ddi_init_dp_buf_reg(struct intel_encoder *encoder,
- 		DDI_PORT_WIDTH(crtc_state->lane_count) |
- 		DDI_BUF_TRANS_SELECT(0);
- 
-+	if (DISPLAY_VER(i915) >= 14) {
-+		if (intel_dp_is_uhbr(crtc_state))
-+			intel_dp->DP |= DDI_BUF_PORT_DATA_40BIT;
-+		else
-+			intel_dp->DP |= DDI_BUF_PORT_DATA_10BIT;
-+	}
-+
- 	if (IS_ALDERLAKE_P(i915) && intel_phy_is_tc(i915, phy)) {
- 		intel_dp->DP |= ddi_buf_phy_link_rate(crtc_state->port_clock);
- 		if (!intel_tc_port_in_tbt_alt_mode(dig_port))
-@@ -2309,6 +2335,179 @@ static void intel_ddi_mso_configure(const struct intel_crtc_state *crtc_state)
- 		     OVERLAP_PIXELS_MASK, dss1);
- }
- 
-+static u8 mtl_get_port_width(u8 lane_count)
-+{
-+	switch (lane_count) {
-+	case 1:
-+		return 0;
-+	case 2:
-+		return 1;
-+	case 3:
-+		return 4;
-+	case 4:
-+		return 3;
-+	default:
-+		MISSING_CASE(lane_count);
-+		return 4;
-+	}
-+}
-+
-+static void
-+mtl_ddi_enable_d2d(struct intel_encoder *encoder)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
-+	enum port port = encoder->port;
-+
-+	intel_de_rmw(dev_priv, XELPDP_PORT_BUF_CTL1(port), 0,
-+		     XELPDP_PORT_BUF_D2D_LINK_ENABLE);
-+
-+	if (wait_for_us((intel_de_read(dev_priv, XELPDP_PORT_BUF_CTL1(port)) &
-+			 XELPDP_PORT_BUF_D2D_LINK_STATE), 100)) {
-+		drm_err(&dev_priv->drm, "Timeout waiting for D2D Link enable for PORT_BUF_CTL %c\n",
-+			port_name(port));
-+	}
-+}
-+
-+static void mtl_port_buf_ctl_program(struct intel_encoder *encoder,
-+				     const struct intel_crtc_state *crtc_state)
-+{
-+	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
-+	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
-+	enum port port = encoder->port;
-+	u32 val;
-+
-+	val = intel_de_read(i915, XELPDP_PORT_BUF_CTL1(port));
-+	val &= ~XELPDP_PORT_WIDTH_MASK;
-+	val |= XELPDP_PORT_WIDTH(mtl_get_port_width(crtc_state->lane_count));
-+
-+	val &= ~XELPDP_PORT_BUF_PORT_DATA_WIDTH_MASK;
-+	if (intel_dp_is_uhbr(crtc_state))
-+		val |= XELPDP_PORT_BUF_PORT_DATA_40BIT;
-+	else
-+		val |= XELPDP_PORT_BUF_PORT_DATA_10BIT;
-+
-+	if (dig_port->saved_port_bits & DDI_BUF_PORT_REVERSAL)
-+		val |= XELPDP_PORT_REVERSAL;
-+
-+	intel_de_write(i915, XELPDP_PORT_BUF_CTL1(port), val);
-+}
-+
-+static void mtl_port_buf_ctl_io_selection(struct intel_encoder *encoder)
-+{
-+	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
-+	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
-+	u32 val;
-+
-+	val = intel_tc_port_in_tbt_alt_mode(dig_port) ?
-+	      XELPDP_PORT_BUF_IO_SELECT_TBT : 0;
-+	intel_de_rmw(i915, XELPDP_PORT_BUF_CTL1(encoder->port),
-+		     XELPDP_PORT_BUF_IO_SELECT_TBT, val);
-+}
-+
-+static void mtl_ddi_pre_enable_dp(struct intel_atomic_state *state,
-+				  struct intel_encoder *encoder,
-+				  const struct intel_crtc_state *crtc_state,
-+				  const struct drm_connector_state *conn_state)
-+{
-+	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
-+	bool is_mst = intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST);
-+
-+	intel_dp_set_link_params(intel_dp,
-+				 crtc_state->port_clock,
-+				 crtc_state->lane_count);
-+
-+	/*
-+	 * We only configure what the register value will be here.  Actual
-+	 * enabling happens during link training farther down.
-+	 */
-+	intel_ddi_init_dp_buf_reg(encoder, crtc_state);
-+
-+	/*
-+	 * 1. Enable Power Wells
-+	 *
-+	 * This was handled at the beginning of intel_atomic_commit_tail(),
-+	 * before we called down into this function.
-+	 */
-+
-+	/* 2. PMdemand was already set */
-+
-+	/* 3. Select Thunderbolt */
-+	mtl_port_buf_ctl_io_selection(encoder);
-+
-+	/* 4. Enable Panel Power if PPS is required */
-+	intel_pps_on(intel_dp);
-+
-+	/* 5. Enable the port PLL */
-+	intel_ddi_enable_clock(encoder, crtc_state);
-+
-+	/*
-+	 * 6.a Configure Transcoder Clock Select to direct the Port clock to the
-+	 * Transcoder.
-+	 */
-+	intel_ddi_enable_transcoder_clock(encoder, crtc_state);
-+
-+	/*
-+	 * 6.b If DP v2.0/128b mode - Configure TRANS_DP2_CTL register settings.
-+	 */
-+	intel_ddi_config_transcoder_dp2(encoder, crtc_state);
-+
-+	/*
-+	 * 6.c Configure TRANS_DDI_FUNC_CTL DDI Select, DDI Mode Select & MST
-+	 * Transport Select
-+	 */
-+	intel_ddi_config_transcoder_func(encoder, crtc_state);
-+
-+	/*
-+	 * 6.e Program CoG/MSO configuration bits in DSS_CTL1 if selected.
-+	 */
-+	intel_ddi_mso_configure(crtc_state);
-+
-+	if (!is_mst)
-+		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
-+
-+	intel_dp_configure_protocol_converter(intel_dp, crtc_state);
-+	intel_dp_sink_set_decompression_state(intel_dp, crtc_state, true);
-+	/*
-+	 * DDI FEC: "anticipates enabling FEC encoding sets the FEC_READY bit
-+	 * in the FEC_CONFIGURATION register to 1 before initiating link
-+	 * training
-+	 */
-+	intel_dp_sink_set_fec_ready(intel_dp, crtc_state);
-+
-+	intel_dp_check_frl_training(intel_dp);
-+	intel_dp_pcon_dsc_configure(intel_dp, crtc_state);
-+
-+	/*
-+	 * 6. The rest of the below are substeps under the bspec's "Enable and
-+	 * Train Display Port" step.  Note that steps that are specific to
-+	 * MST will be handled by intel_mst_pre_enable_dp() before/after it
-+	 * calls into this function.  Also intel_mst_pre_enable_dp() only calls
-+	 * us when active_mst_links==0, so any steps designated for "single
-+	 * stream or multi-stream master transcoder" can just be performed
-+	 * unconditionally here.
-+	 *
-+	 * mtl_ddi_prepare_link_retrain() that is called by
-+	 * intel_dp_start_link_train() will execute steps: 6.d, 6.f, 6.g, 6.h,
-+	 * 6.i and 6.j
-+	 *
-+	 * 6.k Follow DisplayPort specification training sequence (see notes for
-+	 *     failure handling)
-+	 * 6.m If DisplayPort multi-stream - Set DP_TP_CTL link training to Idle
-+	 *     Pattern, wait for 5 idle patterns (DP_TP_STATUS Min_Idles_Sent)
-+	 *     (timeout after 800 us)
-+	 */
-+	intel_dp_start_link_train(intel_dp, crtc_state);
-+
-+	/* 6.n Set DP_TP_CTL link training to Normal */
-+	if (!is_trans_port_sync_mode(crtc_state))
-+		intel_dp_stop_link_train(intel_dp, crtc_state);
-+
-+	/* 6.o Configure and enable FEC if needed */
-+	intel_ddi_enable_fec(encoder, crtc_state);
-+
-+	intel_dsc_dp_pps_write(encoder, crtc_state);
-+}
-+
- static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
- 				  struct intel_encoder *encoder,
- 				  const struct intel_crtc_state *crtc_state,
-@@ -2523,7 +2722,9 @@ static void intel_ddi_pre_enable_dp(struct intel_atomic_state *state,
- 		intel_dp_128b132b_sdp_crc16(enc_to_intel_dp(encoder),
- 					    crtc_state);
- 
--	if (DISPLAY_VER(dev_priv) >= 12)
-+	if (DISPLAY_VER(dev_priv) >= 14)
-+		mtl_ddi_pre_enable_dp(state, encoder, crtc_state, conn_state);
-+	else if (DISPLAY_VER(dev_priv) >= 12)
- 		tgl_ddi_pre_enable_dp(state, encoder, crtc_state, conn_state);
- 	else
- 		hsw_ddi_pre_enable_dp(state, encoder, crtc_state, conn_state);
-@@ -2604,8 +2805,51 @@ static void intel_ddi_pre_enable(struct intel_atomic_state *state,
- 	}
- }
- 
--static void intel_disable_ddi_buf(struct intel_encoder *encoder,
--				  const struct intel_crtc_state *crtc_state)
-+static void
-+mtl_ddi_disable_d2d_link(struct intel_encoder *encoder)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
-+	enum port port = encoder->port;
-+
-+	intel_de_rmw(dev_priv, XELPDP_PORT_BUF_CTL1(port),
-+		     XELPDP_PORT_BUF_D2D_LINK_ENABLE, 0);
-+
-+	if (wait_for_us(!(intel_de_read(dev_priv, XELPDP_PORT_BUF_CTL1(port)) &
-+			  XELPDP_PORT_BUF_D2D_LINK_STATE), 100))
-+		drm_err(&dev_priv->drm, "Timeout waiting for D2D Link disable for PORT_BUF_CTL %c\n",
-+			port_name(port));
-+}
-+
-+static void mtl_disable_ddi_buf(struct intel_encoder *encoder,
-+				const struct intel_crtc_state *crtc_state)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
-+	enum port port = encoder->port;
-+	u32 val;
-+
-+	/* 3.b Clear DDI_CTL_DE Enable to 0. */
-+	val = intel_de_read(dev_priv, DDI_BUF_CTL(port));
-+	if (val & DDI_BUF_CTL_ENABLE) {
-+		val &= ~DDI_BUF_CTL_ENABLE;
-+		intel_de_write(dev_priv, DDI_BUF_CTL(port), val);
-+
-+		/* 3.c Poll for PORT_BUF_CTL Idle Status == 1, timeout after 100us */
-+		mtl_wait_ddi_buf_idle(dev_priv, port);
-+	}
-+
-+	/* 3.d Disable D2D Link */
-+	mtl_ddi_disable_d2d_link(encoder);
-+
-+	/* 3.e Disable DP_TP_CTL */
-+	if (intel_crtc_has_dp_encoder(crtc_state)) {
-+		val = intel_de_read(dev_priv, dp_tp_ctl_reg(encoder, crtc_state));
-+		val &= ~(DP_TP_CTL_ENABLE | DP_TP_CTL_LINK_TRAIN_MASK);
-+		intel_de_write(dev_priv, dp_tp_ctl_reg(encoder, crtc_state), val);
-+	}
-+}
-+
-+static void disable_ddi_buf(struct intel_encoder *encoder,
-+			    const struct intel_crtc_state *crtc_state)
- {
- 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
- 	enum port port = encoder->port;
-@@ -2630,6 +2874,21 @@ static void intel_disable_ddi_buf(struct intel_encoder *encoder,
- 		intel_wait_ddi_buf_idle(dev_priv, port);
- }
- 
-+static void intel_disable_ddi_buf(struct intel_encoder *encoder,
-+				  const struct intel_crtc_state *crtc_state)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
-+
-+	if (DISPLAY_VER(dev_priv) >= 14) {
-+		mtl_disable_ddi_buf(encoder, crtc_state);
-+
-+		/* 3.f Disable DP_TP_CTL FEC Enable if it is needed */
-+		intel_ddi_disable_fec_state(encoder, crtc_state);
-+	} else {
-+		disable_ddi_buf(encoder, crtc_state);
-+	}
-+}
-+
- static void intel_ddi_post_disable_dp(struct intel_atomic_state *state,
- 				      struct intel_encoder *encoder,
- 				      const struct intel_crtc_state *old_crtc_state,
-@@ -2638,6 +2897,7 @@ static void intel_ddi_post_disable_dp(struct intel_atomic_state *state,
- 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
- 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
- 	struct intel_dp *intel_dp = &dig_port->dp;
-+	intel_wakeref_t wakeref;
- 	bool is_mst = intel_crtc_has_type(old_crtc_state,
- 					  INTEL_OUTPUT_DP_MST);
- 
-@@ -2677,12 +2937,19 @@ static void intel_ddi_post_disable_dp(struct intel_atomic_state *state,
- 	intel_pps_vdd_on(intel_dp);
- 	intel_pps_off(intel_dp);
- 
--	if (!intel_tc_port_in_tbt_alt_mode(dig_port))
-+	wakeref = fetch_and_zero(&dig_port->ddi_io_wakeref);
-+
-+	if (wakeref)
- 		intel_display_power_put(dev_priv,
- 					dig_port->ddi_io_power_domain,
--					fetch_and_zero(&dig_port->ddi_io_wakeref));
-+					wakeref);
- 
- 	intel_ddi_disable_clock(encoder);
-+
-+	/* De-select Thunderbolt */
-+	if (DISPLAY_VER(dev_priv) >= 14)
-+		intel_de_rmw(dev_priv, XELPDP_PORT_BUF_CTL1(encoder->port),
-+			     XELPDP_PORT_BUF_IO_SELECT_TBT, 0);
- }
- 
- static void intel_ddi_post_disable_hdmi(struct intel_atomic_state *state,
-@@ -2693,6 +2960,7 @@ static void intel_ddi_post_disable_hdmi(struct intel_atomic_state *state,
- 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
- 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
- 	struct intel_hdmi *intel_hdmi = &dig_port->hdmi;
-+	intel_wakeref_t wakeref;
- 
- 	dig_port->set_infoframes(encoder, false,
- 				 old_crtc_state, old_conn_state);
-@@ -2705,9 +2973,11 @@ static void intel_ddi_post_disable_hdmi(struct intel_atomic_state *state,
- 	if (DISPLAY_VER(dev_priv) >= 12)
- 		intel_ddi_disable_transcoder_clock(old_crtc_state);
- 
--	intel_display_power_put(dev_priv,
--				dig_port->ddi_io_power_domain,
--				fetch_and_zero(&dig_port->ddi_io_wakeref));
-+	wakeref = fetch_and_zero(&dig_port->ddi_io_wakeref);
-+	if (wakeref)
-+		intel_display_power_put(dev_priv,
-+					dig_port->ddi_io_power_domain,
-+					wakeref);
- 
- 	intel_ddi_disable_clock(encoder);
- 
-@@ -3104,6 +3374,53 @@ static void adlp_tbt_to_dp_alt_switch_wa(struct intel_encoder *encoder)
- 		intel_dkl_phy_rmw(i915, DKL_PCS_DW5(tc_port, ln), DKL_PCS_DW5_CORE_SOFTRESET, 0);
- }
- 
-+static void mtl_ddi_prepare_link_retrain(struct intel_dp *intel_dp,
-+					 const struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
-+	struct intel_encoder *encoder = &dig_port->base;
-+	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
-+	enum port port = encoder->port;
-+	u32 dp_tp_ctl;
-+
-+	/*
-+	 * TODO: To train with only a different voltage swing entry is not
-+	 * necessary disable and enable port
-+	 */
-+	dp_tp_ctl = intel_de_read(dev_priv, dp_tp_ctl_reg(encoder, crtc_state));
-+	if (dp_tp_ctl & DP_TP_CTL_ENABLE)
-+		mtl_disable_ddi_buf(encoder, crtc_state);
-+
-+	/* 6.d Configure and enable DP_TP_CTL with link training pattern 1 selected */
-+	dp_tp_ctl = DP_TP_CTL_ENABLE | DP_TP_CTL_LINK_TRAIN_PAT1;
-+	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST)) {
-+		dp_tp_ctl |= DP_TP_CTL_MODE_MST;
-+	} else {
-+		dp_tp_ctl |= DP_TP_CTL_MODE_SST;
-+		if (drm_dp_enhanced_frame_cap(intel_dp->dpcd))
-+			dp_tp_ctl |= DP_TP_CTL_ENHANCED_FRAME_ENABLE;
-+	}
-+	intel_de_write(dev_priv, dp_tp_ctl_reg(encoder, crtc_state), dp_tp_ctl);
-+	intel_de_posting_read(dev_priv, dp_tp_ctl_reg(encoder, crtc_state));
-+
-+	/* 6.f Enable D2D Link */
-+	mtl_ddi_enable_d2d(encoder);
-+
-+	/* 6.g Configure voltage swing and related IO settings */
-+	encoder->set_signal_levels(encoder, crtc_state);
-+
-+	/* 6.h Configure PORT_BUF_CTL1 */
-+	mtl_port_buf_ctl_program(encoder, crtc_state);
-+
-+	/* 6.i Configure and enable DDI_CTL_DE to start sending valid data to port slice */
-+	intel_dp->DP |= DDI_BUF_CTL_ENABLE;
-+	intel_de_write(dev_priv, DDI_BUF_CTL(port), intel_dp->DP);
-+	intel_de_posting_read(dev_priv, DDI_BUF_CTL(port));
-+
-+	/* 6.j Poll for PORT_BUF_CTL Idle Status == 0, timeout after 100 us */
-+	intel_wait_ddi_buf_active(dev_priv, port);
-+}
-+
- static void intel_ddi_prepare_link_retrain(struct intel_dp *intel_dp,
- 					   const struct intel_crtc_state *crtc_state)
- {
-@@ -3871,6 +4188,7 @@ static const struct drm_encoder_funcs intel_ddi_funcs = {
- static struct intel_connector *
- intel_ddi_init_dp_connector(struct intel_digital_port *dig_port)
- {
-+	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
- 	struct intel_connector *connector;
- 	enum port port = dig_port->base.port;
- 
-@@ -3879,7 +4197,10 @@ intel_ddi_init_dp_connector(struct intel_digital_port *dig_port)
- 		return NULL;
- 
- 	dig_port->dp.output_reg = DDI_BUF_CTL(port);
--	dig_port->dp.prepare_link_retrain = intel_ddi_prepare_link_retrain;
-+	if (DISPLAY_VER(i915) >= 14)
-+		dig_port->dp.prepare_link_retrain = mtl_ddi_prepare_link_retrain;
-+	else
-+		dig_port->dp.prepare_link_retrain = intel_ddi_prepare_link_retrain;
- 	dig_port->dp.set_link_train = intel_ddi_set_link_train;
- 	dig_port->dp.set_idle_link_train = intel_ddi_set_idle_link_train;
- 
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index b4962bef8d03..d917353d4161 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -5655,11 +5655,16 @@ enum skl_power_gate {
- /* DDI Buffer Control */
- #define _DDI_BUF_CTL_A				0x64000
- #define _DDI_BUF_CTL_B				0x64100
-+/* Known as DDI_CTL_DE in MTL+ */
- #define DDI_BUF_CTL(port) _MMIO_PORT(port, _DDI_BUF_CTL_A, _DDI_BUF_CTL_B)
- #define  DDI_BUF_CTL_ENABLE			(1 << 31)
- #define  DDI_BUF_TRANS_SELECT(n)	((n) << 24)
- #define  DDI_BUF_EMP_MASK			(0xf << 24)
- #define  DDI_BUF_PHY_LINK_RATE(r)		((r) << 20)
-+#define  DDI_BUF_PORT_DATA_MASK			REG_GENMASK(19, 18)
-+#define  DDI_BUF_PORT_DATA_10BIT		REG_FIELD_PREP(DDI_BUF_PORT_DATA_MASK, 0)
-+#define  DDI_BUF_PORT_DATA_20BIT		REG_FIELD_PREP(DDI_BUF_PORT_DATA_MASK, 1)
-+#define  DDI_BUF_PORT_DATA_40BIT		REG_FIELD_PREP(DDI_BUF_PORT_DATA_MASK, 2)
- #define  DDI_BUF_PORT_REVERSAL			(1 << 16)
- #define  DDI_BUF_IS_IDLE			(1 << 7)
- #define  DDI_BUF_CTL_TC_PHY_OWNERSHIP		REG_BIT(6)
--- 
-2.34.1
+
+total: 0 errors, 4 warnings, 0 checks, 477 lines checked
+96837c53de30 drm/i915/mtl: Initial DDI port setup
+b8b1a8523b48 drm/i915/mtl: Add C10 phy programming for HDMI
+6aaaa4492c56 drm/i915/display/mtl: Fill port width in DDI_BUF_/TRANS_DDI_FUNC_/PORT_BUF_CTL for HDMI
+
 
