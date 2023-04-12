@@ -4,47 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 758BAC77B6C
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 21:31:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 101B6C77B6E
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 21:31:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBCA910E997;
-	Wed, 12 Apr 2023 21:31:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A39E710E9A2;
+	Wed, 12 Apr 2023 21:31:34 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 096B810E997;
- Wed, 12 Apr 2023 21:31:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF9D10E997;
+ Wed, 12 Apr 2023 21:31:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681335090; x=1712871090;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=34+XZlzmTgMGvPZpXUsLC3CMSnVjLLIA+EG/jjzhp0M=;
- b=l1em93w5wMh5zoGwE+TwVnhjNjBYAcqK5LjelVD0N5kyfH8Fzb+Kwxhk
- R81DTX7z20g8cocHpN2BlGfc5SsjVMMsrwEINBGLq81lbJI0yWmogd8LA
- kMtSKY2hqcOGG69FHFFC5Dyx+8SU1/8wFqqUxSwwFadlBMt0oiYBk1hOp
- xL/mwk845L7iBdVZOoXokOz35BI6jqiMefB82UbMDl0GehOxFJeHimldv
- zcO5F9ee9Yv/21OABtok2erpbA2XKFeJzA/jMKPBLyaT5MKOB9JKxUtIq
- ZERedBBKRBy1msbo1PhhI0aOfwiNGNWAVWg+vZbwpuM8+wpxrR90PFKmI A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="328142037"
-X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="328142037"
+ t=1681335091; x=1712871091;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=KYs7k1xwNWowFSX2RtdwLSYXdef2iIQbzG6UPT80JBc=;
+ b=AVpKBsU/hJ0q6nt1WkwWh38kNnX3OYmKvmb7r1qiEHJ3VFP1CvUSZa9t
+ RtEhIwvhTLAMcawkpyIANtTph7+alTXBKLVpnsTB2SElrIO/NqF2+zq1d
+ PSS5auFlQ7koKglT+HXO0T6z6lMmsM/B8p7RNBjbYSlD/ByCA2msYPeIp
+ QXeyGt0TJzDDV+SbLMCre+4KX5s/OKaMspbdsydqs+mZsINBPS7A5iAV0
+ fdYMDfxcWZ9pMbNG8iORrd9VRpGNIevTTDIvA7FxNITvqLHlrgWPQKaxV
+ FrKv6t7knetZkMHidtTaLBcu4079/5ms37apkz8A2IdhCeXQ0y0x5a7zk Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="328142045"
+X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="328142045"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2023 14:31:20 -0700
+ 12 Apr 2023 14:31:22 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="639389216"
-X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="639389216"
+X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="639389227"
+X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="639389227"
 Received: from zbiro-mobl.ger.corp.intel.com (HELO intel.com)
  ([10.251.212.144])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2023 14:30:41 -0700
+ 12 Apr 2023 14:30:52 -0700
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Jonathan Cavitt <jonathan.cavitt@intel.com>
-Date: Wed, 12 Apr 2023 23:30:06 +0200
-Message-Id: <20230412213008.919630-1-andi.shyti@linux.intel.com>
+Date: Wed, 12 Apr 2023 23:30:08 +0200
+Message-Id: <20230412213008.919630-3-andi.shyti@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230412213008.919630-1-andi.shyti@linux.intel.com>
+References: <20230412213008.919630-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 0/2] Hugepage manager and test for MTL
+Subject: [Intel-gfx] [PATCH v6 2/2] drm/i915: Use correct huge page manager
+ for MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,38 +64,48 @@ Cc: Matthew Auld <matthew.auld@intel.com>, Andi Shyti <andi.shyti@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 
-just taking these patches over and respinning them, almost as
-they were the last time, just did some trivial cosmetic.
+MTL currently uses gen8_ppgtt_insert_huge when managing huge pages.  This is because
+MTL reports as not supporting 64K pages, or more accurately, the system that reports
+whether a platform has 64K pages reports false for MTL.  This is only half correct,
+as the 64K page support reporting system only cares about 64K page support for LMEM,
+which MTL doesn't have.
 
-Andi
+MTL should be using xehpsdv_ppgtt_insert_huge.  However, simply changing over to
+using that manager doesn't resolve the issue because MTL is expecting the virtual
+address space for the page table to be flushed after initialization, so we must also
+add a flush statement there.
 
-Changelog
-=========
-v5 -> v6
- - Trivial variable declaration reordering
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-v4 -> v5
- - Reorder
-
-v3 -> v4
- - Break mock subtest changes into separate patch.
-
-v2 -> v3
- - Update igt_mock_ppgtt_64K with current behavior expectations.
-
-v1 -> v2
- - Update igt_mock_ppgtt_huge_fill with current behavior expectations.
-
-Jonathan Cavitt (2):
-  drm/i915: Migrate platform-dependent mock hugepage selftests to live
-  drm/i915: Use correct huge page manager for MTL
-
- .../gpu/drm/i915/gem/selftests/huge_pages.c   | 88 +++++++++++++++----
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c          |  3 +-
- 2 files changed, 71 insertions(+), 20 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+index 4daaa6f556688..9c571185395f4 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+@@ -570,6 +570,7 @@ xehpsdv_ppgtt_insert_huge(struct i915_address_space *vm,
+ 			}
+ 		} while (rem >= page_size && index < max);
+ 
++		drm_clflush_virt_range(vaddr, PAGE_SIZE);
+ 		vma_res->page_sizes_gtt |= page_size;
+ 	} while (iter->sg && sg_dma_len(iter->sg));
+ }
+@@ -707,7 +708,7 @@ static void gen8_ppgtt_insert(struct i915_address_space *vm,
+ 	struct sgt_dma iter = sgt_dma(vma_res);
+ 
+ 	if (vma_res->bi.page_sizes.sg > I915_GTT_PAGE_SIZE) {
+-		if (HAS_64K_PAGES(vm->i915))
++		if (GRAPHICS_VER_FULL(vm->i915) >= IP_VER(12, 50))
+ 			xehpsdv_ppgtt_insert_huge(vm, vma_res, &iter, cache_level, flags);
+ 		else
+ 			gen8_ppgtt_insert_huge(vm, vma_res, &iter, cache_level, flags);
 -- 
 2.39.2
 
