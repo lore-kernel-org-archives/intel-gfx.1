@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02B1FC7619A
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 22:50:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D4A7C77B6C
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 22:51:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB50410E9E5;
-	Wed, 12 Apr 2023 22:50:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B608B10E9DE;
+	Wed, 12 Apr 2023 22:50:52 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D4DA10E9D8
- for <intel-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 22:50:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15F0110E9D8
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 22:50:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681339847; x=1712875847;
+ t=1681339848; x=1712875848;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=rtF72W1QbFbcbH3wd+ODKnksb1u8k+mlGr29IrrrwU0=;
- b=cAdfgMG/HmJp77hWtddIT98EqUx4eM518IbWjEqJFtoe5bDYQWmXW1UN
- 7egmbjeJoJfI1fDlEPxr6Y46zPg/EzYDehlY4rY8HABzsvoY9vepXPksn
- oPDMB1cxIjo7ZrK32QmO0DOg9V+FxyPus0rd2qqpDW6VwHOgVsCqKTF+d
- zNSozxw0PCIQ0XmV1XIVpFjxQa9zd82V05vMuuoEQdJVlr4YZKI76apsv
- NxsBndXoULbeM22cyy7Zu60qE73VjO5yjMAaTmh+QiCwmbxtBMdBIVkcG
- nT/DYA6wiWy+9tmNzPWiDD7h4NDP/p9P2G+36KdkX54mCINcfeCcgLDdx A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="371890357"
-X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="371890357"
+ bh=pQ0kJvScU8AM7Cnhsg7MiYtbYAerltbB6CnAPXDOGcQ=;
+ b=arbjMmBAtND9N4oVJU1rgGBp5XfsZLhB3E0nQ8OaW0XCWM3e0orWzb8o
+ rZCS3/3cLsNDhxMS3Pt+WnAeby9bSswmo6GenM9wg2a0JHD78qYxHO5sv
+ OieZSq5XExzTbxL/l1d3QCSzZRS8fmVH5JUQngpM/WbonG1Dnv9GfchS1
+ P41CcMLNK0Ax0mPd0eN5gcQsPZTVnWVIP/fD3eEovDaEgPDSLO+t++fyM
+ oJSZmqI1ZWrUlPQCY/zevYs+yl6WXUufS+UX3/nHHqmxgUFFqtaWm4sl1
+ +Qoxv9KIJJ9cZ4KVny5iD9OA1OTL9syDywPq61VIfq6UtzmJPj6QBkAkU w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="371890362"
+X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="371890362"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2023 15:50:45 -0700
+ 12 Apr 2023 15:50:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="1018906845"
-X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="1018906845"
+X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="1018906863"
+X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="1018906863"
 Received: from invictus.jf.intel.com ([10.165.21.201])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Apr 2023 15:50:45 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 12 Apr 2023 15:49:20 -0700
-Message-Id: <20230412224925.1309815-5-radhakrishna.sripada@intel.com>
+Date: Wed, 12 Apr 2023 15:49:25 -0700
+Message-Id: <20230412224925.1309815-10-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230412224925.1309815-1-radhakrishna.sripada@intel.com>
 References: <20230412224925.1309815-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/9] drm/i915/mtl: Add vswing programming for
- C10 phys
+Subject: [Intel-gfx] [PATCH 9/9] drm/i915/display/mtl: Fill port width in
+ DDI_BUF_/TRANS_DDI_FUNC_/PORT_BUF_CTL for HDMI
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,282 +61,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Mika Kahola <mika.kahola@intel.com>
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-C10 phys uses direct mapping internally for voltage and pre-emphasis levels.
-Program the levels directly to the fields in the VDR Registers.
+MTL requires the PORT_CTL_WIDTH, TRANS_DDI_FUNC_CTL and DDI_BUF_CTL
+to be filled with 4 lanes for TMDS mode.
+This patch enables D2D link and fills PORT_WIDTH in appropriate
+registers.
 
-Bspec: 65449
+v2:
+  - Added fixes from Clint's Add HDMI implementation changes.
+  - Modified commit message.
+v3:
+  - Use TRANS_DDI_PORT_WIDTH() instead of DDI_PORT_WIDTH() for the value
+    of TRANS_DDI_FUNC_CTL_*. (Gustavo)
 
-v2: From table "C10: Tx EQ settings for DP 1.4x" it shows level 1
-    and preemphasis 1 instead of two times of level 1 preemphasis 0.
-    Fix this in the driver code as well.
-v3: VSwing update (Clint)
-v4: Add vboost termination ctl programming(Imre)
-    Fix tx llogic and other nits
-    Restrict C10 vdr ctl register access for C10 phy(RK)
-
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Uma Shankar <uma.shankar@intel.com>
-Signed-off-by: Clint Taylor <Clinton.A.Taylor@intel.com>
+Cc: Taylor, Clinton A <clinton.a.taylor@intel.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 Signed-off-by: Mika Kahola <mika.kahola@intel.com>
-Reviewed-by: Imre Deak <imre.deak@intel.com>(v3)
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 102 +++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_cx0_phy.h  |   2 +
- .../gpu/drm/i915/display/intel_cx0_phy_regs.h |  14 ++-
- drivers/gpu/drm/i915/display/intel_ddi.c      |   4 +-
- .../drm/i915/display/intel_ddi_buf_trans.c    |  31 +++++-
- 5 files changed, 143 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c | 32 ++++++++++++++++++++++--
+ drivers/gpu/drm/i915/i915_reg.h          |  2 ++
+ 2 files changed, 32 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index 9ab1e686a40b..ca7626eadd7c 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -6,6 +6,8 @@
- #include "i915_reg.h"
- #include "intel_cx0_phy.h"
- #include "intel_cx0_phy_regs.h"
-+#include "intel_ddi.h"
-+#include "intel_ddi_buf_trans.h"
- #include "intel_de.h"
- #include "intel_display_types.h"
- #include "intel_dp.h"
-@@ -292,6 +294,97 @@ static void intel_cx0_rmw(struct drm_i915_private *i915, enum port port,
- 		__intel_cx0_rmw(i915, port, lane, addr, clear, set, committed);
- }
- 
-+static u8 intel_c10_get_tx_vboost_lvl(const struct intel_crtc_state *crtc_state)
-+{
-+	if (intel_crtc_has_dp_encoder(crtc_state)) {
-+		if (!intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP) &&
-+		    (crtc_state->port_clock == 540000 ||
-+		     crtc_state->port_clock == 810000))
-+			return 5;
-+		else
-+			return 4;
-+	} else {
-+		return 5;
-+	}
-+}
-+
-+static u8 intel_c10_get_tx_term_ctl(const struct intel_crtc_state *crtc_state)
-+{
-+	if (intel_crtc_has_dp_encoder(crtc_state)) {
-+		if (!intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP) &&
-+		    (crtc_state->port_clock == 540000 ||
-+		     crtc_state->port_clock == 810000))
-+			return 5;
-+		else
-+			return 2;
-+	} else {
-+		return 6;
-+	}
-+}
-+
-+void intel_cx0_phy_set_signal_levels(struct intel_encoder *encoder,
-+				     const struct intel_crtc_state *crtc_state)
-+{
-+	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
-+	const struct intel_ddi_buf_trans *trans;
-+	enum phy phy = intel_port_to_phy(i915, encoder->port);
-+	intel_wakeref_t wakeref;
-+	int n_entries, ln;
-+
-+	wakeref = intel_cx0_phy_transaction_begin(encoder);
-+
-+	trans = encoder->get_buf_trans(encoder, crtc_state, &n_entries);
-+	if (drm_WARN_ON_ONCE(&i915->drm, !trans)) {
-+		intel_cx0_phy_transaction_end(encoder, wakeref);
-+		return;
-+	}
-+
-+	if (intel_is_c10phy(i915, phy)) {
-+		intel_cx0_rmw(i915, encoder->port, INTEL_CX0_BOTH_LANES, PHY_C10_VDR_CONTROL(1),
-+			      0, C10_VDR_CTRL_MSGBUS_ACCESS, MB_WRITE_COMMITTED);
-+		intel_cx0_rmw(i915, encoder->port, INTEL_CX0_LANE0, PHY_C10_VDR_CMN(3),
-+			      C10_CMN3_TXVBOOST_MASK,
-+			      C10_CMN3_TXVBOOST(intel_c10_get_tx_vboost_lvl(crtc_state)),
-+			      MB_WRITE_UNCOMMITTED);
-+		intel_cx0_rmw(i915, encoder->port, INTEL_CX0_LANE0, PHY_C10_VDR_TX(1),
-+			      C10_TX1_TERMCTL_MASK,
-+			      C10_TX1_TERMCTL(intel_c10_get_tx_term_ctl(crtc_state)),
-+			      MB_WRITE_COMMITTED);
-+	}
-+
-+	for (ln = 0; ln < crtc_state->lane_count; ln++) {
-+		int level = intel_ddi_level(encoder, crtc_state, ln);
-+		int lane, tx;
-+
-+		lane = ln / 2;
-+		tx = ln % 2;
-+
-+		intel_cx0_rmw(i915, encoder->port, BIT(lane), PHY_CX0_VDROVRD_CTL(lane, tx, 0),
-+			      C10_PHY_OVRD_LEVEL_MASK,
-+			      C10_PHY_OVRD_LEVEL(trans->entries[level].snps.pre_cursor),
-+			      MB_WRITE_COMMITTED);
-+		intel_cx0_rmw(i915, encoder->port, BIT(lane), PHY_CX0_VDROVRD_CTL(lane, tx, 1),
-+			      C10_PHY_OVRD_LEVEL_MASK,
-+			      C10_PHY_OVRD_LEVEL(trans->entries[level].snps.vswing),
-+			      MB_WRITE_COMMITTED);
-+		intel_cx0_rmw(i915, encoder->port, BIT(lane), PHY_CX0_VDROVRD_CTL(lane, tx, 2),
-+			      C10_PHY_OVRD_LEVEL_MASK,
-+			      C10_PHY_OVRD_LEVEL(trans->entries[level].snps.post_cursor),
-+			      MB_WRITE_COMMITTED);
-+	}
-+
-+	/* Write Override enables in 0xD71 */
-+	intel_cx0_rmw(i915, encoder->port, INTEL_CX0_BOTH_LANES, PHY_C10_VDR_OVRD,
-+		      0, PHY_C10_VDR_OVRD_TX1 | PHY_C10_VDR_OVRD_TX2,
-+		      MB_WRITE_COMMITTED);
-+
-+	if (intel_is_c10phy(i915, phy))
-+		intel_cx0_rmw(i915, encoder->port, INTEL_CX0_BOTH_LANES, PHY_C10_VDR_CONTROL(1),
-+			      0, C10_VDR_CTRL_UPDATE_CFG, MB_WRITE_COMMITTED);
-+
-+	intel_cx0_phy_transaction_end(encoder, wakeref);
-+}
-+
- /*
-  * Basic DP link rates with 38.4 MHz reference clock.
-  * Note: The tables below are with SSC. In non-ssc
-@@ -766,10 +859,8 @@ static void intel_program_port_clock_ctl(struct intel_encoder *encoder,
- 	val |= crtc_state->cx0pll_state.ssc_enabled ? XELPDP_SSC_ENABLE_PLLB : 0;
- 
- 	intel_de_rmw(i915, XELPDP_PORT_CLOCK_CTL(encoder->port),
--		     XELPDP_LANE1_PHY_CLOCK_SELECT |
--		     XELPDP_FORWARD_CLOCK_UNGATE |
--		     XELPDP_DDI_CLOCK_SELECT_MASK |
--		     XELPDP_SSC_ENABLE_PLLB, val);
-+		     XELPDP_LANE1_PHY_CLOCK_SELECT | XELPDP_FORWARD_CLOCK_UNGATE |
-+		     XELPDP_DDI_CLOCK_SELECT_MASK | XELPDP_SSC_ENABLE_PLLB, val);
- }
- 
- static u32 intel_cx0_get_powerdown_update(u8 lane_mask)
-@@ -1144,7 +1235,8 @@ static void intel_c10pll_disable(struct intel_encoder *encoder)
- 
- 	/* 7. Program PORT_CLOCK_CTL register to disable and gate clocks. */
- 	intel_de_rmw(i915, XELPDP_PORT_CLOCK_CTL(encoder->port),
--		     XELPDP_DDI_CLOCK_SELECT_MASK |
-+		     XELPDP_DDI_CLOCK_SELECT_MASK, 0);
-+	intel_de_rmw(i915, XELPDP_PORT_CLOCK_CTL(encoder->port),
- 		     XELPDP_FORWARD_CLOCK_UNGATE, 0);
- }
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.h b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-index 46fa0576ef0d..6b736acb83e0 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-@@ -30,5 +30,7 @@ int intel_c10pll_calc_port_clock(struct intel_encoder *encoder,
- 				 const struct intel_c10pll_state *pll_state);
- void intel_c10pll_state_verify(struct intel_atomic_state *state,
- 			       struct intel_crtc_state *new_crtc_state);
-+void intel_cx0_phy_set_signal_levels(struct intel_encoder *encoder,
-+				     const struct intel_crtc_state *crtc_state);
- 
- #endif /* __INTEL_CX0_PHY_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h b/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
-index 21a699c678a1..9cfa7f508c90 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
-@@ -144,6 +144,8 @@
- #define   C10_CMN3_TXVBOOST(val)	REG_FIELD_PREP8(C10_CMN3_TXVBOOST_MASK, val)
- #define PHY_C10_VDR_TX(idx)		(0xC30 + (idx))
- #define   C10_TX0_TX_MPLLB_SEL		REG_BIT(4)
-+#define   C10_TX1_TERMCTL_MASK		REG_GENMASK8(7, 5)
-+#define   C10_TX1_TERMCTL(val)		REG_FIELD_PREP8(C10_TX1_TERMCTL_MASK, val)
- #define PHY_C10_VDR_CONTROL(idx)	(0xC70 + (idx) - 1)
- #define   C10_VDR_CTRL_MSGBUS_ACCESS	REG_BIT8(2)
- #define   C10_VDR_CTRL_MASTER_LANE	REG_BIT8(1)
-@@ -151,9 +153,15 @@
- #define PHY_C10_VDR_CUSTOM_WIDTH	0xD02
- #define   C10_VDR_CUSTOM_WIDTH_MASK    REG_GENMASK(1, 0)
- #define   C10_VDR_CUSTOM_WIDTH_8_10    REG_FIELD_PREP(C10_VDR_CUSTOM_WIDTH_MASK, 0)
--
--/* PHY_C10_VDR_PLL0 */
--#define PLL_C10_MPLL_SSC_EN             REG_BIT8(0)
-+#define PHY_C10_VDR_OVRD		0xD71
-+#define   PHY_C10_VDR_OVRD_TX1		REG_BIT8(0)
-+#define   PHY_C10_VDR_OVRD_TX2		REG_BIT8(2)
-+#define PHY_C10_VDR_PRE_OVRD_TX1	0xD80
-+#define C10_PHY_OVRD_LEVEL_MASK		REG_GENMASK8(5, 0)
-+#define C10_PHY_OVRD_LEVEL(val)		REG_FIELD_PREP8(C10_PHY_OVRD_LEVEL_MASK, val)
-+#define PHY_CX0_VDROVRD_CTL(lane, tx, control)				\
-+					(PHY_C10_VDR_PRE_OVRD_TX1 +	\
-+					 ((lane) ^ (tx)) * 0x10 + (control))
- 
- /* PIPE SPEC Defined Registers */
- #define PHY_CX0_TX_CONTROL(tx, control)	(0x400 + ((tx) - 1) * 0x200 + (control))
 diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 67d3ccd2ea76..b30e3ed7aedb 100644
+index 9df3da46fdca..c5d210a6fb94 100644
 --- a/drivers/gpu/drm/i915/display/intel_ddi.c
 +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -4475,7 +4475,9 @@ void intel_ddi_init(struct drm_i915_private *dev_priv, enum port port)
- 		encoder->get_config = hsw_ddi_get_config;
- 	}
+@@ -541,6 +541,8 @@ intel_ddi_transcoder_func_reg_val_get(struct intel_encoder *encoder,
+ 			temp |= TRANS_DDI_HDMI_SCRAMBLING;
+ 		if (crtc_state->hdmi_high_tmds_clock_ratio)
+ 			temp |= TRANS_DDI_HIGH_TMDS_CHAR_RATE;
++		if (DISPLAY_VER(dev_priv) >= 14)
++			temp |= TRANS_DDI_PORT_WIDTH(crtc_state->lane_count);
+ 	} else if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_ANALOG)) {
+ 		temp |= TRANS_DDI_MODE_SELECT_FDI_OR_128B132B;
+ 		temp |= (crtc_state->fdi_lanes - 1) << 1;
+@@ -3158,6 +3160,10 @@ static void intel_enable_ddi_hdmi(struct intel_atomic_state *state,
+ 	if (has_buf_trans_select(dev_priv))
+ 		hsw_prepare_hdmi_ddi_buffers(encoder, crtc_state);
  
--	if (IS_DG2(dev_priv)) {
++	/* e. Enable D2D Link for C10/C20 Phy */
++	if (DISPLAY_VER(dev_priv) >= 14)
++		mtl_ddi_enable_d2d(encoder);
++
+ 	encoder->set_signal_levels(encoder, crtc_state);
+ 
+ 	/* Display WA #1143: skl,kbl,cfl */
+@@ -3203,12 +3209,30 @@ static void intel_enable_ddi_hdmi(struct intel_atomic_state *state,
+ 	 *
+ 	 * On ADL_P the PHY link rate and lane count must be programmed but
+ 	 * these are both 0 for HDMI.
++	 *
++	 * But MTL onwards HDMI2.1 is supported and in TMDS mode this
++	 * is filled with lane count, already set in the crtc_state.
++	 * The same is required to be filled in PORT_BUF_CTL for C10/20 Phy.
+ 	 */
+ 	buf_ctl = dig_port->saved_port_bits | DDI_BUF_CTL_ENABLE;
+-	if (IS_ALDERLAKE_P(dev_priv) && intel_phy_is_tc(dev_priv, phy)) {
 +	if (DISPLAY_VER(dev_priv) >= 14) {
-+		encoder->set_signal_levels = intel_cx0_phy_set_signal_levels;
-+	} else if (IS_DG2(dev_priv)) {
- 		encoder->set_signal_levels = intel_snps_phy_set_signal_levels;
- 	} else if (DISPLAY_VER(dev_priv) >= 12) {
- 		if (intel_phy_is_combo(dev_priv, phy))
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-index 006a2e979000..cd4becbae098 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-@@ -1035,6 +1035,25 @@ static const struct intel_ddi_buf_trans dg2_snps_trans_uhbr = {
- 	.num_entries = ARRAY_SIZE(_dg2_snps_trans_uhbr),
- };
- 
-+static const union intel_ddi_buf_trans_entry _mtl_c10_trans_dp14[] = {
-+	{ .snps = { 26, 0, 0  } },      /* preset 0 */
-+	{ .snps = { 33, 0, 6  } },      /* preset 1 */
-+	{ .snps = { 38, 0, 11 } },      /* preset 2 */
-+	{ .snps = { 43, 0, 19 } },      /* preset 3 */
-+	{ .snps = { 39, 0, 0  } },      /* preset 4 */
-+	{ .snps = { 45, 0, 7  } },      /* preset 5 */
-+	{ .snps = { 46, 0, 13 } },      /* preset 6 */
-+	{ .snps = { 46, 0, 0  } },      /* preset 7 */
-+	{ .snps = { 55, 0, 7  } },      /* preset 8 */
-+	{ .snps = { 62, 0, 0  } },      /* preset 9 */
-+};
++		u8  lane_count = mtl_get_port_width(crtc_state->lane_count);
++		u32 port_buf = 0;
 +
-+static const struct intel_ddi_buf_trans mtl_cx0c10_trans = {
-+	.entries = _mtl_c10_trans_dp14,
-+	.num_entries = ARRAY_SIZE(_mtl_c10_trans_dp14),
-+	.hdmi_default_entry = ARRAY_SIZE(_mtl_c10_trans_dp14) - 1,
-+};
++		port_buf |= XELPDP_PORT_WIDTH(lane_count);
 +
- bool is_hobl_buf_trans(const struct intel_ddi_buf_trans *table)
- {
- 	return table == &tgl_combo_phy_trans_edp_hbr2_hobl;
-@@ -1606,12 +1625,22 @@ dg2_get_snps_buf_trans(struct intel_encoder *encoder,
- 		return intel_get_buf_trans(&dg2_snps_trans, n_entries);
- }
- 
-+static const struct intel_ddi_buf_trans *
-+mtl_get_cx0_buf_trans(struct intel_encoder *encoder,
-+		      const struct intel_crtc_state *crtc_state,
-+		      int *n_entries)
-+{
-+	return intel_get_buf_trans(&mtl_cx0c10_trans, n_entries);
-+}
++		if (dig_port->saved_port_bits & DDI_BUF_PORT_REVERSAL)
++			port_buf |= XELPDP_PORT_REVERSAL;
 +
- void intel_ddi_buf_trans_init(struct intel_encoder *encoder)
- {
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	enum phy phy = intel_port_to_phy(i915, encoder->port);
++		intel_de_rmw(dev_priv, XELPDP_PORT_BUF_CTL1(port),
++			     XELPDP_PORT_WIDTH_MASK | XELPDP_PORT_REVERSAL, port_buf);
++
++		buf_ctl |= DDI_PORT_WIDTH(lane_count);
++	} else if (IS_ALDERLAKE_P(dev_priv) && intel_phy_is_tc(dev_priv, phy)) {
+ 		drm_WARN_ON(&dev_priv->drm, !intel_tc_port_in_legacy_mode(dig_port));
+ 		buf_ctl |= DDI_BUF_CTL_TC_PHY_OWNERSHIP;
+ 	}
++
+ 	intel_de_write(dev_priv, DDI_BUF_CTL(port), buf_ctl);
  
--	if (IS_DG2(i915)) {
-+	if (DISPLAY_VER(i915) >= 14) {
-+		encoder->get_buf_trans = mtl_get_cx0_buf_trans;
-+	} else if (IS_DG2(i915)) {
- 		encoder->get_buf_trans = dg2_get_snps_buf_trans;
- 	} else if (IS_ALDERLAKE_P(i915)) {
- 		if (intel_phy_is_combo(i915, phy))
+ 	intel_wait_ddi_buf_active(dev_priv, port);
+@@ -3669,7 +3693,11 @@ static void intel_ddi_read_func_ctl(struct intel_encoder *encoder,
+ 		fallthrough;
+ 	case TRANS_DDI_MODE_SELECT_DVI:
+ 		pipe_config->output_types |= BIT(INTEL_OUTPUT_HDMI);
+-		pipe_config->lane_count = 4;
++		if (DISPLAY_VER(dev_priv) >= 14)
++			pipe_config->lane_count =
++				((temp & DDI_PORT_WIDTH_MASK) >> DDI_PORT_WIDTH_SHIFT) + 1;
++		else
++			pipe_config->lane_count = 4;
+ 		break;
+ 	case TRANS_DDI_MODE_SELECT_DP_SST:
+ 		if (encoder->type == INTEL_OUTPUT_EDP)
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index d917353d4161..2f0371f8bcf0 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -5596,6 +5596,8 @@ enum skl_power_gate {
+ #define  TRANS_DDI_HDCP_SELECT		REG_BIT(5)
+ #define  TRANS_DDI_BFI_ENABLE		(1 << 4)
+ #define  TRANS_DDI_HIGH_TMDS_CHAR_RATE	(1 << 4)
++#define  TRANS_DDI_PORT_WIDTH_MASK	REG_GENMASK(3, 1)
++#define  TRANS_DDI_PORT_WIDTH(width)	REG_FIELD_PREP(TRANS_DDI_PORT_WIDTH_MASK, (width) - 1)
+ #define  TRANS_DDI_HDMI_SCRAMBLING	(1 << 0)
+ #define  TRANS_DDI_HDMI_SCRAMBLING_MASK (TRANS_DDI_HDMI_SCRAMBLER_CTS_ENABLE \
+ 					| TRANS_DDI_HDMI_SCRAMBLER_RESET_FREQ \
 -- 
 2.34.1
 
