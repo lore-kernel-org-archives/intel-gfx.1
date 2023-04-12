@@ -4,63 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAC28C77B6F
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 15:12:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAE9AC77B6E
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Apr 2023 15:45:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1677610E86B;
-	Wed, 12 Apr 2023 15:12:53 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2FD810E860;
- Wed, 12 Apr 2023 15:12:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 346B510E8A3;
+	Wed, 12 Apr 2023 15:45:23 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59ECF10E881;
+ Wed, 12 Apr 2023 15:45:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681312371; x=1712848371;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=x10ivT5rZHjB7u+rJn5L2DzCTA6oazecYo3P5OVb5Gg=;
- b=HglPaBlKTDVIUY6P0NhCXstq2c1xYz3Z+H9HArf0zGltEv+oI+ioqhsS
- KTDh1MW0kiVkenmuUFO060IvvxcLAyL+6jkmoWFQdoquAku9lzw/zvn40
- jLcQe3N9jKwHjDggyO5zlmGrjB4Gx8x+M/IhYbGpMoEdCVeKsA8fcDN5a
- zsABNaYeru/OiPkng+/JfiebsHUNvStnmu+DiPdL4al6pwxnH0in22xUP
- xnnZpOmAviBL2ag8YXfcKOGKm7SwNwFFlHulkLlAIMzzwSfhb7pkaNyYB
- vCQ0ePH9EBtY8JHxtbj3fJpkTrd+LdVAwF6KZsfSFF5dmfe6HUgoNPtwz g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="341419777"
-X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="341419777"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2023 08:12:47 -0700
+ t=1681314321; x=1712850321;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=IERnqLXMW+gb74vzXKSwdmaOj1kubqs2Fl+YWa4aSvM=;
+ b=g7ZAKsyFcBFHPcK3vLAVdipTy132/sHTmtPZCJU/DV1fVTOTitwniDX1
+ Db2jsHv4TN69JmGceZzLTuiiwVmDYRBONfjybwmdLbO8JYBOzh87Tvd6B
+ 9hUoperdql/fUGgwv9l1ZJmTao1GhAnIgIhmSlYrIlmCiIWzCW2vueKDZ
+ /uGpybmY6VnRfa5C6Em0AlCyLZkS4PVu8VqhOExvWz0pS6WjrnvK7gCWo
+ xbn7iMAbfMqP5uXClnEovWYkVlyF6YUSVqoWxXMgi4jcKfnymDnbE/XpZ
+ jmS2HLzyL3eaKcQ5p3/N/ya2hWH1VA72VK6xWBQDjg18MYGIdmbD7paa5 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="324297153"
+X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="324297153"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Apr 2023 08:45:20 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="682501720"
-X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="682501720"
+X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="719416191"
+X-IronPort-AV: E=Sophos;i="5.98,339,1673942400"; d="scan'208";a="719416191"
 Received: from amurkovx-mobl.ger.corp.intel.com (HELO [10.213.229.123])
  ([10.213.229.123])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Apr 2023 08:12:43 -0700
-Message-ID: <625477ba-2f98-4137-7c96-dc54990c6963@linux.intel.com>
-Date: Wed, 12 Apr 2023 16:12:41 +0100
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Apr 2023 08:45:15 -0700
+Message-ID: <1b341218-f0e2-a613-2ac6-107064a813ca@linux.intel.com>
+Date: Wed, 12 Apr 2023 16:45:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
 Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Christopher Healy <healych@amazon.com>,
- Emil Velikov <emil.l.velikov@gmail.com>, Rob Clark <robdclark@chromium.org>,
+To: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>,
+ Ira Weiny <ira.weiny@intel.com>, Zhao Liu <zhao1.liu@linux.intel.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
- intel-gfx@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>
-References: <20230411225725.2032862-1-robdclark@gmail.com>
- <20230411225725.2032862-5-robdclark@gmail.com>
- <292d10fe-3163-d282-6497-18c1d8621d72@linux.intel.com>
- <ZDa3U/k9orudzwL2@phenom.ffwll.local>
+ Daniel Vetter <daniel@ffwll.ch>, Matthew Auld <matthew.auld@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
+ Nirmoy Das <nirmoy.das@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20230329073220.3982460-1-zhao1.liu@linux.intel.com>
+ <64265ef8725fe_375f7e294a@iweiny-mobl.notmuch>
+ <fdc8a470-1e6b-815d-e367-a9df1b0b14dd@linux.intel.com>
+ <2177327.1BCLMh4Saa@suse>
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 Organization: Intel Corporation UK Plc
-In-Reply-To: <ZDa3U/k9orudzwL2@phenom.ffwll.local>
+In-Reply-To: <2177327.1BCLMh4Saa@suse>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH v3 4/7] drm/i915: Switch to fdinfo helper
+Content-Transfer-Encoding: 8bit
+Subject: Re: [Intel-gfx] [PATCH v2 9/9] drm/i915: Use kmap_local_page() in
+ gem/i915_gem_execbuffer.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,148 +78,118 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Zhao Liu <zhao1.liu@intel.com>, Zhenyu Wang <zhenyu.z.wang@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
-On 12/04/2023 14:51, Daniel Vetter wrote:
-> On Wed, Apr 12, 2023 at 01:32:43PM +0100, Tvrtko Ursulin wrote:
->>
->> On 11/04/2023 23:56, Rob Clark wrote:
->>> From: Rob Clark <robdclark@chromium.org>
+On 31/03/2023 16:32, Fabio M. De Francesco wrote:
+> On venerdì 31 marzo 2023 13:30:20 CEST Tvrtko Ursulin wrote:
+>> On 31/03/2023 05:18, Ira Weiny wrote:
+>>> Zhao Liu wrote:
+>>>> From: Zhao Liu <zhao1.liu@intel.com>
+>>>>
+>>>> The use of kmap_atomic() is being deprecated in favor of
+>>>> kmap_local_page()[1], and this patch converts the calls from
+>>>> kmap_atomic() to kmap_local_page().
+>>>>
+>>>> The main difference between atomic and local mappings is that local
+>>>> mappings doesn't disable page faults or preemption (the preemption is
+>>>> disabled for !PREEMPT_RT case, otherwise it only disables migration).
+>>>>
+>>>> With kmap_local_page(), we can avoid the often unwanted side effect of
+>>>> unnecessary page faults and preemption disables.
+>>>>
+>>>> In i915_gem_execbuffer.c, eb->reloc_cache.vaddr is mapped by
+>>>> kmap_atomic() in eb_relocate_entry(), and is unmapped by
+>>>> kunmap_atomic() in reloc_cache_reset().
 >>>
->>> Signed-off-by: Rob Clark <robdclark@chromium.org>
->>> ---
->>>    drivers/gpu/drm/i915/i915_driver.c     |  3 ++-
->>>    drivers/gpu/drm/i915/i915_drm_client.c | 18 +++++-------------
->>>    drivers/gpu/drm/i915/i915_drm_client.h |  2 +-
->>>    3 files changed, 8 insertions(+), 15 deletions(-)
+>>> First off thanks for the series and sticking with this.  That said this
+>>> patch kind of threw me for a loop because tracing the map/unmap calls did
+>>> not make sense to me.  See below.
 >>>
->>> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
->>> index db7a86def7e2..37eacaa3064b 100644
->>> --- a/drivers/gpu/drm/i915/i915_driver.c
->>> +++ b/drivers/gpu/drm/i915/i915_driver.c
->>> @@ -1696,7 +1696,7 @@ static const struct file_operations i915_driver_fops = {
->>>    	.compat_ioctl = i915_ioc32_compat_ioctl,
->>>    	.llseek = noop_llseek,
->>>    #ifdef CONFIG_PROC_FS
->>> -	.show_fdinfo = i915_drm_client_fdinfo,
->>> +	.show_fdinfo = drm_fop_show_fdinfo,
->>>    #endif
->>>    };
->>> @@ -1796,6 +1796,7 @@ static const struct drm_driver i915_drm_driver = {
->>>    	.open = i915_driver_open,
->>>    	.lastclose = i915_driver_lastclose,
->>>    	.postclose = i915_driver_postclose,
->>> +	.show_fdinfo = i915_drm_client_fdinfo,
->>>    	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
->>>    	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
->>> diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
->>> index b09d1d386574..4a77e5e47f79 100644
->>> --- a/drivers/gpu/drm/i915/i915_drm_client.c
->>> +++ b/drivers/gpu/drm/i915/i915_drm_client.c
->>> @@ -101,7 +101,7 @@ static u64 busy_add(struct i915_gem_context *ctx, unsigned int class)
->>>    }
->>>    static void
->>> -show_client_class(struct seq_file *m,
->>> +show_client_class(struct drm_printer *p,
->>>    		  struct i915_drm_client *client,
->>>    		  unsigned int class)
->>>    {
->>> @@ -117,22 +117,20 @@ show_client_class(struct seq_file *m,
->>>    	rcu_read_unlock();
->>>    	if (capacity)
->>> -		seq_printf(m, "drm-engine-%s:\t%llu ns\n",
->>> +		drm_printf(p, "drm-engine-%s:\t%llu ns\n",
->>>    			   uabi_class_names[class], total);
->>>    	if (capacity > 1)
->>> -		seq_printf(m, "drm-engine-capacity-%s:\t%u\n",
->>> +		drm_printf(p, "drm-engine-capacity-%s:\t%u\n",
->>>    			   uabi_class_names[class],
->>>    			   capacity);
->>>    }
->>> -void i915_drm_client_fdinfo(struct seq_file *m, struct file *f)
->>> +void i915_drm_client_fdinfo(struct drm_printer *p, struct drm_file *file)
->>>    {
->>> -	struct drm_file *file = f->private_data;
->>>    	struct drm_i915_file_private *file_priv = file->driver_priv;
->>>    	struct drm_i915_private *i915 = file_priv->dev_priv;
->>>    	struct i915_drm_client *client = file_priv->client;
->>> -	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
->>>    	unsigned int i;
->>>    	/*
->>> @@ -141,12 +139,6 @@ void i915_drm_client_fdinfo(struct seq_file *m, struct file *f)
->>>    	 * ******************************************************************
->>>    	 */
->>> -	seq_printf(m, "drm-driver:\t%s\n", i915->drm.driver->name);
->>> -	seq_printf(m, "drm-pdev:\t%04x:%02x:%02x.%d\n",
->>> -		   pci_domain_nr(pdev->bus), pdev->bus->number,
->>> -		   PCI_SLOT(pdev->devfn), PCI_FUNC(pdev->devfn));
->>> -	seq_printf(m, "drm-client-id:\t%u\n", client->id);
->>
->> As mentioned in my reply to the cover letter, I think the i915
->> implementation is the right one. At least the semantics of it.
->>
->> Granted it is a super set of the minimum required as documented by
->> drm-usage-stats.rst - not only 1:1 to current instances of struct file, but
->> also avoids immediate id recycling.
->>
->> Former could perhaps be achieved with a simple pointer hash, but latter
->> helps userspace detect when a client has exited and id re-allocated to a new
->> client within a single scanning period.
->>
->> Without this I don't think userspace can implement a fail safe method of
->> detecting which clients are new ones and so wouldn't be able to track
->> history correctly.
->>
->> I think we should rather extend the documented contract to include the
->> cyclical property than settle for a weaker common implementation.
+>>>> And this mapping/unmapping occurs in two places: one is in
+>>>> eb_relocate_vma(), and another is in eb_relocate_vma_slow().
+>>>>
+>>>> The function eb_relocate_vma() or eb_relocate_vma_slow() doesn't
+>>>> need to disable pagefaults and preemption during the above mapping/
+>>>> unmapping.
+>>>>
+>>>> So it can simply use kmap_local_page() / kunmap_local() that can
+>>>> instead do the mapping / unmapping regardless of the context.
+>>>>
+>>>> Convert the calls of kmap_atomic() / kunmap_atomic() to
+>>>> kmap_local_page() / kunmap_local().
+>>>>
+>>>> [1]:
+>>>> https://lore.kernel.org/all/20220813220034.806698-1-ira.weiny@intel.com
+>>>>
+>>>> v2: No code change since v1. Added description of the motivation of
+>>>>
+>>>>       using kmap_local_page() and "Suggested-by" tag of Fabio.
+>>>>
+>>>> Suggested-by: Ira Weiny <ira.weiny@intel.com>
+>>>> Suggested-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
+>>>> Signed-off-by: Zhao Liu <zhao1.liu@intel.com>
+>>>> ---
+>>>>
+>>>> Suggested by credits:
+>>>>     Ira: Referred to his task document, review comments.
+>>>>     Fabio: Referred to his boiler plate commit message and his description
+>>>>     
+>>>>            about why kmap_local_page() should be preferred.
+>>>>
+>>>> ---
+>>>>
+>>>>    drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 10 +++++-----
+>>>>    1 file changed, 5 insertions(+), 5 deletions(-)
+>>>>
 > 
-> atomic64_t never wraps, so you don't have any recycling issues?
-
-Okay yes, with 64 bits there aren't any practical recycling issues.
-
-> The other piece and imo much more important is that I really don't want
-> the i915_drm_client design to spread, it conceptually makes no sense.
-> drm_file is the uapi object, once that's gone userspace will never be able
-> to look at anything, having a separate free-standing object that's
-> essentially always dead is backwards.
+> [snip]
+>   
+>> However I am unsure if disabling pagefaulting is needed or not. Thomas,
+>> Matt, being the last to touch this area, perhaps you could have a look?
+>> Because I notice we have a fallback iomap path which still uses
+>> io_mapping_map_atomic_wc. So if kmap_atomic to kmap_local conversion is
+>> safe, does the iomap side also needs converting to
+>> io_mapping_map_local_wc? Or they have separate requirements?
 > 
-> I went a bit more in-depth in a different thread on scheduler fd_info
-> stats, but essentially fd_info needs to pull stats, you should never push
-> stats towards the drm_file (or i915_drm_client). That avoids all the
-> refcounting issues and rcu needs and everything else like that.
+> AFAIK, the requirements for io_mapping_map_local_wc() are the same as for
+> kmap_local_page(): the kernel virtual address is _only_ valid in the caller
+> context, and map/unmap nesting must be done in stack-based ordering (LIFO).
 > 
-> Maybe you want to jump into that thread:
-> https://lore.kernel.org/dri-devel/CAKMK7uE=m3sSTQrLCeDg0vG8viODOecUsYDK1oC++f5pQi0e8Q@mail.gmail.com/
+> I think a follow up patch could safely switch to io_mapping_map_local_wc() /
+> io_mapping_unmap_local_wc since the address is local to context.
 > 
-> So retiring i915_drm_client infrastructure is the right direction I think.
+> However, not being an expert, reading your note now I suspect that I'm missing
+> something. Can I ask why you think that page-faults disabling might be
+> necessary?
 
-Hmmm.. it is a _mostly_ pull model that we have in i915 ie. data is 
-pulled on fdinfo queries.
+I am not saying it is, was just unsure and wanted some people who worked on this code most recently to take a look and confirm.
 
-_Mostly_ because it cannot be fully pull based when you look at some 
-internal flows. We have to save some data at runtime at times not driven 
-by the fdinfo queries.
+I guess it will work since the copying is done like this anyway:
 
-For instance context close needs to record the GPU utilisation against 
-the client so that it is not lost. Also in the execlists backend we must 
-transfer the hardware tracked runtime into the software state when hw 
-contexts are switched out.
+		/*
+		 * This is the fast path and we cannot handle a pagefault
+		 * whilst holding the struct mutex lest the user pass in the
+		 * relocations contained within a mmaped bo. For in such a case
+		 * we, the page fault handler would call i915_gem_fault() and
+		 * we would try to acquire the struct mutex again. Obviously
+		 * this is bad and so lockdep complains vehemently.
+		 */
+		pagefault_disable();
+		copied = __copy_from_user_inatomic(r, urelocs, count * sizeof(r[0]));
+		pagefault_enable();
+		if (unlikely(copied)) {
+			remain = -EFAULT;
+			goto out;
+		}
 
-The fact i915_drm_client is detached from file_priv is a consequence of 
-the fact i915 GEM contexts can outlive drm_file, and that when such 
-contexts are closed, we need a to record their runtimes.
+Comment is a bit outdated since we don't use that global "struct mutex" any longer, but in any case, if there is a page fault on the mapping where we need to recurse into i915 again to satisfy if, we seem to have code already to handle it. So kmap_local conversion I *think* can't regress anything.
 
-So I think there are three options: how it is now, fully krefed 
-drm_file, or prohibit persistent contexts. Last one don't think we can 
-do due ABI and 2nd felt heavy handed so I choose a lightweight 
-i915_drm_client option.
+Patch to convert the io_mapping_map_atomic_wc can indeed come later.
 
-Maybe there is a fourth option of somehow detecting during context 
-destruction that drm_file is gone and skip the runtime recording, but 
-avoiding races and all did not make me want to entertain it much. Is 
-this actually what you are proposing?
+In terms of logistics - if we landed this series to out branch it would be queued only for 6.5. Would that work for you?
 
 Regards,
 
