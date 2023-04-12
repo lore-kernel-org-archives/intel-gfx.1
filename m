@@ -4,50 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 421F4C7618E
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 14:09:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BB39C77B71
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 14:09:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC1D810EE2A;
-	Fri, 21 Apr 2023 14:09:21 +0000 (UTC)
-X-Greylist: delayed 403 seconds by postgrey-1.36 at gabe;
- Tue, 18 Apr 2023 21:38:19 UTC
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org
- [IPv6:2001:67c:2050:0:465::101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A10B10E2FC;
- Tue, 18 Apr 2023 21:38:18 +0000 (UTC)
-Received: from smtp102.mailbox.org (unknown [10.196.197.102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4Q1HDH079Cz9t4K;
- Tue, 18 Apr 2023 23:31:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1681853487;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=KC9FUxhkYIrJcl9CTNIj/+D5n5jqJvE6Q6ukjUkKjgU=;
- b=iOhsPXPQBr3wHW9fEQnn1H5Xxrcndhu5PSan/o9ZRycMM4Pi+GvYMnmTNWAQLJDaCePnPl
- xk+S7Sd0u1bL5nZdJy0Oip9iNqo4aARvkS6y4jN1qn+q2fCPFi61VwvK3zG91FijKdA22h
- p7oon1un7Lgvm+DmIPno1GvR6hW2bcOpQx1KxYamqSvADPrcsxNDkSASG4ApgTSZJiZYfQ
- V08WjFMwTKAUBx/em1qvSkGDJ+FyjzUa1Fq6xrPlO+STrAYJmpTOXlTGuRIokJd4ix07/s
- fSZoQhrwFwrqQ5zQN5Z/YdcG9HuRXojtoCu0x6dzNZJNWibv1Gdx66nU8nl5fw==
-Date: Mon, 17 Apr 2023 20:48:09 +0200
-From: Harald Koenig <harald@mailbox.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Message-ID: <ZD2UabVlQOBVaVRO@hl.fritz.box>
-References: <ef4e39301a769ef83668074c341274e30db57f95.camel@igalia.com>
- <2b861d289edaab1c53c031f72de192fcddf85b13.camel@igalia.com>
- <20230417124502.GB19964@pendragon.ideasonboard.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BA4C10EE33;
+	Fri, 21 Apr 2023 14:09:22 +0000 (UTC)
+Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
+ [IPv6:2607:f8b0:4864:20::1134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 643F410E036;
+ Wed, 12 Apr 2023 10:16:50 +0000 (UTC)
+Received: by mail-yw1-x1134.google.com with SMTP id
+ 00721157ae682-54f21cdfadbso158739597b3.7; 
+ Wed, 12 Apr 2023 03:16:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1681294609; x=1683886609;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=19dXlvHgMePLLzjJNE3ILaQBnedS0pYMNzyfIhoRXxM=;
+ b=EAQfrASv8KPDAv4+pdLnYB1XvWdCG7BadG3EAWkTPPvVu2WBJVwxQm5f3l+6H0/jXN
+ XS6n5ikdV770ofbD9X+Xa1hogZytqUvOK3WbjoaYpClNJiQKJKMWrqyOkYVBtZhOIg3T
+ n3gKngm1vDtu+KKmTbiVAbCMsq3z6NpoxFSw0DRAMvOR7xQYXFje0S3YfXI97Cvvl5UN
+ HWAxKX4no7XAg6CDu3zpAEtAY7OfQvAdVv7828OSrDKFTsZjke2iu6ZsRi2qRhNsmibD
+ C8DOad/FaPWFbFZ213gQ/GT0797QI2vO5fXEUknzvesvgL6VHK50g99XoO2ovG/K/z0I
+ pCKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1681294609; x=1683886609;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=19dXlvHgMePLLzjJNE3ILaQBnedS0pYMNzyfIhoRXxM=;
+ b=rOXyW2jfKWwPJftUQd6Bg5Znt4wAuRbHVuAFt+5L/TDQyWDfPI6v+2H+WufjheeuQk
+ QZTNJSjByNVK92ry/BPQWAMVvWU4fyKODz6d4cfYmeuRfmZQ2HdIjDO57smSxdneC/hl
+ USCCrc0XxD4wvtDp5LQnTcBROAVbr1a9mL6V8+fcurwmnUr6DOZEoFS3SxvHQBRzKJYG
+ nroRzXX9uTdLPxnaQkj0WQbeUm3cwDhoLBE0vYGWdGbt6+LPcPFo2yXGHDHMWydCxoJU
+ bLInGS+N6GyNWFIJD97SCvONmsqP9fbR7HRBUTxykB36lukK0cBae5s84mjaQvahk1l4
+ CKrQ==
+X-Gm-Message-State: AAQBX9do1bJPBD0FIoIeu3xV1XfX2HZY1P9PRacAXMVIje3IgJVmV69i
+ l/VKBrbbLWDJp+tuL9Rz5J1nkGr84Ad3fZJcTA==
+X-Google-Smtp-Source: AKy350Zbl3xTmIJhw9eX8Q6upCZv7QKX45sX7JtpGJJaFIZE+ybDiJmirCSO3VVFaUGoUxmOUUDVuGGBn6ZRB8avHh4=
+X-Received: by 2002:a81:bc48:0:b0:54f:a609:e88 with SMTP id
+ b8-20020a81bc48000000b0054fa6090e88mr454918ywl.7.1681294608809; Wed, 12 Apr
+ 2023 03:16:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230417124502.GB19964@pendragon.ideasonboard.com>
-X-MBO-RS-META: 7gitco355spy61a3k3zmf6tukn6cq3nt
-X-MBO-RS-ID: c488dba0842a997c9ba
-X-Mailman-Approved-At: Fri, 21 Apr 2023 14:09:20 +0000
-Subject: Re: [Intel-gfx] 2023 X.Org Foundation Membership deadline for
- voting in the election
+References: <CALjTZvZ=Y1psyd0nmfzm6GhqMKvq5V_NQCWb_X02nasp1CpfcQ@mail.gmail.com>
+ <87r0spcuvi.fsf@intel.com>
+In-Reply-To: <87r0spcuvi.fsf@intel.com>
+From: Rui Salvaterra <rsalvaterra@gmail.com>
+Date: Wed, 12 Apr 2023 11:16:37 +0100
+Message-ID: <CALjTZvao=N7wxyj_DpqzWUhdJwEsWSKUo3ddi-3ubgMp8BXi_Q@mail.gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Fri, 21 Apr 2023 14:09:19 +0000
+Subject: Re: [Intel-gfx] [BUG?] INFO: rcu_sched detected expedited stalls on
+ CPUs/tasks: { 0-.... } 3 jiffies s: 309 root: 0x1/.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,59 +69,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: xorg-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
- board <board@foundation.x.org>, members@x.org, amd-gfx@lists.freedesktop.org,
- mesa-dev@lists.freedesktop.org, events@lists.x.org,
- Ricardo Garcia <rgarcia@igalia.com>, freedreno@lists.freedesktop.org,
- libre-soc-dev@lists.libre-soc.org
+Cc: paulmck@kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ rodrigo.vivi@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Apr 17, Laurent Pinchart wrote:
+Hi, Jani,
 
-> I don't know if I'm the only one affected by this issue, but I've just
-> received today two months of e-mails from x.org, including all the
-> reminders aboud membership renewal and election nomination period. This
-> isn't the first time this happens, and the last time I was told there
-> was no automated process to quick the mail queues when errors happen,
-> making mails pile up forever on x.org's side until someone handles it
-> manually. This is something you really want to automate, or at least
-> monitored.
+On Wed, 12 Apr 2023 at 10:28, Jani Nikula <jani.nikula@linux.intel.com> wrote:
+>
+> Please file a bug at fdo gitlab [1]. Add drm.debug=0xe and maybe
+> log_buf_len=4M or similar kernel parameters, and attach dmesg all the
+> way from boot to reproducing the problem.
 
-same here for me: looking into the mail header,
-both mails were stuck on server "gabe.freedesktop.org" 
+Sure, will do, thanks!
 
-	Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	        by gabe.freedesktop.org (Postfix) with ESMTP id BD01310E459;
-	        Mon, 17 Apr 2023 11:42:45 +0000 (UTC)
-	X-Original-To: events@lists.x.org
-	Delivered-To: events@lists.x.org
-	Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	 by gabe.freedesktop.org (Postfix) with ESMTPS id 6C54510E162;
-	 Wed, 15 Feb 2023 15:58:10 +0000 (UTC)
+> How long is "for some time now"?
 
-and	
+That's a wonderful question. I actually found a screenshot I took on
+the 14th October(!) with one of these traces. I don't know the exact
+kernel version, but since I've been running weekly release candidates
+for years, it shouldn't be hard to pinpoint, if strictly needed. Since
+the trace seemed informative and I haven't noticed any problems, I was
+kind of hoping it would solve itself in time. I guess my patience
+lasted 6 months. :)
 
-	Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	        by gabe.freedesktop.org (Postfix) with ESMTP id 6735010E46D;
-	        Mon, 17 Apr 2023 11:42:45 +0000 (UTC)
-	X-Original-To: events@lists.x.org
-	Delivered-To: events@lists.x.org
-	Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	 by gabe.freedesktop.org (Postfix) with ESMTPS id 98DB48953E;
-	 Mon, 13 Mar 2023 15:23:02 +0000 (UTC)
-
-
-
-Harald
--- 
-"I hope to die                                      ___       _____
-before I *have* to use Microsoft Word.",           0--,|    /OOOOOOO\
-Donald E. Knuth, 02-Oct-2001 in Tuebingen.        <_/  /  /OOOOOOOOOOO\
-                                                    \  \/OOOOOOOOOOOOOOO\
-                                                      \ OOOOOOOOOOOOOOOOO|//
-                                                       \/\/\/\/\/\/\/\/\/
-Harald Koenig                                           //  /     \\  \
-harald.koenig@mailbox.org                              ^^^^^       ^^^^^
+Kind regards,
+Rui
