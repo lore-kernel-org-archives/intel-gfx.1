@@ -4,59 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BB39C77B71
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 14:09:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA611C77B7D
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 14:09:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BA4C10EE33;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A530910EE36;
 	Fri, 21 Apr 2023 14:09:22 +0000 (UTC)
-Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
- [IPv6:2607:f8b0:4864:20::1134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 643F410E036;
- Wed, 12 Apr 2023 10:16:50 +0000 (UTC)
-Received: by mail-yw1-x1134.google.com with SMTP id
- 00721157ae682-54f21cdfadbso158739597b3.7; 
- Wed, 12 Apr 2023 03:16:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681294609; x=1683886609;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=19dXlvHgMePLLzjJNE3ILaQBnedS0pYMNzyfIhoRXxM=;
- b=EAQfrASv8KPDAv4+pdLnYB1XvWdCG7BadG3EAWkTPPvVu2WBJVwxQm5f3l+6H0/jXN
- XS6n5ikdV770ofbD9X+Xa1hogZytqUvOK3WbjoaYpClNJiQKJKMWrqyOkYVBtZhOIg3T
- n3gKngm1vDtu+KKmTbiVAbCMsq3z6NpoxFSw0DRAMvOR7xQYXFje0S3YfXI97Cvvl5UN
- HWAxKX4no7XAg6CDu3zpAEtAY7OfQvAdVv7828OSrDKFTsZjke2iu6ZsRi2qRhNsmibD
- C8DOad/FaPWFbFZ213gQ/GT0797QI2vO5fXEUknzvesvgL6VHK50g99XoO2ovG/K/z0I
- pCKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681294609; x=1683886609;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=19dXlvHgMePLLzjJNE3ILaQBnedS0pYMNzyfIhoRXxM=;
- b=rOXyW2jfKWwPJftUQd6Bg5Znt4wAuRbHVuAFt+5L/TDQyWDfPI6v+2H+WufjheeuQk
- QZTNJSjByNVK92ry/BPQWAMVvWU4fyKODz6d4cfYmeuRfmZQ2HdIjDO57smSxdneC/hl
- USCCrc0XxD4wvtDp5LQnTcBROAVbr1a9mL6V8+fcurwmnUr6DOZEoFS3SxvHQBRzKJYG
- nroRzXX9uTdLPxnaQkj0WQbeUm3cwDhoLBE0vYGWdGbt6+LPcPFo2yXGHDHMWydCxoJU
- bLInGS+N6GyNWFIJD97SCvONmsqP9fbR7HRBUTxykB36lukK0cBae5s84mjaQvahk1l4
- CKrQ==
-X-Gm-Message-State: AAQBX9do1bJPBD0FIoIeu3xV1XfX2HZY1P9PRacAXMVIje3IgJVmV69i
- l/VKBrbbLWDJp+tuL9Rz5J1nkGr84Ad3fZJcTA==
-X-Google-Smtp-Source: AKy350Zbl3xTmIJhw9eX8Q6upCZv7QKX45sX7JtpGJJaFIZE+ybDiJmirCSO3VVFaUGoUxmOUUDVuGGBn6ZRB8avHh4=
-X-Received: by 2002:a81:bc48:0:b0:54f:a609:e88 with SMTP id
- b8-20020a81bc48000000b0054fa6090e88mr454918ywl.7.1681294608809; Wed, 12 Apr
- 2023 03:16:48 -0700 (PDT)
+X-Greylist: delayed 323 seconds by postgrey-1.36 at gabe;
+ Wed, 12 Apr 2023 09:48:55 UTC
+Received: from mail78-58.sinamail.sina.com.cn (mail78-58.sinamail.sina.com.cn
+ [219.142.78.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96DA510E74E
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 Apr 2023 09:48:55 +0000 (UTC)
+X-SMAIL-HELO: localhost.localdomain
+Received: from 106.23.202.1.static.bjtelecom.net (HELO
+ localhost.localdomain)([1.202.23.106])
+ by sina.com (172.16.235.25) with ESMTP
+ id 64367D3D00007DDC; Wed, 12 Apr 2023 17:43:27 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com; spf=none smtp.mailfrom=hdanton@sina.com;
+ dkim=none header.i=none;
+ dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 5956834209835
+From: Hillf Danton <hdanton@sina.com>
+To: Rui Salvaterra <rsalvaterra@gmail.com>
+Date: Wed, 12 Apr 2023 17:43:15 +0800
+Message-Id: <20230412094315.1445-1-hdanton@sina.com>
+In-Reply-To: <CALjTZvZ=Y1psyd0nmfzm6GhqMKvq5V_NQCWb_X02nasp1CpfcQ@mail.gmail.com>
+References: 
 MIME-Version: 1.0
-References: <CALjTZvZ=Y1psyd0nmfzm6GhqMKvq5V_NQCWb_X02nasp1CpfcQ@mail.gmail.com>
- <87r0spcuvi.fsf@intel.com>
-In-Reply-To: <87r0spcuvi.fsf@intel.com>
-From: Rui Salvaterra <rsalvaterra@gmail.com>
-Date: Wed, 12 Apr 2023 11:16:37 +0100
-Message-ID: <CALjTZvao=N7wxyj_DpqzWUhdJwEsWSKUo3ddi-3ubgMp8BXi_Q@mail.gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 21 Apr 2023 14:09:19 +0000
-Subject: Re: [Intel-gfx] [BUG?] INFO: rcu_sched detected expedited stalls on
- CPUs/tasks: { 0-.... } 3 jiffies s: 309 root: 0x1/.
+Subject: Re: [Intel-gfx] INFO: rcu_sched detected expedited stalls
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,25 +54,23 @@ Cc: paulmck@kernel.org, intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi, Jani,
+On Wed, 12 Apr 2023 10:15:29 +0100 Rui Salvaterra <rsalvaterra@gmail.com>
+> Hi, everyone,
+> 
+> I apologise in advance if I've sent this to {too many, the wrong}
+> people. For some time now, I've been getting sporadic (in about one
+> out of five boots) DRM-related RCU complaints on an Ivy Bridge-based
+> (Core i7-3720QM) Mac Mini. Call trace (on Linux 6.3-rc6) follows:
 
-On Wed, 12 Apr 2023 at 10:28, Jani Nikula <jani.nikula@linux.intel.com> wrote:
->
-> Please file a bug at fdo gitlab [1]. Add drm.debug=0xe and maybe
-> log_buf_len=4M or similar kernel parameters, and attach dmesg all the
-> way from boot to reproducing the problem.
+Feel free to post again after taking a look at the popular format of
+syzbot report[1].
 
-Sure, will do, thanks!
+[1] https://lore.kernel.org/lkml/000000000000f1a9d205f909f327@google.com/
 
-> How long is "for some time now"?
-
-That's a wonderful question. I actually found a screenshot I took on
-the 14th October(!) with one of these traces. I don't know the exact
-kernel version, but since I've been running weekly release candidates
-for years, it shouldn't be hard to pinpoint, if strictly needed. Since
-the trace seemed informative and I haven't noticed any problems, I was
-kind of hoping it would solve itself in time. I guess my patience
-lasted 6 months. :)
-
-Kind regards,
-Rui
+> [    5.794026] rcu: INFO: rcu_sched detected expedited stalls on
+> CPUs/tasks: { 0-.... } 3 jiffies s: 309 root: 0x1/.
+> [    5.794044] rcu: blocking rcu_node structures (internal RCU debug):
+> [    5.794045] Sending NMI from CPU 1 to CPUs 0:
+> [    5.794049] NMI backtrace for cpu 0
+> [    5.794051] CPU: 0 PID: 537 Comm: Xorg Not tainted 6.3.0-rc6-debug+ #57
+> [    5.794053] Hardware name: Apple Inc. Macmini6,2/Mac-F65AE981FFA204ED, BIOS 429.0.0.0.0 03/18/2022
