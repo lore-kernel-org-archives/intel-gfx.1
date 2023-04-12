@@ -4,47 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B6BDC77B71
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 13:59:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FF43C77B71
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 14:09:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F09310E101;
-	Fri, 21 Apr 2023 13:59:56 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97CC410E101
- for <intel-gfx@lists.freedesktop.org>; Fri, 21 Apr 2023 13:59:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682085593; x=1713621593;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=6R7Lxp7bJE47wyMaKY91gtInNf/9K9BgyMohG4LIkTc=;
- b=ieFEQdihPpRauSC0g9kZMWAg/26aS5muKguAYHydk9U13+O8yPpW6IEt
- 47MCierypGhriYNuVKr7Fn6s7nTcXkV//BbQkZ9N5peZxEk0vY9IrGPDs
- +Tjk66eLVwnZV/NZzsF4M6loq8qgLnFqnBQABWUDPxY14LHSsD53vZlGw
- fgX0OIj/0jRP6SAkexKAFRpf++DXt9p+RMPakKZzJTWH4ZeAWqtk7W/co
- A2vrIjTaijtFT9HOERPq+RGEfyHZaAcI9wNLzEPKrRExQdL9gOtzo5wiO
- L8navIm5a8xnau+mhqbM5TGU5KN4aJ+qbSZhsoB//etboxp06pUzrG1kn w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="326327118"
-X-IronPort-AV: E=Sophos;i="5.99,214,1677571200"; d="scan'208";a="326327118"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2023 06:59:52 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="803749456"
-X-IronPort-AV: E=Sophos;i="5.99,214,1677571200"; d="scan'208";a="803749456"
-Received: from hseyranx-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.32.135])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2023 06:59:51 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 21 Apr 2023 16:59:48 +0300
-Message-Id: <20230421135948.2029121-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id D166C10EE27;
+	Fri, 21 Apr 2023 14:09:20 +0000 (UTC)
+Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com
+ [IPv6:2607:f8b0:4864:20::b35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B33710E0B4;
+ Wed, 12 Apr 2023 09:15:41 +0000 (UTC)
+Received: by mail-yb1-xb35.google.com with SMTP id i20so14648736ybg.10;
+ Wed, 12 Apr 2023 02:15:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1681290940; x=1683882940;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=4QoMYbCHBULDwPZmE/i1/T9z4EvtEBKckR0ihDTwwPw=;
+ b=Wy4ONxeColGe8sjIhX/boO16Grw2Z5WQSvTUKWpRocb6x38Yuc7oFP4lMyhhB4/Upl
+ VHEIFsApw2xFfSbhHhVKLUuQAgaY/mBicjUBICAgXyt8DMGhsu3nBOmAPa/G468VngeO
+ UuMN8L4IAa8jIVEKuwmDwMXZvwBTeQYuvVObxQk2SzydGOeBgTsaq2Q7nWTBAWbtLvpf
+ Dix4+BP6UMe3K95vEXlrnWdIWyCZD2QTJ0ceTTjCebHUtnw2jiy8rYpn2KFw0dThPzMm
+ Y0lj/jeh6T/FsTmpCTh+EuxrA8S9f8Z/tWTUN0wntLpRNjccPUpextGUmSSgIdgGui/X
+ /foA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1681290940; x=1683882940;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=4QoMYbCHBULDwPZmE/i1/T9z4EvtEBKckR0ihDTwwPw=;
+ b=fF97GhN+X60kseKfLsdPd1i4QSU7k2jVNj0nJF34kxdnBKWVctR8Zoo7d4g2fNfMoj
+ U+wy54cXfJRZtojHvelN+10tHqaWizIODO8HjJde8HIFONH6FFjjIH7F4c9SwCRT69t6
+ 8qr4L2hxIfjmRDlIIg7QIxb9k9IUfUoJUv7KZLW/ZghzsoG7E+MC0v1kucUiL2BMlQl2
+ rzbqCKbAvYxN0ceAZKxe2MWVDFSJ98TzksiHgGXGQ46CI23cer6R5MTgCmHOvAbaXYQV
+ jeR57u1d6FxhI+A4bueZiq9FDKo2PLVNevOyscGFEpDs6+eLkDSKZxRXTlZ8diJVt4jt
+ m8Vg==
+X-Gm-Message-State: AAQBX9dWOgR7Y8WVYyjeCLghh9jr14qUdsmSTkap6e8POU8m75g6fq07
+ ZE2ZKU+HR49Zt+gy0RdwZXTh8s+WDbwhuWIOLA==
+X-Google-Smtp-Source: AKy350YCzOezy3P7htngYrTrNP5gL9p+d9ZO3rpBGc2a3PnnTBleii6m2bIuFT71My6fcLqNgHznx9iULV4u4SZ4+gQ=
+X-Received: by 2002:a25:d884:0:b0:b8e:f1ef:a144 with SMTP id
+ p126-20020a25d884000000b00b8ef1efa144mr1571606ybg.0.1681290940273; Wed, 12
+ Apr 2023 02:15:40 -0700 (PDT)
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/rc6: throw out set() wrapper
+From: Rui Salvaterra <rsalvaterra@gmail.com>
+Date: Wed, 12 Apr 2023 10:15:29 +0100
+Message-ID: <CALjTZvZ=Y1psyd0nmfzm6GhqMKvq5V_NQCWb_X02nasp1CpfcQ@mail.gmail.com>
+To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com, 
+ tvrtko.ursulin@linux.intel.com, paulmck@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Fri, 21 Apr 2023 14:09:19 +0000
+Subject: [Intel-gfx] [BUG?] INFO: rcu_sched detected expedited stalls on
+ CPUs/tasks: { 0-.... } 3 jiffies s: 309 root: 0x1/.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,336 +65,89 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove useless indirection that's just misdirection for the readers.
+Hi, everyone,
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_rc6.c | 157 ++++++++++++++--------------
- 1 file changed, 76 insertions(+), 81 deletions(-)
+I apologise in advance if I've sent this to {too many, the wrong}
+people. For some time now, I've been getting sporadic (in about one
+out of five boots) DRM-related RCU complaints on an Ivy Bridge-based
+(Core i7-3720QM) Mac Mini. Call trace (on Linux 6.3-rc6) follows:
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.c b/drivers/gpu/drm/i915/gt/intel_rc6.c
-index 8f3cd68d14f8..908a3d0f2343 100644
---- a/drivers/gpu/drm/i915/gt/intel_rc6.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rc6.c
-@@ -53,11 +53,6 @@ static struct drm_i915_private *rc6_to_i915(struct intel_rc6 *rc)
- 	return rc6_to_gt(rc)->i915;
- }
- 
--static void set(struct intel_uncore *uncore, i915_reg_t reg, u32 val)
--{
--	intel_uncore_write_fw(uncore, reg, val);
--}
--
- static void gen11_rc6_enable(struct intel_rc6 *rc6)
- {
- 	struct intel_gt *gt = rc6_to_gt(rc6);
-@@ -72,19 +67,19 @@ static void gen11_rc6_enable(struct intel_rc6 *rc6)
- 	 */
- 	if (!intel_uc_uses_guc_rc(&gt->uc)) {
- 		/* 2b: Program RC6 thresholds.*/
--		set(uncore, GEN6_RC6_WAKE_RATE_LIMIT, 54 << 16 | 85);
--		set(uncore, GEN10_MEDIA_WAKE_RATE_LIMIT, 150);
-+		intel_uncore_write_fw(uncore, GEN6_RC6_WAKE_RATE_LIMIT, 54 << 16 | 85);
-+		intel_uncore_write_fw(uncore, GEN10_MEDIA_WAKE_RATE_LIMIT, 150);
- 
--		set(uncore, GEN6_RC_EVALUATION_INTERVAL, 125000); /* 12500 * 1280ns */
--		set(uncore, GEN6_RC_IDLE_HYSTERSIS, 25); /* 25 * 1280ns */
-+		intel_uncore_write_fw(uncore, GEN6_RC_EVALUATION_INTERVAL, 125000); /* 12500 * 1280ns */
-+		intel_uncore_write_fw(uncore, GEN6_RC_IDLE_HYSTERSIS, 25); /* 25 * 1280ns */
- 		for_each_engine(engine, rc6_to_gt(rc6), id)
--			set(uncore, RING_MAX_IDLE(engine->mmio_base), 10);
-+			intel_uncore_write_fw(uncore, RING_MAX_IDLE(engine->mmio_base), 10);
- 
--		set(uncore, GUC_MAX_IDLE_COUNT, 0xA);
-+		intel_uncore_write_fw(uncore, GUC_MAX_IDLE_COUNT, 0xA);
- 
--		set(uncore, GEN6_RC_SLEEP, 0);
-+		intel_uncore_write_fw(uncore, GEN6_RC_SLEEP, 0);
- 
--		set(uncore, GEN6_RC6_THRESHOLD, 50000); /* 50/125ms per EI */
-+		intel_uncore_write_fw(uncore, GEN6_RC6_THRESHOLD, 50000); /* 50/125ms per EI */
- 	}
- 
- 	/*
-@@ -105,8 +100,8 @@ static void gen11_rc6_enable(struct intel_rc6 *rc6)
- 	 * Broadwell+, To be conservative, we want to factor in a context
- 	 * switch on top (due to ksoftirqd).
- 	 */
--	set(uncore, GEN9_MEDIA_PG_IDLE_HYSTERESIS, 60);
--	set(uncore, GEN9_RENDER_PG_IDLE_HYSTERESIS, 60);
-+	intel_uncore_write_fw(uncore, GEN9_MEDIA_PG_IDLE_HYSTERESIS, 60);
-+	intel_uncore_write_fw(uncore, GEN9_RENDER_PG_IDLE_HYSTERESIS, 60);
- 
- 	/* 3a: Enable RC6
- 	 *
-@@ -141,7 +136,7 @@ static void gen11_rc6_enable(struct intel_rc6 *rc6)
- 					      VDN_MFX_POWERGATE_ENABLE(i));
- 	}
- 
--	set(uncore, GEN9_PG_ENABLE, pg_enable);
-+	intel_uncore_write_fw(uncore, GEN9_PG_ENABLE, pg_enable);
- }
- 
- static void gen9_rc6_enable(struct intel_rc6 *rc6)
-@@ -152,26 +147,26 @@ static void gen9_rc6_enable(struct intel_rc6 *rc6)
- 
- 	/* 2b: Program RC6 thresholds.*/
- 	if (GRAPHICS_VER(rc6_to_i915(rc6)) >= 11) {
--		set(uncore, GEN6_RC6_WAKE_RATE_LIMIT, 54 << 16 | 85);
--		set(uncore, GEN10_MEDIA_WAKE_RATE_LIMIT, 150);
-+		intel_uncore_write_fw(uncore, GEN6_RC6_WAKE_RATE_LIMIT, 54 << 16 | 85);
-+		intel_uncore_write_fw(uncore, GEN10_MEDIA_WAKE_RATE_LIMIT, 150);
- 	} else if (IS_SKYLAKE(rc6_to_i915(rc6))) {
- 		/*
- 		 * WaRsDoubleRc6WrlWithCoarsePowerGating:skl Doubling WRL only
- 		 * when CPG is enabled
- 		 */
--		set(uncore, GEN6_RC6_WAKE_RATE_LIMIT, 108 << 16);
-+		intel_uncore_write_fw(uncore, GEN6_RC6_WAKE_RATE_LIMIT, 108 << 16);
- 	} else {
--		set(uncore, GEN6_RC6_WAKE_RATE_LIMIT, 54 << 16);
-+		intel_uncore_write_fw(uncore, GEN6_RC6_WAKE_RATE_LIMIT, 54 << 16);
- 	}
- 
--	set(uncore, GEN6_RC_EVALUATION_INTERVAL, 125000); /* 12500 * 1280ns */
--	set(uncore, GEN6_RC_IDLE_HYSTERSIS, 25); /* 25 * 1280ns */
-+	intel_uncore_write_fw(uncore, GEN6_RC_EVALUATION_INTERVAL, 125000); /* 12500 * 1280ns */
-+	intel_uncore_write_fw(uncore, GEN6_RC_IDLE_HYSTERSIS, 25); /* 25 * 1280ns */
- 	for_each_engine(engine, rc6_to_gt(rc6), id)
--		set(uncore, RING_MAX_IDLE(engine->mmio_base), 10);
-+		intel_uncore_write_fw(uncore, RING_MAX_IDLE(engine->mmio_base), 10);
- 
--	set(uncore, GUC_MAX_IDLE_COUNT, 0xA);
-+	intel_uncore_write_fw(uncore, GUC_MAX_IDLE_COUNT, 0xA);
- 
--	set(uncore, GEN6_RC_SLEEP, 0);
-+	intel_uncore_write_fw(uncore, GEN6_RC_SLEEP, 0);
- 
- 	/*
- 	 * 2c: Program Coarse Power Gating Policies.
-@@ -194,11 +189,11 @@ static void gen9_rc6_enable(struct intel_rc6 *rc6)
- 	 * conservative, we have to factor in a context switch on top (due
- 	 * to ksoftirqd).
- 	 */
--	set(uncore, GEN9_MEDIA_PG_IDLE_HYSTERESIS, 250);
--	set(uncore, GEN9_RENDER_PG_IDLE_HYSTERESIS, 250);
-+	intel_uncore_write_fw(uncore, GEN9_MEDIA_PG_IDLE_HYSTERESIS, 250);
-+	intel_uncore_write_fw(uncore, GEN9_RENDER_PG_IDLE_HYSTERESIS, 250);
- 
- 	/* 3a: Enable RC6 */
--	set(uncore, GEN6_RC6_THRESHOLD, 37500); /* 37.5/125ms per EI */
-+	intel_uncore_write_fw(uncore, GEN6_RC6_THRESHOLD, 37500); /* 37.5/125ms per EI */
- 
- 	rc6->ctl_enable =
- 		GEN6_RC_CTL_HW_ENABLE |
-@@ -210,8 +205,8 @@ static void gen9_rc6_enable(struct intel_rc6 *rc6)
- 	 *   - Render/Media PG need to be disabled with RC6.
- 	 */
- 	if (!NEEDS_WaRsDisableCoarsePowerGating(rc6_to_i915(rc6)))
--		set(uncore, GEN9_PG_ENABLE,
--		    GEN9_RENDER_PG_ENABLE | GEN9_MEDIA_PG_ENABLE);
-+		intel_uncore_write_fw(uncore, GEN9_PG_ENABLE,
-+				      GEN9_RENDER_PG_ENABLE | GEN9_MEDIA_PG_ENABLE);
- }
- 
- static void gen8_rc6_enable(struct intel_rc6 *rc6)
-@@ -221,13 +216,13 @@ static void gen8_rc6_enable(struct intel_rc6 *rc6)
- 	enum intel_engine_id id;
- 
- 	/* 2b: Program RC6 thresholds.*/
--	set(uncore, GEN6_RC6_WAKE_RATE_LIMIT, 40 << 16);
--	set(uncore, GEN6_RC_EVALUATION_INTERVAL, 125000); /* 12500 * 1280ns */
--	set(uncore, GEN6_RC_IDLE_HYSTERSIS, 25); /* 25 * 1280ns */
-+	intel_uncore_write_fw(uncore, GEN6_RC6_WAKE_RATE_LIMIT, 40 << 16);
-+	intel_uncore_write_fw(uncore, GEN6_RC_EVALUATION_INTERVAL, 125000); /* 12500 * 1280ns */
-+	intel_uncore_write_fw(uncore, GEN6_RC_IDLE_HYSTERSIS, 25); /* 25 * 1280ns */
- 	for_each_engine(engine, rc6_to_gt(rc6), id)
--		set(uncore, RING_MAX_IDLE(engine->mmio_base), 10);
--	set(uncore, GEN6_RC_SLEEP, 0);
--	set(uncore, GEN6_RC6_THRESHOLD, 625); /* 800us/1.28 for TO */
-+		intel_uncore_write_fw(uncore, RING_MAX_IDLE(engine->mmio_base), 10);
-+	intel_uncore_write_fw(uncore, GEN6_RC_SLEEP, 0);
-+	intel_uncore_write_fw(uncore, GEN6_RC6_THRESHOLD, 625); /* 800us/1.28 for TO */
- 
- 	/* 3: Enable RC6 */
- 	rc6->ctl_enable =
-@@ -245,20 +240,20 @@ static void gen6_rc6_enable(struct intel_rc6 *rc6)
- 	u32 rc6vids, rc6_mask;
- 	int ret;
- 
--	set(uncore, GEN6_RC1_WAKE_RATE_LIMIT, 1000 << 16);
--	set(uncore, GEN6_RC6_WAKE_RATE_LIMIT, 40 << 16 | 30);
--	set(uncore, GEN6_RC6pp_WAKE_RATE_LIMIT, 30);
--	set(uncore, GEN6_RC_EVALUATION_INTERVAL, 125000);
--	set(uncore, GEN6_RC_IDLE_HYSTERSIS, 25);
-+	intel_uncore_write_fw(uncore, GEN6_RC1_WAKE_RATE_LIMIT, 1000 << 16);
-+	intel_uncore_write_fw(uncore, GEN6_RC6_WAKE_RATE_LIMIT, 40 << 16 | 30);
-+	intel_uncore_write_fw(uncore, GEN6_RC6pp_WAKE_RATE_LIMIT, 30);
-+	intel_uncore_write_fw(uncore, GEN6_RC_EVALUATION_INTERVAL, 125000);
-+	intel_uncore_write_fw(uncore, GEN6_RC_IDLE_HYSTERSIS, 25);
- 
- 	for_each_engine(engine, rc6_to_gt(rc6), id)
--		set(uncore, RING_MAX_IDLE(engine->mmio_base), 10);
-+		intel_uncore_write_fw(uncore, RING_MAX_IDLE(engine->mmio_base), 10);
- 
--	set(uncore, GEN6_RC_SLEEP, 0);
--	set(uncore, GEN6_RC1e_THRESHOLD, 1000);
--	set(uncore, GEN6_RC6_THRESHOLD, 50000);
--	set(uncore, GEN6_RC6p_THRESHOLD, 150000);
--	set(uncore, GEN6_RC6pp_THRESHOLD, 64000); /* unused */
-+	intel_uncore_write_fw(uncore, GEN6_RC_SLEEP, 0);
-+	intel_uncore_write_fw(uncore, GEN6_RC1e_THRESHOLD, 1000);
-+	intel_uncore_write_fw(uncore, GEN6_RC6_THRESHOLD, 50000);
-+	intel_uncore_write_fw(uncore, GEN6_RC6p_THRESHOLD, 150000);
-+	intel_uncore_write_fw(uncore, GEN6_RC6pp_THRESHOLD, 64000); /* unused */
- 
- 	/* We don't use those on Haswell */
- 	rc6_mask = GEN6_RC_CTL_RC6_ENABLE;
-@@ -372,22 +367,22 @@ static void chv_rc6_enable(struct intel_rc6 *rc6)
- 	enum intel_engine_id id;
- 
- 	/* 2a: Program RC6 thresholds.*/
--	set(uncore, GEN6_RC6_WAKE_RATE_LIMIT, 40 << 16);
--	set(uncore, GEN6_RC_EVALUATION_INTERVAL, 125000); /* 12500 * 1280ns */
--	set(uncore, GEN6_RC_IDLE_HYSTERSIS, 25); /* 25 * 1280ns */
-+	intel_uncore_write_fw(uncore, GEN6_RC6_WAKE_RATE_LIMIT, 40 << 16);
-+	intel_uncore_write_fw(uncore, GEN6_RC_EVALUATION_INTERVAL, 125000); /* 12500 * 1280ns */
-+	intel_uncore_write_fw(uncore, GEN6_RC_IDLE_HYSTERSIS, 25); /* 25 * 1280ns */
- 
- 	for_each_engine(engine, rc6_to_gt(rc6), id)
--		set(uncore, RING_MAX_IDLE(engine->mmio_base), 10);
--	set(uncore, GEN6_RC_SLEEP, 0);
-+		intel_uncore_write_fw(uncore, RING_MAX_IDLE(engine->mmio_base), 10);
-+	intel_uncore_write_fw(uncore, GEN6_RC_SLEEP, 0);
- 
- 	/* TO threshold set to 500 us (0x186 * 1.28 us) */
--	set(uncore, GEN6_RC6_THRESHOLD, 0x186);
-+	intel_uncore_write_fw(uncore, GEN6_RC6_THRESHOLD, 0x186);
- 
- 	/* Allows RC6 residency counter to work */
--	set(uncore, VLV_COUNTER_CONTROL,
--	    _MASKED_BIT_ENABLE(VLV_COUNT_RANGE_HIGH |
--			       VLV_MEDIA_RC6_COUNT_EN |
--			       VLV_RENDER_RC6_COUNT_EN));
-+	intel_uncore_write_fw(uncore, VLV_COUNTER_CONTROL,
-+			      _MASKED_BIT_ENABLE(VLV_COUNT_RANGE_HIGH |
-+						 VLV_MEDIA_RC6_COUNT_EN |
-+						 VLV_RENDER_RC6_COUNT_EN));
- 
- 	/* 3: Enable RC6 */
- 	rc6->ctl_enable = GEN7_RC_CTL_TO_MODE;
-@@ -399,22 +394,22 @@ static void vlv_rc6_enable(struct intel_rc6 *rc6)
- 	struct intel_engine_cs *engine;
- 	enum intel_engine_id id;
- 
--	set(uncore, GEN6_RC6_WAKE_RATE_LIMIT, 0x00280000);
--	set(uncore, GEN6_RC_EVALUATION_INTERVAL, 125000);
--	set(uncore, GEN6_RC_IDLE_HYSTERSIS, 25);
-+	intel_uncore_write_fw(uncore, GEN6_RC6_WAKE_RATE_LIMIT, 0x00280000);
-+	intel_uncore_write_fw(uncore, GEN6_RC_EVALUATION_INTERVAL, 125000);
-+	intel_uncore_write_fw(uncore, GEN6_RC_IDLE_HYSTERSIS, 25);
- 
- 	for_each_engine(engine, rc6_to_gt(rc6), id)
--		set(uncore, RING_MAX_IDLE(engine->mmio_base), 10);
-+		intel_uncore_write_fw(uncore, RING_MAX_IDLE(engine->mmio_base), 10);
- 
--	set(uncore, GEN6_RC6_THRESHOLD, 0x557);
-+	intel_uncore_write_fw(uncore, GEN6_RC6_THRESHOLD, 0x557);
- 
- 	/* Allows RC6 residency counter to work */
--	set(uncore, VLV_COUNTER_CONTROL,
--	    _MASKED_BIT_ENABLE(VLV_COUNT_RANGE_HIGH |
--			       VLV_MEDIA_RC0_COUNT_EN |
--			       VLV_RENDER_RC0_COUNT_EN |
--			       VLV_MEDIA_RC6_COUNT_EN |
--			       VLV_RENDER_RC6_COUNT_EN));
-+	intel_uncore_write_fw(uncore, VLV_COUNTER_CONTROL,
-+			      _MASKED_BIT_ENABLE(VLV_COUNT_RANGE_HIGH |
-+						 VLV_MEDIA_RC0_COUNT_EN |
-+						 VLV_RENDER_RC0_COUNT_EN |
-+						 VLV_MEDIA_RC6_COUNT_EN |
-+						 VLV_RENDER_RC6_COUNT_EN));
- 
- 	rc6->ctl_enable =
- 	    GEN7_RC_CTL_TO_MODE | VLV_RC_CTL_CTX_RST_PARALLEL;
-@@ -575,9 +570,9 @@ static void __intel_rc6_disable(struct intel_rc6 *rc6)
- 
- 	intel_uncore_forcewake_get(uncore, FORCEWAKE_ALL);
- 	if (GRAPHICS_VER(i915) >= 9)
--		set(uncore, GEN9_PG_ENABLE, 0);
--	set(uncore, GEN6_RC_CONTROL, 0);
--	set(uncore, GEN6_RC_STATE, 0);
-+		intel_uncore_write_fw(uncore, GEN9_PG_ENABLE, 0);
-+	intel_uncore_write_fw(uncore, GEN6_RC_CONTROL, 0);
-+	intel_uncore_write_fw(uncore, GEN6_RC_STATE, 0);
- 	intel_uncore_forcewake_put(uncore, FORCEWAKE_ALL);
- }
- 
-@@ -684,7 +679,7 @@ void intel_rc6_unpark(struct intel_rc6 *rc6)
- 		return;
- 
- 	/* Restore HW timers for automatic RC6 entry while busy */
--	set(uncore, GEN6_RC_CONTROL, rc6->ctl_enable);
-+	intel_uncore_write_fw(uncore, GEN6_RC_CONTROL, rc6->ctl_enable);
- }
- 
- void intel_rc6_park(struct intel_rc6 *rc6)
-@@ -704,7 +699,7 @@ void intel_rc6_park(struct intel_rc6 *rc6)
- 		return;
- 
- 	/* Turn off the HW timers and go directly to rc6 */
--	set(uncore, GEN6_RC_CONTROL, GEN6_RC_CTL_RC6_ENABLE);
-+	intel_uncore_write_fw(uncore, GEN6_RC_CONTROL, GEN6_RC_CTL_RC6_ENABLE);
- 
- 	if (HAS_RC6pp(rc6_to_i915(rc6)))
- 		target = 0x6; /* deepest rc6 */
-@@ -712,7 +707,7 @@ void intel_rc6_park(struct intel_rc6 *rc6)
- 		target = 0x5; /* deep rc6 */
- 	else
- 		target = 0x4; /* normal rc6 */
--	set(uncore, GEN6_RC_STATE, target << RC_SW_TARGET_STATE_SHIFT);
-+	intel_uncore_write_fw(uncore, GEN6_RC_STATE, target << RC_SW_TARGET_STATE_SHIFT);
- }
- 
- void intel_rc6_disable(struct intel_rc6 *rc6)
-@@ -735,7 +730,7 @@ void intel_rc6_fini(struct intel_rc6 *rc6)
- 
- 	/* We want the BIOS C6 state preserved across loads for MTL */
- 	if (IS_METEORLAKE(rc6_to_i915(rc6)) && rc6->bios_state_captured)
--		set(uncore, GEN6_RC_STATE, rc6->bios_rc_state);
-+		intel_uncore_write_fw(uncore, GEN6_RC_STATE, rc6->bios_rc_state);
- 
- 	pctx = fetch_and_zero(&rc6->pctx);
- 	if (pctx)
-@@ -766,18 +761,18 @@ static u64 vlv_residency_raw(struct intel_uncore *uncore, const i915_reg_t reg)
- 	 * before we have set the default VLV_COUNTER_CONTROL value. So always
- 	 * set the high bit to be safe.
- 	 */
--	set(uncore, VLV_COUNTER_CONTROL,
--	    _MASKED_BIT_ENABLE(VLV_COUNT_RANGE_HIGH));
-+	intel_uncore_write_fw(uncore, VLV_COUNTER_CONTROL,
-+			      _MASKED_BIT_ENABLE(VLV_COUNT_RANGE_HIGH));
- 	upper = intel_uncore_read_fw(uncore, reg);
- 	do {
- 		tmp = upper;
- 
--		set(uncore, VLV_COUNTER_CONTROL,
--		    _MASKED_BIT_DISABLE(VLV_COUNT_RANGE_HIGH));
-+		intel_uncore_write_fw(uncore, VLV_COUNTER_CONTROL,
-+				      _MASKED_BIT_DISABLE(VLV_COUNT_RANGE_HIGH));
- 		lower = intel_uncore_read_fw(uncore, reg);
- 
--		set(uncore, VLV_COUNTER_CONTROL,
--		    _MASKED_BIT_ENABLE(VLV_COUNT_RANGE_HIGH));
-+		intel_uncore_write_fw(uncore, VLV_COUNTER_CONTROL,
-+				      _MASKED_BIT_ENABLE(VLV_COUNT_RANGE_HIGH));
- 		upper = intel_uncore_read_fw(uncore, reg);
- 	} while (upper != tmp && --loop);
- 
--- 
-2.39.2
+[    5.794026] rcu: INFO: rcu_sched detected expedited stalls on
+CPUs/tasks: { 0-.... } 3 jiffies s: 309 root: 0x1/.
+[    5.794044] rcu: blocking rcu_node structures (internal RCU debug):
+[    5.794045] Sending NMI from CPU 1 to CPUs 0:
+[    5.794049] NMI backtrace for cpu 0
+[    5.794051] CPU: 0 PID: 537 Comm: Xorg Not tainted 6.3.0-rc6-debug+ #57
+[    5.794053] Hardware name: Apple Inc.
+Macmini6,2/Mac-F65AE981FFA204ED, BIOS 429.0.0.0.0 03/18/2022
+[    5.794054] RIP: 0010:fwtable_read32+0x45/0x100
+[    5.794060] Code: 5e 00 49 89 c5 48 8b 45 08 8b b0 2c 1d 00 00 85
+f6 0f 85 94 00 00 00 8d 83 00 00 fc ff 3d ff 5f 0d 00 77 28 48 03 5d
+00 8b 1b <48> 8b 45 08 8b 88 2c 1d 00 00 85 c9 75 48 4c 89 ee 4c 89 e7
+e8 82
+[    5.794061] RSP: 0018:ffff88810d17f968 EFLAGS: 00000082
+[    5.794063] RAX: 0000000000085010 RBX: 0000000000000200 RCX: ffff888101d80000
+[    5.794064] RDX: 0000000000000001 RSI: 0000000000000000 RDI: ffff888101d81f28
+[    5.794064] RBP: ffff888101d81f08 R08: 0000000000000000 R09: 00000000000032ab
+[    5.794065] R10: 0000000000000001 R11: 00000000000061b2 R12: ffff888101d81f28
+[    5.794066] R13: 0000000000000246 R14: ffff888102f693d0 R15: ffff88810d17faef
+[    5.794067] FS:  00007f579a20da80(0000) GS:ffff888267200000(0000)
+knlGS:0000000000000000
+[    5.794068] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    5.794069] CR2: 000055fe9b660028 CR3: 0000000111e97004 CR4: 00000000001706f0
+[    5.794069] Call Trace:
+[    5.794071]  <TASK>
+[    5.794073]  get_reserved.isra.0+0x23/0x30
+[    5.794076]  get_clock+0x25/0x70
+[    5.794078]  sclhi+0x43/0x70
+[    5.794081]  i2c_stop+0x2b/0x40
+[    5.794083]  bit_xfer+0x22a/0x5d0
+[    5.794085]  ? __pm_runtime_resume+0x40/0x50
+[    5.794088]  ? __intel_display_power_get_domain.part.0+0x4d/0x60
+[    5.794092]  gmbus_xfer+0x3c/0x90
+[    5.794094]  __i2c_transfer+0x15b/0x4d0
+[    5.794096]  i2c_transfer+0x3c/0xa0
+[    5.794098]  drm_do_probe_ddc_edid+0xad/0x120
+[    5.794101]  drm_get_edid+0x71/0x90
+[    5.794104]  intel_crt_get_edid+0xf/0x80
+[    5.794106]  intel_crt_detect_ddc+0x28/0xc0
+[    5.794107]  intel_crt_detect+0x1f5/0xc40
+[    5.794108]  ? pollwake+0x61/0x70
+[    5.794111]  drm_helper_probe_detect+0x43/0xa0
+[    5.794115]  drm_helper_probe_single_connector_modes+0x403/0x490
+[    5.794117]  drm_mode_getconnector+0x32d/0x430
+[    5.794119]  ? drm_connector_list_iter_next+0x7c/0xa0
+[    5.794120]  ? drm_connector_property_set_ioctl+0x30/0x30
+[    5.794122]  drm_ioctl_kernel+0x91/0x130
+[    5.794124]  drm_ioctl+0x1d8/0x410
+[    5.794125]  ? drm_connector_property_set_ioctl+0x30/0x30
+[    5.794127]  __x64_sys_ioctl+0x3b9/0x8f0
+[    5.794129]  ? handle_mm_fault+0xc1/0x170
+[    5.794131]  ? exc_page_fault+0x18b/0x470
+[    5.794134]  do_syscall_64+0x2b/0x50
+[    5.794136]  entry_SYSCALL_64_after_hwframe+0x46/0xb0
+[    5.794139] RIP: 0033:0x7f579a1119ef
+[    5.794141] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24
+10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00
+00 0f 05 <89> c2 3d 00 f0 ff ff 77 18 48 8b 44 24 18 64 48 2b 04 25 28
+00 00
+[    5.794142] RSP: 002b:00007ffc1dee7620 EFLAGS: 00000246 ORIG_RAX:
+0000000000000010
+[    5.794143] RAX: ffffffffffffffda RBX: 000055fe9b660060 RCX: 00007f579a1119ef
+[    5.794144] RDX: 00007ffc1dee76c0 RSI: 00000000c05064a7 RDI: 000000000000000f
+[    5.794144] RBP: 00007ffc1dee76c0 R08: 0000000000000000 R09: 0000000000000000
+[    5.794145] R10: 00007f579a6bc1d8 R11: 0000000000000246 R12: 00000000c05064a7
+[    5.794146] R13: 000000000000000f R14: 00000000c05064a7 R15: 00007ffc1dee76c0
+[    5.794147]  </TASK>
 
+Please let me know if you need any additional information (kconfig,
+etc.) in order to fix this. I will, of course, be happy to test any
+patch thrown my way.
+
+Kind regards,
+Rui
