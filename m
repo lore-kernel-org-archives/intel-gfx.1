@@ -4,51 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 235E6C7618E
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 14:09:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 600EAC77B76
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 14:09:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 959EF10EE37;
-	Fri, 21 Apr 2023 14:09:40 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 225AA10E048;
- Thu, 13 Apr 2023 16:21:13 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 74D6C63F63;
- Thu, 13 Apr 2023 16:21:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB825C433EF;
- Thu, 13 Apr 2023 16:21:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1681402870;
- bh=DBYN28adC/1qkwY3HnC2KPIlKTz6xLHOhztUP4g1frU=;
- h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To:From;
- b=TFE9II5OCkhht3T7bC9JmPubNd6r5aVGMrm7E6s8pRGxhrRNDLgSp+6rAdEbP/+0E
- o7N7IpLgZ1FDA2kLxJ5wZZbUWrHCheF5HzdV6sO9a7ZydGrgEq7b/LwLAfDf3+V7QV
- VIBns9PRNgzF2q4NCHl+KBcYu7rihT7c65vmwxgS4EOlCCcdZOqgvd3CofVSJShAAn
- HrNK6V1XygYdKa8FMTPDJBucW8RhhhQmzh640f0rg+4KpGzheBDMAhZMh3mdnoF24I
- eMdwehmI/9dotrxxR6acjZYjcfwhba9gre2zjc+HzyAJZRJLqFt4TPsQLSYNFOYi/i
- xbl7N0rTaY2+w==
-Received: by paulmck-ThinkPad-P72.home (Postfix, from userid 1000)
- id 6E39F15404B3; Thu, 13 Apr 2023 09:21:10 -0700 (PDT)
-Date: Thu, 13 Apr 2023 09:21:10 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Rui Salvaterra <rsalvaterra@gmail.com>
-Message-ID: <1384f15b-228f-4a6b-8ac3-d0437db8bc1c@paulmck-laptop>
-References: <CALjTZvZ=Y1psyd0nmfzm6GhqMKvq5V_NQCWb_X02nasp1CpfcQ@mail.gmail.com>
- <87r0spcuvi.fsf@intel.com>
- <CALjTZvao=N7wxyj_DpqzWUhdJwEsWSKUo3ddi-3ubgMp8BXi_Q@mail.gmail.com>
- <CALjTZvaf1cwcZc9O8g24SnZXsoQaWB97UVQW=g6M0coaudLr6w@mail.gmail.com>
- <2495408f-a644-4e56-aaca-e6915cbda179@paulmck-laptop>
- <CALjTZva=JHsckrBeHgJcd-_TDMgYgmZGcXavJ=GhPr7VQCOF5g@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 964AD10EE3B;
+	Fri, 21 Apr 2023 14:09:41 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D3D810EA5B;
+ Thu, 13 Apr 2023 08:02:27 +0000 (UTC)
+X-UUID: 523ffd16c1d74ba2bebaa48baf1044d8-20230413
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.22, REQID:e27458f9-b223-4a29-a75f-dc1628b0353d, IP:5,
+ U
+ RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:1,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:1
+X-CID-INFO: VERSION:1.1.22, REQID:e27458f9-b223-4a29-a75f-dc1628b0353d, IP:5,
+ URL
+ :0,TC:0,Content:-5,EDM:0,RT:0,SF:1,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+ elease,TS:1
+X-CID-META: VersionHash:120426c, CLOUDID:952432a1-8fcb-430b-954a-ba3f00fa94a5,
+ B
+ ulkID:230413111352DVZVW4B9,BulkQuantity:2,Recheck:0,SF:24|17|19|43|102,TC:
+ nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:40,QS:nil,BEC:nil,COL:0,OSI
+ :0,OSA:0,AV:0
+X-CID-BVR: 0
+X-CID-BAS: 0,_,0,_
+X-UUID: 523ffd16c1d74ba2bebaa48baf1044d8-20230413
+X-User: liucong2@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.169)] by mailgw
+ (envelope-from <liucong2@kylinos.cn>) (Generic MTA)
+ with ESMTP id 1709036445; Thu, 13 Apr 2023 15:57:06 +0800
+From: Cong Liu <liucong2@kylinos.cn>
+To: jani.nikula@linux.intel.com
+Date: Thu, 13 Apr 2023 15:55:26 +0800
+Message-Id: <20230413075526.221068-1-liucong2@kylinos.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <874jpkckxw.fsf@intel.com>
+References: <874jpkckxw.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALjTZva=JHsckrBeHgJcd-_TDMgYgmZGcXavJ=GhPr7VQCOF5g@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 21 Apr 2023 14:09:19 +0000
-Subject: Re: [Intel-gfx] [BUG?] INFO: rcu_sched detected expedited stalls on
- CPUs/tasks: { 0-.... } 3 jiffies s: 309 root: 0x1/.
+Subject: [Intel-gfx] [PATCH] drm/i915: Fix memory leaks in i915 selftests
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,32 +57,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: paulmck@kernel.org
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com
+Cc: mchehab@kernel.org, andrzej.hajda@intel.com,
+ intel-gfx@lists.freedesktop.org, jonathan.cavitt@intel.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ chris@chris-wilson.co.uk, rodrigo.vivi@intel.com, liucong2@kylinos.cn,
+ matthew.auld@intel.com, daniel@ffwll.ch, airlied@gmail.com,
+ nirmoy.das@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 13, 2023 at 04:32:32PM +0100, Rui Salvaterra wrote:
-> Hi, Paul,
-> 
-> On Thu, 13 Apr 2023 at 15:43, Paul E. McKenney <paulmck@kernel.org> wrote:
-> >
-> > My guess would be that you have CONFIG_RCU_EXP_CPU_STALL_TIMEOUT set to
-> > some small non-zero number, for example, you might have set up a recent
-> > Android .config or some such.  The default of zero would give you about
-> > 21 seconds rather than the three jiffies that you are seeing.
-> >
-> > Could you please check your .config?
-> 
-> Well, this is embarrassing. I can't fathom why/how, but I had it set
-> to 20, on this machine. That is, 20 millisseconds. I guess its a
-> miracle I haven't seen *more* expedited RCU traces. Sorry for the
-> noise, everyone.
+This patch fixes memory leaks on error escapes in function fake_get_pages
 
-Been there, done that!
+Fixes: c3bfba9a2225 ("drm/i915: Check for integer truncation on scatterlist creation")
+Signed-off-by: Cong Liu <liucong2@kylinos.cn>
+---
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-And actually, it is kind of reassuring that the Linux kernel avoids
-tens-of-milliseocnds latency blows in the common case on your system.
+diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+index 5361ce70d3f2..154801f1c468 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+@@ -69,8 +69,10 @@ static int fake_get_pages(struct drm_i915_gem_object *obj)
+ 
+ 	rem = round_up(obj->base.size, BIT(31)) >> 31;
+ 	/* restricted by sg_alloc_table */
+-	if (overflows_type(rem, unsigned int))
++	if (overflows_type(rem, unsigned int)) {
++		kfree(pages);
+ 		return -E2BIG;
++	}
+ 
+ 	if (sg_alloc_table(pages, rem, GFP)) {
+ 		kfree(pages);
+-- 
+2.34.1
 
-						Thanx, Paul
+
+No virus found
+		Checked by Hillstone Network AntiVirus
