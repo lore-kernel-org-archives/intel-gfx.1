@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8755C77B71
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Apr 2023 16:49:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 356FCC77B73
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Apr 2023 16:50:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2A4410E380;
-	Thu, 13 Apr 2023 16:49:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BFD110EB9D;
+	Thu, 13 Apr 2023 16:49:48 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49E6F10E086;
- Thu, 13 Apr 2023 16:49:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1170010EB92;
+ Thu, 13 Apr 2023 16:49:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681404579; x=1712940579;
+ t=1681404585; x=1712940585;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=e16JYrNG13ZK09W8a6cvMfAnKuNMv4L12FVaChTOJe0=;
- b=akRz2JXpfMRtD20cuemNL/C0x0Dzw7BiZdZeLdXgM4xCmzI8Anlm7bxb
- DAUhZz9NU6/ve/iO3UnrKMv6KAcoSd0sEYQuh2njzEdeGmDBzvz2s9sQw
- nCAE1BJVVrgWE6LmS/kgEbqaPRyJ5PNqBum9L89Gc96v9EnHRlgoJXYMh
- Zhf4Nv6a9svApqDqOniYfpPy4GOfnOOAPlRDo4LEdWpJ2728aBqgvGyES
- Rf5ei4Ff2G259kpTkrIteaRIiAx3UnVSQ/yyF8FIweeIKEwbuTO6it0Dr
- UdqG+S9Ac3lYAHwytnaHIEUCAgpd82CpQvU778uPmo5L0umRyoGn2sMZy A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10679"; a="342991055"
-X-IronPort-AV: E=Sophos;i="5.99,194,1677571200"; d="scan'208";a="342991055"
+ bh=SV7woMv8KAxN1gJYpXb4ARxCSBFCH49G5H+46Oo6RtY=;
+ b=XGlgyiun61vhS7dFe2pCUSp8rEwbnEVmHTA4C+ckENNJA94r09elduV3
+ adzRIQR59dRY65hce5A8EjYjovts9bx8Ttl56CN1MdyfOnFzAi1rJ9xO1
+ 4vwEy2dSCUCUAEND5q7qD9BkUpqW7qofIncEHtJLWS337wwJ7taL8bsqk
+ JvbSMJR6S/u6MW59g7EeotM2kHfjVGAZowf6FXhTySSnrhNJI/Y4p9y5I
+ 34myYivctvT1KQDaAElsycQzxJErz+WvA8UXLeM5Y/cIPeEiINTTXOYef
+ HO6ktHSCF2xUP1oopJHFJaQzyCrdtwL/glAwkx3/OK2knQijna/QQh2tN w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10679"; a="342991139"
+X-IronPort-AV: E=Sophos;i="5.99,194,1677571200"; d="scan'208";a="342991139"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2023 09:49:22 -0700
+ 13 Apr 2023 09:49:37 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10679"; a="692037916"
-X-IronPort-AV: E=Sophos;i="5.99,194,1677571200"; d="scan'208";a="692037916"
+X-IronPort-AV: E=McAfee;i="6600,9927,10679"; a="692037982"
+X-IronPort-AV: E=Sophos;i="5.99,194,1677571200"; d="scan'208";a="692037982"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by fmsmga007.fm.intel.com with SMTP; 13 Apr 2023 09:49:20 -0700
+ by fmsmga007.fm.intel.com with SMTP; 13 Apr 2023 09:49:35 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 13 Apr 2023 19:49:19 +0300
+ Thu, 13 Apr 2023 19:49:34 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 13 Apr 2023 19:49:10 +0300
-Message-Id: <20230413164916.4221-2-ville.syrjala@linux.intel.com>
+Date: Thu, 13 Apr 2023 19:49:15 +0300
+Message-Id: <20230413164916.4221-7-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230413164916.4221-1-ville.syrjala@linux.intel.com>
 References: <20230413164916.4221-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/7] drm/uapi: Document CTM matrix better
+Subject: [Intel-gfx] [PATCH v2 6/7] drm/i915: No 10bit gamma on desktop gen3
+ parts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,29 +66,90 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Document in which order the CTM matrix elements are stored.
+Apparently desktop gen3 parts don't support the
+10bit gamma mode at all. Stop claiming otherwise.
 
+As is the case with pipe A on gen3 mobile parts, the
+PIPECONF gamma mode bit can be set but it has no
+effect on the output.
+
+PNV seems to be the only slight exception, but generally
+the desktop PNV variant looks more like a mobile part so
+this is not entirely surprising.
+
+Fixes: 67630bacae23 ("drm/i915: Add 10bit gamma mode for gen2/3")
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- include/uapi/drm/drm_mode.h | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/i915/i915_pci.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-index 46becedf5b2f..43691058d28f 100644
---- a/include/uapi/drm/drm_mode.h
-+++ b/include/uapi/drm/drm_mode.h
-@@ -834,6 +834,11 @@ struct drm_color_ctm {
- 	/*
- 	 * Conversion matrix in S31.32 sign-magnitude
- 	 * (not two's complement!) format.
-+	 *
-+	 * out   matrix    in
-+	 * |R|   |0 1 2|   |R|
-+	 * |G| = |3 4 5| x |G|
-+	 * |B|   |6 7 8|   |B|
- 	 */
- 	__u64 matrix[9];
- };
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index cddb6e197972..305c05c3f93b 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -250,13 +250,13 @@ static const struct intel_device_info i865g_info = {
+ 	.dma_mask_size = 32, \
+ 	I9XX_PIPE_OFFSETS, \
+ 	I9XX_CURSOR_OFFSETS, \
+-	I9XX_COLORS, \
+ 	GEN_DEFAULT_PAGE_SIZES, \
+ 	GEN_DEFAULT_REGIONS
+ 
+ static const struct intel_device_info i915g_info = {
+ 	GEN3_FEATURES,
+ 	PLATFORM(INTEL_I915G),
++	I845_COLORS,
+ 	.has_coherent_ggtt = false,
+ 	.display.cursor_needs_physical = 1,
+ 	.display.has_overlay = 1,
+@@ -268,6 +268,7 @@ static const struct intel_device_info i915g_info = {
+ static const struct intel_device_info i915gm_info = {
+ 	GEN3_FEATURES,
+ 	PLATFORM(INTEL_I915GM),
++	I9XX_COLORS,
+ 	.is_mobile = 1,
+ 	.display.cursor_needs_physical = 1,
+ 	.display.has_overlay = 1,
+@@ -281,6 +282,7 @@ static const struct intel_device_info i915gm_info = {
+ static const struct intel_device_info i945g_info = {
+ 	GEN3_FEATURES,
+ 	PLATFORM(INTEL_I945G),
++	I845_COLORS,
+ 	.display.has_hotplug = 1,
+ 	.display.cursor_needs_physical = 1,
+ 	.display.has_overlay = 1,
+@@ -292,6 +294,7 @@ static const struct intel_device_info i945g_info = {
+ static const struct intel_device_info i945gm_info = {
+ 	GEN3_FEATURES,
+ 	PLATFORM(INTEL_I945GM),
++	I9XX_COLORS,
+ 	.is_mobile = 1,
+ 	.display.has_hotplug = 1,
+ 	.display.cursor_needs_physical = 1,
+@@ -306,6 +309,7 @@ static const struct intel_device_info i945gm_info = {
+ static const struct intel_device_info g33_info = {
+ 	GEN3_FEATURES,
+ 	PLATFORM(INTEL_G33),
++	I845_COLORS,
+ 	.display.has_hotplug = 1,
+ 	.display.has_overlay = 1,
+ 	.dma_mask_size = 36,
+@@ -314,6 +318,7 @@ static const struct intel_device_info g33_info = {
+ static const struct intel_device_info pnv_g_info = {
+ 	GEN3_FEATURES,
+ 	PLATFORM(INTEL_PINEVIEW),
++	I9XX_COLORS,
+ 	.display.has_hotplug = 1,
+ 	.display.has_overlay = 1,
+ 	.dma_mask_size = 36,
+@@ -322,6 +327,7 @@ static const struct intel_device_info pnv_g_info = {
+ static const struct intel_device_info pnv_m_info = {
+ 	GEN3_FEATURES,
+ 	PLATFORM(INTEL_PINEVIEW),
++	I9XX_COLORS,
+ 	.is_mobile = 1,
+ 	.display.has_hotplug = 1,
+ 	.display.has_overlay = 1,
 -- 
 2.39.2
 
