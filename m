@@ -4,50 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71233C77B61
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Apr 2023 14:10:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81CF3C77B6E
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Apr 2023 14:33:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D1E810E356;
-	Thu, 13 Apr 2023 14:10:34 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DCFC10E167;
- Thu, 13 Apr 2023 14:10:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681395031; x=1712931031;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=iN/wSUBRfn/KK3ga/Tp92Uhf2wOodlG12auRetLJGKU=;
- b=hw7MrBhOjCXM3bFuGy0TelvagLBUoRPvcoaA4zJU/3E7DAd274VH3yON
- piYWB51/Aq2UKRrMbwUzAw6QB3loVVVEQAw8MYzkEs02/u5KH2Jg+Z3lJ
- TPFAS4uZgk97qjLcunWjlbdE/jLM0lyZmiOdegyKaPOL/fHV+iC64Fi3b
- X9YT8TQ1IlIoapY5NecANwZLiMwD2cl90fGwyR8jvfqHBBbQVwgOQBwDJ
- svxNLWWwXq3YYJG+L956BsufKN3wOGA4+KPMPXM1GD0hagaGCv4kNw06f
- w7IPiBC2DBbsCyM7skcegJGeJS27+9Qa7opec8aR6gOlVL2nwoJUVUj6+ Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10679"; a="332920444"
-X-IronPort-AV: E=Sophos;i="5.99,193,1677571200"; d="scan'208";a="332920444"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2023 06:56:53 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10679"; a="682959859"
-X-IronPort-AV: E=Sophos;i="5.99,193,1677571200"; d="scan'208";a="682959859"
-Received: from zbiro-mobl.ger.corp.intel.com (HELO intel.com)
- ([10.251.212.144])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2023 06:56:48 -0700
-Date: Thu, 13 Apr 2023 15:56:21 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Message-ID: <ZDgKBUIV9nGcfQqF@ashyti-mobl2.lan>
-References: <20230413092006.931861-1-andi.shyti@linux.intel.com>
- <dc0042e0-8a4e-5c3d-922f-bd65402a154a@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C99F810E15F;
+	Thu, 13 Apr 2023 14:33:55 +0000 (UTC)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F49D10E15F
+ for <intel-gfx@lists.freedesktop.org>; Thu, 13 Apr 2023 14:33:54 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id y35so816535ljq.6
+ for <intel-gfx@lists.freedesktop.org>; Thu, 13 Apr 2023 07:33:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1681396431; x=1683988431;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=MIGr3zwKLJfiClqBfhFNh96qonhpae26LL1XEE5OS98=;
+ b=PMVRFF86G+YuwmLvjghY/qYIgWzyHV6a9NNq/k/JRiQfyGGzk/HVd+R7jTV4ZUffrA
+ GbJ2Hd6Qrs1dkYbBKmMFe2hM8pGqqVBhgqpeL3vjRZCOCJ+Loz43TV8DyK764ue+5U9s
+ IiBqgKjYasD19yxh5FDWqMZm/f/4icasn/5bSJG6GVvq9JSgDm98oKucja+NhWV8GcJO
+ bZiRAQOD4bbipMqpPrK0iX5fvi5WOIhcZQ1maE9fN1QYSm3Uv/O91YN3xULvmQ6qiabK
+ znYIjIkfYGMvmGoJt1rr3NsFvQqzUkTGy+ossJE2XeacvAkkkM6E9dMKEGR6P34oj03k
+ KhuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1681396431; x=1683988431;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=MIGr3zwKLJfiClqBfhFNh96qonhpae26LL1XEE5OS98=;
+ b=Qu1YNozXXn96rYkVrGLCpmvGN9MiPPik/6U1gp1O8DyRBd7Y2K7Fh2j+qlSgdotPgf
+ z/tOxqzQhoEWoQS8wRrjGT/nvKqaw1qoxIS6h092gGx0+mUG05rTui9QqPeJkUA8ajN3
+ +KDO5kukmaG2LpiWIogfuv6Ry8NFYlTQtYoZbYIwv8ER/HJ8PkNffBxNBSXSQMuhWmfL
+ EIZk/S0cziUH7FA2EO+3K87P53cjFW6jvqR5oqW1W97NOkGe533YViRRjSEWl9wiScqp
+ CJO+T38WhhtViUw54fN0afp8J8Ria3iHqZF/HWuXSJOC3irDDSqU7HTpB67lk0lRlexR
+ H4IA==
+X-Gm-Message-State: AAQBX9cZG4zyd7VnrEGX6AcTPr0B4J4LhDPbpkBW/CuPjcBt28KvCUQQ
+ 4CyjvsM5ec5ZHX5/jwI2SqH02A==
+X-Google-Smtp-Source: AKy350b5IRJaASLvMbfGgxTnCODuNcMTGGMJJIo3v3k33oKxx4dZJjsX4Kz8PlQBFCUsSFl+gAPXMw==
+X-Received: by 2002:a2e:a407:0:b0:29f:6fd7:697c with SMTP id
+ p7-20020a2ea407000000b0029f6fd7697cmr1098873ljn.28.1681396431375; 
+ Thu, 13 Apr 2023 07:33:51 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a085:4d00::8a5?
+ (dzccz6yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a085:4d00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ t20-20020a2e9d14000000b002a2e931fc48sm295735lji.140.2023.04.13.07.33.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 13 Apr 2023 07:33:50 -0700 (PDT)
+Message-ID: <26a42d52-5ee7-795b-62e8-c53a1e1daf82@linaro.org>
+Date: Thu, 13 Apr 2023 17:33:50 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <dc0042e0-8a4e-5c3d-922f-bd65402a154a@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH v2] drm/i915: Make IRQ reset and postinstall
- multi-gt aware
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Content-Language: en-GB
+To: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+References: <20230222053153.3658345-1-suraj.kandpal@intel.com>
+ <87ttyvbhuz.fsf@intel.com>
+ <SN7PR11MB6750FDE3318A85E0A2541831E3889@SN7PR11MB6750.namprd11.prod.outlook.com>
+ <e4fbeb9d-25f6-fe19-99ee-fa4f8a689535@linaro.org>
+ <SN7PR11MB6750280505C5150C647BBCD0E3969@SN7PR11MB6750.namprd11.prod.outlook.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <SN7PR11MB6750280505C5150C647BBCD0E3969@SN7PR11MB6750.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH 0/7] Enable YCbCr420 format for VDSC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,59 +83,100 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andi Shyti <andi.shyti@kernel.org>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Nirmoy Das <nirmoy.das@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>,
- Paulo Zanoni <paulo.r.zanoni@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Tvrtko,
+Hi Suraj,
 
-(I forgot to CC Daniele)
-
-On Thu, Apr 13, 2023 at 11:41:28AM +0100, Tvrtko Ursulin wrote:
+On 07/04/2023 06:11, Kandpal, Suraj wrote:
+> Hi Dmitry
 > 
-> On 13/04/2023 10:20, Andi Shyti wrote:
-> > From: Paulo Zanoni <paulo.r.zanoni@intel.com>
-> > 
-> > In multitile systems IRQ need to be reset and enabled per GT.
-> > 
-> > Although in MTL the GUnit misc interrupts register set are
-> > available only in GT-0, we need to loop through all the GT's
-> > in order to initialize the media engine which lies on a different
-> > GT.
-> > 
-> > Signed-off-by: Paulo Zanoni <paulo.r.zanoni@intel.com>
-> > Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> > Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-> > ---
-> > Hi,
-> > 
-> > proposing again this patch, apparently GuC needs this patch to
-> > initialize the media GT.
 > 
-> What is the resolution for Matt's concern that this is wrong for MTL?
+>> -----Original Message-----
+>> From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+>> Sent: Friday, April 7, 2023 8:28 AM
+>> To: Kandpal, Suraj <suraj.kandpal@intel.com>; Jani Nikula
+>> <jani.nikula@linux.intel.com>; dri-devel@lists.freedesktop.org; intel-
+>> gfx@lists.freedesktop.org
+>> Cc: Nautiyal, Ankit K <ankit.k.nautiyal@intel.com>; Shankar, Uma
+>> <uma.shankar@intel.com>; Maarten Lankhorst
+>> <maarten.lankhorst@linux.intel.com>
+>> Subject: Re: [PATCH 0/7] Enable YCbCr420 format for VDSC
+>>
+>> Hi Suraj
+>>
+>> On 28/03/2023 16:20, Kandpal, Suraj wrote:
+>>>
+>>>
+>>>> -----Original Message-----
+>>>> From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf
+>>>> Of Jani Nikula
+>>>> Sent: Wednesday, March 8, 2023 5:00 PM
+>>>> To: Kandpal, Suraj <suraj.kandpal@intel.com>; dri-
+>>>> devel@lists.freedesktop.org; intel-gfx@lists.freedesktop.org
+>>>> Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>; Nautiyal, Ankit K
+>>>> <ankit.k.nautiyal@intel.com>; Shankar, Uma <uma.shankar@intel.com>;
+>>>> Kandpal, Suraj <suraj.kandpal@intel.com>
+>>>> Subject: Re: [PATCH 0/7] Enable YCbCr420 format for VDSC
+>>>>
+>>>> On Wed, 22 Feb 2023, Suraj Kandpal <suraj.kandpal@intel.com> wrote:
+>>>>> This patch series aims to enable the YCbCr420 format for DSC.
+>>>>> Changes are mostly compute params related for hdmi,dp and dsi along
+>>>>> with the addition of new rc_tables for native_420 and corresponding
+>>>>> changes to macros used to fetch them.
+>>>>> There have been discussions prior to this series in which some
+>>>>> patches have gotten rb and can be found in the below link
+>>>>> https://patchwork.freedesktop.org/series/113729
+>>>>
+>>>> I think it would be useful to get [1] from Dmitry merged to
+>>>> drm-misc-next first, have that in drm-next, and again backmerged to
+>>>> drm-intel-next before this. At least patches 1-5.
+>>>>
+>>>> There's not much point in all drivers duplicating the parameters, and
+>>>> we need to move towards common code. Dmitry has been helpful in
+>>>> contributing this to us.
+>>>>
+>>>> BR,
+>>>> Jani.
+>>>>
+>>>>
+>>>
+>>> Hi Jani,
+>>> Maarten has acked the patch series to be merged through drm-intel and
+>>> in the meantime I will work with Dmitry to pull the common code to
+>>> avoid duplication
+>>
+>> I wanted to check, are there any updates from your side regarding the series
+>> at [1] ?
+>>
+> 
+> Will have a look and float comments if any by  Monday
 
-There are two explanations, one easy and one less easy.
+Please excuse me for being slightly stubborn here. We are slowly getting 
+other patches piled up with dependency on this series. It is fine that 
+it doesn't get into 6.4 (which it probably definitely missed by now), 
+but we would like to know if we have to redo/update anything or if it is 
+fine as is and it is going to be merged by i915 in 6.5 cycle.
 
-The easy one: without this patch i915 doesn't boot on MTL!(*)
+Thank you for the understanding.
 
-The second explanation is that in MTL the media engine has it's
-own set of misc irq's registers and those are on a different GT
-(Daniele pointed this out).
+> 
+>>>
+>>> Regards,
+>>> Suraj Kandpal
+>>>
+>>>> [1] https://patchwork.freedesktop.org/series/114473/
+>>
+>>
+>>
+>> --
+>> With best wishes
+>> Dmitry
+> 
+> Regards,
+> Suraj Kandpal
 
-I sent this patch not to bypass any review, but to restart the
-discussion as this patch was just dropped.
+-- 
+With best wishes
+Dmitry
 
-Thanks,
-Andi
-
-
-(*)
-[drm] *ERROR* GT1: GUC: CT: No response for request 0x550a (fence 7)
-[drm] *ERROR* GT1: GUC: CT: Sending action 0x550a failed (-ETIMEDOUT) status=0X0
-[drm] *ERROR* GT1: GUC: Failed to enable usage stats: -ETIMEDOUT
-[drm] *ERROR* GT1: GuC initialization failed -ETIMEDOUT
-[drm] *ERROR* GT1: Enabling uc failed (-5)
-[drm] *ERROR* GT1: Failed to initialize GPU, declaring it wedged!
