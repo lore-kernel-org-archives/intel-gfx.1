@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 356FCC77B73
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Apr 2023 16:50:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3EC6C77B6E
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Apr 2023 16:50:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BFD110EB9D;
-	Thu, 13 Apr 2023 16:49:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29BDA10EB9E;
+	Thu, 13 Apr 2023 16:49:49 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1170010EB92;
- Thu, 13 Apr 2023 16:49:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 875A710E380;
+ Thu, 13 Apr 2023 16:49:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681404585; x=1712940585;
+ t=1681404582; x=1712940582;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=SV7woMv8KAxN1gJYpXb4ARxCSBFCH49G5H+46Oo6RtY=;
- b=XGlgyiun61vhS7dFe2pCUSp8rEwbnEVmHTA4C+ckENNJA94r09elduV3
- adzRIQR59dRY65hce5A8EjYjovts9bx8Ttl56CN1MdyfOnFzAi1rJ9xO1
- 4vwEy2dSCUCUAEND5q7qD9BkUpqW7qofIncEHtJLWS337wwJ7taL8bsqk
- JvbSMJR6S/u6MW59g7EeotM2kHfjVGAZowf6FXhTySSnrhNJI/Y4p9y5I
- 34myYivctvT1KQDaAElsycQzxJErz+WvA8UXLeM5Y/cIPeEiINTTXOYef
- HO6ktHSCF2xUP1oopJHFJaQzyCrdtwL/glAwkx3/OK2knQijna/QQh2tN w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10679"; a="342991139"
-X-IronPort-AV: E=Sophos;i="5.99,194,1677571200"; d="scan'208";a="342991139"
+ bh=xUlOujp3VBoiGcCZqWhzgbXO97qHTua64Yy9wHHgCSs=;
+ b=PslrpN4UWlgquiwONI/ihNCpME7AE06BE8FZzMiexvWq6mEiFJs+Wc39
+ kUmxaoMBQqyehoxIxlLIj2aciHVHPBdBwDSWT1dJ9sbqxtcJgpfX2u0HM
+ Yc/FVCEYjvvEDfCZpyeOoXQJz5x2AyevcB2k3ZnAF51PswIC2sWvGZ91A
+ qItb5bqjF2RjXXKFGHw4dwfeljxIP9hGMwmOONXv5V7bd7jeUeuqrteO/
+ b1IclS88thHgArH5oSw56C7PlM21vun+r2BtCGtkJa+qT8YvO1yOERGfw
+ ofx/VplnBna98aa34j41zLf6IWlLXzLM49FLFtxr97VUdcRorWCIr2Jfh A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10679"; a="342991103"
+X-IronPort-AV: E=Sophos;i="5.99,194,1677571200"; d="scan'208";a="342991103"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2023 09:49:37 -0700
+ 13 Apr 2023 09:49:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10679"; a="692037982"
-X-IronPort-AV: E=Sophos;i="5.99,194,1677571200"; d="scan'208";a="692037982"
+X-IronPort-AV: E=McAfee;i="6600,9927,10679"; a="692037932"
+X-IronPort-AV: E=Sophos;i="5.99,194,1677571200"; d="scan'208";a="692037932"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by fmsmga007.fm.intel.com with SMTP; 13 Apr 2023 09:49:35 -0700
+ by fmsmga007.fm.intel.com with SMTP; 13 Apr 2023 09:49:29 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 13 Apr 2023 19:49:34 +0300
+ Thu, 13 Apr 2023 19:49:28 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 13 Apr 2023 19:49:15 +0300
-Message-Id: <20230413164916.4221-7-ville.syrjala@linux.intel.com>
+Date: Thu, 13 Apr 2023 19:49:13 +0300
+Message-Id: <20230413164916.4221-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230413164916.4221-1-ville.syrjala@linux.intel.com>
 References: <20230413164916.4221-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 6/7] drm/i915: No 10bit gamma on desktop gen3
- parts
+Subject: [Intel-gfx] [PATCH v2 4/7] drm/i915: Always enable CGM CSC on CHV
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,90 +65,70 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Apparently desktop gen3 parts don't support the
-10bit gamma mode at all. Stop claiming otherwise.
+On CHV toggling the CGM CSC on/off while the pipe is running leads
+to underruns. Looks like we'd have to do the toggling strictly inside
+the start_of_vblank-frame_start window to avoid this, but that window
+is less than a scanline so there's no way we can guarantee hitting it.
 
-As is the case with pipe A on gen3 mobile parts, the
-PIPECONF gamma mode bit can be set but it has no
-effect on the output.
+As a workaround let's just leave the CGM CSC permanently enabled.
+Fortunately the CGM gamma/degamma units don't seem to suffer from
+this malady.
 
-PNV seems to be the only slight exception, but generally
-the desktop PNV variant looks more like a mobile part so
-this is not entirely surprising.
+I also tried turning off CGM unit clock gating, but that did not
+help.
 
-Fixes: 67630bacae23 ("drm/i915: Add 10bit gamma mode for gen2/3")
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_pci.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_color.c | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index cddb6e197972..305c05c3f93b 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -250,13 +250,13 @@ static const struct intel_device_info i865g_info = {
- 	.dma_mask_size = 32, \
- 	I9XX_PIPE_OFFSETS, \
- 	I9XX_CURSOR_OFFSETS, \
--	I9XX_COLORS, \
- 	GEN_DEFAULT_PAGE_SIZES, \
- 	GEN_DEFAULT_REGIONS
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index 63141f4ed372..7a705e7d8776 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -605,6 +605,16 @@ static void chv_cgm_csc_convert_ctm(const struct intel_crtc_state *crtc_state,
+ 		csc->coeff[i] = ctm_to_twos_complement(ctm->matrix[i], 4, 12);
+ }
  
- static const struct intel_device_info i915g_info = {
- 	GEN3_FEATURES,
- 	PLATFORM(INTEL_I915G),
-+	I845_COLORS,
- 	.has_coherent_ggtt = false,
- 	.display.cursor_needs_physical = 1,
- 	.display.has_overlay = 1,
-@@ -268,6 +268,7 @@ static const struct intel_device_info i915g_info = {
- static const struct intel_device_info i915gm_info = {
- 	GEN3_FEATURES,
- 	PLATFORM(INTEL_I915GM),
-+	I9XX_COLORS,
- 	.is_mobile = 1,
- 	.display.cursor_needs_physical = 1,
- 	.display.has_overlay = 1,
-@@ -281,6 +282,7 @@ static const struct intel_device_info i915gm_info = {
- static const struct intel_device_info i945g_info = {
- 	GEN3_FEATURES,
- 	PLATFORM(INTEL_I945G),
-+	I845_COLORS,
- 	.display.has_hotplug = 1,
- 	.display.cursor_needs_physical = 1,
- 	.display.has_overlay = 1,
-@@ -292,6 +294,7 @@ static const struct intel_device_info i945g_info = {
- static const struct intel_device_info i945gm_info = {
- 	GEN3_FEATURES,
- 	PLATFORM(INTEL_I945GM),
-+	I9XX_COLORS,
- 	.is_mobile = 1,
- 	.display.has_hotplug = 1,
- 	.display.cursor_needs_physical = 1,
-@@ -306,6 +309,7 @@ static const struct intel_device_info i945gm_info = {
- static const struct intel_device_info g33_info = {
- 	GEN3_FEATURES,
- 	PLATFORM(INTEL_G33),
-+	I845_COLORS,
- 	.display.has_hotplug = 1,
- 	.display.has_overlay = 1,
- 	.dma_mask_size = 36,
-@@ -314,6 +318,7 @@ static const struct intel_device_info g33_info = {
- static const struct intel_device_info pnv_g_info = {
- 	GEN3_FEATURES,
- 	PLATFORM(INTEL_PINEVIEW),
-+	I9XX_COLORS,
- 	.display.has_hotplug = 1,
- 	.display.has_overlay = 1,
- 	.dma_mask_size = 36,
-@@ -322,6 +327,7 @@ static const struct intel_device_info pnv_g_info = {
- static const struct intel_device_info pnv_m_info = {
- 	GEN3_FEATURES,
- 	PLATFORM(INTEL_PINEVIEW),
-+	I9XX_COLORS,
- 	.is_mobile = 1,
- 	.display.has_hotplug = 1,
- 	.display.has_overlay = 1,
++#define CHV_CGM_CSC_COEFF_1_0 (1 << 12)
++
++static const struct intel_csc_matrix chv_cgm_csc_matrix_identity = {
++	.coeff = {
++		CHV_CGM_CSC_COEFF_1_0, 0, 0,
++		0, CHV_CGM_CSC_COEFF_1_0, 0,
++		0, 0, CHV_CGM_CSC_COEFF_1_0,
++	},
++};
++
+ static void chv_load_cgm_csc(struct intel_crtc *crtc,
+ 			     const struct intel_csc_matrix *csc)
+ {
+@@ -667,9 +677,9 @@ static void chv_assign_csc(struct intel_crtc_state *crtc_state)
+ 
+ 		chv_cgm_csc_convert_ctm(crtc_state, &crtc_state->csc);
+ 	} else {
+-		drm_WARN_ON(&i915->drm, (crtc_state->cgm_mode & CGM_PIPE_MODE_CSC) != 0);
++		drm_WARN_ON(&i915->drm, (crtc_state->cgm_mode & CGM_PIPE_MODE_CSC) == 0);
+ 
+-		intel_csc_clear(&crtc_state->csc);
++		crtc_state->csc = chv_cgm_csc_matrix_identity;
+ 	}
+ }
+ 
+@@ -2033,6 +2043,13 @@ static u32 chv_cgm_mode(const struct intel_crtc_state *crtc_state)
+ 	    !lut_is_legacy(crtc_state->hw.gamma_lut))
+ 		cgm_mode |= CGM_PIPE_MODE_GAMMA;
+ 
++	/*
++	 * Toggling the CGM CSC on/off outside of the tiny window
++	 * between start of vblank and frame start causes underruns.
++	 * Always enable the CGM CSC as a workaround.
++	 */
++	cgm_mode |= CGM_PIPE_MODE_CSC;
++
+ 	return cgm_mode;
+ }
+ 
 -- 
 2.39.2
 
