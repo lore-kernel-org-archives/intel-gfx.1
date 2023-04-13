@@ -4,51 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 908B1C77B61
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Apr 2023 08:57:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1EADC77B61
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Apr 2023 09:21:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02A0D10EA87;
-	Thu, 13 Apr 2023 08:57:45 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A856C10EA87;
- Thu, 13 Apr 2023 08:57:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B24D10E28D;
+	Thu, 13 Apr 2023 09:21:05 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1207C10E12A;
+ Thu, 13 Apr 2023 09:21:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681376262; x=1712912262;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=R/W2+2Y0jxdQJRb5nFh1gZBW3cky7XMwnpXXyfLy4Y0=;
- b=NfImRv+h/jrOo5xufEJ1e2imzTvuHuYFJZvXBAmAVX57P1nTR6delsxm
- N84CyEmY3y8K9EBpmvrfBRpX26DTbwmy5y8qHSKTCdF75/9L59pTrN39d
- SmztGcjywOl5k6y0UcnUOP6L4c/v5RdZLCu/WOz5Pbc5DYep4BxYDrzvI
- cQSgR8FSuBBgUROys3a/Ye5mOZRtiMby3V437mOPj7bN40EzO9NQEnk2L
- AUpptMbsr+6y07yQx9pfmbShKo4r2F+UkdNvbanRNPdm0Jhjo5sxPsq+E
- lbyoawWJ8MQ6/h7KsNQAgKZmhh5RcSRt+IIXjdD6xz1rNhn9eWyCoM5jg g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="342875030"
-X-IronPort-AV: E=Sophos;i="5.98,341,1673942400"; d="scan'208";a="342875030"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2023 01:57:41 -0700
+ t=1681377663; x=1712913663;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=kshmf7HOU1J5+/GB++4/A9uZL9gr9dS8UYb6DXsRsgU=;
+ b=C7JUkK23k28fGBkpqCb31rktCkTRDEm1XQ48XqAVpve8PCmKkbNNgsxq
+ gjyWV7M5AKt912M7ejMhCQvOiozP175p4OGyAQ9HjNF9Qs08ZM9mu1XLA
+ UmESQACzI7Z9S/52W53nTmen4ZOOu8bCLu52hI7IFbE02q4q7eDU2t86g
+ hNjrm3i6LbhLd6yNqv7nkUzjKAH82S7Pm2yBIJB/8nirskScgR/zmyRbM
+ cPSZtPuDUr2GY7g9BnWnZ8OOFCyZxwZSglPCjysns4/NA5YTPqwfX3SOp
+ Gdhlts+v3ugfEGtvs9vuROkSM9YHtvaoFwm9amAkDCR7xAjQDAMgmN2QD A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="406972432"
+X-IronPort-AV: E=Sophos;i="5.98,341,1673942400"; d="scan'208";a="406972432"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2023 02:21:02 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="758618275"
-X-IronPort-AV: E=Sophos;i="5.98,341,1673942400"; d="scan'208";a="758618275"
+X-IronPort-AV: E=McAfee;i="6600,9927,10678"; a="813389967"
+X-IronPort-AV: E=Sophos;i="5.98,341,1673942400"; d="scan'208";a="813389967"
 Received: from zbiro-mobl.ger.corp.intel.com (HELO intel.com)
  ([10.251.212.144])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2023 01:57:37 -0700
-Date: Thu, 13 Apr 2023 10:57:10 +0200
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Apr 2023 02:20:58 -0700
 From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>
-Message-ID: <ZDfD5syNk3+YIU/j@ashyti-mobl2.lan>
-References: <20230412113308.812468-1-andi.shyti@linux.intel.com>
- <20230412113308.812468-4-andi.shyti@linux.intel.com>
- <d00d6c70-67a7-0bed-eeb2-96260da4beec@intel.com>
+To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Paulo Zanoni <paulo.r.zanoni@intel.com>
+Date: Thu, 13 Apr 2023 11:20:06 +0200
+Message-Id: <20230413092006.931861-1-andi.shyti@linux.intel.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d00d6c70-67a7-0bed-eeb2-96260da4beec@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v5 3/5] drm/i915: Create the locked version
- of the request add
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2] drm/i915: Make IRQ reset and postinstall
+ multi-gt aware
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,37 +58,99 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maciej Patelczyk <maciej.patelczyk@intel.com>,
- intel-gfx@lists.freedesktop.org, stable@vger.kernel.org,
- Andi Shyti <andi.shyti@kernel.org>, dri-devel@lists.freedesktop.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Nirmoy Das <nirmoy.das@intel.com>,
- Chris Wilson <chris.p.wilson@linux.intel.com>,
- Matthew Auld <matthew.auld@intel.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, Matt Roper <matthew.d.roper@intel.com>,
+ Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Andrzej,
+From: Paulo Zanoni <paulo.r.zanoni@intel.com>
 
-On Wed, Apr 12, 2023 at 03:06:42PM +0200, Andrzej Hajda wrote:
-> On 12.04.2023 13:33, Andi Shyti wrote:
-> > i915_request_add() assumes that the timeline is locked whtn the
-> *when
-> > function is called. Before exiting it releases the lock. But in
-> > the next commit we have one case where releasing the timeline
-> > mutex is not necessary and we don't want that.
-> > 
-> > Make a new i915_request_add_locked() version of the function
-> > where the lock is not released.
-> > 
-> > Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-> > Cc: stable@vger.kernel.org
-> 
-> Have you looked for other potential users of these new helpers?
+In multitile systems IRQ need to be reset and enabled per GT.
 
-not yet, will do!
+Although in MTL the GUnit misc interrupts register set are
+available only in GT-0, we need to loop through all the GT's
+in order to initialize the media engine which lies on a different
+GT.
 
-> Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
+Signed-off-by: Paulo Zanoni <paulo.r.zanoni@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+---
+Hi,
 
-Thanks!
+proposing again this patch, apparently GuC needs this patch to
+initialize the media GT.
 
 Andi
+
+Changelog
+=========
+v1 -> v2
+ - improve description in the commit log.
+
+ drivers/gpu/drm/i915/i915_irq.c | 28 ++++++++++++++++++----------
+ 1 file changed, 18 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
+index d24bdea65a3dc..524d64bf5d186 100644
+--- a/drivers/gpu/drm/i915/i915_irq.c
++++ b/drivers/gpu/drm/i915/i915_irq.c
+@@ -2764,14 +2764,19 @@ static void dg1_irq_reset(struct drm_i915_private *dev_priv)
+ {
+ 	struct intel_gt *gt = to_gt(dev_priv);
+ 	struct intel_uncore *uncore = gt->uncore;
++	unsigned int i;
+ 
+ 	dg1_master_intr_disable(dev_priv->uncore.regs);
+ 
+-	gen11_gt_irq_reset(gt);
+-	gen11_display_irq_reset(dev_priv);
++	for_each_gt(gt, dev_priv, i) {
++		gen11_gt_irq_reset(gt);
+ 
+-	GEN3_IRQ_RESET(uncore, GEN11_GU_MISC_);
+-	GEN3_IRQ_RESET(uncore, GEN8_PCU_);
++		uncore = gt->uncore;
++		GEN3_IRQ_RESET(uncore, GEN11_GU_MISC_);
++		GEN3_IRQ_RESET(uncore, GEN8_PCU_);
++	}
++
++	gen11_display_irq_reset(dev_priv);
+ }
+ 
+ void gen8_irq_power_well_post_enable(struct drm_i915_private *dev_priv,
+@@ -3425,13 +3430,16 @@ static void gen11_irq_postinstall(struct drm_i915_private *dev_priv)
+ 
+ static void dg1_irq_postinstall(struct drm_i915_private *dev_priv)
+ {
+-	struct intel_gt *gt = to_gt(dev_priv);
+-	struct intel_uncore *uncore = gt->uncore;
+ 	u32 gu_misc_masked = GEN11_GU_MISC_GSE;
++	struct intel_gt *gt;
++	unsigned int i;
+ 
+-	gen11_gt_irq_postinstall(gt);
++	for_each_gt(gt, dev_priv, i) {
++		gen11_gt_irq_postinstall(gt);
+ 
+-	GEN3_IRQ_INIT(uncore, GEN11_GU_MISC_, ~gu_misc_masked, gu_misc_masked);
++		GEN3_IRQ_INIT(gt->uncore, GEN11_GU_MISC_, ~gu_misc_masked,
++			      gu_misc_masked);
++	}
+ 
+ 	if (HAS_DISPLAY(dev_priv)) {
+ 		icp_irq_postinstall(dev_priv);
+@@ -3440,8 +3448,8 @@ static void dg1_irq_postinstall(struct drm_i915_private *dev_priv)
+ 				   GEN11_DISPLAY_IRQ_ENABLE);
+ 	}
+ 
+-	dg1_master_intr_enable(uncore->regs);
+-	intel_uncore_posting_read(uncore, DG1_MSTR_TILE_INTR);
++	dg1_master_intr_enable(to_gt(dev_priv)->uncore->regs);
++	intel_uncore_posting_read(to_gt(dev_priv)->uncore, DG1_MSTR_TILE_INTR);
+ }
+ 
+ static void cherryview_irq_postinstall(struct drm_i915_private *dev_priv)
+-- 
+2.39.2
+
