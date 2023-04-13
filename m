@@ -4,47 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A1BBC77B61
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Apr 2023 16:49:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6946C77B61
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Apr 2023 16:49:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6A4F10E086;
-	Thu, 13 Apr 2023 16:49:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 022EB10EB8F;
+	Thu, 13 Apr 2023 16:49:41 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B32810E086;
- Thu, 13 Apr 2023 16:49:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 576ED10E086;
+ Thu, 13 Apr 2023 16:49:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681404578; x=1712940578;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=505ydyqQVkwE+TUn5wS7HTI14PcNmFy3LFysLltyEVc=;
- b=QlhYbnQCneHneICrDy/SHGtOO2TE5ercWcLDoBcjFFU6EQSEW0z6n3lb
- gXEEgoI3S/9o/xuhj5P/PSpcRYkJ7gUSS2DMZoyVC5EBIX6AfKg7n8NjP
- mxGFZTOvu/Wrq9uzHOnafW6QR8qd8BQqSJfvyvHXHM6iO/Gj8Oafs1co+
- J01If7z6jaI926ygJbY4jhkebAFI/XTLk3rgE0IhOiwyRJvP5+q86tap4
- 33CQCq9hQespCJ8rtjHWgdh3wJ82yDPMnOjc5N6wRUOmNGBmE2KJcWTr9
- VhRy5uBoQ4t0tMluJrvvccBQdW0hW9Ks/TXDffKxc8jnJVwoVNaNmkz5Q A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10679"; a="342991047"
-X-IronPort-AV: E=Sophos;i="5.99,194,1677571200"; d="scan'208";a="342991047"
+ t=1681404580; x=1712940580;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=VO+hzf+JZT0LDwb9AwFVSgz/6tqEyB7SG90J+rO9ms0=;
+ b=Uy60H/tBh3P2y4ldI/zsxQEcFyjexd7vu6PoDQF14KoIg4i7IqimGdrH
+ U7WQt3wjJxiYGEXGkTu4bwP4e7ZmTqA2Rxvt0KqgrT0bqXl8gqXiUCEob
+ kCH7mppGM8bfNDfAVAufieTAgFrQK+RQ9QkzpM6yj/BXPag7BdLgH0QLV
+ MXVDTJt50zUATdK18MTiPGIb0rbAgJuVhUydUHv36YNTo2Yn169icCOdS
+ NTkosRQrUqIBFZAslENU18+wbiW+oH6N6JIJVexIEd02JwIqA4J6NkxsK
+ JhSRhkSrJmStVq7Zbe43YXPHypE+cC1m2/JuejE2r7N2QcByRtX6wZtMh A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10679"; a="342991073"
+X-IronPort-AV: E=Sophos;i="5.99,194,1677571200"; d="scan'208";a="342991073"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Apr 2023 09:49:19 -0700
+ 13 Apr 2023 09:49:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10679"; a="692037910"
-X-IronPort-AV: E=Sophos;i="5.99,194,1677571200"; d="scan'208";a="692037910"
+X-IronPort-AV: E=McAfee;i="6600,9927,10679"; a="692037919"
+X-IronPort-AV: E=Sophos;i="5.99,194,1677571200"; d="scan'208";a="692037919"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by fmsmga007.fm.intel.com with SMTP; 13 Apr 2023 09:49:17 -0700
+ by fmsmga007.fm.intel.com with SMTP; 13 Apr 2023 09:49:23 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 13 Apr 2023 19:49:16 +0300
+ Thu, 13 Apr 2023 19:49:22 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 13 Apr 2023 19:49:09 +0300
-Message-Id: <20230413164916.4221-1-ville.syrjala@linux.intel.com>
+Date: Thu, 13 Apr 2023 19:49:11 +0300
+Message-Id: <20230413164916.4221-3-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230413164916.4221-1-ville.syrjala@linux.intel.com>
+References: <20230413164916.4221-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/7] drm/i915: CTM stuff mostly
+Subject: [Intel-gfx] [PATCH v2 2/7] drm/i915: Expose crtc CTM property on
+ ilk/snb
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,34 +66,33 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Mostly some CTM stuff:
-- document the uapi better
-- fix CHV CSC negative coefficients
-- expose CTM on ilk/snb/vlv
-- a bonus gamma patch for gen3
-- cure CGM CSC underruns on CHV (new in v2)
+The ilk/snb code is internally fully capable of handling the
+CTM property, so expose it.
 
-Test-with: 20230411161555.10001-1-ville.syrjala@linux.intel.com
+Note that we still choose not to expose DEGAMMA_LUT though.
+The hardware is capable if degamma or gamma, but not both
+similtanously due to lack of the split gamma mode. Exposing
+both LUTs might encourage userspace to try enabling both
+at the same time.
 
-Ville Syrjälä (7):
-  drm/uapi: Document CTM matrix better
-  drm/i915: Expose crtc CTM property on ilk/snb
-  drm/i915: Fix CHV CGM CSC coefficient sign handling
-  drm/i915: Always enable CGM CSC on CHV
-  drm/i915: Implement CTM property support for VLV
-  drm/i915: No 10bit gamma on desktop gen3 parts
-  drm/i915: Do state check for color management changes
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_color.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/gpu/drm/i915/display/intel_color.c    | 237 ++++++++++++++++--
- .../drm/i915/display/intel_crtc_state_dump.c  |   6 +-
- drivers/gpu/drm/i915/display/intel_display.c  |   8 +
- .../drm/i915/display/intel_display_types.h    |   3 +
- .../drm/i915/display/intel_modeset_verify.c   |   2 +
- drivers/gpu/drm/i915/i915_pci.c               |   8 +-
- drivers/gpu/drm/i915/i915_reg.h               |  15 ++
- include/uapi/drm/drm_mode.h                   |   5 +
- 8 files changed, 260 insertions(+), 24 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index 07f1afe1d406..4fc16cac052d 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -3473,7 +3473,7 @@ void intel_color_crtc_init(struct intel_crtc *crtc)
+ 
+ 	gamma_lut_size = INTEL_INFO(i915)->display.color.gamma_lut_size;
+ 	degamma_lut_size = INTEL_INFO(i915)->display.color.degamma_lut_size;
+-	has_ctm = degamma_lut_size != 0;
++	has_ctm = DISPLAY_VER(i915) >= 5 && !IS_VALLEYVIEW(i915);
+ 
+ 	/*
+ 	 * "DPALETTE_A: NOTE: The 8-bit (non-10-bit) mode is the
 -- 
 2.39.2
 
