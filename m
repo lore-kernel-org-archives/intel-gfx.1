@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE898C77B72
-	for <intel-gfx@archiver.kernel.org>; Sat, 15 Apr 2023 00:57:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31133C77B71
+	for <intel-gfx@archiver.kernel.org>; Sat, 15 Apr 2023 00:57:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B1D710EEE7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF0A910EEE8;
 	Sat, 15 Apr 2023 00:57:23 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57CF810EEE3;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83F0010EEE7;
  Sat, 15 Apr 2023 00:57:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1681520241; x=1713056241;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=qEVykQuCU4qYs8pwv812hV238FG8h1DKyF8MbGmwpGA=;
- b=dXqiVJ4XPCXnU6qh+WkY4tJBDZ2P3bruwHIr1DGsh5DwavfxstMh1ezl
- 1J0uA1gA0sa0Q3rUJevpiwuJ85jn7B72k7ow/IghMyOH/IFZM1sG8SeHK
- 0B8BZesMk6rEXN9nm64H+Q5gTiIJnjrYXsLpAu8t8AHzg2/PY7bRZC4Ar
- Z3i1PkgcC7+6kukVPd3indf3T+SBgKmdEgKnJjiHQ2ZpmXL3X/rr5Eeh7
- iC/psKn2PaXqaJYeFg/3CpEUvcRC/IDQzY/C/yeYPdZnIl7ehpgUo4FXu
- Szotd+eRKIZ1tm3V/WwSVb8hkjUURH2cZK69t0f+MHenr2MWjUN+UQffe Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10680"; a="372471780"
-X-IronPort-AV: E=Sophos;i="5.99,198,1677571200"; d="scan'208";a="372471780"
+ bh=5S+OBUdx6hkqjnPQijJANB6spEfYQkDs1QOExHrDsNM=;
+ b=KQrjuPFj5qpFlAFuqK39ulDaGo2VeqOKFIGSK0QmuYJb8QSiqJoeX336
+ vgz/VmsC2sCSs2cjGCMpLAzGynYXch8nAyXwJ9pwnEutdNiN0oPJeiJFs
+ 70tBCGCEb6kELnYgcw47519k/sLgX75acyAdNQ1j1MzPCsFNLRNTkLncv
+ qcqs7/GQiGQ9fvBDKFHZlXg75Ndaultvyg8sC46AO7kMIyMVpP6cPlE3D
+ gxRl+4y5nbzLnaolyq8+Ftd/Jgyy3k2NHhESPBSrOkT+fAYi1XqK9sUqU
+ oHpGp/IjCY6Hc47w2S6V28JCq/hQ/PpxBTTiAxi3DMwgdWxrZ/viQdi4t Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10680"; a="372471782"
+X-IronPort-AV: E=Sophos;i="5.99,198,1677571200"; d="scan'208";a="372471782"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Apr 2023 17:57:19 -0700
+ 14 Apr 2023 17:57:20 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10680"; a="722643201"
-X-IronPort-AV: E=Sophos;i="5.99,198,1677571200"; d="scan'208";a="722643201"
+X-IronPort-AV: E=McAfee;i="6600,9927,10680"; a="722643207"
+X-IronPort-AV: E=Sophos;i="5.99,198,1677571200"; d="scan'208";a="722643207"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
  by orsmga001.jf.intel.com with ESMTP; 14 Apr 2023 17:57:19 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Fri, 14 Apr 2023 17:57:02 -0700
-Message-Id: <20230415005706.4135485-2-John.C.Harrison@Intel.com>
+Date: Fri, 14 Apr 2023 17:57:04 -0700
+Message-Id: <20230415005706.4135485-4-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230415005706.4135485-1-John.C.Harrison@Intel.com>
 References: <20230415005706.4135485-1-John.C.Harrison@Intel.com>
@@ -45,8 +45,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/5] drm/i915/guc: Decode another GuC load
- failure case
+Subject: [Intel-gfx] [PATCH 3/5] drm/i915/uc: Track patch level versions on
+ reduced version firmware files
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,51 +65,122 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-Explain another potential firmware failure mode and early exit the
-long wait if hit.
+When reduced version firmware files were added (matching major
+component being the only strict requirement), the minor version was
+still tracked and a notification reported if it was older. However,
+the patch version should really be tracked as well for the same
+reasons. The KMD can work without the change but if the effort has
+been taken to release a new firmware with the change then there must
+be a valid reason for doing so - important bug fix, security fix, etc.
+And in that case it would be good to alert the user if they are
+missing out on that new fix.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/abi/guc_errors_abi.h | 1 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c       | 6 ++++++
- 2 files changed, 7 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 41 +++++++++++++++++-------
+ 1 file changed, 30 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_errors_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_errors_abi.h
-index bcb1129b36102..dabeaf4f245f3 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_errors_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_errors_abi.h
-@@ -44,6 +44,7 @@ enum intel_guc_load_status {
- enum intel_bootrom_load_status {
- 	INTEL_BOOTROM_STATUS_NO_KEY_FOUND                 = 0x13,
- 	INTEL_BOOTROM_STATUS_AES_PROD_KEY_FOUND           = 0x1A,
-+	INTEL_BOOTROM_STATUS_PROD_KEY_CHECK_FAILURE       = 0x2B,
- 	INTEL_BOOTROM_STATUS_RSA_FAILED                   = 0x50,
- 	INTEL_BOOTROM_STATUS_PAVPC_FAILED                 = 0x73,
- 	INTEL_BOOTROM_STATUS_WOPCM_FAILED                 = 0x74,
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-index 6fda3aec5c66a..0ff088a5e51a8 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-@@ -129,6 +129,7 @@ static inline bool guc_load_done(struct intel_uncore *uncore, u32 *status, bool
- 	case INTEL_BOOTROM_STATUS_RC6CTXCONFIG_FAILED:
- 	case INTEL_BOOTROM_STATUS_MPUMAP_INCORRECT:
- 	case INTEL_BOOTROM_STATUS_EXCEPTION:
-+	case INTEL_BOOTROM_STATUS_PROD_KEY_CHECK_FAILURE:
- 		*success = false;
- 		return true;
- 	}
-@@ -219,6 +220,11 @@ static int guc_wait_ucode(struct intel_guc *guc)
- 			guc_info(guc, "firmware signature verification failed\n");
- 			ret = -ENOEXEC;
- 			break;
-+
-+		case INTEL_BOOTROM_STATUS_PROD_KEY_CHECK_FAILURE:
-+			guc_info(guc, "firmware production part check failure\n");
-+			ret = -ENOEXEC;
-+			break;
- 		}
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index a82a53dbbc86d..6bb45d6b8da5f 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -80,14 +80,14 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
+  */
+ #define INTEL_GUC_FIRMWARE_DEFS(fw_def, guc_maj, guc_mmp) \
+ 	fw_def(METEORLAKE,   0, guc_mmp(mtl,  70, 6, 5)) \
+-	fw_def(DG2,          0, guc_maj(dg2,  70, 5)) \
+-	fw_def(ALDERLAKE_P,  0, guc_maj(adlp, 70, 5)) \
++	fw_def(DG2,          0, guc_maj(dg2,  70, 5, 4)) \
++	fw_def(ALDERLAKE_P,  0, guc_maj(adlp, 70, 5, 4)) \
+ 	fw_def(ALDERLAKE_P,  0, guc_mmp(adlp, 70, 1, 1)) \
+ 	fw_def(ALDERLAKE_P,  0, guc_mmp(adlp, 69, 0, 3)) \
+-	fw_def(ALDERLAKE_S,  0, guc_maj(tgl,  70, 5)) \
++	fw_def(ALDERLAKE_S,  0, guc_maj(tgl,  70, 5, 4)) \
+ 	fw_def(ALDERLAKE_S,  0, guc_mmp(tgl,  70, 1, 1)) \
+ 	fw_def(ALDERLAKE_S,  0, guc_mmp(tgl,  69, 0, 3)) \
+-	fw_def(DG1,          0, guc_maj(dg1,  70, 5)) \
++	fw_def(DG1,          0, guc_maj(dg1,  70, 5, 4)) \
+ 	fw_def(ROCKETLAKE,   0, guc_mmp(tgl,  70, 1, 1)) \
+ 	fw_def(TIGERLAKE,    0, guc_mmp(tgl,  70, 1, 1)) \
+ 	fw_def(JASPERLAKE,   0, guc_mmp(ehl,  70, 1, 1)) \
+@@ -141,7 +141,7 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
+ 	__stringify(patch_) ".bin"
  
- 		switch (ukernel) {
+ /* Minor for internal driver use, not part of file name */
+-#define MAKE_GUC_FW_PATH_MAJOR(prefix_, major_, minor_) \
++#define MAKE_GUC_FW_PATH_MAJOR(prefix_, major_, minor_, patch_) \
+ 	__MAKE_UC_FW_PATH_MAJOR(prefix_, "guc", major_)
+ 
+ #define MAKE_GUC_FW_PATH_MMP(prefix_, major_, minor_, patch_) \
+@@ -197,9 +197,9 @@ struct __packed uc_fw_blob {
+ 	{ UC_FW_BLOB_BASE(major_, minor_, patch_, path_) \
+ 	  .legacy = true }
+ 
+-#define GUC_FW_BLOB(prefix_, major_, minor_) \
+-	UC_FW_BLOB_NEW(major_, minor_, 0, false, \
+-		       MAKE_GUC_FW_PATH_MAJOR(prefix_, major_, minor_))
++#define GUC_FW_BLOB(prefix_, major_, minor_, patch_) \
++	UC_FW_BLOB_NEW(major_, minor_, patch_, false, \
++		       MAKE_GUC_FW_PATH_MAJOR(prefix_, major_, minor_, patch_))
+ 
+ #define GUC_FW_BLOB_MMP(prefix_, major_, minor_, patch_) \
+ 	UC_FW_BLOB_OLD(major_, minor_, patch_, \
+@@ -296,6 +296,7 @@ __uc_fw_auto_select(struct drm_i915_private *i915, struct intel_uc_fw *uc_fw)
+ 		uc_fw->file_wanted.path = blob->path;
+ 		uc_fw->file_wanted.ver.major = blob->major;
+ 		uc_fw->file_wanted.ver.minor = blob->minor;
++		uc_fw->file_wanted.ver.patch = blob->patch;
+ 		uc_fw->loaded_via_gsc = blob->loaded_via_gsc;
+ 		found = true;
+ 		break;
+@@ -776,6 +777,17 @@ int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw)
+ 	if (uc_fw->type == INTEL_UC_FW_TYPE_GUC && !guc_check_version_range(uc_fw))
+ 		goto fail;
+ 
++	gt_info(gt, "%s firmware: wanted = %s / %d.%d.%d, got = %s / %d.%d.%d\n",
++		intel_uc_fw_type_repr(uc_fw->type),
++		uc_fw->file_wanted.path,
++		uc_fw->file_wanted.ver.major,
++		uc_fw->file_wanted.ver.minor,
++		uc_fw->file_wanted.ver.patch,
++		uc_fw->file_selected.path,
++		uc_fw->file_selected.ver.major,
++		uc_fw->file_selected.ver.minor,
++		uc_fw->file_selected.ver.patch);
++
+ 	if (uc_fw->file_wanted.ver.major && uc_fw->file_selected.ver.major) {
+ 		/* Check the file's major version was as it claimed */
+ 		if (uc_fw->file_selected.ver.major != uc_fw->file_wanted.ver.major) {
+@@ -790,6 +802,9 @@ int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw)
+ 		} else {
+ 			if (uc_fw->file_selected.ver.minor < uc_fw->file_wanted.ver.minor)
+ 				old_ver = true;
++			else if ((uc_fw->file_selected.ver.minor == uc_fw->file_wanted.ver.minor) &&
++				 (uc_fw->file_selected.ver.patch < uc_fw->file_wanted.ver.patch))
++				old_ver = true;
+ 		}
+ 	}
+ 
+@@ -797,12 +812,16 @@ int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw)
+ 		/* Preserve the version that was really wanted */
+ 		memcpy(&uc_fw->file_wanted, &file_ideal, sizeof(uc_fw->file_wanted));
+ 
+-		gt_notice(gt, "%s firmware %s (%d.%d) is recommended, but only %s (%d.%d) was found\n",
++		gt_notice(gt, "%s firmware %s (%d.%d.%d) is recommended, but only %s (%d.%d.%d) was found\n",
+ 			  intel_uc_fw_type_repr(uc_fw->type),
+ 			  uc_fw->file_wanted.path,
+-			  uc_fw->file_wanted.ver.major, uc_fw->file_wanted.ver.minor,
++			  uc_fw->file_wanted.ver.major,
++			  uc_fw->file_wanted.ver.minor,
++			  uc_fw->file_wanted.ver.patch,
+ 			  uc_fw->file_selected.path,
+-			  uc_fw->file_selected.ver.major, uc_fw->file_selected.ver.minor);
++			  uc_fw->file_selected.ver.major,
++			  uc_fw->file_selected.ver.minor,
++			  uc_fw->file_selected.ver.patch);
+ 		gt_info(gt, "Consider updating your linux-firmware pkg or downloading from %s\n",
+ 			INTEL_UC_FIRMWARE_URL);
+ 	}
 -- 
 2.39.1
 
