@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59F01C7618E
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 14:09:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7369FC77B7D
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 14:09:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DA5E10EE3F;
-	Fri, 21 Apr 2023 14:09:42 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5D0F10E17C;
- Thu, 13 Apr 2023 14:43:59 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0FED661527;
- Thu, 13 Apr 2023 14:43:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76C7CC433D2;
- Thu, 13 Apr 2023 14:43:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1681397038;
- bh=AjYMdKM0hDHqTLI9N4QN9XTQwY63MI6AowdWFYWZDpY=;
- h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To:From;
- b=NIw322gwUkbyFgo8Gw3qWZMwUCesB2sEM5PNyElM1qFYdILWfzTZH1dWuZBydHWEE
- BbjNtJozTeIP/HbD1p9xXxkAJkKBiPOlZ+dVDK9K9a2o7Dzbk41XhmMv9RWzq9HMrn
- HqmvYb50jE6PHEM8vveylyuP2MEGjbqwQcRFLwZRjGhcjBO8w7hR3padOck6X5oTzi
- T8GuayEigD/kq8Fh11D78DzlZFdjTTCKJKFeryxkUuc6oEtvr2AXxcv/lGmvpYewg8
- eYuu1B2AlVZgWrW6UEdAVW6yDumwDa1yQ2gOzJWa7kiSHcPaW3HNqxQn0nNhYenZPr
- 01HuJBruh0wAA==
-Received: by paulmck-ThinkPad-P72.home (Postfix, from userid 1000)
- id 0C11C15404B3; Thu, 13 Apr 2023 07:43:58 -0700 (PDT)
-Date: Thu, 13 Apr 2023 07:43:58 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Rui Salvaterra <rsalvaterra@gmail.com>
-Message-ID: <2495408f-a644-4e56-aaca-e6915cbda179@paulmck-laptop>
-References: <CALjTZvZ=Y1psyd0nmfzm6GhqMKvq5V_NQCWb_X02nasp1CpfcQ@mail.gmail.com>
- <87r0spcuvi.fsf@intel.com>
- <CALjTZvao=N7wxyj_DpqzWUhdJwEsWSKUo3ddi-3ubgMp8BXi_Q@mail.gmail.com>
- <CALjTZvaf1cwcZc9O8g24SnZXsoQaWB97UVQW=g6M0coaudLr6w@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5FA310EE3C;
+	Fri, 21 Apr 2023 14:09:41 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DDC510E42C;
+ Mon, 17 Apr 2023 11:41:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Type:Subject:Cc:To:From:MIME-Version:Date:Message-ID:
+ Sender:Reply-To:Content-Transfer-Encoding:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=MgFPRZDdKp3+oH4fjBc8nfCYQpwYyX3bID6hvsik7sg=; b=Nvvh+ZQt3sVQCjFzhMRUXFGw9T
+ 5/adxO6QB/OKTAnfUnw8yRzdU8r5jN/6DYLht2i/aFp79pfiOwD8jk8M6csXUEnxA1eor/SColyxJ
+ 87izsp3mj9TOZv9Jdc7j9Hf7L7f1HokGsdy7QEOGpTwPsLyKvY9lXw8Lc9Jd9FSjNiqX4Q4WMTQLt
+ Acf7VpHZsSc5gb7j2x7pJefIB7rBMJdkso4zEplrIOSeN2LfXCQLDeMkR64cyB4nWjgiFH1diiRsi
+ og2LwEwmyxWn5Sl4sJqHrYcQj4seLkv08Ln1mOaH+Ro1jAfR9QfMChRl0032FLwVDt5MusrI0Lwt3
+ hYSj44wg==;
+Received: from [85.50.22.1] (helo=[192.168.1.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1poNET-003N8q-Gx; Mon, 17 Apr 2023 13:41:17 +0200
+Message-ID: <249b7449-c47b-47e6-0582-d87bd323fbbe@igalia.com>
+Date: Mon, 17 Apr 2023 13:41:15 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALjTZvaf1cwcZc9O8g24SnZXsoQaWB97UVQW=g6M0coaudLr6w@mail.gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-US
+From: =?UTF-8?Q?Samuel_Iglesias_Gons=c3=a1lvez?= <siglesias@igalia.com>
+To: events@lists.x.org, xorg-devel@lists.freedesktop.org,
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ libre-soc-dev@lists.libre-soc.org, members@x.org
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------QMke06x6c5k7Wevw0x0wfOa1"
 X-Mailman-Approved-At: Fri, 21 Apr 2023 14:09:19 +0000
-Subject: Re: [Intel-gfx] [BUG?] INFO: rcu_sched detected expedited stalls on
- CPUs/tasks: { 0-.... } 3 jiffies s: 309 root: 0x1/.
+Subject: [Intel-gfx] XDC 2023: Registration & Call for Proposals now open!
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,78 +59,311 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: paulmck@kernel.org
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com
+Cc: "board@foundation.x.org" <board@foundation.x.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 13, 2023 at 08:30:02AM +0100, Rui Salvaterra wrote:
-> Hi again, everyone.
-> 
-> So, while preparing to file the bug report with the requested
-> information, I got a trace completely unrelated to DRM (on a swapon
-> call, it seems).
-> 
-> [    4.868340] rcu: INFO: rcu_sched detected expedited stalls on
-> CPUs/tasks: { 4-.... } 3 jiffies s: 265 root: 0x10/.
-> [    4.868349] rcu: blocking rcu_node structures (internal RCU debug):
-> [    4.868351] Sending NMI from CPU 3 to CPUs 4:
-> [    4.868355] NMI backtrace for cpu 4
-> [    4.868357] CPU: 4 PID: 462 Comm: swapon Not tainted 6.3.0-rc6-debug+ #57
-> [    4.868359] Hardware name: Apple Inc.
-> Macmini6,2/Mac-F65AE981FFA204ED, BIOS 429.0.0.0.0 03/18/2022
-> [    4.868360] RIP: 0010:zram_submit_bio+0x57c/0x940
-> [    4.868365] Code: 04 4c 01 f0 48 8d 48 08 f0 48 0f ba 68 08 0d 0f
-> 82 80 00 00 00 4c 89 ef e8 01 eb ff ff 49 8b 45 00 4a 8d 44 30 09 f0
-> 80 20 df <f0> 48 ff 45 00 48 81 eb 00 10 00 00 41 83 c4 01 48 81 fb ff
-> 0f 00
-> [    4.868366] RSP: 0018:ffff8881057dbcd8 EFLAGS: 00000246
-> [    4.868368] RAX: ffffc90001c186d9 RBX: 000000003e893000 RCX: ffffc90001c186d8
-> [    4.868369] RDX: ffffc90001c186d0 RSI: 0000000000000000 RDI: ffff88810083b400
-> [    4.868369] RBP: ffff88810083b470 R08: 0000000000027e40 R09: 0000000000025850
-> [    4.868370] R10: 000000000014b212 R11: ffff88810ba03180 R12: 00000000000c176d
-> [    4.868371] R13: ffff88810083b400 R14: 0000000000c176d0 R15: 0000000000000000
-> [    4.868372] FS:  00007fbd8f8ce800(0000) GS:ffff888266100000(0000)
-> knlGS:0000000000000000
-> [    4.868373] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [    4.868374] CR2: 0000563005371000 CR3: 000000010355c003 CR4: 00000000001706e0
-> [    4.868375] Call Trace:
-> [    4.868377]  <TASK>
-> [    4.868378]  ? block_read_full_folio+0x23e/0x2e0
-> [    4.868383]  ? kmem_cache_alloc+0x1b/0x110
-> [    4.868385]  ? mempool_alloc+0x37/0x140
-> [    4.868388]  ? pcpu_block_update_hint_alloc+0xce/0x2f0
-> [    4.868390]  __submit_bio+0x41/0xd0
-> [    4.868394]  submit_bio_noacct_nocheck+0xc4/0x2b0
-> [    4.868396]  blk_next_bio+0x55/0x70
-> [    4.868398]  __blkdev_issue_discard+0xc8/0x180
-> [    4.868401]  blkdev_issue_discard+0x3c/0x80
-> [    4.868403]  __x64_sys_swapon+0xb71/0x1120
-> [    4.868407]  do_syscall_64+0x2b/0x50
-> [    4.868410]  entry_SYSCALL_64_after_hwframe+0x46/0xb0
-> [    4.868414] RIP: 0033:0x7fbd8f712d5b
-> [    4.868416] Code: 73 01 c3 48 8b 0d bd 30 0e 00 f7 d8 64 89 01 48
-> 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa b8 a7 00 00
-> 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 8d 30 0e 00 f7 d8 64 89
-> 01 48
-> [    4.868417] RSP: 002b:00007ffcaf9a3448 EFLAGS: 00000246 ORIG_RAX:
-> 00000000000000a7
-> [    4.868418] RAX: ffffffffffffffda RBX: 0000000000018064 RCX: 00007fbd8f712d5b
-> [    4.868419] RDX: 0000000000018064 RSI: 0000000000018064 RDI: 000056300535fb10
-> [    4.868420] RBP: 00007ffcaf9a3530 R08: 000000014b213000 R09: 00007fbd8f7f70f0
-> [    4.868420] R10: 0000000000001000 R11: 0000000000000246 R12: 000056300535fb10
-> [    4.868421] R13: 0000000000000064 R14: 00007ffcaf9a3530 R15: 0000000000000000
-> [    4.868423]  </TASK>
-> 
-> Could it be that RCU is reporting expedited stalls too eagerly? And,
-> if so, why only on this machine?
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------QMke06x6c5k7Wevw0x0wfOa1
+Content-Type: multipart/mixed; boundary="------------K0mWwr95hZ0mMrNOAPSm9Amf";
+ protected-headers="v1"
+From: =?UTF-8?Q?Samuel_Iglesias_Gons=c3=a1lvez?= <siglesias@igalia.com>
+To: events@lists.x.org, xorg-devel@lists.freedesktop.org,
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ libre-soc-dev@lists.libre-soc.org, members@x.org
+Cc: "board@foundation.x.org" <board@foundation.x.org>
+Message-ID: <249b7449-c47b-47e6-0582-d87bd323fbbe@igalia.com>
+Subject: XDC 2023: Registration & Call for Proposals now open!
 
-My guess would be that you have CONFIG_RCU_EXP_CPU_STALL_TIMEOUT set to
-some small non-zero number, for example, you might have set up a recent
-Android .config or some such.  The default of zero would give you about
-21 seconds rather than the three jiffies that you are seeing.
+--------------K0mWwr95hZ0mMrNOAPSm9Amf
+Content-Type: multipart/mixed; boundary="------------U0djho2cVREaiyfLP6ijUovS"
 
-Could you please check your .config?
+--------------U0djho2cVREaiyfLP6ijUovS
+Content-Type: multipart/alternative;
+ boundary="------------YrMf1Wu3jWIZGsIOrICwSKrG"
 
-							Thanx, Paul
+--------------YrMf1Wu3jWIZGsIOrICwSKrG
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+SGVsbG8hDQoNClJlZ2lzdHJhdGlvbiAmIENhbGwgZm9yIFByb3Bvc2FscyBhcmUgbm93IG9w
+ZW4gZm9yIFhEQyAyMDIzLCB3aGljaCB3aWxsDQp0YWtlIHBsYWNlIG9uIE9jdG9iZXIgMTct
+MTksIDIwMjMuDQoNCmh0dHBzOi8veGRjMjAyMy54Lm9yZw0KDQpBcyB1c3VhbCwgdGhlIGNv
+bmZlcmVuY2UgaXMgZnJlZSBvZiBjaGFyZ2UgYW5kIG9wZW4gdG8gdGhlIGdlbmVyYWwNCnB1
+YmxpYy4gSWYgeW91IHBsYW4gb24gYXR0ZW5kaW5nLCBwbGVhc2UgbWFrZSBzdXJlIHRvIHJl
+Z2lzdGVyIGFzIGVhcmx5DQphcyBwb3NzaWJsZSENCg0KSW4gb3JkZXIgdG8gcmVnaXN0ZXIg
+YXMgYXR0ZW5kZWUsIHlvdSB3aWxsIHRoZXJlZm9yZSBuZWVkIHRvIHJlZ2lzdGVyDQp2aWEg
+dGhlIFhEQyB3ZWJzaXRlLg0KDQpodHRwczovL2luZGljby5mcmVlZGVza3RvcC5vcmcvZXZl
+bnQvNC9yZWdpc3RyYXRpb25zLw0KDQpJbiBhZGRpdGlvbiB0byByZWdpc3RyYXRpb24sIHRo
+ZSBDZlAgaXMgbm93IG9wZW4gZm9yIHRhbGtzLCB3b3Jrc2hvcHMNCmFuZCBkZW1vcyBhdCBY
+REMgMjAyMy4gV2hpbGUgYW55IHNlcmlvdXMgcHJvcG9zYWwgd2lsbCBiZSBncmF0ZWZ1bGx5
+DQpjb25zaWRlcmVkLCB0b3BpY3Mgb2YgaW50ZXJlc3QgdG8gWC5PcmcgYW5kIGZyZWVkZXNr
+dG9wLm9yZyBkZXZlbG9wZXJzDQphcmUgZW5jb3VyYWdlZC4gVGhlIHByb2dyYW0gZm9jdXMg
+aXMgb24gbmV3IGRldmVsb3BtZW50LCBvbmdvaW5nDQpjaGFsbGVuZ2VzIGFuZCBhbnl0aGlu
+ZyBlbHNlIHRoYXQgd2lsbCBzcGFyayBkaXNjdXNzaW9ucyBhbW9uZw0KYXR0ZW5kZWVzIGlu
+IHRoZSBoYWxsd2F5IHRyYWNrLg0KDQpXZSBhcmUgb3BlbiB0byB0YWxrcyBhY3Jvc3MgYWxs
+IGxheWVycyBvZiB0aGUgZ3JhcGhpY3Mgc3RhY2ssIGZyb20gdGhlDQprZXJuZWwgdG8gZGVz
+a3RvcCBlbnZpcm9ubWVudHMgLyBncmFwaGljYWwgYXBwbGljYXRpb25zIGFuZCBhYm91dCBo
+b3cNCnRvIG1ha2UgdGhpbmdzIGJldHRlciBmb3IgdGhlIGRldmVsb3BlcnMgd2hvIGJ1aWxk
+IHRoZW0uIEhlYWQgdG8gdGhlDQpDZlAgcGFnZSB0byBsZWFybiBtb3JlOg0KDQpodHRwczov
+L2luZGljby5mcmVlZGVza3RvcC5vcmcvZXZlbnQvNC9hYnN0cmFjdHMvDQoNClRoZSBkZWFk
+bGluZSBmb3Igc3VibWlzc2lvbnMgaXMgTW9uZGF5LCAxNyBKdWx5IDIwMjMgKDIzOjU5IENF
+U1QpDQoNCkNoZWNrIG91dCBvdXIgUmVpbWJ1cnNlbWVudCBQb2xpY3kgdG8gYWNjZXB0IHNw
+ZWFrZXIgZXhwZW5zZXM6DQoNCmh0dHBzOi8vd3d3Lngub3JnL3dpa2kvWG9yZ0ZvdW5kYXRp
+b24vUG9saWNpZXMvUmVpbWJ1cnNlbWVudC8NCg0KSWYgeW91IGhhdmUgYW55IHF1ZXN0aW9u
+cywgcGxlYXNlIHNlbmQgbWUgYW4gZW1haWwgdG8NCnNpZ2xlc2lhcyBBVCBpZ2FsaWEuY29t
+LCBhZGRpbmcgb24gQ2MgdGhlIFgub3JnIGJvYXJkIChib2FyZA0KYXQgZm91bmRhdGlvbi54
+Lm9yZykuDQoNCkFuZCBwbGVhc2Uga2VlcCBpbiBtaW5kLCB5b3UgY2FuIGZvbGxvdyB1cyBv
+biBUd2l0dGVyIGZvciBhbGwgdGhlIGxhdGVzdA0KdXBkYXRlcyBhbmQgdG8gc3RheSBjb25u
+ZWN0ZWQ6DQoNCmh0dHBzOi8vdHdpdHRlci5jb20vWE9yZ0RldkNvbmYNCg0KQmVzdCwNCg0K
+U2FtDQoNCg==
+--------------YrMf1Wu3jWIZGsIOrICwSKrG
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<html data-lt-installed=3D"true">
+  <head>
+
+    <meta http-equiv=3D"content-type" content=3D"text/html; charset=3DUTF=
+-8">
+    <script data-cookieconsent=3D"ignore" src=3D"moz-extension://eea31378=
+-988a-46ea-af0f-ff8605fa6a0d/content/executor.js"></script>
+  </head>
+  <body style=3D"padding-bottom: 1px;">
+    <p>Hello!<br>
+      =C2=A0<br>
+      Registration &amp; Call for Proposals are now open for XDC 2023,
+      which will<br>
+      take place on October 17-19, 2023. <br>
+      <br>
+      <a class=3D"moz-txt-link-freetext" href=3D"https://xdc2023.x.org">h=
+ttps://xdc2023.x.org</a><br>
+      =C2=A0<br>
+      As usual, the conference is free of charge and open to the general<=
+br>
+      public. If you plan on attending, please make sure to register as
+      early<br>
+      as possible!<br>
+      =C2=A0<br>
+      In order to register as attendee, you will therefore need to
+      register<br>
+      via the XDC website.<br>
+      =C2=A0<br>
+      <a class=3D"moz-txt-link-freetext" href=3D"https://indico.freedeskt=
+op.org/event/4/registrations/">https://indico.freedesktop.org/event/4/reg=
+istrations/</a><br>
+      =C2=A0<br>
+      In addition to registration, the CfP is now open for talks,
+      workshops<br>
+      and demos at XDC 2023. While any serious proposal will be
+      gratefully<br>
+      considered, topics of interest to X.Org and freedesktop.org
+      developers<br>
+      are encouraged. The program focus is on new development, ongoing<br=
+>
+      challenges and anything else that will spark discussions among<br>
+      attendees in the hallway track.<br>
+      =C2=A0<br>
+      We are open to talks across all layers of the graphics stack, from
+      the<br>
+      kernel to desktop environments / graphical applications and about
+      how<br>
+      to make things better for the developers who build them. Head to
+      the<br>
+      CfP page to learn more: <br>
+      =C2=A0<br>
+      <a class=3D"moz-txt-link-freetext" href=3D"https://indico.freedeskt=
+op.org/event/4/abstracts/">https://indico.freedesktop.org/event/4/abstrac=
+ts/</a><br>
+      =C2=A0<br>
+      The deadline for submissions is Monday, 17 July 2023 (23:59 CEST)<b=
+r>
+      =C2=A0<br>
+      Check out our Reimbursement Policy to accept speaker expenses:<br>
+      =C2=A0<br>
+      <a class=3D"moz-txt-link-freetext" href=3D"https://www.x.org/wiki/X=
+orgFoundation/Policies/Reimbursement/">https://www.x.org/wiki/XorgFoundat=
+ion/Policies/Reimbursement/</a><br>
+      =C2=A0<br>
+      If you have any questions, please send me an email to<br>
+      siglesias AT igalia.com, adding on Cc the X.org board (board<br>
+      at foundation.x.org).<br>
+      =C2=A0<br>
+      And please keep in mind, you can follow us on Twitter for all the
+      latest<br>
+      updates and to stay connected:<br>
+      =C2=A0<br>
+      <a class=3D"moz-txt-link-freetext" href=3D"https://twitter.com/XOrg=
+DevConf">https://twitter.com/XOrgDevConf</a><br>
+      =C2=A0<br>
+      Best,<br>
+      =C2=A0<br>
+      Sam<br>
+    </p>
+  </body>
+  <lt-container></lt-container>
+</html>
+
+--------------YrMf1Wu3jWIZGsIOrICwSKrG--
+
+--------------U0djho2cVREaiyfLP6ijUovS
+Content-Type: application/pgp-keys; name="OpenPGP_0x7FF4BA32F17DC343.asc"
+Content-Disposition: attachment; filename="OpenPGP_0x7FF4BA32F17DC343.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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3D=3D
+=3DzaNC
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------U0djho2cVREaiyfLP6ijUovS--
+
+--------------K0mWwr95hZ0mMrNOAPSm9Amf--
+
+--------------QMke06x6c5k7Wevw0x0wfOa1
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsF5BAABCAAjFiEEQP+ZAvaXWkfuKXiEf/S6MvF9w0MFAmQ9MFsFAwAAAAAACgkQf/S6MvF9w0Mq
+GBAAlC1GNfSJuduJecn6QnOr/SJk+avS6IqrYQqlTYV8vtZUA52kMm7iTV8J5YMBji7VHWBiKR61
+XqXq7DNMGABeVUCnf45TyYX61bqVV9ipOeQYN07KQdlAWbYAc1A26Z+SrcJzJXxssByDmVAm4iir
+5oTLKdVed0Cw3ZBTtVPy5FJyQ8Nc47YJZbDUE059mJdNq0Y5byolN9HfLzvFcAs65U0DIL4o1VwG
+ilFGtibu1WzaXGI9/tGHlRCwHzi586zIdGSSeoMV0G5CqfkhW2cgDg9VvBP83D4jVXe9LU3aiwIz
+OVT1U/xwwPBkPjQVNQDp6cSJ9uU4aqhjskxB2awSIoifI7/Upd4muiUlhWDV/0sQT6UtvHNhN/sQ
+FVzRJL8GZRMqfjlJPlX6ybQA9wxGyctIxOCWrRKL+v/2gS9I/MM3pzH00fGbh+kbqnU+or4DyInW
+KcdvC5ukcp8rbkhncV1WE1X9kUld/uYiMXJylaLsmKs4qZh4iPIaAAZeLE6Sf8PFbPg/l6ywC3sF
+dHuCGaks9wRI0oHlQSVQuP1iITeD5qEHlbJMqQc9+ce5nQQvTkXUM4r3uD/kk+oSyWabJ7vm82Qq
+9CRXHJNDhoJcIHJr3F5zWn5w6EFmoM1GMUnufIPixqzoZywzXqt+oCsL+4GiCjRfSGDj1uD2OaET
+CaU=
+=U3YP
+-----END PGP SIGNATURE-----
+
+--------------QMke06x6c5k7Wevw0x0wfOa1--
