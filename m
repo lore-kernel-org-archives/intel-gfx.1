@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BD18C77B72
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Apr 2023 10:56:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2C89C77B72
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Apr 2023 10:57:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74BF410E417;
-	Mon, 17 Apr 2023 10:56:49 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAB9310E407
- for <intel-gfx@lists.freedesktop.org>; Mon, 17 Apr 2023 10:56:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 411B210E40A;
+	Mon, 17 Apr 2023 10:57:45 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 914DD10E407;
+ Mon, 17 Apr 2023 10:57:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681729006; x=1713265006;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=j//SYlFP2eKlVpWNT/eTJJFsU98tnGqiJvjz+WJKm/o=;
- b=FVjjLBjB961eKJYKg1TQ7CjEQLLCLZy/y12qr2KKNLco5P/no7gnFFNC
- sLerSUxNdJoohARsxROUrAh0rZzkBiGmxgbkAoOIkCBW0z3xRAmf/zbjN
- 1JSa0XkAlqKUi/b+ocfdyQc2Il75l9Xyp6zGZH19XerWPoenDTRYCn+z3
- L0boEiCWpP+ChD9z3i90B+Yl4EXsUT+NsjO4ZSDy2AeOkViEUA+Zonk1M
- 7bt7+Y30Eu/bTlFQCaDdMcs/OLAbBiBn0BggcdidE1vOjWSQLrgWLhSlC
- Bv9bc4O+kgQt/rxPEFsmvoMFuq/Bn35nwLchJ7vmtVXG1aSL+042V8Hm/ g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10682"; a="333656090"
-X-IronPort-AV: E=Sophos;i="5.99,203,1677571200"; d="scan'208";a="333656090"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2023 03:56:46 -0700
+ t=1681729063; x=1713265063;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=fpdtyGdWUD1d4eMrPLy0EjS2/Q9C9ckevgEj+j0Bz/0=;
+ b=OVPWV7gPO89LEIK7c5jSvCYE4IzuidM9YZlsPLwNmBY75+MR7o2pyEW/
+ Z6pwlGvEvzsR24T6Z69vkS3EkMo/I6MIJTAf6Ng5g/3MlL64YGdrrcWil
+ MxMZNJkjqUsSGwZZzT0NXYtFyucaNQanfs2ATrfdAZDtT0QKJlab02QSl
+ 8IU1Z7ONTBSnNKp/7eva0wLjmoolpZg2yAlBn15UUGDy4gXf7nQHeKtmq
+ gwPbeat/JJuoe1PI7pXQWwPdmFuXtXNWuiKJvbB+Ef/9D0iOLvizpCxRz
+ sWONxwfbaT1YLI4KVckZ2ULUWbwj7D8TKI7PVrQR8pa2dhdHxxmd8zZRy Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10682"; a="410073168"
+X-IronPort-AV: E=Sophos;i="5.99,203,1677571200"; d="scan'208";a="410073168"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Apr 2023 03:57:42 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10682"; a="864963596"
-X-IronPort-AV: E=Sophos;i="5.99,203,1677571200"; d="scan'208";a="864963596"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by orsmga005.jf.intel.com with ESMTP; 17 Apr 2023 03:56:44 -0700
-From: Arun R Murthy <arun.r.murthy@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 17 Apr 2023 16:21:13 +0530
-Message-Id: <20230417105113.3211480-1-arun.r.murthy@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230417100021.3205172-1-arun.r.murthy@intel.com>
-References: <20230417100021.3205172-1-arun.r.murthy@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10682"; a="834363399"
+X-IronPort-AV: E=Sophos;i="5.99,203,1677571200"; d="scan'208";a="834363399"
+Received: from gtohallo-mobl.ger.corp.intel.com (HELO localhost.localdomain)
+ ([10.213.232.210])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Apr 2023 03:57:41 -0700
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: igt-dev@lists.freedesktop.org,
+	Intel-gfx@lists.freedesktop.org
+Date: Mon, 17 Apr 2023 11:57:26 +0100
+Message-Id: <20230417105734.3945840-1-tvrtko.ursulin@linux.intel.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCHv2] drm/i915/display/dp: 128/132b LT requirement
+Subject: [Intel-gfx] [PATCH i-g-t v5 0/8] Vendor agnostic gputop
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,107 +58,86 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For 128b/132b LT prior to LT DPTX should set power state, DP channel
-coding and then link rate.
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-v2: added separate function to avoid code duplication(Jani N)
+This is a pile of patches which implements a rudimentary vendor agnostic gputop
+tool based of the new DRM spec as documented in
+Documentation/gpu/drm-usage-stats.rst.
 
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
----
- .../drm/i915/display/intel_dp_link_training.c | 62 +++++++++++++------
- 1 file changed, 44 insertions(+), 18 deletions(-)
+First part of the series is code refactoring which should be reasonably stable.
+I've tested it all while working on it both against intel_gpu_top and gputop.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index 6aa4ae5e7ebe..3418cf43e555 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -637,6 +637,37 @@ static bool intel_dp_link_max_vswing_reached(struct intel_dp *intel_dp,
- 	return true;
- }
- 
-+static void
-+intel_dp_update_downspread_ctrl(struct intel_dp *intel_dp,
-+				const struct intel_crtc_state *crtc_state)
-+{
-+	u8 link_config[2];
-+
-+	link_config[0] = crtc_state->vrr.flipline ? DP_MSA_TIMING_PAR_IGNORE_EN : 0;
-+	link_config[1] = intel_dp_is_uhbr(crtc_state) ?
-+			 DP_SET_ANSI_128B132B : DP_SET_ANSI_8B10B;
-+	drm_dp_dpcd_write(&intel_dp->aux, DP_DOWNSPREAD_CTRL, link_config, 2);
-+}
-+
-+static void
-+intel_dp_update_link_bw_set(struct intel_dp *intel_dp,
-+			    const struct intel_crtc_state *crtc_state,
-+			    u8 link_bw, u8 rate_select)
-+{
-+	u8 link_config[2];
-+
-+	/* Write the link configuration data */
-+	link_config[0] = link_bw;
-+	link_config[1] = crtc_state->lane_count;
-+	if (drm_dp_enhanced_frame_cap(intel_dp->dpcd))
-+		link_config[1] |= DP_LANE_COUNT_ENHANCED_FRAME_EN;
-+	drm_dp_dpcd_write(&intel_dp->aux, DP_LINK_BW_SET, link_config, 2);
-+	/* eDP 1.4 rate select method. */
-+	if (!link_bw)
-+		drm_dp_dpcd_write(&intel_dp->aux, DP_LINK_RATE_SET,
-+				  &rate_select, 1);
-+}
-+
- /*
-  * Prepare link training by configuring the link parameters. On DDI platforms
-  * also enable the port here.
-@@ -647,7 +678,6 @@ intel_dp_prepare_link_train(struct intel_dp *intel_dp,
- {
- 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
--	u8 link_config[2];
- 	u8 link_bw, rate_select;
- 
- 	if (intel_dp->prepare_link_retrain)
-@@ -686,23 +716,19 @@ intel_dp_prepare_link_train(struct intel_dp *intel_dp,
- 		drm_dbg_kms(&i915->drm,
- 			    "[ENCODER:%d:%s] Using LINK_RATE_SET value %02x\n",
- 			    encoder->base.base.id, encoder->base.name, rate_select);
--
--	/* Write the link configuration data */
--	link_config[0] = link_bw;
--	link_config[1] = crtc_state->lane_count;
--	if (drm_dp_enhanced_frame_cap(intel_dp->dpcd))
--		link_config[1] |= DP_LANE_COUNT_ENHANCED_FRAME_EN;
--	drm_dp_dpcd_write(&intel_dp->aux, DP_LINK_BW_SET, link_config, 2);
--
--	/* eDP 1.4 rate select method. */
--	if (!link_bw)
--		drm_dp_dpcd_write(&intel_dp->aux, DP_LINK_RATE_SET,
--				  &rate_select, 1);
--
--	link_config[0] = crtc_state->vrr.flipline ? DP_MSA_TIMING_PAR_IGNORE_EN : 0;
--	link_config[1] = intel_dp_is_uhbr(crtc_state) ?
--		DP_SET_ANSI_128B132B : DP_SET_ANSI_8B10B;
--	drm_dp_dpcd_write(&intel_dp->aux, DP_DOWNSPREAD_CTRL, link_config, 2);
-+	if (intel_dp_is_uhbr(crtc_state)) {
-+		/*
-+		 * Spec DP2.1 Section 3.5.2.16
-+		 * Prior to LT DPTX should set 128/132 DP Channel coding and then set link rate
-+		 */
-+		intel_dp_update_downspread_ctrl(intel_dp, crtc_state);
-+		intel_dp_update_link_bw_set(intel_dp, crtc_state, link_bw,
-+					    rate_select);
-+	} else {
-+		intel_dp_update_link_bw_set(intel_dp, crtc_state, link_bw,
-+					    rate_select);
-+		intel_dp_update_downspread_ctrl(intel_dp, crtc_state);
-+	}
- 
- 	return true;
- }
+Last patch is the actual tool itself. It works but it is rather rudimentary
+which is hopefully good enough for a start.
+
+Fundamental difference between intel_gpu_top and gputop is that the former is
+centered around a single card and only shows processes belonging to it. Gputop
+on the other hand has an idea to show all processes with DRM file descriptors
+open and sort them into groups per card. It also makes no effort to provide
+sorting modes, well any interactivity, or any pretty names for GPUs or engines.
+
+It looks like this:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DRM minor 0
+     PID              NAME    render       copy       video
+    3816          kwin_x11 |███▎      ||          ||          ||          |
+    3523              Xorg |▊         ||          ||          ||          |
+ 1120449               mpv |          ||          ||▋         ||          |
+ 1120529          glxgears |▋         ||          ||          ||          |
+ 1120449               mpv |▍         ||          ||          ||          |
+    3860       plasmashell |▏         ||          ||          ||          |
+    4764           krunner |          ||          ||          ||          |
+  575206            chrome |          ||          ||          ||          |
+  833481           firefox |          ||          ||          ||          |
+  892924       thunderbird |          ||          ||          ||          |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+I did test it as well with two cards and confirmed that too works.
+
+Rob Clark also tested it with a patch which exports the respective data from the
+msm driver and confirmed it works fine. Christian König tested it with in
+progress patches for amdgpu and that worked as well.
+
+v2:
+ * Fixed SPDX headers and added a bunch of code comments/docs throughout.
+
+v3:
+ * Rebased and some patch titles renamed as requested. (Kamil)
+
+v4:
+ * Just a rebase for conflicts due passage of time.
+
+ v5:
+ * A larger rebase this time round, catching up with some improvements which
+   landed to intel_gpu_top in the meantime.
+
+Tvrtko Ursulin (8):
+  lib: Extract igt_drm_clients from intel_gpu_top
+  lib: Allow specifying custom engine map
+  lib/igt_drm_clients: Record client drm minor
+  lib/igt_drm_clients: Support multiple DRM cards
+  lib/igt_drm_fdinfo: Track largest engine index
+  lib/igt_drm_clients: Decouple hardcoded engine assumptions
+  lib/igt_drm_clients: Enforce client status sort order in the library
+  gputop: Basic vendor agnostic GPU top tool
+
+ lib/igt_drm_clients.c   | 542 ++++++++++++++++++++++++++++++
+ lib/igt_drm_clients.h   |  91 +++++
+ lib/igt_drm_fdinfo.c    |  53 ++-
+ lib/igt_drm_fdinfo.h    |  16 +-
+ lib/meson.build         |   8 +
+ tests/i915/drm_fdinfo.c |  19 +-
+ tools/gputop.c          | 266 +++++++++++++++
+ tools/intel_gpu_top.c   | 718 +++++++++++-----------------------------
+ tools/meson.build       |   7 +-
+ 9 files changed, 1162 insertions(+), 558 deletions(-)
+ create mode 100644 lib/igt_drm_clients.c
+ create mode 100644 lib/igt_drm_clients.h
+ create mode 100644 tools/gputop.c
+
 -- 
-2.25.1
+2.37.2
 
