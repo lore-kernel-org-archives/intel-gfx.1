@@ -4,48 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2C89C77B72
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Apr 2023 10:57:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CE3DC77B72
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Apr 2023 10:57:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 411B210E40A;
-	Mon, 17 Apr 2023 10:57:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B923E10E413;
+	Mon, 17 Apr 2023 10:57:48 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 914DD10E407;
- Mon, 17 Apr 2023 10:57:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 076F410E40E;
+ Mon, 17 Apr 2023 10:57:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681729063; x=1713265063;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=fpdtyGdWUD1d4eMrPLy0EjS2/Q9C9ckevgEj+j0Bz/0=;
- b=OVPWV7gPO89LEIK7c5jSvCYE4IzuidM9YZlsPLwNmBY75+MR7o2pyEW/
- Z6pwlGvEvzsR24T6Z69vkS3EkMo/I6MIJTAf6Ng5g/3MlL64YGdrrcWil
- MxMZNJkjqUsSGwZZzT0NXYtFyucaNQanfs2ATrfdAZDtT0QKJlab02QSl
- 8IU1Z7ONTBSnNKp/7eva0wLjmoolpZg2yAlBn15UUGDy4gXf7nQHeKtmq
- gwPbeat/JJuoe1PI7pXQWwPdmFuXtXNWuiKJvbB+Ef/9D0iOLvizpCxRz
- sWONxwfbaT1YLI4KVckZ2ULUWbwj7D8TKI7PVrQR8pa2dhdHxxmd8zZRy Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10682"; a="410073168"
-X-IronPort-AV: E=Sophos;i="5.99,203,1677571200"; d="scan'208";a="410073168"
+ t=1681729067; x=1713265067;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=DzY7hE7zeogqEZR//styF6tMOOS8cl8q3iL4Y5Wkp/g=;
+ b=VKxtrRtKr8KzCdc5XULLNE1BXtGQptrMZWoLcmKRlI8wUBRcLMpnmN5B
+ h6iM15mZjwU/mIEAwkqnHkGwqx1MmL5jvDXK0QqVq8TWhE2ZXlt0d05t+
+ NsgRUzCgnzi+SE9aSjkdSZwxOQCZBD1Uw9dC001eXpiliakGnno04RZ95
+ UptxByyjX3J76SUfo+k7lyeIIae50pyICHngDCW2wtcVFRF5vUOTgGbBD
+ lNFNvtlraACIZOHFSdhYngjT94Jamppg2Oi4j/Yl+XICkhj5qwPF/VLZM
+ sVGHcxtggt3vwOXHxBrXIQnUqocTAM3AcX5pAKHXNMCjH7OY0jQAHs66h w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10682"; a="410073188"
+X-IronPort-AV: E=Sophos;i="5.99,203,1677571200"; d="scan'208";a="410073188"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2023 03:57:42 -0700
+ 17 Apr 2023 03:57:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10682"; a="834363399"
-X-IronPort-AV: E=Sophos;i="5.99,203,1677571200"; d="scan'208";a="834363399"
+X-IronPort-AV: E=McAfee;i="6600,9927,10682"; a="834363421"
+X-IronPort-AV: E=Sophos;i="5.99,203,1677571200"; d="scan'208";a="834363421"
 Received: from gtohallo-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.232.210])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2023 03:57:41 -0700
+ 17 Apr 2023 03:57:45 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: igt-dev@lists.freedesktop.org,
 	Intel-gfx@lists.freedesktop.org
-Date: Mon, 17 Apr 2023 11:57:26 +0100
-Message-Id: <20230417105734.3945840-1-tvrtko.ursulin@linux.intel.com>
+Date: Mon, 17 Apr 2023 11:57:29 +0100
+Message-Id: <20230417105734.3945840-4-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20230417105734.3945840-1-tvrtko.ursulin@linux.intel.com>
+References: <20230417105734.3945840-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t v5 0/8] Vendor agnostic gputop
+Subject: [Intel-gfx] [PATCH i-g-t 3/8] lib/igt_drm_clients: Record client
+ drm minor
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,81 +65,104 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-This is a pile of patches which implements a rudimentary vendor agnostic gputop
-tool based of the new DRM spec as documented in
-Documentation/gpu/drm-usage-stats.rst.
+Prepare for supporting clients belonging to multiple DRM cards by storing
+the DRM minor in the client record.
 
-First part of the series is code refactoring which should be reasonably stable.
-I've tested it all while working on it both against intel_gpu_top and gputop.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+---
+ lib/igt_drm_clients.c | 22 ++++++++++++++--------
+ lib/igt_drm_clients.h |  1 +
+ 2 files changed, 15 insertions(+), 8 deletions(-)
 
-Last patch is the actual tool itself. It works but it is rather rudimentary
-which is hopefully good enough for a start.
-
-Fundamental difference between intel_gpu_top and gputop is that the former is
-centered around a single card and only shows processes belonging to it. Gputop
-on the other hand has an idea to show all processes with DRM file descriptors
-open and sort them into groups per card. It also makes no effort to provide
-sorting modes, well any interactivity, or any pretty names for GPUs or engines.
-
-It looks like this:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-DRM minor 0
-     PID              NAME    render       copy       video
-    3816          kwin_x11 |███▎      ||          ||          ||          |
-    3523              Xorg |▊         ||          ||          ||          |
- 1120449               mpv |          ||          ||▋         ||          |
- 1120529          glxgears |▋         ||          ||          ||          |
- 1120449               mpv |▍         ||          ||          ||          |
-    3860       plasmashell |▏         ||          ||          ||          |
-    4764           krunner |          ||          ||          ||          |
-  575206            chrome |          ||          ||          ||          |
-  833481           firefox |          ||          ||          ||          |
-  892924       thunderbird |          ||          ||          ||          |
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-I did test it as well with two cards and confirmed that too works.
-
-Rob Clark also tested it with a patch which exports the respective data from the
-msm driver and confirmed it works fine. Christian König tested it with in
-progress patches for amdgpu and that worked as well.
-
-v2:
- * Fixed SPDX headers and added a bunch of code comments/docs throughout.
-
-v3:
- * Rebased and some patch titles renamed as requested. (Kamil)
-
-v4:
- * Just a rebase for conflicts due passage of time.
-
- v5:
- * A larger rebase this time round, catching up with some improvements which
-   landed to intel_gpu_top in the meantime.
-
-Tvrtko Ursulin (8):
-  lib: Extract igt_drm_clients from intel_gpu_top
-  lib: Allow specifying custom engine map
-  lib/igt_drm_clients: Record client drm minor
-  lib/igt_drm_clients: Support multiple DRM cards
-  lib/igt_drm_fdinfo: Track largest engine index
-  lib/igt_drm_clients: Decouple hardcoded engine assumptions
-  lib/igt_drm_clients: Enforce client status sort order in the library
-  gputop: Basic vendor agnostic GPU top tool
-
- lib/igt_drm_clients.c   | 542 ++++++++++++++++++++++++++++++
- lib/igt_drm_clients.h   |  91 +++++
- lib/igt_drm_fdinfo.c    |  53 ++-
- lib/igt_drm_fdinfo.h    |  16 +-
- lib/meson.build         |   8 +
- tests/i915/drm_fdinfo.c |  19 +-
- tools/gputop.c          | 266 +++++++++++++++
- tools/intel_gpu_top.c   | 718 +++++++++++-----------------------------
- tools/meson.build       |   7 +-
- 9 files changed, 1162 insertions(+), 558 deletions(-)
- create mode 100644 lib/igt_drm_clients.c
- create mode 100644 lib/igt_drm_clients.h
- create mode 100644 tools/gputop.c
-
+diff --git a/lib/igt_drm_clients.c b/lib/igt_drm_clients.c
+index d06fcb0942a1..b837450301dc 100644
+--- a/lib/igt_drm_clients.c
++++ b/lib/igt_drm_clients.c
+@@ -124,7 +124,7 @@ igt_drm_client_update(struct igt_drm_client *c, unsigned int pid, char *name,
+ static void
+ igt_drm_client_add(struct igt_drm_clients *clients,
+ 		   const struct drm_client_fdinfo *info,
+-		   unsigned int pid, char *name)
++		   unsigned int pid, char *name, unsigned int drm_minor)
+ {
+ 	struct igt_drm_client *c;
+ 
+@@ -149,6 +149,7 @@ igt_drm_client_add(struct igt_drm_clients *clients,
+ 	}
+ 
+ 	c->id = info->id;
++	c->drm_minor = drm_minor;
+ 	c->clients = clients;
+ 	c->val = calloc(clients->num_classes, sizeof(c->val));
+ 	c->last = calloc(clients->num_classes, sizeof(c->last));
+@@ -295,16 +296,21 @@ static bool get_task_name(const char *buffer, char *out, unsigned long sz)
+ 	return true;
+ }
+ 
+-static bool is_drm_fd(int fd_dir, const char *name)
++static bool is_drm_fd(int fd_dir, const char *name, unsigned int *minor)
+ {
+ 	struct stat stat;
+ 	int ret;
+ 
+ 	ret = fstatat(fd_dir, name, &stat, 0);
+ 
+-	return ret == 0 &&
+-	       (stat.st_mode & S_IFMT) == S_IFCHR &&
+-	       major(stat.st_rdev) == 226;
++	if (ret == 0 &&
++	    (stat.st_mode & S_IFMT) == S_IFCHR &&
++	    major(stat.st_rdev) == 226) {
++		*minor = minor(stat.st_rdev);
++		return true;
++	}
++
++	return false;
+ }
+ 
+ static void clients_update_max_lengths(struct igt_drm_clients *clients)
+@@ -382,10 +388,10 @@ igt_drm_clients_scan(struct igt_drm_clients *clients,
+ 		return clients;
+ 
+ 	while ((proc_dent = readdir(proc_dir)) != NULL) {
++		unsigned int client_pid, minor = 0;
+ 		int pid_dir = -1, fd_dir = -1;
+ 		struct dirent *fdinfo_dent;
+ 		char client_name[64] = { };
+-		unsigned int client_pid;
+ 		DIR *fdinfo_dir = NULL;
+ 		char buf[4096];
+ 		size_t count;
+@@ -427,7 +433,7 @@ igt_drm_clients_scan(struct igt_drm_clients *clients,
+ 			if (!isdigit(fdinfo_dent->d_name[0]))
+ 				continue;
+ 
+-			if (!is_drm_fd(fd_dir, fdinfo_dent->d_name))
++			if (!is_drm_fd(fd_dir, fdinfo_dent->d_name, &minor))
+ 				continue;
+ 
+ 			if (!__igt_parse_drm_fdinfo(dirfd(fdinfo_dir),
+@@ -446,7 +452,7 @@ igt_drm_clients_scan(struct igt_drm_clients *clients,
+ 						info.id);
+ 			if (!c)
+ 				igt_drm_client_add(clients, &info, client_pid,
+-						   client_name);
++						   client_name, minor);
+ 			else
+ 				igt_drm_client_update(c, client_pid,
+ 						      client_name, &info);
+diff --git a/lib/igt_drm_clients.h b/lib/igt_drm_clients.h
+index 431bf5bbd335..591725b8c059 100644
+--- a/lib/igt_drm_clients.h
++++ b/lib/igt_drm_clients.h
+@@ -44,6 +44,7 @@ struct igt_drm_client {
+ 
+ 	enum igt_drm_client_status status;
+ 	unsigned int id; /* DRM client id from fdinfo. */
++	unsigned int drm_minor; /* DRM minor of this client. */
+ 	unsigned int pid; /* PID which has this DRM fd open. */
+ 	char pid_str[10]; /* Cached PID representation. */
+ 	char name[24]; /* Process name of the owning PID. */
 -- 
 2.37.2
 
