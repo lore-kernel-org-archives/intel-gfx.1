@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 782DAC77B77
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Apr 2023 10:39:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 465E9C77B77
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Apr 2023 10:39:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D74210E3F8;
-	Mon, 17 Apr 2023 10:39:06 +0000 (UTC)
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [IPv6:2a00:1450:4864:20::42b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 820FF10E3F9;
- Mon, 17 Apr 2023 10:39:04 +0000 (UTC)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-2f46348728eso827551f8f.3; 
- Mon, 17 Apr 2023 03:39:04 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0727910E400;
+	Mon, 17 Apr 2023 10:39:11 +0000 (UTC)
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [IPv6:2a00:1450:4864:20::42c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3083610E3F9;
+ Mon, 17 Apr 2023 10:39:08 +0000 (UTC)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-2eed43bfa4bso1361038f8f.2; 
+ Mon, 17 Apr 2023 03:39:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681727942; x=1684319942;
+ d=gmail.com; s=20221208; t=1681727946; x=1684319946;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=mkh5X1oOnHmMtPThd/Ogb+Ei0/Iy+LdjudYL5nRHiA8=;
- b=XO/vfE0ttxJFtb+z+zDWyoXcM09x8Zs78N3GfyVo9gwDIuuHa3a1Gya8goc4sNmMJV
- vJR78/+//6TCZvI30CK/mDXRtQDDAPsnAizkwB7SubAmmPETo39N1bcxXg1o3cKdtQmJ
- iCoD6j4lKCLRHYwJI1MFIYJlEvuRAjgVkoOTZ/uX15pf4L+VkS92fyBzWSrLwGYY50At
- OR7OTpSJgtuz6ZDgg4F9K6kpnJv0D1ptjteBC4ZP3XgKXT3gyKF4/aYye3QW/JCfu8DK
- jN3oOf3Qkl4Z3pTExiIhOq34ri6WOzWaj3YJ2LKW9OBRVj7+1BrJHbhm4NXNHFDfBeZ8
- h7ew==
+ bh=cH79Swn8ZRJ2/YarOj91Bz0xxg30p0nVIyjLTbfZHEk=;
+ b=YRKjuLMhTl40C+QqFYNyd1bRihczrfYWx/yGU36IRsJfmSPwWm5zftNVBsPia6yv+S
+ Zxqe6js3OrRVHvL9eVEwsHAVrpNhJPpvZcA3/CuoUjouJePIvyzvpsD+QqepRoAlloZ/
+ 0fsrKdoUG/TsMKLWUBTOHqggXyBAQ2C+BlCWcOm9TvmHiaIgIBq5KhCWjFeagOpEmB8d
+ 1DAQ0WsJbDJw9QEjshxivpMLqq89xEmLpV7P0ecn/QKP2xODoAfG9PcVZbGxJetEzBPJ
+ tD5YqlokKpW5QqC7IQ0a6OqDD1KDVY5I3WNXvmUYrxVtT80Kmg/URg+3ZpE9rLMH6zR0
+ 2NkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681727942; x=1684319942;
+ d=1e100.net; s=20221208; t=1681727946; x=1684319946;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=mkh5X1oOnHmMtPThd/Ogb+Ei0/Iy+LdjudYL5nRHiA8=;
- b=UTzldRWNJPKX1IRSQubx2Td5gEocn6yGLuPiUG1B6yBNRQO7CFwGDc4uZ1mO61lLSb
- KN3E4YMuBQfv/KLwxpYtd1fJzvlWqAhLSMMuGyb1UQ+XevEgCS0knUyYT+hFsZoFP+MN
- elXyxj0gm7sRo2yp0h73nI6/um1iIuXZQYulgYVoAFKwJhVpnsu/zJWhIqNjEDuZ9GNg
- 0sDPU5ZoSS9QvOpSkeXYq0DRaTpOAq+n2S+60uEHOe+abiKRhI1Qfk4SUALmV0xnD+Yd
- y3JIZvyqQge6p8yPkXLV3XwUEuCGSGmiBqMp1/tiDhI4bRlDa3yj9pxSXpw0GHl9MB2L
- tSxw==
-X-Gm-Message-State: AAQBX9c++PWXppNq5unuRiOQLT0MxdiWuzJyDvPHYKN1FM0Z+8ai8bGs
- RM0ljD5ZLsXWFqGoovHBpR0=
-X-Google-Smtp-Source: AKy350ZWcTYKgg1QBjpNgdR9wjl3y2FJYThqP4aJuL8PsgT/C8+4jSADpdmdsMu3nAzGfM6xeTh5vg==
-X-Received: by 2002:a5d:6606:0:b0:2f8:dd25:f96e with SMTP id
- n6-20020a5d6606000000b002f8dd25f96emr4345092wru.6.1681727942023; 
- Mon, 17 Apr 2023 03:39:02 -0700 (PDT)
+ bh=cH79Swn8ZRJ2/YarOj91Bz0xxg30p0nVIyjLTbfZHEk=;
+ b=QU0y8E6hlLiFSuuUIcs0v6xoBcXukG8qpEa369wJTm8QkAi4m9bOoWorUfJQAzOYnV
+ WnXkU8FgGZto7lfmibeeHar+Cpddz8DE6vzQah9XQf2fEEu/T8QVGE0xOz7svLG3eVDT
+ rbX6yxj2j6vpQIZPd1v2eEO5KX9WMuDyiSr9helFE1JBuxMmMT+/4yTH2EFhBKHuxP4Y
+ bHuzXlx1OHJqmMJU7JAmOyKgbX8kngRRzeXDXEW0F0DX62+afyDlE1mzIOmarpkipiC+
+ G2RcS5YnbSY5BqJUboM0vslvrEEfknTFcWDNQgSry2r8nXVCrCD2DmdCpyNHtM61XUo1
+ FJyQ==
+X-Gm-Message-State: AAQBX9degkGvY8UuQ50DnfEQQfqFJxPiUm1fTnm8uiG0JPHWHs4N13eP
+ cUdf2lKXvEcn+AuvxciBQIM=
+X-Google-Smtp-Source: AKy350ZHLsYNFXN5GyVB3dvmvIOZLfVbmy328/EyKvOC+gnAZGSMikYnaDOJgYq7gQ7O8a2gX7ryOA==
+X-Received: by 2002:adf:d085:0:b0:2fa:88f2:b04c with SMTP id
+ y5-20020adfd085000000b002fa88f2b04cmr1956315wrh.20.1681727945938; 
+ Mon, 17 Apr 2023 03:39:05 -0700 (PDT)
 Received: from localhost.localdomain
  (host-87-19-108-254.retail.telecomitalia.it. [87.19.108.254])
  by smtp.gmail.com with ESMTPSA id
- y12-20020a5d470c000000b002c70ce264bfsm10238018wrq.76.2023.04.17.03.39.00
+ y12-20020a5d470c000000b002c70ce264bfsm10238018wrq.76.2023.04.17.03.39.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Apr 2023 03:39:01 -0700 (PDT)
+ Mon, 17 Apr 2023 03:39:05 -0700 (PDT)
 From: "Fabio M. De Francesco" <fmdefrancesco@gmail.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
@@ -63,15 +63,15 @@ To: Jani Nikula <jani.nikula@linux.intel.com>,
  Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
  Chris Wilson <chris@chris-wilson.co.uk>, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Mon, 17 Apr 2023 12:38:52 +0200
-Message-Id: <20230417103854.23333-2-fmdefrancesco@gmail.com>
+Date: Mon, 17 Apr 2023 12:38:54 +0200
+Message-Id: <20230417103854.23333-4-fmdefrancesco@gmail.com>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230417103854.23333-1-fmdefrancesco@gmail.com>
 References: <20230417103854.23333-1-fmdefrancesco@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/3] drm/i915: Replace kmap() with
+Subject: [Intel-gfx] [PATCH v2 3/3] drm/i915/gem: Replace kmap() with
  kmap_local_page()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,7 +90,7 @@ Cc: Ira Weiny <ira.weiny@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-kmap() has been deprecated in favor of kmap_local_page().
+kmap() s been deprecated in favor of kmap_local_page().
 
 There are two main problems with kmap(): (1) It comes with an overhead as
 mapping space is restricted and protected by a global lock for
@@ -104,58 +104,85 @@ It is faster than kmap() in kernels with HIGHMEM enabled. Furthermore,
 the tasks can be preempted and, when they are scheduled to run again, the
 kernel virtual addresses are restored and are still valid.
 
-Obviously, thread locality implies that the kernel voirtual addresses
-are valid only in the context of the callers. kmap_local_page() use in
-i915_gem.c doesn't break the above-mentioned constraint, so it should be
+Obviously, thread locality implies that the kernel virtual addresses are
+only valid in the context of the callers. The kmap_local_page() use in
+i915/gem doesn't break the above-mentioned constraint, so it should be
 preferred to kmap().
 
-Therefore, replace kmap() with kmap_local_page() in i915_gem.c
+Therefore, replace kmap() with kmap_local_page() in i915/gem and use
+memcpy_to_page() where it is possible to avoid the open coding of
+mapping + memcpy() + un-mapping.
 
 Suggested-by: Ira Weiny <ira.weiny@intel.com>
 Signed-off-by: Fabio M. De Francesco <fmdefrancesco@gmail.com>
 ---
- drivers/gpu/drm/i915/i915_gem.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c          | 6 ++----
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 8 ++++----
+ 2 files changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
-index 35950fa91406..c35248555e42 100644
---- a/drivers/gpu/drm/i915/i915_gem.c
-+++ b/drivers/gpu/drm/i915/i915_gem.c
-@@ -212,14 +212,14 @@ shmem_pread(struct page *page, int offset, int len, char __user *user_data,
- 	char *vaddr;
- 	int ret;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+index 37d1efcd3ca6..8856a6409e83 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+@@ -657,16 +657,14 @@ i915_gem_object_create_shmem_from_data(struct drm_i915_private *dev_priv,
+ 	do {
+ 		unsigned int len = min_t(typeof(size), size, PAGE_SIZE);
+ 		struct page *page;
+-		void *pgdata, *vaddr;
++		void *pgdata;
 
--	vaddr = kmap(page);
-+	vaddr = kmap_local_page(page);
+ 		err = aops->write_begin(file, file->f_mapping, offset, len,
+ 					&page, &pgdata);
+ 		if (err < 0)
+ 			goto fail;
 
- 	if (needs_clflush)
- 		drm_clflush_virt_range(vaddr + offset, len);
+-		vaddr = kmap(page);
+-		memcpy(vaddr, data, len);
+-		kunmap(page);
++		memcpy_to_page(page, 0, data, len);
 
- 	ret = __copy_to_user(user_data, vaddr + offset, len);
+ 		err = aops->write_end(file, file->f_mapping, offset, len, len,
+ 				      page, pgdata);
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+index 56279908ed30..5fd9e1ee2340 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+@@ -155,7 +155,7 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
+ 	intel_gt_flush_ggtt_writes(to_gt(i915));
 
--	kunmap(page);
-+	kunmap_local(vaddr);
+ 	p = i915_gem_object_get_page(obj, offset >> PAGE_SHIFT);
+-	cpu = kmap(p) + offset_in_page(offset);
++	cpu = kmap_local_page(p) + offset_in_page(offset);
+ 	drm_clflush_virt_range(cpu, sizeof(*cpu));
+ 	if (*cpu != (u32)page) {
+ 		pr_err("Partial view for %lu [%u] (offset=%llu, size=%u [%llu, row size %u], fence=%d, tiling=%d, stride=%d) misalignment, expected write to page (%lu + %u [0x%lx]) of 0x%x, found 0x%x\n",
+@@ -173,7 +173,7 @@ static int check_partial_mapping(struct drm_i915_gem_object *obj,
+ 	}
+ 	*cpu = 0;
+ 	drm_clflush_virt_range(cpu, sizeof(*cpu));
+-	kunmap(p);
++	kunmap_local(cpu);
 
- 	return ret ? -EFAULT : 0;
- }
-@@ -643,7 +643,7 @@ shmem_pwrite(struct page *page, int offset, int len, char __user *user_data,
- 	char *vaddr;
- 	int ret;
+ out:
+ 	i915_gem_object_lock(obj, NULL);
+@@ -251,7 +251,7 @@ static int check_partial_mappings(struct drm_i915_gem_object *obj,
+ 		intel_gt_flush_ggtt_writes(to_gt(i915));
 
--	vaddr = kmap(page);
-+	vaddr = kmap_local_page(page);
+ 		p = i915_gem_object_get_page(obj, offset >> PAGE_SHIFT);
+-		cpu = kmap(p) + offset_in_page(offset);
++		cpu = kmap_local_page(p) + offset_in_page(offset);
+ 		drm_clflush_virt_range(cpu, sizeof(*cpu));
+ 		if (*cpu != (u32)page) {
+ 			pr_err("Partial view for %lu [%u] (offset=%llu, size=%u [%llu, row size %u], fence=%d, tiling=%d, stride=%d) misalignment, expected write to page (%lu + %u [0x%lx]) of 0x%x, found 0x%x\n",
+@@ -269,7 +269,7 @@ static int check_partial_mappings(struct drm_i915_gem_object *obj,
+ 		}
+ 		*cpu = 0;
+ 		drm_clflush_virt_range(cpu, sizeof(*cpu));
+-		kunmap(p);
++		kunmap_local(cpu);
+ 		if (err)
+ 			return err;
 
- 	if (needs_clflush_before)
- 		drm_clflush_virt_range(vaddr + offset, len);
-@@ -652,7 +652,7 @@ shmem_pwrite(struct page *page, int offset, int len, char __user *user_data,
- 	if (!ret && needs_clflush_after)
- 		drm_clflush_virt_range(vaddr + offset, len);
-
--	kunmap(page);
-+	kunmap_local(vaddr);
-
- 	return ret ? -EFAULT : 0;
- }
 --
 2.40.0
 
