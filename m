@@ -4,55 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 396F6C77B78
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Apr 2023 10:56:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BD18C77B72
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Apr 2023 10:56:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9604C10E408;
-	Mon, 17 Apr 2023 10:56:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74BF410E417;
+	Mon, 17 Apr 2023 10:56:49 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5571310E40E
- for <intel-gfx@lists.freedesktop.org>; Mon, 17 Apr 2023 10:56:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAB9310E407
+ for <intel-gfx@lists.freedesktop.org>; Mon, 17 Apr 2023 10:56:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681728977; x=1713264977;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=ePsUTL5VxKWOhHoBqdiCKmZRpg+iamU9reryego+jKA=;
- b=Q0Ye8DqdwQkt0TBRVXJCZxirGOmDfWo+legvw3TOTsLckoB1KfXY2iyU
- xKNgUqMhcNxymuWwykZRtHqiUsxyvwZ42qXqaihyiFjbuXX7a+tvjHeGk
- FYI4B7hV1ZMAS+eoweH8GwaC+IKbn94hHamudlUszzL6aiC4vbcQqvigE
- dwL4WqymharaLBaEFz0gOMqKGyKiN+vMjg93+3jZjgwG97N4Q/DSbqbNe
- JDm028sZGLDJMWvHnKVGhKHugenpzBwhH+yQV58UyljFPfBStULFxhHtK
- G+ZshcKWsdhA6bLhbTlGElCnozWNhiIAan7M2dn2C7qlTJJGASwM790in g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10682"; a="333656031"
-X-IronPort-AV: E=Sophos;i="5.99,203,1677571200"; d="scan'208";a="333656031"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ t=1681729006; x=1713265006;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=j//SYlFP2eKlVpWNT/eTJJFsU98tnGqiJvjz+WJKm/o=;
+ b=FVjjLBjB961eKJYKg1TQ7CjEQLLCLZy/y12qr2KKNLco5P/no7gnFFNC
+ sLerSUxNdJoohARsxROUrAh0rZzkBiGmxgbkAoOIkCBW0z3xRAmf/zbjN
+ 1JSa0XkAlqKUi/b+ocfdyQc2Il75l9Xyp6zGZH19XerWPoenDTRYCn+z3
+ L0boEiCWpP+ChD9z3i90B+Yl4EXsUT+NsjO4ZSDy2AeOkViEUA+Zonk1M
+ 7bt7+Y30Eu/bTlFQCaDdMcs/OLAbBiBn0BggcdidE1vOjWSQLrgWLhSlC
+ Bv9bc4O+kgQt/rxPEFsmvoMFuq/Bn35nwLchJ7vmtVXG1aSL+042V8Hm/ g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10682"; a="333656090"
+X-IronPort-AV: E=Sophos;i="5.99,203,1677571200"; d="scan'208";a="333656090"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2023 03:56:16 -0700
+ 17 Apr 2023 03:56:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10682"; a="693207949"
-X-IronPort-AV: E=Sophos;i="5.99,203,1677571200"; d="scan'208";a="693207949"
-Received: from habramov-mobl4.ger.corp.intel.com (HELO localhost)
- ([10.252.47.83])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Apr 2023 03:56:14 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-In-Reply-To: <SN7PR11MB67501452EA239C59649E8335E39C9@SN7PR11MB6750.namprd11.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230403080154.1239873-1-suraj.kandpal@intel.com>
- <20230405071951.1258132-1-suraj.kandpal@intel.com>
- <871qkigabf.fsf@intel.com>
- <SN7PR11MB6750CDF9E59B364748A7ABB3E39C9@SN7PR11MB6750.namprd11.prod.outlook.com>
- <87h6teer21.fsf@intel.com>
- <SN7PR11MB67501452EA239C59649E8335E39C9@SN7PR11MB6750.namprd11.prod.outlook.com>
-Date: Mon, 17 Apr 2023 13:56:12 +0300
-Message-ID: <87bkjmeq0j.fsf@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10682"; a="864963596"
+X-IronPort-AV: E=Sophos;i="5.99,203,1677571200"; d="scan'208";a="864963596"
+Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
+ by orsmga005.jf.intel.com with ESMTP; 17 Apr 2023 03:56:44 -0700
+From: Arun R Murthy <arun.r.murthy@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 17 Apr 2023 16:21:13 +0530
+Message-Id: <20230417105113.3211480-1-arun.r.murthy@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230417100021.3205172-1-arun.r.murthy@intel.com>
+References: <20230417100021.3205172-1-arun.r.murthy@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/display: Increase AUX timeout
- for Type-C
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCHv2] drm/i915/display/dp: 128/132b LT requirement
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,176 +56,107 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 17 Apr 2023, "Kandpal, Suraj" <suraj.kandpal@intel.com> wrote:
->> -----Original Message-----
->> From: Jani Nikula <jani.nikula@linux.intel.com>
->> Sent: Monday, April 17, 2023 4:04 PM
->> To: Kandpal, Suraj <suraj.kandpal@intel.com>; intel-
->> gfx@lists.freedesktop.org
->> Subject: RE: [Intel-gfx] [PATCH v2] drm/i915/display: Increase AUX timeout
->> for Type-C
->> 
->> On Mon, 17 Apr 2023, "Kandpal, Suraj" <suraj.kandpal@intel.com> wrote:
->> >> On Wed, 05 Apr 2023, Suraj Kandpal <suraj.kandpal@intel.com> wrote:
->> >> > Type-C PHYs are taking longer than expected for Aux IO Power Enabling.
->> >> > Workaround: Increase the timeout.
->> >> >
->> >> > WA_14017248603: adlp
->> >> > Bspec: 55480
->> >> >
->> >> > ---v2
->> >> > -change style on how we mention WA [Ankit] -fix bat error
->> >> >
->> >> > Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
->> >> > ---
->> >> >  .../i915/display/intel_display_power_well.c   | 30 ++++++++++++++++++-
->> >> >  1 file changed, 29 insertions(+), 1 deletion(-)
->> >> >
->> >> > diff --git
->> >> > a/drivers/gpu/drm/i915/display/intel_display_power_well.c
->> >> > b/drivers/gpu/drm/i915/display/intel_display_power_well.c
->> >> > index 62bafcbc7937..52f595929a18 100644
->> >> > --- a/drivers/gpu/drm/i915/display/intel_display_power_well.c
->> >> > +++ b/drivers/gpu/drm/i915/display/intel_display_power_well.c
->> >> > @@ -489,6 +489,34 @@ static void icl_tc_cold_exit(struct
->> >> drm_i915_private *i915)
->> >> >  		    "succeeded");
->> >> >  }
->> >> >
->> >> > +static void
->> >> > +adl_aux_wait_for_power_well_enable(struct drm_i915_private *i915,
->> >> > +				   struct i915_power_well *power_well,
->> >> > +				   bool timeout_expected)
->> >> > +{
->> >> > +	const struct i915_power_well_regs *regs = power_well->desc->ops-
->> >> >regs;
->> >> > +	enum phy phy = icl_aux_pw_to_phy(i915, power_well);
->> >> > +	int pw_idx = i915_power_well_instance(power_well)->hsw.idx;
->> >> > +
->> >> > +	/*
->> >> > +	 * WA_14017248603: adlp
->> >> > +	 * Type-C Phy are taking longer than expected for AUX IO Power
->> >> Enabling.
->> >> > +	 * Increase timeout to 500ms.
->> >> > +	 */
->> >> > +	if (IS_ALDERLAKE_P(i915) && intel_phy_is_tc(i915, phy)) {
->> >> > +		if (intel_de_wait_for_set(i915, regs->driver,
->> >> > +
->> >> HSW_PWR_WELL_CTL_STATE(pw_idx), 500)) {
->> >> > +			drm_dbg_kms(&i915->drm, "%s power well enable
->> >> timeout\n",
->> >> > +				    intel_power_well_name(power_well));
->> >> > +
->> >> > +			drm_WARN_ON(&i915->drm, !timeout_expected);
->> >> > +		}
->> >> > +		return;
->> >> > +	}
->> >> > +
->> >> > +	hsw_wait_for_power_well_enable(i915, power_well,
->> >> timeout_expected);
->> >> > +}
->> >>
->> >> Please don't duplicate the function and the wait like this.
->> >>
->> >> Something like this is sufficient:
->> >>
->> >>
->> >> @@ -252,7 +252,9 @@ static void
->> hsw_wait_for_power_well_enable(struct
->> >> drm_i915_private *dev_priv,
->> >>  					   bool timeout_expected)
->> >>  {
->> >>  	const struct i915_power_well_regs *regs = power_well->desc->ops-
->> >> >regs;
->> >> +	enum phy phy = icl_aux_pw_to_phy(i915, power_well);
->> >>  	int pw_idx = i915_power_well_instance(power_well)->hsw.idx;
->> >> +	int timeout = 1;
->> >>
->> >>  	/*
->> >>  	 * For some power wells we're not supposed to watch the status bit
->> >> for @@ -264,9 +266,13 @@ static void
->> >> hsw_wait_for_power_well_enable(struct drm_i915_private *dev_priv,
->> >>  		return;
->> >>  	}
->> >>
->> >> +	/* WA_14017248603: adlp */
->> >> +	if (IS_ALDERLAKE_P(i915) && intel_phy_is_tc(i915, phy))
->> >
->> > I did try this but it ends up throwing a kernel null pointer error at
->> > intel_phy_is_tc which made me float the version of code I did.
->> 
->> Please explain what causes it, and how your version avoids it.
->> 
->
-> icl_aux_pw_to_phy is called is hsw_wait_for_power_well is called everywhere where its not possible for aux_pw to phy
-> conversion is not possible with this change we only get the phy for adls version.
-> Will address this is next version.
+For 128b/132b LT prior to LT DPTX should set power state, DP channel
+coding and then link rate.
 
-Cc: Imre for input
+v2: added separate function to avoid code duplication(Jani N)
 
-Maybe pass the timeout to hsw_wait_for_power_well_enable() as parameter?
-Other ideas?
+Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+---
+ .../drm/i915/display/intel_dp_link_training.c | 62 +++++++++++++------
+ 1 file changed, 44 insertions(+), 18 deletions(-)
 
-BR,
-Jani.
-
->
-> Regards,
-> Suraj Kandpal
->> BR,
->> Jani.
->> 
->> 
->> >
->> > Regards,
->> > Suraj Kandpal
->> >> +		timeout = 500;
->> >> +
->> >>  	/* Timeout for PW1:10 us, AUX:not specified, other PWs:20 us. */
->> >>  	if (intel_de_wait_for_set(dev_priv, regs->driver,
->> >> -				  HSW_PWR_WELL_CTL_STATE(pw_idx), 1)) {
->> >> +				  HSW_PWR_WELL_CTL_STATE(pw_idx),
->> >> timeout)) {
->> >>  		drm_dbg_kms(&dev_priv->drm, "%s power well enable
->> timeout\n",
->> >>  			    intel_power_well_name(power_well));
->> >>
->> >>
->> >> > +
->> >
->> >> >  static void
->> >> >  icl_tc_phy_aux_power_well_enable(struct drm_i915_private *dev_priv,
->> >> >  				 struct i915_power_well *power_well) @@ -
->> >> 517,7 +545,7 @@
->> >> > icl_tc_phy_aux_power_well_enable(struct drm_i915_private *dev_priv,
->> >> >  	if (DISPLAY_VER(dev_priv) == 11 &&
->> >> intel_tc_cold_requires_aux_pw(dig_port))
->> >> >  		icl_tc_cold_exit(dev_priv);
->> >> >
->> >> > -	hsw_wait_for_power_well_enable(dev_priv, power_well,
->> >> timeout_expected);
->> >> > +	adl_aux_wait_for_power_well_enable(dev_priv, power_well,
->> >> > +timeout_expected);
->> >>
->> >> A function prefixed adl_ should indicate it's only needed for adl+.
->> >> This change is misleading.
->> >>
->> >> BR,
->> >> Jani.
->> >>
->> >>
->> >> >
->> >> >  	if (DISPLAY_VER(dev_priv) >= 12 && !is_tbt) {
->> >> >  		enum tc_port tc_port;
->> >>
->> >> --
->> >> Jani Nikula, Intel Open Source Graphics Center
->> 
->> --
->> Jani Nikula, Intel Open Source Graphics Center
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index 6aa4ae5e7ebe..3418cf43e555 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -637,6 +637,37 @@ static bool intel_dp_link_max_vswing_reached(struct intel_dp *intel_dp,
+ 	return true;
+ }
+ 
++static void
++intel_dp_update_downspread_ctrl(struct intel_dp *intel_dp,
++				const struct intel_crtc_state *crtc_state)
++{
++	u8 link_config[2];
++
++	link_config[0] = crtc_state->vrr.flipline ? DP_MSA_TIMING_PAR_IGNORE_EN : 0;
++	link_config[1] = intel_dp_is_uhbr(crtc_state) ?
++			 DP_SET_ANSI_128B132B : DP_SET_ANSI_8B10B;
++	drm_dp_dpcd_write(&intel_dp->aux, DP_DOWNSPREAD_CTRL, link_config, 2);
++}
++
++static void
++intel_dp_update_link_bw_set(struct intel_dp *intel_dp,
++			    const struct intel_crtc_state *crtc_state,
++			    u8 link_bw, u8 rate_select)
++{
++	u8 link_config[2];
++
++	/* Write the link configuration data */
++	link_config[0] = link_bw;
++	link_config[1] = crtc_state->lane_count;
++	if (drm_dp_enhanced_frame_cap(intel_dp->dpcd))
++		link_config[1] |= DP_LANE_COUNT_ENHANCED_FRAME_EN;
++	drm_dp_dpcd_write(&intel_dp->aux, DP_LINK_BW_SET, link_config, 2);
++	/* eDP 1.4 rate select method. */
++	if (!link_bw)
++		drm_dp_dpcd_write(&intel_dp->aux, DP_LINK_RATE_SET,
++				  &rate_select, 1);
++}
++
+ /*
+  * Prepare link training by configuring the link parameters. On DDI platforms
+  * also enable the port here.
+@@ -647,7 +678,6 @@ intel_dp_prepare_link_train(struct intel_dp *intel_dp,
+ {
+ 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+-	u8 link_config[2];
+ 	u8 link_bw, rate_select;
+ 
+ 	if (intel_dp->prepare_link_retrain)
+@@ -686,23 +716,19 @@ intel_dp_prepare_link_train(struct intel_dp *intel_dp,
+ 		drm_dbg_kms(&i915->drm,
+ 			    "[ENCODER:%d:%s] Using LINK_RATE_SET value %02x\n",
+ 			    encoder->base.base.id, encoder->base.name, rate_select);
+-
+-	/* Write the link configuration data */
+-	link_config[0] = link_bw;
+-	link_config[1] = crtc_state->lane_count;
+-	if (drm_dp_enhanced_frame_cap(intel_dp->dpcd))
+-		link_config[1] |= DP_LANE_COUNT_ENHANCED_FRAME_EN;
+-	drm_dp_dpcd_write(&intel_dp->aux, DP_LINK_BW_SET, link_config, 2);
+-
+-	/* eDP 1.4 rate select method. */
+-	if (!link_bw)
+-		drm_dp_dpcd_write(&intel_dp->aux, DP_LINK_RATE_SET,
+-				  &rate_select, 1);
+-
+-	link_config[0] = crtc_state->vrr.flipline ? DP_MSA_TIMING_PAR_IGNORE_EN : 0;
+-	link_config[1] = intel_dp_is_uhbr(crtc_state) ?
+-		DP_SET_ANSI_128B132B : DP_SET_ANSI_8B10B;
+-	drm_dp_dpcd_write(&intel_dp->aux, DP_DOWNSPREAD_CTRL, link_config, 2);
++	if (intel_dp_is_uhbr(crtc_state)) {
++		/*
++		 * Spec DP2.1 Section 3.5.2.16
++		 * Prior to LT DPTX should set 128/132 DP Channel coding and then set link rate
++		 */
++		intel_dp_update_downspread_ctrl(intel_dp, crtc_state);
++		intel_dp_update_link_bw_set(intel_dp, crtc_state, link_bw,
++					    rate_select);
++	} else {
++		intel_dp_update_link_bw_set(intel_dp, crtc_state, link_bw,
++					    rate_select);
++		intel_dp_update_downspread_ctrl(intel_dp, crtc_state);
++	}
+ 
+ 	return true;
+ }
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.25.1
+
