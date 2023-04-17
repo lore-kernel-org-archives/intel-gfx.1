@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5E6AC77B76
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 14:09:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 421F4C7618E
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 14:09:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1743910EE30;
-	Fri, 21 Apr 2023 14:09:22 +0000 (UTC)
-X-Greylist: delayed 695 seconds by postgrey-1.36 at gabe;
- Tue, 18 Apr 2023 01:06:03 UTC
-Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
- [211.20.114.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8C4810E65A
- for <intel-gfx@lists.freedesktop.org>; Tue, 18 Apr 2023 01:06:03 +0000 (UTC)
-Received: from twspam01.aspeedtech.com (localhost [127.0.0.2] (may be forged))
- by twspam01.aspeedtech.com with ESMTP id 33I0cEu9049085
- for <intel-gfx@lists.freedesktop.org>; Tue, 18 Apr 2023 08:38:14 +0800 (GMT-8)
- (envelope-from jammy_huang@aspeedtech.com)
-Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 33I0bc1v049048;
- Tue, 18 Apr 2023 08:37:38 +0800 (GMT-8)
- (envelope-from jammy_huang@aspeedtech.com)
-Received: from [192.168.2.115] (192.168.2.115) by TWMBX02.aspeed.com
- (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Tue, 18 Apr
- 2023 08:53:53 +0800
-Message-ID: <17008c40-d1e2-a6ec-5964-ea817ca3b447@aspeedtech.com>
-Date: Tue, 18 Apr 2023 08:53:48 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC1D810EE2A;
+	Fri, 21 Apr 2023 14:09:21 +0000 (UTC)
+X-Greylist: delayed 403 seconds by postgrey-1.36 at gabe;
+ Tue, 18 Apr 2023 21:38:19 UTC
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org
+ [IPv6:2001:67c:2050:0:465::101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A10B10E2FC;
+ Tue, 18 Apr 2023 21:38:18 +0000 (UTC)
+Received: from smtp102.mailbox.org (unknown [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4Q1HDH079Cz9t4K;
+ Tue, 18 Apr 2023 23:31:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1681853487;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=KC9FUxhkYIrJcl9CTNIj/+D5n5jqJvE6Q6ukjUkKjgU=;
+ b=iOhsPXPQBr3wHW9fEQnn1H5Xxrcndhu5PSan/o9ZRycMM4Pi+GvYMnmTNWAQLJDaCePnPl
+ xk+S7Sd0u1bL5nZdJy0Oip9iNqo4aARvkS6y4jN1qn+q2fCPFi61VwvK3zG91FijKdA22h
+ p7oon1un7Lgvm+DmIPno1GvR6hW2bcOpQx1KxYamqSvADPrcsxNDkSASG4ApgTSZJiZYfQ
+ V08WjFMwTKAUBx/em1qvSkGDJ+FyjzUa1Fq6xrPlO+STrAYJmpTOXlTGuRIokJd4ix07/s
+ fSZoQhrwFwrqQ5zQN5Z/YdcG9HuRXojtoCu0x6dzNZJNWibv1Gdx66nU8nl5fw==
+Date: Mon, 17 Apr 2023 20:48:09 +0200
+From: Harald Koenig <harald@mailbox.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Message-ID: <ZD2UabVlQOBVaVRO@hl.fritz.box>
+References: <ef4e39301a769ef83668074c341274e30db57f95.camel@igalia.com>
+ <2b861d289edaab1c53c031f72de192fcddf85b13.camel@igalia.com>
+ <20230417124502.GB19964@pendragon.ideasonboard.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-To: Thomas Zimmermann <tzimmermann@suse.de>, Daniel Vetter
- <daniel.vetter@ffwll.ch>, DRI Development <dri-devel@lists.freedesktop.org>
-References: <20230111154112.90575-1-daniel.vetter@ffwll.ch>
- <019d57ab-2717-25bd-897a-5301f245263c@suse.de>
-Content-Language: en-US
-From: Jammy Huang <jammy_huang@aspeedtech.com>
-In-Reply-To: <019d57ab-2717-25bd-897a-5301f245263c@suse.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [192.168.2.115]
-X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
- (192.168.0.24)
-X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 33I0bc1v049048
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230417124502.GB19964@pendragon.ideasonboard.com>
+X-MBO-RS-META: 7gitco355spy61a3k3zmf6tukn6cq3nt
+X-MBO-RS-ID: c488dba0842a997c9ba
 X-Mailman-Approved-At: Fri, 21 Apr 2023 14:09:20 +0000
-Subject: Re: [Intel-gfx] [PATCH 01/11] drm/ast: Use
- drm_aperture_remove_conflicting_pci_framebuffers
+Subject: Re: [Intel-gfx] 2023 X.Org Foundation Membership deadline for
+ voting in the election
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,89 +60,59 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Dave Airlie <airlied@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>,
- Helge Deller <deller@gmx.de>
+Cc: xorg-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
+ board <board@foundation.x.org>, members@x.org, amd-gfx@lists.freedesktop.org,
+ mesa-dev@lists.freedesktop.org, events@lists.x.org,
+ Ricardo Garcia <rgarcia@igalia.com>, freedreno@lists.freedesktop.org,
+ libre-soc-dev@lists.libre-soc.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+On Apr 17, Laurent Pinchart wrote:
 
-The Intel(x86) CPUs have a separate address space for "IO", but the ARM 
-architecture only has "memory", so all IO devices are accessed as if 
-they were memory. Which means ARM does not support isolated IO. Here is 
-a related discussion on ARM's forum.
+> I don't know if I'm the only one affected by this issue, but I've just
+> received today two months of e-mails from x.org, including all the
+> reminders aboud membership renewal and election nomination period. This
+> isn't the first time this happens, and the last time I was told there
+> was no automated process to quick the mail queues when errors happen,
+> making mails pile up forever on x.org's side until someone handles it
+> manually. This is something you really want to automate, or at least
+> monitored.
 
-https://community.arm.com/support-forums/f/architectures-and-processors-forum/52046/how-to-read-write-an-i-o-port-in-aarch64
+same here for me: looking into the mail header,
+both mails were stuck on server "gabe.freedesktop.org" 
 
-Thus, we adapt MMIO only after this patch.
+	Received: from gabe.freedesktop.org (localhost [127.0.0.1])
+	        by gabe.freedesktop.org (Postfix) with ESMTP id BD01310E459;
+	        Mon, 17 Apr 2023 11:42:45 +0000 (UTC)
+	X-Original-To: events@lists.x.org
+	Delivered-To: events@lists.x.org
+	Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	 by gabe.freedesktop.org (Postfix) with ESMTPS id 6C54510E162;
+	 Wed, 15 Feb 2023 15:58:10 +0000 (UTC)
+
+and	
+
+	Received: from gabe.freedesktop.org (localhost [127.0.0.1])
+	        by gabe.freedesktop.org (Postfix) with ESMTP id 6735010E46D;
+	        Mon, 17 Apr 2023 11:42:45 +0000 (UTC)
+	X-Original-To: events@lists.x.org
+	Delivered-To: events@lists.x.org
+	Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	 by gabe.freedesktop.org (Postfix) with ESMTPS id 98DB48953E;
+	 Mon, 13 Mar 2023 15:23:02 +0000 (UTC)
 
 
-On 2023/4/4 下午 10:45, Thomas Zimmermann wrote:
-> Hi,
->
-> FYI I have merged patches 1, 6 and 7 of this patchset. They look fine 
-> and are worthwhile fixes on their own.
->
-> Best regards
-> Thomas
->
-> Am 11.01.23 um 16:41 schrieb Daniel Vetter:
->> It's just open coded and matches.
->>
->> Note that Thomas said that his version apparently failed for some
->> reason, but hey maybe we should try again.
->>
->> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
->> Cc: Dave Airlie <airlied@redhat.com>
->> Cc: Thomas Zimmermann <tzimmermann@suse.de>
->> Cc: Javier Martinez Canillas <javierm@redhat.com>
->> Cc: Helge Deller <deller@gmx.de>
->> Cc: linux-fbdev@vger.kernel.org
->> ---
->>   drivers/gpu/drm/ast/ast_drv.c | 16 +---------------
->>   1 file changed, 1 insertion(+), 15 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/ast/ast_drv.c 
->> b/drivers/gpu/drm/ast/ast_drv.c
->> index 420fc75c240e..3ac24a780f50 100644
->> --- a/drivers/gpu/drm/ast/ast_drv.c
->> +++ b/drivers/gpu/drm/ast/ast_drv.c
->> @@ -90,27 +90,13 @@ static const struct pci_device_id ast_pciidlist[] 
->> = {
->>     MODULE_DEVICE_TABLE(pci, ast_pciidlist);
->>   -static int ast_remove_conflicting_framebuffers(struct pci_dev *pdev)
->> -{
->> -    bool primary = false;
->> -    resource_size_t base, size;
->> -
->> -    base = pci_resource_start(pdev, 0);
->> -    size = pci_resource_len(pdev, 0);
->> -#ifdef CONFIG_X86
->> -    primary = pdev->resource[PCI_ROM_RESOURCE].flags & 
->> IORESOURCE_ROM_SHADOW;
->> -#endif
->> -
->> -    return drm_aperture_remove_conflicting_framebuffers(base, size, 
->> primary, &ast_driver);
->> -}
->> -
->>   static int ast_pci_probe(struct pci_dev *pdev, const struct 
->> pci_device_id *ent)
->>   {
->>       struct ast_private *ast;
->>       struct drm_device *dev;
->>       int ret;
->>   -    ret = ast_remove_conflicting_framebuffers(pdev);
->> +    ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, 
->> &ast_driver);
->>       if (ret)
->>           return ret;
->
+
+Harald
 -- 
-Best Regards
-Jammy
-
+"I hope to die                                      ___       _____
+before I *have* to use Microsoft Word.",           0--,|    /OOOOOOO\
+Donald E. Knuth, 02-Oct-2001 in Tuebingen.        <_/  /  /OOOOOOOOOOO\
+                                                    \  \/OOOOOOOOOOOOOOO\
+                                                      \ OOOOOOOOOOOOOOOOO|//
+                                                       \/\/\/\/\/\/\/\/\/
+Harald Koenig                                           //  /     \\  \
+harald.koenig@mailbox.org                              ^^^^^       ^^^^^
