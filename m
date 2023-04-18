@@ -4,49 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93B78C77B78
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 17:56:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2EF8C77B75
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 17:59:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C46A710E843;
-	Tue, 18 Apr 2023 17:56:30 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 653D010E82F
- for <intel-gfx@lists.freedesktop.org>; Tue, 18 Apr 2023 17:55:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681840559; x=1713376559;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=fBI3OhFe8FRa92o5VxwJO2F8s0aa7AoivXs/8lZR7fg=;
- b=Aj7PRy49ejMTzaAT85YF0PFaTqfdnY2hWMLzqoz483+HExrQKgC+pkBs
- UzrgNbFm3f0gezsBJNzR889crXvpiy3/B6RHIV8ZLwFoW3EeTFYFiCRPn
- YD2+kenhbib7eFPbcZzcFsXXnLuCenZhdEQ3mU7lvxcCBJ4VGqBGXfiM5
- PODObVb8heoDsFoeuGrAW3A94dVOJqz8XAf2hZgHDuc5lSEhRXhnB7s7G
- vn0u9J/Z7fWSPTp/HhK5pwa62vJL6O871u5dxYwMtnbfypW3pJ7xjJ/B8
- KjGzoAeqWVLjJwN2uCQXArFhHBYgVIzsYofS8Lk724IhWmF/H9ziVnWib w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="334052777"
-X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="334052777"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Apr 2023 10:55:43 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="641451678"
-X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="641451678"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by orsmga003.jf.intel.com with SMTP; 18 Apr 2023 10:55:41 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 18 Apr 2023 20:55:40 +0300
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 18 Apr 2023 20:55:17 +0300
-Message-Id: <20230418175528.13117-5-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230418175528.13117-1-ville.syrjala@linux.intel.com>
-References: <20230418175528.13117-1-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 798A710E813;
+	Tue, 18 Apr 2023 17:59:56 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B967C10E813;
+ Tue, 18 Apr 2023 17:59:54 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id AEA5EA006C;
+ Tue, 18 Apr 2023 17:59:54 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4347683085363352000=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 04/15] drm/i915: Relocate skl_get_pfit_config()
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Jos=C3=A9_Roberto_de_Souza?= <jose.souza@intel.com>
+Date: Tue, 18 Apr 2023 17:59:54 -0000
+Message-ID: <168184079467.17886.12170535488115694839@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230418164337.50303-1-jose.souza@intel.com>
+In-Reply-To: <20230418164337.50303-1-jose.souza@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915=3A_Initialize_dkl=5Fphy_spin_lock_from_display_code_path_?=
+ =?utf-8?b?KHJldjMp?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,152 +41,214 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+--===============4347683085363352000==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Move skl_get_pfit_config() next to the other skl+ scaler code
-and rename it to skl_scaler_get_config() so that it has a consistnet
-namespace.
+== Series Details ==
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 49 ++------------------
- drivers/gpu/drm/i915/display/skl_scaler.c    | 37 +++++++++++++++
- drivers/gpu/drm/i915/display/skl_scaler.h    |  2 +
- 3 files changed, 43 insertions(+), 45 deletions(-)
+Series: drm/i915: Initialize dkl_phy spin lock from display code path (rev3)
+URL   : https://patchwork.freedesktop.org/series/116325/
+State : success
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 1c264c17b6e4..a450d62e431c 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -3224,49 +3224,6 @@ void intel_cpu_transcoder_get_m2_n2(struct intel_crtc *crtc,
- 		      PIPE_LINK_M2(transcoder), PIPE_LINK_N2(transcoder));
- }
- 
--static void ilk_get_pfit_pos_size(struct intel_crtc_state *crtc_state,
--				  u32 pos, u32 size)
--{
--	drm_rect_init(&crtc_state->pch_pfit.dst,
--		      pos >> 16, pos & 0xffff,
--		      size >> 16, size & 0xffff);
--}
--
--static void skl_get_pfit_config(struct intel_crtc_state *crtc_state)
--{
--	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
--	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
--	struct intel_crtc_scaler_state *scaler_state = &crtc_state->scaler_state;
--	int id = -1;
--	int i;
--
--	/* find scaler attached to this pipe */
--	for (i = 0; i < crtc->num_scalers; i++) {
--		u32 ctl, pos, size;
--
--		ctl = intel_de_read(dev_priv, SKL_PS_CTRL(crtc->pipe, i));
--		if ((ctl & (PS_SCALER_EN | PS_PLANE_SEL_MASK)) != PS_SCALER_EN)
--			continue;
--
--		id = i;
--		crtc_state->pch_pfit.enabled = true;
--
--		pos = intel_de_read(dev_priv, SKL_PS_WIN_POS(crtc->pipe, i));
--		size = intel_de_read(dev_priv, SKL_PS_WIN_SZ(crtc->pipe, i));
--
--		ilk_get_pfit_pos_size(crtc_state, pos, size);
--
--		scaler_state->scalers[i].in_use = true;
--		break;
--	}
--
--	scaler_state->scaler_id = id;
--	if (id >= 0)
--		scaler_state->scaler_users |= (1 << SKL_CRTC_INDEX);
--	else
--		scaler_state->scaler_users &= ~(1 << SKL_CRTC_INDEX);
--}
--
- static void ilk_get_pfit_config(struct intel_crtc_state *crtc_state)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-@@ -3282,7 +3239,9 @@ static void ilk_get_pfit_config(struct intel_crtc_state *crtc_state)
- 	pos = intel_de_read(dev_priv, PF_WIN_POS(crtc->pipe));
- 	size = intel_de_read(dev_priv, PF_WIN_SZ(crtc->pipe));
- 
--	ilk_get_pfit_pos_size(crtc_state, pos, size);
-+	drm_rect_init(&crtc_state->pch_pfit.dst,
-+		      pos >> 16, pos & 0xffff,
-+		      size >> 16, size & 0xffff);
- 
- 	/*
- 	 * We currently do not free assignements of panel fitters on
-@@ -3773,7 +3732,7 @@ static bool hsw_get_pipe_config(struct intel_crtc *crtc,
- 	if (intel_display_power_get_in_set_if_enabled(dev_priv, &crtc->hw_readout_power_domains,
- 						      POWER_DOMAIN_PIPE_PANEL_FITTER(crtc->pipe))) {
- 		if (DISPLAY_VER(dev_priv) >= 9)
--			skl_get_pfit_config(pipe_config);
-+			skl_scaler_get_config(pipe_config);
- 		else
- 			ilk_get_pfit_config(pipe_config);
- 	}
-diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
-index 62443834f64e..ec930aec21c4 100644
---- a/drivers/gpu/drm/i915/display/skl_scaler.c
-+++ b/drivers/gpu/drm/i915/display/skl_scaler.c
-@@ -856,3 +856,40 @@ void skl_scaler_disable(const struct intel_crtc_state *old_crtc_state)
- 	for (i = 0; i < crtc->num_scalers; i++)
- 		skl_detach_scaler(crtc, i);
- }
-+
-+void skl_scaler_get_config(struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
-+	struct intel_crtc_scaler_state *scaler_state = &crtc_state->scaler_state;
-+	int id = -1;
-+	int i;
-+
-+	/* find scaler attached to this pipe */
-+	for (i = 0; i < crtc->num_scalers; i++) {
-+		u32 ctl, pos, size;
-+
-+		ctl = intel_de_read(dev_priv, SKL_PS_CTRL(crtc->pipe, i));
-+		if ((ctl & (PS_SCALER_EN | PS_PLANE_SEL_MASK)) != PS_SCALER_EN)
-+			continue;
-+
-+		id = i;
-+		crtc_state->pch_pfit.enabled = true;
-+
-+		pos = intel_de_read(dev_priv, SKL_PS_WIN_POS(crtc->pipe, i));
-+		size = intel_de_read(dev_priv, SKL_PS_WIN_SZ(crtc->pipe, i));
-+
-+		drm_rect_init(&crtc_state->pch_pfit.dst,
-+			      pos >> 16, pos & 0xffff,
-+			      size >> 16, size & 0xffff);
-+
-+		scaler_state->scalers[i].in_use = true;
-+		break;
-+	}
-+
-+	scaler_state->scaler_id = id;
-+	if (id >= 0)
-+		scaler_state->scaler_users |= (1 << SKL_CRTC_INDEX);
-+	else
-+		scaler_state->scaler_users &= ~(1 << SKL_CRTC_INDEX);
-+}
-diff --git a/drivers/gpu/drm/i915/display/skl_scaler.h b/drivers/gpu/drm/i915/display/skl_scaler.h
-index f040f6ac061f..63f93ca03c89 100644
---- a/drivers/gpu/drm/i915/display/skl_scaler.h
-+++ b/drivers/gpu/drm/i915/display/skl_scaler.h
-@@ -32,4 +32,6 @@ void skl_program_plane_scaler(struct intel_plane *plane,
- void skl_detach_scalers(const struct intel_crtc_state *crtc_state);
- void skl_scaler_disable(const struct intel_crtc_state *old_crtc_state);
- 
-+void skl_scaler_get_config(struct intel_crtc_state *crtc_state);
-+
- #endif
--- 
-2.39.2
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_13026 -> Patchwork_116325v3
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/index.html
+
+Participating hosts (38 -> 36)
+------------------------------
+
+  Missing    (2): bat-rpls-2 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_116325v3 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_exec_suspend@basic-s3@smem:
+    - bat-rpls-1:         [PASS][1] -> [ABORT][2] ([i915#6687] / [i915#7978])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13026/bat-rpls-1/igt@gem_exec_suspend@basic-s3@smem.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/bat-rpls-1/igt@gem_exec_suspend@basic-s3@smem.html
+
+  * igt@i915_selftest@live@gt_heartbeat:
+    - fi-apl-guc:         [PASS][3] -> [DMESG-FAIL][4] ([i915#5334])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13026/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html
+
+  * igt@i915_selftest@live@hangcheck:
+    - bat-dg2-9:          [PASS][5] -> [ABORT][6] ([i915#7913] / [i915#7979])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13026/bat-dg2-9/igt@i915_selftest@live@hangcheck.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/bat-dg2-9/igt@i915_selftest@live@hangcheck.html
+
+  * igt@i915_selftest@live@migrate:
+    - bat-adlp-9:         [PASS][7] -> [DMESG-FAIL][8] ([i915#7699])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13026/bat-adlp-9/igt@i915_selftest@live@migrate.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/bat-adlp-9/igt@i915_selftest@live@migrate.html
+
+  * igt@i915_selftest@live@mman:
+    - bat-rpls-1:         [PASS][9] -> [TIMEOUT][10] ([i915#6794])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13026/bat-rpls-1/igt@i915_selftest@live@mman.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/bat-rpls-1/igt@i915_selftest@live@mman.html
+
+  * igt@kms_pipe_crc_basic@read-crc:
+    - bat-dg2-11:         NOTRUN -> [SKIP][11] ([i915#5354]) +1 similar issue
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/bat-dg2-11/igt@kms_pipe_crc_basic@read-crc.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@migrate:
+    - bat-dg2-11:         [DMESG-WARN][12] ([i915#7699]) -> [PASS][13]
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13026/bat-dg2-11/igt@i915_selftest@live@migrate.html
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/bat-dg2-11/igt@i915_selftest@live@migrate.html
+
+  
+  [i915#5334]: https://gitlab.freedesktop.org/drm/intel/issues/5334
+  [i915#5354]: https://gitlab.freedesktop.org/drm/intel/issues/5354
+  [i915#6687]: https://gitlab.freedesktop.org/drm/intel/issues/6687
+  [i915#6794]: https://gitlab.freedesktop.org/drm/intel/issues/6794
+  [i915#7699]: https://gitlab.freedesktop.org/drm/intel/issues/7699
+  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
+  [i915#7978]: https://gitlab.freedesktop.org/drm/intel/issues/7978
+  [i915#7979]: https://gitlab.freedesktop.org/drm/intel/issues/7979
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_13026 -> Patchwork_116325v3
+
+  CI-20190529: 20190529
+  CI_DRM_13026: 45bed7de41ad8bd909a82382a8fc4cb65e04ad56 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7259: 3d3a7f1c041d3f8d84d7457abf96adef0ea071cb @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_116325v3: 45bed7de41ad8bd909a82382a8fc4cb65e04ad56 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+cd6f69bc2c09 drm/i915: Initialize dkl_phy spin lock from display code path
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/index.html
+
+--===============4347683085363352000==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Initialize dkl_phy spin lock from display code path (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/116325/">https://patchwork.freedesktop.org/series/116325/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_13026 -&gt; Patchwork_116325v3</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/index.html</p>
+<h2>Participating hosts (38 -&gt; 36)</h2>
+<p>Missing    (2): bat-rpls-2 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_116325v3 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_exec_suspend@basic-s3@smem:</p>
+<ul>
+<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13026/bat-rpls-1/igt@gem_exec_suspend@basic-s3@smem.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/bat-rpls-1/igt@gem_exec_suspend@basic-s3@smem.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6687">i915#6687</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7978">i915#7978</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_heartbeat:</p>
+<ul>
+<li>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13026/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>bat-dg2-9:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13026/bat-dg2-9/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/bat-dg2-9/igt@i915_selftest@live@hangcheck.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7979">i915#7979</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@migrate:</p>
+<ul>
+<li>bat-adlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13026/bat-adlp-9/igt@i915_selftest@live@migrate.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/bat-adlp-9/igt@i915_selftest@live@migrate.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7699">i915#7699</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@mman:</p>
+<ul>
+<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13026/bat-rpls-1/igt@i915_selftest@live@mman.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/bat-rpls-1/igt@i915_selftest@live@mman.html">TIMEOUT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6794">i915#6794</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc:</p>
+<ul>
+<li>bat-dg2-11:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/bat-dg2-11/igt@kms_pipe_crc_basic@read-crc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5354">i915#5354</a>) +1 similar issue</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@migrate:<ul>
+<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13026/bat-dg2-11/igt@i915_selftest@live@migrate.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7699">i915#7699</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116325v3/bat-dg2-11/igt@i915_selftest@live@migrate.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_13026 -&gt; Patchwork_116325v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_13026: 45bed7de41ad8bd909a82382a8fc4cb65e04ad56 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7259: 3d3a7f1c041d3f8d84d7457abf96adef0ea071cb @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_116325v3: 45bed7de41ad8bd909a82382a8fc4cb65e04ad56 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>cd6f69bc2c09 drm/i915: Initialize dkl_phy spin lock from display code path</p>
+
+</body>
+</html>
+
+--===============4347683085363352000==--
