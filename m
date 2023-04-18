@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6896C77B7D
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 17:56:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DDC4C77B7E
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 17:56:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8E4010E838;
-	Tue, 18 Apr 2023 17:56:23 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45A8B10E820
- for <intel-gfx@lists.freedesktop.org>; Tue, 18 Apr 2023 17:56:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 438CD10E83D;
+	Tue, 18 Apr 2023 17:56:24 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0727A10E838
+ for <intel-gfx@lists.freedesktop.org>; Tue, 18 Apr 2023 17:56:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681840563; x=1713376563;
+ t=1681840569; x=1713376569;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=IoJ7BEtLWy77fYKUJco0TVDxQIPNF0YGUZ1UHyR5h+E=;
- b=K3XXN1DOzO5cVfdiR71pTknV1RfV4HsxxLYW1lq7QRKBkR7yrTZz1C6J
- 83lxhEtWZ286gw4HZsweshikcHjcArj+SbQ1LDe6g0GDnHcsN3Q8AKfSe
- IXMd4/ymJiRnt73Gtle2wSUBZjmU/Mx8WeSpb2UBuHuRlhpjPNcj0uFLC
- G9f4eTff/rDXuIGzakYk4h8bCEWhdkphPeV0WkyR0M7HJ9cdhCRQL4xOv
- bAdglbAs+BS84zzdpW39wWGURH3TKrrhLH90Y7tfOi8RXzPDbS9cC8bxj
- arD9gCVeDcnV7jx7UhcT4Xoh8ur/xoeT8ARPGUUVNL+o1PDIvV0IsgIK5 Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="334052832"
-X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="334052832"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Apr 2023 10:55:59 -0700
+ bh=BHASgs9jxFz88x/T8p66ZcwON9HPBPc8XNeZjZFScwA=;
+ b=gl7fElXPX4vbNWZ63q3SSV/7rB9tVS3imbFkD1oJPU50VfRNPYAI0w4f
+ GKdaN22AyLzBDfAi5Ihtx4ByhB6skG4mQeFYxWaDEDwnSu9w/o/X3j/iS
+ aOEwfHAGrL1zL/QrLxwOV0J+hzMID4YHip85aE1zNwZp3naxdjnt5+JaY
+ LAv6RbFU5OzBlAAWYwtNzVDql5V02R1ija/N9n7PnPLo90OHTZLv3Igna
+ oeR3v5LW/T2r8EwNDko2LLyQ5kCzVKe3lKbMF+FFN1c0tAWf8vBpMT1sT
+ SOZYaCuTRQFEE6zmiNUNijD7GlbXssVF5gW5ukVPJJWQP1zs0kYCeMIYn w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="348002246"
+X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="348002246"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Apr 2023 10:56:08 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="641451833"
-X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="641451833"
+X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="815302664"
+X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="815302664"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by orsmga003.jf.intel.com with SMTP; 18 Apr 2023 10:55:56 -0700
+ by orsmga004.jf.intel.com with SMTP; 18 Apr 2023 10:56:06 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 18 Apr 2023 20:55:55 +0300
+ Tue, 18 Apr 2023 20:56:06 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 18 Apr 2023 20:55:22 +0300
-Message-Id: <20230418175528.13117-10-ville.syrjala@linux.intel.com>
+Date: Tue, 18 Apr 2023 20:55:25 +0300
+Message-Id: <20230418175528.13117-13-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230418175528.13117-1-ville.syrjala@linux.intel.com>
 References: <20230418175528.13117-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 09/15] drm/i915: Define bitmasks for ilk pfit
- window pos/size
+Subject: [Intel-gfx] [PATCH 12/15] drm/i915:
+ s/PS_COEE_INDEX_AUTO_INC/PS_COEF_INDEX_AUTO_INC/
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,66 +65,40 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Define and use the bitmasks for the x/y components
-of the ilk+ panel filter window pos/size registers.
+Fix a typo in the PS_COEF_INDEX_AUTO_INC define.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 12 ++++++++----
- drivers/gpu/drm/i915/i915_reg.h              |  8 ++++++++
- 2 files changed, 16 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/skl_scaler.c | 2 +-
+ drivers/gpu/drm/i915/i915_reg.h           | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index fb49d0ed61b4..626a5f41a1f1 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -812,8 +812,10 @@ static void ilk_pfit_enable(const struct intel_crtc_state *crtc_state)
- 	else
- 		intel_de_write_fw(dev_priv, PF_CTL(pipe), PF_ENABLE |
- 				  PF_FILTER_MED_3x3);
--	intel_de_write_fw(dev_priv, PF_WIN_POS(pipe), x << 16 | y);
--	intel_de_write_fw(dev_priv, PF_WIN_SZ(pipe), width << 16 | height);
-+	intel_de_write_fw(dev_priv, PF_WIN_POS(pipe),
-+			  PF_WIN_XPOS(x) | PF_WIN_YPOS(y));
-+	intel_de_write_fw(dev_priv, PF_WIN_SZ(pipe),
-+			  PF_WIN_XSIZE(width) | PF_WIN_YSIZE(height));
- }
+diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
+index a96f8ecbeec1..4437d130293a 100644
+--- a/drivers/gpu/drm/i915/display/skl_scaler.c
++++ b/drivers/gpu/drm/i915/display/skl_scaler.c
+@@ -658,7 +658,7 @@ static void glk_program_nearest_filter_coefs(struct drm_i915_private *dev_priv,
+ 	int i;
  
- static void intel_crtc_dpms_overlay_disable(struct intel_crtc *crtc)
-@@ -3246,8 +3248,10 @@ static void ilk_get_pfit_config(struct intel_crtc_state *crtc_state)
- 	size = intel_de_read(dev_priv, PF_WIN_SZ(crtc->pipe));
+ 	intel_de_write_fw(dev_priv, GLK_PS_COEF_INDEX_SET(pipe, id, set),
+-			  PS_COEE_INDEX_AUTO_INC);
++			  PS_COEF_INDEX_AUTO_INC);
  
- 	drm_rect_init(&crtc_state->pch_pfit.dst,
--		      pos >> 16, pos & 0xffff,
--		      size >> 16, size & 0xffff);
-+		      REG_FIELD_GET(PF_WIN_XPOS_MASK, pos),
-+		      REG_FIELD_GET(PF_WIN_YPOS_MASK, pos),
-+		      REG_FIELD_GET(PF_WIN_XSIZE_MASK, size),
-+		      REG_FIELD_GET(PF_WIN_YSIZE_MASK, size));
- 
- 	/*
- 	 * We currently do not free assignements of panel fitters on
+ 	for (i = 0; i < 17 * 7; i += 2) {
+ 		u32 tmp;
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 3c02f6c70733..75e1f30adda1 100644
+index f8e6b86facc3..a5ae291de55b 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -4020,8 +4020,16 @@
- #define   PF_FILTER_EDGE_SOFTEN		REG_FIELD_PREP(PF_FILTER_EDGE_MASK, 3)
- #define _PFA_WIN_SZ		0x68074
- #define _PFB_WIN_SZ		0x68874
-+#define   PF_WIN_XSIZE_MASK	REG_GENMASK(28, 16)
-+#define   PF_WIN_XSIZE(w)	REG_FIELD_PREP(PF_WIN_XSIZE_MASK, (w))
-+#define   PF_WIN_YSIZE_MASK	REG_GENMASK(11, 0)
-+#define   PF_WIN_YSIZE(h)	REG_FIELD_PREP(PF_WIN_YSIZE_MASK, (h))
- #define _PFA_WIN_POS		0x68070
- #define _PFB_WIN_POS		0x68870
-+#define   PF_WIN_XPOS_MASK	REG_GENMASK(28, 16)
-+#define   PF_WIN_XPOS(x)	REG_FIELD_PREP(PF_WIN_XPOS_MASK, (x))
-+#define   PF_WIN_YPOS_MASK	REG_GENMASK(11, 0)
-+#define   PF_WIN_YPOS(y)	REG_FIELD_PREP(PF_WIN_YPOS_MASK, (y))
- #define _PFA_VSCALE		0x68084
- #define _PFB_VSCALE		0x68884
- #define _PFA_HSCALE		0x68090
+@@ -4146,7 +4146,7 @@
+ #define _PS_COEF_SET0_INDEX_2A	   0x68298
+ #define _PS_COEF_SET0_INDEX_1B	   0x68998
+ #define _PS_COEF_SET0_INDEX_2B	   0x68A98
+-#define PS_COEE_INDEX_AUTO_INC	   (1 << 10)
++#define PS_COEF_INDEX_AUTO_INC	   (1 << 10)
+ 
+ #define _PS_COEF_SET0_DATA_1A	   0x6819C
+ #define _PS_COEF_SET0_DATA_2A	   0x6829C
 -- 
 2.39.2
 
