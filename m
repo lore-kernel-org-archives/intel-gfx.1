@@ -4,55 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FF43C77B71
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 14:09:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5E6AC77B76
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 14:09:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D166C10EE27;
-	Fri, 21 Apr 2023 14:09:20 +0000 (UTC)
-Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com
- [IPv6:2607:f8b0:4864:20::b35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B33710E0B4;
- Wed, 12 Apr 2023 09:15:41 +0000 (UTC)
-Received: by mail-yb1-xb35.google.com with SMTP id i20so14648736ybg.10;
- Wed, 12 Apr 2023 02:15:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1681290940; x=1683882940;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=4QoMYbCHBULDwPZmE/i1/T9z4EvtEBKckR0ihDTwwPw=;
- b=Wy4ONxeColGe8sjIhX/boO16Grw2Z5WQSvTUKWpRocb6x38Yuc7oFP4lMyhhB4/Upl
- VHEIFsApw2xFfSbhHhVKLUuQAgaY/mBicjUBICAgXyt8DMGhsu3nBOmAPa/G468VngeO
- UuMN8L4IAa8jIVEKuwmDwMXZvwBTeQYuvVObxQk2SzydGOeBgTsaq2Q7nWTBAWbtLvpf
- Dix4+BP6UMe3K95vEXlrnWdIWyCZD2QTJ0ceTTjCebHUtnw2jiy8rYpn2KFw0dThPzMm
- Y0lj/jeh6T/FsTmpCTh+EuxrA8S9f8Z/tWTUN0wntLpRNjccPUpextGUmSSgIdgGui/X
- /foA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681290940; x=1683882940;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=4QoMYbCHBULDwPZmE/i1/T9z4EvtEBKckR0ihDTwwPw=;
- b=fF97GhN+X60kseKfLsdPd1i4QSU7k2jVNj0nJF34kxdnBKWVctR8Zoo7d4g2fNfMoj
- U+wy54cXfJRZtojHvelN+10tHqaWizIODO8HjJde8HIFONH6FFjjIH7F4c9SwCRT69t6
- 8qr4L2hxIfjmRDlIIg7QIxb9k9IUfUoJUv7KZLW/ZghzsoG7E+MC0v1kucUiL2BMlQl2
- rzbqCKbAvYxN0ceAZKxe2MWVDFSJ98TzksiHgGXGQ46CI23cer6R5MTgCmHOvAbaXYQV
- jeR57u1d6FxhI+A4bueZiq9FDKo2PLVNevOyscGFEpDs6+eLkDSKZxRXTlZ8diJVt4jt
- m8Vg==
-X-Gm-Message-State: AAQBX9dWOgR7Y8WVYyjeCLghh9jr14qUdsmSTkap6e8POU8m75g6fq07
- ZE2ZKU+HR49Zt+gy0RdwZXTh8s+WDbwhuWIOLA==
-X-Google-Smtp-Source: AKy350YCzOezy3P7htngYrTrNP5gL9p+d9ZO3rpBGc2a3PnnTBleii6m2bIuFT71My6fcLqNgHznx9iULV4u4SZ4+gQ=
-X-Received: by 2002:a25:d884:0:b0:b8e:f1ef:a144 with SMTP id
- p126-20020a25d884000000b00b8ef1efa144mr1571606ybg.0.1681290940273; Wed, 12
- Apr 2023 02:15:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1743910EE30;
+	Fri, 21 Apr 2023 14:09:22 +0000 (UTC)
+X-Greylist: delayed 695 seconds by postgrey-1.36 at gabe;
+ Tue, 18 Apr 2023 01:06:03 UTC
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
+ [211.20.114.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8C4810E65A
+ for <intel-gfx@lists.freedesktop.org>; Tue, 18 Apr 2023 01:06:03 +0000 (UTC)
+Received: from twspam01.aspeedtech.com (localhost [127.0.0.2] (may be forged))
+ by twspam01.aspeedtech.com with ESMTP id 33I0cEu9049085
+ for <intel-gfx@lists.freedesktop.org>; Tue, 18 Apr 2023 08:38:14 +0800 (GMT-8)
+ (envelope-from jammy_huang@aspeedtech.com)
+Received: from mail.aspeedtech.com ([192.168.0.24])
+ by twspam01.aspeedtech.com with ESMTP id 33I0bc1v049048;
+ Tue, 18 Apr 2023 08:37:38 +0800 (GMT-8)
+ (envelope-from jammy_huang@aspeedtech.com)
+Received: from [192.168.2.115] (192.168.2.115) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Tue, 18 Apr
+ 2023 08:53:53 +0800
+Message-ID: <17008c40-d1e2-a6ec-5964-ea817ca3b447@aspeedtech.com>
+Date: Tue, 18 Apr 2023 08:53:48 +0800
 MIME-Version: 1.0
-From: Rui Salvaterra <rsalvaterra@gmail.com>
-Date: Wed, 12 Apr 2023 10:15:29 +0100
-Message-ID: <CALjTZvZ=Y1psyd0nmfzm6GhqMKvq5V_NQCWb_X02nasp1CpfcQ@mail.gmail.com>
-To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com, 
- tvrtko.ursulin@linux.intel.com, paulmck@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Fri, 21 Apr 2023 14:09:19 +0000
-Subject: [Intel-gfx] [BUG?] INFO: rcu_sched detected expedited stalls on
- CPUs/tasks: { 0-.... } 3 jiffies s: 309 root: 0x1/.
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+To: Thomas Zimmermann <tzimmermann@suse.de>, Daniel Vetter
+ <daniel.vetter@ffwll.ch>, DRI Development <dri-devel@lists.freedesktop.org>
+References: <20230111154112.90575-1-daniel.vetter@ffwll.ch>
+ <019d57ab-2717-25bd-897a-5301f245263c@suse.de>
+Content-Language: en-US
+From: Jammy Huang <jammy_huang@aspeedtech.com>
+In-Reply-To: <019d57ab-2717-25bd-897a-5301f245263c@suse.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [192.168.2.115]
+X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
+ (192.168.0.24)
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com 33I0bc1v049048
+X-Mailman-Approved-At: Fri, 21 Apr 2023 14:09:20 +0000
+Subject: Re: [Intel-gfx] [PATCH 01/11] drm/ast: Use
+ drm_aperture_remove_conflicting_pci_framebuffers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,89 +60,89 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: linux-fbdev@vger.kernel.org,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Dave Airlie <airlied@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>,
+ Helge Deller <deller@gmx.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi, everyone,
+Hi Thomas,
 
-I apologise in advance if I've sent this to {too many, the wrong}
-people. For some time now, I've been getting sporadic (in about one
-out of five boots) DRM-related RCU complaints on an Ivy Bridge-based
-(Core i7-3720QM) Mac Mini. Call trace (on Linux 6.3-rc6) follows:
+The Intel(x86) CPUs have a separate address space for "IO", but the ARM 
+architecture only has "memory", so all IO devices are accessed as if 
+they were memory. Which means ARM does not support isolated IO. Here is 
+a related discussion on ARM's forum.
 
-[    5.794026] rcu: INFO: rcu_sched detected expedited stalls on
-CPUs/tasks: { 0-.... } 3 jiffies s: 309 root: 0x1/.
-[    5.794044] rcu: blocking rcu_node structures (internal RCU debug):
-[    5.794045] Sending NMI from CPU 1 to CPUs 0:
-[    5.794049] NMI backtrace for cpu 0
-[    5.794051] CPU: 0 PID: 537 Comm: Xorg Not tainted 6.3.0-rc6-debug+ #57
-[    5.794053] Hardware name: Apple Inc.
-Macmini6,2/Mac-F65AE981FFA204ED, BIOS 429.0.0.0.0 03/18/2022
-[    5.794054] RIP: 0010:fwtable_read32+0x45/0x100
-[    5.794060] Code: 5e 00 49 89 c5 48 8b 45 08 8b b0 2c 1d 00 00 85
-f6 0f 85 94 00 00 00 8d 83 00 00 fc ff 3d ff 5f 0d 00 77 28 48 03 5d
-00 8b 1b <48> 8b 45 08 8b 88 2c 1d 00 00 85 c9 75 48 4c 89 ee 4c 89 e7
-e8 82
-[    5.794061] RSP: 0018:ffff88810d17f968 EFLAGS: 00000082
-[    5.794063] RAX: 0000000000085010 RBX: 0000000000000200 RCX: ffff888101d80000
-[    5.794064] RDX: 0000000000000001 RSI: 0000000000000000 RDI: ffff888101d81f28
-[    5.794064] RBP: ffff888101d81f08 R08: 0000000000000000 R09: 00000000000032ab
-[    5.794065] R10: 0000000000000001 R11: 00000000000061b2 R12: ffff888101d81f28
-[    5.794066] R13: 0000000000000246 R14: ffff888102f693d0 R15: ffff88810d17faef
-[    5.794067] FS:  00007f579a20da80(0000) GS:ffff888267200000(0000)
-knlGS:0000000000000000
-[    5.794068] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    5.794069] CR2: 000055fe9b660028 CR3: 0000000111e97004 CR4: 00000000001706f0
-[    5.794069] Call Trace:
-[    5.794071]  <TASK>
-[    5.794073]  get_reserved.isra.0+0x23/0x30
-[    5.794076]  get_clock+0x25/0x70
-[    5.794078]  sclhi+0x43/0x70
-[    5.794081]  i2c_stop+0x2b/0x40
-[    5.794083]  bit_xfer+0x22a/0x5d0
-[    5.794085]  ? __pm_runtime_resume+0x40/0x50
-[    5.794088]  ? __intel_display_power_get_domain.part.0+0x4d/0x60
-[    5.794092]  gmbus_xfer+0x3c/0x90
-[    5.794094]  __i2c_transfer+0x15b/0x4d0
-[    5.794096]  i2c_transfer+0x3c/0xa0
-[    5.794098]  drm_do_probe_ddc_edid+0xad/0x120
-[    5.794101]  drm_get_edid+0x71/0x90
-[    5.794104]  intel_crt_get_edid+0xf/0x80
-[    5.794106]  intel_crt_detect_ddc+0x28/0xc0
-[    5.794107]  intel_crt_detect+0x1f5/0xc40
-[    5.794108]  ? pollwake+0x61/0x70
-[    5.794111]  drm_helper_probe_detect+0x43/0xa0
-[    5.794115]  drm_helper_probe_single_connector_modes+0x403/0x490
-[    5.794117]  drm_mode_getconnector+0x32d/0x430
-[    5.794119]  ? drm_connector_list_iter_next+0x7c/0xa0
-[    5.794120]  ? drm_connector_property_set_ioctl+0x30/0x30
-[    5.794122]  drm_ioctl_kernel+0x91/0x130
-[    5.794124]  drm_ioctl+0x1d8/0x410
-[    5.794125]  ? drm_connector_property_set_ioctl+0x30/0x30
-[    5.794127]  __x64_sys_ioctl+0x3b9/0x8f0
-[    5.794129]  ? handle_mm_fault+0xc1/0x170
-[    5.794131]  ? exc_page_fault+0x18b/0x470
-[    5.794134]  do_syscall_64+0x2b/0x50
-[    5.794136]  entry_SYSCALL_64_after_hwframe+0x46/0xb0
-[    5.794139] RIP: 0033:0x7f579a1119ef
-[    5.794141] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24
-10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00
-00 0f 05 <89> c2 3d 00 f0 ff ff 77 18 48 8b 44 24 18 64 48 2b 04 25 28
-00 00
-[    5.794142] RSP: 002b:00007ffc1dee7620 EFLAGS: 00000246 ORIG_RAX:
-0000000000000010
-[    5.794143] RAX: ffffffffffffffda RBX: 000055fe9b660060 RCX: 00007f579a1119ef
-[    5.794144] RDX: 00007ffc1dee76c0 RSI: 00000000c05064a7 RDI: 000000000000000f
-[    5.794144] RBP: 00007ffc1dee76c0 R08: 0000000000000000 R09: 0000000000000000
-[    5.794145] R10: 00007f579a6bc1d8 R11: 0000000000000246 R12: 00000000c05064a7
-[    5.794146] R13: 000000000000000f R14: 00000000c05064a7 R15: 00007ffc1dee76c0
-[    5.794147]  </TASK>
+https://community.arm.com/support-forums/f/architectures-and-processors-forum/52046/how-to-read-write-an-i-o-port-in-aarch64
 
-Please let me know if you need any additional information (kconfig,
-etc.) in order to fix this. I will, of course, be happy to test any
-patch thrown my way.
+Thus, we adapt MMIO only after this patch.
 
-Kind regards,
-Rui
+
+On 2023/4/4 下午 10:45, Thomas Zimmermann wrote:
+> Hi,
+>
+> FYI I have merged patches 1, 6 and 7 of this patchset. They look fine 
+> and are worthwhile fixes on their own.
+>
+> Best regards
+> Thomas
+>
+> Am 11.01.23 um 16:41 schrieb Daniel Vetter:
+>> It's just open coded and matches.
+>>
+>> Note that Thomas said that his version apparently failed for some
+>> reason, but hey maybe we should try again.
+>>
+>> Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+>> Cc: Dave Airlie <airlied@redhat.com>
+>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>> Cc: Javier Martinez Canillas <javierm@redhat.com>
+>> Cc: Helge Deller <deller@gmx.de>
+>> Cc: linux-fbdev@vger.kernel.org
+>> ---
+>>   drivers/gpu/drm/ast/ast_drv.c | 16 +---------------
+>>   1 file changed, 1 insertion(+), 15 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/ast/ast_drv.c 
+>> b/drivers/gpu/drm/ast/ast_drv.c
+>> index 420fc75c240e..3ac24a780f50 100644
+>> --- a/drivers/gpu/drm/ast/ast_drv.c
+>> +++ b/drivers/gpu/drm/ast/ast_drv.c
+>> @@ -90,27 +90,13 @@ static const struct pci_device_id ast_pciidlist[] 
+>> = {
+>>     MODULE_DEVICE_TABLE(pci, ast_pciidlist);
+>>   -static int ast_remove_conflicting_framebuffers(struct pci_dev *pdev)
+>> -{
+>> -    bool primary = false;
+>> -    resource_size_t base, size;
+>> -
+>> -    base = pci_resource_start(pdev, 0);
+>> -    size = pci_resource_len(pdev, 0);
+>> -#ifdef CONFIG_X86
+>> -    primary = pdev->resource[PCI_ROM_RESOURCE].flags & 
+>> IORESOURCE_ROM_SHADOW;
+>> -#endif
+>> -
+>> -    return drm_aperture_remove_conflicting_framebuffers(base, size, 
+>> primary, &ast_driver);
+>> -}
+>> -
+>>   static int ast_pci_probe(struct pci_dev *pdev, const struct 
+>> pci_device_id *ent)
+>>   {
+>>       struct ast_private *ast;
+>>       struct drm_device *dev;
+>>       int ret;
+>>   -    ret = ast_remove_conflicting_framebuffers(pdev);
+>> +    ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, 
+>> &ast_driver);
+>>       if (ret)
+>>           return ret;
+>
+-- 
+Best Regards
+Jammy
+
