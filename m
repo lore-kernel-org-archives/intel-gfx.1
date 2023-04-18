@@ -4,150 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54A03C77B75
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 18:07:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62D67C6FD18
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 18:17:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC42210E820;
-	Tue, 18 Apr 2023 18:07:12 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3ED7010E836;
- Tue, 18 Apr 2023 18:07:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBB9010E834;
+	Tue, 18 Apr 2023 18:17:54 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6BDF10E834;
+ Tue, 18 Apr 2023 18:17:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681841230; x=1713377230;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=PQlevWlQXmUclBX0KPTCa4pxPqPZVgQcttjyIrdLTk0=;
- b=nOaNeS6IEtAcfcpKhxhXhRmem0W+lzSB56SPQrVT3WqVKgnDI1i9unI+
- P49mWDWUHNTitx+Du8+cKH7/X1Ebw9t6Xan2S3qvtZeNAsnu4MC9WmeVb
- SeRrnCzBIH9RQBxmepwxPhD3/DDvhDpLar8fFiClvFF6jeUO5IzWc/ydZ
- Z7W75RPdJOm5WVkSL0RTpNzZ/VdcUavOlwH1e9Zrm2gSnXaSAz3WgnZCc
- d6rdWAWCbUw9TJ7U0qEWepRDEWIUW9xiB4Vcv2GfOwY9sRDzEgMYu5nFn
- +2Qd6xbpHy+LmgvfwVNC13Uc57vK1HWXrBAk5RyF4N/GvYkodUpP3R9Kn Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="343997528"
-X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="343997528"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Apr 2023 11:06:43 -0700
+ t=1681841873; x=1713377873;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=tLc5CsEvH3T3K97fiqQpODOpqodThzXzYxpRJEYUBrI=;
+ b=SQJ6NC3I23NJV82Crlk6wlfliqCAuYcP2sSYjbLlx06IBVBxyJ+Jj9uM
+ rbWDM9qTFPrjWkalXapPdMCpiGlQGDO5lHfpYskf22HqUwkxp54NPYTZt
+ hghDXPCeyuQEmrgkA9jKD7P3isyVkETU1Sc0u68ugUS5pURDvpzBDCCBH
+ hz7sQsYeoo1oeooVCbnjuP6f0LhQ5oF5SyuiAihJs2ou21mB4Zu/xsqgV
+ Gz17bmYsHFHAhNVYnkBkSyLFMeONDvJzPOUIHKaJaQtcAUBJrIVzZ+1jd
+ JeITP8sfNcIgmjacITVs9gA7/aNr7xAQIuJ7hQm/S4/NdhrBFdq6ItKpE A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="348008878"
+X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="348008878"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Apr 2023 11:17:52 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="693726303"
-X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="693726303"
-Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
- by fmsmga007.fm.intel.com with ESMTP; 18 Apr 2023 11:06:42 -0700
-Received: from fmsmsx602.amr.corp.intel.com (10.18.126.82) by
- fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.23; Tue, 18 Apr 2023 11:06:43 -0700
-Received: from fmsedg601.ED.cps.intel.com (10.1.192.135) by
- fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.23 via Frontend Transport; Tue, 18 Apr 2023 11:06:43 -0700
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com (104.47.55.100)
- by edgegateway.intel.com (192.55.55.70) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.23; Tue, 18 Apr 2023 11:06:42 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IX7PMHwfR+JnlyW/tACaRTt9hwHolJ8CgHbhkv6GgoVsyC8SfaucBNN8d3GnN0Urwg+wbpfKVmakVnr3p5YpH+jY7V8RynPKtrjJlcT1cJFuosxjnADJI9SJq5NuTJA3hsg3vb6eflQ6X6xDUqY3WcwVIjjVmA874Ji3qfQuBrseCccNNC+lQp0N+Gg84r00L3SHT8cdh5x04B47/4ORA5/yWy/12P8uJRkHVOF7y0YegGJGRNGc3CtSJ8WUSDDQbTRZcGGZvBbzmiQyQb5tUwn8GTooMvTkVsYCvgE75/XCvZgLwh1DhkW4zSzo2j1VtKHv/+jlSesy0Xf0eeYszQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iOKKPUcNRrJjrKL1nAAB9l/JoQEMTEuVlRsIn34eSZQ=;
- b=f721dQ4H91fggxDsz3Gz+NcfsLZZnkvRfKa45Z1ICqb16xWKejaUohVIDP8rQlPjpVjAOi89K0WuYBH9EIvqCQXfOmOdw7pheAO3CXx6992Tm+TJYi9FWiwLfjbYGrTNVkD1S/NMC5z3yewTMUI8oaEBnzAyPoiBan01PlqAdsDjWETH6NJaGMKU7+CrqCY5xwfsTJlAR2Gc9GGFs4XRKEjeVQRw3ciRosOczJ2FymibRo9lmhx0ng+doboCsAc0y3QN7o+PqUrcUG0eacp/7KRIv7TQsE27xZ446HH4M5hxZXrUeGyLocXvI10TUPHuSKVSIi1Kcb9Gk7EuuwGUqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MN6PR11MB8146.namprd11.prod.outlook.com (2603:10b6:208:470::9)
- by CY5PR11MB6138.namprd11.prod.outlook.com (2603:10b6:930:2a::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Tue, 18 Apr
- 2023 18:06:35 +0000
-Received: from MN6PR11MB8146.namprd11.prod.outlook.com
- ([fe80::ab78:f580:c203:edb8]) by MN6PR11MB8146.namprd11.prod.outlook.com
- ([fe80::ab78:f580:c203:edb8%5]) with mapi id 15.20.6298.030; Tue, 18 Apr 2023
- 18:06:35 +0000
-Message-ID: <fcc2efa1-87ad-d780-6d2e-cae2027971de@intel.com>
-Date: Tue, 18 Apr 2023 21:06:35 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.10.0
-Content-Language: en-US
-To: "Teres Alexis, Alan Previn" <alan.previn.teres.alexis@intel.com>, "Ceraolo
- Spurio, Daniele" <daniele.ceraolospurio@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-References: <20230406174419.471256-1-alan.previn.teres.alexis@intel.com>
- <20230406174419.471256-7-alan.previn.teres.alexis@intel.com>
- <35d5f2da-115e-5873-1e3e-ba4db16537eb@intel.com>
- <ae72a0dfb157a9944434b773a93d82d40c7cb4e7.camel@intel.com>
-From: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-In-Reply-To: <ae72a0dfb157a9944434b773a93d82d40c7cb4e7.camel@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0041.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4a::17) To MN6PR11MB8146.namprd11.prod.outlook.com
- (2603:10b6:208:470::9)
+X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="815307855"
+X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="815307855"
+Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
+ by orsmga004.jf.intel.com with ESMTP; 18 Apr 2023 11:17:52 -0700
+From: John.C.Harrison@Intel.com
+To: Intel-GFX@Lists.FreeDesktop.Org
+Date: Tue, 18 Apr 2023 11:17:44 -0700
+Message-Id: <20230418181744.3251240-3-John.C.Harrison@Intel.com>
+X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20230418181744.3251240-1-John.C.Harrison@Intel.com>
+References: <20230418181744.3251240-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN6PR11MB8146:EE_|CY5PR11MB6138:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a2800d6-7365-4d8c-4485-08db4037a57f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: PVTmtRh4cOUXDHGWQT55eBc5Ujek+PDmhepL9YX70QcyKTbfKNbWCOpuQIKfY3dOSF56+wHeGxssULe35ht8ny1ZzAKHa1VBoM6W9jIT9+yaRd8LbFPWF43iWO3QiwQ8sDBDMx7XVNu742D6w+fPvflvHYbwaRLHwzdexaThL8nC4PztSvhQARd+ub7rQuVRMyCkIh0gQE9Xu7f5ooaKWfmtwidyquZc35kN4MAcJnBGa8LvMEzGf57b+Dv0vN42IOA9l6OtpSJy7zcozsn3IqShtZ3Ai7ROvYuI1ZQsHVEXbjF/pvMlqR5MqGeUHXmzMGEf2RpB6qqjc5ffNKYt+9Z0BxBgAIM1m7H1P0UB1qHV6o3idPJCFNZ2iU7qmbspFQofmZddO+WZOfaJTf3qw+K7bkaJwE0Y1UBWJrtSb9OnsudAOkgF3lbpTod6wE1bajIA0VVESDPZJb8BaQk3gZQr5BY3gzdererZCGSN6VraRzE6EvFcmxres3H/ECbGKjOr90iCbGh8fIHbSZN5v1vOQAcfQgPP1f8n6e82fAFT9F2cxFMHbhVTKAA6803IazkNRWUGjNmkS5un6sKGc1vw++ZAHyGS8Z0O6IVHQ146IbHXuHiOG2hT6e4WAqG/O+OLK01z9GNoyjhrd6o5gg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN6PR11MB8146.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(366004)(346002)(39860400002)(136003)(376002)(396003)(451199021)(478600001)(316002)(54906003)(110136005)(5660300002)(8936002)(8676002)(31696002)(36756003)(86362001)(2906002)(4326008)(82960400001)(66476007)(66556008)(66946007)(38100700002)(41300700001)(83380400001)(107886003)(186003)(26005)(53546011)(6506007)(6512007)(6486002)(2616005)(31686004)(45980500001)(43740500002);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SlJidGl0aGhlQTgrYUJNQXhpZUJyb29nc1RzUk55aXlvbXdoaUNlWUk3dE1m?=
- =?utf-8?B?aWpRdjRIQW9TU2l0QnlzWUVZandNN0U1Z0d1MEY4Vy9LL3pBZFJ1UVlra0Jx?=
- =?utf-8?B?U0p5bDlHYzNHL3Y3SjkrNVRST0FVTmNqQlNaNVAvNnhnazhCK2pEYXZFSHlW?=
- =?utf-8?B?RUVTTENocTNxdGNodHFKODlmMFp0ZkJwQkFvT1ZjYzdLeU5yUVRNemtuMzhI?=
- =?utf-8?B?WDZ6TFhTQ1RwTXcvYWJEZW9zSWtNQWk2RGRGRjFzVHpTUXgxZkdVNHgvRmg0?=
- =?utf-8?B?bEkyQ2lJOGh3WmRMQzNSNWtyYkRBRlFVOUF5L25tMW0rZVlhQTFXNkdYVURH?=
- =?utf-8?B?dWxnamFYOVdZMFp6YXlsRCtoN2Jmck9jV3IzelNUb0hjWXdUekhKNkVyd3dL?=
- =?utf-8?B?WWpGY2xnc1FaZXhLZmJ3UzVmUHJZbHZxcUtyS0xiQjJpcVNpU0RXNkhaeTN5?=
- =?utf-8?B?Z09MdndMOVY2bER1blFPNUk3a0owL3FYMGJyeXBFOTd5STVVdFNBcU14dDlp?=
- =?utf-8?B?dU9BNGdQNEN0WkhEWVpLRVhsOTFmd3hEcDRSdEFxOUlFNUkrMm5KUDhIWnBL?=
- =?utf-8?B?bmEvUk50Y1hMd3ZpVjRQY3ViQkpCMCtVYnhRZkpsZk0zY3Q3ZWVob3FyYkZG?=
- =?utf-8?B?UVQxc3hZUFY0SkIrd1M2bFd1cGxwQzFVUHVpNXNNcy9sbGFPMWZ6RFo3LzFi?=
- =?utf-8?B?alFMUnBWa1JBZXFKUllkR2g4QWdCQWJ2RnhyZW0wVGFjYzFmRFJPMVVtK25R?=
- =?utf-8?B?UWk5Qi9zQUFZQ3lYUVhaMlBETXJjTyt3Tm1wNnNHYk9GQVp5RVowbVdSMzZn?=
- =?utf-8?B?VndoZ0VUN1puTWJ6QkRXK1hOanhlcUEzTkc4Q2NBVHU2OG9XbGswaGtESmp2?=
- =?utf-8?B?RlB2a2hnS3lHSkZVUXZPRy9qaTkxR250YnJoVFAxTlRGQkMrMnpkQUtUaEFT?=
- =?utf-8?B?ZXIzU0V0L0J1UTZlK3RZd2xwS3RzUGJSQ2pJTm40Yi9CcU94dHJoaXpRUDlG?=
- =?utf-8?B?eDBtZ0JHakgwUlhIcVhvZjIrYkRvakJpbjJXa3JlYWhrYktPeUFkUXlYVFJl?=
- =?utf-8?B?MkkzWWdyVXY4bkptNWRhWU5IS01Hb25uZWIyY2o0ZEZUcVdMMnNFTUtzOE0y?=
- =?utf-8?B?Vis4Y0gyNjRNeCtoaEFCWDRUeVg0cFFDUTgwYkZQamFOT1BEWFhjWG1mQmxB?=
- =?utf-8?B?MmIvS2c3WHduNFpTVFVuK2E2TDFBQm00SVlVUjlkNXJNY09lT3JEbHhjMWh2?=
- =?utf-8?B?dCtleFdpdnY3TW8wYkdUcUZuVTYxTWJFRzVPKytXVGkyUTF5UkJFMzh2dVZk?=
- =?utf-8?B?emdVNS9Gam1pejl4Q1hkb0ovVzgyRklDRUtzV3NEaHpEQWhzK3FFVlg5Nmhl?=
- =?utf-8?B?alp2bnNUOGR0cHBXWGVYVElmaFhuT1NDcE85emhPME5uVnJCbmlZdGpvOFRa?=
- =?utf-8?B?U2FkRVBXSkZuVGxQV0poUHZQVDNEK2hqeHBEVVlDRmNDeGJDSnR5QWhyU1Vo?=
- =?utf-8?B?ZHk2LytTOTFjTUIrZU9BVm9YY3RURWU4OXI3NEJaWkgrdnpob0J4bkhVSlJY?=
- =?utf-8?B?bkpmNWJtWEhVNWZYQ25QWlFJd3FmR2JxREJrdHlsS2JETWcyamJlMUhMN3Iz?=
- =?utf-8?B?SVRJNTcvbk9wS3pJZzd6bXVuN08yU081Ry9iSEI5dTI4aTR0ZWxhOFRDYUZa?=
- =?utf-8?B?Q1FQMC80UERqUFVkODNWcXdhNHAwcTNqSXp1MDNQUXFxWk55V1ByV2FzWW1U?=
- =?utf-8?B?NkVwUHdEejJDQ29nRmpsVTM3Ti9lTlcwUGg5RUs2SHFVSHJiT25GVDVkamtj?=
- =?utf-8?B?em9vY3U3Qjlla3owRE1HTXlmNlM4TDE4L0ovWTVXK3J6dnUrSlVrc1M4WlNX?=
- =?utf-8?B?dzg2TC9SNG9odE5XVXpJRUZiNE9sOTB0N0MzdHI1dDRuWlExMnVaVHpPUVVC?=
- =?utf-8?B?OWhwSFJxN3hVSXEyMG5udTZRK3c1Wkh4R0xRZ05JM3Qxam10WjdUVklIMG1t?=
- =?utf-8?B?am9aQ2tlV1gzNTVVTjlZOFE5SGIvYTZmdnF5Ui9XZWo1Vjl5V1Z3SjduSU4x?=
- =?utf-8?B?bEk0dlFMa0U4SFI1bnpWaTIxWlY4THU5NU4vU2pqVHE4VjFEUUhaRVR1WmVz?=
- =?utf-8?B?MjloTFNmaTFqb1ZXRDEwZGk0ZU9CVGNCYUpkSUxFTE1rNnY3c0dyazh2enV2?=
- =?utf-8?B?WkE9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a2800d6-7365-4d8c-4485-08db4037a57f
-X-MS-Exchange-CrossTenant-AuthSource: MN6PR11MB8146.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2023 18:06:35.0032 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WOIAN3x+R/AwGMQQkAZU1Ucn8sl+xe1Mv+ktZChdD9oD7y9571k+g2k0YP8XDGocMG1YcfRNN15DI23Ng8Q8ozfDkpQ8nNCkdw4v531NMlU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6138
-X-OriginatorOrg: intel.com
-Subject: Re: [Intel-gfx] [PATCH v7 6/8] drm/i915/uapi/pxp: Fix UAPI spec
- comments and add GET_PARAM for PXP
+Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
+ Swindon SN3 1RJ
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2 2/2] drm/i915/guc: Dump error capture to
+ dmesg on CTB error
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,58 +59,167 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Cc: DRI-Devel@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 14/04/2023 18:17, Teres Alexis, Alan Previn wrote:
-> Hi Lionel, does this patch work for you?
+From: John Harrison <John.C.Harrison@Intel.com>
 
+In the past, There have been sporadic CTB failures which proved hard
+to reproduce manually. The most effective solution was to dump the GuC
+log at the point of failure and let the CI system do the repro. It is
+preferable not to dump the GuC log via dmesg for all issues as it is
+not always necessary and is not helpful for end users. But rather than
+trying to re-invent the code to do this each time it is wanted, commit
+the code but for DEBUG_GUC builds only.
 
-Hi, Sorry for the late answer.
+v2: Use IS_ENABLED for testing config options.
 
-That looks good :
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 53 +++++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  6 +++
+ 2 files changed, 59 insertions(+)
 
-
-Acked-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-
-
-Thanks,
-
-
--Lionel
-
-
->
-> On Mon, 2023-04-10 at 10:22 -0700, Ceraolo Spurio, Daniele wrote:
->> On 4/6/2023 10:44 AM, Alan Previn wrote:
-> alan:snip
->
->>> +/*
->>> + * Query the status of PXP support in i915.
->>> + *
->>> + * The query can fail in the following scenarios with the listed error codes:
->>> + *  -ENODEV = PXP support is not available on the GPU device or in the kernel
->>> + *            due to missing component drivers or kernel configs.
->>> + * If the IOCTL is successful, the returned parameter will be set to one of the
->>> + * following values:
->>> + *   0 = PXP support maybe available but underlying SOC fusing, BIOS or firmware
->>> + *       configuration is unknown and a PXP-context-creation would be required
->>> + *       for final verification of feature availibility.
->> Would it be useful to add:
->>
->> 1 = PXP support is available
->>
->> And start returning that after we've successfully created our first
->> session? Not sure if userspace would use this though, since they still
->> need to handle the 0 case anyway.
->> I'm also ok with this patch as-is, as long as you get an ack from the
->> userspace drivers for this interface behavior:
->>
->> Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
->>
->> Daniele
-> alan:snip
->
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index 1803a633ed648..dc5cd712f1ff5 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -13,6 +13,30 @@
+ #include "intel_guc_ct.h"
+ #include "intel_guc_print.h"
+ 
++#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_GUC)
++enum {
++	CT_DEAD_ALIVE = 0,
++	CT_DEAD_SETUP,
++	CT_DEAD_WRITE,
++	CT_DEAD_DEADLOCK,
++	CT_DEAD_H2G_HAS_ROOM,
++	CT_DEAD_READ,
++	CT_DEAD_PROCESS_FAILED,
++};
++
++static void ct_dead_ct_worker_func(struct work_struct *w);
++
++#define CT_DEAD(ct, reason)	\
++	do { \
++		if (!(ct)->dead_ct_reported) { \
++			(ct)->dead_ct_reason |= 1 << CT_DEAD_##reason; \
++			queue_work(system_unbound_wq, &(ct)->dead_ct_worker); \
++		} \
++	} while (0)
++#else
++#define CT_DEAD(ct, reason)	do { } while (0)
++#endif
++
+ static inline struct intel_guc *ct_to_guc(struct intel_guc_ct *ct)
+ {
+ 	return container_of(ct, struct intel_guc, ct);
+@@ -93,6 +117,9 @@ void intel_guc_ct_init_early(struct intel_guc_ct *ct)
+ 	spin_lock_init(&ct->requests.lock);
+ 	INIT_LIST_HEAD(&ct->requests.pending);
+ 	INIT_LIST_HEAD(&ct->requests.incoming);
++#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_GUC)
++	INIT_WORK(&ct->dead_ct_worker, ct_dead_ct_worker_func);
++#endif
+ 	INIT_WORK(&ct->requests.worker, ct_incoming_request_worker_func);
+ 	tasklet_setup(&ct->receive_tasklet, ct_receive_tasklet_func);
+ 	init_waitqueue_head(&ct->wq);
+@@ -319,11 +346,16 @@ int intel_guc_ct_enable(struct intel_guc_ct *ct)
+ 
+ 	ct->enabled = true;
+ 	ct->stall_time = KTIME_MAX;
++#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_GUC)
++	ct->dead_ct_reported = false;
++	ct->dead_ct_reason = CT_DEAD_ALIVE;
++#endif
+ 
+ 	return 0;
+ 
+ err_out:
+ 	CT_PROBE_ERROR(ct, "Failed to enable CTB (%pe)\n", ERR_PTR(err));
++	CT_DEAD(ct, SETUP);
+ 	return err;
+ }
+ 
+@@ -434,6 +466,7 @@ static int ct_write(struct intel_guc_ct *ct,
+ corrupted:
+ 	CT_ERROR(ct, "Corrupted descriptor head=%u tail=%u status=%#x\n",
+ 		 desc->head, desc->tail, desc->status);
++	CT_DEAD(ct, WRITE);
+ 	ctb->broken = true;
+ 	return -EPIPE;
+ }
+@@ -504,6 +537,7 @@ static inline bool ct_deadlocked(struct intel_guc_ct *ct)
+ 		CT_ERROR(ct, "Head: %u\n (Dwords)", ct->ctbs.recv.desc->head);
+ 		CT_ERROR(ct, "Tail: %u\n (Dwords)", ct->ctbs.recv.desc->tail);
+ 
++		CT_DEAD(ct, DEADLOCK);
+ 		ct->ctbs.send.broken = true;
+ 	}
+ 
+@@ -552,6 +586,7 @@ static inline bool h2g_has_room(struct intel_guc_ct *ct, u32 len_dw)
+ 			 head, ctb->size);
+ 		desc->status |= GUC_CTB_STATUS_OVERFLOW;
+ 		ctb->broken = true;
++		CT_DEAD(ct, H2G_HAS_ROOM);
+ 		return false;
+ 	}
+ 
+@@ -908,6 +943,7 @@ static int ct_read(struct intel_guc_ct *ct, struct ct_incoming_msg **msg)
+ 	CT_ERROR(ct, "Corrupted descriptor head=%u tail=%u status=%#x\n",
+ 		 desc->head, desc->tail, desc->status);
+ 	ctb->broken = true;
++	CT_DEAD(ct, READ);
+ 	return -EPIPE;
+ }
+ 
+@@ -1057,6 +1093,7 @@ static bool ct_process_incoming_requests(struct intel_guc_ct *ct)
+ 	if (unlikely(err)) {
+ 		CT_ERROR(ct, "Failed to process CT message (%pe) %*ph\n",
+ 			 ERR_PTR(err), 4 * request->size, request->msg);
++		CT_DEAD(ct, PROCESS_FAILED);
+ 		ct_free_msg(request);
+ 	}
+ 
+@@ -1233,3 +1270,19 @@ void intel_guc_ct_print_info(struct intel_guc_ct *ct,
+ 	drm_printf(p, "Tail: %u\n",
+ 		   ct->ctbs.recv.desc->tail);
+ }
++
++#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_GUC)
++static void ct_dead_ct_worker_func(struct work_struct *w)
++{
++	struct intel_guc_ct *ct = container_of(w, struct intel_guc_ct, dead_ct_worker);
++	struct intel_guc *guc = ct_to_guc(ct);
++
++	if (ct->dead_ct_reported)
++		return;
++
++	ct->dead_ct_reported = true;
++
++	guc_info(guc, "CTB is dead - reason=0x%X\n", ct->dead_ct_reason);
++	intel_klog_error_capture(guc_to_gt(guc), (intel_engine_mask_t)~0U);
++}
++#endif
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+index f709a19c7e214..818415b64f4d1 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+@@ -85,6 +85,12 @@ struct intel_guc_ct {
+ 
+ 	/** @stall_time: time of first time a CTB submission is stalled */
+ 	ktime_t stall_time;
++
++#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_GUC)
++	int dead_ct_reason;
++	bool dead_ct_reported;
++	struct work_struct dead_ct_worker;
++#endif
+ };
+ 
+ void intel_guc_ct_init_early(struct intel_guc_ct *ct);
+-- 
+2.39.1
 
