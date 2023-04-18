@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B699DC77B75
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 17:56:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6896C77B7D
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 17:56:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE9E310E83B;
-	Tue, 18 Apr 2023 17:56:20 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13ADD10E834
- for <intel-gfx@lists.freedesktop.org>; Tue, 18 Apr 2023 17:56:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8E4010E838;
+	Tue, 18 Apr 2023 17:56:23 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45A8B10E820
+ for <intel-gfx@lists.freedesktop.org>; Tue, 18 Apr 2023 17:56:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681840566; x=1713376566;
+ t=1681840563; x=1713376563;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=4Bw+aYWmLPioFBBVCVVWMbrF8rF4Y0KB3XPr79y6iy4=;
- b=ijJ3NqvfvKoHYZXz7dxNr/iPDYyGNl+xpD7gmBSpKRf0kU+gZAU5iD4M
- TUTQ/WRieWhCsPWlIk5onhBpDMmFb1eWUaOMGdtul9vt3c7UqSiT6kmuR
- sJpBTPo/L92u4U1/x9zXnK3UVGSqfJhK9LmBfUi2GQ2XY4PFR1xLizsmL
- bGOVWP+1NiRq1qoR9X+B7O8Wo/0IKd92TdnmX/ks7kon7cv2xAAsZKapS
- IY/xmX/anmemQGhOHY0magjobkm2G8biI2CqgVhElzgIs8gbrziX0N9j5
- WCw6Mof4/aHljgG3V5XDFfNYULeSBMJwVprdK2l616ZurDYImQm4rcm6a g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="348002235"
-X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="348002235"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Apr 2023 10:56:05 -0700
+ bh=IoJ7BEtLWy77fYKUJco0TVDxQIPNF0YGUZ1UHyR5h+E=;
+ b=K3XXN1DOzO5cVfdiR71pTknV1RfV4HsxxLYW1lq7QRKBkR7yrTZz1C6J
+ 83lxhEtWZ286gw4HZsweshikcHjcArj+SbQ1LDe6g0GDnHcsN3Q8AKfSe
+ IXMd4/ymJiRnt73Gtle2wSUBZjmU/Mx8WeSpb2UBuHuRlhpjPNcj0uFLC
+ G9f4eTff/rDXuIGzakYk4h8bCEWhdkphPeV0WkyR0M7HJ9cdhCRQL4xOv
+ bAdglbAs+BS84zzdpW39wWGURH3TKrrhLH90Y7tfOi8RXzPDbS9cC8bxj
+ arD9gCVeDcnV7jx7UhcT4Xoh8ur/xoeT8ARPGUUVNL+o1PDIvV0IsgIK5 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="334052832"
+X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="334052832"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Apr 2023 10:55:59 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="815302652"
-X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="815302652"
+X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="641451833"
+X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="641451833"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by orsmga004.jf.intel.com with SMTP; 18 Apr 2023 10:56:02 -0700
+ by orsmga003.jf.intel.com with SMTP; 18 Apr 2023 10:55:56 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 18 Apr 2023 20:56:02 +0300
+ Tue, 18 Apr 2023 20:55:55 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 18 Apr 2023 20:55:24 +0300
-Message-Id: <20230418175528.13117-12-ville.syrjala@linux.intel.com>
+Date: Tue, 18 Apr 2023 20:55:22 +0300
+Message-Id: <20230418175528.13117-10-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230418175528.13117-1-ville.syrjala@linux.intel.com>
 References: <20230418175528.13117-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 11/15] drm/i915: Rename skl+ scaler binding bits
+Subject: [Intel-gfx] [PATCH 09/15] drm/i915: Define bitmasks for ilk pfit
+ window pos/size
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,87 +65,66 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Rename the scaler binding bits to match the spec more closely.
-Also call the parameters 'plane_id' to make it a bit more clear
-what to pass in.
+Define and use the bitmasks for the x/y components
+of the ilk+ panel filter window pos/size registers.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_scaler.c | 12 ++++++------
- drivers/gpu/drm/i915/i915_reg.h           |  9 +++++----
- 2 files changed, 11 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 12 ++++++++----
+ drivers/gpu/drm/i915/i915_reg.h              |  8 ++++++++
+ 2 files changed, 16 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
-index ec930aec21c4..a96f8ecbeec1 100644
---- a/drivers/gpu/drm/i915/display/skl_scaler.c
-+++ b/drivers/gpu/drm/i915/display/skl_scaler.c
-@@ -396,7 +396,7 @@ static int intel_atomic_setup_scaler(struct intel_crtc_scaler_state *scaler_stat
- 			mode = PS_SCALER_MODE_PLANAR;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index fb49d0ed61b4..626a5f41a1f1 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -812,8 +812,10 @@ static void ilk_pfit_enable(const struct intel_crtc_state *crtc_state)
+ 	else
+ 		intel_de_write_fw(dev_priv, PF_CTL(pipe), PF_ENABLE |
+ 				  PF_FILTER_MED_3x3);
+-	intel_de_write_fw(dev_priv, PF_WIN_POS(pipe), x << 16 | y);
+-	intel_de_write_fw(dev_priv, PF_WIN_SZ(pipe), width << 16 | height);
++	intel_de_write_fw(dev_priv, PF_WIN_POS(pipe),
++			  PF_WIN_XPOS(x) | PF_WIN_YPOS(y));
++	intel_de_write_fw(dev_priv, PF_WIN_SZ(pipe),
++			  PF_WIN_XSIZE(width) | PF_WIN_YSIZE(height));
+ }
  
- 			if (linked)
--				mode |= PS_PLANE_Y_SEL(linked->id);
-+				mode |= PS_BINDING_Y_PLANE(linked->id);
- 		}
- 	} else if (DISPLAY_VER(dev_priv) >= 10) {
- 		mode = PS_SCALER_MODE_NORMAL;
-@@ -741,8 +741,8 @@ void skl_pfit_enable(const struct intel_crtc_state *crtc_state)
+ static void intel_crtc_dpms_overlay_disable(struct intel_crtc *crtc)
+@@ -3246,8 +3248,10 @@ static void ilk_get_pfit_config(struct intel_crtc_state *crtc_state)
+ 	size = intel_de_read(dev_priv, PF_WIN_SZ(crtc->pipe));
  
- 	id = scaler_state->scaler_id;
+ 	drm_rect_init(&crtc_state->pch_pfit.dst,
+-		      pos >> 16, pos & 0xffff,
+-		      size >> 16, size & 0xffff);
++		      REG_FIELD_GET(PF_WIN_XPOS_MASK, pos),
++		      REG_FIELD_GET(PF_WIN_YPOS_MASK, pos),
++		      REG_FIELD_GET(PF_WIN_XSIZE_MASK, size),
++		      REG_FIELD_GET(PF_WIN_YSIZE_MASK, size));
  
--	ps_ctrl = skl_scaler_get_filter_select(crtc_state->hw.scaling_filter, 0);
--	ps_ctrl |=  PS_SCALER_EN | scaler_state->scalers[id].mode;
-+	ps_ctrl = PS_SCALER_EN | PS_BINDING_PIPE | scaler_state->scalers[id].mode |
-+		skl_scaler_get_filter_select(crtc_state->hw.scaling_filter, 0);
- 
- 	skl_scaler_setup_filter(dev_priv, pipe, id, 0,
- 				crtc_state->hw.scaling_filter);
-@@ -804,8 +804,8 @@ skl_program_plane_scaler(struct intel_plane *plane,
- 		uv_rgb_vphase = skl_scaler_calc_phase(1, vscale, false);
- 	}
- 
--	ps_ctrl = skl_scaler_get_filter_select(plane_state->hw.scaling_filter, 0);
--	ps_ctrl |= PS_SCALER_EN | PS_PLANE_SEL(plane->id) | scaler->mode;
-+	ps_ctrl = PS_SCALER_EN | PS_BINDING_PLANE(plane->id) | scaler->mode |
-+		skl_scaler_get_filter_select(plane_state->hw.scaling_filter, 0);
- 
- 	skl_scaler_setup_filter(dev_priv, pipe, scaler_id, 0,
- 				plane_state->hw.scaling_filter);
-@@ -870,7 +870,7 @@ void skl_scaler_get_config(struct intel_crtc_state *crtc_state)
- 		u32 ctl, pos, size;
- 
- 		ctl = intel_de_read(dev_priv, SKL_PS_CTRL(crtc->pipe, i));
--		if ((ctl & (PS_SCALER_EN | PS_PLANE_SEL_MASK)) != PS_SCALER_EN)
-+		if ((ctl & (PS_SCALER_EN | PS_BINDING_MASK)) != (PS_SCALER_EN | PS_BINDING_PIPE))
- 			continue;
- 
- 		id = i;
+ 	/*
+ 	 * We currently do not free assignements of panel fitters on
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 919d999a2345..f8e6b86facc3 100644
+index 3c02f6c70733..75e1f30adda1 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -4056,8 +4056,9 @@
- #define SKL_PS_SCALER_MODE_NV12 (2 << 28)
- #define PS_SCALER_MODE_PLANAR (1 << 29)
- #define PS_SCALER_MODE_NORMAL (0 << 29)
--#define PS_PLANE_SEL_MASK  (7 << 25)
--#define PS_PLANE_SEL(plane) (((plane) + 1) << 25)
-+#define PS_BINDING_MASK (7 << 25)
-+#define PS_BINDING_PIPE (0 << 25)
-+#define PS_BINDING_PLANE(plane_id) (((plane_id) + 1) << 25)
- #define PS_FILTER_MASK         (3 << 23)
- #define PS_FILTER_MEDIUM       (0 << 23)
- #define PS_FILTER_PROGRAMMED   (1 << 23)
-@@ -4073,8 +4074,8 @@
- #define PS_VADAPT_MODE_LEAST_ADAPT (0 << 5)
- #define PS_VADAPT_MODE_MOD_ADAPT   (1 << 5)
- #define PS_VADAPT_MODE_MOST_ADAPT  (3 << 5)
--#define PS_PLANE_Y_SEL_MASK  (7 << 5)
--#define PS_PLANE_Y_SEL(plane) (((plane) + 1) << 5)
-+#define PS_BINDING_Y_MASK  (7 << 5)
-+#define PS_BINDING_Y_PLANE(plane_id) (((plane_id) + 1) << 5)
- #define PS_Y_VERT_FILTER_SELECT(set)   ((set) << 4)
- #define PS_Y_HORZ_FILTER_SELECT(set)   ((set) << 3)
- #define PS_UV_VERT_FILTER_SELECT(set)  ((set) << 2)
+@@ -4020,8 +4020,16 @@
+ #define   PF_FILTER_EDGE_SOFTEN		REG_FIELD_PREP(PF_FILTER_EDGE_MASK, 3)
+ #define _PFA_WIN_SZ		0x68074
+ #define _PFB_WIN_SZ		0x68874
++#define   PF_WIN_XSIZE_MASK	REG_GENMASK(28, 16)
++#define   PF_WIN_XSIZE(w)	REG_FIELD_PREP(PF_WIN_XSIZE_MASK, (w))
++#define   PF_WIN_YSIZE_MASK	REG_GENMASK(11, 0)
++#define   PF_WIN_YSIZE(h)	REG_FIELD_PREP(PF_WIN_YSIZE_MASK, (h))
+ #define _PFA_WIN_POS		0x68070
+ #define _PFB_WIN_POS		0x68870
++#define   PF_WIN_XPOS_MASK	REG_GENMASK(28, 16)
++#define   PF_WIN_XPOS(x)	REG_FIELD_PREP(PF_WIN_XPOS_MASK, (x))
++#define   PF_WIN_YPOS_MASK	REG_GENMASK(11, 0)
++#define   PF_WIN_YPOS(y)	REG_FIELD_PREP(PF_WIN_YPOS_MASK, (y))
+ #define _PFA_VSCALE		0x68084
+ #define _PFB_VSCALE		0x68884
+ #define _PFA_HSCALE		0x68090
 -- 
 2.39.2
 
