@@ -4,48 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 599E8C77B75
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 22:06:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F7D4C6FD18
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Apr 2023 22:06:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05A6110E1FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19EFF10E2FC;
 	Tue, 18 Apr 2023 22:06:07 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD12610E07B
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D30510E07B
  for <intel-gfx@lists.freedesktop.org>; Tue, 18 Apr 2023 22:06:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1681855565; x=1713391565;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=ons8xBClW240OsJqsEc6XRz4AzLqtWUQLa8ovoLCxcc=;
- b=Z0ZpNRNuoyOujJNLu040isY+mOqDXEB9DNuHa1Z20+ZaO6vUbwaW8kV1
- RsFhlh4nmFZVlTZQgk9oyB9QXTsUJGr+3hNjy3fiPpSxhsUPnObXXhPdA
- UBikm82bUwqEqlq8MHoSAcyOBZQFfIM3AysrDCV1UKxos4rEX0W7URXAw
- VoHm1qqfL9V6dJvJ0s5Debnz7a++a5MBIPfPN64W/9EoPV9k2TqRlxg35
- i91D1/BBwVEv4lT3Y3orn7Qxzf3+PHBBJ3IyRNek1peYXEvL2NAwC6u7h
- L4UEtVvZJSpcer7o3AYzuNRBeRVZDjlDHrwLQOdrrp7wqMo+fEdOkQPcg w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="334101438"
-X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="334101438"
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Yytgqq4vsrJgogtjkyALokJKA8LXSDBYElWaACf2qlw=;
+ b=IR6WzxyDKiehi5+aTimss5+VlqiqDOsvlAj4EpKvSr1KxfLarke9r0FC
+ EMtZBL23p2F3C2kNmYvz1f7r5lhVbAOv2g6IGrchdnn5Z0TJz1AeolsbK
+ Z57IjI16kZFiTBvQpyAkx/zUu16IRaE144//mTMKvcaiIH9ObjzIkoc5k
+ Fo42M9FADZPpWbNRv5aTj+ltDlM/ZeMn4lCc1JHazT+1CShtY5gPyKZ4z
+ AurFSLiz0sGYB9zc5Q3yILTVqT7Um/CetV2k0p4qLQ07NtCzGnxZPMhwe
+ xy3QaW8QYh0BtIIOA19a/DNhY+jKTt68zH3bv0JYY3CKGK6XpJZT1R9hU g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="334101436"
+X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="334101436"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Apr 2023 15:06:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="684761347"
-X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="684761347"
+X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="684761344"
+X-IronPort-AV: E=Sophos;i="5.99,207,1677571200"; d="scan'208";a="684761344"
 Received: from invictus.jf.intel.com ([10.165.21.201])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Apr 2023 15:05:59 -0700
+ 18 Apr 2023 15:05:58 -0700
 From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 18 Apr 2023 15:04:44 -0700
-Message-Id: <20230418220446.2205509-3-radhakrishna.sripada@intel.com>
+Date: Tue, 18 Apr 2023 15:04:42 -0700
+Message-Id: <20230418220446.2205509-1-radhakrishna.sripada@intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230418220446.2205509-1-radhakrishna.sripada@intel.com>
-References: <20230418220446.2205509-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 2/4] drm/i915/mtl: Re-use ADL-P's "DC off"
- power well
+Subject: [Intel-gfx] [PATCH v2 0/4] More MTL WA and powerwell patches
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,62 +58,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matt Roper <matthew.d.roper@intel.com>
+This series adds 2 MTL WA's and 2 patches to fix re-use
+"DC off" power wells.
 
-As with ADL-P, MTL's "DC off" power well should be a dependency of the
-PGC and PGD power wells, not the entire PG2 well.  In fact, the DC5/DC6
-requirements between the two platforms are the same, so the Xe_LPD "DC
-off" well definition can just be re-used for Xe_LPD+.
+v2:
+Haridhar Kalvala (1):
+  drm/i915/mtl: WA to clear RDOP clock gating
 
-Bspec: 49193
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
-Reviewed-by: Imre Deak <imre.deak@intel.com>
----
- .../drm/i915/display/intel_display_power_map.c   | 16 +---------------
- 1 file changed, 1 insertion(+), 15 deletions(-)
+Madhumitha Tolakanahalli Pradeep (1):
+  drm/i915/mtl: Extend Wa_22011802037 to MTL A-step
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_map.c b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-index 5906b62e79f1..100582f10590 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_map.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-@@ -1456,15 +1456,6 @@ I915_DECL_PW_DOMAINS(xelpdp_pwdoms_pw_2,
- 	XELPDP_PW_2_POWER_DOMAINS,
- 	POWER_DOMAIN_INIT);
- 
--I915_DECL_PW_DOMAINS(xelpdp_pwdoms_dc_off,
--	XELPDP_PW_2_POWER_DOMAINS,
--	POWER_DOMAIN_AUDIO_MMIO,
--	POWER_DOMAIN_MODESET,
--	POWER_DOMAIN_AUX_A,
--	POWER_DOMAIN_AUX_B,
--	POWER_DOMAIN_DC_OFF,
--	POWER_DOMAIN_INIT);
--
- I915_DECL_PW_DOMAINS(xelpdp_pwdoms_aux_tc1,
- 	POWER_DOMAIN_AUX_USBC1,
- 	POWER_DOMAIN_AUX_TBT1);
-@@ -1483,12 +1474,6 @@ I915_DECL_PW_DOMAINS(xelpdp_pwdoms_aux_tc4,
- 
- static const struct i915_power_well_desc xelpdp_power_wells_main[] = {
- 	{
--		.instances = &I915_PW_INSTANCES(
--			I915_PW("DC_off", &xelpdp_pwdoms_dc_off,
--				.id = SKL_DISP_DC_OFF),
--		),
--		.ops = &gen9_dc_off_power_well_ops,
--	}, {
- 		.instances = &I915_PW_INSTANCES(
- 			I915_PW("PW_2", &xelpdp_pwdoms_pw_2,
- 				.hsw.idx = ICL_PW_CTL_IDX_PW_2,
-@@ -1545,6 +1530,7 @@ static const struct i915_power_well_desc xelpdp_power_wells_main[] = {
- static const struct i915_power_well_desc_list xelpdp_power_wells[] = {
- 	I915_PW_DESCRIPTORS(i9xx_power_wells_always_on),
- 	I915_PW_DESCRIPTORS(icl_power_wells_pw_1),
-+	I915_PW_DESCRIPTORS(xelpd_power_wells_dc_off),
- 	I915_PW_DESCRIPTORS(xelpdp_power_wells_main),
- };
- 
+Matt Roper (2):
+  drm/i915: Use separate "DC off" power well for ADL-P and DG2
+  drm/i915/mtl: Re-use ADL-P's "DC off" power well
+
+ .../i915/display/intel_display_power_map.c    | 57 +++++++++++++------
+ drivers/gpu/drm/i915/gt/intel_workarounds.c   |  3 +
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 12 ++--
+ 3 files changed, 48 insertions(+), 24 deletions(-)
+
 -- 
 2.34.1
 
