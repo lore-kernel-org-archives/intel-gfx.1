@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71398C6FD18
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 18:08:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07BC5C6FD18
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 18:08:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADF7510EA39;
-	Wed, 19 Apr 2023 18:08:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F20D810EA61;
+	Wed, 19 Apr 2023 18:08:33 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DCD410E9C5;
- Wed, 19 Apr 2023 18:08:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF94D10E9C5;
+ Wed, 19 Apr 2023 18:08:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681927711; x=1713463711;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=8Q8FfiWexrK5cfWpYUtssKF+Oo6ewvTk4+BTkVYyrRY=;
- b=enIL9Et77OvscIbKG5zvzhzPPkBQdrbsI23Jwix+zO1j/1bxGOaUXxaS
- StxEVYNTZ3nwzXqAEbi/uk8zKN5B3AYeOWZurdeSRVkAtSbemqzo56q14
- GtrPVFXFwN7FMh8wWwBjXQl3uqB8sTEQFDlAG4yiT6cRmLvulU9l91bmZ
- 4lIhIXMdH14lxmhvpLDfpG7FpUpv07CRJAXn6/BRA60wiXG4BVCzX7CIR
- g2a4Qznw0c8gbSe616XNwf2g6b1dBnO0XwhshZjANz9o5Jr7lRyMhwn09
- 78uJPcVRWxZtsT9jmq1//rLoGL0KjibPBMb5UvRzxONeDkqGzooCtQpoP w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="329695023"
-X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="329695023"
+ t=1681927710; x=1713463710;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=yzg/oUhOE24mJS1fkD62E3U3xqjEbJa1t9+3RRQlkpA=;
+ b=IeBwMOYP3JkClfJxP8iQpHpInS7nMLewD6BI6iBAFLSv0pPmWX8mWV09
+ 1R19Txl2L2rrjBQRgXZyADrKYjxTfGYY5MfYeWXyHPp7N7t60gEt66Ydl
+ qrOaMKVWJcdC9YeSqgo/Axow6F5on84kJ1scrI2RJdydy5JlEhmSVnZPt
+ G7+fykg7M1RFU1YiTphv51XwAkTKMV0qPvtL/6nwti2ZwJsQwvzrdRhpQ
+ 3eOs07h6TLSSpr37ldMPVYEkrKLKqI3sKMqH8VGDHvG4dfe4/mqfSW9AQ
+ QNRWsIlITXU6denA/YNiVgODNzBw1MEEjaz1zBmsrs8rzxfEc/BlQVsXD g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="329695021"
+X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="329695021"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Apr 2023 11:08:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="724139428"
-X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="724139428"
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="724139423"
+X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="724139423"
 Received: from fyang16-desk.jf.intel.com ([10.24.96.243])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Apr 2023 11:08:29 -0700
 From: fei.yang@intel.com
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 19 Apr 2023 11:09:36 -0700
-Message-Id: <20230419180942.2494156-3-fei.yang@intel.com>
+Date: Wed, 19 Apr 2023 11:09:34 -0700
+Message-Id: <20230419180942.2494156-1-fei.yang@intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230419180942.2494156-1-fei.yang@intel.com>
-References: <20230419180942.2494156-1-fei.yang@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/8] drm/i915/mtl: Define MOCS and PAT tables
+Subject: [Intel-gfx] [PATCH 0/8] drm/i915/mtl: Define MOCS and PAT tables
  for MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -58,304 +56,84 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>,
- Madhumitha Tolakanahalli Pradeep <madhumitha.tolakanahalli.pradeep@intel.com>,
- dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Madhumitha Tolakanahalli Pradeep <madhumitha.tolakanahalli.pradeep@intel.com>
+From: Fei Yang <fei.yang@intel.com>
 
-On MTL, GT can no longer allocate on LLC - only the CPU can.
-This, along with addition of support for L4 cache calls for
-a MOCS/PAT table update.
-Also the PAT index registers are multicasted for primary GT,
-and there is an address jump from index 7 to 8. This patch
-makes sure that these registers are programmed in the proper
-way.
+The series includes patches needed to enable MTL.
+Also add new extension for GEM_CREATE uAPI to let
+user space set cache policy for buffer objects.
 
-BSpec: 44509, 45101, 44235
+v2: addressing review comments and checkpatch warnings
 
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Signed-off-by: Madhumitha Tolakanahalli Pradeep <madhumitha.tolakanahalli.pradeep@intel.com>
-Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
-Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
-Signed-off-by: Fei Yang <fei.yang@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_gt_regs.h |  6 +-
- drivers/gpu/drm/i915/gt/intel_gtt.c     | 47 ++++++++++++++-
- drivers/gpu/drm/i915/gt/intel_gtt.h     | 20 ++++++-
- drivers/gpu/drm/i915/gt/intel_mocs.c    | 76 +++++++++++++++++++++++--
- drivers/gpu/drm/i915/gt/selftest_mocs.c |  2 +-
- 5 files changed, 143 insertions(+), 8 deletions(-)
+Fei Yang (7):
+  drm/i915/mtl: Set has_llc=0
+  drm/i915/mtl: Add PTE encode function
+  drm/i915/mtl: workaround coherency issue for Media
+  drm/i915/mtl: end support for set caching ioctl
+  drm/i915: preparation for using PAT index
+  drm/i915: use pat_index instead of cache_level
+  drm/i915: Allow user to set cache at BO creation
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index fd1f9cd35e9d..e8c3b762a92a 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -356,7 +356,11 @@
- #define GEN7_TLB_RD_ADDR			_MMIO(0x4700)
- 
- #define GEN12_PAT_INDEX(index)			_MMIO(0x4800 + (index) * 4)
--#define XEHP_PAT_INDEX(index)			MCR_REG(0x4800 + (index) * 4)
-+#define _PAT_INDEX(index)			_PICK_EVEN_2RANGES(index, 8, \
-+								   0x4800, 0x4804, \
-+								   0x4848, 0x484c)
-+#define XEHP_PAT_INDEX(index)			MCR_REG(_PAT_INDEX(index))
-+#define XELPMP_PAT_INDEX(index)			_MMIO(_PAT_INDEX(index))
- 
- #define XEHP_TILE0_ADDR_RANGE			MCR_REG(0x4900)
- #define   XEHP_TILE_LMEM_RANGE_SHIFT		8
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
-index 4f436ba7a3c8..2f6a9be0ffe6 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
-@@ -468,6 +468,44 @@ void gtt_write_workarounds(struct intel_gt *gt)
- 	}
- }
- 
-+static void xelpmp_setup_private_ppat(struct intel_uncore *uncore)
-+{
-+	intel_uncore_write(uncore, XELPMP_PAT_INDEX(0),
-+			   MTL_PPAT_L4_0_WB);
-+	intel_uncore_write(uncore, XELPMP_PAT_INDEX(1),
-+			   MTL_PPAT_L4_1_WT);
-+	intel_uncore_write(uncore, XELPMP_PAT_INDEX(2),
-+			   MTL_PPAT_L4_3_UC);
-+	intel_uncore_write(uncore, XELPMP_PAT_INDEX(3),
-+			   MTL_PPAT_L4_0_WB | MTL_2_COH_1W);
-+	intel_uncore_write(uncore, XELPMP_PAT_INDEX(4),
-+			   MTL_PPAT_L4_0_WB | MTL_3_COH_2W);
-+
-+	/*
-+	 * Remaining PAT entries are left at the hardware-default
-+	 * fully-cached setting
-+	 */
-+}
-+
-+static void xelpg_setup_private_ppat(struct intel_gt *gt)
-+{
-+	intel_gt_mcr_multicast_write(gt, XEHP_PAT_INDEX(0),
-+				     MTL_PPAT_L4_0_WB);
-+	intel_gt_mcr_multicast_write(gt, XEHP_PAT_INDEX(1),
-+				     MTL_PPAT_L4_1_WT);
-+	intel_gt_mcr_multicast_write(gt, XEHP_PAT_INDEX(2),
-+				     MTL_PPAT_L4_3_UC);
-+	intel_gt_mcr_multicast_write(gt, XEHP_PAT_INDEX(3),
-+				     MTL_PPAT_L4_0_WB | MTL_2_COH_1W);
-+	intel_gt_mcr_multicast_write(gt, XEHP_PAT_INDEX(4),
-+				     MTL_PPAT_L4_0_WB | MTL_3_COH_2W);
-+
-+	/*
-+	 * Remaining PAT entries are left at the hardware-default
-+	 * fully-cached setting
-+	 */
-+}
-+
- static void tgl_setup_private_ppat(struct intel_uncore *uncore)
- {
- 	/* TGL doesn't support LLC or AGE settings */
-@@ -603,7 +641,14 @@ void setup_private_pat(struct intel_gt *gt)
- 
- 	GEM_BUG_ON(GRAPHICS_VER(i915) < 8);
- 
--	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50))
-+	if (gt->type == GT_MEDIA) {
-+		xelpmp_setup_private_ppat(gt->uncore);
-+		return;
-+	}
-+
-+	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70))
-+		xelpg_setup_private_ppat(gt);
-+	else if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50))
- 		xehp_setup_private_ppat(gt);
- 	else if (GRAPHICS_VER(i915) >= 12)
- 		tgl_setup_private_ppat(uncore);
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index 69ce55f517f5..854ec09fd588 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -88,9 +88,18 @@ typedef u64 gen8_pte_t;
- #define BYT_PTE_SNOOPED_BY_CPU_CACHES	REG_BIT(2)
- #define BYT_PTE_WRITEABLE		REG_BIT(1)
- 
-+#define MTL_PPGTT_PTE_PAT3	BIT_ULL(62)
- #define GEN12_PPGTT_PTE_LM	BIT_ULL(11)
-+#define GEN12_PPGTT_PTE_PAT2	BIT_ULL(7)
-+#define GEN12_PPGTT_PTE_NC	BIT_ULL(5)
-+#define GEN12_PPGTT_PTE_PAT1	BIT_ULL(4)
-+#define GEN12_PPGTT_PTE_PAT0	BIT_ULL(3)
- 
--#define GEN12_GGTT_PTE_LM	BIT_ULL(1)
-+#define GEN12_GGTT_PTE_LM		BIT_ULL(1)
-+#define MTL_GGTT_PTE_PAT0		BIT_ULL(52)
-+#define MTL_GGTT_PTE_PAT1		BIT_ULL(53)
-+#define GEN12_GGTT_PTE_ADDR_MASK	GENMASK_ULL(45, 12)
-+#define MTL_GGTT_PTE_PAT_MASK		GENMASK_ULL(53, 52)
- 
- #define GEN12_PDE_64K BIT(6)
- #define GEN12_PTE_PS64 BIT(8)
-@@ -147,6 +156,15 @@ typedef u64 gen8_pte_t;
- #define GEN8_PDE_IPS_64K BIT(11)
- #define GEN8_PDE_PS_2M   BIT(7)
- 
-+#define MTL_PPAT_L4_CACHE_POLICY_MASK	REG_GENMASK(3, 2)
-+#define MTL_PAT_INDEX_COH_MODE_MASK	REG_GENMASK(1, 0)
-+#define MTL_PPAT_L4_3_UC	REG_FIELD_PREP(MTL_PPAT_L4_CACHE_POLICY_MASK, 3)
-+#define MTL_PPAT_L4_1_WT	REG_FIELD_PREP(MTL_PPAT_L4_CACHE_POLICY_MASK, 1)
-+#define MTL_PPAT_L4_0_WB	REG_FIELD_PREP(MTL_PPAT_L4_CACHE_POLICY_MASK, 0)
-+#define MTL_3_COH_2W	REG_FIELD_PREP(MTL_PAT_INDEX_COH_MODE_MASK, 3)
-+#define MTL_2_COH_1W	REG_FIELD_PREP(MTL_PAT_INDEX_COH_MODE_MASK, 2)
-+#define MTL_0_COH_NON	REG_FIELD_PREP(MTL_PAT_INDEX_COH_MODE_MASK, 0)
-+
- enum i915_cache_level;
- 
- struct drm_i915_gem_object;
-diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
-index 69b489e8dfed..89570f137b2c 100644
---- a/drivers/gpu/drm/i915/gt/intel_mocs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
-@@ -40,6 +40,10 @@ struct drm_i915_mocs_table {
- #define LE_COS(value)		((value) << 15)
- #define LE_SSE(value)		((value) << 17)
- 
-+/* Defines for the tables (GLOB_MOCS_0 - GLOB_MOCS_16) */
-+#define _L4_CACHEABILITY(value)	((value) << 2)
-+#define IG_PAT(value)		((value) << 8)
-+
- /* Defines for the tables (LNCFMOCS0 - LNCFMOCS31) - two entries per word */
- #define L3_ESC(value)		((value) << 0)
- #define L3_SCC(value)		((value) << 1)
-@@ -50,6 +54,7 @@ struct drm_i915_mocs_table {
- /* Helper defines */
- #define GEN9_NUM_MOCS_ENTRIES	64  /* 63-64 are reserved, but configured. */
- #define PVC_NUM_MOCS_ENTRIES	3
-+#define MTL_NUM_MOCS_ENTRIES	16
- 
- /* (e)LLC caching options */
- /*
-@@ -73,6 +78,12 @@ struct drm_i915_mocs_table {
- #define L3_2_RESERVED		_L3_CACHEABILITY(2)
- #define L3_3_WB			_L3_CACHEABILITY(3)
- 
-+/* L4 caching options */
-+#define L4_0_WB			_L4_CACHEABILITY(0)
-+#define L4_1_WT			_L4_CACHEABILITY(1)
-+#define L4_2_RESERVED		_L4_CACHEABILITY(2)
-+#define L4_3_UC			_L4_CACHEABILITY(3)
-+
- #define MOCS_ENTRY(__idx, __control_value, __l3cc_value) \
- 	[__idx] = { \
- 		.control_value = __control_value, \
-@@ -416,6 +427,57 @@ static const struct drm_i915_mocs_entry pvc_mocs_table[] = {
- 	MOCS_ENTRY(2, 0, L3_3_WB),
- };
- 
-+static const struct drm_i915_mocs_entry mtl_mocs_table[] = {
-+	/* Error - Reserved for Non-Use */
-+	MOCS_ENTRY(0,
-+		   IG_PAT(0),
-+		   L3_LKUP(1) | L3_3_WB),
-+	/* Cached - L3 + L4 */
-+	MOCS_ENTRY(1,
-+		   IG_PAT(1),
-+		   L3_LKUP(1) | L3_3_WB),
-+	/* L4 - GO:L3 */
-+	MOCS_ENTRY(2,
-+		   IG_PAT(1),
-+		   L3_LKUP(1) | L3_1_UC),
-+	/* Uncached - GO:L3 */
-+	MOCS_ENTRY(3,
-+		   IG_PAT(1) | L4_3_UC,
-+		   L3_LKUP(1) | L3_1_UC),
-+	/* L4 - GO:Mem */
-+	MOCS_ENTRY(4,
-+		   IG_PAT(1),
-+		   L3_LKUP(1) | L3_GLBGO(1) | L3_1_UC),
-+	/* Uncached - GO:Mem */
-+	MOCS_ENTRY(5,
-+		   IG_PAT(1) | L4_3_UC,
-+		   L3_LKUP(1) | L3_GLBGO(1) | L3_1_UC),
-+	/* L4 - L3:NoLKUP; GO:L3 */
-+	MOCS_ENTRY(6,
-+		   IG_PAT(1),
-+		   L3_1_UC),
-+	/* Uncached - L3:NoLKUP; GO:L3 */
-+	MOCS_ENTRY(7,
-+		   IG_PAT(1) | L4_3_UC,
-+		   L3_1_UC),
-+	/* L4 - L3:NoLKUP; GO:Mem */
-+	MOCS_ENTRY(8,
-+		   IG_PAT(1),
-+		   L3_GLBGO(1) | L3_1_UC),
-+	/* Uncached - L3:NoLKUP; GO:Mem */
-+	MOCS_ENTRY(9,
-+		   IG_PAT(1) | L4_3_UC,
-+		   L3_GLBGO(1) | L3_1_UC),
-+	/* Display - L3; L4:WT */
-+	MOCS_ENTRY(14,
-+		   IG_PAT(1) | L4_1_WT,
-+		   L3_LKUP(1) | L3_3_WB),
-+	/* CCS - Non-Displayable */
-+	MOCS_ENTRY(15,
-+		   IG_PAT(1),
-+		   L3_GLBGO(1) | L3_1_UC),
-+};
-+
- enum {
- 	HAS_GLOBAL_MOCS = BIT(0),
- 	HAS_ENGINE_MOCS = BIT(1),
-@@ -445,7 +507,13 @@ static unsigned int get_mocs_settings(const struct drm_i915_private *i915,
- 	memset(table, 0, sizeof(struct drm_i915_mocs_table));
- 
- 	table->unused_entries_index = I915_MOCS_PTE;
--	if (IS_PONTEVECCHIO(i915)) {
-+	if (IS_METEORLAKE(i915)) {
-+		table->size = ARRAY_SIZE(mtl_mocs_table);
-+		table->table = mtl_mocs_table;
-+		table->n_entries = MTL_NUM_MOCS_ENTRIES;
-+		table->uc_index = 9;
-+		table->unused_entries_index = 1;
-+	} else if (IS_PONTEVECCHIO(i915)) {
- 		table->size = ARRAY_SIZE(pvc_mocs_table);
- 		table->table = pvc_mocs_table;
- 		table->n_entries = PVC_NUM_MOCS_ENTRIES;
-@@ -646,9 +714,9 @@ void intel_mocs_init_engine(struct intel_engine_cs *engine)
- 		init_l3cc_table(engine->gt, &table);
- }
- 
--static u32 global_mocs_offset(void)
-+static u32 global_mocs_offset(struct intel_gt *gt)
- {
--	return i915_mmio_reg_offset(GEN12_GLOBAL_MOCS(0));
-+	return i915_mmio_reg_offset(GEN12_GLOBAL_MOCS(0)) + gt->uncore->gsi_offset;
- }
- 
- void intel_set_mocs_index(struct intel_gt *gt)
-@@ -671,7 +739,7 @@ void intel_mocs_init(struct intel_gt *gt)
- 	 */
- 	flags = get_mocs_settings(gt->i915, &table);
- 	if (flags & HAS_GLOBAL_MOCS)
--		__init_mocs_table(gt->uncore, &table, global_mocs_offset());
-+		__init_mocs_table(gt->uncore, &table, global_mocs_offset(gt));
- 
- 	/*
- 	 * Initialize the L3CC table as part of mocs initalization to make
-diff --git a/drivers/gpu/drm/i915/gt/selftest_mocs.c b/drivers/gpu/drm/i915/gt/selftest_mocs.c
-index ca009a6a13bd..730796346514 100644
---- a/drivers/gpu/drm/i915/gt/selftest_mocs.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_mocs.c
-@@ -137,7 +137,7 @@ static int read_mocs_table(struct i915_request *rq,
- 		return 0;
- 
- 	if (HAS_GLOBAL_MOCS_REGISTERS(rq->engine->i915))
--		addr = global_mocs_offset();
-+		addr = global_mocs_offset(rq->engine->gt);
- 	else
- 		addr = mocs_offset(rq->engine);
- 
+Madhumitha Tolakanahalli Pradeep (1):
+  drm/i915/mtl: Define MOCS and PAT tables for MTL
+
+ drivers/gpu/drm/i915/display/intel_dpt.c      | 14 ++--
+ drivers/gpu/drm/i915/gem/i915_gem_create.c    | 36 ++++++++
+ drivers/gpu/drm/i915/gem/i915_gem_domain.c    | 30 +++----
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 10 ++-
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c      |  3 +-
+ drivers/gpu/drm/i915/gem/i915_gem_object.c    | 67 ++++++++++++++-
+ drivers/gpu/drm/i915/gem/i915_gem_object.h    |  8 ++
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  | 26 +++++-
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c     |  5 +-
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c     |  9 +-
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |  2 -
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c    |  4 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  | 16 ++--
+ .../gpu/drm/i915/gem/selftests/huge_pages.c   |  2 +-
+ .../drm/i915/gem/selftests/i915_gem_migrate.c |  2 +-
+ .../drm/i915/gem/selftests/i915_gem_mman.c    |  2 +-
+ drivers/gpu/drm/i915/gt/gen6_ppgtt.c          | 10 ++-
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c          | 76 ++++++++++++-----
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.h          |  6 +-
+ drivers/gpu/drm/i915/gt/intel_ggtt.c          | 84 +++++++++++++------
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h       |  6 +-
+ drivers/gpu/drm/i915/gt/intel_gtt.c           | 47 ++++++++++-
+ drivers/gpu/drm/i915/gt/intel_gtt.h           | 38 ++++++---
+ drivers/gpu/drm/i915/gt/intel_migrate.c       | 47 ++++++-----
+ drivers/gpu/drm/i915/gt/intel_migrate.h       | 13 ++-
+ drivers/gpu/drm/i915/gt/intel_mocs.c          | 76 ++++++++++++++++-
+ drivers/gpu/drm/i915/gt/intel_ppgtt.c         |  6 +-
+ drivers/gpu/drm/i915/gt/selftest_migrate.c    | 47 ++++++-----
+ drivers/gpu/drm/i915/gt/selftest_mocs.c       |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_reset.c      |  8 +-
+ drivers/gpu/drm/i915/gt/selftest_timeline.c   |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_tlb.c        |  4 +-
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c     | 13 +++
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c        |  7 ++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |  6 ++
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c      | 10 ++-
+ drivers/gpu/drm/i915/i915_debugfs.c           | 55 +++++++++---
+ drivers/gpu/drm/i915/i915_gem.c               | 16 +++-
+ drivers/gpu/drm/i915/i915_gpu_error.c         |  8 +-
+ drivers/gpu/drm/i915/i915_pci.c               | 76 +++++++++++++++--
+ drivers/gpu/drm/i915/i915_vma.c               | 16 ++--
+ drivers/gpu/drm/i915/i915_vma.h               |  2 +-
+ drivers/gpu/drm/i915/i915_vma_types.h         |  2 -
+ drivers/gpu/drm/i915/intel_device_info.h      |  5 ++
+ drivers/gpu/drm/i915/selftests/i915_gem.c     |  5 +-
+ .../gpu/drm/i915/selftests/i915_gem_evict.c   |  4 +-
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 15 ++--
+ .../drm/i915/selftests/intel_memory_region.c  |  4 +-
+ .../gpu/drm/i915/selftests/mock_gem_device.c  |  9 ++
+ drivers/gpu/drm/i915/selftests/mock_gtt.c     |  8 +-
+ include/uapi/drm/i915_drm.h                   | 36 ++++++++
+ tools/include/uapi/drm/i915_drm.h             | 36 ++++++++
+ 52 files changed, 815 insertions(+), 226 deletions(-)
+
 -- 
 2.25.1
 
