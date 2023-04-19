@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69E5BC77B7E
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 22:17:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B000C77B75
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 22:17:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BB7C10EB36;
-	Wed, 19 Apr 2023 22:17:37 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 699A110EB34;
- Wed, 19 Apr 2023 22:17:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D42EF10EB3A;
+	Wed, 19 Apr 2023 22:17:42 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BB0A10EB37;
+ Wed, 19 Apr 2023 22:17:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681942654; x=1713478654;
+ t=1681942657; x=1713478657;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=h8vHE+xYlguKJ694HM63t+5X3e6sqvRohqToAGfcB1E=;
- b=eyXM4GrqXFjgSpSGazupbKb7KBxMTnMjU6qskcvm0Z4KlV9SDSO7S/4Z
- 8Ry6NGqu0n+KMximTpAGe53binWrqVc28yWKEiRpqV7gtR/gQUEdOnTdr
- 8rAtZV2u6njq7JE9splyKoJ55DiUrvj/4G4+hR0LEyFSIS9wqBwVXa4tX
- 4CntQv4zAtImbHVl4wQz9XFFrJgZ4X3JROK+6ZgUMPsQFXZS0OxquNtdf
- Wed3ZRXsW5akHC88TjWAJ6qLIp7f4zsHFUaQyHGHQ2eHMyW7hM0XHju2J
- K/3gEtcAwGOtS4xVpBWD5fPqkX/pIjaQC432K85SRnQnguJLGLYeP99np g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="325906383"
-X-IronPort-AV: E=Sophos;i="5.99,210,1677571200"; d="scan'208";a="325906383"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2023 15:12:42 -0700
+ bh=J1XMdyG2DLWGqRoD2xDrifRAoJo/+VhzemFsMDP7NIQ=;
+ b=aM9+IPNhXJDEmyE279uVw7orhifmbuEsqN4OXPeMZrXlQc1kPjLLW24K
+ MvB77REULrgOK77TPakX/ojOGUOmDwUFI28dHU8WCZqn1B50typ4hTZ35
+ RQThgisUbjFmnSCtPJamEl+zOB8kMnY1kWBKZDv9rS3EiT0LJhcbYlY4R
+ aa9TMUceqnNxiBE4l2c8vRGeSUlRMT+uesNK8MOa56JNuIKnh4KhDqA/P
+ 4iQGa3Jw73xhN+pzDb86kWGb966ojuSmJKzKWol56oZYHoZ0UsmLmWyJm
+ Yd5tDRReYuylfBrksywfPZbe9QOZ8jkaXWo6M4WnJujDJSgYiSyIWSI91 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="343054860"
+X-IronPort-AV: E=Sophos;i="5.99,210,1677571200"; d="scan'208";a="343054860"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2023 15:14:23 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="780997441"
-X-IronPort-AV: E=Sophos;i="5.99,210,1677571200"; d="scan'208";a="780997441"
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="694237640"
+X-IronPort-AV: E=Sophos;i="5.99,210,1677571200"; d="scan'208";a="694237640"
 Received: from mmzakhar-mobl2.ccr.corp.intel.com (HELO intel.com)
  ([10.251.213.234])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2023 15:12:40 -0700
-Date: Thu, 20 Apr 2023 00:12:36 +0200
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2023 15:14:21 -0700
+Date: Thu, 20 Apr 2023 00:14:18 +0200
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: fei.yang@intel.com
-Message-ID: <ZEBnVKi4ikadUt+f@ashyti-mobl2.lan>
+Message-ID: <ZEBnujNRkCmEz2nn@ashyti-mobl2.lan>
 References: <20230419211219.2574008-1-fei.yang@intel.com>
- <20230419211219.2574008-7-fei.yang@intel.com>
+ <20230419211219.2574008-9-fei.yang@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230419211219.2574008-7-fei.yang@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 6/8] drm/i915: preparation for using PAT
- index
+In-Reply-To: <20230419211219.2574008-9-fei.yang@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 8/8] drm/i915: Allow user to set cache at BO
+ creation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,35 +67,32 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Hi Fei,
 
-On Wed, Apr 19, 2023 at 02:12:17PM -0700, fei.yang@intel.com wrote:
+On Wed, Apr 19, 2023 at 02:12:19PM -0700, fei.yang@intel.com wrote:
 > From: Fei Yang <fei.yang@intel.com>
 > 
-> This patch is a preparation for replacing enum i915_cache_level with PAT
-> index. Caching policy for buffer objects is set through the PAT index in
-> PTE, the old i915_cache_level is not sufficient to represent all caching
-> modes supported by the hardware.
-> 
-> Preparing the transition by adding some platform dependent data structures
-> and helper functions to translate the cache_level to pat_index.
-> 
-> cachelevel_to_pat: a platform dependent array mapping cache_level to
->                    pat_index.
-> 
-> max_pat_index: the maximum PAT index supported by the hardware. Needed for
->                validating the PAT index passed in from user space.
-> 
-> i915_gem_get_pat_index: function to convert cache_level to PAT index.
-> 
-> obj_to_i915(obj): macro moved to header file for wider usage.
-> 
-> I915_MAX_CACHE_LEVEL: upper bound of i915_cache_level for the
->                       convenience of coding.
+> To comply with the design that buffer objects shall have immutable
+> cache setting through out their life cycle, {set, get}_caching ioctl's
+> are no longer supported from MTL onward. With that change caching
+> policy can only be set at object creation time. The current code
+> applies a default (platform dependent) cache setting for all objects.
+> However this is not optimal for performance tuning. The patch extends
+> the existing gem_create uAPI to let user set PAT index for the object
+> at creation time.
+> The new extension is platform independent, so UMD's can switch to using
+> this extension for older platforms as well, while {set, get}_caching are
+> still supported on these legacy paltforms for compatibility reason.
 > 
 > Cc: Chris Wilson <chris.p.wilson@linux.intel.com>
 > Cc: Matt Roper <matthew.d.roper@intel.com>
 > Cc: Andi Shyti <andi.shyti@linux.intel.com>
 > Signed-off-by: Fei Yang <fei.yang@intel.com>
 
+That's the last one... I think you addressed all the comments!
+Please add the r-b's I updated if you are going to send another
+version, if not (and I hope so) they should be added by
+patchwork.
+
 Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com> 
 
+Thanks,
 Andi
