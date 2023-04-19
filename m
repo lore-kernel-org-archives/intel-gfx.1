@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA7B6C77B75
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 22:18:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F36F6C77B75
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 22:21:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5244A10E209;
-	Wed, 19 Apr 2023 22:18:58 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E73410E209;
- Wed, 19 Apr 2023 22:18:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F39310EB35;
+	Wed, 19 Apr 2023 22:21:14 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71B6810EB35;
+ Wed, 19 Apr 2023 22:21:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681942737; x=1713478737;
+ t=1681942873; x=1713478873;
  h=date:message-id:from:to:cc:subject:in-reply-to:
  references:mime-version;
- bh=dgtZoPSehg0rGKYSmzf/Nz8EKN5hbsq5xniElu8LJBE=;
- b=Ys7rWV/ABrSApbchzd5bdSt7REMC0AXIHbmi3lmM9Roxmf0sU6JNTfs6
- kti3xInM5cYSijiixCWM8UGh5igLZ86HddSTqOARpICqWAizLK1Rk1wnn
- 1ntkoPLla6iUmy3hIeYvA8KkJI084gL2teiuf3U4oSykImuoXaiw5TJbb
- 2WlyXSpYJLLwdOUEyYELY9xPgyTU/oZeeubUb3wFGKuLdjAMwOP7kxufj
- 2nuMoVS/AipQENIphy/OaJqSgME+LLp4AysmpGEgRnFqtu6b4wDinWKqY
- cnKXCrWfch84LvG/jGBSRvsmKhmcnEZ/Ome5vSNAyUTGei8Z2OcCX6oMy Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="325906981"
-X-IronPort-AV: E=Sophos;i="5.99,210,1677571200"; d="scan'208";a="325906981"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2023 15:15:37 -0700
+ bh=buMwFar6DBSCFcecVt24FQeGIxN+Lnq3y+L8VvSJVbs=;
+ b=IDtwqUFARcAXNtdrXBQd7/Um+JqBWIhHPLLcNb6TyVlh0awrDlKSis5u
+ XT7XCP7x5B29C7frtqjiiyiaRPtwVDTmk+6Ttp3dE5+GCW4n9w1e2+7dZ
+ OtsrJhlidED9kl8r23U8hVS9+/ou7Az4E4094u6UpFAXy67iDvUQC+MRI
+ Y9BHitddHxcK+1FiJXoXmwU7l9OPMwdv8NFt1amqxMH3FafKeIZI8jv+e
+ qVgQ+fPZKTpiJBXlHo0/J/wV39Yg01Oe5mHzt180RLmc0N5d0Y5NhTCZT
+ +DVtBumO6g17gqjQ3sS5jNkBrFNHhSrKlm5ShcXLNjKdCaKTjND+m1XQY A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="408487648"
+X-IronPort-AV: E=Sophos;i="5.99,210,1677571200"; d="scan'208";a="408487648"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2023 15:21:12 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="756253843"
-X-IronPort-AV: E=Sophos;i="5.99,210,1677571200"; d="scan'208";a="756253843"
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="722118363"
+X-IronPort-AV: E=Sophos;i="5.99,210,1677571200"; d="scan'208";a="722118363"
 Received: from adixit-mobl.amr.corp.intel.com (HELO adixit-arch.intel.com)
  ([10.251.7.25])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2023 15:15:36 -0700
-Date: Wed, 19 Apr 2023 15:10:44 -0700
-Message-ID: <871qkfo74r.wl-ashutosh.dixit@intel.com>
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2023 15:21:12 -0700
+Date: Wed, 19 Apr 2023 15:13:08 -0700
+Message-ID: <87zg73msgb.wl-ashutosh.dixit@intel.com>
 From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-In-Reply-To: <340d7a5f-0b38-3c40-77b8-ab825a7b5fef@linux.intel.com>
-References: <20230410223509.3593109-1-ashutosh.dixit@intel.com>	<20230410223509.3593109-4-ashutosh.dixit@intel.com>	<340d7a5f-0b38-3c40-77b8-ab825a7b5fef@linux.intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+In-Reply-To: <ZEBDvKq0vEx/Ow5Z@intel.com>
+References: <20230410223509.3593109-1-ashutosh.dixit@intel.com>	<20230410223509.3593109-4-ashutosh.dixit@intel.com>	<ZD4sPiMDhhr1wO8+@intel.com>	<874jpdje8p.wl-ashutosh.dixit@intel.com>	<ZEBDvKq0vEx/Ow5Z@intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
  FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
  Emacs/28.2 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -61,127 +61,196 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 19 Apr 2023 06:21:27 -0700, Tvrtko Ursulin wrote:
+On Wed, 19 Apr 2023 12:40:44 -0700, Rodrigo Vivi wrote:
 >
 
-Hi Tvrtko,
+Hi Rodrigo,
 
-> On 10/04/2023 23:35, Ashutosh Dixit wrote:
-> > Instead of erroring out when GuC reset is in progress, block waiting for
-> > GuC reset to complete which is a more reasonable uapi behavior.
+> On Tue, Apr 18, 2023 at 10:23:50AM -0700, Dixit, Ashutosh wrote:
+> > On Mon, 17 Apr 2023 22:35:58 -0700, Rodrigo Vivi wrote:
+> > >
 > >
-> > v2: Avoid race between wake_up_all and waiting for wakeup (Rodrigo)
+> > Hi Rodrigo,
 > >
-> > Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
-> > ---
-> >   drivers/gpu/drm/i915/i915_hwmon.c | 38 +++++++++++++++++++++++++++----
-> >   1 file changed, 33 insertions(+), 5 deletions(-)
+> > > On Mon, Apr 10, 2023 at 03:35:09PM -0700, Ashutosh Dixit wrote:
+> > > > Instead of erroring out when GuC reset is in progress, block waiting for
+> > > > GuC reset to complete which is a more reasonable uapi behavior.
+> > > >
+> > > > v2: Avoid race between wake_up_all and waiting for wakeup (Rodrigo)
+> > > >
+> > > > Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+> > > > ---
+> > > >  drivers/gpu/drm/i915/i915_hwmon.c | 38 +++++++++++++++++++++++++++----
+> > > >  1 file changed, 33 insertions(+), 5 deletions(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/i915/i915_hwmon.c b/drivers/gpu/drm/i915/i915_hwmon.c
+> > > > index 9ab8971679fe3..8471a667dfc71 100644
+> > > > --- a/drivers/gpu/drm/i915/i915_hwmon.c
+> > > > +++ b/drivers/gpu/drm/i915/i915_hwmon.c
+> > > > @@ -51,6 +51,7 @@ struct hwm_drvdata {
+> > > >	char name[12];
+> > > >	int gt_n;
+> > > >	bool reset_in_progress;
+> > > > +	wait_queue_head_t waitq;
+> > > >  };
+> > > >
+> > > >  struct i915_hwmon {
+> > > > @@ -395,16 +396,41 @@ hwm_power_max_read(struct hwm_drvdata *ddat, long *val)
+> > > >  static int
+> > > >  hwm_power_max_write(struct hwm_drvdata *ddat, long val)
+> > > >  {
+> > > > +#define GUC_RESET_TIMEOUT msecs_to_jiffies(2000)
+> > > > +
+> > > > +	int ret = 0, timeout = GUC_RESET_TIMEOUT;
+> > > >	struct i915_hwmon *hwmon = ddat->hwmon;
+> > > >	intel_wakeref_t wakeref;
+> > > > -	int ret = 0;
+> > > > +	DEFINE_WAIT(wait);
+> > > >	u32 nval;
+> > > >
+> > > > -	mutex_lock(&hwmon->hwmon_lock);
+> > > > -	if (hwmon->ddat.reset_in_progress) {
+> > > > -		ret = -EAGAIN;
+> > > > -		goto unlock;
+> > > > +	/* Block waiting for GuC reset to complete when needed */
+> > > > +	for (;;) {
+> > > > +		mutex_lock(&hwmon->hwmon_lock);
+> > >
+> > > I'm really afraid of how this mutex is handled with the wait queue.
+> > > some initial thought it looks like it is trying to reimplement ww_mutex?
 > >
-> > diff --git a/drivers/gpu/drm/i915/i915_hwmon.c b/drivers/gpu/drm/i915/i915_hwmon.c
-> > index 9ab8971679fe3..8471a667dfc71 100644
-> > --- a/drivers/gpu/drm/i915/i915_hwmon.c
-> > +++ b/drivers/gpu/drm/i915/i915_hwmon.c
-> > @@ -51,6 +51,7 @@ struct hwm_drvdata {
-> >	char name[12];
-> >	int gt_n;
-> >	bool reset_in_progress;
-> > +	wait_queue_head_t waitq;
-> >   };
-> >     struct i915_hwmon {
-> > @@ -395,16 +396,41 @@ hwm_power_max_read(struct hwm_drvdata *ddat, long *val)
-> >   static int
-> >   hwm_power_max_write(struct hwm_drvdata *ddat, long val)
-> >   {
-> > +#define GUC_RESET_TIMEOUT msecs_to_jiffies(2000)
-> > +
-> > +	int ret = 0, timeout = GUC_RESET_TIMEOUT;
+> > Sorry, but I am missing the relation with ww_mutex. No such relation is
+> > intended.
+> >
+> > > all other examples of the wait_queue usages like this or didn't use
+> > > locks or had it in a total different flow that I could not correlate.
+> >
+> > Actually there are several examples of prepare_to_wait/finish_wait
+> > sequences with both spinlock and mutex in the kernel. See
+> > e.g. rpm_suspend(), wait_for_rtrs_disconnection(), softsynthx_read().
+> >
+> > Also, as I mentioned, except for the lock, the sequence here is identical
+> > to intel_guc_wait_for_pending_msg().
+> >
+> > >
+> > > > +
+> > > > +		prepare_to_wait(&ddat->waitq, &wait, TASK_INTERRUPTIBLE);
+> > > > +
+> > > > +		if (!hwmon->ddat.reset_in_progress)
+> > > > +			break;
+> > >
+> > > If this breaks we never unlock it?
+> >
+> > Correct, this is the original case in Patch 2 where the mutex is acquired
+> > in the beginning of the function and released just before the final exit
+> > from the function (so the mutex is held for the entire duration of the
+> > function).
 >
-> Patch looks good to me
+> I got really confused here...
 
-Great, thanks :)
+Sorry, the patch is a little confusing/tricky but I thought I'd better
+stick to the standard 'for (;;)' loop pattern otherwise it will also be
+hard to review.
 
-> apart that I am not sure what is the purpose of the timeout? This is just
-> the sysfs write path or has more callers?
+> I looked at the patch 2 again and I don't see any place where the lock
+> remains outside of the function. What was what I asked to remove on the
+> initial versions.
 
-It is just the sysfs path, but the sysfs is accessed also by the oneAPI
-stack (Level 0). In the initial version I also didn't have the timeout
-thinking that the app can send a signal to the blocked thread to unblock
-it. I introduced the timeout after Rodrigo brought it up and I am now
-thinking maybe it's better to have the timeout in the driver since the app
-has no knowledge of how long GuC resets can take. But I can remove it if
-you think it's not needed.
+So it was in Patch 1 where we changed the code to take the lock in the
+beginning of the function and release it at the end of the function (you
+can see it Patch 1).
 
-> If the
-> former perhaps it would be better to just use interruptible everything
-> (mutex and sleep) and wait for as long as it takes or until user presses
-> Ctrl-C?
+In Patch 2 the 'unlock' label and 'goto unlock' is introduced and the lock
+is released at the 'unlock' label (it is visible in Patch 2).
 
-Now we are not holding the mutexes for long, just long enough do register
-rmw's. So not holding the mutex across GuC reset as we were
-originally. Therefore I am thinking mutex_lock_interruptible is not needed?
-The sleep is already interruptible (TASK_INTERRUPTIBLE).
+> But now with this one I'm even more confused because I couldn't follow
+> to understand who will remove the lock and when.
 
-Anyway please let me know if you think we need to change anything.
+In Patch 3 again the lock is released at the the 'unlock' label (i.e. the
+destination of 'goto unlock', not visible in Patch 3). But we execute 'goto
+unlock' only when 'ret != 0' in the 'for (;;)' loop. But when 'ret == 0'
+(when 'ddat.reset_in_progress' flag is clear) we hold the mutex, execute
+the entire function and finally release the lock at the end of the
+function.
+
+Hopefully this helps.
 
 Thanks.
 --
 Ashutosh
 
-> >	struct i915_hwmon *hwmon = ddat->hwmon;
-> >	intel_wakeref_t wakeref;
-> > -	int ret = 0;
-> > +	DEFINE_WAIT(wait);
-> >	u32 nval;
-> >   -	mutex_lock(&hwmon->hwmon_lock);
-> > -	if (hwmon->ddat.reset_in_progress) {
-> > -		ret = -EAGAIN;
-> > -		goto unlock;
-> > +	/* Block waiting for GuC reset to complete when needed */
-> > +	for (;;) {
-> > +		mutex_lock(&hwmon->hwmon_lock);
-> > +
-> > +		prepare_to_wait(&ddat->waitq, &wait, TASK_INTERRUPTIBLE);
-> > +
-> > +		if (!hwmon->ddat.reset_in_progress)
-> > +			break;
-> > +
-> > +		if (signal_pending(current)) {
-> > +			ret = -EINTR;
-> > +			break;
-> > +		}
-> > +
-> > +		if (!timeout) {
-> > +			ret = -ETIME;
-> > +			break;
-> > +		}
-> > +
-> > +		mutex_unlock(&hwmon->hwmon_lock);
-> > +
-> > +		timeout = schedule_timeout(timeout);
-> >	}
-> > +	finish_wait(&ddat->waitq, &wait);
-> > +	if (ret)
-> > +		goto unlock;
-> > +
-> >	wakeref = intel_runtime_pm_get(ddat->uncore->rpm);
-> >		/* Disable PL1 limit and verify, because the limit cannot be
-> > disabled on all platforms */
-> > @@ -508,6 +534,7 @@ void i915_hwmon_power_max_restore(struct drm_i915_private *i915, bool old)
-> >	intel_uncore_rmw(hwmon->ddat.uncore, hwmon->rg.pkg_rapl_limit,
-> >			 PKG_PWR_LIM_1_EN, old ? PKG_PWR_LIM_1_EN : 0);
-> >	hwmon->ddat.reset_in_progress = false;
-> > +	wake_up_all(&hwmon->ddat.waitq);
-> >		mutex_unlock(&hwmon->hwmon_lock);
-> >   }
-> > @@ -784,6 +811,7 @@ void i915_hwmon_register(struct drm_i915_private *i915)
-> >	ddat->uncore = &i915->uncore;
-> >	snprintf(ddat->name, sizeof(ddat->name), "i915");
-> >	ddat->gt_n = -1;
-> > +	init_waitqueue_head(&ddat->waitq);
-> >		for_each_gt(gt, i915, i) {
-> >		ddat_gt = hwmon->ddat_gt + i;
+>
+> >
+> > >
+> > > > +
+> > > > +		if (signal_pending(current)) {
+> > > > +			ret = -EINTR;
+> > > > +			break;
+> > > > +		}
+> > > > +
+> > > > +		if (!timeout) {
+> > > > +			ret = -ETIME;
+> > > > +			break;
+> > > > +		}
+> > > > +
+> > > > +		mutex_unlock(&hwmon->hwmon_lock);
+> > >
+> > > do we need to lock the signal pending and timeout as well?
+> > > or only wrapping it around the hwmon->ddat access would be
+> > > enough?
+> >
+> > Strictly, the mutex is only needed for the hwmon->ddat.reset_in_progress
+> > flag. But because this is not a performance path, implementing it as done
+> > in the patch simplifies the code flow (since there are several if/else,
+> > goto's, mutex lock/unlock and prepare_to_wait/finish_wait to consider).
+> >
+> > So if possible I *really* want to not try to over-optimize here (I did try
+> > a few other things when writing the patch but it was getting ugly). The
+> > only real requirement is to drop the lock before calling schedule_timeout()
+> > below (and we are reacquiring the lock as soon as we are scheduled back in,
+> > as you can see in the loop above).
+> >
+> > >
+> > > > +
+> > > > +		timeout = schedule_timeout(timeout);
+> > > >	}
+> > > > +	finish_wait(&ddat->waitq, &wait);
+> > > > +	if (ret)
+> > > > +		goto unlock;
+> > > > +
+> > > >	wakeref = intel_runtime_pm_get(ddat->uncore->rpm);
+> > > >
+> > > >	/* Disable PL1 limit and verify, because the limit cannot be disabled on all platforms */
+> > > > @@ -508,6 +534,7 @@ void i915_hwmon_power_max_restore(struct drm_i915_private *i915, bool old)
+> > > >	intel_uncore_rmw(hwmon->ddat.uncore, hwmon->rg.pkg_rapl_limit,
+> > > >			 PKG_PWR_LIM_1_EN, old ? PKG_PWR_LIM_1_EN : 0);
+> > > >	hwmon->ddat.reset_in_progress = false;
+> > > > +	wake_up_all(&hwmon->ddat.waitq);
+> > > >
+> > > >	mutex_unlock(&hwmon->hwmon_lock);
+> > > >  }
+> > > > @@ -784,6 +811,7 @@ void i915_hwmon_register(struct drm_i915_private *i915)
+> > > >	ddat->uncore = &i915->uncore;
+> > > >	snprintf(ddat->name, sizeof(ddat->name), "i915");
+> > > >	ddat->gt_n = -1;
+> > > > +	init_waitqueue_head(&ddat->waitq);
+> > > >
+> > > >	for_each_gt(gt, i915, i) {
+> > > >		ddat_gt = hwmon->ddat_gt + i;
+> > > > --
+> > > > 2.38.0
+> > > >
+> >
+> > From what I understand is the locking above is fine and is not the
+> > point. The real race is between schedule_timeout() (which suspends the
+> > thread) and wake_up_all() (which schedules it back in). But this
+> > prepare_to_wait/finish_wait pattern is so widespread that the kernel
+> > guarantees that this works correctly as long as you do things in the
+> > correct order (otherwise we'd see a lot more kernel hangs/deadlocks).
+> >
+> > Thanks,
+> > Ashutosh
