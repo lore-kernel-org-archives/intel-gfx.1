@@ -4,48 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF1E8C77B7C
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 11:54:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A79B6C6FD18
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 12:17:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21A1910E163;
-	Wed, 19 Apr 2023 11:54:58 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 617C810E163
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 Apr 2023 11:54:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6749710E96B;
+	Wed, 19 Apr 2023 12:16:59 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8F1A10E199;
+ Wed, 19 Apr 2023 12:16:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681905295; x=1713441295;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=MoxGHwW8K9n9TS4MepjukaRozzA0AdjXvHGbcyW1SPA=;
- b=LxUj9P0hDaX0kOGVwPZj4/j/yObTC/6YuaaAIkaddAmFcjZ2LtewjtJ8
- 79NvsBQNzLt/rLr6b9NdDndUyN7br5zMtWswa9hiHfy/RI2FJy6fhZTHm
- CjBsf4O+xqVNUX9x8ZPJ5/HxZB6aWX6MjZOl8oHWS2aFkVAqhZO+bTghV
- XtLdPNjnsehSE+MmNiIEtiI2pC9eQy7OeCFHJq4fhiXpsxthW8hFYx/dn
- tbv2/s8QpcaEJcZaw8T3pCn/kdwTAMUM5Z4FWlluJvA3dxAzFspd922bE
- Br/iVZD7CWPS11LH7uIdMIZbn0ekWUMw8gvuKxHk9HroVqU/Y5ZoJ4Dmi w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="325761178"
-X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="325761178"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2023 04:54:54 -0700
+ t=1681906616; x=1713442616;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=pl0Fj8njTvTodei45z7BipIYoSlOoHUirquGX/RaoQc=;
+ b=B+xVfSX7nxQUe3Yuox5jqFMP1ic0oVtIHFs6KY4G7JerDKjG2HuxihOD
+ J+wXnPaGSTwQy8NBWGyCob4PgbsOWpRBSJFSVradHTbiTfNcA6WkxsQQr
+ se8B+VjIxK3TSSYgKYVrpxn74qkA2erNZ0CefyT3d0iendW/Eeq6BN+Ti
+ txuDAOrGA7UddIzEJc7rFeXOM3ASbm4YFlTXLzTa10En5mRYTgVqISBez
+ w3X07lqp5OBtYs8Ut048rf5xYx6ieqdrw2kfxrEVK/QsXZAkcaAO8kBVt
+ AC5IriKXQvNN2A37uCV9Ji3v+y264QR2eceGDnchrFsXyOE/a5zKGRmyX Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="329607434"
+X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="329607434"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2023 05:16:56 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="865798949"
-X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="865798949"
-Received: from yedidyal-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.47.37])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2023 04:54:52 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 19 Apr 2023 14:54:49 +0300
-Message-Id: <20230419115449.422214-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
+X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="1021188995"
+X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="1021188995"
+Received: from crijnder-mobl.ger.corp.intel.com (HELO intel.com)
+ ([10.249.35.137])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2023 05:16:53 -0700
+Date: Wed, 19 Apr 2023 14:16:49 +0200
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: fei.yang@intel.com
+Message-ID: <ZD/bscB+OUWF+Ln/@ashyti-mobl2.lan>
+References: <20230417062503.1884465-1-fei.yang@intel.com>
+ <20230417062503.1884465-8-fei.yang@intel.com>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/wm: remove stale and unused
- ilk_wm_max_level() declaration
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230417062503.1884465-8-fei.yang@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 7/8] drm/i915: use pat_index instead of
+ cache_level
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,30 +60,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Chris Wilson <chris.p.wilson@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The declaration was removed earlier, but got accidentally resurrected in
-i915xx_wm.[ch] refactoring. Remove harder.
+Hi Fei,
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/i9xx_wm.h | 1 -
- 1 file changed, 1 deletion(-)
+On Sun, Apr 16, 2023 at 11:25:02PM -0700, fei.yang@intel.com wrote:
+> From: Fei Yang <fei.yang@intel.com>
+> 
+> Currently the KMD is using enum i915_cache_level to set caching policy for
+> buffer objects. This is flaky because the PAT index which really controls
+> the caching behavior in PTE has far more levels than what's defined in the
+> enum. In addition, the PAT index is platform dependent, having to translate
+> between i915_cache_level and PAT index is not reliable, and makes the code
+> more complicated.
+> 
+> >From UMD's perspective there is also a necessity to set caching policy for
 
-diff --git a/drivers/gpu/drm/i915/display/i9xx_wm.h b/drivers/gpu/drm/i915/display/i9xx_wm.h
-index a7875cbcd05a..b87ae369685a 100644
---- a/drivers/gpu/drm/i915/display/i9xx_wm.h
-+++ b/drivers/gpu/drm/i915/display/i9xx_wm.h
-@@ -12,7 +12,6 @@ struct drm_i915_private;
- struct intel_crtc_state;
- struct intel_plane_state;
- 
--int ilk_wm_max_level(const struct drm_i915_private *i915);
- bool ilk_disable_lp_wm(struct drm_i915_private *i915);
- void ilk_wm_sanitize(struct drm_i915_private *i915);
- bool intel_set_memory_cxsr(struct drm_i915_private *i915, bool enable);
--- 
-2.39.2
+you have an extra '>' here.
 
+> performance fine tuning. It's much easier for the UMD to directly use PAT
+> index because the behavior of each PAT index is clearly defined in Bspec.
+> Haivng the abstracted i915_cache_level sitting in between would only cause
+
+/Haivng/Having/
+
+> more ambiguity.
+> 
+> For these reasons this patch replaces i915_cache_level with PAT index. Also
+> note, the cache_level is not completely removed yet, because the KMD still
+> has the need of creating buffer objects with simple cache settings such as
+> cached, uncached, or writethrough. For these simple cases, using cache_level
+> would help simplify the code.
+> 
+> Cc: Chris Wilson <chris.p.wilson@linux.intel.com>
+> Cc: Matt Roper <matthew.d.roper@intel.com>
+> Signed-off-by: Fei Yang <fei.yang@intel.com>
+
+fiuuuuu... quite a run this patch! But I did review it once,
+anyway I checked it again, it looks all correct.
+
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com> 
+
+Andi
