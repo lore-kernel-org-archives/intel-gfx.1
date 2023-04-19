@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE3B5C6FD18
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 18:08:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E9DAC6FD18
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 18:08:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6755710EA6A;
-	Wed, 19 Apr 2023 18:08:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF77B10EA73;
+	Wed, 19 Apr 2023 18:08:35 +0000 (UTC)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B51B110EA4D;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D31210EA39;
  Wed, 19 Apr 2023 18:08:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1681927711; x=1713463711;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=BzTAXktiDA3Vcy8Spwptuee23n+AvXz48+tgBh4dA+o=;
- b=iICgTUk0UWgUe2h4SqM322V0OL8B7CRZ2unCigVfwLaRZAiJuSqi0PW7
- zzMp8mEh2Y5gr5WeHHbjMIvuF90MlVK5QT75/Z0e8JiZrR0ngpJ6CMltL
- r67jUGcjQN6iFp9G+M5ex/HArwoUQHaVN9GT7m9/9uwDwWTmBVihGfxVh
- 9jJ8lP2ShkARAL0F+50Rqx5lpWgBZYqBhcTRQJ9jki8VZ5z2Zwwtku6wX
- v2SFf5Wlij6HmwWHIxHBaHWKom4fCdaKy663GAXCSfz2gwX3MDBRKfBtz
- pk7EY0LI31jMO38g4sJJrOyk0oS+h4sJg717L8YR7bbwa08e7FA8Goaag Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="329695025"
-X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="329695025"
+ bh=s4klNEl6ZXgcMz5lvaEb4iG5+b/X216MHmBJ62w7Yas=;
+ b=UtGJWZIRWHB2jCGIrdcisrDpBuBXydp2ocOfxHbFYOo5p/FOckp9S31h
+ h++t2xtKR+A5JjDna6ERkdwr0zxq2vAyQtBxmhwg+aPtprBMkKMkxxHQf
+ oBMX3Lf4uh+Zxy51l4FnGMId3tgS3GgnWv1WHJfbcqrkHUHFU0QuPBN55
+ HeO7zErAYMSEzVYsM/eS45BeC6xL49fveYDChaaQlQs+X/cExvyNV4ssA
+ bfILRrJAsC/DZah0/3BqLdYOcwrYzCeEMP8lRf3G/np/iQdQyc+FG6Kzq
+ VzDmXpS5p1iKZ6IG8bPm9Xl8uka8Yc2STZf0HvDeQNwTX3/360748m+Ld g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="329695022"
+X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="329695022"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2023 11:08:30 -0700
+ 19 Apr 2023 11:08:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="724139437"
-X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="724139437"
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="724139425"
+X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="724139425"
 Received: from fyang16-desk.jf.intel.com ([10.24.96.243])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Apr 2023 11:08:29 -0700
 From: fei.yang@intel.com
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 19 Apr 2023 11:09:39 -0700
-Message-Id: <20230419180942.2494156-6-fei.yang@intel.com>
+Date: Wed, 19 Apr 2023 11:09:35 -0700
+Message-Id: <20230419180942.2494156-2-fei.yang@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230419180942.2494156-1-fei.yang@intel.com>
 References: <20230419180942.2494156-1-fei.yang@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5/8] drm/i915/mtl: end support for set caching
- ioctl
+Subject: [Intel-gfx] [PATCH 1/8] drm/i915/mtl: Set has_llc=0
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,54 +63,25 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Fei Yang <fei.yang@intel.com>
 
-The design is to keep Buffer Object's caching policy immutable through
-out its life cycle. This patch ends the support for set caching ioctl
-from MTL onward. While doing that we also set BO's to be 1-way coherent
-at creation time because GPU is no longer automatically snooping CPU
-cache. For UMD's need to fine tune the caching policy for BO's, a follow
-up patch will extend the GEM_CREATE uAPI to allow UMD's specify caching
-mode at BO creation time.
+On MTL, LLC is not shared between GT and CPU, set has_llc=0.
 
 Signed-off-by: Fei Yang <fei.yang@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_domain.c | 3 +++
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c  | 9 ++++++++-
- 2 files changed, 11 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_pci.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_domain.c b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-index d2d5a24301b2..bb3575b1479f 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_domain.c
-@@ -337,6 +337,9 @@ int i915_gem_set_caching_ioctl(struct drm_device *dev, void *data,
- 	if (IS_DGFX(i915))
- 		return -ENODEV;
- 
-+	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70))
-+		return -EOPNOTSUPP;
-+
- 	switch (args->caching) {
- 	case I915_CACHING_NONE:
- 		level = I915_CACHE_NONE;
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index 37d1efcd3ca6..cad4a6017f4b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -601,7 +601,14 @@ static int shmem_object_init(struct intel_memory_region *mem,
- 	obj->write_domain = I915_GEM_DOMAIN_CPU;
- 	obj->read_domains = I915_GEM_DOMAIN_CPU;
- 
--	if (HAS_LLC(i915))
-+	/*
-+	 * MTL doesn't snoop CPU cache by default for GPU access (namely
-+	 * 1-way coherency). However some UMD's are currently depending on
-+	 * that. Make 1-way coherent the default setting for MTL. A follow
-+	 * up patch will extend the GEM_CREATE uAPI to allow UMD's specify
-+	 * caching mode at BO creation time
-+	 */
-+	if (HAS_LLC(i915) || (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70)))
- 		/* On some devices, we can have the GPU use the LLC (the CPU
- 		 * cache) for about a 10% performance improvement
- 		 * compared to uncached.  Graphics requests other than
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index d64e074d7457..272a8ba37b64 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -1147,6 +1147,7 @@ static const struct intel_device_info mtl_info = {
+ 	.has_flat_ccs = 0,
+ 	.has_gmd_id = 1,
+ 	.has_guc_deprivilege = 1,
++	.has_llc = 0,
+ 	.has_mslice_steering = 0,
+ 	.has_snoop = 1,
+ 	.__runtime.memory_regions = REGION_SMEM | REGION_STOLEN_LMEM,
 -- 
 2.25.1
 
