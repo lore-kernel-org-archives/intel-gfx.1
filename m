@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64E13C6FD18
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 20:37:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21D7CC6FD18
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 21:11:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F407110EB08;
-	Wed, 19 Apr 2023 20:37:40 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CC0810EAFF;
- Wed, 19 Apr 2023 20:37:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F82C10E20D;
+	Wed, 19 Apr 2023 21:11:10 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15C1910E23D;
+ Wed, 19 Apr 2023 21:11:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681936658; x=1713472658;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=MJNtlJbwqR8+qo05ouosF5HNTfa/H4h2E4Mb58fcB+g=;
- b=hP4Qg8G64LPhpc422bGhq1lyPo8mLajFJPt8QurH8QQIpgmkzaZ1WfmN
- TEyR9N0709gRaHdzcxwacUjSNd4GmDm+9t2qhHzj2s8QvXsAsQVwWd1NR
- s4k8AN2FIYVEnxw/n86Jyd/e/+WF+9sZP/HAXSD55phEiyeH4Zv4CTQHt
- sc5uQygUU5FALEYV9iP3h9BX+40ZzXkashCxN7USwZyS+ScG/MIqdTqNn
- xWmT8Z6TN2SwqOqlR1ec9h0v3zDazcOXHXZaqBY0p/wPRhLe1t7D9AYhI
- CbaZib1fZx6vizXQXl3dbofsSBKj5BPzdt9XM690TnMuN1laduS+cybld Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="325888863"
-X-IronPort-AV: E=Sophos;i="5.99,210,1677571200"; d="scan'208";a="325888863"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2023 13:37:37 -0700
+ t=1681938669; x=1713474669;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=+kIF9VW8mFMiQFWU7N1S86VwlbY753+aunnQcC27EQY=;
+ b=De+NOsPATIyvgh+Z6W4hRxX3RmmVpGue/Eb0w78J8guPxpcvkUyz2sQJ
+ 3ODZe+OPqv6TJh0A+Z1eOZfErzCtSP3rvCj2jYh1cXj6vFZXnvjWydcIS
+ DYsuQvZ1rum3Ujb5rQHR5+uflQiNcOi7vDJfDSRLQ/AS62dXEqtQGL0iS
+ S3nHPqkQOqlAiw9UD09bDnQNL8hjNSf22aH6hb5NxZbE19Yxz33fCiKiI
+ LCilhHF3t0lhffF8FxCyJ5UzXJA30/R5Vm/2wjAMk7d9ztk608wEdlB2T
+ As0IIBp6YuzSPS30ztDQh5vjmv7kk0vyUFkV2ihaQhyUGo3ppoj0GiPFm Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="343042858"
+X-IronPort-AV: E=Sophos;i="5.99,210,1677571200"; d="scan'208";a="343042858"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2023 14:11:08 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="694213881"
-X-IronPort-AV: E=Sophos;i="5.99,210,1677571200"; d="scan'208";a="694213881"
-Received: from crijnder-mobl.ger.corp.intel.com (HELO intel.com)
- ([10.249.35.137])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2023 13:37:35 -0700
-Date: Wed, 19 Apr 2023 22:37:32 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: fei.yang@intel.com
-Message-ID: <ZEBRDLC4RidF6Xga@ashyti-mobl2.lan>
-References: <20230419180942.2494156-1-fei.yang@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="685098943"
+X-IronPort-AV: E=Sophos;i="5.99,210,1677571200"; d="scan'208";a="685098943"
+Received: from fyang16-desk.jf.intel.com ([10.24.96.243])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Apr 2023 14:11:07 -0700
+From: fei.yang@intel.com
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 19 Apr 2023 14:12:14 -0700
+Message-Id: <20230419211219.2574008-4-fei.yang@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230419211219.2574008-1-fei.yang@intel.com>
+References: <20230419211219.2574008-1-fei.yang@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230419180942.2494156-1-fei.yang@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 0/8] drm/i915/mtl: Define MOCS and PAT
- tables for MTL
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 3/8] drm/i915/mtl: Add PTE encode function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,45 +57,204 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Fei,
+From: Fei Yang <fei.yang@intel.com>
 
-On Wed, Apr 19, 2023 at 11:09:34AM -0700, fei.yang@intel.com wrote:
-> From: Fei Yang <fei.yang@intel.com>
-> 
-> The series includes patches needed to enable MTL.
-> Also add new extension for GEM_CREATE uAPI to let
-> user space set cache policy for buffer objects.
-> 
-> v2: addressing review comments and checkpatch warnings
-> 
-> Fei Yang (7):
->   drm/i915/mtl: Set has_llc=0
->   drm/i915/mtl: Add PTE encode function
->   drm/i915/mtl: workaround coherency issue for Media
->   drm/i915/mtl: end support for set caching ioctl
->   drm/i915: preparation for using PAT index
->   drm/i915: use pat_index instead of cache_level
->   drm/i915: Allow user to set cache at BO creation
-> 
-> Madhumitha Tolakanahalli Pradeep (1):
->   drm/i915/mtl: Define MOCS and PAT tables for MTL
+PTE encode functions are platform dependent. This patch implements
+PTE functions for MTL, and ensures the correct PTE encode function
+is used by calling pte_encode function pointer instead of the
+hardcoded gen8 version of PTE encode.
 
-next time could you please add all the r-b's you got, as it's
-hard to track them down?
+Signed-off-by: Fei Yang <fei.yang@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dpt.c |  2 +-
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c     | 45 ++++++++++++++++++++----
+ drivers/gpu/drm/i915/gt/intel_ggtt.c     | 36 +++++++++++++++++--
+ 3 files changed, 72 insertions(+), 11 deletions(-)
 
-And, could you please version your patches with format patch:
+diff --git a/drivers/gpu/drm/i915/display/intel_dpt.c b/drivers/gpu/drm/i915/display/intel_dpt.c
+index b8027392144d..c5eacfdba1a5 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpt.c
++++ b/drivers/gpu/drm/i915/display/intel_dpt.c
+@@ -300,7 +300,7 @@ intel_dpt_create(struct intel_framebuffer *fb)
+ 	vm->vma_ops.bind_vma    = dpt_bind_vma;
+ 	vm->vma_ops.unbind_vma  = dpt_unbind_vma;
+ 
+-	vm->pte_encode = gen8_ggtt_pte_encode;
++	vm->pte_encode = vm->gt->ggtt->vm.pte_encode;
+ 
+ 	dpt->obj = dpt_obj;
+ 	dpt->obj->is_dpt = true;
+diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+index 4daaa6f55668..11b91e0453c8 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+@@ -55,6 +55,34 @@ static u64 gen8_pte_encode(dma_addr_t addr,
+ 	return pte;
+ }
+ 
++static u64 mtl_pte_encode(dma_addr_t addr,
++			  enum i915_cache_level level,
++			  u32 flags)
++{
++	gen8_pte_t pte = addr | GEN8_PAGE_PRESENT | GEN8_PAGE_RW;
++
++	if (unlikely(flags & PTE_READ_ONLY))
++		pte &= ~GEN8_PAGE_RW;
++
++	if (flags & PTE_LM)
++		pte |= GEN12_PPGTT_PTE_LM | GEN12_PPGTT_PTE_NC;
++
++	switch (level) {
++	case I915_CACHE_NONE:
++		pte |= GEN12_PPGTT_PTE_PAT1;
++		break;
++	case I915_CACHE_LLC:
++	case I915_CACHE_L3_LLC:
++		pte |= GEN12_PPGTT_PTE_PAT0 | GEN12_PPGTT_PTE_PAT1;
++		break;
++	case I915_CACHE_WT:
++		pte |= GEN12_PPGTT_PTE_PAT0;
++		break;
++	}
++
++	return pte;
++}
++
+ static void gen8_ppgtt_notify_vgt(struct i915_ppgtt *ppgtt, bool create)
+ {
+ 	struct drm_i915_private *i915 = ppgtt->vm.i915;
+@@ -427,7 +455,7 @@ gen8_ppgtt_insert_pte(struct i915_ppgtt *ppgtt,
+ 		      u32 flags)
+ {
+ 	struct i915_page_directory *pd;
+-	const gen8_pte_t pte_encode = gen8_pte_encode(0, cache_level, flags);
++	const gen8_pte_t pte_encode = ppgtt->vm.pte_encode(0, cache_level, flags);
+ 	gen8_pte_t *vaddr;
+ 
+ 	pd = i915_pd_entry(pdp, gen8_pd_index(idx, 2));
+@@ -580,7 +608,7 @@ static void gen8_ppgtt_insert_huge(struct i915_address_space *vm,
+ 				   enum i915_cache_level cache_level,
+ 				   u32 flags)
+ {
+-	const gen8_pte_t pte_encode = gen8_pte_encode(0, cache_level, flags);
++	const gen8_pte_t pte_encode = vm->pte_encode(0, cache_level, flags);
+ 	unsigned int rem = sg_dma_len(iter->sg);
+ 	u64 start = vma_res->start;
+ 
+@@ -743,7 +771,7 @@ static void gen8_ppgtt_insert_entry(struct i915_address_space *vm,
+ 	GEM_BUG_ON(pt->is_compact);
+ 
+ 	vaddr = px_vaddr(pt);
+-	vaddr[gen8_pd_index(idx, 0)] = gen8_pte_encode(addr, level, flags);
++	vaddr[gen8_pd_index(idx, 0)] = vm->pte_encode(addr, level, flags);
+ 	drm_clflush_virt_range(&vaddr[gen8_pd_index(idx, 0)], sizeof(*vaddr));
+ }
+ 
+@@ -773,7 +801,7 @@ static void __xehpsdv_ppgtt_insert_entry_lm(struct i915_address_space *vm,
+ 	}
+ 
+ 	vaddr = px_vaddr(pt);
+-	vaddr[gen8_pd_index(idx, 0) / 16] = gen8_pte_encode(addr, level, flags);
++	vaddr[gen8_pd_index(idx, 0) / 16] = vm->pte_encode(addr, level, flags);
+ }
+ 
+ static void xehpsdv_ppgtt_insert_entry(struct i915_address_space *vm,
+@@ -820,8 +848,8 @@ static int gen8_init_scratch(struct i915_address_space *vm)
+ 		pte_flags |= PTE_LM;
+ 
+ 	vm->scratch[0]->encode =
+-		gen8_pte_encode(px_dma(vm->scratch[0]),
+-				I915_CACHE_NONE, pte_flags);
++		vm->pte_encode(px_dma(vm->scratch[0]),
++			       I915_CACHE_NONE, pte_flags);
+ 
+ 	for (i = 1; i <= vm->top; i++) {
+ 		struct drm_i915_gem_object *obj;
+@@ -963,7 +991,10 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt,
+ 	 */
+ 	ppgtt->vm.alloc_scratch_dma = alloc_pt_dma;
+ 
+-	ppgtt->vm.pte_encode = gen8_pte_encode;
++	if (GRAPHICS_VER_FULL(gt->i915) >= IP_VER(12, 70))
++		ppgtt->vm.pte_encode = mtl_pte_encode;
++	else
++		ppgtt->vm.pte_encode = gen8_pte_encode;
+ 
+ 	ppgtt->vm.bind_async_flags = I915_VMA_LOCAL_BIND;
+ 	ppgtt->vm.insert_entries = gen8_ppgtt_insert;
+diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+index 3c7f1ed92f5b..d8405e00a862 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
+@@ -220,6 +220,33 @@ static void guc_ggtt_invalidate(struct i915_ggtt *ggtt)
+ 	}
+ }
+ 
++static u64 mtl_ggtt_pte_encode(dma_addr_t addr,
++			enum i915_cache_level level,
++			u32 flags)
++{
++	gen8_pte_t pte = addr | GEN8_PAGE_PRESENT;
++
++	WARN_ON_ONCE(addr & ~GEN12_GGTT_PTE_ADDR_MASK);
++
++	if (flags & PTE_LM)
++		pte |= GEN12_GGTT_PTE_LM;
++
++	switch (level) {
++	case I915_CACHE_NONE:
++		pte |= MTL_GGTT_PTE_PAT1;
++		break;
++	case I915_CACHE_LLC:
++	case I915_CACHE_L3_LLC:
++		pte |= MTL_GGTT_PTE_PAT0 | MTL_GGTT_PTE_PAT1;
++		break;
++	case I915_CACHE_WT:
++		pte |= MTL_GGTT_PTE_PAT0;
++		break;
++	}
++
++	return pte;
++}
++
+ u64 gen8_ggtt_pte_encode(dma_addr_t addr,
+ 			 enum i915_cache_level level,
+ 			 u32 flags)
+@@ -247,7 +274,7 @@ static void gen8_ggtt_insert_page(struct i915_address_space *vm,
+ 	gen8_pte_t __iomem *pte =
+ 		(gen8_pte_t __iomem *)ggtt->gsm + offset / I915_GTT_PAGE_SIZE;
+ 
+-	gen8_set_pte(pte, gen8_ggtt_pte_encode(addr, level, flags));
++	gen8_set_pte(pte, ggtt->vm.pte_encode(addr, level, flags));
+ 
+ 	ggtt->invalidate(ggtt);
+ }
+@@ -257,8 +284,8 @@ static void gen8_ggtt_insert_entries(struct i915_address_space *vm,
+ 				     enum i915_cache_level level,
+ 				     u32 flags)
+ {
+-	const gen8_pte_t pte_encode = gen8_ggtt_pte_encode(0, level, flags);
+ 	struct i915_ggtt *ggtt = i915_vm_to_ggtt(vm);
++	const gen8_pte_t pte_encode = ggtt->vm.pte_encode(0, level, flags);
+ 	gen8_pte_t __iomem *gte;
+ 	gen8_pte_t __iomem *end;
+ 	struct sgt_iter iter;
+@@ -981,7 +1008,10 @@ static int gen8_gmch_probe(struct i915_ggtt *ggtt)
+ 	ggtt->vm.vma_ops.bind_vma    = intel_ggtt_bind_vma;
+ 	ggtt->vm.vma_ops.unbind_vma  = intel_ggtt_unbind_vma;
+ 
+-	ggtt->vm.pte_encode = gen8_ggtt_pte_encode;
++	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70))
++		ggtt->vm.pte_encode = mtl_ggtt_pte_encode;
++	else
++		ggtt->vm.pte_encode = gen8_ggtt_pte_encode;
+ 
+ 	return ggtt_probe_common(ggtt, size);
+ }
+-- 
+2.25.1
 
-   git format-patch -v X
-
-and also add a changelog. The changelog might be a bit annoying
-but it's very useful to understand what has changed.
-
-As a reviewer, in order to check the different versions I had to
-check the date sent.
-
-Thanks,
-Andi
