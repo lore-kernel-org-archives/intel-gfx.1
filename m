@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26A4DC77B73
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 05:56:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9537DC77B78
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Apr 2023 05:56:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E4ED10E099;
-	Wed, 19 Apr 2023 05:56:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 883C910E0C0;
+	Wed, 19 Apr 2023 05:56:06 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73C4610E0C0
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 Apr 2023 05:56:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E975B10E21F
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 Apr 2023 05:56:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681883763; x=1713419763;
+ t=1681883760; x=1713419760;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=JT8863FArhVKr92efN/DOBs53cgSzCf9Oitf9qWrpPg=;
- b=M/4q2va/prKJyheptnVToZy6p3xt6h+Fe59f/BF8gAFstYG2fNmFp3jL
- k5IT0pElrDgT98DEBCL3c/YTH+uJlEUg4lI9yn6wNH6EoMjQ1VdgWNYiQ
- 9NbcoUBC6Y2/OwdnkybAhGcnK9ajEyoQI88vLNoNtseeDLOOWjfHiLDJR
- usWIK3aVY7TDdPYBmcCia3kQ+Zylz0MULdO0tk5iyWobK/8ZSEqLCJRBn
- pTmtf8TS5F+XKAJzjQiv6XfNNqi7sc9mlS9Ff7BxOVM6VIPo67sPBc2rY
- IGZ+IpnxaeVU+nNsjJbDd4RxJRSjZ70j8n8N77MEfFN+PLlMsXsdqmGoI A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="347216209"
-X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="347216209"
+ bh=4Z0XcxyotYDc11C+fTrgouJdy2thC6kp5Y235e07vDY=;
+ b=VGz7TRpXlBw9kxMUNhtpeYCeh59Gbg/unf+Z3dntkHJ+GTgjoanFXOCN
+ tlO61mEqOmGbIhTzbqDwCukEHbHe2bVAtVygssqlpFxFUs/9V4Kx1o2hc
+ 1ogRTelGIHQZDVsBciVgdBhRI4mUVwTkayuwMDPb/Iyr7kMTL2dZ1oNpd
+ wUWd4P42xBDx7K5tO55q5igi56NCUrYUVyK0XUp91nkyd8M9ayro1ri09
+ G6cBL+DyznRTTPGUhka/1tx2w2bcjygbEPzA7hCUokIQYy6wJIYH/dNEH
+ j1fbcX4iklJtePJj1BtYh3gxPZHYa9RkthF+UdtHbv4ea6jKmwwXtb8lE Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="347216195"
+X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="347216195"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Apr 2023 22:56:03 -0700
+ 18 Apr 2023 22:56:00 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="693910503"
-X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="693910503"
+X-IronPort-AV: E=McAfee;i="6600,9927,10684"; a="693910491"
+X-IronPort-AV: E=Sophos;i="5.99,208,1677571200"; d="scan'208";a="693910491"
 Received: from tejas-super-server.iind.intel.com ([10.145.169.166])
- by fmsmga007.fm.intel.com with ESMTP; 18 Apr 2023 22:56:02 -0700
+ by fmsmga007.fm.intel.com with ESMTP; 18 Apr 2023 22:55:59 -0700
 From: Tejas Upadhyay <tejas.upadhyay@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 19 Apr 2023 11:30:36 +0530
-Message-Id: <20230419060036.3422635-4-tejas.upadhyay@intel.com>
+Date: Wed, 19 Apr 2023 11:30:34 +0530
+Message-Id: <20230419060036.3422635-2-tejas.upadhyay@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230419060036.3422635-1-tejas.upadhyay@intel.com>
 References: <20230419060036.3422635-1-tejas.upadhyay@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915/selftests: Consider multi-gt
- instead of to_gt()
+Subject: [Intel-gfx] [PATCH 1/3] drm/i915/gt: Consider multi-gt instead of
+ to_gt()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,101 +60,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In order to enable complete multi-GT, loop through all
-the GTs, rather than relying on the to_gt(), which only
-provides a reference to the primary GT.
+In order to enable complete multi-GT, use the GT
+reference obtained directly from the engine, rather
+than relying on the to_gt(), which only provides a
+reference to the primary GT.
 
-Problem appear when it runs on platform like MTL where
-different set of engines are possible on different GTs.
+Problem appear when it runs on platform like MTL
+where different set of engines are possible on
+different GTs.
 
+Cc: Andi Shyti <andi.shyti@linux.intel.com>
 Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
 ---
- .../gpu/drm/i915/selftests/igt_live_test.c    | 46 +++++++++++--------
- 1 file changed, 27 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_user.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/selftests/igt_live_test.c b/drivers/gpu/drm/i915/selftests/igt_live_test.c
-index 72b58b66692a..714b7afc490b 100644
---- a/drivers/gpu/drm/i915/selftests/igt_live_test.c
-+++ b/drivers/gpu/drm/i915/selftests/igt_live_test.c
-@@ -16,27 +16,31 @@ int igt_live_test_begin(struct igt_live_test *t,
- 			const char *func,
- 			const char *name)
- {
--	struct intel_gt *gt = to_gt(i915);
- 	struct intel_engine_cs *engine;
- 	enum intel_engine_id id;
-+	struct intel_gt *gt;
-+	unsigned int i;
- 	int err;
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_user.c b/drivers/gpu/drm/i915/gt/intel_engine_user.c
+index cd4f1b126f75..dcedff41a825 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_user.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_user.c
+@@ -117,7 +117,7 @@ static void set_scheduler_caps(struct drm_i915_private *i915)
+ 			disabled |= (I915_SCHEDULER_CAP_ENABLED |
+ 				     I915_SCHEDULER_CAP_PRIORITY);
  
- 	t->i915 = i915;
- 	t->func = func;
- 	t->name = name;
+-		if (intel_uc_uses_guc_submission(&to_gt(i915)->uc))
++		if (intel_uc_uses_guc_submission(&engine->gt->uc))
+ 			enabled |= I915_SCHEDULER_CAP_STATIC_PRIORITY_MAP;
  
--	err = intel_gt_wait_for_idle(gt, MAX_SCHEDULE_TIMEOUT);
--	if (err) {
--		pr_err("%s(%s): failed to idle before, with err=%d!",
--		       func, name, err);
--		return err;
--	}
-+	for_each_gt(gt, i915, i) {
- 
--	t->reset_global = i915_reset_count(&i915->gpu_error);
-+		err = intel_gt_wait_for_idle(gt, MAX_SCHEDULE_TIMEOUT);
-+		if (err) {
-+			pr_err("%s(%s): failed to idle before, with err=%d!",
-+			       func, name, err);
-+			return err;
-+		}
- 
--	for_each_engine(engine, gt, id)
--		t->reset_engine[id] =
-+		for_each_engine(engine, gt, id)
-+			t->reset_engine[id] =
- 			i915_reset_engine_count(&i915->gpu_error, engine);
-+	}
-+
-+	t->reset_global = i915_reset_count(&i915->gpu_error);
- 
- 	return 0;
- }
-@@ -46,6 +50,8 @@ int igt_live_test_end(struct igt_live_test *t)
- 	struct drm_i915_private *i915 = t->i915;
- 	struct intel_engine_cs *engine;
- 	enum intel_engine_id id;
-+	struct intel_gt *gt;
-+	unsigned int i;
- 
- 	if (igt_flush_test(i915))
- 		return -EIO;
-@@ -57,16 +63,18 @@ int igt_live_test_end(struct igt_live_test *t)
- 		return -EIO;
- 	}
- 
--	for_each_engine(engine, to_gt(i915), id) {
--		if (t->reset_engine[id] ==
--		    i915_reset_engine_count(&i915->gpu_error, engine))
--			continue;
-+	for_each_gt(gt, i915, i) {
-+		for_each_engine(engine, gt, id) {
-+			if (t->reset_engine[id] ==
-+			    i915_reset_engine_count(&i915->gpu_error, engine))
-+				continue;
- 
--		pr_err("%s(%s): engine '%s' was reset %d times!\n",
--		       t->func, t->name, engine->name,
--		       i915_reset_engine_count(&i915->gpu_error, engine) -
--		       t->reset_engine[id]);
--		return -EIO;
-+			pr_err("%s(%s): engine '%s' was reset %d times!\n",
-+			       t->func, t->name, engine->name,
-+			       i915_reset_engine_count(&i915->gpu_error, engine) -
-+			       t->reset_engine[id]);
-+			return -EIO;
-+		}
- 	}
- 
- 	return 0;
+ 		for (i = 0; i < ARRAY_SIZE(map); i++) {
 -- 
 2.25.1
 
