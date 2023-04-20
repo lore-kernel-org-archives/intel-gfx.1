@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86E07C77B7C
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 12:46:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B530C77B72
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 12:46:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D6A510EC2B;
-	Thu, 20 Apr 2023 12:46:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 158A010EC36;
+	Thu, 20 Apr 2023 12:46:24 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDCC710EC23
- for <intel-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 12:46:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4C3910EC2B
+ for <intel-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 12:46:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681994762; x=1713530762;
+ t=1681994772; x=1713530772;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=B9jWWAK2HNKQJWURmtJ0VY8gi4GWqbIjiaAs/pHYOpo=;
- b=PGNVgjxmHQuoxtPSYxAMdCR/TWYJZqa00B7AnftCYNn3/fDhstwyQpVY
- 5ZS0TAOBpdoUOjbrp3ZA8lhkPpBnJTP6z4BEWQ0rrvOJgB8TkAOUtBrDx
- pkHDbyAoPGtrb8EmQCex/ibuHbsZYHvyH5RsLp4kXnPiNxFmyhXhTe4Jz
- Zyls+q3v6Tvtdmb73fovRBI+veHWn0c79cAjjYELEjdn8//ccFQdUqqZS
- NWG+hBt+M67FIoWPx5qvVjnKgCvE+YZJTFZAynbpSizAPGkMRGZP2Jff9
- GOZvJ0RdMXO71xzrVTKNBtGFZ6zIWzbWSV/+bxgLrmH4qZjWoIfTgLai/ Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="326051910"
-X-IronPort-AV: E=Sophos;i="5.99,212,1677571200"; d="scan'208";a="326051910"
+ bh=dURTJ2b8G9bwSueAK1Rr4rVwETUnYbmQ7D91TPjDjLY=;
+ b=ViKkAVlNPjAhM12iRZa1LCqQ8Dj6RSDnMv6k/xm+PRId2SQnlSoFnpi0
+ m0WDfpP410NepVol3LJU74TQS0iTCroemLovr9tjV1B4veIUXW4hBnDWY
+ zXdVkwn3YbVMIPWAQ+CW6GY1CGLOpBG9R+sQ8fomko1aWQSSn4m0UJ/5R
+ GQN5RKAI5wxtlaWuxWTvsQDQudu6HS7EJkq8+vT/vZlr2HsHkYSrsn3c4
+ t+/LQBHeRnmF32IruISGDNN87ur7UKSqctkNR3yLL2OBwFggOl4WyfpSE
+ 6i8LLfK9Mq6ZBbYIasWoKqIZ55F6NBtx+WAxwoCDMxlqOAo1QYZFXuzdI g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="326051933"
+X-IronPort-AV: E=Sophos;i="5.99,212,1677571200"; d="scan'208";a="326051933"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2023 05:46:02 -0700
+ 20 Apr 2023 05:46:12 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="761146024"
-X-IronPort-AV: E=Sophos;i="5.99,212,1677571200"; d="scan'208";a="761146024"
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="761146079"
+X-IronPort-AV: E=Sophos;i="5.99,212,1677571200"; d="scan'208";a="761146079"
 Received: from sorvi2.fi.intel.com ([10.237.72.194])
- by fmsmga004.fm.intel.com with ESMTP; 20 Apr 2023 05:46:01 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 20 Apr 2023 05:46:11 -0700
 From: Mika Kahola <mika.kahola@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 20 Apr 2023 15:40:43 +0300
-Message-Id: <20230420124050.3617608-7-mika.kahola@intel.com>
+Date: Thu, 20 Apr 2023 15:40:50 +0300
+Message-Id: <20230420124050.3617608-14-mika.kahola@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230420124050.3617608-1-mika.kahola@intel.com>
 References: <20230420124050.3617608-1-mika.kahola@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/13] drm/i915/mtl: For DP2.0 10G and 20G rates
- use MPLLA
+Subject: [Intel-gfx] [PATCH 13/13] drm/i915/mtl: Enable TC ports
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,31 +59,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use MPLLA for DP2.0 rates 20G and 20G, when ssc is enabled.
+Finally, we can enable TC ports for Meteorlake.
 
 Signed-off-by: Mika Kahola <mika.kahola@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index f7720acaf58c..4231ba98f075 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -2340,8 +2340,11 @@ static void intel_program_port_clock_ctl(struct intel_encoder *encoder,
- 		val |= XELPDP_DDI_CLOCK_SELECT(XELPDP_DDI_CLOCK_SELECT_MAXPCLK);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index e70bdf0e06f3..dc777c3b1b1a 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7587,9 +7587,12 @@ void intel_setup_outputs(struct drm_i915_private *dev_priv)
+ 		return;
  
- 	/* TODO: HDMI FRL */
--	/* TODO: DP2.0 10G and 20G rates enable MPLLA*/
--	val |= crtc_state->cx0pll_state.ssc_enabled ? XELPDP_SSC_ENABLE_PLLB : 0;
-+	/* DP2.0 10G and 20G rates enable MPLLA*/
-+	if (crtc_state->port_clock == 1000000 || crtc_state->port_clock == 2000000)
-+		val |= crtc_state->cx0pll_state.ssc_enabled ? XELPDP_SSC_ENABLE_PLLA : 0;
-+	else
-+		val |= crtc_state->cx0pll_state.ssc_enabled ? XELPDP_SSC_ENABLE_PLLB : 0;
- 
- 	intel_de_rmw(i915, XELPDP_PORT_CLOCK_CTL(encoder->port),
- 		     XELPDP_LANE1_PHY_CLOCK_SELECT | XELPDP_FORWARD_CLOCK_UNGATE |
+ 	if (IS_METEORLAKE(dev_priv)) {
+-		/* TODO: initialize TC ports as well */
+ 		intel_ddi_init(dev_priv, PORT_A);
+ 		intel_ddi_init(dev_priv, PORT_B);
++		intel_ddi_init(dev_priv, PORT_TC1);
++		intel_ddi_init(dev_priv, PORT_TC2);
++		intel_ddi_init(dev_priv, PORT_TC3);
++		intel_ddi_init(dev_priv, PORT_TC4);
+ 	} else if (IS_DG2(dev_priv)) {
+ 		intel_ddi_init(dev_priv, PORT_A);
+ 		intel_ddi_init(dev_priv, PORT_B);
 -- 
 2.34.1
 
