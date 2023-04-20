@@ -4,47 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEEC0C77B73
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 17:35:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4559EC77B72
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 17:37:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C60A10E0A9;
-	Thu, 20 Apr 2023 17:35:19 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4091110E0A9
- for <intel-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 17:35:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682012117; x=1713548117;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=W0PYQqVzHz2X2dO1R5FT1Y7i858ZtLP/1+WWzYGBBfI=;
- b=hx8K+D26thNGBQRy0zWGPXMUHVlp+hcRkPnwT+i56IqU2AMR52nXwt4f
- d150Lyv+Z7IPe3tQuZgGUVWWaIEFSAgftOXF4uLtn1RkqjnlbettKGuqh
- YajoCPDvqX1oQb/bmnH4VEYjSxCCSNFaj91v9RPxeAFkdOycOvQHGZg1y
- slzq0Q0o4WpJYVqvGV04SK6qdugaoomz4iUNQnmkxJOWwllmabXCOTZbH
- Q0kHAAsUwVfMNnBn6TN7+2L48Yolm33XyWYtNc6h9Jqg34X04ek2xSvfs
- 37z2w7fZ35544Qy5zYEQDkJuflti/0fkbwJX3AlByvvK9Re+vaFUgAgPv w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="334658574"
-X-IronPort-AV: E=Sophos;i="5.99,213,1677571200"; d="scan'208";a="334658574"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2023 10:06:07 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="724487902"
-X-IronPort-AV: E=Sophos;i="5.99,213,1677571200"; d="scan'208";a="724487902"
-Received: from josouza-mobl2.fso.intel.com ([10.230.18.148])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2023 10:06:05 -0700
-From: =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 20 Apr 2023 10:05:58 -0700
-Message-Id: <20230420170558.35398-1-jose.souza@intel.com>
-X-Mailer: git-send-email 2.40.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E7C210E0A9;
+	Thu, 20 Apr 2023 17:37:18 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id BF96B10E0A9;
+ Thu, 20 Apr 2023 17:37:15 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id B8612A0BCB;
+ Thu, 20 Apr 2023 17:37:15 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============9057285191704319146=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5] drm/i915: Initialize dkl_phy spin lock from
- display code path
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
+Date: Thu, 20 Apr 2023 17:37:15 -0000
+Message-ID: <168201223572.779.11521524424899968246@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230420164041.1428455-1-ashutosh.dixit@intel.com>
+In-Reply-To: <20230420164041.1428455-1-ashutosh.dixit@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915/guc=3A_Disable_PL1_power_limit_when_loading_GuC_firmware?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,112 +40,170 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-drm/i915: Initialize dkl_phy spin lock from display code path
+--===============9057285191704319146==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Start moving the initialization of display locks from
-i915_driver_early_probe().
-Display locks should be initialized from display-only code paths.
+== Series Details ==
 
-It was also agreed that if a variable is only used in one file, it
-should be initialized only in that file, so intel_dkl_phy_init() was
-added.
+Series: drm/i915/guc: Disable PL1 power limit when loading GuC firmware
+URL   : https://patchwork.freedesktop.org/series/116768/
+State : success
 
-v2:
-- added intel_display_locks_init()
+== Summary ==
 
-v3:
-- rebased
+CI Bug Log - changes from CI_DRM_13034 -> Patchwork_116768v1
+====================================================
 
-v4:
-- dropped intel_display_locks_init()
+Summary
+-------
 
-v5:
-- moved intel_dkl_phy_init() to the beginning of file
+  **SUCCESS**
 
-Cc: intel-gfx@lists.freedesktop.org
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display_driver.c | 2 ++
- drivers/gpu/drm/i915/display/intel_dkl_phy.c        | 9 +++++++++
- drivers/gpu/drm/i915/display/intel_dkl_phy.h        | 1 +
- drivers/gpu/drm/i915/i915_driver.c                  | 1 -
- 4 files changed, 12 insertions(+), 1 deletion(-)
+  No regressions found.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-index b3dbfe2a892e6..60ce10fc72058 100644
---- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-@@ -30,6 +30,7 @@
- #include "intel_display_driver.h"
- #include "intel_display_power.h"
- #include "intel_display_types.h"
-+#include "intel_dkl_phy.h"
- #include "intel_dmc.h"
- #include "intel_dp.h"
- #include "intel_dpll.h"
-@@ -175,6 +176,7 @@ void intel_display_driver_early_probe(struct drm_i915_private *i915)
- 	if (!HAS_DISPLAY(i915))
- 		return;
- 
-+	intel_dkl_phy_init(i915);
- 	intel_color_init_hooks(i915);
- 	intel_init_cdclk_hooks(i915);
- 	intel_audio_hooks_init(i915);
-diff --git a/drivers/gpu/drm/i915/display/intel_dkl_phy.c b/drivers/gpu/drm/i915/display/intel_dkl_phy.c
-index 57cc3edba0163..a001232ad445e 100644
---- a/drivers/gpu/drm/i915/display/intel_dkl_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_dkl_phy.c
-@@ -11,6 +11,15 @@
- #include "intel_dkl_phy.h"
- #include "intel_dkl_phy_regs.h"
- 
-+/**
-+ * intel_dkl_phy_init - initialize Dekel PHY
-+ * @i915: i915 device instance
-+ */
-+void intel_dkl_phy_init(struct drm_i915_private *i915)
-+{
-+	spin_lock_init(&i915->display.dkl.phy_lock);
-+}
-+
- static void
- dkl_phy_set_hip_idx(struct drm_i915_private *i915, struct intel_dkl_phy_reg reg)
- {
-diff --git a/drivers/gpu/drm/i915/display/intel_dkl_phy.h b/drivers/gpu/drm/i915/display/intel_dkl_phy.h
-index 570ee36f9386f..5956ec3e940b1 100644
---- a/drivers/gpu/drm/i915/display/intel_dkl_phy.h
-+++ b/drivers/gpu/drm/i915/display/intel_dkl_phy.h
-@@ -12,6 +12,7 @@
- 
- struct drm_i915_private;
- 
-+void intel_dkl_phy_init(struct drm_i915_private *i915);
- u32
- intel_dkl_phy_read(struct drm_i915_private *i915, struct intel_dkl_phy_reg reg);
- void
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index a52db8a809006..fd198700272b1 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -223,7 +223,6 @@ static int i915_driver_early_probe(struct drm_i915_private *dev_priv)
- 	mutex_init(&dev_priv->display.wm.wm_mutex);
- 	mutex_init(&dev_priv->display.pps.mutex);
- 	mutex_init(&dev_priv->display.hdcp.comp_mutex);
--	spin_lock_init(&dev_priv->display.dkl.phy_lock);
- 
- 	i915_memcpy_init_early(dev_priv);
- 	intel_runtime_pm_init_early(&dev_priv->runtime_pm);
--- 
-2.40.0
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116768v1/index.html
 
+Participating hosts (37 -> 35)
+------------------------------
+
+  Missing    (2): bat-mtlp-8 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_116768v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@requests:
+    - bat-rpls-1:         [PASS][1] -> [ABORT][2] ([i915#4983] / [i915#7911])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13034/bat-rpls-1/igt@i915_selftest@live@requests.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116768v1/bat-rpls-1/igt@i915_selftest@live@requests.html
+
+  * igt@kms_chamelium_hpd@common-hpd-after-suspend:
+    - bat-adlp-6:         NOTRUN -> [SKIP][3] ([i915#7828])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116768v1/bat-adlp-6/igt@kms_chamelium_hpd@common-hpd-after-suspend.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_suspend@basic-s3-without-i915:
+    - bat-adlp-6:         [INCOMPLETE][4] ([i915#7443]) -> [PASS][5]
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13034/bat-adlp-6/igt@i915_suspend@basic-s3-without-i915.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116768v1/bat-adlp-6/igt@i915_suspend@basic-s3-without-i915.html
+
+  
+  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
+  [i915#7443]: https://gitlab.freedesktop.org/drm/intel/issues/7443
+  [i915#7828]: https://gitlab.freedesktop.org/drm/intel/issues/7828
+  [i915#7911]: https://gitlab.freedesktop.org/drm/intel/issues/7911
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_13034 -> Patchwork_116768v1
+
+  CI-20190529: 20190529
+  CI_DRM_13034: bf6a3fbb5a6d7afbbaeb93043fd0001d6b83591b @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7263: a6bd8f415c4ec41b5a014c7db47e46c81ffd0074 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_116768v1: bf6a3fbb5a6d7afbbaeb93043fd0001d6b83591b @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+39178baf855c drm/i915/hwmon: Block waiting for GuC reset to complete
+d6f8cf406cba drm/i915/guc: Disable PL1 power limit when loading GuC firmware
+1341c465cd24 drm/i915/hwmon: Get mutex and rpm ref just once in hwm_power_max_write
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116768v1/index.html
+
+--===============9057285191704319146==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/guc: Disable PL1 power limit when loading GuC firmware</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/116768/">https://patchwork.freedesktop.org/series/116768/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116768v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116768v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_13034 -&gt; Patchwork_116768v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116768v1/index.html</p>
+<h2>Participating hosts (37 -&gt; 35)</h2>
+<p>Missing    (2): bat-mtlp-8 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_116768v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@requests:</p>
+<ul>
+<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13034/bat-rpls-1/igt@i915_selftest@live@requests.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116768v1/bat-rpls-1/igt@i915_selftest@live@requests.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7911">i915#7911</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium_hpd@common-hpd-after-suspend:</p>
+<ul>
+<li>bat-adlp-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116768v1/bat-adlp-6/igt@kms_chamelium_hpd@common-hpd-after-suspend.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7828">i915#7828</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_suspend@basic-s3-without-i915:<ul>
+<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13034/bat-adlp-6/igt@i915_suspend@basic-s3-without-i915.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7443">i915#7443</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116768v1/bat-adlp-6/igt@i915_suspend@basic-s3-without-i915.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_13034 -&gt; Patchwork_116768v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_13034: bf6a3fbb5a6d7afbbaeb93043fd0001d6b83591b @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7263: a6bd8f415c4ec41b5a014c7db47e46c81ffd0074 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_116768v1: bf6a3fbb5a6d7afbbaeb93043fd0001d6b83591b @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>39178baf855c drm/i915/hwmon: Block waiting for GuC reset to complete<br />
+d6f8cf406cba drm/i915/guc: Disable PL1 power limit when loading GuC firmware<br />
+1341c465cd24 drm/i915/hwmon: Get mutex and rpm ref just once in hwm_power_max_write</p>
+
+</body>
+</html>
+
+--===============9057285191704319146==--
