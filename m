@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCC87C77B73
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A81E8C77B72
 	for <intel-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 12:46:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CACAA10E2BB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3DBD10EC23;
 	Thu, 20 Apr 2023 12:46:11 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E50D10E2F3
- for <intel-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 12:46:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C573110E2BB
+ for <intel-gfx@lists.freedesktop.org>; Thu, 20 Apr 2023 12:46:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1681994765; x=1713530765;
+ t=1681994769; x=1713530769;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=pedtpYIuoOYN30YXtUu+Y0Gbtc/PlVtH8flwkeSJdDE=;
- b=JeeQYcUQS5Z5ezc+/0cZV6vkBYXBR324pWZs84Yuh6cWy+7NW03S4jld
- 2TZAYYmieTDUj7NgTTdtUK2HUoPecMcU/e/U+a5F8fYCU8T2lQbpcA2wk
- zXnloXliJQLWVpyqZNOgMuAEyCoYwL18NuXmiCdICjgI3MgJc5vB8ZNxw
- 3ps+HTEcjhrchnrHI2atpFyRwlKxBas3hVZCevkpTxkamjhVUUDTjvhby
- 32YZffnhydR523z3ZAL5VtEE/647Y/ZwDXHGhD759hMRhC2W0Ae7RJLqM
- /0Kl5062qyPq22H5Ug5kVImtJ8kPfNZ0x+j1oyW6lOD+d3QhMkh3a4qfN w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="326051917"
-X-IronPort-AV: E=Sophos;i="5.99,212,1677571200"; d="scan'208";a="326051917"
+ bh=QngXFIQoiQ31ho0sV1NwtdW/3iCweyYIaeB+OLvuBz8=;
+ b=V0a5crJ/9jy8cYaKcLvu9R9cWPMChDqTRIgDIiUeL7YlZ1LENupBBOOG
+ V0vTpQ0B4GyELgBk9YsenQNwXPmNNLKlH3Jg2Zf1aQ5u+A6GZ3as4pAuY
+ 0+F9Lvtfx99C8ISfC0dqPPMhv1QGoNOblwGTPl76V+U/2TMNBMbzg8C0E
+ XKF+qy0fy6C5I+vkwX4iVShiw6tQ4OznyYZ8AFwq1yKQiyFVRETbVZweT
+ GcXM62S3vJvgxvAcuSMepv8v3U8KzpM9OydPwNpb/aB8lYsiZJcIIAWsr
+ KRWjxilOZUVzdaiG69Jh1vsQO6KTrrBROhqunIqnAOeFLBAKZDFU75aaG A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="326051927"
+X-IronPort-AV: E=Sophos;i="5.99,212,1677571200"; d="scan'208";a="326051927"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2023 05:46:05 -0700
+ 20 Apr 2023 05:46:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="761146045"
-X-IronPort-AV: E=Sophos;i="5.99,212,1677571200"; d="scan'208";a="761146045"
+X-IronPort-AV: E=McAfee;i="6600,9927,10685"; a="761146066"
+X-IronPort-AV: E=Sophos;i="5.99,212,1677571200"; d="scan'208";a="761146066"
 Received: from sorvi2.fi.intel.com ([10.237.72.194])
- by fmsmga004.fm.intel.com with ESMTP; 20 Apr 2023 05:46:04 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 20 Apr 2023 05:46:08 -0700
 From: Mika Kahola <mika.kahola@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 20 Apr 2023 15:40:45 +0300
-Message-Id: <20230420124050.3617608-9-mika.kahola@intel.com>
+Date: Thu, 20 Apr 2023 15:40:48 +0300
+Message-Id: <20230420124050.3617608-12-mika.kahola@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230420124050.3617608-1-mika.kahola@intel.com>
 References: <20230420124050.3617608-1-mika.kahola@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/13] drm/i915/mtl: Readout Thunderbolt HW state
+Subject: [Intel-gfx] [PATCH 11/13] drm/i915/mtl: TypeC HPD live status query
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,81 +59,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Readout hw state for Thunderbolt.
+From: Imre Deak <imre.deak@intel.com>
 
+The HPD live status for MTL has to be read from different set of
+registers. MTL deserves a new function for this purpose
+and cannot reuse the existing  HPD live status detection
+
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
 Signed-off-by: Mika Kahola <mika.kahola@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 27 ++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_cx0_phy.h |  2 +-
- drivers/gpu/drm/i915/display/intel_ddi.c     |  5 +++-
- 3 files changed, 32 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_tc.c | 30 ++++++++++++++++++++++++-
+ 1 file changed, 29 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index 9722d3f1b926..dc0555505e61 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -2676,6 +2676,33 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
- 	intel_cx0_phy_transaction_end(encoder, wakeref);
- }
- 
-+int intel_mtl_tbt_calc_port_clock(struct intel_encoder *encoder)
+diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
+index 951b12ac51dc..b192265a3d78 100644
+--- a/drivers/gpu/drm/i915/display/intel_tc.c
++++ b/drivers/gpu/drm/i915/display/intel_tc.c
+@@ -886,6 +886,34 @@ static const struct intel_tc_phy_ops adlp_tc_phy_ops = {
+  * XELPDP TC PHY handlers
+  * ----------------------
+  */
++static u32 xelpdp_tc_phy_hpd_live_status(struct intel_tc_port *tc)
 +{
-+	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
-+	u32 clock;
-+	u32 val = intel_de_read(i915, XELPDP_PORT_CLOCK_CTL(encoder->port));
++	struct drm_i915_private *i915 = tc_to_i915(tc);
++	struct intel_digital_port *dig_port = tc->dig_port;
++	enum hpd_pin hpd_pin = dig_port->base.hpd_pin;
++	u32 pica_isr_bits = i915->display.hotplug.hpd[hpd_pin];
++	u32 pch_isr_bit = i915->display.hotplug.pch_hpd[hpd_pin];
++	intel_wakeref_t wakeref;
++	u32 pica_isr;
++	u32 pch_isr;
++	u32 mask = 0;
 +
-+	clock = REG_FIELD_GET(XELPDP_DDI_CLOCK_SELECT_MASK, val);
-+
-+	drm_WARN_ON(&i915->drm, !(val & XELPDP_FORWARD_CLOCK_UNGATE));
-+	drm_WARN_ON(&i915->drm, !(val & XELPDP_TBT_CLOCK_REQUEST));
-+	drm_WARN_ON(&i915->drm, !(val & XELPDP_TBT_CLOCK_ACK));
-+
-+	switch (clock) {
-+	case XELPDP_DDI_CLOCK_SELECT_TBT_162:
-+		return 162000;
-+	case XELPDP_DDI_CLOCK_SELECT_TBT_270:
-+		return 270000;
-+	case XELPDP_DDI_CLOCK_SELECT_TBT_540:
-+		return 540000;
-+	case XELPDP_DDI_CLOCK_SELECT_TBT_810:
-+		return 810000;
-+	default:
-+		MISSING_CASE(clock);
-+		return 162000;
++	with_intel_display_power(i915, POWER_DOMAIN_DISPLAY_CORE, wakeref) {
++		pica_isr = intel_de_read(i915, PICAINTERRUPT_ISR);
++		pch_isr = intel_de_read(i915, SDEISR);
 +	}
++
++	if (pica_isr & (pica_isr_bits & XELPDP_DP_ALT_HOTPLUG_MASK))
++		mask |= BIT(TC_PORT_DP_ALT);
++	if (pica_isr & (pica_isr_bits & XELPDP_TBT_HOTPLUG_MASK))
++		mask |= BIT(TC_PORT_TBT_ALT);
++
++	if (tc->legacy_port && (pch_isr & pch_isr_bit))
++		mask |= BIT(TC_PORT_LEGACY);
++
++	return mask;
 +}
 +
- static int intel_mtl_tbt_clock_select(struct drm_i915_private *i915, int clock)
+ static bool
+ xelpdp_tc_phy_tcss_power_is_enabled(struct intel_tc_port *tc)
  {
- 	switch (clock) {
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.h b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-index 9ea6310b6d79..c1b8f7980f69 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-@@ -42,5 +42,5 @@ int intel_cx0_phy_check_hdmi_link_rate(struct intel_hdmi *hdmi, int clock);
- void intel_cx0_phy_ddi_vswing_sequence(struct intel_encoder *encoder,
- 				       const struct intel_crtc_state *crtc_state,
- 				       u32 level);
--int intel_mtl_tbt_readout_hw_state(struct intel_encoder *encoder);
-+int intel_mtl_tbt_calc_port_clock(struct intel_encoder *encoder);
- #endif /* __INTEL_CX0_PHY_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index c18226edacac..8f0f858cde31 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3852,8 +3852,11 @@ static void mtl_ddi_get_config(struct intel_encoder *encoder,
- {
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	enum phy phy = intel_port_to_phy(i915, encoder->port);
-+	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
+@@ -1039,7 +1067,7 @@ static void xelpdp_tc_phy_disconnect(struct intel_tc_port *tc)
  
--	if (intel_is_c10phy(i915, phy)) {
-+	if (intel_tc_port_in_tbt_alt_mode(dig_port)) {
-+		crtc_state->port_clock = intel_mtl_tbt_calc_port_clock(encoder);
-+	} else if (intel_is_c10phy(i915, phy)) {
- 		intel_c10pll_readout_hw_state(encoder, &crtc_state->cx0pll_state.c10);
- 		intel_c10pll_dump_hw_state(i915, &crtc_state->cx0pll_state.c10);
- 		crtc_state->port_clock = intel_c10pll_calc_port_clock(encoder, &crtc_state->cx0pll_state.c10);
+ static const struct intel_tc_phy_ops xelpdp_tc_phy_ops = {
+ 	.cold_off_domain = tgl_tc_phy_cold_off_domain,
+-	.hpd_live_status = adlp_tc_phy_hpd_live_status,
++	.hpd_live_status = xelpdp_tc_phy_hpd_live_status,
+ 	.is_ready = adlp_tc_phy_is_ready,
+ 	.is_owned = xelpdp_tc_phy_is_owned,
+ 	.get_hw_state = xelpdp_tc_phy_get_hw_state,
 -- 
 2.34.1
 
