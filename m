@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAB00C77B73
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 16:40:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52423C77B73
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Apr 2023 16:41:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D47C10E2D4;
-	Thu, 20 Apr 2023 16:40:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E2C610ECAF;
+	Thu, 20 Apr 2023 16:40:56 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 309E810E0C4;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9303310E0DE;
  Thu, 20 Apr 2023 16:40:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1682008849; x=1713544849;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=w6c3gpqiA0wAAVObyEJMhZg76zswNg+Q4jMeT6Ir5bU=;
- b=UNGC9+T7ln6w/frXMYQ3bczv43rTfmNmmBZcZZVisTd/EIrebKfkN8CD
- O/Ysg763tC8mtmL7W3uop4PiK8jCKf5uujXzJQhJFG6s/2UqaFEJIbLGi
- MieaxfkEeBkwWBMO6Lh71crPViizGAYhKUWrQ+9LXRtjlkbTo7YmhrrxU
- A24DrTlX4B0BpC0YgjvNXBaXw+K6fbTVMYsXfGgyyyq15XpxFxHNW707z
- rCnOiUJ4N0xTqCaXEfhGQ385g1bofqS8n7kEoqRsABcVlk7weZfHF8GvT
- cJ3n6C8tg4II3mVIlfd5YjG9tA1MB6WPFkOM1BYfKqsiC1oP0kJrY04E+ A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="344540942"
-X-IronPort-AV: E=Sophos;i="5.99,213,1677571200"; d="scan'208";a="344540942"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=jfQ6QTYGS/utgVu7drUR8+iwPsDuhc565pVwYueCQYo=;
+ b=HkObsP+skX1zh4T/wmoXWwXuQ6eqeG/3usR9kWtja47x1rwykNISiYfN
+ VAP1wPKKLnOapyDXpz07DoYaJnA84gx9Hl9yJCE9X+HhKQRzN/qjxoDzQ
+ RobPnLJUb+V8qFeDeEbL6q12H83dnhVPT9xfKKBQdEpe+FTVZigd/qPL+
+ 4/pFxhiLIbhYG1OWxyKeeBI1E22uR8qX169PVtnB3Fdr6zBQ7lTbBTNt0
+ gEOUM48XNHAv4P0UVDrBuhqDBoW+0iExstJ9NngOTsRbBZ/MP/ep+2BHP
+ F2Hdmj0Veeg4qinbkILL6bA/RH6Qr1NOa4YIo1BLhMOCXd9BZBs8NxPjh w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="344540947"
+X-IronPort-AV: E=Sophos;i="5.99,213,1677571200"; d="scan'208";a="344540947"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Apr 2023 09:40:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="724479581"
-X-IronPort-AV: E=Sophos;i="5.99,213,1677571200"; d="scan'208";a="724479581"
+X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="724479590"
+X-IronPort-AV: E=Sophos;i="5.99,213,1677571200"; d="scan'208";a="724479590"
 Received: from orsosgc001.jf.intel.com ([10.165.21.138])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2023 09:40:47 -0700
+ 20 Apr 2023 09:40:48 -0700
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 20 Apr 2023 09:40:38 -0700
-Message-Id: <20230420164041.1428455-1-ashutosh.dixit@intel.com>
+Date: Thu, 20 Apr 2023 09:40:41 -0700
+Message-Id: <20230420164041.1428455-4-ashutosh.dixit@intel.com>
 X-Mailer: git-send-email 2.38.0
+In-Reply-To: <20230420164041.1428455-1-ashutosh.dixit@intel.com>
+References: <20230420164041.1428455-1-ashutosh.dixit@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 0/3] drm/i915/guc: Disable PL1 power limit
- when loading GuC firmware
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915/hwmon: Block waiting for GuC reset
+ to complete
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,19 +62,83 @@ Cc: dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-v6: Update Patch 3 to remove the timeout when blocked
-v1-v5: Please see individual patches for revision history
+Instead of erroring out when GuC reset is in progress, block waiting for
+GuC reset to complete which is a more reasonable uapi behavior.
 
-Ashutosh Dixit (3):
-  drm/i915/hwmon: Get mutex and rpm ref just once in hwm_power_max_write
-  drm/i915/guc: Disable PL1 power limit when loading GuC firmware
-  drm/i915/hwmon: Block waiting for GuC reset to complete
+v2: Avoid race between wake_up_all and waiting for wakeup (Rodrigo)
+v3: Remove timeout when blocked (Tvrtko)
 
- drivers/gpu/drm/i915/gt/uc/intel_uc.c | 13 +++-
- drivers/gpu/drm/i915/i915_hwmon.c     | 87 +++++++++++++++++++++++----
- drivers/gpu/drm/i915/i915_hwmon.h     |  7 +++
- 3 files changed, 93 insertions(+), 14 deletions(-)
+Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+---
+ drivers/gpu/drm/i915/i915_hwmon.c | 29 +++++++++++++++++++++++++----
+ 1 file changed, 25 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/i915_hwmon.c b/drivers/gpu/drm/i915/i915_hwmon.c
+index 9ab8971679fe3..a3bdd9f68a458 100644
+--- a/drivers/gpu/drm/i915/i915_hwmon.c
++++ b/drivers/gpu/drm/i915/i915_hwmon.c
+@@ -51,6 +51,7 @@ struct hwm_drvdata {
+ 	char name[12];
+ 	int gt_n;
+ 	bool reset_in_progress;
++	wait_queue_head_t waitq;
+ };
+ 
+ struct i915_hwmon {
+@@ -397,14 +398,32 @@ hwm_power_max_write(struct hwm_drvdata *ddat, long val)
+ {
+ 	struct i915_hwmon *hwmon = ddat->hwmon;
+ 	intel_wakeref_t wakeref;
++	DEFINE_WAIT(wait);
+ 	int ret = 0;
+ 	u32 nval;
+ 
+-	mutex_lock(&hwmon->hwmon_lock);
+-	if (hwmon->ddat.reset_in_progress) {
+-		ret = -EAGAIN;
+-		goto unlock;
++	/* Block waiting for GuC reset to complete when needed */
++	for (;;) {
++		mutex_lock(&hwmon->hwmon_lock);
++
++		prepare_to_wait(&ddat->waitq, &wait, TASK_INTERRUPTIBLE);
++
++		if (!hwmon->ddat.reset_in_progress)
++			break;
++
++		if (signal_pending(current)) {
++			ret = -EINTR;
++			break;
++		}
++
++		mutex_unlock(&hwmon->hwmon_lock);
++
++		schedule();
+ 	}
++	finish_wait(&ddat->waitq, &wait);
++	if (ret)
++		goto unlock;
++
+ 	wakeref = intel_runtime_pm_get(ddat->uncore->rpm);
+ 
+ 	/* Disable PL1 limit and verify, because the limit cannot be disabled on all platforms */
+@@ -508,6 +527,7 @@ void i915_hwmon_power_max_restore(struct drm_i915_private *i915, bool old)
+ 	intel_uncore_rmw(hwmon->ddat.uncore, hwmon->rg.pkg_rapl_limit,
+ 			 PKG_PWR_LIM_1_EN, old ? PKG_PWR_LIM_1_EN : 0);
+ 	hwmon->ddat.reset_in_progress = false;
++	wake_up_all(&hwmon->ddat.waitq);
+ 
+ 	mutex_unlock(&hwmon->hwmon_lock);
+ }
+@@ -784,6 +804,7 @@ void i915_hwmon_register(struct drm_i915_private *i915)
+ 	ddat->uncore = &i915->uncore;
+ 	snprintf(ddat->name, sizeof(ddat->name), "i915");
+ 	ddat->gt_n = -1;
++	init_waitqueue_head(&ddat->waitq);
+ 
+ 	for_each_gt(gt, i915, i) {
+ 		ddat_gt = hwmon->ddat_gt + i;
 -- 
 2.38.0
 
