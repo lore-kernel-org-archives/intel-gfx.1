@@ -4,31 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98920C7618E
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 11:25:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FA91C7618E
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 11:35:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D92A810E096;
-	Fri, 21 Apr 2023 11:25:05 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6357B10E096;
- Fri, 21 Apr 2023 11:25:03 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 3DDCAA0BA8;
- Fri, 21 Apr 2023 11:25:03 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============6861562251842484340=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6BAF10E2D8;
+	Fri, 21 Apr 2023 11:35:22 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 905EF10E2D8;
+ Fri, 21 Apr 2023 11:35:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1682076920; x=1713612920;
+ h=from:subject:date:message-id:mime-version:
+ content-transfer-encoding:to:cc;
+ bh=GhMRXRBkzeuO+c7mlyEN6y0EkdAtOsHoEGqibR6xLw8=;
+ b=HyeMlx9LXNYLs41USL4Ov840nKf4qVDc3yFrjmGjcl0g+LVL+DJg36Bb
+ /Tmk+f+j+zBtZQP0DuQirt8rVYqRSoECCM1wNfPdiu5/+BQC41Job0u7B
+ oGxmLZ0zprFjedqbgflpfMfPWxsiGqzEwvCfjdXI5QcsSGoi61W4wO+k0
+ vcmojA/jhaPYzf830FWkku6tHy5znxi9LzUNbJmEkCnHF/sTN7o5pRZWA
+ SvoI3lqq4ciSMysIJepobX2omgpW/koFlfcNqn5Tpu1uVgqXRLn2El4U1
+ lpZ2xBumNDa3jetQIUqyCs4dO5YiSjQyyn7RywsurN/PVbNWkRvAYPQs4 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="432249832"
+X-IronPort-AV: E=Sophos;i="5.99,214,1677571200"; d="scan'208";a="432249832"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Apr 2023 04:35:17 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="642489632"
+X-IronPort-AV: E=Sophos;i="5.99,214,1677571200"; d="scan'208";a="642489632"
+Received: from lab-ah.igk.intel.com ([10.102.138.202])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Apr 2023 04:35:14 -0700
+From: Andrzej Hajda <andrzej.hajda@intel.com>
+Date: Fri, 21 Apr 2023 13:35:04 +0200
+Message-Id: <20230224-track_gt-v7-0-11f08358c1ec@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Stanislav Lisovskiy" <stanislav.lisovskiy@intel.com>
-Date: Fri, 21 Apr 2023 11:25:03 -0000
-Message-ID: <168207630324.5823.6949423229410249923@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20230421083520.14486-1-stanislav.lisovskiy@intel.com>
-In-Reply-To: <20230421083520.14486-1-stanislav.lisovskiy@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/mtl=3A_Copy_c10_phy_pll_sw_state_from_master_to_slave_for?=
- =?utf-8?q?_bigjoiner?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOh0QmQC/3XOTW4DIQwF4KtErEvKEAKkq96jqiJjTAa18yOgo
+ 1bR3D2QVRR1ls/y5+cry5QiZfa2u7JES8xxGmswLzuGPYwX4tHXzKSQByGl4iUBfp0vhXfu4ME6
+ D+gNq+sOMnGXYMS+gZ85l0QwvPo08BLntjInCvH33vbxWXMfc5nS37186dr0n56l44LXkRQnHdC
+ jfo9joe89TgNrRxa1BVWFSiuy4BSewD3D4xY8VmiMI6uDRGvkM9RbULdXPVotuuCFDI9wXdcbyV
+ qVIm4BAAA=
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+X-Mailer: b4 0.11.1
+Subject: [Intel-gfx] [PATCH v7 0/7] drm/i915: use ref_tracker library for
+ tracking wakerefs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,172 +66,111 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, netdev@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, Dmitry Vyukov <dvyukov@google.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============6861562251842484340==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Gently ping for network developers, could you look at ref_tracker patches,
+as the ref_tracker library was developed for network.
 
-== Series Details ==
+This is revived patchset improving ref_tracker library and converting
+i915 internal tracker to ref_tracker.
+The old thread ended without consensus about small kernel allocations,
+which are performed under spinlock.
+I have tried to solve the problem by splitting the calls, but it results
+in complicated API, so I went back to original solution.
+If there are better solutions I am glad to discuss them.
+Meanwhile I send original patchset with addressed remaining comments.
 
-Series: drm/i915/mtl: Copy c10 phy pll sw state from master to slave for bigjoiner
-URL   : https://patchwork.freedesktop.org/series/116805/
-State : success
+To: Jani Nikula <jani.nikula@linux.intel.com>
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: David Airlie <airlied@gmail.com>
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: linux-kernel@vger.kernel.org
+Cc: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Cc: netdev@vger.kernel.org
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Dmitry Vyukov <dvyukov@google.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Das, Nirmoy <nirmoy.das@linux.intel.com>
+Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
 
-== Summary ==
+---
+Changes in v7:
+- removed 8th patch (hold wakeref), as it was already merged
+- added tags (thx Andi)
+- Link to v6: https://lore.kernel.org/r/20230224-track_gt-v6-0-0dc8601fd02f@intel.com
 
-CI Bug Log - changes from CI_DRM_13039 -> Patchwork_116805v1
-====================================================
+Changes in v6:
+- rebased to solve minor conflict and allow CI testing
+- Link to v5: https://lore.kernel.org/r/20230224-track_gt-v5-0-77be86f2c872@intel.com
 
-Summary
--------
+Changes in v5 (thx Andi for review):
+- use *_locked convention instead of __*,
+- improved commit messages,
+- re-worked i915 patches, squashed separation and conversion patches,
+- added tags,
+- Link to v4: https://lore.kernel.org/r/20230224-track_gt-v4-0-464e8ab4c9ab@intel.com
 
-  **SUCCESS**
+Changes in v4:
+- split "Separate wakeref tracking" to smaller parts
+- fixed typos,
+- Link to v1-v3: https://patchwork.freedesktop.org/series/100327/
 
-  No regressions found.
+---
+Andrzej Hajda (7):
+      lib/ref_tracker: add unlocked leak print helper
+      lib/ref_tracker: improve printing stats
+      lib/ref_tracker: add printing to memory buffer
+      lib/ref_tracker: remove warnings in case of allocation failure
+      drm/i915: Correct type of wakeref variable
+      drm/i915: Replace custom intel runtime_pm tracker with ref_tracker library
+      drm/i915: track gt pm wakerefs
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116805v1/index.html
+ drivers/gpu/drm/i915/Kconfig.debug                 |  19 ++
+ drivers/gpu/drm/i915/display/intel_display_power.c |   2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c     |   7 +-
+ .../drm/i915/gem/selftests/i915_gem_coherency.c    |  10 +-
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c |  14 +-
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c        |  13 +-
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h  |   3 +-
+ drivers/gpu/drm/i915/gt/intel_context.h            |   4 +-
+ drivers/gpu/drm/i915/gt/intel_context_types.h      |   2 +
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c          |   7 +-
+ drivers/gpu/drm/i915/gt/intel_engine_types.h       |   2 +
+ .../gpu/drm/i915/gt/intel_execlists_submission.c   |   2 +-
+ drivers/gpu/drm/i915/gt/intel_gt_pm.c              |  12 +-
+ drivers/gpu/drm/i915/gt/intel_gt_pm.h              |  38 +++-
+ drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c      |   4 +-
+ drivers/gpu/drm/i915/gt/selftest_engine_cs.c       |  20 +-
+ drivers/gpu/drm/i915/gt/selftest_gt_pm.c           |   5 +-
+ drivers/gpu/drm/i915/gt/selftest_reset.c           |  10 +-
+ drivers/gpu/drm/i915/gt/selftest_rps.c             |  17 +-
+ drivers/gpu/drm/i915/gt/selftest_slpc.c            |   5 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c  |  11 +-
+ drivers/gpu/drm/i915/i915_driver.c                 |   2 +-
+ drivers/gpu/drm/i915/i915_pmu.c                    |  16 +-
+ drivers/gpu/drm/i915/intel_runtime_pm.c            | 221 ++-------------------
+ drivers/gpu/drm/i915/intel_runtime_pm.h            |  11 +-
+ drivers/gpu/drm/i915/intel_wakeref.c               |   7 +-
+ drivers/gpu/drm/i915/intel_wakeref.h               |  99 ++++++++-
+ include/linux/ref_tracker.h                        |  31 ++-
+ lib/ref_tracker.c                                  | 179 ++++++++++++++---
+ 29 files changed, 444 insertions(+), 329 deletions(-)
+---
+base-commit: d224485cc77189981322356d4ca6b8c42f7bf9fa
+change-id: 20230224-track_gt-1b3da8bdacd7
 
-Participating hosts (38 -> 36)
-------------------------------
-
-  Missing    (2): fi-kbl-soraka fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_116805v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@gem_exec_suspend@basic-s3@smem:
-    - bat-rpls-1:         NOTRUN -> [ABORT][1] ([i915#6687] / [i915#7978])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116805v1/bat-rpls-1/igt@gem_exec_suspend@basic-s3@smem.html
-
-  * igt@i915_selftest@live@slpc:
-    - bat-rpls-1:         NOTRUN -> [DMESG-FAIL][2] ([i915#6367])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116805v1/bat-rpls-1/igt@i915_selftest@live@slpc.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@gt_lrc:
-    - bat-rpls-1:         [INCOMPLETE][3] ([i915#4983]) -> [PASS][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13039/bat-rpls-1/igt@i915_selftest@live@gt_lrc.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116805v1/bat-rpls-1/igt@i915_selftest@live@gt_lrc.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
-  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
-  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
-  [i915#6687]: https://gitlab.freedesktop.org/drm/intel/issues/6687
-  [i915#7978]: https://gitlab.freedesktop.org/drm/intel/issues/7978
-  [i915#8379]: https://gitlab.freedesktop.org/drm/intel/issues/8379
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_13039 -> Patchwork_116805v1
-
-  CI-20190529: 20190529
-  CI_DRM_13039: 13aec8c5451c1c81d81b6b8ef1b29da9f29a7396 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7263: a6bd8f415c4ec41b5a014c7db47e46c81ffd0074 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_116805v1: 13aec8c5451c1c81d81b6b8ef1b29da9f29a7396 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-add7fb89629c drm/i915/mtl: Copy c10 phy pll sw state from master to slave for bigjoiner
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116805v1/index.html
-
---===============6861562251842484340==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/mtl: Copy c10 phy pll sw state from master to slave for bigjoiner</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/116805/">https://patchwork.freedesktop.org/series/116805/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116805v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116805v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_13039 -&gt; Patchwork_116805v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116805v1/index.html</p>
-<h2>Participating hosts (38 -&gt; 36)</h2>
-<p>Missing    (2): fi-kbl-soraka fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_116805v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_exec_suspend@basic-s3@smem:</p>
-<ul>
-<li>bat-rpls-1:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116805v1/bat-rpls-1/igt@gem_exec_suspend@basic-s3@smem.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6687">i915#6687</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7978">i915#7978</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@slpc:</p>
-<ul>
-<li>bat-rpls-1:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116805v1/bat-rpls-1/igt@i915_selftest@live@slpc.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6367">i915#6367</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live@gt_lrc:<ul>
-<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13039/bat-rpls-1/igt@i915_selftest@live@gt_lrc.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116805v1/bat-rpls-1/igt@i915_selftest@live@gt_lrc.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_13039 -&gt; Patchwork_116805v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_13039: 13aec8c5451c1c81d81b6b8ef1b29da9f29a7396 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7263: a6bd8f415c4ec41b5a014c7db47e46c81ffd0074 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_116805v1: 13aec8c5451c1c81d81b6b8ef1b29da9f29a7396 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>add7fb89629c drm/i915/mtl: Copy c10 phy pll sw state from master to slave for bigjoiner</p>
-
-</body>
-</html>
-
---===============6861562251842484340==--
+Best regards,
+-- 
+Andrzej Hajda <andrzej.hajda@intel.com>
