@@ -4,49 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D983C77B73
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 01:15:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAD51C77B73
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 01:24:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A25610ED7A;
-	Fri, 21 Apr 2023 01:15:38 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D04B410ED67;
- Fri, 21 Apr 2023 01:15:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682039732; x=1713575732;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=rcnng3nr1w6JWlKPkL1OjfKQ0t94OCoBMvxijeJRNz8=;
- b=AYSyz0yFETDEHTGXspsItAkT9YMlOh5NH+tNhb2pKDhsqIRgoiSXkNHF
- 9pbWWVDhWA5CVLKMjxMfKjXZxU5fpeshlipxGVLbgYizjGtlU3Iw3wbeg
- qko1hhzhEa8G0lz0Ep8aprSuMtmT5p9JwJ6711P0rMLT31FFzKDD9mrNN
- Lwfnvf5lImnGhluyCDqAoNiO4cD9Ag6+mVvpgalzBnx27msTnj+j8kHxk
- cedRoroUEI8MvN6BtGj037B+Z9EmsfOz8AHSrGELscj+AROjl2kL5udBx
- Bry3EeFmDZl3XP5eccKZP7x/l1n3lW+VjfifyDbMbjZBvwWi8sAM9uhCa w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="343380939"
-X-IronPort-AV: E=Sophos;i="5.99,214,1677571200"; d="scan'208";a="343380939"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Apr 2023 18:15:31 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="692114489"
-X-IronPort-AV: E=Sophos;i="5.99,214,1677571200"; d="scan'208";a="692114489"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
- by orsmga002.jf.intel.com with ESMTP; 20 Apr 2023 18:15:31 -0700
-From: John.C.Harrison@Intel.com
-To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu, 20 Apr 2023 18:15:23 -0700
-Message-Id: <20230421011525.3282664-5-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230421011525.3282664-1-John.C.Harrison@Intel.com>
-References: <20230421011525.3282664-1-John.C.Harrison@Intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91C9910E12F;
+	Fri, 21 Apr 2023 01:24:35 +0000 (UTC)
+Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
+ [IPv6:2607:f8b0:4864:20::335])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3D3610E12F;
+ Fri, 21 Apr 2023 01:24:32 +0000 (UTC)
+Received: by mail-ot1-x335.google.com with SMTP id
+ 46e09a7af769-6a5f765d595so1160502a34.0; 
+ Thu, 20 Apr 2023 18:24:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1682040271; x=1684632271;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1pegAtM0HuvpZOhUha/IPJ5oOgjyR24GQmR7IfIKEck=;
+ b=OwYDnYOUUCr/sbMghyWbRe0dVjVYBndyUF8mKzTwD1X8Ekej02u3fptHuD3N2hCxTT
+ tZUltuS+jMVDI3jX0Vhs/hp0uXvUolQTsOpTqCFhOAaEfCg3JsUtkrD2WM0BA/wOxHgY
+ oilmomsElBYEMRkzFK+QLAfG2m3ezKi8JGXCx9qvUHNrGhapGeD47uDDdM2IQcRIpuT7
+ WiXaIY4EvvIOAJul87YaU5n7uO3RtQ4JEbKdxZ6o7DUOeRNp/+l4puioQFbBFyiVCGva
+ omC9lABYcGA7Cbol1dg179m3sqjJlqzg4DTmGX6O68RxLUVDapZc8q5rJ/Xjn1vta01d
+ O9tQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1682040271; x=1684632271;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=1pegAtM0HuvpZOhUha/IPJ5oOgjyR24GQmR7IfIKEck=;
+ b=KxkJQloYqAbX5WJHS+jA2NGL8MNPPWhkiPTHi6OCn0IOyewT/Ps0BdwPDzxl7vNUz7
+ kNE86CcC3Vzo+FVMIZjAhwt1P8ab9ZZLpOkKUz7hGCRfoy18Edkj50MDvMx4LlfzkRi7
+ k2ieuf6wC3QXEMoCjhNZhUQBJrz699wBDRrs4yoFPPoXg4qqrNhmSM4ckmeiNGIlMj5G
+ +EqwpcC4duDtO2MxutPBrkuLqyo3naXV7nOb+id89Nh6/DSZySrAjgzLK2Hw8ipCUPK/
+ ShA8xBmhEc2c0HNkm1yPz0cfEId93NlVVYyd88YiGKdE5ZWhpS1HfuNmXz/muoLqp5mg
+ hDMg==
+X-Gm-Message-State: AAQBX9eX3cXSvyNDlcfd2m0t+cLVcikRJCr/x1dHdivm3hWpY2b6B1Qw
+ jPYNGbgV7YK3pmEhP1fXMbX4OBLOQnIj1XfA6m8=
+X-Google-Smtp-Source: AKy350aa/q4fT9JdXMonZaDdQpxgNyu8H2xa+jmhQj8BfuwshtZBvjGxwJoR8lcD1NZskILAe09IGTQluwoKzZC+S7A=
+X-Received: by 2002:a05:6870:1fce:b0:187:9783:a20e with SMTP id
+ gp14-20020a0568701fce00b001879783a20emr2394504oac.37.1682040271317; Thu, 20
+ Apr 2023 18:24:31 -0700 (PDT)
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/6] drm/i915/uc: Enhancements to firmware table
- validation
+References: <20230417155613.4143258-1-tvrtko.ursulin@linux.intel.com>
+ <20230417155613.4143258-5-tvrtko.ursulin@linux.intel.com>
+ <CAF6AEGuobv8+fU-WU9D9vffNJC5zCqrHDtkppf__ieMJDHsWnw@mail.gmail.com>
+ <3c9d4aed-5c26-6a20-071c-8a3d24f3c9ce@linux.intel.com>
+ <CAF6AEGvdz9Y96jBqPhbfgNXEsc_NS-nsc_nDqoX-qmJ9VPmLBA@mail.gmail.com>
+ <f068707f-8f45-0354-b190-5a81700ef537@linux.intel.com>
+In-Reply-To: <f068707f-8f45-0354-b190-5a81700ef537@linux.intel.com>
+From: Rob Clark <robdclark@gmail.com>
+Date: Thu, 20 Apr 2023 18:24:20 -0700
+Message-ID: <CAF6AEGvLTOLBNeT87NJOSYbj0mfKfBSKqJ9Xh69P_=wFN+wzUw@mail.gmail.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [RFC 4/6] drm: Add simple fdinfo memory helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,240 +73,177 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: DRI-Devel@Lists.FreeDesktop.Org
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, Intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+On Thu, Apr 20, 2023 at 6:14=E2=80=AFAM Tvrtko Ursulin
+<tvrtko.ursulin@linux.intel.com> wrote:
+>
+>
+> On 19/04/2023 15:32, Rob Clark wrote:
+> > On Wed, Apr 19, 2023 at 6:16=E2=80=AFAM Tvrtko Ursulin
+> > <tvrtko.ursulin@linux.intel.com> wrote:
+> >>
+> >>
+> >> On 18/04/2023 18:18, Rob Clark wrote:
+> >>> On Mon, Apr 17, 2023 at 8:56=E2=80=AFAM Tvrtko Ursulin
+> >>> <tvrtko.ursulin@linux.intel.com> wrote:
+> >>>>
+> >>>> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> >>>>
+> >>>> For drivers who only wish to show one memory region called 'system,
+> >>>> and only account the GEM buffer object handles under it.
+> >>>>
+> >>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> >>>> ---
+> >>>>    drivers/gpu/drm/drm_file.c | 45 +++++++++++++++++++++++++++++++++=
++++++
+> >>>>    include/drm/drm_file.h     |  6 +++++
+> >>>>    2 files changed, 51 insertions(+)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+> >>>> index e202f79e816d..1e70669dddf7 100644
+> >>>> --- a/drivers/gpu/drm/drm_file.c
+> >>>> +++ b/drivers/gpu/drm/drm_file.c
+> >>>> @@ -872,6 +872,51 @@ void drm_send_event(struct drm_device *dev, str=
+uct drm_pending_event *e)
+> >>>>    }
+> >>>>    EXPORT_SYMBOL(drm_send_event);
+> >>>>
+> >>>> +static void
+> >>>> +add_obj(struct drm_gem_object *obj, struct drm_fdinfo_memory_stat *=
+stats)
+> >>>> +{
+> >>>> +       u64 sz =3D obj->size;
+> >>>> +
+> >>>> +       stats[0].size +=3D sz;
+> >>>> +
+> >>>> +       if (obj->handle_count > 1)
+> >>>> +               stats[0].shared +=3D sz;
+> >>>> +
+> >>>> +       if (!dma_resv_test_signaled(obj->resv, dma_resv_usage_rw(tru=
+e)))
+> >>>> +               stats[0].active +=3D sz;
+> >>>> +
+> >>>> +       /* Not supported. */
+> >>>> +       stats[0].resident =3D ~0ull;
+> >>>> +       stats[0].purgeable =3D ~0ull;
+> >>>
+> >>> Hmm, this kinda makes the simple helper not very useful.  In my
+> >>> version, you get something that is useful for all UMA drivers (which
+> >>> all, IIRC, have some form of madv ioctl).  I was kinda imagining that
+> >>> for ttm drivers, my print_memory_stats() would just become a helper
+> >>> and that TTM (or "multi-region") drivers would have their own thing.
+> >>
+> >> Hm how? Your version also needed a driver specific vfunc:
+> >
+> > Sure, but there is a possibility for a driver specific vfunc ;-)
+>
+> Indeed, they are there in both proposals! :)
+>
+> > And arguably we could move madv to drm_gem_object, along with get/put
+> > pages tracking.. since all the UMA drivers pretty much do the same
+> > thing.  So maybe the vfunc is a temporary thing.
+> >
+> > Anyways, I could go back to my original version where it was a helper
+> > called from the driver to print mem stats.  That way, TTM drivers
+> > could do their own thing.
+>
+> I must have missed that. So it was the same idea as in my RFC?
 
-The validation of the firmware table was being done inside the code
-for scanning the table for the next available firmware blob. Which is
-unnecessary. So pull it out into a separate function that is only
-called once per blob type at init time.
+similar, danvet asked for something "more core" ;-)
 
-Also, drop the CONFIG_SELFTEST requirement and make errors terminal.
-It was mentioned that potential issues with backports would not be
-caught by regular pre-merge CI as that only occurs on tip not stable
-branches. Making the validation unconditional and failing driver load
-on detecting of a problem ensures that such backports will also be
-validated correctly.
+https://patchwork.freedesktop.org/patch/531403/?series=3D116216&rev=3D1
 
-v2: Change to unconditionally fail module load on a validation error
-(review feedback/discussion with Daniele).
+BR,
+-R
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 157 +++++++++++++----------
- 1 file changed, 92 insertions(+), 65 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-index c9cd9bb47577f..eb52e8db9ae0b 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-@@ -233,20 +233,22 @@ struct fw_blobs_by_type {
- 	u32 count;
- };
- 
-+static const struct uc_fw_platform_requirement blobs_guc[] = {
-+	INTEL_GUC_FIRMWARE_DEFS(MAKE_FW_LIST, GUC_FW_BLOB, GUC_FW_BLOB_MMP)
-+};
-+
-+static const struct uc_fw_platform_requirement blobs_huc[] = {
-+	INTEL_HUC_FIRMWARE_DEFS(MAKE_FW_LIST, HUC_FW_BLOB, HUC_FW_BLOB_MMP, HUC_FW_BLOB_GSC)
-+};
-+
-+static const struct fw_blobs_by_type blobs_all[INTEL_UC_FW_NUM_TYPES] = {
-+	[INTEL_UC_FW_TYPE_GUC] = { blobs_guc, ARRAY_SIZE(blobs_guc) },
-+	[INTEL_UC_FW_TYPE_HUC] = { blobs_huc, ARRAY_SIZE(blobs_huc) },
-+};
-+
- static void
- __uc_fw_auto_select(struct drm_i915_private *i915, struct intel_uc_fw *uc_fw)
- {
--	static const struct uc_fw_platform_requirement blobs_guc[] = {
--		INTEL_GUC_FIRMWARE_DEFS(MAKE_FW_LIST, GUC_FW_BLOB, GUC_FW_BLOB_MMP)
--	};
--	static const struct uc_fw_platform_requirement blobs_huc[] = {
--		INTEL_HUC_FIRMWARE_DEFS(MAKE_FW_LIST, HUC_FW_BLOB, HUC_FW_BLOB_MMP, HUC_FW_BLOB_GSC)
--	};
--	static const struct fw_blobs_by_type blobs_all[INTEL_UC_FW_NUM_TYPES] = {
--		[INTEL_UC_FW_TYPE_GUC] = { blobs_guc, ARRAY_SIZE(blobs_guc) },
--		[INTEL_UC_FW_TYPE_HUC] = { blobs_huc, ARRAY_SIZE(blobs_huc) },
--	};
--	static bool verified[INTEL_UC_FW_NUM_TYPES];
- 	const struct uc_fw_platform_requirement *fw_blobs;
- 	enum intel_platform p = INTEL_INFO(i915)->platform;
- 	u32 fw_count;
-@@ -286,6 +288,11 @@ __uc_fw_auto_select(struct drm_i915_private *i915, struct intel_uc_fw *uc_fw)
- 			continue;
- 
- 		if (uc_fw->file_selected.path) {
-+			/*
-+			 * Continuing an earlier search after a found blob failed to load.
-+			 * Once the previously chosen path has been found, clear it out
-+			 * and let the search continue from there.
-+			 */
- 			if (uc_fw->file_selected.path == blob->path)
- 				uc_fw->file_selected.path = NULL;
- 
-@@ -306,76 +313,91 @@ __uc_fw_auto_select(struct drm_i915_private *i915, struct intel_uc_fw *uc_fw)
- 		/* Failed to find a match for the last attempt?! */
- 		uc_fw->file_selected.path = NULL;
- 	}
-+}
- 
--	/* make sure the list is ordered as expected */
--	if (IS_ENABLED(CONFIG_DRM_I915_SELFTEST) && !verified[uc_fw->type]) {
--		verified[uc_fw->type] = true;
-+static bool validate_fw_table_type(struct drm_i915_private *i915, enum intel_uc_fw_type type)
-+{
-+	const struct uc_fw_platform_requirement *fw_blobs;
-+	u32 fw_count;
-+	int i;
- 
--		for (i = 1; i < fw_count; i++) {
--			/* Next platform is good: */
--			if (fw_blobs[i].p < fw_blobs[i - 1].p)
--				continue;
-+	if (type >= ARRAY_SIZE(blobs_all)) {
-+		drm_err(&i915->drm, "No blob array for %s\n", intel_uc_fw_type_repr(type));
-+		return false;
-+	}
- 
--			/* Next platform revision is good: */
--			if (fw_blobs[i].p == fw_blobs[i - 1].p &&
--			    fw_blobs[i].rev < fw_blobs[i - 1].rev)
--				continue;
-+	fw_blobs = blobs_all[type].blobs;
-+	fw_count = blobs_all[type].count;
- 
--			/* Platform/revision must be in order: */
--			if (fw_blobs[i].p != fw_blobs[i - 1].p ||
--			    fw_blobs[i].rev != fw_blobs[i - 1].rev)
--				goto bad;
-+	if (!fw_count)
-+		return true;
- 
--			/* Next major version is good: */
--			if (fw_blobs[i].blob.major < fw_blobs[i - 1].blob.major)
--				continue;
-+	/* make sure the list is ordered as expected */
-+	for (i = 1; i < fw_count; i++) {
-+		/* Next platform is good: */
-+		if (fw_blobs[i].p < fw_blobs[i - 1].p)
-+			continue;
- 
--			/* New must be before legacy: */
--			if (!fw_blobs[i].blob.legacy && fw_blobs[i - 1].blob.legacy)
--				goto bad;
-+		/* Next platform revision is good: */
-+		if (fw_blobs[i].p == fw_blobs[i - 1].p &&
-+		    fw_blobs[i].rev < fw_blobs[i - 1].rev)
-+			continue;
- 
--			/* New to legacy also means 0.0 to X.Y (HuC), or X.0 to X.Y (GuC) */
--			if (fw_blobs[i].blob.legacy && !fw_blobs[i - 1].blob.legacy) {
--				if (!fw_blobs[i - 1].blob.major)
--					continue;
-+		/* Platform/revision must be in order: */
-+		if (fw_blobs[i].p != fw_blobs[i - 1].p ||
-+		    fw_blobs[i].rev != fw_blobs[i - 1].rev)
-+			goto bad;
- 
--				if (fw_blobs[i].blob.major == fw_blobs[i - 1].blob.major)
--					continue;
--			}
-+		/* Next major version is good: */
-+		if (fw_blobs[i].blob.major < fw_blobs[i - 1].blob.major)
-+			continue;
- 
--			/* Major versions must be in order: */
--			if (fw_blobs[i].blob.major != fw_blobs[i - 1].blob.major)
--				goto bad;
-+		/* New must be before legacy: */
-+		if (!fw_blobs[i].blob.legacy && fw_blobs[i - 1].blob.legacy)
-+			goto bad;
- 
--			/* Next minor version is good: */
--			if (fw_blobs[i].blob.minor < fw_blobs[i - 1].blob.minor)
-+		/* New to legacy also means 0.0 to X.Y (HuC), or X.0 to X.Y (GuC) */
-+		if (fw_blobs[i].blob.legacy && !fw_blobs[i - 1].blob.legacy) {
-+			if (!fw_blobs[i - 1].blob.major)
- 				continue;
- 
--			/* Minor versions must be in order: */
--			if (fw_blobs[i].blob.minor != fw_blobs[i - 1].blob.minor)
--				goto bad;
--
--			/* Patch versions must be in order: */
--			if (fw_blobs[i].blob.patch <= fw_blobs[i - 1].blob.patch)
-+			if (fw_blobs[i].blob.major == fw_blobs[i - 1].blob.major)
- 				continue;
-+		}
-+
-+		/* Major versions must be in order: */
-+		if (fw_blobs[i].blob.major != fw_blobs[i - 1].blob.major)
-+			goto bad;
-+
-+		/* Next minor version is good: */
-+		if (fw_blobs[i].blob.minor < fw_blobs[i - 1].blob.minor)
-+			continue;
-+
-+		/* Minor versions must be in order: */
-+		if (fw_blobs[i].blob.minor != fw_blobs[i - 1].blob.minor)
-+			goto bad;
-+
-+		/* Patch versions must be in order: */
-+		if (fw_blobs[i].blob.patch <= fw_blobs[i - 1].blob.patch)
-+			continue;
- 
- bad:
--			drm_err(&i915->drm, "Invalid %s blob order: %s r%u %s%d.%d.%d comes before %s r%u %s%d.%d.%d\n",
--				intel_uc_fw_type_repr(uc_fw->type),
--				intel_platform_name(fw_blobs[i - 1].p), fw_blobs[i - 1].rev,
--				fw_blobs[i - 1].blob.legacy ? "L" : "v",
--				fw_blobs[i - 1].blob.major,
--				fw_blobs[i - 1].blob.minor,
--				fw_blobs[i - 1].blob.patch,
--				intel_platform_name(fw_blobs[i].p), fw_blobs[i].rev,
--				fw_blobs[i].blob.legacy ? "L" : "v",
--				fw_blobs[i].blob.major,
--				fw_blobs[i].blob.minor,
--				fw_blobs[i].blob.patch);
--
--			uc_fw->file_selected.path = NULL;
--		}
-+		drm_err(&i915->drm, "Invalid %s blob order: %s r%u %s%d.%d.%d comes before %s r%u %s%d.%d.%d\n",
-+			intel_uc_fw_type_repr(type),
-+			intel_platform_name(fw_blobs[i - 1].p), fw_blobs[i - 1].rev,
-+			fw_blobs[i - 1].blob.legacy ? "L" : "v",
-+			fw_blobs[i - 1].blob.major,
-+			fw_blobs[i - 1].blob.minor,
-+			fw_blobs[i - 1].blob.patch,
-+			intel_platform_name(fw_blobs[i].p), fw_blobs[i].rev,
-+			fw_blobs[i].blob.legacy ? "L" : "v",
-+			fw_blobs[i].blob.major,
-+			fw_blobs[i].blob.minor,
-+			fw_blobs[i].blob.patch);
-+		return false;
- 	}
-+
-+	return true;
- }
- 
- static const char *__override_guc_firmware_path(struct drm_i915_private *i915)
-@@ -443,6 +465,11 @@ void intel_uc_fw_init_early(struct intel_uc_fw *uc_fw,
- 	uc_fw->type = type;
- 
- 	if (HAS_GT_UC(i915)) {
-+		if (!validate_fw_table_type(i915, type)) {
-+			intel_uc_fw_change_status(uc_fw, INTEL_UC_FIRMWARE_ERROR);
-+			return;
-+		}
-+
- 		__uc_fw_auto_select(i915, uc_fw);
- 		__uc_fw_user_override(i915, uc_fw);
- 	}
--- 
-2.39.1
-
+> Regards,
+>
+> Tvrtko
+>
+> > BR,
+> > -R
+> >
+> >> +static enum drm_gem_object_status msm_gem_status(struct drm_gem_objec=
+t *obj)
+> >> +{
+> >> +       struct msm_gem_object *msm_obj =3D to_msm_bo(obj);
+> >> +       enum drm_gem_object_status status =3D 0;
+> >> +
+> >> +       if (msm_obj->pages)
+> >> +               status |=3D DRM_GEM_OBJECT_RESIDENT;
+> >> +
+> >> +       if (msm_obj->madv =3D=3D MSM_MADV_DONTNEED)
+> >> +               status |=3D DRM_GEM_OBJECT_PURGEABLE;
+> >> +
+> >> +       return status;
+> >> +}
+> >>
+> >> Regards,
+> >>
+> >> Tvrtko
+> >>
+> >>>
+> >>> BR,
+> >>> -R
+> >>>
+> >>>> +}
+> >>>> +
+> >>>> +char **
+> >>>> +drm_query_fdinfo_system_region(struct drm_device *dev, unsigned int=
+ *num)
+> >>>> +{
+> >>>> +       static char *region[] =3D {
+> >>>> +               "system",
+> >>>> +       };
+> >>>> +
+> >>>> +       *num =3D 1;
+> >>>> +
+> >>>> +       return region;
+> >>>> +}
+> >>>> +EXPORT_SYMBOL(drm_query_fdinfo_system_region);
+> >>>> +
+> >>>> +void
+> >>>> +drm_query_fdinfo_system_memory(struct drm_file *file,
+> >>>> +                              struct drm_fdinfo_memory_stat *stats)
+> >>>> +{
+> >>>> +       struct drm_gem_object *obj;
+> >>>> +       int id;
+> >>>> +
+> >>>> +       spin_lock(&file->table_lock);
+> >>>> +       idr_for_each_entry(&file->object_idr, obj, id)
+> >>>> +               add_obj(obj, stats);
+> >>>> +       spin_unlock(&file->table_lock);
+> >>>> +}
+> >>>> +EXPORT_SYMBOL(drm_query_fdinfo_system_memory);
+> >>>> +
+> >>>>    static void
+> >>>>    print_stat(struct drm_printer *p, const char *stat, const char *r=
+egion, u64 sz)
+> >>>>    {
+> >>>> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+> >>>> index 00d48beeac5c..dd7c6fb2c975 100644
+> >>>> --- a/include/drm/drm_file.h
+> >>>> +++ b/include/drm/drm_file.h
+> >>>> @@ -383,6 +383,12 @@ struct drm_fdinfo_memory_stat {
+> >>>>           u64 active;
+> >>>>    };
+> >>>>
+> >>>> +char **drm_query_fdinfo_system_region(struct drm_device *dev,
+> >>>> +                                     unsigned int *num);
+> >>>> +void drm_query_fdinfo_system_memory(struct drm_file *file,
+> >>>> +                                   struct drm_fdinfo_memory_stat *s=
+tats);
+> >>>> +
+> >>>> +
+> >>>>    /**
+> >>>>     * drm_is_primary_client - is this an open file of the primary no=
+de
+> >>>>     * @file_priv: DRM file
+> >>>> --
+> >>>> 2.37.2
+> >>>>
