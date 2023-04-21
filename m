@@ -4,49 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC959C77B73
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 01:15:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC0CEC77B73
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 01:15:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA4BE10E12F;
-	Fri, 21 Apr 2023 01:15:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5848210ED70;
+	Fri, 21 Apr 2023 01:15:34 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DCA610E12F;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DBDC10E12F;
  Fri, 21 Apr 2023 01:15:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1682039732; x=1713575732;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=iTOCIJh8xOMcFcx3QwMEkF3KAA1MhumGZ1hg2579bb8=;
- b=GhOasBan+gs3HscpEcVPbl5IG6NGzF1xDY/Pg5QHG9AXen27gXpWRGSa
- UIHftEPSQNV4H8683Im7JG2mNiETUqTlMBO9cOxtZkMSOca9iSOylUX1Z
- ZpgGlij9OW6+aflYruJcwA+F0vuzVwDkR735pqBGh0YzkY5nTCtVdV9VM
- 8YhRgtkBrATenu0NLZdyOfgHlN4p9P9ZOwib30vrdDZ4i/gUvTfMpb1RM
- QEn39osTxJcZkcOKYqU8ivRfXwjN6FEnuzOrgl9h0TyQV/tiHuDPlmK4j
- It4uOPoPwoV90K55mfoHqbwCFnDijbOx03fsj4UC6YUSA5fmgYMPKrtWX g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="343380937"
-X-IronPort-AV: E=Sophos;i="5.99,214,1677571200"; d="scan'208";a="343380937"
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=k9qp9DQdk40I3k5aHXnl9SXrFlYIABawPWZ+MtZgfME=;
+ b=Jhda5lXhmFWHGUympkrzBv+Tfrb0RBRgjQLr/aephrHRlECy+bedTmED
+ LUDNPPEDSNTpET7UcjszpWz2csX6NAgeuHSWbUD3791l2PuBzEN6Vb2Uk
+ q+6reOPftO22Wk8tV8DnbXrzRFs5N5V3EY7xO2qp8m3AFHPqJNl25MYva
+ N97oOw47yocQTB54sxIGKzraA9oXlOVBXE39rD3GhXCX87EPTmmZi9kS6
+ UJlyGm8Dq74e/y23KogdaRZn6oj7dJKmYcT3FKoSxTNVFLM7iWvjholQo
+ aNKJnHBLdK8fP2JtA4OTEMn151TT6B68cTU4EQsjPoO/hqZbAry7Oz0cD Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="343380935"
+X-IronPort-AV: E=Sophos;i="5.99,214,1677571200"; d="scan'208";a="343380935"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  20 Apr 2023 18:15:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="692114483"
-X-IronPort-AV: E=Sophos;i="5.99,214,1677571200"; d="scan'208";a="692114483"
+X-IronPort-AV: E=McAfee;i="6600,9927,10686"; a="692114479"
+X-IronPort-AV: E=Sophos;i="5.99,214,1677571200"; d="scan'208";a="692114479"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
  by orsmga002.jf.intel.com with ESMTP; 20 Apr 2023 18:15:30 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu, 20 Apr 2023 18:15:21 -0700
-Message-Id: <20230421011525.3282664-3-John.C.Harrison@Intel.com>
+Date: Thu, 20 Apr 2023 18:15:19 -0700
+Message-Id: <20230421011525.3282664-1-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230421011525.3282664-1-John.C.Harrison@Intel.com>
-References: <20230421011525.3282664-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/6] drm/i915/guc: Print status register when
- waiting for GuC to load
+Subject: [Intel-gfx] [PATCH 0/6] Improvements to uc firmare management
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,34 +62,34 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-If the GuC load is taking an excessively long time, the wait loop
-currently prints the GT frequency. Extend that to include the GuC
-status as well so we can see if the GuC is actually making progress or
-not.
+Enhance the firmware table verification code to catch more potential
+errors and to generally improve the code itself.
+
+Track patch level version even on reduced version files to allow user
+notification of missing bug fixes.
+
+Detect another immediate failure case when loading GuC firmware.
+
+Treat more problems as fatal errors, at least for DEBUG builds.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-index 0ff088a5e51a8..364d0d546ec82 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-@@ -191,8 +191,10 @@ static int guc_wait_ucode(struct intel_guc *guc)
- 		if (!ret || !success)
- 			break;
- 
--		guc_dbg(guc, "load still in progress, count = %d, freq = %dMHz\n",
--			count, intel_rps_read_actual_frequency(&uncore->gt->rps));
-+		guc_dbg(guc, "load still in progress, count = %d, freq = %dMHz, status = 0x%08X [0x%02X/%02X]\n",
-+			count, intel_rps_read_actual_frequency(&uncore->gt->rps), status,
-+			REG_FIELD_GET(GS_BOOTROM_MASK, status),
-+			REG_FIELD_GET(GS_UKERNEL_MASK, status));
- 	}
- 	after = ktime_get();
- 	delta = ktime_sub(after, before);
+
+John Harrison (6):
+  drm/i915/guc: Decode another GuC load failure case
+  drm/i915/guc: Print status register when waiting for GuC to load
+  drm/i915/uc: Track patch level versions on reduced version firmware
+    files
+  drm/i915/uc: Enhancements to firmware table validation
+  drm/i915/uc: Reject duplicate entries in firmware table
+  drm/i915/uc: Make unexpected firmware versions an error in debug
+    builds
+
+ .../gpu/drm/i915/gt/uc/abi/guc_errors_abi.h   |   1 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c     |  12 +-
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c      | 224 +++++++++++-------
+ 3 files changed, 154 insertions(+), 83 deletions(-)
+
 -- 
 2.39.1
 
