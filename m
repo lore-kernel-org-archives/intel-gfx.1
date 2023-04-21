@@ -4,47 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 600EAC77B76
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28225C77B71
 	for <intel-gfx@archiver.kernel.org>; Fri, 21 Apr 2023 14:09:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 964AD10EE3B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84A0010EE39;
 	Fri, 21 Apr 2023 14:09:41 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D3D810EA5B;
- Thu, 13 Apr 2023 08:02:27 +0000 (UTC)
-X-UUID: 523ffd16c1d74ba2bebaa48baf1044d8-20230413
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.22, REQID:e27458f9-b223-4a29-a75f-dc1628b0353d, IP:5,
- U
- RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:1,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:1
-X-CID-INFO: VERSION:1.1.22, REQID:e27458f9-b223-4a29-a75f-dc1628b0353d, IP:5,
- URL
- :0,TC:0,Content:-5,EDM:0,RT:0,SF:1,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
- elease,TS:1
-X-CID-META: VersionHash:120426c, CLOUDID:952432a1-8fcb-430b-954a-ba3f00fa94a5,
- B
- ulkID:230413111352DVZVW4B9,BulkQuantity:2,Recheck:0,SF:24|17|19|43|102,TC:
- nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:40,QS:nil,BEC:nil,COL:0,OSI
- :0,OSA:0,AV:0
-X-CID-BVR: 0
-X-CID-BAS: 0,_,0,_
-X-UUID: 523ffd16c1d74ba2bebaa48baf1044d8-20230413
-X-User: liucong2@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.169)] by mailgw
- (envelope-from <liucong2@kylinos.cn>) (Generic MTA)
- with ESMTP id 1709036445; Thu, 13 Apr 2023 15:57:06 +0800
-From: Cong Liu <liucong2@kylinos.cn>
-To: jani.nikula@linux.intel.com
-Date: Thu, 13 Apr 2023 15:55:26 +0800
-Message-Id: <20230413075526.221068-1-liucong2@kylinos.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <874jpkckxw.fsf@intel.com>
-References: <874jpkckxw.fsf@intel.com>
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC7A610E101;
+ Fri, 21 Apr 2023 14:05:12 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1F9A564822;
+ Fri, 21 Apr 2023 14:05:12 +0000 (UTC)
+Received: from rdvivi-mobl4 (unknown [192.55.54.55])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPSA id DE125C433D2;
+ Fri, 21 Apr 2023 14:05:09 +0000 (UTC)
+Date: Fri, 21 Apr 2023 10:05:07 -0400
+From: Rodrigo Vivi <rodrigo.vivi@kernel.org>
+To: Andi Shyti <andi.shyti@linux.intel.com>
+Message-ID: <ZEKYE+bWcV5Gg00L@rdvivi-mobl4>
+References: <20230421134654.273182-1-andi.shyti@linux.intel.com>
+ <20230421134654.273182-2-andi.shyti@linux.intel.com>
+ <ZEKW/VslWeV+sGlq@rdvivi-mobl4>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 21 Apr 2023 14:09:19 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915: Fix memory leaks in i915 selftests
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ZEKW/VslWeV+sGlq@rdvivi-mobl4>
+X-Mailman-Approved-At: Fri, 21 Apr 2023 14:09:20 +0000
+Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915/i915_drv: Use proper parameter
+ naming in for_each_gt()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,42 +49,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: mchehab@kernel.org, andrzej.hajda@intel.com,
- intel-gfx@lists.freedesktop.org, jonathan.cavitt@intel.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- chris@chris-wilson.co.uk, rodrigo.vivi@intel.com, liucong2@kylinos.cn,
- matthew.auld@intel.com, daniel@ffwll.ch, airlied@gmail.com,
- nirmoy.das@intel.com
+Cc: Intel GFX <intel-gfx@lists.freedesktop.org>,
+ Andi Shyti <andi.shyti@kernel.org>,
+ DRI Devel <dri-devel@lists.freedesktop.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch fixes memory leaks on error escapes in function fake_get_pages
+On Fri, Apr 21, 2023 at 10:00:29AM -0400, Rodrigo Vivi wrote:
+> On Fri, Apr 21, 2023 at 03:46:53PM +0200, Andi Shyti wrote:
+> > for_each_gt() loops through engines in the GT, not in dev_priv.
+> 
+> typo here? ^
+> 
+> with that fixed:
 
-Fixes: c3bfba9a2225 ("drm/i915: Check for integer truncation on scatterlist creation")
-Signed-off-by: Cong Liu <liucong2@kylinos.cn>
----
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+oh, in the commit subject as well...
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index 5361ce70d3f2..154801f1c468 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -69,8 +69,10 @@ static int fake_get_pages(struct drm_i915_gem_object *obj)
- 
- 	rem = round_up(obj->base.size, BIT(31)) >> 31;
- 	/* restricted by sg_alloc_table */
--	if (overflows_type(rem, unsigned int))
-+	if (overflows_type(rem, unsigned int)) {
-+		kfree(pages);
- 		return -E2BIG;
-+	}
- 
- 	if (sg_alloc_table(pages, rem, GFP)) {
- 		kfree(pages);
--- 
-2.34.1
-
-
-No virus found
-		Checked by Hillstone Network AntiVirus
+> 
+> Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> 
+> > Because it's misleading, call it "gt__" instead of "dev_priv__".
+> > 
+> > Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/i915_drv.h | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+> > index fe7eeafe9cff6..c16f8a3cd914f 100644
+> > --- a/drivers/gpu/drm/i915/i915_drv.h
+> > +++ b/drivers/gpu/drm/i915/i915_drv.h
+> > @@ -381,11 +381,11 @@ static inline struct intel_gt *to_gt(struct drm_i915_private *i915)
+> >  }
+> >  
+> >  /* Simple iterator over all initialised engines */
+> > -#define for_each_engine(engine__, dev_priv__, id__) \
+> > +#define for_each_engine(engine__, gt__, id__) \
+> >  	for ((id__) = 0; \
+> >  	     (id__) < I915_NUM_ENGINES; \
+> >  	     (id__)++) \
+> > -		for_each_if ((engine__) = (dev_priv__)->engine[(id__)])
+> > +		for_each_if ((engine__) = (gt__)->engine[(id__)])
+> >  
+> >  /* Iterator over subset of engines selected by mask */
+> >  #define for_each_engine_masked(engine__, gt__, mask__, tmp__) \
+> > -- 
+> > 2.40.0
+> > 
