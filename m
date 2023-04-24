@@ -4,30 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BA0AC7618E
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Apr 2023 13:32:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FC7DC7618E
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Apr 2023 14:32:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4EB210E536;
-	Mon, 24 Apr 2023 13:32:44 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 61B6A10E500;
- Mon, 24 Apr 2023 13:32:42 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 59B77AADE0;
- Mon, 24 Apr 2023 13:32:42 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============3225246751526133748=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BABE10E1A8;
+	Mon, 24 Apr 2023 14:32:55 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69FCB10E526;
+ Mon, 24 Apr 2023 14:32:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1682346773; x=1713882773;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=JvrHJbu60zkW7tV/Z+bJjUu3q74+szsuchCErB0Gw9k=;
+ b=iFLqIAOMCne7i13NIt9ur5zWMh2SeFbM0XaL4L/V58+yYWctkCI3H8s/
+ u1yMIETgj2FJ5VOxZNtVtxjoONMa7PDJ+CiAsNLKMSZ/N4ik7s1mMMFew
+ 8g7mtgi5MYsdaxSAfd0+/6ciCTIhZFU96+NjQcgh3J7tSs7snbruO1G5y
+ x2Wq4M4Ck0IgOxMwdzIxMcXhh2JsFSqzk80o4LsrVwG+/iWGCqoYAK7hg
+ sPZXnXIvcKcz+lc9NQqAgy387Nis7+/HTmgJs/XFMEZ6v3aWHLEuMGyFU
+ VmTCrOtJaJwNyPTlEmg4gGswTDZwUf+LQBwu9XOvRbvo3DlRmxS4jx2SJ Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10690"; a="349266756"
+X-IronPort-AV: E=Sophos;i="5.99,222,1677571200"; d="scan'208";a="349266756"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Apr 2023 07:32:52 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10690"; a="693094064"
+X-IronPort-AV: E=Sophos;i="5.99,222,1677571200"; d="scan'208";a="693094064"
+Received: from apalfi-mobl.ger.corp.intel.com (HELO intel.com)
+ ([10.252.34.175])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Apr 2023 07:32:50 -0700
+Date: Mon, 24 Apr 2023 16:32:47 +0200
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Message-ID: <ZEaTD6dRVuOYfih9@ashyti-mobl2.lan>
+References: <20230421134654.273182-1-andi.shyti@linux.intel.com>
+ <ZER/u/tSEX8mXC7R@ashyti-mobl2.lan> <87sfcp36ql.fsf@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Nirmoy Das" <nirmoy.das@intel.com>
-Date: Mon, 24 Apr 2023 13:32:42 -0000
-Message-ID: <168234316236.1233.8515637511660755409@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20230421162131.5487-1-nirmoy.das@intel.com>
-In-Reply-To: <20230421162131.5487-1-nirmoy.das@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/mtl=3A_workaround_coherency_issue_for_Media_=28rev4=29?=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87sfcp36ql.fsf@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 0/2] Use i915 instead of dev_priv
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,217 +59,58 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+ Intel GFX <intel-gfx@lists.freedesktop.org>,
+ DRI Devel <dri-devel@lists.freedesktop.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============3225246751526133748==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi Jani,
 
-== Series Details ==
+> >> just another "Friday patch". While reviewing some patches from
+> >> Tejas I found a bit confusing the use of dev_priv__ inside the
+> >> for_each_engine(), perhaps it should be moved inside the gt/?
+> >> 
+> >> As I was at it I made the /dev_priv/i915/ change which is still
+> >> harmless. Next in queue is to change the i915_irq.h, which is a
+> >> bit tricky (but not much) as the "dev_priv" is hardcoded inside
+> >> some defines.
+> >> 
+> >> Andi
+> >> 
+> >> Andi Shyti (2):
+> >>   drm/i915/i915_drv: Use proper parameter naming in for_each_gt()
+> >>   drm/i915/i915_drv: Use i915 instead of dev_priv insied the file_priv
+> >>     structure
+> >> 
+> >>  drivers/gpu/drm/i915/i915_drv.h | 462 ++++++++++++++++----------------
+> >>  1 file changed, 231 insertions(+), 231 deletions(-)
+> >
+> > Pushed to dmr-intel-gt-next.
+> 
+> That's going to create problems for us for weeks to come. I'm actually
+> tempted to ask Joonas or Tvrtko to just force push that out of there.
+> 
+> Only use drm-intel-gt-next for stuff that's specifically about gt or
+> gem, and touches files used by gt or gem only. For everything else, use
+> drm-intel-next. When in doubt, err on the side of drm-intel-next.
 
-Series: drm/i915/mtl: workaround coherency issue for Media (rev4)
-URL   : https://patchwork.freedesktop.org/series/116751/
-State : success
+sorry, I did think of it. But...
 
-== Summary ==
+> It's not enough that one of the patches changes parameters of
+> for_each_gt() macro.
 
-CI Bug Log - changes from CI_DRM_13053 -> Patchwork_116751v4
-====================================================
+... I was fooled by the gt/i915 parameter.
 
-Summary
--------
+Thanks and sorry,
+Andi
 
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116751v4/index.html
-
-Participating hosts (38 -> 37)
-------------------------------
-
-  Additional (1): bat-mtlp-8 
-  Missing    (2): fi-kbl-soraka fi-snb-2520m 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_116751v4:
-
-### IGT changes ###
-
-#### Suppressed ####
-
-  The following results come from untrusted machines, tests, or statuses.
-  They do not affect the overall result.
-
-  * igt@i915_module_load@load:
-    - {bat-mtlp-8}:       NOTRUN -> [ABORT][1]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116751v4/bat-mtlp-8/igt@i915_module_load@load.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_116751v4 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@gt_lrc:
-    - bat-adln-1:         [PASS][2] -> [INCOMPLETE][3] ([i915#4983] / [i915#7609])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13053/bat-adln-1/igt@i915_selftest@live@gt_lrc.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116751v4/bat-adln-1/igt@i915_selftest@live@gt_lrc.html
-
-  * igt@i915_selftest@live@reset:
-    - bat-rpls-1:         [PASS][4] -> [ABORT][5] ([i915#4983] / [i915#8384])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13053/bat-rpls-1/igt@i915_selftest@live@reset.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116751v4/bat-rpls-1/igt@i915_selftest@live@reset.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@migrate:
-    - bat-adlp-9:         [DMESG-FAIL][6] ([i915#7699]) -> [PASS][7]
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13053/bat-adlp-9/igt@i915_selftest@live@migrate.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116751v4/bat-adlp-9/igt@i915_selftest@live@migrate.html
-
-  * igt@kms_pipe_crc_basic@suspend-read-crc@pipe-b-hdmi-a-1:
-    - fi-rkl-11600:       [FAIL][8] ([fdo#103375]) -> [PASS][9]
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13053/fi-rkl-11600/igt@kms_pipe_crc_basic@suspend-read-crc@pipe-b-hdmi-a-1.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116751v4/fi-rkl-11600/igt@kms_pipe_crc_basic@suspend-read-crc@pipe-b-hdmi-a-1.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#103375]: https://bugs.freedesktop.org/show_bug.cgi?id=103375
-  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
-  [i915#7609]: https://gitlab.freedesktop.org/drm/intel/issues/7609
-  [i915#7699]: https://gitlab.freedesktop.org/drm/intel/issues/7699
-  [i915#8384]: https://gitlab.freedesktop.org/drm/intel/issues/8384
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_13053 -> Patchwork_116751v4
-
-  CI-20190529: 20190529
-  CI_DRM_13053: 63a6d68541b38408d5be8345f3e4a561661f68cb @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7266: 94411dd85f9ad6d76fb7b2097197122703a3914c @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_116751v4: 63a6d68541b38408d5be8345f3e4a561661f68cb @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-86368a176c5f drm/i915/mtl: workaround coherency issue for Media
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116751v4/index.html
-
---===============3225246751526133748==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/mtl: workaround coherency issue for Media (rev4)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/116751/">https://patchwork.freedesktop.org/series/116751/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116751v4/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116751v4/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_13053 -&gt; Patchwork_116751v4</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116751v4/index.html</p>
-<h2>Participating hosts (38 -&gt; 37)</h2>
-<p>Additional (1): bat-mtlp-8 <br />
-  Missing    (2): fi-kbl-soraka fi-snb-2520m </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_116751v4:</p>
-<h3>IGT changes</h3>
-<h4>Suppressed</h4>
-<p>The following results come from untrusted machines, tests, or statuses.<br />
-  They do not affect the overall result.</p>
-<ul>
-<li>igt@i915_module_load@load:<ul>
-<li>{bat-mtlp-8}:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116751v4/bat-mtlp-8/igt@i915_module_load@load.html">ABORT</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_116751v4 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@gt_lrc:</p>
-<ul>
-<li>bat-adln-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13053/bat-adln-1/igt@i915_selftest@live@gt_lrc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116751v4/bat-adln-1/igt@i915_selftest@live@gt_lrc.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7609">i915#7609</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@reset:</p>
-<ul>
-<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13053/bat-rpls-1/igt@i915_selftest@live@reset.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116751v4/bat-rpls-1/igt@i915_selftest@live@reset.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8384">i915#8384</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@migrate:</p>
-<ul>
-<li>bat-adlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13053/bat-adlp-9/igt@i915_selftest@live@migrate.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7699">i915#7699</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116751v4/bat-adlp-9/igt@i915_selftest@live@migrate.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@suspend-read-crc@pipe-b-hdmi-a-1:</p>
-<ul>
-<li>fi-rkl-11600:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13053/fi-rkl-11600/igt@kms_pipe_crc_basic@suspend-read-crc@pipe-b-hdmi-a-1.html">FAIL</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=103375">fdo#103375</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116751v4/fi-rkl-11600/igt@kms_pipe_crc_basic@suspend-read-crc@pipe-b-hdmi-a-1.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_13053 -&gt; Patchwork_116751v4</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_13053: 63a6d68541b38408d5be8345f3e4a561661f68cb @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7266: 94411dd85f9ad6d76fb7b2097197122703a3914c @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_116751v4: 63a6d68541b38408d5be8345f3e4a561661f68cb @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>86368a176c5f drm/i915/mtl: workaround coherency issue for Media</p>
-
-</body>
-</html>
-
---===============3225246751526133748==--
+> We can cross-merge drm-intel-next to drm-intel-gt-next, but we can't
+> cross-merge drm-intel-gt-next to drm-intel-next. This means the only way
+> to sync those i915_drv.h changes to drm-intel-next is to have a
+> drm-intel-gt-next pull request merged to drm-next, and then backmerged
+> to drm-intel-next. That's not going to happen for several weeks.
+> 
+> Any change aimed at drm-intel-next that conflicts with the i915_drv.h
+> changes will now be pending on those merges.
