@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F772C77B71
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 20:28:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDD1BC77B61
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 20:28:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88A7910E5A5;
-	Tue, 25 Apr 2023 20:28:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 396D510E61D;
+	Tue, 25 Apr 2023 20:28:48 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C69FB10E5A5
- for <intel-gfx@lists.freedesktop.org>; Tue, 25 Apr 2023 20:28:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8DAA10E61D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 25 Apr 2023 20:28:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682454522; x=1713990522;
+ t=1682454526; x=1713990526;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=OCaFIoc7JOWRmc2WZrT1CELC9rbANGMZJUzX516BDBo=;
- b=bfaa46q9DCCIDNEFLHa1S7hGEadw7WxQx5ZKbGYHAHV0ZeQmw/X35dGp
- C8l84tlCSRRLleaJuWBLviKyYi6rw9MyMBt3eiZUaphCcpj5hPB+rxKD8
- fUvl66+bvJBw1vmvG0Ng4LOKaKqoBnEBRcJ77JOKfpFUX0wEBuEo/XdwJ
- LBdlOLa+5IYRIFhKCsMuPU9JvK9uon6CHOfLc3nJ7+/K6AH+TNZU7Drxf
- bgWML6FbaTB3gb2answUvYu7QIfJPSgpjO6ZsOz0Q2DJ8exLKDSM9jC1s
- FXFEcRYKMa9Ix70SDXxG5Vt/N1Opg/PNOQIpuurkVNe/O7dbwpUgPBmZd g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10691"; a="345651634"
-X-IronPort-AV: E=Sophos;i="5.99,226,1677571200"; d="scan'208";a="345651634"
+ bh=sWpK/PcXrHQnLMWkeGWt6YkMkv7Fu4Mmu9aXVj9mVFI=;
+ b=QnPexfD5OqVToMUc8i76Oo1dKWm77d+aZyNNJDeYgW4z2rx/dEQ8jwJo
+ 8c0XpjuzMpKGHIRmysrS+SzXiczwoJXfyg4pZpRUkTmUwoIvJh7T9uutm
+ X8rLXWPxZeI/W96EQ2yTBA5ql/L/VQBGZLXe9xtEkCy43OktCbWiFSEpA
+ 8wX5gPGZVIZxIHHCtzmGhFT+rsVDugt9rwNx1e1K0VRRff4ZexaS70AQD
+ W0jYySBYo8ZOlbsMs8M2v9FPalmv6z7a8SIVF8PuesVG6CS4eXEuuokfz
+ jnuqj61J32K4crOR0GlkhTcW120aDOTNry5L08tmiljlYcV5XaX0QEnFc w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10691"; a="345651658"
+X-IronPort-AV: E=Sophos;i="5.99,226,1677571200"; d="scan'208";a="345651658"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Apr 2023 13:28:39 -0700
+ 25 Apr 2023 13:28:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10691"; a="724141250"
-X-IronPort-AV: E=Sophos;i="5.99,226,1677571200"; d="scan'208";a="724141250"
+X-IronPort-AV: E=McAfee;i="6600,9927,10691"; a="724141260"
+X-IronPort-AV: E=Sophos;i="5.99,226,1677571200"; d="scan'208";a="724141260"
 Received: from aazuev-mobl.ccr.corp.intel.com (HELO vgovind2-mobl3.intel.com)
  ([10.252.59.124])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Apr 2023 13:28:36 -0700
+ 25 Apr 2023 13:28:43 -0700
 From: Vinod Govindapillai <vinod.govindapillai@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 25 Apr 2023 23:28:19 +0300
-Message-Id: <20230425202826.1144429-2-vinod.govindapillai@intel.com>
+Date: Tue, 25 Apr 2023 23:28:21 +0300
+Message-Id: <20230425202826.1144429-4-vinod.govindapillai@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230425202826.1144429-1-vinod.govindapillai@intel.com>
 References: <20230425202826.1144429-1-vinod.govindapillai@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/8] drm/i915: fix the derating percentage
- for MTL
+Subject: [Intel-gfx] [PATCH v2 3/8] drm/i915: store the peak bw per QGV point
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,29 +63,50 @@ Cc: ville.syrjala@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Follow the values from bspec for the percentage overhead for
-efficiency in MTL BW calculations.
+In MTL onwards, pcode locks the GV point based on the peak BW
+of a QGV point. So store the peak BW of all the QGV points.
 
-Bspec: 64631
+Bspec: 64636
 
 Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bw.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_bw.c           | 7 +++++--
+ drivers/gpu/drm/i915/display/intel_display_core.h | 2 ++
+ 2 files changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
-index 597d5816ad1b..ab405c48ca3a 100644
+index 25ae4e5834d3..f5b6cd7f83b8 100644
 --- a/drivers/gpu/drm/i915/display/intel_bw.c
 +++ b/drivers/gpu/drm/i915/display/intel_bw.c
-@@ -379,7 +379,7 @@ static const struct intel_sa_info mtl_sa_info = {
- 	.deburst = 32,
- 	.deprogbwlimit = 38, /* GB/s */
- 	.displayrtids = 256,
--	.derating = 20,
-+	.derating = 10,
- };
+@@ -534,10 +534,13 @@ static int tgl_get_bw_info(struct drm_i915_private *dev_priv, const struct intel
  
- static int icl_get_bw_info(struct drm_i915_private *dev_priv, const struct intel_sa_info *sa)
+ 			bi->deratedbw[j] = min(maxdebw,
+ 					       bw * (100 - sa->derating) / 100);
++			bi->peakbw[j] = sp->dclk * num_channels *
++					qi.channel_width / 8;
+ 
+ 			drm_dbg_kms(&dev_priv->drm,
+-				    "BW%d / QGV %d: num_planes=%d deratedbw=%u\n",
+-				    i, j, bi->num_planes, bi->deratedbw[j]);
++				    "BW%d / QGV %d: num_planes=%d deratedbw=%u peakbw: %u\n",
++				    i, j, bi->num_planes, bi->deratedbw[j],
++				    bi->peakbw[j]);
+ 		}
+ 
+ 		for (j = 0; j < qi.num_psf_points; j++) {
+diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
+index e36f88a39b86..9f66d734edf6 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_core.h
++++ b/drivers/gpu/drm/i915/display/intel_display_core.h
+@@ -314,6 +314,8 @@ struct intel_display {
+ 			unsigned int deratedbw[I915_NUM_QGV_POINTS];
+ 			/* for each PSF GV point */
+ 			unsigned int psf_bw[I915_NUM_PSF_GV_POINTS];
++			/* Peak BW for each QGV point */
++			unsigned int peakbw[I915_NUM_QGV_POINTS];
+ 			u8 num_qgv_points;
+ 			u8 num_psf_gv_points;
+ 			u8 num_planes;
 -- 
 2.34.1
 
