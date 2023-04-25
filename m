@@ -4,52 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C5E2C6FD18
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 20:28:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6F53C6FD18
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 20:28:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E37DE10E7C7;
-	Tue, 25 Apr 2023 20:28:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11F4210E7E2;
+	Tue, 25 Apr 2023 20:28:55 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBA7A10E0C5
- for <intel-gfx@lists.freedesktop.org>; Tue, 25 Apr 2023 20:28:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45C1D10E7E2
+ for <intel-gfx@lists.freedesktop.org>; Tue, 25 Apr 2023 20:28:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682454523; x=1713990523;
+ t=1682454534; x=1713990534;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=iPiGQURjquVk9DiEIXo1Oj7lPsM1npJIkpSCr77khzk=;
- b=JROXk/9OKuOdS0f+JOrCuEG2yW6K3K1ieasRBnYG7YXqgYu/yi3OWaVw
- gr33TVfliyCmD0lULOybwIBr0LBcZmkiDSYPCz0f6CUhHOxyYoDEoxEbz
- LQzkQ5lr4rfoGpEA+CnTM5k5CwUS/e4AHqZdzOB8ySXypX3uSV24JdJRq
- tXHdkpUCuxPXl9ExC32Tx4B1tvt057+0URW+8ZIvK7ITzOJrXabAwTz9L
- /2SIGYHkeTrckoyvOsmMASCuJRiYHAfFmtlRNHISRlCHXdMUGFIaPlAR2
- TI77CDFRFGFHaO7koqNOLLfnt3umCDgljSaWoMsYA4qyIMkvYUDlDT0Hs g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10691"; a="345651643"
-X-IronPort-AV: E=Sophos;i="5.99,226,1677571200"; 
- d="scan'208,223";a="345651643"
+ bh=KYPNkrUxT305Vzo3xS+iUxTh8JzXHVL3MFG6qVltZS0=;
+ b=QCZeAHL6mo1qnZiCKUGosgGIKW5rFT36hilTgan3hP1Jch7UouJ/mB5l
+ Nc0zZmTSXIzae5XIDeRYqf5nRdBGrE8PCiI7b59dtnxYESN762/3lGvc2
+ rUeBcM1iFgzpFAS8+xEkt6Kc8tNEIyH46WUi9LPJqmKHVJNiz0TnpsnDk
+ hFedoFOdYt7Tclv9Nk+kWt+Ol9zoop8qKzxcMtBN3NY83gkTpLmZhdsuW
+ KW0Z5Ei38WzbLAyA59coNg12SM6HBmgEUlOY50PhbkNbkmG2Pb7dWSsHu
+ IDqjIp01BsVKOTO2so6shgu7aEhpnD4fiOqc2zI89EaKdEQZMt+j64wGA Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10691"; a="345651683"
+X-IronPort-AV: E=Sophos;i="5.99,226,1677571200"; d="scan'208";a="345651683"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Apr 2023 13:28:42 -0700
+ 25 Apr 2023 13:28:54 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10691"; a="724141256"
-X-IronPort-AV: E=Sophos;i="5.99,226,1677571200"; 
- d="scan'208,223";a="724141256"
+X-IronPort-AV: E=McAfee;i="6600,9927,10691"; a="724141271"
+X-IronPort-AV: E=Sophos;i="5.99,226,1677571200"; d="scan'208";a="724141271"
 Received: from aazuev-mobl.ccr.corp.intel.com (HELO vgovind2-mobl3.intel.com)
  ([10.252.59.124])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Apr 2023 13:28:40 -0700
+ 25 Apr 2023 13:28:51 -0700
 From: Vinod Govindapillai <vinod.govindapillai@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 25 Apr 2023 23:28:20 +0300
-Message-Id: <20230425202826.1144429-3-vinod.govindapillai@intel.com>
+Date: Tue, 25 Apr 2023 23:28:23 +0300
+Message-Id: <20230425202826.1144429-6-vinod.govindapillai@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230425202826.1144429-1-vinod.govindapillai@intel.com>
 References: <20230425202826.1144429-1-vinod.govindapillai@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 2/8] drm/i915: update the QGV point frequency
- calculations
+Subject: [Intel-gfx] [PATCH v2 5/8] drm/i915: modify max_bw to return index
+ to intel_bw_info
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,31 +64,85 @@ Cc: ville.syrjala@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From MTL onwwards, pcode locks the QGV point based on peak BW of
-the intended QGV point passed by the driver. So the peak BW
-calculation must match the value expected by the pcode. Update
-the calculations as per the Bspec.
-
-Bspec: 64636
+MTL uses the peak BW of a QGV point to lock the required QGV
+point instead of the QGV index. Instead of passing the deratedbw
+of the selected bw_info, return the index to the selected
+bw_info so that either deratedbw or peakbw can be used based on
+the platform.
 
 Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bw.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_bw.c | 25 ++++++++++++++++---------
+ 1 file changed, 16 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
-index ab405c48ca3a..25ae4e5834d3 100644
+index a3b8512ebe8a..fd0b08fd6555 100644
 --- a/drivers/gpu/drm/i915/display/intel_bw.c
 +++ b/drivers/gpu/drm/i915/display/intel_bw.c
-@@ -182,7 +182,7 @@ static int mtl_read_qgv_point_info(struct drm_i915_private *dev_priv,
- 	val2 = intel_uncore_read(&dev_priv->uncore,
- 				 MTL_MEM_SS_INFO_QGV_POINT_HIGH(point));
- 	dclk = REG_FIELD_GET(MTL_DCLK_MASK, val);
--	sp->dclk = DIV_ROUND_UP((16667 * dclk), 1000);
-+	sp->dclk = (16667 * dclk + 500) / 1000;
- 	sp->t_rp = REG_FIELD_GET(MTL_TRP_MASK, val);
- 	sp->t_rcd = REG_FIELD_GET(MTL_TRCD_MASK, val);
+@@ -592,8 +592,8 @@ static void dg2_get_bw_info(struct drm_i915_private *i915)
+ 	i915->display.sagv.status = I915_SAGV_NOT_CONTROLLED;
+ }
  
+-static unsigned int icl_max_bw(struct drm_i915_private *dev_priv,
+-			       int num_planes, int qgv_point)
++static unsigned int icl_max_bw_index(struct drm_i915_private *dev_priv,
++				     int num_planes, int qgv_point)
+ {
+ 	int i;
+ 
+@@ -614,14 +614,14 @@ static unsigned int icl_max_bw(struct drm_i915_private *dev_priv,
+ 			return UINT_MAX;
+ 
+ 		if (num_planes >= bi->num_planes)
+-			return bi->deratedbw[qgv_point];
++			return i;
+ 	}
+ 
+ 	return 0;
+ }
+ 
+-static unsigned int tgl_max_bw(struct drm_i915_private *dev_priv,
+-			       int num_planes, int qgv_point)
++static unsigned int tgl_max_bw_index(struct drm_i915_private *dev_priv,
++				     int num_planes, int qgv_point)
+ {
+ 	int i;
+ 
+@@ -642,10 +642,10 @@ static unsigned int tgl_max_bw(struct drm_i915_private *dev_priv,
+ 			return UINT_MAX;
+ 
+ 		if (num_planes <= bi->num_planes)
+-			return bi->deratedbw[qgv_point];
++			return i;
+ 	}
+ 
+-	return dev_priv->display.bw.max[0].deratedbw[qgv_point];
++	return 0;
+ }
+ 
+ static unsigned int adl_psf_bw(struct drm_i915_private *dev_priv,
+@@ -822,12 +822,19 @@ static int icl_find_qgv_points(struct drm_i915_private *i915,
+ 		return ret;
+ 
+ 	for (i = 0; i < num_qgv_points; i++) {
++		unsigned int idx;
+ 		unsigned int max_data_rate;
+ 
+ 		if (DISPLAY_VER(i915) > 11)
+-			max_data_rate = tgl_max_bw(i915, num_active_planes, i);
++			tgl_max_bw_index(i915, num_active_planes, i);
+ 		else
+-			max_data_rate = icl_max_bw(i915, num_active_planes, i);
++			icl_max_bw_index(i915, num_active_planes, i);
++
++		if (idx > ARRAY_SIZE(i915->display.bw.max))
++			continue;
++
++		max_data_rate = i915->display.bw.max[idx].deratedbw[i];
++
+ 		/*
+ 		 * We need to know which qgv point gives us
+ 		 * maximum bandwidth in order to disable SAGV
 -- 
 2.34.1
 
