@@ -4,49 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BC8AC6FD18
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 20:19:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51770C77B61
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 20:19:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9564E10E5A5;
-	Tue, 25 Apr 2023 20:19:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2995210E7E2;
+	Tue, 25 Apr 2023 20:19:36 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E39CF10E59F;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DA3010E59F;
  Tue, 25 Apr 2023 20:19:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1682453973; x=1713989973;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=2gUmJyAakZKpXhzxt5oodo3cyAPvHxjtyVj8KJQPkPU=;
- b=ncMZOnBwSjwCseo7zimDutu8CxZ56Lfel8jUe+CBz15ZgVjhCZaDh4Xa
- QOz2FOVKxE2Ta99f6GWm/Pyi0Wdr1dxk2CAjei/uNBIz/XkDFKVDQ/0EH
- 9rmZU84HI4gMdh1c0+Y8YdFEhTj8wpcPA1Ju7dT5zA7VcU1ssHdSALZ1e
- s2wmzLfyQO8J7qUFL6XqviNUqIojob5eNlaLNKXjINKj1/KsD17fev7tQ
- Y/p/gjn4CAbekqzcimMt+fQck5YdPxWlvj2SDNxpLR8dmbiDxDcbx/lg8
- GN0hRZstSCuK5a/UrV5PnLAWNp4kP1gGMF7oLd3CfaageXWj/h7MSqQEV A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10691"; a="348820554"
-X-IronPort-AV: E=Sophos;i="5.99,226,1677571200"; d="scan'208";a="348820554"
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=J3XCl9/aoI1ravKSMxjFRMxvRSGT8cm3gjRV6G3NYRk=;
+ b=j+5rGWtQKmYVgPPUaO04gUvPTawnzAk33Hb4QXoxwt4muG10vMo5df8f
+ F8mMWZAkIos/IQeMXLB/C7vVkexos7LOEW6on5ihVDcAjqak2yIDPtCrF
+ 19YERSRjU88fNTLyaNBuvU6N/H0TpVA6O7y+ABNx6meCCgxh5CcHV3llB
+ df5maIlvaRIQh/eIE7Hj64JHksT0ZABxpsazIa95lirxIMTFq+1EWKYrk
+ 8VUQ4/CK2ex+COBPjySkBA1gOIpuzwQxME32cL4XOKi0kngotS/k6sIVJ
+ a4TRhTzF79eg0LJR3hyJo1Rz5mw+xCRPLOQPDSQ+Nwz6cfDXexiVPqr5c w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10691"; a="348820552"
+X-IronPort-AV: E=Sophos;i="5.99,226,1677571200"; d="scan'208";a="348820552"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  25 Apr 2023 13:19:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10691"; a="726251118"
-X-IronPort-AV: E=Sophos;i="5.99,226,1677571200"; d="scan'208";a="726251118"
+X-IronPort-AV: E=McAfee;i="6600,9927,10691"; a="726251112"
+X-IronPort-AV: E=Sophos;i="5.99,226,1677571200"; d="scan'208";a="726251112"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
  by orsmga001.jf.intel.com with ESMTP; 25 Apr 2023 13:19:25 -0700
 From: John.C.Harrison@Intel.com
 To: IGT-Dev@Lists.FreeDesktop.Org
-Date: Tue, 25 Apr 2023 13:19:26 -0700
-Message-Id: <20230425201926.99086-3-John.C.Harrison@Intel.com>
+Date: Tue, 25 Apr 2023 13:19:24 -0700
+Message-Id: <20230425201926.99086-1-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230425201926.99086-1-John.C.Harrison@Intel.com>
-References: <20230425201926.99086-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 2/2] tools/intel_error_decode: Correctly
- name the GuC CT buffer
+Subject: [Intel-gfx] [PATCH i-g-t 0/2] Update intel_error_decode for Gen12
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,26 +62,21 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-The buffer decoding code doesn't cope well with unknown buffers. So
-add an entry for the GuC CTB so that it gets decoded correctly.
+The error capture decoder was reporting invalid errors in batch
+buffers and getting confused about the prescence of the GuC CTB. So
+fix those up.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
----
- tools/intel_error_decode.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/tools/intel_error_decode.c b/tools/intel_error_decode.c
-index 99680bedc785..451608826be3 100644
---- a/tools/intel_error_decode.c
-+++ b/tools/intel_error_decode.c
-@@ -617,6 +617,7 @@ read_data_file(FILE *file)
- 				{ "user", "user", 0 },
- 				{ "semaphores", "semaphores", 0 },
- 				{ "guc log buffer", "GuC log", 0 },
-+				{ "guc ct buffer", "GuC CTB", 0 },
- 				{ },
- 			}, *b;
- 			char *new_ring_name;
+
+John Harrison (2):
+  lib/intel_decode: Decode Gen12 ring/batch instructions correctly
+  tools/intel_error_decode: Correctly name the GuC CT buffer
+
+ lib/i915/intel_decode.c    | 15 +++++++++++++--
+ tools/intel_error_decode.c |  1 +
+ 2 files changed, 14 insertions(+), 2 deletions(-)
+
 -- 
 2.39.1
 
