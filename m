@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFF4EC77B71
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 20:19:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1FB1C77B71
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Apr 2023 20:21:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0D2010E7C7;
-	Tue, 25 Apr 2023 20:19:35 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C122A10E5A5;
- Tue, 25 Apr 2023 20:19:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44B8910E59F;
+	Tue, 25 Apr 2023 20:21:08 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 327FA10E5A5
+ for <intel-gfx@lists.freedesktop.org>; Tue, 25 Apr 2023 20:21:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682453973; x=1713989973;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=gW5ZRfQC2tnIDoL8RSxFJTicrGygEyiTgOIiS3c3IcU=;
- b=BjkKDbZzvdpL1UfiGT597LHpqzsLBjLXmyvJOk7Qmg9ryN8gGlbK0+u4
- LLMWzUg8lnjx8OFyrcW7dq0kFgzwWVNIGogPHtNpb25OHPuogdVQFy5rr
- vRkJdTyIgYtFS4DRuv4gkT3694I+18gWk8JWvC1PED/e4lZLSP+qa+pMt
- npsCX8eRk1HrDrIAoyQfozAk46JAVKtuODhVfbvnEiLoe1voIzZO/+7z9
- aBnxMf2zYgXKHXasY4G+JqJ/H4lhCpFxoo/JjOI9zBbPdSyIjvbOKY/Cu
- k8/a3t3kcs/8EypHw/HhJymo/7/wcBX6X/Fvv51wGbaxy6CIbnK/14gIK g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10691"; a="348820553"
-X-IronPort-AV: E=Sophos;i="5.99,226,1677571200"; d="scan'208";a="348820553"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Apr 2023 13:19:25 -0700
+ t=1682454067; x=1713990067;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=QSQUtVZO1czNa8n+9lBLeZvV4CrFqgN5Dlr0PHpJnuE=;
+ b=P59GCoWyqlwSLJPUO8h7R8L2Cn3S3czOPJRMCZKApkFpCSPmah7Y49VP
+ Tf0A931PwpWbWAh4R6BmKgFJxlWJBjJqLtbLQju/5otwHEQ6kZOR54UiQ
+ 0TIpldPiQiUpiqXIrpXBsTLK1iDu/A8a6RQwE3UlvqV7/k360rp+4EFip
+ HBEIoFz9h2r0SV4kOesjsJFRZjZVmGPXjTWHt1wSjbOQIRKUb7OwJTTvY
+ 6LSL4A/Et+10SY0EwYxyBjsm2xvV5KC2nseLZ0qv4vC/E8rIk66WIMIGW
+ cd+4LJknTSqIdInPZ7E8tgPHprhgSOafQNO+WkOyujmdAZmtV/x83xHiO g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10691"; a="409854203"
+X-IronPort-AV: E=Sophos;i="5.99,226,1677571200"; d="scan'208";a="409854203"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Apr 2023 13:21:06 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10691"; a="726251115"
-X-IronPort-AV: E=Sophos;i="5.99,226,1677571200"; d="scan'208";a="726251115"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
- by orsmga001.jf.intel.com with ESMTP; 25 Apr 2023 13:19:25 -0700
-From: John.C.Harrison@Intel.com
-To: IGT-Dev@Lists.FreeDesktop.Org
-Date: Tue, 25 Apr 2023 13:19:25 -0700
-Message-Id: <20230425201926.99086-2-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230425201926.99086-1-John.C.Harrison@Intel.com>
-References: <20230425201926.99086-1-John.C.Harrison@Intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10691"; a="693663031"
+X-IronPort-AV: E=Sophos;i="5.99,226,1677571200"; d="scan'208";a="693663031"
+Received: from aazuev-mobl.ccr.corp.intel.com (HELO vgovind2-mobl3.intel.com)
+ ([10.252.59.124])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Apr 2023 13:21:04 -0700
+From: Vinod Govindapillai <vinod.govindapillai@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 25 Apr 2023 23:20:49 +0300
+Message-Id: <20230425202056.1143994-1-vinod.govindapillai@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 1/2] lib/intel_decode: Decode Gen12
- ring/batch instructions correctly
+Subject: [Intel-gfx] [PATCH v1 0/7] mtl: add support for pmdemand
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,60 +58,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel-GFX@Lists.FreeDesktop.Org
+Cc: ville.syrjala@intel.com, gustavo.souza@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+pmdemand support patches for MTL
 
-Some MI_ instructions have changed (or are just new) for Gen12. So
-update the decoder code to match.
+SAGV configuration support for MTL
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
----
- lib/i915/intel_decode.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+Mika Kahola (1):
+  drm/i915/mtl: Add support for PM DEMAND
 
-diff --git a/lib/i915/intel_decode.c b/lib/i915/intel_decode.c
-index 80b92d90c61c..1b6de5edafad 100644
---- a/lib/i915/intel_decode.c
-+++ b/lib/i915/intel_decode.c
-@@ -236,7 +236,7 @@ decode_mi(struct intel_decode *ctx)
- 		{ 0x08, 0, 1, 1, "MI_ARB_ON_OFF" },
- 		{ 0x0a, 0, 1, 1, "MI_BATCH_BUFFER_END" },
- 		{ 0x30, 0x3f, 3, 3, "MI_BATCH_BUFFER" },
--		{ 0x31, 0x3f, 2, 2, "MI_BATCH_BUFFER_START" },
-+		{ 0x31, 0x3f, 2, 3, "MI_BATCH_BUFFER_START" },
- 		{ 0x14, 0x3f, 3, 3, "MI_DISPLAY_BUFFER_INFO" },
- 		{ 0x04, 0, 1, 1, "MI_FLUSH" },
- 		{ 0x22, 0x1f, 3, 3, "MI_LOAD_REGISTER_IMM" },
-@@ -256,6 +256,7 @@ decode_mi(struct intel_decode *ctx)
- 		{ 0x28, 0x3f, 3, 3, "MI_REPORT_PERF_COUNT" },
- 		{ 0x29, 0xff, 3, 3, "MI_LOAD_REGISTER_MEM" },
- 		{ 0x0b, 0, 1, 1, "MI_SUSPEND_FLUSH"},
-+		{ 0x05, 0, 1, 1, "MI_ARB_CHECK"},
- 	}, *opcode_mi = NULL;
- 
- 	/* check instruction length */
-@@ -3623,7 +3624,17 @@ decode_3d_965(struct intel_decode *ctx)
- 		return len;
- 
- 	case 0x7a00:
--		if (IS_GEN6(devid) || IS_GEN7(devid)) {
-+		if (IS_GEN12(devid)) {
-+			if (len != 6)
-+				fprintf(out, "Bad count in PIPE_CONTROL\n");
-+			instr_out(ctx, 0, "PIPE_CONTROL\n");
-+			instr_out(ctx, 1, "flags\n");
-+			instr_out(ctx, 2, "write address low\n");
-+			instr_out(ctx, 3, "write address high\n");
-+			instr_out(ctx, 4, "write data low\n");
-+			instr_out(ctx, 5, "write data high\n");
-+			return len;
-+		} else if (IS_GEN6(devid) || IS_GEN7(devid)) {
- 			if (len != 4 && len != 5)
- 				fprintf(out, "Bad count in PIPE_CONTROL\n");
- 
+Vinod Govindapillai (6):
+  drm/i915: update the QGV point frequency calculations
+  drm/i915: store the peak bw per QGV point
+  drm/i915: extract intel_bw_check_qgv_points()
+  drm/i915: modify max_bw to return index to intel_bw_info
+  drm/i915/mtl: find best QGV point and configure sagv
+  drm/i915/display: provision to suppress drm_warn in
+    intel_get_crtc_new_encoder
+
+ drivers/gpu/drm/i915/Makefile                 |   3 +-
+ drivers/gpu/drm/i915/display/intel_bw.c       | 348 ++++++++++-----
+ drivers/gpu/drm/i915/display/intel_bw.h       |   6 +
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c  |   2 +-
+ drivers/gpu/drm/i915/display/intel_display.c  |  17 +-
+ drivers/gpu/drm/i915/display/intel_display.h  |   3 +-
+ .../gpu/drm/i915/display/intel_display_core.h |   8 +
+ .../drm/i915/display/intel_display_driver.c   |   7 +
+ .../drm/i915/display/intel_display_power.c    |   8 +
+ drivers/gpu/drm/i915/display/intel_dpll.c     |   8 +-
+ .../gpu/drm/i915/display/intel_pch_display.c  |   2 +-
+ drivers/gpu/drm/i915/display/intel_pmdemand.c | 406 ++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_pmdemand.h |  25 ++
+ drivers/gpu/drm/i915/display/intel_snps_phy.c |   2 +-
+ drivers/gpu/drm/i915/i915_irq.c               |  22 +-
+ drivers/gpu/drm/i915/i915_reg.h               |  36 +-
+ 16 files changed, 771 insertions(+), 132 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/display/intel_pmdemand.c
+ create mode 100644 drivers/gpu/drm/i915/display/intel_pmdemand.h
+
 -- 
-2.39.1
+2.34.1
 
