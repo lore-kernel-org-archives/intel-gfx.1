@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26F65C77B7C
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Apr 2023 16:53:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B193C77B78
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Apr 2023 16:53:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 256AE10E8A8;
-	Wed, 26 Apr 2023 16:53:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26B4910E8BF;
+	Wed, 26 Apr 2023 16:53:21 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9341B10E252
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Apr 2023 16:53:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD92010E8A8
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Apr 2023 16:53:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682527992; x=1714063992;
+ t=1682527994; x=1714063994;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=oUwBV6zzu5Y8NXi5DnHPoV54BjgYmBeGH0ZUAlFQiyk=;
- b=BHdqlfpuOAndBMKXIoNpXgFZg3kRQORDN0lFElvJKYsaWuD9N1vtRpXf
- NnkJoGzkkhn1wqP62HYtdf9qCOi2cMxt/UyeTDznDUaknWZkJZsRvCCo3
- gHtLChY4JlysMwrJSJVZ7AAoEfec+08n2zS/V8+lrMqOb+oLnfq7ZZecY
- fkn0uANF2FeRblpTV2uLn8rjYJKC/wZpLt5TlgCns2TiGIAaawzq2uSnV
- gFmnYTM8cXPeZwD9JQoUSKg+Nna9j6BV9ffj+cY34cPVcdR6ZhNRfh/KM
- mQzKArtKCID30IdqD+aEE3PKXAieF67LzlkcWzb8EOCPPnUZO7cUeyE/V A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="327493470"
-X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="327493470"
+ bh=klcX/6hE32gC34og/sZo+FLZpqnc1jpQgZwvtD8DFB8=;
+ b=fQ1IRZ3zrwmVxqE36rf3FxUgPRjORe5kvLQLzp0ASUf10JjZX7ansafZ
+ fUFyoCIZ5HVbFB9J57EyPWAqiyDcUC/nIVS1y+XLZCAeuvi1HHRmBsd1x
+ 5TEOLQkwcTqROK9Wbr9PXeoR6RvoMpluGvA5QqRrRrbtSX1pkh5GwhaaZ
+ znfqIXxsGI9Y0iqx3jqvtgywy8dXcH1QFv4n50FIVdr4QCawim3koT+5m
+ yn8Z2VFd87XKJkDejOni6FaCDaxzFf/hnXhvmGaKYum/RoUF4AtPO7koD
+ kw18o6nRlH3uwniTuoCLFl/mmeY3ytQ6zgL9+Ui5l7LkcAmPu8wPNC2I1 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="327493478"
+X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="327493478"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2023 09:53:12 -0700
+ 26 Apr 2023 09:53:14 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="671402719"
-X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="671402719"
+X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="671402743"
+X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="671402743"
 Received: from ideak-desk.fi.intel.com ([10.237.72.58])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2023 09:53:11 -0700
+ 26 Apr 2023 09:53:13 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Apr 2023 19:52:56 +0300
-Message-Id: <20230426165305.2049341-3-imre.deak@intel.com>
+Date: Wed, 26 Apr 2023 19:52:58 +0300
+Message-Id: <20230426165305.2049341-5-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230426165305.2049341-1-imre.deak@intel.com>
 References: <20230426165305.2049341-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 02/11] drm/i915: Make the CRTC wrt. CSC state
- consistent during sanitize-disabling
+Subject: [Intel-gfx] [PATCH 04/11] drm/i915: Factor out
+ set_encoder_for_connector()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,53 +61,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_crtc_free_hw_state() frees all the Intel specific CSC blobs in the
-CRTC state, but the next memset() will only clear the corresponding
-pointers for the ones stored in intel_crtc_state:hw. Clear the ones
-stored in intel_crtc_state as well. Also sync the UAPI state with the HW
-state after the HW state was reset. This will reset the uapi.active
-flag as well, so no need to do this separately. Syncing the state will
-create a new umode blob, so move deleting the blob after the sync call.
+Factor out a function setting the encoder and CRTC in the connector
+atomic state, required by a follow up patch.
+
+No functional changes.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_modeset_setup.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ .../drm/i915/display/intel_modeset_setup.c    | 28 +++++++++++++------
+ 1 file changed, 19 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-index eefa4018dc0c2..57d087de654f8 100644
+index fe83579529b3a..a66085cf82bab 100644
 --- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
 +++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-@@ -30,6 +30,8 @@
- #include "intel_wm.h"
- #include "skl_watermark.h"
+@@ -32,6 +32,24 @@
  
-+static void intel_crtc_copy_hw_to_uapi_state(struct intel_crtc_state *crtc_state);
+ static void intel_crtc_copy_hw_to_uapi_state(struct intel_crtc_state *crtc_state);
+ 
++static void set_encoder_for_connector(struct intel_connector *connector,
++				      struct intel_encoder *encoder)
++{
++	struct drm_connector_state *conn_state = connector->base.state;
++
++	if (conn_state->crtc)
++		drm_connector_put(&connector->base);
++
++	if (encoder) {
++		conn_state->best_encoder = &encoder->base;
++		conn_state->crtc = encoder->base.crtc;
++		drm_connector_get(&connector->base);
++	} else {
++		conn_state->best_encoder = NULL;
++		conn_state->crtc = NULL;
++	}
++}
 +
  static void intel_crtc_disable_noatomic(struct intel_crtc *crtc,
  					struct drm_modeset_acquire_ctx *ctx)
  {
-@@ -88,13 +90,17 @@ static void intel_crtc_disable_noatomic(struct intel_crtc *crtc,
- 	crtc->active = false;
- 	crtc->base.enabled = false;
+@@ -131,8 +149,7 @@ static void intel_modeset_update_connector_atomic_state(struct drm_i915_private
+ 		struct intel_encoder *encoder =
+ 			to_intel_encoder(connector->base.encoder);
  
--	drm_WARN_ON(&i915->drm,
--		    drm_atomic_set_mode_for_crtc(&crtc_state->uapi, NULL) < 0);
--	crtc_state->uapi.active = false;
- 	crtc_state->uapi.connector_mask = 0;
- 	crtc_state->uapi.encoder_mask = 0;
-+
- 	intel_crtc_free_hw_state(crtc_state);
- 	memset(&crtc_state->hw, 0, sizeof(crtc_state->hw));
-+	crtc_state->pre_csc_lut = NULL;
-+	crtc_state->post_csc_lut = NULL;
-+	intel_crtc_copy_hw_to_uapi_state(crtc_state);
-+
-+	drm_WARN_ON(&i915->drm,
-+		    drm_atomic_set_mode_for_crtc(&crtc_state->uapi, NULL) < 0);
+-		if (conn_state->crtc)
+-			drm_connector_put(&connector->base);
++		set_encoder_for_connector(connector, encoder);
  
- 	for_each_encoder_on_crtc(&i915->drm, &crtc->base, encoder)
- 		encoder->base.crtc = NULL;
+ 		if (encoder) {
+ 			struct intel_crtc *crtc =
+@@ -140,14 +157,7 @@ static void intel_modeset_update_connector_atomic_state(struct drm_i915_private
+ 			const struct intel_crtc_state *crtc_state =
+ 				to_intel_crtc_state(crtc->base.state);
+ 
+-			conn_state->best_encoder = &encoder->base;
+-			conn_state->crtc = &crtc->base;
+ 			conn_state->max_bpc = (crtc_state->pipe_bpp ?: 24) / 3;
+-
+-			drm_connector_get(&connector->base);
+-		} else {
+-			conn_state->best_encoder = NULL;
+-			conn_state->crtc = NULL;
+ 		}
+ 	}
+ 	drm_connector_list_iter_end(&conn_iter);
 -- 
 2.37.2
 
