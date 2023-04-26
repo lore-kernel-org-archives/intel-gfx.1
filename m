@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50FB4C7EE22
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Apr 2023 14:54:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBB63C77B78
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Apr 2023 14:54:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B718C10E39F;
-	Wed, 26 Apr 2023 14:54:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6533110E90A;
+	Wed, 26 Apr 2023 14:54:38 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B30FA10E436;
- Wed, 26 Apr 2023 14:54:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2B0810E39F;
+ Wed, 26 Apr 2023 14:54:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682520869; x=1714056869;
+ t=1682520875; x=1714056875;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=aC0EHWzpMalEv7sDoXtuog1stFMUCxCIBPha87twB+0=;
- b=eV8q25Pn2mmv2K6uXVVa2iiXp4lIuxlRJS/iNAB360X4hPB7BJI0Bpsy
- F8kqXEUFJJ6Ut57J8sX5Jy9cFKyQbIDvXsAhNLsVgE2g2LEgGPClC6cPx
- 4qeR2cROlViu5RvAK0FZW6M4loLyypREKdfkKB1IAg9Tc/FhHDCaxv5zp
- 9xdaN/xtscWT/12VNrw55olj0mWiA34tsr/fCkpD9hGpnbKqFddfDf72R
- EDDTXD0KVQvE+TCifc7lUbV3UqHeGEqVdq6PGHvccIeC+OSWP2ksCcGHP
- SIMbEJEXfMIbuov3fgIFPPcjXS61CnYrQNyJGQ54Ygd0hh081+a9xt2zI Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="433410268"
-X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="433410268"
+ bh=io8hL9bTUpAjOWSG+LYha6CPKcMkhPDUJOxDgMz4F3c=;
+ b=di0q9kjddOmMibLKyv3hwMmpwoEqs2DfvTGMsVHkLGHkcpRXOOVphFi1
+ LnclwTjfu1iXZtDVGrHN4vvQJbcrtQfXCSLyPxkO1tMlN1/UarYgmgBb7
+ S68Ei4h/gJ567LigzfYgyF3mV3CTAV7c2aWLvhTWxgWl+53ztTljiFPxF
+ ND5hKFL85CQKEq9TfTVViraiLMkWEHkY9OZ4jNJ2g7BJvHXEFzVtcm1bU
+ MEzWSoXdluBVQdYnq6IZWsxNKIU7mLzHtzuL6nhi7vnsTAADgWrdMQQXK
+ QfqPR0cjh6AGhtH1J7vmMok1ex6OqRDMMY+WiV53wmC/YwViy1K6240CC w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="433410320"
+X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="433410320"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2023 07:54:28 -0700
+ 26 Apr 2023 07:54:34 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="758644007"
-X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="758644007"
+X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="758644033"
+X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="758644033"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by fmsmga008.fm.intel.com with ESMTP; 26 Apr 2023 07:54:28 -0700
+ by fmsmga008.fm.intel.com with ESMTP; 26 Apr 2023 07:54:34 -0700
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Wed, 26 Apr 2023 07:54:13 -0700
-Message-Id: <20230426145419.450922-4-yi.l.liu@intel.com>
+Date: Wed, 26 Apr 2023 07:54:15 -0700
+Message-Id: <20230426145419.450922-6-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230426145419.450922-1-yi.l.liu@intel.com>
 References: <20230426145419.450922-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 3/9] vfio/pci: Update comment around group_fd
- get in vfio_pci_ioctl_pci_hot_reset()
+Subject: [Intel-gfx] [PATCH v4 5/9] vfio: Mark cdev usage in vfio_device
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,32 +70,40 @@ Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-this suits more on what the code does.
+Use it to differentiate whether to report group_id or dev_id in revised
+VFIO_DEVICE_GET_PCI_HOT_RESET_INFO ioctl. Though it is not set at this
+moment introducing it now allows us to get hot reset ready for cdev.
 
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Reviewed-by: Eric Auger <eric.auger@redhat.com>
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 ---
- drivers/vfio/pci/vfio_pci_core.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ include/linux/vfio.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index a5ab416cf476..f824de4dbf27 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -1308,9 +1308,8 @@ static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
- 	}
+diff --git a/include/linux/vfio.h b/include/linux/vfio.h
+index 4ee613924435..298f4ef16be7 100644
+--- a/include/linux/vfio.h
++++ b/include/linux/vfio.h
+@@ -63,6 +63,7 @@ struct vfio_device {
+ 	bool iommufd_attached;
+ #endif
+ 	bool noiommu;
++	bool cdev_opened;
+ };
  
- 	/*
--	 * For each group_fd, get the group through the vfio external user
--	 * interface and store the group and iommu ID.  This ensures the group
--	 * is held across the reset.
-+	 * Get the group file for each fd to ensure the group is held across
-+	 * the reset
- 	 */
- 	for (file_idx = 0; file_idx < hdr.count; file_idx++) {
- 		struct file *file = fget(group_fds[file_idx]);
+ /**
+@@ -140,6 +141,12 @@ int vfio_iommufd_emulated_attach_ioas(struct vfio_device *vdev, u32 *pt_id);
+ 	((int (*)(struct vfio_device *vdev, u32 *pt_id)) NULL)
+ #endif
+ 
++static inline bool vfio_device_cdev_opened(struct vfio_device *device)
++{
++	lockdep_assert_held(&device->dev_set->lock);
++	return device->cdev_opened;
++}
++
+ /**
+  * struct vfio_migration_ops - VFIO bus device driver migration callbacks
+  *
 -- 
 2.34.1
 
