@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBB63C77B78
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Apr 2023 14:54:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87ED3C7EE24
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Apr 2023 14:54:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6533110E90A;
-	Wed, 26 Apr 2023 14:54:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D173410E9D5;
+	Wed, 26 Apr 2023 14:54:39 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2B0810E39F;
- Wed, 26 Apr 2023 14:54:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 076A610E436;
+ Wed, 26 Apr 2023 14:54:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682520875; x=1714056875;
+ t=1682520869; x=1714056869;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=io8hL9bTUpAjOWSG+LYha6CPKcMkhPDUJOxDgMz4F3c=;
- b=di0q9kjddOmMibLKyv3hwMmpwoEqs2DfvTGMsVHkLGHkcpRXOOVphFi1
- LnclwTjfu1iXZtDVGrHN4vvQJbcrtQfXCSLyPxkO1tMlN1/UarYgmgBb7
- S68Ei4h/gJ567LigzfYgyF3mV3CTAV7c2aWLvhTWxgWl+53ztTljiFPxF
- ND5hKFL85CQKEq9TfTVViraiLMkWEHkY9OZ4jNJ2g7BJvHXEFzVtcm1bU
- MEzWSoXdluBVQdYnq6IZWsxNKIU7mLzHtzuL6nhi7vnsTAADgWrdMQQXK
- QfqPR0cjh6AGhtH1J7vmMok1ex6OqRDMMY+WiV53wmC/YwViy1K6240CC w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="433410320"
-X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="433410320"
+ bh=sdoYFPhd6sLPYPVG93DO+sP/RGUhPCk04kqwDwb+nRY=;
+ b=gWUQy0Sx4SdCWnqExy1Wfu1gV+y6kb01sWoojm4vfMtZCBVC+9HZGufK
+ 1fWRWVAF9MQwnVScQrhOnverjLAht/PyABr6HkJFd3aieK2EfGkXhWjfr
+ 2KSTFgFyh+pwwOX+g0VV9rsnh6puGF7KHmB/G5RzjGGVd8ZCgk7TqJWQo
+ 8j+ehpIkDaB8EB3IkFc/+ARfw3DGKwDlPRH3at1M0LI8DijoUrWHFu2FO
+ gFYfPtmPLF2yOEXKhyuEFB9MPw+rvTjpp37ToREsNydMbPqi9pxeHCJ4g
+ lr42tgyl+wUIiO/hrsGzpXg/hik6u7MzrgHCPLQ2NMP1fucqXSyHpktsV g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="433410252"
+X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="433410252"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2023 07:54:34 -0700
+ 26 Apr 2023 07:54:27 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="758644033"
-X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="758644033"
+X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="758644002"
+X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="758644002"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by fmsmga008.fm.intel.com with ESMTP; 26 Apr 2023 07:54:34 -0700
+ by fmsmga008.fm.intel.com with ESMTP; 26 Apr 2023 07:54:27 -0700
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Wed, 26 Apr 2023 07:54:15 -0700
-Message-Id: <20230426145419.450922-6-yi.l.liu@intel.com>
+Date: Wed, 26 Apr 2023 07:54:12 -0700
+Message-Id: <20230426145419.450922-3-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230426145419.450922-1-yi.l.liu@intel.com>
 References: <20230426145419.450922-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 5/9] vfio: Mark cdev usage in vfio_device
+Subject: [Intel-gfx] [PATCH v4 2/9] vfio-iommufd: Create iommufd_access for
+ noiommu devices
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,40 +71,74 @@ Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use it to differentiate whether to report group_id or dev_id in revised
-VFIO_DEVICE_GET_PCI_HOT_RESET_INFO ioctl. Though it is not set at this
-moment introducing it now allows us to get hot reset ready for cdev.
+This binds noiommu device to iommufd and creates iommufd_access for this
+bond. This is useful for adding an iommufd-based device ownership check
+for VFIO_DEVICE_PCI_HOT_RESET since this model requires all the other
+affected devices bound to the same iommufd as the device to be reset.
+For noiommu devices, there is no backend iommu, so create iommufd_access
+instead of iommufd_device.
 
+Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 ---
- include/linux/vfio.h | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/vfio/iommufd.c | 22 +++++++++++++++-------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
 
-diff --git a/include/linux/vfio.h b/include/linux/vfio.h
-index 4ee613924435..298f4ef16be7 100644
---- a/include/linux/vfio.h
-+++ b/include/linux/vfio.h
-@@ -63,6 +63,7 @@ struct vfio_device {
- 	bool iommufd_attached;
- #endif
- 	bool noiommu;
-+	bool cdev_opened;
- };
- 
- /**
-@@ -140,6 +141,12 @@ int vfio_iommufd_emulated_attach_ioas(struct vfio_device *vdev, u32 *pt_id);
- 	((int (*)(struct vfio_device *vdev, u32 *pt_id)) NULL)
- #endif
- 
-+static inline bool vfio_device_cdev_opened(struct vfio_device *device)
-+{
-+	lockdep_assert_held(&device->dev_set->lock);
-+	return device->cdev_opened;
-+}
+diff --git a/drivers/vfio/iommufd.c b/drivers/vfio/iommufd.c
+index 895852ad37ed..ca29c4feded3 100644
+--- a/drivers/vfio/iommufd.c
++++ b/drivers/vfio/iommufd.c
+@@ -29,7 +29,8 @@ int vfio_iommufd_bind(struct vfio_device *vdev, struct iommufd_ctx *ictx)
+ 		 */
+ 		if (!iommufd_vfio_compat_ioas_get_id(ictx, &ioas_id))
+ 			return -EPERM;
+-		return 0;
 +
- /**
-  * struct vfio_migration_ops - VFIO bus device driver migration callbacks
-  *
++		return vfio_iommufd_emulated_bind(vdev, ictx, &device_id);
+ 	}
+ 
+ 	ret = vdev->ops->bind_iommufd(vdev, ictx, &device_id);
+@@ -59,8 +60,10 @@ void vfio_iommufd_unbind(struct vfio_device *vdev)
+ {
+ 	lockdep_assert_held(&vdev->dev_set->lock);
+ 
+-	if (vdev->noiommu)
++	if (vdev->noiommu) {
++		vfio_iommufd_emulated_unbind(vdev);
+ 		return;
++	}
+ 
+ 	if (vdev->ops->unbind_iommufd)
+ 		vdev->ops->unbind_iommufd(vdev);
+@@ -110,10 +113,14 @@ int vfio_iommufd_physical_attach_ioas(struct vfio_device *vdev, u32 *pt_id)
+ EXPORT_SYMBOL_GPL(vfio_iommufd_physical_attach_ioas);
+ 
+ /*
+- * The emulated standard ops mean that vfio_device is going to use the
+- * "mdev path" and will call vfio_pin_pages()/vfio_dma_rw(). Drivers using this
+- * ops set should call vfio_register_emulated_iommu_dev(). Drivers that do
+- * not call vfio_pin_pages()/vfio_dma_rw() have no need to provide dma_unmap.
++ * The emulated standard ops can be used by below usages:
++ * 1) The vfio_device that is going to use the "mdev path" and will call
++ *    vfio_pin_pages()/vfio_dma_rw().  Such drivers using should call
++ *    vfio_register_emulated_iommu_dev().  Drivers that do not call
++ *    vfio_pin_pages()/vfio_dma_rw() have no need to provide dma_unmap.
++ * 2) The noiommu device which doesn't have backend iommu but creating
++ *    an iommufd_access allows generating a dev_id for it. noiommu device
++ *    is not allowed to do map/unmap so this becomes a nop.
+  */
+ 
+ static void vfio_emulated_unmap(void *data, unsigned long iova,
+@@ -121,7 +128,8 @@ static void vfio_emulated_unmap(void *data, unsigned long iova,
+ {
+ 	struct vfio_device *vdev = data;
+ 
+-	if (vdev->ops->dma_unmap)
++	/* noiommu devices cannot do map/unmap */
++	if (vdev->noiommu && vdev->ops->dma_unmap)
+ 		vdev->ops->dma_unmap(vdev, iova, length);
+ }
+ 
 -- 
 2.34.1
 
