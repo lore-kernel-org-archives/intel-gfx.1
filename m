@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23FF1C77B78
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Apr 2023 16:53:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 857D1C77B78
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Apr 2023 16:53:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C0CD10E98E;
-	Wed, 26 Apr 2023 16:53:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20A9810E250;
+	Wed, 26 Apr 2023 16:53:42 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA1EA10E8BF
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Apr 2023 16:53:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC2D210E90A
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Apr 2023 16:53:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682527997; x=1714063997;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=8ZoFgQuM78b+6tWocBErSIbIEWKqQKwFe9zn6gi9VNM=;
- b=bqejar926Pc4mXtv+AlLs0Xzcp2Em1qC4C/WL0NPg10VrtAPZMZCqKa1
- oCW8dX9VbEU7S+l6JdxKr9wNcw0Y89OrlkGuGZJEVf4ipXxK/xOHKUiy8
- iftBTwqrmElzaXACv5/gajzk54RQDndvQMc6Zex75aImizwNUWCIqScgd
- 0qISFNEcLyigOJ1WcZ1WRFyxIuLdnzWvNfaCYeR/h2Whix0v6p8np7o/6
- MSbPWLUbh+/l2m1hqaAIFafe9Imd2qRabQCaUlAbq47NQvpn8kzXMdql9
- drOAgwxih6rRHDIIGvXPkWrbZRD5OpvsAwa5q7LcDj18+K60sYCt+p6+L Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="327493498"
-X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="327493498"
+ t=1682528003; x=1714064003;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=FF6cm1WBg7t2G7r0/SSmQT1U1VxXRXTDo72teiszQlE=;
+ b=gb83VS7qwc0qwVQK/Un7b2pqaspYDxsZnv+g2HbZKWUzP0fC1CmNWPEM
+ IfBb0ztpvKr92fTk6Z9R4kRD6Gn6JqL6XETIleVG0/6kZBgow0vES8MBZ
+ fJ9xlBIsT4B+kMOU7BU5gDDRmgYaTsyUaiLANNDjG/OucBixaAz3ssVs8
+ cp6RiwOhQZnA2f3wFGbDB7ZCX6nejL511eHHnGJRg7uB9JUVkkkKpMW5J
+ gRErnXoyhhPMa6zSjB6FXdh8tsKT+Jsn2k9bkVWcLNzTre5qzz6bHt0v/
+ 6U7telcz3065Af/SDzA6thUwmKQzGUCn4yWGK/OYtErzToA9a1sT+tdeV A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="327493527"
+X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="327493527"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2023 09:53:17 -0700
+ 26 Apr 2023 09:53:23 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="671402753"
-X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="671402753"
+X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="671402822"
+X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="671402822"
 Received: from ideak-desk.fi.intel.com ([10.237.72.58])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2023 09:53:16 -0700
+ 26 Apr 2023 09:53:22 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Apr 2023 19:53:00 +0300
-Message-Id: <20230426165305.2049341-7-imre.deak@intel.com>
+Date: Wed, 26 Apr 2023 19:53:05 +0300
+Message-Id: <20230426165305.2049341-12-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230426165305.2049341-1-imre.deak@intel.com>
 References: <20230426165305.2049341-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/11] drm/i915/dp: Add link training debug and
- error printing helpers
+Subject: [Intel-gfx] [PATCH 11/11] drm/i915/tc: Reset TypeC PHYs left
+ enabled in DP-alt mode after the sink disconnects
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,820 +58,339 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add functions for printing link training debug and error messages, both
-to prepare for the next patch, which downgrades an error to debug if the
-sink is disconnected and to remove some code duplication.
+If the output on a DP-alt link is kept enabled for too long (about 20
+sec), then some IOM/TCSS firmware timeout will cause havoc on the PCI
+bus, at least for other GFX devices on it which will stop powering up.
+Since user space is not guaranteed to do a disabling modeset in time,
+switch such disconnected but active links to TBT mode - which is without
+such shortcomings - with a 2 second delay.
 
+If the above condition is detected already during the driver load/system
+resume sanitization step disable the output instead, as at that point no
+user space or kernel client depends on a consistent output state yet and
+because subsequent atomic modeset on such connectors - without the
+actual sink capabilities available - can fail.
+
+To account for a race condition during driver loading where the sink is
+disconnected after the above sanitization step and the HPD interrupts
+getting enabled, do an explicit check/link reset if needed from the
+encoder's late_register hook, which is called after the HPD interrupts
+are enabled already.
+
+Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Tested-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/5860
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- .../drm/i915/display/intel_dp_link_training.c | 376 +++++++-----------
- 1 file changed, 139 insertions(+), 237 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c      | 53 +++++++++++++++++--
+ .../drm/i915/display/intel_display_types.h    |  2 +
+ drivers/gpu/drm/i915/display/intel_dp.c       | 49 +++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dp.h       |  2 +
+ .../drm/i915/display/intel_modeset_setup.c    | 34 +++++++-----
+ drivers/gpu/drm/i915/display/intel_tc.c       | 21 ++++++++
+ drivers/gpu/drm/i915/display/intel_tc.h       |  1 +
+ 7 files changed, 145 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index 6aa4ae5e7ebe3..12f2880e474ed 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -26,6 +26,47 @@
- #include "intel_dp.h"
- #include "intel_dp_link_training.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 0c8bc32f293b0..a3aaedc97d3eb 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -3312,6 +3312,8 @@ static void intel_disable_ddi(struct intel_atomic_state *state,
+ 			      const struct intel_crtc_state *old_crtc_state,
+ 			      const struct drm_connector_state *old_conn_state)
+ {
++	cancel_delayed_work(&enc_to_dig_port(encoder)->reset_link_work);
++
+ 	intel_hdcp_disable(to_intel_connector(old_conn_state->connector));
  
-+__printf(5, 6)
-+static void lt_msg(struct intel_connector *connector, struct intel_dp *intel_dp, enum drm_dp_phy dp_phy,
-+		   bool is_error, const char *format, ...)
+ 	if (intel_crtc_has_type(old_crtc_state, INTEL_OUTPUT_HDMI))
+@@ -4220,9 +4222,29 @@ static void intel_ddi_encoder_reset(struct drm_encoder *encoder)
+ 		intel_tc_port_init_mode(dig_port);
+ }
+ 
++static bool intel_ddi_tc_port_reset_link(struct intel_encoder *encoder)
 +{
-+	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
-+	char conn_str[128] = {};
-+	struct va_format vaf;
-+	va_list args;
++	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
 +
-+	va_start(args, format);
-+	vaf.fmt = format;
-+	vaf.va = &args;
++	if (!intel_tc_port_link_needs_reset(dig_port))
++		return false;
 +
-+	if (connector)
-+		snprintf(conn_str, sizeof(conn_str), "[CONNECTOR:%d:%s]",
-+			 connector->base.base.id, connector->base.name);
++	queue_delayed_work(system_unbound_wq, &dig_port->reset_link_work, msecs_to_jiffies(2000));
 +
-+	if (is_error)
-+		drm_err(&i915->drm, "%s[ENCODER:%d:%s][%s] %pV\n",
-+			conn_str,
-+			encoder->base.base.id, encoder->base.name,
-+			drm_dp_phy_name(dp_phy),
-+			&vaf);
-+	else
-+		drm_dbg(&i915->drm, "%s[ENCODER:%d:%s][%s] %pV\n",
-+			conn_str,
-+			encoder->base.base.id, encoder->base.name,
-+			drm_dp_phy_name(dp_phy),
-+			&vaf);
++	return true;
 +}
 +
-+#define lt_err(intel_dp, dp_phy, format, ...) \
-+	lt_msg(NULL, intel_dp, dp_phy, true, format, ## __VA_ARGS__)
++static int intel_ddi_encoder_late_register(struct drm_encoder *_encoder)
++{
++	intel_ddi_tc_port_reset_link(to_intel_encoder(_encoder));
 +
-+#define lt_dbg(intel_dp, dp_phy, format, ...) \
-+	lt_msg(NULL, intel_dp, dp_phy, false, format, ## __VA_ARGS__)
++	return 0;
++}
 +
-+#define lt_conn_dbg(connector, intel_dp, dp_phy, format, ...) \
-+	lt_msg(connector, intel_dp, dp_phy, false, format, ## __VA_ARGS__)
+ static const struct drm_encoder_funcs intel_ddi_funcs = {
+ 	.reset = intel_ddi_encoder_reset,
+ 	.destroy = intel_ddi_encoder_destroy,
++	.late_register = intel_ddi_encoder_late_register,
+ };
+ 
+ static struct intel_connector *
+@@ -4397,6 +4419,25 @@ static void call_with_modeset_ctx(int (*fn)(struct intel_encoder *encoder,
+ 		 "Acquiring modeset locks failed with %i\n", ret);
+ }
+ 
++static void intel_ddi_tc_link_reset_work(struct work_struct *work)
++{
++	struct intel_digital_port *dig_port =
++		container_of(work, struct intel_digital_port, reset_link_work.work);
++	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++	struct intel_encoder *encoder = &dig_port->base;
 +
- static void intel_dp_reset_lttpr_common_caps(struct intel_dp *intel_dp)
- {
- 	memset(intel_dp->lttpr_common_caps, 0, sizeof(intel_dp->lttpr_common_caps));
-@@ -47,29 +88,21 @@ static void intel_dp_read_lttpr_phy_caps(struct intel_dp *intel_dp,
- 					 const u8 dpcd[DP_RECEIVER_CAP_SIZE],
- 					 enum drm_dp_phy dp_phy)
- {
--	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	u8 *phy_caps = intel_dp_lttpr_phy_caps(intel_dp, dp_phy);
++	mutex_lock(&i915->drm.mode_config.mutex);
++
++	if (intel_tc_port_link_needs_reset(dig_port)) {
++		drm_dbg_kms(&i915->drm,
++			    "[ENCODER:%d:%s] TypeC DP-alt sink disconnected, resetting link\n",
++			    encoder->base.base.id, encoder->base.name);
++		call_with_modeset_ctx(intel_dp_reset_link, &dig_port->base);
++	}
++
++	mutex_unlock(&i915->drm.mode_config.mutex);
++}
++
+ static enum intel_hotplug_state
+ intel_ddi_hotplug(struct intel_encoder *encoder,
+ 		  struct intel_connector *connector)
+@@ -4417,10 +4458,12 @@ intel_ddi_hotplug(struct intel_encoder *encoder,
  
- 	if (drm_dp_read_lttpr_phy_caps(&intel_dp->aux, dpcd, dp_phy, phy_caps) < 0) {
--		drm_dbg_kms(&dp_to_i915(intel_dp)->drm,
--			    "[ENCODER:%d:%s][%s] failed to read the PHY caps\n",
--			    encoder->base.base.id, encoder->base.name,
--			    drm_dp_phy_name(dp_phy));
-+		lt_dbg(intel_dp, dp_phy, "failed to read the PHY caps\n");
- 		return;
- 	}
+ 	state = intel_encoder_hotplug(encoder, connector);
  
--	drm_dbg_kms(&dp_to_i915(intel_dp)->drm,
--		    "[ENCODER:%d:%s][%s] PHY capabilities: %*ph\n",
--		    encoder->base.base.id, encoder->base.name,
--		    drm_dp_phy_name(dp_phy),
--		    (int)sizeof(intel_dp->lttpr_phy_caps[0]),
--		    phy_caps);
-+	lt_dbg(intel_dp, dp_phy, "PHY capabilities: %*ph\n",
-+	       (int)sizeof(intel_dp->lttpr_phy_caps[0]),
-+	       phy_caps);
- }
- 
- static bool intel_dp_read_lttpr_common_caps(struct intel_dp *intel_dp,
- 					    const u8 dpcd[DP_RECEIVER_CAP_SIZE])
- {
--	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	int ret;
- 
- 	ret = drm_dp_read_lttpr_common_caps(&intel_dp->aux, dpcd,
-@@ -77,11 +110,9 @@ static bool intel_dp_read_lttpr_common_caps(struct intel_dp *intel_dp,
- 	if (ret < 0)
- 		goto reset_caps;
- 
--	drm_dbg_kms(&dp_to_i915(intel_dp)->drm,
--		    "[ENCODER:%d:%s] LTTPR common capabilities: %*ph\n",
--		    encoder->base.base.id, encoder->base.name,
--		    (int)sizeof(intel_dp->lttpr_common_caps),
--		    intel_dp->lttpr_common_caps);
-+	lt_dbg(intel_dp, DP_PHY_DPRX, "LTTPR common capabilities: %*ph\n",
-+	       (int)sizeof(intel_dp->lttpr_common_caps),
-+	       intel_dp->lttpr_common_caps);
- 
- 	/* The minimum value of LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV is 1.4 */
- 	if (intel_dp->lttpr_common_caps[0] < 0x14)
-@@ -105,8 +136,6 @@ intel_dp_set_lttpr_transparent_mode(struct intel_dp *intel_dp, bool enable)
- 
- static int intel_dp_init_lttpr(struct intel_dp *intel_dp, const u8 dpcd[DP_RECEIVER_CAP_SIZE])
- {
--	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
--	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	int lttpr_count;
- 	int i;
- 
-@@ -138,9 +167,8 @@ static int intel_dp_init_lttpr(struct intel_dp *intel_dp, const u8 dpcd[DP_RECEI
- 		return 0;
- 
- 	if (!intel_dp_set_lttpr_transparent_mode(intel_dp, false)) {
--		drm_dbg_kms(&i915->drm,
--			    "[ENCODER:%d:%s] Switching to LTTPR non-transparent LT mode failed, fall-back to transparent mode\n",
--			    encoder->base.base.id, encoder->base.name);
-+		lt_dbg(intel_dp, DP_PHY_DPRX,
-+		       "Switching to LTTPR non-transparent LT mode failed, fall-back to transparent mode\n");
- 
- 		intel_dp_set_lttpr_transparent_mode(intel_dp, true);
- 		intel_dp_reset_lttpr_count(intel_dp);
-@@ -409,26 +437,22 @@ intel_dp_get_adjust_train(struct intel_dp *intel_dp,
- 			  enum drm_dp_phy dp_phy,
- 			  const u8 link_status[DP_LINK_STATUS_SIZE])
- {
--	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
--	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	int lane;
- 
- 	if (intel_dp_is_uhbr(crtc_state)) {
--		drm_dbg_kms(&i915->drm, "[ENCODER:%d:%s][%s] 128b/132b, lanes: %d, "
--			    "TX FFE request: " TRAIN_REQ_FMT "\n",
--			    encoder->base.base.id, encoder->base.name,
--			    drm_dp_phy_name(dp_phy),
--			    crtc_state->lane_count,
--			    TRAIN_REQ_TX_FFE_ARGS(link_status));
-+		lt_dbg(intel_dp, dp_phy,
-+		       "128b/132b, lanes: %d, "
-+		       "TX FFE request: " TRAIN_REQ_FMT "\n",
-+		       crtc_state->lane_count,
-+		       TRAIN_REQ_TX_FFE_ARGS(link_status));
- 	} else {
--		drm_dbg_kms(&i915->drm, "[ENCODER:%d:%s][%s] 8b/10b, lanes: %d, "
--			    "vswing request: " TRAIN_REQ_FMT ", "
--			    "pre-emphasis request: " TRAIN_REQ_FMT "\n",
--			    encoder->base.base.id, encoder->base.name,
--			    drm_dp_phy_name(dp_phy),
--			    crtc_state->lane_count,
--			    TRAIN_REQ_VSWING_ARGS(link_status),
--			    TRAIN_REQ_PREEMPH_ARGS(link_status));
-+		lt_dbg(intel_dp, dp_phy,
-+		       "8b/10b, lanes: %d, "
-+		       "vswing request: " TRAIN_REQ_FMT ", "
-+		       "pre-emphasis request: " TRAIN_REQ_FMT "\n",
-+		       crtc_state->lane_count,
-+		       TRAIN_REQ_VSWING_ARGS(link_status),
-+		       TRAIN_REQ_PREEMPH_ARGS(link_status));
- 	}
- 
- 	for (lane = 0; lane < 4; lane++)
-@@ -487,16 +511,11 @@ intel_dp_program_link_training_pattern(struct intel_dp *intel_dp,
- 				       enum drm_dp_phy dp_phy,
- 				       u8 dp_train_pat)
- {
--	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
--	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	u8 train_pat = intel_dp_training_pattern_symbol(dp_train_pat);
- 
- 	if (train_pat != DP_TRAINING_PATTERN_DISABLE)
--		drm_dbg_kms(&i915->drm,
--			    "[ENCODER:%d:%s][%s] Using DP training pattern TPS%c\n",
--			    encoder->base.base.id, encoder->base.name,
--			    drm_dp_phy_name(dp_phy),
--			    dp_training_pattern_name(train_pat));
-+		lt_dbg(intel_dp, dp_phy, "Using DP training pattern TPS%c\n",
-+		       dp_training_pattern_name(train_pat));
- 
- 	intel_dp->set_link_train(intel_dp, crtc_state, dp_train_pat);
- }
-@@ -531,24 +550,21 @@ void intel_dp_set_signal_levels(struct intel_dp *intel_dp,
- 				enum drm_dp_phy dp_phy)
- {
- 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
--	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 
- 	if (intel_dp_is_uhbr(crtc_state)) {
--		drm_dbg_kms(&i915->drm, "[ENCODER:%d:%s][%s] 128b/132b, lanes: %d, "
--			    "TX FFE presets: " TRAIN_SET_FMT "\n",
--			    encoder->base.base.id, encoder->base.name,
--			    drm_dp_phy_name(dp_phy),
--			    crtc_state->lane_count,
--			    TRAIN_SET_TX_FFE_ARGS(intel_dp->train_set));
-+		lt_dbg(intel_dp, dp_phy,
-+		       "128b/132b, lanes: %d, "
-+		       "TX FFE presets: " TRAIN_SET_FMT "\n",
-+		       crtc_state->lane_count,
-+		       TRAIN_SET_TX_FFE_ARGS(intel_dp->train_set));
- 	} else {
--		drm_dbg_kms(&i915->drm, "[ENCODER:%d:%s][%s] 8b/10b, lanes: %d, "
--			    "vswing levels: " TRAIN_SET_FMT ", "
--			    "pre-emphasis levels: " TRAIN_SET_FMT "\n",
--			    encoder->base.base.id, encoder->base.name,
--			    drm_dp_phy_name(dp_phy),
--			    crtc_state->lane_count,
--			    TRAIN_SET_VSWING_ARGS(intel_dp->train_set),
--			    TRAIN_SET_PREEMPH_ARGS(intel_dp->train_set));
-+		lt_dbg(intel_dp, dp_phy,
-+		       "8b/10b, lanes: %d, "
-+		       "vswing levels: " TRAIN_SET_FMT ", "
-+		       "pre-emphasis levels: " TRAIN_SET_FMT "\n",
-+		       crtc_state->lane_count,
-+		       TRAIN_SET_VSWING_ARGS(intel_dp->train_set),
-+		       TRAIN_SET_PREEMPH_ARGS(intel_dp->train_set));
- 	}
- 
- 	if (intel_dp_phy_is_downstream_of_source(intel_dp, dp_phy))
-@@ -645,8 +661,6 @@ static bool
- intel_dp_prepare_link_train(struct intel_dp *intel_dp,
- 			    const struct intel_crtc_state *crtc_state)
- {
--	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
--	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	u8 link_config[2];
- 	u8 link_bw, rate_select;
- 
-@@ -671,21 +685,19 @@ intel_dp_prepare_link_train(struct intel_dp *intel_dp,
- 		struct intel_connector *connector = intel_dp->attached_connector;
- 		__le16 sink_rates[DP_MAX_SUPPORTED_RATES];
- 
--		drm_dbg_kms(&i915->drm, "[CONNECTOR:%d:%s] Reloading eDP link rates\n",
--			    connector->base.base.id, connector->base.name);
-+		lt_conn_dbg(connector, intel_dp, DP_PHY_DPRX,
-+			    "Reloading eDP link rates\n");
- 
- 		drm_dp_dpcd_read(&intel_dp->aux, DP_SUPPORTED_LINK_RATES,
- 				 sink_rates, sizeof(sink_rates));
- 	}
- 
- 	if (link_bw)
--		drm_dbg_kms(&i915->drm,
--			    "[ENCODER:%d:%s] Using LINK_BW_SET value %02x\n",
--			    encoder->base.base.id, encoder->base.name, link_bw);
-+		lt_dbg(intel_dp, DP_PHY_DPRX, "Using LINK_BW_SET value %02x\n",
-+		       link_bw);
- 	else
--		drm_dbg_kms(&i915->drm,
--			    "[ENCODER:%d:%s] Using LINK_RATE_SET value %02x\n",
--			    encoder->base.base.id, encoder->base.name, rate_select);
-+		lt_dbg(intel_dp, DP_PHY_DPRX, "Using LINK_RATE_SET value %02x\n",
-+		       rate_select);
- 
- 	/* Write the link configuration data */
- 	link_config[0] = link_bw;
-@@ -737,15 +749,10 @@ void
- intel_dp_dump_link_status(struct intel_dp *intel_dp, enum drm_dp_phy dp_phy,
- 			  const u8 link_status[DP_LINK_STATUS_SIZE])
- {
--	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
--	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
--
--	drm_dbg_kms(&i915->drm,
--		    "[ENCODER:%d:%s][%s] ln0_1:0x%x ln2_3:0x%x align:0x%x sink:0x%x adj_req0_1:0x%x adj_req2_3:0x%x\n",
--		    encoder->base.base.id, encoder->base.name,
--		    drm_dp_phy_name(dp_phy),
--		    link_status[0], link_status[1], link_status[2],
--		    link_status[3], link_status[4], link_status[5]);
-+	lt_dbg(intel_dp, dp_phy,
-+	       "ln0_1:0x%x ln2_3:0x%x align:0x%x sink:0x%x adj_req0_1:0x%x adj_req2_3:0x%x\n",
-+	       link_status[0], link_status[1], link_status[2],
-+	       link_status[3], link_status[4], link_status[5]);
- }
- 
- /*
-@@ -757,8 +764,6 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
- 				      const struct intel_crtc_state *crtc_state,
- 				      enum drm_dp_phy dp_phy)
- {
--	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
--	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	u8 old_link_status[DP_LINK_STATUS_SIZE] = {};
- 	int voltage_tries, cr_tries, max_cr_tries;
- 	u8 link_status[DP_LINK_STATUS_SIZE];
-@@ -773,9 +778,7 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
- 	if (!intel_dp_reset_link_train(intel_dp, crtc_state, dp_phy,
- 				       DP_TRAINING_PATTERN_1 |
- 				       DP_LINK_SCRAMBLING_DISABLE)) {
--		drm_err(&i915->drm, "[ENCODER:%d:%s][%s] Failed to enable link training\n",
--			encoder->base.base.id, encoder->base.name,
--			drm_dp_phy_name(dp_phy));
-+		lt_err(intel_dp, dp_phy, "Failed to enable link training\n");
- 		return false;
- 	}
- 
-@@ -798,35 +801,24 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
- 
- 		if (drm_dp_dpcd_read_phy_link_status(&intel_dp->aux, dp_phy,
- 						     link_status) < 0) {
--			drm_err(&i915->drm, "[ENCODER:%d:%s][%s] Failed to get link status\n",
--				encoder->base.base.id, encoder->base.name,
--				drm_dp_phy_name(dp_phy));
-+			lt_err(intel_dp, dp_phy, "Failed to get link status\n");
- 			return false;
- 		}
- 
- 		if (drm_dp_clock_recovery_ok(link_status, crtc_state->lane_count)) {
--			drm_dbg_kms(&i915->drm,
--				    "[ENCODER:%d:%s][%s] Clock recovery OK\n",
--				    encoder->base.base.id, encoder->base.name,
--				    drm_dp_phy_name(dp_phy));
-+			lt_dbg(intel_dp, dp_phy, "Clock recovery OK\n");
- 			return true;
- 		}
- 
- 		if (voltage_tries == 5) {
- 			intel_dp_dump_link_status(intel_dp, dp_phy, link_status);
--			drm_dbg_kms(&i915->drm,
--				    "[ENCODER:%d:%s][%s] Same voltage tried 5 times\n",
--				    encoder->base.base.id, encoder->base.name,
--				    drm_dp_phy_name(dp_phy));
-+			lt_dbg(intel_dp, dp_phy, "Same voltage tried 5 times\n");
- 			return false;
- 		}
- 
- 		if (max_vswing_reached) {
- 			intel_dp_dump_link_status(intel_dp, dp_phy, link_status);
--			drm_dbg_kms(&i915->drm,
--				    "[ENCODER:%d:%s][%s] Max Voltage Swing reached\n",
--				    encoder->base.base.id, encoder->base.name,
--				    drm_dp_phy_name(dp_phy));
-+			lt_dbg(intel_dp, dp_phy, "Max Voltage Swing reached\n");
- 			return false;
- 		}
- 
-@@ -834,10 +826,7 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
- 		intel_dp_get_adjust_train(intel_dp, crtc_state, dp_phy,
- 					  link_status);
- 		if (!intel_dp_update_link_train(intel_dp, crtc_state, dp_phy)) {
--			drm_err(&i915->drm,
--				"[ENCODER:%d:%s][%s] Failed to update link training\n",
--				encoder->base.base.id, encoder->base.name,
--				drm_dp_phy_name(dp_phy));
-+			lt_err(intel_dp, dp_phy, "Failed to update link training\n");
- 			return false;
- 		}
- 
-@@ -853,10 +842,8 @@ intel_dp_link_training_clock_recovery(struct intel_dp *intel_dp,
- 	}
- 
- 	intel_dp_dump_link_status(intel_dp, dp_phy, link_status);
--	drm_err(&i915->drm,
--		"[ENCODER:%d:%s][%s] Failed clock recovery %d times, giving up!\n",
--		encoder->base.base.id, encoder->base.name,
--		drm_dp_phy_name(dp_phy), max_cr_tries);
-+	lt_err(intel_dp, dp_phy, "Failed clock recovery %d times, giving up!\n",
-+	       max_cr_tries);
- 
- 	return false;
- }
-@@ -890,11 +877,11 @@ static u32 intel_dp_training_pattern(struct intel_dp *intel_dp,
- 		return DP_TRAINING_PATTERN_4;
- 	} else if (crtc_state->port_clock == 810000) {
- 		if (!source_tps4)
--			drm_dbg_kms(&i915->drm,
--				    "8.1 Gbps link rate without source TPS4 support\n");
-+			lt_dbg(intel_dp, dp_phy,
-+			       "8.1 Gbps link rate without source TPS4 support\n");
- 		if (!sink_tps4)
--			drm_dbg_kms(&i915->drm,
--				    "8.1 Gbps link rate without sink TPS4 support\n");
-+			lt_dbg(intel_dp, dp_phy,
-+			       "8.1 Gbps link rate without sink TPS4 support\n");
- 	}
+-	if (connector->base.connector_type == DRM_MODE_CONNECTOR_HDMIA)
+-		call_with_modeset_ctx(intel_hdmi_reset_link, encoder);
+-	else
+-		call_with_modeset_ctx(intel_dp_retrain_link, encoder);
++	if (!intel_ddi_tc_port_reset_link(encoder)) {
++		if (connector->base.connector_type == DRM_MODE_CONNECTOR_HDMIA)
++			call_with_modeset_ctx(intel_hdmi_reset_link, encoder);
++		else
++			call_with_modeset_ctx(intel_dp_retrain_link, encoder);
++	}
  
  	/*
-@@ -908,11 +895,11 @@ static u32 intel_dp_training_pattern(struct intel_dp *intel_dp,
- 		return  DP_TRAINING_PATTERN_3;
- 	} else if (crtc_state->port_clock >= 540000) {
- 		if (!source_tps3)
--			drm_dbg_kms(&i915->drm,
--				    ">=5.4/6.48 Gbps link rate without source TPS3 support\n");
-+			lt_dbg(intel_dp, dp_phy,
-+			       ">=5.4/6.48 Gbps link rate without source TPS3 support\n");
- 		if (!sink_tps3)
--			drm_dbg_kms(&i915->drm,
--				    ">=5.4/6.48 Gbps link rate without sink TPS3 support\n");
-+			lt_dbg(intel_dp, dp_phy,
-+			       ">=5.4/6.48 Gbps link rate without sink TPS3 support\n");
+ 	 * Unpowered type-c dongles can take some time to boot and be
+@@ -4956,6 +4999,8 @@ void intel_ddi_init(struct drm_i915_private *dev_priv, enum port port)
+ 			encoder->pipe_mask = intel_ddi_splitter_pipe_mask(dev_priv);
  	}
  
- 	return DP_TRAINING_PATTERN_2;
-@@ -928,8 +915,6 @@ intel_dp_link_training_channel_equalization(struct intel_dp *intel_dp,
- 					    const struct intel_crtc_state *crtc_state,
- 					    enum drm_dp_phy dp_phy)
- {
--	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
--	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	int tries;
- 	u32 training_pattern;
- 	u8 link_status[DP_LINK_STATUS_SIZE];
-@@ -948,10 +933,7 @@ intel_dp_link_training_channel_equalization(struct intel_dp *intel_dp,
- 	/* channel equalization */
- 	if (!intel_dp_set_link_train(intel_dp, crtc_state, dp_phy,
- 				     training_pattern)) {
--		drm_err(&i915->drm,
--			"[ENCODER:%d:%s][%s] Failed to start channel equalization\n",
--			encoder->base.base.id, encoder->base.name,
--			drm_dp_phy_name(dp_phy));
-+		lt_err(intel_dp, dp_phy, "Failed to start channel equalization\n");
- 		return false;
- 	}
++	INIT_DELAYED_WORK(&dig_port->reset_link_work, intel_ddi_tc_link_reset_work);
++
+ 	/*
+ 	 * In theory we don't need the encoder->type check,
+ 	 * but leave it just in case we have some really bad VBTs...
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 35c260bd14618..c026940dbeae0 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1803,6 +1803,8 @@ struct intel_digital_port {
  
-@@ -960,10 +942,7 @@ intel_dp_link_training_channel_equalization(struct intel_dp *intel_dp,
+ 	struct intel_tc_port *tc;
  
- 		if (drm_dp_dpcd_read_phy_link_status(&intel_dp->aux, dp_phy,
- 						     link_status) < 0) {
--			drm_err(&i915->drm,
--				"[ENCODER:%d:%s][%s] Failed to get link status\n",
--				encoder->base.base.id, encoder->base.name,
--				drm_dp_phy_name(dp_phy));
-+			lt_err(intel_dp, dp_phy, "Failed to get link status\n");
- 			break;
- 		}
++	struct delayed_work reset_link_work;
++
+ 	/* protects num_hdcp_streams reference count, hdcp_port_data and hdcp_auth_status */
+ 	struct mutex hdcp_mutex;
+ 	/* the number of pipes using HDCP signalling out of this port */
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 1e91175506f5d..24d0b15d0e925 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -4250,6 +4250,55 @@ int intel_dp_retrain_link(struct intel_encoder *encoder,
+ 	return 0;
+ }
  
-@@ -971,21 +950,15 @@ intel_dp_link_training_channel_equalization(struct intel_dp *intel_dp,
- 		if (!drm_dp_clock_recovery_ok(link_status,
- 					      crtc_state->lane_count)) {
- 			intel_dp_dump_link_status(intel_dp, dp_phy, link_status);
--			drm_dbg_kms(&i915->drm,
--				    "[ENCODER:%d:%s][%s] Clock recovery check failed, cannot "
--				    "continue channel equalization\n",
--				    encoder->base.base.id, encoder->base.name,
--				    drm_dp_phy_name(dp_phy));
-+			lt_dbg(intel_dp, dp_phy,
-+			       "Clock recovery check failed, cannot continue channel equalization\n");
- 			break;
- 		}
- 
- 		if (drm_dp_channel_eq_ok(link_status,
- 					 crtc_state->lane_count)) {
- 			channel_eq = true;
--			drm_dbg_kms(&i915->drm,
--				    "[ENCODER:%d:%s][%s] Channel EQ done. DP Training successful\n",
--				    encoder->base.base.id, encoder->base.name,
--				    drm_dp_phy_name(dp_phy));
-+			lt_dbg(intel_dp, dp_phy, "Channel EQ done. DP Training successful\n");
- 			break;
- 		}
- 
-@@ -993,10 +966,7 @@ intel_dp_link_training_channel_equalization(struct intel_dp *intel_dp,
- 		intel_dp_get_adjust_train(intel_dp, crtc_state, dp_phy,
- 					  link_status);
- 		if (!intel_dp_update_link_train(intel_dp, crtc_state, dp_phy)) {
--			drm_err(&i915->drm,
--				"[ENCODER:%d:%s][%s] Failed to update link training\n",
--				encoder->base.base.id, encoder->base.name,
--				drm_dp_phy_name(dp_phy));
-+			lt_err(intel_dp, dp_phy, "Failed to update link training\n");
- 			break;
- 		}
- 	}
-@@ -1004,10 +974,7 @@ intel_dp_link_training_channel_equalization(struct intel_dp *intel_dp,
- 	/* Try 5 times, else fail and try at lower BW */
- 	if (tries == 5) {
- 		intel_dp_dump_link_status(intel_dp, dp_phy, link_status);
--		drm_dbg_kms(&i915->drm,
--			    "[ENCODER:%d:%s][%s] Channel equalization failed 5 times\n",
--			    encoder->base.base.id, encoder->base.name,
--			    drm_dp_phy_name(dp_phy));
-+		lt_dbg(intel_dp, dp_phy, "Channel equalization failed 5 times\n");
- 	}
- 
- 	return channel_eq;
-@@ -1058,9 +1025,6 @@ intel_dp_128b132b_intra_hop(struct intel_dp *intel_dp,
- void intel_dp_stop_link_train(struct intel_dp *intel_dp,
- 			      const struct intel_crtc_state *crtc_state)
- {
--	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
--	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
--
- 	intel_dp->link_trained = true;
- 
- 	intel_dp_disable_dpcd_training_pattern(intel_dp, DP_PHY_DPRX);
-@@ -1069,9 +1033,7 @@ void intel_dp_stop_link_train(struct intel_dp *intel_dp,
- 
- 	if (intel_dp_is_uhbr(crtc_state) &&
- 	    wait_for(intel_dp_128b132b_intra_hop(intel_dp, crtc_state) == 0, 500)) {
--		drm_dbg_kms(&i915->drm,
--			    "[ENCODER:%d:%s] 128b/132b intra-hop not clearing\n",
--			    encoder->base.base.id, encoder->base.name);
-+		lt_dbg(intel_dp, DP_PHY_DPRX, "128b/132b intra-hop not clearing\n");
++int intel_dp_reset_link(struct intel_encoder *encoder,
++			struct drm_modeset_acquire_ctx *ctx)
++{
++	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
++	struct drm_atomic_state *_state;
++	struct intel_atomic_state *state;
++	struct intel_crtc *crtc;
++	u8 pipe_mask;
++	int ret = 0;
++
++	ret = drm_modeset_lock(&i915->drm.mode_config.connection_mutex,
++			       ctx);
++	if (ret)
++		return ret;
++
++	ret = intel_dp_get_active_pipes(enc_to_intel_dp(encoder), ctx, &pipe_mask);
++	if (ret)
++		return ret;
++
++	if (!pipe_mask)
++		return 0;
++
++	_state = drm_atomic_state_alloc(&i915->drm);
++	if (!_state)
++		return -ENOMEM;
++	state = to_intel_atomic_state(_state);
++
++	state->base.acquire_ctx = ctx;
++	state->internal = true;
++
++	for_each_intel_crtc_in_pipe_mask(&i915->drm, crtc, pipe_mask) {
++		struct intel_crtc_state *crtc_state;
++
++		crtc_state = intel_atomic_get_crtc_state(&state->base, crtc);
++		if (IS_ERR(crtc_state)) {
++			ret = PTR_ERR(crtc_state);
++			break;
++		}
++
++		crtc_state->uapi.connectors_changed = true;
++	}
++
++	ret = drm_atomic_commit(&state->base);
++
++	drm_atomic_state_put(&state->base);
++
++	return ret;
++}
++
+ static int intel_dp_prep_phy_test(struct intel_dp *intel_dp,
+ 				  struct drm_modeset_acquire_ctx *ctx,
+ 				  u8 *pipe_mask)
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index ca12a1733df6f..02fe28544e775 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -45,6 +45,8 @@ int intel_dp_get_link_train_fallback_values(struct intel_dp *intel_dp,
+ bool intel_dp_is_connected(struct intel_dp *intel_dp);
+ int intel_dp_retrain_link(struct intel_encoder *encoder,
+ 			  struct drm_modeset_acquire_ctx *ctx);
++int intel_dp_reset_link(struct intel_encoder *encoder,
++			struct drm_modeset_acquire_ctx *ctx);
+ void intel_dp_set_power(struct intel_dp *intel_dp, u8 mode);
+ void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp,
+ 					   const struct intel_crtc_state *crtc_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+index f613c074187a2..16120011437f6 100644
+--- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
++++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+@@ -26,6 +26,7 @@
+ #include "intel_fifo_underrun.h"
+ #include "intel_modeset_setup.h"
+ #include "intel_pch_display.h"
++#include "intel_tc.h"
+ #include "intel_vblank.h"
+ #include "intel_wm.h"
+ #include "skl_watermark.h"
+@@ -253,17 +254,6 @@ intel_sanitize_plane_mapping(struct drm_i915_private *i915)
  	}
  }
  
-@@ -1081,7 +1043,6 @@ intel_dp_link_train_phy(struct intel_dp *intel_dp,
- 			enum drm_dp_phy dp_phy)
+-static bool intel_crtc_has_encoders(struct intel_crtc *crtc)
+-{
+-	struct drm_device *dev = crtc->base.dev;
+-	struct intel_encoder *encoder;
+-
+-	for_each_encoder_on_crtc(dev, &crtc->base, encoder)
+-		return true;
+-
+-	return false;
+-}
+-
+ static struct intel_connector *intel_encoder_find_connector(struct intel_encoder *encoder)
  {
- 	struct intel_connector *connector = intel_dp->attached_connector;
--	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	bool ret = false;
- 
- 	if (!intel_dp_link_training_clock_recovery(intel_dp, crtc_state, dp_phy))
-@@ -1093,11 +1054,8 @@ intel_dp_link_train_phy(struct intel_dp *intel_dp,
- 	ret = true;
- 
- out:
--	drm_dbg_kms(&dp_to_i915(intel_dp)->drm,
--		    "[CONNECTOR:%d:%s][ENCODER:%d:%s][%s] Link Training %s at link rate = %d, lane count = %d\n",
--		    connector->base.base.id, connector->base.name,
--		    encoder->base.base.id, encoder->base.name,
--		    drm_dp_phy_name(dp_phy),
-+	lt_conn_dbg(connector, intel_dp, dp_phy,
-+		    "Link Training %s at link rate = %d, lane count = %d\n",
- 		    ret ? "passed" : "failed",
- 		    crtc_state->port_clock, crtc_state->lane_count);
- 
-@@ -1108,13 +1066,10 @@ static void intel_dp_schedule_fallback_link_training(struct intel_dp *intel_dp,
- 						     const struct intel_crtc_state *crtc_state)
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+@@ -382,6 +372,9 @@ static void intel_sanitize_crtc(struct intel_crtc *crtc,
  {
- 	struct intel_connector *intel_connector = intel_dp->attached_connector;
--	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
+ 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+ 	struct intel_crtc_state *crtc_state = to_intel_crtc_state(crtc->base.state);
++	struct intel_encoder *encoder;
++	bool needs_link_reset = false;
++	bool has_encoder = false;
  
- 	if (intel_dp->hobl_active) {
--		drm_dbg_kms(&dp_to_i915(intel_dp)->drm,
--			    "[ENCODER:%d:%s] Link Training failed with HOBL active, "
--			    "not enabling it from now on",
--			    encoder->base.base.id, encoder->base.name);
-+		lt_dbg(intel_dp, DP_PHY_DPRX,
-+		       "Link Training failed with HOBL active, not enabling it from now on\n");
- 		intel_dp->hobl_failed = true;
- 	} else if (intel_dp_get_link_train_fallback_values(intel_dp,
- 							   crtc_state->port_clock,
-@@ -1161,8 +1116,6 @@ static bool
- intel_dp_128b132b_lane_eq(struct intel_dp *intel_dp,
- 			  const struct intel_crtc_state *crtc_state)
- {
--	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
--	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	u8 link_status[DP_LINK_STATUS_SIZE];
- 	int delay_us;
- 	int try, max_tries = 20;
-@@ -1177,9 +1130,7 @@ intel_dp_128b132b_lane_eq(struct intel_dp *intel_dp,
+ 	if (crtc_state->hw.active) {
+ 		struct intel_plane *plane;
+@@ -401,13 +394,28 @@ static void intel_sanitize_crtc(struct intel_crtc *crtc,
+ 		intel_color_commit_arm(crtc_state);
+ 	}
+ 
++	if (!crtc_state->hw.active ||
++	    intel_crtc_is_bigjoiner_slave(crtc_state))
++		return;
++
++	for_each_encoder_on_crtc(&i915->drm, &crtc->base, encoder) {
++		struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
++
++		has_encoder = true;
++
++		if (!dig_port || !intel_tc_port_link_needs_reset(dig_port))
++			continue;
++
++		needs_link_reset = true;
++		break;
++	}
++
+ 	/*
+ 	 * Adjust the state of the output pipe according to whether we have
+ 	 * active connectors/encoders.
+ 	 * TODO: Add support for MST
  	 */
- 	if (!intel_dp_reset_link_train(intel_dp, crtc_state, DP_PHY_DPRX,
- 				       DP_TRAINING_PATTERN_1)) {
--		drm_err(&i915->drm,
--			"[ENCODER:%d:%s] Failed to start 128b/132b TPS1\n",
--			encoder->base.base.id, encoder->base.name);
-+		lt_err(intel_dp, DP_PHY_DPRX, "Failed to start 128b/132b TPS1\n");
- 		return false;
- 	}
- 
-@@ -1187,27 +1138,21 @@ intel_dp_128b132b_lane_eq(struct intel_dp *intel_dp,
- 
- 	/* Read the initial TX FFE settings. */
- 	if (drm_dp_dpcd_read_link_status(&intel_dp->aux, link_status) < 0) {
--		drm_err(&i915->drm,
--			"[ENCODER:%d:%s] Failed to read TX FFE presets\n",
--			encoder->base.base.id, encoder->base.name);
-+		lt_err(intel_dp, DP_PHY_DPRX, "Failed to read TX FFE presets\n");
- 		return false;
- 	}
- 
- 	/* Update signal levels and training set as requested. */
- 	intel_dp_get_adjust_train(intel_dp, crtc_state, DP_PHY_DPRX, link_status);
- 	if (!intel_dp_update_link_train(intel_dp, crtc_state, DP_PHY_DPRX)) {
--		drm_err(&i915->drm,
--			"[ENCODER:%d:%s] Failed to set initial TX FFE settings\n",
--			encoder->base.base.id, encoder->base.name);
-+		lt_err(intel_dp, DP_PHY_DPRX, "Failed to set initial TX FFE settings\n");
- 		return false;
- 	}
- 
- 	/* Start transmitting 128b/132b TPS2. */
- 	if (!intel_dp_set_link_train(intel_dp, crtc_state, DP_PHY_DPRX,
- 				     DP_TRAINING_PATTERN_2)) {
--		drm_err(&i915->drm,
--			"[ENCODER:%d:%s] Failed to start 128b/132b TPS2\n",
--			encoder->base.base.id, encoder->base.name);
-+		lt_err(intel_dp, DP_PHY_DPRX, "Failed to start 128b/132b TPS2\n");
- 		return false;
- 	}
- 
-@@ -1224,32 +1169,25 @@ intel_dp_128b132b_lane_eq(struct intel_dp *intel_dp,
- 		delay_us = drm_dp_128b132b_read_aux_rd_interval(&intel_dp->aux);
- 
- 		if (drm_dp_dpcd_read_link_status(&intel_dp->aux, link_status) < 0) {
--			drm_err(&i915->drm,
--				"[ENCODER:%d:%s] Failed to read link status\n",
--				encoder->base.base.id, encoder->base.name);
-+			lt_err(intel_dp, DP_PHY_DPRX, "Failed to read link status\n");
- 			return false;
- 		}
- 
- 		if (drm_dp_128b132b_link_training_failed(link_status)) {
- 			intel_dp_dump_link_status(intel_dp, DP_PHY_DPRX, link_status);
--			drm_err(&i915->drm,
--				"[ENCODER:%d:%s] Downstream link training failure\n",
--				encoder->base.base.id, encoder->base.name);
-+			lt_err(intel_dp, DP_PHY_DPRX,
-+			       "Downstream link training failure\n");
- 			return false;
- 		}
- 
- 		if (drm_dp_128b132b_lane_channel_eq_done(link_status, crtc_state->lane_count)) {
--			drm_dbg_kms(&i915->drm,
--				    "[ENCODER:%d:%s] Lane channel eq done\n",
--				    encoder->base.base.id, encoder->base.name);
-+			lt_dbg(intel_dp, DP_PHY_DPRX, "Lane channel eq done\n");
- 			break;
- 		}
- 
- 		if (timeout) {
- 			intel_dp_dump_link_status(intel_dp, DP_PHY_DPRX, link_status);
--			drm_err(&i915->drm,
--				"[ENCODER:%d:%s] Lane channel eq timeout\n",
--				encoder->base.base.id, encoder->base.name);
-+			lt_err(intel_dp, DP_PHY_DPRX, "Lane channel eq timeout\n");
- 			return false;
- 		}
- 
-@@ -1259,18 +1197,14 @@ intel_dp_128b132b_lane_eq(struct intel_dp *intel_dp,
- 		/* Update signal levels and training set as requested. */
- 		intel_dp_get_adjust_train(intel_dp, crtc_state, DP_PHY_DPRX, link_status);
- 		if (!intel_dp_update_link_train(intel_dp, crtc_state, DP_PHY_DPRX)) {
--			drm_err(&i915->drm,
--				"[ENCODER:%d:%s] Failed to update TX FFE settings\n",
--				encoder->base.base.id, encoder->base.name);
-+			lt_err(intel_dp, DP_PHY_DPRX, "Failed to update TX FFE settings\n");
- 			return false;
- 		}
- 	}
- 
- 	if (try == max_tries) {
- 		intel_dp_dump_link_status(intel_dp, DP_PHY_DPRX, link_status);
--		drm_err(&i915->drm,
--			"[ENCODER:%d:%s] Max loop count reached\n",
--			encoder->base.base.id, encoder->base.name);
-+		lt_err(intel_dp, DP_PHY_DPRX, "Max loop count reached\n");
- 		return false;
- 	}
- 
-@@ -1279,32 +1213,24 @@ intel_dp_128b132b_lane_eq(struct intel_dp *intel_dp,
- 			timeout = true; /* try one last time after deadline */
- 
- 		if (drm_dp_dpcd_read_link_status(&intel_dp->aux, link_status) < 0) {
--			drm_err(&i915->drm,
--				"[ENCODER:%d:%s] Failed to read link status\n",
--				encoder->base.base.id, encoder->base.name);
-+			lt_err(intel_dp, DP_PHY_DPRX, "Failed to read link status\n");
- 			return false;
- 		}
- 
- 		if (drm_dp_128b132b_link_training_failed(link_status)) {
- 			intel_dp_dump_link_status(intel_dp, DP_PHY_DPRX, link_status);
--			drm_err(&i915->drm,
--				"[ENCODER:%d:%s] Downstream link training failure\n",
--				encoder->base.base.id, encoder->base.name);
-+			lt_err(intel_dp, DP_PHY_DPRX, "Downstream link training failure\n");
- 			return false;
- 		}
- 
- 		if (drm_dp_128b132b_eq_interlane_align_done(link_status)) {
--			drm_dbg_kms(&i915->drm,
--				    "[ENCODER:%d:%s] Interlane align done\n",
--				    encoder->base.base.id, encoder->base.name);
-+			lt_dbg(intel_dp, DP_PHY_DPRX, "Interlane align done\n");
- 			break;
- 		}
- 
- 		if (timeout) {
- 			intel_dp_dump_link_status(intel_dp, DP_PHY_DPRX, link_status);
--			drm_err(&i915->drm,
--				"[ENCODER:%d:%s] Interlane align timeout\n",
--				encoder->base.base.id, encoder->base.name);
-+			lt_err(intel_dp, DP_PHY_DPRX, "Interlane align timeout\n");
- 			return false;
- 		}
- 
-@@ -1322,16 +1248,12 @@ intel_dp_128b132b_lane_cds(struct intel_dp *intel_dp,
- 			   const struct intel_crtc_state *crtc_state,
- 			   int lttpr_count)
- {
--	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
--	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	u8 link_status[DP_LINK_STATUS_SIZE];
- 	unsigned long deadline;
- 
- 	if (drm_dp_dpcd_writeb(&intel_dp->aux, DP_TRAINING_PATTERN_SET,
- 			       DP_TRAINING_PATTERN_2_CDS) != 1) {
--		drm_err(&i915->drm,
--			"[ENCODER:%d:%s] Failed to start 128b/132b TPS2 CDS\n",
--			encoder->base.base.id, encoder->base.name);
-+		lt_err(intel_dp, DP_PHY_DPRX, "Failed to start 128b/132b TPS2 CDS\n");
- 		return false;
- 	}
- 
-@@ -1347,34 +1269,26 @@ intel_dp_128b132b_lane_cds(struct intel_dp *intel_dp,
- 		usleep_range(2000, 3000);
- 
- 		if (drm_dp_dpcd_read_link_status(&intel_dp->aux, link_status) < 0) {
--			drm_err(&i915->drm,
--				"[ENCODER:%d:%s] Failed to read link status\n",
--				encoder->base.base.id, encoder->base.name);
-+			lt_err(intel_dp, DP_PHY_DPRX, "Failed to read link status\n");
- 			return false;
- 		}
- 
- 		if (drm_dp_128b132b_eq_interlane_align_done(link_status) &&
- 		    drm_dp_128b132b_cds_interlane_align_done(link_status) &&
- 		    drm_dp_128b132b_lane_symbol_locked(link_status, crtc_state->lane_count)) {
--			drm_dbg_kms(&i915->drm,
--				    "[ENCODER:%d:%s] CDS interlane align done\n",
--				    encoder->base.base.id, encoder->base.name);
-+			lt_err(intel_dp, DP_PHY_DPRX, "CDS interlane align done\n");
- 			break;
- 		}
- 
- 		if (drm_dp_128b132b_link_training_failed(link_status)) {
- 			intel_dp_dump_link_status(intel_dp, DP_PHY_DPRX, link_status);
--			drm_err(&i915->drm,
--				"[ENCODER:%d:%s] Downstream link training failure\n",
--				encoder->base.base.id, encoder->base.name);
-+			lt_err(intel_dp, DP_PHY_DPRX, "Downstream link training failure\n");
- 			return false;
- 		}
- 
- 		if (timeout) {
- 			intel_dp_dump_link_status(intel_dp, DP_PHY_DPRX, link_status);
--			drm_err(&i915->drm,
--				"[ENCODER:%d:%s] CDS timeout\n",
--				encoder->base.base.id, encoder->base.name);
-+			lt_err(intel_dp, DP_PHY_DPRX, "CDS timeout\n");
- 			return false;
- 		}
- 	}
-@@ -1390,15 +1304,11 @@ intel_dp_128b132b_link_train(struct intel_dp *intel_dp,
- 			     const struct intel_crtc_state *crtc_state,
- 			     int lttpr_count)
- {
--	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
- 	struct intel_connector *connector = intel_dp->attached_connector;
--	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	bool passed = false;
- 
- 	if (wait_for(intel_dp_128b132b_intra_hop(intel_dp, crtc_state) == 0, 500)) {
--		drm_err(&i915->drm,
--			"[ENCODER:%d:%s] 128b/132b intra-hop not clear\n",
--			encoder->base.base.id, encoder->base.name);
-+		lt_err(intel_dp, DP_PHY_DPRX, "128b/132b intra-hop not clear\n");
- 		return false;
- 	}
- 
-@@ -1406,10 +1316,8 @@ intel_dp_128b132b_link_train(struct intel_dp *intel_dp,
- 	    intel_dp_128b132b_lane_cds(intel_dp, crtc_state, lttpr_count))
- 		passed = true;
- 
--	drm_dbg_kms(&i915->drm,
--		    "[CONNECTOR:%d:%s][ENCODER:%d:%s] 128b/132b Link Training %s at link rate = %d, lane count = %d\n",
--		    connector->base.base.id, connector->base.name,
--		    encoder->base.base.id, encoder->base.name,
-+	lt_conn_dbg(connector, intel_dp, DP_PHY_DPRX,
-+		    "128b/132b Link Training %s at link rate = %d, lane count = %d\n",
- 		    passed ? "passed" : "failed",
- 		    crtc_state->port_clock, crtc_state->lane_count);
- 
-@@ -1431,7 +1339,6 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
- {
- 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
- 	struct intel_connector *connector = intel_dp->attached_connector;
--	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	bool passed;
- 
- 	/*
-@@ -1464,10 +1371,7 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
- 	 * ignore_long_hpd flag can unset from the testcase.
- 	 */
- 	if (!passed && i915->display.hotplug.ignore_long_hpd) {
--		drm_dbg_kms(&i915->drm,
--			    "[CONNECTOR:%d:%s][ENCODER:%d:%s] Ignore the link failure\n",
--			    connector->base.base.id, connector->base.name,
--			    encoder->base.base.id, encoder->base.name);
-+		lt_conn_dbg(connector, intel_dp, DP_PHY_DPRX, "Ignore the link failure\n");
- 		return;
- 	}
- 
-@@ -1478,8 +1382,6 @@ void intel_dp_start_link_train(struct intel_dp *intel_dp,
- void intel_dp_128b132b_sdp_crc16(struct intel_dp *intel_dp,
- 				 const struct intel_crtc_state *crtc_state)
- {
--	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
--
- 	/*
- 	 * VIDEO_DIP_CTL register bit 31 should be set to '0' to not
- 	 * disable SDP CRC. This is applicable for Display version 13.
-@@ -1492,5 +1394,5 @@ void intel_dp_128b132b_sdp_crc16(struct intel_dp *intel_dp,
- 				   DP_SDP_ERROR_DETECTION_CONFIGURATION,
- 				   DP_SDP_CRC16_128B132B_EN);
- 
--	drm_dbg_kms(&i915->drm, "DP2.0 SDP CRC16 for 128b/132b enabled\n");
-+	lt_dbg(intel_dp, DP_PHY_DPRX, "DP2.0 SDP CRC16 for 128b/132b enabled\n");
+-	if (crtc_state->hw.active && !intel_crtc_has_encoders(crtc) &&
+-	    !intel_crtc_is_bigjoiner_slave(crtc_state))
++	if (!has_encoder || needs_link_reset)
+ 		disable_crtc_with_slaves(crtc, ctx);
  }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
+index 3b60995e9dfb3..358058c7bb464 100644
+--- a/drivers/gpu/drm/i915/display/intel_tc.c
++++ b/drivers/gpu/drm/i915/display/intel_tc.c
+@@ -1335,6 +1335,27 @@ bool intel_tc_port_connected(struct intel_encoder *encoder)
+ 	return is_connected;
+ }
+ 
++bool intel_tc_port_link_needs_reset(struct intel_digital_port *dig_port)
++{
++	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++	enum phy phy = intel_port_to_phy(i915, dig_port->base.port);
++	struct intel_tc_port *tc = to_tc_port(dig_port);
++	bool ret;
++
++	if (!intel_phy_is_tc(i915, phy))
++		return false;
++
++	mutex_lock(&tc->lock);
++
++	ret = tc->link_refcount &&
++	      intel_tc_port_in_dp_alt_mode(dig_port) &&
++	      intel_tc_port_needs_reset(tc);
++
++	mutex_unlock(&tc->lock);
++
++	return ret;
++}
++
+ static void __intel_tc_port_lock(struct intel_tc_port *tc,
+ 				 int required_lanes)
+ {
+diff --git a/drivers/gpu/drm/i915/display/intel_tc.h b/drivers/gpu/drm/i915/display/intel_tc.h
+index dd0810f9ea95e..c4cf1eac54a1c 100644
+--- a/drivers/gpu/drm/i915/display/intel_tc.h
++++ b/drivers/gpu/drm/i915/display/intel_tc.h
+@@ -34,6 +34,7 @@ void intel_tc_port_flush_work(struct intel_digital_port *dig_port);
+ void intel_tc_port_get_link(struct intel_digital_port *dig_port,
+ 			    int required_lanes);
+ void intel_tc_port_put_link(struct intel_digital_port *dig_port);
++bool intel_tc_port_link_needs_reset(struct intel_digital_port *dig_port);
+ bool intel_tc_port_ref_held(struct intel_digital_port *dig_port);
+ 
+ int intel_tc_port_init(struct intel_digital_port *dig_port, bool is_legacy);
 -- 
 2.37.2
 
