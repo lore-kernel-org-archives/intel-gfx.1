@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D996C7618E
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Apr 2023 16:53:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE0DFC77B7C
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Apr 2023 16:53:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D1D610E8CF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 622BA10E8E4;
 	Wed, 26 Apr 2023 16:53:21 +0000 (UTC)
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7DBF10E8BF
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Apr 2023 16:53:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F90F10E252
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Apr 2023 16:53:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682527998; x=1714063998;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=Sl9mZNOhO6P30yEMrwBS69UqG3kUdct9Ghk3O4JS9tY=;
- b=WC/0Kx8JKkjOzJ0GYOuGHE9BGNlis6usg722AJJeIDlP9ArwRe8OJY02
- 6SwdIiKEMGTRyS2XX91/jbFK/xWRJegXIGycKmfPDH4z4aa/DnnAgMXwD
- o60T73xcmlCR6rLWNM/FwveXJ8q0jEz5WxhrOlpRanLfN5rwaat18gZDb
- b0uNh7ZTIXeVO8JKpP5PiMWl20EcVx4Rr4atID4Q+J1YjshYYIHnj6yCb
- hwoCoGWOx84pxK64nBaZADlzmOJy2wfWW6V/YM/c5yb5z6FhMSGUVNQv7
- N40jnwDBGsxkbRomDRLEH5/Qod2Z8mr/SxXV+guFMY9eyTBiD4Ol/RRiW Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="327493503"
-X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="327493503"
+ t=1682527991; x=1714063991;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=heXmQKVgzX9GDWw1jKsFM/haOt+CjvgoGfQIf48FUb0=;
+ b=F3P6Z5h5HjFjNaANzgj4KRJxIjuyfUgO5nxoC4DX0YqX3n98sLs06Bo6
+ O+u24pIQmOMZ3Prw0BX/rvcaLxgiSf0+I6fWu1oY4gFjrb/pbIBAjWdN3
+ pQ0eKGHC0whlGquchm+i0a0+p4HO362gJ3141GSNzSBIbmeInQYYur1DK
+ 4NAnNcfC5l+kVcO+Wkp6LxbhnJIF+LLPe+bBDwrwskhEwbshlylMmy4wS
+ OqfjzdvORXmf8y552pX01WbHUC99ArLqyrZXf5plURoFdO+H1UYjjM87b
+ qznnpmggw/TjL1Ee2nSs/vxkkuPc1KrcPj7R5VeU1nEsdfayAMApRl4S3 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="327493463"
+X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="327493463"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2023 09:53:18 -0700
+ 26 Apr 2023 09:53:11 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="671402773"
-X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="671402773"
+X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="671402715"
+X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="671402715"
 Received: from ideak-desk.fi.intel.com ([10.237.72.58])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2023 09:53:17 -0700
+ 26 Apr 2023 09:53:10 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Apr 2023 19:53:01 +0300
-Message-Id: <20230426165305.2049341-8-imre.deak@intel.com>
+Date: Wed, 26 Apr 2023 19:52:55 +0300
+Message-Id: <20230426165305.2049341-2-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230426165305.2049341-1-imre.deak@intel.com>
 References: <20230426165305.2049341-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/11] drm/i915/dp: Convert link training error
- to debug message on disconnected sink
+Subject: [Intel-gfx] [PATCH 01/11] drm/i915: Fix PIPEDMC disabling for a
+ bigjoiner configuration
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,87 +58,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If a sink is disconnected it's expected that link training actions will
-fail on it, so downgrade the error messages about such actions to be a
-debug message. Such - expected - link training failures are more
-frequent after a follow up patch, after which an active TypeC link is
-reset after the sink is disconnected which also involves a link
-training.
+For a bigjoiner configuration display->crtc_disable() will be called
+first for the slave CRTCs and then for the master CRTC. However slave
+CRTCs will be actually disabled only after the master CRTC is disabled
+(from the encoder disable hooks called with the master CRTC state).
+Hence the slave PIPEDMCs can be disabled only after the master CRTC is
+disabled, make this so.
 
+intel_encoders_post_pll_disable() must be called only for the master
+CRTC, as for the other two encoder disable hooks. While at it fix this
+up as well. This didn't cause a problem, since
+intel_encoders_post_pll_disable() will call the corresponding hook only
+for an encoder/connector connected to the given CRTC, however slave
+CRTCs will have no associated encoder/connector.
+
+Fixes: 3af2ff0840be ("drm/i915: Enable a PIPEDMC whenever its corresponding pipe is enabled")
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c               |  2 +-
- drivers/gpu/drm/i915/display/intel_dp.h               |  1 +
- drivers/gpu/drm/i915/display/intel_dp_link_training.c | 11 +++++++++--
- 3 files changed, 11 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 1d28a2560ae01..388e79f74621f 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4171,7 +4171,7 @@ static int intel_dp_prep_link_retrain(struct intel_dp *intel_dp,
- 	return ret;
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index bf391a6cd8d68..722b4c47379d5 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1700,9 +1700,17 @@ static void hsw_crtc_disable(struct intel_atomic_state *state,
  
--static bool intel_dp_is_connected(struct intel_dp *intel_dp)
-+bool intel_dp_is_connected(struct intel_dp *intel_dp)
- {
- 	struct intel_connector *connector = intel_dp->attached_connector;
+ 	intel_disable_shared_dpll(old_crtc_state);
  
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index ef39e4f7a329e..488da392fafe5 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -42,6 +42,7 @@ void intel_dp_set_link_params(struct intel_dp *intel_dp,
- 			      int link_rate, int lane_count);
- int intel_dp_get_link_train_fallback_values(struct intel_dp *intel_dp,
- 					    int link_rate, u8 lane_count);
-+bool intel_dp_is_connected(struct intel_dp *intel_dp);
- int intel_dp_retrain_link(struct intel_encoder *encoder,
- 			  struct drm_modeset_acquire_ctx *ctx);
- void intel_dp_set_power(struct intel_dp *intel_dp, u8 mode);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index 12f2880e474ed..a747249c409a0 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -33,6 +33,7 @@ static void lt_msg(struct intel_connector *connector, struct intel_dp *intel_dp,
- 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
- 	struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	char conn_str[128] = {};
-+	const char *discon_str = "";
- 	struct va_format vaf;
- 	va_list args;
- 
-@@ -44,6 +45,11 @@ static void lt_msg(struct intel_connector *connector, struct intel_dp *intel_dp,
- 		snprintf(conn_str, sizeof(conn_str), "[CONNECTOR:%d:%s]",
- 			 connector->base.base.id, connector->base.name);
- 
-+	if (is_error && !intel_dp_is_connected(intel_dp)) {
-+		discon_str = " (sink disconnected)";
-+		is_error = false;
-+	}
+-	intel_encoders_post_pll_disable(state, crtc);
++	if (!intel_crtc_is_bigjoiner_slave(old_crtc_state)) {
++		struct intel_crtc *slave_crtc;
 +
- 	if (is_error)
- 		drm_err(&i915->drm, "%s[ENCODER:%d:%s][%s] %pV\n",
- 			conn_str,
-@@ -51,11 +57,12 @@ static void lt_msg(struct intel_connector *connector, struct intel_dp *intel_dp,
- 			drm_dp_phy_name(dp_phy),
- 			&vaf);
- 	else
--		drm_dbg(&i915->drm, "%s[ENCODER:%d:%s][%s] %pV\n",
-+		drm_dbg(&i915->drm, "%s[ENCODER:%d:%s][%s] %pV%s\n",
- 			conn_str,
- 			encoder->base.base.id, encoder->base.name,
- 			drm_dp_phy_name(dp_phy),
--			&vaf);
-+			&vaf,
-+			discon_str);
++		intel_encoders_post_pll_disable(state, crtc);
+ 
+-	intel_dmc_disable_pipe(i915, crtc->pipe);
++		intel_dmc_disable_pipe(i915, crtc->pipe);
++
++		for_each_intel_crtc_in_pipe_mask(&i915->drm, slave_crtc,
++						 intel_crtc_bigjoiner_slave_pipes(old_crtc_state))
++			intel_dmc_disable_pipe(i915, slave_crtc->pipe);
++	}
  }
  
- #define lt_err(intel_dp, dp_phy, format, ...) \
+ static void i9xx_pfit_enable(const struct intel_crtc_state *crtc_state)
 -- 
 2.37.2
 
