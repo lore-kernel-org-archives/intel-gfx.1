@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3658FC77B7C
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Apr 2023 15:04:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 361F4C77B78
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Apr 2023 15:04:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E6B610EA06;
-	Wed, 26 Apr 2023 15:03:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6605410EA0A;
+	Wed, 26 Apr 2023 15:04:02 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D918A10EA03;
- Wed, 26 Apr 2023 15:03:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E737710E9F3;
+ Wed, 26 Apr 2023 15:03:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682521429; x=1714057429;
+ t=1682521433; x=1714057433;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=jsIvzYSW9uCOQS55u4kV8VxuFlGc3vxnux6LzE1SCC8=;
- b=bpxSqj8wj+964dKnEBjp1oLd1jms3/gurPT5mYXmUb9AoRz9dh01tsgG
- 5jpcSDHKLTDoOLLBj46fyiaLmnufLabYH4bF/3A0BRCocHeCnTQ6MeRj3
- /yJ+4wrXaewu0ZGHtDPYFqz41dy3cypnApberq/FJjMC1rsUPtr+QnVP7
- U6SomrVfzdhZ9srr/f0XcBNyQ8FScf4pAaoRYtI8woLWeq/QZ9kGcVAaa
- PIDwonK4K2KBrSzcSDgc3IfDnS9NmwPfBNMaT3dE60rOAmps4ycQNPEQW
- lUvx6pyTRNzbkeCUY/44zg6LP6aGyWHaKJ2r8oTkySVSxAqcOMd86DLGv A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="349944561"
-X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="349944561"
+ bh=niUjkHVIkJi5GUftxzUGKDHIeSi6OHLIsDg1KCHvcjA=;
+ b=lPs0BaeZM47tSePiyD3vCi6y83e5P3j0vQQaHS+tJV0DemjJkJb+zLlX
+ X6vOgqqMm3VD8Dzc4le2ruwM9HrY29HMfgMuuPdVE0O5qSTLl8gkfCzfZ
+ ojH4lPhBU7le6R6jjPCSB6mx9keGBJxSAobDH32AM8tel8tlg/ZH7eqmJ
+ seYbB8noQ84mTf0B3XWfcFowf2Auu4Sgfzf8m/DU/szdgZJigHEIcRk4y
+ /0Zkskm1gMOH0EGblnFjydC41AH9roSK4M9ZHn5u1FogK8LR2LRE0HKxR
+ M/Jn6UsVzoyaa+08iZun9t3Hm85blG0NEB1mZmkoQeqYuQhsZqRHeqJkL w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="349944607"
+X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="349944607"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2023 08:03:48 -0700
+ 26 Apr 2023 08:03:52 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="805544138"
-X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="805544138"
+X-IronPort-AV: E=McAfee;i="6600,9927,10692"; a="805544187"
+X-IronPort-AV: E=Sophos;i="5.99,228,1677571200"; d="scan'208";a="805544187"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by fmsmga002.fm.intel.com with ESMTP; 26 Apr 2023 08:03:47 -0700
+ by fmsmga002.fm.intel.com with ESMTP; 26 Apr 2023 08:03:51 -0700
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Wed, 26 Apr 2023 08:03:10 -0700
-Message-Id: <20230426150321.454465-12-yi.l.liu@intel.com>
+Date: Wed, 26 Apr 2023 08:03:13 -0700
+Message-Id: <20230426150321.454465-15-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230426150321.454465-1-yi.l.liu@intel.com>
 References: <20230426150321.454465-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 11/22] vfio-iommufd: Split bind/attach into
- two steps
+Subject: [Intel-gfx] [PATCH v10 14/22] iommufd/device: Add
+ iommufd_access_detach() API
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,146 +71,247 @@ Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-to align with the coming vfio device cdev support.
+From: Nicolin Chen <nicolinc@nvidia.com>
+
+Previously, the detach routine is only done by the destroy(). And it was
+called by vfio_iommufd_emulated_unbind() when the device runs close(), so
+all the mappings in iopt were cleaned in that setup, when the call trace
+reaches this detach() routine.
+
+Now, there's a need of a detach uAPI, meaning that it does not only need
+a new iommufd_access_detach() API, but also requires access->ops->unmap()
+call as a cleanup. So add one.
+
+However, leaving that unprotected can introduce some potential of a race
+condition during the pin_/unpin_pages() call, where access->ioas->iopt is
+getting referenced. So, add an ioas_lock to protect the context of iopt
+referencings.
+
+Also, to allow the iommufd_access_unpin_pages() callback to happen via
+this unmap() call, add an ioas_unpin pointer, so the unpin routine won't
+be affected by the "access->ioas = NULL" trick.
 
 Reviewed-by: Kevin Tian <kevin.tian@intel.com>
 Tested-by: Terrence Xu <terrence.xu@intel.com>
-Tested-by: Nicolin Chen <nicolinc@nvidia.com>
 Tested-by: Yanting Jiang <yanting.jiang@intel.com>
+Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 ---
- drivers/vfio/group.c   | 18 ++++++++++++++----
- drivers/vfio/iommufd.c | 37 ++++++++++++++++++-------------------
- drivers/vfio/vfio.h    |  9 +++++++++
- 3 files changed, 41 insertions(+), 23 deletions(-)
+ drivers/iommu/iommufd/device.c          | 76 +++++++++++++++++++++++--
+ drivers/iommu/iommufd/iommufd_private.h |  2 +
+ include/linux/iommufd.h                 |  1 +
+ 3 files changed, 74 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/vfio/group.c b/drivers/vfio/group.c
-index 7955f7513eaf..fe84d09e4c61 100644
---- a/drivers/vfio/group.c
-+++ b/drivers/vfio/group.c
-@@ -200,9 +200,14 @@ static int vfio_device_group_open(struct vfio_device_file *df)
- 	}
+diff --git a/drivers/iommu/iommufd/device.c b/drivers/iommu/iommufd/device.c
+index 40b52f1a071d..9eb2e46353aa 100644
+--- a/drivers/iommu/iommufd/device.c
++++ b/drivers/iommu/iommufd/device.c
+@@ -473,6 +473,7 @@ iommufd_access_create(struct iommufd_ctx *ictx,
+ 	iommufd_ctx_get(ictx);
+ 	iommufd_object_finalize(ictx, &access->obj);
+ 	*id = access->obj.id;
++	mutex_init(&access->ioas_lock);
+ 	return access;
+ }
+ EXPORT_SYMBOL_NS_GPL(iommufd_access_create, IOMMUFD);
+@@ -504,26 +505,66 @@ u32 iommufd_access_to_id(struct iommufd_access *access)
+ }
+ EXPORT_SYMBOL_NS_GPL(iommufd_access_to_id, IOMMUFD);
  
- 	ret = vfio_device_open(df);
--	if (ret) {
--		df->iommufd = NULL;
-+	if (ret)
- 		goto out_put_kvm;
++static void __iommufd_access_detach(struct iommufd_access *access)
++{
++	struct iommufd_ioas *cur_ioas = access->ioas;
 +
-+	if (df->iommufd && device->open_count == 1) {
-+		ret = vfio_iommufd_compat_attach_ioas(device,
-+						      df->iommufd);
-+		if (ret)
-+			goto out_close_device;
- 	}
- 
- 	/*
-@@ -211,12 +216,17 @@ static int vfio_device_group_open(struct vfio_device_file *df)
- 	 */
- 	smp_store_release(&df->access_granted, true);
- 
-+	mutex_unlock(&device->dev_set->lock);
-+	mutex_unlock(&device->group->group_lock);
-+	return 0;
++	lockdep_assert_held(&access->ioas_lock);
++	/*
++	 * Set ioas to NULL to block any further iommufd_access_pin_pages().
++	 * iommufd_access_unpin_pages() can continue using access->ioas_unpin.
++	 */
++	access->ioas = NULL;
 +
-+out_close_device:
-+	vfio_device_close(df);
- out_put_kvm:
-+	df->iommufd = NULL;
- 	if (device->open_count == 0)
- 		vfio_device_put_kvm(device);
--
- 	mutex_unlock(&device->dev_set->lock);
--
- out_unlock:
- 	mutex_unlock(&device->group->group_lock);
- 	return ret;
-diff --git a/drivers/vfio/iommufd.c b/drivers/vfio/iommufd.c
-index b0d0024b2980..cee81f5910d4 100644
---- a/drivers/vfio/iommufd.c
-+++ b/drivers/vfio/iommufd.c
-@@ -30,36 +30,35 @@ int vfio_iommufd_compat_probe_noiommu(struct vfio_device *device,
- 
- int vfio_iommufd_bind(struct vfio_device *vdev, struct iommufd_ctx *ictx)
- {
--	u32 ioas_id;
- 	u32 device_id;
--	int ret;
- 
- 	lockdep_assert_held(&vdev->dev_set->lock);
- 
- 	if (vdev->noiommu)
- 		return vfio_iommufd_emulated_bind(vdev, ictx, &device_id);
- 
--	ret = vdev->ops->bind_iommufd(vdev, ictx, &device_id);
--	if (ret)
--		return ret;
-+	/* The legacy path has no way to return the device id */
-+	return vdev->ops->bind_iommufd(vdev, ictx, &device_id);
++	if (access->ops->unmap) {
++		mutex_unlock(&access->ioas_lock);
++		access->ops->unmap(access->data, 0, ULONG_MAX);
++		mutex_lock(&access->ioas_lock);
++	}
++	iopt_remove_access(&cur_ioas->iopt, access);
++	refcount_dec(&cur_ioas->obj.users);
 +}
 +
-+int vfio_iommufd_compat_attach_ioas(struct vfio_device *vdev,
-+				    struct iommufd_ctx *ictx)
++void iommufd_access_detach(struct iommufd_access *access)
 +{
-+	u32 ioas_id;
-+	int ret;
-+
-+	lockdep_assert_held(&vdev->dev_set->lock);
-+
-+	/* compat noiommu does not need to do ioas attach */
-+	if (vdev->noiommu)
-+		return 0;
- 
- 	ret = iommufd_vfio_compat_ioas_get_id(ictx, &ioas_id);
- 	if (ret)
--		goto err_unbind;
--	ret = vdev->ops->attach_ioas(vdev, &ioas_id);
--	if (ret)
--		goto err_unbind;
--
--	/*
--	 * The legacy path has no way to return the device id or the selected
--	 * pt_id
--	 */
--	return 0;
-+		return ret;
- 
--err_unbind:
--	if (vdev->ops->unbind_iommufd)
--		vdev->ops->unbind_iommufd(vdev);
--	return ret;
-+	/* The legacy path has no way to return the selected pt_id */
-+	return vdev->ops->attach_ioas(vdev, &ioas_id);
- }
- 
- void vfio_iommufd_unbind(struct vfio_device *vdev)
-diff --git a/drivers/vfio/vfio.h b/drivers/vfio/vfio.h
-index c1a4f3920cc5..b84fbcdd00aa 100644
---- a/drivers/vfio/vfio.h
-+++ b/drivers/vfio/vfio.h
-@@ -239,6 +239,8 @@ int vfio_iommufd_compat_probe_noiommu(struct vfio_device *device,
- 				      struct iommufd_ctx *ictx);
- int vfio_iommufd_bind(struct vfio_device *device, struct iommufd_ctx *ictx);
- void vfio_iommufd_unbind(struct vfio_device *device);
-+int vfio_iommufd_compat_attach_ioas(struct vfio_device *device,
-+				    struct iommufd_ctx *ictx);
- #else
- static inline int
- vfio_iommufd_compat_probe_noiommu(struct vfio_device *device,
-@@ -256,6 +258,13 @@ static inline int vfio_iommufd_bind(struct vfio_device *device,
- static inline void vfio_iommufd_unbind(struct vfio_device *device)
- {
- }
-+
-+static inline int
-+vfio_iommufd_compat_attach_ioas(struct vfio_device *device,
-+				struct iommufd_ctx *ictx)
-+{
-+	return -EOPNOTSUPP;
++	mutex_lock(&access->ioas_lock);
++	if (WARN_ON(!access->ioas))
++		goto out;
++	__iommufd_access_detach(access);
++out:
++	access->ioas_unpin = NULL;
++	mutex_unlock(&access->ioas_lock);
 +}
- #endif
++EXPORT_SYMBOL_NS_GPL(iommufd_access_detach, IOMMUFD);
++
+ int iommufd_access_attach(struct iommufd_access *access, u32 ioas_id)
+ {
+ 	struct iommufd_ioas *new_ioas;
+ 	int rc = 0;
  
- #if IS_ENABLED(CONFIG_VFIO_VIRQFD)
+-	if (access->ioas)
++	mutex_lock(&access->ioas_lock);
++	if (access->ioas) {
++		mutex_unlock(&access->ioas_lock);
+ 		return -EINVAL;
++	}
+ 
+ 	new_ioas = iommufd_get_ioas(access->ictx, ioas_id);
+-	if (IS_ERR(new_ioas))
++	if (IS_ERR(new_ioas)) {
++		mutex_unlock(&access->ioas_lock);
+ 		return PTR_ERR(new_ioas);
++	}
+ 
+ 	rc = iopt_add_access(&new_ioas->iopt, access);
+ 	if (rc) {
++		mutex_unlock(&access->ioas_lock);
+ 		iommufd_put_object(&new_ioas->obj);
+ 		return rc;
+ 	}
+ 	iommufd_ref_to_users(&new_ioas->obj);
+ 
+ 	access->ioas = new_ioas;
++	access->ioas_unpin = new_ioas;
++	mutex_unlock(&access->ioas_lock);
+ 	return 0;
+ }
+ EXPORT_SYMBOL_NS_GPL(iommufd_access_attach, IOMMUFD);
+@@ -578,8 +619,8 @@ void iommufd_access_notify_unmap(struct io_pagetable *iopt, unsigned long iova,
+ void iommufd_access_unpin_pages(struct iommufd_access *access,
+ 				unsigned long iova, unsigned long length)
+ {
+-	struct io_pagetable *iopt = &access->ioas->iopt;
+ 	struct iopt_area_contig_iter iter;
++	struct io_pagetable *iopt;
+ 	unsigned long last_iova;
+ 	struct iopt_area *area;
+ 
+@@ -587,6 +628,13 @@ void iommufd_access_unpin_pages(struct iommufd_access *access,
+ 	    WARN_ON(check_add_overflow(iova, length - 1, &last_iova)))
+ 		return;
+ 
++	mutex_lock(&access->ioas_lock);
++	if (!access->ioas_unpin) {
++		mutex_unlock(&access->ioas_lock);
++		return;
++	}
++	iopt = &access->ioas_unpin->iopt;
++
+ 	down_read(&iopt->iova_rwsem);
+ 	iopt_for_each_contig_area(&iter, area, iopt, iova, last_iova)
+ 		iopt_area_remove_access(
+@@ -596,6 +644,7 @@ void iommufd_access_unpin_pages(struct iommufd_access *access,
+ 				min(last_iova, iopt_area_last_iova(area))));
+ 	up_read(&iopt->iova_rwsem);
+ 	WARN_ON(!iopt_area_contig_done(&iter));
++	mutex_unlock(&access->ioas_lock);
+ }
+ EXPORT_SYMBOL_NS_GPL(iommufd_access_unpin_pages, IOMMUFD);
+ 
+@@ -641,8 +690,8 @@ int iommufd_access_pin_pages(struct iommufd_access *access, unsigned long iova,
+ 			     unsigned long length, struct page **out_pages,
+ 			     unsigned int flags)
+ {
+-	struct io_pagetable *iopt = &access->ioas->iopt;
+ 	struct iopt_area_contig_iter iter;
++	struct io_pagetable *iopt;
+ 	unsigned long last_iova;
+ 	struct iopt_area *area;
+ 	int rc;
+@@ -657,6 +706,13 @@ int iommufd_access_pin_pages(struct iommufd_access *access, unsigned long iova,
+ 	if (check_add_overflow(iova, length - 1, &last_iova))
+ 		return -EOVERFLOW;
+ 
++	mutex_lock(&access->ioas_lock);
++	if (!access->ioas) {
++		mutex_unlock(&access->ioas_lock);
++		return -ENOENT;
++	}
++	iopt = &access->ioas->iopt;
++
+ 	down_read(&iopt->iova_rwsem);
+ 	iopt_for_each_contig_area(&iter, area, iopt, iova, last_iova) {
+ 		unsigned long last = min(last_iova, iopt_area_last_iova(area));
+@@ -687,6 +743,7 @@ int iommufd_access_pin_pages(struct iommufd_access *access, unsigned long iova,
+ 	}
+ 
+ 	up_read(&iopt->iova_rwsem);
++	mutex_unlock(&access->ioas_lock);
+ 	return 0;
+ 
+ err_remove:
+@@ -701,6 +758,7 @@ int iommufd_access_pin_pages(struct iommufd_access *access, unsigned long iova,
+ 						  iopt_area_last_iova(area))));
+ 	}
+ 	up_read(&iopt->iova_rwsem);
++	mutex_unlock(&access->ioas_lock);
+ 	return rc;
+ }
+ EXPORT_SYMBOL_NS_GPL(iommufd_access_pin_pages, IOMMUFD);
+@@ -720,8 +778,8 @@ EXPORT_SYMBOL_NS_GPL(iommufd_access_pin_pages, IOMMUFD);
+ int iommufd_access_rw(struct iommufd_access *access, unsigned long iova,
+ 		      void *data, size_t length, unsigned int flags)
+ {
+-	struct io_pagetable *iopt = &access->ioas->iopt;
+ 	struct iopt_area_contig_iter iter;
++	struct io_pagetable *iopt;
+ 	struct iopt_area *area;
+ 	unsigned long last_iova;
+ 	int rc;
+@@ -731,6 +789,13 @@ int iommufd_access_rw(struct iommufd_access *access, unsigned long iova,
+ 	if (check_add_overflow(iova, length - 1, &last_iova))
+ 		return -EOVERFLOW;
+ 
++	mutex_lock(&access->ioas_lock);
++	if (!access->ioas) {
++		mutex_unlock(&access->ioas_lock);
++		return -ENOENT;
++	}
++	iopt = &access->ioas->iopt;
++
+ 	down_read(&iopt->iova_rwsem);
+ 	iopt_for_each_contig_area(&iter, area, iopt, iova, last_iova) {
+ 		unsigned long last = min(last_iova, iopt_area_last_iova(area));
+@@ -757,6 +822,7 @@ int iommufd_access_rw(struct iommufd_access *access, unsigned long iova,
+ 		rc = -ENOENT;
+ err_out:
+ 	up_read(&iopt->iova_rwsem);
++	mutex_unlock(&access->ioas_lock);
+ 	return rc;
+ }
+ EXPORT_SYMBOL_NS_GPL(iommufd_access_rw, IOMMUFD);
+diff --git a/drivers/iommu/iommufd/iommufd_private.h b/drivers/iommu/iommufd/iommufd_private.h
+index 2e6e8e217cce..ec2ce3ef187d 100644
+--- a/drivers/iommu/iommufd/iommufd_private.h
++++ b/drivers/iommu/iommufd/iommufd_private.h
+@@ -263,6 +263,8 @@ struct iommufd_access {
+ 	struct iommufd_object obj;
+ 	struct iommufd_ctx *ictx;
+ 	struct iommufd_ioas *ioas;
++	struct iommufd_ioas *ioas_unpin;
++	struct mutex ioas_lock;
+ 	const struct iommufd_access_ops *ops;
+ 	void *data;
+ 	unsigned long iova_alignment;
+diff --git a/include/linux/iommufd.h b/include/linux/iommufd.h
+index 68cd65274e28..416a0de936b8 100644
+--- a/include/linux/iommufd.h
++++ b/include/linux/iommufd.h
+@@ -47,6 +47,7 @@ iommufd_access_create(struct iommufd_ctx *ictx,
+ 		      const struct iommufd_access_ops *ops, void *data, u32 *id);
+ void iommufd_access_destroy(struct iommufd_access *access);
+ int iommufd_access_attach(struct iommufd_access *access, u32 ioas_id);
++void iommufd_access_detach(struct iommufd_access *access);
+ 
+ struct iommufd_ctx *iommufd_access_to_ictx(struct iommufd_access *access);
+ u32 iommufd_access_to_id(struct iommufd_access *access);
 -- 
 2.34.1
 
