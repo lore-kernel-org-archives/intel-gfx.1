@@ -4,50 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 895E2C77B73
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Apr 2023 14:26:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E65F5C77B61
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Apr 2023 14:26:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC35B10EB4D;
-	Thu, 27 Apr 2023 14:26:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3230F10EB59;
+	Thu, 27 Apr 2023 14:26:46 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F5EC10EB4D
- for <intel-gfx@lists.freedesktop.org>; Thu, 27 Apr 2023 14:26:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 903F010E375
+ for <intel-gfx@lists.freedesktop.org>; Thu, 27 Apr 2023 14:26:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682605603; x=1714141603;
+ t=1682605596; x=1714141596;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=KG4G7GvU5t3eB5guFzMBGeYkaAijSo0M3PWjNewR6Gc=;
- b=Ij6tFbDIWQlwN5j7av02UocE5p1ZllG5V07s0rw4NYDZO//S7ujk4c9j
- yu2ZbKCt3Ae3GFuVpncnSzXtKHB2VypszgXUJ/cRHdEUXPuZ6ibE6DpiK
- vRC6VrOOStvITG2w53jmIHrKYfbtu1BuBiut1rWWlhemIPQWpmA2xAcDb
- Wrq137i597CJbwkIPQNpHUAQiRXgEfd8Le/5s4WrOyJIwIP5tVADNPTi2
- gbVi5TyMfRXGxiSP54hGrNUbAXDLFCmc+koOnlRirh8sXO2mLstmq7v0W
- 9riukQ/gjvFvPVmmYNagVMQsNUXM3VzR6+TAU5Ks0dyDMlLTU9YaK9jk1 Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="375438702"
-X-IronPort-AV: E=Sophos;i="5.99,230,1677571200"; d="scan'208";a="375438702"
+ bh=UDwm3z68FKPhUJB0nQF8dzBOQ86+So9SR9lQwOeqYR8=;
+ b=SnrbE8lxAazZR8rGWO1wDVGqt0tOleTlDx/5sgdPaA6nEBrESIaYynZA
+ FgLMlN0TF9qNZneIcr7YVQ+iDysIsI/jHzCFbIzrJuummRUrspZO/VEtK
+ Ueb3mZMfJPIscrIcpMjntwLWml6VthTT9vhei9NfEWNgXOKuXflr1Ly19
+ xt0tuaaVVnfxA9psnyMO/lsXb2RmoULG4HakLoTyYIFrImkICixNWQB7l
+ In78EDZS15Ntj5HyBzqf5ow/dkXxKOzpR5raW9157oFW9fMHZbDbpdEvP
+ HXZssUWJmYVYwxFkKtkclNKqTBn0TdbARLf3FpGnDhvHCvuuzFDyxZf9v A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="375438665"
+X-IronPort-AV: E=Sophos;i="5.99,230,1677571200"; 
+ d="scan'208,223";a="375438665"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Apr 2023 07:26:43 -0700
+ 27 Apr 2023 07:26:36 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="838403930"
-X-IronPort-AV: E=Sophos;i="5.99,230,1677571200"; d="scan'208";a="838403930"
+X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="838403794"
+X-IronPort-AV: E=Sophos;i="5.99,230,1677571200"; 
+ d="scan'208,223";a="838403794"
 Received: from jfedorov-mobl2.ccr.corp.intel.com (HELO
  vgovind2-mobl3.intel.com) ([10.251.216.111])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Apr 2023 07:26:41 -0700
+ 27 Apr 2023 07:26:34 -0700
 From: Vinod Govindapillai <vinod.govindapillai@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 27 Apr 2023 17:26:04 +0300
-Message-Id: <20230427142604.1565580-9-vinod.govindapillai@intel.com>
+Date: Thu, 27 Apr 2023 17:26:02 +0300
+Message-Id: <20230427142604.1565580-7-vinod.govindapillai@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230427142604.1565580-1-vinod.govindapillai@intel.com>
 References: <20230427142604.1565580-1-vinod.govindapillai@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 8/8] drm/i915/display: provision to suppress
- drm_warn in intel_get_crtc_new_encoder
+Subject: [Intel-gfx] [PATCH v3 6/8] drm/i915/mtl: find best QGV point and
+ configure sagv
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,158 +66,140 @@ Cc: ville.syrjala@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-While configuring pmdemand parameters, there could be
-intel_get_crtc_new_encoder call where encoders could be 0. To avoid
-invoking drm_warn in such cases, use a parameter to indicate drm_warn
-should be suppressed.
+From MTL onwards, we need to find the best QGV point based on
+the required data rate and pass the peak BW of that point to
+the punit to lock the corresponding QGV point.
 
-v2: checkpatch warning fixes
+Bspec: 64636
 
 Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c     |  2 +-
- drivers/gpu/drm/i915/display/intel_display.c     | 10 ++++++----
- drivers/gpu/drm/i915/display/intel_display.h     |  3 ++-
- drivers/gpu/drm/i915/display/intel_dpll.c        |  8 ++++----
- drivers/gpu/drm/i915/display/intel_pch_display.c |  2 +-
- drivers/gpu/drm/i915/display/intel_pmdemand.c    |  2 +-
- drivers/gpu/drm/i915/display/intel_snps_phy.c    |  2 +-
- 7 files changed, 16 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bw.c | 87 ++++++++++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_bw.h |  6 ++
+ 2 files changed, 91 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index 83180074b512..e91fdd5a26c3 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -1879,7 +1879,7 @@ void intel_c10pll_state_verify(struct intel_atomic_state *state,
- 	    !intel_crtc_needs_fastset(new_crtc_state))
- 		return;
- 
--	encoder = intel_get_crtc_new_encoder(state, new_crtc_state);
-+	encoder = intel_get_crtc_new_encoder(state, new_crtc_state, true);
- 	phy = intel_port_to_phy(i915, encoder->port);
- 
- 	if (!intel_is_c10phy(i915, phy))
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index f98e235fadc6..4cadda4acce4 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -763,7 +763,8 @@ bool intel_has_pending_fb_unpin(struct drm_i915_private *dev_priv)
-  */
- struct intel_encoder *
- intel_get_crtc_new_encoder(const struct intel_atomic_state *state,
--			   const struct intel_crtc_state *crtc_state)
-+			   const struct intel_crtc_state *crtc_state,
-+			   bool warn)
- {
- 	const struct drm_connector_state *connector_state;
- 	const struct drm_connector *connector;
-@@ -782,9 +783,10 @@ intel_get_crtc_new_encoder(const struct intel_atomic_state *state,
- 		num_encoders++;
- 	}
- 
--	drm_WARN(state->base.dev, num_encoders != 1,
--		 "%d encoders for pipe %c\n",
--		 num_encoders, pipe_name(master_crtc->pipe));
-+	if (warn)
-+		drm_WARN(state->base.dev, num_encoders != 1,
-+			 "%d encoders for pipe %c\n",
-+			 num_encoders, pipe_name(master_crtc->pipe));
- 
- 	return encoder;
+diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
+index a7f501131bb6..70fa469c3c20 100644
+--- a/drivers/gpu/drm/i915/display/intel_bw.c
++++ b/drivers/gpu/drm/i915/display/intel_bw.c
+@@ -802,6 +802,85 @@ intel_atomic_get_bw_state(struct intel_atomic_state *state)
+ 	return to_intel_bw_state(bw_state);
  }
-diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index ac95961f68ba..4620ed991ff0 100644
---- a/drivers/gpu/drm/i915/display/intel_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -501,7 +501,8 @@ bool intel_plane_uses_fence(const struct intel_plane_state *plane_state);
  
- struct intel_encoder *
- intel_get_crtc_new_encoder(const struct intel_atomic_state *state,
--			   const struct intel_crtc_state *crtc_state);
-+			   const struct intel_crtc_state *crtc_state,
-+			   bool warn);
- void intel_plane_disable_noatomic(struct intel_crtc *crtc,
- 				  struct intel_plane *plane);
- void intel_set_plane_visible(struct intel_crtc_state *crtc_state,
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll.c b/drivers/gpu/drm/i915/display/intel_dpll.c
-index a9fbef0fa817..9d30f273130e 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll.c
-@@ -940,7 +940,7 @@ static int hsw_crtc_compute_clock(struct intel_atomic_state *state,
- 	struct intel_crtc_state *crtc_state =
- 		intel_atomic_get_new_crtc_state(state, crtc);
- 	struct intel_encoder *encoder =
--		intel_get_crtc_new_encoder(state, crtc_state);
-+		intel_get_crtc_new_encoder(state, crtc_state, true);
- 	int ret;
++static int mtl_find_qgv_points(struct drm_i915_private *i915,
++			       unsigned int data_rate,
++			       unsigned int num_active_planes,
++			       const struct intel_bw_state *old_bw_state,
++			       struct intel_bw_state *new_bw_state)
++{
++	unsigned int best_rate = UINT_MAX;
++	unsigned int num_qgv_points = i915->display.bw.max[0].num_qgv_points;
++	unsigned int qgv_peak_bw  = 0;
++	int i;
++	int ret;
++
++	ret = intel_atomic_lock_global_state(&new_bw_state->base);
++	if (ret)
++		return ret;
++
++	/*
++	 * If SAGV cannot be enabled, disable the pcode SAGV by passing all 1's
++	 * for qgv peak bw in PM Demand request. So assign UINT_MAX if SAGV is
++	 * not enabled. PM Demand code will clamp the value for the register
++	 */
++	if (!intel_can_enable_sagv(i915, new_bw_state)) {
++		new_bw_state->qgv_point_peakbw = UINT_MAX;
++		drm_dbg_kms(&i915->drm, "No SAGV, use UINT_MAX as peak bw.");
++		goto out;
++	}
++
++	/*
++	 * Find the best QGV point by comparing the data_rate with max data rate
++	 * offered per plane group
++	 */
++	for (i = 0; i < num_qgv_points; i++) {
++		unsigned int bw_index =
++			tgl_max_bw_index(i915, num_active_planes, i);
++		unsigned int max_data_rate;
++
++		if (bw_index > ARRAY_SIZE(i915->display.bw.max))
++			continue;
++
++		max_data_rate = i915->display.bw.max[bw_index].deratedbw[i];
++
++		if (max_data_rate < data_rate)
++			continue;
++
++		if (max_data_rate - data_rate < best_rate) {
++			best_rate = max_data_rate - data_rate;
++			qgv_peak_bw = i915->display.bw.max[bw_index].peakbw[i];
++		}
++
++		drm_dbg_kms(&i915->drm, "QGV point %d: max bw %d required %d qgv_peak_bw: %d\n",
++			    i, max_data_rate, data_rate, qgv_peak_bw);
++	}
++
++	drm_dbg_kms(&i915->drm, "Matching peaks QGV bw: %d for required data rate: %d\n",
++		    qgv_peak_bw, data_rate);
++
++	/*
++	 * The display configuration cannot be supported if no QGV point
++	 * satisfying the require data rate is found
++	 */
++	if (qgv_peak_bw == 0) {
++		drm_dbg_kms(&i915->drm, "No QGV points for bw %d for display configuration(%d active planes).\n",
++			    data_rate, num_active_planes);
++		return -EINVAL;
++	}
++
++	/* MTL PM DEMAND expects QGV BW parameter in multiples of 100 mbps */
++	new_bw_state->qgv_point_peakbw = qgv_peak_bw / 100;
++
++out:
++	if (new_bw_state->qgv_point_peakbw != old_bw_state->qgv_point_peakbw)  {
++		ret = intel_atomic_serialize_global_state(&new_bw_state->base);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
+ static int icl_find_qgv_points(struct drm_i915_private *i915,
+ 			       unsigned int data_rate,
+ 			       unsigned int num_active_planes,
+@@ -927,8 +1006,12 @@ static int intel_bw_check_qgv_points(struct drm_i915_private *i915,
  
- 	if (DISPLAY_VER(dev_priv) < 11 &&
-@@ -969,7 +969,7 @@ static int hsw_crtc_get_shared_dpll(struct intel_atomic_state *state,
- 	struct intel_crtc_state *crtc_state =
- 		intel_atomic_get_new_crtc_state(state, crtc);
- 	struct intel_encoder *encoder =
--		intel_get_crtc_new_encoder(state, crtc_state);
-+		intel_get_crtc_new_encoder(state, crtc_state, true);
+ 	data_rate = DIV_ROUND_UP(data_rate, 1000);
  
- 	if (DISPLAY_VER(dev_priv) < 11 &&
- 	    intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DSI))
-@@ -984,7 +984,7 @@ static int dg2_crtc_compute_clock(struct intel_atomic_state *state,
- 	struct intel_crtc_state *crtc_state =
- 		intel_atomic_get_new_crtc_state(state, crtc);
- 	struct intel_encoder *encoder =
--		intel_get_crtc_new_encoder(state, crtc_state);
-+		intel_get_crtc_new_encoder(state, crtc_state, true);
- 	int ret;
+-	return icl_find_qgv_points(i915, data_rate, num_active_planes,
+-				   old_bw_state, new_bw_state);
++	if (DISPLAY_VER(i915) >= 14)
++		return mtl_find_qgv_points(i915, data_rate, num_active_planes,
++					   old_bw_state, new_bw_state);
++	else
++		return icl_find_qgv_points(i915, data_rate, num_active_planes,
++					   old_bw_state, new_bw_state);
+ }
  
- 	ret = intel_mpllb_calc_state(crtc_state, encoder);
-@@ -1003,7 +1003,7 @@ static int mtl_crtc_compute_clock(struct intel_atomic_state *state,
- 	struct intel_crtc_state *crtc_state =
- 		intel_atomic_get_new_crtc_state(state, crtc);
- 	struct intel_encoder *encoder =
--		intel_get_crtc_new_encoder(state, crtc_state);
-+		intel_get_crtc_new_encoder(state, crtc_state, true);
- 	enum phy phy = intel_port_to_phy(i915, encoder->port);
- 	int ret;
+ static bool intel_bw_state_changed(struct drm_i915_private *i915,
+diff --git a/drivers/gpu/drm/i915/display/intel_bw.h b/drivers/gpu/drm/i915/display/intel_bw.h
+index f20292143745..fc32f1eace85 100644
+--- a/drivers/gpu/drm/i915/display/intel_bw.h
++++ b/drivers/gpu/drm/i915/display/intel_bw.h
+@@ -34,6 +34,12 @@ struct intel_bw_state {
+ 	/* bitmask of active pipes */
+ 	u8 active_pipes;
  
-diff --git a/drivers/gpu/drm/i915/display/intel_pch_display.c b/drivers/gpu/drm/i915/display/intel_pch_display.c
-index 2411fe4dee8b..fa91a9f66422 100644
---- a/drivers/gpu/drm/i915/display/intel_pch_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_pch_display.c
-@@ -427,7 +427,7 @@ void ilk_pch_enable(struct intel_atomic_state *state,
- 		if (adjusted_mode->flags & DRM_MODE_FLAG_PVSYNC)
- 			temp |= TRANS_DP_VSYNC_ACTIVE_HIGH;
- 
--		port = intel_get_crtc_new_encoder(state, crtc_state)->port;
-+		port = intel_get_crtc_new_encoder(state, crtc_state, true)->port;
- 		drm_WARN_ON(&dev_priv->drm, port < PORT_B || port > PORT_D);
- 		temp |= TRANS_DP_PORT_SEL(port);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_pmdemand.c b/drivers/gpu/drm/i915/display/intel_pmdemand.c
-index df6429e7059d..046bf3b7d208 100644
---- a/drivers/gpu/drm/i915/display/intel_pmdemand.c
-+++ b/drivers/gpu/drm/i915/display/intel_pmdemand.c
-@@ -216,7 +216,7 @@ int intel_pmdemand_atomic_check(struct intel_atomic_state *state)
- 		if (!new_crtc_state->hw.active)
- 			continue;
- 
--		encoder = intel_get_crtc_new_encoder(state, new_crtc_state);
-+		encoder = intel_get_crtc_new_encoder(state, new_crtc_state, false);
- 		if (!encoder)
- 			continue;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_snps_phy.c b/drivers/gpu/drm/i915/display/intel_snps_phy.c
-index a72677bf617b..a4d56a2a670a 100644
---- a/drivers/gpu/drm/i915/display/intel_snps_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_snps_phy.c
-@@ -2012,7 +2012,7 @@ void intel_mpllb_state_verify(struct intel_atomic_state *state,
- 	    !intel_crtc_needs_fastset(new_crtc_state))
- 		return;
- 
--	encoder = intel_get_crtc_new_encoder(state, new_crtc_state);
-+	encoder = intel_get_crtc_new_encoder(state, new_crtc_state, true);
- 	intel_mpllb_readout_hw_state(encoder, &mpllb_hw_state);
- 
- #define MPLLB_CHECK(__name)						\
++	/*
++	 * From MTL onwards, to lock a QGV point, punit expects the peak BW of
++	 * the selected QGV point as the parameter
++	 */
++	unsigned int qgv_point_peakbw;
++
+ 	/*
+ 	 * Current QGV points mask, which restricts
+ 	 * some particular SAGV states, not to confuse
 -- 
 2.34.1
 
