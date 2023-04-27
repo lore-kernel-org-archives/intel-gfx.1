@@ -4,47 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0968C77B7C
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Apr 2023 23:49:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43698C77B73
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Apr 2023 23:55:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B4E210EC22;
-	Thu, 27 Apr 2023 23:49:02 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91E7910E201;
- Thu, 27 Apr 2023 23:48:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682639337; x=1714175337;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=3gyufRfq9VY/SoHfp8+GJ+XlbGBkMR/Iyw91+DSNmBY=;
- b=NWH2ncuu99ld8GsyxR87KbPLSEreW+xpKlx19v8fJH5zfNB6B+0EbkNT
- ls0DgeVb3NWFBit+8orJ+IGva7oP72JN9KCwkkKz8yPKQS2EE2s7FrVFd
- Da5Dyu1tyoAGr8LviGRLy2avWSrYozhGzVVvIo+WmKBImk4wfNdd8pAMD
- mShcTvxRP6nAsUoOO8X/g70T06fJyagh9yZdCURtUcE79RP/KwenNsUQu
- t/gbuXxByFHAY2itad6g+BgDbed4ym8ANo36nZ8yRELlTCLcyKQ/8a0cU
- K0snmfw501+VCMFt5rOJTIknFK+T/0YnngfTknR3e/ZY+UTpIgppHCEx5 Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="336634852"
-X-IronPort-AV: E=Sophos;i="5.99,232,1677571200"; d="scan'208";a="336634852"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Apr 2023 16:48:46 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="764051959"
-X-IronPort-AV: E=Sophos;i="5.99,232,1677571200"; d="scan'208";a="764051959"
-Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
- by fmsmga004.fm.intel.com with ESMTP; 27 Apr 2023 16:48:46 -0700
-From: Alan Previn <alan.previn.teres.alexis@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 27 Apr 2023 16:48:40 -0700
-Message-Id: <20230427234843.2886921-6-alan.previn.teres.alexis@intel.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230427234843.2886921-1-alan.previn.teres.alexis@intel.com>
-References: <20230427234843.2886921-1-alan.previn.teres.alexis@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D16410E210;
+	Thu, 27 Apr 2023 23:55:47 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 08C6010E201;
+ Thu, 27 Apr 2023 23:55:45 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 00327AADEB;
+ Thu, 27 Apr 2023 23:55:44 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7508765695935525446=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 5/8] drm/i915/pxp: Add ARB session creation
- and cleanup
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Umesh Nerlige Ramappa" <umesh.nerlige.ramappa@intel.com>
+Date: Thu, 27 Apr 2023 23:55:44 -0000
+Message-ID: <168263974496.9051.6524980746474424980@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230427224705.2785566-1-umesh.nerlige.ramappa@intel.com>
+In-Reply-To: <20230427224705.2785566-1-umesh.nerlige.ramappa@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZmRp?=
+ =?utf-8?q?nfo=3A_Enable_some_support_for_GuC_based_client_busyness_=28rev?=
+ =?utf-8?q?2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,443 +41,307 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add MTL's function for ARB session creation using PXP firmware
-version 4.3 ABI structure format.
+--===============7508765695935525446==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-While relooking at the ARB session creation flow in intel_pxp_start,
-let's address missing UAPI documentation. Without actually changing
-backward compatible behavior, update i915's drm-uapi comments
-that describe the possible error values when creating a context
-with I915_CONTEXT_PARAM_PROTECTED_CONTENT:
-   Since the first merge of PXP support on ADL, i915 returns -ENXIO
-   if a dependency such as firmware or component driver was yet to
-   be loaded or returns -EIO if the creation attempt failed when
-   requested by the PXP firmware (specific firmware error responses
-   are reported in dmesg).
+== Series Details ==
 
-Add MTL's function for ARB session invalidation but this
-reuses PXP firmware version 4.2 ABI structure format.
+Series: fdinfo: Enable some support for GuC based client busyness (rev2)
+URL   : https://patchwork.freedesktop.org/series/116120/
+State : success
 
-For both cases, in the back-end gsccs functions for sending messages
-to the firmware inspect the GSC-CS-Mem-Header's pending-bit which
-means the GSC firmware is busy and we should retry.
+== Summary ==
 
-Given the last hw requirement, lets also update functions in
-front-end layer that wait for session creation or teardown
-completion to use new worst case timeout periods.
+CI Bug Log - changes from CI_DRM_13071 -> Patchwork_116120v2
+====================================================
 
-Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
-Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c     |  10 ++
- drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.h     |   1 +
- drivers/gpu/drm/i915/pxp/intel_pxp.c          |  27 +++-
- .../drm/i915/pxp/intel_pxp_cmd_interface_43.h |  21 +++
- drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c    | 130 ++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h    |  12 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_session.c  |  11 +-
- include/uapi/drm/i915_drm.h                   |  15 ++
- 8 files changed, 220 insertions(+), 7 deletions(-)
+Summary
+-------
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
-index 236673c02f9a..013dfe284a28 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
-@@ -13,6 +13,7 @@
- #define GSC_FW_STATUS_REG			_MMIO(0x116C40)
- #define GSC_FW_CURRENT_STATE			REG_GENMASK(3, 0)
- #define   GSC_FW_CURRENT_STATE_RESET		0
-+#define   GSC_FW_PROXY_STATE_NORMAL		5
- #define GSC_FW_INIT_COMPLETE_BIT		REG_BIT(9)
- 
- static bool gsc_is_in_reset(struct intel_uncore *uncore)
-@@ -31,6 +32,15 @@ bool intel_gsc_uc_fw_init_done(struct intel_gsc_uc *gsc)
- 	return fw_status & GSC_FW_INIT_COMPLETE_BIT;
- }
- 
-+bool intel_gsc_uc_fw_proxy_init_done(struct intel_gsc_uc *gsc)
-+{
-+	struct intel_uncore *uncore = gsc_uc_to_gt(gsc)->uncore;
-+	u32 fw_status = intel_uncore_read(uncore, GSC_FW_STATUS_REG);
-+
-+	return REG_FIELD_GET(GSC_FW_CURRENT_STATE, fw_status) ==
-+	       GSC_FW_PROXY_STATE_NORMAL;
-+}
-+
- static int emit_gsc_fw_load(struct i915_request *rq, struct intel_gsc_uc *gsc)
- {
- 	u32 offset = i915_ggtt_offset(gsc->local);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.h b/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.h
-index f4c1106bb2a9..fff8928218df 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.h
-@@ -13,5 +13,6 @@ struct intel_uncore;
- 
- int intel_gsc_uc_fw_upload(struct intel_gsc_uc *gsc);
- bool intel_gsc_uc_fw_init_done(struct intel_gsc_uc *gsc);
-+bool intel_gsc_uc_fw_proxy_init_done(struct intel_gsc_uc *gsc);
- 
- #endif
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index 8949d4be7882..b600d68de2a4 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -291,6 +291,8 @@ static bool pxp_component_bound(struct intel_pxp *pxp)
- 
- static int __pxp_global_teardown_final(struct intel_pxp *pxp)
- {
-+	int timeout;
-+
- 	if (!pxp->arb_is_valid)
- 		return 0;
- 	/*
-@@ -300,7 +302,12 @@ static int __pxp_global_teardown_final(struct intel_pxp *pxp)
- 	intel_pxp_mark_termination_in_progress(pxp);
- 	intel_pxp_terminate(pxp, false);
- 
--	if (!wait_for_completion_timeout(&pxp->termination, msecs_to_jiffies(250)))
-+	if (HAS_ENGINE(pxp->ctrl_gt, GSC0))
-+		timeout = GSCFW_MAX_ROUND_TRIP_LATENCY_MS;
-+	else
-+		timeout = 250;
-+
-+	if (!wait_for_completion_timeout(&pxp->termination, msecs_to_jiffies(timeout)))
- 		return -ETIMEDOUT;
- 
- 	return 0;
-@@ -308,6 +315,8 @@ static int __pxp_global_teardown_final(struct intel_pxp *pxp)
- 
- static int __pxp_global_teardown_restart(struct intel_pxp *pxp)
- {
-+	int timeout;
-+
- 	if (pxp->arb_is_valid)
- 		return 0;
- 	/*
-@@ -316,7 +325,12 @@ static int __pxp_global_teardown_restart(struct intel_pxp *pxp)
- 	 */
- 	pxp_queue_termination(pxp);
- 
--	if (!wait_for_completion_timeout(&pxp->termination, msecs_to_jiffies(250)))
-+	if (HAS_ENGINE(pxp->ctrl_gt, GSC0))
-+		timeout = GSCFW_MAX_ROUND_TRIP_LATENCY_MS;
-+	else
-+		timeout = 250;
-+
-+	if (!wait_for_completion_timeout(&pxp->termination, msecs_to_jiffies(timeout)))
- 		return -ETIMEDOUT;
- 
- 	return 0;
-@@ -354,8 +368,13 @@ int intel_pxp_start(struct intel_pxp *pxp)
- 	if (!intel_pxp_is_enabled(pxp))
- 		return -ENODEV;
- 
--	if (wait_for(pxp_component_bound(pxp), 250))
--		return -ENXIO;
-+	if (HAS_ENGINE(pxp->ctrl_gt, GSC0)) {
-+		if (wait_for(intel_pxp_gsccs_is_ready_for_sessions(pxp), 250))
-+			return -ENXIO;
-+	} else {
-+		if (wait_for(pxp_component_bound(pxp), 250))
-+			return -ENXIO;
-+	}
- 
- 	mutex_lock(&pxp->arb_mutex);
- 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_43.h b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_43.h
-index c65ada99e54f..09777719cd84 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_43.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_cmd_interface_43.h
-@@ -11,6 +11,7 @@
- 
- /* PXP-Cmd-Op definitions */
- #define PXP43_CMDID_START_HUC_AUTH 0x0000003A
-+#define PXP43_CMDID_INIT_SESSION 0x00000036
- 
- /* PXP-Packet sizes for MTL's GSCCS-HECI instruction */
- #define PXP43_MAX_HECI_INOUT_SIZE (SZ_32K)
-@@ -26,4 +27,24 @@ struct pxp43_start_huc_auth_out {
- 	struct pxp_cmd_header header;
- } __packed;
- 
-+/* PXP-Input-Packet: Init PXP session */
-+struct pxp43_create_arb_in {
-+	struct pxp_cmd_header header;
-+		/* header.stream_id fields for vesion 4.3 of Init PXP session: */
-+		#define PXP43_INIT_SESSION_VALID BIT(0)
-+		#define PXP43_INIT_SESSION_APPTYPE BIT(1)
-+		#define PXP43_INIT_SESSION_APPID GENMASK(17, 2)
-+	u32 protection_mode;
-+		#define PXP43_INIT_SESSION_PROTECTION_ARB 0x2
-+	u32 sub_session_id;
-+	u32 init_flags;
-+	u32 rsvd[12];
-+} __packed;
-+
-+/* PXP-Input-Packet: Init PXP session */
-+struct pxp43_create_arb_out {
-+	struct pxp_cmd_header header;
-+	u32 rsvd[8];
-+} __packed;
-+
- #endif /* __INTEL_PXP_FW_INTERFACE_43_H__ */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c b/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
-index 16e3b73d0653..4bc276daca16 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
-@@ -6,13 +6,46 @@
- #include "gem/i915_gem_internal.h"
- 
- #include "gt/intel_context.h"
-+#include "gt/uc/intel_gsc_fw.h"
- #include "gt/uc/intel_gsc_uc_heci_cmd_submit.h"
- 
- #include "i915_drv.h"
-+#include "intel_pxp_cmd_interface_42.h"
- #include "intel_pxp_cmd_interface_43.h"
- #include "intel_pxp_gsccs.h"
- #include "intel_pxp_types.h"
- 
-+static bool
-+is_fw_err_platform_config(u32 type)
-+{
-+	switch (type) {
-+	case PXP_STATUS_ERROR_API_VERSION:
-+	case PXP_STATUS_PLATFCONFIG_KF1_NOVERIF:
-+	case PXP_STATUS_PLATFCONFIG_KF1_BAD:
-+		return true;
-+	default:
-+		break;
-+	}
-+	return false;
-+}
-+
-+static const char *
-+fw_err_to_string(u32 type)
-+{
-+	switch (type) {
-+	case PXP_STATUS_ERROR_API_VERSION:
-+		return "ERR_API_VERSION";
-+	case PXP_STATUS_NOT_READY:
-+		return "ERR_NOT_READY";
-+	case PXP_STATUS_PLATFCONFIG_KF1_NOVERIF:
-+	case PXP_STATUS_PLATFCONFIG_KF1_BAD:
-+		return "ERR_PLATFORM_CONFIG";
-+	default:
-+		break;
-+	}
-+	return NULL;
-+}
-+
- static int
- gsccs_send_message(struct intel_pxp *pxp,
- 		   void *msg_in, size_t msg_in_size,
-@@ -152,6 +185,103 @@ gsccs_send_message_retry_complete(struct intel_pxp *pxp,
- 	return ret;
- }
- 
-+bool intel_pxp_gsccs_is_ready_for_sessions(struct intel_pxp *pxp)
-+{
-+	/*
-+	 * GSC-fw loading, HuC-fw loading, HuC-fw authentication and
-+	 * GSC-proxy init flow (requiring an mei component driver)
-+	 * must all occur first before we can start requesting for PXP
-+	 * sessions. Checking for completion on HuC authentication and
-+	 * gsc-proxy init flow (the last set of dependencies that
-+	 * are out of order) will suffice.
-+	 */
-+	if (intel_huc_is_authenticated(&pxp->ctrl_gt->uc.huc) &&
-+	    intel_gsc_uc_fw_proxy_init_done(&pxp->ctrl_gt->uc.gsc))
-+		return true;
-+
-+	return false;
-+}
-+
-+int intel_pxp_gsccs_create_session(struct intel_pxp *pxp,
-+				   int arb_session_id)
-+{
-+	struct drm_i915_private *i915 = pxp->ctrl_gt->i915;
-+	struct pxp43_create_arb_in msg_in = {0};
-+	struct pxp43_create_arb_out msg_out = {0};
-+	int ret;
-+
-+	msg_in.header.api_version = PXP_APIVER(4, 3);
-+	msg_in.header.command_id = PXP43_CMDID_INIT_SESSION;
-+	msg_in.header.stream_id = (FIELD_PREP(PXP43_INIT_SESSION_APPID, arb_session_id) |
-+				   FIELD_PREP(PXP43_INIT_SESSION_VALID, 1) |
-+				   FIELD_PREP(PXP43_INIT_SESSION_APPTYPE, 0));
-+	msg_in.header.buffer_len = sizeof(msg_in) - sizeof(msg_in.header);
-+	msg_in.protection_mode = PXP43_INIT_SESSION_PROTECTION_ARB;
-+
-+	ret = gsccs_send_message_retry_complete(pxp,
-+						&msg_in, sizeof(msg_in),
-+						&msg_out, sizeof(msg_out), NULL);
-+	if (ret) {
-+		drm_err(&i915->drm, "Failed to init session %d, ret=[%d]\n", arb_session_id, ret);
-+	} else if (msg_out.header.status != 0) {
-+		if (is_fw_err_platform_config(msg_out.header.status)) {
-+			drm_info_once(&i915->drm,
-+				      "PXP init-session-%d failed due to BIOS/SOC:0x%08x:%s\n",
-+				      arb_session_id, msg_out.header.status,
-+				      fw_err_to_string(msg_out.header.status));
-+		} else {
-+			drm_dbg(&i915->drm, "PXP init-session-%d failed 0x%08x:%st:\n",
-+				arb_session_id, msg_out.header.status,
-+				fw_err_to_string(msg_out.header.status));
-+			drm_dbg(&i915->drm, "     cmd-detail: ID=[0x%08x],API-Ver-[0x%08x]\n",
-+				msg_in.header.command_id, msg_in.header.api_version);
-+		}
-+	}
-+
-+	return ret;
-+}
-+
-+void intel_pxp_gsccs_end_arb_fw_session(struct intel_pxp *pxp, u32 session_id)
-+{
-+	struct drm_i915_private *i915 = pxp->ctrl_gt->i915;
-+	struct pxp42_inv_stream_key_in msg_in = {0};
-+	struct pxp42_inv_stream_key_out msg_out = {0};
-+	int ret = 0;
-+
-+	/*
-+	 * Stream key invalidation reuses the same version 4.2 input/output
-+	 * command format but firmware requires 4.3 API interaction
-+	 */
-+	msg_in.header.api_version = PXP_APIVER(4, 3);
-+	msg_in.header.command_id = PXP42_CMDID_INVALIDATE_STREAM_KEY;
-+	msg_in.header.buffer_len = sizeof(msg_in) - sizeof(msg_in.header);
-+
-+	msg_in.header.stream_id = FIELD_PREP(PXP_CMDHDR_EXTDATA_SESSION_VALID, 1);
-+	msg_in.header.stream_id |= FIELD_PREP(PXP_CMDHDR_EXTDATA_APP_TYPE, 0);
-+	msg_in.header.stream_id |= FIELD_PREP(PXP_CMDHDR_EXTDATA_SESSION_ID, session_id);
-+
-+	ret = gsccs_send_message_retry_complete(pxp,
-+						&msg_in, sizeof(msg_in),
-+						&msg_out, sizeof(msg_out), NULL);
-+	if (ret) {
-+		drm_err(&i915->drm, "Failed to inv-stream-key-%u, ret=[%d]\n",
-+			session_id, ret);
-+	} else if (msg_out.header.status != 0) {
-+		if (is_fw_err_platform_config(msg_out.header.status)) {
-+			drm_info_once(&i915->drm,
-+				      "PXP inv-stream-key-%u failed due to BIOS/SOC :0x%08x:%s\n",
-+				      session_id, msg_out.header.status,
-+				      fw_err_to_string(msg_out.header.status));
-+		} else {
-+			drm_dbg(&i915->drm, "PXP inv-stream-key-%u failed 0x%08x:%s:\n",
-+				session_id, msg_out.header.status,
-+				fw_err_to_string(msg_out.header.status));
-+			drm_dbg(&i915->drm, "     cmd-detail: ID=[0x%08x],API-Ver-[0x%08x]\n",
-+				msg_in.header.command_id, msg_in.header.api_version);
-+		}
-+	}
-+}
-+
- static void
- gsccs_cleanup_fw_host_session_handle(struct intel_pxp *pxp)
- {
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h b/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h
-index bd1c028bc80f..298ad38e6c7d 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h
-@@ -10,14 +10,22 @@
- 
- struct intel_pxp;
- 
--#define GSC_REPLY_LATENCY_MS 200
-+#define GSC_REPLY_LATENCY_MS 210
-+/*
-+ * Max FW response time is 200ms, to which we add 10ms to account for overhead
-+ * such as request preparation, GuC submission to hw and pipeline completion times.
-+ */
- #define GSC_PENDING_RETRY_MAXCOUNT 40
- #define GSC_PENDING_RETRY_PAUSE_MS 50
-+#define GSCFW_MAX_ROUND_TRIP_LATENCY_MS (GSC_PENDING_RETRY_MAXCOUNT * GSC_PENDING_RETRY_PAUSE_MS)
- 
- #ifdef CONFIG_DRM_I915_PXP
- void intel_pxp_gsccs_fini(struct intel_pxp *pxp);
- int intel_pxp_gsccs_init(struct intel_pxp *pxp);
- 
-+int intel_pxp_gsccs_create_session(struct intel_pxp *pxp, int arb_session_id);
-+void intel_pxp_gsccs_end_arb_fw_session(struct intel_pxp *pxp, u32 arb_session_id);
-+
- #else
- static inline void intel_pxp_gsccs_fini(struct intel_pxp *pxp)
- {
-@@ -30,4 +38,6 @@ static inline int intel_pxp_gsccs_init(struct intel_pxp *pxp)
- 
- #endif
- 
-+bool intel_pxp_gsccs_is_ready_for_sessions(struct intel_pxp *pxp);
-+
- #endif /*__INTEL_PXP_GSCCS_H__ */
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-index 7899079e17b0..e4d8242302c5 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_session.c
-@@ -7,6 +7,7 @@
- 
- #include "intel_pxp.h"
- #include "intel_pxp_cmd.h"
-+#include "intel_pxp_gsccs.h"
- #include "intel_pxp_session.h"
- #include "intel_pxp_tee.h"
- #include "intel_pxp_types.h"
-@@ -62,7 +63,10 @@ static int pxp_create_arb_session(struct intel_pxp *pxp)
- 		return -EEXIST;
- 	}
- 
--	ret = intel_pxp_tee_cmd_create_arb_session(pxp, ARB_SESSION);
-+	if (HAS_ENGINE(pxp->ctrl_gt, GSC0))
-+		ret = intel_pxp_gsccs_create_session(pxp, ARB_SESSION);
-+	else
-+		ret = intel_pxp_tee_cmd_create_arb_session(pxp, ARB_SESSION);
- 	if (ret) {
- 		drm_err(&gt->i915->drm, "tee cmd for arb session creation failed\n");
- 		return ret;
-@@ -106,7 +110,10 @@ static int pxp_terminate_arb_session_and_global(struct intel_pxp *pxp)
- 
- 	intel_uncore_write(gt->uncore, KCR_GLOBAL_TERMINATE(pxp->kcr_base), 1);
- 
--	intel_pxp_tee_end_arb_fw_session(pxp, ARB_SESSION);
-+	if (HAS_ENGINE(gt, GSC0))
-+		intel_pxp_gsccs_end_arb_fw_session(pxp, ARB_SESSION);
-+	else
-+		intel_pxp_tee_end_arb_fw_session(pxp, ARB_SESSION);
- 
- 	return ret;
- }
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index dba7c5a5b25e..b15dd9cc2ffb 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -2096,6 +2096,21 @@ struct drm_i915_gem_context_param {
-  *
-  * -ENODEV: feature not available
-  * -EPERM: trying to mark a recoverable or not bannable context as protected
-+ * -ENXIO: A dependency such as a component driver or firmware is not yet
-+ *         loaded so user space may need to attempt again. Depending on the
-+ *         device, this error may be reported if protected context creation is
-+ *         attempted very early after kernel start because the internal timeout
-+ *         waiting for such dependencies is not guaranteed to be larger than
-+ *         required (numbers differ depending on system and kernel config):
-+ *            - ADL/RPL: dependencies may take up to 3 seconds from kernel start
-+ *                       while context creation internal timeout is 250 milisecs
-+ *            - MTL: dependencies may take up to 8 seconds from kernel start
-+ *                   while context creation internal timeout is 1000 milisecs
-+ *         NOTE: such dependencies happen once, so a subsequent call to create a
-+ *         protected context after a prior successful call will not experience
-+ *         such timeouts and will not return -ENXIO (unless the driver is reloaded,
-+ *         or, depending on the device, resumes from a suspended state).
-+ * -EIO: The firmware did not succeed in creating the protected context.
-  */
- #define I915_CONTEXT_PARAM_PROTECTED_CONTENT    0xd
- /* Must be kept compact -- no holes and well documented */
--- 
-2.39.0
+  **SUCCESS**
 
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/index.html
+
+Participating hosts (38 -> 37)
+------------------------------
+
+  Additional (1): fi-kbl-soraka 
+  Missing    (2): bat-mtlp-8 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_116120v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][1] ([fdo#109271] / [i915#2190])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html
+
+  * igt@gem_lmem_swapping@basic:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][2] ([fdo#109271] / [i915#4613]) +3 similar issues
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html
+
+  * igt@i915_selftest@live@gt_heartbeat:
+    - fi-kbl-soraka:      NOTRUN -> [FAIL][3] ([i915#7916])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html
+
+  * igt@i915_selftest@live@gt_pm:
+    - fi-kbl-soraka:      NOTRUN -> [FAIL][4] ([i915#7913] / [i915#8383])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html
+
+  * igt@i915_selftest@live@migrate:
+    - bat-atsm-1:         [PASS][5] -> [FAIL][6] ([i915#6268] / [i915#7913])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/bat-atsm-1/igt@i915_selftest@live@migrate.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/bat-atsm-1/igt@i915_selftest@live@migrate.html
+
+  * igt@i915_selftest@live@slpc:
+    - bat-rplp-1:         [PASS][7] -> [FAIL][8] ([i915#7913])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/bat-rplp-1/igt@i915_selftest@live@slpc.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/bat-rplp-1/igt@i915_selftest@live@slpc.html
+
+  * igt@kms_chamelium_frames@hdmi-crc-fast:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][9] ([fdo#109271]) +16 similar issues
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/fi-kbl-soraka/igt@kms_chamelium_frames@hdmi-crc-fast.html
+
+  * igt@kms_chamelium_hpd@common-hpd-after-suspend:
+    - bat-rpls-1:         NOTRUN -> [SKIP][10] ([i915#7828])
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/bat-rpls-1/igt@kms_chamelium_hpd@common-hpd-after-suspend.html
+
+  * igt@kms_pipe_crc_basic@suspend-read-crc:
+    - bat-rpls-1:         NOTRUN -> [SKIP][11] ([i915#1845])
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/bat-rpls-1/igt@kms_pipe_crc_basic@suspend-read-crc.html
+
+  
+#### Possible fixes ####
+
+  * igt@gem_exec_suspend@basic-s3@smem:
+    - bat-rpls-1:         [ABORT][12] ([i915#6687]) -> [PASS][13]
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/bat-rpls-1/igt@gem_exec_suspend@basic-s3@smem.html
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/bat-rpls-1/igt@gem_exec_suspend@basic-s3@smem.html
+
+  * igt@i915_selftest@live@gt_heartbeat:
+    - fi-glk-j4005:       [FAIL][14] ([i915#7916]) -> [PASS][15]
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/fi-glk-j4005/igt@i915_selftest@live@gt_heartbeat.html
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/fi-glk-j4005/igt@i915_selftest@live@gt_heartbeat.html
+
+  * igt@i915_selftest@live@requests:
+    - {bat-mtlp-6}:       [ABORT][16] ([i915#7920]) -> [PASS][17]
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/bat-mtlp-6/igt@i915_selftest@live@requests.html
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/bat-mtlp-6/igt@i915_selftest@live@requests.html
+
+  * igt@i915_selftest@live@slpc:
+    - bat-rpls-1:         [FAIL][18] ([i915#6997]) -> [PASS][19]
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/bat-rpls-1/igt@i915_selftest@live@slpc.html
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/bat-rpls-1/igt@i915_selftest@live@slpc.html
+
+  
+#### Warnings ####
+
+  * igt@core_hotunplug@unbind-rebind:
+    - fi-kbl-8809g:       [ABORT][20] -> [ABORT][21] ([i915#8397])
+   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/fi-kbl-8809g/igt@core_hotunplug@unbind-rebind.html
+   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/fi-kbl-8809g/igt@core_hotunplug@unbind-rebind.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#1845]: https://gitlab.freedesktop.org/drm/intel/issues/1845
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#4078]: https://gitlab.freedesktop.org/drm/intel/issues/4078
+  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
+  [i915#6268]: https://gitlab.freedesktop.org/drm/intel/issues/6268
+  [i915#6645]: https://gitlab.freedesktop.org/drm/intel/issues/6645
+  [i915#6687]: https://gitlab.freedesktop.org/drm/intel/issues/6687
+  [i915#6997]: https://gitlab.freedesktop.org/drm/intel/issues/6997
+  [i915#7828]: https://gitlab.freedesktop.org/drm/intel/issues/7828
+  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
+  [i915#7916]: https://gitlab.freedesktop.org/drm/intel/issues/7916
+  [i915#7920]: https://gitlab.freedesktop.org/drm/intel/issues/7920
+  [i915#8383]: https://gitlab.freedesktop.org/drm/intel/issues/8383
+  [i915#8397]: https://gitlab.freedesktop.org/drm/intel/issues/8397
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_13071 -> Patchwork_116120v2
+
+  CI-20190529: 20190529
+  CI_DRM_13071: b9458e7075652669ec0e04abe039a5ed001701fe @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7273: f40ef4b058466219968b7792d22ff0648b82396b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_116120v2: b9458e7075652669ec0e04abe039a5ed001701fe @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+d51aa0d07dd5 drm/i915/fdinfo: Enable fdinfo for GuC backends
+b4045d3217ac i915/pmu: Add support for total context runtime for GuC back-end
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/index.html
+
+--===============7508765695935525446==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>fdinfo: Enable some support for GuC based client busyness (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/116120/">https://patchwork.freedesktop.org/series/116120/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_13071 -&gt; Patchwork_116120v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/index.html</p>
+<h2>Participating hosts (38 -&gt; 37)</h2>
+<p>Additional (1): fi-kbl-soraka <br />
+  Missing    (2): bat-mtlp-8 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_116120v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_lmem_swapping@basic:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_heartbeat:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/fi-kbl-soraka/igt@i915_selftest@live@gt_heartbeat.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7916">i915#7916</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_pm:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8383">i915#8383</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@migrate:</p>
+<ul>
+<li>bat-atsm-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/bat-atsm-1/igt@i915_selftest@live@migrate.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/bat-atsm-1/igt@i915_selftest@live@migrate.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6268">i915#6268</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@slpc:</p>
+<ul>
+<li>bat-rplp-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/bat-rplp-1/igt@i915_selftest@live@slpc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/bat-rplp-1/igt@i915_selftest@live@slpc.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium_frames@hdmi-crc-fast:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/fi-kbl-soraka/igt@kms_chamelium_frames@hdmi-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +16 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium_hpd@common-hpd-after-suspend:</p>
+<ul>
+<li>bat-rpls-1:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/bat-rpls-1/igt@kms_chamelium_hpd@common-hpd-after-suspend.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7828">i915#7828</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@suspend-read-crc:</p>
+<ul>
+<li>bat-rpls-1:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/bat-rpls-1/igt@kms_pipe_crc_basic@suspend-read-crc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1845">i915#1845</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@gem_exec_suspend@basic-s3@smem:</p>
+<ul>
+<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/bat-rpls-1/igt@gem_exec_suspend@basic-s3@smem.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6687">i915#6687</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/bat-rpls-1/igt@gem_exec_suspend@basic-s3@smem.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_heartbeat:</p>
+<ul>
+<li>fi-glk-j4005:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/fi-glk-j4005/igt@i915_selftest@live@gt_heartbeat.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7916">i915#7916</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/fi-glk-j4005/igt@i915_selftest@live@gt_heartbeat.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@requests:</p>
+<ul>
+<li>{bat-mtlp-6}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/bat-mtlp-6/igt@i915_selftest@live@requests.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7920">i915#7920</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/bat-mtlp-6/igt@i915_selftest@live@requests.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@slpc:</p>
+<ul>
+<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/bat-rpls-1/igt@i915_selftest@live@slpc.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6997">i915#6997</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/bat-rpls-1/igt@i915_selftest@live@slpc.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>igt@core_hotunplug@unbind-rebind:<ul>
+<li>fi-kbl-8809g:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/fi-kbl-8809g/igt@core_hotunplug@unbind-rebind.html">ABORT</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116120v2/fi-kbl-8809g/igt@core_hotunplug@unbind-rebind.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8397">i915#8397</a>)</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_13071 -&gt; Patchwork_116120v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_13071: b9458e7075652669ec0e04abe039a5ed001701fe @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7273: f40ef4b058466219968b7792d22ff0648b82396b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_116120v2: b9458e7075652669ec0e04abe039a5ed001701fe @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>d51aa0d07dd5 drm/i915/fdinfo: Enable fdinfo for GuC backends<br />
+b4045d3217ac i915/pmu: Add support for total context runtime for GuC back-end</p>
+
+</body>
+</html>
+
+--===============7508765695935525446==--
