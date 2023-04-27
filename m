@@ -4,44 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6980DC77B7F
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Apr 2023 23:49:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B8F7C7EE21
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Apr 2023 23:49:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64C3310EBF3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1845110EBF2;
 	Thu, 27 Apr 2023 23:48:59 +0000 (UTC)
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D4B410E1F8;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01F6510E210;
  Thu, 27 Apr 2023 23:48:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682639336; x=1714175336;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=3vBlraVqlzdLKAsJ38buG4eDcjOcMaX3IMn1w4jvdTA=;
- b=BY3mgERM7uEAkz1HE2IDA9wwOg6LnSHYo4ZxYA6hpVYKyUVwIJIlFydZ
- 6XeZwkfnloXQ1S2ckNqWqpzqSxlxQEYncHw8GFd1Qg4rKKt8VVSQfv65r
- itP2F/87Te+8pNeJyRFzSW89gXpysgVNgDtlMtFFbwkQ9A6r4dNCR2/cX
- 0xx5fE14wPkwVWaFyTQdz8IlhwfY3vLRKMyYVEMAAvj53KqV7KU66jTSl
- FtK0GZirx0Auzvj5RAU6jpjpCeUKtjRhjbmyUlrqpEuxXVoIllH9PF0+z
- VAFmH4qQ0KLPq4FvqGCMfC/ouvxTd5FUzHBNKLHCG108raBynFILzWhlN Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="336634840"
-X-IronPort-AV: E=Sophos;i="5.99,232,1677571200"; d="scan'208";a="336634840"
+ t=1682639337; x=1714175337;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=2NpDI1PLRxV3LDmqb0d9m4TQs4nxogV5bbKIEuEZse0=;
+ b=O8wYpJHDfJaXHWg8AU9Vs/zNL/3oC9yXzYxPXVP7yiteD1oINO+N2e92
+ tvca5mRrETuBLnBc94v0iAWrX2c9bEPt5llqf2Y/PvTR31n1ELSOPmtB+
+ Hx08zPosE26aV9mWbGDOP5b8xw122VEar40F0jI+KDKa/jwLCHV7AdAuC
+ 2zdQJnaGX8auanp7/8GN3OUasF/yShbZRYRoFoMq5M5Eis65pAJZqVzee
+ b8lGxLlIj3Iotua4Ll/KNwHvGIpwnSF1fd5XqiaGkOkUYyRbvBU4fgM7F
+ sHfy1ZuFGkFe1Xjhy8V/tO++FZwts9IQMGoAISV/56nP32FqY/H6MGMXI Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="336634848"
+X-IronPort-AV: E=Sophos;i="5.99,232,1677571200"; d="scan'208";a="336634848"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Apr 2023 16:48:45 -0700
+ 27 Apr 2023 16:48:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="764051933"
-X-IronPort-AV: E=Sophos;i="5.99,232,1677571200"; d="scan'208";a="764051933"
+X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="764051948"
+X-IronPort-AV: E=Sophos;i="5.99,232,1677571200"; d="scan'208";a="764051948"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
  by fmsmga004.fm.intel.com with ESMTP; 27 Apr 2023 16:48:45 -0700
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 27 Apr 2023 16:48:35 -0700
-Message-Id: <20230427234843.2886921-1-alan.previn.teres.alexis@intel.com>
+Date: Thu, 27 Apr 2023 16:48:38 -0700
+Message-Id: <20230427234843.2886921-4-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20230427234843.2886921-1-alan.previn.teres.alexis@intel.com>
+References: <20230427234843.2886921-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 0/8] drm/i915/pxp: Add MTL PXP Support
+Subject: [Intel-gfx] [PATCH v9 3/8] drm/i915/pxp: Add MTL helpers to submit
+ Heci-Cmd-Packet to GSC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,186 +63,254 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series enables PXP on MTL. On ADL/TGL platforms, we rely on
-the mei driver via the i915-mei PXP component interface to establish
-a connection to the security firmware via the HECI device interface.
-That interface is used to create and teardown the PXP ARB session.
-PXP ARB session is created when protected contexts are created.
+Add helper functions into a new file for heci-packet-submission.
+The helpers will handle generating the MTL GSC-CS Memory-Header
+and submission of the Heci-Cmd-Packet instructions to the engine.
 
-In this series, the front end behaviors and interfaces (uapi) remain
-the same. We add backend support for MTL but with MTL we directly use
-the GSC-CS engine on the MTL GPU device to send messages to the PXP
-(a.k.a. GSC a.k.a graphics-security) firmware. With MTL, the format
-of the message is slightly different with a 2-layer packetization
-that is explained in detail in Patch #3. Also, the second layer
-which is the actual PXP firmware packet is now rev'd to version 4.3
-for MTL that is defined in Patch #5.
+NOTE1: These common functions for heci-packet-submission will be used
+by different i915 callers:
+     1- GSC-SW-Proxy: This is pending upstream publication awaiting
+        a few remaining opens
+     2- MTL-HDCP: An equivalent patch has also been published at:
+        https://patchwork.freedesktop.org/series/111876/. (Patch 1)
+     3- PXP: This series.
 
-Take note that Patch #4 adds the buffer allocation and gsccs-send-
-message without actually being called by the arb-creation code
-which gets added in Patch #5. Additionally, a seperate series being
-reviewed is introducing a change for session teardown (in pxp front-
-end layer that will need backend support by both legacy and gsccs).
-If we squash all of these together (buffer-alloc, send-message,
-arb-creation and, in future, session-termination), the single patch
-will be rather large. That said, we are keeping Patch #4 and #5
-separate for now, but at merge time, we can squash them together
-if maintainer requires it.
+NOTE2: A difference in this patch vs what is appearing is in bullet 2
+above is that HDCP (and SW-Proxy) will be using priveleged submission
+(GGTT and common gsc-uc-context) while PXP will be using non-priveleged
+PPGTT, context and batch buffer. Therefore this patch will only slightly
+overlap with the MTL-HDCP patches despite have very similar function
+names (emit_foo vs emit_nonpriv_foo). This is because HECI_CMD_PKT
+instructions require different flows and hw-specific code when done
+via PPGTT based submission (not different from other engines). MTL-HDCP
+contains the same intel_gsc_mtl_header_t structures as this but the
+helpers there are different. Both add the same new file names.
 
-Changes from prior revs:
-   v1 : - fixed when building with CONFIG_PXP disabled.
-        - more alignment with gsc_mtl_header structure from the HDCP
-   v2 : - (all following changes as per reviews from Daniele)
-        - squashed Patch #1 from v1 into the next one.
-        - replaced unnecessary "uses_gsccs" boolean in the pxp
-          with "HAS_ENGINE(pxp->ctrl_gt, GSC0)".
-        - moved the stashing of gsccs resources from a dynamically
-          allocated opaque handle to an explicit sub-struct in
-          'struct intel_pxp'.
-        - moved the buffer object allocations from Patch #1 of this
-          series to Patch #5 (but keep the context allocation in
-          Patch #1).
-        - used the kernel default ppgtt for the gsccs context.
-        - optimized the buffer allocation and deallocation code
-          and drop the need to stash the drm_i915_gem_object.
-        - use a macro with the right mmio reg base (depending
-          on root-tile vs media-tile) along with common relative
-          offset to access all KCR registers thus minimizing
-          changes to the KCR register access codes.
-        - fixed bugs in the heci packet request submission code
-          in Patch #3 (of this series)
-        - add comments in the mtl-gsc-heci-header regarding the
-          host-session-handle.
-        - re-use tee-mutex instead of introducing a gsccs specific
-          cmd mutex.
-        - minor cosmetic improvements in Patch #5.
-	- before creating arb session, ensure intel_pxp_start
-          first ensures the GSC FW is up and running.
-        - use 2 second timeout for the pending-bit scenario when
-          sending command to GSC-FW as per specs.
-        - simplify intel_pxp_get_irq_gt with addition comments
-        - redo Patch #7 to minimize the changes without introducing
-          a common  abstraction helper for suspend/resume/init/fini
-          codes that have to change the kcr power state.
-   v3 : - rebase onto latest drm-tip with the updated firmware
-          session invalidation flow
-        - on Patch#1: move 'mutex_init(&pxp->tee_mutex)' to a common
-          init place in intel_pxp_init since its needed everywhere
-          (Daniele)
-        - on Patch#1: remove unneccasary "ce->vm = i915_vm_get(vm);"
-          (Daniele)
-        - on Patch#2: move the introduction of host_session_handle to
-          Patch#4 where it starts getting used.
-        - on Patch#4: move host-session-handle initialization to the
-          allocate-resources during gsccs-init (away from Patch#5)
-          and add the required call to PXP-firmware to cleanup the
-          host-session-handle in destroy-resources during gsccs-fini
-        - on Patch#5: add dispatching of arb session termination
-          firmware cmd during session teardown (as per latest
-          upstream flows)
-   v4 : - Added proper initialization and cleanup of host-session-handle
-          that the gsc firmware expects.
-        - Fix the stream-session-key invalidation instruction for MTL.
-   v5 : - In Patch #4, move the tee_mutex locking to after we check for
-          valid vma allocations.
-        - In Patch #5, wait for intel_huc_is_authenticated instead of
-          intel_uc_fw_is_running(gsc-fw) before starting ARB session.
-        - In Patch #5, increase the necessary timeouts at the top-level
-          (PXP arb session creation / termination) to accomodate SLA of
-          GSC firmware when busy with pending-bit responses.
-        - In Patch #5, remove redundant host_session_handle init as
-          we need a single handle that is already initialized during
-          execution_resource init in Patch #4.
-        - In Patch #8, increase the wait timeout for termination to
-          align with the same SLA.
-   v6 : - (multiple patches) always name variables of type struct
-          gsccs_session_resources * as 'exec_res'. (Daniele).
-        - In gsccs_allocate_execution_resource, always put and take the
-          contexts vm to enforce its the default pxp->ctrl_gt->vm.
-          (Daniele)
-        - In Patch #3: Rebase with the upstream-merged version of the
-          intel_gsc_uc_heci_cmd_submit.* files that was part of the hdcp
-          merge (adding only the difference of the non-priv submision).
-          Fix the non-priv submission helper to use the ww-aware versions
-          of request creation + submission (some re-ordeing and calling
-          i915_gem_ww_ctx_init and intel_context_pin_ww). (Alan)
-        - In Patch #4: Misc coding styling improvements (Daniele).
-          Replace PXP43_MAX_HECI_IN_SIZE and PXP43_MAX_HECI_OUT_SIZE
-          with PXP43_MAX_HECI_INOUT_SIZE to simplify the size checking.
-          Clear the MTL-GSC-HECI header's validity marker of the output
-          packet before submission to avoid stale values (Daniele).
-          Fix a bug with the gsccs_allocate_execution_resource error
-          condition bailing out when out of mem (Daniele).
-        - In Patch #5: Add intel_gsc_uc_fw_proxy_init_done when starting
-          arb session (in front-end code) when called on platforms with GSC
-          engine (Daniele). Update the fw-response-error reporting to
-          match what is being merged upstream for the ADL case (Daniele).
-        - Old Patch #6: Remove this patch completely. We don't need to
-          use the root-gt's uncore to handle KCR irq / power registers.
-          (Daniele).
-        - New Patch #6: Update the documentation in i915 UAPI for PXP
-          context creation to include additional error meanings that was
-          always there in upstream code but just never documented. (Alan).
-          Add a GET_PARAM for PXP support so that UMDs won't have to create
-          a PXP context to know if it's available since that method would
-          suffer a longer delay if called too early in kernel startup
-          because of the additional dependencies on devices with GSC engine.
-          (Tvrtko, Alan, Rodrigo, Lionel).
-        - Patch #7: Move intel_pxp_init_hw into backend code to be
-          consistent with legacy mei-pxp based tee transport. (Daniele).
-        - Patch #8: With 3 places now being aware of mei-pxp vs gsccs-pxp
-          difference in timeouts for round trip delays when communicating
-          with pxp firmware (getting fw commands sent and receiving the
-          reply), add a helper for this. (Daniele)
-   v7 : - In Patch #3: Minor cosmetics and remove unnecessary
-          EXEC_OBJECT_WRITE when moving bb to active. (Daniele)
-        - In Patch #4: Minor cosmetic fixes. (Daniele)
-        - In Patch #5: Pull in the fixups for missing documentation of
-          legacy UAPI behavior of PXP context creation errors values
-          from Patch #6 to Patch #5. Also, add a comment to explain
-          why GSC_REPLY_LATENCY_MS is 210 milisec. (Daniele)
-        - In Patch #6: See first change of Patch #5.
-   v8 : - Tweaked the GET_PARAM for PXP so that positive values returned
-          user-space can differentiate "PXP is supported and ready" vs
-          "PXP is supported but will be ready soon" (Jorden)
+NOTE3: Additional clarity about the heci-cmd-pkt layout and where the
+       common helpers come in:
+     - On MTL, when an i915 subsystem needs to send a command request
+       to the security firmware, it will send that via the GSC-
+       engine-command-streamer.
+     - However those commands, (lets call them "gsc_specific_fw_api"
+       calls), are not understood by the GSC command streamer hw.
+     - The GSC CS only looks at the GSC_HECI_CMD_PKT instruction and
+       passes it along to the GSC firmware.
+     - The GSC FW on the other hand needs additional metadata to know
+       which usage service is being called (PXP, HDCP, proxy, etc) along
+       with session specific info. Thus an extra header called GSC-CS
+       HECI Memory Header, (C) in below diagram is prepended before
+       the FW specific API, (D).
+     - Thus, the structural layout of the request submitted would
+       need to look like the diagram below (for non-priv PXP).
+     - In the diagram, the common helper for HDCP, (GSC-Sw-Proxy) and
+       PXP (i.e. new function intel_gsc_uc_heci_cmd_emit_mtl_header)
+       will populate blob (C) while additional helpers, different for
+       PPGGTT (this patch) vs GGTT (HDCP series) will populate
+       blobs (A) and (B) below.
+      ___________________________________________________________
+ (A)  |  MI_BATCH_BUFFER_START (ppgtt, batchbuff-addr, ...)     |
+      |     |                                                   |
+      |    _|________________________________________________   |
+      | (B)| GSC_HECI_CMD_PKT (pkt-addr-in, pkt-size-in,    |   |
+      |    |                   pkt-addr-out, pkt-size-out)  |--------
+      |    | MI_BATCH_BUFFER_END                            |   |   |
+      |    |________________________________________________|   |   |
+      |                                                         |   |
+      |_________________________________________________________|   |
+                                                                    |
+            ---------------------------------------------------------
+            |
+           \|/
+      ______V___________________________________________
+      |   _________________________________________    |
+      |(C)|                                       |    |
+      |   | struct intel_gsc_mtl_header {         |    |
+      |   |   validity marker                     |    |
+      |   |   heci_clent_id                       |    |
+      |   |   ...                                 |    |
+      |   |  }                                    |    |
+      |   |_______________________________________|    |
+      |(D)|                                       |    |
+      |   | struct gsc_fw_specific_api_foobar {   |    |
+      |   |     ...                               |    |
+      |   |     For an example, see               |    |
+      |   |     'struct pxp43_create_arb_in' at   |    |
+      |   |     intel_pxp_cmd_interface_43.h      |    |
+      |   |                                       |    |
+      |   | }                                     |    |
+      |   |  Struture depends on command type     |    |
+      |   | struct gsc_fw_specific_api_foobar {   |    |
+      |   |_______________________________________|    |
+      |________________________________________________|
 
-Alan Previn (8):
-  drm/i915/pxp: Add GSC-CS back-end resource init and cleanup
-  drm/i915/pxp: Add MTL hw-plumbing enabling for KCR operation
-  drm/i915/pxp: Add MTL helpers to submit Heci-Cmd-Packet to GSC
-  drm/i915/pxp: Add GSC-CS backend to send GSC fw messages
-  drm/i915/pxp: Add ARB session creation and cleanup
-  drm/i915/uapi/pxp: Add a GET_PARAM for PXP
-  drm/i915/pxp: On MTL, KCR enabling doesn't wait on tee component
-  drm/i915/pxp: Enable PXP with MTL-GSC-CS
+That said, this patch provides basic helpers but leaves the
+PXP subsystem (i.e. the caller) to handle (D) and everything
+else such as input/output size verification or handling the
+responses from security firmware (for example, requiring a retry).
 
- drivers/gpu/drm/i915/Makefile                 |   1 +
- drivers/gpu/drm/i915/gt/intel_gt_irq.c        |   3 +-
- drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c     |  10 +
- drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.h     |   1 +
- .../i915/gt/uc/intel_gsc_uc_heci_cmd_submit.c | 102 ++++
- .../i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h |  26 +-
- drivers/gpu/drm/i915/i915_getparam.c          |   7 +
- drivers/gpu/drm/i915/i915_pci.c               |   1 +
- drivers/gpu/drm/i915/pxp/intel_pxp.c          | 102 +++-
- drivers/gpu/drm/i915/pxp/intel_pxp.h          |   2 +
- .../drm/i915/pxp/intel_pxp_cmd_interface_43.h |  24 +
- drivers/gpu/drm/i915/pxp/intel_pxp_debugfs.c  |   6 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c    | 444 ++++++++++++++++++
- drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h    |  43 ++
- drivers/gpu/drm/i915/pxp/intel_pxp_pm.c       |   3 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_regs.h     |  27 ++
- drivers/gpu/drm/i915/pxp/intel_pxp_session.c  |  25 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_tee.c      |   2 -
- drivers/gpu/drm/i915/pxp/intel_pxp_types.h    |  20 +
- include/uapi/drm/i915_drm.h                   |  34 ++
- 20 files changed, 842 insertions(+), 41 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h
- create mode 100644 drivers/gpu/drm/i915/pxp/intel_pxp_regs.h
+Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+---
+ .../i915/gt/uc/intel_gsc_uc_heci_cmd_submit.c | 102 ++++++++++++++++++
+ .../i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h |  23 ++++
+ 2 files changed, 125 insertions(+)
 
-
-base-commit: b9458e7075652669ec0e04abe039a5ed001701fe
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_heci_cmd_submit.c b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_heci_cmd_submit.c
+index ea0da06e2f39..579c0f5a1438 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_heci_cmd_submit.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_heci_cmd_submit.c
+@@ -3,6 +3,7 @@
+  * Copyright © 2023 Intel Corporation
+  */
+ 
++#include "gt/intel_context.h"
+ #include "gt/intel_engine_pm.h"
+ #include "gt/intel_gpu_commands.h"
+ #include "gt/intel_gt.h"
+@@ -107,3 +108,104 @@ void intel_gsc_uc_heci_cmd_emit_mtl_header(struct intel_gsc_mtl_header *header,
+ 	header->header_version = MTL_GSC_HEADER_VERSION;
+ 	header->message_size = message_size;
+ }
++
++static void
++emit_gsc_heci_pkt_nonpriv(u32 *cmd, struct intel_gsc_heci_non_priv_pkt *pkt)
++{
++	*cmd++ = GSC_HECI_CMD_PKT;
++	*cmd++ = lower_32_bits(pkt->addr_in);
++	*cmd++ = upper_32_bits(pkt->addr_in);
++	*cmd++ = pkt->size_in;
++	*cmd++ = lower_32_bits(pkt->addr_out);
++	*cmd++ = upper_32_bits(pkt->addr_out);
++	*cmd++ = pkt->size_out;
++	*cmd++ = 0;
++	*cmd++ = MI_BATCH_BUFFER_END;
++}
++
++int
++intel_gsc_uc_heci_cmd_submit_nonpriv(struct intel_gsc_uc *gsc,
++				     struct intel_context *ce,
++				     struct intel_gsc_heci_non_priv_pkt *pkt,
++				     u32 *cmd, int timeout_ms)
++{
++	struct intel_engine_cs *engine;
++	struct i915_gem_ww_ctx ww;
++	struct i915_request *rq;
++	int err, trials = 0;
++
++	i915_gem_ww_ctx_init(&ww, false);
++retry:
++	err = i915_gem_object_lock(pkt->bb_vma->obj, &ww);
++	if (err)
++		goto out_ww;
++	err = i915_gem_object_lock(pkt->heci_pkt_vma->obj, &ww);
++	if (err)
++		goto out_ww;
++	err = intel_context_pin_ww(ce, &ww);
++	if (err)
++		goto out_ww;
++
++	rq = i915_request_create(ce);
++	if (IS_ERR(rq)) {
++		err = PTR_ERR(rq);
++		goto out_unpin_ce;
++	}
++
++	emit_gsc_heci_pkt_nonpriv(cmd, pkt);
++
++	err = i915_vma_move_to_active(pkt->bb_vma, rq, 0);
++	if (err)
++		goto out_rq;
++	err = i915_vma_move_to_active(pkt->heci_pkt_vma, rq, EXEC_OBJECT_WRITE);
++	if (err)
++		goto out_rq;
++
++	engine = rq->context->engine;
++	if (engine->emit_init_breadcrumb) {
++		err = engine->emit_init_breadcrumb(rq);
++		if (err)
++			goto out_rq;
++	}
++
++	err = engine->emit_bb_start(rq, i915_vma_offset(pkt->bb_vma), PAGE_SIZE, 0);
++	if (err)
++		goto out_rq;
++
++	err = ce->engine->emit_flush(rq, 0);
++	if (err)
++		drm_err(&gsc_uc_to_gt(gsc)->i915->drm,
++			"Failed emit-flush for gsc-heci-non-priv-pkterr=%d\n", err);
++
++out_rq:
++	i915_request_get(rq);
++
++	if (unlikely(err))
++		i915_request_set_error_once(rq, err);
++
++	i915_request_add(rq);
++
++	if (!err) {
++		if (i915_request_wait(rq, I915_WAIT_INTERRUPTIBLE,
++				      msecs_to_jiffies(timeout_ms)) < 0)
++			err = -ETIME;
++	}
++
++	i915_request_put(rq);
++
++out_unpin_ce:
++	intel_context_unpin(ce);
++out_ww:
++	if (err == -EDEADLK) {
++		err = i915_gem_ww_ctx_backoff(&ww);
++		if (!err) {
++			if (++trials < 10)
++				goto retry;
++			else
++				err = EAGAIN;
++		}
++	}
++	i915_gem_ww_ctx_fini(&ww);
++
++	return err;
++}
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h
+index 3d56ae501991..3f60cbc011c1 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h
+@@ -8,7 +8,10 @@
+ 
+ #include <linux/types.h>
+ 
++struct i915_vma;
++struct intel_context;
+ struct intel_gsc_uc;
++
+ struct intel_gsc_mtl_header {
+ 	u32 validity_marker;
+ #define GSC_HECI_VALIDITY_MARKER 0xA578875A
+@@ -58,4 +61,24 @@ int intel_gsc_uc_heci_cmd_submit_packet(struct intel_gsc_uc *gsc,
+ void intel_gsc_uc_heci_cmd_emit_mtl_header(struct intel_gsc_mtl_header *header,
+ 					   u8 heci_client_id, u32 message_size,
+ 					   u64 host_session_id);
++
++struct intel_gsc_heci_non_priv_pkt {
++	u64 addr_in;
++	u32 size_in;
++	u64 addr_out;
++	u32 size_out;
++	struct i915_vma *heci_pkt_vma;
++	struct i915_vma *bb_vma;
++};
++
++void
++intel_gsc_uc_heci_cmd_emit_mtl_header(struct intel_gsc_mtl_header *header,
++				      u8 heci_client_id, u32 msg_size,
++				      u64 host_session_id);
++
++int
++intel_gsc_uc_heci_cmd_submit_nonpriv(struct intel_gsc_uc *gsc,
++				     struct intel_context *ce,
++				     struct intel_gsc_heci_non_priv_pkt *pkt,
++				     u32 *cs, int timeout_ms);
+ #endif
 -- 
 2.39.0
 
