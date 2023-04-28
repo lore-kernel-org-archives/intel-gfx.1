@@ -4,30 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F39AC77B61
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 02:16:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FE71C77B73
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 02:34:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8B8F10EC27;
-	Fri, 28 Apr 2023 02:16:52 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id EFA0C10EC1D;
- Fri, 28 Apr 2023 02:16:51 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id E64B2A02F0;
- Fri, 28 Apr 2023 02:16:51 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8606664363827784583=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C85110E376;
+	Fri, 28 Apr 2023 02:34:34 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 516D610EC1D;
+ Fri, 28 Apr 2023 02:34:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1682649272; x=1714185272;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=nKtrQFMQPAoZEAbF1XDf35lolS7uimyl0XIkKrgjKVA=;
+ b=BvyGiYCeJf4otMA7qIhu8C4vH/P9N7g0k1howk69Ggq55y7VdW5+BXCW
+ nVQ0HMI3FyFdMM4xFtRvCKIJXPATA4O0s2Il7h6W75fuaubDPmcLUMyWF
+ N4WgiubRJvccUNoT3Ux7PDubxFQ3nrDeg9kQ3B2+y0XPSAjCpAAAjAzgv
+ YiwI/lguOSLlF+G/DesQjLUGV3OM2gG6NdDcOI96KiS+CidRFj0rAdK6k
+ vz8UYLfJID4Rj0/6Mdc3kUSwXQrNXKRlSPiTscAQCGwyViJkNqulJn7bY
+ 8xbtPseA0zMyAVV0ETt4yQq6YW7XRDW6Y6vUO+4anXf9cqagkDmJTDd8u Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="346386489"
+X-IronPort-AV: E=Sophos;i="5.99,233,1677571200"; d="scan'208";a="346386489"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Apr 2023 19:34:30 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="644937188"
+X-IronPort-AV: E=Sophos;i="5.99,233,1677571200"; d="scan'208";a="644937188"
+Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Apr 2023 19:34:30 -0700
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 27 Apr 2023 19:34:09 -0700
+Message-Id: <20230428023416.4051910-2-daniele.ceraolospurio@intel.com>
+X-Mailer: git-send-email 2.40.0
+In-Reply-To: <20230428023416.4051910-1-daniele.ceraolospurio@intel.com>
+References: <20230428023416.4051910-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Andrzej Hajda" <andrzej.hajda@intel.com>
-Date: Fri, 28 Apr 2023 02:16:51 -0000
-Message-ID: <168264821193.32440.673075403231264154@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20230425-hugepage-migrate-v8-0-7868d54eaa27@intel.com>
-In-Reply-To: <20230425-hugepage-migrate-v8-0-7868d54eaa27@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLklHVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915=3A_Hugepage_manager_and_test_for_MTL_=28rev3=29?=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 1/8] DO NOT REVIEW: drm/i915: Add support for
+ MTL GSC SW Proxy
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,403 +59,1125 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============8606664363827784583==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+This is a squash of the GSC proxy series, which is being reviewed
+separately [1]. It's being included here because some of the patches in
+this series depend on it. This is not a functional dependencies, the
+patches just touch the same code and the proxy patches are planned to be
+merged first, so it is easier to base the new patches on top of it.
 
-== Series Details ==
+[1] https://patchwork.freedesktop.org/series/115806/
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+---
+ drivers/gpu/drm/i915/Makefile                 |   1 +
+ drivers/gpu/drm/i915/gt/intel_gt_irq.c        |  22 +-
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h       |   3 +
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_proxy.c  | 424 ++++++++++++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_proxy.h  |  18 +
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c     |  66 ++-
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h     |  17 +-
+ .../i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h |   1 +
+ drivers/misc/mei/Kconfig                      |   2 +-
+ drivers/misc/mei/Makefile                     |   1 +
+ drivers/misc/mei/gsc_proxy/Kconfig            |  14 +
+ drivers/misc/mei/gsc_proxy/Makefile           |   7 +
+ drivers/misc/mei/gsc_proxy/mei_gsc_proxy.c    | 208 +++++++++
+ include/drm/i915_component.h                  |   3 +-
+ include/drm/i915_gsc_proxy_mei_interface.h    |  53 +++
+ 15 files changed, 830 insertions(+), 10 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_proxy.c
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_proxy.h
+ create mode 100644 drivers/misc/mei/gsc_proxy/Kconfig
+ create mode 100644 drivers/misc/mei/gsc_proxy/Makefile
+ create mode 100644 drivers/misc/mei/gsc_proxy/mei_gsc_proxy.c
+ create mode 100644 include/drm/i915_gsc_proxy_mei_interface.h
 
-Series: drm/i915: Hugepage manager and test for MTL (rev3)
-URL   : https://patchwork.freedesktop.org/series/116995/
-State : success
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index 9af76e376ca9..f2ac803e35b4 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -194,6 +194,7 @@ i915-y += \
+ # general-purpose microcontroller (GuC) support
+ i915-y += \
+ 	  gt/uc/intel_gsc_fw.o \
++	  gt/uc/intel_gsc_proxy.o \
+ 	  gt/uc/intel_gsc_uc.o \
+ 	  gt/uc/intel_gsc_uc_heci_cmd_submit.o\
+ 	  gt/uc/intel_guc.o \
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_irq.c b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
+index c0f3ff4746ad..95e59ed6651d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_irq.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_irq.c
+@@ -16,6 +16,7 @@
+ #include "intel_uncore.h"
+ #include "intel_rps.h"
+ #include "pxp/intel_pxp_irq.h"
++#include "uc/intel_gsc_proxy.h"
+ 
+ static void guc_irq_handler(struct intel_guc *guc, u16 iir)
+ {
+@@ -82,6 +83,9 @@ gen11_other_irq_handler(struct intel_gt *gt, const u8 instance,
+ 	if (instance == OTHER_GSC_INSTANCE)
+ 		return intel_gsc_irq_handler(gt, iir);
+ 
++	if (instance == OTHER_GSC_HECI_2_INSTANCE)
++		return intel_gsc_proxy_irq_handler(&gt->uc.gsc, iir);
++
+ 	WARN_ONCE(1, "unhandled other interrupt instance=0x%x, iir=0x%x\n",
+ 		  instance, iir);
+ }
+@@ -101,6 +105,8 @@ static struct intel_gt *pick_gt(struct intel_gt *gt, u8 class, u8 instance)
+ 	case VIDEO_ENHANCEMENT_CLASS:
+ 		return media_gt;
+ 	case OTHER_CLASS:
++		if (instance == OTHER_GSC_HECI_2_INSTANCE)
++			return media_gt;
+ 		if (instance == OTHER_GSC_INSTANCE && HAS_ENGINE(media_gt, GSC0))
+ 			return media_gt;
+ 		fallthrough;
+@@ -257,6 +263,7 @@ void gen11_gt_irq_postinstall(struct intel_gt *gt)
+ 	u32 irqs = GT_RENDER_USER_INTERRUPT;
+ 	u32 guc_mask = intel_uc_wants_guc(&gt->uc) ? GUC_INTR_GUC2HOST : 0;
+ 	u32 gsc_mask = 0;
++	u32 heci_mask = 0;
+ 	u32 dmask;
+ 	u32 smask;
+ 
+@@ -268,10 +275,16 @@ void gen11_gt_irq_postinstall(struct intel_gt *gt)
+ 	dmask = irqs << 16 | irqs;
+ 	smask = irqs << 16;
+ 
+-	if (HAS_ENGINE(gt, GSC0))
++	if (HAS_ENGINE(gt, GSC0)) {
++		/*
++		 * the heci2 interrupt is enabled via the same register as the
++		 * GSC interrupt, but it has its own mask register.
++		 */
+ 		gsc_mask = irqs;
+-	else if (HAS_HECI_GSC(gt->i915))
++		heci_mask = GSC_IRQ_INTF(1); /* HECI2 IRQ for SW Proxy*/
++	} else if (HAS_HECI_GSC(gt->i915)) {
+ 		gsc_mask = GSC_IRQ_INTF(0) | GSC_IRQ_INTF(1);
++	}
+ 
+ 	BUILD_BUG_ON(irqs & 0xffff0000);
+ 
+@@ -281,7 +294,7 @@ void gen11_gt_irq_postinstall(struct intel_gt *gt)
+ 	if (CCS_MASK(gt))
+ 		intel_uncore_write(uncore, GEN12_CCS_RSVD_INTR_ENABLE, smask);
+ 	if (gsc_mask)
+-		intel_uncore_write(uncore, GEN11_GUNIT_CSME_INTR_ENABLE, gsc_mask);
++		intel_uncore_write(uncore, GEN11_GUNIT_CSME_INTR_ENABLE, gsc_mask | heci_mask);
+ 
+ 	/* Unmask irqs on RCS, BCS, VCS and VECS engines. */
+ 	intel_uncore_write(uncore, GEN11_RCS0_RSVD_INTR_MASK, ~smask);
+@@ -309,6 +322,9 @@ void gen11_gt_irq_postinstall(struct intel_gt *gt)
+ 		intel_uncore_write(uncore, GEN12_CCS2_CCS3_INTR_MASK, ~dmask);
+ 	if (gsc_mask)
+ 		intel_uncore_write(uncore, GEN11_GUNIT_CSME_INTR_MASK, ~gsc_mask);
++	if (heci_mask)
++		intel_uncore_write(uncore, GEN12_HECI2_RSVD_INTR_MASK,
++				   ~REG_FIELD_PREP(ENGINE1_MASK, heci_mask));
+ 
+ 	if (guc_mask) {
+ 		/* the enable bit is common for both GTs but the masks are separate */
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index af80d2fe739b..b8a39c219b60 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -1596,6 +1596,7 @@
+ 
+ #define GEN11_GT_INTR_DW(x)			_MMIO(0x190018 + ((x) * 4))
+ #define   GEN11_CSME				(31)
++#define   GEN12_HECI_2				(30)
+ #define   GEN11_GUNIT				(28)
+ #define   GEN11_GUC				(25)
+ #define   MTL_MGUC				(24)
+@@ -1637,6 +1638,7 @@
+ /* irq instances for OTHER_CLASS */
+ #define   OTHER_GUC_INSTANCE			0
+ #define   OTHER_GTPM_INSTANCE			1
++#define   OTHER_GSC_HECI_2_INSTANCE		3
+ #define   OTHER_KCR_INSTANCE			4
+ #define   OTHER_GSC_INSTANCE			6
+ #define   OTHER_MEDIA_GUC_INSTANCE		16
+@@ -1652,6 +1654,7 @@
+ #define GEN12_VCS6_VCS7_INTR_MASK		_MMIO(0x1900b4)
+ #define GEN11_VECS0_VECS1_INTR_MASK		_MMIO(0x1900d0)
+ #define GEN12_VECS2_VECS3_INTR_MASK		_MMIO(0x1900d4)
++#define GEN12_HECI2_RSVD_INTR_MASK		_MMIO(0x1900e4)
+ #define GEN11_GUC_SG_INTR_MASK			_MMIO(0x1900e8)
+ #define MTL_GUC_MGUC_INTR_MASK			_MMIO(0x1900e8) /* MTL+ */
+ #define GEN11_GPM_WGBOXPERF_INTR_MASK		_MMIO(0x1900ec)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_proxy.c b/drivers/gpu/drm/i915/gt/uc/intel_gsc_proxy.c
+new file mode 100644
+index 000000000000..3fa925f89dcc
+--- /dev/null
++++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_proxy.c
+@@ -0,0 +1,424 @@
++#include "intel_gsc_proxy.h"
++
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2023 Intel Corporation
++ */
++
++#include <linux/component.h>
++
++#include "drm/i915_component.h"
++#include "drm/i915_gsc_proxy_mei_interface.h"
++
++#include "gt/intel_gt.h"
++#include "gt/intel_gt_print.h"
++#include "intel_gsc_uc.h"
++#include "intel_gsc_uc_heci_cmd_submit.h"
++#include "i915_drv.h"
++#include "i915_reg.h"
++
++/*
++ * GSC proxy:
++ * The GSC uC needs to communicate with the CSME to perform certain operations.
++ * Since the GSC can't perform this communication directly on platforms where it
++ * is integrated in GT, i915 needs to transfer the messages from GSC to CSME
++ * and back. i915 must manually start the proxy flow after the GSC is loaded to
++ * signal to GSC that we're ready to handle its messages and allow it to query
++ * its init data from CSME; GSC will then trigger an HECI2 interrupt if it needs
++ * to send messages to CSME again.
++ * The proxy flow is as follow:
++ * 1 - i915 submits a request to GSC asking for the message to CSME
++ * 2 - GSC replies with the proxy header + payload for CSME
++ * 3 - i915 sends the reply from GSC as-is to CSME via the mei proxy component
++ * 4 - CSME replies with the proxy header + payload for GSC
++ * 5 - i915 submits a request to GSC with the reply from CSME
++ * 6 - GSC replies either with a new header + payload (same as step 2, so we
++ *     restart from there) or with an end message.
++ */
++
++/*
++ * The component should load quite quickly in most cases, but it could take
++ * a bit. Using a very big timeout just to cover the worst case scenario
++ */
++#define GSC_PROXY_INIT_TIMEOUT_MS 20000
++
++/* the protocol supports up to 32K in each direction */
++#define GSC_PROXY_BUFFER_SIZE SZ_32K
++#define GSC_PROXY_CHANNEL_SIZE (GSC_PROXY_BUFFER_SIZE * 2)
++#define GSC_PROXY_MAX_MSG_SIZE (GSC_PROXY_BUFFER_SIZE - sizeof(struct intel_gsc_mtl_header))
++
++/* FW-defined proxy header */
++struct intel_gsc_proxy_header {
++	/*
++	 * hdr:
++	 * Bits 0-7: type of the proxy message (see enum intel_gsc_proxy_type)
++	 * Bits 8-15: rsvd
++	 * Bits 16-31: length in bytes of the payload following the proxy header
++	 */
++	u32 hdr;
++#define GSC_PROXY_TYPE		 GENMASK(7, 0)
++#define GSC_PROXY_PAYLOAD_LENGTH GENMASK(31, 16)
++
++	u32 source;		/* Source of the Proxy message */
++	u32 destination;	/* Destination of the Proxy message */
++#define GSC_PROXY_ADDRESSING_KMD  0x10000
++#define GSC_PROXY_ADDRESSING_GSC  0x20000
++#define GSC_PROXY_ADDRESSING_CSME 0x30000
++
++	u32 status;		/* Command status */
++} __packed;
++
++/* FW-defined proxy types */
++enum intel_gsc_proxy_type {
++	GSC_PROXY_MSG_TYPE_PROXY_INVALID = 0,
++	GSC_PROXY_MSG_TYPE_PROXY_QUERY = 1,
++	GSC_PROXY_MSG_TYPE_PROXY_PAYLOAD = 2,
++	GSC_PROXY_MSG_TYPE_PROXY_END = 3,
++	GSC_PROXY_MSG_TYPE_PROXY_NOTIFICATION = 4,
++};
++
++struct gsc_proxy_msg {
++	struct intel_gsc_mtl_header header;
++	struct intel_gsc_proxy_header proxy_header;
++} __packed;
++
++static int proxy_send_to_csme(struct intel_gsc_uc *gsc)
++{
++	struct intel_gt *gt = gsc_uc_to_gt(gsc);
++	struct i915_gsc_proxy_component *comp = gsc->proxy.component;
++	struct intel_gsc_mtl_header *hdr;
++	void *in = gsc->proxy.to_csme;
++	void *out = gsc->proxy.to_gsc;
++	u32 in_size;
++	int ret;
++
++	/* CSME msg only includes the proxy */
++	hdr = in;
++	in += sizeof(struct intel_gsc_mtl_header);
++	out += sizeof(struct intel_gsc_mtl_header);
++
++	in_size = hdr->message_size - sizeof(struct intel_gsc_mtl_header);
++
++	/* the message must contain at least the proxy header */
++	if (in_size < sizeof(struct intel_gsc_proxy_header) ||
++	    in_size > GSC_PROXY_MAX_MSG_SIZE) {
++		gt_err(gt, "Invalid CSME message size: %u\n", in_size);
++		return -EINVAL;
++	}
++
++	ret = comp->ops->send(comp->mei_dev, in, in_size);
++	if (ret < 0) {
++		gt_err(gt, "Failed to send CSME message\n");
++		return ret;
++	}
++
++	ret = comp->ops->recv(comp->mei_dev, out, GSC_PROXY_MAX_MSG_SIZE);
++	if (ret < 0) {
++		gt_err(gt, "Failed to receive CSME message\n");
++		return ret;
++	}
++
++	return ret;
++}
++
++static int proxy_send_to_gsc(struct intel_gsc_uc *gsc)
++{
++	struct intel_gt *gt = gsc_uc_to_gt(gsc);
++	u32 *marker = gsc->proxy.to_csme; /* first dw of the reply header */
++	u64 addr_in = i915_ggtt_offset(gsc->proxy.vma);
++	u64 addr_out = addr_in + GSC_PROXY_BUFFER_SIZE;
++	u32 size = ((struct gsc_proxy_msg *)gsc->proxy.to_gsc)->header.message_size;
++	int err;
++
++	/* the message must contain at least the gsc and proxy headers */
++	if (size < sizeof(struct gsc_proxy_msg) || size > GSC_PROXY_BUFFER_SIZE) {
++		gt_err(gt, "Invalid GSC proxy message size: %u\n", size);
++		return -EINVAL;
++	}
++
++	/* clear the message marker */
++	*marker = 0;
++	wmb();
++
++	/* send the request */
++	err = intel_gsc_uc_heci_cmd_submit_packet(gsc, addr_in, size,
++						  addr_out, GSC_PROXY_BUFFER_SIZE);
++
++	if (!err) {
++		/* wait for the reply to show up */
++		err = wait_for(*marker != 0, 300);
++		if (err)
++			gt_err(gt, "Failed to get a proxy reply from gsc\n");
++	}
++
++	return err;
++}
++
++static int validate_proxy_header(struct intel_gsc_proxy_header *header,
++				 u32 source, u32 dest)
++{
++	u32 type = FIELD_GET(GSC_PROXY_TYPE, header->hdr);
++	u32 length = FIELD_GET(GSC_PROXY_PAYLOAD_LENGTH, header->hdr);
++	int ret = 0;
++
++	if (header->destination != dest || header->source != source) {
++		ret = -ENOEXEC;
++		goto fail;
++	}
++
++	switch (type) {
++	case GSC_PROXY_MSG_TYPE_PROXY_PAYLOAD:
++		if (length > 0)
++			break;
++		fallthrough;
++	case GSC_PROXY_MSG_TYPE_PROXY_INVALID:
++		ret = -EIO;
++		goto fail;
++	default:
++		break;
++	}
++
++fail:
++	return ret;
++
++}
++
++static int proxy_query(struct intel_gsc_uc *gsc)
++{
++	struct intel_gt *gt = gsc_uc_to_gt(gsc);
++	struct gsc_proxy_msg *to_gsc = gsc->proxy.to_gsc;
++	struct gsc_proxy_msg *to_csme = gsc->proxy.to_csme;
++	int ret;
++
++	intel_gsc_uc_heci_cmd_emit_mtl_header(&to_gsc->header,
++					      HECI_MEADDRESS_PROXY,
++					      sizeof(struct gsc_proxy_msg),
++					      0);
++
++	to_gsc->proxy_header.hdr =
++		FIELD_PREP(GSC_PROXY_TYPE, GSC_PROXY_MSG_TYPE_PROXY_QUERY) |
++		FIELD_PREP(GSC_PROXY_PAYLOAD_LENGTH, 0);
++
++	to_gsc->proxy_header.source = GSC_PROXY_ADDRESSING_KMD;
++	to_gsc->proxy_header.destination = GSC_PROXY_ADDRESSING_GSC;
++	to_gsc->proxy_header.status = 0;
++
++	while (1) {
++		/* clear the GSC response header space */
++		memset(gsc->proxy.to_csme, 0, sizeof(struct gsc_proxy_msg));
++
++		/* send proxy message to GSC */
++		ret = proxy_send_to_gsc(gsc);
++		if (ret) {
++			gt_err(gt, "failed to send proxy message to GSC! %d\n", ret);
++			goto proxy_error;
++		}
++
++		/* stop if this was the last message */
++		if (FIELD_GET(GSC_PROXY_TYPE, to_csme->proxy_header.hdr) ==
++				GSC_PROXY_MSG_TYPE_PROXY_END)
++			break;
++
++		/* make sure the GSC-to-CSME proxy header is sane */
++		ret = validate_proxy_header(&to_csme->proxy_header,
++					    GSC_PROXY_ADDRESSING_GSC,
++					    GSC_PROXY_ADDRESSING_CSME);
++		if (ret) {
++			gt_err(gt, "invalid GSC to CSME proxy header! %d\n", ret);
++			goto proxy_error;
++		}
++
++		/* send the GSC message to the CSME */
++		ret = proxy_send_to_csme(gsc);
++		if (ret < 0) {
++			gt_err(gt, "failed to send proxy message to CSME! %d\n", ret);
++			goto proxy_error;
++		}
++
++		/* update the GSC message size with the returned value from CSME */
++		to_gsc->header.message_size = ret + sizeof(struct intel_gsc_mtl_header);
++
++		/* make sure the CSME-to-GSC proxy header is sane */
++		ret = validate_proxy_header(&to_gsc->proxy_header,
++					    GSC_PROXY_ADDRESSING_CSME,
++					    GSC_PROXY_ADDRESSING_GSC);
++		if (ret) {
++			gt_err(gt, "invalid CSME to GSC proxy header! %d\n", ret);
++			goto proxy_error;
++		}
++	}
++
++proxy_error:
++	return ret < 0 ? ret : 0;
++}
++
++int intel_gsc_proxy_request_handler(struct intel_gsc_uc *gsc)
++{
++	struct intel_gt *gt = gsc_uc_to_gt(gsc);
++	int err;
++
++	if (!gsc->proxy.component_added)
++		return -ENODEV;
++
++	assert_rpm_wakelock_held(gt->uncore->rpm);
++
++	/* when GSC is loaded, we can queue this before the component is bound */
++	err = wait_for(gsc->proxy.component, GSC_PROXY_INIT_TIMEOUT_MS);
++	if (err) {
++		gt_err(gt, "GSC proxy component didn't bind within the expected timeout\n");
++		return -EIO;
++	}
++
++	mutex_lock(&gsc->proxy.mutex);
++	if (!gsc->proxy.component) {
++		gt_err(gt, "GSC proxy worker called without the component being bound!\n");
++		err = -EIO;
++	} else {
++		/*
++		 * write the status bit to clear it and allow new proxy
++		 * interrupts to be generated while we handle the current
++		 * request, but be sure not to write the reset bit
++		 */
++		intel_uncore_rmw(gt->uncore, HECI_H_CSR(MTL_GSC_HECI2_BASE),
++				 HECI_H_CSR_RST, HECI_H_CSR_IS);
++		err = proxy_query(gsc);
++	}
++	mutex_unlock(&gsc->proxy.mutex);
++	return err;
++}
++
++void intel_gsc_proxy_irq_handler(struct intel_gsc_uc *gsc, u32 iir)
++{
++	struct intel_gt *gt = gsc_uc_to_gt(gsc);
++
++	if (unlikely(!iir))
++		return;
++
++	lockdep_assert_held(gt->irq_lock);
++
++	if (!gsc->proxy.component) {
++		gt_err(gt, "GSC proxy irq received without the component being bound!\n");
++		return;
++	}
++
++	gsc->gsc_work_actions |= GSC_ACTION_SW_PROXY;
++	queue_work(gsc->wq, &gsc->work);
++}
++
++static int i915_gsc_proxy_component_bind(struct device *i915_kdev,
++					 struct device *mei_kdev, void *data)
++{
++	struct drm_i915_private *i915 = kdev_to_i915(i915_kdev);
++	struct intel_gt *gt = i915->media_gt;
++	struct intel_gsc_uc *gsc = &gt->uc.gsc;
++	intel_wakeref_t wakeref;
++
++	/* enable HECI2 IRQs */
++	with_intel_runtime_pm(&i915->runtime_pm, wakeref)
++		intel_uncore_rmw(gt->uncore, HECI_H_CSR(MTL_GSC_HECI2_BASE),
++				 HECI_H_CSR_RST, HECI_H_CSR_IE);
++
++	mutex_lock(&gsc->proxy.mutex);
++	gsc->proxy.component = data;
++	gsc->proxy.component->mei_dev = mei_kdev;
++	mutex_unlock(&gsc->proxy.mutex);
++
++	return 0;
++}
++
++static void i915_gsc_proxy_component_unbind(struct device *i915_kdev,
++					    struct device *mei_kdev, void *data)
++{
++	struct drm_i915_private *i915 = kdev_to_i915(i915_kdev);
++	struct intel_gt *gt = i915->media_gt;
++	struct intel_gsc_uc *gsc = &gt->uc.gsc;
++	intel_wakeref_t wakeref;
++
++	mutex_lock(&gsc->proxy.mutex);
++	gsc->proxy.component = NULL;
++	mutex_unlock(&gsc->proxy.mutex);
++
++	/* disable HECI2 IRQs */
++	with_intel_runtime_pm(&i915->runtime_pm, wakeref)
++		intel_uncore_rmw(gt->uncore, HECI_H_CSR(MTL_GSC_HECI2_BASE),
++				 HECI_H_CSR_IE | HECI_H_CSR_RST, 0);
++}
++
++static const struct component_ops i915_gsc_proxy_component_ops = {
++	.bind   = i915_gsc_proxy_component_bind,
++	.unbind = i915_gsc_proxy_component_unbind,
++};
++
++static int proxy_channel_alloc(struct intel_gsc_uc *gsc)
++{
++	struct intel_gt *gt = gsc_uc_to_gt(gsc);
++	struct i915_vma *vma;
++	void *vaddr;
++	int err;
++
++	err = intel_guc_allocate_and_map_vma(&gt->uc.guc, GSC_PROXY_CHANNEL_SIZE,
++					     &vma, &vaddr);
++	if (err)
++		return err;
++
++	gsc->proxy.vma = vma;
++	gsc->proxy.to_gsc = vaddr;
++	gsc->proxy.to_csme = vaddr + GSC_PROXY_BUFFER_SIZE;
++
++	return 0;
++}
++
++static void proxy_channel_free(struct intel_gsc_uc *gsc)
++{
++	if (!gsc->proxy.vma)
++		return;
++
++	gsc->proxy.to_gsc = NULL;
++	gsc->proxy.to_csme = NULL;
++	i915_vma_unpin_and_release(&gsc->proxy.vma, I915_VMA_RELEASE_MAP);
++}
++
++void intel_gsc_proxy_fini(struct intel_gsc_uc *gsc)
++{
++	struct intel_gt *gt = gsc_uc_to_gt(gsc);
++	struct drm_i915_private *i915 = gt->i915;
++
++	if (fetch_and_zero(&gsc->proxy.component_added))
++		component_del(i915->drm.dev, &i915_gsc_proxy_component_ops);
++
++	proxy_channel_free(gsc);
++}
++
++int intel_gsc_proxy_init(struct intel_gsc_uc *gsc)
++{
++	int err;
++	struct intel_gt *gt = gsc_uc_to_gt(gsc);
++	struct drm_i915_private *i915 = gt->i915;
++
++	mutex_init(&gsc->proxy.mutex);
++
++	if (!IS_ENABLED(CONFIG_INTEL_MEI_GSC_PROXY)) {
++		gt_info(gt, "can't init GSC proxy due to missing mei component\n");
++		return -ENODEV;
++	}
++
++	err = proxy_channel_alloc(gsc);
++	if (err)
++		return err;
++
++	err = component_add_typed(i915->drm.dev, &i915_gsc_proxy_component_ops,
++				  I915_COMPONENT_GSC_PROXY);
++	if (err < 0) {
++		gt_err(gt, "Failed to add GSC_PROXY component (%d)\n", err);
++		goto out_free;
++	}
++
++	gsc->proxy.component_added = true;
++
++	return 0;
++
++out_free:
++	proxy_channel_free(gsc);
++	return err;
++}
++
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_proxy.h b/drivers/gpu/drm/i915/gt/uc/intel_gsc_proxy.h
+new file mode 100644
+index 000000000000..c55bafcbaec4
+--- /dev/null
++++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_proxy.h
+@@ -0,0 +1,18 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2022 Intel Corporation
++ */
++
++#ifndef _INTEL_GSC_PROXY_H_
++#define _INTEL_GSC_PROXY_H_
++
++#include <linux/types.h>
++
++struct intel_gsc_uc;
++
++int intel_gsc_proxy_init(struct intel_gsc_uc *gsc);
++void intel_gsc_proxy_fini(struct intel_gsc_uc *gsc);
++int intel_gsc_proxy_request_handler(struct intel_gsc_uc *gsc);
++void intel_gsc_proxy_irq_handler(struct intel_gsc_uc *gsc, u32 iir);
++
++#endif
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c
+index 2d5b70b3384c..64bff01026e8 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c
+@@ -10,15 +10,50 @@
+ #include "intel_gsc_uc.h"
+ #include "intel_gsc_fw.h"
+ #include "i915_drv.h"
++#include "intel_gsc_proxy.h"
+ 
+ static void gsc_work(struct work_struct *work)
+ {
+ 	struct intel_gsc_uc *gsc = container_of(work, typeof(*gsc), work);
+ 	struct intel_gt *gt = gsc_uc_to_gt(gsc);
+ 	intel_wakeref_t wakeref;
++	u32 actions;
++	int ret;
++
++	wakeref = intel_runtime_pm_get(gt->uncore->rpm);
++
++	spin_lock_irq(gt->irq_lock);
++	actions = gsc->gsc_work_actions;
++	gsc->gsc_work_actions = 0;
++	spin_unlock_irq(gt->irq_lock);
++
++	if (actions & GSC_ACTION_FW_LOAD) {
++		ret = intel_gsc_uc_fw_upload(gsc);
++		if (ret == -EEXIST) /* skip proxy if not a new load */
++			actions &= ~GSC_ACTION_FW_LOAD;
++		else if (ret)
++			goto out_put;
++	}
++
++	if (actions & (GSC_ACTION_FW_LOAD | GSC_ACTION_SW_PROXY)) {
++		if (!intel_gsc_uc_fw_init_done(gsc)) {
++			gt_err(gt, "Proxy request received with GSC not loaded!\n");
++			goto out_put;
++		}
++
++		ret = intel_gsc_proxy_request_handler(gsc);
++		if (ret)
++			goto out_put;
++
++		/* mark the GSC FW init as done the first time we run this */
++		if (actions & GSC_ACTION_FW_LOAD) {
++			gt_dbg(gt, "GSC Proxy initialized\n");
++			intel_uc_fw_change_status(&gsc->fw, INTEL_UC_FIRMWARE_RUNNING);
++		}
++	}
+ 
+-	with_intel_runtime_pm(gt->uncore->rpm, wakeref)
+-		intel_gsc_uc_fw_upload(gsc);
++out_put:
++	intel_runtime_pm_put(gt->uncore->rpm, wakeref);
+ }
+ 
+ static bool gsc_engine_supported(struct intel_gt *gt)
+@@ -43,6 +78,8 @@ static bool gsc_engine_supported(struct intel_gt *gt)
+ 
+ void intel_gsc_uc_init_early(struct intel_gsc_uc *gsc)
+ {
++	struct intel_gt *gt = gsc_uc_to_gt(gsc);
++
+ 	intel_uc_fw_init_early(&gsc->fw, INTEL_UC_FW_TYPE_GSC);
+ 	INIT_WORK(&gsc->work, gsc_work);
+ 
+@@ -50,10 +87,16 @@ void intel_gsc_uc_init_early(struct intel_gsc_uc *gsc)
+ 	 * GT with it being not fully setup hence check device info's
+ 	 * engine mask
+ 	 */
+-	if (!gsc_engine_supported(gsc_uc_to_gt(gsc))) {
++	if (!gsc_engine_supported(gt)) {
+ 		intel_uc_fw_change_status(&gsc->fw, INTEL_UC_FIRMWARE_NOT_SUPPORTED);
+ 		return;
+ 	}
++
++	gsc->wq = alloc_ordered_workqueue("i915_gsc", 0);
++	if (!gsc->wq) {
++		gt_err(gt, "failed to allocate WQ for GSC, disabling FW\n");
++		intel_uc_fw_change_status(&gsc->fw, INTEL_UC_FIRMWARE_NOT_SUPPORTED);
++	}
+ }
+ 
+ int intel_gsc_uc_init(struct intel_gsc_uc *gsc)
+@@ -88,6 +131,9 @@ int intel_gsc_uc_init(struct intel_gsc_uc *gsc)
+ 
+ 	gsc->ce = ce;
+ 
++	/* if we fail to init proxy we still want to load GSC for PM */
++	intel_gsc_proxy_init(gsc);
++
+ 	intel_uc_fw_change_status(&gsc->fw, INTEL_UC_FIRMWARE_LOADABLE);
+ 
+ 	return 0;
+@@ -107,6 +153,12 @@ void intel_gsc_uc_fini(struct intel_gsc_uc *gsc)
+ 		return;
+ 
+ 	flush_work(&gsc->work);
++	if (gsc->wq) {
++		destroy_workqueue(gsc->wq);
++		gsc->wq = NULL;
++	}
++
++	intel_gsc_proxy_fini(gsc);
+ 
+ 	if (gsc->ce)
+ 		intel_engine_destroy_pinned_context(fetch_and_zero(&gsc->ce));
+@@ -145,11 +197,17 @@ void intel_gsc_uc_resume(struct intel_gsc_uc *gsc)
+ 
+ void intel_gsc_uc_load_start(struct intel_gsc_uc *gsc)
+ {
++	struct intel_gt *gt = gsc_uc_to_gt(gsc);
++
+ 	if (!intel_uc_fw_is_loadable(&gsc->fw))
+ 		return;
+ 
+ 	if (intel_gsc_uc_fw_init_done(gsc))
+ 		return;
+ 
+-	queue_work(system_unbound_wq, &gsc->work);
++	spin_lock_irq(gt->irq_lock);
++	gsc->gsc_work_actions |= GSC_ACTION_FW_LOAD;
++	spin_unlock_irq(gt->irq_lock);
++
++	queue_work(gsc->wq, &gsc->work);
+ }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h
+index 5f50fa1ff8b9..a2a0813b8a76 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h
+@@ -10,6 +10,7 @@
+ 
+ struct i915_vma;
+ struct intel_context;
++struct i915_gsc_proxy_component;
+ 
+ struct intel_gsc_uc {
+ 	/* Generic uC firmware management */
+@@ -19,7 +20,21 @@ struct intel_gsc_uc {
+ 	struct i915_vma *local; /* private memory for GSC usage */
+ 	struct intel_context *ce; /* for submission to GSC FW via GSC engine */
+ 
+-	struct work_struct work; /* for delayed load */
++	/* for delayed load and proxy handling */
++	struct workqueue_struct *wq;
++	struct work_struct work;
++	u32 gsc_work_actions; /* protected by gt->irq_lock */
++#define GSC_ACTION_FW_LOAD BIT(0)
++#define GSC_ACTION_SW_PROXY BIT(1)
++
++	struct {
++		struct i915_gsc_proxy_component *component;
++		bool component_added;
++		struct i915_vma *vma;
++		void *to_gsc;
++		void *to_csme;
++		struct mutex mutex; /* protects the tee channel binding */
++	} proxy;
+ };
+ 
+ void intel_gsc_uc_init_early(struct intel_gsc_uc *gsc);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h
+index 3d56ae501991..8f199d5f963e 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h
+@@ -14,6 +14,7 @@ struct intel_gsc_mtl_header {
+ #define GSC_HECI_VALIDITY_MARKER 0xA578875A
+ 
+ 	u8 heci_client_id;
++#define HECI_MEADDRESS_PROXY 10
+ #define HECI_MEADDRESS_PXP 17
+ #define HECI_MEADDRESS_HDCP 18
+ 
+diff --git a/drivers/misc/mei/Kconfig b/drivers/misc/mei/Kconfig
+index d21486d69df2..37db142de413 100644
+--- a/drivers/misc/mei/Kconfig
++++ b/drivers/misc/mei/Kconfig
+@@ -62,4 +62,4 @@ config INTEL_MEI_GSC
+ 
+ source "drivers/misc/mei/hdcp/Kconfig"
+ source "drivers/misc/mei/pxp/Kconfig"
+-
++source "drivers/misc/mei/gsc_proxy/Kconfig"
+diff --git a/drivers/misc/mei/Makefile b/drivers/misc/mei/Makefile
+index fb740d754900..14aee253ae48 100644
+--- a/drivers/misc/mei/Makefile
++++ b/drivers/misc/mei/Makefile
+@@ -30,3 +30,4 @@ CFLAGS_mei-trace.o = -I$(src)
+ 
+ obj-$(CONFIG_INTEL_MEI_HDCP) += hdcp/
+ obj-$(CONFIG_INTEL_MEI_PXP) += pxp/
++obj-$(CONFIG_INTEL_MEI_GSC_PROXY) += gsc_proxy/
+diff --git a/drivers/misc/mei/gsc_proxy/Kconfig b/drivers/misc/mei/gsc_proxy/Kconfig
+new file mode 100644
+index 000000000000..5f68d9f3d691
+--- /dev/null
++++ b/drivers/misc/mei/gsc_proxy/Kconfig
+@@ -0,0 +1,14 @@
++# SPDX-License-Identifier: GPL-2.0
++# Copyright (c) 2022-2023, Intel Corporation. All rights reserved.
++#
++config INTEL_MEI_GSC_PROXY
++	tristate "Intel GSC Proxy services of ME Interface"
++	select INTEL_MEI_ME
++	depends on DRM_I915
++	help
++         MEI Support for GSC Proxy Services on Intel platforms.
++
++         MEI GSC proxy enables messaging between GSC service on
++         Intel graphics card and services on CSE (MEI) firmware
++         residing SoC or PCH.
++
+diff --git a/drivers/misc/mei/gsc_proxy/Makefile b/drivers/misc/mei/gsc_proxy/Makefile
+new file mode 100644
+index 000000000000..358847e9aaa9
+--- /dev/null
++++ b/drivers/misc/mei/gsc_proxy/Makefile
+@@ -0,0 +1,7 @@
++# SPDX-License-Identifier: GPL-2.0
++#
++# Copyright (c) 2022-2023, Intel Corporation. All rights reserved.
++#
++# Makefile - GSC Proxy client driver for Intel MEI Bus Driver.
++
++obj-$(CONFIG_INTEL_MEI_GSC_PROXY) += mei_gsc_proxy.o
+diff --git a/drivers/misc/mei/gsc_proxy/mei_gsc_proxy.c b/drivers/misc/mei/gsc_proxy/mei_gsc_proxy.c
+new file mode 100644
+index 000000000000..be52b113aea9
+--- /dev/null
++++ b/drivers/misc/mei/gsc_proxy/mei_gsc_proxy.c
+@@ -0,0 +1,208 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) 2022-2023 Intel Corporation
++ */
++
++/**
++ * DOC: MEI_GSC_PROXY Client Driver
++ *
++ * The mei_gsc_proxy driver acts as a translation layer between
++ * proxy user (I915) and ME FW by proxying messages to ME FW
++ */
++
++#include <linux/component.h>
++#include <linux/mei_cl_bus.h>
++#include <linux/module.h>
++#include <linux/pci.h>
++#include <linux/slab.h>
++#include <linux/uuid.h>
++#include <drm/drm_connector.h>
++#include <drm/i915_component.h>
++#include <drm/i915_gsc_proxy_mei_interface.h>
++
++/**
++ * mei_gsc_proxy_send - Sends a proxy message to ME FW.
++ * @dev: device corresponding to the mei_cl_device
++ * @buf: a message buffer to send
++ * @size: size of the message
++ * Return: bytes sent on Success, <0 on Failure
++ */
++static int mei_gsc_proxy_send(struct device *dev, const void *buf, size_t size)
++{
++	ssize_t ret;
++
++	if (!dev || !buf)
++		return -EINVAL;
++
++	ret = mei_cldev_send(to_mei_cl_device(dev), buf, size);
++	if (ret < 0)
++		dev_dbg(dev, "mei_cldev_send failed. %zd\n", ret);
++
++	return ret;
++}
++
++/**
++ * mei_gsc_proxy_recv - Receives a proxy message from ME FW.
++ * @dev: device corresponding to the mei_cl_device
++ * @buf: a message buffer to contain the received message
++ * @size: size of the buffer
++ * Return: bytes received on Success, <0 on Failure
++ */
++static int mei_gsc_proxy_recv(struct device *dev, void *buf, size_t size)
++{
++	ssize_t ret;
++
++	if (!dev || !buf)
++		return -EINVAL;
++
++	ret = mei_cldev_recv(to_mei_cl_device(dev), buf, size);
++	if (ret < 0)
++		dev_dbg(dev, "mei_cldev_recv failed. %zd\n", ret);
++
++	return ret;
++}
++
++static const struct i915_gsc_proxy_component_ops mei_gsc_proxy_ops = {
++	.owner = THIS_MODULE,
++	.send = mei_gsc_proxy_send,
++	.recv = mei_gsc_proxy_recv,
++};
++
++static int mei_component_master_bind(struct device *dev)
++{
++	struct mei_cl_device *cldev = to_mei_cl_device(dev);
++	struct i915_gsc_proxy_component *comp_master = mei_cldev_get_drvdata(cldev);
++
++	comp_master->ops = &mei_gsc_proxy_ops;
++	comp_master->mei_dev = dev;
++	return component_bind_all(dev, comp_master);
++}
++
++static void mei_component_master_unbind(struct device *dev)
++{
++	struct mei_cl_device *cldev = to_mei_cl_device(dev);
++	struct i915_gsc_proxy_component *comp_master = mei_cldev_get_drvdata(cldev);
++
++	component_unbind_all(dev, comp_master);
++}
++
++static const struct component_master_ops mei_component_master_ops = {
++	.bind = mei_component_master_bind,
++	.unbind = mei_component_master_unbind,
++};
++
++/**
++ * mei_gsc_proxy_component_match - compare function for matching mei.
++ *
++ *    The function checks if the device is pci device and
++ *    Intel VGA adapter, the subcomponent is SW Proxy
++ *    and the parent of MEI PCI and the parent of VGA are the same PCH device.
++ *
++ * @dev: master device
++ * @subcomponent: subcomponent to match (I915_COMPONENT_SWPROXY)
++ * @data: compare data (mei pci parent)
++ *
++ * Return:
++ * * 1 - if components match
++ * * 0 - otherwise
++ */
++static int mei_gsc_proxy_component_match(struct device *dev, int subcomponent,
++					 void *data)
++{
++	struct pci_dev *pdev;
++
++	if (!dev_is_pci(dev))
++		return 0;
++
++	pdev = to_pci_dev(dev);
++
++	if (pdev->class != (PCI_CLASS_DISPLAY_VGA << 8) ||
++	    pdev->vendor != PCI_VENDOR_ID_INTEL)
++		return 0;
++
++	if (subcomponent != I915_COMPONENT_GSC_PROXY)
++		return 0;
++
++	return component_compare_dev(dev->parent, ((struct device *)data)->parent);
++}
++
++static int mei_gsc_proxy_probe(struct mei_cl_device *cldev,
++			       const struct mei_cl_device_id *id)
++{
++	struct i915_gsc_proxy_component *comp_master;
++	struct component_match *master_match = NULL;
++	int ret;
++
++	ret = mei_cldev_enable(cldev);
++	if (ret < 0) {
++		dev_err(&cldev->dev, "mei_cldev_enable Failed. %d\n", ret);
++		goto enable_err_exit;
++	}
++
++	comp_master = kzalloc(sizeof(*comp_master), GFP_KERNEL);
++	if (!comp_master) {
++		ret = -ENOMEM;
++		goto err_exit;
++	}
++
++	component_match_add_typed(&cldev->dev, &master_match,
++				  mei_gsc_proxy_component_match, cldev->dev.parent);
++	if (IS_ERR_OR_NULL(master_match)) {
++		ret = -ENOMEM;
++		goto err_exit;
++	}
++
++	mei_cldev_set_drvdata(cldev, comp_master);
++	ret = component_master_add_with_match(&cldev->dev,
++					      &mei_component_master_ops,
++					      master_match);
++	if (ret < 0) {
++		dev_err(&cldev->dev, "Master comp add failed %d\n", ret);
++		goto err_exit;
++	}
++
++	return 0;
++
++err_exit:
++	mei_cldev_set_drvdata(cldev, NULL);
++	kfree(comp_master);
++	mei_cldev_disable(cldev);
++enable_err_exit:
++	return ret;
++}
++
++static void mei_gsc_proxy_remove(struct mei_cl_device *cldev)
++{
++	struct i915_gsc_proxy_component *comp_master = mei_cldev_get_drvdata(cldev);
++	int ret;
++
++	component_master_del(&cldev->dev, &mei_component_master_ops);
++	kfree(comp_master);
++	mei_cldev_set_drvdata(cldev, NULL);
++
++	ret = mei_cldev_disable(cldev);
++	if (ret)
++		dev_warn(&cldev->dev, "mei_cldev_disable() failed %d\n", ret);
++}
++
++#define MEI_UUID_GSC_PROXY UUID_LE(0xf73db04, 0x97ab, 0x4125, \
++				   0xb8, 0x93, 0xe9, 0x4, 0xad, 0xd, 0x54, 0x64)
++
++static struct mei_cl_device_id mei_gsc_proxy_tbl[] = {
++	{ .uuid = MEI_UUID_GSC_PROXY, .version = MEI_CL_VERSION_ANY },
++	{ }
++};
++MODULE_DEVICE_TABLE(mei, mei_gsc_proxy_tbl);
++
++static struct mei_cl_driver mei_gsc_proxy_driver = {
++	.id_table = mei_gsc_proxy_tbl,
++	.name = KBUILD_MODNAME,
++	.probe = mei_gsc_proxy_probe,
++	.remove	= mei_gsc_proxy_remove,
++};
++
++module_mei_cl_driver(mei_gsc_proxy_driver);
++
++MODULE_AUTHOR("Intel Corporation");
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("MEI GSC PROXY");
+diff --git a/include/drm/i915_component.h b/include/drm/i915_component.h
+index c1e2a43d2d1e..56a84ee1c64c 100644
+--- a/include/drm/i915_component.h
++++ b/include/drm/i915_component.h
+@@ -29,7 +29,8 @@
+ enum i915_component_type {
+ 	I915_COMPONENT_AUDIO = 1,
+ 	I915_COMPONENT_HDCP,
+-	I915_COMPONENT_PXP
++	I915_COMPONENT_PXP,
++	I915_COMPONENT_GSC_PROXY,
+ };
+ 
+ /* MAX_PORT is the number of port
+diff --git a/include/drm/i915_gsc_proxy_mei_interface.h b/include/drm/i915_gsc_proxy_mei_interface.h
+new file mode 100644
+index 000000000000..9462341d3ae1
+--- /dev/null
++++ b/include/drm/i915_gsc_proxy_mei_interface.h
+@@ -0,0 +1,53 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright (c) 2022-2023 Intel Corporation
++ */
++
++#ifndef _I915_GSC_PROXY_MEI_INTERFACE_H_
++#define _I915_GSC_PROXY_MEI_INTERFACE_H_
++
++#include <linux/types.h>
++
++struct device;
++struct module;
++
++/**
++ * struct i915_gsc_proxy_component_ops - ops for GSC Proxy services.
++ * @owner: Module providing the ops
++ * @send: sends a proxy message from GSC FW to ME FW
++ * @recv: receives a proxy message for GSC FW from ME FW
++ */
++struct i915_gsc_proxy_component_ops {
++	struct module *owner;
++
++	/**
++	 * send - Sends a proxy message to ME FW.
++	 * @dev: device struct corresponding to the mei device
++	 * @buf: message buffer to send
++	 * @size: size of the message
++	 * Return: bytes sent on success, negative errno value on failure
++	 */
++	int (*send)(struct device *dev, const void *buf, size_t size);
++
++	/**
++	 * recv - Receives a proxy message from ME FW.
++	 * @dev: device struct corresponding to the mei device
++	 * @buf: message buffer to contain the received message
++	 * @size: size of the buffer
++	 * Return: bytes received on success, negative errno value on failure
++	 */
++	int (*recv)(struct device *dev, void *buf, size_t size);
++};
++
++/**
++ * struct i915_gsc_proxy_component - Used for communication between i915 and
++ * MEI drivers for GSC proxy services
++ * @mei_dev: device that provide the GSC proxy service.
++ * @ops: Ops implemented by GSC proxy driver, used by i915 driver.
++ */
++struct i915_gsc_proxy_component {
++	struct device *mei_dev;
++	const struct i915_gsc_proxy_component_ops *ops;
++};
++
++#endif /* _I915_GSC_PROXY_MEI_INTERFACE_H_ */
+-- 
+2.40.0
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_13071_full -> Patchwork_116995v3_full
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  
-
-Participating hosts (7 -> 7)
-------------------------------
-
-  No changes in participating hosts
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_116995v3_full:
-
-### IGT changes ###
-
-#### Suppressed ####
-
-  The following results come from untrusted machines, tests, or statuses.
-  They do not affect the overall result.
-
-  * igt@gem_barrier_race@remote-request@rcs0:
-    - {shard-tglu}:       [PASS][1] -> [ABORT][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-tglu-10/igt@gem_barrier_race@remote-request@rcs0.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-tglu-10/igt@gem_barrier_race@remote-request@rcs0.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_116995v3_full that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@gem_exec_fair@basic-pace-solo@rcs0:
-    - shard-apl:          [PASS][3] -> [FAIL][4] ([i915#2842])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-apl2/igt@gem_exec_fair@basic-pace-solo@rcs0.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-apl7/igt@gem_exec_fair@basic-pace-solo@rcs0.html
-
-  * igt@gem_huc_copy@huc-copy:
-    - shard-apl:          NOTRUN -> [SKIP][5] ([fdo#109271] / [i915#2190])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-apl4/igt@gem_huc_copy@huc-copy.html
-
-  * igt@kms_big_fb@4-tiled-max-hw-stride-32bpp-rotate-180-hflip-async-flip:
-    - shard-apl:          NOTRUN -> [SKIP][6] ([fdo#109271]) +25 similar issues
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-apl4/igt@kms_big_fb@4-tiled-max-hw-stride-32bpp-rotate-180-hflip-async-flip.html
-
-  * igt@kms_cdclk@mode-transition:
-    - shard-glk:          NOTRUN -> [SKIP][7] ([fdo#109271]) +6 similar issues
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-glk8/igt@kms_cdclk@mode-transition.html
-
-  * igt@kms_content_protection@atomic@pipe-a-dp-1:
-    - shard-apl:          NOTRUN -> [TIMEOUT][8] ([i915#7173])
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-apl4/igt@kms_content_protection@atomic@pipe-a-dp-1.html
-
-  * igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions:
-    - shard-apl:          [PASS][9] -> [FAIL][10] ([i915#2346])
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-apl7/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-apl6/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions.html
-
-  * igt@kms_plane_scaling@plane-upscale-with-modifiers-factor-0-25@pipe-a-vga-1:
-    - shard-snb:          NOTRUN -> [SKIP][11] ([fdo#109271]) +37 similar issues
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-snb6/igt@kms_plane_scaling@plane-upscale-with-modifiers-factor-0-25@pipe-a-vga-1.html
-
-  * igt@kms_psr2_sf@overlay-plane-move-continuous-sf:
-    - shard-glk:          NOTRUN -> [SKIP][12] ([fdo#109271] / [i915#658])
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-glk8/igt@kms_psr2_sf@overlay-plane-move-continuous-sf.html
-
-  
-#### Possible fixes ####
-
-  * igt@drm_fdinfo@idle@rcs0:
-    - {shard-rkl}:        [FAIL][13] ([i915#7742]) -> [PASS][14] +1 similar issue
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-rkl-7/igt@drm_fdinfo@idle@rcs0.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-rkl-7/igt@drm_fdinfo@idle@rcs0.html
-
-  * igt@gem_barrier_race@remote-request@rcs0:
-    - {shard-dg1}:        [ABORT][15] ([i915#7461] / [i915#8234]) -> [PASS][16]
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-dg1-16/igt@gem_barrier_race@remote-request@rcs0.html
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-dg1-12/igt@gem_barrier_race@remote-request@rcs0.html
-
-  * igt@gem_ctx_exec@basic-nohangcheck:
-    - {shard-tglu}:       [FAIL][17] ([i915#6268]) -> [PASS][18]
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-tglu-5/igt@gem_ctx_exec@basic-nohangcheck.html
-   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-tglu-5/igt@gem_ctx_exec@basic-nohangcheck.html
-
-  * igt@gem_eio@hibernate:
-    - shard-apl:          [ABORT][19] -> [PASS][20]
-   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-apl3/igt@gem_eio@hibernate.html
-   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-apl4/igt@gem_eio@hibernate.html
-
-  * igt@gem_eio@reset-stress:
-    - {shard-dg1}:        [FAIL][21] ([i915#5784]) -> [PASS][22]
-   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-dg1-12/igt@gem_eio@reset-stress.html
-   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-dg1-15/igt@gem_eio@reset-stress.html
-
-  * igt@gem_exec_fair@basic-pace@rcs0:
-    - {shard-rkl}:        [FAIL][23] ([i915#2842]) -> [PASS][24]
-   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-rkl-7/igt@gem_exec_fair@basic-pace@rcs0.html
-   [24]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-rkl-7/igt@gem_exec_fair@basic-pace@rcs0.html
-
-  * igt@i915_pm_dc@dc6-dpms:
-    - {shard-tglu}:       [FAIL][25] ([i915#3989] / [i915#454]) -> [PASS][26]
-   [25]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-tglu-8/igt@i915_pm_dc@dc6-dpms.html
-   [26]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-tglu-4/igt@i915_pm_dc@dc6-dpms.html
-
-  * igt@i915_pm_rc6_residency@rc6-idle@vcs0:
-    - {shard-dg1}:        [FAIL][27] ([i915#3591]) -> [PASS][28]
-   [27]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-dg1-14/igt@i915_pm_rc6_residency@rc6-idle@vcs0.html
-   [28]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-dg1-16/igt@i915_pm_rc6_residency@rc6-idle@vcs0.html
-
-  * igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size:
-    - shard-apl:          [FAIL][29] ([i915#2346]) -> [PASS][30]
-   [29]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-apl2/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size.html
-   [30]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-apl1/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size.html
-    - shard-glk:          [FAIL][31] ([i915#2346]) -> [PASS][32]
-   [31]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-glk5/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size.html
-   [32]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-glk6/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size.html
-
-  * igt@kms_plane@pixel-format@pipe-a-planes:
-    - shard-glk:          [FAIL][33] ([i915#1623]) -> [PASS][34]
-   [33]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-glk9/igt@kms_plane@pixel-format@pipe-a-planes.html
-   [34]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-glk1/igt@kms_plane@pixel-format@pipe-a-planes.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
-  [fdo#109289]: https://bugs.freedesktop.org/show_bug.cgi?id=109289
-  [fdo#109300]: https://bugs.freedesktop.org/show_bug.cgi?id=109300
-  [fdo#111825]: https://bugs.freedesktop.org/show_bug.cgi?id=111825
-  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
-  [i915#1623]: https://gitlab.freedesktop.org/drm/intel/issues/1623
-  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
-  [i915#2346]: https://gitlab.freedesktop.org/drm/intel/issues/2346
-  [i915#2437]: https://gitlab.freedesktop.org/drm/intel/issues/2437
-  [i915#2575]: https://gitlab.freedesktop.org/drm/intel/issues/2575
-  [i915#2842]: https://gitlab.freedesktop.org/drm/intel/issues/2842
-  [i915#315]: https://gitlab.freedesktop.org/drm/intel/issues/315
-  [i915#3282]: https://gitlab.freedesktop.org/drm/intel/issues/3282
-  [i915#3458]: https://gitlab.freedesktop.org/drm/intel/issues/3458
-  [i915#3555]: https://gitlab.freedesktop.org/drm/intel/issues/3555
-  [i915#3591]: https://gitlab.freedesktop.org/drm/intel/issues/3591
-  [i915#3689]: https://gitlab.freedesktop.org/drm/intel/issues/3689
-  [i915#3804]: https://gitlab.freedesktop.org/drm/intel/issues/3804
-  [i915#3989]: https://gitlab.freedesktop.org/drm/intel/issues/3989
-  [i915#4077]: https://gitlab.freedesktop.org/drm/intel/issues/4077
-  [i915#4078]: https://gitlab.freedesktop.org/drm/intel/issues/4078
-  [i915#4083]: https://gitlab.freedesktop.org/drm/intel/issues/4083
-  [i915#4098]: https://gitlab.freedesktop.org/drm/intel/issues/4098
-  [i915#454]: https://gitlab.freedesktop.org/drm/intel/issues/454
-  [i915#4579]: https://gitlab.freedesktop.org/drm/intel/issues/4579
-  [i915#4833]: https://gitlab.freedesktop.org/drm/intel/issues/4833
-  [i915#4860]: https://gitlab.freedesktop.org/drm/intel/issues/4860
-  [i915#5176]: https://gitlab.freedesktop.org/drm/intel/issues/5176
-  [i915#5354]: https://gitlab.freedesktop.org/drm/intel/issues/5354
-  [i915#5784]: https://gitlab.freedesktop.org/drm/intel/issues/5784
-  [i915#6095]: https://gitlab.freedesktop.org/drm/intel/issues/6095
-  [i915#6268]: https://gitlab.freedesktop.org/drm/intel/issues/6268
-  [i915#658]: https://gitlab.freedesktop.org/drm/intel/issues/658
-  [i915#7173]: https://gitlab.freedesktop.org/drm/intel/issues/7173
-  [i915#7443]: https://gitlab.freedesktop.org/drm/intel/issues/7443
-  [i915#7461]: https://gitlab.freedesktop.org/drm/intel/issues/7461
-  [i915#7742]: https://gitlab.freedesktop.org/drm/intel/issues/7742
-  [i915#7828]: https://gitlab.freedesktop.org/drm/intel/issues/7828
-  [i915#8102]: https://gitlab.freedesktop.org/drm/intel/issues/8102
-  [i915#8234]: https://gitlab.freedesktop.org/drm/intel/issues/8234
-  [i915#8381]: https://gitlab.freedesktop.org/drm/intel/issues/8381
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_13071 -> Patchwork_116995v3
-
-  CI-20190529: 20190529
-  CI_DRM_13071: b9458e7075652669ec0e04abe039a5ed001701fe @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7273: f40ef4b058466219968b7792d22ff0648b82396b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_116995v3: b9458e7075652669ec0e04abe039a5ed001701fe @ git://anongit.freedesktop.org/gfx-ci/linux
-  piglit_4509: fdc5a4ca11124ab8413c7988896eec4c97336694 @ git://anongit.freedesktop.org/piglit
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/index.html
-
---===============8606664363827784583==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Hugepage manager and test for MTL (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/116995/">https://patchwork.freedesktop.org/series/116995/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_13071_full -&gt; Patchwork_116995v3_full</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<h2>Participating hosts (7 -&gt; 7)</h2>
-<p>No changes in participating hosts</p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_116995v3_full:</p>
-<h3>IGT changes</h3>
-<h4>Suppressed</h4>
-<p>The following results come from untrusted machines, tests, or statuses.<br />
-  They do not affect the overall result.</p>
-<ul>
-<li>igt@gem_barrier_race@remote-request@rcs0:<ul>
-<li>{shard-tglu}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-tglu-10/igt@gem_barrier_race@remote-request@rcs0.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-tglu-10/igt@gem_barrier_race@remote-request@rcs0.html">ABORT</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_116995v3_full that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_exec_fair@basic-pace-solo@rcs0:</p>
-<ul>
-<li>shard-apl:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-apl2/igt@gem_exec_fair@basic-pace-solo@rcs0.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-apl7/igt@gem_exec_fair@basic-pace-solo@rcs0.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2842">i915#2842</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>shard-apl:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-apl4/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_big_fb@4-tiled-max-hw-stride-32bpp-rotate-180-hflip-async-flip:</p>
-<ul>
-<li>shard-apl:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-apl4/igt@kms_big_fb@4-tiled-max-hw-stride-32bpp-rotate-180-hflip-async-flip.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +25 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cdclk@mode-transition:</p>
-<ul>
-<li>shard-glk:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-glk8/igt@kms_cdclk@mode-transition.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +6 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_content_protection@atomic@pipe-a-dp-1:</p>
-<ul>
-<li>shard-apl:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-apl4/igt@kms_content_protection@atomic@pipe-a-dp-1.html">TIMEOUT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7173">i915#7173</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions:</p>
-<ul>
-<li>shard-apl:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-apl7/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-apl6/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2346">i915#2346</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_plane_scaling@plane-upscale-with-modifiers-factor-0-25@pipe-a-vga-1:</p>
-<ul>
-<li>shard-snb:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-snb6/igt@kms_plane_scaling@plane-upscale-with-modifiers-factor-0-25@pipe-a-vga-1.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +37 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr2_sf@overlay-plane-move-continuous-sf:</p>
-<ul>
-<li>shard-glk:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-glk8/igt@kms_psr2_sf@overlay-plane-move-continuous-sf.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/658">i915#658</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@drm_fdinfo@idle@rcs0:</p>
-<ul>
-<li>{shard-rkl}:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-rkl-7/igt@drm_fdinfo@idle@rcs0.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7742">i915#7742</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-rkl-7/igt@drm_fdinfo@idle@rcs0.html">PASS</a> +1 similar issue</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_barrier_race@remote-request@rcs0:</p>
-<ul>
-<li>{shard-dg1}:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-dg1-16/igt@gem_barrier_race@remote-request@rcs0.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7461">i915#7461</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8234">i915#8234</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-dg1-12/igt@gem_barrier_race@remote-request@rcs0.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@gem_ctx_exec@basic-nohangcheck:</p>
-<ul>
-<li>{shard-tglu}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-tglu-5/igt@gem_ctx_exec@basic-nohangcheck.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6268">i915#6268</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-tglu-5/igt@gem_ctx_exec@basic-nohangcheck.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@gem_eio@hibernate:</p>
-<ul>
-<li>shard-apl:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-apl3/igt@gem_eio@hibernate.html">ABORT</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-apl4/igt@gem_eio@hibernate.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@gem_eio@reset-stress:</p>
-<ul>
-<li>{shard-dg1}:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-dg1-12/igt@gem_eio@reset-stress.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5784">i915#5784</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-dg1-15/igt@gem_eio@reset-stress.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@gem_exec_fair@basic-pace@rcs0:</p>
-<ul>
-<li>{shard-rkl}:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-rkl-7/igt@gem_exec_fair@basic-pace@rcs0.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2842">i915#2842</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-rkl-7/igt@gem_exec_fair@basic-pace@rcs0.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_pm_dc@dc6-dpms:</p>
-<ul>
-<li>{shard-tglu}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-tglu-8/igt@i915_pm_dc@dc6-dpms.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3989">i915#3989</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/454">i915#454</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-tglu-4/igt@i915_pm_dc@dc6-dpms.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_pm_rc6_residency@rc6-idle@vcs0:</p>
-<ul>
-<li>{shard-dg1}:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-dg1-14/igt@i915_pm_rc6_residency@rc6-idle@vcs0.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3591">i915#3591</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-dg1-16/igt@i915_pm_rc6_residency@rc6-idle@vcs0.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size:</p>
-<ul>
-<li>
-<p>shard-apl:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-apl2/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2346">i915#2346</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-apl1/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size.html">PASS</a></p>
-</li>
-<li>
-<p>shard-glk:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-glk5/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2346">i915#2346</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-glk6/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions-varying-size.html">PASS</a></p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_plane@pixel-format@pipe-a-planes:</p>
-<ul>
-<li>shard-glk:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13071/shard-glk9/igt@kms_plane@pixel-format@pipe-a-planes.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1623">i915#1623</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_116995v3/shard-glk1/igt@kms_plane@pixel-format@pipe-a-planes.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_13071 -&gt; Patchwork_116995v3</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_13071: b9458e7075652669ec0e04abe039a5ed001701fe @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7273: f40ef4b058466219968b7792d22ff0648b82396b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_116995v3: b9458e7075652669ec0e04abe039a5ed001701fe @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  piglit_4509: fdc5a4ca11124ab8413c7988896eec4c97336694 @ git://anongit.freedesktop.org/piglit</p>
-
-</body>
-</html>
-
---===============8606664363827784583==--
