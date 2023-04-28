@@ -4,48 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D164DC77B73
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 02:35:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A4FFC77B61
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 02:35:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 604F310EC3B;
-	Fri, 28 Apr 2023 02:34:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15C4A10EC3E;
+	Fri, 28 Apr 2023 02:34:54 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC33F10EC27;
- Fri, 28 Apr 2023 02:34:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 331E510E376;
+ Fri, 28 Apr 2023 02:34:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682649278; x=1714185278;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=dUyyu8pmFBbWpj+pEuFHpB7A16dEuG/eMJujD38nygM=;
- b=MZb99OyMcU5cLzG8TK6QFEtQEBnovYc8trNiktmonKorZ/cF8FN91wmd
- pkVXlCtKQi6N+d7PFSymNthwudBBQ0Z92lr2ZJuQGvjxqG4GKKlc6YLIC
- NPBv8uEgRftR5eUp4JWFa00HJeV3OYZngIP+858Y91tcPx5U4HGC2AXcg
- 1Zq5InaszzS3ZVemzmCghLmKr3+Cp86u51W7AiQOOLg/gnTm8L8Lz5Dq1
- P1VgPF3DJEt7DZ56FVO66iDA4fw57e8CsFCEZqbFPvAJWFCSERZ2Mp75F
- UkFRK2gxchwQNYx0sLwckhfH+mGNUnl38taVWQXAF6/sQMfdQkJJ92qys w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="346386514"
-X-IronPort-AV: E=Sophos;i="5.99,233,1677571200"; d="scan'208";a="346386514"
+ t=1682649272; x=1714185272;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=APTBwW67xPKRM4UWym3+06BNzB/35AJFUnFliiIlvvc=;
+ b=SVZf1/tOSuH8TJKW7Bca9x5hmIKgPkew8WU94nksasQ/YWAFC6N/w77u
+ yxiLokpajSXHO+cTLj8oHubzlz2sPvzQkRZ2ff7EKjgRPoLTnSZ9O07s/
+ RcckYz8yahw82qMGD3Fv8oPOrde/YbC/M+J+7YnnWG79C9pE0bUiuMtnx
+ m7cEJP+jleNQfQ+i64eydEtsSy1AT5c7mPHrK0hAJZSqFr9i90sV5Gmep
+ p1D07yTy0zzS/4DnLnLvhTbDIoF7Mt+ldkbt3CZPZhIp8tmoAm8keNc5n
+ Yg1EwFuHRN6tM3xcEB2n/U0AgOuoXvSh59VYp8M1bS0D6cp3gFBGJc+8A w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="346386477"
+X-IronPort-AV: E=Sophos;i="5.99,233,1677571200"; d="scan'208";a="346386477"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Apr 2023 19:34:38 -0700
+ 27 Apr 2023 19:34:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="644937249"
-X-IronPort-AV: E=Sophos;i="5.99,233,1677571200"; d="scan'208";a="644937249"
+X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="644937168"
+X-IronPort-AV: E=Sophos;i="5.99,233,1677571200"; d="scan'208";a="644937168"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Apr 2023 19:34:38 -0700
+ 27 Apr 2023 19:34:26 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 27 Apr 2023 19:34:15 -0700
-Message-Id: <20230428023416.4051910-8-daniele.ceraolospurio@intel.com>
+Date: Thu, 27 Apr 2023 19:34:08 -0700
+Message-Id: <20230428023416.4051910-1-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230428023416.4051910-1-daniele.ceraolospurio@intel.com>
-References: <20230428023416.4051910-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 7/8] drm/i915/mtl/huc: Use the media gt for the
- HuC getparam
+Subject: [Intel-gfx] [PATCH 0/8] drm/i915: HuC loading and authentication
+ for MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,38 +56,97 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On MTL, for obvious reasons, HuC is only available on the media tile.
-We already disable SW support for HuC on the root gt due to the
-absence of VCS engines, but we also need to update the getparam to point
-to the HuC struct in the media GT.
+The HuC loading and authentication flow is once again changing and a new
+"clear-media only" authentication step is introduced. The flow is as
+follows:
 
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: John Harrison <John.C.Harrison@Intel.com>
----
- drivers/gpu/drm/i915/i915_getparam.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+1) The HuC is loaded via DMA - same as all non-GSC HuC binaries.
 
-diff --git a/drivers/gpu/drm/i915/i915_getparam.c b/drivers/gpu/drm/i915/i915_getparam.c
-index 2238e096c957..7aa47550e4f2 100644
---- a/drivers/gpu/drm/i915/i915_getparam.c
-+++ b/drivers/gpu/drm/i915/i915_getparam.c
-@@ -98,7 +98,11 @@ int i915_getparam_ioctl(struct drm_device *dev, void *data,
- 		value = sseu->min_eu_in_pool;
- 		break;
- 	case I915_PARAM_HUC_STATUS:
--		value = intel_huc_check_status(&to_gt(i915)->uc.huc);
-+		/* On platform with a media GT, the HuC is on that GT */
-+		if (i915->media_gt)
-+			value = intel_huc_check_status(&i915->media_gt->uc.huc);
-+		else
-+			value = intel_huc_check_status(&to_gt(i915)->uc.huc);
- 		if (value < 0)
- 			return value;
- 		break;
+2) The HuC is authenticated by the GuC - this is the same step as
+performed for all non-GSC HuC binaries and re-uses the same code, but
+it is now resulting in a partial authentication that only allows
+clear-media workloads.
+
+3) The HuC is fully authenticated for all workloads by the GSC - this
+is done via a new PXP command, submitted via the GSCCS.
+
+The advantage of this new flow is that we can start processing
+clear-media workloads without having to wait for the GSC to be ready,
+which can take several seconds.
+
+As part of this change, the HuC status getparam has been updated with a
+new value to indicate a partial authentication. Note tha the media
+driver is checking for value > 0 for clear media workloads, so no
+changes are required in userspace for that to work.
+
+The SW proxy series [1] has been included, squashed in a single patch,
+as some of some of the patches in this series depend on it. This is not
+a functional dependencies, the patches just touch the same code; the
+proxy patches are planned to be merged first, so it is easier to base
+the new patches on top of it to avoid having to rebase them later.
+
+[1] https://patchwork.freedesktop.org/series/115806/
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
+Cc: Tony Ye <tony.ye@intel.com>
+
+Daniele Ceraolo Spurio (8):
+  DO NOT REVIEW: drm/i915: Add support for MTL GSC SW Proxy
+  drm/i915/uc: perma-pin firmwares
+  drm/i915/huc: Parse the GSC-enabled HuC binary
+  drm/i915/huc: Load GSC-enabled HuC via DMA xfer if the fuse says so
+  drm/i915/huc: differentiate the 2 steps of the MTL HuC auth flow
+  drm/i915/mtl/huc: auth HuC via GSC
+  drm/i915/mtl/huc: Use the media gt for the HuC getparam
+  drm/i915/huc: define HuC FW version for MTL
+
+ drivers/gpu/drm/i915/Makefile                 |   1 +
+ drivers/gpu/drm/i915/gt/intel_ggtt.c          |   3 +
+ drivers/gpu/drm/i915/gt/intel_gt_irq.c        |  22 +-
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h       |   3 +
+ .../drm/i915/gt/uc/intel_gsc_meu_headers.h    |  74 +++
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_proxy.c  | 424 ++++++++++++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_proxy.h  |  18 +
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c     |  89 +++-
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h     |  17 +-
+ .../i915/gt/uc/intel_gsc_uc_heci_cmd_submit.c |   2 +-
+ .../i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h |   1 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c        |   2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_huc.c        | 182 +++++---
+ drivers/gpu/drm/i915/gt/uc/intel_huc.h        |  26 +-
+ drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c     | 214 ++++++++-
+ drivers/gpu/drm/i915/gt/uc/intel_huc_fw.h     |   6 +-
+ drivers/gpu/drm/i915/gt/uc/intel_huc_print.h  |  21 +
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  10 +-
+ drivers/gpu/drm/i915/gt/uc/intel_uc.h         |   2 +
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c      | 120 ++---
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h      |   9 +-
+ drivers/gpu/drm/i915/i915_getparam.c          |   6 +-
+ drivers/gpu/drm/i915/i915_reg.h               |   3 +
+ .../drm/i915/pxp/intel_pxp_cmd_interface_43.h |  14 +-
+ drivers/gpu/drm/i915/pxp/intel_pxp_huc.c      |   2 +-
+ drivers/misc/mei/Kconfig                      |   2 +-
+ drivers/misc/mei/Makefile                     |   1 +
+ drivers/misc/mei/gsc_proxy/Kconfig            |  14 +
+ drivers/misc/mei/gsc_proxy/Makefile           |   7 +
+ drivers/misc/mei/gsc_proxy/mei_gsc_proxy.c    | 208 +++++++++
+ include/drm/i915_component.h                  |   3 +-
+ include/drm/i915_gsc_proxy_mei_interface.h    |  53 +++
+ include/uapi/drm/i915_drm.h                   |   3 +-
+ 33 files changed, 1428 insertions(+), 134 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_meu_headers.h
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_proxy.c
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_proxy.h
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_huc_print.h
+ create mode 100644 drivers/misc/mei/gsc_proxy/Kconfig
+ create mode 100644 drivers/misc/mei/gsc_proxy/Makefile
+ create mode 100644 drivers/misc/mei/gsc_proxy/mei_gsc_proxy.c
+ create mode 100644 include/drm/i915_gsc_proxy_mei_interface.h
+
 -- 
 2.40.0
 
