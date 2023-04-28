@@ -4,49 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0509FC77B60
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 08:15:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D4A9C77B61
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 08:15:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2449B10EC80;
-	Fri, 28 Apr 2023 08:15:22 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0CE610EC66;
- Fri, 28 Apr 2023 08:15:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682669710; x=1714205710;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=/fbGcVUAgRkDxLs2w4eCmY9c8d+f/M9VsWSm5d15y9Y=;
- b=ZAeijC6jKMX6FKAigZnIpLLa+fDhOG2Y3YYVmzN3Ucbsbvs9GYlxaFl2
- PRjHiihxHotEC51rwf+nAHEO8RqQ5GRWCw8TYZibTnvp+m1n0xgbhD2CF
- 6ionFfTdjcfBH9Tcw5LrhqmDMZQBGpQspGC9EGpzP6kMPRkZBKZMxUatN
- 9QJilwm96GWY0uiGhWpnWSQkYxyLVQ+C9yz80jJP54HWfJEf8xPyS8i22
- BTKUpNFMpIQIRTjDMT9IsWUrpNa3VmDtTNziq9sCLtQof0TmrY4iQ3B0V
- lWj17kREUnts9AWMpD4NHDOo5I6srJ/pZUSXHckohxiax8JFZWxJmpvxf g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="328011805"
-X-IronPort-AV: E=Sophos;i="5.99,234,1677571200"; d="scan'208";a="328011805"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2023 01:15:10 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="694726772"
-X-IronPort-AV: E=Sophos;i="5.99,234,1677571200"; d="scan'208";a="694726772"
-Received: from ksathish-mobl.ger.corp.intel.com (HELO localhost.localdomain)
- ([10.213.194.196])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2023 01:15:09 -0700
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: Intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Fri, 28 Apr 2023 09:14:57 +0100
-Message-Id: <20230428081457.857009-5-tvrtko.ursulin@linux.intel.com>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20230428081457.857009-1-tvrtko.ursulin@linux.intel.com>
-References: <20230428081457.857009-1-tvrtko.ursulin@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F53510EC7B;
+	Fri, 28 Apr 2023 08:15:58 +0000 (UTC)
+X-Greylist: delayed 537 seconds by postgrey-1.36 at gabe;
+ Fri, 28 Apr 2023 08:15:56 UTC
+Received: from ste-pvt-msa1.bahnhof.se (ste-pvt-msa1.bahnhof.se
+ [213.80.101.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DA9F10E65E;
+ Fri, 28 Apr 2023 08:15:56 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTP id A02D63F819;
+ Fri, 28 Apr 2023 10:06:56 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at bahnhof.se
+Authentication-Results: ste-pvt-msa1.bahnhof.se (amavisd-new);
+ dkim=pass (1024-bit key) header.d=shipmail.org
+Received: from ste-pvt-msa1.bahnhof.se ([127.0.0.1])
+ by localhost (ste-pvt-msa1.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id DPV-orLKB_Mt; Fri, 28 Apr 2023 10:06:55 +0200 (CEST)
+Received: by ste-pvt-msa1.bahnhof.se (Postfix) with ESMTPA id 9961B3F802;
+ Fri, 28 Apr 2023 10:06:54 +0200 (CEST)
+Received: from [192.168.0.209] (h-155-4-205-35.A357.priv.bahnhof.se
+ [155.4.205.35])
+ by mail1.shipmail.org (Postfix) with ESMTPSA id 0EB4436322E;
+ Fri, 28 Apr 2023 10:06:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
+ t=1682669214; bh=iBHmpox9n0J5Bo93oJctoF5qYJPhn8L69X0KpoEdt88=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=hGimOHXSqYe/+orzsDMfMhzPtwuElrPg2gq7+dV7Jhjaz13tfLGlNGVC6rHvDcTU3
+ ZX+1qZYuEGyuIKl5sUxxNok7MfBRVzzZKqjk+WQSPR3b5TWpJSfNBlwSjulUiut6yh
+ hx9q3jaoOrcdCNBhqxo2p8+RCeD6Ntxxr6Hs7DDg=
+Message-ID: <e1c73441-df6f-799c-eda0-8639067a0fea@shipmail.org>
+Date: Fri, 28 Apr 2023 10:06:53 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 4/4] drm/i915: Expose RPS thresholds in sysfs
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+To: fei.yang@intel.com, intel-gfx@lists.freedesktop.org
+References: <20230428054737.1765778-1-fei.yang@intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
+In-Reply-To: <20230428054737.1765778-1-fei.yang@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v3 0/5] drm/i915: Allow user to set cache at
+ BO creation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,176 +62,92 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-User feedback indicates significant performance gains are possible in
-specific games with non default RPS up/down thresholds.
+On 4/28/23 07:47, fei.yang@intel.com wrote:
+> From: Fei Yang <fei.yang@intel.com>
+>
+> The first three patches in this series are taken from
+> https://patchwork.freedesktop.org/series/116868/
+> These patches are included here because the last patch
+> has dependency on the pat_index refactor.
+>
+> This series is focusing on uAPI changes,
+> 1. end support for set caching ioctl [PATCH 4/5]
+> 2. add set_pat extension for gem_create [PATCH 5/5]
+>
+> v2: drop one patch that was merged separately
+>      341ad0e8e254 drm/i915/mtl: Add PTE encode function
+> v3: rebase on https://patchwork.freedesktop.org/series/117082/
 
-Expose these tunables via sysfs which will allow users to achieve best
-performance when running games and best power efficiency elsewhere.
+Hi, Fei.
 
-Note this patch supports non GuC based platforms only.
+Does this uAPI update also affect any discrete GPUs supported by i915, 
+And in that case, does it allow setting non-snooping PAT indices on 
+those devices?
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-References: https://gitlab.freedesktop.org/drm/intel/-/issues/8389
----
- drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c | 104 ++++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_rps.c         |   7 +-
- 2 files changed, 110 insertions(+), 1 deletion(-)
+If so, since the uAPI for discrete GPU devices doesn't allow incoherency 
+between GPU and CPU (apart from write-combining buffering), the correct 
+CPU caching mode matching the PAT index needs to be selected for the 
+buffer object in i915_ttm_select_tt_caching().
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-index 28f27091cd3b..df1f9ef08475 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-@@ -671,6 +671,76 @@ static const struct attribute *media_perf_power_attrs[] = {
- 	NULL
- };
- 
-+static ssize_t
-+rps_up_threshold_pct_show(struct kobject *kobj, struct kobj_attribute *attr,
-+			  char *buf)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(kobj, attr->attr.name);
-+	struct intel_rps *rps = &gt->rps;
-+
-+	return sysfs_emit(buf, "%u\n", intel_rps_get_up_threshold(rps));
-+}
-+
-+static ssize_t
-+rps_up_threshold_pct_store(struct kobject *kobj, struct kobj_attribute *attr,
-+			   const char *buf, size_t count)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(kobj, attr->attr.name);
-+	struct intel_rps *rps = &gt->rps;
-+	int ret;
-+	u8 val;
-+
-+	ret = kstrtou8(buf, 10, &val);
-+	if (ret)
-+		return ret;
-+
-+	ret = intel_rps_set_up_threshold(rps, val);
-+
-+	return ret == 0 ? count : ret;
-+}
-+
-+static struct kobj_attribute rps_up_threshold_pct =
-+__ATTR(rps_up_threshold_pct, 0664,
-+       rps_up_threshold_pct_show, rps_up_threshold_pct_store);
-+
-+static ssize_t
-+rps_down_threshold_pct_show(struct kobject *kobj, struct kobj_attribute *attr,
-+			    char *buf)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(kobj, attr->attr.name);
-+	struct intel_rps *rps = &gt->rps;
-+
-+	return sysfs_emit(buf, "%u\n", intel_rps_get_down_threshold(rps));
-+}
-+
-+static ssize_t
-+rps_down_threshold_pct_store(struct kobject *kobj, struct kobj_attribute *attr,
-+			     const char *buf, size_t count)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(kobj, attr->attr.name);
-+	struct intel_rps *rps = &gt->rps;
-+	int ret;
-+	u8 val;
-+
-+	ret = kstrtou8(buf, 10, &val);
-+	if (ret)
-+		return ret;
-+
-+	ret = intel_rps_set_down_threshold(rps, val);
-+
-+	return ret == 0 ? count : ret;
-+}
-+
-+static struct kobj_attribute rps_down_threshold_pct =
-+__ATTR(rps_down_threshold_pct, 0664,
-+       rps_down_threshold_pct_show, rps_down_threshold_pct_store);
-+
-+static const struct attribute * const gen6_gt_rps_attrs[] = {
-+	&rps_up_threshold_pct.attr,
-+	&rps_down_threshold_pct.attr,
-+	NULL
-+};
-+
- static ssize_t
- default_min_freq_mhz_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
- {
-@@ -693,9 +763,37 @@ default_max_freq_mhz_show(struct kobject *kobj, struct kobj_attribute *attr, cha
- static struct kobj_attribute default_max_freq_mhz =
- __ATTR(rps_max_freq_mhz, 0444, default_max_freq_mhz_show, NULL);
- 
-+static ssize_t
-+default_rps_up_threshold_pct_show(struct kobject *kobj,
-+				  struct kobj_attribute *attr,
-+				  char *buf)
-+{
-+	struct intel_gt *gt = kobj_to_gt(kobj->parent);
-+
-+	return sysfs_emit(buf, "%u\n", gt->defaults.rps_up_threshold);
-+}
-+
-+static struct kobj_attribute default_rps_up_threshold_pct =
-+__ATTR(rps_up_threshold_pct, 0444, default_rps_up_threshold_pct_show, NULL);
-+
-+static ssize_t
-+default_rps_down_threshold_pct_show(struct kobject *kobj,
-+				    struct kobj_attribute *attr,
-+				    char *buf)
-+{
-+	struct intel_gt *gt = kobj_to_gt(kobj->parent);
-+
-+	return sysfs_emit(buf, "%u\n", gt->defaults.rps_down_threshold);
-+}
-+
-+static struct kobj_attribute default_rps_down_threshold_pct =
-+__ATTR(rps_down_threshold_pct, 0444, default_rps_down_threshold_pct_show, NULL);
-+
- static const struct attribute * const rps_defaults_attrs[] = {
- 	&default_min_freq_mhz.attr,
- 	&default_max_freq_mhz.attr,
-+	&default_rps_up_threshold_pct.attr,
-+	&default_rps_down_threshold_pct.attr,
- 	NULL
- };
- 
-@@ -723,6 +821,12 @@ static int intel_sysfs_rps_init(struct intel_gt *gt, struct kobject *kobj)
- 	if (IS_VALLEYVIEW(gt->i915) || IS_CHERRYVIEW(gt->i915))
- 		ret = sysfs_create_file(kobj, vlv_attr);
- 
-+	if (is_object_gt(kobj) && !intel_uc_uses_guc_slpc(&gt->uc)) {
-+		ret = sysfs_create_files(kobj, gen6_gt_rps_attrs);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	return ret;
- }
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
-index a5a7315f5ace..f790e81546ff 100644
---- a/drivers/gpu/drm/i915/gt/intel_rps.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rps.c
-@@ -2588,7 +2588,12 @@ static int rps_set_threshold(struct intel_rps *rps, u8 *threshold, u8 val)
- 	ret = mutex_lock_interruptible(&rps->lock);
- 	if (ret)
- 		return ret;
--	*threshold = val;
-+	if (*threshold != val) {
-+		*threshold = val;
-+		intel_rps_set(rps, clamp(rps->cur_freq,
-+					 rps->min_freq_softlimit,
-+					 rps->max_freq_softlimit));
-+	}
- 	mutex_unlock(&rps->lock);
- 
- 	return 0;
--- 
-2.37.2
+Thanks,
+Thomas
 
+>
+> Fei Yang (5):
+>    drm/i915: preparation for using PAT index
+>    drm/i915: use pat_index instead of cache_level
+>    drm/i915: make sure correct pte encode is used
+>    drm/i915/mtl: end support for set caching ioctl
+>    drm/i915: Allow user to set cache at BO creation
+>
+>   drivers/gpu/drm/i915/display/intel_dpt.c      | 12 +--
+>   drivers/gpu/drm/i915/gem/i915_gem_create.c    | 36 +++++++++
+>   drivers/gpu/drm/i915/gem/i915_gem_domain.c    | 46 ++++++-----
+>   .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 10 ++-
+>   drivers/gpu/drm/i915/gem/i915_gem_mman.c      |  3 +-
+>   drivers/gpu/drm/i915/gem/i915_gem_object.c    | 67 +++++++++++++++-
+>   drivers/gpu/drm/i915/gem/i915_gem_object.h    |  8 ++
+>   .../gpu/drm/i915/gem/i915_gem_object_types.h  | 26 +++++-
+>   drivers/gpu/drm/i915/gem/i915_gem_shmem.c     |  9 ++-
+>   drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |  2 -
+>   drivers/gpu/drm/i915/gem/i915_gem_stolen.c    |  4 +-
+>   drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  | 16 ++--
+>   .../gpu/drm/i915/gem/selftests/huge_pages.c   |  2 +-
+>   .../drm/i915/gem/selftests/i915_gem_migrate.c |  2 +-
+>   .../drm/i915/gem/selftests/i915_gem_mman.c    |  2 +-
+>   drivers/gpu/drm/i915/gt/gen6_ppgtt.c          | 10 ++-
+>   drivers/gpu/drm/i915/gt/gen8_ppgtt.c          | 73 +++++++++--------
+>   drivers/gpu/drm/i915/gt/gen8_ppgtt.h          |  3 +-
+>   drivers/gpu/drm/i915/gt/intel_ggtt.c          | 76 +++++++++---------
+>   drivers/gpu/drm/i915/gt/intel_gtt.h           | 20 +++--
+>   drivers/gpu/drm/i915/gt/intel_migrate.c       | 47 ++++++-----
+>   drivers/gpu/drm/i915/gt/intel_migrate.h       | 13 ++-
+>   drivers/gpu/drm/i915/gt/intel_ppgtt.c         |  6 +-
+>   drivers/gpu/drm/i915/gt/selftest_migrate.c    | 47 +++++------
+>   drivers/gpu/drm/i915/gt/selftest_reset.c      |  8 +-
+>   drivers/gpu/drm/i915/gt/selftest_timeline.c   |  2 +-
+>   drivers/gpu/drm/i915/gt/selftest_tlb.c        |  4 +-
+>   drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c      | 10 ++-
+>   drivers/gpu/drm/i915/i915_debugfs.c           | 55 ++++++++++---
+>   drivers/gpu/drm/i915/i915_gem.c               | 16 +++-
+>   drivers/gpu/drm/i915/i915_gpu_error.c         |  8 +-
+>   drivers/gpu/drm/i915/i915_pci.c               | 79 ++++++++++++++++---
+>   drivers/gpu/drm/i915/i915_vma.c               | 16 ++--
+>   drivers/gpu/drm/i915/i915_vma.h               |  2 +-
+>   drivers/gpu/drm/i915/i915_vma_types.h         |  2 -
+>   drivers/gpu/drm/i915/intel_device_info.h      |  5 ++
+>   drivers/gpu/drm/i915/selftests/i915_gem.c     |  5 +-
+>   .../gpu/drm/i915/selftests/i915_gem_evict.c   |  4 +-
+>   drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 15 ++--
+>   .../drm/i915/selftests/intel_memory_region.c  |  4 +-
+>   .../gpu/drm/i915/selftests/mock_gem_device.c  |  9 +++
+>   drivers/gpu/drm/i915/selftests/mock_gtt.c     |  8 +-
+>   include/uapi/drm/i915_drm.h                   | 36 +++++++++
+>   tools/include/uapi/drm/i915_drm.h             | 36 +++++++++
+>   44 files changed, 621 insertions(+), 243 deletions(-)
+>
