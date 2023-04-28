@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60C03C77B61
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 18:58:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B9A9C77B7E
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 18:58:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 454A610EDB7;
-	Fri, 28 Apr 2023 18:58:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CCC710EDB5;
+	Fri, 28 Apr 2023 18:58:30 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE94D10ED9D;
- Fri, 28 Apr 2023 18:58:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58C9010EDAE;
+ Fri, 28 Apr 2023 18:58:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682708304; x=1714244304;
+ t=1682708307; x=1714244307;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=0i6zCiwV7gYRElflDJRaQetBfaJujnQwz8vXtOQP3/g=;
- b=JvZwd3H2RNeoz3y6bNlcwYq+mSCMhuHyNeA/2NeYZZCVK4zKAE0qSA7H
- X7tCKfrqRfgvNMkS5VbvnIaGwQtDGAiwfVVANobOiN3VWDqlCs7eHAiIp
- 4N2mcRN3Wm99437Al4Zc1l5msHvmFnI0Goma2HpoRuS3rVmGUbnz4mOOT
- 6X/qSvwe+JOk4Zy0yKk/vuZyE/IEQOc1JzHmj/BgdxoTVC6PhrSyrvD2h
- r/5Ex1VRpSgVqSugNVMU00oX7ltSteZpwEYw7LjtGf2QKemGb8hrlHmzL
- YuS/eAstDvJE1NkbGbjq/7KTXzfJ7o5z9rtvOdcbooNPRpP/U4FfGssOw A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10694"; a="350747157"
-X-IronPort-AV: E=Sophos;i="5.99,235,1677571200"; d="scan'208";a="350747157"
+ bh=YtJD7ZfMWiIn0x/vN3tifyOnTldu9hXsM1lCyNsmu2c=;
+ b=YCH/fjyJgiumCemYwg7YIsPnfpH2MzDLj3wYmjm94HruAb/1x5e8qp2S
+ 5zb9VDDQtJoZjBJvmywoVtT91ecwSWfyfVGOwrnDtTgmAPD9J4shNyDZS
+ XsRLwar+N32ElNaCUkZzcC+r9NhIAqjcbS1GoaIeeKlvpQ1cvUmgTDv88
+ SrmOghux0CQPQy0IaztEF26nFY+6wniw8tTe9xVRN/pYTN7XxqG+vsrp4
+ 6i+dc/ICOY7YjR7NZx31rmC7HeRlh4/bPex/j1LTAFzns136DYJ/bk+PJ
+ 4WslKLJmZ9QQhz+OCC//WIhajhheK24vdz8TME//1rxGMJ14m7zKp+I3J Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10694"; a="350747165"
+X-IronPort-AV: E=Sophos;i="5.99,235,1677571200"; d="scan'208";a="350747165"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2023 11:58:23 -0700
+ 28 Apr 2023 11:58:27 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10694"; a="645254583"
-X-IronPort-AV: E=Sophos;i="5.99,235,1677571200"; d="scan'208";a="645254583"
+X-IronPort-AV: E=McAfee;i="6600,9927,10694"; a="645254595"
+X-IronPort-AV: E=Sophos;i="5.99,235,1677571200"; d="scan'208";a="645254595"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2023 11:58:23 -0700
+ 28 Apr 2023 11:58:25 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 28 Apr 2023 11:58:04 -0700
-Message-Id: <20230428185810.4127234-3-daniele.ceraolospurio@intel.com>
+Date: Fri, 28 Apr 2023 11:58:06 -0700
+Message-Id: <20230428185810.4127234-5-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230428185810.4127234-1-daniele.ceraolospurio@intel.com>
 References: <20230428185810.4127234-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 2/8] drm/i915/uc: perma-pin firmwares
+Subject: [Intel-gfx] [PATCH v2 4/8] drm/i915/huc: Load GSC-enabled HuC via
+ DMA xfer if the fuse says so
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,274 +63,188 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that each FW has its own reserved area, we can keep them always
-pinned and skip the pin/unpin dance on reset. This will make things
-easier for the 2-step HuC authentication, which requires the FW to be
-pinned in GGTT after the xfer is completed.
-Given that we use dummy vmas for the pinning, we do need to explicitly
-re-pin on resume because the automated helper won't cover us.
+In the previous patch we extracted the offset of the legacy-style HuC
+binary located within the GSC-enabled blob, so now we can use that to
+load the HuC via DMA if the fuse is set that way.
+Note that we now need to differentiate between "GSC-enabled binary" and
+"loaded by GSC", so the former case has been renamed to "MEU binary" for
+clarity, while the latter is now based on the fuse instead of the binary
+format. This way, all the legacy load paths are automatically taken
+(including the auth by GuC) without having to implement further code
+changes.
 
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_ggtt.c      |  3 ++
- drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c |  7 ++++-
- drivers/gpu/drm/i915/gt/uc/intel_guc.c    |  2 +-
- drivers/gpu/drm/i915/gt/uc/intel_huc.c    |  2 +-
- drivers/gpu/drm/i915/gt/uc/intel_uc.c     |  8 +++++
- drivers/gpu/drm/i915/gt/uc/intel_uc.h     |  2 ++
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c  | 36 ++++++++++++++++++-----
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h  |  5 +++-
- 8 files changed, 53 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_huc.c    | 27 ++++++++++++++---------
+ drivers/gpu/drm/i915/gt/uc/intel_huc.h    |  4 +++-
+ drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c |  2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c  | 14 ++++++------
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h  |  2 +-
+ 5 files changed, 29 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-index 20915edc8bd9..ab71ed11de79 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-@@ -1322,6 +1322,9 @@ void i915_ggtt_resume(struct i915_ggtt *ggtt)
- 		ggtt->vm.scratch_range(&ggtt->vm, ggtt->error_capture.start,
- 				       ggtt->error_capture.size);
- 
-+	list_for_each_entry(gt, &ggtt->gt_list, ggtt_link)
-+		intel_uc_resume_mappings(&gt->uc);
-+
- 	ggtt->invalidate(ggtt);
- 
- 	if (flush)
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c
-index 64bff01026e8..af542e3cb3e9 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c
-@@ -80,7 +80,12 @@ void intel_gsc_uc_init_early(struct intel_gsc_uc *gsc)
- {
- 	struct intel_gt *gt = gsc_uc_to_gt(gsc);
- 
--	intel_uc_fw_init_early(&gsc->fw, INTEL_UC_FW_TYPE_GSC);
-+	/*
-+	 * GSC FW needs to be copied to a dedicated memory allocations for
-+	 * loading (see gsc->local), so we don't need to GGTT map the FW image
-+	 * itself into GGTT.
-+	 */
-+	intel_uc_fw_init_early(&gsc->fw, INTEL_UC_FW_TYPE_GSC, false);
- 	INIT_WORK(&gsc->work, gsc_work);
- 
- 	/* we can arrive here from i915_driver_early_probe for primary
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-index c9f20385f6a0..2eb891b270ae 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-@@ -164,7 +164,7 @@ void intel_guc_init_early(struct intel_guc *guc)
- 	struct intel_gt *gt = guc_to_gt(guc);
- 	struct drm_i915_private *i915 = gt->i915;
- 
--	intel_uc_fw_init_early(&guc->fw, INTEL_UC_FW_TYPE_GUC);
-+	intel_uc_fw_init_early(&guc->fw, INTEL_UC_FW_TYPE_GUC, true);
- 	intel_guc_ct_init_early(&guc->ct);
- 	intel_guc_log_init_early(&guc->log);
- 	intel_guc_submission_init_early(guc);
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.c b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-index aefdaa62da99..9721761373fb 100644
+index 062ff914b274..c189ede4ef55 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-@@ -276,7 +276,7 @@ void intel_huc_init_early(struct intel_huc *huc)
- 	struct drm_i915_private *i915 = huc_to_gt(huc)->i915;
+@@ -298,31 +298,38 @@ void intel_huc_init_early(struct intel_huc *huc)
+ static int check_huc_loading_mode(struct intel_huc *huc)
+ {
  	struct intel_gt *gt = huc_to_gt(huc);
- 
--	intel_uc_fw_init_early(&huc->fw, INTEL_UC_FW_TYPE_HUC);
-+	intel_uc_fw_init_early(&huc->fw, INTEL_UC_FW_TYPE_HUC, true);
+-	bool fw_needs_gsc = intel_huc_is_loaded_by_gsc(huc);
+-	bool hw_uses_gsc = false;
++	bool fw_is_meu = huc->fw.is_meu_binary;
  
  	/*
- 	 * we always init the fence as already completed, even if HuC is not
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index 996168312340..b6adfda3761e 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -697,6 +697,12 @@ void intel_uc_suspend(struct intel_uc *uc)
+ 	 * The fuse for HuC load via GSC is only valid on platforms that have
+ 	 * GuC deprivilege.
+ 	 */
+ 	if (HAS_GUC_DEPRIVILEGE(gt->i915))
+-		hw_uses_gsc = intel_uncore_read(gt->uncore, GUC_SHIM_CONTROL2) &
+-			      GSC_LOADS_HUC;
++		huc->loaded_via_gsc = intel_uncore_read(gt->uncore, GUC_SHIM_CONTROL2) &
++				      GSC_LOADS_HUC;
+ 
+-	if (fw_needs_gsc != hw_uses_gsc) {
+-		huc_err(huc, "mismatch between FW (%s) and HW (%s) load modes\n",
+-			HUC_LOAD_MODE_STRING(fw_needs_gsc), HUC_LOAD_MODE_STRING(hw_uses_gsc));
++	if (huc->loaded_via_gsc && !fw_is_meu) {
++		huc_err(huc, "HW requires a MEU blob, but we found a legacy one\n");
+ 		return -ENOEXEC;
  	}
+ 
+-	/* make sure we can access the GSC via the mei driver if we need it */
++	/*
++	 * Newer meu blobs contain the old FW structure inside. If we found
++	 * that, we can use it to load the legacy way.
++	 */
++	if (!huc->loaded_via_gsc && fw_is_meu && !huc->fw.dma_start_offset) {
++		huc_err(huc," HW in legacy mode, but we have an incompatible meu blob\n");
++		return -ENOEXEC;
++	}
++
++	/* make sure we can access the GSC if we need it */
+ 	if (!(IS_ENABLED(CONFIG_INTEL_MEI_PXP) && IS_ENABLED(CONFIG_INTEL_MEI_GSC)) &&
+-	    fw_needs_gsc) {
++	    !HAS_ENGINE(gt, GSC0) && huc->loaded_via_gsc) {
+ 		huc_info(huc, "can't load due to missing MEI modules\n");
+ 		return -EIO;
+ 	}
+ 
+-	huc_dbg(huc, "loaded by GSC = %s\n", str_yes_no(fw_needs_gsc));
++	huc_dbg(huc, "loaded by GSC = %s\n", str_yes_no(huc->loaded_via_gsc));
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.h b/drivers/gpu/drm/i915/gt/uc/intel_huc.h
+index db555b3c1f56..345e1b9aa062 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_huc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.h
+@@ -39,6 +39,8 @@ struct intel_huc {
+ 		struct notifier_block nb;
+ 		enum intel_huc_delayed_load_status status;
+ 	} delayed_load;
++
++	bool loaded_via_gsc;
+ };
+ 
+ int intel_huc_sanitize(struct intel_huc *huc);
+@@ -73,7 +75,7 @@ static inline bool intel_huc_is_used(struct intel_huc *huc)
+ 
+ static inline bool intel_huc_is_loaded_by_gsc(const struct intel_huc *huc)
+ {
+-	return huc->fw.loaded_via_gsc;
++	return huc->loaded_via_gsc;
  }
  
-+static void __uc_resume_mappings(struct intel_uc *uc)
-+{
-+	intel_uc_fw_resume_mapping(&uc->guc.fw);
-+	intel_uc_fw_resume_mapping(&uc->huc.fw);
-+}
-+
- static int __uc_resume(struct intel_uc *uc, bool enable_communication)
- {
- 	struct intel_guc *guc = &uc->guc;
-@@ -764,4 +770,6 @@ static const struct intel_uc_ops uc_ops_on = {
+ static inline bool intel_huc_wait_required(struct intel_huc *huc)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c
+index f1c973e1c676..88ad2c322c4a 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c
+@@ -34,7 +34,7 @@ int intel_huc_fw_get_binary_info(struct intel_uc_fw *huc_fw, const void *data, s
+ 	size_t min_size = sizeof(*header);
+ 	int i;
  
- 	.init_hw = __uc_init_hw,
- 	.fini_hw = __uc_fini_hw,
-+
-+	.resume_mappings = __uc_resume_mappings,
- };
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.h b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
-index 5d0f1bcc381e..c2783e6e752b 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
-@@ -24,6 +24,7 @@ struct intel_uc_ops {
- 	void (*fini)(struct intel_uc *uc);
- 	int (*init_hw)(struct intel_uc *uc);
- 	void (*fini_hw)(struct intel_uc *uc);
-+	void (*resume_mappings)(struct intel_uc *uc);
- };
- 
- struct intel_uc {
-@@ -113,6 +114,7 @@ intel_uc_ops_function(init, init, int, 0);
- intel_uc_ops_function(fini, fini, void, );
- intel_uc_ops_function(init_hw, init_hw, int, 0);
- intel_uc_ops_function(fini_hw, fini_hw, void, );
-+intel_uc_ops_function(resume_mappings, resume_mappings, void, );
- #undef intel_uc_ops_function
- 
- #endif
+-	if (!huc_fw->loaded_via_gsc) {
++	if (!huc_fw->is_meu_binary) {
+ 		huc_err(huc, "Invalid FW type MEU parsing!\n");
+ 		return -EINVAL;
+ 	}
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-index 6b71b9febd74..03f0b258aea7 100644
+index da6fcfe1d80a..3338dd45e78b 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-@@ -422,12 +422,14 @@ static void __uc_fw_user_override(struct drm_i915_private *i915, struct intel_uc
-  * intel_uc_fw_init_early - initialize the uC object and select the firmware
-  * @uc_fw: uC firmware
-  * @type: type of uC
-+ * @needs_ggtt_mapping: whether the FW needs to be GGTT mapped for loading
-  *
-  * Initialize the state of our uC object and relevant tracking and select the
-  * firmware to fetch and load.
-  */
- void intel_uc_fw_init_early(struct intel_uc_fw *uc_fw,
--			    enum intel_uc_fw_type type)
-+			    enum intel_uc_fw_type type,
-+			    bool needs_ggtt_mapping)
- {
- 	struct drm_i915_private *i915 = ____uc_fw_to_gt(uc_fw, type)->i915;
+@@ -180,7 +180,7 @@ struct __packed uc_fw_blob {
+ 	u8 major;
+ 	u8 minor;
+ 	u8 patch;
+-	bool loaded_via_gsc;
++	bool is_meu_binary;
+ };
  
-@@ -440,6 +442,7 @@ void intel_uc_fw_init_early(struct intel_uc_fw *uc_fw,
- 	GEM_BUG_ON(uc_fw->file_selected.path);
+ #define UC_FW_BLOB_BASE(major_, minor_, patch_, path_) \
+@@ -189,9 +189,9 @@ struct __packed uc_fw_blob {
+ 	.patch = patch_, \
+ 	.path = path_,
  
- 	uc_fw->type = type;
-+	uc_fw->needs_ggtt_mapping = needs_ggtt_mapping;
+-#define UC_FW_BLOB_NEW(major_, minor_, patch_, gsc_, path_) \
++#define UC_FW_BLOB_NEW(major_, minor_, patch_, meu_, path_) \
+ 	{ UC_FW_BLOB_BASE(major_, minor_, patch_, path_) \
+-	  .legacy = false, .loaded_via_gsc = gsc_ }
++	  .legacy = false, .is_meu_binary = meu_ }
  
- 	if (HAS_GT_UC(i915)) {
- 		__uc_fw_auto_select(i915, uc_fw);
-@@ -699,7 +702,7 @@ static int try_firmware_load(struct intel_uc_fw *uc_fw, const struct firmware **
- 	if (err)
- 		return err;
+ #define UC_FW_BLOB_OLD(major_, minor_, patch_, path_) \
+ 	{ UC_FW_BLOB_BASE(major_, minor_, patch_, path_) \
+@@ -296,7 +296,7 @@ __uc_fw_auto_select(struct drm_i915_private *i915, struct intel_uc_fw *uc_fw)
+ 		uc_fw->file_wanted.path = blob->path;
+ 		uc_fw->file_wanted.ver.major = blob->major;
+ 		uc_fw->file_wanted.ver.minor = blob->minor;
+-		uc_fw->loaded_via_gsc = blob->loaded_via_gsc;
++		uc_fw->is_meu_binary = blob->is_meu_binary;
+ 		found = true;
+ 		break;
+ 	}
+@@ -680,7 +680,7 @@ static int check_fw_header(struct intel_gt *gt,
+ 	if (uc_fw->type == INTEL_UC_FW_TYPE_GSC)
+ 		return 0;
  
--	if ((*fw)->size > INTEL_UC_RSVD_GGTT_PER_FW) {
-+	if (uc_fw->needs_ggtt_mapping && (*fw)->size > INTEL_UC_RSVD_GGTT_PER_FW) {
- 		gt_err(gt, "%s firmware %s: size (%zuKB) exceeds max supported size (%uKB)\n",
- 		       intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
- 		       (*fw)->size / SZ_1K, INTEL_UC_RSVD_GGTT_PER_FW / SZ_1K);
-@@ -880,6 +883,9 @@ static void uc_fw_bind_ggtt(struct intel_uc_fw *uc_fw)
- 	struct i915_vma_resource *dummy = &uc_fw->dummy;
- 	u32 pte_flags = 0;
- 
-+	if (!uc_fw->needs_ggtt_mapping)
-+		return;
-+
- 	dummy->start = uc_fw_ggtt_offset(uc_fw);
- 	dummy->node_size = obj->base.size;
- 	dummy->bi.pages = obj->mm.pages;
-@@ -901,11 +907,13 @@ static void uc_fw_bind_ggtt(struct intel_uc_fw *uc_fw)
- 
- static void uc_fw_unbind_ggtt(struct intel_uc_fw *uc_fw)
- {
--	struct drm_i915_gem_object *obj = uc_fw->obj;
- 	struct i915_ggtt *ggtt = __uc_fw_to_gt(uc_fw)->ggtt;
--	u64 start = uc_fw_ggtt_offset(uc_fw);
-+	struct i915_vma_resource *dummy = &uc_fw->dummy;
-+
-+	if (!dummy->node_size)
-+		return;
- 
--	ggtt->vm.clear_range(&ggtt->vm, start, obj->base.size);
-+	ggtt->vm.clear_range(&ggtt->vm, dummy->start, dummy->node_size);
- }
- 
- static int uc_fw_xfer(struct intel_uc_fw *uc_fw, u32 dst_offset, u32 dma_flags)
-@@ -922,7 +930,7 @@ static int uc_fw_xfer(struct intel_uc_fw *uc_fw, u32 dst_offset, u32 dma_flags)
+-	if (uc_fw->loaded_via_gsc)
++	if (uc_fw->is_meu_binary)
+ 		err = check_gsc_manifest(gt, fw, uc_fw);
+ 	else
+ 		err = check_ccs_header(gt, fw, uc_fw);
+@@ -929,7 +929,7 @@ static int uc_fw_xfer(struct intel_uc_fw *uc_fw, u32 dst_offset, u32 dma_flags)
  	intel_uncore_forcewake_get(uncore, FORCEWAKE_ALL);
  
  	/* Set the source address for the uCode */
--	offset = uc_fw_ggtt_offset(uc_fw);
-+	offset = uc_fw->dummy.start;
+-	offset = uc_fw->dummy.start;
++	offset = uc_fw->dummy.start + uc_fw->dma_start_offset;
  	GEM_BUG_ON(upper_32_bits(offset) & 0xFFFF0000);
  	intel_uncore_write_fw(uncore, DMA_ADDR_0_LOW, lower_32_bits(offset));
  	intel_uncore_write_fw(uncore, DMA_ADDR_0_HIGH, upper_32_bits(offset));
-@@ -996,9 +1004,7 @@ int intel_uc_fw_upload(struct intel_uc_fw *uc_fw, u32 dst_offset, u32 dma_flags)
- 		return -ENOEXEC;
- 
- 	/* Call custom loader */
--	uc_fw_bind_ggtt(uc_fw);
- 	err = uc_fw_xfer(uc_fw, dst_offset, dma_flags);
--	uc_fw_unbind_ggtt(uc_fw);
- 	if (err)
- 		goto fail;
- 
-@@ -1102,6 +1108,8 @@ int intel_uc_fw_init(struct intel_uc_fw *uc_fw)
- 		goto out_unpin;
- 	}
- 
-+	uc_fw_bind_ggtt(uc_fw);
-+
- 	return 0;
- 
- out_unpin:
-@@ -1112,6 +1120,7 @@ int intel_uc_fw_init(struct intel_uc_fw *uc_fw)
- 
- void intel_uc_fw_fini(struct intel_uc_fw *uc_fw)
+@@ -1168,7 +1168,7 @@ size_t intel_uc_fw_copy_rsa(struct intel_uc_fw *uc_fw, void *dst, u32 max_len)
  {
-+	uc_fw_unbind_ggtt(uc_fw);
- 	uc_fw_rsa_data_destroy(uc_fw);
- 
- 	if (i915_gem_object_has_pinned_pages(uc_fw->obj))
-@@ -1120,6 +1129,17 @@ void intel_uc_fw_fini(struct intel_uc_fw *uc_fw)
- 	intel_uc_fw_change_status(uc_fw, INTEL_UC_FIRMWARE_AVAILABLE);
- }
- 
-+void intel_uc_fw_resume_mapping(struct intel_uc_fw *uc_fw)
-+{
-+	if (!intel_uc_fw_is_available(uc_fw))
-+		return;
-+
-+	if (!i915_gem_object_has_pinned_pages(uc_fw->obj))
-+		return;
-+
-+	uc_fw_bind_ggtt(uc_fw);
-+}
-+
- /**
-  * intel_uc_fw_cleanup_fetch - cleanup uC firmware
-  * @uc_fw: uC firmware
+ 	struct intel_memory_region *mr = uc_fw->obj->mm.region;
+ 	u32 size = min_t(u32, uc_fw->rsa_size, max_len);
+-	u32 offset = sizeof(struct uc_css_header) + uc_fw->ucode_size;
++	u32 offset = uc_fw->dma_start_offset + sizeof(struct uc_css_header) + uc_fw->ucode_size;
+ 	struct sgt_iter iter;
+ 	size_t count = 0;
+ 	int idx;
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h
-index 6ba00e6b3975..26a9d6e0dc00 100644
+index 2691bb6bde48..8f2306627332 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.h
-@@ -105,6 +105,7 @@ struct intel_uc_fw {
- 	 * threaded as it done during driver load (inherently single threaded)
- 	 * or during a GT reset (mutex guarantees single threaded).
- 	 */
-+	bool needs_ggtt_mapping;
- 	struct i915_vma_resource dummy;
- 	struct i915_vma *rsa_data;
+@@ -115,7 +115,7 @@ struct intel_uc_fw {
  
-@@ -282,12 +283,14 @@ static inline u32 intel_uc_fw_get_upload_size(struct intel_uc_fw *uc_fw)
- }
+ 	u32 dma_start_offset;
  
- void intel_uc_fw_init_early(struct intel_uc_fw *uc_fw,
--			    enum intel_uc_fw_type type);
-+			    enum intel_uc_fw_type type,
-+			    bool needs_ggtt_mapping);
- int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw);
- void intel_uc_fw_cleanup_fetch(struct intel_uc_fw *uc_fw);
- int intel_uc_fw_upload(struct intel_uc_fw *uc_fw, u32 offset, u32 dma_flags);
- int intel_uc_fw_init(struct intel_uc_fw *uc_fw);
- void intel_uc_fw_fini(struct intel_uc_fw *uc_fw);
-+void intel_uc_fw_resume_mapping(struct intel_uc_fw *uc_fw);
- size_t intel_uc_fw_copy_rsa(struct intel_uc_fw *uc_fw, void *dst, u32 max_len);
- int intel_uc_fw_mark_load_failed(struct intel_uc_fw *uc_fw, int err);
- void intel_uc_fw_dump(const struct intel_uc_fw *uc_fw, struct drm_printer *p);
+-	bool loaded_via_gsc;
++	bool is_meu_binary;
+ };
+ 
+ /*
 -- 
 2.40.0
 
