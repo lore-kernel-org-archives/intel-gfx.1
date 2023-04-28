@@ -4,48 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C124AC77B61
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 12:53:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12BDCC77B7F
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 12:55:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6864510ED3B;
-	Fri, 28 Apr 2023 12:53:49 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DA1310ED3B;
- Fri, 28 Apr 2023 12:53:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5296F10ED39;
+	Fri, 28 Apr 2023 12:55:18 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CC8910ED3B
+ for <intel-gfx@lists.freedesktop.org>; Fri, 28 Apr 2023 12:55:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682686426; x=1714222426;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=U5O4Ny06a9ptqT/D21qH2jYM8IlJmI+cyOU0Pbe/WQM=;
- b=lDyAnuwQspyPPjWqE4nbaMaChjSLBGhktjtJIoLGRBDAAYD7+VInAKZE
- 9FiGGc9paWxUCuneqOxhWXcSO/REox2tAn33kUrXBYc6YdT7KpIPvE8EE
- 43TbiAoej4dltqfCYjd8Z9xJ3F0VzvqVrgpK21DijuOmb5WAGZymef9/A
- Ys0DRCG1kaSJIIZMQezTXmLmagFK0ytAP7DUwhMamaU1WRAPxOd1KjP2E
- AOO67aRzWaaOEaKALgDgtID5W3RTzgbC6ZVVW4EB2jMLYblOPVu3tYlXM
- C6BYCgNecoB81PHSEJOIa0FxVRjDmNY6f/ZwXl+U+AzDi8LJQWuKjZ2sF g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10694"; a="346507237"
-X-IronPort-AV: E=Sophos;i="5.99,234,1677571200"; d="scan'208";a="346507237"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2023 05:53:45 -0700
+ t=1682686517; x=1714222517;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Ylqk0g3xN2IIhrd0tS6F3WJrLkUuzEiSeGYXvzHI4jo=;
+ b=dYt0Pfz5EAw2U32xSwRsZsJ3uPFP/bQlo51CoCvSiIAh+Q+Fqs6GrIRj
+ PPDkbOOQWifUs6xDtI/lK+dbvCW0QDWugugnTAjMBJXU44zlnYTqrU+tL
+ 0ZiQu+sotjpaGao7kEUGnfYK+LnKwrLKM31Oh03EftayehqM6eBf4Cvd2
+ jo0AO80n+BI6UDEtCGXAH/zjEAswXfqEwnsNR0OBiaetW0FjeJ1H/4732
+ 0c9dIlcFpS5Bq+mILHNy76Rm+kkreOdaSDYDkhHrrCYdtfzBgGPOfZOWZ
+ 80Q0jVDpfLPpd+C4inCL460/ZgkGYnZG8SiF34i6shFIkrHX9i8Cq30/h Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10694"; a="413127888"
+X-IronPort-AV: E=Sophos;i="5.99,234,1677571200"; d="scan'208";a="413127888"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2023 05:55:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10694"; a="1024593659"
-X-IronPort-AV: E=Sophos;i="5.99,234,1677571200"; d="scan'208";a="1024593659"
-Received: from kdobkakr-mobl1.ger.corp.intel.com (HELO
- thellstr-mobl1.intel.com) ([10.249.254.45])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2023 05:53:43 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Date: Fri, 28 Apr 2023 14:52:32 +0200
-Message-Id: <20230428125233.228353-1-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.39.2
+X-IronPort-AV: E=McAfee;i="6600,9927,10694"; a="759646892"
+X-IronPort-AV: E=Sophos;i="5.99,234,1677571200"; d="scan'208";a="759646892"
+Received: from tejas-super-server.iind.intel.com ([10.145.169.166])
+ by fmsmga008.fm.intel.com with ESMTP; 28 Apr 2023 05:55:03 -0700
+From: Tejas Upadhyay <tejas.upadhyay@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 28 Apr 2023 18:29:51 +0530
+Message-Id: <20230428125952.4037964-2-tejas.upadhyay@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230428125952.4037964-1-tejas.upadhyay@intel.com>
+References: <20230428125952.4037964-1-tejas.upadhyay@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC PATCH] dma-buf/dma-fence: Use a successful
- read_trylock() annotation for dma_fence_begin_signalling()
+Subject: [Intel-gfx] [PATCH 1/2] drm/i915/gt: Use gt_err for GT info
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,73 +56,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>, linaro-mm-sig@lists.linaro.org,
- intel-xe@lists.freedesktop.org
+Cc: Andi Shyti <andi.shyti@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Condsider the following call sequence:
+It will be more informative regarding
+GT if we use gt_err instead.
 
-/* Upper layer */
-dma_fence_begin_signalling();
-lock(tainted_shared_lock);
-/* Driver callback */
-dma_fence_begin_signalling();
-...
-
-The driver might here use a utility that is annotated as intended for the
-dma-fence signalling critical path. Now if the upper layer isn't correctly
-annotated yet for whatever reason, resulting in
-
-/* Upper layer */
-lock(tainted_shared_lock);
-/* Driver callback */
-dma_fence_begin_signalling();
-
-We will receive a false lockdep locking order violation notification from
-dma_fence_begin_signalling(). However entering a dma-fence signalling
-critical section itself doesn't block and could not cause a deadlock.
-
-So use a successful read_trylock() annotation instead for
-dma_fence_begin_signalling(). That will make sure that the locking order
-is correctly registered in the first case, and doesn't register any
-locking order in the second case.
-
-The alternative is of course to make sure that the "Upper layer" is always
-correctly annotated. But experience shows that's not easily achievable
-in all cases.
-
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Andi Shyti <andi.shyti@intel.com>
+Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
 ---
- drivers/dma-buf/dma-fence.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_engine_pm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index f177c56269bb..17f632768ef9 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -308,8 +308,8 @@ bool dma_fence_begin_signalling(void)
- 	if (in_atomic())
- 		return true;
+diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+index 87c94314cf67..10e556a7eac4 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+@@ -5,6 +5,7 @@
  
--	/* ... and non-recursive readlock */
--	lock_acquire(&dma_fence_lockdep_map, 0, 0, 1, 1, NULL, _RET_IP_);
-+	/* ... and non-recursive successful read_trylock */
-+	lock_acquire(&dma_fence_lockdep_map, 0, 1, 1, 1, NULL, _RET_IP_);
+ #include <linux/sort.h>
  
- 	return false;
- }
-@@ -340,7 +340,7 @@ void __dma_fence_might_wait(void)
- 	lock_map_acquire(&dma_fence_lockdep_map);
- 	lock_map_release(&dma_fence_lockdep_map);
- 	if (tmp)
--		lock_acquire(&dma_fence_lockdep_map, 0, 0, 1, 1, NULL, _THIS_IP_);
-+		lock_acquire(&dma_fence_lockdep_map, 0, 1, 1, 1, NULL, _THIS_IP_);
- }
- #endif
++#include "gt/intel_gt_print.h"
+ #include "i915_selftest.h"
+ #include "intel_engine_regs.h"
+ #include "intel_gpu_commands.h"
+@@ -402,7 +403,7 @@ static int live_engine_pm(void *arg)
  
+ 			/* gt wakeref is async (deferred to workqueue) */
+ 			if (intel_gt_pm_wait_for_idle(gt)) {
+-				pr_err("GT failed to idle\n");
++				gt_err(gt, "GT failed to idle\n");
+ 				return -EINVAL;
+ 			}
+ 		}
 -- 
-2.39.2
+2.25.1
 
