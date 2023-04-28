@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A0EEC77B61
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 18:56:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54B18C7EE21
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 18:56:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7503810E16A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 982D610E17C;
 	Fri, 28 Apr 2023 18:56:34 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBFF110E16A;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9135210E138;
  Fri, 28 Apr 2023 18:56:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1682708192; x=1714244192;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=bqdgVLq7G2DwNNP1QAv/k6HtKAaaHuD3QOhl8p+gxZQ=;
- b=bv92VbPY0kSGjG86Qgu1LeV3TkdporWbEem5vwjI6gwEYkGQWrbhXnBb
- V9rLs5QWYL5YQpK/WG+PxAaVQtdRYacyRJUMzjHg1H1S+ys6GtIJYP4nt
- CEFw7iUTBuMDpAuuIdpJBnfG8+YRbyiBUvgsTl6Q33gmvMvc0jckbo7IK
- O2jRTcW1+s9YFvWVvLd3JSl0L6OOKhG3FgVzomgv9qS5iM/n3ZStz8Ddu
- GkAbODkMODybx/Hs3l9DsUySYv4b/1qlJET75+aTF07tXBuXbLltoAKt3
- TTfxYYUUgnmBnlkj40dALdbvHEnkoIPVZn7Yk2ZysWGNnxGKw3rLILG71 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10694"; a="410934519"
-X-IronPort-AV: E=Sophos;i="5.99,235,1677571200"; d="scan'208";a="410934519"
+ bh=asd6VhdnhR4YO9UanNdAwY4KAk78eCIE2tKl0/DRXUg=;
+ b=RbQa3DRtlUoDsCsuusFS2FAapvmROjnIZMI8uSlUpFNB+Mv54HQP3vEI
+ b5rVsqvmdG1rr/KmmnzOqYnIgsztN4xITe2jfrFEkvxEEkkHT1j1C2usE
+ SNao6xknMOvP/W9TSMWHSivTe8ff0zVAMrBuWMmIwgR/26jpSRbs6sFrH
+ gJEY9M3D5Fwy/XNGU/Szep6s/Ft3zDAPMgdxR97gZeZFj6GoCNL5TNGI+
+ /MKYGvG/aJYAku+5pXqSpNI0gC02/WQqepIhuui2hKj0w4MSjIXvFrpFi
+ +kxtjnHc02XbeqLvszW44LWH/+v+y4sBcM9fd4bKuGaRwAH94tK61YEPR A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10694"; a="410934516"
+X-IronPort-AV: E=Sophos;i="5.99,235,1677571200"; d="scan'208";a="410934516"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  28 Apr 2023 11:56:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10694"; a="869291590"
-X-IronPort-AV: E=Sophos;i="5.99,235,1677571200"; d="scan'208";a="869291590"
+X-IronPort-AV: E=McAfee;i="6600,9927,10694"; a="869291583"
+X-IronPort-AV: E=Sophos;i="5.99,235,1677571200"; d="scan'208";a="869291583"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
  by orsmga005.jf.intel.com with ESMTP; 28 Apr 2023 11:56:30 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Fri, 28 Apr 2023 11:56:36 -0700
-Message-Id: <20230428185636.457407-5-John.C.Harrison@Intel.com>
+Date: Fri, 28 Apr 2023 11:56:34 -0700
+Message-Id: <20230428185636.457407-3-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230428185636.457407-1-John.C.Harrison@Intel.com>
 References: <20230428185636.457407-1-John.C.Harrison@Intel.com>
@@ -45,8 +45,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 4/4] drm/i915/guc: Fix error capture for
- virtual engines
+Subject: [Intel-gfx] [PATCH v2 2/4] drm/i915/guc: Consolidate duplicated
+ capture list code
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,178 +66,183 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-GuC based register dumps in error capture logs were basically broken
-for virtual engines. This can be seen in igt@gem_exec_balancer@hang:
-  [IGT] gem_exec_balancer: starting subtest hang
-  [drm] GPU HANG: ecode 12:4:e1524110, in gem_exec_balanc [6388]
-  [drm] GT0: GUC: No register capture node found for 0x1005 / 0xFEDC311D
-  [drm] GPU HANG: ecode 12:4:00000000, in gem_exec_balanc [6388]
-  [IGT] gem_exec_balancer: exiting, ret=0
-
-The test causes a hang on both engines of a virtual engine context.
-The engine instance zero hang gets a valid error capture but the
-non-instance-zero hang does not.
-
-Fix that by scanning through the list of pending register captures
-when a hang notification for a virtual engine is received. That way,
-the hang can be assigned to the correct physical engine prior to
-starting the error capture process. So later on, when the error capture
-handler tries to find the engine register list, it looks for one on
-the correct engine.
-
-Also, sneak in a missing blank line before a comment in the node
-search code.
-
-v2: Fix null pointer deref on non-GuC platforms.
+Remove 99% duplicated steered register list code. Also, include the
+pre-Xe steered registers in the pre-Xe list generation.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Reviewed-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 31 ++++++++++++++++++
- .../gpu/drm/i915/gt/uc/intel_guc_capture.h    |  3 ++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 32 ++++++++++++++++---
- drivers/gpu/drm/i915/i915_gpu_error.c         | 11 +++++--
- 4 files changed, 70 insertions(+), 7 deletions(-)
+ .../gpu/drm/i915/gt/uc/intel_guc_capture.c    | 112 +++++-------------
+ 1 file changed, 29 insertions(+), 83 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-index 729a8fcf20dda..1def0b6467c79 100644
+index e0e793167d61b..9184d2595e4ce 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-@@ -1540,6 +1540,36 @@ void intel_guc_capture_free_node(struct intel_engine_coredump *ee)
- 	ee->guc_capture_node = NULL;
+@@ -260,11 +260,15 @@ struct __ext_steer_reg {
+ 	i915_mcr_reg_t reg;
+ };
+ 
+-static const struct __ext_steer_reg xe_extregs[] = {
++static const struct __ext_steer_reg gen8_extregs[] = {
+ 	{"GEN8_SAMPLER_INSTDONE", GEN8_SAMPLER_INSTDONE},
+ 	{"GEN8_ROW_INSTDONE", GEN8_ROW_INSTDONE}
+ };
+ 
++static const struct __ext_steer_reg xehpg_extregs[] = {
++	{"XEHPG_INSTDONE_GEOM_SVG", XEHPG_INSTDONE_GEOM_SVG}
++};
++
+ static void __fill_ext_reg(struct __guc_mmio_reg_descr *ext,
+ 			   const struct __ext_steer_reg *extlist,
+ 			   int slice_id, int subslice_id)
+@@ -295,8 +299,8 @@ __alloc_ext_regs(struct __guc_mmio_reg_descr_group *newlist,
  }
  
-+bool intel_guc_capture_is_matching_engine(struct intel_gt *gt,
-+					  struct intel_context *ce,
-+					  struct intel_engine_cs *engine)
-+{
-+	struct __guc_capture_parsed_output *n;
-+	struct intel_guc *guc;
-+
-+	if (!gt || !ce || !engine)
-+		return false;
-+
-+	guc = &gt->uc.guc;
-+	if (!guc->capture)
-+		return false;
-+
-+	/*
-+	 * Look for a matching GuC reported error capture node from
-+	 * the internal output link-list based on lrca, guc-id and engine
-+	 * identification.
-+	 */
-+	list_for_each_entry(n, &guc->capture->outlist, link) {
-+		if (n->eng_inst == GUC_ID_TO_ENGINE_INSTANCE(engine->guc_id) &&
-+		    n->eng_class == GUC_ID_TO_ENGINE_CLASS(engine->guc_id) &&
-+		    n->guc_id == ce->guc_id.id &&
-+		    (n->lrca & CTX_GTT_ADDRESS_MASK) == (ce->lrc.lrca & CTX_GTT_ADDRESS_MASK))
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- void intel_guc_capture_get_matching_node(struct intel_gt *gt,
- 					 struct intel_engine_coredump *ee,
- 					 struct intel_context *ce)
-@@ -1555,6 +1585,7 @@ void intel_guc_capture_get_matching_node(struct intel_gt *gt,
- 		return;
- 
- 	GEM_BUG_ON(ee->guc_capture_node);
-+
- 	/*
- 	 * Look for a matching GuC reported error capture node from
- 	 * the internal output link-list based on lrca, guc-id and engine
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.h
-index fbd3713c7832d..302256d45431d 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.h
-@@ -11,6 +11,7 @@
- struct drm_i915_error_state_buf;
- struct guc_gt_system_info;
- struct intel_engine_coredump;
-+struct intel_engine_cs;
- struct intel_context;
- struct intel_gt;
- struct intel_guc;
-@@ -20,6 +21,8 @@ int intel_guc_capture_print_engine_node(struct drm_i915_error_state_buf *m,
- 					const struct intel_engine_coredump *ee);
- void intel_guc_capture_get_matching_node(struct intel_gt *gt, struct intel_engine_coredump *ee,
- 					 struct intel_context *ce);
-+bool intel_guc_capture_is_matching_engine(struct intel_gt *gt, struct intel_context *ce,
-+					  struct intel_engine_cs *engine);
- void intel_guc_capture_process(struct intel_guc *guc);
- int intel_guc_capture_getlist(struct intel_guc *guc, u32 owner, u32 type, u32 classid,
- 			      void **outptr);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index ee3e8352637f2..b93fe27b4eaae 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -4697,13 +4697,37 @@ static void capture_error_state(struct intel_guc *guc,
+ static void
+-guc_capture_alloc_steered_lists_xe_lpd(struct intel_guc *guc,
+-				       const struct __guc_mmio_reg_descr_group *lists)
++guc_capture_alloc_steered_lists(struct intel_guc *guc,
++				const struct __guc_mmio_reg_descr_group *lists)
  {
  	struct intel_gt *gt = guc_to_gt(guc);
- 	struct drm_i915_private *i915 = gt->i915;
--	struct intel_engine_cs *engine = __context_to_physical_engine(ce);
- 	intel_wakeref_t wakeref;
-+	intel_engine_mask_t engine_mask;
-+
-+	if (intel_engine_is_virtual(ce->engine)) {
-+		struct intel_engine_cs *e;
-+		intel_engine_mask_t tmp, virtual_mask = ce->engine->mask;
-+
-+		engine_mask = 0;
-+		for_each_engine_masked(e, ce->engine->gt, virtual_mask, tmp) {
-+			bool match = intel_guc_capture_is_matching_engine(gt, ce, e);
-+
-+			if (match) {
-+				intel_engine_set_hung_context(e, ce);
-+				engine_mask |= e->mask;
-+				atomic_inc(&i915->gpu_error.reset_engine_count[e->uabi_class]);
-+			}
-+		}
-+
-+		if (!engine_mask) {
-+			guc_warn(guc, "No matching physical engine capture for virtual engine context 0x%04X / %s",
-+				 ce->guc_id.id, ce->engine->name);
-+			engine_mask = ~0U;
-+		}
-+	} else {
-+		intel_engine_set_hung_context(ce->engine, ce);
-+		engine_mask = ce->engine->mask;
-+		atomic_inc(&i915->gpu_error.reset_engine_count[ce->engine->uabi_class]);
-+	}
+ 	int slice, subslice, iter, i, num_steer_regs, num_tot_regs = 0;
+@@ -304,74 +308,19 @@ guc_capture_alloc_steered_lists_xe_lpd(struct intel_guc *guc,
+ 	struct __guc_mmio_reg_descr_group *extlists;
+ 	struct __guc_mmio_reg_descr *extarray;
+ 	struct sseu_dev_info *sseu;
++	bool has_xehpg_extregs;
  
--	intel_engine_set_hung_context(engine, ce);
- 	with_intel_runtime_pm(&i915->runtime_pm, wakeref)
--		i915_capture_error_state(gt, engine->mask, CORE_DUMP_FLAG_IS_GUC_CAPTURE);
--	atomic_inc(&i915->gpu_error.reset_engine_count[engine->uabi_class]);
-+		i915_capture_error_state(gt, engine_mask, CORE_DUMP_FLAG_IS_GUC_CAPTURE);
+-	/* In XE_LPD we only have steered registers for the render-class */
++	/* steered registers currently only exist for the render-class */
+ 	list = guc_capture_get_one_list(lists, GUC_CAPTURE_LIST_INDEX_PF,
+ 					GUC_CAPTURE_LIST_TYPE_ENGINE_CLASS, GUC_RENDER_CLASS);
+ 	/* skip if extlists was previously allocated */
+ 	if (!list || guc->capture->extlists)
+ 		return;
+ 
+-	num_steer_regs = ARRAY_SIZE(xe_extregs);
+-
+-	sseu = &gt->info.sseu;
+-	for_each_ss_steering(iter, gt, slice, subslice)
+-		num_tot_regs += num_steer_regs;
+-
+-	if (!num_tot_regs)
+-		return;
+-
+-	/* allocate an extra for an end marker */
+-	extlists = kcalloc(2, sizeof(struct __guc_mmio_reg_descr_group), GFP_KERNEL);
+-	if (!extlists)
+-		return;
+-
+-	if (__alloc_ext_regs(&extlists[0], list, num_tot_regs)) {
+-		kfree(extlists);
+-		return;
+-	}
+-
+-	extarray = extlists[0].extlist;
+-	for_each_ss_steering(iter, gt, slice, subslice) {
+-		for (i = 0; i < num_steer_regs; ++i) {
+-			__fill_ext_reg(extarray, &xe_extregs[i], slice, subslice);
+-			++extarray;
+-		}
+-	}
+-
+-	guc->capture->extlists = extlists;
+-}
+-
+-static const struct __ext_steer_reg xehpg_extregs[] = {
+-	{"XEHPG_INSTDONE_GEOM_SVG", XEHPG_INSTDONE_GEOM_SVG}
+-};
+-
+-static bool __has_xehpg_extregs(u32 ipver)
+-{
+-	return (ipver >= IP_VER(12, 55));
+-}
+-
+-static void
+-guc_capture_alloc_steered_lists_xe_hpg(struct intel_guc *guc,
+-				       const struct __guc_mmio_reg_descr_group *lists,
+-				       u32 ipver)
+-{
+-	struct intel_gt *gt = guc_to_gt(guc);
+-	struct sseu_dev_info *sseu;
+-	int slice, subslice, i, iter, num_steer_regs, num_tot_regs = 0;
+-	const struct __guc_mmio_reg_descr_group *list;
+-	struct __guc_mmio_reg_descr_group *extlists;
+-	struct __guc_mmio_reg_descr *extarray;
+-
+-	/* In XE_LP / HPG we only have render-class steering registers during error-capture */
+-	list = guc_capture_get_one_list(lists, GUC_CAPTURE_LIST_INDEX_PF,
+-					GUC_CAPTURE_LIST_TYPE_ENGINE_CLASS, GUC_RENDER_CLASS);
+-	/* skip if extlists was previously allocated */
+-	if (!list || guc->capture->extlists)
+-		return;
++	has_xehpg_extregs = GRAPHICS_VER_FULL(gt->i915) >= IP_VER(12, 55);
+ 
+-	num_steer_regs = ARRAY_SIZE(xe_extregs);
+-	if (__has_xehpg_extregs(ipver))
++	num_steer_regs = ARRAY_SIZE(gen8_extregs);
++	if (has_xehpg_extregs)
+ 		num_steer_regs += ARRAY_SIZE(xehpg_extregs);
+ 
+ 	sseu = &gt->info.sseu;
+@@ -393,11 +342,12 @@ guc_capture_alloc_steered_lists_xe_hpg(struct intel_guc *guc,
+ 
+ 	extarray = extlists[0].extlist;
+ 	for_each_ss_steering(iter, gt, slice, subslice) {
+-		for (i = 0; i < ARRAY_SIZE(xe_extregs); ++i) {
+-			__fill_ext_reg(extarray, &xe_extregs[i], slice, subslice);
++		for (i = 0; i < ARRAY_SIZE(gen8_extregs); ++i) {
++			__fill_ext_reg(extarray, &gen8_extregs[i], slice, subslice);
+ 			++extarray;
+ 		}
+-		if (__has_xehpg_extregs(ipver)) {
++
++		if (has_xehpg_extregs) {
+ 			for (i = 0; i < ARRAY_SIZE(xehpg_extregs); ++i) {
+ 				__fill_ext_reg(extarray, &xehpg_extregs[i], slice, subslice);
+ 				++extarray;
+@@ -413,26 +363,22 @@ static const struct __guc_mmio_reg_descr_group *
+ guc_capture_get_device_reglist(struct intel_guc *guc)
+ {
+ 	struct drm_i915_private *i915 = guc_to_gt(guc)->i915;
++	const struct __guc_mmio_reg_descr_group *lists;
+ 
+-	if (GRAPHICS_VER(i915) > 11) {
+-		/*
+-		 * For certain engine classes, there are slice and subslice
+-		 * level registers requiring steering. We allocate and populate
+-		 * these at init time based on hw config add it as an extension
+-		 * list at the end of the pre-populated render list.
+-		 */
+-		if (IS_DG2(i915))
+-			guc_capture_alloc_steered_lists_xe_hpg(guc, xe_lpd_lists, IP_VER(12, 55));
+-		else if (IS_XEHPSDV(i915))
+-			guc_capture_alloc_steered_lists_xe_hpg(guc, xe_lpd_lists, IP_VER(12, 50));
+-		else
+-			guc_capture_alloc_steered_lists_xe_lpd(guc, xe_lpd_lists);
++	if (GRAPHICS_VER(i915) >= 12)
++		lists = xe_lpd_lists;
++	else
++		lists = default_lists;
+ 
+-		return xe_lpd_lists;
+-	}
++	/*
++	 * For certain engine classes, there are slice and subslice
++	 * level registers requiring steering. We allocate and populate
++	 * these at init time based on hw config add it as an extension
++	 * list at the end of the pre-populated render list.
++	 */
++	guc_capture_alloc_steered_lists(guc, lists);
+ 
+-	/* if GuC submission is enabled on a non-POR platform, just use a common baseline */
+-	return default_lists;
++	return lists;
  }
  
- static void guc_context_replay(struct intel_context *ce)
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index f020c0086fbcd..7360046b99455 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -808,10 +808,15 @@ static void err_print_gt_engines(struct drm_i915_error_state_buf *m,
- 	for (ee = gt->engine; ee; ee = ee->next) {
- 		const struct i915_vma_coredump *vma;
- 
--		if (ee->guc_capture_node)
--			intel_guc_capture_print_engine_node(m, ee);
--		else
-+		if (gt->uc && gt->uc->guc.is_guc_capture) {
-+			if (ee->guc_capture_node)
-+				intel_guc_capture_print_engine_node(m, ee);
-+			else
-+				err_printf(m, "  Missing GuC capture node for %s\n",
-+					   ee->engine->name);
-+		} else {
- 			error_print_engine(m, ee);
-+		}
- 
- 		err_printf(m, "  hung: %u\n", ee->hung);
- 		err_printf(m, "  engine reset count: %u\n", ee->reset_count);
+ static const char *
 -- 
 2.39.1
 
