@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CCC4C77B60
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 07:50:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F100C77B60
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Apr 2023 08:15:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9A8310E374;
-	Fri, 28 Apr 2023 07:50:24 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DBD210E0CC;
- Fri, 28 Apr 2023 07:50:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDF5210E65E;
+	Fri, 28 Apr 2023 08:15:07 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D15C610E65E;
+ Fri, 28 Apr 2023 08:15:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1682668223; x=1714204223;
- h=date:from:to:cc:subject:message-id:reply-to:mime-version;
- bh=KNnnlR7dkv9MICRYZzU5PtUppjnivrDSfIyMh7ZmhoA=;
- b=jVjwe/uPQPELJjKK/aIMZaeZt/ucMODInac/f0JmlkQu02Q6Euu9qYj+
- FJNRLJtzsvvK5uEoxLgwhMZUeBHI0smsIJdN+apuCENZRFMXq1x6UBwDV
- HqAhI6TpQo+Br6dgixQHpwttG2SxMpQWB98Zm2RqceN7NLKafn20NpCNd
- gom/QbiOQaah9g7rEwszZaQsUbLbEV7Q5xbHYYySNTGar2Izv7SAdV6/x
- eEbfl/SYf4enGeExr49ENHKTcODmT+orXX1bek0D6zcddvmGLT+WXm9o4
- Y5QJk0y5mn+taHI7CzU0FyfehkUZHAYqfuWTHIDIrJKYLCmNXpPVQPjSO A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="346445098"
-X-IronPort-AV: E=Sophos;i="5.99,233,1677571200"; 
- d="asc'?scan'208";a="346445098"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2023 00:50:22 -0700
+ t=1682669705; x=1714205705;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=1IuvXQBidCIhMhVFkMAv2ZYRCd3w9TqEaED6SaU7+4k=;
+ b=IrfqKV0cKweWfh6+HddNCzAlZUg3auZ4t5vWPbOqS30MiYbp6rLFkijL
+ vYe9iQUNWDm1MhlXY7hpyLGFbdIbXA0EGYVvk10KguHTC+GwCdJkfz0NY
+ +f1HBRtnV1m+gPMFtavbYdye2zd1Uw0MS1MnrmZnY/IA94Ak9+zNmeVbR
+ 7rdJGM/IzsGNiHqLXOruQzsQofBghH4qHP+EHi2CbJnLsY9sRis53Nmyn
+ XampD6X+TYsovOs33maM6BblnL0R6g9L1sMcIcM731SWzC3zI7C2dNQ95
+ lzytF8tLj6Z+OOcPIRmcmsp0qV8TF/ORdlQ2WLrj1NKlNQv6EKxtRIi+W g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="328011787"
+X-IronPort-AV: E=Sophos;i="5.99,234,1677571200"; d="scan'208";a="328011787"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2023 01:15:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="838762956"
-X-IronPort-AV: E=Sophos;i="5.99,233,1677571200"; 
- d="asc'?scan'208";a="838762956"
-Received: from debian-skl.sh.intel.com (HELO debian-skl) ([10.239.160.45])
- by fmsmga001.fm.intel.com with ESMTP; 28 Apr 2023 00:50:20 -0700
-Date: Fri, 28 Apr 2023 15:47:55 +0800
-From: Zhenyu Wang <zhenyuw@linux.intel.com>
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
- Jani Nikula <jani.nikula@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Message-ID: <ZEt6K2C0WJTePdk6@debian-scheme>
+X-IronPort-AV: E=McAfee;i="6600,9927,10693"; a="694726753"
+X-IronPort-AV: E=Sophos;i="5.99,234,1677571200"; d="scan'208";a="694726753"
+Received: from ksathish-mobl.ger.corp.intel.com (HELO localhost.localdomain)
+ ([10.213.194.196])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2023 01:15:03 -0700
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: Intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Fri, 28 Apr 2023 09:14:53 +0100
+Message-Id: <20230428081457.857009-1-tvrtko.ursulin@linux.intel.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature"; boundary="O1DrvfLjZrkfbLCC"
-Content-Disposition: inline
-Subject: [Intel-gfx] [PULL] gvt-next-fixes
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [RFC v2 0/4] Expose RPS thresholds in sysfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,62 +57,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Zhenyu Wang <zhenyuw@linux.intel.com>
-Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
- intel-gvt-dev <intel-gvt-dev@lists.freedesktop.org>, "Lv,
- Zhiyuan" <zhiyuan.lv@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
---O1DrvfLjZrkfbLCC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+From patch 4:
 
+    User feedback indicates significant performance gains are possible in
+    specific games with non default RPS up/down thresholds.
 
-Hi,
+    Expose these tunables via sysfs which will allow users to achieve best
+    performance when running games and best power efficiency elsewhere.
 
-Here's one single change for gvt to use idr based dmabuf object
-reference instead of old adhoc code. We've verified no regression
-for internal test.
+    Note this patch supports non GuC based platforms only.
 
-Thanks.
---
-The following changes since commit d944eafed618a8507270b324ad9d5405bb7f0b3e:
+    References: https://gitlab.freedesktop.org/drm/intel/-/issues/8389
 
-  drm/i915: Check pipe source size when using skl+ scalers (2023-04-24 14:48:42 +0300)
+Issue 8389 suggests 10-15% performance gains are possible with tweaked
+thresholds.
 
-are available in the Git repository at:
+One question is are we able to find a "one size fits all" values.
 
-  https://github.com/intel/gvt-linux.git tags/gvt-next-fixes-2023-04-28
+However regardless of that, given we already expose frequency controls in sysfs
+with the same reasoning of allowing system owners explicit control if so wanted,
+I think exposing the thresholds can be equally justified.
 
-for you to fetch changes up to 004040fdb55fa55463730c95d1384cb67f9396c3:
+v2:
+ * Hopefully fixed the debug build issue.
+ * Re-program the hw registers on change too!
 
-  drm/i915/gvt: Make use of idr_find and idr_for_each_entry in dmabuf (2023-04-28 15:21:17 +0800)
+Tvrtko Ursulin (4):
+  drm/i915: Move setting of rps thresholds to init
+  drm/i915: Record default rps threshold values
+  drm/i915: Add helpers for managing rps thresholds
+  drm/i915: Expose RPS thresholds in sysfs
 
-----------------------------------------------------------------
-gvt-next-fixes-2023-04-28
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c | 104 ++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/intel_gt_types.h    |   3 +
+ drivers/gpu/drm/i915/gt/intel_rps.c         |  70 ++++++++++---
+ drivers/gpu/drm/i915/gt/intel_rps.h         |   4 +
+ 4 files changed, 170 insertions(+), 11 deletions(-)
 
-- Use idr based dmabuf object reference (Cai Huoqing)
+-- 
+2.37.2
 
-----------------------------------------------------------------
-Cai Huoqing (1):
-      drm/i915/gvt: Make use of idr_find and idr_for_each_entry in dmabuf
-
- drivers/gpu/drm/i915/gvt/dmabuf.c | 58 ++++++++-------------------------------
- drivers/gpu/drm/i915/gvt/dmabuf.h |  1 -
- drivers/gpu/drm/i915/gvt/gvt.h    |  1 -
- drivers/gpu/drm/i915/gvt/vgpu.c   |  1 -
- 4 files changed, 12 insertions(+), 49 deletions(-)
-
---O1DrvfLjZrkfbLCC
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EARECAB0WIQTXuabgHDW6LPt9CICxBBozTXgYJwUCZEt6JgAKCRCxBBozTXgY
-JxcUAJ9oa9K04SOpmYBTWT5H8VE3Mjw5WgCeIwjDP2hs8vLvrEwnxofpFoTxJ1A=
-=xIkf
------END PGP SIGNATURE-----
-
---O1DrvfLjZrkfbLCC--
