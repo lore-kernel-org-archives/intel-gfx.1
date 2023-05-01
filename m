@@ -4,67 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8172C77B73
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 May 2023 12:55:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 403D7C77B73
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 May 2023 15:42:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 254DC10E0F8;
-	Mon,  1 May 2023 12:55:17 +0000 (UTC)
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1318F10E177;
- Thu, 27 Apr 2023 22:31:16 +0000 (UTC)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-3f1950f569eso52375495e9.2; 
- Thu, 27 Apr 2023 15:31:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1682634672; x=1685226672;
- h=content-transfer-encoding:in-reply-to:from:content-language:subject
- :references:cc:to:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to;
- bh=9YwVsmVVDarSDi7lexCHKjwoPqtG6yE/kkh74CrpRwE=;
- b=Z+WftlxiamQVYno3Ss4dIJ7kWanH5VpBuW6u0jiuFLLY13GKHvjztZFwoTJvL4sySC
- UE+jfE4E0RQqM+5Pn57q58QWcCwhsEOGD3F+PZF0OppGNsQ/xATQXPTOXzgHpdtR1hJf
- GeFIi6fDgyd2LY783QScUBoiK43z8h4Yg4FQuasAwmQPU1Us438oXgTB9G140mp9e/TR
- p77ur4vHPiHSmLlGtUAmtGbeecixo3GlMk4KN7VaHm+9DmyDVqXW4DCt/2nluXbvzX2l
- VQQ4oPne796U4Qxi0gCxkjd+yDFZHtDidnZvzcTBHcaOtDKolgIv9BL6EefLsgu25nap
- Os9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682634672; x=1685226672;
- h=content-transfer-encoding:in-reply-to:from:content-language:subject
- :references:cc:to:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=9YwVsmVVDarSDi7lexCHKjwoPqtG6yE/kkh74CrpRwE=;
- b=TKGAs4Jvw0BMRre3uWbEJizONDSU2jCe+WXku7L3vLCFQFLGOi3indBg893hz5z1kf
- pcqz2XekWxpng0JIMwu6u3jrz8EzNWrlQleUwysLfXWhWVDnYAJCK05QDPvoPds2NX1i
- 8842sjs/1AM3htsrETNqepcNzSDXs3yHAVWib7JnTYz+yuiB+G5XSxrYDjtuQaRFjwqO
- v1NorIaAUiNsj3j7X10lkXsbAcURXnkSae3jNYLc9yqBlr96wr/07EXWNDxEPfq70gVd
- k4DwCyyrVUY4dhJ+SxVxwVFLvTkFQ0XHH+MdlzIncoM2EKPgwdwTC2Leh9rgxqgcZcOY
- BXhQ==
-X-Gm-Message-State: AC+VfDx/9tvIMAa43Uk49s65a/z0t6CMEVxjoaVxLDD7CPsCRSaKpjar
- RKTHIGSdd+OriAzpSWgbfCo=
-X-Google-Smtp-Source: ACHHUZ7QrE+EooGBm+c2JqLPVDs2AKDArtu5ftSqCgTI3BvqxlrY3b/RYjNvy2y6gaRGS9ItlsQmPg==
-X-Received: by 2002:a05:600c:2285:b0:3f1:7123:5f82 with SMTP id
- 5-20020a05600c228500b003f171235f82mr2416493wmf.12.1682634672001; 
- Thu, 27 Apr 2023 15:31:12 -0700 (PDT)
-Received: from [192.168.2.83] ([185.76.28.46])
- by smtp.gmail.com with ESMTPSA id
- x8-20020a05600c21c800b003f2390bdd0csm13810840wmj.32.2023.04.27.15.31.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Apr 2023 15:31:11 -0700 (PDT)
-Message-ID: <3e6ce087-411a-8f2e-974e-2a9379587159@gmail.com>
-Date: Fri, 28 Apr 2023 00:31:10 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9D9810E117;
+	Mon,  1 May 2023 15:42:48 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3832110E117;
+ Mon,  1 May 2023 15:42:47 +0000 (UTC)
+Received: from [192.168.2.246] (109-252-144-198.dynamic.spd-mgts.ru
+ [109.252.144.198])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested)
+ (Authenticated sender: dmitry.osipenko)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id EB81C66029DE;
+ Mon,  1 May 2023 16:42:43 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1682955765;
+ bh=tnb48ajCvVa+EQpEey/B5t9Rz5vp0zrnI8Dk3GtJzds=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=WgvDqGNqkRpELu/Mnul8g+QVtXq/hzn4k+FFEpusaFYSFGnm1Jzhw7htlINg83ht0
+ rimocQaotDdO/fUi53zoTX3QHV7v9281Ek5Igtx+auJwFkjZpXDctQ0M/Kn5vHfS4+
+ OW4QnmZX768H0BwI2PhD+LIZzOHhUDWBMs+Ix1NrYapO0+w/aY+gydF6hv1Foy7+Gb
+ ViVwJ+6U+FpEkMOKSwdCn/llqkyoZM7FDHdwIeDlq2uH1XtoQerfiViPJdSJ5w6mWI
+ 1vjSPku078f0wkOVjQ9EvdrbQ3FtYALJUEpnGClgOfUj1aOcHAQUZKOvTnrFiO979u
+ 8o4Qf3UIpdQqQ==
+Message-ID: <14d7ed85-7ab6-04d9-1958-d5ceae2a79f8@collabora.com>
+Date: Mon, 1 May 2023 18:42:40 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
-To: ville.syrjala@linux.intel.com
-References: <20230411222931.15127-2-ville.syrjala@linux.intel.com>
 Content-Language: en-US
-From: Xaver Hugl <xaver.hugl@gmail.com>
-In-Reply-To: <20230411222931.15127-2-ville.syrjala@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+References: <20230406160637.541702-1-dmitry.osipenko@collabora.com>
+ <20230406160637.541702-7-dmitry.osipenko@collabora.com>
+In-Reply-To: <20230406160637.541702-7-dmitry.osipenko@collabora.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 01 May 2023 12:55:15 +0000
-Subject: Re: [Intel-gfx] [PATCH 1/6] drm/uapi: Document CTM matrix better
+Subject: Re: [Intel-gfx] [PATCH v2 6/7] dma-buf: Change locking policy for
+ mmap()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,10 +58,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, John Stultz <jstultz@google.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, kernel@collabora.com,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ linux-media@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Arnd Bergmann <arnd@arndb.de>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Tomi Valkeinen <tomba@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Liam Mark <lmark@codeaurora.org>, Tomasz Figa <tfiga@chromium.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-I can't say anything about the other commits in this series, but
-"Document in which order the CTM matrix elements are stored" is
-Reviewed-by: Xaver Hugl <xaver.hugl@gmail.com>
+On 4/6/23 19:06, Dmitry Osipenko wrote:
+> Change locking policy of mmap() callback, making exporters responsible
+> for handling dma-buf reservation locking. Previous locking policy stated
+> that dma-buf is locked for both importers and exporters by the dma-buf
+> core, which caused a deadlock problem for DRM drivers in a case of
+> self-imported dma-bufs which required to take the lock from the DRM
+> exporter side.
+> 
+> Reviewed-by: Emil Velikov <emil.l.velikov@gmail.com>
+> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> ---
+>  drivers/dma-buf/dma-buf.c | 17 +++--------------
+>  1 file changed, 3 insertions(+), 14 deletions(-)
+
+Christian, may I add yours ack to this patch?
+
+-- 
+Best regards,
+Dmitry
+
