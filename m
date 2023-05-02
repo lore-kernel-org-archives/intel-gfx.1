@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2FC1C77B75
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 May 2023 23:40:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F5DBC77B78
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 May 2023 23:40:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA68010E159;
-	Tue,  2 May 2023 23:40:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4732610E174;
+	Tue,  2 May 2023 23:40:03 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 718E610E12A;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C0CA10E127;
  Tue,  2 May 2023 23:39:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1683070798; x=1714606798;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=N7q6zb224jOocFprm6ww0C5wTwJLPXc7ez1JPa38kKk=;
- b=fMdu2+NL0yJ7k6e2U2l55xEco45cX9dLtqgu9ELd+C42FmLFOGKIm+XZ
- MBLXgx+a86VTfcFeNYwy9yEGMSwcpi2QrGJXZm8vbNioQex4KHnlsXzTk
- 2frTUIROK8iyu5lXVK3XeLaaRkLZIM372+YUsDi4ZkGDwUo5aq9vWR6uS
- MedzONDse6nTNqz/O8oSSqcg0V8XcmE6rIVxc4o1m4jUHFohm6zUikEkr
- A7GBRbWvZ24MYY91Hdi27+YOovshdeR8bnPJe5EP7UqXyyEme1zdvHVEb
- Lg7awgWRwcSjDx5hhsHXE8icedfR652hlq0hzXOsGLd4LRkBqfh8NhYpw Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10698"; a="350601514"
-X-IronPort-AV: E=Sophos;i="5.99,245,1677571200"; d="scan'208";a="350601514"
+ bh=iTOCIJh8xOMcFcx3QwMEkF3KAA1MhumGZ1hg2579bb8=;
+ b=AcGDYnaH7l+3qKrinIZOat6PCgh6fg6BrzXA5UZxeJpvJhdMfFjdUfi9
+ fFMGZAr9lzjz6a0HYP6LKv+xh0Thl9WpMj+1f2EtD/98DpNUJVor1udaD
+ TH4KmVxmsJCbyftqDEb0J9r+In6axiAJeFrKYbWWen6+pR6akALHavoGW
+ 61GiSxoUo1Nk5ZIf/G2KOQqaMjV7vyDXGEv9nqDaCYQLa6WatC3FR8jFf
+ VkZTd3cRzta5oXmEfQERobTIlUjUW1A/G77fwTZu1f8yZCEipkZhee9T0
+ KRV5MzwRsVWD9pveWyXR0epjzDQa8ot5TVIOdGN3KQymKwyZluhblFAFU A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10698"; a="350601511"
+X-IronPort-AV: E=Sophos;i="5.99,245,1677571200"; d="scan'208";a="350601511"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 May 2023 16:39:57 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10698"; a="673865823"
-X-IronPort-AV: E=Sophos;i="5.99,245,1677571200"; d="scan'208";a="673865823"
+X-IronPort-AV: E=McAfee;i="6600,9927,10698"; a="673865813"
+X-IronPort-AV: E=Sophos;i="5.99,245,1677571200"; d="scan'208";a="673865813"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
  by orsmga006.jf.intel.com with ESMTP; 02 May 2023 16:39:56 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Tue,  2 May 2023 16:40:06 -0700
-Message-Id: <20230502234007.1762014-6-John.C.Harrison@Intel.com>
+Date: Tue,  2 May 2023 16:40:03 -0700
+Message-Id: <20230502234007.1762014-3-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230502234007.1762014-1-John.C.Harrison@Intel.com>
 References: <20230502234007.1762014-1-John.C.Harrison@Intel.com>
@@ -45,8 +45,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 5/6] drm/i915/uc: Reject duplicate entries in
- firmware table
+Subject: [Intel-gfx] [PATCH v3 2/6] drm/i915/guc: Print status register when
+ waiting for GuC to load
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,75 +65,34 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-It was noticed that duplicate entries in the firmware table could cause
-an infinite loop in the firmware loading code if that entry failed to
-load. Duplicate entries are a bug anyway and so should never happen.
-Ensure they don't by tweaking the table validation code to reject
-duplicates.
-
-For full m/m/p files, that can be done by simply tweaking the patch
-level check to reject matching values. For reduced version entries,
-the filename itself must be compared.
-
-v2: Improve comment (review by Daniele)
+If the GuC load is taking an excessively long time, the wait loop
+currently prints the GT frequency. Extend that to include the GuC
+status as well so we can see if the GuC is actually making progress or
+not.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 26 +++++++++++++++++++++---
- 1 file changed, 23 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-index 64e19688788d1..010c049609102 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-@@ -319,7 +319,7 @@ static bool validate_fw_table_type(struct drm_i915_private *i915, enum intel_uc_
- {
- 	const struct uc_fw_platform_requirement *fw_blobs;
- 	u32 fw_count;
--	int i;
-+	int i, j;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
+index 0ff088a5e51a8..364d0d546ec82 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
+@@ -191,8 +191,10 @@ static int guc_wait_ucode(struct intel_guc *guc)
+ 		if (!ret || !success)
+ 			break;
  
- 	if (type >= ARRAY_SIZE(blobs_all)) {
- 		drm_err(&i915->drm, "No blob array for %s\n", intel_uc_fw_type_repr(type));
-@@ -334,6 +334,26 @@ static bool validate_fw_table_type(struct drm_i915_private *i915, enum intel_uc_
- 
- 	/* make sure the list is ordered as expected */
- 	for (i = 1; i < fw_count; i++) {
-+		/* Versionless file names must be unique per platform: */
-+		for (j = i + 1; j < fw_count; j++) {
-+			/* Same platform? */
-+			if (fw_blobs[i].p != fw_blobs[j].p)
-+				continue;
-+
-+			if (fw_blobs[i].blob.path != fw_blobs[j].blob.path)
-+				continue;
-+
-+			drm_err(&i915->drm, "Duplicate %s blobs: %s r%u %s%d.%d.%d [%s] matches %s%d.%d.%d [%s]\n",
-+				intel_uc_fw_type_repr(type),
-+				intel_platform_name(fw_blobs[j].p), fw_blobs[j].rev,
-+				fw_blobs[j].blob.legacy ? "L" : "v",
-+				fw_blobs[j].blob.major, fw_blobs[j].blob.minor,
-+				fw_blobs[j].blob.patch, fw_blobs[j].blob.path,
-+				fw_blobs[i].blob.legacy ? "L" : "v",
-+				fw_blobs[i].blob.major, fw_blobs[i].blob.minor,
-+				fw_blobs[i].blob.patch, fw_blobs[i].blob.path);
-+		}
-+
- 		/* Next platform is good: */
- 		if (fw_blobs[i].p < fw_blobs[i - 1].p)
- 			continue;
-@@ -377,8 +397,8 @@ static bool validate_fw_table_type(struct drm_i915_private *i915, enum intel_uc_
- 		if (fw_blobs[i].blob.minor != fw_blobs[i - 1].blob.minor)
- 			goto bad;
- 
--		/* Patch versions must be in order: */
--		if (fw_blobs[i].blob.patch <= fw_blobs[i - 1].blob.patch)
-+		/* Patch versions must be in order and unique: */
-+		if (fw_blobs[i].blob.patch < fw_blobs[i - 1].blob.patch)
- 			continue;
- 
- bad:
+-		guc_dbg(guc, "load still in progress, count = %d, freq = %dMHz\n",
+-			count, intel_rps_read_actual_frequency(&uncore->gt->rps));
++		guc_dbg(guc, "load still in progress, count = %d, freq = %dMHz, status = 0x%08X [0x%02X/%02X]\n",
++			count, intel_rps_read_actual_frequency(&uncore->gt->rps), status,
++			REG_FIELD_GET(GS_BOOTROM_MASK, status),
++			REG_FIELD_GET(GS_UKERNEL_MASK, status));
+ 	}
+ 	after = ktime_get();
+ 	delta = ktime_sub(after, before);
 -- 
 2.39.1
 
