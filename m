@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F5DBC77B78
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB8C1C77B75
 	for <intel-gfx@archiver.kernel.org>; Tue,  2 May 2023 23:40:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4732610E174;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78ACC10E178;
 	Tue,  2 May 2023 23:40:03 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C0CA10E127;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DFCB10E127;
  Tue,  2 May 2023 23:39:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1683070798; x=1714606798;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=iTOCIJh8xOMcFcx3QwMEkF3KAA1MhumGZ1hg2579bb8=;
- b=AcGDYnaH7l+3qKrinIZOat6PCgh6fg6BrzXA5UZxeJpvJhdMfFjdUfi9
- fFMGZAr9lzjz6a0HYP6LKv+xh0Thl9WpMj+1f2EtD/98DpNUJVor1udaD
- TH4KmVxmsJCbyftqDEb0J9r+In6axiAJeFrKYbWWen6+pR6akALHavoGW
- 61GiSxoUo1Nk5ZIf/G2KOQqaMjV7vyDXGEv9nqDaCYQLa6WatC3FR8jFf
- VkZTd3cRzta5oXmEfQERobTIlUjUW1A/G77fwTZu1f8yZCEipkZhee9T0
- KRV5MzwRsVWD9pveWyXR0epjzDQa8ot5TVIOdGN3KQymKwyZluhblFAFU A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10698"; a="350601511"
-X-IronPort-AV: E=Sophos;i="5.99,245,1677571200"; d="scan'208";a="350601511"
+ bh=pg9Lmo5mqLCogzcNdwUvyTUQeFEVqby+apkLh04aMdA=;
+ b=fesSFEjb/Qp+r2vgP7pnkWrPTQujbufYTAlM+mUQkK4Wz2VLYTxCDTFT
+ GhT4QPaKrHeiLOj9rGAoILfiUmgHX6TtmTznH/aTuUU5lFwjbF0+sZYwq
+ x59zBCQUfDWUdte5SJL+rTYcHYS1r8W4T5muQy0kd3OeYGyIgrJxJy9AK
+ ONqia2fwXMCaeQpvqdwS5ZQ5VCcyaXBM8UY1uXGeLJEPLefGe1sWVrduy
+ LQvXeAk9Jin2bSP3xlpA8bk9isxI4N9ldhcVEVIRxoXhBxgOxp/XLWHOW
+ VmvgqDKv2DbdeV3ZFu8Zl+e0VBolQyU/HxXhZQUexsW67xJ/H0TdCwFbC Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10698"; a="350601515"
+X-IronPort-AV: E=Sophos;i="5.99,245,1677571200"; d="scan'208";a="350601515"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 May 2023 16:39:57 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10698"; a="673865813"
-X-IronPort-AV: E=Sophos;i="5.99,245,1677571200"; d="scan'208";a="673865813"
+X-IronPort-AV: E=McAfee;i="6600,9927,10698"; a="673865826"
+X-IronPort-AV: E=Sophos;i="5.99,245,1677571200"; d="scan'208";a="673865826"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
- by orsmga006.jf.intel.com with ESMTP; 02 May 2023 16:39:56 -0700
+ by orsmga006.jf.intel.com with ESMTP; 02 May 2023 16:39:57 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Tue,  2 May 2023 16:40:03 -0700
-Message-Id: <20230502234007.1762014-3-John.C.Harrison@Intel.com>
+Date: Tue,  2 May 2023 16:40:07 -0700
+Message-Id: <20230502234007.1762014-7-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230502234007.1762014-1-John.C.Harrison@Intel.com>
 References: <20230502234007.1762014-1-John.C.Harrison@Intel.com>
@@ -45,8 +45,8 @@ MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 2/6] drm/i915/guc: Print status register when
- waiting for GuC to load
+Subject: [Intel-gfx] [PATCH v3 6/6] drm/i915/uc: Make unexpected firmware
+ versions an error in debug builds
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,34 +65,76 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-If the GuC load is taking an excessively long time, the wait loop
-currently prints the GT frequency. Extend that to include the GuC
-status as well so we can see if the GuC is actually making progress or
-not.
+If the DEBUG_GEM config option is set then escalate the 'unexpected
+firmware version' message from a notice to an error. This will ensure
+that the CI system treats such occurences as a failure and logs a bug
+about it (or fails the pre-merge testing).
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
 Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 34 ++++++++++++++----------
+ 1 file changed, 20 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-index 0ff088a5e51a8..364d0d546ec82 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
-@@ -191,8 +191,10 @@ static int guc_wait_ucode(struct intel_guc *guc)
- 		if (!ret || !success)
- 			break;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index 010c049609102..41ebd0ee0bb5e 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -17,6 +17,12 @@
+ #include "i915_drv.h"
+ #include "i915_reg.h"
  
--		guc_dbg(guc, "load still in progress, count = %d, freq = %dMHz\n",
--			count, intel_rps_read_actual_frequency(&uncore->gt->rps));
-+		guc_dbg(guc, "load still in progress, count = %d, freq = %dMHz, status = 0x%08X [0x%02X/%02X]\n",
-+			count, intel_rps_read_actual_frequency(&uncore->gt->rps), status,
-+			REG_FIELD_GET(GS_BOOTROM_MASK, status),
-+			REG_FIELD_GET(GS_UKERNEL_MASK, status));
++#if IS_ENABLED(CONFIG_DRM_I915_DEBUG_GEM)
++#define UNEXPECTED	gt_err
++#else
++#define UNEXPECTED	gt_notice
++#endif
++
+ static inline struct intel_gt *
+ ____uc_fw_to_gt(struct intel_uc_fw *uc_fw, enum intel_uc_fw_type type)
+ {
+@@ -833,10 +839,10 @@ int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw)
+ 	if (uc_fw->file_wanted.ver.major && uc_fw->file_selected.ver.major) {
+ 		/* Check the file's major version was as it claimed */
+ 		if (uc_fw->file_selected.ver.major != uc_fw->file_wanted.ver.major) {
+-			gt_notice(gt, "%s firmware %s: unexpected version: %u.%u != %u.%u\n",
+-				  intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
+-				  uc_fw->file_selected.ver.major, uc_fw->file_selected.ver.minor,
+-				  uc_fw->file_wanted.ver.major, uc_fw->file_wanted.ver.minor);
++			UNEXPECTED(gt, "%s firmware %s: unexpected version: %u.%u != %u.%u\n",
++				   intel_uc_fw_type_repr(uc_fw->type), uc_fw->file_selected.path,
++				   uc_fw->file_selected.ver.major, uc_fw->file_selected.ver.minor,
++				   uc_fw->file_wanted.ver.major, uc_fw->file_wanted.ver.minor);
+ 			if (!intel_uc_fw_is_overridden(uc_fw)) {
+ 				err = -ENOEXEC;
+ 				goto fail;
+@@ -854,16 +860,16 @@ int intel_uc_fw_fetch(struct intel_uc_fw *uc_fw)
+ 		/* Preserve the version that was really wanted */
+ 		memcpy(&uc_fw->file_wanted, &file_ideal, sizeof(uc_fw->file_wanted));
+ 
+-		gt_notice(gt, "%s firmware %s (%d.%d.%d) is recommended, but only %s (%d.%d.%d) was found\n",
+-			  intel_uc_fw_type_repr(uc_fw->type),
+-			  uc_fw->file_wanted.path,
+-			  uc_fw->file_wanted.ver.major,
+-			  uc_fw->file_wanted.ver.minor,
+-			  uc_fw->file_wanted.ver.patch,
+-			  uc_fw->file_selected.path,
+-			  uc_fw->file_selected.ver.major,
+-			  uc_fw->file_selected.ver.minor,
+-			  uc_fw->file_selected.ver.patch);
++		UNEXPECTED(gt, "%s firmware %s (%d.%d.%d) is recommended, but only %s (%d.%d.%d) was found\n",
++			   intel_uc_fw_type_repr(uc_fw->type),
++			   uc_fw->file_wanted.path,
++			   uc_fw->file_wanted.ver.major,
++			   uc_fw->file_wanted.ver.minor,
++			   uc_fw->file_wanted.ver.patch,
++			   uc_fw->file_selected.path,
++			   uc_fw->file_selected.ver.major,
++			   uc_fw->file_selected.ver.minor,
++			   uc_fw->file_selected.ver.patch);
+ 		gt_info(gt, "Consider updating your linux-firmware pkg or downloading from %s\n",
+ 			INTEL_UC_FIRMWARE_URL);
  	}
- 	after = ktime_get();
- 	delta = ktime_sub(after, before);
 -- 
 2.39.1
 
