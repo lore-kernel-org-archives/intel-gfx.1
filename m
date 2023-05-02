@@ -4,31 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 335E6C77B75
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 May 2023 21:05:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A94BC77B78
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 May 2023 23:40:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1B5510E0CA;
-	Tue,  2 May 2023 21:05:39 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id A191E10E0CA;
- Tue,  2 May 2023 21:05:38 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 6DFA9AADDA;
- Tue,  2 May 2023 21:05:38 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 512AB10E127;
+	Tue,  2 May 2023 23:39:59 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAD4310E127;
+ Tue,  2 May 2023 23:39:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1683070797; x=1714606797;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=ZnlFMrm3vSe/fgzpcy4mVJfRTwg0AFpN2wuu12IUBAg=;
+ b=HsI3lMNnzVTPtKfFZ0Rdxd82SDogp+CC881LWkfHoscHMthcEH2/2TDA
+ /jY3Gvdyxm/xaG/lF4TChy1jYUuejN4u81e1/zlJx5cmxLxdIwo4zmBB4
+ Ho3Qsa1CBDXbFOfsbIhVtu426aOMxPHVWgKmVXicrGge8/VwWFx1pkPI8
+ uZDWlTJ17afzEc08+X5llcEpSpMxJTl3lTJVCUWk9LW8bInx2IIuy8Gra
+ oi9xEPzaySy2K/oFesOoBzRXy7yly1brgKCnwdN1HJ1mvy4tcevcLbAtw
+ NOJ35yfWDoYehvUmQMAiYZmCeaO1dSDDSeS231SC7TlwVMReEdwYO6yLg g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10698"; a="350601510"
+X-IronPort-AV: E=Sophos;i="5.99,245,1677571200"; d="scan'208";a="350601510"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 May 2023 16:39:56 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10698"; a="673865810"
+X-IronPort-AV: E=Sophos;i="5.99,245,1677571200"; d="scan'208";a="673865810"
+Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
+ by orsmga006.jf.intel.com with ESMTP; 02 May 2023 16:39:56 -0700
+From: John.C.Harrison@Intel.com
+To: Intel-GFX@Lists.FreeDesktop.Org
+Date: Tue,  2 May 2023 16:40:02 -0700
+Message-Id: <20230502234007.1762014-2-John.C.Harrison@Intel.com>
+X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20230502234007.1762014-1-John.C.Harrison@Intel.com>
+References: <20230502234007.1762014-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
+Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
+ Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jordan Justen" <jordan.l.justen@intel.com>
-Date: Tue, 02 May 2023 21:05:38 -0000
-Message-ID: <168306153844.18870.1380196351720711678@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20230502205744.1067094-1-jordan.l.justen@intel.com>
-In-Reply-To: <20230502205744.1067094-1-jordan.l.justen@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
- =?utf-8?q?rm/i915/uapi=3A_Add_DRM=5FI915=5FQUERY=5FGEM=5FCREATE=5FEXTENSI?=
- =?utf-8?q?ONS_query_item?=
+Subject: [Intel-gfx] [PATCH v3 1/6] drm/i915/guc: Decode another GuC load
+ failure case
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,39 +59,58 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: DRI-Devel@Lists.FreeDesktop.Org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+From: John Harrison <John.C.Harrison@Intel.com>
 
-Series: drm/i915/uapi: Add DRM_I915_QUERY_GEM_CREATE_EXTENSIONS query item
-URL   : https://patchwork.freedesktop.org/series/117214/
-State : failure
+Explain another potential firmware failure mode and early exit the
+long wait if hit.
 
-== Summary ==
+Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/abi/guc_errors_abi.h | 1 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c       | 6 ++++++
+ 2 files changed, 7 insertions(+)
 
-Error: make failed
-  CALL    scripts/checksyscalls.sh
-  DESCEND objtool
-  INSTALL libsubcmd_headers
-  LD [M]  drivers/gpu/drm/i915/i915.o
-  LD [M]  drivers/gpu/drm/i915/kvmgt.o
-  HDRTEST drivers/gpu/drm/i915/gem/i915_gem_create.h
-In file included from <command-line>:
-./drivers/gpu/drm/i915/gem/i915_gem_create.h:17:54: error: unknown type name ‘size_t’
-   17 | int i915_gem_create_ext_get_extensions(void *buffer, size_t buffer_size);
-      |                                                      ^~~~~~
-./drivers/gpu/drm/i915/gem/i915_gem_create.h:1:1: note: ‘size_t’ is defined in header ‘<stddef.h>’; did you forget to ‘#include <stddef.h>’?
-  +++ |+#include <stddef.h>
-    1 | /* SPDX-License-Identifier: MIT */
-make[5]: *** [drivers/gpu/drm/i915/Makefile:398: drivers/gpu/drm/i915/gem/i915_gem_create.hdrtest] Error 1
-make[4]: *** [scripts/Makefile.build:494: drivers/gpu/drm/i915] Error 2
-make[3]: *** [scripts/Makefile.build:494: drivers/gpu/drm] Error 2
-make[2]: *** [scripts/Makefile.build:494: drivers/gpu] Error 2
-make[1]: *** [scripts/Makefile.build:494: drivers] Error 2
-make: *** [Makefile:2025: .] Error 2
-Build failed, no error log produced
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_errors_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_errors_abi.h
+index bcb1129b36102..dabeaf4f245f3 100644
+--- a/drivers/gpu/drm/i915/gt/uc/abi/guc_errors_abi.h
++++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_errors_abi.h
+@@ -44,6 +44,7 @@ enum intel_guc_load_status {
+ enum intel_bootrom_load_status {
+ 	INTEL_BOOTROM_STATUS_NO_KEY_FOUND                 = 0x13,
+ 	INTEL_BOOTROM_STATUS_AES_PROD_KEY_FOUND           = 0x1A,
++	INTEL_BOOTROM_STATUS_PROD_KEY_CHECK_FAILURE       = 0x2B,
+ 	INTEL_BOOTROM_STATUS_RSA_FAILED                   = 0x50,
+ 	INTEL_BOOTROM_STATUS_PAVPC_FAILED                 = 0x73,
+ 	INTEL_BOOTROM_STATUS_WOPCM_FAILED                 = 0x74,
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
+index 6fda3aec5c66a..0ff088a5e51a8 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fw.c
+@@ -129,6 +129,7 @@ static inline bool guc_load_done(struct intel_uncore *uncore, u32 *status, bool
+ 	case INTEL_BOOTROM_STATUS_RC6CTXCONFIG_FAILED:
+ 	case INTEL_BOOTROM_STATUS_MPUMAP_INCORRECT:
+ 	case INTEL_BOOTROM_STATUS_EXCEPTION:
++	case INTEL_BOOTROM_STATUS_PROD_KEY_CHECK_FAILURE:
+ 		*success = false;
+ 		return true;
+ 	}
+@@ -219,6 +220,11 @@ static int guc_wait_ucode(struct intel_guc *guc)
+ 			guc_info(guc, "firmware signature verification failed\n");
+ 			ret = -ENOEXEC;
+ 			break;
++
++		case INTEL_BOOTROM_STATUS_PROD_KEY_CHECK_FAILURE:
++			guc_info(guc, "firmware production part check failure\n");
++			ret = -ENOEXEC;
++			break;
+ 		}
+ 
+ 		switch (ukernel) {
+-- 
+2.39.1
 
