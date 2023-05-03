@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDC9AC77B7F
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 May 2023 23:10:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 970E4C77B75
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 May 2023 23:10:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45B3810E360;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E782410E377;
 	Wed,  3 May 2023 23:10:44 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF8D110E360
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DA9210E360
  for <intel-gfx@lists.freedesktop.org>; Wed,  3 May 2023 23:10:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1683155442; x=1714691442;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ern+quA4HTJWI36emnUbjdnB+cgWM0Wz4NRJGrzsMJI=;
- b=SzI4qVo4FF5iir56wyVdZYwVOh4PP0VUvU0rFs2BklvQoXJVNi41JhQb
- VYdm/ZG99VXkCYXOTKEmterWLwtnUHT9OzNI9L6dq2Ilwz0lPUqp1CNWs
- Q9AHtzqPgO6OOgTtJ3KmHCa7z27FKbNX5OH98B0iznJ//F1Hvu4i90XZN
- CC7RrVV2A64ezCAufJvAh2RwBsspPDTj6EPKEhWMUNMhy7g5R/JhgMc80
- 8jWO9x/uylkw8ZTkgW+2Xb4+DzXSJ91oFyybSy/3JYPt6P1kccKnhHAoF
- 2o+EMU+erQak6usZDApm0btd+R3oiEgDAKRAl5CfTidVHDql8jexS5aV/ Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10699"; a="347607595"
-X-IronPort-AV: E=Sophos;i="5.99,248,1677571200"; d="scan'208";a="347607595"
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=cYPKk/iIHeQDrQuoDbaIMiXyU8tMZ501YkGrcPf0smI=;
+ b=M4q3kfdfVRg+d7P+GAvIcJQvwRMT2Pi3qACGxLCh+B3N/ZVl7qiJVMZz
+ vYaG8gkmq7d7bBsyKRlu1WNXhBokfgz0p5UGVCuDTtEzrwnEyGMLeBMLj
+ XSf7FMIQZchksARRm9L2oJnrh26t7axBxSIrt2PLWtCB6SgTDaxtpjKTH
+ zcs2NJcmvlZSBbIcQ/E8mUQDO7ucfhncNEdtigpDGu/HYYARbqzUsKngu
+ l0sx2ZGngJfVQ6SsNm4cswQFBOkYcv6jEfwJUDLcTn4oNdYohdKe+shV5
+ nOkDe7SFppLtAKyQCpSnpIy4brrdUVL4C4HQMlt1uNtcl7pQHV0cp7w9G w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10699"; a="347607587"
+X-IronPort-AV: E=Sophos;i="5.99,248,1677571200"; d="scan'208";a="347607587"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 May 2023 16:10:26 -0700
+ 03 May 2023 16:10:23 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10699"; a="690872156"
-X-IronPort-AV: E=Sophos;i="5.99,248,1677571200"; d="scan'208";a="690872156"
+X-IronPort-AV: E=McAfee;i="6600,9927,10699"; a="690872147"
+X-IronPort-AV: E=Sophos;i="5.99,248,1677571200"; d="scan'208";a="690872147"
 Received: from unknown (HELO ideak-desk.fi.intel.com) ([10.237.72.78])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 May 2023 16:10:24 -0700
+ 03 May 2023 16:10:22 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  4 May 2023 02:10:47 +0300
-Message-Id: <20230503231048.432368-12-imre.deak@intel.com>
+Date: Thu,  4 May 2023 02:10:45 +0300
+Message-Id: <20230503231048.432368-10-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230503231048.432368-1-imre.deak@intel.com>
 References: <20230503231048.432368-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 11/12] drm/i915: Factor out a helper for
- handling atomic modeset locks/state
+Subject: [Intel-gfx] [PATCH v2 09/12] drm/i915/dp: Prevent link training
+ fallback on disconnected port
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,183 +61,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch simplifying the handling of modeset locks and atomic state
-for an atomic commit is based on
+Prevent downgrading the link training maximum lane count/rate if the
+sink is disconnected - and so the link training failure is expected. In
+such cases modeset failures due to the reduced max link params would be
+just confusing for user space (instead of which the correct thing it
+should act on is the sink disconnect signaled by a hotplug event,
+requiring a disabling modeset).
 
-https://lore.kernel.org/all/20210715184954.7794-2-ville.syrjala@linux.intel.com/
-
-adding the helper to i915. I find this approach preferrable than
-open-coding the corresponding steps (fixed for me an atomic
-state reset during a DEADLK retry, which I missed in the open-coded
-version) and also better than the existing
-DRM_MODESET_LOCK_ALL_BEGIN/END macros for the reasons described in the
-above original patchset.
-
-This change takes the helper into use only for atomic commits during DDI
-hotplug handling, as a preparation for a follow-up patch adding a
-similar commit started from the same spot. Other places doing a
-driver-internal atomic commit is to be converted by a follow-up
-patchset.
-
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/Makefile                 |  1 +
- drivers/gpu/drm/i915/display/intel_ddi.c      | 17 ++-----
- .../gpu/drm/i915/display/intel_modeset_lock.c | 50 +++++++++++++++++++
- .../gpu/drm/i915/display/intel_modeset_lock.h | 33 ++++++++++++
- 4 files changed, 87 insertions(+), 14 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/display/intel_modeset_lock.c
- create mode 100644 drivers/gpu/drm/i915/display/intel_modeset_lock.h
+ drivers/gpu/drm/i915/display/intel_dp.h               | 1 +
+ drivers/gpu/drm/i915/display/intel_dp_link_training.c | 5 +++++
+ 2 files changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 9af76e376ca91..ef6feb2aad2ad 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -263,6 +263,7 @@ i915-y += \
- 	display/intel_hti.o \
- 	display/intel_load_detect.o \
- 	display/intel_lpe_audio.o \
-+	display/intel_modeset_lock.o \
- 	display/intel_modeset_verify.o \
- 	display/intel_modeset_setup.o \
- 	display/intel_overlay.o \
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 55f36d9d509c6..eb391fff0f1be 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -63,6 +63,7 @@
- #include "intel_hti.h"
- #include "intel_lspcon.h"
- #include "intel_mg_phy_regs.h"
-+#include "intel_modeset_lock.h"
- #include "intel_pps.h"
- #include "intel_psr.h"
- #include "intel_quirks.h"
-@@ -4400,26 +4401,14 @@ intel_ddi_hotplug(struct intel_encoder *encoder,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index 488da392fafe5..ca12a1733df6f 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -102,6 +102,7 @@ void intel_dp_set_infoframes(struct intel_encoder *encoder, bool enable,
+ void intel_read_dp_sdp(struct intel_encoder *encoder,
+ 		       struct intel_crtc_state *crtc_state,
+ 		       unsigned int type);
++bool intel_dp_is_connected(struct intel_dp *intel_dp);
+ bool intel_digital_port_connected(struct intel_encoder *encoder);
+ int intel_dp_dsc_compute_bpp(struct intel_dp *intel_dp, u8 dsc_max_bpc);
+ u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index 2fe076e2d64b3..fcccf410f7693 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -1088,6 +1088,11 @@ static void intel_dp_schedule_fallback_link_training(struct intel_dp *intel_dp,
+ {
+ 	struct intel_connector *intel_connector = intel_dp->attached_connector;
  
- 	state = intel_encoder_hotplug(encoder, connector);
- 
--	drm_modeset_acquire_init(&ctx, 0);
--
--	for (;;) {
-+	intel_modeset_lock_ctx_retry(&ctx, NULL, 0, ret) {
- 		if (connector->base.connector_type == DRM_MODE_CONNECTOR_HDMIA)
- 			ret = intel_hdmi_reset_link(encoder, &ctx);
- 		else
- 			ret = intel_dp_retrain_link(encoder, &ctx);
--
--		if (ret == -EDEADLK) {
--			drm_modeset_backoff(&ctx);
--			continue;
--		}
--
--		break;
- 	}
- 
--	drm_modeset_drop_locks(&ctx);
--	drm_modeset_acquire_fini(&ctx);
--	drm_WARN(encoder->base.dev, ret,
--		 "Acquiring modeset locks failed with %i\n", ret);
-+	drm_WARN_ON(encoder->base.dev, ret);
- 
- 	/*
- 	 * Unpowered type-c dongles can take some time to boot and be
-diff --git a/drivers/gpu/drm/i915/display/intel_modeset_lock.c b/drivers/gpu/drm/i915/display/intel_modeset_lock.c
-new file mode 100644
-index 0000000000000..8fb6fd849a75d
---- /dev/null
-+++ b/drivers/gpu/drm/i915/display/intel_modeset_lock.c
-@@ -0,0 +1,50 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2023 Intel Corporation
-+ */
-+
-+#include <drm/drm_modeset_lock.h>
-+
-+#include "intel_display_types.h"
-+#include "intel_modeset_lock.h"
-+
-+void _intel_modeset_lock_begin(struct drm_modeset_acquire_ctx *ctx,
-+			       struct intel_atomic_state *state,
-+			       unsigned int flags, int *ret)
-+{
-+	drm_modeset_acquire_init(ctx, flags);
-+
-+	if (state)
-+		state->base.acquire_ctx = ctx;
-+
-+	*ret = -EDEADLK;
-+}
-+
-+bool _intel_modeset_lock_loop(int *ret)
-+{
-+	if (*ret == -EDEADLK) {
-+		*ret = 0;
-+		return true;
++	if (!intel_dp_is_connected(intel_dp)) {
++		lt_dbg(intel_dp, DP_PHY_DPRX, "Link Training failed on disconnected sink.\n");
++		return;
 +	}
 +
-+	return false;
-+}
-+
-+void _intel_modeset_lock_end(struct drm_modeset_acquire_ctx *ctx,
-+			     struct intel_atomic_state *state,
-+			     int *ret)
-+{
-+	if (*ret == -EDEADLK) {
-+		if (state)
-+			drm_atomic_state_clear(&state->base);
-+
-+		*ret = drm_modeset_backoff(ctx);
-+		if (*ret == 0) {
-+			*ret = -EDEADLK;
-+			return;
-+		}
-+	}
-+
-+	drm_modeset_drop_locks(ctx);
-+	drm_modeset_acquire_fini(ctx);
-+}
-diff --git a/drivers/gpu/drm/i915/display/intel_modeset_lock.h b/drivers/gpu/drm/i915/display/intel_modeset_lock.h
-new file mode 100644
-index 0000000000000..edb5099bcd99c
---- /dev/null
-+++ b/drivers/gpu/drm/i915/display/intel_modeset_lock.h
-@@ -0,0 +1,33 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2023 Intel Corporation
-+ */
-+
-+#ifndef __INTEL_MODESET_LOCK_H__
-+#define __INTEL_MODESET_LOCK_H__
-+
-+#include <linux/types.h>
-+
-+struct drm_modeset_acquire_ctx;
-+struct intel_atomic_state;
-+
-+void _intel_modeset_lock_begin(struct drm_modeset_acquire_ctx *ctx,
-+			       struct intel_atomic_state *state,
-+			       unsigned int flags,
-+			       int *ret);
-+bool _intel_modeset_lock_loop(int *ret);
-+void _intel_modeset_lock_end(struct drm_modeset_acquire_ctx *ctx,
-+			     struct intel_atomic_state *state,
-+			     int *ret);
-+
-+/*
-+ * Note that one must always use "continue" rather than
-+ * "break" or "return" to handle errors within the
-+ * intel_modeset_lock_ctx_retry() block.
-+ */
-+#define intel_modeset_lock_ctx_retry(ctx, state, flags, ret) \
-+	for (_intel_modeset_lock_begin((ctx), (state), (flags), &(ret)); \
-+	     _intel_modeset_lock_loop(&(ret)); \
-+	     _intel_modeset_lock_end((ctx), (state), &(ret)))
-+
-+#endif /* __INTEL_MODESET_LOCK_H__ */
+ 	if (intel_dp->hobl_active) {
+ 		lt_dbg(intel_dp, DP_PHY_DPRX,
+ 		       "Link Training failed with HOBL active, not enabling it from now on\n");
 -- 
 2.37.2
 
