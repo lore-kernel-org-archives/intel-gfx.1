@@ -4,52 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A24A6C77B78
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 May 2023 14:48:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CCF3C77B7C
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 May 2023 14:54:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C584A10E120;
-	Thu,  4 May 2023 14:48:36 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2735410E120
- for <intel-gfx@lists.freedesktop.org>; Thu,  4 May 2023 14:48:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1683211716; x=1714747716;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=HRTl4XHn+MdccK3l+eQZxZuyQHwq9oQVdahwkXivwyE=;
- b=Gm2Tqp6hjdYRiEQq2pFjt1P8obXP7ialXRnsjAwTnuG+IgGB1ni9Az+z
- StTVzu9WaPVZbWdzX8jZQJ5meWjnPXIOO14s1ZMcT26yJiY3oCD/0kUfe
- 7BCcVkkzFOk6hIi0bYf+4PunZUPkFrua1zbRQnEQcsLntq0oBZvaHVOGC
- OUNs8vF3ifWME1dTwzOGFKhiNqwnZhaxxJKTQb0c8a7/5dC+EnPFunLeC
- hMXoJgPkxJOC4Hr8CZafYun71i/fZOF7sYrSMFf4V3Jo8BHMK0ujZ7GXi
- kkQKQ5GUJADfW5v2A5YN0merQECChuR5ujzof09cS5D0m+FoiL0CEgL2N g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10700"; a="377018849"
-X-IronPort-AV: E=Sophos;i="5.99,249,1677571200"; d="scan'208";a="377018849"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2023 07:48:34 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10700"; a="841207379"
-X-IronPort-AV: E=Sophos;i="5.99,249,1677571200"; d="scan'208";a="841207379"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by fmsmga001.fm.intel.com with SMTP; 04 May 2023 07:48:32 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 04 May 2023 17:48:31 +0300
-Date: Thu, 4 May 2023 17:48:31 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Imre Deak <imre.deak@intel.com>
-Message-ID: <ZFPFv4D2cEf9fsL0@intel.com>
-References: <20230503231048.432368-1-imre.deak@intel.com>
- <20230503231048.432368-6-imre.deak@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99A0D10E120;
+	Thu,  4 May 2023 14:54:08 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 968B810E120
+ for <intel-gfx@lists.freedesktop.org>; Thu,  4 May 2023 14:54:06 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D176B6122C;
+ Thu,  4 May 2023 14:54:05 +0000 (UTC)
+Received: from rdvivi-mobl4 (unknown [192.55.54.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPSA id 8E408C433D2;
+ Thu,  4 May 2023 14:54:03 +0000 (UTC)
+Date: Thu, 4 May 2023 10:54:01 -0400
+From: Rodrigo Vivi <rodrigo.vivi@kernel.org>
+To: Jani Nikula <jani.nikula@intel.com>
+Message-ID: <ZFPHAOmVp3NO6ef1@rdvivi-mobl4>
+References: <cover.1683041799.git.jani.nikula@intel.com>
+ <89ab5cf179566c429383cc57db746038f75cba0d.1683041799.git.jani.nikula@intel.com>
+ <ZFJsFsBPp/HS8I0k@rdvivi-mobl4> <87a5ykzb2u.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230503231048.432368-6-imre.deak@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH v2 05/12] drm/i915: Factor out
- set_encoder_for_connector()
+In-Reply-To: <87a5ykzb2u.fsf@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 05/24] drm/i915/vma: fix struct
+ i915_vma_bindinfo kernel-doc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,77 +51,200 @@ Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 04, 2023 at 02:10:41AM +0300, Imre Deak wrote:
-> Factor out a function setting the encoder and CRTC in the connector
-> atomic state, required by a follow up patch.
+On Thu, May 04, 2023 at 12:43:05PM +0300, Jani Nikula wrote:
+> On Wed, 03 May 2023, Rodrigo Vivi <rodrigo.vivi@kernel.org> wrote:
+> > On Tue, May 02, 2023 at 06:37:22PM +0300, Jani Nikula wrote:
+> >> You can't document both a sub-struct type and a struct member at the
+> >> same time. Separate them.
+> >
+> > another way would be to kill the 'i915_vma_bindinfo' name entirely and
+> > document only as '@bi:' and then move the individual documentations near
+> > their definitions.
 > 
-> No functional changes.
-> 
-> Signed-off-by: Imre Deak <imre.deak@intel.com>
+> I don't think that will work, because AFAIK kernel-doc does not descend
+> into struct members recursively.
 
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+It does:
 
-> ---
->  .../drm/i915/display/intel_modeset_setup.c    | 28 +++++++++++++------
->  1 file changed, 19 insertions(+), 9 deletions(-)
+'In-line member documentation comments' definition of:
+Documentation/doc-guide/kernel-doc.rst
+
 > 
-> diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-> index 922ea5ddd0c5b..9848d20582963 100644
-> --- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-> +++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-> @@ -87,6 +87,24 @@ static void intel_crtc_disable_noatomic_begin(struct intel_crtc *crtc,
->  	}
->  }
+> You can either declare and document the sub-structs as separate types
+> (the patch at hand), or you can document sub-struct members directly
+> from the embedding struct as shown below. I don't think the latter is
+> very nice.
+
+what I had in mind was something more like:
+
+        /**
+-        * struct i915_vma_bindinfo - Information needed for async bind
+-        * only but that can be dropped after the bind has taken place.
+-        * Consider making this a separate argument to the bind_vma
+-        * op, coalescing with other arguments like vm, stash, cache_level
+-        * and flags
+-        * @pages: The pages sg-table.
+-        * @page_sizes: Page sizes of the pages.
+-        * @pages_rsgt: Refcounted sg-table when delayed object destruction
+-        * is supported. May be NULL.
+-        * @readonly: Whether the vma should be bound read-only.
+-        * @lmem: Whether the vma points to lmem.
++        * @bi: Information needed for async bind only but that can be dropped
++        *      after the bind has taken place.
++        *      Consider making this a separate argument to the bind_vma
++        *      op, coalescing with other arguments like vm, stash, cache_level
++        *      and flags
+         */
+-       struct i915_vma_bindinfo {
++       struct {
++               /** @pages: The pages sg-table. */
+                struct sg_table *pages;
++               /** @page_sizes: Page sizes of the pages. */
+                struct i915_page_sizes page_sizes;
++               /**
++                * @pages_rsgt: Refcounted sg-table when delayed object
++                *              destruction is supported. May be NULL.
++                */
+                struct i915_refct_sgt *pages_rsgt;
++               /** @readonly: Whether the vma should be bound read-only. */
+                bool readonly:1;
++               /** @lmem: Whether the vma points to lmem. */
+                bool lmem:1;
+        } bi;
+
+
+But let's not block the progress of the much needed fixes. It's your call:
+
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+
+> 
+> BR,
+> Jani.
+> 
+> 
+> index 2053c037dbfb..ee767cc4de43 100644
+> --- a/drivers/gpu/drm/i915/i915_vma_resource.h
+> +++ b/drivers/gpu/drm/i915/i915_vma_resource.h
+> @@ -48,6 +48,12 @@ struct i915_page_sizes {
+>   * @rb: Rb node for the vm's pending unbind interval tree.
+>   * @__subtree_last: Interval tree private member.
+>   * @wakeref: wakeref.
+> + * @bi.pages: The pages sg-table.
+> + * @bi.page_sizes: Page sizes of the pages.
+> + * @bi.pages_rsgt: Refcounted sg-table when delayed object destruction
+> + * is supported. May be NULL.
+> + * @bi.readonly: Whether the vma should be bound read-only.
+> + * @bi.lmem: Whether the vma points to lmem.
+>   * @vm: non-refcounted pointer to the vm. This is for internal use only and
+>   * this member is cleared after vm_resource unbind.
+>   * @mr: The memory region of the object pointed to by the vma.
+> @@ -89,17 +95,11 @@ struct i915_vma_resource {
+>         intel_wakeref_t wakeref;
 >  
-> +static void set_encoder_for_connector(struct intel_connector *connector,
-> +				      struct intel_encoder *encoder)
-> +{
-> +	struct drm_connector_state *conn_state = connector->base.state;
-> +
-> +	if (conn_state->crtc)
-> +		drm_connector_put(&connector->base);
-> +
-> +	if (encoder) {
-> +		conn_state->best_encoder = &encoder->base;
-> +		conn_state->crtc = encoder->base.crtc;
-> +		drm_connector_get(&connector->base);
-> +	} else {
-> +		conn_state->best_encoder = NULL;
-> +		conn_state->crtc = NULL;
-> +	}
-> +}
-> +
->  static void intel_crtc_disable_noatomic_complete(struct intel_crtc *crtc)
->  {
->  	struct intel_encoder *encoder;
-> @@ -141,8 +159,7 @@ static void intel_modeset_update_connector_atomic_state(struct drm_i915_private
->  		struct intel_encoder *encoder =
->  			to_intel_encoder(connector->base.encoder);
->  
-> -		if (conn_state->crtc)
-> -			drm_connector_put(&connector->base);
-> +		set_encoder_for_connector(connector, encoder);
->  
->  		if (encoder) {
->  			struct intel_crtc *crtc =
-> @@ -150,14 +167,7 @@ static void intel_modeset_update_connector_atomic_state(struct drm_i915_private
->  			const struct intel_crtc_state *crtc_state =
->  				to_intel_crtc_state(crtc->base.state);
->  
-> -			conn_state->best_encoder = &encoder->base;
-> -			conn_state->crtc = &crtc->base;
->  			conn_state->max_bpc = (crtc_state->pipe_bpp ?: 24) / 3;
-> -
-> -			drm_connector_get(&connector->base);
-> -		} else {
-> -			conn_state->best_encoder = NULL;
-> -			conn_state->crtc = NULL;
->  		}
->  	}
->  	drm_connector_list_iter_end(&conn_iter);
+>         /**
+> -        * struct i915_vma_bindinfo - Information needed for async bind
+> -        * only but that can be dropped after the bind has taken place.
+> -        * Consider making this a separate argument to the bind_vma
+> -        * op, coalescing with other arguments like vm, stash, cache_level
+> -        * and flags
+> -        * @pages: The pages sg-table.
+> -        * @page_sizes: Page sizes of the pages.
+> -        * @pages_rsgt: Refcounted sg-table when delayed object destruction
+> -        * is supported. May be NULL.
+> -        * @readonly: Whether the vma should be bound read-only.
+> -        * @lmem: Whether the vma points to lmem.
+> +        * @bi: Information needed for async bind only but that can be dropped
+> +        * after the bind has taken place.
+> +        *
+> +        * Consider making this a separate argument to the bind_vma op,
+> +        * coalescing with other arguments like vm, stash, cache_level and flags
+>          */
+>         struct i915_vma_bindinfo {
+>                 struct sg_table *pages;
+> 
+> 
+> >
+> >> 
+> >> drivers/gpu/drm/i915/i915_vma_resource.h:91: warning: Incorrect use of kernel-doc format:          * struct i915_vma_bindinfo - Information needed for async bind
+> >> drivers/gpu/drm/i915/i915_vma_resource.h:129: warning: Function parameter or member 'bi' not described in 'i915_vma_resource'
+> >> 
+> >> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> >> ---
+> >>  drivers/gpu/drm/i915/i915_vma_resource.h | 45 ++++++++++++++----------
+> >>  1 file changed, 27 insertions(+), 18 deletions(-)
+> >> 
+> >> diff --git a/drivers/gpu/drm/i915/i915_vma_resource.h b/drivers/gpu/drm/i915/i915_vma_resource.h
+> >> index 2053c037dbfb..ca2b0f7f59bc 100644
+> >> --- a/drivers/gpu/drm/i915/i915_vma_resource.h
+> >> +++ b/drivers/gpu/drm/i915/i915_vma_resource.h
+> >> @@ -33,6 +33,27 @@ struct i915_page_sizes {
+> >>  	unsigned int sg;
+> >>  };
+> >>  
+> >> +/**
+> >> + * struct i915_vma_bindinfo - Information needed for async bind
+> >> + * only but that can be dropped after the bind has taken place.
+> >> + * Consider making this a separate argument to the bind_vma
+> >> + * op, coalescing with other arguments like vm, stash, cache_level
+> >> + * and flags
+> >> + * @pages: The pages sg-table.
+> >> + * @page_sizes: Page sizes of the pages.
+> >> + * @pages_rsgt: Refcounted sg-table when delayed object destruction
+> >> + * is supported. May be NULL.
+> >> + * @readonly: Whether the vma should be bound read-only.
+> >> + * @lmem: Whether the vma points to lmem.
+> >> + */
+> >> +struct i915_vma_bindinfo {
+> >> +	struct sg_table *pages;
+> >> +	struct i915_page_sizes page_sizes;
+> >> +	struct i915_refct_sgt *pages_rsgt;
+> >> +	bool readonly:1;
+> >> +	bool lmem:1;
+> >
+> > btw, I believe we should move all the individual docs near to its
+> > declarations. easier to forget updating the documentation when updating
+> > fields here.
+> >
+> >> +};
+> >> +
+> >>  /**
+> >>   * struct i915_vma_resource - Snapshotted unbind information.
+> >>   * @unbind_fence: Fence to mark unbinding complete. Note that this fence
+> >> @@ -89,25 +110,13 @@ struct i915_vma_resource {
+> >>  	intel_wakeref_t wakeref;
+> >>  
+> >>  	/**
+> >> -	 * struct i915_vma_bindinfo - Information needed for async bind
+> >> -	 * only but that can be dropped after the bind has taken place.
+> >> -	 * Consider making this a separate argument to the bind_vma
+> >> -	 * op, coalescing with other arguments like vm, stash, cache_level
+> >> -	 * and flags
+> >> -	 * @pages: The pages sg-table.
+> >> -	 * @page_sizes: Page sizes of the pages.
+> >> -	 * @pages_rsgt: Refcounted sg-table when delayed object destruction
+> >> -	 * is supported. May be NULL.
+> >> -	 * @readonly: Whether the vma should be bound read-only.
+> >> -	 * @lmem: Whether the vma points to lmem.
+> >> +	 * @bi: Information needed for async bind only but that can be dropped
+> >> +	 * after the bind has taken place.
+> >> +	 *
+> >> +	 * Consider making this a separate argument to the bind_vma op,
+> >> +	 * coalescing with other arguments like vm, stash, cache_level and flags
+> >>  	 */
+> >> -	struct i915_vma_bindinfo {
+> >> -		struct sg_table *pages;
+> >> -		struct i915_page_sizes page_sizes;
+> >> -		struct i915_refct_sgt *pages_rsgt;
+> >> -		bool readonly:1;
+> >> -		bool lmem:1;
+> >> -	} bi;
+> >> +	struct i915_vma_bindinfo bi;
+> >>  
+> >>  #if IS_ENABLED(CONFIG_DRM_I915_CAPTURE_ERROR)
+> >>  	struct intel_memory_region *mr;
+> >> -- 
+> >> 2.39.2
+> >> 
+> 
 > -- 
-> 2.37.2
-
--- 
-Ville Syrjälä
-Intel
+> Jani Nikula, Intel Open Source Graphics Center
