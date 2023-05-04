@@ -4,52 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04BD0C77B7C
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 May 2023 15:02:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBDD7C77B78
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 May 2023 15:35:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42A5A10E120;
-	Thu,  4 May 2023 15:02:02 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F310F10E120
- for <intel-gfx@lists.freedesktop.org>; Thu,  4 May 2023 15:02:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1683212520; x=1714748520;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=9Kg3ux7ozAfF4viVnUCKJHKG9rUPwpJ3uEth7FI/pyc=;
- b=JJINBc4K3cIpbf1SK8QOsESungcdcY3qCXo2Wk7R0qBgjG1FAQxQbmFT
- i7RRmn+z+HmE5P5OPREt0IPG5RQeZxpBoA/0kP9ebJb6OYfy8Ifk4W3zP
- WQCutMDgbeDRXB2QH5ROB1Kn8WQWL9OC1ch2z3bxoiwOo7AoxwpVWirYU
- hf3x6bBnHibRFGiQWxvdHTwl8YdTdu7R4ZyAxDrp+hMrDC0QumcmntU25
- MxNXkOWnAiIXM6zYDkgB6fHjCafErxMm2Z5g3fX8vnM8kdMBVEuS7LKgj
- 9ofsIljUJEGNkBQ4Oc/Xzdo01sP1siPjbW6+3nlXxH+8ahlLOYmANb47u Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10700"; a="328575759"
-X-IronPort-AV: E=Sophos;i="5.99,249,1677571200"; d="scan'208";a="328575759"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 May 2023 08:00:10 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10700"; a="766614580"
-X-IronPort-AV: E=Sophos;i="5.99,249,1677571200"; d="scan'208";a="766614580"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by fmsmga004.fm.intel.com with SMTP; 04 May 2023 08:00:07 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 04 May 2023 18:00:06 +0300
-Date: Thu, 4 May 2023 18:00:06 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Imre Deak <imre.deak@intel.com>
-Message-ID: <ZFPIdiJxRLyteyud@intel.com>
-References: <20230503231048.432368-1-imre.deak@intel.com>
- <20230503231048.432368-12-imre.deak@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79AE510E4F9;
+	Thu,  4 May 2023 15:35:19 +0000 (UTC)
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A941610E4B9
+ for <intel-gfx@lists.freedesktop.org>; Thu,  4 May 2023 15:35:16 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-4ec8133c59eso793018e87.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 04 May 2023 08:35:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1683214514; x=1685806514;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QqGgu4Dq8CbrtExkjIjb7tdsKLrwoIcjoGCMDEsQeDA=;
+ b=OhwoOI6QPBGT43zGKDabcaxxIH159JsHWRbP6Ab6bMCmhosWTDkK/PZVTv17KhM0P3
+ ey6p4uHOE+Uz0GLMBAQoXDmt7ekxvln1CWsfFoIJTczPXQQHK7Po9nY9TYZarqMg9Lpl
+ 1dX+CxcyhSZLhwUJZ1CwjwfebTYXgNFl52xzXcfAqnznnF+J4I0QHZ7inzy+wPAHAgGF
+ FIaLuF2KAayg78MvspsOY7zkxVJwGzj0aYoJ8heDrH9GQq+ktqBZ+OGjV2rz8+lbN1er
+ LDR75CD/vd4P2PWXqBW82H0NkdkylUOVV1mFYc0AXlJ5qgc2/hiaB1ewzReP2mLs/b9P
+ FSgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683214514; x=1685806514;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=QqGgu4Dq8CbrtExkjIjb7tdsKLrwoIcjoGCMDEsQeDA=;
+ b=d4hqP0kQ6ULn23oJTy2AyZ1QtwVMH6UPMKqB1cVkqoEpktbMEvI2T4V4XU043fgoF/
+ mN9E1Sc4b28vrO898CZ9n29QL+g4hNwD1vrDJUy+Jyyk4OgC002glELSoF0KiFYjDe6O
+ eRH/xqyg4ZnivlfFA+UWOIIcNRjFMDOxhKSg8J+3BuIzzlvJS6PPRSlfF+S+tsmrMJrJ
+ AnrgUXO19daOku7YJAIUWJ7a71RzxJcVV06ntvjHN7pxaJ4DqMLFIj9t2QZqRkUu4FzB
+ OqaQULc90JzAb4eZrTKFQS1lDmrJeYdJyNVd+LI/6IPsBOrJzPTuTr3M72Yh+yDhlwAW
+ Vz/A==
+X-Gm-Message-State: AC+VfDxtn3B5ZEpfD4YvaitKeUuWQYOfSfVq6xgMDSSgEu6saA9j7oHx
+ ZKJeb37/rpggDlHbjfCuZZjBdg==
+X-Google-Smtp-Source: ACHHUZ7LgHOzMD6gHh3YhZUwEpf0/g1ORmLjh58xbWn3XK9mLhkPpOWuR6hdAbm14fXm67vfT/NpnA==
+X-Received: by 2002:ac2:53ac:0:b0:4ef:ec94:9678 with SMTP id
+ j12-20020ac253ac000000b004efec949678mr2006373lfh.20.1683214513814; 
+ Thu, 04 May 2023 08:35:13 -0700 (PDT)
+Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
+ [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
+ n15-20020a056512388f00b004e96afb1e9asm6608753lft.253.2023.05.04.08.35.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 May 2023 08:35:13 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Suraj Kandpal <suraj.kandpal@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
+Date: Thu,  4 May 2023 18:35:05 +0300
+Message-Id: <20230504153511.4007320-3-dmitry.baryshkov@linaro.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230504153511.4007320-1-dmitry.baryshkov@linaro.org>
+References: <20230504153511.4007320-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230503231048.432368-12-imre.deak@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH v2 11/12] drm/i915: Factor out a helper for
- handling atomic modeset locks/state
+Subject: [Intel-gfx] [PATCH v5 2/8] drm/i915/dsc: move rc_buf_thresh values
+ to common helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,194 +81,124 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@intel.com>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 04, 2023 at 02:10:47AM +0300, Imre Deak wrote:
-> This patch simplifying the handling of modeset locks and atomic state
-> for an atomic commit is based on
-> 
-> https://lore.kernel.org/all/20210715184954.7794-2-ville.syrjala@linux.intel.com/
-> 
-> adding the helper to i915. I find this approach preferrable than
-> open-coding the corresponding steps (fixed for me an atomic
-> state reset during a DEADLK retry, which I missed in the open-coded
-> version) and also better than the existing
-> DRM_MODESET_LOCK_ALL_BEGIN/END macros for the reasons described in the
-> above original patchset.
-> 
-> This change takes the helper into use only for atomic commits during DDI
-> hotplug handling, as a preparation for a follow-up patch adding a
-> similar commit started from the same spot. Other places doing a
-> driver-internal atomic commit is to be converted by a follow-up
-> patchset.
-> 
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Signed-off-by: Imre Deak <imre.deak@intel.com>
+The rc_buf_thresh values are common to all DSC implementations. Move
+them to the common helper together with the code to propagage them to
+the drm_dsc_config.
 
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/display/drm_dsc_helper.c  | 35 +++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_vdsc.c | 24 +---------------
+ include/drm/display/drm_dsc_helper.h      |  1 +
+ 3 files changed, 37 insertions(+), 23 deletions(-)
 
-> ---
->  drivers/gpu/drm/i915/Makefile                 |  1 +
->  drivers/gpu/drm/i915/display/intel_ddi.c      | 17 ++-----
->  .../gpu/drm/i915/display/intel_modeset_lock.c | 50 +++++++++++++++++++
->  .../gpu/drm/i915/display/intel_modeset_lock.h | 33 ++++++++++++
->  4 files changed, 87 insertions(+), 14 deletions(-)
->  create mode 100644 drivers/gpu/drm/i915/display/intel_modeset_lock.c
->  create mode 100644 drivers/gpu/drm/i915/display/intel_modeset_lock.h
-> 
-> diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-> index 9af76e376ca91..ef6feb2aad2ad 100644
-> --- a/drivers/gpu/drm/i915/Makefile
-> +++ b/drivers/gpu/drm/i915/Makefile
-> @@ -263,6 +263,7 @@ i915-y += \
->  	display/intel_hti.o \
->  	display/intel_load_detect.o \
->  	display/intel_lpe_audio.o \
-> +	display/intel_modeset_lock.o \
->  	display/intel_modeset_verify.o \
->  	display/intel_modeset_setup.o \
->  	display/intel_overlay.o \
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-> index 55f36d9d509c6..eb391fff0f1be 100644
-> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> @@ -63,6 +63,7 @@
->  #include "intel_hti.h"
->  #include "intel_lspcon.h"
->  #include "intel_mg_phy_regs.h"
-> +#include "intel_modeset_lock.h"
->  #include "intel_pps.h"
->  #include "intel_psr.h"
->  #include "intel_quirks.h"
-> @@ -4400,26 +4401,14 @@ intel_ddi_hotplug(struct intel_encoder *encoder,
->  
->  	state = intel_encoder_hotplug(encoder, connector);
->  
-> -	drm_modeset_acquire_init(&ctx, 0);
-> -
-> -	for (;;) {
-> +	intel_modeset_lock_ctx_retry(&ctx, NULL, 0, ret) {
->  		if (connector->base.connector_type == DRM_MODE_CONNECTOR_HDMIA)
->  			ret = intel_hdmi_reset_link(encoder, &ctx);
->  		else
->  			ret = intel_dp_retrain_link(encoder, &ctx);
-> -
-> -		if (ret == -EDEADLK) {
-> -			drm_modeset_backoff(&ctx);
-> -			continue;
-> -		}
-> -
-> -		break;
->  	}
->  
-> -	drm_modeset_drop_locks(&ctx);
-> -	drm_modeset_acquire_fini(&ctx);
-> -	drm_WARN(encoder->base.dev, ret,
-> -		 "Acquiring modeset locks failed with %i\n", ret);
-> +	drm_WARN_ON(encoder->base.dev, ret);
->  
->  	/*
->  	 * Unpowered type-c dongles can take some time to boot and be
-> diff --git a/drivers/gpu/drm/i915/display/intel_modeset_lock.c b/drivers/gpu/drm/i915/display/intel_modeset_lock.c
-> new file mode 100644
-> index 0000000000000..8fb6fd849a75d
-> --- /dev/null
-> +++ b/drivers/gpu/drm/i915/display/intel_modeset_lock.c
-> @@ -0,0 +1,50 @@
-> +// SPDX-License-Identifier: MIT
-> +/*
-> + * Copyright © 2023 Intel Corporation
-> + */
-> +
-> +#include <drm/drm_modeset_lock.h>
-> +
-> +#include "intel_display_types.h"
-> +#include "intel_modeset_lock.h"
-> +
-> +void _intel_modeset_lock_begin(struct drm_modeset_acquire_ctx *ctx,
-> +			       struct intel_atomic_state *state,
-> +			       unsigned int flags, int *ret)
-> +{
-> +	drm_modeset_acquire_init(ctx, flags);
-> +
-> +	if (state)
-> +		state->base.acquire_ctx = ctx;
-> +
-> +	*ret = -EDEADLK;
-> +}
-> +
-> +bool _intel_modeset_lock_loop(int *ret)
-> +{
-> +	if (*ret == -EDEADLK) {
-> +		*ret = 0;
-> +		return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +
-> +void _intel_modeset_lock_end(struct drm_modeset_acquire_ctx *ctx,
-> +			     struct intel_atomic_state *state,
-> +			     int *ret)
-> +{
-> +	if (*ret == -EDEADLK) {
-> +		if (state)
-> +			drm_atomic_state_clear(&state->base);
-> +
-> +		*ret = drm_modeset_backoff(ctx);
-> +		if (*ret == 0) {
-> +			*ret = -EDEADLK;
-> +			return;
-> +		}
-> +	}
-> +
-> +	drm_modeset_drop_locks(ctx);
-> +	drm_modeset_acquire_fini(ctx);
-> +}
-> diff --git a/drivers/gpu/drm/i915/display/intel_modeset_lock.h b/drivers/gpu/drm/i915/display/intel_modeset_lock.h
-> new file mode 100644
-> index 0000000000000..edb5099bcd99c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/i915/display/intel_modeset_lock.h
-> @@ -0,0 +1,33 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/*
-> + * Copyright © 2023 Intel Corporation
-> + */
-> +
-> +#ifndef __INTEL_MODESET_LOCK_H__
-> +#define __INTEL_MODESET_LOCK_H__
-> +
-> +#include <linux/types.h>
-> +
-> +struct drm_modeset_acquire_ctx;
-> +struct intel_atomic_state;
-> +
-> +void _intel_modeset_lock_begin(struct drm_modeset_acquire_ctx *ctx,
-> +			       struct intel_atomic_state *state,
-> +			       unsigned int flags,
-> +			       int *ret);
-> +bool _intel_modeset_lock_loop(int *ret);
-> +void _intel_modeset_lock_end(struct drm_modeset_acquire_ctx *ctx,
-> +			     struct intel_atomic_state *state,
-> +			     int *ret);
-> +
-> +/*
-> + * Note that one must always use "continue" rather than
-> + * "break" or "return" to handle errors within the
-> + * intel_modeset_lock_ctx_retry() block.
-> + */
-> +#define intel_modeset_lock_ctx_retry(ctx, state, flags, ret) \
-> +	for (_intel_modeset_lock_begin((ctx), (state), (flags), &(ret)); \
-> +	     _intel_modeset_lock_loop(&(ret)); \
-> +	     _intel_modeset_lock_end((ctx), (state), &(ret)))
-> +
-> +#endif /* __INTEL_MODESET_LOCK_H__ */
-> -- 
-> 2.37.2
-
+diff --git a/drivers/gpu/drm/display/drm_dsc_helper.c b/drivers/gpu/drm/display/drm_dsc_helper.c
+index c869c6e51e2b..be91abe2cfb2 100644
+--- a/drivers/gpu/drm/display/drm_dsc_helper.c
++++ b/drivers/gpu/drm/display/drm_dsc_helper.c
+@@ -270,6 +270,41 @@ void drm_dsc_pps_payload_pack(struct drm_dsc_picture_parameter_set *pps_payload,
+ }
+ EXPORT_SYMBOL(drm_dsc_pps_payload_pack);
+ 
++/* From DSC_v1.11 spec, rc_parameter_Set syntax element typically constant */
++static const u16 drm_dsc_rc_buf_thresh[] = {
++	896, 1792, 2688, 3584, 4480, 5376, 6272, 6720, 7168, 7616,
++	7744, 7872, 8000, 8064
++};
++
++/**
++ * drm_dsc_set_rc_buf_thresh() - Set thresholds for the RC model
++ * in accordance with the DSC 1.2 specification.
++ *
++ * @vdsc_cfg: DSC Configuration data partially filled by driver
++ */
++void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg)
++{
++	int i;
++
++	BUILD_BUG_ON(ARRAY_SIZE(drm_dsc_rc_buf_thresh) !=
++		     DSC_NUM_BUF_RANGES - 1);
++	BUILD_BUG_ON(ARRAY_SIZE(drm_dsc_rc_buf_thresh) !=
++		     ARRAY_SIZE(vdsc_cfg->rc_buf_thresh));
++
++	for (i = 0; i < ARRAY_SIZE(drm_dsc_rc_buf_thresh); i++)
++		vdsc_cfg->rc_buf_thresh[i] = drm_dsc_rc_buf_thresh[i] >> 6;
++
++	/*
++	 * For 6bpp, RC Buffer threshold 12 and 13 need a different value
++	 * as per C Model
++	 */
++	if (vdsc_cfg->bits_per_pixel == 6 << 4) {
++		vdsc_cfg->rc_buf_thresh[12] = 7936 >> 6;
++		vdsc_cfg->rc_buf_thresh[13] = 8000 >> 6;
++	}
++}
++EXPORT_SYMBOL(drm_dsc_set_rc_buf_thresh);
++
+ /**
+  * drm_dsc_compute_rc_parameters() - Write rate control
+  * parameters to the dsc configuration defined in
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+index 7003ae9f683a..2fd08375bbe3 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.c
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+@@ -37,12 +37,6 @@ enum COLUMN_INDEX_BPC {
+ 	MAX_COLUMN_INDEX
+ };
+ 
+-/* From DSC_v1.11 spec, rc_parameter_Set syntax element typically constant */
+-static const u16 rc_buf_thresh[] = {
+-	896, 1792, 2688, 3584, 4480, 5376, 6272, 6720, 7168, 7616,
+-	7744, 7872, 8000, 8064
+-};
+-
+ struct rc_parameters {
+ 	u16 initial_xmit_delay;
+ 	u8 first_line_bpg_offset;
+@@ -543,23 +537,7 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
+ 
+ 	vdsc_cfg->bits_per_component = pipe_config->pipe_bpp / 3;
+ 
+-	for (i = 0; i < DSC_NUM_BUF_RANGES - 1; i++) {
+-		/*
+-		 * six 0s are appended to the lsb of each threshold value
+-		 * internally in h/w.
+-		 * Only 8 bits are allowed for programming RcBufThreshold
+-		 */
+-		vdsc_cfg->rc_buf_thresh[i] = rc_buf_thresh[i] >> 6;
+-	}
+-
+-	/*
+-	 * For 6bpp, RC Buffer threshold 12 and 13 need a different value
+-	 * as per C Model
+-	 */
+-	if (compressed_bpp == 6) {
+-		vdsc_cfg->rc_buf_thresh[12] = 0x7C;
+-		vdsc_cfg->rc_buf_thresh[13] = 0x7D;
+-	}
++	drm_dsc_set_rc_buf_thresh(vdsc_cfg);
+ 
+ 	/*
+ 	 * From XE_LPD onwards we supports compression bpps in steps of 1
+diff --git a/include/drm/display/drm_dsc_helper.h b/include/drm/display/drm_dsc_helper.h
+index 8b41edbbabab..706ba1d34742 100644
+--- a/include/drm/display/drm_dsc_helper.h
++++ b/include/drm/display/drm_dsc_helper.h
+@@ -14,6 +14,7 @@ void drm_dsc_dp_pps_header_init(struct dp_sdp_header *pps_header);
+ int drm_dsc_dp_rc_buffer_size(u8 rc_buffer_block_size, u8 rc_buffer_size);
+ void drm_dsc_pps_payload_pack(struct drm_dsc_picture_parameter_set *pps_sdp,
+ 			      const struct drm_dsc_config *dsc_cfg);
++void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg);
+ int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg);
+ 
+ #endif /* _DRM_DSC_HELPER_H_ */
 -- 
-Ville Syrjälä
-Intel
+2.39.2
+
