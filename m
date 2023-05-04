@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C335AC77B7C
-	for <intel-gfx@archiver.kernel.org>; Thu,  4 May 2023 20:22:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E16DDC77B7C
+	for <intel-gfx@archiver.kernel.org>; Thu,  4 May 2023 20:22:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C77710E1C0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D204010E51E;
 	Thu,  4 May 2023 20:22:43 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB43310E1C0;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2744010E1C0;
  Thu,  4 May 2023 20:22:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1683231761; x=1714767761;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=bYw3sJEAw7ZfmuIy1AriDXKK3UXRx89+j3/IJdxtjeQ=;
- b=V/iy/N47IypPMuKnabn4+77ASjb3X6x0WBWRM9oczrZEbRBdHQ4qOst9
- OSQ1MJggl3G/adjgfgZCKi2iHmR5hi/KvXAjY/6jM0BhhpxdcmSGI9TXU
- SqfSE8hjvjUuR4P0LkRts3ffE48W+vUlbVR9A7ESFQTu0ejRRGI7/3Wp0
- pDBS+38gGxZMxYLmiaakJJgALI8ylejINmsPL5GBKNAVcXhLIHsZLIjjk
- ZRh/vYeTsgp1oLO4z1F2AiFTOwv235kzNLkRC+icJErfe+C4FxX/1Qd+Q
- C7wKDAtMRyFoCR78YiSuHAzxY48XKZ+DyaWKcoZqjtOBUB4As2OR+MnGQ A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10700"; a="414569987"
-X-IronPort-AV: E=Sophos;i="5.99,250,1677571200"; d="scan'208";a="414569987"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=84afhfByTW10EnXTasVhm2/sggpFyegCFHAEgH0ofMQ=;
+ b=nzJEWH2cUEw70KKV5ustbgvZceBFPnrv4VjinGovZBE9f7b6zNIX/8VM
+ 2Q8h4ddTJxsP/6r1slhdpICwZTl/YqcIgoXuHv54NXJvyw31cUUvdVnF8
+ W0q21mDQUiACKfzO9E79zA7IkBfa6zYCBqTYSSSrUubLvjhyrGtKboP8x
+ ZYcKInD5mLGCgLz0fILLYG4mN/goIk4hoTKKg/0am6qUkbNyKoJxCnH33
+ 2RZEpDDo4b2uv7L6vJULOwuofGfIjjOdXsldoK3lhnU2SOUVhH1t3Niph
+ vBoIMhvcKLieQL6fiu6blURWEd4pEcuXjeUGfoAm+90/c6MgX1N0ZPlZC A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10700"; a="414569995"
+X-IronPort-AV: E=Sophos;i="5.99,250,1677571200"; d="scan'208";a="414569995"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  04 May 2023 13:22:39 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10700"; a="808900438"
-X-IronPort-AV: E=Sophos;i="5.99,250,1677571200"; d="scan'208";a="808900438"
+X-IronPort-AV: E=McAfee;i="6600,9927,10700"; a="808900445"
+X-IronPort-AV: E=Sophos;i="5.99,250,1677571200"; d="scan'208";a="808900445"
 Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
  by fmsmga002.fm.intel.com with ESMTP; 04 May 2023 13:22:39 -0700
 From: John.C.Harrison@Intel.com
 To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu,  4 May 2023 13:22:50 -0700
-Message-Id: <20230504202252.1104212-1-John.C.Harrison@Intel.com>
+Date: Thu,  4 May 2023 13:22:52 -0700
+Message-Id: <20230504202252.1104212-3-John.C.Harrison@Intel.com>
 X-Mailer: git-send-email 2.39.1
+In-Reply-To: <20230504202252.1104212-1-John.C.Harrison@Intel.com>
+References: <20230504202252.1104212-1-John.C.Harrison@Intel.com>
 MIME-Version: 1.0
 Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
  Swindon SN3 1RJ
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/2] Update MTL GuC firmware
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/mtl: Update GuC firmware version
+ for MTL to 70.6.6
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,21 +65,27 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: John Harrison <John.C.Harrison@Intel.com>
 
-Update MTL to the latest GuC release and switch to using reduced
-version file names. Also, pull in a patch from an earlier series that
-is waiting to merge to prevent merge conflicts later.
+Also switch to using reduced version file naming as it is no longer
+such a work-in-progress and likely to change.
 
 Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-
-John Harrison (2):
-  drm/i915/uc: Track patch level versions on reduced version firmware
-    files
-  drm/i915/mtl: Update GuC firmware version for MTL to 70.6.6
-
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 32 +++++++++++++++---------
- 1 file changed, 20 insertions(+), 12 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index 55e50bd08d7ff..10e48cbcf494a 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -79,7 +79,7 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
+  * security fixes, etc. to be enabled.
+  */
+ #define INTEL_GUC_FIRMWARE_DEFS(fw_def, guc_maj, guc_mmp) \
+-	fw_def(METEORLAKE,   0, guc_mmp(mtl,  70, 6, 5)) \
++	fw_def(METEORLAKE,   0, guc_maj(mtl,  70, 6, 6)) \
+ 	fw_def(DG2,          0, guc_maj(dg2,  70, 5, 1)) \
+ 	fw_def(ALDERLAKE_P,  0, guc_maj(adlp, 70, 5, 1)) \
+ 	fw_def(ALDERLAKE_P,  0, guc_mmp(adlp, 70, 1, 1)) \
 -- 
 2.39.1
 
