@@ -4,47 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F4F6C7EE22
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 May 2023 16:08:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77BD9C77B7F
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 May 2023 16:25:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA57510E63A;
-	Fri,  5 May 2023 16:08:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD6CB10E0C3;
+	Fri,  5 May 2023 16:25:14 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D7BF10E637;
- Fri,  5 May 2023 16:08:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D9F810E0C3
+ for <intel-gfx@lists.freedesktop.org>; Fri,  5 May 2023 16:25:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1683302912; x=1714838912;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=MrXjQL+JlnFSHd8I8fUatNDKhrRm/KY91Oe5q7b90MQ=;
- b=Apg43jtzq2NK5M4GsA8ZBu1bD5ug9wrMqnKHMw87Gt6qICj1qyNZIGGp
- G6YFopvUPRW4hr+JdKBTIg3ZNQzvwmvptkyotFQXzGySR32hKOnazice7
- SkhGW+wZXDVM/pp3mFo18XTQkWT+jYC7HrH5HSdVPySIsTt4L7JqZLWi/
- GgUA35QLywdcEu1LYkAyZhSt5D0buQfopPUyKl+vAjj9v64sN72G7VYaO
- Sg3Y7fSLQQiJA7zBrDYxL4fIE54IfesQ716VdSnttrxIkkc4DPUOUpzfL
- NzMK6xuRS7K02aNpM025VKbX9AqU4ntfps6Egm0NitETtiONbK6UhJWUo w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10701"; a="349276982"
-X-IronPort-AV: E=Sophos;i="5.99,252,1677571200"; d="scan'208";a="349276982"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ t=1683303912; x=1714839912;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=Jx8uvNmTJAMuq5qIA8SysZqCBELfg0LNFxr0spfBwRU=;
+ b=Sld69y5Gd5ejjaDkQJAWqiab8jGSecV4xVKAgiyBF6PKsGiOgE4Dtjet
+ 0CXuWCikcG2E4HunYWPvFA3VYpQFdiEwvQdRonDWexQWqMg8vewk2c3Q2
+ lwnfZ/00jXe+WWcuUJCbBvYtE2NE6/eIw3c5bUJyGpiFxWlw6AZ/+7rfp
+ WmxRq4DdIJGIMSm6c7U5eXIlziJtj1aDZD4RjilwIUYOgaKkn6lSSmAO1
+ 3HZP2WijJUFou71p4IqYhaq97lkjbvtjbeaIkMZSQr/tA0tXZg3c7rt3T
+ RexR+XnBmrfuAAbTeelf9ah5mriYJSadis/QV8TCC1p0uFmSQ66hB9Kog g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10701"; a="349281812"
+X-IronPort-AV: E=Sophos;i="5.99,252,1677571200"; d="scan'208";a="349281812"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2023 09:04:33 -0700
+ 05 May 2023 09:25:11 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10701"; a="871911297"
-X-IronPort-AV: E=Sophos;i="5.99,252,1677571200"; d="scan'208";a="871911297"
-Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2023 09:04:33 -0700
-From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri,  5 May 2023 09:04:14 -0700
-Message-Id: <20230505160415.889525-6-daniele.ceraolospurio@intel.com>
-X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230505160415.889525-1-daniele.ceraolospurio@intel.com>
-References: <20230505160415.889525-1-daniele.ceraolospurio@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10701"; a="647947776"
+X-IronPort-AV: E=Sophos;i="5.99,252,1677571200"; d="scan'208";a="647947776"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
+ by orsmga003.jf.intel.com with SMTP; 05 May 2023 09:25:08 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Fri, 05 May 2023 19:25:07 +0300
+Date: Fri, 5 May 2023 19:25:07 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Message-ID: <ZFUt48Z1eCfyAr3h@intel.com>
+References: <20230427125605.487769-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5/6] drm/i915/uc/gsc: define gsc fw
+In-Reply-To: <20230427125605.487769-1-ankit.k.nautiyal@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH 0/6] Introduce sink_format and other fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,110 +60,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add FW definition and the matching override modparam.
+On Thu, Apr 27, 2023 at 06:25:59PM +0530, Ankit Nautiyal wrote:
+> This patch series is part of a previous series:
+> https://patchwork.freedesktop.org/series/109470/
+> 
+> This adds new member sink_format to store the final format that the
+> sink will be using, which might be different than the output format,
+> and thus might need color/format conversion performed by the PCON.
+> 
+> Last patch just refactors some lines in mode_valid code for DP.
+> 
+> Ankit Nautiyal (6):
+>   drm/i915/display: Add new member to configure PCON color conversion
+>   drm/i915/dp: Replace intel_dp.dfp members with the new crtc_state
+>     sink_format
+>   drm/i915/dp: Configure PCON for conversion of output_format to
+>     YCbCr444
+>   drm/i915/display: Use sink_format instead of ycbcr420_output flag
+>   drm/i915/dp: Add helper to get sink_format
+>   drm/i915/dp: Rearrange check for illegal mode and comments in
+>     mode_valid
 
-The GSC FW has both a release version, based on platform and a rolling
-counter, and a compatibility version, which is the one tracking
-interface changes. Since what we care about is the interface, we use
-the compatibility version in the buinary names.
+Series pushed to drm-intel-next. Thanks.
 
-Same as with the GuC, a major version bump indicate a
-backward-incompatible change, while a minor version bump indicates a
-backward-compatible one, so we use only the former in the file name.
+> 
+>  drivers/gpu/drm/i915/display/icl_dsi.c        |   1 +
+>  drivers/gpu/drm/i915/display/intel_crt.c      |   1 +
+>  .../drm/i915/display/intel_crtc_state_dump.c  |   5 +-
+>  drivers/gpu/drm/i915/display/intel_display.c  |   5 +
+>  .../drm/i915/display/intel_display_types.h    |  12 +-
+>  drivers/gpu/drm/i915/display/intel_dp.c       | 263 ++++++++++++------
+>  drivers/gpu/drm/i915/display/intel_dp_mst.c   |   1 +
+>  drivers/gpu/drm/i915/display/intel_dvo.c      |   1 +
+>  drivers/gpu/drm/i915/display/intel_hdmi.c     |  71 +++--
+>  drivers/gpu/drm/i915/display/intel_hdmi.h     |   5 +-
+>  drivers/gpu/drm/i915/display/intel_lvds.c     |   1 +
+>  drivers/gpu/drm/i915/display/intel_sdvo.c     |   1 +
+>  drivers/gpu/drm/i915/display/intel_tv.c       |   1 +
+>  drivers/gpu/drm/i915/display/vlv_dsi.c        |   1 +
+>  14 files changed, 250 insertions(+), 119 deletions(-)
+> 
+> -- 
+> 2.25.1
 
-Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
-Cc: John Harrison <John.C.Harrison@Intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 32 ++++++++++++++++++------
- 1 file changed, 24 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-index 36ee96c02d74..531cd172151d 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-@@ -124,6 +124,18 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
- 	fw_def(BROXTON,      0, huc_mmp(bxt,  2, 0, 0)) \
- 	fw_def(SKYLAKE,      0, huc_mmp(skl,  2, 0, 0))
- 
-+/*
-+ * The GSC FW has both a release version, based on platform and a rolling
-+ * counter, and a compatibility version, which is the one tracking
-+ * interface changes. Since what we care about is the interface, we use
-+ * the compatibility version in the buinary names.
-+ * Same as with the GuC, a major version bump indicate a
-+ * backward-incompatible change, while a minor version bump indicates a
-+ * backward-compatible one, so we use only the former in the file name.
-+ */
-+#define INTEL_GSC_FIRMWARE_DEFS(fw_def, gsc_def) \
-+	fw_def(METEORLAKE,   0, gsc_def(mtl, 1, 0))
-+
- /*
-  * Set of macros for producing a list of filenames from the above table.
-  */
-@@ -159,6 +171,9 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
- #define MAKE_HUC_FW_PATH_MMP(prefix_, major_, minor_, patch_) \
- 	__MAKE_UC_FW_PATH_MMP(prefix_, "huc", major_, minor_, patch_)
- 
-+#define MAKE_GSC_FW_PATH(prefix_, major_, minor_) \
-+	__MAKE_UC_FW_PATH_MAJOR(prefix_, "gsc", major_)
-+
- /*
-  * All blobs need to be declared via MODULE_FIRMWARE().
-  * This first expansion of the table macros is solely to provide
-@@ -169,6 +184,7 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
- 
- INTEL_GUC_FIRMWARE_DEFS(INTEL_UC_MODULE_FW, MAKE_GUC_FW_PATH_MAJOR, MAKE_GUC_FW_PATH_MMP)
- INTEL_HUC_FIRMWARE_DEFS(INTEL_UC_MODULE_FW, MAKE_HUC_FW_PATH_BLANK, MAKE_HUC_FW_PATH_MMP, MAKE_HUC_FW_PATH_GSC)
-+INTEL_GSC_FIRMWARE_DEFS(INTEL_UC_MODULE_FW, MAKE_GSC_FW_PATH)
- 
- /*
-  * The next expansion of the table macros (in __uc_fw_auto_select below) provides
-@@ -218,6 +234,10 @@ struct __packed uc_fw_blob {
- #define HUC_FW_BLOB_GSC(prefix_) \
- 	UC_FW_BLOB_NEW(0, 0, 0, true, MAKE_HUC_FW_PATH_GSC(prefix_))
- 
-+#define GSC_FW_BLOB(prefix_, major_, minor_) \
-+	UC_FW_BLOB_NEW(major_, minor_, 0, true, \
-+		       MAKE_GSC_FW_PATH(prefix_, major_, minor_))
-+
- struct __packed uc_fw_platform_requirement {
- 	enum intel_platform p;
- 	u8 rev; /* first platform rev using this FW */
-@@ -245,9 +265,13 @@ __uc_fw_auto_select(struct drm_i915_private *i915, struct intel_uc_fw *uc_fw)
- 	static const struct uc_fw_platform_requirement blobs_huc[] = {
- 		INTEL_HUC_FIRMWARE_DEFS(MAKE_FW_LIST, HUC_FW_BLOB, HUC_FW_BLOB_MMP, HUC_FW_BLOB_GSC)
- 	};
-+	static const struct uc_fw_platform_requirement blobs_gsc[] = {
-+		INTEL_GSC_FIRMWARE_DEFS(MAKE_FW_LIST, GSC_FW_BLOB)
-+	};
- 	static const struct fw_blobs_by_type blobs_all[INTEL_UC_FW_NUM_TYPES] = {
- 		[INTEL_UC_FW_TYPE_GUC] = { blobs_guc, ARRAY_SIZE(blobs_guc) },
- 		[INTEL_UC_FW_TYPE_HUC] = { blobs_huc, ARRAY_SIZE(blobs_huc) },
-+		[INTEL_UC_FW_TYPE_GSC] = { blobs_gsc, ARRAY_SIZE(blobs_gsc) },
- 	};
- 	static bool verified[INTEL_UC_FW_NUM_TYPES];
- 	const struct uc_fw_platform_requirement *fw_blobs;
-@@ -257,14 +281,6 @@ __uc_fw_auto_select(struct drm_i915_private *i915, struct intel_uc_fw *uc_fw)
- 	int i;
- 	bool found;
- 
--	/*
--	 * GSC FW support is still not fully in place, so we're not defining
--	 * the FW blob yet because we don't want the driver to attempt to load
--	 * it until we're ready for it.
--	 */
--	if (uc_fw->type == INTEL_UC_FW_TYPE_GSC)
--		return;
--
- 	/*
- 	 * The only difference between the ADL GuC FWs is the HWConfig support.
- 	 * ADL-N does not support HWConfig, so we should use the same binary as
 -- 
-2.40.0
-
+Ville Syrjälä
+Intel
