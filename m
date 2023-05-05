@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBA79C77B7F
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 May 2023 16:08:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1126C7EE22
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 May 2023 16:08:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE72910E63F;
-	Fri,  5 May 2023 16:08:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2902D10E643;
+	Fri,  5 May 2023 16:08:37 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91FDC10E638;
- Fri,  5 May 2023 16:08:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C878E10E638;
+ Fri,  5 May 2023 16:08:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1683302910; x=1714838910;
+ t=1683302914; x=1714838914;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=xRi1Id/aE1BQeB1CESyLqden5RhSzuB1BGlafeI5mX4=;
- b=XMmDltAkrJGMvDSY8Cs453Nx4wxgRiyc5H3SfkJNwGcm0/LfOQGITmWi
- 6jN6t9+YunA9OYKleGECf0Ty13JLkKAI6DqspVF+hfBUnSssFqSxevs+L
- hJ14V6lXmivyeI7m3N4hXJO+CE97nga10ba2eDSof2w0VP7O6yih7lZo4
- t7pxnLD6iUs5TchaP624yVz8s1PqLqerFkqwQ/iU5jNSrLXBZ3fFyB5/D
- mTfFFLozTnH4AMcWA7eF4zexZbSQDG1YOylusy7WABNH/4Ey0tXGC3Prt
- vSQz2PCGIInWLmlTMFaqlh+utAUuHZApBFp/uD3hILBrmVdZGrPJpaFGl g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10701"; a="349276970"
-X-IronPort-AV: E=Sophos;i="5.99,252,1677571200"; d="scan'208";a="349276970"
+ bh=YXk+grE4CZ65Y5+a2pJXCI1H5muU0QCkBOlEm2jn/vg=;
+ b=iqrofbEaN8MvVtQqfhNhS7A8mHN1nUXVHKNKi8CNNB0N6k5c01UcKg1z
+ LYGROZg3GfH7A1s0tG9sPlPh+B8JbhgkjvHUPSgo1aWRsRLJNx8nDjkRP
+ ZDP4TMIU8VzXKkPGxm9Q5RQ4mzf9CkPqNl7LvAfldUkK3pXPEXN5Mtq34
+ 68aPGiZAzmqeBCO5ygv6HLvtTFmpRE/k+yhhQ7tMaT8yBfdr2SCkDIVci
+ qCUS/xHOlhkd2emMw5Fmb+HgAhCrrTyQfnT8cAcenwEqoq2G5wZ9WZWCe
+ Vja5tmvcigxrsMXQilr7AUJqgUDDfDKJC7qf0EkVpZCrW9JXXacUucefe w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10701"; a="349276992"
+X-IronPort-AV: E=Sophos;i="5.99,252,1677571200"; d="scan'208";a="349276992"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2023 09:04:30 -0700
+ 05 May 2023 09:04:34 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10701"; a="871911271"
-X-IronPort-AV: E=Sophos;i="5.99,252,1677571200"; d="scan'208";a="871911271"
+X-IronPort-AV: E=McAfee;i="6600,9927,10701"; a="871911305"
+X-IronPort-AV: E=Sophos;i="5.99,252,1677571200"; d="scan'208";a="871911305"
 Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2023 09:04:29 -0700
+ 05 May 2023 09:04:34 -0700
 From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  5 May 2023 09:04:11 -0700
-Message-Id: <20230505160415.889525-3-daniele.ceraolospurio@intel.com>
+Date: Fri,  5 May 2023 09:04:15 -0700
+Message-Id: <20230505160415.889525-7-daniele.ceraolospurio@intel.com>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230505160415.889525-1-daniele.ceraolospurio@intel.com>
 References: <20230505160415.889525-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/6] drm/i915/uc/gsc: fixes and updates for GSC
- memory allocation
+Subject: [Intel-gfx] [PATCH 6/6] drm/i915/uc/gsc: Add a gsc_info debugfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,231 +63,333 @@ Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A few fixes/updates are required around the GSC memory allocation and it
-is easier to do them all at the same time. The changes are as follows:
+Add a new debugfs to dump information about the GSC. This includes:
 
-1 - Switch the memory allocation to stolen memory. We need to avoid
-accesses from GSC FW to normal memory after the suspend function has
-completed and to do so we can either switch to using stolen or make sure
-the GSC is gone to sleep before the end of the suspend function. Given
-that the GSC waits for a bit before going idle even if there are no
-pending operations, it is easier and quicker to just use stolen memory.
+- the FW path and SW tracking status;
+- the release, security and compatibility versions;
+- the HECI1 status registers.
 
-2 - Reduce the GSC allocation size to 4MBs, which is the POR requirement.
-The 8MBs were needed only for early FW and I had misunderstood that as
-being the expected POR size when I sent the original patch.
+Note that those are the same registers that the mei driver dumps in
+their own status sysfs on DG2 (where mei owns the GSC).
 
-3 - Perma-map the GSC allocation. This isn't required immediately, but it
-will be needed later to be able to quickly extract the GSC logs, which are
-inside the allocation. Since the mapping code needs to be rewritten due to
-switching to stolen, it makes sense to do the switch immediately to avoid
-having to change it again later.
-
-Note that the explicit setting of CACHE_NONE for Wa_22016122933 has been
-dropped because that's the default setting for stolen memory on !LLC
-platforms.
+To make it simpler to loop through the status register, the code has
+been update to use a PICK macro and the existing code using the regs had
+been adapted to match.
 
 Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
 Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
 Cc: John Harrison <John.C.Harrison@Intel.com>
-Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c | 29 ++-------
- drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c | 77 ++++++++++++++++++++---
- drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h |  1 +
- 3 files changed, 75 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/i915/Makefile                 |  3 +-
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c     | 29 +++++-------
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c     | 46 ++++++++++++++++++-
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h     |  2 +
+ .../gpu/drm/i915/gt/uc/intel_gsc_uc_debugfs.c | 38 +++++++++++++++
+ .../gpu/drm/i915/gt/uc/intel_gsc_uc_debugfs.h | 14 ++++++
+ drivers/gpu/drm/i915/gt/uc/intel_huc.c        |  6 +--
+ drivers/gpu/drm/i915/gt/uc/intel_uc_debugfs.c |  2 +
+ drivers/gpu/drm/i915/i915_reg.h               | 26 ++++++++++-
+ 9 files changed, 142 insertions(+), 24 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_debugfs.c
+ create mode 100644 drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_debugfs.h
 
+diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+index d97d45ae1a0d..fd6a1ae542bd 100644
+--- a/drivers/gpu/drm/i915/Makefile
++++ b/drivers/gpu/drm/i915/Makefile
+@@ -196,7 +196,8 @@ i915-y += \
+ 	  gt/uc/intel_gsc_fw.o \
+ 	  gt/uc/intel_gsc_proxy.o \
+ 	  gt/uc/intel_gsc_uc.o \
+-	  gt/uc/intel_gsc_uc_heci_cmd_submit.o\
++	  gt/uc/intel_gsc_uc_debugfs.o \
++	  gt/uc/intel_gsc_uc_heci_cmd_submit.o \
+ 	  gt/uc/intel_guc.o \
+ 	  gt/uc/intel_guc_ads.o \
+ 	  gt/uc/intel_guc_capture.o \
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
-index f46eb17a7a98..4814901fac9e 100644
+index 0b6dcd982b14..3014e982aab2 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
-@@ -3,6 +3,7 @@
-  * Copyright © 2022 Intel Corporation
-  */
+@@ -12,36 +12,31 @@
+ #include "intel_gsc_fw.h"
+ #include "intel_gsc_meu_headers.h"
+ #include "intel_gsc_uc_heci_cmd_submit.h"
+-
+-#define GSC_FW_STATUS_REG			_MMIO(0x116C40)
+-#define GSC_FW_CURRENT_STATE			REG_GENMASK(3, 0)
+-#define   GSC_FW_CURRENT_STATE_RESET		0
+-#define   GSC_FW_PROXY_STATE_NORMAL		5
+-#define GSC_FW_INIT_COMPLETE_BIT		REG_BIT(9)
++#include "i915_reg.h"
  
-+#include "gem/i915_gem_lmem.h"
- #include "gt/intel_engine_pm.h"
- #include "gt/intel_gpu_commands.h"
- #include "gt/intel_gt.h"
-@@ -109,38 +110,21 @@ static int gsc_fw_load_prepare(struct intel_gsc_uc *gsc)
+ static bool gsc_is_in_reset(struct intel_uncore *uncore)
  {
- 	struct intel_gt *gt = gsc_uc_to_gt(gsc);
- 	struct drm_i915_private *i915 = gt->i915;
--	struct drm_i915_gem_object *obj;
--	void *src, *dst;
-+	void *src;
+-	u32 fw_status = intel_uncore_read(uncore, GSC_FW_STATUS_REG);
++	u32 fw_status = intel_uncore_read(uncore, HECI_FWSTS(MTL_GSC_HECI1_BASE, 1));
  
- 	if (!gsc->local)
- 		return -ENODEV;
- 
--	obj = gsc->local->obj;
--
--	if (obj->base.size < gsc->fw.size)
-+	if (gsc->local->size < gsc->fw.size)
- 		return -ENOSPC;
- 
--	/*
--	 * Wa_22016122933: For MTL the shared memory needs to be mapped
--	 * as WC on CPU side and UC (PAT index 2) on GPU side
--	 */
--	if (IS_METEORLAKE(i915))
--		i915_gem_object_set_cache_coherency(obj, I915_CACHE_NONE);
--
--	dst = i915_gem_object_pin_map_unlocked(obj,
--					       i915_coherent_map_type(i915, obj, true));
--	if (IS_ERR(dst))
--		return PTR_ERR(dst);
--
- 	src = i915_gem_object_pin_map_unlocked(gsc->fw.obj,
- 					       i915_coherent_map_type(i915, gsc->fw.obj, true));
--	if (IS_ERR(src)) {
--		i915_gem_object_unpin_map(obj);
-+	if (IS_ERR(src))
- 		return PTR_ERR(src);
--	}
- 
--	memset(dst, 0, obj->base.size);
--	memcpy(dst, src, gsc->fw.size);
-+	memset_io(gsc->local_vaddr, 0, gsc->local->size);
-+	memcpy_toio(gsc->local_vaddr, src, gsc->fw.size);
- 
- 	/*
- 	 * Wa_22016122933: Making sure the data in dst is
-@@ -149,7 +133,6 @@ static int gsc_fw_load_prepare(struct intel_gsc_uc *gsc)
- 	intel_guc_write_barrier(&gt->uc.guc);
- 
- 	i915_gem_object_unpin_map(gsc->fw.obj);
--	i915_gem_object_unpin_map(obj);
- 
- 	return 0;
+-	return REG_FIELD_GET(GSC_FW_CURRENT_STATE, fw_status) ==
+-	       GSC_FW_CURRENT_STATE_RESET;
++	return REG_FIELD_GET(HECI1_FWSTS1_CURRENT_STATE, fw_status) ==
++			HECI1_FWSTS1_CURRENT_STATE_RESET;
  }
+ 
+ bool intel_gsc_uc_fw_proxy_init_done(struct intel_gsc_uc *gsc)
+ {
+ 	struct intel_uncore *uncore = gsc_uc_to_gt(gsc)->uncore;
+-	u32 fw_status = intel_uncore_read(uncore, GSC_FW_STATUS_REG);
++	u32 fw_status = intel_uncore_read(uncore, HECI_FWSTS(MTL_GSC_HECI1_BASE, 1));
+ 
+-	return REG_FIELD_GET(GSC_FW_CURRENT_STATE, fw_status) ==
+-	       GSC_FW_PROXY_STATE_NORMAL;
++	return REG_FIELD_GET(HECI1_FWSTS1_CURRENT_STATE, fw_status) ==
++	       HECI1_FWSTS1_PROXY_STATE_NORMAL;
+ }
+ 
+ bool intel_gsc_uc_fw_init_done(struct intel_gsc_uc *gsc)
+ {
+ 	struct intel_uncore *uncore = gsc_uc_to_gt(gsc)->uncore;
+-	u32 fw_status = intel_uncore_read(uncore, GSC_FW_STATUS_REG);
++	u32 fw_status = intel_uncore_read(uncore, HECI_FWSTS(MTL_GSC_HECI1_BASE, 1));
+ 
+-	return fw_status & GSC_FW_INIT_COMPLETE_BIT;
++	return fw_status & HECI1_FWSTS1_INIT_COMPLETE;
+ }
+ 
+ static inline u32 cpd_entry_offset(const struct intel_gsc_cpd_entry *entry)
+@@ -265,9 +260,9 @@ static int gsc_fw_load_prepare(struct intel_gsc_uc *gsc)
+ static int gsc_fw_wait(struct intel_gt *gt)
+ {
+ 	return intel_wait_for_register(gt->uncore,
+-				       GSC_FW_STATUS_REG,
+-				       GSC_FW_INIT_COMPLETE_BIT,
+-				       GSC_FW_INIT_COMPLETE_BIT,
++				       HECI_FWSTS(MTL_GSC_HECI1_BASE, 1),
++				       HECI1_FWSTS1_INIT_COMPLETE,
++				       HECI1_FWSTS1_INIT_COMPLETE,
+ 				       500);
+ }
+ 
 diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c
-index bbf21b93fc8d..2ae693b01b49 100644
+index 2ae693b01b49..5475e95d61c6 100644
 --- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c
 +++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c
-@@ -130,26 +130,85 @@ void intel_gsc_uc_init_early(struct intel_gsc_uc *gsc)
+@@ -9,8 +9,9 @@
+ #include "gt/intel_gt_print.h"
+ #include "intel_gsc_uc.h"
+ #include "intel_gsc_fw.h"
+-#include "i915_drv.h"
+ #include "intel_gsc_proxy.h"
++#include "i915_drv.h"
++#include "i915_reg.h"
+ 
+ static void gsc_work(struct work_struct *work)
+ {
+@@ -301,3 +302,46 @@ void intel_gsc_uc_load_start(struct intel_gsc_uc *gsc)
+ 
+ 	queue_work(gsc->wq, &gsc->work);
+ }
++
++void intel_gsc_uc_load_status(struct intel_gsc_uc *gsc, struct drm_printer *p)
++{
++	struct intel_gt *gt = gsc_uc_to_gt(gsc);
++	struct intel_uncore *uncore = gt->uncore;
++	intel_wakeref_t wakeref;
++
++	if (!intel_gsc_uc_is_supported(gsc)) {
++		drm_printf(p, "GSC not supported\n");
++		return;
++	}
++
++	if (!intel_gsc_uc_is_wanted(gsc)) {
++		drm_printf(p, "GSC disabled\n");
++		return;
++	}
++
++	drm_printf(p, "GSC firmware: %s\n", gsc->fw.file_selected.path);
++	if (gsc->fw.file_selected.path != gsc->fw.file_wanted.path)
++		drm_printf(p, "GSC firmware wanted: %s\n", gsc->fw.file_wanted.path);
++	drm_printf(p, "\tstatus: %s\n", intel_uc_fw_status_repr(gsc->fw.status));
++
++
++	drm_printf(p, "Release: %u.%u.%u.%u\n",
++		   gsc->release.major, gsc->release.minor,
++		   gsc->release.patch, gsc->release.build);
++
++	drm_printf(p, "Compatibility Version: %u.%u [min expected %u.%u]\n",
++		   gsc->fw.file_selected.ver.major, gsc->fw.file_selected.ver.minor,
++		   gsc->fw.file_wanted.ver.major, gsc->fw.file_wanted.ver.minor);
++
++	drm_printf(p, "SVN: %u\n", gsc->security_version);
++
++	with_intel_runtime_pm(uncore->rpm, wakeref) {
++		u32 i;
++
++		for (i = 1; i <= 6; i++) {
++			u32 status = intel_uncore_read(uncore,
++						       HECI_FWSTS(MTL_GSC_HECI1_BASE, i));
++			drm_printf(p, "HECI1 FWSTST%u = 0x%08x\n", i, status);
++		}
++	}
++}
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h
+index d778a01f8c05..f3d30e48e5e2 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h
+@@ -8,6 +8,7 @@
+ 
+ #include "intel_uc_fw.h"
+ 
++struct drm_printer;
+ struct i915_vma;
+ struct intel_context;
+ struct i915_gsc_proxy_component;
+@@ -48,6 +49,7 @@ void intel_gsc_uc_suspend(struct intel_gsc_uc *gsc);
+ void intel_gsc_uc_resume(struct intel_gsc_uc *gsc);
+ void intel_gsc_uc_flush_work(struct intel_gsc_uc *gsc);
+ void intel_gsc_uc_load_start(struct intel_gsc_uc *gsc);
++void intel_gsc_uc_load_status(struct intel_gsc_uc *gsc, struct drm_printer *p);
+ 
+ static inline bool intel_gsc_uc_is_supported(struct intel_gsc_uc *gsc)
+ {
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_debugfs.c b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_debugfs.c
+new file mode 100644
+index 000000000000..da9f96b72291
+--- /dev/null
++++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_debugfs.c
+@@ -0,0 +1,38 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2020 Intel Corporation
++ */
++
++#include <drm/drm_print.h>
++
++#include "gt/intel_gt.h"
++#include "gt/intel_gt_debugfs.h"
++#include "gt/intel_gt_print.h"
++#include "intel_gsc_uc.h"
++#include "i915_drv.h"
++
++static int gsc_info_show(struct seq_file *m, void *data)
++{
++	struct drm_printer p = drm_seq_file_printer(m);
++	struct intel_gsc_uc *gsc = m->private;
++
++	if (!intel_gsc_uc_is_supported(gsc))
++		return -ENODEV;
++
++	intel_gsc_uc_load_status(gsc, &p);
++
++	return 0;
++}
++DEFINE_INTEL_GT_DEBUGFS_ATTRIBUTE(gsc_info);
++
++void intel_gsc_uc_debugfs_register(struct intel_gsc_uc *gsc_uc, struct dentry *root)
++{
++	static const struct intel_gt_debugfs_file files[] = {
++		{ "gsc_info", &gsc_info_fops, NULL },
++	};
++
++	if (!intel_gsc_uc_is_supported(gsc_uc))
++		return;
++
++	intel_gt_debugfs_register_files(root, files, ARRAY_SIZE(files), gsc_uc);
++}
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_debugfs.h b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_debugfs.h
+new file mode 100644
+index 000000000000..c405e5574253
+--- /dev/null
++++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc_debugfs.h
+@@ -0,0 +1,14 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2020 Intel Corporation
++ */
++
++#ifndef DEBUGFS_GSC_UC_H
++#define DEBUGFS_GSC_UC_H
++
++struct intel_gsc_uc;
++struct dentry;
++
++void intel_gsc_uc_debugfs_register(struct intel_gsc_uc *gsc, struct dentry *root);
++
++#endif /* DEBUGFS_GSC_UC_H */
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.c b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+index 54411ac33f35..04b48433954a 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
+@@ -299,9 +299,9 @@ void intel_huc_init_early(struct intel_huc *huc)
+ 		huc->status[INTEL_HUC_AUTH_BY_GSC].mask = HUC_LOAD_SUCCESSFUL;
+ 		huc->status[INTEL_HUC_AUTH_BY_GSC].value = HUC_LOAD_SUCCESSFUL;
+ 	} else {
+-		huc->status[INTEL_HUC_AUTH_BY_GSC].reg = HECI_FWSTS5(MTL_GSC_HECI1_BASE);
+-		huc->status[INTEL_HUC_AUTH_BY_GSC].mask = HECI_FWSTS5_HUC_AUTH_DONE;
+-		huc->status[INTEL_HUC_AUTH_BY_GSC].value = HECI_FWSTS5_HUC_AUTH_DONE;
++		huc->status[INTEL_HUC_AUTH_BY_GSC].reg = HECI_FWSTS(MTL_GSC_HECI1_BASE, 5);
++		huc->status[INTEL_HUC_AUTH_BY_GSC].mask = HECI1_FWSTS5_HUC_AUTH_DONE;
++		huc->status[INTEL_HUC_AUTH_BY_GSC].value = HECI1_FWSTS5_HUC_AUTH_DONE;
  	}
  }
  
-+static int gsc_allocate_and_map_vma(struct intel_gsc_uc *gsc, u32 size)
-+{
-+	struct intel_gt *gt = gsc_uc_to_gt(gsc);
-+	struct drm_i915_gem_object *obj;
-+	struct i915_vma *vma;
-+	void __iomem *vaddr;
-+	int ret = 0;
-+
-+	/*
-+	 * The GSC FW doesn't immediately suspend after becoming idle, so there
-+	 * is a chance that it could still be awake after we successfully
-+	 * return from the  pci suspend function, even if there are no pending
-+	 * operations.
-+	 * The FW might therefore try to access memory for its suspend operation
-+	 * after the kernel has completed the HW suspend flow; this can cause
-+	 * issues if the FW is mapped in normal RAM memory, as some of the
-+	 * involved HW units might've already lost power.
-+	 * The driver must therefore avoid this situation and the recommended
-+	 * way to do so is to use stolen memory for the GSC memory allocation,
-+	 * because stolen memory takes a different path in HW and it is
-+	 * guaranteed to always work as long as the GPU itself is awake (which
-+	 * it must be if the GSC is awake).
-+	 */
-+	obj = i915_gem_object_create_stolen(gt->i915, size);
-+	if (IS_ERR(obj))
-+		return PTR_ERR(obj);
-+
-+	vma = i915_gem_object_ggtt_pin(obj, NULL, 0, 0, 0);
-+	if (IS_ERR(vma)) {
-+		ret = PTR_ERR(vma);
-+		goto err;
-+	}
-+
-+	vaddr = i915_vma_pin_iomap(vma);
-+	i915_vma_unpin(vma);
-+	if (IS_ERR(vaddr)) {
-+		ret = PTR_ERR(vaddr);
-+		goto err;
-+	}
-+
-+	i915_vma_make_unshrinkable(vma);
-+
-+	gsc->local = vma;
-+	gsc->local_vaddr = vaddr;
-+
-+	return 0;
-+
-+err:
-+	i915_gem_object_put(obj);
-+	return ret;
-+}
-+
-+static void gsc_unmap_and_free_vma(struct intel_gsc_uc *gsc)
-+{
-+	struct i915_vma *vma = fetch_and_zero(&gsc->local);
-+
-+	if (!vma)
-+		return;
-+
-+	gsc->local_vaddr = NULL;
-+	i915_vma_unpin_iomap(vma);
-+	i915_gem_object_put(vma->obj);
-+}
-+
- int intel_gsc_uc_init(struct intel_gsc_uc *gsc)
- {
- 	static struct lock_class_key gsc_lock;
- 	struct intel_gt *gt = gsc_uc_to_gt(gsc);
- 	struct intel_engine_cs *engine = gt->engine[GSC0];
- 	struct intel_context *ce;
--	struct i915_vma *vma;
- 	int err;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_debugfs.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_debugfs.c
+index 2f93cc4e408a..6d541c866edb 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_debugfs.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_debugfs.c
+@@ -10,6 +10,7 @@
  
- 	err = intel_uc_fw_init(&gsc->fw);
- 	if (err)
- 		goto out;
+ #include "gt/intel_gt_debugfs.h"
+ #include "intel_guc_debugfs.h"
++#include "intel_gsc_uc_debugfs.h"
+ #include "intel_huc_debugfs.h"
+ #include "intel_uc.h"
+ #include "intel_uc_debugfs.h"
+@@ -58,6 +59,7 @@ void intel_uc_debugfs_register(struct intel_uc *uc, struct dentry *gt_root)
  
--	vma = intel_guc_allocate_vma(&gt->uc.guc, SZ_8M);
--	if (IS_ERR(vma)) {
--		err = PTR_ERR(vma);
-+	err = gsc_allocate_and_map_vma(gsc, SZ_4M);
-+	if (err)
- 		goto out_fw;
--	}
--
--	gsc->local = vma;
+ 	intel_gt_debugfs_register_files(root, files, ARRAY_SIZE(files), uc);
  
- 	ce = intel_engine_create_pinned_context(engine, engine->gt->vm, SZ_4K,
- 						I915_GEM_HWS_GSC_ADDR,
-@@ -170,7 +229,7 @@ int intel_gsc_uc_init(struct intel_gsc_uc *gsc)
- 	return 0;
- 
- out_vma:
--	i915_vma_unpin_and_release(&gsc->local, 0);
-+	gsc_unmap_and_free_vma(gsc);
- out_fw:
- 	intel_uc_fw_fini(&gsc->fw);
- out:
-@@ -194,7 +253,7 @@ void intel_gsc_uc_fini(struct intel_gsc_uc *gsc)
- 	if (gsc->ce)
- 		intel_engine_destroy_pinned_context(fetch_and_zero(&gsc->ce));
- 
--	i915_vma_unpin_and_release(&gsc->local, 0);
-+	gsc_unmap_and_free_vma(gsc);
- 
- 	intel_uc_fw_fini(&gsc->fw);
++	intel_gsc_uc_debugfs_register(&uc->gsc, root);
+ 	intel_guc_debugfs_register(&uc->guc, root);
+ 	intel_huc_debugfs_register(&uc->huc, root);
  }
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h
-index a2a0813b8a76..c01286dddbdb 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h
-@@ -18,6 +18,7 @@ struct intel_gsc_uc {
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 94baadce29f6..cf34b777a63c 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -941,8 +941,30 @@
+ #define HECI_H_GS1(base)	_MMIO((base) + 0xc4c)
+ #define   HECI_H_GS1_ER_PREP	REG_BIT(0)
  
- 	/* GSC-specific additions */
- 	struct i915_vma *local; /* private memory for GSC usage */
-+	void __iomem *local_vaddr; /* pointer to access the private memory */
- 	struct intel_context *ce; /* for submission to GSC FW via GSC engine */
+-#define HECI_FWSTS5(base)		_MMIO(base + 0xc68)
+-#define   HECI_FWSTS5_HUC_AUTH_DONE	(1 << 19)
++/*
++ * The FWSTS register values are FW defined and can be different between
++ * HECI1 and HECI2
++ */
++#define HECI_FWSTS1				0xc40
++#define   HECI1_FWSTS1_CURRENT_STATE			REG_GENMASK(3, 0)
++#define   HECI1_FWSTS1_CURRENT_STATE_RESET		0
++#define   HECI1_FWSTS1_PROXY_STATE_NORMAL		5
++#define   HECI1_FWSTS1_INIT_COMPLETE			REG_BIT(9)
++#define HECI_FWSTS2				0xc48
++#define HECI_FWSTS3				0xc60
++#define HECI_FWSTS4				0xc64
++#define HECI_FWSTS5				0xc68
++#define   HECI1_FWSTS5_HUC_AUTH_DONE	(1 << 19)
++#define HECI_FWSTS6				0xc6c
++
++/* the FWSTS regs are 1-based, so we use -base for index 0 to get an invalid reg */
++#define HECI_FWSTS(base, x) _MMIO((base) + _PICK(x, -(base), \
++						    HECI_FWSTS1, \
++						    HECI_FWSTS2, \
++						    HECI_FWSTS3, \
++						    HECI_FWSTS4, \
++						    HECI_FWSTS5, \
++						    HECI_FWSTS6))
  
- 	/* for delayed load and proxy handling */
+ #define HSW_GTT_CACHE_EN	_MMIO(0x4024)
+ #define   GTT_CACHE_EN_ALL	0xF0007FFF
 -- 
 2.40.0
 
