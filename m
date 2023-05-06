@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4949AC77B7C
-	for <intel-gfx@archiver.kernel.org>; Sat,  6 May 2023 02:21:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C5DDC77B7D
+	for <intel-gfx@archiver.kernel.org>; Sat,  6 May 2023 02:21:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 677DD10E685;
-	Sat,  6 May 2023 02:21:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19E6B10E5E3;
+	Sat,  6 May 2023 02:21:05 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id E434510E192;
- Sat,  6 May 2023 02:20:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6314110E5E3;
+ Sat,  6 May 2023 02:21:02 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id DC690A00E6;
- Sat,  6 May 2023 02:20:59 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 5EDF7A00E6;
+ Sat,  6 May 2023 02:21:02 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Umesh Nerlige Ramappa" <umesh.nerlige.ramappa@intel.com>
-Date: Sat, 06 May 2023 02:20:59 -0000
-Message-ID: <168333965987.28059.13666149221533183781@emeril.freedesktop.org>
+Date: Sat, 06 May 2023 02:21:02 -0000
+Message-ID: <168333966238.28057.1465541596618770580@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20230506005816.1891043-1-umesh.nerlige.ramappa@intel.com>
 In-Reply-To: <20230506005816.1891043-1-umesh.nerlige.ramappa@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_Add_MTL_PMU_support_for_multi-gt_=28rev2=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?Add_MTL_PMU_support_for_multi-gt_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,21 +53,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-4fcbc0ab4f43 drm/i915/pmu: Support PMU for all engines
-64197b1bcaba drm/i915/pmu: Skip sampling engines with no enabled counters
-aefd29011a00 drm/i915/pmu: Transform PMU parking code to be GT based
-1a9fda0a5224 drm/i915/pmu: Add reference counting to the sampling timer
-ff7ecb6be508 drm/i915/pmu: Prepare for multi-tile non-engine counters
--:60: WARNING:AVOID_BUG: Do not crash the kernel unless it is absolutely unavoidable--use WARN_ON_ONCE() plus recovery code (if feasible) instead of BUG() or variants
-#60: FILE: drivers/gpu/drm/i915/i915_pmu.c:99:
-+		GEM_BUG_ON(config_gt_id(config));
-
--:109: WARNING:AVOID_BUG: Do not crash the kernel unless it is absolutely unavoidable--use WARN_ON_ONCE() plus recovery code (if feasible) instead of BUG() or variants
-#109: FILE: drivers/gpu/drm/i915/i915_pmu.c:197:
-+	GEM_BUG_ON(idx >= ARRAY_SIZE(pmu->sample));
-
-total: 0 errors, 2 warnings, 0 checks, 342 lines checked
-94d6b886eeaf drm/i915/pmu: Export counters from all tiles
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
