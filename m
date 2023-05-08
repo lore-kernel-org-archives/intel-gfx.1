@@ -4,48 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83AA0C77B7F
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 May 2023 12:52:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7C7FC77B7F
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 May 2023 12:53:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0A0A10E28D;
-	Mon,  8 May 2023 12:52:08 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E055410E28B
- for <intel-gfx@lists.freedesktop.org>; Mon,  8 May 2023 12:52:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1683550325; x=1715086325;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=nwYZ0kUImhVTMQNC08te+Tr7pdaXDvmgnJ974YMCNpk=;
- b=XCh41h8LVviUDB7+xsFYKO44w+cFmQDjGL4+NiG2WG1rT51mntVM8GrM
- VZ6xlqF0Sv+wkZqKntQMQJQ8Wr7j0UwglfEhLLePuhan85NwT8Lvf8BY7
- tnwEB2dFtfdzb2+v9L03gxEQrtqWKz6onHOG+g/pZrMVxmn5zfuIqMt38
- vvcucQhKHEFOAGkYEmBs3Hs0f2C1FUKemSsw62J0MmMm45qVCf8dFkyx8
- y4WgCs8JySaSSjxAB12Tx8/0Ljy4UKm46C2pP/hHKaO64aWc87VVZc5nm
- NedY3ZxtsTszuLtGPjmFT2eSSHtYT0SN6mGnVtqsXSfWyC0jmDOMYBKFG A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10703"; a="329994830"
-X-IronPort-AV: E=Sophos;i="5.99,259,1677571200"; d="scan'208";a="329994830"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 May 2023 05:52:05 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10703"; a="842675368"
-X-IronPort-AV: E=Sophos;i="5.99,259,1677571200"; d="scan'208";a="842675368"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 May 2023 05:52:04 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon,  8 May 2023 18:17:15 +0530
-Message-Id: <20230508124715.2242478-7-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230508124715.2242478-1-ankit.k.nautiyal@intel.com>
-References: <20230508124715.2242478-1-ankit.k.nautiyal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34D0410E27E;
+	Mon,  8 May 2023 12:53:19 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67A8D10E18D;
+ Mon,  8 May 2023 08:51:48 +0000 (UTC)
+X-UUID: 448e16397a6242399bf3f0072562a30b-20230508
+X-CID-O-RULE: Release_Ham
+X-CID-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.22, REQID:6c58c0b9-9ae8-41b1-9b55-fb6474963e22, IP:15,
+ URL:0,TC:0,Content:0,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+ ON:release,TS:0
+X-CID-INFO: VERSION:1.1.22, REQID:6c58c0b9-9ae8-41b1-9b55-fb6474963e22, IP:15,
+ UR
+ L:0,TC:0,Content:0,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:0
+X-CID-META: VersionHash:120426c, CLOUDID:bfb91a6b-2f20-4998-991c-3b78627e4938,
+ B
+ ulkID:230508165141N0GP7D3I,BulkQuantity:0,Recheck:0,SF:38|24|17|19|44|102,
+ TC:nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+ ,OSI:0,OSA:0,AV:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-UUID: 448e16397a6242399bf3f0072562a30b-20230508
+X-User: liucong2@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.169)] by mailgw
+ (envelope-from <liucong2@kylinos.cn>) (Generic MTA)
+ with ESMTP id 812679255; Mon, 08 May 2023 16:51:40 +0800
+From: Cong Liu <liucong2@kylinos.cn>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Date: Mon,  8 May 2023 16:50:15 +0800
+Message-Id: <20230508085016.437836-1-liucong2@kylinos.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/6] drm/i915/dp: Add a wrapper to check
- frl/tmds downstream constraints
+X-Mailman-Approved-At: Mon, 08 May 2023 12:53:18 +0000
+Subject: [Intel-gfx] [PATCH] drm/i915: Fix memory leaks in function
+ live_nop_switch
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,90 +60,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org, Cong Liu <liucong2@kylinos.cn>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a wrapper function to check dp_downstream clock/bandwidth
-constraints. Based on whether the sink supports FRL/TMDS the wrapper
-calls the appropriate FRL/TMDS functions.
+Be sure to properly free the allocated memory before exiting
+the live_nop_switch function.
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Signed-off-by: Cong Liu <liucong2@kylinos.cn>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 43 +++++++++++--------------
- 1 file changed, 18 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index af7d6cdbab11..099465a40080 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1069,6 +1069,18 @@ intel_dp_frl_bw_valid(struct intel_dp *intel_dp, int target_clock,
- 	return MODE_OK;
+diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+index a81fa6a20f5a..54eddbe7f510 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_context.c
+@@ -59,7 +59,8 @@ static int live_nop_switch(void *arg)
+ 	ctx = kcalloc(nctx, sizeof(*ctx), GFP_KERNEL);
+ 	if (!ctx) {
+ 		err = -ENOMEM;
+-		goto out_file;
++		fput(file);
++		return err;
+ 	}
+ 
+ 	for (n = 0; n < nctx; n++) {
+@@ -175,6 +176,7 @@ static int live_nop_switch(void *arg)
+ 
+ out_file:
+ 	fput(file);
++	kfree(ctx);
+ 	return err;
  }
  
-+static enum drm_mode_status
-+intel_dp_hdmi_bw_check(struct intel_dp *intel_dp,
-+		       int target_clock, int bpc,
-+		       enum intel_output_format sink_format,
-+		       bool is_frl)
-+{
-+	if (is_frl)
-+		return intel_dp_frl_bw_valid(intel_dp, target_clock, 8, sink_format);
-+
-+	return intel_dp_tmds_clock_valid(intel_dp, target_clock, 8, sink_format, true);
-+}
-+
- static enum drm_mode_status
- intel_dp_mode_valid_downstream(struct intel_connector *connector,
- 			       const struct drm_display_mode *mode,
-@@ -1078,42 +1090,23 @@ intel_dp_mode_valid_downstream(struct intel_connector *connector,
- 	const struct drm_display_info *info = &connector->base.display_info;
- 	enum drm_mode_status status;
- 	enum intel_output_format sink_format = intel_dp_sink_format(connector, mode);
-+	bool is_frl = intel_dp->dfp.pcon_max_frl_bw ? true : false;
-+	int bpc = 8; /* Assume 8bpc for the DP++/HDMI/DVI TMDS/FRL bw check */
- 
--	/* If PCON supports FRL MODE, check FRL bandwidth constraints */
--	if (intel_dp->dfp.pcon_max_frl_bw) {
--		/* Assume 8bpc for the HDMI2.1 FRL BW check */
--		status = intel_dp_frl_bw_valid(intel_dp, target_clock, 8, sink_format);
--		if (status != MODE_OK) {
--			if (sink_format == INTEL_OUTPUT_FORMAT_YCBCR420 ||
--			    !connector->base.ycbcr_420_allowed ||
--			    !drm_mode_is_420_also(info, mode))
--				return status;
--
--			sink_format = INTEL_OUTPUT_FORMAT_YCBCR420;
--			status = intel_dp_frl_bw_valid(intel_dp, target_clock, 8, sink_format);
--			if (status != MODE_OK)
--				return status;
--		}
--
--		return MODE_OK;
--	}
--
--	if (intel_dp->dfp.max_dotclock &&
-+	if (!is_frl && intel_dp->dfp.max_dotclock &&
- 	    target_clock > intel_dp->dfp.max_dotclock)
- 		return MODE_CLOCK_HIGH;
- 
--	/* Assume 8bpc for the DP++/HDMI/DVI TMDS clock check */
--	status = intel_dp_tmds_clock_valid(intel_dp, target_clock,
--					   8, sink_format, true);
-+	status = intel_dp_hdmi_bw_check(intel_dp, target_clock, bpc, sink_format, is_frl);
- 
- 	if (status != MODE_OK) {
- 		if (sink_format == INTEL_OUTPUT_FORMAT_YCBCR420 ||
- 		    !connector->base.ycbcr_420_allowed ||
- 		    !drm_mode_is_420_also(info, mode))
- 			return status;
-+
- 		sink_format = INTEL_OUTPUT_FORMAT_YCBCR420;
--		status = intel_dp_tmds_clock_valid(intel_dp, target_clock,
--						   8, sink_format, true);
-+		status = intel_dp_hdmi_bw_check(intel_dp, target_clock, bpc, sink_format, is_frl);
- 		if (status != MODE_OK)
- 			return status;
- 	}
 -- 
-2.25.1
+2.34.1
 
+
+No virus found
+		Checked by Hillstone Network AntiVirus
