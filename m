@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77EB5C7EE22
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 May 2023 10:31:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E11AC77B7D
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 May 2023 10:31:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D789010E476;
-	Wed, 10 May 2023 10:31:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A81610E471;
+	Wed, 10 May 2023 10:31:03 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57C0010E471
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 May 2023 10:31:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D059C10E471
+ for <intel-gfx@lists.freedesktop.org>; Wed, 10 May 2023 10:30:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1683714660; x=1715250660;
+ t=1683714657; x=1715250657;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=wFPwR0nwTP9qTKdOi0dN70Yin1GnpjwATPpfLjg/C5w=;
- b=GezFeZQT4mAJ5SDc5jl6ZiSJl0Q1aCcdu+lax5ED9txSnWWSiGfGWIKQ
- e7aLJI87c/lneWKtRk7BSLbXTxbPkKj8hkgBNDjW6e9y04gzq3mWKnpFq
- hXJLEGGJNCVljr7MmdDcnXOaqqyXYXVUPz5jOjPpZ4U/2+AkAP6miYjIQ
- WrWSRd0Ay9UV7W8a4ryZXH8G8jVbzpJ8Ta0n/9J4tAgFDNiGYzx3H2JNq
- ygo0xyJRUrlP0xfK2UlwDU17IdwrJGxqK/fEV6yvQaA6QUWHWSDU3P3RC
- SDG5sm99ikUQZzlqvbWFH+3G+icG/jVoQ9gENiTQXx86cVuM6Ic8gTHT9 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10705"; a="350214410"
-X-IronPort-AV: E=Sophos;i="5.99,264,1677571200"; d="scan'208";a="350214410"
+ bh=8yu+pv+Dya4rE3pcNOmJ4quQKafKvl0kijbytJe9yWg=;
+ b=Zhgw6pKeNlgP5gq+rblKeJamAYrpAXjm4o4iwywI/1+ankSLeN70Gk03
+ 8vLLkwsQ+eUbFHQQLVkE8AnabB0K8Irvc4vrHNrvc8b7ts5RztYa+3FL0
+ vFyXcptv0CpuWuDLHzJYwBqyUaLO0ygrhAcc58g5z9lnsD48hrBYwk6uo
+ 1p7W6sGHDAP27Be6FxB/BNVieOgonnwTWtLV+ePp+9yntFM+NBpqBZ0Q9
+ Fxpxicw/yiYHb/0h7sJpUpPSa2AQ57fVEQT+NvCcX9Hv3yDZF4IDRT7VV
+ 7XOb0c9hkkUM8BRIBvwG4rofdWx9BUrmVnyvTUqvoSo7AZXMDC8iz0lX+ Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10705"; a="350214399"
+X-IronPort-AV: E=Sophos;i="5.99,264,1677571200"; d="scan'208";a="350214399"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2023 03:31:00 -0700
+ 10 May 2023 03:30:57 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10705"; a="676796705"
-X-IronPort-AV: E=Sophos;i="5.99,264,1677571200"; d="scan'208";a="676796705"
+X-IronPort-AV: E=McAfee;i="6600,9927,10705"; a="676796693"
+X-IronPort-AV: E=Sophos;i="5.99,264,1677571200"; d="scan'208";a="676796693"
 Received: from unknown (HELO ideak-desk.fi.intel.com) ([10.237.72.78])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2023 03:30:59 -0700
+ 10 May 2023 03:30:56 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 10 May 2023 13:31:21 +0300
-Message-Id: <20230510103131.1618266-5-imre.deak@intel.com>
+Date: Wed, 10 May 2023 13:31:19 +0300
+Message-Id: <20230510103131.1618266-3-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230510103131.1618266-1-imre.deak@intel.com>
 References: <20230510103131.1618266-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 04/14] drm/i915: Update connector atomic
- state before crtc sanitize-disabling
+Subject: [Intel-gfx] [PATCH v4 02/14] drm/i915: Add helpers to
+ reference/unreference a DPLL for a CRTC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,51 +62,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-During HW state readout/sanitization an up-to-date connector atomic
-state will be required by a follow-up patch, which can disable CRTCs
-with an encoder (and calling the correct encoder hooks happens via the
-connector atomic state encoder pointer). So update the connector state
-already before the CRTC sanitize/disable step. For now this doesn't make
-a difference, since intel_modeset_update_connector_atomic_state() will
-update/enable the atomic state only for connectors that have an enabled
-encoder/CRTC. Such CRTCs/encoders will not be affected by
-intel_sanitize_crtc().
+Add helpers to reference/unreference a shared DPLL tracking the use of
+it by a given CRTC.
 
-v2: Add comment about why the connector state needs to be up-to-date.
+This prepares for the next patch, which unreferences a DPLL during CRTC
+HW-readout/sanitization.
 
+Suggested-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_modeset_setup.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 58 +++++++++++++++----
+ 1 file changed, 46 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-index 6e55806bbe066..66796e8eef90a 100644
---- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-+++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-@@ -701,6 +701,12 @@ void intel_modeset_setup_hw_state(struct drm_i915_private *i915,
- 	for_each_intel_encoder(&i915->drm, encoder)
- 		intel_sanitize_encoder(encoder);
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+index ed372d227aa73..84ebe66012b1d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+@@ -351,13 +351,35 @@ intel_find_shared_dpll(struct intel_atomic_state *state,
+ 	return NULL;
+ }
  
-+	/*
-+	 * Sanitizing CRTCs needs their connector atomic state to be
-+	 * up-to-date, so ensure that already here.
-+	 */
-+	intel_modeset_update_connector_atomic_state(i915);
++/**
++ * intel_reference_shared_dpll_crtc - Get a DPLL reference for a CRTC
++ * @crtc: CRTC on which behalf the reference is taken
++ * @pll: DPLL for which the reference is taken
++ * @shared_dpll_state: the DPLL atomic state in which the reference is tracked
++ *
++ * Take a reference for @pll tracking the use of it by @crtc.
++ */
++static void
++intel_reference_shared_dpll_crtc(const struct intel_crtc *crtc,
++				 const struct intel_shared_dpll *pll,
++				 struct intel_shared_dpll_state *shared_dpll_state)
++{
++	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
 +
- 	for_each_intel_crtc(&i915->drm, crtc) {
- 		struct intel_crtc_state *crtc_state =
- 			to_intel_crtc_state(crtc->base.state);
-@@ -709,8 +715,6 @@ void intel_modeset_setup_hw_state(struct drm_i915_private *i915,
- 		intel_crtc_state_dump(crtc_state, NULL, "setup_hw_state");
- 	}
++	drm_WARN_ON(&i915->drm, (shared_dpll_state->pipe_mask & BIT(crtc->pipe)) != 0);
++
++	shared_dpll_state->pipe_mask |= BIT(crtc->pipe);
++
++	drm_dbg_kms(&i915->drm, "[CRTC:%d:%s] reserving %s\n",
++		    crtc->base.base.id, crtc->base.name, pll->info->name);
++}
++
+ static void
+ intel_reference_shared_dpll(struct intel_atomic_state *state,
+ 			    const struct intel_crtc *crtc,
+ 			    const struct intel_shared_dpll *pll,
+ 			    const struct intel_dpll_hw_state *pll_state)
+ {
+-	struct drm_i915_private *i915 = to_i915(state->base.dev);
+ 	struct intel_shared_dpll_state *shared_dpll;
+ 	const enum intel_dpll_id id = pll->info->id;
  
--	intel_modeset_update_connector_atomic_state(i915);
+@@ -366,11 +388,29 @@ intel_reference_shared_dpll(struct intel_atomic_state *state,
+ 	if (shared_dpll[id].pipe_mask == 0)
+ 		shared_dpll[id].hw_state = *pll_state;
+ 
+-	drm_WARN_ON(&i915->drm, (shared_dpll[id].pipe_mask & BIT(crtc->pipe)) != 0);
++	intel_reference_shared_dpll_crtc(crtc, pll, &shared_dpll[id]);
++}
++
++/**
++ * intel_unreference_shared_dpll_crtc - Drop a DPLL reference for a CRTC
++ * @crtc: CRTC on which behalf the reference is dropped
++ * @pll: DPLL for which the reference is dropped
++ * @shared_dpll_state: the DPLL atomic state in which the reference is tracked
++ *
++ * Drop a reference for @pll tracking the end of use of it by @crtc.
++ */
++static void
++intel_unreference_shared_dpll_crtc(const struct intel_crtc *crtc,
++				   const struct intel_shared_dpll *pll,
++				   struct intel_shared_dpll_state *shared_dpll_state)
++{
++	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+ 
+-	shared_dpll[id].pipe_mask |= BIT(crtc->pipe);
++	drm_WARN_ON(&i915->drm, (shared_dpll_state->pipe_mask & BIT(crtc->pipe)) == 0);
+ 
+-	drm_dbg_kms(&i915->drm, "[CRTC:%d:%s] reserving %s\n",
++	shared_dpll_state->pipe_mask &= ~BIT(crtc->pipe);
++
++	drm_dbg_kms(&i915->drm, "[CRTC:%d:%s] releasing %s\n",
+ 		    crtc->base.base.id, crtc->base.name, pll->info->name);
+ }
+ 
+@@ -378,18 +418,12 @@ static void intel_unreference_shared_dpll(struct intel_atomic_state *state,
+ 					  const struct intel_crtc *crtc,
+ 					  const struct intel_shared_dpll *pll)
+ {
+-	struct drm_i915_private *i915 = to_i915(state->base.dev);
+ 	struct intel_shared_dpll_state *shared_dpll;
+ 	const enum intel_dpll_id id = pll->info->id;
+ 
+ 	shared_dpll = intel_atomic_get_shared_dpll_state(&state->base);
+ 
+-	drm_WARN_ON(&i915->drm, (shared_dpll[id].pipe_mask & BIT(crtc->pipe)) == 0);
 -
- 	intel_dpll_sanitize_state(i915);
+-	shared_dpll[id].pipe_mask &= ~BIT(crtc->pipe);
+-
+-	drm_dbg_kms(&i915->drm, "[CRTC:%d:%s] releasing %s\n",
+-		    crtc->base.base.id, crtc->base.name, pll->info->name);
++	intel_unreference_shared_dpll_crtc(crtc, pll, &shared_dpll[id]);
+ }
  
- 	intel_wm_get_hw_state(i915);
+ static void intel_put_dpll(struct intel_atomic_state *state,
+@@ -4314,7 +4348,7 @@ static void readout_dpll_hw_state(struct drm_i915_private *i915,
+ 			to_intel_crtc_state(crtc->base.state);
+ 
+ 		if (crtc_state->hw.active && crtc_state->shared_dpll == pll)
+-			pll->state.pipe_mask |= BIT(crtc->pipe);
++			intel_reference_shared_dpll_crtc(crtc, pll, &pll->state);
+ 	}
+ 	pll->active_mask = pll->state.pipe_mask;
+ 
 -- 
 2.37.2
 
