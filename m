@@ -4,60 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFD0FC77B7D
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 May 2023 22:25:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C6C1C77B7D
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 May 2023 22:37:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48EC110E0A6;
-	Wed, 10 May 2023 22:25:07 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA59C10E083;
- Wed, 10 May 2023 22:25:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9704A10E0F4;
+	Wed, 10 May 2023 22:37:19 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC8AB10E0F4
+ for <intel-gfx@lists.freedesktop.org>; Wed, 10 May 2023 22:37:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1683757506; x=1715293506;
- h=mime-version:content-transfer-encoding:in-reply-to:
- references:subject:from:cc:to:date:message-id;
- bh=d9Cne20qUitJqz0DFlqDjiYeuKdvqZv7V0Nw+ndWkFo=;
- b=ThoJ8vthgw/41DhdzPemozETuSJB904qHSg/yq5JPvfqFgS5FfjptjMB
- MhRCDjZeO0QtFQTI9+6ithQYNsR7DCNEnIYBAdRkXu6k2NtiOwMtYg0/B
- TBB/U1vE8Xv1ZaGUhhnAt0P37yuhBrrQAmyH48xgsWTXMidUGJxWyuRab
- aZIvMQMuo/yuhyTkf+VPGwLVn/TBp/yPhCYrC2uADbhG6oztrQyp9ruuD
- /ayNXrdI7WKfhg3a/h5vIX+ryqteuLyEgNujQT2U68TgPE40jyW7EhiWO
- viDmRTFWb/FWxCi1JSDr8HrPkiueRfow4X+0C75mmPGsP8BUvG9AdFvYj A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10706"; a="353417061"
-X-IronPort-AV: E=Sophos;i="5.99,265,1677571200"; d="scan'208";a="353417061"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2023 15:25:00 -0700
+ t=1683758236; x=1715294236;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=yjWl88TEbyfYn1R5cT15/G5yTlQFWC18x59DIx7LLck=;
+ b=Z/4zvT04CO/J0lNmH94opASsMG3tbnp8yg5n9FphdA0lgYcNIOEXLeJu
+ CpQjcmXP4gfS90314GLD2esIQ/6ThyDAAm7xZy9KmYnspxpVZD3Opaswc
+ B8hef8ejMiY9aCFRZgCkY1vDXem+x2uRudIWkMbIM44IXC/IemI2jFVFr
+ RhZNngbz1QoMNDf81W3s/beRPQThjnJXEDoPVqwRnJfsxZZLzVWTz5z4A
+ PWrE+i7/RxPWIEo/fDGL20fwdGsnDai0NM7bPCYX+Uft7PDCS+pQUn9gF
+ nQBfiUJoHOTJWyWHLXcsX9T+pWF0+/EMB0E4JkgpYBKZOEmSv2fZ4NXCU A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10706"; a="339595356"
+X-IronPort-AV: E=Sophos;i="5.99,265,1677571200"; d="scan'208";a="339595356"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2023 15:37:15 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10706"; a="730090883"
-X-IronPort-AV: E=Sophos;i="5.99,265,1677571200"; d="scan'208";a="730090883"
-Received: from archanas-mobl24.amr.corp.intel.com (HELO localhost)
- ([10.209.61.250])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2023 15:25:00 -0700
-Content-Type: text/plain; charset="utf-8"
+X-IronPort-AV: E=McAfee;i="6600,9927,10706"; a="732317523"
+X-IronPort-AV: E=Sophos;i="5.99,265,1677571200"; d="scan'208";a="732317523"
+Received: from invictus.jf.intel.com ([10.165.21.201])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2023 15:37:15 -0700
+From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 10 May 2023 15:35:52 -0700
+Message-Id: <20230510223552.89656-2-radhakrishna.sripada@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230510223552.89656-1-radhakrishna.sripada@intel.com>
+References: <20230510223552.89656-1-radhakrishna.sripada@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <642c1a52bbcc4369c69ec2dbbfd7723c60c1dcb2.camel@intel.com>
-References: <20230427234843.2886921-1-alan.previn.teres.alexis@intel.com>
- <20230427234843.2886921-7-alan.previn.teres.alexis@intel.com>
- <8888e3dff8c1c4fd1702ded911850da30330fbfa.camel@intel.com>
- <168327239043.1096084.14316886882692698230@jljusten-skl>
- <e40f2b8750b39facd98f72cda63bc733ca0319d5.camel@intel.com>
- <0a23ff5be69e3d6b6e3b457c2599bc2f018fc71a.camel@intel.com>
- <168375473641.1096084.7149697040639389794@jljusten-skl>
- <168375545081.1096084.10046830335154502443@jljusten-skl>
- <642c1a52bbcc4369c69ec2dbbfd7723c60c1dcb2.camel@intel.com>
-From: Jordan Justen <jordan.l.justen@intel.com>
-To: "Souza, Jose" <jose.souza@intel.com>, "Teres Alexis,
- Alan Previn" <alan.previn.teres.alexis@intel.com>,
- intel-gfx@lists.freedesktop.org
-Date: Wed, 10 May 2023 15:24:59 -0700
-Message-ID: <168375749965.1096084.11999881030820310846@jljusten-skl>
-User-Agent: alot/0.10
-Subject: Re: [Intel-gfx] [PATCH v9 6/8] drm/i915/uapi/pxp: Add a GET_PARAM
- for PXP
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/mtl: Add MTL performance tuning
+ changes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,46 +58,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, "Vivi, Rodrigo" <rodrigo.vivi@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2023-05-10 15:00:03, Teres Alexis, Alan Previn wrote:
->=20
-> alan:snip
->=20
-> > This is why I asked if it was it was "basically certain that in a
-> > production environment, then it will eventually return 1 meaning it's
-> > ready". Alan's response was a little ambiguous on this point.
-> alan: if we get a '2' and never transition to '1' - thats a kernel bug or
-> firmware / system issue.
->=20
-> > Arguably a transition from 2 to -ENODEV could be considered a kernel
-> > bug, but it doesn't sound like Alan would agree. :) Maybe Alan would
-> > agree to saying it's either a kernel, or system integration bug.
-> alan: agreed - that would be a kernel bug or a system integration bug.
->=20
-> I also agreed on the init-flow vs app-usage thoughts Jordan had.
-> That said MESA has many ways it can use this UAPI and we can discuss
-> that on the MESA patch.
->=20
->=20
-> hmmm.. so... ack anyone? [insert big hopeful smiley here]
-> apologies if I am asking too often.
+MTL reuses the tuning parameters for DG2. Extend the dg2
+performance tuning parameters to MTL.
 
-Assuming that:
+Bspec: 68331
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Gustavo Sousa <gustavo.sousa@intel.com>
+Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-  2 =3D PXP feature is supported but should be ready soon (pending
-      initialization of non-i915 system dependencies).
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 786349e95487..b222a3d367c9 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -817,6 +817,8 @@ static void mtl_ctx_workarounds_init(struct intel_engine_cs *engine,
+ {
+ 	struct drm_i915_private *i915 = engine->i915;
+ 
++	dg2_ctx_gt_tuning_init(engine, wal);
++
+ 	if (IS_MTL_GRAPHICS_STEP(i915, M, STEP_A0, STEP_B0) ||
+ 	    IS_MTL_GRAPHICS_STEP(i915, P, STEP_A0, STEP_B0)) {
+ 		/* Wa_14014947963 */
+@@ -1754,7 +1756,7 @@ static void gt_tuning_settings(struct intel_gt *gt, struct i915_wa_list *wal)
+ 		wa_mcr_masked_en(wal, XEHPC_LNCFMISCCFGREG0, XEHPC_HOSTCACHEEN);
+ 	}
+ 
+-	if (IS_DG2(gt->i915)) {
++	if (IS_DG2(gt->i915) || IS_METEORLAKE(gt->i915)) {
+ 		wa_mcr_write_or(wal, XEHP_L3SCQREG7, BLEND_FILL_CACHING_OPT_DIS);
+ 		wa_mcr_write_or(wal, XEHP_SQCM, EN_32B_ACCESS);
+ 	}
+@@ -2944,7 +2946,7 @@ static void
+ add_render_compute_tuning_settings(struct drm_i915_private *i915,
+ 				   struct i915_wa_list *wal)
+ {
+-	if (IS_DG2(i915))
++	if (IS_DG2(i915) || IS_METEORLAKE(i915))
+ 		wa_mcr_write_clr_set(wal, RT_CTRL, STACKID_CTRL, STACKID_CTRL_512);
+ 
+ 	/*
+-- 
+2.34.1
 
-really means, "it'll be ready soon or there is a bug somewhere",
-
-Acked-by: Jordan Justen <jordan.l.justen@intel.com>
-
-If Mesa finds that it can't really rely on that, we may have to decide
-on a different approach in how to use that return value.
-
-Is it possible to hold on for another ~12 hours to see if Lionel wants
-to Ack as well?
-
--Jordan
