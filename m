@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2781C77B7D
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 May 2023 10:31:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77EB5C7EE22
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 May 2023 10:31:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1E4110E207;
-	Wed, 10 May 2023 10:30:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D789010E476;
+	Wed, 10 May 2023 10:31:02 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92C3310E1F7
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 May 2023 10:30:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57C0010E471
+ for <intel-gfx@lists.freedesktop.org>; Wed, 10 May 2023 10:31:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1683714656; x=1715250656;
+ t=1683714660; x=1715250660;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=/T1T53HeHFW1e7n1mY7Gis7V1lqrJ3ujl2yMoQh+0AM=;
- b=Vt07C2zkNYgJmpI1wWmQ+pORjptuUew6BUbLcrlaWkVUvCFvd6CZ+tNa
- PWShXIT3hTvoIg8uqBDhsOkbPIdbBwY/mCb97egH+24wUftqv2cUIsW2A
- CXieynf2nMh2/Wq644f10shvvLeqFRwKYqxrimTpyi+uj/abNnQFwnzqt
- qj8F31InKfcyonya6Bq2DLilfXIaOq0/MwaMu/kWs6N9xhzukC/Jkmhu/
- ztsBPAOBDFf5ql8uTlcHkrGBG4wPxTu31jZM8Hfxnr6OWE9Bi7a5OrLs8
- vnrv04vR3D7DhC/3RhU2GbhufrBBbnK45KbQK0Gdkuw8dAbUUMcUMmvEn A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10705"; a="350214395"
-X-IronPort-AV: E=Sophos;i="5.99,264,1677571200"; d="scan'208";a="350214395"
+ bh=wFPwR0nwTP9qTKdOi0dN70Yin1GnpjwATPpfLjg/C5w=;
+ b=GezFeZQT4mAJ5SDc5jl6ZiSJl0Q1aCcdu+lax5ED9txSnWWSiGfGWIKQ
+ e7aLJI87c/lneWKtRk7BSLbXTxbPkKj8hkgBNDjW6e9y04gzq3mWKnpFq
+ hXJLEGGJNCVljr7MmdDcnXOaqqyXYXVUPz5jOjPpZ4U/2+AkAP6miYjIQ
+ WrWSRd0Ay9UV7W8a4ryZXH8G8jVbzpJ8Ta0n/9J4tAgFDNiGYzx3H2JNq
+ ygo0xyJRUrlP0xfK2UlwDU17IdwrJGxqK/fEV6yvQaA6QUWHWSDU3P3RC
+ SDG5sm99ikUQZzlqvbWFH+3G+icG/jVoQ9gENiTQXx86cVuM6Ic8gTHT9 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10705"; a="350214410"
+X-IronPort-AV: E=Sophos;i="5.99,264,1677571200"; d="scan'208";a="350214410"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2023 03:30:56 -0700
+ 10 May 2023 03:31:00 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10705"; a="676796692"
-X-IronPort-AV: E=Sophos;i="5.99,264,1677571200"; d="scan'208";a="676796692"
+X-IronPort-AV: E=McAfee;i="6600,9927,10705"; a="676796705"
+X-IronPort-AV: E=Sophos;i="5.99,264,1677571200"; d="scan'208";a="676796705"
 Received: from unknown (HELO ideak-desk.fi.intel.com) ([10.237.72.78])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2023 03:30:55 -0700
+ 10 May 2023 03:30:59 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 10 May 2023 13:31:18 +0300
-Message-Id: <20230510103131.1618266-2-imre.deak@intel.com>
+Date: Wed, 10 May 2023 13:31:21 +0300
+Message-Id: <20230510103131.1618266-5-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230510103131.1618266-1-imre.deak@intel.com>
 References: <20230510103131.1618266-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 01/14] drm/i915: Fix PIPEDMC disabling for a
- bigjoiner configuration
+Subject: [Intel-gfx] [PATCH v4 04/14] drm/i915: Update connector atomic
+ state before crtc sanitize-disabling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,57 +59,54 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For a bigjoiner configuration display->crtc_disable() will be called
-first for the slave CRTCs and then for the master CRTC. However slave
-CRTCs will be actually disabled only after the master CRTC is disabled
-(from the encoder disable hooks called with the master CRTC state).
-Hence the slave PIPEDMCs can be disabled only after the master CRTC is
-disabled, make this so.
+During HW state readout/sanitization an up-to-date connector atomic
+state will be required by a follow-up patch, which can disable CRTCs
+with an encoder (and calling the correct encoder hooks happens via the
+connector atomic state encoder pointer). So update the connector state
+already before the CRTC sanitize/disable step. For now this doesn't make
+a difference, since intel_modeset_update_connector_atomic_state() will
+update/enable the atomic state only for connectors that have an enabled
+encoder/CRTC. Such CRTCs/encoders will not be affected by
+intel_sanitize_crtc().
 
-intel_encoders_post_pll_disable() must be called only for the master
-CRTC, as for the other two encoder disable hooks. While at it fix this
-up as well. This didn't cause a problem, since
-intel_encoders_post_pll_disable() will call the corresponding hook only
-for an encoder/connector connected to the given CRTC, however slave
-CRTCs will have no associated encoder/connector.
+v2: Add comment about why the connector state needs to be up-to-date.
 
-Fixes: 3af2ff0840be ("drm/i915: Enable a PIPEDMC whenever its corresponding pipe is enabled")
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_modeset_setup.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 1d5d42a408035..116fa52290b84 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -1702,9 +1702,17 @@ static void hsw_crtc_disable(struct intel_atomic_state *state,
+diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+index 6e55806bbe066..66796e8eef90a 100644
+--- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
++++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+@@ -701,6 +701,12 @@ void intel_modeset_setup_hw_state(struct drm_i915_private *i915,
+ 	for_each_intel_encoder(&i915->drm, encoder)
+ 		intel_sanitize_encoder(encoder);
  
- 	intel_disable_shared_dpll(old_crtc_state);
- 
--	intel_encoders_post_pll_disable(state, crtc);
-+	if (!intel_crtc_is_bigjoiner_slave(old_crtc_state)) {
-+		struct intel_crtc *slave_crtc;
++	/*
++	 * Sanitizing CRTCs needs their connector atomic state to be
++	 * up-to-date, so ensure that already here.
++	 */
++	intel_modeset_update_connector_atomic_state(i915);
 +
-+		intel_encoders_post_pll_disable(state, crtc);
+ 	for_each_intel_crtc(&i915->drm, crtc) {
+ 		struct intel_crtc_state *crtc_state =
+ 			to_intel_crtc_state(crtc->base.state);
+@@ -709,8 +715,6 @@ void intel_modeset_setup_hw_state(struct drm_i915_private *i915,
+ 		intel_crtc_state_dump(crtc_state, NULL, "setup_hw_state");
+ 	}
  
--	intel_dmc_disable_pipe(i915, crtc->pipe);
-+		intel_dmc_disable_pipe(i915, crtc->pipe);
-+
-+		for_each_intel_crtc_in_pipe_mask(&i915->drm, slave_crtc,
-+						 intel_crtc_bigjoiner_slave_pipes(old_crtc_state))
-+			intel_dmc_disable_pipe(i915, slave_crtc->pipe);
-+	}
- }
+-	intel_modeset_update_connector_atomic_state(i915);
+-
+ 	intel_dpll_sanitize_state(i915);
  
- static void i9xx_pfit_enable(const struct intel_crtc_state *crtc_state)
+ 	intel_wm_get_hw_state(i915);
 -- 
 2.37.2
 
