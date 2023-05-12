@@ -4,59 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34D91C7EE24
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 May 2023 08:42:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FC29C7EE24
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 May 2023 08:42:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C849910E639;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B093510E637;
 	Fri, 12 May 2023 08:42:01 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47ADA10E626;
- Fri, 12 May 2023 08:41:59 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61DB810E1AC;
+ Fri, 12 May 2023 08:41:58 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1973C20439;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B3E4C22781;
  Fri, 12 May 2023 08:41:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1683880916; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=txJMPZPrX+cezG81MFeFiAbDpsCYTcij5lftNUBYvCQ=;
- b=1N9EdwfkKq135vmw7b1hlgw5mO7fWmQi8f3XDy9/DR2L4e7zsS3tsUU1xQqJsiNlVwknBz
- DZ6FxeqM17ykBSmrwO7mqdwST0Fs+znj2OXbtCTBHecnd/KSW+NJ6gM2T8htDCQEkJZllG
- nztaCrh4ubXdF5ysJm+68UtpBaMfniM=
+ bh=w02s8f8cJ9HqyytEROGfv4NyKbnbsgx40Z9GRTlUz7Q=;
+ b=1I5xXd6kNv4IA9qna8MjTnQ4HE39FC2SHd6sTOYGRCphawKMgHwN8CqEr9dHP2h4HY0q3i
+ t2lUtKy7yjREszs3m5bjYMEG18O0+hEX4b0scIU2yuqwfIpYAKKfXue5Cp65YbaxQ4m8Xf
+ kKZWxZzh2vydb+bWstHIE3OQKOElAg8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1683880916;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=txJMPZPrX+cezG81MFeFiAbDpsCYTcij5lftNUBYvCQ=;
- b=0wTTlT3fZqFbTdyXVBjZFB9hKMlSTMC5yhkrCP6Qgk2OV6I1mPymkMW8ec/6zuh7Uu4KgZ
- 3p4gyyXNaUEbOQAA==
+ bh=w02s8f8cJ9HqyytEROGfv4NyKbnbsgx40Z9GRTlUz7Q=;
+ b=NYKn35Pz06XMGgXcUg/QERkkoOEdbjVcjEtriTm7CWDyFyoU39LDsv0nZqRv3085h8XyoL
+ CeE/yqbhjLefmmAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C92B713A0A;
- Fri, 12 May 2023 08:41:55 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7043113A0A;
+ Fri, 12 May 2023 08:41:56 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id uHdFMNP7XWQZKQAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Fri, 12 May 2023 08:41:55 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id QEyVGtT7XWQZKQAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Fri, 12 May 2023 08:41:56 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, javierm@redhat.com
-Date: Fri, 12 May 2023 10:41:46 +0200
-Message-Id: <20230512084152.31233-6-tzimmermann@suse.de>
+Date: Fri, 12 May 2023 10:41:48 +0200
+Message-Id: <20230512084152.31233-8-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230512084152.31233-1-tzimmermann@suse.de>
 References: <20230512084152.31233-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 05/11] drm/fbdev-dma: Use regular fbdev I/O
- helpers
+Subject: [Intel-gfx] [PATCH 07/11] drm/omapdrm: Use regular fbdev I/O helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,19 +68,19 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org
+Cc: linux-samsung-soc@vger.kernel.org, Tomi Valkeinen <tomba@kernel.org>,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Use the regular fbdev helpers for framebuffer I/O instead of DRM's
-helpers. Fbdev-dma does not use damage handling, so DRM's fbdev helpers
+helpers. Omapdrm does not use damage handling, so DRM's fbdev helpers
 are mere wrappers around the fbdev code.
 
-Add CONFIG_DRM_FBDEV_DMA_EMULATION to select the necessary
+Add CONFIG_DRM_OMAP_FBDEV_EMULATION to select the necessary
 Kconfig options automatically. Make fbdev emulation depend on
 the new config option.
 
@@ -89,92 +88,140 @@ By using fbdev helpers directly within each DRM fbdev emulation,
 we can eventually remove DRM's wrapper functions entirely.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Tomi Valkeinen <tomba@kernel.org>
 ---
- drivers/gpu/drm/Kconfig         |  9 +++++++++
- drivers/gpu/drm/Makefile        |  2 +-
- drivers/gpu/drm/drm_fbdev_dma.c | 12 +++++++-----
- include/drm/drm_fbdev_dma.h     |  2 +-
- 4 files changed, 18 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/omapdrm/Kconfig        |  9 +++++++++
+ drivers/gpu/drm/omapdrm/Makefile       |  2 +-
+ drivers/gpu/drm/omapdrm/omap_debugfs.c |  4 ++--
+ drivers/gpu/drm/omapdrm/omap_fbdev.c   | 12 +++++++-----
+ drivers/gpu/drm/omapdrm/omap_fbdev.h   |  2 +-
+ drivers/gpu/drm/omapdrm/omap_gem.c     |  4 ++--
+ 6 files changed, 22 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index ba3fb04bb691..c007cb75715e 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -223,9 +223,18 @@ config DRM_TTM_HELPER
- config DRM_GEM_DMA_HELPER
- 	tristate
- 	depends on DRM
-+	select DRM_FBDEV_DMA_EMULATION if DRM_FBDEV_EMULATION
- 	help
- 	  Choose this if you need the GEM DMA helper functions
+diff --git a/drivers/gpu/drm/omapdrm/Kconfig b/drivers/gpu/drm/omapdrm/Kconfig
+index 76ded1568bd0..7f7efc302752 100644
+--- a/drivers/gpu/drm/omapdrm/Kconfig
++++ b/drivers/gpu/drm/omapdrm/Kconfig
+@@ -4,6 +4,7 @@ config DRM_OMAP
+ 	depends on DRM && OF
+ 	depends on ARCH_OMAP2PLUS
+ 	select DRM_KMS_HELPER
++	select DRM_OMAP_FBDEV_EMULATION if DRM_FBDEV_EMULATION
+ 	select VIDEOMODE_HELPERS
+ 	select HDMI
+ 	default n
+@@ -130,3 +131,11 @@ config OMAP2_DSS_SLEEP_AFTER_VENC_RESET
+ 	  disable the sleep if it doesn't cause problems on your platform.
  
-+config DRM_FBDEV_DMA_EMULATION
-+	bool
-+	depends on DRM_GEM_DMA_HELPER
+ endif
++
++config DRM_OMAP_FBDEV_EMULATION
++	tristate
++	depends on DRM_OMAP
 +	select FB_SYS_COPYAREA
 +	select FB_SYS_FILLRECT
 +	select FB_SYS_FOPS
 +	select FB_SYS_IMAGEBLIT
-+
- config DRM_GEM_SHMEM_HELPER
- 	tristate
- 	depends on DRM && MMU
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index a33257d2bc7f..d94821d37c2d 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -82,7 +82,7 @@ obj-$(CONFIG_DRM_PANEL_ORIENTATION_QUIRKS) += drm_panel_orientation_quirks.o
- obj-$(CONFIG_DRM_BUDDY) += drm_buddy.o
+diff --git a/drivers/gpu/drm/omapdrm/Makefile b/drivers/gpu/drm/omapdrm/Makefile
+index 710b4e0abcf0..917fcafc77c1 100644
+--- a/drivers/gpu/drm/omapdrm/Makefile
++++ b/drivers/gpu/drm/omapdrm/Makefile
+@@ -17,7 +17,7 @@ omapdrm-y := omap_drv.o \
+ 	omap_dmm_tiler.o \
+ 	tcm-sita.o
  
- drm_dma_helper-y := drm_gem_dma_helper.o
--drm_dma_helper-$(CONFIG_DRM_FBDEV_EMULATION) += drm_fbdev_dma.o
-+drm_dma_helper-$(CONFIG_DRM_FBDEV_DMA_EMULATION) += drm_fbdev_dma.o
- drm_dma_helper-$(CONFIG_DRM_KMS_HELPER) += drm_fb_dma_helper.o
- obj-$(CONFIG_DRM_GEM_DMA_HELPER) += drm_dma_helper.o
+-omapdrm-$(CONFIG_DRM_FBDEV_EMULATION) += omap_fbdev.o
++omapdrm-$(CONFIG_DRM_OMAP_FBDEV_EMULATION) += omap_fbdev.o
  
-diff --git a/drivers/gpu/drm/drm_fbdev_dma.c b/drivers/gpu/drm/drm_fbdev_dma.c
-index 728deffcc0d9..09a36dc38c43 100644
---- a/drivers/gpu/drm/drm_fbdev_dma.c
-+++ b/drivers/gpu/drm/drm_fbdev_dma.c
-@@ -1,5 +1,7 @@
- // SPDX-License-Identifier: MIT
+ omapdrm-y += dss/base.o dss/output.o dss/dss.o dss/dispc.o \
+ 		dss/dispc_coefs.o dss/pll.o dss/video-pll.o
+diff --git a/drivers/gpu/drm/omapdrm/omap_debugfs.c b/drivers/gpu/drm/omapdrm/omap_debugfs.c
+index a3d470468e5b..796d20d010c0 100644
+--- a/drivers/gpu/drm/omapdrm/omap_debugfs.c
++++ b/drivers/gpu/drm/omapdrm/omap_debugfs.c
+@@ -42,7 +42,7 @@ static int mm_show(struct seq_file *m, void *arg)
+ 	return 0;
+ }
+ 
+-#ifdef CONFIG_DRM_FBDEV_EMULATION
++#ifdef CONFIG_DRM_OMAP_FBDEV_EMULATION
+ static int fb_show(struct seq_file *m, void *arg)
+ {
+ 	struct drm_info_node *node = (struct drm_info_node *) m->private;
+@@ -71,7 +71,7 @@ static int fb_show(struct seq_file *m, void *arg)
+ static struct drm_info_list omap_debugfs_list[] = {
+ 	{"gem", gem_show, 0},
+ 	{"mm", mm_show, 0},
+-#ifdef CONFIG_DRM_FBDEV_EMULATION
++#ifdef CONFIG_DRM_OMAP_FBDEV_EMULATION
+ 	{"fb", fb_show, 0},
+ #endif
+ };
+diff --git a/drivers/gpu/drm/omapdrm/omap_fbdev.c b/drivers/gpu/drm/omapdrm/omap_fbdev.c
+index b950e93b3846..55a65b81ccdc 100644
+--- a/drivers/gpu/drm/omapdrm/omap_fbdev.c
++++ b/drivers/gpu/drm/omapdrm/omap_fbdev.c
+@@ -4,6 +4,8 @@
+  * Author: Rob Clark <rob@ti.com>
+  */
  
 +#include <linux/fb.h>
 +
- #include <drm/drm_crtc_helper.h>
  #include <drm/drm_drv.h>
+ #include <drm/drm_crtc_helper.h>
  #include <drm/drm_fb_helper.h>
-@@ -64,12 +66,12 @@ static const struct fb_ops drm_fbdev_dma_fb_ops = {
- 	.owner = THIS_MODULE,
- 	.fb_open = drm_fbdev_dma_fb_open,
- 	.fb_release = drm_fbdev_dma_fb_release,
+@@ -103,11 +105,11 @@ static const struct fb_ops omap_fb_ops = {
+ 	.fb_pan_display = omap_fbdev_pan_display,
+ 	.fb_ioctl	= drm_fb_helper_ioctl,
+ 
 -	.fb_read = drm_fb_helper_sys_read,
 -	.fb_write = drm_fb_helper_sys_write,
-+	.fb_read = fb_sys_read,
-+	.fb_write = fb_sys_write,
- 	DRM_FB_HELPER_DEFAULT_OPS,
 -	.fb_fillrect = drm_fb_helper_sys_fillrect,
 -	.fb_copyarea = drm_fb_helper_sys_copyarea,
 -	.fb_imageblit = drm_fb_helper_sys_imageblit,
++	.fb_read = fb_sys_read,
++	.fb_write = fb_sys_write,
 +	.fb_fillrect = sys_fillrect,
 +	.fb_copyarea = sys_copyarea,
 +	.fb_imageblit = sys_imageblit,
- 	.fb_destroy = drm_fbdev_dma_fb_destroy,
- 	.fb_mmap = drm_fbdev_dma_fb_mmap,
+ 
+ 	.fb_destroy = omap_fbdev_fb_destroy,
  };
-diff --git a/include/drm/drm_fbdev_dma.h b/include/drm/drm_fbdev_dma.h
-index 2da7ee784133..3e96ad069136 100644
---- a/include/drm/drm_fbdev_dma.h
-+++ b/include/drm/drm_fbdev_dma.h
-@@ -5,7 +5,7 @@
+diff --git a/drivers/gpu/drm/omapdrm/omap_fbdev.h b/drivers/gpu/drm/omapdrm/omap_fbdev.h
+index 74c691a8d45f..ee65bc05f34e 100644
+--- a/drivers/gpu/drm/omapdrm/omap_fbdev.h
++++ b/drivers/gpu/drm/omapdrm/omap_fbdev.h
+@@ -11,7 +11,7 @@
  
  struct drm_device;
  
 -#ifdef CONFIG_DRM_FBDEV_EMULATION
-+#if defined(CONFIG_DRM_FBDEV_DMA_EMULATION)
- void drm_fbdev_dma_setup(struct drm_device *dev, unsigned int preferred_bpp);
++#ifdef CONFIG_DRM_OMAP_FBDEV_EMULATION
+ void omap_fbdev_setup(struct drm_device *dev);
  #else
- static inline void drm_fbdev_dma_setup(struct drm_device *dev, unsigned int preferred_bpp)
+ static inline void omap_fbdev_setup(struct drm_device *dev)
+diff --git a/drivers/gpu/drm/omapdrm/omap_gem.c b/drivers/gpu/drm/omapdrm/omap_gem.c
+index 6b58a5bb7b44..96e8135f127b 100644
+--- a/drivers/gpu/drm/omapdrm/omap_gem.c
++++ b/drivers/gpu/drm/omapdrm/omap_gem.c
+@@ -634,7 +634,7 @@ int omap_gem_dumb_map_offset(struct drm_file *file, struct drm_device *dev,
+ 	return ret;
+ }
+ 
+-#ifdef CONFIG_DRM_FBDEV_EMULATION
++#ifdef CONFIG_DRM_OMAP_FBDEV_EMULATION
+ /* Set scrolling position.  This allows us to implement fast scrolling
+  * for console.
+  *
+@@ -1067,7 +1067,7 @@ void omap_gem_put_sg(struct drm_gem_object *obj, struct sg_table *sgt)
+ 	omap_gem_unpin(obj);
+ }
+ 
+-#ifdef CONFIG_DRM_FBDEV_EMULATION
++#ifdef CONFIG_DRM_OMAP_FBDEV_EMULATION
+ /*
+  * Get kernel virtual address for CPU access.. this more or less only
+  * exists for omap_fbdev.
 -- 
 2.40.1
 
