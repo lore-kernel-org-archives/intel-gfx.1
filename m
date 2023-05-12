@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45238C7EE23
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 May 2023 06:29:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA230C77B7F
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 May 2023 06:29:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3181D10E627;
-	Fri, 12 May 2023 06:28:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A51B010E628;
+	Fri, 12 May 2023 06:29:03 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8185510E622;
- Fri, 12 May 2023 06:28:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2598510E629;
+ Fri, 12 May 2023 06:29:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1683872935; x=1715408935;
+ t=1683872940; x=1715408940;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=iAadFXnkWqcQNACvR6t+jtKxjs0cQRsVzqc4Lxvyz2A=;
- b=M/RSt6Mmr1YN3hYlbPjOxdpS6Eg8gQcxiCfTRzEx3XzpnCKlfkujO7pp
- Sd1zjQLOnGBAyKJlVmyVdQnO9m/u/9GJ7NwhiIXTSOzw/bozpBZuqda6x
- TckXR8dJSiZ1yYdlAuMp9SApJadW6okOaW6yvphpSLdZgM9TYkcauC3kp
- 7EQ7I0kAxq1holTEWANyVne6+6D4HySnHjA2mFkwD6OE6CaZuJ9dwS3+8
- 2x30fOGACTKMT1aRBXeUQF2tt2ax3+vWG3Xz/e4vj5FnmhnVhqFeq8ZN8
- fOuXtf9DKCfMLlOr9kfT5myxoVHPfod2QdEQ7TFkxwZnwVF1NwTQWL3ht w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10707"; a="350741924"
-X-IronPort-AV: E=Sophos;i="5.99,269,1677571200"; d="scan'208";a="350741924"
+ bh=aws0/h+QmE+tKRQRPKKh3SGrOhkdkLZC9uZS1bBh0tY=;
+ b=g6u+lSuJ44New/Jl7r0xBvap9ueRqxXVVJL7d562v4nQ/+rHaIHliaFc
+ DhVpdDVVdLIiMkE+lLprf/Sterdy2N4i0bdEWgcNGf9JKgmhQv2U+0nyl
+ GmaKfguZ9haJXQuEOrhzyl66/JueGvMaaz4LqYU8XPwAS2B5LvCRtV28O
+ orlBe/eETGYrPf1sbnAB2go7FvLiW31QnZXFrOegwbSxoxXbn4n6DA+ab
+ 0j7F/wAB4HjZ3GO+qR7c4nr1uYk7LOpQlQLtKRthf+sacAp/R68+75f1b
+ aRO+YSecIVuAYrgNgJ4ivaNnKXgyhpMFCpgK7rxmY7wa49CB1aqHPF9al g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10707"; a="350741933"
+X-IronPort-AV: E=Sophos;i="5.99,269,1677571200"; d="scan'208";a="350741933"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2023 23:28:55 -0700
+ 11 May 2023 23:28:59 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10707"; a="811941247"
-X-IronPort-AV: E=Sophos;i="5.99,269,1677571200"; d="scan'208";a="811941247"
+X-IronPort-AV: E=McAfee;i="6600,9927,10707"; a="811941283"
+X-IronPort-AV: E=Sophos;i="5.99,269,1677571200"; d="scan'208";a="811941283"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2023 23:28:53 -0700
+ 11 May 2023 23:28:58 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Fri, 12 May 2023 11:54:06 +0530
-Message-Id: <20230512062417.2584427-3-ankit.k.nautiyal@intel.com>
+Date: Fri, 12 May 2023 11:54:08 +0530
+Message-Id: <20230512062417.2584427-5-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230512062417.2584427-1-ankit.k.nautiyal@intel.com>
 References: <20230512062417.2584427-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 02/13] drm/i915/dp_mst: Use output_format to get
- the final link bpp
+Subject: [Intel-gfx] [PATCH 04/13] drm/i915/dp: Update Bigjoiner interface
+ bits for computing compressed bpp
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,66 +62,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The final link bpp used to calculate the m_n values depend on the
-output_format. Though the output_format is set to RGB for MST case and
-the link bpp will be same as the pipe bpp, for the sake of semantics,
-lets calculate the m_n values with the link bpp, instead of pipe_bpp.
+In Bigjoiner check for DSC, bigjoiner interface bits for DP for
+DISPLAY > 13 is 36 (Bspec: 49259).
+
+v2: Corrected Display ver to 13.
+
+v3: Follow convention for conditional statement. (Ville)
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c     | 2 +-
- drivers/gpu/drm/i915/display/intel_dp.h     | 1 +
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 5 ++++-
- 3 files changed, 6 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 263c30948117..67d09c49de6f 100644
+index 24de25551a49..bca80c0793e9 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -946,7 +946,7 @@ int intel_dp_min_bpp(enum intel_output_format output_format)
- 		return 8 * 3;
- }
+@@ -783,8 +783,9 @@ u16 intel_dp_dsc_get_max_compressed_bpp(struct drm_i915_private *i915,
+ 	bits_per_pixel = min(bits_per_pixel, max_bpp_small_joiner_ram);
  
--static int intel_dp_output_bpp(enum intel_output_format output_format, int bpp)
-+int intel_dp_output_bpp(enum intel_output_format output_format, int bpp)
- {
- 	/*
- 	 * bpp value was assumed to RGB format. And YCbCr 4:2:0 output
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index db86c2b71c1f..856172bfa13e 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -140,5 +140,6 @@ void intel_dp_pcon_dsc_configure(struct intel_dp *intel_dp,
- void intel_dp_phy_test(struct intel_encoder *encoder);
+ 	if (bigjoiner) {
++		int bigjoiner_interface_bits = DISPLAY_VER(i915) > 13 ? 36 : 24;
+ 		u32 max_bpp_bigjoiner =
+-			i915->display.cdclk.max_cdclk_freq * 48 /
++			i915->display.cdclk.max_cdclk_freq * 2 * bigjoiner_interface_bits /
+ 			intel_dp_mode_to_fec_clock(mode_clock);
  
- void intel_dp_wait_source_oui(struct intel_dp *intel_dp);
-+int intel_dp_output_bpp(enum intel_output_format output_format, int bpp);
- 
- #endif /* __INTEL_DP_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index ee28bb89bffe..2c2d258a3a77 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -155,6 +155,7 @@ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
- 	const struct drm_display_mode *adjusted_mode =
- 		&crtc_state->hw.adjusted_mode;
- 	int slots = -EINVAL;
-+	int link_bpp;
- 
- 	slots = intel_dp_mst_find_vcpi_slots_for_bpp(encoder, crtc_state, limits->max_bpp,
- 						     limits->min_bpp, limits,
-@@ -163,7 +164,9 @@ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
- 	if (slots < 0)
- 		return slots;
- 
--	intel_link_compute_m_n(crtc_state->pipe_bpp,
-+	link_bpp = intel_dp_output_bpp(crtc_state->output_format, crtc_state->pipe_bpp);
-+
-+	intel_link_compute_m_n(link_bpp,
- 			       crtc_state->lane_count,
- 			       adjusted_mode->crtc_clock,
- 			       crtc_state->port_clock,
+ 		bits_per_pixel = min(bits_per_pixel, max_bpp_bigjoiner);
 -- 
 2.25.1
 
