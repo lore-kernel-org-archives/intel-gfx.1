@@ -4,31 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7E22C77B7C
-	for <intel-gfx@archiver.kernel.org>; Sat, 13 May 2023 01:46:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD25DC77B75
+	for <intel-gfx@archiver.kernel.org>; Sat, 13 May 2023 01:55:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4B8210E6F6;
-	Sat, 13 May 2023 01:46:15 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id D521710E053;
- Sat, 13 May 2023 01:46:13 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 7D303AADD7;
- Sat, 13 May 2023 01:46:13 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0A9110E053;
+	Sat, 13 May 2023 01:55:50 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D2F710E707
+ for <intel-gfx@lists.freedesktop.org>; Sat, 13 May 2023 01:55:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1683942949; x=1715478949;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=unMvCkOTOOW83X8twgaU3mrHt7rAYMhRCygjH1rMllA=;
+ b=jgfJsj7HAXuMQDmx1IDqkC5/3y7wBtLCdIDE3xYVFzzOcZ5HDn/leO97
+ YbyjtCVHLJrCzT7SG8plCQ7KD2haZ9Ihi5Xwn8xI9wOfyXNlwYvhg5zYt
+ Y6+Sqt6GWG61b77WLUxAYWPVjnganhqzOaAEhz8oH+0L+Cky8Qv1zKaGB
+ iqTQqr94ThkAMBGYGKlxF1lGjawt76BflSxxgtC+liW+j0JVstIMCh/NY
+ dzphHWxXlkGJ8ONlzP1pjdoXPFRflifHUjHhJRrtctcf3psK5RuMK4uAA
+ eHgOksIafjfZFKpq1MRx9uQ/H2GQFrg8Ad/HaaJWWE2En2jrxVDneEgrD A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10708"; a="354054423"
+X-IronPort-AV: E=Sophos;i="5.99,271,1677571200"; d="scan'208";a="354054423"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2023 18:55:48 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10708"; a="731017019"
+X-IronPort-AV: E=Sophos;i="5.99,271,1677571200"; d="scan'208";a="731017019"
+Received: from orsosgc001.jf.intel.com ([10.165.21.138])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2023 18:55:48 -0700
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Ashutosh Dixit <ashutosh.dixit@intel.com>
+Date: Fri, 12 May 2023 18:55:43 -0700
+Message-Id: <20230513015545.2807282-5-umesh.nerlige.ramappa@intel.com>
+X-Mailer: git-send-email 2.36.1
+In-Reply-To: <20230513015545.2807282-1-umesh.nerlige.ramappa@intel.com>
+References: <20230513015545.2807282-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Yan Zhao" <yan.y.zhao@intel.com>
-Date: Sat, 13 May 2023 01:46:13 -0000
-Message-ID: <168394237348.18763.15533112594525067471@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20230513003600.818142-1-seanjc@google.com>
-In-Reply-To: <20230513003600.818142-1-seanjc@google.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/gvt=3A_KVM=3A_KVMGT_fixes_and_page-track_cleanups_?=
- =?utf-8?b?KHJldjgp?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 4/6] drm/i915/pmu: Add reference counting to the
+ sampling timer
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,56 +60,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Series: drm/i915/gvt: KVM: KVMGT fixes and page-track cleanups (rev8)
-URL   : https://patchwork.freedesktop.org/series/112196/
-State : warning
+We do not want to have timers per tile and waste CPU cycles and energy via
+multiple wake-up sources, for a relatively un-important task of PMU
+sampling, so keeping a single timer works well. But we also do not want
+the first GT which goes idle to turn off the timer.
 
-== Summary ==
+Add some reference counting, via a mask of unparked GTs, to solve this.
 
-Error: dim checkpatch failed
-7ddfeb73c37a drm/i915/gvt: Verify pfn is "valid" before dereferencing "struct page"
-6e46a75c5c15 drm/i915/gvt: remove interface intel_gvt_is_valid_gfn
-60cd1c1b954f drm/i915/gvt: Verify hugepages are contiguous in physical address space
-82759b84f7fc drm/i915/gvt: Put the page reference obtained by KVM's gfn_to_pfn()
-a85e87c63800 drm/i915/gvt: Explicitly check that vGPU is attached before shadowing
-2678442df896 drm/i915/gvt: Error out on an attempt to shadowing an unknown GTT entry type
-425220f2cc46 drm/i915/gvt: Don't rely on KVM's gfn_to_pfn() to query possible 2M GTT
-66caadcfb561 drm/i915/gvt: Use an "unsigned long" to iterate over memslot gfns
-cc12e36d8b5e drm/i915/gvt: Drop unused helper intel_vgpu_reset_gtt()
-dfc1236b7e6e drm/i915/gvt: Protect gfn hash table with vgpu_lock
-722d8f7ef123 KVM: x86/mmu: Move kvm_arch_flush_shadow_{all, memslot}() to mmu.c
-b2fdeb2bb4b6 KVM: x86/mmu: Don't rely on page-track mechanism to flush on memslot change
-58d52301be4c KVM: x86/mmu: Don't bounce through page-track mechanism for guest PTEs
-84403a9c8920 KVM: drm/i915/gvt: Drop @vcpu from KVM's ->track_write() hook
-c5834b025c35 KVM: x86: Reject memslot MOVE operations if KVMGT is attached
-0e65c8e6f583 drm/i915/gvt: Don't bother removing write-protection on to-be-deleted slot
-ad683a55df9c KVM: x86: Add a new page-track hook to handle memslot deletion
-287f9c98484d drm/i915/gvt: switch from ->track_flush_slot() to ->track_remove_region()
-7630b3b1d29e KVM: x86: Remove the unused page-track hook track_flush_slot()
-556343eb5969 KVM: x86/mmu: Move KVM-only page-track declarations to internal header
-Traceback (most recent call last):
-  File "scripts/spdxcheck.py", line 6, in <module>
-    from ply import lex, yacc
-ModuleNotFoundError: No module named 'ply'
--:114: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#114: 
-new file mode 100644
+v2: Drop the check for unparked in i915_sample (Ashutosh)
 
-total: 0 errors, 1 warnings, 0 checks, 113 lines checked
-5eeebf29aa14 KVM: x86/mmu: Use page-track notifiers iff there are external users
-ec3a18744340 KVM: x86/mmu: Drop infrastructure for multiple page-track modes
-1464bd80f0c0 KVM: x86/mmu: Rename page-track APIs to reflect the new reality
-ccd34fefb1d2 KVM: x86/mmu: Assert that correct locks are held for page write-tracking
-3601016aae9f KVM: x86/mmu: Bug the VM if write-tracking is used but not enabled
-730b76683f02 KVM: x86/mmu: Drop @slot param from exported/external page-track APIs
-7fcd298749ba KVM: x86/mmu: Handle KVM bookkeeping in page-track APIs, not callers
-c1cebe248055 drm/i915/gvt: Drop final dependencies on KVM internal details
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+---
+ drivers/gpu/drm/i915/i915_pmu.c | 9 +++++++--
+ drivers/gpu/drm/i915/i915_pmu.h | 4 ++++
+ 2 files changed, 11 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+index 2b63ee31e1b3..725b01b00775 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.c
++++ b/drivers/gpu/drm/i915/i915_pmu.c
+@@ -251,7 +251,9 @@ void i915_pmu_gt_parked(struct intel_gt *gt)
+ 	 * Signal sampling timer to stop if only engine events are enabled and
+ 	 * GPU went idle.
+ 	 */
+-	pmu->timer_enabled = pmu_needs_timer(pmu, false);
++	pmu->unparked &= ~BIT(gt->info.id);
++	if (pmu->unparked == 0)
++		pmu->timer_enabled = pmu_needs_timer(pmu, false);
+ 
+ 	spin_unlock_irq(&pmu->lock);
+ }
+@@ -268,7 +270,10 @@ void i915_pmu_gt_unparked(struct intel_gt *gt)
+ 	/*
+ 	 * Re-enable sampling timer when GPU goes active.
+ 	 */
+-	__i915_pmu_maybe_start_timer(pmu);
++	if (pmu->unparked == 0)
++		__i915_pmu_maybe_start_timer(pmu);
++
++	pmu->unparked |= BIT(gt->info.id);
+ 
+ 	spin_unlock_irq(&pmu->lock);
+ }
+diff --git a/drivers/gpu/drm/i915/i915_pmu.h b/drivers/gpu/drm/i915/i915_pmu.h
+index a686fd7ccedf..3a811266ac6a 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.h
++++ b/drivers/gpu/drm/i915/i915_pmu.h
+@@ -76,6 +76,10 @@ struct i915_pmu {
+ 	 * @lock: Lock protecting enable mask and ref count handling.
+ 	 */
+ 	spinlock_t lock;
++	/**
++	 * @unparked: GT unparked mask.
++	 */
++	unsigned int unparked;
+ 	/**
+ 	 * @timer: Timer for internal i915 PMU sampling.
+ 	 */
+-- 
+2.36.1
 
