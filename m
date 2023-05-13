@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4CCFC77B75
-	for <intel-gfx@archiver.kernel.org>; Sat, 13 May 2023 00:36:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2B1EC77B7F
+	for <intel-gfx@archiver.kernel.org>; Sat, 13 May 2023 00:36:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEFE610E6FD;
-	Sat, 13 May 2023 00:36:33 +0000 (UTC)
-Received: from mail-yb1-xb4a.google.com (mail-yb1-xb4a.google.com
- [IPv6:2607:f8b0:4864:20::b4a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA14110E6FF
- for <intel-gfx@lists.freedesktop.org>; Sat, 13 May 2023 00:36:24 +0000 (UTC)
-Received: by mail-yb1-xb4a.google.com with SMTP id
- 3f1490d57ef6-ba2526a8918so14116922276.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 12 May 2023 17:36:24 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED2D810E708;
+	Sat, 13 May 2023 00:36:34 +0000 (UTC)
+Received: from mail-yw1-x1149.google.com (mail-yw1-x1149.google.com
+ [IPv6:2607:f8b0:4864:20::1149])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 603E910E6FD
+ for <intel-gfx@lists.freedesktop.org>; Sat, 13 May 2023 00:36:33 +0000 (UTC)
+Received: by mail-yw1-x1149.google.com with SMTP id
+ 00721157ae682-55a1427cbacso173073117b3.3
+ for <intel-gfx@lists.freedesktop.org>; Fri, 12 May 2023 17:36:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20221208; t=1683938183; x=1686530183;
+ d=google.com; s=20221208; t=1683938192; x=1686530192;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
- bh=kGWzOGNnYX/vPHab7hWTlXeNk8DC7e1HwcSSdi2i4zw=;
- b=cSZ/VlxdW4Pvbsz3re6QAwL7WZtCGSlM3rK2fKtPlroG7b/uYLspYK3BUBxjTTVT5H
- rExIRgrg9h7XNVV7S8JfLCc6hKMFeVMPfqlR+bwL2034YQgp2h3wOyvRQhcjmYy/0CWV
- Tb+gGu3prYb0KrHv7Vpt1Y+ROsVp45lgtRd9usk1mFWD3GZrX5I8Fe1G/lbZAI8o3lEr
- mWJgGWPW0bvh34EiK1V42Nbd2UJvbVYh21LbBL0Z3RhkD6kdDit2UIz+fEakFenDOmre
- edXxYiugm9t9TfwtH8lYTgo0OpSfKkvacHAeaJpt4SGriTEuFWd6Nrv6Y3L/CUCP08tz
- nGqw==
+ bh=OZEggBbNblRsi2erSP3Gdfhqb5e/8lV2CB/rQrFchS8=;
+ b=4Igpt6TW9x4CyyUHgTyI0EJQh8OQLuCfDSzR+F/zcP5RMAUiMHo/cBjjxlYPZiOvhM
+ l6EastCXgINOTBF6qg6msAVseFMbGgaxTzYYNK8z3nnqlGpxKRNNrk4f0un4E0WTW0k/
+ bXYje+HsRbWsfEdjspnxU/HKpZR4p+S7IRQ+7gy2T3MFPfs/ZPE3HR0ZMCR0ZFyLdY34
+ lziPt3Vo9sPl9mzf5Gcri32A+lbht/j8S27dICw2kk9xXd1S4hCNxcqRnoY84+22qeR8
+ qu/bW0EoI5luvX0Jd6iL5ZfGf8LYhK6TeBzFNxYPHaHOZEzfX8sggfZxSyGzwDpOfArT
+ 7TPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1683938183; x=1686530183;
+ d=1e100.net; s=20221208; t=1683938192; x=1686530192;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=kGWzOGNnYX/vPHab7hWTlXeNk8DC7e1HwcSSdi2i4zw=;
- b=Bg7soCzaOTlVrloVWW2yXBJfPbI4zKWqctnkWLMp+EYtKjKfq68u9SQLOFiuTrz185
- 69QOVUBuSRS7PBxFDgRwHl2hyHQO1cagpsBnztTcavVJ3Z0U8ZuXRzmhbjaWMwM2Ons0
- BmPziRL3sArN5QHVsSt2L5xYQy2p0w4Z4fJ/4DzRBduRILqu6wOohbz9BUoQ8bcfj8Q7
- PXkFqgEhdUZJoOke036i9+SIrNGA39er3Q/Y3W5F46UOodRNpOBR+uTj/sH7Is9JzCye
- O6utJXS3O2y0Sl6iJIvBqapdZAY0bQztYfPhcakTT6fDxLEm8cbKQX3QZZTqI65S2ZHt
- Sckw==
-X-Gm-Message-State: AC+VfDwKZlSTpLq0F1tjNUKHYQ0ysvTqNCppePLla7zUcCU5GOEFYS95
- sRyM9dEPhKWc2cFAEapbn9LOUg4WLZU=
-X-Google-Smtp-Source: ACHHUZ44XO16MxtzD/w1KoYsys54d1K4j5Ud62MPtg/R3svFiezEkhnbaVUuOmGlNoGAUGi8FiukEJhRUEo=
+ bh=OZEggBbNblRsi2erSP3Gdfhqb5e/8lV2CB/rQrFchS8=;
+ b=U2T+Tl4HQgIwOW4Wgb8ZWKjYjddZWqy62ZC5H6pFRhaczUKL1dXjcmBVef7bMy2rr0
+ UYzNDYuB0RHmcHBJXathtG+dNOGMMORjw+1H7SG4G1EpM/v86osVrY8JzxTBrsJQGja+
+ OmLN519H99ByuaxMxji3lgUR5dHnbbRWIODTUze6V7X9dAhjIHKpVpV6MXgfF72op3u4
+ 1KyeSIG3jUhaYrXr6ijIumxN6ePMHNrkWxlbyF78zUKYqY6f9dmJOcJp9beUwcvQDMZw
+ uWrYMsJcLatJghlNR4+NsL9DKDvOqKOZr0K5rtGGMIRGre7Gaeq3cQeYbKHthn7zBTZQ
+ dizw==
+X-Gm-Message-State: AC+VfDwK7DUEEY7lXxvKBXdMIT53DWXn6prumgbd1mWfSIkYKoBSMf2d
+ hCj1zQry11qayM+TCbqCfBQIoG1HxBA=
+X-Google-Smtp-Source: ACHHUZ5IL0mxanQb+3z0FkMZEYHAxx8lR74ouUyEdydLk2Ld178r8tywT4lRuzG7g2edgClIvXW+7Wli+8Q=
 X-Received: from zagreus.c.googlers.com
  ([fda3:e722:ac3:cc00:7f:e700:c0a8:5c37])
- (user=seanjc job=sendgmr) by 2002:a05:6902:4a9:b0:ba7:6620:4caa with SMTP id
- r9-20020a05690204a900b00ba766204caamr88646ybs.4.1683938183796; Fri, 12 May
- 2023 17:36:23 -0700 (PDT)
-Date: Fri, 12 May 2023 17:35:41 -0700
+ (user=seanjc job=sendgmr) by 2002:a81:ae65:0:b0:55d:f921:6bfa with SMTP id
+ g37-20020a81ae65000000b0055df9216bfamr11964813ywk.5.1683938192252; Fri, 12
+ May 2023 17:36:32 -0700 (PDT)
+Date: Fri, 12 May 2023 17:35:46 -0700
 In-Reply-To: <20230513003600.818142-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20230513003600.818142-1-seanjc@google.com>
 X-Mailer: git-send-email 2.40.1.606.ga4b1b128d6-goog
-Message-ID: <20230513003600.818142-10-seanjc@google.com>
+Message-ID: <20230513003600.818142-15-seanjc@google.com>
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>,
  Paolo Bonzini <pbonzini@redhat.com>, 
  Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: [Intel-gfx] [PATCH v3 09/28] drm/i915/gvt: Drop unused helper
- intel_vgpu_reset_gtt()
+Subject: [Intel-gfx] [PATCH v3 14/28] KVM: drm/i915/gvt: Drop @vcpu from
+ KVM's ->track_write() hook
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,63 +79,80 @@ Cc: Yan Zhao <yan.y.zhao@intel.com>, kvm@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Drop intel_vgpu_reset_gtt() as it no longer has any callers.  In addition
-to eliminating dead code, this eliminates the last possible scenario where
-__kvmgt_protect_table_find() can be reached without holding vgpu_lock.
-Requiring vgpu_lock to be held when calling __kvmgt_protect_table_find()
-will allow a protecting the gfn hash with vgpu_lock without too much fuss.
+Drop @vcpu from KVM's ->track_write() hook provided for external users of
+the page-track APIs now that KVM itself doesn't use the page-track
+mechanism.
 
-No functional change intended.
-
-Fixes: ba25d977571e ("drm/i915/gvt: Do not destroy ppgtt_mm during vGPU D3->D0.")
 Reviewed-by: Yan Zhao <yan.y.zhao@intel.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- drivers/gpu/drm/i915/gvt/gtt.c | 18 ------------------
- drivers/gpu/drm/i915/gvt/gtt.h |  1 -
- 2 files changed, 19 deletions(-)
+ arch/x86/include/asm/kvm_page_track.h |  5 ++---
+ arch/x86/kvm/mmu/page_track.c         |  2 +-
+ drivers/gpu/drm/i915/gvt/kvmgt.c      | 10 ++++------
+ 3 files changed, 7 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
-index f505be9e647a..c3c623b929ce 100644
---- a/drivers/gpu/drm/i915/gvt/gtt.c
-+++ b/drivers/gpu/drm/i915/gvt/gtt.c
-@@ -2817,24 +2817,6 @@ void intel_vgpu_reset_ggtt(struct intel_vgpu *vgpu, bool invalidate_old)
- 	ggtt_invalidate(gvt->gt);
+diff --git a/arch/x86/include/asm/kvm_page_track.h b/arch/x86/include/asm/kvm_page_track.h
+index eb186bc57f6a..8c4d216e3b2b 100644
+--- a/arch/x86/include/asm/kvm_page_track.h
++++ b/arch/x86/include/asm/kvm_page_track.h
+@@ -26,14 +26,13 @@ struct kvm_page_track_notifier_node {
+ 	 * It is called when guest is writing the write-tracked page
+ 	 * and write emulation is finished at that time.
+ 	 *
+-	 * @vcpu: the vcpu where the write access happened.
+ 	 * @gpa: the physical address written by guest.
+ 	 * @new: the data was written to the address.
+ 	 * @bytes: the written length.
+ 	 * @node: this node
+ 	 */
+-	void (*track_write)(struct kvm_vcpu *vcpu, gpa_t gpa, const u8 *new,
+-			    int bytes, struct kvm_page_track_notifier_node *node);
++	void (*track_write)(gpa_t gpa, const u8 *new, int bytes,
++			    struct kvm_page_track_notifier_node *node);
+ 	/*
+ 	 * It is called when memory slot is being moved or removed
+ 	 * users can drop write-protection for the pages in that memory slot
+diff --git a/arch/x86/kvm/mmu/page_track.c b/arch/x86/kvm/mmu/page_track.c
+index 23088c90d2fd..891e5cc52b45 100644
+--- a/arch/x86/kvm/mmu/page_track.c
++++ b/arch/x86/kvm/mmu/page_track.c
+@@ -272,7 +272,7 @@ void kvm_page_track_write(struct kvm_vcpu *vcpu, gpa_t gpa, const u8 *new,
+ 	hlist_for_each_entry_srcu(n, &head->track_notifier_list, node,
+ 				srcu_read_lock_held(&head->track_srcu))
+ 		if (n->track_write)
+-			n->track_write(vcpu, gpa, new, bytes, n);
++			n->track_write(gpa, new, bytes, n);
+ 	srcu_read_unlock(&head->track_srcu, idx);
+ 
+ 	kvm_mmu_track_write(vcpu, gpa, new, bytes);
+diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
+index 0785f9cb2c20..aaebb44c139f 100644
+--- a/drivers/gpu/drm/i915/gvt/kvmgt.c
++++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+@@ -106,9 +106,8 @@ struct gvt_dma {
+ #define vfio_dev_to_vgpu(vfio_dev) \
+ 	container_of((vfio_dev), struct intel_vgpu, vfio_device)
+ 
+-static void kvmgt_page_track_write(struct kvm_vcpu *vcpu, gpa_t gpa,
+-		const u8 *val, int len,
+-		struct kvm_page_track_notifier_node *node);
++static void kvmgt_page_track_write(gpa_t gpa, const u8 *val, int len,
++				   struct kvm_page_track_notifier_node *node);
+ static void kvmgt_page_track_flush_slot(struct kvm *kvm,
+ 		struct kvm_memory_slot *slot,
+ 		struct kvm_page_track_notifier_node *node);
+@@ -1602,9 +1601,8 @@ int intel_gvt_page_track_remove(struct intel_vgpu *info, u64 gfn)
+ 	return 0;
  }
  
--/**
-- * intel_vgpu_reset_gtt - reset the all GTT related status
-- * @vgpu: a vGPU
-- *
-- * This function is called from vfio core to reset reset all
-- * GTT related status, including GGTT, PPGTT, scratch page.
-- *
-- */
--void intel_vgpu_reset_gtt(struct intel_vgpu *vgpu)
--{
--	/* Shadow pages are only created when there is no page
--	 * table tracking data, so remove page tracking data after
--	 * removing the shadow pages.
--	 */
--	intel_vgpu_destroy_all_ppgtt_mm(vgpu);
--	intel_vgpu_reset_ggtt(vgpu, true);
--}
--
- /**
-  * intel_gvt_restore_ggtt - restore all vGPU's ggtt entries
-  * @gvt: intel gvt device
-diff --git a/drivers/gpu/drm/i915/gvt/gtt.h b/drivers/gpu/drm/i915/gvt/gtt.h
-index a3b0f59ec8bd..4cb183e06e95 100644
---- a/drivers/gpu/drm/i915/gvt/gtt.h
-+++ b/drivers/gpu/drm/i915/gvt/gtt.h
-@@ -224,7 +224,6 @@ void intel_vgpu_reset_ggtt(struct intel_vgpu *vgpu, bool invalidate_old);
- void intel_vgpu_invalidate_ppgtt(struct intel_vgpu *vgpu);
- 
- int intel_gvt_init_gtt(struct intel_gvt *gvt);
--void intel_vgpu_reset_gtt(struct intel_vgpu *vgpu);
- void intel_gvt_clean_gtt(struct intel_gvt *gvt);
- 
- struct intel_vgpu_mm *intel_gvt_find_ppgtt_mm(struct intel_vgpu *vgpu,
+-static void kvmgt_page_track_write(struct kvm_vcpu *vcpu, gpa_t gpa,
+-		const u8 *val, int len,
+-		struct kvm_page_track_notifier_node *node)
++static void kvmgt_page_track_write(gpa_t gpa, const u8 *val, int len,
++				   struct kvm_page_track_notifier_node *node)
+ {
+ 	struct intel_vgpu *info =
+ 		container_of(node, struct intel_vgpu, track_node);
 -- 
 2.40.1.606.ga4b1b128d6-goog
 
