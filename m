@@ -4,42 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74001C77B7F
-	for <intel-gfx@archiver.kernel.org>; Mon, 15 May 2023 01:24:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80760C77B7D
+	for <intel-gfx@archiver.kernel.org>; Mon, 15 May 2023 04:32:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7063110E120;
-	Mon, 15 May 2023 01:24:27 +0000 (UTC)
-X-Greylist: delayed 605 seconds by postgrey-1.36 at gabe;
- Mon, 15 May 2023 01:24:24 UTC
-Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCDFC10E119
- for <intel-gfx@lists.freedesktop.org>; Mon, 15 May 2023 01:24:24 +0000 (UTC)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4QKLxF4vC7z4x4D;
- Mon, 15 May 2023 11:14:09 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
- s=201702; t=1684113251;
- bh=5eO6hmlEDHMYvF+MD1uVdqvOY9u8sSGqBFatZrLOT/I=;
- h=Date:From:To:Cc:Subject:From;
- b=U3YG/GL2kYoW7PtMdnzmvyWMHrkmHl7/GfL+3dR8fuO0kVU7UfNi+ipxpJVQddVNO
- RSv7x97vJ4sSugE5uecZUSKRVfVCZ1NNm2Md9lLh4Ihb4aGO7xyozI15ldIUIQq/2i
- ZxH3QPvQHkYjFcRnprsRiOc+2dtg7j+tq6o8ioWXHgjX3ro6lBmZzz2m+W1TkJO1Fk
- Pya5WHkh+mXEepvLujwrN5jB07StbpHGjNRUUIazGkJLs9qKELWYDkcTFRFknoBRVR
- lL2n7scQAmIMUx5b36oYXCTHXaalLpQtWZPU6anOv7w1fYNDzVD7m0N7u2yg/7nTLI
- mUTrOZZJtvNaw==
-Date: Mon, 15 May 2023 11:14:07 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>, Intel Graphics
- <intel-gfx@lists.freedesktop.org>, DRI <dri-devel@lists.freedesktop.org>
-Message-ID: <20230515111407.493674b3@canb.auug.org.au>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06F8710E138;
+	Mon, 15 May 2023 04:32:32 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2DFF110E133;
+ Mon, 15 May 2023 04:32:30 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id ECD82A47E9;
+ Mon, 15 May 2023 04:32:29 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/lUWi8Sea6sAsGuu5Z9aCWoO";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Subject: [Intel-gfx] linux-next: manual merge of the drm-misc tree with
- Linus' tree
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Juha-Pekka Heikkila" <juhapekka.heikkila@gmail.com>
+Date: Mon, 15 May 2023 04:32:29 -0000
+Message-ID: <168412514993.22014.4032047644102786671@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230514184240.6184-1-juhapekka.heikkila@gmail.com>
+In-Reply-To: <20230514184240.6184-1-juhapekka.heikkila@gmail.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?series_starting_with_=5B1/2=5D_drm/fourcc=3A_define_Intel_Meteo?=
+ =?utf-8?q?rlake_related_ccs_modifiers_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,60 +41,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Helge Deller <deller@gmx.de>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---Sig_/lUWi8Sea6sAsGuu5Z9aCWoO
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+== Series Details ==
 
-Hi all,
+Series: series starting with [1/2] drm/fourcc: define Intel Meteorlake related ccs modifiers (rev3)
+URL   : https://patchwork.freedesktop.org/series/117729/
+State : warning
 
-Today's linux-next merge of the drm-misc tree got a conflict in:
+== Summary ==
 
-  drivers/video/fbdev/stifb.c
-
-between commit:
-
-  8000425739dc ("fbdev: stifb: Remove trailing whitespaces")
-
-from Linus' tree and commit:
-
-  0d556f1f0e01 ("video: Remove trailing whitespaces")
-
-from the drm-misc tree.
-
-I fixed it up (the changes in the latter included those in the former)
-and can carry the fix as necessary. This is now fixed as far as linux-next
-is concerned, but any non trivial conflicts should be mentioned to your
-upstream maintainer when your tree is submitted for merging.  You may
-also want to consider cooperating with the maintainer of the conflicting
-tree to minimise any particularly complex conflicts.
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
-
---=20
-Cheers,
-Stephen Rothwell
-
---Sig_/lUWi8Sea6sAsGuu5Z9aCWoO
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmRhh18ACgkQAVBC80lX
-0Gwq3wf9EygXdY6GTEMIzQT76/h5OODPwyMnZzJfF3+QBvLFLQWNRgCTskigN9K4
-l9grkvFxM8tCZJ9W9VgFuTPnRiNLg7r2o6Yzo774RQh0yVB/VFK/Mo2jbDTWSaNu
-vBDryZ1t+uyDM6+Rj/tL/CgQ+nu+H5a0K+BCGWi6RvaysLUDIm3XvLar2aVz1gmw
-M9N9jh7LPh3mHFmhb1FZjXiuq8r/q9NOMDD2M5zf9ly9sSU5wbaR6fJgc+5H8fr2
-Dhg++vlLv0P5k38y8QjM6+lTmLdDANuzqUk1Fh6ONocy1kM9iA3DnePDkXgGR3Wi
-T7OQOCp8AtjZ+2raGIwPXXiETEpoGw==
-=MPnr
------END PGP SIGNATURE-----
-
---Sig_/lUWi8Sea6sAsGuu5Z9aCWoO--
