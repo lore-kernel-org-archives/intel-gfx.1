@@ -4,45 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30935C7EE26
-	for <intel-gfx@archiver.kernel.org>; Mon, 15 May 2023 06:44:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1FE1C77B75
+	for <intel-gfx@archiver.kernel.org>; Mon, 15 May 2023 07:10:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FE8510E149;
-	Mon, 15 May 2023 06:44:40 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA11B10E138
- for <intel-gfx@lists.freedesktop.org>; Mon, 15 May 2023 06:44:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1684133065; x=1715669065;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=soPP2mrGSkQ9Iiy6WzjqteHVTpWkUgfRKuCon6QBebA=;
- b=n25qHRo/0g2qUR8N24bEw4Z3voUCnaLGt3THZfFuv0U/Rfc5UydiGzIQ
- d40J+I4SlYVu5uHjeknbr/UoABspMYn267vFP5onC0vLcUVK95cfy7trz
- ypf44TvO7DXi+uV5eTo95t7Kj9c+3EK1y+AkTZIqJiJCobW9VVp7R2M6E
- mjh1KrzZTMsyO1cyL+UZ1Hpbo5YumCRxeRSQn0q5XNVATbb097f9nEI5B
- pBBlEc7hekhIupaLw461d6cKWblY42mygnMTR3b4KHA8uNTjU6pdbTig+
- T+gVIQiUTao+CcNogYEQvOZzf89Gi1ItlQzZd8WT8v8efUYR4CKgOGZMv Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="354283665"
-X-IronPort-AV: E=Sophos;i="5.99,275,1677571200"; d="scan'208";a="354283665"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2023 23:44:24 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10710"; a="845124651"
-X-IronPort-AV: E=Sophos;i="5.99,275,1677571200"; d="scan'208";a="845124651"
-Received: from orsosgc001.jf.intel.com ([10.165.21.138])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 May 2023 23:44:24 -0700
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Sun, 14 May 2023 23:44:10 -0700
-Message-Id: <20230515064416.3054707-1-umesh.nerlige.ramappa@intel.com>
-X-Mailer: git-send-email 2.36.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CBA510E13B;
+	Mon, 15 May 2023 07:10:33 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D331310E13D;
+ Mon, 15 May 2023 07:10:31 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id CAE06AADEB;
+ Mon, 15 May 2023 07:10:31 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 0/6] Add MTL PMU support for multi-gt
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Umesh Nerlige Ramappa" <umesh.nerlige.ramappa@intel.com>
+Date: Mon, 15 May 2023 07:10:31 -0000
+Message-ID: <168413463179.22015.8860345540528322936@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230515064416.3054707-1-umesh.nerlige.ramappa@intel.com>
+In-Reply-To: <20230515064416.3054707-1-umesh.nerlige.ramappa@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Add_MTL_PMU_support_for_multi-gt?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,36 +40,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With MTL, frequency and rc6 counters are specific to a gt. Export these
-counters via gt-specific events to the user space.
+== Series Details ==
 
-v2: Remove aggregation support from kernel
-v3: Review comments (Ashutosh, Tvrtko)
-v4:
-- Include R-b for 6/6
-- Add Test-with
-- Fix versioning info in cover letter
+Series: Add MTL PMU support for multi-gt
+URL   : https://patchwork.freedesktop.org/series/117738/
+State : warning
 
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Test-with: 20230513022234.2832233-1-umesh.nerlige.ramappa@intel.com
+== Summary ==
 
-Tvrtko Ursulin (6):
-  drm/i915/pmu: Support PMU for all engines
-  drm/i915/pmu: Skip sampling engines with no enabled counters
-  drm/i915/pmu: Transform PMU parking code to be GT based
-  drm/i915/pmu: Add reference counting to the sampling timer
-  drm/i915/pmu: Prepare for multi-tile non-engine counters
-  drm/i915/pmu: Export counters from all tiles
+Error: dim checkpatch failed
+6114f8d0c211 drm/i915/pmu: Support PMU for all engines
+8736cb79fd80 drm/i915/pmu: Skip sampling engines with no enabled counters
+a758943c95f5 drm/i915/pmu: Transform PMU parking code to be GT based
+e5548d8ca335 drm/i915/pmu: Add reference counting to the sampling timer
+ccb4d59f4da6 drm/i915/pmu: Prepare for multi-tile non-engine counters
+-:107: WARNING:AVOID_BUG: Do not crash the kernel unless it is absolutely unavoidable--use WARN_ON_ONCE() plus recovery code (if feasible) instead of BUG() or variants
+#107: FILE: drivers/gpu/drm/i915/i915_pmu.c:194:
++	GEM_BUG_ON(idx >= ARRAY_SIZE(pmu->sample));
 
- drivers/gpu/drm/i915/gt/intel_gt_pm.c |   4 +-
- drivers/gpu/drm/i915/i915_pmu.c       | 263 ++++++++++++++++++--------
- drivers/gpu/drm/i915/i915_pmu.h       |  24 ++-
- include/uapi/drm/i915_drm.h           |  17 +-
- 4 files changed, 219 insertions(+), 89 deletions(-)
+total: 0 errors, 1 warnings, 0 checks, 351 lines checked
+fb34a531fb2d drm/i915/pmu: Export counters from all tiles
 
--- 
-2.36.1
 
