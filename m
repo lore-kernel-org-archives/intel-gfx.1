@@ -4,49 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C13DBC77B75
-	for <intel-gfx@archiver.kernel.org>; Mon, 15 May 2023 13:36:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 814EBC77B7D
+	for <intel-gfx@archiver.kernel.org>; Mon, 15 May 2023 13:51:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2AC110E212;
-	Mon, 15 May 2023 13:36:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 338AD10E077;
+	Mon, 15 May 2023 13:51:14 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79B0D10E1D5;
- Mon, 15 May 2023 13:36:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B11F310E1D5;
+ Mon, 15 May 2023 13:51:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1684157800; x=1715693800;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=g1BjN2U6lc76hmWeHAuVBeJ5n98jeIhNG1M3zg6bI9Y=;
- b=Uoz8bCcsEmhEOjJj9iEh7VASZGq2xy8OG2BL6GXz2J95lA8GiP5VNeen
- 66sD/3Ch8gtJhhchPwHhqWbpudnSqmfADZtQdUo0Z0H2gCP21sK9NeDX5
- kDpBMpotJKgLQ/++DmEYkguXEJJSeB0I8FB1i6xx9/ilcAZuMI4Nqqr6p
- +Fs1Iaj6TE1yPDft3+j7aFJs58qoN3Zpu7KpPgjZ6jHPHoSzl4G/YMkTn
- gow4Yl7rVVHghJ/tNc4axDQc4WHDbAfZp8xpODaxH8M4az7yg+QMkfWRi
- z3h5iy5uzaoGh90W1PN9EWkFeKg/MPQNxu3HbjDbDRomkK0IrNhkDh/KN g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10711"; a="414597315"
-X-IronPort-AV: E=Sophos;i="5.99,276,1677571200"; d="scan'208";a="414597315"
+ t=1684158671; x=1715694671;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=j7T61y8BuhzBAuiqVQj29xbrPcpXMiytN/YPhkiOn2M=;
+ b=AyxaviuL9AD7ZaiFfiuLgvQ4hNanXZM6ahDZKNFCiTKm9W310YZ/IcHi
+ /wn+sibLp4YpNhZsTZAgz5aq86uvIP2bfBTqN6f+kI3zdUpU5FRO0IEkI
+ PBfgTMPn/fvxoIfGebVvtY0CdeYfHlxcofdZMDo2iySyC4If+X5Azfv09
+ PY/0JKamBS5iILPPMOCrxhYBIULOKykXnr7QdQTbsgGO6isfwHcouOfNF
+ CNTWcmyWk01IA0pAv2gZCfJC9tc3kiwY8DbD2jisp1ncTPWaHnp1EE/SY
+ ZIZ5Iboplepn9nKT3y57itxcfnY3iLWVfO9BWAoL7cGQ0I1C9QwsNszUy w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10711"; a="414601112"
+X-IronPort-AV: E=Sophos;i="5.99,276,1677571200"; d="scan'208";a="414601112"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2023 06:36:40 -0700
+ 15 May 2023 06:51:11 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10711"; a="700963780"
-X-IronPort-AV: E=Sophos;i="5.99,276,1677571200"; d="scan'208";a="700963780"
-Received: from zolayode-mobl.ger.corp.intel.com (HELO localhost.localdomain)
- ([10.213.214.133])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2023 06:36:38 -0700
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: igt-dev@lists.freedesktop.org,
-	Intel-gfx@lists.freedesktop.org
-Date: Mon, 15 May 2023 14:36:29 +0100
-Message-Id: <20230515133630.2163170-2-tvrtko.ursulin@linux.intel.com>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20230515133630.2163170-1-tvrtko.ursulin@linux.intel.com>
-References: <20230515133630.2163170-1-tvrtko.ursulin@linux.intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10711"; a="700966526"
+X-IronPort-AV: E=Sophos;i="5.99,276,1677571200"; d="scan'208";a="700966526"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
+ by orsmga002.jf.intel.com with SMTP; 15 May 2023 06:51:08 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Mon, 15 May 2023 16:51:07 +0300
+Date: Mon, 15 May 2023 16:51:07 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Message-ID: <ZGI4y-6NKngtl0wh@intel.com>
+References: <20230512062417.2584427-1-ankit.k.nautiyal@intel.com>
+ <20230512062417.2584427-5-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 1/2] gputop: Move client name last
+In-Reply-To: <20230512062417.2584427-5-ankit.k.nautiyal@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH 04/13] drm/i915/dp: Update Bigjoiner
+ interface bits for computing compressed bpp
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,87 +62,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+On Fri, May 12, 2023 at 11:54:08AM +0530, Ankit Nautiyal wrote:
+> In Bigjoiner check for DSC, bigjoiner interface bits for DP for
+> DISPLAY > 13 is 36 (Bspec: 49259).
+> 
+> v2: Corrected Display ver to 13.
+> 
+> v3: Follow convention for conditional statement. (Ville)
+> 
+> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_dp.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 24de25551a49..bca80c0793e9 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -783,8 +783,9 @@ u16 intel_dp_dsc_get_max_compressed_bpp(struct drm_i915_private *i915,
+>  	bits_per_pixel = min(bits_per_pixel, max_bpp_small_joiner_ram);
+>  
+>  	if (bigjoiner) {
+> +		int bigjoiner_interface_bits = DISPLAY_VER(i915) > 13 ? 36 : 24;
 
-Move client name to be the right most field which visually aligns better
-with top(1) and prepares for inserting memory usage fields somewhere in
-the middle.
+'x >= 14' is the usual convention.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: Rob Clark <robdclark@chromium.org>
----
- tools/gputop.c | 19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
+with that
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-diff --git a/tools/gputop.c b/tools/gputop.c
-index 4fb5ce63e07c..681f0a6bb748 100644
---- a/tools/gputop.c
-+++ b/tools/gputop.c
-@@ -80,15 +80,15 @@ print_client_header(struct igt_drm_client *c, int lines, int con_w, int con_h,
- 		return lines;
- 
- 	putchar('\n');
--	len = printf("%*s %*s ",
--		     c->clients->max_pid_len, "PID",
--		     c->clients->max_name_len, "NAME");
-+	len = printf("%*s ", c->clients->max_pid_len, "PID");
- 
- 	if (c->engines->num_engines) {
- 		unsigned int i;
- 		int width;
- 
--		*engine_w = width = (con_w - len) / c->engines->num_engines;
-+		*engine_w = width =
-+			(con_w - len - c->clients->max_name_len - 1) /
-+			c->engines->num_engines;
- 
- 		for (i = 0; i <= c->engines->max_engine_id; i++) {
- 			const char *name = c->engines->names[i];
-@@ -109,8 +109,7 @@ print_client_header(struct igt_drm_client *c, int lines, int con_w, int con_h,
- 		}
- 	}
- 
--	n_spaces(con_w - len);
--	printf("\033[0m\n");
-+	printf(" %-*s\033[0m\n", con_w - len - 1, "NAME");
- 
- 	return lines;
- }
-@@ -128,6 +127,7 @@ print_client(struct igt_drm_client *c, struct igt_drm_client **prevc,
- 	     unsigned int period_us, int *engine_w)
- {
- 	unsigned int i;
-+	int len;
- 
- 	/* Filter out idle clients. */
- 	if (!c->total_runtime || c->samples < 2)
-@@ -142,9 +142,7 @@ print_client(struct igt_drm_client *c, struct igt_drm_client **prevc,
- 
- 	*prevc = c;
- 
--	printf("%*s %*s ",
--	       c->clients->max_pid_len, c->pid_str,
--	       c->clients->max_name_len, c->print_name);
-+	len = printf("%*s ", c->clients->max_pid_len, c->pid_str);
- 	lines++;
- 
- 	for (i = 0; c->samples > 1 && i <= c->engines->max_engine_id; i++) {
-@@ -164,9 +162,10 @@ print_client(struct igt_drm_client *c, struct igt_drm_client **prevc,
- 			pct = 100.0;
- 
- 		print_percentage_bar(pct, *engine_w);
-+		len += *engine_w;
- 	}
- 
--	putchar('\n');
-+	printf(" %-*s\n", con_w - len - 1, c->print_name);
- 
- 	return lines;
- }
+>  		u32 max_bpp_bigjoiner =
+> -			i915->display.cdclk.max_cdclk_freq * 48 /
+> +			i915->display.cdclk.max_cdclk_freq * 2 * bigjoiner_interface_bits /
+>  			intel_dp_mode_to_fec_clock(mode_clock);
+>  
+>  		bits_per_pixel = min(bits_per_pixel, max_bpp_bigjoiner);
+> -- 
+> 2.25.1
+
 -- 
-2.37.2
-
+Ville Syrjälä
+Intel
