@@ -4,48 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF9B5C77B7A
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 May 2023 23:35:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66300C77B7F
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 May 2023 23:53:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECDD610E387;
-	Tue, 16 May 2023 23:35:51 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C43B110E388
- for <intel-gfx@lists.freedesktop.org>; Tue, 16 May 2023 23:35:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE8C110E380;
+	Tue, 16 May 2023 23:53:21 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54DE210E380;
+ Tue, 16 May 2023 23:53:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1684280139; x=1715816139;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=fvMA95Wjl8plV1cZJGj/p0BqP4ooRqMSRAWoTW3GX/0=;
- b=BeV1lOM0tHSOk8WkyrqtJkbflEJetBIzH2zw2DiZWwhdetak1v96r0Nh
- /qH8UOeNWFrfgi+l2Ft3vmcwvcLKPkZOBBxvQQTteGpxMjSdK15yn/d/U
- fslRk3Zzl3yzDRs7al1MRoqHSB5PoD+v9kc9JTRr4sZLdAdU4UNJJk+IV
- 3PDYSXCQyskiGZEE78XqINmnxuOA8E360qJehptPcHBxKJRewMKrcbFcw
- uVy6tp/O57U6w1I7SLpJn34KptH/feqcxJVGQemt5DFhrQlcU6DDPpSnt
- ilkZpcJMhiLz8ZUULeRtQs8LGiosYJOm1WeQ6/0jELO053RgsnzZAR9Am g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10712"; a="340996422"
-X-IronPort-AV: E=Sophos;i="5.99,280,1677571200"; d="scan'208";a="340996422"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 May 2023 16:35:38 -0700
+ t=1684281200; x=1715817200;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=C48kwmQWa1768aFxogEdBom2PKI4rQtlo6s6jpQ7anw=;
+ b=bdRqAciJjho4JV+NE4e5dsBZp+zASVdTkbnnjBP1SdTawIpmnYLMMBET
+ Rmcmw4aI6CJ5MelxMSSbXgFIW2RFD8BJhvXlUWdqaovaR2rs/hlrf+UT4
+ 22Nf3u/rrbVfqX6RAQK9CEtR5MIiq66RUj+RJ48JpzHPcr/HM7BzfYEAy
+ x+sVRW073xN6QHzKwzrykQZ/8K+s1wdhyZBcEhf6/BXaZOWrZJmCkue3c
+ AJoXGGEOC2fSNjhu1d+OU2T8TesFRuUCbtf7Ihw2jRbeKvAkBtGIPrh5i
+ /DHikyevQ1T+g6IPvSEScv/0TEoiKyvhm7Nr8BszMVGZzgORVXcLIW17c w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10712"; a="331980339"
+X-IronPort-AV: E=Sophos;i="5.99,280,1677571200"; d="scan'208";a="331980339"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 May 2023 16:53:07 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10712"; a="732160693"
-X-IronPort-AV: E=Sophos;i="5.99,280,1677571200"; d="scan'208";a="732160693"
-Received: from orsosgc001.jf.intel.com ([10.165.21.138])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 May 2023 16:35:38 -0700
+X-IronPort-AV: E=McAfee;i="6600,9927,10712"; a="875838643"
+X-IronPort-AV: E=Sophos;i="5.99,280,1677571200"; d="scan'208";a="875838643"
+Received: from fmsmsx601.amr.corp.intel.com ([10.18.126.81])
+ by orsmga005.jf.intel.com with ESMTP; 16 May 2023 16:53:06 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.23; Tue, 16 May 2023 16:53:06 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.23; Tue, 16 May 2023 16:53:06 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.23 via Frontend Transport; Tue, 16 May 2023 16:53:06 -0700
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com (104.47.55.107)
+ by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.23; Tue, 16 May 2023 16:53:05 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VR6kbAOc71iaALsr/kktqoKmY2lHabaBewBAB6NIjswi1dIA1TJT9NNkquyJs5CmPPLl6y/qyg4IRyOAMq9nBzipvwNysCvrv8wfv1B0S6o6z9Z2gIsMbRfYtKj8AhdPwVDN/iykbLRTW3wCu0oM7Z1XLS7WvjMkj32b34BWdGLjcA9O+ji5174EWGYycI8jeG9L0Q+vv7kfjJVbkD5C747zy33627ZfLnFZNH3hexa23jQj2z4k69jIdfBnKtztUfrJJvcWJSpJ6z3ywQQ/PAqwrtc3MPLllf8sP1M8cgvy/K/l4T4FBvsd7FDK6sWeOS7ZgUdtgTcdnwQVGyy9UQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JEgKZyTcS4m4aDLfb/brHjyW0se9XOjdaGDwpUcf6z4=;
+ b=KaSyJwvDc2B9WAitjqJdRpORAl/WQjXYdaLZnHZEMHARdMemOBVKFMY3nofdFiwpSpPS4QT7KEfJg6XtlH/PUeMRxL4rq0mgUl+tHX4YyRSAtIBRbSdZBmMEi8U3kpwrS1wk3CJIgMAJU37479q5sbpiSLsSIhYLz/J8e0687TLObp+lxsITpWc7hmyAJXd/pQN5/MVhrU3Nvf6DUiCdpb2/q/9etK4AbR+ab5ZXGV/CkDymHihfmfu8C3jwska4b9KByD9a+XwqgrPVpkU+e9I3B2tRpi/Jsnn2K/iqmA4kxmWJxZFmfUawNJYtsTtW7kj4DwAJAkEJi5Fo1CyEEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM6PR11MB2987.namprd11.prod.outlook.com (2603:10b6:5:65::14) by
+ MW4PR11MB6715.namprd11.prod.outlook.com (2603:10b6:303:20e::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.30; Tue, 16 May
+ 2023 23:53:04 +0000
+Received: from DM6PR11MB2987.namprd11.prod.outlook.com
+ ([fe80::3435:8461:a51:17fc]) by DM6PR11MB2987.namprd11.prod.outlook.com
+ ([fe80::3435:8461:a51:17fc%3]) with mapi id 15.20.6387.030; Tue, 16 May 2023
+ 23:53:04 +0000
+Date: Tue, 16 May 2023 16:52:46 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 16 May 2023 16:35:33 -0700
-Message-Id: <20230516233534.3610598-7-umesh.nerlige.ramappa@intel.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20230516233534.3610598-1-umesh.nerlige.ramappa@intel.com>
-References: <20230516233534.3610598-1-umesh.nerlige.ramappa@intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Message-ID: <ZGQXTlBcPLel02wt@orsosgc001.jf.intel.com>
+References: <20230516092445.184823-1-tvrtko.ursulin@linux.intel.com>
+ <ZGP/7UvMtspSByjp@orsosgc001.jf.intel.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Disposition: inline
+In-Reply-To: <ZGP/7UvMtspSByjp@orsosgc001.jf.intel.com>
+X-ClientProxiedBy: BYAPR02CA0042.namprd02.prod.outlook.com
+ (2603:10b6:a03:54::19) To DM6PR11MB2987.namprd11.prod.outlook.com
+ (2603:10b6:5:65::14)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 6/7] drm/i915/pmu: Prepare for multi-tile
- non-engine counters
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR11MB2987:EE_|MW4PR11MB6715:EE_
+X-MS-Office365-Filtering-Correlation-Id: d66891db-65cc-44d8-a929-08db5668b02b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: bqIUg7UTMWYTo2YifdF4C+vsv2tBihqZIHTMyBTihGUH+LUCwoUNWVohZL97V2glaDzJoByKm9tf1y/epZeN6nLEmBUwXqMM0Vrnz5IseLTnAnJ0EoS+2NFBNrtY+0ZbmTsBOF8tsi/86JzIThZiwm1TtcX03lEWrR2ea9DOF3mFw/MBqZIqGZgF1zBe7shI1KczvVKSLhCZjr6ArTg/2x6sBWb5SvGPG3V2FqNV5a4oze4oL1K6Zrh7OJ2K6VdVXM4C3UNbIIus0Zj+qZcH7hC9W571UZqL+aaBsUjapKMo488TMM8y/sYk9PVgXi0uDXvbxGyQBrh1Fu21k5H9Tvmsxxzo+a1HV0z8MiwYAf4Tb2ZbOz694ypfGGb3azhiFVUorfnxzmZFMFotbMFCUWUqFqHqhRzmtw5vgcnoha9dtioSISWRJfDwlJ0vXsEf02oTM5H6BUoGK18bFA5A2YSruLih9NlvJc0XJs1YHIYokwngerv8udbmSwPcorUn
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR11MB2987.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(366004)(346002)(376002)(396003)(136003)(39860400002)(451199021)(478600001)(6666004)(41300700001)(82960400001)(66556008)(6916009)(66946007)(4326008)(66476007)(316002)(54906003)(8936002)(8676002)(38100700002)(186003)(2906002)(6506007)(83380400001)(26005)(6512007)(86362001)(966005)(6486002)(5660300002);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R01MNTI3d2ZmK1ZQRS9hOXFTeXc1VFlOV1dxQXNhaGo1eDdBWGJNbFFvcHpM?=
+ =?utf-8?B?ZjN3TkVFTGtDbG9lNUd2V2IzZGd4QTlxaDdHaGF1YnhSc2dva3V5clNnVHhj?=
+ =?utf-8?B?YzJEMG5aTVFMTGVvZjJqLzBXWTRsa0ZXdWQzc3Yyd0JDalNtdFFvaE1Icm1X?=
+ =?utf-8?B?Ny9Yem5vd1ZiNTBuQzYwbWN5VzFwcjlKaW5iQ1ZmMFh5MmVCaHhSTEJQZTNx?=
+ =?utf-8?B?aURrRjRtbWtNalNiZzlXUmRMTVhVQVFDNU9oL3V6b2phWTJoNTFJbTRrRWNT?=
+ =?utf-8?B?ZmVLR3VRUHBhTWk3U0NoRG1MNTh1TVROR1ZRZUhZL3VuNGN2WG56UWFvRm9w?=
+ =?utf-8?B?ZDdSeStKemNqOUR6Sm5JK0tiajhhR0dySUpRQVdJRWc5cWhqMHRLRU1CVUk4?=
+ =?utf-8?B?dnk0Q1ZoTTNUclJzVUp4c1d2ZkpQZXR0T21sb2hSSzgraU9uM0VyS1BqV0l2?=
+ =?utf-8?B?YnNOc0huSkhKYUE5QitaTDBRYlBHNHpkc1hXUUZVc1BCTGI0b0lSbUhXODhL?=
+ =?utf-8?B?R04wZVZLZXQ4VUQ1akN1d25LQ1pnTk9sMWFEQzdRUnp0MXVRNG5LZTdIOEpI?=
+ =?utf-8?B?S0N5Rzh6Q1M0Z3o4Rjc1QmtMYURKcExIWDdOOGFZdytVcUJaUlhyeGRYeStX?=
+ =?utf-8?B?dVJYeEpiTWpERFFxTWJlZ1E0MmpVb1ZqRGJTWjhrUFg0SnF2R3ZobTN1N1pS?=
+ =?utf-8?B?TEVIQ2dEYjFVaGdYb0JySDA5Y3JWUXMwQVlHUm85d2lOb1NTTDVrM0JWeUtL?=
+ =?utf-8?B?cDlNdURtdzJzRkVjY2M3aVhJS3JFMFAwNU1FQTk2dGZXUkhDOHlQOWNJcHRz?=
+ =?utf-8?B?THVEZFFqeWpjWGcwR3ROSlY5T0ltZ29jalczS0J6UThLS1BBanduRTZZbktJ?=
+ =?utf-8?B?Tmwzd29oNlFGdlZKRGY4TVQvSjN5VDBLdDFLRm9tdm1uVjBCMlZFUTBuVUV3?=
+ =?utf-8?B?RzFHOW8vUGlZV0MxMGhHM2QvL040RU84VkdIK1VnNEJRWTE1c2pwbFNpazhR?=
+ =?utf-8?B?enltaTVGUGRCc0ViWm9vY2ZOa3RXaHR4cW5KdTk3SjZzRUUxaHRNTGVUdGNL?=
+ =?utf-8?B?akhxSDdPZ0NLTVRHSGZjTEJGbm5XM2t3a0FDT2hjNW10bUF4Q0I0VitEbEUz?=
+ =?utf-8?B?Yzh0cEFoQ0ZjTk0wT2pDYTZtdlZpVmNlMEhkZERkNDkrN2l0TUl4ajZUWjNO?=
+ =?utf-8?B?WkFjNTU2LzlrbGRqZndqTHNtWkdiZ0tIeFFuT0owRzVFTUdacENJdDNMenpn?=
+ =?utf-8?B?TzFyS1QvMjc2eHJ1L21Md04yOUVTVitTaEVnQ1VwRDcwUE5DU0Y0ZjRCMlAv?=
+ =?utf-8?B?TnA5c0pHbE1CUVN3NGEzVStPdW5tVHZoNThQNzdaVjJZZTZkbWFFZ0d1dFZy?=
+ =?utf-8?B?T2xicGF5RjhDMlRFazIvYmlCUVJiaHlqTUhPWkpoRG1QNzFPZURvakUxUGR5?=
+ =?utf-8?B?bWJOa2lBKzBkbC9YdHRQL0lrczVxVEE4TUdYODRSMkFZcWkweVA1d0dhN2Zr?=
+ =?utf-8?B?RVJjSHFVT2hlU0l3SHBwN201RXRDWXNoTmZadUZJRWloSzd3NGRENWhodDdv?=
+ =?utf-8?B?elV4dnVnejhxNHhwcWZ1dnhOSXJ3WWU3TTAyU21MdjJDa2xkRnNYd1Vqalh6?=
+ =?utf-8?B?UFhPN0hlbUkyMkNhU1ZmSFR3Y1VKYnM1RXZueDdtLzhCMW1raG55MCsxd0oz?=
+ =?utf-8?B?TVFhUkNNclIzaTNRazM5NmJNVE1rdzkzNEZqeDhiMTdQK292VTUxWUpYaWR6?=
+ =?utf-8?B?aHA5cFlnRDdtd21MT2haSlJqS2lHekFZTVliNGpzdmVOUjlYeURTdlBGNnBk?=
+ =?utf-8?B?aWRCdFRsaHdmR25uZkZMdVZXeXNVQ08yQlpuZTQxRGVzdWNPTVdKbUpyTlAy?=
+ =?utf-8?B?VUljK1g5NUpSK1dFczJJMVpNMGU3ZXIwUFNhdlJVQTBUck85ZDgxbFNJT1ZW?=
+ =?utf-8?B?VHpsK1VyTVJtSmp2OEN0eTN6U0N1SER6ampzRGo5Y3ZuN1lxeDJXcjQxOXJC?=
+ =?utf-8?B?NzFhSmRzV3l3cDJNbllFS2dneG54ZnR5NmlkSmFJdEpZZGVRTXEvL2gyeisz?=
+ =?utf-8?B?VEdJemYxRkdoS0RLZDBYUitHOFhjeENQTkw2dlVHdngxQllURUtkYW8rVDlX?=
+ =?utf-8?B?clF0N0V1ZURJQjBDSGw4NTQvUzJTaEJzdnVoeEVvV1VRanZwcnc5aVFQRnlL?=
+ =?utf-8?Q?daMxSAzHvVntMWA2Uuv2+aI=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: d66891db-65cc-44d8-a929-08db5668b02b
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB2987.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 May 2023 23:53:03.8281 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5NMvuqM6C7OriR07kRcM5sbsYeoHZTCsicpTiiwdUtobaI6fWXOnXQIgg1bi84awTNr1brVWxhUsPhJETiCJ2tlM0gBUaSwYVCmB4cHsSds=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB6715
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/pmu: Change bitmask of enabled
+ events to u32
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,420 +157,133 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+On Tue, May 16, 2023 at 03:13:01PM -0700, Umesh Nerlige Ramappa wrote:
+>On Tue, May 16, 2023 at 10:24:45AM +0100, Tvrtko Ursulin wrote:
+>>From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>>
+>>Having it as u64 was a confusing (but harmless) mistake.
+>>
+>>Also add some asserts to make sure the internal field does not overflow
+>>in the future.
+>>
+>>Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>>Cc: Ashutosh Dixit <ashutosh.dixit@intel.com>
+>>Cc: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+>>---
+>>I am not entirely sure the __builtin_constant_p->BUILD_BUG_ON branch will
+>>work with all compilers. Lets see...
+>>
+>>Compile tested only.
+>>---
+>>drivers/gpu/drm/i915/i915_pmu.c | 32 ++++++++++++++++++++++----------
+>>1 file changed, 22 insertions(+), 10 deletions(-)
+>>
+>>diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+>>index 7ece883a7d95..8736b3418f88 100644
+>>--- a/drivers/gpu/drm/i915/i915_pmu.c
+>>+++ b/drivers/gpu/drm/i915/i915_pmu.c
+>>@@ -50,7 +50,7 @@ static u8 engine_event_instance(struct perf_event *event)
+>>	return (event->attr.config >> I915_PMU_SAMPLE_BITS) & 0xff;
+>>}
+>>
+>>-static bool is_engine_config(u64 config)
+>>+static bool is_engine_config(const u64 config)
+>>{
+>>	return config < __I915_PMU_OTHER(0);
+>>}
+>>@@ -82,15 +82,28 @@ static unsigned int other_bit(const u64 config)
+>>
+>>static unsigned int config_bit(const u64 config)
+>>{
+>>+	unsigned int bit;
+>>+
+>>	if (is_engine_config(config))
+>>-		return engine_config_sample(config);
+>>+		bit = engine_config_sample(config);
+>>	else
+>>-		return other_bit(config);
+>>+		bit = other_bit(config);
+>>+
+>>+	if (__builtin_constant_p(config))
+>>+		BUILD_BUG_ON(bit >
+>>+			     BITS_PER_TYPE(typeof_member(struct i915_pmu,
+>>+							 enable)) - 1);
+>>+	else
+>>+		WARN_ON_ONCE(bit >
+>>+			     BITS_PER_TYPE(typeof_member(struct i915_pmu,
+>>+							 enable)) - 1);
+>
+>The else is firing for the INTERRUPT event because event_bit() also 
+>calls config_bit(). It would be best to move this check to 
+>config_mask() and leave this function as is.
 
-Reserve some bits in the counter config namespace which will carry the
-tile id and prepare the code to handle this.
+I posted the modified version here - 
+https://patchwork.freedesktop.org/patch/537361/?series=117843&rev=1 as 
+part of the MTL PMU series so that it Tests out with IGT patches.
 
-No per tile counters have been added yet.
+Thanks,
+Umesh
 
-v2:
-- Fix checkpatch issues
-- Use 4 bits for gt id in non-engine counters. Drop FIXME.
-- Set MAX GTs to 4. Drop FIXME.
-
-v3: (Ashutosh, Tvrtko)
-- Drop BUG_ON that would never fire
-- Make enable u64
-- Pull in some code from next patch
-
-v4: Set I915_PMU_MAX_GTS to 2 (Tvrtko)
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
----
- drivers/gpu/drm/i915/i915_pmu.c | 148 +++++++++++++++++++++++---------
- drivers/gpu/drm/i915/i915_pmu.h |  11 ++-
- include/uapi/drm/i915_drm.h     |  17 +++-
- 3 files changed, 129 insertions(+), 47 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-index ecb57a94143e..dc1ca3a15ff6 100644
---- a/drivers/gpu/drm/i915/i915_pmu.c
-+++ b/drivers/gpu/drm/i915/i915_pmu.c
-@@ -56,11 +56,21 @@ static bool is_engine_config(const u64 config)
- 	return config < __I915_PMU_OTHER(0);
- }
- 
-+static unsigned int config_gt_id(const u64 config)
-+{
-+	return config >> __I915_PMU_GT_SHIFT;
-+}
-+
-+static u64 config_counter(const u64 config)
-+{
-+	return config & ~(~0ULL << __I915_PMU_GT_SHIFT);
-+}
-+
- static unsigned int other_bit(const u64 config)
- {
- 	unsigned int val;
- 
--	switch (config) {
-+	switch (config_counter(config)) {
- 	case I915_PMU_ACTUAL_FREQUENCY:
- 		val =  __I915_PMU_ACTUAL_FREQUENCY_ENABLED;
- 		break;
-@@ -78,7 +88,9 @@ static unsigned int other_bit(const u64 config)
- 		return -1;
- 	}
- 
--	return I915_ENGINE_SAMPLE_COUNT + val;
-+	return I915_ENGINE_SAMPLE_COUNT +
-+	       config_gt_id(config) * __I915_PMU_TRACKED_EVENT_COUNT +
-+	       val;
- }
- 
- static unsigned int config_bit(const u64 config)
-@@ -115,10 +127,22 @@ static unsigned int event_bit(struct perf_event *event)
- 	return config_bit(event->attr.config);
- }
- 
-+static u64 frequency_enabled_mask(void)
-+{
-+	unsigned int i;
-+	u64 mask = 0;
-+
-+	for (i = 0; i < I915_PMU_MAX_GTS; i++)
-+		mask |= config_mask(__I915_PMU_ACTUAL_FREQUENCY(i)) |
-+			config_mask(__I915_PMU_REQUESTED_FREQUENCY(i));
-+
-+	return mask;
-+}
-+
- static bool pmu_needs_timer(struct i915_pmu *pmu, bool gpu_active)
- {
- 	struct drm_i915_private *i915 = container_of(pmu, typeof(*i915), pmu);
--	u32 enable;
-+	u64 enable;
- 
- 	/*
- 	 * Only some counters need the sampling timer.
-@@ -131,9 +155,7 @@ static bool pmu_needs_timer(struct i915_pmu *pmu, bool gpu_active)
- 	 * Mask out all the ones which do not need the timer, or in
- 	 * other words keep all the ones that could need the timer.
- 	 */
--	enable &= config_mask(I915_PMU_ACTUAL_FREQUENCY) |
--		  config_mask(I915_PMU_REQUESTED_FREQUENCY) |
--		  ENGINE_SAMPLE_MASK;
-+	enable &= frequency_enabled_mask() | ENGINE_SAMPLE_MASK;
- 
- 	/*
- 	 * When the GPU is idle per-engine counters do not need to be
-@@ -175,9 +197,37 @@ static inline s64 ktime_since_raw(const ktime_t kt)
- 	return ktime_to_ns(ktime_sub(ktime_get_raw(), kt));
- }
- 
-+static unsigned int
-+__sample_idx(struct i915_pmu *pmu, unsigned int gt_id, int sample)
-+{
-+	unsigned int idx = gt_id * __I915_NUM_PMU_SAMPLERS + sample;
-+
-+	GEM_BUG_ON(idx >= ARRAY_SIZE(pmu->sample));
-+
-+	return idx;
-+}
-+
-+static u64 read_sample(struct i915_pmu *pmu, unsigned int gt_id, int sample)
-+{
-+	return pmu->sample[__sample_idx(pmu, gt_id, sample)].cur;
-+}
-+
-+static void
-+store_sample(struct i915_pmu *pmu, unsigned int gt_id, int sample, u64 val)
-+{
-+	pmu->sample[__sample_idx(pmu, gt_id, sample)].cur = val;
-+}
-+
-+static void
-+add_sample_mult(struct i915_pmu *pmu, unsigned int gt_id, int sample, u32 val, u32 mul)
-+{
-+	pmu->sample[__sample_idx(pmu, gt_id, sample)].cur += mul_u32_u32(val, mul);
-+}
-+
- static u64 get_rc6(struct intel_gt *gt)
- {
- 	struct drm_i915_private *i915 = gt->i915;
-+	const unsigned int gt_id = gt->info.id;
- 	struct i915_pmu *pmu = &i915->pmu;
- 	unsigned long flags;
- 	bool awake = false;
-@@ -192,7 +242,7 @@ static u64 get_rc6(struct intel_gt *gt)
- 	spin_lock_irqsave(&pmu->lock, flags);
- 
- 	if (awake) {
--		pmu->sample[__I915_SAMPLE_RC6].cur = val;
-+		store_sample(pmu, gt_id, __I915_SAMPLE_RC6, val);
- 	} else {
- 		/*
- 		 * We think we are runtime suspended.
-@@ -201,14 +251,14 @@ static u64 get_rc6(struct intel_gt *gt)
- 		 * on top of the last known real value, as the approximated RC6
- 		 * counter value.
- 		 */
--		val = ktime_since_raw(pmu->sleep_last);
--		val += pmu->sample[__I915_SAMPLE_RC6].cur;
-+		val = ktime_since_raw(pmu->sleep_last[gt_id]);
-+		val += read_sample(pmu, gt_id, __I915_SAMPLE_RC6);
- 	}
- 
--	if (val < pmu->sample[__I915_SAMPLE_RC6_LAST_REPORTED].cur)
--		val = pmu->sample[__I915_SAMPLE_RC6_LAST_REPORTED].cur;
-+	if (val < read_sample(pmu, gt_id, __I915_SAMPLE_RC6_LAST_REPORTED))
-+		val = read_sample(pmu, gt_id, __I915_SAMPLE_RC6_LAST_REPORTED);
- 	else
--		pmu->sample[__I915_SAMPLE_RC6_LAST_REPORTED].cur = val;
-+		store_sample(pmu, gt_id, __I915_SAMPLE_RC6_LAST_REPORTED, val);
- 
- 	spin_unlock_irqrestore(&pmu->lock, flags);
- 
-@@ -218,13 +268,20 @@ static u64 get_rc6(struct intel_gt *gt)
- static void init_rc6(struct i915_pmu *pmu)
- {
- 	struct drm_i915_private *i915 = container_of(pmu, typeof(*i915), pmu);
--	intel_wakeref_t wakeref;
-+	struct intel_gt *gt;
-+	unsigned int i;
-+
-+	for_each_gt(gt, i915, i) {
-+		intel_wakeref_t wakeref;
-+
-+		with_intel_runtime_pm(gt->uncore->rpm, wakeref) {
-+			u64 val = __get_rc6(gt);
- 
--	with_intel_runtime_pm(to_gt(i915)->uncore->rpm, wakeref) {
--		pmu->sample[__I915_SAMPLE_RC6].cur = __get_rc6(to_gt(i915));
--		pmu->sample[__I915_SAMPLE_RC6_LAST_REPORTED].cur =
--					pmu->sample[__I915_SAMPLE_RC6].cur;
--		pmu->sleep_last = ktime_get_raw();
-+			store_sample(pmu, i, __I915_SAMPLE_RC6, val);
-+			store_sample(pmu, i, __I915_SAMPLE_RC6_LAST_REPORTED,
-+				     val);
-+			pmu->sleep_last[i] = ktime_get_raw();
-+		}
- 	}
- }
- 
-@@ -232,8 +289,8 @@ static void park_rc6(struct intel_gt *gt)
- {
- 	struct i915_pmu *pmu = &gt->i915->pmu;
- 
--	pmu->sample[__I915_SAMPLE_RC6].cur = __get_rc6(gt);
--	pmu->sleep_last = ktime_get_raw();
-+	store_sample(pmu, gt->info.id, __I915_SAMPLE_RC6, __get_rc6(gt));
-+	pmu->sleep_last[gt->info.id] = ktime_get_raw();
- }
- 
- static void __i915_pmu_maybe_start_timer(struct i915_pmu *pmu)
-@@ -373,34 +430,30 @@ engines_sample(struct intel_gt *gt, unsigned int period_ns)
- 	}
- }
- 
--static void
--add_sample_mult(struct i915_pmu_sample *sample, u32 val, u32 mul)
--{
--	sample->cur += mul_u32_u32(val, mul);
--}
--
--static bool frequency_sampling_enabled(struct i915_pmu *pmu)
-+static bool
-+frequency_sampling_enabled(struct i915_pmu *pmu, unsigned int gt)
- {
- 	return pmu->enable &
--	       (config_mask(I915_PMU_ACTUAL_FREQUENCY) |
--		config_mask(I915_PMU_REQUESTED_FREQUENCY));
-+	       (config_mask(__I915_PMU_ACTUAL_FREQUENCY(gt)) |
-+		config_mask(__I915_PMU_REQUESTED_FREQUENCY(gt)));
- }
- 
- static void
- frequency_sample(struct intel_gt *gt, unsigned int period_ns)
- {
- 	struct drm_i915_private *i915 = gt->i915;
-+	const unsigned int gt_id = gt->info.id;
- 	struct i915_pmu *pmu = &i915->pmu;
- 	struct intel_rps *rps = &gt->rps;
- 
--	if (!frequency_sampling_enabled(pmu))
-+	if (!frequency_sampling_enabled(pmu, gt_id))
- 		return;
- 
- 	/* Report 0/0 (actual/requested) frequency while parked. */
- 	if (!intel_gt_pm_get_if_awake(gt))
- 		return;
- 
--	if (pmu->enable & config_mask(I915_PMU_ACTUAL_FREQUENCY)) {
-+	if (pmu->enable & config_mask(__I915_PMU_ACTUAL_FREQUENCY(gt_id))) {
- 		u32 val;
- 
- 		/*
-@@ -416,12 +469,12 @@ frequency_sample(struct intel_gt *gt, unsigned int period_ns)
- 		if (!val)
- 			val = intel_gpu_freq(rps, rps->cur_freq);
- 
--		add_sample_mult(&pmu->sample[__I915_SAMPLE_FREQ_ACT],
-+		add_sample_mult(pmu, gt_id, __I915_SAMPLE_FREQ_ACT,
- 				val, period_ns / 1000);
- 	}
- 
--	if (pmu->enable & config_mask(I915_PMU_REQUESTED_FREQUENCY)) {
--		add_sample_mult(&pmu->sample[__I915_SAMPLE_FREQ_REQ],
-+	if (pmu->enable & config_mask(__I915_PMU_REQUESTED_FREQUENCY(gt_id))) {
-+		add_sample_mult(pmu, gt_id, __I915_SAMPLE_FREQ_REQ,
- 				intel_rps_get_requested_frequency(rps),
- 				period_ns / 1000);
- 	}
-@@ -458,9 +511,7 @@ static enum hrtimer_restart i915_sample(struct hrtimer *hrtimer)
- 			continue;
- 
- 		engines_sample(gt, period_ns);
--
--		if (i == 0) /* FIXME */
--			frequency_sample(gt, period_ns);
-+		frequency_sample(gt, period_ns);
- 	}
- 
- 	hrtimer_forward(hrtimer, now, ns_to_ktime(PERIOD));
-@@ -502,7 +553,13 @@ config_status(struct drm_i915_private *i915, u64 config)
- {
- 	struct intel_gt *gt = to_gt(i915);
- 
--	switch (config) {
-+	unsigned int gt_id = config_gt_id(config);
-+	unsigned int max_gt_id = HAS_EXTRA_GT_LIST(i915) ? 1 : 0;
-+
-+	if (gt_id > max_gt_id)
-+		return -ENOENT;
-+
-+	switch (config_counter(config)) {
- 	case I915_PMU_ACTUAL_FREQUENCY:
- 		if (IS_VALLEYVIEW(i915) || IS_CHERRYVIEW(i915))
- 			/* Requires a mutex for sampling! */
-@@ -513,6 +570,8 @@ config_status(struct drm_i915_private *i915, u64 config)
- 			return -ENODEV;
- 		break;
- 	case I915_PMU_INTERRUPTS:
-+		if (gt_id)
-+			return -ENOENT;
- 		break;
- 	case I915_PMU_RC6_RESIDENCY:
- 		if (!gt->rc6.supported)
-@@ -610,22 +669,27 @@ static u64 __i915_pmu_event_read(struct perf_event *event)
- 			val = engine->pmu.sample[sample].cur;
- 		}
- 	} else {
--		switch (event->attr.config) {
-+		const unsigned int gt_id = config_gt_id(event->attr.config);
-+		const u64 config = config_counter(event->attr.config);
-+
-+		switch (config) {
- 		case I915_PMU_ACTUAL_FREQUENCY:
- 			val =
--			   div_u64(pmu->sample[__I915_SAMPLE_FREQ_ACT].cur,
-+			   div_u64(read_sample(pmu, gt_id,
-+					       __I915_SAMPLE_FREQ_ACT),
- 				   USEC_PER_SEC /* to MHz */);
- 			break;
- 		case I915_PMU_REQUESTED_FREQUENCY:
- 			val =
--			   div_u64(pmu->sample[__I915_SAMPLE_FREQ_REQ].cur,
-+			   div_u64(read_sample(pmu, gt_id,
-+					       __I915_SAMPLE_FREQ_REQ),
- 				   USEC_PER_SEC /* to MHz */);
- 			break;
- 		case I915_PMU_INTERRUPTS:
- 			val = READ_ONCE(pmu->irq_count);
- 			break;
- 		case I915_PMU_RC6_RESIDENCY:
--			val = get_rc6(to_gt(i915));
-+			val = get_rc6(i915->gt[gt_id]);
- 			break;
- 		case I915_PMU_SOFTWARE_GT_AWAKE_TIME:
- 			val = ktime_to_ns(intel_gt_get_awake_time(to_gt(i915)));
-diff --git a/drivers/gpu/drm/i915/i915_pmu.h b/drivers/gpu/drm/i915/i915_pmu.h
-index 3a811266ac6a..f88de9ae1ebb 100644
---- a/drivers/gpu/drm/i915/i915_pmu.h
-+++ b/drivers/gpu/drm/i915/i915_pmu.h
-@@ -38,13 +38,16 @@ enum {
- 	__I915_NUM_PMU_SAMPLERS
- };
- 
-+#define I915_PMU_MAX_GTS 2
-+
- /*
-  * How many different events we track in the global PMU mask.
-  *
-  * It is also used to know to needed number of event reference counters.
-  */
- #define I915_PMU_MASK_BITS \
--	(I915_ENGINE_SAMPLE_COUNT + __I915_PMU_TRACKED_EVENT_COUNT)
-+	(I915_ENGINE_SAMPLE_COUNT + \
-+	 I915_PMU_MAX_GTS * __I915_PMU_TRACKED_EVENT_COUNT)
- 
- #define I915_ENGINE_SAMPLE_COUNT (I915_SAMPLE_SEMA + 1)
- 
-@@ -95,7 +98,7 @@ struct i915_pmu {
- 	 *
- 	 * Low bits are engine samplers and other events continue from there.
- 	 */
--	u32 enable;
-+	u64 enable;
- 
- 	/**
- 	 * @timer_last:
-@@ -124,11 +127,11 @@ struct i915_pmu {
- 	 * Only global counters are held here, while the per-engine ones are in
- 	 * struct intel_engine_cs.
- 	 */
--	struct i915_pmu_sample sample[__I915_NUM_PMU_SAMPLERS];
-+	struct i915_pmu_sample sample[I915_PMU_MAX_GTS * __I915_NUM_PMU_SAMPLERS];
- 	/**
- 	 * @sleep_last: Last time GT parked for RC6 estimation.
- 	 */
--	ktime_t sleep_last;
-+	ktime_t sleep_last[I915_PMU_MAX_GTS];
- 	/**
- 	 * @irq_count: Number of interrupts
- 	 *
-diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
-index ba40855dbc93..f31dfacde601 100644
---- a/include/uapi/drm/i915_drm.h
-+++ b/include/uapi/drm/i915_drm.h
-@@ -280,7 +280,16 @@ enum drm_i915_pmu_engine_sample {
- #define I915_PMU_ENGINE_SEMA(class, instance) \
- 	__I915_PMU_ENGINE(class, instance, I915_SAMPLE_SEMA)
- 
--#define __I915_PMU_OTHER(x) (__I915_PMU_ENGINE(0xff, 0xff, 0xf) + 1 + (x))
-+/*
-+ * Top 4 bits of every non-engine counter are GT id.
-+ */
-+#define __I915_PMU_GT_SHIFT (60)
-+
-+#define ___I915_PMU_OTHER(gt, x) \
-+	(((__u64)__I915_PMU_ENGINE(0xff, 0xff, 0xf) + 1 + (x)) | \
-+	((__u64)(gt) << __I915_PMU_GT_SHIFT))
-+
-+#define __I915_PMU_OTHER(x) ___I915_PMU_OTHER(0, x)
- 
- #define I915_PMU_ACTUAL_FREQUENCY	__I915_PMU_OTHER(0)
- #define I915_PMU_REQUESTED_FREQUENCY	__I915_PMU_OTHER(1)
-@@ -290,6 +299,12 @@ enum drm_i915_pmu_engine_sample {
- 
- #define I915_PMU_LAST /* Deprecated - do not use */ I915_PMU_RC6_RESIDENCY
- 
-+#define __I915_PMU_ACTUAL_FREQUENCY(gt)		___I915_PMU_OTHER(gt, 0)
-+#define __I915_PMU_REQUESTED_FREQUENCY(gt)	___I915_PMU_OTHER(gt, 1)
-+#define __I915_PMU_INTERRUPTS(gt)		___I915_PMU_OTHER(gt, 2)
-+#define __I915_PMU_RC6_RESIDENCY(gt)		___I915_PMU_OTHER(gt, 3)
-+#define __I915_PMU_SOFTWARE_GT_AWAKE_TIME(gt)	___I915_PMU_OTHER(gt, 4)
-+
- /* Each region is a minimum of 16k, and there are at most 255 of them.
-  */
- #define I915_NR_TEX_REGIONS 255	/* table size 2k - maximum due to use
--- 
-2.36.1
-
+>
+>Thanks,
+>Umesh
+>
+>>+
+>>+	return bit;
+>>}
+>>
+>>-static u64 config_mask(u64 config)
+>>+static u32 config_mask(const u64 config)
+>>{
+>>-	return BIT_ULL(config_bit(config));
+>>+	return BIT(config_bit(config));
+>>}
+>>
+>>static bool is_engine_event(struct perf_event *event)
+>>@@ -633,11 +646,10 @@ static void i915_pmu_enable(struct perf_event *event)
+>>{
+>>	struct drm_i915_private *i915 =
+>>		container_of(event->pmu, typeof(*i915), pmu.base);
+>>+	const unsigned int bit = event_bit(event);
+>>	struct i915_pmu *pmu = &i915->pmu;
+>>	unsigned long flags;
+>>-	unsigned int bit;
+>>
+>>-	bit = event_bit(event);
+>>	if (bit == -1)
+>>		goto update;
+>>
+>>@@ -651,7 +663,7 @@ static void i915_pmu_enable(struct perf_event *event)
+>>	GEM_BUG_ON(bit >= ARRAY_SIZE(pmu->enable_count));
+>>	GEM_BUG_ON(pmu->enable_count[bit] == ~0);
+>>
+>>-	pmu->enable |= BIT_ULL(bit);
+>>+	pmu->enable |= BIT(bit);
+>>	pmu->enable_count[bit]++;
+>>
+>>	/*
+>>@@ -698,7 +710,7 @@ static void i915_pmu_disable(struct perf_event *event)
+>>{
+>>	struct drm_i915_private *i915 =
+>>		container_of(event->pmu, typeof(*i915), pmu.base);
+>>-	unsigned int bit = event_bit(event);
+>>+	const unsigned int bit = event_bit(event);
+>>	struct i915_pmu *pmu = &i915->pmu;
+>>	unsigned long flags;
+>>
+>>@@ -734,7 +746,7 @@ static void i915_pmu_disable(struct perf_event *event)
+>>	 * bitmask when the last listener on an event goes away.
+>>	 */
+>>	if (--pmu->enable_count[bit] == 0) {
+>>-		pmu->enable &= ~BIT_ULL(bit);
+>>+		pmu->enable &= ~BIT(bit);
+>>		pmu->timer_enabled &= pmu_needs_timer(pmu, true);
+>>	}
+>>
+>>-- 
+>>2.39.2
+>>
