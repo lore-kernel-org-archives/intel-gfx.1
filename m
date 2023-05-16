@@ -4,31 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B669BC77B7F
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 May 2023 21:38:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ED36C77B7A
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 May 2023 22:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC9B210E373;
-	Tue, 16 May 2023 21:38:37 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9DEA310E373;
- Tue, 16 May 2023 21:38:36 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 9589AAADE7;
- Tue, 16 May 2023 21:38:36 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============7850850742953833073=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA74310E06D;
+	Tue, 16 May 2023 22:03:57 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 183CD10E175
+ for <intel-gfx@lists.freedesktop.org>; Tue, 16 May 2023 22:03:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1684274636; x=1715810636;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=65C4TUO25ZBwIE1hBHdad6vbngrtm3SENG6x2setgXQ=;
+ b=iXfBDZumT0c8MMBrawJnodxHpSWA1ahPRXG4qExuOlA9wSa2DDYltq9t
+ 1vhRwBLsqDTFaRaMKmozjwWKt3SFDXTZWCtSfij8QVrsPa7VdM3F4un4L
+ ykpSpf+aIzlfdw0nvUDGzbscQyZNGVxM+B1exTBKehh6U9i9oGG9KntgA
+ qmHYRzx4T6Gn377uw1RjIIHBo+yHju6Iq5WDYoStQ2zbKX4kzdc08TkfT
+ Bl8wM6jZptE0C7P1sMEdDXhUaiJeESEpo3WtNlzKljiCdd3fxDsAplQWN
+ YvOC4Gqi3uD781Gfo3Jv3+t472L9WD0YjWlDeTppdpm5jPZKIwlOrYNi+ w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10712"; a="354772873"
+X-IronPort-AV: E=Sophos;i="5.99,280,1677571200"; d="scan'208";a="354772873"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 May 2023 15:03:55 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10712"; a="791238731"
+X-IronPort-AV: E=Sophos;i="5.99,280,1677571200"; d="scan'208";a="791238731"
+Received: from lab-ah.igk.intel.com ([10.102.138.202])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 May 2023 15:03:54 -0700
+From: Andrzej Hajda <andrzej.hajda@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 17 May 2023 00:03:34 +0200
+Message-Id: <20230516220334.3737951-2-andrzej.hajda@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230516220334.3737951-1-andrzej.hajda@intel.com>
+References: <20230516220334.3737951-1-andrzej.hajda@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Andrzej Hajda" <andrzej.hajda@intel.com>
-Date: Tue, 16 May 2023 21:38:36 -0000
-Message-ID: <168427311657.14224.4168728651136309959@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20230516133646.3708898-1-andrzej.hajda@intel.com>
-In-Reply-To: <20230516133646.3708898-1-andrzej.hajda@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3Igc2Vy?=
- =?utf-8?q?ies_starting_with_=5BCI=2CDO=5FNOT=5FMERGE=2C1/3=5D_drm/i915/mt?=
- =?utf-8?q?l=3A_do_not_enable_render_power-gating_on_MTL?=
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [CI DO_NOT_MERGE 2/2] drm/i915/gt: do not enable render
+ and media power-gating on RPL-S
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,265 +60,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============7850850742953833073==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Multiple CI tests fails with forcewake timeouts. Disabling power
+gating for render and media solves the issue.
 
-== Series Details ==
+References: https://gitlab.freedesktop.org/drm/intel/-/issues/4983
+Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_rc6.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Series: series starting with [CI,DO_NOT_MERGE,1/3] drm/i915/mtl: do not enable render power-gating on MTL
-URL   : https://patchwork.freedesktop.org/series/117819/
-State : failure
+diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.c b/drivers/gpu/drm/i915/gt/intel_rc6.c
+index cd63eaf0d0c8de..3f8238c95fccd6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rc6.c
++++ b/drivers/gpu/drm/i915/gt/intel_rc6.c
+@@ -126,6 +126,9 @@ static void gen11_rc6_enable(struct intel_rc6 *rc6)
+ 		pg_enable =
+ 			GEN9_MEDIA_PG_ENABLE |
+ 			GEN11_MEDIA_SAMPLER_PG_ENABLE;
++	/* Testing */
++	else if (IS_ADLS_RPLS(gt->i915))
++		pg_enable = 0;
+ 	else
+ 		pg_enable =
+ 			GEN9_RENDER_PG_ENABLE |
+-- 
+2.34.1
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_13154 -> Patchwork_117819v1
-====================================================
-
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_117819v1 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_117819v1, please notify your bug team to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/index.html
-
-Participating hosts (38 -> 36)
-------------------------------
-
-  Missing    (2): fi-snb-2520m bat-mtlp-6 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_117819v1:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@i915_selftest@live@uncore:
-    - bat-rpls-1:         [PASS][1] -> [DMESG-WARN][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-rpls-1/igt@i915_selftest@live@uncore.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/bat-rpls-1/igt@i915_selftest@live@uncore.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_117819v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@execlists:
-    - fi-bsw-n3050:       [PASS][3] -> [ABORT][4] ([i915#7911] / [i915#7913])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/fi-bsw-n3050/igt@i915_selftest@live@execlists.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/fi-bsw-n3050/igt@i915_selftest@live@execlists.html
-
-  * igt@i915_selftest@live@uncore:
-    - bat-rpls-2:         [PASS][5] -> [INCOMPLETE][6] ([i915#7913])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-rpls-2/igt@i915_selftest@live@uncore.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/bat-rpls-2/igt@i915_selftest@live@uncore.html
-    - bat-dg2-11:         [PASS][7] -> [ABORT][8] ([i915#7913])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-dg2-11/igt@i915_selftest@live@uncore.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/bat-dg2-11/igt@i915_selftest@live@uncore.html
-    - fi-kbl-soraka:      [PASS][9] -> [ABORT][10] ([i915#7913] / [i915#8405])
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/fi-kbl-soraka/igt@i915_selftest@live@uncore.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/fi-kbl-soraka/igt@i915_selftest@live@uncore.html
-    - bat-adls-5:         [PASS][11] -> [ABORT][12] ([i915#7913])
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-adls-5/igt@i915_selftest@live@uncore.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/bat-adls-5/igt@i915_selftest@live@uncore.html
-    - bat-dg2-9:          [PASS][13] -> [ABORT][14] ([i915#7913] / [i915#8405])
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-dg2-9/igt@i915_selftest@live@uncore.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/bat-dg2-9/igt@i915_selftest@live@uncore.html
-
-  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-1:
-    - bat-dg2-8:          [PASS][15] -> [FAIL][16] ([i915#7932]) +1 similar issue
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-dg2-8/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-1.html
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/bat-dg2-8/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-1.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@requests:
-    - {bat-mtlp-8}:       [ABORT][17] ([i915#4983] / [i915#7920]) -> [PASS][18]
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-mtlp-8/igt@i915_selftest@live@requests.html
-   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/bat-mtlp-8/igt@i915_selftest@live@requests.html
-
-  * igt@i915_selftest@live@slpc:
-    - bat-rpls-1:         [DMESG-WARN][19] ([i915#6367]) -> [PASS][20]
-   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-rpls-1/igt@i915_selftest@live@slpc.html
-   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/bat-rpls-1/igt@i915_selftest@live@slpc.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
-  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
-  [i915#6645]: https://gitlab.freedesktop.org/drm/intel/issues/6645
-  [i915#7828]: https://gitlab.freedesktop.org/drm/intel/issues/7828
-  [i915#7911]: https://gitlab.freedesktop.org/drm/intel/issues/7911
-  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
-  [i915#7920]: https://gitlab.freedesktop.org/drm/intel/issues/7920
-  [i915#7932]: https://gitlab.freedesktop.org/drm/intel/issues/7932
-  [i915#8405]: https://gitlab.freedesktop.org/drm/intel/issues/8405
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_13154 -> Patchwork_117819v1
-
-  CI-20190529: 20190529
-  CI_DRM_13154: d04e82f5245c285e7ae36955d89c4d217d04d664 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7292: 9d9475ffd3b5ae18fd8ec120595385f6c562f249 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_117819v1: d04e82f5245c285e7ae36955d89c4d217d04d664 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-1f4f41c506b4 drm/i915/selftests: add forcewake_with_spinners tests
-4a1228d818e8 drm/i915/gt: do not enable render and media power-gating on RPL-S
-9bb69ace3424 drm/i915/mtl: do not enable render power-gating on MTL
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/index.html
-
---===============7850850742953833073==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>series starting with [CI,DO_NOT_MERGE,1/3] drm/i915/mtl: do not enable render power-gating on MTL</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/117819/">https://patchwork.freedesktop.org/series/117819/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_13154 -&gt; Patchwork_117819v1</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_117819v1 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_117819v1, please notify your bug team to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/index.html</p>
-<h2>Participating hosts (38 -&gt; 36)</h2>
-<p>Missing    (2): fi-snb-2520m bat-mtlp-6 </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_117819v1:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@i915_selftest@live@uncore:<ul>
-<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-rpls-1/igt@i915_selftest@live@uncore.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/bat-rpls-1/igt@i915_selftest@live@uncore.html">DMESG-WARN</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_117819v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@execlists:</p>
-<ul>
-<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/fi-bsw-n3050/igt@i915_selftest@live@execlists.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/fi-bsw-n3050/igt@i915_selftest@live@execlists.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7911">i915#7911</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@uncore:</p>
-<ul>
-<li>
-<p>bat-rpls-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-rpls-2/igt@i915_selftest@live@uncore.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/bat-rpls-2/igt@i915_selftest@live@uncore.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>)</p>
-</li>
-<li>
-<p>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-dg2-11/igt@i915_selftest@live@uncore.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/bat-dg2-11/igt@i915_selftest@live@uncore.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>)</p>
-</li>
-<li>
-<p>fi-kbl-soraka:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/fi-kbl-soraka/igt@i915_selftest@live@uncore.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/fi-kbl-soraka/igt@i915_selftest@live@uncore.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8405">i915#8405</a>)</p>
-</li>
-<li>
-<p>bat-adls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-adls-5/igt@i915_selftest@live@uncore.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/bat-adls-5/igt@i915_selftest@live@uncore.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>)</p>
-</li>
-<li>
-<p>bat-dg2-9:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-dg2-9/igt@i915_selftest@live@uncore.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/bat-dg2-9/igt@i915_selftest@live@uncore.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8405">i915#8405</a>)</p>
-</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-1:</p>
-<ul>
-<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-dg2-8/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/bat-dg2-8/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-1.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7932">i915#7932</a>) +1 similar issue</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@requests:</p>
-<ul>
-<li>{bat-mtlp-8}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-mtlp-8/igt@i915_selftest@live@requests.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7920">i915#7920</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/bat-mtlp-8/igt@i915_selftest@live@requests.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@slpc:</p>
-<ul>
-<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-rpls-1/igt@i915_selftest@live@slpc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6367">i915#6367</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117819v1/bat-rpls-1/igt@i915_selftest@live@slpc.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_13154 -&gt; Patchwork_117819v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_13154: d04e82f5245c285e7ae36955d89c4d217d04d664 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7292: 9d9475ffd3b5ae18fd8ec120595385f6c562f249 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_117819v1: d04e82f5245c285e7ae36955d89c4d217d04d664 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>1f4f41c506b4 drm/i915/selftests: add forcewake_with_spinners tests<br />
-4a1228d818e8 drm/i915/gt: do not enable render and media power-gating on RPL-S<br />
-9bb69ace3424 drm/i915/mtl: do not enable render power-gating on MTL</p>
-
-</body>
-</html>
-
---===============7850850742953833073==--
