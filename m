@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0CBCC7EE23
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 May 2023 10:28:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20D62C77B7F
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 May 2023 10:28:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9538910E3E6;
-	Wed, 17 May 2023 10:28:13 +0000 (UTC)
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [IPv6:2a00:1450:4864:20::22d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67F7110E3E0
- for <intel-gfx@lists.freedesktop.org>; Wed, 17 May 2023 10:28:10 +0000 (UTC)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2ac80ed7f26so5251881fa.1
- for <intel-gfx@lists.freedesktop.org>; Wed, 17 May 2023 03:28:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15CD110E3E8;
+	Wed, 17 May 2023 10:28:16 +0000 (UTC)
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5654110E3E7
+ for <intel-gfx@lists.freedesktop.org>; Wed, 17 May 2023 10:28:14 +0000 (UTC)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2ac89e6a5a1so5295471fa.0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 17 May 2023 03:28:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684319288; x=1686911288;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=UaapKQTgqt42Y+aSTlZRYOojhuaRvMeWFJhrnG9fR4Y=;
- b=g0Fb+8BqqT9a+uCaxy9zuhaDOeYvt66sSthalNiZ0pB8MVel/mj3CQlOvGGvtWNq9u
- 6oNvodm1jHFvBxapZuaCZgkUNAoVJb3gjR0QKmwvULdGCvUr7OA0b4brEV0Z9qFIaG03
- N0AQV+7Upc0VAfTY8BWJDYdvl7wtrQUaMUX5a38grDqyL8nGLzRGrtudNgt8NaZMraKJ
- pbJbAhBgQDTsUwBRGlvqoOZP1qGp8ETTUP9iTL0g1DaLW/XjT/QYzy3wm+s9xB/4NRxX
- Sz/9MSF+eOrHNGWr8kqtDdB511hnBVQ7++h7H+6YBs7RDG/KYiAsnx0up5vxpO3+dV/h
- KABA==
+ d=linaro.org; s=google; t=1684319294; x=1686911294;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3XitWxnVJL1EB3BIEYTCS8WE32TB1LL3K21ckZ+g4Hc=;
+ b=HuF8fEbtNDtIdl73wbuOk62QBGYuOHrHFtliPCZYWC+7/9sk+J0yxmgFIgy2iumJ0u
+ kaoleTp/ih2m48BIUZKiN6DPlp3yoQLu5RKQU1vqXMgrcBx1wo6+s+0nf58Rlvn1hIMp
+ 9SfeWynug6U03kXdAONr2qIebOjyEMeAvlFdjkz9GIXAYV7VBQ8cxwY0wRlRbr2ao2m5
+ JThWPC4Bgtyx7xCqzGSCxoJZ2Ib5Is/a1EdHXx/f1TTEMjoLQS+uS5EYjux3Sfbiye9v
+ aNvesps0z6CZ5tlgrs30tSzTmPGMtwSpjKOSHDtHYPFVPcSac1o428jpr4I83DaPd3C1
+ MUEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684319288; x=1686911288;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=UaapKQTgqt42Y+aSTlZRYOojhuaRvMeWFJhrnG9fR4Y=;
- b=K4i5yxg/PjhSBK6EivBBA9O1c13o4W/H8YoP61lLrwoC/02klkgI2qWHKiB4nneEb8
- Cr/yb03r54/9S+CsXTiiGYJ8/z/fDepScLJ/NKyU88Z9SuIm8xHOEIKuYK04/ogGsUJi
- J8JOfR3B/o9oLVjqA2uF6c6AwFtggaU45hA2XVGJRt6FmKgeNzm7N3sQollDyARGPhIr
- 9Q1aXkswlVv5/gpBxBnGiRRwEmUynZMHk+Ngk1Ko9Uc3xv7voUAD9EkFbgKOjVOQVl/W
- OlJsPesY1hIbwSiFH8XlxeX8CLkdeansjNqrEhIn5QKrBoWUBaOqz13ggUFVPULCwi1w
- H7Kw==
-X-Gm-Message-State: AC+VfDzPdoYpeWjgApeHFgNZmi689B0Lo4oTg9BYfbnTm3yo3llLgvfB
- fbAdxa3+D7+0F5aDbH6naVG0dQ==
-X-Google-Smtp-Source: ACHHUZ6YthURubL5hbSqVlTDf6PEgfpMFUcCSadv2rtJ6KlbB9mdng0+Mjk122ro12zyj8Don09oiw==
-X-Received: by 2002:a2e:a3c9:0:b0:2ae:e05e:76b4 with SMTP id
- w9-20020a2ea3c9000000b002aee05e76b4mr3167811lje.28.1684319288591; 
- Wed, 17 May 2023 03:28:08 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1684319294; x=1686911294;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=3XitWxnVJL1EB3BIEYTCS8WE32TB1LL3K21ckZ+g4Hc=;
+ b=gLI2iaYSTj4xxFJ5RV6P8OueenXigO1YEFLFGhqD2AhmBpTxQBvjRyKDgEn2oc/RXY
+ 9LGTboqsX3uB1aH51bS8uG6IS++wzRav1Y0a8ziSzDg9miJmTxTOy5d6qT+bwVi61BV1
+ S3xzReqvP/KoImJC1GJuwJkf+iZ1nmv4mVCPBudi1z/HzxWNBKhOoilE7DbDUBEUg+zo
+ Ywh3QKFZPz+j93Z+V2ANDIE3hBY3ngGYQfHffxM2rF+Oo0WyJbSArYlk+Bgy8z9awe6R
+ GK4e6ImQzPdRmoQnYLMiwMGe/WvA1hImo7H465RQiLRkTNnSY8udHmaIS7c8bBSdKAgC
+ lBbA==
+X-Gm-Message-State: AC+VfDzY2homLPv6FiDcdc5X9Xy7k98joSb5jpH+grDM8kmBb82uyvYw
+ vqyjrg7sPWrHkPCclEzgQYhOyA==
+X-Google-Smtp-Source: ACHHUZ5tld/gb2zOS4SbPHN2bO40iRLJI+0cvGT/sGDxFzU7GK3s39VAbRp8Db3IkOUn4vA37Es5XA==
+X-Received: by 2002:a2e:3205:0:b0:2ad:9c17:a78f with SMTP id
+ y5-20020a2e3205000000b002ad9c17a78fmr9441164ljy.53.1684319293883; 
+ Wed, 17 May 2023 03:28:13 -0700 (PDT)
 Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
  [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
- e16-20020a2e8190000000b002ab017899e8sm4495356ljg.39.2023.05.17.03.28.07
+ e16-20020a2e8190000000b002ab017899e8sm4495356ljg.39.2023.05.17.03.28.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 May 2023 03:28:08 -0700 (PDT)
+ Wed, 17 May 2023 03:28:13 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -59,13 +60,15 @@ To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
-Date: Wed, 17 May 2023 13:27:59 +0300
-Message-Id: <20230517102807.2181589-1-dmitry.baryshkov@linaro.org>
+Date: Wed, 17 May 2023 13:28:06 +0300
+Message-Id: <20230517102807.2181589-8-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230517102807.2181589-1-dmitry.baryshkov@linaro.org>
+References: <20230517102807.2181589-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 0/8] drm/i915: move DSC RC tables to
- drm_dsc_helper.c
+Subject: [Intel-gfx] [PATCH v7 7/8] drm/display/dsc: include the rest of
+ pre-SCR parameters
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,63 +82,119 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+ dri-devel@lists.freedesktop.org, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ freedreno@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Other platforms (msm) will benefit from sharing the DSC config setup
-functions. This series moves parts of static DSC config data from the
-i915 driver to the common helpers to be used by other drivers.
+DSC model contains pre-SCR RC parameters for other bpp/bpc combinations,
+include them here for completeness. The values were generated from the
+'pre_scr_cfg_files_for_reference' files found in DSC models 20210623.
+The same fileset is a part of DSC model 20161212.
 
-Note: the RC parameters were cross-checked against config files found in
-DSC model 2021062, 20161212 (and 20150914). The first patch modifies
-tables according to those config files, while preserving parameter
-values using the code. I have not changed one of the values in the
-pre-SCR config file as it clearly looks like a typo in the config file,
-considering the table E in DSC 1.1 and in the DSC 1.1 SCR.
+Reviewed-by: Jessica Zhang <quic_jesszhan@quicinc.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/display/drm_dsc_helper.c | 72 ++++++++++++++++++++++++
+ 1 file changed, 72 insertions(+)
 
-Chances since v6:
-- Fixed a leftover of kind/type conversion (Suraj, lkp)
-
-Chances since v5:
-- Fixed typo in patch #2 commit message (Marijn)
-- Reworded/fixed RC table comments to mention DSC standards and C model
-  versions (Suraj)
-- Renamed enum drm_dsc_param_kind to drm_dsc_param_type (Suraj).
-
-Chances since v4:
-- Rebased on top of drm-intel-next
-- Cut the first 8 patches of the series to ease merging. The rest of the
-  patches will go afterwards.
-
-Chances since v3:
-- Rebased on top of drm-intel-next
-- Dropped the msm patch to make patchset fully mergeable through
-  drm-intel
-- Made drm_dsc_set_const_params() ignore rc_model_size, picked up
-  drm_dsc_set_initial_scale_value() patch by Jessica and switched
-  intel_vdsc.c to use those two helpers.
-- Added a patch to make i915 actually use rc_tgt_offset_high,
-  rc_tgt_offset_low and rc_edge_factor from struct drm_dsc_config.
-
-Chances since v2:
-- Rebased on top of drm-intel-next
-
-Dmitry Baryshkov (8):
-  drm/i915/dsc: change DSC param tables to follow the DSC model
-  drm/i915/dsc: move rc_buf_thresh values to common helper
-  drm/i915/dsc: move DSC tables to DRM DSC helper
-  drm/i915/dsc: stop using interim structure for calculated params
-  drm/display/dsc: use flat array for rc_parameters lookup
-  drm/display/dsc: split DSC 1.2 and DSC 1.1 (pre-SCR) parameters
-  drm/display/dsc: include the rest of pre-SCR parameters
-  drm/display/dsc: add YCbCr 4:2:2 and 4:2:0 RC parameters
-
- drivers/gpu/drm/display/drm_dsc_helper.c  | 1006 +++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_vdsc.c |  443 +--------
- include/drm/display/drm_dsc_helper.h      |    9 +
- 3 files changed, 1062 insertions(+), 396 deletions(-)
-
+diff --git a/drivers/gpu/drm/display/drm_dsc_helper.c b/drivers/gpu/drm/display/drm_dsc_helper.c
+index f1ba39df5708..f6d8a7be5967 100644
+--- a/drivers/gpu/drm/display/drm_dsc_helper.c
++++ b/drivers/gpu/drm/display/drm_dsc_helper.c
+@@ -331,6 +331,16 @@ struct rc_parameters_data {
+  * Cross-checked against C Model releases: DSC_model_20161212 and 20210623
+  */
+ static const struct rc_parameters_data rc_parameters_pre_scr[] = {
++	{
++		.bpp = DSC_BPP(6), .bpc = 8,
++		{ 683, 15, 6144, 3, 13, 11, 11, {
++			{ 0, 2, 0 }, { 1, 4, -2 }, { 3, 6, -2 }, { 4, 6, -4 },
++			{ 5, 7, -6 }, { 5, 7, -6 }, { 6, 7, -6 }, { 6, 8, -8 },
++			{ 7, 9, -8 }, { 8, 10, -10 }, { 9, 11, -10 }, { 10, 12, -12 },
++			{ 10, 13, -12 }, { 12, 14, -12 }, { 15, 15, -12 }
++			}
++		}
++	},
+ 	{
+ 		.bpp = DSC_BPP(8), .bpc = 8,
+ 		{ 512, 12, 6144, 3, 12, 11, 11, {
+@@ -366,6 +376,37 @@ static const struct rc_parameters_data rc_parameters_pre_scr[] = {
+ 			}
+ 		}
+ 	},
++	{
++		.bpp = DSC_BPP(10), .bpc = 8,
++		{ 410, 12, 5632, 3, 12, 11, 11, {
++			{ 0, 3, 2 }, { 0, 4, 0 }, { 1, 5, 0 }, { 2, 6, -2 },
++			{ 3, 7, -4 }, { 3, 7, -6 }, { 3, 7, -8 }, { 3, 8, -8 },
++			{ 3, 9, -8 }, { 3, 9, -10 }, { 5, 10, -10 }, { 5, 11, -10 },
++			{ 5, 12, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
++			}
++		}
++	},
++	{
++		.bpp = DSC_BPP(10), .bpc = 10,
++		{ 410, 12, 5632, 7, 16, 15, 15, {
++			{ 0, 7, 2 }, { 4, 8, 0 }, { 5, 9, 0 }, { 6, 10, -2 },
++			{ 7, 11, -4 }, { 7, 11, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
++			{ 7, 13, -8 }, { 7, 13, -10 }, { 9, 14, -10 }, { 9, 15, -10 },
++			{ 9, 16, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
++			}
++		}
++	},
++	{
++		.bpp = DSC_BPP(10), .bpc = 12,
++		{ 410, 12, 5632, 11, 20, 19, 19, {
++			{ 0, 11, 2 }, { 4, 12, 0 }, { 9, 13, 0 }, { 10, 14, -2 },
++			{ 11, 15, -4 }, { 11, 15, -6 }, { 11, 15, -8 }, { 11, 16, -8 },
++			{ 11, 17, -8 }, { 11, 17, -10 }, { 13, 18, -10 },
++			{ 13, 19, -10 }, { 13, 20, -12 }, { 15, 21, -12 },
++			{ 21, 23, -12 }
++			}
++		}
++	},
+ 	{
+ 		.bpp = DSC_BPP(12), .bpc = 8,
+ 		{ 341, 15, 2048, 3, 12, 11, 11, {
+@@ -397,6 +438,37 @@ static const struct rc_parameters_data rc_parameters_pre_scr[] = {
+ 			}
+ 		}
+ 	},
++	{
++		.bpp = DSC_BPP(15), .bpc = 8,
++		{ 273, 15, 2048, 3, 12, 11, 11, {
++			{ 0, 0, 10 }, { 0, 1, 8 }, { 0, 1, 6 }, { 0, 2, 4 },
++			{ 1, 2, 2 }, { 1, 3, 0 }, { 1, 4, -2 }, { 2, 4, -4 },
++			{ 3, 4, -6 }, { 3, 5, -8 }, { 4, 6, -10 }, { 5, 7, -10 },
++			{ 5, 8, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
++			}
++		}
++	},
++	{
++		.bpp = DSC_BPP(15), .bpc = 10,
++		{ 273, 15, 2048, 7, 16, 15, 15, {
++			{ 0, 2, 10 }, { 2, 5, 8 }, { 3, 5, 6 }, { 4, 6, 4 },
++			{ 5, 6, 2 }, { 5, 7, 0 }, { 5, 8, -2 }, { 6, 8, -4 },
++			{ 7, 8, -6 }, { 7, 9, -8 }, { 8, 10, -10 }, { 9, 11, -10 },
++			{ 9, 12, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
++			}
++		}
++	},
++	{
++		.bpp = DSC_BPP(15), .bpc = 12,
++		{ 273, 15, 2048, 11, 20, 19, 19, {
++			{ 0, 4, 10 }, { 2, 7, 8 }, { 4, 9, 6 }, { 6, 11, 4 },
++			{ 9, 11, 2 }, { 9, 11, 0 }, { 9, 12, -2 }, { 10, 12, -4 },
++			{ 11, 12, -6 }, { 11, 13, -8 }, { 12, 14, -10 },
++			{ 13, 15, -10 }, { 13, 16, -12 }, { 15, 21, -12 },
++			{ 21, 23, -12 }
++			}
++		}
++	},
+ 	{ /* sentinel */ }
+ };
+ 
 -- 
 2.39.2
 
