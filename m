@@ -4,71 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26C8BC77B75
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 May 2023 00:08:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A82FFC77B75
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 May 2023 00:08:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D654910E3A9;
-	Wed, 17 May 2023 00:08:01 +0000 (UTC)
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [IPv6:2a00:1450:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4BBD10E388
- for <intel-gfx@lists.freedesktop.org>; Wed, 17 May 2023 00:07:49 +0000 (UTC)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-4f00d41df22so7398397e87.1
- for <intel-gfx@lists.freedesktop.org>; Tue, 16 May 2023 17:07:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1684282067; x=1686874067;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cVfiPBdhFERE3MSCI/4M/pl4dyV9mu9uWJQnCTr+ZfY=;
- b=I04TJF0I3zLGNX8zTaVdJuNzSac6vnG7IDVC+0pXtBY3oMuc7CE6CBhJ/MEHwcta/A
- w1ZSYqptoGbhnBgkorqFLBAan0AikoPF+Tp5PD7MJoFAw/UTokd2Jv5aPmVWFEkhT7zM
- 2xpsrC8HWQH19tVR3D0DmgyZIYGFA4jYXkYNmRbt2IDmLEMmf7Be6y72mpGlPeBVrWRP
- wbvGZ+94nfqbfAnnbcEfBykOyRzKPij9YuzQbDJs4WoXgIThb8zl8oouQfHRsY8+ykO4
- gAznPh0hApux5OpVxSKofhSNXBwzVuByXbzV7EHjX18IKTQwOUU0wa/pb64++/WsFNI5
- BuNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684282067; x=1686874067;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cVfiPBdhFERE3MSCI/4M/pl4dyV9mu9uWJQnCTr+ZfY=;
- b=VQJJUk4DpMC4WHWSAZ44GVjOUrGw/BqyR8p6gHpbjIuBOlEhIAxr4gXc0q8FCNrzpC
- FxYIt6zfctLNosgN/I9kJyHTmakJkwSlz4xgn2UVaPq8xoj96St7GY0apnVWT4a0T5M9
- zik4de3bzwpo2IY5mNwbw8wx9F8vJiQOnn5BMb5nJujgo0hUyQ8GU1DmMVxDcL5lAoSv
- GcSO9hqELW5bXho3L0WZtENINLqbeS88Y3NJprh0KlnZt5c9RAYt+wign0C6RJeEBan6
- m5CS/7YYDZkXcN73vhMj+EfARdQgiKWL5bP7IavXFFGE0OLZTq2FMaCfukZAhZQfvGC2
- 9reA==
-X-Gm-Message-State: AC+VfDySgxndzFNuTTvJHTh/kyQRKMGHrH3iKbfJs94NgUR2iDtALVSg
- VeDA5Az4NSKv1v463WtaJxsK7g==
-X-Google-Smtp-Source: ACHHUZ6imfgLPLmRktEy4UBoJNqhXAbkzCXXszdUfSIAoa+Yardui1F1b3jGWAao9FgNi6GMM8n9pA==
-X-Received: by 2002:a2e:87ce:0:b0:2a2:ac00:4de4 with SMTP id
- v14-20020a2e87ce000000b002a2ac004de4mr94729ljj.22.1684282067415; 
- Tue, 16 May 2023 17:07:47 -0700 (PDT)
-Received: from eriador.lan (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi.
- [2001:14ba:a0db:1f00::8a5]) by smtp.gmail.com with ESMTPSA id
- y22-20020a2e9d56000000b002ac71095b61sm4214858ljj.64.2023.05.16.17.07.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 May 2023 17:07:47 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-To: David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Suraj Kandpal <suraj.kandpal@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- Rob Clark <robdclark@gmail.com>, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>
-Date: Wed, 17 May 2023 03:07:38 +0300
-Message-Id: <20230517000740.2102599-7-dmitry.baryshkov@linaro.org>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230517000740.2102599-1-dmitry.baryshkov@linaro.org>
-References: <20230517000740.2102599-1-dmitry.baryshkov@linaro.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46C4610E380;
+	Wed, 17 May 2023 00:08:38 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0253C10E380;
+ Wed, 17 May 2023 00:08:36 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id ED497AADE0;
+ Wed, 17 May 2023 00:08:35 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============6579804996779963199=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 6/8] drm/display/dsc: split DSC 1.2 and DSC
- 1.1 (pre-SCR) parameters
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Andrzej Hajda" <andrzej.hajda@intel.com>
+Date: Wed, 17 May 2023 00:08:35 -0000
+Message-ID: <168428211596.6590.6322513868102333261@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230516220334.3737951-1-andrzej.hajda@intel.com>
+In-Reply-To: <20230516220334.3737951-1-andrzej.hajda@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3Igc2Vy?=
+ =?utf-8?q?ies_starting_with_=5BCI=2CDO=5FNOT=5FMERGE=2C1/2=5D_drm/i915/mt?=
+ =?utf-8?q?l=3A_do_not_enable_render_power-gating_on_MTL?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,284 +41,218 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The array of rc_parameters contains a mixture of parameters from DSC 1.1
-and DSC 1.2 standards. Split these tow configuration arrays in
-preparation to adding more configuration data.
+--===============6579804996779963199==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/display/drm_dsc_helper.c  | 139 ++++++++++++++++++----
- drivers/gpu/drm/i915/display/intel_vdsc.c |  10 +-
- include/drm/display/drm_dsc_helper.h      |   7 +-
- 3 files changed, 129 insertions(+), 27 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/display/drm_dsc_helper.c b/drivers/gpu/drm/display/drm_dsc_helper.c
-index acb93d4116e0..f9d01d72c1ff 100644
---- a/drivers/gpu/drm/display/drm_dsc_helper.c
-+++ b/drivers/gpu/drm/display/drm_dsc_helper.c
-@@ -325,10 +325,88 @@ struct rc_parameters_data {
- #define DSC_BPP(bpp)	((bpp) << 4)
- 
- /*
-- * Selected Rate Control Related Parameter Recommended Values
-- * from DSC_v1.11 spec & C Model release: DSC_model_20161212
-+ * Rate Control Related Parameter Recommended Values from DSC_v1.1 spec prior
-+ * to DSC 1.1 fractional bpp underflow SCR (DSC_v1.1_E1.pdf)
-+ *
-+ * Cross-checked against C Model releases: DSC_model_20161212 and 20210623
-  */
--static const struct rc_parameters_data rc_parameters[] = {
-+static const struct rc_parameters_data rc_parameters_pre_scr[] = {
-+	{
-+		.bpp = DSC_BPP(8), .bpc = 8,
-+		{ 512, 12, 6144, 3, 12, 11, 11, {
-+			{ 0, 4, 2 }, { 0, 4, 0 }, { 1, 5, 0 }, { 1, 6, -2 },
-+			{ 3, 7, -4 }, { 3, 7, -6 }, { 3, 7, -8 }, { 3, 8, -8 },
-+			{ 3, 9, -8 }, { 3, 10, -10 }, { 5, 11, -10 }, { 5, 12, -12 },
-+			{ 5, 13, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
-+			}
-+		}
-+	},
-+	{
-+		.bpp = DSC_BPP(8), .bpc = 10,
-+		{ 512, 12, 6144, 7, 16, 15, 15, {
-+			/*
-+			 * DSC model/pre-SCR-cfg has 8 for range_max_qp[0], however
-+			 * VESA DSC 1.1 Table E-5 sets it to 4.
-+			 */
-+			{ 0, 4, 2 }, { 4, 8, 0 }, { 5, 9, 0 }, { 5, 10, -2 },
-+			{ 7, 11, -4 }, { 7, 11, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
-+			{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
-+			{ 9, 17, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
-+			}
-+		}
-+	},
-+	{
-+		.bpp = DSC_BPP(8), .bpc = 12,
-+		{ 512, 12, 6144, 11, 20, 19, 19, {
-+			{ 0, 12, 2 }, { 4, 12, 0 }, { 9, 13, 0 }, { 9, 14, -2 },
-+			{ 11, 15, -4 }, { 11, 15, -6 }, { 11, 15, -8 }, { 11, 16, -8 },
-+			{ 11, 17, -8 }, { 11, 18, -10 }, { 13, 19, -10 },
-+			{ 13, 20, -12 }, { 13, 21, -12 }, { 15, 21, -12 },
-+			{ 21, 23, -12 }
-+			}
-+		}
-+	},
-+	{
-+		.bpp = DSC_BPP(12), .bpc = 8,
-+		{ 341, 15, 2048, 3, 12, 11, 11, {
-+			{ 0, 2, 2 }, { 0, 4, 0 }, { 1, 5, 0 }, { 1, 6, -2 },
-+			{ 3, 7, -4 }, { 3, 7, -6 }, { 3, 7, -8 }, { 3, 8, -8 },
-+			{ 3, 9, -8 }, { 3, 10, -10 }, { 5, 11, -10 },
-+			{ 5, 12, -12 }, { 5, 13, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
-+			}
-+		}
-+	},
-+	{
-+		.bpp = DSC_BPP(12), .bpc = 10,
-+		{ 341, 15, 2048, 7, 16, 15, 15, {
-+			{ 0, 2, 2 }, { 2, 5, 0 }, { 3, 7, 0 }, { 4, 8, -2 },
-+			{ 6, 9, -4 }, { 7, 10, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
-+			{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
-+			{ 9, 17, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
-+			}
-+		}
-+	},
-+	{
-+		.bpp = DSC_BPP(12), .bpc = 12,
-+		{ 341, 15, 2048, 11, 20, 19, 19, {
-+			{ 0, 6, 2 }, { 4, 9, 0 }, { 7, 11, 0 }, { 8, 12, -2 },
-+			{ 10, 13, -4 }, { 11, 14, -6 }, { 11, 15, -8 }, { 11, 16, -8 },
-+			{ 11, 17, -8 }, { 11, 18, -10 }, { 13, 19, -10 },
-+			{ 13, 20, -12 }, { 13, 21, -12 }, { 15, 21, -12 },
-+			{ 21, 23, -12 }
-+			}
-+		}
-+	},
-+	{ /* sentinel */ }
-+};
-+
-+/*
-+ * Selected Rate Control Related Parameter Recommended Values from DSC v1.2, v1.2a, v1.2b and
-+ * DSC_v1.1_E1 specs.
-+ *
-+ * Cross-checked against C Model releases: DSC_model_20161212 and 20210623
-+ */
-+static const struct rc_parameters_data rc_parameters_1_2_444[] = {
- 	{
- 		.bpp = DSC_BPP(6), .bpc = 8,
- 		{ 768, 15, 6144, 3, 13, 11, 11, {
-@@ -388,22 +466,18 @@ static const struct rc_parameters_data rc_parameters[] = {
- 		{ 512, 12, 6144, 3, 12, 11, 11, {
- 			{ 0, 4, 2 }, { 0, 4, 0 }, { 1, 5, 0 }, { 1, 6, -2 },
- 			{ 3, 7, -4 }, { 3, 7, -6 }, { 3, 7, -8 }, { 3, 8, -8 },
--			{ 3, 9, -8 }, { 3, 10, -10 }, { 5, 11, -10 }, { 5, 12, -12 },
--			{ 5, 13, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
-+			{ 3, 9, -8 }, { 3, 10, -10 }, { 5, 10, -10 }, { 5, 11, -12 },
-+			{ 5, 11, -12 }, { 9, 12, -12 }, { 12, 13, -12 }
- 			}
- 		}
- 	},
- 	{
- 		.bpp = DSC_BPP(8), .bpc = 10,
- 		{ 512, 12, 6144, 7, 16, 15, 15, {
--			/*
--			 * DSC model/pre-SCR-cfg has 8 for range_max_qp[0], however
--			 * VESA DSC 1.1 Table E-5 sets it to 4.
--			 */
--			{ 0, 4, 2 }, { 4, 8, 0 }, { 5, 9, 0 }, { 5, 10, -2 },
-+			{ 0, 8, 2 }, { 4, 8, 0 }, { 5, 9, 0 }, { 5, 10, -2 },
- 			{ 7, 11, -4 }, { 7, 11, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
--			{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
--			{ 9, 17, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
-+			{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 14, -10 }, { 9, 15, -12 },
-+			{ 9, 15, -12 }, { 13, 16, -12 }, { 16, 17, -12 }
- 			}
- 		}
- 	},
-@@ -412,9 +486,9 @@ static const struct rc_parameters_data rc_parameters[] = {
- 		{ 512, 12, 6144, 11, 20, 19, 19, {
- 			{ 0, 12, 2 }, { 4, 12, 0 }, { 9, 13, 0 }, { 9, 14, -2 },
- 			{ 11, 15, -4 }, { 11, 15, -6 }, { 11, 15, -8 }, { 11, 16, -8 },
--			{ 11, 17, -8 }, { 11, 18, -10 }, { 13, 19, -10 },
--			{ 13, 20, -12 }, { 13, 21, -12 }, { 15, 21, -12 },
--			{ 21, 23, -12 }
-+			{ 11, 17, -8 }, { 11, 18, -10 }, { 13, 18, -10 },
-+			{ 13, 19, -12 }, { 13, 19, -12 }, { 17, 20, -12 },
-+			{ 20, 21, -12 }
- 			}
- 		}
- 	},
-@@ -498,8 +572,8 @@ static const struct rc_parameters_data rc_parameters[] = {
- 		{ 341, 15, 2048, 3, 12, 11, 11, {
- 			{ 0, 2, 2 }, { 0, 4, 0 }, { 1, 5, 0 }, { 1, 6, -2 },
- 			{ 3, 7, -4 }, { 3, 7, -6 }, { 3, 7, -8 }, { 3, 8, -8 },
--			{ 3, 9, -8 }, { 3, 10, -10 }, { 5, 11, -10 },
--			{ 5, 12, -12 }, { 5, 13, -12 }, { 7, 13, -12 }, { 13, 15, -12 }
-+			{ 3, 8, -8 }, { 3, 9, -10 }, { 5, 9, -10 }, { 5, 9, -12 },
-+			{ 5, 9, -12 }, { 7, 10, -12 }, { 10, 11, -12 }
- 			}
- 		}
- 	},
-@@ -508,8 +582,8 @@ static const struct rc_parameters_data rc_parameters[] = {
- 		{ 341, 15, 2048, 7, 16, 15, 15, {
- 			{ 0, 2, 2 }, { 2, 5, 0 }, { 3, 7, 0 }, { 4, 8, -2 },
- 			{ 6, 9, -4 }, { 7, 10, -6 }, { 7, 11, -8 }, { 7, 12, -8 },
--			{ 7, 13, -8 }, { 7, 14, -10 }, { 9, 15, -10 }, { 9, 16, -12 },
--			{ 9, 17, -12 }, { 11, 17, -12 }, { 17, 19, -12 }
-+			{ 7, 12, -8 }, { 7, 13, -10 }, { 9, 13, -10 }, { 9, 13, -12 },
-+			{ 9, 13, -12 }, { 11, 14, -12 }, { 14, 15, -12 }
- 			}
- 		}
- 	},
-@@ -518,9 +592,9 @@ static const struct rc_parameters_data rc_parameters[] = {
- 		{ 341, 15, 2048, 11, 20, 19, 19, {
- 			{ 0, 6, 2 }, { 4, 9, 0 }, { 7, 11, 0 }, { 8, 12, -2 },
- 			{ 10, 13, -4 }, { 11, 14, -6 }, { 11, 15, -8 }, { 11, 16, -8 },
--			{ 11, 17, -8 }, { 11, 18, -10 }, { 13, 19, -10 },
--			{ 13, 20, -12 }, { 13, 21, -12 }, { 15, 21, -12 },
--			{ 21, 23, -12 }
-+			{ 11, 16, -8 }, { 11, 17, -10 }, { 13, 17, -10 },
-+			{ 13, 17, -12 }, { 13, 17, -12 }, { 15, 18, -12 },
-+			{ 18, 19, -12 }
- 			}
- 		}
- 	},
-@@ -602,7 +676,8 @@ static const struct rc_parameters_data rc_parameters[] = {
- 	{ /* sentinel */ }
- };
- 
--static const struct rc_parameters *get_rc_params(u16 dsc_bpp,
-+static const struct rc_parameters *get_rc_params(const struct rc_parameters_data *rc_parameters,
-+						 u16 dsc_bpp,
- 						 u8 bits_per_component)
- {
- 	int i;
-@@ -622,11 +697,13 @@ static const struct rc_parameters *get_rc_params(u16 dsc_bpp,
-  * function.
-  *
-  * @vdsc_cfg: DSC Configuration data partially filled by driver
-+ * @type: operating mode and standard to follow
-  *
-  * Return: 0 or -error code in case of an error
-  */
--int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg)
-+int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg, enum drm_dsc_params_type type)
- {
-+	const struct rc_parameters_data *data;
- 	const struct rc_parameters *rc_params;
- 	int i;
- 
-@@ -634,7 +711,19 @@ int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg)
- 			 !vdsc_cfg->bits_per_component))
- 		return -EINVAL;
- 
--	rc_params = get_rc_params(vdsc_cfg->bits_per_pixel,
-+	switch (kind) {
-+	case DRM_DSC_1_2_444:
-+		data = rc_parameters_1_2_444;
-+		break;
-+	case DRM_DSC_1_1_PRE_SCR:
-+		data = rc_parameters_pre_scr;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	rc_params = get_rc_params(data,
-+				  vdsc_cfg->bits_per_pixel,
- 				  vdsc_cfg->bits_per_component);
- 	if (!rc_params)
- 		return -EINVAL;
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index d4340b18c18d..bd9116d2cd76 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -226,7 +226,15 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
- 	if (DISPLAY_VER(dev_priv) >= 13) {
- 		calculate_rc_params(vdsc_cfg);
- 	} else {
--		ret = drm_dsc_setup_rc_params(vdsc_cfg);
-+		if ((compressed_bpp == 8 ||
-+		     compressed_bpp == 12) &&
-+		    (vdsc_cfg->bits_per_component == 8 ||
-+		     vdsc_cfg->bits_per_component == 10 ||
-+		     vdsc_cfg->bits_per_component == 12))
-+			ret = drm_dsc_setup_rc_params(vdsc_cfg, DRM_DSC_1_1_PRE_SCR);
-+		else
-+			ret = drm_dsc_setup_rc_params(vdsc_cfg, DRM_DSC_1_2_444);
-+
- 		if (ret)
- 			return ret;
- 
-diff --git a/include/drm/display/drm_dsc_helper.h b/include/drm/display/drm_dsc_helper.h
-index 1681791f65a5..66eac7276d04 100644
---- a/include/drm/display/drm_dsc_helper.h
-+++ b/include/drm/display/drm_dsc_helper.h
-@@ -10,12 +10,17 @@
- 
- #include <drm/display/drm_dsc.h>
- 
-+enum drm_dsc_params_type {
-+	DRM_DSC_1_2_444,
-+	DRM_DSC_1_1_PRE_SCR, /* legacy params from DSC 1.1 */
-+};
-+
- void drm_dsc_dp_pps_header_init(struct dp_sdp_header *pps_header);
- int drm_dsc_dp_rc_buffer_size(u8 rc_buffer_block_size, u8 rc_buffer_size);
- void drm_dsc_pps_payload_pack(struct drm_dsc_picture_parameter_set *pps_sdp,
- 			      const struct drm_dsc_config *dsc_cfg);
- void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg);
--int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg);
-+int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg, enum drm_dsc_params_type type);
- int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg);
- 
- #endif /* _DRM_DSC_HELPER_H_ */
--- 
-2.39.2
+Series: series starting with [CI,DO_NOT_MERGE,1/2] drm/i915/mtl: do not enable render power-gating on MTL
+URL   : https://patchwork.freedesktop.org/series/117839/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_13154 -> Patchwork_117839v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117839v1/index.html
+
+Participating hosts (38 -> 36)
+------------------------------
+
+  Missing    (2): fi-kbl-soraka fi-snb-2520m 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_117839v1:
+
+### IGT changes ###
+
+#### Suppressed ####
+
+  The following results come from untrusted machines, tests, or statuses.
+  They do not affect the overall result.
+
+  * igt@i915_pm_rpm@basic-rte:
+    - {bat-mtlp-8}:       [PASS][1] -> [TIMEOUT][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-mtlp-8/igt@i915_pm_rpm@basic-rte.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117839v1/bat-mtlp-8/igt@i915_pm_rpm@basic-rte.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_117839v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_suspend@basic-s2idle-without-i915:
+    - fi-tgl-1115g4:      [PASS][3] -> [ABORT][4] ([i915#8189] / [i915#8213])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/fi-tgl-1115g4/igt@i915_suspend@basic-s2idle-without-i915.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117839v1/fi-tgl-1115g4/igt@i915_suspend@basic-s2idle-without-i915.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@migrate:
+    - bat-dg2-11:         [DMESG-WARN][5] ([i915#7699]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-dg2-11/igt@i915_selftest@live@migrate.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117839v1/bat-dg2-11/igt@i915_selftest@live@migrate.html
+
+  * igt@i915_selftest@live@requests:
+    - {bat-mtlp-8}:       [ABORT][7] ([i915#4983] / [i915#7920]) -> [PASS][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-mtlp-8/igt@i915_selftest@live@requests.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117839v1/bat-mtlp-8/igt@i915_selftest@live@requests.html
+    - {bat-mtlp-6}:       [ABORT][9] ([i915#4983] / [i915#7920]) -> [PASS][10]
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-mtlp-6/igt@i915_selftest@live@requests.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117839v1/bat-mtlp-6/igt@i915_selftest@live@requests.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#1845]: https://gitlab.freedesktop.org/drm/intel/issues/1845
+  [i915#4078]: https://gitlab.freedesktop.org/drm/intel/issues/4078
+  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
+  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
+  [i915#6645]: https://gitlab.freedesktop.org/drm/intel/issues/6645
+  [i915#7699]: https://gitlab.freedesktop.org/drm/intel/issues/7699
+  [i915#7828]: https://gitlab.freedesktop.org/drm/intel/issues/7828
+  [i915#7920]: https://gitlab.freedesktop.org/drm/intel/issues/7920
+  [i915#8189]: https://gitlab.freedesktop.org/drm/intel/issues/8189
+  [i915#8213]: https://gitlab.freedesktop.org/drm/intel/issues/8213
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_13154 -> Patchwork_117839v1
+
+  CI-20190529: 20190529
+  CI_DRM_13154: d04e82f5245c285e7ae36955d89c4d217d04d664 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7292: 9d9475ffd3b5ae18fd8ec120595385f6c562f249 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_117839v1: d04e82f5245c285e7ae36955d89c4d217d04d664 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+6e6a565e8ee5 drm/i915/gt: do not enable render and media power-gating on RPL-S
+bc12366471fe drm/i915/mtl: do not enable render power-gating on MTL
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117839v1/index.html
+
+--===============6579804996779963199==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with [CI,DO_NOT_MERGE,1/2] drm/i915/mtl: do not enable render power-gating on MTL</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/117839/">https://patchwork.freedesktop.org/series/117839/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117839v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117839v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_13154 -&gt; Patchwork_117839v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117839v1/index.html</p>
+<h2>Participating hosts (38 -&gt; 36)</h2>
+<p>Missing    (2): fi-kbl-soraka fi-snb-2520m </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_117839v1:</p>
+<h3>IGT changes</h3>
+<h4>Suppressed</h4>
+<p>The following results come from untrusted machines, tests, or statuses.<br />
+  They do not affect the overall result.</p>
+<ul>
+<li>igt@i915_pm_rpm@basic-rte:<ul>
+<li>{bat-mtlp-8}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-mtlp-8/igt@i915_pm_rpm@basic-rte.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117839v1/bat-mtlp-8/igt@i915_pm_rpm@basic-rte.html">TIMEOUT</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_117839v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@i915_suspend@basic-s2idle-without-i915:<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/fi-tgl-1115g4/igt@i915_suspend@basic-s2idle-without-i915.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117839v1/fi-tgl-1115g4/igt@i915_suspend@basic-s2idle-without-i915.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8189">i915#8189</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8213">i915#8213</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@migrate:</p>
+<ul>
+<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-dg2-11/igt@i915_selftest@live@migrate.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7699">i915#7699</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117839v1/bat-dg2-11/igt@i915_selftest@live@migrate.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@requests:</p>
+<ul>
+<li>
+<p>{bat-mtlp-8}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-mtlp-8/igt@i915_selftest@live@requests.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7920">i915#7920</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117839v1/bat-mtlp-8/igt@i915_selftest@live@requests.html">PASS</a></p>
+</li>
+<li>
+<p>{bat-mtlp-6}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13154/bat-mtlp-6/igt@i915_selftest@live@requests.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7920">i915#7920</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117839v1/bat-mtlp-6/igt@i915_selftest@live@requests.html">PASS</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_13154 -&gt; Patchwork_117839v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_13154: d04e82f5245c285e7ae36955d89c4d217d04d664 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7292: 9d9475ffd3b5ae18fd8ec120595385f6c562f249 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_117839v1: d04e82f5245c285e7ae36955d89c4d217d04d664 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>6e6a565e8ee5 drm/i915/gt: do not enable render and media power-gating on RPL-S<br />
+bc12366471fe drm/i915/mtl: do not enable render power-gating on MTL</p>
+
+</body>
+</html>
+
+--===============6579804996779963199==--
