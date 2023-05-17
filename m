@@ -4,30 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 036FCC77B75
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 May 2023 17:53:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34729C77B7A
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 May 2023 18:15:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8889D10E42C;
-	Wed, 17 May 2023 17:53:07 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id A83BF10E260;
- Wed, 17 May 2023 17:53:05 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id A0B34AADD2;
- Wed, 17 May 2023 17:53:05 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============0081018109067670855=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72D2D10E45A;
+	Wed, 17 May 2023 18:15:29 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B168410E45A
+ for <intel-gfx@lists.freedesktop.org>; Wed, 17 May 2023 18:15:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1684347325;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=vBbkfwSNfUaNRT3WQhfk4a0Uy2VKZgjYjPB926dHc6c=;
+ b=HwV18DvVRS7sJqPuUk40UvfTy2ObNopLHSN87wPGyTCSvS/TnX+PDGXk/DwPFSb5cK4aLk
+ jxPYD6m6VJSwuQELWX51jD7xYFFw+UaJ0aXjX5Jo5HWI0tbYIFrQIGlRmXQfqWJp8W0Vj7
+ foPZclQmw17sqlhe03epCTxIrs0B+rg=
+Received: from mail-il1-f198.google.com (mail-il1-f198.google.com
+ [209.85.166.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-483-UvarkUWeMmKa84K47Y5Pcw-1; Wed, 17 May 2023 14:15:23 -0400
+X-MC-Unique: UvarkUWeMmKa84K47Y5Pcw-1
+Received: by mail-il1-f198.google.com with SMTP id
+ e9e14a558f8ab-331828cdc2dso7397525ab.3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 17 May 2023 11:15:23 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684347323; x=1686939323;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=vBbkfwSNfUaNRT3WQhfk4a0Uy2VKZgjYjPB926dHc6c=;
+ b=HY/BI1R0H1+rHheFSXjn+//+T4+j3pHYrqhUAJc6ajqJflkXXTKK6yyfDY+oyrkewg
+ yg+Jc3r7HLrKi9P8dvLqQrevr/zKu+xEF3QMdrrOh6Vb4olAIWY4lm7MhTnrQ/mjDaq9
+ b/UAOPwj73140s9QwgYKbOBnQaJSiUB5cHwRpgojimV1heNctKGan7zc8wVw1ZNOPKhh
+ 4ace0VbDElrisCwzXLJHMfa/Rgj+jWpvIDM3ft74Q5hD/BdlOU2Xkzfw8wj7F9a5iEV+
+ bAbW6TMe/0CMOiEX2BZnil/VBe08IJZdrTC6znEUsvW0RcCOS3JEcWTug7c3PAgnzE7P
+ jf8A==
+X-Gm-Message-State: AC+VfDyTLLoI5J3oP/9So4y4CazeoNfqYqUY6cC/r1Bzu7kTECJJOjlV
+ WTJDZYEsSAt67B3QjFwdtSsqSLguHmFi0u1ln8CBZ0VdkyXz5B3RGJJSFR2nH13ICLKrBtQ2gRh
+ VDFUzi3T2ixooixVKouqIhPjtrLzG
+X-Received: by 2002:a92:280b:0:b0:334:faa5:494 with SMTP id
+ l11-20020a92280b000000b00334faa50494mr2434391ilf.16.1684347321339; 
+ Wed, 17 May 2023 11:15:21 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ51VpyD99hRmBsrXJMFRpCGeYsUOJ+gL3UPLw/Lj4qOOkLmuTpqYEjHcu6zyABxCd7m198oHA==
+X-Received: by 2002:a92:280b:0:b0:334:faa5:494 with SMTP id
+ l11-20020a92280b000000b00334faa50494mr2434329ilf.16.1684347319597; 
+ Wed, 17 May 2023 11:15:19 -0700 (PDT)
+Received: from redhat.com ([38.15.36.239]) by smtp.gmail.com with ESMTPSA id
+ f6-20020a056638112600b00411b5ea8576sm8728015jar.108.2023.05.17.11.15.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 17 May 2023 11:15:19 -0700 (PDT)
+Date: Wed, 17 May 2023 12:15:17 -0600
+From: Alex Williamson <alex.williamson@redhat.com>
+To: Yi Liu <yi.l.liu@intel.com>
+Message-ID: <20230517121517.4b7ceb52.alex.williamson@redhat.com>
+In-Reply-To: <20230513132136.15021-7-yi.l.liu@intel.com>
+References: <20230513132136.15021-1-yi.l.liu@intel.com>
+ <20230513132136.15021-7-yi.l.liu@intel.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.35; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Tejas Upadhyay" <tejas.upadhyay@intel.com>
-Date: Wed, 17 May 2023 17:53:05 -0000
-Message-ID: <168434598563.6590.8954279028949819676@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20230517132230.1102553-1-tejas.upadhyay@intel.com>
-In-Reply-To: <20230517132230.1102553-1-tejas.upadhyay@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915/gt=3A_Add_workaround_14016712196_=28rev2=29?=
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v5 06/10] vfio-iommufd: Add helper to
+ retrieve iommufd_ctx and devid for vfio_device
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,285 +84,165 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
+ zhenzhong.duan@intel.com, peterx@redhat.com, terrence.xu@intel.com,
+ chao.p.peng@linux.intel.com, linux-s390@vger.kernel.org, kvm@vger.kernel.org,
+ lulu@redhat.com, yanting.jiang@intel.com, joro@8bytes.org, nicolinc@nvidia.com,
+ jgg@nvidia.com, yan.y.zhao@intel.com, intel-gfx@lists.freedesktop.org,
+ eric.auger@redhat.com, intel-gvt-dev@lists.freedesktop.org,
+ yi.y.sun@linux.intel.com, clegoate@redhat.com, cohuck@redhat.com,
+ shameerali.kolothum.thodi@huawei.com, suravee.suthikulpanit@amd.com,
+ robin.murphy@arm.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0081018109067670855==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Sat, 13 May 2023 06:21:32 -0700
+Yi Liu <yi.l.liu@intel.com> wrote:
 
-== Series Details ==
+> This is needed by the vfio-pci driver to report affected devices in the
+> hot reset for a given device.
+> 
+> Signed-off-by: Yi Liu <yi.l.liu@intel.com>
+> ---
+>  drivers/iommu/iommufd/device.c | 24 ++++++++++++++++++++++++
+>  drivers/vfio/iommufd.c         | 20 ++++++++++++++++++++
+>  include/linux/iommufd.h        |  6 ++++++
+>  include/linux/vfio.h           | 14 ++++++++++++++
+>  4 files changed, 64 insertions(+)
+> 
+> diff --git a/drivers/iommu/iommufd/device.c b/drivers/iommu/iommufd/device.c
+> index 4f9b2142274c..81466b97023f 100644
+> --- a/drivers/iommu/iommufd/device.c
+> +++ b/drivers/iommu/iommufd/device.c
+> @@ -116,6 +116,18 @@ void iommufd_device_unbind(struct iommufd_device *idev)
+>  }
+>  EXPORT_SYMBOL_NS_GPL(iommufd_device_unbind, IOMMUFD);
+>  
+> +struct iommufd_ctx *iommufd_device_to_ictx(struct iommufd_device *idev)
+> +{
+> +	return idev->ictx;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(iommufd_device_to_ictx, IOMMUFD);
+> +
+> +u32 iommufd_device_to_id(struct iommufd_device *idev)
+> +{
+> +	return idev->obj.id;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(iommufd_device_to_id, IOMMUFD);
+> +
+>  static int iommufd_device_setup_msi(struct iommufd_device *idev,
+>  				    struct iommufd_hw_pagetable *hwpt,
+>  				    phys_addr_t sw_msi_start)
+> @@ -463,6 +475,18 @@ void iommufd_access_destroy(struct iommufd_access *access)
+>  }
+>  EXPORT_SYMBOL_NS_GPL(iommufd_access_destroy, IOMMUFD);
+>  
+> +struct iommufd_ctx *iommufd_access_to_ictx(struct iommufd_access *access)
+> +{
+> +	return access->ictx;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(iommufd_access_to_ictx, IOMMUFD);
+> +
+> +u32 iommufd_access_to_id(struct iommufd_access *access)
+> +{
+> +	return access->obj.id;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(iommufd_access_to_id, IOMMUFD);
+> +
+>  int iommufd_access_attach(struct iommufd_access *access, u32 ioas_id)
+>  {
+>  	struct iommufd_ioas *new_ioas;
+> diff --git a/drivers/vfio/iommufd.c b/drivers/vfio/iommufd.c
+> index c1379e826052..a18e920be164 100644
+> --- a/drivers/vfio/iommufd.c
+> +++ b/drivers/vfio/iommufd.c
+> @@ -105,6 +105,26 @@ void vfio_iommufd_unbind(struct vfio_device *vdev)
+>  		vdev->ops->unbind_iommufd(vdev);
+>  }
+>  
+> +struct iommufd_ctx *vfio_iommufd_physical_ictx(struct vfio_device *vdev)
+> +{
+> +	if (vdev->iommufd_device)
+> +		return iommufd_device_to_ictx(vdev->iommufd_device);
+> +	if (vdev->noiommu_access)
+> +		return iommufd_access_to_ictx(vdev->noiommu_access);
+> +	return NULL;
+> +}
+> +EXPORT_SYMBOL_GPL(vfio_iommufd_physical_ictx);
+> +
+> +int vfio_iommufd_physical_devid(struct vfio_device *vdev)
+> +{
+> +	if (vdev->iommufd_device)
+> +		return iommufd_device_to_id(vdev->iommufd_device);
+> +	if (vdev->noiommu_access)
+> +		return iommufd_access_to_id(vdev->noiommu_access);
+> +	return -EINVAL;
+> +}
+> +EXPORT_SYMBOL_GPL(vfio_iommufd_physical_devid);
 
-Series: drm/i915/gt: Add workaround 14016712196 (rev2)
-URL   : https://patchwork.freedesktop.org/series/117661/
-State : success
+I think these exemplify that it would be better if both emulated and
+noiommu use the same iommufd_access pointer.  Thanks,
 
-== Summary ==
+Alex
 
-CI Bug Log - changes from CI_DRM_13160 -> Patchwork_117661v2
-====================================================
+> +
+>  /*
+>   * The physical standard ops mean that the iommufd_device is bound to the
+>   * physical device vdev->dev that was provided to vfio_init_group_dev(). Drivers
+> diff --git a/include/linux/iommufd.h b/include/linux/iommufd.h
+> index 1129a36a74c4..68cd65274e28 100644
+> --- a/include/linux/iommufd.h
+> +++ b/include/linux/iommufd.h
+> @@ -24,6 +24,9 @@ void iommufd_device_unbind(struct iommufd_device *idev);
+>  int iommufd_device_attach(struct iommufd_device *idev, u32 *pt_id);
+>  void iommufd_device_detach(struct iommufd_device *idev);
+>  
+> +struct iommufd_ctx *iommufd_device_to_ictx(struct iommufd_device *idev);
+> +u32 iommufd_device_to_id(struct iommufd_device *idev);
+> +
+>  struct iommufd_access_ops {
+>  	u8 needs_pin_pages : 1;
+>  	void (*unmap)(void *data, unsigned long iova, unsigned long length);
+> @@ -45,6 +48,9 @@ iommufd_access_create(struct iommufd_ctx *ictx,
+>  void iommufd_access_destroy(struct iommufd_access *access);
+>  int iommufd_access_attach(struct iommufd_access *access, u32 ioas_id);
+>  
+> +struct iommufd_ctx *iommufd_access_to_ictx(struct iommufd_access *access);
+> +u32 iommufd_access_to_id(struct iommufd_access *access);
+> +
+>  void iommufd_ctx_get(struct iommufd_ctx *ictx);
+>  
+>  #if IS_ENABLED(CONFIG_IOMMUFD)
+> diff --git a/include/linux/vfio.h b/include/linux/vfio.h
+> index a61130bc06a2..fcbe084b18c8 100644
+> --- a/include/linux/vfio.h
+> +++ b/include/linux/vfio.h
+> @@ -115,6 +115,8 @@ struct vfio_device_ops {
+>  };
+>  
+>  #if IS_ENABLED(CONFIG_IOMMUFD)
+> +struct iommufd_ctx *vfio_iommufd_physical_ictx(struct vfio_device *vdev);
+> +int vfio_iommufd_physical_devid(struct vfio_device *vdev);
+>  int vfio_iommufd_physical_bind(struct vfio_device *vdev,
+>  			       struct iommufd_ctx *ictx, u32 *out_device_id);
+>  void vfio_iommufd_physical_unbind(struct vfio_device *vdev);
+> @@ -124,6 +126,18 @@ int vfio_iommufd_emulated_bind(struct vfio_device *vdev,
+>  void vfio_iommufd_emulated_unbind(struct vfio_device *vdev);
+>  int vfio_iommufd_emulated_attach_ioas(struct vfio_device *vdev, u32 *pt_id);
+>  #else
+> +static inline struct iommufd_ctx *
+> +vfio_iommufd_physical_ictx(struct vfio_device *vdev)
+> +{
+> +	return NULL;
+> +}
+> +
+> +static inline int
+> +vfio_iommufd_physical_devid(struct vfio_device *vdev)
+> +{
+> +	return -EOPNOTSUPP;
+> +}
+> +
+>  #define vfio_iommufd_physical_bind                                      \
+>  	((int (*)(struct vfio_device *vdev, struct iommufd_ctx *ictx,   \
+>  		  u32 *out_device_id)) NULL)
 
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/index.html
-
-Participating hosts (36 -> 37)
-------------------------------
-
-  Additional (2): fi-kbl-soraka bat-mtlp-6 
-  Missing    (1): fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_117661v2 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@gem_huc_copy@huc-copy:
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][1] ([fdo#109271] / [i915#2190])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html
-
-  * igt@gem_lmem_swapping@basic:
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][2] ([fdo#109271] / [i915#4613]) +3 similar issues
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html
-
-  * igt@i915_selftest@live@gt_pm:
-    - fi-kbl-soraka:      NOTRUN -> [DMESG-FAIL][3] ([i915#1886] / [i915#7913])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html
-
-  * igt@i915_selftest@live@slpc:
-    - bat-rpls-2:         NOTRUN -> [DMESG-WARN][4] ([i915#6367])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/bat-rpls-2/igt@i915_selftest@live@slpc.html
-
-  * igt@i915_suspend@basic-s2idle-without-i915:
-    - bat-rpls-2:         NOTRUN -> [ABORT][5] ([i915#6687])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/bat-rpls-2/igt@i915_suspend@basic-s2idle-without-i915.html
-
-  * igt@i915_suspend@basic-s3-without-i915:
-    - bat-rpls-1:         NOTRUN -> [ABORT][6] ([i915#6687] / [i915#7978])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/bat-rpls-1/igt@i915_suspend@basic-s3-without-i915.html
-
-  * igt@kms_chamelium_frames@hdmi-crc-fast:
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][7] ([fdo#109271]) +14 similar issues
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/fi-kbl-soraka/igt@kms_chamelium_frames@hdmi-crc-fast.html
-
-  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:
-    - bat-dg2-11:         NOTRUN -> [SKIP][8] ([i915#1845] / [i915#5354])
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
-
-  * igt@kms_setmode@basic-clone-single-crtc:
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][9] ([fdo#109271] / [i915#4579])
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/fi-kbl-soraka/igt@kms_setmode@basic-clone-single-crtc.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@hangcheck:
-    - bat-rpls-1:         [INCOMPLETE][10] ([i915#4983] / [i915#7677]) -> [PASS][11]
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13160/bat-rpls-1/igt@i915_selftest@live@hangcheck.html
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/bat-rpls-1/igt@i915_selftest@live@hangcheck.html
-
-  * igt@i915_selftest@live@reset:
-    - bat-rpls-2:         [ABORT][12] ([i915#4983] / [i915#7461] / [i915#7913] / [i915#8347]) -> [PASS][13]
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13160/bat-rpls-2/igt@i915_selftest@live@reset.html
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/bat-rpls-2/igt@i915_selftest@live@reset.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
-  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
-  [i915#1845]: https://gitlab.freedesktop.org/drm/intel/issues/1845
-  [i915#1886]: https://gitlab.freedesktop.org/drm/intel/issues/1886
-  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
-  [i915#2582]: https://gitlab.freedesktop.org/drm/intel/issues/2582
-  [i915#3546]: https://gitlab.freedesktop.org/drm/intel/issues/3546
-  [i915#3595]: https://gitlab.freedesktop.org/drm/intel/issues/3595
-  [i915#3637]: https://gitlab.freedesktop.org/drm/intel/issues/3637
-  [i915#3708]: https://gitlab.freedesktop.org/drm/intel/issues/3708
-  [i915#4077]: https://gitlab.freedesktop.org/drm/intel/issues/4077
-  [i915#4078]: https://gitlab.freedesktop.org/drm/intel/issues/4078
-  [i915#4079]: https://gitlab.freedesktop.org/drm/intel/issues/4079
-  [i915#4083]: https://gitlab.freedesktop.org/drm/intel/issues/4083
-  [i915#4212]: https://gitlab.freedesktop.org/drm/intel/issues/4212
-  [i915#4342]: https://gitlab.freedesktop.org/drm/intel/issues/4342
-  [i915#4579]: https://gitlab.freedesktop.org/drm/intel/issues/4579
-  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
-  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
-  [i915#5190]: https://gitlab.freedesktop.org/drm/intel/issues/5190
-  [i915#5274]: https://gitlab.freedesktop.org/drm/intel/issues/5274
-  [i915#5354]: https://gitlab.freedesktop.org/drm/intel/issues/5354
-  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
-  [i915#6621]: https://gitlab.freedesktop.org/drm/intel/issues/6621
-  [i915#6645]: https://gitlab.freedesktop.org/drm/intel/issues/6645
-  [i915#6687]: https://gitlab.freedesktop.org/drm/intel/issues/6687
-  [i915#7456]: https://gitlab.freedesktop.org/drm/intel/issues/7456
-  [i915#7461]: https://gitlab.freedesktop.org/drm/intel/issues/7461
-  [i915#7677]: https://gitlab.freedesktop.org/drm/intel/issues/7677
-  [i915#7828]: https://gitlab.freedesktop.org/drm/intel/issues/7828
-  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
-  [i915#7978]: https://gitlab.freedesktop.org/drm/intel/issues/7978
-  [i915#8347]: https://gitlab.freedesktop.org/drm/intel/issues/8347
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_13160 -> Patchwork_117661v2
-
-  CI-20190529: 20190529
-  CI_DRM_13160: 2147c8fcc283c183aba29e5f51b653332d90a3ed @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7294: e1ab60dc90fc49f6b2ec1b37f14b021e59455e73 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_117661v2: 2147c8fcc283c183aba29e5f51b653332d90a3ed @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-ca02ed496951 drm/i915/gt: Add workaround 14016712196
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/index.html
-
---===============0081018109067670855==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/gt: Add workaround 14016712196 (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/117661/">https://patchwork.freedesktop.org/series/117661/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_13160 -&gt; Patchwork_117661v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/index.html</p>
-<h2>Participating hosts (36 -&gt; 37)</h2>
-<p>Additional (2): fi-kbl-soraka bat-mtlp-6 <br />
-  Missing    (1): fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_117661v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@basic:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@gt_pm:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1886">i915#1886</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@slpc:</p>
-<ul>
-<li>bat-rpls-2:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/bat-rpls-2/igt@i915_selftest@live@slpc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6367">i915#6367</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_suspend@basic-s2idle-without-i915:</p>
-<ul>
-<li>bat-rpls-2:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/bat-rpls-2/igt@i915_suspend@basic-s2idle-without-i915.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6687">i915#6687</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_suspend@basic-s3-without-i915:</p>
-<ul>
-<li>bat-rpls-1:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/bat-rpls-1/igt@i915_suspend@basic-s3-without-i915.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6687">i915#6687</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7978">i915#7978</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium_frames@hdmi-crc-fast:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/fi-kbl-soraka/igt@kms_chamelium_frames@hdmi-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +14 similar issues</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:</p>
-<ul>
-<li>bat-dg2-11:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1845">i915#1845</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/5354">i915#5354</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_setmode@basic-clone-single-crtc:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/fi-kbl-soraka/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4579">i915#4579</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13160/bat-rpls-1/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7677">i915#7677</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/bat-rpls-1/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@reset:</p>
-<ul>
-<li>bat-rpls-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13160/bat-rpls-2/igt@i915_selftest@live@reset.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7461">i915#7461</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8347">i915#8347</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117661v2/bat-rpls-2/igt@i915_selftest@live@reset.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_13160 -&gt; Patchwork_117661v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_13160: 2147c8fcc283c183aba29e5f51b653332d90a3ed @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7294: e1ab60dc90fc49f6b2ec1b37f14b021e59455e73 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_117661v2: 2147c8fcc283c183aba29e5f51b653332d90a3ed @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>ca02ed496951 drm/i915/gt: Add workaround 14016712196</p>
-
-</body>
-</html>
-
---===============0081018109067670855==--
