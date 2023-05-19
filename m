@@ -4,48 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E617C7EE2E
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 May 2023 15:50:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47860C7EE29
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 May 2023 16:55:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D943910E5B4;
-	Fri, 19 May 2023 15:49:53 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AAF210E55B
- for <intel-gfx@lists.freedesktop.org>; Fri, 19 May 2023 15:49:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1684511389; x=1716047389;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=5foPLz3hX8+kvLpqF2fF0iQy+5fR4swqGym2SoYWqnQ=;
- b=Q3+4hB3KJivsVxgNZJTJ4eEkvKz27w/tWpBkmMOyilNfFBtuZ8kMdi6s
- 0T+1Ew5oy3teYWreqsWu+56IFGT6tj6WXpl3b8A8YZkRuzE4fcU7BBXVo
- B3iD3Llc2dJJMzvoTvt6TXtQzAceSt8YU+lxHXVerLR9Z8S0juH50RAaH
- agsftEQYTZmeQU014Od/QcLolEbXWmnxzmdO83VeJ0eME6ygBAt/ZUuaq
- vDIq2Stk36+KdbFa7HxPFMovzaxCwuQl2KiwqwDUi5QvQYb0pXwb5DP7n
- kpQUwTsA57vCuHyeSW9aSYDmh5S9OwyLfidAky8X6zXrVwMl++2F2VXpf g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10715"; a="354759569"
-X-IronPort-AV: E=Sophos;i="6.00,177,1681196400"; d="scan'208";a="354759569"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2023 08:49:47 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10715"; a="1032652190"
-X-IronPort-AV: E=Sophos;i="6.00,177,1681196400"; d="scan'208";a="1032652190"
-Received: from orsosgc001.jf.intel.com ([10.165.21.138])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2023 08:49:47 -0700
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 19 May 2023 08:49:44 -0700
-Message-Id: <20230519154946.3751971-6-umesh.nerlige.ramappa@intel.com>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <20230519154946.3751971-1-umesh.nerlige.ramappa@intel.com>
-References: <20230519154946.3751971-1-umesh.nerlige.ramappa@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2EDB10E545;
+	Fri, 19 May 2023 16:55:52 +0000 (UTC)
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [IPv6:2a00:1450:4864:20::132])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 364F410E545
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 May 2023 16:55:51 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-4f00c33c3d6so4160954e87.2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 May 2023 09:55:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1684515349; x=1687107349;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=8u8Cffd9gh33GRz1/pbcBEqZLgNy2eMWL4ehBbFWLjI=;
+ b=frBZC/4FCb2QlYrqMh5fSiI43wwxOHGZeClHqaQu1pT9pIifaaeOut2l5G5SeW5L5N
+ DWg1O3ITeeYp2clN+vP0J6DApUwMDqFgJ9gcrEsQtRES3vtgwQRZXjoPa7H/2FSAJWH/
+ JorcuryfBrDaMeDg4sttp+mazhbdiDF9HZpfK5o0EQNhBRF248NdPzl+UMvemqCozPqJ
+ KJvk8AEw+/DytCJhQLO8O4LbZHrgmsXonnYgQCeutXT4+oUHrRGvlSnn20q6Ashj2rAt
+ xkBlABn6tSf6yUFIKZHoplxKokwropWI7Eh1Ejz0BBtNR9Zn788YZZE9TM8n9hTDa2z/
+ hFfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1684515349; x=1687107349;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=8u8Cffd9gh33GRz1/pbcBEqZLgNy2eMWL4ehBbFWLjI=;
+ b=JuBJbeG9HWPwPvUIwihfOJ4oqV2kBqF/PLxgWyUqYvuSgL7UEKlZmfghdmuHJyCni8
+ esnDzorNSuC81JE4aAvVhNSCD2WwH0efKCX/ISq308JtKNl6VfisWzrn+UNeSQAUarmj
+ P7HzgEVW16VFu6vyZQHFWeLzEYpBV6xTOm06vxvyj1/gUPVOdji9b8ZXqA/bbzgFhfud
+ BLTvdpqy/QXrFSJeI+cUpgc9PoJ0rPWs69wLtexahpX6IfRgbj1VN31bSrdd+vqlmzGJ
+ cm4eBlb/JVa8trq3zaPWoUQSwoxpTU0B6m4/848Kqxx/ziDINSXUHOLpLR5R+hUglajX
+ rQuQ==
+X-Gm-Message-State: AC+VfDzqT2o3kp1lenbSIFkR6LziQhL2fnugv///1IpDaGqlMw64zO0U
+ zkwknEL7xoEl0hz2sggZYCLdgg==
+X-Google-Smtp-Source: ACHHUZ7f0Yd3ApLNEvVN4yist87EQ8Ddt29lyiXsuzgsN0hmwyzO5avMdxs62WPck07X7DVpNuW5Vw==
+X-Received: by 2002:ac2:5298:0:b0:4f1:5010:4b34 with SMTP id
+ q24-20020ac25298000000b004f150104b34mr1215390lfm.18.1684515349191; 
+ Fri, 19 May 2023 09:55:49 -0700 (PDT)
+Received: from ?IPV6:2001:14ba:a0db:1f00::8a5?
+ (dzdqv0yyyyyyyyyyybcwt-3.rev.dnainternet.fi. [2001:14ba:a0db:1f00::8a5])
+ by smtp.gmail.com with ESMTPSA id
+ i5-20020ac25225000000b004f13ece6a4fsm656365lfl.101.2023.05.19.09.55.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 19 May 2023 09:55:48 -0700 (PDT)
+Message-ID: <0c702f15-c842-8eab-cc95-83378236773c@linaro.org>
+Date: Fri, 19 May 2023 19:55:47 +0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 5/7] drm/i915/pmu: Add reference counting to
- the sampling timer
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-GB
+To: Mark Yacoub <markyacoub@chromium.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Douglas Anderson <dianders@chromium.org>
+References: <20230419154321.1993419-1-markyacoub@google.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+In-Reply-To: <20230419154321.1993419-1-markyacoub@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v10 00/10] drm/hdcp: Pull HDCP
+ auth/exchange/check into helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,82 +83,86 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org, dianders@chromium.org,
+ dri-devel@lists.freedesktop.org, seanpaul@chromium.org,
+ freedreno@lists.freedesktop.org, Mark Yacoub <markyacoub@google.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+On 19/04/2023 18:43, Mark Yacoub wrote:
+> Hi all,
+> This is v10 of the HDCP patches. The patches are authored by Sean Paul.
+> I rebased and addressed the review comments in v6-v10.
+> 
+> Main change in v10 is handling the kernel test bot warnings.
+> 
+> Patches 1-4 focus on moving the common HDCP helpers to common DRM.
+> This introduces a slight change in the original intel flow
+> as it splits the unique driver protocol from the generic implementation.
+> 
+> Patches 5-7 split the HDCP flow on the i915 driver to make use of the common DRM helpers.
+> 
+> Patches 8-10 implement HDCP on MSM driver.
+> 
+> Thanks,
+> -Mark Yacoub
+> 
+> Sean Paul (10):
+>    drm/hdcp: Add drm_hdcp_atomic_check()
+>    drm/hdcp: Avoid changing crtc state in hdcp atomic check
+>    drm/hdcp: Update property value on content type and user changes
+>    drm/hdcp: Expand HDCP helper library for enable/disable/check
+>    drm/i915/hdcp: Consolidate HDCP setup/state cache
+>    drm/i915/hdcp: Retain hdcp_capable return codes
+>    drm/i915/hdcp: Use HDCP helpers for i915
+>    dt-bindings: msm/dp: Add bindings for HDCP registers
+>    arm64: dts: qcom: sc7180: Add support for HDCP in dp-controller
 
-We do not want to have timers per tile and waste CPU cycles and energy via
-multiple wake-up sources, for a relatively un-important task of PMU
-sampling, so keeping a single timer works well. But we also do not want
-the first GT which goes idle to turn off the timer.
+Dear i915 maintainers,
 
-Add some reference counting, via a mask of unparked GTs, to solve this.
+I wanted to ping you regarding this patch series. If there are no 
+comments for the series from you side, would it be possible to land 
+Intel-specific and generic patches into drm-intel tree? We will continue 
+working on the msm specific parts and merge them through the msm tree.
 
-v2: Drop the check for unparked in i915_sample (Ashutosh)
-v3: Revert v2 (Tvrtko)
+>    drm/msm: Implement HDCP 1.x using the new drm HDCP helpers
+> 
+>   .../bindings/display/msm/dp-controller.yaml   |    7 +-
+>   arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi  |    8 +
+>   drivers/gpu/drm/display/drm_hdcp_helper.c     | 1224 +++++++++++++++++
+>   drivers/gpu/drm/i915/display/intel_atomic.c   |    8 +-
+>   drivers/gpu/drm/i915/display/intel_ddi.c      |   32 +-
+>   .../drm/i915/display/intel_display_debugfs.c  |   12 +-
+>   .../drm/i915/display/intel_display_types.h    |   51 +-
+>   drivers/gpu/drm/i915/display/intel_dp_hdcp.c  |  352 ++---
+>   drivers/gpu/drm/i915/display/intel_dp_mst.c   |   16 +-
+>   drivers/gpu/drm/i915/display/intel_hdcp.c     | 1060 +++-----------
+>   drivers/gpu/drm/i915/display/intel_hdcp.h     |   48 +-
+>   drivers/gpu/drm/i915/display/intel_hdmi.c     |  267 ++--
+>   drivers/gpu/drm/msm/Kconfig                   |    1 +
+>   drivers/gpu/drm/msm/Makefile                  |    1 +
+>   drivers/gpu/drm/msm/dp/dp_catalog.c           |  156 +++
+>   drivers/gpu/drm/msm/dp/dp_catalog.h           |   18 +
+>   drivers/gpu/drm/msm/dp/dp_debug.c             |   46 +-
+>   drivers/gpu/drm/msm/dp/dp_debug.h             |   11 +-
+>   drivers/gpu/drm/msm/dp/dp_display.c           |   39 +-
+>   drivers/gpu/drm/msm/dp/dp_display.h           |    5 +
+>   drivers/gpu/drm/msm/dp/dp_drm.c               |   39 +-
+>   drivers/gpu/drm/msm/dp/dp_drm.h               |    7 +
+>   drivers/gpu/drm/msm/dp/dp_hdcp.c              |  389 ++++++
+>   drivers/gpu/drm/msm/dp/dp_hdcp.h              |   33 +
+>   drivers/gpu/drm/msm/dp/dp_parser.c            |   14 +
+>   drivers/gpu/drm/msm/dp/dp_parser.h            |    4 +
+>   drivers/gpu/drm/msm/dp/dp_reg.h               |   30 +-
+>   drivers/gpu/drm/msm/msm_atomic.c              |   19 +
+>   include/drm/display/drm_hdcp.h                |  296 ++++
+>   include/drm/display/drm_hdcp_helper.h         |   23 +
+>   30 files changed, 2867 insertions(+), 1349 deletions(-)
+>   create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.c
+>   create mode 100644 drivers/gpu/drm/msm/dp/dp_hdcp.h
+> 
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
----
- drivers/gpu/drm/i915/i915_pmu.c | 12 ++++++++++--
- drivers/gpu/drm/i915/i915_pmu.h |  4 ++++
- 2 files changed, 14 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-index 890693fdaf9e..ecb57a94143e 100644
---- a/drivers/gpu/drm/i915/i915_pmu.c
-+++ b/drivers/gpu/drm/i915/i915_pmu.c
-@@ -262,7 +262,9 @@ void i915_pmu_gt_parked(struct intel_gt *gt)
- 	 * Signal sampling timer to stop if only engine events are enabled and
- 	 * GPU went idle.
- 	 */
--	pmu->timer_enabled = pmu_needs_timer(pmu, false);
-+	pmu->unparked &= ~BIT(gt->info.id);
-+	if (pmu->unparked == 0)
-+		pmu->timer_enabled = pmu_needs_timer(pmu, false);
- 
- 	spin_unlock_irq(&pmu->lock);
- }
-@@ -279,7 +281,10 @@ void i915_pmu_gt_unparked(struct intel_gt *gt)
- 	/*
- 	 * Re-enable sampling timer when GPU goes active.
- 	 */
--	__i915_pmu_maybe_start_timer(pmu);
-+	if (pmu->unparked == 0)
-+		__i915_pmu_maybe_start_timer(pmu);
-+
-+	pmu->unparked |= BIT(gt->info.id);
- 
- 	spin_unlock_irq(&pmu->lock);
- }
-@@ -449,6 +454,9 @@ static enum hrtimer_restart i915_sample(struct hrtimer *hrtimer)
- 	 */
- 
- 	for_each_gt(gt, i915, i) {
-+		if (!(pmu->unparked & BIT(i)))
-+			continue;
-+
- 		engines_sample(gt, period_ns);
- 
- 		if (i == 0) /* FIXME */
-diff --git a/drivers/gpu/drm/i915/i915_pmu.h b/drivers/gpu/drm/i915/i915_pmu.h
-index a686fd7ccedf..3a811266ac6a 100644
---- a/drivers/gpu/drm/i915/i915_pmu.h
-+++ b/drivers/gpu/drm/i915/i915_pmu.h
-@@ -76,6 +76,10 @@ struct i915_pmu {
- 	 * @lock: Lock protecting enable mask and ref count handling.
- 	 */
- 	spinlock_t lock;
-+	/**
-+	 * @unparked: GT unparked mask.
-+	 */
-+	unsigned int unparked;
- 	/**
- 	 * @timer: Timer for internal i915 PMU sampling.
- 	 */
 -- 
-2.36.1
+With best wishes
+Dmitry
 
