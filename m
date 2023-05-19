@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE9F5C7EE26
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 May 2023 15:49:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC8ECC77B7F
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 May 2023 15:49:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B3D710E55F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E081B10E5A6;
 	Fri, 19 May 2023 15:49:51 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE42E10E5A6
- for <intel-gfx@lists.freedesktop.org>; Fri, 19 May 2023 15:49:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7327C10E5AD
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 May 2023 15:49:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1684511389; x=1716047389;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=aF/Oyr4ep6ARZSN/tkKhqNydF6oLK69811WG2HTgg3k=;
- b=esUB86prMsqhJzKo+xBCMxKyb0XxYTjMZQPPzRxjSy78vfq1uIGsAC1h
- vA/XEJpP6rDh3mjvQ+0x5iJJTeSQGyD9RUUbEqbBDD9qSyFpgPUySojLW
- vqsCUffMkgAR8nIWTTCyQTAkslE/mEptO+/652cRnY2rhh4i/dOf94b04
- qRIxxQ2E4OoxKx+Dd310vBrdQukHfVGxxlqdxnOWAyiJyH5s2ITbXw9Hp
- 5cZPSciYwE+Gi7U7Ibs9YLqGFTEkdjaQ7kOQLSkmCCTscDUbPU0h2n/ma
- l3eFexmMCPXxlHZl+KIaffF5ljDfZZckwsB/dMB3WjSa/42g1hAwopTbO w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10715"; a="354759565"
-X-IronPort-AV: E=Sophos;i="6.00,177,1681196400"; d="scan'208";a="354759565"
+ bh=8U1+FsY5FvqvzgyahiY3ZoI/CgZVyUI7OJzjnWt+rbA=;
+ b=TCf9sUBm1o41iXjur49Cs65HCcv/m/tXx3ZrdFyQjQNkD3Rqi/wY7KON
+ NnQEYBtVK/eieic6RJGAbxHl7DMbIFpWV1KLZDFzjAbET543ZG5aAli0Z
+ y8VibGLm/mg3PNFGFoJP4STLzGixjsr8eWiH/nmXmklkSbr3y+drbBE3H
+ JoYbA7FQf7Vf5IJQP+/g8FE/mTBjWQQmocJsTahdOP1nVE2Aty+tcX6eH
+ /7MyzeTBIcu2dHvtvQvcGUF/80YhKRI6NQTmJsDG62P9kc6Lo4N+xT5AA
+ 1NeL7LsZp96fSB4hX7HZ5Y2+ISIbGcbdr2VV/S7mkXDxCVeOSp+CqOP7f g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10715"; a="354759572"
+X-IronPort-AV: E=Sophos;i="6.00,177,1681196400"; d="scan'208";a="354759572"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2023 08:49:47 -0700
+ 19 May 2023 08:49:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10715"; a="1032652186"
-X-IronPort-AV: E=Sophos;i="6.00,177,1681196400"; d="scan'208";a="1032652186"
+X-IronPort-AV: E=McAfee;i="6600,9927,10715"; a="1032652192"
+X-IronPort-AV: E=Sophos;i="6.00,177,1681196400"; d="scan'208";a="1032652192"
 Received: from orsosgc001.jf.intel.com ([10.165.21.138])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 May 2023 08:49:47 -0700
 From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 19 May 2023 08:49:40 -0700
-Message-Id: <20230519154946.3751971-2-umesh.nerlige.ramappa@intel.com>
+Date: Fri, 19 May 2023 08:49:46 -0700
+Message-Id: <20230519154946.3751971-8-umesh.nerlige.ramappa@intel.com>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20230519154946.3751971-1-umesh.nerlige.ramappa@intel.com>
 References: <20230519154946.3751971-1-umesh.nerlige.ramappa@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 1/7] drm/i915/pmu: Change bitmask of enabled
- events to u32
+Subject: [Intel-gfx] [PATCH v7 7/7] drm/i915/pmu: Export counters from all
+ tiles
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,94 +63,148 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Having it as u64 was a confusing (but harmless) mistake.
+Start exporting frequency and RC6 counters from all tiles.
 
-Also add some asserts to make sure the internal field does not overflow
-in the future.
+Existing counters keep their names and config values and new one use the
+namespace added in the previous patch, with the "-gtN" added to their
+names.
 
-v2: Fix WARN_ON firing for INTERRUPT event (Umesh)
+Interrupts counter is an odd one off. Because it is the global device
+counters (not only GT) we choose not to add per tile versions for now.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
+Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Reviewed-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
 ---
- drivers/gpu/drm/i915/i915_pmu.c | 26 ++++++++++++++++++--------
- 1 file changed, 18 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/i915_pmu.c | 82 ++++++++++++++++++++++-----------
+ 1 file changed, 55 insertions(+), 27 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-index 7ece883a7d95..96543dce2db1 100644
+index 5cfc322e69b4..a814583e19fd 100644
 --- a/drivers/gpu/drm/i915/i915_pmu.c
 +++ b/drivers/gpu/drm/i915/i915_pmu.c
-@@ -50,7 +50,7 @@ static u8 engine_event_instance(struct perf_event *event)
- 	return (event->attr.config >> I915_PMU_SAMPLE_BITS) & 0xff;
- }
+@@ -940,11 +940,20 @@ static const struct attribute_group i915_pmu_cpumask_attr_group = {
+ 	.attrs = i915_cpumask_attrs,
+ };
  
--static bool is_engine_config(u64 config)
-+static bool is_engine_config(const u64 config)
- {
- 	return config < __I915_PMU_OTHER(0);
- }
-@@ -88,9 +88,20 @@ static unsigned int config_bit(const u64 config)
- 		return other_bit(config);
- }
- 
--static u64 config_mask(u64 config)
-+static u32 config_mask(const u64 config)
- {
--	return BIT_ULL(config_bit(config));
-+	unsigned int bit = config_bit(config);
+-#define __event(__config, __name, __unit) \
++#define __event(__counter, __name, __unit) \
+ { \
+-	.config = (__config), \
++	.counter = (__counter), \
+ 	.name = (__name), \
+ 	.unit = (__unit), \
++	.global = false, \
++}
 +
-+	if (__builtin_constant_p(config))
-+		BUILD_BUG_ON(bit >
-+			     BITS_PER_TYPE(typeof_member(struct i915_pmu,
-+							 enable)) - 1);
-+	else
-+		WARN_ON_ONCE(bit >
-+			     BITS_PER_TYPE(typeof_member(struct i915_pmu,
-+							 enable)) - 1);
-+
-+	return BIT(config_bit(config));
++#define __global_event(__counter, __name, __unit) \
++{ \
++	.counter = (__counter), \
++	.name = (__name), \
++	.unit = (__unit), \
++	.global = true, \
  }
  
- static bool is_engine_event(struct perf_event *event)
-@@ -633,11 +644,10 @@ static void i915_pmu_enable(struct perf_event *event)
+ #define __engine_event(__sample, __name) \
+@@ -983,15 +992,16 @@ create_event_attributes(struct i915_pmu *pmu)
  {
- 	struct drm_i915_private *i915 =
- 		container_of(event->pmu, typeof(*i915), pmu.base);
-+	const unsigned int bit = event_bit(event);
- 	struct i915_pmu *pmu = &i915->pmu;
- 	unsigned long flags;
--	unsigned int bit;
+ 	struct drm_i915_private *i915 = container_of(pmu, typeof(*i915), pmu);
+ 	static const struct {
+-		u64 config;
++		unsigned int counter;
+ 		const char *name;
+ 		const char *unit;
++		bool global;
+ 	} events[] = {
+-		__event(I915_PMU_ACTUAL_FREQUENCY, "actual-frequency", "M"),
+-		__event(I915_PMU_REQUESTED_FREQUENCY, "requested-frequency", "M"),
+-		__event(I915_PMU_INTERRUPTS, "interrupts", NULL),
+-		__event(I915_PMU_RC6_RESIDENCY, "rc6-residency", "ns"),
+-		__event(I915_PMU_SOFTWARE_GT_AWAKE_TIME, "software-gt-awake-time", "ns"),
++		__event(0, "actual-frequency", "M"),
++		__event(1, "requested-frequency", "M"),
++		__global_event(2, "interrupts", NULL),
++		__event(3, "rc6-residency", "ns"),
++		__event(4, "software-gt-awake-time", "ns"),
+ 	};
+ 	static const struct {
+ 		enum drm_i915_pmu_engine_sample sample;
+@@ -1006,12 +1016,17 @@ create_event_attributes(struct i915_pmu *pmu)
+ 	struct i915_ext_attribute *i915_attr = NULL, *i915_iter;
+ 	struct attribute **attr = NULL, **attr_iter;
+ 	struct intel_engine_cs *engine;
+-	unsigned int i;
++	struct intel_gt *gt;
++	unsigned int i, j;
  
--	bit = event_bit(event);
- 	if (bit == -1)
- 		goto update;
+ 	/* Count how many counters we will be exposing. */
+-	for (i = 0; i < ARRAY_SIZE(events); i++) {
+-		if (!config_status(i915, events[i].config))
+-			count++;
++	for_each_gt(gt, i915, j) {
++		for (i = 0; i < ARRAY_SIZE(events); i++) {
++			u64 config = ___I915_PMU_OTHER(j, events[i].counter);
++
++			if (!config_status(i915, config))
++				count++;
++		}
+ 	}
  
-@@ -651,7 +661,7 @@ static void i915_pmu_enable(struct perf_event *event)
- 	GEM_BUG_ON(bit >= ARRAY_SIZE(pmu->enable_count));
- 	GEM_BUG_ON(pmu->enable_count[bit] == ~0);
+ 	for_each_uabi_engine(engine, i915) {
+@@ -1041,26 +1056,39 @@ create_event_attributes(struct i915_pmu *pmu)
+ 	attr_iter = attr;
  
--	pmu->enable |= BIT_ULL(bit);
-+	pmu->enable |= BIT(bit);
- 	pmu->enable_count[bit]++;
+ 	/* Initialize supported non-engine counters. */
+-	for (i = 0; i < ARRAY_SIZE(events); i++) {
+-		char *str;
+-
+-		if (config_status(i915, events[i].config))
+-			continue;
+-
+-		str = kstrdup(events[i].name, GFP_KERNEL);
+-		if (!str)
+-			goto err;
++	for_each_gt(gt, i915, j) {
++		for (i = 0; i < ARRAY_SIZE(events); i++) {
++			u64 config = ___I915_PMU_OTHER(j, events[i].counter);
++			char *str;
  
- 	/*
-@@ -698,7 +708,7 @@ static void i915_pmu_disable(struct perf_event *event)
- {
- 	struct drm_i915_private *i915 =
- 		container_of(event->pmu, typeof(*i915), pmu.base);
--	unsigned int bit = event_bit(event);
-+	const unsigned int bit = event_bit(event);
- 	struct i915_pmu *pmu = &i915->pmu;
- 	unsigned long flags;
+-		*attr_iter++ = &i915_iter->attr.attr;
+-		i915_iter = add_i915_attr(i915_iter, str, events[i].config);
++			if (config_status(i915, config))
++				continue;
  
-@@ -734,7 +744,7 @@ static void i915_pmu_disable(struct perf_event *event)
- 	 * bitmask when the last listener on an event goes away.
- 	 */
- 	if (--pmu->enable_count[bit] == 0) {
--		pmu->enable &= ~BIT_ULL(bit);
-+		pmu->enable &= ~BIT(bit);
- 		pmu->timer_enabled &= pmu_needs_timer(pmu, true);
+-		if (events[i].unit) {
+-			str = kasprintf(GFP_KERNEL, "%s.unit", events[i].name);
++			if (events[i].global || !HAS_EXTRA_GT_LIST(i915))
++				str = kstrdup(events[i].name, GFP_KERNEL);
++			else
++				str = kasprintf(GFP_KERNEL, "%s-gt%u",
++						events[i].name, j);
+ 			if (!str)
+ 				goto err;
+ 
+-			*attr_iter++ = &pmu_iter->attr.attr;
+-			pmu_iter = add_pmu_attr(pmu_iter, str, events[i].unit);
++			*attr_iter++ = &i915_iter->attr.attr;
++			i915_iter = add_i915_attr(i915_iter, str, config);
++
++			if (events[i].unit) {
++				if (events[i].global || !HAS_EXTRA_GT_LIST(i915))
++					str = kasprintf(GFP_KERNEL, "%s.unit",
++							events[i].name);
++				else
++					str = kasprintf(GFP_KERNEL, "%s-gt%u.unit",
++							events[i].name, j);
++				if (!str)
++					goto err;
++
++				*attr_iter++ = &pmu_iter->attr.attr;
++				pmu_iter = add_pmu_attr(pmu_iter, str,
++							events[i].unit);
++			}
+ 		}
  	}
  
 -- 
