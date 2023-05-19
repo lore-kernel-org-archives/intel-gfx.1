@@ -4,36 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E786C77B75
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 May 2023 13:48:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08EA8C77B7A
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 May 2023 15:31:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FD9410E2E3;
-	Fri, 19 May 2023 13:48:12 +0000 (UTC)
-X-Greylist: delayed 331 seconds by postgrey-1.36 at gabe;
- Sat, 13 May 2023 20:48:50 UTC
-Received: from relay07.th.seeweb.it (relay07.th.seeweb.it [5.144.164.168])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C10910E12A
- for <intel-gfx@lists.freedesktop.org>; Sat, 13 May 2023 20:48:50 +0000 (UTC)
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl
- [94.211.6.86])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by m-r2.th.seeweb.it (Postfix) with ESMTPSA id DD1253F290;
- Sat, 13 May 2023 22:43:11 +0200 (CEST)
-Date: Sat, 13 May 2023 22:43:10 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Message-ID: <bo57bsntndvef4l3xtzhh54m6trdouhg253r6aqhbdc33idp6x@5dwgslu6fbm7>
-References: <20230504153511.4007320-1-dmitry.baryshkov@linaro.org>
- <20230504153511.4007320-3-dmitry.baryshkov@linaro.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F03310E552;
+	Fri, 19 May 2023 15:31:01 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 83AAB10E4E3;
+ Fri, 19 May 2023 15:30:58 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 46B64AADEA;
+ Fri, 19 May 2023 15:30:58 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3707981738906788796=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230504153511.4007320-3-dmitry.baryshkov@linaro.org>
-X-Mailman-Approved-At: Fri, 19 May 2023 13:48:05 +0000
-Subject: Re: [Intel-gfx] [PATCH v5 2/8] drm/i915/dsc: move rc_buf_thresh
- values to common helper
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Cong Liu" <liucong2@kylinos.cn>
+Date: Fri, 19 May 2023 15:30:58 -0000
+Message-ID: <168451025825.26992.9045166043972053094@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230508085016.437836-1-liucong2@kylinos.cn>
+In-Reply-To: <20230508085016.437836-1-liucong2@kylinos.cn>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915=3A_Fix_memory_leaks_in_function_live=5Fnop=5Fswitch_=28re?=
+ =?utf-8?b?djMp?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,143 +41,211 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, Jani Nikula <jani.nikula@intel.com>,
- intel-gfx@lists.freedesktop.org, Abhinav Kumar <quic_abhinavk@quicinc.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, freedreno@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2023-05-04 18:35:05, Dmitry Baryshkov wrote:
-> 
-> The rc_buf_thresh values are common to all DSC implementations. Move
-> them to the common helper together with the code to propagage them to
+--===============3707981738906788796==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Propagate*
+== Series Details ==
 
-> the drm_dsc_config.
-> 
-> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Series: drm/i915: Fix memory leaks in function live_nop_switch (rev3)
+URL   : https://patchwork.freedesktop.org/series/117458/
+State : success
 
-After right-shifting these values by 6 they are indeed, as promised,
-identical to the values used in MSM.
+== Summary ==
 
-Reviewed-by: Marijn Suijten <marijn.suijten@somainline.org>
+CI Bug Log - changes from CI_DRM_13166 -> Patchwork_117458v3
+====================================================
 
-If a tested-by is relevant in addition to r-b, let me know.  This works
-(no regressions) on quite a few MSM devices on my end.
-(same question for the other patches)
+Summary
+-------
 
-- Marijn
+  **SUCCESS**
 
-> ---
->  drivers/gpu/drm/display/drm_dsc_helper.c  | 35 +++++++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_vdsc.c | 24 +---------------
->  include/drm/display/drm_dsc_helper.h      |  1 +
->  3 files changed, 37 insertions(+), 23 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/display/drm_dsc_helper.c b/drivers/gpu/drm/display/drm_dsc_helper.c
-> index c869c6e51e2b..be91abe2cfb2 100644
-> --- a/drivers/gpu/drm/display/drm_dsc_helper.c
-> +++ b/drivers/gpu/drm/display/drm_dsc_helper.c
-> @@ -270,6 +270,41 @@ void drm_dsc_pps_payload_pack(struct drm_dsc_picture_parameter_set *pps_payload,
->  }
->  EXPORT_SYMBOL(drm_dsc_pps_payload_pack);
->  
-> +/* From DSC_v1.11 spec, rc_parameter_Set syntax element typically constant */
-> +static const u16 drm_dsc_rc_buf_thresh[] = {
-> +	896, 1792, 2688, 3584, 4480, 5376, 6272, 6720, 7168, 7616,
-> +	7744, 7872, 8000, 8064
-> +};
-> +
-> +/**
-> + * drm_dsc_set_rc_buf_thresh() - Set thresholds for the RC model
-> + * in accordance with the DSC 1.2 specification.
-> + *
-> + * @vdsc_cfg: DSC Configuration data partially filled by driver
-> + */
-> +void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg)
-> +{
-> +	int i;
-> +
-> +	BUILD_BUG_ON(ARRAY_SIZE(drm_dsc_rc_buf_thresh) !=
-> +		     DSC_NUM_BUF_RANGES - 1);
-> +	BUILD_BUG_ON(ARRAY_SIZE(drm_dsc_rc_buf_thresh) !=
-> +		     ARRAY_SIZE(vdsc_cfg->rc_buf_thresh));
-> +
-> +	for (i = 0; i < ARRAY_SIZE(drm_dsc_rc_buf_thresh); i++)
-> +		vdsc_cfg->rc_buf_thresh[i] = drm_dsc_rc_buf_thresh[i] >> 6;
-> +
-> +	/*
-> +	 * For 6bpp, RC Buffer threshold 12 and 13 need a different value
-> +	 * as per C Model
-> +	 */
-> +	if (vdsc_cfg->bits_per_pixel == 6 << 4) {
-> +		vdsc_cfg->rc_buf_thresh[12] = 7936 >> 6;
-> +		vdsc_cfg->rc_buf_thresh[13] = 8000 >> 6;
-> +	}
-> +}
-> +EXPORT_SYMBOL(drm_dsc_set_rc_buf_thresh);
-> +
->  /**
->   * drm_dsc_compute_rc_parameters() - Write rate control
->   * parameters to the dsc configuration defined in
-> diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-> index 7003ae9f683a..2fd08375bbe3 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-> @@ -37,12 +37,6 @@ enum COLUMN_INDEX_BPC {
->  	MAX_COLUMN_INDEX
->  };
->  
-> -/* From DSC_v1.11 spec, rc_parameter_Set syntax element typically constant */
-> -static const u16 rc_buf_thresh[] = {
-> -	896, 1792, 2688, 3584, 4480, 5376, 6272, 6720, 7168, 7616,
-> -	7744, 7872, 8000, 8064
-> -};
-> -
->  struct rc_parameters {
->  	u16 initial_xmit_delay;
->  	u8 first_line_bpg_offset;
-> @@ -543,23 +537,7 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
->  
->  	vdsc_cfg->bits_per_component = pipe_config->pipe_bpp / 3;
->  
-> -	for (i = 0; i < DSC_NUM_BUF_RANGES - 1; i++) {
-> -		/*
-> -		 * six 0s are appended to the lsb of each threshold value
-> -		 * internally in h/w.
-> -		 * Only 8 bits are allowed for programming RcBufThreshold
-> -		 */
-> -		vdsc_cfg->rc_buf_thresh[i] = rc_buf_thresh[i] >> 6;
-> -	}
-> -
-> -	/*
-> -	 * For 6bpp, RC Buffer threshold 12 and 13 need a different value
-> -	 * as per C Model
-> -	 */
-> -	if (compressed_bpp == 6) {
-> -		vdsc_cfg->rc_buf_thresh[12] = 0x7C;
-> -		vdsc_cfg->rc_buf_thresh[13] = 0x7D;
-> -	}
-> +	drm_dsc_set_rc_buf_thresh(vdsc_cfg);
->  
->  	/*
->  	 * From XE_LPD onwards we supports compression bpps in steps of 1
-> diff --git a/include/drm/display/drm_dsc_helper.h b/include/drm/display/drm_dsc_helper.h
-> index 8b41edbbabab..706ba1d34742 100644
-> --- a/include/drm/display/drm_dsc_helper.h
-> +++ b/include/drm/display/drm_dsc_helper.h
-> @@ -14,6 +14,7 @@ void drm_dsc_dp_pps_header_init(struct dp_sdp_header *pps_header);
->  int drm_dsc_dp_rc_buffer_size(u8 rc_buffer_block_size, u8 rc_buffer_size);
->  void drm_dsc_pps_payload_pack(struct drm_dsc_picture_parameter_set *pps_sdp,
->  			      const struct drm_dsc_config *dsc_cfg);
-> +void drm_dsc_set_rc_buf_thresh(struct drm_dsc_config *vdsc_cfg);
->  int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg);
->  
->  #endif /* _DRM_DSC_HELPER_H_ */
-> -- 
-> 2.39.2
-> 
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/index.html
+
+Participating hosts (36 -> 36)
+------------------------------
+
+  Additional (1): fi-kbl-soraka 
+  Missing    (1): fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_117458v3 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][1] ([fdo#109271] / [i915#2190])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html
+
+  * igt@gem_lmem_swapping@basic:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][2] ([fdo#109271] / [i915#4613]) +3 similar issues
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html
+
+  * igt@i915_selftest@live@gt_pm:
+    - fi-kbl-soraka:      NOTRUN -> [DMESG-FAIL][3] ([i915#1886] / [i915#7913])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html
+
+  * igt@i915_selftest@live@hangcheck:
+    - bat-dg2-11:         [PASS][4] -> [ABORT][5] ([i915#7913] / [i915#7979])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13166/bat-dg2-11/igt@i915_selftest@live@hangcheck.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/bat-dg2-11/igt@i915_selftest@live@hangcheck.html
+
+  * igt@i915_selftest@live@reset:
+    - bat-rpls-1:         [PASS][6] -> [ABORT][7] ([i915#4983] / [i915#7461] / [i915#8347] / [i915#8384])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13166/bat-rpls-1/igt@i915_selftest@live@reset.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/bat-rpls-1/igt@i915_selftest@live@reset.html
+
+  * igt@kms_chamelium_frames@hdmi-crc-fast:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][8] ([fdo#109271]) +14 similar issues
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/fi-kbl-soraka/igt@kms_chamelium_frames@hdmi-crc-fast.html
+
+  * igt@kms_setmode@basic-clone-single-crtc:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][9] ([fdo#109271] / [i915#4579])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/fi-kbl-soraka/igt@kms_setmode@basic-clone-single-crtc.html
+
+  
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#1886]: https://gitlab.freedesktop.org/drm/intel/issues/1886
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#4579]: https://gitlab.freedesktop.org/drm/intel/issues/4579
+  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
+  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
+  [i915#7461]: https://gitlab.freedesktop.org/drm/intel/issues/7461
+  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
+  [i915#7979]: https://gitlab.freedesktop.org/drm/intel/issues/7979
+  [i915#8347]: https://gitlab.freedesktop.org/drm/intel/issues/8347
+  [i915#8384]: https://gitlab.freedesktop.org/drm/intel/issues/8384
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_13166 -> Patchwork_117458v3
+
+  CI-20190529: 20190529
+  CI_DRM_13166: d517ff66aa5fd8e8fd71831eb218aa6d1bb1a3c5 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7296: f58eaf30c30c1cc9f00c8b5c596ee5c94d054198 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_117458v3: d517ff66aa5fd8e8fd71831eb218aa6d1bb1a3c5 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+e460e25a1e46 drm/i915: Fix memory leaks in function live_nop_switch
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/index.html
+
+--===============3707981738906788796==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Fix memory leaks in function live_nop_switch (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/117458/">https://patchwork.freedesktop.org/series/117458/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_13166 -&gt; Patchwork_117458v3</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/index.html</p>
+<h2>Participating hosts (36 -&gt; 36)</h2>
+<p>Additional (1): fi-kbl-soraka <br />
+  Missing    (1): fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_117458v3 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_lmem_swapping@basic:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_pm:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1886">i915#1886</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13166/bat-dg2-11/igt@i915_selftest@live@hangcheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/bat-dg2-11/igt@i915_selftest@live@hangcheck.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7979">i915#7979</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@reset:</p>
+<ul>
+<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13166/bat-rpls-1/igt@i915_selftest@live@reset.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/bat-rpls-1/igt@i915_selftest@live@reset.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7461">i915#7461</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8347">i915#8347</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8384">i915#8384</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium_frames@hdmi-crc-fast:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/fi-kbl-soraka/igt@kms_chamelium_frames@hdmi-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +14 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_setmode@basic-clone-single-crtc:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117458v3/fi-kbl-soraka/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4579">i915#4579</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_13166 -&gt; Patchwork_117458v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_13166: d517ff66aa5fd8e8fd71831eb218aa6d1bb1a3c5 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7296: f58eaf30c30c1cc9f00c8b5c596ee5c94d054198 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_117458v3: d517ff66aa5fd8e8fd71831eb218aa6d1bb1a3c5 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>e460e25a1e46 drm/i915: Fix memory leaks in function live_nop_switch</p>
+
+</body>
+</html>
+
+--===============3707981738906788796==--
