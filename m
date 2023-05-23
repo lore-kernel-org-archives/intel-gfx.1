@@ -4,50 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84326C77B75
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 May 2023 10:12:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 668C9C77B75
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 May 2023 10:18:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D864E10E430;
-	Tue, 23 May 2023 10:12:46 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7042910E422
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 May 2023 10:12:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD7F810E421;
+	Tue, 23 May 2023 10:18:33 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B781310E423
+ for <intel-gfx@lists.freedesktop.org>; Tue, 23 May 2023 10:18:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1684836764; x=1716372764;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=OxDPqLUTlAb+ZbHYR3M1swn0MAcKXCXhZVo+yKMjJUU=;
- b=K6xmQdCnzvdyJssQaHWPOGcxdIAmx/khb3VuJgJ9WRtFEp2wfpl82FV3
- tWwyCnQnDWM7G1OdIQQwYayCpiiG0JKS5MdmR1lE+63TUic+qe6BhHMqS
- 74lCZqNsu/dE6zavRi1y73L3zjX62iThhNI2StFOEn90XqZ245+LgepNg
- VssY5I1Xi2snN4f6/oaWe9v9f9LTxQ7xbTdd1QnietOvuQHWCPrA97L3n
- +dV/7sxHCMUGFU+pQ94QXDvfotRXGoj0hn5Hz6xq4IjtgnrzVJAfQBikv
- oQdLrqWBqbXeZ2qZ0nKeHjFk1sN3PeV6RX9pYsXnQAiYVulgTHAouFHdw A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="352042052"
-X-IronPort-AV: E=Sophos;i="6.00,185,1681196400"; d="scan'208";a="352042052"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2023 03:12:43 -0700
+ t=1684837112; x=1716373112;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=RIC53of12yxgK3kckZfDmDM+DN43VHtHBHZ9Dz/aJuw=;
+ b=bS5Ow8nAXEth1RaGob2qIwjmKgbMxH5oTF6GNZLt+bLcBMCZ2de1kHGu
+ 0odr6KI/OXzUvbVJHZzD2URzMBAeBCrTPSa1aGgP5x/1ZqJBldCV4cWd+
+ uYGQGwZEcC4hiyQiPtL4u/Iy9bKFRWqt8Ots+7iqNglxMtqwqn2KGr+G5
+ ga2V7uOuZ/pPBeJdE22OwgA3Kc/7mnOIp/sxkoFp1Do5feRTXaowmLGWM
+ EmzK6GDVI8qmTGlyXIxDNutZjKMOTi5G7x4mgN96t3fN+3jYmDNSDMfHs
+ 7Xnw7Kw1QApGGKyjHxXK2rv/QlDe3VcLQB6e6M2K0ufJO0FeEohKFU/4J A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="342656865"
+X-IronPort-AV: E=Sophos;i="6.00,185,1681196400"; d="scan'208";a="342656865"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 May 2023 03:18:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="654321341"
-X-IronPort-AV: E=Sophos;i="6.00,185,1681196400"; d="scan'208";a="654321341"
-Received: from chauvina-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.53.70])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 May 2023 03:12:41 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Arun R Murthy <arun.r.murthy@intel.com>, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20230518094916.1142812-3-arun.r.murthy@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230518094916.1142812-1-arun.r.murthy@intel.com>
- <20230518094916.1142812-3-arun.r.murthy@intel.com>
-Date: Tue, 23 May 2023 13:12:39 +0300
-Message-ID: <87y1lfl5k8.fsf@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10718"; a="816083332"
+X-IronPort-AV: E=Sophos;i="6.00,185,1681196400"; d="scan'208";a="816083332"
+Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
+ by fmsmga002.fm.intel.com with ESMTP; 23 May 2023 03:18:28 -0700
+From: Suraj Kandpal <suraj.kandpal@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 23 May 2023 15:46:50 +0530
+Message-Id: <20230523101651.1282681-2-suraj.kandpal@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230523101651.1282681-1-suraj.kandpal@intel.com>
+References: <20230523101651.1282681-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH 3/6] drm/i915/display: global histogram
- restrictions
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 1/2] drm/i915/dsc: Move rc param calculation for
+ native_420
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,68 +60,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 18 May 2023, Arun R Murthy <arun.r.murthy@intel.com> wrote:
-> For global histogram the panel should be edp and should have pwm based
-> backlight controller. Flags are updated accordingly.
->
-> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
-> Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_modeset_setup.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-> index cd21b0ddbabb..975d6bdb59f3 100644
-> --- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-> +++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-> @@ -17,12 +17,14 @@
->  #include "intel_crtc_state_dump.h"
->  #include "intel_ddi.h"
->  #include "intel_de.h"
-> +#include "intel_dp.h"
->  #include "intel_display.h"
->  #include "intel_display_power.h"
->  #include "intel_display_types.h"
->  #include "intel_modeset_setup.h"
->  #include "intel_pch_display.h"
->  #include "intel_pm.h"
-> +#include "intel_global_hist.h"
->  
->  static void intel_crtc_disable_noatomic(struct intel_crtc *crtc,
->  					struct drm_modeset_acquire_ctx *ctx)
-> @@ -309,6 +311,7 @@ static void intel_sanitize_encoder(struct intel_encoder *encoder)
->  	struct intel_crtc *crtc = to_intel_crtc(encoder->base.crtc);
->  	struct intel_crtc_state *crtc_state = crtc ?
->  		to_intel_crtc_state(crtc->base.state) : NULL;
-> +	struct intel_panel *panel;
->  
->  	/*
->  	 * We need to check both for a crtc link (meaning that the encoder is
-> @@ -376,6 +379,15 @@ static void intel_sanitize_encoder(struct intel_encoder *encoder)
->  
->  	if (HAS_DDI(i915))
->  		intel_ddi_sanitize_encoder_pll_mapping(encoder);
-> +
-> +	/* validate the global hist struct elements */
-> +	if (intel_dp_is_port_edp(i915, encoder->port)) {
-> +		crtc->global_hist->has_edp = true;
-> +		panel = &connector->panel;
-> +		if (panel->backlight.present == true)
-> +			crtc->global_hist->has_pwm = true;
-> +	}
+Move rc_param calculation for native_420 into calculate_rc_parameter.
 
-Again, the dependency on eDP and backlight is unnecessary policy.
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_vdsc.c | 28 +++++++++++++----------
+ 1 file changed, 16 insertions(+), 12 deletions(-)
 
-Side note, backlight being present doesn't mean "has pwm". It could be
-some other kind of backlight as well.
-
-BR,
-Jani.
-
-> +
->  }
->  
->  /* FIXME read out full plane state for all planes */
-
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+index bd9116d2cd76..c64a38363e02 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.c
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+@@ -78,6 +78,22 @@ calculate_rc_params(struct drm_dsc_config *vdsc_cfg)
+ 	else
+ 		vdsc_cfg->first_line_bpg_offset = 2 * (vdsc_cfg->slice_height - 1);
+ 
++	/* According to DSC 1.2 specs in Section 4.1 if native_420 is set:
++	 * -second_line_bpg_offset is 12 in general and equal to 2*(slice_height-1) if slice
++	 * height < 8.
++	 * -second_line_offset_adj is 512 as shown by emperical values to yeild best chroma
++	 * preservation in second line.
++	 */
++	if (vdsc_cfg->native_420) {
++		if (vdsc_cfg->slice_height >= 8)
++			vdsc_cfg->second_line_bpg_offset = 12;
++		else
++			vdsc_cfg->second_line_bpg_offset =
++				2 * (vdsc_cfg->slice_height - 1);
++
++		vdsc_cfg->second_line_offset_adj = 512;
++	}
++
+ 	/* Our hw supports only 444 modes as of today */
+ 	if (bpp >= 12)
+ 		vdsc_cfg->initial_offset = 2048;
+@@ -192,24 +208,12 @@ int intel_dsc_compute_params(struct intel_crtc_state *pipe_config)
+ 	/*
+ 	 * According to DSC 1.2 specs in Section 4.1 if native_420 is set:
+ 	 * -We need to double the current bpp.
+-	 * -second_line_bpg_offset is 12 in general and equal to 2*(slice_height-1) if slice
+-	 * height < 8.
+-	 * -second_line_offset_adj is 512 as shown by emperical values to yeild best chroma
+-	 * preservation in second line.
+ 	 * -nsl_bpg_offset is calculated as second_line_offset/slice_height -1 then rounded
+ 	 * up to 16 fractional bits, we left shift second line offset by 11 to preserve 11
+ 	 * fractional bits.
+ 	 */
+ 	if (vdsc_cfg->native_420) {
+ 		vdsc_cfg->bits_per_pixel <<= 1;
+-
+-		if (vdsc_cfg->slice_height >= 8)
+-			vdsc_cfg->second_line_bpg_offset = 12;
+-		else
+-			vdsc_cfg->second_line_bpg_offset =
+-				2 * (vdsc_cfg->slice_height - 1);
+-
+-		vdsc_cfg->second_line_offset_adj = 512;
+ 		vdsc_cfg->nsl_bpg_offset = DIV_ROUND_UP(vdsc_cfg->second_line_bpg_offset << 11,
+ 							vdsc_cfg->slice_height - 1);
+ 	}
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.25.1
+
