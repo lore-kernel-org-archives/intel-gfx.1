@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B31AC7EE26
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 May 2023 22:51:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03465C7EE26
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 May 2023 23:05:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71D1A10E54F;
-	Tue, 23 May 2023 22:51:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CCDD10E553;
+	Tue, 23 May 2023 23:05:01 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id F0E6D10E54D;
- Tue, 23 May 2023 22:51:36 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id EADE110E553;
+ Tue, 23 May 2023 23:04:59 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id E825FAADD8;
- Tue, 23 May 2023 22:51:36 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+ by emeril.freedesktop.org (Postfix) with ESMTP id E3C7EAADE8;
+ Tue, 23 May 2023 23:04:59 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7482483943711299783=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Matt Roper" <matthew.d.roper@intel.com>
-Date: Tue, 23 May 2023 22:51:36 -0000
-Message-ID: <168488229692.14424.2123779928977030834@emeril.freedesktop.org>
+Date: Tue, 23 May 2023 23:04:59 -0000
+Message-ID: <168488309989.14424.7115651305478557412@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20230523195609.73627-1-matthew.d.roper@intel.com>
 In-Reply-To: <20230523195609.73627-1-matthew.d.roper@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_i915=3A_Move_display_identification/probing_under_display/_?=
- =?utf-8?b?KHJldjQp?=
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgaTkx?=
+ =?utf-8?q?5=3A_Move_display_identification/probing_under_display/_=28rev4?=
+ =?utf-8?q?=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,164 +46,286 @@ Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============7482483943711299783==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
 == Series Details ==
 
 Series: i915: Move display identification/probing under display/ (rev4)
 URL   : https://patchwork.freedesktop.org/series/117931/
-State : warning
+State : success
 
 == Summary ==
 
-Error: dim checkpatch failed
-7ffe6d000c98 drm/i915/display: Move display device info to header under display/
-Traceback (most recent call last):
-  File "scripts/spdxcheck.py", line 6, in <module>
-    from ply import lex, yacc
-ModuleNotFoundError: No module named 'ply'
--:16: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#16: 
-new file mode 100644
+CI Bug Log - changes from CI_DRM_13180 -> Patchwork_117931v4
+====================================================
 
--:33: ERROR:MULTISTATEMENT_MACRO_USE_DO_WHILE: Macros with multiple statements should be enclosed in a do - while loop
-#33: FILE: drivers/gpu/drm/i915/display/intel_display_device.h:13:
-+#define DEV_INFO_DISPLAY_FOR_EACH_FLAG(func) \
-+	/* Keep in alphabetical order */ \
-+	func(cursor_needs_physical); \
-+	func(has_cdclk_crawl); \
-+	func(has_cdclk_squash); \
-+	func(has_ddi); \
-+	func(has_dp_mst); \
-+	func(has_dsb); \
-+	func(has_fpga_dbg); \
-+	func(has_gmch); \
-+	func(has_hotplug); \
-+	func(has_hti); \
-+	func(has_ipc); \
-+	func(has_overlay); \
-+	func(has_psr); \
-+	func(has_psr_hw_tracking); \
-+	func(overlay_needs_physical); \
-+	func(supports_tv);
+Summary
+-------
 
--:33: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'func' - possible side-effects?
-#33: FILE: drivers/gpu/drm/i915/display/intel_display_device.h:13:
-+#define DEV_INFO_DISPLAY_FOR_EACH_FLAG(func) \
-+	/* Keep in alphabetical order */ \
-+	func(cursor_needs_physical); \
-+	func(has_cdclk_crawl); \
-+	func(has_cdclk_squash); \
-+	func(has_ddi); \
-+	func(has_dp_mst); \
-+	func(has_dsb); \
-+	func(has_fpga_dbg); \
-+	func(has_gmch); \
-+	func(has_hotplug); \
-+	func(has_hti); \
-+	func(has_ipc); \
-+	func(has_overlay); \
-+	func(has_psr); \
-+	func(has_psr_hw_tracking); \
-+	func(overlay_needs_physical); \
-+	func(supports_tv);
+  **SUCCESS**
 
--:33: WARNING:TRAILING_SEMICOLON: macros should not use a trailing semicolon
-#33: FILE: drivers/gpu/drm/i915/display/intel_display_device.h:13:
-+#define DEV_INFO_DISPLAY_FOR_EACH_FLAG(func) \
-+	/* Keep in alphabetical order */ \
-+	func(cursor_needs_physical); \
-+	func(has_cdclk_crawl); \
-+	func(has_cdclk_squash); \
-+	func(has_ddi); \
-+	func(has_dp_mst); \
-+	func(has_dsb); \
-+	func(has_fpga_dbg); \
-+	func(has_gmch); \
-+	func(has_hotplug); \
-+	func(has_hti); \
-+	func(has_ipc); \
-+	func(has_overlay); \
-+	func(has_psr); \
-+	func(has_psr_hw_tracking); \
-+	func(overlay_needs_physical); \
-+	func(supports_tv);
+  No regressions found.
 
-total: 1 errors, 2 warnings, 1 checks, 127 lines checked
-6294f58b3d62 drm/i915: Convert INTEL_INFO()->display to a pointer
--:241: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
-#241: FILE: drivers/gpu/drm/i915/display/intel_display_reg_defs.h:43:
-+					      DISPLAY_INFO(dev_priv)->trans_offsets[TRANSCODER_A] + \
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/index.html
 
--:1742: CHECK:MACRO_ARG_PRECEDENCE: Macro argument 'name' may be better as '(name)' to avoid precedence issues
-#1742: FILE: drivers/gpu/drm/i915/intel_device_info.c:141:
-+#define PRINT_FLAG(name) drm_printf(p, "%s: %s\n", #name, str_yes_no(info->display->name))
+Participating hosts (40 -> 39)
+------------------------------
 
-total: 0 errors, 1 warnings, 1 checks, 1610 lines checked
-cebe73c61b1a drm/i915/display: Move display runtime info to display structure
--:71: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'p' - possible side-effects?
-#71: FILE: drivers/gpu/drm/i915/display/intel_display.h:108:
-+#define sprite_name(p, s) ((p) * DISPLAY_RUNTIME_INFO(dev_priv)->num_sprites[(p)] + (s) + 'A')
+  Missing    (1): fi-snb-2520m 
 
--:89: WARNING:SPACING: space prohibited between function name and open parenthesis '('
-#89: FILE: drivers/gpu/drm/i915/display/intel_display.h:232:
-+		for_each_if (DISPLAY_RUNTIME_INFO(__dev_priv)->cpu_transcoder_mask & BIT(__t))
+Known issues
+------------
 
--:197: WARNING:LONG_LINE_COMMENT: line length of 101 exceeds 100 columns
-#197: FILE: drivers/gpu/drm/i915/i915_drv.h:208:
-+	struct intel_display_runtime_info __display_runtime; /* Access with DISPLAY_RUNTIME_INFO() */
+  Here are the changes found in Patchwork_117931v4 that come from known issues:
 
--:232: WARNING:LONG_LINE: line length of 110 exceeds 100 columns
-#232: FILE: drivers/gpu/drm/i915/i915_drv.h:836:
-+#define HAS_TRANSCODER(i915, trans)	 ((DISPLAY_RUNTIME_INFO(i915)->cpu_transcoder_mask & BIT(trans)) != 0)
+### IGT changes ###
 
-total: 0 errors, 3 warnings, 1 checks, 1066 lines checked
-401e0dc719b0 drm/i915/display: Make display responsible for probing its own IP
-Traceback (most recent call last):
-  File "scripts/spdxcheck.py", line 6, in <module>
-    from ply import lex, yacc
-ModuleNotFoundError: No module named 'ply'
--:46: WARNING:FILE_PATH_CHANGES: added, moved or deleted file(s), does MAINTAINERS need updating?
-#46: 
-new file mode 100644
+#### Issues hit ####
 
-total: 0 errors, 1 warnings, 0 checks, 1898 lines checked
-f63573931151 drm/i915/display: Handle GMD_ID identification in display code
-9be3f41b9537 drm/i915/display: Move feature test macros to intel_display_device.h
--:24: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'i915' - possible side-effects?
-#24: FILE: drivers/gpu/drm/i915/display/intel_display_device.h:37:
-+#define HAS_CUR_FBC(i915)		(!HAS_GMCH(i915) && DISPLAY_VER(i915) >= 7)
+  * igt@gem_lmem_swapping@verify-random:
+    - fi-cfl-8109u:       NOTRUN -> [SKIP][1] ([fdo#109271] / [i915#4613]) +3 similar issues
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/fi-cfl-8109u/igt@gem_lmem_swapping@verify-random.html
 
--:25: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'i915' - possible side-effects?
-#25: FILE: drivers/gpu/drm/i915/display/intel_display_device.h:38:
-+#define HAS_D12_PLANE_MINIMIZATION(i915) (IS_ROCKETLAKE(i915) || IS_ALDERLAKE_S(i915))
+  * igt@i915_selftest@live@gt_lrc:
+    - bat-adlp-9:         [PASS][2] -> [INCOMPLETE][3] ([i915#4983] / [i915#7913])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13180/bat-adlp-9/igt@i915_selftest@live@gt_lrc.html
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/bat-adlp-9/igt@i915_selftest@live@gt_lrc.html
 
--:29: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'i915' - possible side-effects?
-#29: FILE: drivers/gpu/drm/i915/display/intel_display_device.h:42:
-+#define HAS_DOUBLE_BUFFERED_M_N(i915)	(DISPLAY_VER(i915) >= 9 || IS_BROADWELL(i915))
+  * igt@i915_selftest@live@reset:
+    - bat-rpls-1:         [PASS][4] -> [ABORT][5] ([i915#4983] / [i915#7461] / [i915#8347] / [i915#8384])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13180/bat-rpls-1/igt@i915_selftest@live@reset.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/bat-rpls-1/igt@i915_selftest@live@reset.html
 
--:31: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'i915' - possible side-effects?
-#31: FILE: drivers/gpu/drm/i915/display/intel_display_device.h:44:
-+#define HAS_DP20(i915)			(IS_DG2(i915) || DISPLAY_VER(i915) >= 14)
+  * igt@i915_selftest@live@slpc:
+    - bat-rpls-2:         [PASS][6] -> [DMESG-WARN][7] ([i915#6367])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13180/bat-rpls-2/igt@i915_selftest@live@slpc.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/bat-rpls-2/igt@i915_selftest@live@slpc.html
 
--:39: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'i915' - possible side-effects?
-#39: FILE: drivers/gpu/drm/i915/display/intel_display_device.h:52:
-+#define HAS_GMBUS_BURST_READ(i915)	(DISPLAY_VER(i915) >= 10 || IS_KABYLAKE(i915))
+  * igt@kms_chamelium_frames@hdmi-crc-fast:
+    - fi-cfl-8109u:       NOTRUN -> [SKIP][8] ([fdo#109271]) +16 similar issues
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/fi-cfl-8109u/igt@kms_chamelium_frames@hdmi-crc-fast.html
 
--:41: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'i915' - possible side-effects?
-#41: FILE: drivers/gpu/drm/i915/display/intel_display_device.h:54:
-+#define HAS_HW_SAGV_WM(i915)		(DISPLAY_VER(i915) >= 13 && !IS_DGFX(i915))
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-1:
+    - bat-dg2-8:          [PASS][9] -> [FAIL][10] ([i915#7932]) +1 similar issue
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13180/bat-dg2-8/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-1.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/bat-dg2-8/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-1.html
 
--:43: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'i915' - possible side-effects?
-#43: FILE: drivers/gpu/drm/i915/display/intel_display_device.h:56:
-+#define HAS_IPS(i915)			(IS_HSW_ULT(i915) || IS_BROADWELL(i915))
+  * igt@kms_setmode@basic-clone-single-crtc:
+    - fi-cfl-8109u:       NOTRUN -> [SKIP][11] ([fdo#109271] / [i915#4579])
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/fi-cfl-8109u/igt@kms_setmode@basic-clone-single-crtc.html
 
--:45: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'i915' - possible side-effects?
-#45: FILE: drivers/gpu/drm/i915/display/intel_display_device.h:58:
-+#define HAS_MBUS_JOINING(i915)		(IS_ALDERLAKE_P(i915) || DISPLAY_VER(i915) >= 14)
+  
+#### Possible fixes ####
 
--:51: CHECK:MACRO_ARG_REUSE: Macro argument reuse 'i915' - possible side-effects?
-#51: FILE: drivers/gpu/drm/i915/display/intel_display_device.h:64:
-+#define HAS_SAGV(i915)			(DISPLAY_VER(i915) >= 9 && !IS_LP(i915))
+  * igt@i915_selftest@live@gt_mocs:
+    - {bat-mtlp-8}:       [DMESG-FAIL][12] ([i915#7059]) -> [PASS][13]
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13180/bat-mtlp-8/igt@i915_selftest@live@gt_mocs.html
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/bat-mtlp-8/igt@i915_selftest@live@gt_mocs.html
 
-total: 0 errors, 0 warnings, 9 checks, 161 lines checked
+  * igt@i915_selftest@live@hangcheck:
+    - fi-skl-guc:         [DMESG-WARN][14] ([i915#8073]) -> [PASS][15]
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13180/fi-skl-guc/igt@i915_selftest@live@hangcheck.html
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/fi-skl-guc/igt@i915_selftest@live@hangcheck.html
+
+  * igt@i915_selftest@live@requests:
+    - {bat-mtlp-8}:       [DMESG-FAIL][16] ([i915#8497]) -> [PASS][17]
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13180/bat-mtlp-8/igt@i915_selftest@live@requests.html
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/bat-mtlp-8/igt@i915_selftest@live@requests.html
+
+  * igt@i915_selftest@live@slpc:
+    - {bat-mtlp-8}:       [DMESG-WARN][18] ([i915#6367]) -> [PASS][19]
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13180/bat-mtlp-8/igt@i915_selftest@live@slpc.html
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/bat-mtlp-8/igt@i915_selftest@live@slpc.html
+
+  * igt@kms_busy@basic@flip:
+    - fi-cfl-8109u:       [INCOMPLETE][20] -> [PASS][21]
+   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13180/fi-cfl-8109u/igt@kms_busy@basic@flip.html
+   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/fi-cfl-8109u/igt@kms_busy@basic@flip.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#4423]: https://gitlab.freedesktop.org/drm/intel/issues/4423
+  [i915#4579]: https://gitlab.freedesktop.org/drm/intel/issues/4579
+  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
+  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
+  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
+  [i915#7059]: https://gitlab.freedesktop.org/drm/intel/issues/7059
+  [i915#7461]: https://gitlab.freedesktop.org/drm/intel/issues/7461
+  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
+  [i915#7932]: https://gitlab.freedesktop.org/drm/intel/issues/7932
+  [i915#8073]: https://gitlab.freedesktop.org/drm/intel/issues/8073
+  [i915#8189]: https://gitlab.freedesktop.org/drm/intel/issues/8189
+  [i915#8347]: https://gitlab.freedesktop.org/drm/intel/issues/8347
+  [i915#8384]: https://gitlab.freedesktop.org/drm/intel/issues/8384
+  [i915#8497]: https://gitlab.freedesktop.org/drm/intel/issues/8497
 
 
+Build changes
+-------------
+
+  * Linux: CI_DRM_13180 -> Patchwork_117931v4
+
+  CI-20190529: 20190529
+  CI_DRM_13180: e48bc7435824325de6a73fae68dc521e2be13960 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7301: 4b388fa87e1281587e723ef864e466fe396c3381 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_117931v4: e48bc7435824325de6a73fae68dc521e2be13960 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+3ac3b7603308 drm/i915/display: Move feature test macros to intel_display_device.h
+3691db797410 drm/i915/display: Handle GMD_ID identification in display code
+e9a78c6277a9 drm/i915/display: Make display responsible for probing its own IP
+f514dec300e8 drm/i915/display: Move display runtime info to display structure
+eaa46e9f4aef drm/i915: Convert INTEL_INFO()->display to a pointer
+7770ba21d5cc drm/i915/display: Move display device info to header under display/
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/index.html
+
+--===============7482483943711299783==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>i915: Move display identification/probing under display/ (rev4)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/117931/">https://patchwork.freedesktop.org/series/117931/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_13180 -&gt; Patchwork_117931v4</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_117931v4 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_lmem_swapping@verify-random:</p>
+<ul>
+<li>fi-cfl-8109u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/fi-cfl-8109u/igt@gem_lmem_swapping@verify-random.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_lrc:</p>
+<ul>
+<li>bat-adlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13180/bat-adlp-9/igt@i915_selftest@live@gt_lrc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/bat-adlp-9/igt@i915_selftest@live@gt_lrc.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@reset:</p>
+<ul>
+<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13180/bat-rpls-1/igt@i915_selftest@live@reset.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/bat-rpls-1/igt@i915_selftest@live@reset.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7461">i915#7461</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8347">i915#8347</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8384">i915#8384</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@slpc:</p>
+<ul>
+<li>bat-rpls-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13180/bat-rpls-2/igt@i915_selftest@live@slpc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/bat-rpls-2/igt@i915_selftest@live@slpc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6367">i915#6367</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium_frames@hdmi-crc-fast:</p>
+<ul>
+<li>fi-cfl-8109u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/fi-cfl-8109u/igt@kms_chamelium_frames@hdmi-crc-fast.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +16 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-1:</p>
+<ul>
+<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13180/bat-dg2-8/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-1.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/bat-dg2-8/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-1.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7932">i915#7932</a>) +1 similar issue</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_setmode@basic-clone-single-crtc:</p>
+<ul>
+<li>fi-cfl-8109u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/fi-cfl-8109u/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4579">i915#4579</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@gt_mocs:</p>
+<ul>
+<li>{bat-mtlp-8}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13180/bat-mtlp-8/igt@i915_selftest@live@gt_mocs.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7059">i915#7059</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/bat-mtlp-8/igt@i915_selftest@live@gt_mocs.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>fi-skl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13180/fi-skl-guc/igt@i915_selftest@live@hangcheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8073">i915#8073</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/fi-skl-guc/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@requests:</p>
+<ul>
+<li>{bat-mtlp-8}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13180/bat-mtlp-8/igt@i915_selftest@live@requests.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8497">i915#8497</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/bat-mtlp-8/igt@i915_selftest@live@requests.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@slpc:</p>
+<ul>
+<li>{bat-mtlp-8}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13180/bat-mtlp-8/igt@i915_selftest@live@slpc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6367">i915#6367</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/bat-mtlp-8/igt@i915_selftest@live@slpc.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_busy@basic@flip:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13180/fi-cfl-8109u/igt@kms_busy@basic@flip.html">INCOMPLETE</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117931v4/fi-cfl-8109u/igt@kms_busy@basic@flip.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_13180 -&gt; Patchwork_117931v4</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_13180: e48bc7435824325de6a73fae68dc521e2be13960 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7301: 4b388fa87e1281587e723ef864e466fe396c3381 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_117931v4: e48bc7435824325de6a73fae68dc521e2be13960 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>3ac3b7603308 drm/i915/display: Move feature test macros to intel_display_device.h<br />
+3691db797410 drm/i915/display: Handle GMD_ID identification in display code<br />
+e9a78c6277a9 drm/i915/display: Make display responsible for probing its own IP<br />
+f514dec300e8 drm/i915/display: Move display runtime info to display structure<br />
+eaa46e9f4aef drm/i915: Convert INTEL_INFO()-&gt;display to a pointer<br />
+7770ba21d5cc drm/i915/display: Move display device info to header under display/</p>
+
+</body>
+</html>
+
+--===============7482483943711299783==--
