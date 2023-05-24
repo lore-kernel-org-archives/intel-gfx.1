@@ -4,56 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4498C7EE45
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 May 2023 09:22:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69C51C7EE32
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 May 2023 09:22:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1B1A10E64D;
-	Wed, 24 May 2023 09:22:03 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C88D10E5C7;
- Wed, 24 May 2023 09:21:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 482B110E63F;
+	Wed, 24 May 2023 09:22:04 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E8AB10E5C8;
+ Wed, 24 May 2023 09:21:57 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A0A1D22490;
- Wed, 24 May 2023 09:21:53 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8DA361FDE6;
+ Wed, 24 May 2023 09:21:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1684920113; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1684920115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=kgjLMqrLBzhR2hNsQlia0YYpadV31biLJMb7B+8R+hM=;
- b=lh+cG2oyDJgKUGRrfCbMMcYIllL37HTBGeZ8PbecQuT0gAF0K1SZt3WMKI3l6fwsllCIxg
- h/Zue4dS8D8B1oSorFDEoQmpOm/5jAOxckulu52T9//fEelOFHDFwfOr3SbBGxvaNBrqx5
- Yt41Sspnahc2x4ke8fRWr0ulP1wSirA=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=VboR6P5Y8v7anRwiGC6Dqkjcqx1w/oYRokA4I/cAkvQ=;
+ b=qLtKgSF4GMEkW9IkcCsr1ssuXygdfVzt7JkAy16m5UaPoWyO2EsUNwlIubBg5ujXy2tLti
+ kIlNbZ+LSZsARlJmpULaxdE4qRhS25wjpi9Tc9Nq0fXb1/JdmCLi2v1e51r0/k7GlmiVEu
+ EwP9tEGqaFest+t4D+Fx4lEeuW3MHiY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1684920113;
+ s=susede2_ed25519; t=1684920115;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=kgjLMqrLBzhR2hNsQlia0YYpadV31biLJMb7B+8R+hM=;
- b=4q46w3w0JlfgjmM9ar69b00LchDBlqnbkZSCXY8+fKyKsBovCWKZ6KPO1Cb1UgIqgSMjqo
- jhQDZNlNty/XynCA==
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=VboR6P5Y8v7anRwiGC6Dqkjcqx1w/oYRokA4I/cAkvQ=;
+ b=TdVQov4MztWlJ0vA8hM02dpiljW/eiZnFOlqgTWF1PSkwuX1SYuOCYTC9Lww30D92lvG+D
+ MK49GCo4QS0P0pDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5E41913425;
- Wed, 24 May 2023 09:21:53 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3DB3B13425;
+ Wed, 24 May 2023 09:21:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id /gwvFjHXbWTHewAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Wed, 24 May 2023 09:21:53 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id WLs4DjPXbWTHewAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Wed, 24 May 2023 09:21:55 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, javierm@redhat.com, sam@ravnborg.org
-Date: Wed, 24 May 2023 11:21:37 +0200
-Message-Id: <20230524092150.11776-1-tzimmermann@suse.de>
+Date: Wed, 24 May 2023 11:21:43 +0200
+Message-Id: <20230524092150.11776-7-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230524092150.11776-1-tzimmermann@suse.de>
+References: <20230524092150.11776-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 00/13] drm/fbdev: Remove DRM's helpers for
- fbdev I/O
+Subject: [Intel-gfx] [PATCH v4 06/13] drm/radeon: Use regular fbdev I/O
+ helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,99 +71,78 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
  linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DRM provides a number of wrappers around fbdev cfb_() sys_(), fb_io_()
-and fb_sys_() helpers. The DRM functions don't provide any additional
-functionality for most DRM drivers. So remove them and call the fbdev
-I/O helpers directly.
+Use the regular fbdev helpers for framebuffer I/O instead of DRM's
+helpers. Radeon does not use damage handling, so DRM's fbdev helpers
+are mere wrappers around the fbdev code.
 
-The DRM fbdev I/O wrappers were originally added because <linux/fb.h>
-does not protect its content with CONFIG_FB. DRM fbdev emulation did
-not build if the config option had been disabled. This has been
-fixed. For fbdev-generic and i915, the wrappers added support for damage
-handling. But this is better handled within the two callers, as each
-is special in its damage handling.
-
-Patch 1 adds several internal Kconfig options that DRM drivers (and
-possibly other fbdev code) will use to select the correct set of I/O
-helpers. Patch 2 adds initializers for struct fb_ops and generator
-macros for the callback functions. These macros will simplify drivers.
-This patchset applies the new options and macros to DRM fbdev emulation,
-but regular fbdev drivers can use them as well.
-
-Patches 3 to 10 replace the DRM wrappers in a number of fbdev emulations.
-Patch 10 exports two helpers for damage handling. Patches 12 and 13
-update fbdev-generic and i915 with the help of the exported functions.
-The patches also remove DRM's fbdev I/O helpers, which are now unused.
-
-DRM's fbdev helpers had to select fbdev I/O helpers for I/O and for
-system memory. Each fbdev emulation now selects the correct helpers
-for itself. Depending on the selected DRM drivers, kernel builds will
-now only contain the necessary fbdev I/O helpers and might be slightly
-smaller in size.
+By using fbdev helpers directly within each DRM fbdev emulation,
+we can eventually remove DRM's wrapper functions entirely.
 
 v4:
-	* use initializer and generator macros for struct fb_ops
-	* partially support damage handling in msm (Dmitri)
-v3:
-	* fix Kconfig options (Jingfeng)
-	* minimize changes to exynos (Sam)
+	* use initializer macros for struct fb_ops
 v2:
-	* simplify Kconfig handling (Sam)
+	* use FB_IO_HELPERS option
 
-Thomas Zimmermann (13):
-  fbdev: Add Kconfig options to select different fb_ops helpers
-  fbdev: Add initializer macros for struct fb_ops
-  drm/armada: Use regular fbdev I/O helpers
-  drm/exynos: Use regular fbdev I/O helpers
-  drm/gma500: Use regular fbdev I/O helpers
-  drm/radeon: Use regular fbdev I/O helpers
-  drm/fbdev-dma: Use regular fbdev I/O helpers
-  drm/msm: Use regular fbdev I/O helpers
-  drm/omapdrm: Use regular fbdev I/O helpers
-  drm/tegra: Use regular fbdev I/O helpers
-  drm/fb-helper: Export helpers for marking damage areas
-  drm/fbdev-generic: Implement dedicated fbdev I/O helpers
-  drm/i915: Implement dedicated fbdev I/O helpers
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+---
+ drivers/gpu/drm/radeon/Kconfig        | 1 +
+ drivers/gpu/drm/radeon/radeon_fbdev.c | 9 +++------
+ 2 files changed, 4 insertions(+), 6 deletions(-)
 
- drivers/gpu/drm/Kconfig                    |  10 +-
- drivers/gpu/drm/armada/Kconfig             |   1 +
- drivers/gpu/drm/armada/armada_fbdev.c      |   7 +-
- drivers/gpu/drm/drm_fb_helper.c            | 236 ++-------------------
- drivers/gpu/drm/drm_fbdev_dma.c            |  11 +-
- drivers/gpu/drm/drm_fbdev_generic.c        |  11 +-
- drivers/gpu/drm/exynos/Kconfig             |   1 +
- drivers/gpu/drm/exynos/exynos_drm_fbdev.c  |   9 +-
- drivers/gpu/drm/gma500/Kconfig             |   1 +
- drivers/gpu/drm/gma500/fbdev.c             |   8 +-
- drivers/gpu/drm/i915/Kconfig               |   1 +
- drivers/gpu/drm/i915/display/intel_fbdev.c |  14 +-
- drivers/gpu/drm/msm/Kconfig                |   1 +
- drivers/gpu/drm/msm/msm_fbdev.c            |  17 +-
- drivers/gpu/drm/omapdrm/Kconfig            |   1 +
- drivers/gpu/drm/omapdrm/omap_fbdev.c       |  11 +-
- drivers/gpu/drm/radeon/Kconfig             |   1 +
- drivers/gpu/drm/radeon/radeon_fbdev.c      |   9 +-
- drivers/gpu/drm/tegra/Kconfig              |   1 +
- drivers/gpu/drm/tegra/fbdev.c              |   8 +-
- drivers/video/fbdev/Kconfig                |  21 ++
- include/drm/drm_fb_helper.h                |  83 +-------
- include/linux/fb.h                         | 112 ++++++++++
- 23 files changed, 212 insertions(+), 363 deletions(-)
-
-
-base-commit: 216281f91018b24567e59ae46ce7e96fb92063cf
-prerequisite-patch-id: 0aa359f6144c4015c140c8a6750be19099c676fb
-prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
-prerequisite-patch-id: cbc453ee02fae02af22fbfdce56ab732c7a88c36
-prerequisite-patch-id: 8bff2b12862e44027a25837ea7510f633d40839e
-prerequisite-patch-id: 97ac107455aff4e0ec039d166ecdd2430d20f22e
+diff --git a/drivers/gpu/drm/radeon/Kconfig b/drivers/gpu/drm/radeon/Kconfig
+index e19d77d58810..fe498c8af1bb 100644
+--- a/drivers/gpu/drm/radeon/Kconfig
++++ b/drivers/gpu/drm/radeon/Kconfig
+@@ -11,6 +11,7 @@ config DRM_RADEON
+ 	select DRM_SUBALLOC_HELPER
+         select DRM_TTM
+ 	select DRM_TTM_HELPER
++	select FB_IO_HELPERS if DRM_FBDEV_EMULATION
+ 	select SND_HDA_COMPONENT if SND_HDA_CORE
+ 	select POWER_SUPPLY
+ 	select HWMON
+diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c b/drivers/gpu/drm/radeon/radeon_fbdev.c
+index fe76e29910ef..28212c2d6c98 100644
+--- a/drivers/gpu/drm/radeon/radeon_fbdev.c
++++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
+@@ -24,6 +24,7 @@
+  *     David Airlie
+  */
+ 
++#include <linux/fb.h>
+ #include <linux/pci.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/vga_switcheroo.h>
+@@ -190,14 +191,10 @@ static void radeon_fbdev_fb_destroy(struct fb_info *info)
+ 
+ static const struct fb_ops radeon_fbdev_fb_ops = {
+ 	.owner = THIS_MODULE,
+-	DRM_FB_HELPER_DEFAULT_OPS,
+ 	.fb_open = radeon_fbdev_fb_open,
+ 	.fb_release = radeon_fbdev_fb_release,
+-	.fb_read = drm_fb_helper_cfb_read,
+-	.fb_write = drm_fb_helper_cfb_write,
+-	.fb_fillrect = drm_fb_helper_cfb_fillrect,
+-	.fb_copyarea = drm_fb_helper_cfb_copyarea,
+-	.fb_imageblit = drm_fb_helper_cfb_imageblit,
++	FB_DEFAULT_IO_OPS,
++	DRM_FB_HELPER_DEFAULT_OPS,
+ 	.fb_destroy = radeon_fbdev_fb_destroy,
+ };
+ 
 -- 
 2.40.1
 
