@@ -4,47 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D3C9C77B7A
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 May 2023 09:09:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E5E8C7EE2E
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 May 2023 09:09:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C083210E5C4;
-	Wed, 24 May 2023 09:09:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F94A10E5BF;
+	Wed, 24 May 2023 09:09:27 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1717D10E5BD
- for <intel-gfx@lists.freedesktop.org>; Wed, 24 May 2023 09:09:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7591310E5BD
+ for <intel-gfx@lists.freedesktop.org>; Wed, 24 May 2023 09:09:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1684919362; x=1716455362;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=cPMFMmBJGg7Y5ArcctLZJRGS9F+Hk9KlxCIAN5aAgk8=;
- b=HaSuoJo5SIYagB6+LeJco6cZhgGDtvNgCsMQvie1018gVRYAMGJzNtN7
- k4bRijZwdjn+DWEuVfcTvMzeulxxuU+MWFCJyNsmkFtoIy8Ts8q2YqImL
- DYQDpyW3ZkhRA6tFtjst0Ck0o8sc2EjH9Ujot05rz0D5YBI3tBrkWI3cP
- 29Z0Ju9fVVCUJFe3sp2HM4MQ6E2iHAi8iQXS+yZ7gCw+Jg5sez4KG+Hql
- EuUgqY7+F09W2WFFCjLoOIsPa2SnRSfdP+6xFnDQSHXx4m+LVGXNlvKD9
- CwyS91BRguQOK3xXr4vtb/l7YIgDukxkHKOj4kRhssl3+Pso+YsCtYzxF Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10719"; a="439862994"
-X-IronPort-AV: E=Sophos;i="6.00,188,1681196400"; d="scan'208";a="439862994"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=wC6ursTuNTRiiIqEaWAllf7wwUeb0Gq/ZXgyBrmQzH0=;
+ b=XK2pDa+5ErvH97nL2hj86OQaW4INb8IP5KZI3m4hYxCA1mT4jLL6O9ur
+ abfDiiOgRhjwT829KTtLUo0YnFVKF3w/bojFPwAwNjLEF/yDpKJGQa+mD
+ AcV4DyErnCpZJdO81EOP4krU90Z2V0f7Z592qC2XmW6Onff5fPi8zi5Fi
+ qS5JDs9bT+nWmjgflaSdwTmQiFivZfvsl9habzm16xLtLswFWq1reAiZT
+ QYZjBdEZHpr/Bii3i04HL+Bqd6TRbkCPx/L/EHNQw/BzPZHGpurwRieUZ
+ nxHCK3nBn5dskF9iLfyG1PH1C/i1A09PtTU5n9jfHtdsztxJ1o3OyKcxh g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10719"; a="439862999"
+X-IronPort-AV: E=Sophos;i="6.00,188,1681196400"; d="scan'208";a="439862999"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  24 May 2023 02:09:21 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10719"; a="681821449"
-X-IronPort-AV: E=Sophos;i="6.00,188,1681196400"; d="scan'208";a="681821449"
+X-IronPort-AV: E=McAfee;i="6600,9927,10719"; a="681821457"
+X-IronPort-AV: E=Sophos;i="6.00,188,1681196400"; d="scan'208";a="681821457"
 Received: from johnbyrn-mobl1.ger.corp.intel.com (HELO
  hazy.ger.corp.intel.com) ([10.249.39.102])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2023 02:05:41 -0700
+ 24 May 2023 02:05:48 -0700
 From: Luca Coelho <luciano.coelho@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 24 May 2023 12:05:18 +0300
-Message-Id: <20230524090521.596399-1-luciano.coelho@intel.com>
+Date: Wed, 24 May 2023 12:05:21 +0300
+Message-Id: <20230524090521.596399-4-luciano.coelho@intel.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230524090521.596399-1-luciano.coelho@intel.com>
+References: <20230524090521.596399-1-luciano.coelho@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/3] drm/i915: implement internal workqueues
+Subject: [Intel-gfx] [PATCH v2 3/3] drm/i915/selftests: add local workqueue
+ for SW fence selftest
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,73 +64,63 @@ Cc: rodrigo.vivi@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Instead of using a global workqueue for the SW fence selftest,
+allocate a separate one temporarily only while running the test.
 
-This series implements internal workqueues in the i915 driver in order
-to avoid using the system queue.  We add one generic workqueue in the
-drm_i915_private structure, one specific for wake references and one
-in a self-test.
+Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
+---
+ drivers/gpu/drm/i915/selftests/i915_sw_fence.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-This is based on Tetsuo's work[1] and is required to get rid of the
-flush_scheduled_work() usage.
-
-In v2:
-   * Removed per-engine workqueue and wakeref-specific queue;
-   * Renamed the workqueue name from "i915-wq" to "unordered_wq";
-   * Added comment about when the new workqueue should be used;
-   * Changed wakeref structs to store i915 instead of rpm;
-
-As discussed, we can either take Tetsuo's implementation first, which
-uses a module-global workqueue, and then my series on top of that, to
-change the implementation to per-device workqueues, or apply my series
-directly.  And a third option would be to keep the workqueue as
-module-global.  I'm fine with any of this options.  It's up to the
-maintainers to decide which one to take.
-
-Please review.
-
-[1] https://patchwork.freedesktop.org/series/114608/
-
-Cheers,
-Luca.
-
-
-Luca Coelho (3):
-  drm/i915: use pointer to i915 instead of rpm in wakeref
-  drm/i915: add a dedicated workqueue inside drm_i915_private
-  drm/i915/selftests: add local workqueue for SW fence selftest
-
- drivers/gpu/drm/i915/display/intel_display.c  |  5 ++--
- .../drm/i915/display/intel_display_driver.c   |  2 +-
- drivers/gpu/drm/i915/display/intel_dmc.c      |  2 +-
- drivers/gpu/drm/i915/display/intel_dp.c       |  2 +-
- .../drm/i915/display/intel_dp_link_training.c |  3 ++-
- drivers/gpu/drm/i915/display/intel_drrs.c     |  4 +++-
- drivers/gpu/drm/i915/display/intel_fbc.c      |  2 +-
- drivers/gpu/drm/i915/display/intel_fbdev.c    |  3 ++-
- drivers/gpu/drm/i915/display/intel_hdcp.c     | 23 +++++++++++--------
- drivers/gpu/drm/i915/display/intel_hotplug.c  | 18 ++++++++++-----
- drivers/gpu/drm/i915/display/intel_opregion.c |  3 ++-
- drivers/gpu/drm/i915/display/intel_pps.c      |  4 +++-
- drivers/gpu/drm/i915/display/intel_psr.c      |  8 ++++---
- drivers/gpu/drm/i915/gt/intel_engine_pm.c     |  4 +---
- .../drm/i915/gt/intel_execlists_submission.c  |  5 ++--
- .../gpu/drm/i915/gt/intel_gt_buffer_pool.c    | 10 ++++----
- drivers/gpu/drm/i915/gt/intel_gt_irq.c        |  2 +-
- drivers/gpu/drm/i915/gt/intel_gt_pm.c         |  2 +-
- drivers/gpu/drm/i915/gt/intel_gt_requests.c   | 10 ++++----
- drivers/gpu/drm/i915/gt/intel_reset.c         |  2 +-
- drivers/gpu/drm/i915/gt/intel_rps.c           | 20 ++++++++--------
- drivers/gpu/drm/i915/gt/selftest_engine_cs.c  |  2 +-
- drivers/gpu/drm/i915/i915_driver.c            | 11 +++++++++
- drivers/gpu/drm/i915/i915_drv.h               |  9 +++++++-
- drivers/gpu/drm/i915/i915_request.c           |  2 +-
- drivers/gpu/drm/i915/intel_runtime_pm.c       |  2 +-
- drivers/gpu/drm/i915/intel_wakeref.c          | 22 ++++++++++--------
- drivers/gpu/drm/i915/intel_wakeref.h          | 12 +++++-----
- .../gpu/drm/i915/selftests/i915_sw_fence.c    | 16 ++++++++++---
- 29 files changed, 132 insertions(+), 78 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/selftests/i915_sw_fence.c b/drivers/gpu/drm/i915/selftests/i915_sw_fence.c
+index daa985e5a19b..8f5ce71fa453 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_sw_fence.c
++++ b/drivers/gpu/drm/i915/selftests/i915_sw_fence.c
+@@ -523,12 +523,19 @@ static void task_ipc(struct work_struct *work)
+ static int test_ipc(void *arg)
+ {
+ 	struct task_ipc ipc;
++	struct workqueue_struct *wq;
+ 	int ret = 0;
+ 
++	wq = alloc_workqueue("i1915-selftest", 0, 0);
++	if (wq == NULL)
++		return -ENOMEM;
++
+ 	/* Test use of i915_sw_fence as an interprocess signaling mechanism */
+ 	ipc.in = alloc_fence();
+-	if (!ipc.in)
+-		return -ENOMEM;
++	if (!ipc.in) {
++		ret = -ENOMEM;
++		goto err_work;
++	}
+ 	ipc.out = alloc_fence();
+ 	if (!ipc.out) {
+ 		ret = -ENOMEM;
+@@ -540,7 +547,7 @@ static int test_ipc(void *arg)
+ 
+ 	ipc.value = 0;
+ 	INIT_WORK_ONSTACK(&ipc.work, task_ipc);
+-	schedule_work(&ipc.work);
++	queue_work(wq, &ipc.work);
+ 
+ 	wait_for_completion(&ipc.started);
+ 
+@@ -563,6 +570,9 @@ static int test_ipc(void *arg)
+ 	free_fence(ipc.out);
+ err_in:
+ 	free_fence(ipc.in);
++err_work:
++	destroy_workqueue(wq);
++
+ 	return ret;
+ }
+ 
 -- 
 2.39.2
 
