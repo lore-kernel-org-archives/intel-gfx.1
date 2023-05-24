@@ -4,66 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0383C0015E
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:29:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF0FDEB64D7
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:29:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 836D010E388;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B15A610E389;
 	Tue, 20 Jun 2023 18:28:55 +0000 (UTC)
-Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
- [IPv6:2607:f8b0:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D275310E12A;
- Wed, 14 Jun 2023 12:36:06 +0000 (UTC)
-Received: by mail-pf1-x435.google.com with SMTP id
- d2e1a72fcca58-6537d2a8c20so5259125b3a.2; 
- Wed, 14 Jun 2023 05:36:06 -0700 (PDT)
+Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
+ [IPv6:2607:f8b0:4864:20::1035])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05D6B10E48B
+ for <intel-gfx@lists.freedesktop.org>; Wed, 24 May 2023 15:41:24 +0000 (UTC)
+Received: by mail-pj1-x1035.google.com with SMTP id
+ 98e67ed59e1d1-2533ed4f1dcso298164a91.1
+ for <intel-gfx@lists.freedesktop.org>; Wed, 24 May 2023 08:41:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686746165; x=1689338165;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=4e+Pwp+021TOiqEOI55JQb3RjMEOtcdSeHsod/nYw0o=;
- b=V+SK9acdDTnYBrQKZHF8LeRsGMn16ZHTwKjr6/V6NkXCuBoLLzDUu2M0Nfa+OFigNK
- V4mQFdEHDLPFNGAHcke1u4x7oi0gwn+8sSer3mbHXMTPH4KzJ9EHm7s6O7S8YuK2HChJ
- /3Z/Ndb5PEZlD/1RlJPV63dLNOflrGTYfxFYmOhTgJ6/K7qwLvsbI1BmE0URxNHCVRXo
- 9R2P0rV1z6rLJ6IfG7arZAz9VmdPMFRQ6xpVawkJQ1w+PTLcc2T9pMQa4lhz4V2yo/EW
- +EQhBPpZFjsn/mbRUj0tN2+wlhbExNE2qB0PJFzysg1AAEeDMpDC6NSsKLyfXZ0iDzEN
- VSnw==
+ d=linaro.org; s=google; t=1684942884; x=1687534884;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=qcbUUGVfTv0206jjEB8o4zl0tBTpQPMIXhfv9powgIA=;
+ b=JUoEUqL9GCgT64YKyjTsSQLQyssCo2s5DjVICCVLyGVKEPYbtva9Ge94Hou/lv8gyq
+ ekATbbNOC0VO/PyLa2Ep7VjZXnnzTvur5bs2GALGrLH+HNpQIycHn2U2iN8xzbm6NCGs
+ N6TEpy93B1shn1wbe+dPvnPBcSVNJH89RxOyalT3qgkSP2YttLq7MLe7J6bDG6eqvfd0
+ tUv7oIdZ0U+r2cqKzOceAj+u6Uw8rLTTdGRLVYycyweaWQ+P/ZwFbTXoyYulKXCTILzk
+ 9P6YeOun9KmQDSvlhV76rsTPsaBCf6kmxtvkRt+8Zx/BxB6hJ6jWIKhFZZsYELImuZRh
+ x6Zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686746165; x=1689338165;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=4e+Pwp+021TOiqEOI55JQb3RjMEOtcdSeHsod/nYw0o=;
- b=RiavSbgxVowel/jI1zKggqqF62sZMlzSTe2QrQCV67M5gcMB1Pz1gk0eOzgn98Yxlb
- uDRiQ7tyWp2b+hETN98FnrZlKfdfevW0PvBhDjww8a4sJUSsp1v8a7SeNi+G4HDAWz0O
- rAlQWaTHPkcmVHAwJ7hq+QMbuGhRlcNbq1L82CAXfw2dH1mMGZJAM7kD0JiasEV8yocZ
- k9Dbq7uF5eoDspeTGGkjaEqweWFX4ReKeHP1y9Bk0v/CsSwCl3DKNv66PZ8Bj+u8Gp8I
- Y7AqKIWnK33aYcorG+FVtx3oPj6+T//XHTezo+TfA1hqGe/NGxvo4BYH5cmVIG2WYzzN
- Jm2g==
-X-Gm-Message-State: AC+VfDz6Z5nHcx+ZFvNshqLw7gqPLfLSWQMsZssH5qbymxmO+4ReoDCw
- BiA6ZK4FLErO+P/mVFe5I7QbbT+AE5qdwonI
-X-Google-Smtp-Source: ACHHUZ4+dJFI8HJ6v4oIutm5MrkaLnh0wkcAaLETYhTmKqSAen1q8lTzmzcujbzgFoRsU+WyzbV+Tg==
-X-Received: by 2002:a05:6a00:2352:b0:665:bd58:c948 with SMTP id
- j18-20020a056a00235200b00665bd58c948mr2301728pfj.8.1686746164598; 
- Wed, 14 Jun 2023 05:36:04 -0700 (PDT)
-Received: from sumitra.com ([117.245.169.18]) by smtp.gmail.com with ESMTPSA id
- j1-20020aa78001000000b00634dde2992bsm10250199pfi.132.2023.06.14.05.35.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Jun 2023 05:36:04 -0700 (PDT)
-Date: Wed, 14 Jun 2023 05:35:56 -0700
-From: Sumitra Sharma <sumitraartsy@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Message-ID: <20230614123556.GA381200@sumitra.com>
+ d=1e100.net; s=20221208; t=1684942884; x=1687534884;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=qcbUUGVfTv0206jjEB8o4zl0tBTpQPMIXhfv9powgIA=;
+ b=ciwnVjF9MERO7lVJ7oQ46aN2NJJZyczgEEa5qy8EOUexSc96BHT5kdL4Wzix40vij2
+ UIqQv2kLHYnDEzoZ1C3suJADkKLQnjRpvHMDp/YOMpnE2rtQEa2679D0oCwrxftDvSXG
+ POScwqChYv+RRyt99r3145Uia3vQrOL4xP/5ZanjG1CKwEALvnuQtM7ogaWCN0BU+CmA
+ Pb+dwBGR7STMvsvxJx/BErlu75Y/ZEVyoEERCVmS9pMLVVwFeI03i99ZThcEprKu4FfP
+ kq5781kK5B2qQMKgdZIydyneW0WkkTdZmLqW1t0Fg9V4IBxAIYBfMDmDrUKphUrudItK
+ dcog==
+X-Gm-Message-State: AC+VfDzvMMm3NLAkHzDpX04L358MozVHV4ylQ6agYUUX9hOACw1b59eQ
+ d/bWXKD7RPnGN/9SOuco6UwrpmCpRv6uE1yHTGGb6w==
+X-Google-Smtp-Source: ACHHUZ5dswG3Tqnl2xznNJrUJTgaWJumpj8L1ig619SMi30QFXbZx6bqoCnlMVQEF4vymExc6hDQ1r5IL1lElyMkZog=
+X-Received: by 2002:a17:90a:b389:b0:255:a1db:346d with SMTP id
+ e9-20020a17090ab38900b00255a1db346dmr6718829pjr.25.1684942884011; Wed, 24 May
+ 2023 08:41:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <CA+G9fYv68V3ewK0Qj-syQj7qX-hQr0H1MFL=QFNuDoE_J2Zu-g@mail.gmail.com>
+ <20230524153918.GA869320@dev-arch.thelio-3990X>
+In-Reply-To: <20230524153918.GA869320@dev-arch.thelio-3990X>
+From: =?UTF-8?B?RGFuaWVsIETDrWF6?= <daniel.diaz@linaro.org>
+Date: Wed, 24 May 2023 09:41:12 -0600
+Message-ID: <CAEUSe7-PUh4cDs_pQR6kp6GvAfz6qoqdPaOxRMMHz6YeXRuxAA@mail.gmail.com>
+To: Nathan Chancellor <nathan@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 20 Jun 2023 18:28:21 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915: Call page_address() on page acquired
- with GFP_KERNEL flag
+Subject: Re: [Intel-gfx] next: clang: x86_64: /intel_display.c:6012:3:
+ error: unannotated fall-through between switch labels [-Werror,
+ -Wimplicit-fallthrough]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,40 +72,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Deepak R Varma <drv@mailo.com>, Fabio <fmdefrancesco@gmail.com>,
- Ira Weiny <ira.weiny@intel.com>, Sumitra Sharma <sumitraartsy@gmail.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Naresh Kamboju <naresh.kamboju@linaro.org>,
+ clang-built-linux <llvm@lists.linux.dev>, dri-devel@lists.freedesktop.org,
+ Linux-Next Mailing List <linux-next@vger.kernel.org>,
+ lkft-triage@lists.linaro.org, Daniel Vetter <daniel@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Pages allocated with GFP_KERNEL cannot come from Highmem.
-That is why there is no need to call kmap() on them.
+Hello!
 
-Therefore, don't call kmap() on the page coming from
-vma_res->bi.pages using for_each_sgt_page() in
-i915_vma_coredump_create().
+On Wed, 24 May 2023 at 09:39, Nathan Chancellor <nathan@kernel.org> wrote:
+> Hi Naresh,
+>
+> On Wed, May 24, 2023 at 12:32:24PM +0530, Naresh Kamboju wrote:
+> > Linux next-20230523 and next-20230524 the x86_64 and i386 builds failed
+> > with clang.
+> >
+> > Reported-by: Linux Kernel Functional Testing <lkft@linaro.org>
+> >
+> > make --silent --keep-going \
+> >   --jobs=3D8 O=3D/home/tuxbuild/.cache/tuxmake/builds/1/build ARCH=3Dx8=
+6_64 \
+> >   SRCARCH=3Dx86 CROSS_COMPILE=3Dx86_64-linux-gnu- \
+> >   'HOSTCC=3Dsccache clang' 'CC=3Dsccache clang' \
+> >    LLVM=3D1 LLVM_IAS=3D1
+> >
+> > drivers/gpu/drm/i915/display/intel_display.c:6012:3: error:
+> > unannotated fall-through between switch labels
+> > [-Werror,-Wimplicit-fallthrough]
+> >                 case I915_FORMAT_MOD_X_TILED:
+> >                 ^
+> > drivers/gpu/drm/i915/display/intel_display.c:6012:3: note: insert
+> > 'break;' to avoid fall-through
+> >                 case I915_FORMAT_MOD_X_TILED:
+> >                 ^
+> >                 break;
+> > 1 error generated.
+>
+> Thanks for the report, I have sent
+> https://lore.kernel.org/20230524-intel_async_flip_check_hw-implicit-fallt=
+hrough-v1-1-83de89e376a1@kernel.org/
+> for this.
 
-Use a plain page_address() to get the kernel address instead.
+Better link: https://lore.kernel.org/dri-devel/20230524-intel_async_flip_ch=
+eck_hw-implicit-fallthrough-v1-1-83de89e376a1@kernel.org/
 
-Signed-off-by: Sumitra Sharma <sumitraartsy@gmail.com>
----
- drivers/gpu/drm/i915/i915_gpu_error.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Greetings!
 
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index f020c0086fbc..6f51cb4fc55c 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -1164,9 +1164,8 @@ i915_vma_coredump_create(const struct intel_gt *gt,
- 
- 			drm_clflush_pages(&page, 1);
- 
--			s = kmap(page);
-+			s = page_address(page);
- 			ret = compress_page(compress, s, dst, false);
--			kunmap(page);
- 
- 			drm_clflush_pages(&page, 1);
- 
--- 
-2.25.1
-
+Daniel D=C3=ADaz
+daniel.diaz@linaro.org
