@@ -4,64 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 544EFEB64D7
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:29:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84DD2EB64DC
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:29:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 411A710E382;
-	Tue, 20 Jun 2023 18:29:25 +0000 (UTC)
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [IPv6:2607:f8b0:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8F0E10E00D;
- Sat, 17 Jun 2023 18:26:19 +0000 (UTC)
-Received: by mail-ot1-x331.google.com with SMTP id
- 46e09a7af769-6b2b7ca1c5eso1692685a34.0; 
- Sat, 17 Jun 2023 11:26:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1687026378; x=1689618378;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=iAOhlvHTcWXeb9PboEkspmfVbcV594RGj9F/z1tmu4Y=;
- b=DWYFOewOzfcxwUvqtdocgz991WeelZUqOziEmq3Yr1OOBIRlZZZ0Nnzb7tGqJ+WhvZ
- UKCDxM4SD0iyTQC2LQPSnoYvHqvPTSbhi2EpJHXBZuN+zWmtNPGy3z37fgO+DDMDjTO6
- SsSJ0BxgCV29PYyve4O/PEa5snOgcrgclkBGg4yovHC0pfal5ILNoTh3nawLfqGzUdQl
- mBbAvMYXthloGbzpjwO/+YL0LBMR4Gvzvi+hCsHsuXi6jbWx8BJ/9wTWqC+LfhNfmIEM
- 4GI/jnS+Wu8R0TofM1bt19kKhf31PegFr7HOoF+OZLjfbem0CtAKF4ZffGd+zIqmErHc
- 2GbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687026378; x=1689618378;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:message-id:subject:cc:to:from:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=iAOhlvHTcWXeb9PboEkspmfVbcV594RGj9F/z1tmu4Y=;
- b=dfZF1MXkoK/17QwZ5ABdYjcLkXioMK+Fwi/XBpvGkQDmAKKfQAabYYQfZWxPjhWQkx
- 3PWXHhOeNNYBz9dFrGFC/nrL51pEKTjcA5rtaMR1kSCzIpH/DGKXzbbo3loAazgbJ5S8
- y8sPunYiBz2IntTacrb+UZ91VRveI9OqnGT0zbOCxZIajfyXpMb67FyjwMQGLRdXyxXk
- WvcL/3hNIOnF6m561naMl827jDbEJmvErRaoh0XYj2VdzuFV+mU4t/aocaV8JoKhzc1V
- 7C53vTFtwjxRLRl3eYlgpnGNOxjO+E9wGG1rtAKZ5ZYC13CpQ6IlHNqconbd5P36WdU7
- 3FPw==
-X-Gm-Message-State: AC+VfDxq8MTBw10/MJiCXZXRmThyKs1W63WOih04OPKaHBkxRMsGXnQV
- TjSRlJK/qZba/eXy8SenBoI=
-X-Google-Smtp-Source: ACHHUZ56YUUTSc04n4jtBmXQunTwc6aTvQHQknF6ljrYQVzDoYqxNZifQoRcL1NlfF1RF9LJPzbkNw==
-X-Received: by 2002:a05:6359:c1e:b0:12b:dd43:b0a5 with SMTP id
- gn30-20020a0563590c1e00b0012bdd43b0a5mr2815690rwb.24.1687026378312; 
- Sat, 17 Jun 2023 11:26:18 -0700 (PDT)
-Received: from sumitra.com ([117.199.158.52]) by smtp.gmail.com with ESMTPSA id
- ik26-20020a170902ab1a00b001b20dc1b3c9sm1646501plb.200.2023.06.17.11.26.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 17 Jun 2023 11:26:17 -0700 (PDT)
-Date: Sat, 17 Jun 2023 11:26:09 -0700
-From: Sumitra Sharma <sumitraartsy@gmail.com>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m_=28Intel=29?= <thomas_os@shipmail.org>
-Message-ID: <20230617182609.GA410998@sumitra.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6D6F10E385;
+	Tue, 20 Jun 2023 18:29:24 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E66610E5DD;
+ Wed, 24 May 2023 10:38:05 +0000 (UTC)
+X-UUID: 8fd7286b5a7f415a8fcadd3daee48710-20230524
+X-CID-O-RULE: Release_Ham
+X-CID-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.22, REQID:1c41b63b-6c34-4a6d-8e5e-8b76d9e281ea, IP:15,
+ URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACT
+ ION:release,TS:-5
+X-CID-INFO: VERSION:1.1.22, REQID:1c41b63b-6c34-4a6d-8e5e-8b76d9e281ea, IP:15,
+ UR
+ L:0,TC:0,Content:-5,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:-5
+X-CID-META: VersionHash:120426c, CLOUDID:7e79dc6c-2f20-4998-991c-3b78627e4938,
+ B
+ ulkID:230524183800Y1EDQ5GR,BulkQuantity:0,Recheck:0,SF:24|17|19|44|102,TC:
+ nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OS
+ I:0,OSA:0,AV:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-UUID: 8fd7286b5a7f415a8fcadd3daee48710-20230524
+X-User: pengfuyuan@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.169)] by mailgw
+ (envelope-from <pengfuyuan@kylinos.cn>) (Generic MTA)
+ with ESMTP id 1152997920; Wed, 24 May 2023 18:37:57 +0800
+From: pengfuyuan <pengfuyuan@kylinos.cn>
+To: David Airlie <airlied@gmail.com>
+Date: Wed, 24 May 2023 18:37:55 +0800
+Message-Id: <20230524103755.1487749-1-pengfuyuan@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <69d7af2f-f4c2-5a7d-ce69-c38be5660c74@shipmail.org>
 X-Mailman-Approved-At: Tue, 20 Jun 2023 18:28:21 +0000
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Call page_address() on page
- acquired with GFP_KERNEL flag
+Subject: [Intel-gfx] [PATCH] drm/i915/gt/uc:fix kernel-doc trivial warnings
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,81 +55,165 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sumitra Sharma <sumitraartsy@gmail.com>, Ira Weiny <ira.weiny@intel.com>,
- Deepak R Varma <drv@mailo.com>, Fabio <fmdefrancesco@gmail.com>,
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
  intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Thomas Hellstrom <thomas.hellstrom@intel.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@gmail.com>, Matthew Auld <matthew.auld@intel.com>
+ dri-devel@lists.freedesktop.org, pengfuyuan <pengfuyuan@kylinos.cn>,
+ Matthew Auld <matthew.auld@intel.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, k2ci <kernel-bot@kylinos.cn>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+The test robot reports some make warnings.
 
-On Wed, Jun 14, 2023 at 05:30:25PM +0200, Thomas Hellström (Intel) wrote:
-> 
-> On 6/14/23 15:22, Tvrtko Ursulin wrote:
-> > 
-> > On 14/06/2023 13:35, Sumitra Sharma wrote:
-> > > Pages allocated with GFP_KERNEL cannot come from Highmem.
-> > > That is why there is no need to call kmap() on them.
-> > 
-> > Are you sure it is GFP_KERNEL backed and not tmpfs? I am not sure myself
-> > so let me copy Matt and Thomas if they happen to know off hand.
->
+Fix those warnings:
+    drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h:491: warning: Function parameter or member 'marker' not described in 'guc_log_buffer_state'
+    drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h:491: warning: Function parameter or member 'read_ptr' not described in 'guc_log_buffer_state'
+    drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h:491: warning: Function parameter or member 'write_ptr' not described in 'guc_log_buffer_state'
+    drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h:491: warning: Function parameter or member 'size' not described in 'guc_log_buffer_state'
+    drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h:491: warning: Function parameter or member 'sampled_write_ptr' not described in 'guc_log_buffer_state'
+    drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h:491: warning: Function parameter or member 'wrap_offset' not described in 'guc_log_buffer_state'
+    drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h:491: warning: Function parameter or member 'flush_to_file' not described in 'guc_log_buffer_state'
+    drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h:491: warning: Function parameter or member 'buffer_full_cnt' not described in 'guc_log_buffer_state'
+    drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h:491: warning: Function parameter or member 'reserved' not described in 'guc_log_buffer_state'
+    drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h:491: warning: Function parameter or member 'flags' not described in 'guc_log_buffer_state'
+    drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h:491: warning: Function parameter or member 'version' not described in 'guc_log_buffer_state'
+    drivers/gpu/drm/i915/gt/uc/intel_guc.h:274: warning: Function parameter or member 'dbgfs_node' not described in 'intel_guc'
+    drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:27: warning: Function parameter or member 'size' not described in '__guc_capture_bufstate'
+    drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:27: warning: Function parameter or member 'data' not described in '__guc_capture_bufstate'
+    drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:27: warning: Function parameter or member 'rd' not described in '__guc_capture_bufstate'
+    drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:27: warning: Function parameter or member 'wr' not described in '__guc_capture_bufstate'
+    drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:59: warning: Function parameter or member 'link' not described in '__guc_capture_parsed_output'
+    drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:59: warning: Function parameter or member 'is_partial' not described in '__guc_capture_parsed_output'
+    drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:59: warning: Function parameter or member 'eng_class' not described in '__guc_capture_parsed_output'
+    drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:59: warning: Function parameter or member 'eng_inst' not described in '__guc_capture_parsed_output'
+    drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:59: warning: Function parameter or member 'guc_id' not described in '__guc_capture_parsed_output'
+    drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:59: warning: Function parameter or member 'lrca' not described in '__guc_capture_parsed_output'
+    drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:59: warning: Function parameter or member 'reginfo' not described in '__guc_capture_parsed_output'
+    drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:163: warning: Function parameter or member 'is_valid' not described in '__guc_capture_ads_cache'
+    drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:163: warning: Function parameter or member 'ptr' not described in '__guc_capture_ads_cache'
+    drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:163: warning: Function parameter or member 'size' not described in '__guc_capture_ads_cache'
+    drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:163: warning: Function parameter or member 'status' not described in '__guc_capture_ads_cache'
+    drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:216: warning: Function parameter or member 'ads_null_cache' not described in 'intel_guc_state_capture'
+    drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h:216: warning: Function parameter or member 'max_mmio_per_node' not described in 'intel_guc_state_capture'
 
-Hello,
+Reported-by: k2ci <kernel-bot@kylinos.cn>
+Signed-off-by: pengfuyuan <pengfuyuan@kylinos.cn>
+---
+ drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h | 27 +++++++++++++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  1 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   | 18 +++++++++++++
+ 3 files changed, 46 insertions(+)
 
-Yes it is true that the pages have not been acquired using the GFP_KERNEL.
+diff --git a/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h b/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
+index 9d589c28f40f..84c74244a6a8 100644
+--- a/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/guc_capture_fwif.h
+@@ -18,6 +18,11 @@ struct file;
+  * Book-keeping structure used to track read and write pointers
+  * as we extract error capture data from the GuC-log-buffer's
+  * error-capture region as a stream of dwords.
++ *
++ * @size: size of the buffer.
++ * @data: pointer to the buffer containing the error capture data.
++ * @rd: read pointer indicating the current position for reading data.
++ * @wr: write pointer indicating the current position for writing data.
+  */
+ struct __guc_capture_bufstate {
+ 	u32 size;
+@@ -32,6 +37,15 @@ struct __guc_capture_bufstate {
+  * A single unit of extracted error-capture output data grouped together
+  * at an engine-instance level. We keep these nodes in a linked list.
+  * See cachelist and outlist below.
++ *
++ * @link: linked list node for storing the captured error data.
++ * @is_partial: flag indicating whether the captured data is partial.
++ * @eng_class: engine class identifier associated with the capture.
++ * @eng_inst: engine instance identifier associated with the capture.
++ * @guc_id: GuC identifier associated with the capture.
++ * @lrca: Logical Register Context Address associated with the capture.
++ * @reginfo: array of structures containing information about the captured
++ * register lists.
+  */
+ struct __guc_capture_parsed_output {
+ 	/*
+@@ -154,6 +168,11 @@ struct guc_state_capture_group_t {
+  * A structure to cache register lists that were populated and registered
+  * with GuC at startup during ADS registration. This allows much quicker
+  * GuC resets without re-parsing all the tables for the given gt.
++ *
++ * @is_valid: flag indicating whether the cache entry is valid.
++ * @ptr: pointer to the cached register list data.
++ * @size: size of the cached register list data.
++ * @status: status value indicating the current state of the cache entry.
+  */
+ struct __guc_capture_ads_cache {
+ 	bool is_valid;
+@@ -187,6 +206,10 @@ struct intel_guc_state_capture {
+ 	struct __guc_capture_ads_cache ads_cache[GUC_CAPTURE_LIST_INDEX_MAX]
+ 						[GUC_CAPTURE_LIST_TYPE_MAX]
+ 						[GUC_MAX_ENGINE_CLASSES];
++
++	/**
++	 * @ads_null_cache: pointer to the cache for NULL ADS entries.
++	*/
+ 	void *ads_null_cache;
+ 
+ 	/**
+@@ -202,6 +225,10 @@ struct intel_guc_state_capture {
+ 	struct list_head cachelist;
+ #define PREALLOC_NODES_MAX_COUNT (3 * GUC_MAX_ENGINE_CLASSES * GUC_MAX_INSTANCES_PER_CLASS)
+ #define PREALLOC_NODES_DEFAULT_NUMREGS 64
++
++	/**
++	 * @max_mmio_per_node: maximum number of MMIO per node
++	*/
+ 	int max_mmio_per_node;
+ 
+ 	/**
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index e46aac1a41e6..40cf2d491703 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -42,6 +42,7 @@ struct intel_guc {
+ 	/** @capture: the error-state-capture module's data and objects */
+ 	struct intel_guc_state_capture *capture;
+ 
++	/** @dbgfs_node: pointer to the debugfs node associated with the structure */
+ 	struct dentry *dbgfs_node;
+ 
+ 	/** @sched_engine: Global engine used to submit requests to GuC */
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+index 4ae5fc2f6002..032b11758b9a 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
+@@ -471,6 +471,24 @@ enum guc_log_buffer_type {
+  * sending an acknowledgment to GuC. marker & version fields are for internal
+  * usage of GuC and opaque to i915. buffer_full_cnt field is incremented every
+  * time GuC detects the log buffer overflow.
++ *
++ * @marker: marker fields for internal usage by GuC.
++ * @read_ptr: read pointer indicating the current position for reading from
++ * the buffer.
++ * @write_ptr: write pointer indicating the current position for writing to
++ * the buffer.
++ * @size: size of the buffer.
++ * @sampled_write_ptr: sampled value of the write pointer when a flush
++ * interrupt is triggered.
++ * @wrap_offset: offset to handle buffer wraparound.
++ * @flush_to_file: flag indicating whether a flush to file operation is
++ * requested by i915.
++ * @buffer_full_cnt: counter tracking the number of times the log buffer has
++ * overflowed.
++ * @reserved: reserved bits.
++ * @flags: union field for accessing the flush and buffer_full_cnt fields as
++ * a single value.
++ * @version: version field for internal usage by GuC.
+  */
+ struct guc_log_buffer_state {
+ 	u32 marker[2];
+-- 
+2.25.1
 
-I confused the allocation of the struct 'i915_vma_resource' tracking the 
-pages with the allocation of the pages themselves.
 
-This was noted by my mentor Ira Weiny <ira.weiny@intel.com>.
-
-> It looks to me these are shmem pages or TTM pages. Both could be highmem. So
-> I think kmap is the correct choice here.
-> 
-
-However, the kmap() will not be the correct choice here and kmap_local_page()
-must be used instead. I have created a v2 patch for the same
-https://lore.kernel.org/lkml/20230617180420.GA410966@sumitra.com/
-
-Thank you for helping me.
-
-Regards
-Sumitra
-
-> /Thomas
->
-> 
-> 
-> 
-> > 
-> > Regards,
-> > 
-> > Tvrtko
-> > 
-> > > Therefore, don't call kmap() on the page coming from
-> > > vma_res->bi.pages using for_each_sgt_page() in
-> > > i915_vma_coredump_create().
-> > > 
-> > > Use a plain page_address() to get the kernel address instead.
-> > > 
-> > > Signed-off-by: Sumitra Sharma <sumitraartsy@gmail.com>
-> > > ---
-> > >   drivers/gpu/drm/i915/i915_gpu_error.c | 3 +--
-> > >   1 file changed, 1 insertion(+), 2 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c
-> > > b/drivers/gpu/drm/i915/i915_gpu_error.c
-> > > index f020c0086fbc..6f51cb4fc55c 100644
-> > > --- a/drivers/gpu/drm/i915/i915_gpu_error.c
-> > > +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-> > > @@ -1164,9 +1164,8 @@ i915_vma_coredump_create(const struct intel_gt
-> > > *gt,
-> > >                 drm_clflush_pages(&page, 1);
-> > >   -            s = kmap(page);
-> > > +            s = page_address(page);
-> > >               ret = compress_page(compress, s, dst, false);
-> > > -            kunmap(page);
-> > >                 drm_clflush_pages(&page, 1);
+No virus found
+		Checked by Hillstone Network AntiVirus
