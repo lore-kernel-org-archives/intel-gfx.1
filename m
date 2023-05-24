@@ -4,55 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F470C77B7A
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 May 2023 09:15:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B2DAC77B73
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 May 2023 09:22:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2DBE10E5C0;
-	Wed, 24 May 2023 09:15:20 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B17E110E5C7;
- Wed, 24 May 2023 09:15:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1684919719; x=1716455719;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=8VwL6EAHUKow2/jzGvI331f0ZOTE4rdLdYHriRBgqSw=;
- b=ma+ShCPe/4VG+p4eBtVp4GNUVhruESx1EoB8FJ9dc8iFAkJGVw4rxHkL
- OrP5GPmSUk98pNb+5JUcd5SmsfheCpgEZJ1z6WdMmgL5yxv3S5rG/x13H
- iVMSLMj6ozCxAauyOgkmAZzOLEUfncbRrFE7+JFcw5b3CUkVwmkCwEwHa
- +ins+Bxjk5ahCtpalr+RkHbqRgG5hZTpzg8yQv2AIF3gG/o+qnSq1Nx7C
- 0+hoV3TYrpnjiQoTVUKejk9eE+jqwLsv53XZAoAxwpsgYqByNsR6yoXV4
- pHXl88b1G5jtYbSZ5ob+J2vPoiojHMxOvNBGJWSQqwzs2xQWLTFhc/77r g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10719"; a="419220736"
-X-IronPort-AV: E=Sophos;i="6.00,188,1681196400"; d="scan'208";a="419220736"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2023 02:15:02 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10719"; a="828494796"
-X-IronPort-AV: E=Sophos;i="6.00,188,1681196400"; d="scan'208";a="828494796"
-Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.4.245])
- ([10.213.4.245])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2023 02:15:01 -0700
-Message-ID: <bb7df969-0991-e75b-4ee2-cf5bfd4ddc85@intel.com>
-Date: Wed, 24 May 2023 11:14:59 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA5AF10E5C8;
+	Wed, 24 May 2023 09:21:58 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 014B510E5C4;
+ Wed, 24 May 2023 09:21:56 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3A5461FDD2;
+ Wed, 24 May 2023 09:21:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1684920115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=oNmuhOhfnNt5tcu3ShyajBVqBG4niMj93uz0MtGqcdA=;
+ b=nfyGEcQKv29nq5yl8Kty+iBsTeW45ANwugrst/q1d9EXl0FT3EyjjrFtWihW3z30QPJXap
+ rzoVpYQKvESNnCZfnBTmEVldx/zbs2vpdTzgnO4IUJl0zlhgVCxsGqCAIdxX53nEGcjs+S
+ y8p2BSnHu2s2YVWcQpNUMm0h0UTUPBM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1684920115;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=oNmuhOhfnNt5tcu3ShyajBVqBG4niMj93uz0MtGqcdA=;
+ b=FPQTnwwCkS1U23TWMUfmHH8sLmhZHSBbJNzZ2dwUsY0teMQ2rM2Yp5bwIVbG1LBBArmp5h
+ Zd6xePF1ZIbBw9Dw==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E48EB13A10;
+ Wed, 24 May 2023 09:21:54 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id mHj5NjLXbWTHewAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Wed, 24 May 2023 09:21:54 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: daniel@ffwll.ch, airlied@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, javierm@redhat.com, sam@ravnborg.org
+Date: Wed, 24 May 2023 11:21:42 +0200
+Message-Id: <20230524092150.11776-6-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230524092150.11776-1-tzimmermann@suse.de>
+References: <20230524092150.11776-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.11.0
-Content-Language: en-US
-To: Ashutosh Dixit <ashutosh.dixit@intel.com>, intel-gfx@lists.freedesktop.org
-References: <20230523151918.4170499-1-ashutosh.dixit@intel.com>
- <20230523151918.4170499-3-ashutosh.dixit@intel.com>
-From: Andrzej Hajda <andrzej.hajda@intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
- Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <20230523151918.4170499-3-ashutosh.dixit@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915/pmu: Make PMU sample array
- two-dimensional
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v4 05/13] drm/gma500: Use regular fbdev I/O
+ helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,170 +69,73 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 23.05.2023 17:19, Ashutosh Dixit wrote:
-> No functional changes but we can remove some unsightly index computation
-> and read/write functions if we convert the PMU sample array from a
-> one-dimensional to a two-dimensional array.
-> 
-> Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-> Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+Use the regular fbdev helpers for framebuffer I/O instead of DRM's
+helpers. Gma500 does not use damage handling, so DRM's fbdev helpers
+are mere wrappers around the fbdev code.
 
-Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
+By using fbdev helpers directly within each DRM fbdev emulation,
+we can eventually remove DRM's wrapper functions entirely.
 
-Regards
-Andrzej
+v4:
+	* use initializer macros for struct fb_ops
+v2:
+	* use FB_IO_HELPERS option
 
-> ---
->   drivers/gpu/drm/i915/i915_pmu.c | 60 ++++++++++-----------------------
->   drivers/gpu/drm/i915/i915_pmu.h |  2 +-
->   2 files changed, 19 insertions(+), 43 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-> index b47d890d4ada1..137e0df9573ee 100644
-> --- a/drivers/gpu/drm/i915/i915_pmu.c
-> +++ b/drivers/gpu/drm/i915/i915_pmu.c
-> @@ -195,33 +195,6 @@ static inline s64 ktime_since_raw(const ktime_t kt)
->   	return ktime_to_ns(ktime_sub(ktime_get_raw(), kt));
->   }
->   
-> -static unsigned int
-> -__sample_idx(struct i915_pmu *pmu, unsigned int gt_id, int sample)
-> -{
-> -	unsigned int idx = gt_id * __I915_NUM_PMU_SAMPLERS + sample;
-> -
-> -	GEM_BUG_ON(idx >= ARRAY_SIZE(pmu->sample));
-> -
-> -	return idx;
-> -}
-> -
-> -static u64 read_sample(struct i915_pmu *pmu, unsigned int gt_id, int sample)
-> -{
-> -	return pmu->sample[__sample_idx(pmu, gt_id, sample)].cur;
-> -}
-> -
-> -static void
-> -store_sample(struct i915_pmu *pmu, unsigned int gt_id, int sample, u64 val)
-> -{
-> -	pmu->sample[__sample_idx(pmu, gt_id, sample)].cur = val;
-> -}
-> -
-> -static void
-> -add_sample_mult(struct i915_pmu *pmu, unsigned int gt_id, int sample, u32 val, u32 mul)
-> -{
-> -	pmu->sample[__sample_idx(pmu, gt_id, sample)].cur += mul_u32_u32(val, mul);
-> -}
-> -
->   static u64 get_rc6(struct intel_gt *gt)
->   {
->   	struct drm_i915_private *i915 = gt->i915;
-> @@ -240,7 +213,7 @@ static u64 get_rc6(struct intel_gt *gt)
->   	spin_lock_irqsave(&pmu->lock, flags);
->   
->   	if (awake) {
-> -		store_sample(pmu, gt_id, __I915_SAMPLE_RC6, val);
-> +		pmu->sample[gt_id][__I915_SAMPLE_RC6].cur = val;
->   	} else {
->   		/*
->   		 * We think we are runtime suspended.
-> @@ -250,13 +223,13 @@ static u64 get_rc6(struct intel_gt *gt)
->   		 * counter value.
->   		 */
->   		val = ktime_since_raw(pmu->sleep_last[gt_id]);
-> -		val += read_sample(pmu, gt_id, __I915_SAMPLE_RC6);
-> +		val += pmu->sample[gt_id][__I915_SAMPLE_RC6].cur;
->   	}
->   
-> -	if (val < read_sample(pmu, gt_id, __I915_SAMPLE_RC6_LAST_REPORTED))
-> -		val = read_sample(pmu, gt_id, __I915_SAMPLE_RC6_LAST_REPORTED);
-> +	if (val < pmu->sample[gt_id][__I915_SAMPLE_RC6_LAST_REPORTED].cur)
-> +		val = pmu->sample[gt_id][__I915_SAMPLE_RC6_LAST_REPORTED].cur;
->   	else
-> -		store_sample(pmu, gt_id, __I915_SAMPLE_RC6_LAST_REPORTED, val);
-> +		pmu->sample[gt_id][__I915_SAMPLE_RC6_LAST_REPORTED].cur = val;
->   
->   	spin_unlock_irqrestore(&pmu->lock, flags);
->   
-> @@ -275,9 +248,8 @@ static void init_rc6(struct i915_pmu *pmu)
->   		with_intel_runtime_pm(gt->uncore->rpm, wakeref) {
->   			u64 val = __get_rc6(gt);
->   
-> -			store_sample(pmu, i, __I915_SAMPLE_RC6, val);
-> -			store_sample(pmu, i, __I915_SAMPLE_RC6_LAST_REPORTED,
-> -				     val);
-> +			pmu->sample[i][__I915_SAMPLE_RC6].cur = val;
-> +			pmu->sample[i][__I915_SAMPLE_RC6_LAST_REPORTED].cur = val;
->   			pmu->sleep_last[i] = ktime_get_raw();
->   		}
->   	}
-> @@ -287,7 +259,7 @@ static void park_rc6(struct intel_gt *gt)
->   {
->   	struct i915_pmu *pmu = &gt->i915->pmu;
->   
-> -	store_sample(pmu, gt->info.id, __I915_SAMPLE_RC6, __get_rc6(gt));
-> +	pmu->sample[gt->info.id][__I915_SAMPLE_RC6].cur = __get_rc6(gt);
->   	pmu->sleep_last[gt->info.id] = ktime_get_raw();
->   }
->   
-> @@ -428,6 +400,12 @@ engines_sample(struct intel_gt *gt, unsigned int period_ns)
->   	}
->   }
->   
-> +static void
-> +add_sample_mult(struct i915_pmu_sample *sample, u32 val, u32 mul)
-> +{
-> +	sample->cur += mul_u32_u32(val, mul);
-> +}
-> +
->   static bool
->   frequency_sampling_enabled(struct i915_pmu *pmu, unsigned int gt)
->   {
-> @@ -467,12 +445,12 @@ frequency_sample(struct intel_gt *gt, unsigned int period_ns)
->   		if (!val)
->   			val = intel_gpu_freq(rps, rps->cur_freq);
->   
-> -		add_sample_mult(pmu, gt_id, __I915_SAMPLE_FREQ_ACT,
-> +		add_sample_mult(&pmu->sample[gt_id][__I915_SAMPLE_FREQ_ACT],
->   				val, period_ns / 1000);
->   	}
->   
->   	if (pmu->enable & config_mask(__I915_PMU_REQUESTED_FREQUENCY(gt_id))) {
-> -		add_sample_mult(pmu, gt_id, __I915_SAMPLE_FREQ_REQ,
-> +		add_sample_mult(&pmu->sample[gt_id][__I915_SAMPLE_FREQ_REQ],
->   				intel_rps_get_requested_frequency(rps),
->   				period_ns / 1000);
->   	}
-> @@ -673,14 +651,12 @@ static u64 __i915_pmu_event_read(struct perf_event *event)
->   		switch (config) {
->   		case I915_PMU_ACTUAL_FREQUENCY:
->   			val =
-> -			   div_u64(read_sample(pmu, gt_id,
-> -					       __I915_SAMPLE_FREQ_ACT),
-> +			   div_u64(pmu->sample[gt_id][__I915_SAMPLE_FREQ_ACT].cur,
->   				   USEC_PER_SEC /* to MHz */);
->   			break;
->   		case I915_PMU_REQUESTED_FREQUENCY:
->   			val =
-> -			   div_u64(read_sample(pmu, gt_id,
-> -					       __I915_SAMPLE_FREQ_REQ),
-> +			   div_u64(pmu->sample[gt_id][__I915_SAMPLE_FREQ_REQ].cur,
->   				   USEC_PER_SEC /* to MHz */);
->   			break;
->   		case I915_PMU_INTERRUPTS:
-> diff --git a/drivers/gpu/drm/i915/i915_pmu.h b/drivers/gpu/drm/i915/i915_pmu.h
-> index 33d80fbaab8bc..d20592e7db999 100644
-> --- a/drivers/gpu/drm/i915/i915_pmu.h
-> +++ b/drivers/gpu/drm/i915/i915_pmu.h
-> @@ -127,7 +127,7 @@ struct i915_pmu {
->   	 * Only global counters are held here, while the per-engine ones are in
->   	 * struct intel_engine_cs.
->   	 */
-> -	struct i915_pmu_sample sample[I915_PMU_MAX_GTS * __I915_NUM_PMU_SAMPLERS];
-> +	struct i915_pmu_sample sample[I915_PMU_MAX_GTS][__I915_NUM_PMU_SAMPLERS];
->   	/**
->   	 * @sleep_last: Last time GT parked for RC6 estimation.
->   	 */
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+---
+ drivers/gpu/drm/gma500/Kconfig | 1 +
+ drivers/gpu/drm/gma500/fbdev.c | 8 +++-----
+ 2 files changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/gma500/Kconfig b/drivers/gpu/drm/gma500/Kconfig
+index 2efc0eb41c64..cd3d92725ed4 100644
+--- a/drivers/gpu/drm/gma500/Kconfig
++++ b/drivers/gpu/drm/gma500/Kconfig
+@@ -3,6 +3,7 @@ config DRM_GMA500
+ 	tristate "Intel GMA500/600/3600/3650 KMS Framebuffer"
+ 	depends on DRM && PCI && X86 && MMU
+ 	select DRM_KMS_HELPER
++	select FB_IO_HELPERS if DRM_FBDEV_EMULATION
+ 	select I2C
+ 	select I2C_ALGOBIT
+ 	# GMA500 depends on ACPI_VIDEO when ACPI is enabled, just like i915
+diff --git a/drivers/gpu/drm/gma500/fbdev.c b/drivers/gpu/drm/gma500/fbdev.c
+index 4f0309548b2b..955cbe9f05a7 100644
+--- a/drivers/gpu/drm/gma500/fbdev.c
++++ b/drivers/gpu/drm/gma500/fbdev.c
+@@ -5,6 +5,7 @@
+  *
+  **************************************************************************/
+ 
++#include <linux/fb.h>
+ #include <linux/pfn_t.h>
+ 
+ #include <drm/drm_crtc_helper.h>
+@@ -134,13 +135,10 @@ static void psb_fbdev_fb_destroy(struct fb_info *info)
+ 
+ static const struct fb_ops psb_fbdev_fb_ops = {
+ 	.owner = THIS_MODULE,
++	__FB_DEFAULT_IO_OPS_RDWR,
+ 	DRM_FB_HELPER_DEFAULT_OPS,
+ 	.fb_setcolreg = psb_fbdev_fb_setcolreg,
+-	.fb_read = drm_fb_helper_cfb_read,
+-	.fb_write = drm_fb_helper_cfb_write,
+-	.fb_fillrect = drm_fb_helper_cfb_fillrect,
+-	.fb_copyarea = drm_fb_helper_cfb_copyarea,
+-	.fb_imageblit = drm_fb_helper_cfb_imageblit,
++	__FB_DEFAULT_IO_OPS_DRAW,
+ 	.fb_mmap = psb_fbdev_fb_mmap,
+ 	.fb_destroy = psb_fbdev_fb_destroy,
+ };
+-- 
+2.40.1
 
