@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECFE2C7EE33
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 May 2023 09:22:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D06EC7EE39
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 May 2023 09:22:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90E9010E630;
-	Wed, 24 May 2023 09:22:05 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C17610E5C4;
- Wed, 24 May 2023 09:21:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 556A010E643;
+	Wed, 24 May 2023 09:22:06 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78BF910E5C4;
+ Wed, 24 May 2023 09:21:57 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3E5C21FE24;
- Wed, 24 May 2023 09:21:57 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DCD7522495;
+ Wed, 24 May 2023 09:21:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1684920117; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1684920115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=SJ2zRdSISjXxkznRIjUJwZryXZxJdxu9+Ef1+QciFH0=;
- b=1lupMwtHLWZkoMESvrn/VtY9tZ0bgUtAuZDJcIPDWWN1poYoPux2I3mBvVtFqpezfM30MV
- djI835QccjYWA6Mwl+NPNnZ1JHyn5OcZTyIeQK+6+A90O9Pvw4eFe7RybIj/z6eBFQ0q7f
- QDpBDl/j0uxWMLHIuugy2CrH+3BgjE8=
+ bh=biZEohMZD3sUTm8Wkca21Y80NzvN3wxtKZ5P/ataxE4=;
+ b=HCU4k1CUCHRo6hLU7M880F0E0NjxClIH1v8BshMyP4fRuSFsT6jh7c4g89XGBDIT5FJ3rJ
+ 5SHWLXpbGDTfmSI89owrNQBdhHsFTvHGwwubynByXVhmbAjdVk/zwmZFWGKxyK0XPbC/Ba
+ FUbzo1NbA8D1LsCM9pqcTSOu8FLrruY=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1684920117;
+ s=susede2_ed25519; t=1684920115;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=SJ2zRdSISjXxkznRIjUJwZryXZxJdxu9+Ef1+QciFH0=;
- b=SxBSaTFPRqIhmGEm2vUzXW8SCainn9rhwv3dGXZpN9Mf446w+IULZ2QFGfbX7Srto6sUwb
- nmI3YZUJvDdcIuDw==
+ bh=biZEohMZD3sUTm8Wkca21Y80NzvN3wxtKZ5P/ataxE4=;
+ b=qoLZjPN5eSxQCcSNInvRlJYny0lCH9+k89pnJqJH1MJ00N8CPuV0zI/0/ButpgsrNZ9RK+
+ F1wfzwvXfniQyoAA==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id ED8E613A10;
- Wed, 24 May 2023 09:21:56 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9199013A10;
+ Wed, 24 May 2023 09:21:55 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id qKgqOTTXbWTHewAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Wed, 24 May 2023 09:21:56 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id qHmnIjPXbWTHewAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Wed, 24 May 2023 09:21:55 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, javierm@redhat.com, sam@ravnborg.org
-Date: Wed, 24 May 2023 11:21:48 +0200
-Message-Id: <20230524092150.11776-12-tzimmermann@suse.de>
+Date: Wed, 24 May 2023 11:21:44 +0200
+Message-Id: <20230524092150.11776-8-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230524092150.11776-1-tzimmermann@suse.de>
 References: <20230524092150.11776-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 11/13] drm/fb-helper: Export helpers for
- marking damage areas
+Subject: [Intel-gfx] [PATCH v4 07/13] drm/fbdev-dma: Use regular fbdev I/O
+ helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,68 +77,66 @@ Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Export drm_fb_helper_damage() and drm_fb_helper_damage_range(), which
-handle damage areas for fbdev emulation. This is a temporary export
-that allows to move the DRM I/O helpers for fbdev into drivers. Only
-fbdev-generic and i915 need them. Both will be updated to implement
-damage handling by themselves and the exported functions will be removed.
+Use the regular fbdev helpers for framebuffer I/O instead of DRM's
+helpers. Fbdev-dma does not use damage handling, so DRM's fbdev helpers
+are mere wrappers around the fbdev code.
+
+By using fbdev helpers directly within each DRM fbdev emulation,
+we can eventually remove DRM's wrapper functions entirely.
 
 v4:
-	* update interfaces
+	* use initializer macros for struct fb_ops
+v2:
+	* use FB_SYS_HELPERS option
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 ---
- drivers/gpu/drm/drm_fb_helper.c | 22 ++++++++++++++++++++++
- include/drm/drm_fb_helper.h     |  3 +++
- 2 files changed, 25 insertions(+)
+ drivers/gpu/drm/Kconfig         |  1 +
+ drivers/gpu/drm/drm_fbdev_dma.c | 11 +++++------
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index f0e9549b6bd7..cb03099fd2e3 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -670,6 +670,28 @@ static void drm_fb_helper_memory_range_to_clip(struct fb_info *info, off_t off,
- 	drm_rect_init(clip, x1, y1, x2 - x1, y2 - y1);
- }
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index ba3fb04bb691..77fb10ddd8a2 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -223,6 +223,7 @@ config DRM_TTM_HELPER
+ config DRM_GEM_DMA_HELPER
+ 	tristate
+ 	depends on DRM
++	select FB_SYS_HELPERS if DRM_FBDEV_EMULATION
+ 	help
+ 	  Choose this if you need the GEM DMA helper functions
  
-+/* Don't use in new code. */
-+void drm_fb_helper_damage_range(struct fb_info *info, off_t off, size_t len)
-+{
-+	struct drm_fb_helper *fb_helper = info->par;
-+	struct drm_rect damage_area;
-+
-+	drm_fb_helper_memory_range_to_clip(info, off, len, &damage_area);
-+	drm_fb_helper_damage(fb_helper, damage_area.x1, damage_area.y1,
-+			     drm_rect_width(&damage_area),
-+			     drm_rect_height(&damage_area));
-+}
-+EXPORT_SYMBOL(drm_fb_helper_damage_range);
-+
-+/* Don't use in new code. */
-+void drm_fb_helper_damage_area(struct fb_info *info, u32 x, u32 y, u32 width, u32 height)
-+{
-+	struct drm_fb_helper *fb_helper = info->par;
-+
-+	drm_fb_helper_damage(fb_helper, x, y, width, height);
-+}
-+EXPORT_SYMBOL(drm_fb_helper_damage_area);
-+
- /**
-  * drm_fb_helper_deferred_io() - fbdev deferred_io callback function
-  * @info: fb_info struct pointer
-diff --git a/include/drm/drm_fb_helper.h b/include/drm/drm_fb_helper.h
-index 72032c354a30..7d5804882be7 100644
---- a/include/drm/drm_fb_helper.h
-+++ b/include/drm/drm_fb_helper.h
-@@ -253,6 +253,9 @@ void drm_fb_helper_fill_info(struct fb_info *info,
- 			     struct drm_fb_helper *fb_helper,
- 			     struct drm_fb_helper_surface_size *sizes);
+diff --git a/drivers/gpu/drm/drm_fbdev_dma.c b/drivers/gpu/drm/drm_fbdev_dma.c
+index 728deffcc0d9..d86773fa8ab0 100644
+--- a/drivers/gpu/drm/drm_fbdev_dma.c
++++ b/drivers/gpu/drm/drm_fbdev_dma.c
+@@ -1,5 +1,7 @@
+ // SPDX-License-Identifier: MIT
  
-+void drm_fb_helper_damage_range(struct fb_info *info, off_t off, size_t len);
-+void drm_fb_helper_damage_area(struct fb_info *info, u32 x, u32 y, u32 width, u32 height);
++#include <linux/fb.h>
 +
- void drm_fb_helper_deferred_io(struct fb_info *info, struct list_head *pagereflist);
+ #include <drm/drm_crtc_helper.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_fb_helper.h>
+@@ -64,14 +66,11 @@ static const struct fb_ops drm_fbdev_dma_fb_ops = {
+ 	.owner = THIS_MODULE,
+ 	.fb_open = drm_fbdev_dma_fb_open,
+ 	.fb_release = drm_fbdev_dma_fb_release,
+-	.fb_read = drm_fb_helper_sys_read,
+-	.fb_write = drm_fb_helper_sys_write,
++	__FB_DEFAULT_SYS_OPS_RDWR,
+ 	DRM_FB_HELPER_DEFAULT_OPS,
+-	.fb_fillrect = drm_fb_helper_sys_fillrect,
+-	.fb_copyarea = drm_fb_helper_sys_copyarea,
+-	.fb_imageblit = drm_fb_helper_sys_imageblit,
+-	.fb_destroy = drm_fbdev_dma_fb_destroy,
++	__FB_DEFAULT_SYS_OPS_DRAW,
+ 	.fb_mmap = drm_fbdev_dma_fb_mmap,
++	.fb_destroy = drm_fbdev_dma_fb_destroy,
+ };
  
- ssize_t drm_fb_helper_sys_read(struct fb_info *info, char __user *buf,
+ /*
 -- 
 2.40.1
 
