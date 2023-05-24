@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDCAEC7EE2C
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 May 2023 14:27:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3496C7EE2E
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 May 2023 14:27:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8BCE10E686;
-	Wed, 24 May 2023 14:27:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E2AB10E68D;
+	Wed, 24 May 2023 14:27:09 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC86110E2D2;
- Wed, 24 May 2023 14:26:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A74A410E02A;
+ Wed, 24 May 2023 14:26:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1684938410; x=1716474410;
+ t=1684938418; x=1716474418;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=oH+wkAeifPINlzniI5Tjkpl4lKBIqdYSa3tIN5j54fY=;
- b=B1S/4pDJ0IBKe7jrw+V+WtKxRO1Ex2VmpviZKK7dWGhntxuQF0hhgmq3
- 0RMFaUNWCph6onDV2pxM23qVGU7DL8dLothqiS2MKYFZBF5v+hjhu/+d7
- UqzlmEeLI+IDcdSp6i03dm1TZ9jpU+ZT31gF8GRqQuVRFmviScfrOLx53
- INNOyRNHOTEn4AjZrv4FR6q+wSILeKbPbKj8ywWGGytAXQBQgyV3vV5Wn
- puUO3q97HhQF1DOKK36gCyYnfK7vEXsK3YrdLTcPGhLbnuvKmK4OrvjD+
- EbEj4eKEC/F5k+b3S+/MFilqjIYXhpUjbg6TyxBRHNi63zZeeUay2w3Nh A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10720"; a="356806425"
-X-IronPort-AV: E=Sophos;i="6.00,189,1681196400"; d="scan'208";a="356806425"
+ bh=ZGV8UmRbfrMJYych3wXk8cBRQZ5Bmc1x37E2OTQDVfE=;
+ b=h7SaPskM7xPgjA1ghJEey5gwohwm+DmQEGF0IskeWBjAzABAfiWjdTpL
+ 9HoIpsjXOLGRBZtdv1Ukp9ogpmM9VMLXEXp38S6DTorND9Ugk2l9gSZWU
+ DFVe8zG0jMX3JYZB02xUfBDK/gXyuL4xCQUSsSV9/j8thIH5y1qXVumuv
+ waIr6q5wq3WK2uNcZQaWqpQxY/wvGvBt7tOrv/OE4LDAFJ1jfs6w676e4
+ BQv37Z8Jankbn8LW70t/9OMEa7uVCiSbVwGIPMkTR1/vqu7B4AzVDQzi4
+ G8JZx7jPqKEyQqBXGT5U2x9RU4YX4w/UpVqmvys2shZIq6bY/ZZdAgBAF Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10720"; a="356806484"
+X-IronPort-AV: E=Sophos;i="6.00,189,1681196400"; d="scan'208";a="356806484"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2023 07:26:50 -0700
+ 24 May 2023 07:26:58 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10720"; a="1034556039"
-X-IronPort-AV: E=Sophos;i="6.00,189,1681196400"; d="scan'208";a="1034556039"
+X-IronPort-AV: E=McAfee;i="6600,9927,10720"; a="1034556054"
+X-IronPort-AV: E=Sophos;i="6.00,189,1681196400"; d="scan'208";a="1034556054"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2023 07:26:48 -0700
+ 24 May 2023 07:26:56 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Wed, 24 May 2023 19:52:04 +0530
-Message-Id: <20230524142210.3779331-9-ankit.k.nautiyal@intel.com>
+Date: Wed, 24 May 2023 19:52:07 +0530
+Message-Id: <20230524142210.3779331-12-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230524142210.3779331-1-ankit.k.nautiyal@intel.com>
 References: <20230524142210.3779331-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/14] drm/display/dp: Fix the DP DSC Receiver
- cap size
+Subject: [Intel-gfx] [PATCH 11/14] drm/i915/dp: Avoid left shift of DSC
+ output bpp by 4
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,32 +62,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DP DSC Receiver Capabilities are exposed via DPCD 60h-6Fh.
-Fix the DSC RECEIVER CAP SIZE accordingly.
-
-Fixes: ffddc4363c28 ("drm/dp: Add DP DSC DPCD receiver capability size define and missing SHIFT")
-Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Cc: Manasi Navare <manasi.d.navare@intel.com>
-Cc: <stable@vger.kernel.org> # v5.0+
+To make way for fractional bpp support, avoid left shifting the
+output_bpp by 4 in helper intel_dp_dsc_get_output_bpp.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- include/drm/display/drm_dp.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dp.c     | 12 ++++--------
+ drivers/gpu/drm/i915/display/intel_dp_mst.c |  2 +-
+ 2 files changed, 5 insertions(+), 9 deletions(-)
 
-diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
-index b046f79f4744..e6e86a134ddd 100644
---- a/include/drm/display/drm_dp.h
-+++ b/include/drm/display/drm_dp.h
-@@ -1537,7 +1537,7 @@ enum drm_dp_phy {
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 9d5da49f1180..363cfecc1175 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -794,11 +794,7 @@ u16 intel_dp_dsc_get_max_compressed_bpp(struct drm_i915_private *i915,
  
- #define DP_BRANCH_OUI_HEADER_SIZE	0xc
- #define DP_RECEIVER_CAP_SIZE		0xf
--#define DP_DSC_RECEIVER_CAP_SIZE        0xf
-+#define DP_DSC_RECEIVER_CAP_SIZE        0x10 /* DSC Capabilities 0x60 through 0x6F */
- #define EDP_PSR_RECEIVER_CAP_SIZE	2
- #define EDP_DISPLAY_CTL_CAP_SIZE	3
- #define DP_LTTPR_COMMON_CAP_SIZE	8
+ 	bits_per_pixel = intel_dp_dsc_nearest_valid_bpp(i915, bits_per_pixel, pipe_bpp);
+ 
+-	/*
+-	 * Compressed BPP in U6.4 format so multiply by 16, for Gen 11,
+-	 * fractional part is 0
+-	 */
+-	return bits_per_pixel << 4;
++	return bits_per_pixel;
+ }
+ 
+ u8 intel_dp_dsc_get_slice_count(struct intel_dp *intel_dp,
+@@ -1188,7 +1184,7 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+ 								    mode->hdisplay,
+ 								    bigjoiner,
+ 								    output_format,
+-								    pipe_bpp, 64) >> 4;
++								    pipe_bpp, 64);
+ 			dsc_slice_count =
+ 				intel_dp_dsc_get_slice_count(intel_dp,
+ 							     target_clock,
+@@ -1745,7 +1741,7 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 			if (pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR420)
+ 				dsc_max_compressed_bpp = min_t(u16,
+ 							       dsc_max_compressed_bpp,
+-							       31 << 4);
++							       31);
+ 
+ 			if (!dsc_max_compressed_bpp) {
+ 				drm_dbg_kms(&dev_priv->drm,
+@@ -1775,7 +1771,7 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 							     pipe_config->pipe_bpp);
+ 
+ 			pipe_config->dsc.compressed_bpp = min_t(u16,
+-								dsc_max_compressed_bpp >> 4,
++								dsc_max_compressed_bpp,
+ 								output_bpp);
+ 		}
+ 		pipe_config->dsc.slice_count = dsc_dp_slice_count;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index d875fef97356..78821c50948d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -980,7 +980,7 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
+ 								    mode->hdisplay,
+ 								    bigjoiner,
+ 								    INTEL_OUTPUT_FORMAT_RGB,
+-								    pipe_bpp, 64) >> 4;
++								    pipe_bpp, 64);
+ 			dsc_slice_count =
+ 				intel_dp_dsc_get_slice_count(intel_dp,
+ 							     target_clock,
 -- 
 2.25.1
 
