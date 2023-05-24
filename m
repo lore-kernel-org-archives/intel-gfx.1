@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B698FC7EE2C
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 May 2023 14:26:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BE7CC77B7A
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 May 2023 14:27:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D47CB10E2D2;
-	Wed, 24 May 2023 14:26:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB06B10E67F;
+	Wed, 24 May 2023 14:26:58 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A104F10E67F;
- Wed, 24 May 2023 14:26:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8807010E67F;
+ Wed, 24 May 2023 14:26:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1684938407; x=1716474407;
+ t=1684938416; x=1716474416;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=qpNzxHv9oO+XI/KU5tj0ZuxnaHUVbc6bhspKNHW4Urk=;
- b=EVCMBU63WRQqXbJOti0EBI164CQZBgl9tYjZYK46SSXCkXu+x+XbZ+Kx
- Cw7J/c2/t3EEHGAkhsb1m2gN8hnvB9veL9PJA9VomreFGZexFA/ZdGscw
- w87ANMM2sjvD6Dwk5S/EaurCO6v8pyK1FUVdhokBlGQxmoQJG4O+15FTW
- Y9c1aSOSPYM3e53D2rnZ2703FFz93YrHz0iX43VIV4STUCV1UYBGHkTI3
- YKmsAIeCuNAGaN8lVkAtODD7GlkUScVlWvJGCUH6MnHf3dEdsX+BLXSqF
- +f5iqBkdPSeWqlXkRfNF3GbIL/+Eq7eYYTqkKlsxyj1pnolJAQ5H7ooy+ Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10720"; a="356806381"
-X-IronPort-AV: E=Sophos;i="6.00,189,1681196400"; d="scan'208";a="356806381"
+ bh=mPpFQlhULXRtv1a9+AXzYHybbalBuEe0n/GbuSkzO2E=;
+ b=Ekpu4AIJcC3gSIP3hAokgEOgqPneEp6PY+AqVN+r/IWbY5+gaM4PDDcA
+ My3UKebotJjMOS3AwQ2Ore9B4Uv0NbYrkWEjBVEBPdxOJBo0+g1fBexGc
+ 14Bg4JB+KAJPm4TDEZD/CvRdkIq7Hl4cTk2CUzV5iUYrw7VPZi+yPyqdQ
+ dpNy2w+HV/shVfzVWeYGl0Rjix7cALCnJ+qVBbYUp/i2Ej3ugqTj939nC
+ aYDYC3oHzwceBQ3XGfUFXkWnvEVbMEzTQhgvzHED8PqEc0PpobDMFwmZL
+ Q5OpHiwI+cdVN99tPC2OX6x0ntpkAyRUtO2koiksrNJgqkV2j4GIUy8A2 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10720"; a="356806467"
+X-IronPort-AV: E=Sophos;i="6.00,189,1681196400"; d="scan'208";a="356806467"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2023 07:26:45 -0700
+ 24 May 2023 07:26:56 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10720"; a="1034556024"
-X-IronPort-AV: E=Sophos;i="6.00,189,1681196400"; d="scan'208";a="1034556024"
+X-IronPort-AV: E=McAfee;i="6600,9927,10720"; a="1034556049"
+X-IronPort-AV: E=Sophos;i="6.00,189,1681196400"; d="scan'208";a="1034556049"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2023 07:26:43 -0700
+ 24 May 2023 07:26:52 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Wed, 24 May 2023 19:52:02 +0530
-Message-Id: <20230524142210.3779331-7-ankit.k.nautiyal@intel.com>
+Date: Wed, 24 May 2023 19:52:06 +0530
+Message-Id: <20230524142210.3779331-11-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230524142210.3779331-1-ankit.k.nautiyal@intel.com>
 References: <20230524142210.3779331-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/14] drm/i915/intel_cdclk: Add vdsc with
- bigjoiner constraints on min_cdlck
+Subject: [Intel-gfx] [PATCH 10/14] drm/i915/dp: Check min bpc DSC limits for
+ dsc_force_bpc also
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,92 +62,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As per Bsepc:49259, Bigjoiner BW check puts restriction on the
-compressed bpp for a given CDCLK, pixelclock in cases where
-Bigjoiner + DSC are used.
+For DSC the min BPC is 8 for ICL+ and so the min pipe_bpp is 24.
+Check this condition for cases where bpc is forced by debugfs flag
+dsc_force_bpc. If the check fails, then WARN and ignore the debugfs
+flag.
 
-Currently compressed bpp is computed first, and it is ensured that
-the bpp will work at least with the max CDCLK freq.
-
-Since the CDCLK is computed later, lets account for Bigjoiner BW
-check while calculating Min CDCLK.
-
-v2: Use pixel clock in the bw calculations. (Ville)
+For MST case the pipe_bpp is already computed (hardcoded to be 24),
+and this check is not required.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 51 +++++++++++++++++++---
- 1 file changed, 44 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 48 ++++++++++++++++---------
+ 1 file changed, 31 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index 14ccda8a0bf1..9f7e246772d7 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -2524,6 +2524,48 @@ static int intel_planes_min_cdclk(const struct intel_crtc_state *crtc_state)
- 	return min_cdclk;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index c060e6cb042e..9d5da49f1180 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1647,6 +1647,13 @@ static bool intel_dp_dsc_supports_format(struct intel_dp *intel_dp,
+ 	return drm_dp_dsc_sink_supports_format(intel_dp->dsc_dpcd, sink_dsc_format);
  }
  
-+static int intel_vdsc_min_cdclk(const struct intel_crtc_state *crtc_state)
++static
++bool is_dsc_pipe_bpp_sufficient(int pipe_bpp)
 +{
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
-+	int min_cdclk = 0;
-+
-+	/*
-+	 * When we decide to use only one VDSC engine, since
-+	 * each VDSC operates with 1 ppc throughput, pixel clock
-+	 * cannot be higher than the VDSC clock (cdclk)
-+	 */
-+	if (!crtc_state->dsc.dsc_split)
-+		min_cdclk = max(min_cdclk, (int)crtc_state->pixel_rate);
-+
-+	if (crtc_state->bigjoiner_pipes) {
-+		int pixel_clock = crtc_state->hw.adjusted_mode.clock;
-+
-+		/*
-+		 * According to Bigjoiner bw check:
-+		 * compressed_bpp <= PPC * CDCLK * Big joiner Interface bits / Pixel clock
-+		 *
-+		 * We have already computed compressed_bpp, so now compute the min CDCLK that
-+		 * is required to support this compressed_bpp.
-+		 *
-+		 * => CDCLK >= compressed_bpp * Pixel clock / (PPC * Bigjoiner Interface bits)
-+		 *
-+		 * Since PPC = 2 with bigjoiner
-+		 * => CDCLK >= compressed_bpp * Pixel clock  / 2 * Bigjoiner Interface bits
-+		 *
-+		 * #TODO Bspec mentions to account for FEC overhead while using pixel clock.
-+		 * Check if we need to use FEC overhead in the above calculations.
-+		 */
-+		int bigjoiner_interface_bits = DISPLAY_VER(i915) > 13 ? 36 : 24;
-+		int min_cdclk_bj = (crtc_state->dsc.compressed_bpp * pixel_clock) /
-+				   (2 * bigjoiner_interface_bits);
-+
-+		min_cdclk = max(min_cdclk, min_cdclk_bj);
-+	}
-+
-+	return min_cdclk;
++	/* Min Input BPC for ICL+ is 8 */
++	return (pipe_bpp < 8 * 3);
 +}
 +
- int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
- {
- 	struct drm_i915_private *dev_priv =
-@@ -2595,13 +2637,8 @@ int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
- 	/* Account for additional needs from the planes */
- 	min_cdclk = max(intel_planes_min_cdclk(crtc_state), min_cdclk);
+ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 				struct intel_crtc_state *pipe_config,
+ 				struct drm_connector_state *conn_state,
+@@ -1658,7 +1665,6 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 	struct drm_i915_private *dev_priv = to_i915(dig_port->base.base.dev);
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&pipe_config->hw.adjusted_mode;
+-	int pipe_bpp;
+ 	int ret;
  
--	/*
--	 * When we decide to use only one VDSC engine, since
--	 * each VDSC operates with 1 ppc throughput, pixel clock
--	 * cannot be higher than the VDSC clock (cdclk)
--	 */
--	if (crtc_state->dsc.compression_enable && !crtc_state->dsc.dsc_split)
--		min_cdclk = max(min_cdclk, (int)crtc_state->pixel_rate);
-+	if (crtc_state->dsc.compression_enable)
-+		min_cdclk = max(min_cdclk, intel_vdsc_min_cdclk(crtc_state));
+ 	pipe_config->fec_enable = !intel_dp_is_edp(intel_dp) &&
+@@ -1670,28 +1676,36 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 	if (!intel_dp_dsc_supports_format(intel_dp, pipe_config->output_format))
+ 		return -EINVAL;
+ 
+-	if (intel_dp->force_dsc_bpc && compute_pipe_bpp) {
+-		pipe_bpp = intel_dp->force_dsc_bpc * 3;
+-		drm_dbg_kms(&dev_priv->drm, "Input DSC BPP forced to %d\n", pipe_bpp);
+-	} else if (compute_pipe_bpp) {
+-		pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, conn_state->max_requested_bpc);
+-	} else {
+-		pipe_bpp = pipe_config->pipe_bpp;
+-	}
++	if (compute_pipe_bpp) {
++		int pipe_bpp;
++		int forced_bpp = intel_dp->force_dsc_bpc * 3;
+ 
+-	/* Min Input BPC for ICL+ is 8 */
+-	if (pipe_bpp < 8 * 3) {
+-		drm_dbg_kms(&dev_priv->drm,
+-			    "No DSC support for less than 8bpc\n");
+-		return -EINVAL;
++		if (forced_bpp && is_dsc_pipe_bpp_sufficient(forced_bpp)) {
++			pipe_bpp = forced_bpp;
++			drm_dbg_kms(&dev_priv->drm, "Input DSC BPP forced to %d\n", pipe_bpp);
++		} else {
++			drm_WARN(&dev_priv->drm,
++				 forced_bpp && !is_dsc_pipe_bpp_sufficient(forced_bpp),
++				 "Cannot force dsc bpc:%d, due to dsc bpc limits\n",
++				 intel_dp->force_dsc_bpc);
++
++			pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp,
++							    conn_state->max_requested_bpc);
++
++			if (!is_dsc_pipe_bpp_sufficient(pipe_bpp)) {
++				drm_dbg_kms(&dev_priv->drm, "No DSC support for less than 8bpc\n");
++				return -EINVAL;
++			}
++		}
++
++		pipe_config->pipe_bpp = pipe_bpp;
+ 	}
  
  	/*
- 	 * HACK. Currently for TGL/DG2 platforms we calculate
+-	 * For now enable DSC for max bpp, max link rate, max lane count.
++	 * For now enable DSC for max link rate, max lane count.
+ 	 * Optimize this later for the minimum possible link rate/lane count
+ 	 * with DSC enabled for the requested mode.
+ 	 */
+-	pipe_config->pipe_bpp = pipe_bpp;
+ 	pipe_config->port_clock = limits->max_rate;
+ 	pipe_config->lane_count = limits->max_lane_count;
+ 
+@@ -1720,7 +1734,7 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 								    adjusted_mode->crtc_hdisplay,
+ 								    pipe_config->bigjoiner_pipes,
+ 								    pipe_config->output_format,
+-								    pipe_bpp,
++								    pipe_config->pipe_bpp,
+ 								    timeslots);
+ 			/*
+ 			 * According to DSC 1.2a Section 4.1.1 Table 4.1 the maximum
 -- 
 2.25.1
 
