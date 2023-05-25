@@ -4,49 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17755C7EE2E
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 May 2023 08:12:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAE01C77B7E
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 May 2023 08:33:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94E4910E843;
-	Thu, 25 May 2023 08:12:07 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF94510E7EE;
- Thu, 25 May 2023 08:12:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0BBA10E7F8;
+	Thu, 25 May 2023 08:33:14 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72C5710E80B;
+ Thu, 25 May 2023 08:33:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1685002324; x=1716538324;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=cD9zyhxp1uXzU07tl3dhVj4mDkaCDgdNKKeEwPinc7g=;
- b=b2JKoNr4O2OdSnesl1A7ht05cFBhix3wxBwSSWFOUkMEu0brmICVYnTU
- GOdymBca+L6h6d8o3o84mkCKfEObErQI5ZgCoONgPAE+mVkY4c2jr97kO
- 7QCOF6ryMRkOOQaf4aZs5/hkpWYP7vuHFLUbiDECIS5DLGNqP3srdiRt3
- Qvee2tFJhu5+8AQWP3wzZepeelRb+XTw9YmaTUwT6+lHi9IJoKBuknXdg
- pVPkDF0GnNqsTRUC7fYxqiLK4OG0zwr5Y8MtCGX8kkK3oPQy2FGorm070
- oleM+YeWLi6ZCqDN+N21PdsVKc2F4KKesZUiMXCpSmJbq2kqNytKnEspJ Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10720"; a="417288510"
-X-IronPort-AV: E=Sophos;i="6.00,190,1681196400"; d="scan'208";a="417288510"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2023 01:11:51 -0700
+ t=1685003592; x=1716539592;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=eD8q5gLj0eiJelC5PcGJjCTwUkSnkPU1oZXcQsEa+d8=;
+ b=GetT2zij82DTKtvNAF8uWHDIIOnMZKxhQhHCzagw07cxDjGEsyPhSiZx
+ 68eb9jtADs+kmQII1HkbqViyCnC5KFN4Gidi7jMKM1W4zT4f4rNv0IgEK
+ khNxVvLMMj2czBJqgVNeQKyIS+Od8LgV2xULbsRv0LGuiqUI2KvMoEnXD
+ zC7eNYisUL5J/qBcaw8kkPgQxcJuQL9+81JcbRLrZiZLBEx/KkUJ1ow1T
+ d/amiOoWsHOT4aT2x2wdjKJx7imQyb7cDyk9D3566ipGDgRez8g4sT/DZ
+ ICPqXoGLdrXc1ribpCBu3szk41thT0BuZO2rQGQLUJrB1EU60xyrUCMt0 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10720"; a="440184799"
+X-IronPort-AV: E=Sophos;i="6.00,190,1681196400"; d="scan'208";a="440184799"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 May 2023 01:33:11 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10720"; a="655122999"
-X-IronPort-AV: E=Sophos;i="6.00,190,1681196400"; d="scan'208";a="655122999"
-Received: from moiraric-mobl.ger.corp.intel.com (HELO localhost.localdomain)
+X-IronPort-AV: E=McAfee;i="6600,9927,10720"; a="879022910"
+X-IronPort-AV: E=Sophos;i="6.00,190,1681196400"; d="scan'208";a="879022910"
+Received: from moiraric-mobl.ger.corp.intel.com (HELO [10.213.234.103])
  ([10.213.234.103])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2023 01:11:49 -0700
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: Intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Thu, 25 May 2023 09:11:32 +0100
-Message-Id: <20230525081133.215292-5-tvrtko.ursulin@linux.intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230525081133.215292-1-tvrtko.ursulin@linux.intel.com>
-References: <20230525081133.215292-1-tvrtko.ursulin@linux.intel.com>
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 May 2023 01:33:09 -0700
+Message-ID: <78124d6f-7f46-afbe-d320-9dad77082f3b@linux.intel.com>
+Date: Thu, 25 May 2023 09:33:08 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/5] drm/i915: Expose RPS thresholds in sysfs
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: fei.yang@intel.com, intel-gfx@lists.freedesktop.org
+References: <20230524200255.443021-1-fei.yang@intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <20230524200255.443021-1-fei.yang@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v12 0/1] drm/i915: Allow user to set cache
+ at BO creation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,169 +63,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rodrigo Vivi <rodrigo.vivi@kernel.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-User feedback indicates significant performance gains are possible in
-specific games with non default RPS up/down thresholds.
+On 24/05/2023 21:02, fei.yang@intel.com wrote:
+> From: Fei Yang <fei.yang@intel.com>
+> 
+> This series introduce a new extension for GEM_CREATE,
+> 1. end support for set caching ioctl [PATCH 1/2]
+> 2. add set_pat extension for gem_create [PATCH 2/2]
+> 
+> v2: drop one patch that was merged separately
+>      commit 341ad0e8e254 ("drm/i915/mtl: Add PTE encode function")
+> v3: rebased on https://patchwork.freedesktop.org/series/117082/
+> v4: fix missing unlock introduced in v3, and
+>      solve a rebase conflict
+> v5: replace obj->cache_level with pat_set_by_user,
+>      fix i915_cache_level_str() for legacy platforms.
+> v6: rebased on https://patchwork.freedesktop.org/series/117480/
+> v7: rebased on https://patchwork.freedesktop.org/series/117528/
+> v8: dropped the two dependent patches that has been merged
+>      separately. Add IGT link and Tested-by (MESA).
+> v9: addressing comments (Andi)
+> v10: acked-by and tested-by MESA
+> v11: drop "end support for set caching ioctl" (merged)
+>       remove tools/include/uapi/drm/i915_drm.h
+> v12: drop Bspec reference in comment. add to commit message instead
+> 
+> Fei Yang (1):
+>    drm/i915: Allow user to set cache at BO creation
+> 
+>   drivers/gpu/drm/i915/gem/i915_gem_create.c | 36 +++++++++++++++++++
+>   drivers/gpu/drm/i915/gem/i915_gem_object.c |  6 ++++
+>   include/uapi/drm/i915_drm.h                | 41 ++++++++++++++++++++++
+>   3 files changed, 83 insertions(+)
+> 
 
-Expose these tunables via sysfs which will allow users to achieve best
-performance when running games and best power efficiency elsewhere.
+Do you also have a Test-with: run against the new IGT somewhere?
 
-Note this patch supports non GuC based platforms only.
+Regards,
 
-v2:
- * Make checkpatch happy.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-References: https://gitlab.freedesktop.org/drm/intel/-/issues/8389
-Cc: Rodrigo Vivi <rodrigo.vivi@kernel.org>
-Acked-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
----
- drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c | 108 ++++++++++++++++++++
- 1 file changed, 108 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-index ee2b44f896a2..f0dea54880af 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c
-@@ -700,6 +700,80 @@ static const struct attribute *media_perf_power_attrs[] = {
- 	NULL
- };
- 
-+static ssize_t
-+rps_up_threshold_pct_show(struct kobject *kobj, struct kobj_attribute *attr,
-+			  char *buf)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(kobj, attr->attr.name);
-+	struct intel_rps *rps = &gt->rps;
-+
-+	return sysfs_emit(buf, "%u\n", intel_rps_get_up_threshold(rps));
-+}
-+
-+static ssize_t
-+rps_up_threshold_pct_store(struct kobject *kobj, struct kobj_attribute *attr,
-+			   const char *buf, size_t count)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(kobj, attr->attr.name);
-+	struct intel_rps *rps = &gt->rps;
-+	int ret;
-+	u8 val;
-+
-+	ret = kstrtou8(buf, 10, &val);
-+	if (ret)
-+		return ret;
-+
-+	ret = intel_rps_set_up_threshold(rps, val);
-+
-+	return ret == 0 ? count : ret;
-+}
-+
-+static struct kobj_attribute rps_up_threshold_pct =
-+	__ATTR(rps_up_threshold_pct,
-+	       0664,
-+	       rps_up_threshold_pct_show,
-+	       rps_up_threshold_pct_store);
-+
-+static ssize_t
-+rps_down_threshold_pct_show(struct kobject *kobj, struct kobj_attribute *attr,
-+			    char *buf)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(kobj, attr->attr.name);
-+	struct intel_rps *rps = &gt->rps;
-+
-+	return sysfs_emit(buf, "%u\n", intel_rps_get_down_threshold(rps));
-+}
-+
-+static ssize_t
-+rps_down_threshold_pct_store(struct kobject *kobj, struct kobj_attribute *attr,
-+			     const char *buf, size_t count)
-+{
-+	struct intel_gt *gt = intel_gt_sysfs_get_drvdata(kobj, attr->attr.name);
-+	struct intel_rps *rps = &gt->rps;
-+	int ret;
-+	u8 val;
-+
-+	ret = kstrtou8(buf, 10, &val);
-+	if (ret)
-+		return ret;
-+
-+	ret = intel_rps_set_down_threshold(rps, val);
-+
-+	return ret == 0 ? count : ret;
-+}
-+
-+static struct kobj_attribute rps_down_threshold_pct =
-+	__ATTR(rps_down_threshold_pct,
-+	       0664,
-+	       rps_down_threshold_pct_show,
-+	       rps_down_threshold_pct_store);
-+
-+static const struct attribute * const gen6_gt_rps_attrs[] = {
-+	&rps_up_threshold_pct.attr,
-+	&rps_down_threshold_pct.attr,
-+	NULL
-+};
-+
- static ssize_t
- default_min_freq_mhz_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
- {
-@@ -722,9 +796,37 @@ default_max_freq_mhz_show(struct kobject *kobj, struct kobj_attribute *attr, cha
- static struct kobj_attribute default_max_freq_mhz =
- __ATTR(rps_max_freq_mhz, 0444, default_max_freq_mhz_show, NULL);
- 
-+static ssize_t
-+default_rps_up_threshold_pct_show(struct kobject *kobj,
-+				  struct kobj_attribute *attr,
-+				  char *buf)
-+{
-+	struct intel_gt *gt = kobj_to_gt(kobj->parent);
-+
-+	return sysfs_emit(buf, "%u\n", gt->defaults.rps_up_threshold);
-+}
-+
-+static struct kobj_attribute default_rps_up_threshold_pct =
-+__ATTR(rps_up_threshold_pct, 0444, default_rps_up_threshold_pct_show, NULL);
-+
-+static ssize_t
-+default_rps_down_threshold_pct_show(struct kobject *kobj,
-+				    struct kobj_attribute *attr,
-+				    char *buf)
-+{
-+	struct intel_gt *gt = kobj_to_gt(kobj->parent);
-+
-+	return sysfs_emit(buf, "%u\n", gt->defaults.rps_down_threshold);
-+}
-+
-+static struct kobj_attribute default_rps_down_threshold_pct =
-+__ATTR(rps_down_threshold_pct, 0444, default_rps_down_threshold_pct_show, NULL);
-+
- static const struct attribute * const rps_defaults_attrs[] = {
- 	&default_min_freq_mhz.attr,
- 	&default_max_freq_mhz.attr,
-+	&default_rps_up_threshold_pct.attr,
-+	&default_rps_down_threshold_pct.attr,
- 	NULL
- };
- 
-@@ -752,6 +854,12 @@ static int intel_sysfs_rps_init(struct intel_gt *gt, struct kobject *kobj)
- 	if (IS_VALLEYVIEW(gt->i915) || IS_CHERRYVIEW(gt->i915))
- 		ret = sysfs_create_file(kobj, vlv_attr);
- 
-+	if (is_object_gt(kobj) && !intel_uc_uses_guc_slpc(&gt->uc)) {
-+		ret = sysfs_create_files(kobj, gen6_gt_rps_attrs);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	return ret;
- }
- 
--- 
-2.39.2
-
+Tvrtko
