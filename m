@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C4B7C7EE23
-	for <intel-gfx@archiver.kernel.org>; Fri, 26 May 2023 16:38:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CBA7C77B73
+	for <intel-gfx@archiver.kernel.org>; Fri, 26 May 2023 16:38:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8684F10E826;
-	Fri, 26 May 2023 16:38:53 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6585D10E825
- for <intel-gfx@lists.freedesktop.org>; Fri, 26 May 2023 16:38:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEA0B10E820;
+	Fri, 26 May 2023 16:38:58 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AA2710E829
+ for <intel-gfx@lists.freedesktop.org>; Fri, 26 May 2023 16:38:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1685119128; x=1716655128;
+ t=1685119137; x=1716655137;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=h3GANNN96h7SUverMhbUaMHRSzMbcaAsxL/gcFlVM+o=;
- b=Pp1Q1GZK09enisAd96ONA7NDTiJeegMvfiNl3AwHpAq/4c6aTT+Ny+rx
- S9SIZiA81GC/0JxkAZrVmMIGXdTAHeVa7tTsE4TcqCs/XguBUTsAMFoF7
- +81fFKaJt4ClKGO3cf/3NNkCLifqSs+BP7VU1NgzT7/PQuehRfEKRt6Ix
- /whJo3gFDKVsyUBP38soU5i8q+IxTiZFYrtWHRTTybZJwzZ8yUQWhBN+G
- H32KxWX/gUV88JAnJN3f6aPmjV0Qq7gBBS3GOSpuhS4vw/KAnSQUNhvo7
- Funyj4w0Lnsl+MEu4mRpNip4Xy1FPSCGBb/ytUF0+/Dge48uOoppPKr8j g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="353087579"
-X-IronPort-AV: E=Sophos;i="6.00,194,1681196400"; d="scan'208";a="353087579"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2023 09:38:48 -0700
+ bh=t1Qw8eRIGl23tyFfXNPfYO6ZhhJVetVy+Tz6JiIz5ww=;
+ b=XfqP7D8jGz7k7Os+hlDDTCKOXgnzd1bDwNazcgDq7MDHTIrvwOiUbBwA
+ VeR2Gf28xgQ+s8q2VtOQ/pKH8ZROG54Vcf3jrGWbmrffQEr4+en9RSvS/
+ 07Zjtx+lyieBhO9x1rAEcS4zSbNwf7heMLaIwq7LWb0/FkR4Ru4XDbTW8
+ j1hrPka4Jva7WEKcZ4b3eweFKpk5DEcK9svB+/gJEs/JEV9WMFNlU7vQM
+ jjpBy3XzpCiQZCD71gQhFZn1ckO3e+/J/v22w1Ek3IzALuAKmc/DGK0IW
+ pN76XlGMdryJPeRrEVNeANUbqc9GszKvmSit6iWOsnd//4f6U/DWs338V g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="420006257"
+X-IronPort-AV: E=Sophos;i="6.00,194,1681196400"; d="scan'208";a="420006257"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2023 09:38:56 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="736056630"
-X-IronPort-AV: E=Sophos;i="6.00,194,1681196400"; d="scan'208";a="736056630"
+X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="951949660"
+X-IronPort-AV: E=Sophos;i="6.00,194,1681196400"; d="scan'208";a="951949660"
 Received: from akervine-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.55.216])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2023 09:38:46 -0700
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2023 09:38:54 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 26 May 2023 19:38:02 +0300
-Message-Id: <6831c21567e8e84da424f32a8b7b48932803ab7b.1685119007.git.jani.nikula@intel.com>
+Date: Fri, 26 May 2023 19:38:04 +0300
+Message-Id: <e7654682f6bd6a9f6af74f4b6eb5fff7b527e412.1685119007.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1685119006.git.jani.nikula@intel.com>
 References: <cover.1685119006.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 09/15] drm/i915/gem: drop unused but set
- variable unpinned
+Subject: [Intel-gfx] [PATCH 11/15] drm/i915/selftest: annotate maybe unused
+ but set variable unused
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,32 +66,29 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Prepare for re-enabling -Wunused-but-set-variable.
 
+The variable is indeed 'unused' as the name suggests, but we can't just
+drop it because i915_vma_unbind_unlocked() is annotated
+__must_check. Apparently the selftest does not really need to check the
+value.
+
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 5fb459ea4294..cfd7929587d8 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -736,7 +736,6 @@ static int eb_reserve(struct i915_execbuffer *eb)
- 	struct eb_vma *ev;
- 	unsigned int pass;
- 	int err = 0;
--	bool unpinned;
+diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+index 36940ef10108..5c397a2df70e 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+@@ -391,7 +391,7 @@ static void close_object_list(struct list_head *objects,
+ 			      struct i915_address_space *vm)
+ {
+ 	struct drm_i915_gem_object *obj, *on;
+-	int ignored;
++	int __maybe_unused ignored;
  
- 	/*
- 	 * We have one more buffers that we couldn't bind, which could be due to
-@@ -776,7 +775,7 @@ static int eb_reserve(struct i915_execbuffer *eb)
- 			pin_flags |= PIN_NONBLOCK;
- 
- 		if (pass >= 1)
--			unpinned = eb_unbind(eb, pass >= 2);
-+			eb_unbind(eb, pass >= 2);
- 
- 		if (pass == 2) {
- 			err = mutex_lock_interruptible(&eb->context->vm->mutex);
+ 	list_for_each_entry_safe(obj, on, objects, st_link) {
+ 		struct i915_vma *vma;
 -- 
 2.39.2
 
