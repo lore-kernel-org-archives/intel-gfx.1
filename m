@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0BDBC7EE23
-	for <intel-gfx@archiver.kernel.org>; Fri, 26 May 2023 16:38:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C9DAC7EE23
+	for <intel-gfx@archiver.kernel.org>; Fri, 26 May 2023 16:38:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39EDC10E81A;
-	Fri, 26 May 2023 16:38:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1287510E81E;
+	Fri, 26 May 2023 16:38:43 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B457D10E81A
- for <intel-gfx@lists.freedesktop.org>; Fri, 26 May 2023 16:38:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E70E710E81E
+ for <intel-gfx@lists.freedesktop.org>; Fri, 26 May 2023 16:38:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1685119112; x=1716655112;
+ t=1685119120; x=1716655120;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=spdReR+wpRIOjLkbsMQPOaev4dyvbTU758xlimd9HiU=;
- b=D/1aejeDsy1IsX2bVAkw4qGphnMPSMsvmK7VlwR2MfurSRMS1EMxpyGr
- Nt8f+gCOrckGU/1PbXQrYTh/SxgvGSl7MaxK9R+obpjPNSZyRqjXphkju
- F/9ThNwhymXfjCeMbXimR5wIQzJ6iUMVrMcSTx4fZUCnRGVTGkkCOHum5
- T7z4Vqk75q9cM0+y7dwx7m8+Dbufs2mKM/ba3iC/Z2WldjxHWWqG0o5/p
- navGEjLrQEsx2ZO16W3a3Fb3AJ/JSqIBF8r3qi7GPIYbxDfvLkhyU8FqQ
- Hm+23pxyPckfv5efnT+/KG9BQdNx0xurZsdDysb9V+5zOmZDWS3nc7zLr A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="353087530"
-X-IronPort-AV: E=Sophos;i="6.00,194,1681196400"; d="scan'208";a="353087530"
+ bh=92Cb7NJkqezgr39BLrF/2N7IitaOrxSEepSGCSe0V30=;
+ b=bC4RKcvS9C+nbgCNPgBzLuKpCwFLqHxWamDnEmviClQ3Axjm/BA2iT85
+ 9ius2D64FkVEdX8pubtX9Aw7VTj9yfyqk41TfV/sUS/brxeXR0gvQcbcx
+ YlmjpFBPyoqNkzy6dU58Zqzyazjy0N2kyTVIur/NPaonGS7BiDQ2RAA0U
+ TmTFWf/Wqq/OFmavbR8mdxQc/946nP3wqngJTITlpugISt8Yt6GZnOi26
+ ZTli9J20zj4//SsCLevNWpmHSwgqGAPBqYseP835Nlw8kTxvaYmSIfgu8
+ HiaTfsV24A21lUlRTG4yBNGlvcFceddOoSLyNdwO5WbyhSbFCNw8DLKru A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="353087548"
+X-IronPort-AV: E=Sophos;i="6.00,194,1681196400"; d="scan'208";a="353087548"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2023 09:38:32 -0700
+ 26 May 2023 09:38:40 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="736056535"
-X-IronPort-AV: E=Sophos;i="6.00,194,1681196400"; d="scan'208";a="736056535"
+X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="736056560"
+X-IronPort-AV: E=Sophos;i="6.00,194,1681196400"; d="scan'208";a="736056560"
 Received: from akervine-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.55.216])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2023 09:38:31 -0700
+ 26 May 2023 09:38:38 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 26 May 2023 19:37:58 +0300
-Message-Id: <a85ccc8c0f451fcb997b4ac138dbeba2a653cebe.1685119007.git.jani.nikula@intel.com>
+Date: Fri, 26 May 2023 19:38:00 +0300
+Message-Id: <6c529e8721d56b0148a3a84fb2d396d4485e09a2.1685119007.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1685119006.git.jani.nikula@intel.com>
 References: <cover.1685119006.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 05/15] drm/i915/dpll: drop unused but set
- variables bestn and bestm1
+Subject: [Intel-gfx] [PATCH 07/15] drm/i915/irq: drop unused but set
+ variable tmp
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,28 +68,31 @@ Prepare for re-enabling -Wunused-but-set-variable.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dpll.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_irq.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll.c b/drivers/gpu/drm/i915/display/intel_dpll.c
-index 824be7f03724..999badfe2906 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll.c
-@@ -1793,13 +1793,11 @@ static void chv_prepare_pll(const struct intel_crtc_state *crtc_state)
- 	enum pipe pipe = crtc->pipe;
- 	enum dpio_channel port = vlv_pipe_to_channel(pipe);
- 	u32 loopfilter, tribuf_calcntr;
--	u32 bestn, bestm1, bestm2, bestp1, bestp2, bestm2_frac;
-+	u32 bestm2, bestp1, bestp2, bestm2_frac;
- 	u32 dpio_val;
- 	int vco;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
+index 3b2a287d2041..31dd7c9c76b9 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_irq.c
++++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
+@@ -873,7 +873,7 @@ static void gen11_dsi_te_interrupt_handler(struct drm_i915_private *dev_priv,
+ 	enum pipe pipe = INVALID_PIPE;
+ 	enum transcoder dsi_trans;
+ 	enum port port;
+-	u32 val, tmp;
++	u32 val;
  
--	bestn = crtc_state->dpll.n;
- 	bestm2_frac = crtc_state->dpll.m2 & 0x3fffff;
--	bestm1 = crtc_state->dpll.m1;
- 	bestm2 = crtc_state->dpll.m2 >> 22;
- 	bestp1 = crtc_state->dpll.p1;
- 	bestp2 = crtc_state->dpll.p2;
+ 	/*
+ 	 * Incase of dual link, TE comes from DSI_1
+@@ -920,7 +920,7 @@ static void gen11_dsi_te_interrupt_handler(struct drm_i915_private *dev_priv,
+ 
+ 	/* clear TE in dsi IIR */
+ 	port = (te_trigger & DSI1_TE) ? PORT_B : PORT_A;
+-	tmp = intel_uncore_rmw(&dev_priv->uncore, DSI_INTR_IDENT_REG(port), 0, 0);
++	intel_uncore_rmw(&dev_priv->uncore, DSI_INTR_IDENT_REG(port), 0, 0);
+ }
+ 
+ static u32 gen8_de_pipe_flip_done_mask(struct drm_i915_private *i915)
 -- 
 2.39.2
 
