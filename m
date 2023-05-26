@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B98FC7EE2C
-	for <intel-gfx@archiver.kernel.org>; Fri, 26 May 2023 16:38:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 382A5C7EE23
+	for <intel-gfx@archiver.kernel.org>; Fri, 26 May 2023 16:38:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB47C10E823;
-	Fri, 26 May 2023 16:38:45 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85C0110E823
- for <intel-gfx@lists.freedesktop.org>; Fri, 26 May 2023 16:38:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9090C10E825;
+	Fri, 26 May 2023 16:38:49 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90FED10E823
+ for <intel-gfx@lists.freedesktop.org>; Fri, 26 May 2023 16:38:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1685119124; x=1716655124;
+ t=1685119123; x=1716655123;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=kfHfX80MY6hUIgVmagFEiCq4OmDTtX2KFZIAaV3KGVQ=;
- b=WWvkNuncNIRUamV49DPi4wKdIkT31/mFMGL8SxZYOBpG+t+V9XkEy2gt
- BplgIDFiGiGSrvR3h5xLOAVltCz/YDPIGEANR6uXOT92tFbkMGeVQzgj/
- NU4V3snqIKsD6gc4J1PkTZrzFkDZ1T2zhkyQD6SnFIdQQ7Z18ZxAtv5vf
- l8pQHrwUDD2TG7KAjCzmI1xSZN4FAnCu5K94gKKB81atEX6uRR3yYnYTa
- BOBRCFQPCpdZkEbrPzdfMzXUSjNqyNaHmOwlg+4Ajv/4C+Ex9u9qLaG4b
- okfD0KbFNpw1BWR7vPW8zJr7pgfXM7Bbvwlt9zVQ8OaBQgyEVb88EEJgo Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="353087564"
-X-IronPort-AV: E=Sophos;i="6.00,194,1681196400"; d="scan'208";a="353087564"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2023 09:38:43 -0700
+ bh=52uNhEEU5HtYv8tjmbZ5TJgOJL4buyKJUl9qg8xCQ/c=;
+ b=NKyQkt+TKYwTkHBK3Id15KaIEsqSH4XdKQA5MojcEg6cVAUMWxw/Odrq
+ L+N89epHhVeGHnz0Xz60W1+kK4Dd/aI6kCcApp6MF/iMiCJXmgf/DQeS2
+ L4ns5bzVCWRv9/wIKdf0qP+iFenaKt7C2Bfkxbhr70pMSxpaJ3arlAA5Z
+ mj19kN0Jgt0ofJz+Mf+rztcfOiq9TpKRZButLzJgeD2PTLdP/ITLkpGij
+ mRT303emiUccNgJq+iGpcErvO/9rWMHzKbn2GmuNHpr314SbsTLXkgg1D
+ 2iiMNr+QuhYmffpHqaCd+wl/Ar6C4OlGj45M9npYaC2BwRAzhVuJ8SUH+ g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="354261235"
+X-IronPort-AV: E=Sophos;i="6.00,194,1681196400"; d="scan'208";a="354261235"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2023 09:38:36 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="736056569"
-X-IronPort-AV: E=Sophos;i="6.00,194,1681196400"; d="scan'208";a="736056569"
+X-IronPort-AV: E=McAfee;i="6600,9927,10722"; a="699468248"
+X-IronPort-AV: E=Sophos;i="6.00,194,1681196400"; d="scan'208";a="699468248"
 Received: from akervine-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.55.216])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2023 09:38:42 -0700
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2023 09:38:35 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 26 May 2023 19:38:01 +0300
-Message-Id: <d542f25bffd5a50ff621bee93415a972c7768a2a.1685119007.git.jani.nikula@intel.com>
+Date: Fri, 26 May 2023 19:37:59 +0300
+Message-Id: <ce7a5cb06c562a3399206c521a24f5091a3e7c23.1685119007.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1685119006.git.jani.nikula@intel.com>
 References: <cover.1685119006.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 08/15] drm/i915/gt/uc: drop unused but set
- variable sseu
+Subject: [Intel-gfx] [PATCH 06/15] drm/i915/fb: drop unused but set variable
+ cpp
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,34 +66,32 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Prepare for re-enabling -Wunused-but-set-variable.
 
-Apparently sseu is leftover from commit 9a92732f040a ("drm/i915/gt: Add
-general DSS steering iterator to intel_gt_mcr").
-
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_fb.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-index 0ff864da92df..331cec07c125 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_capture.c
-@@ -301,7 +301,6 @@ guc_capture_alloc_steered_lists(struct intel_guc *guc,
- 	const struct __guc_mmio_reg_descr_group *list;
- 	struct __guc_mmio_reg_descr_group *extlists;
- 	struct __guc_mmio_reg_descr *extarray;
--	struct sseu_dev_info *sseu;
- 	bool has_xehpg_extregs;
+diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+index 0d27a98dcbbe..446bbf7986b6 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb.c
++++ b/drivers/gpu/drm/i915/display/intel_fb.c
+@@ -1601,7 +1601,7 @@ int intel_fill_fb_info(struct drm_i915_private *i915, struct intel_framebuffer *
+ 	for (i = 0; i < num_planes; i++) {
+ 		struct fb_plane_view_dims view_dims;
+ 		unsigned int width, height;
+-		unsigned int cpp, size;
++		unsigned int size;
+ 		u32 offset;
+ 		int x, y;
+ 		int ret;
+@@ -1618,7 +1618,6 @@ int intel_fill_fb_info(struct drm_i915_private *i915, struct intel_framebuffer *
+ 				return -EINVAL;
+ 		}
  
- 	/* steered registers currently only exist for the render-class */
-@@ -318,7 +317,6 @@ guc_capture_alloc_steered_lists(struct intel_guc *guc,
- 	if (has_xehpg_extregs)
- 		num_steer_regs += ARRAY_SIZE(xehpg_extregs);
+-		cpp = fb->base.format->cpp[i];
+ 		intel_fb_plane_dims(fb, i, &width, &height);
  
--	sseu = &gt->info.sseu;
- 	for_each_ss_steering(iter, gt, slice, subslice)
- 		num_tot_regs += num_steer_regs;
- 
+ 		ret = convert_plane_offset_to_xy(fb, i, width, &x, &y);
 -- 
 2.39.2
 
