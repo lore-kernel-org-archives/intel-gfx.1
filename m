@@ -4,49 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A3BFC7EE23
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 May 2023 06:14:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 467EBC7EE23
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 May 2023 06:14:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D785110E340;
-	Tue, 30 May 2023 06:14:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B581610E341;
+	Tue, 30 May 2023 06:14:50 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 512EA10E33B
- for <intel-gfx@lists.freedesktop.org>; Tue, 30 May 2023 06:14:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F30F10E342
+ for <intel-gfx@lists.freedesktop.org>; Tue, 30 May 2023 06:14:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1685427276; x=1716963276;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=87gIbZD74p+B2FlqqjspOQkg0SkDfWE26MDxl0BJ4CI=;
- b=aL59cXtUEgBjOFkr/9pjiEpYcEC5z0qRVatPIZc5ABv3c7X/43QK+m2h
- 5mjT2ImpxFKlHdh8nt80Hi71BiPBk+zZtrpd+2RfQpofPw33ifV39AYat
- iXV9/wM1XcGQmDqh0QJ0A0oGwNRZaVQMUtAWKP8XwgqgU6uOCLP7uwGyj
- IGU6oQJgYFgJMknW/lbKD71W8oiYJj9fszlY0QjdkEgS6lTUHOpNuzw49
- t4Ou6uVUBjhgmdPP1XfXx4IeY3HDZQQSUSUCNuedKrPqhrAWO3YYGFan8
- dLmVHnYbNoL7OBUz1KLhrMUBEYN0b51/X4Xj8cLReyknXWOwjqm68brkT A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10725"; a="420585451"
-X-IronPort-AV: E=Sophos;i="6.00,203,1681196400"; d="scan'208";a="420585451"
+ t=1685427289; x=1716963289;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=fn28PkHI2EIgYBk/u2E9KsOAKnz0w/ldNicL7ZFfOfs=;
+ b=K6RyZzckaUTLM9BHp45fVnf1UjUuXHJ1zS1fwHcPIrBA9/CiH8sPWApj
+ eElpP4VeQjV6221MM+0jbHbmY/gtmjMw+AN3K6D7tudzSGVW1lxqLfOjS
+ YTqjM4GHb0Q17dYLhTyCy5PTLLfNleznC75sODi0vtjjPUchp62FWck+e
+ u0C9jwhNtLEY5kKxtZSet8NFPZeqxxcrR1JawOLPWiiOGZPvGly7Kw/3R
+ zd0McEpIUiZQbPcVsyhh0EpzLh08uaGQ/Nc8Jf03qN5LoqHcvl28hrHRK
+ zGVscyu0LgrtjdY9FFGui5q2Zzj5Xqd5BKcbjxgdRKRGbKui/r4umxS5J Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10725"; a="420585472"
+X-IronPort-AV: E=Sophos;i="6.00,203,1681196400"; d="scan'208";a="420585472"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2023 23:14:35 -0700
+ 29 May 2023 23:14:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10725"; a="818651151"
-X-IronPort-AV: E=Sophos;i="6.00,203,1681196400"; d="scan'208";a="818651151"
+X-IronPort-AV: E=McAfee;i="6600,9927,10725"; a="818651210"
+X-IronPort-AV: E=Sophos;i="6.00,203,1681196400"; d="scan'208";a="818651210"
 Received: from aravind2-mobl3.ger.corp.intel.com (HELO
  jhogande-mobl1.ger.corp.intel.com) ([10.252.46.36])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2023 23:14:29 -0700
+ 29 May 2023 23:14:38 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 30 May 2023 09:14:13 +0300
-Message-Id: <20230530061417.2384188-1-jouni.hogander@intel.com>
+Date: Tue, 30 May 2023 09:14:17 +0300
+Message-Id: <20230530061417.2384188-5-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230530061417.2384188-1-jouni.hogander@intel.com>
+References: <20230530061417.2384188-1-jouni.hogander@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/4] Do not access i915_gem_object members
- from frontbuffer tracking
+Subject: [Intel-gfx] [PATCH v2 4/4] drm/i915: Add function to clear scanout
+ flag for vmas
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,37 +61,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We are preparing for Xe driver. Binary objects will have differing
-implementation in Xe driver. Due this we want to remove direct
-accesses to i915_gem_object members and leave details to binary object
-implementation.
+Currently frontbuffer tracking code is directly iterating over object vmas
+and clearing scanout flags for them. Add function to clear scanout flag for
+vmas and use it from frontbuffer tracking code.
 
-v2: desribe i915_ggtt_clear_scanout function parameter
+v2: describe function parameter.
 
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+---
+ .../gpu/drm/i915/display/intel_frontbuffer.c  |  8 +-------
+ drivers/gpu/drm/i915/i915_vma.c               | 20 +++++++++++++++++++
+ drivers/gpu/drm/i915/i915_vma.h               |  2 ++
+ 3 files changed, 23 insertions(+), 7 deletions(-)
 
-Jouni Högander (4):
-  drm/i915: Add macros to get i915 device from i915_gem_object
-  drm/i915: Add getter/setter for i915_gem_object->frontbuffer
-  drm/i915/display: Remove i915_gem_object_types.h from
-    intel_frontbuffer.h
-  drm/i915: Add function to clear scanout flag for vmas
-
- .../gpu/drm/i915/display/intel_frontbuffer.c  | 44 +++++-------
- .../gpu/drm/i915/display/intel_frontbuffer.h  | 28 --------
- drivers/gpu/drm/i915/gem/i915_gem_object.c    | 70 ++++++++++++++++++-
- drivers/gpu/drm/i915/gem/i915_gem_object.h    |  6 ++
- .../gpu/drm/i915/gem/i915_gem_object_types.h  |  3 +
- drivers/gpu/drm/i915/i915_vma.c               | 22 +++++-
- drivers/gpu/drm/i915/i915_vma.h               |  2 +
- 7 files changed, 116 insertions(+), 59 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_frontbuffer.c b/drivers/gpu/drm/i915/display/intel_frontbuffer.c
+index 41ac65c98720..29ac068b8fa5 100644
+--- a/drivers/gpu/drm/i915/display/intel_frontbuffer.c
++++ b/drivers/gpu/drm/i915/display/intel_frontbuffer.c
+@@ -226,16 +226,10 @@ static void frontbuffer_release(struct kref *ref)
+ 	struct intel_frontbuffer *front =
+ 		container_of(ref, typeof(*front), ref);
+ 	struct drm_i915_gem_object *obj = front->obj;
+-	struct i915_vma *vma;
+ 
+ 	drm_WARN_ON(&intel_bo_to_i915(obj)->drm, atomic_read(&front->bits));
+ 
+-	spin_lock(&obj->vma.lock);
+-	for_each_ggtt_vma(vma, obj) {
+-		i915_vma_clear_scanout(vma);
+-		vma->display_alignment = I915_GTT_MIN_ALIGNMENT;
+-	}
+-	spin_unlock(&obj->vma.lock);
++	i915_ggtt_clear_scanout(obj);
+ 
+ 	i915_gem_object_set_frontbuffer(obj, NULL);
+ 	spin_unlock(&intel_bo_to_i915(obj)->display.fb_tracking.lock);
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index c66ff2157f6a..c6be96206ee5 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
+@@ -1629,6 +1629,26 @@ int i915_ggtt_pin(struct i915_vma *vma, struct i915_gem_ww_ctx *ww,
+ 	return err;
+ }
+ 
++/**
++ * i915_ggtt_clear_scanout - Clear scanout flag for all objects ggtt vmas
++ * @obj: i915 GEM object
++ * This function clears scanout flags for objects ggtt vmas. These flags are set
++ * when object is pinned for display use and this function to clear them all is
++ * targeted to be called by frontbuffer tracking code when the frontbuffer is
++ * about to be released.
++ */
++void i915_ggtt_clear_scanout(struct drm_i915_gem_object *obj)
++{
++	struct i915_vma *vma;
++
++	spin_lock(&obj->vma.lock);
++	for_each_ggtt_vma(vma, obj) {
++		i915_vma_clear_scanout(vma);
++		vma->display_alignment = I915_GTT_MIN_ALIGNMENT;
++	}
++	spin_unlock(&obj->vma.lock);
++}
++
+ static void __vma_close(struct i915_vma *vma, struct intel_gt *gt)
+ {
+ 	/*
+diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
+index 9a9729205d5b..eaa310864370 100644
+--- a/drivers/gpu/drm/i915/i915_vma.h
++++ b/drivers/gpu/drm/i915/i915_vma.h
+@@ -435,6 +435,8 @@ static inline void i915_vma_clear_scanout(struct i915_vma *vma)
+ 	clear_bit(I915_VMA_SCANOUT_BIT, __i915_vma_flags(vma));
+ }
+ 
++void i915_ggtt_clear_scanout(struct drm_i915_gem_object *obj);
++
+ #define for_each_until(cond) if (cond) break; else
+ 
+ /**
 -- 
 2.34.1
 
