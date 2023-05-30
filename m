@@ -4,52 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38C09C7EE23
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 May 2023 18:25:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36BABC77B7A
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 May 2023 18:38:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F2C010E409;
-	Tue, 30 May 2023 18:25:15 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E88910E402;
- Tue, 30 May 2023 18:25:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFB7410E3ED;
+	Tue, 30 May 2023 18:38:17 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FC7610E3ED;
+ Tue, 30 May 2023 18:38:16 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D309E616BA;
- Tue, 30 May 2023 18:25:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 051A5C4339C;
- Tue, 30 May 2023 18:25:09 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id AEDFC61AC8;
+ Tue, 30 May 2023 18:38:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D9ABC433D2;
+ Tue, 30 May 2023 18:38:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1685471110;
- bh=L4MWwbmFhJSyRXhSvFxWlsDXV8X6p/YetuWJLT8veJk=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=RwunEe2tcBVqLpaj5MKrjYWOwl1FnHPdNS4UnZp8qYcnI3zeodq2qZQZRY4NrCPAG
- zOL5I3YHNZBKEY573oO0riFEswopmkAhm2XF8djoSXJ1n6BxylRe3aO0aH7mBSvdVE
- 3zR91wP5jGNLQXcCZLbmQ4NIVs99iXZIDmfgjlf1PQcOXbST61IZ/z7DXOE/Tj4nGo
- Y+APSZpLffSZzED8XcfCAxYx8A4BTriyc8irCNeeKXEL3TF2y9SZXGbbnOzd6iVmwz
- xXVoTvz31hOYPPDd5CADq8E6Az4n3vBtxMXzXv8MhAnZ+FXINgijvC/qrKe2zz2ZVZ
- +FhoRkVRqvbvw==
+ s=k20201202; t=1685471894;
+ bh=R428jiSZDAX6DHR8ts6m0vqcXTKepKpchm6a+qPH+OY=;
+ h=From:Date:Subject:To:Cc:From;
+ b=KQgZuTkKWqoSq+oilWFqPQsNCxBJxAeihlJDeYTAtEuDHMYOdqDQkmJl3amI46C9J
+ pWXOYdIUCMk4m6qoUhhZEjRU6HIjP47Y+4GeblN8FdPkd9i/tYxsf8uarNY7Br5an8
+ 8ulaJkIr3VDPDWD/aVFQWG+TgOO6V13itO+pU5GzcRUh9+M3J22MpmxGq5/Dn0HbHa
+ BQDMpzKrw4VuIzR5wFUYXEV5Feqdn4SitYR4vi7TUKrTZrxj/S7Dps64R1BIKDcKNs
+ jHMillahFPpCsHjuM09bT59iqQaS7G4zSK6FAh5YAPO0ugAOpNdvcSSnjadwAzFSPP
+ fJ2IO7bGwfC1A==
 From: Nathan Chancellor <nathan@kernel.org>
-Date: Tue, 30 May 2023 11:24:38 -0700
+Date: Tue, 30 May 2023 11:37:56 -0700
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230530-i915-gt-cache_level-wincompatible-function-pointer-types-strict-v1-1-54501d598229@kernel.org>
-References: <20230530-i915-gt-cache_level-wincompatible-function-pointer-types-strict-v1-0-54501d598229@kernel.org>
-In-Reply-To: <20230530-i915-gt-cache_level-wincompatible-function-pointer-types-strict-v1-0-54501d598229@kernel.org>
+Message-Id: <20230530-i915-pxp-size_t-wformat-v1-1-9631081e2e5b@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAINCdmQC/x2OywqDMBAAf6Xk3KVqKn38SimSx0YXNIZkq7biv
+ zd6nMMMs4qEkTCJ52kVESdKNPoM5fkkTKd8i0A2s6iKSha1LIAeZQ1hCZDohw3D7MY4KIbS3iT
+ a0t1tJUW2tUoIOipvut3X18thtgxGmQ6bHifsYSZvxiEoJt0juI83nAcgjOQZI/A3YILEkQzv0
+ RDR0XLsvt7b9gdOnW01vgAAAA==
 To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com, 
  rodrigo.vivi@intel.com, tvrtko.ursulin@linux.intel.com
 X-Mailer: b4 0.13-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6663; i=nathan@kernel.org;
- h=from:subject:message-id; bh=L4MWwbmFhJSyRXhSvFxWlsDXV8X6p/YetuWJLT8veJk=;
- b=owGbwMvMwCEmm602sfCA1DTG02pJDCll9i3njuz57LrDPUu9o1vIICLors05/128T1nPd1u32
- J2Ws2bsKGVhEONgkBVTZKl+rHrc0HDOWcYbpybBzGFlAhnCwMUpABPx+8PIcOkhb9G9G9XPVUot
- pp6f9Etr1sqqe4ZrJQwe53P3PvJa84Lhr2RgtM0n1RdWt402fIvRDIlc7BKlxNbTMyUi/PlKz59
- bOQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3570; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=R428jiSZDAX6DHR8ts6m0vqcXTKepKpchm6a+qPH+OY=;
+ b=owGbwMvMwCEmm602sfCA1DTG02pJDCllTlOb4sWfnmhTt26wrGvfxtNbGXHq7tye9b0L+nZsZ
+ cplXbaxo5SFQYyDQVZMkaX6sepxQ8M5ZxlvnJoEM4eVCWQIAxenAExEn42R4U+tj+aCk76qZczz
+ o+ZFdz78xK4z9eFc1SibGae3OTvEejP8r7z2e9pVc2+97RWC3x7nrzju/v3bLv05BpIBi2+xM0z
+ xZAIA
 X-Developer-Key: i=nathan@kernel.org; a=openpgp;
  fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
-Subject: [Intel-gfx] [PATCH 1/2] drm/i915/gt: Fix second parameter type of
- pre-gen8 pte_encode callbacks
+Subject: [Intel-gfx] [PATCH] drm/i915/pxp: Fix size_t format specifier in
+ gsccs_send_message()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,163 +65,76 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: trix@redhat.com, intel-gfx@lists.freedesktop.org, llvm@lists.linux.dev,
- ndesaulniers@google.com, patches@lists.linux.dev,
- dri-devel@lists.freedesktop.org, Nathan Chancellor <nathan@kernel.org>
+Cc: alan.previn.teres.alexis@intel.com, intel-gfx@lists.freedesktop.org,
+ patches@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ Nathan Chancellor <nathan@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When booting a kernel compiled with CONFIG_CFI_CLANG (kCFI), there is a
-CFI failure in ggtt_probe_common() when trying to call hsw_pte_encode()
-via an indirect call:
+When building ARCH=i386 allmodconfig, the following warning occurs:
 
-  [    5.030027] CFI failure at ggtt_probe_common+0xd1/0x130 [i915] (target: hsw_pte_encode+0x0/0x30 [i915]; expected type: 0xf5c1d0fc)
+  In file included from include/linux/device.h:15,
+                   from include/linux/node.h:18,
+                   from include/linux/cpu.h:17,
+                   from include/linux/static_call.h:135,
+                   from arch/x86/include/asm/perf_event.h:5,
+                   from include/linux/perf_event.h:25,
+                   from drivers/gpu/drm/i915/i915_pmu.h:11,
+                   from drivers/gpu/drm/i915/gt/intel_engine_types.h:21,
+                   from drivers/gpu/drm/i915/gt/intel_context_types.h:18,
+                   from drivers/gpu/drm/i915/gem/i915_gem_context_types.h:20,
+                   from drivers/gpu/drm/i915/i915_request.h:34,
+                   from drivers/gpu/drm/i915/i915_active.h:13,
+                   from drivers/gpu/drm/i915/gt/intel_context.h:13,
+                   from drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c:8:
+  drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c: In function 'gsccs_send_message':
+  include/drm/drm_print.h:456:39: error: format '%ld' expects argument of type 'long int', but argument 4 has type 'size_t' {aka 'unsigned int'} [-Werror=format=]
+    456 |         dev_##level##type((drm)->dev, "[drm] " fmt, ##__VA_ARGS__)
+        |                                       ^~~~~~~~
+  include/linux/dev_printk.h:110:30: note: in definition of macro 'dev_printk_index_wrap'
+    110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+        |                              ^~~
+  include/linux/dev_printk.h:146:61: note: in expansion of macro 'dev_fmt'
+    146 |         dev_printk_index_wrap(_dev_warn, KERN_WARNING, dev, dev_fmt(fmt), ##__VA_ARGS__)
+        |                                                             ^~~~~~~
+  include/drm/drm_print.h:456:9: note: in expansion of macro 'dev_warn'
+    456 |         dev_##level##type((drm)->dev, "[drm] " fmt, ##__VA_ARGS__)
+        |         ^~~~
+  include/drm/drm_print.h:466:9: note: in expansion of macro '__drm_printk'
+    466 |         __drm_printk((drm), warn,, fmt, ##__VA_ARGS__)
+        |         ^~~~~~~~~~~~
+  drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c:146:17: note: in expansion of macro 'drm_warn'
+    146 |                 drm_warn(&i915->drm, "caller with insufficient PXP reply size %u (%ld)\n",
+        |                 ^~~~~~~~
+  cc1: all warnings being treated as errors
 
-With kCFI, indirect calls are validated against their expected type
-versus actual type and failures occur when the two types do not match.
+Use the '%zu' format specifier, as the variable is a 'size_t'.
 
-clang's -Wincompatible-function-pointer-types-strict can catch this at
-compile time but it is not enabled for the kernel yet:
-
-  drivers/gpu/drm/i915/gt/intel_ggtt.c:1155:23: error: incompatible function pointer types assigning to 'u64 (*)(dma_addr_t, unsigned int, u32)' (aka 'unsigned long long (*)(unsigned int, unsigned int, unsigned int)') from 'u64 (dma_addr_t,
-  enum i915_cache_level, u32)' (aka 'unsigned long long (unsigned int, enum i915_cache_level, unsigned int)') [-Werror,-Wincompatible-function-pointer-types-strict]
-                  ggtt->vm.pte_encode = iris_pte_encode;
-                                      ^ ~~~~~~~~~~~~~~~
-  drivers/gpu/drm/i915/gt/intel_ggtt.c:1157:23: error: incompatible function pointer types assigning to 'u64 (*)(dma_addr_t, unsigned int, u32)' (aka 'unsigned long long (*)(unsigned int, unsigned int, unsigned int)') from 'u64 (dma_addr_t,
-  enum i915_cache_level, u32)' (aka 'unsigned long long (unsigned int, enum i915_cache_level, unsigned int)') [-Werror,-Wincompatible-function-pointer-types-strict]
-                  ggtt->vm.pte_encode = hsw_pte_encode;
-                                      ^ ~~~~~~~~~~~~~~
-  drivers/gpu/drm/i915/gt/intel_ggtt.c:1159:23: error: incompatible function pointer types assigning to 'u64 (*)(dma_addr_t, unsigned int, u32)' (aka 'unsigned long long (*)(unsigned int, unsigned int, unsigned int)') from 'u64 (dma_addr_t,
-  enum i915_cache_level, u32)' (aka 'unsigned long long (unsigned int, enum i915_cache_level, unsigned int)') [-Werror,-Wincompatible-function-pointer-types-strict]
-                  ggtt->vm.pte_encode = byt_pte_encode;
-                                      ^ ~~~~~~~~~~~~~~
-  drivers/gpu/drm/i915/gt/intel_ggtt.c:1161:23: error: incompatible function pointer types assigning to 'u64 (*)(dma_addr_t, unsigned int, u32)' (aka 'unsigned long long (*)(unsigned int, unsigned int, unsigned int)') from 'u64 (dma_addr_t,
-  enum i915_cache_level, u32)' (aka 'unsigned long long (unsigned int, enum i915_cache_level, unsigned int)') [-Werror,-Wincompatible-function-pointer-types-strict]
-                  ggtt->vm.pte_encode = ivb_pte_encode;
-                                      ^ ~~~~~~~~~~~~~~
-  drivers/gpu/drm/i915/gt/intel_ggtt.c:1163:23: error: incompatible function pointer types assigning to 'u64 (*)(dma_addr_t, unsigned int, u32)' (aka 'unsigned long long (*)(unsigned int, unsigned int, unsigned int)') from 'u64 (dma_addr_t,
-  enum i915_cache_level, u32)' (aka 'unsigned long long (unsigned int, enum i915_cache_level, unsigned int)') [-Werror,-Wincompatible-function-pointer-types-strict]
-                  ggtt->vm.pte_encode = snb_pte_encode;
-                                      ^ ~~~~~~~~~~~~~~
-  5 errors generated.
-
-In this case, the pre-gen8 pte_encode functions have a second parameter
-type of 'enum i915_cache_level' whereas the function pointer prototype
-in 'struct i915_address_space' expects a second parameter type of
-'unsigned int'.
-
-Update the second parameter of the callbacks and the comment above them
-noting that these statements are still valid, which matches other
-functions and files, to clear up the kCFI failures at run time.
-
-Fixes: 9275277d5324 ("drm/i915: use pat_index instead of cache_level")
+Fixes: dc9ac125d81f ("drm/i915/pxp: Add GSC-CS backend to send GSC fw messages")
 Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 ---
- drivers/gpu/drm/i915/gt/intel_ggtt.c | 26 +++++++++++++-------------
- 1 file changed, 13 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-index 2a7942fac798..122197737ef2 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-@@ -1015,16 +1015,16 @@ static int gen8_gmch_probe(struct i915_ggtt *ggtt)
+diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c b/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
+index 8dc41de3f6f7..a217821eb0fb 100644
+--- a/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
++++ b/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
+@@ -143,7 +143,7 @@ gsccs_send_message(struct intel_pxp *pxp,
  
- /*
-  * For pre-gen8 platforms pat_index is the same as enum i915_cache_level,
-- * so these PTE encode functions are left with using cache_level.
-+ * so the switch-case statements in these PTE encode functions are still valid.
-  * See translation table LEGACY_CACHELEVEL.
-  */
- static u64 snb_pte_encode(dma_addr_t addr,
--			  enum i915_cache_level level,
-+			  unsigned int pat_index,
- 			  u32 flags)
- {
- 	gen6_pte_t pte = GEN6_PTE_ADDR_ENCODE(addr) | GEN6_PTE_VALID;
- 
--	switch (level) {
-+	switch (pat_index) {
- 	case I915_CACHE_L3_LLC:
- 	case I915_CACHE_LLC:
- 		pte |= GEN6_PTE_CACHE_LLC;
-@@ -1033,19 +1033,19 @@ static u64 snb_pte_encode(dma_addr_t addr,
- 		pte |= GEN6_PTE_UNCACHED;
- 		break;
- 	default:
--		MISSING_CASE(level);
-+		MISSING_CASE(pat_index);
+ 	reply_size = header->message_size - sizeof(*header);
+ 	if (reply_size > msg_out_size_max) {
+-		drm_warn(&i915->drm, "caller with insufficient PXP reply size %u (%ld)\n",
++		drm_warn(&i915->drm, "caller with insufficient PXP reply size %u (%zu)\n",
+ 			 reply_size, msg_out_size_max);
+ 		reply_size = msg_out_size_max;
  	}
- 
- 	return pte;
- }
- 
- static u64 ivb_pte_encode(dma_addr_t addr,
--			  enum i915_cache_level level,
-+			  unsigned int pat_index,
- 			  u32 flags)
- {
- 	gen6_pte_t pte = GEN6_PTE_ADDR_ENCODE(addr) | GEN6_PTE_VALID;
- 
--	switch (level) {
-+	switch (pat_index) {
- 	case I915_CACHE_L3_LLC:
- 		pte |= GEN7_PTE_CACHE_L3_LLC;
- 		break;
-@@ -1056,14 +1056,14 @@ static u64 ivb_pte_encode(dma_addr_t addr,
- 		pte |= GEN6_PTE_UNCACHED;
- 		break;
- 	default:
--		MISSING_CASE(level);
-+		MISSING_CASE(pat_index);
- 	}
- 
- 	return pte;
- }
- 
- static u64 byt_pte_encode(dma_addr_t addr,
--			  enum i915_cache_level level,
-+			  unsigned int pat_index,
- 			  u32 flags)
- {
- 	gen6_pte_t pte = GEN6_PTE_ADDR_ENCODE(addr) | GEN6_PTE_VALID;
-@@ -1071,31 +1071,31 @@ static u64 byt_pte_encode(dma_addr_t addr,
- 	if (!(flags & PTE_READ_ONLY))
- 		pte |= BYT_PTE_WRITEABLE;
- 
--	if (level != I915_CACHE_NONE)
-+	if (pat_index != I915_CACHE_NONE)
- 		pte |= BYT_PTE_SNOOPED_BY_CPU_CACHES;
- 
- 	return pte;
- }
- 
- static u64 hsw_pte_encode(dma_addr_t addr,
--			  enum i915_cache_level level,
-+			  unsigned int pat_index,
- 			  u32 flags)
- {
- 	gen6_pte_t pte = HSW_PTE_ADDR_ENCODE(addr) | GEN6_PTE_VALID;
- 
--	if (level != I915_CACHE_NONE)
-+	if (pat_index != I915_CACHE_NONE)
- 		pte |= HSW_WB_LLC_AGE3;
- 
- 	return pte;
- }
- 
- static u64 iris_pte_encode(dma_addr_t addr,
--			   enum i915_cache_level level,
-+			   unsigned int pat_index,
- 			   u32 flags)
- {
- 	gen6_pte_t pte = HSW_PTE_ADDR_ENCODE(addr) | GEN6_PTE_VALID;
- 
--	switch (level) {
-+	switch (pat_index) {
- 	case I915_CACHE_NONE:
- 		break;
- 	case I915_CACHE_WT:
 
+---
+base-commit: 08264f85c5c05ecc38d409c84d48cfb00ccd3bc4
+change-id: 20230530-i915-pxp-size_t-wformat-1d73ed1f8d23
+
+Best regards,
 -- 
-2.40.1
+Nathan Chancellor <nathan@kernel.org>
 
