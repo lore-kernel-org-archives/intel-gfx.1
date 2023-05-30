@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C819C7EE45
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 May 2023 15:13:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20293C7EE2F
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 May 2023 15:13:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AAC110E3E4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CE4D10E3FB;
 	Tue, 30 May 2023 15:12:45 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E92B710E39E;
- Tue, 30 May 2023 15:12:32 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [IPv6:2001:67c:2178:6::1c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A772810E171;
+ Tue, 30 May 2023 15:12:33 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 84ED61FDD8;
- Tue, 30 May 2023 15:12:31 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4BF6621AA2;
+ Tue, 30 May 2023 15:12:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1685459551; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1685459552; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=X8flHs6R1pqdHnrlJdCmQ7jgjsdECjBLMt7eN2cM4Lc=;
- b=RCGnwTD0MWYJzFJHrD49YmCiZIdjUpqwdRZB9Q1DLVc+lS3rI8Jr2YEurofDBbDqdilp0O
- GovmoRZKaerpLcTHUThNv+Qq0jsgHR/OeZhT/XIZ5uq/OxQO/3XGB2QEsbCFQ5uFiXyDun
- NqG0tFUAbFgsl3r4lboSlXocGxd3yCU=
+ bh=+n2MBZA96RKe6j3XjALvpnP7GV6tfvs+CKWxd3q0Zrw=;
+ b=KxMqxJLBVzFXX/IJydmmqOXFxwYmu209MVgFNT/6TzsXHM1FC930QqUbD54sfn2Ij8vzvl
+ MJaxBmppmFjf4t0A+py+OLAqjNWUP2OZ8HfzHoujPyO3Paj9QvL1ZHDZId39LU0wCMz/l3
+ FRkFsv8qSEA0cf3EL9WozjCHtAkYPC4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1685459551;
+ s=susede2_ed25519; t=1685459552;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=X8flHs6R1pqdHnrlJdCmQ7jgjsdECjBLMt7eN2cM4Lc=;
- b=LePoQn93ixnJfWEcfkGemlV+7GzNjYpkaWpoHOeTyOIbAc9ItXu35Y/Aik5yi2XoxREuhF
- 3Qqf4MTjK+7fucAg==
+ bh=+n2MBZA96RKe6j3XjALvpnP7GV6tfvs+CKWxd3q0Zrw=;
+ b=KEZL27IDsFouov1gIlWG/0DY5TfpLB2d4oXnFvVomywyVJMXyjsuuDr+U/Lgk/S4YC6VCB
+ nje/Hdfbcecvr0BQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 30A2513A21;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EF78A13A21;
  Tue, 30 May 2023 15:12:31 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id AFAEC18SdmRjAQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id +KGfOV8SdmRjAQAAMHmgww
  (envelope-from <tzimmermann@suse.de>); Tue, 30 May 2023 15:12:31 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: daniel@ffwll.ch, airlied@gmail.com, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, javierm@redhat.com, sam@ravnborg.org,
  suijingfeng@loongson.cn
-Date: Tue, 30 May 2023 17:12:18 +0200
-Message-Id: <20230530151228.22979-4-tzimmermann@suse.de>
+Date: Tue, 30 May 2023 17:12:20 +0200
+Message-Id: <20230530151228.22979-6-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230530151228.22979-1-tzimmermann@suse.de>
 References: <20230530151228.22979-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 03/13] drm/armada: Use regular fbdev I/O
+Subject: [Intel-gfx] [PATCH v5 05/13] drm/gma500: Use regular fbdev I/O
  helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,15 +71,15 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, Russell King <linux@armlinux.org.uk>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-tegra@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ linux-tegra@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Use the regular fbdev helpers for framebuffer I/O instead of DRM's
-helpers. Armada does not use damage handling, so DRM's fbdev helpers
+helpers. Gma500 does not use damage handling, so DRM's fbdev helpers
 are mere wrappers around the fbdev code.
 
 By using fbdev helpers directly within each DRM fbdev emulation,
@@ -92,50 +92,52 @@ v2:
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 Acked-by: Sam Ravnborg <sam@ravnborg.org>
-Cc: Russell King <linux@armlinux.org.uk>
+Cc: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
 ---
- drivers/gpu/drm/armada/Kconfig        | 1 +
- drivers/gpu/drm/armada/armada_fbdev.c | 7 ++-----
- 2 files changed, 3 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/gma500/Kconfig | 1 +
+ drivers/gpu/drm/gma500/fbdev.c | 8 +++-----
+ 2 files changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/armada/Kconfig b/drivers/gpu/drm/armada/Kconfig
-index f5c66d89ba99..5afade25e217 100644
---- a/drivers/gpu/drm/armada/Kconfig
-+++ b/drivers/gpu/drm/armada/Kconfig
-@@ -3,6 +3,7 @@ config DRM_ARMADA
- 	tristate "DRM support for Marvell Armada SoCs"
- 	depends on DRM && HAVE_CLK && ARM && MMU
+diff --git a/drivers/gpu/drm/gma500/Kconfig b/drivers/gpu/drm/gma500/Kconfig
+index 2efc0eb41c64..cd3d92725ed4 100644
+--- a/drivers/gpu/drm/gma500/Kconfig
++++ b/drivers/gpu/drm/gma500/Kconfig
+@@ -3,6 +3,7 @@ config DRM_GMA500
+ 	tristate "Intel GMA500/600/3600/3650 KMS Framebuffer"
+ 	depends on DRM && PCI && X86 && MMU
  	select DRM_KMS_HELPER
 +	select FB_IO_HELPERS if DRM_FBDEV_EMULATION
- 	help
- 	  Support the "LCD" controllers found on the Marvell Armada 510
- 	  devices.  There are two controllers on the device, each controller
-diff --git a/drivers/gpu/drm/armada/armada_fbdev.c b/drivers/gpu/drm/armada/armada_fbdev.c
-index 0a5fd1aa86eb..3943e89cc06c 100644
---- a/drivers/gpu/drm/armada/armada_fbdev.c
-+++ b/drivers/gpu/drm/armada/armada_fbdev.c
+ 	select I2C
+ 	select I2C_ALGOBIT
+ 	# GMA500 depends on ACPI_VIDEO when ACPI is enabled, just like i915
+diff --git a/drivers/gpu/drm/gma500/fbdev.c b/drivers/gpu/drm/gma500/fbdev.c
+index 4f0309548b2b..955cbe9f05a7 100644
+--- a/drivers/gpu/drm/gma500/fbdev.c
++++ b/drivers/gpu/drm/gma500/fbdev.c
 @@ -5,6 +5,7 @@
-  */
+  *
+  **************************************************************************/
  
- #include <linux/errno.h>
 +#include <linux/fb.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
+ #include <linux/pfn_t.h>
  
-@@ -33,12 +34,8 @@ static void armada_fbdev_fb_destroy(struct fb_info *info)
+ #include <drm/drm_crtc_helper.h>
+@@ -134,13 +135,10 @@ static void psb_fbdev_fb_destroy(struct fb_info *info)
  
- static const struct fb_ops armada_fb_ops = {
- 	.owner		= THIS_MODULE,
-+	FB_DEFAULT_IO_OPS,
+ static const struct fb_ops psb_fbdev_fb_ops = {
+ 	.owner = THIS_MODULE,
++	__FB_DEFAULT_IO_OPS_RDWR,
  	DRM_FB_HELPER_DEFAULT_OPS,
--	.fb_read	= drm_fb_helper_cfb_read,
--	.fb_write	= drm_fb_helper_cfb_write,
--	.fb_fillrect	= drm_fb_helper_cfb_fillrect,
--	.fb_copyarea	= drm_fb_helper_cfb_copyarea,
--	.fb_imageblit	= drm_fb_helper_cfb_imageblit,
- 	.fb_destroy	= armada_fbdev_fb_destroy,
+ 	.fb_setcolreg = psb_fbdev_fb_setcolreg,
+-	.fb_read = drm_fb_helper_cfb_read,
+-	.fb_write = drm_fb_helper_cfb_write,
+-	.fb_fillrect = drm_fb_helper_cfb_fillrect,
+-	.fb_copyarea = drm_fb_helper_cfb_copyarea,
+-	.fb_imageblit = drm_fb_helper_cfb_imageblit,
++	__FB_DEFAULT_IO_OPS_DRAW,
+ 	.fb_mmap = psb_fbdev_fb_mmap,
+ 	.fb_destroy = psb_fbdev_fb_destroy,
  };
- 
 -- 
 2.40.1
 
