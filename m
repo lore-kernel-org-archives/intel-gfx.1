@@ -4,55 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36BABC77B7A
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 May 2023 18:38:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C2D7C77B73
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 May 2023 18:54:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFB7410E3ED;
-	Tue, 30 May 2023 18:38:17 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FC7610E3ED;
- Tue, 30 May 2023 18:38:16 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AEDFC61AC8;
- Tue, 30 May 2023 18:38:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D9ABC433D2;
- Tue, 30 May 2023 18:38:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1685471894;
- bh=R428jiSZDAX6DHR8ts6m0vqcXTKepKpchm6a+qPH+OY=;
- h=From:Date:Subject:To:Cc:From;
- b=KQgZuTkKWqoSq+oilWFqPQsNCxBJxAeihlJDeYTAtEuDHMYOdqDQkmJl3amI46C9J
- pWXOYdIUCMk4m6qoUhhZEjRU6HIjP47Y+4GeblN8FdPkd9i/tYxsf8uarNY7Br5an8
- 8ulaJkIr3VDPDWD/aVFQWG+TgOO6V13itO+pU5GzcRUh9+M3J22MpmxGq5/Dn0HbHa
- BQDMpzKrw4VuIzR5wFUYXEV5Feqdn4SitYR4vi7TUKrTZrxj/S7Dps64R1BIKDcKNs
- jHMillahFPpCsHjuM09bT59iqQaS7G4zSK6FAh5YAPO0ugAOpNdvcSSnjadwAzFSPP
- fJ2IO7bGwfC1A==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Tue, 30 May 2023 11:37:56 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2D1610E1AC;
+	Tue, 30 May 2023 18:54:04 +0000 (UTC)
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91C9810E1AC
+ for <intel-gfx@lists.freedesktop.org>; Tue, 30 May 2023 18:54:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1685472843; x=1717008843;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=XiHUQg0QLR1vLaygEsTfm/v4cgGAKgEqQ4DbloWu8jA=;
+ b=K/PJGa+L2J/lqiDWYCAjJBwCPlq3k2k2NjQDctoRAjixxn07k0XM32iR
+ bv5HayIHNc1Pwvk9f94mbBgBsUqJdkgMhwDiB0WwcqNXY2B9KTDExPVvq
+ uvCrgFmB6vHOEjSA0gHltZ7K7Z53gE4D9mttFrvK/t1bj2jE8WD3Thrd4
+ ZdyrlO5oj+8KKYkehO6PKA2r89Oh3b5peRYdIHJJ+CefeeRq7UJAnN3wO
+ Dx15mIG4BqtHzsY6QZcG9lS0ZzZvadnm+2olrEz1AeScesOc2ZrPTCCte
+ yCDK4OLt1FDbOXcQSAdReVNJu1PVSBKIavHYXtqEAkQSewZ3vNXINejAu A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10726"; a="418504046"
+X-IronPort-AV: E=Sophos;i="6.00,205,1681196400"; d="scan'208";a="418504046"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 May 2023 11:54:01 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10726"; a="796381486"
+X-IronPort-AV: E=Sophos;i="6.00,205,1681196400"; d="scan'208";a="796381486"
+Received: from anushasr-simics.jf.intel.com ([10.165.21.205])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 May 2023 11:53:58 -0700
+From: Anusha Srivatsa <anusha.srivatsa@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 30 May 2023 11:55:27 -0700
+Message-Id: <20230530185529.3378520-4-anusha.srivatsa@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230530185529.3378520-1-anusha.srivatsa@intel.com>
+References: <20230530185529.3378520-1-anusha.srivatsa@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20230530-i915-pxp-size_t-wformat-v1-1-9631081e2e5b@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAINCdmQC/x2OywqDMBAAf6Xk3KVqKn38SimSx0YXNIZkq7biv
- zd6nMMMs4qEkTCJ52kVESdKNPoM5fkkTKd8i0A2s6iKSha1LIAeZQ1hCZDohw3D7MY4KIbS3iT
- a0t1tJUW2tUoIOipvut3X18thtgxGmQ6bHifsYSZvxiEoJt0juI83nAcgjOQZI/A3YILEkQzv0
- RDR0XLsvt7b9gdOnW01vgAAAA==
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com, 
- rodrigo.vivi@intel.com, tvrtko.ursulin@linux.intel.com
-X-Mailer: b4 0.13-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3570; i=nathan@kernel.org;
- h=from:subject:message-id; bh=R428jiSZDAX6DHR8ts6m0vqcXTKepKpchm6a+qPH+OY=;
- b=owGbwMvMwCEmm602sfCA1DTG02pJDCllTlOb4sWfnmhTt26wrGvfxtNbGXHq7tye9b0L+nZsZ
- cplXbaxo5SFQYyDQVZMkaX6sepxQ8M5ZxlvnJoEM4eVCWQIAxenAExEn42R4U+tj+aCk76qZczz
- o+ZFdz78xK4z9eFc1SibGae3OTvEejP8r7z2e9pVc2+97RWC3x7nrzju/v3bLv05BpIBi2+xM0z
- xZAIA
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
-Subject: [Intel-gfx] [PATCH] drm/i915/pxp: Fix size_t format specifier in
- gsccs_send_message()
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 3/5] drm/i915/rplu: s/ADLP/ALDERLAKE_P in RPLU
+ defines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,76 +58,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alan.previn.teres.alexis@intel.com, intel-gfx@lists.freedesktop.org,
- patches@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Nathan Chancellor <nathan@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When building ARCH=i386 allmodconfig, the following warning occurs:
+Follow consistent naming convention. Replace ADLP with
+ALDERLAKE_P
 
-  In file included from include/linux/device.h:15,
-                   from include/linux/node.h:18,
-                   from include/linux/cpu.h:17,
-                   from include/linux/static_call.h:135,
-                   from arch/x86/include/asm/perf_event.h:5,
-                   from include/linux/perf_event.h:25,
-                   from drivers/gpu/drm/i915/i915_pmu.h:11,
-                   from drivers/gpu/drm/i915/gt/intel_engine_types.h:21,
-                   from drivers/gpu/drm/i915/gt/intel_context_types.h:18,
-                   from drivers/gpu/drm/i915/gem/i915_gem_context_types.h:20,
-                   from drivers/gpu/drm/i915/i915_request.h:34,
-                   from drivers/gpu/drm/i915/i915_active.h:13,
-                   from drivers/gpu/drm/i915/gt/intel_context.h:13,
-                   from drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c:8:
-  drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c: In function 'gsccs_send_message':
-  include/drm/drm_print.h:456:39: error: format '%ld' expects argument of type 'long int', but argument 4 has type 'size_t' {aka 'unsigned int'} [-Werror=format=]
-    456 |         dev_##level##type((drm)->dev, "[drm] " fmt, ##__VA_ARGS__)
-        |                                       ^~~~~~~~
-  include/linux/dev_printk.h:110:30: note: in definition of macro 'dev_printk_index_wrap'
-    110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
-        |                              ^~~
-  include/linux/dev_printk.h:146:61: note: in expansion of macro 'dev_fmt'
-    146 |         dev_printk_index_wrap(_dev_warn, KERN_WARNING, dev, dev_fmt(fmt), ##__VA_ARGS__)
-        |                                                             ^~~~~~~
-  include/drm/drm_print.h:456:9: note: in expansion of macro 'dev_warn'
-    456 |         dev_##level##type((drm)->dev, "[drm] " fmt, ##__VA_ARGS__)
-        |         ^~~~
-  include/drm/drm_print.h:466:9: note: in expansion of macro '__drm_printk'
-    466 |         __drm_printk((drm), warn,, fmt, ##__VA_ARGS__)
-        |         ^~~~~~~~~~~~
-  drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c:146:17: note: in expansion of macro 'drm_warn'
-    146 |                 drm_warn(&i915->drm, "caller with insufficient PXP reply size %u (%ld)\n",
-        |                 ^~~~~~~~
-  cc1: all warnings being treated as errors
-
-Use the '%zu' format specifier, as the variable is a 'size_t'.
-
-Fixes: dc9ac125d81f ("drm/i915/pxp: Add GSC-CS backend to send GSC fw messages")
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Signed-off-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 2 +-
+ drivers/gpu/drm/i915/i915_drv.h            | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c b/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
-index 8dc41de3f6f7..a217821eb0fb 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c
-@@ -143,7 +143,7 @@ gsccs_send_message(struct intel_pxp *pxp,
- 
- 	reply_size = header->message_size - sizeof(*header);
- 	if (reply_size > msg_out_size_max) {
--		drm_warn(&i915->drm, "caller with insufficient PXP reply size %u (%ld)\n",
-+		drm_warn(&i915->drm, "caller with insufficient PXP reply size %u (%zu)\n",
- 			 reply_size, msg_out_size_max);
- 		reply_size = msg_out_size_max;
- 	}
-
----
-base-commit: 08264f85c5c05ecc38d409c84d48cfb00ccd3bc4
-change-id: 20230530-i915-pxp-size_t-wformat-1d73ed1f8d23
-
-Best regards,
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 013678caaca8..4420de5ffe9c 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -3543,7 +3543,7 @@ void intel_init_cdclk_hooks(struct drm_i915_private *dev_priv)
+ 		/* Wa_22011320316:adl-p[a0] */
+ 		if (IS_ALDERLAKE_P_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
+ 			dev_priv->display.cdclk.table = adlp_a_step_cdclk_table;
+-		else if (IS_ADLP_RPLU(dev_priv))
++		else if (IS_ALDERLAKE_P_RPLU(dev_priv))
+ 			dev_priv->display.cdclk.table = rplu_cdclk_table;
+ 		else
+ 			dev_priv->display.cdclk.table = adlp_cdclk_table;
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 43414cdc137c..d400cecb318b 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -583,7 +583,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ 	IS_SUBPLATFORM(i915, INTEL_ALDERLAKE_P, INTEL_SUBPLATFORM_N)
+ #define IS_ALDERLAKE_P_RPLP(i915) \
+ 	IS_SUBPLATFORM(i915, INTEL_ALDERLAKE_P, INTEL_SUBPLATFORM_RPL)
+-#define IS_ADLP_RPLU(i915) \
++#define IS_ALDERLAKE_P_RPLU(i915) \
+ 	IS_SUBPLATFORM(i915, INTEL_ALDERLAKE_P, INTEL_SUBPLATFORM_RPLU)
+ #define IS_HSW_EARLY_SDV(i915) (IS_HASWELL(i915) && \
+ 				    (INTEL_DEVID(i915) & 0xFF00) == 0x0C00)
 -- 
-Nathan Chancellor <nathan@kernel.org>
+2.25.1
 
