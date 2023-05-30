@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D003AC77B7A
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 May 2023 09:09:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D764CC7EE23
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 May 2023 09:09:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AE9510E330;
-	Tue, 30 May 2023 09:09:00 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0361C10E330;
- Tue, 30 May 2023 09:08:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E57C110E371;
+	Tue, 30 May 2023 09:09:04 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC41C10E34C;
+ Tue, 30 May 2023 09:09:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1685437739; x=1716973739;
+ t=1685437742; x=1716973742;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=pvax2fnE7DaVJww4gkiUGJInGESffJTX4RxAlmJZMzk=;
- b=emsEem6Sdv/BKQgvABQ07yvu33dxiTCOhEwFK3JJ7xLsMb94ltkJl9jf
- qHq4dB5q6RR+KcwPFieRlJKUFQj5i0uRY5/+rBbMqZFTK3nw1DNGFr9Vf
- 54BxITDsnnPOj8J8pFpn42k9Z0/aFISHzDMmjVaErfKM8vNi9YePDyJuw
- RtlCi7nm240IrDLx0xxqcZaKeCvG52uMe7TFR2h1z3fd3CL56mPCT2mG2
- 3i8OWKSbscgIsV8QSjmh+SPkirtKVouEeHz5MthGv+g2Cp0LqNEIAd3A6
- BejfFlbEhNwtVYA7C6HfnOFcKeJhYRWZ9ae2jsh4HxePjHSQ6rDGcOy8P Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10725"; a="335208765"
-X-IronPort-AV: E=Sophos;i="6.00,203,1681196400"; d="scan'208";a="335208765"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 May 2023 02:08:42 -0700
+ bh=77vcAcD6KQ3j1mA3oPBvhMWh/vmKaglU2flqouNsgic=;
+ b=bwnwU3n2xUxsgQGW8cNnrD8OP669m3tqmGWfkZknnyTJ7fjavDWPMC1O
+ d8FVNIPFlfmNySFGskMW7unAbMLD/zgq3G92yQCqORvUUI0Wz7VNmy3+P
+ xyfgzZ6z82fcY30wX28y7NfN6c9f6LIppGTJRNCJfh3He40m/x8jHDCfz
+ Pi3NAiexV8z/YHT3ZrKYuKSLjz2ItnClBdufPncwmJL1V1Vx2jUII69kL
+ odPdxEUZS+MHTxFWkBLecqFVzxuQ4N7CdTnB1zxKuFaprD8CTPuiTD7sE
+ Cy2q2XVpBIu2H19rvZS97ITGUUYq/rJEiG/Ae05ymFYtyLg8C39D5v/9P A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10725"; a="441218631"
+X-IronPort-AV: E=Sophos;i="6.00,203,1681196400"; d="scan'208";a="441218631"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 May 2023 02:09:02 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10725"; a="850684472"
-X-IronPort-AV: E=Sophos;i="6.00,203,1681196400"; d="scan'208";a="850684472"
+X-IronPort-AV: E=McAfee;i="6600,9927,10725"; a="1036516317"
+X-IronPort-AV: E=Sophos;i="6.00,203,1681196400"; d="scan'208";a="1036516317"
 Received: from kleve-mobl1.ger.corp.intel.com (HELO localhost) ([10.252.47.8])
- by fmsmga001-auth.fm.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 May 2023 02:08:40 -0700
+ by fmsmga005-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 May 2023 02:09:00 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 30 May 2023 12:08:14 +0300
-Message-Id: <7d9eefdf150870479c5797f027d4c2b0a19ff583.1685437500.git.jani.nikula@intel.com>
+Date: Tue, 30 May 2023 12:08:18 +0300
+Message-Id: <5cdb4731260b062c0f0ad2f8b64195c9a57bcb76.1685437500.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1685437500.git.jani.nikula@intel.com>
 References: <cover.1685437500.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 02/13] drm/display/dp_mst: drop has_audio
- from struct drm_dp_mst_port
+Subject: [Intel-gfx] [PATCH v2 06/13] drm/i915/hdmi: stop caching
+ has_hdmi_sink in struct intel_hdmi
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,77 +63,60 @@ Cc: jani.nikula@intel.com, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Caching the has_audio in struct drm_dp_mst_port seems odd, and oddly
-placed. Defer audio handling to drivers, and use the info from the
-connector display info. i915 was the only one using it anyway.
+Use the information stored in display info.
 
 Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_mst_topology.c        | 2 +-
- drivers/gpu/drm/i915/display/intel_display_debugfs.c | 4 ++--
- drivers/gpu/drm/i915/display/intel_dp_mst.c          | 2 +-
- include/drm/display/drm_dp_mst_helper.h              | 5 -----
- 4 files changed, 4 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_types.h | 1 -
+ drivers/gpu/drm/i915/display/intel_hdmi.c          | 8 +++-----
+ 2 files changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 38dab76ae69e..a2b8732db0c8 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -4170,7 +4170,7 @@ struct edid *drm_dp_mst_get_edid(struct drm_connector *connector, struct drm_dp_
- 	else {
- 		edid = drm_get_edid(connector, &port->aux.ddc);
- 	}
--	port->has_audio = drm_detect_monitor_audio(edid);
-+
- 	drm_dp_mst_topology_put_port(port);
- 	return edid;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index e72288662f02..77caed2552d0 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -244,9 +244,9 @@ static void intel_dp_info(struct seq_file *m,
- }
- 
- static void intel_dp_mst_info(struct seq_file *m,
--			      struct intel_connector *intel_connector)
-+			      struct intel_connector *connector)
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 1ae1519087cb..731f2ec04d5c 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1586,7 +1586,6 @@ struct intel_hdmi {
+ 		enum drm_dp_dual_mode_type type;
+ 		int max_tmds_clock;
+ 	} dp_dual_mode;
+-	bool has_hdmi_sink;
+ 	struct intel_connector *attached_connector;
+ 	struct cec_notifier *cec_notifier;
+ };
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 89a6b574f95a..7ac5e6c5e00d 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -1790,7 +1790,9 @@ static int intel_hdmi_source_max_tmds_clock(struct intel_encoder *encoder)
+ static bool intel_has_hdmi_sink(struct intel_hdmi *hdmi,
+ 				const struct drm_connector_state *conn_state)
  {
--	bool has_audio = intel_connector->port->has_audio;
-+	bool has_audio = connector->base.display_info.has_audio;
- 
- 	seq_printf(m, "\taudio support: %s\n", str_yes_no(has_audio));
+-	return hdmi->has_hdmi_sink &&
++	struct intel_connector *connector = hdmi->attached_connector;
++
++	return connector->base.display_info.is_hdmi &&
+ 		READ_ONCE(to_intel_digital_connector_state(conn_state)->force_audio) != HDMI_AUDIO_OFF_DVI;
  }
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 6df8519b3347..1d483a83d59c 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -298,7 +298,7 @@ static bool intel_dp_mst_has_audio(const struct drm_connector_state *conn_state)
- 		to_intel_connector(conn_state->connector);
  
- 	if (intel_conn_state->force_audio == HDMI_AUDIO_AUTO)
--		return connector->port->has_audio;
-+		return connector->base.display_info.has_audio;
- 	else
- 		return intel_conn_state->force_audio == HDMI_AUDIO_ON;
- }
-diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
-index 32c764fb9cb5..5be96a158ab2 100644
---- a/include/drm/display/drm_dp_mst_helper.h
-+++ b/include/drm/display/drm_dp_mst_helper.h
-@@ -139,11 +139,6 @@ struct drm_dp_mst_port {
- 	 * that the EDID for all connectors is read immediately.
- 	 */
- 	struct edid *cached_edid;
--	/**
--	 * @has_audio: Tracks whether the sink connector to this port is
--	 * audio-capable.
--	 */
--	bool has_audio;
+@@ -2385,8 +2387,6 @@ intel_hdmi_unset_edid(struct drm_connector *connector)
+ {
+ 	struct intel_hdmi *intel_hdmi = intel_attached_hdmi(to_intel_connector(connector));
  
- 	/**
- 	 * @fec_capable: bool indicating if FEC can be supported up to that
+-	intel_hdmi->has_hdmi_sink = false;
+-
+ 	intel_hdmi->dp_dual_mode.type = DRM_DP_DUAL_MODE_NONE;
+ 	intel_hdmi->dp_dual_mode.max_tmds_clock = 0;
+ 
+@@ -2478,8 +2478,6 @@ intel_hdmi_set_edid(struct drm_connector *connector)
+ 	/* FIXME: Get rid of drm_edid_raw() */
+ 	edid = drm_edid_raw(drm_edid);
+ 	if (edid && edid->input & DRM_EDID_INPUT_DIGITAL) {
+-		intel_hdmi->has_hdmi_sink = drm_detect_hdmi_monitor(edid);
+-
+ 		intel_hdmi_dp_dual_mode_detect(connector);
+ 
+ 		connected = true;
 -- 
 2.39.2
 
