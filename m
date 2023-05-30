@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D764CC7EE23
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 May 2023 09:09:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04F93C77B7A
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 May 2023 09:09:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E57C110E371;
-	Tue, 30 May 2023 09:09:04 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC41C10E34C;
- Tue, 30 May 2023 09:09:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 613E910E374;
+	Tue, 30 May 2023 09:09:06 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 962B810E371;
+ Tue, 30 May 2023 09:09:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1685437742; x=1716973742;
+ t=1685437743; x=1716973743;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=77vcAcD6KQ3j1mA3oPBvhMWh/vmKaglU2flqouNsgic=;
- b=bwnwU3n2xUxsgQGW8cNnrD8OP669m3tqmGWfkZknnyTJ7fjavDWPMC1O
- d8FVNIPFlfmNySFGskMW7unAbMLD/zgq3G92yQCqORvUUI0Wz7VNmy3+P
- xyfgzZ6z82fcY30wX28y7NfN6c9f6LIppGTJRNCJfh3He40m/x8jHDCfz
- Pi3NAiexV8z/YHT3ZrKYuKSLjz2ItnClBdufPncwmJL1V1Vx2jUII69kL
- odPdxEUZS+MHTxFWkBLecqFVzxuQ4N7CdTnB1zxKuFaprD8CTPuiTD7sE
- Cy2q2XVpBIu2H19rvZS97ITGUUYq/rJEiG/Ae05ymFYtyLg8C39D5v/9P A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10725"; a="441218631"
-X-IronPort-AV: E=Sophos;i="6.00,203,1681196400"; d="scan'208";a="441218631"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 May 2023 02:09:02 -0700
+ bh=dvBQkcLY38A0X5ssyV8uuRAV4penhDPOWYZTPpbFkxM=;
+ b=GCL+8RIV8JdcaEO7c1DJu5LXmz7lXkSvlUX05SfhbMxAgplG6/2NyOp8
+ jiPy/Mnq4CbcmRYPYk3ieyVZKRmcIBpKj22IvQkWFJUbuGNxPBgEqs3MW
+ ci0o2hY1bGAh3WPbN88PB63WHFQf4wneZlt7uvrusXRR90G197v1NCc2c
+ rk4RuXC0R7PLt4fAH8d/X9WK6ieoH/q2i/xGoATlTbKuW567RlCpHl6kT
+ g4mUJHhrsP3RvrSbjLNPNxrHSwJh8jlCvmv+MaysQeeatSxZWmUqk/3y+
+ hyQzxoLOdGgxojXD+eIpz7ecsr2/TX/co7SY6f6uVKljnLErrZyZx9Av8 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10725"; a="335208832"
+X-IronPort-AV: E=Sophos;i="6.00,203,1681196400"; d="scan'208";a="335208832"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 May 2023 02:08:52 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10725"; a="1036516317"
-X-IronPort-AV: E=Sophos;i="6.00,203,1681196400"; d="scan'208";a="1036516317"
+X-IronPort-AV: E=McAfee;i="6600,9927,10725"; a="850684674"
+X-IronPort-AV: E=Sophos;i="6.00,203,1681196400"; d="scan'208";a="850684674"
 Received: from kleve-mobl1.ger.corp.intel.com (HELO localhost) ([10.252.47.8])
- by fmsmga005-auth.fm.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 May 2023 02:09:00 -0700
+ by fmsmga001-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 May 2023 02:08:50 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 30 May 2023 12:08:18 +0300
-Message-Id: <5cdb4731260b062c0f0ad2f8b64195c9a57bcb76.1685437500.git.jani.nikula@intel.com>
+Date: Tue, 30 May 2023 12:08:16 +0300
+Message-Id: <748103fda572b3552e5bbdafb300d8508d4eeaf4.1685437500.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1685437500.git.jani.nikula@intel.com>
 References: <cover.1685437500.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 06/13] drm/i915/hdmi: stop caching
- has_hdmi_sink in struct intel_hdmi
+Subject: [Intel-gfx] [PATCH v2 04/13] drm/i915/dp: stop caching
+ has_hdmi_sink in struct intel_dp
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,60 +63,146 @@ Cc: jani.nikula@intel.com, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use the information stored in display info.
+Use the information stored in display info. Add intel_dp_has_hdmi_sink()
+helper to access it.
+
+v2: Rebased
 
 Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_types.h | 1 -
- drivers/gpu/drm/i915/display/intel_hdmi.c          | 8 +++-----
- 2 files changed, 3 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c      |  6 +++---
+ .../drm/i915/display/intel_display_types.h    |  1 -
+ drivers/gpu/drm/i915/display/intel_dp.c       | 21 ++++++++++---------
+ drivers/gpu/drm/i915/display/intel_dp.h       |  1 +
+ 4 files changed, 15 insertions(+), 14 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index d1a9a3cf94b5..70d44edd8c6e 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -2801,7 +2801,7 @@ static void intel_ddi_pre_enable(struct intel_atomic_state *state,
+ 
+ 		/* FIXME precompute everything properly */
+ 		/* FIXME how do we turn infoframes off again? */
+-		if (dig_port->lspcon.active && dig_port->dp.has_hdmi_sink)
++		if (dig_port->lspcon.active && intel_dp_has_hdmi_sink(&dig_port->dp))
+ 			dig_port->set_infoframes(encoder,
+ 						 crtc_state->has_infoframe,
+ 						 crtc_state, conn_state);
+@@ -3110,7 +3110,7 @@ static void intel_enable_ddi_dp(struct intel_atomic_state *state,
+ 	drm_connector_update_privacy_screen(conn_state);
+ 	intel_edp_backlight_on(crtc_state, conn_state);
+ 
+-	if (!dig_port->lspcon.active || dig_port->dp.has_hdmi_sink)
++	if (!dig_port->lspcon.active || intel_dp_has_hdmi_sink(&dig_port->dp))
+ 		intel_dp_set_infoframes(encoder, true, crtc_state, conn_state);
+ 
+ 	intel_audio_codec_enable(encoder, crtc_state, conn_state);
+@@ -3738,7 +3738,7 @@ static void intel_ddi_read_func_ctl(struct intel_encoder *encoder,
+ 				    pipe_config->fec_enable);
+ 		}
+ 
+-		if (dig_port->lspcon.active && dig_port->dp.has_hdmi_sink)
++		if (dig_port->lspcon.active && intel_dp_has_hdmi_sink(&dig_port->dp))
+ 			pipe_config->infoframes.enable |=
+ 				intel_lspcon_infoframes_enabled(encoder, pipe_config);
+ 		else
 diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 1ae1519087cb..731f2ec04d5c 100644
+index 94a59febc987..c5bd0c7be2fa 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_types.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1586,7 +1586,6 @@ struct intel_hdmi {
- 		enum drm_dp_dual_mode_type type;
- 		int max_tmds_clock;
- 	} dp_dual_mode;
+@@ -1707,7 +1707,6 @@ struct intel_dp {
+ 	u8 lane_count;
+ 	u8 sink_count;
+ 	bool link_trained;
 -	bool has_hdmi_sink;
- 	struct intel_connector *attached_connector;
- 	struct cec_notifier *cec_notifier;
- };
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 89a6b574f95a..7ac5e6c5e00d 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -1790,7 +1790,9 @@ static int intel_hdmi_source_max_tmds_clock(struct intel_encoder *encoder)
- static bool intel_has_hdmi_sink(struct intel_hdmi *hdmi,
- 				const struct drm_connector_state *conn_state)
- {
--	return hdmi->has_hdmi_sink &&
-+	struct intel_connector *connector = hdmi->attached_connector;
-+
-+	return connector->base.display_info.is_hdmi &&
- 		READ_ONCE(to_intel_digital_connector_state(conn_state)->force_audio) != HDMI_AUDIO_OFF_DVI;
+ 	bool reset_link_params;
+ 	bool use_max_params;
+ 	u8 dpcd[DP_RECEIVER_CAP_SIZE];
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index aa1445ad9da8..8445a37d9d01 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1287,6 +1287,13 @@ void intel_dp_compute_rate(struct intel_dp *intel_dp, int port_clock,
+ 	}
  }
  
-@@ -2385,8 +2387,6 @@ intel_hdmi_unset_edid(struct drm_connector *connector)
++bool intel_dp_has_hdmi_sink(struct intel_dp *intel_dp)
++{
++	struct intel_connector *connector = intel_dp->attached_connector;
++
++	return connector->base.display_info.is_hdmi;
++}
++
+ static bool intel_dp_source_supports_fec(struct intel_dp *intel_dp,
+ 					 const struct intel_crtc_state *pipe_config)
  {
- 	struct intel_hdmi *intel_hdmi = intel_attached_hdmi(to_intel_connector(connector));
+@@ -1342,7 +1349,7 @@ static int intel_dp_hdmi_compute_bpc(struct intel_dp *intel_dp,
  
--	intel_hdmi->has_hdmi_sink = false;
--
- 	intel_hdmi->dp_dual_mode.type = DRM_DP_DUAL_MODE_NONE;
- 	intel_hdmi->dp_dual_mode.max_tmds_clock = 0;
+ 	for (; bpc >= 8; bpc -= 2) {
+ 		if (intel_hdmi_bpc_possible(crtc_state, bpc,
+-					    intel_dp->has_hdmi_sink) &&
++					    intel_dp_has_hdmi_sink(intel_dp)) &&
+ 		    intel_dp_tmds_clock_valid(intel_dp, clock, bpc, crtc_state->sink_format,
+ 					      respect_downstream_limits) == MODE_OK)
+ 			return bpc;
+@@ -2732,7 +2739,7 @@ static int intel_dp_pcon_start_frl_training(struct intel_dp *intel_dp)
+ static bool intel_dp_is_hdmi_2_1_sink(struct intel_dp *intel_dp)
+ {
+ 	if (drm_dp_is_branch(intel_dp->dpcd) &&
+-	    intel_dp->has_hdmi_sink &&
++	    intel_dp_has_hdmi_sink(intel_dp) &&
+ 	    intel_dp_hdmi_sink_max_frl(intel_dp) > 0)
+ 		return true;
  
-@@ -2478,8 +2478,6 @@ intel_hdmi_set_edid(struct drm_connector *connector)
+@@ -2900,13 +2907,12 @@ void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp,
+ 	if (!drm_dp_is_branch(intel_dp->dpcd))
+ 		return;
+ 
+-	tmp = intel_dp->has_hdmi_sink ?
+-		DP_HDMI_DVI_OUTPUT_CONFIG : 0;
++	tmp = intel_dp_has_hdmi_sink(intel_dp) ? DP_HDMI_DVI_OUTPUT_CONFIG : 0;
+ 
+ 	if (drm_dp_dpcd_writeb(&intel_dp->aux,
+ 			       DP_PROTOCOL_CONVERTER_CONTROL_0, tmp) != 1)
+ 		drm_dbg_kms(&i915->drm, "Failed to %s protocol converter HDMI mode\n",
+-			    str_enable_disable(intel_dp->has_hdmi_sink));
++			    str_enable_disable(intel_dp_has_hdmi_sink(intel_dp)));
+ 
+ 	if (crtc_state->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420) {
+ 		switch (crtc_state->output_format) {
+@@ -4812,9 +4818,6 @@ intel_dp_set_edid(struct intel_dp *intel_dp)
+ 
  	/* FIXME: Get rid of drm_edid_raw() */
  	edid = drm_edid_raw(drm_edid);
- 	if (edid && edid->input & DRM_EDID_INPUT_DIGITAL) {
--		intel_hdmi->has_hdmi_sink = drm_detect_hdmi_monitor(edid);
--
- 		intel_hdmi_dp_dual_mode_detect(connector);
+-	if (edid && edid->input & DRM_EDID_INPUT_DIGITAL) {
+-		intel_dp->has_hdmi_sink = drm_detect_hdmi_monitor(edid);
+-	}
  
- 		connected = true;
+ 	drm_dp_cec_set_edid(&intel_dp->aux, edid);
+ }
+@@ -4828,8 +4831,6 @@ intel_dp_unset_edid(struct intel_dp *intel_dp)
+ 	drm_edid_free(connector->detect_edid);
+ 	connector->detect_edid = NULL;
+ 
+-	intel_dp->has_hdmi_sink = false;
+-
+ 	intel_dp->dfp.max_bpc = 0;
+ 	intel_dp->dfp.max_dotclock = 0;
+ 	intel_dp->dfp.min_tmds_clock = 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index 5f86157a10d2..22099de3ca45 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -65,6 +65,7 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 				struct link_config_limits *limits,
+ 				int timeslots,
+ 				bool recompute_pipe_bpp);
++bool intel_dp_has_hdmi_sink(struct intel_dp *intel_dp);
+ bool intel_dp_is_edp(struct intel_dp *intel_dp);
+ bool intel_dp_is_uhbr(const struct intel_crtc_state *crtc_state);
+ bool intel_dp_is_port_edp(struct drm_i915_private *dev_priv, enum port port);
 -- 
 2.39.2
 
