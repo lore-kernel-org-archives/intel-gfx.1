@@ -4,66 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DD59EB64D8
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:28:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AE3DEB64DB
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:28:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63B3E10E37B;
-	Tue, 20 Jun 2023 18:28:24 +0000 (UTC)
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C027B10E059;
- Mon, 19 Jun 2023 15:46:00 +0000 (UTC)
-Received: by mail-pf1-x431.google.com with SMTP id
- d2e1a72fcca58-666e5f0d60bso1275983b3a.3; 
- Mon, 19 Jun 2023 08:46:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1687189559; x=1689781559;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=a8Og5h/yKrlm8jSKmkaXbcFetR4mC5v+7J0mPleddkU=;
- b=oXVIR3zkRp+1DEvl2Xpr+KrgGa4LxV1UsxEUr4mLcrgJLsAr+MWWiFusddNr/hTWmB
- qZkkSV1HpK2RomjyTo3KOh3+8BljNY/tXoILXpIAjux6CIGKlzgjMWCXp5XzX50rpG09
- bc6igPPLIjKq2Ixcdv3yjO1iq4iKmaWYZHPAgFRoTxKh82yFxrsgzHjHvEAmLGLs2iEQ
- Igcvc8RLu6JaYLaL67oC2l6ua88dCFUdZV0NRVzHzPDT0xsAzTyN1f4lXSlHrR2eYW9r
- DilnS+23DQrpU5nGBUtqcVnsKnm3vYSkRkc1LGkHbldyA1PyumjypqxcQSDzOxywkpXj
- EouQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687189559; x=1689781559;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=a8Og5h/yKrlm8jSKmkaXbcFetR4mC5v+7J0mPleddkU=;
- b=dCWX3/hwqPa6Bj3PcXd+B6tTL4sAcOY0lSVXhuyG6SuJFSkw7mIEAUaNTmO8JtRbP3
- 0TfJV4/MkJG72m1741pOzkuTyGXZb56B+2Qg2SZ4KOjWx//YauyfnobLvBWP2OiUQfva
- pOZ5EC/EHaDgCOMkf5l75o9gyzs2571qKI0lyNPneCnwvd69B4a/iyccCqjuQEEP13EP
- lpfAwLhzUakT8P9ZrxgtpTcprm/kqzVKTVHjqHSrErj1hHfBDY7soJ982PRZqPQ546R8
- 93NbOsbjDanA5Jf99XGSoK2vTM+8e7U8IZeYeemc2+P4mM299kYddhioYHr1SYtlf13e
- ubLQ==
-X-Gm-Message-State: AC+VfDwMFQCLG6usNolALSDaR8BPBSBFIymnuKglh2lUZbNkkWiCgxnk
- kmvsJDFRyp86JtnL/hYoJh4=
-X-Google-Smtp-Source: ACHHUZ6RWfursTFuGYeRkaJ+t1j5qreI+VxDrRuP7BW+hRuT2EibTVSWdiup8K+UYoRcbIYEQQ2stg==
-X-Received: by 2002:a05:6a00:2d82:b0:668:715a:6fcd with SMTP id
- fb2-20020a056a002d8200b00668715a6fcdmr2868668pfb.5.1687189559451; 
- Mon, 19 Jun 2023 08:45:59 -0700 (PDT)
-Received: from sumitra.com ([59.95.144.189]) by smtp.gmail.com with ESMTPSA id
- fe26-20020a056a002f1a00b006579b062d5dsm3648055pfb.21.2023.06.19.08.45.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Jun 2023 08:45:59 -0700 (PDT)
-Date: Mon, 19 Jun 2023 08:45:50 -0700
-From: Sumitra Sharma <sumitraartsy@gmail.com>
-To: Ira Weiny <ira.weiny@intel.com>
-Message-ID: <20230619154550.GB412243@sumitra.com>
-References: <20230617180420.GA410966@sumitra.com>
- <648f48bc3d3c2_1de3f9294a3@iweiny-mobl.notmuch>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AC0710E37D;
+	Tue, 20 Jun 2023 18:28:25 +0000 (UTC)
+Received: from mx0b-0064b401.pphosted.com (mx0b-0064b401.pphosted.com
+ [205.220.178.238])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0126210E44C
+ for <intel-gfx@lists.freedesktop.org>; Wed, 31 May 2023 00:13:45 +0000 (UTC)
+Received: from pps.filterd (m0250811.ppops.net [127.0.0.1])
+ by mx0a-0064b401.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34UNwIBu015030
+ for <intel-gfx@lists.freedesktop.org>; Wed, 31 May 2023 00:13:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
+ h=from : to :
+ subject : date : message-id : content-transfer-encoding : content-type :
+ mime-version; s=PPS06212021;
+ bh=DRnACwvkhFWFLhKxDSN/mPKAULbm2JP5OtRenifR604=;
+ b=NeVv4QzEhFz2+61P3llWN6DpdSuZTz/tVpbrvRAb016Dor/mPumAuotzdRV73vZ9WciK
+ aeVSpqRVvJaQFR8uKvWJoyswuuYQylfE6gXghcsPYS0a2Xg3pTRhYuX9S0AkovTmH7MO
+ xLQKfhz4T8MDqeZwTG7LxzgnDdjwgJIuig3QdCLzJztoImmiWQoKl1Nth27Hc4HME5Ya
+ ym5aG59YeC/W6nuyBc3osIcXbPlWM7O0NEY+VXKszutTy89qb2jhmAv5tML/CTt5Til7
+ y3LMLTMiDUhYegGUzsr0dUUQjDJomO9Cg1ddanvlDxG+pWaWtH/tmPFXR3IEKa3M7zp0 zw== 
+Received: from nam12-bn8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12lp2174.outbound.protection.outlook.com [104.47.55.174])
+ by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 3qwqgj06cj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <intel-gfx@lists.freedesktop.org>; Wed, 31 May 2023 00:13:44 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=T5eDOBmaciR47lcXTmVldvgb+EqPX4vdKxqMWeEvjI3hIbM6QIqSWwdXXFGSNrNjPTOJrRCPnDPQT5IhOZwd3NhsE9ZuQPjO84zmDe7hG9K9mbkPVKnft/Q14JvN7TJMrCfCo346XQc+jF7CLP82GWVlNgzSQC7eAwRjMeEDulR1wWW5CDNiuQctSacR1MtuBxe0b0FilKAMHJcOmv7oPvPPxMcM5WP8MmQ7OMuk9lQhUoaIV8SZRmkuQiheHYBt+akdqhQ9Wyad4HvHLLalE21CMrze7tCdfBB0vZR5yzMaH9CtBaCYGMjPbwQElwwTbU74t8BMaUkBzBTLsyzYgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DRnACwvkhFWFLhKxDSN/mPKAULbm2JP5OtRenifR604=;
+ b=c8CS4e4WOGa++AVatVPNoeijkVzikF3YM7zLavRkLzD+U3d9vFqh+rE9/TI6+++HSmUpFKvP0FoQgSGkRn0nNG73Df+fq2HzHUFQfZwHV3TnOYI4y2yDfLe4WXfI4JYhKbAHU8ajOJ7OsIPhiYXbCy+EFKiCYFzzHLxYJ6g0kIxhcrETgqm/Ql0Lge29QqBX9uTSSjvk4lqr8gGc7c+8znWNXJSKKH3v+MciT4u5dvbuPY4xZddvOHpkZSla0HRkf6vugE7+twqchH2EPWybpa1rY8tsiAUjENn8bBmbhW9Q7kPNjjRXhAMhxk1AnyCRdYcTuDHSMzDhYXPyAXs75g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=windriver.com; dmarc=pass action=none
+ header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
+Received: from DM6PR11MB4609.namprd11.prod.outlook.com (2603:10b6:5:28f::15)
+ by PH0PR11MB4854.namprd11.prod.outlook.com (2603:10b6:510:35::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Wed, 31 May
+ 2023 00:13:42 +0000
+Received: from DM6PR11MB4609.namprd11.prod.outlook.com
+ ([fe80::c51e:7d63:e3a2:4926]) by DM6PR11MB4609.namprd11.prod.outlook.com
+ ([fe80::c51e:7d63:e3a2:4926%4]) with mapi id 15.20.6455.020; Wed, 31 May 2023
+ 00:13:42 +0000
+From: Yongxin Liu <yongxin.liu@windriver.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 31 May 2023 08:12:05 +0800
+Message-Id: <20230531001205.3410334-1-yongxin.liu@windriver.com>
+X-Mailer: git-send-email 2.39.2
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <648f48bc3d3c2_1de3f9294a3@iweiny-mobl.notmuch>
+Content-Type: text/plain
+X-ClientProxiedBy: TY2PR02CA0017.apcprd02.prod.outlook.com
+ (2603:1096:404:56::29) To DM6PR11MB4609.namprd11.prod.outlook.com
+ (2603:10b6:5:28f::15)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR11MB4609:EE_|PH0PR11MB4854:EE_
+X-MS-Office365-Filtering-Correlation-Id: 05917018-c17d-48b3-3f42-08db616be452
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: li8D/pNXQobqVL+la4qG/tTLfVCdVhm83EMtnvAkthdg9PZWYQoAWT9uV4PVOlqaQtymP6ejVFMZjMYjFr/Q8Y+x6fH9BBx1n6BI5pvyUfERVV7c1TYKE+5827wa3iKZVf0AyHQA1QHYgu5MZVipMl44fNg0LrtJVc8EJs+t6GXleUKscIrqoYgZdqSbzqoRc0Dcy4B5/FsyrMD/CNS2/DaMmxmvQNSsMKagybCPM30rvfdxAyVp2Rwuqv9gmFDTg7MYRt4QRK5OqhuHig0Nib9Oilk4J7i0x35+KWU5NOR//bzhaezvzauRuvGyMcsSexccnR/PMJcnXL8J4PCQmtJGLDkSrDGald4KzqPXzds5iA31JG1C81OybUzvVhwkDn4iXtPg3IZYH1pKpTpcgoC6s9lCcgxWbGFd2jsdM5Rb++mowAg5D4CYn9ihcJ8CCe4eEq7HmA8HH9IfT8NtL7bwQ533wO0GxVcVYv/E9j8AUlYaGc7sj8SeNVAZs3y3mgfd/5unTqLuWtocQIU2tNiaGYr/h/cnxHiEWJsdL3jdhEIMfDOhC2UQBzIlrAFY2HXXeIGACGb/5by3LaXvosJbQo7niNMG6vd6ybPspBB4KdvQJZjaH+fFN9AL2UeK
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR11MB4609.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(136003)(396003)(376002)(366004)(39850400004)(451199021)(186003)(1076003)(26005)(6486002)(316002)(6506007)(52116002)(6512007)(6666004)(2906002)(5660300002)(41300700001)(36756003)(44832011)(8676002)(8936002)(478600001)(38350700002)(38100700002)(6916009)(86362001)(66946007)(2616005)(66556008)(66476007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?n26/xudKI1kaYDrl5EEgoa6+S5KMoe0Ig9xCqqC3dXO44Afg6/wS1e+kYfnc?=
+ =?us-ascii?Q?DWKPEkSZbJxOCpZw6opHNn1K8exVegIR7VjkA+mUn81zxMSlWEADGu0TSnUm?=
+ =?us-ascii?Q?ADli6VvYQ0fATcgt5a2ve+/WG7x9pDHWpsgHXEHAWldiSLzynKT1ZSQhlAO3?=
+ =?us-ascii?Q?i1pmYGeehYzASTQqF/H6Ne9MOTMIw0qeAqHx/OyhOITogBlVkzuORpMkKSyF?=
+ =?us-ascii?Q?xmgcCZbGhZVj/ybDoRn4Mc5XNQ7CuPAum1H7ErNgMP0ZZ1vEtjl3+uEwXkMZ?=
+ =?us-ascii?Q?oSgFFc77G7R+qBxsYICMXR+cQVPhmvwQluyCNgIx/aPKCP70kBN2krGpvJrz?=
+ =?us-ascii?Q?qUvW6a6G7NQsuUSyGsEskeq7+8fuOD9yQ2kJnMpgv0erlcm3VpaRg6G6WPhD?=
+ =?us-ascii?Q?vgdyUSbAh4ksw9Z68HHGtpFZ4u5fZvsLWLbvOM/uce4EGSWP+oCaQr4Aoi1N?=
+ =?us-ascii?Q?JMxRDJWgQ1d5Acw8yT9YJ+jXjhip9m1aPDp0Fhxukc6KIWyepP9SPQzGmWx5?=
+ =?us-ascii?Q?7yLtLGrlV20p+1p+xE1JrCabLqs6YzKGTo9+Zivx1Wh59rxeVz+RNa/PFill?=
+ =?us-ascii?Q?zi4FOOCInSoWJ1S3SxiZUimKGcGAZczaiq8RKMWdTNMJP6AO51BtxW2+GzBT?=
+ =?us-ascii?Q?Fsxh9+0ynpsKVf0X2ZHYCCp4PbYdKtsee2X1k8M7DyGTtqO7KF/RO3Rmqfge?=
+ =?us-ascii?Q?7nVZEK7WHH/9iG3P8/OYtdmYhC/6pwOxM9n1pe/7c+WUirV5iO2z9O6Vf6AU?=
+ =?us-ascii?Q?dbvdusLtxyeu7LkIgrrCqzJ65jvAOOItMni2cN2otBrkADYAJE1LGKiv1wiW?=
+ =?us-ascii?Q?+n1oXpX0tcNIM9jYqJJ1aj79Q22lE9pWCWXPAXvLqNCqsy2vkjU2nM8zONwh?=
+ =?us-ascii?Q?MW/qJcwH+VA6jGLCr9RCqDfZ8k0+byNzypJSCe4HLeVxM9Y8xNhuls93l1ro?=
+ =?us-ascii?Q?9OOPNmn/2mYp/pF+kxoOGn8xMRtsle4DDPCDy5suBMxh7bK0U//Gea7wCd/K?=
+ =?us-ascii?Q?8x9friUQGxi3Kbaksbmy07da2tJje/il6pxsYOeA76nVDhSJ4bc913wTbEfA?=
+ =?us-ascii?Q?TKOZ7iDba70Mn87jvo0hfY8QCQZ2MxU9Yy4YkvsHbC4WwbMTEvzKOyFtb94V?=
+ =?us-ascii?Q?1filFJudrbhFEFONHu4GZ2EKO8AVB9NTHRlCgK8D+p9EMuNBUn2yk0xVlbTF?=
+ =?us-ascii?Q?kKy4sZNNM/iPsRGz1I0xDyPU9P3TO5ncwubDIMFo0BOSx5p8KC62scNemH5l?=
+ =?us-ascii?Q?hoKMSkL+DijNGH92Fg/mtkLyA++MgC8TGawzl2WSubvHPKxbvag5PHJU191D?=
+ =?us-ascii?Q?Z1Xd07nmKknwra3j4YFs0ztWAyLqq0ajGTFPpV+Y8v84RLYrj1+JLyi+R53E?=
+ =?us-ascii?Q?ffkz1ymQHTC8CdIHMojMlgxL+Y63HeLm443L9jcuXvW1iK2zFDOPhxnO1XGF?=
+ =?us-ascii?Q?hfaOT9Q4+Ue4WDBmS99s0gFVH58go01EZFuykc6E28aYDCNBtut5c7vjxItI?=
+ =?us-ascii?Q?vayfvYlLzSlVdUHuFwe69H/1VNV6MEf6/JzqnheHE63h9rexIzRPzWJ8ssB0?=
+ =?us-ascii?Q?SoYyLUD2vSqAUyxMoUBobusTC1PWBNtG5rY/yih37ZMPqqAJ2QikefyLv8oe?=
+ =?us-ascii?Q?Ew=3D=3D?=
+X-OriginatorOrg: windriver.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05917018-c17d-48b3-3f42-08db616be452
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB4609.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2023 00:13:42.4795 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pygUH/NRD1SzMPhGdd1gRf8vKUvA4taGee40ktznLT9wK4RWSoRhSmlcAKu5LP1YHv90Ev7AATelhM3UP8DrPhhe7oXO7y5iCcRxN5q+OiE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB4854
+X-Proofpoint-GUID: xZv-9FtfMGad3n7wMVrW55ROazgJxkCH
+X-Proofpoint-ORIG-GUID: xZv-9FtfMGad3n7wMVrW55ROazgJxkCH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-05-30_18,2023-05-30_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0
+ adultscore=0 spamscore=0 impostorscore=0 priorityscore=1501 bulkscore=0
+ malwarescore=0 lowpriorityscore=0 mlxscore=0 mlxlogscore=999 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2304280000
+ definitions=main-2305300198
 X-Mailman-Approved-At: Tue, 20 Jun 2023 18:28:21 +0000
-Subject: Re: [Intel-gfx] [PATCH v2] drm/i915: Replace kmap() with
- kmap_local_page()
+Subject: [Intel-gfx] [PATCH] drm/i915/dp: fix a memory leak in struct
+ intel_vbt_panel_data
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,104 +138,61 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sumitra Sharma <sumitraartsy@gmail.com>, Deepak R Varma <drv@mailo.com>,
- Fabio <fmdefrancesco@gmail.com>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Jun 18, 2023 at 11:11:08AM -0700, Ira Weiny wrote:
-> Sumitra Sharma wrote:
-> > kmap() has been deprecated in favor of the kmap_local_page()
-> > due to high cost, restricted mapping space, the overhead of a
-> > global lock for synchronization, and making the process sleep
-> > in the absence of free slots.
-> > 
-> > kmap_local_page() is faster than kmap() and offers thread-local
-> > and CPU-local mappings, take pagefaults in a local kmap region
-> > and preserves preemption by saving the mappings of outgoing tasks
-> > and restoring those of the incoming one during a context switch.
-> > 
-> > The mapping is kept thread local in the function
-> > “i915_vma_coredump_create” in i915_gpu_error.c
-> > 
-> > Therefore, replace kmap() with kmap_local_page().
-> > 
-> > Suggested-by: Ira Weiny <ira.weiny@intel.com>
-> > 
-> 
-> NIT: No need for the line break between Suggested-by and your signed off line.
-> 
+In commit 3f9ffce5765d ("drm/i915: Do panel VBT init early if the VBT
+declares an explicit panel type"), intel_bios_init_panel_early() was
+added to intel_edp_init_connector(), and it may call parse_lfp_panel_dtd()
+to alloc memory for panel->vbt.lfp_lvds_vbt_mode.
 
-Hi Ira,
+If intel_edp_init_connector() returns false from lable out_vdd_off, the
+memory pointed by panel->vbt.lfp_lvds_vbt_mode will be eventually lost by
+kfree(connector) in intel_ddi_init_dp_connector().
 
-What does NIT stand for? 
+Fix the following memory leak.
 
-Thank you. I will take care about the line breaks.
+unreferenced object 0xffff9e076562f100 (size 128):
+  comm "modprobe", pid 365, jiffies 4294749388 (age 73.473s)
+  hex dump (first 32 bytes):
+    14 44 02 00 80 07 d8 07 05 08 98 08 00 00 38 04  .D............8.
+    3b 04 41 04 65 04 00 00 0a 00 00 00 00 00 00 00  ;.A.e...........
+  backtrace:
+    [<ffffffff99dd1386>] __kmem_cache_alloc_node+0x1e6/0x3d0
+    [<ffffffff99d4754a>] kmalloc_trace+0x2a/0xf0
+    [<ffffffffc0b50a39>] parse_lfp_data+0x1a9/0x300 [i915]
+    [<ffffffffc0b52af1>] intel_bios_init_panel+0x131/0x3d0 [i915]
+    [<ffffffffc0b52db3>] intel_bios_init_panel_early+0x13/0x20 [i915]
+    [<ffffffffc0c0d342>] intel_edp_init_connector+0xb2/0x620 [i915]
+    [<ffffffffc0c13267>] intel_dp_init_connector+0x277/0x490 [i915]
+    [<ffffffffc0c01a87>] intel_ddi_init+0x877/0xd70 [i915]
+    [<ffffffffc0b6fced>] intel_setup_outputs+0x79d/0xbc0 [i915]
+    [<ffffffffc0b7dce1>] intel_modeset_init_nogem+0x1a1/0x300 [i915]
+    [<ffffffffc0a85b2d>] i915_driver_probe+0x2cd/0x580 [i915]
+    [<ffffffffc0a900bd>] i915_pci_probe+0xcd/0x150 [i915]
+    [<ffffffff9a425334>] local_pci_probe+0x44/0xa0
+    [<ffffffff9a425fc4>] pci_call_probe+0x54/0x160
+    [<ffffffff9a4270ae>] pci_device_probe+0x7e/0x100
+    [<ffffffff9a5ec997>] really_probe+0x197/0x3c0
 
-> > Signed-off-by: Sumitra Sharma <sumitraartsy@gmail.com>
-> > ---
-> > 
-> > Changes in v2:
-> > 	- Replace kmap() with kmap_local_page().
-> 
-> Generally it is customary to attribute a change like this to those who
-> suggested it in a V1 review.
-> 
-> For example:
-> 
->  	- Tvrtko/Thomas: Use kmap_local_page() instead of page_address()
-> 
-> Also I don't see Thomas on the new email list.  Since he took the time to
-> review V1 he might want to check this version out.  I've added him to the
-> 'To:' list.
-> 
-> Also a link to V1 is nice.  B4 formats it like this:
-> 
-> - Link to v1: https://lore.kernel.org/all/20230614123556.GA381200@sumitra.com/
-> 
-> All that said the code looks good to me.  So with the above changes.
-> 
-> Reviewed-by: Ira Weiny <ira.weiny@intel.com>
-> 
+Fixes: 3f9ffce5765d ("drm/i915: Do panel VBT init early if the VBT declares an explicit panel type")
+Signed-off-by: Yongxin Liu <yongxin.liu@windriver.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-I have noted down the points mentioned above. Thank you again.
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 529ee22be872..b83d14c0f1ff 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -5439,6 +5439,7 @@ static bool intel_edp_init_connector(struct intel_dp *intel_dp,
+ 
+ out_vdd_off:
+ 	intel_pps_vdd_off_sync(intel_dp);
++	intel_bios_fini_panel(&intel_connector->panel);
+ 
+ 	return false;
+ }
+-- 
+2.39.2
 
-I am not supposed to create another version of this patch for 
-adding the above mentions, as you and Thomas both gave this patch 
-a reviewed-by tag. Right?
-
-
-Thanks & regards
-Sumitra
-
-PS: I am new to the open source vocabulary terms.
-
-> > 	- Change commit subject and message.
-> > 
-> >  drivers/gpu/drm/i915/i915_gpu_error.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-> > index f020c0086fbc..bc41500eedf5 100644
-> > --- a/drivers/gpu/drm/i915/i915_gpu_error.c
-> > +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-> > @@ -1164,9 +1164,9 @@ i915_vma_coredump_create(const struct intel_gt *gt,
-> >  
-> >  			drm_clflush_pages(&page, 1);
-> >  
-> > -			s = kmap(page);
-> > +			s = kmap_local_page(page);
-> >  			ret = compress_page(compress, s, dst, false);
-> > -			kunmap(page);
-> > +			kunmap_local(s);
-> >  
-> >  			drm_clflush_pages(&page, 1);
-> >  
-> > -- 
-> > 2.25.1
-> > 
-> 
-> 
