@@ -4,64 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C58EEB64D7
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:29:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3043EB64D8
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:29:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11C2D10E38B;
-	Tue, 20 Jun 2023 18:29:53 +0000 (UTC)
-Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
- [IPv6:2607:f8b0:4864:20::42c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B112010E318;
- Tue, 20 Jun 2023 18:08:07 +0000 (UTC)
-Received: by mail-pf1-x42c.google.com with SMTP id
- d2e1a72fcca58-6686708c986so3285519b3a.0; 
- Tue, 20 Jun 2023 11:08:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 703C810E38F;
+	Tue, 20 Jun 2023 18:29:55 +0000 (UTC)
+Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
+ [IPv6:2607:f8b0:4864:20::52c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFA9410E4B3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 31 May 2023 11:32:02 +0000 (UTC)
+Received: by mail-pg1-x52c.google.com with SMTP id
+ 41be03b00d2f7-53fb4ee9ba1so1080747a12.3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 31 May 2023 04:32:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1687284487; x=1689876487;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=iiaacy8dR/Z7cvZSosFFtefecDI/FL+fwVPq6hWPcAw=;
- b=XHHKTJmWHb7JZ9BreGD02oW0fUfN69x7Hg0t7ITggQQ/lyQfGdx4/avcaWYGkI/W1w
- Pd+8kYMuXjrOqvH94nc3W02M5Ye9RLintoNCYOJUvXRxFZisbcNy7PmwheSvuiurSGt/
- GpccDg76zoSf7ut7hXRYVdILlPWqv7JG84NHgeTwRruVBd5Mxq2EcIIsLBEl8SX0pqXN
- KLfb2FYkom2piH+kUjoSd9q1QmmPYD58LZOiMibJPhqSL+CsNC6ff+wFMdKJd2NJP23k
- T1ijoDYn1wH/h46Bqg+AS8K9dAWTrygVj6Lm3mJEX6hVYD23PZIw2DElhIZZF5CiZ1Kc
- vVgg==
+ d=heitbaum.com; s=google; t=1685532722; x=1688124722;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=t+QshJt/PdyfRodhCY0yXtcG2lF/vT/ZBreOHflG6Y4=;
+ b=UhOihmEs45qAYMynSTSjHQR1VfJ2+HA1k2nsMaDzrL3Lmv07qiXLvOtAGE09yFghLv
+ mmvfwvn23QTlh8BzTtZB4xej33ZljTYY1+0uaAyXNy5xemBi9mVH+HfuMREXm/zTd1xw
+ ONF3IfIuOkgK03fZZjL+ldMXhribgFz5p0ZmM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687284487; x=1689876487;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:message-id:subject:cc:to:from:date:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=iiaacy8dR/Z7cvZSosFFtefecDI/FL+fwVPq6hWPcAw=;
- b=D6yDrrKRYT65PGYySU62qm9tpRzegQ0TPvs9U5LaugXXvlxEDYY8rULuEvDpcFiPa0
- GVCFwPZ1tOXyC9JMP7rBdXuVeCn8HMezy1mCkaOOQBEc3xaAW3opx2/J5ywCSM7kJjSJ
- 3K7R5To9VkfmdFScfgJF8OHsf7w+no53aRlvW1z4QkiNXC9D3iFg394JsT9DUGQ3/OQC
- /z6/xPFZ+khviG8Gyx2OxwXkix8/StCnCug7QGYGMQkQfZWWZ9nPekqxOizHiStqnEd5
- Z3GM2ScIYh3l0dfJXYG1fHnl59zO6xuKbyqudG6m1Rx7UdUTgZ0ggd4nUeqGXoUUHpuM
- lwng==
-X-Gm-Message-State: AC+VfDyhWis7AVHQfjxjWFWdsNln5eXxWT7VP83fjYUf4CWfBPB7ToFI
- 6Q8edSxkRV35mRmBRYD1Uy0=
-X-Google-Smtp-Source: ACHHUZ6wJyE9uAHtsdE5qeiyzXecN6CaQmbaVvxhTL7kVp9n6WCVdxURW/S2LOCWBFbBUP2h7be7Ug==
-X-Received: by 2002:a05:6a00:991:b0:662:4041:30ba with SMTP id
- u17-20020a056a00099100b00662404130bamr18575102pfg.0.1687284486766; 
- Tue, 20 Jun 2023 11:08:06 -0700 (PDT)
-Received: from sumitra.com ([106.207.162.67]) by smtp.gmail.com with ESMTPSA id
- t2-20020a62ea02000000b0064cca73d911sm1591371pfh.103.2023.06.20.11.08.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Jun 2023 11:08:06 -0700 (PDT)
-Date: Tue, 20 Jun 2023 11:07:59 -0700
-From: Sumitra Sharma <sumitraartsy@gmail.com>
-To: Ira Weiny <ira.weiny@intel.com>
-Message-ID: <20230620180759.GA419158@sumitra.com>
+ d=1e100.net; s=20221208; t=1685532722; x=1688124722;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=t+QshJt/PdyfRodhCY0yXtcG2lF/vT/ZBreOHflG6Y4=;
+ b=dszY5IGR9B3RGn5ZMde1hagchiJ4LymlkxcTuZ/5MnwIuaszqiTQvTu6GrwAExDF2A
+ 8mcPUr6f7aQBtxTbDJxj57sXVJIRlrBhYaLzC8ChffY0Xqq2Hs7IsS7K7YMGA+9aSnSm
+ ZfbMDM27eme5ye9suG+YnaXec7xmpJ78UUIMcXW6Muf1BYl5BAHbJXslQg8JvtHckaFl
+ oNJSYAokSBiGw6BNUVt4yMX2+d/ITVIe7461R5ntfoyU3WkveEFjqkaXJ5T9P+LnZNJy
+ NrEOyZKYA3UO0DKDCRF9gEoHjwuRqxVhfawAYkosT0inplDO76zP/qddxU3aKdok/0xE
+ R5Lg==
+X-Gm-Message-State: AC+VfDwWpHF1YH2KQMWu0oH150kTUIwVILvO2Tkk2OGfNlLTYro/MZSW
+ pYf/V6JWVqT2IaXFWbFAjfgKUErL6VJfrWEuxjmNRQ==
+X-Google-Smtp-Source: ACHHUZ62xxeN0UvZ6AfOp3UiFMvl+rj1MK3P65nEgN+MksK2PakIdxE8i0in1vq/GVGJmdjdawbCXA2Xhomkv45ftEs=
+X-Received: by 2002:a17:90a:b013:b0:247:ab52:d5d8 with SMTP id
+ x19-20020a17090ab01300b00247ab52d5d8mr4436508pjq.26.1685532721781; Wed, 31
+ May 2023 04:32:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6491a85a37cc8_28e729425@iweiny-mobl.notmuch>
+References: <20230510103131.1618266-2-imre.deak@intel.com>
+ <20230530134907.GA8@5e905162a5a7> <ZHcJhs4ySOGojBvZ@ideak-desk>
+In-Reply-To: <ZHcJhs4ySOGojBvZ@ideak-desk>
+From: Rudi Heitbaum <rudi@heitbaum.com>
+Date: Wed, 31 May 2023 21:31:49 +1000
+Message-ID: <CAG9oJsnuSAveS1g6qyE7ZhSEdGOV1U6kogmiEg7vT9Le1t8wOw@mail.gmail.com>
+To: imre.deak@intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 20 Jun 2023 18:28:21 +0000
-Subject: Re: [Intel-gfx] [PATCH v2] drm/i915: Replace kmap() with
- kmap_local_page()
+Subject: Re: [Intel-gfx] [v4,
+ 01/14] drm/i915: Fix PIPEDMC disabling for a bigjoiner configuration
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,157 +68,120 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sumitra Sharma <sumitraartsy@gmail.com>, Deepak R Varma <drv@mailo.com>,
- Fabio <fmdefrancesco@gmail.com>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@gmail.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ intel-gfx@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Dave Airlie <airlied@redhat.com>, Dave Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Imre,
 
-On Tue, Jun 20, 2023 at 06:23:38AM -0700, Ira Weiny wrote:
-> Sumitra Sharma wrote:
-> > On Sun, Jun 18, 2023 at 11:11:08AM -0700, Ira Weiny wrote:
-> > > Sumitra Sharma wrote:
-> > > > kmap() has been deprecated in favor of the kmap_local_page()
-> > > > due to high cost, restricted mapping space, the overhead of a
-> > > > global lock for synchronization, and making the process sleep
-> > > > in the absence of free slots.
-> > > > 
-> > > > kmap_local_page() is faster than kmap() and offers thread-local
-> > > > and CPU-local mappings, take pagefaults in a local kmap region
-> > > > and preserves preemption by saving the mappings of outgoing tasks
-> > > > and restoring those of the incoming one during a context switch.
-> > > > 
-> > > > The mapping is kept thread local in the function
-> > > > “i915_vma_coredump_create” in i915_gpu_error.c
-> > > > 
-> > > > Therefore, replace kmap() with kmap_local_page().
-> > > > 
-> > > > Suggested-by: Ira Weiny <ira.weiny@intel.com>
-> > > > 
-> > > 
-> > > NIT: No need for the line break between Suggested-by and your signed off line.
-> > > 
-> > 
-> > Hi Ira,
-> > 
-> > What does NIT stand for? 
-> 
-> Shorthand for 'nitpicking'.
-> 
-> "giving too much attention to details that are not important, especially
-> as a way of criticizing: "
-> 
-> 	- https://dictionary.cambridge.org/dictionary/english/nitpicking
-> 
-> Via email this is a way for authors of an email to indicate something is
-> technically wrong but while nicely acknowledging that it is not very
-> significant and could be seen as overly critical.
-> 
-> For this particular comment I'm showing something to pay attention to next
-> time but that was not a big deal this time around.
+Raised the ticket and was able to capture the logs for you.
+
+https://gitlab.freedesktop.org/drm/intel/-/issues/8559
+
+Thanks
+Rudi
+
+On Wed, 31 May 2023 at 18:47, Imre Deak <imre.deak@intel.com> wrote:
 >
-
-Hi Ira,
-
-Thank for your explanation on NIT. 
-
-
-> > 
-> > Thank you. I will take care about the line breaks.
-> > 
-> > > > Signed-off-by: Sumitra Sharma <sumitraartsy@gmail.com>
-> > > > ---
-> > > > 
-> > > > Changes in v2:
-> > > > 	- Replace kmap() with kmap_local_page().
-> > > 
-> > > Generally it is customary to attribute a change like this to those who
-> > > suggested it in a V1 review.
-> > > 
-> > > For example:
-> > > 
-> > >  	- Tvrtko/Thomas: Use kmap_local_page() instead of page_address()
-> > > 
-> > > Also I don't see Thomas on the new email list.  Since he took the time to
-> > > review V1 he might want to check this version out.  I've added him to the
-> > > 'To:' list.
-> > > 
-> > > Also a link to V1 is nice.  B4 formats it like this:
-> > > 
-> > > - Link to v1: https://lore.kernel.org/all/20230614123556.GA381200@sumitra.com/
-> > > 
-> > > All that said the code looks good to me.  So with the above changes.
-> > > 
-> > > Reviewed-by: Ira Weiny <ira.weiny@intel.com>
-> > > 
-> > 
-> > I have noted down the points mentioned above. Thank you again.
-> > 
-> > I am not supposed to create another version of this patch for 
-> > adding the above mentions, as you and Thomas both gave this patch 
-> > a reviewed-by tag. Right?
-> > 
-> 
-> Based on this response[*] from Tvrtko I think this version can move
-> through without a v3.
-
-Okay!
-
-
-Thanks & regards
-Sumitra
-
-> 
-> Thanks!
-> Ira
-> 
-> [*] https://lore.kernel.org/all/bcb0a1d2-cd4d-a56f-1ee6-7ccfdd2f7b38@linux.intel.com/
-> 
-> <quote>
-> Thanks all! I'll just re-send the patch for our CI, since it didn't get
-> picked up automatically (stuck in moderation perhaps), with all r-b tags
-> added and extra line space removed and merge it if results will be green.
-> 
-> Regards,
-> 
-> Tvrtko
-> </quote>
-> 
-> 
-> > 
-> > Thanks & regards
-> > Sumitra
-> > 
-> > PS: I am new to the open source vocabulary terms.
-> > 
-> > > > 	- Change commit subject and message.
-> > > > 
-> > > >  drivers/gpu/drm/i915/i915_gpu_error.c | 4 ++--
-> > > >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-> > > > index f020c0086fbc..bc41500eedf5 100644
-> > > > --- a/drivers/gpu/drm/i915/i915_gpu_error.c
-> > > > +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-> > > > @@ -1164,9 +1164,9 @@ i915_vma_coredump_create(const struct intel_gt *gt,
-> > > >  
-> > > >  			drm_clflush_pages(&page, 1);
-> > > >  
-> > > > -			s = kmap(page);
-> > > > +			s = kmap_local_page(page);
-> > > >  			ret = compress_page(compress, s, dst, false);
-> > > > -			kunmap(page);
-> > > > +			kunmap_local(s);
-> > > >  
-> > > >  			drm_clflush_pages(&page, 1);
-> > > >  
-> > > > -- 
-> > > > 2.25.1
-> > > > 
-> > > 
-> > > 
-> 
-> 
+> On Tue, May 30, 2023 at 01:49:07PM +0000, Rudi Heitbaum wrote:
+> Hi Rudi,
+>
+> Could you open a ticket at
+> https://gitlab.freedesktop.org/drm/intel/-/issues/new
+>
+> attaching a dmesg log after booting with drm.debug=3D0xe, with the
+> messages from boot-up until the issue happens?
+>
+> Thanks,
+> Imre
+>
+> > Hi Imre/Dave,
+> >
+> > Ref: [v4,01/14] drm/i915: Fix PIPEDMC disabling for a bigjoiner configu=
+ration
+> >      [git pull] drm fixes for 6.4-rc4
+> >      drm-fixes-2023-05-26:
+> >      drm fixes for 6.4-rc4
+> >
+> > This patch has caused a regression between 6.4-rc3 and 6.4-rc4. Other
+> > tested kernels include 6.3.4 work fine. Dropping the patch allows the d=
+ecode
+> > playback of media via Kodi. Without dropping the patch - the media
+> > starts and stutters then ceases to play.
+> >
+> > There is an additional issue that 6.4-rc4 audio playback is also failin=
+g
+> > (where 6.4-rc3 was fine), I have not yet tracked this down.
+> >
+> > This is all on:
+> > DMI: Intel(R) Client Systems NUC12WSKi7/NUC12WSBi7, BIOS WSADL357.0087.=
+2023.0306.1931 03/06/2023
+> > 12th Gen Intel(R) Core(TM) i7-1260P (family: 0x6, model: 0x9a, stepping=
+: 0x3)
+> > microcode: updated early: 0x429 -> 0x42a, date =3D 2023-02-14
+> >
+> > Regards
+> >
+> > Rudi
+> >
+> > On Wed, May 10, 2023 at 01:31:18PM +0300, Imre Deak wrote:
+> > > For a bigjoiner configuration display->crtc_disable() will be called
+> > > first for the slave CRTCs and then for the master CRTC. However slave
+> > > CRTCs will be actually disabled only after the master CRTC is disable=
+d
+> > > (from the encoder disable hooks called with the master CRTC state).
+> > > Hence the slave PIPEDMCs can be disabled only after the master CRTC i=
+s
+> > > disabled, make this so.
+> > >
+> > > intel_encoders_post_pll_disable() must be called only for the master
+> > > CRTC, as for the other two encoder disable hooks. While at it fix thi=
+s
+> > > up as well. This didn't cause a problem, since
+> > > intel_encoders_post_pll_disable() will call the corresponding hook on=
+ly
+> > > for an encoder/connector connected to the given CRTC, however slave
+> > > CRTCs will have no associated encoder/connector.
+> > >
+> > > Fixes: 3af2ff0840be ("drm/i915: Enable a PIPEDMC whenever its corresp=
+onding pipe is enabled")
+> > > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> > > Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> > > Reviewed-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> > > Signed-off-by: Imre Deak <imre.deak@intel.com>
+> > > ---
+> > >  drivers/gpu/drm/i915/display/intel_display.c | 12 ++++++++++--
+> > >  1 file changed, 10 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/g=
+pu/drm/i915/display/intel_display.c
+> > > index 1d5d42a408035..116fa52290b84 100644
+> > > --- a/drivers/gpu/drm/i915/display/intel_display.c
+> > > +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> > > @@ -1702,9 +1702,17 @@ static void hsw_crtc_disable(struct intel_atom=
+ic_state *state,
+> > >
+> > >     intel_disable_shared_dpll(old_crtc_state);
+> > >
+> > > -   intel_encoders_post_pll_disable(state, crtc);
+> > > +   if (!intel_crtc_is_bigjoiner_slave(old_crtc_state)) {
+> > > +           struct intel_crtc *slave_crtc;
+> > > +
+> > > +           intel_encoders_post_pll_disable(state, crtc);
+> > >
+> > > -   intel_dmc_disable_pipe(i915, crtc->pipe);
+> > > +           intel_dmc_disable_pipe(i915, crtc->pipe);
+> > > +
+> > > +           for_each_intel_crtc_in_pipe_mask(&i915->drm, slave_crtc,
+> > > +                                            intel_crtc_bigjoiner_sla=
+ve_pipes(old_crtc_state))
+> > > +                   intel_dmc_disable_pipe(i915, slave_crtc->pipe);
+> > > +   }
+> > >  }
+> > >
+> > >  static void i9xx_pfit_enable(const struct intel_crtc_state *crtc_sta=
+te)
