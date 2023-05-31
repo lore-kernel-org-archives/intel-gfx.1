@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B29AC77B7A
-	for <intel-gfx@archiver.kernel.org>; Wed, 31 May 2023 17:03:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47425C77B7A
+	for <intel-gfx@archiver.kernel.org>; Wed, 31 May 2023 17:09:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A44910E1D7;
-	Wed, 31 May 2023 17:03:39 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 604A510E1D7;
- Wed, 31 May 2023 17:03:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD7F010E1D4;
+	Wed, 31 May 2023 17:09:35 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E1C110E1D4;
+ Wed, 31 May 2023 17:09:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1685552617; x=1717088617;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=Kw75a4tnMO6moGL0Mcj9cZmWvUFea18mh3qLG3UPRZs=;
- b=dsb8WvnhNnyxc3BJtdkQe4RWN5mXt4qp6Lnx2W7trDWuLUaDiqZtB7Nv
- gg+LTVpn+7jpYptqMSokE03xJyzzyG9qgfDXG9MAeaPL3RYkunDPtYW+E
- TAyQTAEK0R3mJBaWq5Du5WEQHnnolUoxyUQTvD5GqCE8zfl4fT8SHydPo
- gd+Da1nr/6nTgR1n9u09uq2NGWO50d7EGQuqsBSIRERJh0+BbwEpnPg//
- UKuKdkkkA8e4aOIriM8jlaFgDTTUuxcgKsuxpztF44EaqwgqmDT6lSYrG
- nyFHnlebGOorPA6a/R6cf4T30fuvLAXEXLaoYQ+fICt+c8SDzvNqR0v3K w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10727"; a="334923705"
-X-IronPort-AV: E=Sophos;i="6.00,207,1681196400"; d="scan'208";a="334923705"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2023 09:59:45 -0700
+ t=1685552974; x=1717088974;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=hiobOs4GS8I6RMOxFCRux1ABgZqJSA3v8sO9xsKQjzg=;
+ b=GYJoQZmXIePyj5iPFYOgJL9f4XMJmjFA8cfwfOLyZxcFiHVU+PmJ8qpn
+ 5n9BUERdSJi3am+H9oTJvZpT324zu2XZCdGFkWYV7MJNT3qnubhai05ow
+ dgmZN99tY5REs3d3wEMqRzPcqNRV4HTS+/evzgFF00BKf7d1/Avny9uN7
+ 36tIIlMtIb8TxwVTnxQdLzsaQvx/IKXs/pcMypa1cSxi+Budz9mQTgI44
+ 9hZw/+W06+nL01yDwVZuPmW3crkak5GjWt73ndA2/1uX/hDxzNCHYo91d
+ UGWq42nc5dX/IqMKE9Kf9CoRN/o0h/3iVo3bcfqcodPmh2X1tNjkGydmY g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10727"; a="352804811"
+X-IronPort-AV: E=Sophos;i="6.00,207,1681196400"; d="scan'208";a="352804811"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 May 2023 10:09:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10727"; a="684453507"
-X-IronPort-AV: E=Sophos;i="6.00,207,1681196400"; d="scan'208";a="684453507"
-Received: from itaraban-mobl.ger.corp.intel.com (HELO intel.com)
- ([10.252.47.19])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 May 2023 09:59:43 -0700
-Date: Wed, 31 May 2023 18:59:40 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: John.C.Harrison@intel.com
-Message-ID: <ZHd8/KtuvoWJwvfv@ashyti-mobl2.lan>
-References: <20230531155942.441862-1-John.C.Harrison@Intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10727"; a="831286034"
+X-IronPort-AV: E=Sophos;i="6.00,207,1681196400"; d="scan'208";a="831286034"
+Received: from fyang16-desk.jf.intel.com ([10.24.96.243])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 May 2023 10:09:33 -0700
+From: fei.yang@intel.com
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 31 May 2023 10:10:08 -0700
+Message-Id: <20230531171008.1738759-2-fei.yang@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230531171008.1738759-1-fei.yang@intel.com>
+References: <20230531171008.1738759-1-fei.yang@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230531155942.441862-1-John.C.Harrison@Intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/guc: Remove some obsolete
- definitions
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v15 1/1] drm/i915: Allow user to set cache at BO
+ creation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,74 +58,209 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel-GFX@lists.freedesktop.org, DRI-Devel@lists.freedesktop.org
+Cc: Lihao Gu <lihao.gu@intel.com>,
+ Chris Wilson <chris.p.wilson@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ Carl Zhang <carl.zhang@intel.com>, Matt Roper <matthew.d.roper@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi John,
+From: Fei Yang <fei.yang@intel.com>
 
-On Wed, May 31, 2023 at 08:59:42AM -0700, John.C.Harrison@Intel.com wrote:
-> From: John Harrison <John.C.Harrison@Intel.com>
-> 
-> There were a bunch of defines and structures left over from an API
-> update a very long time ago. Remove them.
-> 
-> Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h | 33 ---------------------
->  1 file changed, 33 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> index 4e57bd09d50d9..b4d56eccfb1f0 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-> @@ -35,13 +35,6 @@
->  #define GUC_MAX_CONTEXT_ID		65535
->  #define	GUC_INVALID_CONTEXT_ID		GUC_MAX_CONTEXT_ID
->  
-> -#define GUC_RENDER_ENGINE		0
-> -#define GUC_VIDEO_ENGINE		1
-> -#define GUC_BLITTER_ENGINE		2
-> -#define GUC_VIDEOENHANCE_ENGINE		3
-> -#define GUC_VIDEO_ENGINE2		4
-> -#define GUC_MAX_ENGINES_NUM		(GUC_VIDEO_ENGINE2 + 1)
-> -
->  #define GUC_RENDER_CLASS		0
->  #define GUC_VIDEO_CLASS			1
->  #define GUC_VIDEOENHANCE_CLASS		2
-> @@ -499,32 +492,6 @@ struct guc_log_buffer_state {
->  	u32 version;
->  } __packed;
->  
-> -struct guc_ctx_report {
-> -	u32 report_return_status;
-> -	u32 reserved1[64];
-> -	u32 affected_count;
-> -	u32 reserved2[2];
-> -} __packed;
-> -
-> -/* GuC Shared Context Data Struct */
-> -struct guc_shared_ctx_data {
-> -	u32 addr_of_last_preempted_data_low;
-> -	u32 addr_of_last_preempted_data_high;
-> -	u32 addr_of_last_preempted_data_high_tmp;
-> -	u32 padding;
-> -	u32 is_mapped_to_proxy;
-> -	u32 proxy_ctx_id;
-> -	u32 engine_reset_ctx_id;
-> -	u32 media_reset_count;
-> -	u32 reserved1[8];
-> -	u32 uk_last_ctx_switch_reason;
-> -	u32 was_reset;
-> -	u32 lrca_gpu_addr;
-> -	u64 execlist_ctx;
-> -	u32 reserved2[66];
-> -	struct guc_ctx_report preempt_ctx_report[GUC_MAX_ENGINES_NUM];
-> -} __packed;
+To comply with the design that buffer objects shall have immutable
+cache setting through out their life cycle, {set, get}_caching ioctl's
+are no longer supported from MTL onward. With that change caching
+policy can only be set at object creation time. The current code
+applies a default (platform dependent) cache setting for all objects.
+However this is not optimal for performance tuning. The patch extends
+the existing gem_create uAPI to let user set PAT index for the object
+at creation time.
+The new extension is platform independent, so UMD's can switch to using
+this extension for older platforms as well, while {set, get}_caching are
+still supported on these legacy paltforms for compatibility reason.
 
-yeah... they're not used anywhere...
+Note: The detailed description of PAT index is missing in current PRM
+even for older hardware and will be added by the next PRM update under
+chapter name "Memory Views".
 
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com> 
+BSpec: 45101
 
-Thanks,
-Andi
+Mesa support has been submitted in this merge request:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/22878
+
+The media driver is supported by the following commits:
+https://github.com/intel/media-driver/commit/92c00a857433ebb34ec575e9834f473c6fcb6341
+https://github.com/intel/media-driver/commit/fd375cf2c5e1f6bf6b43258ff797b3134aadc9fd
+https://github.com/intel/media-driver/commit/08dd244b22484770a33464c2c8ae85430e548000
+
+The IGT test related to this change is
+igt@gem_create@create-ext-set-pat
+
+Signed-off-by: Fei Yang <fei.yang@intel.com>
+Cc: Chris Wilson <chris.p.wilson@linux.intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+Acked-by: Jordan Justen <jordan.l.justen@intel.com>
+Tested-by: Jordan Justen <jordan.l.justen@intel.com>
+Acked-by: Carl Zhang <carl.zhang@intel.com>
+Tested-by: Lihao Gu <lihao.gu@intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_create.c | 36 +++++++++++++++++++
+ drivers/gpu/drm/i915/gem/i915_gem_object.c |  6 ++++
+ include/uapi/drm/i915_drm.h                | 41 ++++++++++++++++++++++
+ 3 files changed, 83 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_create.c b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+index bfe1dbda4cb7..644a936248ad 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_create.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+@@ -245,6 +245,7 @@ struct create_ext {
+ 	unsigned int n_placements;
+ 	unsigned int placement_mask;
+ 	unsigned long flags;
++	unsigned int pat_index;
+ };
+ 
+ static void repr_placements(char *buf, size_t size,
+@@ -394,11 +395,39 @@ static int ext_set_protected(struct i915_user_extension __user *base, void *data
+ 	return 0;
+ }
+ 
++static int ext_set_pat(struct i915_user_extension __user *base, void *data)
++{
++	struct create_ext *ext_data = data;
++	struct drm_i915_private *i915 = ext_data->i915;
++	struct drm_i915_gem_create_ext_set_pat ext;
++	unsigned int max_pat_index;
++
++	BUILD_BUG_ON(sizeof(struct drm_i915_gem_create_ext_set_pat) !=
++		     offsetofend(struct drm_i915_gem_create_ext_set_pat, rsvd));
++
++	if (copy_from_user(&ext, base, sizeof(ext)))
++		return -EFAULT;
++
++	max_pat_index = INTEL_INFO(i915)->max_pat_index;
++
++	if (ext.pat_index > max_pat_index) {
++		drm_dbg(&i915->drm, "PAT index is invalid: %u\n",
++			ext.pat_index);
++		return -EINVAL;
++	}
++
++	ext_data->pat_index = ext.pat_index;
++
++	return 0;
++}
++
+ static const i915_user_extension_fn create_extensions[] = {
+ 	[I915_GEM_CREATE_EXT_MEMORY_REGIONS] = ext_set_placements,
+ 	[I915_GEM_CREATE_EXT_PROTECTED_CONTENT] = ext_set_protected,
++	[I915_GEM_CREATE_EXT_SET_PAT] = ext_set_pat,
+ };
+ 
++#define PAT_INDEX_NOT_SET	0xffff
+ /**
+  * i915_gem_create_ext_ioctl - Creates a new mm object and returns a handle to it.
+  * @dev: drm device pointer
+@@ -418,6 +447,7 @@ i915_gem_create_ext_ioctl(struct drm_device *dev, void *data,
+ 	if (args->flags & ~I915_GEM_CREATE_EXT_FLAG_NEEDS_CPU_ACCESS)
+ 		return -EINVAL;
+ 
++	ext_data.pat_index = PAT_INDEX_NOT_SET;
+ 	ret = i915_user_extensions(u64_to_user_ptr(args->extensions),
+ 				   create_extensions,
+ 				   ARRAY_SIZE(create_extensions),
+@@ -454,5 +484,11 @@ i915_gem_create_ext_ioctl(struct drm_device *dev, void *data,
+ 	if (IS_ERR(obj))
+ 		return PTR_ERR(obj);
+ 
++	if (ext_data.pat_index != PAT_INDEX_NOT_SET) {
++		i915_gem_object_set_pat_index(obj, ext_data.pat_index);
++		/* Mark pat_index is set by UMD */
++		obj->pat_set_by_user = true;
++	}
++
+ 	return i915_gem_publish(obj, file, &args->size, &args->handle);
+ }
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index 46a19b099ec8..97ac6fb37958 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -208,6 +208,12 @@ bool i915_gem_object_can_bypass_llc(struct drm_i915_gem_object *obj)
+ 	if (!(obj->flags & I915_BO_ALLOC_USER))
+ 		return false;
+ 
++	/*
++	 * Always flush cache for UMD objects at creation time.
++	 */
++	if (obj->pat_set_by_user)
++		return true;
++
+ 	/*
+ 	 * EHL and JSL add the 'Bypass LLC' MOCS entry, which should make it
+ 	 * possible for userspace to bypass the GTT caching bits set by the
+diff --git a/include/uapi/drm/i915_drm.h b/include/uapi/drm/i915_drm.h
+index f31dfacde601..4083a23e0614 100644
+--- a/include/uapi/drm/i915_drm.h
++++ b/include/uapi/drm/i915_drm.h
+@@ -3679,9 +3679,13 @@ struct drm_i915_gem_create_ext {
+ 	 *
+ 	 * For I915_GEM_CREATE_EXT_PROTECTED_CONTENT usage see
+ 	 * struct drm_i915_gem_create_ext_protected_content.
++	 *
++	 * For I915_GEM_CREATE_EXT_SET_PAT usage see
++	 * struct drm_i915_gem_create_ext_set_pat.
+ 	 */
+ #define I915_GEM_CREATE_EXT_MEMORY_REGIONS 0
+ #define I915_GEM_CREATE_EXT_PROTECTED_CONTENT 1
++#define I915_GEM_CREATE_EXT_SET_PAT 2
+ 	__u64 extensions;
+ };
+ 
+@@ -3796,6 +3800,43 @@ struct drm_i915_gem_create_ext_protected_content {
+ 	__u32 flags;
+ };
+ 
++/**
++ * struct drm_i915_gem_create_ext_set_pat - The
++ * I915_GEM_CREATE_EXT_SET_PAT extension.
++ *
++ * If this extension is provided, the specified caching policy (PAT index) is
++ * applied to the buffer object.
++ *
++ * Below is an example on how to create an object with specific caching policy:
++ *
++ * .. code-block:: C
++ *
++ *      struct drm_i915_gem_create_ext_set_pat set_pat_ext = {
++ *              .base = { .name = I915_GEM_CREATE_EXT_SET_PAT },
++ *              .pat_index = 0,
++ *      };
++ *      struct drm_i915_gem_create_ext create_ext = {
++ *              .size = PAGE_SIZE,
++ *              .extensions = (uintptr_t)&set_pat_ext,
++ *      };
++ *
++ *      int err = ioctl(fd, DRM_IOCTL_I915_GEM_CREATE_EXT, &create_ext);
++ *      if (err) ...
++ */
++struct drm_i915_gem_create_ext_set_pat {
++	/** @base: Extension link. See struct i915_user_extension. */
++	struct i915_user_extension base;
++	/**
++	 * @pat_index: PAT index to be set
++	 * PAT index is a bit field in Page Table Entry to control caching
++	 * behaviors for GPU accesses. The definition of PAT index is
++	 * platform dependent and can be found in hardware specifications,
++	 */
++	__u32 pat_index;
++	/** @rsvd: reserved for future use */
++	__u32 rsvd;
++};
++
+ /* ID of the protected content session managed by i915 when PXP is active */
+ #define I915_PROTECTED_CONTENT_DEFAULT_SESSION 0xf
+ 
+-- 
+2.25.1
+
