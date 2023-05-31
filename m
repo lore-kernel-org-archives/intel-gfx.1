@@ -4,82 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AA58EB64D7
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:28:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21C0EEB64D7
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:28:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C98610E372;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 540DA10E373;
 	Tue, 20 Jun 2023 18:28:23 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A092D10E0F5
- for <intel-gfx@lists.freedesktop.org>; Tue, 13 Jun 2023 17:15:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1686676516;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Y47mFwi46fNR1k1wU+EJoRpRAnGyxBYqLYF/5mVYk4s=;
- b=QCo0lexcJqxlOOsm+Nwlpw6MCGHd4PFGcs58x9aYJfKgSzu4P1sKTj6EORDdMSqHMypX+9
- 16dqkKDg82umswNGzy9dJR7GDADX/eKZfkuB80vXb/MAnvLOljNazwK+iHvLjPIy0c8zL3
- CYTh+k/Erh84/jgvbNokdYqfzcJxuw4=
-Received: from mail-il1-f199.google.com (mail-il1-f199.google.com
- [209.85.166.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-343-zVKkwRV7MNiDRg1PIlOhYg-1; Tue, 13 Jun 2023 13:15:15 -0400
-X-MC-Unique: zVKkwRV7MNiDRg1PIlOhYg-1
-Received: by mail-il1-f199.google.com with SMTP id
- e9e14a558f8ab-33db528e4faso50539665ab.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 13 Jun 2023 10:15:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686676513; x=1689268513;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Y47mFwi46fNR1k1wU+EJoRpRAnGyxBYqLYF/5mVYk4s=;
- b=StWdOGe2JIt9moFCSEl1Uh7AUF/ra7bpWlMGo3otXLwFsznQ1B4HVAXil7goav4I91
- Z0dMNlSvuuyuGooDEesQe5hOvJ023VN4QUAI79nSBAU1frEZZvW6Dra2HCPaHRid9o1p
- TC6Qhaw/5+3yyHOFOz1N1utcs3sOiJ1BJjEaV8O0VNJ8Xa+siB5Qm3OEoTbXvKRdIrED
- ilz4KvN5fkceLkv+/6+Fi5TLMiOvFkkYQ/ud4B7JWcQYjeOsoJQk44pqPwkiWZPhqOoL
- 3lKbNKeo/nDzQYAQkAOtD+xoEsFFkoMa75wu7KTp87VNMtVj7s3TJlJvcpRo0+N/ON61
- mYXQ==
-X-Gm-Message-State: AC+VfDxfMcsg3De1jmBfxhA6C/gy4qYglCNYzRgc35edxG5E1c3vJATk
- 1J4SoClu+UnR266gvFZPlTXd4Fz7S1oF0+GPrqKO4sDOcR//EDWBX9IHQtZdJWwzM9wY8EHk2ib
- AnHnn4DC8jWlfhT6JX20kVDHURrId
-X-Received: by 2002:a92:c691:0:b0:340:56e8:6d16 with SMTP id
- o17-20020a92c691000000b0034056e86d16mr3600703ilg.7.1686676513565; 
- Tue, 13 Jun 2023 10:15:13 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ5bEeL9Pfn6uuRfKBly7+jYgvfEJjCvB+F2U1+DUXQRw9biJ91NqlzaudCp25Q0SB+DZixcFA==
-X-Received: by 2002:a92:c691:0:b0:340:56e8:6d16 with SMTP id
- o17-20020a92c691000000b0034056e86d16mr3600687ilg.7.1686676513231; 
- Tue, 13 Jun 2023 10:15:13 -0700 (PDT)
-Received: from redhat.com ([38.15.36.239]) by smtp.gmail.com with ESMTPSA id
- l5-20020a02cd85000000b0041a84d0c828sm3455996jap.87.2023.06.13.10.15.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Jun 2023 10:15:12 -0700 (PDT)
-Date: Tue, 13 Jun 2023 11:15:11 -0600
-From: Alex Williamson <alex.williamson@redhat.com>
-To: "Liu, Yi L" <yi.l.liu@intel.com>
-Message-ID: <20230613111511.425bdeae.alex.williamson@redhat.com>
-In-Reply-To: <20230613091301.56986440.alex.williamson@redhat.com>
-References: <20230602121653.80017-1-yi.l.liu@intel.com>
- <20230602121653.80017-22-yi.l.liu@intel.com>
- <20230612164228.65b500e0.alex.williamson@redhat.com>
- <DS0PR11MB7529AE3701E154BF4C092E57C355A@DS0PR11MB7529.namprd11.prod.outlook.com>
- <20230613081913.279dea9e.alex.williamson@redhat.com>
- <DS0PR11MB7529EB2903151B3399F636F5C355A@DS0PR11MB7529.namprd11.prod.outlook.com>
- <20230613084828.7af51055.alex.williamson@redhat.com>
- <DS0PR11MB7529E84BCB100DE620FD2468C355A@DS0PR11MB7529.namprd11.prod.outlook.com>
- <20230613091301.56986440.alex.williamson@redhat.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.35; x86_64-redhat-linux-gnu)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CC4110E491;
+ Wed, 31 May 2023 08:20:31 +0000 (UTC)
+Received: from [192.168.88.20] (91-154-35-171.elisa-laajakaista.fi
+ [91.154.35.171])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id AB62D7FC;
+ Wed, 31 May 2023 10:20:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1685521207;
+ bh=EL3RWdaIqfPKhp0EXpVPxPCT9ntFr8tTKWXlYphupWI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=MvSXDrHk7T4BnPJqHjbFiTX+4V0oyXpM4JlCJJT+bzOMxSOycyjTIr/UAfnt1xezv
+ qzMGM+1MWvguHV2odb3hKaYoA6dxUihmMViSPeeHPMA04EyWI4cWEcnv/H7riWMXBY
+ LXCYZwLPo9seo/aN3CtoiK5GheRzH+ZTTqCtxMHI=
+Message-ID: <c4146861-3e8c-7410-4fec-27e7bce7e2de@ideasonboard.com>
+Date: Wed, 31 May 2023 11:20:24 +0300
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
+ airlied@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ javierm@redhat.com, sam@ravnborg.org, suijingfeng@loongson.cn
+References: <20230530150253.22758-1-tzimmermann@suse.de>
+ <20230530150253.22758-9-tzimmermann@suse.de>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+In-Reply-To: <20230530150253.22758-9-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 20 Jun 2023 18:28:21 +0000
-Subject: Re: [Intel-gfx] [PATCH v12 21/24] vfio: Determine noiommu device in
- __vfio_register_dev()
+Subject: Re: [Intel-gfx] [PATCH v5 08/13] drm/omapdrm: Use regular fbdev I/O
+ helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,179 +54,83 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yanting@freedesktop.org,
-	"mjrosato@linux.ibm.com" <mjrosato@linux.ibm.com>,
-	"jasowang@redhat.com" <jasowang@redhat.com>,
-	"peterx@redhat.com" <peterx@redhat.com>,
-	"  <lulu@redhat.com>, "@freedesktop.org,
-	suravee.suthikulpanit@amd.com,
-	"chao.p.peng@linux.intel.com" <chao.p.peng@linux.intel.com>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"joro@8bytes.org" <joro@8bytes.org>, Zhenzhong@freedesktop.org,
-	" <zhenzhong.duan@intel.com>,   "@freedesktop.org,
-	clegoate@redhat.com, Yan@freedesktop.org,
-	"nicolinc@nvidia.com" <nicolinc@nvidia.com>,
-	"jgg@nvidia.com" <jgg@nvidia.com>,
-	"     <intel-gvt-dev@lists.freedesktop.org>,  "@freedesktop.org,
-	intel-gfx@lists.freedesktop.org, <linux-s390@vger.kernel.org>, ,
-	"Tian,  Kevin" <kevin.tian@intel.com>, Xudong@freedesktop.org,
-	"  <suravee.suthikulpanit@amd.com>, "@freedesktop.org,
-	intel-gvt-dev@lists.freedesktop.org,,
-	" <intel-gfx@lists.freedesktop.org>,   "@freedesktop.org,
-	linux-s390@vger.kernel.org, Terrence@freedesktop.org,
-	"yi.y.sun@linux.intel.com" <yi.y.sun@linux.intel.com>,
-	"eric.auger@redhat.com" <eric.auger@redhat.com>,
-	"cohuck@redhat.com" <cohuck@redhat.com>, <clegoate@redhat.com>,
-	"robin.murphy@arm.com" <robin.murphy@arm.com>,
-	"shameerali.kolothum.thodi@huawei.com\"          <shameerali.kolothum.thodi@huawei.com>, "@freedesktop.org,
-	lulu@redhat.com
+Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-[Sorry for breaking threading, replying to my own message id with reply
- content from Yi since the Cc list got broken]
-
-On Tue, 13 Jun 2023 15:28:06 +0000
-"Liu, Yi L" <yi.l.liu@intel.com> wrote:
-
-> > From: Alex Williamson <alex.williamson@redhat.com>
-> > Sent: Tuesday, June 13, 2023 11:13 PM
-> > 
-> > On Tue, 13 Jun 2023 15:01:35 +0000
-> > "Liu, Yi L" <yi.l.liu@intel.com> wrote:
-> >   
-> > > > From: Alex Williamson <alex.williamson@redhat.com>
-> > > > Sent: Tuesday, June 13, 2023 10:48 PM
-> > > >
-> > > > On Tue, 13 Jun 2023 14:33:01 +0000
-> > > > "Liu, Yi L" <yi.l.liu@intel.com> wrote:
-> > > >  
-> > > > > > From: Alex Williamson <alex.williamson@redhat.com>
-> > > > > > Sent: Tuesday, June 13, 2023 10:19 PM
-> > > > > >
-> > > > > > On Tue, 13 Jun 2023 05:53:42 +0000
-> > > > > > "Liu, Yi L" <yi.l.liu@intel.com> wrote:
-> > > > > >  
-> > > > > > > > From: Alex Williamson <alex.williamson@redhat.com>
-> > > > > > > > Sent: Tuesday, June 13, 2023 6:42 AM
-> > > > > > > >
-> > > > > > > > On Fri,  2 Jun 2023 05:16:50 -0700
-> > > > > > > > Yi Liu <yi.l.liu@intel.com> wrote:
-> > > > > > > >  
-> > > > > > > > > This moves the noiommu device determination and noiommu taint out of
-> > > > > > > > > vfio_group_find_or_alloc(). noiommu device is determined in
-> > > > > > > > > __vfio_register_dev() and result is stored in flag vfio_device->noiommu,
-> > > > > > > > > the noiommu taint is added in the end of __vfio_register_dev().
-> > > > > > > > >
-> > > > > > > > > This is also a preparation for compiling out vfio_group infrastructure
-> > > > > > > > > as it makes the noiommu detection and taint common between the cdev  
-> > path  
-> > > > > > > > > and group path though cdev path does not support noiommu.  
-> > > > > > > >
-> > > > > > > > Does this really still make sense?  The motivation for the change is
-> > > > > > > > really not clear without cdev support for noiommu.  Thanks,  
-> > > > > > >
-> > > > > > > I think it still makes sense. When CONFIG_VFIO_GROUP==n, the kernel
-> > > > > > > only supports cdev interface. If there is noiommu device, vfio should
-> > > > > > > fail the registration. So, the noiommu determination is still needed. But
-> > > > > > > I'd admit the taint might still be in the group code.  
-> > > > > >
-> > > > > > How is there going to be a noiommu device when VFIO_GROUP is unset?  
-> > > > >
-> > > > > How about booting a kernel with iommu disabled, then all the devices
-> > > > > are not protected by iommu. I suppose they are noiommu devices. If
-> > > > > user wants to bound them to vfio, the kernel should have VFIO_GROUP.
-> > > > > Otherwise, needs to fail.  
-> > > >
-> > > > "noiommu" is a vfio designation of a device, it must be created by
-> > > > vfio.  
-> > >
-> > > Sure.
-> > >  
-> > > > There can certainly be devices which are not IOMMU backed, but
-> > > > without vfio designating them as noiommu devices, which is only done
-> > > > via the legacy and compat paths, there's no such thing as a noiommu
-> > > > device.  
-> > >
-> > > Yes.
-> > >  
-> > > > Devices without an IOMMU are simply out of scope for cdev,
-> > > > there should never be a vfio cdev entry created for them.  Thanks,  
-> > >
-> > > Actually, this is what I want to solve. I need to check if a device is
-> > > IOMMU backed or not, and based on this info to prevent creating
-> > > cdev entry for them in the coming cdev support or may need to
-> > > fail registration if VFIO_GROUP is unset.
-> > >
-> > > If this patch is not good. I can use the vfio_device_is_noiommu()
-> > > written like below when VFIO_GROUP is unset. What about your
-> > > opinion?
-> > >
-> > > static inline bool vfio_device_is_noiommu(struct vfio_device *vdev)
-> > > {
-> > > 	struct iommu_group *iommu_group;
-> > >
-> > > 	iommu_group = iommu_group_get(vdev->dev);
-> > > 	iommu_group_put(iommu_group); /* Accepts NULL */
-> > > 	return !iommu_group;
-> > > }  
-> > 
-> > 
-> > No, please do not confuse the issue.  As we agreed above "noiommu"
-> > means a specific thing, it's a device without IOMMU backing that vfio
-> > has artificially included in the environment.  If we don't have
-> > VFIO_NOIOMMU then there's no such thing as a "noiommu" device.
-> > 
-> > You can certainly use an iommu_group test to decide if a device should
-> > be represented, but there absolutely should never be a vfio_device
-> > created without IOMMU backing and without VFIO_NOIOMMU.  Thanks,  
+On 30/05/2023 18:02, Thomas Zimmermann wrote:
+> Use the regular fbdev helpers for framebuffer I/O instead of DRM's
+> helpers. Omapdrm does not use damage handling, so DRM's fbdev helpers
+> are mere wrappers around the fbdev code.
 > 
-> Hmmm. So your suggestion is to fail the vfio_alloc_device() if the input
-> device is not IOMMU backed. right? But at this point, we don't know if
-> the caller is trying to allocate vfio_device for a physical device or an
-> emulated device. For emulated devices, cdev entry can always be created.
-> Is it? I think the iommu_group test should be done for only physical devices
-> in the register time.
+> By using fbdev helpers directly within each DRM fbdev emulation,
+> we can eventually remove DRM's wrapper functions entirely.
 > 
-> Can I have an iommu_backed flag to store the iommu_group test result
-> and check it when trying to create/remove cdev entry?
+> v4:
+> 	* use initializer macros for struct fb_ops
+> v2:
+> 	* use FB_SYS_HELPERS option
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Acked-by: Sam Ravnborg <sam@ravnborg.org>
+> Cc: Tomi Valkeinen <tomba@kernel.org>
+> ---
+>   drivers/gpu/drm/omapdrm/Kconfig      |  1 +
+>   drivers/gpu/drm/omapdrm/omap_fbdev.c | 11 +++--------
+>   2 files changed, 4 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/omapdrm/Kconfig b/drivers/gpu/drm/omapdrm/Kconfig
+> index 76ded1568bd0..b4ac76c9f31b 100644
+> --- a/drivers/gpu/drm/omapdrm/Kconfig
+> +++ b/drivers/gpu/drm/omapdrm/Kconfig
+> @@ -4,6 +4,7 @@ config DRM_OMAP
+>   	depends on DRM && OF
+>   	depends on ARCH_OMAP2PLUS
+>   	select DRM_KMS_HELPER
+> +	select FB_SYS_HELPERS if DRM_FBDEV_EMULATION
+>   	select VIDEOMODE_HELPERS
+>   	select HDMI
+>   	default n
+> diff --git a/drivers/gpu/drm/omapdrm/omap_fbdev.c b/drivers/gpu/drm/omapdrm/omap_fbdev.c
+> index b950e93b3846..b7ccce0704a3 100644
+> --- a/drivers/gpu/drm/omapdrm/omap_fbdev.c
+> +++ b/drivers/gpu/drm/omapdrm/omap_fbdev.c
+> @@ -4,6 +4,8 @@
+>    * Author: Rob Clark <rob@ti.com>
+>    */
+>   
+> +#include <linux/fb.h>
+> +
+>   #include <drm/drm_drv.h>
+>   #include <drm/drm_crtc_helper.h>
+>   #include <drm/drm_fb_helper.h>
+> @@ -95,20 +97,13 @@ static void omap_fbdev_fb_destroy(struct fb_info *info)
+>   
+>   static const struct fb_ops omap_fb_ops = {
+>   	.owner = THIS_MODULE,
+> -
+> +	FB_DEFAULT_SYS_OPS,
+>   	.fb_check_var	= drm_fb_helper_check_var,
+>   	.fb_set_par	= drm_fb_helper_set_par,
+>   	.fb_setcmap	= drm_fb_helper_setcmap,
+>   	.fb_blank	= drm_fb_helper_blank,
+>   	.fb_pan_display = omap_fbdev_pan_display,
+>   	.fb_ioctl	= drm_fb_helper_ioctl,
+> -
+> -	.fb_read = drm_fb_helper_sys_read,
+> -	.fb_write = drm_fb_helper_sys_write,
+> -	.fb_fillrect = drm_fb_helper_sys_fillrect,
+> -	.fb_copyarea = drm_fb_helper_sys_copyarea,
+> -	.fb_imageblit = drm_fb_helper_sys_imageblit,
+> -
+>   	.fb_destroy = omap_fbdev_fb_destroy,
+>   };
+>   
 
-Ok, let me rephrase, the probe function needs to fail for a physical
-(VFIO_IOMMU) device when VFIO_NO_IOIMMU is not configured and
-vfio_noiommu is not enabled, there should never be a vfio group or cdev
-device file created and the vfio_device should never be fully registered.
-I overreacted a bit that we should never have a vfio_device at all, we
-clearly need one leading up to determining if we can proceed.
+Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
-If we renamed your function above to vfio_device_has_iommu_group(),
-couldn't we just wrap device_add like below instead to not have cdev
-setup for a noiommu device, generate an error for a physical device w/o
-IOMMU backing, and otherwise setup the cdev device?
-
-static inline int vfio_device_add(struct vfio_device *device, enum vfio_group_type type)
-{
-#if IS_ENABLED(CONFIG_VFIO_GROUP)
-	if (device->group->type == VFIO_NO_IOMMU)
-		return device_add(&device->device);
-#else
-	if (type == VFIO_IOMMU && !vfio_device_has_iommu_group(device))
-		return -EINVAL;
-#endif
-	vfio_init_device_cdev(device);
-	return cdev_device_add(&device->cdev, &device->device);
-}
-
-static inline void vfio_device_del(struct vfio_device *device)
-{
-#if IS_ENABLED(CONFIG_VFIO_GROUP)
-	if (device->group->type == VFIO_NO_IOMMU)
-		return device_del(&device->device);
-#endif
-	cdev_device_del(&device->cdev, &device->device);
-}
-
-I think this is the only extent to which noiommu needs to be a factor
-here, skip cdev setup for a noiommu device.  Thanks,
-
-Alex
+  Tomi
 
