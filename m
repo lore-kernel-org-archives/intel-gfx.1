@@ -4,49 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 749AEC7EE2A
-	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jun 2023 16:05:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 638FDC7EE2A
+	for <intel-gfx@archiver.kernel.org>; Thu,  1 Jun 2023 16:10:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EB2110E595;
-	Thu,  1 Jun 2023 16:05:23 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9EA710E585
- for <intel-gfx@lists.freedesktop.org>; Thu,  1 Jun 2023 16:05:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1685635520; x=1717171520;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=2hMmrz0R5xpFLOqy0ATfM2eVmzTUX0V5ZZ8YTmfZaHA=;
- b=TGbb5u4Sutc6mv0bEbQcR/ewwDng/dKpK+QkTFW0YCdfZJLAP8xLecfq
- lqlLVXZWI3nd5LfYodUb+/Elb1yoNBlORv2+bM/Te+GaKqXOj+2qxY+yA
- QChntybD377yex/6OpDrV6+d+eoK9hOzXm0WdeGRIOEU6H08KOdgb5jV3
- 5V1Qi/d5i4pPxmypNwQxDxJBj+wCBTm/slRc69Z4altSQl+lufMCL9phA
- 6dgWlqTNYBDZAF/MD3ppVewBLTkUXdAFCrHUOP9aXiCqcW//aOlHExiPk
- wyUGM8EiQSbg6IbAlXiYjsIaPkOgXFwKfh1c6/Ap9tHu0taGu3/3LTVrS w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10728"; a="358024988"
-X-IronPort-AV: E=Sophos;i="6.00,210,1681196400"; d="scan'208";a="358024988"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2023 09:04:29 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10728"; a="701608570"
-X-IronPort-AV: E=Sophos;i="6.00,210,1681196400"; d="scan'208";a="701608570"
-Received: from unknown (HELO vgovind2-mobl3.fi.intel.com) ([10.237.66.43])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2023 09:04:26 -0700
-From: Vinod Govindapillai <vinod.govindapillai@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu,  1 Jun 2023 19:03:50 +0300
-Message-Id: <20230601160350.43888-8-vinod.govindapillai@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230601160350.43888-1-vinod.govindapillai@intel.com>
-References: <20230601160350.43888-1-vinod.govindapillai@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D45E910E57A;
+	Thu,  1 Jun 2023 16:10:27 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3DC7810E036;
+ Thu,  1 Jun 2023 16:10:26 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 373A4AADDA;
+ Thu,  1 Jun 2023 16:10:26 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1426001484677132609=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v12 7/7] drm/i915/mtl: Add support for PM DEMAND
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Thomas Zimmermann" <tzimmermann@suse.de>
+Date: Thu, 01 Jun 2023 16:10:26 -0000
+Message-ID: <168563582619.16229.13453407630085473416@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230530151228.22979-1-tzimmermann@suse.de>
+In-Reply-To: <20230530151228.22979-1-tzimmermann@suse.de>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLklHVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/fbdev=3A_Remove_DRM=27s_helpers_for_fbdev_I/O_=28rev5=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,1021 +40,567 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Mika Kahola <mika.kahola@intel.com>
+--===============1426001484677132609==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-MTL introduces a new way to instruct the PUnit with
-power and bandwidth requirements of DE. Add the functionality
-to program the registers and handle waits using interrupts.
-The current wait time for timeouts is programmed for 10 msecs to
-factor in the worst case scenarios. Changes made to use REG_BIT
-for a register that we touched(GEN8_DE_MISC_IER _MMIO).
+== Series Details ==
 
-Wa_14016740474 is added which applies to Xe_LPD+ display
+Series: drm/fbdev: Remove DRM's helpers for fbdev I/O (rev5)
+URL   : https://patchwork.freedesktop.org/series/117671/
+State : success
 
-v2: checkpatch warning fixes, simplify program pmdemand part
+== Summary ==
 
-v3: update to dbufs and pipes values to pmdemand register(stan)
-    Removed the macro usage in update_pmdemand_values()
+CI Bug Log - changes from CI_DRM_13204_full -> Patchwork_117671v5_full
+====================================================
 
-v4: move the pmdemand_pre_plane_update before cdclk update
-    pmdemand_needs_update included cdclk params comparisons
-    pmdemand_state NULL check (Gustavo)
-    pmdemand.o in sorted order in the makefile (Jani)
-    update pmdemand misc irq handler loop (Gustavo)
-    active phys bitmask and programming correction (Gustavo)
+Summary
+-------
 
-v5: simplify pmdemand_state structure
-    simplify methods to find active phys and max port clock
-    Timeout in case of previou pmdemand task pending (Gustavo)
+  **SUCCESS**
 
-v6: rebasing
-    updates to max_ddiclk calculations (Gustavo)
-    updates to active_phys count method (Gustavo)
+  No regressions found.
 
-v7: use two separate loop to iterate throug old and new
-    crtc states to calculate the active phys (Gustavo)
+  
 
-v8: use uniform function names (Gustavo)
+Participating hosts (7 -> 7)
+------------------------------
 
-v9: For phys change iterate through connectors (Imre)
-    Look for change in phys for pmdemand update (Gustavo, Imre)
-    Some more stlying changes (Imre)
-    Update pmdemand state during HW readout/sanitize (Imre)
+  No changes in participating hosts
 
-v10: Fix CI checkpatch warnings
+New tests
+---------
 
-v11: use correct pmdemand object pointer during hw readout,
-     simplify the check for phys need update (Gustavo)
+  New tests have been introduced between CI_DRM_13204_full and Patchwork_117671v5_full:
 
-Bspec: 66451, 64636, 64602, 64603
-Cc: Matt Atwood <matthew.s.atwood@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Gustavo Sousa <gustavo.sousa@intel.com>
-Signed-off-by: José Roberto de Souza <jose.souza@intel.com>
-Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
-Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
-Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
-Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
-Acked-by: Gustavo Sousa <gustavo.sousa@intel.com>
----
- drivers/gpu/drm/i915/Makefile                 |   1 +
- drivers/gpu/drm/i915/display/intel_display.c  |  14 +
- .../gpu/drm/i915/display/intel_display_core.h |   9 +
- .../drm/i915/display/intel_display_driver.c   |   7 +
- .../gpu/drm/i915/display/intel_display_irq.c  |  23 +-
- .../drm/i915/display/intel_display_power.c    |  14 +-
- .../drm/i915/display/intel_modeset_setup.c    |  18 +
- drivers/gpu/drm/i915/display/intel_pmdemand.c | 525 ++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_pmdemand.h |  56 ++
- drivers/gpu/drm/i915/i915_reg.h               |  36 +-
- 10 files changed, 697 insertions(+), 6 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/display/intel_pmdemand.c
- create mode 100644 drivers/gpu/drm/i915/display/intel_pmdemand.h
+### New IGT tests (4) ###
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 1c9ed4c52760..2cd8de174bf6 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -269,6 +269,7 @@ i915-y += \
- 	display/intel_pch_display.o \
- 	display/intel_pch_refclk.o \
- 	display/intel_plane_initial.o \
-+	display/intel_pmdemand.o \
- 	display/intel_psr.o \
- 	display/intel_quirks.o \
- 	display/intel_sprite.o \
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index f51a55f4e9d0..5cbf5eae2414 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -99,6 +99,7 @@
- #include "intel_pcode.h"
- #include "intel_pipe_crc.h"
- #include "intel_plane_initial.h"
-+#include "intel_pmdemand.h"
- #include "intel_pps.h"
- #include "intel_psr.h"
- #include "intel_sdvo.h"
-@@ -6352,6 +6353,10 @@ int intel_atomic_check(struct drm_device *dev,
- 			return ret;
- 	}
- 
-+	ret = intel_pmdemand_atomic_check(state);
-+	if (ret)
-+		goto fail;
-+
- 	ret = intel_atomic_check_crtcs(state);
- 	if (ret)
- 		goto fail;
-@@ -6997,6 +7002,14 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i)
- 		crtc->config = new_crtc_state;
- 
-+	/*
-+	 * In XE_LPD+ Pmdemand combines many parameters such as voltage index,
-+	 * plls, cdclk frequency, QGV point selection parameter etc. Voltage
-+	 * index, cdclk/ddiclk frequencies are supposed to be configured before
-+	 * the cdclk config is set.
-+	 */
-+	intel_pmdemand_pre_plane_update(state);
-+
- 	if (state->modeset) {
- 		drm_atomic_helper_update_legacy_modeset_state(dev, &state->base);
- 
-@@ -7116,6 +7129,7 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 		intel_verify_planes(state);
- 
- 	intel_sagv_post_plane_update(state);
-+	intel_pmdemand_post_plane_update(state);
- 
- 	drm_atomic_helper_commit_hw_done(&state->base);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index dd8e08c8598f..8d2243c71dd8 100644
---- a/drivers/gpu/drm/i915/display/intel_display_core.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -345,6 +345,15 @@ struct intel_display {
- 		struct intel_global_obj obj;
- 	} dbuf;
- 
-+	struct {
-+		wait_queue_head_t waitqueue;
-+
-+		/* mutex to protect pmdemand programming sequence */
-+		struct mutex lock;
-+
-+		struct intel_global_obj obj;
-+	} pmdemand;
-+
- 	struct {
- 		/*
- 		 * dkl.phy_lock protects against concurrent access of the
-diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-index 60ce10fc7205..dc8de861339d 100644
---- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-@@ -47,6 +47,7 @@
- #include "intel_opregion.h"
- #include "intel_overlay.h"
- #include "intel_plane_initial.h"
-+#include "intel_pmdemand.h"
- #include "intel_pps.h"
- #include "intel_quirks.h"
- #include "intel_vga.h"
-@@ -211,6 +212,8 @@ int intel_display_driver_probe_noirq(struct drm_i915_private *i915)
- 	if (ret < 0)
- 		goto cleanup_vga;
- 
-+	intel_pmdemand_init_early(i915);
-+
- 	intel_power_domains_init_hw(i915, false);
- 
- 	if (!HAS_DISPLAY(i915))
-@@ -240,6 +243,10 @@ int intel_display_driver_probe_noirq(struct drm_i915_private *i915)
- 	if (ret)
- 		goto cleanup_vga_client_pw_domain_dmc;
- 
-+	ret = intel_pmdemand_init(i915);
-+	if (ret)
-+		goto cleanup_vga_client_pw_domain_dmc;
-+
- 	init_llist_head(&i915->display.atomic_helper.free_list);
- 	INIT_WORK(&i915->display.atomic_helper.free_work,
- 		  intel_atomic_helper_free_state_worker);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
-index 3b2a287d2041..0b3739310f81 100644
---- a/drivers/gpu/drm/i915/display/intel_display_irq.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
-@@ -18,6 +18,7 @@
- #include "intel_fifo_underrun.h"
- #include "intel_gmbus.h"
- #include "intel_hotplug_irq.h"
-+#include "intel_pmdemand.h"
- #include "intel_psr.h"
- #include "intel_psr_regs.h"
- 
-@@ -827,12 +828,27 @@ static u32 gen8_de_pipe_fault_mask(struct drm_i915_private *dev_priv)
- 		return GEN8_DE_PIPE_IRQ_FAULT_ERRORS;
- }
- 
-+static void intel_pmdemand_irq_handler(struct drm_i915_private *dev_priv)
-+{
-+	wake_up_all(&dev_priv->display.pmdemand.waitqueue);
-+}
-+
- static void
- gen8_de_misc_irq_handler(struct drm_i915_private *dev_priv, u32 iir)
- {
- 	bool found = false;
- 
--	if (iir & GEN8_DE_MISC_GSE) {
-+	if (DISPLAY_VER(dev_priv) >= 14) {
-+		if (iir & (XELPDP_PMDEMAND_RSP |
-+			   XELPDP_PMDEMAND_RSPTOUT_ERR)) {
-+			if (iir & XELPDP_PMDEMAND_RSPTOUT_ERR)
-+				drm_dbg(&dev_priv->drm,
-+					"Error waiting for Punit PM Demand Response\n");
-+
-+			intel_pmdemand_irq_handler(dev_priv);
-+			found = true;
-+		}
-+	} else if (iir & GEN8_DE_MISC_GSE) {
- 		intel_opregion_asle_intr(dev_priv);
- 		found = true;
- 	}
-@@ -1576,7 +1592,10 @@ void gen8_de_irq_postinstall(struct drm_i915_private *dev_priv)
- 	if (IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv))
- 		de_port_masked |= BXT_DE_PORT_GMBUS;
- 
--	if (DISPLAY_VER(dev_priv) >= 11) {
-+	if (DISPLAY_VER(dev_priv) >= 14) {
-+		de_misc_masked |= XELPDP_PMDEMAND_RSPTOUT_ERR |
-+				  XELPDP_PMDEMAND_RSP;
-+	} else if (DISPLAY_VER(dev_priv) >= 11) {
- 		enum port port;
- 
- 		if (intel_bios_is_dsi_present(dev_priv, &port))
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index 9c9a809c71f1..db827cf3c9ca 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -20,6 +20,7 @@
- #include "intel_mchbar_regs.h"
- #include "intel_pch_refclk.h"
- #include "intel_pcode.h"
-+#include "intel_pmdemand.h"
- #include "intel_pps_regs.h"
- #include "intel_snps_phy.h"
- #include "skl_watermark.h"
-@@ -1082,20 +1083,29 @@ void gen9_dbuf_slices_update(struct drm_i915_private *dev_priv,
- 
- static void gen9_dbuf_enable(struct drm_i915_private *dev_priv)
- {
-+	u8 slices_mask;
-+
- 	dev_priv->display.dbuf.enabled_slices =
- 		intel_enabled_dbuf_slices_mask(dev_priv);
- 
-+	slices_mask = BIT(DBUF_S1) | dev_priv->display.dbuf.enabled_slices;
-+
-+	if (DISPLAY_VER(dev_priv) >= 14)
-+		intel_pmdemand_program_dbuf(dev_priv, slices_mask);
-+
- 	/*
- 	 * Just power up at least 1 slice, we will
- 	 * figure out later which slices we have and what we need.
- 	 */
--	gen9_dbuf_slices_update(dev_priv, BIT(DBUF_S1) |
--				dev_priv->display.dbuf.enabled_slices);
-+	gen9_dbuf_slices_update(dev_priv, slices_mask);
- }
- 
- static void gen9_dbuf_disable(struct drm_i915_private *dev_priv)
- {
- 	gen9_dbuf_slices_update(dev_priv, 0);
-+
-+	if (DISPLAY_VER(dev_priv) >= 14)
-+		intel_pmdemand_program_dbuf(dev_priv, 0);
- }
- 
- static void gen12_dbuf_slices_config(struct drm_i915_private *dev_priv)
-diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-index 5ff99ca7f1de..9940e484c98e 100644
---- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-+++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-@@ -26,6 +26,7 @@
- #include "intel_fifo_underrun.h"
- #include "intel_modeset_setup.h"
- #include "intel_pch_display.h"
-+#include "intel_pmdemand.h"
- #include "intel_tc.h"
- #include "intel_vblank.h"
- #include "intel_wm.h"
-@@ -151,6 +152,8 @@ static void intel_crtc_disable_noatomic_complete(struct intel_crtc *crtc)
- 		to_intel_cdclk_state(i915->display.cdclk.obj.state);
- 	struct intel_dbuf_state *dbuf_state =
- 		to_intel_dbuf_state(i915->display.dbuf.obj.state);
-+	struct intel_pmdemand_state *pmdemand_state =
-+		to_intel_pmdemand_state(i915->display.pmdemand.obj.state);
- 	struct intel_crtc_state *crtc_state =
- 		to_intel_crtc_state(crtc->base.state);
- 	enum pipe pipe = crtc->pipe;
-@@ -174,6 +177,8 @@ static void intel_crtc_disable_noatomic_complete(struct intel_crtc *crtc)
- 
- 	bw_state->data_rate[pipe] = 0;
- 	bw_state->num_active_planes[pipe] = 0;
-+
-+	pmdemand_state->ddi_clocks[pipe] = 0;
- }
- 
- /*
-@@ -661,6 +666,9 @@ static void intel_modeset_readout_hw_state(struct drm_i915_private *i915)
- 		to_intel_cdclk_state(i915->display.cdclk.obj.state);
- 	struct intel_dbuf_state *dbuf_state =
- 		to_intel_dbuf_state(i915->display.dbuf.obj.state);
-+	struct intel_pmdemand_state *pmdemand_state =
-+		to_intel_pmdemand_state(i915->display.pmdemand.obj.state);
-+	u16 active_phys = 0;
- 	enum pipe pipe;
- 	struct intel_crtc *crtc;
- 	struct intel_encoder *encoder;
-@@ -742,6 +750,8 @@ static void intel_modeset_readout_hw_state(struct drm_i915_private *i915)
- 
- 	drm_connector_list_iter_begin(&i915->drm, &conn_iter);
- 	for_each_intel_connector_iter(connector, &conn_iter) {
-+		enum phy phy;
-+
- 		if (connector->get_hw_state(connector)) {
- 			struct intel_crtc_state *crtc_state;
- 			struct intel_crtc *crtc;
-@@ -764,6 +774,10 @@ static void intel_modeset_readout_hw_state(struct drm_i915_private *i915)
- 					drm_connector_mask(&connector->base);
- 				crtc_state->uapi.encoder_mask |=
- 					drm_encoder_mask(&encoder->base);
-+
-+				phy = intel_port_to_phy(i915, encoder->port);
-+				if (!intel_phy_is_tc(i915, phy))
-+					active_phys |= BIT(phy);
- 			}
- 		} else {
- 			connector->base.dpms = DRM_MODE_DPMS_OFF;
-@@ -776,6 +790,8 @@ static void intel_modeset_readout_hw_state(struct drm_i915_private *i915)
- 	}
- 	drm_connector_list_iter_end(&conn_iter);
- 
-+	pmdemand_state->active_phys_mask = active_phys;
-+
- 	for_each_intel_crtc(&i915->drm, crtc) {
- 		struct intel_bw_state *bw_state =
- 			to_intel_bw_state(i915->display.bw.obj.state);
-@@ -840,6 +856,8 @@ static void intel_modeset_readout_hw_state(struct drm_i915_private *i915)
- 		cdclk_state->min_cdclk[crtc->pipe] = min_cdclk;
- 		cdclk_state->min_voltage_level[crtc->pipe] =
- 			crtc_state->min_voltage_level;
-+		pmdemand_state->ddi_clocks[crtc->pipe] =
-+			crtc_state->port_clock;
- 
- 		intel_bw_crtc_update(bw_state, crtc_state);
- 	}
-diff --git a/drivers/gpu/drm/i915/display/intel_pmdemand.c b/drivers/gpu/drm/i915/display/intel_pmdemand.c
-new file mode 100644
-index 000000000000..89dc4d52b091
---- /dev/null
-+++ b/drivers/gpu/drm/i915/display/intel_pmdemand.c
-@@ -0,0 +1,525 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright © 2023 Intel Corporation
-+ */
-+
-+#include <linux/bitops.h>
-+
-+#include "i915_drv.h"
-+#include "i915_reg.h"
-+#include "intel_atomic.h"
-+#include "intel_bw.h"
-+#include "intel_cdclk.h"
-+#include "intel_de.h"
-+#include "intel_display_trace.h"
-+#include "intel_pmdemand.h"
-+#include "skl_watermark.h"
-+
-+static struct intel_global_state *
-+intel_pmdemand_duplicate_state(struct intel_global_obj *obj)
-+{
-+	struct intel_pmdemand_state *pmdemand_state;
-+
-+	pmdemand_state = kmemdup(obj->state, sizeof(*pmdemand_state), GFP_KERNEL);
-+	if (!pmdemand_state)
-+		return NULL;
-+
-+	return &pmdemand_state->base;
-+}
-+
-+static void intel_pmdemand_destroy_state(struct intel_global_obj *obj,
-+					 struct intel_global_state *state)
-+{
-+	kfree(state);
-+}
-+
-+static const struct intel_global_state_funcs intel_pmdemand_funcs = {
-+	.atomic_duplicate_state = intel_pmdemand_duplicate_state,
-+	.atomic_destroy_state = intel_pmdemand_destroy_state,
-+};
-+
-+static struct intel_pmdemand_state *
-+intel_atomic_get_pmdemand_state(struct intel_atomic_state *state)
-+{
-+	struct drm_i915_private *i915 = to_i915(state->base.dev);
-+	struct intel_global_state *pmdemand_state =
-+		intel_atomic_get_global_obj_state(state,
-+						  &i915->display.pmdemand.obj);
-+
-+	if (IS_ERR(pmdemand_state))
-+		return ERR_CAST(pmdemand_state);
-+
-+	return to_intel_pmdemand_state(pmdemand_state);
-+}
-+
-+static struct intel_pmdemand_state *
-+intel_atomic_get_old_pmdemand_state(struct intel_atomic_state *state)
-+{
-+	struct drm_i915_private *i915 = to_i915(state->base.dev);
-+	struct intel_global_state *pmdemand_state =
-+		intel_atomic_get_old_global_obj_state(state,
-+						      &i915->display.pmdemand.obj);
-+
-+	if (!pmdemand_state)
-+		return NULL;
-+
-+	return to_intel_pmdemand_state(pmdemand_state);
-+}
-+
-+static struct intel_pmdemand_state *
-+intel_atomic_get_new_pmdemand_state(struct intel_atomic_state *state)
-+{
-+	struct drm_i915_private *i915 = to_i915(state->base.dev);
-+	struct intel_global_state *pmdemand_state =
-+		intel_atomic_get_new_global_obj_state(state,
-+						      &i915->display.pmdemand.obj);
-+
-+	if (!pmdemand_state)
-+		return NULL;
-+
-+	return to_intel_pmdemand_state(pmdemand_state);
-+}
-+
-+int intel_pmdemand_init(struct drm_i915_private *i915)
-+{
-+	struct intel_pmdemand_state *pmdemand_state;
-+
-+	pmdemand_state = kzalloc(sizeof(*pmdemand_state), GFP_KERNEL);
-+	if (!pmdemand_state)
-+		return -ENOMEM;
-+
-+	intel_atomic_global_obj_init(i915, &i915->display.pmdemand.obj,
-+				     &pmdemand_state->base,
-+				     &intel_pmdemand_funcs);
-+
-+	if (IS_MTL_DISPLAY_STEP(i915, STEP_A0, STEP_C0))
-+		/* Wa_14016740474 */
-+		intel_de_rmw(i915, XELPD_CHICKEN_DCPR_3, 0, DMD_RSP_TIMEOUT_DISABLE);
-+
-+	return 0;
-+}
-+
-+void intel_pmdemand_init_early(struct drm_i915_private *i915)
-+{
-+	mutex_init(&i915->display.pmdemand.lock);
-+	init_waitqueue_head(&i915->display.pmdemand.waitqueue);
-+}
-+
-+static void
-+intel_pmdemand_update_max_ddiclk(struct intel_atomic_state *state,
-+				 struct intel_pmdemand_state *pmdemand_state)
-+{
-+	int max_ddiclk = 0;
-+	struct intel_crtc *crtc;
-+	int i;
-+	const struct intel_crtc_state *new_crtc_state;
-+
-+	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i)
-+		pmdemand_state->ddi_clocks[crtc->pipe] =
-+			new_crtc_state->port_clock;
-+
-+	for (i = 0; i < ARRAY_SIZE(pmdemand_state->ddi_clocks); i++)
-+		max_ddiclk = max(pmdemand_state->ddi_clocks[i], max_ddiclk);
-+
-+	pmdemand_state->params.ddiclk_max = DIV_ROUND_UP(max_ddiclk, 1000);
-+}
-+
-+static void
-+intel_pmdemand_update_phys_mask(struct drm_i915_private *i915,
-+				struct intel_atomic_state *state,
-+				struct drm_connector_state *conn_state,
-+				bool for_old_state, u16 *phys_mask)
-+{
-+	struct intel_crtc *crtc = to_intel_crtc(conn_state->crtc);
-+	struct intel_encoder *encoder = to_intel_encoder(conn_state->best_encoder);
-+	struct intel_crtc_state *crtc_state;
-+	enum phy phy;
-+
-+	if (!crtc || !encoder)
-+		return;
-+
-+	phy = intel_port_to_phy(i915, encoder->port);
-+	if (intel_phy_is_tc(i915, phy))
-+		return;
-+
-+	if (for_old_state)
-+		crtc_state = intel_atomic_get_old_crtc_state(state, crtc);
-+	else
-+		crtc_state = intel_atomic_get_new_crtc_state(state, crtc);
-+
-+	if (!crtc_state->hw.active)
-+		return;
-+
-+	if (for_old_state)
-+		*phys_mask &= ~BIT(phy);
-+	else
-+		*phys_mask |= BIT(phy);
-+}
-+
-+static void
-+intel_pmdemand_update_active_non_tc_phys(struct drm_i915_private *i915,
-+					 struct intel_atomic_state *state,
-+					 struct intel_pmdemand_state *pmdemand_state)
-+{
-+	u16 *phys_mask = &pmdemand_state->active_phys_mask;
-+	struct drm_connector *connector;
-+	int i;
-+	struct drm_connector_state *old_conn_state, *new_conn_state;
-+
-+	for_each_oldnew_connector_in_state(&state->base, connector,
-+					   old_conn_state, new_conn_state, i) {
-+		if (!intel_connector_needs_modeset(state, connector))
-+			continue;
-+
-+		/* First clear the active phys in the old connector state */
-+		intel_pmdemand_update_phys_mask(i915, state, old_conn_state,
-+						true, phys_mask);
-+
-+		/* Then set the active phys in new connector state */
-+		intel_pmdemand_update_phys_mask(i915, state, new_conn_state,
-+						false, phys_mask);
-+	}
-+
-+	pmdemand_state->params.active_phys = hweight16(*phys_mask);
-+}
-+
-+static bool intel_pmdemand_needs_update(struct intel_atomic_state *state)
-+{
-+	struct intel_crtc *crtc;
-+	int i;
-+	const struct intel_bw_state *new_bw_state, *old_bw_state;
-+	const struct intel_cdclk_state *new_cdclk_state, *old_cdclk_state;
-+	const struct intel_crtc_state *new_crtc_state, *old_crtc_state;
-+	const struct intel_dbuf_state *new_dbuf_state, *old_dbuf_state;
-+	struct drm_connector *connector;
-+	struct drm_connector_state *new_conn_state;
-+
-+	new_bw_state = intel_atomic_get_new_bw_state(state);
-+	old_bw_state = intel_atomic_get_old_bw_state(state);
-+	if (new_bw_state && new_bw_state->qgv_point_peakbw !=
-+	    old_bw_state->qgv_point_peakbw)
-+		return true;
-+
-+	new_dbuf_state = intel_atomic_get_new_dbuf_state(state);
-+	old_dbuf_state = intel_atomic_get_old_dbuf_state(state);
-+	if (new_dbuf_state &&
-+	    (new_dbuf_state->active_pipes !=
-+	     old_dbuf_state->active_pipes ||
-+	     new_dbuf_state->enabled_slices !=
-+	     old_dbuf_state->enabled_slices))
-+		return true;
-+
-+	new_cdclk_state = intel_atomic_get_new_cdclk_state(state);
-+	old_cdclk_state = intel_atomic_get_old_cdclk_state(state);
-+	if (new_cdclk_state &&
-+	    (new_cdclk_state->actual.cdclk !=
-+	     old_cdclk_state->actual.cdclk ||
-+	     new_cdclk_state->actual.voltage_level !=
-+	     old_cdclk_state->actual.voltage_level))
-+		return true;
-+
-+	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state,
-+					    new_crtc_state, i)
-+		if (new_crtc_state->port_clock != old_crtc_state->port_clock)
-+			return true;
-+
-+	for_each_new_connector_in_state(&state->base, connector,
-+					new_conn_state, i)
-+		if (intel_connector_needs_modeset(state, connector))
-+			return true;
-+
-+	return false;
-+}
-+
-+int intel_pmdemand_atomic_check(struct intel_atomic_state *state)
-+{
-+	struct drm_i915_private *i915 = to_i915(state->base.dev);
-+	const struct intel_bw_state *new_bw_state;
-+	const struct intel_cdclk_state *new_cdclk_state;
-+	const struct intel_dbuf_state *new_dbuf_state;
-+	struct intel_pmdemand_state *new_pmdemand_state;
-+	int ret;
-+
-+	if (DISPLAY_VER(i915) < 14)
-+		return 0;
-+
-+	if (!intel_pmdemand_needs_update(state))
-+		return 0;
-+
-+	new_pmdemand_state = intel_atomic_get_pmdemand_state(state);
-+	if (IS_ERR(new_pmdemand_state))
-+		return PTR_ERR(new_pmdemand_state);
-+
-+	ret = intel_atomic_lock_global_state(&new_pmdemand_state->base);
-+	if (ret)
-+		return ret;
-+
-+	new_bw_state = intel_atomic_get_bw_state(state);
-+	if (IS_ERR(new_bw_state))
-+		return PTR_ERR(new_bw_state);
-+
-+	/* firmware will calculate the qclck_gc_index, requirement is set to 0 */
-+	new_pmdemand_state->params.qclk_gv_index = 0;
-+	new_pmdemand_state->params.qclk_gv_bw =
-+		min_t(u16, new_bw_state->qgv_point_peakbw, 0xffff);
-+
-+	new_dbuf_state = intel_atomic_get_dbuf_state(state);
-+	if (IS_ERR(new_dbuf_state))
-+		return PTR_ERR(new_dbuf_state);
-+
-+	new_pmdemand_state->params.active_pipes =
-+		min_t(u8, hweight8(new_dbuf_state->active_pipes), 3);
-+	new_pmdemand_state->params.active_dbufs =
-+		min_t(u8,
-+		      hweight8(BIT(DBUF_S1) | new_dbuf_state->enabled_slices),
-+		      3);
-+
-+	new_cdclk_state = intel_atomic_get_cdclk_state(state);
-+	if (IS_ERR(new_cdclk_state))
-+		return PTR_ERR(new_cdclk_state);
-+
-+	new_pmdemand_state->params.voltage_index =
-+		new_cdclk_state->actual.voltage_level;
-+	new_pmdemand_state->params.cdclk_freq_mhz =
-+		DIV_ROUND_UP(new_cdclk_state->actual.cdclk, 1000);
-+
-+	intel_pmdemand_update_max_ddiclk(state, new_pmdemand_state);
-+
-+	intel_pmdemand_update_active_non_tc_phys(i915, state, new_pmdemand_state);
-+
-+	/*
-+	 * Setting scalers to max as it can not be calculated during flips and
-+	 * fastsets without taking global states locks.
-+	 */
-+	new_pmdemand_state->params.scalers = 7;
-+
-+	ret = intel_atomic_serialize_global_state(&new_pmdemand_state->base);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static bool intel_pmdemand_check_prev_transaction(struct drm_i915_private *i915)
-+{
-+	return !(intel_de_wait_for_clear(i915,
-+					 XELPDP_INITIATE_PMDEMAND_REQUEST(1),
-+					 XELPDP_PMDEMAND_REQ_ENABLE, 10) ||
-+		 intel_de_wait_for_clear(i915,
-+					 GEN12_DCPR_STATUS_1,
-+					 XELPDP_PMDEMAND_INFLIGHT_STATUS, 10));
-+}
-+
-+static bool intel_pmdemand_req_complete(struct drm_i915_private *i915)
-+{
-+	return !(intel_de_read(i915, XELPDP_INITIATE_PMDEMAND_REQUEST(1)) &
-+		 XELPDP_PMDEMAND_REQ_ENABLE);
-+}
-+
-+static void intel_pmdemand_wait(struct drm_i915_private *i915)
-+{
-+	const unsigned int timeout_ms = 10;
-+
-+	if (!wait_event_timeout(i915->display.pmdemand.waitqueue,
-+				intel_pmdemand_req_complete(i915),
-+				msecs_to_jiffies_timeout(timeout_ms)))
-+		drm_err(&i915->drm,
-+			"timed out waiting for Punit PM Demand Response\n");
-+}
-+
-+/* Required to be programmed during Display Init Sequences. */
-+void intel_pmdemand_program_dbuf(struct drm_i915_private *i915,
-+				 u8 dbuf_slices)
-+{
-+	u32 dbufs = min_t(u32, hweight8(dbuf_slices), 3);
-+
-+	mutex_lock(&i915->display.pmdemand.lock);
-+	if (drm_WARN_ON(&i915->drm,
-+			!intel_pmdemand_check_prev_transaction(i915)))
-+		goto unlock;
-+
-+	intel_de_rmw(i915, XELPDP_INITIATE_PMDEMAND_REQUEST(0),
-+		     XELPDP_PMDEMAND_DBUFS_MASK, XELPDP_PMDEMAND_DBUFS(dbufs));
-+	intel_de_rmw(i915, XELPDP_INITIATE_PMDEMAND_REQUEST(1), 0,
-+		     XELPDP_PMDEMAND_REQ_ENABLE);
-+
-+	intel_pmdemand_wait(i915);
-+
-+unlock:
-+	mutex_unlock(&i915->display.pmdemand.lock);
-+}
-+
-+static void
-+intel_pmdemand_update_params(const struct intel_pmdemand_state *new,
-+			     const struct intel_pmdemand_state *old,
-+			     u32 *reg1, u32 *reg2)
-+{
-+	u32 plls, tmp;
-+
-+	/*
-+	 * The pmdemand parameter updates happens in two steps. Pre plane and
-+	 * post plane updates. During the pre plane, as DE might still be
-+	 * handling with some old operations, to avoid unwanted performance
-+	 * issues, program the pmdemand parameters with higher of old and new
-+	 * values. And then after once settled, use the new parameter values
-+	 * as part of the post plane update.
-+	 */
-+
-+	/* Set 1*/
-+	*reg1 &= ~XELPDP_PMDEMAND_QCLK_GV_BW_MASK;
-+	tmp = old ? max(old->params.qclk_gv_bw, new->params.qclk_gv_bw) :
-+		    new->params.qclk_gv_bw;
-+	*reg1 |= XELPDP_PMDEMAND_QCLK_GV_BW(tmp);
-+
-+	*reg1 &= ~XELPDP_PMDEMAND_VOLTAGE_INDEX_MASK;
-+	tmp = old ? max(old->params.voltage_index, new->params.voltage_index) :
-+		    new->params.voltage_index;
-+	*reg1 |= XELPDP_PMDEMAND_VOLTAGE_INDEX(tmp);
-+
-+	*reg1 &= ~XELPDP_PMDEMAND_QCLK_GV_INDEX_MASK;
-+	tmp = old ? max(old->params.qclk_gv_index, new->params.qclk_gv_index) :
-+		    new->params.qclk_gv_index;
-+	*reg1 |= XELPDP_PMDEMAND_QCLK_GV_INDEX(tmp);
-+
-+	*reg1 &= ~XELPDP_PMDEMAND_PIPES_MASK;
-+	tmp = old ? max(old->params.active_pipes, new->params.active_pipes) :
-+		    new->params.active_pipes;
-+	*reg1 |= XELPDP_PMDEMAND_PIPES(tmp);
-+
-+	*reg1 &= ~XELPDP_PMDEMAND_DBUFS_MASK;
-+	tmp = old ? max(old->params.active_dbufs, new->params.active_dbufs) :
-+		    new->params.active_dbufs;
-+	*reg1 |= XELPDP_PMDEMAND_DBUFS(tmp);
-+
-+	*reg1 &= ~XELPDP_PMDEMAND_PHYS_MASK;
-+	plls = old ? max(old->params.active_phys, new->params.active_phys) :
-+		     new->params.active_phys;
-+	plls = min_t(u32, plls, 7);
-+	*reg1 |= XELPDP_PMDEMAND_PHYS(plls);
-+
-+	/* Set 2*/
-+	*reg2 &= ~XELPDP_PMDEMAND_CDCLK_FREQ_MASK;
-+	tmp = old ? max(old->params.cdclk_freq_mhz,
-+			new->params.cdclk_freq_mhz) :
-+		    new->params.cdclk_freq_mhz;
-+	*reg2 |= XELPDP_PMDEMAND_CDCLK_FREQ(tmp);
-+
-+	*reg2 &= ~XELPDP_PMDEMAND_DDICLK_FREQ_MASK;
-+	tmp = old ? max(old->params.ddiclk_max, new->params.ddiclk_max) :
-+		    new->params.ddiclk_max;
-+	*reg2 |= XELPDP_PMDEMAND_DDICLK_FREQ(tmp);
-+
-+	*reg2 &= ~XELPDP_PMDEMAND_SCALERS_MASK;
-+	tmp = old ? max(old->params.scalers, new->params.scalers) :
-+		    new->params.scalers;
-+	*reg2 |= XELPDP_PMDEMAND_SCALERS(tmp);
-+
-+	/*
-+	 * Active_PLLs starts with 1 because of CDCLK PLL.
-+	 * TODO: Missing to account genlock filter when it gets used.
-+	 */
-+	plls = min_t(u32, plls + 1, 7);
-+	*reg2 &= ~XELPDP_PMDEMAND_PLLS_MASK;
-+	*reg2 |= XELPDP_PMDEMAND_PLLS(plls);
-+}
-+
-+static void
-+intel_pmdemand_program_params(struct drm_i915_private *i915,
-+			      const struct intel_pmdemand_state *new,
-+			      const struct intel_pmdemand_state *old)
-+{
-+	bool changed = false;
-+	u32 reg1, mod_reg1;
-+	u32 reg2, mod_reg2;
-+
-+	mutex_lock(&i915->display.pmdemand.lock);
-+	if (drm_WARN_ON(&i915->drm,
-+			!intel_pmdemand_check_prev_transaction(i915)))
-+		goto unlock;
-+
-+	reg1 = intel_de_read(i915, XELPDP_INITIATE_PMDEMAND_REQUEST(0));
-+	mod_reg1 = reg1;
-+
-+	reg2 = intel_de_read(i915, XELPDP_INITIATE_PMDEMAND_REQUEST(1));
-+	mod_reg2 = reg2;
-+
-+	intel_pmdemand_update_params(new, old, &mod_reg1, &mod_reg2);
-+
-+	if (reg1 != mod_reg1) {
-+		intel_de_write(i915, XELPDP_INITIATE_PMDEMAND_REQUEST(0),
-+			       mod_reg1);
-+		changed = true;
-+	}
-+
-+	if (reg2 != mod_reg2) {
-+		intel_de_write(i915, XELPDP_INITIATE_PMDEMAND_REQUEST(1),
-+			       mod_reg2);
-+		changed = true;
-+	}
-+
-+	/* Initiate pm demand request only if register values are changed */
-+	if (!changed)
-+		goto unlock;
-+
-+	drm_dbg_kms(&i915->drm,
-+		    "initate pmdemand request values: (0x%x 0x%x)\n",
-+		    mod_reg1, mod_reg2);
-+
-+	intel_de_rmw(i915, XELPDP_INITIATE_PMDEMAND_REQUEST(1), 0,
-+		     XELPDP_PMDEMAND_REQ_ENABLE);
-+
-+	intel_pmdemand_wait(i915);
-+
-+unlock:
-+	mutex_unlock(&i915->display.pmdemand.lock);
-+}
-+
-+static bool
-+intel_pmdemand_state_changed(const struct intel_pmdemand_state *new,
-+			     const struct intel_pmdemand_state *old)
-+{
-+	return memcmp(&new->params, &old->params, sizeof(new->params)) != 0;
-+}
-+
-+void intel_pmdemand_pre_plane_update(struct intel_atomic_state *state)
-+{
-+	struct drm_i915_private *i915 = to_i915(state->base.dev);
-+	const struct intel_pmdemand_state *new_pmdemand_state =
-+		intel_atomic_get_new_pmdemand_state(state);
-+	const struct intel_pmdemand_state *old_pmdemand_state =
-+		intel_atomic_get_old_pmdemand_state(state);
-+
-+	if (DISPLAY_VER(i915) < 14)
-+		return;
-+
-+	if (!new_pmdemand_state ||
-+	    !intel_pmdemand_state_changed(new_pmdemand_state,
-+					  old_pmdemand_state))
-+		return;
-+
-+	WARN_ON(!new_pmdemand_state->base.changed);
-+
-+	intel_pmdemand_program_params(i915, new_pmdemand_state,
-+				      old_pmdemand_state);
-+}
-+
-+void intel_pmdemand_post_plane_update(struct intel_atomic_state *state)
-+{
-+	struct drm_i915_private *i915 = to_i915(state->base.dev);
-+	const struct intel_pmdemand_state *new_pmdemand_state =
-+		intel_atomic_get_new_pmdemand_state(state);
-+	const struct intel_pmdemand_state *old_pmdemand_state =
-+		intel_atomic_get_old_pmdemand_state(state);
-+
-+	if (DISPLAY_VER(i915) < 14)
-+		return;
-+
-+	if (!new_pmdemand_state ||
-+	    !intel_pmdemand_state_changed(new_pmdemand_state,
-+					  old_pmdemand_state))
-+		return;
-+
-+	WARN_ON(!new_pmdemand_state->base.changed);
-+
-+	intel_pmdemand_program_params(i915, new_pmdemand_state, NULL);
-+}
-diff --git a/drivers/gpu/drm/i915/display/intel_pmdemand.h b/drivers/gpu/drm/i915/display/intel_pmdemand.h
-new file mode 100644
-index 000000000000..c1c9b93934bb
---- /dev/null
-+++ b/drivers/gpu/drm/i915/display/intel_pmdemand.h
-@@ -0,0 +1,56 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright © 2023 Intel Corporation
-+ */
-+
-+#ifndef __INTEL_PMDEMAND_H__
-+#define __INTEL_PMDEMAND_H__
-+
-+#include "intel_display_limits.h"
-+#include "intel_global_state.h"
-+
-+struct drm_i915_private;
-+struct intel_atomic_state;
-+struct intel_crtc_state;
-+struct intel_plane_state;
-+
-+struct pmdemand_params {
-+	u16 qclk_gv_bw;
-+	u8 voltage_index;
-+	u8 qclk_gv_index;
-+	u8 active_pipes;
-+	u8 active_dbufs;
-+	/* Total number of non type C active phys from active_phys_mask */
-+	u8 active_phys;
-+	u16 cdclk_freq_mhz;
-+	/* max from ddi_clocks[] */
-+	u16 ddiclk_max;
-+	u8 scalers;
-+};
-+
-+struct intel_pmdemand_state {
-+	struct intel_global_state base;
-+
-+	/* Maintain a persistent list of port clocks across all crtcs */
-+	int ddi_clocks[I915_MAX_PIPES];
-+
-+	/* Maintain a persistent list of non type C phys mask */
-+	u16 active_phys_mask;
-+
-+	/* Parameters to be configured in the pmdemand registers */
-+	struct pmdemand_params params;
-+};
-+
-+#define to_intel_pmdemand_state(x) container_of((x), \
-+						struct intel_pmdemand_state, \
-+						base)
-+
-+void intel_pmdemand_init_early(struct drm_i915_private *i915);
-+int intel_pmdemand_init(struct drm_i915_private *i915);
-+void intel_pmdemand_program_dbuf(struct drm_i915_private *i915,
-+				 u8 dbuf_slices);
-+void intel_pmdemand_pre_plane_update(struct intel_atomic_state *state);
-+void intel_pmdemand_post_plane_update(struct intel_atomic_state *state);
-+int intel_pmdemand_atomic_check(struct intel_atomic_state *state);
-+
-+#endif /* __INTEL_PMDEMAND_H__ */
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 0523418129c5..6d34d9f59b1c 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -4418,8 +4418,10 @@
- #define GEN8_DE_MISC_IMR _MMIO(0x44464)
- #define GEN8_DE_MISC_IIR _MMIO(0x44468)
- #define GEN8_DE_MISC_IER _MMIO(0x4446c)
--#define  GEN8_DE_MISC_GSE		(1 << 27)
--#define  GEN8_DE_EDP_PSR		(1 << 19)
-+#define  XELPDP_PMDEMAND_RSPTOUT_ERR	REG_BIT(27)
-+#define  GEN8_DE_MISC_GSE		REG_BIT(27)
-+#define  GEN8_DE_EDP_PSR		REG_BIT(19)
-+#define  XELPDP_PMDEMAND_RSP		REG_BIT(3)
- 
- #define GEN8_PCU_ISR _MMIO(0x444e0)
- #define GEN8_PCU_IMR _MMIO(0x444e4)
-@@ -4504,6 +4506,33 @@
- #define  XELPDP_DP_ALT_HPD_LONG_DETECT		REG_BIT(1)
- #define  XELPDP_DP_ALT_HPD_SHORT_DETECT		REG_BIT(0)
- 
-+#define XELPDP_INITIATE_PMDEMAND_REQUEST(dword)		_MMIO(0x45230 + 4 * (dword))
-+#define  XELPDP_PMDEMAND_QCLK_GV_BW_MASK		REG_GENMASK(31, 16)
-+#define  XELPDP_PMDEMAND_QCLK_GV_BW(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_QCLK_GV_BW_MASK, x)
-+#define  XELPDP_PMDEMAND_VOLTAGE_INDEX_MASK		REG_GENMASK(14, 12)
-+#define  XELPDP_PMDEMAND_VOLTAGE_INDEX(x)		REG_FIELD_PREP(XELPDP_PMDEMAND_VOLTAGE_INDEX_MASK, x)
-+#define  XELPDP_PMDEMAND_QCLK_GV_INDEX_MASK		REG_GENMASK(11, 8)
-+#define  XELPDP_PMDEMAND_QCLK_GV_INDEX(x)		REG_FIELD_PREP(XELPDP_PMDEMAND_QCLK_GV_INDEX_MASK, x)
-+#define  XELPDP_PMDEMAND_PIPES_MASK			REG_GENMASK(7, 6)
-+#define  XELPDP_PMDEMAND_PIPES(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_PIPES_MASK, x)
-+#define  XELPDP_PMDEMAND_DBUFS_MASK			REG_GENMASK(5, 4)
-+#define  XELPDP_PMDEMAND_DBUFS(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_DBUFS_MASK, x)
-+#define  XELPDP_PMDEMAND_PHYS_MASK			REG_GENMASK(2, 0)
-+#define  XELPDP_PMDEMAND_PHYS(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_PHYS_MASK, x)
-+
-+#define  XELPDP_PMDEMAND_REQ_ENABLE			REG_BIT(31)
-+#define  XELPDP_PMDEMAND_CDCLK_FREQ_MASK		REG_GENMASK(30, 20)
-+#define  XELPDP_PMDEMAND_CDCLK_FREQ(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_CDCLK_FREQ_MASK, x)
-+#define  XELPDP_PMDEMAND_DDICLK_FREQ_MASK		REG_GENMASK(18, 8)
-+#define  XELPDP_PMDEMAND_DDICLK_FREQ(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_DDICLK_FREQ_MASK, x)
-+#define  XELPDP_PMDEMAND_SCALERS_MASK			REG_GENMASK(6, 4)
-+#define  XELPDP_PMDEMAND_SCALERS(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_SCALERS_MASK, x)
-+#define  XELPDP_PMDEMAND_PLLS_MASK			REG_GENMASK(2, 0)
-+#define  XELPDP_PMDEMAND_PLLS(x)			REG_FIELD_PREP(XELPDP_PMDEMAND_PLLS_MASK, x)
-+
-+#define GEN12_DCPR_STATUS_1				_MMIO(0x46440)
-+#define  XELPDP_PMDEMAND_INFLIGHT_STATUS		REG_BIT(26)
-+
- #define ILK_DISPLAY_CHICKEN2	_MMIO(0x42004)
- /* Required on all Ironlake and Sandybridge according to the B-Spec. */
- #define   ILK_ELPIN_409_SELECT	REG_BIT(25)
-@@ -4663,6 +4692,9 @@
- #define   DCPR_SEND_RESP_IMM			REG_BIT(25)
- #define   DCPR_CLEAR_MEMSTAT_DIS		REG_BIT(24)
- 
-+#define XELPD_CHICKEN_DCPR_3			_MMIO(0x46438)
-+#define   DMD_RSP_TIMEOUT_DISABLE		REG_BIT(19)
-+
- #define SKL_DFSM			_MMIO(0x51000)
- #define   SKL_DFSM_DISPLAY_PM_DISABLE	(1 << 27)
- #define   SKL_DFSM_DISPLAY_HDCP_DISABLE	(1 << 25)
--- 
-2.34.1
+  * igt@kms_plane_scaling@planes-unity-scaling-downscale-factor-0-25@pipe-a-hdmi-a-3:
+    - Statuses : 1 skip(s)
+    - Exec time: [0.0] s
 
+  * igt@kms_plane_scaling@planes-unity-scaling-downscale-factor-0-25@pipe-b-hdmi-a-3:
+    - Statuses : 1 skip(s)
+    - Exec time: [0.0] s
+
+  * igt@kms_plane_scaling@planes-unity-scaling-downscale-factor-0-25@pipe-c-hdmi-a-3:
+    - Statuses : 1 skip(s)
+    - Exec time: [0.0] s
+
+  * igt@kms_plane_scaling@planes-unity-scaling-downscale-factor-0-25@pipe-d-hdmi-a-3:
+    - Statuses : 1 skip(s)
+    - Exec time: [0.0] s
+
+  
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_117671v5_full that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_close_race@multigpu-basic-process:
+    - shard-apl:          NOTRUN -> [SKIP][1] ([fdo#109271]) +6 similar issues
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-apl7/igt@gem_close_race@multigpu-basic-process.html
+
+  * igt@gem_exec_fair@basic-pace-share@rcs0:
+    - shard-glk:          [PASS][2] -> [FAIL][3] ([i915#2842])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-glk6/igt@gem_exec_fair@basic-pace-share@rcs0.html
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-glk6/igt@gem_exec_fair@basic-pace-share@rcs0.html
+
+  * igt@gen9_exec_parse@allowed-single:
+    - shard-glk:          [PASS][4] -> [ABORT][5] ([i915#5566])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-glk3/igt@gen9_exec_parse@allowed-single.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-glk9/igt@gen9_exec_parse@allowed-single.html
+
+  * igt@i915_module_load@load:
+    - shard-glk:          NOTRUN -> [SKIP][6] ([fdo#109271] / [i915#6227])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-glk1/igt@i915_module_load@load.html
+
+  * igt@kms_hdmi_inject@inject-audio:
+    - shard-glk:          [PASS][7] -> [SKIP][8] ([fdo#109271])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-glk1/igt@kms_hdmi_inject@inject-audio.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-glk6/igt@kms_hdmi_inject@inject-audio.html
+
+  * igt@kms_plane_scaling@plane-downscale-with-pixel-format-factor-0-25@pipe-c-dp-1:
+    - shard-apl:          NOTRUN -> [SKIP][9] ([fdo#109271] / [i915#4579])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-apl7/igt@kms_plane_scaling@plane-downscale-with-pixel-format-factor-0-25@pipe-c-dp-1.html
+
+  * igt@kms_plane_scaling@plane-scaler-with-clipping-clamping-rotation@pipe-a-vga-1:
+    - shard-snb:          NOTRUN -> [SKIP][10] ([fdo#109271]) +20 similar issues
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-snb7/igt@kms_plane_scaling@plane-scaler-with-clipping-clamping-rotation@pipe-a-vga-1.html
+
+  * igt@kms_plane_scaling@plane-upscale-with-modifiers-factor-0-25@pipe-b-hdmi-a-1:
+    - shard-snb:          NOTRUN -> [SKIP][11] ([fdo#109271] / [i915#4579]) +11 similar issues
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-snb1/igt@kms_plane_scaling@plane-upscale-with-modifiers-factor-0-25@pipe-b-hdmi-a-1.html
+
+  * igt@kms_plane_scaling@planes-unity-scaling-downscale-factor-0-25@pipe-b-hdmi-a-3 (NEW):
+    - {shard-dg1}:        NOTRUN -> [SKIP][12] ([i915#5235]) +2 similar issues
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-dg1-13/igt@kms_plane_scaling@planes-unity-scaling-downscale-factor-0-25@pipe-b-hdmi-a-3.html
+
+  * igt@kms_plane_scaling@planes-unity-scaling-downscale-factor-0-25@pipe-d-hdmi-a-3 (NEW):
+    - {shard-dg1}:        NOTRUN -> [SKIP][13] ([i915#4579] / [i915#5235])
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-dg1-13/igt@kms_plane_scaling@planes-unity-scaling-downscale-factor-0-25@pipe-d-hdmi-a-3.html
+
+  * igt@kms_selftest@all-tests:
+    - shard-glk:          NOTRUN -> [SKIP][14] ([fdo#109271] / [i915#4579]) +1 similar issue
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-glk1/igt@kms_selftest@all-tests.html
+
+  * igt@kms_setmode@basic@pipe-a-hdmi-a-1:
+    - shard-snb:          NOTRUN -> [FAIL][15] ([i915#5465]) +1 similar issue
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-snb1/igt@kms_setmode@basic@pipe-a-hdmi-a-1.html
+
+  * igt@vc4/vc4_wait_bo@used-bo-0ns:
+    - shard-glk:          NOTRUN -> [SKIP][16] ([fdo#109271]) +4 similar issues
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-glk1/igt@vc4/vc4_wait_bo@used-bo-0ns.html
+
+  
+#### Possible fixes ####
+
+  * igt@gem_ctx_exec@basic-nohangcheck:
+    - {shard-tglu}:       [FAIL][17] ([i915#6268]) -> [PASS][18]
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-tglu-10/igt@gem_ctx_exec@basic-nohangcheck.html
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-tglu-7/igt@gem_ctx_exec@basic-nohangcheck.html
+
+  * igt@gem_eio@hibernate:
+    - {shard-tglu}:       [ABORT][19] ([i915#7975] / [i915#8213] / [i915#8398]) -> [PASS][20]
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-tglu-10/igt@gem_eio@hibernate.html
+   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-tglu-5/igt@gem_eio@hibernate.html
+
+  * igt@gem_userptr_blits@huge-split:
+    - shard-apl:          [FAIL][21] ([i915#3318]) -> [PASS][22]
+   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-apl3/igt@gem_userptr_blits@huge-split.html
+   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-apl6/igt@gem_userptr_blits@huge-split.html
+
+  * igt@gen9_exec_parse@allowed-single:
+    - shard-apl:          [ABORT][23] ([i915#5566]) -> [PASS][24]
+   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-apl6/igt@gen9_exec_parse@allowed-single.html
+   [24]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-apl7/igt@gen9_exec_parse@allowed-single.html
+
+  * igt@i915_pm_rpm@dpms-mode-unset-lpsp:
+    - {shard-rkl}:        [SKIP][25] ([i915#1397]) -> [PASS][26] +2 similar issues
+   [25]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-rkl-2/igt@i915_pm_rpm@dpms-mode-unset-lpsp.html
+   [26]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-rkl-7/igt@i915_pm_rpm@dpms-mode-unset-lpsp.html
+    - {shard-dg1}:        [SKIP][27] ([i915#1397]) -> [PASS][28]
+   [27]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-dg1-14/igt@i915_pm_rpm@dpms-mode-unset-lpsp.html
+   [28]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-dg1-19/igt@i915_pm_rpm@dpms-mode-unset-lpsp.html
+
+  * igt@kms_big_fb@x-tiled-max-hw-stride-32bpp-rotate-180-async-flip:
+    - {shard-rkl}:        [FAIL][29] ([i915#3743]) -> [PASS][30]
+   [29]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-rkl-7/igt@kms_big_fb@x-tiled-max-hw-stride-32bpp-rotate-180-async-flip.html
+   [30]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-rkl-3/igt@kms_big_fb@x-tiled-max-hw-stride-32bpp-rotate-180-async-flip.html
+
+  * igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions:
+    - shard-glk:          [FAIL][31] ([i915#2346]) -> [PASS][32] +1 similar issue
+   [31]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-glk6/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions.html
+   [32]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-glk8/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions.html
+
+  * igt@kms_cursor_legacy@single-move@pipe-b:
+    - {shard-rkl}:        [INCOMPLETE][33] ([i915#8011]) -> [PASS][34]
+   [33]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-rkl-7/igt@kms_cursor_legacy@single-move@pipe-b.html
+   [34]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-rkl-1/igt@kms_cursor_legacy@single-move@pipe-b.html
+
+  * igt@kms_flip@2x-flip-vs-expired-vblank-interruptible@bc-hdmi-a1-hdmi-a2:
+    - shard-glk:          [FAIL][35] ([i915#79]) -> [PASS][36] +1 similar issue
+   [35]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-glk6/igt@kms_flip@2x-flip-vs-expired-vblank-interruptible@bc-hdmi-a1-hdmi-a2.html
+   [36]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-glk6/igt@kms_flip@2x-flip-vs-expired-vblank-interruptible@bc-hdmi-a1-hdmi-a2.html
+
+  * igt@kms_flip_tiling@flip-change-tiling@hdmi-a-1-pipe-c-y-to-y:
+    - shard-glk:          [INCOMPLETE][37] -> [PASS][38]
+   [37]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-glk7/igt@kms_flip_tiling@flip-change-tiling@hdmi-a-1-pipe-c-y-to-y.html
+   [38]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-glk1/igt@kms_flip_tiling@flip-change-tiling@hdmi-a-1-pipe-c-y-to-y.html
+
+  * igt@kms_hdmi_inject@inject-audio:
+    - {shard-tglu}:       [SKIP][39] ([i915#433]) -> [PASS][40]
+   [39]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-tglu-2/igt@kms_hdmi_inject@inject-audio.html
+   [40]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-tglu-2/igt@kms_hdmi_inject@inject-audio.html
+
+  * igt@kms_rotation_crc@multiplane-rotation:
+    - {shard-rkl}:        [ABORT][41] ([i915#8311]) -> [PASS][42]
+   [41]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-rkl-4/igt@kms_rotation_crc@multiplane-rotation.html
+   [42]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-rkl-1/igt@kms_rotation_crc@multiplane-rotation.html
+
+  
+#### Warnings ####
+
+  * igt@kms_hdmi_inject@inject-audio:
+    - shard-snb:          [FAIL][43] ([IGT#3]) -> [SKIP][44] ([fdo#109271])
+   [43]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-snb6/igt@kms_hdmi_inject@inject-audio.html
+   [44]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-snb7/igt@kms_hdmi_inject@inject-audio.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [IGT#3]: https://gitlab.freedesktop.org/drm/igt-gpu-tools/issues/3
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [fdo#109285]: https://bugs.freedesktop.org/show_bug.cgi?id=109285
+  [fdo#109291]: https://bugs.freedesktop.org/show_bug.cgi?id=109291
+  [fdo#109300]: https://bugs.freedesktop.org/show_bug.cgi?id=109300
+  [fdo#109315]: https://bugs.freedesktop.org/show_bug.cgi?id=109315
+  [fdo#109506]: https://bugs.freedesktop.org/show_bug.cgi?id=109506
+  [fdo#110189]: https://bugs.freedesktop.org/show_bug.cgi?id=110189
+  [fdo#110723]: https://bugs.freedesktop.org/show_bug.cgi?id=110723
+  [fdo#111068]: https://bugs.freedesktop.org/show_bug.cgi?id=111068
+  [fdo#111614]: https://bugs.freedesktop.org/show_bug.cgi?id=111614
+  [fdo#111615]: https://bugs.freedesktop.org/show_bug.cgi?id=111615
+  [fdo#111825]: https://bugs.freedesktop.org/show_bug.cgi?id=111825
+  [fdo#111827]: https://bugs.freedesktop.org/show_bug.cgi?id=111827
+  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
+  [i915#1397]: https://gitlab.freedesktop.org/drm/intel/issues/1397
+  [i915#1825]: https://gitlab.freedesktop.org/drm/intel/issues/1825
+  [i915#1839]: https://gitlab.freedesktop.org/drm/intel/issues/1839
+  [i915#2346]: https://gitlab.freedesktop.org/drm/intel/issues/2346
+  [i915#2527]: https://gitlab.freedesktop.org/drm/intel/issues/2527
+  [i915#2575]: https://gitlab.freedesktop.org/drm/intel/issues/2575
+  [i915#2587]: https://gitlab.freedesktop.org/drm/intel/issues/2587
+  [i915#2672]: https://gitlab.freedesktop.org/drm/intel/issues/2672
+  [i915#280]: https://gitlab.freedesktop.org/drm/intel/issues/280
+  [i915#2842]: https://gitlab.freedesktop.org/drm/intel/issues/2842
+  [i915#3023]: https://gitlab.freedesktop.org/drm/intel/issues/3023
+  [i915#3281]: https://gitlab.freedesktop.org/drm/intel/issues/3281
+  [i915#3282]: https://gitlab.freedesktop.org/drm/intel/issues/3282
+  [i915#3297]: https://gitlab.freedesktop.org/drm/intel/issues/3297
+  [i915#3318]: https://gitlab.freedesktop.org/drm/intel/issues/3318
+  [i915#3359]: https://gitlab.freedesktop.org/drm/intel/issues/3359
+  [i915#3458]: https://gitlab.freedesktop.org/drm/intel/issues/3458
+  [i915#3555]: https://gitlab.freedesktop.org/drm/intel/issues/3555
+  [i915#3591]: https://gitlab.freedesktop.org/drm/intel/issues/3591
+  [i915#3638]: https://gitlab.freedesktop.org/drm/intel/issues/3638
+  [i915#3689]: https://gitlab.freedesktop.org/drm/intel/issues/3689
+  [i915#3708]: https://gitlab.freedesktop.org/drm/intel/issues/3708
+  [i915#3734]: https://gitlab.freedesktop.org/drm/intel/issues/3734
+  [i915#3743]: https://gitlab.freedesktop.org/drm/intel/issues/3743
+  [i915#3804]: https://gitlab.freedesktop.org/drm/intel/issues/3804
+  [i915#3886]: https://gitlab.freedesktop.org/drm/intel/issues/3886
+  [i915#3952]: https://gitlab.freedesktop.org/drm/intel/issues/3952
+  [i915#3955]: https://gitlab.freedesktop.org/drm/intel/issues/3955
+  [i915#4070]: https://gitlab.freedesktop.org/drm/intel/issues/4070
+  [i915#4077]: https://gitlab.freedesktop.org/drm/intel/issues/4077
+  [i915#4078]: https://gitlab.freedesktop.org/drm/intel/issues/4078
+  [i915#4098]: https://gitlab.freedesktop.org/drm/intel/issues/4098
+  [i915#4270]: https://gitlab.freedesktop.org/drm/intel/issues/4270
+  [i915#433]: https://gitlab.freedesktop.org/drm/intel/issues/433
+  [i915#4538]: https://gitlab.freedesktop.org/drm/intel/issues/4538
+  [i915#4579]: https://gitlab.freedesktop.org/drm/intel/issues/4579
+  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
+  [i915#4771]: https://gitlab.freedesktop.org/drm/intel/issues/4771
+  [i915#4816]: https://gitlab.freedesktop.org/drm/intel/issues/4816
+  [i915#4833]: https://gitlab.freedesktop.org/drm/intel/issues/4833
+  [i915#4860]: https://gitlab.freedesktop.org/drm/intel/issues/4860
+  [i915#4958]: https://gitlab.freedesktop.org/drm/intel/issues/4958
+  [i915#5176]: https://gitlab.freedesktop.org/drm/intel/issues/5176
+  [i915#5235]: https://gitlab.freedesktop.org/drm/intel/issues/5235
+  [i915#5286]: https://gitlab.freedesktop.org/drm/intel/issues/5286
+  [i915#5289]: https://gitlab.freedesktop.org/drm/intel/issues/5289
+  [i915#5325]: https://gitlab.freedesktop.org/drm/intel/issues/5325
+  [i915#533]: https://gitlab.freedesktop.org/drm/intel/issues/533
+  [i915#5354]: https://gitlab.freedesktop.org/drm/intel/issues/5354
+  [i915#5465]: https://gitlab.freedesktop.org/drm/intel/issues/5465
+  [i915#5493]: https://gitlab.freedesktop.org/drm/intel/issues/5493
+  [i915#5566]: https://gitlab.freedesktop.org/drm/intel/issues/5566
+  [i915#5784]: https://gitlab.freedesktop.org/drm/intel/issues/5784
+  [i915#6095]: https://gitlab.freedesktop.org/drm/intel/issues/6095
+  [i915#6227]: https://gitlab.freedesktop.org/drm/intel/issues/6227
+  [i915#6268]: https://gitlab.freedesktop.org/drm/intel/issues/6268
+  [i915#658]: https://gitlab.freedesktop.org/drm/intel/issues/658
+  [i915#6768]: https://gitlab.freedesktop.org/drm/intel/issues/6768
+  [i915#6953]: https://gitlab.freedesktop.org/drm/intel/issues/6953
+  [i915#7116]: https://gitlab.freedesktop.org/drm/intel/issues/7116
+  [i915#7561]: https://gitlab.freedesktop.org/drm/intel/issues/7561
+  [i915#7711]: https://gitlab.freedesktop.org/drm/intel/issues/7711
+  [i915#7742]: https://gitlab.freedesktop.org/drm/intel/issues/7742
+  [i915#7828]: https://gitlab.freedesktop.org/drm/intel/issues/7828
+  [i915#79]: https://gitlab.freedesktop.org/drm/intel/issues/79
+  [i915#7975]: https://gitlab.freedesktop.org/drm/intel/issues/7975
+  [i915#8011]: https://gitlab.freedesktop.org/drm/intel/issues/8011
+  [i915#8213]: https://gitlab.freedesktop.org/drm/intel/issues/8213
+  [i915#8228]: https://gitlab.freedesktop.org/drm/intel/issues/8228
+  [i915#8247]: https://gitlab.freedesktop.org/drm/intel/issues/8247
+  [i915#8292]: https://gitlab.freedesktop.org/drm/intel/issues/8292
+  [i915#8311]: https://gitlab.freedesktop.org/drm/intel/issues/8311
+  [i915#8398]: https://gitlab.freedesktop.org/drm/intel/issues/8398
+  [i915#8411]: https://gitlab.freedesktop.org/drm/intel/issues/8411
+  [i915#8414]: https://gitlab.freedesktop.org/drm/intel/issues/8414
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_13204 -> Patchwork_117671v5
+
+  CI-20190529: 20190529
+  CI_DRM_13204: 83a048e62ecf7838b583389e60c1defa530a5668 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7311: c031030f39aff973330668a5a2f1593408da78ae @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_117671v5: 83a048e62ecf7838b583389e60c1defa530a5668 @ git://anongit.freedesktop.org/gfx-ci/linux
+  piglit_4509: fdc5a4ca11124ab8413c7988896eec4c97336694 @ git://anongit.freedesktop.org/piglit
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/index.html
+
+--===============1426001484677132609==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/fbdev: Remove DRM&#39;s helpers for fbdev I/O (rev5)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/117671/">https://patchwork.freedesktop.org/series/117671/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_13204_full -&gt; Patchwork_117671v5_full</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<h2>Participating hosts (7 -&gt; 7)</h2>
+<p>No changes in participating hosts</p>
+<h2>New tests</h2>
+<p>New tests have been introduced between CI_DRM_13204_full and Patchwork_117671v5_full:</p>
+<h3>New IGT tests (4)</h3>
+<ul>
+<li>
+<p>igt@kms_plane_scaling@planes-unity-scaling-downscale-factor-0-25@pipe-a-hdmi-a-3:</p>
+<ul>
+<li>Statuses : 1 skip(s)</li>
+<li>Exec time: [0.0] s</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_plane_scaling@planes-unity-scaling-downscale-factor-0-25@pipe-b-hdmi-a-3:</p>
+<ul>
+<li>Statuses : 1 skip(s)</li>
+<li>Exec time: [0.0] s</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_plane_scaling@planes-unity-scaling-downscale-factor-0-25@pipe-c-hdmi-a-3:</p>
+<ul>
+<li>Statuses : 1 skip(s)</li>
+<li>Exec time: [0.0] s</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_plane_scaling@planes-unity-scaling-downscale-factor-0-25@pipe-d-hdmi-a-3:</p>
+<ul>
+<li>Statuses : 1 skip(s)</li>
+<li>Exec time: [0.0] s</li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_117671v5_full that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_close_race@multigpu-basic-process:</p>
+<ul>
+<li>shard-apl:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-apl7/igt@gem_close_race@multigpu-basic-process.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +6 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_fair@basic-pace-share@rcs0:</p>
+<ul>
+<li>shard-glk:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-glk6/igt@gem_exec_fair@basic-pace-share@rcs0.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-glk6/igt@gem_exec_fair@basic-pace-share@rcs0.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2842">i915#2842</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gen9_exec_parse@allowed-single:</p>
+<ul>
+<li>shard-glk:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-glk3/igt@gen9_exec_parse@allowed-single.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-glk9/igt@gen9_exec_parse@allowed-single.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5566">i915#5566</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_module_load@load:</p>
+<ul>
+<li>shard-glk:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-glk1/igt@i915_module_load@load.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/6227">i915#6227</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_hdmi_inject@inject-audio:</p>
+<ul>
+<li>shard-glk:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-glk1/igt@kms_hdmi_inject@inject-audio.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-glk6/igt@kms_hdmi_inject@inject-audio.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_plane_scaling@plane-downscale-with-pixel-format-factor-0-25@pipe-c-dp-1:</p>
+<ul>
+<li>shard-apl:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-apl7/igt@kms_plane_scaling@plane-downscale-with-pixel-format-factor-0-25@pipe-c-dp-1.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4579">i915#4579</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_plane_scaling@plane-scaler-with-clipping-clamping-rotation@pipe-a-vga-1:</p>
+<ul>
+<li>shard-snb:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-snb7/igt@kms_plane_scaling@plane-scaler-with-clipping-clamping-rotation@pipe-a-vga-1.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +20 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_plane_scaling@plane-upscale-with-modifiers-factor-0-25@pipe-b-hdmi-a-1:</p>
+<ul>
+<li>shard-snb:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-snb1/igt@kms_plane_scaling@plane-upscale-with-modifiers-factor-0-25@pipe-b-hdmi-a-1.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4579">i915#4579</a>) +11 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_plane_scaling@planes-unity-scaling-downscale-factor-0-25@pipe-b-hdmi-a-3 (NEW):</p>
+<ul>
+<li>{shard-dg1}:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-dg1-13/igt@kms_plane_scaling@planes-unity-scaling-downscale-factor-0-25@pipe-b-hdmi-a-3.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5235">i915#5235</a>) +2 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_plane_scaling@planes-unity-scaling-downscale-factor-0-25@pipe-d-hdmi-a-3 (NEW):</p>
+<ul>
+<li>{shard-dg1}:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-dg1-13/igt@kms_plane_scaling@planes-unity-scaling-downscale-factor-0-25@pipe-d-hdmi-a-3.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4579">i915#4579</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/5235">i915#5235</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_selftest@all-tests:</p>
+<ul>
+<li>shard-glk:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-glk1/igt@kms_selftest@all-tests.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4579">i915#4579</a>) +1 similar issue</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_setmode@basic@pipe-a-hdmi-a-1:</p>
+<ul>
+<li>shard-snb:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-snb1/igt@kms_setmode@basic@pipe-a-hdmi-a-1.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5465">i915#5465</a>) +1 similar issue</li>
+</ul>
+</li>
+<li>
+<p>igt@vc4/vc4_wait_bo@used-bo-0ns:</p>
+<ul>
+<li>shard-glk:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-glk1/igt@vc4/vc4_wait_bo@used-bo-0ns.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +4 similar issues</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@gem_ctx_exec@basic-nohangcheck:</p>
+<ul>
+<li>{shard-tglu}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-tglu-10/igt@gem_ctx_exec@basic-nohangcheck.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6268">i915#6268</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-tglu-7/igt@gem_ctx_exec@basic-nohangcheck.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@gem_eio@hibernate:</p>
+<ul>
+<li>{shard-tglu}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-tglu-10/igt@gem_eio@hibernate.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7975">i915#7975</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8213">i915#8213</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8398">i915#8398</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-tglu-5/igt@gem_eio@hibernate.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@gem_userptr_blits@huge-split:</p>
+<ul>
+<li>shard-apl:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-apl3/igt@gem_userptr_blits@huge-split.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3318">i915#3318</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-apl6/igt@gem_userptr_blits@huge-split.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@gen9_exec_parse@allowed-single:</p>
+<ul>
+<li>shard-apl:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-apl6/igt@gen9_exec_parse@allowed-single.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5566">i915#5566</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-apl7/igt@gen9_exec_parse@allowed-single.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_rpm@dpms-mode-unset-lpsp:</p>
+<ul>
+<li>
+<p>{shard-rkl}:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-rkl-2/igt@i915_pm_rpm@dpms-mode-unset-lpsp.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1397">i915#1397</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-rkl-7/igt@i915_pm_rpm@dpms-mode-unset-lpsp.html">PASS</a> +2 similar issues</p>
+</li>
+<li>
+<p>{shard-dg1}:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-dg1-14/igt@i915_pm_rpm@dpms-mode-unset-lpsp.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1397">i915#1397</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-dg1-19/igt@i915_pm_rpm@dpms-mode-unset-lpsp.html">PASS</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_big_fb@x-tiled-max-hw-stride-32bpp-rotate-180-async-flip:</p>
+<ul>
+<li>{shard-rkl}:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-rkl-7/igt@kms_big_fb@x-tiled-max-hw-stride-32bpp-rotate-180-async-flip.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3743">i915#3743</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-rkl-3/igt@kms_big_fb@x-tiled-max-hw-stride-32bpp-rotate-180-async-flip.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions:</p>
+<ul>
+<li>shard-glk:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-glk6/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/2346">i915#2346</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-glk8/igt@kms_cursor_legacy@flip-vs-cursor-atomic-transitions.html">PASS</a> +1 similar issue</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@single-move@pipe-b:</p>
+<ul>
+<li>{shard-rkl}:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-rkl-7/igt@kms_cursor_legacy@single-move@pipe-b.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8011">i915#8011</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-rkl-1/igt@kms_cursor_legacy@single-move@pipe-b.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_flip@2x-flip-vs-expired-vblank-interruptible@bc-hdmi-a1-hdmi-a2:</p>
+<ul>
+<li>shard-glk:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-glk6/igt@kms_flip@2x-flip-vs-expired-vblank-interruptible@bc-hdmi-a1-hdmi-a2.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/79">i915#79</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-glk6/igt@kms_flip@2x-flip-vs-expired-vblank-interruptible@bc-hdmi-a1-hdmi-a2.html">PASS</a> +1 similar issue</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_flip_tiling@flip-change-tiling@hdmi-a-1-pipe-c-y-to-y:</p>
+<ul>
+<li>shard-glk:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-glk7/igt@kms_flip_tiling@flip-change-tiling@hdmi-a-1-pipe-c-y-to-y.html">INCOMPLETE</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-glk1/igt@kms_flip_tiling@flip-change-tiling@hdmi-a-1-pipe-c-y-to-y.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_hdmi_inject@inject-audio:</p>
+<ul>
+<li>{shard-tglu}:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-tglu-2/igt@kms_hdmi_inject@inject-audio.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/433">i915#433</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-tglu-2/igt@kms_hdmi_inject@inject-audio.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_rotation_crc@multiplane-rotation:</p>
+<ul>
+<li>{shard-rkl}:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-rkl-4/igt@kms_rotation_crc@multiplane-rotation.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8311">i915#8311</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-rkl-1/igt@kms_rotation_crc@multiplane-rotation.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>igt@kms_hdmi_inject@inject-audio:<ul>
+<li>shard-snb:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13204/shard-snb6/igt@kms_hdmi_inject@inject-audio.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/igt-gpu-tools/issues/3">IGT#3</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_117671v5/shard-snb7/igt@kms_hdmi_inject@inject-audio.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>)</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_13204 -&gt; Patchwork_117671v5</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_13204: 83a048e62ecf7838b583389e60c1defa530a5668 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7311: c031030f39aff973330668a5a2f1593408da78ae @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_117671v5: 83a048e62ecf7838b583389e60c1defa530a5668 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  piglit_4509: fdc5a4ca11124ab8413c7988896eec4c97336694 @ git://anongit.freedesktop.org/piglit</p>
+
+</body>
+</html>
+
+--===============1426001484677132609==--
