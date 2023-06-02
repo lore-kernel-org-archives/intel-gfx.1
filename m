@@ -4,45 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BAC2C7EE2C
-	for <intel-gfx@archiver.kernel.org>; Fri,  2 Jun 2023 20:53:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEAB7C77B7A
+	for <intel-gfx@archiver.kernel.org>; Fri,  2 Jun 2023 21:01:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC65710E106;
-	Fri,  2 Jun 2023 20:53:35 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2392410E066
- for <intel-gfx@lists.freedesktop.org>; Fri,  2 Jun 2023 20:53:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1685739214; x=1717275214;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=5gctG1ispcfXYOldZ/sz//cbOZrY/NAOa52f6yaHxRk=;
- b=dDBYCDJ9tmOvGXf7ttMuvEp+OdJ2nRn77KiGP1w1MRt0qvAtyLkV+ibB
- 5vaDMPXUkj7LjWLL2loN/1qbzYT9Km+fdLTKPK17jzyjEKQU8Nk/dKKTV
- WgP+fa/3Cpq0fZdpR29EbYRtCFYhN456cYS3eItiMYr9UcLaSfXym4LeV
- r5tTRm84RIzit9axK/c4OlY1xoSwpfgeMKw/YAD9q167YexpErv139Pb1
- NrIfaSjjdLGEv7Qjdukbmr/3STpJXe0+A8HCbk1e3KGYNmWQQI1+6s5OF
- KhXzasHgJIhDPGWW19sZPbkHXA/Guga0uGU15Xfx8rVoWroEkdL51EgnO w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10729"; a="340595931"
-X-IronPort-AV: E=Sophos;i="6.00,214,1681196400"; d="scan'208";a="340595931"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2023 13:53:32 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10729"; a="777820733"
-X-IronPort-AV: E=Sophos;i="6.00,214,1681196400"; d="scan'208";a="777820733"
-Received: from orsosgc001.jf.intel.com ([10.165.21.138])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2023 13:53:32 -0700
-From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri,  2 Jun 2023 13:53:25 -0700
-Message-Id: <20230602205327.1542958-1-umesh.nerlige.ramappa@intel.com>
-X-Mailer: git-send-email 2.36.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38D8A10E0F0;
+	Fri,  2 Jun 2023 21:01:42 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7C52710E066;
+ Fri,  2 Jun 2023 21:01:39 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 747ECAADE8;
+ Fri,  2 Jun 2023 21:01:39 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 0/2] Avoid reading OA reports before they land
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Matt Roper" <matthew.d.roper@intel.com>
+Date: Fri, 02 Jun 2023 21:01:39 -0000
+Message-ID: <168573969944.15699.6991790831259657362@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230602181450.1151368-1-matthew.d.roper@intel.com>
+In-Reply-To: <20230602181450.1151368-1-matthew.d.roper@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/display=3A_Extract_display_init_from_intel=5Fdevic?=
+ =?utf-8?q?e=5Finfo=5Fruntime=5Finit_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,26 +41,25 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fix OA issue seen on DG2 where parts of OA reports are zeroed out or
-have stale values. This was due to the fact that rewind logic was not
-being run when the tail pointer was aged. The series drops the complex
-aging/aged logic and just checks the reports for validity.
+== Series Details ==
 
-rev1 - https://patchwork.freedesktop.org/series/118054/
+Series: drm/i915/display: Extract display init from intel_device_info_runtime_init (rev2)
+URL   : https://patchwork.freedesktop.org/series/118730/
+State : warning
 
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+== Summary ==
 
-Umesh Nerlige Ramappa (2):
-  i915/perf: Drop the aging_tail logic in perf OA
-  i915/perf: Do not add ggtt offset to hw_tail
+Error: dim checkpatch failed
+32290b2edb7d drm/i915/display: Extract display init from intel_device_info_runtime_init
+-:325: CHECK:SPACING: No space is necessary after a cast
+#325: FILE: drivers/gpu/drm/i915/intel_device_info.c:428:
++	BUILD_BUG_ON(BITS_PER_TYPE(intel_engine_mask_t) < I915_NUM_ENGINES);
 
- drivers/gpu/drm/i915/i915_perf.c       | 76 ++++++++++----------------
- drivers/gpu/drm/i915/i915_perf_types.h | 12 ----
- 2 files changed, 28 insertions(+), 60 deletions(-)
+total: 0 errors, 0 warnings, 1 checks, 313 lines checked
 
--- 
-2.36.1
 
