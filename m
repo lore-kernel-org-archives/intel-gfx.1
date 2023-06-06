@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BD02C77B73
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jun 2023 18:56:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F7E7C77B73
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jun 2023 18:56:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A441F10E244;
-	Tue,  6 Jun 2023 18:56:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A296410E237;
+	Tue,  6 Jun 2023 18:56:14 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 90E4410E237;
- Tue,  6 Jun 2023 18:56:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8438010E237;
+ Tue,  6 Jun 2023 18:56:12 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 3923DAADE3;
- Tue,  6 Jun 2023 18:56:10 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 8175BAADE3;
+ Tue,  6 Jun 2023 18:56:12 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Luca Coelho" <luciano.coelho@intel.com>
-Date: Tue, 06 Jun 2023 18:56:10 -0000
-Message-ID: <168607777020.22671.1149935788000404228@emeril.freedesktop.org>
+Date: Tue, 06 Jun 2023 18:56:12 -0000
+Message-ID: <168607777252.22674.1437237451619134148@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20230606163942.330052-1-luciano.coelho@intel.com>
 In-Reply-To: <20230606163942.330052-1-luciano.coelho@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_implement_internal_workqueues_=28rev2=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915=3A_implement_internal_workqueues_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,19 +53,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-7c73f73cd55c drm/i915: use pointer to i915 instead of rpm in wakeref
-f7c19d8c6ca6 drm/i915: add a dedicated workqueue inside drm_i915_private
--:624: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "!dev_priv->unordered_wq"
-#624: FILE: drivers/gpu/drm/i915/i915_driver.c:142:
-+	if (dev_priv->unordered_wq == NULL)
-
-total: 0 errors, 0 warnings, 1 checks, 514 lines checked
-c56c8365e283 drm/i915/selftests: add local workqueue for SW fence selftest
--:30: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "!wq"
-#30: FILE: drivers/gpu/drm/i915/selftests/i915_sw_fence.c:530:
-+	if (wq == NULL)
-
-total: 0 errors, 0 warnings, 1 checks, 38 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
