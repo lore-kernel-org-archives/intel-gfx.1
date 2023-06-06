@@ -4,57 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D966FC77B73
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jun 2023 02:06:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DF1DC77B73
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jun 2023 02:24:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2721910E0EB;
-	Tue,  6 Jun 2023 02:06:24 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id A22F910E0EB;
- Tue,  6 Jun 2023 02:06:21 +0000 (UTC)
-Received: from loongson.cn (unknown [10.20.42.43])
- by gateway (Coremail) with SMTP id _____8Dx9vCalH5kRFUAAA--.1028S3;
- Tue, 06 Jun 2023 10:06:18 +0800 (CST)
-Received: from [10.20.42.43] (unknown [10.20.42.43])
- by localhost.localdomain (Coremail) with SMTP id
- AQAAf8AxZuSXlH5kIp0BAA--.7051S3; 
- Tue, 06 Jun 2023 10:06:17 +0800 (CST)
-Message-ID: <f9e67fe9-a93b-75ab-1fdb-87d3783fe5fc@loongson.cn>
-Date: Tue, 6 Jun 2023 10:06:15 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD1D810E175;
+	Tue,  6 Jun 2023 02:24:14 +0000 (UTC)
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99A4610E1EB;
+ Tue,  6 Jun 2023 02:24:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1686018253; x=1717554253;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=w+8+29KgPk4xXtCMYP3M0FkIlS/xldXi4NctbaE0/EM=;
+ b=ChgrHY7C64EIM2STXiWhgHFw0HAd82ScZl2Y5i12BtdyzhIG3jjiJvrA
+ sFKYeAmyTd56M08NIld0e7uVNGZWAx51IgUE9K1iKk3AF1hILto4ylM8z
+ GT8y/v2ZHucRFGdu0dWNL/81S9F2iNmMPAk7/xhpuYJttAxJ4tr11O8aV
+ 11BYfet+qyHUCYKfpX4mmDL8U6N4VuclVn4si072xWwQMSC9mvSjyH466
+ xLFK1gpYXNDAQqjGrsUxF8eHnIpQAHSQEtzcShR/ZXKHTkMSJ9v6oXjOf
+ 64thwQRR0MLPimhF7roodxptIRrZacFhwJer+Jsl5pUJix61I+4rG+WeA w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10732"; a="358995778"
+X-IronPort-AV: E=Sophos;i="6.00,219,1681196400"; d="scan'208";a="358995778"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2023 19:24:13 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10732"; a="712019546"
+X-IronPort-AV: E=Sophos;i="6.00,219,1681196400"; d="scan'208";a="712019546"
+Received: from valcore-skull-1.fm.intel.com ([10.1.27.19])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2023 19:24:12 -0700
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon,  5 Jun 2023 19:23:58 -0700
+Message-Id: <20230606022402.2048235-2-daniele.ceraolospurio@intel.com>
+X-Mailer: git-send-email 2.40.0
+In-Reply-To: <20230606022402.2048235-1-daniele.ceraolospurio@intel.com>
+References: <20230606022402.2048235-1-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-To: Andi Shyti <andi.shyti@linux.intel.com>, Sui Jingfeng <15330273260@189.cn>
-References: <20230604205831.3357596-1-15330273260@189.cn>
- <ZH5epG6rfTOWT6CS@ashyti-mobl2.lan>
-Content-Language: en-US
-From: Sui Jingfeng <suijingfeng@loongson.cn>
-Organization: Loongson
-In-Reply-To: <ZH5epG6rfTOWT6CS@ashyti-mobl2.lan>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: AQAAf8AxZuSXlH5kIp0BAA--.7051S3
-X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
-X-Coremail-Antispam: 1Uk129KBj93XoWxXFWkWw4DZFyfKFWDAw47Awc_yoW5XryDpF
- Zakas5Cw4kJrs7ZFy2qF4UJF1ruws3JFy7ArZIk3s7AF13J348JFsxCrZ8Z3y3XryfuF40
- vr4UWr1DGayDZagCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUPSb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
- xVW8Jr0_Cr1UM2kKe7AKxVWUAVWUtwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
- AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
- AVWUtwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
- 8JMxk0xIA0c2IEe2xFo4CEbIxvr21lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vI
- r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67
- AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26rWY6r4UJwCI
- c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
- AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
- Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU84E_t
- UUUUU==
-Subject: Re: [Intel-gfx] [PATCH v2 1/2] vgaarb: various coding style and
- comments fix
+Subject: [Intel-gfx] [PATCH v2 1/5] drm/i915/gsc: fixes and updates for GSC
+ memory allocation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,123 +59,238 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- David Airlie <airlied@gmail.com>, Yi Liu <yi.l.liu@intel.com>,
- kvm@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Jason Gunthorpe <jgg@ziepe.ca>, Ben Skeggs <bskeggs@redhat.com>,
- linux-pci@vger.kernel.org, Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Kevin Tian <kevin.tian@intel.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Bokun Zhang <Bokun.Zhang@amd.com>,
- intel-gfx@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- loongson-kernel@lists.loongnix.cn, Abhishek Sahu <abhsahu@nvidia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Yishai Hadas <yishaih@nvidia.com>, Li Yi <liyi@loongson.cn>,
- Pan Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Cornelia Huck <cohuck@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+A few fixes/updates are required around the GSC memory allocation and it
+is easier to do them all at the same time. The changes are as follows:
 
-On 2023/6/6 06:16, Andi Shyti wrote:
-> Hi Sui,
->
-> On Mon, Jun 05, 2023 at 04:58:30AM +0800, Sui Jingfeng wrote:
->> From: Sui Jingfeng <suijingfeng@loongson.cn>
->>
->> To keep consistent with vga_iostate_to_str() function, the third argument
->> of vga_str_to_iostate() function should be 'unsigned int *'.
-> I think the real reason is not to keep consistent with
-> vga_iostate_to_str() but because vga_str_to_iostate() is actually
-> only taking "unsigned int *" parameters.
+1 - Switch the memory allocation to stolen memory. We need to avoid
+accesses from GSC FW to normal memory after the suspend function has
+completed and to do so we can either switch to using stolen or make sure
+the GSC is gone to sleep before the end of the suspend function. Given
+that the GSC waits for a bit before going idle even if there are no
+pending operations, it is easier and quicker to just use stolen memory.
 
-Yes, right.
+2 - Reduce the GSC allocation size to 4MBs, which is the POR requirement.
+The 8MBs were needed only for early FW and I had misunderstood that as
+being the expected POR size when I sent the original patch.
 
-my expression is not completely correct, I will update it at next version.
+3 - Perma-map the GSC allocation. This isn't required immediately, but it
+will be needed later to be able to quickly extract the GSC logs, which are
+inside the allocation. Since the mapping code needs to be rewritten due to
+switching to stolen, it makes sense to do the switch immediately to avoid
+having to change it again later.
 
+Note that the explicit setting of CACHE_NONE for Wa_22016122933 has been
+dropped because that's the default setting for stolen memory on !LLC
+platforms.
 
-I think, we have the same opinion.
+v2: only memset the memory we're not overwriting (Alan)
 
-Originally, I also want to express the opinion.
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
+Cc: John Harrison <John.C.Harrison@Intel.com>
+Cc: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c | 29 ++-------
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c | 77 ++++++++++++++++++++---
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h |  1 +
+ 3 files changed, 75 insertions(+), 32 deletions(-)
 
-Because, it make no sense to  interpret the return value
-
-(VGA_RSRC_LEGACY_IO | VGA_RSRC_LEGACY_MEM) as int type.
-
-
-IO state should be should be donate by a unsigned type.
-
-vga_iostate_to_str() also receive unsigned type.
-
-static const char *vga_iostate_to_str(unsigned int iostate)
-
->> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
->> ---
->>   drivers/pci/vgaarb.c   | 29 +++++++++++++++--------------
->>   include/linux/vgaarb.h |  8 +++-----
->>   2 files changed, 18 insertions(+), 19 deletions(-)
->>
->> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
->> index 5a696078b382..e40e6e5e5f03 100644
->> --- a/drivers/pci/vgaarb.c
->> +++ b/drivers/pci/vgaarb.c
->> @@ -61,7 +61,6 @@ static bool vga_arbiter_used;
->>   static DEFINE_SPINLOCK(vga_lock);
->>   static DECLARE_WAIT_QUEUE_HEAD(vga_wait_queue);
->>   
->> -
-> drop this change
-
-OK,
-
-This is a double blank line.
-
-Originally, I intend to accumulate all tiny fix, commit together.
-
-As they are trivial.
-
-Now, Should I split this patch,
-
-then this patch set will contain two trivial patch ?
-
->>   static const char *vga_iostate_to_str(unsigned int iostate)
->>   {
->>   	/* Ignore VGA_RSRC_IO and VGA_RSRC_MEM */
->> @@ -77,10 +76,12 @@ static const char *vga_iostate_to_str(unsigned int iostate)
->>   	return "none";
->>   }
->>   
->> -static int vga_str_to_iostate(char *buf, int str_size, int *io_state)
->> +static int vga_str_to_iostate(char *buf, int str_size, unsigned int *io_state)
-> this is OK, it's actually what you are describing in the commit
-> log, but...
->
->>   {
->> -	/* we could in theory hand out locks on IO and mem
->> -	 * separately to userspace but it can cause deadlocks */
->> +	/*
->> +	 * we could in theory hand out locks on IO and mem
->> +	 * separately to userspace but it can cause deadlocks
->> +	 */
-> ... all the rest needs to go on different patches as it doesn't
-> have anything to do with what you describe.
-
-OK,
-
-I will wait a few days for more reviews,
-
-I process them together,   also avoid version grow too fast.
-
-Thanks.
-
-> Andi
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
+index f46eb17a7a98..445995e55d87 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
+@@ -3,6 +3,7 @@
+  * Copyright © 2022 Intel Corporation
+  */
+ 
++#include "gem/i915_gem_lmem.h"
+ #include "gt/intel_engine_pm.h"
+ #include "gt/intel_gpu_commands.h"
+ #include "gt/intel_gt.h"
+@@ -109,38 +110,21 @@ static int gsc_fw_load_prepare(struct intel_gsc_uc *gsc)
+ {
+ 	struct intel_gt *gt = gsc_uc_to_gt(gsc);
+ 	struct drm_i915_private *i915 = gt->i915;
+-	struct drm_i915_gem_object *obj;
+-	void *src, *dst;
++	void *src;
+ 
+ 	if (!gsc->local)
+ 		return -ENODEV;
+ 
+-	obj = gsc->local->obj;
+-
+-	if (obj->base.size < gsc->fw.size)
++	if (gsc->local->size < gsc->fw.size)
+ 		return -ENOSPC;
+ 
+-	/*
+-	 * Wa_22016122933: For MTL the shared memory needs to be mapped
+-	 * as WC on CPU side and UC (PAT index 2) on GPU side
+-	 */
+-	if (IS_METEORLAKE(i915))
+-		i915_gem_object_set_cache_coherency(obj, I915_CACHE_NONE);
+-
+-	dst = i915_gem_object_pin_map_unlocked(obj,
+-					       i915_coherent_map_type(i915, obj, true));
+-	if (IS_ERR(dst))
+-		return PTR_ERR(dst);
+-
+ 	src = i915_gem_object_pin_map_unlocked(gsc->fw.obj,
+ 					       i915_coherent_map_type(i915, gsc->fw.obj, true));
+-	if (IS_ERR(src)) {
+-		i915_gem_object_unpin_map(obj);
++	if (IS_ERR(src))
+ 		return PTR_ERR(src);
+-	}
+ 
+-	memset(dst, 0, obj->base.size);
+-	memcpy(dst, src, gsc->fw.size);
++	memcpy_toio(gsc->local_vaddr, src, gsc->fw.size);
++	memset_io(gsc->local_vaddr + gsc->fw.size, 0, gsc->local->size - gsc->fw.size);
+ 
+ 	/*
+ 	 * Wa_22016122933: Making sure the data in dst is
+@@ -149,7 +133,6 @@ static int gsc_fw_load_prepare(struct intel_gsc_uc *gsc)
+ 	intel_guc_write_barrier(&gt->uc.guc);
+ 
+ 	i915_gem_object_unpin_map(gsc->fw.obj);
+-	i915_gem_object_unpin_map(obj);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c
+index c659cc01f32f..4fe639a80564 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.c
+@@ -133,26 +133,85 @@ void intel_gsc_uc_init_early(struct intel_gsc_uc *gsc)
+ 	}
+ }
+ 
++static int gsc_allocate_and_map_vma(struct intel_gsc_uc *gsc, u32 size)
++{
++	struct intel_gt *gt = gsc_uc_to_gt(gsc);
++	struct drm_i915_gem_object *obj;
++	struct i915_vma *vma;
++	void __iomem *vaddr;
++	int ret = 0;
++
++	/*
++	 * The GSC FW doesn't immediately suspend after becoming idle, so there
++	 * is a chance that it could still be awake after we successfully
++	 * return from the  pci suspend function, even if there are no pending
++	 * operations.
++	 * The FW might therefore try to access memory for its suspend operation
++	 * after the kernel has completed the HW suspend flow; this can cause
++	 * issues if the FW is mapped in normal RAM memory, as some of the
++	 * involved HW units might've already lost power.
++	 * The driver must therefore avoid this situation and the recommended
++	 * way to do so is to use stolen memory for the GSC memory allocation,
++	 * because stolen memory takes a different path in HW and it is
++	 * guaranteed to always work as long as the GPU itself is awake (which
++	 * it must be if the GSC is awake).
++	 */
++	obj = i915_gem_object_create_stolen(gt->i915, size);
++	if (IS_ERR(obj))
++		return PTR_ERR(obj);
++
++	vma = i915_gem_object_ggtt_pin(obj, NULL, 0, 0, 0);
++	if (IS_ERR(vma)) {
++		ret = PTR_ERR(vma);
++		goto err;
++	}
++
++	vaddr = i915_vma_pin_iomap(vma);
++	i915_vma_unpin(vma);
++	if (IS_ERR(vaddr)) {
++		ret = PTR_ERR(vaddr);
++		goto err;
++	}
++
++	i915_vma_make_unshrinkable(vma);
++
++	gsc->local = vma;
++	gsc->local_vaddr = vaddr;
++
++	return 0;
++
++err:
++	i915_gem_object_put(obj);
++	return ret;
++}
++
++static void gsc_unmap_and_free_vma(struct intel_gsc_uc *gsc)
++{
++	struct i915_vma *vma = fetch_and_zero(&gsc->local);
++
++	if (!vma)
++		return;
++
++	gsc->local_vaddr = NULL;
++	i915_vma_unpin_iomap(vma);
++	i915_gem_object_put(vma->obj);
++}
++
+ int intel_gsc_uc_init(struct intel_gsc_uc *gsc)
+ {
+ 	static struct lock_class_key gsc_lock;
+ 	struct intel_gt *gt = gsc_uc_to_gt(gsc);
+ 	struct intel_engine_cs *engine = gt->engine[GSC0];
+ 	struct intel_context *ce;
+-	struct i915_vma *vma;
+ 	int err;
+ 
+ 	err = intel_uc_fw_init(&gsc->fw);
+ 	if (err)
+ 		goto out;
+ 
+-	vma = intel_guc_allocate_vma(&gt->uc.guc, SZ_8M);
+-	if (IS_ERR(vma)) {
+-		err = PTR_ERR(vma);
++	err = gsc_allocate_and_map_vma(gsc, SZ_4M);
++	if (err)
+ 		goto out_fw;
+-	}
+-
+-	gsc->local = vma;
+ 
+ 	ce = intel_engine_create_pinned_context(engine, engine->gt->vm, SZ_4K,
+ 						I915_GEM_HWS_GSC_ADDR,
+@@ -173,7 +232,7 @@ int intel_gsc_uc_init(struct intel_gsc_uc *gsc)
+ 	return 0;
+ 
+ out_vma:
+-	i915_vma_unpin_and_release(&gsc->local, 0);
++	gsc_unmap_and_free_vma(gsc);
+ out_fw:
+ 	intel_uc_fw_fini(&gsc->fw);
+ out:
+@@ -197,7 +256,7 @@ void intel_gsc_uc_fini(struct intel_gsc_uc *gsc)
+ 	if (gsc->ce)
+ 		intel_engine_destroy_pinned_context(fetch_and_zero(&gsc->ce));
+ 
+-	i915_vma_unpin_and_release(&gsc->local, 0);
++	gsc_unmap_and_free_vma(gsc);
+ 
+ 	intel_uc_fw_fini(&gsc->fw);
+ }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h
+index a2a0813b8a76..c01286dddbdb 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_uc.h
+@@ -18,6 +18,7 @@ struct intel_gsc_uc {
+ 
+ 	/* GSC-specific additions */
+ 	struct i915_vma *local; /* private memory for GSC usage */
++	void __iomem *local_vaddr; /* pointer to access the private memory */
+ 	struct intel_context *ce; /* for submission to GSC FW via GSC engine */
+ 
+ 	/* for delayed load and proxy handling */
 -- 
-Jingfeng
+2.40.0
 
