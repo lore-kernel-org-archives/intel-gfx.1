@@ -4,42 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0EB1C7EE37
-	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jun 2023 19:49:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65A2AC77B7A
+	for <intel-gfx@archiver.kernel.org>; Tue,  6 Jun 2023 20:11:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F8FF10E3A1;
-	Tue,  6 Jun 2023 19:49:27 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1080D10E19E;
- Tue,  6 Jun 2023 19:49:26 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id EBDBF63749;
- Tue,  6 Jun 2023 19:49:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22544C433D2;
- Tue,  6 Jun 2023 19:49:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1686080963;
- bh=pbIbz4/tc0Rq6Sy3ly+bzAO4xmFxE3ciFF0GfdmXFBI=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=E4U6lVYqlhekeW3u/0dM8shOTdRaShUhgAE4YQMPUQTzSh3LHrvZwaPYvl2dhjAET
- WPV8DqyvjoKuBIdDnyDIpmDQsniskymtjKrWlOkzg5qXGIAQmqLw7N4WEx5g65xC9V
- hClqEzeTSafaEiu2/E95qwmKUqSeLLQxydJmHgApphwCzWJnDfQ1TV7MnAvvUVlH4J
- sITvP9IMTddL1S/66qiiVLnOf58x4/Sta6Xf2qKsbjFW/LqQRqXqNeMI2yB83s/Ooj
- SYujT0vnhtU1m7idliZPEQQZqcLDK7iZ7OM7xoQoZW/TzUXEESrkF3jvvgyj0f1mlz
- 2J8SpOPxGoCyA==
-Date: Tue, 6 Jun 2023 14:49:21 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Sui Jingfeng <15330273260@189.cn>
-Message-ID: <20230606194921.GA1139774@bhelgaas>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A728B10E3A7;
+	Tue,  6 Jun 2023 20:11:38 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6B7910E3A8;
+ Tue,  6 Jun 2023 20:11:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1686082296; x=1717618296;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=iST53EeWESSyZs6/Yu9CUdgSpaOfr7pDrXOwm1E1krg=;
+ b=TBhzwv7L80CGIJ5FBbzqbKvFoRKWEIHT8WZiVwCciTq2jeY0/zrFbkMR
+ /fSyFZetJvpLDaQurlzy6VPJ2s/W5qoYDq76cam56sFCy9b3XrjaW5yh5
+ m61Sx0v0Smv3VsvNQyvXuA69vukq7O9d97kRB7MjZUGCuP+HCQTPuE2zk
+ 7iFpG4mxo192H0XnuXP6a0jSzesizKx+/1A5K6ubOBGMIiuPGpMQljU1J
+ Cfebm4R3mvo+p0zhcg1wlu/UMDRRmKWkVduoNNUnA/m5VkN0YW0LyJ1MH
+ jTbCV5SrMmhhfozzZJl3piqAX060GZ/V5Cq6wey9JT+cc3sKew+YwUen9 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10733"; a="354284082"
+X-IronPort-AV: E=Sophos;i="6.00,221,1681196400"; d="scan'208";a="354284082"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jun 2023 13:11:35 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10733"; a="883485018"
+X-IronPort-AV: E=Sophos;i="6.00,221,1681196400"; d="scan'208";a="883485018"
+Received: from yuguen-mobl2.ger.corp.intel.com (HELO intel.com)
+ ([10.252.57.68])
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jun 2023 13:11:31 -0700
+Date: Tue, 6 Jun 2023 22:11:24 +0200
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Nirmoy Das <nirmoy.das@intel.com>
+Message-ID: <ZH+S7KLiQns+yH9d@ashyti-mobl2.lan>
+References: <20230605201021.13928-1-nirmoy.das@intel.com>
+ <ZH5FJAkm98WSonA/@ashyti-mobl2.lan>
+ <9095b403-5330-84ac-be97-75f0ae88bead@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230604205831.3357596-1-15330273260@189.cn>
-Subject: Re: [Intel-gfx] [PATCH v2 1/2] vgaarb: various coding style and
- comments fix
+In-Reply-To: <9095b403-5330-84ac-be97-75f0ae88bead@intel.com>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Fix a VMA UAF for multi-gt
+ platform
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,88 +61,27 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
- Karol Herbst <kherbst@redhat.com>, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, YiPeng Chai <YiPeng.Chai@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Sui Jingfeng <suijingfeng@loongson.cn>, David Airlie <airlied@gmail.com>,
- Yi Liu <yi.l.liu@intel.com>, kvm@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgg@ziepe.ca>,
- Ben Skeggs <bskeggs@redhat.com>, linux-pci@vger.kernel.org,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Kevin Tian <kevin.tian@intel.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Bokun Zhang <Bokun.Zhang@amd.com>,
- intel-gfx@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- loongson-kernel@lists.loongnix.cn, Abhishek Sahu <abhsahu@nvidia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Yishai Hadas <yishaih@nvidia.com>, Li Yi <liyi@loongson.cn>,
- Pan Xinhui <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Cornelia Huck <cohuck@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Thomas =?iso-8859-15?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Chris Wilson <chris.p.wilson@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Match the subject line style:
+Hi Nirmoy,
 
-  $ git log --oneline drivers/pci/vgaarb.c
-  f321c35feaee PCI/VGA: Replace full MIT license text with SPDX identifier
-  d5109fe4d1ec PCI/VGA: Use unsigned format string to print lock counts
-  4e6c91847a7f PCI/VGA: Log bridge control messages when adding devices
-  dc593fd48abb PCI/VGA: Remove empty vga_arb_device_card_gone()
-  ...
-
-Subject line should be a summary of the commit log, not just "various
-style fixes".  This one needs to say something about
-vga_str_to_iostate().
-
-On Mon, Jun 05, 2023 at 04:58:30AM +0800, Sui Jingfeng wrote:
-> From: Sui Jingfeng <suijingfeng@loongson.cn>
+> >   MTL is a
+> > weird multi-gt platform and, indeed, you can't shut down GT0
+> > without affecting GT1.
+> > 
+> > For now it's OK, though, as to test it.
 > 
-> To keep consistent with vga_iostate_to_str() function, the third argument
-> of vga_str_to_iostate() function should be 'unsigned int *'.
-> 
-> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
-> ---
->  drivers/pci/vgaarb.c   | 29 +++++++++++++++--------------
->  include/linux/vgaarb.h |  8 +++-----
->  2 files changed, 18 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
-> index 5a696078b382..e40e6e5e5f03 100644
-> --- a/drivers/pci/vgaarb.c
-> +++ b/drivers/pci/vgaarb.c
-> @@ -61,7 +61,6 @@ static bool vga_arbiter_used;
->  static DEFINE_SPINLOCK(vga_lock);
->  static DECLARE_WAIT_QUEUE_HEAD(vga_wait_queue);
->  
-> -
->  static const char *vga_iostate_to_str(unsigned int iostate)
->  {
->  	/* Ignore VGA_RSRC_IO and VGA_RSRC_MEM */
-> @@ -77,10 +76,12 @@ static const char *vga_iostate_to_str(unsigned int iostate)
->  	return "none";
->  }
->  
-> -static int vga_str_to_iostate(char *buf, int str_size, int *io_state)
-> +static int vga_str_to_iostate(char *buf, int str_size, unsigned int *io_state)
->  {
-> -	/* we could in theory hand out locks on IO and mem
-> -	 * separately to userspace but it can cause deadlocks */
-> +	/*
-> +	 * we could in theory hand out locks on IO and mem
-> +	 * separately to userspace but it can cause deadlocks
-> +	 */
+> Looking forward to that. I did test it extensively and ChromeOS team as
+> well.
 
-Omit all the comment formatting changes.  They are distractions from the
-vga_str_to_iostate() parameter change.
+great job, Nirmoy! I haven't been able to reproduce the issue.
+This is a great news!
 
-I think this patch should be the single line change to the
-vga_str_to_iostate() prototype so it matches the callers.
+Tested-by: Andi Shyti <andi.shyti@linux.intel.com>
 
-If you want to do the other comment formatting changes, they're fine,
-but they should be all together in a separate patch that clearly
-doesn't change the generated code.
-
-Bjorn
+Andi
