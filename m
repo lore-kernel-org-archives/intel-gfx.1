@@ -4,54 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F5CBC7EE29
-	for <intel-gfx@archiver.kernel.org>; Wed,  7 Jun 2023 06:20:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31F4BC7EE23
+	for <intel-gfx@archiver.kernel.org>; Wed,  7 Jun 2023 06:40:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1702110E3E7;
-	Wed,  7 Jun 2023 06:20:46 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5732310E045;
- Wed,  7 Jun 2023 06:20:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1686118843; x=1717654843;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Kd4uRcsZjvstQMt33Vg/cN3si8iQuCD7nl+C8ekCxR4=;
- b=Ms+zmvd+tFnY4oLhCtDqemKuXqJxUU2OmZSZrcH49frXd7y4hud7uHQv
- cO4OncCihKzG1o5wccR28z30ALLCDD1QNcWpIHWDgZpzlgCSG80lY6Xfc
- /UrE8kP5gxByKyXXU2PRAaFyR3/J37Po/LLyIL/1bvj/tx46abDeuVT3o
- d2tZ/I29B9cXvM0kpI/ZGcQOfm0Bgvo5+At188yLAiu/Arf/s0t9SV5aK
- jYFvWNs7I7N2FnLUJEh9497snsFctxs3RaGsVMg7rStC70QcxQSCmrQ6w
- yWr0Q3F0FSQJEKsdB2tL356/0peLuMNQcFQIvhmiwIX6UcZUda4nhttZE g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10733"; a="359366651"
-X-IronPort-AV: E=Sophos;i="6.00,223,1681196400"; d="scan'208";a="359366651"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jun 2023 23:20:42 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10733"; a="1039471107"
-X-IronPort-AV: E=Sophos;i="6.00,223,1681196400"; d="scan'208";a="1039471107"
-Received: from lwisniew-mobl.ger.corp.intel.com (HELO [10.213.20.254])
- ([10.213.20.254])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jun 2023 23:20:39 -0700
-Message-ID: <f125ef17-631f-17db-7b8f-b6e6f0a75429@intel.com>
-Date: Wed, 7 Jun 2023 08:20:37 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78BBD10E436;
+	Wed,  7 Jun 2023 06:39:59 +0000 (UTC)
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [IPv6:2a00:1450:4864:20::32c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B13210E436
+ for <intel-gfx@lists.freedesktop.org>; Wed,  7 Jun 2023 06:39:56 +0000 (UTC)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-3f732d37d7cso41536935e9.2
+ for <intel-gfx@lists.freedesktop.org>; Tue, 06 Jun 2023 23:39:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1686119995; x=1688711995;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=HI9GdCgHoTGlfQU0exK8pWHJCdZzP4jYRRoNTOZ37xQ=;
+ b=RosDcx37udii0ZeWmNfNQw33MgXpSbLBh1BulbpvPbCAgWogAhWiVGM/3pjgd6n2Kf
+ oq1AvzeV7XoA8zoZhdJYYBnWieCKtU310GP36DINnoWyZhixEOuEeYio/lyTWQXB1L/k
+ YRz3Y5t59PW2qfQxQTcaEw1S6oMpYW63/0oa31NkCHZt2NUQHZeHF14XMCrV3iKJswp2
+ /zhrJIFQJA88yVPumlmCBwfrGbDCj4hYqbIxGXHSEDNrjbNFDJet15i6hlowqhqLx4m/
+ pRe/HSCUoIZhvmuOvdcIkb8QbN5A3S8FBU3B6KYwkOCJcLUkvAl/NCePZxAbvCuzAifb
+ qsKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686119995; x=1688711995;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=HI9GdCgHoTGlfQU0exK8pWHJCdZzP4jYRRoNTOZ37xQ=;
+ b=OQvOQH3X6A2Xoy4ix4jq7+W3UKeBu8x3z9MbuK94H4KOalO2mPV0r8D9wI+p25qRk2
+ AQLMHDzaD1+E4LEfsr/NnI/5AabfoRidzj0ta1kH2DQUx5OyvuFkELqSR4X+To1fDqXo
+ ZOkC0u9Mv7QROzJiKMqk+R7NEaCSh0djpeZRwt+UYgIubSNygshPrnxw2+QWqpq9vOzK
+ BSpGu050HI7z6KvMjaCKJWB7HFVjFHQFtccourFjKkuJmJRJiYkz1u1vnftDUwPxMWBM
+ yA4OILqU7nlBdNHFiUVOOg4e3t3TLlj8yxi57Mxlm6nloYuaomC73Y/GIP6uZRm4b8nh
+ BdpQ==
+X-Gm-Message-State: AC+VfDzhQvuQE55Y9cdTuq6gwEfRUwTsxwPExVJxrRQ+0JW+OxfOG4l8
+ fNMf2VrAjr/RjWXPrBFhdj3L6A==
+X-Google-Smtp-Source: ACHHUZ4/qEfuig8+pBDtHKvj+17QGcfaaoDYGfYpjItmrZ/JwJ0QdLy8j1q7Gdv88FeJuzPMts3g1Q==
+X-Received: by 2002:a5d:6702:0:b0:2ef:b4a9:202f with SMTP id
+ o2-20020a5d6702000000b002efb4a9202fmr5174080wru.69.1686119995427; 
+ Tue, 06 Jun 2023 23:39:55 -0700 (PDT)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ z10-20020a056000110a00b003063a92bbf5sm14528126wrw.70.2023.06.06.23.39.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Jun 2023 23:39:53 -0700 (PDT)
+Date: Tue, 6 Jun 2023 21:32:16 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: "Teres Alexis, Alan Previn" <alan.previn.teres.alexis@intel.com>
+Message-ID: <a0088658-d7d0-4047-9b5e-ea8e1987afc0@kadam.mountain>
+References: <ZH7sr+Vs4zOQoouU@moroto>
+ <15829bd2d58a7439d416e2e36c5c4a17281b9fc2.camel@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.11.2
-Content-Language: en-US
-To: Nirmoy Das <nirmoy.das@intel.com>, intel-gfx@lists.freedesktop.org
-References: <20230606202755.8719-1-nirmoy.das@intel.com>
-From: Andrzej Hajda <andrzej.hajda@intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
- Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <20230606202755.8719-1-nirmoy.das@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH v2] drm/i915: Fix a VMA UAF for multi-gt
- platform
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <15829bd2d58a7439d416e2e36c5c4a17281b9fc2.camel@intel.com>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gsc: Fix error code in
+ intel_gsc_uc_heci_cmd_submit_nonpriv()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,106 +73,22 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>,
- Chris Wilson <chris.p.wilson@intel.com>, dri-devel@lists.freedesktop.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Sushma Venkatesh Reddy <sushma.venkatesh.reddy@intel.com>
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>, "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ "airlied@gmail.com" <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Jun 06, 2023 at 06:07:19PM +0000, Teres Alexis, Alan Previn wrote:
+> That was my bad, i could have sword i'd fixed that before the final rev. Thanks for fixing this.
+> nit: below function applies to MTL only which at the moment is still force-probed, so not sure if the fixes tag is significant.
+> 
 
+The Fixes tag is correct.  It's definitely a bug fix.
 
-On 06.06.2023 22:27, Nirmoy Das wrote:
-> Ensure correct handling of closed VMAs on multi-gt platforms to prevent
-> Use-After-Free. Currently, when GT0 goes idle, closed VMAs that are
-> exclusively added to GT0's closed_vma link (gt->closed_vma) and
-> subsequently freed by i915_vma_parked(), which assumes the entire GPU is
-> idle. However, on platforms with multiple GTs, such as MTL, GT1 may
-> remain active while GT0 is idle. This causes GT0 to mistakenly consider
-> the closed VMAs in its closed_vma list as unnecessary, potentially
-> leading to Use-After-Free issues if a job for GT1 attempts to access a
-> freed VMA.
->
-> Although we do take a wakeref for GT0 but it happens later, after
-> evaluating VMAs. To mitigate this, it is necessary to hold a GT0 wakeref
-> early.
->
-> v2: Use gt id to detect multi-tile(Andi)
->      Fix the incorrect error path.
->
-> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Chris Wilson <chris.p.wilson@intel.com>
-> Cc: Andi Shyti <andi.shyti@linux.intel.com>
-> Cc: Andrzej Hajda <andrzej.hajda@intel.com>
-> Cc: Sushma Venkatesh Reddy <sushma.venkatesh.reddy@intel.com>
-> Tested-by: Andi Shyti <andi.shyti@linux.intel.com>
-> Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
-> ---
->   drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 12 ++++++++++++
->   1 file changed, 12 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> index 3aeede6aee4d..c2a67435acfa 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> @@ -2683,6 +2683,7 @@ static int
->   eb_select_engine(struct i915_execbuffer *eb)
->   {
->   	struct intel_context *ce, *child;
-> +	struct intel_gt *gt;
->   	unsigned int idx;
->   	int err;
->   
-> @@ -2706,10 +2707,16 @@ eb_select_engine(struct i915_execbuffer *eb)
->   		}
->   	}
->   	eb->num_batches = ce->parallel.number_children + 1;
-> +	gt = ce->engine->gt;
->   
->   	for_each_child(ce, child)
->   		intel_context_get(child);
->   	intel_gt_pm_get(ce->engine->gt);
+(I invented the Fixes tag so technically that makes me the worlds #1
+expert on Fixes tags).
 
-intel_gt_pm_get(gt)
-
-
-> +	/* Keep GT0 active on MTL so that i915_vma_parked() doesn't
-> +	 * free VMAs while execbuf ioctl is validating VMAs.
-> +	 */
-> +	if (gt->info.id)
-> +		intel_gt_pm_get(to_gt(gt->i915));
->   
->   	if (!test_bit(CONTEXT_ALLOC_BIT, &ce->flags)) {
->   		err = intel_context_alloc_state(ce);
-> @@ -2748,6 +2755,9 @@ eb_select_engine(struct i915_execbuffer *eb)
->   	return err;
->   
->   err:
-> +	if (gt->info.id)
-> +		intel_gt_pm_put(to_gt(gt->i915));
-> +
->   	intel_gt_pm_put(ce->engine->gt);
-
-intel_gt_pm_put(gt)
-
-
-Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
-
-Regards
-Andrzej
-
->   	for_each_child(ce, child)
->   		intel_context_put(child);
-> @@ -2761,6 +2771,8 @@ eb_put_engine(struct i915_execbuffer *eb)
->   	struct intel_context *child;
->   
->   	i915_vm_put(eb->context->vm);
-> +	if (eb->gt->info.id)
-> +		intel_gt_pm_put(to_gt(eb->gt->i915));
->   	intel_gt_pm_put(eb->gt);
->   	for_each_child(eb->context, child)
->   		intel_context_put(child);
-
+regards,
+dan carpenter
