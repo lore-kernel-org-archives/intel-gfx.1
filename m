@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBD7BC7EE43
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Jun 2023 20:32:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03B33C7EE25
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Jun 2023 20:32:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48F3410E619;
-	Thu,  8 Jun 2023 20:32:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9208A10E622;
+	Thu,  8 Jun 2023 20:32:12 +0000 (UTC)
 Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC4AF10E613
- for <intel-gfx@lists.freedesktop.org>; Thu,  8 Jun 2023 20:32:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9E5710E619
+ for <intel-gfx@lists.freedesktop.org>; Thu,  8 Jun 2023 20:32:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1686256325; x=1717792325;
+ t=1686256327; x=1717792327;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=bRR0vygLvzVybp+aRSWfBo30z0R8+0Tglc/y43O3LbU=;
- b=ij+6JM0hB4xMBgYbitGa91g3yejxvF/LZTGYN9O0FUGrEjivoZyM47LR
- 4d+13H/C9rzNLP+nwqZzmng3/MQjfLHfvfwvKirJf63gA407oACon4B5w
- ee2riGV/KAxhffLbT23P80TLIvraLCXAMQdsis9/8AGiQOhhx18THDtil
- /hp0W4oNOeMfCb73B1kKgSHsxxehvOu+WDnTgdnW/oFkWPOJQaakp1hKo
- bnGrhllWmXQbXg4mPUepEmi6JvSpfff8FFk8eRfaUcFauGqbEpZMDbHM7
- IPVDmhg9MDrdydadK+qfVhbIDXtfjH9Ynz6BXAG14g9axnFh5k0/HX7ko w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="421012751"
-X-IronPort-AV: E=Sophos;i="6.00,227,1681196400"; d="scan'208";a="421012751"
+ bh=giMfbUyXxFq0jGYW9TYHEFOvh34DgNZsJNwku/VFtQ4=;
+ b=Wxzotr65k8IlK+ghYT/a9wkau5GVbp/udciUZjO8GxSbnI52nhOkhAmV
+ 4pwN6oFyrc+UxxfCzvtZexdTV/szyyyGErvjT3TVaKDr+H+2P8ccuaGNz
+ xqkPRDoC7QLkYFX4NV7gw/addXvZ6ENAWwZ/uC/QXci6yltwewCKUL4zM
+ 8HOk7dmXPxupDOE7et9XYzLTKmRuet4gi2KnPVMJHwROnXSCk+WZOcV16
+ oYgJUTrFE8IyDLzIVMQoPffAQAYGIQZ1kLaLCI+zg0KD9bE4lRyAqeZa8
+ NaZW/TdDOR8JV1YCbLZu1Ne1KZTkNySgzdCdQy6gqo0k96fKk9PGZKthn A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="421012775"
+X-IronPort-AV: E=Sophos;i="6.00,227,1681196400"; d="scan'208";a="421012775"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2023 13:31:35 -0700
+ 08 Jun 2023 13:31:41 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="710100874"
-X-IronPort-AV: E=Sophos;i="6.00,227,1681196400"; d="scan'208";a="710100874"
+X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="710100911"
+X-IronPort-AV: E=Sophos;i="6.00,227,1681196400"; d="scan'208";a="710100911"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.70])
- by orsmga002.jf.intel.com with SMTP; 08 Jun 2023 13:31:32 -0700
+ by orsmga002.jf.intel.com with SMTP; 08 Jun 2023 13:31:39 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 08 Jun 2023 23:31:32 +0300
+ Thu, 08 Jun 2023 23:31:38 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  8 Jun 2023 23:30:55 +0300
-Message-Id: <20230608203057.23759-12-ville.syrjala@linux.intel.com>
+Date: Thu,  8 Jun 2023 23:30:57 +0300
+Message-Id: <20230608203057.23759-14-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.39.3
 In-Reply-To: <20230608203057.23759-1-ville.syrjala@linux.intel.com>
 References: <20230608203057.23759-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 11/13] drm/i915/dsi: Move panel reset+power
- off to be the last thing
+Subject: [Intel-gfx] [PATCH v2 13/13] drm/i915/dsi: Remove weird
+ has_pch_encoder asserts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,56 +66,43 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Follow what Windows does and do the DSI panel reset+power off
-after everything else.
-
-v2: s/intel_dsi_msleep/msleep/
+No idea why the DSI code is feeling the need to assert that
+has_pch_encoder must not be set. PCH encoders aren't even a
+thing on any platform that has DSI.
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/icl_dsi.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/icl_dsi.c | 2 --
+ drivers/gpu/drm/i915/display/vlv_dsi.c | 2 --
+ 2 files changed, 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index 669637b61789..c4638c6b583e 100644
+index c040cd226a41..59a2a289d9be 100644
 --- a/drivers/gpu/drm/i915/display/icl_dsi.c
 +++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -1291,12 +1291,6 @@ static void gen11_dsi_powerdown_panel(struct intel_encoder *encoder)
+@@ -1245,8 +1245,6 @@ static void gen11_dsi_enable(struct intel_atomic_state *state,
  	struct intel_dsi *intel_dsi = enc_to_intel_dsi(encoder);
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
  
- 	intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_DISPLAY_OFF);
--	intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_ASSERT_RESET);
+-	drm_WARN_ON(state->base.dev, crtc_state->has_pch_encoder);
 -
--	msleep(intel_dsi->panel_off_delay);
--	intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_POWER_OFF);
--
--	intel_dsi->panel_power_off_time = ktime_get_boottime();
+ 	/* Wa_1409054076:icl,jsl,ehl */
+ 	icl_apply_kvmr_pipe_a_wa(encoder, crtc->pipe, true);
  
- 	/* ensure cmds dispatched to panel */
- 	wait_for_cmds_dispatched_to_panel(encoder);
-@@ -1408,6 +1402,7 @@ static void gen11_dsi_post_disable(struct intel_atomic_state *state,
- 				   const struct intel_crtc_state *old_crtc_state,
- 				   const struct drm_connector_state *old_conn_state)
+diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
+index 33ada1a736d8..a96e7d028c5c 100644
+--- a/drivers/gpu/drm/i915/display/vlv_dsi.c
++++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
+@@ -817,8 +817,6 @@ static void bxt_dsi_enable(struct intel_atomic_state *state,
+ 			   const struct intel_crtc_state *crtc_state,
+ 			   const struct drm_connector_state *conn_state)
  {
-+	struct intel_dsi *intel_dsi = enc_to_intel_dsi(encoder);
- 	struct intel_crtc *crtc = to_intel_crtc(old_conn_state->crtc);
- 
- 	intel_crtc_vblank_off(old_crtc_state);
-@@ -1434,6 +1429,13 @@ static void gen11_dsi_post_disable(struct intel_atomic_state *state,
- 
- 	/* step4: disable IO power */
- 	gen11_dsi_disable_io_power(encoder);
-+
-+	intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_ASSERT_RESET);
-+
-+	msleep(intel_dsi->panel_off_delay);
-+	intel_dsi_vbt_exec_sequence(intel_dsi, MIPI_SEQ_POWER_OFF);
-+
-+	intel_dsi->panel_power_off_time = ktime_get_boottime();
+-	drm_WARN_ON(state->base.dev, crtc_state->has_pch_encoder);
+-
+ 	intel_crtc_vblank_on(crtc_state);
  }
  
- static enum drm_mode_status gen11_dsi_mode_valid(struct drm_connector *connector,
 -- 
 2.39.3
 
