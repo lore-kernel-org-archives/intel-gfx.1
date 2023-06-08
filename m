@@ -4,49 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C522C7EE25
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Jun 2023 14:52:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD9B6C7EE23
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Jun 2023 15:12:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ECB210E5DB;
-	Thu,  8 Jun 2023 14:51:53 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90F5C10E241;
- Thu,  8 Jun 2023 14:51:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49DC310E5CC;
+	Thu,  8 Jun 2023 15:12:05 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB39110E5CC
+ for <intel-gfx@lists.freedesktop.org>; Thu,  8 Jun 2023 15:12:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1686235906; x=1717771906;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=vEqW0IhJSpIseqUd395Z2yQwNDGZgrpkwT/H00I1x4w=;
- b=PCdlsLujPVaTXv4JFWO+SgYwznpL1yHMRUDSImjZZhBA6tgvlcAQ0Z9q
- ap364VzKsxLWNHojCAU7E6Dj/hJAcHfnFXjsApCJp2+tXqVbamaogYlY0
- Q9r3Z0nNMPkz9FMzf44S/w/oRJilnfaNpz80U4XoFoMtIx494adZ9zrGp
- T1ytUjv1b67KNc/RVdcmpD4pFWv0LF7BiWZk4tx86FDJp4fk0+AwykwW3
- ql9+mUa/bKGpfXAqzBWet4pQRFzr9HivK9Sdtp0su34YVV+znWsLWCjvz
- tRMGzuNVlVg9E9MXyV3nOCUiXPkrtywfCAA1KYTiRpOqG2XEmERJHB9xl g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="336957598"
-X-IronPort-AV: E=Sophos;i="6.00,227,1681196400"; d="scan'208";a="336957598"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2023 07:51:44 -0700
+ t=1686237122; x=1717773122;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=6P3JJffNXb8XWfnJqtIC5oaV4omzJM/WS2tn3EFtwUs=;
+ b=GALAtgVPCJEws0i2+rL/xJu4rH2PcBJfXuXyoYw0kPSIDdj/72FSDE0O
+ A708l5/gZHVBd2RSuFyjzB/9xsz0iMQQXoXdZJ3e98pWI3qEUkNt8O9vj
+ KXY7WVZ1DH99BvzjBvPwaQPeoz6qudPF0aajkGtkcOQgS9rBWZZ13pjja
+ v6Io0N+VnM4nQKPxAx4SCkMOphwBNQu2d11dnAGw2KjWiN/HlaEwZ3gYk
+ LbxFMblOWrXVmCqdUKIHQIVuZEIPPrtgkx6BwVTPM4gRX+2ZGuEP99WZP
+ B3ZU8rrcozOROyYWmPLBGC0WSsPMvKZCjKc7modLeO382RY4BDodCJYpl g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="423201554"
+X-IronPort-AV: E=Sophos;i="6.00,227,1681196400"; d="scan'208";a="423201554"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2023 08:09:11 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="704134521"
-X-IronPort-AV: E=Sophos;i="6.00,227,1681196400"; d="scan'208";a="704134521"
-Received: from rirwin-mobl3.ger.corp.intel.com (HELO localhost.localdomain)
- ([10.213.239.227])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2023 07:51:42 -0700
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: Intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Thu,  8 Jun 2023 15:51:30 +0100
-Message-Id: <20230608145133.1059554-3-tvrtko.ursulin@linux.intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="956751456"
+X-IronPort-AV: E=Sophos;i="6.00,227,1681196400"; d="scan'208";a="956751456"
+Received: from unknown (HELO localhost) ([10.237.66.162])
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2023 08:09:10 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  8 Jun 2023 18:09:01 +0300
+Message-Id: <cover.1686236840.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230608145133.1059554-1-tvrtko.ursulin@linux.intel.com>
-References: <20230608145133.1059554-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/5] drm/i915: Record which clients own a VM
+Subject: [Intel-gfx] [PATCH 0/4] drm/i915: further device info cleanups
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,104 +56,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: jani.nikula@intel.com, Lucas De Marchi <lucas.demarchi@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Building on Matt's display info separation, we can finally trivially
+make device info a const pointer to rodata.
 
-To enable accounting of indirect client memory usage (such as page tables)
-in the following patch, lets start recording the creator of each PPGTT.
+BR,
+Jani.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_context.c       | 11 ++++++++---
- drivers/gpu/drm/i915/gem/i915_gem_context_types.h |  3 +++
- drivers/gpu/drm/i915/gt/intel_gtt.h               |  1 +
- 3 files changed, 12 insertions(+), 3 deletions(-)
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 9a9ff84c90d7..35cf6608180e 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -279,7 +279,8 @@ static int proto_context_set_protected(struct drm_i915_private *i915,
- }
- 
- static struct i915_gem_proto_context *
--proto_context_create(struct drm_i915_private *i915, unsigned int flags)
-+proto_context_create(struct drm_i915_file_private *fpriv,
-+		     struct drm_i915_private *i915, unsigned int flags)
- {
- 	struct i915_gem_proto_context *pc, *err;
- 
-@@ -287,6 +288,7 @@ proto_context_create(struct drm_i915_private *i915, unsigned int flags)
- 	if (!pc)
- 		return ERR_PTR(-ENOMEM);
- 
-+	pc->fpriv = fpriv;
- 	pc->num_user_engines = -1;
- 	pc->user_engines = NULL;
- 	pc->user_flags = BIT(UCONTEXT_BANNABLE) |
-@@ -1621,6 +1623,7 @@ i915_gem_create_context(struct drm_i915_private *i915,
- 			err = PTR_ERR(ppgtt);
- 			goto err_ctx;
- 		}
-+		ppgtt->vm.fpriv = pc->fpriv;
- 		vm = &ppgtt->vm;
- 	}
- 	if (vm)
-@@ -1740,7 +1743,7 @@ int i915_gem_context_open(struct drm_i915_private *i915,
- 	/* 0 reserved for invalid/unassigned ppgtt */
- 	xa_init_flags(&file_priv->vm_xa, XA_FLAGS_ALLOC1);
- 
--	pc = proto_context_create(i915, 0);
-+	pc = proto_context_create(file_priv, i915, 0);
- 	if (IS_ERR(pc)) {
- 		err = PTR_ERR(pc);
- 		goto err;
-@@ -1822,6 +1825,7 @@ int i915_gem_vm_create_ioctl(struct drm_device *dev, void *data,
- 
- 	GEM_BUG_ON(id == 0); /* reserved for invalid/unassigned ppgtt */
- 	args->vm_id = id;
-+	ppgtt->vm.fpriv = file_priv;
- 	return 0;
- 
- err_put:
-@@ -2284,7 +2288,8 @@ int i915_gem_context_create_ioctl(struct drm_device *dev, void *data,
- 		return -EIO;
- 	}
- 
--	ext_data.pc = proto_context_create(i915, args->flags);
-+	ext_data.pc = proto_context_create(file->driver_priv, i915,
-+					   args->flags);
- 	if (IS_ERR(ext_data.pc))
- 		return PTR_ERR(ext_data.pc);
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-index cb78214a7dcd..c573c067779f 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-@@ -188,6 +188,9 @@ struct i915_gem_proto_engine {
-  * CONTEXT_CREATE_SET_PARAM during GEM_CONTEXT_CREATE.
-  */
- struct i915_gem_proto_context {
-+	/** @fpriv: Client which creates the context */
-+	struct drm_i915_file_private *fpriv;
-+
- 	/** @vm: See &i915_gem_context.vm */
- 	struct i915_address_space *vm;
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index 4d6296cdbcfd..7192a534a654 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -248,6 +248,7 @@ struct i915_address_space {
- 	struct drm_mm mm;
- 	struct intel_gt *gt;
- 	struct drm_i915_private *i915;
-+	struct drm_i915_file_private *fpriv;
- 	struct device *dma;
- 	u64 total;		/* size addr space maps (ex. 2GB for ggtt) */
- 	u64 reserved;		/* size addr space reserved */
+
+Jani Nikula (4):
+  drm/i915: separate display info printing from the rest
+  drm/i915: fix display info usage
+  drm/i915: move display device and runtime info to struct intel_display
+  drm/i915: make device info a const pointer to rodata
+
+ drivers/gpu/drm/i915/display/intel_display.h  |  2 +-
+ .../gpu/drm/i915/display/intel_display_core.h |  9 ++++
+ .../drm/i915/display/intel_display_device.c   | 21 ++++++++++
+ .../drm/i915/display/intel_display_device.h   |  5 +++
+ drivers/gpu/drm/i915/i915_debugfs.c           |  1 +
+ drivers/gpu/drm/i915/i915_driver.c            |  2 +
+ drivers/gpu/drm/i915/i915_drv.h               |  9 ++--
+ drivers/gpu/drm/i915/i915_gpu_error.c         |  6 +++
+ drivers/gpu/drm/i915/i915_gpu_error.h         |  3 ++
+ drivers/gpu/drm/i915/intel_device_info.c      | 42 +++----------------
+ drivers/gpu/drm/i915/intel_device_info.h      |  4 --
+ 11 files changed, 58 insertions(+), 46 deletions(-)
+
 -- 
 2.39.2
 
