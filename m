@@ -4,44 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21C0EEB64D7
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:28:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96F8CEB64D7
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:28:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 540DA10E373;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C57D10E378;
 	Tue, 20 Jun 2023 18:28:23 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4CC4110E491;
- Wed, 31 May 2023 08:20:31 +0000 (UTC)
-Received: from [192.168.88.20] (91-154-35-171.elisa-laajakaista.fi
- [91.154.35.171])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id AB62D7FC;
- Wed, 31 May 2023 10:20:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1685521207;
- bh=EL3RWdaIqfPKhp0EXpVPxPCT9ntFr8tTKWXlYphupWI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=MvSXDrHk7T4BnPJqHjbFiTX+4V0oyXpM4JlCJJT+bzOMxSOycyjTIr/UAfnt1xezv
- qzMGM+1MWvguHV2odb3hKaYoA6dxUihmMViSPeeHPMA04EyWI4cWEcnv/H7riWMXBY
- LXCYZwLPo9seo/aN3CtoiK5GheRzH+ZTTqCtxMHI=
-Message-ID: <c4146861-3e8c-7410-4fec-27e7bce7e2de@ideasonboard.com>
-Date: Wed, 31 May 2023 11:20:24 +0300
+Received: from mblankhorst.nl (lankhorst.se
+ [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 550B110E5AF;
+ Thu,  8 Jun 2023 10:27:58 +0000 (UTC)
+Message-ID: <b761cb4c-5cb6-9228-ab99-c2fe4a6353a8@lankhorst.se>
+Date: Thu, 8 Jun 2023 12:27:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
+ Firefox/102.0 Thunderbird/102.11.2
+To: Daniel Vetter <daniel.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>
 Content-Language: en-US
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- javierm@redhat.com, sam@ravnborg.org, suijingfeng@loongson.cn
-References: <20230530150253.22758-1-tzimmermann@suse.de>
- <20230530150253.22758-9-tzimmermann@suse.de>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-In-Reply-To: <20230530150253.22758-9-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Maarten Lankhorst <maarten@lankhorst.se>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 20 Jun 2023 18:28:21 +0000
-Subject: Re: [Intel-gfx] [PATCH v5 08/13] drm/omapdrm: Use regular fbdev I/O
- helpers
+X-Mailman-Approved-At: Tue, 20 Jun 2023 18:28:20 +0000
+Subject: [Intel-gfx] [PULL] drm-misc-fixes, try 2.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,83 +37,80 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-samsung-soc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org
+Cc: dim-tools@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 30/05/2023 18:02, Thomas Zimmermann wrote:
-> Use the regular fbdev helpers for framebuffer I/O instead of DRM's
-> helpers. Omapdrm does not use damage handling, so DRM's fbdev helpers
-> are mere wrappers around the fbdev code.
-> 
-> By using fbdev helpers directly within each DRM fbdev emulation,
-> we can eventually remove DRM's wrapper functions entirely.
-> 
-> v4:
-> 	* use initializer macros for struct fb_ops
-> v2:
-> 	* use FB_SYS_HELPERS option
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Acked-by: Sam Ravnborg <sam@ravnborg.org>
-> Cc: Tomi Valkeinen <tomba@kernel.org>
-> ---
->   drivers/gpu/drm/omapdrm/Kconfig      |  1 +
->   drivers/gpu/drm/omapdrm/omap_fbdev.c | 11 +++--------
->   2 files changed, 4 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/omapdrm/Kconfig b/drivers/gpu/drm/omapdrm/Kconfig
-> index 76ded1568bd0..b4ac76c9f31b 100644
-> --- a/drivers/gpu/drm/omapdrm/Kconfig
-> +++ b/drivers/gpu/drm/omapdrm/Kconfig
-> @@ -4,6 +4,7 @@ config DRM_OMAP
->   	depends on DRM && OF
->   	depends on ARCH_OMAP2PLUS
->   	select DRM_KMS_HELPER
-> +	select FB_SYS_HELPERS if DRM_FBDEV_EMULATION
->   	select VIDEOMODE_HELPERS
->   	select HDMI
->   	default n
-> diff --git a/drivers/gpu/drm/omapdrm/omap_fbdev.c b/drivers/gpu/drm/omapdrm/omap_fbdev.c
-> index b950e93b3846..b7ccce0704a3 100644
-> --- a/drivers/gpu/drm/omapdrm/omap_fbdev.c
-> +++ b/drivers/gpu/drm/omapdrm/omap_fbdev.c
-> @@ -4,6 +4,8 @@
->    * Author: Rob Clark <rob@ti.com>
->    */
->   
-> +#include <linux/fb.h>
-> +
->   #include <drm/drm_drv.h>
->   #include <drm/drm_crtc_helper.h>
->   #include <drm/drm_fb_helper.h>
-> @@ -95,20 +97,13 @@ static void omap_fbdev_fb_destroy(struct fb_info *info)
->   
->   static const struct fb_ops omap_fb_ops = {
->   	.owner = THIS_MODULE,
-> -
-> +	FB_DEFAULT_SYS_OPS,
->   	.fb_check_var	= drm_fb_helper_check_var,
->   	.fb_set_par	= drm_fb_helper_set_par,
->   	.fb_setcmap	= drm_fb_helper_setcmap,
->   	.fb_blank	= drm_fb_helper_blank,
->   	.fb_pan_display = omap_fbdev_pan_display,
->   	.fb_ioctl	= drm_fb_helper_ioctl,
-> -
-> -	.fb_read = drm_fb_helper_sys_read,
-> -	.fb_write = drm_fb_helper_sys_write,
-> -	.fb_fillrect = drm_fb_helper_sys_fillrect,
-> -	.fb_copyarea = drm_fb_helper_sys_copyarea,
-> -	.fb_imageblit = drm_fb_helper_sys_imageblit,
-> -
->   	.fb_destroy = omap_fbdev_fb_destroy,
->   };
->   
+Hi Dave, Daniel,
 
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Same pull request, just verifying tooling works as intended now. :-)
 
-  Tomi
+drm-misc-fixes for v6.4-rc6.
 
+Seems to be mostly small fixes, just a few more for ivpu.
+
+~Maarten
+
+drm-misc-fixes-2023-06-08:
+drm-misc-fixes for v6.4-rc6:
+- resume and modeset fixes for ast.
+- Fill in fb-helper vars more correctly.
+- Assorted ivpu fixes.
+- lima context destroy fix.
+The following changes since commit e997c218ad736fd6f524d73a987bad9d94128d3d:
+
+  accel/qaic: Fix NNC message corruption (2023-05-23 09:51:38 -0600)
+
+are available in the Git repository at:
+
+  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-fixes-2023-06-08
+
+for you to fetch changes up to a3efabee5878b8d7b1863debb78cb7129d07a346:
+
+  accel/ivpu: Fix sporadic VPU boot failure (2023-06-08 08:17:27 +0200)
+
+----------------------------------------------------------------
+drm-misc-fixes for v6.4-rc6:
+- resume and modeset fixes for ast.
+- Fill in fb-helper vars more correctly.
+- Assorted ivpu fixes.
+- lima context destroy fix.
+
+----------------------------------------------------------------
+Andrzej Kacprowski (2):
+      accel/ivpu: Do not trigger extra VPU reset if the VPU is idle
+      accel/ivpu: Fix sporadic VPU boot failure
+
+Erico Nunes (1):
+      drm/lima: fix sched context destroy
+
+Geert Uytterhoeven (1):
+      drm/fb-helper: Fix height, width, and accel_flags in fb_var
+
+Jammy Huang (2):
+      drm/ast: Fix long time waiting on s3/s4 resume
+      drm/ast: Fix modeset failed on DisplayPort
+
+Randy Dunlap (1):
+      accel/ivpu: ivpu_ipc needs GENERIC_ALLOCATOR
+
+Stanislaw Gruszka (2):
+      accel/ivpu: Reserve all non-command bo's using DMA_RESV_USAGE_BOOKKEEP
+      accel/ivpu: Do not use mutex_lock_interruptible
+
+ drivers/accel/ivpu/Kconfig           |  1 +
+ drivers/accel/ivpu/ivpu_hw_mtl.c     | 22 +++++++++++----
+ drivers/accel/ivpu/ivpu_hw_mtl_reg.h |  1 +
+ drivers/accel/ivpu/ivpu_ipc.c        |  4 +--
+ drivers/accel/ivpu/ivpu_job.c        | 21 +++++++++-----
+ drivers/accel/ivpu/ivpu_mmu.c        | 22 ++++-----------
+ drivers/gpu/drm/ast/ast_dp.c         | 55 +++++++++++-------------------------
+ drivers/gpu/drm/ast/ast_drv.h        |  5 +---
+ drivers/gpu/drm/ast/ast_main.c       | 11 ++++++--
+ drivers/gpu/drm/ast/ast_mode.c       | 15 ++++++++--
+ drivers/gpu/drm/ast/ast_post.c       |  3 +-
+ drivers/gpu/drm/drm_fb_helper.c      | 12 ++++----
+ drivers/gpu/drm/lima/lima_sched.c    |  2 +-
+ 13 files changed, 90 insertions(+), 84 deletions(-)
