@@ -4,47 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84F90C7EE37
-	for <intel-gfx@archiver.kernel.org>; Thu,  8 Jun 2023 14:52:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A2FDC7EE23
+	for <intel-gfx@archiver.kernel.org>; Thu,  8 Jun 2023 14:52:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A6BD10E5D4;
-	Thu,  8 Jun 2023 14:51:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD67310E5D7;
+	Thu,  8 Jun 2023 14:51:51 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C4CD10E049;
- Thu,  8 Jun 2023 14:51:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F24AF10E049;
+ Thu,  8 Jun 2023 14:51:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1686235906; x=1717771906;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=UPdbaFZIy/Xa/3lqGqI7ii7CmXU60kWVSDkMDZcIp9w=;
- b=gpH9nbotRP0gDuQUHaQJ10P8AJy/jFf7y8AitQNcusFTI/2NSEn+k+By
- opmYoEuZCuae2V34ZKqPYWVm5gTXvXMOpEVeB26hKk7HAcv81sHDtafJx
- 1lZFa98cyfEblQuyZfXfBNLF8xFxG0c/2sZ1DC2k/jzfUihYOcrhZzeIX
- cAyDfE4r1FeoC+j0EnRqhnm/0+JW1MYbDNbooZgQpzghcR0aYYP/CdxIO
- 5sU/A65EMrPwkWNq10gX/rAFyhQzgpRFsAHrf5umohz1li9Ct9LHPwioC
- l4CO4/oF29E/d9/GIvo5DBPgQwblNDJ9JT7xD0B6k2kqhH7aaY2cN+C4C g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="336957589"
-X-IronPort-AV: E=Sophos;i="6.00,227,1681196400"; d="scan'208";a="336957589"
+ t=1686235907; x=1717771907;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=HcgGUpI0tVSxvBcGkkaGuHAl6ROkYc89poNElXA2Jdk=;
+ b=HH7/cEBqhEcMY/uQXnrWe1YQbJ66aU6Z91GZ07Dt9hod+fvXqxglJJoF
+ jqKd6mktaDKxmkgm9SPjsrfRNJXzxdEklIDowf/X2UGUrUWe8QCjax2aR
+ cYjzx0w6HwvfK8QKYre2aBaxyZge2h35gMHMrW8apLZccJZky+8hIZZ0G
+ 0sf4bBXwv8cgycWpBOH7GkHKNYmXEdTtJkwn5ayAPAeINUGAm4Fi1MK4t
+ 7LIiCPne7iMsXl+ZisIwpOC2t6L0MX25GSgVdxbM3u5eYp0D84fMQ4XIF
+ gWKu42/dMACDEZ45esA9aXJFZnVIRIhTGhIaXQP1qaXt3G1KnfrgntXF+ Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="336957604"
+X-IronPort-AV: E=Sophos;i="6.00,227,1681196400"; d="scan'208";a="336957604"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2023 07:51:41 -0700
+ 08 Jun 2023 07:51:47 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="704134501"
-X-IronPort-AV: E=Sophos;i="6.00,227,1681196400"; d="scan'208";a="704134501"
+X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="704134536"
+X-IronPort-AV: E=Sophos;i="6.00,227,1681196400"; d="scan'208";a="704134536"
 Received: from rirwin-mobl3.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.239.227])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2023 07:51:39 -0700
+ 08 Jun 2023 07:51:46 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu,  8 Jun 2023 15:51:28 +0100
-Message-Id: <20230608145133.1059554-1-tvrtko.ursulin@linux.intel.com>
+Date: Thu,  8 Jun 2023 15:51:32 +0100
+Message-Id: <20230608145133.1059554-5-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230608145133.1059554-1-tvrtko.ursulin@linux.intel.com>
+References: <20230608145133.1059554-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/5] fdinfo memory stats
+Subject: [Intel-gfx] [PATCH 4/5] drm/i915: Account ring buffer and context
+ state storage
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,56 +65,93 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Second try, this time actually per client! :)
+Account ring buffers and logical context space against the owning client
+memory usage stats.
 
-I added tracking of most classes of objects which contribute to clients memory
-footprint and accouting along the similar lines as in Rob's msm code. Then
-printing it out to fdinfo using the drm helper Rob added.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c |  6 ++++++
+ drivers/gpu/drm/i915/i915_drm_client.c      | 10 ++++++++++
+ drivers/gpu/drm/i915/i915_drm_client.h      |  9 +++++++++
+ 3 files changed, 25 insertions(+)
 
-Example fdinfo with the series applied:
-
-# cat /proc/1383/fdinfo/8
-pos:    0
-flags:  02100002
-mnt_id: 21
-ino:    397
-drm-driver:     i915
-drm-client-id:  18
-drm-pdev:       0000:00:02.0
-drm-total-system:       125 MiB
-drm-shared-system:      16 MiB
-drm-active-system:      110 MiB
-drm-resident-system:    125 MiB
-drm-purgeable-system:   2 MiB
-drm-total-stolen-system:        0
-drm-shared-stolen-system:       0
-drm-active-stolen-system:       0
-drm-resident-stolen-system:     0
-drm-purgeable-stolen-system:    0
-drm-engine-render:      25662044495 ns
-drm-engine-copy:        0 ns
-drm-engine-video:       0 ns
-drm-engine-video-enhance:       0 ns
-
-Tvrtko Ursulin (5):
-  drm/i915: Track buffer objects belonging to clients
-  drm/i915: Record which clients own a VM
-  drm/i915: Track page table backing store usage
-  drm/i915: Account ring buffer and context state storage
-  drm/i915: Implement fdinfo memory stats printing
-
- drivers/gpu/drm/i915/gem/i915_gem_context.c   |  17 ++-
- .../gpu/drm/i915/gem/i915_gem_context_types.h |   3 +
- drivers/gpu/drm/i915/gem/i915_gem_create.c    |  32 ++++-
- drivers/gpu/drm/i915/gem/i915_gem_object.c    |   6 +
- .../gpu/drm/i915/gem/i915_gem_object_types.h  |  12 ++
- drivers/gpu/drm/i915/gt/intel_gtt.c           |   6 +
- drivers/gpu/drm/i915/gt/intel_gtt.h           |   1 +
- drivers/gpu/drm/i915/i915_drm_client.c        | 110 +++++++++++++++++-
- drivers/gpu/drm/i915/i915_drm_client.h        |  46 +++++++-
- drivers/gpu/drm/i915/i915_gem.c               |   2 +-
- 10 files changed, 226 insertions(+), 9 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 35cf6608180e..3f4c74aed3c5 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -1703,6 +1703,8 @@ static void gem_context_register(struct i915_gem_context *ctx,
+ 				 u32 id)
+ {
+ 	struct drm_i915_private *i915 = ctx->i915;
++	struct i915_gem_engines_iter it;
++	struct intel_context *ce;
+ 	void *old;
+ 
+ 	ctx->file_priv = fpriv;
+@@ -1721,6 +1723,10 @@ static void gem_context_register(struct i915_gem_context *ctx,
+ 	list_add_tail(&ctx->link, &i915->gem.contexts.list);
+ 	spin_unlock(&i915->gem.contexts.lock);
+ 
++	for_each_gem_engine(ce, i915_gem_context_lock_engines(ctx), it)
++		i915_drm_client_add_context(fpriv->client, ce);
++	i915_gem_context_unlock_engines(ctx);
++
+ 	/* And finally expose ourselves to userspace via the idr */
+ 	old = xa_store(&fpriv->context_xa, id, ctx, GFP_KERNEL);
+ 	WARN_ON(old);
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
+index 4cacca568375..777930f4995f 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.c
++++ b/drivers/gpu/drm/i915/i915_drm_client.c
+@@ -142,4 +142,14 @@ void i915_drm_client_remove_object(struct drm_i915_gem_object *obj)
+ 
+ 	i915_drm_client_put(client);
+ }
++
++void i915_drm_client_add_context(struct i915_drm_client *client,
++				 struct intel_context *ce)
++{
++	if (ce->state)
++		i915_drm_client_add_object(client, ce->state->obj);
++
++	if (ce->ring != ce->engine->legacy.ring && ce->ring->vma)
++		i915_drm_client_add_object(client, ce->ring->vma->obj);
++}
+ #endif
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
+index 0db68b4d7a4f..a5c29a105af3 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.h
++++ b/drivers/gpu/drm/i915/i915_drm_client.h
+@@ -15,6 +15,7 @@
+ 
+ #include "i915_file_private.h"
+ #include "gem/i915_gem_object_types.h"
++#include "gt/intel_context_types.h"
+ 
+ #define I915_LAST_UABI_ENGINE_CLASS I915_ENGINE_CLASS_COMPUTE
+ 
+@@ -73,6 +74,8 @@ void i915_drm_client_fdinfo(struct drm_printer *p, struct drm_file *file);
+ void i915_drm_client_add_object(struct i915_drm_client *client,
+ 				struct drm_i915_gem_object *obj);
+ void i915_drm_client_remove_object(struct drm_i915_gem_object *obj);
++void i915_drm_client_add_context(struct i915_drm_client *client,
++				 struct intel_context *ce);
+ #else
+ static inline void i915_drm_client_add_object(struct i915_drm_client *client,
+ 					      struct drm_i915_gem_object *obj)
+@@ -83,6 +86,12 @@ static inline void i915_drm_client_add_object(struct i915_drm_client *client,
+ static inline void i915_drm_client_remove_object(struct drm_i915_gem_object *obj)
+ {
+ 
++}
++
++static inline void i915_drm_client_add_context(struct i915_drm_client *client,
++					       struct intel_context *ce)
++{
++
+ }
+ #endif
+ 
 -- 
 2.39.2
 
