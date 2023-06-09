@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0056C7EE25
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Jun 2023 12:12:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52391C83003
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Jun 2023 12:12:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B01F010E6B8;
-	Fri,  9 Jun 2023 12:12:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1FC10E6B5;
+	Fri,  9 Jun 2023 12:12:07 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 335DC10E6AD;
- Fri,  9 Jun 2023 12:12:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF20510E6B3;
+ Fri,  9 Jun 2023 12:12:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1686312721; x=1717848721;
+ t=1686312724; x=1717848724;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=cUBLkvTpbUMIeIekgGGrKHjYcQ/G0tZeuASBPvxWLeI=;
- b=mKNLG4GMDa+Ca4ISiF2w3gUsQpYGDmbRMgsYVMAWhwZMpis6wftQi8ux
- 9XwytISSTZ68Hg9Cs1JUH+1/Ul4OpPKw7PdZniHfsmI1Km1m+MLaLL21O
- HziMjvaFVnll8ckgFbJrQBaK+yE1Q/m2fJ98sUORsfXX9MlERy3SzfImj
- 3eWLv7++6ZTnjQllHt68gKSQb8aHkNwKQ+LjdGw1QNBqaal4jKazcR9wD
- G72VDUJWLG3jRgNoOVwvdBUgSQMHgeuqaw8tTTQkYMuhFEPvh5tYBW+uY
- eOlANIevNmHO1y+HPF5UChyXTqFpf/9kU620I4gNJUMi24mAhBSsqOKOj g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="356474760"
-X-IronPort-AV: E=Sophos;i="6.00,229,1681196400"; d="scan'208";a="356474760"
+ bh=XxM48JLbh6fd5vGsrYZF3dxVKUvVebS2DRtwsnvqZto=;
+ b=EsdtCeucn/fqXipT1/p3X+quNs1KL58g0kwwrlx/sgCEcDXLB6r1TOBS
+ JLoXa1+c1YMeY1VXTTj5yt2ztzid5H2yDuBm67tZ4Y3y/0QeUL9928q1F
+ UDkVnMqSjVQNOrFv8JwpO6dhinU177Au0zsIvWT2BHvyCSDLLyNG1uioc
+ DPv0mu5i9FljnyGZEFCQ2ya6k1tM/Kh+RKFihtZqIh+2j5yKrXWMxpwu4
+ PfcgMRGOx6AgT3DA3DWRATucnf5T8q8zbXEY5ZOI+8UbQ3DYfXspenq6C
+ qV62jg7j9ITznmeHhFYeFU8nq4VUToBipQj58FDQJFyxzWv2YYjsY/pDn A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="356474770"
+X-IronPort-AV: E=Sophos;i="6.00,229,1681196400"; d="scan'208";a="356474770"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2023 05:12:00 -0700
+ 09 Jun 2023 05:12:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="740150892"
-X-IronPort-AV: E=Sophos;i="6.00,229,1681196400"; d="scan'208";a="740150892"
+X-IronPort-AV: E=McAfee;i="6600,9927,10735"; a="740150928"
+X-IronPort-AV: E=Sophos;i="6.00,229,1681196400"; d="scan'208";a="740150928"
 Received: from pjdillon-mobl1.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.210.241])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2023 05:11:59 -0700
+ 09 Jun 2023 05:12:02 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Fri,  9 Jun 2023 13:11:41 +0100
-Message-Id: <20230609121143.1232420-7-tvrtko.ursulin@linux.intel.com>
+Date: Fri,  9 Jun 2023 13:11:43 +0100
+Message-Id: <20230609121143.1232420-9-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230609121143.1232420-1-tvrtko.ursulin@linux.intel.com>
 References: <20230609121143.1232420-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/8] drm: Add drm_gem_prime_fd_to_handle_obj
+Subject: [Intel-gfx] [PATCH 8/8] drm/i915: Implement fdinfo memory stats
+ printing
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,126 +65,106 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-I need a new flavour of the drm_gem_prime_fd_to_handle helper, one which
-will return a reference to a newly created GEM objects (if created), in
-order to enable tracking of imported i915 GEM objects in the following
-patch.
+Use the newly added drm_print_memory_stats helper to show memory
+utilisation of our objects in drm/driver specific fdinfo output.
 
-Minor code reshuffule and only trivial additions on top of
-drm_gem_prime_fd_to_handle.
+To collect the stats we walk the per memory regions object lists
+and accumulate object size into the respective drm_memory_stats
+categories.
+
+Objects with multiple possible placements are reported in multiple
+regions for total and shared sizes, while other categories are
+counted only for the currently active region.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
+Cc: Rob Clark <robdclark@gmail.com>
 ---
- drivers/gpu/drm/drm_prime.c | 41 ++++++++++++++++++++++++++++++++-----
- include/drm/drm_prime.h     |  4 ++++
- 2 files changed, 40 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/i915_drm_client.c | 64 ++++++++++++++++++++++++++
+ 1 file changed, 64 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-index d29dafce9bb0..ef75f67e3057 100644
---- a/drivers/gpu/drm/drm_prime.c
-+++ b/drivers/gpu/drm/drm_prime.c
-@@ -284,11 +284,12 @@ void drm_gem_dmabuf_release(struct dma_buf *dma_buf)
- EXPORT_SYMBOL(drm_gem_dmabuf_release);
- 
- /**
-- * drm_gem_prime_fd_to_handle - PRIME import function for GEM drivers
-+ * drm_gem_prime_fd_to_handle_obj - PRIME import function for GEM drivers
-  * @dev: drm_device to import into
-  * @file_priv: drm file-private structure
-  * @prime_fd: fd id of the dma-buf which should be imported
-  * @handle: pointer to storage for the handle of the imported buffer object
-+ * @objp: optional pointer in which reference to created GEM object can be returned
-  *
-  * This is the PRIME import function which must be used mandatorily by GEM
-  * drivers to ensure correct lifetime management of the underlying GEM object.
-@@ -297,9 +298,10 @@ EXPORT_SYMBOL(drm_gem_dmabuf_release);
-  *
-  * Returns 0 on success or a negative error code on failure.
-  */
--int drm_gem_prime_fd_to_handle(struct drm_device *dev,
--			       struct drm_file *file_priv, int prime_fd,
--			       uint32_t *handle)
-+int drm_gem_prime_fd_to_handle_obj(struct drm_device *dev,
-+				   struct drm_file *file_priv, int prime_fd,
-+				   uint32_t *handle,
-+				   struct drm_gem_object **objp)
- {
- 	struct dma_buf *dma_buf;
- 	struct drm_gem_object *obj;
-@@ -336,7 +338,8 @@ int drm_gem_prime_fd_to_handle(struct drm_device *dev,
- 
- 	/* _handle_create_tail unconditionally unlocks dev->object_name_lock. */
- 	ret = drm_gem_handle_create_tail(file_priv, obj, handle);
--	drm_gem_object_put(obj);
-+	if (!objp)
-+		drm_gem_object_put(obj);
- 	if (ret)
- 		goto out_put;
- 
-@@ -348,6 +351,9 @@ int drm_gem_prime_fd_to_handle(struct drm_device *dev,
- 
- 	dma_buf_put(dma_buf);
- 
-+	if (objp)
-+		*objp = obj;
-+
- 	return 0;
- 
- fail:
-@@ -356,6 +362,8 @@ int drm_gem_prime_fd_to_handle(struct drm_device *dev,
- 	 */
- 	drm_gem_handle_delete(file_priv, *handle);
- 	dma_buf_put(dma_buf);
-+	if (objp)
-+		drm_gem_object_put(obj);
- 	return ret;
- 
- out_unlock:
-@@ -365,6 +373,29 @@ int drm_gem_prime_fd_to_handle(struct drm_device *dev,
- 	dma_buf_put(dma_buf);
- 	return ret;
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
+index 31316edbf30b..596de36ee09c 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.c
++++ b/drivers/gpu/drm/i915/i915_drm_client.c
+@@ -48,6 +48,68 @@ void __i915_drm_client_free(struct kref *kref)
  }
-+EXPORT_SYMBOL(drm_gem_prime_fd_to_handle_obj);
-+
-+/**
-+ * drm_gem_prime_fd_to_handle - PRIME import function for GEM drivers
-+ * @dev: drm_device to import into
-+ * @file_priv: drm file-private structure
-+ * @prime_fd: fd id of the dma-buf which should be imported
-+ * @handle: pointer to storage for the handle of the imported buffer object
-+ *
-+ * This is the PRIME import function which must be used mandatorily by GEM
-+ * drivers to ensure correct lifetime management of the underlying GEM object.
-+ * The actual importing of GEM object from the dma-buf is done through the
-+ * &drm_driver.gem_prime_import driver callback.
-+ *
-+ * Returns 0 on success or a negative error code on failure.
-+ */
-+int drm_gem_prime_fd_to_handle(struct drm_device *dev,
-+			       struct drm_file *file_priv, int prime_fd,
-+			       uint32_t *handle)
+ 
+ #ifdef CONFIG_PROC_FS
++static void
++obj_meminfo(struct drm_i915_gem_object *obj,
++	    struct drm_memory_stats stats[INTEL_REGION_UNKNOWN])
 +{
-+	return drm_gem_prime_fd_to_handle_obj(dev, file_priv, prime_fd, handle,
-+					      NULL);
++	struct intel_memory_region *mr;
++	u64 sz = obj->base.size;
++	enum intel_region_id id;
++	unsigned int i;
++
++	/* Attribute size and shared to all possible memory regions. */
++	for (i = 0; i < obj->mm.n_placements; i++) {
++		mr = obj->mm.placements[i];
++		id = mr->id;
++
++		if (obj->base.handle_count > 1)
++			stats[id].shared += sz;
++		else
++			stats[id].private += sz;
++	}
++
++	/* Attribute other categories to only the current region. */
++	mr = obj->mm.region;
++	if (mr)
++		id = mr->id;
++	else
++		id = INTEL_REGION_SMEM;
++
++	if (i915_gem_object_has_pages(obj)) {
++		stats[id].resident += sz;
++
++		if (!dma_resv_test_signaled(obj->base.resv,
++					    dma_resv_usage_rw(true)))
++			stats[id].active += sz;
++		else if (i915_gem_object_is_shrinkable(obj) &&
++			 obj->mm.madv == I915_MADV_DONTNEED)
++			stats[id].purgeable += sz;
++	}
 +}
- EXPORT_SYMBOL(drm_gem_prime_fd_to_handle);
++
++static void show_meminfo(struct drm_printer *p, struct drm_file *file)
++{
++	struct drm_memory_stats stats[INTEL_REGION_UNKNOWN] = {};
++	struct drm_i915_file_private *fpriv = file->driver_priv;
++	struct i915_drm_client *client = fpriv->client;
++	struct drm_i915_private *i915 = fpriv->i915;
++	struct drm_i915_gem_object *obj;
++	struct intel_memory_region *mr;
++	unsigned int id;
++
++	spin_lock_irq(&client->objects_lock);
++	list_for_each_entry(obj, &client->objects_list, client_link)
++		obj_meminfo(obj, stats);
++	spin_unlock_irq(&client->objects_lock);
++
++	for_each_memory_region(mr, i915, id)
++		drm_print_memory_stats(p,
++				       &stats[id],
++				       DRM_GEM_OBJECT_RESIDENT |
++				       DRM_GEM_OBJECT_PURGEABLE,
++				       mr->name);
++}
++
+ static const char * const uabi_class_names[] = {
+ 	[I915_ENGINE_CLASS_RENDER] = "render",
+ 	[I915_ENGINE_CLASS_COPY] = "copy",
+@@ -109,6 +171,8 @@ void i915_drm_client_fdinfo(struct drm_printer *p, struct drm_file *file)
+ 	 * ******************************************************************
+ 	 */
  
- int drm_prime_fd_to_handle_ioctl(struct drm_device *dev, void *data,
-diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
-index 2a1d01e5b56b..10d145ce6586 100644
---- a/include/drm/drm_prime.h
-+++ b/include/drm/drm_prime.h
-@@ -69,6 +69,10 @@ void drm_gem_dmabuf_release(struct dma_buf *dma_buf);
++	show_meminfo(p, file);
++
+ 	if (GRAPHICS_VER(i915) < 8)
+ 		return;
  
- int drm_gem_prime_fd_to_handle(struct drm_device *dev,
- 			       struct drm_file *file_priv, int prime_fd, uint32_t *handle);
-+int drm_gem_prime_fd_to_handle_obj(struct drm_device *dev,
-+				   struct drm_file *file_priv, int prime_fd,
-+				   uint32_t *handle,
-+				   struct drm_gem_object **obj);
- int drm_gem_prime_handle_to_fd(struct drm_device *dev,
- 			       struct drm_file *file_priv, uint32_t handle, uint32_t flags,
- 			       int *prime_fd);
 -- 
 2.39.2
 
