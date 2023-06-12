@@ -4,56 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23E51C7EE43
-	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 08:26:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54AD3C7EE2E
+	for <intel-gfx@archiver.kernel.org>; Mon, 12 Jun 2023 10:47:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73A9210E1BD;
-	Mon, 12 Jun 2023 08:26:11 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7ADFD10E1BB;
- Mon, 12 Jun 2023 08:26:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA92010E1F8;
+	Mon, 12 Jun 2023 10:47:11 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E21610E1F7;
+ Mon, 12 Jun 2023 10:47:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1686558369; x=1718094369;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=+ogtnKRJGWjGfBa+VpYTRfrIADIeHv6/eKXf/S8bk9w=;
- b=E00VCtILdpVES5a6Dxp6ETsFqSvk5fXnDyTyOxoRmBJK4bZb5HsyL2Pv
- aPTq0euLOa8jRbf36cyyv3pHF29wi5bD5MXvRBLHt1dpGuN6FrBvW8eTT
- WyN6riMQ1xMh7Xk+AQYOfograGgMcwf6t8Vv5+NPRqaq1jLfZoQdjgYIl
- mYaJL5V373wllwep+k8iwl9MGvEzt3wwJdwyWbh9v4jjpmMMvgeEZmtSN
- cwYZ1wCM9IBAVWsAqzc9z4Zv1tj6seazRqZmsMSMJLfWrThyl9d5ReQuq
- uZ/b0gm1l8U6LwLnEj4VpjPYpIm2he1qRx8Z9k2bzlFzlQ7fsxDBzS0f9 Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10738"; a="347628151"
-X-IronPort-AV: E=Sophos;i="6.00,236,1681196400"; d="scan'208";a="347628151"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2023 01:26:06 -0700
+ t=1686566829; x=1718102829;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=2ELLOifTz+MEi4/R/5Xvp2vBiIpuLupHahGrlLCgCbY=;
+ b=dK19mgn41jY+9ClC5nbvHlLshiqEJZYqVy58Rjum3tFJ+lkf1NVrVKLa
+ rx3hDTdBWZwhsH/UtPZqKFFphGFFxaaZSOnO87+1RC2jSwY5cPXDks+VT
+ 00kO2Kd7gHaUhTsTFRhslYIyz+lbBNxbceemO0XR0FJXzOfSSnyWGeF1j
+ +eCamhIy1MFGApD4t0xlru96BNsXx6pLv5en1JL0PkJ7njR1ANbyOMsrf
+ a6o6TkYIt6rLwsMFwxuVKmHQuMSqrpV1t2RGYNAX4DZCevy2vrrq36aEt
+ RRoojM1fzePpovk+3lmz50p6wf/AmBr6vjWUrEmMs8OPqKJwRBipU4Ghy w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10738"; a="342693234"
+X-IronPort-AV: E=Sophos;i="6.00,236,1681196400"; d="scan'208";a="342693234"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2023 03:47:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10738"; a="744248327"
-X-IronPort-AV: E=Sophos;i="6.00,236,1681196400"; d="scan'208";a="744248327"
-Received: from mcantwex-mobl.ger.corp.intel.com (HELO [10.213.224.167])
+X-IronPort-AV: E=McAfee;i="6600,9927,10738"; a="835439470"
+X-IronPort-AV: E=Sophos;i="6.00,236,1681196400"; d="scan'208";a="835439470"
+Received: from mcantwex-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.224.167])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2023 01:26:04 -0700
-Message-ID: <55cddc4c-9a95-2c92-84d9-b2ea60c358c2@linux.intel.com>
-Date: Mon, 12 Jun 2023 09:26:01 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Rob Clark <robdclark@gmail.com>
-References: <20230609121143.1232420-1-tvrtko.ursulin@linux.intel.com>
- <20230609121143.1232420-7-tvrtko.ursulin@linux.intel.com>
- <2faa3900-6456-136c-0a1a-8629ed6d3784@intel.com>
- <bfa71c75-4b61-ce17-8eba-0aa48ec14097@linux.intel.com>
- <CAF6AEGtcezsfSV3kqdbPUHGN8Pr1Jwo78fvtDQ4aGVZ+b8Ni_w@mail.gmail.com>
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jun 2023 03:47:07 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <CAF6AEGtcezsfSV3kqdbPUHGN8Pr1Jwo78fvtDQ4aGVZ+b8Ni_w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Mon, 12 Jun 2023 11:46:54 +0100
+Message-Id: <20230612104658.1386996-2-tvrtko.ursulin@linux.intel.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230612104658.1386996-1-tvrtko.ursulin@linux.intel.com>
+References: <20230612104658.1386996-1-tvrtko.ursulin@linux.intel.com>
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH 6/8] drm: Add drm_gem_prime_fd_to_handle_obj
+Subject: [Intel-gfx] [PATCH 1/5] drm/i915: Add ability for tracking buffer
+ objects per client
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,82 +60,207 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-On 09/06/2023 18:09, Rob Clark wrote:
-> On Fri, Jun 9, 2023 at 7:12 AM Tvrtko Ursulin
-> <tvrtko.ursulin@linux.intel.com> wrote:
->>
->>
->> On 09/06/2023 13:44, Iddamsetty, Aravind wrote:
->>> On 09-06-2023 17:41, Tvrtko Ursulin wrote:
->>>> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
->>>>
->>>> I need a new flavour of the drm_gem_prime_fd_to_handle helper, one which
->>>> will return a reference to a newly created GEM objects (if created), in
->>>> order to enable tracking of imported i915 GEM objects in the following
->>>> patch.
->>>
->>> instead of this what if we implement the open call back in i915
->>>
->>> struct drm_gem_object_funcs {
->>>
->>>           /**
->>>            * @open:
->>>            *
->>>            * Called upon GEM handle creation.
->>>            *
->>>            * This callback is optional.
->>>            */
->>>           int (*open)(struct drm_gem_object *obj, struct drm_file *file);
->>>
->>> which gets called whenever a handle(drm_gem_handle_create_tail) is
->>> created and in the open we can check if to_intel_bo(obj)->base.dma_buf
->>> then it is imported if not it is owned or created by it.
->>
->> I wanted to track as much memory usage as we have which is buffer object
->> backed, including page tables and contexts. And since those are not user
->> visible (they don't have handles), they wouldn't be covered by the
->> obj->funcs->open() callback.
->>
->> If we wanted to limit to objects with handles we could simply do what
->> Rob proposed and that is to walk the handles idr. But that does not feel
->> like the right direction to me. Open for discussion I guess.
-> 
-> I guess you just have a few special case objects per context?
+In order to show per client memory usage lets add some infrastructure
+which enables tracking buffer objects owned by clients.
 
-Per context we have context image (register state etc) and ring buffer 
-(command emission), per engine.
+We add a per client list protected by a new per client lock and to support
+delayed destruction (post client exit) we make tracked objects hold
+references to the owning client.
 
-Then we have all the page table backing store per each VM/ppgtt/context 
-allocated as GEM objects.
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_object.c    |  5 +++
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  | 12 +++++++
+ drivers/gpu/drm/i915/i915_drm_client.c        | 36 ++++++++++++++++++-
+ drivers/gpu/drm/i915/i915_drm_client.h        | 34 +++++++++++++++++-
+ drivers/gpu/drm/i915/i915_gem.c               |  2 +-
+ 5 files changed, 86 insertions(+), 3 deletions(-)
 
-> Wouldn't it be easier to just track _those_ specially and append them
-> to the results after doing the normal idr table walk?
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index 97ac6fb37958..d6961f6818f1 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -105,6 +105,10 @@ void i915_gem_object_init(struct drm_i915_gem_object *obj,
+ 
+ 	INIT_LIST_HEAD(&obj->mm.link);
+ 
++#ifdef CONFIG_PROC_FS
++	INIT_LIST_HEAD(&obj->client_link);
++#endif
++
+ 	INIT_LIST_HEAD(&obj->lut_list);
+ 	spin_lock_init(&obj->lut_lock);
+ 
+@@ -410,6 +414,7 @@ static void __i915_gem_free_objects(struct drm_i915_private *i915,
+ 		}
+ 
+ 		__i915_gem_object_pages_fini(obj);
++		i915_drm_client_remove_object(obj);
+ 		__i915_gem_free_object(obj);
+ 
+ 		/* But keep the pointer alive for RCU-protected lookups */
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index e72c57716bee..8de2b91b3edf 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -300,6 +300,18 @@ struct drm_i915_gem_object {
+ 	 */
+ 	struct i915_address_space *shares_resv_from;
+ 
++#ifdef CONFIG_PROC_FS
++	/**
++	 * @client: @i915_drm_client which created the object
++	 */
++	struct i915_drm_client *client;
++
++	/**
++	 * @client_link: Link into @i915_drm_client.objects_list
++	 */
++	struct list_head client_link;
++#endif
++
+ 	union {
+ 		struct rcu_head rcu;
+ 		struct llist_node freed;
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
+index 2a44b3876cb5..3c8d6a46a801 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.c
++++ b/drivers/gpu/drm/i915/i915_drm_client.c
+@@ -17,7 +17,8 @@
+ #include "i915_gem.h"
+ #include "i915_utils.h"
+ 
+-struct i915_drm_client *i915_drm_client_alloc(void)
++struct i915_drm_client *
++i915_drm_client_alloc(struct drm_i915_file_private *fpriv)
+ {
+ 	struct i915_drm_client *client;
+ 
+@@ -28,6 +29,12 @@ struct i915_drm_client *i915_drm_client_alloc(void)
+ 	kref_init(&client->kref);
+ 	spin_lock_init(&client->ctx_lock);
+ 	INIT_LIST_HEAD(&client->ctx_list);
++#ifdef CONFIG_PROC_FS
++	spin_lock_init(&client->objects_lock);
++	INIT_LIST_HEAD(&client->objects_list);
++
++	client->fpriv = fpriv;
++#endif
+ 
+ 	return client;
+ }
+@@ -108,4 +115,31 @@ void i915_drm_client_fdinfo(struct drm_printer *p, struct drm_file *file)
+ 	for (i = 0; i < ARRAY_SIZE(uabi_class_names); i++)
+ 		show_client_class(p, i915, file_priv->client, i);
+ }
++
++void i915_drm_client_add_object(struct i915_drm_client *client,
++				struct drm_i915_gem_object *obj)
++{
++	GEM_WARN_ON(obj->client);
++	GEM_WARN_ON(!list_empty(&obj->client_link));
++
++	spin_lock(&client->objects_lock);
++	obj->client = i915_drm_client_get(client);
++	list_add_tail(&obj->client_link, &client->objects_list);
++	spin_unlock(&client->objects_lock);
++}
++
++void i915_drm_client_remove_object(struct drm_i915_gem_object *obj)
++{
++	struct i915_drm_client *client = fetch_and_zero(&obj->client);
++
++	/* Object may not be associated with a client. */
++	if (!client || list_empty(&obj->client_link))
++		return;
++
++	spin_lock(&client->objects_lock);
++	list_del(&obj->client_link);
++	spin_unlock(&client->objects_lock);
++
++	i915_drm_client_put(client);
++}
+ #endif
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
+index 4c18b99e10a4..5fc897ab1a6b 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.h
++++ b/drivers/gpu/drm/i915/i915_drm_client.h
+@@ -12,6 +12,9 @@
+ 
+ #include <uapi/drm/i915_drm.h>
+ 
++#include "i915_file_private.h"
++#include "gem/i915_gem_object_types.h"
++
+ #define I915_LAST_UABI_ENGINE_CLASS I915_ENGINE_CLASS_COMPUTE
+ 
+ struct drm_file;
+@@ -25,6 +28,22 @@ struct i915_drm_client {
+ 	spinlock_t ctx_lock; /* For add/remove from ctx_list. */
+ 	struct list_head ctx_list; /* List of contexts belonging to client. */
+ 
++#ifdef CONFIG_PROC_FS
++	struct drm_i915_file_private *fpriv;
++
++	/**
++	 * @objects_lock: lock protecting @objects_list
++	 */
++	spinlock_t objects_lock;
++
++	/**
++	 * @objects_list: list of objects created by this client
++	 *
++	 * Protected by @objects_lock.
++	 */
++	struct list_head objects_list;
++#endif
++
+ 	/**
+ 	 * @past_runtime: Accumulation of pphwsp runtimes from closed contexts.
+ 	 */
+@@ -45,10 +64,23 @@ static inline void i915_drm_client_put(struct i915_drm_client *client)
+ 	kref_put(&client->kref, __i915_drm_client_free);
+ }
+ 
+-struct i915_drm_client *i915_drm_client_alloc(void);
++struct i915_drm_client *i915_drm_client_alloc(struct drm_i915_file_private *fpriv);
+ 
+ #ifdef CONFIG_PROC_FS
+ void i915_drm_client_fdinfo(struct drm_printer *p, struct drm_file *file);
++
++void i915_drm_client_add_object(struct i915_drm_client *client,
++				struct drm_i915_gem_object *obj);
++void i915_drm_client_remove_object(struct drm_i915_gem_object *obj);
++#else
++static inline void i915_drm_client_add_object(struct i915_drm_client *client,
++					      struct drm_i915_gem_object *obj)
++{
++}
++
++static inline void i915_drm_client_remove_object(struct drm_i915_gem_object *obj)
++{
++}
+ #endif
+ 
+ #endif /* !__I915_DRM_CLIENT_H__ */
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index 1f65bb33dd21..7ae42f746cc2 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -1325,7 +1325,7 @@ int i915_gem_open(struct drm_i915_private *i915, struct drm_file *file)
+ 	if (!file_priv)
+ 		goto err_alloc;
+ 
+-	client = i915_drm_client_alloc();
++	client = i915_drm_client_alloc(file_priv);
+ 	if (!client)
+ 		goto err_client;
+ 
+-- 
+2.39.2
 
-In a way yes and in a way it is not as elegant. IMHO at least.
-> (Also, doing something special for dma-buf smells a bit odd..
-> considering that we also have legacy flink name based sharing as
-> well.)
-
-It's not really special, just needed to return a tuple of (object, 
-handle) from the prime import helper. So it can plug into the very same 
-tracking I use from other paths.
-
-I was going for some kind of elegance with one loop - single tracking - 
-as long as I had to add new list head to our buffer object.
-
-Anyway, I can re-spin a simplified version (fewer patches) with two 
-loops. Only downside is that the new list head will only be used for 
-internal objects.
-
-Regards,
-
-Tvrtko
-
-P.S.
-Flink I indeed missed. Is that used nowadays btw?
