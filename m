@@ -4,45 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3F81EB64DC
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:28:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0383C0015E
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:29:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55AF610E387;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 836D010E388;
 	Tue, 20 Jun 2023 18:28:55 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8439B10E655;
- Wed, 24 May 2023 10:41:04 +0000 (UTC)
-X-UUID: 319a4933efcb48debdac32218feb0ddf-20230524
-X-CID-O-RULE: Release_Ham
-X-CID-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.22, REQID:2b106396-7ad2-4e47-b070-7eac482c0e0b, IP:15,
- URL:0,TC:0,Content:0,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTI
- ON:release,TS:0
-X-CID-INFO: VERSION:1.1.22, REQID:2b106396-7ad2-4e47-b070-7eac482c0e0b, IP:15,
- UR
- L:0,TC:0,Content:0,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:0
-X-CID-META: VersionHash:120426c, CLOUDID:63ebe3c1-e32c-4c97-918d-fbb3fc224d4e,
- B
- ulkID:230524184057H6SO669B,BulkQuantity:0,Recheck:0,SF:17|19|44|24|102,TC:
- nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OS
- I:0,OSA:0,AV:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-UUID: 319a4933efcb48debdac32218feb0ddf-20230524
-X-User: pengfuyuan@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.169)] by mailgw
- (envelope-from <pengfuyuan@kylinos.cn>) (Generic MTA)
- with ESMTP id 763305722; Wed, 24 May 2023 18:40:54 +0800
-From: pengfuyuan <pengfuyuan@kylinos.cn>
-To: David Airlie <airlied@gmail.com>
-Date: Wed, 24 May 2023 18:40:52 +0800
-Message-Id: <20230524104052.1488836-1-pengfuyuan@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
+ [IPv6:2607:f8b0:4864:20::435])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D275310E12A;
+ Wed, 14 Jun 2023 12:36:06 +0000 (UTC)
+Received: by mail-pf1-x435.google.com with SMTP id
+ d2e1a72fcca58-6537d2a8c20so5259125b3a.2; 
+ Wed, 14 Jun 2023 05:36:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1686746165; x=1689338165;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=4e+Pwp+021TOiqEOI55JQb3RjMEOtcdSeHsod/nYw0o=;
+ b=V+SK9acdDTnYBrQKZHF8LeRsGMn16ZHTwKjr6/V6NkXCuBoLLzDUu2M0Nfa+OFigNK
+ V4mQFdEHDLPFNGAHcke1u4x7oi0gwn+8sSer3mbHXMTPH4KzJ9EHm7s6O7S8YuK2HChJ
+ /3Z/Ndb5PEZlD/1RlJPV63dLNOflrGTYfxFYmOhTgJ6/K7qwLvsbI1BmE0URxNHCVRXo
+ 9R2P0rV1z6rLJ6IfG7arZAz9VmdPMFRQ6xpVawkJQ1w+PTLcc2T9pMQa4lhz4V2yo/EW
+ +EQhBPpZFjsn/mbRUj0tN2+wlhbExNE2qB0PJFzysg1AAEeDMpDC6NSsKLyfXZ0iDzEN
+ VSnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686746165; x=1689338165;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=4e+Pwp+021TOiqEOI55JQb3RjMEOtcdSeHsod/nYw0o=;
+ b=RiavSbgxVowel/jI1zKggqqF62sZMlzSTe2QrQCV67M5gcMB1Pz1gk0eOzgn98Yxlb
+ uDRiQ7tyWp2b+hETN98FnrZlKfdfevW0PvBhDjww8a4sJUSsp1v8a7SeNi+G4HDAWz0O
+ rAlQWaTHPkcmVHAwJ7hq+QMbuGhRlcNbq1L82CAXfw2dH1mMGZJAM7kD0JiasEV8yocZ
+ k9Dbq7uF5eoDspeTGGkjaEqweWFX4ReKeHP1y9Bk0v/CsSwCl3DKNv66PZ8Bj+u8Gp8I
+ Y7AqKIWnK33aYcorG+FVtx3oPj6+T//XHTezo+TfA1hqGe/NGxvo4BYH5cmVIG2WYzzN
+ Jm2g==
+X-Gm-Message-State: AC+VfDz6Z5nHcx+ZFvNshqLw7gqPLfLSWQMsZssH5qbymxmO+4ReoDCw
+ BiA6ZK4FLErO+P/mVFe5I7QbbT+AE5qdwonI
+X-Google-Smtp-Source: ACHHUZ4+dJFI8HJ6v4oIutm5MrkaLnh0wkcAaLETYhTmKqSAen1q8lTzmzcujbzgFoRsU+WyzbV+Tg==
+X-Received: by 2002:a05:6a00:2352:b0:665:bd58:c948 with SMTP id
+ j18-20020a056a00235200b00665bd58c948mr2301728pfj.8.1686746164598; 
+ Wed, 14 Jun 2023 05:36:04 -0700 (PDT)
+Received: from sumitra.com ([117.245.169.18]) by smtp.gmail.com with ESMTPSA id
+ j1-20020aa78001000000b00634dde2992bsm10250199pfi.132.2023.06.14.05.35.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Jun 2023 05:36:04 -0700 (PDT)
+Date: Wed, 14 Jun 2023 05:35:56 -0700
+From: Sumitra Sharma <sumitraartsy@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Message-ID: <20230614123556.GA381200@sumitra.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Tue, 20 Jun 2023 18:28:21 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915/pxp:fix kernel-doc trivial warnings
+Subject: [Intel-gfx] [PATCH] drm/i915: Call page_address() on page acquired
+ with GFP_KERNEL flag
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,42 +76,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>,
- intel-gfx@lists.freedesktop.org,
- Alexander Usyskin <alexander.usyskin@intel.com>, linux-kernel@vger.kernel.org,
- pengfuyuan <pengfuyuan@kylinos.cn>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- k2ci <kernel-bot@kylinos.cn>, Vitaly Lubart <vitaly.lubart@intel.com>
+Cc: Deepak R Varma <drv@mailo.com>, Fabio <fmdefrancesco@gmail.com>,
+ Ira Weiny <ira.weiny@intel.com>, Sumitra Sharma <sumitraartsy@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The test robot reports some make warnings.
+Pages allocated with GFP_KERNEL cannot come from Highmem.
+That is why there is no need to call kmap() on them.
 
-Fix those warnings:
-    drivers/gpu/drm/i915/pxp/intel_pxp_types.h:96: warning: Function parameter or member 'dev_link' not described in 'intel_pxp'
+Therefore, don't call kmap() on the page coming from
+vma_res->bi.pages using for_each_sgt_page() in
+i915_vma_coredump_create().
 
-Reported-by: k2ci <kernel-bot@kylinos.cn>
-Signed-off-by: pengfuyuan <pengfuyuan@kylinos.cn>
+Use a plain page_address() to get the kernel address instead.
+
+Signed-off-by: Sumitra Sharma <sumitraartsy@gmail.com>
 ---
- drivers/gpu/drm/i915/pxp/intel_pxp_types.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_gpu_error.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-index 007de49e1ea4..41994a3294a0 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_types.h
-@@ -33,7 +33,7 @@ struct intel_pxp {
- 	 */
- 	struct i915_pxp_component *pxp_component;
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index f020c0086fbc..6f51cb4fc55c 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -1164,9 +1164,8 @@ i915_vma_coredump_create(const struct intel_gt *gt,
  
--	/* @dev_link: Enforce module relationship for power management ordering. */
-+	/** @dev_link: Enforce module relationship for power management ordering. */
- 	struct device_link *dev_link;
- 	/**
- 	 * @pxp_component_added: track if the pxp component has been added.
+ 			drm_clflush_pages(&page, 1);
+ 
+-			s = kmap(page);
++			s = page_address(page);
+ 			ret = compress_page(compress, s, dst, false);
+-			kunmap(page);
+ 
+ 			drm_clflush_pages(&page, 1);
+ 
 -- 
 2.25.1
 
-
-No virus found
-		Checked by Hillstone Network AntiVirus
