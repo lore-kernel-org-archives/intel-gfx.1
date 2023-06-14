@@ -4,48 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9467EB64D7
-	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jun 2023 00:14:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81979EB64D7
+	for <intel-gfx@archiver.kernel.org>; Wed, 14 Jun 2023 00:41:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7671B10E3FB;
-	Wed, 14 Jun 2023 00:14:45 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18E0710E3F5;
- Wed, 14 Jun 2023 00:14:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1686701681; x=1718237681;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=BQsiLSd1yDDVv6RdfdeyBb30Zc+s7uOo5fE0O0XSSO4=;
- b=N4O30U8N4VKUuym+y21oHStfNjvXTaQZ5H9GaOuby2YNoUIUOwk7zH52
- 7nLSgYu6BxSJq19LxRdmCxcIgw7IdouBZnzIhAWwJQMJXRmoq3xNMbISU
- UB3xbOG4CjAXfJ6MXvy6hmGY459s8vm/VW5OF0QEXLR+wID3ZQXAD9IhW
- lUEgcVdIrlvVdq2ivzDqismJhm9jPG46rG9ZxbBaPPo9YRqG17NiwBP1Z
- OaHv5uIxJmT8Reqm6iK80rue+Vfqe7JBfQuMUkJiNld3dSIPUMQP3lPF2
- NvhWLDUv0D1CTU4MIrlCjFLzT9I6kDXbpKzUiXx2imQzrjdTASqm+OlM8 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10740"; a="338836097"
-X-IronPort-AV: E=Sophos;i="6.00,241,1681196400"; d="scan'208";a="338836097"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jun 2023 17:14:39 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10740"; a="711842225"
-X-IronPort-AV: E=Sophos;i="6.00,241,1681196400"; d="scan'208";a="711842225"
-Received: from invictus.jf.intel.com ([10.165.21.201])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jun 2023 17:14:39 -0700
-From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
-To: intel-xe@lists.freedesktop.org
-Date: Tue, 13 Jun 2023 17:13:14 -0700
-Message-Id: <20230614001315.1552497-2-radhakrishna.sripada@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230614001315.1552497-1-radhakrishna.sripada@intel.com>
-References: <20230614001315.1552497-1-radhakrishna.sripada@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99A2410E3F8;
+	Wed, 14 Jun 2023 00:41:12 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id B639C10E00E;
+ Wed, 14 Jun 2023 00:41:11 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id AE7BAA73C7;
+ Wed, 14 Jun 2023 00:41:11 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============5772782986533020205=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 1/2] drm/xe: Move mmio read/write functions to
- xe_mmio.c
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Gustavo Sousa" <gustavo.sousa@intel.com>
+Date: Wed, 14 Jun 2023 00:41:11 -0000
+Message-ID: <168670327168.17429.3047776586941272064@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230613214658.1099759-1-gustavo.sousa@intel.com>
+In-Reply-To: <20230613214658.1099759-1-gustavo.sousa@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915=3A_Remove_prototype_for_intel=5Fcx0=5Fphy=5Fddi=5Fvswing?=
+ =?utf-8?b?X3NlcXVlbmNlKCk=?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,287 +41,259 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matt Roper <matthew.d.roper@intel.com>, intel-gfx@lists.freedesktop.org,
- Lucas De Marchi <lucas.demarchi@intel.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move the register read/write apis to xe_mmio.c to prepare for
-adding tracing infrastructure for the same. Adding tracing support
-in xe_mmio.h messes with the compilation of the display code.
+--===============5772782986533020205==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
----
- drivers/gpu/drm/xe/xe_mmio.c | 113 ++++++++++++++++++++++++++++++
- drivers/gpu/drm/xe/xe_mmio.h | 129 ++++-------------------------------
- 2 files changed, 128 insertions(+), 114 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/xe/xe_mmio.c b/drivers/gpu/drm/xe/xe_mmio.c
-index 475b14fe4356..70ad1b6a17a0 100644
---- a/drivers/gpu/drm/xe/xe_mmio.c
-+++ b/drivers/gpu/drm/xe/xe_mmio.c
-@@ -435,6 +435,119 @@ static const struct xe_reg mmio_read_whitelist[] = {
- 	RING_TIMESTAMP(RENDER_RING_BASE),
- };
- 
-+inline u8 xe_mmio_read8(struct xe_gt *gt, struct xe_reg reg)
-+{
-+	struct xe_tile *tile = gt_to_tile(gt);
-+
-+	if (reg.addr < gt->mmio.adj_limit)
-+		reg.addr += gt->mmio.adj_offset;
-+
-+	return readb(tile->mmio.regs + reg.addr);
-+}
-+
-+inline void xe_mmio_write32(struct xe_gt *gt,
-+			    struct xe_reg reg, u32 val)
-+{
-+	struct xe_tile *tile = gt_to_tile(gt);
-+
-+	if (reg.addr < gt->mmio.adj_limit)
-+		reg.addr += gt->mmio.adj_offset;
-+
-+	writel(val, tile->mmio.regs + reg.addr);
-+}
-+
-+inline u32 xe_mmio_read32(struct xe_gt *gt, struct xe_reg reg)
-+{
-+	struct xe_tile *tile = gt_to_tile(gt);
-+
-+	if (reg.addr < gt->mmio.adj_limit)
-+		reg.addr += gt->mmio.adj_offset;
-+
-+	return readl(tile->mmio.regs + reg.addr);
-+}
-+
-+inline u32 xe_mmio_rmw32(struct xe_gt *gt, struct xe_reg reg, u32 clr,
-+			 u32 set)
-+{
-+	u32 old, reg_val;
-+
-+	old = xe_mmio_read32(gt, reg);
-+	reg_val = (old & ~clr) | set;
-+	xe_mmio_write32(gt, reg, reg_val);
-+
-+	return old;
-+}
-+
-+inline void xe_mmio_write64(struct xe_gt *gt,
-+			    struct xe_reg reg, u64 val)
-+{
-+	struct xe_tile *tile = gt_to_tile(gt);
-+
-+	if (reg.addr < gt->mmio.adj_limit)
-+		reg.addr += gt->mmio.adj_offset;
-+
-+	writeq(val, tile->mmio.regs + reg.addr);
-+}
-+
-+inline u64 xe_mmio_read64(struct xe_gt *gt, struct xe_reg reg)
-+{
-+	struct xe_tile *tile = gt_to_tile(gt);
-+
-+	if (reg.addr < gt->mmio.adj_limit)
-+		reg.addr += gt->mmio.adj_offset;
-+
-+	return readq(tile->mmio.regs + reg.addr);
-+}
-+
-+inline int xe_mmio_write32_and_verify(struct xe_gt *gt,
-+				      struct xe_reg reg, u32 val,
-+				      u32 mask, u32 eval)
-+{
-+	u32 reg_val;
-+
-+	xe_mmio_write32(gt, reg, val);
-+	reg_val = xe_mmio_read32(gt, reg);
-+
-+	return (reg_val & mask) != eval ? -EINVAL : 0;
-+}
-+
-+inline int xe_mmio_wait32(struct xe_gt *gt, struct xe_reg reg, u32 val,
-+			  u32 mask, u32 timeout_us, u32 *out_val,
-+			  bool atomic)
-+{
-+	ktime_t cur = ktime_get_raw();
-+	const ktime_t end = ktime_add_us(cur, timeout_us);
-+	int ret = -ETIMEDOUT;
-+	s64 wait = 10;
-+	u32 read;
-+
-+	for (;;) {
-+		read = xe_mmio_read32(gt, reg);
-+		if ((read & mask) == val) {
-+			ret = 0;
-+			break;
-+		}
-+
-+		cur = ktime_get_raw();
-+		if (!ktime_before(cur, end))
-+			break;
-+
-+		if (ktime_after(ktime_add_us(cur, wait), end))
-+			wait = ktime_us_delta(end, cur);
-+
-+		if (atomic)
-+			udelay(wait);
-+		else
-+			usleep_range(wait, wait << 1);
-+		wait <<= 1;
-+	}
-+
-+	if (out_val)
-+		*out_val = read;
-+
-+	return ret;
-+}
-+
- int xe_mmio_ioctl(struct drm_device *dev, void *data,
- 		  struct drm_file *file)
- {
-diff --git a/drivers/gpu/drm/xe/xe_mmio.h b/drivers/gpu/drm/xe/xe_mmio.h
-index 3c547d78afba..2aa2c01e60dd 100644
---- a/drivers/gpu/drm/xe/xe_mmio.h
-+++ b/drivers/gpu/drm/xe/xe_mmio.h
-@@ -20,120 +20,21 @@ struct xe_device;
- #define GEN12_LMEM_BAR		2
- 
- int xe_mmio_init(struct xe_device *xe);
--
--static inline u8 xe_mmio_read8(struct xe_gt *gt, struct xe_reg reg)
--{
--	struct xe_tile *tile = gt_to_tile(gt);
--
--	if (reg.addr < gt->mmio.adj_limit)
--		reg.addr += gt->mmio.adj_offset;
--
--	return readb(tile->mmio.regs + reg.addr);
--}
--
--static inline void xe_mmio_write32(struct xe_gt *gt,
--				   struct xe_reg reg, u32 val)
--{
--	struct xe_tile *tile = gt_to_tile(gt);
--
--	if (reg.addr < gt->mmio.adj_limit)
--		reg.addr += gt->mmio.adj_offset;
--
--	writel(val, tile->mmio.regs + reg.addr);
--}
--
--static inline u32 xe_mmio_read32(struct xe_gt *gt, struct xe_reg reg)
--{
--	struct xe_tile *tile = gt_to_tile(gt);
--
--	if (reg.addr < gt->mmio.adj_limit)
--		reg.addr += gt->mmio.adj_offset;
--
--	return readl(tile->mmio.regs + reg.addr);
--}
--
--static inline u32 xe_mmio_rmw32(struct xe_gt *gt, struct xe_reg reg, u32 clr,
--				u32 set)
--{
--	u32 old, reg_val;
--
--	old = xe_mmio_read32(gt, reg);
--	reg_val = (old & ~clr) | set;
--	xe_mmio_write32(gt, reg, reg_val);
--
--	return old;
--}
--
--static inline void xe_mmio_write64(struct xe_gt *gt,
--				   struct xe_reg reg, u64 val)
--{
--	struct xe_tile *tile = gt_to_tile(gt);
--
--	if (reg.addr < gt->mmio.adj_limit)
--		reg.addr += gt->mmio.adj_offset;
--
--	writeq(val, tile->mmio.regs + reg.addr);
--}
--
--static inline u64 xe_mmio_read64(struct xe_gt *gt, struct xe_reg reg)
--{
--	struct xe_tile *tile = gt_to_tile(gt);
--
--	if (reg.addr < gt->mmio.adj_limit)
--		reg.addr += gt->mmio.adj_offset;
--
--	return readq(tile->mmio.regs + reg.addr);
--}
--
--static inline int xe_mmio_write32_and_verify(struct xe_gt *gt,
--					     struct xe_reg reg, u32 val,
--					     u32 mask, u32 eval)
--{
--	u32 reg_val;
--
--	xe_mmio_write32(gt, reg, val);
--	reg_val = xe_mmio_read32(gt, reg);
--
--	return (reg_val & mask) != eval ? -EINVAL : 0;
--}
--
--static inline int xe_mmio_wait32(struct xe_gt *gt, struct xe_reg reg, u32 val,
--				 u32 mask, u32 timeout_us, u32 *out_val,
--				 bool atomic)
--{
--	ktime_t cur = ktime_get_raw();
--	const ktime_t end = ktime_add_us(cur, timeout_us);
--	int ret = -ETIMEDOUT;
--	s64 wait = 10;
--	u32 read;
--
--	for (;;) {
--		read = xe_mmio_read32(gt, reg);
--		if ((read & mask) == val) {
--			ret = 0;
--			break;
--		}
--
--		cur = ktime_get_raw();
--		if (!ktime_before(cur, end))
--			break;
--
--		if (ktime_after(ktime_add_us(cur, wait), end))
--			wait = ktime_us_delta(end, cur);
--
--		if (atomic)
--			udelay(wait);
--		else
--			usleep_range(wait, wait << 1);
--		wait <<= 1;
--	}
--
--	if (out_val)
--		*out_val = read;
--
--	return ret;
--}
--
-+inline u8 xe_mmio_read8(struct xe_gt *gt, struct xe_reg reg);
-+inline void xe_mmio_write32(struct xe_gt *gt,
-+			    struct xe_reg reg, u32 val);
-+inline u32 xe_mmio_read32(struct xe_gt *gt, struct xe_reg reg);
-+inline u32 xe_mmio_rmw32(struct xe_gt *gt, struct xe_reg reg, u32 clr,
-+			 u32 set);
-+inline void xe_mmio_write64(struct xe_gt *gt,
-+			    struct xe_reg reg, u64 val);
-+inline u64 xe_mmio_read64(struct xe_gt *gt, struct xe_reg reg);
-+inline int xe_mmio_write32_and_verify(struct xe_gt *gt,
-+				      struct xe_reg reg, u32 val,
-+				      u32 mask, u32 eval);
-+inline int xe_mmio_wait32(struct xe_gt *gt, struct xe_reg reg, u32 val,
-+			  u32 mask, u32 timeout_us, u32 *out_val,
-+			  bool atomic);
- int xe_mmio_ioctl(struct drm_device *dev, void *data,
- 		  struct drm_file *file);
- 
--- 
-2.34.1
+Series: drm/i915: Remove prototype for intel_cx0_phy_ddi_vswing_sequence()
+URL   : https://patchwork.freedesktop.org/series/119301/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_13269 -> Patchwork_119301v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Missing    (1): fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_119301v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@gt_lrc:
+    - bat-dg2-11:         [PASS][1] -> [INCOMPLETE][2] ([i915#7609] / [i915#7913])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13269/bat-dg2-11/igt@i915_selftest@live@gt_lrc.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-dg2-11/igt@i915_selftest@live@gt_lrc.html
+
+  * igt@i915_selftest@live@gt_mocs:
+    - bat-mtlp-8:         [PASS][3] -> [DMESG-FAIL][4] ([i915#7059])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13269/bat-mtlp-8/igt@i915_selftest@live@gt_mocs.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-mtlp-8/igt@i915_selftest@live@gt_mocs.html
+    - bat-mtlp-6:         [PASS][5] -> [DMESG-FAIL][6] ([i915#7059])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13269/bat-mtlp-6/igt@i915_selftest@live@gt_mocs.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-mtlp-6/igt@i915_selftest@live@gt_mocs.html
+
+  * igt@i915_selftest@live@slpc:
+    - bat-mtlp-6:         [PASS][7] -> [DMESG-WARN][8] ([i915#6367])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13269/bat-mtlp-6/igt@i915_selftest@live@slpc.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-mtlp-6/igt@i915_selftest@live@slpc.html
+    - bat-mtlp-8:         [PASS][9] -> [DMESG-WARN][10] ([i915#6367])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13269/bat-mtlp-8/igt@i915_selftest@live@slpc.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-mtlp-8/igt@i915_selftest@live@slpc.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-mtlp-6:         [PASS][11] -> [DMESG-FAIL][12] ([i915#6763])
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13269/bat-mtlp-6/igt@i915_selftest@live@workarounds.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-mtlp-6/igt@i915_selftest@live@workarounds.html
+
+  * igt@i915_suspend@basic-s3-without-i915:
+    - bat-rpls-1:         NOTRUN -> [ABORT][13] ([i915#6687] / [i915#7978])
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-rpls-1/igt@i915_suspend@basic-s3-without-i915.html
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:
+    - bat-dg2-11:         NOTRUN -> [SKIP][14] ([i915#1845] / [i915#5354]) +2 similar issues
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@requests:
+    - bat-rpls-1:         [ABORT][15] ([i915#7911] / [i915#7920]) -> [PASS][16]
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13269/bat-rpls-1/igt@i915_selftest@live@requests.html
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-rpls-1/igt@i915_selftest@live@requests.html
+    - bat-mtlp-6:         [DMESG-FAIL][17] ([i915#8497]) -> [PASS][18]
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13269/bat-mtlp-6/igt@i915_selftest@live@requests.html
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-mtlp-6/igt@i915_selftest@live@requests.html
+
+  
+#### Warnings ####
+
+  * igt@i915_selftest@live@requests:
+    - bat-mtlp-8:         [DMESG-FAIL][19] ([i915#8497]) -> [DMESG-FAIL][20] ([i915#7269])
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13269/bat-mtlp-8/igt@i915_selftest@live@requests.html
+   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-mtlp-8/igt@i915_selftest@live@requests.html
+
+  
+  [i915#1845]: https://gitlab.freedesktop.org/drm/intel/issues/1845
+  [i915#5354]: https://gitlab.freedesktop.org/drm/intel/issues/5354
+  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
+  [i915#6687]: https://gitlab.freedesktop.org/drm/intel/issues/6687
+  [i915#6763]: https://gitlab.freedesktop.org/drm/intel/issues/6763
+  [i915#7059]: https://gitlab.freedesktop.org/drm/intel/issues/7059
+  [i915#7269]: https://gitlab.freedesktop.org/drm/intel/issues/7269
+  [i915#7609]: https://gitlab.freedesktop.org/drm/intel/issues/7609
+  [i915#7911]: https://gitlab.freedesktop.org/drm/intel/issues/7911
+  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
+  [i915#7920]: https://gitlab.freedesktop.org/drm/intel/issues/7920
+  [i915#7978]: https://gitlab.freedesktop.org/drm/intel/issues/7978
+  [i915#8497]: https://gitlab.freedesktop.org/drm/intel/issues/8497
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_13269 -> Patchwork_119301v1
+
+  CI-20190529: 20190529
+  CI_DRM_13269: c73de42e50dc07f5ae9342b28be76f2ee015e5af @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7327: 34e48b7d6402c3d7af19a40d8951eae017cf64df @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_119301v1: c73de42e50dc07f5ae9342b28be76f2ee015e5af @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+03b221a7c105 drm/i915: Remove prototype for intel_cx0_phy_ddi_vswing_sequence()
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/index.html
+
+--===============5772782986533020205==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Remove prototype for intel_cx0_phy_ddi_vswing_sequence()</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/119301/">https://patchwork.freedesktop.org/series/119301/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_13269 -&gt; Patchwork_119301v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Missing    (1): fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_119301v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@gt_lrc:</p>
+<ul>
+<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13269/bat-dg2-11/igt@i915_selftest@live@gt_lrc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-dg2-11/igt@i915_selftest@live@gt_lrc.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7609">i915#7609</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_mocs:</p>
+<ul>
+<li>
+<p>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13269/bat-mtlp-8/igt@i915_selftest@live@gt_mocs.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-mtlp-8/igt@i915_selftest@live@gt_mocs.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7059">i915#7059</a>)</p>
+</li>
+<li>
+<p>bat-mtlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13269/bat-mtlp-6/igt@i915_selftest@live@gt_mocs.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-mtlp-6/igt@i915_selftest@live@gt_mocs.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7059">i915#7059</a>)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@slpc:</p>
+<ul>
+<li>
+<p>bat-mtlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13269/bat-mtlp-6/igt@i915_selftest@live@slpc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-mtlp-6/igt@i915_selftest@live@slpc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6367">i915#6367</a>)</p>
+</li>
+<li>
+<p>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13269/bat-mtlp-8/igt@i915_selftest@live@slpc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-mtlp-8/igt@i915_selftest@live@slpc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6367">i915#6367</a>)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-mtlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13269/bat-mtlp-6/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-mtlp-6/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6763">i915#6763</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_suspend@basic-s3-without-i915:</p>
+<ul>
+<li>bat-rpls-1:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-rpls-1/igt@i915_suspend@basic-s3-without-i915.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6687">i915#6687</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7978">i915#7978</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:</p>
+<ul>
+<li>bat-dg2-11:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1845">i915#1845</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/5354">i915#5354</a>) +2 similar issues</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@requests:</p>
+<ul>
+<li>
+<p>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13269/bat-rpls-1/igt@i915_selftest@live@requests.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7911">i915#7911</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7920">i915#7920</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-rpls-1/igt@i915_selftest@live@requests.html">PASS</a></p>
+</li>
+<li>
+<p>bat-mtlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13269/bat-mtlp-6/igt@i915_selftest@live@requests.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8497">i915#8497</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-mtlp-6/igt@i915_selftest@live@requests.html">PASS</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>igt@i915_selftest@live@requests:<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13269/bat-mtlp-8/igt@i915_selftest@live@requests.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8497">i915#8497</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119301v1/bat-mtlp-8/igt@i915_selftest@live@requests.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7269">i915#7269</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_13269 -&gt; Patchwork_119301v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_13269: c73de42e50dc07f5ae9342b28be76f2ee015e5af @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7327: 34e48b7d6402c3d7af19a40d8951eae017cf64df @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_119301v1: c73de42e50dc07f5ae9342b28be76f2ee015e5af @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>03b221a7c105 drm/i915: Remove prototype for intel_cx0_phy_ddi_vswing_sequence()</p>
+
+</body>
+</html>
+
+--===============5772782986533020205==--
