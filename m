@@ -4,47 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48535EB64DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jun 2023 06:30:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9E7BEB64D9
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jun 2023 06:52:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFE3510E483;
-	Thu, 15 Jun 2023 06:30:39 +0000 (UTC)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C4E710E482
- for <intel-gfx@lists.freedesktop.org>; Thu, 15 Jun 2023 06:30:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1686810636; x=1718346636;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=oetKf0+C/GFZAIGI2SBXBUg8+zAsUZ43QcNx7I+vTYI=;
- b=mIJ1aSTR5bzxx+8WDFoK8rSSEQcR/LCUx5RAzfA1LVU2+1PGn/qaIZv/
- k0BBH5D1rkvOoprNB58TF9aH1MnDkT82tB8y4eogksqTHEgncTUjLpxHK
- gtzy17ftpoldSE9DUQHVGxPfU/oy/cO8DxpHIkzm7RjbOcEqLk1gCMHpQ
- nw3Dou6C8B7Wwx1eQjFRyTKWJSIIzy3A9tXk7RdtnOH00dKzHlbN0Ls0y
- J0/DCyYeDXe63XPFT8Tl59SBKBUKuhNzIFUOgSe8+u/N5whSDZHwt/z4Q
- y8pRgnVvjIWNK0VGvXU/Ue5q1aVoVW4Dvr/5f6fiUzzVv2xmqxKyG2roc g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10741"; a="348493405"
-X-IronPort-AV: E=Sophos;i="6.00,244,1681196400"; d="scan'208";a="348493405"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jun 2023 23:30:36 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10741"; a="1042514885"
-X-IronPort-AV: E=Sophos;i="6.00,244,1681196400"; d="scan'208";a="1042514885"
-Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by fmsmga005.fm.intel.com with ESMTP; 14 Jun 2023 23:30:34 -0700
-From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 15 Jun 2023 12:01:36 +0530
-Message-Id: <20230615063137.2219870-3-mitulkumar.ajitkumar.golani@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230615063137.2219870-1-mitulkumar.ajitkumar.golani@intel.com>
-References: <20230615063137.2219870-1-mitulkumar.ajitkumar.golani@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B12310E486;
+	Thu, 15 Jun 2023 06:51:58 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3524910E11A;
+ Thu, 15 Jun 2023 06:51:53 +0000 (UTC)
+Received: from loongson.cn (unknown [10.20.42.43])
+ by gateway (Coremail) with SMTP id _____8Bx7eoGtYpkb3YFAA--.11707S3;
+ Thu, 15 Jun 2023 14:51:50 +0800 (CST)
+Received: from [10.20.42.43] (unknown [10.20.42.43])
+ by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8CxhuQFtYpkQKEbAA--.13222S3; 
+ Thu, 15 Jun 2023 14:51:49 +0800 (CST)
+Message-ID: <1b5e3b60-28dc-60f1-b963-2eab2c787244@loongson.cn>
+Date: Thu, 15 Jun 2023 14:51:49 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+To: Sui Jingfeng <15330273260@189.cn>, Bjorn Helgaas <bhelgaas@google.com>
+References: <20230613030151.216625-1-15330273260@189.cn>
+ <20230613030151.216625-8-15330273260@189.cn>
+Content-Language: en-US
+From: Sui Jingfeng <suijingfeng@loongson.cn>
+Organization: Loongson
+In-Reply-To: <20230613030151.216625-8-15330273260@189.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 2/3] drm/i915/display: Configure and initialize
- HDMI audio capabilities
+X-CM-TRANSID: AQAAf8CxhuQFtYpkQKEbAA--.13222S3
+X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
+X-Coremail-Antispam: 1Uk129KBj93XoWxArWUWw17ZFWDCrWDuF4rJFc_yoWrurW5pw
+ 48Ga13Wr48Jr1Skryj9Fn8GF1Y9F95AayDArn7tw18Cr47Ka10qF9Iqa1Yg3ZxAr4IvrnI
+ qrn2y340y34DZagCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUPab4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+ xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+ AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+ XVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
+ 8JMxk0xIA0c2IEe2xFo4CEbIxvr21lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vI
+ r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67
+ AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIY
+ rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
+ v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8
+ JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU43xhDU
+ UUU
+Subject: Re: [Intel-gfx] [PATCH v7 7/8] drm/amdgpu: Implement the
+ is_boot_device callback function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,113 +67,134 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Mario Limonciello <mario.limonciello@amd.com>, linux-fbdev@vger.kernel.org,
+ Lijo Lazar <lijo.lazar@amd.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ kvm@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, Pan Xinhui <Xinhui.Pan@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ YiPeng Chai <YiPeng.Chai@amd.com>, amd-gfx@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, linux-pci@vger.kernel.org,
+ Alex Deucher <alexander.deucher@amd.com>, Bokun Zhang <Bokun.Zhang@amd.com>,
+ Likun Gao <Likun.Gao@amd.com>, David Airlie <airlied@gmail.com>,
+ Christian Konig <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Initialize the source audio capabilities for HDMI in crtc_state
-property by setting them to their maximum supported values,
-including max_channel and max_frequency. This allows for the
-calculation of HDMI audio source capabilities with respect to
-the available mode bandwidth. These capabilities encompass
-parameters such as supported frequency and channel configurations.
+Hi,
 
---v1:
-- Refactor max_channel and max_rate to this commit as it is being
-initialised here
-- Remove call for intel_audio_compute_eld to avoid any regression while
-merge. instead call it in different commit when it is defined.
-- Use int instead of unsigned int for max_channel and max_frequecy
-- Update commit message and header
 
-Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
----
- .../drm/i915/display/intel_display_types.h    |  6 ++++
- drivers/gpu/drm/i915/display/intel_hdmi.c     | 35 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_hdmi.h     |  1 +
- 3 files changed, 42 insertions(+)
+Does anyone has the bandwidth to review this?
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index ebd147180a6e..74eee87d2df1 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1131,6 +1131,12 @@ struct intel_crtc_state {
- 
- 	struct {
- 		bool has_audio;
-+
-+		/* Audio rate in Hz */
-+		int max_frequency;
-+
-+		/* Number of audio channels */
-+		int max_channel;
- 	} audio;
- 
- 	/*
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 32157bef2eef..0188a600f9f5 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2277,6 +2277,40 @@ bool intel_hdmi_compute_has_hdmi_sink(struct intel_encoder *encoder,
- 		!intel_hdmi_is_cloned(crtc_state);
- }
- 
-+static unsigned int calc_audio_bw(int channel, int frequency)
-+{
-+	int bits_per_sample = 32;
-+	unsigned int bandwidth = channel * frequency * bits_per_sample;
-+	return bandwidth;
-+}
-+
-+void
-+intel_hdmi_audio_compute_config(struct intel_crtc_state *pipe_config)
-+{
-+	struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
-+	int num_of_channel, aud_rates[7] = {192000, 176000, 96000, 88000, 48000, 44100, 32000};
-+	unsigned int audio_req_bandwidth, available_blank_bandwidth, vblank, hblank;
-+
-+	hblank = adjusted_mode->htotal - adjusted_mode->hdisplay;
-+	vblank = adjusted_mode->vtotal - adjusted_mode->vdisplay;
-+	available_blank_bandwidth = hblank * vblank *
-+				    drm_mode_vrefresh(adjusted_mode) * pipe_config->pipe_bpp;
-+	for (num_of_channel = 8; num_of_channel > 0; num_of_channel--) {
-+		for (int index = 0; index < 7; index++) {
-+			audio_req_bandwidth = calc_audio_bw(num_of_channel,
-+							    aud_rates[index]);
-+			if (audio_req_bandwidth < available_blank_bandwidth) {
-+				pipe_config->audio.max_frequency = aud_rates[index];
-+				pipe_config->audio.max_channel = num_of_channel;
-+				return;
-+			}
-+		}
-+	}
-+
-+	pipe_config->audio.max_frequency = 0;
-+	pipe_config->audio.max_channel = 0;
-+}
-+
- int intel_hdmi_compute_config(struct intel_encoder *encoder,
- 			      struct intel_crtc_state *pipe_config,
- 			      struct drm_connector_state *conn_state)
-@@ -2344,6 +2378,7 @@ int intel_hdmi_compute_config(struct intel_encoder *encoder,
- 			pipe_config->hdmi_high_tmds_clock_ratio = true;
- 		}
- 	}
-+	intel_hdmi_audio_compute_config(pipe_config);
- 
- 	intel_hdmi_compute_gcp_infoframe(encoder, pipe_config,
- 					 conn_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.h b/drivers/gpu/drm/i915/display/intel_hdmi.h
-index 6b39df38d57a..6df303daf348 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.h
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.h
-@@ -27,6 +27,7 @@ void intel_hdmi_init_connector(struct intel_digital_port *dig_port,
- bool intel_hdmi_compute_has_hdmi_sink(struct intel_encoder *encoder,
- 				      const struct intel_crtc_state *crtc_state,
- 				      const struct drm_connector_state *conn_state);
-+void intel_hdmi_audio_compute_config(struct intel_crtc_state *pipe_config);
- int intel_hdmi_compute_config(struct intel_encoder *encoder,
- 			      struct intel_crtc_state *pipe_config,
- 			      struct drm_connector_state *conn_state);
+I provide more additional information here, hope it helps.
+
+
+On a non-x86 multiple platform, the discrete AMDGPU fails to override 
+the integrated one.
+
+because the PCI BAR 0 of the AMDGPU gets moved.
+
+Below is the log of 'dmesg | grep vgaarb'.
+
+So relaying on screen_info is not always reliable.
+
+
+[    0.361928] pci 0000:00:06.1: vgaarb: setting as boot VGA device
+[    0.361932] pci 0000:00:06.1: vgaarb: bridge control possible
+[    0.361933] pci 0000:00:06.1: vgaarb: VGA device added: decodes=io+mem,owns=io+mem,locks=none
+[    0.361940] pci 0000:05:00.0: vgaarb: bridge control possible
+[    0.361941] pci 0000:05:00.0: vgaarb: VGA device added: decodes=io+mem,owns=none,locks=none
+[    0.361943] vgaarb: loaded
+[   11.352087] amdgpu 0000:05:00.0: vgaarb: Set as boot device (dictated by driver)
+[   11.575505] loongson 0000:00:06.1: vgaarb: changed VGA decodes: olddecodes=io+mem,decodes=none:owns=io+mem
+[   11.585100] amdgpu 0000:05:00.0: vgaarb: changed VGA decodes: olddecodes=io+mem,decodes=none:owns=none
+
+
+dmesg | grep efifb:
+
+
+[    0.356355] pci 0000:05:00.0: BAR 0: assigned to efifb
+[    0.375793] efifb: probing for efifb
+[    0.375795] pci 0000:05:00.0: BAR has moved, updating efifb address
+[    0.375803] efifb: framebuffer at 0xe0030000000, using 976k, total 975k
+[    0.375805] efifb: mode is 800x600x16, linelength=1664, pages=1
+[    0.375806] efifb: scrolling: redraw
+[    0.375808] efifb: Truecolor: size=0:5:6:5, shift=0:11:5:0
+
+
+efifb can also prove that "BAR has been moved"
+
+
+ From dmesg |  grep "pci 0000:05:00.0":
+
+
+[    0.356286] pci 0000:05:00.0: [1002:699f] type 00 class 0x030000
+[    0.356303] pci 0000:05:00.0: reg 0x10: [mem 
+0xe0020000000-0xe002fffffff 64bit pref]
+[    0.356315] pci 0000:05:00.0: reg 0x18: [mem 
+0xe0030000000-0xe00301fffff 64bit pref]
+[    0.356323] pci 0000:05:00.0: reg 0x20: [io  0x40000-0x400ff]
+[    0.356331] pci 0000:05:00.0: reg 0x24: [mem 0xe0053100000-0xe005313ffff]
+[    0.356339] pci 0000:05:00.0: reg 0x30: [mem 0xfffe0000-0xffffffff pref]
+[    0.356346] pci 0000:05:00.0: enabling Extended Tags
+[    0.356355] pci 0000:05:00.0: BAR 0: assigned to efifb
+[    0.356421] pci 0000:05:00.0: supports D1 D2
+[    0.356422] pci 0000:05:00.0: PME# supported from D1 D2 D3hot D3cold
+[    0.356858] pci 0000:05:00.0: BAR 0: assigned [mem 
+0xe0030000000-0xe003fffffff 64bit pref]
+[    0.356866] pci 0000:05:00.0: BAR 2: assigned [mem 
+0xe0040000000-0xe00401fffff 64bit pref]
+[    0.356875] pci 0000:05:00.0: BAR 5: assigned [mem 
+0xe0049000000-0xe004903ffff]
+[    0.356878] pci 0000:05:00.0: BAR 6: assigned [mem 
+0xe0049040000-0xe004905ffff pref]
+[    0.356889] pci 0000:05:00.0: BAR 4: assigned [io 0x4000-0x40ff]
+[    0.361940] pci 0000:05:00.0: vgaarb: bridge control possible
+[    0.361941] pci 0000:05:00.0: vgaarb: VGA device added: 
+decodes=io+mem,owns=none,locks=none
+[    0.375795] pci 0000:05:00.0: BAR has moved, updating efifb address
+
+We can see that the Bar 0 of AMDGPU
+
+moved from '0xe0020000000-0xe002fffffff'  to '0xe0030000000-0xe003fffffff'
+
+while the fb location information recorded by the screen_info still 
+belong to '0xe0020000000-0xe002fffffff'
+
+
+I suspect this is also the reason that video/aperture don't relay on the 
+information provided by screen_info
+
+in the contrast, it require the firmware framebuffer driver(efifb) to call
+
+devm_aperture_acquire_from_firmware() function, only in this way 
+video/aperture
+
+could record the correct information about the aperture being used the 
+by the firmware framebuffe.
+
+
+While vgaarb is loaded too early, even before efifb.
+
+so that we can only relay on the pci_notifier call back to us.
+
+
+On 2023/6/13 11:01, Sui Jingfeng wrote:
+> From: Sui Jingfeng <suijingfeng@loongson.cn>
+>
+> [why]
+>
+> The vga_is_firmware_default() defined in drivers/pci/vgaarb.c is
+> arch-dependent, it's a dummy on non-x86 architectures currently.
+> This made VGAARB lost an important condition for the arbitration.
+> It could still be wrong even if we remove the #ifdef and #endif guards.
+> because the PCI bar will move (resource re-allocation).
+>
+> [how]
+>
+> The device that owns the firmware framebuffer should be the default boot
+> device. This patch adds an arch-independent function to enforce this rule
+
 -- 
-2.25.1
+Jingfeng
 
