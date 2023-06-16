@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BE33C001DC
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 09:31:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E9C1EB64DA
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 09:32:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 171F310E58E;
-	Fri, 16 Jun 2023 09:31:01 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A66810E57D;
- Fri, 16 Jun 2023 09:30:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1686907846; x=1718443846;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Cw5q/x8iFiAWleDzpwNMsBaOgKBGI0jR+jvZ2itY57k=;
- b=IIH+tOlIoAc/DJZAIWaQxczE1MpiUPxzQ3S1WhURcxPTTkQ1T1fucIwF
- dQ1ytttNY+PsIUR+LUwK1VYVLX08ObWeen9O/VMTEA3GP18MTs1BrUaJT
- XOZaLrqQ8A3/dk1M2tp1an7Ds/Wo5ac/Suit65YmivFVr8gBrhC0WuIYH
- pkGjZUs6hFe7aci0yJBs0bhurqXn4OhPOBUznM91o1BUQ42RO2QksAYBR
- L985CkZPB9hhPb2KNUDnJ6ankaM6dZGxfPhdGZm2v69Qkell4FEHEtyu8
- ULUUhqeBK303LeippKUdhB0lX0Tk7BzMEKbTdWKa3tLu2vooaDAwGekqn A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="387863450"
-X-IronPort-AV: E=Sophos;i="6.00,247,1681196400"; d="scan'208";a="387863450"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2023 02:30:46 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="742601922"
-X-IronPort-AV: E=Sophos;i="6.00,247,1681196400"; d="scan'208";a="742601922"
-Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by orsmga008.jf.intel.com with ESMTP; 16 Jun 2023 02:30:45 -0700
-From: Yi Liu <yi.l.liu@intel.com>
-To: alex.williamson@redhat.com,
-	jgg@nvidia.com,
-	kevin.tian@intel.com
-Date: Fri, 16 Jun 2023 02:30:35 -0700
-Message-Id: <20230616093042.65094-4-yi.l.liu@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230616093042.65094-1-yi.l.liu@intel.com>
-References: <20230616093042.65094-1-yi.l.liu@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 042FC10E592;
+	Fri, 16 Jun 2023 09:32:09 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B31EE10E0B7;
+ Fri, 16 Jun 2023 09:32:07 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D61BE62134;
+ Fri, 16 Jun 2023 09:32:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6C7BC433C0;
+ Fri, 16 Jun 2023 09:32:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1686907925;
+ bh=RyvbZ8xLNLVCEWUqE0qfmWc1Llk+X9g8qHjmNGYKLVM=;
+ h=From:To:Cc:Subject:Date:From;
+ b=aql41gS/+jx94TAWvh8KlZ36Fle4QLGqn4B5xNnEimBQx7Cd3FU9uPP7Q/YRQ12ot
+ 1AXM14STUqfR1eCiaTBhac+CKJXSwcBroJAVdoknmp5M2NHBhGE/SVVA7ykLMEGYHP
+ HEyt50zxwBm8YNFGIcCJe+Mu26PCyZrRHm0spOjxcr3aOR1uLyy9tuh0nIJeCFlFIC
+ NY1dTlUWtcNT9HZuKXS6xYKGaEqJedzVrRUWVtyo7M5EYvZAyYALT1vv+6UIp3g9gF
+ 7XP69Nce6j7JGcbwivO1adEkkUXZ/vkS5w3cylg65qOsU+V2Sfvb+3lNDOvDiMic2m
+ gtSCeuughd6Hg==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Andi Shyti <andi.shyti@linux.intel.com>
+Date: Fri, 16 Jun 2023 11:31:47 +0200
+Message-Id: <20230616093158.3568480-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 03/10] iommufd: Reserve all negative IDs in
- the iommufd xarray
+Subject: [Intel-gfx] [PATCH] drm/i915: make i915_drm_client_fdinfo()
+ reference conditional again
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,42 +57,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
- zhenzhong.duan@intel.com, peterx@redhat.com, terrence.xu@intel.com,
- chao.p.peng@linux.intel.com, linux-s390@vger.kernel.org, yi.l.liu@intel.com,
- kvm@vger.kernel.org, lulu@redhat.com, yanting.jiang@intel.com, joro@8bytes.org,
- nicolinc@nvidia.com, yan.y.zhao@intel.com, intel-gfx@lists.freedesktop.org,
- eric.auger@redhat.com, intel-gvt-dev@lists.freedesktop.org,
- yi.y.sun@linux.intel.com, clegoate@redhat.com, cohuck@redhat.com,
- shameerali.kolothum.thodi@huawei.com, suravee.suthikulpanit@amd.com,
- robin.murphy@arm.com
+Cc: Arnd Bergmann <arnd@arndb.de>,
+ Alan Previn <alan.previn.teres.alexis@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>,
+ intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With this reservation, IOMMUFD users can encode the negative IDs for
-specific purposes. e.g. VFIO needs two reserved values to tell userspace
-the ID returned is not valid but has other meaning.
+From: Arnd Bergmann <arnd@arndb.de>
 
-Tested-by: Terrence Xu <terrence.xu@intel.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Yi Liu <yi.l.liu@intel.com>
+The function is only defined if CONFIG_PROC_FS is enabled:
+
+ld.lld: error: undefined symbol: i915_drm_client_fdinfo
+>>> referenced by i915_driver.c
+>>>               drivers/gpu/drm/i915/i915_driver.o:(i915_drm_driver) in archive vmlinux.a
+
+Use the PTR_IF() helper to make the reference NULL otherwise.
+
+Fixes: e894b724c316d ("drm/i915: Use the fdinfo helper")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- drivers/iommu/iommufd/main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_driver.c     | 2 +-
+ drivers/gpu/drm/i915/i915_drm_client.h | 2 --
+ 2 files changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/iommu/iommufd/main.c b/drivers/iommu/iommufd/main.c
-index 3fbe636c3d8a..32ce7befc8dd 100644
---- a/drivers/iommu/iommufd/main.c
-+++ b/drivers/iommu/iommufd/main.c
-@@ -50,7 +50,7 @@ struct iommufd_object *_iommufd_object_alloc(struct iommufd_ctx *ictx,
- 	 * before calling iommufd_object_finalize().
- 	 */
- 	rc = xa_alloc(&ictx->objects, &obj->id, XA_ZERO_ENTRY,
--		      xa_limit_32b, GFP_KERNEL_ACCOUNT);
-+		      xa_limit_31b, GFP_KERNEL_ACCOUNT);
- 	if (rc)
- 		goto out_free;
- 	return obj;
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 75cbc43b326dd..0ad0c5885ec27 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -1816,7 +1816,7 @@ static const struct drm_driver i915_drm_driver = {
+ 	.open = i915_driver_open,
+ 	.lastclose = i915_driver_lastclose,
+ 	.postclose = i915_driver_postclose,
+-	.show_fdinfo = i915_drm_client_fdinfo,
++	.show_fdinfo = PTR_IF(IS_ENABLED(CONFIG_PROC_FS), i915_drm_client_fdinfo),
+ 
+ 	.prime_handle_to_fd = drm_gem_prime_handle_to_fd,
+ 	.prime_fd_to_handle = drm_gem_prime_fd_to_handle,
+diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
+index 4c18b99e10a4e..67816c912bca1 100644
+--- a/drivers/gpu/drm/i915/i915_drm_client.h
++++ b/drivers/gpu/drm/i915/i915_drm_client.h
+@@ -47,8 +47,6 @@ static inline void i915_drm_client_put(struct i915_drm_client *client)
+ 
+ struct i915_drm_client *i915_drm_client_alloc(void);
+ 
+-#ifdef CONFIG_PROC_FS
+ void i915_drm_client_fdinfo(struct drm_printer *p, struct drm_file *file);
+-#endif
+ 
+ #endif /* !__I915_DRM_CLIENT_H__ */
 -- 
-2.34.1
+2.39.2
 
