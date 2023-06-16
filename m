@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF1BFEB64DA
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 18:51:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FF29EB64D7
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 18:51:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E90410E67D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C35D10E67B;
 	Fri, 16 Jun 2023 18:51:10 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBE8B10E679
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 18:51:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12C7E10E67D
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 18:51:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1686941464; x=1718477464;
+ t=1686941468; x=1718477468;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=nB6TSdJ8uO2QZwlldynFs/Kub9q4XpQmRKUR1yGKQVw=;
- b=M73YkbDRd5JghAGcA1156BE2m6CuJ/VKkndzVi8Btdw8u2NQX4+UTH+n
- 0/n6M1dVucPlyBjr7M9SVXofdObOV4ePUO4msIH8DzaIMAgixoM5n+n2E
- p+G776qkses/vCdf5oSCczGSL4OOa5DtEHnTKPhqzLuXCVLBfwdKte/qI
- mN5xDSNqrl1lidPPlZix6BBKgsYtMCEdoLu2vRTO0MTeFOeWvhr+DK6cm
- ssWFdOKg4OjOEij0J+McqQ94H4duNVI8ehyaoYb2Dq+CTribzWBOvB/bE
- dM+tC9D+YHBmSUDaJgf4nSy4Z2OXX10igPaMtxfKiq5Soqp6pSa7VcSzK g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10743"; a="356778187"
-X-IronPort-AV: E=Sophos;i="6.00,248,1681196400"; d="scan'208";a="356778187"
+ bh=oLSIHyE74lj8eMINsNWDOdvEY8QL2+Tm2Xo1gHDzab0=;
+ b=iNfCt3XhsB1ybheyOb4HKlsyNVN4FQ7pD5zWIlLLbbP58v4rTioOa3Tc
+ 5kFLJkjVAqWlhPMFw5XehYC5YigcDNsdTNdXKl6mo/WlBqa2HfEmEEmhE
+ WaEKkwtD/v/1LfItBX2tS1xFOXyAgJfHVa22IVHQuId97fRrrpZHyItDE
+ i1D48gZ9Nnxtweoi0EZ/NExBcw9vXoyTTTYbIwpJX1T3jRPKPm2YwcKMP
+ VgJQy3YJsId8l2Ct9GeopJzrsGLlHiB1HX5IyXwN1JKXPCyltNV9pD7+h
+ kG2d6ErrYm1r6aojw9iQb7q94gLKaJrePZF+L5XgEqJ7xwugcRl+4JcTG g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10743"; a="356778205"
+X-IronPort-AV: E=Sophos;i="6.00,248,1681196400"; d="scan'208";a="356778205"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2023 11:51:04 -0700
+ 16 Jun 2023 11:51:07 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10743"; a="887198413"
-X-IronPort-AV: E=Sophos;i="6.00,248,1681196400"; d="scan'208";a="887198413"
+X-IronPort-AV: E=McAfee;i="6600,9927,10743"; a="887198421"
+X-IronPort-AV: E=Sophos;i="6.00,248,1681196400"; d="scan'208";a="887198421"
 Received: from unknown (HELO ideak-desk.fi.intel.com) ([10.237.72.78])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2023 11:51:03 -0700
+ 16 Jun 2023 11:51:05 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 16 Jun 2023 21:51:02 +0300
-Message-Id: <20230616185104.2502003-2-imre.deak@intel.com>
+Date: Fri, 16 Jun 2023 21:51:04 +0300
+Message-Id: <20230616185104.2502003-4-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230616185104.2502003-1-imre.deak@intel.com>
 References: <20230616185104.2502003-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/4] drm/i915: Remove redundant forward
- declarations from display power headers
+Subject: [Intel-gfx] [PATCH 4/4] drm/i915: Prevent needless toggling of DC
+ states during modesets
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,41 +61,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove the forward declarations for enums and structs from display power
-header files that aren't used in prototypes.
+DC states are disabled / re-enabled around each modeset, which may lead
+to a needless off->on->off toggling of the DC_off power well. This has
+some overhead as toggling DC states involves running a DMC firmware
+handler and also running a periodic firmware handler while DC states are
+enabled. The limit of when DC states have a benefit is at 30 FPS (using
+DC3co) and below 30 FPS (using DC5/6), where the firmware can actually
+disable clocks / power off power wells. Accordingly delay powering off
+the DC_off powerwell (which re-enables DC states) by 17 ms at the end of
+a modeset to avoid the above overhead at or above 60 FPS.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_power.h      | 3 ---
- drivers/gpu/drm/i915/display/intel_display_power_well.h | 1 -
- 2 files changed, 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
-index df38632c62371..83ceab091468e 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.h
-@@ -12,9 +12,6 @@
- #include "intel_wakeref.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index dd52c689267f4..de77d130d6f9f 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7148,7 +7148,11 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
+ 		 */
+ 		intel_uncore_arm_unclaimed_mmio_detection(&dev_priv->uncore);
+ 	}
+-	intel_display_power_put(dev_priv, POWER_DOMAIN_DC_OFF, wakeref);
++	/*
++	 * Delay re-enabling DC states by 17 ms to avoid the off->on->off
++	 * toggling overhead at and above 60 FPS.
++	 */
++	intel_display_power_put_async_delay(dev_priv, POWER_DOMAIN_DC_OFF, wakeref, 17);
+ 	intel_runtime_pm_put(&dev_priv->runtime_pm, state->wakeref);
  
- enum aux_ch;
--enum dpio_channel;
--enum dpio_phy;
--enum i915_drm_suspend_mode;
- enum port;
- struct drm_i915_private;
- struct i915_power_well;
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.h b/drivers/gpu/drm/i915/display/intel_display_power_well.h
-index 1015bba4af01e..a8736588314d9 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_well.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_well.h
-@@ -11,7 +11,6 @@
- #include "intel_dpio_phy.h"
- 
- struct drm_i915_private;
--struct i915_power_well;
- struct i915_power_well_ops;
- struct intel_encoder;
- 
+ 	/*
 -- 
 2.37.2
 
