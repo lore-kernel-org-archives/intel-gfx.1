@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6852AEB64D8
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 09:30:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD95FEB64DD
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 09:30:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DCCE10E587;
-	Fri, 16 Jun 2023 09:30:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EE1810E58F;
+	Fri, 16 Jun 2023 09:30:55 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5EEA10E0B7;
- Fri, 16 Jun 2023 09:30:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE09B10E58B;
+ Fri, 16 Jun 2023 09:30:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1686907845; x=1718443845;
+ t=1686907849; x=1718443849;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=0RL1OEZ1lWh/4j/ulZ4PY7VgMYSzHRE6E2a3bhpSb+E=;
- b=FDz/ZWp0O36Bj0MTGXftlol8y4dv/x89WbUFbJfTE0PJ+9f4tC9n2ez2
- SxvJlWqkZm8v9IsxfGaIVxMDwuQ7EXQ9oet4c50/A5cGMALHIq1eDTQEW
- N6rMV1t5+TIYpMsZkK85jkJ3XFComq13/sTjgvdy+jSmcjdV297aBEfg7
- OGn97KAr7S8Pzc+4G4j0h1MOJLv4/lCFOoDheZwzFC42L8gSjfZlZA7Hn
- 0PQURvM51OHgAnxAPeJ9bTsGH9Tk86igD2K8IHuD9JtqG+VcCcgO73YT0
- 6CALZr4SH+QU6aPADXWfbmL1Kyt+U95+M87QRYcT0OZAWKGhEdeeFRXz1 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="387863434"
-X-IronPort-AV: E=Sophos;i="6.00,247,1681196400"; d="scan'208";a="387863434"
+ bh=HoT4x6LfV5jo/YKW42a5QxSWp+DKeKgroGYThE2Ig9c=;
+ b=DBQ816fv4USIhLeeZRlT7lQ2EmdIzycs59tCsDLgbk45OIxe+cHpI6ha
+ cCQ4BWT+pQ4rgIAuhTLXw1FyIXbH3VNNRp11JZmExhN6CN/ZKRCxd/VQW
+ hHPnRG8M18WCiECUmkKDKLNxjDri6Ip5Gjqap3y//wnhB4MGLcpoV7+3Q
+ q87LXT8DvdTNX7G2JfTriUE2LGm1hvzvWh5p6Znh66P841GD41rh3a1sZ
+ 5NnUHf4rkFuM6a3xuTlMBHkWDLZjAKHYhR7xUlbyUe7uwTdUkLJBus3M3
+ C2DOiDxPHft4OOirqe8sSCLMb0koq4wazfUo+ESkTMHW+VBjE5GAvjkco Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="387863513"
+X-IronPort-AV: E=Sophos;i="6.00,247,1681196400"; d="scan'208";a="387863513"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2023 02:30:45 -0700
+ 16 Jun 2023 02:30:49 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="742601913"
-X-IronPort-AV: E=Sophos;i="6.00,247,1681196400"; d="scan'208";a="742601913"
+X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="742601949"
+X-IronPort-AV: E=Sophos;i="6.00,247,1681196400"; d="scan'208";a="742601949"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by orsmga008.jf.intel.com with ESMTP; 16 Jun 2023 02:30:44 -0700
+ by orsmga008.jf.intel.com with ESMTP; 16 Jun 2023 02:30:49 -0700
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Fri, 16 Jun 2023 02:30:34 -0700
-Message-Id: <20230616093042.65094-3-yi.l.liu@intel.com>
+Date: Fri, 16 Jun 2023 02:30:39 -0700
+Message-Id: <20230616093042.65094-8-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230616093042.65094-1-yi.l.liu@intel.com>
 References: <20230616093042.65094-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 02/10] vfio/pci: Move the existing hot reset
- logic to be a helper
+Subject: [Intel-gfx] [PATCH v8 07/10] vfio: Add helper to search vfio_device
+ in a dev_set
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,132 +71,82 @@ Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This prepares to add another method for hot reset. The major hot reset logic
-are moved to vfio_pci_ioctl_pci_hot_reset_groups().
+There are drivers that need to search vfio_device within a given dev_set.
+e.g. vfio-pci. So add a helper.
 
-No functional change is intended.
+vfio_pci_is_device_in_set() now returns -EBUSY in commit a882c16a2b7e
+("vfio/pci: Change vfio_pci_try_bus_reset() to use the dev_set") where
+it was trying to preserve the return of vfio_pci_try_zap_and_vma_lock_cb().
+However, it makes more sense to return -ENODEV.
 
-Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Reviewed-by: Eric Auger <eric.auger@redhat.com>
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Tested-by: Yanting Jiang <yanting.jiang@intel.com>
+Suggested-by: Alex Williamson <alex.williamson@redhat.com>
 Tested-by: Terrence Xu <terrence.xu@intel.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 ---
- drivers/vfio/pci/vfio_pci_core.c | 55 +++++++++++++++++++-------------
- 1 file changed, 32 insertions(+), 23 deletions(-)
+ drivers/vfio/pci/vfio_pci_core.c |  6 +-----
+ drivers/vfio/vfio_main.c         | 15 +++++++++++++++
+ include/linux/vfio.h             |  3 +++
+ 3 files changed, 19 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index f4153fd22a87..cc23c9d65826 100644
+index cc23c9d65826..6f13161dca6b 100644
 --- a/drivers/vfio/pci/vfio_pci_core.c
 +++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -1258,29 +1258,16 @@ static int vfio_pci_ioctl_get_pci_hot_reset_info(
- 	return ret;
- }
- 
--static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
--					struct vfio_pci_hot_reset __user *arg)
-+static int
-+vfio_pci_ioctl_pci_hot_reset_groups(struct vfio_pci_core_device *vdev,
-+				    int array_count, bool slot,
-+				    struct vfio_pci_hot_reset __user *arg)
+@@ -2339,12 +2339,8 @@ static bool vfio_dev_in_groups(struct vfio_pci_core_device *vdev,
+ static int vfio_pci_is_device_in_set(struct pci_dev *pdev, void *data)
  {
--	unsigned long minsz = offsetofend(struct vfio_pci_hot_reset, count);
--	struct vfio_pci_hot_reset hdr;
- 	int32_t *group_fds;
- 	struct file **files;
- 	struct vfio_pci_group_info info;
--	bool slot = false;
- 	int file_idx, count = 0, ret = 0;
+ 	struct vfio_device_set *dev_set = data;
+-	struct vfio_device *cur;
  
--	if (copy_from_user(&hdr, arg, minsz))
--		return -EFAULT;
--
--	if (hdr.argsz < minsz || hdr.flags)
--		return -EINVAL;
--
--	/* Can we do a slot or bus reset or neither? */
--	if (!pci_probe_reset_slot(vdev->pdev->slot))
--		slot = true;
--	else if (pci_probe_reset_bus(vdev->pdev->bus))
--		return -ENODEV;
--
- 	/*
- 	 * We can't let userspace give us an arbitrarily large buffer to copy,
- 	 * so verify how many we think there could be.  Note groups can have
-@@ -1292,11 +1279,11 @@ static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
- 		return ret;
- 
- 	/* Somewhere between 1 and count is OK */
--	if (!hdr.count || hdr.count > count)
-+	if (!array_count || array_count > count)
- 		return -EINVAL;
- 
--	group_fds = kcalloc(hdr.count, sizeof(*group_fds), GFP_KERNEL);
--	files = kcalloc(hdr.count, sizeof(*files), GFP_KERNEL);
-+	group_fds = kcalloc(array_count, sizeof(*group_fds), GFP_KERNEL);
-+	files = kcalloc(array_count, sizeof(*files), GFP_KERNEL);
- 	if (!group_fds || !files) {
- 		kfree(group_fds);
- 		kfree(files);
-@@ -1304,7 +1291,7 @@ static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
- 	}
- 
- 	if (copy_from_user(group_fds, arg->group_fds,
--			   hdr.count * sizeof(*group_fds))) {
-+			   array_count * sizeof(*group_fds))) {
- 		kfree(group_fds);
- 		kfree(files);
- 		return -EFAULT;
-@@ -1314,7 +1301,7 @@ static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
- 	 * Get the group file for each fd to ensure the group is held across
- 	 * the reset
- 	 */
--	for (file_idx = 0; file_idx < hdr.count; file_idx++) {
-+	for (file_idx = 0; file_idx < array_count; file_idx++) {
- 		struct file *file = fget(group_fds[file_idx]);
- 
- 		if (!file) {
-@@ -1338,7 +1325,7 @@ static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
- 	if (ret)
- 		goto hot_reset_release;
- 
--	info.count = hdr.count;
-+	info.count = array_count;
- 	info.files = files;
- 
- 	ret = vfio_pci_dev_set_hot_reset(vdev->vdev.dev_set, &info);
-@@ -1351,6 +1338,28 @@ static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
- 	return ret;
+-	list_for_each_entry(cur, &dev_set->device_list, dev_set_list)
+-		if (cur->dev == &pdev->dev)
+-			return 0;
+-	return -EBUSY;
++	return vfio_find_device_in_devset(dev_set, &pdev->dev) ? 0 : -ENODEV;
  }
  
-+static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
-+					struct vfio_pci_hot_reset __user *arg)
+ /*
+diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
+index f0ca33b2e1df..ab4f3a794f78 100644
+--- a/drivers/vfio/vfio_main.c
++++ b/drivers/vfio/vfio_main.c
+@@ -141,6 +141,21 @@ unsigned int vfio_device_set_open_count(struct vfio_device_set *dev_set)
+ }
+ EXPORT_SYMBOL_GPL(vfio_device_set_open_count);
+ 
++struct vfio_device *
++vfio_find_device_in_devset(struct vfio_device_set *dev_set,
++			   struct device *dev)
 +{
-+	unsigned long minsz = offsetofend(struct vfio_pci_hot_reset, count);
-+	struct vfio_pci_hot_reset hdr;
-+	bool slot = false;
++	struct vfio_device *cur;
 +
-+	if (copy_from_user(&hdr, arg, minsz))
-+		return -EFAULT;
++	lockdep_assert_held(&dev_set->lock);
 +
-+	if (hdr.argsz < minsz || hdr.flags)
-+		return -EINVAL;
-+
-+	/* Can we do a slot or bus reset or neither? */
-+	if (!pci_probe_reset_slot(vdev->pdev->slot))
-+		slot = true;
-+	else if (pci_probe_reset_bus(vdev->pdev->bus))
-+		return -ENODEV;
-+
-+	return vfio_pci_ioctl_pci_hot_reset_groups(vdev, hdr.count, slot, arg);
++	list_for_each_entry(cur, &dev_set->device_list, dev_set_list)
++		if (cur->dev == dev)
++			return cur;
++	return NULL;
 +}
++EXPORT_SYMBOL_GPL(vfio_find_device_in_devset);
 +
- static int vfio_pci_ioctl_ioeventfd(struct vfio_pci_core_device *vdev,
- 				    struct vfio_device_ioeventfd __user *arg)
- {
+ /*
+  * Device objects - create, release, get, put, search
+  */
+diff --git a/include/linux/vfio.h b/include/linux/vfio.h
+index 2a45853773a6..ee120d2d530b 100644
+--- a/include/linux/vfio.h
++++ b/include/linux/vfio.h
+@@ -244,6 +244,9 @@ void vfio_unregister_group_dev(struct vfio_device *device);
+ 
+ int vfio_assign_device_set(struct vfio_device *device, void *set_id);
+ unsigned int vfio_device_set_open_count(struct vfio_device_set *dev_set);
++struct vfio_device *
++vfio_find_device_in_devset(struct vfio_device_set *dev_set,
++			   struct device *dev);
+ 
+ int vfio_mig_get_next_state(struct vfio_device *device,
+ 			    enum vfio_device_mig_state cur_fsm,
 -- 
 2.34.1
 
