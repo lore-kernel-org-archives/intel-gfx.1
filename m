@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A362CEB64D8
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 09:30:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB550EB64D7
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 09:30:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE89010E57D;
-	Fri, 16 Jun 2023 09:30:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8245210E58B;
+	Fri, 16 Jun 2023 09:30:51 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5BD210E0B7;
- Fri, 16 Jun 2023 09:30:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AE6310E587;
+ Fri, 16 Jun 2023 09:30:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1686907844; x=1718443844;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=rcbWoJuquNvTPErXmQhigejML4bIMzlFqoFGfaEhre4=;
- b=h8U1qHwuKxOV8usooSfHG3f5Cr8z8e01prvvylsNlIA10cnn2U5VsBzj
- vcK7J8uV9buPnMac5OQmK7/Rx2q1YvkJo7vj+oOAQ5x8UX1pA1q9DzD1U
- btQkCMGqXNaoatSOFdqzME5nIIxohBEY837tt/BdrD9yh7GOiEQdxbIMQ
- 8aPLiBuSERgGDLUeAqVal+pm4z2v8+FxmGVbM5MAR6XsuCDDY2HFv1u+O
- 5Ac6+c/PQgES8xTk7gbBYHbI1eKks7Sn0as1UewQdJIJ333NmbiMy/9BO
- QUS2F0/qUWMiJoGrsx/Pew3T0MG5PQqesU7QBDkC/B5w1Ot9xE6/DkmNZ A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="387863411"
-X-IronPort-AV: E=Sophos;i="6.00,247,1681196400"; d="scan'208";a="387863411"
+ t=1686907847; x=1718443847;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=HKqmYFTi3YyV3VVT88WIEH9NaihQakA2x6QfhcvUS9c=;
+ b=QO4aPLozvhSV/XXJO1sGbXy4GcuYAaonrwZFg/vuW9BmSKyfwwADYRgZ
+ bwUb+rm5nE7v2Fl97yRbIqEbilfO6JbYDE7nksgtxG4QOcaF3vmohye3j
+ Gkrz6MI5pIXULZei4EtBcoSrs91MqiDQyK+E/P/fXbbSdsHjE1lb3A6r5
+ D95cSfdT6CTkquMEOcZu2vryXSUurFHShBQsi6gO4V5I0bJN/xVBeYfEK
+ XE2qUN+0q6ORJDESsOnBRrL5FKeS5Alk5c0oY01+M0rNLLFQxa7tSgDhE
+ g5UXFtxYgAb/LyfCATpodaMTgt0mQAKTP/7lCaIkF1q51BsZqs8ihYVLx Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="387863465"
+X-IronPort-AV: E=Sophos;i="6.00,247,1681196400"; d="scan'208";a="387863465"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2023 02:30:43 -0700
+ 16 Jun 2023 02:30:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="742601899"
-X-IronPort-AV: E=Sophos;i="6.00,247,1681196400"; d="scan'208";a="742601899"
+X-IronPort-AV: E=McAfee;i="6600,9927,10742"; a="742601930"
+X-IronPort-AV: E=Sophos;i="6.00,247,1681196400"; d="scan'208";a="742601930"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by orsmga008.jf.intel.com with ESMTP; 16 Jun 2023 02:30:43 -0700
+ by orsmga008.jf.intel.com with ESMTP; 16 Jun 2023 02:30:46 -0700
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Fri, 16 Jun 2023 02:30:32 -0700
-Message-Id: <20230616093042.65094-1-yi.l.liu@intel.com>
+Date: Fri, 16 Jun 2023 02:30:36 -0700
+Message-Id: <20230616093042.65094-5-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230616093042.65094-1-yi.l.liu@intel.com>
+References: <20230616093042.65094-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 00/10] Enhance vfio PCI hot reset for vfio
- cdev device
+Subject: [Intel-gfx] [PATCH v8 04/10] iommufd: Add iommufd_ctx_has_group()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,123 +70,80 @@ Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VFIO_DEVICE_PCI_HOT_RESET requires user to pass an array of group fds
-to prove that it owns all devices affected by resetting the calling
-device. While for cdev devices, user can use an iommufd-based ownership
-checking model and invoke VFIO_DEVICE_PCI_HOT_RESET with a zero-length
-fd array.
+This adds the helper to check if any device within the given iommu_group
+has been bound with the iommufd_ctx. This is helpful for the checking on
+device ownership for the devices which have not been bound but cannot be
+bound to any other iommufd_ctx as the iommu_group has been bound.
 
-This series extends VFIO_DEVICE_GET_PCI_HOT_RESET_INFO to check ownership
-and return the check result and the devid of affected devices to user. In
-the end, extends the VFIO_DEVICE_PCI_HOT_RESET to accept zero-length fd
-array for hot-reset with cdev devices.
+Tested-by: Terrence Xu <terrence.xu@intel.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Yi Liu <yi.l.liu@intel.com>
+---
+ drivers/iommu/iommufd/device.c | 30 ++++++++++++++++++++++++++++++
+ include/linux/iommufd.h        |  2 ++
+ 2 files changed, 32 insertions(+)
 
-The new hot reset method and updated _INFO ioctl are tested with the
-below qemu:
-
-https://github.com/yiliu1765/qemu/tree/iommufd_rfcv4.mig.reset.v4_var3
-(requires to test with the cdev kernel)
-
-Change log:
-
-v8:
- - Add r-b from Jason to patch 03, 04, 05, 07, 09 of v7
- - Add a patch to copy the per-device hot-reset structure to user during the
-   device loop instead of storing them in a buffer and copy all the contents
-   in one copy, this avoids an extra loop to count device and also avoids
-   allocating a temporay buffer for it. (Jason)
- - Rename vfio_iommufd_device_hot_reset_devid() to be vfio_iommufd_get_dev_id()
-   and refine its return value for the case no valid ID can be returned. Hence
-   make it a general helper to get ID for a device. (Alex, Jason)
- - Remove iommufd_ctx_has_group() CONIFG_IOMMUFD disabled stub as this API is
-   called in iommufd specific code which is compiled when CONFIG_IOMMU is
-   enabled. (Alex)
- - Reaffirming Yanting's t-b (Tested NIC passthrough on Intel platform. mainly
-   regression tests)
-
-v7: https://lore.kernel.org/kvm/20230602121515.79374-1-yi.l.liu@intel.com/
- - Drop noiommu support (patch 01 of v6 is dropped)
- - Remove helpers to get devid and ictx for iommufd_access
- - Document the dev_set representative requirement in the
-   VFIO_DEVICE_GET_PCI_HOT_RESET_INFO for the cdev opened device (Alex)
- - zero-length fd array approach is only for cdev opened device (Alex)
-
-v6: https://lore.kernel.org/kvm/20230522115751.326947-1-yi.l.liu@intel.com/
- - Remove noiommu_access, reuse iommufd_access instead (Alex)
- - vfio_iommufd_physical_ictx -> vfio_iommufd_device_ictx
- - vfio_iommufd_physical_devid -> vfio_iommufd_device_hot_reset_devid
- - Refine logic in patch 9 and 10 of v5, no uapi change. (Alex)
- - Remove lockdep asset in vfio_pci_is_device_in_set (Cédric)
- - Add t-b from Terrence (Tested GVT-g / GVT-d VFIO legacy mode / compat mode
-   / cdev mode, including negative tests. No regression be introduced.)
-
-v5: https://lore.kernel.org/kvm/20230513132136.15021-1-yi.l.liu@intel.com/
- - Drop patch 01 of v4 (Alex)
- - Create noiommu_access for noiommu devices (Jason)
- - Reserve all negative iommufd IDs, hence VFIO can encode negative
-   values (Jason)
- - Make vfio_iommufd_physical_devid() return -EINVAL if it's not called
-   with a physical device or a noiommu device.
- - Add vfio_find_device_in_devset() in vfio_main.c (Alex)
- - Add iommufd_ctx_has_group() to replace vfio_devset_iommufd_has_group().
-   Reason: vfio_devset_iommufd_has_group() only loops the devices within
-   the given devset to check the iommufd an iommu_group, but an iommu_group
-   can span into multiple devsets. So if failed to find the group in a
-   devset doesn't mean the group is not owned by the iommufd. So here either
-   needs to search all the devsets or add an iommufd API to check it. It
-   appears an iommufd API makes more sense.
- - Adopt suggestions from Alex on patch 08 and 09 of v4, refine the hot-reset
-   uapi description and minor tweaks
- - Use bitfields for bool members (Alex)
-
-v4: https://lore.kernel.org/kvm/20230426145419.450922-1-yi.l.liu@intel.com/
- - Rename the patch series subject
- - Patch 01 is moved from the cdev series
- - Patch 02, 06 are new per review comments in v3
- - Patch 03/04/05/07/08/09 are from v3 with updates
-
-v3: https://lore.kernel.org/kvm/20230401144429.88673-1-yi.l.liu@intel.com/
- - Remove the new _INFO ioctl of v2, extend the existing _INFO ioctl to
-   report devid (Alex)
- - Add r-b from Jason
- - Add t-b from Terrence Xu and Yanting Jiang (mainly regression test)
-
-v2: https://lore.kernel.org/kvm/20230327093458.44939-1-yi.l.liu@intel.com/
- - Split the patch 03 of v1 to be 03, 04 and 05 of v2 (Jaon)
- - Add r-b from Kevin and Jason
- - Add patch 10 to introduce a new _INFO ioctl for the usage of device
-   fd passing usage in cdev path (Jason, Alex)
-
-v1: https://lore.kernel.org/kvm/20230316124156.12064-1-yi.l.liu@intel.com/
-
-Regards,
-	Yi Liu
-
-Yi Liu (10):
-  vfio/pci: Update comment around group_fd get in
-    vfio_pci_ioctl_pci_hot_reset()
-  vfio/pci: Move the existing hot reset logic to be a helper
-  iommufd: Reserve all negative IDs in the iommufd xarray
-  iommufd: Add iommufd_ctx_has_group()
-  iommufd: Add helper to retrieve iommufd_ctx and devid
-  vfio: Mark cdev usage in vfio_device
-  vfio: Add helper to search vfio_device in a dev_set
-  vfio/pci: Extend VFIO_DEVICE_GET_PCI_HOT_RESET_INFO for vfio device
-    cdev
-  vfio/pci: Copy hot-reset device info to userspace in the devices loop
-  vfio/pci: Allow passing zero-length fd array in
-    VFIO_DEVICE_PCI_HOT_RESET
-
- drivers/iommu/iommufd/device.c   |  42 ++++++
- drivers/iommu/iommufd/main.c     |   2 +-
- drivers/vfio/iommufd.c           |  44 ++++++
- drivers/vfio/pci/vfio_pci_core.c | 250 +++++++++++++++++++------------
- drivers/vfio/vfio_main.c         |  15 ++
- include/linux/iommufd.h          |   5 +
- include/linux/vfio.h             |  22 +++
- include/uapi/linux/vfio.h        |  71 ++++++++-
- 8 files changed, 352 insertions(+), 99 deletions(-)
-
+diff --git a/drivers/iommu/iommufd/device.c b/drivers/iommu/iommufd/device.c
+index 4f9b2142274c..4571344c8508 100644
+--- a/drivers/iommu/iommufd/device.c
++++ b/drivers/iommu/iommufd/device.c
+@@ -98,6 +98,36 @@ struct iommufd_device *iommufd_device_bind(struct iommufd_ctx *ictx,
+ }
+ EXPORT_SYMBOL_NS_GPL(iommufd_device_bind, IOMMUFD);
+ 
++/**
++ * iommufd_ctx_has_group - True if any device within the group is bound
++ *                         to the ictx
++ * @ictx: iommufd file descriptor
++ * @group: Pointer to a physical iommu_group struct
++ *
++ * True if any device within the group has been bound to this ictx, ex. via
++ * iommufd_device_bind(), therefore implying ictx ownership of the group.
++ */
++bool iommufd_ctx_has_group(struct iommufd_ctx *ictx, struct iommu_group *group)
++{
++	struct iommufd_object *obj;
++	unsigned long index;
++
++	if (!ictx || !group)
++		return false;
++
++	xa_lock(&ictx->objects);
++	xa_for_each(&ictx->objects, index, obj) {
++		if (obj->type == IOMMUFD_OBJ_DEVICE &&
++		    container_of(obj, struct iommufd_device, obj)->group == group) {
++			xa_unlock(&ictx->objects);
++			return true;
++		}
++	}
++	xa_unlock(&ictx->objects);
++	return false;
++}
++EXPORT_SYMBOL_NS_GPL(iommufd_ctx_has_group, IOMMUFD);
++
+ /**
+  * iommufd_device_unbind - Undo iommufd_device_bind()
+  * @idev: Device returned by iommufd_device_bind()
+diff --git a/include/linux/iommufd.h b/include/linux/iommufd.h
+index 1129a36a74c4..f241bafa03da 100644
+--- a/include/linux/iommufd.h
++++ b/include/linux/iommufd.h
+@@ -16,6 +16,7 @@ struct page;
+ struct iommufd_ctx;
+ struct iommufd_access;
+ struct file;
++struct iommu_group;
+ 
+ struct iommufd_device *iommufd_device_bind(struct iommufd_ctx *ictx,
+ 					   struct device *dev, u32 *id);
+@@ -50,6 +51,7 @@ void iommufd_ctx_get(struct iommufd_ctx *ictx);
+ #if IS_ENABLED(CONFIG_IOMMUFD)
+ struct iommufd_ctx *iommufd_ctx_from_file(struct file *file);
+ void iommufd_ctx_put(struct iommufd_ctx *ictx);
++bool iommufd_ctx_has_group(struct iommufd_ctx *ictx, struct iommu_group *group);
+ 
+ int iommufd_access_pin_pages(struct iommufd_access *access, unsigned long iova,
+ 			     unsigned long length, struct page **out_pages,
 -- 
 2.34.1
 
