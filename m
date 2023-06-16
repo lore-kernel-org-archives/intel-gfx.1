@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEABDEB64D7
-	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 18:51:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED388EB64D7
+	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jun 2023 18:51:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6004010E679;
-	Fri, 16 Jun 2023 18:51:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D62C910E67C;
+	Fri, 16 Jun 2023 18:51:07 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C0CF10E679
- for <intel-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 18:51:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 182EC10E67B
+ for <intel-gfx@lists.freedesktop.org>; Fri, 16 Jun 2023 18:51:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1686941464; x=1718477464;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=q5WSxxZ+AiKdfjQ2cSk0XLtAtvr/pSc+nD10S6Ac/U0=;
- b=nGYmG8k5PnqhGdN1RzbtAHNQItv2nynCQkCWioTti62YhIDBS15XdUs9
- 703xUs8JtjtmXbYppA57StjCaE4BGuEgEV5XvLtVX9xCp/zIXPQeTa7S4
- kCyKhmloady5gGfElyV7++wxAdPbVYP/Fqs76j+IywlRScogHfez5wTMh
- 12G1EBR/C6NoJtj0L3ta8SX8Z8I5FTCoeZmx9PhHAI86nUn7D6jKrSZNS
- XnVP05XbE/pLp9iNbsfVr1g0y+PmhbCM7DqqyDplm18DSRribyggA81v4
- ESFAZvK1rPyYLX6jZrgZzm3+mZUy7xqxmTGXDeFIqP3lRicNoSAfYyk14 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10743"; a="356778181"
-X-IronPort-AV: E=Sophos;i="6.00,248,1681196400"; d="scan'208";a="356778181"
+ t=1686941466; x=1718477466;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=ahUui2fclx3dg5Q6yqtTKhyXl+M63dL62gqOzB6Oa9I=;
+ b=RH1dmvWIfoAC/+Q2OaLlUPEnsrv5lOoRcSiQbgwNVKjho74ykdxy2BPc
+ U0FxCXLKiyDAqPFXZSRpFmCz+TOV2zG6lIrQT96oNLqi0AWBGlSC0ac/G
+ ZA8IEHDsYfxyYYgwhJUtBGP1mCNggxfy/2N3g4vmd44WdACvcF2l3z+HE
+ LWOQM6Op+MIEoRNoEMYtdph3IcH9mZ37+laqChxd+qqE7RwN0Z8XgOBaM
+ lDnwvOf/HnqYxjBgi0k0zOpsNCTLnVrX3V9nT9jKwPodR60wLOhkf6+rU
+ 38tXh8BcoowRNmXG43y2IEg6EvHRHVB2CQenvMnrMDec66POZ4+5jo72h g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10743"; a="356778194"
+X-IronPort-AV: E=Sophos;i="6.00,248,1681196400"; d="scan'208";a="356778194"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2023 11:51:03 -0700
+ 16 Jun 2023 11:51:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10743"; a="887198405"
-X-IronPort-AV: E=Sophos;i="6.00,248,1681196400"; d="scan'208";a="887198405"
+X-IronPort-AV: E=McAfee;i="6600,9927,10743"; a="887198420"
+X-IronPort-AV: E=Sophos;i="6.00,248,1681196400"; d="scan'208";a="887198420"
 Received: from unknown (HELO ideak-desk.fi.intel.com) ([10.237.72.78])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2023 11:51:01 -0700
+ 16 Jun 2023 11:51:04 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 16 Jun 2023 21:51:01 +0300
-Message-Id: <20230616185104.2502003-1-imre.deak@intel.com>
+Date: Fri, 16 Jun 2023 21:51:03 +0300
+Message-Id: <20230616185104.2502003-3-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20230616185104.2502003-1-imre.deak@intel.com>
+References: <20230616185104.2502003-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/4] drm/i915: Add missing forward
- declarations/includes to display power headers
+Subject: [Intel-gfx] [PATCH 3/4] drm/i915: Add way to specify the power-off
+ delay of a display power domain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,63 +58,208 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Randy Dunlap <rdunlap@infradead.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add the seq_file struct forward declaration to intel_display_power.h
-fixing the build error below. While at it add the rest of missing
-forward declarations/includes to the display power header files.
+Add support for specifying a delay different than the current 100 ms
+default for powering off a display power domain. This is needed by the
+next patch which delays re-enabling DC states during modesets to avoid
+the off->on->off toggling overhead of the DC_off power well, but does
+this using a < 100 ms delay for a better utilization of DC power saving
+states.
 
-In file included from <command-line>:
-./../drivers/gpu/drm/i915/display/intel_display_power.h:255:70: error: 'struct seq_file'
-declared inside parameter list will not be visible outside of this definition or declaration [-Werror]
-  255 | void intel_display_power_debug(struct drm_i915_private *i915, struct seq_file *m);
-      |                                                                      ^~~~~~~~
-
-Reported-by: Randy Dunlap <rdunlap@infradead.org>
-Closes: https://lore.kernel.org/intel-gfx/89adc1ac-25a0-6eb6-4cc9-ab6cc8d49730@infradead.org/
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_power.h      | 4 ++++
- drivers/gpu/drm/i915/display/intel_display_power_well.h | 2 ++
- 2 files changed, 6 insertions(+)
+ .../drm/i915/display/intel_display_power.c    | 41 +++++++++++++++----
+ .../drm/i915/display/intel_display_power.h    | 26 ++++++++++--
+ 2 files changed, 55 insertions(+), 12 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index d3310c7205320..38225e5d311e5 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -458,6 +458,17 @@ async_put_domains_clear_domain(struct i915_power_domains *power_domains,
+ 	clear_bit(domain, power_domains->async_put_domains[1].bits);
+ }
+ 
++static void
++cancel_async_put_work(struct i915_power_domains *power_domains, bool sync)
++{
++	if (sync)
++		cancel_delayed_work_sync(&power_domains->async_put_work);
++	else
++		cancel_delayed_work(&power_domains->async_put_work);
++
++	power_domains->async_put_next_delay = 0;
++}
++
+ static bool
+ intel_display_power_grab_async_put_ref(struct drm_i915_private *dev_priv,
+ 				       enum intel_display_power_domain domain)
+@@ -478,7 +489,7 @@ intel_display_power_grab_async_put_ref(struct drm_i915_private *dev_priv,
+ 	if (!bitmap_empty(async_put_mask.bits, POWER_DOMAIN_NUM))
+ 		goto out_verify;
+ 
+-	cancel_delayed_work(&power_domains->async_put_work);
++	cancel_async_put_work(power_domains, false);
+ 	intel_runtime_pm_put_raw(&dev_priv->runtime_pm,
+ 				 fetch_and_zero(&power_domains->async_put_wakeref));
+ out_verify:
+@@ -609,7 +620,8 @@ static void __intel_display_power_put(struct drm_i915_private *dev_priv,
+ 
+ static void
+ queue_async_put_domains_work(struct i915_power_domains *power_domains,
+-			     intel_wakeref_t wakeref)
++			     intel_wakeref_t wakeref,
++			     int delay_ms)
+ {
+ 	struct drm_i915_private *i915 = container_of(power_domains,
+ 						     struct drm_i915_private,
+@@ -618,7 +630,7 @@ queue_async_put_domains_work(struct i915_power_domains *power_domains,
+ 	power_domains->async_put_wakeref = wakeref;
+ 	drm_WARN_ON(&i915->drm, !queue_delayed_work(system_unbound_wq,
+ 						    &power_domains->async_put_work,
+-						    msecs_to_jiffies(100)));
++						    msecs_to_jiffies(delay_ms)));
+ }
+ 
+ static void
+@@ -681,13 +693,15 @@ intel_display_power_put_async_work(struct work_struct *work)
+ 		bitmap_zero(power_domains->async_put_domains[1].bits,
+ 			    POWER_DOMAIN_NUM);
+ 		queue_async_put_domains_work(power_domains,
+-					     fetch_and_zero(&new_work_wakeref));
++					     fetch_and_zero(&new_work_wakeref),
++					     power_domains->async_put_next_delay);
++		power_domains->async_put_next_delay = 0;
+ 	} else {
+ 		/*
+ 		 * Cancel the work that got queued after this one got dequeued,
+ 		 * since here we released the corresponding async-put reference.
+ 		 */
+-		cancel_delayed_work(&power_domains->async_put_work);
++		cancel_async_put_work(power_domains, false);
+ 	}
+ 
+ out_verify:
+@@ -706,19 +720,25 @@ intel_display_power_put_async_work(struct work_struct *work)
+  * @i915: i915 device instance
+  * @domain: power domain to reference
+  * @wakeref: wakeref acquired for the reference that is being released
++ * @delay_ms: delay of powering down the power domain
+  *
+  * This function drops the power domain reference obtained by
+  * intel_display_power_get*() and schedules a work to power down the
+  * corresponding hardware block if this is the last reference.
++ * The power down is delayed by @delay_ms if this is >= 0, or by a default
++ * 100 ms otherwise.
+  */
+ void __intel_display_power_put_async(struct drm_i915_private *i915,
+ 				     enum intel_display_power_domain domain,
+-				     intel_wakeref_t wakeref)
++				     intel_wakeref_t wakeref,
++				     int delay_ms)
+ {
+ 	struct i915_power_domains *power_domains = &i915->display.power.domains;
+ 	struct intel_runtime_pm *rpm = &i915->runtime_pm;
+ 	intel_wakeref_t work_wakeref = intel_runtime_pm_get_raw(rpm);
+ 
++	delay_ms = delay_ms >= 0 ? delay_ms : 100;
++
+ 	mutex_lock(&power_domains->lock);
+ 
+ 	if (power_domains->domain_use_count[domain] > 1) {
+@@ -732,10 +752,13 @@ void __intel_display_power_put_async(struct drm_i915_private *i915,
+ 	/* Let a pending work requeue itself or queue a new one. */
+ 	if (power_domains->async_put_wakeref) {
+ 		set_bit(domain, power_domains->async_put_domains[1].bits);
++		power_domains->async_put_next_delay = max(power_domains->async_put_next_delay,
++							  delay_ms);
+ 	} else {
+ 		set_bit(domain, power_domains->async_put_domains[0].bits);
+ 		queue_async_put_domains_work(power_domains,
+-					     fetch_and_zero(&work_wakeref));
++					     fetch_and_zero(&work_wakeref),
++					     delay_ms);
+ 	}
+ 
+ out_verify:
+@@ -775,7 +798,7 @@ void intel_display_power_flush_work(struct drm_i915_private *i915)
+ 
+ 	async_put_domains_mask(power_domains, &async_put_mask);
+ 	release_async_put_domains(power_domains, &async_put_mask);
+-	cancel_delayed_work(&power_domains->async_put_work);
++	cancel_async_put_work(power_domains, false);
+ 
+ out_verify:
+ 	verify_async_put_domains_state(power_domains);
+@@ -799,7 +822,7 @@ intel_display_power_flush_work_sync(struct drm_i915_private *i915)
+ 	struct i915_power_domains *power_domains = &i915->display.power.domains;
+ 
+ 	intel_display_power_flush_work(i915);
+-	cancel_delayed_work_sync(&power_domains->async_put_work);
++	cancel_async_put_work(power_domains, true);
+ 
+ 	verify_async_put_domains_state(power_domains);
+ 
 diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
-index be1a87bde0c9d..df38632c62371 100644
+index 83ceab091468e..d3b5d04b7b077 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_power.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_power.h
-@@ -6,6 +6,9 @@
- #ifndef __INTEL_DISPLAY_POWER_H__
- #define __INTEL_DISPLAY_POWER_H__
+@@ -151,6 +151,7 @@ struct i915_power_domains {
+ 	struct delayed_work async_put_work;
+ 	intel_wakeref_t async_put_wakeref;
+ 	struct intel_power_domain_mask async_put_domains[2];
++	int async_put_next_delay;
  
-+#include <linux/mutex.h>
-+#include <linux/workqueue.h>
+ 	struct i915_power_well *power_wells;
+ };
+@@ -197,7 +198,8 @@ intel_display_power_get_if_enabled(struct drm_i915_private *dev_priv,
+ 				   enum intel_display_power_domain domain);
+ void __intel_display_power_put_async(struct drm_i915_private *i915,
+ 				     enum intel_display_power_domain domain,
+-				     intel_wakeref_t wakeref);
++				     intel_wakeref_t wakeref,
++				     int delay_ms);
+ void intel_display_power_flush_work(struct drm_i915_private *i915);
+ #if IS_ENABLED(CONFIG_DRM_I915_DEBUG_RUNTIME_PM)
+ void intel_display_power_put(struct drm_i915_private *dev_priv,
+@@ -208,7 +210,16 @@ intel_display_power_put_async(struct drm_i915_private *i915,
+ 			      enum intel_display_power_domain domain,
+ 			      intel_wakeref_t wakeref)
+ {
+-	__intel_display_power_put_async(i915, domain, wakeref);
++	__intel_display_power_put_async(i915, domain, wakeref, -1);
++}
 +
- #include "intel_wakeref.h"
++static inline void
++intel_display_power_put_async_delay(struct drm_i915_private *i915,
++				    enum intel_display_power_domain domain,
++				    intel_wakeref_t wakeref,
++				    int delay_ms)
++{
++	__intel_display_power_put_async(i915, domain, wakeref, delay_ms);
+ }
+ #else
+ void intel_display_power_put_unchecked(struct drm_i915_private *dev_priv,
+@@ -227,7 +238,16 @@ intel_display_power_put_async(struct drm_i915_private *i915,
+ 			      enum intel_display_power_domain domain,
+ 			      intel_wakeref_t wakeref)
+ {
+-	__intel_display_power_put_async(i915, domain, -1);
++	__intel_display_power_put_async(i915, domain, -1, -1);
++}
++
++static inline void
++intel_display_power_put_async_delay(struct drm_i915_private *i915,
++				    enum intel_display_power_domain domain,
++				    intel_wakeref_t wakeref,
++				    int delay_ms)
++{
++	__intel_display_power_put_async(i915, domain, -1, delay_ms);
+ }
+ #endif
  
- enum aux_ch;
-@@ -16,6 +19,7 @@ enum port;
- struct drm_i915_private;
- struct i915_power_well;
- struct intel_encoder;
-+struct seq_file;
- 
- /*
-  * Keep the pipe, transcoder, port (DDI_LANES,DDI_IO,AUX) domain instances
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.h b/drivers/gpu/drm/i915/display/intel_display_power_well.h
-index e494df379e6c2..1015bba4af01e 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_well.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_well.h
-@@ -12,6 +12,8 @@
- 
- struct drm_i915_private;
- struct i915_power_well;
-+struct i915_power_well_ops;
-+struct intel_encoder;
- 
- #define for_each_power_well(__dev_priv, __power_well)				\
- 	for ((__power_well) = (__dev_priv)->display.power.domains.power_wells;	\
 -- 
 2.37.2
 
