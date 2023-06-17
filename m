@@ -4,107 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DDB3EB64D8
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:29:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 544EFEB64D7
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:29:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E7D810E37C;
-	Tue, 20 Jun 2023 18:29:24 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2117.outbound.protection.outlook.com [40.107.220.117])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B1BA10E60C;
- Fri,  2 Jun 2023 18:50:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RUMcpw4qtTPt8cffT/hELuBVwmiFMhBvp44riQiEz/YK6cV3CuTnsvwDCHGfxtP+NP+eh4b2Et5Iv5D4ZOvATB6aez3R3g53aQ0aaOqHwTmDPKoFPnwbF7r2ffAcMDxIQtfyXDBhwqoz9hWhA13xKHdD6nn/LnRqy3d2n+M/2clbGBzr3odOv3oLiwnZgQndLrDnsHaxemXVSbiNM9J8U0NO57nyS5P7dR0aKYZGIX9/zocaDzSdp/GVKGBm4NYuqS/A9dxmvtJKFCIhgtubYWym7ZC21cPR/jwzIACtG/BB30LYuO15YyKtwHtZo70XfbJ9lNUjqQOM8FP5omOClA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iGp/RelLSKQh9skSR/gRuj4R3y6z9zeQxcjTv7v46OE=;
- b=LVKLOxOHbUriwUsTecAAvZZS45JjJg7zzNvp05GnOI1opPpAjSWJbuTpLs2sPCWet8XprnkjyZyNuI3QZ47PnoaBIavt4et8028eqa8jpUWNa+1YGCGnFT+9wv32jrl53UWcfyze2jcnFee2ALLPqqzZuh1SxokSX1/xBnLliP2w3npW/Z3PbhDyf/KCRI8vchsrCrm+8RIAptk52+Op0EsgioxE1ljQ1lw4AMubAcglpOZ5KWddXNp32up0nO6kyFBVCdeO8UtjWc+YzC5xnSEyQj/a9I0lZ9o3xWB8EgXMdyLA+1kSmPCw2DCmEkUex7sTI8cU+wCZnFaQJXD+4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=corigine.com; dmarc=pass action=none header.from=corigine.com;
- dkim=pass header.d=corigine.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 411A710E382;
+	Tue, 20 Jun 2023 18:29:25 +0000 (UTC)
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8F0E10E00D;
+ Sat, 17 Jun 2023 18:26:19 +0000 (UTC)
+Received: by mail-ot1-x331.google.com with SMTP id
+ 46e09a7af769-6b2b7ca1c5eso1692685a34.0; 
+ Sat, 17 Jun 2023 11:26:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=corigine.onmicrosoft.com; s=selector2-corigine-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iGp/RelLSKQh9skSR/gRuj4R3y6z9zeQxcjTv7v46OE=;
- b=wBWxaT6XMT2B2VjtZQP+w6wrsujJX5lpKjCNskzX3EQHFi+ceOzb/4jy0bDQBfLNyHDWy4oRiPwxkNmjSYlHlOrN63Ml/dbb3uo/yx+k5jkVDIaABIFFv8AwSHkxAx6cb5MZ2h+Irf3+lp+u7mJ30/j2rYBYxatne73vm7fDq54=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=corigine.com;
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com (2603:10b6:510:78::6)
- by LV3PR13MB6430.namprd13.prod.outlook.com (2603:10b6:408:197::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.12; Fri, 2 Jun
- 2023 18:50:18 +0000
-Received: from PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::5e55:9a39:751f:55f6]) by PH0PR13MB4842.namprd13.prod.outlook.com
- ([fe80::5e55:9a39:751f:55f6%3]) with mapi id 15.20.6455.026; Fri, 2 Jun 2023
- 18:50:18 +0000
-Date: Fri, 2 Jun 2023 20:50:11 +0200
-From: Simon Horman <simon.horman@corigine.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>
-Message-ID: <ZHo54/ycgGUxjiiw@corigine.com>
-References: <20230224-track_gt-v9-0-5b47a33f55d1@intel.com>
- <20230224-track_gt-v9-2-5b47a33f55d1@intel.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230224-track_gt-v9-2-5b47a33f55d1@intel.com>
-X-ClientProxiedBy: AM9P195CA0018.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:20b:21f::23) To PH0PR13MB4842.namprd13.prod.outlook.com
- (2603:10b6:510:78::6)
+ d=gmail.com; s=20221208; t=1687026378; x=1689618378;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=iAOhlvHTcWXeb9PboEkspmfVbcV594RGj9F/z1tmu4Y=;
+ b=DWYFOewOzfcxwUvqtdocgz991WeelZUqOziEmq3Yr1OOBIRlZZZ0Nnzb7tGqJ+WhvZ
+ UKCDxM4SD0iyTQC2LQPSnoYvHqvPTSbhi2EpJHXBZuN+zWmtNPGy3z37fgO+DDMDjTO6
+ SsSJ0BxgCV29PYyve4O/PEa5snOgcrgclkBGg4yovHC0pfal5ILNoTh3nawLfqGzUdQl
+ mBbAvMYXthloGbzpjwO/+YL0LBMR4Gvzvi+hCsHsuXi6jbWx8BJ/9wTWqC+LfhNfmIEM
+ 4GI/jnS+Wu8R0TofM1bt19kKhf31PegFr7HOoF+OZLjfbem0CtAKF4ZffGd+zIqmErHc
+ 2GbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687026378; x=1689618378;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:message-id:subject:cc:to:from:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=iAOhlvHTcWXeb9PboEkspmfVbcV594RGj9F/z1tmu4Y=;
+ b=dfZF1MXkoK/17QwZ5ABdYjcLkXioMK+Fwi/XBpvGkQDmAKKfQAabYYQfZWxPjhWQkx
+ 3PWXHhOeNNYBz9dFrGFC/nrL51pEKTjcA5rtaMR1kSCzIpH/DGKXzbbo3loAazgbJ5S8
+ y8sPunYiBz2IntTacrb+UZ91VRveI9OqnGT0zbOCxZIajfyXpMb67FyjwMQGLRdXyxXk
+ WvcL/3hNIOnF6m561naMl827jDbEJmvErRaoh0XYj2VdzuFV+mU4t/aocaV8JoKhzc1V
+ 7C53vTFtwjxRLRl3eYlgpnGNOxjO+E9wGG1rtAKZ5ZYC13CpQ6IlHNqconbd5P36WdU7
+ 3FPw==
+X-Gm-Message-State: AC+VfDxq8MTBw10/MJiCXZXRmThyKs1W63WOih04OPKaHBkxRMsGXnQV
+ TjSRlJK/qZba/eXy8SenBoI=
+X-Google-Smtp-Source: ACHHUZ56YUUTSc04n4jtBmXQunTwc6aTvQHQknF6ljrYQVzDoYqxNZifQoRcL1NlfF1RF9LJPzbkNw==
+X-Received: by 2002:a05:6359:c1e:b0:12b:dd43:b0a5 with SMTP id
+ gn30-20020a0563590c1e00b0012bdd43b0a5mr2815690rwb.24.1687026378312; 
+ Sat, 17 Jun 2023 11:26:18 -0700 (PDT)
+Received: from sumitra.com ([117.199.158.52]) by smtp.gmail.com with ESMTPSA id
+ ik26-20020a170902ab1a00b001b20dc1b3c9sm1646501plb.200.2023.06.17.11.26.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 17 Jun 2023 11:26:17 -0700 (PDT)
+Date: Sat, 17 Jun 2023 11:26:09 -0700
+From: Sumitra Sharma <sumitraartsy@gmail.com>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m_=28Intel=29?= <thomas_os@shipmail.org>
+Message-ID: <20230617182609.GA410998@sumitra.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR13MB4842:EE_|LV3PR13MB6430:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd155795-984c-49ef-2162-08db639a35ff
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: SCTzp5v+71yIT9+vcXBLh5abtNK8JoVqQ2UzDtgNd0EncFCHMA99F/wzoJ3SH0F73zvg5/a7Rxsi1LmcBwzUn02BxhOYC5FYLYMiCfEX779hHyO+twnAS1+i5+t6duMMo+4k+fpqHgyJ/5jz0/JyDgjpALLmcESO9wixjUTgnKuph4w3FJtdAyTvilGEwCP0RhxehetzaDCexIssrPJIexkdlhYpT2fspKYVdQzIvWrb8trF42CEsWu7bt088gR2JdLimTmjIsEOvk46+OvRnJtUf8gn+skkzz1VMB3BfsBu2mj5mXeumlDXRhhYzHdDbM64AVoHEbDmaeo9K3GUGzeJorH9iajq7QFdIvv+eKm7S/K+Jb5JVzWZmMQNBHAHikQsVUiK2z5v2E7irkWEjr5bynMxoi6fNyrqm8HroiZ+IhLOASVl5r/5tdKZi4gIMueMb2Tiw6FAvZ+0IV6oM/v1fVLqVwQPHt3yZ8f+viate0Ec3yzNbMmDFBDlQI6l7B/u1bs1fdit8wFutY2X/m1ka72gYEF+fjIfcN5joZEMHiw9+s8eNLqZeZlBCX5O
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR13MB4842.namprd13.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(136003)(346002)(396003)(376002)(366004)(39840400004)(451199021)(36756003)(2616005)(83380400001)(4744005)(2906002)(86362001)(38100700002)(6486002)(41300700001)(316002)(6666004)(5660300002)(8676002)(8936002)(478600001)(54906003)(66556008)(4326008)(66946007)(6506007)(6512007)(26005)(66476007)(6916009)(186003)(7416002)(44832011);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?OVA2HZl7oxRLWsgiBrBKa6x7qzAAa2GKtQKsectGzHjgefpsH9zZP4OdHSvd?=
- =?us-ascii?Q?rrjElZ7/bRzlzizoexqxfrre5lskD8jLj6PUecR+j0UXkPw0qCJTaiFj+Bxk?=
- =?us-ascii?Q?YpTOQsFVvv0dnyRRktCl1DgUlPVS5pCqBDR6eG1WGRxbn6jLAmGJzlRqmPZQ?=
- =?us-ascii?Q?BhYyovyx/mphu4OBrj13E2z55DxMHBAH/ppiB/v4MN4kbUoTXCaYU7xt2phu?=
- =?us-ascii?Q?KUe3uS3F69v0bwNVeN1OCbL+xi494rZRHNmWSN11Eg0Gh8meBuwKvtNfvrnW?=
- =?us-ascii?Q?kd/w+st5wIyG2fsmnJPWHpjOIFqm+LB5b+Jd9LtR0WWL9uwNcizzKnxUxRE1?=
- =?us-ascii?Q?c+vcGhcOkegTnpc4WZdEE/Vr/zBDnJdwvI77qWRJ1XvlzrUN7yNgr6QmT58B?=
- =?us-ascii?Q?teQW4nEfyuwy+Ldn3lcUz7t3Ib7cYuWV8t5Jxv5ax340bm4ztLDbhtVWOEO4?=
- =?us-ascii?Q?FMD0dSLxA92+NjLHD4EDH0O5h1WHYgdLGnbjUwhtQS5mtFr2AYHLM8R5ybmz?=
- =?us-ascii?Q?0zKiZVy7WxjI8S3YWvBjS48EPcwj1eDDQtURuvPMOuaR5fgMZ9jQemld+B+Y?=
- =?us-ascii?Q?otxq+m5SymEjJyhWSrDVjFDcyvaFsyCMOAdSvVzDj3YfmYpd9+WsMdtk2j4Y?=
- =?us-ascii?Q?75Ihrw0nFNp0fgeU1mbFIL1i3V6w2D20wV3RrCxemFEIEt/VrTPK0kLbaV6S?=
- =?us-ascii?Q?BUydqxUsN72RRTM+4VmSP4/XJM9xlFT6RjYPuJsPJkRtaMEG+uzJsou4ZR0P?=
- =?us-ascii?Q?2lUUGTvQ2MC3vj2a8eoFfeYKNE6XADOENYYLQ6Nar0JoHA2cOito8lmt+qHW?=
- =?us-ascii?Q?rOUNftcv0W4ddsBalU1E8Tr429NgAJQGNU13s3FGAlxRoUmVWpEEKje7sR4e?=
- =?us-ascii?Q?S1E0rP0UXUeXo2HcuAoFfebYZJrddrrwlQIE1gDDN52THQTSCmGsCvaL/ypB?=
- =?us-ascii?Q?gp16fxJgWWxBYybeveM3I+GSo4HtfhDnRqAFT41HGCmwO2MbDp/3xTGWjAEA?=
- =?us-ascii?Q?Qobn2X/yxem3DYDbYCri08fSGwsB1ojcVCK9in/z6uSAwbcwngbWYaug2VfT?=
- =?us-ascii?Q?nkUcqsmk1yhgeXpz/dnSbahPuNGXowFHebMi5s1nJlZb6UNBO2l84ow/KrcK?=
- =?us-ascii?Q?xIMH0KNZEv3VAiW5ELATwo156Des3JAH1pD+vIi7117j6nzRdo3Jh8fAeoOy?=
- =?us-ascii?Q?8cfq1kykERnjmG9U2MaEZiaxFM5WRmvJZOgeyCQNiq7qaxT4eEcpNPvQsyJp?=
- =?us-ascii?Q?UimDE2x0GSh3FTRvOyE+1WELbdoetU0dqfbXf8yEVxTRxP5psSQ0ldoyYqdJ?=
- =?us-ascii?Q?uPNTWC9mO8FShdq8cHOKBCp8wGeS0fkS1+kjtrv7vn6ILIbO5mkMlW5P9KKd?=
- =?us-ascii?Q?7dqNZyP1ZpckOp8ffAP7BD6XQReaVId8IuSSiFUYQk38d6xqL/2YluhuYwRK?=
- =?us-ascii?Q?sHZOJRuiwqI/u2vHGbwN59xvStokC1kjACNA0aSThhyCZ9cAANJLX0AM5gXZ?=
- =?us-ascii?Q?Y0ZMh3OFd3EYFIi0ctKnb1FLsh3KgzWN2lmHWT8Q6xAERdQD5/wA07ClW72h?=
- =?us-ascii?Q?WvfCRkae2usHBzs0IxAPRDXJr8EkUS758TiBgmNRXi4EMc7uGsPdvpwQGQ/T?=
- =?us-ascii?Q?fQ=3D=3D?=
-X-OriginatorOrg: corigine.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd155795-984c-49ef-2162-08db639a35ff
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR13MB4842.namprd13.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2023 18:50:18.7686 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fe128f2c-073b-4c20-818e-7246a585940c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SxxXJKcLXxwIPii58dT4LyqQUtQMBMdVZlp1w7obwVA8XdIYdbl1Rn4C3sCsMoQR1NmktJvKJjD2mzU7xfkqgsDaLjQrqNlfNzrxaRZZb8k=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR13MB6430
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <69d7af2f-f4c2-5a7d-ce69-c38be5660c74@shipmail.org>
 X-Mailman-Approved-At: Tue, 20 Jun 2023 18:28:21 +0000
-Subject: Re: [Intel-gfx] [PATCH v9 2/4] lib/ref_tracker: improve printing
- stats
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Call page_address() on page
+ acquired with GFP_KERNEL flag
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,24 +74,81 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: netdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>,
- Eric Dumazet <edumazet@google.com>, dri-devel@lists.freedesktop.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Dmitry Vyukov <dvyukov@google.com>
+Cc: Sumitra Sharma <sumitraartsy@gmail.com>, Ira Weiny <ira.weiny@intel.com>,
+ Deepak R Varma <drv@mailo.com>, Fabio <fmdefrancesco@gmail.com>,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Thomas Hellstrom <thomas.hellstrom@intel.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, Matthew Auld <matthew.auld@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 02, 2023 at 12:21:34PM +0200, Andrzej Hajda wrote:
-> In case the library is tracking busy subsystem, simply
-> printing stack for every active reference will spam log
-> with long, hard to read, redundant stack traces. To improve
-> readabilty following changes have been made:
 
-Hi Andrzej,
+On Wed, Jun 14, 2023 at 05:30:25PM +0200, Thomas Hellström (Intel) wrote:
+> 
+> On 6/14/23 15:22, Tvrtko Ursulin wrote:
+> > 
+> > On 14/06/2023 13:35, Sumitra Sharma wrote:
+> > > Pages allocated with GFP_KERNEL cannot come from Highmem.
+> > > That is why there is no need to call kmap() on them.
+> > 
+> > Are you sure it is GFP_KERNEL backed and not tmpfs? I am not sure myself
+> > so let me copy Matt and Thomas if they happen to know off hand.
+>
 
-in case you have to respin for some other reason, you may want to consider:
+Hello,
 
-  readabilty -> readability
+Yes it is true that the pages have not been acquired using the GFP_KERNEL.
 
-...
+I confused the allocation of the struct 'i915_vma_resource' tracking the 
+pages with the allocation of the pages themselves.
+
+This was noted by my mentor Ira Weiny <ira.weiny@intel.com>.
+
+> It looks to me these are shmem pages or TTM pages. Both could be highmem. So
+> I think kmap is the correct choice here.
+> 
+
+However, the kmap() will not be the correct choice here and kmap_local_page()
+must be used instead. I have created a v2 patch for the same
+https://lore.kernel.org/lkml/20230617180420.GA410966@sumitra.com/
+
+Thank you for helping me.
+
+Regards
+Sumitra
+
+> /Thomas
+>
+> 
+> 
+> 
+> > 
+> > Regards,
+> > 
+> > Tvrtko
+> > 
+> > > Therefore, don't call kmap() on the page coming from
+> > > vma_res->bi.pages using for_each_sgt_page() in
+> > > i915_vma_coredump_create().
+> > > 
+> > > Use a plain page_address() to get the kernel address instead.
+> > > 
+> > > Signed-off-by: Sumitra Sharma <sumitraartsy@gmail.com>
+> > > ---
+> > >   drivers/gpu/drm/i915/i915_gpu_error.c | 3 +--
+> > >   1 file changed, 1 insertion(+), 2 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c
+> > > b/drivers/gpu/drm/i915/i915_gpu_error.c
+> > > index f020c0086fbc..6f51cb4fc55c 100644
+> > > --- a/drivers/gpu/drm/i915/i915_gpu_error.c
+> > > +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+> > > @@ -1164,9 +1164,8 @@ i915_vma_coredump_create(const struct intel_gt
+> > > *gt,
+> > >                 drm_clflush_pages(&page, 1);
+> > >   -            s = kmap(page);
+> > > +            s = page_address(page);
+> > >               ret = compress_page(compress, s, dst, false);
+> > > -            kunmap(page);
+> > >                 drm_clflush_pages(&page, 1);
