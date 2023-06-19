@@ -4,48 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF0F4EB64DB
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:28:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DD59EB64D8
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:28:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64B7810E376;
-	Tue, 20 Jun 2023 18:28:23 +0000 (UTC)
-X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
- Wed, 24 May 2023 10:28:50 UTC
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D377610E5DD;
- Wed, 24 May 2023 10:28:50 +0000 (UTC)
-X-UUID: 668ddbdc9f3441199eba022cbb031cdd-20230524
-X-CID-O-RULE: Release_Ham
-X-CID-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.22, REQID:a266c3e7-407b-45c6-953e-30cc8f6499fb, IP:5,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:0
-X-CID-INFO: VERSION:1.1.22, REQID:a266c3e7-407b-45c6-953e-30cc8f6499fb, IP:5,
- URL
- :0,TC:0,Content:0,EDM:0,RT:0,SF:-5,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
- elease,TS:0
-X-CID-META: VersionHash:120426c, CLOUDID:c183e3c1-e32c-4c97-918d-fbb3fc224d4e,
- B
- ulkID:230524182338C2CV12RN,BulkQuantity:0,Recheck:0,SF:24|17|19|44|102,TC:
- nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OS
- I:0,OSA:0,AV:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-UUID: 668ddbdc9f3441199eba022cbb031cdd-20230524
-X-User: pengfuyuan@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.169)] by mailgw
- (envelope-from <pengfuyuan@kylinos.cn>) (Generic MTA)
- with ESMTP id 357049139; Wed, 24 May 2023 18:23:36 +0800
-From: pengfuyuan <pengfuyuan@kylinos.cn>
-To: David Airlie <airlied@gmail.com>
-Date: Wed, 24 May 2023 18:23:32 +0800
-Message-Id: <20230524102332.1483249-1-pengfuyuan@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63B3E10E37B;
+	Tue, 20 Jun 2023 18:28:24 +0000 (UTC)
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
+ [IPv6:2607:f8b0:4864:20::431])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C027B10E059;
+ Mon, 19 Jun 2023 15:46:00 +0000 (UTC)
+Received: by mail-pf1-x431.google.com with SMTP id
+ d2e1a72fcca58-666e5f0d60bso1275983b3a.3; 
+ Mon, 19 Jun 2023 08:46:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1687189559; x=1689781559;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=a8Og5h/yKrlm8jSKmkaXbcFetR4mC5v+7J0mPleddkU=;
+ b=oXVIR3zkRp+1DEvl2Xpr+KrgGa4LxV1UsxEUr4mLcrgJLsAr+MWWiFusddNr/hTWmB
+ qZkkSV1HpK2RomjyTo3KOh3+8BljNY/tXoILXpIAjux6CIGKlzgjMWCXp5XzX50rpG09
+ bc6igPPLIjKq2Ixcdv3yjO1iq4iKmaWYZHPAgFRoTxKh82yFxrsgzHjHvEAmLGLs2iEQ
+ Igcvc8RLu6JaYLaL67oC2l6ua88dCFUdZV0NRVzHzPDT0xsAzTyN1f4lXSlHrR2eYW9r
+ DilnS+23DQrpU5nGBUtqcVnsKnm3vYSkRkc1LGkHbldyA1PyumjypqxcQSDzOxywkpXj
+ EouQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687189559; x=1689781559;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=a8Og5h/yKrlm8jSKmkaXbcFetR4mC5v+7J0mPleddkU=;
+ b=dCWX3/hwqPa6Bj3PcXd+B6tTL4sAcOY0lSVXhuyG6SuJFSkw7mIEAUaNTmO8JtRbP3
+ 0TfJV4/MkJG72m1741pOzkuTyGXZb56B+2Qg2SZ4KOjWx//YauyfnobLvBWP2OiUQfva
+ pOZ5EC/EHaDgCOMkf5l75o9gyzs2571qKI0lyNPneCnwvd69B4a/iyccCqjuQEEP13EP
+ lpfAwLhzUakT8P9ZrxgtpTcprm/kqzVKTVHjqHSrErj1hHfBDY7soJ982PRZqPQ546R8
+ 93NbOsbjDanA5Jf99XGSoK2vTM+8e7U8IZeYeemc2+P4mM299kYddhioYHr1SYtlf13e
+ ubLQ==
+X-Gm-Message-State: AC+VfDwMFQCLG6usNolALSDaR8BPBSBFIymnuKglh2lUZbNkkWiCgxnk
+ kmvsJDFRyp86JtnL/hYoJh4=
+X-Google-Smtp-Source: ACHHUZ6RWfursTFuGYeRkaJ+t1j5qreI+VxDrRuP7BW+hRuT2EibTVSWdiup8K+UYoRcbIYEQQ2stg==
+X-Received: by 2002:a05:6a00:2d82:b0:668:715a:6fcd with SMTP id
+ fb2-20020a056a002d8200b00668715a6fcdmr2868668pfb.5.1687189559451; 
+ Mon, 19 Jun 2023 08:45:59 -0700 (PDT)
+Received: from sumitra.com ([59.95.144.189]) by smtp.gmail.com with ESMTPSA id
+ fe26-20020a056a002f1a00b006579b062d5dsm3648055pfb.21.2023.06.19.08.45.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Jun 2023 08:45:59 -0700 (PDT)
+Date: Mon, 19 Jun 2023 08:45:50 -0700
+From: Sumitra Sharma <sumitraartsy@gmail.com>
+To: Ira Weiny <ira.weiny@intel.com>
+Message-ID: <20230619154550.GB412243@sumitra.com>
+References: <20230617180420.GA410966@sumitra.com>
+ <648f48bc3d3c2_1de3f9294a3@iweiny-mobl.notmuch>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <648f48bc3d3c2_1de3f9294a3@iweiny-mobl.notmuch>
 X-Mailman-Approved-At: Tue, 20 Jun 2023 18:28:21 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915:fix kernel-doc trivial warnings
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915: Replace kmap() with
+ kmap_local_page()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,199 +76,104 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- christian.koenig@amd.com, linaro-mm-sig@lists.linaro.org,
- pengfuyuan <pengfuyuan@kylinos.cn>, dri-devel@lists.freedesktop.org,
+Cc: Sumitra Sharma <sumitraartsy@gmail.com>, Deepak R Varma <drv@mailo.com>,
+ Fabio <fmdefrancesco@gmail.com>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- k2ci <kernel-bot@kylinos.cn>, Sumit Semwal <sumit.semwal@linaro.org>,
- linux-media@vger.kernel.org
+ David Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The test robot reports some make warnings.
+On Sun, Jun 18, 2023 at 11:11:08AM -0700, Ira Weiny wrote:
+> Sumitra Sharma wrote:
+> > kmap() has been deprecated in favor of the kmap_local_page()
+> > due to high cost, restricted mapping space, the overhead of a
+> > global lock for synchronization, and making the process sleep
+> > in the absence of free slots.
+> > 
+> > kmap_local_page() is faster than kmap() and offers thread-local
+> > and CPU-local mappings, take pagefaults in a local kmap region
+> > and preserves preemption by saving the mappings of outgoing tasks
+> > and restoring those of the incoming one during a context switch.
+> > 
+> > The mapping is kept thread local in the function
+> > “i915_vma_coredump_create” in i915_gpu_error.c
+> > 
+> > Therefore, replace kmap() with kmap_local_page().
+> > 
+> > Suggested-by: Ira Weiny <ira.weiny@intel.com>
+> > 
+> 
+> NIT: No need for the line break between Suggested-by and your signed off line.
+> 
 
-Fix those warnings:
-    drivers/gpu/drm/i915/i915_gpu_error.c:2174: warning: Function parameter or member 'dump_flags' not described in 'i915_capture_error_state'
-    drivers/gpu/drm/i915/i915_perf.c:5307: warning: Function parameter or member 'i915' not described in 'i915_perf_ioctl_version'
-    drivers/gpu/drm/i915/i915_active.h:66: warning: Function parameter or member 'active' not described in '__i915_active_fence_init'
-    drivers/gpu/drm/i915/i915_active.h:66: warning: Function parameter or member 'fence' not described in '__i915_active_fence_init'
-    drivers/gpu/drm/i915/i915_active.h:66: warning: Function parameter or member 'fn' not described in '__i915_active_fence_init'
-    drivers/gpu/drm/i915/i915_active.h:89: warning: Function parameter or member 'active' not described in 'i915_active_fence_set'
-    drivers/gpu/drm/i915/i915_active.h:89: warning: Function parameter or member 'rq' not described in 'i915_active_fence_set'
-    drivers/gpu/drm/i915/i915_active.h:102: warning: Function parameter or member 'active' not described in 'i915_active_fence_get'
-    drivers/gpu/drm/i915/i915_active.h:122: warning: Function parameter or member 'active' not described in 'i915_active_fence_isset'
-    drivers/gpu/drm/i915/i915_utils.h:284: warning: Function parameter or member 'OP' not described in '__wait_for'
-    drivers/gpu/drm/i915/i915_utils.h:284: warning: Function parameter or member 'COND' not described in '__wait_for'
-    drivers/gpu/drm/i915/i915_utils.h:284: warning: Function parameter or member 'US' not described in '__wait_for'
-    drivers/gpu/drm/i915/i915_utils.h:284: warning: Function parameter or member 'Wmin' not described in '__wait_for'
-    drivers/gpu/drm/i915/i915_utils.h:284: warning: Function parameter or member 'Wmax' not described in '__wait_for'
-    drivers/gpu/drm/i915/i915_scatterlist.h:164: warning: Function parameter or member 'release' not described in 'i915_refct_sgt_ops'
-    drivers/gpu/drm/i915/i915_scatterlist.h:187: warning: Function parameter or member 'rsgt' not described in 'i915_refct_sgt_put'
-    drivers/gpu/drm/i915/i915_scatterlist.h:198: warning: Function parameter or member 'rsgt' not described in 'i915_refct_sgt_get'
-    drivers/gpu/drm/i915/i915_scatterlist.h:214: warning: Function parameter or member 'rsgt' not described in '__i915_refct_sgt_init'
-    drivers/gpu/drm/i915/i915_vma_resource.h:129: warning: Function parameter or member 'wakeref' not described in 'i915_vma_resource'
+Hi Ira,
 
-Reported-by: k2ci <kernel-bot@kylinos.cn>
-Signed-off-by: pengfuyuan <pengfuyuan@kylinos.cn>
----
- drivers/gpu/drm/i915/i915_active.h       | 14 +++++++-------
- drivers/gpu/drm/i915/i915_gpu_error.c    |  1 +
- drivers/gpu/drm/i915/i915_perf.c         |  1 +
- drivers/gpu/drm/i915/i915_scatterlist.h  |  9 +++++----
- drivers/gpu/drm/i915/i915_utils.h        |  6 ++++++
- drivers/gpu/drm/i915/i915_vma_resource.h |  1 +
- 6 files changed, 21 insertions(+), 11 deletions(-)
+What does NIT stand for? 
 
-diff --git a/drivers/gpu/drm/i915/i915_active.h b/drivers/gpu/drm/i915/i915_active.h
-index 7eb44132183a..77c676ecc263 100644
---- a/drivers/gpu/drm/i915/i915_active.h
-+++ b/drivers/gpu/drm/i915/i915_active.h
-@@ -49,9 +49,9 @@ void i915_active_noop(struct dma_fence *fence, struct dma_fence_cb *cb);
- 
- /**
-  * __i915_active_fence_init - prepares the activity tracker for use
-- * @active - the active tracker
-- * @fence - initial fence to track, can be NULL
-- * @func - a callback when then the tracker is retired (becomes idle),
-+ * @active: the active tracker
-+ * @fence: initial fence to track, can be NULL
-+ * @fn: a callback when then the tracker is retired (becomes idle),
-  *         can be NULL
-  *
-  * i915_active_fence_init() prepares the embedded @active struct for use as
-@@ -77,8 +77,8 @@ __i915_active_fence_set(struct i915_active_fence *active,
- 
- /**
-  * i915_active_fence_set - updates the tracker to watch the current fence
-- * @active - the active tracker
-- * @rq - the request to watch
-+ * @active: the active tracker
-+ * @rq: the request to watch
-  *
-  * i915_active_fence_set() watches the given @rq for completion. While
-  * that @rq is busy, the @active reports busy. When that @rq is signaled
-@@ -89,7 +89,7 @@ i915_active_fence_set(struct i915_active_fence *active,
- 		      struct i915_request *rq);
- /**
-  * i915_active_fence_get - return a reference to the active fence
-- * @active - the active tracker
-+ * @active: the active tracker
-  *
-  * i915_active_fence_get() returns a reference to the active fence,
-  * or NULL if the active tracker is idle. The reference is obtained under RCU,
-@@ -111,7 +111,7 @@ i915_active_fence_get(struct i915_active_fence *active)
- 
- /**
-  * i915_active_fence_isset - report whether the active tracker is assigned
-- * @active - the active tracker
-+ * @active: the active tracker
-  *
-  * i915_active_fence_isset() returns true if the active tracker is currently
-  * assigned to a fence. Due to the lazy retiring, that fence may be idle
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index f020c0086fbc..dae8b7ff9725 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -2162,6 +2162,7 @@ void i915_error_state_store(struct i915_gpu_coredump *error)
-  * i915_capture_error_state - capture an error record for later analysis
-  * @gt: intel_gt which originated the hang
-  * @engine_mask: hung engines
-+ * @dump_flags: flags specifying additional options for capturing the error state
-  *
-  *
-  * Should be called when an error is detected (either a hang or an error
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 050b8ae7b8e7..2bbf359c18b3 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -5300,6 +5300,7 @@ void i915_perf_fini(struct drm_i915_private *i915)
- 
- /**
-  * i915_perf_ioctl_version - Version of the i915-perf subsystem
-+ * @i915: i915 device instance
-  *
-  * This version number is used by userspace to detect available features.
-  */
-diff --git a/drivers/gpu/drm/i915/i915_scatterlist.h b/drivers/gpu/drm/i915/i915_scatterlist.h
-index b0a1db44f895..50b379bac6fd 100644
---- a/drivers/gpu/drm/i915/i915_scatterlist.h
-+++ b/drivers/gpu/drm/i915/i915_scatterlist.h
-@@ -154,6 +154,7 @@ bool i915_sg_trim(struct sg_table *orig_st);
- 
- /**
-  * struct i915_refct_sgt_ops - Operations structure for struct i915_refct_sgt
-+ * @release: Free the memory of the struct i915_refct_sgt
-  */
- struct i915_refct_sgt_ops {
- 	/**
-@@ -167,7 +168,7 @@ struct i915_refct_sgt_ops {
-  * struct i915_refct_sgt - A refcounted scatter-gather table
-  * @kref: struct kref for refcounting
-  * @table: struct sg_table holding the scatter-gather table itself. Note that
-- * @table->sgl = NULL can be used to determine whether a scatter-gather table
-+ * table->sgl = NULL can be used to determine whether a scatter-gather table
-  * is present or not.
-  * @size: The size in bytes of the underlying memory buffer
-  * @ops: The operations structure.
-@@ -181,7 +182,7 @@ struct i915_refct_sgt {
- 
- /**
-  * i915_refct_sgt_put - Put a refcounted sg-table
-- * @rsgt the struct i915_refct_sgt to put.
-+ * @rsgt: the struct i915_refct_sgt to put.
-  */
- static inline void i915_refct_sgt_put(struct i915_refct_sgt *rsgt)
- {
-@@ -191,7 +192,7 @@ static inline void i915_refct_sgt_put(struct i915_refct_sgt *rsgt)
- 
- /**
-  * i915_refct_sgt_get - Get a refcounted sg-table
-- * @rsgt the struct i915_refct_sgt to get.
-+ * @rsgt: the struct i915_refct_sgt to get.
-  */
- static inline struct i915_refct_sgt *
- i915_refct_sgt_get(struct i915_refct_sgt *rsgt)
-@@ -203,7 +204,7 @@ i915_refct_sgt_get(struct i915_refct_sgt *rsgt)
- /**
-  * __i915_refct_sgt_init - Initialize a refcounted sg-list with a custom
-  * operations structure
-- * @rsgt The struct i915_refct_sgt to initialize.
-+ * @rsgt: The struct i915_refct_sgt to initialize.
-  * @size: Size in bytes of the underlying memory buffer.
-  * @ops: A customized operations structure in case the refcounted sg-list
-  * is embedded into another structure.
-diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
-index 2c430c0c3bad..8e8d1f937e60 100644
---- a/drivers/gpu/drm/i915/i915_utils.h
-+++ b/drivers/gpu/drm/i915/i915_utils.h
-@@ -257,6 +257,12 @@ wait_remaining_ms_from_jiffies(unsigned long timestamp_jiffies, int to_wait_ms)
-  * important that we check the condition again after having timed out, since the
-  * timeout could be due to preemption or similar and we've never had a chance to
-  * check the condition before the timeout.
-+ *
-+ * @OP: operation to perform on each iteration.
-+ * @COND: condition to check for.
-+ * @US: timeout duration in microseconds.
-+ * @Wmin: recommended minimum for usleep (in microseconds).
-+ * @Wmax: maximum wait duration (in microseconds).
-  */
- #define __wait_for(OP, COND, US, Wmin, Wmax) ({ \
- 	const ktime_t end__ = ktime_add_ns(ktime_get_raw(), 1000ll * (US)); \
-diff --git a/drivers/gpu/drm/i915/i915_vma_resource.h b/drivers/gpu/drm/i915/i915_vma_resource.h
-index c1864e3d0b43..6bb7d6d19216 100644
---- a/drivers/gpu/drm/i915/i915_vma_resource.h
-+++ b/drivers/gpu/drm/i915/i915_vma_resource.h
-@@ -49,6 +49,7 @@ struct i915_page_sizes {
-  * @__subtree_last: Interval tree private member.
-  * @vm: non-refcounted pointer to the vm. This is for internal use only and
-  * this member is cleared after vm_resource unbind.
-+ * @wakeref: wake reference for the resource.
-  * @mr: The memory region of the object pointed to by the vma.
-  * @ops: Pointer to the backend i915_vma_ops.
-  * @private: Bind backend private info.
--- 
-2.25.1
+Thank you. I will take care about the line breaks.
+
+> > Signed-off-by: Sumitra Sharma <sumitraartsy@gmail.com>
+> > ---
+> > 
+> > Changes in v2:
+> > 	- Replace kmap() with kmap_local_page().
+> 
+> Generally it is customary to attribute a change like this to those who
+> suggested it in a V1 review.
+> 
+> For example:
+> 
+>  	- Tvrtko/Thomas: Use kmap_local_page() instead of page_address()
+> 
+> Also I don't see Thomas on the new email list.  Since he took the time to
+> review V1 he might want to check this version out.  I've added him to the
+> 'To:' list.
+> 
+> Also a link to V1 is nice.  B4 formats it like this:
+> 
+> - Link to v1: https://lore.kernel.org/all/20230614123556.GA381200@sumitra.com/
+> 
+> All that said the code looks good to me.  So with the above changes.
+> 
+> Reviewed-by: Ira Weiny <ira.weiny@intel.com>
+> 
+
+I have noted down the points mentioned above. Thank you again.
+
+I am not supposed to create another version of this patch for 
+adding the above mentions, as you and Thomas both gave this patch 
+a reviewed-by tag. Right?
 
 
-No virus found
-		Checked by Hillstone Network AntiVirus
+Thanks & regards
+Sumitra
+
+PS: I am new to the open source vocabulary terms.
+
+> > 	- Change commit subject and message.
+> > 
+> >  drivers/gpu/drm/i915/i915_gpu_error.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+> > index f020c0086fbc..bc41500eedf5 100644
+> > --- a/drivers/gpu/drm/i915/i915_gpu_error.c
+> > +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+> > @@ -1164,9 +1164,9 @@ i915_vma_coredump_create(const struct intel_gt *gt,
+> >  
+> >  			drm_clflush_pages(&page, 1);
+> >  
+> > -			s = kmap(page);
+> > +			s = kmap_local_page(page);
+> >  			ret = compress_page(compress, s, dst, false);
+> > -			kunmap(page);
+> > +			kunmap_local(s);
+> >  
+> >  			drm_clflush_pages(&page, 1);
+> >  
+> > -- 
+> > 2.25.1
+> > 
+> 
+> 
