@@ -4,44 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F56AEB64D9
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 03:00:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D53EEB64DA
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 03:13:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BE4C10E07F;
-	Tue, 20 Jun 2023 03:00:26 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44C2810E07F
- for <intel-gfx@lists.freedesktop.org>; Tue, 20 Jun 2023 03:00:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1687230025; x=1718766025;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=K4H+FHL2ZF8t3BIV2CyitCdQivOsmLg0XjxNFoB/1Pg=;
- b=UyxVVIVeiDOlqW/ug9JxGK4xdCpc2/kgiilrGAA4b2kHcOkMYRv5zFIU
- zpVex3tzkJB23SB8O/+K6NM/w++GPIIQEP3seJXE4A3M2fg7uTCY27LI7
- +njBYYNjwwi32VkwSXIp6ltEr6gZ2VMxac0pmdmZ1stHuT11LSxPA60Rg
- kAVoFRLAoU/egyhw47V7uiXhY5haG+jgXeRMa9VpTQPZ4xaB9ERIt2a5j
- 4Kaiv4nepz2x5vToCjholJsQJzwovZdbRkG6ibzou6XvP/0FvwQHAaMA+
- GlbOHowYJYTYF6LqpY8y/NlsTvvoXHJ3Nf630Uz+jjtzbTDMfuC6pxLK6 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10746"; a="358619284"
-X-IronPort-AV: E=Sophos;i="6.00,256,1681196400"; d="scan'208";a="358619284"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jun 2023 20:00:23 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10746"; a="743644338"
-X-IronPort-AV: E=Sophos;i="6.00,256,1681196400"; d="scan'208";a="743644338"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by orsmga008.jf.intel.com with ESMTP; 19 Jun 2023 20:00:21 -0700
-From: Arun R Murthy <arun.r.murthy@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 20 Jun 2023 08:22:43 +0530
-Message-Id: <20230620025243.979317-1-arun.r.murthy@intel.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D97810E121;
+	Tue, 20 Jun 2023 03:13:51 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 60B4210E16F;
+ Tue, 20 Jun 2023 03:13:48 +0000 (UTC)
+Received: from loongson.cn (unknown [10.20.42.43])
+ by gateway (Coremail) with SMTP id _____8Ax0OhqGZFkqgcHAA--.12544S3;
+ Tue, 20 Jun 2023 11:13:46 +0800 (CST)
+Received: from [10.20.42.43] (unknown [10.20.42.43])
+ by localhost.localdomain (Coremail) with SMTP id
+ AQAAf8DxbMpnGZFkax4hAA--.18888S3; 
+ Tue, 20 Jun 2023 11:13:43 +0800 (CST)
+Message-ID: <5c3b5f2e-00c6-efba-1239-cdf96285d6a2@loongson.cn>
+Date: Tue, 20 Jun 2023 11:13:43 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: "Limonciello, Mario" <mario.limonciello@amd.com>,
+ Sui Jingfeng <15330273260@189.cn>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian Konig <christian.koenig@amd.com>, Pan Xinhui <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Karol Herbst <kherbst@redhat.com>,
+ Lyude Paul <lyude@redhat.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ YiPeng Chai <YiPeng.Chai@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Somalapuram Amaranath <Amaranath.Somalapuram@amd.com>,
+ Bokun Zhang <Bokun.Zhang@amd.com>,
+ Ville Syrjala <ville.syrjala@linux.intel.com>, Li Yi <liyi@loongson.cn>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>,
+ Cornelia Huck <cohuck@redhat.com>, Yishai Hadas <yishaih@nvidia.com>,
+ Abhishek Sahu <abhsahu@nvidia.com>, Yi Liu <yi.l.liu@intel.com>
+References: <20230612192550.197053-1-15330273260@189.cn>
+ <20230612192550.197053-3-15330273260@189.cn>
+ <5b6fdf65-b354-94a9-f883-be820157efad@amd.com>
+From: Sui Jingfeng <suijingfeng@loongson.cn>
+Organization: Loongson
+In-Reply-To: <5b6fdf65-b354-94a9-f883-be820157efad@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/display/dp: Remove support for UHBR13.5
+X-CM-TRANSID: AQAAf8DxbMpnGZFkax4hAA--.18888S3
+X-CM-SenderInfo: xvxlyxpqjiv03j6o00pqjv00gofq/
+X-Coremail-Antispam: 1Uk129KBj93XoWxGF4UCF4xWFy8AFW5CF1Dtwc_yoW5KrWDpF
+ ykJFW5GryUWwn7Gw12qr1UXFy5XrWUJa4DJr409a4jkr4UAryjqFy8XryYgr1UJrWkJF1U
+ Jr1Utr17Z3W7JabCm3ZEXasCq-sJn29KB7ZKAUJUUUU3529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUPab4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+ 6r4UJVWxJr1ln4kS14v26r126r1DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
+ xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r12
+ 6r1DMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
+ 1lc7I2V7IY0VAS07AlzVAYIcxG8wCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxG
+ rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km07C267AKxVWUAVWUtwC20s026c02F40E14
+ v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Wrv_Gr1UMIIY
+ rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
+ v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8
+ JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU3jjgUU
+ UUU
+Subject: Re: [Intel-gfx] [PATCH v6 2/8] PCI/VGA: Deal only with VGA class
+ devices
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,32 +89,105 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Cc: kvm@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, loongson-kernel@lists.loongnix.cn,
+ amd-gfx@lists.freedesktop.org, linux-pci@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As per the DP2.1 Spec support for UHBR13.5 is optional. Hence removing
-the support for UHBR13.5
-UHBR10 can be used for 6k panels.
+Hi,
 
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 2023/6/20 02:12, Limonciello, Mario wrote:
+>
+> On 6/12/2023 2:25 PM, Sui Jingfeng wrote:
+>> From: Sui Jingfeng <suijingfeng@loongson.cn>
+>>
+>> Deal only with the VGA devcie(pdev->class == 0x0300), so replace the
+>> pci_get_subsys() function with pci_get_class(). Filter the non-PCI 
+>> display
+>> device(pdev->class != 0x0300) out. There no need to process the 
+>> non-display
+>> PCI device.
+>>
+>> Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
+>> ---
+> This also means that deleting a PCI device no longer needs
+> to walk the list.
+>
+> Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
+>
+Thanks a lot,
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 9f40da20e88d..54ddc953e5bc 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -465,7 +465,7 @@ intel_dp_set_source_rates(struct intel_dp *intel_dp)
- 	};
- 	static const int icl_rates[] = {
- 		162000, 216000, 270000, 324000, 432000, 540000, 648000, 810000,
--		1000000, 1350000,
-+		1000000,
- 	};
- 	static const int bxt_rates[] = {
- 		162000, 216000, 243000, 270000, 324000, 432000, 540000
+can you help to resend this precious R-B to the V7 of this series [1],
+
+This is V6.
+
+[1] https://patchwork.freedesktop.org/series/119250/
+
+>>   drivers/pci/vgaarb.c | 22 ++++++++++++----------
+>>   1 file changed, 12 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
+>> index c1bc6c983932..22a505e877dc 100644
+>> --- a/drivers/pci/vgaarb.c
+>> +++ b/drivers/pci/vgaarb.c
+>> @@ -754,10 +754,6 @@ static bool vga_arbiter_add_pci_device(struct 
+>> pci_dev *pdev)
+>>       struct pci_dev *bridge;
+>>       u16 cmd;
+>>   -    /* Only deal with VGA class devices */
+>> -    if ((pdev->class >> 8) != PCI_CLASS_DISPLAY_VGA)
+>> -        return false;
+>> -
+>>       /* Allocate structure */
+>>       vgadev = kzalloc(sizeof(struct vga_device), GFP_KERNEL);
+>>       if (vgadev == NULL) {
+>> @@ -1500,7 +1496,9 @@ static int pci_notify(struct notifier_block 
+>> *nb, unsigned long action,
+>>       struct pci_dev *pdev = to_pci_dev(dev);
+>>       bool notify = false;
+>>   -    vgaarb_dbg(dev, "%s\n", __func__);
+>> +    /* Only deal with VGA class devices */
+>> +    if (pdev->class != PCI_CLASS_DISPLAY_VGA << 8)
+>> +        return 0;
+>>         /* For now we're only intereted in devices added and removed. 
+>> I didn't
+>>        * test this thing here, so someone needs to double check for the
+>> @@ -1510,6 +1508,8 @@ static int pci_notify(struct notifier_block 
+>> *nb, unsigned long action,
+>>       else if (action == BUS_NOTIFY_DEL_DEVICE)
+>>           notify = vga_arbiter_del_pci_device(pdev);
+>>   +    vgaarb_dbg(dev, "%s: action = %lu\n", __func__, action);
+>> +
+>>       if (notify)
+>>           vga_arbiter_notify_clients();
+>>       return 0;
+>> @@ -1534,8 +1534,8 @@ static struct miscdevice vga_arb_device = {
+>>     static int __init vga_arb_device_init(void)
+>>   {
+>> +    struct pci_dev *pdev = NULL;
+>>       int rc;
+>> -    struct pci_dev *pdev;
+>>         rc = misc_register(&vga_arb_device);
+>>       if (rc < 0)
+>> @@ -1545,11 +1545,13 @@ static int __init vga_arb_device_init(void)
+>>         /* We add all PCI devices satisfying VGA class in the arbiter by
+>>        * default */
+>> -    pdev = NULL;
+>> -    while ((pdev =
+>> -        pci_get_subsys(PCI_ANY_ID, PCI_ANY_ID, PCI_ANY_ID,
+>> -                   PCI_ANY_ID, pdev)) != NULL)
+>> +    while (1) {
+>> +        pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev);
+>> +        if (!pdev)
+>> +            break;
+>> +
+>>           vga_arbiter_add_pci_device(pdev);
+>> +    }
+>>         pr_info("loaded\n");
+>>       return rc;
+
 -- 
-2.25.1
+Jingfeng
 
