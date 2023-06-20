@@ -4,58 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3043EB64D8
-	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 18:29:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1390EB64D7
+	for <intel-gfx@archiver.kernel.org>; Tue, 20 Jun 2023 21:10:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 703C810E38F;
-	Tue, 20 Jun 2023 18:29:55 +0000 (UTC)
-Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
- [IPv6:2607:f8b0:4864:20::52c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFA9410E4B3
- for <intel-gfx@lists.freedesktop.org>; Wed, 31 May 2023 11:32:02 +0000 (UTC)
-Received: by mail-pg1-x52c.google.com with SMTP id
- 41be03b00d2f7-53fb4ee9ba1so1080747a12.3
- for <intel-gfx@lists.freedesktop.org>; Wed, 31 May 2023 04:32:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=heitbaum.com; s=google; t=1685532722; x=1688124722;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=t+QshJt/PdyfRodhCY0yXtcG2lF/vT/ZBreOHflG6Y4=;
- b=UhOihmEs45qAYMynSTSjHQR1VfJ2+HA1k2nsMaDzrL3Lmv07qiXLvOtAGE09yFghLv
- mmvfwvn23QTlh8BzTtZB4xej33ZljTYY1+0uaAyXNy5xemBi9mVH+HfuMREXm/zTd1xw
- ONF3IfIuOkgK03fZZjL+ldMXhribgFz5p0ZmM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685532722; x=1688124722;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=t+QshJt/PdyfRodhCY0yXtcG2lF/vT/ZBreOHflG6Y4=;
- b=dszY5IGR9B3RGn5ZMde1hagchiJ4LymlkxcTuZ/5MnwIuaszqiTQvTu6GrwAExDF2A
- 8mcPUr6f7aQBtxTbDJxj57sXVJIRlrBhYaLzC8ChffY0Xqq2Hs7IsS7K7YMGA+9aSnSm
- ZfbMDM27eme5ye9suG+YnaXec7xmpJ78UUIMcXW6Muf1BYl5BAHbJXslQg8JvtHckaFl
- oNJSYAokSBiGw6BNUVt4yMX2+d/ITVIe7461R5ntfoyU3WkveEFjqkaXJ5T9P+LnZNJy
- NrEOyZKYA3UO0DKDCRF9gEoHjwuRqxVhfawAYkosT0inplDO76zP/qddxU3aKdok/0xE
- R5Lg==
-X-Gm-Message-State: AC+VfDwWpHF1YH2KQMWu0oH150kTUIwVILvO2Tkk2OGfNlLTYro/MZSW
- pYf/V6JWVqT2IaXFWbFAjfgKUErL6VJfrWEuxjmNRQ==
-X-Google-Smtp-Source: ACHHUZ62xxeN0UvZ6AfOp3UiFMvl+rj1MK3P65nEgN+MksK2PakIdxE8i0in1vq/GVGJmdjdawbCXA2Xhomkv45ftEs=
-X-Received: by 2002:a17:90a:b013:b0:247:ab52:d5d8 with SMTP id
- x19-20020a17090ab01300b00247ab52d5d8mr4436508pjq.26.1685532721781; Wed, 31
- May 2023 04:32:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3497510E065;
+	Tue, 20 Jun 2023 21:10:36 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5817110E065
+ for <intel-gfx@lists.freedesktop.org>; Tue, 20 Jun 2023 21:10:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1687295433; x=1718831433;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=22qAYLmaBoAQzyH1p2aQ+WTP38q8BrZI+urR4rQSlYQ=;
+ b=NONdWW1Av0keSoXaY8Z5ie2NmeGywzW1RUwF0r+gG5SOjg3ZNZTTwNk2
+ RveZYQBI9RR87yqEDDOTNgekkjJEfPxrrpz4ZWKEMcZXHAM2GKIHH2lPb
+ uSmHWdre8sQohw+sl/hGgFc+vR3BN3Ac7d72dv6RM0gfh+2tGcL2lU8sP
+ VTrOuWY/QyPtI2jroUzJ3wvBVYhtsvNw7Jr7hOizZPgSZK/0Z+kHKXsRe
+ i8fDTUrGlfWcECUAGR3zbN7gTIpevaaGqozeFX4jolPbYCUGJo4Nfu+jz
+ gCygk0QNfDz2DLXeXXErWGaifceXJ/zHZGTPUmzAZrHrzTecQnnMSn5Aw g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10747"; a="359995162"
+X-IronPort-AV: E=Sophos;i="6.00,258,1681196400"; d="scan'208";a="359995162"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jun 2023 14:10:31 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10747"; a="784251262"
+X-IronPort-AV: E=Sophos;i="6.00,258,1681196400"; d="scan'208";a="784251262"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
+ by fmsmga004.fm.intel.com with ESMTP; 20 Jun 2023 14:10:07 -0700
+Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.23; Tue, 20 Jun 2023 14:10:06 -0700
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.23 via Frontend Transport; Tue, 20 Jun 2023 14:10:06 -0700
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com (104.47.55.108)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.23; Tue, 20 Jun 2023 14:10:06 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mCNILGQ2id16dsIj9JcRglZ6ud7UuJyNwybWGDI4OcYcKSp4g1DLpBvJbTMAsIfL7IzM1q9fxJxIflLATQZNRdra0TH0zoJ2jmByfbII1sNGKBuP4KUCRWUAUybAEg8T0asYNetweiOIQ9uJGgRuWKQMrLz4AljhB7DWNfLTLVctF0xG8OmqDDuF9vb3H2va3dMpff3QAD30S8oQn8ojn7bflY6sXrzXUAkbG7c6s4QeT0QKJWmzJ+wUBjJIRg1NJZzVjTvgKq/OoXY7QIcb8t8AgXLqUQDRpD3FIBY0TxZJFcYvJaTCga1mKdn/7S4AWI43qr2kZKV2dQ5Mhn01lg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=22qAYLmaBoAQzyH1p2aQ+WTP38q8BrZI+urR4rQSlYQ=;
+ b=hl6C94oQPGMUo7dJb6PQRwqdO9kxrVWJ0w8uGs+ayRjl3/pNZLjnm15qfyboDG2Cn1Ua3CuGISFjTrBLP9O0ZMgNzMY+SUuJDv0/dMyoIazp3KzOyquJJiAzWoxKtYpSXsNGWBHvGaNTgzdpDyK3gpIOVO35aRI+/JRIqw1opmroftm7+fpE2xLGFNXE54n9GDRHaSKFAhvMm1nHzjuOJeEBpqDGIlBgoIDp13r+H/9O7bZXMuhGzdGryYMp57CBgejKf3ou9s+gMn2hlrtGeAm++z9tOBIwOP49dWBJucAKv6lBTDv0cGIai29uFq9InbDzTs5qj0uwYpXhz8Vp7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from BN0PR11MB5711.namprd11.prod.outlook.com (2603:10b6:408:167::22)
+ by CH3PR11MB8495.namprd11.prod.outlook.com (2603:10b6:610:1bd::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6500.37; Tue, 20 Jun
+ 2023 21:10:04 +0000
+Received: from BN0PR11MB5711.namprd11.prod.outlook.com
+ ([fe80::ccee:3d17:cd7c:909e]) by BN0PR11MB5711.namprd11.prod.outlook.com
+ ([fe80::ccee:3d17:cd7c:909e%7]) with mapi id 15.20.6521.020; Tue, 20 Jun 2023
+ 21:10:05 +0000
+From: "Taylor, Clinton A" <clinton.a.taylor@intel.com>
+To: "Sripada, Radhakrishna" <radhakrishna.sripada@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [PATCH] drm/i915/mtl: Skip using vbt hdmi_level_shifter
+ selection on MTL
+Thread-Index: AQHZoJXZPX7R5rk4JUudmDnOXF7+wK+UNh6A
+Date: Tue, 20 Jun 2023 21:10:05 +0000
+Message-ID: <f78a4825e63acc93ae6f4bde4916e66ca1f0c3db.camel@intel.com>
+References: <20230616210028.1601533-1-radhakrishna.sripada@intel.com>
+In-Reply-To: <20230616210028.1601533-1-radhakrishna.sripada@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.36.5-0ubuntu1 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN0PR11MB5711:EE_|CH3PR11MB8495:EE_
+x-ms-office365-filtering-correlation-id: 3634b025-086d-471c-51e7-08db71d2b838
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: u1NEVnPSTiyg8rD2Vt/0u3c1laoPkr3VCU5poIsZDArT1RqmtHOskDryhef/YN4dMEONKnBLix5/4RpuWYJWxCPJyJZ9sME9//rOeCp8IV8atgLgBtx3YPw6Mx34DCAqCcJ0j8CuujFEbUYO4fpqU5N0YL5Eoo1KdoYE2iDtIzEwnvkxI7TvYI2Ob/bPSJ66M64ha2XKRB3kh+7xUZo9O4+HZw7E9ncz0f6nZqqWRR/Vp81qssKMsCjOAstM76xaILWpfLN2/o94lZiW1Nx+vXZ8sxsbxxwlfMOAwl3F56aXPpWrzHvgEV37av82uGmuE5viA72aADbwtHlm0ZXR4UFli6tAD30qwuigZQnAQTMFW4iOHJlXft93dVBTIWbpkKjDqVtm+4QHD/ntlt/6IhoaTt513KhB3AkU26rOZ3n6Or+uxEBAmHdmpFUUdr2FksdhgfVeptF6DLxMhvF/S/mnn861ocbQeRlBuLTOXEA88Uaeezxgy7nnxhmf2rBGEMnTBgnGktUrQg+Sj+8kkBwrtxsGUubIoEyRybo7bG3ZHhM3+aMNNmOBTkEktmDV38ITxAGewBTW66lcFVaQdlrYI0cTxbF2zem7oY8wIJLq82UTwouLK84GQCHe3AM0
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN0PR11MB5711.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(346002)(366004)(136003)(39860400002)(376002)(396003)(451199021)(8676002)(8936002)(186003)(82960400001)(6512007)(38100700002)(5660300002)(122000001)(26005)(6506007)(107886003)(71200400001)(86362001)(2616005)(83380400001)(38070700005)(41300700001)(478600001)(110136005)(54906003)(316002)(66476007)(36756003)(91956017)(4326008)(66446008)(66946007)(64756008)(66556008)(6486002)(76116006)(2906002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?V0tpZHJmUFU0TGZLeHd3V1pwOWJ1aG92WUFlUldmSmptUCtNMThNbUFJTXk0?=
+ =?utf-8?B?ZkNObFJuYTRuRWprd1BqdWVxK3JwbGgxeWhpTnQ0bCtQSVhYSTJOc09xOHZY?=
+ =?utf-8?B?d3hmQzl5R0w0TWQ4YWxOMG1NTkV2Yk1yR3B0Z1QvaUR0c0pmYmNwOEJCa2xQ?=
+ =?utf-8?B?ejRZMjNtMHNqUEVOU3lQSVlrSDNoV0tsODJ1d1Ywa3JRNkN2cWJPVW9UUS9X?=
+ =?utf-8?B?WXYyVWN4Wkc5aEtoczQxdUJOc2JCSzUxbW9PYVpuYXFDTXpKUFh0S3BCc0tq?=
+ =?utf-8?B?SS8wMFJwRzN6VlBmWTVPaE5RSUxSdG9nb0V5cXprb0JYUVFPYy9JUEp3RFZx?=
+ =?utf-8?B?NWxQbTFhWncrencvUTBvTVJEajU3bTRVaENvUjlVOCtxd3BYblR3UFpRdm05?=
+ =?utf-8?B?dXVidFhFRDZENWFjQmVHR0xqUUhQeElFNXRyTm5LZlI3YXl6MFVuZlY4VFl5?=
+ =?utf-8?B?ckt1OE9HSHc3Q2doNUtteUZDRmxDaWVzc3R5Z3VJc2JkUTVXbWYvV0F2VGVr?=
+ =?utf-8?B?ajI1SGdObWFPc0Z6bDhxeHpUcXhHcVdlWGU0WS90UXgxbVBDdmRFTEpvUS80?=
+ =?utf-8?B?SDJOekd3SG5pR0hEem1oRW1Pa0FrVUxQODkxaXhUcFRhOW5YSHc1UUJoa2NI?=
+ =?utf-8?B?NC9KOW5rMUE1aWltNHBBZnYzczJpdFdwZnRXQU42TEZJallUZFQwem1YTHIw?=
+ =?utf-8?B?TjJXVVAxeWNNSnBleU5EcnNHWmFKWnBOdTBNN2tDd0NWVVZjQVZtclRINFpt?=
+ =?utf-8?B?dzA2UWR1U1hVaElORXpwUHAvTWF6aEd2Y3ArdUkyTEtnend3N1VGV0t1S1pI?=
+ =?utf-8?B?NFFBV1FmNFRxVlRjNGtyY0s3R2NYN05xdlRNMWJtQ1RqakFVN2ZDZFlMOTE0?=
+ =?utf-8?B?TVRndmdxSEtxZG8wazNVTWhuNEZHQ1djTWFWSjBQU2cyc1BXUXdKQlFlOEMy?=
+ =?utf-8?B?Y3lPdkpZV1c5VzI5TTNlTU53RnB0SERxQTVWTTFHMkt6U2xJRTVwcGQvUHhI?=
+ =?utf-8?B?MjdUZUxkbUdrSnFyQStDL1NsV09RMWJYT2xqWVVGTUhlUVEvazhXSllNZzRW?=
+ =?utf-8?B?ODBKY2c4ejloWVo2K3BUbjZobkxPVWtsWFdob1pXTXZNWUdpTVlMNTZOanZU?=
+ =?utf-8?B?UHJzZVRIOHN1ZmhTdTVQeGNPMjhzbjJjcnlJY0Flcm82RXg4SHBoT2hKUG0v?=
+ =?utf-8?B?MjdBQitSUnQ5b21Qd0djcU93L0hkM1BsOThzcmFSNXNROTNCTHBSTEtJZGc3?=
+ =?utf-8?B?bWVtc0pGdkhIOVpidDJuS3UxR2JhdTV1VnNwZ3A1MXUvcEVWNlM0RE5yS3Fu?=
+ =?utf-8?B?MmRmT2kzb0k2Ymd1cytrVU0yN21EZVI1MitCUzIxaWdhWkVsUHY3K3c3MUVX?=
+ =?utf-8?B?aVJBZG5iUWdON1hEQ3JqY0sxa2YxalRzdHRpK0VmVVNsd25XUUdJYzlTL1Vm?=
+ =?utf-8?B?NS85YXJRYSs4RkVuNlVOUkdpMWswajlzNytVeUN6dlRZaEVBS2ovNG5qN2Vz?=
+ =?utf-8?B?eVM0WHJWUTdEQWdMOUxBUENUWjlFNExzeU9QZmViVGFuZTVLUXVOL2g3WjZt?=
+ =?utf-8?B?bjVvQmlxZUpNdzN3NEdsVzB0TkoyMW9ka052K2NGNXdsTStpWXZQc0VzanVO?=
+ =?utf-8?B?QTNPL21IQ2lxMXVtQStwMkZaTjN6RzBTOG12OG50aVRCRk9vbjlpZGc2TVRB?=
+ =?utf-8?B?OWVKd0dmOTVxanpTdEYrRDlWT05kU2xuYTBoWjBFK0hWUzlyOXZxazhhcGpK?=
+ =?utf-8?B?cWY2N3NsUjRQTVJqWTR2Zmh5MW8ramM0TzA5ZkQzWGlwc1B2eEluSlRNZUhp?=
+ =?utf-8?B?YVlmT2xrYWg2UVliZkZCbUxCU2w3M2s0YmJWemNFRjkzdGFIc1ZkN2x0Z0Ry?=
+ =?utf-8?B?QldUbmRsWWQ3a3FQV2dqRUJ5ZkJ4TWZBSm5BMkk5Q2dyNThjNGdPbWZ4SUkv?=
+ =?utf-8?B?YXNYWk1FeEYyaUhpK2hueEZ1a3JEWHFZNE5GMUxraHg3c2NYdDVsSk5OcG9l?=
+ =?utf-8?B?K2JYczhDM2pjdjcxRnVDTkJhWGovVDNXbFlDTkJMUnV2WEd3N0YzVjNnM2hv?=
+ =?utf-8?B?MS9IVmNlN0dNMklMdGtsOG5VUEROWkpibjVWVFFDbHd2L0hKaElldmJKemZB?=
+ =?utf-8?B?WkYxdGRPQWN0UTNsSE9mL2ZGaUh1SVhzVEttOEh0R2QvUS9pQ1VncFd4VjhW?=
+ =?utf-8?B?d0E9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <977D16CE9196BD459A1C97F2F71F1368@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <20230510103131.1618266-2-imre.deak@intel.com>
- <20230530134907.GA8@5e905162a5a7> <ZHcJhs4ySOGojBvZ@ideak-desk>
-In-Reply-To: <ZHcJhs4ySOGojBvZ@ideak-desk>
-From: Rudi Heitbaum <rudi@heitbaum.com>
-Date: Wed, 31 May 2023 21:31:49 +1000
-Message-ID: <CAG9oJsnuSAveS1g6qyE7ZhSEdGOV1U6kogmiEg7vT9Le1t8wOw@mail.gmail.com>
-To: imre.deak@intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 20 Jun 2023 18:28:21 +0000
-Subject: Re: [Intel-gfx] [v4,
- 01/14] drm/i915: Fix PIPEDMC disabling for a bigjoiner configuration
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN0PR11MB5711.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3634b025-086d-471c-51e7-08db71d2b838
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jun 2023 21:10:05.0602 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lQPYu5/OW8yt0y9kPj3vxoeXh6hx3TJo1ZVY0kzdckXuxovFhpqVJ9kP5GhZPE2RZFc+2VJAs5kexbj1K6ZinmhztMsi26DEmwF+vO9Xswk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB8495
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/mtl: Skip using vbt
+ hdmi_level_shifter selection on MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,120 +159,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- intel-gfx@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Dave Airlie <airlied@redhat.com>, Dave Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Imre,
-
-Raised the ticket and was able to capture the logs for you.
-
-https://gitlab.freedesktop.org/drm/intel/-/issues/8559
-
-Thanks
-Rudi
-
-On Wed, 31 May 2023 at 18:47, Imre Deak <imre.deak@intel.com> wrote:
->
-> On Tue, May 30, 2023 at 01:49:07PM +0000, Rudi Heitbaum wrote:
-> Hi Rudi,
->
-> Could you open a ticket at
-> https://gitlab.freedesktop.org/drm/intel/-/issues/new
->
-> attaching a dmesg log after booting with drm.debug=3D0xe, with the
-> messages from boot-up until the issue happens?
->
-> Thanks,
-> Imre
->
-> > Hi Imre/Dave,
-> >
-> > Ref: [v4,01/14] drm/i915: Fix PIPEDMC disabling for a bigjoiner configu=
-ration
-> >      [git pull] drm fixes for 6.4-rc4
-> >      drm-fixes-2023-05-26:
-> >      drm fixes for 6.4-rc4
-> >
-> > This patch has caused a regression between 6.4-rc3 and 6.4-rc4. Other
-> > tested kernels include 6.3.4 work fine. Dropping the patch allows the d=
-ecode
-> > playback of media via Kodi. Without dropping the patch - the media
-> > starts and stutters then ceases to play.
-> >
-> > There is an additional issue that 6.4-rc4 audio playback is also failin=
-g
-> > (where 6.4-rc3 was fine), I have not yet tracked this down.
-> >
-> > This is all on:
-> > DMI: Intel(R) Client Systems NUC12WSKi7/NUC12WSBi7, BIOS WSADL357.0087.=
-2023.0306.1931 03/06/2023
-> > 12th Gen Intel(R) Core(TM) i7-1260P (family: 0x6, model: 0x9a, stepping=
-: 0x3)
-> > microcode: updated early: 0x429 -> 0x42a, date =3D 2023-02-14
-> >
-> > Regards
-> >
-> > Rudi
-> >
-> > On Wed, May 10, 2023 at 01:31:18PM +0300, Imre Deak wrote:
-> > > For a bigjoiner configuration display->crtc_disable() will be called
-> > > first for the slave CRTCs and then for the master CRTC. However slave
-> > > CRTCs will be actually disabled only after the master CRTC is disable=
-d
-> > > (from the encoder disable hooks called with the master CRTC state).
-> > > Hence the slave PIPEDMCs can be disabled only after the master CRTC i=
-s
-> > > disabled, make this so.
-> > >
-> > > intel_encoders_post_pll_disable() must be called only for the master
-> > > CRTC, as for the other two encoder disable hooks. While at it fix thi=
-s
-> > > up as well. This didn't cause a problem, since
-> > > intel_encoders_post_pll_disable() will call the corresponding hook on=
-ly
-> > > for an encoder/connector connected to the given CRTC, however slave
-> > > CRTCs will have no associated encoder/connector.
-> > >
-> > > Fixes: 3af2ff0840be ("drm/i915: Enable a PIPEDMC whenever its corresp=
-onding pipe is enabled")
-> > > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> > > Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> > > Reviewed-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> > > Signed-off-by: Imre Deak <imre.deak@intel.com>
-> > > ---
-> > >  drivers/gpu/drm/i915/display/intel_display.c | 12 ++++++++++--
-> > >  1 file changed, 10 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/g=
-pu/drm/i915/display/intel_display.c
-> > > index 1d5d42a408035..116fa52290b84 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_display.c
-> > > +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> > > @@ -1702,9 +1702,17 @@ static void hsw_crtc_disable(struct intel_atom=
-ic_state *state,
-> > >
-> > >     intel_disable_shared_dpll(old_crtc_state);
-> > >
-> > > -   intel_encoders_post_pll_disable(state, crtc);
-> > > +   if (!intel_crtc_is_bigjoiner_slave(old_crtc_state)) {
-> > > +           struct intel_crtc *slave_crtc;
-> > > +
-> > > +           intel_encoders_post_pll_disable(state, crtc);
-> > >
-> > > -   intel_dmc_disable_pipe(i915, crtc->pipe);
-> > > +           intel_dmc_disable_pipe(i915, crtc->pipe);
-> > > +
-> > > +           for_each_intel_crtc_in_pipe_mask(&i915->drm, slave_crtc,
-> > > +                                            intel_crtc_bigjoiner_sla=
-ve_pipes(old_crtc_state))
-> > > +                   intel_dmc_disable_pipe(i915, slave_crtc->pipe);
-> > > +   }
-> > >  }
-> > >
-> > >  static void i9xx_pfit_enable(const struct intel_crtc_state *crtc_sta=
-te)
+T24gRnJpLCAyMDIzLTA2LTE2IGF0IDE0OjAwIC0wNzAwLCBSYWRoYWtyaXNobmEgU3JpcGFkYSB3
+cm90ZToNCj4gVGhlIGhkbWlfbGV2ZWxfc2hpZnRlciBwYXJ0IG9mIEdlbmVyYWwgQnl0ZXMgZGVm
+aW5pdGlvbiBpbiBWQlQsIHdoaWNoIHdhcw0KPiB1c2VkIGZvciBjaG9vc2luZyBkaWZmZXJlbnQg
+bGV2ZWxzIG9uIGVhcmxpZXIgcGxhdGZvcm1zIGlzIG5vdyBhIGhpZGRlbg0KPiBvcHRpbiBhbmQg
+c2hvd3MgdGhlIGRlZmF1bHQgdmFsdWUgb2YgMC4gVGhlIGxldmVsIHNoaWZ0ZXIgaXMgbm93IHRv
+IGJlDQo+IGRlZHVjZWQgZnJvbSBoZG1pX2RlZmF1bHRfZW50cnkgaW4gIGludGVsX2RkaV9idWZf
+dHJhbnMgZm9yIGVhY2ggcGh5Lg0KPiANCj4gU2tpcCBwcm92aWRpbmcgdGhlIGRlZmF1bHQgaHcg
+cHJvdmlkZWQgdmFsdWUgdG8gZm9yY2UgZHJpdmVyIHRvIGNob29zZSBoZG1pDQo+IGRlZmF1bHQg
+ZW50cnkuDQo+IA0KPiBCc3BlYzogMjAxMjQNCj4gQ2M6IEtoYWxlZCBBbG1haGFsbGF3eSA8a2hh
+bGVkLmFsbWFoYWxsYXd5QGludGVsLmNvbT4NCj4gQ2M6IExlZSBTaGF3biBDIDxzaGF3bi5jLmxl
+ZUBpbnRlbC5jb20+DQo+IENjOiBDbGludCBUYXlsb3IgPENsaW50b24uQS5UYXlsb3JAaW50ZWwu
+Y29tPg0KPiBTaWduZWQtb2ZmLWJ5OiBSYWRoYWtyaXNobmEgU3JpcGFkYSA8cmFkaGFrcmlzaG5h
+LnNyaXBhZGFAaW50ZWwuY29tPg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3Bs
+YXkvaW50ZWxfYmlvcy5jIHwgMyArKy0NCj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMo
+KyksIDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9kaXNwbGF5L2ludGVsX2Jpb3MuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
+aW50ZWxfYmlvcy5jDQo+IGluZGV4IDM0YTM5N2FkYmQ2Yi4uNGI5YmY3NmUxMzdkIDEwMDY0NA0K
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Jpb3MuYw0KPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Jpb3MuYw0KPiBAQCAtMjYxNSw3
+ICsyNjE1LDggQEAgaW50ZWxfYmlvc19lbmNvZGVyX2lzX2xzcGNvbihjb25zdCBzdHJ1Y3QgaW50
+ZWxfYmlvc19lbmNvZGVyX2RhdGENCj4gKmRldmRhdGEpDQo+ICAvKiBUaGlzIGlzIGFuIGluZGV4
+IGluIHRoZSBIRE1JL0RWSSBEREkgYnVmZmVyIHRyYW5zbGF0aW9uIHRhYmxlLCBvciAtMSAqLw0K
+PiAgaW50IGludGVsX2Jpb3NfaGRtaV9sZXZlbF9zaGlmdChjb25zdCBzdHJ1Y3QgaW50ZWxfYmlv
+c19lbmNvZGVyX2RhdGEgKmRldmRhdGEpDQo+ICB7DQo+IC0JaWYgKCFkZXZkYXRhIHx8IGRldmRh
+dGEtPmk5MTUtPmRpc3BsYXkudmJ0LnZlcnNpb24gPCAxNTgpDQo+ICsJaWYgKCFkZXZkYXRhIHx8
+IGRldmRhdGEtPmk5MTUtPmRpc3BsYXkudmJ0LnZlcnNpb24gPCAxNTggfHwNCj4gKwkgICAgRElT
+UExBWV9WRVIoZGV2ZGF0YS0+aTkxNSkgPj0gMTQpDQo+ICAJCXJldHVybiAtMTsNCj4gIA0KUmV2
+aWV3ZWQtYnk6IENsaW50IFRheWxvciA8Q2xpbnRvbi5BLlRheWxvckBpbnRlbC5jb20+DQoNCi1D
+bGludA0KDQo+ICAJcmV0dXJuIGRldmRhdGEtPmNoaWxkLmhkbWlfbGV2ZWxfc2hpZnRlcl92YWx1
+ZTsNCg==
