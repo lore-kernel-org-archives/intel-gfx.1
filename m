@@ -4,47 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC332EB64D7
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 01:43:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F2B1EB64D7
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 02:12:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CC1610E3A1;
-	Wed, 21 Jun 2023 01:43:35 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5276A10E39F
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jun 2023 01:43:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1687311812; x=1718847812;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=T00z1QrOxHDJqLzoWM6Qn1ltfhqP7DvN3nwuk9YCUww=;
- b=MY1O3fdaCw8JtFFJhYxFVz8e1obillPtvA0Mwwt915Z0/FS3I/ty3JcV
- le8lYnTRoidTYrY+yUmiuAoiCLcO0KpxIo4RIYdHGfbywBL6ppj14Y9P2
- R1LpFQSvlEfXbFgO9zBl4irN/mh6y7fnskwcC7pJ2uSAW+vLuatJc6uW9
- Ynzj8IfVfPxBq2MADEu5a5DiTy6vIsrrMNXpBD7vCso7N9ty3mbv92I1r
- NkEjcqaroRBfgMsLLi7ezlTFA9CIRTW4fS64Bj+X8zeKq4N0TCEf+ImUn
- 5tkVSQx2f9LDTP2nSoxMUTS2gTqOIBznncVAEh+pvCDK5Q0s1GfkwOzhi A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10747"; a="446408474"
-X-IronPort-AV: E=Sophos;i="6.00,258,1681196400"; d="scan'208";a="446408474"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jun 2023 18:43:31 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10747"; a="714259509"
-X-IronPort-AV: E=Sophos;i="6.00,258,1681196400"; d="scan'208";a="714259509"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by orsmga002.jf.intel.com with ESMTP; 20 Jun 2023 18:43:29 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 21 Jun 2023 07:11:56 +0530
-Message-Id: <20230621014156.1994797-1-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230621013524.1994538-1-suraj.kandpal@intel.com>
-References: <20230621013524.1994538-1-suraj.kandpal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B70FB10E3A1;
+	Wed, 21 Jun 2023 02:12:56 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3095810E3A0;
+ Wed, 21 Jun 2023 02:12:55 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 2A69EA7DFF;
+ Wed, 21 Jun 2023 02:12:55 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2] drm/i915/hdcp: Add a debug statment at hdcp2
- capability check
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "pengfuyuan" <pengfuyuan@kylinos.cn>
+Date: Wed, 21 Jun 2023 02:12:55 -0000
+Message-ID: <168731357517.7800.4066815039518902371@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230524104052.1488836-1-pengfuyuan@kylinos.cn>
+In-Reply-To: <20230524104052.1488836-1-pengfuyuan@kylinos.cn>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBk?=
+ =?utf-8?q?rm/i915/pxp=3Afix_kernel-doc_trivial_warnings?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,37 +40,32 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a debug statement at hdcp2 capability check which indicates if
-GSC CS is causing hdcp2 incapability
+== Series Details ==
 
---v2
--correcting typo in commit header
+Series: drm/i915/pxp:fix kernel-doc trivial warnings
+URL   : https://patchwork.freedesktop.org/series/119624/
+State : failure
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_hdcp.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index 5ed450111f77..73fe84fc9bf5 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -177,8 +177,11 @@ bool intel_hdcp2_capable(struct intel_connector *connector)
- 		struct intel_gt *gt = i915->media_gt;
- 		struct intel_gsc_uc *gsc = gt ? &gt->uc.gsc : NULL;
- 
--		if (!gsc || !intel_uc_fw_is_running(&gsc->fw))
-+		if (!gsc || !intel_uc_fw_is_running(&gsc->fw)) {
-+			drm_dbg_kms(&i915->drm,
-+				    "GSC components required for HDCP2.2 are not ready\n");
- 			return false;
-+		}
- 	}
- 
- 	/* MEI/GSC interface is solid depending on which is used */
--- 
-2.25.1
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/119624/revisions/1/mbox/ not applied
+Applying: drm/i915/pxp:fix kernel-doc trivial warnings
+Using index info to reconstruct a base tree...
+M	drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+Falling back to patching base and 3-way merge...
+Auto-merging drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/pxp/intel_pxp_types.h
+error: Failed to merge in the changes.
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0001 drm/i915/pxp:fix kernel-doc trivial warnings
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+Build failed, no error log produced
+
 
