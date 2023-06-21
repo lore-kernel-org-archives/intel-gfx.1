@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AA1FEB64D7
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1FE0EB64DC
 	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 17:05:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A77210E35B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B54D310E35C;
 	Wed, 21 Jun 2023 17:05:05 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE4DE10E352
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jun 2023 17:04:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84D9110E356
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jun 2023 17:05:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=H7xjtBA+jzTamJkZvSrBReaOKW0qDsx5kc7RVJ9s550=; b=t7EgP9l+MssKQftiMAo7VAdBCc
- Nv98h8aNtVO16LGaXGeEq2m9ltD2DVLbWxZHMVIHdnansE52q8B0dmRkBjGAlUiCMoIMy/OreImcr
- 5cqHvjHzMp6Nq3yxahSKcv8h0zZPtEmJc2nmPl3Y7HZoHQEaS6cdgbsAZkrux0e53j9vMSEKgXdOK
- EKZ68SjKoRwct8bGiDcah4w9QZ3tVXt3ANsdqnDF3UeEkp2GKmn12AODcUbhsUcILgUOYmiiBAZWV
- 9DXjTmPrk3hO4ePJxd9hC8YahWikG3UdRtJUwE1RGLdoobQf/AQ8MdhsOblwR8sJo3t78oQYQslj4
- WpEPi5ag==;
+ bh=S9L58IPbLSJMGWxFtvlnrG4TzIQ7IOqSwhUMe45kT8U=; b=PW4Dwh4Gf1suM6iF8qmdwxhedV
+ dGBA+OGAVi6nz1TzXhqQwejLNG6p8I/gHBdyJdF+v9Gwlfc+qXUjfsQRhEupLyGODb3oBlcxjqeZg
+ MjDYrwlGzkp9KSAXfQWGPMLoY7z8XE2Ha7+Drv6kVcDGv88l6mKIj3vMNnmJc0wPJLF/1/j23opEa
+ eo5D3L64k7UfoSUT0lpwRO6h7SIv4cOQ8G08UCt/pjyMlmUKsodXKsDFTzzN9xwAVenix5X7iC12y
+ ymJp18fQp4MbBy2x2WRcwk0mKw0eF20AfD6Cvpc56WVKj7Wa6gjeZD91h/NOb3XGNU2NojtTr6joC
+ HO//Edeg==;
 Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1qC0y2-00EjEd-D4; Wed, 21 Jun 2023 16:46:02 +0000
+ Hat Linux)) id 1qC0y2-00EjEL-0r; Wed, 21 Jun 2023 16:46:02 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-mm@kvack.org,
 	Andrew Morton <akpm@linux-foundation.org>
-Date: Wed, 21 Jun 2023 17:45:55 +0100
-Message-Id: <20230621164557.3510324-12-willy@infradead.org>
+Date: Wed, 21 Jun 2023 17:45:52 +0100
+Message-Id: <20230621164557.3510324-9-willy@infradead.org>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20230621164557.3510324-1-willy@infradead.org>
 References: <20230621164557.3510324-1-willy@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 11/13] mm: Rename invalidate_mapping_pagevec to
- mapping_try_invalidate
+Subject: [Intel-gfx] [PATCH 08/13] i915: Convert i915_gpu_error to use a
+ folio_batch
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,127 +57,115 @@ Cc: linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We don't use pagevecs for the LRU cache any more, and we don't know
-that the failed invalidations were due to the folio being in an
-LRU cache.  So rename it to be more accurate.
+Remove one of the last remaining users of pagevec.
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 ---
- mm/fadvise.c  | 16 +++++++---------
- mm/internal.h |  4 ++--
- mm/truncate.c | 25 ++++++++++++-------------
- 3 files changed, 21 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/i915/i915_gpu_error.c | 50 +++++++++++++--------------
+ 1 file changed, 25 insertions(+), 25 deletions(-)
 
-diff --git a/mm/fadvise.c b/mm/fadvise.c
-index fb7c5f43fd2a..f684ffd7f9c9 100644
---- a/mm/fadvise.c
-+++ b/mm/fadvise.c
-@@ -143,7 +143,7 @@ int generic_fadvise(struct file *file, loff_t offset, loff_t len, int advice)
- 		}
- 
- 		if (end_index >= start_index) {
--			unsigned long nr_pagevec = 0;
-+			unsigned long nr_failed = 0;
- 
- 			/*
- 			 * It's common to FADV_DONTNEED right after
-@@ -156,17 +156,15 @@ int generic_fadvise(struct file *file, loff_t offset, loff_t len, int advice)
- 			 */
- 			lru_add_drain();
- 
--			invalidate_mapping_pagevec(mapping,
--						start_index, end_index,
--						&nr_pagevec);
-+			mapping_try_invalidate(mapping, start_index, end_index,
-+					&nr_failed);
- 
- 			/*
--			 * If fewer pages were invalidated than expected then
--			 * it is possible that some of the pages were on
--			 * a per-cpu pagevec for a remote CPU. Drain all
--			 * pagevecs and try again.
-+			 * The failures may be due to the folio being
-+			 * in the LRU cache of a remote CPU. Drain all
-+			 * caches and try again.
- 			 */
--			if (nr_pagevec) {
-+			if (nr_failed) {
- 				lru_add_drain_all();
- 				invalidate_mapping_pages(mapping, start_index,
- 						end_index);
-diff --git a/mm/internal.h b/mm/internal.h
-index 119a8241f9d9..2ff7587b4045 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -133,8 +133,8 @@ int truncate_inode_folio(struct address_space *mapping, struct folio *folio);
- bool truncate_inode_partial_folio(struct folio *folio, loff_t start,
- 		loff_t end);
- long invalidate_inode_page(struct page *page);
--unsigned long invalidate_mapping_pagevec(struct address_space *mapping,
--		pgoff_t start, pgoff_t end, unsigned long *nr_pagevec);
-+unsigned long mapping_try_invalidate(struct address_space *mapping,
-+		pgoff_t start, pgoff_t end, unsigned long *nr_failed);
- 
- /**
-  * folio_evictable - Test whether a folio is evictable.
-diff --git a/mm/truncate.c b/mm/truncate.c
-index 86de31ed4d32..4a917570887f 100644
---- a/mm/truncate.c
-+++ b/mm/truncate.c
-@@ -486,18 +486,17 @@ void truncate_inode_pages_final(struct address_space *mapping)
- EXPORT_SYMBOL(truncate_inode_pages_final);
- 
- /**
-- * invalidate_mapping_pagevec - Invalidate all the unlocked pages of one inode
-- * @mapping: the address_space which holds the pages to invalidate
-+ * mapping_try_invalidate - Invalidate all the evictable folios of one inode
-+ * @mapping: the address_space which holds the folios to invalidate
-  * @start: the offset 'from' which to invalidate
-  * @end: the offset 'to' which to invalidate (inclusive)
-- * @nr_pagevec: invalidate failed page number for caller
-+ * @nr_failed: How many folio invalidations failed
-  *
-- * This helper is similar to invalidate_mapping_pages(), except that it accounts
-- * for pages that are likely on a pagevec and counts them in @nr_pagevec, which
-- * will be used by the caller.
-+ * This function is similar to invalidate_mapping_pages(), except that it
-+ * returns the number of folios which could not be evicted in @nr_failed.
-  */
--unsigned long invalidate_mapping_pagevec(struct address_space *mapping,
--		pgoff_t start, pgoff_t end, unsigned long *nr_pagevec)
-+unsigned long mapping_try_invalidate(struct address_space *mapping,
-+		pgoff_t start, pgoff_t end, unsigned long *nr_failed)
- {
- 	pgoff_t indices[PAGEVEC_SIZE];
- 	struct folio_batch fbatch;
-@@ -527,9 +526,9 @@ unsigned long invalidate_mapping_pagevec(struct address_space *mapping,
- 			 */
- 			if (!ret) {
- 				deactivate_file_folio(folio);
--				/* It is likely on the pagevec of a remote CPU */
--				if (nr_pagevec)
--					(*nr_pagevec)++;
-+				/* Likely in the lru cache of a remote CPU */
-+				if (nr_failed)
-+					(*nr_failed)++;
- 			}
- 			count += ret;
- 		}
-@@ -552,12 +551,12 @@ unsigned long invalidate_mapping_pagevec(struct address_space *mapping,
-  * If you want to remove all the pages of one inode, regardless of
-  * their use and writeback state, use truncate_inode_pages().
-  *
-- * Return: the number of the cache entries that were invalidated
-+ * Return: The number of indices that had their contents invalidated
-  */
- unsigned long invalidate_mapping_pages(struct address_space *mapping,
- 		pgoff_t start, pgoff_t end)
- {
--	return invalidate_mapping_pagevec(mapping, start, end, NULL);
-+	return mapping_try_invalidate(mapping, start, end, NULL);
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index ec368e700235..0c38bfb60c9a 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -187,64 +187,64 @@ i915_error_printer(struct drm_i915_error_state_buf *e)
  }
- EXPORT_SYMBOL(invalidate_mapping_pages);
  
+ /* single threaded page allocator with a reserved stash for emergencies */
+-static void pool_fini(struct pagevec *pv)
++static void pool_fini(struct folio_batch *fbatch)
+ {
+-	pagevec_release(pv);
++	folio_batch_release(fbatch);
+ }
+ 
+-static int pool_refill(struct pagevec *pv, gfp_t gfp)
++static int pool_refill(struct folio_batch *fbatch, gfp_t gfp)
+ {
+-	while (pagevec_space(pv)) {
+-		struct page *p;
++	while (folio_batch_space(fbatch)) {
++		struct folio *folio;
+ 
+-		p = alloc_page(gfp);
+-		if (!p)
++		folio = folio_alloc(gfp, 0);
++		if (!folio)
+ 			return -ENOMEM;
+ 
+-		pagevec_add(pv, p);
++		folio_batch_add(fbatch, folio);
+ 	}
+ 
+ 	return 0;
+ }
+ 
+-static int pool_init(struct pagevec *pv, gfp_t gfp)
++static int pool_init(struct folio_batch *fbatch, gfp_t gfp)
+ {
+ 	int err;
+ 
+-	pagevec_init(pv);
++	folio_batch_init(fbatch);
+ 
+-	err = pool_refill(pv, gfp);
++	err = pool_refill(fbatch, gfp);
+ 	if (err)
+-		pool_fini(pv);
++		pool_fini(fbatch);
+ 
+ 	return err;
+ }
+ 
+-static void *pool_alloc(struct pagevec *pv, gfp_t gfp)
++static void *pool_alloc(struct folio_batch *fbatch, gfp_t gfp)
+ {
+-	struct page *p;
++	struct folio *folio;
+ 
+-	p = alloc_page(gfp);
+-	if (!p && pagevec_count(pv))
+-		p = pv->pages[--pv->nr];
++	folio = folio_alloc(gfp, 0);
++	if (!folio && folio_batch_count(fbatch))
++		folio = fbatch->folios[--fbatch->nr];
+ 
+-	return p ? page_address(p) : NULL;
++	return folio ? folio_address(folio) : NULL;
+ }
+ 
+-static void pool_free(struct pagevec *pv, void *addr)
++static void pool_free(struct folio_batch *fbatch, void *addr)
+ {
+-	struct page *p = virt_to_page(addr);
++	struct folio *folio = virt_to_folio(addr);
+ 
+-	if (pagevec_space(pv))
+-		pagevec_add(pv, p);
++	if (folio_batch_space(fbatch))
++		folio_batch_add(fbatch, folio);
+ 	else
+-		__free_page(p);
++		folio_put(folio);
+ }
+ 
+ #ifdef CONFIG_DRM_I915_COMPRESS_ERROR
+ 
+ struct i915_vma_compress {
+-	struct pagevec pool;
++	struct folio_batch pool;
+ 	struct z_stream_s zstream;
+ 	void *tmp;
+ };
+@@ -381,7 +381,7 @@ static void err_compression_marker(struct drm_i915_error_state_buf *m)
+ #else
+ 
+ struct i915_vma_compress {
+-	struct pagevec pool;
++	struct folio_batch pool;
+ };
+ 
+ static bool compress_init(struct i915_vma_compress *c)
 -- 
 2.39.2
 
