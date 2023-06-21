@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00BBEEB64D7
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 17:05:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB2BAEB64DC
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 17:05:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69F1910E35D;
-	Wed, 21 Jun 2023 17:05:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5300010E35E;
+	Wed, 21 Jun 2023 17:05:11 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CEFC10E35B
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jun 2023 17:05:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D65810E35B
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jun 2023 17:05:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=8TiSCbnL9mJc/af1uk/cttNt5G00aLFokvOncuurQEU=; b=ROBkxSuxyK2GHbWwt0qLgFJiv8
- zmj9C6CSHPQM7LyW41/OjbHPRndJOpiS6l5UG+bFw4bxt2G+Ca7A4O02XW/hXrAyAyyAbJMtRBI8r
- utehe7BbwNc6CVtpJO37VKw3d8j5SlrD8p0NYvoc8pLtWcqyqllAEQ9zMkh80iRJ0C6+pqSF/oH6C
- 84eZ0XPv0VUhnwCY5IUj6PaAMQvlFyUmc2KJEaEsXJxuERpYSwSOxsIiY96AQnV53rDs25P4xDSor
- f26+lGIPExHjRgT8ClXur7P2d8b4h7khDh7JQZha7/A8GMB16vux2F4j1+4MR3dBM2Nyij9QAVuoG
- PqM1b+Jw==;
+ bh=/u3R6ommui0jzmNm5KqQbCKjAYY2UMYMLfe/n8/4JuI=; b=SA7wCjqcWMwZI6QRZjnXU4BdsS
+ H2NVvLwwEgWYTdDfqbIir6UM//Pdysn6BSpEU5tQrwXLiUi9lYRn6b1kZ9qx1fAUBvXd7kLDwwkhY
+ 5AAQLBbNy1luSMqNDTeWh+iK0WGYWrfqKDGYqZciSOpheoDHNVBuHpWm43NXX9E4ZJXfruCyIH/UW
+ HB+wG8b8HwLzzjf53mwVPcA53m7cznZE0yRcrwmRkU0fOjoCKs9ya07eXP9QmjjMztGSPQSsClls5
+ jOcuaSGUbCg3/YuJMblU2LvWjfE9SoN7h5k2L6Zq6mpZcMsd5xCOJiy9+fCqNLsH/jrQq/u4kXAFF
+ K/koQlnw==;
 Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1qC0y2-00EjEp-LV; Wed, 21 Jun 2023 16:46:02 +0000
+ Hat Linux)) id 1qC0y2-00EjEX-9H; Wed, 21 Jun 2023 16:46:02 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-mm@kvack.org,
 	Andrew Morton <akpm@linux-foundation.org>
-Date: Wed, 21 Jun 2023 17:45:57 +0100
-Message-Id: <20230621164557.3510324-14-willy@infradead.org>
+Date: Wed, 21 Jun 2023 17:45:54 +0100
+Message-Id: <20230621164557.3510324-11-willy@infradead.org>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20230621164557.3510324-1-willy@infradead.org>
 References: <20230621164557.3510324-1-willy@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 13/13] mm: Remove unnecessary pagevec includes
+Subject: [Intel-gfx] [PATCH 10/13] mm: Remove struct pagevec
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,78 +56,151 @@ Cc: linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-These files no longer need pagevec.h, mostly due to function declarations
-being moved out of it.
+All users are now converted to use the folio_batch so we can get rid of
+this data structure.
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 ---
- mm/fadvise.c        | 1 -
- mm/memory_hotplug.c | 1 -
- mm/migrate.c        | 1 -
- mm/readahead.c      | 1 -
- mm/swap_state.c     | 1 -
- 5 files changed, 5 deletions(-)
+ include/linux/pagevec.h | 63 +++--------------------------------------
+ mm/swap.c               | 18 ++++++------
+ 2 files changed, 13 insertions(+), 68 deletions(-)
 
-diff --git a/mm/fadvise.c b/mm/fadvise.c
-index f684ffd7f9c9..6c39d42f16dc 100644
---- a/mm/fadvise.c
-+++ b/mm/fadvise.c
-@@ -14,7 +14,6 @@
- #include <linux/mm.h>
- #include <linux/pagemap.h>
- #include <linux/backing-dev.h>
--#include <linux/pagevec.h>
- #include <linux/fadvise.h>
- #include <linux/writeback.h>
- #include <linux/syscalls.h>
-diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
-index 35db4108bb15..3f231cf1b410 100644
---- a/mm/memory_hotplug.c
-+++ b/mm/memory_hotplug.c
-@@ -13,7 +13,6 @@
- #include <linux/pagemap.h>
- #include <linux/compiler.h>
- #include <linux/export.h>
--#include <linux/pagevec.h>
- #include <linux/writeback.h>
- #include <linux/slab.h>
- #include <linux/sysctl.h>
-diff --git a/mm/migrate.c b/mm/migrate.c
-index ce35afdbc1e3..ee26f4a962ef 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -21,7 +21,6 @@
- #include <linux/buffer_head.h>
- #include <linux/mm_inline.h>
- #include <linux/nsproxy.h>
--#include <linux/pagevec.h>
- #include <linux/ksm.h>
- #include <linux/rmap.h>
- #include <linux/topology.h>
-diff --git a/mm/readahead.c b/mm/readahead.c
-index 47afbca1d122..a9c999aa19af 100644
---- a/mm/readahead.c
-+++ b/mm/readahead.c
-@@ -120,7 +120,6 @@
- #include <linux/export.h>
- #include <linux/backing-dev.h>
- #include <linux/task_io_accounting_ops.h>
--#include <linux/pagevec.h>
- #include <linux/pagemap.h>
- #include <linux/psi.h>
- #include <linux/syscalls.h>
-diff --git a/mm/swap_state.c b/mm/swap_state.c
-index 4a5c7b748051..f8ea7015bad4 100644
---- a/mm/swap_state.c
-+++ b/mm/swap_state.c
-@@ -16,7 +16,6 @@
- #include <linux/pagemap.h>
- #include <linux/backing-dev.h>
- #include <linux/blkdev.h>
--#include <linux/pagevec.h>
- #include <linux/migrate.h>
- #include <linux/vmalloc.h>
- #include <linux/swap_slots.h>
+diff --git a/include/linux/pagevec.h b/include/linux/pagevec.h
+index 3a9d29dd28a3..87cc678adc85 100644
+--- a/include/linux/pagevec.h
++++ b/include/linux/pagevec.h
+@@ -3,65 +3,18 @@
+  * include/linux/pagevec.h
+  *
+  * In many places it is efficient to batch an operation up against multiple
+- * pages.  A pagevec is a multipage container which is used for that.
++ * folios.  A folio_batch is a container which is used for that.
+  */
+ 
+ #ifndef _LINUX_PAGEVEC_H
+ #define _LINUX_PAGEVEC_H
+ 
+-#include <linux/xarray.h>
++#include <linux/types.h>
+ 
+-/* 15 pointers + header align the pagevec structure to a power of two */
++/* 15 pointers + header align the folio_batch structure to a power of two */
+ #define PAGEVEC_SIZE	15
+ 
+-struct page;
+ struct folio;
+-struct address_space;
+-
+-/* Layout must match folio_batch */
+-struct pagevec {
+-	unsigned char nr;
+-	bool percpu_pvec_drained;
+-	struct page *pages[PAGEVEC_SIZE];
+-};
+-
+-void __pagevec_release(struct pagevec *pvec);
+-
+-static inline void pagevec_init(struct pagevec *pvec)
+-{
+-	pvec->nr = 0;
+-	pvec->percpu_pvec_drained = false;
+-}
+-
+-static inline void pagevec_reinit(struct pagevec *pvec)
+-{
+-	pvec->nr = 0;
+-}
+-
+-static inline unsigned pagevec_count(struct pagevec *pvec)
+-{
+-	return pvec->nr;
+-}
+-
+-static inline unsigned pagevec_space(struct pagevec *pvec)
+-{
+-	return PAGEVEC_SIZE - pvec->nr;
+-}
+-
+-/*
+- * Add a page to a pagevec.  Returns the number of slots still available.
+- */
+-static inline unsigned pagevec_add(struct pagevec *pvec, struct page *page)
+-{
+-	pvec->pages[pvec->nr++] = page;
+-	return pagevec_space(pvec);
+-}
+-
+-static inline void pagevec_release(struct pagevec *pvec)
+-{
+-	if (pagevec_count(pvec))
+-		__pagevec_release(pvec);
+-}
+ 
+ /**
+  * struct folio_batch - A collection of folios.
+@@ -78,11 +31,6 @@ struct folio_batch {
+ 	struct folio *folios[PAGEVEC_SIZE];
+ };
+ 
+-/* Layout must match pagevec */
+-static_assert(sizeof(struct pagevec) == sizeof(struct folio_batch));
+-static_assert(offsetof(struct pagevec, pages) ==
+-		offsetof(struct folio_batch, folios));
+-
+ /**
+  * folio_batch_init() - Initialise a batch of folios
+  * @fbatch: The folio batch.
+@@ -127,10 +75,7 @@ static inline unsigned folio_batch_add(struct folio_batch *fbatch,
+ 	return folio_batch_space(fbatch);
+ }
+ 
+-static inline void __folio_batch_release(struct folio_batch *fbatch)
+-{
+-	__pagevec_release((struct pagevec *)fbatch);
+-}
++void __folio_batch_release(struct folio_batch *pvec);
+ 
+ static inline void folio_batch_release(struct folio_batch *fbatch)
+ {
+diff --git a/mm/swap.c b/mm/swap.c
+index 423199ee8478..10348c1cf9c5 100644
+--- a/mm/swap.c
++++ b/mm/swap.c
+@@ -1044,25 +1044,25 @@ void release_pages(release_pages_arg arg, int nr)
+ EXPORT_SYMBOL(release_pages);
+ 
+ /*
+- * The pages which we're about to release may be in the deferred lru-addition
++ * The folios which we're about to release may be in the deferred lru-addition
+  * queues.  That would prevent them from really being freed right now.  That's
+- * OK from a correctness point of view but is inefficient - those pages may be
++ * OK from a correctness point of view but is inefficient - those folios may be
+  * cache-warm and we want to give them back to the page allocator ASAP.
+  *
+- * So __pagevec_release() will drain those queues here.
++ * So __folio_batch_release() will drain those queues here.
+  * folio_batch_move_lru() calls folios_put() directly to avoid
+  * mutual recursion.
+  */
+-void __pagevec_release(struct pagevec *pvec)
++void __folio_batch_release(struct folio_batch *fbatch)
+ {
+-	if (!pvec->percpu_pvec_drained) {
++	if (!fbatch->percpu_pvec_drained) {
+ 		lru_add_drain();
+-		pvec->percpu_pvec_drained = true;
++		fbatch->percpu_pvec_drained = true;
+ 	}
+-	release_pages(pvec->pages, pagevec_count(pvec));
+-	pagevec_reinit(pvec);
++	release_pages(fbatch->folios, folio_batch_count(fbatch));
++	folio_batch_reinit(fbatch);
+ }
+-EXPORT_SYMBOL(__pagevec_release);
++EXPORT_SYMBOL(__folio_batch_release);
+ 
+ /**
+  * folio_batch_remove_exceptionals() - Prune non-folios from a batch.
 -- 
 2.39.2
 
