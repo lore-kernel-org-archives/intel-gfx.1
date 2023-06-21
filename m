@@ -4,36 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB728EB64D7
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 17:04:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 020F4EB64D7
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 17:04:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5524810E34C;
-	Wed, 21 Jun 2023 17:04:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D45A10E34D;
+	Wed, 21 Jun 2023 17:04:54 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D216210E340
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jun 2023 17:04:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E75A10E34D
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jun 2023 17:04:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:In-Reply-To:References;
- bh=gPF8zQQSIHiKU2e2Ly4ej0SDtpoejzkFWwWEYtBtv+s=; b=R6XCM2zV5SdOXGzdC4zN24TUJT
- M4veWjCAPq0VNUMCOXwK50bgiMz71O8YN/hsbWICKjaGBn0L/hOi6O3vzf8WibWLHu9fl3oQnQsny
- VGKEA7Ik15shC5pM7bj5sOsWEZqfwMVm1w/UApf/gyrXm2EOIwgAe4VVVX5iq6/R6BNzAkxe/vJHh
- XJoF4JmL38Rj6+7jZjgWTJ1XxMEElaDGBPXE4ET31k0NcLCnoFJ3RJwwdIo3TnQpnX9h+isSLIe6j
- JkTmNrRbvZfY6wvO0Tfw3qOS6OftxBxHLANWzL3TPle2V4DyHE+CsN5B7LgFifpOLmUjM6a7p9apc
- NtFA7iFA==;
+ References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ Content-Type:Content-ID:Content-Description;
+ bh=KFMiCla2naG7Z7vKPwGKVD4TrVn4emFE0PLxxevs+7o=; b=OU4HmcXWzyUGQD65hDOdwkgu0o
+ u74l9DMZxcBXT5V4Z5qLLe5pROXO6krjW5ruc1DT0SkscC1GAv6CUiRHqoT/xZNB+FTYdY7HTZcSC
+ 1nPv6XnNmEo7hrUJxM01iosMG8Y0Ym2VcY6jvvzCBkvQC7lZJfWEJjt8YGSGMlqEn7izRDRm51hz1
+ GMTsyqcMH1J1dyYFMGFeU3Saag7AZyuOX2CkLBm+3ksa29C3VbudjYZzIgY5yxIiJcoHDGi0dytI4
+ BSi9r/ik6bNx2dBlS0BKcqh1/yQ1YIwWVl75bC6VUoMpy4h0Khgb2dDFrfbmsM3CyCJYXba2lPTTt
+ z9KQ53Ag==;
 Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1qC0y1-00EjDe-6y; Wed, 21 Jun 2023 16:46:01 +0000
+ Hat Linux)) id 1qC0y1-00EjDi-Cc; Wed, 21 Jun 2023 16:46:01 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-mm@kvack.org,
 	Andrew Morton <akpm@linux-foundation.org>
-Date: Wed, 21 Jun 2023 17:45:44 +0100
-Message-Id: <20230621164557.3510324-1-willy@infradead.org>
+Date: Wed, 21 Jun 2023 17:45:46 +0100
+Message-Id: <20230621164557.3510324-3-willy@infradead.org>
 X-Mailer: git-send-email 2.37.1
+In-Reply-To: <20230621164557.3510324-1-willy@infradead.org>
+References: <20230621164557.3510324-1-willy@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 00/13] Remove pagevecs
+Subject: [Intel-gfx] [PATCH 02/13] mm: Add __folio_batch_release()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,49 +56,35 @@ Cc: linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We're almost done with the pagevec -> folio_batch conversion.  Finish
-the job.
+This performs the same role as __pagevec_release(), ie skipping the
+check for batch length of 0.
 
-Matthew Wilcox (Oracle) (13):
-  afs: Convert pagevec to folio_batch in afs_extend_writeback()
-  mm: Add __folio_batch_release()
-  scatterlist: Add sg_set_folio()
-  i915: Convert shmem_sg_free_table() to use a folio_batch
-  drm: Convert drm_gem_put_pages() to use a folio_batch
-  mm: Remove check_move_unevictable_pages()
-  pagevec: Rename fbatch_count()
-  i915: Convert i915_gpu_error to use a folio_batch
-  net: Convert sunrpc from pagevec to folio_batch
-  mm: Remove struct pagevec
-  mm: Rename invalidate_mapping_pagevec to mapping_try_invalidate
-  mm: Remove references to pagevec
-  mm: Remove unnecessary pagevec includes
+Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+---
+ include/linux/pagevec.h | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/drm_gem.c                 | 68 +++++++++++++----------
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 55 ++++++++++--------
- drivers/gpu/drm/i915/i915_gpu_error.c     | 50 ++++++++---------
- fs/afs/write.c                            | 16 +++---
- include/linux/pagevec.h                   | 67 +++-------------------
- include/linux/scatterlist.h               | 24 ++++++++
- include/linux/sunrpc/svc.h                |  2 +-
- include/linux/swap.h                      |  1 -
- mm/fadvise.c                              | 17 +++---
- mm/huge_memory.c                          |  2 +-
- mm/internal.h                             |  4 +-
- mm/khugepaged.c                           |  6 +-
- mm/ksm.c                                  |  6 +-
- mm/memory.c                               |  6 +-
- mm/memory_hotplug.c                       |  1 -
- mm/migrate.c                              |  1 -
- mm/migrate_device.c                       |  2 +-
- mm/readahead.c                            |  1 -
- mm/swap.c                                 | 20 +++----
- mm/swap_state.c                           |  1 -
- mm/truncate.c                             | 27 +++++----
- mm/vmscan.c                               | 17 ------
- net/sunrpc/svc.c                          | 10 ++--
- 23 files changed, 185 insertions(+), 219 deletions(-)
-
+diff --git a/include/linux/pagevec.h b/include/linux/pagevec.h
+index f582f7213ea5..42aad53e382e 100644
+--- a/include/linux/pagevec.h
++++ b/include/linux/pagevec.h
+@@ -127,9 +127,15 @@ static inline unsigned folio_batch_add(struct folio_batch *fbatch,
+ 	return fbatch_space(fbatch);
+ }
+ 
++static inline void __folio_batch_release(struct folio_batch *fbatch)
++{
++	__pagevec_release((struct pagevec *)fbatch);
++}
++
+ static inline void folio_batch_release(struct folio_batch *fbatch)
+ {
+-	pagevec_release((struct pagevec *)fbatch);
++	if (folio_batch_count(fbatch))
++		__folio_batch_release(fbatch);
+ }
+ 
+ void folio_batch_remove_exceptionals(struct folio_batch *fbatch);
 -- 
 2.39.2
 
