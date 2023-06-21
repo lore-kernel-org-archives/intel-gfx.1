@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 804F4EB64DC
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 17:04:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E432EB64D7
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jun 2023 17:05:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0380010E351;
-	Wed, 21 Jun 2023 17:04:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFBA710E350;
+	Wed, 21 Jun 2023 17:04:59 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org
  [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6818A10E34D
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jun 2023 17:04:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22B7C10E350
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jun 2023 17:04:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
  References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
  Content-Type:Content-ID:Content-Description;
- bh=eONAo72om3NJJPfeQU98nnaiEyx1girYaBRrJpkgqkU=; b=JXUQqB4dBUOu93/qitkyE97f3Z
- vicwKtf2V+aPt3Dbg9/7v8WVwzM1uW09KbzEgrV7HoZavbGv57iMq0P8yKRiVHqblH2VN4jJwQ51P
- 3UBOa8B2hu7+kv08AyN/nJEB47YJdT5WmFl8qEnhdI5jyaHNGAsAFAZ1nL/q35cRWiLbB1YToy/e8
- 42a1+W41mg0rHN6jVqxvTZByBSAn9Z9fMtkxjLN56svcogUEoy8anGD/EDPT8G5k/Bd4memePz7s9
- CrQmO7YpoNGtdgXoNsSSDZ7tXeMZyLnRddcjDjPExN2w8ZnbHBneVjox+kOnqzeVCqXZWHclrs02X
- NKuWOUMg==;
+ bh=6bhEYpaGLo7Jfiv7Oy69a9Rbop+oIUfrkuAWfFjKyOQ=; b=fVZ+hZCi7U6/W3v6NYZl+xn2jM
+ 1lVvZ/cm5oqnPHkQ4EN7CqyGeAw3OMc02BCqfH3FTZmTMHtCBD4UugTykydjG+4AmzTCgaS9E8NLc
+ wKJc9To6lc+TRJYTmbE9iZpa5GxvUxBx93xjO14Of2MZUZKkLfhAFBexr19TA9W5Gd5B2U373kAvV
+ GmaNimalG9cGk8dLFYvIyCnvuLSvif6kbPYg/4lQKcbQpvf5FV10wKGWpAg6nhnlY9wVPc67Bm56J
+ qj3Q3UL1kqOhdvt6U+UEl8OlB/v8JQGW4W3cGebFFTHD4WcBZZyOxiaJ0GfE+kgOuTUknBoJ8vlyb
+ be8Lx8Hg==;
 Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1qC0y1-00EjDm-IE; Wed, 21 Jun 2023 16:46:01 +0000
+ Hat Linux)) id 1qC0y2-00EjEj-HR; Wed, 21 Jun 2023 16:46:02 +0000
 From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 To: linux-mm@kvack.org,
 	Andrew Morton <akpm@linux-foundation.org>
-Date: Wed, 21 Jun 2023 17:45:48 +0100
-Message-Id: <20230621164557.3510324-5-willy@infradead.org>
+Date: Wed, 21 Jun 2023 17:45:56 +0100
+Message-Id: <20230621164557.3510324-13-willy@infradead.org>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20230621164557.3510324-1-willy@infradead.org>
 References: <20230621164557.3510324-1-willy@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 04/13] i915: Convert shmem_sg_free_table() to
- use a folio_batch
+Subject: [Intel-gfx] [PATCH 12/13] mm: Remove references to pagevec
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,139 +56,151 @@ Cc: linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove a few hidden compound_head() calls by converting the returned
-page to a folio once and using the folio APIs.  We also only increment
-the refcount on the folio once instead of once for each page.  Ideally,
-we would have a for_each_sgt_folio macro, but until then this will do.
+Most of these should just refer to the LRU cache rather than the
+data structure used to implement the LRU cache.
 
 Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 55 +++++++++++++----------
- 1 file changed, 31 insertions(+), 24 deletions(-)
+ mm/huge_memory.c    | 2 +-
+ mm/khugepaged.c     | 6 +++---
+ mm/ksm.c            | 6 +++---
+ mm/memory.c         | 6 +++---
+ mm/migrate_device.c | 2 +-
+ mm/swap.c           | 2 +-
+ mm/truncate.c       | 2 +-
+ 7 files changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index 33d5d5178103..8f1633c3fb93 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -19,13 +19,13 @@
- #include "i915_trace.h"
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index e94fe292f30a..eb3678360b97 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1344,7 +1344,7 @@ vm_fault_t do_huge_pmd_wp_page(struct vm_fault *vmf)
+ 	/*
+ 	 * See do_wp_page(): we can only reuse the folio exclusively if
+ 	 * there are no additional references. Note that we always drain
+-	 * the LRU pagevecs immediately after adding a THP.
++	 * the LRU cache immediately after adding a THP.
+ 	 */
+ 	if (folio_ref_count(folio) >
+ 			1 + folio_test_swapcache(folio) * folio_nr_pages(folio))
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 5ef1e08b2a06..3beb4ad2ee5e 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -1051,7 +1051,7 @@ static int __collapse_huge_page_swapin(struct mm_struct *mm,
+ 	if (pte)
+ 		pte_unmap(pte);
+ 
+-	/* Drain LRU add pagevec to remove extra pin on the swapped in pages */
++	/* Drain LRU cache to remove extra pin on the swapped in pages */
+ 	if (swapped_in)
+ 		lru_add_drain();
+ 
+@@ -1972,7 +1972,7 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+ 					result = SCAN_FAIL;
+ 					goto xa_unlocked;
+ 				}
+-				/* drain pagevecs to help isolate_lru_page() */
++				/* drain lru cache to help isolate_lru_page() */
+ 				lru_add_drain();
+ 				page = folio_file_page(folio, index);
+ 			} else if (trylock_page(page)) {
+@@ -1988,7 +1988,7 @@ static int collapse_file(struct mm_struct *mm, unsigned long addr,
+ 				page_cache_sync_readahead(mapping, &file->f_ra,
+ 							  file, index,
+ 							  end - index);
+-				/* drain pagevecs to help isolate_lru_page() */
++				/* drain lru cache to help isolate_lru_page() */
+ 				lru_add_drain();
+ 				page = find_lock_page(mapping, index);
+ 				if (unlikely(page == NULL)) {
+diff --git a/mm/ksm.c b/mm/ksm.c
+index d995779dc1fe..ba266359da55 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -932,7 +932,7 @@ static int remove_stable_node(struct ksm_stable_node *stable_node)
+ 		 * The stable node did not yet appear stale to get_ksm_page(),
+ 		 * since that allows for an unmapped ksm page to be recognized
+ 		 * right up until it is freed; but the node is safe to remove.
+-		 * This page might be in a pagevec waiting to be freed,
++		 * This page might be in an LRU cache waiting to be freed,
+ 		 * or it might be PageSwapCache (perhaps under writeback),
+ 		 * or it might have been removed from swapcache a moment ago.
+ 		 */
+@@ -2303,8 +2303,8 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
+ 		trace_ksm_start_scan(ksm_scan.seqnr, ksm_rmap_items);
+ 
+ 		/*
+-		 * A number of pages can hang around indefinitely on per-cpu
+-		 * pagevecs, raised page count preventing write_protect_page
++		 * A number of pages can hang around indefinitely in per-cpu
++		 * LRU cache, raised page count preventing write_protect_page
+ 		 * from merging them.  Though it doesn't really matter much,
+ 		 * it is puzzling to see some stuck in pages_volatile until
+ 		 * other activity jostles them out, and they also prevented
+diff --git a/mm/memory.c b/mm/memory.c
+index 9f2723749f55..d034c52071f4 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -3404,8 +3404,8 @@ static vm_fault_t do_wp_page(struct vm_fault *vmf)
+ 			goto copy;
+ 		if (!folio_test_lru(folio))
+ 			/*
+-			 * Note: We cannot easily detect+handle references from
+-			 * remote LRU pagevecs or references to LRU folios.
++			 * We cannot easily detect+handle references from
++			 * remote LRU caches or references to LRU folios.
+ 			 */
+ 			lru_add_drain();
+ 		if (folio_ref_count(folio) > 1 + folio_test_swapcache(folio))
+@@ -3883,7 +3883,7 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+ 		 * If we want to map a page that's in the swapcache writable, we
+ 		 * have to detect via the refcount if we're really the exclusive
+ 		 * owner. Try removing the extra reference from the local LRU
+-		 * pagevecs if required.
++		 * caches if required.
+ 		 */
+ 		if ((vmf->flags & FAULT_FLAG_WRITE) && folio == swapcache &&
+ 		    !folio_test_ksm(folio) && !folio_test_lru(folio))
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index 02d272b909b5..8365158460ed 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -376,7 +376,7 @@ static unsigned long migrate_device_unmap(unsigned long *src_pfns,
+ 		/* ZONE_DEVICE pages are not on LRU */
+ 		if (!is_zone_device_page(page)) {
+ 			if (!PageLRU(page) && allow_drain) {
+-				/* Drain CPU's pagevec */
++				/* Drain CPU's lru cache */
+ 				lru_add_drain_all();
+ 				allow_drain = false;
+ 			}
+diff --git a/mm/swap.c b/mm/swap.c
+index 10348c1cf9c5..cd8f0150ba3a 100644
+--- a/mm/swap.c
++++ b/mm/swap.c
+@@ -76,7 +76,7 @@ static DEFINE_PER_CPU(struct cpu_fbatches, cpu_fbatches) = {
  
  /*
-- * Move pages to appropriate lru and release the pagevec, decrementing the
-- * ref count of those pages.
-+ * Move folios to appropriate lru and release the batch, decrementing the
-+ * ref count of those folios.
+  * This path almost never happens for VM activity - pages are normally freed
+- * via pagevecs.  But it gets used by networking - and for compound pages.
++ * in batches.  But it gets used by networking - and for compound pages.
   */
--static void check_release_pagevec(struct pagevec *pvec)
-+static void check_release_folio_batch(struct folio_batch *fbatch)
+ static void __page_cache_release(struct folio *folio)
  {
--	check_move_unevictable_pages(pvec);
--	__pagevec_release(pvec);
-+	check_move_unevictable_folios(fbatch);
-+	__folio_batch_release(fbatch);
- 	cond_resched();
- }
- 
-@@ -33,24 +33,29 @@ void shmem_sg_free_table(struct sg_table *st, struct address_space *mapping,
- 			 bool dirty, bool backup)
- {
- 	struct sgt_iter sgt_iter;
--	struct pagevec pvec;
-+	struct folio_batch fbatch;
-+	struct folio *last = NULL;
- 	struct page *page;
- 
- 	mapping_clear_unevictable(mapping);
- 
--	pagevec_init(&pvec);
-+	folio_batch_init(&fbatch);
- 	for_each_sgt_page(page, sgt_iter, st) {
--		if (dirty)
--			set_page_dirty(page);
-+		struct folio *folio = page_folio(page);
- 
-+		if (folio == last)
-+			continue;
-+		last = folio;
-+		if (dirty)
-+			folio_mark_dirty(folio);
- 		if (backup)
--			mark_page_accessed(page);
-+			folio_mark_accessed(folio);
- 
--		if (!pagevec_add(&pvec, page))
--			check_release_pagevec(&pvec);
-+		if (!folio_batch_add(&fbatch, folio))
-+			check_release_folio_batch(&fbatch);
- 	}
--	if (pagevec_count(&pvec))
--		check_release_pagevec(&pvec);
-+	if (fbatch.nr)
-+		check_release_folio_batch(&fbatch);
- 
- 	sg_free_table(st);
- }
-@@ -63,8 +68,7 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
- 	unsigned int page_count; /* restricted by sg_alloc_table */
- 	unsigned long i;
- 	struct scatterlist *sg;
--	struct page *page;
--	unsigned long last_pfn = 0;	/* suppress gcc warning */
-+	unsigned long next_pfn = 0;	/* suppress gcc warning */
- 	gfp_t noreclaim;
- 	int ret;
- 
-@@ -95,6 +99,7 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
- 	sg = st->sgl;
- 	st->nents = 0;
- 	for (i = 0; i < page_count; i++) {
-+		struct folio *folio;
- 		const unsigned int shrink[] = {
- 			I915_SHRINK_BOUND | I915_SHRINK_UNBOUND,
- 			0,
-@@ -103,12 +108,12 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
- 
- 		do {
- 			cond_resched();
--			page = shmem_read_mapping_page_gfp(mapping, i, gfp);
--			if (!IS_ERR(page))
-+			folio = shmem_read_folio_gfp(mapping, i, gfp);
-+			if (!IS_ERR(folio))
- 				break;
- 
- 			if (!*s) {
--				ret = PTR_ERR(page);
-+				ret = PTR_ERR(folio);
- 				goto err_sg;
- 			}
- 
-@@ -147,19 +152,21 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
- 
- 		if (!i ||
- 		    sg->length >= max_segment ||
--		    page_to_pfn(page) != last_pfn + 1) {
-+		    folio_pfn(folio) != next_pfn) {
- 			if (i)
- 				sg = sg_next(sg);
- 
- 			st->nents++;
--			sg_set_page(sg, page, PAGE_SIZE, 0);
-+			sg_set_folio(sg, folio, folio_size(folio), 0);
- 		} else {
--			sg->length += PAGE_SIZE;
-+			/* XXX: could overflow? */
-+			sg->length += folio_size(folio);
- 		}
--		last_pfn = page_to_pfn(page);
-+		next_pfn = folio_pfn(folio) + folio_nr_pages(folio);
-+		i += folio_nr_pages(folio) - 1;
- 
- 		/* Check that the i965g/gm workaround works. */
--		GEM_BUG_ON(gfp & __GFP_DMA32 && last_pfn >= 0x00100000UL);
-+		GEM_BUG_ON(gfp & __GFP_DMA32 && next_pfn >= 0x00100000UL);
- 	}
- 	if (sg) /* loop terminated early; short sg table */
- 		sg_mark_end(sg);
+diff --git a/mm/truncate.c b/mm/truncate.c
+index 4a917570887f..95d1291d269b 100644
+--- a/mm/truncate.c
++++ b/mm/truncate.c
+@@ -565,7 +565,7 @@ EXPORT_SYMBOL(invalidate_mapping_pages);
+  * refcount.  We do this because invalidate_inode_pages2() needs stronger
+  * invalidation guarantees, and cannot afford to leave pages behind because
+  * shrink_page_list() has a temp ref on them, or because they're transiently
+- * sitting in the folio_add_lru() pagevecs.
++ * sitting in the folio_add_lru() caches.
+  */
+ static int invalidate_complete_folio2(struct address_space *mapping,
+ 					struct folio *folio)
 -- 
 2.39.2
 
