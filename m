@@ -4,67 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3D43C001DE
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 457ECC001DF
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3B4C10E332;
-	Tue, 27 Jun 2023 14:38:45 +0000 (UTC)
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
- [IPv6:2607:f8b0:4864:20::62f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8998810E4F3
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:57:16 +0000 (UTC)
-Received: by mail-pl1-x62f.google.com with SMTP id
- d9443c01a7336-1b5466bc5f8so9657485ad.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 01:57:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytedance.com; s=google; t=1687424235; x=1690016235;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WJL0OVu56Nd2o0mxjMzDLbJ1YgOSFE+1vh1fraMJRQc=;
- b=ZL5KbVwmDDj8Gy97lbIJB7YMY8SjOouZdkJA02qk3b6DF+dyuydzFaZQylnxfC9S+S
- TSPs6tccznQsZMFsLcEJsyUCVw2T8A7tWiogG+8JrU9eTxXc/9BRSgGLnZUgk22umk+B
- SSngiAqdElEoARuVlyhvyt60KkFHlCbx7fUzwDo8HLyuhKs4MGrMo82qC5g6M3adQ/kW
- 5sTm4LvGQVeaef4Ot0YEMEqtMtR7HuPlighv8JjZTv9ZOAYC2jp2PBoT7dm2kyLjCYpo
- 2319G2aelwdOOipT4nDLl60x2b/otqGmO31pzkQB3PluAdANWpdqDdwlhTA0kEDJVKL2
- ha0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687424235; x=1690016235;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=WJL0OVu56Nd2o0mxjMzDLbJ1YgOSFE+1vh1fraMJRQc=;
- b=j7w1Qrur4P3Hm+vLxXwShnzatu4wpba2RrQHNl8vQk8EX3N4OpejACUVfSLUwcA8C5
- GRz+XrGIjMr6GZrJNdU+ld3FvBzOXJwGXqow/J7pGphHEdX80qM6JG2hpHu2DXXQwafJ
- 9AFGy2wx8xpSQwwvpcvRfRQjZ7w6yIg2zbjGUm6KNaBQk0tg60kfwlnN/wJzGvMnDar1
- uDT9cUxlUfzKNjz+cl3xSEvQJgqKB3ciNecS3MIuSccNY5Mt8DJBCwi/RS4IBasnyuLj
- P49i9epNiIC1dmKtQ+Et7YEIGJbdUH+LTEMFiT9HG/PI8+qIK1En2uJHiI0O30N8QpS8
- Ywrg==
-X-Gm-Message-State: AC+VfDw4yEVX4pN/TkK1WHIuwbIfkCwaoSc7N1j5Y3jOi5GkpwHaPxfO
- fEiIn8ZLts8r1DT9jB9O0TqybA==
-X-Google-Smtp-Source: ACHHUZ7SQ8rS1EvkM8z3rgy8xjUWZCKvjOIofntYWhPm+3TRoZDLL1AdCBUgXDGJA0nPgYbkXii2Dw==
-X-Received: by 2002:a17:902:c945:b0:1ae:3ff8:7fa7 with SMTP id
- i5-20020a170902c94500b001ae3ff87fa7mr21702029pla.4.1687424235565; 
- Thu, 22 Jun 2023 01:57:15 -0700 (PDT)
-Received: from C02DW0BEMD6R.bytedance.net ([139.177.225.254])
- by smtp.gmail.com with ESMTPSA id
- h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.57.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jun 2023 01:57:15 -0700 (PDT)
-From: Qi Zheng <zhengqi.arch@bytedance.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D18C410E338;
+	Tue, 27 Jun 2023 14:38:46 +0000 (UTC)
+X-Greylist: delayed 622 seconds by postgrey-1.36 at gabe;
+ Thu, 22 Jun 2023 08:50:23 UTC
+Received: from out-59.mta1.migadu.com (out-59.mta1.migadu.com
+ [IPv6:2001:41d0:203:375::3b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC58810E501
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:50:23 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1687423293;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Z+30fV/iN1iesGacxkaE9JIcYdi6gua+ASW3Yz7h8bY=;
+ b=CxBImOW/hNO5cXp3wK8RSStC+rLEzyxL2mXDMqLFN/YsRlgHVgf5PvDLFcI34eWQmCvkd9
+ 3THwQNEw1YQyanLWHvcbM97v3IDV1byn3r24RVpy9KTWBRd2fEO4Ah83WPt2zZsEN37/0a
+ ZxWtreKvDzY3GuQKFUgAQo+IR9ZiSZc=
+From: Qi Zheng <qi.zheng@linux.dev>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-Date: Thu, 22 Jun 2023 16:53:30 +0800
-Message-Id: <20230622085335.77010-25-zhengqi.arch@bytedance.com>
-X-Mailer: git-send-email 2.24.3 (Apple Git-128)
-In-Reply-To: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
-References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
+Date: Thu, 22 Jun 2023 08:39:16 +0000
+Message-Id: <20230622083932.4090339-14-qi.zheng@linux.dev>
+In-Reply-To: <20230622083932.4090339-1-qi.zheng@linux.dev>
+References: <20230622083932.4090339-1-qi.zheng@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: [Intel-gfx] [PATCH 24/29] mm: vmscan: make global slab shrink
- lockless
+Subject: [Intel-gfx] [PATCH 13/29] ext4: dynamically allocate the ext4-es
+ shrinker
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,248 +59,95 @@ Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
  linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
  Qi Zheng <zhengqi.arch@bytedance.com>, linux-fsdevel@vger.kernel.org,
- linux-ext4@vger.kernel.org, linux-btrfs@vger.kernel.org
+ linux-ext4@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-btrfs@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The shrinker_rwsem is a global read-write lock in
-shrinkers subsystem, which protects most operations
-such as slab shrink, registration and unregistration
-of shrinkers, etc. This can easily cause problems in
-the following cases.
+From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-1) When the memory pressure is high and there are many
-   filesystems mounted or unmounted at the same time,
-   slab shrink will be affected (down_read_trylock()
-   failed).
-
-   Such as the real workload mentioned by Kirill Tkhai:
-
-   ```
-   One of the real workloads from my experience is start
-   of an overcommitted node containing many starting
-   containers after node crash (or many resuming containers
-   after reboot for kernel update). In these cases memory
-   pressure is huge, and the node goes round in long reclaim.
-   ```
-
-2) If a shrinker is blocked (such as the case mentioned
-   in [1]) and a writer comes in (such as mount a fs),
-   then this writer will be blocked and cause all
-   subsequent shrinker-related operations to be blocked.
-
-Even if there is no competitor when shrinking slab, there
-may still be a problem. If we have a long shrinker list
-and we do not reclaim enough memory with each shrinker,
-then the down_read_trylock() may be called with high
-frequency. Because of the poor multicore scalability of
-atomic operations, this can lead to a significant drop
-in IPC (instructions per cycle).
-
-We used to implement the lockless slab shrink with
-SRCU [1], but then kernel test robot reported -88.8%
-regression in stress-ng.ramfs.ops_per_sec test case [2],
-so we reverted it [3].
-
-This commit uses the refcount+RCU method [4] proposed by
-by Dave Chinner to re-implement the lockless global slab
-shrink. The memcg slab shrink is handled in the subsequent
-patch.
-
-Currently, the shrinker instances can be divided into
-the following three types:
-
-a) global shrinker instance statically defined in the kernel,
-such as workingset_shadow_shrinker.
-
-b) global shrinker instance statically defined in the kernel
-modules, such as mmu_shrinker in x86.
-
-c) shrinker instance embedded in other structures.
-
-For case a, the memory of shrinker instance is never freed.
-For case b, the memory of shrinker instance will be freed
-after the module is unloaded. But we will call synchronize_rcu()
-in free_module() to wait for RCU read-side critical section to
-exit. For case c, the memory of shrinker instance will be
-dynamically freed by calling kfree_rcu(). So we can use
-rcu_read_{lock,unlock}() to ensure that the shrinker instance
-is valid.
-
-The shrinker::refcount mechanism ensures that the shrinker
-instance will not be run again after unregistration. So the
-structure that records the pointer of shrinker instance can be
-safely freed without waiting for the RCU read-side critical
-section.
-
-In this way, while we implement the lockless slab shrink, we
-don't need to be blocked in unregister_shrinker() to wait
-RCU read-side critical section.
-
-The following are the test results:
-
-stress-ng --timeout 60 --times --verify --metrics-brief --ramfs 9 &
-
-1) Before applying this patchset:
-
- setting to a 60 second run per stressor
- dispatching hogs: 9 ramfs
- stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s
-                           (secs)    (secs)    (secs)   (real time) (usr+sys time)
- ramfs            880623     60.02      7.71    226.93     14671.45        3753.09
- ramfs:
-          1 System Management Interrupt
- for a 60.03s run time:
-    5762.40s available CPU time
-       7.71s user time   (  0.13%)
-     226.93s system time (  3.94%)
-     234.64s total time  (  4.07%)
- load average: 8.54 3.06 2.11
- passed: 9: ramfs (9)
- failed: 0
- skipped: 0
- successful run completed in 60.03s (1 min, 0.03 secs)
-
-2) After applying this patchset:
-
- setting to a 60 second run per stressor
- dispatching hogs: 9 ramfs
- stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s
-                           (secs)    (secs)    (secs)   (real time) (usr+sys time)
- ramfs            847562     60.02      7.44    230.22     14120.66        3566.23
- ramfs:
-          4 System Management Interrupts
- for a 60.12s run time:
-    5771.95s available CPU time
-       7.44s user time   (  0.13%)
-     230.22s system time (  3.99%)
-     237.66s total time  (  4.12%)
- load average: 8.18 2.43 0.84
- passed: 9: ramfs (9)
- failed: 0
- skipped: 0
- successful run completed in 60.12s (1 min, 0.12 secs)
-
-We can see that the ops/s has hardly changed.
-
-[1]. https://lore.kernel.org/lkml/20230313112819.38938-1-zhengqi.arch@bytedance.com/
-[2]. https://lore.kernel.org/lkml/202305230837.db2c233f-yujie.liu@intel.com/
-[3]. https://lore.kernel.org/all/20230609081518.3039120-1-qi.zheng@linux.dev/
-[4]. https://lore.kernel.org/lkml/ZIJhou1d55d4H1s0@dread.disaster.area/
+In preparation for implementing lockless slab shrink,
+we need to dynamically allocate the ext4-es shrinker,
+so that it can be freed asynchronously using kfree_rcu().
+Then it doesn't need to wait for RCU read-side critical
+section when releasing the struct ext4_sb_info.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- include/linux/shrinker.h |  6 ++++++
- mm/vmscan.c              | 33 ++++++++++++++-------------------
- 2 files changed, 20 insertions(+), 19 deletions(-)
+ fs/ext4/ext4.h           |  2 +-
+ fs/ext4/extents_status.c | 21 ++++++++++++---------
+ 2 files changed, 13 insertions(+), 10 deletions(-)
 
-diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
-index 7bfeb2f25246..b0c6c2df9db8 100644
---- a/include/linux/shrinker.h
-+++ b/include/linux/shrinker.h
-@@ -74,6 +74,7 @@ struct shrinker {
+diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+index 0a2d55faa095..1bd150d454f5 100644
+--- a/fs/ext4/ext4.h
++++ b/fs/ext4/ext4.h
+@@ -1651,7 +1651,7 @@ struct ext4_sb_info {
+ 	__u32 s_csum_seed;
  
- 	refcount_t refcount;
- 	struct completion completion_wait;
-+	struct rcu_head rcu;
+ 	/* Reclaim extents from extent status tree */
+-	struct shrinker s_es_shrinker;
++	struct shrinker *s_es_shrinker;
+ 	struct list_head s_es_list;	/* List of inodes with reclaimable extents */
+ 	long s_es_nr_inode;
+ 	struct ext4_es_stats s_es_stats;
+diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
+index 9b5b8951afb4..fea82339f4b4 100644
+--- a/fs/ext4/extents_status.c
++++ b/fs/ext4/extents_status.c
+@@ -1596,7 +1596,7 @@ static unsigned long ext4_es_count(struct shrinker *shrink,
+ 	unsigned long nr;
+ 	struct ext4_sb_info *sbi;
  
- 	void *private_data;
- 
-@@ -123,6 +124,11 @@ struct shrinker *shrinker_alloc_and_init(count_objects_cb count,
- void shrinker_free(struct shrinker *shrinker);
- void unregister_and_free_shrinker(struct shrinker *shrinker);
- 
-+static inline bool shrinker_try_get(struct shrinker *shrinker)
-+{
-+	return refcount_inc_not_zero(&shrinker->refcount);
-+}
-+
- static inline void shrinker_put(struct shrinker *shrinker)
+-	sbi = container_of(shrink, struct ext4_sb_info, s_es_shrinker);
++	sbi = shrink->private_data;
+ 	nr = percpu_counter_read_positive(&sbi->s_es_stats.es_stats_shk_cnt);
+ 	trace_ext4_es_shrink_count(sbi->s_sb, sc->nr_to_scan, nr);
+ 	return nr;
+@@ -1605,8 +1605,7 @@ static unsigned long ext4_es_count(struct shrinker *shrink,
+ static unsigned long ext4_es_scan(struct shrinker *shrink,
+ 				  struct shrink_control *sc)
  {
- 	if (refcount_dec_and_test(&shrinker->refcount))
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 6f9c4750effa..767569698946 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -57,6 +57,7 @@
- #include <linux/khugepaged.h>
- #include <linux/rculist_nulls.h>
- #include <linux/random.h>
-+#include <linux/rculist.h>
+-	struct ext4_sb_info *sbi = container_of(shrink,
+-					struct ext4_sb_info, s_es_shrinker);
++	struct ext4_sb_info *sbi = shrink->private_data;
+ 	int nr_to_scan = sc->nr_to_scan;
+ 	int ret, nr_shrunk;
  
- #include <asm/tlbflush.h>
- #include <asm/div64.h>
-@@ -742,7 +743,7 @@ void register_shrinker_prepared(struct shrinker *shrinker)
- 	down_write(&shrinker_rwsem);
- 	refcount_set(&shrinker->refcount, 1);
- 	init_completion(&shrinker->completion_wait);
--	list_add_tail(&shrinker->list, &shrinker_list);
-+	list_add_tail_rcu(&shrinker->list, &shrinker_list);
- 	shrinker->flags |= SHRINKER_REGISTERED;
- 	shrinker_debugfs_add(shrinker);
- 	up_write(&shrinker_rwsem);
-@@ -800,7 +801,7 @@ void unregister_shrinker(struct shrinker *shrinker)
- 	wait_for_completion(&shrinker->completion_wait);
+@@ -1690,15 +1689,19 @@ int ext4_es_register_shrinker(struct ext4_sb_info *sbi)
+ 	if (err)
+ 		goto err3;
  
- 	down_write(&shrinker_rwsem);
--	list_del(&shrinker->list);
-+	list_del_rcu(&shrinker->list);
- 	shrinker->flags &= ~SHRINKER_REGISTERED;
- 	if (shrinker->flags & SHRINKER_MEMCG_AWARE)
- 		unregister_memcg_shrinker(shrinker);
-@@ -845,7 +846,7 @@ EXPORT_SYMBOL(shrinker_free);
- void unregister_and_free_shrinker(struct shrinker *shrinker)
- {
- 	unregister_shrinker(shrinker);
--	kfree(shrinker);
-+	kfree_rcu(shrinker, rcu);
- }
- EXPORT_SYMBOL(unregister_and_free_shrinker);
- 
-@@ -1067,33 +1068,27 @@ static unsigned long shrink_slab(gfp_t gfp_mask, int nid,
- 	if (!mem_cgroup_disabled() && !mem_cgroup_is_root(memcg))
- 		return shrink_slab_memcg(gfp_mask, nid, memcg, priority);
- 
--	if (!down_read_trylock(&shrinker_rwsem))
--		goto out;
--
--	list_for_each_entry(shrinker, &shrinker_list, list) {
-+	rcu_read_lock();
-+	list_for_each_entry_rcu(shrinker, &shrinker_list, list) {
- 		struct shrink_control sc = {
- 			.gfp_mask = gfp_mask,
- 			.nid = nid,
- 			.memcg = memcg,
- 		};
- 
-+		if (!shrinker_try_get(shrinker))
-+			continue;
-+		rcu_read_unlock();
+-	sbi->s_es_shrinker.scan_objects = ext4_es_scan;
+-	sbi->s_es_shrinker.count_objects = ext4_es_count;
+-	sbi->s_es_shrinker.seeks = DEFAULT_SEEKS;
+-	err = register_shrinker(&sbi->s_es_shrinker, "ext4-es:%s",
++	sbi->s_es_shrinker = shrinker_alloc_and_init(ext4_es_count, ext4_es_scan,
++						     0, DEFAULT_SEEKS, 0, sbi);
++	if (!sbi->s_es_shrinker)
++		goto err4;
 +
- 		ret = do_shrink_slab(&sc, shrinker, priority);
- 		if (ret == SHRINK_EMPTY)
- 			ret = 0;
- 		freed += ret;
--		/*
--		 * Bail out if someone want to register a new shrinker to
--		 * prevent the registration from being stalled for long periods
--		 * by parallel ongoing shrinking.
--		 */
--		if (rwsem_is_contended(&shrinker_rwsem)) {
--			freed = freed ? : 1;
--			break;
--		}
--	}
++	err = register_shrinker(sbi->s_es_shrinker, "ext4-es:%s",
+ 				sbi->s_sb->s_id);
+ 	if (err)
+-		goto err4;
++		goto err5;
  
--	up_read(&shrinker_rwsem);
--out:
-+		rcu_read_lock();
-+		shrinker_put(shrinker);
-+	}
-+	rcu_read_unlock();
- 	cond_resched();
- 	return freed;
+ 	return 0;
++err5:
++	shrinker_free(sbi->s_es_shrinker);
+ err4:
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_shk_cnt);
+ err3:
+@@ -1716,7 +1719,7 @@ void ext4_es_unregister_shrinker(struct ext4_sb_info *sbi)
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_cache_misses);
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_all_cnt);
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_shk_cnt);
+-	unregister_shrinker(&sbi->s_es_shrinker);
++	unregister_and_free_shrinker(sbi->s_es_shrinker);
  }
+ 
+ /*
 -- 
 2.30.2
 
