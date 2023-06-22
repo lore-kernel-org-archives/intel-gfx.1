@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E39DEB64DC
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8506EB64D9
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2BF410E327;
-	Tue, 27 Jun 2023 14:38:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FD7110E328;
+	Tue, 27 Jun 2023 14:38:41 +0000 (UTC)
 Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
  [IPv6:2607:f8b0:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CF1710E4FC
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:56:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8522F10E4FC
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:54:27 +0000 (UTC)
 Received: by mail-pl1-x634.google.com with SMTP id
- d9443c01a7336-1b52418c25bso12033615ad.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 01:56:04 -0700 (PDT)
+ d9443c01a7336-1b52418c25bso12030785ad.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 01:54:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytedance.com; s=google; t=1687424164; x=1690016164;
+ d=bytedance.com; s=google; t=1687424067; x=1690016067;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=FWRSgLiVxGu7by+bRdZCMSZgL2CmyzCgjcAmFywfg3g=;
- b=W9Q0mEFJ4YX/Kxo42ZpDHLFmjt3CYHNqumMzPD6lCEJ/AclBj6ki+9nXx+XP2OFoT9
- biokZFjtTO4s6n85EeiNgXVRb8aHb7r2IMBB+HnwNOlBqet/0l5xfJVO+DolK/U7XTWU
- M277NuxA39AWH+q/lhKoP2vIlehvWLhpgJj/4uGWoGxCITX36OL+YHFtfzDKSSw2iPaX
- MbP+C5V24hBPOg4LWw9eV/ZehzOW8RyY8zV5pnDOyFwQ720HnrExvRoWQvOw0JMgQMOU
- XwvMcYncbAVdeNBjwwgU6wHkMwvamAyfgHl3RPNu98UxqyF0R9Sxc8Wx/1hGBgxkRDYX
- Kkuw==
+ bh=qIt8zXdDCaGLXCE6rKF2JMKvp8G2AK8nuTQphjV73ms=;
+ b=cC13yiK2b2HqEC2WYanx92tTHG9ibgrmYLbrgzYcUarLdydxeypI53cwuyYhjaQzJp
+ onJq4vBBmMajr1poWh86FQTLq2y1xSvoknQDzCFUhqc78tS5eFxPwQt8ueUiPUlQcGJ1
+ NoUMAyqrL7rvWv1XaJ4CPnN6K7xK1sRx+XiYPW8paVbE3vb5Wkc4IFamUXhI7GXmfwho
+ QPeLUm4YlUE0P3+vsMp1UZZv6g44Pla+Jp2DOFJOg6O2qS7xw748UZa1YIoXHuTtcdry
+ A4esVq8CH+pV+6r7bJr/mBJgAfFPjM5J1TM9ToGnDJSCePlm9yunBGrnuwbojkh7OG6q
+ rFSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687424164; x=1690016164;
+ d=1e100.net; s=20221208; t=1687424067; x=1690016067;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=FWRSgLiVxGu7by+bRdZCMSZgL2CmyzCgjcAmFywfg3g=;
- b=N2qeda3/Lq/lPkwK+xmT+c3qKSXil3Fpy+oOV0m3EGP1uC3vja5oBzjf27Xcd5g2Tg
- aen9Gjm5DFoOayhPjVL4C9xVw4JDWcy/NqbO0HlgP6qy1P5QR0Y2p5pOFS+mcAXlmsut
- LSSIRzaWg0JNTey0mLdU+ei3c39/rHcqIVpylvK0pdNBO4eR3MNPySKB/WNArXeU95nF
- FCxkknbX18pARpuO9T7ENuGTb18k4ac/Alwfr9WjmuA8aoi64cJc7/ncqYIic93Eok2O
- +xlDFrK7izsFtdCZ5Kv5Eome21ste+tJmP74jtNyz4E3Y8bPwHkZlSyo4AJ75+3l8zaO
- x8HA==
-X-Gm-Message-State: AC+VfDzlbXIqM6BPEmEpwmAQ1sjKpcnDQeiMv/fLigzBCn8MvPnJoocE
- LgCzZ/udsKHuFXJ0SODqDOafEA==
-X-Google-Smtp-Source: ACHHUZ4nYFfrGKqZLYUWSywLes9hZrkxqoQAJfwtv5FmoHmc5MLCqSR93ZcAMHhMn41B6ov+vpDAfw==
-X-Received: by 2002:a17:902:ea01:b0:1b0:4680:60 with SMTP id
- s1-20020a170902ea0100b001b046800060mr21968987plg.1.1687424164102; 
- Thu, 22 Jun 2023 01:56:04 -0700 (PDT)
+ bh=qIt8zXdDCaGLXCE6rKF2JMKvp8G2AK8nuTQphjV73ms=;
+ b=fUKICh9pUASH5VpM5LsWOb7GAWhiy4diV6CBr8IFvYvb3RbOjSY6UYmZZAQbNHY1u5
+ 7ro+40qoPmEwAP4YZUgKETAOAZhOJ9gttkpOFMNHBX9v0N90WKOLzl/GRmQgstf1ojMB
+ rInSLaKckmxW+gRbiS3nUwUe39pdAqq/qtrE2Za8KYif3x3SSsth3F5bLNPbCPQCvCuY
+ q1uOnpHV3HwMQ1iiuXoH6bq0uzGB/KPMdJ4STvpQfjrQzWXWfm2yr8jTWr41k1w9/1kz
+ tdxkvT9D7p/rQwudNMpoyxifYeXv+lPKsK4wBaXlcMXC8e+a0Meh4kexixOuZriIlKqi
+ iaWA==
+X-Gm-Message-State: AC+VfDzRXUBGZdjQU4h7RGhqnd3/mRMbw36NzM0UA4/5rINXh6EF+oPd
+ vZ3p24NobLSr8fjfc/Zf/34zKw==
+X-Google-Smtp-Source: ACHHUZ68xppE2OzenI0HziNaJw5pBbhsLnOSkDmr33RiuwGHaNU1efiGcJgTbt3uCyHHsLierWgKoQ==
+X-Received: by 2002:a17:902:d489:b0:1ae:4567:2737 with SMTP id
+ c9-20020a170902d48900b001ae45672737mr21909019plg.2.1687424067136; 
+ Thu, 22 Jun 2023 01:54:27 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([139.177.225.254])
  by smtp.gmail.com with ESMTPSA id
- h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.55.56
+ h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.54.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jun 2023 01:56:03 -0700 (PDT)
+ Thu, 22 Jun 2023 01:54:26 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-Date: Thu, 22 Jun 2023 16:53:21 +0800
-Message-Id: <20230622085335.77010-16-zhengqi.arch@bytedance.com>
+Date: Thu, 22 Jun 2023 16:53:09 +0800
+Message-Id: <20230622085335.77010-4-zhengqi.arch@bytedance.com>
 X-Mailer: git-send-email 2.24.3 (Apple Git-128)
 In-Reply-To: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
 References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: [Intel-gfx] [PATCH 15/29] NFSD: dynamically allocate the
- nfsd-client shrinker
+Subject: [Intel-gfx] [PATCH 03/29] drm/i915: dynamically allocate the
+ i915_gem_mm shrinker
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,78 +88,97 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 In preparation for implementing lockless slab shrink,
-we need to dynamically allocate the nfsd-client shrinker,
-so that it can be freed asynchronously using kfree_rcu().
+we need to dynamically allocate the i915_gem_mm shrinker,
+so that it can be freed asynchronously by using kfree_rcu().
 Then it doesn't need to wait for RCU read-side critical
-section when releasing the struct nfsd_net.
+section when releasing the struct drm_i915_private.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- fs/nfsd/netns.h     |  2 +-
- fs/nfsd/nfs4state.c | 20 ++++++++++++--------
- 2 files changed, 13 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c | 27 ++++++++++----------
+ drivers/gpu/drm/i915/i915_drv.h              |  3 ++-
+ 2 files changed, 16 insertions(+), 14 deletions(-)
 
-diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
-index ec49b200b797..f669444d5336 100644
---- a/fs/nfsd/netns.h
-+++ b/fs/nfsd/netns.h
-@@ -195,7 +195,7 @@ struct nfsd_net {
- 	int			nfs4_max_clients;
- 
- 	atomic_t		nfsd_courtesy_clients;
--	struct shrinker		nfsd_client_shrinker;
-+	struct shrinker		*nfsd_client_shrinker;
- 	struct work_struct	nfsd_shrinker_work;
- };
- 
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index 6e61fa3acaf1..a06184270548 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -4388,8 +4388,7 @@ static unsigned long
- nfsd4_state_shrinker_count(struct shrinker *shrink, struct shrink_control *sc)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
+index 214763942aa2..4dcdace26a08 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
+@@ -284,8 +284,7 @@ unsigned long i915_gem_shrink_all(struct drm_i915_private *i915)
+ static unsigned long
+ i915_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
  {
- 	int count;
--	struct nfsd_net *nn = container_of(shrink,
--			struct nfsd_net, nfsd_client_shrinker);
-+	struct nfsd_net *nn = shrink->private_data;
+-	struct drm_i915_private *i915 =
+-		container_of(shrinker, struct drm_i915_private, mm.shrinker);
++	struct drm_i915_private *i915 = shrinker->private_data;
+ 	unsigned long num_objects;
+ 	unsigned long count;
  
- 	count = atomic_read(&nn->nfsd_courtesy_clients);
- 	if (!count)
-@@ -8094,14 +8093,19 @@ static int nfs4_state_create_net(struct net *net)
- 	INIT_WORK(&nn->nfsd_shrinker_work, nfsd4_state_shrinker_worker);
- 	get_net(net);
+@@ -302,8 +301,8 @@ i915_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
+ 	if (num_objects) {
+ 		unsigned long avg = 2 * count / num_objects;
  
--	nn->nfsd_client_shrinker.scan_objects = nfsd4_state_shrinker_scan;
--	nn->nfsd_client_shrinker.count_objects = nfsd4_state_shrinker_count;
--	nn->nfsd_client_shrinker.seeks = DEFAULT_SEEKS;
--
--	if (register_shrinker(&nn->nfsd_client_shrinker, "nfsd-client"))
-+	nn->nfsd_client_shrinker = shrinker_alloc_and_init(nfsd4_state_shrinker_count,
-+							   nfsd4_state_shrinker_scan,
-+							   0, DEFAULT_SEEKS, 0,
-+							   nn);
-+	if (!nn->nfsd_client_shrinker)
- 		goto err_shrinker;
+-		i915->mm.shrinker.batch =
+-			max((i915->mm.shrinker.batch + avg) >> 1,
++		i915->mm.shrinker->batch =
++			max((i915->mm.shrinker->batch + avg) >> 1,
+ 			    128ul /* default SHRINK_BATCH */);
+ 	}
+ 
+@@ -313,8 +312,7 @@ i915_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
+ static unsigned long
+ i915_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+ {
+-	struct drm_i915_private *i915 =
+-		container_of(shrinker, struct drm_i915_private, mm.shrinker);
++	struct drm_i915_private *i915 = shrinker->private_data;
+ 	unsigned long freed;
+ 
+ 	sc->nr_scanned = 0;
+@@ -422,12 +420,15 @@ i915_gem_shrinker_vmap(struct notifier_block *nb, unsigned long event, void *ptr
+ 
+ void i915_gem_driver_register__shrinker(struct drm_i915_private *i915)
+ {
+-	i915->mm.shrinker.scan_objects = i915_gem_shrinker_scan;
+-	i915->mm.shrinker.count_objects = i915_gem_shrinker_count;
+-	i915->mm.shrinker.seeks = DEFAULT_SEEKS;
+-	i915->mm.shrinker.batch = 4096;
+-	drm_WARN_ON(&i915->drm, register_shrinker(&i915->mm.shrinker,
+-						  "drm-i915_gem"));
++	i915->mm.shrinker = shrinker_alloc_and_init(i915_gem_shrinker_count,
++						    i915_gem_shrinker_scan,
++						    4096, DEFAULT_SEEKS, 0,
++						    i915);
++	if (i915->mm.shrinker &&
++	    register_shrinker(i915->mm.shrinker, "drm-i915_gem")) {
++		shrinker_free(i915->mm.shrinker);
++		drm_WARN_ON(&i915->drm, 1);
++	}
+ 
+ 	i915->mm.oom_notifier.notifier_call = i915_gem_shrinker_oom;
+ 	drm_WARN_ON(&i915->drm, register_oom_notifier(&i915->mm.oom_notifier));
+@@ -443,7 +444,7 @@ void i915_gem_driver_unregister__shrinker(struct drm_i915_private *i915)
+ 		    unregister_vmap_purge_notifier(&i915->mm.vmap_notifier));
+ 	drm_WARN_ON(&i915->drm,
+ 		    unregister_oom_notifier(&i915->mm.oom_notifier));
+-	unregister_shrinker(&i915->mm.shrinker);
++	unregister_and_free_shrinker(i915->mm.shrinker);
+ }
+ 
+ void i915_gem_shrinker_taints_mutex(struct drm_i915_private *i915,
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index b4cf6f0f636d..06b04428596d 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -163,7 +163,8 @@ struct i915_gem_mm {
+ 
+ 	struct notifier_block oom_notifier;
+ 	struct notifier_block vmap_notifier;
+-	struct shrinker shrinker;
 +
-+	if (register_shrinker(nn->nfsd_client_shrinker, "nfsd-client"))
-+		goto err_register;
- 	return 0;
++	struct shrinker *shrinker;
  
-+err_register:
-+	shrinker_free(nn->nfsd_client_shrinker);
- err_shrinker:
- 	put_net(net);
- 	kfree(nn->sessionid_hashtbl);
-@@ -8197,7 +8201,7 @@ nfs4_state_shutdown_net(struct net *net)
- 	struct list_head *pos, *next, reaplist;
- 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
- 
--	unregister_shrinker(&nn->nfsd_client_shrinker);
-+	unregister_and_free_shrinker(nn->nfsd_client_shrinker);
- 	cancel_work(&nn->nfsd_shrinker_work);
- 	cancel_delayed_work_sync(&nn->laundromat_work);
- 	locks_end_grace(&nn->nfsd4_manager);
+ #ifdef CONFIG_MMU_NOTIFIER
+ 	/**
 -- 
 2.30.2
 
