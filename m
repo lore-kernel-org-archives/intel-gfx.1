@@ -4,70 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0532FC001DF
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:40:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC144EB64DD
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:40:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9FE110E33E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C5CB10E33D;
 	Tue, 27 Jun 2023 14:40:39 +0000 (UTC)
-Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
- [IPv6:2607:f8b0:4864:20::d2a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 612F610E084
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jun 2023 13:24:37 +0000 (UTC)
-Received: by mail-io1-xd2a.google.com with SMTP id
- ca18e2360f4ac-77e3c55843cso2504139f.0
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jun 2023 06:24:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytedance.com; s=google; t=1687526676; x=1690118676;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=gz92l7DBmLTrf6935v1JTyj18AL7FL04QRL4qQAWqJU=;
- b=gIWwtDXxJuivuEsWsn7sqCZTBLYzZCSIZH5HGE4qZ8EWB5QUXMWkTscVi5K7m3pLUb
- AWoNDhJ8ESx9DRpn3UGCp2Uvm2dath67lulczhMMzXUHSfw+KuuuWZKZ5vDu4lXfHnd5
- hQR/vcg8QKo72hHneWZ3miZE29ysHMJmApIFRQ1SzZroa/a+qdV6Dpe2uLtETWZSf5Di
- DwUbZUrml+/apF9HoV5pAAcN8e5k4Mr7obMwZugAwGAvvUEtH2WFBgfX4jOKDMjPri+A
- N84eYclRTYh7THW7IcSdjB8iFp8xE+GCdJYVPjGEA03gXDcctC8fDrc4P9qjfAoL/G9z
- jxWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687526676; x=1690118676;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=gz92l7DBmLTrf6935v1JTyj18AL7FL04QRL4qQAWqJU=;
- b=RCnzrVHXlCrWBYtlPVERwp7iVgwdd7EYmkxbLd0fRbrhpQ90fn19yT4NRz1vOVnRUl
- 3yg2+Vx2ivefIvC/ljVUDkBu+os2FQnz/HI69VaSrAt+bsLpqXUtV6IDtV8smrI4rHvn
- XzI70xlgg8O0f+dj1U04z20xP/wS+uo/3XfY2ONxoNulIUtsTnimqXaP5MzXv1ll5S3F
- rNsanz3X8zqnX+yleixOkhnpy9+uzKjiHdKQWaH+nNqZcA9AzhQkQii4cDvJ+R/LB3tU
- H6LNbIMXlKtZLOmf3EomtnscS9w0W1mFh6aMBJmCT6kNdchVIgTf8iG0C35Y2pZHmANR
- tSTg==
-X-Gm-Message-State: AC+VfDzzev3cwJO2CuIAc+qj+6bkMSEZCCXDRqvZwf8oi+PTk1Fnlif1
- r1j/9n8BdcAVAudYdPxJgeMbuA==
-X-Google-Smtp-Source: ACHHUZ5gEbRKgAaE+N8YtReVmyo3V0rllQa6wCPNTx2RvtSftj/ir5NFrmfS2AckYJcn//Bnc41ZpQ==
-X-Received: by 2002:a6b:1581:0:b0:780:c6bb:ad8d with SMTP id
- 123-20020a6b1581000000b00780c6bbad8dmr5508761iov.0.1687526676020; 
- Fri, 23 Jun 2023 06:24:36 -0700 (PDT)
-Received: from [10.4.168.167] ([139.177.225.254])
- by smtp.gmail.com with ESMTPSA id
- w5-20020a17090a380500b0025bcdada95asm1562852pjb.38.2023.06.23.06.24.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Jun 2023 06:24:35 -0700 (PDT)
-Message-ID: <f8d924e7-8faf-438d-4d2f-5f806ef88a49@bytedance.com>
-Date: Fri, 23 Jun 2023 21:24:25 +0800
+Received: from out-45.mta1.migadu.com (out-45.mta1.migadu.com
+ [IPv6:2001:41d0:203:375::2d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 496DC10E514
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:50:25 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1687423301;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZLNuxoO8OfzQ143YMlcA0F6NJodxjDO0V9/3OfXvbSM=;
+ b=eaBfLuYlG6JJ2wMMRdNKZV0a4oqFx389/61anHjbefPzDibHOLkGJsZGY3Dw+v+qevkyK3
+ n26AVKRC06swwDMkLHX6VNJZ04EnOeXYs8Wqh3UkaG0D+Uk7NLaSF2pUsBmfBvjexois2k
+ MY254J8+7levLBhOGEbqDhRxPfqcIBs=
+From: Qi Zheng <qi.zheng@linux.dev>
+To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
+ vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
+ brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
+Date: Thu, 22 Jun 2023 08:39:17 +0000
+Message-Id: <20230622083932.4090339-15-qi.zheng@linux.dev>
+In-Reply-To: <20230622083932.4090339-1-qi.zheng@linux.dev>
+References: <20230622083932.4090339-1-qi.zheng@linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Content-Language: en-US
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
- <20230622085335.77010-30-zhengqi.arch@bytedance.com>
- <20230623052554.GA11471@google.com>
-From: Qi Zheng <zhengqi.arch@bytedance.com>
-In-Reply-To: <20230623052554.GA11471@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: Re: [Intel-gfx] [PATCH 29/29] mm: shrinker: move shrinker-related
- code into a separate file
+Subject: [Intel-gfx] [PATCH 14/29] jbd2,
+ ext4: dynamically allocate the jbd2-journal shrinker
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,90 +51,115 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: djwong@kernel.org, roman.gushchin@linux.dev, david@fromorbit.com,
+Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-mm@kvack.org, dm-devel@redhat.com, linux-ext4@vger.kernel.org,
- paulmck@kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-nfs@vger.kernel.org,
- linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org, vbabka@suse.cz,
- brauner@kernel.org, tytso@mit.edu, linux-kernel@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- akpm@linux-foundation.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
+ linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
+ Qi Zheng <zhengqi.arch@bytedance.com>, linux-fsdevel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-btrfs@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Sergey,
+From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-On 2023/6/23 13:25, Sergey Senozhatsky wrote:
-> On (23/06/22 16:53), Qi Zheng wrote:
->> +/*
->> + * Remove one
->> + */
->> +void unregister_shrinker(struct shrinker *shrinker)
->> +{
->> +	struct dentry *debugfs_entry;
->> +	int debugfs_id;
->> +
->> +	if (!(shrinker->flags & SHRINKER_REGISTERED))
->> +		return;
->> +
->> +	shrinker_put(shrinker);
->> +	wait_for_completion(&shrinker->completion_wait);
->> +
->> +	mutex_lock(&shrinker_mutex);
->> +	list_del_rcu(&shrinker->list);
-> 
-> Should this function wait for RCU grace period(s) before it goes
-> touching shrinker fields?
+In preparation for implementing lockless slab shrink,
+we need to dynamically allocate the jbd2-journal shrinker,
+so that it can be freed asynchronously using kfree_rcu().
+Then it doesn't need to wait for RCU read-side critical
+section when releasing the struct journal_s.
 
-Why? We will free this shrinker instance by rcu after executing
-unregister_shrinker(). So it is safe to touch shrinker fields here.
+Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+---
+ fs/jbd2/journal.c    | 32 +++++++++++++++++++-------------
+ include/linux/jbd2.h |  2 +-
+ 2 files changed, 20 insertions(+), 14 deletions(-)
 
-> 
->> +	shrinker->flags &= ~SHRINKER_REGISTERED;
->> +	if (shrinker->flags & SHRINKER_MEMCG_AWARE)
->> +		unregister_memcg_shrinker(shrinker);
->> +	debugfs_entry = shrinker_debugfs_detach(shrinker, &debugfs_id);
->> +	mutex_unlock(&shrinker_mutex);
->> +
->> +	shrinker_debugfs_remove(debugfs_entry, debugfs_id);
->> +
->> +	kfree(shrinker->nr_deferred);
->> +	shrinker->nr_deferred = NULL;
->> +}
->> +EXPORT_SYMBOL(unregister_shrinker);
-> 
-> [..]
-> 
->> +void shrinker_free(struct shrinker *shrinker)
->> +{
->> +	kfree(shrinker);
->> +}
->> +EXPORT_SYMBOL(shrinker_free);
->> +
->> +void unregister_and_free_shrinker(struct shrinker *shrinker)
->> +{
->> +	unregister_shrinker(shrinker);
->> +	kfree_rcu(shrinker, rcu);
->> +}
-> 
-> Seems like this
-> 
-> 	unregister_shrinker();
-> 	shrinker_free();
-> 
-> is not exact equivalent of this
-> 
-> 	unregister_and_free_shrinker();
-
-Yes, my original intention is that shrinker_free() is only used to
-handle the case where register_shrinker() returns failure.
-
-I will implement the method suggested by Dave in 02/29. Those APIs are
-more concise and will bring more benefits. :)
-
-Thanks,
-Qi
-
-
+diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
+index eee3c0ae349a..92a2f4360b5f 100644
+--- a/fs/jbd2/journal.c
++++ b/fs/jbd2/journal.c
+@@ -1301,7 +1301,7 @@ static int jbd2_min_tag_size(void)
+ static unsigned long jbd2_journal_shrink_scan(struct shrinker *shrink,
+ 					      struct shrink_control *sc)
+ {
+-	journal_t *journal = container_of(shrink, journal_t, j_shrinker);
++	journal_t *journal = shrink->private_data;
+ 	unsigned long nr_to_scan = sc->nr_to_scan;
+ 	unsigned long nr_shrunk;
+ 	unsigned long count;
+@@ -1327,7 +1327,7 @@ static unsigned long jbd2_journal_shrink_scan(struct shrinker *shrink,
+ static unsigned long jbd2_journal_shrink_count(struct shrinker *shrink,
+ 					       struct shrink_control *sc)
+ {
+-	journal_t *journal = container_of(shrink, journal_t, j_shrinker);
++	journal_t *journal = shrink->private_data;
+ 	unsigned long count;
+ 
+ 	count = percpu_counter_read_positive(&journal->j_checkpoint_jh_count);
+@@ -1415,21 +1415,27 @@ static journal_t *journal_init_common(struct block_device *bdev,
+ 	journal->j_superblock = (journal_superblock_t *)bh->b_data;
+ 
+ 	journal->j_shrink_transaction = NULL;
+-	journal->j_shrinker.scan_objects = jbd2_journal_shrink_scan;
+-	journal->j_shrinker.count_objects = jbd2_journal_shrink_count;
+-	journal->j_shrinker.seeks = DEFAULT_SEEKS;
+-	journal->j_shrinker.batch = journal->j_max_transaction_buffers;
+ 
+ 	if (percpu_counter_init(&journal->j_checkpoint_jh_count, 0, GFP_KERNEL))
+ 		goto err_cleanup;
+ 
+-	if (register_shrinker(&journal->j_shrinker, "jbd2-journal:(%u:%u)",
+-			      MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev))) {
+-		percpu_counter_destroy(&journal->j_checkpoint_jh_count);
+-		goto err_cleanup;
+-	}
++	journal->j_shrinker = shrinker_alloc_and_init(jbd2_journal_shrink_count,
++						      jbd2_journal_shrink_scan,
++						      journal->j_max_transaction_buffers,
++						      DEFAULT_SEEKS, 0, journal);
++	if (!journal->j_shrinker)
++		goto err_shrinker;
++
++	if (register_shrinker(journal->j_shrinker, "jbd2-journal:(%u:%u)",
++			      MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev)))
++		goto err_register;
++
+ 	return journal;
+ 
++err_register:
++	shrinker_free(journal->j_shrinker);
++err_shrinker:
++	percpu_counter_destroy(&journal->j_checkpoint_jh_count);
+ err_cleanup:
+ 	brelse(journal->j_sb_buffer);
+ 	kfree(journal->j_wbuf);
+@@ -2190,9 +2196,9 @@ int jbd2_journal_destroy(journal_t *journal)
+ 		brelse(journal->j_sb_buffer);
+ 	}
+ 
+-	if (journal->j_shrinker.flags & SHRINKER_REGISTERED) {
++	if (journal->j_shrinker->flags & SHRINKER_REGISTERED) {
+ 		percpu_counter_destroy(&journal->j_checkpoint_jh_count);
+-		unregister_shrinker(&journal->j_shrinker);
++		unregister_and_free_shrinker(journal->j_shrinker);
+ 	}
+ 	if (journal->j_proc_entry)
+ 		jbd2_stats_proc_exit(journal);
+diff --git a/include/linux/jbd2.h b/include/linux/jbd2.h
+index 44c298aa58d4..beb4c4586320 100644
+--- a/include/linux/jbd2.h
++++ b/include/linux/jbd2.h
+@@ -891,7 +891,7 @@ struct journal_s
+ 	 * Journal head shrinker, reclaim buffer's journal head which
+ 	 * has been written back.
+ 	 */
+-	struct shrinker		j_shrinker;
++	struct shrinker		*j_shrinker;
+ 
+ 	/**
+ 	 * @j_checkpoint_jh_count:
+-- 
+2.30.2
 
