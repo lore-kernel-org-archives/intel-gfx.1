@@ -4,72 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79663EB64DD
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:38:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8007EEB64DC
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:38:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B68F610E305;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9591B10E304;
 	Tue, 27 Jun 2023 14:38:36 +0000 (UTC)
-Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
- [IPv6:2607:f8b0:4864:20::432])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA74610E632
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jun 2023 12:50:51 +0000 (UTC)
-Received: by mail-pf1-x432.google.com with SMTP id
- d2e1a72fcca58-66c2d4e507aso73142b3a.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jun 2023 05:50:51 -0700 (PDT)
+Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
+ [IPv6:2607:f8b0:4864:20::534])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6BCC10E14C
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:56:20 +0000 (UTC)
+Received: by mail-pg1-x534.google.com with SMTP id
+ 41be03b00d2f7-54fd4a7ce25so1096309a12.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 01:56:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytedance.com; s=google; t=1687524651; x=1690116651;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=3J6qedKH7rACUI+d8+QjoI1iru+7/a5M9lap7RdXq+s=;
- b=Q524DUGT6itGV4gw01qJj/zWbJLa4vy2WCXqnWOngK0C3q+dq5EKhIS0CVZv0oxxho
- LJ6tY9YfoIHNM/tflF8trZPv/Spx8OYgEAYGDhp6iajWSx+dfQpGCxtVSU4j+uchKR2K
- 6jjaYk2avrTfJwxxTgNPxH+prD4PA2RYda//8FNhgDDbtNG8gCEmPUtJ+VXKPa4DXVej
- a5KLbc1PmFNVMjg9t+MjU8GHA1HEy3OLaOZU0A/n71b/fjkikDpbyETS6JPqwOfw6qlc
- 81KayU6/lII4/pSrE7vPjFTNx81tmGljnxk2j498q4g7qxCoplXlCdPQ4N13nBnNs8tt
- 8JpQ==
+ d=bytedance.com; s=google; t=1687424180; x=1690016180;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=DX6SUDFVJBECNsblFEChPYzpO8xY8cES72+0dMzxuzQ=;
+ b=J0xdX/HVFp5YYG4TfcvtFJvRxLyQLKtNeoVYCgaC2J+nRoYDa/BzwrOrCj094o0cZq
+ 1xReHr0GJ1hygdSXflfCN7O6Wd3k5bnTYjzGehkNWElkKcnI57FpdEY2zo1QIhRivIfW
+ Vn3A6HH2yEtIwY+bYcUHLIMQK61OnnzFACK07hJ1eCTN8lHwm9h5Rchf6mt0xuf3bmH2
+ YrMt/i+taGwUAGQfmqtCpero+/nADk45X1pPDnlfELgRkE2o8P26K8ugc6xZW6o9l2x2
+ 0OyQF06tkzpnptZeoSrMW5oczymeBmy807qxrTJz07x7dVgWrGVUEsLlXTXBF7IGucek
+ WQiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687524651; x=1690116651;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=3J6qedKH7rACUI+d8+QjoI1iru+7/a5M9lap7RdXq+s=;
- b=PMm4G2OjIf9f+tZ0FdfOnP1eFIijtsFubGV2IGcfLh1o5HY8wmJAlZz5orGmQM5NzQ
- xuJdX7UDbJzrtOUtdoZMfhg1u3LgOgBuK0Pzf0s9PPmEm16LJSpFyjS2Qc4HbKElmZaR
- J7+Xtfe6f+hCihJNxG/xictyftvsqB6DpTjml8sNNUHnJzeONjm52pAwHNJon+16WtCn
- a3x0Oc8KhzLdSAsVWn77TBHwo5GQ9LqDF5fyPjhP907D0TU1Ww+D4wvajLOAXGLJ83oE
- 6i5GhpoNaAJYSFVjsLQMBY38H1vvx35HH0CZTu1bST1K3n3cJoD6xhn7D4L2R+htLzBn
- IG+Q==
-X-Gm-Message-State: AC+VfDy5wHEa2rI7/ucf1VhVDGyfv9mwjOVpncZnuZ4TidS9uadmo/lg
- 6/4nMdIzCTud2fLDcbq2epNvyhv1KKhN2bZ3wQE=
-X-Google-Smtp-Source: ACHHUZ6Fjrszr4MOiG7PTx+CVGVeY59XJZwzJifNOvY5NLzJaatECslqahuGwHQe8HJSyn0Dmf/QQQ==
-X-Received: by 2002:a05:6a00:3186:b0:668:7fe6:c220 with SMTP id
- bj6-20020a056a00318600b006687fe6c220mr14325912pfb.3.1687524651198; 
- Fri, 23 Jun 2023 05:50:51 -0700 (PDT)
-Received: from [10.4.168.167] ([139.177.225.254])
+ d=1e100.net; s=20221208; t=1687424180; x=1690016180;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=DX6SUDFVJBECNsblFEChPYzpO8xY8cES72+0dMzxuzQ=;
+ b=jVJqaBb4n4jXru5y5tOpMqabJ1RyIvYqycKSV9PJ48pN/ymD2APIImSLWNNUuC7yJ/
+ OY289bpsaKNHd5P+j06TsorZwWZtUWNS7dk2jrd8SuDivqel+edy8ue4SgjsW4LWAJO+
+ phl+M/qOVrFaU/RryBpNTgSUFyNykiSjsnXTBr9t/cZuldirh+HHHg1bVuhYcpwAAP8i
+ X9z442SWUlvgCmX4PWu2Z+hm0NSGWK5fzs2EiGkFJGHhKJH6vcrGZ219DXVjjRUnQq3b
+ +i3P7Tb+zqfDwn8EEZtkhgbq5tUQn1aXhUy8jOnuaJJcODc+Y8hmA5YKwP2W2fNu3uGO
+ yEdA==
+X-Gm-Message-State: AC+VfDz9kpararWue3uhCLW0EOYkJnT+Z9x7ASc3QhU2LJWjMeU03E4N
+ +nUgy4i1GRGf7gmm5UFf71iIUw==
+X-Google-Smtp-Source: ACHHUZ6cRwGFUE7wdLf8WreSOUecoWuLPpHsSO23aKngJIhhKsUdOoFlGAyrZhuJGN3RD5MvXrHaNg==
+X-Received: by 2002:a17:903:2452:b0:1a9:581b:fbaa with SMTP id
+ l18-20020a170903245200b001a9581bfbaamr20887740pls.2.1687424179969; 
+ Thu, 22 Jun 2023 01:56:19 -0700 (PDT)
+Received: from C02DW0BEMD6R.bytedance.net ([139.177.225.254])
  by smtp.gmail.com with ESMTPSA id
- x21-20020aa79195000000b0063a04905379sm6063171pfa.137.2023.06.23.05.50.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Jun 2023 05:50:50 -0700 (PDT)
-Message-ID: <31d3f685-3017-25d8-5b0b-2795ed7049bc@bytedance.com>
-Date: Fri, 23 Jun 2023 20:50:41 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Content-Language: en-US
-To: Vlastimil Babka <vbabka@suse.cz>, akpm@linux-foundation.org,
- david@fromorbit.com, tkhai@ya.ru, roman.gushchin@linux.dev,
- djwong@kernel.org, brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
- <20230622085335.77010-2-zhengqi.arch@bytedance.com>
- <b04a0191-fa27-f8dc-440c-ec363d9c0636@suse.cz>
+ h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.56.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Jun 2023 01:56:19 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
-In-Reply-To: <b04a0191-fa27-f8dc-440c-ec363d9c0636@suse.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
+ vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
+ brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
+Date: Thu, 22 Jun 2023 16:53:23 +0800
+Message-Id: <20230622085335.77010-18-zhengqi.arch@bytedance.com>
+X-Mailer: git-send-email 2.24.3 (Apple Git-128)
+In-Reply-To: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
+References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: Re: [Intel-gfx] [External] Re: [PATCH 01/29] mm: shrinker: add
- shrinker::private_data field
+Subject: [Intel-gfx] [PATCH 17/29] xfs: dynamically allocate the xfs-buf
+ shrinker
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,45 +82,96 @@ Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
  linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
- linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-btrfs@vger.kernel.org
+ Qi Zheng <zhengqi.arch@bytedance.com>, linux-fsdevel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-btrfs@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Vlastimil,
+In preparation for implementing lockless slab shrink,
+we need to dynamically allocate the xfs-buf shrinker,
+so that it can be freed asynchronously using kfree_rcu().
+Then it doesn't need to wait for RCU read-side critical
+section when releasing the struct xfs_buftarg.
 
-On 2023/6/22 22:47, Vlastimil Babka wrote:
-> On 6/22/23 10:53, Qi Zheng wrote:
->> To prepare for the dynamic allocation of shrinker instances
->> embedded in other structures, add a private_data field to
->> struct shrinker, so that we can use shrinker::private_data
->> to record and get the original embedded structure.
->>
->> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> 
-> I would fold this to 02/29, less churn.
+Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+---
+ fs/xfs/xfs_buf.c | 25 ++++++++++++++-----------
+ fs/xfs/xfs_buf.h |  2 +-
+ 2 files changed, 15 insertions(+), 12 deletions(-)
 
-OK, I will fold this to 02/29 in the v2.
+diff --git a/fs/xfs/xfs_buf.c b/fs/xfs/xfs_buf.c
+index 15d1e5a7c2d3..6657d285d26f 100644
+--- a/fs/xfs/xfs_buf.c
++++ b/fs/xfs/xfs_buf.c
+@@ -1906,8 +1906,7 @@ xfs_buftarg_shrink_scan(
+ 	struct shrinker		*shrink,
+ 	struct shrink_control	*sc)
+ {
+-	struct xfs_buftarg	*btp = container_of(shrink,
+-					struct xfs_buftarg, bt_shrinker);
++	struct xfs_buftarg	*btp = shrink->private_data;
+ 	LIST_HEAD(dispose);
+ 	unsigned long		freed;
+ 
+@@ -1929,8 +1928,7 @@ xfs_buftarg_shrink_count(
+ 	struct shrinker		*shrink,
+ 	struct shrink_control	*sc)
+ {
+-	struct xfs_buftarg	*btp = container_of(shrink,
+-					struct xfs_buftarg, bt_shrinker);
++	struct xfs_buftarg	*btp = shrink->private_data;
+ 	return list_lru_shrink_count(&btp->bt_lru, sc);
+ }
+ 
+@@ -1938,7 +1936,7 @@ void
+ xfs_free_buftarg(
+ 	struct xfs_buftarg	*btp)
+ {
+-	unregister_shrinker(&btp->bt_shrinker);
++	unregister_and_free_shrinker(btp->bt_shrinker);
+ 	ASSERT(percpu_counter_sum(&btp->bt_io_count) == 0);
+ 	percpu_counter_destroy(&btp->bt_io_count);
+ 	list_lru_destroy(&btp->bt_lru);
+@@ -2021,15 +2019,20 @@ xfs_alloc_buftarg(
+ 	if (percpu_counter_init(&btp->bt_io_count, 0, GFP_KERNEL))
+ 		goto error_lru;
+ 
+-	btp->bt_shrinker.count_objects = xfs_buftarg_shrink_count;
+-	btp->bt_shrinker.scan_objects = xfs_buftarg_shrink_scan;
+-	btp->bt_shrinker.seeks = DEFAULT_SEEKS;
+-	btp->bt_shrinker.flags = SHRINKER_NUMA_AWARE;
+-	if (register_shrinker(&btp->bt_shrinker, "xfs-buf:%s",
+-			      mp->m_super->s_id))
++	btp->bt_shrinker = shrinker_alloc_and_init(xfs_buftarg_shrink_count,
++						   xfs_buftarg_shrink_scan,
++						   0, DEFAULT_SEEKS,
++						   SHRINKER_NUMA_AWARE, btp);
++	if (!btp->bt_shrinker)
+ 		goto error_pcpu;
++
++	if (register_shrinker(btp->bt_shrinker, "xfs-buf:%s",
++			      mp->m_super->s_id))
++		goto error_shrinker;
+ 	return btp;
+ 
++error_shrinker:
++	shrinker_free(btp->bt_shrinker);
+ error_pcpu:
+ 	percpu_counter_destroy(&btp->bt_io_count);
+ error_lru:
+diff --git a/fs/xfs/xfs_buf.h b/fs/xfs/xfs_buf.h
+index 549c60942208..4e6969a675f7 100644
+--- a/fs/xfs/xfs_buf.h
++++ b/fs/xfs/xfs_buf.h
+@@ -102,7 +102,7 @@ typedef struct xfs_buftarg {
+ 	size_t			bt_logical_sectormask;
+ 
+ 	/* LRU control structures */
+-	struct shrinker		bt_shrinker;
++	struct shrinker		*bt_shrinker;
+ 	struct list_lru		bt_lru;
+ 
+ 	struct percpu_counter	bt_io_count;
+-- 
+2.30.2
 
-Thanks,
-Qi
-
-> 
->> ---
->>   include/linux/shrinker.h | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
->> index 224293b2dd06..43e6fcabbf51 100644
->> --- a/include/linux/shrinker.h
->> +++ b/include/linux/shrinker.h
->> @@ -70,6 +70,8 @@ struct shrinker {
->>   	int seeks;	/* seeks to recreate an obj */
->>   	unsigned flags;
->>   
->> +	void *private_data;
->> +
->>   	/* These are for internal use */
->>   	struct list_head list;
->>   #ifdef CONFIG_MEMCG
-> 
