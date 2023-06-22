@@ -4,46 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CFE9EB64D9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB43BEB64DD
 	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C046610E346;
-	Tue, 27 Jun 2023 14:39:12 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F5FD10E31A;
- Wed, 21 Jun 2023 17:50:33 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D6E046167F;
- Wed, 21 Jun 2023 17:50:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF744C433CC;
- Wed, 21 Jun 2023 17:50:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1687369831;
- bh=cIQE0tqYqde1wQS9/IcLrDtGE0ZwQxHO+6tde8cVt4E=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=AYva0/5W7t0NxIgVeP53vFnVTqwMOS59neZkd9E2R3q/WoNeHdWpSaEZrCBAgnNvZ
- OZblVRAyPgDiw5WctBsoo9L3Arvz5mqxj7q/DcmLR0zYNJXbXUEhK4nW6hnlL0Kn0K
- EG2tHOVn/uhj4Fgy8ml/PRX+0nixFAdEnAy9IIL8Ej9UeYnn8/cXVNjinfbHefzGrh
- FwmwzO5ItB8xnxbnZgy+N/5CBOVLiqLQUXvXdwWvd/RUOaHknzUqB+5I1T8bCU4cnX
- 4smek8cmnOm6kSHHkKKJui4WQ3aLMV26JdX/MTrOTAtfahzYcKu+6h09EanF26OCHN
- cIjisblPWM5vQ==
-Date: Wed, 21 Jun 2023 13:50:28 -0400
-From: Chuck Lever <cel@kernel.org>
-To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Message-ID: <ZJM4ZK8cKI4AmOgy@manet.1015granger.net>
-References: <20230621164557.3510324-1-willy@infradead.org>
- <20230621164557.3510324-10-willy@infradead.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46D3E10E347;
+	Tue, 27 Jun 2023 14:39:13 +0000 (UTC)
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
+ [IPv6:2607:f8b0:4864:20::52e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A80D10E4F3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:57:08 +0000 (UTC)
+Received: by mail-pg1-x52e.google.com with SMTP id
+ 41be03b00d2f7-543a37c5c03so1091412a12.1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 01:57:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bytedance.com; s=google; t=1687424227; x=1690016227;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ZsvVWwvjCNbIpzLWR+JMbRdqcPMoA6IncSRNtrMJjtk=;
+ b=btQFnTi1+Jxgpt9ZEv6SV1CxbtEwEnpYQ1WSSwhfGLNNoz+3LZU80wQIeDEMGJinhi
+ 8+hFjjrmI0Ti2weoui+1nba3fuqZZ6jN3eQN4e+CjSeo0Ggyrqg3j3GGKdGsxTGtEKKB
+ 6n4ntOH8ClqO9PsI9RmJeFYa/h0xYT0vefdwMfx1z83TBiR/mTSXCJDkn82jEtfe964Z
+ +W5pu2WQm5/BmUewzteVLri/ASv79HUROzRO9GvLtgUyAJkwQyVDE/hnKFhVeWh3zZR/
+ QE/dybVozXXKkm+aMId69JeSrmobjvQPBxgZrNjMENKTPWKUy1hHiQ4+Qa8p1f7rRS3j
+ Hymg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687424227; x=1690016227;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ZsvVWwvjCNbIpzLWR+JMbRdqcPMoA6IncSRNtrMJjtk=;
+ b=PQKqKWhThR0zCCFNUwCyOQA1osfON3ciier8A/lCrFDM8eVgXvWuvsSDh3g2j0Nz+i
+ RBUilr0S53x3xcl4hmj7gaHBpeUR9xejMX0zLRyTZwm16WmMzYxXHaWYk+caa/iJrDRV
+ Qzclmt+ou/xIssk5/Xc4Zge9+HJQ19JXpvD4Ui7bygqdjxxa0p+mFGyuu8wFGFzDWcix
+ aUvnzt0Fwxr73t245TSiBVkpAqFcZrDlj5fdLbhmWHPcX7obcAa0jX9V5SG2bJ4tlXKj
+ ILOIl3AOf4BMCrLRtLKICChqpTgwpbQSigJ/fhFRJFjc9D6UA/+ExseGq9CI9rVaFuIg
+ +Jaw==
+X-Gm-Message-State: AC+VfDxp93I0YhSUVDkbtelhQMHPGU6RAg7uirbtFjNFA9T3tyEBvRck
+ M+TPfEag/ZnTI6+rnIQLKFG12g==
+X-Google-Smtp-Source: ACHHUZ6IzlQYehvkbwm6qTB7qvbww6jKgEwXRnqs2X+ZAvHSdOqqO5hMcbKXrRtXSYnzqJ1v0JsE2A==
+X-Received: by 2002:a17:903:1105:b0:1b3:ebda:654e with SMTP id
+ n5-20020a170903110500b001b3ebda654emr20780380plh.5.1687424227653; 
+ Thu, 22 Jun 2023 01:57:07 -0700 (PDT)
+Received: from C02DW0BEMD6R.bytedance.net ([139.177.225.254])
+ by smtp.gmail.com with ESMTPSA id
+ h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.57.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Jun 2023 01:57:07 -0700 (PDT)
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
+ vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
+ brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
+Date: Thu, 22 Jun 2023 16:53:29 +0800
+Message-Id: <20230622085335.77010-24-zhengqi.arch@bytedance.com>
+X-Mailer: git-send-email 2.24.3 (Apple Git-128)
+In-Reply-To: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
+References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230621164557.3510324-10-willy@infradead.org>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: Re: [Intel-gfx] [PATCH 09/13] net: Convert sunrpc from pagevec to
- folio_batch
+Subject: [Intel-gfx] [PATCH 23/29] mm: shrinker: add refcount and
+ completion_wait fields
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,84 +77,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
+Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- linux-afs@lists.infradead.org
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
+ Qi Zheng <zhengqi.arch@bytedance.com>, linux-fsdevel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-btrfs@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 21, 2023 at 05:45:53PM +0100, Matthew Wilcox (Oracle) wrote:
-> Remove the last usage of pagevecs.  There is a slight change here; we
-> now free the folio_batch as soon as it fills up instead of freeing the
-> folio_batch when we try to add a page to a full batch.  This should have
-> no effect in practice.
-> 
-> Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+This commit introduces refcount and completion_wait
+fields to struct shrinker to manage the life cycle
+of shrinker instance.
 
-I don't yet have visibility into the folio_batch_* helpers, but this
-looks like a wholly mechanical replacement of pagevec. LGTM.
+Just a preparation work for implementing the lockless
+slab shrink, no functional changes.
 
-I assume this is going to be merged via another tree, not nfsd-next,
-so:
+Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+---
+ include/linux/shrinker.h | 11 +++++++++++
+ mm/vmscan.c              |  5 +++++
+ 2 files changed, 16 insertions(+)
 
-Acked-by: Chuck Lever <chuck.lever@oracle.com>
+diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
+index 4094e4c44e80..7bfeb2f25246 100644
+--- a/include/linux/shrinker.h
++++ b/include/linux/shrinker.h
+@@ -4,6 +4,8 @@
+ 
+ #include <linux/atomic.h>
+ #include <linux/types.h>
++#include <linux/refcount.h>
++#include <linux/completion.h>
+ 
+ /*
+  * This struct is used to pass information from page reclaim to the shrinkers.
+@@ -70,6 +72,9 @@ struct shrinker {
+ 	int seeks;	/* seeks to recreate an obj */
+ 	unsigned flags;
+ 
++	refcount_t refcount;
++	struct completion completion_wait;
++
+ 	void *private_data;
+ 
+ 	/* These are for internal use */
+@@ -118,6 +123,12 @@ struct shrinker *shrinker_alloc_and_init(count_objects_cb count,
+ void shrinker_free(struct shrinker *shrinker);
+ void unregister_and_free_shrinker(struct shrinker *shrinker);
+ 
++static inline void shrinker_put(struct shrinker *shrinker)
++{
++	if (refcount_dec_and_test(&shrinker->refcount))
++		complete(&shrinker->completion_wait);
++}
++
+ #ifdef CONFIG_SHRINKER_DEBUG
+ extern int shrinker_debugfs_add(struct shrinker *shrinker);
+ extern struct dentry *shrinker_debugfs_detach(struct shrinker *shrinker,
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 3a8d50ad6ff6..6f9c4750effa 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -740,6 +740,8 @@ void free_prealloced_shrinker(struct shrinker *shrinker)
+ void register_shrinker_prepared(struct shrinker *shrinker)
+ {
+ 	down_write(&shrinker_rwsem);
++	refcount_set(&shrinker->refcount, 1);
++	init_completion(&shrinker->completion_wait);
+ 	list_add_tail(&shrinker->list, &shrinker_list);
+ 	shrinker->flags |= SHRINKER_REGISTERED;
+ 	shrinker_debugfs_add(shrinker);
+@@ -794,6 +796,9 @@ void unregister_shrinker(struct shrinker *shrinker)
+ 	if (!(shrinker->flags & SHRINKER_REGISTERED))
+ 		return;
+ 
++	shrinker_put(shrinker);
++	wait_for_completion(&shrinker->completion_wait);
++
+ 	down_write(&shrinker_rwsem);
+ 	list_del(&shrinker->list);
+ 	shrinker->flags &= ~SHRINKER_REGISTERED;
+-- 
+2.30.2
 
-
-> ---
->  include/linux/sunrpc/svc.h |  2 +-
->  net/sunrpc/svc.c           | 10 +++++-----
->  2 files changed, 6 insertions(+), 6 deletions(-)
-> 
-> diff --git a/include/linux/sunrpc/svc.h b/include/linux/sunrpc/svc.h
-> index c2807e301790..f8751118c122 100644
-> --- a/include/linux/sunrpc/svc.h
-> +++ b/include/linux/sunrpc/svc.h
-> @@ -222,7 +222,7 @@ struct svc_rqst {
->  	struct page *		*rq_next_page; /* next reply page to use */
->  	struct page *		*rq_page_end;  /* one past the last page */
->  
-> -	struct pagevec		rq_pvec;
-> +	struct folio_batch	rq_fbatch;
->  	struct kvec		rq_vec[RPCSVC_MAXPAGES]; /* generally useful.. */
->  	struct bio_vec		rq_bvec[RPCSVC_MAXPAGES];
->  
-> diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
-> index e7c101290425..587811a002c9 100644
-> --- a/net/sunrpc/svc.c
-> +++ b/net/sunrpc/svc.c
-> @@ -640,7 +640,7 @@ svc_rqst_alloc(struct svc_serv *serv, struct svc_pool *pool, int node)
->  	if (!rqstp)
->  		return rqstp;
->  
-> -	pagevec_init(&rqstp->rq_pvec);
-> +	folio_batch_init(&rqstp->rq_fbatch);
->  
->  	__set_bit(RQ_BUSY, &rqstp->rq_flags);
->  	rqstp->rq_server = serv;
-> @@ -851,9 +851,9 @@ bool svc_rqst_replace_page(struct svc_rqst *rqstp, struct page *page)
->  	}
->  
->  	if (*rqstp->rq_next_page) {
-> -		if (!pagevec_space(&rqstp->rq_pvec))
-> -			__pagevec_release(&rqstp->rq_pvec);
-> -		pagevec_add(&rqstp->rq_pvec, *rqstp->rq_next_page);
-> +		if (!folio_batch_add(&rqstp->rq_fbatch,
-> +				page_folio(*rqstp->rq_next_page)))
-> +			__folio_batch_release(&rqstp->rq_fbatch);
->  	}
->  
->  	get_page(page);
-> @@ -887,7 +887,7 @@ void svc_rqst_release_pages(struct svc_rqst *rqstp)
->  void
->  svc_rqst_free(struct svc_rqst *rqstp)
->  {
-> -	pagevec_release(&rqstp->rq_pvec);
-> +	folio_batch_release(&rqstp->rq_fbatch);
->  	svc_release_buffer(rqstp);
->  	if (rqstp->rq_scratch_page)
->  		put_page(rqstp->rq_scratch_page);
-> -- 
-> 2.39.2
-> 
