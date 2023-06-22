@@ -4,123 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA663EB64D9
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5ACAEB64DD
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C091D10E34B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF8AF10E349;
 	Tue, 27 Jun 2023 14:39:13 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0C4710E04B;
- Wed, 21 Jun 2023 11:18:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1687346281; x=1718882281;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=bNOOeYVCQ7poh+/POpUoy8h5Fc7oKKTV5NlBm31y8T8=;
- b=HLDgmo/Az6NkgE+D6yL5JMGr2Pp1WVOXbzcdpTFcOQWQMf1scnfKLRsK
- qcM0pd7y57FmT0H91DPqWk/q3XD7rX73oC4LMk6bQoLGXYxSMfup3x+4N
- u+WxV2MaqV3ul8KHLuA9plVHlezkS4MxGbiBl56QdBEOxmpsWBotktuca
- 1xdZUEokxzpOa1y613kxEP3qDv8IBNz03kQMGCsX5X+kKPRaDc8gVBYhs
- +S035kDarl9rPtjkZEcerIWYUyk2WSAqBMihZ6zJ/jOZbz7HwjJi8AZ7S
- C5jtYbzTsaaZjtqBaFJpsTIWQ8LaVFEIU8hI731ciYI0TuD88/0uS6qjA Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10747"; a="339758038"
-X-IronPort-AV: E=Sophos;i="6.00,260,1681196400"; d="scan'208";a="339758038"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2023 04:17:58 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10747"; a="664623042"
-X-IronPort-AV: E=Sophos;i="6.00,260,1681196400"; d="scan'208";a="664623042"
-Received: from unknown (HELO localhost) ([10.237.66.162])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2023 04:16:58 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Joel Granados <j.granados@samsung.com>, mcgrof@kernel.org, Russell King
- <linux@armlinux.org.uk>, Catalin
- Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Michael
- Ellerman <mpe@ellerman.id.au>, Heiko Carstens <hca@linux.ibm.com>, Vasily
- Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Andy Lutomirski
- <luto@kernel.org>, Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar
- <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, Herbert Xu
- <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>,
- Russ Weight <russell.h.weight@intel.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Phillip Potter <phil@philpotter.co.uk>,
- Clemens Ladisch <clemens@ladisch.de>, Arnd Bergmann <arnd@arndb.de>, Corey
- Minyard <minyard@acm.org>, Theodore Ts'o <tytso@mit.edu>, "Jason A.
- Donenfeld" <Jason@zx2c4.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "K. Y.
- Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
- Wei
- Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Jason Gunthorpe
- <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Benjamin Herrenschmidt
- <benh@kernel.crashing.org>, Song Liu <song@kernel.org>, Robin Holt
- <robinmholt@gmail.com>, Steve Wahl <steve.wahl@hpe.com>, David Ahern
- <dsahern@kernel.org>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Sudip Mukherjee
- <sudipm.mukherjee@gmail.com>, Mark Rutland <mark.rutland@arm.com>, "James
- E.J. Bottomley" <jejb@linux.ibm.com>, "Martin K. Petersen"
- <martin.petersen@oracle.com>, Doug Gilbert <dgilbert@interlog.com>, Jiri
- Slaby <jirislaby@kernel.org>, Juergen Gross <jgross@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Benjamin
- LaHaise <bcrl@kvack.org>, David Howells <dhowells@redhat.com>, Jan Harkes
- <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu, Trond Myklebust
- <trond.myklebust@hammerspace.com>, Anna Schumaker <anna@kernel.org>, Chuck
- Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>, Jan Kara
- <jack@suse.cz>, Anton Altaparmakov <anton@tuxera.com>, Mark Fasheh
- <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, Joseph Qi
- <joseph.qi@linux.alibaba.com>, Kees Cook <keescook@chromium.org>, Iurii
- Zaikin <yzaikin@google.com>, Eric Biggers <ebiggers@kernel.org>, "Darrick
- J. Wong" <djwong@kernel.org>, Alexei Starovoitov <ast@kernel.org>, Daniel
- Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Balbir
- Singh <bsingharora@gmail.com>, Eric Biederman <ebiederm@xmission.com>,
- "Naveen N. Rao" <naveen.n.rao@linux.ibm.com>, Anil S Keshavamurthy
- <anil.s.keshavamurthy@intel.com>, Masami Hiramatsu <mhiramat@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Petr Mladek <pmladek@suse.com>,
- Sergey Senozhatsky <senozhatsky@chromium.org>, Juri Lelli
- <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, John
- Stultz <jstultz@google.com>, Steven Rostedt <rostedt@goodmis.org>, Andrew
- Morton <akpm@linux-foundation.org>, Mike Kravetz <mike.kravetz@oracle.com>,
- Muchun Song <muchun.song@linux.dev>, Naoya Horiguchi
- <naoya.horiguchi@nec.com>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, Joerg Reuter <jreuter@yaina.de>, Ralf Baechle
- <ralf@linux-mips.org>, Pablo
- Neira Ayuso <pablo@netfilter.org>, Jozsef Kadlecsik <kadlec@netfilter.org>,
- Florian Westphal <fw@strlen.de>, Roopa Prabhu <roopa@nvidia.com>, Nikolay
- Aleksandrov <razor@blackwall.org>, Alexander Aring <alex.aring@gmail.com>,
- Stefan Schmidt <stefan@datenfreihafen.org>, Miquel Raynal
- <miquel.raynal@bootlin.com>, Steffen Klassert
- <steffen.klassert@secunet.com>, Matthieu Baerts
- <matthieu.baerts@tessares.net>, Mat Martineau <martineau@kernel.org>, Simon
- Horman <horms@verge.net.au>, Julian Anastasov <ja@ssi.bg>, Remi
- Denis-Courmont <courmisch@gmail.com>, Santosh Shilimkar
- <santosh.shilimkar@oracle.com>, Marc Dionne <marc.dionne@auristor.com>,
- Neil Horman <nhorman@tuxdriver.com>, Marcelo Ricardo Leitner
- <marcelo.leitner@gmail.com>, Xin Long <lucien.xin@gmail.com>, Karsten
- Graul <kgraul@linux.ibm.com>, Wenjia Zhang <wenjia@linux.ibm.com>, Jan
- Karcher <jaka@linux.ibm.com>, Jon Maloy <jmaloy@redhat.com>, Ying Xue
- <ying.xue@windriver.com>, Martin Schiller <ms@dev.tdt.de>, John Johansen
- <john.johansen@canonical.com>, Paul Moore <paul@paul-moore.com>, James
- Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Jarkko
- Sakkinen <jarkko@kernel.org>
-In-Reply-To: <20230621094817.433842-1-j.granados@samsung.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230621091000.424843-1-j.granados@samsung.com>
- <CGME20230621094824eucas1p2b6adfbd3f15ff3665674917f419b25d3@eucas1p2.samsung.com>
- <20230621094817.433842-1-j.granados@samsung.com>
-Date: Wed, 21 Jun 2023 14:16:55 +0300
-Message-ID: <87o7l92hg8.fsf@intel.com>
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
+ [IPv6:2607:f8b0:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF92610E4FC
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:55:23 +0000 (UTC)
+Received: by mail-pl1-x630.google.com with SMTP id
+ d9443c01a7336-1b5466bc5f8so9654045ad.1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 01:55:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bytedance.com; s=google; t=1687424123; x=1690016123;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=u/vExFBLW3qTniAw4XeP9KQ69i9zow/4wwrpInqlwjM=;
+ b=f9niG/1nDZCnLyGAdmXOPnr0UhYRgdnlIknKHTp5fpAvQQctnSzqFRWkCf20Ww177d
+ QG9jeeQWMuTex/IwaFDMA8vXlH6fpJPO6Zn2dpmhMfbdqmxsLU2UIGO2NDOzTGYWiDw7
+ ywIPFwnvUTjEHuZeccmcjrjEkLsXSYquHahbHd6ZdjnzqEP2RHdSMNMWgiY9L8TVZ0lC
+ G4aVTSqjJ5NrWtnVCJTDf1mbR/bEFK3aai4gwzFQmPA34Ikuzxs8i6IqNfr5Nxc5N0yO
+ /Hq8+LGyQI4XHPCqHbrNX4k2UTVR4h1zk7vD27aNaHUnKMeOkCqJba/XQtzAGJZToHzN
+ Aj7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687424123; x=1690016123;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=u/vExFBLW3qTniAw4XeP9KQ69i9zow/4wwrpInqlwjM=;
+ b=BkpJ50rzNM8LDK/VgSdLsXFJWdNaKU4kSOxsLVs9ugHi/jx3JuowfGqhw1GPZ2lfQj
+ SjeI9Xfr71pa5bIS7R5Q58aWRnWKTnW2lKQrlAr1HX1ErB8F3xQ10Hedu7JQd4JmmXW/
+ 0uJHZb0leEq/Eoa4zNC0baf/AJJK3i2wqy4D4PK7oBkkxGnh7TNb/XmnIhD35gHYNTat
+ eHsWR9eUzo51Ii/1GviVyZDk3XQu5PAj8zAOb5Kpfu7r1+MQcu8D+ZgXe3jGA251hN4X
+ u4nh40tj3NtafJc+zWMGJMk4bxh10N09PgTBCazZsp3utBkTJ50hiXixP62BIjurkEPX
+ A2vw==
+X-Gm-Message-State: AC+VfDxS4TWmDvXyP8V6BCy0XcNquQxxWCQoG4L9CehtlC6s1xbUQH8V
+ HICa2mtlbN5jRA1xw9m0k5VX9w==
+X-Google-Smtp-Source: ACHHUZ4R6XsCch8DMbBn2ilzIIAPskFMWcDdECndDXpbpwroXAZTFBoXbn8TaLTiXdt1Xz94/St+OA==
+X-Received: by 2002:a17:902:dac6:b0:1a1:956d:2281 with SMTP id
+ q6-20020a170902dac600b001a1956d2281mr22035085plx.3.1687424123198; 
+ Thu, 22 Jun 2023 01:55:23 -0700 (PDT)
+Received: from C02DW0BEMD6R.bytedance.net ([139.177.225.254])
+ by smtp.gmail.com with ESMTPSA id
+ h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.55.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Jun 2023 01:55:22 -0700 (PDT)
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
+ vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
+ brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
+Date: Thu, 22 Jun 2023 16:53:16 +0800
+Message-Id: <20230622085335.77010-11-zhengqi.arch@bytedance.com>
+X-Mailer: git-send-email 2.24.3 (Apple Git-128)
+In-Reply-To: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
+References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: Re: [Intel-gfx] [PATCH 09/11] sysctl: Remove the end element in
- sysctl table arrays
+Subject: [Intel-gfx] [PATCH 10/29] vmw_balloon: dynamically allocate the
+ vmw-balloon shrinker
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,108 +77,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Joel Granados <j.granados@samsung.com>, Miaohe Lin <linmiaohe@huawei.com>,
- linux-hyperv@vger.kernel.org, linux-ia64@vger.kernel.org, "Rafael J.
- Wysocki" <rafael@kernel.org>, linux-aio@kvack.org,
- Amir Goldstein <amir73il@gmail.com>, mptcp@lists.linux.dev,
- KP Singh <kpsingh@kernel.org>, dri-devel@lists.freedesktop.org,
- Ben Segall <bsegall@google.com>, linux-mm@kvack.org,
- linux-sctp@vger.kernel.org, keyrings@vger.kernel.org,
- Stanislav Fomichev <sdf@google.com>, "H. Peter Anvin" <hpa@zytor.com>,
- linux-afs@lists.infradead.org, linux-s390@vger.kernel.org,
- Valentin Schneider <vschneid@redhat.com>, xen-devel@lists.xenproject.org,
- linux-scsi@vger.kernel.org, dccp@vger.kernel.org, linux-rdma@vger.kernel.org,
- bridge@lists.linux-foundation.org, John Fastabend <john.fastabend@gmail.com>,
- linux-ntfs-dev@lists.sourceforge.net,
- Christophe Leroy <christophe.leroy@csgroup.eu>, codalist@coda.cs.cmu.edu,
- lvs-devel@vger.kernel.org, Matthew Bobrowski <repnop@google.com>,
- linux-cachefs@redhat.com, Mel Gorman <mgorman@suse.de>,
- tipc-discussion@lists.sourceforge.net, Yonghong Song <yhs@fb.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- intel-gfx@lists.freedesktop.org, linux-crypto@vger.kernel.org,
- linux-wpan@vger.kernel.org, coreteam@netfilter.org,
- John Ogness <john.ogness@linutronix.de>, Mike Travis <mike.travis@hpe.com>,
- Boqun Feng <boqun.feng@gmail.com>, apparmor@lists.ubuntu.com,
- linuxppc-dev@lists.ozlabs.org, Nicholas Piggin <npiggin@gmail.com>,
- rds-devel@oss.oracle.com, linux-raid@vger.kernel.org,
- Waiman Long <longman@redhat.com>, linux-hams@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- linux-arm-kernel@lists.infradead.org, fsverity@lists.linux.dev,
- Hao Luo <haoluo@google.com>, linux-nfs@vger.kernel.org,
- Will Drewry <wad@chromium.org>, linux-x25@vger.kernel.org,
- Stephen Boyd <sboyd@kernel.org>,
- Daniel Bristot de Oliveira <bristot@redhat.com>, kexec@lists.infradead.org,
- linux-kernel@vger.kernel.org, Andy Lutomirski <luto@amacapital.net>,
- linux-xfs@vger.kernel.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- linux-security-module@vger.kernel.org, netfilter-devel@vger.kernel.org,
- Sven Schnelle <svens@linux.ibm.com>, Jiri Olsa <jolsa@kernel.org>,
- netdev@vger.kernel.org, linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, Martin KaFai Lau <martin.lau@linux.dev>,
- ocfs2-devel@oss.oracle.com
+Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
+ Qi Zheng <zhengqi.arch@bytedance.com>, linux-fsdevel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-btrfs@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 21 Jun 2023, Joel Granados <j.granados@samsung.com> wrote:
-> Remove the empty end element from all the arrays that are passed to the
-> register sysctl calls. In some files this means reducing the explicit
-> array size by one. Also make sure that we are using the size in
-> ctl_table_header instead of evaluating the .procname element.
+In preparation for implementing lockless slab shrink,
+we need to dynamically allocate the vmw-balloon shrinker,
+so that it can be freed asynchronously using kfree_rcu().
+Then it doesn't need to wait for RCU read-side critical
+section when releasing the struct vmballoon.
 
-Where's the harm in removing the end elements driver by driver? This is
-an unwieldy patch to handle.
+Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+---
+ drivers/misc/vmw_balloon.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-> diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-> index f43950219ffc..e4d7372afb10 100644
-> --- a/drivers/gpu/drm/i915/i915_perf.c
-> +++ b/drivers/gpu/drm/i915/i915_perf.c
-> @@ -4884,24 +4884,23 @@ int i915_perf_remove_config_ioctl(struct drm_device *dev, void *data,
->  
->  static struct ctl_table oa_table[] = {
->  	{
-> -	 .procname = "perf_stream_paranoid",
-> -	 .data = &i915_perf_stream_paranoid,
-> -	 .maxlen = sizeof(i915_perf_stream_paranoid),
-> -	 .mode = 0644,
-> -	 .proc_handler = proc_dointvec_minmax,
-> -	 .extra1 = SYSCTL_ZERO,
-> -	 .extra2 = SYSCTL_ONE,
-> -	 },
-> +		.procname = "perf_stream_paranoid",
-> +		.data = &i915_perf_stream_paranoid,
-> +		.maxlen = sizeof(i915_perf_stream_paranoid),
-> +		.mode = 0644,
-> +		.proc_handler = proc_dointvec_minmax,
-> +		.extra1 = SYSCTL_ZERO,
-> +		.extra2 = SYSCTL_ONE,
-> +	},
->  	{
-> -	 .procname = "oa_max_sample_rate",
-> -	 .data = &i915_oa_max_sample_rate,
-> -	 .maxlen = sizeof(i915_oa_max_sample_rate),
-> -	 .mode = 0644,
-> -	 .proc_handler = proc_dointvec_minmax,
-> -	 .extra1 = SYSCTL_ZERO,
-> -	 .extra2 = &oa_sample_rate_hard_limit,
-> -	 },
-> -	{}
-> +		.procname = "oa_max_sample_rate",
-> +		.data = &i915_oa_max_sample_rate,
-> +		.maxlen = sizeof(i915_oa_max_sample_rate),
-> +		.mode = 0644,
-> +		.proc_handler = proc_dointvec_minmax,
-> +		.extra1 = SYSCTL_ZERO,
-> +		.extra2 = &oa_sample_rate_hard_limit,
-> +	}
->  };
-
-The existing indentation is off, but fixing it doesn't really belong in
-this patch.
-
-BR,
-Jani.
-
-
+diff --git a/drivers/misc/vmw_balloon.c b/drivers/misc/vmw_balloon.c
+index 9ce9b9e0e9b6..2f86f666b476 100644
+--- a/drivers/misc/vmw_balloon.c
++++ b/drivers/misc/vmw_balloon.c
+@@ -380,7 +380,7 @@ struct vmballoon {
+ 	/**
+ 	 * @shrinker: shrinker interface that is used to avoid over-inflation.
+ 	 */
+-	struct shrinker shrinker;
++	struct shrinker *shrinker;
+ 
+ 	/**
+ 	 * @shrinker_registered: whether the shrinker was registered.
+@@ -1569,7 +1569,7 @@ static unsigned long vmballoon_shrinker_count(struct shrinker *shrinker,
+ static void vmballoon_unregister_shrinker(struct vmballoon *b)
+ {
+ 	if (b->shrinker_registered)
+-		unregister_shrinker(&b->shrinker);
++		unregister_and_free_shrinker(b->shrinker);
+ 	b->shrinker_registered = false;
+ }
+ 
+@@ -1581,14 +1581,18 @@ static int vmballoon_register_shrinker(struct vmballoon *b)
+ 	if (!vmwballoon_shrinker_enable)
+ 		return 0;
+ 
+-	b->shrinker.scan_objects = vmballoon_shrinker_scan;
+-	b->shrinker.count_objects = vmballoon_shrinker_count;
+-	b->shrinker.seeks = DEFAULT_SEEKS;
++	b->shrinker = shrinker_alloc_and_init(vmballoon_shrinker_count,
++					      vmballoon_shrinker_scan,
++					      0, DEFAULT_SEEKS, 0, b);
++	if (!b->shrinker)
++		return -ENOMEM;
+ 
+-	r = register_shrinker(&b->shrinker, "vmw-balloon");
++	r = register_shrinker(b->shrinker, "vmw-balloon");
+ 
+ 	if (r == 0)
+ 		b->shrinker_registered = true;
++	else
++		shrinker_free(b->shrinker);
+ 
+ 	return r;
+ }
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+2.30.2
+
