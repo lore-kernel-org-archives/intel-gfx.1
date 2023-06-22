@@ -4,43 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 457ECC001DF
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 925F3EB64D9
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D18C410E338;
-	Tue, 27 Jun 2023 14:38:46 +0000 (UTC)
-X-Greylist: delayed 622 seconds by postgrey-1.36 at gabe;
- Thu, 22 Jun 2023 08:50:23 UTC
-Received: from out-59.mta1.migadu.com (out-59.mta1.migadu.com
- [IPv6:2001:41d0:203:375::3b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC58810E501
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:50:23 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1687423293;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Z+30fV/iN1iesGacxkaE9JIcYdi6gua+ASW3Yz7h8bY=;
- b=CxBImOW/hNO5cXp3wK8RSStC+rLEzyxL2mXDMqLFN/YsRlgHVgf5PvDLFcI34eWQmCvkd9
- 3THwQNEw1YQyanLWHvcbM97v3IDV1byn3r24RVpy9KTWBRd2fEO4Ah83WPt2zZsEN37/0a
- ZxWtreKvDzY3GuQKFUgAQo+IR9ZiSZc=
-From: Qi Zheng <qi.zheng@linux.dev>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32C9E10E322;
+	Tue, 27 Jun 2023 14:39:10 +0000 (UTC)
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [IPv6:2607:f8b0:4864:20::62a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9D3710E14C
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:55:31 +0000 (UTC)
+Received: by mail-pl1-x62a.google.com with SMTP id
+ d9443c01a7336-1b5585e84b4so6827725ad.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 01:55:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bytedance.com; s=google; t=1687424131; x=1690016131;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Rw+THIB7nYtdEoKFrcRpf+DtRSemfk8nQmXyWQCWLOU=;
+ b=DMwdTIl9g+okPZHJv8qTrb+gYAPEj9v1sxcSDlzK5ch7N+TuIC/BcFHKohEZo55ND8
+ XU29tOhBmT8qLwPtzV/wEHQ6iOqaUqSy8YTL9GNxgMKyLojaih+JCKFRV8sA50VDaMhL
+ 4ENhUxcmuP8buO31FrzpXihlkiHbj7xjQ5jQCZ/XAAfjoNJ005ZfE8KQlMXJnunKzCcO
+ Fe2zvwkJ/uki5/MCqM+WcH9ckA1bFEYVaXIUmwP+4s7h2vpQxpmZaq/OfODYIqbWYJLH
+ gNO1EGlemqhIu8SDpgbpJo6kXONx1A4ErgZXcMZMC3KoLi5/PQ7Kas2P+1tIIIXAXu47
+ 3GiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687424131; x=1690016131;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Rw+THIB7nYtdEoKFrcRpf+DtRSemfk8nQmXyWQCWLOU=;
+ b=C5GuuVU0ROXbK/IqjKJg/1xKyfN4khEArSwAxaXF4xdRrTVAnIAT8xWOu3GDaIRWzv
+ U98rI1vxdViEFeS0Lvj++Q+PDMocJvsTg8NQuHKuZEROC6yy9VCxHnPbp4JtbjBmP9kP
+ mRgMeJiiiphkDr7IF55+HqGodyOcCZNTIt+THZbtd+xhgLzJ88I0sgHy5s3g7OVs3iEa
+ wFePN2ylQfxHWxFWJQ+z13/AFLKKJsiQp393i6jQVpwk+0Vd93erWNGEdRthgAmUHsJx
+ OUM31bQ2Xb7uJylJFsHlRsOj/jugc3ZPHUL/gTlC0b3qMzlIZXDEQsrOPlAGphag0y9T
+ jgmQ==
+X-Gm-Message-State: AC+VfDz1lKVBlyf1d5rOy8THTAto+fo+i4ChmpHLiKGLyqDdN3NUVgVb
+ mzPNhRkU0g4q10W9KEryCnd/Tw==
+X-Google-Smtp-Source: ACHHUZ74w6zUyxxONmkdhWFpbjqcQv1Ri8s1BW02LunWtr1K9sXtmODVbQHvvX6jLBNiniDuaX5mmA==
+X-Received: by 2002:a17:902:d489:b0:1b4:ddef:841e with SMTP id
+ c9-20020a170902d48900b001b4ddef841emr21417877plg.4.1687424131373; 
+ Thu, 22 Jun 2023 01:55:31 -0700 (PDT)
+Received: from C02DW0BEMD6R.bytedance.net ([139.177.225.254])
+ by smtp.gmail.com with ESMTPSA id
+ h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.55.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Jun 2023 01:55:31 -0700 (PDT)
+From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-Date: Thu, 22 Jun 2023 08:39:16 +0000
-Message-Id: <20230622083932.4090339-14-qi.zheng@linux.dev>
-In-Reply-To: <20230622083932.4090339-1-qi.zheng@linux.dev>
-References: <20230622083932.4090339-1-qi.zheng@linux.dev>
+Date: Thu, 22 Jun 2023 16:53:17 +0800
+Message-Id: <20230622085335.77010-12-zhengqi.arch@bytedance.com>
+X-Mailer: git-send-email 2.24.3 (Apple Git-128)
+In-Reply-To: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
+References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: [Intel-gfx] [PATCH 13/29] ext4: dynamically allocate the ext4-es
- shrinker
+Subject: [Intel-gfx] [PATCH 11/29] virtio_balloon: dynamically allocate the
+ virtio-balloon shrinker
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,95 +83,84 @@ Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
  linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
  Qi Zheng <zhengqi.arch@bytedance.com>, linux-fsdevel@vger.kernel.org,
- linux-ext4@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-btrfs@vger.kernel.org
+ linux-ext4@vger.kernel.org, linux-btrfs@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Qi Zheng <zhengqi.arch@bytedance.com>
-
 In preparation for implementing lockless slab shrink,
-we need to dynamically allocate the ext4-es shrinker,
+we need to dynamically allocate the virtio-balloon shrinker,
 so that it can be freed asynchronously using kfree_rcu().
 Then it doesn't need to wait for RCU read-side critical
-section when releasing the struct ext4_sb_info.
+section when releasing the struct virtio_balloon.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- fs/ext4/ext4.h           |  2 +-
- fs/ext4/extents_status.c | 21 ++++++++++++---------
- 2 files changed, 13 insertions(+), 10 deletions(-)
+ drivers/virtio/virtio_balloon.c | 26 ++++++++++++++++----------
+ 1 file changed, 16 insertions(+), 10 deletions(-)
 
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 0a2d55faa095..1bd150d454f5 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -1651,7 +1651,7 @@ struct ext4_sb_info {
- 	__u32 s_csum_seed;
+diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
+index 5b15936a5214..fa051bff8d90 100644
+--- a/drivers/virtio/virtio_balloon.c
++++ b/drivers/virtio/virtio_balloon.c
+@@ -111,7 +111,7 @@ struct virtio_balloon {
+ 	struct virtio_balloon_stat stats[VIRTIO_BALLOON_S_NR];
  
- 	/* Reclaim extents from extent status tree */
--	struct shrinker s_es_shrinker;
-+	struct shrinker *s_es_shrinker;
- 	struct list_head s_es_list;	/* List of inodes with reclaimable extents */
- 	long s_es_nr_inode;
- 	struct ext4_es_stats s_es_stats;
-diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
-index 9b5b8951afb4..fea82339f4b4 100644
---- a/fs/ext4/extents_status.c
-+++ b/fs/ext4/extents_status.c
-@@ -1596,7 +1596,7 @@ static unsigned long ext4_es_count(struct shrinker *shrink,
- 	unsigned long nr;
- 	struct ext4_sb_info *sbi;
+ 	/* Shrinker to return free pages - VIRTIO_BALLOON_F_FREE_PAGE_HINT */
+-	struct shrinker shrinker;
++	struct shrinker *shrinker;
  
--	sbi = container_of(shrink, struct ext4_sb_info, s_es_shrinker);
-+	sbi = shrink->private_data;
- 	nr = percpu_counter_read_positive(&sbi->s_es_stats.es_stats_shk_cnt);
- 	trace_ext4_es_shrink_count(sbi->s_sb, sc->nr_to_scan, nr);
- 	return nr;
-@@ -1605,8 +1605,7 @@ static unsigned long ext4_es_count(struct shrinker *shrink,
- static unsigned long ext4_es_scan(struct shrinker *shrink,
- 				  struct shrink_control *sc)
+ 	/* OOM notifier to deflate on OOM - VIRTIO_BALLOON_F_DEFLATE_ON_OOM */
+ 	struct notifier_block oom_nb;
+@@ -816,8 +816,7 @@ static unsigned long shrink_free_pages(struct virtio_balloon *vb,
+ static unsigned long virtio_balloon_shrinker_scan(struct shrinker *shrinker,
+ 						  struct shrink_control *sc)
  {
--	struct ext4_sb_info *sbi = container_of(shrink,
--					struct ext4_sb_info, s_es_shrinker);
-+	struct ext4_sb_info *sbi = shrink->private_data;
- 	int nr_to_scan = sc->nr_to_scan;
- 	int ret, nr_shrunk;
+-	struct virtio_balloon *vb = container_of(shrinker,
+-					struct virtio_balloon, shrinker);
++	struct virtio_balloon *vb = shrinker->private_data;
  
-@@ -1690,15 +1689,19 @@ int ext4_es_register_shrinker(struct ext4_sb_info *sbi)
- 	if (err)
- 		goto err3;
+ 	return shrink_free_pages(vb, sc->nr_to_scan);
+ }
+@@ -825,8 +824,7 @@ static unsigned long virtio_balloon_shrinker_scan(struct shrinker *shrinker,
+ static unsigned long virtio_balloon_shrinker_count(struct shrinker *shrinker,
+ 						   struct shrink_control *sc)
+ {
+-	struct virtio_balloon *vb = container_of(shrinker,
+-					struct virtio_balloon, shrinker);
++	struct virtio_balloon *vb = shrinker->private_data;
  
--	sbi->s_es_shrinker.scan_objects = ext4_es_scan;
--	sbi->s_es_shrinker.count_objects = ext4_es_count;
--	sbi->s_es_shrinker.seeks = DEFAULT_SEEKS;
--	err = register_shrinker(&sbi->s_es_shrinker, "ext4-es:%s",
-+	sbi->s_es_shrinker = shrinker_alloc_and_init(ext4_es_count, ext4_es_scan,
-+						     0, DEFAULT_SEEKS, 0, sbi);
-+	if (!sbi->s_es_shrinker)
-+		goto err4;
-+
-+	err = register_shrinker(sbi->s_es_shrinker, "ext4-es:%s",
- 				sbi->s_sb->s_id);
- 	if (err)
--		goto err4;
-+		goto err5;
+ 	return vb->num_free_page_blocks * VIRTIO_BALLOON_HINT_BLOCK_PAGES;
+ }
+@@ -847,16 +845,24 @@ static int virtio_balloon_oom_notify(struct notifier_block *nb,
  
- 	return 0;
-+err5:
-+	shrinker_free(sbi->s_es_shrinker);
- err4:
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_shk_cnt);
- err3:
-@@ -1716,7 +1719,7 @@ void ext4_es_unregister_shrinker(struct ext4_sb_info *sbi)
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_cache_misses);
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_all_cnt);
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_shk_cnt);
--	unregister_shrinker(&sbi->s_es_shrinker);
-+	unregister_and_free_shrinker(sbi->s_es_shrinker);
+ static void virtio_balloon_unregister_shrinker(struct virtio_balloon *vb)
+ {
+-	unregister_shrinker(&vb->shrinker);
++	unregister_and_free_shrinker(vb->shrinker);
  }
  
- /*
+ static int virtio_balloon_register_shrinker(struct virtio_balloon *vb)
+ {
+-	vb->shrinker.scan_objects = virtio_balloon_shrinker_scan;
+-	vb->shrinker.count_objects = virtio_balloon_shrinker_count;
+-	vb->shrinker.seeks = DEFAULT_SEEKS;
++	int ret;
++
++	vb->shrinker = shrinker_alloc_and_init(virtio_balloon_shrinker_count,
++					       virtio_balloon_shrinker_scan,
++					       0, DEFAULT_SEEKS, 0, vb);
++	if (!vb->shrinker)
++		return -ENOMEM;
++
++	ret = register_shrinker(vb->shrinker, "virtio-balloon");
++	if (ret)
++		shrinker_free(vb->shrinker);
+ 
+-	return register_shrinker(&vb->shrinker, "virtio-balloon");
++	return ret;
+ }
+ 
+ static int virtballoon_probe(struct virtio_device *vdev)
 -- 
 2.30.2
 
