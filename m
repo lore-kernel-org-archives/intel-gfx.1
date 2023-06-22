@@ -4,72 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D9DAC001DF
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44595EB64DD
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 286EB10E32E;
-	Tue, 27 Jun 2023 14:38:42 +0000 (UTC)
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [IPv6:2607:f8b0:4864:20::102a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E19810E639
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jun 2023 13:11:08 +0000 (UTC)
-Received: by mail-pj1-x102a.google.com with SMTP id
- 98e67ed59e1d1-25eb58f4e70so126181a91.0
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jun 2023 06:11:08 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1730F10E334;
+	Tue, 27 Jun 2023 14:38:43 +0000 (UTC)
+Received: from mail-pg1-x536.google.com (mail-pg1-x536.google.com
+ [IPv6:2607:f8b0:4864:20::536])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD91F10E504
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:55:07 +0000 (UTC)
+Received: by mail-pg1-x536.google.com with SMTP id
+ 41be03b00d2f7-54fd4a7ce25so1096064a12.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 01:55:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytedance.com; s=google; t=1687525868; x=1690117868;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=/7x6DiXSOkypZgSRa+BISNq5WosZP8Hu0i35XNPtJQQ=;
- b=c4Lc90e3q/J/WKx3HQ+z7NN2l1qZRKlelFYboQ0nNA7dtkVHpa39U+pQO2zrVLopHR
- tQb8FdbybA7ZY5EJuz7Bj8lc58TkEH/aUZXL9aZwXUN962/6l/NewngXKCisO7gAhI9A
- 6y1k+r3pXZ/9NOPCcEIwbQmxJcwu17xkFr7LC37JSENPSJtDN4GEFRuoB+dm8iAKWIp9
- DFutxWv0gIG1WvIBQtrHwdJ+U3wemUIH6AIx7XIJDjUmh1K9SXXWWzWNhP9Z793nQfgc
- /81DZq+4PM5+K/vGcsN5FzVIevuwRHMFrPp0/v2gAPq8CuK9bUHMh/q7eJ4T5hUbjVvx
- g0uQ==
+ d=bytedance.com; s=google; t=1687424107; x=1690016107;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=VJl14vOz0XQFz+azMteX8g8XWQLmhD27loPyzQxCyWo=;
+ b=dSY63dBGkLY8Soj8dXVS98dEuYYMZ3kYNqwn6f5//glPXLQFLJz27NFKmb5CQWTM2k
+ APxbCFally5Ye2wcKhRjXEzkXpY2MMujAr7sHxpWVpY6Tw+UW8TdBughq+A6CDzAWoWy
+ +AmwZXYTUtj1EVbssFnJPqE+UVXszSk7I45NYzxDje6ZfgHjeGWZHMg6aUv73LqWwWwW
+ 5itKACc99wkxtDt6xsJWBL2urtctKzIlWYA5VnKnCf1Z8lrwitknq6fV+Y7yJzzApX1O
+ ankK3WiQYH84OGQwTOkmZRg+avhtQPcT8KVvO5N8KslMNgzr0qkBoxHulDKJPx12AE+X
+ /x4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687525868; x=1690117868;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=/7x6DiXSOkypZgSRa+BISNq5WosZP8Hu0i35XNPtJQQ=;
- b=KeNRScIjpRZXR06Llp6iDxUtVdJdKqowcIdm6BYbUCi3SgQleCX8WdQKZPUAX+aBbo
- MccYIsjJlQCs9guVt9BVWGCYcvNWpw2T6xVcU519ArDj+3tuZkrOG8bdmJsT4MmWac0x
- LnN4WZVu14EO+A86UCaCH9ffcY991f8IoJ7QQ58EnbNyOG/gfA8GKG2SJyRPADixRG75
- rzK5NbjyM48+twcnRQHp7F8IqVCeuiloAu7qRKMNQNRQLQah6zPv0A7tOcS3HSdDOWVg
- NSzkncmbYCAylQIsn9nkCkaN8euqKa6cFMXXWEJosNf0FAdTZZ9I2ITenXfZ1ijtxF/O
- LVeQ==
-X-Gm-Message-State: AC+VfDxnxorXDTKHpaO50tIViN0eR8ZY+xYi46RwUzz0xSMxiomjI3Ae
- 9hazk/dDWdio1UJ54ak0S2Pzxg==
-X-Google-Smtp-Source: ACHHUZ64Jh43TfSAOTNgwrqo87qYAZfwOnz5bgoh5xCGMYf1cG7+iQJqF84ndnWAmMn6TwTiYqZEBw==
-X-Received: by 2002:a17:90b:1bc2:b0:258:9621:913f with SMTP id
- oa2-20020a17090b1bc200b002589621913fmr25470832pjb.3.1687525867887; 
- Fri, 23 Jun 2023 06:11:07 -0700 (PDT)
-Received: from [10.4.168.167] ([139.177.225.254])
+ d=1e100.net; s=20221208; t=1687424107; x=1690016107;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=VJl14vOz0XQFz+azMteX8g8XWQLmhD27loPyzQxCyWo=;
+ b=GobdWNc7rVu6p8T4uEuV4PotLPgBtGGA3bTqE9rO5rY5OU+WawFIiZCJY6Vh6WATIo
+ 6swCV/9pKpPYB/5Gp1btMJ4Zh3/T9MYXn00ily+KkPg1ynz4q7d/ZdMk3FqBkz2/a/0r
+ CGptrJ5IcnmhK1zcTtXZOnEq/esrX4K4lo+Bju+gRx/KnPmDkEe0u7LagvGyoqTOUU1A
+ QOZ0JJqMaPK/1S/08K7lRQd46Lw2fwcwLEAeM+q+ECsu+YANIyenFi4/1CwG8abyF9Hb
+ BRuBggefPizyrp5rkISYVJ/WD6x6BRYW1/PuzF5d0suOOtpwa8MTNrEerdMREh4WTMEe
+ Hiqw==
+X-Gm-Message-State: AC+VfDz3G29jPb7F6+gJqzhH//yuhd98BYJVBkiyHLrVOuroU0sDBGzG
+ 8UMPWdDp+L4EtDhI9USRiCj+PQ==
+X-Google-Smtp-Source: ACHHUZ4GugeqE/IaG8xLwh4Bzf5woebFV8d7i9CEhVh9D6pBJJ8ySrAWkjhYmHqxBxnT9m8efiqyXQ==
+X-Received: by 2002:a17:902:c945:b0:1ac:40f7:8b5a with SMTP id
+ i5-20020a170902c94500b001ac40f78b5amr21000858pla.3.1687424106926; 
+ Thu, 22 Jun 2023 01:55:06 -0700 (PDT)
+Received: from C02DW0BEMD6R.bytedance.net ([139.177.225.254])
  by smtp.gmail.com with ESMTPSA id
- 1-20020a17090a198100b0024e49b53c24sm1568646pji.10.2023.06.23.06.11.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Jun 2023 06:11:07 -0700 (PDT)
-Message-ID: <a21047bb-3b87-a50a-94a7-f3fa4847bc08@bytedance.com>
-Date: Fri, 23 Jun 2023 21:10:57 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Content-Language: en-US
-To: Dave Chinner <david@fromorbit.com>, Vlastimil Babka <vbabka@suse.cz>,
- paulmck@kernel.org
-References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
- <20230622085335.77010-25-zhengqi.arch@bytedance.com>
- <cf0d9b12-6491-bf23-b464-9d01e5781203@suse.cz>
- <ZJU708VIyJ/3StAX@dread.disaster.area>
+ h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.54.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Jun 2023 01:55:06 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
-In-Reply-To: <ZJU708VIyJ/3StAX@dread.disaster.area>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
+ vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
+ brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
+Date: Thu, 22 Jun 2023 16:53:14 +0800
+Message-Id: <20230622085335.77010-9-zhengqi.arch@bytedance.com>
+X-Mailer: git-send-email 2.24.3 (Apple Git-128)
+In-Reply-To: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
+References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: Re: [Intel-gfx] [PATCH 24/29] mm: vmscan: make global slab shrink
- lockless
+Subject: [Intel-gfx] [PATCH 08/29] md/raid5: dynamically allocate the
+ md-raid5 shrinker
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,112 +77,111 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org, brauner@kernel.org,
- tytso@mit.edu, djwong@kernel.org, intel-gfx@lists.freedesktop.org,
- roman.gushchin@linux.dev, linux-kernel@vger.kernel.org,
+Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
  linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
- linux-arm-msm@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- akpm@linux-foundation.org, linux-ext4@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
+ Qi Zheng <zhengqi.arch@bytedance.com>, linux-fsdevel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-btrfs@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+In preparation for implementing lockless slab shrink,
+we need to dynamically allocate the md-raid5 shrinker,
+so that it can be freed asynchronously using kfree_rcu().
+Then it doesn't need to wait for RCU read-side critical
+section when releasing the struct r5conf.
 
+Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+---
+ drivers/md/raid5.c | 28 +++++++++++++++++-----------
+ drivers/md/raid5.h |  2 +-
+ 2 files changed, 18 insertions(+), 12 deletions(-)
 
-On 2023/6/23 14:29, Dave Chinner wrote:
-> On Thu, Jun 22, 2023 at 05:12:02PM +0200, Vlastimil Babka wrote:
->> On 6/22/23 10:53, Qi Zheng wrote:
->>> @@ -1067,33 +1068,27 @@ static unsigned long shrink_slab(gfp_t gfp_mask, int nid,
->>>   	if (!mem_cgroup_disabled() && !mem_cgroup_is_root(memcg))
->>>   		return shrink_slab_memcg(gfp_mask, nid, memcg, priority);
->>>   
->>> -	if (!down_read_trylock(&shrinker_rwsem))
->>> -		goto out;
->>> -
->>> -	list_for_each_entry(shrinker, &shrinker_list, list) {
->>> +	rcu_read_lock();
->>> +	list_for_each_entry_rcu(shrinker, &shrinker_list, list) {
->>>   		struct shrink_control sc = {
->>>   			.gfp_mask = gfp_mask,
->>>   			.nid = nid,
->>>   			.memcg = memcg,
->>>   		};
->>>   
->>> +		if (!shrinker_try_get(shrinker))
->>> +			continue;
->>> +		rcu_read_unlock();
->>
->> I don't think you can do this unlock?
->>
->>> +
->>>   		ret = do_shrink_slab(&sc, shrinker, priority);
->>>   		if (ret == SHRINK_EMPTY)
->>>   			ret = 0;
->>>   		freed += ret;
->>> -		/*
->>> -		 * Bail out if someone want to register a new shrinker to
->>> -		 * prevent the registration from being stalled for long periods
->>> -		 * by parallel ongoing shrinking.
->>> -		 */
->>> -		if (rwsem_is_contended(&shrinker_rwsem)) {
->>> -			freed = freed ? : 1;
->>> -			break;
->>> -		}
->>> -	}
->>>   
->>> -	up_read(&shrinker_rwsem);
->>> -out:
->>> +		rcu_read_lock();
->>
->> That new rcu_read_lock() won't help AFAIK, the whole
->> list_for_each_entry_rcu() needs to be under the single rcu_read_lock() to be
->> safe.
-> 
-> Yeah, that's the pattern we've been taught and the one we can look
-> at and immediately say "this is safe".
-> 
-> This is a different pattern, as has been explained bi Qi, and I
-> think it *might* be safe.
-> 
-> *However.*
-> 
-> Right now I don't have time to go through a novel RCU list iteration
-> pattern it one step at to determine the correctness of the
-> algorithm. I'm mostly worried about list manipulations that can
-> occur outside rcu_read_lock() section bleeding into the RCU
-> critical section because rcu_read_lock() by itself is not a memory
-> barrier.
-> 
-> Maybe Paul has seen this pattern often enough he could simply tell
-> us what conditions it is safe in. But for me to work that out from
-> first principles? I just don't have the time to do that right now.
+diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+index f4eea1bbbeaf..4866cad1ad62 100644
+--- a/drivers/md/raid5.c
++++ b/drivers/md/raid5.c
+@@ -7391,7 +7391,7 @@ static void free_conf(struct r5conf *conf)
+ 
+ 	log_exit(conf);
+ 
+-	unregister_shrinker(&conf->shrinker);
++	unregister_and_free_shrinker(conf->shrinker);
+ 	free_thread_groups(conf);
+ 	shrink_stripes(conf);
+ 	raid5_free_percpu(conf);
+@@ -7439,7 +7439,7 @@ static int raid5_alloc_percpu(struct r5conf *conf)
+ static unsigned long raid5_cache_scan(struct shrinker *shrink,
+ 				      struct shrink_control *sc)
+ {
+-	struct r5conf *conf = container_of(shrink, struct r5conf, shrinker);
++	struct r5conf *conf = shrink->private_data;
+ 	unsigned long ret = SHRINK_STOP;
+ 
+ 	if (mutex_trylock(&conf->cache_size_mutex)) {
+@@ -7460,7 +7460,7 @@ static unsigned long raid5_cache_scan(struct shrinker *shrink,
+ static unsigned long raid5_cache_count(struct shrinker *shrink,
+ 				       struct shrink_control *sc)
+ {
+-	struct r5conf *conf = container_of(shrink, struct r5conf, shrinker);
++	struct r5conf *conf = shrink->private_data;
+ 
+ 	if (conf->max_nr_stripes < conf->min_nr_stripes)
+ 		/* unlikely, but not impossible */
+@@ -7695,16 +7695,21 @@ static struct r5conf *setup_conf(struct mddev *mddev)
+ 	 * it reduces the queue depth and so can hurt throughput.
+ 	 * So set it rather large, scaled by number of devices.
+ 	 */
+-	conf->shrinker.seeks = DEFAULT_SEEKS * conf->raid_disks * 4;
+-	conf->shrinker.scan_objects = raid5_cache_scan;
+-	conf->shrinker.count_objects = raid5_cache_count;
+-	conf->shrinker.batch = 128;
+-	conf->shrinker.flags = 0;
+-	ret = register_shrinker(&conf->shrinker, "md-raid5:%s", mdname(mddev));
++	conf->shrinker = shrinker_alloc_and_init(raid5_cache_count,
++						 raid5_cache_scan, 128,
++						 DEFAULT_SEEKS * conf->raid_disks * 4,
++						 0, conf);
++	if (!conf->shrinker) {
++		pr_warn("md/raid:%s: couldn't allocate shrinker.\n",
++			mdname(mddev));
++		goto abort;
++	}
++
++	ret = register_shrinker(conf->shrinker, "md-raid5:%s", mdname(mddev));
+ 	if (ret) {
+ 		pr_warn("md/raid:%s: couldn't register shrinker.\n",
+ 			mdname(mddev));
+-		goto abort;
++		goto abort_shrinker;
+ 	}
+ 
+ 	sprintf(pers_name, "raid%d", mddev->new_level);
+@@ -7717,7 +7722,8 @@ static struct r5conf *setup_conf(struct mddev *mddev)
+ 	}
+ 
+ 	return conf;
+-
++abort_shrinker:
++	shrinker_free(conf->shrinker);
+  abort:
+ 	if (conf)
+ 		free_conf(conf);
+diff --git a/drivers/md/raid5.h b/drivers/md/raid5.h
+index 6a92fafb0748..806f84681599 100644
+--- a/drivers/md/raid5.h
++++ b/drivers/md/raid5.h
+@@ -670,7 +670,7 @@ struct r5conf {
+ 	wait_queue_head_t	wait_for_stripe;
+ 	wait_queue_head_t	wait_for_overlap;
+ 	unsigned long		cache_state;
+-	struct shrinker		shrinker;
++	struct shrinker		*shrinker;
+ 	int			pool_size; /* number of disks in stripeheads in pool */
+ 	spinlock_t		device_lock;
+ 	struct disk_info	*disks;
+-- 
+2.30.2
 
-Hi Paul, can you help to confirm this?
-
-> 
->> IIUC this is why Dave in [4] suggests unifying shrink_slab() with
->> shrink_slab_memcg(), as the latter doesn't iterate the list but uses IDR.
-> 
-> Yes, I suggested the IDR route because radix tree lookups under RCU
-> with reference counted objects are a known safe pattern that we can
-> easily confirm is correct or not.  Hence I suggested the unification
-> + IDR route because it makes the life of reviewers so, so much
-> easier...
-
-In fact, I originally planned to try the unification + IDR method you
-suggested at the beginning. But in the case of CONFIG_MEMCG disabled,
-the struct mem_cgroup is not even defined, and root_mem_cgroup and
-shrinker_info will not be allocated. This required more code changes, so
-I ended up keeping the shrinker_list and implementing the above pattern.
-
-If the above pattern is not safe, I will go back to the unification +
-IDR method.
-
-Thanks,
-Qi
-
-> 
-> Cheers,
-> 
-> Dave.
