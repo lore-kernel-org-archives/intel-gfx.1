@@ -4,76 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9EFEEB64D8
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 18:00:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9F2AEB64D8
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 18:02:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 789A410E09D;
-	Thu, 22 Jun 2023 18:00:52 +0000 (UTC)
-X-Greylist: delayed 584 seconds by postgrey-1.36 at gabe;
- Thu, 22 Jun 2023 18:00:50 UTC
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A550310E09D;
- Thu, 22 Jun 2023 18:00:50 +0000 (UTC)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.west.internal (Postfix) with ESMTP id 4E370320091F;
- Thu, 22 Jun 2023 13:51:05 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Thu, 22 Jun 2023 13:51:05 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- joshtriplett.org; h=cc:cc:content-type:content-type:date:date
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:sender:subject:subject:to:to; s=fm1; t=
- 1687456264; x=1687542664; bh=YShG2YqeRJvKnP47Pbk8/8ySMjdc+Phgy1r
- 7NJzoXfc=; b=SF3aqluC/IlV+k9DLDSKAp+31amBIhvk9UE5+dvW2Ijcyr2bJd4
- 7BlRGHlvlhEcD4Es9xhE49EDHdXY14Y9VhiNFGgyN9mNh/ckoU+Lgk19fyJ3B7uE
- rhxbJMjWclOH19bup1IS1I58Ji9J7ZLdtPgxVekAdWjXUlPvp1K1O/2GmW5SYaLn
- VC92wrrivqS1T2YM35Ma8GJtCrU4Mq64PHQpXg+ojptdUYvnVYD81zCNZ/rOR9hr
- P/qZ/s1LI1P/sTejJDnQaY7LDXZJE7EXT6bwrjIaMa5z6arhVJJpLG8Q0OQrgsWZ
- 3VRWPbmnvhYX823N1TCaRp7Ca5Hh2sP9KuA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:sender:subject
- :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; t=1687456264; x=1687542664; bh=YShG2YqeRJvKn
- P47Pbk8/8ySMjdc+Phgy1r7NJzoXfc=; b=exlrvdUYUoMDG8MDXJ8u8mfxKtEql
- +zvUJJEZqVlqgS2f67G+puMPmbRlwYzmsduZvG9JAAk6hODatMPKHKOflm3gDgbX
- zDxvDgVHkbG0+cB6Pt0dFymjlKbpU/9Hlm7fwlR+0hwgKJxMr1tL6copOCPLoFk6
- zd1E5gPzw8s71taUVWS8ooi9oiqjcboIKf70QmcUSlnemLCb4TuvujRTXcZ4BPL7
- OF13mvUPO81n2iZNq0sseF2ivH9VLx7Lsd1Kfsuk+Vd7pzPfJotq/P/zeqE6G0Vf
- x+BgiWCCa2QbCrsxCAR1oegwfb/zkCW2OJwRFqm9kgcfAo3bZyPhIAGng==
-X-ME-Sender: <xms:CIqUZOCWTi7LHibaGxvSsS6xEUlBv81h7KpEef4rpz_CleKsvMIEEQ>
- <xme:CIqUZIiZefH6j351xw6pxT3OOdWfXeQjsn1Kiyuhd5inDVVNLTv-dZBg9bYl6eqkZ
- PDBsfJpdJKNl02wr2Y>
-X-ME-Received: <xmr:CIqUZBnndoFOiCBp3zE5ERyz8sRZzBfNzolriwqpEq4ORKrX_P-2PRQUZg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgeeguddgudduiecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpeflohhs
- hhcuvfhrihhplhgvthhtuceojhhoshhhsehjohhshhhtrhhiphhlvghtthdrohhrgheqne
- cuggftrfgrthhtvghrnhepudeigeehieejuedvtedufeevtdejfeegueefgffhkefgleef
- teetledvtdfftefgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
- hfrhhomhepjhhoshhhsehjohhshhhtrhhiphhlvghtthdrohhrgh
-X-ME-Proxy: <xmx:CIqUZMxHMPGMLqp_7goph5HF9ACxdJaRhk3QB8RLR29uttOK1ociGA>
- <xmx:CIqUZDSeY2alb9ohgujJ86ysfhJbDSJtXn9xfmIBI3dCIMh7rTgW8Q>
- <xmx:CIqUZHawY4mh0BN-A7VjtW3nnkkzcSIFcCdf-5fSJCao7mrZ0nki-w>
- <xmx:CIqUZBP7AEHWCuGC7aelRvD_EUMgp32WZSuWSMDyEb6sbIbpxdajIg>
-Feedback-ID: i83e94755:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 22 Jun 2023 13:51:03 -0400 (EDT)
-Date: Thu, 22 Jun 2023 10:51:02 -0700
-From: Josh Triplett <josh@joshtriplett.org>
-To: Allen Ballway <ballway@chromium.org>
-Message-ID: <ZJSKBg+LymhvINoG@localhost>
-References: <20230606211901.1.I06e778109090b5dc85c44da7b742d185aa6adb59@changeid>
- <20230622172817.2281527-1-ballway@chromium.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F89010E09D;
+	Thu, 22 Jun 2023 18:02:49 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C038210E09D;
+ Thu, 22 Jun 2023 18:02:47 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id B8C9FAADED;
+ Thu, 22 Jun 2023 18:02:47 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3555580827708073010=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230622172817.2281527-1-ballway@chromium.org>
-Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/quirk: Add quirk for devices
- that cannot be dimmed
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Dong, Zhanjun" <zhanjun.dong@intel.com>
+Date: Thu, 22 Jun 2023 18:02:47 -0000
+Message-ID: <168745696772.4869.13789007785276432560@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230622152644.169400-1-zhanjun.dong@intel.com>
+In-Reply-To: <20230622152644.169400-1-zhanjun.dong@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915/gt=3A_Remove_incorrect_hard_coded_cache_coherrency_settin?=
+ =?utf-8?q?g_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,19 +41,240 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 22, 2023 at 05:28:15PM +0000, Allen Ballway wrote:
-> --- a/drivers/gpu/drm/i915/display/intel_backlight.c
-> +++ b/drivers/gpu/drm/i915/display/intel_backlight.c
-> @@ -1192,6 +1192,11 @@ static u32 get_backlight_min_vbt(struct intel_connector *connector)
-> 
->  	drm_WARN_ON(&i915->drm, panel->backlight.pwm_level_max == 0);
-> 
-> +	if (intel_has_quirk(i915, QUIRK_NO_DIM)) {
-> +		/* Cannot dim backlight, set minimum to hightest value */
+--===============3555580827708073010==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Typo: s/hightest/highest/
+== Series Details ==
+
+Series: drm/i915/gt: Remove incorrect hard coded cache coherrency setting (rev2)
+URL   : https://patchwork.freedesktop.org/series/119485/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_13309 -> Patchwork_119485v2
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/index.html
+
+Participating hosts (43 -> 41)
+------------------------------
+
+  Missing    (2): fi-kbl-soraka fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_119485v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_module_load@load:
+    - bat-mtlp-6:         [PASS][1] -> [ABORT][2] ([i915#8141])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13309/bat-mtlp-6/igt@i915_module_load@load.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/bat-mtlp-6/igt@i915_module_load@load.html
+    - bat-mtlp-8:         [PASS][3] -> [ABORT][4] ([i915#8141])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13309/bat-mtlp-8/igt@i915_module_load@load.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/bat-mtlp-8/igt@i915_module_load@load.html
+
+  * igt@i915_pm_backlight@basic-brightness@edp-1:
+    - bat-rplp-1:         NOTRUN -> [ABORT][5] ([i915#7077])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/bat-rplp-1/igt@i915_pm_backlight@basic-brightness@edp-1.html
+
+  * igt@i915_selftest@live@gt_heartbeat:
+    - fi-apl-guc:         [PASS][6] -> [DMESG-FAIL][7] ([i915#5334])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13309/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html
+
+  * igt@i915_selftest@live@slpc:
+    - bat-rpls-1:         [PASS][8] -> [DMESG-WARN][9] ([i915#6367])
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13309/bat-rpls-1/igt@i915_selftest@live@slpc.html
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/bat-rpls-1/igt@i915_selftest@live@slpc.html
+
+  * igt@kms_chamelium_hpd@common-hpd-after-suspend:
+    - bat-dg2-11:         NOTRUN -> [SKIP][10] ([i915#7828])
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/bat-dg2-11/igt@kms_chamelium_hpd@common-hpd-after-suspend.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@requests:
+    - bat-dg2-11:         [ABORT][11] ([i915#7913]) -> [PASS][12]
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13309/bat-dg2-11/igt@i915_selftest@live@requests.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/bat-dg2-11/igt@i915_selftest@live@requests.html
+
+  
+#### Warnings ####
+
+  * igt@i915_module_load@load:
+    - bat-adlp-11:        [DMESG-WARN][13] ([i915#4423]) -> [ABORT][14] ([i915#4423])
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13309/bat-adlp-11/igt@i915_module_load@load.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/bat-adlp-11/igt@i915_module_load@load.html
+
+  * igt@kms_setmode@basic-clone-single-crtc:
+    - bat-rplp-1:         [ABORT][15] ([i915#4579] / [i915#8260]) -> [SKIP][16] ([i915#3555] / [i915#4579])
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13309/bat-rplp-1/igt@kms_setmode@basic-clone-single-crtc.html
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/bat-rplp-1/igt@kms_setmode@basic-clone-single-crtc.html
+
+  
+  [i915#3555]: https://gitlab.freedesktop.org/drm/intel/issues/3555
+  [i915#4423]: https://gitlab.freedesktop.org/drm/intel/issues/4423
+  [i915#4579]: https://gitlab.freedesktop.org/drm/intel/issues/4579
+  [i915#5334]: https://gitlab.freedesktop.org/drm/intel/issues/5334
+  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
+  [i915#7077]: https://gitlab.freedesktop.org/drm/intel/issues/7077
+  [i915#7828]: https://gitlab.freedesktop.org/drm/intel/issues/7828
+  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
+  [i915#8141]: https://gitlab.freedesktop.org/drm/intel/issues/8141
+  [i915#8260]: https://gitlab.freedesktop.org/drm/intel/issues/8260
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_13309 -> Patchwork_119485v2
+
+  CI-20190529: 20190529
+  CI_DRM_13309: af67b02abf56a5018cd885c94d7611241052e98f @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7346: 29302a0d57bcf10cb553f5d7ff5bb99166a19bba @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_119485v2: af67b02abf56a5018cd885c94d7611241052e98f @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+80c265f2adc1 drm/i915/gt: Remove incorrect hard coded cache coherrency setting
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/index.html
+
+--===============3555580827708073010==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/gt: Remove incorrect hard coded cache coherrency setting (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/119485/">https://patchwork.freedesktop.org/series/119485/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_13309 -&gt; Patchwork_119485v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/index.html</p>
+<h2>Participating hosts (43 -&gt; 41)</h2>
+<p>Missing    (2): fi-kbl-soraka fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_119485v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_module_load@load:</p>
+<ul>
+<li>
+<p>bat-mtlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13309/bat-mtlp-6/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/bat-mtlp-6/igt@i915_module_load@load.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8141">i915#8141</a>)</p>
+</li>
+<li>
+<p>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13309/bat-mtlp-8/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/bat-mtlp-8/igt@i915_module_load@load.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8141">i915#8141</a>)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_backlight@basic-brightness@edp-1:</p>
+<ul>
+<li>bat-rplp-1:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/bat-rplp-1/igt@i915_pm_backlight@basic-brightness@edp-1.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7077">i915#7077</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_heartbeat:</p>
+<ul>
+<li>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13309/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@slpc:</p>
+<ul>
+<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13309/bat-rpls-1/igt@i915_selftest@live@slpc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/bat-rpls-1/igt@i915_selftest@live@slpc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6367">i915#6367</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium_hpd@common-hpd-after-suspend:</p>
+<ul>
+<li>bat-dg2-11:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/bat-dg2-11/igt@kms_chamelium_hpd@common-hpd-after-suspend.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7828">i915#7828</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@requests:<ul>
+<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13309/bat-dg2-11/igt@i915_selftest@live@requests.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/bat-dg2-11/igt@i915_selftest@live@requests.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>
+<p>igt@i915_module_load@load:</p>
+<ul>
+<li>bat-adlp-11:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13309/bat-adlp-11/igt@i915_module_load@load.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4423">i915#4423</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/bat-adlp-11/igt@i915_module_load@load.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4423">i915#4423</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_setmode@basic-clone-single-crtc:</p>
+<ul>
+<li>bat-rplp-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13309/bat-rplp-1/igt@kms_setmode@basic-clone-single-crtc.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4579">i915#4579</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8260">i915#8260</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119485v2/bat-rplp-1/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3555">i915#3555</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4579">i915#4579</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_13309 -&gt; Patchwork_119485v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_13309: af67b02abf56a5018cd885c94d7611241052e98f @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7346: 29302a0d57bcf10cb553f5d7ff5bb99166a19bba @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_119485v2: af67b02abf56a5018cd885c94d7611241052e98f @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>80c265f2adc1 drm/i915/gt: Remove incorrect hard coded cache coherrency setting</p>
+
+</body>
+</html>
+
+--===============3555580827708073010==--
