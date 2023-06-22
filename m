@@ -4,105 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C5F8EB64D8
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 18:00:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9EFEEB64D8
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 18:00:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FBE610E5A3;
-	Thu, 22 Jun 2023 18:00:19 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2042.outbound.protection.outlook.com [40.107.243.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B73510E09D;
- Thu, 22 Jun 2023 18:00:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iv/Cm+069G5hwxILKnoHmfUKDPbXmpjVMbhpEBP9DcxP2we4iRpuEd7BnZ9xUkiUCne8473Bms33vbbHbOsJXefFhhLP6Kdq30RuhQjnlN3yzKD28ymlDzH3fZsdIztiRoF9VaoO9KfODqbmEKwKLpoJTsH19LIG3lefA65bTmI2BJmkce3omKiQ99kbKOF5K6SDLiB9M4fUeYisMzQNZpfbKmCDWPFSpRsVSkqsSDmWYGCeJBMFriO7DZyfxABvWdUqNLMWTkMmuJlhkGBoCR6A6aN2VZSQSyW3Ferrs0wWCMKSkeeyTXqR3fVsiweB+xPcEEv2X62lShgyHekoxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u68psKh90UF+5BUtazb3NY9jIfPOmAb436hahaGThjc=;
- b=FHZcmxky9kIJPCn4gRzVb1pgCeEiD1ss/+3TFvDvZ3UVR3J9Bwsc5MXDGEY6AWe63jsWpInTv/0i/PrugdX4q540oSclxtgrZREPbCM+4Xtx6meO1zY8dkSO51nGRhICg9FIApHjVP1i2H5Z83we1iKBvM8UCM0GHrtGDqTNll9z8dfJM9S/YlnfrAz5Jlkk+huqrHBTUwijC2EB4MshOo1dyO6RXF87sH43dfjoQUUPd+HEdFE4CFY88fVBD3vD+BrTdK+s5tKcH2fKorQQihxOi06/qMR4IoRTN+tekqW1E9IkApi+em6sp8SBMXonMjA/BwXmzsDwghFnkKfyMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u68psKh90UF+5BUtazb3NY9jIfPOmAb436hahaGThjc=;
- b=OrOdgRz0OMgOGGYm5rUxFJ3IB9tFn2ZL3t8qvq+egBfjUENnq18PfFr3L45k52BzgR2q8Xk2NhUU7I8pPLimo5NT8g3YWJpzxymMiyja4i85Xzc1MYLdA85xD7w+87DiGXafxeaxbkqGbyxPcRmVvTkLAb5RSv5zhLxq+/kKQU+/z8LtC/f7hc27hOHxdw399OQdkvgRwB1OquikGv35J+/Jhqq2LQjq2UkgsD0xQ/SFsAyh5H6b1f7gGdeIxY/qBd9MLGQsxfEdlDyNnJ5nhN1xcZJ+cjN5cQ1rw8CfX2B+rvQa+kWoUUFNb3F7tN3uq/tg2IlK/F4KsWW+rY/dgg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV2PR12MB5869.namprd12.prod.outlook.com (2603:10b6:408:176::16)
- by MW3PR12MB4569.namprd12.prod.outlook.com (2603:10b6:303:57::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Thu, 22 Jun
- 2023 18:00:15 +0000
-Received: from LV2PR12MB5869.namprd12.prod.outlook.com
- ([fe80::f7a7:a561:87e9:5fab]) by LV2PR12MB5869.namprd12.prod.outlook.com
- ([fe80::f7a7:a561:87e9:5fab%7]) with mapi id 15.20.6521.024; Thu, 22 Jun 2023
- 18:00:15 +0000
-Date: Thu, 22 Jun 2023 15:00:12 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Yi Liu <yi.l.liu@intel.com>
-Message-ID: <ZJSMLOJQQlny3QD8@nvidia.com>
-References: <20230602121653.80017-1-yi.l.liu@intel.com>
- <20230602121653.80017-13-yi.l.liu@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 789A410E09D;
+	Thu, 22 Jun 2023 18:00:52 +0000 (UTC)
+X-Greylist: delayed 584 seconds by postgrey-1.36 at gabe;
+ Thu, 22 Jun 2023 18:00:50 UTC
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A550310E09D;
+ Thu, 22 Jun 2023 18:00:50 +0000 (UTC)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id 4E370320091F;
+ Thu, 22 Jun 2023 13:51:05 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Thu, 22 Jun 2023 13:51:05 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ joshtriplett.org; h=cc:cc:content-type:content-type:date:date
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:sender:subject:subject:to:to; s=fm1; t=
+ 1687456264; x=1687542664; bh=YShG2YqeRJvKnP47Pbk8/8ySMjdc+Phgy1r
+ 7NJzoXfc=; b=SF3aqluC/IlV+k9DLDSKAp+31amBIhvk9UE5+dvW2Ijcyr2bJd4
+ 7BlRGHlvlhEcD4Es9xhE49EDHdXY14Y9VhiNFGgyN9mNh/ckoU+Lgk19fyJ3B7uE
+ rhxbJMjWclOH19bup1IS1I58Ji9J7ZLdtPgxVekAdWjXUlPvp1K1O/2GmW5SYaLn
+ VC92wrrivqS1T2YM35Ma8GJtCrU4Mq64PHQpXg+ojptdUYvnVYD81zCNZ/rOR9hr
+ P/qZ/s1LI1P/sTejJDnQaY7LDXZJE7EXT6bwrjIaMa5z6arhVJJpLG8Q0OQrgsWZ
+ 3VRWPbmnvhYX823N1TCaRp7Ca5Hh2sP9KuA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:sender:subject
+ :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm2; t=1687456264; x=1687542664; bh=YShG2YqeRJvKn
+ P47Pbk8/8ySMjdc+Phgy1r7NJzoXfc=; b=exlrvdUYUoMDG8MDXJ8u8mfxKtEql
+ +zvUJJEZqVlqgS2f67G+puMPmbRlwYzmsduZvG9JAAk6hODatMPKHKOflm3gDgbX
+ zDxvDgVHkbG0+cB6Pt0dFymjlKbpU/9Hlm7fwlR+0hwgKJxMr1tL6copOCPLoFk6
+ zd1E5gPzw8s71taUVWS8ooi9oiqjcboIKf70QmcUSlnemLCb4TuvujRTXcZ4BPL7
+ OF13mvUPO81n2iZNq0sseF2ivH9VLx7Lsd1Kfsuk+Vd7pzPfJotq/P/zeqE6G0Vf
+ x+BgiWCCa2QbCrsxCAR1oegwfb/zkCW2OJwRFqm9kgcfAo3bZyPhIAGng==
+X-ME-Sender: <xms:CIqUZOCWTi7LHibaGxvSsS6xEUlBv81h7KpEef4rpz_CleKsvMIEEQ>
+ <xme:CIqUZIiZefH6j351xw6pxT3OOdWfXeQjsn1Kiyuhd5inDVVNLTv-dZBg9bYl6eqkZ
+ PDBsfJpdJKNl02wr2Y>
+X-ME-Received: <xmr:CIqUZBnndoFOiCBp3zE5ERyz8sRZzBfNzolriwqpEq4ORKrX_P-2PRQUZg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgeeguddgudduiecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpeflohhs
+ hhcuvfhrihhplhgvthhtuceojhhoshhhsehjohhshhhtrhhiphhlvghtthdrohhrgheqne
+ cuggftrfgrthhtvghrnhepudeigeehieejuedvtedufeevtdejfeegueefgffhkefgleef
+ teetledvtdfftefgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
+ hfrhhomhepjhhoshhhsehjohhshhhtrhhiphhlvghtthdrohhrgh
+X-ME-Proxy: <xmx:CIqUZMxHMPGMLqp_7goph5HF9ACxdJaRhk3QB8RLR29uttOK1ociGA>
+ <xmx:CIqUZDSeY2alb9ohgujJ86ysfhJbDSJtXn9xfmIBI3dCIMh7rTgW8Q>
+ <xmx:CIqUZHawY4mh0BN-A7VjtW3nnkkzcSIFcCdf-5fSJCao7mrZ0nki-w>
+ <xmx:CIqUZBP7AEHWCuGC7aelRvD_EUMgp32WZSuWSMDyEb6sbIbpxdajIg>
+Feedback-ID: i83e94755:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 22 Jun 2023 13:51:03 -0400 (EDT)
+Date: Thu, 22 Jun 2023 10:51:02 -0700
+From: Josh Triplett <josh@joshtriplett.org>
+To: Allen Ballway <ballway@chromium.org>
+Message-ID: <ZJSKBg+LymhvINoG@localhost>
+References: <20230606211901.1.I06e778109090b5dc85c44da7b742d185aa6adb59@changeid>
+ <20230622172817.2281527-1-ballway@chromium.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230602121653.80017-13-yi.l.liu@intel.com>
-X-ClientProxiedBy: BY3PR04CA0026.namprd04.prod.outlook.com
- (2603:10b6:a03:217::31) To LV2PR12MB5869.namprd12.prod.outlook.com
- (2603:10b6:408:176::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV2PR12MB5869:EE_|MW3PR12MB4569:EE_
-X-MS-Office365-Filtering-Correlation-Id: 981f9cd5-9f28-4b19-2753-08db734a8846
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lutVlHtqvqQ/nWjlF3SPGSQYohTei8HVhvsjKu7B3Bj/wLJLgS7SZsc7Pv+zd+DGFKLg9pGB1KpMrn6gnwqfwmvUOoFgCNVWvp6Ey5TFUbmRJV9zHiUSUrnvkOEhkEd9xwKkIjYTJNg0k5Jvoig9aUVuMjhxM/Cq7anJ4sAGlqBW+2n1D+MSODLOTJdhYOK5fkXdJjbQB0+48Tw/vlzdNjs+1YXVI2zim1lVlDEfUZwpiQoQv4IV1jmRFKc6kRrY7UxIu5KSsZ2aeSBeDcMfsX/eBaHz2w2TNiChVAUe/T3NIFRuIcBGExIdUhfLrTimJFr0oPVZESCBrTH/ZdySVRJs9oumN3krJ3Am4y/Lb0OED4lFSc8neFO7PDgUgYFj/4ZUxUMg23rGm/BRQhSlHdHlTWhrUYHqJDftUjBf5AujqPuD8jBWxvvVKRXJM1f+M9zTz/EhFlsC2jWlKC9UNMI2gsikkZrtJJngtT286lUeHWgH9LkYc/7cX2VXox0GrviYDLEhTzNwVOO9A7DvguX4WPZxuhy+ytiHLQzW9FqZE40uKHsxMKJPaf18ro6+
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV2PR12MB5869.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(366004)(136003)(346002)(39860400002)(376002)(396003)(451199021)(4326008)(6916009)(66556008)(66476007)(36756003)(6666004)(2616005)(316002)(66946007)(83380400001)(7416002)(6506007)(86362001)(4744005)(5660300002)(6486002)(2906002)(41300700001)(6512007)(186003)(26005)(8936002)(8676002)(478600001)(38100700002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?mWk6jNFB0y17VUDCsTrrbQLzVLVTut+YpKRw/LJS85U+MpHkWh+2fQmA1Zfc?=
- =?us-ascii?Q?XRphuCnHQTDEnn9Vp/QJPFJ/Lx0TVflZI/n0pz6HhubD1Nhl+nYRcD5topbA?=
- =?us-ascii?Q?Ixli1FdsNBj/f8NrBlskCcKU2ZvlW9ToPnxMOZvKnlu0jXSHxvWb8JXcMRCL?=
- =?us-ascii?Q?CHyY82kNcspzck+7vSBuJJsveNgj9ndFQRaZQ6Gvjk9OsNJj/eLbvs4OgfeE?=
- =?us-ascii?Q?6pdD7nWRrOQQnPxH2KFDWfWKbdI/mIAxk8Y4xcRBhXtXu5Hp3USPnIWkZYW1?=
- =?us-ascii?Q?tmv6XlfUklHx/Wvasd9P7ED+Sjb61fM8IMFYWzlXYAi5IbKkuItCj3pwQmay?=
- =?us-ascii?Q?hrM6UNW/XWscQPu8h9+U/e6H05z2zccoVfLs9eU8UmNt3/YpzZ7CfuYOkuMn?=
- =?us-ascii?Q?AWhwKNO1iB8bIHK+W088ft5LBzRvslbj0pPwfTymL8HDT2A2Pn1hrNaVxM+Q?=
- =?us-ascii?Q?FS2h2RF2n1VYkZclLSJFwTdDxb26kUY+GzeyWVnG1XtsxSWckzAWKkbOCBLc?=
- =?us-ascii?Q?ECMuMdW588I1+S+ijd3vr8ivXrx2TWyED8JQw3VwYCa5i9WXBH0tNeg6i/OD?=
- =?us-ascii?Q?M6t5rgurT/lbsAZqL70QF3od3M0xahjGwcjLWQpDrJkWn/XzX6Hd0wVNVJqR?=
- =?us-ascii?Q?YGELGVwjCO5dLGLBuxIoZIrsLmOe+JgIdBYR82tzjd6DixWYXjEmQZPYSdnL?=
- =?us-ascii?Q?udoFnKSNKARQJv734UvR+Al8cphJf4rEFuqrYFVj+WGyD7AmZ23EZQ8pRfC+?=
- =?us-ascii?Q?xOn3sGLVi6lU+yRsht/VM8Pr69lrXJF177Pfji5Qhuy4rezTMyqKtGlehxb9?=
- =?us-ascii?Q?k+5sCenZVQvWzQ5U0SjJWQjVTUlgcHSKyp/N2xBl6a4qedarR/drQ88iyX1i?=
- =?us-ascii?Q?C8CFqnYCpy8QZ9b1mAakwfeqMsUVNje4sstwcA2TwY3iv2LEFvbHDJOx2Rfj?=
- =?us-ascii?Q?q2rP2zmcYZLvs/bU8781GiSRpHI9A/iRlFQv4DYk2/a2D9s8h+9bslA6oQVn?=
- =?us-ascii?Q?4wK2grRozdWGHhHTmymDZGIhNQXseCclMVza6ujaDZEro+/EsLRFq1RUXFBP?=
- =?us-ascii?Q?hi0Mgl3JIEX830bXh2JlQpxTf/vh8TCldjYM6BN75/IuGHjHaSaOZQflu6hq?=
- =?us-ascii?Q?z0Q4/wYNl8zsfvKnrQbAzWoGqL42hwHhuxxWgHuZOFhdYPYcURts04XTQV7d?=
- =?us-ascii?Q?6planplkc8ybCs9YNp3qYYf0tixZSovO37mVeiYHU3ZGhVLyMpR3kG/IFI7P?=
- =?us-ascii?Q?IFd8I+KFQN7BBNMGmlr9WZrxTSL9D5Z8RBJ6CBHPUlmBCnOrmtcN7sXQXWsv?=
- =?us-ascii?Q?i5sYOF2+L5xovohQisRBpVhxJ+31XYfHswCFv019h+AhBQpzkv0L9K8FP1bb?=
- =?us-ascii?Q?IdbmnY0lF6SSv5XvradUc0UJwRnJ56TeSvbLShk1gJJCmYqABOSR613scQWS?=
- =?us-ascii?Q?mutRcGb2RNqcZ3hqqXsnfoRpipw+PoF8JXQqRDHdiz2PjOZERFsP4QzvvnQI?=
- =?us-ascii?Q?5Qxlb05BuY3Alq9mhByMyUOMmfpqDl9uw37p6WDvkIw4CdrK2FwkfYGvtO87?=
- =?us-ascii?Q?RTjseNfOfIBsXojsSn7a9BZ1m2uoJKWxdUFO+GXz?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 981f9cd5-9f28-4b19-2753-08db734a8846
-X-MS-Exchange-CrossTenant-AuthSource: LV2PR12MB5869.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2023 18:00:15.5594 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zMRmNX9rgV97BkTwV4m8IHQboovGRd82mR+9CEE6zM6hh6uNbgnrbIUR7VUYJB0Y
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4569
-Subject: Re: [Intel-gfx] [PATCH v12 12/24] vfio: Record devid in
- vfio_device_file
+In-Reply-To: <20230622172817.2281527-1-ballway@chromium.org>
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/quirk: Add quirk for devices
+ that cannot be dimmed
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,35 +86,19 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
- zhenzhong.duan@intel.com, peterx@redhat.com, terrence.xu@intel.com,
- chao.p.peng@linux.intel.com, linux-s390@vger.kernel.org, kvm@vger.kernel.org,
- lulu@redhat.com, yanting.jiang@intel.com, joro@8bytes.org, nicolinc@nvidia.com,
- kevin.tian@intel.com, yan.y.zhao@intel.com, intel-gfx@lists.freedesktop.org,
- eric.auger@redhat.com, intel-gvt-dev@lists.freedesktop.org,
- yi.y.sun@linux.intel.com, clegoate@redhat.com, cohuck@redhat.com,
- shameerali.kolothum.thodi@huawei.com, suravee.suthikulpanit@amd.com,
- robin.murphy@arm.com
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 02, 2023 at 05:16:41AM -0700, Yi Liu wrote:
-> .bind_iommufd() will generate an ID to represent this bond, which is
-> needed by userspace for further usage. Store devid in vfio_device_file
-> to avoid passing the pointer in multiple places.
+On Thu, Jun 22, 2023 at 05:28:15PM +0000, Allen Ballway wrote:
+> --- a/drivers/gpu/drm/i915/display/intel_backlight.c
+> +++ b/drivers/gpu/drm/i915/display/intel_backlight.c
+> @@ -1192,6 +1192,11 @@ static u32 get_backlight_min_vbt(struct intel_connector *connector)
 > 
-> Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-> Tested-by: Terrence Xu <terrence.xu@intel.com>
-> Tested-by: Nicolin Chen <nicolinc@nvidia.com>
-> Tested-by: Yanting Jiang <yanting.jiang@intel.com>
-> Tested-by: Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>
-> Signed-off-by: Yi Liu <yi.l.liu@intel.com>
-> ---
->  drivers/vfio/iommufd.c   | 12 +++++++-----
->  drivers/vfio/vfio.h      | 10 +++++-----
->  drivers/vfio/vfio_main.c |  6 +++---
->  3 files changed, 15 insertions(+), 13 deletions(-)
+>  	drm_WARN_ON(&i915->drm, panel->backlight.pwm_level_max == 0);
+> 
+> +	if (intel_has_quirk(i915, QUIRK_NO_DIM)) {
+> +		/* Cannot dim backlight, set minimum to hightest value */
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-
-Jason
+Typo: s/hightest/highest/
