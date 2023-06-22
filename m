@@ -4,40 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EA5DEB64DD
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53479C001B1
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4DF910E30E;
-	Tue, 27 Jun 2023 14:38:37 +0000 (UTC)
-Received: from out-33.mta0.migadu.com (out-33.mta0.migadu.com [91.218.175.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44CB910E501
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:35:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E5A810E312;
+	Tue, 27 Jun 2023 14:38:38 +0000 (UTC)
+Received: from out-18.mta1.migadu.com (out-18.mta1.migadu.com
+ [IPv6:2001:41d0:203:375::12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98F5510E50E
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:50:24 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1687422370;
+ t=1687423243;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=w53NcBmn/IPVgjrXh3hKsvtsk7tDad26SsdH585QToY=;
- b=XwhMjboYkO1IjigA7jJUMcuvrlsYL6AEdKhP6EAdQek7nGl7SCwZP+s1KaXaDd0EbpkijC
- WzHmsAAL7fH0Q68pqE9kbEs/wm6WDN8VuTFUTe+F4YIjoGCH/bDYiJlTs6zAXz5aY/DcIU
- qOKI3csGnCUAw3UqbPNbuNVS2tXOJrg=
+ bh=y3F0rUfKL2Xn8vIcW/xqhQA76/McTb+Ba5wKVW4y6Eg=;
+ b=SZzQmrgVrr0a7kU9rsMmAszGVDK8bckX7bBVvxfPSHWQYejPEvXLZ2HPRkk+tKQrS23erf
+ SuGqFnRsYjeusCXlNlT1ZT5Owe6S80DA/2VI0ueZ+krAGTceisdq13YNha7j9xlWXYO5kC
+ 5nufnpLwSbmgxVLa1H9hFaeIYeAfjGs=
 From: Qi Zheng <qi.zheng@linux.dev>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-Date: Thu, 22 Jun 2023 08:24:26 +0000
-Message-Id: <20230622082454.4090236-2-qi.zheng@linux.dev>
-In-Reply-To: <20230622082454.4090236-1-qi.zheng@linux.dev>
-References: <20230622082454.4090236-1-qi.zheng@linux.dev>
+Date: Thu, 22 Jun 2023 08:39:09 +0000
+Message-Id: <20230622083932.4090339-7-qi.zheng@linux.dev>
+In-Reply-To: <20230622083932.4090339-1-qi.zheng@linux.dev>
+References: <20230622083932.4090339-1-qi.zheng@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: [Intel-gfx] [PATCH 01/29] mm: shrinker: add shrinker::private_data
- field
+Subject: [Intel-gfx] [PATCH 06/29] dm: dynamically allocate the dm-bufio
+ shrinker
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,52 +51,101 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: mst@redhat.com, neilb@suse.de, jasowang@redhat.com,
+Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-mm@kvack.org, song@kernel.org, dm-devel@redhat.com, ray.huang@amd.com,
- namit@vmware.com, marijn.suijten@somainline.org, airlied@gmail.com,
- agk@redhat.com, robh@kernel.org, senozhatsky@chromium.org, david@redhat.com,
- clm@fb.com, steven.price@arm.com, alyssa.rosenzweig@collabora.com,
- Qi Zheng <zhengqi.arch@bytedance.com>, josef@toxicpanda.com,
- linux-ext4@vger.kernel.org, kent.overstreet@gmail.com,
- xuanzhuo@linux.alibaba.com, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, snitzer@kernel.org, quic_abhinavk@quicinc.com,
- colyli@suse.de, linux-raid@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-bcache@vger.kernel.org, viro@zeniv.linux.org.uk, dsterba@suse.com,
- linux-nfs@vger.kernel.org, tomeu.vizoso@collabora.com, kolga@netapp.com,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- linux-xfs@vger.kernel.org, minchan@kernel.org, chuck.lever@oracle.com,
- daniel@ffwll.ch, jack@suse.com, dmitry.baryshkov@linaro.org,
- adilger.kernel@dilger.ca, freedreno@lists.freedesktop.org,
- christian.koenig@amd.com, linux-btrfs@vger.kernel.org
+ linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
+ Qi Zheng <zhengqi.arch@bytedance.com>, linux-fsdevel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-btrfs@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-To prepare for the dynamic allocation of shrinker instances
-embedded in other structures, add a private_data field to
-struct shrinker, so that we can use shrinker::private_data
-to record and get the original embedded structure.
+In preparation for implementing lockless slab shrink,
+we need to dynamically allocate the dm-bufio shrinker,
+so that it can be freed asynchronously using kfree_rcu().
+Then it doesn't need to wait for RCU read-side critical
+section when releasing the struct dm_bufio_client.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- include/linux/shrinker.h | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/md/dm-bufio.c | 23 +++++++++++++----------
+ 1 file changed, 13 insertions(+), 10 deletions(-)
 
-diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
-index 224293b2dd06..43e6fcabbf51 100644
---- a/include/linux/shrinker.h
-+++ b/include/linux/shrinker.h
-@@ -70,6 +70,8 @@ struct shrinker {
- 	int seeks;	/* seeks to recreate an obj */
- 	unsigned flags;
+diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
+index eea977662e81..9472470d456d 100644
+--- a/drivers/md/dm-bufio.c
++++ b/drivers/md/dm-bufio.c
+@@ -963,7 +963,7 @@ struct dm_bufio_client {
  
-+	void *private_data;
+ 	sector_t start;
+ 
+-	struct shrinker shrinker;
++	struct shrinker *shrinker;
+ 	struct work_struct shrink_work;
+ 	atomic_long_t need_shrink;
+ 
+@@ -2385,7 +2385,7 @@ static unsigned long dm_bufio_shrink_scan(struct shrinker *shrink, struct shrink
+ {
+ 	struct dm_bufio_client *c;
+ 
+-	c = container_of(shrink, struct dm_bufio_client, shrinker);
++	c = shrink->private_data;
+ 	atomic_long_add(sc->nr_to_scan, &c->need_shrink);
+ 	queue_work(dm_bufio_wq, &c->shrink_work);
+ 
+@@ -2394,7 +2394,7 @@ static unsigned long dm_bufio_shrink_scan(struct shrinker *shrink, struct shrink
+ 
+ static unsigned long dm_bufio_shrink_count(struct shrinker *shrink, struct shrink_control *sc)
+ {
+-	struct dm_bufio_client *c = container_of(shrink, struct dm_bufio_client, shrinker);
++	struct dm_bufio_client *c = shrink->private_data;
+ 	unsigned long count = cache_total(&c->cache);
+ 	unsigned long retain_target = get_retain_buffers(c);
+ 	unsigned long queued_for_cleanup = atomic_long_read(&c->need_shrink);
+@@ -2507,14 +2507,15 @@ struct dm_bufio_client *dm_bufio_client_create(struct block_device *bdev, unsign
+ 	INIT_WORK(&c->shrink_work, shrink_work);
+ 	atomic_long_set(&c->need_shrink, 0);
+ 
+-	c->shrinker.count_objects = dm_bufio_shrink_count;
+-	c->shrinker.scan_objects = dm_bufio_shrink_scan;
+-	c->shrinker.seeks = 1;
+-	c->shrinker.batch = 0;
+-	r = register_shrinker(&c->shrinker, "dm-bufio:(%u:%u)",
++	c->shrinker = shrinker_alloc_and_init(dm_bufio_shrink_count,
++					      dm_bufio_shrink_scan, 0, 1, 0, c);
++	if (!c->shrinker)
++		goto bad;
 +
- 	/* These are for internal use */
- 	struct list_head list;
- #ifdef CONFIG_MEMCG
++	r = register_shrinker(c->shrinker, "dm-bufio:(%u:%u)",
+ 			      MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev));
+ 	if (r)
+-		goto bad;
++		goto bad_shrinker;
+ 
+ 	mutex_lock(&dm_bufio_clients_lock);
+ 	dm_bufio_client_count++;
+@@ -2524,6 +2525,8 @@ struct dm_bufio_client *dm_bufio_client_create(struct block_device *bdev, unsign
+ 
+ 	return c;
+ 
++bad_shrinker:
++	shrinker_free(c->shrinker);
+ bad:
+ 	while (!list_empty(&c->reserved_buffers)) {
+ 		struct dm_buffer *b = list_to_buffer(c->reserved_buffers.next);
+@@ -2554,7 +2557,7 @@ void dm_bufio_client_destroy(struct dm_bufio_client *c)
+ 
+ 	drop_buffers(c);
+ 
+-	unregister_shrinker(&c->shrinker);
++	unregister_and_free_shrinker(c->shrinker);
+ 	flush_work(&c->shrink_work);
+ 
+ 	mutex_lock(&dm_bufio_clients_lock);
 -- 
 2.30.2
 
