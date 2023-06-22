@@ -4,67 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 925F3EB64D9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1183AEB64DD
 	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32C9E10E322;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6392210E339;
 	Tue, 27 Jun 2023 14:39:10 +0000 (UTC)
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
- [IPv6:2607:f8b0:4864:20::62a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9D3710E14C
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:55:31 +0000 (UTC)
-Received: by mail-pl1-x62a.google.com with SMTP id
- d9443c01a7336-1b5585e84b4so6827725ad.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 01:55:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytedance.com; s=google; t=1687424131; x=1690016131;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Rw+THIB7nYtdEoKFrcRpf+DtRSemfk8nQmXyWQCWLOU=;
- b=DMwdTIl9g+okPZHJv8qTrb+gYAPEj9v1sxcSDlzK5ch7N+TuIC/BcFHKohEZo55ND8
- XU29tOhBmT8qLwPtzV/wEHQ6iOqaUqSy8YTL9GNxgMKyLojaih+JCKFRV8sA50VDaMhL
- 4ENhUxcmuP8buO31FrzpXihlkiHbj7xjQ5jQCZ/XAAfjoNJ005ZfE8KQlMXJnunKzCcO
- Fe2zvwkJ/uki5/MCqM+WcH9ckA1bFEYVaXIUmwP+4s7h2vpQxpmZaq/OfODYIqbWYJLH
- gNO1EGlemqhIu8SDpgbpJo6kXONx1A4ErgZXcMZMC3KoLi5/PQ7Kas2P+1tIIIXAXu47
- 3GiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687424131; x=1690016131;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Rw+THIB7nYtdEoKFrcRpf+DtRSemfk8nQmXyWQCWLOU=;
- b=C5GuuVU0ROXbK/IqjKJg/1xKyfN4khEArSwAxaXF4xdRrTVAnIAT8xWOu3GDaIRWzv
- U98rI1vxdViEFeS0Lvj++Q+PDMocJvsTg8NQuHKuZEROC6yy9VCxHnPbp4JtbjBmP9kP
- mRgMeJiiiphkDr7IF55+HqGodyOcCZNTIt+THZbtd+xhgLzJ88I0sgHy5s3g7OVs3iEa
- wFePN2ylQfxHWxFWJQ+z13/AFLKKJsiQp393i6jQVpwk+0Vd93erWNGEdRthgAmUHsJx
- OUM31bQ2Xb7uJylJFsHlRsOj/jugc3ZPHUL/gTlC0b3qMzlIZXDEQsrOPlAGphag0y9T
- jgmQ==
-X-Gm-Message-State: AC+VfDz1lKVBlyf1d5rOy8THTAto+fo+i4ChmpHLiKGLyqDdN3NUVgVb
- mzPNhRkU0g4q10W9KEryCnd/Tw==
-X-Google-Smtp-Source: ACHHUZ74w6zUyxxONmkdhWFpbjqcQv1Ri8s1BW02LunWtr1K9sXtmODVbQHvvX6jLBNiniDuaX5mmA==
-X-Received: by 2002:a17:902:d489:b0:1b4:ddef:841e with SMTP id
- c9-20020a170902d48900b001b4ddef841emr21417877plg.4.1687424131373; 
- Thu, 22 Jun 2023 01:55:31 -0700 (PDT)
-Received: from C02DW0BEMD6R.bytedance.net ([139.177.225.254])
- by smtp.gmail.com with ESMTPSA id
- h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.55.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jun 2023 01:55:31 -0700 (PDT)
-From: Qi Zheng <zhengqi.arch@bytedance.com>
+Received: from out-59.mta1.migadu.com (out-59.mta1.migadu.com [95.215.58.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9238610E504
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:50:23 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1687423228;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=jsEwzAna4029RV6z6obfQmMl2Vwh1p3nS0yc9a+2Lh0=;
+ b=ozPKp77xrQTWFLrt5JY9FY9sDiWzb4NwK8832YIIgpBuCa58zB9A3C1Ik+LPSf5cTp7v3t
+ 9IJAZpdL4oTT3emFrHswJJuH9cCY+iz0ywCM1rCIq+rKQviZQ+esI9j+46bDRakK4PDGM5
+ vgbb47CgXrJSb8zRxEAcYTBfo6A4am8=
+From: Qi Zheng <qi.zheng@linux.dev>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-Date: Thu, 22 Jun 2023 16:53:17 +0800
-Message-Id: <20230622085335.77010-12-zhengqi.arch@bytedance.com>
-X-Mailer: git-send-email 2.24.3 (Apple Git-128)
-In-Reply-To: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
-References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
+Date: Thu, 22 Jun 2023 08:39:07 +0000
+Message-Id: <20230622083932.4090339-5-qi.zheng@linux.dev>
+In-Reply-To: <20230622083932.4090339-1-qi.zheng@linux.dev>
+References: <20230622083932.4090339-1-qi.zheng@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: [Intel-gfx] [PATCH 11/29] virtio_balloon: dynamically allocate the
- virtio-balloon shrinker
+Subject: [Intel-gfx] [PATCH 04/29] drm/msm: dynamically allocate the
+ drm-msm_gem shrinker
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,84 +56,102 @@ Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
  linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
  Qi Zheng <zhengqi.arch@bytedance.com>, linux-fsdevel@vger.kernel.org,
- linux-ext4@vger.kernel.org, linux-btrfs@vger.kernel.org
+ linux-ext4@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-btrfs@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+
 In preparation for implementing lockless slab shrink,
-we need to dynamically allocate the virtio-balloon shrinker,
+we need to dynamically allocate the drm-msm_gem shrinker,
 so that it can be freed asynchronously using kfree_rcu().
 Then it doesn't need to wait for RCU read-side critical
-section when releasing the struct virtio_balloon.
+section when releasing the struct msm_drm_private.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- drivers/virtio/virtio_balloon.c | 26 ++++++++++++++++----------
- 1 file changed, 16 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/msm/msm_drv.h          |  2 +-
+ drivers/gpu/drm/msm/msm_gem_shrinker.c | 25 ++++++++++++++-----------
+ 2 files changed, 15 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
-index 5b15936a5214..fa051bff8d90 100644
---- a/drivers/virtio/virtio_balloon.c
-+++ b/drivers/virtio/virtio_balloon.c
-@@ -111,7 +111,7 @@ struct virtio_balloon {
- 	struct virtio_balloon_stat stats[VIRTIO_BALLOON_S_NR];
+diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
+index e13a8cbd61c9..4f3ba55058cd 100644
+--- a/drivers/gpu/drm/msm/msm_drv.h
++++ b/drivers/gpu/drm/msm/msm_drv.h
+@@ -217,7 +217,7 @@ struct msm_drm_private {
+ 	} vram;
  
- 	/* Shrinker to return free pages - VIRTIO_BALLOON_F_FREE_PAGE_HINT */
+ 	struct notifier_block vmap_notifier;
 -	struct shrinker shrinker;
 +	struct shrinker *shrinker;
  
- 	/* OOM notifier to deflate on OOM - VIRTIO_BALLOON_F_DEFLATE_ON_OOM */
- 	struct notifier_block oom_nb;
-@@ -816,8 +816,7 @@ static unsigned long shrink_free_pages(struct virtio_balloon *vb,
- static unsigned long virtio_balloon_shrinker_scan(struct shrinker *shrinker,
- 						  struct shrink_control *sc)
- {
--	struct virtio_balloon *vb = container_of(shrinker,
--					struct virtio_balloon, shrinker);
-+	struct virtio_balloon *vb = shrinker->private_data;
+ 	struct drm_atomic_state *pm_state;
  
- 	return shrink_free_pages(vb, sc->nr_to_scan);
- }
-@@ -825,8 +824,7 @@ static unsigned long virtio_balloon_shrinker_scan(struct shrinker *shrinker,
- static unsigned long virtio_balloon_shrinker_count(struct shrinker *shrinker,
- 						   struct shrink_control *sc)
+diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+index f38296ad8743..db7582ae1f19 100644
+--- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
++++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+@@ -34,8 +34,7 @@ static bool can_block(struct shrink_control *sc)
+ static unsigned long
+ msm_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
  {
--	struct virtio_balloon *vb = container_of(shrinker,
--					struct virtio_balloon, shrinker);
-+	struct virtio_balloon *vb = shrinker->private_data;
+-	struct msm_drm_private *priv =
+-		container_of(shrinker, struct msm_drm_private, shrinker);
++	struct msm_drm_private *priv = shrinker->private_data;
+ 	unsigned count = priv->lru.dontneed.count;
  
- 	return vb->num_free_page_blocks * VIRTIO_BALLOON_HINT_BLOCK_PAGES;
- }
-@@ -847,16 +845,24 @@ static int virtio_balloon_oom_notify(struct notifier_block *nb,
- 
- static void virtio_balloon_unregister_shrinker(struct virtio_balloon *vb)
+ 	if (can_swap())
+@@ -100,8 +99,7 @@ active_evict(struct drm_gem_object *obj)
+ static unsigned long
+ msm_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
  {
--	unregister_shrinker(&vb->shrinker);
-+	unregister_and_free_shrinker(vb->shrinker);
- }
+-	struct msm_drm_private *priv =
+-		container_of(shrinker, struct msm_drm_private, shrinker);
++	struct msm_drm_private *priv = shrinker->private_data;
+ 	struct {
+ 		struct drm_gem_lru *lru;
+ 		bool (*shrink)(struct drm_gem_object *obj);
+@@ -151,7 +149,7 @@ msm_gem_shrinker_shrink(struct drm_device *dev, unsigned long nr_to_scan)
+ 	int ret;
  
- static int virtio_balloon_register_shrinker(struct virtio_balloon *vb)
+ 	fs_reclaim_acquire(GFP_KERNEL);
+-	ret = msm_gem_shrinker_scan(&priv->shrinker, &sc);
++	ret = msm_gem_shrinker_scan(priv->shrinker, &sc);
+ 	fs_reclaim_release(GFP_KERNEL);
+ 
+ 	return ret;
+@@ -213,10 +211,15 @@ msm_gem_shrinker_vmap(struct notifier_block *nb, unsigned long event, void *ptr)
+ void msm_gem_shrinker_init(struct drm_device *dev)
  {
--	vb->shrinker.scan_objects = virtio_balloon_shrinker_scan;
--	vb->shrinker.count_objects = virtio_balloon_shrinker_count;
--	vb->shrinker.seeks = DEFAULT_SEEKS;
-+	int ret;
+ 	struct msm_drm_private *priv = dev->dev_private;
+-	priv->shrinker.count_objects = msm_gem_shrinker_count;
+-	priv->shrinker.scan_objects = msm_gem_shrinker_scan;
+-	priv->shrinker.seeks = DEFAULT_SEEKS;
+-	WARN_ON(register_shrinker(&priv->shrinker, "drm-msm_gem"));
 +
-+	vb->shrinker = shrinker_alloc_and_init(virtio_balloon_shrinker_count,
-+					       virtio_balloon_shrinker_scan,
-+					       0, DEFAULT_SEEKS, 0, vb);
-+	if (!vb->shrinker)
-+		return -ENOMEM;
-+
-+	ret = register_shrinker(vb->shrinker, "virtio-balloon");
-+	if (ret)
-+		shrinker_free(vb->shrinker);
++	priv->shrinker = shrinker_alloc_and_init(msm_gem_shrinker_count,
++						 msm_gem_shrinker_scan, 0,
++						 DEFAULT_SEEKS, 0, priv);
++	if (priv->shrinker &&
++	    register_shrinker(priv->shrinker, "drm-msm_gem")) {
++		shrinker_free(priv->shrinker);
++		WARN_ON(1);
++	}
  
--	return register_shrinker(&vb->shrinker, "virtio-balloon");
-+	return ret;
+ 	priv->vmap_notifier.notifier_call = msm_gem_shrinker_vmap;
+ 	WARN_ON(register_vmap_purge_notifier(&priv->vmap_notifier));
+@@ -232,8 +235,8 @@ void msm_gem_shrinker_cleanup(struct drm_device *dev)
+ {
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 
+-	if (priv->shrinker.nr_deferred) {
++	if (priv->shrinker->nr_deferred) {
+ 		WARN_ON(unregister_vmap_purge_notifier(&priv->vmap_notifier));
+-		unregister_shrinker(&priv->shrinker);
++		unregister_and_free_shrinker(priv->shrinker);
+ 	}
  }
- 
- static int virtballoon_probe(struct virtio_device *vdev)
 -- 
 2.30.2
 
