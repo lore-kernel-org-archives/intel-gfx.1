@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E4FFEB64D9
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09F4DEB64DD
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DB4310E311;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A206610E314;
 	Tue, 27 Jun 2023 14:38:38 +0000 (UTC)
-Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
- [IPv6:2607:f8b0:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D509810E501
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:54:51 +0000 (UTC)
-Received: by mail-pf1-x435.google.com with SMTP id
- d2e1a72fcca58-668842bc50dso866029b3a.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 01:54:51 -0700 (PDT)
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [IPv6:2607:f8b0:4864:20::635])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9817510E501
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:54:19 +0000 (UTC)
+Received: by mail-pl1-x635.google.com with SMTP id
+ d9443c01a7336-1b693afe799so2463765ad.1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 01:54:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytedance.com; s=google; t=1687424091; x=1690016091;
+ d=bytedance.com; s=google; t=1687424059; x=1690016059;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=161EjO+w9TmzA/a8qJytM8fXp/e7+Gx/R5PIlDH2uAk=;
- b=VsUY2aigV4ZcD/zqH6R6qf5YjeDjgcBdr5DWNiFL+xj8FWQJXfxqjN+JjtQQqPUTZU
- y/hvwjl2otPmZYcL1mDMWeSCzXx77cZKx3CoOlix2I89OTP/XqbmazxkdkRcxT8IoFUn
- 2QEonOktxP7xKSbe3Xt0JkWeJ0vXY7bYmU0ntULjSwRJaXbaN1TAoEufMFnqYH3EWbZ2
- epggxRJm4wrl127Vz5WoCbm7/HM2e7h8o7U+VP/mEnC0Icgf0KIm3PI/NPbIYz3ozq3C
- dpiJUcJ4yXe7UOxEIQJgQOohxTSbyOV1lnJIMgAbmswsZtfNIYimqUElkeBCjB3tvm0/
- 8Aig==
+ bh=4+KB+8A1a3nPwmndVeoDnF0UUBrNJStZPfOFWRboZRM=;
+ b=Sk9j4D1M64xyAQoy0v1SMiRRuiugSGVsgHhv7vYv9c3IikKaUFVDiFJczRjS+t8QJh
+ 8bRZCGyYvkRGHDm8uUJh3JrpsRJfZFHSfxrg783G1zZ8ag+Nrop0sZP8BnmbcU+0S25q
+ ZIKtGKgKPIH7cGpK2fHrvYtY9p82kt8TosN3NcpFb8CLbiW0zQyLzdahaQYLKutpL1Kb
+ iV83VCrLSsoe4tZLXCgr7bzLBi5xWr4Iu6AgSr+ApJLZMKUxhfto21PwHxkzor+s4sBV
+ FrT1a+LNzQzeAZGp0p/ozv8VRhpBFeAgfX/MFGdkWk3iK2t7SrfDgjAEjXYPkdmChJzo
+ lkUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687424091; x=1690016091;
+ d=1e100.net; s=20221208; t=1687424059; x=1690016059;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=161EjO+w9TmzA/a8qJytM8fXp/e7+Gx/R5PIlDH2uAk=;
- b=i5YGxxuStaibrVFiWt6bJ2g2tXGQCitCFRxkxxqOhCOPLQB9HnJ+JMY5h3VwL3U2xu
- qbGyC1AQtAeY7C+5jHzpJmHYAedUoRhhnSQ5huDclzZca0VGkISs62T3ygBda+95e1mY
- oE624mZQfdfbSz2B2yy8vmxplSwxY4ZjIiGrJFCy+79jEkrVBFeIRUyB+O81KqiDu4xu
- dbQWEK8crjw2cNddd7KeXqmXLOH44DjM2MVdxjmJgwPuue6kAzkfyXX1JFqBUwS9gCPC
- hm8nhw8YtCyGhLlqNDco8Bz/xyXnBGY05f8BMP90hKNTbMwykRTuYKatqCDTAvpXF7TC
- 6InA==
-X-Gm-Message-State: AC+VfDyBxWpXkKYHZxOdsz1aT6E1z9SF+h7YRJUksmVbAl7JDjXZdlF7
- jhHNkyXvRcxkatsalBornG7TEQ==
-X-Google-Smtp-Source: ACHHUZ6Zp8ahuhiEYJqMKGH6XvbaL5lpWamc0XC/4KRVYsGWUu1w4+GFAcXsiV5/9t8MrDqgvh99eg==
-X-Received: by 2002:a17:902:ea01:b0:1b3:e842:40a7 with SMTP id
- s1-20020a170902ea0100b001b3e84240a7mr20959635plg.1.1687424091188; 
- Thu, 22 Jun 2023 01:54:51 -0700 (PDT)
+ bh=4+KB+8A1a3nPwmndVeoDnF0UUBrNJStZPfOFWRboZRM=;
+ b=hTMtbGMT0Izw6/NrVd0uz+Leg1N/TCHjv3rlco8APctj/M5nah6jLsXk3XzFlkw0Nk
+ woBg5qcD12XrbPVcUZYv52AAH/3rNMZf+fU7O8my5bwmm7hiL6Z7FnaTFE1qx1SGldTJ
+ axCSxIVcOTDKT+hdCF83e0fWHWiOIIQOq46scunCyqJ9rno7/qf/OcrKscAb6nExuFpe
+ MYfYRPcrDZLbb1phgRNGA633Wsvnl8sxIeSu7Kf+zqrCNRoPQeGfLJ6UDcnHnoZFYLN3
+ lyNqvcnJFhwZFPvvZq+uAYpyzLWAEF6Ck1VlLMlML59cIOf/jTni7A6KhnSZr0vsyP5e
+ +8KA==
+X-Gm-Message-State: AC+VfDxIXUfnkkmUKaOSGUTOXn4RqiOhjXtyk3OeKtKyWgTYCopg451U
+ MOwrjBb9PZpw7pQJLJ51dFk9kw==
+X-Google-Smtp-Source: ACHHUZ4ysdKcTcW8I0NFLAt2c3adAhLn+VAaFg6uutJFhO8zbaZNgTMf0Qt9rlrj2Rh11Ffv9G+1Gw==
+X-Received: by 2002:a17:903:2451:b0:1b0:34c6:3bf2 with SMTP id
+ l17-20020a170903245100b001b034c63bf2mr21537674pls.5.1687424059079; 
+ Thu, 22 Jun 2023 01:54:19 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([139.177.225.254])
  by smtp.gmail.com with ESMTPSA id
- h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.54.43
+ h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.54.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jun 2023 01:54:50 -0700 (PDT)
+ Thu, 22 Jun 2023 01:54:18 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-Date: Thu, 22 Jun 2023 16:53:12 +0800
-Message-Id: <20230622085335.77010-7-zhengqi.arch@bytedance.com>
+Date: Thu, 22 Jun 2023 16:53:08 +0800
+Message-Id: <20230622085335.77010-3-zhengqi.arch@bytedance.com>
 X-Mailer: git-send-email 2.24.3 (Apple Git-128)
 In-Reply-To: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
 References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: [Intel-gfx] [PATCH 06/29] dm: dynamically allocate the dm-bufio
- shrinker
+Subject: [Intel-gfx] [PATCH 02/29] mm: vmscan: introduce some helpers for
+ dynamically allocating shrinker
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,88 +87,100 @@ Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In preparation for implementing lockless slab shrink,
-we need to dynamically allocate the dm-bufio shrinker,
-so that it can be freed asynchronously using kfree_rcu().
-Then it doesn't need to wait for RCU read-side critical
-section when releasing the struct dm_bufio_client.
+Introduce some helpers for dynamically allocating shrinker instance,
+and their uses are as follows:
+
+1. shrinker_alloc_and_init()
+
+Used to allocate and initialize a shrinker instance, the priv_data
+parameter is used to pass the pointer of the previously embedded
+structure of the shrinker instance.
+
+2. shrinker_free()
+
+Used to free the shrinker instance when the registration of shrinker
+fails.
+
+3. unregister_and_free_shrinker()
+
+Used to unregister and free the shrinker instance, and the kfree()
+will be changed to kfree_rcu() later.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- drivers/md/dm-bufio.c | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
+ include/linux/shrinker.h | 12 ++++++++++++
+ mm/vmscan.c              | 35 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 47 insertions(+)
 
-diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
-index eea977662e81..9472470d456d 100644
---- a/drivers/md/dm-bufio.c
-+++ b/drivers/md/dm-bufio.c
-@@ -963,7 +963,7 @@ struct dm_bufio_client {
+diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
+index 43e6fcabbf51..8e9ba6fa3fcc 100644
+--- a/include/linux/shrinker.h
++++ b/include/linux/shrinker.h
+@@ -107,6 +107,18 @@ extern void unregister_shrinker(struct shrinker *shrinker);
+ extern void free_prealloced_shrinker(struct shrinker *shrinker);
+ extern void synchronize_shrinkers(void);
  
- 	sector_t start;
- 
--	struct shrinker shrinker;
-+	struct shrinker *shrinker;
- 	struct work_struct shrink_work;
- 	atomic_long_t need_shrink;
- 
-@@ -2385,7 +2385,7 @@ static unsigned long dm_bufio_shrink_scan(struct shrinker *shrink, struct shrink
- {
- 	struct dm_bufio_client *c;
- 
--	c = container_of(shrink, struct dm_bufio_client, shrinker);
-+	c = shrink->private_data;
- 	atomic_long_add(sc->nr_to_scan, &c->need_shrink);
- 	queue_work(dm_bufio_wq, &c->shrink_work);
- 
-@@ -2394,7 +2394,7 @@ static unsigned long dm_bufio_shrink_scan(struct shrinker *shrink, struct shrink
- 
- static unsigned long dm_bufio_shrink_count(struct shrinker *shrink, struct shrink_control *sc)
- {
--	struct dm_bufio_client *c = container_of(shrink, struct dm_bufio_client, shrinker);
-+	struct dm_bufio_client *c = shrink->private_data;
- 	unsigned long count = cache_total(&c->cache);
- 	unsigned long retain_target = get_retain_buffers(c);
- 	unsigned long queued_for_cleanup = atomic_long_read(&c->need_shrink);
-@@ -2507,14 +2507,15 @@ struct dm_bufio_client *dm_bufio_client_create(struct block_device *bdev, unsign
- 	INIT_WORK(&c->shrink_work, shrink_work);
- 	atomic_long_set(&c->need_shrink, 0);
- 
--	c->shrinker.count_objects = dm_bufio_shrink_count;
--	c->shrinker.scan_objects = dm_bufio_shrink_scan;
--	c->shrinker.seeks = 1;
--	c->shrinker.batch = 0;
--	r = register_shrinker(&c->shrinker, "dm-bufio:(%u:%u)",
-+	c->shrinker = shrinker_alloc_and_init(dm_bufio_shrink_count,
-+					      dm_bufio_shrink_scan, 0, 1, 0, c);
-+	if (!c->shrinker)
-+		goto bad;
++typedef unsigned long (*count_objects_cb)(struct shrinker *s,
++					  struct shrink_control *sc);
++typedef unsigned long (*scan_objects_cb)(struct shrinker *s,
++					 struct shrink_control *sc);
 +
-+	r = register_shrinker(c->shrinker, "dm-bufio:(%u:%u)",
- 			      MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev));
- 	if (r)
--		goto bad;
-+		goto bad_shrinker;
++struct shrinker *shrinker_alloc_and_init(count_objects_cb count,
++					 scan_objects_cb scan, long batch,
++					 int seeks, unsigned flags,
++					 void *priv_data);
++void shrinker_free(struct shrinker *shrinker);
++void unregister_and_free_shrinker(struct shrinker *shrinker);
++
+ #ifdef CONFIG_SHRINKER_DEBUG
+ extern int shrinker_debugfs_add(struct shrinker *shrinker);
+ extern struct dentry *shrinker_debugfs_detach(struct shrinker *shrinker,
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 45d17c7cc555..64ff598fbad9 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -809,6 +809,41 @@ void unregister_shrinker(struct shrinker *shrinker)
+ }
+ EXPORT_SYMBOL(unregister_shrinker);
  
- 	mutex_lock(&dm_bufio_clients_lock);
- 	dm_bufio_client_count++;
-@@ -2524,6 +2525,8 @@ struct dm_bufio_client *dm_bufio_client_create(struct block_device *bdev, unsign
- 
- 	return c;
- 
-+bad_shrinker:
-+	shrinker_free(c->shrinker);
- bad:
- 	while (!list_empty(&c->reserved_buffers)) {
- 		struct dm_buffer *b = list_to_buffer(c->reserved_buffers.next);
-@@ -2554,7 +2557,7 @@ void dm_bufio_client_destroy(struct dm_bufio_client *c)
- 
- 	drop_buffers(c);
- 
--	unregister_shrinker(&c->shrinker);
-+	unregister_and_free_shrinker(c->shrinker);
- 	flush_work(&c->shrink_work);
- 
- 	mutex_lock(&dm_bufio_clients_lock);
++struct shrinker *shrinker_alloc_and_init(count_objects_cb count,
++					 scan_objects_cb scan, long batch,
++					 int seeks, unsigned flags,
++					 void *priv_data)
++{
++	struct shrinker *shrinker;
++
++	shrinker = kzalloc(sizeof(struct shrinker), GFP_KERNEL);
++	if (!shrinker)
++		return NULL;
++
++	shrinker->count_objects = count;
++	shrinker->scan_objects = scan;
++	shrinker->batch = batch;
++	shrinker->seeks = seeks;
++	shrinker->flags = flags;
++	shrinker->private_data = priv_data;
++
++	return shrinker;
++}
++EXPORT_SYMBOL(shrinker_alloc_and_init);
++
++void shrinker_free(struct shrinker *shrinker)
++{
++	kfree(shrinker);
++}
++EXPORT_SYMBOL(shrinker_free);
++
++void unregister_and_free_shrinker(struct shrinker *shrinker)
++{
++	unregister_shrinker(shrinker);
++	kfree(shrinker);
++}
++EXPORT_SYMBOL(unregister_and_free_shrinker);
++
+ /**
+  * synchronize_shrinkers - Wait for all running shrinkers to complete.
+  *
 -- 
 2.30.2
 
