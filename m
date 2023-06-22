@@ -4,54 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAFF5EB64D8
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 14:36:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45BF4EB64DA
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 14:48:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07B6810E57A;
-	Thu, 22 Jun 2023 14:36:26 +0000 (UTC)
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 706A110E039;
- Thu, 22 Jun 2023 14:36:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1687444583; x=1718980583;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=FA/5MjCEFzXtvpr658fdPTowSTrwjHH6yzPH+G8g3Fg=;
- b=HdPg4uC/oluNaqQ1q5XtKIwv1htqjV2oSQW+gyph0EnkyGLesLiiJLPY
- W/KsL5WyTgjo7pNnn0s0MvEQC6CywMQUXHGfN+llMHTuhnT2TETw1DFTt
- F++16lf7+zbJWcr2IhiJ0T2W5hBF3G3lgBc7pRP1oYgHuPG2S4dhgy+c3
- VlNNQ4PLBEKuAz+qCYPU7Um0efTZVlLP0PPM3+hG+NP/SmOGKZgmTsERj
- 3GwvSgRZ6o3rAsFNBjM+aCuspP9eC0OpVgEHndPMt2zid3rt5Vx3bs3Zr
- PTygNqEe2rb6qo3h978ybwI6rOd3KAboW1wIqXZrMOx1hzcRM9J1HwZV/ A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10749"; a="424182631"
-X-IronPort-AV: E=Sophos;i="6.01,149,1684825200"; d="scan'208";a="424182631"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2023 07:08:38 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10749"; a="859451650"
-X-IronPort-AV: E=Sophos;i="6.01,263,1684825200"; d="scan'208";a="859451650"
-Received: from shari19x-mobl1.gar.corp.intel.com (HELO [10.249.254.173])
- ([10.249.254.173])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2023 07:08:35 -0700
-Message-ID: <3a089ebb-7389-3d3e-beb0-13a8d64eb04d@linux.intel.com>
-Date: Thu, 22 Jun 2023 16:08:32 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9585410E574;
+	Thu, 22 Jun 2023 14:48:03 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 450C010E574;
+ Thu, 22 Jun 2023 14:48:01 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 22955229C0;
+ Thu, 22 Jun 2023 14:47:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1687445279; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+0hFI3xJ2OGZHWhdLSxnOFvnT5Y+IP+BBRNQel7RyVs=;
+ b=YraQJudJxxlhLJeEEEMxIUpfKYnVAv60cpmpHUQTGUBUh8t+ZXVmLjxm9M+1UGDbzHnQsz
+ y6MEklPR6hPtAV8L33jHrD9qnGqvcBlma7u4mxdi/4lNztRux4EuDbVLobNoZf1RBa/v9Z
+ PHfZlgjn/oBKddDSwkaKW1hcpThgEsQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1687445279;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+0hFI3xJ2OGZHWhdLSxnOFvnT5Y+IP+BBRNQel7RyVs=;
+ b=6XBRPNh3BjOoRZ1UijrujZWnxKxTKGitdF/zIOBj8hh8OwgFWdOjIPj2xpz1ePgJ9tQjeA
+ VaJVHD8gCvpB4lBA==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BA77013905;
+ Thu, 22 Jun 2023 14:47:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id awUvLB5flGSsIgAAMHmgww
+ (envelope-from <vbabka@suse.cz>); Thu, 22 Jun 2023 14:47:58 +0000
+Message-ID: <b04a0191-fa27-f8dc-440c-ec363d9c0636@suse.cz>
+Date: Thu, 22 Jun 2023 16:47:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.1
+ Thunderbird/102.12.0
 Content-Language: en-US
-To: Andi Shyti <andi.shyti@linux.intel.com>
-References: <20230622101412.78426-1-thomas.hellstrom@linux.intel.com>
- <20230622101412.78426-4-thomas.hellstrom@linux.intel.com>
- <ZJRSyp7fT6VXpow7@ashyti-mobl2.lan>
-From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>
-In-Reply-To: <ZJRSyp7fT6VXpow7@ashyti-mobl2.lan>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH 3/4] drm/ttm: Don't leak a resource on
- eviction error
+To: Qi Zheng <zhengqi.arch@bytedance.com>, akpm@linux-foundation.org,
+ david@fromorbit.com, tkhai@ya.ru, roman.gushchin@linux.dev,
+ djwong@kernel.org, brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
+References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
+ <20230622085335.77010-2-zhengqi.arch@bytedance.com>
+From: Vlastimil Babka <vbabka@suse.cz>
+In-Reply-To: <20230622085335.77010-2-zhengqi.arch@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH 01/29] mm: shrinker: add
+ shrinker::private_data field
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,101 +74,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
+ linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-btrfs@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On 6/22/23 10:53, Qi Zheng wrote:
+> To prepare for the dynamic allocation of shrinker instances
+> embedded in other structures, add a private_data field to
+> struct shrinker, so that we can use shrinker::private_data
+> to record and get the original embedded structure.
+> 
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 
-On 6/22/23 15:55, Andi Shyti wrote:
-> Hi Thomas,
->
-> On Thu, Jun 22, 2023 at 12:14:11PM +0200, Thomas Hellström wrote:
->> On eviction errors other than -EMULTIHOP we were leaking a resource.
->> Fix.
->>
->> Fixes: 403797925768 ("drm/ttm: Fix multihop assert on eviction.")
->> Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Christian Koenig <christian.koenig@amd.com>
->> Cc: Huang Rui <ray.huang@amd.com>
->> Cc: dri-devel@lists.freedesktop.org
->> Cc: <stable@vger.kernel.org> # v5.15+
->> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->> ---
->>   drivers/gpu/drm/ttm/ttm_bo.c | 16 ++++++++--------
->>   1 file changed, 8 insertions(+), 8 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
->> index 615d30c4262d..89530f2a027f 100644
->> --- a/drivers/gpu/drm/ttm/ttm_bo.c
->> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
->> @@ -462,14 +462,14 @@ static int ttm_bo_evict(struct ttm_buffer_object *bo,
->>   	ret = ttm_bo_handle_move_mem(bo, evict_mem, true, ctx, &hop);
->>   	if (ret == -EMULTIHOP) {
->>   		ret = ttm_bo_bounce_temp_buffer(bo, &evict_mem, ctx, &hop);
->> -		if (ret) {
->> -			if (ret != -ERESTARTSYS && ret != -EINTR)
->> -				pr_err("Buffer eviction failed\n");
->> -			ttm_resource_free(bo, &evict_mem);
->> -			goto out;
->> -		}
->> -		/* try and move to final place now. */
->> -		goto bounce;
->> +		if (!ret)
->> +			/* try and move to final place now. */
->> +			goto bounce;
-> As we are at this, can't we replace this with a while()? Goto's
-> used instead of a while loop are a fist in the eye...
+I would fold this to 02/29, less churn.
 
-I'm completely OK with that. this patch already did away with one of 
-them. Let's hear Christian's opinion first, though.
+> ---
+>  include/linux/shrinker.h | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
+> index 224293b2dd06..43e6fcabbf51 100644
+> --- a/include/linux/shrinker.h
+> +++ b/include/linux/shrinker.h
+> @@ -70,6 +70,8 @@ struct shrinker {
+>  	int seeks;	/* seeks to recreate an obj */
+>  	unsigned flags;
+>  
+> +	void *private_data;
+> +
+>  	/* These are for internal use */
+>  	struct list_head list;
+>  #ifdef CONFIG_MEMCG
 
-Thanks,
-
-Thomas
-
-
-
-
-
->
-> It looks even better:
->
-> 	while (1) {
-> 		ret = ttm_bo_handle_move_mem(bo, evict_mem, true, ctx, &hop);
-> 		if (!ret)
-> 			break;
->
-> 		if (ret == -EMULTIHOP)
-> 			ret = ttm_bo_bounce_temp_buffer(bo, &evict_mem,
-> 							ctx, &hop);
->
-> 		/* try again */
-> 		if (!ret)
-> 			continue;
->
-> 		ttm_resource_free(bo, &evict_mem);
-> 		if (ret != -ERESTARTSYS && ret != -EINTR)
-> 			pr_err("Buffer eviction failed\n");
->
-> 		break;
-> 	}
->
-> Andi
->
->> +	}
->> +	if (ret) {
->> +		ttm_resource_free(bo, &evict_mem);
->> +		if (ret != -ERESTARTSYS && ret != -EINTR)
->> +			pr_err("Buffer eviction failed\n");
->>   	}
->>   out:
->>   	return ret;
->> -- 
->> 2.40.1
