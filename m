@@ -4,70 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45ACBEB64DC
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:38:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76C68EB64D9
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:38:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BBAE10E2FF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C754F10E303;
 	Tue, 27 Jun 2023 14:38:35 +0000 (UTC)
-Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
- [IPv6:2607:f8b0:4864:20::1036])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C054310E12E
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jun 2023 12:49:16 +0000 (UTC)
-Received: by mail-pj1-x1036.google.com with SMTP id
- 98e67ed59e1d1-25eabe8b5fcso128677a91.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jun 2023 05:49:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytedance.com; s=google; t=1687524556; x=1690116556;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=N8pNNe3/2YXc1UbpwIO0yIQjjCMHlVzYoQIGO6mvjFk=;
- b=QGBZmpep2cOxIyWlosUFsMcpQ9kg5K87eUwaCkoJh4THNNRNLwHsme8TdeLzEMWIeP
- VdLJNjtWaWRTs1BgqyEhXBtiEVFykoOa991SQObW/BJT+zi5DexUk11xpe7roRZxmWon
- 2pGVoZYSHZZ/jcf4PvMYbIbG4+IvNv5UsypZ1n69fFVKkkIf9VFUIy36CCJ41i5gEjmj
- pEUDPSL4513Qlt5OfOQBEaAkajaH6+U57PEpyNffGcW5GRaJN9aybo3oePHHyCF2AmXB
- fAsbevik08duVzt2PX0xDdykhFrKiqCqdIA2Nyt6p8FSXga6r8QFK1BCiiTQLBdQZfhD
- b2Lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687524556; x=1690116556;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=N8pNNe3/2YXc1UbpwIO0yIQjjCMHlVzYoQIGO6mvjFk=;
- b=U38EtImqZ7KbbGaIcr7PvauXISDkBitBsy8hTJ1pHCGAzob8USVnZ9ULOSlNyoN7kg
- EBtU28nD8Tw1hHHnlZCZsEWYBOKLlCc61NJbdOEvgvqmq584/nD98t2u0z04zd0DRmcL
- EZmTKPKM8yTD/DnrQweWymJnyex3iM80glIRsM1e86J5/QI9QyigjGhJ9uOTB8whAyRX
- oBaewcf+jRyNhhm1f8RSfkqE++BQ5yyA02tCacxQjxf6VgXAI/k0BcxKieMav0VtJANA
- vP5KIpWa/DQGB+jMHDIfp3OEicbsq46nT3i+fzAZztb3EP6L7Cbf7vMTyCoXc6q10TIH
- fD7g==
-X-Gm-Message-State: AC+VfDyx/ktelSihbtvJZSeUmeCvgyAMxPPt8nqgcsJIuiIbfrd/fRJj
- HKRcgMrqnF4eV58JCL/NalgYGg==
-X-Google-Smtp-Source: ACHHUZ6eQKAAK+mFZK9b/rl5yBeScp7LGUAVTtY7Qwt+jrMMbGjG/tQ037wkOBUmA1P5xX8mDtOLpg==
-X-Received: by 2002:a17:90b:350f:b0:258:d367:63c with SMTP id
- ls15-20020a17090b350f00b00258d367063cmr24920553pjb.1.1687524555690; 
- Fri, 23 Jun 2023 05:49:15 -0700 (PDT)
-Received: from [10.4.168.167] ([139.177.225.254])
- by smtp.gmail.com with ESMTPSA id
- 30-20020a17090a001e00b0026135208e97sm1471795pja.19.2023.06.23.05.49.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Jun 2023 05:49:15 -0700 (PDT)
-Message-ID: <d8632edc-5021-4dc8-b75a-3995a710f196@bytedance.com>
-Date: Fri, 23 Jun 2023 20:49:05 +0800
+Received: from out-54.mta1.migadu.com (out-54.mta1.migadu.com
+ [IPv6:2001:41d0:203:375::36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7819B10E4FA
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:50:24 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1687423250;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+vImA33fZeTM1PYF4pdKNYjlIIB9YvJgFHxY2Yd6EgU=;
+ b=XJ2b/f93BCyHxcWaDsebGy2CDaVAa7CPWBXx4c1QEI5VZTDPyp/zp8+Tr/BVaJTW4wXOtq
+ IIZBnQdZZsns0g8Xv0V8GQsEaQgo1jYe7j36H8wsShDt9m5MKBHRcZes1lLxnY0D/KqSYq
+ hjrF1/l+OEZW9z9MquhsKQ9biy+7Xxo=
+From: Qi Zheng <qi.zheng@linux.dev>
+To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
+ vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
+ brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
+Date: Thu, 22 Jun 2023 08:39:10 +0000
+Message-Id: <20230622083932.4090339-8-qi.zheng@linux.dev>
+In-Reply-To: <20230622083932.4090339-1-qi.zheng@linux.dev>
+References: <20230622083932.4090339-1-qi.zheng@linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.12.0
-Content-Language: en-US
-To: Dave Chinner <david@fromorbit.com>
-References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
- <20230622085335.77010-3-zhengqi.arch@bytedance.com>
- <ZJU3s8tyGsYTVS8f@dread.disaster.area>
-From: Qi Zheng <zhengqi.arch@bytedance.com>
-In-Reply-To: <ZJU3s8tyGsYTVS8f@dread.disaster.area>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: Re: [Intel-gfx] [PATCH 02/29] mm: vmscan: introduce some helpers
- for dynamically allocating shrinker
+Subject: [Intel-gfx] [PATCH 07/29] dm zoned: dynamically allocate the
+ dm-zoned-meta shrinker
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,148 +51,107 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: djwong@kernel.org, roman.gushchin@linux.dev,
+Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-mm@kvack.org, dm-devel@redhat.com, linux-ext4@vger.kernel.org,
- paulmck@kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-nfs@vger.kernel.org,
- linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org, vbabka@suse.cz,
- brauner@kernel.org, tytso@mit.edu, linux-kernel@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- akpm@linux-foundation.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
+ linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
+ Qi Zheng <zhengqi.arch@bytedance.com>, linux-fsdevel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-btrfs@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave,
+From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-On 2023/6/23 14:12, Dave Chinner wrote:
-> On Thu, Jun 22, 2023 at 04:53:08PM +0800, Qi Zheng wrote:
->> Introduce some helpers for dynamically allocating shrinker instance,
->> and their uses are as follows:
->>
->> 1. shrinker_alloc_and_init()
->>
->> Used to allocate and initialize a shrinker instance, the priv_data
->> parameter is used to pass the pointer of the previously embedded
->> structure of the shrinker instance.
->>
->> 2. shrinker_free()
->>
->> Used to free the shrinker instance when the registration of shrinker
->> fails.
->>
->> 3. unregister_and_free_shrinker()
->>
->> Used to unregister and free the shrinker instance, and the kfree()
->> will be changed to kfree_rcu() later.
->>
->> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
->> ---
->>   include/linux/shrinker.h | 12 ++++++++++++
->>   mm/vmscan.c              | 35 +++++++++++++++++++++++++++++++++++
->>   2 files changed, 47 insertions(+)
->>
->> diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
->> index 43e6fcabbf51..8e9ba6fa3fcc 100644
->> --- a/include/linux/shrinker.h
->> +++ b/include/linux/shrinker.h
->> @@ -107,6 +107,18 @@ extern void unregister_shrinker(struct shrinker *shrinker);
->>   extern void free_prealloced_shrinker(struct shrinker *shrinker);
->>   extern void synchronize_shrinkers(void);
->>   
->> +typedef unsigned long (*count_objects_cb)(struct shrinker *s,
->> +					  struct shrink_control *sc);
->> +typedef unsigned long (*scan_objects_cb)(struct shrinker *s,
->> +					 struct shrink_control *sc);
->> +
->> +struct shrinker *shrinker_alloc_and_init(count_objects_cb count,
->> +					 scan_objects_cb scan, long batch,
->> +					 int seeks, unsigned flags,
->> +					 void *priv_data);
->> +void shrinker_free(struct shrinker *shrinker);
->> +void unregister_and_free_shrinker(struct shrinker *shrinker);
-> 
-> Hmmmm. Not exactly how I envisioned this to be done.
-> 
-> Ok, this will definitely work, but I don't think it is an
-> improvement. It's certainly not what I was thinking of when I
-> suggested dynamically allocating shrinkers.
-> 
-> The main issue is that this doesn't simplify the API - it expands it
-> and creates a minefield of old and new functions that have to be
-> used in exactly the right order for the right things to happen.
-> 
-> What I was thinking of was moving the entire shrinker setup code
-> over to the prealloc/register_prepared() algorithm, where the setup
-> is already separated from the activation of the shrinker.
-> 
-> That is, we start by renaming prealloc_shrinker() to
-> shrinker_alloc(), adding a flags field to tell it everything that it
-> needs to alloc (i.e. the NUMA/MEMCG_AWARE flags) and having it
-> returned a fully allocated shrinker ready to register. Initially
-> this also contains an internal flag to say the shrinker was
-> allocated so that unregister_shrinker() knows to free it.
-> 
-> The caller then fills out the shrinker functions, seeks, etc. just
-> like the do now, and then calls register_shrinker_prepared() to make
-> the shrinker active when it wants to turn it on.
-> 
-> When it is time to tear down the shrinker, no API needs to change.
-> unregister_shrinker() does all the shutdown and frees all the
-> internal memory like it does now. If the shrinker is also marked as
-> allocated, it frees the shrinker via RCU, too.
-> 
-> Once everything is converted to this API, we then remove
-> register_shrinker(), rename register_shrinker_prepared() to
-> shrinker_register(), rename unregister_shrinker to
-> shrinker_unregister(), get rid of the internal "allocated" flag
-> and always free the shrinker.
+In preparation for implementing lockless slab shrink,
+we need to dynamically allocate the dm-zoned-meta shrinker,
+so that it can be freed asynchronously using kfree_rcu().
+Then it doesn't need to wait for RCU read-side critical
+section when releasing the struct dmz_metadata.
 
-IIUC, you mean that we also need to convert the original statically
-defined shrinker instances to dynamically allocated.
+Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+---
+ drivers/md/dm-zoned-metadata.c | 25 ++++++++++++++++---------
+ 1 file changed, 16 insertions(+), 9 deletions(-)
 
-I think this is a good idea, it helps to simplify the APIs and also
-remove special handling for case a and b (mentioned in cover letter).
+diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
+index 9d3cca8e3dc9..41b10ffb968a 100644
+--- a/drivers/md/dm-zoned-metadata.c
++++ b/drivers/md/dm-zoned-metadata.c
+@@ -187,7 +187,7 @@ struct dmz_metadata {
+ 	struct rb_root		mblk_rbtree;
+ 	struct list_head	mblk_lru_list;
+ 	struct list_head	mblk_dirty_list;
+-	struct shrinker		mblk_shrinker;
++	struct shrinker		*mblk_shrinker;
+ 
+ 	/* Zone allocation management */
+ 	struct mutex		map_lock;
+@@ -615,7 +615,7 @@ static unsigned long dmz_shrink_mblock_cache(struct dmz_metadata *zmd,
+ static unsigned long dmz_mblock_shrinker_count(struct shrinker *shrink,
+ 					       struct shrink_control *sc)
+ {
+-	struct dmz_metadata *zmd = container_of(shrink, struct dmz_metadata, mblk_shrinker);
++	struct dmz_metadata *zmd = shrink->private_data;
+ 
+ 	return atomic_read(&zmd->nr_mblks);
+ }
+@@ -626,7 +626,7 @@ static unsigned long dmz_mblock_shrinker_count(struct shrinker *shrink,
+ static unsigned long dmz_mblock_shrinker_scan(struct shrinker *shrink,
+ 					      struct shrink_control *sc)
+ {
+-	struct dmz_metadata *zmd = container_of(shrink, struct dmz_metadata, mblk_shrinker);
++	struct dmz_metadata *zmd = shrink->private_data;
+ 	unsigned long count;
+ 
+ 	spin_lock(&zmd->mblk_lock);
+@@ -2936,17 +2936,22 @@ int dmz_ctr_metadata(struct dmz_dev *dev, int num_dev,
+ 	 */
+ 	zmd->min_nr_mblks = 2 + zmd->nr_map_blocks + zmd->zone_nr_bitmap_blocks * 16;
+ 	zmd->max_nr_mblks = zmd->min_nr_mblks + 512;
+-	zmd->mblk_shrinker.count_objects = dmz_mblock_shrinker_count;
+-	zmd->mblk_shrinker.scan_objects = dmz_mblock_shrinker_scan;
+-	zmd->mblk_shrinker.seeks = DEFAULT_SEEKS;
++
++	zmd->mblk_shrinker = shrinker_alloc_and_init(dmz_mblock_shrinker_count,
++						     dmz_mblock_shrinker_scan,
++						     0, DEFAULT_SEEKS, 0, zmd);
++	if (!zmd->mblk_shrinker) {
++		dmz_zmd_err(zmd, "allocate metadata cache shrinker failed");
++		goto err;
++	}
+ 
+ 	/* Metadata cache shrinker */
+-	ret = register_shrinker(&zmd->mblk_shrinker, "dm-zoned-meta:(%u:%u)",
++	ret = register_shrinker(zmd->mblk_shrinker, "dm-zoned-meta:(%u:%u)",
+ 				MAJOR(dev->bdev->bd_dev),
+ 				MINOR(dev->bdev->bd_dev));
+ 	if (ret) {
+ 		dmz_zmd_err(zmd, "Register metadata cache shrinker failed");
+-		goto err;
++		goto err_shrinker;
+ 	}
+ 
+ 	dmz_zmd_info(zmd, "DM-Zoned metadata version %d", zmd->sb_version);
+@@ -2982,6 +2987,8 @@ int dmz_ctr_metadata(struct dmz_dev *dev, int num_dev,
+ 	*metadata = zmd;
+ 
+ 	return 0;
++err_shrinker:
++	shrinker_free(zmd->mblk_shrinker);
+ err:
+ 	dmz_cleanup_metadata(zmd);
+ 	kfree(zmd);
+@@ -2995,7 +3002,7 @@ int dmz_ctr_metadata(struct dmz_dev *dev, int num_dev,
+  */
+ void dmz_dtr_metadata(struct dmz_metadata *zmd)
+ {
+-	unregister_shrinker(&zmd->mblk_shrinker);
++	unregister_and_free_shrinker(zmd->mblk_shrinker);
+ 	dmz_cleanup_metadata(zmd);
+ 	kfree(zmd);
+ }
+-- 
+2.30.2
 
-> 
-> At the end of the patchset, every shrinker should be set
-> up in a manner like this:
-> 
-> 
-> 	sb->shrinker = shrinker_alloc(SHRINKER_MEMCG_AWARE|SHRINKER_NUMA_AWARE,
-> 				"sb-%s", type->name);
-> 	if (!sb->shrinker)
-> 		return -ENOMEM;
-> 
-> 	sb->shrinker->count_objects = super_cache_count;
-> 	sb->shrinker->scan_objects = super_cache_scan;
-> 	sb->shrinker->batch = 1024;
-> 	sb->shrinker->private = sb;
-> 
-> 	.....
-> 
-> 	shrinker_register(sb->shrinker);
-> 
-> And teardown is just a call to shrinker_unregister(sb->shrinker)
-> as it is now.
-> 
-> i.e. the entire shrinker regsitration API is now just three
-> functions, down from the current four, and much simpler than the
-> the seven functions this patch set results in...
-> 
-> The other advantage of this is that it will break all the existing
-> out of tree code and third party modules using the old API and will
-> no longer work with a kernel using lockless slab shrinkers. They
-> need to break (both at the source and binary levels) to stop bad
-> things from happening due to using uncoverted shrinkers in the new
-> setup.
-
-Got it. And totally agree.
-
-I will do it in the v2.
-
-Thanks,
-Qi
-
-> 
-> -Dave.
