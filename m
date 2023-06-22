@@ -4,41 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82D2DEB64D9
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:38:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EA5DEB64DD
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8929710E30D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4DF910E30E;
 	Tue, 27 Jun 2023 14:38:37 +0000 (UTC)
-Received: from out-48.mta1.migadu.com (out-48.mta1.migadu.com
- [IPv6:2001:41d0:203:375::30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E3AD10E50D
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:50:24 +0000 (UTC)
+Received: from out-33.mta0.migadu.com (out-33.mta0.migadu.com [91.218.175.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44CB910E501
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:35:20 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1687423270;
+ t=1687422370;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=d+AM9AbU04XIkkoYvbopAzRmafCipQHXZK8a6yWOVaI=;
- b=Rt6sUHgDiz0buDFWoRsy0JmrKjzmMej9/+xDlubVaxRuAM1omPxRfGEiGbO/u++P6qT8OT
- vFU86inmnxKhzxlFlP/jNKu4tSE/qwVDpnPDU6KzPqJgVzjXg8XwfcJz0tLWWkfVol8igm
- J9AOSXjRae20nP2HluZSJpqMGnfJGyM=
+ bh=w53NcBmn/IPVgjrXh3hKsvtsk7tDad26SsdH585QToY=;
+ b=XwhMjboYkO1IjigA7jJUMcuvrlsYL6AEdKhP6EAdQek7nGl7SCwZP+s1KaXaDd0EbpkijC
+ WzHmsAAL7fH0Q68pqE9kbEs/wm6WDN8VuTFUTe+F4YIjoGCH/bDYiJlTs6zAXz5aY/DcIU
+ qOKI3csGnCUAw3UqbPNbuNVS2tXOJrg=
 From: Qi Zheng <qi.zheng@linux.dev>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-Date: Thu, 22 Jun 2023 08:39:13 +0000
-Message-Id: <20230622083932.4090339-11-qi.zheng@linux.dev>
-In-Reply-To: <20230622083932.4090339-1-qi.zheng@linux.dev>
-References: <20230622083932.4090339-1-qi.zheng@linux.dev>
+Date: Thu, 22 Jun 2023 08:24:26 +0000
+Message-Id: <20230622082454.4090236-2-qi.zheng@linux.dev>
+In-Reply-To: <20230622082454.4090236-1-qi.zheng@linux.dev>
+References: <20230622082454.4090236-1-qi.zheng@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: [Intel-gfx] [PATCH 10/29] vmw_balloon: dynamically allocate the
- vmw-balloon shrinker
+Subject: [Intel-gfx] [PATCH 01/29] mm: shrinker: add shrinker::private_data
+ field
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,75 +50,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+Cc: mst@redhat.com, neilb@suse.de, jasowang@redhat.com,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
- Qi Zheng <zhengqi.arch@bytedance.com>, linux-fsdevel@vger.kernel.org,
- linux-ext4@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-btrfs@vger.kernel.org
+ linux-mm@kvack.org, song@kernel.org, dm-devel@redhat.com, ray.huang@amd.com,
+ namit@vmware.com, marijn.suijten@somainline.org, airlied@gmail.com,
+ agk@redhat.com, robh@kernel.org, senozhatsky@chromium.org, david@redhat.com,
+ clm@fb.com, steven.price@arm.com, alyssa.rosenzweig@collabora.com,
+ Qi Zheng <zhengqi.arch@bytedance.com>, josef@toxicpanda.com,
+ linux-ext4@vger.kernel.org, kent.overstreet@gmail.com,
+ xuanzhuo@linux.alibaba.com, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, snitzer@kernel.org, quic_abhinavk@quicinc.com,
+ colyli@suse.de, linux-raid@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-bcache@vger.kernel.org, viro@zeniv.linux.org.uk, dsterba@suse.com,
+ linux-nfs@vger.kernel.org, tomeu.vizoso@collabora.com, kolga@netapp.com,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ linux-xfs@vger.kernel.org, minchan@kernel.org, chuck.lever@oracle.com,
+ daniel@ffwll.ch, jack@suse.com, dmitry.baryshkov@linaro.org,
+ adilger.kernel@dilger.ca, freedreno@lists.freedesktop.org,
+ christian.koenig@amd.com, linux-btrfs@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-In preparation for implementing lockless slab shrink,
-we need to dynamically allocate the vmw-balloon shrinker,
-so that it can be freed asynchronously using kfree_rcu().
-Then it doesn't need to wait for RCU read-side critical
-section when releasing the struct vmballoon.
+To prepare for the dynamic allocation of shrinker instances
+embedded in other structures, add a private_data field to
+struct shrinker, so that we can use shrinker::private_data
+to record and get the original embedded structure.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- drivers/misc/vmw_balloon.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ include/linux/shrinker.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/misc/vmw_balloon.c b/drivers/misc/vmw_balloon.c
-index 9ce9b9e0e9b6..2f86f666b476 100644
---- a/drivers/misc/vmw_balloon.c
-+++ b/drivers/misc/vmw_balloon.c
-@@ -380,7 +380,7 @@ struct vmballoon {
- 	/**
- 	 * @shrinker: shrinker interface that is used to avoid over-inflation.
- 	 */
--	struct shrinker shrinker;
-+	struct shrinker *shrinker;
+diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
+index 224293b2dd06..43e6fcabbf51 100644
+--- a/include/linux/shrinker.h
++++ b/include/linux/shrinker.h
+@@ -70,6 +70,8 @@ struct shrinker {
+ 	int seeks;	/* seeks to recreate an obj */
+ 	unsigned flags;
  
- 	/**
- 	 * @shrinker_registered: whether the shrinker was registered.
-@@ -1569,7 +1569,7 @@ static unsigned long vmballoon_shrinker_count(struct shrinker *shrinker,
- static void vmballoon_unregister_shrinker(struct vmballoon *b)
- {
- 	if (b->shrinker_registered)
--		unregister_shrinker(&b->shrinker);
-+		unregister_and_free_shrinker(b->shrinker);
- 	b->shrinker_registered = false;
- }
- 
-@@ -1581,14 +1581,18 @@ static int vmballoon_register_shrinker(struct vmballoon *b)
- 	if (!vmwballoon_shrinker_enable)
- 		return 0;
- 
--	b->shrinker.scan_objects = vmballoon_shrinker_scan;
--	b->shrinker.count_objects = vmballoon_shrinker_count;
--	b->shrinker.seeks = DEFAULT_SEEKS;
-+	b->shrinker = shrinker_alloc_and_init(vmballoon_shrinker_count,
-+					      vmballoon_shrinker_scan,
-+					      0, DEFAULT_SEEKS, 0, b);
-+	if (!b->shrinker)
-+		return -ENOMEM;
- 
--	r = register_shrinker(&b->shrinker, "vmw-balloon");
-+	r = register_shrinker(b->shrinker, "vmw-balloon");
- 
- 	if (r == 0)
- 		b->shrinker_registered = true;
-+	else
-+		shrinker_free(b->shrinker);
- 
- 	return r;
- }
++	void *private_data;
++
+ 	/* These are for internal use */
+ 	struct list_head list;
+ #ifdef CONFIG_MEMCG
 -- 
 2.30.2
 
