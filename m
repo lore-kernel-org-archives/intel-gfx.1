@@ -4,64 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 722F7EB64DD
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74558EB64DD
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88C6910E326;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F25D10E323;
 	Tue, 27 Jun 2023 14:38:40 +0000 (UTC)
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
- [IPv6:2607:f8b0:4864:20::32a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2336710E366;
- Thu, 22 Jun 2023 02:23:13 +0000 (UTC)
-Received: by mail-ot1-x32a.google.com with SMTP id
- 46e09a7af769-6b2f0a140b7so6064114a34.3; 
- Wed, 21 Jun 2023 19:23:13 -0700 (PDT)
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
+ [IPv6:2607:f8b0:4864:20::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DFB410E502
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:57:32 +0000 (UTC)
+Received: by mail-pl1-x631.google.com with SMTP id
+ d9443c01a7336-1b5585e84b4so6829485ad.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 01:57:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1687400593; x=1689992593;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=x2t5KAjltcM5MEsffCq+OvNauZAaIEtA44G2Tn8lRMA=;
- b=hs0Gq/uSBcccPWXW2uHShGyCbqTNr5lfgn2C+U7Rgn8MSxTAzH66a7FsgwXqDZCzKx
- FhnThtX55MCK6kQ4g1uIudOlgfLfkj69AajOWTpDRaGaLDLwiD6A61yremIxMUDsKRR9
- 0/k9tUY23sOJ2g2FvehpRA5K2CZwBBdM1bF5cS8Q/gisW4jBZbXyeHOdt9kWp4IT/4Bz
- clIoY7qINaNC3C/5QfctLh1Gg4lJzvGY6/7OfnEd17Wk4OLW4oHKXVzFYtolMQCq5xRp
- tOzmlvPucCheWyY6VoY8G1njAqNdc7Uv0YnrsnZN7SsCSGL5ncfnK1cHhY4Nk7dssOcP
- dAhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687400593; x=1689992593;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ d=bytedance.com; s=google; t=1687424252; x=1690016252;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=x2t5KAjltcM5MEsffCq+OvNauZAaIEtA44G2Tn8lRMA=;
- b=CWFeoruQLFxFMbaBMTASJ/UmEe6CE0JFkbnT3rJaVKVskTNekI2WgMKN7Cv3AQ88pV
- ty/ihG1u2D8wUku5lRKFauhSLCQI5aXzSazr6w+Ix666Qd/qLnOLYcezsajAoATfi4oS
- hgxRlV/IPo3sSBHvbePgPjnXCv7eI2VJ0LooqbSItPdZuZJLgWtfPajxae4HLusKPN/1
- KZvxLJSqVG6k53csZRm6iKkLYacWzJh/Sxgl6THAOgv5NMpqGOl3CXY2DXn9cV0vQzo9
- edAZogcojmWxT+LmrKAiym4wcIrcBOLo0U+6Bh35Zrf9Ki9f5Fu011nySmx970V/43bi
- RwqQ==
-X-Gm-Message-State: AC+VfDzwbHOivxpgtf/bNj7dy2IPxWYHOIUhn3msVcXpJotP3iKI1kw/
- 232WpnOSIcDwbKtixMBAvJQ=
-X-Google-Smtp-Source: ACHHUZ5xuQ0EpTo0pYQIl7XVvUVKkvpc4PnJ+XIFTlvdeUeiV51ju2NbVBXzB5xo/V1YXS//k+hFVQ==
-X-Received: by 2002:a05:6830:1d5a:b0:6b5:8762:cf6c with SMTP id
- p26-20020a0568301d5a00b006b58762cf6cmr8876245oth.34.1687400592706; 
- Wed, 21 Jun 2023 19:23:12 -0700 (PDT)
-Received: from localhost ([216.228.127.131]) by smtp.gmail.com with ESMTPSA id
- g13-20020a63e60d000000b005307501cfe4sm3718043pgh.44.2023.06.21.19.23.11
+ bh=YpqAnPCFjvBxCUJyQNRij7IdVYJH6Jib7EICYqtSs4Q=;
+ b=I9WP6mv1rDRCGtgaLzA9lhBXeFPAHaj8y0iyY2DOjVEWCsT2F7nfNJVwyIikm+kMao
+ zO6QJGdxbeP+Xd2yLUuD3B5OfZQRm3B4q5mm2BLvCFNnuFgYbDreBXTpY911jw5PjLjw
+ 5qBcX7//daeu9fw2bM5v9uWJQ3Yj963JAAdMROcF9Ug6KJW+BwPKjtr4qnEx+svXyNj4
+ WQtBJXjBe1rX51UFB2Mb+BbnprNNOvKWLYHk9IXF69UQEETABYtrhl0ZHyku4x/+376s
+ ovmIBUSgYXrVJUG8L2WcJE6QBBiCJCq44tzgQbbUxJYU3EpXiLR3t2TzR3wvfdUTA7wG
+ r7SA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687424252; x=1690016252;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=YpqAnPCFjvBxCUJyQNRij7IdVYJH6Jib7EICYqtSs4Q=;
+ b=PhtmX75N3CRYPUvp5+A9U4D1IyfYVpIrMq9W3g7UehjBNbcjbozbZHAvVUSPavck/o
+ 4jjVO5DBFWLPqg/BapmTkMxauMMGoL+odDFwB270UizCCLsHCFCh/eaDPPmyBQrJyYFn
+ Ga4O1vepwE2N6sllrH0PyfRwDmXXYg0XybYsMvt81997tEBAO5nD6JTdoGPIk6uamtr1
+ 4Wqf/K/aZ8AFRhd1iEutRWDGMvqB7zOF+9IODbmb8Zvj5OcMwMScfBH7+6VhrcRhCyIA
+ NcneI0wqD4OT/HNs4deJxocxEzIBc857o2HBtuCc+jL7OgLWXP02bIodMudNhf9ejm6z
+ 2twA==
+X-Gm-Message-State: AC+VfDzNzv7BS5TZj+7nxBGr2sVkF7ylGQVRf3dvPIkjy9HAQbYr1xbW
+ 9l6JdUindM4VDXa7ZfWb9kNRCw==
+X-Google-Smtp-Source: ACHHUZ6FoF5W+f0N2ZUpFBUVBh1vs3Mj6G9dcM80ve0PhcTP+4niqZQRBrFmYJGvwbhs9MGB3E6MuA==
+X-Received: by 2002:a17:903:32c4:b0:1b3:e352:6d88 with SMTP id
+ i4-20020a17090332c400b001b3e3526d88mr21673124plr.6.1687424251794; 
+ Thu, 22 Jun 2023 01:57:31 -0700 (PDT)
+Received: from C02DW0BEMD6R.bytedance.net ([139.177.225.254])
+ by smtp.gmail.com with ESMTPSA id
+ h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.57.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Jun 2023 19:23:12 -0700 (PDT)
-Date: Wed, 21 Jun 2023 19:20:59 -0700
-From: Yury Norov <yury.norov@gmail.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-Message-ID: <ZJOwC5LIEySpduQJ@yury-ThinkPad>
-References: <20230509051403.2748545-1-lucas.demarchi@intel.com>
- <20230509051403.2748545-3-lucas.demarchi@intel.com>
+ Thu, 22 Jun 2023 01:57:31 -0700 (PDT)
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
+ vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
+ brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
+Date: Thu, 22 Jun 2023 16:53:32 +0800
+Message-Id: <20230622085335.77010-27-zhengqi.arch@bytedance.com>
+X-Mailer: git-send-email 2.24.3 (Apple Git-128)
+In-Reply-To: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
+References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230509051403.2748545-3-lucas.demarchi@intel.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: Re: [Intel-gfx] [PATCH 2/3] linux/bits.h: Add fixed-width GENMASK
- and BIT macros
+Subject: [Intel-gfx] [PATCH 26/29] mm: shrinker: make count and scan in
+ shrinker debugfs lockless
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,187 +77,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrew Morton <akpm@linux-foundation.org>, intel-gfx@lists.freedesktop.org,
- Kevin Brodsky <kevin.brodsky@arm.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Masahiro Yamada <masahiroy@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, Thomas Gleixner <tglx@linutronix.de>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- intel-xe@lists.freedesktop.org
+Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
+ Qi Zheng <zhengqi.arch@bytedance.com>, linux-fsdevel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-btrfs@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Lucas, all!
+Like global and memcg slab shrink, also make count and scan
+operations in memory shrinker debugfs lockless.
 
-(Thanks, Andy, for pointing to this thread.)
+The debugfs_remove_recursive() will wait for debugfs_file_put()
+to return, so there is no need to call rcu_read_lock() before
+calling shrinker_try_get().
 
-On Mon, May 08, 2023 at 10:14:02PM -0700, Lucas De Marchi wrote:
-> Add GENMASK_U32(), GENMASK_U16() and GENMASK_U8()  macros to create
-> masks for fixed-width types and also the corresponding BIT_U32(),
-> BIT_U16() and BIT_U8().
-
-Can you split BIT() and GENMASK() material to separate patches?
-
-> All of those depend on a new "U" suffix added to the integer constant.
-> Due to naming clashes it's better to call the macro U32. Since C doesn't
-> have a proper suffix for short and char types, the U16 and U18 variants
-> just use U32 with one additional check in the BIT_* macros to make
-> sure the compiler gives an error when the those types overflow.
-
-I feel like I don't understand the sentence...
-
-> The BIT_U16() and BIT_U8() need the help of GENMASK_INPUT_CHECK(),
-> as otherwise they would allow an invalid bit to be passed. Hence
-> implement them in include/linux/bits.h rather than together with
-> the other BIT* variants.
-
-I don't think it's a good way to go because BIT() belongs to a more basic
-level than GENMASK(). Not mentioning possible header dependency issues.
-If you need to test against tighter numeric region, I'd suggest to
-do the same trick as  GENMASK_INPUT_CHECK() does, but in uapi/linux/const.h
-directly. Something like:
-        #define _U8(x)		(CONST_GT(U8_MAX, x) + _AC(x, U))
-
-> The following test file is is used to test this:
-> 
-> 	$ cat mask.c
-> 	#include <linux/types.h>
-> 	#include <linux/bits.h>
-> 
-> 	static const u32 a = GENMASK_U32(31, 0);
-> 	static const u16 b = GENMASK_U16(15, 0);
-> 	static const u8 c = GENMASK_U8(7, 0);
-> 	static const u32 x = BIT_U32(31);
-> 	static const u16 y = BIT_U16(15);
-> 	static const u8 z = BIT_U8(7);
-> 
-> 	#if FAIL
-> 	static const u32 a2 = GENMASK_U32(32, 0);
-> 	static const u16 b2 = GENMASK_U16(16, 0);
-> 	static const u8 c2 = GENMASK_U8(8, 0);
-> 	static const u32 x2 = BIT_U32(32);
-> 	static const u16 y2 = BIT_U16(16);
-> 	static const u8 z2 = BIT_U8(8);
-> 	#endif
-> 
-> Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-> ---
->  include/linux/bits.h       | 22 ++++++++++++++++++++++
->  include/uapi/linux/const.h |  2 ++
->  include/vdso/const.h       |  1 +
->  3 files changed, 25 insertions(+)
-> 
-> diff --git a/include/linux/bits.h b/include/linux/bits.h
-> index 7c0cf5031abe..ff4786c99b8c 100644
-> --- a/include/linux/bits.h
-> +++ b/include/linux/bits.h
-> @@ -42,4 +42,26 @@
->  #define GENMASK_ULL(h, l) \
->  	(GENMASK_INPUT_CHECK(h, l) + __GENMASK_ULL(h, l))
->  
-> +#define __GENMASK_U32(h, l) \
-> +	(((~U32(0)) - (U32(1) << (l)) + 1) & \
-> +	 (~U32(0) >> (32 - 1 - (h))))
-> +#define GENMASK_U32(h, l) \
-> +	(GENMASK_INPUT_CHECK(h, l) + __GENMASK_U32(h, l))
-> +
-> +#define __GENMASK_U16(h, l) \
-> +	((U32(0xffff) - (U32(1) << (l)) + 1) & \
-> +	 (U32(0xffff) >> (16 - 1 - (h))))
-> +#define GENMASK_U16(h, l) \
-> +	(GENMASK_INPUT_CHECK(h, l) + __GENMASK_U16(h, l))
-> +
-> +#define __GENMASK_U8(h, l) \
-> +	(((U32(0xff)) - (U32(1) << (l)) + 1) & \
-> +	 (U32(0xff) >> (8 - 1 - (h))))
-> +#define GENMASK_U8(h, l) \
-> +	(GENMASK_INPUT_CHECK(h, l) + __GENMASK_U8(h, l))
-
-[...]
-
-I see nothing wrong with fixed-wight versions of GENMASK if it helps
-people to write safer code. Can you please in commit message mention
-the exact patch(es) that added a bug related to GENMASK() misuse? It
-would be easier to advocate the purpose of new API with that in mind.
-
-Regarding implementation - we should avoid copy-pasting in cases
-like this. Below is the patch that I boot-tested for x86_64 and
-compile-tested for arm64.
-
-It looks less opencoded, and maybe Andy will be less skeptical about
-this approach because of less maintenance burden. Please take it if
-you like for v2.
-
-Thanks,
-Yury
-
-From 39c5b35075df67e7d88644470ca78a3486367c02 Mon Sep 17 00:00:00 2001
-From: Yury Norov <yury.norov@gmail.com>
-Date: Wed, 21 Jun 2023 15:27:29 -0700
-Subject: [PATCH] bits: introduce fixed-type genmasks
-
-Generalize __GENMASK() to support different types, and implement
-fixed-types versions of GENMASK() based on it.
-
-Signed-off-by: Yury Norov <yury.norov@gmail.com>
+Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- include/linux/bitops.h |  1 -
- include/linux/bits.h   | 22 ++++++++++++----------
- 2 files changed, 12 insertions(+), 11 deletions(-)
+ mm/shrinker_debug.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/include/linux/bitops.h b/include/linux/bitops.h
-index 2ba557e067fe..1db50c69cfdb 100644
---- a/include/linux/bitops.h
-+++ b/include/linux/bitops.h
-@@ -15,7 +15,6 @@
- #  define aligned_byte_mask(n) (~0xffUL << (BITS_PER_LONG - 8 - 8*(n)))
- #endif
+diff --git a/mm/shrinker_debug.c b/mm/shrinker_debug.c
+index 3ab53fad8876..c18fa9b6b7f0 100644
+--- a/mm/shrinker_debug.c
++++ b/mm/shrinker_debug.c
+@@ -55,8 +55,8 @@ static int shrinker_debugfs_count_show(struct seq_file *m, void *v)
+ 	if (!count_per_node)
+ 		return -ENOMEM;
  
--#define BITS_PER_TYPE(type)	(sizeof(type) * BITS_PER_BYTE)
- #define BITS_TO_LONGS(nr)	__KERNEL_DIV_ROUND_UP(nr, BITS_PER_TYPE(long))
- #define BITS_TO_U64(nr)		__KERNEL_DIV_ROUND_UP(nr, BITS_PER_TYPE(u64))
- #define BITS_TO_U32(nr)		__KERNEL_DIV_ROUND_UP(nr, BITS_PER_TYPE(u32))
-diff --git a/include/linux/bits.h b/include/linux/bits.h
-index 7c0cf5031abe..cb94128171b2 100644
---- a/include/linux/bits.h
-+++ b/include/linux/bits.h
-@@ -6,6 +6,8 @@
- #include <vdso/bits.h>
- #include <asm/bitsperlong.h>
+-	ret = down_read_killable(&shrinker_rwsem);
+-	if (ret) {
++	ret = shrinker_try_get(shrinker);
++	if (!ret) {
+ 		kfree(count_per_node);
+ 		return ret;
+ 	}
+@@ -92,7 +92,7 @@ static int shrinker_debugfs_count_show(struct seq_file *m, void *v)
+ 	} while ((memcg = mem_cgroup_iter(NULL, memcg, NULL)) != NULL);
  
-+#define BITS_PER_TYPE(type)	(sizeof(type) * BITS_PER_BYTE)
-+
- #define BIT_MASK(nr)		(UL(1) << ((nr) % BITS_PER_LONG))
- #define BIT_WORD(nr)		((nr) / BITS_PER_LONG)
- #define BIT_ULL_MASK(nr)	(ULL(1) << ((nr) % BITS_PER_LONG_LONG))
-@@ -30,16 +32,16 @@
- #define GENMASK_INPUT_CHECK(h, l) 0
- #endif
+ 	rcu_read_unlock();
+-	up_read(&shrinker_rwsem);
++	shrinker_put(shrinker);
  
--#define __GENMASK(h, l) \
--	(((~UL(0)) - (UL(1) << (l)) + 1) & \
--	 (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
--#define GENMASK(h, l) \
--	(GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-+#define __GENMASK(t, h, l) \
-+	(GENMASK_INPUT_CHECK(h, l) + \
-+	 (((t)~0ULL - ((t)(1) << (l)) + 1) & \
-+	 ((t)~0ULL >> (BITS_PER_TYPE(t) - 1 - (h)))))
+ 	kfree(count_per_node);
+ 	return ret;
+@@ -146,8 +146,8 @@ static ssize_t shrinker_debugfs_scan_write(struct file *file,
+ 		return -EINVAL;
+ 	}
  
--#define __GENMASK_ULL(h, l) \
--	(((~ULL(0)) - (ULL(1) << (l)) + 1) & \
--	 (~ULL(0) >> (BITS_PER_LONG_LONG - 1 - (h))))
--#define GENMASK_ULL(h, l) \
--	(GENMASK_INPUT_CHECK(h, l) + __GENMASK_ULL(h, l))
-+#define GENMASK(h, l)		__GENMASK(unsigned long,  h, l)
-+#define GENMASK_ULL(h, l)	__GENMASK(unsigned long long, h, l)
-+#define GENMASK_U8(h, l)	__GENMASK(u8,  h, l)
-+#define GENMASK_U16(h, l)	__GENMASK(u16, h, l)
-+#define GENMASK_U32(h, l)	__GENMASK(u32, h, l)
-+#define GENMASK_U64(h, l)	__GENMASK(u64, h, l)
+-	ret = down_read_killable(&shrinker_rwsem);
+-	if (ret) {
++	ret = shrinker_try_get(shrinker);
++	if (!ret) {
+ 		mem_cgroup_put(memcg);
+ 		return ret;
+ 	}
+@@ -159,7 +159,7 @@ static ssize_t shrinker_debugfs_scan_write(struct file *file,
  
- #endif	/* __LINUX_BITS_H */
+ 	shrinker->scan_objects(shrinker, &sc);
+ 
+-	up_read(&shrinker_rwsem);
++	shrinker_put(shrinker);
+ 	mem_cgroup_put(memcg);
+ 
+ 	return size;
 -- 
-2.39.2
+2.30.2
 
