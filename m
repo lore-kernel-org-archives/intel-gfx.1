@@ -4,57 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96FDEEB64D8
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 17:09:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A3FDEB64D8
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jun 2023 17:21:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDAB910E593;
-	Thu, 22 Jun 2023 17:08:54 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77ADA10E01F;
- Thu, 22 Jun 2023 17:08:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1687453731; x=1718989731;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Cf+dpIYfAbSBeiWlETELLtCHHrcSgMWgIRdJXuiqLaE=;
- b=nicibwG0x6SZ68yxH1a7avLcbIeR/E51LExxCtTg5xQdUlbc5sL4zESY
- HNUmxOhz0qgn6EIpkeo+VFpZr2LkNO80+6uyIE5pfvUhwY9nhT5UpeX4n
- HWGSCQBLhMX+CTDFeI1VGHQTpgnGoIZGlXUrOYHwUBlMFBDr8imb4PYnj
- h8g7cX3DIY0sP52xoIOTkupkaGbfG/HTFpIDXozhTRHHBeVMI5GDTtc/p
- implGM17DHq+FHz6v1kUnMYd+A08Mi5Mq5Q0Ph3iilKw2CE/o8lKapCrr
- WjDbxmoYih6lkVT/oqGpNTOUMHj5rQHF/K3phBOqg9TPyzT7wnUu7rwTe Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10749"; a="363104862"
-X-IronPort-AV: E=Sophos;i="6.01,149,1684825200"; d="scan'208";a="363104862"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2023 10:04:06 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10749"; a="1045277900"
-X-IronPort-AV: E=Sophos;i="6.01,149,1684825200"; d="scan'208";a="1045277900"
-Received: from shari19x-mobl1.gar.corp.intel.com (HELO [10.249.254.173])
- ([10.249.254.173])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jun 2023 10:03:59 -0700
-Message-ID: <ef5d91b8-c68b-5edc-d611-6a4dbf55c945@linux.intel.com>
-Date: Thu, 22 Jun 2023 19:03:56 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB8DD10E593;
+	Thu, 22 Jun 2023 17:21:17 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 96A0D10E593;
+ Thu, 22 Jun 2023 17:21:15 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 82471A0169;
+ Thu, 22 Jun 2023 17:21:15 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.1
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Andi Shyti <andi.shyti@linux.intel.com>
-References: <20230622101412.78426-1-thomas.hellstrom@linux.intel.com>
- <20230622101412.78426-4-thomas.hellstrom@linux.intel.com>
- <ZJRSyp7fT6VXpow7@ashyti-mobl2.lan>
- <3a089ebb-7389-3d3e-beb0-13a8d64eb04d@linux.intel.com>
- <196a7f74-66ac-1eae-4795-a42691f4793e@amd.com>
-From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m?= <thomas.hellstrom@linux.intel.com>
-In-Reply-To: <196a7f74-66ac-1eae-4795-a42691f4793e@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Intel-gfx] [PATCH 3/4] drm/ttm: Don't leak a resource on
- eviction error
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Imre Deak" <imre.deak@intel.com>
+Date: Thu, 22 Jun 2023 17:21:15 -0000
+Message-ID: <168745447552.4870.6933496809490555076@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230616185104.2502003-1-imre.deak@intel.com>
+In-Reply-To: <20230616185104.2502003-1-imre.deak@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5B1/4=5D_drm/i915=3A_Add_missing_forw?=
+ =?utf-8?q?ard_declarations/includes_to_display_power_headers_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,130 +41,28 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+== Series Details ==
 
-On 6/22/23 16:48, Christian König wrote:
->
->
-> Am 22.06.23 um 16:08 schrieb Thomas Hellström:
->>
->> On 6/22/23 15:55, Andi Shyti wrote:
->>> Hi Thomas,
->>>
->>> On Thu, Jun 22, 2023 at 12:14:11PM +0200, Thomas Hellström wrote:
->>>> On eviction errors other than -EMULTIHOP we were leaking a resource.
->>>> Fix.
->>>>
->>>> Fixes: 403797925768 ("drm/ttm: Fix multihop assert on eviction.")
->>>> Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
->>>> Cc: Christian König <christian.koenig@amd.com>
->>>> Cc: Christian Koenig <christian.koenig@amd.com>
->>>> Cc: Huang Rui <ray.huang@amd.com>
->>>> Cc: dri-devel@lists.freedesktop.org
->>>> Cc: <stable@vger.kernel.org> # v5.15+
->>>> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->>>> ---
->>>>   drivers/gpu/drm/ttm/ttm_bo.c | 16 ++++++++--------
->>>>   1 file changed, 8 insertions(+), 8 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c 
->>>> b/drivers/gpu/drm/ttm/ttm_bo.c
->>>> index 615d30c4262d..89530f2a027f 100644
->>>> --- a/drivers/gpu/drm/ttm/ttm_bo.c
->>>> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
->>>> @@ -462,14 +462,14 @@ static int ttm_bo_evict(struct 
->>>> ttm_buffer_object *bo,
->>>>       ret = ttm_bo_handle_move_mem(bo, evict_mem, true, ctx, &hop);
->>>>       if (ret == -EMULTIHOP) {
->>>>           ret = ttm_bo_bounce_temp_buffer(bo, &evict_mem, ctx, &hop);
->>>> -        if (ret) {
->>>> -            if (ret != -ERESTARTSYS && ret != -EINTR)
->>>> -                pr_err("Buffer eviction failed\n");
->>>> -            ttm_resource_free(bo, &evict_mem);
->>>> -            goto out;
->>>> -        }
->>>> -        /* try and move to final place now. */
->>>> -        goto bounce;
->>>> +        if (!ret)
->>>> +            /* try and move to final place now. */
->>>> +            goto bounce;
->>> As we are at this, can't we replace this with a while()? Goto's
->>> used instead of a while loop are a fist in the eye...
->>
->> I'm completely OK with that. this patch already did away with one of 
->> them. Let's hear Christian's opinion first, though.
->
-> I'm not a fan of that goto either, but could we somehow avoid the 
-> while(1) ? E.g. something like do { } while (!ret) after handling the 
-> multihop?
+Series: series starting with [1/4] drm/i915: Add missing forward declarations/includes to display power headers (rev2)
+URL   : https://patchwork.freedesktop.org/series/119480/
+State : warning
 
-I think the construct that makes it most obvious what's happening, 
-although it needs two tests for -EMULTIHOP is something like
+== Summary ==
 
-do {
-....
-    if (ret != -EMULTIHOP)
-       break;
-    ....
-} while (ret ==-EMULTIHOP);
+Error: dim checkpatch failed
+5ccc66939606 drm/i915: Add missing forward declarations/includes to display power headers
+-:13: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#13: 
+declared inside parameter list will not be visible outside of this definition or declaration [-Werror]
 
-Will be out tomorrow, though, so I don't have time to respin before Monday.
-
-/Thomas
+total: 0 errors, 1 warnings, 0 checks, 24 lines checked
+ebc86a34d481 drm/i915: Remove redundant forward declarations from display power headers
+9c4f62e76330 drm/i915: Add way to specify the power-off delay of a display power domain
+02c2d3bd104b drm/i915: Prevent needless toggling of DC states during modesets
 
 
->
-> Christian.
->
->>
->> Thanks,
->>
->> Thomas
->>
->>
->>
->>
->>
->>>
->>> It looks even better:
->>>
->>>     while (1) {
->>>         ret = ttm_bo_handle_move_mem(bo, evict_mem, true, ctx, &hop);
->>>         if (!ret)
->>>             break;
->>>
->>>         if (ret == -EMULTIHOP)
->>>             ret = ttm_bo_bounce_temp_buffer(bo, &evict_mem,
->>>                             ctx, &hop);
->>>
->>>         /* try again */
->>>         if (!ret)
->>>             continue;
->>>
->>>         ttm_resource_free(bo, &evict_mem);
->>>         if (ret != -ERESTARTSYS && ret != -EINTR)
->>>             pr_err("Buffer eviction failed\n");
->>>
->>>         break;
->>>     }
->>>
->>> Andi
->>>
->>>> +    }
->>>> +    if (ret) {
->>>> +        ttm_resource_free(bo, &evict_mem);
->>>> +        if (ret != -ERESTARTSYS && ret != -EINTR)
->>>> +            pr_err("Buffer eviction failed\n");
->>>>       }
->>>>   out:
->>>>       return ret;
->>>> -- 
->>>> 2.40.1
->
