@@ -4,66 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B0A3C001B0
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:38:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45ACBEB64DC
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:38:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8269010E301;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BBAE10E2FF;
 	Tue, 27 Jun 2023 14:38:35 +0000 (UTC)
-Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
- [IPv6:2607:f8b0:4864:20::634])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 946E210E577;
- Thu, 22 Jun 2023 15:01:19 +0000 (UTC)
-Received: by mail-pl1-x634.google.com with SMTP id
- d9443c01a7336-1b4fef08cfdso39459355ad.1; 
- Thu, 22 Jun 2023 08:01:19 -0700 (PDT)
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com
+ [IPv6:2607:f8b0:4864:20::1036])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C054310E12E
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jun 2023 12:49:16 +0000 (UTC)
+Received: by mail-pj1-x1036.google.com with SMTP id
+ 98e67ed59e1d1-25eabe8b5fcso128677a91.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jun 2023 05:49:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1687446079; x=1690038079;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=rRdkBzWvxfxb0w3VbAj/JjLYqdb5vKvNBOzrMjbvnZ4=;
- b=R/z8invRF3TFjDD5ZndbOtRxmhsqjYybp/CiyK7JWC4Fet52AywMb/9DklgK+EzcFM
- GZX1r2D35pYTtFshs5Iiyad4K8tZmvsRjkesTz5gOb01qU+7scWRXEqyr+TjsoSisMh7
- O0UQodu1lH5F2Xx3h1NZmd+n/SPriz5HOn/uZvsN+DYNVYn/YDEoteOSNilo5hmywMfA
- qwxhVDNrVNbI3se6guRRXDutEmkLoup1n4+VD7fuEjfP28esDW4VEfUKuYD3KzEyKips
- kMG+ezU3TY98nzCb8uKqe9QLp0CiWU2VFncTAKzFvJUna7k6H37qj2DKpFkq5R8zZ2Ml
- YNbw==
+ d=bytedance.com; s=google; t=1687524556; x=1690116556;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=N8pNNe3/2YXc1UbpwIO0yIQjjCMHlVzYoQIGO6mvjFk=;
+ b=QGBZmpep2cOxIyWlosUFsMcpQ9kg5K87eUwaCkoJh4THNNRNLwHsme8TdeLzEMWIeP
+ VdLJNjtWaWRTs1BgqyEhXBtiEVFykoOa991SQObW/BJT+zi5DexUk11xpe7roRZxmWon
+ 2pGVoZYSHZZ/jcf4PvMYbIbG4+IvNv5UsypZ1n69fFVKkkIf9VFUIy36CCJ41i5gEjmj
+ pEUDPSL4513Qlt5OfOQBEaAkajaH6+U57PEpyNffGcW5GRaJN9aybo3oePHHyCF2AmXB
+ fAsbevik08duVzt2PX0xDdykhFrKiqCqdIA2Nyt6p8FSXga6r8QFK1BCiiTQLBdQZfhD
+ b2Lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687446079; x=1690038079;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rRdkBzWvxfxb0w3VbAj/JjLYqdb5vKvNBOzrMjbvnZ4=;
- b=HVD/5VRyhW7Gn0tqcXZV0e10vnhUJWBEOVgOXjySEaUrMnclCMIfxzHBoc2QePRLBv
- QoR9i62rQOxNilXAhgDDj8Ca9kHtqs1hCukmSv+QZPhfXU8WwwKqC0dbzYU4KcuP+sbg
- j3CF1kyXjK2viF9hcOXdPsa9ZY7wXbP5q31H9FcC1yrNS2obrUAGY33Uhsa6INzGu9Kg
- i0HmCPsTptgaw7Un5rcdzAqe99jWud/xtV4yFKopL9z2aKxZmwE0hWIZMM9FZU7Lu5L5
- 4H5ZlLSIj/CQ9VtajlJvAF3D5eyU8FtLJDpT2HS2NSjmhVJrYECJf4mFdq5+n/D7rRWG
- bABA==
-X-Gm-Message-State: AC+VfDwaF3YpSKr3Kk52K5wNfAZ9RTsbm5RNMgwTSK9LAbgGiIVlLy1L
- qXkpt9ls5LLqcb9hWt5uyqE=
-X-Google-Smtp-Source: ACHHUZ7N8KQZGqYQF1FWIcaXUvTIe8GPbWvAVGZGWeKR6BMLl6zU9OMZ/+A2hwmX75wR2qeBRE7w/A==
-X-Received: by 2002:a17:902:d905:b0:1b5:4859:ef36 with SMTP id
- c5-20020a170902d90500b001b54859ef36mr8976230plz.57.1687446078566; 
- Thu, 22 Jun 2023 08:01:18 -0700 (PDT)
-Received: from localhost ([216.228.127.131]) by smtp.gmail.com with ESMTPSA id
- x17-20020a170902b41100b001b3ec39f40asm5475739plr.270.2023.06.22.08.01.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jun 2023 08:01:18 -0700 (PDT)
-Date: Thu, 22 Jun 2023 07:59:05 -0700
-From: Yury Norov <yury.norov@gmail.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>
-Message-ID: <ZJRhuaebZC+y7B37@yury-ThinkPad>
-References: <20230509051403.2748545-1-lucas.demarchi@intel.com>
- <20230509051403.2748545-3-lucas.demarchi@intel.com>
- <ZJOwC5LIEySpduQJ@yury-ThinkPad>
- <alzfewo3jado7ezyaibq52ep3vuxbyfism4ablchmvmioio3jb@3gyx6vaoscbf>
+ d=1e100.net; s=20221208; t=1687524556; x=1690116556;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=N8pNNe3/2YXc1UbpwIO0yIQjjCMHlVzYoQIGO6mvjFk=;
+ b=U38EtImqZ7KbbGaIcr7PvauXISDkBitBsy8hTJ1pHCGAzob8USVnZ9ULOSlNyoN7kg
+ EBtU28nD8Tw1hHHnlZCZsEWYBOKLlCc61NJbdOEvgvqmq584/nD98t2u0z04zd0DRmcL
+ EZmTKPKM8yTD/DnrQweWymJnyex3iM80glIRsM1e86J5/QI9QyigjGhJ9uOTB8whAyRX
+ oBaewcf+jRyNhhm1f8RSfkqE++BQ5yyA02tCacxQjxf6VgXAI/k0BcxKieMav0VtJANA
+ vP5KIpWa/DQGB+jMHDIfp3OEicbsq46nT3i+fzAZztb3EP6L7Cbf7vMTyCoXc6q10TIH
+ fD7g==
+X-Gm-Message-State: AC+VfDyx/ktelSihbtvJZSeUmeCvgyAMxPPt8nqgcsJIuiIbfrd/fRJj
+ HKRcgMrqnF4eV58JCL/NalgYGg==
+X-Google-Smtp-Source: ACHHUZ6eQKAAK+mFZK9b/rl5yBeScp7LGUAVTtY7Qwt+jrMMbGjG/tQ037wkOBUmA1P5xX8mDtOLpg==
+X-Received: by 2002:a17:90b:350f:b0:258:d367:63c with SMTP id
+ ls15-20020a17090b350f00b00258d367063cmr24920553pjb.1.1687524555690; 
+ Fri, 23 Jun 2023 05:49:15 -0700 (PDT)
+Received: from [10.4.168.167] ([139.177.225.254])
+ by smtp.gmail.com with ESMTPSA id
+ 30-20020a17090a001e00b0026135208e97sm1471795pja.19.2023.06.23.05.49.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 23 Jun 2023 05:49:15 -0700 (PDT)
+Message-ID: <d8632edc-5021-4dc8-b75a-3995a710f196@bytedance.com>
+Date: Fri, 23 Jun 2023 20:49:05 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alzfewo3jado7ezyaibq52ep3vuxbyfism4ablchmvmioio3jb@3gyx6vaoscbf>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Content-Language: en-US
+To: Dave Chinner <david@fromorbit.com>
+References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
+ <20230622085335.77010-3-zhengqi.arch@bytedance.com>
+ <ZJU3s8tyGsYTVS8f@dread.disaster.area>
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+In-Reply-To: <ZJU3s8tyGsYTVS8f@dread.disaster.area>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: Re: [Intel-gfx] [PATCH 2/3] linux/bits.h: Add fixed-width GENMASK
- and BIT macros
+Subject: Re: [Intel-gfx] [PATCH 02/29] mm: vmscan: introduce some helpers
+ for dynamically allocating shrinker
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,71 +80,148 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, Kevin Brodsky <kevin.brodsky@arm.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Thomas Gleixner <tglx@linutronix.de>, Alex Deucher <alexander.deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Masahiro Yamada <masahiroy@kernel.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: djwong@kernel.org, roman.gushchin@linux.dev,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linux-mm@kvack.org, dm-devel@redhat.com, linux-ext4@vger.kernel.org,
+ paulmck@kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-nfs@vger.kernel.org,
+ linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org, vbabka@suse.cz,
+ brauner@kernel.org, tytso@mit.edu, linux-kernel@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ akpm@linux-foundation.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-+ Rasmus Villemoes <linux@rasmusvillemoes.dk>
+Hi Dave,
 
-> > -#define __GENMASK(h, l) \
-> > -	(((~UL(0)) - (UL(1) << (l)) + 1) & \
-> > -	 (~UL(0) >> (BITS_PER_LONG - 1 - (h))))
-> > -#define GENMASK(h, l) \
-> > -	(GENMASK_INPUT_CHECK(h, l) + __GENMASK(h, l))
-> > +#define __GENMASK(t, h, l) \
-> > +	(GENMASK_INPUT_CHECK(h, l) + \
-> > +	 (((t)~0ULL - ((t)(1) << (l)) + 1) & \
-> > +	 ((t)~0ULL >> (BITS_PER_TYPE(t) - 1 - (h)))))
+On 2023/6/23 14:12, Dave Chinner wrote:
+> On Thu, Jun 22, 2023 at 04:53:08PM +0800, Qi Zheng wrote:
+>> Introduce some helpers for dynamically allocating shrinker instance,
+>> and their uses are as follows:
+>>
+>> 1. shrinker_alloc_and_init()
+>>
+>> Used to allocate and initialize a shrinker instance, the priv_data
+>> parameter is used to pass the pointer of the previously embedded
+>> structure of the shrinker instance.
+>>
+>> 2. shrinker_free()
+>>
+>> Used to free the shrinker instance when the registration of shrinker
+>> fails.
+>>
+>> 3. unregister_and_free_shrinker()
+>>
+>> Used to unregister and free the shrinker instance, and the kfree()
+>> will be changed to kfree_rcu() later.
+>>
+>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+>> ---
+>>   include/linux/shrinker.h | 12 ++++++++++++
+>>   mm/vmscan.c              | 35 +++++++++++++++++++++++++++++++++++
+>>   2 files changed, 47 insertions(+)
+>>
+>> diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
+>> index 43e6fcabbf51..8e9ba6fa3fcc 100644
+>> --- a/include/linux/shrinker.h
+>> +++ b/include/linux/shrinker.h
+>> @@ -107,6 +107,18 @@ extern void unregister_shrinker(struct shrinker *shrinker);
+>>   extern void free_prealloced_shrinker(struct shrinker *shrinker);
+>>   extern void synchronize_shrinkers(void);
+>>   
+>> +typedef unsigned long (*count_objects_cb)(struct shrinker *s,
+>> +					  struct shrink_control *sc);
+>> +typedef unsigned long (*scan_objects_cb)(struct shrinker *s,
+>> +					 struct shrink_control *sc);
+>> +
+>> +struct shrinker *shrinker_alloc_and_init(count_objects_cb count,
+>> +					 scan_objects_cb scan, long batch,
+>> +					 int seeks, unsigned flags,
+>> +					 void *priv_data);
+>> +void shrinker_free(struct shrinker *shrinker);
+>> +void unregister_and_free_shrinker(struct shrinker *shrinker);
 > 
-> yeah... forcing the use of ull and then casting to the type is simpler
-> and does the job. Checked that it does not break the build if h is
-> greater than the type and it works
+> Hmmmm. Not exactly how I envisioned this to be done.
 > 
-> ../include/linux/bits.h:40:20: error: right shift count >= width of type [-Werror=shift-count-overflow]
->    40 |          ((t)~0ULL >> (BITS_PER_TYPE(t) - 1 - (h)))))
->       |                    ^~
+> Ok, this will definitely work, but I don't think it is an
+> improvement. It's certainly not what I was thinking of when I
+> suggested dynamically allocating shrinkers.
 > 
-> However this new version does increase the size. Using i915 module
-> to test:
+> The main issue is that this doesn't simplify the API - it expands it
+> and creates a minefield of old and new functions that have to be
+> used in exactly the right order for the right things to happen.
 > 
-> $ size build64/drivers/gpu/drm/i915/i915.ko*
->    text    data     bss     dec     hex filename
-> 4355676  213473    7048 4576197  45d3c5 build64/drivers/gpu/drm/i915/i915.ko
-> 4361052  213505    7048 4581605  45e8e5 build64/drivers/gpu/drm/i915/i915.ko.new
+> What I was thinking of was moving the entire shrinker setup code
+> over to the prealloc/register_prepared() algorithm, where the setup
+> is already separated from the activation of the shrinker.
+> 
+> That is, we start by renaming prealloc_shrinker() to
+> shrinker_alloc(), adding a flags field to tell it everything that it
+> needs to alloc (i.e. the NUMA/MEMCG_AWARE flags) and having it
+> returned a fully allocated shrinker ready to register. Initially
+> this also contains an internal flag to say the shrinker was
+> allocated so that unregister_shrinker() knows to free it.
+> 
+> The caller then fills out the shrinker functions, seeks, etc. just
+> like the do now, and then calls register_shrinker_prepared() to make
+> the shrinker active when it wants to turn it on.
+> 
+> When it is time to tear down the shrinker, no API needs to change.
+> unregister_shrinker() does all the shutdown and frees all the
+> internal memory like it does now. If the shrinker is also marked as
+> allocated, it frees the shrinker via RCU, too.
+> 
+> Once everything is converted to this API, we then remove
+> register_shrinker(), rename register_shrinker_prepared() to
+> shrinker_register(), rename unregister_shrinker to
+> shrinker_unregister(), get rid of the internal "allocated" flag
+> and always free the shrinker.
 
-It sounds weird because all that should anyways boil down at compile
-time...
+IIUC, you mean that we also need to convert the original statically
+defined shrinker instances to dynamically allocated.
 
-I enabled DRM_I915 in config and ran bloat-o-meter against today's
-master, and I don't see that much difference.
+I think this is a good idea, it helps to simplify the APIs and also
+remove special handling for case a and b (mentioned in cover letter).
 
-  $ size vmlinux vmlinux.new
-     text	   data	    bss	    dec	    hex	filename
-  44978613	23962202	3026948	71967763	44a2413	vmlinux
-  44978653	23966298	3026948	71971899	44a343b	vmlinux.new
-  $ scripts/bloat-o-meter vmlinux vmlinux.new 
-  add/remove: 0/0 grow/shrink: 3/2 up/down: 28/-5 (23)
-  Function                                     old     new   delta
-  kvm_mmu_reset_all_pte_masks                  623     639     +16
-  intel_psr_invalidate                        1112    1119      +7
-  intel_drrs_activate                          624     629      +5
-  intel_psr_flush                             1410    1409      -1
-  clk_fractional_divider_general_approximation     207     203      -4
-  Total: Before=35398799, After=35398822, chg +0.00%
+> 
+> At the end of the patchset, every shrinker should be set
+> up in a manner like this:
+> 
+> 
+> 	sb->shrinker = shrinker_alloc(SHRINKER_MEMCG_AWARE|SHRINKER_NUMA_AWARE,
+> 				"sb-%s", type->name);
+> 	if (!sb->shrinker)
+> 		return -ENOMEM;
+> 
+> 	sb->shrinker->count_objects = super_cache_count;
+> 	sb->shrinker->scan_objects = super_cache_scan;
+> 	sb->shrinker->batch = 1024;
+> 	sb->shrinker->private = sb;
+> 
+> 	.....
+> 
+> 	shrinker_register(sb->shrinker);
+> 
+> And teardown is just a call to shrinker_unregister(sb->shrinker)
+> as it is now.
+> 
+> i.e. the entire shrinker regsitration API is now just three
+> functions, down from the current four, and much simpler than the
+> the seven functions this patch set results in...
+> 
+> The other advantage of this is that it will break all the existing
+> out of tree code and third party modules using the old API and will
+> no longer work with a kernel using lockless slab shrinkers. They
+> need to break (both at the source and binary levels) to stop bad
+> things from happening due to using uncoverted shrinkers in the new
+> setup.
 
-Can you please check your numbers?
+Got it. And totally agree.
 
-Interestingly, the kvm_mmu_reset_all_pte_masks() uses GENMASK_ULL(),
-which should generate the same code across versions. Maybe it's just
-a noise? Rasmus, can you please take a look?
+I will do it in the v2.
 
 Thanks,
-Yury
+Qi
 
+> 
+> -Dave.
