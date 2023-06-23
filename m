@@ -4,52 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94549EB64DD
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DC37C001B1
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC27210E348;
-	Tue, 27 Jun 2023 14:39:13 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4956F10E474;
- Wed, 21 Jun 2023 13:17:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1687353447; x=1718889447;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=9eMWiG7JI6/9oPvFtdl/3iOGYIkGUexXwjKhm4v9hgQ=;
- b=VKdU+4JgbX4NpbUJ1pGQwx7rP4tCzihjtawrYes6gzCDNYtQiih+jwVe
- F873dwIsvhod0YARO9VKUhkj06aRarr7vuGmzoEiVQ5fk5wly5W6omK9t
- +iNA+hX6lctBvXKvd6x1QxXNWe7qto5MfagiH0EzUG6mn84V9O5UOzwoq
- F/aRtyuUwktofQl51JDVKYz5pF4rWhcdEX3XoC7ki2x3sTgM+O6J9yJog
- 5JEgyf/oEuKfTSadtzoz9HPLrnTtASM+FNLftPl81nPy05SF7GnHL/9Ot
- 22pUVV6zo5lB1BC+Z8d7QHj5e58COuQdxXBIR0/wXLEUCpqKND8y5XrMz w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10747"; a="446546927"
-X-IronPort-AV: E=Sophos;i="6.00,260,1681196400"; d="scan'208";a="446546927"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2023 06:16:46 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10747"; a="664658294"
-X-IronPort-AV: E=Sophos;i="6.00,260,1681196400"; d="scan'208";a="664658294"
-Received: from unknown (HELO localhost) ([10.237.66.162])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2023 06:15:49 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Joel Granados <j.granados@samsung.com>
-In-Reply-To: <20230621130614.s36w4u7dzmb5d5p3@localhost>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230621091000.424843-1-j.granados@samsung.com>
- <CGME20230621094824eucas1p2b6adfbd3f15ff3665674917f419b25d3@eucas1p2.samsung.com>
- <20230621094817.433842-1-j.granados@samsung.com>
- <87o7l92hg8.fsf@intel.com> <20230621130614.s36w4u7dzmb5d5p3@localhost>
-Date: Wed, 21 Jun 2023 16:15:46 +0300
-Message-ID: <878rcd2by5.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64AEF10E34F;
+	Tue, 27 Jun 2023 14:39:14 +0000 (UTC)
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [IPv6:2607:f8b0:4864:20::632])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A057710E632
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jun 2023 13:12:52 +0000 (UTC)
+Received: by mail-pl1-x632.google.com with SMTP id
+ d9443c01a7336-1b515ec39feso1388045ad.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jun 2023 06:12:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bytedance.com; s=google; t=1687525972; x=1690117972;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ztC9JD/gutKJP42tTw7xRzDnyP1Mlz22AqRtCxWHul4=;
+ b=iReOyCzgXqjGHDqep4+7Y02y+2KsxvqbysTBx4QdxMakwFT9O9Z6y8UTRhYCpdiwGk
+ ivfBmaLpXRLdsg2xXtWNoGf0LJW9OuaoWVHjbG5+PmrhjKOTehTkz5xr7u03dJPl3Vvf
+ epR4VYk9iCpPZkMT+p54jmiUndhguXzeWsKZiPn3OwVHy+V1VU+7xSZ1lgncoZQcneJS
+ pVLxKUfpwqKrHzPfUfH95joX35kksCvYI/qVSfPkEqAU61Mo8RwQARiYkcVaAbzt+5qk
+ cYcyAi42FXf01kq9CxVaIQAWB9c34fULDSPKve/N0V/DkCTafLxv3dWbsj8Ke3WxSlSL
+ ozRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687525972; x=1690117972;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ztC9JD/gutKJP42tTw7xRzDnyP1Mlz22AqRtCxWHul4=;
+ b=Sw4Cx7/J9fObGuE6XkekaFK3ZlU/mB6drct6RNJYvsgWhzg215e1ePGJVvdOxu/4Ce
+ W4NltZK+R5lBvGCgEgfrE/sXYB7GU1/9wxxgYFssOeOEuymh94Xina1rWI7r4r65BUuG
+ 6k954woDM2rbddE69esOaYIJrQOgRjV7RUNYHtB5rWIpRPf09WrSCVj7qvgYwf/z8i1B
+ TwG5kU1TIJ9VkmeHeiwoft4A2smBv+n3SyqAlhYeE1MbJqNa0x3RlRsja/xdh5UfiBOg
+ L75b6x8tvz592Qc5J09/nFZbFRRVyXdBe1a3EFjgJLjxVG0f1Uty0z4X4QF6A7SBAK0w
+ Q6Fg==
+X-Gm-Message-State: AC+VfDwMLidQtaXhs4tPYOCJEIP2xyy2Yz5gNq2holvHFOuCI6aecyWG
+ m4d/gGVS+w2eP/9FQGrLNlCD4Q==
+X-Google-Smtp-Source: ACHHUZ78dOQlFEQQrAnXInKb8JKnRB3NkeUnqCzTvDvkAqdG76W+IPYWNvfD8Ue2cdvcaNnPedDi+w==
+X-Received: by 2002:a17:902:dac6:b0:1ac:656f:a68d with SMTP id
+ q6-20020a170902dac600b001ac656fa68dmr25602985plx.4.1687525971804; 
+ Fri, 23 Jun 2023 06:12:51 -0700 (PDT)
+Received: from [10.4.168.167] ([139.177.225.254])
+ by smtp.gmail.com with ESMTPSA id
+ c15-20020a170903234f00b001b694130c05sm5473889plh.1.2023.06.23.06.12.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 23 Jun 2023 06:12:51 -0700 (PDT)
+Message-ID: <792beadd-7597-ec8c-e3b1-d8274d68d8c1@bytedance.com>
+Date: Fri, 23 Jun 2023 21:12:42 +0800
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Content-Language: en-US
+To: Vlastimil Babka <vbabka@suse.cz>, akpm@linux-foundation.org,
+ david@fromorbit.com, tkhai@ya.ru, roman.gushchin@linux.dev,
+ djwong@kernel.org, brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
+References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
+ <20230622085335.77010-30-zhengqi.arch@bytedance.com>
+ <f90772f6-11fe-0d8a-7b1c-d630b884d775@suse.cz>
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+In-Reply-To: <f90772f6-11fe-0d8a-7b1c-d630b884d775@suse.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: Re: [Intel-gfx] [PATCH 09/11] sysctl: Remove the end element in
- sysctl table arrays
+Subject: Re: [Intel-gfx] [PATCH 29/29] mm: shrinker: move shrinker-related
+ code into a separate file
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,224 +82,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Juri Lelli <juri.lelli@redhat.com>, Miaohe Lin <linmiaohe@huawei.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, dri-devel@lists.freedesktop.org,
- Ben Segall <bsegall@google.com>, linux-sctp@vger.kernel.org,
- ocfs2-devel@oss.oracle.com, Miquel Raynal <miquel.raynal@bootlin.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Stefan Schmidt <stefan@datenfreihafen.org>, Wei Liu <wei.liu@kernel.org>,
- Michael Ellerman <mpe@ellerman.id.au>, bridge@lists.linux-foundation.org,
- James Morris <jmorris@namei.org>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Jozsef Kadlecsik <kadlec@netfilter.org>, Eric Biggers <ebiggers@kernel.org>,
- linux-cachefs@redhat.com, Mel Gorman <mgorman@suse.de>, "Darrick J.
- Wong" <djwong@kernel.org>, Waiman Long <longman@redhat.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Petr Mladek <pmladek@suse.com>, Martin Schiller <ms@dev.tdt.de>,
- Russ Weight <russell.h.weight@intel.com>, Boqun Feng <boqun.feng@gmail.com>,
- Nicholas Piggin <npiggin@gmail.com>, John Ogness <john.ogness@linutronix.de>,
- Alexander Viro <viro@zeniv.linux.org.uk>, Andy Lutomirski <luto@kernel.org>,
- Remi Denis-Courmont <courmisch@gmail.com>, xen-devel@lists.xenproject.org,
- Thomas Gleixner <tglx@linutronix.de>,
- Trond Myklebust <trond.myklebust@hammerspace.com>,
- Anton Altaparmakov <anton@tuxera.com>, Christian Brauner <brauner@kernel.org>,
- Will Drewry <wad@chromium.org>, Neil Horman <nhorman@tuxdriver.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- Ralf Baechle <ralf@linux-mips.org>,
- Sergey Senozhatsky <senozhatsky@chromium.org>, mcgrof@kernel.org,
- Chuck Lever <chuck.lever@oracle.com>, netfilter-devel@vger.kernel.org,
- Masami Hiramatsu <mhiramat@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
- linux-fsdevel@vger.kernel.org, Matthieu Baerts <matthieu.baerts@tessares.net>,
- Andrew Morton <akpm@linux-foundation.org>, linux-trace-kernel@vger.kernel.org,
- linux-wpan@vger.kernel.org, Mark Rutland <mark.rutland@arm.com>,
- linux-aio@kvack.org, "Jason A.
- Donenfeld" <Jason@zx2c4.com>, linux-ia64@vger.kernel.org,
- Naoya Horiguchi <naoya.horiguchi@nec.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Clemens Ladisch <clemens@ladisch.de>, Phillip Potter <phil@philpotter.co.uk>,
- Song Liu <song@kernel.org>, Eric Dumazet <edumazet@google.com>,
- keyrings@vger.kernel.org, John Stultz <jstultz@google.com>,
- Stanislav Fomichev <sdf@google.com>, Jan Karcher <jaka@linux.ibm.com>,
- codalist@telemann.coda.cs.cmu.edu, linux-s390@vger.kernel.org,
- Valentin Schneider <vschneid@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Corey Minyard <minyard@acm.org>,
- Leon Romanovsky <leon@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Will Deacon <will@kernel.org>, John Fastabend <john.fastabend@gmail.com>,
- Andrii Nakryiko <andrii@kernel.org>,
- Anil S Keshavamurthy <anil.s.keshavamurthy@intel.com>,
- Mat Martineau <martineau@kernel.org>, Matthew Bobrowski <repnop@google.com>,
- Julian Anastasov <ja@ssi.bg>, coreteam@netfilter.org,
- Roopa Prabhu <roopa@nvidia.com>, Yonghong Song <yhs@fb.com>,
- Iurii Zaikin <yzaikin@google.com>, Sven Schnelle <svens@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>, Mike Travis <mike.travis@hpe.com>,
- Wenjia Zhang <wenjia@linux.ibm.com>, Simon Horman <horms@verge.net.au>,
- Xin Long <lucien.xin@gmail.com>, linux-arm-kernel@lists.infradead.org,
- fsverity@lists.linux.dev, Hao Luo <haoluo@google.com>,
- Theodore Ts'o <tytso@mit.edu>, Stephen Boyd <sboyd@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Florian Westphal <fw@strlen.de>,
- Robin Holt <robinmholt@gmail.com>, "David S. Miller" <davem@davemloft.net>,
- Jon Maloy <jmaloy@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>,
- Eric Biederman <ebiederm@xmission.com>, Anna Schumaker <anna@kernel.org>,
- Daniel Bristot de Oliveira <bristot@redhat.com>,
- Mike Kravetz <mike.kravetz@oracle.com>,
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, linux-hams@vger.kernel.org,
- Nikolay Aleksandrov <razor@blackwall.org>, Alexei Starovoitov <ast@kernel.org>,
- Marc Dionne <marc.dionne@auristor.com>, Jiri Slaby <jirislaby@kernel.org>,
- linux-afs@lists.infradead.org, Daniel Borkmann <daniel@iogearbox.net>,
- linux-rdma@vger.kernel.org, Dexuan Cui <decui@microsoft.com>,
- "Matthew Wilcox \(Oracle\)" <willy@infradead.org>, lvs-devel@vger.kernel.org,
- coda@cs.cmu.edu, Doug Gilbert <dgilbert@interlog.com>,
- "Naveen N. Rao" <naveen.n.rao@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Paolo Abeni <pabeni@redhat.com>, Pablo Neira Ayuso <pablo@netfilter.org>,
- "Serge E. Hallyn" <serge@hallyn.com>, Kees Cook <keescook@chromium.org>,
- Arnd Bergmann <arnd@arndb.de>, Haiyang Zhang <haiyangz@microsoft.com>,
- intel-gfx@lists.freedesktop.org, Steven Rostedt <rostedt@goodmis.org>,
- linux-crypto@vger.kernel.org, Borislav Petkov <bp@alien8.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- openipmi-developer@lists.sourceforge.net, mptcp@lists.linux.dev,
- Jan Harkes <jaharkes@cs.cmu.edu>, linux-nfs@vger.kernel.org,
- "Martin K. Petersen" <martin.petersen@oracle.com>, linux-mm@kvack.org,
- Jeff Layton <jlayton@kernel.org>, Andy Lutomirski <luto@amacapital.net>,
- linux-xfs@vger.kernel.org, linux-ntfs-dev@lists.sourceforge.net,
- netdev@vger.kernel.org, Ying Xue <ying.xue@windriver.com>, bpf@vger.kernel.org,
- Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Alexander Aring <alex.aring@gmail.com>, Jan Kara <jack@suse.cz>,
- Steve Wahl <steve.wahl@hpe.com>, Peter Zijlstra <peterz@infradead.org>,
- Balbir Singh <bsingharora@gmail.com>, Amir Goldstein <amir73il@gmail.com>,
- KP Singh <kpsingh@kernel.org>, David Howells <dhowells@redhat.com>,
- Joseph Qi <joseph.qi@linux.alibaba.com>, "H. Peter
- Anvin" <hpa@zytor.com>, David Airlie <airlied@gmail.com>,
- Steffen Klassert <steffen.klassert@secunet.com>, rds-devel@oss.oracle.com,
- Herbert Xu <herbert@gondor.apana.org.au>, linux-scsi@vger.kernel.org,
- dccp@vger.kernel.org, Mark Fasheh <mark@fasheh.com>, x86@kernel.org,
- Russell King <linux@armlinux.org.uk>, Jason Gunthorpe <jgg@ziepe.ca>,
- Ingo Molnar <mingo@redhat.com>, Jakub Kicinski <kuba@kernel.org>, "James
- E.J. Bottomley" <jejb@linux.ibm.com>, Joerg Reuter <jreuter@yaina.de>,
- linux-hyperv@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
- Santosh Shilimkar <santosh.shilimkar@oracle.com>, apparmor@lists.ubuntu.com,
- linux-raid@vger.kernel.org, Paul Moore <paul@paul-moore.com>,
- Juergen Gross <jgross@suse.com>, John Johansen <john.johansen@canonical.com>,
- linux-x25@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- David Ahern <dsahern@kernel.org>, kexec@lists.infradead.org,
- linux-security-module@vger.kernel.org, Benjamin LaHaise <bcrl@kvack.org>,
- tipc-discussion@lists.sourceforge.net, Daniel Vetter <daniel@ffwll.ch>,
- Martin KaFai Lau <martin.lau@linux.dev>, Karsten Graul <kgraul@linux.ibm.com>,
- Joel Becker <jlbec@evilplan.org>
+Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
+ linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-btrfs@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 21 Jun 2023, Joel Granados <j.granados@samsung.com> wrote:
-> On Wed, Jun 21, 2023 at 02:16:55PM +0300, Jani Nikula wrote:
->> On Wed, 21 Jun 2023, Joel Granados <j.granados@samsung.com> wrote:
->> > Remove the empty end element from all the arrays that are passed to the
->> > register sysctl calls. In some files this means reducing the explicit
->> > array size by one. Also make sure that we are using the size in
->> > ctl_table_header instead of evaluating the .procname element.
->> 
->> Where's the harm in removing the end elements driver by driver? This is
->> an unwieldy patch to handle.
->
-> I totally agree. Its a big one!!! but I'm concerned of breaking bisectibility:
-> * I could for example separate all the removes into separate commits and
->   then have a final commit that removes the check for the empty element.
->   But this will leave the tree in a state where the for loop will have
->   undefined behavior when it looks for the empty end element. It might
->   or might not work (probably not :) until the final commit where I fix
->   that.
->
-> * I could also change the logic that looks for the final element,
->   commit that first and then remove the empty element one commit per
->   driver after that. But then for all the arrays that still have an
->   empty element, there would again be undefined behavior as it would
->   think that the last element is valid (when it is really the sentinel).
->
-> Any ideas on how to get around these?
+Hi Vlastimil,
 
-First add size to the register calls, and allow the last one to be
-sentinel but do not require the sentinel.
+On 2023/6/22 22:53, Vlastimil Babka wrote:
+> On 6/22/23 10:53, Qi Zheng wrote:
+>> The mm/vmscan.c file is too large, so separate the shrinker-related
+>> code from it into a separate file. No functional changes.
+>>
+>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+> 
+> Maybe do this move as patch 01 so the further changes are done in the new
+> file already?
 
-Start removing sentinels, adjusting the size passed in.
+Sure, I will do it in the v2.
 
-Once enough sentinels have been removed, add warning if the final entry
-is a sentinel.
+Thanks,
+Qi
 
-Never really remove the check? (But surely you can rework the logic to
-not count the number of elements up front, only while iterating.)
-
-
-BR,
-Jani.
-
->> 
->> > diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
->> > index f43950219ffc..e4d7372afb10 100644
->> > --- a/drivers/gpu/drm/i915/i915_perf.c
->> > +++ b/drivers/gpu/drm/i915/i915_perf.c
->> > @@ -4884,24 +4884,23 @@ int i915_perf_remove_config_ioctl(struct drm_device *dev, void *data,
->> >  
->> >  static struct ctl_table oa_table[] = {
->> >  	{
->> > -	 .procname = "perf_stream_paranoid",
->> > -	 .data = &i915_perf_stream_paranoid,
->> > -	 .maxlen = sizeof(i915_perf_stream_paranoid),
->> > -	 .mode = 0644,
->> > -	 .proc_handler = proc_dointvec_minmax,
->> > -	 .extra1 = SYSCTL_ZERO,
->> > -	 .extra2 = SYSCTL_ONE,
->> > -	 },
->> > +		.procname = "perf_stream_paranoid",
->> > +		.data = &i915_perf_stream_paranoid,
->> > +		.maxlen = sizeof(i915_perf_stream_paranoid),
->> > +		.mode = 0644,
->> > +		.proc_handler = proc_dointvec_minmax,
->> > +		.extra1 = SYSCTL_ZERO,
->> > +		.extra2 = SYSCTL_ONE,
->> > +	},
->> >  	{
->> > -	 .procname = "oa_max_sample_rate",
->> > -	 .data = &i915_oa_max_sample_rate,
->> > -	 .maxlen = sizeof(i915_oa_max_sample_rate),
->> > -	 .mode = 0644,
->> > -	 .proc_handler = proc_dointvec_minmax,
->> > -	 .extra1 = SYSCTL_ZERO,
->> > -	 .extra2 = &oa_sample_rate_hard_limit,
->> > -	 },
->> > -	{}
->> > +		.procname = "oa_max_sample_rate",
->> > +		.data = &i915_oa_max_sample_rate,
->> > +		.maxlen = sizeof(i915_oa_max_sample_rate),
->> > +		.mode = 0644,
->> > +		.proc_handler = proc_dointvec_minmax,
->> > +		.extra1 = SYSCTL_ZERO,
->> > +		.extra2 = &oa_sample_rate_hard_limit,
->> > +	}
->> >  };
->> 
->> The existing indentation is off, but fixing it doesn't really belong in
->> this patch.
->
-> Agreed. But I actually was trying to fix something that checkpatch
-> flagged. I'll change these back (which will cause this patch to be
-> flagged).
->
-> An alternative solution would be to fix the indentation as part of the
-> preparation patches. Tell me what you think.
->
-> Thx
->
->> 
->> BR,
->> Jani.
->> 
->> 
->> -- 
->> Jani Nikula, Intel Open Source Graphics Center
-
--- 
-Jani Nikula, Intel Open Source Graphics Center
+> 
