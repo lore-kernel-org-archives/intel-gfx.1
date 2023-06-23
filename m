@@ -4,40 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E8C6C001B1
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F06FC001B0
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E57C10E325;
-	Tue, 27 Jun 2023 14:38:41 +0000 (UTC)
-Received: from out-7.mta1.migadu.com (out-7.mta1.migadu.com [95.215.58.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEA8A10E508
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:50:23 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1687423263;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Wvf6K8f0ibCbbBPSLzPuI3EieQihggBPVC6NaGqGSAA=;
- b=j+7c8QSWFcXyxaKKuBM4GeMmLTA2HAlnyi3uYH8tMDK+AyZd0VP/hv4q2gOUq3N/kRiA4T
- KkrjKn2/u+BKa5kHjWbSpVP512yylAb6LOOIyPKo6DOnVE0TNZkaj8fFOuY4ak/S6tGJxD
- J7gjjwvWCDcPoW60P1I/vRMb7nYCHBw=
-From: Qi Zheng <qi.zheng@linux.dev>
-To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
- vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
- brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-Date: Thu, 22 Jun 2023 08:39:12 +0000
-Message-Id: <20230622083932.4090339-10-qi.zheng@linux.dev>
-In-Reply-To: <20230622083932.4090339-1-qi.zheng@linux.dev>
-References: <20230622083932.4090339-1-qi.zheng@linux.dev>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A0B410E32B;
+	Tue, 27 Jun 2023 14:38:42 +0000 (UTC)
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
+ [IPv6:2607:f8b0:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B021A10E084
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jun 2023 13:33:34 +0000 (UTC)
+Received: by mail-pl1-x62f.google.com with SMTP id
+ d9443c01a7336-1b52418c25bso936935ad.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jun 2023 06:33:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bytedance.com; s=google; t=1687527214; x=1690119214;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ACoox6lHywQa9wO0MGPPVAOCZzDjfudqnGd2G0lw0os=;
+ b=fa1yyl1XuChlZVeuHnAOkkfkq2hZyLQlU7Qx7FIzebWZlha3QE3pftRSrj+DJxI7Rv
+ UhXvlkHo3Vcdolq+ME68HhnTz0k5XIGoqWorIAsqCzinXOgMm/YBV2p6rPjxxhB9xA+p
+ CKbtixmq104K/XaeP7c/FRQEzfBhOolOJ13XEqLz2Vl/3W9UCdfjI5o3p38fxwPZQ7jM
+ f2Nv1spQskpxwNqmrAc0KV9Etlyt/W0NlU64HVCq3FTgTv7qi6xblmtVtEFrypVRLxTd
+ swjUrDnQOk53j5e/5rffnzu2n8zAvNVx/4KpVQ/7vpT1VvkShyKZT45f4U4Mq3kIEUCc
+ sA+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687527214; x=1690119214;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ACoox6lHywQa9wO0MGPPVAOCZzDjfudqnGd2G0lw0os=;
+ b=O/JsXYbdP0KQ0biSAksDdtJIKRy1y8DODnQmuCa6+pbQrlBJnTqPWhM14D6Y7J7Ace
+ lfZPn+7ci3tvTQ5ztSqjczpzsFo1UCFWI2fsSms5Vv8iThXnWnvJnQRBeyhf5B6DZbc9
+ 4XarCgWxhWdvoDDNUUoADrWwy5SSoMI8zoyee6n8YQIExywYM02XkGJjyCW0iwSAKmGM
+ dkTp+MvNgv7iUyHn3UDu35lBNeFOSU4IyUuE2BuTw8liIC/DIL6AVdUlHAsbXhln2QOh
+ lufo5g16KLtoTnSZ7r6qO3abaHVFGyY+Ma+qwBRwuVZSOtsZVvbxBnv+yplOxTLt5CS2
+ 9d8Q==
+X-Gm-Message-State: AC+VfDzUcVnyjnnjbG/63XH5T4Q6KJl7MFZpuxcPq9k2kh35BD2mu8J9
+ fLmYK8TcimdpTNAkPcvwaH2VnKHEbVIp7yVnPt4=
+X-Google-Smtp-Source: ACHHUZ7fC8cfi9SbpxWbw1P19vY2WFeiY5bxjWE/lWxj83YOdeMLdFfAi7QBoo42W5+SZOFqK06Ryw==
+X-Received: by 2002:a17:902:c945:b0:1ae:3ff8:7fa7 with SMTP id
+ i5-20020a170902c94500b001ae3ff87fa7mr26069073pla.4.1687527213878; 
+ Fri, 23 Jun 2023 06:33:33 -0700 (PDT)
+Received: from [10.4.168.167] ([139.177.225.254])
+ by smtp.gmail.com with ESMTPSA id
+ kg14-20020a170903060e00b001b6a27dff99sm4341406plb.159.2023.06.23.06.33.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 23 Jun 2023 06:33:33 -0700 (PDT)
+Message-ID: <43a07dbe-5049-8596-da58-51e0a0d6243c@bytedance.com>
+Date: Fri, 23 Jun 2023 21:33:24 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+Content-Language: en-US
+To: Steven Price <steven.price@arm.com>
+References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
+ <20230622085335.77010-6-zhengqi.arch@bytedance.com>
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+In-Reply-To: <20230622085335.77010-6-zhengqi.arch@bytedance.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: [Intel-gfx] [PATCH 09/29] bcache: dynamically allocate the
- md-bcache shrinker
+Subject: Re: [Intel-gfx] [PATCH 05/29] drm/panfrost: dynamically allocate
+ the drm-panfrost shrinker
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,116 +79,191 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+Cc: djwong@kernel.org, roman.gushchin@linux.dev, david@fromorbit.com,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
- Qi Zheng <zhengqi.arch@bytedance.com>, linux-fsdevel@vger.kernel.org,
- linux-ext4@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-btrfs@vger.kernel.org
+ linux-mm@kvack.org, dm-devel@redhat.com, linux-ext4@vger.kernel.org,
+ paulmck@kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, brauner@kernel.org,
+ linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org, vbabka@suse.cz,
+ linux-nfs@vger.kernel.org, tytso@mit.edu, linux-kernel@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ akpm@linux-foundation.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Qi Zheng <zhengqi.arch@bytedance.com>
+Hi Steven,
 
-In preparation for implementing lockless slab shrink,
-we need to dynamically allocate the md-bcache shrinker,
-so that it can be freed asynchronously using kfree_rcu().
-Then it doesn't need to wait for RCU read-side critical
-section when releasing the struct cache_set.
+The email you replied to was the failed version (due to the error
+below), so I copied your reply and replied to you on this successful
+version.
 
-Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
----
- drivers/md/bcache/bcache.h |  2 +-
- drivers/md/bcache/btree.c  | 23 ++++++++++++++---------
- drivers/md/bcache/sysfs.c  |  2 +-
- 3 files changed, 16 insertions(+), 11 deletions(-)
+(4.7.1 Error: too many recipients from 49.7.199.173)
 
-diff --git a/drivers/md/bcache/bcache.h b/drivers/md/bcache/bcache.h
-index 700dc5588d5f..53c73b372e7a 100644
---- a/drivers/md/bcache/bcache.h
-+++ b/drivers/md/bcache/bcache.h
-@@ -541,7 +541,7 @@ struct cache_set {
- 	struct bio_set		bio_split;
- 
- 	/* For the btree cache */
--	struct shrinker		shrink;
-+	struct shrinker		*shrink;
- 
- 	/* For the btree cache and anything allocation related */
- 	struct mutex		bucket_lock;
-diff --git a/drivers/md/bcache/btree.c b/drivers/md/bcache/btree.c
-index 569f48958bde..1131ae91f62a 100644
---- a/drivers/md/bcache/btree.c
-+++ b/drivers/md/bcache/btree.c
-@@ -667,7 +667,7 @@ static int mca_reap(struct btree *b, unsigned int min_order, bool flush)
- static unsigned long bch_mca_scan(struct shrinker *shrink,
- 				  struct shrink_control *sc)
- {
--	struct cache_set *c = container_of(shrink, struct cache_set, shrink);
-+	struct cache_set *c = shrink->private_data;
- 	struct btree *b, *t;
- 	unsigned long i, nr = sc->nr_to_scan;
- 	unsigned long freed = 0;
-@@ -734,7 +734,7 @@ static unsigned long bch_mca_scan(struct shrinker *shrink,
- static unsigned long bch_mca_count(struct shrinker *shrink,
- 				   struct shrink_control *sc)
- {
--	struct cache_set *c = container_of(shrink, struct cache_set, shrink);
-+	struct cache_set *c = shrink->private_data;
- 
- 	if (c->shrinker_disabled)
- 		return 0;
-@@ -752,8 +752,8 @@ void bch_btree_cache_free(struct cache_set *c)
- 
- 	closure_init_stack(&cl);
- 
--	if (c->shrink.list.next)
--		unregister_shrinker(&c->shrink);
-+	if (c->shrink->list.next)
-+		unregister_and_free_shrinker(c->shrink);
- 
- 	mutex_lock(&c->bucket_lock);
- 
-@@ -828,14 +828,19 @@ int bch_btree_cache_alloc(struct cache_set *c)
- 		c->verify_data = NULL;
- #endif
- 
--	c->shrink.count_objects = bch_mca_count;
--	c->shrink.scan_objects = bch_mca_scan;
--	c->shrink.seeks = 4;
--	c->shrink.batch = c->btree_pages * 2;
-+	c->shrink = shrinker_alloc_and_init(bch_mca_count, bch_mca_scan,
-+					    c->btree_pages * 2, 4, 0, c);
-+	if (!c->shrink) {
-+		pr_warn("bcache: %s: could not allocate shrinker\n",
-+				__func__);
-+		return -ENOMEM;
-+	}
- 
--	if (register_shrinker(&c->shrink, "md-bcache:%pU", c->set_uuid))
-+	if (register_shrinker(c->shrink, "md-bcache:%pU", c->set_uuid)) {
- 		pr_warn("bcache: %s: could not register shrinker\n",
- 				__func__);
-+		shrinker_free(c->shrink);
-+	}
- 
- 	return 0;
- }
-diff --git a/drivers/md/bcache/sysfs.c b/drivers/md/bcache/sysfs.c
-index c6f677059214..771577581f52 100644
---- a/drivers/md/bcache/sysfs.c
-+++ b/drivers/md/bcache/sysfs.c
-@@ -866,7 +866,7 @@ STORE(__bch_cache_set)
- 
- 		sc.gfp_mask = GFP_KERNEL;
- 		sc.nr_to_scan = strtoul_or_return(buf);
--		c->shrink.scan_objects(&c->shrink, &sc);
-+		c->shrink->scan_objects(c->shrink, &sc);
- 	}
- 
- 	sysfs_strtoul_clamp(congested_read_threshold_us,
--- 
-2.30.2
+On 2023/6/23 18:01, Steven Price wrote:
+ > On 22/06/2023 09:39, Qi Zheng wrote:
+ >> From: Qi Zheng <zhengqi.arch@bytedance.com>
+ >>
+ >> In preparation for implementing lockless slab shrink,
+ >> we need to dynamically allocate the drm-panfrost shrinker,
+ >> so that it can be freed asynchronously using kfree_rcu().
+ >> Then it doesn't need to wait for RCU read-side critical
+ >> section when releasing the struct panfrost_device.
+ >>
+ >> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+ >> ---
+ >>   drivers/gpu/drm/panfrost/panfrost_device.h    |  2 +-
+ >>   .../gpu/drm/panfrost/panfrost_gem_shrinker.c  | 24 ++++++++++---------
+ >>   2 files changed, 14 insertions(+), 12 deletions(-)
+ >>
+ >> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h 
+b/drivers/gpu/drm/panfrost/panfrost_device.h
+ >> index b0126b9fbadc..e667e5689353 100644
+ >> --- a/drivers/gpu/drm/panfrost/panfrost_device.h
+ >> +++ b/drivers/gpu/drm/panfrost/panfrost_device.h
+ >> @@ -118,7 +118,7 @@ struct panfrost_device {
+ >>
+ >>   	struct mutex shrinker_lock;
+ >>   	struct list_head shrinker_list;
+ >> -	struct shrinker shrinker;
+ >> +	struct shrinker *shrinker;
+ >>
+ >>   	struct panfrost_devfreq pfdevfreq;
+ >>   };
+ >> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c 
+b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+ >> index bf0170782f25..2a5513eb9e1f 100644
+ >> --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+ >> +++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+ >> @@ -18,8 +18,7 @@
+ >>   static unsigned long
+ >>   panfrost_gem_shrinker_count(struct shrinker *shrinker, struct 
+shrink_control *sc)
+ >>   {
+ >> -	struct panfrost_device *pfdev =
+ >> -		container_of(shrinker, struct panfrost_device, shrinker);
+ >> +	struct panfrost_device *pfdev = shrinker->private_data;
+ >>   	struct drm_gem_shmem_object *shmem;
+ >>   	unsigned long count = 0;
+ >>
+ >> @@ -65,8 +64,7 @@ static bool panfrost_gem_purge(struct 
+drm_gem_object *obj)
+ >>   static unsigned long
+ >>   panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct 
+shrink_control *sc)
+ >>   {
+ >> -	struct panfrost_device *pfdev =
+ >> -		container_of(shrinker, struct panfrost_device, shrinker);
+ >> +	struct panfrost_device *pfdev = shrinker->private_data;
+ >>   	struct drm_gem_shmem_object *shmem, *tmp;
+ >>   	unsigned long freed = 0;
+ >>
+ >> @@ -100,10 +98,15 @@ panfrost_gem_shrinker_scan(struct shrinker 
+*shrinker, struct shrink_control *sc)
+ >>   void panfrost_gem_shrinker_init(struct drm_device *dev)
+ >>   {
+ >>   	struct panfrost_device *pfdev = dev->dev_private;
+ >> -	pfdev->shrinker.count_objects = panfrost_gem_shrinker_count;
+ >> -	pfdev->shrinker.scan_objects = panfrost_gem_shrinker_scan;
+ >> -	pfdev->shrinker.seeks = DEFAULT_SEEKS;
+ >> -	WARN_ON(register_shrinker(&pfdev->shrinker, "drm-panfrost"));
+ >> +
+ >> +	pfdev->shrinker = shrinker_alloc_and_init(panfrost_gem_shrinker_count,
+ >> +						  panfrost_gem_shrinker_scan, 0,
+ >> +						  DEFAULT_SEEKS, 0, pfdev);
+ >> +	if (pfdev->shrinker &&
+ >> +	    register_shrinker(pfdev->shrinker, "drm-panfrost")) {
+ >> +		shrinker_free(pfdev->shrinker);
+ >> +		WARN_ON(1);
+ >> +	}
+ >
+ > So we didn't have good error handling here before, but this is
+ > significantly worse. Previously if register_shrinker() failed then the
+ > driver could safely continue without a shrinker - it would waste memory
+ > but still function.
+ >
+ > However we now have two failure conditions:
+ >   * shrinker_alloc_init() returns NULL. No warning and NULL deferences
+ >     will happen later.
+ >
+ >   * register_shrinker() fails, shrinker_free() will free pdev->shrinker
+ >     we get a warning, but followed by a use-after-free later.
+ >
+ > I think we need to modify panfrost_gem_shrinker_init() to be able to
+ > return an error, so a change something like the below (untested) before
+ > your change.
+
+Indeed. I will fix it in the v2.
+
+Thanks,
+Qi
+
+ >
+ > Steve
+ >
+ > ----8<---
+ > diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c
+ > b/drivers/gpu/drm/panfrost/panfrost_drv.c
+ > index bbada731bbbd..f705bbdea360 100644
+ > --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+ > +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+ > @@ -598,10 +598,14 @@ static int panfrost_probe(struct platform_device
+ > *pdev)
+ >   	if (err < 0)
+ >   		goto err_out1;
+ >
+ > -	panfrost_gem_shrinker_init(ddev);
+ > +	err = panfrost_gem_shrinker_init(ddev);
+ > +	if (err)
+ > +		goto err_out2;
+ >
+ >   	return 0;
+ >
+ > +err_out2:
+ > +	drm_dev_unregister(ddev);
+ >   err_out1:
+ >   	pm_runtime_disable(pfdev->dev);
+ >   	panfrost_device_fini(pfdev);
+ > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h
+ > b/drivers/gpu/drm/panfrost/panfrost_gem.h
+ > index ad2877eeeccd..863d2ec8d4f0 100644
+ > --- a/drivers/gpu/drm/panfrost/panfrost_gem.h
+ > +++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
+ > @@ -81,7 +81,7 @@ panfrost_gem_mapping_get(struct panfrost_gem_object 
+*bo,
+ >   void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
+ >   void panfrost_gem_teardown_mappings_locked(struct 
+panfrost_gem_object *bo);
+ >
+ > -void panfrost_gem_shrinker_init(struct drm_device *dev);
+ > +int panfrost_gem_shrinker_init(struct drm_device *dev);
+ >   void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
+ >
+ >   #endif /* __PANFROST_GEM_H__ */
+ > diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+ > b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+ > index bf0170782f25..90265b37636f 100644
+ > --- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+ > +++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
+ > @@ -97,13 +97,17 @@ panfrost_gem_shrinker_scan(struct shrinker
+ > *shrinker, struct shrink_control *sc)
+ >    *
+ >    * This function registers and sets up the panfrost shrinker.
+ >    */
+ > -void panfrost_gem_shrinker_init(struct drm_device *dev)
+ > +int panfrost_gem_shrinker_init(struct drm_device *dev)
+ >   {
+ >   	struct panfrost_device *pfdev = dev->dev_private;
+ > +	int ret;
+ > +
+ >   	pfdev->shrinker.count_objects = panfrost_gem_shrinker_count;
+ >   	pfdev->shrinker.scan_objects = panfrost_gem_shrinker_scan;
+ >   	pfdev->shrinker.seeks = DEFAULT_SEEKS;
+ > -	WARN_ON(register_shrinker(&pfdev->shrinker, "drm-panfrost"));
+ > +	ret = register_shrinker(&pfdev->shrinker, "drm-panfrost");
+ > +
+ > +	return ret;
+ >   }
+ >
+ >   /**
+ >
 
