@@ -4,74 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EEA1C001DE
-	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:40:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0532FC001DF
+	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:40:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3606D10E301;
-	Tue, 27 Jun 2023 14:40:38 +0000 (UTC)
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [IPv6:2607:f8b0:4864:20::42f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D3C610E0EC
- for <intel-gfx@lists.freedesktop.org>; Sun, 25 Jun 2023 03:15:12 +0000 (UTC)
-Received: by mail-pf1-x42f.google.com with SMTP id
- d2e1a72fcca58-657c4bcad0bso494641b3a.1
- for <intel-gfx@lists.freedesktop.org>; Sat, 24 Jun 2023 20:15:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9FE110E33E;
+	Tue, 27 Jun 2023 14:40:39 +0000 (UTC)
+Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
+ [IPv6:2607:f8b0:4864:20::d2a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 612F610E084
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jun 2023 13:24:37 +0000 (UTC)
+Received: by mail-io1-xd2a.google.com with SMTP id
+ ca18e2360f4ac-77e3c55843cso2504139f.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 23 Jun 2023 06:24:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytedance.com; s=google; t=1687662910; x=1690254910;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ d=bytedance.com; s=google; t=1687526676; x=1690118676;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=TKI5JnbDIC0GxIDWgHq4O/cOoJK+mFi4lHzSLMfVTqU=;
- b=ZAMx9Z9f9sidua+INHohqUOzi6qohVG8u4jVCH5kW+5KNZXm213btXme0+oY3eiFas
- kJ1eg2nzkYdYzNdOe7oa9qHmaJUnXCYxjS+yzRkh4fKBRaJsJ8sThwNTH8lHQfNkQNAM
- VzcFUF7+yXpjBTL7GbZNoITLErtoJw0Vjk1rTp/DbKRrvAbdhI1W9mMFrodUhQiTOgU4
- x87qi5B+whZkF6jL19/UUqYgrCxdv27BCv4u4d4gCY3C0TEpHKxxaHXbF0gjifwSN242
- 21vqEHW8Cm8PCiF/LjQeQL8d9CMETY+gbtFossFoUbQJa5ZrwnE/J5ioBpxXDyTlqBxM
- qigg==
+ bh=gz92l7DBmLTrf6935v1JTyj18AL7FL04QRL4qQAWqJU=;
+ b=gIWwtDXxJuivuEsWsn7sqCZTBLYzZCSIZH5HGE4qZ8EWB5QUXMWkTscVi5K7m3pLUb
+ AWoNDhJ8ESx9DRpn3UGCp2Uvm2dath67lulczhMMzXUHSfw+KuuuWZKZ5vDu4lXfHnd5
+ hQR/vcg8QKo72hHneWZ3miZE29ysHMJmApIFRQ1SzZroa/a+qdV6Dpe2uLtETWZSf5Di
+ DwUbZUrml+/apF9HoV5pAAcN8e5k4Mr7obMwZugAwGAvvUEtH2WFBgfX4jOKDMjPri+A
+ N84eYclRTYh7THW7IcSdjB8iFp8xE+GCdJYVPjGEA03gXDcctC8fDrc4P9qjfAoL/G9z
+ jxWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687662910; x=1690254910;
- h=content-transfer-encoding:in-reply-to:references:cc:to:from
+ d=1e100.net; s=20221208; t=1687526676; x=1690118676;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=TKI5JnbDIC0GxIDWgHq4O/cOoJK+mFi4lHzSLMfVTqU=;
- b=GgfKJlKl4KtNiQ1XXUFxVFQ7M9aUC1dWQWk7wJLWQAJLbC3k1SFZe41fHSEt3ngcQr
- n4SGKB9l95r6uA+3ES8O78N1O6hnQSaCPfXc7GxQyjicMh7qATT9R2ZhD9eDPqEseHAu
- /oz3dIjLAXKX5zaqxYZzr8d5R6AvBF3apAVrFlfeokuXZGbpi2c9yFlKpoQ+rDHEGxhv
- ezpsdUvPq76MuJTQP5Ria+45paWLzJgZhu7eMfyyedQmTZAv46eEPhgJ+mW5f+7Pu5Bb
- Ec/XKjahb4+g8rJu19A+HaKtuGpLlwRa9Z/9QP0QEnL60/AmKb6m4LIzoN5jhwne6KJ3
- Ze0w==
-X-Gm-Message-State: AC+VfDzjcxy1qvhHCq4AVOoJBkGJacxaCq4tak97bVrQxWyo6vQK2PsB
- H8RsR6xF+dX7S9TbKr6XeTc9ig==
-X-Google-Smtp-Source: ACHHUZ4cDGND46+rMO/jpoItKK6gyWoVPMpHTImOruhTgKiq3D9MdRMxw7KZsaNY9vtDgu3MtWReMw==
-X-Received: by 2002:a05:6a20:8426:b0:11f:7829:6d6c with SMTP id
- c38-20020a056a20842600b0011f78296d6cmr28507253pzd.3.1687662910560; 
- Sat, 24 Jun 2023 20:15:10 -0700 (PDT)
-Received: from [10.70.252.135] ([203.208.167.146])
+ bh=gz92l7DBmLTrf6935v1JTyj18AL7FL04QRL4qQAWqJU=;
+ b=RCnzrVHXlCrWBYtlPVERwp7iVgwdd7EYmkxbLd0fRbrhpQ90fn19yT4NRz1vOVnRUl
+ 3yg2+Vx2ivefIvC/ljVUDkBu+os2FQnz/HI69VaSrAt+bsLpqXUtV6IDtV8smrI4rHvn
+ XzI70xlgg8O0f+dj1U04z20xP/wS+uo/3XfY2ONxoNulIUtsTnimqXaP5MzXv1ll5S3F
+ rNsanz3X8zqnX+yleixOkhnpy9+uzKjiHdKQWaH+nNqZcA9AzhQkQii4cDvJ+R/LB3tU
+ H6LNbIMXlKtZLOmf3EomtnscS9w0W1mFh6aMBJmCT6kNdchVIgTf8iG0C35Y2pZHmANR
+ tSTg==
+X-Gm-Message-State: AC+VfDzzev3cwJO2CuIAc+qj+6bkMSEZCCXDRqvZwf8oi+PTk1Fnlif1
+ r1j/9n8BdcAVAudYdPxJgeMbuA==
+X-Google-Smtp-Source: ACHHUZ5gEbRKgAaE+N8YtReVmyo3V0rllQa6wCPNTx2RvtSftj/ir5NFrmfS2AckYJcn//Bnc41ZpQ==
+X-Received: by 2002:a6b:1581:0:b0:780:c6bb:ad8d with SMTP id
+ 123-20020a6b1581000000b00780c6bbad8dmr5508761iov.0.1687526676020; 
+ Fri, 23 Jun 2023 06:24:36 -0700 (PDT)
+Received: from [10.4.168.167] ([139.177.225.254])
  by smtp.gmail.com with ESMTPSA id
- r9-20020a62e409000000b0066642f95bc5sm1648412pfh.35.2023.06.24.20.15.03
+ w5-20020a17090a380500b0025bcdada95asm1562852pjb.38.2023.06.23.06.24.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 24 Jun 2023 20:15:10 -0700 (PDT)
-Message-ID: <00641d5b-86a3-f5d1-02ee-13b4f815df75@bytedance.com>
-Date: Sun, 25 Jun 2023 11:15:01 +0800
+ Fri, 23 Jun 2023 06:24:35 -0700 (PDT)
+Message-ID: <f8d924e7-8faf-438d-4d2f-5f806ef88a49@bytedance.com>
+Date: Fri, 23 Jun 2023 21:24:25 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.12.0
 Content-Language: en-US
-From: Qi Zheng <zhengqi.arch@bytedance.com>
-To: Dave Chinner <david@fromorbit.com>, paulmck@kernel.org
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
 References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
- <20230622085335.77010-25-zhengqi.arch@bytedance.com>
- <cf0d9b12-6491-bf23-b464-9d01e5781203@suse.cz>
- <ZJU708VIyJ/3StAX@dread.disaster.area>
- <a21047bb-3b87-a50a-94a7-f3fa4847bc08@bytedance.com>
- <ZJYaYv4pACmCaBoT@dread.disaster.area>
- <a7baf44a-1eb8-d4e1-d112-93cf9cdb7beb@bytedance.com>
-In-Reply-To: <a7baf44a-1eb8-d4e1-d112-93cf9cdb7beb@bytedance.com>
+ <20230622085335.77010-30-zhengqi.arch@bytedance.com>
+ <20230623052554.GA11471@google.com>
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+In-Reply-To: <20230623052554.GA11471@google.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: Re: [Intel-gfx] [PATCH 24/29] mm: vmscan: make global slab shrink
- lockless
+Subject: Re: [Intel-gfx] [PATCH 29/29] mm: shrinker: move shrinker-related
+ code into a separate file
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,106 +80,90 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: djwong@kernel.org, roman.gushchin@linux.dev,
+Cc: djwong@kernel.org, roman.gushchin@linux.dev, david@fromorbit.com,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
  linux-mm@kvack.org, dm-devel@redhat.com, linux-ext4@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-nfs@vger.kernel.org, RCU <rcu@vger.kernel.org>,
- linux-bcache@vger.kernel.org, Vlastimil Babka <vbabka@suse.cz>,
- linux-raid@vger.kernel.org, brauner@kernel.org, tytso@mit.edu,
- linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
- linux-btrfs@vger.kernel.org, tkhai@ya.ru
+ paulmck@kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-nfs@vger.kernel.org,
+ linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org, vbabka@suse.cz,
+ brauner@kernel.org, tytso@mit.edu, linux-kernel@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ akpm@linux-foundation.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Sergey,
 
+On 2023/6/23 13:25, Sergey Senozhatsky wrote:
+> On (23/06/22 16:53), Qi Zheng wrote:
+>> +/*
+>> + * Remove one
+>> + */
+>> +void unregister_shrinker(struct shrinker *shrinker)
+>> +{
+>> +	struct dentry *debugfs_entry;
+>> +	int debugfs_id;
+>> +
+>> +	if (!(shrinker->flags & SHRINKER_REGISTERED))
+>> +		return;
+>> +
+>> +	shrinker_put(shrinker);
+>> +	wait_for_completion(&shrinker->completion_wait);
+>> +
+>> +	mutex_lock(&shrinker_mutex);
+>> +	list_del_rcu(&shrinker->list);
+> 
+> Should this function wait for RCU grace period(s) before it goes
+> touching shrinker fields?
 
-On 2023/6/24 19:08, Qi Zheng wrote:
-> Hi Dave,
-> 
-> On 2023/6/24 06:19, Dave Chinner wrote:
->> On Fri, Jun 23, 2023 at 09:10:57PM +0800, Qi Zheng wrote:
->>> On 2023/6/23 14:29, Dave Chinner wrote:
->>>> On Thu, Jun 22, 2023 at 05:12:02PM +0200, Vlastimil Babka wrote:
->>>>> On 6/22/23 10:53, Qi Zheng wrote:
->>>> Yes, I suggested the IDR route because radix tree lookups under RCU
->>>> with reference counted objects are a known safe pattern that we can
->>>> easily confirm is correct or not.  Hence I suggested the unification
->>>> + IDR route because it makes the life of reviewers so, so much
->>>> easier...
->>>
->>> In fact, I originally planned to try the unification + IDR method you
->>> suggested at the beginning. But in the case of CONFIG_MEMCG disabled,
->>> the struct mem_cgroup is not even defined, and root_mem_cgroup and
->>> shrinker_info will not be allocated.  This required more code 
->>> changes, so
->>> I ended up keeping the shrinker_list and implementing the above pattern.
->>
->> Yes. Go back and read what I originally said needed to be done
->> first. In the case of CONFIG_MEMCG=n, a dummy root memcg still needs
->> to exist that holds all of the global shrinkers. Then shrink_slab()
->> is only ever passed a memcg that should be iterated.
->>
->> Yes, it needs changes external to the shrinker code itself to be
->> made to work. And even if memcg's are not enabled, we can still use
->> the memcg structures to ensure a common abstraction is used for the
->> shrinker tracking infrastructure....
-> 
-> Yeah, what I imagined before was to define a more concise struct
-> mem_cgroup in the case of CONFIG_MEMCG=n, then allocate a dummy root
-> memcg on system boot:
-> 
-> #ifdef !CONFIG_MEMCG
-> 
-> struct shrinker_info {
->      struct rcu_head rcu;
->      atomic_long_t *nr_deferred;
->      unsigned long *map;
->      int map_nr_max;
-> };
-> 
-> struct mem_cgroup_per_node {
->      struct shrinker_info __rcu    *shrinker_info;
-> };
-> 
-> struct mem_cgroup {
->      struct mem_cgroup_per_node *nodeinfo[];
-> };
-> 
-> #endif
-> 
-> But I have a concern: if all global shrinkers are tracking with the
-> info->map of root memcg, a shrinker->id needs to be assigned to them,
-> which will cause info->map_nr_max to become larger than before, then
-> making the traversal of info->map slower.
-
-But most of the system is 'sb-xxx' shrinker instances, they all have
-the SHRINKER_MEMCG_AWARE flag, so it should have little impact on the
-speed of traversing info->map. ;)
+Why? We will free this shrinker instance by rcu after executing
+unregister_shrinker(). So it is safe to touch shrinker fields here.
 
 > 
->>
->>> If the above pattern is not safe, I will go back to the unification +
->>> IDR method.
->>
->> And that is exactly how we got into this mess in the first place....
+>> +	shrinker->flags &= ~SHRINKER_REGISTERED;
+>> +	if (shrinker->flags & SHRINKER_MEMCG_AWARE)
+>> +		unregister_memcg_shrinker(shrinker);
+>> +	debugfs_entry = shrinker_debugfs_detach(shrinker, &debugfs_id);
+>> +	mutex_unlock(&shrinker_mutex);
+>> +
+>> +	shrinker_debugfs_remove(debugfs_entry, debugfs_id);
+>> +
+>> +	kfree(shrinker->nr_deferred);
+>> +	shrinker->nr_deferred = NULL;
+>> +}
+>> +EXPORT_SYMBOL(unregister_shrinker);
 > 
-> I only found one similar pattern in the kernel:
+> [..]
 > 
-> fs/smb/server/oplock.c:find_same_lease_key/smb_break_all_levII_oplock/lookup_lease_in_table
+>> +void shrinker_free(struct shrinker *shrinker)
+>> +{
+>> +	kfree(shrinker);
+>> +}
+>> +EXPORT_SYMBOL(shrinker_free);
+>> +
+>> +void unregister_and_free_shrinker(struct shrinker *shrinker)
+>> +{
+>> +	unregister_shrinker(shrinker);
+>> +	kfree_rcu(shrinker, rcu);
+>> +}
 > 
-> But IIUC, the refcount here needs to be decremented after holding
-> rcu lock as I did above.
+> Seems like this
 > 
-> So regardless of whether we choose unification + IDR in the end, I still
-> want to confirm whether the pattern I implemented above is safe. :)
+> 	unregister_shrinker();
+> 	shrinker_free();
+> 
+> is not exact equivalent of this
+> 
+> 	unregister_and_free_shrinker();
 
-Also + RCU mailing list.
+Yes, my original intention is that shrinker_free() is only used to
+handle the case where register_shrinker() returns failure.
 
-> 
-> Thanks,
-> Qi
-> 
->>
->> -Dave
+I will implement the method suggested by Dave in 02/29. Those APIs are
+more concise and will bring more benefits. :)
+
+Thanks,
+Qi
+
+
+
