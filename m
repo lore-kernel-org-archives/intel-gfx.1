@@ -4,67 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18202C001B0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1E33EB64DD
 	for <intel-gfx@archiver.kernel.org>; Tue, 27 Jun 2023 14:39:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68DE110E337;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0B5710E33B;
 	Tue, 27 Jun 2023 14:38:43 +0000 (UTC)
-Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
- [IPv6:2607:f8b0:4864:20::52d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B89B010E4FC
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 08:56:36 +0000 (UTC)
-Received: by mail-pg1-x52d.google.com with SMTP id
- 41be03b00d2f7-54f73ef19e5so678964a12.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jun 2023 01:56:36 -0700 (PDT)
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
+ [IPv6:2607:f8b0:4864:20::630])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DED6710E18D
+ for <intel-gfx@lists.freedesktop.org>; Sat, 24 Jun 2023 11:08:29 +0000 (UTC)
+Received: by mail-pl1-x630.google.com with SMTP id
+ d9443c01a7336-1b693afe799so2529985ad.1
+ for <intel-gfx@lists.freedesktop.org>; Sat, 24 Jun 2023 04:08:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytedance.com; s=google; t=1687424196; x=1690016196;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=tuTRU39Llc4f1pG+4j4EE0WoT0ftJSPXyoG6lJxyplk=;
- b=Ekn/zV8B3Pykd2GrPoTdVnpJwk5evd2tyUP0vKsA0sao3e0fC5CJiY4BTrhaxMXIHV
- uTPkEPgehKIEn13/c91Rf6hAUh1pL4moe2PR0AHRF6Kdv1EoYZyskenz8RKeyckC9Itb
- y+HACd1zVUdu9ru2Mkg+skG1k3PTY0I37XiwGKuN4fZctDPgzdbV+AVCjywsN0HsaZ69
- Cuv8lvpq3tEmZe+xhsg7ur6ivxEYcTfKMKXUZmg3vRSFd562H9J1GbGm5bH6oFZpkxLe
- LAGfy+lFWFcKu0xxXlVXi22gjm4qtT4oNXfdGZLZ8KWmVvCWym8e4Apiabz+y3j9a60o
- NyUA==
+ d=bytedance.com; s=google; t=1687604909; x=1690196909;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=7tnz7s8ew6fhhs0dR9M9QnK0rlCy7+XAhEAWksz3vrg=;
+ b=UmCBKPF4sv1MHFXsiXJ20hfDGRh4FqZyWNYAXvwJ4aTGGxIidAh9WvDmw+TkimJm1h
+ mWSpmHZ6C1d0YyoGyiszU38sSq69kPhXPhm56U4+6FVITcJ1CEZHjLEmCAtp6wktOCK/
+ DxOdRsySk1sXqY68RWF0JOe4/zeVPJtvQ9lHfsJ6x6SdMyQcNVrIa4NXa7fRi6mlad+o
+ t//wFgxPhT7EPECahYPUyLpil8jkwMy0/+XEXxUh0Le8+U2ufonOfsscVTgC+SrRoDCH
+ iM7noG8OLDFE0tdGr8824/JUhvbwrqjbGrrMdkGxtRD/cnqrUyFsNqPJcdX8JFikXXu+
+ BdTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687424196; x=1690016196;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=tuTRU39Llc4f1pG+4j4EE0WoT0ftJSPXyoG6lJxyplk=;
- b=KAzDi6sc2o2wXF0pFjRxZiHdUjm1OOoyLlwLhYAQQ10C3nDdNpqEEr6UfQQr2jMT5X
- SN4WEI6gRVD8zxbekaox6AuXJ9dddXHPQ4CMR8oDVdoskoxXkAOvyfdGlRJEl7omxMe/
- 7APkn4Efcr65Z6gU0c6oQu5rOcXU8+3rlb9iQ2/tXbF84TCkAx/fKsKhuw5VSsj8zy6m
- j8AdXTYtvT326wgbXTY8kdhJHOu4lDfZEtdlUOZ8kl8u2xMGVWpvVLsuMeinlNfs2g75
- eXbVlMDj/YyaMhUAPRvWmpX6pD8q8GF+R3i/Q3/BruqskfSKak+FZIB4Rh6zjQquAhI2
- qyOA==
-X-Gm-Message-State: AC+VfDz4k59FsjN7vSXoCPOgt/RO2Jl0ifcwx++sITaOgSIwKcIWCRNu
- pnSaESQ/B877pB0tb4ZYfD9sAQ==
-X-Google-Smtp-Source: ACHHUZ67Tf+k1CheKb86ycYHhx5x/FfiuFJZEOT7coQiqeyoaYPxA8zsjGzghk4F71F8kxwZIRTJAQ==
-X-Received: by 2002:a17:902:ecc6:b0:1ae:1364:6086 with SMTP id
- a6-20020a170902ecc600b001ae13646086mr21603647plh.2.1687424195747; 
- Thu, 22 Jun 2023 01:56:35 -0700 (PDT)
-Received: from C02DW0BEMD6R.bytedance.net ([139.177.225.254])
+ d=1e100.net; s=20221208; t=1687604909; x=1690196909;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=7tnz7s8ew6fhhs0dR9M9QnK0rlCy7+XAhEAWksz3vrg=;
+ b=HKU/kY9ke6I1Exjag1gOyk4GDCE9K69KfyzW+nvAWjw3HaVCkRC+FvSQH2Or39lMRB
+ 6aSTtXwYxQpMMoRUG1n8UHhNNPDogbJRLxsXCAmQn0ZaC5XDBF7w1SaRyvwkTsT2gGt6
+ X3fTNsNk6AwVNtT+qeOXETa3voOEv5ap7+Xy6EX3IqZCmDuegSGQm70KyCG+dGZYdF2k
+ BmmorGEHrvAP8L1CE0WMVK2LO4di8bzRXik1sdd6FBQERDpQ2B56nl4ReLsx8uq3x1FQ
+ OTzM3KzVUPKhs0C1JzOpF4DPYIQye9sFDLaoQl87GQ5P/QHJza5o1apgkQlZhisiaelL
+ vjUQ==
+X-Gm-Message-State: AC+VfDzXOn4zP2X3v21qbKZxUvAdhZSn7GkyMaqXXvObI30qVkNrsdCr
+ Iee09qPTOnaAZ7iMF5KvZTjaow==
+X-Google-Smtp-Source: ACHHUZ48xugwBy1Yb59MA7iADNA4mtjxjJVDK/TEG1GiFnnp8kgPq3uDjFXVnvd+Ayx9tItAR27KLA==
+X-Received: by 2002:a17:903:32c4:b0:1b3:e352:6d88 with SMTP id
+ i4-20020a17090332c400b001b3e3526d88mr29305254plr.6.1687604908733; 
+ Sat, 24 Jun 2023 04:08:28 -0700 (PDT)
+Received: from [10.4.162.153] ([139.177.225.251])
  by smtp.gmail.com with ESMTPSA id
- h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.56.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jun 2023 01:56:35 -0700 (PDT)
-From: Qi Zheng <zhengqi.arch@bytedance.com>
-To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
- vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
- brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-Date: Thu, 22 Jun 2023 16:53:25 +0800
-Message-Id: <20230622085335.77010-20-zhengqi.arch@bytedance.com>
-X-Mailer: git-send-email 2.24.3 (Apple Git-128)
-In-Reply-To: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
-References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
+ bg6-20020a1709028e8600b001b3d0aff88fsm1021644plb.109.2023.06.24.04.08.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 24 Jun 2023 04:08:28 -0700 (PDT)
+Message-ID: <a7baf44a-1eb8-d4e1-d112-93cf9cdb7beb@bytedance.com>
+Date: Sat, 24 Jun 2023 19:08:18 +0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+To: Dave Chinner <david@fromorbit.com>, paulmck@kernel.org
+References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
+ <20230622085335.77010-25-zhengqi.arch@bytedance.com>
+ <cf0d9b12-6491-bf23-b464-9d01e5781203@suse.cz>
+ <ZJU708VIyJ/3StAX@dread.disaster.area>
+ <a21047bb-3b87-a50a-94a7-f3fa4847bc08@bytedance.com>
+ <ZJYaYv4pACmCaBoT@dread.disaster.area>
+Content-Language: en-US
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+In-Reply-To: <ZJYaYv4pACmCaBoT@dread.disaster.area>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 27 Jun 2023 14:38:30 +0000
-Subject: [Intel-gfx] [PATCH 19/29] xfs: dynamically allocate the xfs-qm
- shrinker
+Subject: Re: [Intel-gfx] [PATCH 24/29] mm: vmscan: make global slab shrink
+ lockless
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,103 +83,93 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org, brauner@kernel.org,
+ tytso@mit.edu, djwong@kernel.org, intel-gfx@lists.freedesktop.org,
+ roman.gushchin@linux.dev, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
  linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
- Qi Zheng <zhengqi.arch@bytedance.com>, linux-fsdevel@vger.kernel.org,
- linux-ext4@vger.kernel.org, linux-btrfs@vger.kernel.org
+ linux-btrfs@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
+ linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org,
+ Vlastimil Babka <vbabka@suse.cz>, tkhai@ya.ru
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In preparation for implementing lockless slab shrink,
-we need to dynamically allocate the xfs-qm shrinker,
-so that it can be freed asynchronously using kfree_rcu().
-Then it doesn't need to wait for RCU read-side critical
-section when releasing the struct xfs_quotainfo.
+Hi Dave,
 
-Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
----
- fs/xfs/xfs_qm.c | 24 +++++++++++++-----------
- fs/xfs/xfs_qm.h |  2 +-
- 2 files changed, 14 insertions(+), 12 deletions(-)
+On 2023/6/24 06:19, Dave Chinner wrote:
+> On Fri, Jun 23, 2023 at 09:10:57PM +0800, Qi Zheng wrote:
+>> On 2023/6/23 14:29, Dave Chinner wrote:
+>>> On Thu, Jun 22, 2023 at 05:12:02PM +0200, Vlastimil Babka wrote:
+>>>> On 6/22/23 10:53, Qi Zheng wrote:
+>>> Yes, I suggested the IDR route because radix tree lookups under RCU
+>>> with reference counted objects are a known safe pattern that we can
+>>> easily confirm is correct or not.  Hence I suggested the unification
+>>> + IDR route because it makes the life of reviewers so, so much
+>>> easier...
+>>
+>> In fact, I originally planned to try the unification + IDR method you
+>> suggested at the beginning. But in the case of CONFIG_MEMCG disabled,
+>> the struct mem_cgroup is not even defined, and root_mem_cgroup and
+>> shrinker_info will not be allocated.  This required more code changes, so
+>> I ended up keeping the shrinker_list and implementing the above pattern.
+> 
+> Yes. Go back and read what I originally said needed to be done
+> first. In the case of CONFIG_MEMCG=n, a dummy root memcg still needs
+> to exist that holds all of the global shrinkers. Then shrink_slab()
+> is only ever passed a memcg that should be iterated.
+> 
+> Yes, it needs changes external to the shrinker code itself to be
+> made to work. And even if memcg's are not enabled, we can still use
+> the memcg structures to ensure a common abstraction is used for the
+> shrinker tracking infrastructure....
 
-diff --git a/fs/xfs/xfs_qm.c b/fs/xfs/xfs_qm.c
-index 6abcc34fafd8..b15320d469cc 100644
---- a/fs/xfs/xfs_qm.c
-+++ b/fs/xfs/xfs_qm.c
-@@ -504,8 +504,7 @@ xfs_qm_shrink_scan(
- 	struct shrinker		*shrink,
- 	struct shrink_control	*sc)
- {
--	struct xfs_quotainfo	*qi = container_of(shrink,
--					struct xfs_quotainfo, qi_shrinker);
-+	struct xfs_quotainfo	*qi = shrink->private_data;
- 	struct xfs_qm_isolate	isol;
- 	unsigned long		freed;
- 	int			error;
-@@ -539,8 +538,7 @@ xfs_qm_shrink_count(
- 	struct shrinker		*shrink,
- 	struct shrink_control	*sc)
- {
--	struct xfs_quotainfo	*qi = container_of(shrink,
--					struct xfs_quotainfo, qi_shrinker);
-+	struct xfs_quotainfo	*qi = shrink->private_data;
- 
- 	return list_lru_shrink_count(&qi->qi_lru, sc);
- }
-@@ -680,18 +678,22 @@ xfs_qm_init_quotainfo(
- 	if (XFS_IS_PQUOTA_ON(mp))
- 		xfs_qm_set_defquota(mp, XFS_DQTYPE_PROJ, qinf);
- 
--	qinf->qi_shrinker.count_objects = xfs_qm_shrink_count;
--	qinf->qi_shrinker.scan_objects = xfs_qm_shrink_scan;
--	qinf->qi_shrinker.seeks = DEFAULT_SEEKS;
--	qinf->qi_shrinker.flags = SHRINKER_NUMA_AWARE;
-+	qinf->qi_shrinker = shrinker_alloc_and_init(xfs_qm_shrink_count,
-+						    xfs_qm_shrink_scan,
-+						    0, DEFAULT_SEEKS,
-+						    SHRINKER_NUMA_AWARE, qinf);
-+	if (!qinf->qi_shrinker)
-+		goto out_free_inos;
- 
--	error = register_shrinker(&qinf->qi_shrinker, "xfs-qm:%s",
-+	error = register_shrinker(qinf->qi_shrinker, "xfs-qm:%s",
- 				  mp->m_super->s_id);
- 	if (error)
--		goto out_free_inos;
-+		goto out_shrinker;
- 
- 	return 0;
- 
-+out_shrinker:
-+	shrinker_free(qinf->qi_shrinker);
- out_free_inos:
- 	mutex_destroy(&qinf->qi_quotaofflock);
- 	mutex_destroy(&qinf->qi_tree_lock);
-@@ -718,7 +720,7 @@ xfs_qm_destroy_quotainfo(
- 	qi = mp->m_quotainfo;
- 	ASSERT(qi != NULL);
- 
--	unregister_shrinker(&qi->qi_shrinker);
-+	unregister_and_free_shrinker(qi->qi_shrinker);
- 	list_lru_destroy(&qi->qi_lru);
- 	xfs_qm_destroy_quotainos(qi);
- 	mutex_destroy(&qi->qi_tree_lock);
-diff --git a/fs/xfs/xfs_qm.h b/fs/xfs/xfs_qm.h
-index 9683f0457d19..d5c9fc4ba591 100644
---- a/fs/xfs/xfs_qm.h
-+++ b/fs/xfs/xfs_qm.h
-@@ -63,7 +63,7 @@ struct xfs_quotainfo {
- 	struct xfs_def_quota	qi_usr_default;
- 	struct xfs_def_quota	qi_grp_default;
- 	struct xfs_def_quota	qi_prj_default;
--	struct shrinker		qi_shrinker;
-+	struct shrinker		*qi_shrinker;
- 
- 	/* Minimum and maximum quota expiration timestamp values. */
- 	time64_t		qi_expiry_min;
--- 
-2.30.2
+Yeah, what I imagined before was to define a more concise struct
+mem_cgroup in the case of CONFIG_MEMCG=n, then allocate a dummy root
+memcg on system boot:
 
+#ifdef !CONFIG_MEMCG
+
+struct shrinker_info {
+	struct rcu_head rcu;
+	atomic_long_t *nr_deferred;
+	unsigned long *map;
+	int map_nr_max;
+};
+
+struct mem_cgroup_per_node {
+	struct shrinker_info __rcu	*shrinker_info;
+};
+
+struct mem_cgroup {
+	struct mem_cgroup_per_node *nodeinfo[];
+};
+
+#endif
+
+But I have a concern: if all global shrinkers are tracking with the
+info->map of root memcg, a shrinker->id needs to be assigned to them,
+which will cause info->map_nr_max to become larger than before, then
+making the traversal of info->map slower.
+
+> 
+>> If the above pattern is not safe, I will go back to the unification +
+>> IDR method.
+> 
+> And that is exactly how we got into this mess in the first place....
+
+I only found one similar pattern in the kernel:
+
+fs/smb/server/oplock.c:find_same_lease_key/smb_break_all_levII_oplock/lookup_lease_in_table
+
+But IIUC, the refcount here needs to be decremented after holding
+rcu lock as I did above.
+
+So regardless of whether we choose unification + IDR in the end, I still
+want to confirm whether the pattern I implemented above is safe. :)
+
+Thanks,
+Qi
+
+> 
+> -Dave
