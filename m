@@ -4,45 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62D30EB64DC
-	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jun 2023 17:18:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0B7AEB64DC
+	for <intel-gfx@archiver.kernel.org>; Sat, 24 Jun 2023 17:18:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23F2810E056;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A3EF610E059;
 	Sat, 24 Jun 2023 17:18:01 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C169F10E009;
- Sat, 24 Jun 2023 17:17:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07AE210E009;
+ Sat, 24 Jun 2023 17:18:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1687627079; x=1719163079;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=fNAtJFpWgHKdR9l/7y488NYU/xBjPGHiswY+lPLtCag=;
- b=JrhtqH83pXwco3nM7kZEaZ+Q2+mjEK4jCYIutWqx6tqYRBpcttpJ9jAt
- 1NSquTT9LvzYrLF9da92jkaKs/LBXx8M64la8CoraEcxyGIock9kfszdr
- lnYE3wqWH5lzQjUJB0vNiJCvzwCah3EFnlIQDSXkiEuvNGvxV1LtbYJiD
- umQxBOp3T7xxwgKMlkyn4dC0xV5kpPTckhNhCeoLUKZXjtcxoV0685bWe
- L1o1mbLb77yg7zZ3lsTJHw5ymJmEusonKLMf0liUTzrQXb8D5KfeRor9f
- zBTN8gfUbzkUMCz8U0TSyGpIGs+rbEbz4cTxsKEK2Umr7j8Nc7gDhKIur g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10751"; a="340557464"
-X-IronPort-AV: E=Sophos;i="6.01,155,1684825200"; d="scan'208";a="340557464"
+ t=1687627080; x=1719163080;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=c30KrreN7/GB/ngoSIdSdI0DuqnFwW6/O3MZAv+wURU=;
+ b=ZD8aLHkY2/wxtyENNdHV3VFTeGKe4XbCT08oNE1mPSCkh597ewCa8TNB
+ R/ozGNR5iCqqPp//cN2J/yn5EsncweHoxjP5VjnnWHllAKm1mpOG0XbCM
+ 8LBgIT0ceWXthoZkbJy1gKhKANbHj2N3I6y01qFchxcnj8m/t+Cogon4P
+ iGkfPX+KA48H4NOV7HKNYpOEif+62vMr8dPyQvNzwifZqmS+MTa3sghbt
+ A0JiZl3me/8zVqMrszVhuAEzz5cYIg87ECO0UkDH/VphiNRDBHAWoq4f7
+ J5+MjnYWhc9FwK8Y0cii5M9BqmlbVOR9yfgEVVYhvBxUlB1p5jUrayDcB A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10751"; a="340557470"
+X-IronPort-AV: E=Sophos;i="6.01,155,1684825200"; d="scan'208";a="340557470"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2023 10:17:58 -0700
+ 24 Jun 2023 10:17:59 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10751"; a="1045977409"
-X-IronPort-AV: E=Sophos;i="6.01,155,1684825200"; d="scan'208";a="1045977409"
+X-IronPort-AV: E=McAfee;i="6600,9927,10751"; a="1045977418"
+X-IronPort-AV: E=Sophos;i="6.01,155,1684825200"; d="scan'208";a="1045977418"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  24 Jun 2023 10:17:58 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Sat, 24 Jun 2023 10:17:51 -0700
-Message-Id: <20230624171757.3906095-1-lucas.demarchi@intel.com>
+Date: Sat, 24 Jun 2023 10:17:53 -0700
+Message-Id: <20230624171757.3906095-3-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230624171757.3906095-1-lucas.demarchi@intel.com>
+References: <20230624171757.3906095-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/6] Fix ctx workarounds for non-masked regs
+Subject: [Intel-gfx] [PATCH v2 2/6] drm/i915/gt: Clear all bits from
+ GEN12_FF_MODE2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,33 +64,102 @@ Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-v2 of https://patchwork.freedesktop.org/series/119766/
+Right now context workarounds don't do a rmw and instead only write to
+the register. Since 2 separate programmings to the same register are
+coalesced into a single write, this is not problematic for
+GEN12_FF_MODE2 since both TDS and GS timer are going to be written
+together and the other remaining bits be zeroed.
 
-Main change from v1 is the preparatory patch to handle GEN12_FF_MODE2.
-This is a register that can't be read back since it's affected by
-another workaround.
+However in order to fix other workarounds that may want to preserve the
+unrelated bits in the same register, context workarounds need to
+be changed to a rmw. To prepare for that, move the programming of
+GEN12_FF_MODE2 to a single place so the value passed for "clear" can
+be all the bits. Otherwise the second workaround would be dropped as
+it'd be detected as overwriting a previously programmed workaround.
 
-Also add some other cleanups/fixes nearby. Tested on DG2 with intel_reg
-reading 0xb158 with a busy render engine. Now it's not losing the upper
-bit anymore.
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 51 +++++++--------------
+ 1 file changed, 17 insertions(+), 34 deletions(-)
 
-Also removed the Cc to stable. This will be handled separately once the
-patch is merged. With graphics version 12 not being affected, this needs
-to be backported only to kernel versions after DG2/MTL started to be
-supported. But in that case the preparatory patch would also need to be
-backported so it doesn't branch graphics version 12.
-
-Lucas De Marchi (6):
-  drm/i915/gt: Move wal_get_fw_for_rmw()
-  drm/i915/gt: Clear all bits from GEN12_FF_MODE2
-  drm/i915/gt: Fix context workarounds with non-masked regs
-  drm/i915/gt: Drop read from GEN8_L3CNTLREG in ICL workaround
-  drm/i915/gt: Enable read back on XEHP_FF_MODE2
-  drm/i915/gt: Remove bogus comment on IVB_FBC_RT_BASE_UPPER
-
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 124 ++++++++++----------
- 1 file changed, 63 insertions(+), 61 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 8f8346df3c18..7d48bd57b6ef 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -693,40 +693,11 @@ static void dg2_ctx_gt_tuning_init(struct intel_engine_cs *engine,
+ 		   0, false);
+ }
+ 
+-/*
+- * These settings aren't actually workarounds, but general tuning settings that
+- * need to be programmed on several platforms.
+- */
+-static void gen12_ctx_gt_tuning_init(struct intel_engine_cs *engine,
+-				     struct i915_wa_list *wal)
+-{
+-	/*
+-	 * Although some platforms refer to it as Wa_1604555607, we need to
+-	 * program it even on those that don't explicitly list that
+-	 * workaround.
+-	 *
+-	 * Note that the programming of this register is further modified
+-	 * according to the FF_MODE2 guidance given by Wa_1608008084:gen12.
+-	 * Wa_1608008084 tells us the FF_MODE2 register will return the wrong
+-	 * value when read. The default value for this register is zero for all
+-	 * fields and there are no bit masks. So instead of doing a RMW we
+-	 * should just write TDS timer value. For the same reason read
+-	 * verification is ignored.
+-	 */
+-	wa_add(wal,
+-	       GEN12_FF_MODE2,
+-	       FF_MODE2_TDS_TIMER_MASK,
+-	       FF_MODE2_TDS_TIMER_128,
+-	       0, false);
+-}
+-
+ static void gen12_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 				       struct i915_wa_list *wal)
+ {
+ 	struct drm_i915_private *i915 = engine->i915;
+ 
+-	gen12_ctx_gt_tuning_init(engine, wal);
+-
+ 	/*
+ 	 * Wa_1409142259:tgl,dg1,adl-p
+ 	 * Wa_1409347922:tgl,dg1,adl-p
+@@ -748,15 +719,27 @@ static void gen12_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 			    GEN9_PREEMPT_GPGPU_THREAD_GROUP_LEVEL);
+ 
+ 	/*
+-	 * Wa_16011163337
++	 * Wa_16011163337 - GS_TIMER
++	 *
++	 * TDS_TIMER: Although some platforms refer to it as Wa_1604555607, we
++	 * need to program it even on those that don't explicitly list that
++	 * workaround.
++	 *
++	 * Note that the programming of GEN12_FF_MODE2 is further modified
++	 * according to the FF_MODE2 guidance given by Wa_1608008084.
++	 * Wa_1608008084 tells us the FF_MODE2 register will return the wrong
++	 * value when read from the CPU.
+ 	 *
+-	 * Like in gen12_ctx_gt_tuning_init(), read verification is ignored due
+-	 * to Wa_1608008084.
++	 * The default value for this register is zero for all fields.
++	 * So instead of doing a RMW we should just write the desired values
++	 * for TDS and GS timers. Note that since the readback can't be trusted,
++	 * the clear mask is just set to ~0 to make sure other bits are not
++	 * inadvertently set. For the same reason read verification is ignored.
+ 	 */
+ 	wa_add(wal,
+ 	       GEN12_FF_MODE2,
+-	       FF_MODE2_GS_TIMER_MASK,
+-	       FF_MODE2_GS_TIMER_224,
++	       ~0,
++	       FF_MODE2_TDS_TIMER_128 | FF_MODE2_GS_TIMER_224,
+ 	       0, false);
+ 
+ 	if (!IS_DG1(i915)) {
 -- 
 2.40.1
 
