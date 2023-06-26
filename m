@@ -4,50 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1FAEEB64DC
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jun 2023 17:22:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17625EB64DD
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jun 2023 17:23:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63A5410E117;
-	Mon, 26 Jun 2023 17:22:04 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3A6810E0FD
- for <intel-gfx@lists.freedesktop.org>; Mon, 26 Jun 2023 17:22:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1687800123; x=1719336123;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version; bh=CevAZSgnootPoR6uXwalVu6VcF8x+julruX7A64AE6k=;
- b=NJcPkWiKTtIBHnfpevIV/JMxkaj+9qbfD28hd51xM40LfZciHTKwTAUA
- tXjdlKEy6UdXywkfc5ndOTqVnPkmijrg7U9Svtbe9rwVcg64/SmJ+708i
- MU9lyzCXb8sWwdoYvG3fFy4azSKQFWMtVAMnYH3uOYSiGrHJaFHd8ByN5
- HD2L1FtNMXvIkSB/K+52pDtPutkvps5fZsGnGLDHOHw4GZNwdjkcgVwgb
- dTTZavUa7HIgQTcg5smGripw5PCdgP8Ao4KLy3eN9UeP4dta54JQKcdHs
- 5sjOavm0iGTnQZb21wQvxrn9OanISS5mmOBlmYKyvN3B2fR18R0SzqEZE g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10753"; a="427333218"
-X-IronPort-AV: E=Sophos;i="6.01,160,1684825200"; d="scan'208";a="427333218"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2023 10:18:27 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10753"; a="890351996"
-X-IronPort-AV: E=Sophos;i="6.01,160,1684825200"; d="scan'208";a="890351996"
-Received: from pdenis-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.62.207])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2023 10:18:25 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20230626163819.2759500-4-mitulkumar.ajitkumar.golani@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230626163819.2759500-1-mitulkumar.ajitkumar.golani@intel.com>
- <20230626163819.2759500-4-mitulkumar.ajitkumar.golani@intel.com>
-Date: Mon, 26 Jun 2023 20:18:09 +0300
-Message-ID: <87v8fata5q.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8557710E0FD;
+	Mon, 26 Jun 2023 17:23:06 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4FBA910E0FD;
+ Mon, 26 Jun 2023 17:23:05 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 4A17FA3ECB;
+ Mon, 26 Jun 2023 17:23:05 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2231836606607666264=="
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [RFC 3/3] drm/i915/display: Add wrapper to Compute
- SAD
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Suraj Kandpal" <suraj.kandpal@intel.com>
+Date: Mon, 26 Jun 2023 17:23:05 -0000
+Message-ID: <168780018529.5706.11597572401820765278@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230626130555.2391750-1-suraj.kandpal@intel.com>
+In-Reply-To: <20230626130555.2391750-1-suraj.kandpal@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915/vdsc=3A_Remove_FIXME_in_intel=5Fdsc=5Fcompute=5Fconfig?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,180 +40,290 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 26 Jun 2023, Mitul Golani <mitulkumar.ajitkumar.golani@intel.com> wrote:
-> Compute SADs that takes into account the supported rate and channel
-> based on the capabilities of the audio source. This wrapper function
-> should encapsulate the logic for determining the supported rate and
-> channel and should return a set of SADs that are compatible with the
-> source.
->
-> --v1:
-> - call intel_audio_compute_eld in this commit as it is defined here
->
-> --v2:
-> - Handle case when max frequency is less than 32k.
-> - remove drm prefix.
-> - name change for parse_sad to eld_to_sad.
->
-> --v3:
-> - Use signed int wherever required.
-> - add debug trace when channel is limited.
->
-> Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_audio.c | 69 ++++++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_audio.h |  1 +
->  drivers/gpu/drm/i915/display/intel_hdmi.c  |  2 +
->  3 files changed, 72 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
-> index e20ffc8e9654..1a1c773c1d41 100644
-> --- a/drivers/gpu/drm/i915/display/intel_audio.c
-> +++ b/drivers/gpu/drm/i915/display/intel_audio.c
-> @@ -794,6 +794,75 @@ bool intel_audio_compute_config(struct intel_encoder *encoder,
->  	return true;
->  }
->  
-> +static int sad_to_channels(const u8 *sad)
-> +{
-> +	return 1 + (sad[0] & 0x7);
-> +}
-> +
-> +static inline u8 *eld_to_sad(u8 *eld)
+--===============2231836606607666264==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Please don't use inline.
+== Series Details ==
 
-> +{
-> +	int ver, mnl;
-> +
-> +	ver = (eld[DRM_ELD_VER] & DRM_ELD_VER_MASK) >> DRM_ELD_VER_SHIFT;
-> +	if (ver != 2 && ver != 31)
-> +		return NULL;
-> +
-> +	mnl = drm_eld_mnl(eld);
-> +	if (mnl > 16)
-> +		return NULL;
-> +
-> +	return eld + DRM_ELD_CEA_SAD(mnl, 0);
+Series: drm/i915/vdsc: Remove FIXME in intel_dsc_compute_config
+URL   : https://patchwork.freedesktop.org/series/119864/
+State : success
 
-Feels like this should be in drm_edid.[ch]... but hey, it actually is!
-drm_eld_sad().
+== Summary ==
 
-> +}
-> +
-> +static int get_supported_freq_mask(struct intel_crtc_state *crtc_state)
-> +{
-> +	int audio_freq_hz[] = {32000, 44100, 48000, 88000, 96000, 176000, 192000, 0};
+CI Bug Log - changes from CI_DRM_13322 -> Patchwork_119864v1
+====================================================
 
-This needs a comment referencing the source spec, as apparently the
-order is significant.
+Summary
+-------
 
-> +	int mask = 0;
-> +
-> +	for (u8 index = 0; index < ARRAY_SIZE(audio_freq_hz); index++) {
+  **SUCCESS**
 
-int index, and please declare it separately instead of within the for.
+  No regressions found.
 
-> +		mask |= 1 << index;
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/index.html
 
-This means the first one is always supported. Is that the case? What if
-max_frequency is 0?
+Participating hosts (42 -> 40)
+------------------------------
 
-> +		if (crtc_state->audio.max_frequency != audio_freq_hz[index])
-> +			continue;
-> +		else
-> +			break;
+  Missing    (2): fi-kbl-soraka fi-snb-2520m 
 
-Maybe you mean:
+Known issues
+------------
 
-		if (audio_freq_hz[index] > crtc_state->audio.max_frequency)
-        		break;
+  Here are the changes found in Patchwork_119864v1 that come from known issues:
 
-		mask |= 1 << index;
+### IGT changes ###
 
-> +	}
-> +
-> +	return mask;
-> +}
-> +
-> +void intel_audio_compute_eld(struct intel_crtc_state *crtc_state)
-> +{
-> +	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
-> +	u8 *eld, *sad;
-> +	int index, mask = 0;
-> +
-> +	eld = crtc_state->eld;
-> +	if (!eld) {
-> +		drm_err(&i915->drm, "failed to locate eld\n");
+#### Issues hit ####
 
-It doesn't need to be an error.
+  * igt@i915_selftest@live@gt_mocs:
+    - bat-mtlp-6:         [PASS][1] -> [DMESG-FAIL][2] ([i915#7059])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-mtlp-6/igt@i915_selftest@live@gt_mocs.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-mtlp-6/igt@i915_selftest@live@gt_mocs.html
 
-> +		return;
-> +	}
-> +
-> +	sad = (u8 *)eld_to_sad(eld);
+  * igt@i915_selftest@live@requests:
+    - bat-mtlp-6:         [PASS][3] -> [DMESG-FAIL][4] ([i915#7269])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-mtlp-6/igt@i915_selftest@live@requests.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-mtlp-6/igt@i915_selftest@live@requests.html
 
-Unnecessary cast.
+  * igt@i915_selftest@live@slpc:
+    - bat-mtlp-6:         [PASS][5] -> [DMESG-WARN][6] ([i915#6367])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-mtlp-6/igt@i915_selftest@live@slpc.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-mtlp-6/igt@i915_selftest@live@slpc.html
+    - bat-rpls-1:         NOTRUN -> [DMESG-WARN][7] ([i915#6367])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-rpls-1/igt@i915_selftest@live@slpc.html
 
-> +	if (sad) {
+  * igt@i915_suspend@basic-s3-without-i915:
+    - bat-rpls-1:         NOTRUN -> [ABORT][8] ([i915#6687] / [i915#7978])
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-rpls-1/igt@i915_suspend@basic-s3-without-i915.html
 
-if (!sad)
-	return;
+  * igt@kms_chamelium_hpd@common-hpd-after-suspend:
+    - bat-dg2-11:         NOTRUN -> [SKIP][9] ([i915#7828])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-dg2-11/igt@kms_chamelium_hpd@common-hpd-after-suspend.html
 
-and reduce indent below.
+  
+#### Possible fixes ####
 
-> +		mask = get_supported_freq_mask(crtc_state);
-> +
-> +		for (index = 0; index < drm_eld_sad_count(eld); index++, sad += 3) {
-> +			/*
-> +			 * Respect source restricitions. Limit capabilities to a subset that is
-> +			 * supported both by the source and the sink.
-> +			 */
-> +			if (sad_to_channels(sad) >= crtc_state->audio.max_channel) {
-> +				sad[0] &= ~0x7;
-> +				sad[0] |= crtc_state->audio.max_channel - 1;
-> +				drm_dbg_kms(&i915->drm, "Channel count is limited to %d\n",
-> +					    crtc_state->audio.max_channel - 1);
-> +			}
-> +
-> +			sad[1] &= mask;
-> +		}
-> +	}
-> +}
+  * igt@i915_selftest@live@gt_mocs:
+    - bat-mtlp-8:         [DMESG-FAIL][10] ([i915#7059]) -> [PASS][11]
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-mtlp-8/igt@i915_selftest@live@gt_mocs.html
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-mtlp-8/igt@i915_selftest@live@gt_mocs.html
 
-This should also be static within intel_audio.c.
+  * igt@i915_selftest@live@hangcheck:
+    - bat-dg2-11:         [INCOMPLETE][12] ([i915#7913]) -> [PASS][13]
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-dg2-11/igt@i915_selftest@live@hangcheck.html
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-dg2-11/igt@i915_selftest@live@hangcheck.html
 
-> +
->  /**
->   * intel_audio_codec_enable - Enable the audio codec for HD audio
->   * @encoder: encoder on which to enable audio
-> diff --git a/drivers/gpu/drm/i915/display/intel_audio.h b/drivers/gpu/drm/i915/display/intel_audio.h
-> index be3edf9c4982..a0162cdc7999 100644
-> --- a/drivers/gpu/drm/i915/display/intel_audio.h
-> +++ b/drivers/gpu/drm/i915/display/intel_audio.h
-> @@ -17,6 +17,7 @@ struct intel_encoder;
->  #define MAX_CHANNEL_COUNT			8
->  
->  void intel_audio_hooks_init(struct drm_i915_private *dev_priv);
-> +void intel_audio_compute_eld(struct intel_crtc_state *crtc_state);
->  bool intel_audio_compute_config(struct intel_encoder *encoder,
->  				struct intel_crtc_state *crtc_state,
->  				struct drm_connector_state *conn_state);
-> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> index 6a4d477e8a15..daaa08c0ee47 100644
-> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> @@ -2402,6 +2402,8 @@ int intel_hdmi_compute_config(struct intel_encoder *encoder,
->  		return -EINVAL;
->  	}
->  
-> +	intel_audio_compute_eld(pipe_config);
-> +
->  	return 0;
->  }
+  * igt@i915_selftest@live@requests:
+    - bat-rpls-1:         [ABORT][14] ([i915#7911] / [i915#7920] / [i915#7982]) -> [PASS][15]
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-rpls-1/igt@i915_selftest@live@requests.html
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-rpls-1/igt@i915_selftest@live@requests.html
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+  * igt@kms_flip@basic-flip-vs-modeset@b-dp5:
+    - bat-adlp-11:        [DMESG-WARN][16] ([i915#6868]) -> [PASS][17]
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-adlp-11/igt@kms_flip@basic-flip-vs-modeset@b-dp5.html
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-adlp-11/igt@kms_flip@basic-flip-vs-modeset@b-dp5.html
+
+  * igt@kms_flip@basic-flip-vs-modeset@c-dp6:
+    - bat-adlp-11:        [FAIL][18] ([i915#6121]) -> [PASS][19] +5 similar issues
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-adlp-11/igt@kms_flip@basic-flip-vs-modeset@c-dp6.html
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-adlp-11/igt@kms_flip@basic-flip-vs-modeset@c-dp6.html
+
+  
+#### Warnings ####
+
+  * igt@i915_pm_rpm@basic-pci-d3-state:
+    - bat-adlp-11:        [ABORT][20] -> [ABORT][21] ([i915#4423])
+   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-adlp-11/igt@i915_pm_rpm@basic-pci-d3-state.html
+   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-adlp-11/igt@i915_pm_rpm@basic-pci-d3-state.html
+
+  * igt@kms_psr@cursor_plane_move:
+    - bat-rplp-1:         [SKIP][22] ([i915#1072]) -> [ABORT][23] ([i915#8434])
+   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-rplp-1/igt@kms_psr@cursor_plane_move.html
+   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-rplp-1/igt@kms_psr@cursor_plane_move.html
+
+  
+  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
+  [i915#4423]: https://gitlab.freedesktop.org/drm/intel/issues/4423
+  [i915#6121]: https://gitlab.freedesktop.org/drm/intel/issues/6121
+  [i915#6367]: https://gitlab.freedesktop.org/drm/intel/issues/6367
+  [i915#6687]: https://gitlab.freedesktop.org/drm/intel/issues/6687
+  [i915#6868]: https://gitlab.freedesktop.org/drm/intel/issues/6868
+  [i915#7059]: https://gitlab.freedesktop.org/drm/intel/issues/7059
+  [i915#7269]: https://gitlab.freedesktop.org/drm/intel/issues/7269
+  [i915#7828]: https://gitlab.freedesktop.org/drm/intel/issues/7828
+  [i915#7911]: https://gitlab.freedesktop.org/drm/intel/issues/7911
+  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
+  [i915#7920]: https://gitlab.freedesktop.org/drm/intel/issues/7920
+  [i915#7978]: https://gitlab.freedesktop.org/drm/intel/issues/7978
+  [i915#7982]: https://gitlab.freedesktop.org/drm/intel/issues/7982
+  [i915#8434]: https://gitlab.freedesktop.org/drm/intel/issues/8434
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_13322 -> Patchwork_119864v1
+
+  CI-20190529: 20190529
+  CI_DRM_13322: 7067d1a82560a2e79adefac0d28e08cb163ae907 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7349: eba3d515fbb832edc7fabcbf90e2564aa7face7b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_119864v1: 7067d1a82560a2e79adefac0d28e08cb163ae907 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+29f3a133ab18 drm/i915/vdsc: Remove FIXME in intel_dsc_compute_config
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/index.html
+
+--===============2231836606607666264==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/vdsc: Remove FIXME in intel_dsc_compute_config</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/119864/">https://patchwork.freedesktop.org/series/119864/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_13322 -&gt; Patchwork_119864v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): fi-kbl-soraka fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_119864v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@gt_mocs:</p>
+<ul>
+<li>bat-mtlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-mtlp-6/igt@i915_selftest@live@gt_mocs.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-mtlp-6/igt@i915_selftest@live@gt_mocs.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7059">i915#7059</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@requests:</p>
+<ul>
+<li>bat-mtlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-mtlp-6/igt@i915_selftest@live@requests.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-mtlp-6/igt@i915_selftest@live@requests.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7269">i915#7269</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@slpc:</p>
+<ul>
+<li>
+<p>bat-mtlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-mtlp-6/igt@i915_selftest@live@slpc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-mtlp-6/igt@i915_selftest@live@slpc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6367">i915#6367</a>)</p>
+</li>
+<li>
+<p>bat-rpls-1:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-rpls-1/igt@i915_selftest@live@slpc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6367">i915#6367</a>)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_suspend@basic-s3-without-i915:</p>
+<ul>
+<li>bat-rpls-1:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-rpls-1/igt@i915_suspend@basic-s3-without-i915.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6687">i915#6687</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7978">i915#7978</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_chamelium_hpd@common-hpd-after-suspend:</p>
+<ul>
+<li>bat-dg2-11:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-dg2-11/igt@kms_chamelium_hpd@common-hpd-after-suspend.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7828">i915#7828</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@gt_mocs:</p>
+<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-mtlp-8/igt@i915_selftest@live@gt_mocs.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7059">i915#7059</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-mtlp-8/igt@i915_selftest@live@gt_mocs.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@hangcheck:</p>
+<ul>
+<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-dg2-11/igt@i915_selftest@live@hangcheck.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-dg2-11/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@requests:</p>
+<ul>
+<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-rpls-1/igt@i915_selftest@live@requests.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7911">i915#7911</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7920">i915#7920</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7982">i915#7982</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-rpls-1/igt@i915_selftest@live@requests.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_flip@basic-flip-vs-modeset@b-dp5:</p>
+<ul>
+<li>bat-adlp-11:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-adlp-11/igt@kms_flip@basic-flip-vs-modeset@b-dp5.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6868">i915#6868</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-adlp-11/igt@kms_flip@basic-flip-vs-modeset@b-dp5.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_flip@basic-flip-vs-modeset@c-dp6:</p>
+<ul>
+<li>bat-adlp-11:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-adlp-11/igt@kms_flip@basic-flip-vs-modeset@c-dp6.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6121">i915#6121</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-adlp-11/igt@kms_flip@basic-flip-vs-modeset@c-dp6.html">PASS</a> +5 similar issues</li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>
+<p>igt@i915_pm_rpm@basic-pci-d3-state:</p>
+<ul>
+<li>bat-adlp-11:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-adlp-11/igt@i915_pm_rpm@basic-pci-d3-state.html">ABORT</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-adlp-11/igt@i915_pm_rpm@basic-pci-d3-state.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4423">i915#4423</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@cursor_plane_move:</p>
+<ul>
+<li>bat-rplp-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13322/bat-rplp-1/igt@kms_psr@cursor_plane_move.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1072">i915#1072</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119864v1/bat-rplp-1/igt@kms_psr@cursor_plane_move.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8434">i915#8434</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_13322 -&gt; Patchwork_119864v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_13322: 7067d1a82560a2e79adefac0d28e08cb163ae907 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7349: eba3d515fbb832edc7fabcbf90e2564aa7face7b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_119864v1: 7067d1a82560a2e79adefac0d28e08cb163ae907 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>29f3a133ab18 drm/i915/vdsc: Remove FIXME in intel_dsc_compute_config</p>
+
+</body>
+</html>
+
+--===============2231836606607666264==--
