@@ -4,50 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 185C5EB64DA
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jun 2023 09:15:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A653EB64D7
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jun 2023 09:24:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D01A10E1C1;
-	Mon, 26 Jun 2023 09:15:17 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1ED2910E1D0;
- Mon, 26 Jun 2023 09:15:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1687770912; x=1719306912;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=wfgL9qGgPwrycb+pq8eWWsXWs7vH+aYL2R+tvWwCzhA=;
- b=GclskB8oK8soLkc0zhCIwF99jx8si8BHqszmcvrCs1ZSI7947fVvBufr
- F1EddqeR16Xm/YKXyGg8uoj8fadiGVKoEd8qHMFwTQorad0aDJuh3BQKp
- 3meHeSICXkxMTPd/GozVLFpSq+XSKMHM7Pz+j6ExYPawgcDpmlDcBPO6T
- c+7Q5xo3TY01FGjC4HaTfB/1OavPkMMuX0iT+P3lv+uYcHngViHzzHm5U
- M34z4vLOJ3gDZnOuUwdn51URcBQZ5YXVw9dJIUwA81i3hZR6frjApuu7A
- IoLto/mhOG05+D52jRLGioZ7KpdLTmoR1QJWvmv34O3GYwr7FDBNOZO4E A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10752"; a="345974123"
-X-IronPort-AV: E=Sophos;i="6.01,159,1684825200"; d="scan'208";a="345974123"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2023 02:15:11 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10752"; a="781357795"
-X-IronPort-AV: E=Sophos;i="6.01,159,1684825200"; d="scan'208";a="781357795"
-Received: from ettammin-mobl1.ger.corp.intel.com (HELO
- thellstr-mobl1.intel.com) ([10.249.254.105])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2023 02:15:08 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Date: Mon, 26 Jun 2023 11:14:49 +0200
-Message-Id: <20230626091450.14757-4-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230626091450.14757-1-thomas.hellstrom@linux.intel.com>
-References: <20230626091450.14757-1-thomas.hellstrom@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E8A710E090;
+	Mon, 26 Jun 2023 09:24:10 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C8F2010E052;
+ Mon, 26 Jun 2023 09:24:07 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id C578FAADE8;
+ Mon, 26 Jun 2023 09:24:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 3/4] drm/ttm: Don't leak a resource on
- eviction error
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Date: Mon, 26 Jun 2023 09:24:07 -0000
+Message-ID: <168777144780.5705.4478802600274254974@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230621123156.14907-1-jani.nikula@intel.com>
+In-Reply-To: <20230621123156.14907-1-jani.nikula@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5B1/2=5D_drm/doc=3A_fix_duplicate_dec?=
+ =?utf-8?q?laration_warning_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,70 +41,26 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- dri-devel@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Nirmoy Das <nirmoy.das@intel.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On eviction errors other than -EMULTIHOP we were leaking a resource.
-Fix.
+== Series Details ==
 
-v2:
-- Avoid yet another goto (Andi Shyti)
+Series: series starting with [1/2] drm/doc: fix duplicate declaration warning (rev2)
+URL   : https://patchwork.freedesktop.org/series/119677/
+State : warning
 
-Fixes: 403797925768 ("drm/ttm: Fix multihop assert on eviction.")
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v5.15+
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Nirmoy Das <nirmoy.das@intel.com> #v1
----
- drivers/gpu/drm/ttm/ttm_bo.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 615d30c4262d..c0e3bbd21d3d 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -458,18 +458,18 @@ static int ttm_bo_evict(struct ttm_buffer_object *bo,
- 		goto out;
- 	}
- 
--bounce:
--	ret = ttm_bo_handle_move_mem(bo, evict_mem, true, ctx, &hop);
--	if (ret == -EMULTIHOP) {
-+	do {
-+		ret = ttm_bo_handle_move_mem(bo, evict_mem, true, ctx, &hop);
-+		if (ret != -EMULTIHOP)
-+			break;
-+
- 		ret = ttm_bo_bounce_temp_buffer(bo, &evict_mem, ctx, &hop);
--		if (ret) {
--			if (ret != -ERESTARTSYS && ret != -EINTR)
--				pr_err("Buffer eviction failed\n");
--			ttm_resource_free(bo, &evict_mem);
--			goto out;
--		}
--		/* try and move to final place now. */
--		goto bounce;
-+	} while (!ret);
-+
-+	if (ret) {
-+		ttm_resource_free(bo, &evict_mem);
-+		if (ret != -ERESTARTSYS && ret != -EINTR)
-+			pr_err("Buffer eviction failed\n");
- 	}
- out:
- 	return ret;
--- 
-2.40.1
+Error: dim checkpatch failed
+bd9fe8dca640 drm/doc: fix duplicate declaration warning
+-:8: WARNING:USE_RELATIVE_PATH: use relative pathname instead of absolute in changelog text
+#8: 
+/home/jani/src/linux/Documentation/gpu/driver-uapi.rst:2279: WARNING: Duplicate C declaration, also defined at rfc/i915_scheduler:3.
+
+total: 0 errors, 1 warnings, 0 checks, 13 lines checked
+2d0d0e77bf90 drm/i915: fix Sphinx indentation warning
+
 
