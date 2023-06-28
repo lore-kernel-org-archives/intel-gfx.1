@@ -4,31 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5603EB64DA
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jun 2023 16:20:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7C12EB64DC
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jun 2023 16:33:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57E7710E382;
-	Wed, 28 Jun 2023 16:20:13 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9F28C10E381;
- Wed, 28 Jun 2023 16:20:12 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 8FD53A882E;
- Wed, 28 Jun 2023 16:20:12 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2281333000067844937=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4480610E380;
+	Wed, 28 Jun 2023 16:33:09 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92B8E10E379
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Jun 2023 16:33:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1687969987; x=1719505987;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=zV5Y0+OYTNNiyA8UzfcxVz+oSKIEhkp/7iZYGZb3zfY=;
+ b=WkUiEcC1RpoeD1NS+JHmeBQrkIQ0ed+6/03F/Lhc1DbZuKmG5NeUA0Nm
+ k/CA68QjsX1NGP1tId92dGHLQyEr04JAhZhamtKhxaP7jJ8rP/2gNG/k7
+ hwp4n4ssut24Z0ZwuaGvLpSv4Roz7oSBW69dMMbc0tqyeIarJjL6WRsj0
+ A1v5l/OkkhFanT6u4m+nuCaS806Bu+aTVpsqbGO9sTd6QwS3Oax4RpQYA
+ peeYgjFlGPBOlbebtzGbgTi0o/G9p920BFpYNKa5Js2yqwzD0LMRL0kGT
+ M8aEgj3ZIBoZHWVBg7ypQ3E/yWyo7rq79TMse5TXdWUwED35oJJMfZm4R w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10755"; a="346661874"
+X-IronPort-AV: E=Sophos;i="6.01,165,1684825200"; d="scan'208";a="346661874"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jun 2023 09:32:46 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10755"; a="1047482265"
+X-IronPort-AV: E=Sophos;i="6.01,165,1684825200"; d="scan'208";a="1047482265"
+Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
+ by fmsmga005.fm.intel.com with ESMTP; 28 Jun 2023 09:32:43 -0700
+From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 28 Jun 2023 22:03:57 +0530
+Message-Id: <20230628163359.2879668-2-mitulkumar.ajitkumar.golani@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230628163359.2879668-1-mitulkumar.ajitkumar.golani@intel.com>
+References: <20230628163359.2879668-1-mitulkumar.ajitkumar.golani@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Stanislav Lisovskiy" <stanislav.lisovskiy@intel.com>
-Date: Wed, 28 Jun 2023 16:20:12 -0000
-Message-ID: <168796921255.32035.14369351314324990668@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20230626082821.2085-1-stanislav.lisovskiy@intel.com>
-In-Reply-To: <20230626082821.2085-1-stanislav.lisovskiy@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915=3A_Fail_if_DSC_compression_requirement_is_less_than_platf?=
- =?utf-8?q?orm_supports_=28rev2=29?=
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [RFC 1/3] drm/i915: Add has_audio to separate audio
+ parameter in crtc_state
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,233 +57,363 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2281333000067844937==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+To enhance the relationship between the has_audio and the source
+audio parameter, create a separate crtc_state audio property and
+add the has_audio parameter into it. Additionally, update the
+access of the has_audio parameter from the crtc_state pointer as
+it is wrapped under the audio. These modifications establish
+a more cohesive structure and improve the accessibility and
+organization of the audio-related parameters within the codebase.
 
-== Series Details ==
+--v1:
+- add audio instead of audio_config in crtc_state
+- add only has_audio then update related parameter access
+- refactor other member to different commit where it is being used
+- update commit message and header
 
-Series: drm/i915: Fail if DSC compression requirement is less than platform supports (rev2)
-URL   : https://patchwork.freedesktop.org/series/119848/
-State : success
+Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/g4x_dp.c            |  4 ++--
+ drivers/gpu/drm/i915/display/g4x_hdmi.c          | 16 ++++++++--------
+ drivers/gpu/drm/i915/display/intel_audio.c       |  6 +++---
+ drivers/gpu/drm/i915/display/intel_cdclk.c       |  6 +++---
+ .../gpu/drm/i915/display/intel_crtc_state_dump.c |  4 ++--
+ drivers/gpu/drm/i915/display/intel_ddi.c         |  2 +-
+ drivers/gpu/drm/i915/display/intel_display.c     |  4 ++--
+ .../gpu/drm/i915/display/intel_display_types.h   |  6 +++---
+ drivers/gpu/drm/i915/display/intel_dp.c          |  2 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c      |  2 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c        |  2 +-
+ drivers/gpu/drm/i915/display/intel_sdvo.c        | 10 +++++-----
+ 12 files changed, 32 insertions(+), 32 deletions(-)
 
-== Summary ==
+diff --git a/drivers/gpu/drm/i915/display/g4x_dp.c b/drivers/gpu/drm/i915/display/g4x_dp.c
+index c58a3f249a01..af76a71e757c 100644
+--- a/drivers/gpu/drm/i915/display/g4x_dp.c
++++ b/drivers/gpu/drm/i915/display/g4x_dp.c
+@@ -345,7 +345,7 @@ static void intel_dp_get_config(struct intel_encoder *encoder,
+ 
+ 	tmp = intel_de_read(dev_priv, intel_dp->output_reg);
+ 
+-	pipe_config->has_audio = tmp & DP_AUDIO_OUTPUT_ENABLE && port != PORT_A;
++	pipe_config->audio.has_audio = tmp & DP_AUDIO_OUTPUT_ENABLE && port != PORT_A;
+ 
+ 	if (HAS_PCH_CPT(dev_priv) && port != PORT_A) {
+ 		u32 trans_dp = intel_de_read(dev_priv,
+@@ -625,7 +625,7 @@ static void intel_dp_enable_port(struct intel_dp *intel_dp,
+ 	 * fail when the power sequencer is freshly used for this port.
+ 	 */
+ 	intel_dp->DP |= DP_PORT_EN;
+-	if (crtc_state->has_audio)
++	if (crtc_state->audio.has_audio)
+ 		intel_dp->DP |= DP_AUDIO_OUTPUT_ENABLE;
+ 
+ 	intel_de_write(dev_priv, intel_dp->output_reg, intel_dp->DP);
+diff --git a/drivers/gpu/drm/i915/display/g4x_hdmi.c b/drivers/gpu/drm/i915/display/g4x_hdmi.c
+index 8c71e3ede680..568bfc3c6c47 100644
+--- a/drivers/gpu/drm/i915/display/g4x_hdmi.c
++++ b/drivers/gpu/drm/i915/display/g4x_hdmi.c
+@@ -178,7 +178,7 @@ static void intel_hdmi_get_config(struct intel_encoder *encoder,
+ 		pipe_config->has_infoframe = true;
+ 
+ 	if (tmp & HDMI_AUDIO_ENABLE)
+-		pipe_config->has_audio = true;
++		pipe_config->audio.has_audio = true;
+ 
+ 	if (!HAS_PCH_SPLIT(dev_priv) &&
+ 	    tmp & HDMI_COLOR_RANGE_16_235)
+@@ -224,7 +224,7 @@ static void g4x_hdmi_enable_port(struct intel_encoder *encoder,
+ 	temp = intel_de_read(dev_priv, intel_hdmi->hdmi_reg);
+ 
+ 	temp |= SDVO_ENABLE;
+-	if (pipe_config->has_audio)
++	if (pipe_config->audio.has_audio)
+ 		temp |= HDMI_AUDIO_ENABLE;
+ 
+ 	intel_de_write(dev_priv, intel_hdmi->hdmi_reg, temp);
+@@ -240,7 +240,7 @@ static void g4x_enable_hdmi(struct intel_atomic_state *state,
+ 
+ 	g4x_hdmi_enable_port(encoder, pipe_config);
+ 
+-	drm_WARN_ON(&dev_priv->drm, pipe_config->has_audio &&
++	drm_WARN_ON(&dev_priv->drm, pipe_config->audio.has_audio &&
+ 		    !pipe_config->has_hdmi_sink);
+ 	intel_audio_codec_enable(encoder, pipe_config, conn_state);
+ }
+@@ -258,7 +258,7 @@ static void ibx_enable_hdmi(struct intel_atomic_state *state,
+ 	temp = intel_de_read(dev_priv, intel_hdmi->hdmi_reg);
+ 
+ 	temp |= SDVO_ENABLE;
+-	if (pipe_config->has_audio)
++	if (pipe_config->audio.has_audio)
+ 		temp |= HDMI_AUDIO_ENABLE;
+ 
+ 	/*
+@@ -293,7 +293,7 @@ static void ibx_enable_hdmi(struct intel_atomic_state *state,
+ 		intel_de_posting_read(dev_priv, intel_hdmi->hdmi_reg);
+ 	}
+ 
+-	drm_WARN_ON(&dev_priv->drm, pipe_config->has_audio &&
++	drm_WARN_ON(&dev_priv->drm, pipe_config->audio.has_audio &&
+ 		    !pipe_config->has_hdmi_sink);
+ 	intel_audio_codec_enable(encoder, pipe_config, conn_state);
+ }
+@@ -313,7 +313,7 @@ static void cpt_enable_hdmi(struct intel_atomic_state *state,
+ 	temp = intel_de_read(dev_priv, intel_hdmi->hdmi_reg);
+ 
+ 	temp |= SDVO_ENABLE;
+-	if (pipe_config->has_audio)
++	if (pipe_config->audio.has_audio)
+ 		temp |= HDMI_AUDIO_ENABLE;
+ 
+ 	/*
+@@ -348,7 +348,7 @@ static void cpt_enable_hdmi(struct intel_atomic_state *state,
+ 			     TRANS_CHICKEN1_HDMIUNIT_GC_DISABLE, 0);
+ 	}
+ 
+-	drm_WARN_ON(&dev_priv->drm, pipe_config->has_audio &&
++	drm_WARN_ON(&dev_priv->drm, pipe_config->audio.has_audio &&
+ 		    !pipe_config->has_hdmi_sink);
+ 	intel_audio_codec_enable(encoder, pipe_config, conn_state);
+ }
+@@ -360,7 +360,7 @@ static void vlv_enable_hdmi(struct intel_atomic_state *state,
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+ 
+-	drm_WARN_ON(&dev_priv->drm, pipe_config->has_audio &&
++	drm_WARN_ON(&dev_priv->drm, pipe_config->audio.has_audio &&
+ 		    !pipe_config->has_hdmi_sink);
+ 	intel_audio_codec_enable(encoder, pipe_config, conn_state);
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
+index 3d9c9b4f27f8..e20ffc8e9654 100644
+--- a/drivers/gpu/drm/i915/display/intel_audio.c
++++ b/drivers/gpu/drm/i915/display/intel_audio.c
+@@ -815,7 +815,7 @@ void intel_audio_codec_enable(struct intel_encoder *encoder,
+ 	struct intel_audio_state *audio_state;
+ 	enum port port = encoder->port;
+ 
+-	if (!crtc_state->has_audio)
++	if (!crtc_state->audio.has_audio)
+ 		return;
+ 
+ 	drm_dbg_kms(&i915->drm, "[CONNECTOR:%d:%s][ENCODER:%d:%s] Enable audio codec on [CRTC:%d:%s], %u bytes ELD\n",
+@@ -874,7 +874,7 @@ void intel_audio_codec_disable(struct intel_encoder *encoder,
+ 	struct intel_audio_state *audio_state;
+ 	enum port port = encoder->port;
+ 
+-	if (!old_crtc_state->has_audio)
++	if (!old_crtc_state->audio.has_audio)
+ 		return;
+ 
+ 	drm_dbg_kms(&i915->drm, "[CONNECTOR:%d:%s][ENCODER:%d:%s] Disable audio codec on [CRTC:%d:%s]\n",
+@@ -930,7 +930,7 @@ void intel_audio_codec_get_config(struct intel_encoder *encoder,
+ {
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 
+-	if (!crtc_state->has_audio)
++	if (!crtc_state->audio.has_audio)
+ 		return;
+ 
+ 	if (i915->display.funcs.audio)
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 4207863b7b2a..cb87c2e0cdaa 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -2553,7 +2553,7 @@ int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
+ 	 * restriction for GLK is 316.8 MHz.
+ 	 */
+ 	if (intel_crtc_has_dp_encoder(crtc_state) &&
+-	    crtc_state->has_audio &&
++	    crtc_state->audio.has_audio &&
+ 	    crtc_state->port_clock >= 540000 &&
+ 	    crtc_state->lane_count == 4) {
+ 		if (DISPLAY_VER(dev_priv) == 10) {
+@@ -2569,7 +2569,7 @@ int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
+ 	 * According to BSpec, "The CD clock frequency must be at least twice
+ 	 * the frequency of the Azalia BCLK." and BCLK is 96 MHz by default.
+ 	 */
+-	if (crtc_state->has_audio && DISPLAY_VER(dev_priv) >= 9)
++	if (crtc_state->audio.has_audio && DISPLAY_VER(dev_priv) >= 9)
+ 		min_cdclk = max(2 * 96000, min_cdclk);
+ 
+ 	/*
+@@ -2580,7 +2580,7 @@ int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
+ 	 *  162                    | 200 or higher"
+ 	 */
+ 	if ((IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) &&
+-	    intel_crtc_has_dp_encoder(crtc_state) && crtc_state->has_audio)
++	    intel_crtc_has_dp_encoder(crtc_state) && crtc_state->audio.has_audio)
+ 		min_cdclk = max(crtc_state->port_clock, min_cdclk);
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+index 8d4640d0fd34..b7d1be42bf0f 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+@@ -265,7 +265,7 @@ void intel_crtc_state_dump(const struct intel_crtc_state *pipe_config,
+ 
+ 	drm_dbg_kms(&i915->drm,
+ 		    "audio: %i, infoframes: %i, infoframes enabled: 0x%x\n",
+-		    pipe_config->has_audio, pipe_config->has_infoframe,
++		    pipe_config->audio.has_audio, pipe_config->has_infoframe,
+ 		    pipe_config->infoframes.enable);
+ 
+ 	if (pipe_config->infoframes.enable &
+@@ -291,7 +291,7 @@ void intel_crtc_state_dump(const struct intel_crtc_state *pipe_config,
+ 	    intel_hdmi_infoframe_enable(DP_SDP_VSC))
+ 		intel_dump_dp_vsc_sdp(i915, &pipe_config->infoframes.vsc);
+ 
+-	if (pipe_config->has_audio)
++	if (pipe_config->audio.has_audio)
+ 		intel_dump_buffer(i915, "ELD: ", pipe_config->eld,
+ 				  drm_eld_size(pipe_config->eld));
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 61722556bb47..ff738ca1e118 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -3782,7 +3782,7 @@ static void intel_ddi_get_config(struct intel_encoder *encoder,
+ 
+ 	intel_ddi_mso_get_config(encoder, pipe_config);
+ 
+-	pipe_config->has_audio =
++	pipe_config->audio.has_audio =
+ 		intel_ddi_is_audio_enabled(dev_priv, cpu_transcoder);
+ 
+ 	if (encoder->type == INTEL_OUTPUT_EDP)
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index eed01957bdb9..d87055bd7b11 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1857,7 +1857,7 @@ static void get_crtc_power_domains(struct intel_crtc_state *crtc_state,
+ 		set_bit(intel_encoder->power_domain, mask->bits);
+ 	}
+ 
+-	if (HAS_DDI(dev_priv) && crtc_state->has_audio)
++	if (HAS_DDI(dev_priv) && crtc_state->audio.has_audio)
+ 		set_bit(POWER_DOMAIN_AUDIO_MMIO, mask->bits);
+ 
+ 	if (crtc_state->shared_dpll)
+@@ -5258,7 +5258,7 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 	PIPE_CONF_CHECK_BOOL(has_infoframe);
+ 	PIPE_CONF_CHECK_BOOL(fec_enable);
+ 
+-	PIPE_CONF_CHECK_BOOL_INCOMPLETE(has_audio);
++	PIPE_CONF_CHECK_BOOL_INCOMPLETE(audio.has_audio);
+ 	PIPE_CONF_CHECK_BUFFER(eld, MAX_ELD_BYTES);
+ 
+ 	PIPE_CONF_CHECK_X(gmch_pfit.control);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 731f2ec04d5c..ebd147180a6e 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1129,9 +1129,9 @@ struct intel_crtc_state {
+ 	/* Whether we should send NULL infoframes. Required for audio. */
+ 	bool has_hdmi_sink;
+ 
+-	/* Audio enabled on this pipe. Only valid if either has_hdmi_sink or
+-	 * has_dp_encoder is set. */
+-	bool has_audio;
++	struct {
++		bool has_audio;
++	} audio;
+ 
+ 	/*
+ 	 * Enable dithering, used when the selected pipe bpp doesn't match the
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 9f40da20e88d..d3f250dcb398 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2255,7 +2255,7 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+ 	if (HAS_PCH_SPLIT(dev_priv) && !HAS_DDI(dev_priv) && encoder->port != PORT_A)
+ 		pipe_config->has_pch_encoder = true;
+ 
+-	pipe_config->has_audio =
++	pipe_config->audio.has_audio =
+ 		intel_dp_has_audio(encoder, conn_state) &&
+ 		intel_audio_compute_config(encoder, pipe_config, conn_state);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index e3f176a093d2..f6e1bf3d9e25 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -322,7 +322,7 @@ static int intel_dp_mst_compute_config(struct intel_encoder *encoder,
+ 	pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
+ 	pipe_config->has_pch_encoder = false;
+ 
+-	pipe_config->has_audio =
++	pipe_config->audio.has_audio =
+ 		intel_dp_mst_has_audio(conn_state) &&
+ 		intel_audio_compute_config(encoder, pipe_config, conn_state);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 7ac5e6c5e00d..32157bef2eef 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2302,7 +2302,7 @@ int intel_hdmi_compute_config(struct intel_encoder *encoder,
+ 	if (adjusted_mode->flags & DRM_MODE_FLAG_DBLCLK)
+ 		pipe_config->pixel_multiplier = 2;
+ 
+-	pipe_config->has_audio =
++	pipe_config->audio.has_audio =
+ 		intel_hdmi_has_audio(encoder, pipe_config, conn_state) &&
+ 		intel_audio_compute_config(encoder, pipe_config, conn_state);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
+index 8298a86d1334..51495f0bcf75 100644
+--- a/drivers/gpu/drm/i915/display/intel_sdvo.c
++++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
+@@ -1191,7 +1191,7 @@ static void intel_sdvo_get_eld(struct intel_sdvo *intel_sdvo,
+ 	ssize_t len;
+ 	u8 val;
+ 
+-	if (!crtc_state->has_audio)
++	if (!crtc_state->audio.has_audio)
+ 		return;
+ 
+ 	if (!intel_sdvo_get_value(intel_sdvo, SDVO_CMD_GET_AUDIO_STAT, &val, 1))
+@@ -1406,7 +1406,7 @@ static int intel_sdvo_compute_config(struct intel_encoder *encoder,
+ 
+ 	pipe_config->has_hdmi_sink = intel_has_hdmi_sink(intel_sdvo_connector, conn_state);
+ 
+-	pipe_config->has_audio =
++	pipe_config->audio.has_audio =
+ 		intel_sdvo_has_audio(encoder, pipe_config, conn_state) &&
+ 		intel_audio_compute_config(encoder, pipe_config, conn_state);
+ 
+@@ -1760,7 +1760,7 @@ static void intel_sdvo_get_config(struct intel_encoder *encoder,
+ 	if (intel_sdvo_get_value(intel_sdvo, SDVO_CMD_GET_AUDIO_STAT,
+ 				 &val, 1)) {
+ 		if (val & SDVO_AUDIO_PRESENCE_DETECT)
+-			pipe_config->has_audio = true;
++			pipe_config->audio.has_audio = true;
+ 	}
+ 
+ 	if (intel_sdvo_get_value(intel_sdvo, SDVO_CMD_GET_ENCODE,
+@@ -1805,7 +1805,7 @@ static void intel_disable_sdvo(struct intel_atomic_state *state,
+ 	struct intel_crtc *crtc = to_intel_crtc(old_crtc_state->uapi.crtc);
+ 	u32 temp;
+ 
+-	if (old_crtc_state->has_audio)
++	if (old_crtc_state->audio.has_audio)
+ 		intel_sdvo_disable_audio(intel_sdvo);
+ 
+ 	intel_sdvo_set_active_outputs(intel_sdvo, 0);
+@@ -1898,7 +1898,7 @@ static void intel_enable_sdvo(struct intel_atomic_state *state,
+ 						   DRM_MODE_DPMS_ON);
+ 	intel_sdvo_set_active_outputs(intel_sdvo, intel_sdvo->attached_output);
+ 
+-	if (pipe_config->has_audio)
++	if (pipe_config->audio.has_audio)
+ 		intel_sdvo_enable_audio(intel_sdvo, pipe_config, conn_state);
+ }
+ 
+-- 
+2.25.1
 
-CI Bug Log - changes from CI_DRM_13330 -> Patchwork_119848v2
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/index.html
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Missing    (1): fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_119848v2 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@core_auth@basic-auth:
-    - bat-adlp-11:        NOTRUN -> [ABORT][1] ([i915#4423] / [i915#8011])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/bat-adlp-11/igt@core_auth@basic-auth.html
-
-  * igt@i915_pm_rpm@basic-pci-d3-state:
-    - bat-mtlp-8:         [PASS][2] -> [ABORT][3] ([i915#7077] / [i915#7977])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13330/bat-mtlp-8/igt@i915_pm_rpm@basic-pci-d3-state.html
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/bat-mtlp-8/igt@i915_pm_rpm@basic-pci-d3-state.html
-
-  * igt@i915_selftest@live@migrate:
-    - bat-dg2-11:         [PASS][4] -> [DMESG-WARN][5] ([i915#7699])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13330/bat-dg2-11/igt@i915_selftest@live@migrate.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/bat-dg2-11/igt@i915_selftest@live@migrate.html
-
-  * igt@i915_selftest@live@requests:
-    - bat-rpls-2:         [PASS][6] -> [ABORT][7] ([i915#7913] / [i915#7982])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13330/bat-rpls-2/igt@i915_selftest@live@requests.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/bat-rpls-2/igt@i915_selftest@live@requests.html
-
-  * igt@kms_chamelium_hpd@common-hpd-after-suspend:
-    - bat-dg2-11:         NOTRUN -> [SKIP][8] ([i915#7828])
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/bat-dg2-11/igt@kms_chamelium_hpd@common-hpd-after-suspend.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@hangcheck:
-    - bat-dg2-11:         [ABORT][9] ([i915#7913] / [i915#7979]) -> [PASS][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13330/bat-dg2-11/igt@i915_selftest@live@hangcheck.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/bat-dg2-11/igt@i915_selftest@live@hangcheck.html
-
-  
-#### Warnings ####
-
-  * igt@i915_module_load@load:
-    - bat-adlp-11:        [ABORT][11] ([i915#4423]) -> [DMESG-WARN][12] ([i915#4423])
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13330/bat-adlp-11/igt@i915_module_load@load.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/bat-adlp-11/igt@i915_module_load@load.html
-
-  * igt@kms_psr@primary_page_flip:
-    - bat-rplp-1:         [SKIP][13] ([i915#1072]) -> [ABORT][14] ([i915#8442])
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13330/bat-rplp-1/igt@kms_psr@primary_page_flip.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/bat-rplp-1/igt@kms_psr@primary_page_flip.html
-
-  
-  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
-  [i915#4423]: https://gitlab.freedesktop.org/drm/intel/issues/4423
-  [i915#7077]: https://gitlab.freedesktop.org/drm/intel/issues/7077
-  [i915#7699]: https://gitlab.freedesktop.org/drm/intel/issues/7699
-  [i915#7828]: https://gitlab.freedesktop.org/drm/intel/issues/7828
-  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
-  [i915#7977]: https://gitlab.freedesktop.org/drm/intel/issues/7977
-  [i915#7979]: https://gitlab.freedesktop.org/drm/intel/issues/7979
-  [i915#7982]: https://gitlab.freedesktop.org/drm/intel/issues/7982
-  [i915#8011]: https://gitlab.freedesktop.org/drm/intel/issues/8011
-  [i915#8442]: https://gitlab.freedesktop.org/drm/intel/issues/8442
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_13330 -> Patchwork_119848v2
-
-  CI-20190529: 20190529
-  CI_DRM_13330: dd3ec2080383e2bf738c6640aca4183997cf2dde @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7353: cacdae5ad7cb92bdc26a79802fcdd244dadccd42 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_119848v2: dd3ec2080383e2bf738c6640aca4183997cf2dde @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-37229adc1773 drm/i915: Fail if DSC compression requirement is less than platform supports
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/index.html
-
---===============2281333000067844937==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Fail if DSC compression requirement is less than platform supports (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/119848/">https://patchwork.freedesktop.org/series/119848/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_13330 -&gt; Patchwork_119848v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Missing    (1): fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_119848v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@core_auth@basic-auth:</p>
-<ul>
-<li>bat-adlp-11:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/bat-adlp-11/igt@core_auth@basic-auth.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4423">i915#4423</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8011">i915#8011</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_pm_rpm@basic-pci-d3-state:</p>
-<ul>
-<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13330/bat-mtlp-8/igt@i915_pm_rpm@basic-pci-d3-state.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/bat-mtlp-8/igt@i915_pm_rpm@basic-pci-d3-state.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7077">i915#7077</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7977">i915#7977</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@migrate:</p>
-<ul>
-<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13330/bat-dg2-11/igt@i915_selftest@live@migrate.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/bat-dg2-11/igt@i915_selftest@live@migrate.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7699">i915#7699</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@requests:</p>
-<ul>
-<li>bat-rpls-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13330/bat-rpls-2/igt@i915_selftest@live@requests.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/bat-rpls-2/igt@i915_selftest@live@requests.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7982">i915#7982</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium_hpd@common-hpd-after-suspend:</p>
-<ul>
-<li>bat-dg2-11:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/bat-dg2-11/igt@kms_chamelium_hpd@common-hpd-after-suspend.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7828">i915#7828</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live@hangcheck:<ul>
-<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13330/bat-dg2-11/igt@i915_selftest@live@hangcheck.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7979">i915#7979</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/bat-dg2-11/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h4>Warnings</h4>
-<ul>
-<li>
-<p>igt@i915_module_load@load:</p>
-<ul>
-<li>bat-adlp-11:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13330/bat-adlp-11/igt@i915_module_load@load.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4423">i915#4423</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/bat-adlp-11/igt@i915_module_load@load.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4423">i915#4423</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@primary_page_flip:</p>
-<ul>
-<li>bat-rplp-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13330/bat-rplp-1/igt@kms_psr@primary_page_flip.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1072">i915#1072</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119848v2/bat-rplp-1/igt@kms_psr@primary_page_flip.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8442">i915#8442</a>)</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_13330 -&gt; Patchwork_119848v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_13330: dd3ec2080383e2bf738c6640aca4183997cf2dde @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7353: cacdae5ad7cb92bdc26a79802fcdd244dadccd42 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_119848v2: dd3ec2080383e2bf738c6640aca4183997cf2dde @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>37229adc1773 drm/i915: Fail if DSC compression requirement is less than platform supports</p>
-
-</body>
-</html>
-
---===============2281333000067844937==--
