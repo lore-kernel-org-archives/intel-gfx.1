@@ -4,48 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83678EB64D7
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 13:02:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F8A4EB64D7
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 13:19:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9E9F10E471;
-	Fri, 30 Jun 2023 13:02:23 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D8EF10E166
- for <intel-gfx@lists.freedesktop.org>; Fri, 30 Jun 2023 13:02:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1688130136; x=1719666136;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=jqH6RNsaDO9Dz6sVzZ9Neb+KzV4vQRBlN/sMF2WNlCo=;
- b=joJQAMFhbf1KWro9wWGVkGK9O8VitHM6VJdu6O+PxeBrqJgeOflZfH8T
- O4Y5olQz8KcPP665KNYSXDUQX4rhiLQZ0sTUB7wYI0eYSYvNGiO1b1q2N
- JWFKnww57l/FSEOY1ZiESg39ueOSU2s8QCIZKSWMOlDcbAIe6gkPhvKMj
- uUI3vbR7TT3RXcpN/zleuPCECqwqJb/wavqrTBpJOQAXCGRzu2SmJLzR6
- TKrwlaodBH18Gzqa8FBC5Sb57ibg/kTrDU55jPWE4wEBH2v/3Izn/xlbp
- pJOxZHBcZnIU0JP5DmwvOfEaDfPWQdd4nPDXfmuNV4m4YWimI/SFpd9u9 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="341970869"
-X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; d="scan'208";a="341970869"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2023 06:01:46 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="752988007"
-X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; d="scan'208";a="752988007"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2023 06:01:44 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 30 Jun 2023 18:27:48 +0530
-Message-Id: <20230630125748.4141993-3-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230630125748.4141993-1-ankit.k.nautiyal@intel.com>
-References: <20230630125748.4141993-1-ankit.k.nautiyal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC50710E169;
+	Fri, 30 Jun 2023 13:19:00 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9D29710E169;
+ Fri, 30 Jun 2023 13:18:59 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 961BFA00CC;
+ Fri, 30 Jun 2023 13:18:59 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/2] drm/i915/dp: Add a wrapper to check
- frl/tmds downstream constraints
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+Date: Fri, 30 Jun 2023 13:18:59 -0000
+Message-ID: <168813113960.24874.273490469454229200@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230630124652.4140932-1-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20230630124652.4140932-1-ankit.k.nautiyal@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_DSC_misc_fixes_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,110 +40,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a wrapper function to check dp_downstream clock/bandwidth
-constraints. Based on whether the sink supports FRL/TMDS the wrapper
-calls the appropriate FRL/TMDS functions.
+== Series Details ==
 
-v2: Use new wrapper while getting max bpc also.
+Series: DSC misc fixes (rev3)
+URL   : https://patchwork.freedesktop.org/series/117662/
+State : warning
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 54 ++++++++++++-------------
- 1 file changed, 27 insertions(+), 27 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 0d938f430856..a96425a6ea31 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1065,6 +1065,25 @@ intel_dp_frl_bw_valid(struct intel_dp *intel_dp, int target_clock,
- 	return MODE_OK;
- }
- 
-+static bool
-+pcon_sink_pair_support_frl(struct intel_dp *intel_dp)
-+{
-+	return intel_dp->dfp.pcon_max_frl_bw && intel_dp_hdmi_sink_max_frl(intel_dp);
-+}
-+
-+static enum drm_mode_status
-+intel_dp_hdmi_bw_check(struct intel_dp *intel_dp,
-+		       int target_clock, int bpc,
-+		       enum intel_output_format sink_format,
-+		       bool respect_downstream_limits)
-+{
-+	if (pcon_sink_pair_support_frl(intel_dp))
-+		return intel_dp_frl_bw_valid(intel_dp, target_clock, bpc, sink_format);
-+
-+	return intel_dp_tmds_clock_valid(intel_dp, target_clock, bpc, sink_format,
-+					 respect_downstream_limits);
-+}
-+
- static enum drm_mode_status
- intel_dp_mode_valid_downstream(struct intel_connector *connector,
- 			       const struct drm_display_mode *mode,
-@@ -1074,42 +1093,23 @@ intel_dp_mode_valid_downstream(struct intel_connector *connector,
- 	const struct drm_display_info *info = &connector->base.display_info;
- 	enum drm_mode_status status;
- 	enum intel_output_format sink_format = intel_dp_sink_format(connector, mode);
-+	int bpc = 8; /* Assume 8bpc for the DP++/HDMI/DVI TMDS/FRL bw check */
- 
--	/* If PCON supports FRL MODE, check FRL bandwidth constraints */
--	if (intel_dp->dfp.pcon_max_frl_bw && intel_dp_hdmi_sink_max_frl(intel_dp)) {
--		/* Assume 8bpc for the HDMI2.1 FRL BW check */
--		status = intel_dp_frl_bw_valid(intel_dp, target_clock, 8, sink_format);
--		if (status != MODE_OK) {
--			if (sink_format == INTEL_OUTPUT_FORMAT_YCBCR420 ||
--			    !connector->base.ycbcr_420_allowed ||
--			    !drm_mode_is_420_also(info, mode))
--				return status;
--
--			sink_format = INTEL_OUTPUT_FORMAT_YCBCR420;
--			status = intel_dp_frl_bw_valid(intel_dp, target_clock, 8, sink_format);
--			if (status != MODE_OK)
--				return status;
--		}
--
--		return MODE_OK;
--	}
--
--	if (intel_dp->dfp.max_dotclock &&
-+	if (!intel_dp_hdmi_sink_max_frl(intel_dp) &&
-+	    intel_dp->dfp.max_dotclock &&
- 	    target_clock > intel_dp->dfp.max_dotclock)
- 		return MODE_CLOCK_HIGH;
- 
--	/* Assume 8bpc for the DP++/HDMI/DVI TMDS clock check */
--	status = intel_dp_tmds_clock_valid(intel_dp, target_clock,
--					   8, sink_format, true);
-+	status = intel_dp_hdmi_bw_check(intel_dp, target_clock, bpc, sink_format, true);
- 
- 	if (status != MODE_OK) {
- 		if (sink_format == INTEL_OUTPUT_FORMAT_YCBCR420 ||
- 		    !connector->base.ycbcr_420_allowed ||
- 		    !drm_mode_is_420_also(info, mode))
- 			return status;
-+
- 		sink_format = INTEL_OUTPUT_FORMAT_YCBCR420;
--		status = intel_dp_tmds_clock_valid(intel_dp, target_clock,
--						   8, sink_format, true);
-+		status = intel_dp_hdmi_bw_check(intel_dp, target_clock, bpc, sink_format, true);
- 		if (status != MODE_OK)
- 			return status;
- 	}
-@@ -1376,8 +1376,8 @@ static int intel_dp_hdmi_compute_bpc(struct intel_dp *intel_dp,
- 	for (; bpc >= 8; bpc -= 2) {
- 		if (intel_hdmi_bpc_possible(crtc_state, bpc,
- 					    intel_dp_has_hdmi_sink(intel_dp)) &&
--		    intel_dp_tmds_clock_valid(intel_dp, clock, bpc, crtc_state->sink_format,
--					      respect_downstream_limits) == MODE_OK)
-+		    intel_dp_hdmi_bw_check(intel_dp, clock, bpc, crtc_state->sink_format,
-+					   respect_downstream_limits) == MODE_OK)
- 			return bpc;
- 	}
- 
--- 
-2.40.1
+Error: dim checkpatch failed
+eaaa78e717b1 drm/i915/dp: Consider output_format while computing dsc bpp
+6395d26c8fa4 drm/i915/dp: Move compressed bpp check with 420 format inside the helper
+bd41f59ecfd6 drm/i915/dp_mst: Use output_format to get the final link bpp
+53de81e156b5 drm/i915/dp: Use consistent name for link bpp and compressed bpp
+6bb10c993db5 drm/i915/dp: Update Bigjoiner interface bits for computing compressed bpp
+a2651d52a8a2 drm/i915/display: Account for DSC not split case while computing cdclk
+f459c9b8e0cb drm/i915/intel_cdclk: Add vdsc with bigjoiner constraints on min_cdlck
+f8f3b73cb322 drm/i915/dp: Remove extra logs for printing DSC info
+ab776e175f24 drm/display/dp: Fix the DP DSC Receiver cap size
+db60aff677cd drm/i915/dp: Avoid forcing DSC BPC for MST case
+-:26: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#26: FILE: drivers/gpu/drm/i915/display/intel_dp.c:1691:
++		drm_dbg_kms(&dev_priv->drm, "Input DSC BPC forced to %d\n", intel_dp->force_dsc_bpc);
+
+total: 0 errors, 1 warnings, 0 checks, 30 lines checked
+6eee2757cbce drm/i915/dp: Add functions to get min/max src input bpc with DSC
+b76db3c66d95 drm/i915/dp: Check min bpc DSC limits for dsc_force_bpc also
+-:63: WARNING:LONG_LINE: line length of 109 exceeds 100 columns
+#63: FILE: drivers/gpu/drm/i915/display/intel_dp.c:1723:
++			drm_dbg_kms(&dev_priv->drm, "Input DSC BPC forced to %d\n", intel_dp->force_dsc_bpc);
+
+total: 0 errors, 1 warnings, 0 checks, 77 lines checked
+21e6f7ac7a39 drm/i915/dp: Avoid left shift of DSC output bpp by 4
+b0bbbe39762f drm/i915/dp: Rename helper to get DSC max pipe_bpp
+f5002142f8ee drm/i915/dp: Separate out functions for edp/DP for computing DSC bpp
+-:38: WARNING:LONG_LINE: line length of 109 exceeds 100 columns
+#38: FILE: drivers/gpu/drm/i915/display/intel_dp.c:1707:
++	drm_dbg_kms(&i915->drm, "Cannot force DSC BPC:%d, due to DSC BPC limits\n", intel_dp->force_dsc_bpc);
+
+total: 0 errors, 1 warnings, 0 checks, 220 lines checked
+390eb4cfcf83 drm/i915/dp: Add DSC BPC/BPP constraints while selecting pipe bpp with DSC
+fd08f0fb355f drm/i915/dp: Separate out function to get compressed bpp with joiner
+1ac66f2ab1ca drm/i915/dp: Get optimal link config to have best compressed bpp
+8941a0ebbb9f drm/i915: Query compressed bpp properly using correct DPCD and DP Spec info
+-:62: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#62: FILE: drivers/gpu/drm/i915/display/intel_dp.c:1892:
++	dsc_sink_max_bpp = intel_dp_dsc_sink_max_compressed_bpp(intel_dp, pipe_config, pipe_bpp / 3);
+
+-:117: WARNING:LONG_LINE: line length of 101 exceeds 100 columns
+#117: FILE: drivers/gpu/drm/i915/display/intel_dp_mst.c:236:
++	max_compressed_bpp = intel_dp_dsc_sink_max_compressed_bpp(intel_dp, crtc_state, max_bpp / 3);
+
+-:126: WARNING:LONG_LINE: line length of 108 exceeds 100 columns
+#126: FILE: drivers/gpu/drm/i915/display/intel_dp_mst.c:242:
++	max_compressed_bpp = intel_dp_dsc_nearest_valid_bpp(i915, max_compressed_bpp, crtc_state->pipe_bpp);
+
+-:127: WARNING:LONG_LINE: line length of 108 exceeds 100 columns
+#127: FILE: drivers/gpu/drm/i915/display/intel_dp_mst.c:243:
++	min_compressed_bpp = intel_dp_dsc_nearest_valid_bpp(i915, min_compressed_bpp, crtc_state->pipe_bpp);
+
+total: 0 errors, 4 warnings, 0 checks, 107 lines checked
+
 
