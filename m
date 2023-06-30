@@ -4,63 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA937EB64D9
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 13:18:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E14BCEB64DC
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 13:18:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C87C10E090;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9519810E3FA;
 	Thu,  6 Jul 2023 13:18:30 +0000 (UTC)
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81CD110E2BE;
- Tue,  4 Jul 2023 09:25:29 +0000 (UTC)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2b6a0d91e80so86739331fa.3; 
- Tue, 04 Jul 2023 02:25:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1688462726; x=1691054726;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=w3WG4cGF8CRsbmj1ToTEuLfuzUDIEOrIrelQmjq4q3k=;
- b=o9zy4rdoGn3NN1323n5JeCPR2P82Vf7Xrb/k/pDWdQHvrcIZ5KNk8E5Rc9AOWvUohR
- 8JC5CIa5pDomtb1dfZMDcahgFK74EO8eDQO9LSJYgjPzn4Ic41LS4QQHFX6p621xcc3u
- XO4jHaVK/oWekFPVOXt8KXkFrL5uwNVhzPe0OW6mFqCpgsPLCDGha7mZqCOpezE+7azY
- JK43WUYppygu4AR6pSjwNQ4n71biZrLvyDxyiBacmVPLZW4xC0G71z1vFrh8dIliQYVo
- 8F/dIQJ/5ufMEC1w88uKtvPWoHp5fDYBZKYi1NiHQpep1YJRz5d/czwVmMlpXQets9oL
- KN+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688462726; x=1691054726;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=w3WG4cGF8CRsbmj1ToTEuLfuzUDIEOrIrelQmjq4q3k=;
- b=ak8pQyLVoqOxOZki/yRnVePiU4quEx9cVof5hrPpog+onAiXXr85bAnHK5Q+PpkIHd
- v7y8txhPmL6RUBI1IlrppA1U+yiThPo0PuwO8IcwOYnx4procm40axOruN3H4TPx2sNH
- jv7gGoKb6In9WCkwMYTPmCwVAeqjVBfCiaB8iOe5wvsa44Q5ZJ9gD+9g8C+NUVhUmJC0
- KTZF5XU7CbuxGE11m2hYctLtlgEe4GEZ1tb2gkdko+nhMfszIdWp0Ei7O0vIgWLXRIWl
- j40pnNtx2fnRPuVrKDoBjKZTPb7isAp6bT9ywXDNjWda0bs31xIUqcwPDckHMouveSfT
- 8zQw==
-X-Gm-Message-State: ABy/qLaUut81cocUMKlwO/k5jP+6WDIvT5ng4tYpWp6nTDr3CVI5raZZ
- C608qVmvVXYXT2vLk6J4BnnZm/QSoLdHn5VeuZI=
-X-Google-Smtp-Source: APBJJlHbSJ2Cml2qn4cb/1edSGf064IsnqMZE4INWgBRJ+bUKVKGU+1ukWl3wQA36b7Pv4rNzHUvKd3ZOMoslroDlxM=
-X-Received: by 2002:a2e:3218:0:b0:2b6:f1d5:619 with SMTP id
- y24-20020a2e3218000000b002b6f1d50619mr1554642ljy.14.1688462726472; Tue, 04
- Jul 2023 02:25:26 -0700 (PDT)
+Received: from out-51.mta0.migadu.com (out-51.mta0.migadu.com
+ [IPv6:2001:41d0:1004:224b::33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 645FA10E44E
+ for <intel-gfx@lists.freedesktop.org>; Fri, 30 Jun 2023 11:08:39 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1688122970;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=cVG0vYo3/T6AYLTc+lVhTKp0CFi2Q+EH9QFPQ8sIsCY=;
+ b=QJBgFt91Udo2cXx8LVpCoBtf7Y4/HJOpcgBM5f7wsHRC7s8fn0Gq0+gjEx8Kdqa8vLzzux
+ ImcisPtx/765642G+b1B9DPM0cwQmRH7G6DfBumi4NU28u+y6k1b891sHZhyldmWbhiRGW
+ 1E3abKbe5vxdsoxrSChe7QJ6GbCbOoo=
+From: Sui Jingfeng <sui.jingfeng@linux.dev>
+To: Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+Date: Fri, 30 Jun 2023 19:02:39 +0800
+Message-Id: <20230630110243.141671-1-sui.jingfeng@linux.dev>
 MIME-Version: 1.0
-References: <20230703150859.6176-1-ubizjak@gmail.com>
- <87o7ks16gh.fsf@intel.com>
- <CAFULd4YDHqUud94Q1mbKyKqGHh==Gv7+FpNhgm5s1p=0ZwcAXg@mail.gmail.com>
- <87lefw139r.fsf@intel.com>
-In-Reply-To: <87lefw139r.fsf@intel.com>
-From: Uros Bizjak <ubizjak@gmail.com>
-Date: Tue, 4 Jul 2023 11:25:15 +0200
-Message-ID: <CAFULd4azR=ft9kEYN19WjxORcJNT_-v7q3sVs904Bf_td-VgEg@mail.gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Thu, 06 Jul 2023 13:18:28 +0000
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/pmu: Use local64_try_cmpxchg in
- i915_pmu_event_read
+Subject: [Intel-gfx] [PATCH v1 0/4] PCI/VGA: Improve the default VGA device
+ selection
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,38 +49,60 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>
+Cc: linux-fbdev@vger.kernel.org, Sui Jingfeng <suijingfeng@loongson.cn>,
+ kvm@vger.kernel.org, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-pci@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 4, 2023 at 10:37=E2=80=AFAM Jani Nikula <jani.nikula@linux.inte=
-l.com> wrote:
->
-> On Tue, 04 Jul 2023, Uros Bizjak <ubizjak@gmail.com> wrote:
-> > On Tue, Jul 4, 2023 at 9:28=E2=80=AFAM Jani Nikula <jani.nikula@linux.i=
-ntel.com> wrote:
-> >> You could save everyone a lot of time by actually documenting what the=
-se
-> >> functions do. Assume you don't know what local64_try_cmpxchg() does, a=
-nd
-> >> see how many calls you have to go through to figure it out.
-> >
-> > These functions are documented in Documentation/atomic_t.txt (under
-> > "RMW ops:" section), and the difference is explained in a separate
-> > section "CMPXCHG vs TRY_CMPXCGS" in the same file.
->
-> Thanks, but *sigh*.
->
-> No kernel-doc above the functions, not even a regular comment
-> referencing atomic_t.txt.
->
-> $ git grep local.*_try -- Documentation
-> [nothing]
+From: Sui Jingfeng <suijingfeng@loongson.cn>
 
-Unfortunately, this was always the state w.r.t. local.* atomic
-functions. There is an effort to improve the documentation of atomics,
-perhaps it will be also extended to local variants.
+Currently, the default VGA device selection is not perfect. Potential
+problems are:
 
-Uros.
+1) This function is a no-op on non-x86 architectures.
+2) It does not take the PCI Bar may get relocated into consideration.
+3) It is not effective for the PCI device without a dedicated VRAM Bar.
+4) It is device-agnostic, thus it has to waste the effort to iterate all
+   of the PCI Bar to find the VRAM aperture.
+5) It has invented lots of methods to determine which one is the default
+   boot device on a multiple video card coexistence system. But this is
+   still a policy because it doesn't give the user a choice to override.
+
+With the observation that device drivers or video aperture helpers may
+have better knowledge about which PCI bar contains the firmware FB,
+
+This patch tries to solve the above problems by introducing a function
+callback to the vga_client_register() function interface. DRM device
+drivers for the PCI device need to register the is_boot_device() function
+callback during the driver loading time. Once the driver binds the device
+successfully, VRAARB will call back to the driver. This gives the device
+drivers a chance to provide accurate boot device identification. Which in
+turn unlock the abitration service to non-x86 architectures. A device
+driver can also pass a NULL pointer to the keep the original behavior.
+
+Sui Jingfeng (4):
+  video/aperture: Add a helper to detect if an aperture contains
+    firmware FB
+  PCI/VGA: Improve the default VGA device selection
+  drm/amdgpu: Implement the is_boot_device callback function
+  drm/radeon: Implement the is_boot_device callback function
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 ++++++++-
+ drivers/gpu/drm/drm_aperture.c             | 16 ++++++++++++
+ drivers/gpu/drm/i915/display/intel_vga.c   |  3 +--
+ drivers/gpu/drm/nouveau/nouveau_vga.c      |  2 +-
+ drivers/gpu/drm/radeon/radeon_device.c     | 12 ++++++++-
+ drivers/pci/vgaarb.c                       | 21 +++++++++++++++-
+ drivers/vfio/pci/vfio_pci_core.c           |  2 +-
+ drivers/video/aperture.c                   | 29 ++++++++++++++++++++++
+ include/drm/drm_aperture.h                 |  2 ++
+ include/linux/aperture.h                   |  7 ++++++
+ include/linux/vgaarb.h                     |  8 +++---
+ 11 files changed, 104 insertions(+), 10 deletions(-)
+
+-- 
+2.25.1
+
