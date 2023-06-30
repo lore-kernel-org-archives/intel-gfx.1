@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75210EB64DD
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 20:35:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1694EB64DD
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 20:35:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC99610E4ED;
-	Fri, 30 Jun 2023 20:35:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 586E810E4F2;
+	Fri, 30 Jun 2023 20:35:37 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EB0410E4D8;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A3D010E193;
  Fri, 30 Jun 2023 20:35:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1688157332; x=1719693332;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=lAFFQ+EfYN2M9/OpcUC0NCnPSP2/TeRDgmSUqNFdOlQ=;
- b=dkhEM2FpJWh1TjXxGCMNTyFvEGQyy/Y/+UL935Lfo7tpUSRFnTFnTIzV
- 5BvjDXghEOIgczJJyj9xEVxauW9hR5/R99Pd/+4pj5V6GOy3UO52oeObL
- o/A7gR51c/6DD5m+CRPGKS0CEBgIkOID26th+cEFc6uJPkkhw2AuWHKTC
- O9AsB6EP1dezgYa176AWSBOWqV4ieTneZiOxvt67cmX8iddOEfOWV0F3t
- vB7l7T1IwyCGP9V/OGZVwOrByRhClDMSXXZlpo9ZS16t2rwK6ctf/mJqy
- 3NKz8qxzPQWNHguPW3wWd5tpb9YMVc/EL4W5H00sMYj6uDK48w0/3djIV Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10757"; a="393213919"
-X-IronPort-AV: E=Sophos;i="6.01,171,1684825200"; d="scan'208";a="393213919"
+ bh=R4J5T660X5S0N5SIGEiy7XRtb/az+Hd1jUhoI/NuBMw=;
+ b=CDMRFvS8+emHuHlEP701A26OoKEg2OsmY1mtcDkmBACvy8zglYS/eeQr
+ Du6cCsCYpXXdWdDNl9mBaPG2tprKw5YAAFiG7Qbrb+Zn6kpmH3Nrpf9J3
+ oz1Sh0iLWLI+dQX41+k4LJFAWOQZ2kBWzIwg8B9XGPvd7QGVlk/EHyjVQ
+ kh8HYJauVQAVES8LCQboiGluoCWowWdO/3zGcAAvzr7WVobb5rDHzkJNb
+ HpskeK5RQkEhwrNi9GzQ40hxB+wASeq5TyrELo3vYei4slEZrRQjO9m++
+ 1nm+CtNA7MmRUT8SBL8Qe3tu9CGM/XX4JfDWihEjmKTSY44C4FAI7gwMt w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10757"; a="393213914"
+X-IronPort-AV: E=Sophos;i="6.01,171,1684825200"; d="scan'208";a="393213914"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2023 13:35:32 -0700
+ 30 Jun 2023 13:35:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10757"; a="807904264"
-X-IronPort-AV: E=Sophos;i="6.01,171,1684825200"; d="scan'208";a="807904264"
+X-IronPort-AV: E=McAfee;i="6600,9927,10757"; a="807904256"
+X-IronPort-AV: E=Sophos;i="6.01,171,1684825200"; d="scan'208";a="807904256"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  30 Jun 2023 13:35:31 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 30 Jun 2023 13:35:08 -0700
-Message-Id: <20230630203509.1635216-7-lucas.demarchi@intel.com>
+Date: Fri, 30 Jun 2023 13:35:06 -0700
+Message-Id: <20230630203509.1635216-5-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230630203509.1635216-1-lucas.demarchi@intel.com>
 References: <20230630203509.1635216-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 6/7] drm/i915/gt: Remove bogus comment on
- IVB_FBC_RT_BASE_UPPER
+Subject: [Intel-gfx] [PATCH v3 4/7] drm/i915/gt: Drop read from
+ GEN8_L3CNTLREG in ICL workaround
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,29 +64,31 @@ Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The comment on the parameter being 0 to avoid the read back doesn't
-apply as this is not a call to wa_add(), but rather to
-wa_write_clr_set(). So, this register is actually checked and it's
-according to the Bspec that the register is RW, not RO.
+Now that non-masked registers are already read before programming the
+context reads, the additional read became redudant, so remove it.
 
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Kenneth Graunke <kenneth@whitecape.org>
 ---
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index e2025c363949..a6f3f160ebe2 100644
+index 0a9c3be4817c..b07f84c3fa21 100644
 --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
 +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -666,7 +666,7 @@ static void icl_ctx_workarounds_init(struct intel_engine_cs *engine,
- 	/* Wa_1604278689:icl,ehl */
- 	wa_write(wal, IVB_FBC_RT_BASE, 0xFFFFFFFF & ~ILK_FBC_RT_VALID);
- 	wa_write_clr_set(wal, IVB_FBC_RT_BASE_UPPER,
--			 0, /* write-only register; skip validation */
-+			 0,
- 			 0xFFFFFFFF);
+@@ -637,10 +637,7 @@ static void icl_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 				     struct i915_wa_list *wal)
+ {
+ 	/* Wa_1406697149 (WaDisableBankHangMode:icl) */
+-	wa_write(wal,
+-		 GEN8_L3CNTLREG,
+-		 intel_uncore_read(engine->uncore, GEN8_L3CNTLREG) |
+-		 GEN8_ERRDETBCTRL);
++	wa_write(wal, GEN8_L3CNTLREG, GEN8_ERRDETBCTRL);
  
- 	/* Wa_1406306137:icl,ehl */
+ 	/* WaForceEnableNonCoherent:icl
+ 	 * This is not the same workaround as in early Gen9 platforms, where
 -- 
 2.40.1
 
