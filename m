@@ -4,48 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97C4EC001B3
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 20:35:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC02CEB64DA
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 20:35:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44F8910E4E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6213510E4EA;
 	Fri, 30 Jun 2023 20:35:35 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EABD10E4E2;
- Fri, 30 Jun 2023 20:35:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C638410E193;
+ Fri, 30 Jun 2023 20:35:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1688157332; x=1719693332;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=n1h3n/g1kHN4DndS8Sj2FI3KUmIxNNgPONk09gPI3Ac=;
- b=RZ9DkIXmnH6kBdjo3q+AwnEvtd+tJ8FpRLDbaWcQjC2A56DsUn9JxwI4
- tSLUnZIY78cZsZLMbxRRb5Wx5eWGGXwVcLa3QcDuxmy2v6gpyjUe0G1WJ
- fzcG5kWUJYUzbjbRQRhPOPN9qXqkAYPBm8f1jt618ZoQgV/eSNhLW+vw9
- g1jJxstAVFOu9w435xrcwuO3nl1Vrih+3f2Df3psXn/SmCI3TM0fAmnVU
- HWx/Z3gCPlrJccNDNDZOQC1AMzlyUadISQ+O1ZArYNBUtFfY1XepAp+NH
- /Y73IywIeQU0daGiWhEqYOi0XbL8ZHCCO26PJ+o4cEcBIaAcRZDfhv4uQ Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10757"; a="393213917"
-X-IronPort-AV: E=Sophos;i="6.01,171,1684825200"; d="scan'208";a="393213917"
+ t=1688157331; x=1719693331;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Q5GP83fj5B9aWy/8l9bn3Bd0nXunP5ZzIXVBy8/6EQY=;
+ b=VQezhrJnT1F8/sl/BZqO2oHaYL+3GyrCrOGlk8JPSZGONsGd/fr8wtLe
+ RcRyaO6di8mf9CGDu9hc72klzUprT9tLQmXNvuMj+TD44y2iF3DdbFlth
+ 5VMBvGXGTQaVGGk/Ze192ra7fTxoPxDylaSTF/pJDF7FYznRhJFpFmSx/
+ C5Mqdc2c7jQQuuiALtX6PxJ37/RFv29WAu45YzhDPso2SgSh5tRk6A3C/
+ ftIuMoXW8LLQMgAf982ZWdEqt5IZ0eOOQurC0og8KiND5gIdhxRszoS1J
+ zdkpM2wxgbTCLQE5i+3rHlS88NXkEbo1NTTr02LjP3548N4xVsD3gecfH g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10757"; a="393213904"
+X-IronPort-AV: E=Sophos;i="6.01,171,1684825200"; d="scan'208";a="393213904"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2023 13:35:31 -0700
+ 30 Jun 2023 13:35:30 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10757"; a="807904261"
-X-IronPort-AV: E=Sophos;i="6.01,171,1684825200"; d="scan'208";a="807904261"
+X-IronPort-AV: E=McAfee;i="6600,9927,10757"; a="807904240"
+X-IronPort-AV: E=Sophos;i="6.01,171,1684825200"; d="scan'208";a="807904240"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2023 13:35:31 -0700
+ 30 Jun 2023 13:35:29 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 30 Jun 2023 13:35:07 -0700
-Message-Id: <20230630203509.1635216-6-lucas.demarchi@intel.com>
+Date: Fri, 30 Jun 2023 13:35:02 -0700
+Message-Id: <20230630203509.1635216-1-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230630203509.1635216-1-lucas.demarchi@intel.com>
-References: <20230630203509.1635216-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 5/7] drm/i915/gt: Enable read back on
- XEHP_FF_MODE2
+Subject: [Intel-gfx] [PATCH v3 0/7] Fix ctx workarounds for non-masked regs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,33 +61,29 @@ Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Contrary to GEN12_FF_MODE2, platforms using XEHP_FF_MODE2 are not
-affected by Wa_1608008084, hence read back can be enabled.
+v3 of https://patchwork.freedesktop.org/series/119766/
 
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Kenneth Graunke <kenneth@whitecape.org>
----
- drivers/gpu/drm/i915/gt/intel_workarounds.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+Changes from v2:
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index b07f84c3fa21..e2025c363949 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -683,11 +683,8 @@ static void dg2_ctx_gt_tuning_init(struct intel_engine_cs *engine,
- 	wa_mcr_masked_en(wal, CHICKEN_RASTER_2, TBIMR_FAST_CLIP);
- 	wa_mcr_write_clr_set(wal, XEHP_L3SQCREG5, L3_PWM_TIMER_INIT_VAL_MASK,
- 			     REG_FIELD_PREP(L3_PWM_TIMER_INIT_VAL_MASK, 0x7f));
--	wa_mcr_add(wal,
--		   XEHP_FF_MODE2,
--		   FF_MODE2_TDS_TIMER_MASK,
--		   FF_MODE2_TDS_TIMER_128,
--		   0, false);
-+	wa_mcr_write_clr_set(wal, XEHP_FF_MODE2, FF_MODE2_TDS_TIMER_MASK,
-+			     FF_MODE2_TDS_TIMER_128);
- }
- 
- static void gen12_ctx_workarounds_init(struct intel_engine_cs *engine,
+	- Do not rmw if (clr | set) covers all bits
+	- Add patch to make sure the set bits are also checked on
+	  wa_*_clr_set() when clr is not a superset.
+
+Tested on DG2 with intel_reg reading 0xb158 with a busy render engine.
+Now it's not losing the upper bit anymore.
+
+Lucas De Marchi (7):
+  drm/i915/gt: Move wal_get_fw_for_rmw()
+  drm/i915/gt: Clear all bits from GEN12_FF_MODE2
+  drm/i915/gt: Fix context workarounds with non-masked regs
+  drm/i915/gt: Drop read from GEN8_L3CNTLREG in ICL workaround
+  drm/i915/gt: Enable read back on XEHP_FF_MODE2
+  drm/i915/gt: Remove bogus comment on IVB_FBC_RT_BASE_UPPER
+  drm/i915/gt: Also check set bits in clr_set()
+
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 129 ++++++++++----------
+ 1 file changed, 66 insertions(+), 63 deletions(-)
+
 -- 
 2.40.1
 
