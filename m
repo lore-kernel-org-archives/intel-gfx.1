@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BE97C0015E
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 12:51:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0F26EB64DA
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 12:51:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D26F410E45C;
-	Fri, 30 Jun 2023 12:51:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2843C10E465;
+	Fri, 30 Jun 2023 12:51:10 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B29F10E1C4;
- Fri, 30 Jun 2023 12:51:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F005210E464;
+ Fri, 30 Jun 2023 12:51:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1688129461; x=1719665461;
+ t=1688129466; x=1719665466;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=sVYcdQTGKXB7FXdIxsj9nbbeCUCLk+Gl9NIcIb1aynA=;
- b=RHTo252M5T8BFQrv1jWqkAAk5ATQVxlVWfyMyTlXqdFx/giY9ms8QLQk
- 5EWez+7WLuxJRi4HxsI4ofaD4jnt2DcFoMTUbc94HptvBR6kNeOqXwhkQ
- gPJmC/PwGaUfSyIE/Y+2GDh6fFZVouH8IaSt5iSqVp7c1ZEDW3eusk0go
- vIVYGVRCwKK7EVq1ufkk2HffZgvMTM2YtounUPTCsDVaDJlRL3aTr0n62
- CasQymYNj1BvmxQ0ixULpe4IIAXTLmKcnLj+w+zVZBAQrltH2/lTO2m+y
- 9KnKtSUrOCY07HP9VVyc40DjjKC6fnbzBBK1HRKPt4ex+8grkCYy/XcMl Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="361232172"
-X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; d="scan'208";a="361232172"
+ bh=4y42pTh9XibSH+4YiOHfWb5JVrl2VSe96evi/Hs1YUE=;
+ b=D6jQMaoDosT/+AUlu2noQwQptyEodyv0DAVD6YQtcMIyK9tq7G6ti8z4
+ RZF8hbiK9IwaUP5WVf+Wf4NdzjBSzbuXkC0FR+bdZkBo+cHZCn7Q2MH+5
+ +We41ggpb+WwkDIRsCYnpQdhyErrfFaWqboXJ5Mki/iJkOR3x+yy8fOae
+ v8Qg68S5yPcCg7k+NQ0l0gr+e6Cg6eQRPilzMpLcLsNYZv7HcDA49fu0u
+ wkkkAuzvrOsY5Sc4l8FQVmvryxSFM0XFflmV5xYCuvmBbdkXmZb3udu3H
+ IZNnaCMyhhMT/m9l5KODvGQpfvkjwciOK52i6dM1nlOoiOI2u3cG4b+Dj A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="361232187"
+X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; d="scan'208";a="361232187"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2023 05:51:01 -0700
+ 30 Jun 2023 05:51:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="1048219055"
-X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; d="scan'208";a="1048219055"
+X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="1048219067"
+X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; d="scan'208";a="1048219067"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2023 05:50:59 -0700
+ 30 Jun 2023 05:51:03 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Fri, 30 Jun 2023 18:16:39 +0530
-Message-Id: <20230630124652.4140932-8-ankit.k.nautiyal@intel.com>
+Date: Fri, 30 Jun 2023 18:16:41 +0530
+Message-Id: <20230630124652.4140932-10-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230630124652.4140932-1-ankit.k.nautiyal@intel.com>
 References: <20230630124652.4140932-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/19] drm/i915/intel_cdclk: Add vdsc with
- bigjoiner constraints on min_cdlck
+Subject: [Intel-gfx] [PATCH 09/19] drm/display/dp: Fix the DP DSC Receiver
+ cap size
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,92 +62,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As per Bsepc:49259, Bigjoiner BW check puts restriction on the
-compressed bpp for a given CDCLK, pixelclock in cases where
-Bigjoiner + DSC are used.
+DP DSC Receiver Capabilities are exposed via DPCD 60h-6Fh.
+Fix the DSC RECEIVER CAP SIZE accordingly.
 
-Currently compressed bpp is computed first, and it is ensured that
-the bpp will work at least with the max CDCLK freq.
-
-Since the CDCLK is computed later, lets account for Bigjoiner BW
-check while calculating Min CDCLK.
-
-v2: Use pixel clock in the bw calculations. (Ville)
+Fixes: ffddc4363c28 ("drm/dp: Add DP DSC DPCD receiver capability size define and missing SHIFT")
+Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Cc: Manasi Navare <manasi.d.navare@intel.com>
+Cc: <stable@vger.kernel.org> # v5.0+
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 51 +++++++++++++++++++---
- 1 file changed, 44 insertions(+), 7 deletions(-)
+ include/drm/display/drm_dp.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index 990dc16511f9..58c1fb773435 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -2533,6 +2533,48 @@ static int intel_planes_min_cdclk(const struct intel_crtc_state *crtc_state)
- 	return min_cdclk;
- }
+diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+index 02f2ac4dd2df..e69cece404b3 100644
+--- a/include/drm/display/drm_dp.h
++++ b/include/drm/display/drm_dp.h
+@@ -1537,7 +1537,7 @@ enum drm_dp_phy {
  
-+static int intel_vdsc_min_cdclk(const struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
-+	int min_cdclk = 0;
-+
-+	/*
-+	 * When we decide to use only one VDSC engine, since
-+	 * each VDSC operates with 1 ppc throughput, pixel clock
-+	 * cannot be higher than the VDSC clock (cdclk)
-+	 */
-+	if (!crtc_state->dsc.dsc_split)
-+		min_cdclk = max(min_cdclk, (int)crtc_state->pixel_rate);
-+
-+	if (crtc_state->bigjoiner_pipes) {
-+		int pixel_clock = crtc_state->hw.adjusted_mode.clock;
-+
-+		/*
-+		 * According to Bigjoiner bw check:
-+		 * compressed_bpp <= PPC * CDCLK * Big joiner Interface bits / Pixel clock
-+		 *
-+		 * We have already computed compressed_bpp, so now compute the min CDCLK that
-+		 * is required to support this compressed_bpp.
-+		 *
-+		 * => CDCLK >= compressed_bpp * Pixel clock / (PPC * Bigjoiner Interface bits)
-+		 *
-+		 * Since PPC = 2 with bigjoiner
-+		 * => CDCLK >= compressed_bpp * Pixel clock  / 2 * Bigjoiner Interface bits
-+		 *
-+		 * #TODO Bspec mentions to account for FEC overhead while using pixel clock.
-+		 * Check if we need to use FEC overhead in the above calculations.
-+		 */
-+		int bigjoiner_interface_bits = DISPLAY_VER(i915) > 13 ? 36 : 24;
-+		int min_cdclk_bj = (crtc_state->dsc.compressed_bpp * pixel_clock) /
-+				   (2 * bigjoiner_interface_bits);
-+
-+		min_cdclk = max(min_cdclk, min_cdclk_bj);
-+	}
-+
-+	return min_cdclk;
-+}
-+
- int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
- {
- 	struct drm_i915_private *dev_priv =
-@@ -2604,13 +2646,8 @@ int intel_crtc_compute_min_cdclk(const struct intel_crtc_state *crtc_state)
- 	/* Account for additional needs from the planes */
- 	min_cdclk = max(intel_planes_min_cdclk(crtc_state), min_cdclk);
- 
--	/*
--	 * When we decide to use only one VDSC engine, since
--	 * each VDSC operates with 1 ppc throughput, pixel clock
--	 * cannot be higher than the VDSC clock (cdclk)
--	 */
--	if (crtc_state->dsc.compression_enable && !crtc_state->dsc.dsc_split)
--		min_cdclk = max(min_cdclk, (int)crtc_state->pixel_rate);
-+	if (crtc_state->dsc.compression_enable)
-+		min_cdclk = max(min_cdclk, intel_vdsc_min_cdclk(crtc_state));
- 
- 	/*
- 	 * HACK. Currently for TGL/DG2 platforms we calculate
+ #define DP_BRANCH_OUI_HEADER_SIZE	0xc
+ #define DP_RECEIVER_CAP_SIZE		0xf
+-#define DP_DSC_RECEIVER_CAP_SIZE        0xf
++#define DP_DSC_RECEIVER_CAP_SIZE        0x10 /* DSC Capabilities 0x60 through 0x6F */
+ #define EDP_PSR_RECEIVER_CAP_SIZE	2
+ #define EDP_DISPLAY_CTL_CAP_SIZE	3
+ #define DP_LTTPR_COMMON_CAP_SIZE	8
 -- 
 2.40.1
 
