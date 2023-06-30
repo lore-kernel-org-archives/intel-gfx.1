@@ -4,49 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B163EB64D7
-	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 12:51:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31F72EB64DC
+	for <intel-gfx@archiver.kernel.org>; Fri, 30 Jun 2023 13:02:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA6B010E484;
-	Fri, 30 Jun 2023 12:51:32 +0000 (UTC)
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7DBE10E46F;
- Fri, 30 Jun 2023 12:51:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 852E210E46D;
+	Fri, 30 Jun 2023 13:02:17 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06D8810E166
+ for <intel-gfx@lists.freedesktop.org>; Fri, 30 Jun 2023 13:02:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1688129483; x=1719665483;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=kqvpa54qZ06434/0kBMPSDcVLalMJzQZEmIXD1ve7po=;
- b=PIkvWD/dn91Ux10tDcX7S//a9Equ0n3YlnjZ3W76Fml3o7BbO0sQnlvd
- jOuOg6szAI5W2YbycmDeBB7uCoqOni8x7hWaSxViAs1cF3Q5iCNKyRfF4
- XqVpxr0at7oX5x6IlqV8+21mVVe5fglkvEX0zpGmXqh/EIDJHVakWm2IZ
- x4XPRoyNFa0jF2ghDTM590YqU+n97jhEIZ4JYe8HEqeKFKPX2wYncIFmB
- NQbCnv8FDe5gwpk8F/1QW9ty8V3NN1AtW+NP+aoKaIMkkU4SMujbVXQa9
- qmPrWkiMndKFn8UhEZwt7zmZPpLqyaW6+FKz11W8jn1c9xRMhUyyL/ezG Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="361232249"
-X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; d="scan'208";a="361232249"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2023 05:51:23 -0700
+ t=1688130136; x=1719666136;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=1SLYOap5WhOh41APlDuLsmiIE0styTCK9dMc/49/2qc=;
+ b=GvkswVr0xw6wYfKleRh6YMhWWCg8lFlsFkEfWPZvLwktkPt10hZd78Cp
+ qYPMI9fJxBluItpVqdUfpLW4rhSh4UYwAKywnzpv9ZCgNkPKvvRnwR8mN
+ 1s8Ah4HgHriy33zk7gumS71v32eP3ECR7AkRqhf56HQBSA3f7e1RYDBB+
+ tOWZrNRTVAafTFKrVIMBj7OZ/bybZqaHngJROshUs5OcNDxML63z2+AUJ
+ VpglG+GVmq4Tn4AGlIl0Pj9HHI0oteTyI/jjRIO9qLGuwvKEqVlvsSxmq
+ gks/YDyNZeO8Den1AmklzZ8mruN8ea8hS0BLFGURjoj7c+nLvO3sxn7ef g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="341970859"
+X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; d="scan'208";a="341970859"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jun 2023 06:01:42 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="1048219132"
-X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; d="scan'208";a="1048219132"
+X-IronPort-AV: E=McAfee;i="6600,9927,10756"; a="752987986"
+X-IronPort-AV: E=Sophos;i="6.01,170,1684825200"; d="scan'208";a="752987986"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2023 05:51:21 -0700
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jun 2023 06:01:40 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Fri, 30 Jun 2023 18:16:49 +0530
-Message-Id: <20230630124652.4140932-18-ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 30 Jun 2023 18:27:46 +0530
+Message-Id: <20230630125748.4141993-1-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230630124652.4140932-1-ankit.k.nautiyal@intel.com>
-References: <20230630124652.4140932-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 17/19] drm/i915/dp: Separate out function to get
- compressed bpp with joiner
+Subject: [Intel-gfx] [PATCH 0/2] Handle BPC for HDMI2.1 PCON without DSC1.2
+ sink and other fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,89 +59,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Pull the code to get joiner constraints on maximum compressed bpp into
-separate function.
+This series fixes issues faced when an HDMI2.1 sink that does not
+support DSC is connected via HDMI2.1PCON. It also includes other minor
+HDMI2.1 PCON fixes/refactoring.
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 49 ++++++++++++++-----------
- 1 file changed, 28 insertions(+), 21 deletions(-)
+Patch 1-3 Have minor fixes to consider output_format while computing
+dsc_bpp and have consistent naming for pipe_bpp, link_bpp and
+compressed_bpp.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index f6f9b061fc0b..01fdab148d74 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -731,6 +731,30 @@ u32 intel_dp_dsc_nearest_valid_bpp(struct drm_i915_private *i915, u32 bpp, u32 p
- 	return bits_per_pixel;
- }
- 
-+static
-+u32 get_max_compressed_bpp_with_joiner(struct drm_i915_private *i915,
-+				       u32 mode_clock, u32 mode_hdisplay,
-+				       bool bigjoiner)
-+{
-+	u32 max_bpp_small_joiner_ram;
-+
-+	/* Small Joiner Check: output bpp <= joiner RAM (bits) / Horiz. width */
-+	max_bpp_small_joiner_ram = small_joiner_ram_size_bits(i915) / mode_hdisplay;
-+
-+	if (bigjoiner) {
-+		int bigjoiner_interface_bits = DISPLAY_VER(i915) >= 14 ? 36 : 24;
-+		u32 max_bpp_bigjoiner =
-+			i915->display.cdclk.max_cdclk_freq * 2 * bigjoiner_interface_bits /
-+			intel_dp_mode_to_fec_clock(mode_clock);
-+
-+		max_bpp_small_joiner_ram *= 2;
-+
-+		return min(max_bpp_small_joiner_ram, max_bpp_bigjoiner);
-+	}
-+
-+	return max_bpp_small_joiner_ram;
-+}
-+
- u16 intel_dp_dsc_get_max_compressed_bpp(struct drm_i915_private *i915,
- 					u32 link_clock, u32 lane_count,
- 					u32 mode_clock, u32 mode_hdisplay,
-@@ -739,7 +763,7 @@ u16 intel_dp_dsc_get_max_compressed_bpp(struct drm_i915_private *i915,
- 					u32 pipe_bpp,
- 					u32 timeslots)
- {
--	u32 bits_per_pixel, max_bpp_small_joiner_ram;
-+	u32 bits_per_pixel, joiner_max_bpp;
- 
- 	/*
- 	 * Available Link Bandwidth(Kbits/sec) = (NumberOfLanes)*
-@@ -779,27 +803,10 @@ u16 intel_dp_dsc_get_max_compressed_bpp(struct drm_i915_private *i915,
- 				(link_clock * lane_count * 8),
- 				intel_dp_mode_to_fec_clock(mode_clock));
- 
--	/* Small Joiner Check: output bpp <= joiner RAM (bits) / Horiz. width */
--	max_bpp_small_joiner_ram = small_joiner_ram_size_bits(i915) /
--		mode_hdisplay;
--
--	if (bigjoiner)
--		max_bpp_small_joiner_ram *= 2;
--
--	/*
--	 * Greatest allowed DSC BPP = MIN (output BPP from available Link BW
--	 * check, output bpp from small joiner RAM check)
--	 */
--	bits_per_pixel = min(bits_per_pixel, max_bpp_small_joiner_ram);
-+	joiner_max_bpp = get_max_compressed_bpp_with_joiner(i915, mode_clock,
-+							    mode_hdisplay, bigjoiner);
- 
--	if (bigjoiner) {
--		int bigjoiner_interface_bits = DISPLAY_VER(i915) >= 14 ? 36 : 24;
--		u32 max_bpp_bigjoiner =
--			i915->display.cdclk.max_cdclk_freq * 2 * bigjoiner_interface_bits /
--			intel_dp_mode_to_fec_clock(mode_clock);
--
--		bits_per_pixel = min(bits_per_pixel, max_bpp_bigjoiner);
--	}
-+	bits_per_pixel = min(bits_per_pixel, joiner_max_bpp);
- 
- 	bits_per_pixel = intel_dp_dsc_nearest_valid_bpp(i915, bits_per_pixel, pipe_bpp);
- 
+Patch 4-6 Calculate the max BPC that can be sufficient with either
+RGB or YCbcr420 format for the maximum FRL rate supported.
+
+Rev2: Split the refactoring of DFP RG->YCBCR conversion into smaller
+patches, as suggested by Jani N.
+Also dropped the unnecessary helper for DSC1.2 support for HDMI2.1 DFP.
+
+Rev3: As suggested by Ville, added new member sink_format to store the
+final format that the sink will be using, which might be different
+than the output format, and thus might need color/format conversion
+performed by the PCON.
+
+Rev4: Fix typo in switch case as, reported by kernel test bot.
+
+Rev5: Corrected order of setting sink_format and output_format. (Ville)
+Avoided the flag ycbcr420_output and used the sink_format to facilitate
+4:2:2 support at a later stage. (Ville)
+
+Rev6: Added missing changes for sdvo. (Ville)
+Added check for scaler and DSC constraints with YCbCr420.
+
+Rev7: Split change to add scaler constraint in separate patch, and rebased.
+
+Rev8: Rebased. Fixed check for mode rate with dsc in modevalid.
+Fixed scaler constraint as per display version.
+
+Rev9: Rebased.
+
+Rev10: Addressed review comments from Ville.
+Dropped patch to check for mode rate with dsc during modevalid, as the
+compressed bpp is already selected with bandwidth considerations.
+
+Rev11: Fixed the policy to use output format as RGB first if possible,
+followed by YCbCr444, atlast YCbCr420. Also removed the scaler-constraints
+with YCbCr420, as these are handled in scaler code. (Ville)
+
+Rev12: Added a patch for configuring PCON to convert output_format to
+YCBCR444. Added patch to have consistent naming for link bpp and
+compressed bpp. 
+
+Rev13: Few patches of original series are merged. Rebased the patches
+and addressed few comments from Ville on last series.
+
+Rev14: Use new wrapper for checking frl/tmds downstream constraints
+while getting max bpc also.
+
+Ankit Nautiyal (2):
+  drm/i915/dp: Fix FRL BW check for HDMI2.1 DFP
+  drm/i915/dp: Add a wrapper to check frl/tmds downstream constraints
+
+ drivers/gpu/drm/i915/display/intel_dp.c | 86 ++++++++++++++++---------
+ 1 file changed, 56 insertions(+), 30 deletions(-)
+
 -- 
 2.40.1
 
