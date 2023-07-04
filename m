@@ -4,52 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34044EB64D9
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 12:06:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA937EB64D9
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 13:18:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0F1F10E4FB;
-	Thu,  6 Jul 2023 12:06:08 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25D7C10E4FB
- for <intel-gfx@lists.freedesktop.org>; Thu,  6 Jul 2023 12:06:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1688645167; x=1720181167;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=lYZV8qy4qd7dbdPMCLDy2SzVt044IRDqjKrmT3Y8BmY=;
- b=AAT2cQkxbhlXZon6PTNE+EdNlYMJ+T+nBdBxgVcsVNcVyIXiHVZms1au
- /FKsOhVkpxWE3KW++teca+xdJ+BWFAp1rKS9iNin4pLrSFFmGHGM5dv7A
- UiFtUofLUk6GQUOUwMT2LvuSOpreGd/sBG6rjEnmB3BW0ZlIwHZGsTI1Y
- o9rlr0jITHA+TnVD7gf/TfWNYLe/BEhFSUtWmh/f1UpGcoFiDmfHYBZ0b
- e/Xo7bgfH+DPzbAZetNHRRBjCdlwnRzr1L5Bfu9YKx+MTVnQfJZPj1Z4l
- rE8LcDboWiyf30WjodYMJqLDXP4iUtfvjl6+LtifoTetwX1eQNXCBhvwe w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="394341177"
-X-IronPort-AV: E=Sophos;i="6.01,185,1684825200"; d="scan'208";a="394341177"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2023 05:06:05 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="713560714"
-X-IronPort-AV: E=Sophos;i="6.01,185,1684825200"; d="scan'208";a="713560714"
-Received: from jmvuilla-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.252.41.105])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2023 05:06:04 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <5e84ec16-537d-3df8-a47b-fb91f254a7ff@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1688463863.git.jani.nikula@intel.com>
- <4e087e216d86e6be8109bb443d1ac6c9ced1f777.1688463863.git.jani.nikula@intel.com>
- <5e84ec16-537d-3df8-a47b-fb91f254a7ff@linux.intel.com>
-Date: Thu, 06 Jul 2023 15:06:01 +0300
-Message-ID: <87bkgpxn12.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C87C10E090;
+	Thu,  6 Jul 2023 13:18:30 +0000 (UTC)
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [IPv6:2a00:1450:4864:20::233])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81CD110E2BE;
+ Tue,  4 Jul 2023 09:25:29 +0000 (UTC)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2b6a0d91e80so86739331fa.3; 
+ Tue, 04 Jul 2023 02:25:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1688462726; x=1691054726;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=w3WG4cGF8CRsbmj1ToTEuLfuzUDIEOrIrelQmjq4q3k=;
+ b=o9zy4rdoGn3NN1323n5JeCPR2P82Vf7Xrb/k/pDWdQHvrcIZ5KNk8E5Rc9AOWvUohR
+ 8JC5CIa5pDomtb1dfZMDcahgFK74EO8eDQO9LSJYgjPzn4Ic41LS4QQHFX6p621xcc3u
+ XO4jHaVK/oWekFPVOXt8KXkFrL5uwNVhzPe0OW6mFqCpgsPLCDGha7mZqCOpezE+7azY
+ JK43WUYppygu4AR6pSjwNQ4n71biZrLvyDxyiBacmVPLZW4xC0G71z1vFrh8dIliQYVo
+ 8F/dIQJ/5ufMEC1w88uKtvPWoHp5fDYBZKYi1NiHQpep1YJRz5d/czwVmMlpXQets9oL
+ KN+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688462726; x=1691054726;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=w3WG4cGF8CRsbmj1ToTEuLfuzUDIEOrIrelQmjq4q3k=;
+ b=ak8pQyLVoqOxOZki/yRnVePiU4quEx9cVof5hrPpog+onAiXXr85bAnHK5Q+PpkIHd
+ v7y8txhPmL6RUBI1IlrppA1U+yiThPo0PuwO8IcwOYnx4procm40axOruN3H4TPx2sNH
+ jv7gGoKb6In9WCkwMYTPmCwVAeqjVBfCiaB8iOe5wvsa44Q5ZJ9gD+9g8C+NUVhUmJC0
+ KTZF5XU7CbuxGE11m2hYctLtlgEe4GEZ1tb2gkdko+nhMfszIdWp0Ei7O0vIgWLXRIWl
+ j40pnNtx2fnRPuVrKDoBjKZTPb7isAp6bT9ywXDNjWda0bs31xIUqcwPDckHMouveSfT
+ 8zQw==
+X-Gm-Message-State: ABy/qLaUut81cocUMKlwO/k5jP+6WDIvT5ng4tYpWp6nTDr3CVI5raZZ
+ C608qVmvVXYXT2vLk6J4BnnZm/QSoLdHn5VeuZI=
+X-Google-Smtp-Source: APBJJlHbSJ2Cml2qn4cb/1edSGf064IsnqMZE4INWgBRJ+bUKVKGU+1ukWl3wQA36b7Pv4rNzHUvKd3ZOMoslroDlxM=
+X-Received: by 2002:a2e:3218:0:b0:2b6:f1d5:619 with SMTP id
+ y24-20020a2e3218000000b002b6f1d50619mr1554642ljy.14.1688462726472; Tue, 04
+ Jul 2023 02:25:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH 3/3] drm/i915/uncore: optimize
- CONFIG_DRM_I915_DEBUG_MMIO=n more
+References: <20230703150859.6176-1-ubizjak@gmail.com>
+ <87o7ks16gh.fsf@intel.com>
+ <CAFULd4YDHqUud94Q1mbKyKqGHh==Gv7+FpNhgm5s1p=0ZwcAXg@mail.gmail.com>
+ <87lefw139r.fsf@intel.com>
+In-Reply-To: <87lefw139r.fsf@intel.com>
+From: Uros Bizjak <ubizjak@gmail.com>
+Date: Tue, 4 Jul 2023 11:25:15 +0200
+Message-ID: <CAFULd4azR=ft9kEYN19WjxORcJNT_-v7q3sVs904Bf_td-VgEg@mail.gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Thu, 06 Jul 2023 13:18:28 +0000
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/pmu: Use local64_try_cmpxchg in
+ i915_pmu_event_read
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,52 +73,38 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 06 Jul 2023, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com> wrote:
-> On 04/07/2023 10:48, Jani Nikula wrote:
->> While the default for the mmio_debug parameter depends on
->> CONFIG_DRM_I915_DEBUG_MMIO, we look it up and include all the code for
->> unclaimed reg debugging even when CONFIG_DRM_I915_DEBUG_MMIO=n. Fix it.
->> 
->> Cc: Lee Shawn C <shawn.c.lee@intel.com>
->> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->> ---
->>   drivers/gpu/drm/i915/intel_uncore.c | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->> 
->> diff --git a/drivers/gpu/drm/i915/intel_uncore.c b/drivers/gpu/drm/i915/intel_uncore.c
->> index dfefad5a5fec..da2edde4b6f6 100644
->> --- a/drivers/gpu/drm/i915/intel_uncore.c
->> +++ b/drivers/gpu/drm/i915/intel_uncore.c
->> @@ -1929,7 +1929,8 @@ static inline bool __must_check
->>   unclaimed_reg_debug_header(struct intel_uncore *uncore,
->>   			   const i915_reg_t reg, const bool read)
->>   {
->> -	if (likely(!uncore->i915->params.mmio_debug) || !uncore->debug)
->> +	if (!IS_ENABLED(CONFIG_DRM_I915_DEBUG_MMIO) ||
->> +	    likely(!uncore->i915->params.mmio_debug) || !uncore->debug)
->>   		return false;
+On Tue, Jul 4, 2023 at 10:37=E2=80=AFAM Jani Nikula <jani.nikula@linux.inte=
+l.com> wrote:
 >
-> But now it would not be possible to enable mmio_debug, if Kconfig 
-> _default_ is 'n'. What am I missing?
-
-You're not missing anything, I am. *facepalm*
-
-The question is, are the first two acceptable without the third?
-
-BR,
-Jani.
-
-
+> On Tue, 04 Jul 2023, Uros Bizjak <ubizjak@gmail.com> wrote:
+> > On Tue, Jul 4, 2023 at 9:28=E2=80=AFAM Jani Nikula <jani.nikula@linux.i=
+ntel.com> wrote:
+> >> You could save everyone a lot of time by actually documenting what the=
+se
+> >> functions do. Assume you don't know what local64_try_cmpxchg() does, a=
+nd
+> >> see how many calls you have to go through to figure it out.
+> >
+> > These functions are documented in Documentation/atomic_t.txt (under
+> > "RMW ops:" section), and the difference is explained in a separate
+> > section "CMPXCHG vs TRY_CMPXCGS" in the same file.
 >
-> Regards,
+> Thanks, but *sigh*.
 >
-> Tvrtko
+> No kernel-doc above the functions, not even a regular comment
+> referencing atomic_t.txt.
 >
->>   
->>   	/* interrupts are disabled and re-enabled around uncore->lock usage */
+> $ git grep local.*_try -- Documentation
+> [nothing]
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+Unfortunately, this was always the state w.r.t. local.* atomic
+functions. There is an effort to improve the documentation of atomics,
+perhaps it will be also extended to local variants.
+
+Uros.
