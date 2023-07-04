@@ -4,43 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E64D4EB64DD
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 13:18:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDDD5C001DF
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 13:18:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3354A10E410;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B59B610E413;
 	Thu,  6 Jul 2023 13:18:46 +0000 (UTC)
-Received: from out-20.mta0.migadu.com (out-20.mta0.migadu.com [91.218.175.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D30F010E171
- for <intel-gfx@lists.freedesktop.org>; Sun,  2 Jul 2023 18:28:38 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1688322516;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=JD+BSfEOubeM4NaunZhKuggns+1jx3KG/ygiczCTpQY=;
- b=hsPJDuYj9iRgllcgTdnKnVeIWHI4dbFO6cetTcGBRitOohcizdBhNOgpXttZSEDOrRYB5m
- YFJNaZLsmoLXvdcfKsN/KjXlvPsWffQ20eToqWq6ZBWru43mzpRqHFZmlFwwfPaOHCHF4R
- FpaJ05EzBAAFuai3Fohx7nkMzTFuZlM=
-From: Sui Jingfeng <sui.jingfeng@linux.dev>
-To: Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maxime Ripard <mripard@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-Date: Mon,  3 Jul 2023 02:27:44 +0800
-Message-Id: <20230702182744.755467-7-sui.jingfeng@linux.dev>
-In-Reply-To: <20230702182744.755467-1-sui.jingfeng@linux.dev>
-References: <20230702182744.755467-1-sui.jingfeng@linux.dev>
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [IPv6:2a00:1450:4864:20::52b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 048F210E095;
+ Tue,  4 Jul 2023 08:05:59 +0000 (UTC)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-51e00695e21so2598386a12.1; 
+ Tue, 04 Jul 2023 01:05:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1688457958; x=1691049958;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=CVWPGfFaZM7RIjrMZBy1U4ap/sNPrOgYsjGHVnmKQSk=;
+ b=b2Q098KQfFtpS7gTPdbmgBLG6y6WnS0W4y9w15Mk6VXLKw1YWBD+7g/Z+VmdPH+PFz
+ 3RwrbMdE1TcSlKbe6kOsVFP6L5hMYedQEPgAyv2qwi59D6ErYxrSAXczjgxk42JyUsGN
+ OH8OCWfJoTTLzDjWMHKGs7LZY384TmGEUV8rVE+9vnK3fWFQz/4D2IojDuU8v/TmbF0D
+ L0UgKj0lwWON50ppAOvCvY/hKOHZur9fxXgK78td25ykVYgtgewaB0iX7rmLmOsDVCiA
+ yI2zx+Hsn9r8i2GgKggPNsc4ThKwcz0CrfNMLXhYsjqqfJcxI1UoidEFs9zQIcqvF/lD
+ t+cQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1688457958; x=1691049958;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=CVWPGfFaZM7RIjrMZBy1U4ap/sNPrOgYsjGHVnmKQSk=;
+ b=hh9MFFri+op1NPCRnR8hw1bXqwo5KclNIh92iSuvbu1GcV60MHqMOQM8uRvjN5wLw7
+ IRW1YlB1eOxZMeXdNDZEKWDrRPaj5RtkWsAx03jnO9BNO1LRzGyXYDiz3mGCl3kXyZXR
+ E4gKQjG1L0C5IbKgdqElveM0QB8NtYiRNr8sfPjQyDVJpAjP2vH021tp5yvEFHQn+snI
+ hapvqG0hOf7smYV7cJdjwwauj55+sAvXA/J5EmUs5cuP46cLDfGWE6FtTmyMoQ7sLhjn
+ Yj/ux5U6JcT8IFNe53G0xtR/w+gxPeiHrdXL74mUTUB4fCI2uxTXLtZZ19X4c6j2PNE9
+ +qXQ==
+X-Gm-Message-State: ABy/qLbiyAX+sl4rGTxB8L5zXODVs9+I4ifQ3oInUYRztpl6Kcv5YZP2
+ 5OtgXD7dU3Qn5ObsqIPg1+4q4q0Uo78o7ZUgvc8=
+X-Google-Smtp-Source: APBJJlFvdD4JojFZIfYCBIl8X+D9YLlLXiIOYn4I/eCNYZMtwhyTmPAnUPUixcI/mqslOeYez4T8nXjkJA+VMLhcPc4=
+X-Received: by 2002:a05:6402:4496:b0:51d:d41b:26a5 with SMTP id
+ er22-20020a056402449600b0051dd41b26a5mr9120655edb.14.1688457957804; Tue, 04
+ Jul 2023 01:05:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+References: <20230703150859.6176-1-ubizjak@gmail.com>
+ <87o7ks16gh.fsf@intel.com>
+In-Reply-To: <87o7ks16gh.fsf@intel.com>
+From: Uros Bizjak <ubizjak@gmail.com>
+Date: Tue, 4 Jul 2023 10:05:46 +0200
+Message-ID: <CAFULd4YDHqUud94Q1mbKyKqGHh==Gv7+FpNhgm5s1p=0ZwcAXg@mail.gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 06 Jul 2023 13:18:28 +0000
-Subject: [Intel-gfx] [PATCH v2 6/6] drm/ast: Register as a vga client to
- vgaarb by calling vga_client_register()
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/pmu: Use local64_try_cmpxchg in
+ i915_pmu_event_read
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,83 +71,86 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Sui Jingfeng <suijingfeng@loongson.cn>,
- kvm@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Jocelyn Falempe <jfalempe@redhat.com>,
- dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Sui Jingfeng <suijingfeng@loongson.cn>
+On Tue, Jul 4, 2023 at 9:28=E2=80=AFAM Jani Nikula <jani.nikula@linux.intel=
+.com> wrote:
+>
+> On Mon, 03 Jul 2023, Uros Bizjak <ubizjak@gmail.com> wrote:
+> > Use local64_try_cmpxchg instead of local64_cmpxchg (*ptr, old, new) =3D=
+=3D old
+> > in i915_pmu_event_read.  x86 CMPXCHG instruction returns success in ZF =
+flag,
+> > so this change saves a compare after cmpxchg (and related move instruct=
+ion
+> > in front of cmpxchg).
+> >
+> > Also, try_cmpxchg implicitly assigns old *ptr value to "old" when cmpxc=
+hg
+> > fails. There is no need to re-read the value in the loop.
+> >
+> > No functional change intended.
+> >
+> > Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> > Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> > Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+> > Cc: David Airlie <airlied@gmail.com>
+> > Cc: Daniel Vetter <daniel@ffwll.ch>
+> > Signed-off-by: Uros Bizjak <ubizjak@gmail.com>
+> > ---
+> >  drivers/gpu/drm/i915/i915_pmu.c | 9 ++++-----
+> >  1 file changed, 4 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i91=
+5_pmu.c
+> > index d35973b41186..108b675088ba 100644
+> > --- a/drivers/gpu/drm/i915/i915_pmu.c
+> > +++ b/drivers/gpu/drm/i915/i915_pmu.c
+> > @@ -696,12 +696,11 @@ static void i915_pmu_event_read(struct perf_event=
+ *event)
+> >               event->hw.state =3D PERF_HES_STOPPED;
+> >               return;
+> >       }
+> > -again:
+> > -     prev =3D local64_read(&hwc->prev_count);
+> > -     new =3D __i915_pmu_event_read(event);
+> >
+> > -     if (local64_cmpxchg(&hwc->prev_count, prev, new) !=3D prev)
+> > -             goto again;
+> > +     prev =3D local64_read(&hwc->prev_count);
+> > +     do {
+> > +             new =3D __i915_pmu_event_read(event);
+> > +     } while (!local64_try_cmpxchg(&hwc->prev_count, &prev, new));
+>
+> You could save everyone a lot of time by actually documenting what these
+> functions do. Assume you don't know what local64_try_cmpxchg() does, and
+> see how many calls you have to go through to figure it out.
 
-Becasuse the VGA Display Controller in the ASpeed BMC chip is also a PCIe
-device, the Software Programming guide of AST2400 say that it is Fully
-IBM VGA compliant, thus, it should also particiate in the arbitration.
+These functions are documented in Documentation/atomic_t.txt (under
+"RMW ops:" section), and the difference is explained in a separate
+section "CMPXCHG vs TRY_CMPXCGS" in the same file.
 
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Jocelyn Falempe <jfalempe@redhat.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
----
- drivers/gpu/drm/ast/ast_drv.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+Uros.
 
-diff --git a/drivers/gpu/drm/ast/ast_drv.c b/drivers/gpu/drm/ast/ast_drv.c
-index e1224ef4ad83..5ce681142679 100644
---- a/drivers/gpu/drm/ast/ast_drv.c
-+++ b/drivers/gpu/drm/ast/ast_drv.c
-@@ -28,6 +28,7 @@
- 
- #include <linux/module.h>
- #include <linux/pci.h>
-+#include <linux/vgaarb.h>
- 
- #include <drm/drm_aperture.h>
- #include <drm/drm_atomic_helper.h>
-@@ -89,6 +90,32 @@ static const struct pci_device_id ast_pciidlist[] = {
- 
- MODULE_DEVICE_TABLE(pci, ast_pciidlist);
- 
-+static bool ast_is_boot_device(struct pci_dev *pdev)
-+{
-+	struct drm_device *drm = pci_get_drvdata(pdev);
-+	struct ast_device *ast = to_ast_device(drm);
-+
-+	return drm_aperture_contain_firmware_fb(ast->vram_base, ast->vram_size);
-+}
-+
-+static unsigned int ast_vga_set_decode(struct pci_dev *pdev, bool state)
-+{
-+	struct drm_device *drm = pci_get_drvdata(pdev);
-+	struct ast_device *ast = to_ast_device(drm);
-+
-+	if (state) {
-+		/* Enable standard VGA decode and Enable normal VGA decode */
-+		ast_set_index_reg(ast, AST_IO_CRTC_PORT, 0xa1, 0x04);
-+
-+		return VGA_RSRC_LEGACY_IO | VGA_RSRC_LEGACY_MEM |
-+		       VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM;
-+	}
-+
-+	ast_set_index_reg(ast, AST_IO_CRTC_PORT, 0xa1, 0x07);
-+
-+	return VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM;
-+}
-+
- static int ast_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- {
- 	struct ast_device *ast;
-@@ -112,6 +139,8 @@ static int ast_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	if (ret)
- 		return ret;
- 
-+	vga_client_register(pdev, ast_vga_set_decode, ast_is_boot_device);
-+
- 	drm_fbdev_generic_setup(dev, 32);
- 
- 	return 0;
--- 
-2.25.1
-
+> Because the next time I encounter this code or a patch like this, I'm
+> probably going to have to do that again.
+>
+> To me, the old one was more readable. The optimization is meaningless to
+> me if it's not quantified but reduces readability.
+>
+>
+> BR,
+> Jani.
+>
+>
+> >
+> >       local64_add(new - prev, &event->count);
+> >  }
+>
+> --
+> Jani Nikula, Intel Open Source Graphics Center
