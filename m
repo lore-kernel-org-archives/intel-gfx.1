@@ -4,48 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCB5DEB64DA
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jul 2023 16:32:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C3F6EB64DD
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Jul 2023 16:32:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AE4010E3A0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 852FE10E3A8;
 	Wed,  5 Jul 2023 16:32:08 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B165D10E185;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 032DB10E3A7;
  Wed,  5 Jul 2023 16:32:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1688574725; x=1720110725;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=fPW5+44exUlhfF79mHFbyf39zZ0oJUkvM1+8K/Fepfk=;
- b=ex9yMAUzsXEiWR/hrb1OeVU34jtSRnDQx2fbdweGo5Cwhp96Ts14efP0
- LHydGLFZk9CnPTZPu+MFKQ1QbgWLV5oIX4DVJLJkXYPThlGnQ7tT+JCAx
- Tmsu1aGjbfayv3xU5JYDA9RUekosUXreryUr+55N6+4dobjTFTrCzCfnC
- /q3H12q4QAfZr7825RNU7K15glaaa167JxUahWLjV3vjosSsqKcUb8WI/
- SK+eTcYgWix6/ikCIokRr0C49mQVbzTyZGmgOORPaIP0lKJpjxu7H6b1s
- rkusBKyDTeXRYbI63PTxQ8kgpzoNILAHGND/JU9t0Bo+hBoITBBGVzX/N w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="362255308"
-X-IronPort-AV: E=Sophos;i="6.01,183,1684825200"; d="scan'208";a="362255308"
+ t=1688574726; x=1720110726;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=P0HaUU25EVVKFeHDi3LH9dI7lMcn+lPR4hAV24sy5fQ=;
+ b=h1H5Jh511Z6LPA0OlBm7R8vf28P3crsbk8oNxtB9uWU6C90WKR96aFsi
+ rqQGqzSu8Q1tcDWLHqQrbjV01sVO2pjtNvmHe4WmABzRon65A60Lnp2FT
+ iSDsOyH3lIqvbCx0QKUi5AlCMAYaNJcgamOEVHRBGMW1CMzltyuyTJYiW
+ iq+al6wpNHeIrxCtb7uYZQBs6mkml97Dx+9IwiKaoTu2foR4USbjJDZ4B
+ 48vsRrv8H0CgkdhOs9/NlCivFGXgJUxRhjss2BspxDNfnwoFDhBeKWhGe
+ E1rPSsOaR/9CQhQyXbbdjNedPCFfwd6qBYURhm50q5zhAQdsh0UV4kpDg w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="362255335"
+X-IronPort-AV: E=Sophos;i="6.01,183,1684825200"; d="scan'208";a="362255335"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jul 2023 09:31:15 -0700
+ 05 Jul 2023 09:31:18 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="754412954"
-X-IronPort-AV: E=Sophos;i="6.01,183,1684825200"; d="scan'208";a="754412954"
+X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="754412988"
+X-IronPort-AV: E=Sophos;i="6.01,183,1684825200"; d="scan'208";a="754412988"
 Received: from jputsman-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.200.219])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jul 2023 09:31:13 -0700
+ 05 Jul 2023 09:31:16 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: igt-dev@lists.freedesktop.org,
 	Intel-gfx@lists.freedesktop.org
-Date: Wed,  5 Jul 2023 17:31:02 +0100
-Message-Id: <20230705163105.3804677-1-tvrtko.ursulin@linux.intel.com>
+Date: Wed,  5 Jul 2023 17:31:04 +0100
+Message-Id: <20230705163105.3804677-3-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230705163105.3804677-1-tvrtko.ursulin@linux.intel.com>
+References: <20230705163105.3804677-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 0/3] gputop memory usage
+Subject: [Intel-gfx] [PATCH i-g-t 2/3] lib/igt_drm_clients: Store memory
+ info in the client
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,39 +66,121 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Same general approach as with engine utilisation, adding parsing of the relevant
-fdinfo fields and plumbing to client discovery helpers to finally present some
-of the available data in gputop:
+Define the storage structure and copy over memory data as parsed by the
+fdinfo helpers.
 
-DRM minor 0
- PID      MEM      RSS  render    copy     video   NAME
-8098     124M     124M |███████||       ||       ||       | neverball
- 888      76M      75M |▊      ||       ||       ||       | Xorg
- 966      12M      12M |       ||       ||       ||       | xfwm4
-
-There is probably scope to consolidate some of the igt_drm_fdinfo code and to
-improve on the presentation but this is a start.
-
-For now, out of the available memory categories, only total and resident are
-displayed, and also all discovered memory regions are summed up and shown under
-a single heading.
-
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Cc: Rob Clark <robdclark@chromium.org>
+---
+ lib/igt_drm_clients.c | 31 +++++++++++++++++++++++++++++++
+ lib/igt_drm_clients.h | 11 +++++++++++
+ 2 files changed, 42 insertions(+)
 
-Tvrtko Ursulin (3):
-  lib/igt_drm_fdinfo: Parse memory usage
-  lib/igt_drm_clients: Store memory info in the client
-  gputop: Add memory information
-
- lib/igt_drm_clients.c   |  34 +++++++++-
- lib/igt_drm_clients.h   |  11 ++++
- lib/igt_drm_fdinfo.c    | 142 ++++++++++++++++++++++++++++++++++++++--
- lib/igt_drm_fdinfo.h    |  24 ++++++-
- tests/i915/drm_fdinfo.c |   8 +--
- tools/gputop.c          |  34 +++++++++-
- tools/intel_gpu_top.c   |   2 +-
- 7 files changed, 240 insertions(+), 15 deletions(-)
-
+diff --git a/lib/igt_drm_clients.c b/lib/igt_drm_clients.c
+index fdea42752a81..0db5b64effea 100644
+--- a/lib/igt_drm_clients.c
++++ b/lib/igt_drm_clients.c
+@@ -103,6 +103,8 @@ igt_drm_client_update(struct igt_drm_client *c, unsigned int pid, char *name,
+ 			c->clients->max_name_len = len;
+ 	}
+ 
++	/* Engines */
++
+ 	c->last_runtime = 0;
+ 	c->total_runtime = 0;
+ 
+@@ -118,6 +120,13 @@ igt_drm_client_update(struct igt_drm_client *c, unsigned int pid, char *name,
+ 		c->last[i] = info->busy[i];
+ 	}
+ 
++	/* Memory regions */
++	for (i = 0; i <= c->regions->max_region_id; i++) {
++		assert(i < ARRAY_SIZE(info->region_mem));
++
++		c->memory[i] = info->region_mem[i];
++	}
++
+ 	c->samples++;
+ 	c->status = IGT_DRM_CLIENT_ALIVE;
+ }
+@@ -154,6 +163,8 @@ igt_drm_client_add(struct igt_drm_clients *clients,
+ 	c->id = info->id;
+ 	c->drm_minor = drm_minor;
+ 	c->clients = clients;
++
++	/* Engines */
+ 	c->engines = malloc(sizeof(*c->engines));
+ 	assert(c->engines);
+ 	memset(c->engines, 0, sizeof(*c->engines));
+@@ -178,6 +189,26 @@ igt_drm_client_add(struct igt_drm_clients *clients,
+ 	c->last = calloc(c->engines->max_engine_id + 1, sizeof(c->last));
+ 	assert(c->val && c->last);
+ 
++	/* Memory regions */
++	c->regions = malloc(sizeof(*c->regions));
++	assert(c->regions);
++	memset(c->regions, 0, sizeof(*c->regions));
++	c->regions->names = calloc(info->last_region_index + 1,
++				   sizeof(*c->regions->names));
++	assert(c->regions->names);
++
++	for (i = 0; i <= info->last_region_index; i++) {
++		if (!info->region_names[i])
++			continue;
++
++		c->regions->names[i] = strdup(info->region_names[i]);
++		assert(c->regions->names[i]);
++		c->regions->num_regions++;
++		c->regions->max_region_id = i;
++	}
++	c->memory = calloc(c->regions->max_region_id + 1, sizeof(*c->memory));
++	assert(c->memory);
++
+ 	igt_drm_client_update(c, pid, name, info);
+ }
+ 
+diff --git a/lib/igt_drm_clients.h b/lib/igt_drm_clients.h
+index ed795c193986..07bd236d43bf 100644
+--- a/lib/igt_drm_clients.h
++++ b/lib/igt_drm_clients.h
+@@ -8,6 +8,8 @@
+ 
+ #include <stdint.h>
+ 
++#include "lib/igt_drm_fdinfo.h"
++
+ /**
+  * SECTION:igt_drm_clients
+  * @short_description: Parsing driver exposed fdinfo to track DRM clients
+@@ -39,12 +41,20 @@ struct igt_drm_client_engines {
+ 	char **names; /* Array of engine names, either auto-detected or from the passed in engine map. */
+ };
+ 
++struct igt_drm_client_regions {
++	unsigned int num_regions; /* Number of discovered memory_regions. */
++	unsigned int max_region_id; /* Largest memory region index discovered.
++				       (Can differ from num_regions - 1 when using the region map facility.) */
++	char **names; /* Array of region names, either auto-detected or from the passed in region map. */
++};
++
+ struct igt_drm_clients;
+ 
+ struct igt_drm_client {
+ 	struct igt_drm_clients *clients; /* Owning list. */
+ 
+ 	enum igt_drm_client_status status;
++	struct igt_drm_client_regions *regions; /* Memory regions present in this client, to map with memory usage. */
+ 	struct igt_drm_client_engines *engines; /* Engines used by this client, to map with busynees data. */
+ 	unsigned int id; /* DRM client id from fdinfo. */
+ 	unsigned int drm_minor; /* DRM minor of this client. */
+@@ -57,6 +67,7 @@ struct igt_drm_client {
+ 	unsigned long last_runtime; /* Aggregate busyness on all engines since previous scan. */
+ 	unsigned long *val; /* Array of engine busyness data, relative to previous scan. */
+ 	uint64_t *last; /* Array of engine busyness data as parsed from fdinfo. */
++	struct drm_client_meminfo *memory; /* Array of region memory utilisation as parsed from fdinfo. */
+ };
+ 
+ struct igt_drm_clients {
 -- 
 2.39.2
 
