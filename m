@@ -4,43 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 061F2EB64DC
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 13:18:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87035EB64D9
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 13:32:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66B9D10E403;
-	Thu,  6 Jul 2023 13:18:57 +0000 (UTC)
-Received: from out-19.mta0.migadu.com (out-19.mta0.migadu.com [91.218.175.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD6E710E07C;
- Sun,  2 Jul 2023 18:28:11 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1688322489;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=GIsbNY4Mb47GZOP1sDLnLj7sNU75tuWjGzp78R/rGnQ=;
- b=Asfz38/GCbs9aQasSoatgaZ9jzNgWHwoMmeTf/bH75XrB/nb22Vyb4qmQt601kZ7vA//3f
- DOGPbDKa4APDUOdfWGGi9aU8/DHXLZqUBRw8xNOHED27zfpgCrYCR6ffUy5vJYZmGkQGpc
- KIXf4ebkoGou/MoJlXryZkBWgXIRJes=
-From: Sui Jingfeng <sui.jingfeng@linux.dev>
-To: Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maxime Ripard <mripard@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, Lyude Paul <lyude@redhat.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-Date: Mon,  3 Jul 2023 02:27:39 +0800
-Message-Id: <20230702182744.755467-2-sui.jingfeng@linux.dev>
-In-Reply-To: <20230702182744.755467-1-sui.jingfeng@linux.dev>
-References: <20230702182744.755467-1-sui.jingfeng@linux.dev>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0ADB310E3E3;
+	Thu,  6 Jul 2023 13:32:56 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83A8310E3E3
+ for <intel-gfx@lists.freedesktop.org>; Thu,  6 Jul 2023 13:32:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1688650374; x=1720186374;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=OkdtqCgtZ2s/sEPuo2yQxKYATegEkDVD7DkXlECX0os=;
+ b=LpqPrnuDY5pQ1sGZYpQUozHK/wyJikyog5SB1o1A+n+KVvuaSMsR5F+8
+ juBqfdIwXTnjWY/gZ0chYp/CqmxLTNRTtUDHucK5edN7BCtd53yGxl0bT
+ o09+HljhBN4K+hYSX6WbtEUpGqoNETWstAujKfhlBU0+3+tFAcXDS81aK
+ unaAu8KCHnKCLgiS57DMqEecv6O2xryUWoR22fVUd8cjDpjskwHXW9st9
+ twZ5iN8OyEBgGTKA9HQRdE6Uy3RcuuEF1e7W8oHISbV3Zyw32c7mdBTTo
+ EtWpvI/scIZBoZSKjpHdjlMxikMhFTjD/NOvCcp2z/jdG9O9QSXuYvKdH g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10763"; a="353441175"
+X-IronPort-AV: E=Sophos;i="6.01,185,1684825200"; d="scan'208";a="353441175"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2023 06:32:53 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10763"; a="696847921"
+X-IronPort-AV: E=Sophos;i="6.01,185,1684825200"; d="scan'208";a="696847921"
+Received: from dnatta1-mobl1.ger.corp.intel.com (HELO [10.213.201.247])
+ ([10.213.201.247])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2023 06:32:52 -0700
+Message-ID: <a1a668fb-52a4-9d3a-03cc-443f2ff077aa@linux.intel.com>
+Date: Thu, 6 Jul 2023 14:32:50 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
-X-Mailman-Approved-At: Thu, 06 Jul 2023 13:18:28 +0000
-Subject: [Intel-gfx] [PATCH v2 1/6] video/aperture: Add a helper to detect
- if an aperture contains firmware FB
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Nirmoy Das <nirmoy.das@intel.com>, intel-gfx@lists.freedesktop.org
+References: <20230630170140.17319-1-nirmoy.das@intel.com>
+ <20230630170140.17319-2-nirmoy.das@intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <20230630170140.17319-2-nirmoy.das@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm/i915/display: Do not use stolen on
+ MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,158 +64,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Sui Jingfeng <suijingfeng@loongson.cn>,
- kvm@vger.kernel.org, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org,
- Helge Deller <deller@gmx.de>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Sui Jingfeng <suijingfeng@loongson.cn>
 
-This patch adds the aperture_contain_firmware_fb() function to do the
-determination. Unfortunately due to the fact that apertures list will be
-freed dynamically, the location and size information of the firmware fb
-will be lost after dedicated drivers call
-aperture_remove_conflicting_devices(),
-aperture_remove_conflicting_pci_devices() or
-aperture_remove_all_conflicting_devices() functions
+On 30/06/2023 18:01, Nirmoy Das wrote:
+> Use smem on MTL due to a HW bug in MTL that prevents
+> reading from stolen memory using LMEM BAR.
 
-We handle this problem by introducing two static variables which record the
-firmware framebuffer's start addrness and end addrness. It assumes that the
-system has only one active firmware framebuffer driver at a time.
+Does anything remain in stolen or could the memory region just not be 
+created?
 
-We don't use the global structure screen_info here, because PCI resource
-may get reallocated(the VRAM BAR could be moved) at kernel boot stage.
+Regards,
 
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Javier Martinez Canillas <javierm@redhat.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Daniel Vetter <daniel@ffwll.ch>
-Cc: Helge Deller <deller@gmx.de>
-Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
----
- drivers/gpu/drm/drm_aperture.c | 16 ++++++++++++++++
- drivers/video/aperture.c       | 29 +++++++++++++++++++++++++++++
- include/drm/drm_aperture.h     |  2 ++
- include/linux/aperture.h       |  7 +++++++
- 4 files changed, 54 insertions(+)
+Tvrtko
 
-diff --git a/drivers/gpu/drm/drm_aperture.c b/drivers/gpu/drm/drm_aperture.c
-index 5729f3bb4398..6e5d8a08683c 100644
---- a/drivers/gpu/drm/drm_aperture.c
-+++ b/drivers/gpu/drm/drm_aperture.c
-@@ -190,3 +190,19 @@ int drm_aperture_remove_conflicting_pci_framebuffers(struct pci_dev *pdev,
- 	return aperture_remove_conflicting_pci_devices(pdev, req_driver->name);
- }
- EXPORT_SYMBOL(drm_aperture_remove_conflicting_pci_framebuffers);
-+
-+/**
-+ * drm_aperture_contain_firmware_fb - Determine if a aperture contains firmware framebuffer
-+ *
-+ * @base: the aperture's base address in physical memory
-+ * @size: aperture size in bytes
-+ *
-+ * Returns:
-+ * true on if there is a firmware framebuffer belong to the aperture passed in,
-+ * or false otherwise.
-+ */
-+bool drm_aperture_contain_firmware_fb(resource_size_t base, resource_size_t size)
-+{
-+	return aperture_contain_firmware_fb(base, base + size);
-+}
-+EXPORT_SYMBOL(drm_aperture_contain_firmware_fb);
-diff --git a/drivers/video/aperture.c b/drivers/video/aperture.c
-index 561be8feca96..5a5422cec669 100644
---- a/drivers/video/aperture.c
-+++ b/drivers/video/aperture.c
-@@ -141,6 +141,9 @@ struct aperture_range {
- static LIST_HEAD(apertures);
- static DEFINE_MUTEX(apertures_lock);
- 
-+static resource_size_t firm_fb_start;
-+static resource_size_t firm_fb_end;
-+
- static bool overlap(resource_size_t base1, resource_size_t end1,
- 		    resource_size_t base2, resource_size_t end2)
- {
-@@ -170,6 +173,9 @@ static int devm_aperture_acquire(struct device *dev,
- 
- 	mutex_lock(&apertures_lock);
- 
-+	firm_fb_start = base;
-+	firm_fb_end = end;
-+
- 	list_for_each(pos, &apertures) {
- 		ap = container_of(pos, struct aperture_range, lh);
- 		if (overlap(base, end, ap->base, ap->base + ap->size)) {
-@@ -377,3 +383,26 @@ int aperture_remove_conflicting_pci_devices(struct pci_dev *pdev, const char *na
- 
- }
- EXPORT_SYMBOL(aperture_remove_conflicting_pci_devices);
-+
-+/**
-+ * aperture_contain_firmware_fb - Detect if the firmware framebuffer belong to
-+ *                                a aperture.
-+ * @ap_start: the aperture's start address in physical memory
-+ * @ap_end: the aperture's end address in physical memory
-+ *
-+ * Returns:
-+ * true on if there is a firmware framebuffer belong to the aperture passed in,
-+ * or false otherwise.
-+ */
-+bool aperture_contain_firmware_fb(resource_size_t ap_start, resource_size_t ap_end)
-+{
-+	/* No firmware framebuffer support */
-+	if (!firm_fb_start || !firm_fb_end)
-+		return false;
-+
-+	if (firm_fb_start >= ap_start && firm_fb_end <= ap_end)
-+		return true;
-+
-+	return false;
-+}
-+EXPORT_SYMBOL(aperture_contain_firmware_fb);
-diff --git a/include/drm/drm_aperture.h b/include/drm/drm_aperture.h
-index cbe33b49fd5d..6a0b9bacb081 100644
---- a/include/drm/drm_aperture.h
-+++ b/include/drm/drm_aperture.h
-@@ -35,4 +35,6 @@ drm_aperture_remove_framebuffers(const struct drm_driver *req_driver)
- 							    req_driver);
- }
- 
-+bool drm_aperture_contain_firmware_fb(resource_size_t base, resource_size_t size);
-+
- #endif
-diff --git a/include/linux/aperture.h b/include/linux/aperture.h
-index 1a9a88b11584..d4dc5917c49b 100644
---- a/include/linux/aperture.h
-+++ b/include/linux/aperture.h
-@@ -19,6 +19,8 @@ int aperture_remove_conflicting_devices(resource_size_t base, resource_size_t si
- int __aperture_remove_legacy_vga_devices(struct pci_dev *pdev);
- 
- int aperture_remove_conflicting_pci_devices(struct pci_dev *pdev, const char *name);
-+
-+bool aperture_contain_firmware_fb(resource_size_t ap_start, resource_size_t ap_end);
- #else
- static inline int devm_aperture_acquire_for_platform_device(struct platform_device *pdev,
- 							    resource_size_t base,
-@@ -42,6 +44,11 @@ static inline int aperture_remove_conflicting_pci_devices(struct pci_dev *pdev,
- {
- 	return 0;
- }
-+
-+static inline bool aperture_contain_firmware_fb(resource_size_t ap_start, resource_size_t ap_end)
-+{
-+	return false;
-+}
- #endif
- 
- /**
--- 
-2.25.1
-
+> Cc: Oak Zeng <oak.zeng@intel.com>
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Andi Shyti <andi.shyti@linux.intel.com>
+> Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+> Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
+> ---
+>   drivers/gpu/drm/i915/display/intel_fbdev.c   | 2 ++
+>   drivers/gpu/drm/i915/display/intel_overlay.c | 7 ++++---
+>   2 files changed, 6 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+> index 1cc0ddc6a310..10e38d60f9ef 100644
+> --- a/drivers/gpu/drm/i915/display/intel_fbdev.c
+> +++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+> @@ -182,6 +182,8 @@ static int intelfb_alloc(struct drm_fb_helper *helper,
+>   		obj = i915_gem_object_create_lmem(dev_priv, size,
+>   						  I915_BO_ALLOC_CONTIGUOUS |
+>   						  I915_BO_ALLOC_USER);
+> +	} else if (IS_METEORLAKE(dev_priv)) { /* Wa_22018444074 */
+> +		obj = i915_gem_object_create_shmem(dev_priv, size);
+>   	} else {
+>   		/*
+>   		 * If the FB is too big, just don't use it since fbdev is not very
+> diff --git a/drivers/gpu/drm/i915/display/intel_overlay.c b/drivers/gpu/drm/i915/display/intel_overlay.c
+> index d6fe2bbabe55..05ae446c8a56 100644
+> --- a/drivers/gpu/drm/i915/display/intel_overlay.c
+> +++ b/drivers/gpu/drm/i915/display/intel_overlay.c
+> @@ -1348,12 +1348,13 @@ int intel_overlay_attrs_ioctl(struct drm_device *dev, void *data,
+>   static int get_registers(struct intel_overlay *overlay, bool use_phys)
+>   {
+>   	struct drm_i915_private *i915 = overlay->i915;
+> -	struct drm_i915_gem_object *obj;
+> +	struct drm_i915_gem_object *obj = NULL;
+>   	struct i915_vma *vma;
+>   	int err;
+>   
+> -	obj = i915_gem_object_create_stolen(i915, PAGE_SIZE);
+> -	if (IS_ERR(obj))
+> +	if (!IS_METEORLAKE(i915)) /* Wa_22018444074 */
+> +		obj = i915_gem_object_create_stolen(i915, PAGE_SIZE);
+> +	if (IS_ERR_OR_NULL(obj))
+>   		obj = i915_gem_object_create_internal(i915, PAGE_SIZE);
+>   	if (IS_ERR(obj))
+>   		return PTR_ERR(obj);
