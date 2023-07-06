@@ -4,49 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F122C001B0
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 13:18:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 033C9EB64DD
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Jul 2023 13:18:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11DF910E414;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9643210E411;
 	Thu,  6 Jul 2023 13:18:47 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29D1C10E0AC;
- Mon,  3 Jul 2023 16:39:25 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2A58760FCE;
- Mon,  3 Jul 2023 16:39:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88545C433C8;
- Mon,  3 Jul 2023 16:39:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1688402363;
- bh=mU//x9jBPILiKpU55W6pKfM7tWEnFXK8s6uKf0IHSCQ=;
- h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To:From;
- b=M7QzdEtEbwotwMWafP/+IUqD+OL0lZqDIEYIxukmJRy4zFLksHmS0OvpXttqHtoql
- zmAPP+1ejIDFbQbr8IlUUScA4lqau9u+Buss6+c8qzKd9/wI364iDkNElNOBdEF98q
- Kh8eWQuwrF+h+/XzRxBXe/kwXG538TSND8V3ImrZFwLpsD4bMMtjgjw77IIimtdyiI
- vm3F44IJaZ2yU9uFJNPVYGV9kH3TkMVG5bUFa2ByYcCloMku7wRiF6DxKGei5SKe9K
- hwn9AMOYpgf4vnwkGj6bYY4CIZ3iKF2SBAvkgudHibT6SNUv99F0DvP2atQXG8oO+Q
- 8onz/cm4rlnJg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
- id 22663CE0DD0; Mon,  3 Jul 2023 09:39:23 -0700 (PDT)
-Date: Mon, 3 Jul 2023 09:39:23 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Dave Chinner <david@fromorbit.com>
-Message-ID: <cc894c77-717a-4e9f-b649-48bab40e7c60@paulmck-laptop>
-References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
- <20230622085335.77010-25-zhengqi.arch@bytedance.com>
- <cf0d9b12-6491-bf23-b464-9d01e5781203@suse.cz>
- <ZJU708VIyJ/3StAX@dread.disaster.area>
+Received: from APC01-TYZ-obe.outbound.protection.outlook.com
+ (mail-tyzapc01on2122.outbound.protection.outlook.com [40.107.117.122])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 112DD10E446;
+ Thu,  6 Jul 2023 07:29:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=foaKSCNzd8AMVD1Lj84p5x/sjOQMxU9jWsIEMP+ayiBzA65LIk9US6pkO8vFRUKedBsKkBm9V8wTznsvMIM4cWE+Ws4CrWg19uUO8isvXiA6+z4B1YG+eDPPPZ7NldZsLAFDOPdUWlh8ufRt+d0Ny5vpV1ocd4xkyf/K8eL5efqhFvK7fKGyY5LSXvlrOfUSdNH5pLgP1SMRogWYmtkD8pbHmRhNvEBtRhogJQ3kyHGv5ImuwLP6onXjIasq1F/k5980DAK6kRb0dQ54m29vDPT/UaJBioUXWt49BVrRSmG2zb/bdRWcZIjfWQcTjOlg9PESnM7/pZ9JK0l5IIIilw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pkEieuObEcdF7JwrsqM1GI+VytgKbTEom9/HS8tWEvA=;
+ b=Gd2rxcfNkJh44dRp3v68+ImptP/isWUor7vLswagx+0hNM8qwSThSJRo/vxzVvr595aupeNwOzY/c3N7NzUUTHcWLtb37TagTJFrcjv4iNyTUvPpoIEkitApQscfDuAtkypfd51piuEm97Tdqc85WOslrY2YvaKhrRT5Pecr6IshvDrxVyX2bYE1IKVarJ+KIx5wWf4roMXyTmuxvM/7Y4WVph3VoYyrEZwzmg2Fep2qIG79S1tFLOUwlDkoO0H6caON2Mp08/8/VjohE2c+PjGLBGZBJoGZqP0gQEDWaSwUEAvuZod4LnUec8br93J5VMRarhjEMY4LBeCuy+6jKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pkEieuObEcdF7JwrsqM1GI+VytgKbTEom9/HS8tWEvA=;
+ b=Zak6UE2dJXO4U8IB8cU+kRxoUGJnNjfKIYt0cY+CFcbq8sGdAu1LT51spinoYDcREoe+wII3wUTTCtnGRZmXtFeInEP2OJZG8Rq5NpuifsQLN/vM3rXlLwLwkq5cLURsam6OUZsXdS105aoS88frP3LrrM8o/USn/fwQqduJRbvIW7LYBKVzcfkegHRlgSIL8uRa5WNlW3XmWGKt6FOWVXCjpB8dk3J/SUYcubpBGmNWKk9ozzF9sL2V+esBTkn8nf7giDtdebLmm4KHybMYWFvrHpCg4cLHy2gktx38qctMYu1nXscO+UJcZdTWX99oPiiVnGT2JvkZLPrO+lzwgg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from TY0PR06MB5706.apcprd06.prod.outlook.com (2603:1096:400:272::6)
+ by TYUPR06MB5948.apcprd06.prod.outlook.com (2603:1096:400:353::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6544.24; Thu, 6 Jul
+ 2023 07:29:38 +0000
+Received: from TY0PR06MB5706.apcprd06.prod.outlook.com
+ ([fe80::d6ff:1295:38d7:a019]) by TY0PR06MB5706.apcprd06.prod.outlook.com
+ ([fe80::d6ff:1295:38d7:a019%7]) with mapi id 15.20.6565.016; Thu, 6 Jul 2023
+ 07:29:38 +0000
+From: Zehao Zhang <zhangzehao@vivo.com>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tvrtko.ursulin@linux.intel.com, airlied@gmail.com,
+ daniel@ffwll.ch, zhangzehao@vivo.com, luciano.coelho@intel.com
+Date: Thu,  6 Jul 2023 15:29:24 +0800
+Message-Id: <20230706072924.2562-1-zhangzehao@vivo.com>
+X-Mailer: git-send-email 2.32.0.windows.2
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR02CA0028.apcprd02.prod.outlook.com
+ (2603:1096:4:195::8) To TY0PR06MB5706.apcprd06.prod.outlook.com
+ (2603:1096:400:272::6)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZJU708VIyJ/3StAX@dread.disaster.area>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY0PR06MB5706:EE_|TYUPR06MB5948:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20f4cc27-653b-4a78-ebd8-08db7df2c148
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: W/iD42L3WutYgYE/1OTp5Lzk6SYF8mzHsuHxOFWVpPojeiq94ZEHu8sCavfUu2fqoNz2AUyqO2Mz/VxbyiOxb3i67yw2QLjp6pU4TLQ48ut5l85PHeV3Ac+0QAISgb9dCqqUgqATTKwOrrtcn16Uw4aKdVdlqC2qjx4k/aUO3Ld1xrzFTH3pHidRW+1yvbBFQW2OxmZ6kAnhvINp2ColP6ubwhcJS9UXwQMqvgaSl6Ux29QU4KaS5AR0u2LeNELFpznh2G7jogcuPfxbiZ80qrQo79i1FaIcODt8e4rBFYs0rY4ebnYiSpX0mnIIhZ2y9qXV0MkFWbRkq7V1TZRQijbIyp0x8GE3ikIRssIqvvakHPegTiOJ+fsRQ65juhC0UbipVUzrhA7fD4e9iKWk5cBmRHmZ8EbfvZgTodt7IzpgQ3LAMrT/eVxMTd1qzw/8gKHdTTmvUeoyR92fBV1uBAAGsGhS5d6QwA+MuFTwg4ssizBr7zm9ql8ODtng5I8IZTp19pziBMRarhY4fMn1lPyhd62nrIWNuhSMPMSH/+w2in6rvPFQACa6tkJES0yl7g0lzm/fECUA3JB7pjVrjZZoY6X7M9kZNvAx4ZP6tfOzzT/UykemqO4vXqUrADPo
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY0PR06MB5706.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(136003)(396003)(366004)(346002)(39860400002)(376002)(451199021)(7416002)(316002)(66946007)(4326008)(66476007)(36756003)(478600001)(66556008)(2906002)(8676002)(8936002)(5660300002)(83380400001)(41300700001)(86362001)(6512007)(6666004)(38350700002)(52116002)(4744005)(6486002)(38100700002)(186003)(26005)(1076003)(6506007)(2616005);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?75Zuy3I9JKP2HUAakHYk8X3xnJr8r3wATtMYBaM7+o+Z37JtsCrfGzzdRnWu?=
+ =?us-ascii?Q?WNBJ58lEK5DNxoNd1ZlFtQF58xwy1gbIpdEs55w1OJdAto5Q5cIMnun47nnV?=
+ =?us-ascii?Q?NqCwdRMedWmnZv8K/1729w32uY3jS1p6QiHpntwYZ1gN5v+K771AFl6Oo5w1?=
+ =?us-ascii?Q?FE9/rFxOY8ElrYgsWxzBYAj2RKz1PlPDZC20MdI9rVCzWtUdOFimO5MPZr05?=
+ =?us-ascii?Q?yQvn5LGSF9yOn0zQS3goSjHZ7crAcnw6tLgq9UAo4C3LdQdrAB6aFh6Jo5pB?=
+ =?us-ascii?Q?VVx3CvKK3s1RLi0q3GPD0oOs7UHA8H6JG6Pt+3Kd0TTZ7JfxV9oFjkGp3pik?=
+ =?us-ascii?Q?CVa2tkNxKIiOPlkycxqkpDEqtAqXfA0cxN+oIiIVzgy2KDwjfxOkdyNQYsgE?=
+ =?us-ascii?Q?oKLJouTSGtN1c+aH2wz8v+UfQVeQjoK8NLa2riWD62w4ViNN/b4y/AZiCLtZ?=
+ =?us-ascii?Q?v99CNIeWwTKFhQjBuHE9SGsTLv2EyuBWEXzP71aJMTlicfrCsERUOq9Fw/qc?=
+ =?us-ascii?Q?aSZwyazMpw6Ymamhnsy86W+iEMNi9VpQMClKB6g+qw/lALqBHPnqBQ0fwKdE?=
+ =?us-ascii?Q?gU/uiZROdJaCCODDBnMvhHtz6qknCtKCk9RjI0yZ8rLHkGGE1CDC0q7u9sms?=
+ =?us-ascii?Q?zykpbUOS8jYPPpaJ/5igH/zlZomd8mDcnHTRJFM3LGAFMyXpaHvjSVI7edkT?=
+ =?us-ascii?Q?zR0URNk9qhfTqQH0EaeOrIQWJCJk91ezXlVocmcRxiR+xP7wiK2HVQ9nJlWg?=
+ =?us-ascii?Q?rqSKODj/i14gmxdg54ux49N9JK/2Ld1VTofi7a8f41K90swP2+psZ6xS0opg?=
+ =?us-ascii?Q?sC8bMmduaw26grt6rIuopoopyW4NHTaP47tUDm7SMONwLXjnHg1O4nQmDC8G?=
+ =?us-ascii?Q?AmXerq+TH6DpKR+In9aINab09CzgeXMi6lwDRbp1Dyuzf84WoHdCavCOHX5E?=
+ =?us-ascii?Q?dY+zpQQWcn+5C9fbozjUYFHzK3QZYvZvYC3TtOJGKmUihkvGzzJwvoOUSH6J?=
+ =?us-ascii?Q?i5ziZJMgT8/GBuuqjlg9mYx5w4HeafQB1T9Itz7PplTsY9StH22Pw/XtARK4?=
+ =?us-ascii?Q?j9YlPTjlSHmCLrqe6U1qR/qwt+gnuM6RWsT/0AvfUXdSfiuzoMJhjYJ8A+YB?=
+ =?us-ascii?Q?+jwg6d5VQmO8hL0pkVGZAiGtcaLb9DmOeFCoAaWwA2UItZUVULqSWlkJGgSM?=
+ =?us-ascii?Q?FHQhSx3YSSz7ZWN0VU5H6uodrHIXCZAQ+ApJeCvRaiXxvzNM5liBL7V3T+tM?=
+ =?us-ascii?Q?UiD3KH5YYS8avGXht8ltFiNQCEifPhl+IFZJCHigqbPaXlW41C0egF7sBmB+?=
+ =?us-ascii?Q?MpavH6vnjQnjfoP2gpZ8tcRt2ttSVSxTEN8/Ks8Kbba5PL/ORb/xJPOg+Xrn?=
+ =?us-ascii?Q?7NKRWPQY5DdEfYAtNPia+M/PO1TlSyzOY5U/l6p3We6eGaduLRBe/96iphv3?=
+ =?us-ascii?Q?p8M8y7QNTglrGcwZYAQ78ImwrnVls7FwB5kInkAGZUAwoI2PDK0lnJOx1Wd2?=
+ =?us-ascii?Q?06bTvGRqezCj2zk5c0hexST0I2157HNOB+2VWAXu4A1t2PratjpJ//U+my4d?=
+ =?us-ascii?Q?lpoNLxYVhrf5VpBP5Vf/SZtB/WUHMQmF3jnfln8r?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20f4cc27-653b-4a78-ebd8-08db7df2c148
+X-MS-Exchange-CrossTenant-AuthSource: TY0PR06MB5706.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2023 07:29:38.3205 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TOoG2GOyflToXB/GSv5r51X7kcKXv8KA3eYN0FtGFXDL4UMd29T1FUjeWqj/lzrM3wGrr1Y2oFN6X0bhEaHa/A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYUPR06MB5948
 X-Mailman-Approved-At: Thu, 06 Jul 2023 13:18:28 +0000
-Subject: Re: [Intel-gfx] [PATCH 24/29] mm: vmscan: make global slab shrink
- lockless
+Subject: [Intel-gfx] [PATCH v2] drm/i915/gt: Convert to use time_before macro
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,161 +114,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: paulmck@kernel.org
-Cc: djwong@kernel.org, roman.gushchin@linux.dev,
- Qi Zheng <zhengqi.arch@bytedance.com>,
- virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
- dm-devel@redhat.com, linux-ext4@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-nfs@vger.kernel.org,
- linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Vlastimil Babka <vbabka@suse.cz>,
- brauner@kernel.org, tytso@mit.edu, linux-kernel@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- akpm@linux-foundation.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 23, 2023 at 04:29:39PM +1000, Dave Chinner wrote:
-> On Thu, Jun 22, 2023 at 05:12:02PM +0200, Vlastimil Babka wrote:
-> > On 6/22/23 10:53, Qi Zheng wrote:
-> > > @@ -1067,33 +1068,27 @@ static unsigned long shrink_slab(gfp_t gfp_mask, int nid,
-> > >  	if (!mem_cgroup_disabled() && !mem_cgroup_is_root(memcg))
-> > >  		return shrink_slab_memcg(gfp_mask, nid, memcg, priority);
-> > >  
-> > > -	if (!down_read_trylock(&shrinker_rwsem))
-> > > -		goto out;
-> > > -
-> > > -	list_for_each_entry(shrinker, &shrinker_list, list) {
-> > > +	rcu_read_lock();
-> > > +	list_for_each_entry_rcu(shrinker, &shrinker_list, list) {
-> > >  		struct shrink_control sc = {
-> > >  			.gfp_mask = gfp_mask,
-> > >  			.nid = nid,
-> > >  			.memcg = memcg,
-> > >  		};
-> > >  
-> > > +		if (!shrinker_try_get(shrinker))
-> > > +			continue;
-> > > +		rcu_read_unlock();
-> > 
-> > I don't think you can do this unlock?
+Use time_before macro instead of open it for readability.
 
-Sorry to be slow to respond here, this one fell through the cracks.
-And thank you to Qi for reminding me!
+Signed-off-by: Zehao Zhang <zhangzehao@vivo.com>
+---
+v2:
+-update subject
+ drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-If you do this unlock, you had jolly well better nail down the current
-element (the one referenced by shrinker), for example, by acquiring an
-explicit reference count on the object.  And presumably this is exactly
-what shrinker_try_get() is doing.  And a look at your 24/29 confirms this,
-at least assuming that shrinker->refcount is set to zero before the call
-to synchronize_rcu() in free_module() *and* that synchronize_rcu() doesn't
-start until *after* shrinker_put() calls complete().  Plus, as always,
-the object must be removed from the list before the synchronize_rcu()
-starts.  (On these parts of the puzzle, I defer to those more familiar
-with this code path.  And I strongly suggest carefully commenting this
-type of action-at-a-distance design pattern.)
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
+index 86b5a9ba323d..9145f9e22860 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_buffer_pool.c
+@@ -57,7 +57,7 @@ static bool pool_free_older_than(struct intel_gt_buffer_pool *pool, long keep)
+ 				node = list_entry(pos, typeof(*node), link);
+ 
+ 				age = READ_ONCE(node->age);
+-				if (!age || jiffies - age < keep)
++				if (!age || time_before(jiffies, age + keep))
+ 					break;
+ 
+ 				/* Check we are the first to claim this node */
+-- 
+2.35.3
 
-Why is this important?  Because otherwise that object might be freed
-before you get to the call to rcu_read_lock() at the end of this loop.
-And if that happens, list_for_each_entry_rcu() will be walking the
-freelist, which is quite bad for the health and well-being of your kernel.
-
-There are a few other ways to make this sort of thing work:
-
-1.	Defer the shrinker_put() to the beginning of the loop.
-	You would need a flag initially set to zero, and then set to
-	one just before (or just after) the rcu_read_lock() above.
-	You would also need another shrinker_old pointer to track the
-	old pointer.  Then at the top of the loop, if the flag is set,
-	invoke shrinker_put() on shrinker_old.	This ensures that the
-	previous shrinker structure stays around long enough to allow
-	the loop to find the next shrinker structure in the list.
-
-	This approach is attractive when the removal code path
-	can invoke shrinker_put() after the grace period ends.
-
-2.	Make shrinker_put() invoke call_rcu() when ->refcount reaches
-	zero, and have the callback function free the object.  This of
-	course requires adding an rcu_head structure to the shrinker
-	structure, which might or might not be a reasonable course of
-	action.  If adding that rcu_head is reasonable, this simplifies
-	the logic quite a bit.
-
-3.	For the shrinker-structure-removal code path, remove the shrinker
-	structure, then remove the initial count from ->refcount,
-	and then keep doing grace periods until ->refcount is zero,
-	then do one more.  Of course, if the result of removing the
-	initial count was zero, then only a single additional grace
-	period is required.
-
-	This would need to be carefully commented, as it is a bit
-	unconventional.
-
-There are probably many other ways, but just to give an idea of a few
-other ways to do this.
-
-> > > +
-> > >  		ret = do_shrink_slab(&sc, shrinker, priority);
-> > >  		if (ret == SHRINK_EMPTY)
-> > >  			ret = 0;
-> > >  		freed += ret;
-> > > -		/*
-> > > -		 * Bail out if someone want to register a new shrinker to
-> > > -		 * prevent the registration from being stalled for long periods
-> > > -		 * by parallel ongoing shrinking.
-> > > -		 */
-> > > -		if (rwsem_is_contended(&shrinker_rwsem)) {
-> > > -			freed = freed ? : 1;
-> > > -			break;
-> > > -		}
-> > > -	}
-> > >  
-> > > -	up_read(&shrinker_rwsem);
-> > > -out:
-> > > +		rcu_read_lock();
-> > 
-> > That new rcu_read_lock() won't help AFAIK, the whole
-> > list_for_each_entry_rcu() needs to be under the single rcu_read_lock() to be
-> > safe.
-> 
-> Yeah, that's the pattern we've been taught and the one we can look
-> at and immediately say "this is safe".
-> 
-> This is a different pattern, as has been explained bi Qi, and I
-> think it *might* be safe.
-> 
-> *However.*
-> 
-> Right now I don't have time to go through a novel RCU list iteration
-> pattern it one step at to determine the correctness of the
-> algorithm. I'm mostly worried about list manipulations that can
-> occur outside rcu_read_lock() section bleeding into the RCU
-> critical section because rcu_read_lock() by itself is not a memory
-> barrier.
-> 
-> Maybe Paul has seen this pattern often enough he could simply tell
-> us what conditions it is safe in. But for me to work that out from
-> first principles? I just don't have the time to do that right now.
-
-If the code does just the right sequence of things on the removal path
-(remove, decrement reference, wait for reference to go to zero, wait for
-grace period, free), then it would work.  If this is what is happening,
-I would argue for more comments.  ;-)
-
-							Thanx, Paul
-
-> > IIUC this is why Dave in [4] suggests unifying shrink_slab() with
-> > shrink_slab_memcg(), as the latter doesn't iterate the list but uses IDR.
-> 
-> Yes, I suggested the IDR route because radix tree lookups under RCU
-> with reference counted objects are a known safe pattern that we can
-> easily confirm is correct or not.  Hence I suggested the unification
-> + IDR route because it makes the life of reviewers so, so much
-> easier...
-> 
-> Cheers,
-> 
-> Dave.
-> -- 
-> Dave Chinner
-> david@fromorbit.com
