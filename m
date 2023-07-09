@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9329EB64DD
-	for <intel-gfx@archiver.kernel.org>; Sun,  9 Jul 2023 03:42:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A6CEEB64DD
+	for <intel-gfx@archiver.kernel.org>; Sun,  9 Jul 2023 03:42:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B9DB10E11D;
-	Sun,  9 Jul 2023 03:42:19 +0000 (UTC)
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3822A10E128
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CA1310E19D;
+	Sun,  9 Jul 2023 03:42:20 +0000 (UTC)
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [IPv6:2a00:1450:4864:20::22a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C39C10E188
  for <intel-gfx@lists.freedesktop.org>; Sun,  9 Jul 2023 03:42:17 +0000 (UTC)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2b701e41cd3so53124811fa.3
- for <intel-gfx@lists.freedesktop.org>; Sat, 08 Jul 2023 20:42:16 -0700 (PDT)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2b701e1ca63so50627101fa.1
+ for <intel-gfx@lists.freedesktop.org>; Sat, 08 Jul 2023 20:42:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1688874134; x=1691466134;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=TJYjNiYNzWjxH+XhoyNFMKctuYtv2+kbNIyIzjM3yLU=;
- b=j98con11pP7sdzRlNNWpVvpwOmK6q98t4lmleVYXmYLIcnuYXj36vwUVH6gRPSuNXH
- hvk6McZqYZMu+O7/bKYauksX3s2YRPgvw779Ae3M2ukE1zcR5uXK1WG6/N1s1tg5d8kI
- B3G0eZE0zrMbI3PWnb+xgmSJCvdRRkKbIIoYpm+GHSQmFCtXZL7JCJpNL8FUdq5vvgPV
- C0KctOtqx/fKRwI3Ysr7fsjNJoJPitmf2IAmtS+Hj/XF7k3lawv0jASnUQNGMfUwtzYx
- /TfZRMyH1hSyuwi/UAjvp+NfWNVzjn7BHwE6iOqHjYJdTbG+IsNd8JInQQnt78XqDGmH
- cHzQ==
+ d=linaro.org; s=google; t=1688874133; x=1691466133;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=RQnOLw2jy72B5d49p7EFl7RtUNtBu7jzNiDmy4d3gvw=;
+ b=aAJuz4htS1BKdTf5jaulHZxuWw59Qcz6zgxK/Yat4BgS1ZhDP98V4jFS6AiOpeSjbF
+ 3IaQtm2szazl+4/o91QCA3nHTnuf12fM2Ta8C7PkLuarkemwo/Rd6wlCgcUWNvWhOnX3
+ SqYX0u3aPtjeCynh+C1waBxT6r5b0p02Zyip7UaIvsk1lXu4EkPlFu0yE2qaYSiyPxxp
+ gH2GYZe18ll79PTPdV9sU0UIJsbNVg3YDJvz0jJSIkMOQC7d+qb2MnG2mjohw/kSO12X
+ 4E3B8ruGhfMNy/qV3Jnzoa62EkrxY9dRE/gZbmRnyl6hv+UeV3AKl2/XzHAQjgZxwTQQ
+ /jtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688874134; x=1691466134;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=TJYjNiYNzWjxH+XhoyNFMKctuYtv2+kbNIyIzjM3yLU=;
- b=SqZ0mHNoh6juaHllZee92k5HGwUEoaI59sRUr7Ql5koGaXssxnKjPwH9zVEzfOCyDc
- 2D961HxfJZi2+g1TyUg+Xfu4HN2ZodfUpyqCbSg6hPVjax7MRn1ZJ9fHS9zo3/DVrx39
- X4OJY/npYxnfAo1b7zYvFDSUO3mzUUpyw8pWXGoOxTjlY66QLB5jW/LRJ4HombwPV8ch
- SI3Iv2GqTeowYylcVXsnAhVhrHmLCmQRPKK8Tv5PqODJ6ZgWnyty9B+6RM7lUe2b720B
- kGNzkfyUoXclzRDqcUk7Lpj9Yv+Z574VUI+4gcgXqlg4/Dkkp5QFYLH0aYXfzDgbVS4E
- pr0g==
-X-Gm-Message-State: ABy/qLbeaVDrhqihaWbwc34R0JeLF53acwRDWKaTjzP8uScONHXZtTyd
- mcRrMtKw0A06WlubBYcXlVS9ug==
-X-Google-Smtp-Source: APBJJlEFwjopZbeqkrh82suxe7jo8qJQ0dOe7Qudk5a/sj1MHOxSDaQ5FPYIa7FHlbwt+yhdoHwlpQ==
-X-Received: by 2002:a2e:9902:0:b0:2b6:cfec:69f7 with SMTP id
- v2-20020a2e9902000000b002b6cfec69f7mr6739101lji.1.1688874134116; 
- Sat, 08 Jul 2023 20:42:14 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1688874133; x=1691466133;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=RQnOLw2jy72B5d49p7EFl7RtUNtBu7jzNiDmy4d3gvw=;
+ b=GmClzBPvtqC29T2G2lLKdS9B83RDKlLNlZdroa1FCwlld3CUDYA9dma3MbfbzxQpaD
+ 3ywo82HySk7hx9wXPH7IQnATnfBCKdwFhib5r2gSTHKNjPqAiFQRXlqQ8WwWb1b0XrsV
+ zEVvvUt3ceWeFQJcd5+XePcJ1mRrw86hGH6lDXN6fdWO3LcO+ro/cIlyC5tJRrqOZHK7
+ OqkyRnnDSsEdsWhByMOa4+dJDHewwKf5xejDrr2th//A82Pag3soatzsVKh1wlqsPpOe
+ j9AEoXNk0tGmr2gYCBRPgcLNfWJ4xfpo10LtvCUOuhgjX8+IZSQ8Z4FmwpbUWSCWXLSt
+ nd3A==
+X-Gm-Message-State: ABy/qLaTc9H+jNpwNWm/v1gnOGTMWMAc2p4FTF4rHimY3waDL5p5sy2x
+ 3BNKHnIueiBcgBdfB2e9kkXw8g==
+X-Google-Smtp-Source: APBJJlEIUuViZXZGeg4gKvrVXN0zB+nx8HuxfmaaEW7u+bhbsBTjyxPqmkvjkEhwiYrUb2wJY7X9hw==
+X-Received: by 2002:a2e:9206:0:b0:2b5:8eae:7846 with SMTP id
+ k6-20020a2e9206000000b002b58eae7846mr6984695ljg.18.1688874132630; 
+ Sat, 08 Jul 2023 20:42:12 -0700 (PDT)
 Received: from lothlorien.lan (dzdqv0yyyyyyyyyyybm5y-3.rev.dnainternet.fi.
  [2001:14ba:a0db:1f00::ab2]) by smtp.gmail.com with ESMTPSA id
- y13-20020a2e9d4d000000b002b6d7682050sm1390289ljj.89.2023.07.08.20.42.13
+ y13-20020a2e9d4d000000b002b6d7682050sm1390289ljj.89.2023.07.08.20.42.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Jul 2023 20:42:13 -0700 (PDT)
+ Sat, 08 Jul 2023 20:42:12 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -62,15 +61,13 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Heikki Krogerus <heikki.krogerus@linux.intel.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Date: Sun,  9 Jul 2023 06:42:10 +0300
-Message-Id: <20230709034211.4045004-3-dmitry.baryshkov@linaro.org>
+Date: Sun,  9 Jul 2023 06:42:08 +0300
+Message-Id: <20230709034211.4045004-1-dmitry.baryshkov@linaro.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230709034211.4045004-1-dmitry.baryshkov@linaro.org>
-References: <20230709034211.4045004-1-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 2/3] drm/bridge_connector: stop filtering
- events in drm_bridge_connector_hpd_cb()
+Subject: [Intel-gfx] [PATCH v5 0/3] drm/bridge_connector: implement OOB HPD
+ handling
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,38 +87,44 @@ Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In some cases the bridge drivers would like to receive hotplug events
-even in the case new status is equal to the old status. In the DP case
-this is used to deliver "attention" messages to the DP host. Stop
-filtering the events in the drm_bridge_connector_hpd_cb() and let
-drivers decide whether they would like to receive the event or not.
+Note, this is sent as v5, since there were several revisions for this
+patchset under a different series title ([1]).
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
----
- drivers/gpu/drm/drm_bridge_connector.c | 5 -----
- 1 file changed, 5 deletions(-)
+USB altmodes code would send OOB notifications to the drm_connector
+specified in the device tree. However as the MSM DP driver uses
+drm_bridge_connector, there is no way to receive these event directly.
+Implement a bridge between oob_hotplug_event and drm_bridge's
+hpd_notify.
 
-diff --git a/drivers/gpu/drm/drm_bridge_connector.c b/drivers/gpu/drm/drm_bridge_connector.c
-index 19ae4a177ac3..84d8d310ef04 100644
---- a/drivers/gpu/drm/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/drm_bridge_connector.c
-@@ -113,16 +113,11 @@ static void drm_bridge_connector_hpd_cb(void *cb_data,
- 	struct drm_bridge_connector *drm_bridge_connector = cb_data;
- 	struct drm_connector *connector = &drm_bridge_connector->base;
- 	struct drm_device *dev = connector->dev;
--	enum drm_connector_status old_status;
- 
- 	mutex_lock(&dev->mode_config.mutex);
--	old_status = connector->status;
- 	connector->status = status;
- 	mutex_unlock(&dev->mode_config.mutex);
- 
--	if (old_status == status)
--		return;
--
- 	drm_bridge_connector_hpd_notify(connector, status);
- 
- 	drm_kms_helper_hotplug_event(dev);
+Merge strategy: since this series touches i915 code, it might make sense
+to merge it through drm-intel.
+
+[1] https://patchwork.freedesktop.org/series/103449/
+
+Changes since v4:
+- Picked up the patchset
+- Dropped msm-specific patches
+- Changed drm_bridge_connector_oob_hotplug_event to call connector's HPD
+  callback directly, rather than going through the last bridge's
+  hpd_notify
+- Added proper fwnode for the drm_bridge_connector
+
+Bjorn Andersson (1):
+  drm: Add HPD state to drm_connector_oob_hotplug_event()
+
+Dmitry Baryshkov (2):
+  drm/bridge_connector: stop filtering events in
+    drm_bridge_connector_hpd_cb()
+  drm/bridge_connector: implement oob_hotplug_event
+
+ drivers/gpu/drm/drm_bridge_connector.c        | 34 ++++++++++++++-----
+ drivers/gpu/drm/drm_connector.c               |  6 ++--
+ .../gpu/drm/i915/display/intel_display_core.h |  3 ++
+ drivers/gpu/drm/i915/display/intel_dp.c       | 17 ++++++++--
+ drivers/usb/typec/altmodes/displayport.c      | 13 ++++---
+ include/drm/drm_connector.h                   |  6 ++--
+ 6 files changed, 57 insertions(+), 22 deletions(-)
+
 -- 
 2.39.2
 
