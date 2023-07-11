@@ -4,42 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54058EB64D9
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 01:17:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B723EB64DA
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 02:32:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A492310E0BE;
-	Tue, 11 Jul 2023 01:17:21 +0000 (UTC)
-Received: from gandalf.ozlabs.org (mail.ozlabs.org
- [IPv6:2404:9400:2221:ea00::3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1925910E0BE;
- Tue, 11 Jul 2023 01:17:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
- s=201702; t=1689038230;
- bh=r7uxpV11jSeaVAgCvED5AOMsk39lPtkrYKKKN2qj+sU=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=qo/Sk9UVTtUHtbn95isa8UXMOGAn2rgMaTlT0B1Od1S/VbKlFKaMcySkc4By/8KKd
- AvzrIFcgwntIslAmfI6+DyyhY36qjgYDRvOCC7giGQ2+rBkb4nPDHTiM7rbYfuM7Dy
- KQzz8nI77qvayxTu+Sx+uLorNvXP9z5PJKc6m/+8NRxy8tUO8SO4PUVuz+lRPt4f34
- vRc5GqnFYRZKLGw0+qwSi0GUAwc2f58QQNJNy4pH9zwyJo6shdGfxbBj+rv5Z3z8Mn
- v4ibkb3Wzp4W42pgFgV+IqZrO2ruaNqeOJt4VidSRBYHCPK4rWS01mMFRBz41EWvVP
- uzwMYBz4JdGrQ==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
- server-digest SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4R0NJP1mZrz4wyF;
- Tue, 11 Jul 2023 11:17:09 +1000 (AEST)
-Date: Tue, 11 Jul 2023 11:17:07 +1000
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Dave Airlie <airlied@redhat.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20230711111707.05d2c8b2@canb.auug.org.au>
-In-Reply-To: <20230627115432.6179f0ea@canb.auug.org.au>
-References: <20230627115432.6179f0ea@canb.auug.org.au>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C8D910E1CA;
+	Tue, 11 Jul 2023 02:31:51 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7E0210E2BE;
+ Tue, 11 Jul 2023 02:31:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1689042708; x=1720578708;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=DcZLQRs6bkyXhGJtTrFo9Gb/5IYRw2KErfwV9wNLtjw=;
+ b=VnL2GssOldVdi2+MRjRgUERBCK1AtOtGHK4j7RSQHK+jEfOmA7T7bxgp
+ JrAACw0bd0uNXhK3644yaKePMNLZS4k47Q1gWOe4/8j2n5+6eQU4FNm05
+ qdxSt54/jiY1ALLJIYV4qTqWso7wVAgdhwvdbv+An26i0Z7KUUz67yJoR
+ WgT9aJabpJ1KWfzrHgQ6s9rJ9ZJTCluCGOy+fhgmG5XdvKBT5Z6VOrVgH
+ Bhx2Di+oMa2KSaF8ObGJNNdNoTTKCt2IQM3NyjueJIhHnJanzxdV9PNJM
+ Qd0PlLyslrhgbgLbSpYUhR/xcPGOcwpnyfB8qdAnbXi+kb8FUMEcbBrap A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="368004654"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="368004654"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jul 2023 19:31:29 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="720907551"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="720907551"
+Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
+ by orsmga002.jf.intel.com with ESMTP; 10 Jul 2023 19:31:28 -0700
+From: Yi Liu <yi.l.liu@intel.com>
+To: alex.williamson@redhat.com,
+	jgg@nvidia.com,
+	kevin.tian@intel.com
+Date: Mon, 10 Jul 2023 19:31:18 -0700
+Message-Id: <20230711023126.5531-3-yi.l.liu@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230711023126.5531-1-yi.l.liu@intel.com>
+References: <20230711023126.5531-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/tT8FL3fDMyck2qEDkk/.e/a";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Subject: Re: [Intel-gfx] linux-next: manual merge of the drm tree with the
- drm-misc-fixes tree
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v9 02/10] vfio/pci: Move the existing hot reset
+ logic to be a helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,94 +59,144 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Intel Graphics <intel-gfx@lists.freedesktop.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- DRI <dri-devel@lists.freedesktop.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
+ zhenzhong.duan@intel.com, peterx@redhat.com, terrence.xu@intel.com,
+ chao.p.peng@linux.intel.com, linux-s390@vger.kernel.org, yi.l.liu@intel.com,
+ kvm@vger.kernel.org, lulu@redhat.com, yanting.jiang@intel.com, joro@8bytes.org,
+ nicolinc@nvidia.com, yan.y.zhao@intel.com, intel-gfx@lists.freedesktop.org,
+ eric.auger@redhat.com, intel-gvt-dev@lists.freedesktop.org,
+ yi.y.sun@linux.intel.com, clegoate@redhat.com, cohuck@redhat.com,
+ shameerali.kolothum.thodi@huawei.com, suravee.suthikulpanit@amd.com,
+ robin.murphy@arm.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---Sig_/tT8FL3fDMyck2qEDkk/.e/a
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+This prepares to add another method for hot reset. The major hot reset logic
+are moved to vfio_pci_ioctl_pci_hot_reset_groups().
 
-Hi all,
+No functional change is intended.
 
-On Tue, 27 Jun 2023 11:54:32 +1000 Stephen Rothwell <sfr@canb.auug.org.au> =
-wrote:
->=20
-> Today's linux-next merge of the drm tree got a conflict in:
->=20
->   include/drm/gpu_scheduler.h
->=20
-> between commit:
->=20
->   db8b4968a8d0 ("drm/sched: Call drm_sched_fence_set_parent() from drm_sc=
-hed_fence_scheduled()")
->=20
-> from the drm-misc-fixes tree and commit:
->=20
->   539f9ee4b52a ("drm/scheduler: properly forward fence errors")
->=20
-> from the drm tree.
->=20
-> I fixed it up (see below) and can carry the fix as necessary. This
-> is now fixed as far as linux-next is concerned, but any non trivial
-> conflicts should be mentioned to your upstream maintainer when your tree
-> is submitted for merging.  You may also want to consider cooperating
-> with the maintainer of the conflicting tree to minimise any particularly
-> complex conflicts.
->=20
-> diff --cc include/drm/gpu_scheduler.h
-> index b29e347b10a9,e95b4837e5a3..000000000000
-> --- a/include/drm/gpu_scheduler.h
-> +++ b/include/drm/gpu_scheduler.h
-> @@@ -581,16 -581,18 +581,17 @@@ void drm_sched_entity_push_job(struct d
->   void drm_sched_entity_set_priority(struct drm_sched_entity *entity,
->   				   enum drm_sched_priority priority);
->   bool drm_sched_entity_is_ready(struct drm_sched_entity *entity);
-> + int drm_sched_entity_error(struct drm_sched_entity *entity);
->  =20
->  -void drm_sched_fence_set_parent(struct drm_sched_fence *s_fence,
->  -				struct dma_fence *fence);
->   struct drm_sched_fence *drm_sched_fence_alloc(
->   	struct drm_sched_entity *s_entity, void *owner);
->   void drm_sched_fence_init(struct drm_sched_fence *fence,
->   			  struct drm_sched_entity *entity);
->   void drm_sched_fence_free(struct drm_sched_fence *fence);
->  =20
->  -void drm_sched_fence_scheduled(struct drm_sched_fence *fence);
->  +void drm_sched_fence_scheduled(struct drm_sched_fence *fence,
->  +			       struct dma_fence *parent);
-> - void drm_sched_fence_finished(struct drm_sched_fence *fence);
-> + void drm_sched_fence_finished(struct drm_sched_fence *fence, int result=
-);
->  =20
->   unsigned long drm_sched_suspend_timeout(struct drm_gpu_scheduler *sched=
-);
->   void drm_sched_resume_timeout(struct drm_gpu_scheduler *sched,
+Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Reviewed-by: Eric Auger <eric.auger@redhat.com>
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Tested-by: Yanting Jiang <yanting.jiang@intel.com>
+Tested-by: Terrence Xu <terrence.xu@intel.com>
+Signed-off-by: Yi Liu <yi.l.liu@intel.com>
+---
+ drivers/vfio/pci/vfio_pci_core.c | 55 +++++++++++++++++++-------------
+ 1 file changed, 32 insertions(+), 23 deletions(-)
 
-This is now a conflict between the drm-misc-fixes tree and Linus' tree.
+diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+index 4e228e2a6d99..3d595ad2ed0a 100644
+--- a/drivers/vfio/pci/vfio_pci_core.c
++++ b/drivers/vfio/pci/vfio_pci_core.c
+@@ -1296,29 +1296,16 @@ static int vfio_pci_ioctl_get_pci_hot_reset_info(
+ 	return ret;
+ }
+ 
+-static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
+-					struct vfio_pci_hot_reset __user *arg)
++static int
++vfio_pci_ioctl_pci_hot_reset_groups(struct vfio_pci_core_device *vdev,
++				    int array_count, bool slot,
++				    struct vfio_pci_hot_reset __user *arg)
+ {
+-	unsigned long minsz = offsetofend(struct vfio_pci_hot_reset, count);
+-	struct vfio_pci_hot_reset hdr;
+ 	int32_t *group_fds;
+ 	struct file **files;
+ 	struct vfio_pci_group_info info;
+-	bool slot = false;
+ 	int file_idx, count = 0, ret = 0;
+ 
+-	if (copy_from_user(&hdr, arg, minsz))
+-		return -EFAULT;
+-
+-	if (hdr.argsz < minsz || hdr.flags)
+-		return -EINVAL;
+-
+-	/* Can we do a slot or bus reset or neither? */
+-	if (!pci_probe_reset_slot(vdev->pdev->slot))
+-		slot = true;
+-	else if (pci_probe_reset_bus(vdev->pdev->bus))
+-		return -ENODEV;
+-
+ 	/*
+ 	 * We can't let userspace give us an arbitrarily large buffer to copy,
+ 	 * so verify how many we think there could be.  Note groups can have
+@@ -1330,11 +1317,11 @@ static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
+ 		return ret;
+ 
+ 	/* Somewhere between 1 and count is OK */
+-	if (!hdr.count || hdr.count > count)
++	if (!array_count || array_count > count)
+ 		return -EINVAL;
+ 
+-	group_fds = kcalloc(hdr.count, sizeof(*group_fds), GFP_KERNEL);
+-	files = kcalloc(hdr.count, sizeof(*files), GFP_KERNEL);
++	group_fds = kcalloc(array_count, sizeof(*group_fds), GFP_KERNEL);
++	files = kcalloc(array_count, sizeof(*files), GFP_KERNEL);
+ 	if (!group_fds || !files) {
+ 		kfree(group_fds);
+ 		kfree(files);
+@@ -1342,7 +1329,7 @@ static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
+ 	}
+ 
+ 	if (copy_from_user(group_fds, arg->group_fds,
+-			   hdr.count * sizeof(*group_fds))) {
++			   array_count * sizeof(*group_fds))) {
+ 		kfree(group_fds);
+ 		kfree(files);
+ 		return -EFAULT;
+@@ -1352,7 +1339,7 @@ static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
+ 	 * Get the group file for each fd to ensure the group is held across
+ 	 * the reset
+ 	 */
+-	for (file_idx = 0; file_idx < hdr.count; file_idx++) {
++	for (file_idx = 0; file_idx < array_count; file_idx++) {
+ 		struct file *file = fget(group_fds[file_idx]);
+ 
+ 		if (!file) {
+@@ -1376,7 +1363,7 @@ static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
+ 	if (ret)
+ 		goto hot_reset_release;
+ 
+-	info.count = hdr.count;
++	info.count = array_count;
+ 	info.files = files;
+ 
+ 	ret = vfio_pci_dev_set_hot_reset(vdev->vdev.dev_set, &info);
+@@ -1389,6 +1376,28 @@ static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
+ 	return ret;
+ }
+ 
++static int vfio_pci_ioctl_pci_hot_reset(struct vfio_pci_core_device *vdev,
++					struct vfio_pci_hot_reset __user *arg)
++{
++	unsigned long minsz = offsetofend(struct vfio_pci_hot_reset, count);
++	struct vfio_pci_hot_reset hdr;
++	bool slot = false;
++
++	if (copy_from_user(&hdr, arg, minsz))
++		return -EFAULT;
++
++	if (hdr.argsz < minsz || hdr.flags)
++		return -EINVAL;
++
++	/* Can we do a slot or bus reset or neither? */
++	if (!pci_probe_reset_slot(vdev->pdev->slot))
++		slot = true;
++	else if (pci_probe_reset_bus(vdev->pdev->bus))
++		return -ENODEV;
++
++	return vfio_pci_ioctl_pci_hot_reset_groups(vdev, hdr.count, slot, arg);
++}
++
+ static int vfio_pci_ioctl_ioeventfd(struct vfio_pci_core_device *vdev,
+ 				    struct vfio_device_ioeventfd __user *arg)
+ {
+-- 
+2.34.1
 
---=20
-Cheers,
-Stephen Rothwell
-
---Sig_/tT8FL3fDMyck2qEDkk/.e/a
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmSsrZMACgkQAVBC80lX
-0GxRkQf/UPcZ8xn0EtVhBVzVXfoMc/wQYaQHwDbf3VARrURbheu3OSQ9kIbgaqvV
-c717MNShUqkfN/44Ctqrhd37h1nNQguNz6R+fcuhVBbCdAnlgKqNo1p6QkrC1W3n
-gGMlFohwDBvRnBw+yqqdXuhQP6HiBTShoRgHFH2G2xBFkbKhLjYxUB+eOJyocBSJ
-xwkuy/tf620xa8Wv9FXrcYHx9mpOjjrl1Gcjx0mF/KRQL+6NP7o8unYsXJ24lA4o
-nhldhr6wk37VowB9VBgROkGRlvh5//ptJ7cEHNLDUU58mK5H+R/DNqmv2zvmYo0c
-rr+FkKgNH1lQUPcufbdCstcEjkqITw==
-=MRSk
------END PGP SIGNATURE-----
-
---Sig_/tT8FL3fDMyck2qEDkk/.e/a--
