@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F79FEB64DC
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 10:00:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96EBEEB64DD
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 10:03:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FE1410E356;
-	Tue, 11 Jul 2023 10:00:19 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3ABE10E356
- for <intel-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 10:00:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689069616; x=1720605616;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=wNQnuwRBSIKJXtAvdn6Rsb6dZtC/mUDRlxlOYans+2w=;
- b=k1S1DwU85AaEtk89iT8DaSPnLi2TV3mu9BiW+BrubIb6SvIc5YXQNumX
- Bf2jcJGbNKZV4GSvSuyUtaOkOQuuJg9qZmmaI04jCbdW4t7phpMbTFQW5
- f+d9gGlZiOlIAEyMkVGZHklcWz0AQMnoXzAjkRv4E7pXyw27Rl1H1c7Q7
- UZgUrbDQTWDzmuPq8jsNLfbV8/B/cnswgo//Z/OvFTSSZuVhS0Bu8tKT8
- dwMDZME0moB44+YKuf2pidpoIJwnDhYqB7v1Y8YfcRAlij+0e9LZbBouN
- Iyc7vFCRj5kSf7kqvKN57m9tf8C3Wr50gjHI/vge3arkvjAf8i7dnqm1X A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="344176684"
-X-IronPort-AV: E=Sophos;i="6.01,196,1684825200"; d="scan'208";a="344176684"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2023 03:00:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="698373606"
-X-IronPort-AV: E=Sophos;i="6.01,196,1684825200"; d="scan'208";a="698373606"
-Received: from sneaga-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.252.52.179])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2023 03:00:13 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Simon Ser <contact@emersion.fr>, intel-gfx@lists.freedesktop.org
-In-Reply-To: <ZR-8c31L0kVNylnQHTP_MlcPiINr0Zd22HZA8DlKV8BuhUqanJ5YiWsUqavQr3AXN2mD20QWOQfrQc_tE4Dju8B-KDGEVh5Dc-9aLqpJbv4=@emersion.fr>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230623094229.120264-1-contact@emersion.fr>
- <ZR-8c31L0kVNylnQHTP_MlcPiINr0Zd22HZA8DlKV8BuhUqanJ5YiWsUqavQr3AXN2mD20QWOQfrQc_tE4Dju8B-KDGEVh5Dc-9aLqpJbv4=@emersion.fr>
-Date: Tue, 11 Jul 2023 13:00:10 +0300
-Message-ID: <874jmaix91.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AEF010E35B;
+	Tue, 11 Jul 2023 10:03:47 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DC1110E358;
+ Tue, 11 Jul 2023 10:03:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+ In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=Qy38nSyAkc0qhzNnog8BBlXyEItM31ZP1dtbuk4NSas=; b=YzhsIwXDM/xfGCzRI0DCeI11qh
+ CQIXsKrBKQsDwj1LStUbfcE25/lr4Y0GGCNp1ob90ewpSdjOOnK/6V0Y7Joh2pLt8alHCqv6Bhss7
+ tRqQDEqCAu0zfnBRwUVuK1ERbrt/uCPTluyyZEY80K3/3D6az+oe9JZ1nPAOrwvqG9V5U3F30MIx1
+ 4hjrpOvdIjXc2UrNUN0FPuVFHQ0ENxtp/V7lWWxXYINvcOAytQVoO47O9OMrMgWOIiMC09vjyGvrS
+ n/iHpLS2tMBRMDrNQrIxXZUcNwLt9y/xxBHRlWhzfSPAp+azAJZ+AStXtMo+ExeWOhxH89/j6g3Bo
+ K0mMqhlQ==;
+Received: from 55.red-83-52-4.dynamicip.rima-tde.net ([83.52.4.55]
+ helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1qJADd-00CLEz-HK; Tue, 11 Jul 2023 12:03:41 +0200
+Message-ID: <2c97b770da11457583c48b200e4f989c05ecc023.camel@igalia.com>
+From: Ricardo Garcia <rgarcia@igalia.com>
+To: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>, 
+ events@lists.x.org, xorg-devel@lists.freedesktop.org, 
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ libre-soc-dev@lists.libre-soc.org, members@x.org
+Date: Tue, 11 Jul 2023 12:03:40 +0200
+In-Reply-To: <43ee9173619f841ab7aab965441114cf9a6263b5.camel@igalia.com>
+References: <249b7449-c47b-47e6-0582-d87bd323fbbe@igalia.com>
+ <43ee9173619f841ab7aab965441114cf9a6263b5.camel@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.3 (3.48.3-1.fc38) 
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH v2] i915/display/hotplug: use
- drm_kms_helper_connector_hotplug_event()
+Subject: Re: [Intel-gfx] XDC 2023: Registration & Call for Proposals now
+ open!
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,18 +60,95 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: "board@foundation.x.org" <board@foundation.x.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 10 Jul 2023, Simon Ser <contact@emersion.fr> wrote:
-> Any news about this patch?
+New reminder that the XDC 2023 Registration and Call for Proposals are
+open till the end of this week. The deadline is July 17. Please submit
+your proposals ASAP! You can find more information about XDC 2023 in
+previous emails below.
 
-Pushed to drm-intel-next, thanks for the patch & reminder.
+Thanks again for your attention,
+-Ricardo
 
-BR,
-Jani.
+On Tue, 2023-06-27 at 16:24 +0200, Ricardo Garcia wrote:
+> This is a reminder that the XDC 2023 Registration and the Call for
+> Proposals are still open and will be open for about 2 more weeks. Do not
+> forget to submit your proposals before the deadline (July 17)!
+>=20
+> The conference will take place in A Coru=C3=B1a this year, from October 1=
+7 to
+> 19. You can find more information about the conference in the links
+> below and you can also follow us on Mastodon for the latest updates.
+>=20
+> https://floss.social/@XOrgDevConf
+>=20
+> Thanks for your attention,
+> -Ricardo
+>=20
+> On Mon, 2023-04-17 at 13:41 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
+> > =C2=A0
+> > Hello!
+> > =C2=A0=C2=A0
+> > =C2=A0Registration & Call for Proposals are now open for XDC 2023, whic=
+h will
+> > =C2=A0take place on October 17-19, 2023.=20
+> > =C2=A0
+> > =C2=A0https://xdc2023.x.org
+> > =C2=A0=C2=A0
+> > =C2=A0As usual, the conference is free of charge and open to the genera=
+l
+> > =C2=A0public. If you plan on attending, please make sure to register as=
+ early
+> > =C2=A0as possible!
+> > =C2=A0=C2=A0
+> > =C2=A0In order to register as attendee, you will therefore need to regi=
+ster
+> > =C2=A0via the XDC website.
+> > =C2=A0=C2=A0
+> > =C2=A0https://indico.freedesktop.org/event/4/registrations/
+> > =C2=A0=C2=A0
+> > =C2=A0In addition to registration, the CfP is now open for talks, works=
+hops
+> > =C2=A0and demos at XDC 2023. While any serious proposal will be gratefu=
+lly
+> > =C2=A0considered, topics of interest to X.Org and freedesktop.org devel=
+opers
+> > =C2=A0are encouraged. The program focus is on new development, ongoing
+> > =C2=A0challenges and anything else that will spark discussions among
+> > =C2=A0attendees in the hallway track.
+> > =C2=A0=C2=A0
+> > =C2=A0We are open to talks across all layers of the graphics stack, fro=
+m the
+> > =C2=A0kernel to desktop environments / graphical applications and about=
+ how
+> > =C2=A0to make things better for the developers who build them. Head to =
+the
+> > =C2=A0CfP page to learn more:=20
+> > =C2=A0=C2=A0
+> > =C2=A0https://indico.freedesktop.org/event/4/abstracts/
+> > =C2=A0=C2=A0
+> > =C2=A0The deadline for submissions is Monday, 17 July 2023 (23:59 CEST)
+> > =C2=A0=C2=A0
+> > =C2=A0Check out our Reimbursement Policy to accept speaker expenses:
+> > =C2=A0=C2=A0
+> > =C2=A0https://www.x.org/wiki/XorgFoundation/Policies/Reimbursement/
+> > =C2=A0=C2=A0
+> > =C2=A0If you have any questions, please send me an email to
+> > =C2=A0siglesias AT igalia.com, adding on Cc the X.org board (board
+> > =C2=A0at foundation.x.org).
+> > =C2=A0=C2=A0
+> > =C2=A0And please keep in mind, you can follow us on Twitter for all the=
+ latest
+> > =C2=A0updates and to stay connected:
+> > =C2=A0=C2=A0
+> > =C2=A0https://twitter.com/XOrgDevConf
+> > =C2=A0=C2=A0
+> > =C2=A0Best,
+> > =C2=A0=C2=A0
+> > =C2=A0Sam
+> > =C2=A0
+> > =C2=A0
+>=20
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
