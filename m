@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D6A1EB64D9
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 02:32:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DACAEB64DA
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 02:32:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B6D910E2F1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA36C10E2F2;
 	Tue, 11 Jul 2023 02:31:52 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8800610E1CA;
- Tue, 11 Jul 2023 02:31:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16E0110E1D3;
+ Tue, 11 Jul 2023 02:31:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689042709; x=1720578709;
+ t=1689042710; x=1720578710;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=unyaXR5kZ823+ELcC0xyzG7tD4kEy8mBmvo8Jl0Rb70=;
- b=LMcfExtRwP0+EKMec1I4f8OfxOQLaIElwcKOwLkiTEv3CXk5JTHcN3dm
- Y5lAadk+MIVgcncLnFiF2BLQWCRkAJi3vxNRGKJ5X9C1+iP4ODZ3t3Xe3
- t47mB4RXVlTnZw4bwwb+gc8v+ACsPLi/xDRda5VQVmFNKuAGfr5DrNvpH
- 8KSJt2VNCcTfWkRuo/G0wcYRfoMajb5uiY7vef17V90R0bSokiuTvpicM
- y9hvqjGgC2JRIlXBZKXEPO4Hp5jQEIe8gBEwViT9/HPRm4x8bO1Uglm3L
- Dr37D8e1XpilpYSth06dowY5mnAUYeWmz6OMQ1Es04MRUBuo1NKRv7tbD w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="368004717"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="368004717"
+ bh=94KwID7bgWMS/YDaUgs443iYg4PZa5+44u6HqEJvYPg=;
+ b=IirtkgOYqYHjfCaGGZGn2qz/PigxExHwvRcWlvT+IcJcCo2JXJfQi6vg
+ LbNIrO1glbz7WR4ofdlegw41iBmXJRZevmU5HF4CZ9+m+IAy5cfrrtldc
+ arTzkcG4fAsIR0bvsKnsdN2Br7LR1XCgiTGKMl5u6/QfJQM8Fbmojmz+f
+ XLZF3jjk8B3h88P5luQ7plb4HZGNHIpJXIKdLLUZM30OC/migLqF+dBr8
+ OpnY50TOwL2zaU1VHDb1782YjgrcWbzJPUyR5u4azGXOJCLbItSVbS17a
+ O58bR4ZaaNNi56ziLLOJj1BQlmbmg/AC4HwZQA4I91clUFV+PMwdIo9Fs A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="368004743"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="368004743"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2023 19:31:32 -0700
+ 10 Jul 2023 19:31:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="720907595"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="720907595"
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="720907613"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="720907613"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by orsmga002.jf.intel.com with ESMTP; 10 Jul 2023 19:31:32 -0700
+ by orsmga002.jf.intel.com with ESMTP; 10 Jul 2023 19:31:33 -0700
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Mon, 10 Jul 2023 19:31:23 -0700
-Message-Id: <20230711023126.5531-8-yi.l.liu@intel.com>
+Date: Mon, 10 Jul 2023 19:31:25 -0700
+Message-Id: <20230711023126.5531-10-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230711023126.5531-1-yi.l.liu@intel.com>
 References: <20230711023126.5531-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 07/10] vfio: Add helper to search vfio_device
- in a dev_set
+Subject: [Intel-gfx] [PATCH v9 09/10] vfio/pci: Copy hot-reset device info
+ to userspace in the devices loop
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,82 +71,179 @@ Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are drivers that need to search vfio_device within a given dev_set.
-e.g. vfio-pci. So add a helper.
+This copies the vfio_pci_dependent_device to userspace during looping each
+affected device for reporting vfio_pci_hot_reset_info. This avoids counting
+the affected devices and allocating a potential large buffer to store the
+vfio_pci_dependent_device of all the affected devices before copying them
+to userspace.
 
-vfio_pci_is_device_in_set() now returns -EBUSY in commit a882c16a2b7e
-("vfio/pci: Change vfio_pci_try_bus_reset() to use the dev_set") where
-it was trying to preserve the return of vfio_pci_try_zap_and_vma_lock_cb().
-However, it makes more sense to return -ENODEV.
-
-Suggested-by: Alex Williamson <alex.williamson@redhat.com>
-Tested-by: Terrence Xu <terrence.xu@intel.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 ---
- drivers/vfio/pci/vfio_pci_core.c |  6 +-----
- drivers/vfio/vfio_main.c         | 15 +++++++++++++++
- include/linux/vfio.h             |  3 +++
- 3 files changed, 19 insertions(+), 5 deletions(-)
+ drivers/vfio/pci/vfio_pci_core.c | 93 ++++++++++++--------------------
+ 1 file changed, 33 insertions(+), 60 deletions(-)
 
 diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index 3d595ad2ed0a..5b5316a5484a 100644
+index 32506c5539b9..4737eeacd538 100644
 --- a/drivers/vfio/pci/vfio_pci_core.c
 +++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -2377,12 +2377,8 @@ static bool vfio_dev_in_groups(struct vfio_pci_core_device *vdev,
- static int vfio_pci_is_device_in_set(struct pci_dev *pdev, void *data)
+@@ -777,19 +777,25 @@ static int vfio_pci_count_devs(struct pci_dev *pdev, void *data)
+ }
+ 
+ struct vfio_pci_fill_info {
+-	int max;
+-	int cur;
+-	struct vfio_pci_dependent_device *devices;
++	struct vfio_pci_dependent_device __user *devices;
++	struct vfio_pci_dependent_device __user *devices_end;
+ 	struct vfio_device *vdev;
++	u32 count;
+ 	u32 flags;
+ };
+ 
+ static int vfio_pci_fill_devs(struct pci_dev *pdev, void *data)
  {
- 	struct vfio_device_set *dev_set = data;
--	struct vfio_device *cur;
++	struct vfio_pci_dependent_device info = {
++		.segment = pci_domain_nr(pdev->bus),
++		.bus = pdev->bus->number,
++		.devfn = pdev->devfn,
++	};
+ 	struct vfio_pci_fill_info *fill = data;
  
--	list_for_each_entry(cur, &dev_set->device_list, dev_set_list)
--		if (cur->dev == &pdev->dev)
--			return 0;
--	return -EBUSY;
-+	return vfio_find_device_in_devset(dev_set, &pdev->dev) ? 0 : -ENODEV;
+-	if (fill->cur == fill->max)
+-		return -EAGAIN; /* Something changed, try again */
++	fill->count++;
++	if (fill->devices >= fill->devices_end)
++		return 0;
+ 
+ 	if (fill->flags & VFIO_PCI_HOT_RESET_FLAG_DEV_ID) {
+ 		struct iommufd_ctx *iommufd = vfio_iommufd_device_ictx(fill->vdev);
+@@ -802,19 +808,19 @@ static int vfio_pci_fill_devs(struct pci_dev *pdev, void *data)
+ 		 */
+ 		vdev = vfio_find_device_in_devset(dev_set, &pdev->dev);
+ 		if (!vdev) {
+-			fill->devices[fill->cur].devid = VFIO_PCI_DEVID_NOT_OWNED;
++			info.devid = VFIO_PCI_DEVID_NOT_OWNED;
+ 		} else {
+ 			int id = vfio_iommufd_get_dev_id(vdev, iommufd);
+ 
+ 			if (id > 0)
+-				fill->devices[fill->cur].devid = id;
++				info.devid = id;
+ 			else if (id == -ENOENT)
+-				fill->devices[fill->cur].devid = VFIO_PCI_DEVID_OWNED;
++				info.devid = VFIO_PCI_DEVID_OWNED;
+ 			else
+-				fill->devices[fill->cur].devid = VFIO_PCI_DEVID_NOT_OWNED;
++				info.devid = VFIO_PCI_DEVID_NOT_OWNED;
+ 		}
+ 		/* If devid is VFIO_PCI_DEVID_NOT_OWNED, clear owned flag. */
+-		if (fill->devices[fill->cur].devid == VFIO_PCI_DEVID_NOT_OWNED)
++		if (info.devid == VFIO_PCI_DEVID_NOT_OWNED)
+ 			fill->flags &= ~VFIO_PCI_HOT_RESET_FLAG_DEV_ID_OWNED;
+ 	} else {
+ 		struct iommu_group *iommu_group;
+@@ -823,13 +829,13 @@ static int vfio_pci_fill_devs(struct pci_dev *pdev, void *data)
+ 		if (!iommu_group)
+ 			return -EPERM; /* Cannot reset non-isolated devices */
+ 
+-		fill->devices[fill->cur].group_id = iommu_group_id(iommu_group);
++		info.group_id = iommu_group_id(iommu_group);
+ 		iommu_group_put(iommu_group);
+ 	}
+-	fill->devices[fill->cur].segment = pci_domain_nr(pdev->bus);
+-	fill->devices[fill->cur].bus = pdev->bus->number;
+-	fill->devices[fill->cur].devfn = pdev->devfn;
+-	fill->cur++;
++
++	if (copy_to_user(fill->devices, &info, sizeof(info)))
++		return -EFAULT;
++	fill->devices++;
+ 	return 0;
  }
  
- /*
-diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
-index f0ca33b2e1df..ab4f3a794f78 100644
---- a/drivers/vfio/vfio_main.c
-+++ b/drivers/vfio/vfio_main.c
-@@ -141,6 +141,21 @@ unsigned int vfio_device_set_open_count(struct vfio_device_set *dev_set)
+@@ -1259,8 +1265,7 @@ static int vfio_pci_ioctl_get_pci_hot_reset_info(
+ 	unsigned long minsz =
+ 		offsetofend(struct vfio_pci_hot_reset_info, count);
+ 	struct vfio_pci_hot_reset_info hdr;
+-	struct vfio_pci_fill_info fill = { 0 };
+-	struct vfio_pci_dependent_device *devices = NULL;
++	struct vfio_pci_fill_info fill = {};
+ 	bool slot = false;
+ 	int ret = 0;
+ 
+@@ -1278,29 +1283,9 @@ static int vfio_pci_ioctl_get_pci_hot_reset_info(
+ 	else if (pci_probe_reset_bus(vdev->pdev->bus))
+ 		return -ENODEV;
+ 
+-	/* How many devices are affected? */
+-	ret = vfio_pci_for_each_slot_or_bus(vdev->pdev, vfio_pci_count_devs,
+-					    &fill.max, slot);
+-	if (ret)
+-		return ret;
+-
+-	WARN_ON(!fill.max); /* Should always be at least one */
+-
+-	/*
+-	 * If there's enough space, fill it now, otherwise return -ENOSPC and
+-	 * the number of devices affected.
+-	 */
+-	if (hdr.argsz < sizeof(hdr) + (fill.max * sizeof(*devices))) {
+-		ret = -ENOSPC;
+-		hdr.count = fill.max;
+-		goto reset_info_exit;
+-	}
+-
+-	devices = kcalloc(fill.max, sizeof(*devices), GFP_KERNEL);
+-	if (!devices)
+-		return -ENOMEM;
+-
+-	fill.devices = devices;
++	fill.devices = arg->devices;
++	fill.devices_end = arg->devices +
++			   (hdr.argsz - sizeof(hdr)) / sizeof(arg->devices[0]);
+ 	fill.vdev = &vdev->vdev;
+ 
+ 	if (vfio_device_cdev_opened(&vdev->vdev))
+@@ -1311,29 +1296,17 @@ static int vfio_pci_ioctl_get_pci_hot_reset_info(
+ 	ret = vfio_pci_for_each_slot_or_bus(vdev->pdev, vfio_pci_fill_devs,
+ 					    &fill, slot);
+ 	mutex_unlock(&vdev->vdev.dev_set->lock);
++	if (ret)
++		return ret;
+ 
+-	/*
+-	 * If a device was removed between counting and filling, we may come up
+-	 * short of fill.max.  If a device was added, we'll have a return of
+-	 * -EAGAIN above.
+-	 */
+-	if (!ret) {
+-		hdr.count = fill.cur;
+-		hdr.flags = fill.flags;
+-	}
+-
+-reset_info_exit:
++	hdr.count = fill.count;
++	hdr.flags = fill.flags;
+ 	if (copy_to_user(arg, &hdr, minsz))
+-		ret = -EFAULT;
+-
+-	if (!ret) {
+-		if (copy_to_user(&arg->devices, devices,
+-				 hdr.count * sizeof(*devices)))
+-			ret = -EFAULT;
+-	}
++		return -EFAULT;
+ 
+-	kfree(devices);
+-	return ret;
++	if (fill.count != fill.devices - arg->devices)
++		return -ENOSPC;
++	return 0;
  }
- EXPORT_SYMBOL_GPL(vfio_device_set_open_count);
  
-+struct vfio_device *
-+vfio_find_device_in_devset(struct vfio_device_set *dev_set,
-+			   struct device *dev)
-+{
-+	struct vfio_device *cur;
-+
-+	lockdep_assert_held(&dev_set->lock);
-+
-+	list_for_each_entry(cur, &dev_set->device_list, dev_set_list)
-+		if (cur->dev == dev)
-+			return cur;
-+	return NULL;
-+}
-+EXPORT_SYMBOL_GPL(vfio_find_device_in_devset);
-+
- /*
-  * Device objects - create, release, get, put, search
-  */
-diff --git a/include/linux/vfio.h b/include/linux/vfio.h
-index 2a45853773a6..ee120d2d530b 100644
---- a/include/linux/vfio.h
-+++ b/include/linux/vfio.h
-@@ -244,6 +244,9 @@ void vfio_unregister_group_dev(struct vfio_device *device);
- 
- int vfio_assign_device_set(struct vfio_device *device, void *set_id);
- unsigned int vfio_device_set_open_count(struct vfio_device_set *dev_set);
-+struct vfio_device *
-+vfio_find_device_in_devset(struct vfio_device_set *dev_set,
-+			   struct device *dev);
- 
- int vfio_mig_get_next_state(struct vfio_device *device,
- 			    enum vfio_device_mig_state cur_fsm,
+ static int
 -- 
 2.34.1
 
