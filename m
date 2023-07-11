@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96EBEEB64DD
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 10:03:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A135AEB64DD
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 10:18:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AEF010E35B;
-	Tue, 11 Jul 2023 10:03:47 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DC1110E358;
- Tue, 11 Jul 2023 10:03:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
- In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=Qy38nSyAkc0qhzNnog8BBlXyEItM31ZP1dtbuk4NSas=; b=YzhsIwXDM/xfGCzRI0DCeI11qh
- CQIXsKrBKQsDwj1LStUbfcE25/lr4Y0GGCNp1ob90ewpSdjOOnK/6V0Y7Joh2pLt8alHCqv6Bhss7
- tRqQDEqCAu0zfnBRwUVuK1ERbrt/uCPTluyyZEY80K3/3D6az+oe9JZ1nPAOrwvqG9V5U3F30MIx1
- 4hjrpOvdIjXc2UrNUN0FPuVFHQ0ENxtp/V7lWWxXYINvcOAytQVoO47O9OMrMgWOIiMC09vjyGvrS
- n/iHpLS2tMBRMDrNQrIxXZUcNwLt9y/xxBHRlWhzfSPAp+azAJZ+AStXtMo+ExeWOhxH89/j6g3Bo
- K0mMqhlQ==;
-Received: from 55.red-83-52-4.dynamicip.rima-tde.net ([83.52.4.55]
- helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1qJADd-00CLEz-HK; Tue, 11 Jul 2023 12:03:41 +0200
-Message-ID: <2c97b770da11457583c48b200e4f989c05ecc023.camel@igalia.com>
-From: Ricardo Garcia <rgarcia@igalia.com>
-To: Samuel Iglesias =?ISO-8859-1?Q?Gons=E1lvez?= <siglesias@igalia.com>, 
- events@lists.x.org, xorg-devel@lists.freedesktop.org, 
- wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- libre-soc-dev@lists.libre-soc.org, members@x.org
-Date: Tue, 11 Jul 2023 12:03:40 +0200
-In-Reply-To: <43ee9173619f841ab7aab965441114cf9a6263b5.camel@igalia.com>
-References: <249b7449-c47b-47e6-0582-d87bd323fbbe@igalia.com>
- <43ee9173619f841ab7aab965441114cf9a6263b5.camel@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.3 (3.48.3-1.fc38) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A78810E35D;
+	Tue, 11 Jul 2023 10:18:38 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECA2810E35D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 10:18:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1689070715; x=1720606715;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=NeGV+wSCNbQn4yMObY3Pa6d240fXFNQirNxKwJ1yW90=;
+ b=FJLrMOC9zpEt+IXyPeUWarOSsEGj/OQdwNSCh+2bGXocjtxIvp22kl1C
+ aaE+ftzB1xtL9/N1I9meY+mSkkIFoLHewPPeYQxBselktZqq+ZSLlPT8B
+ BQatsRMSeg65KvwYUI8Jtq19RNTQ7ylfgqGNvaaBAogUhZES4S1TBHZKw
+ u6D/1omYYLqIgeipOXNh3o0BfpGl6K1yzKZFUwM/Rvq+Pa53sSm58ZPQo
+ QK2dKWgkIOkwEctN3+E2CcnPblJEU6a7cmg39uONHsyx1GRgRG+5NlaKn
+ z0tP+XHVQGOcK084FONn32cvDYO/a/l4ODlxyyhQrzrn5fDwJUoTJev7O w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="344900815"
+X-IronPort-AV: E=Sophos;i="6.01,196,1684825200"; d="scan'208";a="344900815"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jul 2023 03:18:35 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="845218161"
+X-IronPort-AV: E=Sophos;i="6.01,196,1684825200"; d="scan'208";a="845218161"
+Received: from sbodin-mobl3.ger.corp.intel.com (HELO intel.com)
+ ([10.252.53.13])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jul 2023 03:18:32 -0700
+Date: Tue, 11 Jul 2023 12:18:23 +0200
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>
+Message-ID: <ZK0sbz+h0r/PwYn2@ashyti-mobl2.lan>
+References: <20230705160848.988464-1-andrzej.hajda@intel.com>
+ <20230706151611.1024576-1-andrzej.hajda@intel.com>
 MIME-Version: 1.0
-Subject: Re: [Intel-gfx] XDC 2023: Registration & Call for Proposals now
- open!
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230706151611.1024576-1-andrzej.hajda@intel.com>
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/gt: update request engine
+ before removing virtual GuC engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,95 +60,77 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "board@foundation.x.org" <board@foundation.x.org>
+Cc: intel-gfx@lists.freedesktop.org, Chris Wilson <chris.p.wilson@intel.com>,
+ Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-New reminder that the XDC 2023 Registration and Call for Proposals are
-open till the end of this week. The deadline is July 17. Please submit
-your proposals ASAP! You can find more information about XDC 2023 in
-previous emails below.
+Hi Andrzej,
 
-Thanks again for your attention,
--Ricardo
+On Thu, Jul 06, 2023 at 05:16:11PM +0200, Andrzej Hajda wrote:
+> GuC virtual engines can be removed before request removal. On the other
+> side driver expects rq->engine to be a valid pointer for a whole life of
+> request. Setting rq->engine to an always valid engine should solve
+> the issue.
+> 
+> The patch fixes bug detected by KASAN with following signature:
+> i915 0000:00:02.0: [drm:i915_drop_caches_set [i915]] Dropping caches: 0x0000005c [0x0000005c]
+> BUG: KASAN: slab-use-after-free in i915_fence_release+0x2a2/0x2f0 [i915]
+> Read of size 4 at addr ffff88813ffda6e8 by task kworker/u32:10/157
+> ...
+> Allocated by task 1184:
+> ...
+> guc_create_virtual+0x4d/0x1160 [i915]
+> i915_gem_create_context+0x11ee/0x18c0 [i915]
+> ...
+> Freed by task 151:
+> ...
+> intel_guc_deregister_done_process_msg+0x324/0x6d0 [i915]
+> ...
 
-On Tue, 2023-06-27 at 16:24 +0200, Ricardo Garcia wrote:
-> This is a reminder that the XDC 2023 Registration and the Call for
-> Proposals are still open and will be open for about 2 more weeks. Do not
-> forget to submit your proposals before the deadline (July 17)!
->=20
-> The conference will take place in A Coru=C3=B1a this year, from October 1=
-7 to
-> 19. You can find more information about the conference in the links
-> below and you can also follow us on Mastodon for the latest updates.
->=20
-> https://floss.social/@XOrgDevConf
->=20
-> Thanks for your attention,
-> -Ricardo
->=20
-> On Mon, 2023-04-17 at 13:41 +0200, Samuel Iglesias Gons=C3=A1lvez wrote:
-> > =C2=A0
-> > Hello!
-> > =C2=A0=C2=A0
-> > =C2=A0Registration & Call for Proposals are now open for XDC 2023, whic=
-h will
-> > =C2=A0take place on October 17-19, 2023.=20
-> > =C2=A0
-> > =C2=A0https://xdc2023.x.org
-> > =C2=A0=C2=A0
-> > =C2=A0As usual, the conference is free of charge and open to the genera=
-l
-> > =C2=A0public. If you plan on attending, please make sure to register as=
- early
-> > =C2=A0as possible!
-> > =C2=A0=C2=A0
-> > =C2=A0In order to register as attendee, you will therefore need to regi=
-ster
-> > =C2=A0via the XDC website.
-> > =C2=A0=C2=A0
-> > =C2=A0https://indico.freedesktop.org/event/4/registrations/
-> > =C2=A0=C2=A0
-> > =C2=A0In addition to registration, the CfP is now open for talks, works=
-hops
-> > =C2=A0and demos at XDC 2023. While any serious proposal will be gratefu=
-lly
-> > =C2=A0considered, topics of interest to X.Org and freedesktop.org devel=
-opers
-> > =C2=A0are encouraged. The program focus is on new development, ongoing
-> > =C2=A0challenges and anything else that will spark discussions among
-> > =C2=A0attendees in the hallway track.
-> > =C2=A0=C2=A0
-> > =C2=A0We are open to talks across all layers of the graphics stack, fro=
-m the
-> > =C2=A0kernel to desktop environments / graphical applications and about=
- how
-> > =C2=A0to make things better for the developers who build them. Head to =
-the
-> > =C2=A0CfP page to learn more:=20
-> > =C2=A0=C2=A0
-> > =C2=A0https://indico.freedesktop.org/event/4/abstracts/
-> > =C2=A0=C2=A0
-> > =C2=A0The deadline for submissions is Monday, 17 July 2023 (23:59 CEST)
-> > =C2=A0=C2=A0
-> > =C2=A0Check out our Reimbursement Policy to accept speaker expenses:
-> > =C2=A0=C2=A0
-> > =C2=A0https://www.x.org/wiki/XorgFoundation/Policies/Reimbursement/
-> > =C2=A0=C2=A0
-> > =C2=A0If you have any questions, please send me an email to
-> > =C2=A0siglesias AT igalia.com, adding on Cc the X.org board (board
-> > =C2=A0at foundation.x.org).
-> > =C2=A0=C2=A0
-> > =C2=A0And please keep in mind, you can follow us on Twitter for all the=
- latest
-> > =C2=A0updates and to stay connected:
-> > =C2=A0=C2=A0
-> > =C2=A0https://twitter.com/XOrgDevConf
-> > =C2=A0=C2=A0
-> > =C2=A0Best,
-> > =C2=A0=C2=A0
-> > =C2=A0Sam
-> > =C2=A0
-> > =C2=A0
->=20
+so the only difference between v1 and v2 is this part of the log?
 
+> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/7926
+> Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
+> ---
+>  drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> index a0e3ef1c65d246..2c877ea5eda6f0 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+> @@ -3461,6 +3461,8 @@ static void guc_prio_fini(struct i915_request *rq, struct intel_context *ce)
+>  static void remove_from_context(struct i915_request *rq)
+>  {
+>  	struct intel_context *ce = request_to_scheduling_context(rq);
+> +	struct intel_engine_cs *engine;
+> +	intel_engine_mask_t tmp;
+>  
+>  	GEM_BUG_ON(intel_context_is_child(ce));
+>  
+> @@ -3478,6 +3480,15 @@ static void remove_from_context(struct i915_request *rq)
+>  
+>  	atomic_dec(&ce->guc_id.ref);
+>  	i915_request_notify_execute_cb_imm(rq);
+> +
+> +	/*
+> +	 * GuC virtual engine can disappear after this call, so let's assign
+> +	 * something valid, as driver expects this to be always valid pointer.
+> +	 */
+> +	for_each_engine_masked(engine, rq->engine->gt, rq->execution_mask, tmp) {
+> +		rq->engine = engine;
+
+yes... here the context might lose the virtual engine... I wonder
+whether this is the rigth solution, though. Maybe we should set
+rq->engine = NULL; and check for NULL? Don't know.
+
+Andi
+
+> +		break;
+> +	}
+>  }
+>  
+>  static const struct intel_context_ops guc_context_ops = {
+> -- 
+> 2.34.1
