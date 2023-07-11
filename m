@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DACAEB64DA
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 02:32:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F580C001B0
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 02:32:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA36C10E2F2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 405BA10E2EF;
 	Tue, 11 Jul 2023 02:31:52 +0000 (UTC)
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16E0110E1D3;
- Tue, 11 Jul 2023 02:31:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B003410E29A;
+ Tue, 11 Jul 2023 02:31:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689042710; x=1720578710;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=94KwID7bgWMS/YDaUgs443iYg4PZa5+44u6HqEJvYPg=;
- b=IirtkgOYqYHjfCaGGZGn2qz/PigxExHwvRcWlvT+IcJcCo2JXJfQi6vg
- LbNIrO1glbz7WR4ofdlegw41iBmXJRZevmU5HF4CZ9+m+IAy5cfrrtldc
- arTzkcG4fAsIR0bvsKnsdN2Br7LR1XCgiTGKMl5u6/QfJQM8Fbmojmz+f
- XLZF3jjk8B3h88P5luQ7plb4HZGNHIpJXIKdLLUZM30OC/migLqF+dBr8
- OpnY50TOwL2zaU1VHDb1782YjgrcWbzJPUyR5u4azGXOJCLbItSVbS17a
- O58bR4ZaaNNi56ziLLOJj1BQlmbmg/AC4HwZQA4I91clUFV+PMwdIo9Fs A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="368004743"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="368004743"
+ t=1689042708; x=1720578708;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=zdpr/FW1wlL3zFcXST3lRyhYaFLZOqKGfdrI6I+Ber8=;
+ b=MQZSyFrBzEDFg/PajnN+vuG/5Lz9lplDvf3cU/0rMHvFXmSN78W3DdYD
+ lEPwgrD8Eu0qIhwQIeR20PNZY8FK7o/q/ezqmIlrQtwZKRC4EsVLQrlg3
+ hgOh8EXSMjLWwTMa5WiDy1/NdNMQTA9GIt1a6HWpcNbhgSS/WdGf/QDV4
+ ryp7Ofniwlq5J5XYWa8fBMXihTKhyN2Jo6/6WSvKN0+RYllvei+AjMJIF
+ rw5q3FDpIG/FXGEQiyIZ9/Zd+qV0G3Pw7znncONZLr/yLPz0H+yAEjRa0
+ mBsAOTkgo6vhyF1TmXuSk6F9rIv4ZFyeY9zyPutqRo6C0tSYi7uTEwrLg A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="368004625"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="368004625"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2023 19:31:33 -0700
+ 10 Jul 2023 19:31:27 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="720907613"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="720907613"
+X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="720907528"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="720907528"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by orsmga002.jf.intel.com with ESMTP; 10 Jul 2023 19:31:33 -0700
+ by orsmga002.jf.intel.com with ESMTP; 10 Jul 2023 19:31:26 -0700
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Mon, 10 Jul 2023 19:31:25 -0700
-Message-Id: <20230711023126.5531-10-yi.l.liu@intel.com>
+Date: Mon, 10 Jul 2023 19:31:16 -0700
+Message-Id: <20230711023126.5531-1-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230711023126.5531-1-yi.l.liu@intel.com>
-References: <20230711023126.5531-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 09/10] vfio/pci: Copy hot-reset device info
- to userspace in the devices loop
+Subject: [Intel-gfx] [PATCH v9 00/10] Enhance vfio PCI hot reset for vfio
+ cdev device
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,179 +70,126 @@ Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This copies the vfio_pci_dependent_device to userspace during looping each
-affected device for reporting vfio_pci_hot_reset_info. This avoids counting
-the affected devices and allocating a potential large buffer to store the
-vfio_pci_dependent_device of all the affected devices before copying them
-to userspace.
+VFIO_DEVICE_PCI_HOT_RESET requires user to pass an array of group fds
+to prove that it owns all devices affected by resetting the calling
+device. While for cdev devices, user can use an iommufd-based ownership
+checking model and invoke VFIO_DEVICE_PCI_HOT_RESET with a zero-length
+fd array.
 
-Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Yi Liu <yi.l.liu@intel.com>
----
- drivers/vfio/pci/vfio_pci_core.c | 93 ++++++++++++--------------------
- 1 file changed, 33 insertions(+), 60 deletions(-)
+This series extends VFIO_DEVICE_GET_PCI_HOT_RESET_INFO to check ownership
+and return the check result and the devid of affected devices to user. In
+the end, extends the VFIO_DEVICE_PCI_HOT_RESET to accept zero-length fd
+array for hot-reset with cdev devices.
 
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index 32506c5539b9..4737eeacd538 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -777,19 +777,25 @@ static int vfio_pci_count_devs(struct pci_dev *pdev, void *data)
- }
- 
- struct vfio_pci_fill_info {
--	int max;
--	int cur;
--	struct vfio_pci_dependent_device *devices;
-+	struct vfio_pci_dependent_device __user *devices;
-+	struct vfio_pci_dependent_device __user *devices_end;
- 	struct vfio_device *vdev;
-+	u32 count;
- 	u32 flags;
- };
- 
- static int vfio_pci_fill_devs(struct pci_dev *pdev, void *data)
- {
-+	struct vfio_pci_dependent_device info = {
-+		.segment = pci_domain_nr(pdev->bus),
-+		.bus = pdev->bus->number,
-+		.devfn = pdev->devfn,
-+	};
- 	struct vfio_pci_fill_info *fill = data;
- 
--	if (fill->cur == fill->max)
--		return -EAGAIN; /* Something changed, try again */
-+	fill->count++;
-+	if (fill->devices >= fill->devices_end)
-+		return 0;
- 
- 	if (fill->flags & VFIO_PCI_HOT_RESET_FLAG_DEV_ID) {
- 		struct iommufd_ctx *iommufd = vfio_iommufd_device_ictx(fill->vdev);
-@@ -802,19 +808,19 @@ static int vfio_pci_fill_devs(struct pci_dev *pdev, void *data)
- 		 */
- 		vdev = vfio_find_device_in_devset(dev_set, &pdev->dev);
- 		if (!vdev) {
--			fill->devices[fill->cur].devid = VFIO_PCI_DEVID_NOT_OWNED;
-+			info.devid = VFIO_PCI_DEVID_NOT_OWNED;
- 		} else {
- 			int id = vfio_iommufd_get_dev_id(vdev, iommufd);
- 
- 			if (id > 0)
--				fill->devices[fill->cur].devid = id;
-+				info.devid = id;
- 			else if (id == -ENOENT)
--				fill->devices[fill->cur].devid = VFIO_PCI_DEVID_OWNED;
-+				info.devid = VFIO_PCI_DEVID_OWNED;
- 			else
--				fill->devices[fill->cur].devid = VFIO_PCI_DEVID_NOT_OWNED;
-+				info.devid = VFIO_PCI_DEVID_NOT_OWNED;
- 		}
- 		/* If devid is VFIO_PCI_DEVID_NOT_OWNED, clear owned flag. */
--		if (fill->devices[fill->cur].devid == VFIO_PCI_DEVID_NOT_OWNED)
-+		if (info.devid == VFIO_PCI_DEVID_NOT_OWNED)
- 			fill->flags &= ~VFIO_PCI_HOT_RESET_FLAG_DEV_ID_OWNED;
- 	} else {
- 		struct iommu_group *iommu_group;
-@@ -823,13 +829,13 @@ static int vfio_pci_fill_devs(struct pci_dev *pdev, void *data)
- 		if (!iommu_group)
- 			return -EPERM; /* Cannot reset non-isolated devices */
- 
--		fill->devices[fill->cur].group_id = iommu_group_id(iommu_group);
-+		info.group_id = iommu_group_id(iommu_group);
- 		iommu_group_put(iommu_group);
- 	}
--	fill->devices[fill->cur].segment = pci_domain_nr(pdev->bus);
--	fill->devices[fill->cur].bus = pdev->bus->number;
--	fill->devices[fill->cur].devfn = pdev->devfn;
--	fill->cur++;
-+
-+	if (copy_to_user(fill->devices, &info, sizeof(info)))
-+		return -EFAULT;
-+	fill->devices++;
- 	return 0;
- }
- 
-@@ -1259,8 +1265,7 @@ static int vfio_pci_ioctl_get_pci_hot_reset_info(
- 	unsigned long minsz =
- 		offsetofend(struct vfio_pci_hot_reset_info, count);
- 	struct vfio_pci_hot_reset_info hdr;
--	struct vfio_pci_fill_info fill = { 0 };
--	struct vfio_pci_dependent_device *devices = NULL;
-+	struct vfio_pci_fill_info fill = {};
- 	bool slot = false;
- 	int ret = 0;
- 
-@@ -1278,29 +1283,9 @@ static int vfio_pci_ioctl_get_pci_hot_reset_info(
- 	else if (pci_probe_reset_bus(vdev->pdev->bus))
- 		return -ENODEV;
- 
--	/* How many devices are affected? */
--	ret = vfio_pci_for_each_slot_or_bus(vdev->pdev, vfio_pci_count_devs,
--					    &fill.max, slot);
--	if (ret)
--		return ret;
--
--	WARN_ON(!fill.max); /* Should always be at least one */
--
--	/*
--	 * If there's enough space, fill it now, otherwise return -ENOSPC and
--	 * the number of devices affected.
--	 */
--	if (hdr.argsz < sizeof(hdr) + (fill.max * sizeof(*devices))) {
--		ret = -ENOSPC;
--		hdr.count = fill.max;
--		goto reset_info_exit;
--	}
--
--	devices = kcalloc(fill.max, sizeof(*devices), GFP_KERNEL);
--	if (!devices)
--		return -ENOMEM;
--
--	fill.devices = devices;
-+	fill.devices = arg->devices;
-+	fill.devices_end = arg->devices +
-+			   (hdr.argsz - sizeof(hdr)) / sizeof(arg->devices[0]);
- 	fill.vdev = &vdev->vdev;
- 
- 	if (vfio_device_cdev_opened(&vdev->vdev))
-@@ -1311,29 +1296,17 @@ static int vfio_pci_ioctl_get_pci_hot_reset_info(
- 	ret = vfio_pci_for_each_slot_or_bus(vdev->pdev, vfio_pci_fill_devs,
- 					    &fill, slot);
- 	mutex_unlock(&vdev->vdev.dev_set->lock);
-+	if (ret)
-+		return ret;
- 
--	/*
--	 * If a device was removed between counting and filling, we may come up
--	 * short of fill.max.  If a device was added, we'll have a return of
--	 * -EAGAIN above.
--	 */
--	if (!ret) {
--		hdr.count = fill.cur;
--		hdr.flags = fill.flags;
--	}
--
--reset_info_exit:
-+	hdr.count = fill.count;
-+	hdr.flags = fill.flags;
- 	if (copy_to_user(arg, &hdr, minsz))
--		ret = -EFAULT;
--
--	if (!ret) {
--		if (copy_to_user(&arg->devices, devices,
--				 hdr.count * sizeof(*devices)))
--			ret = -EFAULT;
--	}
-+		return -EFAULT;
- 
--	kfree(devices);
--	return ret;
-+	if (fill.count != fill.devices - arg->devices)
-+		return -ENOSPC;
-+	return 0;
- }
- 
- static int
+The new hot reset method and updated _INFO ioctl are tested with the
+below qemu:
+
+https://github.com/yiliu1765/qemu/tree/iommufd_rfcv4.mig.reset.v4_var3
+(requires to test with the cdev kernel)
+
+Change log:
+
+v9:
+ - Add Jason's r-b to patch 08
+
+v8: https://lore.kernel.org/kvm/ZJRnHO0p+pPgBZdr@nvidia.com/
+ - Add r-b from Jason to patch 03, 04, 05, 07, 09 of v7
+ - Add a patch to copy the per-device hot-reset structure to user during the
+   device loop instead of storing them in a buffer and copy all the contents
+   in one copy, this avoids an extra loop to count device and also avoids
+   allocating a temporay buffer for it. (Jason)
+ - Rename vfio_iommufd_device_hot_reset_devid() to be vfio_iommufd_get_dev_id()
+   and refine its return value for the case no valid ID can be returned. Hence
+   make it a general helper to get ID for a device. (Alex, Jason)
+ - Remove iommufd_ctx_has_group() CONIFG_IOMMUFD disabled stub as this API is
+   called in iommufd specific code which is compiled when CONFIG_IOMMU is
+   enabled. (Alex)
+ - Reaffirming Yanting's t-b (Tested NIC passthrough on Intel platform. mainly
+   regression tests)
+
+v7: https://lore.kernel.org/kvm/20230602121515.79374-1-yi.l.liu@intel.com/
+ - Drop noiommu support (patch 01 of v6 is dropped)
+ - Remove helpers to get devid and ictx for iommufd_access
+ - Document the dev_set representative requirement in the
+   VFIO_DEVICE_GET_PCI_HOT_RESET_INFO for the cdev opened device (Alex)
+ - zero-length fd array approach is only for cdev opened device (Alex)
+
+v6: https://lore.kernel.org/kvm/20230522115751.326947-1-yi.l.liu@intel.com/
+ - Remove noiommu_access, reuse iommufd_access instead (Alex)
+ - vfio_iommufd_physical_ictx -> vfio_iommufd_device_ictx
+ - vfio_iommufd_physical_devid -> vfio_iommufd_device_hot_reset_devid
+ - Refine logic in patch 9 and 10 of v5, no uapi change. (Alex)
+ - Remove lockdep asset in vfio_pci_is_device_in_set (Cédric)
+ - Add t-b from Terrence (Tested GVT-g / GVT-d VFIO legacy mode / compat mode
+   / cdev mode, including negative tests. No regression be introduced.)
+
+v5: https://lore.kernel.org/kvm/20230513132136.15021-1-yi.l.liu@intel.com/
+ - Drop patch 01 of v4 (Alex)
+ - Create noiommu_access for noiommu devices (Jason)
+ - Reserve all negative iommufd IDs, hence VFIO can encode negative
+   values (Jason)
+ - Make vfio_iommufd_physical_devid() return -EINVAL if it's not called
+   with a physical device or a noiommu device.
+ - Add vfio_find_device_in_devset() in vfio_main.c (Alex)
+ - Add iommufd_ctx_has_group() to replace vfio_devset_iommufd_has_group().
+   Reason: vfio_devset_iommufd_has_group() only loops the devices within
+   the given devset to check the iommufd an iommu_group, but an iommu_group
+   can span into multiple devsets. So if failed to find the group in a
+   devset doesn't mean the group is not owned by the iommufd. So here either
+   needs to search all the devsets or add an iommufd API to check it. It
+   appears an iommufd API makes more sense.
+ - Adopt suggestions from Alex on patch 08 and 09 of v4, refine the hot-reset
+   uapi description and minor tweaks
+ - Use bitfields for bool members (Alex)
+
+v4: https://lore.kernel.org/kvm/20230426145419.450922-1-yi.l.liu@intel.com/
+ - Rename the patch series subject
+ - Patch 01 is moved from the cdev series
+ - Patch 02, 06 are new per review comments in v3
+ - Patch 03/04/05/07/08/09 are from v3 with updates
+
+v3: https://lore.kernel.org/kvm/20230401144429.88673-1-yi.l.liu@intel.com/
+ - Remove the new _INFO ioctl of v2, extend the existing _INFO ioctl to
+   report devid (Alex)
+ - Add r-b from Jason
+ - Add t-b from Terrence Xu and Yanting Jiang (mainly regression test)
+
+v2: https://lore.kernel.org/kvm/20230327093458.44939-1-yi.l.liu@intel.com/
+ - Split the patch 03 of v1 to be 03, 04 and 05 of v2 (Jaon)
+ - Add r-b from Kevin and Jason
+ - Add patch 10 to introduce a new _INFO ioctl for the usage of device
+   fd passing usage in cdev path (Jason, Alex)
+
+v1: https://lore.kernel.org/kvm/20230316124156.12064-1-yi.l.liu@intel.com/
+
+Regards,
+	Yi Liu
+
+Yi Liu (10):
+  vfio/pci: Update comment around group_fd get in
+    vfio_pci_ioctl_pci_hot_reset()
+  vfio/pci: Move the existing hot reset logic to be a helper
+  iommufd: Reserve all negative IDs in the iommufd xarray
+  iommufd: Add iommufd_ctx_has_group()
+  iommufd: Add helper to retrieve iommufd_ctx and devid
+  vfio: Mark cdev usage in vfio_device
+  vfio: Add helper to search vfio_device in a dev_set
+  vfio/pci: Extend VFIO_DEVICE_GET_PCI_HOT_RESET_INFO for vfio device
+    cdev
+  vfio/pci: Copy hot-reset device info to userspace in the devices loop
+  vfio/pci: Allow passing zero-length fd array in
+    VFIO_DEVICE_PCI_HOT_RESET
+
+ drivers/iommu/iommufd/device.c   |  42 ++++++
+ drivers/iommu/iommufd/main.c     |   2 +-
+ drivers/vfio/iommufd.c           |  44 ++++++
+ drivers/vfio/pci/vfio_pci_core.c | 250 +++++++++++++++++++------------
+ drivers/vfio/vfio_main.c         |  15 ++
+ include/linux/iommufd.h          |   5 +
+ include/linux/vfio.h             |  22 +++
+ include/uapi/linux/vfio.h        |  71 ++++++++-
+ 8 files changed, 352 insertions(+), 99 deletions(-)
+
 -- 
 2.34.1
 
