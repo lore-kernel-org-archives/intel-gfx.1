@@ -4,50 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A135AEB64DD
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 10:18:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2A73EB64DC
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Jul 2023 10:24:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A78810E35D;
-	Tue, 11 Jul 2023 10:18:38 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECA2810E35D
- for <intel-gfx@lists.freedesktop.org>; Tue, 11 Jul 2023 10:18:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689070715; x=1720606715;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=NeGV+wSCNbQn4yMObY3Pa6d240fXFNQirNxKwJ1yW90=;
- b=FJLrMOC9zpEt+IXyPeUWarOSsEGj/OQdwNSCh+2bGXocjtxIvp22kl1C
- aaE+ftzB1xtL9/N1I9meY+mSkkIFoLHewPPeYQxBselktZqq+ZSLlPT8B
- BQatsRMSeg65KvwYUI8Jtq19RNTQ7ylfgqGNvaaBAogUhZES4S1TBHZKw
- u6D/1omYYLqIgeipOXNh3o0BfpGl6K1yzKZFUwM/Rvq+Pa53sSm58ZPQo
- QK2dKWgkIOkwEctN3+E2CcnPblJEU6a7cmg39uONHsyx1GRgRG+5NlaKn
- z0tP+XHVQGOcK084FONn32cvDYO/a/l4ODlxyyhQrzrn5fDwJUoTJev7O w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="344900815"
-X-IronPort-AV: E=Sophos;i="6.01,196,1684825200"; d="scan'208";a="344900815"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2023 03:18:35 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10767"; a="845218161"
-X-IronPort-AV: E=Sophos;i="6.01,196,1684825200"; d="scan'208";a="845218161"
-Received: from sbodin-mobl3.ger.corp.intel.com (HELO intel.com)
- ([10.252.53.13])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2023 03:18:32 -0700
-Date: Tue, 11 Jul 2023 12:18:23 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>
-Message-ID: <ZK0sbz+h0r/PwYn2@ashyti-mobl2.lan>
-References: <20230705160848.988464-1-andrzej.hajda@intel.com>
- <20230706151611.1024576-1-andrzej.hajda@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 298AA10E35D;
+	Tue, 11 Jul 2023 10:24:45 +0000 (UTC)
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4305210E2F1;
+ Tue, 11 Jul 2023 03:29:56 +0000 (UTC)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-3fbc5d5746cso59652515e9.2; 
+ Mon, 10 Jul 2023 20:29:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1689046191; x=1691638191;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=NIA1evLsFIG/d/BciMyieA3NRV49yLIoqEJJuDBlYaE=;
+ b=rxdmtG3igEMBUtvy4AOmssEH0wfRxsb6ymp/QwRMujz+LOJ7sQhoyon0BKo5iYPM3C
+ vvzg9/1A3HwLvvaXUsO488/UOVvvzTunW5vpXmI/qUReYS6UgHUkEsCeV5SKsSn+OeE3
+ To366J795JPA8ZrqOsYdOA01LYJD1w95dSr0k+1zuA2eLFNRvMsmFVGObddnqfUBHqXs
+ 7bY/K8fefBz2KsIpGItrgkW4pKITj5QMOyTWR1t6OBB5PVHVxzHeH+l7rfMVQN6y7+5x
+ JvoHWXHqerCTBw3Znr4NafxxwSx0kZGdgz+7oAy1Fq1o+Za4ZQome/sYiWN9AOzemKZl
+ 4fPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1689046191; x=1691638191;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=NIA1evLsFIG/d/BciMyieA3NRV49yLIoqEJJuDBlYaE=;
+ b=QxLnkBu8R9wE8FzBC0hJDHp+fuzwbYh+lthZWkmrSExvoU35W5fG8wIoxhLr554R3C
+ Tn7IbjnYFz7UH24RJ5r/T7nNK2bHDGHi9an1+W4UrBt7HTI1g9FaGDSOTggUrm5cFHED
+ AWU4/xXIRfMj0EJPj5dGB8ssal5T87wrB7Br45UN9sa6lGyxR0kMzBsyJRWRYsbecRii
+ XMRY3EgjEJB1tTVY+EwNluY+ZHVhDP5HjOmN5eb7J2PZ6ivUl3hDcLkxU+sWFc+B+aB9
+ Oi63M2INrUarETckmAyVLfUFcn0iNtuJSO1pZ8eVr6FoEy1KfKy7Gj5gQvNzyvffLWgE
+ V8eg==
+X-Gm-Message-State: ABy/qLZvGwfjFwjuGyHusxN72+6UdtSuPdyGgx6vNQpFljUmfP1nOC9L
+ 9PWIo38Y3/OQbXcFKIatlUY=
+X-Google-Smtp-Source: APBJJlEtcLQ35KkQPdh0ZyVQNhO4j35UEGhwGDSQsnZ0b+jETRrDX8NdbpbeIj/gDk8UD38PgbGDEA==
+X-Received: by 2002:a05:600c:378c:b0:3f9:b748:ff3f with SMTP id
+ o12-20020a05600c378c00b003f9b748ff3fmr14479766wmr.1.1689046191141; 
+ Mon, 10 Jul 2023 20:29:51 -0700 (PDT)
+Received: from localhost.localdomain ([2a05:f480:1000:b09:5400:4ff:fe6f:7099])
+ by smtp.gmail.com with ESMTPSA id
+ u18-20020a05600c211200b003fbbe41fd78sm1290715wml.10.2023.07.10.20.29.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 10 Jul 2023 20:29:50 -0700 (PDT)
+From: zhangshida <starzhangzsd@gmail.com>
+X-Google-Original-From: zhangshida <zhangshida@kylinos.cn>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tvrtko.ursulin@linux.intel.com, airlied@gmail.com,
+ daniel@ffwll.ch, ville.syrjala@linux.intel.com
+Date: Tue, 11 Jul 2023 11:29:40 +0800
+Message-Id: <20230711032940.901797-1-zhangshida@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230706151611.1024576-1-andrzej.hajda@intel.com>
-Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/gt: update request engine
- before removing virtual GuC engine
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 11 Jul 2023 10:24:43 +0000
+Subject: [Intel-gfx] [PATCH] drm/i915/gmch: fix not used warning in
+ intel_alloc_mchbar_resource
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,77 +76,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Chris Wilson <chris.p.wilson@intel.com>,
- Nirmoy Das <nirmoy.das@intel.com>
+Cc: k2ci <kernel-bot@kylinos.cn>, intel-gfx@lists.freedesktop.org,
+ starzhangzsd@gmail.com, zhangshida@kylinos.cn, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Andrzej,
+From: Shida Zhang <zhangshida@kylinos.cn>
 
-On Thu, Jul 06, 2023 at 05:16:11PM +0200, Andrzej Hajda wrote:
-> GuC virtual engines can be removed before request removal. On the other
-> side driver expects rq->engine to be a valid pointer for a whole life of
-> request. Setting rq->engine to an always valid engine should solve
-> the issue.
-> 
-> The patch fixes bug detected by KASAN with following signature:
-> i915 0000:00:02.0: [drm:i915_drop_caches_set [i915]] Dropping caches: 0x0000005c [0x0000005c]
-> BUG: KASAN: slab-use-after-free in i915_fence_release+0x2a2/0x2f0 [i915]
-> Read of size 4 at addr ffff88813ffda6e8 by task kworker/u32:10/157
-> ...
-> Allocated by task 1184:
-> ...
-> guc_create_virtual+0x4d/0x1160 [i915]
-> i915_gem_create_context+0x11ee/0x18c0 [i915]
-> ...
-> Freed by task 151:
-> ...
-> intel_guc_deregister_done_process_msg+0x324/0x6d0 [i915]
-> ...
+Quiet down this gcc warning generated by
+gcc (Debian 10.2.1-6) 10.2.1 20210110:
 
-so the only difference between v1 and v2 is this part of the log?
+../drivers/gpu/drm/i915/soc/intel_gmch.c: In function ‘intel_alloc_mchbar_resource’:
+../drivers/gpu/drm/i915/soc/intel_gmch.c:41:6: error: variable ‘mchbar_addr’ set but not used [-Werror=unused-but-set-variable]
+   41 |  u64 mchbar_addr;
+      |      ^~~~~~~~~~~
 
-> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/7926
-> Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> index a0e3ef1c65d246..2c877ea5eda6f0 100644
-> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-> @@ -3461,6 +3461,8 @@ static void guc_prio_fini(struct i915_request *rq, struct intel_context *ce)
->  static void remove_from_context(struct i915_request *rq)
->  {
->  	struct intel_context *ce = request_to_scheduling_context(rq);
-> +	struct intel_engine_cs *engine;
-> +	intel_engine_mask_t tmp;
->  
->  	GEM_BUG_ON(intel_context_is_child(ce));
->  
-> @@ -3478,6 +3480,15 @@ static void remove_from_context(struct i915_request *rq)
->  
->  	atomic_dec(&ce->guc_id.ref);
->  	i915_request_notify_execute_cb_imm(rq);
-> +
-> +	/*
-> +	 * GuC virtual engine can disappear after this call, so let's assign
-> +	 * something valid, as driver expects this to be always valid pointer.
-> +	 */
-> +	for_each_engine_masked(engine, rq->engine->gt, rq->execution_mask, tmp) {
-> +		rq->engine = engine;
+Reported-by: k2ci <kernel-bot@kylinos.cn>
+Signed-off-by: Shida Zhang <zhangshida@kylinos.cn>
+---
+ drivers/gpu/drm/i915/soc/intel_gmch.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-yes... here the context might lose the virtual engine... I wonder
-whether this is the rigth solution, though. Maybe we should set
-rq->engine = NULL; and check for NULL? Don't know.
+diff --git a/drivers/gpu/drm/i915/soc/intel_gmch.c b/drivers/gpu/drm/i915/soc/intel_gmch.c
+index 6d0204942f7a..f7db6cb3f828 100644
+--- a/drivers/gpu/drm/i915/soc/intel_gmch.c
++++ b/drivers/gpu/drm/i915/soc/intel_gmch.c
+@@ -38,16 +38,18 @@ intel_alloc_mchbar_resource(struct drm_i915_private *i915)
+ {
+ 	int reg = GRAPHICS_VER(i915) >= 4 ? MCHBAR_I965 : MCHBAR_I915;
+ 	u32 temp_lo, temp_hi = 0;
++#ifdef CONFIG_PNP
+ 	u64 mchbar_addr;
++#endif
+ 	int ret;
+ 
+ 	if (GRAPHICS_VER(i915) >= 4)
+ 		pci_read_config_dword(i915->gmch.pdev, reg + 4, &temp_hi);
+ 	pci_read_config_dword(i915->gmch.pdev, reg, &temp_lo);
+-	mchbar_addr = ((u64)temp_hi << 32) | temp_lo;
+ 
+ 	/* If ACPI doesn't have it, assume we need to allocate it ourselves */
+ #ifdef CONFIG_PNP
++	mchbar_addr = ((u64)temp_hi << 32) | temp_lo;
+ 	if (mchbar_addr &&
+ 	    pnp_range_reserved(mchbar_addr, mchbar_addr + MCHBAR_SIZE))
+ 		return 0;
+-- 
+2.27.0
 
-Andi
-
-> +		break;
-> +	}
->  }
->  
->  static const struct intel_context_ops guc_context_ops = {
-> -- 
-> 2.34.1
