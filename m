@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDF24C001DC
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 12:47:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B467EB64DD
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 12:48:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70BA510E129;
-	Thu, 13 Jul 2023 12:47:40 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 934D210E129
- for <intel-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 12:47:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689252458; x=1720788458;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=tFGYAy2/a1FB4/0cJLUDQ/63wMPR9fwdsQUsRwpdGf4=;
- b=job589SQMlmKNlB2ZCC+Qdhtn8KOT1LzUYqEG3nURR+Rs/ROJWKN3hho
- 2N7puk6C2AgKWYNVjZ6CI2c4WfR+sX4XxJpaavPQzXgQGV1wq9spWjqw9
- bnxqjWYpZfwIdd+ZfcAgPi3RcNFqbIs/uivuiGiRvx1u6fQplH0P9Nqk+
- /cHc3a1mGpU2u8fDEhG0hzfWKHED6FrhXeYL02p6I20CxC0gLubQ/mgP4
- FJtMDU7e4eqocINqSTF3lbn91bNZTPVSFZbZ8ItU/Bn0sPLdrgSkpla1x
- 7noT0iYekubCPDr8jfuBlKUOhneL5BHgoKdLcg496Cb4WSzoWE7u5bAws Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="368708433"
-X-IronPort-AV: E=Sophos;i="6.01,202,1684825200"; d="scan'208";a="368708433"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2023 05:47:38 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="792016672"
-X-IronPort-AV: E=Sophos;i="6.01,202,1684825200"; d="scan'208";a="792016672"
-Received: from atadj-mobl1.amr.corp.intel.com (HELO localhost) ([10.252.50.30])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2023 05:47:36 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Suraj Kandpal <suraj.kandpal@intel.com>, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20230713062924.2894736-4-suraj.kandpal@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230713062924.2894736-1-suraj.kandpal@intel.com>
- <20230713062924.2894736-4-suraj.kandpal@intel.com>
-Date: Thu, 13 Jul 2023 15:47:33 +0300
-Message-ID: <87h6q8f062.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B975110E129;
+	Thu, 13 Jul 2023 12:48:30 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2768110E534;
+ Wed, 12 Jul 2023 13:53:06 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B9C64617D6;
+ Wed, 12 Jul 2023 13:53:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A345AC433C7;
+ Wed, 12 Jul 2023 13:53:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1689169984;
+ bh=0sbyIiczIJDnx26Ch8e9l+qxXeZZ0rwKcMQ0zWjPG2E=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=hjUTKto8Ioz8iKBRqNaRabBf11Oc7eHOlmTK9M/ZTt8ltDoWCX6CFOzjIGxRlGFY3
+ Gx5jqcVwy1TF/krIPVc4UMyuHZxNLbDekq6CNc/YFW9XZuZPgy9H7AxolbKkWLgnAi
+ r9fpm9kzzSwMYN6Psfg7TVfTW8n0B+mvlh2FTRcCYAZ0ciN3u0JY7dyza48kXnOA9n
+ WMci9hbcuhVOWKEEdS8SZtYhWg6pK+ZLR69YBjxKaOmTAGDWdtxl6Adlqjo21243Qn
+ XbsKfbvDJLN7WkAM0aaNNMoLWVYfSKf0LdY3uyS6mKtDCMS2NYJoRkpPzq+x8hypZP
+ ozEduvqpUbjZw==
+Date: Wed, 12 Jul 2023 15:53:00 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <a7h7uovevwdsuuwdqh7g36qgfyq3bt5sx3eba2npyduoyu2icc@pwygetstxdp3>
+References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
+ <94eb6e4d-9384-152f-351b-ebb217411da9@amd.com>
+ <20230712110253.paoyrmcbvlhpfxbf@pengutronix.de>
+ <o3dc4q27ap6rajsvpfwfvs3z3afekkwbhnclvswkaietciy2kc@unjf67gz5tur>
+ <20230712133803.rf26cbg5wz7wsmgl@pengutronix.de>
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH v2 3/6] drm/i915/vdsc: Add function to read
- any PPS register
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="jyn7gwdek3zlokhs"
+Content-Disposition: inline
+In-Reply-To: <20230712133803.rf26cbg5wz7wsmgl@pengutronix.de>
+X-Mailman-Approved-At: Thu, 13 Jul 2023 12:48:29 +0000
+Subject: Re: [Intel-gfx] [PATCH RFC v1 00/52] drm/crtc: Rename struct
+ drm_crtc::dev to drm_dev
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,345 +59,195 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Xinliang Liu <xinliang.liu@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alexey Kodanev <aleksei.kodanev@bell-sw.com>, dri-devel@lists.freedesktop.org,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ linux-samsung-soc@vger.kernel.org, Samuel Holland <samuel@sholland.org>,
+ Matt Roper <matthew.d.roper@intel.com>, Wenjing Liu <wenjing.liu@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Danilo Krummrich <dakr@redhat.com>, NXP Linux Team <linux-imx@nxp.com>,
+ spice-devel@lists.freedesktop.org,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, linux-sunxi@lists.linux.dev,
+ Matthias Brugger <matthias.bgg@gmail.com>, Tim Huang <Tim.Huang@amd.com>,
+ =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
+ Jani Nikula <jani.nikula@intel.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, Inki Dae <inki.dae@samsung.com>,
+ Hersen Wu <hersenxs.wu@amd.com>, Dave Airlie <airlied@redhat.com>,
+ Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ =?utf-8?Q?=C5=81ukasz?= Bartosik <lb@semihalf.com>,
+ Andrew Jeffery <andrew@aj.id.au>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>, Zack Rusin <zackr@vmware.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org,
+ Yongqin Liu <yongqin.liu@linaro.org>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Konrad Dybcio <konrad.dybcio@linaro.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ David Francis <David.Francis@amd.com>, Aaron Liu <aaron.liu@amd.com>,
+ Vinod Polimera <quic_vpolimer@quicinc.com>, linux-rockchip@lists.infradead.org,
+ Fangzhi Zuo <jerry.zuo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Tian Tao <tiantao6@hisilicon.com>, Biju Das <biju.das.jz@bp.renesas.com>,
+ linux-amlogic@lists.infradead.org, Evan Quan <evan.quan@amd.com>,
+ Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Boris Brezillon <bbrezillon@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Qingqing Zhuo <qingqing.zhuo@amd.com>, Sandy Huang <hjc@rock-chips.com>,
+ linux-renesas-soc@vger.kernel.org, Kyungmin Park <kyungmin.park@samsung.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Paul Cercueil <paul@crapouillou.net>, Dan Carpenter <error27@gmail.com>,
+ Karol Herbst <kherbst@redhat.com>, linux-hyperv@vger.kernel.org,
+ Stefan Agner <stefan@agner.ch>, Melissa Wen <melissa.srw@gmail.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mairacanal@riseup.net>,
+ Luca Coelho <luciano.coelho@intel.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Likun Gao <Likun.Gao@amd.com>,
+ "Jiri Slaby \(SUSE\)" <jirislaby@kernel.org>, Emma Anholt <emma@anholt.net>,
+ Alain Volmat <alain.volmat@foss.st.com>, Chen-Yu Tsai <wens@csie.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Deepak Rawat <drawat.floss@gmail.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, Joel Stanley <joel@jms.id.au>,
+ Orson Zhai <orsonzhai@gmail.com>, Harry Wentland <harry.wentland@amd.com>,
+ Chia-I Wu <olvaffe@gmail.com>, Alan Liu <haoping.liu@amd.com>,
+ Philip Yang <Philip.Yang@amd.com>, intel-gfx@lists.freedesktop.org,
+ Alison Wang <alison.wang@nxp.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Mikko Perttunen <mperttunen@nvidia.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>,
+ Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
+ Tomi Valkeinen <tomba@kernel.org>, Deepak R Varma <drv@mailo.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Julia Lawall <Julia.Lawall@inria.fr>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ John Stultz <jstultz@google.com>, Roman Li <roman.li@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Sam Ravnborg <sam@ravnborg.org>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Liu Shixin <liushixin2@huawei.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, David Airlie <airlied@gmail.com>,
+ Marek Vasut <marex@denx.de>, Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ Lang Yu <Lang.Yu@amd.com>, xen-devel@lists.xenproject.org,
+ Guchun Chen <guchun.chen@amd.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Russell King <linux@armlinux.org.uk>, Leo Li <sunpeng.li@amd.com>,
+ Jiasheng Jiang <jiasheng@iscas.ac.cn>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ David Lechner <david@lechnology.com>,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ Marek =?utf-8?B?T2zFocOhaw==?= <marek.olsak@amd.com>,
+ =?utf-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>,
+ Melissa Wen <mwen@igalia.com>, Hans de Goede <hdegoede@redhat.com>,
+ linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, linux-tegra@vger.kernel.org,
+ David Tadokoro <davidbtadokoro@usp.br>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, linux-mips@vger.kernel.org,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Wayne Lin <Wayne.Lin@amd.com>,
+ Drew Davenport <ddavenport@chromium.org>, Nirmoy Das <nirmoy.das@intel.com>,
+ Jyri Sarha <jyri.sarha@iki.fi>, Lucas Stach <l.stach@pengutronix.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 13 Jul 2023, Suraj Kandpal <suraj.kandpal@intel.com> wrote:
-> Add function to read any PPS register based on the
-> intel_dsc_pps enum provided. Add a function which will call the
-> new pps read function and place it in crtc state. Only PPS0 and
-> PPS1 are readout the rest of the registers will be read in upcoming
-> patches.
->
-> --v2
-> -Changes in read function as PPS enum is removed
-> -Initialize pps_val as 0 in pps_read func itself [Jani]
-> -Create a function that gets the required register and call that
-> in the common read function [Jani]
-> -Move the drm_WARN_ON one abstraction layer above [Jani]
->
-> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_vdsc.c | 276 +++++++++++++++++++---
->  1 file changed, 242 insertions(+), 34 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-> index d48b8306bfc3..48273a3618c5 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-> @@ -303,6 +303,196 @@ int intel_dsc_get_num_vdsc_instances(const struct intel_crtc_state *crtc_state)
->  	return num_vdsc_instances;
->  }
->  
-> +static void intel_dsc_get_pps_reg(struct intel_crtc_state *crtc_state, int pps,
-> +				  int dsc_eng_no, i915_reg_t *dsc_reg)
-> +{
-> +	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-> +	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-> +	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
-> +	enum pipe pipe = crtc->pipe;
-> +	bool pipe_dsc;
-> +
-> +	pipe_dsc = is_pipe_dsc(crtc, cpu_transcoder);
-> +
-> +	switch (pps) {
-> +	case 0:
-> +		if (pipe_dsc) {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = ICL_DSC1_PICTURE_PARAMETER_SET_0(pipe);
-> +			else
-> +				*dsc_reg = ICL_DSC0_PICTURE_PARAMETER_SET_0(pipe);
-> +		} else {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = DSCA_PICTURE_PARAMETER_SET_0;
-> +			else
-> +				*dsc_reg = DSCC_PICTURE_PARAMETER_SET_0;
-> +		}
-> +		break;
-> +	case 1:
-> +		if (pipe_dsc) {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = ICL_DSC1_PICTURE_PARAMETER_SET_1(pipe);
-> +			else
-> +				*dsc_reg = ICL_DSC0_PICTURE_PARAMETER_SET_1(pipe);
-> +		} else {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = DSCA_PICTURE_PARAMETER_SET_1;
-> +			else
-> +				*dsc_reg = DSCC_PICTURE_PARAMETER_SET_1;
-> +		}
-> +		break;
-> +	case 2:
-> +		if (pipe_dsc) {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = ICL_DSC1_PICTURE_PARAMETER_SET_2(pipe);
-> +			else
-> +				*dsc_reg = ICL_DSC0_PICTURE_PARAMETER_SET_2(pipe);
-> +		} else {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = DSCA_PICTURE_PARAMETER_SET_2;
-> +			else
-> +				*dsc_reg = DSCC_PICTURE_PARAMETER_SET_2;
-> +		}
-> +		break;
-> +	case 3:
-> +		if (pipe_dsc) {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = ICL_DSC1_PICTURE_PARAMETER_SET_3(pipe);
-> +			else
-> +				*dsc_reg = ICL_DSC0_PICTURE_PARAMETER_SET_3(pipe);
-> +		} else {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = DSCA_PICTURE_PARAMETER_SET_3;
-> +			else
-> +				*dsc_reg = DSCC_PICTURE_PARAMETER_SET_3;
-> +		}
-> +		break;
-> +	case 4:
-> +		if (pipe_dsc) {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = ICL_DSC1_PICTURE_PARAMETER_SET_4(pipe);
-> +			else
-> +				*dsc_reg = ICL_DSC0_PICTURE_PARAMETER_SET_4(pipe);
-> +		} else {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = DSCA_PICTURE_PARAMETER_SET_4;
-> +			else
-> +				*dsc_reg = DSCC_PICTURE_PARAMETER_SET_4;
-> +		}
-> +		break;
-> +	case 5:
-> +		if (pipe_dsc) {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = ICL_DSC1_PICTURE_PARAMETER_SET_5(pipe);
-> +			else
-> +				*dsc_reg = ICL_DSC0_PICTURE_PARAMETER_SET_5(pipe);
-> +		} else {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = DSCA_PICTURE_PARAMETER_SET_5;
-> +			else
-> +				*dsc_reg = DSCC_PICTURE_PARAMETER_SET_5;
-> +		}
-> +		break;
-> +	case 6:
-> +		if (pipe_dsc) {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = ICL_DSC1_PICTURE_PARAMETER_SET_6(pipe);
-> +			else
-> +				*dsc_reg = ICL_DSC0_PICTURE_PARAMETER_SET_6(pipe);
-> +		} else {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = DSCA_PICTURE_PARAMETER_SET_6;
-> +			else
-> +				*dsc_reg = DSCC_PICTURE_PARAMETER_SET_6;
-> +		}
-> +		break;
-> +	case 7:
-> +		if (pipe_dsc) {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = ICL_DSC1_PICTURE_PARAMETER_SET_7(pipe);
-> +			else
-> +				*dsc_reg = ICL_DSC0_PICTURE_PARAMETER_SET_7(pipe);
-> +		} else {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = DSCA_PICTURE_PARAMETER_SET_7;
-> +			else
-> +				*dsc_reg = DSCC_PICTURE_PARAMETER_SET_7;
-> +		}
-> +		break;
-> +	case 8:
-> +		if (pipe_dsc) {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = ICL_DSC1_PICTURE_PARAMETER_SET_8(pipe);
-> +			else
-> +				*dsc_reg = ICL_DSC0_PICTURE_PARAMETER_SET_8(pipe);
-> +		} else {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = DSCA_PICTURE_PARAMETER_SET_8;
-> +			else
-> +				*dsc_reg = DSCC_PICTURE_PARAMETER_SET_8;
-> +		}
-> +		break;
-> +	case 9:
-> +		if (pipe_dsc) {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = ICL_DSC1_PICTURE_PARAMETER_SET_9(pipe);
-> +			else
-> +				*dsc_reg = ICL_DSC0_PICTURE_PARAMETER_SET_9(pipe);
-> +		} else {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = DSCA_PICTURE_PARAMETER_SET_9;
-> +			else
-> +				*dsc_reg = DSCC_PICTURE_PARAMETER_SET_9;
-> +		}
-> +		break;
-> +	case 10:
-> +		if (pipe_dsc) {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = ICL_DSC1_PICTURE_PARAMETER_SET_10(pipe);
-> +			else
-> +				*dsc_reg = ICL_DSC0_PICTURE_PARAMETER_SET_10(pipe);
-> +		} else {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = DSCA_PICTURE_PARAMETER_SET_10;
-> +			else
-> +				*dsc_reg = DSCC_PICTURE_PARAMETER_SET_10;
-> +		}
-> +		break;
-> +	case 16:
-> +		if (pipe_dsc) {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = ICL_DSC1_PICTURE_PARAMETER_SET_16(pipe);
-> +			else
-> +				*dsc_reg = ICL_DSC0_PICTURE_PARAMETER_SET_16(pipe);
-> +		} else {
-> +			if (dsc_eng_no == 2)
-> +				*dsc_reg = DSCA_PICTURE_PARAMETER_SET_16;
-> +			else
-> +				*dsc_reg = DSCC_PICTURE_PARAMETER_SET_16;
-> +		}
-> +		break;
-> +	/*
-> +	 * Since PPS_17 and PPS_18 were introduced from MTL dsc check
-> +	 * need not be done
-> +	 */
-> +	case 17:
-> +		if (dsc_eng_no == 2)
-> +			*dsc_reg = MTL_DSC1_PICTURE_PARAMETER_SET_17(pipe);
-> +		else
-> +			*dsc_reg = MTL_DSC0_PICTURE_PARAMETER_SET_17(pipe);
-> +		break;
-> +	case 18:
-> +		if (dsc_eng_no == 2)
-> +			*dsc_reg = MTL_DSC1_PICTURE_PARAMETER_SET_18(pipe);
-> +		else
-> +			*dsc_reg = MTL_DSC0_PICTURE_PARAMETER_SET_18(pipe);
-> +		break;
-> +	default:
-> +		drm_err(&i915->drm, "PPS register does not exist\n");
-> +		break;
-> +	}
-> +}
-> +
->  static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
->  {
->  	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-> @@ -930,16 +1120,64 @@ void intel_dsc_disable(const struct intel_crtc_state *old_crtc_state)
->  	}
->  }
->  
-> +static bool intel_dsc_read_pps_reg(struct intel_crtc_state *crtc_state,
-> +				   int pps, u32 *pps_val)
-> +{
-> +	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-> +	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
-> +	int num_vdsc_instances = intel_dsc_get_num_vdsc_instances(crtc_state);
-> +	i915_reg_t dsc_reg;
-> +	u32 pps_temp;
-> +
-> +	*pps_val = 0;
-> +
-> +	intel_dsc_get_pps_reg(crtc_state, pps, 0, &dsc_reg);
-> +	*pps_val = intel_de_read(i915, dsc_reg);
-> +	if (num_vdsc_instances > 1) {
 
-Btw going from (crtc_state->dsc.dsc_split) to if (num_vdsc_instances >
-1) should also be a separate change, instead of baked into this one.
+--jyn7gwdek3zlokhs
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-BR,
-Jani.
+On Wed, Jul 12, 2023 at 03:38:03PM +0200, Uwe Kleine-K=F6nig wrote:
+> Hello Maxime,
+>=20
+> On Wed, Jul 12, 2023 at 02:52:38PM +0200, Maxime Ripard wrote:
+> > On Wed, Jul 12, 2023 at 01:02:53PM +0200, Uwe Kleine-K=F6nig wrote:
+> > > > Background is that this makes merge conflicts easier to handle and =
+detect.
+> > >=20
+> > > Really?
+> >=20
+> > FWIW, I agree with Christian here.
+> >=20
+> > > Each file (apart from include/drm/drm_crtc.h) is only touched once. So
+> > > unless I'm missing something you don't get less or easier conflicts by
+> > > doing it all in a single patch. But you gain the freedom to drop a
+> > > patch for one driver without having to drop the rest with it.
+> >=20
+> > Not really, because the last patch removed the union anyway. So you have
+> > to revert both the last patch, plus that driver one. And then you need
+> > to add a TODO to remove that union eventually.
+>=20
+> Yes, with a single patch you have only one revert (but 194 files changed,
+> 1264 insertions(+), 1296 deletions(-)) instead of two (one of them: 1
+> file changed, 9 insertions(+), 1 deletion(-); the other maybe a bit
+> bigger). (And maybe you get away with just reverting the last patch.)
+>=20
+> With a single patch the TODO after a revert is "redo it all again (and
+> prepare for a different set of conflicts)" while with the split series
+> it's only "fix that one driver that was forgotten/borked" + reapply that
+> 10 line patch. As the one who gets that TODO, I prefer the latter.
+>=20
+> So in sum: If your metric is "small count of reverted commits", you're
+> right. If however your metric is: Better get 95% of this series' change
+> in than maybe 0%, the split series is the way to do it.
 
+I guess that's where we disagree: I don't see the point of having 95% of
+it, either 0 or 100.
 
+> With me having spend ~3h on this series' changes, it's maybe
+> understandable that I did it the way I did.
 
-> +		intel_dsc_get_pps_reg(crtc_state, pps, 2, &dsc_reg);
-> +		pps_temp = intel_de_read(i915, dsc_reg);
-> +		if (*pps_val != pps_temp)
-> +			return true;
-> +	}
-> +	return false;
-> +}
-> +
-> +static void intel_dsc_read_and_verify_pps_reg(struct intel_crtc_state *crtc_state,
-> +					      int pps, u32 *pps_val)
-> +{
-> +	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-> +	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
-> +	bool is_dsc_diff;
-> +
-> +	is_dsc_diff = intel_dsc_read_pps_reg(crtc_state, pps, pps_val);
-> +	drm_WARN_ON(&i915->drm, is_dsc_diff);
-> +}
-> +
-> +static void intel_dsc_get_pps_config(struct intel_crtc_state *crtc_state)
-> +{
-> +	struct drm_dsc_config *vdsc_cfg = &crtc_state->dsc.config;
-> +	u32 pps_temp1, pps_temp2;
-> +
-> +	/* Readout PPS_0 and PPS_1 registers */
-> +	intel_dsc_read_and_verify_pps_reg(crtc_state, 0, &pps_temp1);
-> +	intel_dsc_read_and_verify_pps_reg(crtc_state, 1, &pps_temp2);
-> +
-> +	vdsc_cfg->bits_per_pixel = pps_temp2;
-> +
-> +	if (pps_temp1 & DSC_NATIVE_420_ENABLE)
-> +		vdsc_cfg->bits_per_pixel >>= 1;
-> +
-> +	crtc_state->dsc.compressed_bpp = vdsc_cfg->bits_per_pixel >> 4;
-> +}
-> +
->  void intel_dsc_get_config(struct intel_crtc_state *crtc_state)
->  {
->  	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
->  	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
-> -	struct drm_dsc_config *vdsc_cfg = &crtc_state->dsc.config;
->  	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-> -	enum pipe pipe = crtc->pipe;
->  	enum intel_display_power_domain power_domain;
->  	intel_wakeref_t wakeref;
-> -	u32 dss_ctl1, dss_ctl2, pps0 = 0, pps1 = 0, pps_temp0 = 0, pps_temp1 = 1;
-> +	u32 dss_ctl1, dss_ctl2;
->  
->  	if (!intel_dsc_source_support(crtc_state))
->  		return;
-> @@ -960,37 +1198,7 @@ void intel_dsc_get_config(struct intel_crtc_state *crtc_state)
->  	crtc_state->dsc.dsc_split = (dss_ctl2 & RIGHT_BRANCH_VDSC_ENABLE) &&
->  		(dss_ctl1 & JOINER_ENABLE);
->  
-> -	/* FIXME: add more state readout as needed */
-> -
-> -	/* PPS0 & PPS1 */
-> -	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
-> -		pps1 = intel_de_read(dev_priv, DSCA_PICTURE_PARAMETER_SET_1);
-> -		if (crtc_state->dsc.dsc_split) {
-> -			pps_temp1 = intel_de_read(dev_priv, DSCC_PICTURE_PARAMETER_SET_1);
-> -			drm_WARN_ON(&dev_priv->drm, pps1 != pps_temp1);
-> -		}
-> -
-> -	} else {
-> -		pps0 = intel_de_read(dev_priv,
-> -				     ICL_DSC0_PICTURE_PARAMETER_SET_0(pipe));
-> -		pps1 = intel_de_read(dev_priv,
-> -				     ICL_DSC0_PICTURE_PARAMETER_SET_1(pipe));
-> -		if (crtc_state->dsc.dsc_split) {
-> -			pps_temp0 = intel_de_read(dev_priv,
-> -						  ICL_DSC0_PICTURE_PARAMETER_SET_0(pipe));
-> -			pps_temp1 = intel_de_read(dev_priv,
-> -						  ICL_DSC0_PICTURE_PARAMETER_SET_1(pipe));
-> -			drm_WARN_ON(&dev_priv->drm, pps0 != pps_temp0);
-> -			drm_WARN_ON(&dev_priv->drm, pps1 != pps_temp1);
-> -		}
-> -	}
-> -
-> -	vdsc_cfg->bits_per_pixel = pps1;
-> -
-> -	if (pps0 & DSC_NATIVE_420_ENABLE)
-> -		vdsc_cfg->bits_per_pixel >>= 1;
-> -
-> -	crtc_state->dsc.compressed_bpp = vdsc_cfg->bits_per_pixel >> 4;
-> +	intel_dsc_get_pps_config(crtc_state);
->  out:
->  	intel_display_power_put(dev_priv, power_domain, wakeref);
->  }
+I'm sorry, but that's never been an argument? I'm sure you and I both
+have had series that took much longer dropped because it wasn't the
+right approach.
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+> FTR: This series was created on top of v6.5-rc1. If you apply it to
+> drm-misc-next you get a (trivial) conflict in patch #2. If I consider to
+> be the responsible maintainer who applies this series, I like being able
+> to just do git am --skip then.=20
+
+Or we can ask that the driver is based on drm-misc-next ...
+
+> FTR#2: In drm-misc-next is a new driver
+> (drivers/gpu/drm/loongson/lsdc_crtc.c) so skipping the last patch for
+> now might indeed be a good idea.
+
+=2E.. which is going to fix that one too.
+
+Maxime
+
+--jyn7gwdek3zlokhs
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZK6wPAAKCRDj7w1vZxhR
+xY/cAP9MfcZQUQhgCUm7SZclTdLuVOlNrClVj1izsCv4zrFrtQD+JUUX9b9K3JdO
+tDqchM2qQCmIMTRzt6ZwyV0l4KQkjgM=
+=G8dy
+-----END PGP SIGNATURE-----
+
+--jyn7gwdek3zlokhs--
