@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB664EB64D9
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Jul 2023 11:48:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 822B0EB64DA
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Jul 2023 11:48:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01FA910E4F2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 713BA10E4FA;
 	Wed, 12 Jul 2023 11:47:54 +0000 (UTC)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76DF110E4E9;
- Wed, 12 Jul 2023 11:47:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B328810E4F5;
+ Wed, 12 Jul 2023 11:47:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689162462; x=1720698462;
+ t=1689162470; x=1720698470;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=V2Xv+6vpWCnpQuSmn1mgHa02zM/YjYZIas2005LOhfA=;
- b=M4tSx1XJ8prnOJGp52y197+MljDqji3szDJdBOp772/dyBA2BLO9XDwl
- khEjqrk88laqFNyFCrTlr4XWKQfYy91XaxUSxXD1+/2QvNg8BOfGlOorC
- H7EEKh9xXBQYvg/UbiCoxuNKnHn/6jba35A0AHb+NHCzW1Zke8VC/NXds
- I8SMYRanN1xlSCSuguMsrgiqiCCwZTOkmGNZ/5oOlLcjhsy7CC9XLI63v
- ngXRmLsDj9VFyKMrpngAafP8nH/boAzq7PdzgIn6cbobJ15G2J4AHu5et
- RVKzNNrTaFQC/Q8Izemi7JL97/CWxaAtWGycp2BC8X2tWz73XKTO/NI4R A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="344469084"
-X-IronPort-AV: E=Sophos;i="6.01,199,1684825200"; d="scan'208";a="344469084"
+ bh=k6qOYu4NXclI3gFUyWZN4CiwVZNliuA6Qng+UvN29DI=;
+ b=GMKdUcYkbUwO+AIgiragx27EjOb4Cbi5qcDnS4RS5rKB91AyAfTtJ1u9
+ d5AWsgN6hnXDvXySxYfyAEZy6V+ZPhMKqQpgcjJkKNp/vY5SwkKuzaGcj
+ yny27I3MeQGSHQC9HIBsFxyYg8Hac7WCOj8je0VUhkk2hRIGYEeHDyoEF
+ p8bN1yS2p7geQ5o5gSHM8bOIfX9Pr/6AVyYFA5wgk1cWGfJ1Xn5OjcbmS
+ G7g25b4AlqCksg9DvmZPnGve6EbxLAbwHhZ9mKwDQ/XNvsU8wEvMSOiGP
+ nrGvNlMOStU117+bz2tXVgakEAueF82UKYKktLOn+crxH+dyjzugcUaYi g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="344469217"
+X-IronPort-AV: E=Sophos;i="6.01,199,1684825200"; d="scan'208";a="344469217"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2023 04:46:24 -0700
+ 12 Jul 2023 04:46:47 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="866094034"
-X-IronPort-AV: E=Sophos;i="6.01,199,1684825200"; d="scan'208";a="866094034"
+X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="866094113"
+X-IronPort-AV: E=Sophos;i="6.01,199,1684825200"; d="scan'208";a="866094113"
 Received: from eamonnob-mobl1.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.237.202])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2023 04:46:20 -0700
+ 12 Jul 2023 04:46:43 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Wed, 12 Jul 2023 12:45:50 +0100
-Message-Id: <20230712114605.519432-3-tvrtko.ursulin@linux.intel.com>
+Date: Wed, 12 Jul 2023 12:45:56 +0100
+Message-Id: <20230712114605.519432-9-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230712114605.519432-1-tvrtko.ursulin@linux.intel.com>
 References: <20230712114605.519432-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 02/17] drm/i915: Record which client owns a VM
+Subject: [Intel-gfx] [PATCH 08/17] drm/cgroup: Track DRM clients per cgroup
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,123 +72,204 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-To enable accounting of indirect client memory usage (such as page tables)
-in the following patch, lets start recording the creator of each PPGTT.
+To enable propagation of settings from the cgroup DRM controller to DRM
+and vice-versa, we need to start tracking to which cgroups DRM clients
+belong.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Reviewed-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c       | 11 ++++++++---
- drivers/gpu/drm/i915/gem/i915_gem_context_types.h |  3 +++
- drivers/gpu/drm/i915/gem/selftests/mock_context.c |  4 ++--
- drivers/gpu/drm/i915/gt/intel_gtt.h               |  1 +
- 4 files changed, 14 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/drm_file.c |  6 ++++
+ include/drm/drm_file.h     |  6 ++++
+ include/linux/cgroup_drm.h | 20 ++++++++++++
+ kernel/cgroup/drm.c        | 62 +++++++++++++++++++++++++++++++++++++-
+ 4 files changed, 93 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 9a9ff84c90d7..35cf6608180e 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -279,7 +279,8 @@ static int proto_context_set_protected(struct drm_i915_private *i915,
+diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+index e692770ef6d3..794ffb487472 100644
+--- a/drivers/gpu/drm/drm_file.c
++++ b/drivers/gpu/drm/drm_file.c
+@@ -32,6 +32,7 @@
+  */
+ 
+ #include <linux/anon_inodes.h>
++#include <linux/cgroup_drm.h>
+ #include <linux/dma-fence.h>
+ #include <linux/file.h>
+ #include <linux/module.h>
+@@ -304,6 +305,8 @@ static void drm_close_helper(struct file *filp)
+ 	list_del(&file_priv->lhead);
+ 	mutex_unlock(&dev->filelist_mutex);
+ 
++	drmcgroup_client_close(file_priv);
++
+ 	drm_file_free(file_priv);
  }
  
- static struct i915_gem_proto_context *
--proto_context_create(struct drm_i915_private *i915, unsigned int flags)
-+proto_context_create(struct drm_i915_file_private *fpriv,
-+		     struct drm_i915_private *i915, unsigned int flags)
- {
- 	struct i915_gem_proto_context *pc, *err;
+@@ -367,6 +370,8 @@ int drm_open_helper(struct file *filp, struct drm_minor *minor)
+ 	list_add(&priv->lhead, &dev->filelist);
+ 	mutex_unlock(&dev->filelist_mutex);
  
-@@ -287,6 +288,7 @@ proto_context_create(struct drm_i915_private *i915, unsigned int flags)
- 	if (!pc)
- 		return ERR_PTR(-ENOMEM);
- 
-+	pc->fpriv = fpriv;
- 	pc->num_user_engines = -1;
- 	pc->user_engines = NULL;
- 	pc->user_flags = BIT(UCONTEXT_BANNABLE) |
-@@ -1621,6 +1623,7 @@ i915_gem_create_context(struct drm_i915_private *i915,
- 			err = PTR_ERR(ppgtt);
- 			goto err_ctx;
- 		}
-+		ppgtt->vm.fpriv = pc->fpriv;
- 		vm = &ppgtt->vm;
- 	}
- 	if (vm)
-@@ -1740,7 +1743,7 @@ int i915_gem_context_open(struct drm_i915_private *i915,
- 	/* 0 reserved for invalid/unassigned ppgtt */
- 	xa_init_flags(&file_priv->vm_xa, XA_FLAGS_ALLOC1);
- 
--	pc = proto_context_create(i915, 0);
-+	pc = proto_context_create(file_priv, i915, 0);
- 	if (IS_ERR(pc)) {
- 		err = PTR_ERR(pc);
- 		goto err;
-@@ -1822,6 +1825,7 @@ int i915_gem_vm_create_ioctl(struct drm_device *dev, void *data,
- 
- 	GEM_BUG_ON(id == 0); /* reserved for invalid/unassigned ppgtt */
- 	args->vm_id = id;
-+	ppgtt->vm.fpriv = file_priv;
- 	return 0;
- 
- err_put:
-@@ -2284,7 +2288,8 @@ int i915_gem_context_create_ioctl(struct drm_device *dev, void *data,
- 		return -EIO;
- 	}
- 
--	ext_data.pc = proto_context_create(i915, args->flags);
-+	ext_data.pc = proto_context_create(file->driver_priv, i915,
-+					   args->flags);
- 	if (IS_ERR(ext_data.pc))
- 		return PTR_ERR(ext_data.pc);
- 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-index cb78214a7dcd..c573c067779f 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
-@@ -188,6 +188,9 @@ struct i915_gem_proto_engine {
-  * CONTEXT_CREATE_SET_PARAM during GEM_CONTEXT_CREATE.
-  */
- struct i915_gem_proto_context {
-+	/** @fpriv: Client which creates the context */
-+	struct drm_i915_file_private *fpriv;
++	drmcgroup_client_open(priv);
 +
- 	/** @vm: See &i915_gem_context.vm */
- 	struct i915_address_space *vm;
+ #ifdef CONFIG_DRM_LEGACY
+ #ifdef __alpha__
+ 	/*
+@@ -533,6 +538,7 @@ void drm_file_update_pid(struct drm_file *filp)
+ 	mutex_unlock(&dev->filelist_mutex);
  
-diff --git a/drivers/gpu/drm/i915/gem/selftests/mock_context.c b/drivers/gpu/drm/i915/gem/selftests/mock_context.c
-index 8ac6726ec16b..125584ada282 100644
---- a/drivers/gpu/drm/i915/gem/selftests/mock_context.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/mock_context.c
-@@ -83,7 +83,7 @@ live_context(struct drm_i915_private *i915, struct file *file)
- 	int err;
- 	u32 id;
+ 	if (pid != old) {
++		drmcgroup_client_migrate(filp);
+ 		get_pid(pid);
+ 		synchronize_rcu();
+ 		put_pid(old);
+diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
+index c76249d5467e..e8fb3a39d482 100644
+--- a/include/drm/drm_file.h
++++ b/include/drm/drm_file.h
+@@ -30,6 +30,7 @@
+ #ifndef _DRM_FILE_H_
+ #define _DRM_FILE_H_
  
--	pc = proto_context_create(i915, 0);
-+	pc = proto_context_create(fpriv, i915, 0);
- 	if (IS_ERR(pc))
- 		return ERR_CAST(pc);
++#include <linux/cgroup.h>
+ #include <linux/types.h>
+ #include <linux/completion.h>
+ #include <linux/idr.h>
+@@ -283,6 +284,11 @@ struct drm_file {
+ 	/** @minor: &struct drm_minor for this file. */
+ 	struct drm_minor *minor;
  
-@@ -152,7 +152,7 @@ kernel_context(struct drm_i915_private *i915,
- 	struct i915_gem_context *ctx;
- 	struct i915_gem_proto_context *pc;
++#if IS_ENABLED(CONFIG_CGROUP_DRM)
++	struct cgroup_subsys_state *__css;
++	struct list_head clink;
++#endif
++
+ 	/**
+ 	 * @object_idr:
+ 	 *
+diff --git a/include/linux/cgroup_drm.h b/include/linux/cgroup_drm.h
+index 8ef66a47619f..176431842d8e 100644
+--- a/include/linux/cgroup_drm.h
++++ b/include/linux/cgroup_drm.h
+@@ -6,4 +6,24 @@
+ #ifndef _CGROUP_DRM_H
+ #define _CGROUP_DRM_H
  
--	pc = proto_context_create(i915, 0);
-+	pc = proto_context_create(NULL, i915, 0);
- 	if (IS_ERR(pc))
- 		return ERR_CAST(pc);
++#include <drm/drm_file.h>
++
++#if IS_ENABLED(CONFIG_CGROUP_DRM)
++void drmcgroup_client_open(struct drm_file *file_priv);
++void drmcgroup_client_close(struct drm_file *file_priv);
++void drmcgroup_client_migrate(struct drm_file *file_priv);
++#else
++static inline void drmcgroup_client_open(struct drm_file *file_priv)
++{
++}
++
++static inline void drmcgroup_client_close(struct drm_file *file_priv)
++{
++}
++
++static void drmcgroup_client_migrate(struct drm_file *file_priv)
++{
++}
++#endif
++
+ #endif	/* _CGROUP_DRM_H */
+diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
+index 02c8eaa633d3..d702be1b441f 100644
+--- a/kernel/cgroup/drm.c
++++ b/kernel/cgroup/drm.c
+@@ -5,17 +5,25 @@
  
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index 4d6296cdbcfd..7192a534a654 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -248,6 +248,7 @@ struct i915_address_space {
- 	struct drm_mm mm;
- 	struct intel_gt *gt;
- 	struct drm_i915_private *i915;
-+	struct drm_i915_file_private *fpriv;
- 	struct device *dma;
- 	u64 total;		/* size addr space maps (ex. 2GB for ggtt) */
- 	u64 reserved;		/* size addr space reserved */
+ #include <linux/cgroup.h>
+ #include <linux/cgroup_drm.h>
++#include <linux/list.h>
++#include <linux/mutex.h>
+ #include <linux/slab.h>
+ 
+ struct drm_cgroup_state {
+ 	struct cgroup_subsys_state css;
++
++	struct list_head clients;
+ };
+ 
+ struct drm_root_cgroup_state {
+ 	struct drm_cgroup_state drmcs;
+ };
+ 
+-static struct drm_root_cgroup_state root_drmcs;
++static struct drm_root_cgroup_state root_drmcs = {
++	.drmcs.clients = LIST_HEAD_INIT(root_drmcs.drmcs.clients),
++};
++
++static DEFINE_MUTEX(drmcg_mutex);
+ 
+ static inline struct drm_cgroup_state *
+ css_to_drmcs(struct cgroup_subsys_state *css)
+@@ -42,11 +50,63 @@ drmcs_alloc(struct cgroup_subsys_state *parent_css)
+ 		drmcs = kzalloc(sizeof(*drmcs), GFP_KERNEL);
+ 		if (!drmcs)
+ 			return ERR_PTR(-ENOMEM);
++
++		INIT_LIST_HEAD(&drmcs->clients);
+ 	}
+ 
+ 	return &drmcs->css;
+ }
+ 
++void drmcgroup_client_open(struct drm_file *file_priv)
++{
++	struct drm_cgroup_state *drmcs;
++
++	drmcs = css_to_drmcs(task_get_css(current, drm_cgrp_id));
++
++	mutex_lock(&drmcg_mutex);
++	file_priv->__css = &drmcs->css; /* Keeps the reference. */
++	list_add_tail(&file_priv->clink, &drmcs->clients);
++	mutex_unlock(&drmcg_mutex);
++}
++EXPORT_SYMBOL_GPL(drmcgroup_client_open);
++
++void drmcgroup_client_close(struct drm_file *file_priv)
++{
++	struct drm_cgroup_state *drmcs;
++
++	drmcs = css_to_drmcs(file_priv->__css);
++
++	mutex_lock(&drmcg_mutex);
++	list_del(&file_priv->clink);
++	file_priv->__css = NULL;
++	mutex_unlock(&drmcg_mutex);
++
++	css_put(&drmcs->css);
++}
++EXPORT_SYMBOL_GPL(drmcgroup_client_close);
++
++void drmcgroup_client_migrate(struct drm_file *file_priv)
++{
++	struct drm_cgroup_state *src, *dst;
++	struct cgroup_subsys_state *old;
++
++	mutex_lock(&drmcg_mutex);
++
++	old = file_priv->__css;
++	src = css_to_drmcs(old);
++	dst = css_to_drmcs(task_get_css(current, drm_cgrp_id));
++
++	if (src != dst) {
++		file_priv->__css = &dst->css; /* Keeps the reference. */
++		list_move_tail(&file_priv->clink, &dst->clients);
++	}
++
++	mutex_unlock(&drmcg_mutex);
++
++	css_put(old);
++}
++EXPORT_SYMBOL_GPL(drmcgroup_client_migrate);
++
+ struct cftype files[] = {
+ 	{ } /* Zero entry terminates. */
+ };
 -- 
 2.39.2
 
