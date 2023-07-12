@@ -4,49 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC2D5C001B0
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Jul 2023 11:48:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E7C4EB64DD
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Jul 2023 12:18:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A10010E507;
-	Wed, 12 Jul 2023 11:48:17 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E67510E502;
- Wed, 12 Jul 2023 11:48:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 888B010E4FF;
+	Wed, 12 Jul 2023 12:18:43 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C4FE10E501
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 Jul 2023 12:18:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689162485; x=1720698485;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=+WXN4FLVczjMv+OSBCgeCCf8yaCiNzhpa/fJPOfZ06Q=;
- b=nG+AxN97EDGvgsK4UQwjPnAwtktZ9XHG5vsbHL7ZxPpNPI4uXMYknx3p
- cMz7/2ZyImjVUktyaEYic/vH/NtqLEiqqCgfkN/N7fpPAGTIwIVr363d8
- MxtUUnSsAL4wfMXyp9EWSRCDax4Qs4qn8VjLxXq1yl52vHrlYK6EIz71B
- m7ay16dz5cuyFPQau7Jrnm4MadSNCrAUvUFYQgY88p7prWr07ofTNFihl
- ZES4k/jQHmZZ12Cl2mNTKi386/RQrXJAaHVGylRqoewTI1nG6uLanMH/b
- qhJriHO67keWmCedfeDRbUbfuQRo+jnumgb7OmIMuJ/C8ptvO+KUWQqtO Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="344469422"
-X-IronPort-AV: E=Sophos;i="6.01,199,1684825200"; d="scan'208";a="344469422"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2023 04:47:17 -0700
+ t=1689164321; x=1720700321;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=J6M87vW9Fq/2PkEyXro3665dWwvJFTSMYnLQBRIc1lo=;
+ b=f1ya2+EMgLWcLaMZzXa632HIFPaW8t+oK+n0PE5WkGJCCITeIphq7d1k
+ 4fjG19oFmvFVu+MTGuFNtor1BohPoEIMp70GFXVW36+/V+5F2cEGZ42/6
+ f3DN1CrZOUoRAYPd2uSybiBoLR3yq4Ha11Ny/KzYY2TmhQM6esq7aXxoG
+ CSQ23xD3YBbwRLmGjg4yKEdlq7JVsRT+fkxXQMSnZOu/8ERK2MVDeXe4e
+ XcVEp2QWyEsTrEYPppeKMJm1uFuT/gI6y+CNulHY5U8EAw0B/Wdt2Fdq8
+ 0WJSnQNLl7AEgM1Kw7FFwzvhXyYm84hz0EgHhGnTPEVWkXh0QfMa/djAM w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10769"; a="431006880"
+X-IronPort-AV: E=Sophos;i="6.01,199,1684825200"; d="scan'208";a="431006880"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jul 2023 05:18:40 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10768"; a="866094179"
-X-IronPort-AV: E=Sophos;i="6.01,199,1684825200"; d="scan'208";a="866094179"
-Received: from eamonnob-mobl1.ger.corp.intel.com (HELO localhost.localdomain)
- ([10.213.237.202])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2023 04:47:13 -0700
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: Intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Wed, 12 Jul 2023 12:46:04 +0100
-Message-Id: <20230712114605.519432-17-tvrtko.ursulin@linux.intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230712114605.519432-1-tvrtko.ursulin@linux.intel.com>
-References: <20230712114605.519432-1-tvrtko.ursulin@linux.intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10769"; a="1052167771"
+X-IronPort-AV: E=Sophos;i="6.01,199,1684825200"; d="scan'208";a="1052167771"
+Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.31.249])
+ ([10.213.31.249])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jul 2023 05:18:37 -0700
+Message-ID: <daeb0906-1b39-ebda-618f-dbce88f751bc@intel.com>
+Date: Wed, 12 Jul 2023 14:18:35 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.13.0
+Content-Language: en-US
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>
+References: <20230705160848.988464-1-andrzej.hajda@intel.com>
+ <20230706151611.1024576-1-andrzej.hajda@intel.com>
+ <ZK0sbz+h0r/PwYn2@ashyti-mobl2.lan>
+ <a9e34d7a-b22d-779c-67cb-88c69dc7ca6b@intel.com>
+ <ZK0+NXmKnEzeUtTI@ashyti-mobl2.lan>
+ <118e74c0-c1ce-fc6e-39f4-5518ace5d71e@intel.com>
+ <6f981dd3-715a-6b7e-6c5d-d51610cddc88@linux.intel.com>
+From: Andrzej Hajda <andrzej.hajda@intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <6f981dd3-715a-6b7e-6c5d-d51610cddc88@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 16/17] cgroup/drm: Expose memory stats
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/gt: update request engine
+ before removing virtual GuC engine
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,348 +71,113 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Kenny.Ho@amd.com,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Eero Tamminen <eero.t.tamminen@intel.com>,
- Johannes Weiner <hannes@cmpxchg.org>, linux-kernel@vger.kernel.org,
- =?UTF-8?q?St=C3=A9phane=20Marchesin?= <marcheu@chromium.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Zefan Li <lizefan.x@bytedance.com>, Dave Airlie <airlied@redhat.com>,
- Tejun Heo <tj@kernel.org>, cgroups@vger.kernel.org,
- "T . J . Mercier" <tjmercier@google.com>
+Cc: intel-gfx@lists.freedesktop.org, Chris Wilson <chris.p.wilson@intel.com>,
+ Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+On 11.07.2023 17:27, Tvrtko Ursulin wrote:
+> 
+> On 11/07/2023 14:58, Andrzej Hajda wrote:
+>> On 11.07.2023 13:34, Andi Shyti wrote:
+>>> Hi Andrzej,
+>>>
+>>>>           drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 11 
+>>>> +++++++++++
+>>>>           1 file changed, 11 insertions(+)
+>>>>
+>>>>          diff --git 
+>>>> a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c 
+>>>> b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+>>>>          index a0e3ef1c65d246..2c877ea5eda6f0 100644
+>>>>          --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+>>>>          +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+>>>>          @@ -3461,6 +3461,8 @@ static void guc_prio_fini(struct 
+>>>> i915_request *rq, struct intel_context *ce)
+>>>>           static void remove_from_context(struct i915_request *rq)
+>>>>           {
+>>>>                  struct intel_context *ce = 
+>>>> request_to_scheduling_context(rq);
+>>>>          +       struct intel_engine_cs *engine;
+>>>>          +       intel_engine_mask_t tmp;
+>>>>
+>>>>                  GEM_BUG_ON(intel_context_is_child(ce));
+>>>>
+>>>>          @@ -3478,6 +3480,15 @@ static void 
+>>>> remove_from_context(struct i915_request *rq)
+>>>>
+>>>>                  atomic_dec(&ce->guc_id.ref);
+>>>>                  i915_request_notify_execute_cb_imm(rq);
+>>>>          +
+>>>>          +       /*
+>>>>          +        * GuC virtual engine can disappear after this 
+>>>> call, so let's assign
+>>>>          +        * something valid, as driver expects this to be 
+>>>> always valid pointer.
+>>>>          +        */
+>>>>          +       for_each_engine_masked(engine, rq->engine->gt, 
+>>>> rq->execution_mask, tmp) {
+>>>>          +               rq->engine = engine;
+>>>>
+>>>>      yes... here the context might lose the virtual engine... I wonder
+>>>>      whether this is the rigth solution, though. Maybe we should set
+>>>>      rq->engine = NULL; and check for NULL? Don't know.
+>>>>
+>>>>
+>>>> Setting NULL causes occasional null page de-reference in
+>>>>
+>>>> i915_request_wait_timeout:
+>>>>
+>>>> mutex_release(&rq->engine->gt->reset.mutex.dep_map, _THIS_IP_)
+>>>>
+>>>> rq->engine after removing rq from context is (IMHO) used as a set of 
+>>>> aliases
+>>>> for gt and i915 (despite rq itself contains the alias to i915).
+>>> without investigating further, but maybe that code is not even
+>>> supposed to be executed, at this point, if the request's assigned
+>>> virtual engine is removed.
+>>
+>> Real tests show it is executed and the function 
+>> i915_request_wait_timeout is quite generic
+>> I guess it is quite typical use-case, the only question is about 
+>> timings - what happens earlier -
+>> finalization of i915_request_wait_timeout or context removal.
+>>
+>> The other point rq->engine is accessed after context removal is 
+>> i915_fence_release -
+>> there is long comment there regarding virtual context and reuse 
+>> retired rq.
+>> Anyway calling there "intel_engine_is_virtual(rq->engine)" is risky 
+>> without this patch and KASAN complains clearly about it:
+>> http://gfx-ci.igk.intel.com/tree/drm-tip/kasan.html?testfilter=gem_exec_balancer
+> 
+> Looks like a bug introduced in bcb9aa45d5a0 ("Revert "drm/i915: Hold 
+> reference to intel_context over life of i915_request""), which was a 
+> partial revert of 1e98d8c52ed5 ("drm/i915: Hold reference to 
+> intel_context over life of i915_request").
+> 
+> Ie. if 1e98d8c52ed5 recognised the problem with disappearing rq->engine, 
+> then I am confused how bcb9aa45d5a0 left the rq->engine dereference in 
+> there after removing the extra reference.
+> 
+> Could it be that the intel_engine_is_virtual check simply needs to be 
+> removed from i915_fence_release, restoring things to how they were 
+> before 1e98d8c52ed5? Could you try it out?
 
-With a few DRM drivers exposing per client memory stats via the fdinfo
-interface already, we can add support for exposing the same data (albeit
-aggregated for cgroup hierarchies) via the drm cgroup controller.
 
-Add some driver callbacks and controller code to use them, walking the
-sub-tree, collating the numbers, and presenting them in a new field
-name drm.memory.stat.
+I have already tried something similar [1] and KASAN bugs disappeared, 
+or more precisely gem_exec_balance tests passed. But I have been warned 
+by Nirmoy guc virtual engines can be created for only one real engine 
+(ie. is_power_of_2(rq->execution_mask) is true but rq->engine points to 
+virtual engine).
 
-Example file content:
+[1]: https://patchwork.freedesktop.org/series/118879/
 
-  $ cat drm.memory.stat
-  card0 region=system total=12898304 shared=0 active=0 resident=12111872 purgeable=167936
-  card0 region=stolen-system total=0 shared=0 active=0 resident=0 purgeable=0
+Regards
+Andrzej
 
-Data is generated on demand for simplicty of implementation ie. no running
-totals are kept or accounted during migrations and such. Various
-optimisations such as cheaper collection of data are possible but
-deliberately left out for now.
-
-Overall, the feature is deemed to be useful to container orchestration
-software (and manual management).
-
-Limits, either soft or hard, are not envisaged to be implemented on top of
-this approach due on demand nature of collecting the stats.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Eero Tamminen <eero.t.tamminen@intel.com>
----
- Documentation/admin-guide/cgroup-v2.rst |  22 ++++
- include/drm/drm_drv.h                   |  61 ++++++++++
- kernel/cgroup/drm.c                     | 149 ++++++++++++++++++++++++
- 3 files changed, 232 insertions(+)
-
-diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
-index bbe986366f4a..1891c7d98206 100644
---- a/Documentation/admin-guide/cgroup-v2.rst
-+++ b/Documentation/admin-guide/cgroup-v2.rst
-@@ -2452,6 +2452,28 @@ DRM scheduling soft limits interface files
- 	Standard cgroup weight based control [1, 10000] used to configure the
- 	relative distributing of GPU time between the sibling groups.
- 
-+  drm.memory.stat
-+	A nested file containing cumulative memory statistics for the whole
-+	sub-hierarchy, broken down into separate GPUs and separate memory
-+	regions supported by the latter.
-+
-+	For example::
-+
-+	  $ cat drm.memory.stat
-+	  card0 region=system total=12898304 shared=0 active=0 resident=12111872 purgeable=167936
-+	  card0 region=stolen-system total=0 shared=0 active=0 resident=0 purgeable=0
-+
-+	Card designation corresponds to the DRM device names and multiple line
-+	entries can be present per card.
-+
-+	Memory region names should be expected to be driver specific with the
-+	exception of 'system' which is standardised and applicable for GPUs
-+	which can operate on system memory buffers.
-+
-+	Sub-keys 'resident' and 'purgeable' are optional.
-+
-+	Per category region usage is reported in bytes.
-+
- Misc
- ----
- 
-diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-index 29e11a87bf75..2ea9a46b5031 100644
---- a/include/drm/drm_drv.h
-+++ b/include/drm/drm_drv.h
-@@ -41,6 +41,7 @@ struct drm_minor;
- struct dma_buf;
- struct dma_buf_attachment;
- struct drm_display_mode;
-+struct drm_memory_stats;
- struct drm_mode_create_dumb;
- struct drm_printer;
- struct sg_table;
-@@ -175,6 +176,66 @@ struct drm_cgroup_ops {
- 	 * messages sent by the DRM cgroup controller.
- 	 */
- 	int (*signal_budget) (struct drm_file *, u64 used, u64 budget);
-+
-+
-+	/**
-+	 * @num_memory_regions:
-+	 *
-+	 * Optional callback reporting the number of memory regions driver
-+	 * supports.
-+	 *
-+	 * Callback is allowed to report a larger number than present memory
-+	 * regions, but @memory_region_name is then supposed to return NULL for
-+	 * those indices.
-+	 *
-+	 * Used by the DRM core when queried by the DRM cgroup controller.
-+	 *
-+	 * All three callbacks of @num_memory_regions, @memory_region_name and
-+	 * @memory_stats need to be implemented for DRM cgroup memory stats
-+	 * support.
-+	 */
-+	unsigned int (*num_memory_regions) (const struct drm_device *);
-+
-+	/**
-+	 * @memory_region_name:
-+	 *
-+	 * Optional callback reporting the name of the queried memory region.
-+	 *
-+	 * Can be NULL if the memory region index is not supported by the
-+	 * passed in device.
-+	 *
-+	 * Used by the DRM core when queried by the DRM cgroup controller.
-+	 *
-+	 * All three callbacks of @num_memory_regions, @memory_region_name and
-+	 * @memory_stats need to be implemented for DRM cgroup memory stats
-+	 * support.
-+	 */
-+	const char * (*memory_region_name) (const struct drm_device *,
-+					    unsigned int index);
-+
-+	/**
-+	 * memory_stats:
-+	 *
-+	 * Optional callback adding to the passed in array of struct
-+	 * drm_memory_stats objects.
-+	 *
-+	 * Number of objects in the array is passed in the @num argument.
-+	 *
-+	 * Returns a bitmask of supported enum drm_gem_object_status by the
-+	 * driver instance.
-+	 *
-+	 * Callback is only allow to add to the existing fields and should
-+	 * never clear them.
-+	 *
-+	 * Used by the DRM core when queried by the DRM cgroup controller.
-+	 *
-+	 * All three callbacks of @num_memory_regions, @memory_region_name and
-+	 * @memory_stats need to be implemented for DRM cgroup memory stats
-+	 * support.
-+	 */
-+	unsigned int (*memory_stats) (struct drm_file *,
-+				      struct drm_memory_stats *,
-+				      unsigned int num);
- };
- 
- /**
-diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
-index 7c20d4ebc634..22fc180dd659 100644
---- a/kernel/cgroup/drm.c
-+++ b/kernel/cgroup/drm.c
-@@ -5,6 +5,7 @@
- 
- #include <linux/cgroup.h>
- #include <linux/cgroup_drm.h>
-+#include <linux/device.h>
- #include <linux/list.h>
- #include <linux/moduleparam.h>
- #include <linux/mutex.h>
-@@ -12,6 +13,8 @@
- #include <linux/slab.h>
- 
- #include <drm/drm_drv.h>
-+#include <drm/drm_file.h>
-+#include <drm/drm_gem.h>
- 
- struct drm_cgroup_state {
- 	struct cgroup_subsys_state css;
-@@ -133,6 +136,147 @@ drmcs_read_total_us(struct cgroup_subsys_state *css, struct cftype *cft)
- 	return val;
- }
- 
-+struct drmcs_stat {
-+	const struct drm_device *dev;
-+	const struct drm_cgroup_ops *cg_ops;
-+	const char *device_name;
-+	unsigned int regions;
-+	enum drm_gem_object_status flags;
-+	struct drm_memory_stats *stats;
-+};
-+
-+static int drmcs_seq_show_memory(struct seq_file *sf, void *v)
-+{
-+	struct cgroup_subsys_state *node;
-+	struct drmcs_stat *stats = NULL;
-+	unsigned int num_devices, i;
-+	int ret;
-+
-+	/*
-+	 * We could avoid taking the cgroup_lock and just walk the tree under
-+	 * RCU but then allocating temporary storage becomes a problem. So for
-+	 * now keep it simple and take the lock.
-+	 */
-+	cgroup_lock();
-+
-+	/* Protect against client migrations and clients disappearing. */
-+	ret = mutex_lock_interruptible(&drmcg_mutex);
-+	if (ret) {
-+		cgroup_unlock();
-+		return ret;
-+	}
-+
-+	num_devices = 0;
-+	css_for_each_descendant_pre(node, seq_css(sf)) {
-+		struct drm_cgroup_state *drmcs = css_to_drmcs(node);
-+		struct drm_file *fpriv;
-+
-+		list_for_each_entry(fpriv, &drmcs->clients, clink) {
-+			const struct drm_cgroup_ops *cg_ops =
-+				fpriv->minor->dev->driver->cg_ops;
-+			const char *device_name = dev_name(fpriv->minor->kdev);
-+			struct drmcs_stat *stat;
-+			unsigned int regions;
-+
-+			/* Does this driver supports memory stats? */
-+			if (cg_ops &&
-+			    cg_ops->num_memory_regions &&
-+			    cg_ops->memory_region_name &&
-+			    cg_ops->memory_stats)
-+				regions =
-+				  cg_ops->num_memory_regions(fpriv->minor->dev);
-+			else
-+				regions = 0;
-+
-+			if (!regions)
-+				continue;
-+
-+			/* Have we seen this device before? */
-+			stat = NULL;
-+			for (i = 0; i < num_devices; i++) {
-+				if (!strcmp(stats[i].device_name,
-+					    device_name)) {
-+					stat = &stats[i];
-+					break;
-+				}
-+			}
-+
-+			/* If not allocate space for it. */
-+			if (!stat) {
-+				stats = krealloc_array(stats, num_devices + 1,
-+						       sizeof(*stats),
-+						       GFP_USER);
-+				if (!stats) {
-+					ret = -ENOMEM;
-+					goto out;
-+				}
-+
-+				stat = &stats[num_devices++];
-+				stat->dev = fpriv->minor->dev;
-+				stat->cg_ops = cg_ops;
-+				stat->device_name = device_name;
-+				stat->flags = 0;
-+				stat->regions = regions;
-+				stat->stats =
-+					kcalloc(regions,
-+						sizeof(struct drm_memory_stats),
-+						GFP_USER);
-+				if (!stat->stats) {
-+					ret = -ENOMEM;
-+					goto out;
-+				}
-+			}
-+
-+			/* Accumulate the stats for this device+client. */
-+			stat->flags |= cg_ops->memory_stats(fpriv,
-+							    stat->stats,
-+							    stat->regions);
-+		}
-+	}
-+
-+	for (i = 0; i < num_devices; i++) {
-+		struct drmcs_stat *stat = &stats[i];
-+		unsigned int j;
-+
-+		for (j = 0; j < stat->regions; j++) {
-+			const char *name =
-+				stat->cg_ops->memory_region_name(stat->dev, j);
-+
-+			if (!name)
-+				continue;
-+
-+			seq_printf(sf,
-+				   "%s region=%s total=%llu shared=%llu active=%llu",
-+				   stat->device_name,
-+				   name,
-+				   stat->stats[j].private +
-+				   stat->stats[j].shared,
-+				   stat->stats[j].shared,
-+				   stat->stats[j].active);
-+
-+			if (stat->flags & DRM_GEM_OBJECT_RESIDENT)
-+				seq_printf(sf, " resident=%llu",
-+					   stat->stats[j].resident);
-+
-+			if (stat->flags & DRM_GEM_OBJECT_PURGEABLE)
-+				seq_printf(sf, " purgeable=%llu",
-+					   stat->stats[j].purgeable);
-+
-+			seq_puts(sf, "\n");
-+		}
-+	}
-+
-+out:
-+	mutex_unlock(&drmcg_mutex);
-+	cgroup_unlock();
-+
-+	for (i = 0; i < num_devices; i++)
-+		kfree(stats[i].stats);
-+	kfree(stats);
-+
-+	return ret;
-+}
-+
- static bool __start_scanning(unsigned int period_us)
- {
- 	struct drm_cgroup_state *root = &root_drmcs.drmcs;
-@@ -575,6 +719,11 @@ struct cftype files[] = {
- 		.flags = CFTYPE_NOT_ON_ROOT,
- 		.read_u64 = drmcs_read_total_us,
- 	},
-+	{
-+		.name = "memory.stat",
-+		.flags = CFTYPE_NOT_ON_ROOT,
-+		.seq_show = drmcs_seq_show_memory,
-+	},
- 	{ } /* Zero entry terminates. */
- };
- 
--- 
-2.39.2
+> 
+> Regards,
+> 
+> Tvrtko
 
