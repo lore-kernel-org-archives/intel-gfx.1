@@ -4,65 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4C43C001E0
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 16:38:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6231EC0015E
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 16:41:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D47A10E76F;
-	Thu, 13 Jul 2023 16:37:13 +0000 (UTC)
-Received: from mail-il1-x135.google.com (mail-il1-x135.google.com
- [IPv6:2607:f8b0:4864:20::135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04BD610E759;
- Thu, 13 Jul 2023 16:37:07 +0000 (UTC)
-Received: by mail-il1-x135.google.com with SMTP id
- e9e14a558f8ab-3460aee1d57so3901265ab.0; 
- Thu, 13 Jul 2023 09:37:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689266226; x=1691858226;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=tc9Brh2W3dPQvcqCOoVpte1ruNYD5JWFtpqITlawe8U=;
- b=VsfyQKiLjbzKK/SahsmLfJl8Z5jeUynfr0CGupnuqwUvhXarUNFxb4dr2w1hr+uGyT
- s7PuO6sZxBKzI85rB0M97T7GRy4O6xyqTT5e7Fw9ikPjgU4ipxt1Qz9iHBFfW/yDOTRl
- ckLv3sT5eUP2QZTIZrP9F5b6dhLZPm/ABHMG6573blneUR6G0Ye+wsj1MMCbZJxoKxC4
- LqY7RLUKs9KWXWuIay4vywY5Z8jeU42vhb1vepjVcJWtPe5cQMDZbWwAVVBQJXHQW9gv
- 1RhkzAb/nIU6ZLKkOg3TePjFGtilKseYtyWY2vBL01JW7jw68B9zDC+7Ipfqxd2mYpL4
- J9Yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689266226; x=1691858226;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=tc9Brh2W3dPQvcqCOoVpte1ruNYD5JWFtpqITlawe8U=;
- b=l6BkqHjSMi4v36Zf5jQD146QNNcgE24DXUjr4h94viXtU4M8uBMxjlOMtLoquiN0Kd
- BZmI9bSJIQzupIoSsQpbrQjqn8iPGezJL6flLREsd1QK9qyLExJMmMuReigGTMhI9Q7s
- Xc8qiM4KHX5su7TXetkR49jBTRe7YLPM1U9k1p/O1x4bgHHBT0E5KMNilRsGr3pOLyaK
- 38qccTAwjGkVwTMxgVbqd2rtyR0Tp8iyRWhlbDZ6iZ762awBtTp/wEfGGuh32XKM07id
- ho0tlgJ5vSRL7tT9IS97XzgfGQtwr9SygIoYes1l2OYK4JjSPknoiGHG3pn1i9qz8jDb
- udQg==
-X-Gm-Message-State: ABy/qLbTpJI/+pBy8bTPSqYgxvAwN9QobWtO8DQrku2D/MHYWmXAFuVq
- DncDfHsZUKJswXzUbc6TFM4=
-X-Google-Smtp-Source: APBJJlGn4S2QMrp8rhNUQHiN1GoLViDKjpqnclnnpU6cHFyPYGabENfbMJ6YJUwugrBgI/SFhRuenw==
-X-Received: by 2002:a92:cd0d:0:b0:346:28e:ebf with SMTP id
- z13-20020a92cd0d000000b00346028e0ebfmr2059677iln.2.1689266226260; 
- Thu, 13 Jul 2023 09:37:06 -0700 (PDT)
-Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
- by smtp.googlemail.com with ESMTPSA id
- s7-20020a92d907000000b00345950d7e94sm2147571iln.20.2023.07.13.09.37.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Jul 2023 09:37:05 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: jbaron@akamai.com, daniel.vetter@ffwll.ch, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Date: Thu, 13 Jul 2023 10:36:25 -0600
-Message-ID: <20230713163626.31338-21-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230713163626.31338-1-jim.cromie@gmail.com>
-References: <20230713163626.31338-1-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A87BF10E70E;
+	Thu, 13 Jul 2023 16:41:05 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC95D10E70E
+ for <intel-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 16:41:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1689266463; x=1720802463;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=POgauAXvghSn21lqzcvdxMr+49g+t4abc27ecfGwVwY=;
+ b=PjNJsOpYPe8dIsm/zzSJ0DerqLQ99WcvVSQiFn+1IFIF/l4fr/fHd0aJ
+ QoC2cJ0t4Ofdr6PJf+oNR7C5T0Q93QMOVhirLjjzwip8oliQnSw5MeqEy
+ PKdzUt+EnGqD/ClUJcKAvK6KFeD8XO94oZ8kmduBrlQzaV+mFj2jEMmP2
+ E7UI0gzXDo9uE5XHZkjl61Th3XZUgnH0ISe3jB8nNvDLKQY64TMTPxFA0
+ r55/IWRTQFYa58DwnZPbSxWK+AWufoA7Ncr+Wwl7UudnXx40hxap+sXux
+ YEg54JTwWycU+BkoO3MyA9d20yK6ndUidjJl8DmAAKOxUq4ihqfglkJ74 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="368802248"
+X-IronPort-AV: E=Sophos;i="6.01,203,1684825200"; d="scan'208";a="368802248"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2023 09:41:02 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="1052705120"
+X-IronPort-AV: E=Sophos;i="6.01,203,1684825200"; d="scan'208";a="1052705120"
+Received: from atadj-mobl1.amr.corp.intel.com (HELO localhost) ([10.252.50.30])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2023 09:41:00 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Gustavo Sousa <gustavo.sousa@intel.com>, intel-gfx@lists.freedesktop.org
+In-Reply-To: <168907693005.135984.10580237550326861666@gjsousa-mobl2>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20230711110214.25093-1-jani.nikula@intel.com>
+ <168907693005.135984.10580237550326861666@gjsousa-mobl2>
+Date: Thu, 13 Jul 2023 19:40:57 +0300
+Message-ID: <87o7kfepd2.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 20/21] config TEST_DYNAMIC_DEBUG default m
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH] Revert "drm/i915: use localized
+ __diag_ignore_all() instead of per file"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,36 +59,146 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, gregkh@linuxfoundation.org,
- Jim Cromie <jim.cromie@gmail.com>, seanpaul@chromium.org
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, John Garry <john.g.garry@oracle.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- lib/Kconfig.debug | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On Tue, 11 Jul 2023, Gustavo Sousa <gustavo.sousa@intel.com> wrote:
+> Quoting Jani Nikula (2023-07-11 08:02:14-03:00)
+>>This reverts commit 88e9664434c994e97a9f6f8cdd1535495c660cea.
+>>
+>>__diag_ignore_all() only works for GCC 8 or later.
+>>
+>>-Woverride-init (from -Wextra, enabled in i915 Makefile) combined with
+>>CONFIG_WERROR=y or W=e breaks the build for older GCC.
+>>
+>>With i386_defconfig and x86_64_defconfig enabling CONFIG_WERROR=y by
+>>default, we really need to roll back the change.
+>>
+>>An alternative would be to disable -Woverride-init in the Makefile for
+>>GCC <8, but the revert seems like the safest bet now.
+>
+> Sounds good. We would keep it compatible with older compilers and still have the
+> warning enabled on newer environments.
+>
+> Another alternative I thought about was to have separate files only for
+> initializations of that type (i.e. that would need the warning disabled), but I
+> guess we would need to expose a lot of symbols for that to work...
+>
+> Reviewed-by: Gustavo Sousa <gustavo.sousa@intel.com>
 
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index d4fbbcc395d2..82d11ac63758 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2696,13 +2696,14 @@ config TEST_STATIC_KEYS
- 
- config TEST_DYNAMIC_DEBUG
- 	tristate "Build test-dynamic-debug module"
-+	default m
- 	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
- 	help
- 	  This module works/demo's the dyndbg's classmap API, by
- 	  creating 2 classes: a DISJOINT classmap (like DRM.debug)
- 	  and a LEVELS/VERBOSE classmap (where 2>1).
- 
--	  If unsure, say N.
-+	  If unsure, say N.  If bored/curious, say M
- 
- config TEST_KMOD
- 	tristate "kmod stress tester"
+Thanks, pushed to drm-intel-next.
+
+BR,
+Jani.
+
+>
+>>
+>>Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/8768
+>>Reported-by: John Garry <john.g.garry@oracle.com>
+>>References: https://lore.kernel.org/r/ad2601c0-84bb-c574-3702-a83ff8faf98c@oracle.com
+>>References: https://lore.kernel.org/r/87wmzezns4.fsf@intel.com
+>>Fixes: 88e9664434c9 ("drm/i915: use localized __diag_ignore_all() instead of per file")
+>>Cc: Gustavo Sousa <gustavo.sousa@intel.com>
+>>Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+>>Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+>>Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+>>Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>>---
+>> drivers/gpu/drm/i915/Makefile                       | 5 +++++
+>> drivers/gpu/drm/i915/display/intel_display_device.c | 5 -----
+>> drivers/gpu/drm/i915/display/intel_fbdev.c          | 5 -----
+>> drivers/gpu/drm/i915/i915_pci.c                     | 5 -----
+>> 4 files changed, 5 insertions(+), 15 deletions(-)
+>>
+>>diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
+>>index 2be9dd960540..c5fc91cd58e7 100644
+>>--- a/drivers/gpu/drm/i915/Makefile
+>>+++ b/drivers/gpu/drm/i915/Makefile
+>>@@ -23,6 +23,11 @@ subdir-ccflags-y += $(call cc-option, -Wunused-but-set-variable)
+>> subdir-ccflags-y += $(call cc-disable-warning, frame-address)
+>> subdir-ccflags-$(CONFIG_DRM_I915_WERROR) += -Werror
+>> 
+>>+# Fine grained warnings disable
+>>+CFLAGS_i915_pci.o = $(call cc-disable-warning, override-init)
+>>+CFLAGS_display/intel_display_device.o = $(call cc-disable-warning, override-init)
+>>+CFLAGS_display/intel_fbdev.o = $(call cc-disable-warning, override-init)
+>>+
+>> subdir-ccflags-y += -I$(srctree)/$(src)
+>> 
+>> # Please keep these build lists sorted!
+>>diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
+>>index e4afa7334c82..8286e79522d1 100644
+>>--- a/drivers/gpu/drm/i915/display/intel_display_device.c
+>>+++ b/drivers/gpu/drm/i915/display/intel_display_device.c
+>>@@ -16,9 +16,6 @@
+>> #include "intel_display_reg_defs.h"
+>> #include "intel_fbc.h"
+>> 
+>>-__diag_push();
+>>-__diag_ignore_all("-Woverride-init", "Allow overriding inherited members");
+>>-
+>> static const struct intel_display_device_info no_display = {};
+>> 
+>> #define PIPE_A_OFFSET                0x70000
+>>@@ -727,8 +724,6 @@ static const struct intel_display_device_info xe_lpdp_display = {
+>>                 BIT(PORT_TC1) | BIT(PORT_TC2) | BIT(PORT_TC3) | BIT(PORT_TC4),
+>> };
+>> 
+>>-__diag_pop();
+>>-
+>> #undef INTEL_VGA_DEVICE
+>> #undef INTEL_QUANTA_VGA_DEVICE
+>> #define INTEL_VGA_DEVICE(id, info) { id, info }
+>>diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+>>index 1cc0ddc6a310..80c3f88310db 100644
+>>--- a/drivers/gpu/drm/i915/display/intel_fbdev.c
+>>+++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+>>@@ -135,9 +135,6 @@ static int intel_fbdev_mmap(struct fb_info *info, struct vm_area_struct *vma)
+>>         return i915_gem_fb_mmap(obj, vma);
+>> }
+>> 
+>>-__diag_push();
+>>-__diag_ignore_all("-Woverride-init", "Allow overriding the default ops");
+>>-
+>> static const struct fb_ops intelfb_ops = {
+>>         .owner = THIS_MODULE,
+>>         __FB_DEFAULT_DEFERRED_OPS_RDWR(intel_fbdev),
+>>@@ -149,8 +146,6 @@ static const struct fb_ops intelfb_ops = {
+>>         .fb_mmap = intel_fbdev_mmap,
+>> };
+>> 
+>>-__diag_pop();
+>>-
+>> static int intelfb_alloc(struct drm_fb_helper *helper,
+>>                          struct drm_fb_helper_surface_size *sizes)
+>> {
+>>diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+>>index dea3609fc496..fcacdc21643c 100644
+>>--- a/drivers/gpu/drm/i915/i915_pci.c
+>>+++ b/drivers/gpu/drm/i915/i915_pci.c
+>>@@ -38,9 +38,6 @@
+>> #include "i915_reg.h"
+>> #include "intel_pci_config.h"
+>> 
+>>-__diag_push();
+>>-__diag_ignore_all("-Woverride-init", "Allow overriding inherited members");
+>>-
+>> #define PLATFORM(x) .platform = (x)
+>> #define GEN(x) \
+>>         .__runtime.graphics.ip.ver = (x), \
+>>@@ -846,8 +843,6 @@ static const struct intel_device_info mtl_info = {
+>> 
+>> #undef PLATFORM
+>> 
+>>-__diag_pop();
+>>-
+>> /*
+>>  * Make sure any device matches here are from most specific to most
+>>  * general.  For example, since the Quanta match is based on the subsystem
+>>-- 
+>>2.39.2
+>>
+
 -- 
-2.41.0
-
+Jani Nikula, Intel Open Source Graphics Center
