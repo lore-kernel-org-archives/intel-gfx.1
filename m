@@ -4,120 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51387C001DF
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 12:48:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E480C001E0
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 12:48:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B3AC10E6AB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33B2F10E6AA;
 	Thu, 13 Jul 2023 12:48:47 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2040.outbound.protection.outlook.com [40.107.220.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B6B210E534;
- Wed, 12 Jul 2023 13:54:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lg/wJHH/ZFJfBXf0dR+HzSa8gUzcCNvgEVvSP267D7MPQK3c5Exm7efzcpBuo/uHQ9WOvoGqGIVxG40Rc82ll6k2VkBtY1yuAaYceR/K//D14Gm0caoArWB3nfjKis14Vskkl0gSEIzUbyz8mqAk0gEsHi+duohyuMOg2sGtjJab7KWtg4+aigLjIevXMT9EMyH4/8k/rcdxC8VEE1KEbQateFBjVetDl1pvJneGzw3czwTtBQciw04ZgfocQhHIfF9cClYcvKS59o75Obf7g7CcFeutjC4KZIDbPZC2MrPgdhHt9VK7C82QtwlM63cm1vipNSn0EqwbJk05JoZkOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XgHMqA6NR6xwi31+5UQb02kpONt6s3GFuikZRULOVgI=;
- b=XcpEFbGo4dujwilE05EBLxUAB4zsdSGoZgIAg7JhFWRakc8T6Z5SxWzlFR5OPi0yEBzVwcBJVx21N6zDlJrw88liyEa3Qb3q1tRUxUvgCgu23cpv2gVXUPTy5SdiEVvy/MP/iWQAFMSC9E1HkUKoUWYyz4UCwrODoIGzQR7Stf1uViO9Mo0aFUcTck0fYCVUyXWgjyrJscV3vgmjbnlWa3cUf2F+tLcmQYpMJH+oddSKYKdJNiM/NmBHSoYjjUCDePj/XpsawdOanzetUfInWzoimAoLBVt45F9UDG0yd1mG3gf7G8OwxPWh/RL7pIZwKiGJvxdfLrhBI+roBotxUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XgHMqA6NR6xwi31+5UQb02kpONt6s3GFuikZRULOVgI=;
- b=VsTwGxlovAH+46yi04iJt6VNhWVApnJMd0mPZ5sw1AqorHxPRvBJGBkrD52FaJ9tbEji7+v0jusEoLcCNJqN5huTd57Zq9u6F31SQth6QTv2sU53YqkDgGQDd2Lj2tG/LZx4c+pqyQW2Di8ZFFsObxdpo62OpsNeTEiAtUV1kqo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
- by SN7PR12MB8004.namprd12.prod.outlook.com (2603:10b6:806:341::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6565.30; Wed, 12 Jul
- 2023 13:54:11 +0000
-Received: from BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::669f:5dca:d38a:9921]) by BN8PR12MB3587.namprd12.prod.outlook.com
- ([fe80::669f:5dca:d38a:9921%4]) with mapi id 15.20.6588.017; Wed, 12 Jul 2023
- 13:54:11 +0000
-Message-ID: <603f0b69-71d3-ad8f-4b5e-53b63a6fd521@amd.com>
-Date: Wed, 12 Jul 2023 15:53:41 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <u.kleine-koenig@pengutronix.de>,
- Maxime Ripard <mripard@kernel.org>
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B6E510E673;
+ Thu, 13 Jul 2023 09:03:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1689239035; x=1720775035;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=wpe6dsOBfDPS7D7Sq/hiKhbMpNSn/Y2A1D02VMmRxgw=;
+ b=nCC482jgclH2CTz6+8O714okx2RScR1uZ2aAY20lsHcei7XFzoS0RmBS
+ h5N0PTR8+GfYDCWQf5ysPxbzqCQZEFJi+wNxT1glQr5w2aPx5evHTAFAi
+ RP0U/ZTxT3zUpjpJFqkl6ovSYirIQDR2Z2Dy1mWNCSsgYgar9gDCOLrRm
+ N2wPAmMQsZfWXVQ7+mM0JQDNuoBBznXVebwm+HpNtMBWJ3FTQYzxoNAPS
+ /9qVkQNhtHpmq3IXBweM1YUcGUUOC/BwcEG+JrsXnPsakzPsZ2FCuc7un
+ YHqhkBTsB3xbg+FQsFEtpiwJPjWLdpdweVtTlmp4v9VEXRnjcnY3iGDNv Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10769"; a="395935058"
+X-IronPort-AV: E=Sophos;i="6.01,202,1684825200"; d="scan'208";a="395935058"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2023 02:03:52 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10769"; a="715882508"
+X-IronPort-AV: E=Sophos;i="6.01,202,1684825200"; d="scan'208";a="715882508"
+Received: from atadj-mobl1.amr.corp.intel.com (HELO localhost) ([10.252.50.30])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2023 02:03:08 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+In-Reply-To: <20230712161025.22op3gtzgujrhytb@pengutronix.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
- <94eb6e4d-9384-152f-351b-ebb217411da9@amd.com>
- <20230712110253.paoyrmcbvlhpfxbf@pengutronix.de>
- <o3dc4q27ap6rajsvpfwfvs3z3afekkwbhnclvswkaietciy2kc@unjf67gz5tur>
- <20230712133803.rf26cbg5wz7wsmgl@pengutronix.de>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20230712133803.rf26cbg5wz7wsmgl@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0182.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a4::17) To BN8PR12MB3587.namprd12.prod.outlook.com
- (2603:10b6:408:43::13)
+ <87fs5tgpvv.fsf@intel.com>
+ <20230712161025.22op3gtzgujrhytb@pengutronix.de>
+Date: Thu, 13 Jul 2023 12:03:05 +0300
+Message-ID: <878rbkgp4m.fsf@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|SN7PR12MB8004:EE_
-X-MS-Office365-Filtering-Correlation-Id: 671d3312-9a10-4462-11d9-08db82df77d0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Q+CjsHYjoEoIKYhGUtD4L6IdokqTfF3/rDoqE4aTyfCbPLgsxxuVuGUsuYCA35P4DktoBo4NaYU33T1d8TbAYeptCtWe1B55Dc7oLzVxiycliZfDBnEm8XarwPg0ryzzSJwJvhapixHLvylLlitF0v/N12hzY0tfsoDFfKqumWSnLuk5x9Kn4zL6bJWU91FmrGKdnYdHX5drfEhP8xT5CwqxgEcEcA6YmR3c+YE5hsNLi/9CstC4LyCaAp5+lOrfLNlEjbdWekywxde7dpFY5E5s2/endwHQUHrz1bB9ykbxzYdRfCd0i9JW7/R6RC1xHH6+RRBRUIVRg1hDT66tr9wgyeCj9kKh/5b2fvBgeIJAefMeQ4DQGX2ABfSJY1ODzvBXYMRjaaJvv2MH5lBW1Wdn+4LhArrIoqD0ox+pZbg4DAYjKVelomflcL76YONd3m/Nm+A7Hl4KYkmN3O9uoF8v3kUa4pH8JvdeVkcLPt6rn2HtEznZol9p06p+UQwoRqyFsHPi7xBhaQmHP/1s/M/8/S29cNU3SALPZIHU7nlxbjBCA4vScSL+4SOd+JOPhDgQZTqOQ2+2X3KoAk0XpNvhaWjTc9kOmWYNTsNJP8BQ2Q3Gk9OICAtK/ERCMFrWI2Rxa4J2jJ36saRcsxOVNQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3587.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(376002)(346002)(366004)(396003)(39860400002)(136003)(451199021)(8676002)(8936002)(7336002)(83380400001)(2906002)(66574015)(2616005)(36756003)(38100700002)(31696002)(86362001)(7406005)(7416002)(7366002)(7276002)(5660300002)(6506007)(186003)(31686004)(6666004)(66556008)(66476007)(4326008)(6486002)(110136005)(54906003)(66946007)(41300700001)(6512007)(316002)(478600001)(45980500001)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cWZnOXNSRjdOTkRMN2twRmhhNlZKUU04WHhCY2Z0bUFVMmd0ZzMzZldoayts?=
- =?utf-8?B?elhFTXRKeWVNRUpHQ01yaTVaa1Ztakt4R216MWlHODdMUmhQYjdhMWRWUk9K?=
- =?utf-8?B?OFRpNCtPWlhuR003dy83ZXZySTlIcExnU1c0aHFEaWlya2hyRDliSjlkYlg1?=
- =?utf-8?B?bDNlV3I3b3VsWXN6VStIZDhhd1hzcW5OblM5Z0ZwWmp2b0FTMTVpdE5zTC9J?=
- =?utf-8?B?SGFRSm5PVmVhSjJSWnd6V2dYcE9RenYzbEg0UEpZTGRvbFQzUVFWQUZERjRu?=
- =?utf-8?B?bE5ncmc4N0xPZkZEbURQTjIwYlpYSFNzUC91TUxYZVZ2bHgvQmNNak5aNHp2?=
- =?utf-8?B?SG5kdnIvdmliUitLc2lYbnVpdjJOOHJLYkhMK3doOFdIZGtlckJSRmt1WHZ5?=
- =?utf-8?B?VTM4QldNT0JwV29jQXF4SzVaMzhpRmhCcmlJOVJTVFp0VzE0RGtUYmIrb3dJ?=
- =?utf-8?B?MnQvb0tRaFpVWlBjVE5OdE9heDVyYjNkUExTN3BxaWNCOE1WVTFoQkh6R3V6?=
- =?utf-8?B?eHhYS0FMVURYRFp0VXA5ZFBUNmV2QU5tMzVxK2FERFc5aFFObEkzKyt6ekpX?=
- =?utf-8?B?YlM4VElnWStHaVNhY2dsdWdDSGh4TkNEZnpveVk1c3I4RCtIOHJJTTNIbTF2?=
- =?utf-8?B?U3NtaTF5OWZ6Z0FpSFRLcHdBVFlpcEpoTVU1TjJnZ1J4YW9qVmlUSHViNlVL?=
- =?utf-8?B?emNONXFSYzhSM04xc0xkNmFidGw3cWNrbEs1OHVOTENPamFlRzB5SzVWNFlN?=
- =?utf-8?B?T0tIQWc0T0JNT2VxR25wKzFjSE00NVg3cWxMNGxtOC9ubHRlOTN1QXllQkhZ?=
- =?utf-8?B?a2RJVjF1RjhleWdlMzZkcDVMTForNU13UllNVUdBYldTYXJnTXdEVjBIZlVZ?=
- =?utf-8?B?R1lNOUM4VGhGV2NYMDExWU1tNG1VTUlEMzQrQjI3S0JvTjQ3aStLdlUrU2xn?=
- =?utf-8?B?MkdRdFR0eXl3VEtWL2p2WWRNb1pIMFNERHVxdm1tSHVyRkN6elVOcjBDVUw0?=
- =?utf-8?B?cGRVdlpCdVJFb1dHYk03VlVUZzl3NE8vVlN6bksrZGd3SEx0d1QwNmVKeVBT?=
- =?utf-8?B?ZHVkWXRCMjIvem9VOTl1ZnJQVEVCbUtuWElLY0ZTRWxnM3VPVFh6V1MvZnJO?=
- =?utf-8?B?ZG9zQ3VaQnFLUjZ1OXdGNEFMS1JWOS9BSTRYQkxPMHVxckYzaGFxcmtlcXgz?=
- =?utf-8?B?VXhrcE9CT2twUXYwQVYxSHk4UEJsdlVwMnF0YmxkUmh6cUMrdlI3SE9GUDVU?=
- =?utf-8?B?MzVxUUpHQXNOL1Z1REY2dTc0cEQwUGlHZVdqUmlzbHd6Nk1jdExTMjZDMXlQ?=
- =?utf-8?B?elJxMDZOWEhibURhenV4RHNwdUdXWDhxNXMwcVVucHBGOUI0WndLeXRmLzVz?=
- =?utf-8?B?UUxGUVhLaHEwK1NOd0pHYk9Lb2dnSGhqNU9LN3NWTlhxKzBXd3UxOUlWaEtI?=
- =?utf-8?B?UmIxeHUzOXdvNmtOM0hXbVJIYW5tWUFGMi94ck5Yb0VHUitCeFc1SlphVXJZ?=
- =?utf-8?B?cm1xaW1nL1NjQmdLQUd3dXUyQ2wyblJZMWZ0RGxGSXN3T296N1Y3dDk4dUhN?=
- =?utf-8?B?TVpGYWllcmdvYXFhUVdlanB1V3F5RzM2Zm9RSjZpNk5wSWZpWmhiYzNSVS9r?=
- =?utf-8?B?SDY5U1BHQlVrWTgvd1M1Y0tCUkFMK0RHNnBxUjQ5ZnQ5dU8yKzdvSC9JWXRP?=
- =?utf-8?B?V0pLTytkVTlEUkNWOTgyZ3QyL1BnOEpwNzB0YjMvUEVzazhiY2owVGg2RWdq?=
- =?utf-8?B?Mmh4R2JINXdPK3B0QnVxQjNJaTBTeUtzSE5oYlNtQjBvMnZCb2hleEc4RkJm?=
- =?utf-8?B?Q3lzZ3J6MjU4a1pLaDFnalFBT0FvTFZtYkZHckExSFRtU3NHbHY1Sjd0NFB3?=
- =?utf-8?B?WDg2MU1PaC93VE9vYVFZdmZ4dmh1R0RzYlRtcmdTUTh1MjZoR2NVUVErZVRy?=
- =?utf-8?B?aCtjeWp2dk1IWWg2anFrZDQ2WWMzSGtWY0xBT3FPZXJBMXY0U2xGNkY0eFZ3?=
- =?utf-8?B?QnpHWjJ2WXBGdjBBRTUvcXVkeC8yYkdXSWRJMDZIOUNSOHdsR2JhYWVNMkU5?=
- =?utf-8?B?T1FQQk9YVVFTL2RLcllWZXhWdGt0YWxxc2JJYVpwYlRRc3AxZGpLYTdLaXU4?=
- =?utf-8?B?K0hSNmJqS3BVUG04aWhWdlBvM2lBSTZQZU9kaDBwT2tJRkozSjdRZVNZSmkr?=
- =?utf-8?Q?wZiHYk+qO2DJStqXYi3DikavUdxGeplCKcXkmFW5lXc7?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 671d3312-9a10-4462-11d9-08db82df77d0
-X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jul 2023 13:54:10.5983 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ISzr+3rCUPYNUMLw1tOBcCfws4G9gt0O8QB3ANwU8gXg/6JBx2yCDaCKDG7kwoD8
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8004
-X-Mailman-Approved-At: Thu, 13 Jul 2023 12:48:30 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Thu, 13 Jul 2023 12:48:29 +0000
 Subject: Re: [Intel-gfx] [PATCH RFC v1 00/52] drm/crtc: Rename struct
  drm_crtc::dev to drm_dev
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -132,11 +62,8 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Xinliang Liu <xinliang.liu@linaro.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Alexey Kodanev <aleksei.kodanev@bell-sw.com>, dri-devel@lists.freedesktop.org,
  Alim Akhtar <alim.akhtar@samsung.com>,
  Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
@@ -149,34 +76,35 @@ Cc: =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
  spice-devel@lists.freedesktop.org,
  Dmitry Baryshkov <dmitry.baryshkov@linaro.org>, linux-sunxi@lists.linux.dev,
  Matthias Brugger <matthias.bgg@gmail.com>, Tim Huang <Tim.Huang@amd.com>,
- =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>,
- Jani Nikula <jani.nikula@intel.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>, Inki Dae <inki.dae@samsung.com>,
- Hersen Wu <hersenxs.wu@amd.com>, Dave Airlie <airlied@redhat.com>,
+ =?utf-8?Q?A?= =?utf-8?Q?ndr=C3=A9?= Almeida <andrealmeid@igalia.com>,
+ Leo Li <sunpeng.li@amd.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, Hersen Wu <hersenxs.wu@amd.com>,
+ Dave Airlie <airlied@redhat.com>,
  Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
  Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- =?UTF-8?Q?=c5=81ukasz_Bartosik?= <lb@semihalf.com>,
+ =?utf-8?Q?=C5=81ukasz?= Bartosik <lb@semihalf.com>,
  Andrew Jeffery <andrew@aj.id.au>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
+ Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
  Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- Claudiu Beznea <claudiu.beznea@microchip.com>, Zack Rusin <zackr@vmware.com>,
+ Claudiu Beznea <claudiu.beznea@microchip.com>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
  linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
  virtualization@lists.linux-foundation.org,
  Yongqin Liu <yongqin.liu@linaro.org>,
  Mario Limonciello <mario.limonciello@amd.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
- David Francis <David.Francis@amd.com>, Aaron Liu <aaron.liu@amd.com>,
- Vinod Polimera <quic_vpolimer@quicinc.com>, linux-rockchip@lists.infradead.org,
- Fangzhi Zuo <jerry.zuo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, David Francis <David.Francis@amd.com>,
+ Aaron Liu <aaron.liu@amd.com>, Vinod Polimera <quic_vpolimer@quicinc.com>,
+ linux-rockchip@lists.infradead.org, Fangzhi Zuo <jerry.zuo@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
  VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
  Ben Skeggs <bskeggs@redhat.com>, Jessica Zhang <quic_jesszhan@quicinc.com>,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
  linux-arm-msm@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
- Tian Tao <tiantao6@hisilicon.com>, Biju Das <biju.das.jz@bp.renesas.com>,
- linux-amlogic@lists.infradead.org, Evan Quan <evan.quan@amd.com>,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
+ Maxime Ripard <mripard@kernel.org>, Tian Tao <tiantao6@hisilicon.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>, linux-amlogic@lists.infradead.org,
+ Evan Quan <evan.quan@amd.com>, Michal Simek <michal.simek@amd.com>,
+ linux-arm-kernel@lists.infradead.org,
  Neil Armstrong <neil.armstrong@linaro.org>,
  Boris Brezillon <bbrezillon@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
  Qingqing Zhuo <qingqing.zhuo@amd.com>, Sandy Huang <hjc@rock-chips.com>,
@@ -186,8 +114,8 @@ Cc: =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
  Haneen Mohammed <hamohammed.sa@gmail.com>,
  Paul Cercueil <paul@crapouillou.net>, Dan Carpenter <error27@gmail.com>,
  Karol Herbst <kherbst@redhat.com>, linux-hyperv@vger.kernel.org,
- Stefan Agner <stefan@agner.ch>, Melissa Wen <melissa.srw@gmail.com>,
- =?UTF-8?Q?Ma=c3=adra_Canal?= <mairacanal@riseup.net>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ =?utf-8?Q?Ma=C3=ADra?= Canal <mairacanal@riseup.net>,
  Luca Coelho <luciano.coelho@intel.com>, Gerd Hoffmann <kraxel@redhat.com>,
  Andrzej Hajda <andrzej.hajda@intel.com>, Likun Gao <Likun.Gao@amd.com>,
  "Jiri Slaby \(SUSE\)" <jirislaby@kernel.org>, Emma Anholt <emma@anholt.net>,
@@ -195,126 +123,159 @@ Cc: =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
  Jernej Skrabec <jernej.skrabec@gmail.com>,
  Deepak Rawat <drawat.floss@gmail.com>,
  Xinwei Kong <kong.kongxinwei@hisilicon.com>, Joel Stanley <joel@jms.id.au>,
- Orson Zhai <orsonzhai@gmail.com>, Harry Wentland <harry.wentland@amd.com>,
- Chia-I Wu <olvaffe@gmail.com>, Alan Liu <haoping.liu@amd.com>,
+ Orson Zhai <orsonzhai@gmail.com>, Alan Liu <haoping.liu@amd.com>,
  Philip Yang <Philip.Yang@amd.com>, intel-gfx@lists.freedesktop.org,
  Alison Wang <alison.wang@nxp.com>,
  Wolfram Sang <wsa+renesas@sang-engineering.com>,
  Abhinav Kumar <quic_abhinavk@quicinc.com>,
  Baolin Wang <baolin.wang@linux.alibaba.com>,
  Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Daniel Vetter <daniel@ffwll.ch>, Mikko Perttunen <mperttunen@nvidia.com>,
- Yifan Zhang <yifan1.zhang@amd.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, Yifan Zhang <yifan1.zhang@amd.com>,
  Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Tomi Valkeinen <tomba@kernel.org>, Deepak R Varma <drv@mailo.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Julia Lawall <Julia.Lawall@inria.fr>,
+ Tomi Valkeinen <tomba@kernel.org>, Deepak R Varma <drv@mailo.com>, "Pan, 
+ Xinhui" <Xinhui.Pan@amd.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
  Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
  John Stultz <jstultz@google.com>, Roman Li <roman.li@amd.com>,
  Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>,
  linux-stm32@st-md-mailman.stormreply.com, Sam Ravnborg <sam@ravnborg.org>,
  Chun-Kuang Hu <chunkuang.hu@kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
- Liu Shixin <liushixin2@huawei.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Hamza Mahfooz <hamza.mahfooz@amd.com>, David Airlie <airlied@gmail.com>,
+ Liu Shixin <liushixin2@huawei.com>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
  Marek Vasut <marex@denx.de>, Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Lang Yu <Lang.Yu@amd.com>, xen-devel@lists.xenproject.org,
- Guchun Chen <guchun.chen@amd.com>,
+ xen-devel@lists.xenproject.org, Guchun Chen <guchun.chen@amd.com>,
  Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
  Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
  Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Russell King <linux@armlinux.org.uk>, Leo Li <sunpeng.li@amd.com>,
- Jiasheng Jiang <jiasheng@iscas.ac.cn>,
+ Russell King <linux@armlinux.org.uk>, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
  Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
  David Lechner <david@lechnology.com>,
  Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>,
- =?UTF-8?Q?Joaqu=c3=adn_Ignacio_Aramend=c3=ada?= <samsagax@gmail.com>,
- Melissa Wen <mwen@igalia.com>, Hans de Goede <hdegoede@redhat.com>,
- linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
+ Marek =?utf-8?B?T2zFocOhaw==?= <marek.olsak@amd.com>,
+ =?utf-8?Q?Joaqu=C3=ADn?= Ignacio =?utf-8?Q?Aramend=C3=ADa?=
+ <samsagax@gmail.com>, Melissa Wen <mwen@igalia.com>,
+ Hans de Goede <hdegoede@redhat.com>, linux-mediatek@lists.infradead.org,
  Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, linux-tegra@vger.kernel.org,
  David Tadokoro <davidbtadokoro@usp.br>,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- amd-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ amd-gfx@lists.freedesktop.org, Lang Yu <Lang.Yu@amd.com>,
  Yannick Fertre <yannick.fertre@foss.st.com>, linux-mips@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
  Philippe Cornu <philippe.cornu@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Wayne Lin <Wayne.Lin@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Wayne Lin <Wayne.Lin@amd.com>,
  Drew Davenport <ddavenport@chromium.org>, Nirmoy Das <nirmoy.das@intel.com>,
- Jyri Sarha <jyri.sarha@iki.fi>, Lucas Stach <l.stach@pengutronix.de>
+ Jyri Sarha <jyri.sarha@iki.fi>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am 12.07.23 um 15:38 schrieb Uwe Kleine-König:
-> Hello Maxime,
+On Wed, 12 Jul 2023, Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.de>=
+ wrote:
+> Hello Jani,
 >
-> On Wed, Jul 12, 2023 at 02:52:38PM +0200, Maxime Ripard wrote:
->> On Wed, Jul 12, 2023 at 01:02:53PM +0200, Uwe Kleine-König wrote:
->>>> Background is that this makes merge conflicts easier to handle and detect.
->>> Really?
->> FWIW, I agree with Christian here.
->>
->>> Each file (apart from include/drm/drm_crtc.h) is only touched once. So
->>> unless I'm missing something you don't get less or easier conflicts by
->>> doing it all in a single patch. But you gain the freedom to drop a
->>> patch for one driver without having to drop the rest with it.
->> Not really, because the last patch removed the union anyway. So you have
->> to revert both the last patch, plus that driver one. And then you need
->> to add a TODO to remove that union eventually.
-> Yes, with a single patch you have only one revert (but 194 files changed,
-> 1264 insertions(+), 1296 deletions(-)) instead of two (one of them: 1
-> file changed, 9 insertions(+), 1 deletion(-); the other maybe a bit
-> bigger). (And maybe you get away with just reverting the last patch.)
+> On Wed, Jul 12, 2023 at 05:34:28PM +0300, Jani Nikula wrote:
+>> On Wed, 12 Jul 2023, Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix.=
+de> wrote:
+>> > Hello,
+>> >
+>> > while I debugged an issue in the imx-lcdc driver I was constantly
+>> > irritated about struct drm_device pointer variables being named "dev"
+>> > because with that name I usually expect a struct device pointer.
+>> >
+>> > I think there is a big benefit when these are all renamed to "drm_dev".
+>> > I have no strong preference here though, so "drmdev" or "drm" are fine
+>> > for me, too. Let the bikesheding begin!
+>> >
+>> > Some statistics:
+>> >
+>> > $ git grep -ohE 'struct drm_device *\* *[^ (),;]*' v6.5-rc1 | sort | u=
+niq -c | sort -n
+>> >       1 struct drm_device *adev_to_drm
+>> >       1 struct drm_device *drm_
+>> >       1 struct drm_device          *drm_dev
+>> >       1 struct drm_device        *drm_dev
+>> >       1 struct drm_device *pdev
+>> >       1 struct drm_device *rdev
+>> >       1 struct drm_device *vdev
+>> >       2 struct drm_device *dcss_drv_dev_to_drm
+>> >       2 struct drm_device **ddev
+>> >       2 struct drm_device *drm_dev_alloc
+>> >       2 struct drm_device *mock
+>> >       2 struct drm_device *p_ddev
+>> >       5 struct drm_device *device
+>> >       9 struct drm_device * dev
+>> >      25 struct drm_device *d
+>> >      95 struct drm_device *
+>> >     216 struct drm_device *ddev
+>> >     234 struct drm_device *drm_dev
+>> >     611 struct drm_device *drm
+>> >    4190 struct drm_device *dev
+>> >
+>> > This series starts with renaming struct drm_crtc::dev to drm_dev. If
+>> > it's not only me and others like the result of this effort it should be
+>> > followed up by adapting the other structs and the individual usages in
+>> > the different drivers.
+>>=20
+>> I think this is an unnecessary change. In drm, a dev is usually a drm
+>> device, i.e. struct drm_device *.
 >
-> With a single patch the TODO after a revert is "redo it all again (and
-> prepare for a different set of conflicts)" while with the split series
-> it's only "fix that one driver that was forgotten/borked" + reapply that
-> 10 line patch.
+> Well, unless it's not. Prominently there is
+>
+> 	struct drm_device {
+> 		...
+> 		struct device *dev;
+> 		...
+> 	};
+>
+> which yields quite a few code locations using dev->dev which is
+> IMHO unnecessary irritating:
+>
+> 	$ git grep '\<dev->dev' v6.5-rc1 drivers/gpu/drm | wc -l
+> 	1633
+>
+> Also the functions that deal with both a struct device and a struct
+> drm_device often use "dev" for the struct device and then "ddev" for
+> the drm_device (see for example amdgpu_device_get_pcie_replay_count()).
 
-Yeah, but for a maintainer the size of the patches doesn't matter. 
-That's only interesting if you need to manually review the patch, which 
-you hopefully doesn't do in case of something auto-generated.
+Why is specifically struct drm_device *dev so irritating to you?
 
-In other words if the patch is auto-generated re-applying it completely 
-is less work than fixing things up individually.
+You lead us to believe it's an outlier in kernel, something that goes
+against common kernel style, but it's really not:
 
->   As the one who gets that TODO, I prefer the latter.
+$ git grep -how "struct [A-Za-z0-9_]\+ \*dev" | sort | uniq -c | sort -rn |=
+ head -20
+  38494 struct device *dev
+  16388 struct net_device *dev
+   4184 struct drm_device *dev
+   2780 struct pci_dev *dev
+   1916 struct comedi_device *dev
+   1510 struct mlx5_core_dev *dev
+   1057 struct mlx4_dev *dev
+    894 struct b43_wldev *dev
+    762 struct input_dev *dev
+    623 struct usbnet *dev
+    561 struct mlx5_ib_dev *dev
+    525 struct mt76_dev *dev
+    465 struct mt76x02_dev *dev
+    435 struct platform_device *dev
+    431 struct usb_device *dev
+    411 struct mt7915_dev *dev
+    398 struct cx231xx *dev
+    378 struct mei_device *dev
+    363 struct ksz_device *dev
+    359 struct mthca_dev *dev
 
-Yeah, but your personal preferences are not a technical relevant 
-argument to a maintainer.
+A good portion of the above also have a dev member.
 
-At the end of the day Dave or Daniel need to decide, because they need 
-to live with it.
+Are you planning on changing all of the above too, or are you only
+annoyed by drm?
 
-Regards,
-Christian.
+I'm really not convinced at all.
 
->
-> So in sum: If your metric is "small count of reverted commits", you're
-> right. If however your metric is: Better get 95% of this series' change
-> in than maybe 0%, the split series is the way to do it.
->
-> With me having spend ~3h on this series' changes, it's maybe
-> understandable that I did it the way I did.
->
-> FTR: This series was created on top of v6.5-rc1. If you apply it to
-> drm-misc-next you get a (trivial) conflict in patch #2. If I consider to
-> be the responsible maintainer who applies this series, I like being able
-> to just do git am --skip then.
->
-> FTR#2: In drm-misc-next is a new driver
-> (drivers/gpu/drm/loongson/lsdc_crtc.c) so skipping the last patch for
-> now might indeed be a good idea.
->
->>> So I still like the split version better, but I'm open to a more
->>> verbose reasoning from your side.
->> You're doing only one thing here, really: you change the name of a
->> structure field. If it was shared between multiple maintainers, then
->> sure, splitting that up is easier for everyone, but this will go through
->> drm-misc, so I can't see the benefit it brings.
-> I see your argument, but I think mine weights more.
->
-> Best regards
-> Uwe
->
 
+BR,
+Jani.
+
+
+--=20
+Jani Nikula, Intel Open Source Graphics Center
