@@ -4,61 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55343C001DC
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Jul 2023 13:54:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEE51C0015E
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Jul 2023 13:54:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A1FB10E25C;
-	Mon, 17 Jul 2023 13:54:55 +0000 (UTC)
-Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
- [IPv6:2607:f8b0:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7690F10E207
- for <intel-gfx@lists.freedesktop.org>; Mon, 17 Jul 2023 08:29:47 +0000 (UTC)
-Received: by mail-il1-x12f.google.com with SMTP id
- e9e14a558f8ab-345ff33d286so22421005ab.3
- for <intel-gfx@lists.freedesktop.org>; Mon, 17 Jul 2023 01:29:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=semihalf.com; s=google; t=1689582586; x=1692174586;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=KrEcIar0BkfpmBL+8BCmNKqe2TUSK3LL+WBdNYsOjsM=;
- b=e52IJgo7nORao0Gl4I5dRpwwbrYRCXZTSuwaC/thRVodGrQS/Ih+iZx/Zsqn89WU3w
- pQgXUWQS+Vk59/Fh6rrIEqzCQJkEny2i0gy7zEPOvxwj9yUxhnNvrizRbt8YsZpplHpx
- RjVLFZyrzR9wafddakUgpMo5lLKlNumHP6uiacp/wGVyLbBbCgrHIUP/7snpf7XV2sof
- jlaeLm95LpwgAuzcjO7UCvT+e3bh2UJ0I6TbCUpKBOZvGLRTw6wJXY5zbY52dacz1/1P
- iPPOvh8ArwyYCroEOLn3Y8OJKVgd78PUACDF8tTPiPB+Om3hyy+66x8dhT2yU/74h83y
- v2JA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689582586; x=1692174586;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=KrEcIar0BkfpmBL+8BCmNKqe2TUSK3LL+WBdNYsOjsM=;
- b=VAi+kS/MkNHOu+qi3/o+v5oUZd/7Q8LMkiTnA8HRK6/eeefN4sxBUJqrADR++B0A3J
- iKkZuOuv9hMgpXdXXRFhx57D+NLHarvDZuctOhJHPSwWy4vMW9Lk0PUF2GqbuGJ8uP54
- 8kRRyTc9DatZGKgiH8GU97rA1Ie1kX0p5qcRcEj1Ls9EsS6uo0G2ks16daZ/KC0dMj/y
- H0lm+d0D1paePr7WVCNBHvfkEzI40CJmXcyKJOIFDsyORcdRVAxQ9cFZiS49CRgLTezt
- vp9C7AJCCxIMlLmPjYcFhnkFXMk6x15TiiXGWDgjcJndLdWDNo/+mEda1yngqTZHejoL
- GPJA==
-X-Gm-Message-State: ABy/qLbX5WGwrjIjwgfrMjgd0m//UCKZjC+G9ZuBX1U3EOedsSlaYKC0
- HgJv88NuFduSXtFmUGYcJMSLb2cZCDvFA9lKO8azFQ==
-X-Google-Smtp-Source: APBJJlGE7jn73weZAb7Q+GH4ouydfCd9ILtA9ynYfWdyB1I4k5TGE6qNhhrOJBaOwSkah9YrBoRDKcKZ9t95G975sJc=
-X-Received: by 2002:a92:d4d2:0:b0:345:d470:baa6 with SMTP id
- o18-20020a92d4d2000000b00345d470baa6mr9664500ilm.29.1689582586220; Mon, 17
- Jul 2023 01:29:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0637910E259;
+	Mon, 17 Jul 2023 13:54:56 +0000 (UTC)
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4524510E6FC
+ for <intel-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 15:39:45 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qJyPr-00033a-NE; Thu, 13 Jul 2023 17:39:39 +0200
+Received: from [2a0a:edc0:0:900:1d::77] (helo=ptz.office.stw.pengutronix.de)
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qJyPp-00E9Ic-HG; Thu, 13 Jul 2023 17:39:37 +0200
+Received: from ukl by ptz.office.stw.pengutronix.de with local (Exim 4.94.2)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1qJyPo-004aZX-PQ; Thu, 13 Jul 2023 17:39:36 +0200
+Date: Thu, 13 Jul 2023 17:39:36 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+To: Sean Paul <seanpaul@chromium.org>
+Message-ID: <20230713153936.k2m6aj34vptj5vf7@pengutronix.de>
+References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
+ <87fs5tgpvv.fsf@intel.com>
+ <CAOw6vbLO_UaXDbTCtAQJgthXOUMPqEV+c2MQhP-1DuK44OhGxw@mail.gmail.com>
+ <20230713130337.fd2l67r23g2irifx@pengutronix.de>
+ <CAOw6vbKtjyUm+OqO7LSV1hDOMQATwkEWP4GzBbbXib0i5EviUQ@mail.gmail.com>
 MIME-Version: 1.0
-References: <20230630155936.3015595-1-jaz@semihalf.com>
- <20230714-gauner-unsolidarisch-fc51f96c61e8@brauner>
-In-Reply-To: <20230714-gauner-unsolidarisch-fc51f96c61e8@brauner>
-From: Grzegorz Jaszczyk <jaz@semihalf.com>
-Date: Mon, 17 Jul 2023 10:29:34 +0200
-Message-ID: <CAH76GKPF4BjJLrzLBW8k12ATaAGADeMYc2NQ9+j0KgRa0pomUw@mail.gmail.com>
-To: Christian Brauner <brauner@kernel.org>,
- Alex Williamson <alex.williamson@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="mnk65dkcvejfh2ja"
+Content-Disposition: inline
+In-Reply-To: <CAOw6vbKtjyUm+OqO7LSV1hDOMQATwkEWP4GzBbbXib0i5EviUQ@mail.gmail.com>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: intel-gfx@lists.freedesktop.org
 X-Mailman-Approved-At: Mon, 17 Jul 2023 13:54:54 +0000
-Subject: Re: [Intel-gfx] [PATCH 0/2] eventfd: simplify signal helpers
+Subject: Re: [Intel-gfx] [Freedreno] [PATCH RFC v1 00/52] drm/crtc: Rename
+ struct drm_crtc::dev to drm_dev
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,101 +59,176 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-aio@kvack.org, Muchun Song <muchun.song@linux.dev>,
- Tony Krowiak <akrowiak@linux.ibm.com>, Matthew Rosato <mjrosato@linux.ibm.com>,
- Paul Durrant <paul@xen.org>, Tom Rix <trix@redhat.com>,
- Jason Wang <jasowang@redhat.com>, Roman Gushchin <roman.gushchin@linux.dev>,
- dri-devel@lists.freedesktop.org, Michal Hocko <mhocko@kernel.org>,
- Heiko Carstens <hca@linux.ibm.com>, linux-mm@kvack.org,
- Kirti Wankhede <kwankhede@nvidia.com>, Vineeth Vijayan <vneethv@linux.ibm.com>,
- Diana Craciun <diana.craciun@oss.nxp.com>, Borislav Petkov <bp@alien8.de>,
- Alexander Gordeev <agordeev@linux.ibm.com>, Fei Li <fei1.li@intel.com>,
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Marcin Wojtas <mw@semihalf.com>,
- Arnd Bergmann <arnd@arndb.de>, Leon Romanovsky <leon@kernel.org>,
- linux-rdma@vger.kernel.org, x86@kernel.org, Halil Pasic <pasic@linux.ibm.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Ingo Molnar <mingo@redhat.com>,
- Dominik Behr <dbehr@chromium.org>, Moritz Fischer <mdf@kernel.org>,
- Frederic Barrat <fbarrat@linux.ibm.com>, Xu Yilun <yilun.xu@intel.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, linux-fpga@vger.kernel.org,
- Wu Hao <hao.wu@intel.com>, Jason Herne <jjherne@linux.ibm.com>,
- Eric Farman <farman@linux.ibm.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- Andrew Donnellan <ajd@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- linux-s390@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- intel-gfx@lists.freedesktop.org, Sean Christopherson <seanjc@google.com>,
- Eric Auger <eric.auger@redhat.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Harald Freudenberger <freude@linux.ibm.com>, kvm@vger.kernel.org,
- Paolo Bonzini <pbonzini@redhat.com>, cgroups@vger.kernel.org,
- Thomas Gleixner <tglx@linutronix.de>,
- virtualization@lists.linux-foundation.org, intel-gvt-dev@lists.freedesktop.org,
- io-uring@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, netdev@vger.kernel.org,
- Oded Gabbay <ogabbay@kernel.org>, linux-usb@vger.kernel.org,
- Peter Oberparleiter <oberpar@linux.ibm.com>, linux-kernel@vger.kernel.org,
- Benjamin LaHaise <bcrl@kvack.org>, "Michael S. Tsirkin" <mst@redhat.com>,
- Sven Schnelle <svens@linux.ibm.com>, Johannes Weiner <hannes@cmpxchg.org>,
- linux-fsdevel@vger.kernel.org, Shakeel Butt <shakeelb@google.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, David Woodhouse <dwmw2@infradead.org>,
- linuxppc-dev@lists.ozlabs.org, Pavel Begunkov <asml.silence@gmail.com>
+Cc: Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Xinliang Liu <xinliang.liu@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Alexey Kodanev <aleksei.kodanev@bell-sw.com>, dri-devel@lists.freedesktop.org,
+ Russell King <linux@armlinux.org.uk>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Jyri Sarha <jyri.sarha@iki.fi>,
+ Jerome Brunet <jbrunet@baylibre.com>, Liu Shixin <liushixin2@huawei.com>,
+ linux-samsung-soc@vger.kernel.org, Drew Davenport <ddavenport@chromium.org>,
+ Samuel Holland <samuel@sholland.org>, Matt Roper <matthew.d.roper@intel.com>,
+ Wenjing Liu <wenjing.liu@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Danilo Krummrich <dakr@redhat.com>, NXP Linux Team <linux-imx@nxp.com>,
+ spice-devel@lists.freedesktop.org, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-sunxi@lists.linux.dev, Tim Huang <Tim.Huang@amd.com>,
+ =?utf-8?B?QW5kcsOp?= Almeida <andrealmeid@igalia.com>,
+ Yifan Zhang <yifan1.zhang@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, Inki Dae <inki.dae@samsung.com>,
+ Hersen Wu <hersenxs.wu@amd.com>, Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ =?utf-8?Q?=C5=81ukasz?= Bartosik <lb@semihalf.com>,
+ Andrew Jeffery <andrew@aj.id.au>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
+ Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
+ Claudiu Beznea <claudiu.beznea@microchip.com>, Zack Rusin <zackr@vmware.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ amd-gfx@lists.freedesktop.org, linux-aspeed@lists.ozlabs.org,
+ nouveau@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ Yongqin Liu <yongqin.liu@linaro.org>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, David Francis <David.Francis@amd.com>,
+ Aaron Liu <aaron.liu@amd.com>, Vinod Polimera <quic_vpolimer@quicinc.com>,
+ linux-rockchip@lists.infradead.org, Fangzhi Zuo <jerry.zuo@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
+ Dave Airlie <airlied@redhat.com>, linux-mips@vger.kernel.org,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ Biju Das <biju.das.jz@bp.renesas.com>, linux-amlogic@lists.infradead.org,
+ Evan Quan <evan.quan@amd.com>, Michal Simek <michal.simek@amd.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Boris Brezillon <bbrezillon@kernel.org>, Qingqing Zhuo <qingqing.zhuo@amd.com>,
+ Sandy Huang <hjc@rock-chips.com>, linux-renesas-soc@vger.kernel.org,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>, Dan Carpenter <error27@gmail.com>,
+ Karol Herbst <kherbst@redhat.com>, linux-hyperv@vger.kernel.org,
+ Stefan Agner <stefan@agner.ch>, Melissa Wen <melissa.srw@gmail.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mairacanal@riseup.net>,
+ Luca Coelho <luciano.coelho@intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Likun Gao <Likun.Gao@amd.com>,
+ "Jiri Slaby \(SUSE\)" <jirislaby@kernel.org>,
+ Alain Volmat <alain.volmat@foss.st.com>,
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Deepak Rawat <drawat.floss@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Joel Stanley <joel@jms.id.au>, Orson Zhai <orsonzhai@gmail.com>,
+ Harry Wentland <harry.wentland@amd.com>, Chia-I Wu <olvaffe@gmail.com>,
+ Alan Liu <haoping.liu@amd.com>, Philip Yang <Philip.Yang@amd.com>,
+ intel-gfx@lists.freedesktop.org, Alison Wang <alison.wang@nxp.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
+ Tomi Valkeinen <tomba@kernel.org>, Deepak R Varma <drv@mailo.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Konrad Dybcio <konrad.dybcio@linaro.org>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Tian Tao <tiantao6@hisilicon.com>, Roman Li <roman.li@amd.com>,
+ Shawn Guo <shawnguo@kernel.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Emma Anholt <emma@anholt.net>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>, Paul Cercueil <paul@crapouillou.net>,
+ Hamza Mahfooz <hamza.mahfooz@amd.com>, David Airlie <airlied@gmail.com>,
+ Marek Vasut <marex@denx.de>, Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
+ xen-devel@lists.xenproject.org, Guchun Chen <guchun.chen@amd.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+ Jani Nikula <jani.nikula@intel.com>, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ David Lechner <david@lechnology.com>,
+ Marek =?utf-8?B?T2zFocOhaw==?= <marek.olsak@amd.com>,
+ =?utf-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>,
+ Melissa Wen <mwen@igalia.com>, Hans de Goede <hdegoede@redhat.com>,
+ linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ David Tadokoro <davidbtadokoro@usp.br>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ linux-tegra@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, John Stultz <jstultz@google.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>, Daniel Vetter <daniel@ffwll.ch>,
+ Wayne Lin <Wayne.Lin@amd.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Nirmoy Das <nirmoy.das@intel.com>, Lang Yu <Lang.Yu@amd.com>,
+ Lucas Stach <l.stach@pengutronix.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-pt., 14 lip 2023 o 09:05 Christian Brauner <brauner@kernel.org> napisa=C5=
-=82(a):
->
-> On Thu, Jul 13, 2023 at 11:10:54AM -0600, Alex Williamson wrote:
-> > On Thu, 13 Jul 2023 12:05:36 +0200
-> > Christian Brauner <brauner@kernel.org> wrote:
-> >
-> > > Hey everyone,
-> > >
-> > > This simplifies the eventfd_signal() and eventfd_signal_mask() helper=
-s
-> > > by removing the count argument which is effectively unused.
-> >
-> > We have a patch under review which does in fact make use of the
-> > signaling value:
-> >
-> > https://lore.kernel.org/all/20230630155936.3015595-1-jaz@semihalf.com/
->
-> Huh, thanks for the link.
->
-> Quoting from
-> https://patchwork.kernel.org/project/kvm/patch/20230307220553.631069-1-ja=
-z@semihalf.com/#25266856
->
-> > Reading an eventfd returns an 8-byte value, we generally only use it
-> > as a counter, but it's been discussed previously and IIRC, it's possibl=
-e
-> > to use that value as a notification value.
->
-> So the goal is to pipe a specific value through eventfd? But it is
-> explicitly a counter. The whole thing is written around a counter and
-> each write and signal adds to the counter.
->
-> The consequences are pretty well described in the cover letter of
-> v6 https://lore.kernel.org/all/20230630155936.3015595-1-jaz@semihalf.com/
->
-> > Since the eventfd counter is used as ACPI notification value
-> > placeholder, the eventfd signaling needs to be serialized in order to
-> > not end up with notification values being coalesced. Therefore ACPI
-> > notification values are buffered and signalized one by one, when the
-> > previous notification value has been consumed.
->
-> But isn't this a good indication that you really don't want an eventfd
-> but something that's explicitly designed to associate specific data with
-> a notification? Using eventfd in that manner requires serialization,
-> buffering, and enforces ordering.
->
-> I have no skin in the game aside from having to drop this conversion
-> which I'm fine to do if there are actually users for this btu really,
-> that looks a lot like abusing an api that really wasn't designed for
-> this.
 
-https://patchwork.kernel.org/project/kvm/patch/20230307220553.631069-1-jaz@=
-semihalf.com/
-was posted at the beginig of March and one of the main things we've
-discussed was the mechanism for propagating acpi notification value.
-We've endup with eventfd as the best mechanism and have actually been
-using it from v2. I really do not want to waste this effort, I think
-we are quite advanced with v6 now. Additionally we didn't actually
-modify any part of eventfd support that was in place, we only used it
-in a specific (and discussed beforehand) way.
+--mnk65dkcvejfh2ja
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Jul 13, 2023 at 10:41:45AM -0400, Sean Paul wrote:
+> On Thu, Jul 13, 2023 at 9:04=E2=80=AFAM Uwe Kleine-K=C3=B6nig
+> > But even with the one-patch-per-rename approach I'd consider the
+> > renaming a net win, because ease of understanding code has a big value.
+> > It's value is not so easy measurable as "conflicts when backporting",
+> > but it also matters in say two years from now, while backporting
+> > shouldn't be an issue then any more.
+>=20
+> You've rightly identified the conjecture in your statement. I've been
+> on both sides of the argument, having written/maintained drm code
+> upstream and cherry-picked changes to a downstream kernel. Perhaps
+> it's because drm's definition of dev is ingrained in my muscle memory,
+> or maybe it's because I don't do a lot of upstream development these
+> days, but I just have a hard time seeing the benefit here.
+
+I see that my change doesn't immediately benefit those who are already
+at home in drivers/gpu/drm. So it's quite understandable that someone in
+a senior role (long time contributor or maintainer) doesn't see a big
+upside.
+
+In contrast I think my change (with its indisputable cost) lowers the
+bar for new contributors to drm. IMHO that's something a maintainer has
+to have on their radar, too, and that's easily undervalued in my
+experience.
+
+Of course in the end it's about weighting the ups and downs.=20
+
+Thanks
+Uwe
+
+--=20
+Pengutronix e.K.                           | Uwe Kleine-K=C3=B6nig         =
+   |
+Industrial Linux Solutions                 | https://www.pengutronix.de/ |
+
+--mnk65dkcvejfh2ja
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmSwGrcACgkQj4D7WH0S
+/k5Z8gf+L2DppHWGxGaiKRiYvHQTrpom5T4lLxWIcMzNp/SZXGce+FkxNCXXp4ev
+Fm4EE5lHyGkTfeMAeH8KSvtkAT3Lf/Bifz3Ij2fmsLRLCJdOxIA9Zra8u3cWmLdd
+JX+wb8zFJARzb/u+kG6ZD4IgJ+39LqIZ9JLUqaV4jyZZps2Vf8cvPDNYp96vAwdB
+GUECE+pPcMQvSkBdwy5pCGdEatjq9O12xWwv6uvNcJqbIbToJVVsUHLBjTGEJfGI
+PgyrtoM72NQY/p5d9veqBKCQTkKUBW5Ly+HbKzey9Dy/IPWeSU1Q/1WH/hUphbbs
+k0+Jh4Ot72m5BF8rwKgRu0NikQcP4A==
+=OtIn
+-----END PGP SIGNATURE-----
+
+--mnk65dkcvejfh2ja--
