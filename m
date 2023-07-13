@@ -4,61 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35BE0C001B0
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 12:49:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A52F0EB64DD
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 12:55:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCA2410E6BC;
-	Thu, 13 Jul 2023 12:48:48 +0000 (UTC)
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
- [209.85.222.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 192AD10E604;
- Thu, 13 Jul 2023 06:58:46 +0000 (UTC)
-Received: by mail-qk1-f177.google.com with SMTP id
- af79cd13be357-76714d3c3a7so41755885a.3; 
- Wed, 12 Jul 2023 23:58:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689231525; x=1691823525;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=a+0qanWxODhzgXHCXIxDgPeQhxCw3xhLkeN7rWN/J3A=;
- b=OZkoB0XuuZNBcs1eiHH+R1EBjJg7Hgd8tRQTF5KozGOS2u+iSbUl6iqnyv1500iBDv
- +hctRnzV6fUhjeSFHBx+nkNSTH2dtVKjDQlrV0A9M4tJSKsHzGPEPmeKwOJx/WVV91Ly
- SoP22nMcs/kdg9ulOa26hnfEc+VyfppO1mJ5pbLwn5oSKC6DKQTXylRv1fuZK+RcsOFi
- UE8DRHCjnrqycJ8iXFKgtcE2kZg3+ui8copkwraV1r3su4n4GsAbRJPqQJnNqcVyHXhD
- 631fBZdi8SMQF6VRNTC2GLIaYFvxgwqKseSvoOcx6tfz4IAT6Lzhr5s1SOuhFYw+RlAL
- P8uA==
-X-Gm-Message-State: ABy/qLaf42tZWkIY5R4492cNfeRL2hSq0j1es4x1f8NSWIHx4kzC17jc
- 0aLYZ/nwOOPGbhYKk2eGOz6q8Xgo+1xyXTd8
-X-Google-Smtp-Source: APBJJlFf5y35+LpnsIiabmDwHotcvJqe2NwGvNB5awGxgt7IfpI6mW0L19550Yyv69ZGYfukbK8SnQ==
-X-Received: by 2002:a05:620a:2687:b0:765:449d:1391 with SMTP id
- c7-20020a05620a268700b00765449d1391mr868033qkp.19.1689231525294; 
- Wed, 12 Jul 2023 23:58:45 -0700 (PDT)
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com.
- [209.85.222.170]) by smtp.gmail.com with ESMTPSA id
- y9-20020a37e309000000b00767d47eb29bsm2671592qki.119.2023.07.12.23.58.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 12 Jul 2023 23:58:45 -0700 (PDT)
-Received: by mail-qk1-f170.google.com with SMTP id
- af79cd13be357-76772fde287so41593185a.2; 
- Wed, 12 Jul 2023 23:58:45 -0700 (PDT)
-X-Received: by 2002:a0d:e208:0:b0:56d:9e2:7d9e with SMTP id
- l8-20020a0de208000000b0056d09e27d9emr931586ywe.21.1689231149403; Wed, 12 Jul
- 2023 23:52:29 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA36910E1AC;
+	Thu, 13 Jul 2023 12:55:27 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C07E310E1AC
+ for <intel-gfx@lists.freedesktop.org>; Thu, 13 Jul 2023 12:55:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1689252925; x=1720788925;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=H/mUOfYmhCyWQqIhSWuCgI3FJljg7faoaAqfF6OxpdA=;
+ b=GeTzz2mBSLzquXCdzXjjuuIeZip3aSZsxdt7OJCz4sMVvWiyYBCcUoDj
+ OvWnWxvPKaIqRK24Zj6Zfq+LIqHQBgmax7/G7ScaiR4dEGAsUahZowN/3
+ 37D+gcQ1Af7WrBHQ6jZ6BkCoXEsQvvRRGFdxYdqtqDIzg2xfUctJywgzN
+ ryeT8bA4k7b2umYvxlRPtOgYxxqiUpKtLHjz1Q5OwGBwa4SBtSJHBer8K
+ Ld9nWpRGotuRF33YCyZQqUZnUbAzIRVBywPaZ8FMp6cK6MFBOPqPSxhbm
+ I44wwtjYkZUjXw1/+bbBLBBOULfSwnYu7gMbbSMgj+qg1uhqg5hl2ash0 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="350028991"
+X-IronPort-AV: E=Sophos;i="6.01,202,1684825200"; d="scan'208";a="350028991"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2023 05:55:24 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="1052603225"
+X-IronPort-AV: E=Sophos;i="6.01,202,1684825200"; d="scan'208";a="1052603225"
+Received: from atadj-mobl1.amr.corp.intel.com (HELO localhost) ([10.252.50.30])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2023 05:55:21 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: "Bhadane, Dnyaneshwar" <dnyaneshwar.bhadane@intel.com>, Tvrtko Ursulin
+ <tvrtko.ursulin@linux.intel.com>, "intel-gfx@lists.freedesktop.org"
+ <intel-gfx@lists.freedesktop.org>, "Ursulin, Tvrtko"
+ <tvrtko.ursulin@intel.com>
+In-Reply-To: <IA1PR11MB6266AE5FAB835A97C8C0349DE237A@IA1PR11MB6266.namprd11.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20230616114200.3228284-12-dnyaneshwar.bhadane@intel.com>
+ <20230710105815.2056018-1-dnyaneshwar.bhadane@intel.com>
+ <IA1PR11MB62660C3B6D48EA16DF2E7AFFE230A@IA1PR11MB6266.namprd11.prod.outlook.com>
+ <de17473e-09fa-9346-daf4-96bf12fa580c@linux.intel.com>
+ <871qhcgng8.fsf@intel.com>
+ <14a0d370-150b-f311-2a66-b8400163dd61@linux.intel.com>
+ <IA1PR11MB6266A7A8009AC987E421EBBCE237A@IA1PR11MB6266.namprd11.prod.outlook.com>
+ <6e6ba3ec-5051-400c-b05d-98ced1ffb8f7@linux.intel.com>
+ <IA1PR11MB6266AE5FAB835A97C8C0349DE237A@IA1PR11MB6266.namprd11.prod.outlook.com>
+Date: Thu, 13 Jul 2023 15:55:19 +0300
+Message-ID: <87edlcezt4.fsf@intel.com>
 MIME-Version: 1.0
-References: <20230712094702.1770121-1-u.kleine-koenig@pengutronix.de>
- <87fs5tgpvv.fsf@intel.com> <20230712161025.22op3gtzgujrhytb@pengutronix.de>
-In-Reply-To: <20230712161025.22op3gtzgujrhytb@pengutronix.de>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 13 Jul 2023 08:52:12 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWuvkxcj05OTfEn5f2p-6e71QEHVjSLWwNFRnR_=WEJVQ@mail.gmail.com>
-Message-ID: <CAMuHMdWuvkxcj05OTfEn5f2p-6e71QEHVjSLWwNFRnR_=WEJVQ@mail.gmail.com>
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Thu, 13 Jul 2023 12:48:30 +0000
-Subject: Re: [Intel-gfx] [PATCH RFC v1 00/52] drm/crtc: Rename struct
- drm_crtc::dev to drm_dev
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [v3] drm/i915/mtl: s/MTL/METEORLAKE for
+ platform/subplatform defines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,224 +69,161 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Alexey Kodanev <aleksei.kodanev@bell-sw.com>, dri-devel@lists.freedesktop.org,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Liu Shixin <liushixin2@huawei.com>, linux-samsung-soc@vger.kernel.org,
- Samuel Holland <samuel@sholland.org>, Matt Roper <matthew.d.roper@intel.com>,
- Wenjing Liu <wenjing.liu@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Danilo Krummrich <dakr@redhat.com>, NXP Linux Team <linux-imx@nxp.com>,
- spice-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev,
- Tim Huang <Tim.Huang@amd.com>,
- =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>,
- Yifan Zhang <yifan1.zhang@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>, Inki Dae <inki.dae@samsung.com>,
- Hersen Wu <hersenxs.wu@amd.com>, Jessica Zhang <quic_jesszhan@quicinc.com>,
- Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- =?UTF-8?Q?=C5=81ukasz_Bartosik?= <lb@semihalf.com>,
- Andrew Jeffery <andrew@aj.id.au>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- =?UTF-8?Q?Noralf_Tr=C3=B8nnes?= <noralf@tronnes.org>, kernel@pengutronix.de,
- Alex Deucher <alexander.deucher@amd.com>, freedreno@lists.freedesktop.org,
- Claudiu Beznea <claudiu.beznea@microchip.com>, Zack Rusin <zackr@vmware.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- Yongqin Liu <yongqin.liu@linaro.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- David Lechner <david@lechnology.com>,
- "Jiri Slaby \(SUSE\)" <jirislaby@kernel.org>,
- David Francis <David.Francis@amd.com>, Aaron Liu <aaron.liu@amd.com>,
- Vinod Polimera <quic_vpolimer@quicinc.com>, linux-rockchip@lists.infradead.org,
- Fangzhi Zuo <jerry.zuo@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- VMware Graphics Reviewers <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, Dave Airlie <airlied@redhat.com>,
- linux-mips@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>,
- linux-amlogic@lists.infradead.org, Evan Quan <evan.quan@amd.com>,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Boris Brezillon <bbrezillon@kernel.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, Sandy Huang <hjc@rock-chips.com>,
- John Stultz <jstultz@google.com>,
- Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Drew Davenport <ddavenport@chromium.org>, Kevin Hilman <khilman@baylibre.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>, Dan Carpenter <error27@gmail.com>,
- Karol Herbst <kherbst@redhat.com>, linux-hyperv@vger.kernel.org,
- Stefan Agner <stefan@agner.ch>, Melissa Wen <melissa.srw@gmail.com>,
- =?UTF-8?B?TWHDrXJhIENhbmFs?= <mairacanal@riseup.net>,
- Luca Coelho <luciano.coelho@intel.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Likun Gao <Likun.Gao@amd.com>,
- Sam Ravnborg <sam@ravnborg.org>, Alain Volmat <alain.volmat@foss.st.com>,
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Deepak Rawat <drawat.floss@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Joel Stanley <joel@jms.id.au>, Philipp Zabel <p.zabel@pengutronix.de>,
- Harry Wentland <harry.wentland@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Alan Liu <haoping.liu@amd.com>,
- Philip Yang <Philip.Yang@amd.com>, intel-gfx@lists.freedesktop.org,
- Alison Wang <alison.wang@nxp.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Abhinav Kumar <quic_abhinavk@quicinc.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Mikko Perttunen <mperttunen@nvidia.com>,
- Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>,
- Tomi Valkeinen <tomba@kernel.org>, Deepak R Varma <drv@mailo.com>, "Pan,
- Xinhui" <Xinhui.Pan@amd.com>, Chia-I Wu <olvaffe@gmail.com>,
- Konrad Dybcio <konrad.dybcio@linaro.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Tian Tao <tiantao6@hisilicon.com>, Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-stm32@st-md-mailman.stormreply.com, Emma Anholt <emma@anholt.net>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Roman Li <roman.li@amd.com>,
- Paul Cercueil <paul@crapouillou.net>, Hamza Mahfooz <hamza.mahfooz@amd.com>,
- David Airlie <airlied@gmail.com>, Marek Vasut <marex@denx.de>,
- Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- xen-devel@lists.xenproject.org, Guchun Chen <guchun.chen@amd.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Russell King <linux@armlinux.org.uk>, Jani Nikula <jani.nikula@intel.com>,
- Jiasheng Jiang <jiasheng@iscas.ac.cn>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-tegra@vger.kernel.org,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>,
- =?UTF-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>,
- Melissa Wen <mwen@igalia.com>, Hans de Goede <hdegoede@redhat.com>,
- linux-mediatek@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- David Tadokoro <davidbtadokoro@usp.br>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Orson Zhai <orsonzhai@gmail.com>, amd-gfx@lists.freedesktop.org,
- Jyri Sarha <jyri.sarha@iki.fi>, Yannick Fertre <yannick.fertre@foss.st.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Philippe Cornu <philippe.cornu@foss.st.com>, Daniel Vetter <daniel@ffwll.ch>,
- Wayne Lin <Wayne.Lin@amd.com>, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- Nirmoy Das <nirmoy.das@intel.com>, Lang Yu <Lang.Yu@amd.com>,
- Lucas Stach <l.stach@pengutronix.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Uwe,
-
-Let's add some fuel to keep the thread alive ;-)
-
-On Wed, Jul 12, 2023 at 6:13=E2=80=AFPM Uwe Kleine-K=C3=B6nig
-<u.kleine-koenig@pengutronix.de> wrote:
-> On Wed, Jul 12, 2023 at 05:34:28PM +0300, Jani Nikula wrote:
-> > On Wed, 12 Jul 2023, Uwe Kleine-K=C3=B6nig <u.kleine-koenig@pengutronix=
-.de> wrote:
-> > > Hello,
-> > >
-> > > while I debugged an issue in the imx-lcdc driver I was constantly
-> > > irritated about struct drm_device pointer variables being named "dev"
-> > > because with that name I usually expect a struct device pointer.
-> > >
-> > > I think there is a big benefit when these are all renamed to "drm_dev=
-".
-> > > I have no strong preference here though, so "drmdev" or "drm" are fin=
-e
-> > > for me, too. Let the bikesheding begin!
-> > >
-> > > Some statistics:
-> > >
-> > > $ git grep -ohE 'struct drm_device *\* *[^ (),;]*' v6.5-rc1 | sort | =
-uniq -c | sort -n
-> > >       1 struct drm_device *adev_to_drm
-> > >       1 struct drm_device *drm_
-> > >       1 struct drm_device          *drm_dev
-> > >       1 struct drm_device        *drm_dev
-> > >       1 struct drm_device *pdev
-> > >       1 struct drm_device *rdev
-> > >       1 struct drm_device *vdev
-> > >       2 struct drm_device *dcss_drv_dev_to_drm
-> > >       2 struct drm_device **ddev
-> > >       2 struct drm_device *drm_dev_alloc
-> > >       2 struct drm_device *mock
-> > >       2 struct drm_device *p_ddev
-> > >       5 struct drm_device *device
-> > >       9 struct drm_device * dev
-> > >      25 struct drm_device *d
-> > >      95 struct drm_device *
-> > >     216 struct drm_device *ddev
-> > >     234 struct drm_device *drm_dev
-> > >     611 struct drm_device *drm
-> > >    4190 struct drm_device *dev
-> > >
-> > > This series starts with renaming struct drm_crtc::dev to drm_dev. If
-> > > it's not only me and others like the result of this effort it should =
-be
-> > > followed up by adapting the other structs and the individual usages i=
-n
-> > > the different drivers.
-> >
-> > I think this is an unnecessary change. In drm, a dev is usually a drm
-> > device, i.e. struct drm_device *.
+On Thu, 13 Jul 2023, "Bhadane, Dnyaneshwar" <dnyaneshwar.bhadane@intel.com> wrote:
+>> -----Original Message-----
+>> From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+>> Sent: Thursday, July 13, 2023 5:55 PM
+>> To: Bhadane, Dnyaneshwar <dnyaneshwar.bhadane@intel.com>; Jani Nikula
+>> <jani.nikula@linux.intel.com>; intel-gfx@lists.freedesktop.org; Ursulin,
+>> Tvrtko <tvrtko.ursulin@intel.com>
+>> Cc: Srivatsa, Anusha <anusha.srivatsa@intel.com>; Shankar, Uma
+>> <uma.shankar@intel.com>
+>> Subject: Re: [Intel-gfx] [v3] drm/i915/mtl: s/MTL/METEORLAKE for
+>> platform/subplatform defines
+>> 
+>> 
+>> On 13/07/2023 13:12, Bhadane, Dnyaneshwar wrote:
+>> >
+>> >
+>> >> -----Original Message-----
+>> >> From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+>> >> Sent: Thursday, July 13, 2023 5:26 PM
+>> >> To: Jani Nikula <jani.nikula@linux.intel.com>; Bhadane, Dnyaneshwar
+>> >> <dnyaneshwar.bhadane@intel.com>; intel-gfx@lists.freedesktop.org;
+>> >> Ursulin, Tvrtko <tvrtko.ursulin@intel.com>
+>> >> Subject: Re: [Intel-gfx] [v3] drm/i915/mtl: s/MTL/METEORLAKE for
+>> >> platform/subplatform defines
+>> >>
+>> >>
+>> >> On 13/07/2023 10:39, Jani Nikula wrote:
+>> >>> On Thu, 13 Jul 2023, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+>> wrote:
+>> >>>> On 10/07/2023 14:44, Bhadane, Dnyaneshwar wrote:
+>> >>>>>> -----Original Message-----
+>> >>>>>> From: Bhadane, Dnyaneshwar <dnyaneshwar.bhadane@intel.com>
+>> >>>>>> Sent: Monday, July 10, 2023 4:28 PM
+>> >>>>>> To: intel-gfx@lists.freedesktop.org
+>> >>>>>> Cc: Ursulin, Tvrtko <tvrtko.ursulin@intel.com>;
+>> >>>>>> jani.nikula@linux.intel.com; Srivatsa, Anusha
+>> >>>>>> <anusha.srivatsa@intel.com>; Bhadane, Dnyaneshwar
+>> >>>>>> <dnyaneshwar.bhadane@intel.com>
+>> >>>>>> Subject: [v3] drm/i915/mtl: s/MTL/METEORLAKE for
+>> >>>>>> platform/subplatform defines
+>> >>>>>>
+>> >>>>>> Follow consistent naming convention. Replace MTL with
+>> METEORLAKE.
+>> >>>>>> Added defines that are replacing IS_MTL_GRAPHICS_STEP with
+>> >>>>>> IS_METEORLAKE_P_GRAPHICS_STEP and
+>> >> IS_METEORLAKE_M_GRAPHICS_STEP.
+>> >>>>>> Also replaced IS_METEORLAKE_MEDIA_STEP instead of
+>> >> IS_MTL_MEDIA_STEP
+>> >>>>>> and IS_METEORLAKE_DISPLAY_STEP instead of
+>> IS_MTL_DISPLAY_STEP.
+>> >>>>>>
+>> >>>>> Hi Tvrtko,
+>> >>>>> Could you please give the feedback on this ? or suggestion
+>> >>>>> regarding the
+>> >> approach.
+>> >>>>
+>> >>>> It's a step in the right direction I just wish we could do all
+>> >>>> churning in one go.
+>> >>>>
+>> >>>> Have you captured IS_CFL and IS_CML in the series? ICL? HSW? Any
+>> >>>> other I am missing?
+>> >>>>
+>> >>>> What have we concluded on Jani's suggestion to split it all to
+>> >>>> IS_<platform> && IS_<subsys>?
+>> >>>
+>> >>> IS_<platform> && IS_<step> is what I was after.
+>> >>
+>> >> Yeah I mistyped. I liked that to so would get my ack.
+>> >>
+>> >>>> If you have a) captured all IS_<tla> and b) Jani acks the series
+>> >>>> too, I guess go ahead.
+>> >>>>
+>> >>>> Hm.. what have we concluded to do with IS_JASPERLAKE_EHL?
+>> >>>
+>> >>> For sure it can't be *that*. It's JSL *or* EHL. Not subplatform.
+>> >>
+>> >> IS_ELKHARTLAKE would indeed work and platform/subplatform can be
+>> >> hidden implementation detail.
+>> >>
+>> >>>> P.S.
+>> >>>> I still think these suck though:
+>> >>>>
+>> >>>> 	if (IS_METEORLAKE_M_GRAPHICS_STEP(i915, STEP_A0, STEP_B0) ||
+>> >>>> 	    IS_METEORLAKE_P_GRAPHICS_STEP(i915, STEP_A0, STEP_B0))
+>> >>>
+>> >>> I still find it appealing to a) go towards shorter acronyms instead
+>> >>> of long names, and b) to separate platform and stepping checks
+>> >>> because they're orthogonal. They're only bundled together for
+>> >>> historical reasons, and to keep the conditions shorter.
+>> >>>
+>> >>> The above could be:
+>> >>>
+>> >>> 	if (IS_MTL(i915) && IS_GRAPHICS_STEP(i915, STEP_A0, STEP_B0))
+>> >>
+>> >> I'd be super pleased with that.
+>> >
+>> > Could we use the above suggestion for MTL variants for P/M? also
+>> replacing MTL with METEORLAKE.
+>> >
+>> > Using the format:  IS_FULL_PLATFORM_NAME &&
+>> IS_GRAPHICS_STEP(i915, STEP_A0, STEP_B0).
+>> >
+>> > It will change to :
+>> > 	For M:	IS_METEORLAKE_M(i915) && IS_GRAPHICS_STEP(i915,
+>> STEP_A0, STEP_B0)
+>> > 	For P:	IS_METEORLAKE_P(i915) && IS_GRAPHICS_STEP(i915,
+>> STEP_A0, STEP_B0)
+>> 
+>> You could, but you'd only get a meh from me. :) Why you'd insist to keep the
+>> two checks? Are we expecting IS_METEROLAKE_<X> at some point?
 >
-> Well, unless it's not. Prominently there is
+> For example FILE PATH:  drivers/gpu/drm/i915/gt/intel_workarounds.c
 >
->         struct drm_device {
->                 ...
->                 struct device *dev;
->                 ...
->         };
+> Multiple occurrences of IS_MTL_GRAPHICS_STEP(i915, M/P, STEP_B0, STEP_FOREVER)
+> Where P and M are passed explicitly. That why we can not check IS_METEORLAKE()
+> as single check.
+> IS_MTL_GRAPHICS_STEP(i915, M, STEP_B0, STEP_FOREVER) ||
+> 	    IS_MTL_GRAPHICS_STEP(i915, P, STEP_B0, STEP_FOREVER))
 >
-> which yields quite a few code locations using dev->dev which is
-> IMHO unnecessary irritating:
+> The IS_GRAPHICS_STEP is generic macro and used by other platforms also. 
+> On changing the IS_GRAPHICS_STEP  only  for MTL variants is lead to affect the other 
+> platform. The IS_METEORLAKE_P(i915) or IS_METEORLAKE_M(i915) solves the problem. 
+> to differentiate the MTL platform variant.
+
+I've been trying to say all along that we've abstracted the stepping
+checks, and we no longer need macros that capture *both* the platform
+and the step ranges. They're orthogonal.
+
+If the stepping ranges to check are the same, you don't need to separate
+between MTL subplatforms. They'll both match MTL. They'll both match the
+stepping ranges, and you can use the generic stepping check.
+
+You'll need to do if
+	((IS_MTL_M() && IS_GRAPHICS_STEP(a,b)) ||
+	  IS_MTL_P() && IS_GRAPHICS_STEP(c,d))
+
+if a != c && b != d.
+
+
+BR,
+Jani.
+
+
+
+
 >
->         $ git grep '\<dev->dev' v6.5-rc1 drivers/gpu/drm | wc -l
->         1633
+> Regards, 
+> Dnyaneshwar.
+>> 
+>> Regards,
+>> 
+>> Tvrtko
 
-I find that irritating as well...
-
-Same for e.g. crtc->crtc.
-
-Hence that's why I had sent patches to rename the base members in the
-shmob_drm-specific subclasses of drm_{crtc,connector,plane} to "base".
-https://lore.kernel.org/dri-devel/b3daca80f82625ba14e3aeaf2fca6dcefa056e47.=
-1687423204.git.geert+renesas@glider.be
-
-> Also the functions that deal with both a struct device and a struct
-> drm_device often use "dev" for the struct device and then "ddev" for
-> the drm_device (see for example amdgpu_device_get_pcie_replay_count()).
-
-I guess you considered "drm_dev", because it is still a short name?
-Code dealing with platform devices usually uses "pdev" and "dev".
-Same for PCI drivers (despite "pci_dev" being a short name).
-
-So my personal preference goes to "ddev".
-
-EOF (End-of-Fuel ;-)
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+-- 
+Jani Nikula, Intel Open Source Graphics Center
