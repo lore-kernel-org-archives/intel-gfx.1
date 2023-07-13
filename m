@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68D25C00528
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 16:37:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4D4FC00528
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Jul 2023 16:37:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E24FB10E74A;
-	Thu, 13 Jul 2023 16:37:06 +0000 (UTC)
-Received: from mail-il1-x130.google.com (mail-il1-x130.google.com
- [IPv6:2607:f8b0:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DBBB10E752;
- Thu, 13 Jul 2023 16:37:02 +0000 (UTC)
-Received: by mail-il1-x130.google.com with SMTP id
- e9e14a558f8ab-345db6c12b4so4014335ab.0; 
- Thu, 13 Jul 2023 09:37:02 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81A1110E761;
+	Thu, 13 Jul 2023 16:37:08 +0000 (UTC)
+Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com
+ [IPv6:2607:f8b0:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE0EE10E763;
+ Thu, 13 Jul 2023 16:37:04 +0000 (UTC)
+Received: by mail-il1-x12b.google.com with SMTP id
+ e9e14a558f8ab-3461053677eso1987805ab.0; 
+ Thu, 13 Jul 2023 09:37:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1689266221; x=1691858221;
+ d=gmail.com; s=20221208; t=1689266223; x=1691858223;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=FH1hoS5TyoLcmhyYV0xYU1iuMulIPyQc9Z8crXbpYkA=;
- b=dZjKH4hnSpuZ3DTO53o8QKHq0NPNvgYYxlgFp+7pfxVeTTVJHEVyQ+GHQf1R2RPDaG
- dfhJXbMmM9lCQBqsbp+aZqUw4vI54B6tqh7xWJsWp5O+MP1w+ng43Y7IhhTmUj2vFYcb
- Zg2qdshNds5TRWuzHH4Xbe8bq//a2I+qyIjgPTCZIH3CBqFoog97LPA90mgd0eQ7ASyR
- VgIBqaaFrBIFK7Lcg4rEoDOwxLSBP/tdYc2QAnNSfpCSAFt4ozhZPsoD1JrcQgCP+jEI
- OfotqOaBQOSUkrlOLm1b+x/cQI0TxB7x+dsBsQ3sR76vievwTLn9ayR4KOLj8WFRJ4gu
- yJWg==
+ bh=xtXcwS8d/IDIwtZ853/2GI+9Fn3yNRgVoZNcTx+O3Ew=;
+ b=HlYsuUhPgjpXCZ9henX1PDwU0cw3h2N3V5/vsfI3JqIAfhpOmkW+trSjYWT65U3nyC
+ jLebmc9PX5LkHYZtGISPEwFqP511fRUaV3p126UUUQ12cEoisYsRB0Ai0IFMoK/o+Zno
+ rGguAhVV1T0Xtt56BsYcD8yFiSs4AzNYqyvja+HjPwA8MdQrfo408bDsxt9OJHXJyZ3y
+ NcJt4Mr3dq/irqiTKq+AH7wN/d04UujVFnf3InP9dyq90JzGLKhF4XgF3DEE6WUMuJvX
+ hlybq+IReegFZ0TKYVW5nMEdCMyQ4uQvKHiCH6vc07xhaWaOnWfaVWviGizRleqeG3TT
+ UVIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689266221; x=1691858221;
+ d=1e100.net; s=20221208; t=1689266223; x=1691858223;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=FH1hoS5TyoLcmhyYV0xYU1iuMulIPyQc9Z8crXbpYkA=;
- b=FPtdhy+di2yqKUjq9VGzTpmPsJ/DLTACmhxm2WYTgjx6ihqm3ZfRuL3XcdDCwXaGRZ
- ngUYlQrEB507S9eUd9Uhh+TwBP4gynPjqRAQG5smtwTbY+sWYC3z/+gNWkgnJgMHio2t
- Enhhf/x42a0N2xeG/aL+1Ead+PX7iGx0yMSLLLnyh6SGuT0yT/tCEgiLU34krMP/PsUi
- dYUrBfHYdX70+Dw7rm7u2beoI2bWnOrNSxClqtJM7T1EHxnFZfJCi1VIUIUPQZyluN5/
- LI+1hDVXfZ+SWL+zU2ydDiYH9KVCU5wJ3pQ4qnZqZNRBQGEGJO3i9CZDevDAdoXrwTNh
- kbwg==
-X-Gm-Message-State: ABy/qLaGI9xVA+aV65VCs/vPVQk+Ja+DfQ7bHi6tpa7uaLrTu91iIVWr
- 2WO2XATJsIjuqnzv3WMLNos=
-X-Google-Smtp-Source: APBJJlFvBLi5hEov/kmv/k83zFFm7u/g7LY7tseK/2jtSQtpfiGSFRnCP0gXT9Lmz2F8s2b9Ib2K7w==
-X-Received: by 2002:a92:c803:0:b0:346:59a1:ce35 with SMTP id
- v3-20020a92c803000000b0034659a1ce35mr2334271iln.6.1689266221643; 
- Thu, 13 Jul 2023 09:37:01 -0700 (PDT)
+ bh=xtXcwS8d/IDIwtZ853/2GI+9Fn3yNRgVoZNcTx+O3Ew=;
+ b=FyJsAeMwCWA15s+i8GmABq62rfXCCrUi+5cMSiHu6WbDzcQA0QFs13cinll2lOcddZ
+ VsCAUYp90vR1jkthb6wItesV62QypkegzYkMInKV6ZQSSLO+uEgVI/QifWe7hg79TxUJ
+ 1LApAv6qpDvGXYmS5g0kNeBamoCcxZSjncMmBkgEaAz4bdLmBKPuD+gFLeeY51/xGRyD
+ 4CwIHZto9FjqL9AfODfWjbGatZ9QRtb9xM4rQ1eYyKkKyo4QdbeiCEgnxAnqlXIWPyIq
+ ghMktL690JXPhjGvphLEhX27ZO4erJmDKfuCDvFUMbUf9S65FI4TjIBFhd4NnJHLWyvJ
+ 6MuQ==
+X-Gm-Message-State: ABy/qLbAi8e1Emk1Yz/pK33KQTsSeBECVZ6Fiplwame19ae/t0K5+qRJ
+ ujzyAZ7tSh6rjxmvwZ7q1x8BV5rgqWj5sA==
+X-Google-Smtp-Source: APBJJlGKK8QkvWwdEzHjGRc5A1ATdY9Dfw8qrHFYEawb7ulcwGWCKqqAd0Mg8QH2SMEdwJLdP2dZ3w==
+X-Received: by 2002:a92:6c0f:0:b0:346:7fc:4fb8 with SMTP id
+ h15-20020a926c0f000000b0034607fc4fb8mr122786ilc.1.1689266223658; 
+ Thu, 13 Jul 2023 09:37:03 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- s7-20020a92d907000000b00345950d7e94sm2147571iln.20.2023.07.13.09.37.00
+ s7-20020a92d907000000b00345950d7e94sm2147571iln.20.2023.07.13.09.37.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Jul 2023 09:37:01 -0700 (PDT)
+ Thu, 13 Jul 2023 09:37:03 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com, daniel.vetter@ffwll.ch, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Date: Thu, 13 Jul 2023 10:36:21 -0600
-Message-ID: <20230713163626.31338-17-jim.cromie@gmail.com>
+Date: Thu, 13 Jul 2023 10:36:23 -0600
+Message-ID: <20230713163626.31338-19-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230713163626.31338-1-jim.cromie@gmail.com>
 References: <20230713163626.31338-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 16/21] dyndbg-test: make it build with just
- CONFIG_DYNAMIC_DEBUG_CORE
+Subject: [Intel-gfx] [PATCH v4 18/21] compiler.h: RFC -
+ s/__LINE__/__COUNTER__/ in __UNIQUE_ID fallback
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,56 +76,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, gregkh@linuxfoundation.org,
- Jim Cromie <jim.cromie@gmail.com>, seanpaul@chromium.org
+Cc: jani.nikula@intel.com, gregkh@linuxfoundation.org, llvm@lists.linux.dev,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-sparse@vger.kernel.org,
+ Nathan Chancellor <nathan@kernel.org>, Jim Cromie <jim.cromie@gmail.com>,
+ seanpaul@chromium.org, Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+ Tom Rix <trix@redhat.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-To make the 2 test modules buildable with CONFIG_DYNAMIC_DEBUG_CORE,
-add CFLAGS_$ofile defns to supply -DDYNAMIC_DEBUG_MODULE to cc.
-And change the Kconfig entry to allow building with just _CORE.
+We currently have 3 defns for __UNIQUE_ID(); gcc and clang are using
+__COUNTER__ for real uniqueness, 3rd just uses __LINE__, which should
+fail on this (and harder to avoid situations):
 
+  DECLARE_FOO(); DECLARE_FOO();
+
+Its 2023, can we haz a no-fallback __UNIQUE_ID ?
+
+NOTE:
+
+This also changes __UNIQUE_ID_ to _kaUID_.  Ive been getting
+lkp-reports of collisions on names which should be unique; this
+shouldnt happen on gcc & clang, but does on some older ones, on some
+platforms, on some allyes & rand-configs.  Like this:
+
+mips64-linux-ld:
+drivers/gpu/drm/display/drm_dp_helper.o:(__dyndbg_class_users+0x0):
+multiple definition of `__UNIQUE_ID_ddebug_class_user405';
+drivers/gpu/drm/drm_gem_shmem_helper.o:(__dyndbg_class_users+0x0):
+first defined here
+
+Like above, the collision reports appear to always be 3-digit
+counters, which look like line-numbers.  Changing to _kaUID_ in this
+defn should make it more obvious (in *.i file) when a fallback has
+happened.  To be clear, I havent seen it yet.  Nor have I seen the
+multiple-defn problem above since adding this patch.
+
+Lets see what lkp-robot says about this.
+
+CC: Luc Van Oostenryck <luc.vanoostenryck@gmail.com> (maintainer:SPARSE CHECKER)
+CC: Nathan Chancellor <nathan@kernel.org> (supporter:CLANG/LLVM BUILD SUPPORT)
+CC: Nick Desaulniers <ndesaulniers@google.com> (supporter:CLANG/LLVM BUILD SUPPORT)
+CC: Tom Rix <trix@redhat.com> (reviewer:CLANG/LLVM BUILD SUPPORT)
+CC: linux-sparse@vger.kernel.org (open list:SPARSE CHECKER)
+CC: linux-kernel@vger.kernel.org (open list)
+CC: llvm@lists.linux.dev (open list:CLANG/LLVM BUILD SUPPORT)
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/Kconfig.debug | 10 +++++-----
- lib/Makefile      |  2 ++
- 2 files changed, 7 insertions(+), 5 deletions(-)
+ include/linux/compiler.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index ce51d4dc6803..d4fbbcc395d2 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2695,12 +2695,12 @@ config TEST_STATIC_KEYS
- 	  If unsure, say N.
+diff --git a/include/linux/compiler.h b/include/linux/compiler.h
+index d7779a18b24f..677d6c47cd9e 100644
+--- a/include/linux/compiler.h
++++ b/include/linux/compiler.h
+@@ -177,9 +177,9 @@ void ftrace_likely_update(struct ftrace_likely_data *f, int val,
+ 	__asm__ ("" : "=r" (var) : "0" (var))
+ #endif
  
- config TEST_DYNAMIC_DEBUG
--	tristate "Test DYNAMIC_DEBUG"
--	depends on DYNAMIC_DEBUG
-+	tristate "Build test-dynamic-debug module"
-+	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
- 	help
--	  This module registers a tracer callback to count enabled
--	  pr_debugs in a 'do_debugging' function, then alters their
--	  enablements, calls the function, and compares counts.
-+	  This module works/demo's the dyndbg's classmap API, by
-+	  creating 2 classes: a DISJOINT classmap (like DRM.debug)
-+	  and a LEVELS/VERBOSE classmap (where 2>1).
+-/* Not-quite-unique ID. */
++/* JFTI: to fix Not-quite-unique ID */
+ #ifndef __UNIQUE_ID
+-# define __UNIQUE_ID(prefix) __PASTE(__PASTE(__UNIQUE_ID_, prefix), __LINE__)
++# define __UNIQUE_ID(prefix) __PASTE(__PASTE(_kaUID_, prefix), __COUNTER__)
+ #endif
  
- 	  If unsure, say N.
- 
-diff --git a/lib/Makefile b/lib/Makefile
-index f36048371dd2..8411015a57c1 100644
---- a/lib/Makefile
-+++ b/lib/Makefile
-@@ -233,6 +233,8 @@ obj-$(CONFIG_HAVE_ARCH_TRACEHOOK) += syscall.o
- obj-$(CONFIG_DYNAMIC_DEBUG_CORE) += dynamic_debug.o
- #ensure exported functions have prototypes
- CFLAGS_dynamic_debug.o := -DDYNAMIC_DEBUG_MODULE
-+CFLAGS_test_dynamic_debug.o := -DDYNAMIC_DEBUG_MODULE
-+CFLAGS_test_dynamic_debug_submod.o := -DDYNAMIC_DEBUG_MODULE
- 
- obj-$(CONFIG_SYMBOLIC_ERRNAME) += errname.o
- 
+ /**
 -- 
 2.41.0
 
