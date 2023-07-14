@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2545FEB64DA
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 05:45:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2738BEB64DA
+	for <intel-gfx@archiver.kernel.org>; Fri, 14 Jul 2023 06:15:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94ED110E1AA;
-	Fri, 14 Jul 2023 05:45:16 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 865E910E1AA
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Jul 2023 05:45:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A218310E7C5;
+	Fri, 14 Jul 2023 06:15:20 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 975A310E7C5
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 Jul 2023 06:15:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689313514; x=1720849514;
+ t=1689315317; x=1720851317;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=cPtsuvUCHO4feDSEQclKMzylFCAUK7b/9OXyusIAwS0=;
- b=HIPQx/C2HQEI965Gdxmn1/Siev3U/qo0MnvNxRFPTu2QTufIg8VYO4a7
- JQ+17E1g3lbEdjkBfAbzH9ogfXgDHwuFw11QLHviVHOnU32Fx2UM9C1xk
- aQifJNNpae04zH3KAApiGU4C0mGcaJPDXdLDUTT0A94xFT66T7dcI4pXH
- RZj8u1u91U76fRlsCRLraOTMSZsCjWA60dCk6MGPwxYzZnY0mCAWRzFXD
- lmZCBe1FQaQOShsWc40w2juujSVb6uQjUF5L7B6v2H5mDnx8CVxz8a5b5
- td3F1ZPSuBldhdbM2fju6JuKnjdDjdaLYvoj/Zy8AA0kamapwBeEx1Nj6 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="431568027"
-X-IronPort-AV: E=Sophos;i="6.01,204,1684825200"; d="scan'208";a="431568027"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jul 2023 22:45:12 -0700
+ bh=Vk8Jrsbnd5y/WkhzWaWRzo9FgbYABYXT9zRjbSNhSSU=;
+ b=QmvkQna/Bb2pYwOyVli0M+9IsmpU/ytzX0+Vmv8ddpTm4sy3hSWoJzxg
+ PHoQ6s4+DqjTwSNUiCBqmF9xuXs4kwbL6Jm8B1MorY8FvOyzFYv+3LgiX
+ 4FrhDWblRqPXHVNvdKIZAIJRfu41JwUy5LwdsJuSOzZnJrikgyu6IGyBS
+ HLmh7Yk6CJ16rT9W2tT8Ty7OTHUt+fMYmgwKiyTUbbiJYUfnle5Npb0DA
+ 6WQPl+pCNlQmHkIbscaJtkS3thAi7UY1G4PFx+cdtcmZoZVV5aZM83H1z
+ 9CP3uAasS7YijWnhwRku2wJzr9y67wqXqkQ+rTEJ+SxLzT52nKSxrHANJ Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="362865264"
+X-IronPort-AV: E=Sophos;i="6.01,204,1684825200"; d="scan'208";a="362865264"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2023 23:15:16 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="751916781"
-X-IronPort-AV: E=Sophos;i="6.01,204,1684825200"; d="scan'208";a="751916781"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by orsmga008.jf.intel.com with ESMTP; 13 Jul 2023 22:44:55 -0700
-From: Arun R Murthy <arun.r.murthy@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10770"; a="812308514"
+X-IronPort-AV: E=Sophos;i="6.01,204,1684825200"; d="scan'208";a="812308514"
+Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
+ by FMSMGA003.fm.intel.com with ESMTP; 13 Jul 2023 23:15:14 -0700
+From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 14 Jul 2023 11:07:33 +0530
-Message-Id: <20230714053733.2117730-1-arun.r.murthy@intel.com>
+Date: Fri, 14 Jul 2023 11:43:39 +0530
+Message-Id: <20230714061339.2897609-1-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/dp: Fix LT debug print in SDP CRC
- enable
+Subject: [Intel-gfx] [PATCH] drm/i915/hotplug: Reduce SHPD_FILTER to 250us
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,38 +57,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The debug print for enabling SDP CRC16 is applicable only for DP2.0, but
-this debug print was not within the uhbr check and was always printed.
-Fis this by adding proper checks and returning.
+Reduce SHPD_FILTER to 250us for ADL and above. This solution was
+derived when the below patch was floated.
+[1]https://patchwork.freedesktop.org/patch/532187
+and after some internal discussion Ville's suggestion made sense.
 
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+Bspec: 68970
+
+Cc: Uma Shankar <uma.shankar@intel.com>
+Cc: Ville Syrjala <ville.syrjala@linux.intel.com>
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- .../gpu/drm/i915/display/intel_dp_link_training.c    | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hotplug_irq.c | 4 +++-
+ drivers/gpu/drm/i915/i915_reg.h                  | 1 +
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index a263773f4d68..4485ef4f8ec6 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -1390,11 +1390,13 @@ void intel_dp_128b132b_sdp_crc16(struct intel_dp *intel_dp,
- 	 * Default value of bit 31 is '0' hence discarding the write
- 	 * TODO: Corrective actions on SDP corruption yet to be defined
- 	 */
--	if (intel_dp_is_uhbr(crtc_state))
--		/* DP v2.0 SCR on SDP CRC16 for 128b/132b Link Layer */
--		drm_dp_dpcd_writeb(&intel_dp->aux,
--				   DP_SDP_ERROR_DETECTION_CONFIGURATION,
--				   DP_SDP_CRC16_128B132B_EN);
-+	if (!intel_dp_is_uhbr(crtc_state))
-+		return;
-+
-+	/* DP v2.0 SCR on SDP CRC16 for 128b/132b Link Layer */
-+	drm_dp_dpcd_writeb(&intel_dp->aux,
-+			   DP_SDP_ERROR_DETECTION_CONFIGURATION,
-+			   DP_SDP_CRC16_128B132B_EN);
+diff --git a/drivers/gpu/drm/i915/display/intel_hotplug_irq.c b/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
+index f95fa793fabb..95a7ea94f417 100644
+--- a/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
++++ b/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
+@@ -842,6 +842,8 @@ static void icp_hpd_irq_setup(struct drm_i915_private *dev_priv)
  
- 	lt_dbg(intel_dp, DP_PHY_DPRX, "DP2.0 SDP CRC16 for 128b/132b enabled\n");
- }
+ 	if (INTEL_PCH_TYPE(dev_priv) <= PCH_TGP)
+ 		intel_uncore_write(&dev_priv->uncore, SHPD_FILTER_CNT, SHPD_FILTER_CNT_500_ADJ);
++	else
++		intel_uncore_write(&dev_priv->uncore, SHPD_FILTER_CNT, SHPD_FILTER_CNT_250);
+ 
+ 	ibx_display_interrupt_update(dev_priv, hotplug_irqs, enabled_irqs);
+ 
+@@ -1049,7 +1051,7 @@ static void mtp_hpd_irq_setup(struct drm_i915_private *i915)
+ 	enabled_irqs = intel_hpd_enabled_irqs(i915, i915->display.hotplug.pch_hpd);
+ 	hotplug_irqs = intel_hpd_hotplug_irqs(i915, i915->display.hotplug.pch_hpd);
+ 
+-	intel_de_write(i915, SHPD_FILTER_CNT, SHPD_FILTER_CNT_500_ADJ);
++	intel_de_write(i915, SHPD_FILTER_CNT, SHPD_FILTER_CNT_250);
+ 
+ 	mtp_hpd_invert(i915);
+ 	ibx_display_interrupt_update(i915, hotplug_irqs, enabled_irqs);
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index dcf64e32cd54..aefad14ab27a 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -4939,6 +4939,7 @@
+ 
+ #define SHPD_FILTER_CNT				_MMIO(0xc4038)
+ #define   SHPD_FILTER_CNT_500_ADJ		0x001D9
++#define   SHPD_FILTER_CNT_250			0x000F8
+ 
+ #define _PCH_DPLL_A              0xc6014
+ #define _PCH_DPLL_B              0xc6018
 -- 
 2.25.1
 
