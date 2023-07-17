@@ -4,47 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 408F7C001DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Jul 2023 11:19:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 851A9EB64DC
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Jul 2023 12:34:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B42E510E035;
-	Mon, 17 Jul 2023 11:19:06 +0000 (UTC)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8547410E035;
- Mon, 17 Jul 2023 11:19:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689592745; x=1721128745;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=5ayOVA/GQPLvpc8JskJdHeDy6bwdswbfsNy9l94v+t4=;
- b=MGOHK/gSh6PrqC+D8UjTgeQWSX9ETvtgKGDeEGXd62BYZuszEWjMq8HC
- 4ObtcVRld7uvyge5vaJY4UlUGZWnFhV4RpDuNKMDXeHNO/6jlKG4a1XeM
- AMXEr0/xeBfZBxOryNcWfNA44iugF0MulV9a57xT5a3WLMHlTUaLH4+Qa
- FJuRd968qJDiB4c1fubJGBqgOjtSwwedfIb84/kcx0sCMEUP56vamwJNO
- zFXBZXUmEY+9JH4KWCM6yk1NqcDi1FGTNzp5WeFeJ2EQDQXpem0+8F9l8
- YJJF6GRBOrWYfCaHSU18xUNFigswuASlk4dJJwuY5E3ClGoptrtFeLM+L A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10773"; a="346209416"
-X-IronPort-AV: E=Sophos;i="6.01,211,1684825200"; d="scan'208";a="346209416"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jul 2023 04:19:04 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10773"; a="836847162"
-X-IronPort-AV: E=Sophos;i="6.01,211,1684825200"; d="scan'208";a="836847162"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com (HELO jkrzyszt-mobl2.lan)
- ([10.213.9.176])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jul 2023 04:18:51 -0700
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 17 Jul 2023 13:17:47 +0200
-Message-ID: <20230717111746.17269-2-janusz.krzysztofik@linux.intel.com>
-X-Mailer: git-send-email 2.41.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4F0410E235;
+	Mon, 17 Jul 2023 12:34:06 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20622.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::622])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EE1510E142;
+ Mon, 17 Jul 2023 12:34:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Vzc/7j97TuLCAxogPIyiHtwLvH+acTsD+ZMwp2meB33FCbB/0XlEKJZEg9MwOJ0/7wTqlFB9NTW6YZA6jNA721pnbp5cDz6V+uvY1b2zod2no79At/WWVnI8gb1SJJGPLMg8KKPFj8Dgd8wIxizKeffBi1JJIuQ3ENI+yPGcMi9NGD/9u3AChlaL0CYHwnJU7JtJGWLqJYT0utEXCczjuLlUKw84CfWklIGdQQH6e7eiv2rMm3gHbpy39kLcz0ZZPie6uA1sk8GM4sOz99NO3UMoi55sw84NPmQLdGmghq5eo0qgSn2Za08ohm6m/JMx3GAOZ7mt91JtBQ9eSpdN7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BWnZJYMGWdXtBCB4MObkrtnMI6Lj2VUeE11sF74qIfY=;
+ b=Y7LJnogfbFY6P/sLov+fMfeM+ZUNerAXI/QhZaPumGeD0/szUQkRMSVHrmUyP+SO4MrqDryTq2AA6douzchAlUuXWKzE76fHTJF+I72agqztiyu4pHAbe5BExL9aQGoNhMj/5s6qXYfT14ofOhtbbbcD+JnSa2SqLTpLOLOLpakOawHSO1UT1VGXvSIWFwqy7M8TG8tmjwIpWSYpHdgDSOSzHlxbs8hTy9BnjweOlkQxtwspe0avFDWJU9dm3do832fLMZuniyjV/GxHXaS34IPsh0KncbEYHuGD5AS96XMayzWyTNkNqa9xUWehDHGwlAPST+ypbdBHF/9Q3bCU2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BWnZJYMGWdXtBCB4MObkrtnMI6Lj2VUeE11sF74qIfY=;
+ b=i1sgbtI0hpUE3jyW32L7/a+QHTbFAlQmM14C3cyGEDI6DR6vJ3dHqlhD1cmCXFO/nAxkSlm0Xlt5uZMqsXCXkJV4MWWyFoDwTmWIT0nctObcPFxJ6Dum8/LIz6HyGA/3WER1VP8XNjv8g10Vv8CTSDPNYeptsW/FbD/pH4kIkIeburOolTX6sdFlUoKeKiQ+2V5TT8Xdzx5oOx4DMd1J3cIzDAtf95PCZ0dksUMMdf/eD4MbtmjbUFZ5SFuJVQVpqB7nsl9ABF8a5DZKco1iCrZizN4O/gy0wcMVYI7QUsU6jQKM+l0iKT2D8OnXxNcnAVcegWhqMdG9gyy1JeDUiA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV2PR12MB5869.namprd12.prod.outlook.com (2603:10b6:408:176::16)
+ by DM4PR12MB5745.namprd12.prod.outlook.com (2603:10b6:8:5c::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6588.31; Mon, 17 Jul 2023 12:34:00 +0000
+Received: from LV2PR12MB5869.namprd12.prod.outlook.com
+ ([fe80::5111:16e8:5afe:1da1]) by LV2PR12MB5869.namprd12.prod.outlook.com
+ ([fe80::5111:16e8:5afe:1da1%6]) with mapi id 15.20.6588.031; Mon, 17 Jul 2023
+ 12:34:00 +0000
+Date: Mon, 17 Jul 2023 09:33:56 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: "Liu, Yi L" <yi.l.liu@intel.com>
+Message-ID: <ZLU1NKfKQkIPUIxw@nvidia.com>
+References: <20230616093946.68711-1-yi.l.liu@intel.com>
+ <20230616093946.68711-22-yi.l.liu@intel.com>
+ <DS0PR11MB7529C571419F1DB629AB7E92C33BA@DS0PR11MB7529.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DS0PR11MB7529C571419F1DB629AB7E92C33BA@DS0PR11MB7529.namprd11.prod.outlook.com>
+X-ClientProxiedBy: SJ0PR03CA0107.namprd03.prod.outlook.com
+ (2603:10b6:a03:333::22) To LV2PR12MB5869.namprd12.prod.outlook.com
+ (2603:10b6:408:176::16)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2] drm/i915: Fix premature release of request's
- reusable memory
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV2PR12MB5869:EE_|DM4PR12MB5745:EE_
+X-MS-Office365-Filtering-Correlation-Id: c6e87de2-cb11-4b64-8fa6-08db86c2189c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 3Fa+j1y1Lq9Hy3zXK6uaJfxDouRVEcy+xtyEy/eFZpe/kK6r+Rp4PBcNerMOEwKV1Sk3qYdaYTM8Ea09J90P6BHzANqx8q0aY7XmMQJ3Vv54WyHhCk55UsIFH2e02+utoeh8Q/MhcyNBpTqXCL6bEDQ/OFvYKJimHhJDe1OtN7IOlmkBoRRHh6ZD0Lp1Ib9617AtUM8XwB4ao8dqSlS5f1mpUiB0AcWuQQsuCiGAVrsdyHBR44Rt3Z/o+W/uMqe7HyqHBin2Tf9m5UrOARa6ODU3EEweo1OiA1nfYZroKJlS1mY5KAReCW85GArrr2YI+ufXiCW++MWxuGB56AtdjCRiGU/in7xTDVBl/WRBpbwX0F9I8hTF4FwQ8E3ImbYizqy4/J8PyMVJHzKb8IgLa9suD6BCNiE2GMVcLInQYF5Xs7VtGJLfdku2WRzSh0EaJJ7UTKtpbnK23+OIhz+gLcd4Hor+Wj1++Rm0UDVYgl0sopd65cP9JKo29jzVjXN6DJUNwDA766IA2bL/yFdHAwUjbXDL322y9ebqnKDHWoyJ7fmuyOt4ACltZ+RkShV5
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV2PR12MB5869.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(376002)(346002)(136003)(366004)(396003)(39860400002)(451199021)(478600001)(6486002)(6666004)(54906003)(83380400001)(86362001)(2906002)(4744005)(36756003)(186003)(6506007)(2616005)(26005)(6512007)(316002)(38100700002)(66556008)(4326008)(6916009)(66946007)(66476007)(41300700001)(8936002)(8676002)(5660300002)(7416002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?A66NISPZqvFvLizbv/MX+tR5SC1F8iccwPaZyyaklz18jbqilcBwq4fXLLax?=
+ =?us-ascii?Q?NpQ/DEhGJsraNWyf9UrPrv1uqM+YVwVfvUo4KhXQVMiPQv6TeesUl17RpjHo?=
+ =?us-ascii?Q?+r1XnC/c51dl8Z2fvRVwXDTNXPTAWz/J/3axHcS9tC+pOD9xIxwSfnvQLBgB?=
+ =?us-ascii?Q?Ob/8U9s54fBJD2ozqcIMY5RSZ3UflEiYPpE5vqg40gWIBmkb6CDtNpeX4+xq?=
+ =?us-ascii?Q?L/BkUH3qo7eLLWj+HqC07DmaKuALgRnGrPOTtWO7iv5Z1ZUeKF3jLE85nx0h?=
+ =?us-ascii?Q?A+txuDKz7TOQY+7plNd7tKJs8kDVVeVbGwTucP68CHrw4WN28O5Nh5kQt/O3?=
+ =?us-ascii?Q?f6JXl5xI4qN3I3pI5vTp+uUlw2m6/VdGX/a5iGRZ+r7KYkNColeTN9qLeiA0?=
+ =?us-ascii?Q?Oi0Vo6yFCbg6LKJIp7mwN+rzwxufbdT8vzSc9Jmxup+oAWKHI5V/ZUI9qsi5?=
+ =?us-ascii?Q?DclQJVoPzda1czks7UOEo2oYqQRx1QmfhJth5rEe7pnb7osn6zT54RAe402e?=
+ =?us-ascii?Q?BuRPVZJ52ohox3vQH22DISNk3ZpbNtmKxpzhv7rs4df36JJq9qe9CIxMfk3c?=
+ =?us-ascii?Q?eiYssp38VGYj94dsVA3a3JIxcSpMzEXCbQxHSDg95exA1LfduhWIFSKhLZw3?=
+ =?us-ascii?Q?rW4vmtwxqKb7eKAIOuds3HjaD6pXNzVq3FVJrqRvxXETa95n0WT3EcbdfH+x?=
+ =?us-ascii?Q?2IWN5Fv0RLP1PQuaGhq3iMqE4OPZFtW3RUP0luKU5+exI4AmNiXhGGudANft?=
+ =?us-ascii?Q?M9M3NaVelnXLfeFQBml5vQUBpvZt0/Veu4xrgM1jlKg7emuDBDLSHVh6TWsB?=
+ =?us-ascii?Q?BnRzf6QRHt18alWQkejSjaAZU454ruSIVSdadxexds+ePapn8gWf1rHWd+71?=
+ =?us-ascii?Q?wQFc2vb7vT8RbeqVMro+B8HQapoc1eiwNYfDFz/u8naA4ra+lUXOYr0fsonJ?=
+ =?us-ascii?Q?iYyHPUzX88yIJ2Gc+YlDcKqnWjDLG4inJS84eDnP4l2DrnP5aUy/PgzlmHui?=
+ =?us-ascii?Q?BzTsW9/f32Txzh0A/myWZtSmHjOpEf3rI+aSxtAvEjYH57/2kwNB4Yrl3ZZh?=
+ =?us-ascii?Q?SHTwzJtMJRRek/zatUA1acsatqrYCFjVJ93NPAMHgJEPeCKTlmgTj9SzK4ki?=
+ =?us-ascii?Q?jV9Zf4YESzy1ibcERV2hmNPG8HNxeZvJO+9l12fC+iU2zH9+2/3pn6aZF+Yh?=
+ =?us-ascii?Q?t6euEVWGTsIUZ+2NV3Z1zdTW+FioZotChR3qbNBPt763hrkVax4Xf49cediD?=
+ =?us-ascii?Q?Elm6dqXQJy+6EwwuQL6YoSRfnYVq3oqDCnbMiUYblBJrkhAGFsA/tcJ0tOdc?=
+ =?us-ascii?Q?Cu+UjcmesfPOLRNlh5JNL8+hOqfUXt2iCvmwIn5mNCBkKaopNaC6xEMTJUDY?=
+ =?us-ascii?Q?8dpvX2effaIztBqftY7Ie+QKoAD/ChamEaLI7IKg7PHTeuFlWbVEa5T7ChKx?=
+ =?us-ascii?Q?dpbziz8+fy0rAJqKh2b4u2P6Qy+72kMDTgiItTompSp55xIhXJQdqtw8vDgA?=
+ =?us-ascii?Q?y6ncJ1oXMeWcpZ6VWUTwulKEFzzU4yBqDHzS3aBR6Y72wk34PZUuuWwT1woU?=
+ =?us-ascii?Q?yvElWdDsM0ijGonyfVvTh5CA/DCJHhghNHo/ftN5?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6e87de2-cb11-4b64-8fa6-08db86c2189c
+X-MS-Exchange-CrossTenant-AuthSource: LV2PR12MB5869.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jul 2023 12:33:59.9193 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 36MGBEFXSzqKMbmtxN60u4a+M1OurdmyAFaYIYjdg6FH6EuilLQI2yd9ALoK5w8R
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5745
+Subject: Re: [Intel-gfx] [PATCH v13 21/22] vfio: Compile vfio_group
+ infrastructure optionally
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,269 +117,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris.p.wilson@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Andrzej Hajda <andrzej.hajda@intel.com>,
- Daniel Vetter <daniel@ffwll.ch>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@gmail.com>, Nirmoy Das <nirmoy.das@intel.com>
+Cc: "mjrosato@linux.ibm.com" <mjrosato@linux.ibm.com>,
+ "jasowang@redhat.com" <jasowang@redhat.com>, "Hao,
+ Xudong" <xudong.hao@intel.com>, "Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
+ "peterx@redhat.com" <peterx@redhat.com>, "Xu,
+ Terrence" <terrence.xu@intel.com>,
+ "chao.p.peng@linux.intel.com" <chao.p.peng@linux.intel.com>,
+ "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "lulu@redhat.com" <lulu@redhat.com>, "Jiang,
+ Yanting" <yanting.jiang@intel.com>, "joro@8bytes.org" <joro@8bytes.org>,
+ "nicolinc@nvidia.com" <nicolinc@nvidia.com>, "Tian,
+ Kevin" <kevin.tian@intel.com>, "Zhao, Yan Y" <yan.y.zhao@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "eric.auger@redhat.com" <eric.auger@redhat.com>,
+ "intel-gvt-dev@lists.freedesktop.org" <intel-gvt-dev@lists.freedesktop.org>,
+ "yi.y.sun@linux.intel.com" <yi.y.sun@linux.intel.com>,
+ "clegoate@redhat.com" <clegoate@redhat.com>,
+ "cohuck@redhat.com" <cohuck@redhat.com>,
+ "shameerali.kolothum.thodi@huawei.com" <shameerali.kolothum.thodi@huawei.com>,
+ "suravee.suthikulpanit@amd.com" <suravee.suthikulpanit@amd.com>,
+ "robin.murphy@arm.com" <robin.murphy@arm.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Infinite waits for completion of GPU activity have been observed in CI,
-mostly inside __i915_active_wait(), triggered by igt@gem_barrier_race or
-igt@perf@stress-open-close.  Root cause analysis, based of ftrace dumps
-generated with a lot of extra trace_printk() calls added to the code,
-revealed loops of request dependencies being accidentally built,
-preventing the requests from being processed, each waiting for completion
-of another one's activity.
+On Mon, Jul 17, 2023 at 06:36:19AM +0000, Liu, Yi L wrote:
+> Hi Alex, Jason,
+> 
+> I found a minor nit on the kconfig. The below configuration is valid.
+> But user cannot use vfio directly as there is no /dev/vfio/vfio. Although
+> user can open /dev/iommu instead. This is not good.
+> 
+> CONFIG_IOMMUFD=y
+> CONFIG_VFIO_DEVICE_CDEv=n
+> CONFIG_VFIO_GROUP=y
+> CONFIG_VFIO_CONTAINER=n
+> CONFIG_IOMMUFD_VFIO_CONTAINER=n
+> 
+> So need to have the below change. I'll incorporate this change in
+> this series after your ack.
 
-After we substitute a new request for a last active one tracked on a
-timeline, we set up a dependency of our new request to wait on completion
-of current activity of that previous one.  While doing that, we must take
-care of keeping the old request still in memory until we use its
-attributes for setting up that await dependency, or we can happen to set
-up the await dependency on an unrelated request that already reuses the
-memory previously allocated to the old one, already released.  Combined
-with perf adding consecutive kernel context remote requests to different
-user context timelines, unresolvable loops of await dependencies can be
-built, leading do infinite waits.
+This is fine, we decided to allow this in the original vfio series. It
+is usable in that you have to use iommufd natively with the group
+interface. It won't be backwards compatible with current userspace.
 
-We obtain a pointer to the previous request to wait upon when we
-substitute it with a pointer to our new request in an active tracker,
-e.g. in intel_timeline.last_request.  In some processing paths we protect
-that old request from being freed before we use it by getting a reference
-to it under RCU protection, but in others, e.g.  __i915_request_commit()
--> __i915_request_add_to_timeline() -> __i915_request_ensure_ordering(),
-we don't.  But anyway, since the requests' memory is SLAB_FAILSAFE_BY_RCU,
-that RCU protection is not sufficient against reuse of memory.
-
-We could protect i915_request's memory from being prematurely reused by
-calling its release function via call_rcu() and using rcu_read_lock()
-consequently, as proposed in v1.  However, that approach leads to
-significant (up to 10 times) increase of SLAB utilization by i915_request
-SLAB cache.  Another potential approach is to take a reference to the
-previous active fence.
-
-When updating an active fence tracker, we first lock the new fence,
-substitute a pointer of the current active fence with the new one, then we
-lock the substituted fence.  With this approach, there is a time window
-after the substitution and before the lock when the request can be
-concurrently released by an interrupt handler and its memory reused, then
-we may happen to lock and return a new, unrelated request.
-
-Always get a reference to the current active fence first, before
-replacing it with a new one.  Having it protected from premature release
-and reuse, lock it and then replace with the new one but only if not
-yet signalled via a potential concurrent interrupt nor replaced with
-another one by a potential concurrent thread, otherwise retry, starting
-from getting a reference to the new current one.  Adjust users to not
-get a reference to the previous active fence themselves and always put the
-reference got by __i915_active_fence_set() when no longer needed.
-
-v2: Protect request's memory by getting a reference to it in favor of
-    delegating its release to call_rcu() (Chris)
-
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/8211
-Fixes: df9f85d8582e ("drm/i915: Serialise i915_active_fence_set() with itself")
-Suggested-by: Chris Wilson <chris@chris-wilson.co.uk>
-Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Cc: <stable@vger.kernel.org> # v5.6+
----
- drivers/gpu/drm/i915/i915_active.c  | 99 ++++++++++++++++++++---------
- drivers/gpu/drm/i915/i915_request.c | 11 ++++
- 2 files changed, 81 insertions(+), 29 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
-index 8ef93889061a6..53c2c669ad003 100644
---- a/drivers/gpu/drm/i915/i915_active.c
-+++ b/drivers/gpu/drm/i915/i915_active.c
-@@ -449,8 +449,11 @@ int i915_active_add_request(struct i915_active *ref, struct i915_request *rq)
- 		}
- 	} while (unlikely(is_barrier(active)));
- 
--	if (!__i915_active_fence_set(active, fence))
-+	fence = __i915_active_fence_set(active, fence);
-+	if (!fence)
- 		__i915_active_acquire(ref);
-+	else
-+		dma_fence_put(fence);
- 
- out:
- 	i915_active_release(ref);
-@@ -469,13 +472,9 @@ __i915_active_set_fence(struct i915_active *ref,
- 		return NULL;
- 	}
- 
--	rcu_read_lock();
- 	prev = __i915_active_fence_set(active, fence);
--	if (prev)
--		prev = dma_fence_get_rcu(prev);
--	else
-+	if (!prev)
- 		__i915_active_acquire(ref);
--	rcu_read_unlock();
- 
- 	return prev;
- }
-@@ -1019,10 +1018,11 @@ void i915_request_add_active_barriers(struct i915_request *rq)
-  *
-  * Records the new @fence as the last active fence along its timeline in
-  * this active tracker, moving the tracking callbacks from the previous
-- * fence onto this one. Returns the previous fence (if not already completed),
-- * which the caller must ensure is executed before the new fence. To ensure
-- * that the order of fences within the timeline of the i915_active_fence is
-- * understood, it should be locked by the caller.
-+ * fence onto this one. Gets and returns a reference to the previous fence
-+ * (if not already completed), which the caller must put after making sure
-+ * that it is executed before the new fence. To ensure that the order of
-+ * fences within the timeline of the i915_active_fence is understood, it
-+ * should be locked by the caller.
-  */
- struct dma_fence *
- __i915_active_fence_set(struct i915_active_fence *active,
-@@ -1031,7 +1031,23 @@ __i915_active_fence_set(struct i915_active_fence *active,
- 	struct dma_fence *prev;
- 	unsigned long flags;
- 
--	if (fence == rcu_access_pointer(active->fence))
-+	/*
-+	 * In case of fences embedded in i915_requests, their memory is
-+	 * SLAB_FAILSAFE_BY_RCU, then it can be reused right after release
-+	 * by new requests.  Then, there is a risk of passing back a pointer
-+	 * to a new, completely unrelated fence that reuses the same memory
-+	 * while tracked under a different active tracker.  Combined with i915
-+	 * perf open/close operations that build await dependencies between
-+	 * engine kernel context requests and user requests from different
-+	 * timelines, this can lead to dependency loops and infinite waits.
-+	 *
-+	 * As a countermeasure, we try to get a reference to the active->fence
-+	 * first, so if we succeed and pass it back to our user then it is not
-+	 * released and potentially reused by an unrelated request before the
-+	 * user has a chance to set up an await dependency on it.
-+	 */
-+	prev = i915_active_fence_get(active);
-+	if (fence == prev)
- 		return fence;
- 
- 	GEM_BUG_ON(test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags));
-@@ -1040,27 +1056,56 @@ __i915_active_fence_set(struct i915_active_fence *active,
- 	 * Consider that we have two threads arriving (A and B), with
- 	 * C already resident as the active->fence.
- 	 *
--	 * A does the xchg first, and so it sees C or NULL depending
--	 * on the timing of the interrupt handler. If it is NULL, the
--	 * previous fence must have been signaled and we know that
--	 * we are first on the timeline. If it is still present,
--	 * we acquire the lock on that fence and serialise with the interrupt
--	 * handler, in the process removing it from any future interrupt
--	 * callback. A will then wait on C before executing (if present).
--	 *
--	 * As B is second, it sees A as the previous fence and so waits for
--	 * it to complete its transition and takes over the occupancy for
--	 * itself -- remembering that it needs to wait on A before executing.
-+	 * Both A and B have got a reference to C or NULL, depending on the
-+	 * timing of the interrupt handler.  Let's assume that if A has got C
-+	 * then it has locked C first (before B).
- 	 *
- 	 * Note the strong ordering of the timeline also provides consistent
- 	 * nesting rules for the fence->lock; the inner lock is always the
- 	 * older lock.
- 	 */
- 	spin_lock_irqsave(fence->lock, flags);
--	prev = xchg(__active_fence_slot(active), fence);
--	if (prev) {
--		GEM_BUG_ON(prev == fence);
-+	if (prev)
- 		spin_lock_nested(prev->lock, SINGLE_DEPTH_NESTING);
-+
-+	/*
-+	 * A does the cmpxchg first, and so it sees C or NULL, as before, or
-+	 * something else, depending on the timing of other threads and/or
-+	 * interrupt handler.  If not the same as before then A unlocks C if
-+	 * applicable and retries, starting from an attempt to get a new
-+	 * active->fence.  Meanwhile, B follows the same path as A.
-+	 * Once A succeeds with cmpxch, B fails again, retires, gets A from
-+	 * active->fence, locks it as soon as A completes, and possibly
-+	 * succeeds with cmpxchg.
-+	 */
-+	while (!try_cmpxchg(__active_fence_slot(active), &prev, fence)) {
-+		if (prev) {
-+			spin_unlock(prev->lock);
-+			dma_fence_put(prev);
-+		}
-+		spin_unlock_irqrestore(fence->lock, flags);
-+
-+		prev = i915_active_fence_get(active);
-+		GEM_BUG_ON(prev == fence);
-+
-+		spin_lock_irqsave(fence->lock, flags);
-+		if (prev)
-+			spin_lock_nested(prev->lock, SINGLE_DEPTH_NESTING);
-+	}
-+
-+	/*
-+	 * If prev is NULL then the previous fence must have been signaled
-+	 * and we know that we are first on the timeline.  If it is still
-+	 * present then, having the lock on that fence already acquired, we
-+	 * serialise with the interrupt handler, in the process of removing it
-+	 * from any future interrupt callback.  A will then wait on C before
-+	 * executing (if present).
-+	 *
-+	 * As B is second, it sees A as the previous fence and so waits for
-+	 * it to complete its transition and takes over the occupancy for
-+	 * itself -- remembering that it needs to wait on A before executing.
-+	 */
-+	if (prev) {
- 		__list_del_entry(&active->cb.node);
- 		spin_unlock(prev->lock); /* serialise with prev->cb_list */
- 	}
-@@ -1077,11 +1122,7 @@ int i915_active_fence_set(struct i915_active_fence *active,
- 	int err = 0;
- 
- 	/* Must maintain timeline ordering wrt previous active requests */
--	rcu_read_lock();
- 	fence = __i915_active_fence_set(active, &rq->fence);
--	if (fence) /* but the previous fence may not belong to that timeline! */
--		fence = dma_fence_get_rcu(fence);
--	rcu_read_unlock();
- 	if (fence) {
- 		err = i915_request_await_dma_fence(rq, fence);
- 		dma_fence_put(fence);
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index 894068bb37b6f..833b73edefdbb 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -1661,6 +1661,11 @@ __i915_request_ensure_parallel_ordering(struct i915_request *rq,
- 
- 	request_to_parent(rq)->parallel.last_rq = i915_request_get(rq);
- 
-+	/*
-+	 * Users have to put a reference potentially got by
-+	 * __i915_active_fence_set() to the returned request
-+	 * when no longer needed
-+	 */
- 	return to_request(__i915_active_fence_set(&timeline->last_request,
- 						  &rq->fence));
- }
-@@ -1707,6 +1712,10 @@ __i915_request_ensure_ordering(struct i915_request *rq,
- 							 0);
- 	}
- 
-+	/*
-+	 * Users have to put the reference to prev potentially got
-+	 * by __i915_active_fence_set() when no longer needed
-+	 */
- 	return prev;
- }
- 
-@@ -1760,6 +1769,8 @@ __i915_request_add_to_timeline(struct i915_request *rq)
- 		prev = __i915_request_ensure_ordering(rq, timeline);
- 	else
- 		prev = __i915_request_ensure_parallel_ordering(rq, timeline);
-+	if (prev)
-+		i915_request_put(prev);
- 
- 	/*
- 	 * Make sure that no request gazumped us - if it was allocated after
--- 
-2.41.0
-
+Jason
