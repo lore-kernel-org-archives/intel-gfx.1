@@ -4,31 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4434CEB64DC
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Jul 2023 13:52:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55343C001DC
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Jul 2023 13:54:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6806A10E258;
-	Mon, 17 Jul 2023 13:52:34 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id B08FB10E257;
- Mon, 17 Jul 2023 13:52:32 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 954C0AADD2;
- Mon, 17 Jul 2023 13:52:32 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============0006714529237648759=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A1FB10E25C;
+	Mon, 17 Jul 2023 13:54:55 +0000 (UTC)
+Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
+ [IPv6:2607:f8b0:4864:20::12f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7690F10E207
+ for <intel-gfx@lists.freedesktop.org>; Mon, 17 Jul 2023 08:29:47 +0000 (UTC)
+Received: by mail-il1-x12f.google.com with SMTP id
+ e9e14a558f8ab-345ff33d286so22421005ab.3
+ for <intel-gfx@lists.freedesktop.org>; Mon, 17 Jul 2023 01:29:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=semihalf.com; s=google; t=1689582586; x=1692174586;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=KrEcIar0BkfpmBL+8BCmNKqe2TUSK3LL+WBdNYsOjsM=;
+ b=e52IJgo7nORao0Gl4I5dRpwwbrYRCXZTSuwaC/thRVodGrQS/Ih+iZx/Zsqn89WU3w
+ pQgXUWQS+Vk59/Fh6rrIEqzCQJkEny2i0gy7zEPOvxwj9yUxhnNvrizRbt8YsZpplHpx
+ RjVLFZyrzR9wafddakUgpMo5lLKlNumHP6uiacp/wGVyLbBbCgrHIUP/7snpf7XV2sof
+ jlaeLm95LpwgAuzcjO7UCvT+e3bh2UJ0I6TbCUpKBOZvGLRTw6wJXY5zbY52dacz1/1P
+ iPPOvh8ArwyYCroEOLn3Y8OJKVgd78PUACDF8tTPiPB+Om3hyy+66x8dhT2yU/74h83y
+ v2JA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1689582586; x=1692174586;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=KrEcIar0BkfpmBL+8BCmNKqe2TUSK3LL+WBdNYsOjsM=;
+ b=VAi+kS/MkNHOu+qi3/o+v5oUZd/7Q8LMkiTnA8HRK6/eeefN4sxBUJqrADR++B0A3J
+ iKkZuOuv9hMgpXdXXRFhx57D+NLHarvDZuctOhJHPSwWy4vMW9Lk0PUF2GqbuGJ8uP54
+ 8kRRyTc9DatZGKgiH8GU97rA1Ie1kX0p5qcRcEj1Ls9EsS6uo0G2ks16daZ/KC0dMj/y
+ H0lm+d0D1paePr7WVCNBHvfkEzI40CJmXcyKJOIFDsyORcdRVAxQ9cFZiS49CRgLTezt
+ vp9C7AJCCxIMlLmPjYcFhnkFXMk6x15TiiXGWDgjcJndLdWDNo/+mEda1yngqTZHejoL
+ GPJA==
+X-Gm-Message-State: ABy/qLbX5WGwrjIjwgfrMjgd0m//UCKZjC+G9ZuBX1U3EOedsSlaYKC0
+ HgJv88NuFduSXtFmUGYcJMSLb2cZCDvFA9lKO8azFQ==
+X-Google-Smtp-Source: APBJJlGE7jn73weZAb7Q+GH4ouydfCd9ILtA9ynYfWdyB1I4k5TGE6qNhhrOJBaOwSkah9YrBoRDKcKZ9t95G975sJc=
+X-Received: by 2002:a92:d4d2:0:b0:345:d470:baa6 with SMTP id
+ o18-20020a92d4d2000000b00345d470baa6mr9664500ilm.29.1689582586220; Mon, 17
+ Jul 2023 01:29:46 -0700 (PDT)
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Stanislav Lisovskiy" <stanislav.lisovskiy@intel.com>
-Date: Mon, 17 Jul 2023 13:52:32 -0000
-Message-ID: <168960195257.24538.12818411719995883107@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20230714123456.19153-1-stanislav.lisovskiy@intel.com>
-In-Reply-To: <20230714123456.19153-1-stanislav.lisovskiy@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915=3A_Start_using_plane_scale_factor_for_relative_data_rate_?=
- =?utf-8?b?KHJldjIp?=
+References: <20230630155936.3015595-1-jaz@semihalf.com>
+ <20230714-gauner-unsolidarisch-fc51f96c61e8@brauner>
+In-Reply-To: <20230714-gauner-unsolidarisch-fc51f96c61e8@brauner>
+From: Grzegorz Jaszczyk <jaz@semihalf.com>
+Date: Mon, 17 Jul 2023 10:29:34 +0200
+Message-ID: <CAH76GKPF4BjJLrzLBW8k12ATaAGADeMYc2NQ9+j0KgRa0pomUw@mail.gmail.com>
+To: Christian Brauner <brauner@kernel.org>,
+ Alex Williamson <alex.williamson@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 17 Jul 2023 13:54:54 +0000
+Subject: Re: [Intel-gfx] [PATCH 0/2] eventfd: simplify signal helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,225 +71,101 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
+Cc: linux-aio@kvack.org, Muchun Song <muchun.song@linux.dev>,
+ Tony Krowiak <akrowiak@linux.ibm.com>, Matthew Rosato <mjrosato@linux.ibm.com>,
+ Paul Durrant <paul@xen.org>, Tom Rix <trix@redhat.com>,
+ Jason Wang <jasowang@redhat.com>, Roman Gushchin <roman.gushchin@linux.dev>,
+ dri-devel@lists.freedesktop.org, Michal Hocko <mhocko@kernel.org>,
+ Heiko Carstens <hca@linux.ibm.com>, linux-mm@kvack.org,
+ Kirti Wankhede <kwankhede@nvidia.com>, Vineeth Vijayan <vneethv@linux.ibm.com>,
+ Diana Craciun <diana.craciun@oss.nxp.com>, Borislav Petkov <bp@alien8.de>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, Fei Li <fei1.li@intel.com>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Marcin Wojtas <mw@semihalf.com>,
+ Arnd Bergmann <arnd@arndb.de>, Leon Romanovsky <leon@kernel.org>,
+ linux-rdma@vger.kernel.org, x86@kernel.org, Halil Pasic <pasic@linux.ibm.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Ingo Molnar <mingo@redhat.com>,
+ Dominik Behr <dbehr@chromium.org>, Moritz Fischer <mdf@kernel.org>,
+ Frederic Barrat <fbarrat@linux.ibm.com>, Xu Yilun <yilun.xu@intel.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, linux-fpga@vger.kernel.org,
+ Wu Hao <hao.wu@intel.com>, Jason Herne <jjherne@linux.ibm.com>,
+ Eric Farman <farman@linux.ibm.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+ Andrew Donnellan <ajd@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ linux-s390@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ intel-gfx@lists.freedesktop.org, Sean Christopherson <seanjc@google.com>,
+ Eric Auger <eric.auger@redhat.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Harald Freudenberger <freude@linux.ibm.com>, kvm@vger.kernel.org,
+ Paolo Bonzini <pbonzini@redhat.com>, cgroups@vger.kernel.org,
+ Thomas Gleixner <tglx@linutronix.de>,
+ virtualization@lists.linux-foundation.org, intel-gvt-dev@lists.freedesktop.org,
+ io-uring@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, netdev@vger.kernel.org,
+ Oded Gabbay <ogabbay@kernel.org>, linux-usb@vger.kernel.org,
+ Peter Oberparleiter <oberpar@linux.ibm.com>, linux-kernel@vger.kernel.org,
+ Benjamin LaHaise <bcrl@kvack.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ linux-fsdevel@vger.kernel.org, Shakeel Butt <shakeelb@google.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, David Woodhouse <dwmw2@infradead.org>,
+ linuxppc-dev@lists.ozlabs.org, Pavel Begunkov <asml.silence@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0006714529237648759==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+pt., 14 lip 2023 o 09:05 Christian Brauner <brauner@kernel.org> napisa=C5=
+=82(a):
+>
+> On Thu, Jul 13, 2023 at 11:10:54AM -0600, Alex Williamson wrote:
+> > On Thu, 13 Jul 2023 12:05:36 +0200
+> > Christian Brauner <brauner@kernel.org> wrote:
+> >
+> > > Hey everyone,
+> > >
+> > > This simplifies the eventfd_signal() and eventfd_signal_mask() helper=
+s
+> > > by removing the count argument which is effectively unused.
+> >
+> > We have a patch under review which does in fact make use of the
+> > signaling value:
+> >
+> > https://lore.kernel.org/all/20230630155936.3015595-1-jaz@semihalf.com/
+>
+> Huh, thanks for the link.
+>
+> Quoting from
+> https://patchwork.kernel.org/project/kvm/patch/20230307220553.631069-1-ja=
+z@semihalf.com/#25266856
+>
+> > Reading an eventfd returns an 8-byte value, we generally only use it
+> > as a counter, but it's been discussed previously and IIRC, it's possibl=
+e
+> > to use that value as a notification value.
+>
+> So the goal is to pipe a specific value through eventfd? But it is
+> explicitly a counter. The whole thing is written around a counter and
+> each write and signal adds to the counter.
+>
+> The consequences are pretty well described in the cover letter of
+> v6 https://lore.kernel.org/all/20230630155936.3015595-1-jaz@semihalf.com/
+>
+> > Since the eventfd counter is used as ACPI notification value
+> > placeholder, the eventfd signaling needs to be serialized in order to
+> > not end up with notification values being coalesced. Therefore ACPI
+> > notification values are buffered and signalized one by one, when the
+> > previous notification value has been consumed.
+>
+> But isn't this a good indication that you really don't want an eventfd
+> but something that's explicitly designed to associate specific data with
+> a notification? Using eventfd in that manner requires serialization,
+> buffering, and enforces ordering.
+>
+> I have no skin in the game aside from having to drop this conversion
+> which I'm fine to do if there are actually users for this btu really,
+> that looks a lot like abusing an api that really wasn't designed for
+> this.
 
-== Series Details ==
-
-Series: drm/i915: Start using plane scale factor for relative data rate (rev2)
-URL   : https://patchwork.freedesktop.org/series/120767/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_13390 -> Patchwork_120767v2
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/index.html
-
-Participating hosts (41 -> 22)
-------------------------------
-
-  Missing    (19): fi-snb-2520m fi-blb-e6850 fi-skl-6600u fi-bsw-n3050 bat-dg2-8 bat-adlm-1 fi-hsw-4770 fi-elk-e7500 bat-jsl-3 bat-rplp-1 fi-bsw-nick bat-dg1-7 fi-skl-guc fi-glk-j4005 bat-mtlp-8 bat-adlp-11 fi-kbl-guc fi-kbl-8809g bat-dg2-13 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_120767v2 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@requests:
-    - bat-rpls-2:         [PASS][1] -> [ABORT][2] ([i915#4983] / [i915#7913])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13390/bat-rpls-2/igt@i915_selftest@live@requests.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/bat-rpls-2/igt@i915_selftest@live@requests.html
-
-  * igt@i915_selftest@live@reset:
-    - bat-rpls-1:         [PASS][3] -> [ABORT][4] ([i915#4983] / [i915#7461] / [i915#8347] / [i915#8384])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13390/bat-rpls-1/igt@i915_selftest@live@reset.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/bat-rpls-1/igt@i915_selftest@live@reset.html
-
-  * igt@kms_chamelium_hpd@common-hpd-after-suspend:
-    - bat-jsl-1:          NOTRUN -> [SKIP][5] ([i915#7828])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/bat-jsl-1/igt@kms_chamelium_hpd@common-hpd-after-suspend.html
-
-  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:
-    - bat-dg2-11:         NOTRUN -> [SKIP][6] ([i915#1845] / [i915#5354]) +3 similar issues
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_pm_rpm@module-reload:
-    - fi-rkl-11600:       [FAIL][7] ([i915#7940]) -> [PASS][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13390/fi-rkl-11600/igt@i915_pm_rpm@module-reload.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/fi-rkl-11600/igt@i915_pm_rpm@module-reload.html
-
-  * igt@i915_selftest@live@gt_mocs:
-    - bat-mtlp-6:         [DMESG-FAIL][9] ([i915#7059]) -> [PASS][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13390/bat-mtlp-6/igt@i915_selftest@live@gt_mocs.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/bat-mtlp-6/igt@i915_selftest@live@gt_mocs.html
-
-  * igt@i915_selftest@live@migrate:
-    - bat-jsl-1:          [INCOMPLETE][11] ([i915#8504]) -> [PASS][12]
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13390/bat-jsl-1/igt@i915_selftest@live@migrate.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/bat-jsl-1/igt@i915_selftest@live@migrate.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [Intel XE#486]: https://gitlab.freedesktop.org/drm/xe/kernel/issues/486
-  [i915#1845]: https://gitlab.freedesktop.org/drm/intel/issues/1845
-  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
-  [i915#5354]: https://gitlab.freedesktop.org/drm/intel/issues/5354
-  [i915#7059]: https://gitlab.freedesktop.org/drm/intel/issues/7059
-  [i915#7461]: https://gitlab.freedesktop.org/drm/intel/issues/7461
-  [i915#7828]: https://gitlab.freedesktop.org/drm/intel/issues/7828
-  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
-  [i915#7940]: https://gitlab.freedesktop.org/drm/intel/issues/7940
-  [i915#8347]: https://gitlab.freedesktop.org/drm/intel/issues/8347
-  [i915#8384]: https://gitlab.freedesktop.org/drm/intel/issues/8384
-  [i915#8504]: https://gitlab.freedesktop.org/drm/intel/issues/8504
-  [i915#8879]: https://gitlab.freedesktop.org/drm/intel/issues/8879
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_13390 -> Patchwork_120767v2
-
-  CI-20190529: 20190529
-  CI_DRM_13390: 3d28151face410f5cafffdb42710041f889dc733 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7388: 7388
-  Patchwork_120767v2: 3d28151face410f5cafffdb42710041f889dc733 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-e6a06eb0dd1f drm/i915: Start using plane scale factor for relative data rate
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/index.html
-
---===============0006714529237648759==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Start using plane scale factor for relative data rate (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/120767/">https://patchwork.freedesktop.org/series/120767/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_13390 -&gt; Patchwork_120767v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/index.html</p>
-<h2>Participating hosts (41 -&gt; 22)</h2>
-<p>Missing    (19): fi-snb-2520m fi-blb-e6850 fi-skl-6600u fi-bsw-n3050 bat-dg2-8 bat-adlm-1 fi-hsw-4770 fi-elk-e7500 bat-jsl-3 bat-rplp-1 fi-bsw-nick bat-dg1-7 fi-skl-guc fi-glk-j4005 bat-mtlp-8 bat-adlp-11 fi-kbl-guc fi-kbl-8809g bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_120767v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@requests:</p>
-<ul>
-<li>bat-rpls-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13390/bat-rpls-2/igt@i915_selftest@live@requests.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/bat-rpls-2/igt@i915_selftest@live@requests.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@reset:</p>
-<ul>
-<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13390/bat-rpls-1/igt@i915_selftest@live@reset.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/bat-rpls-1/igt@i915_selftest@live@reset.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7461">i915#7461</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8347">i915#8347</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8384">i915#8384</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_chamelium_hpd@common-hpd-after-suspend:</p>
-<ul>
-<li>bat-jsl-1:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/bat-jsl-1/igt@kms_chamelium_hpd@common-hpd-after-suspend.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7828">i915#7828</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:</p>
-<ul>
-<li>bat-dg2-11:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1845">i915#1845</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/5354">i915#5354</a>) +3 similar issues</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_pm_rpm@module-reload:</p>
-<ul>
-<li>fi-rkl-11600:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13390/fi-rkl-11600/igt@i915_pm_rpm@module-reload.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7940">i915#7940</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/fi-rkl-11600/igt@i915_pm_rpm@module-reload.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@gt_mocs:</p>
-<ul>
-<li>bat-mtlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13390/bat-mtlp-6/igt@i915_selftest@live@gt_mocs.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7059">i915#7059</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/bat-mtlp-6/igt@i915_selftest@live@gt_mocs.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@migrate:</p>
-<ul>
-<li>bat-jsl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13390/bat-jsl-1/igt@i915_selftest@live@migrate.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8504">i915#8504</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_120767v2/bat-jsl-1/igt@i915_selftest@live@migrate.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_13390 -&gt; Patchwork_120767v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_13390: 3d28151face410f5cafffdb42710041f889dc733 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7388: 7388<br />
-  Patchwork_120767v2: 3d28151face410f5cafffdb42710041f889dc733 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>e6a06eb0dd1f drm/i915: Start using plane scale factor for relative data rate</p>
-
-</body>
-</html>
-
---===============0006714529237648759==--
+https://patchwork.kernel.org/project/kvm/patch/20230307220553.631069-1-jaz@=
+semihalf.com/
+was posted at the beginig of March and one of the main things we've
+discussed was the mechanism for propagating acpi notification value.
+We've endup with eventfd as the best mechanism and have actually been
+using it from v2. I really do not want to waste this effort, I think
+we are quite advanced with v6 now. Additionally we didn't actually
+modify any part of eventfd support that was in place, we only used it
+in a specific (and discussed beforehand) way.
