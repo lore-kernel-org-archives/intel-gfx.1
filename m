@@ -4,50 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC819EB64DC
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Jul 2023 12:51:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F280DEB64DC
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Jul 2023 12:52:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A98810E234;
-	Mon, 17 Jul 2023 12:51:59 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDDD210E234;
- Mon, 17 Jul 2023 12:51:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AA6610E236;
+	Mon, 17 Jul 2023 12:52:09 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27ADB10E236;
+ Mon, 17 Jul 2023 12:52:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689598317; x=1721134317;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=tXmIuWi2HHbHOpmPHFaBoSDJmGNEDxYgiH7Gyud8+/Y=;
- b=fdVv689zc3O0IudUaJzWBxoGu6T3YW73LpHC5IEAsuot54x3KLrD4Y/a
- sWonRoiWL9SDgcqJkAarpW49qgfupFyhZRH21/Rd3UNY0Iu1XpZc79+hX
- 87A1tBb1/u1yzsDo4mEjuoVCgGt7yuP6lKh4pd89JpI4cw88pJdC1/VXi
- BbnscQGqVBI812sCxWlapPlvVn5LHPYqQSOkdOZtE3s/VbBALN/9KV250
- YiZPcxugxZpQIdCUSQbOf0RlJv+EI4whVl1q/APN3quRWhuosexHhqZGy
- JqTgiN4WGzgWuK6xo+k3Z2TOiXPQDlGVpOXtshabmKElqRn9TdVD/FbMZ g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10774"; a="452294483"
-X-IronPort-AV: E=Sophos;i="6.01,211,1684825200"; d="scan'208";a="452294483"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jul 2023 05:51:56 -0700
+ t=1689598328; x=1721134328;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Azr+yZ1xPnhFlXc4Lf7xg+b7tzt+MWt2RPdQZmMxrR0=;
+ b=cOxK4GmVIgR8CsH3Fsdz2wq6tVFBhaJkp6LAiyxTix1tgT4dEJTK29ac
+ tff3AQoOiYqeGgJXeOatbALD4Oejp2xmFiXYl9u74ZPbHV9/ItulJ80x/
+ r6A84GOno99kUXdua0IGfwFdWqJU6pOK2MFcSUd72TfQVpI57EP5rWc26
+ inEp3ngYTs1p7BHhRhUkI9sb567NIfMT+CQWkIKrZJwmjqfcNk8DPEq9j
+ YrjKCNLfANdM8+wwaoK+FPzTiONq4SUOiSs9hqc3tehn55B0MVIAMacW9
+ FBTkRrnuC2F/oAxeZHp6UxUS00y2fKDQi5nLKUr7jTR2hSNBbuqi7gbN8 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10774"; a="363383718"
+X-IronPort-AV: E=Sophos;i="6.01,211,1684825200"; d="scan'208";a="363383718"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jul 2023 05:52:07 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10774"; a="752885864"
-X-IronPort-AV: E=Sophos;i="6.01,211,1684825200"; d="scan'208";a="752885864"
+X-IronPort-AV: E=McAfee;i="6600,9927,10774"; a="969873949"
+X-IronPort-AV: E=Sophos;i="6.01,211,1684825200"; d="scan'208";a="969873949"
 Received: from jplazoni-mobl.ger.corp.intel.com (HELO intel.com)
  ([10.252.55.169])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jul 2023 05:51:53 -0700
+ by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jul 2023 05:52:04 -0700
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: Jonathan Cavitt <jonathan.cavitt@intel.com>,
  Matt Roper <matthew.d.roper@intel.com>,
  Chris Wilson <chris@chris-wilson.co.uk>,
  Mika Kuoppala <mika.kuoppala@linux.intel.com>,
  Nirmoy Das <nirmoy.das@intel.com>
-Date: Mon, 17 Jul 2023 14:51:29 +0200
-Message-Id: <20230717125134.399115-1-andi.shyti@linux.intel.com>
+Date: Mon, 17 Jul 2023 14:51:31 +0200
+Message-Id: <20230717125134.399115-3-andi.shyti@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230717125134.399115-1-andi.shyti@linux.intel.com>
+References: <20230717125134.399115-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 0/5] Update AUX invalidation sequence
+Subject: [Intel-gfx] [PATCH v3 2/5] drm/i915/gt: Ensure memory quiesced
+ before invalidation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,52 +68,37 @@ Cc: Intel GFX <intel-gfx@lists.freedesktop.org>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 
-as there are new hardware directives, we need a little adaptation
-for the AUX invalidation sequence.
+All memory traffic must be quiesced before requesting
+an aux invalidation on platforms that use Aux CCS.
 
-In this version we support all the engines affected by this
-change.
+Fixes: 972282c4cf24 ("drm/i915/gen12: Add aux table invalidate for all engines")
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: <stable@vger.kernel.org> # v5.8+
+---
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-The stable backport has some challenges because the original
-patch that this series fixes has had more changes in between.
-
-Thanks a lot Nirmoy for your review and for the fruitful discussions!
-
-Thanks,
-Andi
-
-Changelog:
-=========
-v2 -> v3
- - added r-b from Nirmoy in patch 1 and 4.
- - added patch 3 which enables the ccs_flush in the control pipe for mtl+
-   compute and render engines.
- - added redundant checks in patch 2 for enabling the EMIT_FLUSH flag.
-
-v1 -> v2
- - add a clean up preliminary patch for the existing registers
- - add support for more engines
- - add the Fixes tag
-
-Andi Shyti (3):
-  drm/i915/gt: Cleanup aux invalidation registers
-  drm/i915/gt: Enable the CCS_FLUSH bit in the pipe control
-  drm/i915/gt: Support aux invalidation on all engines
-
-Jonathan Cavitt (2):
-  drm/i915/gt: Ensure memory quiesced before invalidation
-  drm/i915/gt: Poll aux invalidation register bit on invalidation
-
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c     | 95 ++++++++++++++------
- drivers/gpu/drm/i915/gt/gen8_engine_cs.h     |  3 +-
- drivers/gpu/drm/i915/gt/intel_engine_types.h |  1 +
- drivers/gpu/drm/i915/gt/intel_gpu_commands.h |  2 +
- drivers/gpu/drm/i915/gt/intel_gt_regs.h      | 14 ++-
- drivers/gpu/drm/i915/gt/intel_lrc.c          | 17 +---
- 6 files changed, 82 insertions(+), 50 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+index 563efee055602..bee3b7dc595cf 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+@@ -202,6 +202,13 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
+ {
+ 	struct intel_engine_cs *engine = rq->engine;
+ 
++	/*
++	 * Aux invalidations on Aux CCS platforms require
++	 * memory traffic is quiesced prior.
++	 */
++	if ((mode & EMIT_INVALIDATE) && !HAS_FLAT_CCS(engine->i915))
++		mode |= EMIT_FLUSH;
++
+ 	if (mode & EMIT_FLUSH) {
+ 		u32 flags = 0;
+ 		int err;
 -- 
 2.40.1
 
