@@ -4,48 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A57F6EB64DC
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Jul 2023 18:57:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C9BEEB64DC
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Jul 2023 19:06:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E7AD10E2A6;
-	Mon, 17 Jul 2023 18:57:11 +0000 (UTC)
-X-Greylist: delayed 450 seconds by postgrey-1.36 at gabe;
- Mon, 17 Jul 2023 18:57:08 UTC
-Received: from smtp.smtpout.orange.fr (smtp-13.smtpout.orange.fr
- [80.12.242.13])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9C18610E2A6
- for <intel-gfx@lists.freedesktop.org>; Mon, 17 Jul 2023 18:57:08 +0000 (UTC)
-Received: from pop-os.home ([86.243.2.178]) by smtp.orange.fr with ESMTPA
- id LTHoqBKeeFmkzLTHoqiy4V; Mon, 17 Jul 2023 20:49:35 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
- s=t20230301; t=1689619775;
- bh=6EdZ+Gq8+oaEzVh78T6j0Vq20F8gxMukgxRTDtUERro=;
- h=From:To:Cc:Subject:Date;
- b=sxNEjaNaSFGblebLhoZgCspR3/b7PMWw5mvvcbiA1JPdCVOiD0EcAzet5fqmrBLF0
- g1kJA04ScN0oLMVrH4T0js02kJvMR5ByBFj85S3S263Cai7ZlGu9TueW4SLJB59Nxr
- yNr1SrsLma5wvNJutFL013ubT61mwc2VkIW7B1vS1WgiZEA39BUysRBJDv3H3rLPTb
- pWvr1ye+zaTo4e7HiCsKYaVJiH9p8aKlYdZ3+ZFyBSC7oBIXCzPJWWFrbUeDnCi/Zc
- ncTIfUd0VPZ4Pw8VuSOu+/IXZUpeo1Dk6aHUaxZTE3KzUG70NVHYvE+EHhauumpuxY
- R6XZR7RXCKgVw==
-X-ME-Helo: pop-os.home
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Mon, 17 Jul 2023 20:49:35 +0200
-X-ME-IP: 86.243.2.178
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Date: Mon, 17 Jul 2023 20:49:31 +0200
-Message-Id: <7a036b88671312ee9adc01c74ef5b3376f690b76.1689619758.git.christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 537F510E2AD;
+	Mon, 17 Jul 2023 19:06:11 +0000 (UTC)
+Received: from knopi.disroot.org (knopi.disroot.org [178.21.23.139])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A21610E2A6;
+ Mon, 17 Jul 2023 19:06:09 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by disroot.org (Postfix) with ESMTP id 2503141616;
+ Mon, 17 Jul 2023 21:06:07 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from knopi.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id J-7QSlNy0TBa; Mon, 17 Jul 2023 21:06:06 +0200 (CEST)
+Message-ID: <0ada1376-645f-58f1-c851-e51fd24295ad@disroot.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+ t=1689620765; bh=r6NyomSvDb5EYiE1j0w9/RymGIQZhvqBajdP6JsmkUg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=HdaPe3daHJl5o2xmdD+JxXh3mwmoVAULY9ESJEOKHjHzDTsYkTZI4aEIox4ssaOeq
+ O7tLD2bbrVr5Au2gyZunhO3HmNj2asM2aLbjbsyDvDTffIxw6Q9rqyLSBQZLXbcB0+
+ EKfscO3VwSuockEvvzwNO5FFuvd2tH1+hN2eAZ6Y8foivJAJ4NcMxQRxY6JPTxQFe+
+ eP3lUpDCORIavA8C39dc0P56NruwCoU1qPknemw6/Sk2gIiOyof3XhjfQp99OtblOe
+ NowFmDtodCuqrvJq2YmSqxY2F1/LTgwjfk/VtM/yySVpyKf2Qna2JS23aZjKRu7gbo
+ HeQWLjTClIAjA==
+Date: Mon, 17 Jul 2023 16:04:43 -0300
 MIME-Version: 1.0
+Content-Language: pt-BR
+To: =?UTF-8?Q?Andr=c3=a9_Almeida?= <andrealmeid@igalia.com>
+References: <20230627182239.15676-1-gcarlos@disroot.org>
+ <58d90ae1-02f7-2866-dbb1-e7763a2399c5@igalia.com>
+From: Carlos <gcarlos@disroot.org>
+In-Reply-To: <58d90ae1-02f7-2866-dbb1-e7763a2399c5@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915: Fix an error handling path in
- igt_write_huge()
+Subject: Re: [Intel-gfx] [PATCH] drm: Replace drm_framebuffer plane size
+ functions with its equivalents
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,47 +53,78 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- intel-gfx@lists.freedesktop.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: daniel@ffwll.ch, tales.aparecida@gmail.com, intel-gfx@lists.freedesktop.org,
+ mripard@kernel.org, mairacanal@riseup.net, matthew.d.roper@intel.com,
+ dri-devel@lists.freedesktop.org, tzimmermann@suse.de, rodrigo.vivi@intel.com,
+ airlied@gmail.com, arthurgrillo@riseup.net
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-All error handling paths go to 'out', except this one. Be consistent and
-also branch to 'out' here.
+Hi André, thanks for review!
 
-Fixes: c10a652e239e ("drm/i915/selftests: Rework context handling in hugepages selftests")
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
----
-/!\ Speculative /!\
+On 7/12/23 20:30, André Almeida wrote:
+> Hi Carlos,
+>
+> Em 27/06/2023 15:22, Carlos Eduardo Gallo Filho escreveu:
+> [...]
+>>
+>> So, replace each drm_framebuffer_plane_{width,height} and
+>> fb_plane_{width,height} call to drm_format_info_plane_{width,height}
+>> and remove them.
+>>
+>
+> I see that with this replace, there's a small code change from
+>
+>     return DIV_ROUND_UP(width, format->hsub);
+>
+> to
+>     return width / info->hsub;
+>
+> is there any case that the replaced function will give different results?
 
-   This patch is based on analysis of the surrounding code and should be
-   reviewed with care !
+Well, short answer: Yes, and I'm already thinking on how do address it.
 
-   If the patch is wrong, maybe a comment in the code could explain why.
+Taking a look at some drivers, I could notice that almost every driver do
+some similar calculating to obtain the size of a plane given the size of
+the first (I guess that they would be using these functions though). So, I
+stated that nearly all drivers implements this as a regular division, with
+exception of exynos, sun4i and i915 (counting with the replaced function),
+which all has at some point a DIV_ROUND_UP involving hsub or vsub.
 
-/!\ Speculative /!\
----
- drivers/gpu/drm/i915/gem/selftests/huge_pages.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Curiously, even the i915 having a DIV_ROUND_UP in some places, it also
+has regular division involving hsub/vsub in others, which leads me to
+guess if the chosen rounding method really matters. I also discovered
+the existence of the intel_plane_check_src_coordinates() function,
+that do some checks, which one of them consist of ensuring that for a
+plane, both source coordinates and sizes are multiples of the vsub and
+hsub, implying that no division rounding should occurs at all when it's
+used. However, I couldn't state if this function is always called for
+every source on every plane, so I can't assume anything from this.
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-index df6c9a84252c..6b9f6cf50bf6 100644
---- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-@@ -1246,8 +1246,10 @@ static int igt_write_huge(struct drm_i915_private *i915,
- 	 * times in succession a possibility by enlarging the permutation array.
- 	 */
- 	order = i915_random_order(count * count, &prng);
--	if (!order)
--		return -ENOMEM;
-+	if (!order) {
-+		err = -ENOMEM;
-+		goto out;
-+	}
- 
- 	max_page_size = rounddown_pow_of_two(obj->mm.page_sizes.sg);
- 	max = div_u64(max - size, max_page_size);
--- 
-2.34.1
+Furthermore, I found the 33f673aa55e96 ("drm: Remove fb hsub/vsub
+alignment requirement") commit, that explains the motivation for having
+DIV_ROUND_UP on drm_framebuffer_plane_{width,height} functions. It says
+that the DIV_ROUND_UP is needed on places where the
+source isn't necessarily aligned with respect to the subsampling factors,
+that should be the sane default for a core function.
 
+Saying that, I thought some ways to address this problem:
+
+1. Replace the regular division on drm_format_info_plane_{width,height}
+    functions to DIV_ROUND_UP so that we assert that this function is
+    always correct (as it seems that the places where regular division
+    is used assumes alignment, implying no division rounding at all).
+
+2. Create DIV_ROUND_UP variants of drm_format_info_plane_{width,height}
+    functions and use each of them in the right place. Maybe
+    let the default be the one with DIV_ROUND_UP and the
+    variant with regular division, naming it as something like
+    "drm_format_info_aligned_plane_{width,height}".
+
+I personally would prefer the second alternative, as it provides more
+flexibility and avoids using DIV_ROUND_UP unnecessarily. If nobody states
+anything wrong with this approach, I'll be sending the second version
+of this patch with it.
+
+Thanks,
+Carlos
