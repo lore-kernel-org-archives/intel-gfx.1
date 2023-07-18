@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E58BFEB64DC
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jul 2023 10:55:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 636CEC04A94
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jul 2023 10:56:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0C4410E325;
-	Tue, 18 Jul 2023 10:55:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFA3E10E313;
+	Tue, 18 Jul 2023 10:55:58 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55E1B10E1C3;
- Tue, 18 Jul 2023 10:55:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1D8510E313;
+ Tue, 18 Jul 2023 10:55:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689677746; x=1721213746;
+ t=1689677747; x=1721213747;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=D1I4LwUDjIlqpONaPEv0KPRNlagVR3dgFOSldQ/zn7c=;
- b=nkvwAdBn9iTEg549qrxon+LAqs2eKOB7FOy8+3qDSDnFnK5RI/EalY/1
- T4TwXA1xEFElgjM35rtz3kSwhGTgsZ223NbjOQHtqqCDAorogScTclmxW
- 6u4HeKAFOR//BgEdswIwSq4GrzlJyPf+l6RJXuFnDeByHyRkMR1OdM6Ob
- VErRVkTpSdLHYe3CVlyhmoOXrIN2VFayL2YGIJrh2IYPBGD0i+VlrMhQC
- 0nGA+QeRharPdEILdXukAP19+HHYDrtJ2zKW88pOlLfuJMql9F5+8g90e
- VmuvRbi789w1SFK6DukGVfyHcrAG+lgxAiv0kKXDUFVvr6C1tslkZ0pFT g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10774"; a="452553544"
-X-IronPort-AV: E=Sophos;i="6.01,214,1684825200"; d="scan'208";a="452553544"
+ bh=2kx4I+YnPJxcdyT5PnLXXnGZK3e6jUr7CMAjY67u6z4=;
+ b=ktJGzrdOGk9Uzq4H98CdfEPqU4IvjWoGo7a+bWN0tIKoq6xdbZ52EGz5
+ CrXZe6x56fbLIT0S/aqFXg+3m/Wpc4izcXOh6W5nFK+8WgUzN/lL7oE4D
+ LbyKQUOcZ3wdFQ45sVmVJMpifYhva96VTwDqgWlEGcok+wjY3VWVGnwvT
+ CBIA853Gz5hbAuqhuS4yFfwKGB53Z7fL2WV4exK1gou4s7wp8MQ/1CjxI
+ 6ZqoQXROGVXGZNaog3vystm0XpKZs+ov/AUrm8tTtmYDPhDZZW2KIZe1v
+ mcq2F96WesJST29tAcRE5f5HDuqcZUIB0d0TPdR3PKZ/D0N24vD0iEbnl w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10774"; a="452553577"
+X-IronPort-AV: E=Sophos;i="6.01,214,1684825200"; d="scan'208";a="452553577"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2023 03:55:45 -0700
+ 18 Jul 2023 03:55:47 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10774"; a="673863800"
-X-IronPort-AV: E=Sophos;i="6.01,214,1684825200"; d="scan'208";a="673863800"
+X-IronPort-AV: E=McAfee;i="6600,9927,10774"; a="673863811"
+X-IronPort-AV: E=Sophos;i="6.01,214,1684825200"; d="scan'208";a="673863811"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by orsmga003.jf.intel.com with ESMTP; 18 Jul 2023 03:55:45 -0700
+ by orsmga003.jf.intel.com with ESMTP; 18 Jul 2023 03:55:47 -0700
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Tue, 18 Jul 2023 03:55:35 -0700
-Message-Id: <20230718105542.4138-4-yi.l.liu@intel.com>
+Date: Tue, 18 Jul 2023 03:55:38 -0700
+Message-Id: <20230718105542.4138-7-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230718105542.4138-1-yi.l.liu@intel.com>
 References: <20230718105542.4138-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 03/10] iommufd: Reserve all negative IDs in
- the iommufd xarray
+Subject: [Intel-gfx] [PATCH v10 06/10] vfio: Mark cdev usage in vfio_device
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,32 +70,36 @@ Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With this reservation, IOMMUFD users can encode the negative IDs for
-specific purposes. e.g. VFIO needs two reserved values to tell userspace
-the ID returned is not valid but has other meaning.
+This can be used to differentiate whether to report group_id or devid in
+the revised VFIO_DEVICE_GET_PCI_HOT_RESET_INFO ioctl. At this moment, no
+cdev path yet, so the vfio_device_cdev_opened() helper always returns false.
 
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
 Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 Tested-by: Yanting Jiang <yanting.jiang@intel.com>
 Tested-by: Terrence Xu <terrence.xu@intel.com>
 Tested-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 ---
- drivers/iommu/iommufd/main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/vfio.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/iommu/iommufd/main.c b/drivers/iommu/iommufd/main.c
-index 3fbe636c3d8a..32ce7befc8dd 100644
---- a/drivers/iommu/iommufd/main.c
-+++ b/drivers/iommu/iommufd/main.c
-@@ -50,7 +50,7 @@ struct iommufd_object *_iommufd_object_alloc(struct iommufd_ctx *ictx,
- 	 * before calling iommufd_object_finalize().
- 	 */
- 	rc = xa_alloc(&ictx->objects, &obj->id, XA_ZERO_ENTRY,
--		      xa_limit_32b, GFP_KERNEL_ACCOUNT);
-+		      xa_limit_31b, GFP_KERNEL_ACCOUNT);
- 	if (rc)
- 		goto out_free;
- 	return obj;
+diff --git a/include/linux/vfio.h b/include/linux/vfio.h
+index 2c137ea94a3e..2a45853773a6 100644
+--- a/include/linux/vfio.h
++++ b/include/linux/vfio.h
+@@ -139,6 +139,11 @@ int vfio_iommufd_emulated_attach_ioas(struct vfio_device *vdev, u32 *pt_id);
+ 	((int (*)(struct vfio_device *vdev, u32 *pt_id)) NULL)
+ #endif
+ 
++static inline bool vfio_device_cdev_opened(struct vfio_device *device)
++{
++	return false;
++}
++
+ /**
+  * struct vfio_migration_ops - VFIO bus device driver migration callbacks
+  *
 -- 
 2.34.1
 
