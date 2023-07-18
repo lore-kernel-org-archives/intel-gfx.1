@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67A1CEB64DA
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jul 2023 13:40:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 819F3EB64DA
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jul 2023 13:40:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5F4E10E35E;
-	Tue, 18 Jul 2023 13:40:01 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C27110E355;
- Tue, 18 Jul 2023 13:39:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E687E10E363;
+	Tue, 18 Jul 2023 13:40:22 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A290610E34D;
+ Tue, 18 Jul 2023 13:40:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689687591; x=1721223591;
+ t=1689687621; x=1721223621;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=iBl7/qWoRE+NLs24Sz9Qx0Wvc3Mx5AHj2Xqwb1mwaKc=;
- b=LDMrqC/Nudqn5ZiFjBiAH4wlre3HRGeBUTSzQaX3vI8xB19kZ78gkztt
- appJ5QRL7iVUz8dZeqL0nTEwF1x6fi1s6GlAG0EaD66/4vvyJI7AilirL
- S5cUO8AN8KQjDfaawphk/SNigoniCn4DBlSwmCimYaPTvZ9n4Am5v2uZY
- X91BIu1jkpxssMknnVHKJ0gcnW1X9wSQHRlFTZeNO/yB6toZquJg+N5jr
- w4aHrEg2+Mt/hkgiqeo0vVx8GaPTDqTZi9QTX7u/v7T6zSPtUBL6KEMJ7
- eHK1Sxy0S2pSzSXb4ABZcboIbeHTzlDKlbhNZjZS8JyKIe0Frb897iIiq A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="345800290"
-X-IronPort-AV: E=Sophos;i="6.01,214,1684825200"; d="scan'208";a="345800290"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2023 06:39:50 -0700
+ bh=T8Cd8Zx9OgMUfn+jAXQo1YXh5FcdWncrjp1nkC2vjro=;
+ b=HSFfQsUQJgvCCTJIm+CropxYrc82CEr/+Hi4sdAuwlyaQst0CdEnozk1
+ QcSW4Q7+pmVXDQNenRvNXie0I9zoQnLQKPnBC9GyiWl5ggkvdGdNWoJLB
+ 1hFrczgVLL+OB2/QNpWE3DVmoRqRFJ0DE7vsVC37pL37m3vTs1LjElDJX
+ bA540KRJDI3U0it3m6OuXVEEesFsMpX9GPa25FjT5o+x+ALOvlwmJU+jl
+ gIe2G4wpQscs3fMsNasnbycn0ytICpzUscRNq0WoL5lEwPJbSosyMkduH
+ j/ym0h+URkPY2njN0zYTvD0+l+uvl5xVqqtp8xU9mNGZcpg6jQACUsMIS A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="369762158"
+X-IronPort-AV: E=Sophos;i="6.01,214,1684825200"; d="scan'208";a="369762158"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jul 2023 06:40:03 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="847706321"
-X-IronPort-AV: E=Sophos;i="6.01,214,1684825200"; d="scan'208";a="847706321"
+X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="793626306"
+X-IronPort-AV: E=Sophos;i="6.01,214,1684825200"; d="scan'208";a="793626306"
 Received: from ygaydayc-mobl.ger.corp.intel.com (HELO intel.com)
  ([10.249.35.242])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2023 06:39:46 -0700
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jul 2023 06:39:59 -0700
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: Jonathan Cavitt <jonathan.cavitt@intel.com>,
  Matt Roper <matthew.d.roper@intel.com>,
  Chris Wilson <chris@chris-wilson.co.uk>,
  Mika Kuoppala <mika.kuoppala@linux.intel.com>,
  Nirmoy Das <nirmoy.das@intel.com>, Andrzej Hajda <andrzej.hajda@intel.com>
-Date: Tue, 18 Jul 2023 15:38:34 +0200
-Message-Id: <20230718133836.574781-8-andi.shyti@linux.intel.com>
+Date: Tue, 18 Jul 2023 15:38:36 +0200
+Message-Id: <20230718133836.574781-10-andi.shyti@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230718133836.574781-1-andi.shyti@linux.intel.com>
 References: <20230718133836.574781-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 7/9] drm/i915/gt: Ensure memory quiesced
- before invalidation for all engines
+Subject: [Intel-gfx] [PATCH v5 9/9] drm/i915/gt: Support aux invalidation on
+ all engines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,124 +68,188 @@ Cc: Intel GFX <intel-gfx@lists.freedesktop.org>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Commit af9e423a8aae ("drm/i915/gt: Ensure memory quiesced before
-invalidation") has made sure that the memory is quiesced before
-invalidating the AUX CCS table. Do it for all the other engines
-and not just RCS.
+Perform some refactoring with the purpose of keeping in one
+single place all the operations around the aux table
+invalidation.
 
+With this refactoring add more engines where the invalidation
+should be performed.
+
+Fixes: 972282c4cf24 ("drm/i915/gen12: Add aux table invalidate for all engines")
 Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
 Cc: Jonathan Cavitt <jonathan.cavitt@intel.com>
 Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: <stable@vger.kernel.org> # v5.8+
 ---
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c     | 71 +++++++++++++++++---
- drivers/gpu/drm/i915/gt/intel_gpu_commands.h |  1 +
- 2 files changed, 62 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c | 58 +++++++++++++++---------
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.h |  3 +-
+ drivers/gpu/drm/i915/gt/intel_lrc.c      | 17 +------
+ 3 files changed, 41 insertions(+), 37 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-index 3275e55b18d90..2f40cd515cc78 100644
+index 029ef1a5d3b6a..05f5794ce7fa7 100644
 --- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
 +++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-@@ -225,6 +225,13 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
+@@ -165,9 +165,36 @@ static u32 preparser_disable(bool state)
+ 	return MI_ARB_CHECK | 1 << 8 | state;
+ }
  
- 		bit_group_0 |= PIPE_CONTROL0_HDC_PIPELINE_FLUSH;
- 
-+		/*
-+		 * When required, in MTL+ platforms we need to
-+		 * set the CCS_FLUSH bit in the pipe control
-+		 */
-+		if (GRAPHICS_VER_FULL(rq->i915) >= IP_VER(12, 70))
-+			bit_group_0 |= PIPE_CONTROL_CCS_FLUSH;
+-u32 *gen12_emit_aux_table_inv(struct intel_gt *gt, u32 *cs, const i915_reg_t inv_reg)
++static i915_reg_t gen12_get_aux_inv_reg(struct intel_engine_cs *engine)
+ {
+-	u32 gsi_offset = gt->uncore->gsi_offset;
++	if (!HAS_AUX_CCS(engine->i915))
++		return INVALID_MMIO_REG;
 +
- 		bit_group_1 |= PIPE_CONTROL_TILE_CACHE_FLUSH;
- 		bit_group_1 |= PIPE_CONTROL_FLUSH_L3;
- 		bit_group_1 |= PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH;
-@@ -309,20 +316,64 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
++	switch (engine->id) {
++	case RCS0:
++		return GEN12_CCS_AUX_INV;
++	case BCS0:
++		return GEN12_BCS0_AUX_INV;
++	case VCS0:
++		return GEN12_VD0_AUX_INV;
++	case VCS2:
++		return GEN12_VD2_AUX_INV;
++	case VECS0:
++		return GEN12_VE0_AUX_INV;
++	case CCS0:
++		return GEN12_CCS0_AUX_INV;
++	default:
++		return INVALID_MMIO_REG;
++	}
++}
++
++u32 *gen12_emit_aux_table_inv(struct intel_engine_cs *engine, u32 *cs)
++{
++	i915_reg_t inv_reg = gen12_get_aux_inv_reg(engine);
++	u32 gsi_offset = engine->gt->uncore->gsi_offset;
++
++	if (i915_mmio_reg_valid(inv_reg))
++		return cs;
+ 
+ 	*cs++ = MI_LOAD_REGISTER_IMM(1) | MI_LRI_MMIO_REMAP_EN;
+ 	*cs++ = i915_mmio_reg_offset(inv_reg) + gsi_offset;
+@@ -201,6 +228,11 @@ static u32 *intel_emit_pipe_control_cs(struct i915_request *rq, u32 bit_group_0,
+ 	return cs;
+ }
+ 
++static bool gen12_engine_has_aux_inv(struct intel_engine_cs *engine)
++{
++	return i915_mmio_reg_valid(gen12_get_aux_inv_reg(engine));
++}
++
+ static int mtl_dummy_pipe_control(struct i915_request *rq)
+ {
+ 	/* Wa_14016712196 */
+@@ -307,11 +339,7 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
+ 
+ 		cs = gen8_emit_pipe_control(cs, flags, LRC_PPHWSP_SCRATCH_ADDR);
+ 
+-		if (!HAS_FLAT_CCS(rq->engine->i915)) {
+-			/* hsdes: 1809175790 */
+-			cs = gen12_emit_aux_table_inv(rq->engine->gt, cs,
+-						      GEN12_CCS_AUX_INV);
+-		}
++		cs = gen12_emit_aux_table_inv(engine, cs);
+ 
+ 		*cs++ = preparser_disable(false);
+ 		intel_ring_advance(rq, cs);
+@@ -322,22 +350,17 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
+ 
  int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
  {
- 	intel_engine_mask_t aux_inv = 0;
--	u32 cmd, *cs;
-+	u32 cmd = 4;
-+	u32 *cs;
+-	intel_engine_mask_t aux_inv = 0;
+ 	u32 cmd = 4;
+ 	u32 *cs;
  
--	cmd = 4;
--	if (mode & EMIT_INVALIDATE) {
-+	if (mode & EMIT_INVALIDATE)
+ 	if (mode & EMIT_INVALIDATE)
  		cmd += 2;
  
--		if (HAS_AUX_CCS(rq->engine->i915) &&
--		    (rq->engine->class == VIDEO_DECODE_CLASS ||
--		     rq->engine->class == VIDEO_ENHANCEMENT_CLASS)) {
--			aux_inv = rq->engine->mask &
--				~GENMASK(_BCS(I915_MAX_BCS - 1), BCS0);
--			if (aux_inv)
--				cmd += 4;
-+	if (HAS_AUX_CCS(rq->engine->i915))
-+		aux_inv = rq->engine->mask &
-+			  ~GENMASK(_BCS(I915_MAX_BCS - 1), BCS0);
-+
-+	/*
-+	 * Aux invalidations on Aux CCS platforms require
-+	 * memory traffic is quiesced prior.
-+	 */
-+	if (aux_inv) {
-+		u32 bit_group_0 = 0;
-+		u32 bit_group_1 = 0;
-+
-+		cmd += 4;
-+
-+		bit_group_0 |= PIPE_CONTROL0_HDC_PIPELINE_FLUSH;
-+
-+		switch (rq->engine->class) {
-+		case VIDEO_DECODE_CLASS:
-+			bit_group_1 |= PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH;
-+			bit_group_1 |= PIPE_CONTROL_DEPTH_CACHE_FLUSH;
-+			bit_group_1 |= PIPE_CONTROL_DC_FLUSH_ENABLE;
-+			bit_group_1 |= PIPE_CONTROL_FLUSH_L3;
-+			bit_group_1 |= PIPE_CONTROL_CS_STALL;
-+
-+			/*
-+			 * When required, in MTL+ platforms we need to
-+			 * set the CCS_FLUSH bit in the pipe control
-+			 */
-+			if (GRAPHICS_VER_FULL(rq->i915) >= IP_VER(12, 70))
-+				bit_group_0 |= PIPE_CONTROL_CCS_FLUSH;
-+
-+			break;
-+
-+		case VIDEO_ENHANCEMENT_CLASS:
-+		case COMPUTE_CLASS:
-+			bit_group_1 |= MI_FLUSH_DW;
-+
-+			break;
-+
-+		case COPY_ENGINE_CLASS:
-+			/*
-+			 * When required, in MTL+ platforms we need to
-+			 * set the CCS_FLUSH bit in the pipe control
-+			 */
-+			if (GRAPHICS_VER_FULL(rq->i915) >= IP_VER(12, 70))
-+				bit_group_0 |= PIPE_CONTROL_CCS_FLUSH;
-+			break;
- 		}
-+
-+		if (bit_group_1 || bit_group_0)
-+			intel_emit_pipe_control_cs(rq, bit_group_0, bit_group_1,
-+						   LRC_PPHWSP_SCRATCH_ADDR);
- 	}
+-	if (HAS_AUX_CCS(rq->engine->i915))
+-		aux_inv = rq->engine->mask &
+-			  ~GENMASK(_BCS(I915_MAX_BCS - 1), BCS0);
+-
+ 	/*
+ 	 * Aux invalidations on Aux CCS platforms require
+ 	 * memory traffic is quiesced prior.
+ 	 */
+-	if (aux_inv) {
++	if (gen12_engine_has_aux_inv(rq->engine)) {
+ 		u32 bit_group_0 = 0;
+ 		u32 bit_group_1 = 0;
  
- 	cs = intel_ring_begin(rq, cmd);
-diff --git a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-index 5d143e2a8db03..5df7cce23197c 100644
---- a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
-@@ -299,6 +299,7 @@
- #define   PIPE_CONTROL_QW_WRITE				(1<<14)
- #define   PIPE_CONTROL_POST_SYNC_OP_MASK                (3<<14)
- #define   PIPE_CONTROL_DEPTH_STALL			(1<<13)
-+#define   PIPE_CONTROL_CCS_FLUSH			(1<<13) /* MTL+ */
- #define   PIPE_CONTROL_WRITE_FLUSH			(1<<12)
- #define   PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH	(1<<12) /* gen6+ */
- #define   PIPE_CONTROL_INSTRUCTION_CACHE_INVALIDATE	(1<<11) /* MBZ on ILK */
+@@ -411,14 +434,7 @@ int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
+ 	*cs++ = 0; /* upper addr */
+ 	*cs++ = 0; /* value */
+ 
+-	if (aux_inv) { /* hsdes: 1809175790 */
+-		if (rq->engine->class == VIDEO_DECODE_CLASS)
+-			cs = gen12_emit_aux_table_inv(rq->engine->gt,
+-						      cs, GEN12_VD0_AUX_INV);
+-		else
+-			cs = gen12_emit_aux_table_inv(rq->engine->gt,
+-						      cs, GEN12_VE0_AUX_INV);
+-	}
++	cs = gen12_emit_aux_table_inv(rq->engine, cs);
+ 
+ 	if (mode & EMIT_INVALIDATE)
+ 		*cs++ = preparser_disable(false);
+diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.h b/drivers/gpu/drm/i915/gt/gen8_engine_cs.h
+index a44eda096557c..867ba697aceb8 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.h
++++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.h
+@@ -13,6 +13,7 @@
+ #include "intel_gt_regs.h"
+ #include "intel_gpu_commands.h"
+ 
++struct intel_engine_cs;
+ struct intel_gt;
+ struct i915_request;
+ 
+@@ -46,7 +47,7 @@ u32 *gen8_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs);
+ u32 *gen11_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs);
+ u32 *gen12_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs);
+ 
+-u32 *gen12_emit_aux_table_inv(struct intel_gt *gt, u32 *cs, const i915_reg_t inv_reg);
++u32 *gen12_emit_aux_table_inv(struct intel_engine_cs *engine, u32 *cs);
+ 
+ static inline u32 *
+ __gen8_emit_pipe_control(u32 *batch, u32 bit_group_0,
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 235f3fab60a98..119deb9f938c7 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -1371,10 +1371,7 @@ gen12_emit_indirect_ctx_rcs(const struct intel_context *ce, u32 *cs)
+ 	    IS_DG2_G11(ce->engine->i915))
+ 		cs = gen8_emit_pipe_control(cs, PIPE_CONTROL_INSTRUCTION_CACHE_INVALIDATE, 0);
+ 
+-	/* hsdes: 1809175790 */
+-	if (!HAS_FLAT_CCS(ce->engine->i915))
+-		cs = gen12_emit_aux_table_inv(ce->engine->gt,
+-					      cs, GEN12_CCS_AUX_INV);
++	cs = gen12_emit_aux_table_inv(ce->engine, cs);
+ 
+ 	/* Wa_16014892111 */
+ 	if (IS_MTL_GRAPHICS_STEP(ce->engine->i915, M, STEP_A0, STEP_B0) ||
+@@ -1399,17 +1396,7 @@ gen12_emit_indirect_ctx_xcs(const struct intel_context *ce, u32 *cs)
+ 						    PIPE_CONTROL_INSTRUCTION_CACHE_INVALIDATE,
+ 						    0);
+ 
+-	/* hsdes: 1809175790 */
+-	if (!HAS_FLAT_CCS(ce->engine->i915)) {
+-		if (ce->engine->class == VIDEO_DECODE_CLASS)
+-			cs = gen12_emit_aux_table_inv(ce->engine->gt,
+-						      cs, GEN12_VD0_AUX_INV);
+-		else if (ce->engine->class == VIDEO_ENHANCEMENT_CLASS)
+-			cs = gen12_emit_aux_table_inv(ce->engine->gt,
+-						      cs, GEN12_VE0_AUX_INV);
+-	}
+-
+-	return cs;
++	return gen12_emit_aux_table_inv(ce->engine, cs);
+ }
+ 
+ static void
 -- 
 2.40.1
 
