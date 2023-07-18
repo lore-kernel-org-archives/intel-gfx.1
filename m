@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D10DCEB64DC
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jul 2023 13:56:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50EF3EB64DA
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jul 2023 13:56:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 224BB10E366;
-	Tue, 18 Jul 2023 13:56:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE79B10E369;
+	Tue, 18 Jul 2023 13:56:35 +0000 (UTC)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F12810E36A;
- Tue, 18 Jul 2023 13:56:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9094C10E37B;
+ Tue, 18 Jul 2023 13:56:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689688567; x=1721224567;
+ t=1689688574; x=1721224574;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Tro7ldK39c/D+P73wAYl8xylrR+MAx9kksAZpQYgz6M=;
- b=iyHfL0Du9XX6kjWxMrEwa+OKll6ljmlANPy2yAt02h8Yex6Dun5w669k
- C/kOVx/dS4+aAngeaZRp/2G7tnkXxtiEmoRpYIs96Q7uctTp6LJ5TNK9N
- aIJqnjDLbPcYXHTHdH18SLdLUpiX0OR1eecj4UN7wCETofCyv4vg9IqOC
- cStbK/U8CEhcLu+dfoiYzP5YVnWkcy9u2EKxUGmktGoTL/FMsMz0BcGew
- Xx2uMXJquvLFNkZB8mYj/fzWmjlDJLIuTkVmSAiiKS/RAgKWDn9g7xDQ8
- dqf5tTdSvpbB6JFHFwZCn7JFkDI2RchTlApzqzgUORjPz5wikHCD5cdHU A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="452590744"
-X-IronPort-AV: E=Sophos;i="6.01,214,1684825200"; d="scan'208";a="452590744"
+ bh=9oSzt+Qjxbm5o8hEt23r35NFXF06gcMZujcuINafNKM=;
+ b=GINpSCgn8WAVHEmZsesOZfR3l2cPXwQ3wXA2FlKbP+BUpMqGDt2YZkCa
+ N3Yr45p0rcArrSenCiDeFrWQRQalBEy+pyuJ3jJyd5BwjgS7fXCDdAgkr
+ SPOzu2hFMubpGuS3hWi6H6+/o1ziXSdDASSWc6Mypmo/FxCuGay2KSAN4
+ nfbqi201qpcWR87KqsieKAQYR+kV9ow57gF0TUgyUYCkpWGPILYe57ydu
+ cq9i8Yd20H1xI+l4zL4jbGuiR6lLI3PdnKsuzEqlRI8ot0zjN0UQ8YADy
+ DtyAApFXc4af14KFX3oJgrDME5lovjJwabAzDQa+vDXmbvX5AZDybLcEc Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="452590850"
+X-IronPort-AV: E=Sophos;i="6.01,214,1684825200"; d="scan'208";a="452590850"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2023 06:56:07 -0700
+ 18 Jul 2023 06:56:14 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="970251060"
-X-IronPort-AV: E=Sophos;i="6.01,214,1684825200"; d="scan'208";a="970251060"
+X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="970251163"
+X-IronPort-AV: E=Sophos;i="6.01,214,1684825200"; d="scan'208";a="970251163"
 Received: from 984fee00a4c6.jf.intel.com ([10.165.58.231])
- by fmsmga006.fm.intel.com with ESMTP; 18 Jul 2023 06:56:06 -0700
+ by fmsmga006.fm.intel.com with ESMTP; 18 Jul 2023 06:56:13 -0700
 From: Yi Liu <yi.l.liu@intel.com>
 To: alex.williamson@redhat.com,
 	jgg@nvidia.com,
 	kevin.tian@intel.com
-Date: Tue, 18 Jul 2023 06:55:42 -0700
-Message-Id: <20230718135551.6592-18-yi.l.liu@intel.com>
+Date: Tue, 18 Jul 2023 06:55:49 -0700
+Message-Id: <20230718135551.6592-25-yi.l.liu@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230718135551.6592-1-yi.l.liu@intel.com>
 References: <20230718135551.6592-1-yi.l.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v15 17/26] vfio: Move device_del() before
- waiting for the last vfio_device registration refcount
+Subject: [Intel-gfx] [PATCH v15 24/26] vfio: Move the
+ IOMMU_CAP_CACHE_COHERENCY check in __vfio_register_dev()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,44 +71,67 @@ Cc: mjrosato@linux.ibm.com, jasowang@redhat.com, xudong.hao@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-device_del() destroys the vfio-dev/vfioX under the sysfs for vfio_device.
-There is no reason to keep it while the device is going to be unregistered.
+The IOMMU_CAP_CACHE_COHERENCY check only applies to the physical devices
+that are IOMMU-backed. But it is now in the group code. If want to compile
+vfio_group infrastructure out, this check needs to be moved out of the group
+code.
 
-This movement is also a preparation for adding vfio_device cdev. Kernel
-should remove the cdev node of the vfio_device to avoid new registration
-refcount increment while the device is going to be unregistered.
+Another reason for this change is to fail the device registration for the
+physical devices that do not have IOMMU if the group code is not compiled
+as the cdev interface does not support such devices.
 
+Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
 Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 Tested-by: Zhenzhong Duan <zhenzhong.duan@intel.com>
 Signed-off-by: Yi Liu <yi.l.liu@intel.com>
 ---
- drivers/vfio/vfio_main.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/vfio/group.c     | 10 ----------
+ drivers/vfio/vfio_main.c | 11 +++++++++++
+ 2 files changed, 11 insertions(+), 10 deletions(-)
 
+diff --git a/drivers/vfio/group.c b/drivers/vfio/group.c
+index 5c17ad812313..610a429c6191 100644
+--- a/drivers/vfio/group.c
++++ b/drivers/vfio/group.c
+@@ -682,16 +682,6 @@ static struct vfio_group *vfio_group_find_or_alloc(struct device *dev)
+ 	if (!iommu_group)
+ 		return ERR_PTR(-EINVAL);
+ 
+-	/*
+-	 * VFIO always sets IOMMU_CACHE because we offer no way for userspace to
+-	 * restore cache coherency. It has to be checked here because it is only
+-	 * valid for cases where we are using iommu groups.
+-	 */
+-	if (!device_iommu_capable(dev, IOMMU_CAP_CACHE_COHERENCY)) {
+-		iommu_group_put(iommu_group);
+-		return ERR_PTR(-EINVAL);
+-	}
+-
+ 	mutex_lock(&vfio.group_lock);
+ 	group = vfio_group_find_from_iommu(iommu_group);
+ 	if (group) {
 diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
-index 6d45caa1f9a0..294bb5ecfc1c 100644
+index ba1d84afe081..902f06e52c48 100644
 --- a/drivers/vfio/vfio_main.c
 +++ b/drivers/vfio/vfio_main.c
-@@ -338,6 +338,9 @@ void vfio_unregister_group_dev(struct vfio_device *device)
- 	 */
- 	vfio_device_group_unregister(device);
+@@ -292,6 +292,17 @@ static int __vfio_register_dev(struct vfio_device *device,
+ 	if (ret)
+ 		return ret;
  
-+	/* Balances device_add in register path */
-+	device_del(&device->device);
++	/*
++	 * VFIO always sets IOMMU_CACHE because we offer no way for userspace to
++	 * restore cache coherency. It has to be checked here because it is only
++	 * valid for cases where we are using iommu groups.
++	 */
++	if (type == VFIO_IOMMU && !vfio_device_is_noiommu(device) &&
++	    !device_iommu_capable(device->dev, IOMMU_CAP_CACHE_COHERENCY)) {
++		ret = -EINVAL;
++		goto err_out;
++	}
 +
- 	vfio_device_put_registration(device);
- 	rc = try_wait_for_completion(&device->comp);
- 	while (rc <= 0) {
-@@ -361,9 +364,6 @@ void vfio_unregister_group_dev(struct vfio_device *device)
- 		}
- 	}
- 
--	/* Balances device_add in register path */
--	device_del(&device->device);
--
- 	/* Balances vfio_device_set_group in register path */
- 	vfio_device_remove_group(device);
- }
+ 	ret = vfio_device_add(device);
+ 	if (ret)
+ 		goto err_out;
 -- 
 2.34.1
 
