@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42B98EB64DA
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jul 2023 13:39:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A87D7EB64DC
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jul 2023 13:39:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FEF510E34A;
-	Tue, 18 Jul 2023 13:39:44 +0000 (UTC)
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7052B10E350;
- Tue, 18 Jul 2023 13:39:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E98B810E352;
+	Tue, 18 Jul 2023 13:39:47 +0000 (UTC)
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67B7610E350;
+ Tue, 18 Jul 2023 13:39:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689687583; x=1721223583;
+ t=1689687584; x=1721223584;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ffQ8tdf0CTuWFcicq4XVTjOPbTzNDw6dZK0WxbdUDJc=;
- b=gKEqSW+lIAB0ZM0tm3stI1NjM7jn1MxYGN7h+ZLtTae25DB2ty0ecwJw
- iTOqa3fCdMmlEKpuJPBLZhye2hoQ4BxdpiVsyNJ/vfFpqy/VUzuQCL9Dr
- 9tsReyB3MrlFvDJlhOWFq501/jHJ52PkYSfWAYaPTkJIkFKo00KPMcZUP
- bo7dxOC0kkX5KRq5yDadvTF1e9hr7oAvw7vBWabe0ZLhIkbz5viA6Llfm
- bbhi4aa7gCzn/UnhKJg9EIe9EmtgvbeEjsgoLeIz2+froxEDVHmErw5dj
- PVh1jD3LLzM81kB0Wt1DXYsyDwoI0wnvqpy4Kmbiw5kGsX3Pkv8f26jfC g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="345800193"
-X-IronPort-AV: E=Sophos;i="6.01,214,1684825200"; d="scan'208";a="345800193"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2023 06:39:15 -0700
+ bh=ZZqKWdtIxHpZNzsi31egEKMwcrGGyaFAqK7FKOI5Uho=;
+ b=mLzqHnDeBEaWHGv9vhr/IvMwC7QjuP+8sYXnyNMJj14N1nBsHSaQfuvf
+ B0Lt753Fy2lXNbH4PR6eQMpRVdf+JMYJ9LqsmwY2jVLytuJ+u0DiILhpb
+ 057+MqKXChBnUZJqDRBjCy7VN1XwUZmkS2wHnVGmVNxKBW/gL/1bifNdH
+ QoHP+hhNJjXBi6l6x1E01TYUMrDa+A3MxHL2jclNJfha7iaZZWsN7+MMj
+ e2lLsGXx583ahi8nNS0NbnRLzJudRncOEX6IYzNvtXW3oDHhY30LxMDeI
+ cs7Kkp+6oknwNg95PwvDhl6fA0YhQM7cGi/zTK4hcfUv1ImW72A2US9wk Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="369762104"
+X-IronPort-AV: E=Sophos;i="6.01,214,1684825200"; d="scan'208";a="369762104"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jul 2023 06:39:43 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="897587596"
-X-IronPort-AV: E=Sophos;i="6.01,214,1684825200"; d="scan'208";a="897587596"
+X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="793626266"
+X-IronPort-AV: E=Sophos;i="6.01,214,1684825200"; d="scan'208";a="793626266"
 Received: from ygaydayc-mobl.ger.corp.intel.com (HELO intel.com)
  ([10.249.35.242])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2023 06:39:10 -0700
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jul 2023 06:39:40 -0700
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: Jonathan Cavitt <jonathan.cavitt@intel.com>,
  Matt Roper <matthew.d.roper@intel.com>,
  Chris Wilson <chris@chris-wilson.co.uk>,
  Mika Kuoppala <mika.kuoppala@linux.intel.com>,
  Nirmoy Das <nirmoy.das@intel.com>, Andrzej Hajda <andrzej.hajda@intel.com>
-Date: Tue, 18 Jul 2023 15:38:29 +0200
-Message-Id: <20230718133836.574781-3-andi.shyti@linux.intel.com>
+Date: Tue, 18 Jul 2023 15:38:33 +0200
+Message-Id: <20230718133836.574781-7-andi.shyti@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230718133836.574781-1-andi.shyti@linux.intel.com>
 References: <20230718133836.574781-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 2/9] drm/i915/gt: Cleanup aux invalidation
- registers
+Subject: [Intel-gfx] [PATCH v5 6/9] drm/i915/gt: Refactor
+ intel_emit_pipe_control_cs() in a single function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,116 +68,87 @@ Cc: Intel GFX <intel-gfx@lists.freedesktop.org>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fix the 'NV' definition postfix that is supposed to be INV.
-
-Take the chance to also order properly the registers based on
-their address and call the GEN12_GFX_CCS_AUX_INV address as
-GEN12_CCS_AUX_INV like all the other similar registers.
-
-Remove also VD1, VD3 and VE1 registers that don't exist and add
-BCS0 and CCS0.
+Just a trivial refactoring for reducing the number of code
+duplicate. This will come at handy in the next commits.
 
 Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-Cc: <stable@vger.kernel.org> # v5.8+
-Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
-Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
 ---
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c |  8 ++++----
- drivers/gpu/drm/i915/gt/intel_gt_regs.h  | 16 ++++++++--------
- drivers/gpu/drm/i915/gt/intel_lrc.c      |  6 +++---
- 3 files changed, 15 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c | 44 +++++++++++++-----------
+ 1 file changed, 23 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-index 23857cc08eca1..563efee055602 100644
+index c9951bcf091a2..3275e55b18d90 100644
 --- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
 +++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-@@ -287,8 +287,8 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
- 
- 		if (!HAS_FLAT_CCS(rq->engine->i915)) {
- 			/* hsdes: 1809175790 */
--			cs = gen12_emit_aux_table_inv(rq->engine->gt,
--						      cs, GEN12_GFX_CCS_AUX_NV);
-+			cs = gen12_emit_aux_table_inv(rq->engine->gt, cs,
-+						      GEN12_CCS_AUX_INV);
- 		}
- 
- 		*cs++ = preparser_disable(false);
-@@ -348,10 +348,10 @@ int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
- 	if (aux_inv) { /* hsdes: 1809175790 */
- 		if (rq->engine->class == VIDEO_DECODE_CLASS)
- 			cs = gen12_emit_aux_table_inv(rq->engine->gt,
--						      cs, GEN12_VD0_AUX_NV);
-+						      cs, GEN12_VD0_AUX_INV);
- 		else
- 			cs = gen12_emit_aux_table_inv(rq->engine->gt,
--						      cs, GEN12_VE0_AUX_NV);
-+						      cs, GEN12_VE0_AUX_INV);
- 	}
- 
- 	if (mode & EMIT_INVALIDATE)
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index 718cb2c80f79e..2cdfb2f713d02 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -332,9 +332,11 @@
- #define GEN8_PRIVATE_PAT_HI			_MMIO(0x40e0 + 4)
- #define GEN10_PAT_INDEX(index)			_MMIO(0x40e0 + (index) * 4)
- #define BSD_HWS_PGA_GEN7			_MMIO(0x4180)
--#define GEN12_GFX_CCS_AUX_NV			_MMIO(0x4208)
--#define GEN12_VD0_AUX_NV			_MMIO(0x4218)
--#define GEN12_VD1_AUX_NV			_MMIO(0x4228)
-+
-+#define GEN12_CCS_AUX_INV			_MMIO(0x4208)
-+#define GEN12_VD0_AUX_INV			_MMIO(0x4218)
-+#define GEN12_VE0_AUX_INV			_MMIO(0x4238)
-+#define GEN12_BCS0_AUX_INV			_MMIO(0x4248)
- 
- #define GEN8_RTCR				_MMIO(0x4260)
- #define GEN8_M1TCR				_MMIO(0x4264)
-@@ -342,14 +344,12 @@
- #define GEN8_BTCR				_MMIO(0x426c)
- #define GEN8_VTCR				_MMIO(0x4270)
- 
--#define GEN12_VD2_AUX_NV			_MMIO(0x4298)
--#define GEN12_VD3_AUX_NV			_MMIO(0x42a8)
--#define GEN12_VE0_AUX_NV			_MMIO(0x4238)
--
- #define BLT_HWS_PGA_GEN7			_MMIO(0x4280)
- 
--#define GEN12_VE1_AUX_NV			_MMIO(0x42b8)
-+#define GEN12_VD2_AUX_INV			_MMIO(0x4298)
-+#define GEN12_CCS0_AUX_INV			_MMIO(0x42c8)
- #define   AUX_INV				REG_BIT(0)
-+
- #define VEBOX_HWS_PGA_GEN7			_MMIO(0x4380)
- 
- #define GEN12_AUX_ERR_DBG			_MMIO(0x43f4)
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 1b710102390bf..235f3fab60a98 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1374,7 +1374,7 @@ gen12_emit_indirect_ctx_rcs(const struct intel_context *ce, u32 *cs)
- 	/* hsdes: 1809175790 */
- 	if (!HAS_FLAT_CCS(ce->engine->i915))
- 		cs = gen12_emit_aux_table_inv(ce->engine->gt,
--					      cs, GEN12_GFX_CCS_AUX_NV);
-+					      cs, GEN12_CCS_AUX_INV);
- 
- 	/* Wa_16014892111 */
- 	if (IS_MTL_GRAPHICS_STEP(ce->engine->i915, M, STEP_A0, STEP_B0) ||
-@@ -1403,10 +1403,10 @@ gen12_emit_indirect_ctx_xcs(const struct intel_context *ce, u32 *cs)
- 	if (!HAS_FLAT_CCS(ce->engine->i915)) {
- 		if (ce->engine->class == VIDEO_DECODE_CLASS)
- 			cs = gen12_emit_aux_table_inv(ce->engine->gt,
--						      cs, GEN12_VD0_AUX_NV);
-+						      cs, GEN12_VD0_AUX_INV);
- 		else if (ce->engine->class == VIDEO_ENHANCEMENT_CLASS)
- 			cs = gen12_emit_aux_table_inv(ce->engine->gt,
--						      cs, GEN12_VE0_AUX_NV);
-+						      cs, GEN12_VE0_AUX_INV);
- 	}
- 
+@@ -177,23 +177,31 @@ u32 *gen12_emit_aux_table_inv(struct intel_gt *gt, u32 *cs, const i915_reg_t inv
  	return cs;
+ }
+ 
++static u32 *intel_emit_pipe_control_cs(struct i915_request *rq, u32 bit_group_0,
++				       u32 bit_group_1, u32 offset)
++{
++	u32 *cs;
++
++	cs = intel_ring_begin(rq, 6);
++	if (IS_ERR(cs))
++		return cs;
++
++	cs = gen12_emit_pipe_control(cs, bit_group_0, bit_group_1,
++				     LRC_PPHWSP_SCRATCH_ADDR);
++	intel_ring_advance(rq, cs);
++
++	return cs;
++}
++
+ static int mtl_dummy_pipe_control(struct i915_request *rq)
+ {
+ 	/* Wa_14016712196 */
+ 	if (IS_MTL_GRAPHICS_STEP(rq->engine->i915, M, STEP_A0, STEP_B0) ||
+-	    IS_MTL_GRAPHICS_STEP(rq->engine->i915, P, STEP_A0, STEP_B0)) {
+-		u32 *cs;
+-
+-		/* dummy PIPE_CONTROL + depth flush */
+-		cs = intel_ring_begin(rq, 6);
+-		if (IS_ERR(cs))
+-			return PTR_ERR(cs);
+-		cs = gen12_emit_pipe_control(cs,
+-					     0,
+-					     PIPE_CONTROL_DEPTH_CACHE_FLUSH,
+-					     LRC_PPHWSP_SCRATCH_ADDR);
+-		intel_ring_advance(rq, cs);
+-	}
++	    IS_MTL_GRAPHICS_STEP(rq->engine->i915, P, STEP_A0, STEP_B0))
++		intel_emit_pipe_control_cs(rq,
++					   0,
++					   PIPE_CONTROL_DEPTH_CACHE_FLUSH,
++					   LRC_PPHWSP_SCRATCH_ADDR);
+ 
+ 	return 0;
+ }
+@@ -210,7 +218,6 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
+ 		u32 bit_group_0 = 0;
+ 		u32 bit_group_1 = 0;
+ 		int err;
+-		u32 *cs;
+ 
+ 		err = mtl_dummy_pipe_control(rq);
+ 		if (err)
+@@ -237,13 +244,8 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
+ 		else if (engine->class == COMPUTE_CLASS)
+ 			bit_group_1 &= ~PIPE_CONTROL_3D_ENGINE_FLAGS;
+ 
+-		cs = intel_ring_begin(rq, 6);
+-		if (IS_ERR(cs))
+-			return PTR_ERR(cs);
+-
+-		cs = gen12_emit_pipe_control(cs, bit_group_0, bit_group_1,
+-					     LRC_PPHWSP_SCRATCH_ADDR);
+-		intel_ring_advance(rq, cs);
++		intel_emit_pipe_control_cs(rq, bit_group_0, bit_group_1,
++					   LRC_PPHWSP_SCRATCH_ADDR);
+ 	}
+ 
+ 	if (mode & EMIT_INVALIDATE) {
 -- 
 2.40.1
 
