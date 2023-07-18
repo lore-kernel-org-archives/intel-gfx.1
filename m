@@ -4,48 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3275DEB64DC
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jul 2023 17:29:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC8C7EB64DD
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jul 2023 18:00:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 036F910E3AF;
-	Tue, 18 Jul 2023 17:29:35 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1128A10E3A0;
- Tue, 18 Jul 2023 17:29:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689701371; x=1721237371;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=YiexA/YvudH05LqNj7aXEyVr7ay2mFHkNEDtUSS8f1A=;
- b=iGxoT4iy8v///2dpHbCC45jOANdVJN2zXHdpbMTUO7INQ0z5jRUP8Ov1
- sAhtZAgZWYJ6DSox1kg39CLIlb7/94tpcDnByI3xBdV83vhtvdURX+Yzv
- PlxP+HUhuwyVXcvKvm76caOGwYsGW1bw73csnPywqRI7MDBFlWrvdN94r
- f4FJmNi0FC4s6fpH9G7SRmk5+l0YlTi1dg7gOwQqxkyN7qbKBiTPrUOX+
- l6pRlXAhOrnKcXkiA2654TBumxKHOZNozd493cWMk++z8FHqCh7sC1kve
- TJ1X0IPUONJgz++9aDALb34k2nhbtgFL5nGf1IHs21o3F20kIRfr/5y+d g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="369825407"
-X-IronPort-AV: E=Sophos;i="6.01,214,1684825200"; d="scan'208";a="369825407"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2023 10:29:30 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="723701943"
-X-IronPort-AV: E=Sophos;i="6.01,214,1684825200"; d="scan'208";a="723701943"
-Received: from ideak-desk.fi.intel.com ([10.237.72.78])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2023 10:29:29 -0700
-From: Imre Deak <imre.deak@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 18 Jul 2023 20:29:34 +0300
-Message-Id: <20230718172934.69049-3-imre.deak@intel.com>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20230718172934.69049-1-imre.deak@intel.com>
-References: <20230718172934.69049-1-imre.deak@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4760E10E0AC;
+	Tue, 18 Jul 2023 18:00:46 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5EE6910E0AC;
+ Tue, 18 Jul 2023 18:00:44 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 57D26A0093;
+ Tue, 18 Jul 2023 18:00:44 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915: Fix HPD polling,
- reenabling the output poll work as needed
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Imre Deak" <imre.deak@intel.com>
+Date: Tue, 18 Jul 2023 18:00:44 -0000
+Message-ID: <168970324432.22204.14095870147445532019@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230718172934.69049-1-imre.deak@intel.com>
+In-Reply-To: <20230718172934.69049-1-imre.deak@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5B1/3=5D_drm/i915=3A_Avoid_endless_HP?=
+ =?utf-8?q?D_poll_detect_loop_via_runtime_suspend/resume?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,54 +41,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
- dri-devel@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After the commit in the Fixes: line below, HPD polling stopped working
-on i915, since after that change calling drm_kms_helper_poll_enable()
-doesn't restart drm_mode_config::output_poll_work if the work was
-stopped (no connectors needing polling) and enabling polling for a
-connector (during runtime suspend or detecting an HPD IRQ storm).
+== Series Details ==
 
-After the above change calling drm_kms_helper_poll_enable() is a nop
-after it's been called already and polling for some connectors was
-disabled/re-enabled.
+Series: series starting with [1/3] drm/i915: Avoid endless HPD poll detect loop via runtime suspend/resume
+URL   : https://patchwork.freedesktop.org/series/120931/
+State : warning
 
-Fix this by calling drm_kms_helper_poll_reschedule() added in the
-previous patch instead, which reschedules the work whenever expected.
+== Summary ==
 
-Fixes: d33a54e3991d ("drm/probe_helper: sort out poll_running vs poll_enabled")
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Imre Deak <imre.deak@intel.com>
----
- drivers/gpu/drm/i915/display/intel_hotplug.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Error: dim checkpatch failed
+0aa33f8c1790 drm/i915: Avoid endless HPD poll detect loop via runtime suspend/resume
+-:9: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+#9: 
+commit a8ddac7c9f06 ("drm/i915: Avoid HPD poll detect triggering a new detect cycle")
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hotplug.c b/drivers/gpu/drm/i915/display/intel_hotplug.c
-index 3780629bff95c..cc49040445f39 100644
---- a/drivers/gpu/drm/i915/display/intel_hotplug.c
-+++ b/drivers/gpu/drm/i915/display/intel_hotplug.c
-@@ -212,7 +212,7 @@ intel_hpd_irq_storm_switch_to_polling(struct drm_i915_private *dev_priv)
- 
- 	/* Enable polling and queue hotplug re-enabling. */
- 	if (hpd_disabled) {
--		drm_kms_helper_poll_enable(&dev_priv->drm);
-+		drm_kms_helper_poll_reschedule(&dev_priv->drm);
- 		mod_delayed_work(dev_priv->unordered_wq,
- 				 &dev_priv->display.hotplug.reenable_work,
- 				 msecs_to_jiffies(HPD_STORM_REENABLE_DELAY));
-@@ -676,7 +676,7 @@ static void i915_hpd_poll_init_work(struct work_struct *work)
- 	drm_connector_list_iter_end(&conn_iter);
- 
- 	if (enabled)
--		drm_kms_helper_poll_enable(&dev_priv->drm);
-+		drm_kms_helper_poll_reschedule(&dev_priv->drm);
- 
- 	mutex_unlock(&dev_priv->drm.mode_config.mutex);
- 
--- 
-2.37.2
+-:41: WARNING:COMMIT_LOG_USE_LINK: Unknown link reference 'References:', use 'Link:' or 'Closes:' instead
+#41: 
+References: https://gitlab.freedesktop.org/drm/intel/-/issues/7940#note_1997403
+
+total: 0 errors, 2 warnings, 0 checks, 84 lines checked
+c362e2937e34 drm: Add an HPD poll helper to reschedule the poll work
+3f5f864c2c37 drm/i915: Fix HPD polling, reenabling the output poll work as needed
+
 
