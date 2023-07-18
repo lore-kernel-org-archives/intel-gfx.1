@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3B01C001DC
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jul 2023 22:28:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C4B9EB64DD
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Jul 2023 22:28:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33F1F10E3E3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E6E910E3E6;
 	Tue, 18 Jul 2023 22:28:05 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DA4F10E06C
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A050810E3E2
  for <intel-gfx@lists.freedesktop.org>; Tue, 18 Jul 2023 22:28:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689719281; x=1721255281;
+ t=1689719282; x=1721255282;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=SQnGTnwaA+SlzD9oMj23cfV8KBEJktVDZL+fDQoHMUA=;
- b=RI8Qv2Kwe0mgoROo54vyK9bDGHqa316pj6JgMPdylzX4spHubD/buTFO
- 7Y+i6A9g9Jb7mAnCO4YDVVqknRXQsQFjfMIuf5K4Lh1Q4FDf4XkhpbQWW
- nybtDLDvIkcbA0ULBn6yZqNRq0A0tkG8y6QDl5URw004FI4HS6rC8GFdd
- UXj8S34xiW2+PWnai5nCVHRt37se3LyS8FmSf1m+/cKavsQdXXXTdqV4v
- 8AiAbFMY7lqaXUBIyL6xYztGJRKUAatC/owcoQ/PfXdzVQs5lVSuQCg3e
- fuNNE0tZnxXV7nojfu87JeXvoG6RQZ4JbPZzL1nIObUN1B8w35gZN96QI g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="432508071"
-X-IronPort-AV: E=Sophos;i="6.01,215,1684825200"; d="scan'208";a="432508071"
+ bh=nUpq9ZiUiDT8MYmRyEAtF6pPvOI5VaJspwQOZMNVusE=;
+ b=RegJ9rbgtHF6Y7QeBCBSK440+4iGAX1yXej5+bVM+8ThEHKxyfScZmLf
+ Txm2tOfj/CxAiGxQUNcwucFunmt3JpOgWP9rrQgLuftH0AVFbnspPrb0B
+ JHB8HL7bXehHe5q1ZypdHuviDItNG5tcNoEUUDRvKmK8rXW6gJSL5YTLB
+ b1XA9WgrakGxYNWxGDcVeIznnXpgN+L8x7mkAPgBrwT76gSFo6yQ9yup/
+ qjctdKpgIKpancQVz7NK/dkz/+GAJ7oTU9Wnt5boiY/6+W9IfAReA2Nb0
+ 7vetER9IHlBj8Ywf21/Kc0DAovK/E7kAWvJ2X+S+7uQCDWUCvPoMyxm2u g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="432508075"
+X-IronPort-AV: E=Sophos;i="6.01,215,1684825200"; d="scan'208";a="432508075"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  18 Jul 2023 15:28:01 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="970403887"
-X-IronPort-AV: E=Sophos;i="6.01,215,1684825200"; d="scan'208";a="970403887"
+X-IronPort-AV: E=McAfee;i="6600,9927,10775"; a="970403899"
+X-IronPort-AV: E=Sophos;i="6.01,215,1684825200"; d="scan'208";a="970403899"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.147])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2023 15:28:01 -0700
+ 18 Jul 2023 15:28:02 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 18 Jul 2023 15:27:55 -0700
-Message-ID: <20230718222753.1075713-11-matthew.d.roper@intel.com>
+Date: Tue, 18 Jul 2023 15:27:59 -0700
+Message-ID: <20230718222753.1075713-15-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230718222753.1075713-10-matthew.d.roper@intel.com>
 References: <20230718222753.1075713-10-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/8] drm/i915: Consolidate condition for
- Wa_22011802037
+Subject: [Intel-gfx] [PATCH 5/8] drm/i915: Eliminate IS_MTL_DISPLAY_STEP
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,121 +61,145 @@ Cc: matthew.d.roper@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The workaround bounds for Wa_22011802037 are somewhat complex and are
-replicated in several places throughout the code.  Pull the condition
-out to a helper function to prevent mistakes if this condition needs to
-change again in the future.
+Stepping-specific display behavior shouldn't be tied to MTL as a
+platform, but rather specifically to the Xe_LPM+ IP.  Future non-MTL
+platforms may re-use this IP and will need to follow the exact same
+logic and apply the same workarounds.  IS_MTL_DISPLAY_STEP() is dropped
+in favor of a new macro IS_DISPLAY_IPVER_STEP() that only checks the
+display IP version.
 
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c      |  4 +---
- .../drm/i915/gt/intel_execlists_submission.c   |  4 +---
- drivers/gpu/drm/i915/gt/intel_reset.c          | 18 ++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_reset.h          |  2 ++
- drivers/gpu/drm/i915/gt/uc/intel_guc.c         |  4 +---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c  |  4 +---
- 6 files changed, 24 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_device.h |  5 +++++
+ drivers/gpu/drm/i915/display/intel_fbc.c            |  3 ++-
+ drivers/gpu/drm/i915/display/intel_pmdemand.c       |  2 +-
+ drivers/gpu/drm/i915/display/intel_psr.c            | 10 +++++-----
+ drivers/gpu/drm/i915/i915_drv.h                     |  6 ++----
+ 5 files changed, 15 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 0aff5bb13c53..0d095337b350 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1616,9 +1616,7 @@ static int __intel_engine_stop_cs(struct intel_engine_cs *engine,
- 	 * Wa_22011802037: Prior to doing a reset, ensure CS is
- 	 * stopped, set ring stop bit and prefetch disable bit to halt CS
- 	 */
--	if (IS_MTL_GRAPHICS_STEP(engine->i915, M, STEP_A0, STEP_B0) ||
--	    (GRAPHICS_VER(engine->i915) >= 11 &&
--	    GRAPHICS_VER_FULL(engine->i915) < IP_VER(12, 70)))
-+	if (intel_engine_reset_needs_wa_22011802037(engine->gt))
- 		intel_uncore_write_fw(uncore, RING_MODE_GEN7(engine->mmio_base),
- 				      _MASKED_BIT_ENABLE(GEN12_GFX_PREFETCH_DISABLE));
+diff --git a/drivers/gpu/drm/i915/display/intel_display_device.h b/drivers/gpu/drm/i915/display/intel_display_device.h
+index 3324bd453ca7..d8dccf7f1b5f 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_device.h
++++ b/drivers/gpu/drm/i915/display/intel_display_device.h
+@@ -71,6 +71,11 @@ struct drm_printer;
+ #define OVERLAY_NEEDS_PHYSICAL(i915)	(DISPLAY_INFO(i915)->overlay_needs_physical)
+ #define SUPPORTS_TV(i915)		(DISPLAY_INFO(i915)->supports_tv)
  
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index d85b5a6d981f..b9f297c546fb 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -3001,9 +3001,7 @@ static void execlists_reset_prepare(struct intel_engine_cs *engine)
- 	 * Wa_22011802037: In addition to stopping the cs, we need
- 	 * to wait for any pending mi force wakeups
- 	 */
--	if (IS_MTL_GRAPHICS_STEP(engine->i915, M, STEP_A0, STEP_B0) ||
--	    (GRAPHICS_VER(engine->i915) >= 11 &&
--	    GRAPHICS_VER_FULL(engine->i915) < IP_VER(12, 70)))
-+	if (intel_engine_reset_needs_wa_22011802037(engine->gt))
- 		intel_engine_wait_for_pending_mi_fw(engine);
- 
- 	engine->execlists.reset_ccid = active_ccid(engine);
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index cc6bd21a3e51..1ff7b42521c9 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -1632,6 +1632,24 @@ void __intel_fini_wedge(struct intel_wedge_me *w)
- 	w->gt = NULL;
- }
- 
-+/*
-+ * Wa_22011802037 requires that we (or the GuC) ensure that no command
-+ * streamers are executing MI_FORCE_WAKE while an engine reset is initiated.
-+ */
-+bool intel_engine_reset_needs_wa_22011802037(struct intel_gt *gt)
-+{
-+	if (GRAPHICS_VER(gt->i915) < 11)
-+		return false;
++#define IS_DISPLAY_IPVER_STEP(__i915, ipver, since, until) \
++	(BUILD_BUG_ON_ZERO(ipver < IP_VER(2, 0)) + \
++	 DISPLAY_VER_FULL(__i915) == ipver && \
++	 IS_DISPLAY_STEP(__i915, since, until))
 +
-+	if (IS_MTL_GRAPHICS_STEP(gt->i915, M, STEP_A0, STEP_B0))
-+		return true;
-+
-+	if (GRAPHICS_VER_FULL(gt->i915) >= IP_VER(12, 70))
-+		return false;
-+
-+	return true;
-+}
-+
- #if IS_ENABLED(CONFIG_DRM_I915_SELFTEST)
- #include "selftest_reset.c"
- #include "selftest_hangcheck.c"
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.h b/drivers/gpu/drm/i915/gt/intel_reset.h
-index 25c975b6e8fc..f615b30b81c5 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.h
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.h
-@@ -78,4 +78,6 @@ void __intel_fini_wedge(struct intel_wedge_me *w);
- bool intel_has_gpu_reset(const struct intel_gt *gt);
- bool intel_has_reset_engine(const struct intel_gt *gt);
+ struct intel_display_runtime_info {
+ 	struct {
+ 		u16 ver;
+diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
+index 7f8b2d7713c7..a3a42e29b766 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbc.c
++++ b/drivers/gpu/drm/i915/display/intel_fbc.c
+@@ -49,6 +49,7 @@
+ #include "i915_vgpu.h"
+ #include "intel_cdclk.h"
+ #include "intel_de.h"
++#include "intel_display_device.h"
+ #include "intel_display_trace.h"
+ #include "intel_display_types.h"
+ #include "intel_fbc.h"
+@@ -1093,7 +1094,7 @@ static int intel_fbc_check_plane(struct intel_atomic_state *state,
  
-+bool intel_engine_reset_needs_wa_22011802037(struct intel_gt *gt);
-+
- #endif /* I915_RESET_H */
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-index 2eb891b270ae..1e532981f74e 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-@@ -292,9 +292,7 @@ static u32 guc_ctl_wa_flags(struct intel_guc *guc)
- 		flags |= GUC_WA_DUAL_QUEUE;
+ 	/* Wa_14016291713 */
+ 	if ((IS_DISPLAY_VER(i915, 12, 13) ||
+-	     IS_MTL_DISPLAY_STEP(i915, STEP_A0, STEP_C0)) &&
++	     IS_DISPLAY_IPVER_STEP(i915, IP_VER(14, 0), STEP_A0, STEP_C0)) &&
+ 	    crtc_state->has_psr) {
+ 		plane_state->no_fbc_reason = "PSR1 enabled (Wa_14016291713)";
+ 		return 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_pmdemand.c b/drivers/gpu/drm/i915/display/intel_pmdemand.c
+index f7608d363634..3b37beedc95c 100644
+--- a/drivers/gpu/drm/i915/display/intel_pmdemand.c
++++ b/drivers/gpu/drm/i915/display/intel_pmdemand.c
+@@ -92,7 +92,7 @@ int intel_pmdemand_init(struct drm_i915_private *i915)
+ 				     &pmdemand_state->base,
+ 				     &intel_pmdemand_funcs);
  
- 	/* Wa_22011802037: graphics version 11/12 */
--	if (IS_MTL_GRAPHICS_STEP(gt->i915, M, STEP_A0, STEP_B0) ||
--	    (GRAPHICS_VER(gt->i915) >= 11 &&
--	    GRAPHICS_VER_FULL(gt->i915) < IP_VER(12, 70)))
-+	if (intel_engine_reset_needs_wa_22011802037(gt))
- 		flags |= GUC_WA_PRE_PARSER;
+-	if (IS_MTL_DISPLAY_STEP(i915, STEP_A0, STEP_C0))
++	if (IS_DISPLAY_IPVER_STEP(i915, IP_VER(14, 0), STEP_A0, STEP_C0))
+ 		/* Wa_14016740474 */
+ 		intel_de_rmw(i915, XELPD_CHICKEN_DCPR_3, 0, DMD_RSP_TIMEOUT_DISABLE);
  
- 	/* Wa_16011777198:dg2 */
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index a0e3ef1c65d2..1bd5d8f7c40b 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1658,9 +1658,7 @@ static void guc_engine_reset_prepare(struct intel_engine_cs *engine)
- 	 * Wa_22011802037: In addition to stopping the cs, we need
- 	 * to wait for any pending mi force wakeups
- 	 */
--	if (IS_MTL_GRAPHICS_STEP(engine->i915, M, STEP_A0, STEP_B0) ||
--	    (GRAPHICS_VER(engine->i915) >= 11 &&
--	     GRAPHICS_VER_FULL(engine->i915) < IP_VER(12, 70))) {
-+	if (intel_engine_reset_needs_wa_22011802037(engine->gt)) {
- 		intel_engine_stop_cs(engine);
- 		intel_engine_wait_for_pending_mi_fw(engine);
- 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 04ab034a8d57..5770cbfef435 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -1360,7 +1360,7 @@ static void wm_optimization_wa(struct intel_dp *intel_dp,
+ 	bool set_wa_bit = false;
+ 
+ 	/* Wa_14015648006 */
+-	if (IS_MTL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0) ||
++	if (IS_DISPLAY_IPVER_STEP(dev_priv, IP_VER(14, 0), STEP_A0, STEP_B0) ||
+ 	    IS_DISPLAY_VER(dev_priv, 11, 13))
+ 		set_wa_bit |= crtc_state->wm_level_disabled;
+ 
+@@ -1447,7 +1447,7 @@ static void intel_psr_enable_source(struct intel_dp *intel_dp,
+ 		 * All supported adlp panels have 1-based X granularity, this may
+ 		 * cause issues if non-supported panels are used.
+ 		 */
+-		if (IS_MTL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
++		if (IS_DISPLAY_IPVER_STEP(dev_priv, IP_VER(14, 0), STEP_A0, STEP_B0))
+ 			intel_de_rmw(dev_priv, MTL_CHICKEN_TRANS(cpu_transcoder), 0,
+ 				     ADLP_1_BASED_X_GRANULARITY);
+ 		else if (IS_ALDERLAKE_P(dev_priv))
+@@ -1455,7 +1455,7 @@ static void intel_psr_enable_source(struct intel_dp *intel_dp,
+ 				     ADLP_1_BASED_X_GRANULARITY);
+ 
+ 		/* Wa_16012604467:adlp,mtl[a0,b0] */
+-		if (IS_MTL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
++		if (IS_DISPLAY_IPVER_STEP(dev_priv, IP_VER(14, 0), STEP_A0, STEP_B0))
+ 			intel_de_rmw(dev_priv,
+ 				     MTL_CLKGATE_DIS_TRANS(cpu_transcoder), 0,
+ 				     MTL_CLKGATE_DIS_TRANS_DMASC_GATING_DIS);
+@@ -1613,7 +1613,7 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
+ 
+ 	if (intel_dp->psr.psr2_enabled) {
+ 		/* Wa_16012604467:adlp,mtl[a0,b0] */
+-		if (IS_MTL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0))
++		if (IS_DISPLAY_IPVER_STEP(dev_priv, IP_VER(14, 0), STEP_A0, STEP_B0))
+ 			intel_de_rmw(dev_priv,
+ 				     MTL_CLKGATE_DIS_TRANS(cpu_transcoder),
+ 				     MTL_CLKGATE_DIS_TRANS_DMASC_GATING_DIS, 0);
+@@ -2087,7 +2087,7 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+ 		goto skip_sel_fetch_set_loop;
+ 
+ 	/* Wa_14014971492 */
+-	if ((IS_MTL_DISPLAY_STEP(dev_priv, STEP_A0, STEP_B0) ||
++	if ((IS_DISPLAY_IPVER_STEP(dev_priv, IP_VER(14, 0), STEP_A0, STEP_B0) ||
+ 	     IS_ALDERLAKE_P(dev_priv) || IS_TIGERLAKE(dev_priv)) &&
+ 	    crtc_state->splitter.enable)
+ 		pipe_clip.y1 = 0;
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 10741177b654..cf72c34bca10 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -443,6 +443,8 @@ static inline struct intel_gt *to_gt(struct drm_i915_private *i915)
+ 	(MEDIA_VER(i915) >= (from) && MEDIA_VER(i915) <= (until))
+ 
+ #define DISPLAY_VER(i915)	(DISPLAY_RUNTIME_INFO(i915)->ip.ver)
++#define DISPLAY_VER_FULL(i915)	IP_VER(DISPLAY_RUNTIME_INFO(i915)->ip.ver, \
++				       DISPLAY_RUNTIME_INFO(i915)->ip.rel)
+ #define IS_DISPLAY_VER(i915, from, until) \
+ 	(DISPLAY_VER(i915) >= (from) && DISPLAY_VER(i915) <= (until))
+ 
+@@ -704,10 +706,6 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ 	  MEDIA_VER_FULL(__gt->i915) == ipver && \
+ 	  IS_MEDIA_STEP(__gt->i915, since, until)))
+ 
+-#define IS_MTL_DISPLAY_STEP(__i915, since, until) \
+-	(IS_METEORLAKE(__i915) && \
+-	 IS_DISPLAY_STEP(__i915, since, until))
+-
+ /*
+  * DG2 hardware steppings are a bit unusual.  The hardware design was forked to
+  * create three variants (G10, G11, and G12) which each have distinct
 -- 
 2.41.0
 
