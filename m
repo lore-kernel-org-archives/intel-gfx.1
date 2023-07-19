@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A1B7C0015E
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jul 2023 13:29:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AB5DC001B0
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jul 2023 13:29:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E30D10E15B;
-	Wed, 19 Jul 2023 13:28:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B41910E19D;
+	Wed, 19 Jul 2023 13:29:01 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B38AB10E15B
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 Jul 2023 13:28:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B47F510E19D
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 Jul 2023 13:28:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689773337; x=1721309337;
+ t=1689773339; x=1721309339;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=QQYa/emuFRBplcZY9dlyRTu4MbC/n7mK/d6srP/zBpY=;
- b=AZoffqk5HwR0CNFfa1unPswlZnDX14N5YndLDdAR6dFzw20oZC/MXRXc
- yFCiRwyT2S6PtMe9BxcUiec9ohHioOQN121hLeGAsv49HZd9Poaw+uaYh
- A3frZ6ph7yaafych/yEo/1wAEhZtKxIP/KiEM1IpcEs5imcNLXrF5uOyP
- 8YyRo5/s1eCrDiNzTmJ0G9ojno7omsn366WgjYNdnO3uGBU8vmYeBQrg+
- 9wnlkwFkG0jsg2HnnrkLEsWYwb8KFIsdYzltDoz6tVKO1kjhlNK6hNh12
- p/7Pf0u+sLDeKNZrKTa/yTyH9HTePzHXba/4J0VZpSbL1mVofMu5FkYYP g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10776"; a="363921977"
-X-IronPort-AV: E=Sophos;i="6.01,216,1684825200"; d="scan'208";a="363921977"
+ bh=nB7I3UK0lAMaJtv4Cn/yhXcJRp+m3M2gZwmmbzG+Fqs=;
+ b=LrgWf7phlRvJ7a9x5R6JAzZIKM2X7s2sRK9r1XqbZQvjIal41mp2UwFj
+ qWMY5tfBMQxiaj0xGB/l9SSjBvdXd0hZLMv7Rsmhczm7OyRzZOXq/6H7Q
+ 9jJRDBgtXa66uTeVgk8sNBzdPn05RILqIVtxgFS+xOgOdiPzz8nCf2LoD
+ m+AhnlLQFAH/FpW7OpL20bH/JaJoIjauY3hhACWiSw8lAwLvhM6mIBSpt
+ qq9sfVdNW9jmSjJvKh9qz+xA1cXccDrBtjHFASUuWcKQYXPFd5GLx4IF2
+ VIib+KwfyZVfknPPMy6SG+6KJe8YCPiCOVYxTvgBbYstGOK6c3RKHZmWh w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10776"; a="363922000"
+X-IronPort-AV: E=Sophos;i="6.01,216,1684825200"; d="scan'208";a="363922000"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jul 2023 06:28:34 -0700
+ 19 Jul 2023 06:28:36 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10776"; a="717978535"
-X-IronPort-AV: E=Sophos;i="6.01,216,1684825200"; d="scan'208";a="717978535"
+X-IronPort-AV: E=McAfee;i="6600,9927,10776"; a="717978539"
+X-IronPort-AV: E=Sophos;i="6.01,216,1684825200"; d="scan'208";a="717978539"
 Received: from tscherue-mobl1.ger.corp.intel.com (HELO
  hazy.ger.corp.intel.com) ([10.252.56.186])
  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jul 2023 06:28:33 -0700
+ 19 Jul 2023 06:28:35 -0700
 From: Luca Coelho <luciano.coelho@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 19 Jul 2023 16:28:19 +0300
-Message-Id: <20230719132822.305612-2-luciano.coelho@intel.com>
+Date: Wed, 19 Jul 2023 16:28:21 +0300
+Message-Id: <20230719132822.305612-4-luciano.coelho@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230719132822.305612-1-luciano.coelho@intel.com>
 References: <20230719132822.305612-1-luciano.coelho@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/4] drm/i915/tc: rename
- mtl_tc_port_get_pin_assignment_mask()
+Subject: [Intel-gfx] [PATCH 3/4] drm/i915/tc: move legacy code out of the
+ main _max_lane_count() func
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,37 +62,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This function doesn't really return the pin assigment mask, but the
-max lane count derived from that.  So rename the function to
-mtl_tc_port_get_max_lane_count() to better reflect what it really does.
+This makes the code a bit more symmetric and readable, especially when
+we start adding more display version-specific alternatives.
 
 Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_tc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_tc.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
-index 3ebf41859043..71bbc2b16a0e 100644
+index de848b329f4b..11b6139eaf4f 100644
 --- a/drivers/gpu/drm/i915/display/intel_tc.c
 +++ b/drivers/gpu/drm/i915/display/intel_tc.c
-@@ -290,7 +290,7 @@ u32 intel_tc_port_get_pin_assignment_mask(struct intel_digital_port *dig_port)
- 	       DP_PIN_ASSIGNMENT_SHIFT(tc->phy_fia_idx);
+@@ -311,13 +311,13 @@ static int mtl_tc_port_get_max_lane_count(struct intel_digital_port *dig_port)
+ 	}
  }
  
--static int mtl_tc_port_get_pin_assignment_mask(struct intel_digital_port *dig_port)
-+static int mtl_tc_port_get_max_lane_count(struct intel_digital_port *dig_port)
+-int intel_tc_port_fia_max_lane_count(struct intel_digital_port *dig_port)
++static int intel_tc_port_get_max_lane_count(struct intel_digital_port *dig_port)
  {
  	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+ 	struct intel_tc_port *tc = to_tc_port(dig_port);
+ 	enum phy phy = intel_port_to_phy(i915, dig_port->base.port);
  	intel_wakeref_t wakeref;
-@@ -325,7 +325,7 @@ int intel_tc_port_fia_max_lane_count(struct intel_digital_port *dig_port)
- 	assert_tc_cold_blocked(tc);
+-	u32 lane_mask;
++	u32 lane_mask = 0;
  
+ 	if (!intel_phy_is_tc(i915, phy) || tc->mode != TC_PORT_DP_ALT)
+ 		return 4;
+@@ -327,7 +327,6 @@ int intel_tc_port_fia_max_lane_count(struct intel_digital_port *dig_port)
  	if (DISPLAY_VER(i915) >= 14)
--		return mtl_tc_port_get_pin_assignment_mask(dig_port);
-+		return mtl_tc_port_get_max_lane_count(dig_port);
+ 		return mtl_tc_port_get_max_lane_count(dig_port);
  
- 	lane_mask = 0;
+-	lane_mask = 0;
  	with_intel_display_power(i915, POWER_DOMAIN_DISPLAY_CORE, wakeref)
+ 		lane_mask = intel_tc_port_get_lane_mask(dig_port);
+ 
+@@ -348,6 +347,19 @@ int intel_tc_port_fia_max_lane_count(struct intel_digital_port *dig_port)
+ 	}
+ }
+ 
++int intel_tc_port_fia_max_lane_count(struct intel_digital_port *dig_port)
++{
++	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++
++	if (dig_port->tc_mode != TC_PORT_DP_ALT)
++		return 4;
++
++	if (DISPLAY_VER(i915) >= 14)
++		return mtl_tc_port_get_max_lane_count(dig_port);
++
++	return intel_tc_port_get_max_lane_count(dig_port);
++}
++
+ void intel_tc_port_set_fia_lane_count(struct intel_digital_port *dig_port,
+ 				      int required_lanes)
+ {
 -- 
 2.39.2
 
