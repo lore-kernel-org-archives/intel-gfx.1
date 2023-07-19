@@ -4,49 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1193EB64DA
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jul 2023 13:29:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27A35EB64DA
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Jul 2023 13:36:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58CC410E4A9;
-	Wed, 19 Jul 2023 13:29:02 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6B5A10E100
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 Jul 2023 13:28:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E2A710E4AB;
+	Wed, 19 Jul 2023 13:36:36 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 250B810E4A8
+ for <intel-gfx@lists.freedesktop.org>; Wed, 19 Jul 2023 13:36:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689773337; x=1721309337;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=pIFSw4TSILi2lVvIfb1gIhmw73bQAAHd/vIpe9HM1Zs=;
- b=Ro/jw1Xb3l+vi6681dLcIJNum4LLF1kJbOKLjzO3LCYDukSuibMRbFqO
- I8QRCkgGKg0X8JJYpZSre54E8R8Pjd6ij375lG3qmUT1yQFZGznwyY3jt
- wg3Z0eLHCI2FI7A2nOdXtBeVrvj4rvVCSRpP0BQYfibHx/k0/K3BSPgp3
- mCeTsKdXgvDnZs2R61zUJn0nSdrHCZZOqROlHl1Hg/FNxVckm7Db6o+dC
- pycKFEmldbTjEzYBpJISQ6Kv/xwWkq49XgMsOKz9A3x1zlx2rxkB7jBDE
- JvDK10zUhgnykOtEeQAIlmY40WQoSzohph8ry9rLh9ZrC282FV0idGMmn Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10776"; a="363921987"
-X-IronPort-AV: E=Sophos;i="6.01,216,1684825200"; d="scan'208";a="363921987"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jul 2023 06:28:35 -0700
+ t=1689773795; x=1721309795;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=rUU9phFbxLWQ/gOLm9lL3J2I5tH0TfnugKbxxOJCw6o=;
+ b=kmn2aCBxxp+/Ns3lOhEJaxgIM42iJJ8Gb8QKN7DtyPHKrMlwMAcE85k6
+ jkRU+xoPdRwOBtBVNliFu5lfxt6A/4S3BAheiSbp4oEK2drTaleY3EiWI
+ uCfsmhpCkrlAKuAWtSOcW3CtaYT33CoT862BVbwi+wJE2cvj4Z8sfGyF6
+ cSwRP1k1Y5EdYKWrXz5guworK3aanmSfNlBQ4z465WioCTefCG1Dh7QCg
+ 159/J2TLRvY5MaWUzEw8kmNMcvEGplbJRdEcjhWYsgIm41/hrGmhW7ASa
+ jjbOSJD4iNTl66GxUt53HIA+Hcb/gRn07H4d+gERZvRJheImogFm8z9hm g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10776"; a="365344880"
+X-IronPort-AV: E=Sophos;i="6.01,216,1684825200"; d="scan'208";a="365344880"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jul 2023 06:36:22 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10776"; a="717978538"
-X-IronPort-AV: E=Sophos;i="6.01,216,1684825200"; d="scan'208";a="717978538"
-Received: from tscherue-mobl1.ger.corp.intel.com (HELO
- hazy.ger.corp.intel.com) ([10.252.56.186])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jul 2023 06:28:34 -0700
-From: Luca Coelho <luciano.coelho@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 19 Jul 2023 16:28:20 +0300
-Message-Id: <20230719132822.305612-3-luciano.coelho@intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230719132822.305612-1-luciano.coelho@intel.com>
-References: <20230719132822.305612-1-luciano.coelho@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10776"; a="759191422"
+X-IronPort-AV: E=Sophos;i="6.01,216,1684825200"; d="scan'208";a="759191422"
+Received: from bcascian-mobl1.ger.corp.intel.com (HELO [10.213.192.119])
+ ([10.213.192.119])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Jul 2023 06:36:20 -0700
+Message-ID: <37f64727-9bbd-c967-193c-97266dfc1331@linux.intel.com>
+Date: Wed, 19 Jul 2023 14:36:18 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: Radhakrishna Sripada <radhakrishna.sripada@intel.com>,
+ intel-gfx@lists.freedesktop.org
+References: <20230718225118.2562132-1-radhakrishna.sripada@intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <20230718225118.2562132-1-radhakrishna.sripada@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/4] drm/i915/tc: make
- intel_tc_port_get_lane_mask() static
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/dpt: Use shmem for dpt objects
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,43 +63,81 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Chris Wilson <chris.p.wilson@intel.com>, stable@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This function is only used locally, so make it static and remove the
-definition from the header file.
 
-Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
----
- drivers/gpu/drm/i915/display/intel_tc.c | 2 +-
- drivers/gpu/drm/i915/display/intel_tc.h | 1 -
- 2 files changed, 1 insertion(+), 2 deletions(-)
+On 18/07/2023 23:51, Radhakrishna Sripada wrote:
+> Dpt objects that are created from internal get evicted when there is
+> memory pressure and do not get restored when pinned during scanout. The
+> pinned page table entries look corrupted and programming the display
+> engine with the incorrect pte's result in DE throwing pipe faults.
+> 
+> Create DPT objects from shmem and mark the object as dirty when pinning so
+> that the object is restored when shrinker evicts an unpinned buffer object.
+> 
+> v2: Unconditionally mark the dpt objects dirty during pinning(Chris).
+> 
+> Fixes: 0dc987b699ce ("drm/i915/display: Add smem fallback allocation for dpt")
+> Cc: <stable@vger.kernel.org> # v6.0+
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+> Suggested-by: Chris Wilson <chris.p.wilson@intel.com>
+> Signed-off-by: Fei Yang <fei.yang@intel.com>
+> Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+> ---
+>   drivers/gpu/drm/i915/display/intel_dpt.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_dpt.c b/drivers/gpu/drm/i915/display/intel_dpt.c
+> index 7c5fddb203ba..fbfd8f959f17 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dpt.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dpt.c
+> @@ -166,6 +166,8 @@ struct i915_vma *intel_dpt_pin(struct i915_address_space *vm)
+>   		i915_vma_get(vma);
+>   	}
+>   
+> +	dpt->obj->mm.dirty = true;
+> +
+>   	atomic_dec(&i915->gpu_error.pending_fb_pin);
+>   	intel_runtime_pm_put(&i915->runtime_pm, wakeref);
+>   
+> @@ -261,7 +263,7 @@ intel_dpt_create(struct intel_framebuffer *fb)
+>   		dpt_obj = i915_gem_object_create_stolen(i915, size);
+>   	if (IS_ERR(dpt_obj) && !HAS_LMEM(i915)) {
+>   		drm_dbg_kms(&i915->drm, "Allocating dpt from smem\n");
+> -		dpt_obj = i915_gem_object_create_internal(i915, size);
+> +		dpt_obj = i915_gem_object_create_shmem(i915, size);
+>   	}
+>   	if (IS_ERR(dpt_obj))
+>   		return ERR_CAST(dpt_obj);
 
-diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
-index 71bbc2b16a0e..de848b329f4b 100644
---- a/drivers/gpu/drm/i915/display/intel_tc.c
-+++ b/drivers/gpu/drm/i915/display/intel_tc.c
-@@ -260,7 +260,7 @@ assert_tc_port_power_enabled(struct intel_tc_port *tc)
- 		    !intel_display_power_is_enabled(i915, tc_port_power_domain(tc)));
- }
- 
--u32 intel_tc_port_get_lane_mask(struct intel_digital_port *dig_port)
-+static u32 intel_tc_port_get_lane_mask(struct intel_digital_port *dig_port)
- {
- 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
- 	struct intel_tc_port *tc = to_tc_port(dig_port);
-diff --git a/drivers/gpu/drm/i915/display/intel_tc.h b/drivers/gpu/drm/i915/display/intel_tc.h
-index 3b16491925fa..ffc0e2a74e43 100644
---- a/drivers/gpu/drm/i915/display/intel_tc.h
-+++ b/drivers/gpu/drm/i915/display/intel_tc.h
-@@ -19,7 +19,6 @@ bool intel_tc_port_in_legacy_mode(struct intel_digital_port *dig_port);
- bool intel_tc_port_connected(struct intel_encoder *encoder);
- bool intel_tc_port_connected_locked(struct intel_encoder *encoder);
- 
--u32 intel_tc_port_get_lane_mask(struct intel_digital_port *dig_port);
- u32 intel_tc_port_get_pin_assignment_mask(struct intel_digital_port *dig_port);
- int intel_tc_port_fia_max_lane_count(struct intel_digital_port *dig_port);
- void intel_tc_port_set_fia_lane_count(struct intel_digital_port *dig_port,
--- 
-2.39.2
+Okay I think I get it after some more looking at the DPT code paths. 
+Problem seems pretty clear - page tables are stored in dpt_obj and so 
+are lost when backing store is discarded.
 
+Changing to shmem object indeed looks the easiest option.
+
+Some related thoughts:
+
+1)
+I wonder if intel_dpt_suspend/resume remain needed after this patch. 
+Could you investigate please? On a glance their job was to restore the 
+PTEs which would be lost from internal objects backing storage. With 
+shmem objects that content should be preserved.
+
+2)
+I wonder if i915_vma_flush_writes should be used (as a companion of 
+i915_vma_pin_iomap) from DPT dpt_bind_vma, dpt_insert_entries, etc. But 
+then I am also not sure if it does the right thing for the 
+i915_gem_object_pin_map path of i915_vma_pin_iomap. Perhaps it should 
+call __i915_gem_object_flush_map itself for that mapping flavour and not 
+do the ggtt flushing in that case.
+
+In summary I think the fix is safe and correct but at least point 1) I 
+think needs looking into. It can be a follow up work too.
+
+Regards,
+
+Tvrtko
