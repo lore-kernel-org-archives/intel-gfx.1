@@ -4,50 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F53DC0015E
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Jul 2023 16:45:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8964C001DC
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Jul 2023 16:45:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 232D410E5E8;
-	Thu, 20 Jul 2023 16:45:22 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B48ED10E5DE;
- Thu, 20 Jul 2023 16:45:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D97F710E5E9;
+	Thu, 20 Jul 2023 16:45:27 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A94AE10E5E5;
+ Thu, 20 Jul 2023 16:45:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689871519; x=1721407519;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=caC3Fh3jAI5QG+8EgG0KKMyJyuCyVey77wtXQjQkTxk=;
- b=gKdcFw9L6ieU+e+ZPWoHcEPrPkfVGH0ru5PcBELokSAlPVkgKH8z7tBN
- kQzQv76NuhjPh/4McHH7RZNqCpuUVVPU00kDn/QqCS10g7DU3STdZv2sm
- +tbJoHdJuDAN6n3k5fyTF81gfciwVK42fGH5KabHv5vMM0kozZxdMMjlk
- 4ZHPtYWmCrW/+duaxlUc2FSv3EVHMM+uQ0kc8wa5YUgFAz5vywwSLzYo+
- a4WOxTWxDSBkkcD4tUiSGhEmnfVTq2XvCZfBhVIQ7R7Ih91Aao03zJE0G
- QDsoTD+wA6B5h5017HVax0HWEsZomefTyh0DUdpaQb9nBR6mwBAMa9sNh Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10777"; a="351680519"
-X-IronPort-AV: E=Sophos;i="6.01,219,1684825200"; d="scan'208";a="351680519"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2023 09:45:12 -0700
+ t=1689871523; x=1721407523;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=AsY9xtxLi3uXO72mll3hlrmZQj4IJpAF/cnKAmSU6XQ=;
+ b=gdnb2Ab5N4d7nI7nyICuw1NSvn3nDl1P/NYd6/ZBp9MhijFod4GLLw/n
+ ZeX/vvqncB+3tdALtnaofSIPmQJ9kURRSTMmkvojmjeC7Z1iX84BErZ0Y
+ Pz+pJwibqeLdoFGYjHB/fg8Kg00SPHXKh1i7paIXc6Uu+WealugCN7ljQ
+ vNFQlTs0LfUsBEkcrEog9REpgWciEsuw1AdAVlDL6Cu/iu7sNk9U7G1ZE
+ TYEfQEUQto57vw9J1vf2960Js6HEd6F8gPTJz9+WDb0otiXKVsWu7VUfI
+ HA0vFkqS2uSAM79fehuvfNe59QrTtz3lyeegaqkjH0f+S80mSPfUEEO/P w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10777"; a="356783626"
+X-IronPort-AV: E=Sophos;i="6.01,219,1684825200"; d="scan'208";a="356783626"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jul 2023 09:45:23 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10777"; a="727768310"
-X-IronPort-AV: E=Sophos;i="6.01,219,1684825200"; d="scan'208";a="727768310"
+X-IronPort-AV: E=McAfee;i="6600,9927,10777"; a="759633168"
+X-IronPort-AV: E=Sophos;i="6.01,219,1684825200"; d="scan'208";a="759633168"
 Received: from sdene1-mobl1.ger.corp.intel.com (HELO intel.com)
  ([10.252.32.238])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2023 09:45:09 -0700
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jul 2023 09:45:20 -0700
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: Jonathan Cavitt <jonathan.cavitt@intel.com>,
  Matt Roper <matthew.d.roper@intel.com>,
  Chris Wilson <chris@chris-wilson.co.uk>,
  Mika Kuoppala <mika.kuoppala@linux.intel.com>,
  Nirmoy Das <nirmoy.das@intel.com>, Andrzej Hajda <andrzej.hajda@intel.com>
-Date: Thu, 20 Jul 2023 18:44:45 +0200
-Message-Id: <20230720164454.757075-1-andi.shyti@linux.intel.com>
+Date: Thu, 20 Jul 2023 18:44:47 +0200
+Message-Id: <20230720164454.757075-3-andi.shyti@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20230720164454.757075-1-andi.shyti@linux.intel.com>
+References: <20230720164454.757075-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 0/9] Update AUX invalidation sequence
+Subject: [Intel-gfx] [PATCH v6 2/9] drm/i915: Add the has_aux_ccs device
+ property
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,98 +69,100 @@ Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+We always assumed that a device might either have AUX or FLAT
+CCS, but this is an approximation that is not always true as it
+requires some further per device checks.
 
-as there are new hardware directives, we need a little adaptation
-for the AUX invalidation sequence.
+Add the "has_aux_ccs" flag in the intel_device_info structure in
+order to have a per device flag indicating of the AUX CCS.
 
-In this version we support all the engines affected by this
-change.
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Cc: <stable@vger.kernel.org> # v5.8+
+---
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c | 4 ++--
+ drivers/gpu/drm/i915/i915_drv.h          | 1 +
+ drivers/gpu/drm/i915/i915_pci.c          | 5 ++++-
+ drivers/gpu/drm/i915/intel_device_info.h | 1 +
+ 4 files changed, 8 insertions(+), 3 deletions(-)
 
-The stable backport has some challenges because the original
-patch that this series fixes has had more changes in between.
-
-This patch is slowly exploding with code refactorings and
-features added and fixed.
-
-Thanks a lot Nirmoy, Andrzej and Matt for your review and for the
-fruitful discussions!
-
-Thanks,
-Andi
-
-Changelog:
-=========
-v5 -> v6
- - Fixed ccs flush in the engines VE and BCS. They are sent as a
-   separate command instead of added in the pipe control.
- - Separated the CCS flusing in the pipe control patch with the
-   quiescing of the memory. They were meant to be on separate
-   patch already in the previous verision, but apparently I
-   squashed them by mistake.
-
-v4 -> v5
- - The AUX CCS is added as a device property instead of checking
-   against FLAT CCS. This adds the new HAS_AUX_CCS check
-   (Patch 2, new).
- - little and trivial refactoring here and there.
- - extended the flags{0,1}/bit_group_{0,1} renaming to other
-   functions.
- - Created an intel_emit_pipe_control_cs() wrapper for submitting
-   the pipe control.
- - Quiesce memory for all the engines, not just RCS (Patch 6,
-   new).
- - The PIPE_CONTROL_CCS_FLUSH is added to all the engines.
- - Remove redundant EMIT_FLUSH_CCS mode flag.
- - Remove unnecessary NOOPs from the command streamer for
-   invalidating the CCS table.
- - Use INVALID_MMIO_REG and gen12_get_aux_inv_reg() instad of
-   __MMIO(0) and reg.reg.
- - Remove useless wrapper and just use gen12_get_aux_inv_reg().
-
-v3 -> v4
- - A trivial patch 3 is added to rename the flags with
-   bit_group_{0,1} to align with the datasheet naming.
- - Patch 4 fixes a confusion I made where the CCS flag was
-   applied to the wrong bit group.
-
-v2 -> v3
- - added r-b from Nirmoy in patch 1 and 4.
- - added patch 3 which enables the ccs_flush in the control pipe
-   for mtl+ compute and render engines.
- - added redundant checks in patch 2 for enabling the EMIT_FLUSH
-   flag.
-
-v1 -> v2
- - add a clean up preliminary patch for the existing registers
- - add support for more engines
- - add the Fixes tag
-
-Andi Shyti (7):
-  drm/i915/gt: Cleanup aux invalidation registers
-  drm/i915: Add the has_aux_ccs device property
-  drm/i915/gt: Rename flags with bit_group_X according to the datasheet
-  drm/i915/gt: Refactor intel_emit_pipe_control_cs() in a single
-    function
-  drm/i915/gt: Ensure memory quiesced before invalidation for all
-    engines
-  drm/i915/gt: Enable the CCS_FLUSH bit in the pipe control
-  drm/i915/gt: Support aux invalidation on all engines
-
-Jonathan Cavitt (2):
-  drm/i915/gt: Ensure memory quiesced before invalidation
-  drm/i915/gt: Poll aux invalidation register bit on invalidation
-
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c     | 222 +++++++++++++------
- drivers/gpu/drm/i915/gt/gen8_engine_cs.h     |  21 +-
- drivers/gpu/drm/i915/gt/intel_gpu_commands.h |   2 +
- drivers/gpu/drm/i915/gt/intel_gt_regs.h      |  16 +-
- drivers/gpu/drm/i915/gt/intel_lrc.c          |  17 +-
- drivers/gpu/drm/i915/i915_drv.h              |   1 +
- drivers/gpu/drm/i915/i915_pci.c              |   5 +-
- drivers/gpu/drm/i915/intel_device_info.h     |   1 +
- 8 files changed, 186 insertions(+), 99 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+index 563efee055602..0d4d5e0407a2d 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+@@ -267,7 +267,7 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
+ 		else if (engine->class == COMPUTE_CLASS)
+ 			flags &= ~PIPE_CONTROL_3D_ENGINE_FLAGS;
+ 
+-		if (!HAS_FLAT_CCS(rq->engine->i915))
++		if (HAS_AUX_CCS(rq->engine->i915))
+ 			count = 8 + 4;
+ 		else
+ 			count = 8;
+@@ -307,7 +307,7 @@ int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
+ 	if (mode & EMIT_INVALIDATE) {
+ 		cmd += 2;
+ 
+-		if (!HAS_FLAT_CCS(rq->engine->i915) &&
++		if (HAS_AUX_CCS(rq->engine->i915) &&
+ 		    (rq->engine->class == VIDEO_DECODE_CLASS ||
+ 		     rq->engine->class == VIDEO_ENHANCEMENT_CLASS)) {
+ 			aux_inv = rq->engine->mask &
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 682ef2b5c7d59..e9cc048b5727a 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -848,6 +848,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+  * stored in lmem to support the 3D and media compression formats.
+  */
+ #define HAS_FLAT_CCS(i915)   (INTEL_INFO(i915)->has_flat_ccs)
++#define HAS_AUX_CCS(i915)    (INTEL_INFO(i915)->has_aux_ccs)
+ 
+ #define HAS_GT_UC(i915)	(INTEL_INFO(i915)->has_gt_uc)
+ 
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index fcacdc21643cf..c9ff1d11a9fce 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -643,7 +643,8 @@ static const struct intel_device_info jsl_info = {
+ 	TGL_CACHELEVEL, \
+ 	.has_global_mocs = 1, \
+ 	.has_pxp = 1, \
+-	.max_pat_index = 3
++	.max_pat_index = 3, \
++	.has_aux_ccs = 1
+ 
+ static const struct intel_device_info tgl_info = {
+ 	GEN12_FEATURES,
+@@ -775,6 +776,7 @@ static const struct intel_device_info dg2_info = {
+ 
+ static const struct intel_device_info ats_m_info = {
+ 	DG2_FEATURES,
++	.has_aux_ccs = 1,
+ 	.require_force_probe = 1,
+ 	.tuning_thread_rr_after_dep = 1,
+ };
+@@ -827,6 +829,7 @@ static const struct intel_device_info mtl_info = {
+ 	.__runtime.media.ip.ver = 13,
+ 	PLATFORM(INTEL_METEORLAKE),
+ 	.extra_gt_list = xelpmp_extra_gt,
++	.has_aux_ccs = 1,
+ 	.has_flat_ccs = 0,
+ 	.has_gmd_id = 1,
+ 	.has_guc_deprivilege = 1,
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index dbfe6443457b5..93485507506cc 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -151,6 +151,7 @@ enum intel_ppgtt_type {
+ 	func(has_reset_engine); \
+ 	func(has_3d_pipeline); \
+ 	func(has_4tile); \
++	func(has_aux_ccs); \
+ 	func(has_flat_ccs); \
+ 	func(has_global_mocs); \
+ 	func(has_gmd_id); \
 -- 
 2.40.1
 
