@@ -4,31 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1380BC001B0
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Jul 2023 02:55:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFCCBC001DE
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Jul 2023 02:55:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4627210E550;
-	Thu, 20 Jul 2023 02:55:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2A1F10E551;
+	Thu, 20 Jul 2023 02:55:38 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 19B7510E542;
- Thu, 20 Jul 2023 02:55:35 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 73FF810E542;
+ Thu, 20 Jul 2023 02:55:37 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id EDB3EAADD6;
- Thu, 20 Jul 2023 02:55:34 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 61B84AADFD;
+ Thu, 20 Jul 2023 02:55:37 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Carlos Eduardo Gallo Filho" <gcarlos@disroot.org>
-Date: Thu, 20 Jul 2023 02:55:34 -0000
-Message-ID: <168982173494.20752.5210899822054173143@emeril.freedesktop.org>
+Date: Thu, 20 Jul 2023 02:55:37 -0000
+Message-ID: <168982173739.20750.12268801039289035974@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20230720021937.27124-1-gcarlos@disroot.org>
 In-Reply-To: <20230720021937.27124-1-gcarlos@disroot.org>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm=3A_Refactor_plane_size_calculation_by_core_helper_funct?=
- =?utf-8?q?ions?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm=3A_Refactor_plane_size_calculation_by_core_helper_functions?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,13 +53,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-a5fc4b7c1a46 drm: Remove plane hsub/vsub alignment requirement for core helpers
--:16: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
-#16: 
-[1] http://patchwork.freedesktop.org/patch/msgid/20170321181218.10042-3-ville.syrjala@linux.intel.com
-
-total: 0 errors, 1 warnings, 0 checks, 23 lines checked
-07da27549871 drm: Replace drm_framebuffer plane size functions with its equivalents
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
