@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E18E4EB64DD
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 14:11:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2721EB64DC
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 14:12:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E91B10E68F;
-	Fri, 21 Jul 2023 14:11:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E946A10E693;
+	Fri, 21 Jul 2023 14:12:00 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2C1F310E690;
- Fri, 21 Jul 2023 14:11:54 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 8B66710E690;
+ Fri, 21 Jul 2023 14:11:56 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 2AEF8A00CC;
- Fri, 21 Jul 2023 14:11:54 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 8ACF9ACC21;
+ Fri, 21 Jul 2023 14:11:56 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>
-Date: Fri, 21 Jul 2023 14:11:54 -0000
-Message-ID: <168994871417.22546.3900153341541791708@emeril.freedesktop.org>
+Date: Fri, 21 Jul 2023 14:11:56 -0000
+Message-ID: <168994871656.22545.2463560455321057612@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20230721134235.15517-1-andriy.shevchenko@linux.intel.com>
 In-Reply-To: <20230721134235.15517-1-andriy.shevchenko@linux.intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_series_starting_with_=5Bv1=2C1/1=5D_drm/i915=3A_Move_abs=5F?=
- =?utf-8?q?diff=28=29_to_math=2Eh?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?series_starting_with_=5Bv1=2C1/1=5D_drm/i915=3A_Move_abs=5Fdiff?=
+ =?utf-8?b?KCkgdG8gbWF0aC5o?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,12 +54,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-751919dc6c9b drm/i915: Move abs_diff() to math.h
--:118: CHECK:SPACING: No space is necessary after a cast
-#118: FILE: include/linux/math.h:161:
-+	(void) (&__a == &__b);			\
-
-total: 0 errors, 0 warnings, 1 checks, 85 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
