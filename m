@@ -4,50 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE5DBEB64DD
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 14:03:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E18E4EB64DD
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 14:11:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED27C10E68F;
-	Fri, 21 Jul 2023 14:03:00 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D4CC10E18B;
- Fri, 21 Jul 2023 14:02:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689948178; x=1721484178;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=ClOcl+VTB21mVAMFKz7g4AEK+zUooi66bWyE1gA6T24=;
- b=FGSHo6yYhtjBg9f1wV0l3rRE37c24hNYQIAmnhOlNBrVCMzTozytYqnX
- 12vdGNs9bwxMERyx+blG7sQlXlwWwsRgfaJ94WYXbQw/qk11rfnJdBgif
- Sll9FSsMTfe4OgQKw5cjfeIpfediL3cBZWpjA6P8i68duY24J1w9cfryu
- c1DbbiUcsfFPXqLZ3lpMZytsTsOBDy9bHDP2meoyhpWPXBI01cm4GbedT
- 55qAxOZqji2A9fjJjfs1NrEcXx55qiKPBkxQhE9H/PQw5W3yOpXz2psya
- XMSg/2EFbFNDmdJxsE+jUVPm5qttBriqumhx44/u4p7SNmrrqtmCOWZKp A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10778"; a="453404353"
-X-IronPort-AV: E=Sophos;i="6.01,220,1684825200"; d="scan'208";a="453404353"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2023 07:02:56 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10778"; a="1055573907"
-X-IronPort-AV: E=Sophos;i="6.01,220,1684825200"; d="scan'208";a="1055573907"
-Received: from hbockhor-mobl.ger.corp.intel.com (HELO intel.com)
- ([10.252.54.104])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2023 07:02:52 -0700
-Date: Fri, 21 Jul 2023 16:02:50 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: "Krzysztofik, Janusz" <janusz.krzysztofik@intel.com>
-Message-ID: <ZLqQCq5eDId4zRFa@ashyti-mobl2.lan>
-References: <20230720210737.761400-10-andi.shyti@linux.intel.com>
- <3494477.V25eIC5XRa@jkrzyszt-mobl2.ger.corp.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E91B10E68F;
+	Fri, 21 Jul 2023 14:11:55 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2C1F310E690;
+ Fri, 21 Jul 2023 14:11:54 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 2AEF8A00CC;
+ Fri, 21 Jul 2023 14:11:54 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3494477.V25eIC5XRa@jkrzyszt-mobl2.ger.corp.intel.com>
-Subject: Re: [Intel-gfx] [v7,
- 9/9] drm/i915/gt: Support aux invalidation on all engines
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>
+Date: Fri, 21 Jul 2023 14:11:54 -0000
+Message-ID: <168994871417.22546.3900153341541791708@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230721134235.15517-1-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20230721134235.15517-1-andriy.shevchenko@linux.intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_series_starting_with_=5Bv1=2C1/1=5D_drm/i915=3A_Move_abs=5F?=
+ =?utf-8?q?diff=28=29_to_math=2Eh?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,98 +41,25 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx <intel-gfx@lists.freedesktop.org>, "Cavitt,
- Jonathan" <jonathan.cavitt@intel.com>, linux-stable <stable@vger.kernel.org>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- dri-evel <dri-devel@lists.freedesktop.org>, "Hajda,
- Andrzej" <andrzej.hajda@intel.com>, "Roper,
- Matthew D" <matthew.d.roper@intel.com>, "Das, Nirmoy" <nirmoy.das@intel.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Janusz,
+== Series Details ==
 
-> > diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-> > index 3ded597f002a2..30fb4e0af6134 100644
-> > --- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-> > +++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-> > @@ -165,9 +165,36 @@ static u32 preparser_disable(bool state)
-> >  	return MI_ARB_CHECK | 1 << 8 | state;
-> >  }
-> >  
-> > -u32 *gen12_emit_aux_table_inv(struct intel_gt *gt, u32 *cs, const i915_reg_t inv_reg)
-> > +static i915_reg_t gen12_get_aux_inv_reg(struct intel_engine_cs *engine)
-> >  {
-> > -	u32 gsi_offset = gt->uncore->gsi_offset;
-> > +	if (!HAS_AUX_CCS(engine->i915))
-> > +		return INVALID_MMIO_REG;
-> > +
-> > +	switch (engine->id) {
-> > +	case RCS0:
-> > +		return GEN12_CCS_AUX_INV;
-> > +	case BCS0:
-> > +		return GEN12_BCS0_AUX_INV;
-> > +	case VCS0:
-> > +		return GEN12_VD0_AUX_INV;
-> > +	case VCS2:
-> > +		return GEN12_VD2_AUX_INV;
-> > +	case VECS0:
-> > +		return GEN12_VE0_AUX_INV;
-> > +	case CCS0:
-> > +		return GEN12_CCS0_AUX_INV;
-> > +	default:
-> > +		return INVALID_MMIO_REG;
-> > +	}
-> > +}
-> > +
-> > +u32 *gen12_emit_aux_table_inv(struct intel_engine_cs *engine, u32 *cs)
-> > +{
-> > +	i915_reg_t inv_reg = gen12_get_aux_inv_reg(engine);
-> > +	u32 gsi_offset = engine->gt->uncore->gsi_offset;
-> > +
-> > +	if (i915_mmio_reg_valid(inv_reg))
-> > +		return cs;
-> 
-> Is that correct?  Now the original body of gen12_emit_aux_table_inv() will be 
-> executed only if either (!HAS_AUX_CCS(engine->i915) or the engine is not one 
-> of (RCS0, BCS0, VCS0, VCS2 or CCS0), ...
-> 
-> >  
-> >  	*cs++ = MI_LOAD_REGISTER_IMM(1) | MI_LRI_MMIO_REMAP_EN;
-> >  	*cs++ = i915_mmio_reg_offset(inv_reg) + gsi_offset;
-> > @@ -201,6 +228,11 @@ static u32 *intel_emit_pipe_control_cs(struct i915_request *rq, u32 bit_group_0,
-> >  	return cs;
-> >  }
-> >  
-> > +static bool gen12_engine_has_aux_inv(struct intel_engine_cs *engine)
-> > +{
-> > +	return i915_mmio_reg_valid(gen12_get_aux_inv_reg(engine));
-> > +}
-> > +
-> >  static int mtl_dummy_pipe_control(struct i915_request *rq)
-> >  {
-> >  	/* Wa_14016712196 */
-> > @@ -307,11 +339,7 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
-> >  
-> >  		cs = gen8_emit_pipe_control(cs, flags, LRC_PPHWSP_SCRATCH_ADDR);
-> >  
-> > -		if (!HAS_FLAT_CCS(rq->engine->i915)) {
-> 
-> ... while before it was executed only if (!HAS_FLAT_CCS(rq->engine->i915)), 
-> which, according to commit description of PATCH 2/9, rather had the opposite 
-> meaning.  Am I missing something?
+Series: series starting with [v1,1/1] drm/i915: Move abs_diff() to math.h
+URL   : https://patchwork.freedesktop.org/series/121129/
+State : warning
 
-flat_ccs and aux_ccs are not mutually exclusive, so far the can
-both miss like in PVC. So that the !HAS_FLAT_CCS() is an
-approximation and that's why we need a better evaluation.
+== Summary ==
 
-Aux invalidation is needed only on platforms from TGL and beyond
-excluding PVC. The above engines  are the only engines where AUX
-invalidation happens, but there are no cases when we reach the
-default condition, as the emit_flush_rcs is already called within
-that set of engines. The default is there just for completeness.
+Error: dim checkpatch failed
+751919dc6c9b drm/i915: Move abs_diff() to math.h
+-:118: CHECK:SPACING: No space is necessary after a cast
+#118: FILE: include/linux/math.h:161:
++	(void) (&__a == &__b);			\
 
-Does this answer?
+total: 0 errors, 0 warnings, 1 checks, 85 lines checked
 
-Thanks,
-Andi
+
