@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32E0AEB64DC
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 16:16:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88A38C001DC
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 16:16:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B67710E6CF;
-	Fri, 21 Jul 2023 16:16:43 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FC4310E6C6;
- Fri, 21 Jul 2023 16:16:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6CC710E6CD;
+	Fri, 21 Jul 2023 16:16:45 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2081310E6CC;
+ Fri, 21 Jul 2023 16:16:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689956195; x=1721492195;
+ t=1689956194; x=1721492194;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=RgijOsjPqjEZO4RoqXzHdxLuvxSpRwIoe1DQnT9KAvs=;
- b=BsTLK7JVA2m6bqWOR6QDpcqmU/gZ+3uUK/kXpdwFNTbhwu380qFckOBi
- l3tpdLVTZ4210TCQaJpu6iQfdrlpTqVH+EhGhtiVsBr+fRCzqe2yVemX0
- weDsosBDJJYvx9Xf1B2WAo5aoNs4ZdWPkoBnyqsYgdWBUy3PkhhtxIFDK
- dMsAN4y3bsK/XYdIoeoBp8UJHVQqCNCtrQb6jcMDHBu8AkneXxos+ji5u
- U+4ps3QXAxsiUQAl9Q72MQuzYw21qMILYCCutroGuwEke9u6e9tYPoz7a
- WC38EvYlA3w5ajHXgt9ZnWa5AtY9ytXsztsAuZfNOZ2sXhNtnSHaLlRlV Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10778"; a="369730777"
-X-IronPort-AV: E=Sophos;i="6.01,222,1684825200"; d="scan'208";a="369730777"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2023 09:16:22 -0700
+ bh=hZuqDw8u5XUELkTIg6kS0e/Vt2YOXLPzzyCYT2IeBxY=;
+ b=ErbAJvj4JelwtIZAZkpTPENlxob8OnmiYgFK5atYeNcN54E9DTF8OybJ
+ 0ZG/4TIwfAltLoDo65wFu7i4PRQs8QCqdJo1uok/aznA4zVdt8A8NxgGQ
+ L0omnXCwVzy1qcw73Od8YNWKhZCw/cNh+/sjLt7TQ/4Xh0vBCeuRtKjDE
+ Kw5Z8osB3L6C3Lyr67Jy32GYvnpdSmSwM4s8MzoiaYH+u9+vP5BF3kjzy
+ 8YowukHPMCjf37djxvdb+7/RC+Qf1gAFi3mradtWWkidRltUuxvQXbVsP
+ 1etcUFBCsrRLpCzEVPF14uwlWlV4n7mslJyoUo9a6IIJZNgE/qGy+rFx8 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10778"; a="433292029"
+X-IronPort-AV: E=Sophos;i="6.01,222,1684825200"; d="scan'208";a="433292029"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2023 09:15:59 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10778"; a="718877452"
-X-IronPort-AV: E=Sophos;i="6.01,222,1684825200"; d="scan'208";a="718877452"
+X-IronPort-AV: E=McAfee;i="6600,9927,10778"; a="675095430"
+X-IronPort-AV: E=Sophos;i="6.01,222,1684825200"; d="scan'208";a="675095430"
 Received: from hbockhor-mobl.ger.corp.intel.com (HELO intel.com)
  ([10.252.54.104])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2023 09:16:19 -0700
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2023 09:15:55 -0700
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: Jonathan Cavitt <jonathan.cavitt@intel.com>,
  Matt Roper <matthew.d.roper@intel.com>,
  Chris Wilson <chris@chris-wilson.co.uk>,
  Mika Kuoppala <mika.kuoppala@linux.intel.com>,
  Nirmoy Das <nirmoy.das@intel.com>, Andrzej Hajda <andrzej.hajda@intel.com>
-Date: Fri, 21 Jul 2023 18:15:14 +0200
-Message-Id: <20230721161514.818895-10-andi.shyti@linux.intel.com>
+Date: Fri, 21 Jul 2023 18:15:10 +0200
+Message-Id: <20230721161514.818895-6-andi.shyti@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230721161514.818895-1-andi.shyti@linux.intel.com>
 References: <20230721161514.818895-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 9/9] drm/i915/gt: Support aux invalidation on
- all engines
+Subject: [Intel-gfx] [PATCH v8 5/9] drm/i915/gt: Enable the CCS_FLUSH bit in
+ the pipe control
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,177 +69,50 @@ Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Perform some refactoring with the purpose of keeping in one
-single place all the operations around the aux table
-invalidation.
-
-With this refactoring add more engines where the invalidation
-should be performed.
+Enable the CCS_FLUSH bit 13 in the control pipe for render and
+compute engines in platforms starting from Meteor Lake (BSPEC
+43904 and 47112).
 
 Fixes: 972282c4cf24 ("drm/i915/gen12: Add aux table invalidate for all engines")
 Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
 Cc: Jonathan Cavitt <jonathan.cavitt@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Nirmoy Das <nirmoy.das@intel.com>
 Cc: <stable@vger.kernel.org> # v5.8+
 ---
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c | 53 ++++++++++++++----------
- drivers/gpu/drm/i915/gt/gen8_engine_cs.h |  3 +-
- drivers/gpu/drm/i915/gt/intel_lrc.c      | 17 +-------
- 3 files changed, 36 insertions(+), 37 deletions(-)
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c     | 7 +++++++
+ drivers/gpu/drm/i915/gt/intel_gpu_commands.h | 1 +
+ 2 files changed, 8 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-index 6daf7d99700e0..d33462387d1c6 100644
+index 5d2175e918dd2..139a7e69f5c4d 100644
 --- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
 +++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-@@ -178,9 +178,36 @@ static bool gen12_needs_ccs_aux_inv(struct intel_engine_cs *engine)
- 	return !HAS_FLAT_CCS(engine->i915);
- }
+@@ -230,6 +230,13 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
  
--u32 *gen12_emit_aux_table_inv(struct intel_gt *gt, u32 *cs, const i915_reg_t inv_reg)
-+static i915_reg_t gen12_get_aux_inv_reg(struct intel_engine_cs *engine)
-+{
-+	if (!gen12_needs_ccs_aux_inv(engine))
-+		return INVALID_MMIO_REG;
+ 		bit_group_0 |= PIPE_CONTROL0_HDC_PIPELINE_FLUSH;
+ 
++		/*
++		 * When required, in MTL and beyond platforms we
++		 * need to set the CCS_FLUSH bit in the pipe control
++		 */
++		if (GRAPHICS_VER_FULL(rq->i915) >= IP_VER(12, 70))
++			bit_group_0 |= PIPE_CONTROL_CCS_FLUSH;
 +
-+	switch (engine->id) {
-+	case RCS0:
-+		return GEN12_CCS_AUX_INV;
-+	case BCS0:
-+		return GEN12_BCS0_AUX_INV;
-+	case VCS0:
-+		return GEN12_VD0_AUX_INV;
-+	case VCS2:
-+		return GEN12_VD2_AUX_INV;
-+	case VECS0:
-+		return GEN12_VE0_AUX_INV;
-+	case CCS0:
-+		return GEN12_CCS0_AUX_INV;
-+	default:
-+		return INVALID_MMIO_REG;
-+	}
-+}
-+
-+u32 *gen12_emit_aux_table_inv(struct intel_engine_cs *engine, u32 *cs)
- {
--	u32 gsi_offset = gt->uncore->gsi_offset;
-+	i915_reg_t inv_reg = gen12_get_aux_inv_reg(engine);
-+	u32 gsi_offset = engine->gt->uncore->gsi_offset;
-+
-+	if (i915_mmio_reg_valid(inv_reg))
-+		return cs;
- 
- 	*cs++ = MI_LOAD_REGISTER_IMM(1) | MI_LRI_MMIO_REMAP_EN;
- 	*cs++ = i915_mmio_reg_offset(inv_reg) + gsi_offset;
-@@ -322,11 +349,7 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
- 
- 		cs = gen8_emit_pipe_control(cs, flags, LRC_PPHWSP_SCRATCH_ADDR);
- 
--		if (gen12_needs_ccs_aux_inv(rq->engine)) {
--			/* hsdes: 1809175790 */
--			cs = gen12_emit_aux_table_inv(rq->engine->gt, cs,
--						      GEN12_CCS_AUX_INV);
--		}
-+		cs = gen12_emit_aux_table_inv(engine, cs);
- 
- 		*cs++ = preparser_disable(false);
- 		intel_ring_advance(rq, cs);
-@@ -337,7 +360,6 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
- 
- int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
- {
--	intel_engine_mask_t aux_inv = 0;
- 	u32 cmd_flush = 0;
- 	u32 cmd = 4;
- 	u32 *cs;
-@@ -345,15 +367,11 @@ int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
- 	if (mode & EMIT_INVALIDATE)
- 		cmd += 2;
- 
--	if (gen12_needs_ccs_aux_inv(rq->engine))
--		aux_inv = rq->engine->mask &
--			  ~GENMASK(_BCS(I915_MAX_BCS - 1), BCS0);
--
- 	/*
- 	 * On Aux CCS platforms the invalidation of the Aux
- 	 * table requires quiescing memory traffic beforehand
- 	 */
--	if (aux_inv) {
-+	if (gen12_needs_ccs_aux_inv(rq->engine)) {
- 		cmd += 8; /* for the AUX invalidation */
- 		cmd += 2; /* for the engine quiescing */
- 
-@@ -396,14 +414,7 @@ int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
- 	*cs++ = 0; /* upper addr */
- 	*cs++ = 0; /* value */
- 
--	if (aux_inv) { /* hsdes: 1809175790 */
--		if (rq->engine->class == VIDEO_DECODE_CLASS)
--			cs = gen12_emit_aux_table_inv(rq->engine->gt,
--						      cs, GEN12_VD0_AUX_INV);
--		else
--			cs = gen12_emit_aux_table_inv(rq->engine->gt,
--						      cs, GEN12_VE0_AUX_INV);
--	}
-+	cs = gen12_emit_aux_table_inv(rq->engine, cs);
- 
- 	if (mode & EMIT_INVALIDATE)
- 		*cs++ = preparser_disable(false);
-diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.h b/drivers/gpu/drm/i915/gt/gen8_engine_cs.h
-index a44eda096557c..867ba697aceb8 100644
---- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.h
-+++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.h
-@@ -13,6 +13,7 @@
- #include "intel_gt_regs.h"
- #include "intel_gpu_commands.h"
- 
-+struct intel_engine_cs;
- struct intel_gt;
- struct i915_request;
- 
-@@ -46,7 +47,7 @@ u32 *gen8_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs);
- u32 *gen11_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs);
- u32 *gen12_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs);
- 
--u32 *gen12_emit_aux_table_inv(struct intel_gt *gt, u32 *cs, const i915_reg_t inv_reg);
-+u32 *gen12_emit_aux_table_inv(struct intel_engine_cs *engine, u32 *cs);
- 
- static inline u32 *
- __gen8_emit_pipe_control(u32 *batch, u32 bit_group_0,
-diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
-index 235f3fab60a98..119deb9f938c7 100644
---- a/drivers/gpu/drm/i915/gt/intel_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
-@@ -1371,10 +1371,7 @@ gen12_emit_indirect_ctx_rcs(const struct intel_context *ce, u32 *cs)
- 	    IS_DG2_G11(ce->engine->i915))
- 		cs = gen8_emit_pipe_control(cs, PIPE_CONTROL_INSTRUCTION_CACHE_INVALIDATE, 0);
- 
--	/* hsdes: 1809175790 */
--	if (!HAS_FLAT_CCS(ce->engine->i915))
--		cs = gen12_emit_aux_table_inv(ce->engine->gt,
--					      cs, GEN12_CCS_AUX_INV);
-+	cs = gen12_emit_aux_table_inv(ce->engine, cs);
- 
- 	/* Wa_16014892111 */
- 	if (IS_MTL_GRAPHICS_STEP(ce->engine->i915, M, STEP_A0, STEP_B0) ||
-@@ -1399,17 +1396,7 @@ gen12_emit_indirect_ctx_xcs(const struct intel_context *ce, u32 *cs)
- 						    PIPE_CONTROL_INSTRUCTION_CACHE_INVALIDATE,
- 						    0);
- 
--	/* hsdes: 1809175790 */
--	if (!HAS_FLAT_CCS(ce->engine->i915)) {
--		if (ce->engine->class == VIDEO_DECODE_CLASS)
--			cs = gen12_emit_aux_table_inv(ce->engine->gt,
--						      cs, GEN12_VD0_AUX_INV);
--		else if (ce->engine->class == VIDEO_ENHANCEMENT_CLASS)
--			cs = gen12_emit_aux_table_inv(ce->engine->gt,
--						      cs, GEN12_VE0_AUX_INV);
--	}
--
--	return cs;
-+	return gen12_emit_aux_table_inv(ce->engine, cs);
- }
- 
- static void
+ 		bit_group_1 |= PIPE_CONTROL_TILE_CACHE_FLUSH;
+ 		bit_group_1 |= PIPE_CONTROL_FLUSH_L3;
+ 		bit_group_1 |= PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH;
+diff --git a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
+index 5d143e2a8db03..5df7cce23197c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
++++ b/drivers/gpu/drm/i915/gt/intel_gpu_commands.h
+@@ -299,6 +299,7 @@
+ #define   PIPE_CONTROL_QW_WRITE				(1<<14)
+ #define   PIPE_CONTROL_POST_SYNC_OP_MASK                (3<<14)
+ #define   PIPE_CONTROL_DEPTH_STALL			(1<<13)
++#define   PIPE_CONTROL_CCS_FLUSH			(1<<13) /* MTL+ */
+ #define   PIPE_CONTROL_WRITE_FLUSH			(1<<12)
+ #define   PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH	(1<<12) /* gen6+ */
+ #define   PIPE_CONTROL_INSTRUCTION_CACHE_INVALIDATE	(1<<11) /* MBZ on ILK */
 -- 
 2.40.1
 
