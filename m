@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E632EEB64DC
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 16:15:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F7C2C001DC
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Jul 2023 16:15:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DF8C10E6C8;
-	Fri, 21 Jul 2023 16:15:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8576210E6C9;
+	Fri, 21 Jul 2023 16:15:57 +0000 (UTC)
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58F1210E6C8;
- Fri, 21 Jul 2023 16:15:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F7EB10E6C2;
+ Fri, 21 Jul 2023 16:15:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1689956150; x=1721492150;
+ t=1689956156; x=1721492156;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=TIeXztr3VaL1rtrPOzTytj8eDqmZn64+csKIJjJJa9E=;
- b=SYiDxL9NKt4L44wyLJ3Zm+5ttkynKOTsn7ekyavp7IozwEMgZnMBjhxI
- HtBPVV4wuMGw36IE4Rt9wCWOG0AnWoyOkzfsjVpGXRv461fivYMG354lL
- ZzXzx0z5gV5s3F8E4dAL0cb4abx+EzI14Vmui+/h+gyNCKjMjeASG/Lb4
- g3k9Lguy7vzDWmQdWGxOfr/jnIDqTXR8dUIF8VXtkH69NuvBnC0w8OefT
- RhoB+9LN6sXYQoajnK+WVHyMCR/xgT1vvO+or1F06Y7fEpQWTUHIxN8yk
- /WQvb/UsHG4WWHwJKgZmjBsqP+h3EwkVb0xAvUj7YlIs15qoBIeEuEc5u A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10778"; a="397951487"
-X-IronPort-AV: E=Sophos;i="6.01,222,1684825200"; d="scan'208";a="397951487"
+ bh=7d3fE14WvyfPe07GbsxQqF24hJTh2Gx0Jk8+aCcbIyM=;
+ b=Tz937jw2I6NeTOryBMiOkySYCsfK176fMi6R4SdZ3XYl5S5oIGYDxhHq
+ ewmq2F4C//2PMQRdZ0z0cbEey3+uce7B7sHYATxtKSa90EjnKY2LNW1XQ
+ yP/t3kxofzUGQGZWSk7Uz/DjdSLFRQt34T3h41fPWbjt9qFQpH9s0YwKc
+ tft3OxuN4nIQEUvmhhJAOFq8IARgWA4jPC+fuj8TWd4e4pn8VqM5VObqV
+ RDJ8iXALkpQGAZsp33R7+eQS0JPyHc8hR20bgCJz3cjES/K+kQ+pNIwL9
+ pcF9DcI8HuowaYK2NbBpOYHdaZZy8aLUNAZVJSCRW3VyZhdf6EftS3li3 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10778"; a="397951552"
+X-IronPort-AV: E=Sophos;i="6.01,222,1684825200"; d="scan'208";a="397951552"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2023 09:15:41 -0700
+ 21 Jul 2023 09:15:52 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10778"; a="1055602728"
-X-IronPort-AV: E=Sophos;i="6.01,222,1684825200"; d="scan'208";a="1055602728"
+X-IronPort-AV: E=McAfee;i="6600,9927,10778"; a="1055602811"
+X-IronPort-AV: E=Sophos;i="6.01,222,1684825200"; d="scan'208";a="1055602811"
 Received: from hbockhor-mobl.ger.corp.intel.com (HELO intel.com)
  ([10.252.54.104])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2023 09:15:39 -0700
+ 21 Jul 2023 09:15:50 -0700
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: Jonathan Cavitt <jonathan.cavitt@intel.com>,
  Matt Roper <matthew.d.roper@intel.com>,
  Chris Wilson <chris@chris-wilson.co.uk>,
  Mika Kuoppala <mika.kuoppala@linux.intel.com>,
  Nirmoy Das <nirmoy.das@intel.com>, Andrzej Hajda <andrzej.hajda@intel.com>
-Date: Fri, 21 Jul 2023 18:15:07 +0200
-Message-Id: <20230721161514.818895-3-andi.shyti@linux.intel.com>
+Date: Fri, 21 Jul 2023 18:15:09 +0200
+Message-Id: <20230721161514.818895-5-andi.shyti@linux.intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230721161514.818895-1-andi.shyti@linux.intel.com>
 References: <20230721161514.818895-1-andi.shyti@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v8 2/9] drm/i915: Add the
- gen12_needs_ccs_aux_inv helper
+Subject: [Intel-gfx] [PATCH v8 4/9] drm/i915/gt: Rename flags with
+ bit_group_X according to the datasheet
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,74 +69,128 @@ Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We always assumed that a device might either have AUX or FLAT
-CCS, but this is an approximation that is not always true, e.g.
-PVC represents an exception.
+In preparation of the next patch align with the datasheet (BSPEC
+47112) with the naming of the pipe control set of flag values.
+The variable "flags" in gen12_emit_flush_rcs() is applied as a
+set of flags called Bit Group 1.
 
-Set the basis for future finer selection by implementing a
-boolean gen12_needs_ccs_aux_inv() function that tells whether aux
-invalidation is needed or not.
-
-Currently PVC is the only exception to the above mentioned rule.
+Define also the Bit Group 0 as bit_group_0 where currently only
+PIPE_CONTROL0_HDC_PIPELINE_FLUSH bit is set.
 
 Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Cc: Jonathan Cavitt <jonathan.cavitt@intel.com>
 Cc: <stable@vger.kernel.org> # v5.8+
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
+Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
 ---
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c | 34 +++++++++++++-----------
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.h | 18 ++++++++-----
+ 2 files changed, 29 insertions(+), 23 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-index 563efee055602..460c9225a50fc 100644
+index 6210b38a2d382..5d2175e918dd2 100644
 --- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
 +++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
-@@ -165,6 +165,18 @@ static u32 preparser_disable(bool state)
- 	return MI_ARB_CHECK | 1 << 8 | state;
+@@ -219,7 +219,8 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
+ 	 * table requires quiescing memory traffic beforehand
+ 	 */
+ 	if (mode & EMIT_FLUSH || gen12_needs_ccs_aux_inv(engine)) {
+-		u32 flags = 0;
++		u32 bit_group_0 = 0;
++		u32 bit_group_1 = 0;
+ 		int err;
+ 		u32 *cs;
+ 
+@@ -227,32 +228,33 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
+ 		if (err)
+ 			return err;
+ 
+-		flags |= PIPE_CONTROL_TILE_CACHE_FLUSH;
+-		flags |= PIPE_CONTROL_FLUSH_L3;
+-		flags |= PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH;
+-		flags |= PIPE_CONTROL_DEPTH_CACHE_FLUSH;
++		bit_group_0 |= PIPE_CONTROL0_HDC_PIPELINE_FLUSH;
++
++		bit_group_1 |= PIPE_CONTROL_TILE_CACHE_FLUSH;
++		bit_group_1 |= PIPE_CONTROL_FLUSH_L3;
++		bit_group_1 |= PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH;
++		bit_group_1 |= PIPE_CONTROL_DEPTH_CACHE_FLUSH;
+ 		/* Wa_1409600907:tgl,adl-p */
+-		flags |= PIPE_CONTROL_DEPTH_STALL;
+-		flags |= PIPE_CONTROL_DC_FLUSH_ENABLE;
+-		flags |= PIPE_CONTROL_FLUSH_ENABLE;
++		bit_group_1 |= PIPE_CONTROL_DEPTH_STALL;
++		bit_group_1 |= PIPE_CONTROL_DC_FLUSH_ENABLE;
++		bit_group_1 |= PIPE_CONTROL_FLUSH_ENABLE;
+ 
+-		flags |= PIPE_CONTROL_STORE_DATA_INDEX;
+-		flags |= PIPE_CONTROL_QW_WRITE;
++		bit_group_1 |= PIPE_CONTROL_STORE_DATA_INDEX;
++		bit_group_1 |= PIPE_CONTROL_QW_WRITE;
+ 
+-		flags |= PIPE_CONTROL_CS_STALL;
++		bit_group_1 |= PIPE_CONTROL_CS_STALL;
+ 
+ 		if (!HAS_3D_PIPELINE(engine->i915))
+-			flags &= ~PIPE_CONTROL_3D_ARCH_FLAGS;
++			bit_group_1 &= ~PIPE_CONTROL_3D_ARCH_FLAGS;
+ 		else if (engine->class == COMPUTE_CLASS)
+-			flags &= ~PIPE_CONTROL_3D_ENGINE_FLAGS;
++			bit_group_1 &= ~PIPE_CONTROL_3D_ENGINE_FLAGS;
+ 
+ 		cs = intel_ring_begin(rq, 6);
+ 		if (IS_ERR(cs))
+ 			return PTR_ERR(cs);
+ 
+-		cs = gen12_emit_pipe_control(cs,
+-					     PIPE_CONTROL0_HDC_PIPELINE_FLUSH,
+-					     flags, LRC_PPHWSP_SCRATCH_ADDR);
++		cs = gen12_emit_pipe_control(cs, bit_group_0, bit_group_1,
++					     LRC_PPHWSP_SCRATCH_ADDR);
+ 		intel_ring_advance(rq, cs);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.h b/drivers/gpu/drm/i915/gt/gen8_engine_cs.h
+index 655e5c00ddc27..a44eda096557c 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.h
++++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.h
+@@ -49,25 +49,29 @@ u32 *gen12_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs);
+ u32 *gen12_emit_aux_table_inv(struct intel_gt *gt, u32 *cs, const i915_reg_t inv_reg);
+ 
+ static inline u32 *
+-__gen8_emit_pipe_control(u32 *batch, u32 flags0, u32 flags1, u32 offset)
++__gen8_emit_pipe_control(u32 *batch, u32 bit_group_0,
++			 u32 bit_group_1, u32 offset)
+ {
+ 	memset(batch, 0, 6 * sizeof(u32));
+ 
+-	batch[0] = GFX_OP_PIPE_CONTROL(6) | flags0;
+-	batch[1] = flags1;
++	batch[0] = GFX_OP_PIPE_CONTROL(6) | bit_group_0;
++	batch[1] = bit_group_1;
+ 	batch[2] = offset;
+ 
+ 	return batch + 6;
  }
  
-+static bool gen12_needs_ccs_aux_inv(struct intel_engine_cs *engine)
-+{
-+	if (IS_PONTEVECCHIO(engine->i915))
-+		return false;
-+
-+	/*
-+	 * so far platforms supported by i915 having
-+	 * flat ccs do not require AUX invalidation
-+	 */
-+	return !HAS_FLAT_CCS(engine->i915);
-+}
-+
- u32 *gen12_emit_aux_table_inv(struct intel_gt *gt, u32 *cs, const i915_reg_t inv_reg)
+-static inline u32 *gen8_emit_pipe_control(u32 *batch, u32 flags, u32 offset)
++static inline u32 *gen8_emit_pipe_control(u32 *batch,
++					  u32 bit_group_1, u32 offset)
  {
- 	u32 gsi_offset = gt->uncore->gsi_offset;
-@@ -267,7 +279,7 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
- 		else if (engine->class == COMPUTE_CLASS)
- 			flags &= ~PIPE_CONTROL_3D_ENGINE_FLAGS;
+-	return __gen8_emit_pipe_control(batch, 0, flags, offset);
++	return __gen8_emit_pipe_control(batch, 0, bit_group_1, offset);
+ }
  
--		if (!HAS_FLAT_CCS(rq->engine->i915))
-+		if (gen12_needs_ccs_aux_inv(rq->engine))
- 			count = 8 + 4;
- 		else
- 			count = 8;
-@@ -285,7 +297,7 @@ int gen12_emit_flush_rcs(struct i915_request *rq, u32 mode)
+-static inline u32 *gen12_emit_pipe_control(u32 *batch, u32 flags0, u32 flags1, u32 offset)
++static inline u32 *gen12_emit_pipe_control(u32 *batch, u32 bit_group_0,
++					   u32 bit_group_1, u32 offset)
+ {
+-	return __gen8_emit_pipe_control(batch, flags0, flags1, offset);
++	return __gen8_emit_pipe_control(batch, bit_group_0,
++					bit_group_1, offset);
+ }
  
- 		cs = gen8_emit_pipe_control(cs, flags, LRC_PPHWSP_SCRATCH_ADDR);
- 
--		if (!HAS_FLAT_CCS(rq->engine->i915)) {
-+		if (gen12_needs_ccs_aux_inv(rq->engine)) {
- 			/* hsdes: 1809175790 */
- 			cs = gen12_emit_aux_table_inv(rq->engine->gt, cs,
- 						      GEN12_CCS_AUX_INV);
-@@ -307,7 +319,7 @@ int gen12_emit_flush_xcs(struct i915_request *rq, u32 mode)
- 	if (mode & EMIT_INVALIDATE) {
- 		cmd += 2;
- 
--		if (!HAS_FLAT_CCS(rq->engine->i915) &&
-+		if (gen12_needs_ccs_aux_inv(rq->engine) &&
- 		    (rq->engine->class == VIDEO_DECODE_CLASS ||
- 		     rq->engine->class == VIDEO_ENHANCEMENT_CLASS)) {
- 			aux_inv = rq->engine->mask &
+ static inline u32 *
 -- 
 2.40.1
 
