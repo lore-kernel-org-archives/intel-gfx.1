@@ -4,106 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 377E1C001DC
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jul 2023 13:08:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0338C001B0
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jul 2023 13:08:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 026C710E0F2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5615F10E470;
 	Wed, 26 Jul 2023 13:08:52 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2071.outbound.protection.outlook.com [40.107.94.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C45810E3CE
- for <intel-gfx@lists.freedesktop.org>; Tue, 25 Jul 2023 13:42:41 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2055.outbound.protection.outlook.com [40.107.244.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A3AA10E0EB;
+ Mon, 24 Jul 2023 22:29:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JgPrkztuUcH3xo13b6ibESHfLLaEh3iKNb9u0lxo121UfqBsBH3dG0ZEL5S2gHj3LGRdeCd3X0qJ8tDAIS5Pfhb+An8g3ps/KzJqkHFDLiTp5gV7kl5s4WKX+L2iFj8Pkn80m2sQbOqYaK85anYhfWzBN7OpzayfbcadPRQZQrMkXIQswtTK08WyboQk0j9ze1CW5PrP4VDAefYJsRuHQs0QHKW6QU1g18cW1VbacDz+B2SlV3eQy7Wx1aB7ARE9NJckDYBXFHFU59w8ZoI0ndI6TsI7sfRweg1oPS5SyP5E/N5FZu4oGy5FIKKJJ5rbOflOUJdnhIrRAvcAls6jvg==
+ b=RO4cSqxteJC6rdphfCg+hCfT0SKAakIJmd52Ai/HohwQBUrIHJJdslyRJXym+LEoH7S1d8O+MibOqU5EfsJiMlpyh8OjySRHDhfP+LbXxyFjcjYRGjBudLzQl2PlZ71QoYAPD4hqFnMFlzqupPzQM3GRhA/dExIKDKX+/XCYYfdoLZX5aOEvLiTq5Rw/8ldwXje+Yv8IHJKq8HfLP19YvObb30Rb/lToUyzySVU0mOlMiPaSRHQ4BIpKIgGif8vnmFQDNCbOYTykQrEpKeUmvIaFin1B+Cf/k8RwZHpBdX2LHrnuZrwdE3fI2U/UCPgWRs1LSyfwWUjO97g7IjoNXw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GQLAFWkVOwLzrCoMP+t2btl8fvFP0zf16RJSkZTjrCo=;
- b=B0MUSFQ45sliSEtrqhl6KNfYvyS45/1dUSJNOAr5V7313ySXsnZ4mY9OBSnPXLjJBg6kirkywuBNojjXeXsw8xZV8Bmtw6oD3zcBfaCuCRy8NcSKMJbprZLAGc1RcQdpDGxLs/3SKCOM0fl9dXciKwU30WYleabHV+Y2TEIDGiFA1Jn9w7nxeZJEGJ08NEtihTGPMsxnGm6E6NKHfpkPpFNQ1QK+sFPMCybtMIG0oCsMj775yXAAGMxLj435T3PBrJDDnwYsXYKvJWYIopKIjjSTLPj0uJ8wQBiepM52Ym3Yk2eUCn0dzMF8O5tSePlf6M5tsSEHxL69XYlDR2ZqdA==
+ bh=jn307u23PHIh2wp0P8GeZmS/qTgWPkKQvnOQun/mhCI=;
+ b=UMeKy1qFVhg4wAi3tOE5ANFaXCTk5Lm3KBr1nQ+PW6eP+PZDkFlKcFcZNBbWw37G/KPmPaTFcVQXcAT44HsueALnBS1ztOzIIEwmOR/HCp+ZusnE4WtRHkaovVRBervqiIUnoI07SEbR93niySbOtcADxaekMHN4VWorWNwmJLyIcZd9W3611Bmk40CLbqR7VM8Ux/3yawbaYgUqeCASkOy/EDuRWGMJCX349ilKb3QQRarNrpKTMQ5TK0s0G8zpz1J7+hpSvJTbRf514P+vuw35R65FNomwhUUhl7e04IzyUFLUkq+6FZXpstqgVslzT+9IPlFC7/RsgUY84zjM7A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GQLAFWkVOwLzrCoMP+t2btl8fvFP0zf16RJSkZTjrCo=;
- b=fftYiGKi4InTiP2jsm24wplnipjXgXTrDMfGZ+mB3+ivTfW0FGo8+4epWU3c07tVGa0Ta1YNr003jJN5T8ZrjRAa9oR3QPNaHMDAYpkWQJfGvR3W5SBxVWXh0epk2ADMZeskjwqWxSQ8bYfHxiA/8XABB4EVo7TvsFXST02cudBTyVfJ3rEKXsZYvwNZFGUIAEjOl39vrk89R6WwTeiTVJQ0NgFZsXdq4C1o4TFrIrFqknmets/JCYLG537vhT2i0j1tNzARIPKx3X5J7CD68EKH+5kbFunLGgER94+iqwH2DaW7T2jEyaBcWRBmHyhLMNhj05stRIoy6cXorVmkNg==
+ bh=jn307u23PHIh2wp0P8GeZmS/qTgWPkKQvnOQun/mhCI=;
+ b=yC1x5iNUeiNssZ8zElpXbi10koQqvkfwfUBGBI3KT1xc4wBieQtzaa6r8XSYNAGSIMZf0Uyt7osQw4FVBy+aSYCSAG3vJ51JDNg9Tl9ihs5br+ryLDZfsr+URHjv4GDsntO40MJsCCzwKV7htNtJCLcRt5el98UtUnauxEOMpk4=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BYAPR12MB3176.namprd12.prod.outlook.com (2603:10b6:a03:134::26)
- by PH8PR12MB7327.namprd12.prod.outlook.com (2603:10b6:510:215::8)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB6760.namprd12.prod.outlook.com (2603:10b6:a03:44c::18)
+ by SA1PR12MB8918.namprd12.prod.outlook.com (2603:10b6:806:386::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.33; Tue, 25 Jul
- 2023 13:42:39 +0000
-Received: from BYAPR12MB3176.namprd12.prod.outlook.com
- ([fe80::c833:9a5c:258e:3351]) by BYAPR12MB3176.namprd12.prod.outlook.com
- ([fe80::c833:9a5c:258e:3351%4]) with mapi id 15.20.6609.032; Tue, 25 Jul 2023
- 13:42:39 +0000
-From: Alistair Popple <apopple@nvidia.com>
-To: akpm@linux-foundation.org
-Date: Tue, 25 Jul 2023 23:42:05 +1000
-Message-Id: <0287ae32d91393a582897d6c4db6f7456b1001f2.1690292440.git-series.apopple@nvidia.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1eca029b8603ef4eebe5b41eae51facfc5920c41.1690292440.git-series.apopple@nvidia.com>
-References: <cover.1eca029b8603ef4eebe5b41eae51facfc5920c41.1690292440.git-series.apopple@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SYBPR01CA0088.ausprd01.prod.outlook.com
- (2603:10c6:10:3::28) To BYAPR12MB3176.namprd12.prod.outlook.com
- (2603:10b6:a03:134::26)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.31; Mon, 24 Jul
+ 2023 22:29:34 +0000
+Received: from SJ0PR12MB6760.namprd12.prod.outlook.com
+ ([fe80::796c:5cd4:2050:65ca]) by SJ0PR12MB6760.namprd12.prod.outlook.com
+ ([fe80::796c:5cd4:2050:65ca%7]) with mapi id 15.20.6609.032; Mon, 24 Jul 2023
+ 22:29:34 +0000
+Content-Type: multipart/alternative;
+ boundary="------------X4034xdGwFVEVzp1pfDL2mId"
+Message-ID: <6f101468-59ff-fb6f-13e9-87775457ae1d@amd.com>
+Date: Mon, 24 Jul 2023 18:29:29 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: =?UTF-8?Q?Micha=c5=82_Winiarski?= <michal.winiarski@intel.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org
+References: <20230724211428.3831636-1-michal.winiarski@intel.com>
+ <20230724211428.3831636-4-michal.winiarski@intel.com>
+From: James Zhu <jamesz@amd.com>
+Organization: AMD RTG
+In-Reply-To: <20230724211428.3831636-4-michal.winiarski@intel.com>
+X-ClientProxiedBy: YQZPR01CA0047.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:86::28) To SJ0PR12MB6760.namprd12.prod.outlook.com
+ (2603:10b6:a03:44c::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR12MB3176:EE_|PH8PR12MB7327:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f8e51fa-b7a4-449c-42c5-08db8d150357
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB6760:EE_|SA1PR12MB8918:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0fbb04b7-a1f2-4619-230c-08db8c9574bf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: w/UxqcLg1z5+6sS1LShle/lhNNbLvCpFwaiDobtTrPQng/Qh+a00TLZpowvuQokSHG2/G7xuRbSoVWdOPtL9XH0sA3jsBWAtXPv4RpsGrvDH1XvmpVU1j5LNDUumXBtFsLkAvar2VPNVHypvbr5dYN4PSwFum9VSnCUqkfGAgFHqdC5O7q2xd+8/PB+VXhZB7YBrx60/qKJGsMAslxpofO+Gdp/xw6FY74AQsEgXBH03Es2sPOG0x/ZBV37rOyP3eZ8L8grvLYOGQS58tHLopEagnnK3GLyI+xneZI4/wGwrOUkj7s9w7KGrbRm05CovpoGhJVViHkaqxKSq+q+1k7vf4CHRFiofJ8nutJBSJtz3VAjXdkLr7YLy+rhqq7xhdkskZjTRZziaE0Y6o/k8ok61m0QmFFyhY+QamxF4Vdf77Y5ukSd8rPNZjOG6o2KUZEqJus82v6HSXeipd/+ezc4JD5UQKx+6SQjkeLEZlhqnJyp+3yZq2dFVt/dsQo1kLSo+93oV/8rlyUefVYjizXUc03hNwPC0SpsZu+jQ+YZ5woPxH40ZezGyF1zZee8/vYtHdS3xPnVKjHw+y+052dD0pBQhDjH+S3+qKaLBxjU=
+X-Microsoft-Antispam-Message-Info: 3FIxY10tnu0FMMguVg9P1AhWm0i1Tl5hMp9L7Qizy0XLslhhG3lII8kmjiF+l0HRNKMYkOmT3ZAsuLtqf5NWe7jN/aVEhsJ2zjPr+QwgdlmoNb2qHgs7XsCios5eGXQYW13zDKAthFw+qF+xxkR2tuV56ft88+W+yZ43sBZUhXf3W4sMpGyZEBuij5MeYxo2SCTM7ol5zkpc4D3/XIsT/g3woZOQRwO3uTdw/WuBLYjR21pn0JoVFHr3Cc1RwNOz6PD/Zell75LZK+KEZQWYA0/bSHmu7Y+5BGCbhE3nozLg8XcKx0F/AHUcRSxhCwNPtJp9NSLMWcUxXjAVx3Fm95UEtlZqlHguQ+DWEvbWBB6PKyDecLJhBcgrW1FIIh/Lt3jk6IyzYbOvssM3PE1d93gAvQCx+gbKedr1l8EsQemQkCSlWG06AIJDXuLSbFp2Plbn9uK+hrRCwvK8t6Yz8CRe+79JPvFNRT+h2HMdWGmS6BNh/8tSg8loHFU47FQ3GP01TtI1GVDyHRzGjI4jZwhdaHGMdZWnq2FCp/sICaPnlIZ/DLkKdtFgcuwla6vPthYBQY+GlRsgwh9+4PqDTT0/xz95juGnXO3qWByWu/QP8ITpFtxlJKVuiGYtL4e6a6ao2Mb2qY/3XI9BcSYsqg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR12MB3176.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(39860400002)(346002)(136003)(376002)(396003)(366004)(451199021)(6512007)(186003)(2616005)(26005)(6506007)(107886003)(316002)(41300700001)(66556008)(36756003)(6486002)(66476007)(7416002)(5660300002)(66946007)(38100700002)(2906002)(4326008)(6916009)(8676002)(8936002)(83380400001)(54906003)(478600001)(86362001)(6666004)(473944003);
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB6760.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(346002)(136003)(376002)(39860400002)(366004)(396003)(451199021)(38100700002)(66556008)(66946007)(53546011)(36756003)(2616005)(83380400001)(7416002)(6512007)(8676002)(8936002)(5660300002)(54906003)(478600001)(66476007)(4326008)(316002)(41300700001)(186003)(26005)(6506007)(33964004)(6486002)(6666004)(36916002)(2906002)(31686004)(31696002)(43740500002)(45980500001);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?mlUweiPCPMHE/Tcn55/SoYz5GB5ThEupfxhGvIe894QLrbNDbpZsqf1VmLof?=
- =?us-ascii?Q?/qm6Hsq540Bc80d1/TZmq2P2uVCiEYZNcSAiIM/d2SAUooveRVskvgU3oyij?=
- =?us-ascii?Q?+CrBYr6evM0nrQ/ZN6trdmMRJbRH+yN26yKBedlhiy/fBTYW/5KBwKV8PXp0?=
- =?us-ascii?Q?WE5RGBEKK9X+VZfQbT/6E2kSL1CWHVQvjA6xFGJevsrlKbzJisaYULA1Epos?=
- =?us-ascii?Q?B0QG8Xda65wVek8wUmT02Ydu9lsvEUspyaZDbkjF/CzCXwU8TrhI0RwUmNLc?=
- =?us-ascii?Q?Dm/ndwVBzbROjHBlfwFmTDswX9mWiJUbDCI0lbMfCi8zI0YloPLBEKo4c4Zk?=
- =?us-ascii?Q?6WralcLUKHruT4z311Od9gLjoH6bRMHDMx/1dDx2b9NG32ZNUq5kDTYD3D/r?=
- =?us-ascii?Q?XeW6kpQlcRo2PIdRtHxbl9uEITVupkD8I1LAIv29a0jQUR4aT9XrAE+SeaWn?=
- =?us-ascii?Q?PDxEgNKYzlPRhzDlL4qZxYipyOjBl6nMfGnBcqHBrDH0vb3NsRyNwj7YsEs7?=
- =?us-ascii?Q?/9ct+AYCHlZybbrpZ1FLE1chejy5FeR2iSzuBK4WWt5mFobhEnggrW+Dr920?=
- =?us-ascii?Q?JvmBZCGSUQNqUoGazLXSBVX9JnybhEuBcS//mr95xl6kz/RUW6rdljdvnhD0?=
- =?us-ascii?Q?bm9TsN48+PStpFKeuMX/ajAFOZ8cXSCq4orKhExvgjXvMke061w5moh+asHd?=
- =?us-ascii?Q?rP+TGOcfkRuNF3lZJ7k/9DPoVWKW7nrojTuyypDxoz3jAo0I8xVjTXRgZKHn?=
- =?us-ascii?Q?+AFMPypwpHTji7Z0BjTJhFMCWPOHJBoiJoqc8FykziL0A+6dLEZgJEhIBVHj?=
- =?us-ascii?Q?CDFJJSaoiklLNuqhNMjjwOEEM3OJfgHmxGZJ53TSVowS7d+3V8K3KWvI/nE7?=
- =?us-ascii?Q?5xQ2IxHC8e9N7+P0QFCNGdYuoYGF/OCEB3TMkwcS9Rt+dq11r2W7bn5A4gLM?=
- =?us-ascii?Q?EbzEjjrsbLe4TivM2Zz9fjwgWYG56nzNe/22Aj7QLmJND5Mx53BAU2JSbwiY?=
- =?us-ascii?Q?93nXiiGsqcwfqrHvspIv41ncJaMC7ELeLtSx3DP03QyfuBuZQjUww6Ogkqnr?=
- =?us-ascii?Q?lCQXekSI03UWqL8rNYO0+AQdkoU4S1So1kC+npHrg8lqnLLA/uw8c9LfocZC?=
- =?us-ascii?Q?LmoJ2rLNpmItjue0OOFHurf1/iGr3ebCPKrn1TYlKCAAKFOJ9a/Jh7Dg+8FY?=
- =?us-ascii?Q?njIkXRXyMmrOyYvgFvjILKlX5kTYYaVlV5qY32+vMIsTnKswXX2YlQWUiBo6?=
- =?us-ascii?Q?OVHN86qoNjPcXlZlZByrVgoADFj+Pb8UcwOZ+P0MkID8kwp8nOxPoB3jDdDm?=
- =?us-ascii?Q?LEdmBJBYw/yO2r+03KyXKMfpc9srq8/wEUL3KiVTO/QHqsorcWDvV+2dqIye?=
- =?us-ascii?Q?2QD4VLKxnsOLUWiPOOAMZCdm3n0y3tpP72v0h4tVlLd43ieXJltgYJVmDxaQ?=
- =?us-ascii?Q?7fHqBwBskd0tkuCNyO+tGMHBOtLwVZOmdmjdfYFZe+4WvERPboWC3R+nWx72?=
- =?us-ascii?Q?GVIhIA68sGtrIZDN9EUg0dBg6xWqXttjELLlWRkhVDACsanFIGwetwIj34sU?=
- =?us-ascii?Q?GIF53IOz12Xpkc4GAvSIHaO1SYn+aK2uaL82tWlm?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f8e51fa-b7a4-449c-42c5-08db8d150357
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3176.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c3QrMUZtWFAweXkyQmppRjFPVFJPMURBYWtqN3BuWkl5MGxoQUVNYlEzREpw?=
+ =?utf-8?B?L2xYaFU2NGJ2eFRnMFVCcmpOY05VTktiQldyTXlJY1hiT2c4M3VrYy9aRkov?=
+ =?utf-8?B?QlRrRjE2ejVxTWdiaTh1Wkk1WXBFcHhiNCtjTzA4NGtBWHB1UU9JWmY0MW13?=
+ =?utf-8?B?TGI3Mi9DZVU3aHBER0RWVGZ5Q3FzNHdYb2ZIeVFDckI5R09OTTRWQWdQZFAx?=
+ =?utf-8?B?VE1xZVNvTWdDdnRic3lmNCtDS0lkZThZYTB0cGM3bnJZUHFzcmVYSG5kNTBX?=
+ =?utf-8?B?SXhhRi90ZEF0elFVRFVLU29iRnZIYWlWWlIzTHM4RXJQb2JZTkR0eXVvSWZu?=
+ =?utf-8?B?bVU5UkFhQVhqUUFqZm5lbWJnMEx5YURMSUhFaXJuZEEzZlZ0SGpoTXBJeUd4?=
+ =?utf-8?B?RVYyTUdlekJKclQrZk1xNHJhUkJjS0xoeC8zbUJJK2Q0Y0JibThTQWR1Z0Nh?=
+ =?utf-8?B?NjNxclhlWDZkdnRXU01QRlZYcXlWejNXTTNQdXlnU01SSFBROXJTWTBtVC8y?=
+ =?utf-8?B?YTBGWHE2cGJYMVVxekxYTmc5R29TTjhHQkliTmJtZlZWdDlZMThHallLMEdF?=
+ =?utf-8?B?Tkt1eTJTUDVseFdYWWNQMW1BRkV1WFV5YjllWEZmYkZiMDhaZ1lWNmVoUVBm?=
+ =?utf-8?B?Skh1bUtZWnEvOWFCUlJ4NmJ2UXVJZnF6bHU3bndac25pcXBPOFlvUWh1RU1i?=
+ =?utf-8?B?c210MzhDYUtBaE4wdkNJVUk3YlRVR1l4VlRvTWhLcjJhejZGSmdwWlR6YUJh?=
+ =?utf-8?B?RE9iVGxTcUxTSXN4d1ZPYzJQcGw0b21uZkNaazR3VXdvVTQ4cmZQN09EME9s?=
+ =?utf-8?B?elVqemttNTZJQTdFdkJybVRMcnQvUjBLRkVFTHg5Q1R5bEgyanN1OEZNWHZu?=
+ =?utf-8?B?cng3R211a3Q5VGswa09aMGNjT042eGRuQVdRY3cvQzkxWUovbUVueXJXM2xS?=
+ =?utf-8?B?WUpNVDVwK0JBeXlnRDlPdlJwMzBGWWVnbFdST1Nyd3JYeEFuYmVoUWFPbGd3?=
+ =?utf-8?B?TU4yQnJ1c1FUU29LU3BnOXhYd2YzYnBDcHdydEEwaGNzdWRwMEtoaFhJck1C?=
+ =?utf-8?B?RHJIMlBjUHZxUWJxTE12L2lKNGZuMGRWMjJLSTgwQ2JBeEdoYUNCVERQeTZK?=
+ =?utf-8?B?Y3VrTDFvbWI2MCtmNFZuYWM4K2hoSUZEUGhYUkIzMGJFOWFMMFB6UFlLK0h0?=
+ =?utf-8?B?S2JKeVVuOTRBTlQ1M25XNmJJbjFFdzU0YmN0K3JMN3kxRlY4VTl3czhzMXJY?=
+ =?utf-8?B?M2pENmQwRWUzc1NFWWtzaG4xRFNwd1E3RStXS01JaVdWd1lUcUVGWjgrNjdy?=
+ =?utf-8?B?aVlGd3VxUTgya2ZQS3FJSGFnNHZzdkdrUnVteUhDamhaR3k1YmRTdnRZSndO?=
+ =?utf-8?B?NDBoTnZZSjl2eW5SdzhGNE9HbXI5bXVMRmptTjNVMng3MC8xcmpyT3BaMHVY?=
+ =?utf-8?B?Y004c1B1T1FjdGcwaEZZeEZaeXFNZkNmQ1JsMG1wUGR6SS9lTmVHUUtkbjNq?=
+ =?utf-8?B?eVk2WXgwY2xhaXdMZXRyMUlPVVJ6cTcrYXJ0MVBoNTdUTFZZcGxpbWZrOFJD?=
+ =?utf-8?B?WnBEMXF1eTlMUjE0TkZmTVgzUldQL1k3VkdDc2d4Myt5cU5zVG5YeUFlUDRK?=
+ =?utf-8?B?NER6eGRubjd0WTJ2b29DUENjVEZ5eGRMTVpGVHN0dGRYbkxrdVpSaFlEUEZG?=
+ =?utf-8?B?QTQ1Z0VKUUVVSXAzSmh0ZHAyeFdkR2J3aXR5TGloZnphNTBDNmFzTTNrQ2dL?=
+ =?utf-8?B?cmlpMVhweDhkaEVzZENRdG81cGN4N29OVlBKcHlQNGdobkVWRFRBMDdKbVY3?=
+ =?utf-8?B?ZG9EV1czV0hKRVczV1Y2d3VlOXc2Yzg1OXZvaDZvRmF4TXN2OUhacFB4SVFO?=
+ =?utf-8?B?aWx2eTNRT2EyOHV3bEhyS1JTN1pmZ1BHYzEvNHBCTnZIdnEwVG5QN3F0NFRq?=
+ =?utf-8?B?NHlGV1hXUS93ZkJzR2YxUkJpRUpZWDlSblJZaTd5ZkM5ZlZKdU4veW1JeGpo?=
+ =?utf-8?B?Y3BPYlhDZU1reWtQeEVuVnJxR3Q4V1FaM1ZMa3VpWDdRSDZzRU0vTHMzc2F4?=
+ =?utf-8?B?enRsQVQySjZpb1NNT1pNN2N3cnFNZlZSaElMU3FGUU5rOStPM2Era0Z5WlBv?=
+ =?utf-8?Q?5psz8g0HXrstI8nDrO6DvIdG4?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0fbb04b7-a1f2-4619-230c-08db8c9574bf
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6760.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2023 13:42:39.3985 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2023 22:29:34.1201 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FBfOSUe0agO0ynf7xPxuJfybDgT+YlKy8KhZ6jXnsU1JpzIX7BshLon65XJ9ltcGAlP7FlEijv8CtH1oBUsXNg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7327
+X-MS-Exchange-CrossTenant-UserPrincipalName: gN/p9dEt/xRk2w7Drhi+FlYl6e06fTUicPJAplILeH0vsWEbjcuty4dcpDyJU/U+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8918
 X-Mailman-Approved-At: Wed, 26 Jul 2023 13:08:50 +0000
-Subject: [Intel-gfx] [PATCH v4 3/5] mmu_notifiers: Call invalidate_range()
- when invalidating TLBs
+Subject: Re: [Intel-gfx] [PATCH v6 3/4] drm: Expand max DRM device number to
+ full MINORBITS
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,204 +130,180 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alistair Popple <apopple@nvidia.com>, zhi.wang.linux@gmail.com,
- kvm@vger.kernel.org, catalin.marinas@arm.com, linux-mm@kvack.org,
- will@kernel.org, mpe@ellerman.id.au, x86@kernel.org, jgg@ziepe.ca,
- iommu@lists.linux.dev, nicolinc@nvidia.com, Jason Gunthorpe <jgg@nvidia.com>,
- kevin.tian@intel.com, ajd@linux.ibm.com, jhubbard@nvidia.com,
- intel-gfx@lists.freedesktop.org, robin.murphy@arm.com, npiggin@gmail.com,
- linux-arm-kernel@lists.infradead.org, SeongJae Park <sj@kernel.org>,
- seanjc@google.com, linux-kernel@vger.kernel.org, fbarrat@linux.ibm.com,
- rtummala@nvidia.com, linuxppc-dev@lists.ozlabs.org
+Cc: Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ Simon Ser <contact@emersion.fr>, Oded Gabbay <ogabbay@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, James Zhu <James.Zhu@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The invalidate_range() is going to become an architecture specific mmu
-notifier used to keep the TLB of secondary MMUs such as an IOMMU in
-sync with the CPU page tables. Currently it is called from separate
-code paths to the main CPU TLB invalidations. This can lead to a
-secondary TLB not getting invalidated when required and makes it hard
-to reason about when exactly the secondary TLB is invalidated.
+--------------X4034xdGwFVEVzp1pfDL2mId
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-To fix this move the notifier call to the architecture specific TLB
-maintenance functions for architectures that have secondary MMUs
-requiring explicit software invalidations.
 
-This fixes a SMMU bug on ARM64. On ARM64 PTE permission upgrades
-require a TLB invalidation. This invalidation is done by the
-architecture specific ptep_set_access_flags() which calls
-flush_tlb_page() if required. However this doesn't call the notifier
-resulting in infinite faults being generated by devices using the SMMU
-if it has previously cached a read-only PTE in it's TLB.
+On 2023-07-24 17:14, Michał Winiarski wrote:
+> Having a limit of 64 DRM devices is not good enough for modern world
+> where we have multi-GPU servers, SR-IOV virtual functions and virtual
+> devices used for testing.
+> Let's utilize full minor range for DRM devices.
+> To avoid regressing the existing userspace, we're still maintaining the
+> numbering scheme where 0-63 is used for primary, 64-127 is reserved
+> (formerly for control) and 128-191 is used for render.
+> For minors >= 192, we're allocating minors dynamically on a first-come,
+> first-served basis.
 
-Moving the invalidations into the TLB invalidation functions ensures
-all invalidations happen at the same time as the CPU invalidation. The
-architecture specific flush_tlb_all() routines do not call the
-notifier as none of the IOMMUs require this.
+[JZ] Hello Michal,
 
-Signed-off-by: Alistair Popple <apopple@nvidia.com>
-Suggested-by: Jason Gunthorpe <jgg@ziepe.ca>
-Tested-by: SeongJae Park <sj@kernel.org>
-Acked-by: Catalin Marinas <catalin.marinas@arm.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Do you have libdrm patches for review together with this change?
+
+Especially to support static int drmGetMinorType(int major, int minor).
+
+Thanks and Best Regards!
+
+James Zhu
+
+>
+> Signed-off-by: Michał Winiarski<michal.winiarski@intel.com>
+> ---
+>   drivers/gpu/drm/drm_drv.c | 12 ++++++++++++
+>   1 file changed, 12 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> index 34b60196c443..c2c6e80e6b31 100644
+> --- a/drivers/gpu/drm/drm_drv.c
+> +++ b/drivers/gpu/drm/drm_drv.c
+> @@ -121,10 +121,19 @@ static void drm_minor_alloc_release(struct drm_device *dev, void *data)
+>   	xa_erase(drm_minor_get_xa(minor->type), minor->index);
+>   }
+>   
+> +/*
+> + * DRM used to support 64 devices, for backwards compatibility we need to maintain the
+> + * minor allocation scheme where minors 0-63 are primary nodes, 64-127 are control nodes,
+> + * and 128-191 are render nodes.
+> + * After reaching the limit, we're allocating minors dynamically - first-come, first-serve.
+> + * Accel nodes are using a distinct major, so the minors are allocated in continuous 0-MAX
+> + * range.
+> + */
+>   #define DRM_MINOR_LIMIT(t) ({ \
+>   	typeof(t) _t = (t); \
+>   	_t == DRM_MINOR_ACCEL ? XA_LIMIT(0, ACCEL_MAX_MINORS) : XA_LIMIT(64 * _t, 64 * _t + 63); \
+>   })
+> +#define DRM_EXTENDED_MINOR_LIMIT XA_LIMIT(192, (1 << MINORBITS) - 1)
+>   
+>   static int drm_minor_alloc(struct drm_device *dev, enum drm_minor_type type)
+>   {
+> @@ -140,6 +149,9 @@ static int drm_minor_alloc(struct drm_device *dev, enum drm_minor_type type)
+>   
+>   	r = xa_alloc(drm_minor_get_xa(type), &minor->index,
+>   		     NULL, DRM_MINOR_LIMIT(type), GFP_KERNEL);
+> +	if (r == -EBUSY && (type == DRM_MINOR_PRIMARY || type == DRM_MINOR_RENDER))
+> +		r = xa_alloc(&drm_minors_xa, &minor->index,
+> +			     NULL, DRM_EXTENDED_MINOR_LIMIT, GFP_KERNEL);
+>   	if (r < 0)
+>   		return r;
+>   
+--------------X4034xdGwFVEVzp1pfDL2mId
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2023-07-24 17:14, Michał Winiarski
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20230724211428.3831636-4-michal.winiarski@intel.com">
+      <pre class="moz-quote-pre" wrap="">Having a limit of 64 DRM devices is not good enough for modern world
+where we have multi-GPU servers, SR-IOV virtual functions and virtual
+devices used for testing.
+Let's utilize full minor range for DRM devices.
+To avoid regressing the existing userspace, we're still maintaining the
+numbering scheme where 0-63 is used for primary, 64-127 is reserved
+(formerly for control) and 128-191 is used for render.
+For minors &gt;= 192, we're allocating minors dynamically on a first-come,
+first-served basis.</pre>
+    </blockquote>
+    <p>[JZ] Hello Michal,</p>
+    <p>Do you have libdrm patches for review together with this change?</p>
+    <p>Especially to support <span style="color: rgb(137, 136, 141);
+        font-family: &quot;JetBrains Mono&quot;, Menlo, &quot;DejaVu
+        Sans Mono&quot;, &quot;Liberation Mono&quot;, Consolas,
+        &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, &quot;andale
+        mono&quot;, &quot;lucida console&quot;, monospace; font-size:
+        12.6px; font-style: normal; font-variant-ligatures: none;
+        font-variant-caps: normal; font-weight: 400; letter-spacing:
+        normal; orphans: 2; text-align: left; text-indent: 0px;
+        text-transform: none; white-space: normal; widows: 2;
+        word-spacing: 0px; -webkit-text-stroke-width: 0px;
+        background-color: rgb(236, 236, 239); text-decoration-thickness:
+        initial; text-decoration-style: initial; text-decoration-color:
+        initial; display: inline !important; float: none;">static int
+        drmGetMinorType(int major, int minor).</span></p>
+    <p>Thanks and Best Regards!</p>
+    <p>James Zhu <span style="color: rgb(137, 136, 141); font-family:
+        &quot;JetBrains Mono&quot;, Menlo, &quot;DejaVu Sans Mono&quot;,
+        &quot;Liberation Mono&quot;, Consolas, &quot;Ubuntu Mono&quot;,
+        &quot;Courier New&quot;, &quot;andale mono&quot;, &quot;lucida
+        console&quot;, monospace; font-size: 12.6px; font-style: normal;
+        font-variant-ligatures: none; font-variant-caps: normal;
+        font-weight: 400; letter-spacing: normal; orphans: 2;
+        text-align: left; text-indent: 0px; text-transform: none;
+        white-space: normal; widows: 2; word-spacing: 0px;
+        -webkit-text-stroke-width: 0px; background-color: rgb(236, 236,
+        239); text-decoration-thickness: initial; text-decoration-style:
+        initial; text-decoration-color: initial; display: inline
+        !important; float: none;"></span></p>
+    <blockquote type="cite" cite="mid:20230724211428.3831636-4-michal.winiarski@intel.com">
+      <pre class="moz-quote-pre" wrap="">
+
+Signed-off-by: Michał Winiarski <a class="moz-txt-link-rfc2396E" href="mailto:michal.winiarski@intel.com">&lt;michal.winiarski@intel.com&gt;</a>
 ---
- arch/arm64/include/asm/tlbflush.h             | 5 +++++
- arch/powerpc/include/asm/book3s/64/tlbflush.h | 1 +
- arch/powerpc/mm/book3s64/radix_hugetlbpage.c  | 1 +
- arch/powerpc/mm/book3s64/radix_tlb.c          | 4 ++++
- arch/x86/include/asm/tlbflush.h               | 2 ++
- arch/x86/mm/tlb.c                             | 2 ++
- include/asm-generic/tlb.h                     | 1 -
- 7 files changed, 15 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_drv.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/arch/arm64/include/asm/tlbflush.h b/arch/arm64/include/asm/tlbflush.h
-index 3456866..a99349d 100644
---- a/arch/arm64/include/asm/tlbflush.h
-+++ b/arch/arm64/include/asm/tlbflush.h
-@@ -13,6 +13,7 @@
- #include <linux/bitfield.h>
- #include <linux/mm_types.h>
- #include <linux/sched.h>
-+#include <linux/mmu_notifier.h>
- #include <asm/cputype.h>
- #include <asm/mmu.h>
- 
-@@ -252,6 +253,7 @@ static inline void flush_tlb_mm(struct mm_struct *mm)
- 	__tlbi(aside1is, asid);
- 	__tlbi_user(aside1is, asid);
- 	dsb(ish);
-+	mmu_notifier_invalidate_range(mm, 0, -1UL);
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index 34b60196c443..c2c6e80e6b31 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -121,10 +121,19 @@ static void drm_minor_alloc_release(struct drm_device *dev, void *data)
+ 	xa_erase(drm_minor_get_xa(minor-&gt;type), minor-&gt;index);
  }
  
- static inline void __flush_tlb_page_nosync(struct mm_struct *mm,
-@@ -263,6 +265,8 @@ static inline void __flush_tlb_page_nosync(struct mm_struct *mm,
- 	addr = __TLBI_VADDR(uaddr, ASID(mm));
- 	__tlbi(vale1is, addr);
- 	__tlbi_user(vale1is, addr);
-+	mmu_notifier_invalidate_range(mm, uaddr & PAGE_MASK,
-+						(uaddr & PAGE_MASK) + PAGE_SIZE);
- }
++/*
++ * DRM used to support 64 devices, for backwards compatibility we need to maintain the
++ * minor allocation scheme where minors 0-63 are primary nodes, 64-127 are control nodes,
++ * and 128-191 are render nodes.
++ * After reaching the limit, we're allocating minors dynamically - first-come, first-serve.
++ * Accel nodes are using a distinct major, so the minors are allocated in continuous 0-MAX
++ * range.
++ */
+ #define DRM_MINOR_LIMIT(t) ({ \
+ 	typeof(t) _t = (t); \
+ 	_t == DRM_MINOR_ACCEL ? XA_LIMIT(0, ACCEL_MAX_MINORS) : XA_LIMIT(64 * _t, 64 * _t + 63); \
+ })
++#define DRM_EXTENDED_MINOR_LIMIT XA_LIMIT(192, (1 &lt;&lt; MINORBITS) - 1)
  
- static inline void flush_tlb_page_nosync(struct vm_area_struct *vma,
-@@ -396,6 +400,7 @@ static inline void __flush_tlb_range(struct vm_area_struct *vma,
- 		scale++;
- 	}
- 	dsb(ish);
-+	mmu_notifier_invalidate_range(vma->vm_mm, start, end);
- }
- 
- static inline void flush_tlb_range(struct vm_area_struct *vma,
-diff --git a/arch/powerpc/include/asm/book3s/64/tlbflush.h b/arch/powerpc/include/asm/book3s/64/tlbflush.h
-index 0d0c144..dca0477 100644
---- a/arch/powerpc/include/asm/book3s/64/tlbflush.h
-+++ b/arch/powerpc/include/asm/book3s/64/tlbflush.h
-@@ -5,6 +5,7 @@
- #define MMU_NO_CONTEXT	~0UL
- 
- #include <linux/mm_types.h>
-+#include <linux/mmu_notifier.h>
- #include <asm/book3s/64/tlbflush-hash.h>
- #include <asm/book3s/64/tlbflush-radix.h>
- 
-diff --git a/arch/powerpc/mm/book3s64/radix_hugetlbpage.c b/arch/powerpc/mm/book3s64/radix_hugetlbpage.c
-index 5e31955..f3fb49f 100644
---- a/arch/powerpc/mm/book3s64/radix_hugetlbpage.c
-+++ b/arch/powerpc/mm/book3s64/radix_hugetlbpage.c
-@@ -39,6 +39,7 @@ void radix__flush_hugetlb_tlb_range(struct vm_area_struct *vma, unsigned long st
- 		radix__flush_tlb_pwc_range_psize(vma->vm_mm, start, end, psize);
- 	else
- 		radix__flush_tlb_range_psize(vma->vm_mm, start, end, psize);
-+	mmu_notifier_invalidate_range(vma->vm_mm, start, end);
- }
- 
- void radix__huge_ptep_modify_prot_commit(struct vm_area_struct *vma,
-diff --git a/arch/powerpc/mm/book3s64/radix_tlb.c b/arch/powerpc/mm/book3s64/radix_tlb.c
-index 0bd4866..4d44902 100644
---- a/arch/powerpc/mm/book3s64/radix_tlb.c
-+++ b/arch/powerpc/mm/book3s64/radix_tlb.c
-@@ -987,6 +987,7 @@ void radix__flush_tlb_mm(struct mm_struct *mm)
- 		}
- 	}
- 	preempt_enable();
-+	mmu_notifier_invalidate_range(mm, 0, -1UL);
- }
- EXPORT_SYMBOL(radix__flush_tlb_mm);
- 
-@@ -1020,6 +1021,7 @@ static void __flush_all_mm(struct mm_struct *mm, bool fullmm)
- 			_tlbiel_pid_multicast(mm, pid, RIC_FLUSH_ALL);
- 	}
- 	preempt_enable();
-+	mmu_notifier_invalidate_range(mm, 0, -1UL);
- }
- 
- void radix__flush_all_mm(struct mm_struct *mm)
-@@ -1228,6 +1230,7 @@ static inline void __radix__flush_tlb_range(struct mm_struct *mm,
- 	}
- out:
- 	preempt_enable();
-+	mmu_notifier_invalidate_range(mm, start, end);
- }
- 
- void radix__flush_tlb_range(struct vm_area_struct *vma, unsigned long start,
-@@ -1392,6 +1395,7 @@ static void __radix__flush_tlb_range_psize(struct mm_struct *mm,
- 	}
- out:
- 	preempt_enable();
-+	mmu_notifier_invalidate_range(mm, start, end);
- }
- 
- void radix__flush_tlb_range_psize(struct mm_struct *mm, unsigned long start,
-diff --git a/arch/x86/include/asm/tlbflush.h b/arch/x86/include/asm/tlbflush.h
-index 837e4a5..0a54323 100644
---- a/arch/x86/include/asm/tlbflush.h
-+++ b/arch/x86/include/asm/tlbflush.h
-@@ -3,6 +3,7 @@
- #define _ASM_X86_TLBFLUSH_H
- 
- #include <linux/mm_types.h>
-+#include <linux/mmu_notifier.h>
- #include <linux/sched.h>
- 
- #include <asm/processor.h>
-@@ -282,6 +283,7 @@ static inline void arch_tlbbatch_add_pending(struct arch_tlbflush_unmap_batch *b
+ static int drm_minor_alloc(struct drm_device *dev, enum drm_minor_type type)
  {
- 	inc_mm_tlb_gen(mm);
- 	cpumask_or(&batch->cpumask, &batch->cpumask, mm_cpumask(mm));
-+	mmu_notifier_invalidate_range(mm, 0, -1UL);
- }
+@@ -140,6 +149,9 @@ static int drm_minor_alloc(struct drm_device *dev, enum drm_minor_type type)
  
- static inline void arch_flush_tlb_batched_pending(struct mm_struct *mm)
-diff --git a/arch/x86/mm/tlb.c b/arch/x86/mm/tlb.c
-index 267acf2..93b2f81 100644
---- a/arch/x86/mm/tlb.c
-+++ b/arch/x86/mm/tlb.c
-@@ -10,6 +10,7 @@
- #include <linux/debugfs.h>
- #include <linux/sched/smt.h>
- #include <linux/task_work.h>
-+#include <linux/mmu_notifier.h>
+ 	r = xa_alloc(drm_minor_get_xa(type), &amp;minor-&gt;index,
+ 		     NULL, DRM_MINOR_LIMIT(type), GFP_KERNEL);
++	if (r == -EBUSY &amp;&amp; (type == DRM_MINOR_PRIMARY || type == DRM_MINOR_RENDER))
++		r = xa_alloc(&amp;drm_minors_xa, &amp;minor-&gt;index,
++			     NULL, DRM_EXTENDED_MINOR_LIMIT, GFP_KERNEL);
+ 	if (r &lt; 0)
+ 		return r;
  
- #include <asm/tlbflush.h>
- #include <asm/mmu_context.h>
-@@ -1036,6 +1037,7 @@ void flush_tlb_mm_range(struct mm_struct *mm, unsigned long start,
- 
- 	put_flush_tlb_info();
- 	put_cpu();
-+	mmu_notifier_invalidate_range(mm, start, end);
- }
- 
- 
-diff --git a/include/asm-generic/tlb.h b/include/asm-generic/tlb.h
-index b466172..bc32a22 100644
---- a/include/asm-generic/tlb.h
-+++ b/include/asm-generic/tlb.h
-@@ -456,7 +456,6 @@ static inline void tlb_flush_mmu_tlbonly(struct mmu_gather *tlb)
- 		return;
- 
- 	tlb_flush(tlb);
--	mmu_notifier_invalidate_range(tlb->mm, tlb->start, tlb->end);
- 	__tlb_reset_range(tlb);
- }
- 
--- 
-git-series 0.9.1
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------X4034xdGwFVEVzp1pfDL2mId--
