@@ -4,120 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0338C001B0
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jul 2023 13:08:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDB1CC001B0
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Jul 2023 13:09:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5615F10E470;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DA6310E478;
 	Wed, 26 Jul 2023 13:08:52 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2055.outbound.protection.outlook.com [40.107.244.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A3AA10E0EB;
- Mon, 24 Jul 2023 22:29:37 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2078.outbound.protection.outlook.com [40.107.94.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7299010E3CE
+ for <intel-gfx@lists.freedesktop.org>; Tue, 25 Jul 2023 13:42:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RO4cSqxteJC6rdphfCg+hCfT0SKAakIJmd52Ai/HohwQBUrIHJJdslyRJXym+LEoH7S1d8O+MibOqU5EfsJiMlpyh8OjySRHDhfP+LbXxyFjcjYRGjBudLzQl2PlZ71QoYAPD4hqFnMFlzqupPzQM3GRhA/dExIKDKX+/XCYYfdoLZX5aOEvLiTq5Rw/8ldwXje+Yv8IHJKq8HfLP19YvObb30Rb/lToUyzySVU0mOlMiPaSRHQ4BIpKIgGif8vnmFQDNCbOYTykQrEpKeUmvIaFin1B+Cf/k8RwZHpBdX2LHrnuZrwdE3fI2U/UCPgWRs1LSyfwWUjO97g7IjoNXw==
+ b=dQOiVhFQ0MAGM+rZM+NYCeWj76SfOGuvNkZ8Txa3tGBq8kP3pSJz2lZfgeMSMcF40ZRbUpplECc/d8fHZcyW+7FwtKELgu+NF5GorqdWT9eq4PkZhxRxsp4OqYO/9MQboKhfUcKJLUbOqfjHKTKkovswW+y/EUvQwC7pR0fENWtde5LGBT4RA8h0y8UyA30Ip0dJ2LY+QNo7AD7uxjPu6CkI9hlmNvEli1N3g4jvDgG8e2eB3B7GhjpHVNhIfe48QepSgIHG3gEF2mwVj2ZrcFo+d5If/i/5MmsDolaR8m2eA20klIZIrXWKVuJ+aPMVfkoDPDdlKNPmGVx8sPpIyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jn307u23PHIh2wp0P8GeZmS/qTgWPkKQvnOQun/mhCI=;
- b=UMeKy1qFVhg4wAi3tOE5ANFaXCTk5Lm3KBr1nQ+PW6eP+PZDkFlKcFcZNBbWw37G/KPmPaTFcVQXcAT44HsueALnBS1ztOzIIEwmOR/HCp+ZusnE4WtRHkaovVRBervqiIUnoI07SEbR93niySbOtcADxaekMHN4VWorWNwmJLyIcZd9W3611Bmk40CLbqR7VM8Ux/3yawbaYgUqeCASkOy/EDuRWGMJCX349ilKb3QQRarNrpKTMQ5TK0s0G8zpz1J7+hpSvJTbRf514P+vuw35R65FNomwhUUhl7e04IzyUFLUkq+6FZXpstqgVslzT+9IPlFC7/RsgUY84zjM7A==
+ bh=qDNSkhRbM8klWFkwy+1ggUGwE01lDxa9kSP5AshmjRM=;
+ b=jNWBhEXPyxd/3V21OwRFviS84/SjXOpJFMsIhm0+y1RlqQkqVbMVFjN3K+0COLP1DyZx4k6g09X7u4eTSUzaXHsAshlMbSrCmRcmEfueejqbgROd/E41TEIaTAE4Vse8ZxV+Rm3A7R4h57ev4yBCgpDDslVhupUZDNv2v7GyrcwdN6H7WjumS2/JXj7b0rpQo3kOBzBA3QuLYGcHdWix3uLudsUSOMayoVRZmdzfaFXVVEeGdVcEQhblcCLrCMauFJieNjdosUbIQuUZ3dwoS7xlw437y3PUd6l7NwqpWC1YISd5A66epS5kOgmaKR/ZZ9jQeC7YI5sTQICQjD6cDg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jn307u23PHIh2wp0P8GeZmS/qTgWPkKQvnOQun/mhCI=;
- b=yC1x5iNUeiNssZ8zElpXbi10koQqvkfwfUBGBI3KT1xc4wBieQtzaa6r8XSYNAGSIMZf0Uyt7osQw4FVBy+aSYCSAG3vJ51JDNg9Tl9ihs5br+ryLDZfsr+URHjv4GDsntO40MJsCCzwKV7htNtJCLcRt5el98UtUnauxEOMpk4=
+ bh=qDNSkhRbM8klWFkwy+1ggUGwE01lDxa9kSP5AshmjRM=;
+ b=K73UlQGfetPf5uuxsCq9tijfUGqCvkKtPATS7SAfXF1c2ouOpVJr7UogIB/oU26zOpM5Yu2SekOAN8jAKtu/mwRe3odknp3i0I48scg9uF8TkLE9SkmIEABVnHlsqAic0yT7bKW9iwo0WazgxT1vijuWfiDY0J8mTvSqfoKphZuH/07jD594lWk6/lVFRXoje34gUXko4K18bg1fkCkom0wOvNLWoUdEwztHo/vK2Fz+XLxc08R32WkQ5vjMUMub+JOqOA+64uzcrrkVB6b/HD0j5NtBm+vLmQenwWY2an53lPmGeI6he9yEeQRFYBrqfpnLC1zYcVMH7jnqriTiQw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB6760.namprd12.prod.outlook.com (2603:10b6:a03:44c::18)
- by SA1PR12MB8918.namprd12.prod.outlook.com (2603:10b6:806:386::13)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BYAPR12MB3176.namprd12.prod.outlook.com (2603:10b6:a03:134::26)
+ by PH8PR12MB7327.namprd12.prod.outlook.com (2603:10b6:510:215::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.31; Mon, 24 Jul
- 2023 22:29:34 +0000
-Received: from SJ0PR12MB6760.namprd12.prod.outlook.com
- ([fe80::796c:5cd4:2050:65ca]) by SJ0PR12MB6760.namprd12.prod.outlook.com
- ([fe80::796c:5cd4:2050:65ca%7]) with mapi id 15.20.6609.032; Mon, 24 Jul 2023
- 22:29:34 +0000
-Content-Type: multipart/alternative;
- boundary="------------X4034xdGwFVEVzp1pfDL2mId"
-Message-ID: <6f101468-59ff-fb6f-13e9-87775457ae1d@amd.com>
-Date: Mon, 24 Jul 2023 18:29:29 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-Content-Language: en-US
-To: =?UTF-8?Q?Micha=c5=82_Winiarski?= <michal.winiarski@intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-References: <20230724211428.3831636-1-michal.winiarski@intel.com>
- <20230724211428.3831636-4-michal.winiarski@intel.com>
-From: James Zhu <jamesz@amd.com>
-Organization: AMD RTG
-In-Reply-To: <20230724211428.3831636-4-michal.winiarski@intel.com>
-X-ClientProxiedBy: YQZPR01CA0047.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:86::28) To SJ0PR12MB6760.namprd12.prod.outlook.com
- (2603:10b6:a03:44c::18)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6609.33; Tue, 25 Jul
+ 2023 13:42:46 +0000
+Received: from BYAPR12MB3176.namprd12.prod.outlook.com
+ ([fe80::c833:9a5c:258e:3351]) by BYAPR12MB3176.namprd12.prod.outlook.com
+ ([fe80::c833:9a5c:258e:3351%4]) with mapi id 15.20.6609.032; Tue, 25 Jul 2023
+ 13:42:46 +0000
+From: Alistair Popple <apopple@nvidia.com>
+To: akpm@linux-foundation.org
+Date: Tue, 25 Jul 2023 23:42:06 +1000
+Message-Id: <90d749d03cbab256ca0edeb5287069599566d783.1690292440.git-series.apopple@nvidia.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <cover.1eca029b8603ef4eebe5b41eae51facfc5920c41.1690292440.git-series.apopple@nvidia.com>
+References: <cover.1eca029b8603ef4eebe5b41eae51facfc5920c41.1690292440.git-series.apopple@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SY6PR01CA0154.ausprd01.prod.outlook.com
+ (2603:10c6:10:1ba::13) To BYAPR12MB3176.namprd12.prod.outlook.com
+ (2603:10b6:a03:134::26)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB6760:EE_|SA1PR12MB8918:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0fbb04b7-a1f2-4619-230c-08db8c9574bf
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3176:EE_|PH8PR12MB7327:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8483cad2-1403-4cdc-4a1b-08db8d1507a2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3FIxY10tnu0FMMguVg9P1AhWm0i1Tl5hMp9L7Qizy0XLslhhG3lII8kmjiF+l0HRNKMYkOmT3ZAsuLtqf5NWe7jN/aVEhsJ2zjPr+QwgdlmoNb2qHgs7XsCios5eGXQYW13zDKAthFw+qF+xxkR2tuV56ft88+W+yZ43sBZUhXf3W4sMpGyZEBuij5MeYxo2SCTM7ol5zkpc4D3/XIsT/g3woZOQRwO3uTdw/WuBLYjR21pn0JoVFHr3Cc1RwNOz6PD/Zell75LZK+KEZQWYA0/bSHmu7Y+5BGCbhE3nozLg8XcKx0F/AHUcRSxhCwNPtJp9NSLMWcUxXjAVx3Fm95UEtlZqlHguQ+DWEvbWBB6PKyDecLJhBcgrW1FIIh/Lt3jk6IyzYbOvssM3PE1d93gAvQCx+gbKedr1l8EsQemQkCSlWG06AIJDXuLSbFp2Plbn9uK+hrRCwvK8t6Yz8CRe+79JPvFNRT+h2HMdWGmS6BNh/8tSg8loHFU47FQ3GP01TtI1GVDyHRzGjI4jZwhdaHGMdZWnq2FCp/sICaPnlIZ/DLkKdtFgcuwla6vPthYBQY+GlRsgwh9+4PqDTT0/xz95juGnXO3qWByWu/QP8ITpFtxlJKVuiGYtL4e6a6ao2Mb2qY/3XI9BcSYsqg==
+X-Microsoft-Antispam-Message-Info: r3CJMTYiM2u2+Q/hdNPTl57ReW48/e422n0s/HikYnEMv1nU9DGzqIHm61tCN0E7e5qees0X0bnaSfGyaXz0bCQjGXf8R7LzOGqWgOwaxYx6U+JZyvNSWYXg51UtWmHzG0Ze0ibP5qWkWBvqtWyzvKMutPipNo2TghENmqLi47hLzT4GhTfrfxI9oNSPV/CbXNxeMNWWa9Tbipk8sDGGbYCKvpdjfnuWdsiSP9kFwfF22+cpLlm+0u/0kDYPIvcfmrSfI4elX9tMiAyi+ZMJiLkOstoXciX6FjrFMSNsw85a2AXNXker/Tst257y2lLDO5OewNhqNTQ2E26SjPSwKg5K66vtcKZq37qbswAVBmG2t/8/FnE61ikbKNUVx2IIzQ7tuyalFXfc8TdXKHkTtm7htOsHtatvpzktllWw8gs1ngrzE70umAkYzm9WM7VG1ZIiX1Pz5SYtX3f5k161ekd37eHWbhzteuQJs7wM/NUyHLP3JvQbI+NqfY+e5R2ROU7e95a0O94URId2qhZTsnEQ1vwz/yVW3miubqDY3FE=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB6760.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(346002)(136003)(376002)(39860400002)(366004)(396003)(451199021)(38100700002)(66556008)(66946007)(53546011)(36756003)(2616005)(83380400001)(7416002)(6512007)(8676002)(8936002)(5660300002)(54906003)(478600001)(66476007)(4326008)(316002)(41300700001)(186003)(26005)(6506007)(33964004)(6486002)(6666004)(36916002)(2906002)(31686004)(31696002)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3176.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(4636009)(39860400002)(346002)(136003)(376002)(396003)(366004)(451199021)(6512007)(186003)(2616005)(26005)(6506007)(107886003)(316002)(41300700001)(66556008)(36756003)(6486002)(66476007)(7416002)(5660300002)(30864003)(66946007)(38100700002)(2906002)(4326008)(6916009)(8676002)(8936002)(83380400001)(54906003)(478600001)(86362001)(6666004);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c3QrMUZtWFAweXkyQmppRjFPVFJPMURBYWtqN3BuWkl5MGxoQUVNYlEzREpw?=
- =?utf-8?B?L2xYaFU2NGJ2eFRnMFVCcmpOY05VTktiQldyTXlJY1hiT2c4M3VrYy9aRkov?=
- =?utf-8?B?QlRrRjE2ejVxTWdiaTh1Wkk1WXBFcHhiNCtjTzA4NGtBWHB1UU9JWmY0MW13?=
- =?utf-8?B?TGI3Mi9DZVU3aHBER0RWVGZ5Q3FzNHdYb2ZIeVFDckI5R09OTTRWQWdQZFAx?=
- =?utf-8?B?VE1xZVNvTWdDdnRic3lmNCtDS0lkZThZYTB0cGM3bnJZUHFzcmVYSG5kNTBX?=
- =?utf-8?B?SXhhRi90ZEF0elFVRFVLU29iRnZIYWlWWlIzTHM4RXJQb2JZTkR0eXVvSWZu?=
- =?utf-8?B?bVU5UkFhQVhqUUFqZm5lbWJnMEx5YURMSUhFaXJuZEEzZlZ0SGpoTXBJeUd4?=
- =?utf-8?B?RVYyTUdlekJKclQrZk1xNHJhUkJjS0xoeC8zbUJJK2Q0Y0JibThTQWR1Z0Nh?=
- =?utf-8?B?NjNxclhlWDZkdnRXU01QRlZYcXlWejNXTTNQdXlnU01SSFBROXJTWTBtVC8y?=
- =?utf-8?B?YTBGWHE2cGJYMVVxekxYTmc5R29TTjhHQkliTmJtZlZWdDlZMThHallLMEdF?=
- =?utf-8?B?Tkt1eTJTUDVseFdYWWNQMW1BRkV1WFV5YjllWEZmYkZiMDhaZ1lWNmVoUVBm?=
- =?utf-8?B?Skh1bUtZWnEvOWFCUlJ4NmJ2UXVJZnF6bHU3bndac25pcXBPOFlvUWh1RU1i?=
- =?utf-8?B?c210MzhDYUtBaE4wdkNJVUk3YlRVR1l4VlRvTWhLcjJhejZGSmdwWlR6YUJh?=
- =?utf-8?B?RE9iVGxTcUxTSXN4d1ZPYzJQcGw0b21uZkNaazR3VXdvVTQ4cmZQN09EME9s?=
- =?utf-8?B?elVqemttNTZJQTdFdkJybVRMcnQvUjBLRkVFTHg5Q1R5bEgyanN1OEZNWHZu?=
- =?utf-8?B?cng3R211a3Q5VGswa09aMGNjT042eGRuQVdRY3cvQzkxWUovbUVueXJXM2xS?=
- =?utf-8?B?WUpNVDVwK0JBeXlnRDlPdlJwMzBGWWVnbFdST1Nyd3JYeEFuYmVoUWFPbGd3?=
- =?utf-8?B?TU4yQnJ1c1FUU29LU3BnOXhYd2YzYnBDcHdydEEwaGNzdWRwMEtoaFhJck1C?=
- =?utf-8?B?RHJIMlBjUHZxUWJxTE12L2lKNGZuMGRWMjJLSTgwQ2JBeEdoYUNCVERQeTZK?=
- =?utf-8?B?Y3VrTDFvbWI2MCtmNFZuYWM4K2hoSUZEUGhYUkIzMGJFOWFMMFB6UFlLK0h0?=
- =?utf-8?B?S2JKeVVuOTRBTlQ1M25XNmJJbjFFdzU0YmN0K3JMN3kxRlY4VTl3czhzMXJY?=
- =?utf-8?B?M2pENmQwRWUzc1NFWWtzaG4xRFNwd1E3RStXS01JaVdWd1lUcUVGWjgrNjdy?=
- =?utf-8?B?aVlGd3VxUTgya2ZQS3FJSGFnNHZzdkdrUnVteUhDamhaR3k1YmRTdnRZSndO?=
- =?utf-8?B?NDBoTnZZSjl2eW5SdzhGNE9HbXI5bXVMRmptTjNVMng3MC8xcmpyT3BaMHVY?=
- =?utf-8?B?Y004c1B1T1FjdGcwaEZZeEZaeXFNZkNmQ1JsMG1wUGR6SS9lTmVHUUtkbjNq?=
- =?utf-8?B?eVk2WXgwY2xhaXdMZXRyMUlPVVJ6cTcrYXJ0MVBoNTdUTFZZcGxpbWZrOFJD?=
- =?utf-8?B?WnBEMXF1eTlMUjE0TkZmTVgzUldQL1k3VkdDc2d4Myt5cU5zVG5YeUFlUDRK?=
- =?utf-8?B?NER6eGRubjd0WTJ2b29DUENjVEZ5eGRMTVpGVHN0dGRYbkxrdVpSaFlEUEZG?=
- =?utf-8?B?QTQ1Z0VKUUVVSXAzSmh0ZHAyeFdkR2J3aXR5TGloZnphNTBDNmFzTTNrQ2dL?=
- =?utf-8?B?cmlpMVhweDhkaEVzZENRdG81cGN4N29OVlBKcHlQNGdobkVWRFRBMDdKbVY3?=
- =?utf-8?B?ZG9EV1czV0hKRVczV1Y2d3VlOXc2Yzg1OXZvaDZvRmF4TXN2OUhacFB4SVFO?=
- =?utf-8?B?aWx2eTNRT2EyOHV3bEhyS1JTN1pmZ1BHYzEvNHBCTnZIdnEwVG5QN3F0NFRq?=
- =?utf-8?B?NHlGV1hXUS93ZkJzR2YxUkJpRUpZWDlSblJZaTd5ZkM5ZlZKdU4veW1JeGpo?=
- =?utf-8?B?Y3BPYlhDZU1reWtQeEVuVnJxR3Q4V1FaM1ZMa3VpWDdRSDZzRU0vTHMzc2F4?=
- =?utf-8?B?enRsQVQySjZpb1NNT1pNN2N3cnFNZlZSaElMU3FGUU5rOStPM2Era0Z5WlBv?=
- =?utf-8?Q?5psz8g0HXrstI8nDrO6DvIdG4?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0fbb04b7-a1f2-4619-230c-08db8c9574bf
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6760.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?uFPS3XS7bj2gJyJ9NxiIAf6cXuwgUXsja8jQYJy1hW9j4V53zE7mLtgcCH80?=
+ =?us-ascii?Q?B709GOHnIO5Rohv3/EW/AgPyRIv9P99+6pg3g4Zr3mx2n6lOA4z25ppyh1B6?=
+ =?us-ascii?Q?pfTDwPs5wuph3bjZAtRO57tq0BNukRCEBedN54koFQtmDmzteB7g5NeRauWZ?=
+ =?us-ascii?Q?mFeSfip6vuJ2aiuabc1KAz+f82HyiMqaJcq1FJEXaHeaCKM9sLqBQ19617u0?=
+ =?us-ascii?Q?vRTZRK6UdiwOlruc1UD/gkkFtMLZDS3stFh0pymsUZKrILwNAWML20S36wOW?=
+ =?us-ascii?Q?9ztIE0XkKv+S2b0C/OBpELJYbzjrEzCnG+kCv5Iq4YZhlKlMEnmrqMM0uhuN?=
+ =?us-ascii?Q?7hkGtm5DjSNLVA+463/J+KXFgTeKEHQ7DWRxCmi4S8EQaFeLlZHrbQf8qXy/?=
+ =?us-ascii?Q?mHGFKRBnj9e/ITHIHArnsNJG6JELZX2sC7BpdewEvJAPVgcZ4vCsKauqkKSa?=
+ =?us-ascii?Q?7oZTjfRB4YisQDmIpJ0gxeur3Roz/9PGBZlR9dSZbfc2IYbGOzw20a9TP8xk?=
+ =?us-ascii?Q?RLUj4TU7M2MQStxyoVkExk7OGUEs9ht7NIN0deTXHcjwNQyl9oOUwYxaYm0q?=
+ =?us-ascii?Q?0jqurgKMMNfT5RLYK1L/tYSdKbOAp39VEWyJwjIGzFxR+58fFwVdH0kiRnX3?=
+ =?us-ascii?Q?ukLA98hf4DVO5Qc3p8xW3HWQclT+iTNgBScYdnL86V6BRGK608BkApxvcWSC?=
+ =?us-ascii?Q?jqVPWaNEaGq8DuHZIofBfZ4waeUBc3XSvBNRUynMAv2ZrTuem0+kEznMNGY4?=
+ =?us-ascii?Q?6Dvu0jpmXgUgrvYiGGTp+/zl2ZNHDH06G2vD+tood1F7pmN0Eo0M+5f/O+Rl?=
+ =?us-ascii?Q?8n0pnk4zylxxF8sLxVvVQsTZmF7XbxbprtKxN/REI65c6xCpmHi8UiqYdr72?=
+ =?us-ascii?Q?7vP+UsIvGyeJTjn9gZeRactYeSt3rg/iGsowiRLRxUbKnaDukK5lNcwMT/AI?=
+ =?us-ascii?Q?RPL+gpS47dMLNLqFVLfBEtWDlr3iyST3hPzHaX5NC4E10eY01p6Iit7juKsr?=
+ =?us-ascii?Q?pMH75q/hV2U5l/P5z7QiDiOIjj0mt/Sme7axC8NOz3egyhbfk7jJBPng3EDL?=
+ =?us-ascii?Q?Oi2v9cXRDusIKtM0+shBTjdfxwqhcEQ1c/n7NjdRnKFd8km0l7jfbuvAbc5L?=
+ =?us-ascii?Q?LfpDQsBF5hDxA8nPEyY7Sjq9wivf+i05/FEY+jG2DcaZpLE40+AgLqkSPqzU?=
+ =?us-ascii?Q?sghY/CKFCk7TyIrmjn4xr61yUpIyO8TYfFZeFauRAb/frB4mi58JUpbBFWy/?=
+ =?us-ascii?Q?6vQJX/aiVT1/PTFgV4Xz5U3qPU7VeDvxTsPwvvYR/iDfMp8GqKBgFvTsy4N6?=
+ =?us-ascii?Q?oW7U0gA+3kJCJ1+3CfTmGH5WFoNxNGzcHFUoZcjYHWy3GUWVNqSx72xa15mQ?=
+ =?us-ascii?Q?UI0Wj9QEbzgK8p9rxNzDIfHrQ3/17hDczxW3fwzz/tvMYiM8n+T8A/5tKc7X?=
+ =?us-ascii?Q?oXPwJg9tuDTWoLQzvJXLrcpx0MQTRlGg8OGmzhxgclv6rhvYQDq2WqUwx1LK?=
+ =?us-ascii?Q?VLHtap1UVbf4zS/4GVbRxtSzjg8F68vNRG86aKN+Mo/42nZTdQL5PCxpXNN7?=
+ =?us-ascii?Q?fuFu0B5l6tyKGHg8hur3+OBFhXn1qXvp47zdA8lV?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8483cad2-1403-4cdc-4a1b-08db8d1507a2
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3176.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2023 22:29:34.1201 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2023 13:42:46.6203 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gN/p9dEt/xRk2w7Drhi+FlYl6e06fTUicPJAplILeH0vsWEbjcuty4dcpDyJU/U+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8918
+X-MS-Exchange-CrossTenant-UserPrincipalName: /ua5FOi9kb7hQZxNQ7P1efvv6V73oa5LztJOAPhCYqjRYfmgHsC3WobOihmxyjKmUA6CaHaePeEwabRwWPVfyA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7327
 X-Mailman-Approved-At: Wed, 26 Jul 2023 13:08:50 +0000
-Subject: Re: [Intel-gfx] [PATCH v6 3/4] drm: Expand max DRM device number to
- full MINORBITS
+Subject: [Intel-gfx] [PATCH v4 4/5] mmu_notifiers: Don't invalidate
+ secondary TLBs as part of mmu_notifier_invalidate_range_end()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,180 +116,431 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Pekka Paalanen <pekka.paalanen@collabora.com>,
- Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- Simon Ser <contact@emersion.fr>, Oded Gabbay <ogabbay@kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Matthew Wilcox <willy@infradead.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, James Zhu <James.Zhu@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: Alistair Popple <apopple@nvidia.com>, zhi.wang.linux@gmail.com,
+ kvm@vger.kernel.org, catalin.marinas@arm.com, linux-mm@kvack.org,
+ will@kernel.org, mpe@ellerman.id.au, x86@kernel.org, jgg@ziepe.ca,
+ iommu@lists.linux.dev, nicolinc@nvidia.com, Jason Gunthorpe <jgg@nvidia.com>,
+ kevin.tian@intel.com, ajd@linux.ibm.com, jhubbard@nvidia.com,
+ intel-gfx@lists.freedesktop.org, robin.murphy@arm.com, npiggin@gmail.com,
+ linux-arm-kernel@lists.infradead.org, seanjc@google.com,
+ linux-kernel@vger.kernel.org, fbarrat@linux.ibm.com, rtummala@nvidia.com,
+ linuxppc-dev@lists.ozlabs.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---------------X4034xdGwFVEVzp1pfDL2mId
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Secondary TLBs are now invalidated from the architecture specific TLB
+invalidation functions. Therefore there is no need to explicitly
+notify or invalidate as part of the range end functions. This means we
+can remove mmu_notifier_invalidate_range_end_only() and some of the
+ptep_*_notify() functions.
 
-
-On 2023-07-24 17:14, Michał Winiarski wrote:
-> Having a limit of 64 DRM devices is not good enough for modern world
-> where we have multi-GPU servers, SR-IOV virtual functions and virtual
-> devices used for testing.
-> Let's utilize full minor range for DRM devices.
-> To avoid regressing the existing userspace, we're still maintaining the
-> numbering scheme where 0-63 is used for primary, 64-127 is reserved
-> (formerly for control) and 128-191 is used for render.
-> For minors >= 192, we're allocating minors dynamically on a first-come,
-> first-served basis.
-
-[JZ] Hello Michal,
-
-Do you have libdrm patches for review together with this change?
-
-Especially to support static int drmGetMinorType(int major, int minor).
-
-Thanks and Best Regards!
-
-James Zhu
-
->
-> Signed-off-by: Michał Winiarski<michal.winiarski@intel.com>
-> ---
->   drivers/gpu/drm/drm_drv.c | 12 ++++++++++++
->   1 file changed, 12 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-> index 34b60196c443..c2c6e80e6b31 100644
-> --- a/drivers/gpu/drm/drm_drv.c
-> +++ b/drivers/gpu/drm/drm_drv.c
-> @@ -121,10 +121,19 @@ static void drm_minor_alloc_release(struct drm_device *dev, void *data)
->   	xa_erase(drm_minor_get_xa(minor->type), minor->index);
->   }
->   
-> +/*
-> + * DRM used to support 64 devices, for backwards compatibility we need to maintain the
-> + * minor allocation scheme where minors 0-63 are primary nodes, 64-127 are control nodes,
-> + * and 128-191 are render nodes.
-> + * After reaching the limit, we're allocating minors dynamically - first-come, first-serve.
-> + * Accel nodes are using a distinct major, so the minors are allocated in continuous 0-MAX
-> + * range.
-> + */
->   #define DRM_MINOR_LIMIT(t) ({ \
->   	typeof(t) _t = (t); \
->   	_t == DRM_MINOR_ACCEL ? XA_LIMIT(0, ACCEL_MAX_MINORS) : XA_LIMIT(64 * _t, 64 * _t + 63); \
->   })
-> +#define DRM_EXTENDED_MINOR_LIMIT XA_LIMIT(192, (1 << MINORBITS) - 1)
->   
->   static int drm_minor_alloc(struct drm_device *dev, enum drm_minor_type type)
->   {
-> @@ -140,6 +149,9 @@ static int drm_minor_alloc(struct drm_device *dev, enum drm_minor_type type)
->   
->   	r = xa_alloc(drm_minor_get_xa(type), &minor->index,
->   		     NULL, DRM_MINOR_LIMIT(type), GFP_KERNEL);
-> +	if (r == -EBUSY && (type == DRM_MINOR_PRIMARY || type == DRM_MINOR_RENDER))
-> +		r = xa_alloc(&drm_minors_xa, &minor->index,
-> +			     NULL, DRM_EXTENDED_MINOR_LIMIT, GFP_KERNEL);
->   	if (r < 0)
->   		return r;
->   
---------------X4034xdGwFVEVzp1pfDL2mId
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 2023-07-24 17:14, Michał Winiarski
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20230724211428.3831636-4-michal.winiarski@intel.com">
-      <pre class="moz-quote-pre" wrap="">Having a limit of 64 DRM devices is not good enough for modern world
-where we have multi-GPU servers, SR-IOV virtual functions and virtual
-devices used for testing.
-Let's utilize full minor range for DRM devices.
-To avoid regressing the existing userspace, we're still maintaining the
-numbering scheme where 0-63 is used for primary, 64-127 is reserved
-(formerly for control) and 128-191 is used for render.
-For minors &gt;= 192, we're allocating minors dynamically on a first-come,
-first-served basis.</pre>
-    </blockquote>
-    <p>[JZ] Hello Michal,</p>
-    <p>Do you have libdrm patches for review together with this change?</p>
-    <p>Especially to support <span style="color: rgb(137, 136, 141);
-        font-family: &quot;JetBrains Mono&quot;, Menlo, &quot;DejaVu
-        Sans Mono&quot;, &quot;Liberation Mono&quot;, Consolas,
-        &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, &quot;andale
-        mono&quot;, &quot;lucida console&quot;, monospace; font-size:
-        12.6px; font-style: normal; font-variant-ligatures: none;
-        font-variant-caps: normal; font-weight: 400; letter-spacing:
-        normal; orphans: 2; text-align: left; text-indent: 0px;
-        text-transform: none; white-space: normal; widows: 2;
-        word-spacing: 0px; -webkit-text-stroke-width: 0px;
-        background-color: rgb(236, 236, 239); text-decoration-thickness:
-        initial; text-decoration-style: initial; text-decoration-color:
-        initial; display: inline !important; float: none;">static int
-        drmGetMinorType(int major, int minor).</span></p>
-    <p>Thanks and Best Regards!</p>
-    <p>James Zhu <span style="color: rgb(137, 136, 141); font-family:
-        &quot;JetBrains Mono&quot;, Menlo, &quot;DejaVu Sans Mono&quot;,
-        &quot;Liberation Mono&quot;, Consolas, &quot;Ubuntu Mono&quot;,
-        &quot;Courier New&quot;, &quot;andale mono&quot;, &quot;lucida
-        console&quot;, monospace; font-size: 12.6px; font-style: normal;
-        font-variant-ligatures: none; font-variant-caps: normal;
-        font-weight: 400; letter-spacing: normal; orphans: 2;
-        text-align: left; text-indent: 0px; text-transform: none;
-        white-space: normal; widows: 2; word-spacing: 0px;
-        -webkit-text-stroke-width: 0px; background-color: rgb(236, 236,
-        239); text-decoration-thickness: initial; text-decoration-style:
-        initial; text-decoration-color: initial; display: inline
-        !important; float: none;"></span></p>
-    <blockquote type="cite" cite="mid:20230724211428.3831636-4-michal.winiarski@intel.com">
-      <pre class="moz-quote-pre" wrap="">
-
-Signed-off-by: Michał Winiarski <a class="moz-txt-link-rfc2396E" href="mailto:michal.winiarski@intel.com">&lt;michal.winiarski@intel.com&gt;</a>
+Signed-off-by: Alistair Popple <apopple@nvidia.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 ---
- drivers/gpu/drm/drm_drv.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ include/linux/mmu_notifier.h | 56 +------------------------------------
+ kernel/events/uprobes.c      |  2 +-
+ mm/huge_memory.c             | 25 ++---------------
+ mm/hugetlb.c                 |  1 +-
+ mm/memory.c                  |  8 +----
+ mm/migrate_device.c          |  9 +-----
+ mm/mmu_notifier.c            | 25 ++---------------
+ mm/rmap.c                    | 40 +--------------------------
+ 8 files changed, 14 insertions(+), 152 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index 34b60196c443..c2c6e80e6b31 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -121,10 +121,19 @@ static void drm_minor_alloc_release(struct drm_device *dev, void *data)
- 	xa_erase(drm_minor_get_xa(minor-&gt;type), minor-&gt;index);
+diff --git a/include/linux/mmu_notifier.h b/include/linux/mmu_notifier.h
+index 64a3e05..f2e9edc 100644
+--- a/include/linux/mmu_notifier.h
++++ b/include/linux/mmu_notifier.h
+@@ -395,8 +395,7 @@ extern int __mmu_notifier_test_young(struct mm_struct *mm,
+ extern void __mmu_notifier_change_pte(struct mm_struct *mm,
+ 				      unsigned long address, pte_t pte);
+ extern int __mmu_notifier_invalidate_range_start(struct mmu_notifier_range *r);
+-extern void __mmu_notifier_invalidate_range_end(struct mmu_notifier_range *r,
+-				  bool only_end);
++extern void __mmu_notifier_invalidate_range_end(struct mmu_notifier_range *r);
+ extern void __mmu_notifier_invalidate_range(struct mm_struct *mm,
+ 				  unsigned long start, unsigned long end);
+ extern bool
+@@ -481,14 +480,7 @@ mmu_notifier_invalidate_range_end(struct mmu_notifier_range *range)
+ 		might_sleep();
+ 
+ 	if (mm_has_notifiers(range->mm))
+-		__mmu_notifier_invalidate_range_end(range, false);
+-}
+-
+-static inline void
+-mmu_notifier_invalidate_range_only_end(struct mmu_notifier_range *range)
+-{
+-	if (mm_has_notifiers(range->mm))
+-		__mmu_notifier_invalidate_range_end(range, true);
++		__mmu_notifier_invalidate_range_end(range);
  }
  
-+/*
-+ * DRM used to support 64 devices, for backwards compatibility we need to maintain the
-+ * minor allocation scheme where minors 0-63 are primary nodes, 64-127 are control nodes,
-+ * and 128-191 are render nodes.
-+ * After reaching the limit, we're allocating minors dynamically - first-come, first-serve.
-+ * Accel nodes are using a distinct major, so the minors are allocated in continuous 0-MAX
-+ * range.
-+ */
- #define DRM_MINOR_LIMIT(t) ({ \
- 	typeof(t) _t = (t); \
- 	_t == DRM_MINOR_ACCEL ? XA_LIMIT(0, ACCEL_MAX_MINORS) : XA_LIMIT(64 * _t, 64 * _t + 63); \
+ static inline void mmu_notifier_invalidate_range(struct mm_struct *mm,
+@@ -582,45 +574,6 @@ static inline void mmu_notifier_range_init_owner(
+ 	__young;							\
  })
-+#define DRM_EXTENDED_MINOR_LIMIT XA_LIMIT(192, (1 &lt;&lt; MINORBITS) - 1)
  
- static int drm_minor_alloc(struct drm_device *dev, enum drm_minor_type type)
+-#define	ptep_clear_flush_notify(__vma, __address, __ptep)		\
+-({									\
+-	unsigned long ___addr = __address & PAGE_MASK;			\
+-	struct mm_struct *___mm = (__vma)->vm_mm;			\
+-	pte_t ___pte;							\
+-									\
+-	___pte = ptep_clear_flush(__vma, __address, __ptep);		\
+-	mmu_notifier_invalidate_range(___mm, ___addr,			\
+-					___addr + PAGE_SIZE);		\
+-									\
+-	___pte;								\
+-})
+-
+-#define pmdp_huge_clear_flush_notify(__vma, __haddr, __pmd)		\
+-({									\
+-	unsigned long ___haddr = __haddr & HPAGE_PMD_MASK;		\
+-	struct mm_struct *___mm = (__vma)->vm_mm;			\
+-	pmd_t ___pmd;							\
+-									\
+-	___pmd = pmdp_huge_clear_flush(__vma, __haddr, __pmd);		\
+-	mmu_notifier_invalidate_range(___mm, ___haddr,			\
+-				      ___haddr + HPAGE_PMD_SIZE);	\
+-									\
+-	___pmd;								\
+-})
+-
+-#define pudp_huge_clear_flush_notify(__vma, __haddr, __pud)		\
+-({									\
+-	unsigned long ___haddr = __haddr & HPAGE_PUD_MASK;		\
+-	struct mm_struct *___mm = (__vma)->vm_mm;			\
+-	pud_t ___pud;							\
+-									\
+-	___pud = pudp_huge_clear_flush(__vma, __haddr, __pud);		\
+-	mmu_notifier_invalidate_range(___mm, ___haddr,			\
+-				      ___haddr + HPAGE_PUD_SIZE);	\
+-									\
+-	___pud;								\
+-})
+-
+ /*
+  * set_pte_at_notify() sets the pte _after_ running the notifier.
+  * This is safe to start by updating the secondary MMUs, because the primary MMU
+@@ -711,11 +664,6 @@ void mmu_notifier_invalidate_range_end(struct mmu_notifier_range *range)
  {
-@@ -140,6 +149,9 @@ static int drm_minor_alloc(struct drm_device *dev, enum drm_minor_type type)
+ }
  
- 	r = xa_alloc(drm_minor_get_xa(type), &amp;minor-&gt;index,
- 		     NULL, DRM_MINOR_LIMIT(type), GFP_KERNEL);
-+	if (r == -EBUSY &amp;&amp; (type == DRM_MINOR_PRIMARY || type == DRM_MINOR_RENDER))
-+		r = xa_alloc(&amp;drm_minors_xa, &amp;minor-&gt;index,
-+			     NULL, DRM_EXTENDED_MINOR_LIMIT, GFP_KERNEL);
- 	if (r &lt; 0)
- 		return r;
+-static inline void
+-mmu_notifier_invalidate_range_only_end(struct mmu_notifier_range *range)
+-{
+-}
+-
+ static inline void mmu_notifier_invalidate_range(struct mm_struct *mm,
+ 				  unsigned long start, unsigned long end)
+ {
+diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
+index f0ac5b8..3048589 100644
+--- a/kernel/events/uprobes.c
++++ b/kernel/events/uprobes.c
+@@ -193,7 +193,7 @@ static int __replace_page(struct vm_area_struct *vma, unsigned long addr,
+ 	}
  
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------X4034xdGwFVEVzp1pfDL2mId--
+ 	flush_cache_page(vma, addr, pte_pfn(ptep_get(pvmw.pte)));
+-	ptep_clear_flush_notify(vma, addr, pvmw.pte);
++	ptep_clear_flush(vma, addr, pvmw.pte);
+ 	if (new_page)
+ 		set_pte_at_notify(mm, addr, pvmw.pte,
+ 				  mk_pte(new_page, vma->vm_page_prot));
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 762be2f..3ece117 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2003,7 +2003,7 @@ static void __split_huge_pud_locked(struct vm_area_struct *vma, pud_t *pud,
+ 
+ 	count_vm_event(THP_SPLIT_PUD);
+ 
+-	pudp_huge_clear_flush_notify(vma, haddr, pud);
++	pudp_huge_clear_flush(vma, haddr, pud);
+ }
+ 
+ void __split_huge_pud(struct vm_area_struct *vma, pud_t *pud,
+@@ -2023,11 +2023,7 @@ void __split_huge_pud(struct vm_area_struct *vma, pud_t *pud,
+ 
+ out:
+ 	spin_unlock(ptl);
+-	/*
+-	 * No need to double call mmu_notifier->invalidate_range() callback as
+-	 * the above pudp_huge_clear_flush_notify() did already call it.
+-	 */
+-	mmu_notifier_invalidate_range_only_end(&range);
++	mmu_notifier_invalidate_range_end(&range);
+ }
+ #endif /* CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD */
+ 
+@@ -2094,7 +2090,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+ 	count_vm_event(THP_SPLIT_PMD);
+ 
+ 	if (!vma_is_anonymous(vma)) {
+-		old_pmd = pmdp_huge_clear_flush_notify(vma, haddr, pmd);
++		old_pmd = pmdp_huge_clear_flush(vma, haddr, pmd);
+ 		/*
+ 		 * We are going to unmap this huge page. So
+ 		 * just go ahead and zap it
+@@ -2304,20 +2300,7 @@ void __split_huge_pmd(struct vm_area_struct *vma, pmd_t *pmd,
+ 
+ out:
+ 	spin_unlock(ptl);
+-	/*
+-	 * No need to double call mmu_notifier->invalidate_range() callback.
+-	 * They are 3 cases to consider inside __split_huge_pmd_locked():
+-	 *  1) pmdp_huge_clear_flush_notify() call invalidate_range() obvious
+-	 *  2) __split_huge_zero_page_pmd() read only zero page and any write
+-	 *    fault will trigger a flush_notify before pointing to a new page
+-	 *    (it is fine if the secondary mmu keeps pointing to the old zero
+-	 *    page in the meantime)
+-	 *  3) Split a huge pmd into pte pointing to the same page. No need
+-	 *     to invalidate secondary tlb entry they are all still valid.
+-	 *     any further changes to individual pte will notify. So no need
+-	 *     to call mmu_notifier->invalidate_range()
+-	 */
+-	mmu_notifier_invalidate_range_only_end(&range);
++	mmu_notifier_invalidate_range_end(&range);
+ }
+ 
+ void split_huge_pmd_address(struct vm_area_struct *vma, unsigned long address,
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index dc1ec19..9c6e431 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -5715,7 +5715,6 @@ static vm_fault_t hugetlb_wp(struct mm_struct *mm, struct vm_area_struct *vma,
+ 
+ 		/* Break COW or unshare */
+ 		huge_ptep_clear_flush(vma, haddr, ptep);
+-		mmu_notifier_invalidate_range(mm, range.start, range.end);
+ 		page_remove_rmap(&old_folio->page, vma, true);
+ 		hugepage_add_new_anon_rmap(new_folio, vma, haddr);
+ 		if (huge_pte_uffd_wp(pte))
+diff --git a/mm/memory.c b/mm/memory.c
+index ad79039..8dca544 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -3158,7 +3158,7 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+ 		 * that left a window where the new PTE could be loaded into
+ 		 * some TLBs while the old PTE remains in others.
+ 		 */
+-		ptep_clear_flush_notify(vma, vmf->address, vmf->pte);
++		ptep_clear_flush(vma, vmf->address, vmf->pte);
+ 		folio_add_new_anon_rmap(new_folio, vma, vmf->address);
+ 		folio_add_lru_vma(new_folio, vma);
+ 		/*
+@@ -3204,11 +3204,7 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+ 		pte_unmap_unlock(vmf->pte, vmf->ptl);
+ 	}
+ 
+-	/*
+-	 * No need to double call mmu_notifier->invalidate_range() callback as
+-	 * the above ptep_clear_flush_notify() did already call it.
+-	 */
+-	mmu_notifier_invalidate_range_only_end(&range);
++	mmu_notifier_invalidate_range_end(&range);
+ 
+ 	if (new_folio)
+ 		folio_put(new_folio);
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index e29626e..6c556b5 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -658,7 +658,7 @@ static void migrate_vma_insert_page(struct migrate_vma *migrate,
+ 
+ 	if (flush) {
+ 		flush_cache_page(vma, addr, pte_pfn(orig_pte));
+-		ptep_clear_flush_notify(vma, addr, ptep);
++		ptep_clear_flush(vma, addr, ptep);
+ 		set_pte_at_notify(mm, addr, ptep, entry);
+ 		update_mmu_cache(vma, addr, ptep);
+ 	} else {
+@@ -763,13 +763,8 @@ static void __migrate_device_pages(unsigned long *src_pfns,
+ 			src_pfns[i] &= ~MIGRATE_PFN_MIGRATE;
+ 	}
+ 
+-	/*
+-	 * No need to double call mmu_notifier->invalidate_range() callback as
+-	 * the above ptep_clear_flush_notify() inside migrate_vma_insert_page()
+-	 * did already call it.
+-	 */
+ 	if (notified)
+-		mmu_notifier_invalidate_range_only_end(&range);
++		mmu_notifier_invalidate_range_end(&range);
+ }
+ 
+ /**
+diff --git a/mm/mmu_notifier.c b/mm/mmu_notifier.c
+index b7ad155..453a156 100644
+--- a/mm/mmu_notifier.c
++++ b/mm/mmu_notifier.c
+@@ -551,7 +551,7 @@ int __mmu_notifier_invalidate_range_start(struct mmu_notifier_range *range)
+ 
+ static void
+ mn_hlist_invalidate_end(struct mmu_notifier_subscriptions *subscriptions,
+-			struct mmu_notifier_range *range, bool only_end)
++			struct mmu_notifier_range *range)
+ {
+ 	struct mmu_notifier *subscription;
+ 	int id;
+@@ -559,24 +559,6 @@ mn_hlist_invalidate_end(struct mmu_notifier_subscriptions *subscriptions,
+ 	id = srcu_read_lock(&srcu);
+ 	hlist_for_each_entry_rcu(subscription, &subscriptions->list, hlist,
+ 				 srcu_read_lock_held(&srcu)) {
+-		/*
+-		 * Call invalidate_range here too to avoid the need for the
+-		 * subsystem of having to register an invalidate_range_end
+-		 * call-back when there is invalidate_range already. Usually a
+-		 * subsystem registers either invalidate_range_start()/end() or
+-		 * invalidate_range(), so this will be no additional overhead
+-		 * (besides the pointer check).
+-		 *
+-		 * We skip call to invalidate_range() if we know it is safe ie
+-		 * call site use mmu_notifier_invalidate_range_only_end() which
+-		 * is safe to do when we know that a call to invalidate_range()
+-		 * already happen under page table lock.
+-		 */
+-		if (!only_end && subscription->ops->invalidate_range)
+-			subscription->ops->invalidate_range(subscription,
+-							    range->mm,
+-							    range->start,
+-							    range->end);
+ 		if (subscription->ops->invalidate_range_end) {
+ 			if (!mmu_notifier_range_blockable(range))
+ 				non_block_start();
+@@ -589,8 +571,7 @@ mn_hlist_invalidate_end(struct mmu_notifier_subscriptions *subscriptions,
+ 	srcu_read_unlock(&srcu, id);
+ }
+ 
+-void __mmu_notifier_invalidate_range_end(struct mmu_notifier_range *range,
+-					 bool only_end)
++void __mmu_notifier_invalidate_range_end(struct mmu_notifier_range *range)
+ {
+ 	struct mmu_notifier_subscriptions *subscriptions =
+ 		range->mm->notifier_subscriptions;
+@@ -600,7 +581,7 @@ void __mmu_notifier_invalidate_range_end(struct mmu_notifier_range *range,
+ 		mn_itree_inv_end(subscriptions);
+ 
+ 	if (!hlist_empty(&subscriptions->list))
+-		mn_hlist_invalidate_end(subscriptions, range, only_end);
++		mn_hlist_invalidate_end(subscriptions, range);
+ 	lock_map_release(&__mmu_notifier_invalidate_range_start_map);
+ }
+ 
+diff --git a/mm/rmap.c b/mm/rmap.c
+index 1355bf6..51ec8aa 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -985,13 +985,6 @@ static int page_vma_mkclean_one(struct page_vma_mapped_walk *pvmw)
+ #endif
+ 		}
+ 
+-		/*
+-		 * No need to call mmu_notifier_invalidate_range() as we are
+-		 * downgrading page table protection not changing it to point
+-		 * to a new page.
+-		 *
+-		 * See Documentation/mm/mmu_notifier.rst
+-		 */
+ 		if (ret)
+ 			cleaned++;
+ 	}
+@@ -1549,8 +1542,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 					hugetlb_vma_unlock_write(vma);
+ 					flush_tlb_range(vma,
+ 						range.start, range.end);
+-					mmu_notifier_invalidate_range(mm,
+-						range.start, range.end);
+ 					/*
+ 					 * The ref count of the PMD page was
+ 					 * dropped which is part of the way map
+@@ -1623,9 +1614,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 			 * copied pages.
+ 			 */
+ 			dec_mm_counter(mm, mm_counter(&folio->page));
+-			/* We have to invalidate as we cleared the pte */
+-			mmu_notifier_invalidate_range(mm, address,
+-						      address + PAGE_SIZE);
+ 		} else if (folio_test_anon(folio)) {
+ 			swp_entry_t entry = { .val = page_private(subpage) };
+ 			pte_t swp_pte;
+@@ -1637,9 +1625,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 					folio_test_swapcache(folio))) {
+ 				WARN_ON_ONCE(1);
+ 				ret = false;
+-				/* We have to invalidate as we cleared the pte */
+-				mmu_notifier_invalidate_range(mm, address,
+-							address + PAGE_SIZE);
+ 				page_vma_mapped_walk_done(&pvmw);
+ 				break;
+ 			}
+@@ -1670,9 +1655,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 				 */
+ 				if (ref_count == 1 + map_count &&
+ 				    !folio_test_dirty(folio)) {
+-					/* Invalidate as we cleared the pte */
+-					mmu_notifier_invalidate_range(mm,
+-						address, address + PAGE_SIZE);
+ 					dec_mm_counter(mm, MM_ANONPAGES);
+ 					goto discard;
+ 				}
+@@ -1727,9 +1709,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 			if (pte_uffd_wp(pteval))
+ 				swp_pte = pte_swp_mkuffd_wp(swp_pte);
+ 			set_pte_at(mm, address, pvmw.pte, swp_pte);
+-			/* Invalidate as we cleared the pte */
+-			mmu_notifier_invalidate_range(mm, address,
+-						      address + PAGE_SIZE);
+ 		} else {
+ 			/*
+ 			 * This is a locked file-backed folio,
+@@ -1745,13 +1724,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 			dec_mm_counter(mm, mm_counter_file(&folio->page));
+ 		}
+ discard:
+-		/*
+-		 * No need to call mmu_notifier_invalidate_range() it has be
+-		 * done above for all cases requiring it to happen under page
+-		 * table lock before mmu_notifier_invalidate_range_end()
+-		 *
+-		 * See Documentation/mm/mmu_notifier.rst
+-		 */
+ 		page_remove_rmap(subpage, vma, folio_test_hugetlb(folio));
+ 		if (vma->vm_flags & VM_LOCKED)
+ 			mlock_drain_local();
+@@ -1930,8 +1902,6 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
+ 					hugetlb_vma_unlock_write(vma);
+ 					flush_tlb_range(vma,
+ 						range.start, range.end);
+-					mmu_notifier_invalidate_range(mm,
+-						range.start, range.end);
+ 
+ 					/*
+ 					 * The ref count of the PMD page was
+@@ -2036,9 +2006,6 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
+ 			 * copied pages.
+ 			 */
+ 			dec_mm_counter(mm, mm_counter(&folio->page));
+-			/* We have to invalidate as we cleared the pte */
+-			mmu_notifier_invalidate_range(mm, address,
+-						      address + PAGE_SIZE);
+ 		} else {
+ 			swp_entry_t entry;
+ 			pte_t swp_pte;
+@@ -2102,13 +2069,6 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
+ 			 */
+ 		}
+ 
+-		/*
+-		 * No need to call mmu_notifier_invalidate_range() it has be
+-		 * done above for all cases requiring it to happen under page
+-		 * table lock before mmu_notifier_invalidate_range_end()
+-		 *
+-		 * See Documentation/mm/mmu_notifier.rst
+-		 */
+ 		page_remove_rmap(subpage, vma, folio_test_hugetlb(folio));
+ 		if (vma->vm_flags & VM_LOCKED)
+ 			mlock_drain_local();
+-- 
+git-series 0.9.1
