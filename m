@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 196ADC0015E
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jul 2023 04:15:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2BCFC001DF
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jul 2023 04:15:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA8E110E648;
-	Fri, 28 Jul 2023 04:15:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35A7310E64B;
+	Fri, 28 Jul 2023 04:15:51 +0000 (UTC)
 Received: from mgamail.intel.com (unknown [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D0C410E63A;
- Fri, 28 Jul 2023 04:15:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EAA110E64A;
+ Fri, 28 Jul 2023 04:15:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1690517742; x=1722053742;
+ t=1690517749; x=1722053749;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=3NJn6HkfWqckR2CUb1FU/403WNw30ALVmaN1njFlxRE=;
- b=BDAvxnrAdcqSD/9+g4JNfht8LPtmCt7q8JBoyagORyeaMxXCC8KtHkkf
- 2CXwf41KgXaGY9ek4y4Z8WoIVWQGzBzAb3uqwj0siow8fHkZtmMyy6xjD
- BENM9eErgn/Dnj46foJKOBooe4/4+Ugli5AryarogSwA+hnJuKPJYHN9L
- sSua4AzIPqmggF5BpsgHjfyVKUnEX1YxhnyUZmSVUk120J7ZvHFobUDSM
- o7dFNUMO6kLDlTmEpSqQUyrEeNp9M9EyHoFyrpa9eH3E+RCnqJjmB+8ja
- dZt3+2jAwoP6OyGxlmoxbh2a/qchZ2Yv7+3CCZmfyyWwJsXdMZ907xehc Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10784"; a="348104176"
-X-IronPort-AV: E=Sophos;i="6.01,236,1684825200"; d="scan'208";a="348104176"
+ bh=sHRyq0GLA3STbtBmqDBIwz9A3tlbiTFduRVlE5lav/0=;
+ b=PXEkWDPpMCZeFn+AaKnVmkh+rwC8lzibRwy9l576BQ7YbnFpRA2EvfTn
+ k53YVu1RgPKuTdH/mbyDCotjaSEoG2i/VPKkgp1DNkBJr/LHN47zMAcUo
+ KwrYyGcCcS/FXElX+riKo0YTMf8QwdgwekJ8uGt+TtgZrMJHDIB42ky4A
+ Toy7ADBFz0r6Jov0pm7BW/lIYKUT2z3o3IYD4EHgLvyrP0ai29y+WDTj9
+ BNj7ikYzOUD+x7Gn64p2nhgmgh7Zn8tqY5Fh2w7VOxmx3AwLGVmJYVXh5
+ 5oKiVTDhq2MUVdN4qe0eL8dAqoo53Qc3RoYVcLzVNGZbz5jf/EY2VjEwU A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10784"; a="348104186"
+X-IronPort-AV: E=Sophos;i="6.01,236,1684825200"; d="scan'208";a="348104186"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2023 21:15:42 -0700
+ 27 Jul 2023 21:15:49 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10784"; a="797276313"
-X-IronPort-AV: E=Sophos;i="6.01,236,1684825200"; d="scan'208";a="797276313"
+X-IronPort-AV: E=McAfee;i="6600,9927,10784"; a="797276381"
+X-IronPort-AV: E=Sophos;i="6.01,236,1684825200"; d="scan'208";a="797276381"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2023 21:15:40 -0700
+ 27 Jul 2023 21:15:46 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Fri, 28 Jul 2023 09:41:39 +0530
-Message-Id: <20230728041150.2524032-10-ankit.k.nautiyal@intel.com>
+Date: Fri, 28 Jul 2023 09:41:42 +0530
+Message-Id: <20230728041150.2524032-13-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230728041150.2524032-1-ankit.k.nautiyal@intel.com>
 References: <20230728041150.2524032-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 09/20] drm/i915/dp: Avoid forcing DSC BPC for
- MST case
+Subject: [Intel-gfx] [PATCH 12/20] drm/i915/dp: Avoid left shift of DSC
+ output bpp by 4
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,62 +62,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For MST the bpc is hardcoded to 8, and pipe bpp to 24.
-So avoid forcing DSC bpc for MST case.
-
-v2: Warn and ignore the debug flag than to bail out. (Jani)
-
-v3: Fix dbg message to mention forced bpc instead of bpp.
-
-v4: Fix checkpatch longline warning.
+To make way for fractional bpp support, avoid left shifting the
+output_bpp by 4 in helper intel_dp_dsc_get_output_bpp.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c     | 12 ++++++------
- drivers/gpu/drm/i915/display/intel_dp_mst.c |  5 +++++
- 2 files changed, 11 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c     | 10 +++-------
+ drivers/gpu/drm/i915/display/intel_dp_mst.c |  2 +-
+ 2 files changed, 4 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index c5d2e6f538ed..7ec8a478e000 100644
+index 78ac8f4fd348..c1eb0d1e229e 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1697,14 +1697,14 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 	if (!intel_dp_dsc_supports_format(intel_dp, pipe_config->output_format))
- 		return -EINVAL;
+@@ -814,11 +814,7 @@ u16 intel_dp_dsc_get_max_compressed_bpp(struct drm_i915_private *i915,
  
--	if (compute_pipe_bpp)
-+	if (intel_dp->force_dsc_bpc && compute_pipe_bpp) {
-+		pipe_bpp = intel_dp->force_dsc_bpc * 3;
-+		drm_dbg_kms(&dev_priv->drm, "Input DSC BPC forced to %d\n",
-+			    intel_dp->force_dsc_bpc);
-+	} else if (compute_pipe_bpp) {
- 		pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, conn_state->max_requested_bpc);
--	else
-+	} else {
- 		pipe_bpp = pipe_config->pipe_bpp;
--
--	if (intel_dp->force_dsc_bpc) {
--		pipe_bpp = intel_dp->force_dsc_bpc * 3;
--		drm_dbg_kms(&dev_priv->drm, "Input DSC BPP forced to %d", pipe_bpp);
- 	}
+ 	bits_per_pixel = intel_dp_dsc_nearest_valid_bpp(i915, bits_per_pixel, pipe_bpp);
  
- 	/* Min Input BPC for ICL+ is 8 */
+-	/*
+-	 * Compressed BPP in U6.4 format so multiply by 16, for Gen 11,
+-	 * fractional part is 0
+-	 */
+-	return bits_per_pixel << 4;
++	return bits_per_pixel;
+ }
+ 
+ u8 intel_dp_dsc_get_slice_count(struct intel_dp *intel_dp,
+@@ -1208,7 +1204,7 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+ 								    mode->hdisplay,
+ 								    bigjoiner,
+ 								    output_format,
+-								    pipe_bpp, 64) >> 4;
++								    pipe_bpp, 64);
+ 			dsc_slice_count =
+ 				intel_dp_dsc_get_slice_count(intel_dp,
+ 							     target_clock,
+@@ -1814,7 +1810,7 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 							     pipe_config->pipe_bpp);
+ 
+ 			pipe_config->dsc.compressed_bpp = min_t(u16,
+-								dsc_max_compressed_bpp >> 4,
++								dsc_max_compressed_bpp,
+ 								output_bpp);
+ 		}
+ 		pipe_config->dsc.slice_count = dsc_dp_slice_count;
 diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 1f00713fb1ad..dff4717edbd0 100644
+index dff4717edbd0..4895d6242915 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -361,6 +361,11 @@ static int intel_dp_mst_compute_config(struct intel_encoder *encoder,
- 	/* enable compression if the mode doesn't fit available BW */
- 	drm_dbg_kms(&dev_priv->drm, "Force DSC en = %d\n", intel_dp->force_dsc_en);
- 	if (ret || intel_dp->force_dsc_en) {
-+		/*
-+		 * FIXME: As bpc is hardcoded to 8, as mentioned above,
-+		 * WARN and ignore the debug flag force_dsc_bpc for now.
-+		 */
-+		drm_WARN(&dev_priv->drm, intel_dp->force_dsc_bpc, "Cannot Force BPC for MST\n");
- 		/*
- 		 * Try to get at least some timeslots and then see, if
- 		 * we can fit there with DSC.
+@@ -982,7 +982,7 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
+ 								    mode->hdisplay,
+ 								    bigjoiner,
+ 								    INTEL_OUTPUT_FORMAT_RGB,
+-								    pipe_bpp, 64) >> 4;
++								    pipe_bpp, 64);
+ 			dsc_slice_count =
+ 				intel_dp_dsc_get_slice_count(intel_dp,
+ 							     target_clock,
 -- 
 2.40.1
 
