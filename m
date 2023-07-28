@@ -4,57 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39E36C0015E
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jul 2023 12:56:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39A8EC001DF
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Jul 2023 12:56:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C09A410E008;
-	Fri, 28 Jul 2023 12:55:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCE3110E203;
+	Fri, 28 Jul 2023 12:56:22 +0000 (UTC)
 Received: from mgamail.intel.com (unknown [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D4BE10E008;
- Fri, 28 Jul 2023 12:55:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93F4210E203
+ for <intel-gfx@lists.freedesktop.org>; Fri, 28 Jul 2023 12:56:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1690548958; x=1722084958;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=L4VEhffOgpCKPxckweM3hwztRXYIRfeIsdzYLQ7GH0k=;
- b=KE8ZMHfapaNdFHCvOsS7YobxVuwmmSHFsEoMNIeEOkLFEa11Zdo5PgPd
- lNsB/1r/XVuR/pY6wxUsRkw5gfXAoauF5jqNjpVVaXjSK6WGzj7B8hsp4
- zHkCuhwB3Ea6990RI62PhSMBFpqkgJwv6Csn+CMoqWmZQ98RBta2E4KtW
- /p4F8Er9M0JMdnXTMsimiOSkegm1RiYJ6StuC5mJO/TXP0iI2j1LS0tKo
- dfQ9qK6BMFniHRF2VxP1r8Blv/Kk9STJrrjRg45h1oMalgjUPdIXRlr6j
- cepRSqmNz2mGHVCd0yAwG/QLvbtA55HtPJv+K5phs94Ywfwhis6ZSMSSS g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10784"; a="358612244"
-X-IronPort-AV: E=Sophos;i="6.01,237,1684825200"; d="scan'208";a="358612244"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ t=1690548979; x=1722084979;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=kYVln8hALIDAQQJtIfb1HsilS6Ejpui+A/n9x25GZrk=;
+ b=YQCjjF7IMkdE3bQYD/dSeyCIXVZykAgBet7miO/+/FIHEOVK5srVwWfi
+ XVoh4mv8ul63jST+7GfomQJQdDqgE82Qd2n/ypuQPZuxfarlwE3AQaGwi
+ PN2KJyQzmga+wIu/p1henzppoN1nYSwkKAVyxThL2o/USWXuR/RBWJQFK
+ N2IQ1W9yJ4JAAS4SZbjR0OLFlahOBoFdFhFAGdg9Rk1GdF5dvH/6KBW5I
+ DAgG9urqx0qk0DeR0eRJ2xdDNNkapbfYSn0V/uVQFLlqyZzgZnFjIAm3L
+ g1GM9AF84ExjSUxUb/SeaZgTNhc1tKV3i/UoVjtcuOzwjzGMa7xykTDCF g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10784"; a="358612273"
+X-IronPort-AV: E=Sophos;i="6.01,237,1684825200"; d="scan'208";a="358612273"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2023 05:55:57 -0700
+ 28 Jul 2023 05:56:19 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10784"; a="730740004"
-X-IronPort-AV: E=Sophos;i="6.01,237,1684825200"; d="scan'208";a="730740004"
-Received: from atoomey-mobl.amr.corp.intel.com (HELO [10.213.197.30])
- ([10.213.197.30])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2023 05:55:55 -0700
-Message-ID: <c4ff98f9-81e7-3f42-2e63-14782410037a@linux.intel.com>
-Date: Fri, 28 Jul 2023 13:55:52 +0100
+X-IronPort-AV: E=McAfee;i="6600,9927,10784"; a="727473050"
+X-IronPort-AV: E=Sophos;i="6.01,237,1684825200"; d="scan'208";a="727473050"
+Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.223.74.76])
+ by orsmga002.jf.intel.com with ESMTP; 28 Jul 2023 05:56:17 -0700
+From: Animesh Manna <animesh.manna@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri, 28 Jul 2023 18:16:03 +0530
+Message-Id: <20230728124609.2911830-1-animesh.manna@intel.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: "Yang, Fei" <fei.yang@intel.com>,
- "Intel-gfx@lists.freedesktop.org" <Intel-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-References: <20230727145504.1919316-1-tvrtko.ursulin@linux.intel.com>
- <20230727145504.1919316-5-tvrtko.ursulin@linux.intel.com>
- <BYAPR11MB256702AD6B37216420298B699A06A@BYAPR11MB2567.namprd11.prod.outlook.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <BYAPR11MB256702AD6B37216420298B699A06A@BYAPR11MB2567.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [RFC 4/8] drm/i915: Refactor PAT/object cache
- handling
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v3 0/6] Panel replay phase1 implementation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,82 +55,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Roper, Matthew D" <matthew.d.roper@intel.com>,
- Chris Wilson <chris.p.wilson@linux.intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Panel Replay is a power saving feature for DP 2.0 monitor and similar
+to PSR on EDP.
 
-On 28/07/2023 08:14, Yang, Fei wrote:
-> [snip]
->> @@ -41,14 +42,17 @@ static bool gpu_write_needs_clflush(struct drm_i915_gem_object *obj)
->>                return false;
->>
->>        /*
->> -      * For objects created by userspace through GEM_CREATE with pat_index
->> -      * set by set_pat extension, i915_gem_object_has_cache_level() will
->> -      * always return true, because the coherency of such object is managed
-> 
-> i915_gem_object_has_cache_level() always return true means this function
-> always return false.
-> 
->> -      * by userspace. Othereise the call here would fall back to checking
->> -      * whether the object is un-cached or write-through.
->> +      * Always flush cache for UMD objects with PAT index set.
-> 
-> (obj->pat_set_by_user == true) indicates UMD knows how to handle the coherency,
-> forcing clflush in KMD would be redundant.
+These patches are basic enablement patches added on top of
+existing psr framework to enable full-screen live active frame
+update mode of panel replay. Panel replay also can be enabled
+in selective update mode which will be enabled in a incremental
+approach.
 
-For Meteorlake I made gpu_write_needs_clflush() always return false anyway.
+As per current design panel replay priority is higher than psr.
+intel_dp->psr.pr_enabled flag indicate panel replay is enabled.
+intel_dp->psr.pr_enabled + intel_dp->psr.psr2_enabled indicates
+panel replay is enabled in selective update mode.
+intel_dp->psr.pr_enabled + intel_dp->psr.psr2_enabled +
+intel_psr.selective_fetch enabled indicates panel replay is
+enabled in selective update mode with selective fetch.
+PSR replated flags remain same like before.
 
-Could you please submit a patch with kerneldoc for i915_drm.h explaining 
-what the set domain ioctl is expected to do when set pat extension is 
-used? With the focus on the use cases of how userspace is managing 
-coherency using it, or it isn't, or what.
+Note: The patches are not tested due to unavailability of monitor.
 
->>         */
->> -     return !(i915_gem_object_has_cache_level(obj, I915_CACHE_NONE) ||
->> -              i915_gem_object_has_cache_level(obj, I915_CACHE_WT));
->> +     if (obj->pat_set_by_user)
->> +             return true;
-> 
-> return false;
+Cc: Jouni Högander <jouni.hogander@intel.com>
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 
-Oops, thank you! I did warn in the cover letter I was getting confused 
-by boolean logic conversions, cross-referencing three versions, and 
-extracting the pat_set_by_user to call sites. :)
+Animesh Manna (5):
+  drm/panelreplay: dpcd register definition for panelreplay
+  drm/i915/panelreplay: Added HAS_PANEL_REPLAY() macro
+  drm/i915/panelreplay: Initializaton and compute config for panel
+    replay
+  drm/i915/panelreplay: Enable panel replay dpcd initialization for DP
+  drm/i915/panelreplay: enable/disable panel replay
 
->> +
->> +     /*
->> +      * Fully coherent cached access may end up with data in the CPU cache
->> +      * which hasn't hit memory yet.
->> +      */
->> +     return i915_gem_object_has_cache_mode(obj, I915_CACHE_MODE_WB) &&
->> +            i915_gem_object_has_cache_flag(obj, I915_CACHE_FLAG_COH2W);
-> 
-> Why checking COH2W here? The logic was, if UC or WT return false, otherwise
-> return true. So, as long as cache_mode is WB, it's sufficient to say true
-> here, right?
+Jouni Högander (1):
+  drm/i915/psr: Move psr specific dpcd init into own function
 
-I was trying to penetrate the reason behind the check.
+ .../drm/i915/display/intel_display_device.h   |   1 +
+ .../drm/i915/display/intel_display_types.h    |   9 +-
+ drivers/gpu/drm/i915/display/intel_dp.c       |  44 ++++-
+ drivers/gpu/drm/i915/display/intel_psr.c      | 158 +++++++++++++-----
+ include/drm/display/drm_dp.h                  |  11 ++
+ 5 files changed, 168 insertions(+), 55 deletions(-)
 
-Original code was:
+-- 
+2.29.0
 
-        return !(obj->cache_level == I915_CACHE_NONE ||
-                 obj->cache_level == I915_CACHE_WT);
-
-Which is equivalent to "is it WB", right? (Since it matches on both old 
-LLC flavours.)
-
-Which I thought, in the context of this function, is supposed to answer 
-the question of "can there be data in the shared cache written by the 
-GPU but not committed to RAM yet".
-
-And then I thought that can only ever happen with 2-way coherency. 
-Otherwise GPU writes never end up in the CPU cache.
-
-Did I get that wrong? Maybe I have..
-
-Regards,
-
-Tvrtko
