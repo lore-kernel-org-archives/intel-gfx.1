@@ -4,44 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A045C001E0
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Jul 2023 13:27:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4415CC001DE
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Jul 2023 13:27:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6DF510E2A8;
-	Mon, 31 Jul 2023 13:27:22 +0000 (UTC)
-X-Greylist: delayed 508 seconds by postgrey-1.36 at gabe;
- Sun, 30 Jul 2023 14:05:46 UTC
-Received: from out-108.mta1.migadu.com (out-108.mta1.migadu.com
- [IPv6:2001:41d0:203:375::6c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05BD310E09C
- for <intel-gfx@lists.freedesktop.org>; Sun, 30 Jul 2023 14:05:46 +0000 (UTC)
-Message-ID: <40a3ab47-da3e-0d08-b3fa-b4663f3e727d@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1690725435;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=PGVwrSKPSqOKImBWbZoAx1qzxZDIg0U6/MyAhWrgbuQ=;
- b=iwoYw6Haq+kOYGPuPZKv5wW+uOf7UmUbzIK+dEi5BcvQ8JE87XsTTo3/OaLFjVQBD/o/ir
- fRSrCMrpEvqE0XtHAMIKkjF5ulAwlVSYlFZPhPk/oZ9ZcnH4KqxFkMf4MzqaUwsOND4ZDJ
- 4e/ew8GqIOajhMOJNNAbOKquCrq4by4=
-Date: Sun, 30 Jul 2023 21:57:06 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2EC210E2A9;
+	Mon, 31 Jul 2023 13:27:29 +0000 (UTC)
+Received: from soltyk.jannau.net (soltyk.jannau.net [144.76.91.90])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6DC610E789;
+ Fri, 28 Jul 2023 19:44:03 +0000 (UTC)
+Received: by soltyk.jannau.net (Postfix, from userid 1000)
+ id 539692701FE; Fri, 28 Jul 2023 21:44:02 +0200 (CEST)
+Date: Fri, 28 Jul 2023 21:44:02 +0200
+From: Janne Grunau <janne@jannau.net>
+To: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Message-ID: <ZMQaguWtUjYMxw7l@jannau.net>
+References: <20230709202511.287794-1-dmitry.baryshkov@linaro.org>
+ <20230709202511.287794-4-dmitry.baryshkov@linaro.org>
 MIME-Version: 1.0
-To: Matthew Wilcox <willy@infradead.org>
-References: <20230621164557.3510324-1-willy@infradead.org>
- <20230621164557.3510324-4-willy@infradead.org>
- <a2a2180c-62ac-452f-0737-26f01f228c79@linux.dev>
- <ZMZHH5Xc507OZA1O@casper.infradead.org>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-In-Reply-To: <ZMZHH5Xc507OZA1O@casper.infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230709202511.287794-4-dmitry.baryshkov@linaro.org>
 X-Mailman-Approved-At: Mon, 31 Jul 2023 13:27:17 +0000
-Subject: Re: [Intel-gfx] [PATCH 03/13] scatterlist: Add sg_set_folio()
+Subject: Re: [Intel-gfx] [PATCH v6 3/3] drm/bridge_connector: implement
+ oob_hotplug_event
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,38 +39,97 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- linux-afs@lists.infradead.org
+Cc: dri-devel@lists.freedesktop.org,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-arm-msm@vger.kernel.org,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-usb@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, freedreno@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>, Bjorn Andersson <andersson@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On 2023-07-09 23:25:11 +0300, Dmitry Baryshkov wrote:
+> Implement the oob_hotplug_event() callback. Translate it to the HPD
+> notification sent to the HPD bridge in the chain.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-在 2023/7/30 19:18, Matthew Wilcox 写道:
-> On Sun, Jul 30, 2023 at 07:01:26PM +0800, Zhu Yanjun wrote:
->> Does the following function have folio version?
->>
->> "
->> int sg_alloc_append_table_from_pages(struct sg_append_table *sgt_append,
->> 		struct page **pages, unsigned int n_pages, unsigned int offset,
->> 		unsigned long size, unsigned int max_segment,
->> 		unsigned int left_pages, gfp_t gfp_mask)
->> "
-> No -- I haven't needed to convert anything that uses
-> sg_alloc_append_table_from_pages() yet.  It doesn't look like it should
-> be _too_ hard to add a folio version.
-
-In many places, this function is used. So this function needs the folio 
-version.
-
-Another problem, after folio is used, I want to know the performance 
-after folio is implemented.
-
-How to make tests to get the performance?
-
-Thanks a lot.
-
-Zhu Yanjun
-
+Reviewed-by: Janne Grunau <j@jannau.net>
+> ---
+>  drivers/gpu/drm/drm_bridge_connector.c | 29 +++++++++++++++++++++++---
+>  1 file changed, 26 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_bridge_connector.c b/drivers/gpu/drm/drm_bridge_connector.c
+> index 84d8d310ef04..364f6e37fbdc 100644
+> --- a/drivers/gpu/drm/drm_bridge_connector.c
+> +++ b/drivers/gpu/drm/drm_bridge_connector.c
+> @@ -5,6 +5,8 @@
+>  
+>  #include <linux/kernel.h>
+>  #include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/property.h>
+>  #include <linux/slab.h>
+>  
+>  #include <drm/drm_atomic_state_helper.h>
+> @@ -107,10 +109,9 @@ static void drm_bridge_connector_hpd_notify(struct drm_connector *connector,
+>  	}
+>  }
+>  
+> -static void drm_bridge_connector_hpd_cb(void *cb_data,
+> -					enum drm_connector_status status)
+> +static void drm_bridge_connector_handle_hpd(struct drm_bridge_connector *drm_bridge_connector,
+> +					    enum drm_connector_status status)
+>  {
+> -	struct drm_bridge_connector *drm_bridge_connector = cb_data;
+>  	struct drm_connector *connector = &drm_bridge_connector->base;
+>  	struct drm_device *dev = connector->dev;
+>  
+> @@ -123,6 +124,21 @@ static void drm_bridge_connector_hpd_cb(void *cb_data,
+>  	drm_kms_helper_hotplug_event(dev);
+>  }
+>  
+> +static void drm_bridge_connector_hpd_cb(void *cb_data,
+> +					enum drm_connector_status status)
+> +{
+> +	drm_bridge_connector_handle_hpd(cb_data, status);
+> +}
+> +
+> +static void drm_bridge_connector_oob_hotplug_event(struct drm_connector *connector,
+> +						   enum drm_connector_status status)
+> +{
+> +	struct drm_bridge_connector *bridge_connector =
+> +		to_drm_bridge_connector(connector);
+> +
+> +	drm_bridge_connector_handle_hpd(bridge_connector, status);
+> +}
+> +
+>  static void drm_bridge_connector_enable_hpd(struct drm_connector *connector)
+>  {
+>  	struct drm_bridge_connector *bridge_connector =
+> @@ -216,6 +232,7 @@ static const struct drm_connector_funcs drm_bridge_connector_funcs = {
+>  	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
+>  	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
+>  	.debugfs_init = drm_bridge_connector_debugfs_init,
+> +	.oob_hotplug_event = drm_bridge_connector_oob_hotplug_event,
+>  };
+>  
+>  /* -----------------------------------------------------------------------------
+> @@ -351,6 +368,12 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+>  		if (!drm_bridge_get_next_bridge(bridge))
+>  			connector_type = bridge->type;
+>  
+> +#ifdef CONFIG_OF
+> +		if (!drm_bridge_get_next_bridge(bridge) &&
+> +		    bridge->of_node)
+> +			connector->fwnode = fwnode_handle_get(of_fwnode_handle(bridge->of_node));
+> +#endif
+> +
+>  		if (bridge->ddc)
+>  			ddc = bridge->ddc;
+>  
+> -- 
+> 2.39.2
+> 
