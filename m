@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74F87C04FE0
-	for <intel-gfx@archiver.kernel.org>; Sat, 29 Jul 2023 01:36:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E6F6EB64DD
+	for <intel-gfx@archiver.kernel.org>; Sat, 29 Jul 2023 01:36:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D54CD10E222;
-	Sat, 29 Jul 2023 01:36:00 +0000 (UTC)
-Received: from mail-pl1-x64a.google.com (mail-pl1-x64a.google.com
- [IPv6:2607:f8b0:4864:20::64a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EA9F10E7C1
- for <intel-gfx@lists.freedesktop.org>; Sat, 29 Jul 2023 01:35:54 +0000 (UTC)
-Received: by mail-pl1-x64a.google.com with SMTP id
- d9443c01a7336-1bbf8cb6143so2256235ad.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 28 Jul 2023 18:35:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11A9D10E1A5;
+	Sat, 29 Jul 2023 01:36:04 +0000 (UTC)
+Received: from mail-yw1-x1149.google.com (mail-yw1-x1149.google.com
+ [IPv6:2607:f8b0:4864:20::1149])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 486C410E7C7
+ for <intel-gfx@lists.freedesktop.org>; Sat, 29 Jul 2023 01:36:02 +0000 (UTC)
+Received: by mail-yw1-x1149.google.com with SMTP id
+ 00721157ae682-5618857518dso26881807b3.2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 28 Jul 2023 18:36:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20221208; t=1690594554; x=1691199354;
+ d=google.com; s=20221208; t=1690594561; x=1691199361;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
- bh=tz4uZaQVsPCslkoe6oa8SQY3RtzZLjpuGTuCE1x/oxo=;
- b=rnGsAGmCsCVkvzk/4CeEhRS1uhNwHejWNQjYMUjzvZ9b23PXZzLzHQ7iKvpLO1Zm5o
- sEcAHLrTsKB5yVIPzAw8RrH5ORymgpPHAiDM/Xt64Kov2IqERUDoqTcOGXvoUfc0u6QZ
- X447SLnRfwc80YMR7mIfaKfWAMT5mvZyKlEiZnQwjTwDCpRahtP32ZcYRt0CvZz8E8v4
- t+00GUoSXANKgzpGij7yjEmTxBvUqSswKC0SsnODhH6NFOjVBdboK2rHspDOAzwSQjkg
- IDf0q+2jpzHxwTOMoB02hlRckExnus6yP9NdAAWtZPE/Leok5f6GGdwTeP7Yu3zaGG/L
- 0eGA==
+ bh=/2DXbiQb11naI17RMd9UQ+SDW96I3DO0Ug1YMgWLfXI=;
+ b=N/Xuo31FD/HpJ/r+aiswhIOdyyLh/aqswWM/9gDeiWpXkOdw/BybOvDSugphjjH8vY
+ czkCQ+tWVfw/K0ROTwpFPjyoZ51Hk33bVR6kSeUS5Q07NBHU+9puAFJWpliJC7Kcnsgw
+ DFvz5oS/ppK6Pc7hv2pMJ+KN22NAhA7ZjuxoVq5Zi9bmUdnU0M+QCo2g8xsLagNC4PKy
+ saSZeaXWNfeMQ5IHCoKm13WWjRyS4qfzbr2FQrD2W4y2GkvB0Xbs2lZZrrJ+f/6Os44D
+ CcefGXGMTcsMhro4vMfe22toBHH+4FqzhGk8KS/5pO5Cd3dH/EcnHrsxFwYJ1GujncZ1
+ /cbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690594554; x=1691199354;
+ d=1e100.net; s=20221208; t=1690594561; x=1691199361;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=tz4uZaQVsPCslkoe6oa8SQY3RtzZLjpuGTuCE1x/oxo=;
- b=ILOlXxYKr3tsPXSOPxcZqsUhi45yP1OHql83jUKRVDW8k7u311ueUb4RnHSEsz3Gor
- ynxKQC4+b4U2hCfyHTXACdiyK44jrBKOt2y+9kRF/wLkUn+asZHOqG4gPvZIb6alwQ+6
- ivr4+YQERffS/mCmjlzBlbrY8jcrRty3SQPQ4c6zZ6L31Qcrs7C3d6mknyNCCih4DXjC
- MZqGXNeZ63cPpjfxLT6UH+yeqVtESVFVxQrmgKTBDguXWUWS0/Y5oiYVk2jaZcT62ldd
- looG2T8eHxfHnwS4d3eMRJHO5hux7V3jRVNb5kY3TUK7M1i6dLKLLosxzVACHAifdDVq
- WRHw==
-X-Gm-Message-State: ABy/qLbMUVOYAIB5kKC4hhXX4ATkXaL9mQQ68o2pU8kDKWYfAgAAA2Lm
- Y5uO1KjHY9BtOUfx3qdmTJZxuiV8uOo=
-X-Google-Smtp-Source: APBJJlFTmYd3lxACjYxVtuqT/iV7PakjZr1YHFf1k1mB2XIV8e9HvgrPxsj425QqhvZ8l6epZt90DIBSddM=
+ bh=/2DXbiQb11naI17RMd9UQ+SDW96I3DO0Ug1YMgWLfXI=;
+ b=RGI8c57VSoJj4SYTs5Sv9pjQBrylzCiF/3UcvPAwjHWgm5srysOxXB9KJo2qi2wGrT
+ WVgEbF5EAOkwAq/cC1YH5EnYyBfeKPrDK5h+c2EhlvIT0pYMWnBl6CkyslhRJhAyRJi0
+ 3NsAEJPb1oqXYIR9Nb5ed1ZCdSffP0dl5IWVZOuYRcG1TS0obMcYIi8NIXHWBrAq0Kel
+ hHCHHTkqSfR4FZE34yC6raySjqrO0WIuJtqgIIf4FL0Dme15WGtRG+B8MiPmuzmEe5xj
+ j+yX3C0hraVsZbPbgJTpA+qsQaYOyJZSMEl9pPujTpV0mZd+pltYVRyZ2hDHQ22AQjLE
+ dkMA==
+X-Gm-Message-State: ABy/qLanaXrmsdfNhh09Xl+yGXWQ79YXOqwv+ECHdHDmPpPPOT8sW0Gv
+ b5+u2jyigQ517LWpTnrjp96C1YN7M60=
+X-Google-Smtp-Source: APBJJlHjJijCc55w0wljCYyBWJLS5e6GQQI49bMEWRqbhx7NrZHhLmDEmMDXWNJlzx+OwSHEGbtvbQN0Kcs=
 X-Received: from zagreus.c.googlers.com
  ([fda3:e722:ac3:cc00:7f:e700:c0a8:5c37])
- (user=seanjc job=sendgmr) by 2002:a17:902:e5c1:b0:1b7:edcd:8dcf with SMTP id
- u1-20020a170902e5c100b001b7edcd8dcfmr14524plf.4.1690594553462; Fri, 28 Jul
- 2023 18:35:53 -0700 (PDT)
-Date: Fri, 28 Jul 2023 18:35:11 -0700
+ (user=seanjc job=sendgmr) by 2002:a81:ae13:0:b0:576:9519:7085 with SMTP id
+ m19-20020a81ae13000000b0057695197085mr24135ywh.7.1690594561504; Fri, 28 Jul
+ 2023 18:36:01 -0700 (PDT)
+Date: Fri, 28 Jul 2023 18:35:15 -0700
 In-Reply-To: <20230729013535.1070024-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20230729013535.1070024-1-seanjc@google.com>
 X-Mailer: git-send-email 2.41.0.487.g6d72f3e995-goog
-Message-ID: <20230729013535.1070024-6-seanjc@google.com>
+Message-ID: <20230729013535.1070024-10-seanjc@google.com>
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>,
  Paolo Bonzini <pbonzini@redhat.com>, 
  Zhenyu Wang <zhenyuw@linux.intel.com>, Zhi Wang <zhi.a.wang@intel.com>
 Content-Type: text/plain; charset="UTF-8"
-Subject: [Intel-gfx] [PATCH v4 05/29] drm/i915/gvt: Put the page reference
- obtained by KVM's gfn_to_pfn()
+Subject: [Intel-gfx] [PATCH v4 09/29] drm/i915/gvt: Use an "unsigned long"
+ to iterate over memslot gfns
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,43 +80,31 @@ Cc: Yan Zhao <yan.y.zhao@intel.com>, kvm@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Put the struct page reference acquired by gfn_to_pfn(), KVM's API is that
-the caller is ultimately responsible for dropping any reference.
+Use an "unsigned long" instead of an "int" when iterating over the gfns
+in a memslot.  The number of pages in the memslot is tracked as an
+"unsigned long", e.g. KVMGT could theoretically break if a KVM memslot
+larger than 16TiB were deleted (2^32 * 4KiB).
 
-Note, kvm_release_pfn_clean() ensures the pfn is actually a refcounted
-struct page before trying to put any references.
-
-Fixes: b901b252b6cf ("drm/i915/gvt: Add 2M huge gtt support")
 Reviewed-by: Yan Zhao <yan.y.zhao@intel.com>
 Tested-by: Yongwei Ma <yongwei.ma@intel.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- drivers/gpu/drm/i915/gvt/gtt.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gvt/kvmgt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
-index f30922c55a0c..5426a27c1b71 100644
---- a/drivers/gpu/drm/i915/gvt/gtt.c
-+++ b/drivers/gpu/drm/i915/gvt/gtt.c
-@@ -1158,6 +1158,7 @@ static int is_2MB_gtt_possible(struct intel_vgpu *vgpu,
+diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
+index 97c6d3c53710..6f52886c4051 100644
+--- a/drivers/gpu/drm/i915/gvt/kvmgt.c
++++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+@@ -1620,7 +1620,7 @@ static void kvmgt_page_track_flush_slot(struct kvm *kvm,
+ 		struct kvm_memory_slot *slot,
+ 		struct kvm_page_track_notifier_node *node)
  {
- 	const struct intel_gvt_gtt_pte_ops *ops = vgpu->gvt->gtt.pte_ops;
- 	kvm_pfn_t pfn;
-+	int ret;
- 
- 	if (!HAS_PAGE_SIZES(vgpu->gvt->gt->i915, I915_GTT_PAGE_SIZE_2M))
- 		return 0;
-@@ -1171,7 +1172,9 @@ static int is_2MB_gtt_possible(struct intel_vgpu *vgpu,
- 	if (!pfn_valid(pfn))
- 		return -EINVAL;
- 
--	return PageTransHuge(pfn_to_page(pfn));
-+	ret = PageTransHuge(pfn_to_page(pfn));
-+	kvm_release_pfn_clean(pfn);
-+	return ret;
- }
- 
- static int split_2MB_gtt_entry(struct intel_vgpu *vgpu,
+-	int i;
++	unsigned long i;
+ 	gfn_t gfn;
+ 	struct intel_vgpu *info =
+ 		container_of(node, struct intel_vgpu, track_node);
 -- 
 2.41.0.487.g6d72f3e995-goog
 
