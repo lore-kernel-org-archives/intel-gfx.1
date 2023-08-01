@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89955C04FDF
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 17:03:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 311A9C04FE0
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 17:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A94DB10E438;
-	Tue,  1 Aug 2023 17:03:40 +0000 (UTC)
-Received: from mail-oa1-x2d.google.com (mail-oa1-x2d.google.com
- [IPv6:2001:4860:4864:20::2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF43110E433;
- Tue,  1 Aug 2023 17:03:34 +0000 (UTC)
-Received: by mail-oa1-x2d.google.com with SMTP id
- 586e51a60fabf-1bc479cc815so2495747fac.1; 
- Tue, 01 Aug 2023 10:03:34 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14BA910E436;
+	Tue,  1 Aug 2023 17:03:41 +0000 (UTC)
+Received: from mail-oa1-x32.google.com (mail-oa1-x32.google.com
+ [IPv6:2001:4860:4864:20::32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68F0310E428;
+ Tue,  1 Aug 2023 17:03:32 +0000 (UTC)
+Received: by mail-oa1-x32.google.com with SMTP id
+ 586e51a60fabf-1bb7e083783so4526601fac.2; 
+ Tue, 01 Aug 2023 10:03:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1690909414; x=1691514214;
+ d=gmail.com; s=20221208; t=1690909411; x=1691514211;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=gFBA7Lr3JItg7OYfOcjW/1QCQzqvPk7XHacFdueAfEI=;
- b=fyEaICFFhma8ZDWVxdrVdT9mRYJOqU4wwrKqayrPPIzSX0jgeT8MHqKihpTqpfkPX0
- AuU1FrgxAstF27oCCP7HObML0aANdtcIuVhVQy/6BcY3Za+6CfR6UZD9RyDXKFmdjeDd
- j9eVLnXhi+TVfFDHPVlzTPS+WxSeS2sS8V9+k8g2M60r0Yqn//MxO8UkjHL97X1DitKa
- uNwYK93r5TRV5sMkgolxy0OA7ewh9gqSDelFGBzucaO/d8T3YLjIFtMpJp7R/uIwxsaT
- QhEiR5Rykzc2qmm1yk+lqFHMii8Za4P2+ZIQ7Ul1pBHT+nM3Di1EFuIgHltaIVEDKoNN
- xoNQ==
+ bh=p+1GuJCShDFcAnu3Rt/esJZ1+/xltgRApQJJKXLv5HA=;
+ b=HzKI8jwVyBockTJ3E7ia/Wh/USsHoxvBwCsc09/TYbl5wV36S4guDYN8TUzljUvS7T
+ DxP4nJu++XOxx16ZDoEjAP679YQJHtwybsdt/I8tqtY4DuhsD2KKs9ig/uGTB0Ct7vHw
+ uTq8+j0Pc2tB3PJ31FAiXRVV1mzTx+c573xSviel0eavnGwbt01YO8oJFOsWzq4TRiiv
+ Sodx0loTWeHHpn94tJFGcJ+NMQFLvZUrEyNBzQzYLqdjrcB/s0KAP+pisy7gYgenA31W
+ 5iIom/DhSvpJkfaahc2JCmAd5WnXr6amDCmzYSXhok3jbfCJWmgd4xqcTSwOG3ZKfSwi
+ C4iA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690909414; x=1691514214;
+ d=1e100.net; s=20221208; t=1690909411; x=1691514211;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=gFBA7Lr3JItg7OYfOcjW/1QCQzqvPk7XHacFdueAfEI=;
- b=WSq859gS/kmtHbdhljzbQt+EdLpdS5c1neTs/iwETcIoE7ayERqVaDjupejSW0bq8N
- CRK61zQlx/3V5WRMFyxN1x5lOUbhW3PQHC4TVNiswYR34cR8nPJ0tPZHOGHeCXbWXwpJ
- PtUDBg6W3dv8sKHFmBHshIEJ8pDXNrdQF0z7E9jcCrznK5/PZc5+QoTWhw9zpVC85SpO
- fG4V6DqOyZUSqbYqrzlmNr6wZ0w4bgVYS3J40fwdn5L0GWVWFq9XohrgBBy0LboduwCQ
- S44gJXWrXj+kFCbQ/weDh7Wadmg5e+gM0D5r/PBA6htrMHmO9oahEcj/6xIYvk/QDuIY
- myRw==
-X-Gm-Message-State: ABy/qLZnGAVy8sWvcdktJ5vocqUEGGz6bt4Wp1lesNE5gAEIAkBO9nrR
- NeD93x/9BNdoZMSpz2+Y+pbIpurZkmvIoihl
-X-Google-Smtp-Source: APBJJlGssyyVGAfHxBiKUeWr+27L5iBh1gEWtkvxA15BwySavPliopjND05fY7zX72MTh1+f20XCag==
-X-Received: by 2002:a05:6870:a548:b0:1be:e066:acc with SMTP id
- p8-20020a056870a54800b001bee0660accmr7146920oal.50.1690909413929; 
- Tue, 01 Aug 2023 10:03:33 -0700 (PDT)
+ bh=p+1GuJCShDFcAnu3Rt/esJZ1+/xltgRApQJJKXLv5HA=;
+ b=SerBv4zOb8VXtIZBE1jRd3HxFN1TXZHQwjy1srALSp/qOl7z63QTmVd9Ha33glN5RD
+ AXz9z2NqYOhCsfmYfwai0CU6YguyeOymsOxQAPK3Sfo84z69K/Iee21UbDfiqFZiogBL
+ 9RTCcy6vZs8yc3P1gribQW59dTugSl3IyOAaWY6Yh5VkpZEMuQksqUSvz4ZZMcPO/T9V
+ QjVVsrXysRsLHzySHSbsZ0PURpoImxhbfH4aWg0at0PNRRRhVt2+CrO/0/KdbwhDo0I0
+ fOP0bzL4c1Hw/Q9MRlHrfsZ2RrfeGUFitWTO+0TWYu5B1HUPkqi/JI2Y6Ph3tatI6ZOM
+ kmsQ==
+X-Gm-Message-State: ABy/qLYtuLzstsfLY+IBjyXQKxgYQxSUyaLVdCgzD473RHHfTIBj/LjI
+ 8NACZWBvMZwCik8LkReTN1Q=
+X-Google-Smtp-Source: APBJJlFoQ6CtrSOuV3m8GK6ZRAmSVy+9iQ7lx15x5THUYzSbB0IcQ4iOtUGep5vQzntc3/Mh98xmHg==
+X-Received: by 2002:a05:6870:538c:b0:19f:4dc2:428e with SMTP id
+ h12-20020a056870538c00b0019f4dc2428emr14352861oan.14.1690909411466; 
+ Tue, 01 Aug 2023 10:03:31 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o20-20020a02c6b4000000b0042b144abf71sm3768577jan.179.2023.08.01.10.03.32
+ o20-20020a02c6b4000000b0042b144abf71sm3768577jan.179.2023.08.01.10.03.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Aug 2023 10:03:33 -0700 (PDT)
+ Tue, 01 Aug 2023 10:03:31 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, daniel@ffwll.ch, jbaron@akamai.com,
  gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Aug 2023 11:02:46 -0600
-Message-ID: <20230801170255.163237-15-jim.cromie@gmail.com>
+Date: Tue,  1 Aug 2023 11:02:44 -0600
+Message-ID: <20230801170255.163237-13-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230801170255.163237-1-jim.cromie@gmail.com>
 References: <20230801170255.163237-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 13/22] checkpatch: special case for
- file-scoped extern linker-symbol
+Subject: [Intel-gfx] [PATCH v5 12/22] dyndbg-API: remove
+ DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,85 +77,222 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: apw@canonical.com, jani.nikula@intel.com, linux@rasmusvillemoes.dk,
+Cc: jani.nikula@intel.com, linux@rasmusvillemoes.dk,
  Jim Cromie <jim.cromie@gmail.com>, seanpaul@chromium.org, joe@perches.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-"externs should be avoided in .c files" needs an exception for linker
-symbols, like those that mark the start, stop of many kernel sections.
+Remove the NAMED class types; these 2 classmap types accept class
+names at the PARAM interface, for example:
 
-Since code already checks REALNAME to avoid linker-scripts entirely,
-add a new else-if block to look at them instead.  As a simple
-heuristic, treat all words (in the patch-line) as possible symbols,
-and save them to screen the WARN quoted above.
+  echo +DRM_UT_CORE,-DRM_UT_KMS > /sys/module/drm/parameters/debug_names
 
-For my test case, this included BOUNDED_BY (a macro), which is extra,
-but not troublesome - any extra words collected would have to also be
-symbols the script would otherwise complain about.
+The code works, but its only used by test-dynamic-debug, and wasn't
+asked for by anyone else, so simplify things for now.
 
-Where the WARN is issued, precede it with an else-if block to catch
-one common extern-in-c use case: "extern struct foo bar[]".  Here we
-can at least issue a softer warning, after checking for a match with a
-maybe-linker-symbol parsed earlier from the patch.  Though heuristic,
-it worked for my test-case, allowing both (start|stop)$symbol's,
-matched by $symbol, it wasn't thrown by noise (BOUNDED_BY) in the
-maybe-linker-symbols.
-
-NB: git diff ordering dependence on vmlinux.lds.h before c files ?
-
-Cc: apw@canonical.com
-Cc: joe@perches.com
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- scripts/checkpatch.pl | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ include/linux/dynamic_debug.h |  19 ++-----
+ lib/dynamic_debug.c           | 103 +++-------------------------------
+ lib/test_dynamic_debug.c      |  12 ----
+ 3 files changed, 12 insertions(+), 122 deletions(-)
 
-diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
-index b30114d637c4..f6b6b2a50dfe 100755
---- a/scripts/checkpatch.pl
-+++ b/scripts/checkpatch.pl
-@@ -74,6 +74,8 @@ my $git_command ='export LANGUAGE=en_US.UTF-8; git';
- my $tabsize = 8;
- my ${CONFIG_} = "CONFIG_";
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 719c5b6ad0f9..b927dfacc429 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -59,24 +59,13 @@ struct _ddebug {
+ enum class_map_type {
+ 	DD_CLASS_TYPE_DISJOINT_BITS,
+ 	/**
+-	 * DD_CLASS_TYPE_DISJOINT_BITS: classes are independent, one per bit.
+-	 * expecting hex input. Built for drm.debug, basis for other types.
++	 * DD_CLASS_TYPE_DISJOINT_BITS: classes are independent, mapped to bits[0..N].
++	 * Expects hex input. Built for drm.debug, basis for other types.
+ 	 */
+ 	DD_CLASS_TYPE_LEVEL_NUM,
+ 	/**
+-	 * DD_CLASS_TYPE_LEVEL_NUM: input is numeric level, 0-N.
+-	 * N turns on just bits N-1 .. 0, so N=0 turns all bits off.
+-	 */
+-	DD_CLASS_TYPE_DISJOINT_NAMES,
+-	/**
+-	 * DD_CLASS_TYPE_DISJOINT_NAMES: input is a CSV of [+-]CLASS_NAMES,
+-	 * classes are independent, like _DISJOINT_BITS.
+-	 */
+-	DD_CLASS_TYPE_LEVEL_NAMES,
+-	/**
+-	 * DD_CLASS_TYPE_LEVEL_NAMES: input is a CSV of [+-]CLASS_NAMES,
+-	 * intended for names like: INFO,DEBUG,TRACE, with a module prefix
+-	 * avoid EMERG,ALERT,CRIT,ERR,WARNING: they're not debug
++	 * DD_CLASS_TYPE_LEVEL_NUM: input is numeric level, 0..N.
++	 * Input N turns on bits 0..N-1
+ 	 */
+ };
  
-+my %maybe_linker_symbol; # for externs in c exceptions, when seen in *vmlinux.lds.h
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index abdb54e3ddfa..42320689e283 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -631,77 +631,6 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 
+ #define CLASSMAP_BITMASK(width) ((1UL << (width)) - 1)
+ 
+-/* accept comma-separated-list of [+-] classnames */
+-static int param_set_dyndbg_classnames(const char *instr, const struct kernel_param *kp)
+-{
+-	const struct ddebug_class_param *dcp = kp->arg;
+-	const struct ddebug_class_map *map = dcp->map;
+-	unsigned long curr_bits, old_bits;
+-	char *cl_str, *p, *tmp;
+-	int cls_id, totct = 0;
+-	bool wanted;
+-
+-	cl_str = tmp = kstrdup(instr, GFP_KERNEL);
+-	p = strchr(cl_str, '\n');
+-	if (p)
+-		*p = '\0';
+-
+-	/* start with previously set state-bits, then modify */
+-	curr_bits = old_bits = *dcp->bits;
+-	vpr_info("\"%s\" > %s:0x%lx\n", cl_str, KP_NAME(kp), curr_bits);
+-
+-	for (; cl_str; cl_str = p) {
+-		p = strchr(cl_str, ',');
+-		if (p)
+-			*p++ = '\0';
+-
+-		if (*cl_str == '-') {
+-			wanted = false;
+-			cl_str++;
+-		} else {
+-			wanted = true;
+-			if (*cl_str == '+')
+-				cl_str++;
+-		}
+-		cls_id = match_string(map->class_names, map->length, cl_str);
+-		if (cls_id < 0) {
+-			pr_err("%s unknown to %s\n", cl_str, KP_NAME(kp));
+-			continue;
+-		}
+-
+-		/* have one or more valid class_ids of one *_NAMES type */
+-		switch (map->map_type) {
+-		case DD_CLASS_TYPE_DISJOINT_NAMES:
+-			/* the +/- pertains to a single bit */
+-			if (test_bit(cls_id, &curr_bits) == wanted) {
+-				v3pr_info("no change on %s\n", cl_str);
+-				continue;
+-			}
+-			curr_bits ^= BIT(cls_id);
+-			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, *dcp->bits, NULL);
+-			*dcp->bits = curr_bits;
+-			v2pr_info("%s: changed bit %d:%s\n", KP_NAME(kp), cls_id,
+-				  map->class_names[cls_id]);
+-			break;
+-		case DD_CLASS_TYPE_LEVEL_NAMES:
+-			/* cls_id = N in 0..max. wanted +/- determines N or N-1 */
+-			old_bits = CLASSMAP_BITMASK(*dcp->lvl);
+-			curr_bits = CLASSMAP_BITMASK(cls_id + (wanted ? 1 : 0 ));
+-
+-			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, old_bits, NULL);
+-			*dcp->lvl = (cls_id + (wanted ? 1 : 0));
+-			v2pr_info("%s: changed bit-%d: \"%s\" %lx->%lx\n", KP_NAME(kp), cls_id,
+-				  map->class_names[cls_id], old_bits, curr_bits);
+-			break;
+-		default:
+-			pr_err("illegal map-type value %d\n", map->map_type);
+-		}
+-	}
+-	kfree(tmp);
+-	vpr_info("total matches: %d\n", totct);
+-	return 0;
+-}
+-
+ static int param_set_dyndbg_module_classes(const char *instr,
+ 					   const struct kernel_param *kp,
+ 					   const char *modnm)
+@@ -710,29 +639,17 @@ static int param_set_dyndbg_module_classes(const char *instr,
+ 	const struct ddebug_class_map *map = dcp->map;
+ 	unsigned long inrep, new_bits, old_bits;
+ 	int rc, totct = 0;
+-
+-	switch (map->map_type) {
+-
+-	case DD_CLASS_TYPE_DISJOINT_NAMES:
+-	case DD_CLASS_TYPE_LEVEL_NAMES:
+-		/* handle [+-]classnames list separately, we are done here */
+-		return param_set_dyndbg_classnames(instr, kp);
+-
+-	case DD_CLASS_TYPE_DISJOINT_BITS:
+-	case DD_CLASS_TYPE_LEVEL_NUM:
+-		/* numeric input, accept and fall-thru */
+-		rc = kstrtoul(instr, 0, &inrep);
+-		if (rc) {
+-			pr_err("expecting numeric input: %s > %s\n", instr, KP_NAME(kp));
+-			return -EINVAL;
+-		}
+-		break;
+-	default:
+-		pr_err("%s: bad map type: %d\n", KP_NAME(kp), map->map_type);
++	char *nl;
 +
- sub help {
- 	my ($exitcode) = @_;
++	rc = kstrtoul(instr, 0, &inrep);
++	if (rc) {
++		nl = strchr(instr, '\n');
++		if (nl)
++			*nl = '\0';
++		pr_err("expecting numeric input, not: %s > %s\n", instr, KP_NAME(kp));
+ 		return -EINVAL;
+ 	}
  
-@@ -6051,6 +6053,9 @@ sub process {
+-	/* only _BITS,_NUM (numeric) map-types get here */
+ 	switch (map->map_type) {
+ 	case DD_CLASS_TYPE_DISJOINT_BITS:
+ 		/* expect bits. mask and warn if too many */
+@@ -796,12 +713,8 @@ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
+ 	const struct ddebug_class_map *map = dcp->map;
  
- # check for line continuations outside of #defines, preprocessor #, and asm
+ 	switch (map->map_type) {
+-
+-	case DD_CLASS_TYPE_DISJOINT_NAMES:
+ 	case DD_CLASS_TYPE_DISJOINT_BITS:
+ 		return scnprintf(buffer, PAGE_SIZE, "0x%lx\n", *dcp->bits);
+-
+-	case DD_CLASS_TYPE_LEVEL_NAMES:
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+ 		return scnprintf(buffer, PAGE_SIZE, "%ld\n", *dcp->lvl);
+ 	default:
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index a01f0193a419..229eaadee838 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -102,10 +102,6 @@ static void do_cats(void)
+ {
+ 	pr_debug("doing categories\n");
  
-+		} elsif ($realfile =~ m@/vmlinux.lds.h$@) {
-+		    $line =~ s/(\w+)/$maybe_linker_symbol{$1}++/ge;
-+		    #print "REAL: $realfile\nln: $line\nkeys:", sort keys %maybe_linker_symbol;
- 		} else {
- 			if ($prevline !~ /^..*\\$/ &&
- 			    $line !~ /^\+\s*\#.*\\$/ &&		# preprocessor
-@@ -7107,6 +7112,21 @@ sub process {
- 				     "arguments for function declarations should follow identifier\n" . $herecurr);
- 			}
+-	prdbg(LOW);
+-	prdbg(MID);
+-	prdbg(HI);
+-
+ 	prdbg(D2_CORE);
+ 	prdbg(D2_DRIVER);
+ 	prdbg(D2_KMS);
+@@ -129,14 +125,6 @@ static void do_levels(void)
+ 	prdbg(V5);
+ 	prdbg(V6);
+ 	prdbg(V7);
+-
+-	prdbg(L1);
+-	prdbg(L2);
+-	prdbg(L3);
+-	prdbg(L4);
+-	prdbg(L5);
+-	prdbg(L6);
+-	prdbg(L7);
+ }
  
-+		} elsif ($realfile =~ /\.c$/ && defined $stat &&
-+		    $stat =~ /^\+extern struct\s+(\w+)\s+(\w+)\[\];/)
-+		{
-+			my ($st_type, $st_name) = ($1, $2);
-+
-+			for my $s (keys %maybe_linker_symbol) {
-+			    #print "Linker symbol? $st_name : $s\n";
-+			    goto LIKELY_LINKER_SYMBOL
-+				if $st_name =~ /$s/;
-+			}
-+			WARN("AVOID_EXTERNS",
-+			     "found a file-scoped extern type:$st_type name:$st_name in .c file\n"
-+			     . "is this a linker symbol ?\n" . $herecurr);
-+		  LIKELY_LINKER_SYMBOL:
-+
- 		} elsif ($realfile =~ /\.c$/ && defined $stat &&
- 		    $stat =~ /^.\s*extern\s+/)
- 		{
+ static void do_prints(void)
 -- 
 2.41.0
 
