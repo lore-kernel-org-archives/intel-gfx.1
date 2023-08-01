@@ -4,67 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC4F2C00528
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 17:03:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD341C0015E
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 17:03:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E361110E430;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCF6310E428;
 	Tue,  1 Aug 2023 17:03:33 +0000 (UTC)
-Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
- [IPv6:2607:f8b0:4864:20::c35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25A9510E421;
- Tue,  1 Aug 2023 17:03:30 +0000 (UTC)
-Received: by mail-oo1-xc35.google.com with SMTP id
- 006d021491bc7-56ca9a337caso1564446eaf.1; 
- Tue, 01 Aug 2023 10:03:30 -0700 (PDT)
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
+ [IPv6:2607:f8b0:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4323410E41C;
+ Tue,  1 Aug 2023 17:03:27 +0000 (UTC)
+Received: by mail-pl1-x62f.google.com with SMTP id
+ d9443c01a7336-1bbf0f36ce4so26374095ad.0; 
+ Tue, 01 Aug 2023 10:03:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1690909409; x=1691514209;
+ d=gmail.com; s=20221208; t=1690909407; x=1691514207;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9fCryleot7DYJMVCUstKegVHZxdFt0UcbYK1dV/Zx9Y=;
- b=kROfNG8LDRCn7UgNyAgqsZx6rWtyVz4JtO0DqGP4BXmprbgnYl0ZfixoqPBvhGkHOU
- EU95RXDWQ9rUb+HVd3GNUq5Hhbfo+Jd63RduLoThfH63By1HGzM3fIIxH5EYZOA3fk1t
- xOSTQM1hGCm9bPNXS8l7jMFe1NzNjNFOXY+5SkbgAmGdOlrhPlkff3D8T+xCJJVVxMZj
- jSey6N4JABae7aNdBp+Z9ivpSWuvs286z11haAnSUP+OoJ14dm8baX2yH1+ViERfCHyf
- Pm6D9+hWoxJ40Q/bygWehp4Y0CPgMIZXI7WopcauzC6ikHCTgD5CIAQpne4kQVO0JQKY
- rXwA==
+ bh=Hr0izLtdjBWZs3ssGzIYb8V7ACsieJ7DKGhBAk7WDOQ=;
+ b=jWWdJzMrPYvkgaO0xWPXoih1FqyV7zm6uZ1Sq1Wcnjf8XClyCyFXOnovj9beSLYvRp
+ H5OKOKF0GL9opY8SuxZjGZmJvofGWQgaguj2fXaLGZf/+XbPgMTnixx2rkHJO1X19NW3
+ 2Hrnwe2qi+Gfc1wqjM+MJ0Zesfw00Wzcjt+YLES9S8Y+CXM/QtoX6HaMURJG3pj3Au9B
+ hW7Ct0YfNsTbvj91TIs0SqpInbYaLBZhwaYu0zp+rAUqnatcrks0WEdJYuV8Kc/UFk6d
+ 6K41LRuh8NZzFJefKttt74qDM956AdHqerLCn/WXbdVVlATsmxI9jLJH9+MKiEpkpDMb
+ 5wgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690909409; x=1691514209;
+ d=1e100.net; s=20221208; t=1690909407; x=1691514207;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=9fCryleot7DYJMVCUstKegVHZxdFt0UcbYK1dV/Zx9Y=;
- b=AmO7PdaDtBmyWCr9tEab1R7qXMuuyPBjR4SnBjOrFAoy0jAfhUL4D3OGNS9bLLiJHm
- hDIF45Ve7pVm2ONnFeGCHGJIpumyvsBoK+cJKqj0scV1FjqnRX656DEO9t2COzeygjmA
- srVAwZbn6kp137xO5NQtJfr5lKt34pBKMRRrO/Wgg9IaM4xfsPY29EMuTCmt2USY3mAi
- tJMyx+r7zdpR+mIQCUco0o6ExrvzcUGcrLpcOQbgaENkcez6MbvuG09W3VVsIVOSjOQM
- 8Eyo4E2xaapbbJl+g+jDizPR7sEtgxH5E1UKRUYglXiOeMPmJTwKsdrBqNA0riTYz1O9
- LKCg==
-X-Gm-Message-State: ABy/qLYOWRAd0Jq77Pc+sBcZaMk9A7rNweJ6Y3JBiPaNoIihs0AgYg+0
- IxDEWJHHGbDh/fSmT7vQpJY=
-X-Google-Smtp-Source: APBJJlGGypX+v5MzycUzumx+CRUCdd0/RZ51+QF02i+R9Xx9KDzdU4X8EgAM+zTDxV9IMoWuyMcmsg==
-X-Received: by 2002:a05:6870:82a4:b0:1be:d3a1:fd9 with SMTP id
- q36-20020a05687082a400b001bed3a10fd9mr7622319oae.9.1690909409285; 
- Tue, 01 Aug 2023 10:03:29 -0700 (PDT)
+ bh=Hr0izLtdjBWZs3ssGzIYb8V7ACsieJ7DKGhBAk7WDOQ=;
+ b=KMUxVkkV/vs/6FYvhCIlrXxKxkwjTU0afgHZc1o/cmmtMLIF9AjPLzXlu74kaylTJo
+ XEc6hF5t8bflGd70Zyq4/ZoIoEstGOQKG52yM78nU7iq28+pp/U7Qo+BtKvNM327uhsD
+ MKx6mBD1mBpkERSZEYyr2hlVRmU+9P3Bm+/9U/W0OpcaXC8QmDg1bPrbF07R9laGLuLo
+ RLu2kxXvlsmUFUFLStUE+ORi2O6sxKSOeox5LyRHbUVLblawfL07aA1f5N/R2yYy3gt8
+ +hxTtcdxLWl1qHunZwx0L9na7dEyYPk2YohEXMltz+mB+3ffpXJVYZntLVqllsZU4+NW
+ DqRw==
+X-Gm-Message-State: ABy/qLYX7rapv/Qs9dCBrjgEktOFYse60mCWwpoMi+FAo1BswV7c7U3w
+ reutxANAt3V9C+G1RwSsU6M=
+X-Google-Smtp-Source: APBJJlFGkHfQdy7T1ViQb9dzHaVdo9mSUvH3xAwGTxaHlDh3BJxmO1qB3S7o6sIj1QBFR5d7d0xCPQ==
+X-Received: by 2002:a17:902:e543:b0:1bb:8725:f537 with SMTP id
+ n3-20020a170902e54300b001bb8725f537mr14519195plf.66.1690909406602; 
+ Tue, 01 Aug 2023 10:03:26 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- o20-20020a02c6b4000000b0042b144abf71sm3768577jan.179.2023.08.01.10.03.27
+ o20-20020a02c6b4000000b0042b144abf71sm3768577jan.179.2023.08.01.10.03.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Aug 2023 10:03:28 -0700 (PDT)
+ Tue, 01 Aug 2023 10:03:26 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: daniel.vetter@ffwll.ch, daniel@ffwll.ch, jbaron@akamai.com,
  gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Aug 2023 11:02:42 -0600
-Message-ID: <20230801170255.163237-11-jim.cromie@gmail.com>
+Date: Tue,  1 Aug 2023 11:02:40 -0600
+Message-ID: <20230801170255.163237-9-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230801170255.163237-1-jim.cromie@gmail.com>
 References: <20230801170255.163237-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 10/22] dyndbg: tighten ddebug_class_name()
- 1st arg type
+Subject: [Intel-gfx] [PATCH v5 08/22] dyndbg: reduce verbose/debug clutter
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,46 +81,91 @@ Cc: jani.nikula@intel.com, linux@rasmusvillemoes.dk,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Change function's 1st arg-type, and deref in the caller.
-The fn doesn't need any other fields in the struct.
+currently, for verbose=3, these are logged (blank lines for clarity):
 
-no functional change.
+ dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
+ dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
+
+ dyndbg: op='+'
+ dyndbg: flags=0x1
+ dyndbg: *flagsp=0x1 *maskp=0xffffffff
+
+ dyndbg: parsed: func="" file="" module="" format="" lineno=0-0 class=...
+ dyndbg: no matches for query
+ dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
+ dyndbg: processed 1 queries, with 0 matches, 0 errs
+
+That is excessive, so this patch:
+ - shrinks 3 lines of 2nd stanza to single line
+ - drops 1st 2 lines of 3rd stanza
+   3rd is like 1st, with result, not procedure.
+   2nd is just status, retold in 4th, with more info.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ lib/dynamic_debug.c | 14 +++-----------
+ 1 file changed, 3 insertions(+), 11 deletions(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index a8973d1a6896..f392f692b452 100644
+index 6070d37c24ac..2a5cbb68d88d 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -1112,12 +1112,12 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
- #define class_in_range(class_id, map)					\
- 	(class_id >= map->base && class_id < map->base + map->length)
+@@ -265,9 +265,6 @@ static int ddebug_change(const struct ddebug_query *query,
+ 	}
+ 	mutex_unlock(&ddebug_lock);
  
--static const char *ddebug_class_name(struct ddebug_iter *iter, struct _ddebug *dp)
-+static const char *ddebug_class_name(struct ddebug_table *dt, struct _ddebug *dp)
- {
--	struct ddebug_class_map *map = iter->table->classes;
--	int i, nc = iter->table->num_classes;
-+	struct ddebug_class_map *map = dt->classes;
-+	int i;
+-	if (!nfound && verbose)
+-		pr_info("no matches for query\n");
+-
+ 	return nfound;
+ }
  
--	for (i = 0; i < nc; i++, map++)
-+	for (i = 0; i < dt->num_classes; i++, map++)
- 		if (class_in_range(dp->class_id, map))
- 			return map->class_names[dp->class_id - map->base];
+@@ -496,7 +493,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 		pr_err("bad flag-op %c, at start of %s\n", *str, str);
+ 		return -EINVAL;
+ 	}
+-	v3pr_info("op='%c'\n", op);
  
-@@ -1151,7 +1151,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
- 	seq_puts(m, "\"");
+ 	for (; *str ; ++str) {
+ 		for (i = ARRAY_SIZE(opt_array) - 1; i >= 0; i--) {
+@@ -510,7 +506,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 			return -EINVAL;
+ 		}
+ 	}
+-	v3pr_info("flags=0x%x\n", modifiers->flags);
  
- 	if (dp->class_id != _DPRINTK_CLASS_DFLT) {
--		class = ddebug_class_name(iter, dp);
-+		class = ddebug_class_name(iter->table, dp);
- 		if (class)
- 			seq_printf(m, " class:%s", class);
- 		else
+ 	/* calculate final flags, mask based upon op */
+ 	switch (op) {
+@@ -526,7 +521,7 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
+ 		modifiers->flags = 0;
+ 		break;
+ 	}
+-	v3pr_info("*flagsp=0x%x *maskp=0x%x\n", modifiers->flags, modifiers->mask);
++	v3pr_info("op='%c' flags=0x%x maskp=0x%x\n", op, modifiers->flags, modifiers->mask);
+ 
+ 	return 0;
+ }
+@@ -536,7 +531,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
+ 	struct flag_settings modifiers = {};
+ 	struct ddebug_query query = {};
+ #define MAXWORDS 9
+-	int nwords, nfound;
++	int nwords;
+ 	char *words[MAXWORDS];
+ 
+ 	nwords = ddebug_tokenize(query_string, words, MAXWORDS);
+@@ -554,10 +549,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
+ 		return -EINVAL;
+ 	}
+ 	/* actually go and implement the change */
+-	nfound = ddebug_change(&query, &modifiers);
+-	vpr_info_dq(&query, nfound ? "applied" : "no-match");
+-
+-	return nfound;
++	return ddebug_change(&query, &modifiers);
+ }
+ 
+ /* handle multiple queries in query string, continue on error, return
 -- 
 2.41.0
 
