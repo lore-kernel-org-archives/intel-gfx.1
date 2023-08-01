@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13EBCC001DF
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 13:53:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51836C001DF
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Aug 2023 13:53:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88D1E10E354;
-	Tue,  1 Aug 2023 13:53:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A68B110E34B;
+	Tue,  1 Aug 2023 13:53:57 +0000 (UTC)
 Received: from mgamail.intel.com (unknown [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB96110E34B
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Aug 2023 13:53:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB66E10E34B
+ for <intel-gfx@lists.freedesktop.org>; Tue,  1 Aug 2023 13:53:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1690898031; x=1722434031;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=jKJwy6lLAu40oTfCxjoyHuMPpt8PvsC4tx+b+MISuL0=;
- b=byDRuUKWlfigK/VUl+3QZbOJz2fPkJEJ+dBga+DhGbLwkOh2CsH7R742
- iXjL/WlgxocJLUkaVrz2nVAPdbjidVJcOzSYyPG+yMMng3yPMqo+MQgRS
- iqXXnt4OIe0OAr2tPc+ciG5ZctGDsz0Q+mT14aQ0dDfklA/ArHoH7/IoB
- 6aeoYGhtbjU4ANBR9POcbCZmLxwu9USiF9j62KGR0lz2LP9WDeVLv2A8U
- XX5fozRjTtrooJgl3/K8FJDDZX/WPFMyBvzU9VF5Qrxu4hpxHeFJHz66F
- 78a9WaBsch2z6eASFhwiLzwD+7xhDsIoR64Zg34fZkoXGbbXvpwaQOVG4 Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10789"; a="435629298"
-X-IronPort-AV: E=Sophos;i="6.01,247,1684825200"; d="scan'208";a="435629298"
+ t=1690898035; x=1722434035;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=bM7D8thwK8ZHK+CNivrF6vXL1J8PPoVSW+uwB6yjAhE=;
+ b=Sg6dd5X/qMaZjgtx7wuFG96Fnvqypx315AQNKppXw6KSBWjLt3/Ek7jk
+ jTKMRROth5zHbW3R5chBed/5WW3VL0YgxH6DytHTseOB7BG/3pFViOG6k
+ dajO7Drmvh5k91yQ5KyOXMYtatmpSmUH9GUCgtAiKDYyGYVk/8GWm4pGy
+ JAZTK/681Ud2UXFDm9mcWxMgEFzcElPiz+HmtRXdOB0ldpLG440HgMucg
+ 6ixp85rckVyS1m3/mLvlwk0qBdOmNWeNwwEcW1fxoctTGY+dR8Zf0OOdD
+ r0eobihpc0koIIAxm13EJGt80NpAU9F3DimnZqmvXGrQ7kJ3wZ1Z2cGp+ g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10789"; a="435629322"
+X-IronPort-AV: E=Sophos;i="6.01,247,1684825200"; d="scan'208";a="435629322"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2023 06:53:50 -0700
+ 01 Aug 2023 06:53:55 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10789"; a="818803870"
-X-IronPort-AV: E=Sophos;i="6.01,247,1684825200"; d="scan'208";a="818803870"
+X-IronPort-AV: E=McAfee;i="6600,9927,10789"; a="818803892"
+X-IronPort-AV: E=Sophos;i="6.01,247,1684825200"; d="scan'208";a="818803892"
 Received: from pltuser2-ms-7d25.iind.intel.com ([10.190.239.58])
- by FMSMGA003.fm.intel.com with ESMTP; 01 Aug 2023 06:53:48 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 01 Aug 2023 06:53:53 -0700
 From: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  1 Aug 2023 19:23:30 +0530
-Message-Id: <20230801135344.3797924-1-dnyaneshwar.bhadane@intel.com>
+Date: Tue,  1 Aug 2023 19:23:32 +0530
+Message-Id: <20230801135344.3797924-3-dnyaneshwar.bhadane@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230801135344.3797924-1-dnyaneshwar.bhadane@intel.com>
+References: <20230801135344.3797924-1-dnyaneshwar.bhadane@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v1 00/14] Replace acronym with full platform
- name in defines
+Subject: [Intel-gfx] [PATCH v1 02/14] drm/i915/bdw: s/BDW/BROADWELL for
+ platform/subplatform defines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,84 +57,132 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Jani Nikula <jani.nikula@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replacing the acronym used in platform/sub platform defines.
-This series covers Haswell, Broadwell, Skylake, Kabylake, Coffeelake,
-Cometlake, Rocketlake, Jasperlake, Elkhartlake, Tigerlake, Alderlake,
-platoform define.This way there is a consistent pattern 
-to how platforms are referred.splitting to per paltform for easier 
-cherrypicks, if needed.
+Follow consistent naming convention. Replace BDW with
+BROADWELL.
 
-For the review comment and Reviewed by please refer the link below,
-1 https://patchwork.freedesktop.org/series/121387
-2 https://patchwork.freedesktop.org/series/119380
+Signed-off-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
+Reviewed-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_cdclk.c   |  4 ++--
+ drivers/gpu/drm/i915/display/intel_display.c |  2 +-
+ drivers/gpu/drm/i915/gt/intel_workarounds.c  |  2 +-
+ drivers/gpu/drm/i915/i915_drv.h              |  6 +++---
+ drivers/gpu/drm/i915/soc/intel_pch.c         | 10 +++++-----
+ 5 files changed, 12 insertions(+), 12 deletions(-)
 
-v2:
- - Reordered patches by incrementing platform generations.(Anusha)
- - Changeed the commit subject with lowercase platform names.
-v3:
- - The IS_PLATFORM_(DISPLAY/MEDIA/GRAPHICS)_STEPS replace with Unrolled
- format. i.e. IS_PLATFORM_FULL_NAME () && IS_DISPLAY_STEPS()
-
-v4:
- - Removed the MTL platform from the renaming series (Mat Ropper)
- - Removed the unused display steps macro.
-
-v5:
- - Resolved valid checkpatch warning
-
-
-Anusha Srivatsa (1):
-  drm/i915/adln: s/ADLP/ALDERLAKE_P in ADLN defines
-
-Dnyaneshwar Bhadane (13):
-  drm/i915/hsw: s/HSW/HASWELL for platform/subplatform defines
-  drm/i915/bdw: s/BDW/BROADWELL for platform/subplatform defines
-  drm/i915/skl: s/SKL/SKYLAKE for platform/subplatform defines
-  drm/i915/kbl: s/KBL/KABYLAKE for platform/subplatform defines
-  drm/i915/cfl: s/CFL/COFFEELAKE for platform/subplatform defines
-  drm/i915/cml: s/CML/COMETLAKE for platform/subplatform defines
-  drm/i915/rkl: s/RKL/ROCKETLAKE for platform/subplatform defines
-  drm/i915/jsl: s/JSL/JASPERLAKE for platform/subplatform defines
-  drm/i915/tgl: s/TGL/TIGERLAKE for platform/subplatform defines
-  drm/i915/adlp: s/ADLP/ALDERLAKE_P for display and graphics step
-  drm/i915/rplp: s/ADLP_RPLP/RAPTORLAKE_P for RPLP defines
-  drm/i915/rplu: s/ADLP_RPLU/RAPTORLAKE_U in RPLU defines
-  drm/i915/adls: s/ADLS_RPLS/RAPTORLAKE_S in platform and subplatform
-    defines
-
- drivers/gpu/drm/i915/display/icl_dsi.c        |  5 +-
- drivers/gpu/drm/i915/display/intel_cdclk.c    | 14 +--
- .../gpu/drm/i915/display/intel_combo_phy.c    |  7 +-
- drivers/gpu/drm/i915/display/intel_ddi.c      |  7 +-
- .../drm/i915/display/intel_ddi_buf_trans.c    | 10 +-
- drivers/gpu/drm/i915/display/intel_display.c  |  7 +-
- .../drm/i915/display/intel_display_device.c   |  2 +-
- .../drm/i915/display/intel_display_device.h   |  2 +-
- .../drm/i915/display/intel_display_power.c    |  2 +-
- drivers/gpu/drm/i915/display/intel_dp.c       |  4 +-
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 33 ++++---
- drivers/gpu/drm/i915/display/intel_hdmi.c     |  3 +-
- .../gpu/drm/i915/display/intel_pch_refclk.c   |  2 +-
- drivers/gpu/drm/i915/display/intel_psr.c      | 10 +-
- .../drm/i915/display/skl_universal_plane.c    |  6 +-
- drivers/gpu/drm/i915/gem/i915_gem_object.c    |  2 +-
- drivers/gpu/drm/i915/gt/gen8_engine_cs.c      |  2 +-
- drivers/gpu/drm/i915/gt/intel_gt.c            |  2 +-
- drivers/gpu/drm/i915/gt/intel_sseu.c          |  2 +-
- drivers/gpu/drm/i915/gt/intel_workarounds.c   | 13 +--
- .../gpu/drm/i915/gt/uc/intel_guc_hwconfig.c   |  2 +-
- drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  2 +-
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c      |  2 +-
- drivers/gpu/drm/i915/i915_driver.c            |  2 +-
- drivers/gpu/drm/i915/i915_drv.h               | 94 +++++++------------
- drivers/gpu/drm/i915/intel_clock_gating.c     |  4 +-
- drivers/gpu/drm/i915/intel_step.c             | 10 +-
- drivers/gpu/drm/i915/soc/intel_pch.c          | 18 ++--
- 28 files changed, 127 insertions(+), 142 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index f18e1f8ef22e..f683802ce931 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -3200,9 +3200,9 @@ void intel_update_max_cdclk(struct drm_i915_private *dev_priv)
+ 		 */
+ 		if (intel_de_read(dev_priv, FUSE_STRAP) & HSW_CDCLK_LIMIT)
+ 			dev_priv->display.cdclk.max_cdclk_freq = 450000;
+-		else if (IS_BDW_ULX(dev_priv))
++		else if (IS_BROADWELL_ULX(dev_priv))
+ 			dev_priv->display.cdclk.max_cdclk_freq = 450000;
+-		else if (IS_BDW_ULT(dev_priv))
++		else if (IS_BROADWELL_ULT(dev_priv))
+ 			dev_priv->display.cdclk.max_cdclk_freq = 540000;
+ 		else
+ 			dev_priv->display.cdclk.max_cdclk_freq = 675000;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 6352c530bd7b..e401bcb234c2 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7377,7 +7377,7 @@ static bool intel_ddi_crt_present(struct drm_i915_private *dev_priv)
+ 	if (DISPLAY_VER(dev_priv) >= 9)
+ 		return false;
+ 
+-	if (IS_HASWELL_ULT(dev_priv) || IS_BDW_ULT(dev_priv))
++	if (IS_HASWELL_ULT(dev_priv) || IS_BROADWELL_ULT(dev_priv))
+ 		return false;
+ 
+ 	if (HAS_PCH_LPT_H(dev_priv) &&
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 589d009032fc..9634ab8d738b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -420,7 +420,7 @@ static void bdw_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 		     /* WaForceContextSaveRestoreNonCoherent:bdw */
+ 		     HDC_FORCE_CONTEXT_SAVE_RESTORE_NON_COHERENT |
+ 		     /* WaDisableFenceDestinationToSLM:bdw (pre-prod) */
+-		     (IS_BDW_GT3(i915) ? HDC_FENCE_DEST_SLM_DISABLE : 0));
++		     (IS_BROADWELL_GT3(i915) ? HDC_FENCE_DEST_SLM_DISABLE : 0));
+ }
+ 
+ static void chv_ctx_workarounds_init(struct intel_engine_cs *engine,
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 1003154ec71e..6607f233461a 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -594,11 +594,11 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ 	IS_SUBPLATFORM(i915, INTEL_ALDERLAKE_P, INTEL_SUBPLATFORM_RPLU)
+ #define IS_HASWELL_EARLY_SDV(i915) (IS_HASWELL(i915) && \
+ 				    (INTEL_DEVID(i915) & 0xFF00) == 0x0C00)
+-#define IS_BDW_ULT(i915) \
++#define IS_BROADWELL_ULT(i915) \
+ 	IS_SUBPLATFORM(i915, INTEL_BROADWELL, INTEL_SUBPLATFORM_ULT)
+-#define IS_BDW_ULX(i915) \
++#define IS_BROADWELL_ULX(i915) \
+ 	IS_SUBPLATFORM(i915, INTEL_BROADWELL, INTEL_SUBPLATFORM_ULX)
+-#define IS_BDW_GT3(i915)	(IS_BROADWELL(i915) && \
++#define IS_BROADWELL_GT3(i915)	(IS_BROADWELL(i915) && \
+ 				 INTEL_INFO(i915)->gt == 3)
+ #define IS_HASWELL_ULT(i915) \
+ 	IS_SUBPLATFORM(i915, INTEL_HASWELL, INTEL_SUBPLATFORM_ULT)
+diff --git a/drivers/gpu/drm/i915/soc/intel_pch.c b/drivers/gpu/drm/i915/soc/intel_pch.c
+index bf829f85be7e..382a4a8015b4 100644
+--- a/drivers/gpu/drm/i915/soc/intel_pch.c
++++ b/drivers/gpu/drm/i915/soc/intel_pch.c
+@@ -32,21 +32,21 @@ intel_pch_type(const struct drm_i915_private *dev_priv, unsigned short id)
+ 		drm_WARN_ON(&dev_priv->drm,
+ 			    !IS_HASWELL(dev_priv) && !IS_BROADWELL(dev_priv));
+ 		drm_WARN_ON(&dev_priv->drm,
+-			    IS_HASWELL_ULT(dev_priv) || IS_BDW_ULT(dev_priv));
++			    IS_HASWELL_ULT(dev_priv) || IS_BROADWELL_ULT(dev_priv));
+ 		return PCH_LPT;
+ 	case INTEL_PCH_LPT_LP_DEVICE_ID_TYPE:
+ 		drm_dbg_kms(&dev_priv->drm, "Found LynxPoint LP PCH\n");
+ 		drm_WARN_ON(&dev_priv->drm,
+ 			    !IS_HASWELL(dev_priv) && !IS_BROADWELL(dev_priv));
+ 		drm_WARN_ON(&dev_priv->drm,
+-			    !IS_HASWELL_ULT(dev_priv) && !IS_BDW_ULT(dev_priv));
++			    !IS_HASWELL_ULT(dev_priv) && !IS_BROADWELL_ULT(dev_priv));
+ 		return PCH_LPT;
+ 	case INTEL_PCH_WPT_DEVICE_ID_TYPE:
+ 		drm_dbg_kms(&dev_priv->drm, "Found WildcatPoint PCH\n");
+ 		drm_WARN_ON(&dev_priv->drm,
+ 			    !IS_HASWELL(dev_priv) && !IS_BROADWELL(dev_priv));
+ 		drm_WARN_ON(&dev_priv->drm,
+-			    IS_HASWELL_ULT(dev_priv) || IS_BDW_ULT(dev_priv));
++			    IS_HASWELL_ULT(dev_priv) || IS_BROADWELL_ULT(dev_priv));
+ 		/* WPT is LPT compatible */
+ 		return PCH_LPT;
+ 	case INTEL_PCH_WPT_LP_DEVICE_ID_TYPE:
+@@ -54,7 +54,7 @@ intel_pch_type(const struct drm_i915_private *dev_priv, unsigned short id)
+ 		drm_WARN_ON(&dev_priv->drm,
+ 			    !IS_HASWELL(dev_priv) && !IS_BROADWELL(dev_priv));
+ 		drm_WARN_ON(&dev_priv->drm,
+-			    !IS_HASWELL_ULT(dev_priv) && !IS_BDW_ULT(dev_priv));
++			    !IS_HASWELL_ULT(dev_priv) && !IS_BROADWELL_ULT(dev_priv));
+ 		/* WPT is LPT compatible */
+ 		return PCH_LPT;
+ 	case INTEL_PCH_SPT_DEVICE_ID_TYPE:
+@@ -186,7 +186,7 @@ intel_virt_detect_pch(const struct drm_i915_private *dev_priv,
+ 		id = INTEL_PCH_CNP_DEVICE_ID_TYPE;
+ 	else if (IS_KABYLAKE(dev_priv) || IS_SKYLAKE(dev_priv))
+ 		id = INTEL_PCH_SPT_DEVICE_ID_TYPE;
+-	else if (IS_HASWELL_ULT(dev_priv) || IS_BDW_ULT(dev_priv))
++	else if (IS_HASWELL_ULT(dev_priv) || IS_BROADWELL_ULT(dev_priv))
+ 		id = INTEL_PCH_LPT_LP_DEVICE_ID_TYPE;
+ 	else if (IS_HASWELL(dev_priv) || IS_BROADWELL(dev_priv))
+ 		id = INTEL_PCH_LPT_DEVICE_ID_TYPE;
 -- 
 2.34.1
 
