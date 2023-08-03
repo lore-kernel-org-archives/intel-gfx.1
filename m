@@ -4,67 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E8B2C04A6A
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 07:39:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C1F2C00528
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 08:26:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDA3D10E5BB;
-	Thu,  3 Aug 2023 07:39:31 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 502E010E5BA
- for <intel-gfx@lists.freedesktop.org>; Thu,  3 Aug 2023 07:39:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1691048368;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type;
- bh=ux6/F/8zNxcMXbZYyvs2PsfvsSCrOuLEm40mTn4N4jg=;
- b=YfHFYc6c5GeuWl2XO3rj+J1X3C/gFMplRwzWyEcX8h408x1EmHqmDo/P22SwkIIoKqd5Yo
- hizlHaHZ+h2KcU3LhacMXs3GMpuQXmxi8UnHos4xpsqs9eeV2faH+7XLV80sAjVacfachh
- DqQ+3Z2/VFTxp9FAZsfj+FwG88STYlA=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-54-bcf26FwSO6KIOVsrsJHyDw-1; Thu, 03 Aug 2023 03:39:26 -0400
-X-MC-Unique: bcf26FwSO6KIOVsrsJHyDw-1
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-317955f1b5fso406409f8f.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 03 Aug 2023 00:39:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691048365; x=1691653165;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ux6/F/8zNxcMXbZYyvs2PsfvsSCrOuLEm40mTn4N4jg=;
- b=K0iFIYyIeIn5nS1Z/QwvqCOOIh3XlRAYt+QYUQUG6hhfDVQHj2i6bYnZPjMmq1TgUh
- roDdYFQ96OZma3O+Tp99iAs4nQKhm4vIK7xNg4uMlOUW/ViHbvmqTsiN5z2iyoFFuch7
- p2vCqqoEgj09lCJbwbedzp47YEioylXnmSMwufF1HmcrJdkvBBsPRDEOyEW0E7kWzvaR
- XcQfJiZl3pPCxQXO5C5o4SUITcCTNPpSlJSVd+ZlnGU3bAvzMJ9tSueoS1p0zZBqoWAF
- YH+eu2zFkw6SJTYU2HpCcUqu07kL4R2oqLzHQovpOfcxZRona409qG9LAyLyenHm0Wtx
- 1zPQ==
-X-Gm-Message-State: ABy/qLY/7QXv9LYyr4j+YSMsBUCpSKFPxDaaPTVt1MuHUKdOKc8MM+6a
- DcwV4lS8SsNG9l+FlAP9yve5tnPra0fSuMDGATWO9rmbIweAwaNRn7rSvYz1FXxVixl5aNZDfmh
- JjMMDHDisoHJBTcEj+pt4Vm6LjA0s
-X-Received: by 2002:a5d:6387:0:b0:317:6992:855c with SMTP id
- p7-20020a5d6387000000b003176992855cmr6816943wru.19.1691048365483; 
- Thu, 03 Aug 2023 00:39:25 -0700 (PDT)
-X-Google-Smtp-Source: APBJJlH0ZaqurtShCL2+B3g9cWGgJxZXiWQdLkYMbG/BPwu8oAiUd9ONd5l/QDkz4IO5o41rQhObOA==
-X-Received: by 2002:a5d:6387:0:b0:317:6992:855c with SMTP id
- p7-20020a5d6387000000b003176992855cmr6816926wru.19.1691048365169; 
- Thu, 03 Aug 2023 00:39:25 -0700 (PDT)
-Received: from localhost ([2a01:e0a:b25:f902::ff])
- by smtp.gmail.com with ESMTPSA id
- l6-20020adfe586000000b0031416362e23sm21181185wrm.3.2023.08.03.00.39.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Aug 2023 00:39:24 -0700 (PDT)
-Date: Thu, 3 Aug 2023 09:39:24 +0200
-From: Maxime Ripard <mripard@redhat.com>
-To: Dave Airlie <airlied@gmail.com>, 
-	Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <ztfogof2dhtlvjwe73mvd2jp5kbldhkkav7k5culuseqblwpti@qfobohwx3c3j>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DAA610E5C8;
+	Thu,  3 Aug 2023 08:26:54 +0000 (UTC)
+Received: from mgamail.intel.com (unknown [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3ABD10E5BD;
+ Thu,  3 Aug 2023 08:26:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1691051210; x=1722587210;
+ h=date:from:to:cc:subject:message-id:mime-version;
+ bh=lbgkTbCBfKqYrdRuUUms1gorQhV005tZYOfm4w0WcHY=;
+ b=Liwnh0WCqIUjuCAuXPg+hcoKzOYesLKHAF4T+KqNx7EsJRNhCUMcnlKE
+ SjziuxcJ2YK5cQSlxoA1YExe+TxZGZooYjpkgSTQyKpHXj72JKzVfnGdJ
+ 0nzGjjP2Spa1vrJ6x9ORfEkYFb8LdLVSi5aWGhBGdFTACt2Y37XLhGdsF
+ gb72HHSAtTuOmxAIhWQtY7ZCveBt8KIbP/N3kMvFZmfmaKbe05GgAdQ9Y
+ TWN31VbQPIawFRK0lelNpo2jnLPMMPrllS1aNHzYGZw7mYf3RC8KfQ0aK
+ zZmsELWkqXTTT2GXPdsK2b9cRX2i7We2fIua1O4QdrKYMV7FIVmTOU6kC Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10790"; a="436119111"
+X-IronPort-AV: E=Sophos;i="6.01,251,1684825200"; d="scan'208";a="436119111"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2023 01:26:49 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10790"; a="794897400"
+X-IronPort-AV: E=Sophos;i="6.01,251,1684825200"; d="scan'208";a="794897400"
+Received: from rrybakov-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.213.197.207])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2023 01:26:47 -0700
+Date: Thu, 3 Aug 2023 09:26:45 +0100
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <ZMtkxWGuUKpaRMmo@tursulin-desk>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="xcahitbmxezrjv7i"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Subject: [Intel-gfx] [PULL] drm-misc-fixes
+Subject: [Intel-gfx] [PULL] drm-intel-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,64 +55,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Dave, Daniel,
 
---xcahitbmxezrjv7i
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Some fixes for the 6.5 RC this week: one for GVT display I2C handling,
+which came via gvt-fixes merge, one for premature freeing of request
+memory, and finally one fix for Gen12 AUX invalidatation flow to correctly
+align it with the documented sequence.
 
-Hi,
+Regards,
 
-Here's this week drm-misc-fixes PR
+Tvrtko
 
-Maxime
+drm-intel-fixes-2023-08-03:
+- Fix bug in getting msg length in AUX CH registers handler [gvt] (Yan Zhao)
+- Gen12 AUX invalidation fixes [gt] (Andi Shyti, Jonathan Cavitt)
+- Fix premature release of request's reusable memory (Janusz Krzysztofik)
 
-The following changes since commit 39b1320e5dc2b707dfb5c25b0298ce9d4fc05aea:
+- Merge tag 'gvt-fixes-2023-08-02' of https://github.com/intel/gvt-linux into drm-intel-fixes (Tvrtko Ursulin)
+The following changes since commit 5d0c230f1de8c7515b6567d9afba1f196fb4e2f4:
 
-  drm/fb-helper: Remove unused inline function drm_fb_helper_defio_init() (2023-07-25 20:38:37 +0200)
+  Linux 6.5-rc4 (2023-07-30 13:23:47 -0700)
 
 are available in the Git repository at:
 
-  ssh://git.freedesktop.org/git/drm/drm-misc tags/drm-misc-fixes-2023-08-03
+  git://anongit.freedesktop.org/drm/drm-intel tags/drm-intel-fixes-2023-08-03
 
-for you to fetch changes up to c71b7aa8619a0c9700132d0733e33999fb614339:
+for you to fetch changes up to 0bc057eae2610c275361766a064a23cc2758f3ff:
 
-  drm/panel: samsung-s6d7aa0: Add MODULE_DEVICE_TABLE (2023-08-02 10:56:50 +0200)
-
-----------------------------------------------------------------
-A NULL pointer dereference fix for TTM, a timings fix for imx/ipuv3 and
-the addition of a MUDULE_DEVICE_TABLE for the samsung-s6d7aa0 panel.
+  Merge tag 'gvt-fixes-2023-08-02' of https://github.com/intel/gvt-linux into drm-intel-fixes (2023-08-02 08:14:57 +0100)
 
 ----------------------------------------------------------------
-Alexander Stein (1):
-      drm/imx/ipuv3: Fix front porch adjustment upon hactive aligning
+- Fix bug in getting msg length in AUX CH registers handler [gvt] (Yan Zhao)
+- Gen12 AUX invalidation fixes [gt] (Andi Shyti, Jonathan Cavitt)
+- Fix premature release of request's reusable memory (Janusz Krzysztofik)
 
-Guchun Chen (1):
-      drm/ttm: check null pointer before accessing when swapping
+- Merge tag 'gvt-fixes-2023-08-02' of https://github.com/intel/gvt-linux into drm-intel-fixes (Tvrtko Ursulin)
 
-Nikita Travkin (1):
-      drm/panel: samsung-s6d7aa0: Add MODULE_DEVICE_TABLE
+----------------------------------------------------------------
+Andi Shyti (5):
+      drm/i915/gt: Cleanup aux invalidation registers
+      drm/i915: Add the gen12_needs_ccs_aux_inv helper
+      drm/i915/gt: Rename flags with bit_group_X according to the datasheet
+      drm/i915/gt: Enable the CCS_FLUSH bit in the pipe control and in the CS
+      drm/i915/gt: Support aux invalidation on all engines
 
- drivers/gpu/drm/imx/ipuv3/ipuv3-crtc.c        | 2 +-
- drivers/gpu/drm/panel/panel-samsung-s6d7aa0.c | 1 +
- drivers/gpu/drm/ttm/ttm_bo.c                  | 3 ++-
- 3 files changed, 4 insertions(+), 2 deletions(-)
+Janusz Krzysztofik (1):
+      drm/i915: Fix premature release of request's reusable memory
 
---xcahitbmxezrjv7i
-Content-Type: application/pgp-signature; name="signature.asc"
+Jonathan Cavitt (2):
+      drm/i915/gt: Ensure memory quiesced before invalidation
+      drm/i915/gt: Poll aux invalidation register bit on invalidation
 
------BEGIN PGP SIGNATURE-----
+Tvrtko Ursulin (1):
+      Merge tag 'gvt-fixes-2023-08-02' of https://github.com/intel/gvt-linux into drm-intel-fixes
 
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZMtZrAAKCRDj7w1vZxhR
-xT0eAQDd5R2mYSvbb62DliHnsaQKOXm3yl9mIemRxJhDhe3pAwEAhas3qZbaVkT8
-MSJ4LLXdoKRva271997VTr3fFjExtgs=
-=XLp8
------END PGP SIGNATURE-----
+Yan Zhao (1):
+      drm/i915/gvt: Fix bug in getting msg length in AUX CH registers handler
 
---xcahitbmxezrjv7i--
-
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c     | 140 ++++++++++++++++++---------
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.h     |  21 ++--
+ drivers/gpu/drm/i915/gt/intel_gpu_commands.h |   2 +
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h      |  16 +--
+ drivers/gpu/drm/i915/gt/intel_lrc.c          |  17 +---
+ drivers/gpu/drm/i915/gvt/edid.c              |   2 +-
+ drivers/gpu/drm/i915/i915_active.c           |  99 +++++++++++++------
+ drivers/gpu/drm/i915/i915_request.c          |  11 +++
+ 8 files changed, 199 insertions(+), 109 deletions(-)
