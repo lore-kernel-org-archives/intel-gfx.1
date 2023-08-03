@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1C42EB64DD
-	for <intel-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 14:27:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0114EEB64DD
+	for <intel-gfx@archiver.kernel.org>; Thu,  3 Aug 2023 14:27:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86CA810E60A;
-	Thu,  3 Aug 2023 14:27:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F7D010E5F9;
+	Thu,  3 Aug 2023 14:27:30 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 93F7610E1CC;
- Thu,  3 Aug 2023 14:27:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 11B3910E1CC;
+ Thu,  3 Aug 2023 14:27:28 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 8D775A0078;
- Thu,  3 Aug 2023 14:27:25 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 0EA2DA0078;
+ Thu,  3 Aug 2023 14:27:28 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Tseng, William" <william.tseng@intel.com>
-Date: Thu, 03 Aug 2023 14:27:25 -0000
-Message-ID: <169107284555.5269.3702552466673447467@emeril.freedesktop.org>
+Date: Thu, 03 Aug 2023 14:27:28 -0000
+Message-ID: <169107284805.5270.9105335700116949585@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20230802101541.10045-1-william.tseng@intel.com>
 In-Reply-To: <20230802101541.10045-1-william.tseng@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/xelpd=3A_Calculate_first=5Fline=5Fbpg=5Foffset_for?=
- =?utf-8?b?IERTQyAxLjEgKHJldjMp?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915/xelpd=3A_Calculate_first=5Fline=5Fbpg=5Foffset_for_DSC?=
+ =?utf-8?b?IDEuMSAocmV2Myk=?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,7 +54,7 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-/home/kbuild/linux/maintainer-tools/dim: line 50: /home/kbuild/.dimrc: No such file or directory
+Error: dim sparse failed
+/home/kbuild2/linux/maintainer-tools/dim: line 50: /home/kbuild2/.dimrc: No such file or directory
 
 
