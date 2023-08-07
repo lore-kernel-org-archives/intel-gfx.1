@@ -4,45 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00B99C001DB
-	for <intel-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 13:34:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9E05C001DB
+	for <intel-gfx@archiver.kernel.org>; Mon,  7 Aug 2023 13:39:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 555F289E1A;
-	Mon,  7 Aug 2023 13:34:01 +0000 (UTC)
-Received: from galois.linutronix.de (Galois.linutronix.de
- [IPv6:2a0a:51c0:0:12e:550::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3063589E1A
- for <intel-gfx@lists.freedesktop.org>; Mon,  7 Aug 2023 13:33:57 +0000 (UTC)
-Date: Mon, 7 Aug 2023 15:33:54 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1691415235;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Hz0gYCAV1vfwJhYxEbaXlG58dTr+zk4pcu3k3XpTAdk=;
- b=vh8puwqxCRMEBtjAWenhgT7Q35gwDj1a5Up7mLuPa6zf7/v16YHeDidCHYZmG9v3BosqZ5
- snT4UmoOl/wwYK7BzxMAtyzuRQmqxjU2wU1KsJ8WAv9mt59dyZNRL4RZFDq9RqZW3pQddf
- aO7cPiSMp9p6c46+8iIEcLQ+fs9FBKr2MG2u1dMaGCiWLgrfAa8sJrADi2+bvTOBAX0GTh
- kSLdhTIdzhVI2UiBsV8PuSgotQk/j4I165JRN7xTWvjmcwThIN41b/OQBNHicNV5kMsjpx
- VAaoWjOSo1bNsD47iYE8hjdanYCJIqXA1hdYBRZ3fWIgG2g6IgZGPJsR/nqKFQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1691415235;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Hz0gYCAV1vfwJhYxEbaXlG58dTr+zk4pcu3k3XpTAdk=;
- b=OZ7BRtHbOjUfsRckUF9YYE9NSrJmI2O9ZvIGwktqOO+zbRYkIU28KaNOKxzZkgVWvVc/vb
- +6qEfiou6mhu/pDA==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: "John B. Wyatt IV" <jwyatt@redhat.com>
-Message-ID: <20230807133354.-t5iv19T@linutronix.de>
-References: <ZKyngsXKztAU9J3r@thinkpad2021>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBA0210E0C7;
+	Mon,  7 Aug 2023 13:39:53 +0000 (UTC)
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [IPv6:2607:f8b0:4864:20::636])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCC2C10E28E;
+ Mon,  7 Aug 2023 12:02:05 +0000 (UTC)
+Received: by mail-pl1-x636.google.com with SMTP id
+ d9443c01a7336-1bb893e6365so27632815ad.2; 
+ Mon, 07 Aug 2023 05:02:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1691409725; x=1692014525;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=GUzrPfmRrMPt+i4UE/lAe9+fC5lOiUGAw2K7J8tfV2c=;
+ b=d2GE3aQo5mQfZvlEF7f4oSva4EKJvypvIGy6IuBTAsIUE3RDscNyHs6Em+I3dvnLEN
+ Obr3UC2AiaTlHrSkEsJ/2/LFeYfvI1DiNMw5FenkPOHuDossPPZc8ZfeJGsIy+R9emgH
+ S+zPKCf80hsaVWKsNUpdmTN80mS2TgCrpRIY5tVhvkJPAPvo5KeS0X2Jwyldn9yI+g6Q
+ Z55xF5Wu+GHCqh6GAMq9ECVbnwQqBc3oeadTkaDvDDfs5YsfG/1knWcS8z7eeL+BWZrT
+ egWAAOtE1/vlGanMsyRR3IJqlk1YK1GLJmry94YPMykoZPpGbxmbd5/l8MnQYh04wIDr
+ yzPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691409725; x=1692014525;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=GUzrPfmRrMPt+i4UE/lAe9+fC5lOiUGAw2K7J8tfV2c=;
+ b=FBKm6RUK2CVB+SdUFwdgrDxV7jMDLZt0FgCj5PYNSIhuxNspBFyY6IJZV7eDhjHBQe
+ zjPCoFb/VfBEJzHFzJBQD31zBtTzv3JkX1J6N+yYNRbEsKZsEmqtqQeLk8l2uY+LPuMq
+ rUd4x0cDqtJFQgliHGAhL/+1J4OtVUDFL/hSTZrk/sr+s/B1gRWTMSSm4xIwIWi70pl/
+ QCw9D0mewSu0JuMVWEKeOUwvipI41I1/h/ioyTP7swHKhHQI2F6Kned1rG9/Jdm81Qxu
+ wnAdpiWxJ49PYjyLswnD5yUl7a8ay4nyaH7t8W5XDv2wppDmn5moLPbGDz6nQKbsPY4M
+ q5DQ==
+X-Gm-Message-State: AOJu0YxNrwkv2vI41LnEFe04xVEIhGUh/DtbYIzEyLbhiQ4KQYwGSCXc
+ g9zCEJUYCCt1uNezJA8+9nqnvDBo0GuGgY3y
+X-Google-Smtp-Source: AGHT+IHWYNulalQMDqlB0MHADRqG5ScHqlrzXhiB9uHTqVA4K3003dWe9L2ntXhX6qq+PcVohtu+WA==
+X-Received: by 2002:a17:902:c101:b0:1b5:edd:e3c7 with SMTP id
+ 1-20020a170902c10100b001b50edde3c7mr7864273pli.16.1691409724767; 
+ Mon, 07 Aug 2023 05:02:04 -0700 (PDT)
+Received: from [192.168.255.10] ([103.7.29.32])
+ by smtp.gmail.com with ESMTPSA id
+ jc15-20020a17090325cf00b001b7ffca7dbcsm6752298plb.148.2023.08.07.05.02.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Aug 2023 05:02:04 -0700 (PDT)
+Message-ID: <5581418b-2e1c-6011-f0a4-580df7e00b44@gmail.com>
+Date: Mon, 7 Aug 2023 20:01:55 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ZKyngsXKztAU9J3r@thinkpad2021>
-Subject: Re: [Intel-gfx] [preempt-rt] BUG: sleeping function called from
- invalid context at drivers/gpu/drm/i915/gt/uc/intel_guc.h
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.14.0
+To: Sean Christopherson <seanjc@google.com>
+References: <20221223005739.1295925-1-seanjc@google.com>
+ <20221223005739.1295925-20-seanjc@google.com>
+Content-Language: en-US
+From: Like Xu <like.xu.linux@gmail.com>
+In-Reply-To: <20221223005739.1295925-20-seanjc@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Mon, 07 Aug 2023 13:39:52 +0000
+Subject: Re: [Intel-gfx] [PATCH 19/27] KVM: x86/mmu: Use page-track
+ notifiers iff there are external users
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,21 +79,23 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: vschneid@redhat.com, pauld@redhat.com, linux-rt-users@vger.kernel.org,
+Cc: Yan Zhao <yan.y.zhao@intel.com>, kvm@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- jlelli@redhat.com, rt-maint@redhat.com
+ Ben Gardon <bgardon@google.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ intel-gvt-dev@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2023-07-10 20:51:14 [-0400], John B. Wyatt IV wrote:
-> Hello everyone, I am a new kernel developer with the Red Hat real-time team.
-> 
-> I am seeing two different call traces with 6.4-rt6 on my 12th Gen
-> Intel Framework Laptop with i915 emit the same bug. Both of them
-> occurred in the same boot. This kernel was built and tested on RHEL8.
-> [1] occurs only once. [2] occurs ~50 times in a boot and log in to the
-> gnome desktop.
+On 23/12/2022 8:57 am, Sean Christopherson wrote:
+> +static inline void kvm_page_track_write(struct kvm_vcpu *vcpu, gpa_t gpa,
+> +					const u8 *new, int bytes)
+> +{
+> +	__kvm_page_track_write(vcpu, gpa, new, bytes);
+> +
+> +	kvm_mmu_track_write(vcpu, gpa, new, bytes);
+> +}
 
-Could you try v6.4.6-rt8+ and check if it still there or gone?
-
-Sebastian
+The kvm_mmu_track_write() is only used for x86, where the incoming parameter
+"u8 *new" has not been required since 0e0fee5c539b ("kvm: mmu: Fix race in
+emulated page table writes"), please help confirm if it's still needed ? Thanks.
+A minor clean up is proposed.
