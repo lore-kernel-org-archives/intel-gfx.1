@@ -4,47 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 599C1C04E69
-	for <intel-gfx@archiver.kernel.org>; Tue,  8 Aug 2023 08:13:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0CDDC001B0
+	for <intel-gfx@archiver.kernel.org>; Tue,  8 Aug 2023 08:40:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C8EC10E3BF;
-	Tue,  8 Aug 2023 08:13:53 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3061410E3BD
- for <intel-gfx@lists.freedesktop.org>; Tue,  8 Aug 2023 08:13:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1691482430; x=1723018430;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=EK9kBns6KZc+Xw9nPWq3r8Bn2vVoXGWxOJjG97AujZw=;
- b=DU88zvvfo54J5DzqpvMkHHDt6B5AJqt8YI7AjhJGHyWiBuh+ifH9RfrA
- qBboPbJv6gOTpYrSYiyPpWWYNqlHwjjNt049TQrIENIRWZUyqWGZb0fgW
- W7CvEmFjf9c4sucum01K/G4Fxmxg0NVxFOfjlBqip1rkycqnqQzK8ngHf
- JAQkq/VrtK/c7Uo+pLpLP6YFj+YCtrqU9IJdY0XT0RyoLevDUIDb4M6Pz
- b+H3acWQ8B3AERZ2hVDxKZY+hybnGj3leYun0sorEMOHx4pI8q65oyqLv
- vpd0bmpCBvLHz/LCR86QOvmZYD5ugWVMuguTZMqHvpq3JqthJfAb58vPX w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="434603668"
-X-IronPort-AV: E=Sophos;i="6.01,263,1684825200"; d="scan'208";a="434603668"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Aug 2023 01:13:43 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="801244864"
-X-IronPort-AV: E=Sophos;i="6.01,263,1684825200"; d="scan'208";a="801244864"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by fmsmga004.fm.intel.com with ESMTP; 08 Aug 2023 01:13:41 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue,  8 Aug 2023 13:41:32 +0530
-Message-Id: <20230808081134.4187416-6-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230808081134.4187416-1-suraj.kandpal@intel.com>
-References: <20230808081134.4187416-1-suraj.kandpal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2638910E3CE;
+	Tue,  8 Aug 2023 08:40:56 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5247410E0FB;
+ Tue,  8 Aug 2023 08:40:55 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 4A448A7E03;
+ Tue,  8 Aug 2023 08:40:55 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 5/8] drm/i915/vdsc: Add function to write in
- PPS register
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Tseng, William" <william.tseng@intel.com>
+Date: Tue, 08 Aug 2023 08:40:55 -0000
+Message-ID: <169148405527.13860.17969711559164783131@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230807142754.3891787-1-suraj.kandpal@intel.com>
+In-Reply-To: <20230807142754.3891787-1-suraj.kandpal@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm/i915/dsi=3A_Explicit_first=5Fline=5Fbpg=5Foffset_assign?=
+ =?utf-8?q?ment_for_DSI_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,443 +41,20 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that we have a function that reads any PPS register based
-on intel_dsc_pps enum provided lets create a function that can
-write on any PPS.
+== Series Details ==
 
---v2
--Changes need as PPS enum was dropped
--Remove duplicated code in intel_dsc_write_pps_reg [Jani]
+Series: drm/i915/dsi: Explicit first_line_bpg_offset assignment for DSI (rev2)
+URL   : https://patchwork.freedesktop.org/series/122108/
+State : warning
 
---v3
--Use dsc_split instead of num_vdsc_instances [Ankit]
+== Summary ==
 
---v5
--Changes to implement the new dsc_reg array variable passing
-[Ankit]
+Error: dim checkpatch failed
+/home/kbuild/linux/maintainer-tools/dim: line 50: /home/kbuild/.dimrc: No such file or directory
 
---v7
--Pass no of vdsc instances to get_pps_reg [Ankit]
-
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_vdsc.c | 306 +++++-----------------
- 1 file changed, 64 insertions(+), 242 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index aa93228ca7af..22bb22678fee 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -387,6 +387,27 @@ static void intel_dsc_get_pps_reg(const struct intel_crtc_state *crtc_state, int
- 	}
- }
- 
-+static int intel_dsc_write_pps_reg(const struct intel_crtc_state *crtc_state,
-+				   int pps, u32 pps_val)
-+{
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
-+	i915_reg_t *dsc_reg;
-+	int i, no_vdsc_per_pipe = intel_dsc_get_vdsc_per_pipe(crtc_state);
-+
-+	dsc_reg = kcalloc(no_vdsc_per_pipe, sizeof(dsc_reg), GFP_KERNEL);
-+	if (!dsc_reg)
-+		return -ENOMEM;
-+
-+	intel_dsc_get_pps_reg(crtc_state, pps, dsc_reg, no_vdsc_per_pipe);
-+
-+	for (i = 0; i < no_vdsc_per_pipe; i++)
-+		intel_de_write(i915, dsc_reg[i], pps_val);
-+
-+	kfree(dsc_reg);
-+	return 0;
-+}
-+
- static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-@@ -400,6 +421,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 	int i = 0;
- 	int num_vdsc_instances = intel_dsc_get_num_vdsc_instances(crtc_state);
- 	int no_vdsc_instances_per_pipe = intel_dsc_get_vdsc_per_pipe(crtc_state);
-+	int ret;
- 
- 	/* Populate PICTURE_PARAMETER_SET_0 registers */
- 	pps_val = DSC_VER_MAJ | vdsc_cfg->dsc_version_minor <<
-@@ -422,149 +444,53 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 	if (vdsc_cfg->vbr_enable)
- 		pps_val |= DSC_VBR_ENABLE;
- 	drm_dbg_kms(&dev_priv->drm, "PPS0 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_0,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_0,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_0(pipe),
--			       pps_val);
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_0(pipe),
--				       pps_val);
--	}
-+	ret = intel_dsc_write_pps_reg(crtc_state, 0, pps_val);
-+	if (ret)
-+		drm_dbg_kms(&dev_priv->drm, "PPS0 not written err:%d\n", ret);
- 
- 	/* Populate PICTURE_PARAMETER_SET_1 registers */
- 	pps_val = 0;
- 	pps_val |= DSC_BPP(vdsc_cfg->bits_per_pixel);
- 	drm_dbg_kms(&dev_priv->drm, "PPS1 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_1,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_1,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_1(pipe),
--			       pps_val);
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_1(pipe),
--				       pps_val);
--	}
-+	ret = intel_dsc_write_pps_reg(crtc_state, 1, pps_val);
-+	if (ret)
-+		drm_dbg_kms(&dev_priv->drm, "PPS1 not written err:%d\n", ret);
- 
- 	/* Populate PICTURE_PARAMETER_SET_2 registers */
- 	pps_val = 0;
- 	pps_val |= DSC_PIC_HEIGHT(vdsc_cfg->pic_height) |
- 		DSC_PIC_WIDTH(vdsc_cfg->pic_width / num_vdsc_instances);
- 	drm_dbg_kms(&dev_priv->drm, "PPS2 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_2,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_2,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_2(pipe),
--			       pps_val);
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_2(pipe),
--				       pps_val);
--	}
-+	ret = intel_dsc_write_pps_reg(crtc_state, 2, pps_val);
-+	if (ret)
-+		drm_dbg_kms(&dev_priv->drm, "PPS2 not written err:%d\n", ret);
- 
- 	/* Populate PICTURE_PARAMETER_SET_3 registers */
- 	pps_val = 0;
- 	pps_val |= DSC_SLICE_HEIGHT(vdsc_cfg->slice_height) |
- 		DSC_SLICE_WIDTH(vdsc_cfg->slice_width);
- 	drm_dbg_kms(&dev_priv->drm, "PPS3 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_3,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_3,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_3(pipe),
--			       pps_val);
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_3(pipe),
--				       pps_val);
--	}
-+	intel_dsc_write_pps_reg(crtc_state, 3, pps_val);
-+	if (ret)
-+		drm_dbg_kms(&dev_priv->drm, "PPS3 not written err:%d\n", ret);
- 
- 	/* Populate PICTURE_PARAMETER_SET_4 registers */
- 	pps_val = 0;
- 	pps_val |= DSC_INITIAL_XMIT_DELAY(vdsc_cfg->initial_xmit_delay) |
- 		DSC_INITIAL_DEC_DELAY(vdsc_cfg->initial_dec_delay);
- 	drm_dbg_kms(&dev_priv->drm, "PPS4 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_4,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_4,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_4(pipe),
--			       pps_val);
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_4(pipe),
--				       pps_val);
--	}
-+	ret = intel_dsc_write_pps_reg(crtc_state, 4, pps_val);
-+	if (ret)
-+		drm_dbg_kms(&dev_priv->drm, "PPS4 not written err:%d\n", ret);
- 
- 	/* Populate PICTURE_PARAMETER_SET_5 registers */
- 	pps_val = 0;
- 	pps_val |= DSC_SCALE_INC_INT(vdsc_cfg->scale_increment_interval) |
- 		DSC_SCALE_DEC_INT(vdsc_cfg->scale_decrement_interval);
- 	drm_dbg_kms(&dev_priv->drm, "PPS5 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_5,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_5,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_5(pipe),
--			       pps_val);
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_5(pipe),
--				       pps_val);
--	}
-+	ret = intel_dsc_write_pps_reg(crtc_state, 5, pps_val);
-+	if (ret)
-+		drm_dbg_kms(&dev_priv->drm, "PPS5 not written err:%d\n", ret);
- 
- 	/* Populate PICTURE_PARAMETER_SET_6 registers */
- 	pps_val = 0;
-@@ -573,100 +499,36 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		DSC_FLATNESS_MIN_QP(vdsc_cfg->flatness_min_qp) |
- 		DSC_FLATNESS_MAX_QP(vdsc_cfg->flatness_max_qp);
- 	drm_dbg_kms(&dev_priv->drm, "PPS6 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_6,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_6,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_6(pipe),
--			       pps_val);
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_6(pipe),
--				       pps_val);
--	}
-+	ret = intel_dsc_write_pps_reg(crtc_state, 6, pps_val);
-+	if (ret)
-+		drm_dbg_kms(&dev_priv->drm, "PPS6 not written err:%d\n", ret);
- 
- 	/* Populate PICTURE_PARAMETER_SET_7 registers */
- 	pps_val = 0;
- 	pps_val |= DSC_SLICE_BPG_OFFSET(vdsc_cfg->slice_bpg_offset) |
- 		DSC_NFL_BPG_OFFSET(vdsc_cfg->nfl_bpg_offset);
- 	drm_dbg_kms(&dev_priv->drm, "PPS7 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_7,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_7,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_7(pipe),
--			       pps_val);
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_7(pipe),
--				       pps_val);
--	}
-+	ret = intel_dsc_write_pps_reg(crtc_state, 7, pps_val);
-+	if (ret)
-+		drm_dbg_kms(&dev_priv->drm, "PPS7 not written err:%d\n", ret);
- 
- 	/* Populate PICTURE_PARAMETER_SET_8 registers */
- 	pps_val = 0;
- 	pps_val |= DSC_FINAL_OFFSET(vdsc_cfg->final_offset) |
- 		DSC_INITIAL_OFFSET(vdsc_cfg->initial_offset);
- 	drm_dbg_kms(&dev_priv->drm, "PPS8 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_8,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_8,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_8(pipe),
--			       pps_val);
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_8(pipe),
--				       pps_val);
--	}
-+	ret = intel_dsc_write_pps_reg(crtc_state, 8, pps_val);
-+	if (ret)
-+		drm_dbg_kms(&dev_priv->drm, "PPS8 not written err:%d\n", ret);
- 
- 	/* Populate PICTURE_PARAMETER_SET_9 registers */
- 	pps_val = 0;
- 	pps_val |= DSC_RC_MODEL_SIZE(vdsc_cfg->rc_model_size) |
- 		DSC_RC_EDGE_FACTOR(DSC_RC_EDGE_FACTOR_CONST);
- 	drm_dbg_kms(&dev_priv->drm, "PPS9 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_9,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_9,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_9(pipe),
--			       pps_val);
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_9(pipe),
--				       pps_val);
--	}
-+	ret = intel_dsc_write_pps_reg(crtc_state, 9, pps_val);
-+	if (ret)
-+		drm_dbg_kms(&dev_priv->drm, "PPS9 not written err:%d\n", ret);
- 
- 	/* Populate PICTURE_PARAMETER_SET_10 registers */
- 	pps_val = 0;
-@@ -675,25 +537,9 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		DSC_RC_TARGET_OFF_HIGH(DSC_RC_TGT_OFFSET_HI_CONST) |
- 		DSC_RC_TARGET_OFF_LOW(DSC_RC_TGT_OFFSET_LO_CONST);
- 	drm_dbg_kms(&dev_priv->drm, "PPS10 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_10,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       DSCC_PICTURE_PARAMETER_SET_10, pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_10(pipe),
--			       pps_val);
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_10(pipe),
--				       pps_val);
--	}
-+	ret = intel_dsc_write_pps_reg(crtc_state, 10, pps_val);
-+	if (ret)
-+		drm_dbg_kms(&dev_priv->drm, "PPS10 not written err:%d\n", ret);
- 
- 	/* Populate Picture parameter set 16 */
- 	pps_val = 0;
-@@ -703,51 +549,27 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		DSC_SLICE_ROW_PER_FRAME(vdsc_cfg->pic_height /
- 					vdsc_cfg->slice_height);
- 	drm_dbg_kms(&dev_priv->drm, "PPS16 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_16,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       DSCC_PICTURE_PARAMETER_SET_16, pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_16(pipe),
--			       pps_val);
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_16(pipe),
--				       pps_val);
--	}
-+	ret = intel_dsc_write_pps_reg(crtc_state, 16, pps_val);
-+	if (ret)
-+		drm_dbg_kms(&dev_priv->drm, "PPS16 not written err:%d\n", ret);
- 
- 	if (DISPLAY_VER(dev_priv) >= 14) {
- 		/* Populate PICTURE_PARAMETER_SET_17 registers */
- 		pps_val = 0;
- 		pps_val |= DSC_SL_BPG_OFFSET(vdsc_cfg->second_line_bpg_offset);
- 		drm_dbg_kms(&dev_priv->drm, "PPS17 = 0x%08x\n", pps_val);
--		intel_de_write(dev_priv,
--			       MTL_DSC0_PICTURE_PARAMETER_SET_17(pipe),
--			       pps_val);
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       MTL_DSC1_PICTURE_PARAMETER_SET_17(pipe),
--				       pps_val);
-+		ret = intel_dsc_write_pps_reg(crtc_state, 17, pps_val);
-+		if (ret)
-+			drm_dbg_kms(&dev_priv->drm, "PPS17 not written err:%d\n", ret);
- 
- 		/* Populate PICTURE_PARAMETER_SET_18 registers */
- 		pps_val = 0;
- 		pps_val |= DSC_NSL_BPG_OFFSET(vdsc_cfg->nsl_bpg_offset) |
- 			   DSC_SL_OFFSET_ADJ(vdsc_cfg->second_line_offset_adj);
- 		drm_dbg_kms(&dev_priv->drm, "PPS18 = 0x%08x\n", pps_val);
--		intel_de_write(dev_priv,
--			       MTL_DSC0_PICTURE_PARAMETER_SET_18(pipe),
--			       pps_val);
--		if (no_vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       MTL_DSC1_PICTURE_PARAMETER_SET_18(pipe),
--				       pps_val);
-+		ret = intel_dsc_write_pps_reg(crtc_state, 18, pps_val);
-+		if (ret)
-+			drm_dbg_kms(&dev_priv->drm, "PPS18 not written err:%d\n", ret);
- 	}
- 
- 	/* Populate the RC_BUF_THRESH registers */
--- 
-2.25.1
 
