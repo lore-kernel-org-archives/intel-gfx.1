@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 980D2EB64DD
-	for <intel-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 10:43:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6644C0015E
+	for <intel-gfx@archiver.kernel.org>; Wed,  9 Aug 2023 10:43:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D395910E07D;
-	Wed,  9 Aug 2023 10:43:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07DFE10E416;
+	Wed,  9 Aug 2023 10:43:02 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41F5D10E07D
- for <intel-gfx@lists.freedesktop.org>; Wed,  9 Aug 2023 10:42:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99CE110E046
+ for <intel-gfx@lists.freedesktop.org>; Wed,  9 Aug 2023 10:42:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1691577778; x=1723113778;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=186vSzYuEvbvhKK1MijVhic1691gOSvgEdlgUFOSkPg=;
- b=FZBVxx9Gff2dY9x7jpQN4KqAGSb3EPdz/lHUw61S9/7EMVkOfMAtXO1h
- StYZ5txWOybtoL255/B5ObOT9hkY01qEhGMfSrDlbjV5IOAqtAPxgXonG
- 5uy63mhhsYmLO/a63jwKXh16AIov6pq+RIPh/5rhxJCIKc4mDc9dPeFG3
- 812UjoWd48VwsRMLPcJUVFfKAAQFAQte6SoWhaN644z3BuRqO/lqRrYIh
- d0nArOWk5l9BLbhhjN/P8jCRM/zvaGZr/V68TGEUD7WNLo77DhqXGUJ8l
- CJhaXGvy2JjspKcgoOsZ81r64ecspiQ+F/fY+F5Fv5G4/iJ48Uxprbs7h g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="371078484"
-X-IronPort-AV: E=Sophos;i="6.01,159,1684825200"; d="scan'208";a="371078484"
+ t=1691577776; x=1723113776;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=IH8td+18k9nn5DPD3ww7fjWAHfO+R3CHE85TLJ06hxk=;
+ b=i8xowpWoZucKHn/gCImduJxBsAmW9cTjJz516ZKuNwKKvgccuBR58T6C
+ CGofZ/4AkP0QsiUxJHhaZR8014vMepuUyDVayxSJTW/hCWiRZN3FRb4OK
+ L3p0frSBiUjjMGXQ4w8r8yZN5G9ycigeionAFyKKmQl0iNpqr9brcZZ7h
+ vp2+PJlw1woz3qCBm8zIeocAAeUVmulnhBUoDJA8GbNAz3xwUU4vFSGYb
+ QJLh3JZMZNC8fFqFMdrjAgr/BBjE+s3c9U3GffnuX4gHrRM/nXfZtmURM
+ 8Zo67Kp47SQFbI2Dr1CeDvdmucdhIB0F+6IGPaMnh2zHmcftGaUW3AZq5 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="371078477"
+X-IronPort-AV: E=Sophos;i="6.01,159,1684825200"; d="scan'208";a="371078477"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Aug 2023 03:42:58 -0700
+ 09 Aug 2023 03:42:55 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="761335932"
-X-IronPort-AV: E=Sophos;i="6.01,159,1684825200"; d="scan'208";a="761335932"
+X-IronPort-AV: E=McAfee;i="6600,9927,10795"; a="761335921"
+X-IronPort-AV: E=Sophos;i="6.01,159,1684825200"; d="scan'208";a="761335921"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Aug 2023 03:42:56 -0700
+ 09 Aug 2023 03:42:54 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  9 Aug 2023 13:43:07 +0300
-Message-Id: <20230809104307.1218058-3-imre.deak@intel.com>
+Date: Wed,  9 Aug 2023 13:43:05 +0300
+Message-Id: <20230809104307.1218058-1-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20230809104307.1218058-1-imre.deak@intel.com>
-References: <20230809104307.1218058-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 3/3] drm/i915: Don't change the status of forced
- connectors during HPD poll detect
+Subject: [Intel-gfx] [CI 1/3] drm/i915: Avoid endless HPD poll detect loop
+ via runtime suspend/resume
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,111 +60,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As described in the previous patch a connector shouldn't change its
-status while it's forced to a connected/disconnected state. This can
-still happen while running the connector detect function to account for
-lost HPD events in a low-power state.
+The issue fixed in
 
-Fix this by reusing the connector detect function which handles a
-hotplug event and prevents updating the status for forced connectors as
-expected.
+commit a8ddac7c9f06 ("drm/i915: Avoid HPD poll detect triggering a new detect cycle")
 
-Testcase: igt@kms_force_connector_basic@force-connector-state
+on VLV, CHV is still present on platforms where the display hotplug
+detection functionality is available whenever the device is in D0 state
+(hence these platforms switch to HPD polling only when the device is
+runtime suspended).
+
+The above commit avoids an endless i915_hpd_poll_init_work() ->
+connector detect loop by making sure that by the end of
+i915_hpd_poll_init_work() all display power references acquired by the
+connector detect functions which can trigger a new cycle (display core
+power domain) are dropped. However on platforms where HPD polling is
+enabled/disabled only from the runtime suspend/resume handlers, this is
+not ensured: for instance eDP VDD, TypeC port PHYs and the runtime
+autosuspend delay may still keep the device runtime resumed (via a power
+reference acquired during connector detection and hence result in an
+endless loop like the above).
+
+Solve the problem described in the above commit on all platforms, by
+making sure that a i915_hpd_poll_init_work() -> connector detect
+sequence can't take any power reference in the first place which would
+trigger a new cycle, instead of relying on these power references to be
+dropped by the end of the sequence.
+
+With the default runtime autosuspend delay (10 sec) this issue didn't
+happen in practice, since the device remained runtime resumed for the
+whole duration of the above sequence. CI/IGT tests however set the
+autosuspend delay to 0, which makes the problem visible, see References:
+below.
+
+Tested on GLK, CHV.
+
+v2: Don't warn about a requeued work, to account for disabling
+    polling directly during driver loading, reset and system resume.
+
+References: https://gitlab.freedesktop.org/drm/intel/-/issues/7940#note_1997403
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hotplug.c | 57 ++++++++++++++++++--
- 1 file changed, 53 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_crt.c     |  6 ------
+ drivers/gpu/drm/i915/display/intel_dp.c      |  6 ------
+ drivers/gpu/drm/i915/display/intel_hdmi.c    |  6 ------
+ drivers/gpu/drm/i915/display/intel_hotplug.c | 22 +++++++++++++++++++-
+ 4 files changed, 21 insertions(+), 19 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i915/display/intel_crt.c
+index 8090747586877..f66340b4caf0f 100644
+--- a/drivers/gpu/drm/i915/display/intel_crt.c
++++ b/drivers/gpu/drm/i915/display/intel_crt.c
+@@ -907,12 +907,6 @@ intel_crt_detect(struct drm_connector *connector,
+ out:
+ 	intel_display_power_put(dev_priv, intel_encoder->power_domain, wakeref);
+ 
+-	/*
+-	 * Make sure the refs for power wells enabled during detect are
+-	 * dropped to avoid a new detect cycle triggered by HPD polling.
+-	 */
+-	intel_display_power_flush_work(dev_priv);
+-
+ 	return status;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 12bd2f322e627..964bf0551bdc9 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -4957,12 +4957,6 @@ intel_dp_detect(struct drm_connector *connector,
+ 	if (status != connector_status_connected && !intel_dp->is_mst)
+ 		intel_dp_unset_edid(intel_dp);
+ 
+-	/*
+-	 * Make sure the refs for power wells enabled during detect are
+-	 * dropped to avoid a new detect cycle triggered by HPD polling.
+-	 */
+-	intel_display_power_flush_work(dev_priv);
+-
+ 	if (!intel_dp_is_edp(intel_dp))
+ 		drm_dp_set_subconnector_property(connector,
+ 						 status,
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 94a7e1537f427..9442bf43550ee 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2522,12 +2522,6 @@ intel_hdmi_detect(struct drm_connector *connector, bool force)
+ 	if (status != connector_status_connected)
+ 		cec_notifier_phys_addr_invalidate(intel_hdmi->cec_notifier);
+ 
+-	/*
+-	 * Make sure the refs for power wells enabled during detect are
+-	 * dropped to avoid a new detect cycle triggered by HPD polling.
+-	 */
+-	intel_display_power_flush_work(dev_priv);
+-
+ 	return status;
+ }
+ 
 diff --git a/drivers/gpu/drm/i915/display/intel_hotplug.c b/drivers/gpu/drm/i915/display/intel_hotplug.c
-index ca74f94531dda..e3ca192eb569c 100644
+index 0ff5ed46ae1e7..dd7eb9fc78610 100644
 --- a/drivers/gpu/drm/i915/display/intel_hotplug.c
 +++ b/drivers/gpu/drm/i915/display/intel_hotplug.c
-@@ -260,9 +260,8 @@ static void intel_hpd_irq_storm_reenable_work(struct work_struct *work)
- 	intel_runtime_pm_put(&dev_priv->runtime_pm, wakeref);
- }
+@@ -25,6 +25,7 @@
  
--enum intel_hotplug_state
--intel_encoder_hotplug(struct intel_encoder *encoder,
--		      struct intel_connector *connector)
-+static enum intel_hotplug_state
-+intel_hotplug_detect_connector(struct intel_connector *connector)
- {
- 	struct drm_device *dev = connector->base.dev;
- 	enum drm_connector_status old_status;
-@@ -294,6 +293,13 @@ intel_encoder_hotplug(struct intel_encoder *encoder,
- 	return INTEL_HOTPLUG_UNCHANGED;
- }
+ #include "i915_drv.h"
+ #include "i915_irq.h"
++#include "intel_display_power.h"
+ #include "intel_display_types.h"
+ #include "intel_hotplug.h"
+ #include "intel_hotplug_irq.h"
+@@ -638,11 +639,25 @@ static void i915_hpd_poll_init_work(struct work_struct *work)
+ 			     display.hotplug.poll_init_work);
+ 	struct drm_connector_list_iter conn_iter;
+ 	struct intel_connector *connector;
++	intel_wakeref_t wakeref;
+ 	bool enabled;
  
-+enum intel_hotplug_state
-+intel_encoder_hotplug(struct intel_encoder *encoder,
-+		      struct intel_connector *connector)
-+{
-+	return intel_hotplug_detect_connector(connector);
-+}
-+
- static bool intel_encoder_has_hpd_pulse(struct intel_encoder *encoder)
- {
- 	return intel_encoder_is_dig_port(encoder) &&
-@@ -634,6 +640,49 @@ void intel_hpd_init(struct drm_i915_private *dev_priv)
- 	spin_unlock_irq(&dev_priv->irq_lock);
- }
+ 	mutex_lock(&dev_priv->drm.mode_config.mutex);
  
-+static void i915_hpd_poll_detect_connectors(struct drm_i915_private *i915)
-+{
-+	struct drm_connector_list_iter conn_iter;
-+	struct intel_connector *connector;
-+	struct intel_connector *first_changed_connector = NULL;
-+	int changed = 0;
-+
-+	mutex_lock(&i915->drm.mode_config.mutex);
-+
-+	if (!i915->drm.mode_config.poll_enabled)
-+		goto out;
-+
-+	drm_connector_list_iter_begin(&i915->drm, &conn_iter);
-+	for_each_intel_connector_iter(connector, &conn_iter) {
-+		if (!(connector->base.polled & DRM_CONNECTOR_POLL_HPD))
-+			continue;
-+
-+		if (intel_hotplug_detect_connector(connector) != INTEL_HOTPLUG_CHANGED)
-+			continue;
-+
-+		changed++;
-+
-+		if (changed == 1) {
-+			drm_connector_get(&connector->base);
-+			first_changed_connector = connector;
-+		}
+ 	enabled = READ_ONCE(dev_priv->display.hotplug.poll_enabled);
++	/*
++	 * Prevent taking a power reference from this sequence of
++	 * i915_hpd_poll_init_work() -> drm_helper_hpd_irq_event() ->
++	 * connector detect which would requeue i915_hpd_poll_init_work()
++	 * and so risk an endless loop of this same sequence.
++	 */
++	if (!enabled) {
++		wakeref = intel_display_power_get(dev_priv,
++						  POWER_DOMAIN_DISPLAY_CORE);
++		drm_WARN_ON(&dev_priv->drm,
++			    READ_ONCE(dev_priv->display.hotplug.poll_enabled));
++		cancel_work(&dev_priv->display.hotplug.poll_init_work);
 +	}
-+	drm_connector_list_iter_end(&conn_iter);
-+
-+out:
-+	mutex_unlock(&i915->drm.mode_config.mutex);
-+
-+	if (!changed)
-+		return;
-+
-+	if (changed == 1)
-+		drm_kms_helper_connector_hotplug_event(&first_changed_connector->base);
-+	else
-+		drm_kms_helper_hotplug_event(&i915->drm);
-+
-+	drm_connector_put(&first_changed_connector->base);
-+}
-+
- static void i915_hpd_poll_init_work(struct work_struct *work)
- {
- 	struct drm_i915_private *dev_priv =
-@@ -687,7 +736,7 @@ static void i915_hpd_poll_init_work(struct work_struct *work)
+ 
+ 	drm_connector_list_iter_begin(&dev_priv->drm, &conn_iter);
+ 	for_each_intel_connector_iter(connector, &conn_iter) {
+@@ -669,8 +684,13 @@ static void i915_hpd_poll_init_work(struct work_struct *work)
+ 	 * We might have missed any hotplugs that happened while we were
  	 * in the middle of disabling polling
  	 */
- 	if (!enabled) {
--		drm_helper_hpd_irq_event(&dev_priv->drm);
-+		i915_hpd_poll_detect_connectors(dev_priv);
+-	if (!enabled)
++	if (!enabled) {
+ 		drm_helper_hpd_irq_event(&dev_priv->drm);
++
++		intel_display_power_put(dev_priv,
++					POWER_DOMAIN_DISPLAY_CORE,
++					wakeref);
++	}
+ }
  
- 		intel_display_power_put(dev_priv,
- 					POWER_DOMAIN_DISPLAY_CORE,
+ /**
 -- 
 2.37.2
 
