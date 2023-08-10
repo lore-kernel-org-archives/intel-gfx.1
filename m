@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EF2DC04FDF
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 13:08:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DABE4C001E0
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 13:09:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DB0B10E543;
-	Thu, 10 Aug 2023 13:08:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF7CB10E554;
+	Thu, 10 Aug 2023 13:08:27 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEB6510E52E;
- Thu, 10 Aug 2023 13:08:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36D6410E523;
+ Thu, 10 Aug 2023 13:08:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1691672901; x=1723208901;
+ t=1691672896; x=1723208896;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=9IFKv6+p3k/VS3kNRaCpXVE2UmWaakuxVX3zAOunhwo=;
- b=LNZ1exVojJQeO8ahMmFrr5gfDVUYWyCtrnfLnP8HiO8aMlLyqcnu3A1q
- IqJ/DOoDNsIGmEp5mIaiZPjIFlwRDWqGiSztGTFC+XdKdGvatpdtfaP99
- 2JBkJugOQM13hbRpOF5wvTGVaX0FPUI6lUk91HhTRgG0aA+q3tlIE6e+C
- YfGB1cmsYT0JI0c0krsTsx1M2+a7fCFBoOJG50irdkYgjE1/oPBeIkXEh
- SdJSZhB2JaQtroUkbVe2xjsObT/HCNWkkyQBR/GbKqNa1kJ53n5fv5xjs
- S6IRYfja5RThbjuKEw2MIPAYKZ07TISgQN4WTgE+6E2YpbVX8Trjo32/w w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="356358656"
-X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="356358656"
+ bh=X5IimxeISuS18L4feYwMD9o75z/IIJ0FHgcIhSvyNAg=;
+ b=FQb8PBaNOvDB395DY/vao5nwml+ieBsGiTbn9V6vEmZu5OqgwoABhjQF
+ 3g3hqm7pBISpmJGqsOYCATRHgdyV9n+aTGt7taKmgRHBvn7a5RvU/vuaK
+ CVaOmTLkIKLYvpoDHOHEhW8ZM4o2uNEheQxdPhuypNarSFgsPeBJ67iea
+ m43jUgvNI+/M95pjp63ckCa9QvYczzmYp6Ns02HgCBhXMHgBI4d2utGFa
+ LaiQB9bmix0YyKN0uAnE619T3rxzFoUmzIw5a3qf2AgQV7eVbhSdqXlGx
+ NHy7cI42fDiVt9y1jPB2W4Pg/GZ2I0cnuFgVbl7Tw/2LXNkWEza6n6j7u w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="356358615"
+X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="356358615"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2023 06:07:23 -0700
+ 10 Aug 2023 06:07:11 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="709143626"
-X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="709143626"
+X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="709143407"
+X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="709143407"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2023 06:07:21 -0700
+ 10 Aug 2023 06:07:09 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 10 Aug 2023 18:33:17 +0530
-Message-Id: <20230810130319.3708392-19-ankit.k.nautiyal@intel.com>
+Date: Thu, 10 Aug 2023 18:33:12 +0530
+Message-Id: <20230810130319.3708392-14-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230810130319.3708392-1-ankit.k.nautiyal@intel.com>
 References: <20230810130319.3708392-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 18/20] drm/i915/dp: Check src/sink compressed
- bpp limit for edp
+Subject: [Intel-gfx] [PATCH 13/20] drm/i915/dp: Rename helper to get DSC max
+ pipe_bpp
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,51 +62,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use checks for src and sink limits before computing compressed bpp for
-eDP.
+The helper intel_dp_dsc_compute_bpp gives the maximum
+pipe bpp that is allowed with DSC.
+
+Rename the this to reflect that it returns max pipe bpp supported
+with DSC.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c     | 8 ++++----
+ drivers/gpu/drm/i915/display/intel_dp.h     | 2 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 2 +-
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 196bda630944..8c2e5393c6ec 100644
+index 40ba2069ca69..fd321b314f91 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2027,6 +2027,8 @@ static int intel_edp_dsc_compute_pipe_bpp(struct intel_dp *intel_dp,
+@@ -1183,7 +1183,7 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+ 		 * TBD pass the connector BPC,
+ 		 * for now U8_MAX so that max BPC on that platform would be picked
+ 		 */
+-		pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, U8_MAX);
++		pipe_bpp = intel_dp_dsc_compute_max_bpp(intel_dp, U8_MAX);
+ 
+ 		/*
+ 		 * Output bpp is stored in 6.4 format so right shift by 4 to get the
+@@ -1543,7 +1543,7 @@ u8 intel_dp_dsc_max_src_input_bpc(struct drm_i915_private *i915)
+ 	return 0;
+ }
+ 
+-int intel_dp_dsc_compute_bpp(struct intel_dp *intel_dp, u8 max_req_bpc)
++int intel_dp_dsc_compute_max_bpp(struct intel_dp *intel_dp, u8 max_req_bpc)
  {
  	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
- 	int pipe_bpp, forced_bpp;
-+	int dsc_src_min_bpp, dsc_sink_min_bpp, dsc_min_bpp;
-+	int dsc_src_max_bpp, dsc_sink_max_bpp, dsc_max_bpp;
+ 	int i, num_bpc;
+@@ -1731,8 +1731,8 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 				 "Cannot force DSC BPC:%d, due to DSC BPC limits\n",
+ 				 intel_dp->force_dsc_bpc);
  
- 	forced_bpp = intel_dp_force_dsc_pipe_bpp(intel_dp, conn_state, limits);
+-			pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp,
+-							    conn_state->max_requested_bpc);
++			pipe_bpp = intel_dp_dsc_compute_max_bpp(intel_dp,
++								conn_state->max_requested_bpc);
  
-@@ -2044,9 +2046,19 @@ static int intel_edp_dsc_compute_pipe_bpp(struct intel_dp *intel_dp,
- 	}
- 	pipe_config->port_clock = limits->max_rate;
- 	pipe_config->lane_count = limits->max_lane_count;
--	pipe_config->dsc.compressed_bpp =
--		min_t(u16, drm_edp_dsc_sink_output_bpp(intel_dp->dsc_dpcd) >> 4,
--		      pipe_bpp);
-+
-+	dsc_src_min_bpp = dsc_src_min_compressed_bpp();
-+	dsc_sink_min_bpp = dsc_sink_min_compressed_bpp(pipe_config);
-+	dsc_min_bpp = max(dsc_src_min_bpp, dsc_sink_min_bpp);
-+
-+	dsc_src_max_bpp = dsc_src_max_compressed_bpp(intel_dp);
-+	dsc_sink_max_bpp = dsc_sink_max_compressed_bpp(intel_dp, pipe_config, pipe_bpp / 3);
-+	dsc_max_bpp = dsc_sink_max_bpp ? min(dsc_sink_max_bpp, dsc_src_max_bpp) : dsc_src_max_bpp;
-+
-+	/* Compressed BPP should be less than the Input DSC bpp */
-+	dsc_max_bpp = min(dsc_max_bpp, pipe_bpp - 1);
-+
-+	pipe_config->dsc.compressed_bpp = max(dsc_min_bpp, dsc_max_bpp);
+ 			if (!is_dsc_pipe_bpp_sufficient(dev_priv, pipe_bpp)) {
+ 				drm_dbg_kms(&dev_priv->drm,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index 6fd423463f5c..788a577ebe16 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -106,7 +106,7 @@ void intel_read_dp_sdp(struct intel_encoder *encoder,
+ 		       struct intel_crtc_state *crtc_state,
+ 		       unsigned int type);
+ bool intel_digital_port_connected(struct intel_encoder *encoder);
+-int intel_dp_dsc_compute_bpp(struct intel_dp *intel_dp, u8 dsc_max_bpc);
++int intel_dp_dsc_compute_max_bpp(struct intel_dp *intel_dp, u8 dsc_max_bpc);
+ u16 intel_dp_dsc_get_max_compressed_bpp(struct drm_i915_private *i915,
+ 					u32 link_clock, u32 lane_count,
+ 					u32 mode_clock, u32 mode_hdisplay,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 4895d6242915..3eb085fbc7c8 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -971,7 +971,7 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
+ 		 * TBD pass the connector BPC,
+ 		 * for now U8_MAX so that max BPC on that platform would be picked
+ 		 */
+-		int pipe_bpp = intel_dp_dsc_compute_bpp(intel_dp, U8_MAX);
++		int pipe_bpp = intel_dp_dsc_compute_max_bpp(intel_dp, U8_MAX);
  
- 	pipe_config->pipe_bpp = pipe_bpp;
- 
+ 		if (drm_dp_sink_supports_fec(intel_dp->fec_capable)) {
+ 			dsc_max_compressed_bpp =
 -- 
 2.40.1
 
