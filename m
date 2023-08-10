@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6313EC001E0
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 13:08:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 263C7C001B0
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 13:08:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D04010E51E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5F7810E524;
 	Thu, 10 Aug 2023 13:08:12 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3BB110E51E;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D77010E51E;
  Thu, 10 Aug 2023 13:08:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1691672890; x=1723208890;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=hbFL1UcGhxamsAp8kr6KdPcyCJYkopolkEfRy1RQqXA=;
- b=Rs2Lk/LLK3aD/LlRqkjDUicj9E1Okp3WopeOibEfwhNgEXqt5klfKWYq
- ChjB4xk7kmXb3Vd5Uit7XuU9vdn1UI7ywFVpk/yjn6QFM8nx4zqm/Qane
- uknPyoerAqqBcA0dC+zwGwVQdz/6HTDUyQLZqSUacSGiLaJoFSwkDDkj5
- FxVPzYdYlwaAVLQ8xkCpf1PxQw+0ox9dNBfq1wi+NflhHbeg+Haids6U8
- amAb2hFK763s1ELGj5luSsH8D2s29lF7Z28q8N2wxtapnPtlMkJqct/zL
- 9OAghV9FBhbfR9MwVNj83FBa3NZ4T48I3cWRKIduKaDSMYGDzKbtF2TOM A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="356358526"
-X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="356358526"
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=PQbvgn81YjI+IlZGV0d4cGrf+i/ggf+6NQYWq9/IA/c=;
+ b=KQU9i28niL8kBTESADzQnF3yG8wILOMK7cP8tNzPiYiCGLhIaDSQkeLu
+ I9wlFl3UyJ3UdVA1vom+YBHfXk5mlNl7wQIoSRzfLcgcJoPhM0UC+UEt+
+ wB7ZvkvQNBiFW9/70+ABuvwZt2+fFQNILVgIDoJe/GYJ5JO+0zWbKDlw+
+ AgQG/wrjMe6ldZ4etWRVMjYoYNVgPBsKZK9N998Lgc3P2FUiMsuYJ0hoF
+ V05fKGw+cuD169aDLzN4u2NB+7ea2oRkGF7GYFgCm5ULDTvpzIuNb57yT
+ UcY528a+NsQMFd9Tk9R1ilIWyJMW/7El5kVGChHb10BOItIP4hLtIwnqZ Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="356358510"
+X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="356358510"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2023 06:06:45 -0700
+ 10 Aug 2023 06:06:40 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="709142971"
-X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="709142971"
+X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="709142874"
+X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="709142874"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2023 06:06:43 -0700
+ 10 Aug 2023 06:06:38 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 10 Aug 2023 18:33:01 +0530
-Message-Id: <20230810130319.3708392-3-ankit.k.nautiyal@intel.com>
+Date: Thu, 10 Aug 2023 18:32:59 +0530
+Message-Id: <20230810130319.3708392-1-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230810130319.3708392-1-ankit.k.nautiyal@intel.com>
-References: <20230810130319.3708392-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 02/20] drm/i915/dp: Move compressed bpp check
- with 420 format inside the helper
+Subject: [Intel-gfx] [PATCH 00/20] DSC misc fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,51 +60,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move the check for limiting compressed bite_per_pixel for 420,422
-formats in the helper to compute bits_per_pixel.
+This series is an attempt to address multiple issues with DSC,
+scattered in separate existing series.
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+Patches 1-4 are DSC fixes from series to Handle BPC for HDMI2.1 PCON
+https://patchwork.freedesktop.org/series/107550/
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index f138dfa5a2a2..6bb8fa4a3c96 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -773,6 +773,15 @@ u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
- 	if (output_format == INTEL_OUTPUT_FORMAT_YCBCR420)
- 		bits_per_pixel *= 2;
- 
-+	/*
-+	 * According to DSC 1.2a Section 4.1.1 Table 4.1 the maximum
-+	 * supported PPS value can be 63.9375 and with the further
-+	 * mention that for 420, 422 formats, bpp should be programmed double
-+	 * the target bpp restricting our target bpp to be 31.9375 at max.
-+	 */
-+	if (output_format == INTEL_OUTPUT_FORMAT_YCBCR420)
-+		bits_per_pixel = min_t(u32, bits_per_pixel, 31);
-+
- 	drm_dbg_kms(&i915->drm, "Max link bpp is %u for %u timeslots "
- 				"total bw %u pixel clock %u\n",
- 				bits_per_pixel, timeslots,
-@@ -1738,15 +1747,6 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 							    pipe_config->output_format,
- 							    pipe_bpp,
- 							    timeslots);
--			/*
--			 * According to DSC 1.2a Section 4.1.1 Table 4.1 the maximum
--			 * supported PPS value can be 63.9375 and with the further
--			 * mention that bpp should be programmed double the target bpp
--			 * restricting our target bpp to be 31.9375 at max
--			 */
--			if (pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR420)
--				dsc_max_output_bpp = min_t(u16, dsc_max_output_bpp, 31 << 4);
--
- 			if (!dsc_max_output_bpp) {
- 				drm_dbg_kms(&dev_priv->drm,
- 					    "Compressed BPP not supported\n");
+Patches 5-6 are from series DSC fixes for Bigjoiner:
+https://patchwork.freedesktop.org/series/115773/
+
+Patches 7-17 are based on series to add DSC fractional BPP support:
+https://patchwork.freedesktop.org/series/111391/
+
+Patch 20 is to fix compressed bpc for MST DSC, from Stan's series :
+https://patchwork.freedesktop.org/series/116179/
+
+Rev2: Addressed review comments from Stan, Ville.
+
+Rev3: Split larger patches. Separate out common helpers.
+
+Rev4: Rebased, fixed checkpatch warnings.
+
+Rev5: Addressed review comments from Stan.
+Added a patch to check if forced dsc format can be used before forcing.
+
+Rev6: Addressed review comments from Stan.
+
+Rev7: Reordered and rebased.
+
+Ankit Nautiyal (19):
+  drm/i915/dp: Consider output_format while computing dsc bpp
+  drm/i915/dp: Move compressed bpp check with 420 format inside the
+    helper
+  drm/i915/dp_mst: Use output_format to get the final link bpp
+  drm/i915/dp: Use consistent name for link bpp and compressed bpp
+  drm/i915/dp: Update Bigjoiner interface bits for computing compressed
+    bpp
+  drm/i915/intel_cdclk: Add vdsc with bigjoiner constraints on min_cdlck
+  drm/i915/dp: Remove extra logs for printing DSC info
+  drm/display/dp: Fix the DP DSC Receiver cap size
+  drm/i915/dp: Avoid forcing DSC BPC for MST case
+  drm/i915/dp: Add functions to get min/max src input bpc with DSC
+  drm/i915/dp: Check min bpc DSC limits for dsc_force_bpc also
+  drm/i915/dp: Avoid left shift of DSC output bpp by 4
+  drm/i915/dp: Rename helper to get DSC max pipe_bpp
+  drm/i915/dp: Separate out functions for edp/DP for computing DSC bpp
+  drm/i915/dp: Add DSC BPC/BPP constraints while selecting pipe bpp with
+    DSC
+  drm/i915/dp: Separate out function to get compressed bpp with joiner
+  drm/i915/dp: Get optimal link config to have best compressed bpp
+  drm/i915/dp: Check src/sink compressed bpp limit for edp
+  drm/i915/dp: Check if force_dsc_output_format is possible
+
+Stanislav Lisovskiy (1):
+  drm/i915: Query compressed bpp properly using correct DPCD and DP Spec
+    info
+
+ drivers/gpu/drm/i915/display/intel_cdclk.c  |  59 +-
+ drivers/gpu/drm/i915/display/intel_dp.c     | 655 ++++++++++++++++----
+ drivers/gpu/drm/i915/display/intel_dp.h     |  20 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c |  80 +--
+ include/drm/display/drm_dp.h                |   2 +-
+ 5 files changed, 625 insertions(+), 191 deletions(-)
+
 -- 
 2.40.1
 
