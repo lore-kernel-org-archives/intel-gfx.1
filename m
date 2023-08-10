@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8437CC04A94
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Aug 2023 12:48:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D596C001DB
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Aug 2023 12:48:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4333610E1EB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51E8210E1EC;
 	Mon, 14 Aug 2023 12:48:05 +0000 (UTC)
-X-Greylist: delayed 1076 seconds by postgrey-1.36 at gabe;
- Sat, 12 Aug 2023 09:37:32 UTC
-Received: from wxsgout04.xfusion.com (wxsgout03.xfusion.com [36.139.52.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA56210E012;
- Sat, 12 Aug 2023 09:37:32 +0000 (UTC)
-Received: from wuxshcsitd00600.xfusion.com (unknown [10.32.133.213])
- by wxsgout04.xfusion.com (SkyGuard) with ESMTPS id 4RNFSl53Y4z9xyqf;
- Sat, 12 Aug 2023 17:18:15 +0800 (CST)
-Received: from fedora (10.82.147.3) by wuxshcsitd00600.xfusion.com
- (10.32.133.213) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Sat, 12 Aug
- 2023 17:19:29 +0800
-Date: Sat, 12 Aug 2023 17:19:28 +0800
-From: Wang Jinchao <wangjinchao@xfusion.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Message-ID: <ZNdOoHvIg7HXh7Gg@fedora>
+Received: from exchange.fintech.ru (exchange.fintech.ru [195.54.195.159])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A47210E506;
+ Thu, 10 Aug 2023 11:42:29 +0000 (UTC)
+Received: from Ex16-01.fintech.ru (10.0.10.18) by exchange.fintech.ru
+ (195.54.195.169) with Microsoft SMTP Server (TLS) id 14.3.498.0; Thu, 10 Aug
+ 2023 14:42:26 +0300
+Received: from [192.168.211.130] (10.0.253.138) by Ex16-01.fintech.ru
+ (10.0.10.18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Thu, 10 Aug
+ 2023 14:42:25 +0300
+Message-ID: <8a547455-1f5b-f3bf-3fcc-553760940deb@fintech.ru>
+Date: Thu, 10 Aug 2023 04:42:25 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-X-Originating-IP: [10.82.147.3]
-X-ClientProxiedBy: wuxshcsitd00603.xfusion.com (10.32.134.231) To
- wuxshcsitd00600.xfusion.com (10.32.133.213)
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+Content-Language: en-US
+To: Maxime Ripard <mripard@kernel.org>
+References: <20230808180245.7474-1-n.zhandarovich@fintech.ru>
+ <ibwl2bpz5bs72co4ivkvjcc35lv5mqyuvj2hbr3p54hliujklm@uje662ldqfdw>
+From: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+In-Reply-To: <ibwl2bpz5bs72co4ivkvjcc35lv5mqyuvj2hbr3p54hliujklm@uje662ldqfdw>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.0.253.138]
+X-ClientProxiedBy: Ex16-02.fintech.ru (10.0.10.19) To Ex16-01.fintech.ru
+ (10.0.10.18)
 X-Mailman-Approved-At: Mon, 14 Aug 2023 12:48:01 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915: Fix Kconfig error for CONFIG_DRM_I915
+Subject: Re: [Intel-gfx] [PATCH] video/hdmi: convert *_infoframe_init()
+ functions to void
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,51 +50,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stone.xulei@xfusion.com
+Cc: linux-fbdev@vger.kernel.org, lvc-project@linuxtesting.org,
+ Emma Anholt <emma@anholt.net>, dri-devel@lists.freedesktop.org,
+ Mikko Perttunen <mperttunen@nvidia.com>, linux-tegra@vger.kernel.org,
+ David Airlie <airlied@gmail.com>, Helge Deller <deller@gmx.de>,
+ amd-gfx@lists.freedesktop.org, Jonathan Hunter <jonathanh@nvidia.com>, Alain
+ Volmat <alain.volmat@foss.st.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, intel-gfx@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-arm-kernel@lists.infradead.org, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20230812091928.rL_X9exAJnZTm930_33rTiuM4oO_u3DbvfdQBWWiHpQ@z>
 
-When CONFIG_DRM_I915 is set to 'y' and CONFIG_BACKLIGHT_CLASS_DEVICE
-is set to 'm', we encountered an ld.lld error during the build process:
+Hello,
 
-	ld.lld: error: undefined symbol: backlight_device_get_by_name
-	>>> referenced by intel_backlight.c:955
-	>>>               vmlinux.o:(intel_backlight_device_register)
+On 8/10/23 01:13, Maxime Ripard wrote:
+> Hi,
+> 
+> On Tue, Aug 08, 2023 at 11:02:45AM -0700, Nikita Zhandarovich wrote:
+>> Four hdmi_*_infoframe_init() functions that initialize different
+>> types of hdmi infoframes only return the default 0 value, contrary to
+>> their descriptions. Yet these functions are still unnecessarily checked
+>> against possible errors in case of failure.
+>>
+>> Remove redundant error checks in calls to following functions:
+>> - hdmi_spd_infoframe_init
+>> - hdmi_audio_infoframe_init
+>> - hdmi_vendor_infoframe_init
+>> - hdmi_drm_infoframe_init
+>> Also, convert these functions to 'void' and fix their descriptions.
+> 
+> I'm not sure what value it actually adds. None of them return any
+> errors, but very well might if we started to be a bit serious about it.
+> 
+> Since the error handling is already there, then I'd rather leave it
+> there.
 
-	ld.lld: error: undefined symbol: backlight_device_register
-	>>> referenced by intel_backlight.c:971
-	>>>               vmlinux.o:(intel_backlight_device_register)
+There is definitely no particular urgency to this change.
 
-	ld.lld: error: undefined symbol: backlight_device_unregister
-	>>> referenced by intel_backlight.c:999
-	>>>               vmlinux.o:(intel_backlight_device_unregister)
+Since these functions don't perform anything complex and aren't updated
+regularly, my main goal was to remove unnecessary (at the moment) checks
+and fix up their somewhat misleading descriptions. Cleaning up, in other
+words. But I understand your point of view.
 
-This issue occurred because intel_backlight_device_register and
-intel_backlight_device_unregister were enclosed within
-However, according to Kconfig, CONFIG_DRM_I915 will select
-BACKLIGHT_CLASS_DEVICE only if ACPI is enabled.
-This led to an error, which can be resolved by removing the
-conditional statements related to ACPI.
+If you don't think this patch is warranted at this point, I totally
+understand.
 
-Signed-off-by: Wang Jinchao <wangjinchao@xfusion.com>
----
- drivers/gpu/drm/i915/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+>> Fixes: 2c676f378edb ("[media] hdmi: added unpack and logging functions for InfoFrames")
+> 
+> I'm confused about that part. What does it fix exactly?
+> 
+> Maxime
 
-diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
-index 01b5a8272a27..5003de921bf7 100644
---- a/drivers/gpu/drm/i915/Kconfig
-+++ b/drivers/gpu/drm/i915/Kconfig
-@@ -24,7 +24,7 @@ config DRM_I915
- 	select IRQ_WORK
- 	# i915 depends on ACPI_VIDEO when ACPI is enabled
- 	# but for select to work, need to select ACPI_VIDEO's dependencies, ick
--	select BACKLIGHT_CLASS_DEVICE if ACPI
-+	select BACKLIGHT_CLASS_DEVICE
- 	select INPUT if ACPI
- 	select X86_PLATFORM_DEVICES if ACPI
- 	select ACPI_WMI if ACPI
--- 
-2.40.0
+I added the 'Fixes:' tag mostly as a requirement for patch's
+description. Once again, it doesn't "fix" anything broken as much as it
+cleans up stuff.
+
+Best regards,
+Nikita
+
+
+
+
 
