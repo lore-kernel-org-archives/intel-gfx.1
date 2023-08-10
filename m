@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D918C001B0
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 13:09:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6963BC04E69
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 13:09:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7813010E523;
-	Thu, 10 Aug 2023 13:08:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5223910E53E;
+	Thu, 10 Aug 2023 13:08:29 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FFB410E532;
- Thu, 10 Aug 2023 13:08:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7125C10E52D;
+ Thu, 10 Aug 2023 13:08:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1691672902; x=1723208902;
+ t=1691672897; x=1723208897;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=5pQ/XqvtwYzPv/DsMWrp19iqzyGzttqvzoUla8hshG0=;
- b=Hdpxd3ZZEO0c/7DLx+rIqoEZsdXVoF42UAl1lyzE2FjOnJFuk78t7PoR
- kpe8oQ9FXZPJkWI+bwj9eBZdHSPX9420UJNDS5CwRGMHI8g95GJ8OJ4Qf
- Oh1RkE2joGUlbqNlgs+THgueRyZjA0Z9BAL6EM0uvgGTIOeTiWhnnDc3r
- G79TjhTTvxfQOYoSIkRShzgXEtR8E6+bnUL08tVg822yvDod5Nr/fNHjk
- VJM5XFg0IMWghKusqoiDsbm8WlT6mIygjQ3yWVKM9y1YEEhgZWItizcfm
- bq4XGwOyvxbaPI4CFZ0tZToUW5b8WkTrUAFWllvzeX1nuqKmGgg8/E0BC g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="356358671"
-X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="356358671"
+ bh=aiahveQRDUYDNmmuWt6oZp0CRKVrzs3w1SVtnrsbrEY=;
+ b=ZA9252Nli2hYPF5v2ApuhVUaDcyHQvFmMilUMZGVySxq8e4oOymLO4ku
+ 44kn5iR3BFn8cMFmRy4GnidZQFDSVfhr2uX6FrZwMply/NIctk5EyamRc
+ kmdkkhLreOKce/iqJISsNc/KHJmgjdtfDlO9GD2hUxK8Qts4JMDIA6tPK
+ a6pu41Ju+2i1EWuFN3ZdDIvY7muw13iYpZKZcJi4RKz0J3MIdTpFQoOun
+ qY8Q/XOqPoqpreZHgPNZjUjM+PrQpNalbdz35EC2U/KRBndmyNgjYqltW
+ 0Qp3+Vwpyy4Di/Thv1zkhwlr+MrKvqccdGWcDg1nOAhmvwtHofqj5c7MR g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="356358634"
+X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="356358634"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2023 06:07:27 -0700
+ 10 Aug 2023 06:07:15 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="709143703"
-X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="709143703"
+X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="709143503"
+X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="709143503"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2023 06:07:25 -0700
+ 10 Aug 2023 06:07:13 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 10 Aug 2023 18:33:19 +0530
-Message-Id: <20230810130319.3708392-21-ankit.k.nautiyal@intel.com>
+Date: Thu, 10 Aug 2023 18:33:14 +0530
+Message-Id: <20230810130319.3708392-16-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230810130319.3708392-1-ankit.k.nautiyal@intel.com>
 References: <20230810130319.3708392-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 20/20] drm/i915: Query compressed bpp properly
- using correct DPCD and DP Spec info
+Subject: [Intel-gfx] [PATCH 15/20] drm/i915/dp: Add DSC BPC/BPP constraints
+ while selecting pipe bpp with DSC
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,181 +62,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Currently we check if the pipe_bpp selected is >= the
+min DSC bpc/bpp requirement. We do not check if it is <= the max DSC
+bpc/bpp requirement.
 
-Currently we seem to be using wrong DPCD register for reading
-compressed bpps, reading min/max input bpc instead of compressed bpp.
-Fix that, so that we now apply min/max compressed bpp limitations we
-get from DP Spec Table 2-157 DP v2.0 and/or correspondent DPCD
-register DP_DSC_MAX_BITS_PER_PIXEL_LOW/HIGH.
+Add checks for max DSC BPC/BPP constraints while computing the
+pipe_bpp when DSC is in use.
 
-This might also allow us to get rid of an ugly compressed bpp
-recalculation, which we had to add to make some MST hubs usable.
+v2: Fix the commit message.
 
-v2: - Fix operator precedence
-v3: - Added debug info about compressed bpps
-v4: - Don't try to intersect Sink input bpp and compressed bpps.
-v5: - Decrease step while looking for suitable compressed bpp to
-      accommodate.
-v6: - Use helper for getting min and max compressed_bpp (Ankit)
-v7: - Fix checkpatch warning (Ankit)
-
-Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c     | 20 +++++----
- drivers/gpu/drm/i915/display/intel_dp.h     |  4 ++
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 47 +++++++++------------
- 3 files changed, 36 insertions(+), 35 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 34 +++++++++++++++++--------
+ 1 file changed, 24 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 9e904bb4ac5c..bdaa2249409d 100644
+index f4870c9b0db6..67e8a9abe6ce 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1789,7 +1789,7 @@ u16 intel_dp_dsc_max_sink_compressed_bppx16(struct intel_dp *intel_dp,
- 	return 0;
+@@ -1691,13 +1691,27 @@ u8 intel_dp_dsc_min_src_input_bpc(struct drm_i915_private *i915)
  }
  
--static int dsc_sink_min_compressed_bpp(struct intel_crtc_state *pipe_config)
-+int intel_dp_dsc_sink_min_compressed_bpp(struct intel_crtc_state *pipe_config)
+ static
+-bool is_dsc_pipe_bpp_sufficient(struct drm_i915_private *i915, int pipe_bpp)
++bool is_dsc_pipe_bpp_sufficient(struct drm_i915_private *i915,
++				struct drm_connector_state *conn_state,
++				struct link_config_limits *limits,
++				int pipe_bpp)
  {
- 	/* From Mandatory bit rate range Support Table 2-157 (DP v2.0) */
- 	switch (pipe_config->output_format) {
-@@ -1806,9 +1806,9 @@ static int dsc_sink_min_compressed_bpp(struct intel_crtc_state *pipe_config)
- 	return 0;
- }
- 
--static int dsc_sink_max_compressed_bpp(struct intel_dp *intel_dp,
--				       struct intel_crtc_state *pipe_config,
--				       int bpc)
-+int intel_dp_dsc_sink_max_compressed_bpp(struct intel_dp *intel_dp,
-+					 struct intel_crtc_state *pipe_config,
-+					 int bpc)
- {
- 	return intel_dp_dsc_max_sink_compressed_bppx16(intel_dp,
- 						       pipe_config, bpc) >> 4;
-@@ -1921,11 +1921,13 @@ static int dsc_compute_compressed_bpp(struct intel_dp *intel_dp,
- 	int dsc_joiner_max_bpp;
- 
- 	dsc_src_min_bpp = dsc_src_min_compressed_bpp();
--	dsc_sink_min_bpp = dsc_sink_min_compressed_bpp(pipe_config);
-+	dsc_sink_min_bpp = intel_dp_dsc_sink_min_compressed_bpp(pipe_config);
- 	dsc_min_bpp = max(dsc_src_min_bpp, dsc_sink_min_bpp);
- 
- 	dsc_src_max_bpp = dsc_src_max_compressed_bpp(intel_dp);
--	dsc_sink_max_bpp = dsc_sink_max_compressed_bpp(intel_dp, pipe_config, pipe_bpp / 3);
-+	dsc_sink_max_bpp = intel_dp_dsc_sink_max_compressed_bpp(intel_dp,
-+								pipe_config,
-+								pipe_bpp / 3);
- 	dsc_max_bpp = dsc_sink_max_bpp ? min(dsc_sink_max_bpp, dsc_src_max_bpp) : dsc_src_max_bpp;
- 
- 	dsc_joiner_max_bpp = get_max_compressed_bpp_with_joiner(i915, adjusted_mode->clock,
-@@ -2074,11 +2076,13 @@ static int intel_edp_dsc_compute_pipe_bpp(struct intel_dp *intel_dp,
- 	pipe_config->lane_count = limits->max_lane_count;
- 
- 	dsc_src_min_bpp = dsc_src_min_compressed_bpp();
--	dsc_sink_min_bpp = dsc_sink_min_compressed_bpp(pipe_config);
-+	dsc_sink_min_bpp = intel_dp_dsc_sink_min_compressed_bpp(pipe_config);
- 	dsc_min_bpp = max(dsc_src_min_bpp, dsc_sink_min_bpp);
- 
- 	dsc_src_max_bpp = dsc_src_max_compressed_bpp(intel_dp);
--	dsc_sink_max_bpp = dsc_sink_max_compressed_bpp(intel_dp, pipe_config, pipe_bpp / 3);
-+	dsc_sink_max_bpp = intel_dp_dsc_sink_max_compressed_bpp(intel_dp,
-+								pipe_config,
-+								pipe_bpp / 3);
- 	dsc_max_bpp = dsc_sink_max_bpp ? min(dsc_sink_max_bpp, dsc_src_max_bpp) : dsc_src_max_bpp;
- 
- 	/* Compressed BPP should be less than the Input DSC bpp */
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 788a577ebe16..f29e48028f39 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -114,6 +114,10 @@ u16 intel_dp_dsc_get_max_compressed_bpp(struct drm_i915_private *i915,
- 					enum intel_output_format output_format,
- 					u32 pipe_bpp,
- 					u32 timeslots);
-+int intel_dp_dsc_sink_min_compressed_bpp(struct intel_crtc_state *pipe_config);
-+int intel_dp_dsc_sink_max_compressed_bpp(struct intel_dp *intel_dp,
-+					 struct intel_crtc_state *pipe_config,
-+					 int bpc);
- u8 intel_dp_dsc_get_slice_count(struct intel_dp *intel_dp,
- 				int mode_clock, int mode_hdisplay,
- 				bool bigjoiner);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 3eb085fbc7c8..06a456517383 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -101,6 +101,9 @@ static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
- 							      crtc_state->lane_count);
- 	}
- 
-+	drm_dbg_kms(&i915->drm, "Looking for slots in range min bpp %d max bpp %d\n",
-+		    min_bpp, max_bpp);
+-	return pipe_bpp >= intel_dp_dsc_min_src_input_bpc(i915) * 3;
++	u8 dsc_max_bpc, dsc_min_bpc, dsc_max_pipe_bpp, dsc_min_pipe_bpp;
 +
- 	for (bpp = max_bpp; bpp >= min_bpp; bpp -= step) {
- 		drm_dbg_kms(&i915->drm, "Trying bpp %d\n", bpp);
++	dsc_max_bpc = min(intel_dp_dsc_max_src_input_bpc(i915), conn_state->max_requested_bpc);
++	dsc_min_bpc = intel_dp_dsc_min_src_input_bpc(i915);
++
++	dsc_max_pipe_bpp = min(dsc_max_bpc * 3, limits->max_bpp);
++	dsc_min_pipe_bpp = max(dsc_min_bpc * 3, limits->min_bpp);
++
++	return pipe_bpp >= dsc_min_pipe_bpp &&
++	       pipe_bpp <= dsc_max_pipe_bpp;
+ }
  
-@@ -194,8 +197,7 @@ static int intel_dp_dsc_mst_compute_link_config(struct intel_encoder *encoder,
- 	u8 dsc_bpc[3] = {0};
- 	int min_bpp, max_bpp, sink_min_bpp, sink_max_bpp;
- 	u8 dsc_max_bpc;
--	bool need_timeslot_recalc = false;
--	u32 last_compressed_bpp;
-+	int min_compressed_bpp, max_compressed_bpp;
+ static
+-int intel_dp_force_dsc_pipe_bpp(struct intel_dp *intel_dp)
++int intel_dp_force_dsc_pipe_bpp(struct intel_dp *intel_dp,
++				struct drm_connector_state *conn_state,
++				struct link_config_limits *limits)
+ {
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+ 	int forced_bpp;
+@@ -1707,7 +1721,7 @@ int intel_dp_force_dsc_pipe_bpp(struct intel_dp *intel_dp)
  
- 	/* Max DSC Input BPC for ICL is 10 and for TGL+ is 12 */
- 	if (DISPLAY_VER(i915) >= 12)
-@@ -231,34 +233,25 @@ static int intel_dp_dsc_mst_compute_link_config(struct intel_encoder *encoder,
- 	if (max_bpp > sink_max_bpp)
- 		max_bpp = sink_max_bpp;
+ 	forced_bpp = intel_dp->force_dsc_bpc * 3;
  
--	slots = intel_dp_mst_find_vcpi_slots_for_bpp(encoder, crtc_state, max_bpp,
--						     min_bpp, limits,
--						     conn_state, 2 * 3, true);
--
--	if (slots < 0)
--		return slots;
--
--	last_compressed_bpp = crtc_state->dsc.compressed_bpp;
-+	max_compressed_bpp = intel_dp_dsc_sink_max_compressed_bpp(intel_dp,
-+								  crtc_state,
-+								  max_bpp / 3);
-+	min_compressed_bpp = intel_dp_dsc_sink_min_compressed_bpp(crtc_state);
-+	drm_dbg_kms(&i915->drm, "DSC Sink supported compressed min bpp %d compressed max bpp %d\n",
-+		    min_compressed_bpp, max_compressed_bpp);
+-	if (is_dsc_pipe_bpp_sufficient(i915, forced_bpp)) {
++	if (is_dsc_pipe_bpp_sufficient(i915, conn_state, limits, forced_bpp)) {
+ 		drm_dbg_kms(&i915->drm, "Input DSC BPC forced to %d\n", intel_dp->force_dsc_bpc);
+ 		return forced_bpp;
+ 	}
+@@ -1729,16 +1743,16 @@ static int intel_dp_dsc_compute_pipe_bpp(struct intel_dp *intel_dp,
+ 	u16 output_bpp, dsc_max_compressed_bpp = 0;
+ 	int forced_bpp, pipe_bpp;
  
--	crtc_state->dsc.compressed_bpp = intel_dp_dsc_nearest_valid_bpp(i915,
--									last_compressed_bpp,
--									crtc_state->pipe_bpp);
-+	/* Align compressed bpps according to our own constraints */
-+	max_compressed_bpp = intel_dp_dsc_nearest_valid_bpp(i915, max_compressed_bpp,
-+							    crtc_state->pipe_bpp);
-+	min_compressed_bpp = intel_dp_dsc_nearest_valid_bpp(i915, min_compressed_bpp,
-+							    crtc_state->pipe_bpp);
+-	forced_bpp = intel_dp_force_dsc_pipe_bpp(intel_dp);
++	forced_bpp = intel_dp_force_dsc_pipe_bpp(intel_dp, conn_state, limits);
  
--	if (crtc_state->dsc.compressed_bpp != last_compressed_bpp)
--		need_timeslot_recalc = true;
-+	slots = intel_dp_mst_find_vcpi_slots_for_bpp(encoder, crtc_state, max_compressed_bpp,
-+						     min_compressed_bpp, limits,
-+						     conn_state, 1, true);
+ 	if (forced_bpp) {
+ 		pipe_bpp = forced_bpp;
+ 	} else {
+ 		pipe_bpp = intel_dp_dsc_compute_max_bpp(intel_dp, conn_state->max_requested_bpc);
  
--	/*
--	 * Apparently some MST hubs dislike if vcpi slots are not matching precisely
--	 * the actual compressed bpp we use.
--	 */
--	if (need_timeslot_recalc) {
--		slots = intel_dp_mst_find_vcpi_slots_for_bpp(encoder, crtc_state,
--							     crtc_state->dsc.compressed_bpp,
--							     crtc_state->dsc.compressed_bpp,
--							     limits, conn_state, 2 * 3, true);
--		if (slots < 0)
--			return slots;
--	}
-+	if (slots < 0)
-+		return slots;
+-		if (!is_dsc_pipe_bpp_sufficient(i915, pipe_bpp)) {
++		if (!is_dsc_pipe_bpp_sufficient(i915, conn_state, limits, pipe_bpp)) {
+ 			drm_dbg_kms(&i915->drm,
+-				    "Computed BPC less than min supported by source for DSC\n");
++				    "Computed BPC is not in DSC BPC limits\n");
+ 			return -EINVAL;
+ 		}
+ 	}
+@@ -1780,7 +1794,7 @@ static int intel_edp_dsc_compute_pipe_bpp(struct intel_dp *intel_dp,
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+ 	int pipe_bpp, forced_bpp;
  
- 	intel_link_compute_m_n(crtc_state->dsc.compressed_bpp,
- 			       crtc_state->lane_count,
+-	forced_bpp = intel_dp_force_dsc_pipe_bpp(intel_dp);
++	forced_bpp = intel_dp_force_dsc_pipe_bpp(intel_dp, conn_state, limits);
+ 
+ 	if (forced_bpp) {
+ 		pipe_bpp = forced_bpp;
+@@ -1788,9 +1802,9 @@ static int intel_edp_dsc_compute_pipe_bpp(struct intel_dp *intel_dp,
+ 		/* For eDP use max bpp that can be supported with DSC. */
+ 		pipe_bpp = intel_dp_dsc_compute_max_bpp(intel_dp,
+ 							conn_state->max_requested_bpc);
+-		if (!is_dsc_pipe_bpp_sufficient(i915, pipe_bpp)) {
++		if (!is_dsc_pipe_bpp_sufficient(i915, conn_state, limits, pipe_bpp)) {
+ 			drm_dbg_kms(&i915->drm,
+-				    "Computed BPC less than min supported by source for DSC\n");
++				    "Computed BPC is not in DSC BPC limits\n");
+ 			return -EINVAL;
+ 		}
+ 	}
 -- 
 2.40.1
 
