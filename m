@@ -4,49 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95D4FC001DB
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 12:35:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AE5FC001DB
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 12:41:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB17410E513;
-	Thu, 10 Aug 2023 12:35:04 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5885210E513
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Aug 2023 12:35:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1691670903; x=1723206903;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=RQd3bPXHis8rkbY1FQYBwd1w8XRKEHA1h5DfaxjO0S0=;
- b=fpmU3BEVViO0hu2gB+zHnYJZ6lmzbBpRL539L8kKy3830DiQiN//tQsS
- tEEPWTqOTbaLLg6363wdgIsJ3t+2C1JUh7NbXfY0a9sXvgRNezrlaOZWC
- TyAtDGewMEgGnJj958CWctyMHxvVtcrk53nopIsxLW1dzQA3bEGtM6qI1
- 0qZ0CTAHYlRJvmanJUy6Fd8E3FADAK3fSX2aAONQXfNAcg8cablhET9vk
- yqOaib8cnSfZYLk/9npk0s43oGoY9p1lko/otfC+5bGqKGd/nOmD2VPWN
- 8r0Qgm0XA22brLrSXcSZGkbePDg2B5tIWNzV6p1iJsmOpQI+W2Yiqqjkk w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="457746541"
-X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="457746541"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2023 05:35:02 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10797"; a="822239266"
-X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="822239266"
-Received: from astheime-mobl.ger.corp.intel.com (HELO intel.com)
- ([10.249.40.6])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2023 05:35:00 -0700
-Date: Thu, 10 Aug 2023 14:34:57 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Jonathan Cavitt <jonathan.cavitt@intel.com>
-Message-ID: <ZNTZcahC8n2/nNpd@ashyti-mobl2.lan>
-References: <20230801153242.2445478-1-jonathan.cavitt@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9733B10E51A;
+	Thu, 10 Aug 2023 12:41:13 +0000 (UTC)
+Received: from mblankhorst.nl (lankhorst.se
+ [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1502D10E186;
+ Thu, 10 Aug 2023 12:41:12 +0000 (UTC)
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 10 Aug 2023 14:41:05 +0200
+Message-Id: <20230810124105.124395-2-maarten.lankhorst@linux.intel.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230810124105.124395-1-maarten.lankhorst@linux.intel.com>
+References: <20230810124105.124395-1-maarten.lankhorst@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230801153242.2445478-1-jonathan.cavitt@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 0/3] drm/i915: Fix Wa_22016122933
- implementation
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915: Handle legacy cursor update as
+ normal update
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,86 +36,161 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: chris.p.wilson@linux.intel.com, intel-gfx@lists.freedesktop.org,
- matthew.d.roper@intel.com, nirmoy.das@intel.com
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Jonathan,
+Abuse the vblank worker to make the changes as small as possible. We
+need a way to sync flip_done, but if we wait on flip_done, all async
+tests start failing.
 
-pushed in drm-intel-gt-next.
+Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_crtc.c    | 21 ++++++++++++++------
+ drivers/gpu/drm/i915/display/intel_crtc.h    |  6 ++++--
+ drivers/gpu/drm/i915/display/intel_display.c | 10 +++++++---
+ 3 files changed, 26 insertions(+), 11 deletions(-)
 
-I added two links to the commit logs: the first one refers to
-this series, while the second refers to the series sent to CI
-which includes the rebase conflict fix.
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
+index 182c6dd64f47..2adcce303271 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+@@ -389,8 +389,13 @@ int intel_crtc_init(struct drm_i915_private *dev_priv, enum pipe pipe)
+ 	return ret;
+ }
+ 
+-static bool intel_crtc_needs_vblank_work(const struct intel_crtc_state *crtc_state)
++static bool intel_crtc_needs_vblank_work(const struct intel_atomic_state *state,
++					 const struct intel_crtc_state *crtc_state)
+ {
++	/* Always init for legacy cursor update, so we can sync on teardown */
++	if (state->base.legacy_cursor_update)
++		return true;
++
+ 	return crtc_state->hw.active &&
+ 		!intel_crtc_needs_modeset(crtc_state) &&
+ 		!crtc_state->preload_luts &&
+@@ -438,7 +443,7 @@ void intel_wait_for_vblank_workers(struct intel_atomic_state *state)
+ 	int i;
+ 
+ 	for_each_new_intel_crtc_in_state(state, crtc, crtc_state, i) {
+-		if (!intel_crtc_needs_vblank_work(crtc_state))
++		if (!intel_crtc_needs_vblank_work(state, crtc_state))
+ 			continue;
+ 
+ 		drm_vblank_work_flush(&crtc_state->vblank_work);
+@@ -470,6 +475,7 @@ static int intel_mode_vblank_start(const struct drm_display_mode *mode)
+ 
+ /**
+  * intel_pipe_update_start() - start update of a set of display registers
++ * @state: the intel atomic state
+  * @new_crtc_state: the new crtc state
+  *
+  * Mark the start of an update to pipe registers that should be updated
+@@ -480,7 +486,8 @@ static int intel_mode_vblank_start(const struct drm_display_mode *mode)
+  * until a subsequent call to intel_pipe_update_end(). That is done to
+  * avoid random delays.
+  */
+-void intel_pipe_update_start(struct intel_crtc_state *new_crtc_state)
++void intel_pipe_update_start(struct intel_atomic_state *state,
++			     struct intel_crtc_state *new_crtc_state)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(new_crtc_state->uapi.crtc);
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+@@ -497,7 +504,7 @@ void intel_pipe_update_start(struct intel_crtc_state *new_crtc_state)
+ 	if (new_crtc_state->do_async_flip)
+ 		return;
+ 
+-	if (intel_crtc_needs_vblank_work(new_crtc_state))
++	if (intel_crtc_needs_vblank_work(state, new_crtc_state))
+ 		intel_crtc_vblank_work_init(new_crtc_state);
+ 
+ 	if (new_crtc_state->vrr.enable) {
+@@ -631,13 +638,15 @@ static void dbg_vblank_evade(struct intel_crtc *crtc, ktime_t end) {}
+ 
+ /**
+  * intel_pipe_update_end() - end update of a set of display registers
++ * @state: the intel atomic state
+  * @new_crtc_state: the new crtc state
+  *
+  * Mark the end of an update started with intel_pipe_update_start(). This
+  * re-enables interrupts and verifies the update was actually completed
+  * before a vblank.
+  */
+-void intel_pipe_update_end(struct intel_crtc_state *new_crtc_state)
++void intel_pipe_update_end(struct intel_atomic_state *state,
++			   struct intel_crtc_state *new_crtc_state)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(new_crtc_state->uapi.crtc);
+ 	enum pipe pipe = crtc->pipe;
+@@ -665,7 +674,7 @@ void intel_pipe_update_end(struct intel_crtc_state *new_crtc_state)
+ 	 * Would be slightly nice to just grab the vblank count and arm the
+ 	 * event outside of the critical section - the spinlock might spin for a
+ 	 * while ... */
+-	if (intel_crtc_needs_vblank_work(new_crtc_state)) {
++	if (intel_crtc_needs_vblank_work(state, new_crtc_state)) {
+ 		drm_vblank_work_schedule(&new_crtc_state->vblank_work,
+ 					 drm_crtc_accurate_vblank_count(&crtc->base) + 1,
+ 					 false);
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.h b/drivers/gpu/drm/i915/display/intel_crtc.h
+index 51a4c8df9e65..ca7f45a454a0 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.h
++++ b/drivers/gpu/drm/i915/display/intel_crtc.h
+@@ -36,8 +36,10 @@ void intel_crtc_state_reset(struct intel_crtc_state *crtc_state,
+ u32 intel_crtc_get_vblank_counter(struct intel_crtc *crtc);
+ void intel_crtc_vblank_on(const struct intel_crtc_state *crtc_state);
+ void intel_crtc_vblank_off(const struct intel_crtc_state *crtc_state);
+-void intel_pipe_update_start(struct intel_crtc_state *new_crtc_state);
+-void intel_pipe_update_end(struct intel_crtc_state *new_crtc_state);
++void intel_pipe_update_start(struct intel_atomic_state *state,
++			     struct intel_crtc_state *new_crtc_state);
++void intel_pipe_update_end(struct intel_atomic_state *state,
++			   struct intel_crtc_state *new_crtc_state);
+ void intel_wait_for_vblank_workers(struct intel_atomic_state *state);
+ struct intel_crtc *intel_first_crtc(struct drm_i915_private *i915);
+ struct intel_crtc *intel_crtc_for_pipe(struct drm_i915_private *i915,
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 763ab569d8f3..e1ca1f9c3941 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -6604,7 +6604,7 @@ static void intel_update_crtc(struct intel_atomic_state *state,
+ 	intel_crtc_planes_update_noarm(state, crtc);
+ 
+ 	/* Perform vblank evasion around commit operation */
+-	intel_pipe_update_start(new_crtc_state);
++	intel_pipe_update_start(state, new_crtc_state);
+ 
+ 	commit_pipe_pre_planes(state, crtc);
+ 
+@@ -6612,7 +6612,7 @@ static void intel_update_crtc(struct intel_atomic_state *state,
+ 
+ 	commit_pipe_post_planes(state, crtc);
+ 
+-	intel_pipe_update_end(new_crtc_state);
++	intel_pipe_update_end(state, new_crtc_state);
+ 
+ 	/*
+ 	 * We usually enable FIFO underrun interrupts as part of the
+@@ -6895,6 +6895,9 @@ static void intel_atomic_cleanup_work(struct work_struct *work)
+ 	struct intel_crtc *crtc;
+ 	int i;
+ 
++	if (state->base.legacy_cursor_update)
++		intel_wait_for_vblank_workers(state);
++
+ 	for_each_old_intel_crtc_in_state(state, crtc, old_crtc_state, i)
+ 		intel_color_cleanup_commit(old_crtc_state);
+ 
+@@ -7056,7 +7059,8 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
+ 	if (state->modeset)
+ 		intel_set_cdclk_post_plane_update(state);
+ 
+-	intel_wait_for_vblank_workers(state);
++	if (!state->base.legacy_cursor_update)
++		intel_wait_for_vblank_workers(state);
+ 
+ 	/* FIXME: We should call drm_atomic_helper_commit_hw_done() here
+ 	 * already, but still need the state for the delayed optimization. To
+-- 
+2.39.2
 
-Hope this is fine.
-
-Thanks,
-Andi
-
-On Tue, Aug 01, 2023 at 08:32:39AM -0700, Jonathan Cavitt wrote:
-> WA_22016122933 was recently applied to all MeteorLake engines, which is
-> simultaneously too broad (should only apply to Media engines) and too
-> specific (should apply to all platforms that use the same media engine
-> as MeteorLake).  Correct this for all current use cases.
-> 
-> There are two additional changes that deserve special attention:
-> 
-> 
-> First, the usage of the workaround in i915_coherent_map_type required
-> a more invasive change to check the gt, which was split into its own
-> patch.
-> 
-> Second, the addition of write barriers during ct_read and
-> gsc_fw_load_prepare were found to be unconditional, so the workaround
-> tags were removed as the usages were not platform dependent.
-> 
-> v2:
-> - Refactor i915_coherent_map_type to intel_gt_coherent_map_type and move
->   it to the gt folder as it now takes an intel_gt instead of a
->   drm_i915_private.
-> 
-> v3:
-> - Remove additional gt requirement from shmem_create_from_object.
->   Instead of passing a gt to check if the workaround applies in
->   intel_gt_coherent_map_type, only check if the object is lmem to
->   determine the map type to use.
-> 
-> v4:
-> - Fix formatting warnings.
-> - Add this cover letter and all missing revision notes.
-> - Add missing acks and reviews to commit messages.
-> - Fix contributor ordering in commit messages.
-> 
-> Jonathan Cavitt (3):
->   drm/i915/gt: Simplify shmem_create_from_object map_type selection
->   drm/i915: Make i915_coherent_map_type GT-centric
->   drm/i915/gt: Apply workaround 22016122933 correctly
-> 
->  drivers/gpu/drm/i915/display/intel_hdcp_gsc.c    |  3 ++-
->  drivers/gpu/drm/i915/gem/i915_gem_object.h       |  4 ----
->  drivers/gpu/drm/i915/gem/i915_gem_pages.c        | 15 ---------------
->  .../drm/i915/gem/selftests/i915_gem_migrate.c    | 12 ++++++------
->  drivers/gpu/drm/i915/gt/intel_engine_pm.c        |  2 +-
->  drivers/gpu/drm/i915/gt/intel_gt.c               | 16 ++++++++++++++++
->  drivers/gpu/drm/i915/gt/intel_gt.h               |  9 +++++++++
->  drivers/gpu/drm/i915/gt/intel_gtt.c              |  4 ++--
->  drivers/gpu/drm/i915/gt/intel_lrc.c              | 13 +++++++------
->  drivers/gpu/drm/i915/gt/intel_ring.c             |  3 ++-
->  drivers/gpu/drm/i915/gt/selftest_context.c       |  5 +++--
->  drivers/gpu/drm/i915/gt/selftest_hangcheck.c     |  4 ++--
->  drivers/gpu/drm/i915/gt/selftest_lrc.c           |  6 +++---
->  drivers/gpu/drm/i915/gt/shmem_utils.c            |  3 +--
->  drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c        |  7 +------
->  drivers/gpu/drm/i915/gt/uc/intel_guc.c           | 11 ++++++-----
->  drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c        |  4 ----
->  drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c        |  3 +--
->  drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c         |  3 ++-
->  drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c       |  3 ++-
->  drivers/gpu/drm/i915/pxp/intel_pxp_tee.c         |  5 ++++-
->  drivers/gpu/drm/i915/selftests/igt_spinner.c     |  2 +-
->  22 files changed, 71 insertions(+), 66 deletions(-)
-> 
-> -- 
-> 2.25.1
