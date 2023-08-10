@@ -4,47 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94391C001B0
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 17:04:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 717C1C04E69
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 17:04:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F4C210E5C1;
-	Thu, 10 Aug 2023 17:04:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1ECC10E5C5;
+	Thu, 10 Aug 2023 17:04:41 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 587D510E5C0
- for <intel-gfx@lists.freedesktop.org>; Thu, 10 Aug 2023 17:04:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83D9B10E5C0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 10 Aug 2023 17:04:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1691687077; x=1723223077;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=0577mMH+3UbNtBg867KlP3jyyUQc1aS8rvilreUSJwE=;
- b=EqqTNmft4K/XxyQyjt7nd8TjnKfuldH0yAxUyj+3pTGeIytjIzsEwYLw
- baVAPX7G/APFheGWUQ/N2js2GqY6P6fG2lzyjLBRQXUyy9+rm94ZMtCbW
- uYS5Lz/r0cye4Ku3gv4GvjDOVC0QR/8CiX29D45dUnqKgx1fgLzVCO/n5
- xexM0ofT8XH7U9WnnUQjriqw4mDoss5T0gT+euCCoXwH/FiZQImNTttcH
- YiZXyXUTVKbtx8+ZEsKlHJXP9WEWN6fAn5tF8j3Q+3Dim6MlX8qmcJw5N
- 8gUPwfM8uS0C3FfTEMqdh0P5UhUzLP3FGPPoXnuL9yoF2ytfBhYVouQWJ g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10798"; a="435358647"
-X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="435358647"
+ t=1691687078; x=1723223078;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=jOeR7Mvmpp94NWSiX0JTF919tiaRHdRa8qvmVMDuM0g=;
+ b=jgAZVAlCxOrrl1LbEJzUg7r1sM0vyt7YpNLxWttdGXrm7JAM1wqHd9n7
+ S1v57BzApLG/zHMUTPooeg1tYg6+yatnWOOMhrSYpBUPZTjVlapyRMNBh
+ mz3wGKTCX3ukv9ppVU9/PI5rz5f6fYtqdFU1amujOdJMRZxGCV68xlm8F
+ cbkxOal9OD3C3yPWNq6QGhOGkMlMhAoPBvQdeM6g3/WRRENCex/QC+VzM
+ d8nnFTf8t6H3sizpKkaO+9BQfF45QYXw9DdcH1qSUEnFakFnV+mVsHU5e
+ 8DECwyf873tUv4faEbSxnXI3qBwhupwB1ii6C8w27mvAUQVsns2N9/jZx g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10798"; a="435358662"
+X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="435358662"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2023 10:03:59 -0700
+ 10 Aug 2023 10:04:03 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10798"; a="735489027"
-X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="735489027"
+X-IronPort-AV: E=McAfee;i="6600,9927,10798"; a="735489082"
+X-IronPort-AV: E=Sophos;i="6.01,162,1684825200"; d="scan'208";a="735489082"
 Received: from xudongf-mobl.amr.corp.intel.com (HELO vgovind2-mobl3.intel.com)
  ([10.252.50.242])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2023 10:03:55 -0700
+ 10 Aug 2023 10:04:00 -0700
 From: Vinod Govindapillai <vinod.govindapillai@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Aug 2023 20:03:39 +0300
-Message-Id: <20230810170341.268503-1-vinod.govindapillai@intel.com>
+Date: Thu, 10 Aug 2023 20:03:41 +0300
+Message-Id: <20230810170341.268503-3-vinod.govindapillai@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230810170341.268503-1-vinod.govindapillai@intel.com>
+References: <20230810170341.268503-1-vinod.govindapillai@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/2] DP2.0 SDP split support for DP-MST
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915/display: configure SDP split for
+ DP MST
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,20 +64,56 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add DP2.0 SDP split support for DP-MST
+Extend the SDP split configuration for the DP-MST
 
-Vinod Govindapillai (2):
-  drm/i915/display: streamline the dp audio config steps
-  drm/i915/display: configure SDP split for DP MST
+Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
- drivers/gpu/drm/i915/display/intel_audio.c  |  6 ++---
- drivers/gpu/drm/i915/display/intel_audio.h  |  3 +--
- drivers/gpu/drm/i915/display/intel_ddi.c    |  2 +-
- drivers/gpu/drm/i915/display/intel_dp.c     | 27 ++++++++++-----------
- drivers/gpu/drm/i915/display/intel_dp.h     |  4 +++
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 11 ++++++---
- 6 files changed, 29 insertions(+), 24 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index e3f176a093d2..e718ef22dee6 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -312,6 +312,7 @@ static int intel_dp_mst_compute_config(struct intel_encoder *encoder,
+ 	struct intel_dp *intel_dp = &intel_mst->primary->dp;
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&pipe_config->hw.adjusted_mode;
++	bool dp_mst_has_audio = intel_dp_mst_has_audio(conn_state);
+ 	struct link_config_limits limits;
+ 	int ret;
+ 
+@@ -322,10 +323,6 @@ static int intel_dp_mst_compute_config(struct intel_encoder *encoder,
+ 	pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
+ 	pipe_config->has_pch_encoder = false;
+ 
+-	pipe_config->has_audio =
+-		intel_dp_mst_has_audio(conn_state) &&
+-		intel_audio_compute_config(encoder, pipe_config, conn_state);
+-
+ 	/*
+ 	 * for MST we always configure max link bw - the spec doesn't
+ 	 * seem to suggest we should do otherwise.
+@@ -388,6 +385,9 @@ static int intel_dp_mst_compute_config(struct intel_encoder *encoder,
+ 		pipe_config->lane_lat_optim_mask =
+ 			bxt_ddi_phy_calc_lane_lat_optim_mask(pipe_config->lane_count);
+ 
++	intel_dp_audio_compute_config(encoder, pipe_config, conn_state,
++				      dp_mst_has_audio);
++
+ 	intel_ddi_compute_min_voltage_level(dev_priv, pipe_config);
+ 
+ 	return 0;
+@@ -792,6 +792,9 @@ static void intel_mst_enable_dp(struct intel_atomic_state *state,
+ 		intel_de_rmw(dev_priv, CHICKEN_TRANS(trans), 0,
+ 			     FECSTALL_DIS_DPTSTREAM_DPTTG);
+ 
++	/* Enable/Disable DP2.0 SDP split config before transcoder */
++	intel_audio_sdp_split_update(pipe_config);
++
+ 	intel_enable_transcoder(pipe_config);
+ 
+ 	intel_crtc_vblank_on(pipe_config);
 -- 
 2.34.1
 
