@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4FD0C04E69
-	for <intel-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 21:58:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26BF7C04A6A
+	for <intel-gfx@archiver.kernel.org>; Thu, 10 Aug 2023 21:58:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0A7410E612;
-	Thu, 10 Aug 2023 21:58:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84DDD10E613;
+	Thu, 10 Aug 2023 21:58:21 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2406410E4B9
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B5AC10E507
  for <intel-gfx@lists.freedesktop.org>; Thu, 10 Aug 2023 21:58:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1691704690; x=1723240690;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=rYIQHXr92P+buQCQLJXbo97hN3CoVqCsKTCyE3+dz7k=;
- b=GDrylBGfkJ5805965MW3wteShW7YlOtERffzyI6+a22o0xRDnuo8Qn64
- KsOa4Hz7XpIHrRif5NmWmMK/+iZnn+E6IOISmgmbGV1WBB6ltcoiKh63C
- 7ENli+NeQF8AgY8+ZGV/qJ0sEgcuL7IoWA2BNDk+bGaMSkyEKsfTLFb5H
- sd8VHPFlaNPaS172hVY/iuHLyy+G7sIaz7keW2Jtqdz+HDmnh6yAHtlgd
- 23fLfVREIXImdIakQAuMSY8w8vnf6FKCniyj10Y3fkMb8FyRKp+L3xokT
- Xrshh8gOVWSPX3tnjUntEiiOSYn5Cw2tDKVmk5eoUKS2NO4YmC+gQTwfW A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10798"; a="369004797"
-X-IronPort-AV: E=Sophos;i="6.01,163,1684825200"; d="scan'208";a="369004797"
+ bh=niN8IKSD1OvanaIh6TrJda4oMM8/udNaToE+qOy6hMA=;
+ b=H0DadLY2abbtgFttRC3V2oMwun8bJtfWcuFFyovjdl5j3VhL945N8HpV
+ cAEkF4SwdI/cr0/ljRBVponHeVqW3lVNoP6MRxksCS7V/CAksTKwfAaUb
+ Bt2d6sFLlA865CV4Io4stPpU+63/cL1zSiw6UDJ0qoxEBC+fTnCjCOR1l
+ 6XbTaG/MIPQ/Dn1eomIoFDlzjqF4ArNWJiLeGY96XgPPGVaisOjxmWtV3
+ XNL/sNoloC47/5AoPfhK7cEF2SA0qozh3GpkRy/5NNLXBYtjuMtcncxhU
+ a10O4gbtu3+m2Vr7LYVEhANRwxI1Tae2dRLkmoTf8EsNv5Kl4FRYNqCKD w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10798"; a="369004796"
+X-IronPort-AV: E=Sophos;i="6.01,163,1684825200"; d="scan'208";a="369004796"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Aug 2023 14:58:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.01,202,1684825200"; d="scan'208";a="875905571"
+X-IronPort-AV: E=Sophos;i="6.01,202,1684825200"; d="scan'208";a="875905576"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.147])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Aug 2023 14:58:12 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 10 Aug 2023 14:57:58 -0700
-Message-ID: <20230810215750.3609161-18-matthew.d.roper@intel.com>
+Date: Thu, 10 Aug 2023 14:58:00 -0700
+Message-ID: <20230810215750.3609161-20-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230810215750.3609161-11-matthew.d.roper@intel.com>
 References: <20230810215750.3609161-11-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 7/9] drm/i915/mtl: Eliminate subplatforms
+Subject: [Intel-gfx] [PATCH v3 9/9] drm/i915: Replace several IS_METEORLAKE
+ with proper IP version checks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,115 +61,164 @@ Cc: matthew.d.roper@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that we properly match the Xe_LPG IP versions associated with
-various workarounds, there's no longer any need to define separate MTL
-subplatform in the driver.  Nothing in the code is conditional on MTL-M
-or MTL-P base platforms.  Furthermore, I'm not sure the "M" and "P"
-designations are even an accurate representation of which specific
-platforms would have which IP versions; those were mostly just
-placeholders from a long time ago.  The reality is that the IP version
-present on a platform gets read from a fuse register at driver init; we
-shouldn't be trying to guess which IP is present based on PCI ID
-anymore.
+Many of the IS_METEORLAKE conditions throughout the driver are supposed
+to be checks for Xe_LPG and/or Xe_LPM+ IP, not for the MTL platform
+specifically.  Update those checks to ensure that the code will still
+operate properly if/when these IP versions show up on future platforms.
+
+v2:
+ - Update two more conditions (one for pg_enable, one for MTL HuC
+   compatibility).
 
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Nemesa Garg <nemesa.garg@intel.com>
-Reviewed-by: Gustavo Sousa <gustavo.sousa@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h          |  4 ----
- drivers/gpu/drm/i915/intel_device_info.c | 14 --------------
- drivers/gpu/drm/i915/intel_device_info.h |  4 ----
- include/drm/i915_pciids.h                | 11 +++--------
- 4 files changed, 3 insertions(+), 30 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_create.c | 4 ++--
+ drivers/gpu/drm/i915/gt/intel_engine_pm.c  | 2 +-
+ drivers/gpu/drm/i915/gt/intel_mocs.c       | 2 +-
+ drivers/gpu/drm/i915/gt/intel_rc6.c        | 2 +-
+ drivers/gpu/drm/i915/gt/intel_reset.c      | 2 +-
+ drivers/gpu/drm/i915/gt/intel_rps.c        | 2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c   | 3 ++-
+ drivers/gpu/drm/i915/i915_debugfs.c        | 2 +-
+ drivers/gpu/drm/i915/i915_perf.c           | 8 +++++---
+ 9 files changed, 15 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index b11810308e8a..6d91b3f78b5b 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -575,10 +575,6 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- #define IS_PONTEVECCHIO(i915) IS_PLATFORM(i915, INTEL_PONTEVECCHIO)
- #define IS_METEORLAKE(i915) IS_PLATFORM(i915, INTEL_METEORLAKE)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_create.c b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+index d24c0ce8805c..19156ba4b9ef 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_create.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_create.c
+@@ -405,8 +405,8 @@ static int ext_set_pat(struct i915_user_extension __user *base, void *data)
+ 	BUILD_BUG_ON(sizeof(struct drm_i915_gem_create_ext_set_pat) !=
+ 		     offsetofend(struct drm_i915_gem_create_ext_set_pat, rsvd));
  
--#define IS_METEORLAKE_M(i915) \
--	IS_SUBPLATFORM(i915, INTEL_METEORLAKE, INTEL_SUBPLATFORM_M)
--#define IS_METEORLAKE_P(i915) \
--	IS_SUBPLATFORM(i915, INTEL_METEORLAKE, INTEL_SUBPLATFORM_P)
- #define IS_DG2_G10(i915) \
- 	IS_SUBPLATFORM(i915, INTEL_DG2, INTEL_SUBPLATFORM_G10)
- #define IS_DG2_G11(i915) \
-diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index ea0ec6174ce5..9dfa680a4c62 100644
---- a/drivers/gpu/drm/i915/intel_device_info.c
-+++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -206,14 +206,6 @@ static const u16 subplatform_g12_ids[] = {
- 	INTEL_DG2_G12_IDS(0),
- };
+-	/* Limiting the extension only to Meteor Lake */
+-	if (!IS_METEORLAKE(i915))
++	/* Limiting the extension only to Xe_LPG and beyond */
++	if (GRAPHICS_VER_FULL(i915) < IP_VER(12, 70))
+ 		return -ENODEV;
  
--static const u16 subplatform_m_ids[] = {
--	INTEL_MTL_M_IDS(0),
--};
--
--static const u16 subplatform_p_ids[] = {
--	INTEL_MTL_P_IDS(0),
--};
--
- static bool find_devid(u16 id, const u16 *p, unsigned int num)
+ 	if (copy_from_user(&ext, base, sizeof(ext)))
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_pm.c b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+index b538b5c04948..e91fc881dbf1 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_pm.c
+@@ -21,7 +21,7 @@ static void intel_gsc_idle_msg_enable(struct intel_engine_cs *engine)
  {
- 	for (; num; num--, p++) {
-@@ -275,12 +267,6 @@ static void intel_device_info_subplatform_init(struct drm_i915_private *i915)
- 	} else if (find_devid(devid, subplatform_g12_ids,
- 			      ARRAY_SIZE(subplatform_g12_ids))) {
- 		mask = BIT(INTEL_SUBPLATFORM_G12);
--	} else if (find_devid(devid, subplatform_m_ids,
--			      ARRAY_SIZE(subplatform_m_ids))) {
--		mask = BIT(INTEL_SUBPLATFORM_M);
--	} else if (find_devid(devid, subplatform_p_ids,
--			      ARRAY_SIZE(subplatform_p_ids))) {
--		mask = BIT(INTEL_SUBPLATFORM_P);
- 	}
+ 	struct drm_i915_private *i915 = engine->i915;
  
- 	GEM_BUG_ON(mask & ~INTEL_SUBPLATFORM_MASK);
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index dbfe6443457b..2ca54417d19b 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -129,10 +129,6 @@ enum intel_platform {
- #define INTEL_SUBPLATFORM_N    1
- #define INTEL_SUBPLATFORM_RPLU  2
+-	if (IS_METEORLAKE(i915) && engine->id == GSC0) {
++	if (MEDIA_VER(i915) >= 13 && engine->id == GSC0) {
+ 		intel_uncore_write(engine->gt->uncore,
+ 				   RC_PSMI_CTRL_GSCCS,
+ 				   _MASKED_BIT_DISABLE(IDLE_MSG_DISABLE));
+diff --git a/drivers/gpu/drm/i915/gt/intel_mocs.c b/drivers/gpu/drm/i915/gt/intel_mocs.c
+index 2c014407225c..a2d8a271fe68 100644
+--- a/drivers/gpu/drm/i915/gt/intel_mocs.c
++++ b/drivers/gpu/drm/i915/gt/intel_mocs.c
+@@ -507,7 +507,7 @@ static unsigned int get_mocs_settings(const struct drm_i915_private *i915,
+ 	memset(table, 0, sizeof(struct drm_i915_mocs_table));
  
--/* MTL */
--#define INTEL_SUBPLATFORM_M	0
--#define INTEL_SUBPLATFORM_P	1
--
- enum intel_ppgtt_type {
- 	INTEL_PPGTT_NONE = I915_GEM_PPGTT_NONE,
- 	INTEL_PPGTT_ALIASING = I915_GEM_PPGTT_ALIASING,
-diff --git a/include/drm/i915_pciids.h b/include/drm/i915_pciids.h
-index e1e10dfbb661..38dae757d1a8 100644
---- a/include/drm/i915_pciids.h
-+++ b/include/drm/i915_pciids.h
-@@ -738,18 +738,13 @@
- #define INTEL_ATS_M_IDS(info) \
- 	INTEL_ATS_M150_IDS(info), \
- 	INTEL_ATS_M75_IDS(info)
+ 	table->unused_entries_index = I915_MOCS_PTE;
+-	if (IS_METEORLAKE(i915)) {
++	if (IS_GFX_GT_IP_RANGE(&i915->gt0, IP_VER(12, 70), IP_VER(12, 71))) {
+ 		table->size = ARRAY_SIZE(mtl_mocs_table);
+ 		table->table = mtl_mocs_table;
+ 		table->n_entries = MTL_NUM_MOCS_ENTRIES;
+diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.c b/drivers/gpu/drm/i915/gt/intel_rc6.c
+index 748b0c695072..a5d725508c77 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rc6.c
++++ b/drivers/gpu/drm/i915/gt/intel_rc6.c
+@@ -123,7 +123,7 @@ static void gen11_rc6_enable(struct intel_rc6 *rc6)
+ 	 * temporary wa and should be removed after fixing real cause
+ 	 * of forcewake timeouts.
+ 	 */
+-	if (IS_METEORLAKE(gt->i915) ||
++	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 71)) ||
+ 	    IS_DG2_GRAPHICS_STEP(gt->i915, G10, STEP_A0, STEP_C0) ||
+ 	    IS_DG2_GRAPHICS_STEP(gt->i915, G11, STEP_A0, STEP_B0))
+ 		pg_enable =
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index fd6c22aeb670..98575d79c446 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -705,7 +705,7 @@ static int __reset_guc(struct intel_gt *gt)
+ 
+ static bool needs_wa_14015076503(struct intel_gt *gt, intel_engine_mask_t engine_mask)
+ {
+-	if (!IS_METEORLAKE(gt->i915) || !HAS_ENGINE(gt, GSC0))
++	if (MEDIA_VER_FULL(gt->i915) != IP_VER(13, 0) || !HAS_ENGINE(gt, GSC0))
+ 		return false;
+ 
+ 	if (!__HAS_ENGINE(engine_mask, GSC0))
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+index 092542f53aad..4feef874e6d6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.c
++++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+@@ -1161,7 +1161,7 @@ void gen6_rps_get_freq_caps(struct intel_rps *rps, struct intel_rps_freq_caps *c
+ {
+ 	struct drm_i915_private *i915 = rps_to_i915(rps);
+ 
+-	if (IS_METEORLAKE(i915))
++	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70))
+ 		return mtl_get_freq_caps(rps, caps);
+ 	else
+ 		return __gen6_rps_get_freq_caps(rps, caps);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+index 32e27e9a2490..ba494a4a967a 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
+@@ -850,7 +850,8 @@ int intel_uc_check_file_version(struct intel_uc_fw *uc_fw, bool *old_ver)
+ 	 * not working with newer ones. This is specific to MTL and we
+ 	 * don't expect it to extend to other platforms.
+ 	 */
+-	if (IS_METEORLAKE(gt->i915) && uc_fw->type == INTEL_UC_FW_TYPE_HUC) {
++	if (MEDIA_VER_FULL(gt->i915) == IP_VER(13, 0) &&
++	    uc_fw->type == INTEL_UC_FW_TYPE_HUC) {
+ 		ret = check_mtl_huc_guc_compatibility(gt, selected);
+ 		if (ret)
+ 			return ret;
+diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
+index 4de44cf1026d..7a90a2e32c9f 100644
+--- a/drivers/gpu/drm/i915/i915_debugfs.c
++++ b/drivers/gpu/drm/i915/i915_debugfs.c
+@@ -144,7 +144,7 @@ static const char *i915_cache_level_str(struct drm_i915_gem_object *obj)
+ {
+ 	struct drm_i915_private *i915 = obj_to_i915(obj);
+ 
+-	if (IS_METEORLAKE(i915)) {
++	if (IS_GFX_GT_IP_RANGE(to_gt(i915), IP_VER(12, 70), IP_VER(12, 71))) {
+ 		switch (obj->pat_index) {
+ 		case 0: return " WB";
+ 		case 1: return " WT";
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 2ef8addb0cfd..f3ab6f65a556 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -3227,11 +3227,13 @@ get_sseu_config(struct intel_sseu *out_sseu,
+  */
+ u32 i915_perf_oa_timestamp_frequency(struct drm_i915_private *i915)
+ {
++	struct intel_gt *gt = to_gt(i915);
 +
- /* MTL */
--#define INTEL_MTL_M_IDS(info) \
-+#define INTEL_MTL_IDS(info) \
- 	INTEL_VGA_DEVICE(0x7D40, info), \
--	INTEL_VGA_DEVICE(0x7D60, info)
--
--#define INTEL_MTL_P_IDS(info) \
- 	INTEL_VGA_DEVICE(0x7D45, info), \
- 	INTEL_VGA_DEVICE(0x7D55, info), \
-+	INTEL_VGA_DEVICE(0x7D60, info), \
- 	INTEL_VGA_DEVICE(0x7DD5, info)
+ 	/*
+ 	 * Wa_18013179988:dg2
+-	 * Wa_14015846243:mtl
++	 * Wa_14015846243:xelpg
+ 	 */
+-	if (IS_DG2(i915) || IS_METEORLAKE(i915)) {
++	if (IS_DG2(i915) || IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 71))) {
+ 		intel_wakeref_t wakeref;
+ 		u32 reg, shift;
  
--#define INTEL_MTL_IDS(info) \
--	INTEL_MTL_M_IDS(info), \
--	INTEL_MTL_P_IDS(info)
--
- #endif /* _I915_PCIIDS_H */
+@@ -4539,7 +4541,7 @@ static bool xehp_is_valid_b_counter_addr(struct i915_perf *perf, u32 addr)
+ 
+ static bool gen12_is_valid_mux_addr(struct i915_perf *perf, u32 addr)
+ {
+-	if (IS_METEORLAKE(perf->i915))
++	if (GRAPHICS_VER_FULL(perf->i915) >= IP_VER(12, 70))
+ 		return reg_in_range_table(addr, mtl_oa_mux_regs);
+ 	else
+ 		return reg_in_range_table(addr, gen12_oa_mux_regs);
 -- 
 2.41.0
 
