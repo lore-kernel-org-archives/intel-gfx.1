@@ -4,50 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 500BDC001DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Aug 2023 12:13:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84F2DC04A6A
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Aug 2023 12:48:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5ABE10E1C7;
-	Mon, 14 Aug 2023 12:13:40 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 175D910E1CC;
- Mon, 14 Aug 2023 12:13:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692015218; x=1723551218;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=bQGNhE6cnc3aK7xOST0lIv95NKMR/6jpJap1uYE1hyQ=;
- b=Nen4Gf7C8SGKpgDKsBXjcloTPEUpSz/YZOBB5xM/fNvEqe0+5tXzNuVk
- yh9uvroD3OsCoBbkh466CH/5etlidNeZ8OrzuEwzvnHr0y9vGoRijUVrF
- 2Pd5Y6Nvj+BNqEnabeCtVkx21cAcZOSpVgLz2xR+rmolHY4tNc0nZnIMt
- 4D0S8GMV7wy7UJOJhX1uBpMJuthWZJ75nsik+BbMtJRRJI26XJ220cIk1
- F/1zf6iucsp7gcnqs57t6Q2/3OVi6BhG9y5vOz7FWeywCSkXi7ct5ABNr
- Ki+Q9GHscQOMhD2fIB3Bm1nFgSXnEeap12puUYgp2oBz5Brh5V8bYPuAX Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10802"; a="374793448"
-X-IronPort-AV: E=Sophos;i="6.01,172,1684825200"; d="scan'208";a="374793448"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2023 05:13:37 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10802"; a="733424112"
-X-IronPort-AV: E=Sophos;i="6.01,172,1684825200"; d="scan'208";a="733424112"
-Received: from mtabaka-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.52.77])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2023 05:13:34 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Wang Jinchao <wangjinchao@xfusion.com>
-In-Reply-To: <ZNoY9bnpLlUwY8ai@fedora>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <ZNdOoHvIg7HXh7Gg@fedora> <87o7jaythm.fsf@intel.com>
- <ZNoY9bnpLlUwY8ai@fedora>
-Date: Mon, 14 Aug 2023 15:13:32 +0300
-Message-ID: <87h6p1ddoz.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4AE810E1E1;
+	Mon, 14 Aug 2023 12:48:02 +0000 (UTC)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9A9710E0FD;
+ Fri, 11 Aug 2023 19:00:12 +0000 (UTC)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2b9bf52cd08so34431171fa.2; 
+ Fri, 11 Aug 2023 12:00:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1691780411; x=1692385211;
+ h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+ :user-agent:references:from:to:cc:subject:date:message-id:reply-to;
+ bh=2tX4f5CxXwqQixuwBvoHfWLxIWpN0kImRL3p6vNuUzM=;
+ b=j8vSASKGirWUNk7iguwpnl+3vF0oqWasXtQrqVt7wt2BgyqwPkXWDwha9gLLISBUKV
+ iGKi6QH63mKvDBPYK9oYrIHZNzFjdXUGKEbNc0PX6OCa28t1kouW1WUl+wxSDG2O5W6B
+ snxBGmnneshbH6UEnINoRg0LEvGLK+19Ar9/pGo93D15GGpvCa/DNaT/Y6esnTX7izXV
+ d2PwV3nEnHbB9plozz05AiLJ6TAzZJM0nNytcxCVS77RDKFjVy4a8wMk8Rv2VLamrXWO
+ b9IfArlNA6LSxpXONDCSukiteldSR7UB00rvPbvj35Imt65y9XfKOGuyj3R6ZYMTXjyl
+ yZGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691780411; x=1692385211;
+ h=mime-version:message-id:in-reply-to:date:subject:cc:to:from
+ :user-agent:references:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2tX4f5CxXwqQixuwBvoHfWLxIWpN0kImRL3p6vNuUzM=;
+ b=U655M0ZUDWxFGudiDVgBB8Pf/ojoy3NSIv2me3ouRkEV6UNSp3LEimUKl3ptTutL/a
+ ZyacjZWmDCNzkNuOjFpQR0yDpastW7SSgtzIyfs8L8nmI/idUL1vbIjGEWmSzPCv5QIZ
+ LBEz97Btg2ghQD73hFbg7L4tb2YaOieMQ8JxlpEKeCalTqCFpj8TMfbozuR6Ww/P8+0e
+ IepeXvMUT4gvQA5+Mv/NRi6Xy+G+zr68FTgAKxBhpO1Hrx+zqZQFkZ5L3CaLnyBHSvqB
+ IdVuO4hb/PJz657VBB84mOK9IUlCzMV717uhv4C0MB+4WeTzJCBNLep0HrgnjT5JhblT
+ eFbQ==
+X-Gm-Message-State: AOJu0YwLQjCbV7/5VGg0JCUUH//68fw9X+QcndvUFWeCK/zU8Q2IavbJ
+ SdgR5fSPSC9L1rbSOoHg5K8=
+X-Google-Smtp-Source: AGHT+IE21JkPWy5VzYd+vFT13uAi07aShArndTFVzf+n/csoJ4n2q0W2aKxFaqnloQOGjW/oW/mniQ==
+X-Received: by 2002:a2e:3518:0:b0:2b6:e283:32cb with SMTP id
+ z24-20020a2e3518000000b002b6e28332cbmr2320415ljz.23.1691780410463; 
+ Fri, 11 Aug 2023 12:00:10 -0700 (PDT)
+Received: from razdolb (95-24-154-238.broadband.corbina.ru. [95.24.154.238])
+ by smtp.gmail.com with ESMTPSA id
+ y18-20020a2e9792000000b002b6e13fcedcsm1002637lji.122.2023.08.11.12.00.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 11 Aug 2023 12:00:09 -0700 (PDT)
+References: <87v8dmr6ty.fsf@gmail.com>
+ <f32b4636-969c-3b9e-6802-5991f511739e@leemhuis.info>
+User-agent: mu4e 1.10.4; emacs 29.1
+From: Mikhail Rudenko <mike.rudenko@gmail.com>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Date: Fri, 11 Aug 2023 21:10:05 +0300
+In-reply-to: <f32b4636-969c-3b9e-6802-5991f511739e@leemhuis.info>
+Message-ID: <87il9l2ymf.fsf@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Fix Kconfig error for
- CONFIG_DRM_I915
+X-Mailman-Approved-At: Mon, 14 Aug 2023 12:48:01 +0000
+Subject: Re: [Intel-gfx] [REGRESSION] HDMI connector detection broken in 6.3
+ on Intel(R) Celeron(R) N3060 integrated graphics
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,82 +75,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
- stone.xulei@xfusion.com
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, regressions@lists.linux.dev,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 14 Aug 2023, Wang Jinchao <wangjinchao@xfusion.com> wrote:
-> On Mon, Aug 14, 2023 at 10:26:45AM +0300, Jani Nikula wrote:
->> On Sat, 12 Aug 2023, Wang Jinchao <wangjinchao@xfusion.com> wrote:
->> > When CONFIG_DRM_I915 is set to 'y' and CONFIG_BACKLIGHT_CLASS_DEVICE
->> > is set to 'm', we encountered an ld.lld error during the build process:
->> >
->> > 	ld.lld: error: undefined symbol: backlight_device_get_by_name
->> > 	>>> referenced by intel_backlight.c:955
->> > 	>>>               vmlinux.o:(intel_backlight_device_register)
->> >
->> > 	ld.lld: error: undefined symbol: backlight_device_register
->> > 	>>> referenced by intel_backlight.c:971
->> > 	>>>               vmlinux.o:(intel_backlight_device_register)
->> >
->> > 	ld.lld: error: undefined symbol: backlight_device_unregister
->> > 	>>> referenced by intel_backlight.c:999
->> > 	>>>               vmlinux.o:(intel_backlight_device_unregister)
->> >
->> > This issue occurred because intel_backlight_device_register and
->> > intel_backlight_device_unregister were enclosed within
->> > However, according to Kconfig, CONFIG_DRM_I915 will select
->> > BACKLIGHT_CLASS_DEVICE only if ACPI is enabled.
->> > This led to an error, which can be resolved by removing the
->> > conditional statements related to ACPI.
->> 
->> The real fix is to use
->> 
->> 	depends on BACKLIGHT_CLASS_DEVICE || BACKLIGHT_CLASS_DEVICE=n
-> it works.
->> 
->> but in order to do that, you need to change a lot of places to depend
-> Why, what are the other places?
 
-Generally when you have a mixture of depends on and select on a kconfig
-symbol, you'll eventually end up with dependency problems.
+Hi, Thorsten!
 
-BR,
-Jani.
+On 2023-08-11 at 08:45 +02, Thorsten Leemhuis <regressions@leemhuis.info> wrote:
 
+> [CCing the i915 maintainers and the dri maintainers]
+>
+> Hi, Thorsten here, the Linux kernel's regression tracker.
+>
+> On 10.08.23 21:33, Mikhail Rudenko wrote:
+>> The following is a copy an issue I posted to drm/i915 gitlab [1] two
+>> months ago. I repost it to the mailing lists in hope that it will help
+>> the right people pay attention to it.
+>
+> Thx for your report. Wonder why Dmitry (who authored a4e771729a51) or
+> Thomas (who committed it) it didn't look into this, but maybe the i915
+> devs didn't forward the report to them.
+>
+> Let's see if these mails help. Just wondering: does reverting
+> a4e771729a51 from 6.5-rc5 or drm-tip help as well?
 
->> on, not select BACKLIGHT_CLASS_DEVICE, because otherwise you end up with
-> got it.
->> other dependency issues.
->> 
->> BR,
->> Jani.
->> 
->> >
->> > Signed-off-by: Wang Jinchao <wangjinchao@xfusion.com>
->> > ---
->> >  drivers/gpu/drm/i915/Kconfig | 2 +-
->> >  1 file changed, 1 insertion(+), 1 deletion(-)
->> >
->> > diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
->> > index 01b5a8272a27..5003de921bf7 100644
->> > --- a/drivers/gpu/drm/i915/Kconfig
->> > +++ b/drivers/gpu/drm/i915/Kconfig
->> > @@ -24,7 +24,7 @@ config DRM_I915
->> >  	select IRQ_WORK
->> >  	# i915 depends on ACPI_VIDEO when ACPI is enabled
->> >  	# but for select to work, need to select ACPI_VIDEO's dependencies, ick
->> > -	select BACKLIGHT_CLASS_DEVICE if ACPI
->> > +	select BACKLIGHT_CLASS_DEVICE
->> >  	select INPUT if ACPI
->> >  	select X86_PLATFORM_DEVICES if ACPI
->> >  	select ACPI_WMI if ACPI
->> 
->> -- 
->> Jani Nikula, Intel Open Source Graphics Center
+I've redone my tests with 6.5-rc5, and here are the results:
+(1) 6.5-rc5 -> still affected
+(2) 6.5-rc5 + revert a4e771729a51 -> not affected
+(3) 6.5-rc5 + two patches [1][2] suggested on i915 gitlab by @ideak -> not affected (!)
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+Should we somehow tell regzbot about (3)?
+
+> BTW, there was an earlier report about a problem with a4e771729a51 that
+> afaics was never addressed, but it might be unrelated.
+>
+> https://lore.kernel.org/all/20230328023129.3596968-1-zhouzongmin@kylinos.cn/
+>
+> Ciao, Thorsten
+
+[1] https://patchwork.freedesktop.org/patch/548590/?series=121050&rev=1
+[2] https://patchwork.freedesktop.org/patch/548591/?series=121050&rev=1
+
+--
+Best regards,
+Mikhail Rudenko
