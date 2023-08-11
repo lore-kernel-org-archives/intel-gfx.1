@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B454FC001DE
-	for <intel-gfx@archiver.kernel.org>; Fri, 11 Aug 2023 19:15:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BB56C0015E
+	for <intel-gfx@archiver.kernel.org>; Fri, 11 Aug 2023 19:15:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1021310E0FD;
-	Fri, 11 Aug 2023 19:15:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DADB210E6E6;
+	Fri, 11 Aug 2023 19:15:28 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 757EF10E0FD;
- Fri, 11 Aug 2023 19:15:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id B961910E6E6;
+ Fri, 11 Aug 2023 19:15:26 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 61654AADE3;
- Fri, 11 Aug 2023 19:15:24 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id B5F8EAADFC;
+ Fri, 11 Aug 2023 19:15:26 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Zhanjun Dong" <zhanjun.dong@intel.com>
-Date: Fri, 11 Aug 2023 19:15:24 -0000
-Message-ID: <169178132437.3117.11404674577246434874@emeril.freedesktop.org>
+Date: Fri, 11 Aug 2023 19:15:26 -0000
+Message-ID: <169178132674.3118.9539168532051128019@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20230811182011.546026-1-zhanjun.dong@intel.com>
 In-Reply-To: <20230811182011.546026-1-zhanjun.dong@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Avoid_circular_locking_dependency_when_flush_de?=
- =?utf-8?q?layed_work_on_gt_reset_=28rev5=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915=3A_Avoid_circular_locking_dependency_when_flush_delaye?=
+ =?utf-8?q?d_work_on_gt_reset_=28rev5=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,7 +54,7 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
+Error: dim sparse failed
 /home/kbuild/linux/maintainer-tools/dim: line 50: /home/kbuild/.dimrc: No such file or directory
 
 
