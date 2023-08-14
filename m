@@ -4,42 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6455EC04A94
-	for <intel-gfx@archiver.kernel.org>; Mon, 14 Aug 2023 12:48:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C5F4C04A6A
+	for <intel-gfx@archiver.kernel.org>; Mon, 14 Aug 2023 12:48:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C840110E1E6;
-	Mon, 14 Aug 2023 12:48:03 +0000 (UTC)
-X-Greylist: delayed 1236 seconds by postgrey-1.36 at gabe;
- Thu, 10 Aug 2023 14:17:40 UTC
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B84B10E1E7;
+	Mon, 14 Aug 2023 12:48:04 +0000 (UTC)
 Received: from wxsgout04.xfusion.com (wxsgout04.xfusion.com [36.139.87.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3276E10E1A4;
- Thu, 10 Aug 2023 14:17:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82B2010E1B7;
+ Mon, 14 Aug 2023 12:07:41 +0000 (UTC)
 Received: from wuxshcsitd00600.xfusion.com (unknown [10.32.133.213])
- by wxsgout04.xfusion.com (SkyGuard) with ESMTPS id 4RM7jW43R3z9y0cV;
- Thu, 10 Aug 2023 21:55:27 +0800 (CST)
-Received: from fedora (10.82.147.3) by wuxshcsitd00600.xfusion.com
+ by wxsgout04.xfusion.com (SkyGuard) with ESMTPS id 4RPY5N0dxFz9xHjf;
+ Mon, 14 Aug 2023 20:06:00 +0800 (CST)
+Received: from localhost (10.82.147.3) by wuxshcsitd00600.xfusion.com
  (10.32.133.213) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Thu, 10 Aug
- 2023 21:56:40 +0800
-Date: Thu, 10 Aug 2023 21:56:39 +0800
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Mon, 14 Aug
+ 2023 20:07:17 +0800
+Date: Mon, 14 Aug 2023 20:07:17 +0800
 From: Wang Jinchao <wangjinchao@xfusion.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, David Airlie
- <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>,
- <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Message-ID: <ZNTsl/mlElF/spog@fedora>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Message-ID: <ZNoY9bnpLlUwY8ai@fedora>
+References: <ZNdOoHvIg7HXh7Gg@fedora>
+ <87o7jaythm.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <87o7jaythm.fsf@intel.com>
 X-Originating-IP: [10.82.147.3]
-X-ClientProxiedBy: wuxshcsitd00602.xfusion.com (10.32.132.250) To
+X-ClientProxiedBy: wuxshcsitd00601.xfusion.com (10.32.135.241) To
  wuxshcsitd00600.xfusion.com (10.32.133.213)
 X-Mailman-Approved-At: Mon, 14 Aug 2023 12:48:01 +0000
-Subject: [Intel-gfx] [PATCH] drm/i915/gmch: fix build error var set but not
- used
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Fix Kconfig error for
+ CONFIG_DRM_I915
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,44 +47,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stone.xulei@xfusion.com
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
+ stone.xulei@xfusion.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When CONFIG_PNP is not defined, i915 will fail to compile with error bellow:
-	drivers/gpu/drm/i915/soc/intel_gmch.c:43:13: error: variable ‘mchbar_addr’ set but not used
-Fix it by surrounding variable declaration and assignment with ifdef
-
-Signed-off-by: Wang Jinchao <wangjinchao@xfusion.com>
----
- drivers/gpu/drm/i915/soc/intel_gmch.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/soc/intel_gmch.c b/drivers/gpu/drm/i915/soc/intel_gmch.c
-index 6d0204942f7a..d2c442b0b4eb 100644
---- a/drivers/gpu/drm/i915/soc/intel_gmch.c
-+++ b/drivers/gpu/drm/i915/soc/intel_gmch.c
-@@ -38,16 +38,17 @@ intel_alloc_mchbar_resource(struct drm_i915_private *i915)
- {
- 	int reg = GRAPHICS_VER(i915) >= 4 ? MCHBAR_I965 : MCHBAR_I915;
- 	u32 temp_lo, temp_hi = 0;
--	u64 mchbar_addr;
- 	int ret;
--
-+#ifdef CONFIG_PNP
-+	u64 mchbar_addr;
-+#endif
- 	if (GRAPHICS_VER(i915) >= 4)
- 		pci_read_config_dword(i915->gmch.pdev, reg + 4, &temp_hi);
- 	pci_read_config_dword(i915->gmch.pdev, reg, &temp_lo);
--	mchbar_addr = ((u64)temp_hi << 32) | temp_lo;
- 
- 	/* If ACPI doesn't have it, assume we need to allocate it ourselves */
- #ifdef CONFIG_PNP
-+	mchbar_addr = ((u64)temp_hi << 32) | temp_lo;
- 	if (mchbar_addr &&
- 	    pnp_range_reserved(mchbar_addr, mchbar_addr + MCHBAR_SIZE))
- 		return 0;
--- 
-2.40.0
-
+On Mon, Aug 14, 2023 at 10:26:45AM +0300, Jani Nikula wrote:
+> On Sat, 12 Aug 2023, Wang Jinchao <wangjinchao@xfusion.com> wrote:
+> > When CONFIG_DRM_I915 is set to 'y' and CONFIG_BACKLIGHT_CLASS_DEVICE
+> > is set to 'm', we encountered an ld.lld error during the build process:
+> >
+> > 	ld.lld: error: undefined symbol: backlight_device_get_by_name
+> > 	>>> referenced by intel_backlight.c:955
+> > 	>>>               vmlinux.o:(intel_backlight_device_register)
+> >
+> > 	ld.lld: error: undefined symbol: backlight_device_register
+> > 	>>> referenced by intel_backlight.c:971
+> > 	>>>               vmlinux.o:(intel_backlight_device_register)
+> >
+> > 	ld.lld: error: undefined symbol: backlight_device_unregister
+> > 	>>> referenced by intel_backlight.c:999
+> > 	>>>               vmlinux.o:(intel_backlight_device_unregister)
+> >
+> > This issue occurred because intel_backlight_device_register and
+> > intel_backlight_device_unregister were enclosed within
+> > However, according to Kconfig, CONFIG_DRM_I915 will select
+> > BACKLIGHT_CLASS_DEVICE only if ACPI is enabled.
+> > This led to an error, which can be resolved by removing the
+> > conditional statements related to ACPI.
+> 
+> The real fix is to use
+> 
+> 	depends on BACKLIGHT_CLASS_DEVICE || BACKLIGHT_CLASS_DEVICE=n
+it works.
+> 
+> but in order to do that, you need to change a lot of places to depend
+Why, what are the other places?
+> on, not select BACKLIGHT_CLASS_DEVICE, because otherwise you end up with
+got it.
+> other dependency issues.
+> 
+> BR,
+> Jani.
+> 
+> >
+> > Signed-off-by: Wang Jinchao <wangjinchao@xfusion.com>
+> > ---
+> >  drivers/gpu/drm/i915/Kconfig | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+> > index 01b5a8272a27..5003de921bf7 100644
+> > --- a/drivers/gpu/drm/i915/Kconfig
+> > +++ b/drivers/gpu/drm/i915/Kconfig
+> > @@ -24,7 +24,7 @@ config DRM_I915
+> >  	select IRQ_WORK
+> >  	# i915 depends on ACPI_VIDEO when ACPI is enabled
+> >  	# but for select to work, need to select ACPI_VIDEO's dependencies, ick
+> > -	select BACKLIGHT_CLASS_DEVICE if ACPI
+> > +	select BACKLIGHT_CLASS_DEVICE
+> >  	select INPUT if ACPI
+> >  	select X86_PLATFORM_DEVICES if ACPI
+> >  	select ACPI_WMI if ACPI
+> 
+> -- 
+> Jani Nikula, Intel Open Source Graphics Center
