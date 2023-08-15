@@ -4,44 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1945AC001B0
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 12:52:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8356C001B0
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 13:29:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FD0F10E368;
-	Wed, 16 Aug 2023 12:52:47 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F05B10E0B0
- for <intel-gfx@lists.freedesktop.org>; Wed, 16 Aug 2023 12:52:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692190365; x=1723726365;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=ObEwQsWGpgBBmbzOSpq9YycH8gkRe1PSz42+FE0Qd8c=;
- b=BnI4r6x4PZg7oc5sfpvvVfz2J4rj1P6aSCPV+cW4rdhp5edRxOQBRBq1
- NtFqizzReozxuTjY3Jr8ZZV5Tt42NNuz/dh1Z7yI9AAyQWkcaeHX//WK9
- uwbfTxPfZAJKKhPBamozmvAxa40mCZS4KMizXc0HJoL6qdtfF4b8tE0qb
- Kgvh3Wrlfr2EJTc1E/BUfitWakBfK7S9cGeWrPC714eFgmorLgPS0TOFy
- TpN6b9itRyW4Z/m8xYKQUsm6i29IzATfkDsqpXmXUAtsmSlNm1cYpyxBz
- UVy/ahzMEcrhpMX6A+Jl2PBwI2C3sONZfMXlvifB01fAPedjcG3DvP4dI g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="357498194"
-X-IronPort-AV: E=Sophos;i="6.01,177,1684825200"; d="scan'208";a="357498194"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2023 05:52:44 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.01,202,1684825200"; d="scan'208";a="877778720"
-Received: from anshuma1-desk.iind.intel.com ([10.190.239.112])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2023 05:52:46 -0700
-From: Anshuman Gupta <anshuman.gupta@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 16 Aug 2023 18:22:16 +0530
-Message-Id: <20230816125216.1722002-1-anshuman.gupta@intel.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED72F10E36B;
+	Wed, 16 Aug 2023 13:29:18 +0000 (UTC)
+Received: from wxsgout04.xfusion.com (wxsgout03.xfusion.com [36.139.52.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20E9E10E13F;
+ Tue, 15 Aug 2023 01:27:11 +0000 (UTC)
+Received: from wuxshcsitd00600.xfusion.com (unknown [10.32.133.213])
+ by wxsgout04.xfusion.com (SkyGuard) with ESMTPS id 4RPtrF4Brwz9xgXd;
+ Tue, 15 Aug 2023 09:25:49 +0800 (CST)
+Received: from localhost (10.82.147.3) by wuxshcsitd00600.xfusion.com
+ (10.32.133.213) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Tue, 15 Aug
+ 2023 09:27:06 +0800
+Date: Tue, 15 Aug 2023 09:27:05 +0800
+From: Wang Jinchao <wangjinchao@xfusion.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Message-ID: <ZNrUaawrwPmPcQn9@fedora>
+References: <ZNdOoHvIg7HXh7Gg@fedora> <87o7jaythm.fsf@intel.com>
+ <ZNoY9bnpLlUwY8ai@fedora> <87h6p1ddoz.fsf@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2] drm/i915/dgfx: Enable d3cold at s2idle
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <87h6p1ddoz.fsf@intel.com>
+X-Originating-IP: [10.82.147.3]
+X-ClientProxiedBy: wuxshcsitd00602.xfusion.com (10.32.132.250) To
+ wuxshcsitd00600.xfusion.com (10.32.133.213)
+X-Mailman-Approved-At: Wed, 16 Aug 2023 13:29:17 +0000
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Fix Kconfig error for
+ CONFIG_DRM_I915
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,125 +47,95 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: stable@vger.kernel.org, rodrigo.vivi@intel.com, lidong.wang@intel.com,
- jianshui.yu@intel.com
+Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
+ stone.xulei@xfusion.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-System wide suspend already has support for lmem save/restore during
-suspend therefore enabling d3cold for s2idle and keepng it disable for
-runtime PM.(Refer below commit for d3cold runtime PM disable justification)
-'commit 66eb93e71a7a ("drm/i915/dgfx: Keep PCI autosuspend control
-'on' by default on all dGPU")'
+On Mon, Aug 14, 2023 at 03:13:32PM +0300, Jani Nikula wrote:
+> On Mon, 14 Aug 2023, Wang Jinchao <wangjinchao@xfusion.com> wrote:
+> > On Mon, Aug 14, 2023 at 10:26:45AM +0300, Jani Nikula wrote:
+> >> On Sat, 12 Aug 2023, Wang Jinchao <wangjinchao@xfusion.com> wrote:
+> >> > When CONFIG_DRM_I915 is set to 'y' and CONFIG_BACKLIGHT_CLASS_DEVICE
+> >> > is set to 'm', we encountered an ld.lld error during the build process:
+> >> >
+> >> > 	ld.lld: error: undefined symbol: backlight_device_get_by_name
+> >> > 	>>> referenced by intel_backlight.c:955
+> >> > 	>>>               vmlinux.o:(intel_backlight_device_register)
+> >> >
+> >> > 	ld.lld: error: undefined symbol: backlight_device_register
+> >> > 	>>> referenced by intel_backlight.c:971
+> >> > 	>>>               vmlinux.o:(intel_backlight_device_register)
+> >> >
+> >> > 	ld.lld: error: undefined symbol: backlight_device_unregister
+> >> > 	>>> referenced by intel_backlight.c:999
+> >> > 	>>>               vmlinux.o:(intel_backlight_device_unregister)
+> >> >
+> >> > This issue occurred because intel_backlight_device_register and
+> >> > intel_backlight_device_unregister were enclosed within
+> >> > However, according to Kconfig, CONFIG_DRM_I915 will select
+> >> > BACKLIGHT_CLASS_DEVICE only if ACPI is enabled.
+> >> > This led to an error, which can be resolved by removing the
+> >> > conditional statements related to ACPI.
+> >> 
+> >> The real fix is to use
+> >> 
+> >> 	depends on BACKLIGHT_CLASS_DEVICE || BACKLIGHT_CLASS_DEVICE=n
+> > it works.
+> >> 
+> >> but in order to do that, you need to change a lot of places to depend
+> > Why, what are the other places?
+> 
+> Generally when you have a mixture of depends on and select on a kconfig
+> symbol, you'll eventually end up with dependency problems.
+> 
+> BR,
+> Jani.
+> 
+Now that I understand what you said, I will make an effort to correct it.
 
-It will reduce the DG2 Card power consumption to ~0 Watt
-for s2idle power KPI.
-
-v2:
-- Added "Cc: stable@vger.kernel.org".
-
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/8755
-Cc: stable@vger.kernel.org
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
----
- drivers/gpu/drm/i915/i915_driver.c | 33 ++++++++++++++++--------------
- 1 file changed, 18 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index b870c0df081a..ec4d26b3c17c 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -443,7 +443,6 @@ static int i915_pcode_init(struct drm_i915_private *i915)
- static int i915_driver_hw_probe(struct drm_i915_private *dev_priv)
- {
- 	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
--	struct pci_dev *root_pdev;
- 	int ret;
- 
- 	if (i915_inject_probe_failure(dev_priv))
-@@ -557,15 +556,6 @@ static int i915_driver_hw_probe(struct drm_i915_private *dev_priv)
- 
- 	intel_bw_init_hw(dev_priv);
- 
--	/*
--	 * FIXME: Temporary hammer to avoid freezing the machine on our DGFX
--	 * This should be totally removed when we handle the pci states properly
--	 * on runtime PM and on s2idle cases.
--	 */
--	root_pdev = pcie_find_root_port(pdev);
--	if (root_pdev)
--		pci_d3cold_disable(root_pdev);
--
- 	return 0;
- 
- err_opregion:
-@@ -591,7 +581,6 @@ static int i915_driver_hw_probe(struct drm_i915_private *dev_priv)
- static void i915_driver_hw_remove(struct drm_i915_private *dev_priv)
- {
- 	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
--	struct pci_dev *root_pdev;
- 
- 	i915_perf_fini(dev_priv);
- 
-@@ -599,10 +588,6 @@ static void i915_driver_hw_remove(struct drm_i915_private *dev_priv)
- 
- 	if (pdev->msi_enabled)
- 		pci_disable_msi(pdev);
--
--	root_pdev = pcie_find_root_port(pdev);
--	if (root_pdev)
--		pci_d3cold_enable(root_pdev);
- }
- 
- /**
-@@ -1519,6 +1504,8 @@ static int intel_runtime_suspend(struct device *kdev)
- {
- 	struct drm_i915_private *dev_priv = kdev_to_i915(kdev);
- 	struct intel_runtime_pm *rpm = &dev_priv->runtime_pm;
-+	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
-+	struct pci_dev *root_pdev;
- 	struct intel_gt *gt;
- 	int ret, i;
- 
-@@ -1570,6 +1557,15 @@ static int intel_runtime_suspend(struct device *kdev)
- 		drm_err(&dev_priv->drm,
- 			"Unclaimed access detected prior to suspending\n");
- 
-+	/*
-+	 * FIXME: Temporary hammer to avoid freezing the machine on our DGFX
-+	 * This should be totally removed when we handle the pci states properly
-+	 * on runtime PM.
-+	 */
-+	root_pdev = pcie_find_root_port(pdev);
-+	if (root_pdev)
-+		pci_d3cold_disable(root_pdev);
-+
- 	rpm->suspended = true;
- 
- 	/*
-@@ -1608,6 +1604,8 @@ static int intel_runtime_resume(struct device *kdev)
- {
- 	struct drm_i915_private *dev_priv = kdev_to_i915(kdev);
- 	struct intel_runtime_pm *rpm = &dev_priv->runtime_pm;
-+	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
-+	struct pci_dev *root_pdev;
- 	struct intel_gt *gt;
- 	int ret, i;
- 
-@@ -1621,6 +1619,11 @@ static int intel_runtime_resume(struct device *kdev)
- 
- 	intel_opregion_notify_adapter(dev_priv, PCI_D0);
- 	rpm->suspended = false;
-+
-+	root_pdev = pcie_find_root_port(pdev);
-+	if (root_pdev)
-+		pci_d3cold_enable(root_pdev);
-+
- 	if (intel_uncore_unclaimed_mmio(&dev_priv->uncore))
- 		drm_dbg(&dev_priv->drm,
- 			"Unclaimed access during suspend, bios?\n");
--- 
-2.25.1
-
+      GEN     Makefile
+    drivers/gpu/drm/i915/Kconfig:2:error: recursive dependency detected!
+    drivers/gpu/drm/i915/Kconfig:2: symbol DRM_I915 depends on BACKLIGHT_CLASS_DEVICE
+    drivers/video/backlight/Kconfig:136:    symbol BACKLIGHT_CLASS_DEVICE is selected by DRM_FSL_DCU
+    drivers/gpu/drm/fsl-dcu/Kconfig:2:      symbol DRM_FSL_DCU depends on COMMON_CLK
+    drivers/clk/Kconfig:21: symbol COMMON_CLK is selected by X86_INTEL_QUARK
+    arch/x86/Kconfig:627:   symbol X86_INTEL_QUARK depends on X86_PLATFORM_DEVICES
+    drivers/platform/x86/Kconfig:6: symbol X86_PLATFORM_DEVICES is selected by DRM_I915
+    For a resolution refer to Documentation/kbuild/kconfig-language.rst
+    subsection "Kconfig recursive dependency limitations"
+> 
+> >> on, not select BACKLIGHT_CLASS_DEVICE, because otherwise you end up with
+> > got it.
+> >> other dependency issues.
+> >> 
+> >> BR,
+> >> Jani.
+> >> 
+> >> >
+> >> > Signed-off-by: Wang Jinchao <wangjinchao@xfusion.com>
+> >> > ---
+> >> >  drivers/gpu/drm/i915/Kconfig | 2 +-
+> >> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >> >
+> >> > diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+> >> > index 01b5a8272a27..5003de921bf7 100644
+> >> > --- a/drivers/gpu/drm/i915/Kconfig
+> >> > +++ b/drivers/gpu/drm/i915/Kconfig
+> >> > @@ -24,7 +24,7 @@ config DRM_I915
+> >> >  	select IRQ_WORK
+> >> >  	# i915 depends on ACPI_VIDEO when ACPI is enabled
+> >> >  	# but for select to work, need to select ACPI_VIDEO's dependencies, ick
+> >> > -	select BACKLIGHT_CLASS_DEVICE if ACPI
+> >> > +	select BACKLIGHT_CLASS_DEVICE
+> >> >  	select INPUT if ACPI
+> >> >  	select X86_PLATFORM_DEVICES if ACPI
+> >> >  	select ACPI_WMI if ACPI
+> >> 
+> >> -- 
+> >> Jani Nikula, Intel Open Source Graphics Center
+> 
+> -- 
+> Jani Nikula, Intel Open Source Graphics Center
