@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7990C27C4F
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 21:42:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7864C27C42
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 21:42:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6AE710E3D4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7BFC10E3D5;
 	Wed, 16 Aug 2023 21:42:09 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF78A10E3D2
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA33E10E10E
  for <intel-gfx@lists.freedesktop.org>; Wed, 16 Aug 2023 21:42:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1692222127; x=1723758127;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ZOB2kCcBWNWpHW9sa4hVgBphNUw8kVWStWlu2adIq30=;
- b=QuLoi83InZ/mpzcLxr7aAFeYpb4/X0jPPgI1u1MzFUp+6rdKfvb2xXfe
- YIsQlEYlMeCvMbD20jKLIFZ8n8BhAUcMs06CBntQvNywAwI6O+UCHrCjq
- eFHTw+AY7i1t1P1NJ/oOps6du4f3fSoXsNhNXI5Msf00gA6Ra8sSwOY3L
- p3Lvx/tZF8r+/ZX9B75d2G+QGddoDmRKEB96mL5bb2nD3QUGOSygBBxHd
- kY+Q7qnfNGkkr+7MWRyB6fuGHNAAR6lPO1gC/xuzbUemZzDr1CcN1qY1H
- hr5cetWXkbzBy9cut1vF/pQUgT9um1ASei/r8W+itieOPbENoH+//BijX w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="436546489"
-X-IronPort-AV: E=Sophos;i="6.01,178,1684825200"; d="scan'208";a="436546489"
+ bh=sb04ProJUzxjdPhK/pQThfwQVILMiNrrB0/qj+7rU4U=;
+ b=dwzodSzjWkye9Tc6AgwkC3laWADg4tZpc+Jg/WSCMlnxgUfXR6UQbgSR
+ bjM0j0kUNpFknoKIKFD8FYErc1KHqm3/zgg90JkK++7/UqouHWcu7HGg6
+ QrLLYbHcFN63qYKn2AlpcXERqlLKANPQ4wY41yG8zLPfVhIV3KWV3BdKx
+ dRyx+OJ5balltvgre58jYBFG03hpx9n7skrB5vC5nBNpmK90jT3/jZ8ox
+ STh87j6xbQwQsDbVqeyXSSz00cwWmOb3BwBSs/LKLpS6PE784fYAKZeBt
+ rXmmbknfch5id9F3ECcHzJGKbGVp7pMnsoy4RIipPJwdg7nwSlPr/3SC7 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="436546491"
+X-IronPort-AV: E=Sophos;i="6.01,178,1684825200"; d="scan'208";a="436546491"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  16 Aug 2023 14:42:07 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="824378803"
-X-IronPort-AV: E=Sophos;i="6.01,178,1684825200"; d="scan'208";a="824378803"
+X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="824378809"
+X-IronPort-AV: E=Sophos;i="6.01,178,1684825200"; d="scan'208";a="824378809"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.147])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  16 Aug 2023 14:42:07 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 16 Aug 2023 14:42:04 -0700
-Message-ID: <20230816214201.534095-9-matthew.d.roper@intel.com>
+Date: Wed, 16 Aug 2023 14:42:06 -0700
+Message-ID: <20230816214201.534095-11-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230816214201.534095-7-matthew.d.roper@intel.com>
 References: <20230816214201.534095-7-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 2/5] drm/i915/dg2: Drop pre-production
- display workarounds
+Subject: [Intel-gfx] [PATCH v2 4/5] drm/i915: Tidy workaround definitions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,64 +61,174 @@ Cc: Jani Nikula <jani.nikula@intel.com>, matthew.d.roper@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-All production DG2 cards have display stepping C0 or later.  We can drop
-Wa_14013215631 (only applies to pre-C0) and make Wa_14010547955
-unconditional (applies to everything B0 and beyond).  Also drop the
-now-unused IS_DG2_DISPLAY_STEP macro.
+Removal of the DG2 pre-production workarounds has left duplicate
+condition blocks in a couple places, as well as some inconsistent
+platform ordering.  Reshuffle and consolidate some of the workarounds to
+reduce the number of condition blocks and to more consistently follow
+the "newest platform first" convention.  Code movement only; no
+functional change.
 
-Bspec: 44477
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 Acked-by: Jani Nikula <jani.nikula@intel.com>
 Reviewed-by: Matt Atwood <matthew.s.atwood@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c       | 2 +-
- drivers/gpu/drm/i915/display/skl_universal_plane.c | 4 ----
- drivers/gpu/drm/i915/i915_drv.h                    | 4 ----
- 3 files changed, 1 insertion(+), 9 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 100 +++++++++-----------
+ 1 file changed, 46 insertions(+), 54 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 763ab569d8f3..8c81206ce90d 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -726,7 +726,7 @@ static void icl_set_pipe_chicken(const struct intel_crtc_state *crtc_state)
- 		tmp |= UNDERRUN_RECOVERY_DISABLE_ADLP;
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 76e55738332f..f7f3376eccd0 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -2334,6 +2334,19 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 			   true);
+ 	}
  
- 	/* Wa_14010547955:dg2 */
--	if (IS_DG2_DISPLAY_STEP(dev_priv, STEP_B0, STEP_FOREVER))
-+	if (IS_DG2(dev_priv))
- 		tmp |= DG2_RENDER_CCSTAG_4_3_EN;
++	if (IS_DG2(i915) || IS_ALDERLAKE_P(i915) || IS_ALDERLAKE_S(i915) ||
++	    IS_DG1(i915) || IS_ROCKETLAKE(i915) || IS_TIGERLAKE(i915)) {
++		/*
++		 * Wa_1606700617:tgl,dg1,adl-p
++		 * Wa_22010271021:tgl,rkl,dg1,adl-s,adl-p
++		 * Wa_14010826681:tgl,dg1,rkl,adl-p
++		 * Wa_18019627453:dg2
++		 */
++		wa_masked_en(wal,
++			     GEN9_CS_DEBUG_MODE1,
++			     FF_DOP_CLOCK_GATE_DISABLE);
++	}
++
+ 	if (IS_ALDERLAKE_P(i915) || IS_ALDERLAKE_S(i915) || IS_DG1(i915) ||
+ 	    IS_ROCKETLAKE(i915) || IS_TIGERLAKE(i915)) {
+ 		/* Wa_1606931601:tgl,rkl,dg1,adl-s,adl-p */
+@@ -2347,19 +2360,11 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 		 */
+ 		wa_write_or(wal, GEN7_FF_THREAD_MODE,
+ 			    GEN12_FF_TESSELATION_DOP_GATE_DISABLE);
+-	}
  
- 	intel_de_write(dev_priv, PIPE_CHICKEN(pipe), tmp);
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index ffc15d278a39..a408ec2d3958 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -2203,10 +2203,6 @@ static bool gen12_plane_has_mc_ccs(struct drm_i915_private *i915,
- 	if (IS_ALDERLAKE_P(i915) && IS_DISPLAY_STEP(i915, STEP_A0, STEP_B0))
- 		return false;
+-	if (IS_ALDERLAKE_P(i915) || IS_DG2(i915) || IS_ALDERLAKE_S(i915) ||
+-	    IS_DG1(i915) || IS_ROCKETLAKE(i915) || IS_TIGERLAKE(i915)) {
+-		/*
+-		 * Wa_1606700617:tgl,dg1,adl-p
+-		 * Wa_22010271021:tgl,rkl,dg1,adl-s,adl-p
+-		 * Wa_14010826681:tgl,dg1,rkl,adl-p
+-		 * Wa_18019627453:dg2
+-		 */
+-		wa_masked_en(wal,
+-			     GEN9_CS_DEBUG_MODE1,
+-			     FF_DOP_CLOCK_GATE_DISABLE);
++		/* Wa_1406941453:tgl,rkl,dg1,adl-s,adl-p */
++		wa_mcr_masked_en(wal,
++				 GEN10_SAMPLER_MODE,
++				 ENABLE_SMALLPL);
+ 	}
  
--	/* Wa_14013215631 */
--	if (IS_DG2_DISPLAY_STEP(i915, STEP_A0, STEP_C0))
--		return false;
+ 	if (IS_ALDERLAKE_P(i915) || IS_ALDERLAKE_S(i915) ||
+@@ -2386,14 +2391,6 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 			     GEN8_RC_SEMA_IDLE_MSG_DISABLE);
+ 	}
+ 
+-	if (IS_DG1(i915) || IS_ROCKETLAKE(i915) || IS_TIGERLAKE(i915) ||
+-	    IS_ALDERLAKE_S(i915) || IS_ALDERLAKE_P(i915)) {
+-		/* Wa_1406941453:tgl,rkl,dg1,adl-s,adl-p */
+-		wa_mcr_masked_en(wal,
+-				 GEN10_SAMPLER_MODE,
+-				 ENABLE_SMALLPL);
+-	}
 -
- 	return plane_id < PLANE_SPRITE4;
+ 	if (GRAPHICS_VER(i915) == 11) {
+ 		/* This is not an Wa. Enable for better image quality */
+ 		wa_masked_en(wal,
+@@ -2874,6 +2871,9 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
+ 		/* Wa_22013037850 */
+ 		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0_UDW,
+ 				DISABLE_128B_EVICTION_COMMAND_UDW);
++
++		/* Wa_18017747507 */
++		wa_masked_en(wal, VFG_PREEMPTION_CHICKEN, POLYGON_TRIFAN_LINELOOP_DISABLE);
+ 	}
+ 
+ 	if (IS_MTL_GRAPHICS_STEP(i915, M, STEP_A0, STEP_B0) ||
+@@ -2884,11 +2884,20 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
+ 		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0, DISABLE_D8_D16_COASLESCE);
+ 	}
+ 
+-	if (IS_MTL_GRAPHICS_STEP(i915, M, STEP_A0, STEP_B0) ||
+-	    IS_MTL_GRAPHICS_STEP(i915, P, STEP_A0, STEP_B0) ||
+-	    IS_DG2(i915)) {
+-		/* Wa_18017747507 */
+-		wa_masked_en(wal, VFG_PREEMPTION_CHICKEN, POLYGON_TRIFAN_LINELOOP_DISABLE);
++	if (IS_PONTEVECCHIO(i915) || IS_DG2(i915)) {
++		/* Wa_14015227452:dg2,pvc */
++		wa_mcr_masked_en(wal, GEN9_ROW_CHICKEN4, XEHP_DIS_BBL_SYSPIPE);
++
++		/* Wa_16015675438:dg2,pvc */
++		wa_masked_en(wal, FF_SLICE_CS_CHICKEN2, GEN12_PERF_FIX_BALANCING_CFE_DISABLE);
++	}
++
++	if (IS_DG2(i915)) {
++		/*
++		 * Wa_16011620976:dg2_g11
++		 * Wa_22015475538:dg2
++		 */
++		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0_UDW, DIS_CHAIN_2XSIMD8);
+ 	}
+ 
+ 	if (IS_DG2_G11(i915)) {
+@@ -2903,6 +2912,18 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
+ 		/* Wa_22013059131:dg2 */
+ 		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0,
+ 				FORCE_1_SUB_MESSAGE_PER_FRAGMENT);
++
++		/*
++		 * Wa_22012654132
++		 *
++		 * Note that register 0xE420 is write-only and cannot be read
++		 * back for verification on DG2 (due to Wa_14012342262), so
++		 * we need to explicitly skip the readback.
++		 */
++		wa_mcr_add(wal, GEN10_CACHE_MODE_SS, 0,
++			   _MASKED_BIT_ENABLE(ENABLE_PREFETCH_INTO_IC),
++			   0 /* write-only, so skip validation */,
++			   true);
+ 	}
+ 
+ 	if (IS_XEHPSDV(i915)) {
+@@ -2920,35 +2941,6 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
+ 		wa_mcr_masked_en(wal, GEN8_HALF_SLICE_CHICKEN1,
+ 				 GEN7_PSD_SINGLE_PORT_DISPATCH_ENABLE);
+ 	}
+-
+-	if (IS_DG2(i915) || IS_PONTEVECCHIO(i915)) {
+-		/* Wa_14015227452:dg2,pvc */
+-		wa_mcr_masked_en(wal, GEN9_ROW_CHICKEN4, XEHP_DIS_BBL_SYSPIPE);
+-
+-		/* Wa_16015675438:dg2,pvc */
+-		wa_masked_en(wal, FF_SLICE_CS_CHICKEN2, GEN12_PERF_FIX_BALANCING_CFE_DISABLE);
+-	}
+-
+-	if (IS_DG2(i915)) {
+-		/*
+-		 * Wa_16011620976:dg2_g11
+-		 * Wa_22015475538:dg2
+-		 */
+-		wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0_UDW, DIS_CHAIN_2XSIMD8);
+-	}
+-
+-	if (IS_DG2_G11(i915))
+-		/*
+-		 * Wa_22012654132
+-		 *
+-		 * Note that register 0xE420 is write-only and cannot be read
+-		 * back for verification on DG2 (due to Wa_14012342262), so
+-		 * we need to explicitly skip the readback.
+-		 */
+-		wa_mcr_add(wal, GEN10_CACHE_MODE_SS, 0,
+-			   _MASKED_BIT_ENABLE(ENABLE_PREFETCH_INTO_IC),
+-			   0 /* write-only, so skip validation */,
+-			   true);
  }
  
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 7a8ce7239bc9..7f8fa0eb9dc6 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -689,10 +689,6 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- 	(IS_SUBPLATFORM(__i915, INTEL_DG2, INTEL_SUBPLATFORM_##variant) && \
- 	 IS_GRAPHICS_STEP(__i915, since, until))
- 
--#define IS_DG2_DISPLAY_STEP(__i915, since, until) \
--	(IS_DG2(__i915) && \
--	 IS_DISPLAY_STEP(__i915, since, until))
--
- #define IS_PVC_BD_STEP(__i915, since, until) \
- 	(IS_PONTEVECCHIO(__i915) && \
- 	 IS_BASEDIE_STEP(__i915, since, until))
+ static void
 -- 
 2.41.0
 
