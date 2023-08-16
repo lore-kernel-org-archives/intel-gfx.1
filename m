@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF46EC001B0
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 10:17:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9E91C001B0
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 10:17:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A6A610E09A;
-	Wed, 16 Aug 2023 10:17:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D90710E0D6;
+	Wed, 16 Aug 2023 10:17:17 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id BAD2C89196;
- Wed, 16 Aug 2023 10:17:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1048E89196;
+ Wed, 16 Aug 2023 10:17:15 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id B10BAAA917;
- Wed, 16 Aug 2023 10:17:12 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 0CFCCAA917;
+ Wed, 16 Aug 2023 10:17:15 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Vinod Govindapillai" <vinod.govindapillai@intel.com>
-Date: Wed, 16 Aug 2023 10:17:12 -0000
-Message-ID: <169218103272.10285.4527431480195771074@emeril.freedesktop.org>
+Date: Wed, 16 Aug 2023 10:17:15 -0000
+Message-ID: <169218103505.10286.16870441621119268536@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20230816094956.487498-1-vinod.govindapillai@intel.com>
 In-Reply-To: <20230816094956.487498-1-vinod.govindapillai@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_DP_split_for_DP-MST?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?DP_split_for_DP-MST?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,7 +53,7 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-/home/kbuild/linux/maintainer-tools/dim: line 50: /home/kbuild/.dimrc: No such file or directory
+Error: dim sparse failed
+/home/kbuild2/linux/maintainer-tools/dim: line 50: /home/kbuild2/.dimrc: No such file or directory
 
 
