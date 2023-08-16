@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0DB5C001E0
-	for <intel-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 06:50:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7E47C001B0
+	for <intel-gfx@archiver.kernel.org>; Wed, 16 Aug 2023 06:50:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA23A10E2EC;
-	Wed, 16 Aug 2023 06:50:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 586B810E2ED;
+	Wed, 16 Aug 2023 06:50:05 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4390010E2EA;
- Wed, 16 Aug 2023 06:50:00 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 98A4E10E2EB;
+ Wed, 16 Aug 2023 06:50:02 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 3C3DAAADD2;
- Wed, 16 Aug 2023 06:50:00 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 8548BAADE3;
+ Wed, 16 Aug 2023 06:50:02 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Pablo Ceballos" <pceballos@google.com>
-Date: Wed, 16 Aug 2023 06:50:00 -0000
-Message-ID: <169216860024.10286.6489560538063719442@emeril.freedesktop.org>
+Date: Wed, 16 Aug 2023 06:50:02 -0000
+Message-ID: <169216860254.10287.12867373110430812405@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20230816045654.833973-1-pceballos@google.com>
 In-Reply-To: <20230816045654.833973-1-pceballos@google.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/display/lspcon=3A_Increase_LSPCON_mode_settle_time?=
- =?utf-8?q?out_=28rev4=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915/display/lspcon=3A_Increase_LSPCON_mode_settle_timeout_?=
+ =?utf-8?b?KHJldjQp?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,7 +54,7 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
+Error: dim sparse failed
 /home/kbuild2/linux/maintainer-tools/dim: line 50: /home/kbuild2/.dimrc: No such file or directory
 
 
