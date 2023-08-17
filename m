@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 693DDC3DA4F
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 16:16:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE935C3DA4E
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 16:16:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB6E110E528;
-	Thu, 17 Aug 2023 16:16:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A56410E51F;
+	Thu, 17 Aug 2023 16:16:34 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D495B10E520
- for <intel-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 16:16:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 112E610E522
+ for <intel-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 16:16:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692288977; x=1723824977;
+ t=1692288980; x=1723824980;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=rxUbb6SJ50dOpEmtCgx9XjyUXEFpsMuS1qjFRujGFaE=;
- b=NgO07osA4di9/qv42AGehWDEQ3N9q9u6Da2N/nP7Ct51cut3p7pOrFi3
- 9wBQ/bJMKYCq8u5MWr0rq5u0HNkNTVDNXBe5XeSCKHHtfClsTSMEcKQVp
- 9QtyrdPDKkJUmSa1vbTiDY6vG+B/K5HLeAefzQ73Aod4gD7iv/7uHDAZn
- U4uaoPBy03KlYiuRKwkRDRVtt8BokyBKSO+SvEQi5437U19T+oJsK0GVJ
- lts/JCa9i35j/weLZ3xbbt0sezjg1IztyzZ9+e8eNI9jqhq+ooDcTbrF9
- 1iwUgv7sx3wD0P6l2YlUF5DVedvLS1kWg4mPFYK6wA3SAVNMhKhfwXQJI w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="357826735"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="357826735"
+ bh=ZmL3KrheKKy2MRK7aHQdiPvQQRVMi2EcKgo6TL7/v9Y=;
+ b=CR2ufxELvj2hz9Xc5X+W2Q8PoVMn/0qGSOgKY7CbBUpu072meRZwVhwq
+ 1CSuIOwWS8aiAsh+DJiU/uFIcgumvSbh0jG6j3XERn8uoaYQxq4/oJxp8
+ Qwbr5JtbGJYWJbu/6KLS0VLY1YvdlEScpqik+0+asIVW5J+uqoiKAAWcU
+ Fep1WEyyGUea1u00uS79BxTbuGNI6R4G2OH3Yy8yuXrViSUbUxMoR3sVd
+ tGlZipFfSbQt74vR4RRpBotJwaDTiTgwbZ2c3V3+WFiYeo/0XaGEdCmL6
+ 0aOkHpAmrXNz7nFgZ0jic+gPknoJBEcRuhMyWV06X50BxQl4mqbecmrTK w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="357826764"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="357826764"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 09:15:01 -0700
+ 17 Aug 2023 09:15:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="711601365"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="711601365"
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="711601369"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="711601369"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 09:15:01 -0700
+ 17 Aug 2023 09:15:03 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 17 Aug 2023 19:14:54 +0300
-Message-Id: <20230817161456.3857111-16-imre.deak@intel.com>
+Date: Thu, 17 Aug 2023 19:14:56 +0300
+Message-Id: <20230817161456.3857111-18-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230817161456.3857111-1-imre.deak@intel.com>
 References: <20230817161456.3857111-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 15/17] drm/i915/dp_mst: Add atomic state for all
- streams on pre-tgl platforms
+Subject: [Intel-gfx] [PATCH 17/17] drm/i915/dp_mst: Check BW limitations
+ only when all streams are computed
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,35 +61,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If an MST stream is modeset, its state must be checked along all the
-other streams on the same MST link, for instance to resolve a BW
-overallocation of a non-sink MST port or to make sure that the FEC is
-enabled/disabled the same way for all these streams.
-
-To prepare for that this patch adds all the stream CRTCs to the atomic
-state and marks them for modeset similarly to tgl+ platforms. (If the
-state computation doesn't change the state the CRTC is switched back to
-fastset mode.)
+After the previous patch the BW limits on the whole MST topology will be
+checked after computing the state for all the streams in the topology.
+Accordingly remove the check during the stream's encoder compute config
+step, to prevent failing an atomic commit due to a BW limit, if this can
+be resolved only by reducing the BW of other streams on the same MST
+link.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 11 ++---------
+ 1 file changed, 2 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 4fe10d7256630..b53254473e0d9 100644
+index 686ce61e16f8d..35a9bccd68d9b 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -499,9 +499,6 @@ intel_dp_mst_atomic_master_trans_check(struct intel_connector *connector,
- 	struct intel_connector *connector_iter;
- 	int ret = 0;
+@@ -120,15 +120,8 @@ static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
+ 		if (slots == -EDEADLK)
+ 			return slots;
  
--	if (DISPLAY_VER(dev_priv) < 12)
--		return  0;
--
- 	if (!intel_connector_needs_modeset(state, &connector->base))
- 		return 0;
+-		if (slots >= 0) {
+-			ret = drm_dp_mst_atomic_check(state);
+-			/*
+-			 * If we got slots >= 0 and we can fit those based on check
+-			 * then we can exit the loop. Otherwise keep trying.
+-			 */
+-			if (!ret)
+-				break;
+-		}
++		if (slots >= 0)
++			break;
+ 	}
  
+ 	/* We failed to find a proper bpp/timeslots, return error */
 -- 
 2.37.2
 
