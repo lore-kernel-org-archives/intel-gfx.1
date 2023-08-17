@@ -4,51 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88A64C30654
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 15:25:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 779D6C3DA46
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 15:53:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC92010E4DE;
-	Thu, 17 Aug 2023 15:25:45 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4EBE10E4DE
- for <intel-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 15:25:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B795310E4ED;
+	Thu, 17 Aug 2023 15:53:27 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 899C910E081
+ for <intel-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 15:53:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692285942; x=1723821942;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=bWfsPyFfKqEssNtf28fn3Z9KsAMTbdk29rYzhPaSm2A=;
- b=jSiX4LfiXDJzPyuGQxYDDTUTibpjWAnxjzDVV4pHuTv2ZZbZt3QjaOXV
- aYlFlTCraPv2POHfFP7hKgzdFdmjplGT6P+q/kCTx36vs7OJ9Yn7SPFfq
- I5pyost0BF+gOYPzCYOZ8UzYZyIL3WJkktFhTtYS1g22uUWPdRxduBEmq
- JF93F6HRRCFw4wIezgE1Fs+sNggbpqnrJRgfVrMef941RZVWWE2NFJQgk
- 9x2wlIotyHDWvG+gQ8YUWri4BeWiMzbUz6xti5td5vmFkXzjt31oe+BES
- 5wNL5RgyghpxjLgWzLfgOL7pvlZR1dWvLJvx60qbKNwhUpEV7ciCGLNY2 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="372832644"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="372832644"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 08:25:42 -0700
+ t=1692287606; x=1723823606;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=wI/A8wEWhVqo5IHhJYIbzKr9Xh3qZgERvbojxz2M9uQ=;
+ b=KcwWtDZgjhc4QUo9RxVWd+RMYP4oE4urkQU8T03BP6VsrDHWj5H91/WP
+ 2NAXuqUqsbh+0JMBDJKBuipI55dIPuYKDM9mQ8N+wcw0rydbMySAQPHG3
+ 7rfRFRFi0kKduZI7BuRt4jF3wGUm07IKITVsUWzgaVR80l5ryUuLCK62o
+ w7aR7oGx2TIyPYDrvjSM9Ov+T5JN0T5YTRdMWw6Mp0ehYwNV/9cl+A10X
+ CmCu8A3WpdFwlGFFCyUKwEM4yGGQ2BBW1t0A8Rx6yFApYLri8IdJpk3tt
+ NH5GqJDNUBDso74lPNHVGQU8tSNDBiapz6nuDWgQsipwszDxSfb6l8g8q Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="436768420"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="436768420"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2023 08:53:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="728175534"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="728175534"
-Received: from lkp-server02.sh.intel.com (HELO a9caf1a0cf30) ([10.239.97.151])
- by orsmga007.jf.intel.com with ESMTP; 17 Aug 2023 08:25:21 -0700
-Received: from kbuild by a9caf1a0cf30 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qWesD-0001Gn-0m;
- Thu, 17 Aug 2023 15:25:21 +0000
-Date: Thu, 17 Aug 2023 23:24:28 +0800
-From: kernel test robot <lkp@intel.com>
-To: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
- intel-gfx@lists.freedesktop.org
-Message-ID: <202308172319.rTgU3hnc-lkp@intel.com>
-References: <20230817125007.2681331-4-mitulkumar.ajitkumar.golani@intel.com>
+X-IronPort-AV: E=Sophos;i="6.01,202,1684825200"; d="scan'208";a="878282569"
+Received: from jnikula-mobl4.fi.intel.com (HELO localhost) ([10.237.66.162])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2023 08:53:27 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu, 17 Aug 2023 18:53:04 +0300
+Message-Id: <1444200931ae61b6360e3dcad8cbea206ad62e2f.1692287501.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <cover.1692287501.git.jani.nikula@intel.com>
+References: <cover.1692287501.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230817125007.2681331-4-mitulkumar.ajitkumar.golani@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 3/3] drm/i915/display: Add wrapper to
- Compute SAD
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 2/6] drm/i915/color: move CHV CGM pipe mode read
+ to intel_color
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,72 +58,83 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jyri.sarha@linux.intel.com, llvm@lists.linux.dev,
- oe-kbuild-all@lists.linux.dev
+Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Mitul,
+Add color .get_config hook to read config other than LUTs and CSCs, and
+start off with CHV CGM pipe mode to abstract the platform specific
+register access better.
 
-kernel test robot noticed the following build warnings:
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_color.c   | 16 ++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_display.c |  4 ----
+ 2 files changed, 16 insertions(+), 4 deletions(-)
 
-[auto build test WARNING on drm-tip/drm-tip]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Mitul-Golani/drm-i915-Add-has_audio-to-separate-audio-parameter-in-crtc_state/20230817-205556
-base:   git://anongit.freedesktop.org/drm/drm-tip drm-tip
-patch link:    https://lore.kernel.org/r/20230817125007.2681331-4-mitulkumar.ajitkumar.golani%40intel.com
-patch subject: [Intel-gfx] [PATCH 3/3] drm/i915/display: Add wrapper to Compute SAD
-config: x86_64-buildonly-randconfig-r001-20230817 (https://download.01.org/0day-ci/archive/20230817/202308172319.rTgU3hnc-lkp@intel.com/config)
-compiler: clang version 16.0.4 (https://github.com/llvm/llvm-project.git ae42196bc493ffe877a7e3dff8be32035dea4d07)
-reproduce: (https://download.01.org/0day-ci/archive/20230817/202308172319.rTgU3hnc-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202308172319.rTgU3hnc-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/gpu/drm/i915/display/intel_audio.c:822:39: warning: variable 'channel_count' is uninitialized when used here [-Wuninitialized]
-                   audio_req_bandwidth = calc_audio_bw(channel_count,
-                                                       ^~~~~~~~~~~~~
-   drivers/gpu/drm/i915/display/intel_audio.c:812:19: note: initialize the variable 'channel_count' to silence this warning
-           int channel_count;
-                            ^
-                             = 0
-   1 warning generated.
-
-
-vim +/channel_count +822 drivers/gpu/drm/i915/display/intel_audio.c
-
-   808	
-   809	static void calibrate_audio_config_params(struct intel_crtc_state *pipe_config, int channel)
-   810	{
-   811		struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
-   812		int channel_count;
-   813		int index, rate[] = { 192000, 176000, 96000, 88000, 48000, 44100, 32000 };
-   814		int audio_req_bandwidth, available_blank_bandwidth, vblank, hblank;
-   815	
-   816		hblank = adjusted_mode->htotal - adjusted_mode->hdisplay;
-   817		vblank = adjusted_mode->vtotal - adjusted_mode->vdisplay;
-   818		available_blank_bandwidth = hblank * vblank *
-   819					    drm_mode_vrefresh(adjusted_mode) * pipe_config->pipe_bpp;
-   820	
-   821		for (index = 0; index < ARRAY_SIZE(rate); index++) {
- > 822			audio_req_bandwidth = calc_audio_bw(channel_count,
-   823							    rate[index]);
-   824			if (audio_req_bandwidth < available_blank_bandwidth) {
-   825				pipe_config->audio.max_rate = rate[index];
-   826				pipe_config->audio.max_channel_count = channel_count;
-   827				return;
-   828			}
-   829		}
-   830	
-   831		pipe_config->audio.max_rate = 0;
-   832		pipe_config->audio.max_channel_count = 0;
-   833	}
-   834	
-
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index d4407228c8a7..73110bf1dbc2 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -76,6 +76,10 @@ struct intel_color_funcs {
+ 	 * software state. Used by eg. the hardware state checker.
+ 	 */
+ 	void (*read_csc)(struct intel_crtc_state *crtc_state);
++	/*
++	 * Read config other than LUTs and CSCs, before them. Optional.
++	 */
++	void (*get_config)(struct intel_crtc_state *crtc_state);
+ };
+ 
+ #define CTM_COEFF_SIGN	(1ULL << 63)
+@@ -1892,6 +1896,9 @@ void intel_color_get_config(struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
+ 
++	if (i915->display.funcs.color->get_config)
++		i915->display.funcs.color->get_config(crtc_state);
++
+ 	i915->display.funcs.color->read_luts(crtc_state);
+ 
+ 	if (i915->display.funcs.color->read_csc)
+@@ -3205,6 +3212,14 @@ static struct drm_property_blob *chv_read_cgm_gamma(struct intel_crtc *crtc)
+ 	return blob;
+ }
+ 
++static void chv_get_config(struct intel_crtc_state *crtc_state)
++{
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
++
++	crtc_state->cgm_mode = intel_de_read(i915, CGM_PIPE_MODE(crtc->pipe));
++}
++
+ static void chv_read_luts(struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+@@ -3574,6 +3589,7 @@ static const struct intel_color_funcs chv_color_funcs = {
+ 	.read_luts = chv_read_luts,
+ 	.lut_equal = chv_lut_equal,
+ 	.read_csc = chv_read_csc,
++	.get_config = chv_get_config,
+ };
+ 
+ static const struct intel_color_funcs vlv_color_funcs = {
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 32c8bf003437..fd74f4d33f8c 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -2943,10 +2943,6 @@ static bool i9xx_get_pipe_config(struct intel_crtc *crtc,
+ 	    (tmp & TRANSCONF_WGC_ENABLE))
+ 		pipe_config->wgc_enable = true;
+ 
+-	if (IS_CHERRYVIEW(dev_priv))
+-		pipe_config->cgm_mode = intel_de_read(dev_priv,
+-						      CGM_PIPE_MODE(crtc->pipe));
+-
+ 	i9xx_get_pipe_color_config(pipe_config);
+ 	intel_color_get_config(pipe_config);
+ 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.39.2
+
