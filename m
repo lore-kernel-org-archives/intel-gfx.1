@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E40FC3DA4E
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 16:16:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A597DC3DA4D
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 16:16:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBBC510E51C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E476F10E51D;
 	Thu, 17 Aug 2023 16:16:15 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CABEA10E518;
- Thu, 17 Aug 2023 16:16:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77D8610E511
+ for <intel-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 16:16:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692288973; x=1723824973;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=8Yl1kj2bzWHWYVr+O90bGX+JMr8MmOgmbCkmm3bTzIc=;
- b=cuZdvogmOrjYXHIlBXswEFnrnlY+F48KBTxGb1bXX5sm7jjNaeF8Pva1
- Rcxvmk9TUjt1fzMfkSzfcjHOlbxPLlcVyOomFnGYVEVcrvnJCl/m4UN7U
- Rs3THwU5nlNE3ITKrrFSlTIjVu0o/IIlnlE9Z92mpZNjsKQKYWMu8aoPZ
- 7yWj03sMp9iJ4WUh7mWby4i93ARGE9uSfdjlnQ6voOFKB6tKYZ5iRFZLS
- efP343pStOIkdDxYc7yhDSwSEIyD44QF+aqFyeTtTSkBqOwb8ydvOZ36p
- Nmqve74gpiyW4MeW9pXT4+fB6AE/VPvM+kdGTbasG64VEmbdQs39SEoa8 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="357826688"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="357826688"
+ t=1692288965; x=1723824965;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=ROEx426tyJD8F9YXR2GdJG6RsEobEw5AMU8qhDjYuH4=;
+ b=OmE+SlOwWa1B8/S/55TS0DbW6Ruvc9JUuFj5lC9WfBou51BTNMXF+SA2
+ zIfcxFc9e/XKP6oTTPOboh3peNMRqacObMqWblTzMz4omp51x8VYJua/9
+ JoBkttsTIlLl8MpFtOZctIUsI3yi8znW5lBqU17qPY8APDLCmPWXxdQxt
+ gkL5tlHx8GEh9T0XNEkSPGj2tsPTZ1qDRpilq+siiRTsOQAYh7R9ucB6D
+ rDqczSzHOQRLVpdr/4rGT/ZlDFZL4A6XfUhwf0NzfYHH/WTqYEsA4m1zt
+ deGXhVn8yAxfj3ojjbaGZtsjjWldwV0MCEXbdtao7MYzY88R0DjPJNhdJ Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="357826601"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="357826601"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 09:14:56 -0700
+ 17 Aug 2023 09:14:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="711601359"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="711601359"
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="711601351"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="711601351"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 09:14:55 -0700
+ 17 Aug 2023 09:14:47 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 17 Aug 2023 19:14:50 +0300
-Message-Id: <20230817161456.3857111-12-imre.deak@intel.com>
+Date: Thu, 17 Aug 2023 19:14:44 +0300
+Message-Id: <20230817161456.3857111-6-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230817161456.3857111-1-imre.deak@intel.com>
 References: <20230817161456.3857111-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 11/17] drm/dp_mst: Add helper to determine if an
- MST port is downstream of another port
+Subject: [Intel-gfx] [PATCH 05/17] drm/i915/dp: Limit the output link bpp in
+ DSC mode
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,99 +58,67 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add drm_dp_mst_port_downstream_of_parent() required by the i915
-driver in a follow-up patch to resolve a BW overallocation of MST
-streams going through a given MST port.
+Limit the output link bpp in DSC mode to the link_config_limits
+link.min_bpp .. max_bpp range the same way it's done in non-DSC mode.
+Atm, this doesn't make a difference, the link bpp range being
+0 .. max pipe bpp, but a follow-up patch will need a way to reduce max
+link bpp below its current value.
 
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 52 +++++++++++++++++++
- include/drm/display/drm_dp_mst_helper.h       |  3 ++
- 2 files changed, 55 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp.c     | 12 +++++++++++-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c |  3 +++
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index e26f1b7f5a701..ced9ae36a9177 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -5105,6 +5105,58 @@ static bool drm_dp_mst_port_downstream_of_branch(struct drm_dp_mst_port *port,
- 	return false;
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index c4016fd0dc980..b5d38765dde54 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1703,9 +1703,16 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 	pipe_config->lane_count = limits->max_lane_count;
  
-+static bool
-+drm_dp_mst_port_downstream_of_parent_locked(struct drm_dp_mst_topology_mgr *mgr,
-+					    struct drm_dp_mst_port *port,
-+					    struct drm_dp_mst_port *parent)
-+{
-+	if (!mgr->mst_primary)
-+		return false;
+ 	if (intel_dp_is_edp(intel_dp)) {
++		u16 dsc_max_output_bpp;
 +
-+	port = drm_dp_mst_topology_get_port_validated_locked(mgr->mst_primary,
-+							     port);
-+	if (!port)
-+		return false;
++		dsc_max_output_bpp =
++			min_t(u16, drm_edp_dsc_sink_output_bpp(intel_dp->dsc_dpcd),
++			      limits->link.max_bpp);
 +
-+	if (!parent)
-+		return true;
+ 		pipe_config->dsc.compressed_bpp =
+-			min_t(u16, drm_edp_dsc_sink_output_bpp(intel_dp->dsc_dpcd) >> 4,
++			min_t(u16, dsc_max_output_bpp >> 4,
+ 			      pipe_config->pipe_bpp);
 +
-+	parent = drm_dp_mst_topology_get_port_validated_locked(mgr->mst_primary,
-+							       parent);
-+	if (!parent)
-+		return false;
+ 		pipe_config->dsc.slice_count =
+ 			drm_dp_dsc_sink_max_slice_count(intel_dp->dsc_dpcd,
+ 							true);
+@@ -1761,6 +1768,9 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 		 * calculation procedure is bit different for MST case.
+ 		 */
+ 		if (compute_pipe_bpp) {
++			dsc_max_output_bpp = min_t(u16, dsc_max_output_bpp,
++						   limits->link.max_bpp);
 +
-+	if (!parent->mstb)
-+		return false;
+ 			pipe_config->dsc.compressed_bpp = min_t(u16,
+ 								dsc_max_output_bpp >> 4,
+ 								pipe_config->pipe_bpp);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 48c247ddef53a..0dcb9a203dfe7 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -230,6 +230,9 @@ static int intel_dp_dsc_mst_compute_link_config(struct intel_encoder *encoder,
+ 	if (max_bpp > sink_max_bpp)
+ 		max_bpp = sink_max_bpp;
+ 
++	min_bpp = max(min_bpp, (limits->link.min_bpp + 0xf) >> 4);
++	max_bpp = min(max_bpp, limits->link.max_bpp >> 4);
 +
-+	return drm_dp_mst_port_downstream_of_branch(port, parent->mstb);
-+}
-+
-+/**
-+ * drm_dp_mst_port_downstream_of_parent - check if a port is downstream of a parent port
-+ * @mgr: MST topology manager
-+ * @port: the port being looked up
-+ * @parent: the parent port
-+ *
-+ * The function returns %true if @port is downstream of @parent. If @parent is
-+ * %NULL - denoting the root port - the function returns %true if @port is in
-+ * @mgr's topology.
-+ */
-+bool
-+drm_dp_mst_port_downstream_of_parent(struct drm_dp_mst_topology_mgr *mgr,
-+				     struct drm_dp_mst_port *port,
-+				     struct drm_dp_mst_port *parent)
-+{
-+	bool ret;
-+
-+	mutex_lock(&mgr->lock);
-+	ret = drm_dp_mst_port_downstream_of_parent_locked(mgr, port, parent);
-+	mutex_unlock(&mgr->lock);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL(drm_dp_mst_port_downstream_of_parent);
-+
- static int
- drm_dp_mst_atomic_check_port_bw_limit(struct drm_dp_mst_port *port,
- 				      struct drm_dp_mst_topology_state *state);
-diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
-index 0953b7b16a51b..097c4204ffae4 100644
---- a/include/drm/display/drm_dp_mst_helper.h
-+++ b/include/drm/display/drm_dp_mst_helper.h
-@@ -879,6 +879,9 @@ drm_atomic_get_new_mst_topology_state(struct drm_atomic_state *state,
- struct drm_dp_mst_atomic_payload *
- drm_atomic_get_mst_payload_state(struct drm_dp_mst_topology_state *state,
- 				 struct drm_dp_mst_port *port);
-+bool drm_dp_mst_port_downstream_of_parent(struct drm_dp_mst_topology_mgr *mgr,
-+					  struct drm_dp_mst_port *port,
-+					  struct drm_dp_mst_port *parent);
- int __must_check
- drm_dp_atomic_find_time_slots(struct drm_atomic_state *state,
- 			      struct drm_dp_mst_topology_mgr *mgr,
+ 	slots = intel_dp_mst_find_vcpi_slots_for_bpp(encoder, crtc_state, max_bpp,
+ 						     min_bpp, limits,
+ 						     conn_state, 2 * 3, true);
 -- 
 2.37.2
 
