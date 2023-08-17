@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0553C30624
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 14:31:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BB43C3062E
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 14:31:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7036F10E4C7;
-	Thu, 17 Aug 2023 14:31:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EB5A10E4CC;
+	Thu, 17 Aug 2023 14:31:05 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E8BB10E4B9;
- Thu, 17 Aug 2023 14:30:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CC2F10E4B6;
+ Thu, 17 Aug 2023 14:30:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692282646; x=1723818646;
+ t=1692282644; x=1723818644;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=O+csUowlxAX2jjA3gdcPoHhniEdsWCBlQX5wxWciXDY=;
- b=Vs6yfvF+uzAPO2Q16nMJd+zz+bxDNqLGk7pmEr+nLyQLD4lBjCMiOk7c
- Yi/aPzOy4cHxw5ZvJnxVZOcZIXDtHoNzSZSx/V6pUqOwpVk+MK0jenKb7
- 0ZxIyoT1EOXPwz5ZW+seWN3+IB4vdXYqFB55870oM1B7yzas3O9/WbhHC
- BYrslLkPnyn7BHuJscYQcDkggBItJC8TcxWLFlZ0UZzTmm3EMSibW6wvP
- VEyzb22EH9UoAVTX952I6vIwzz+cwAgDj++Ncj+3kgiOJLVX2nQ7A0qwB
- bMaMXcWl892TdsrHlt2imAnfsJ2EK/po6iTFyyiFvqg6uE9gPd4ZDqFfP g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="376581716"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="376581716"
+ bh=/RCu1BfmNYkKRIFdtkA7eb+n6lYxTlONpLYGJcchTjU=;
+ b=Zbg/fTtgGkN0SXwGJHksTHcRIc8CUP41hQd7wUYGzF1P+ymQjhuYjuN6
+ gYhwqiWgtsHzEM36sRMYlaiw8NB2Tggz+fgz6ez/Lg2sIjhYgVX9cCruk
+ ROndMmvW5iFKLNA3rG689eci7Owspr4UzNljL30vtvYvP9ZocHjxgnjly
+ J6fE0rDeGX2MNsQCd2rgkJZ2HugPIOu2yYyigkWegn4eNZVeUqWPz6QBg
+ BEtNF9d0J0XX09QcdsPNYcJNaAyslgowJfAUTTaU3MsWNi6qCSIKQFGCy
+ b+Lq0FEluaJV7Tg1IYMWKqCntmRrE//9D4O2XxlTwVlpKKewJK07S23Dl A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="376581682"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="376581682"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 07:28:46 -0700
+ 17 Aug 2023 07:28:38 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="858244112"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="858244112"
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="858244086"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="858244086"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 07:28:44 -0700
+ 17 Aug 2023 07:28:34 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 17 Aug 2023 19:54:52 +0530
-Message-Id: <20230817142459.89764-12-ankit.k.nautiyal@intel.com>
+Date: Thu, 17 Aug 2023 19:54:48 +0530
+Message-Id: <20230817142459.89764-8-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230817142459.89764-1-ankit.k.nautiyal@intel.com>
 References: <20230817142459.89764-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 11/18] drm/i915/dp: Avoid left shift of DSC
- output bpp by 4
+Subject: [Intel-gfx] [PATCH 07/18] drm/i915/dp: Remove extra logs for
+ printing DSC info
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,64 +62,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-To make way for fractional bpp support, avoid left shifting the
-output_bpp by 4 in helper intel_dp_dsc_get_output_bpp.
+DSC compressed bpp and slice counts are already getting printed at the
+end of dsc compute config. Remove extra logs.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c     | 10 +++-------
- drivers/gpu/drm/i915/display/intel_dp_mst.c |  2 +-
- 2 files changed, 4 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 52c47e1b42a0..60c66cc720be 100644
+index a7c706a2327f..0b85af7316f4 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -814,11 +814,7 @@ u16 intel_dp_dsc_get_max_compressed_bpp(struct drm_i915_private *i915,
- 
- 	bits_per_pixel = intel_dp_dsc_nearest_valid_bpp(i915, bits_per_pixel, pipe_bpp);
- 
--	/*
--	 * Compressed BPP in U6.4 format so multiply by 16, for Gen 11,
--	 * fractional part is 0
--	 */
--	return bits_per_pixel << 4;
-+	return bits_per_pixel;
- }
- 
- u8 intel_dp_dsc_get_slice_count(struct intel_dp *intel_dp,
-@@ -1208,7 +1204,7 @@ intel_dp_mode_valid(struct drm_connector *_connector,
- 								    mode->hdisplay,
- 								    bigjoiner,
- 								    output_format,
--								    pipe_bpp, 64) >> 4;
-+								    pipe_bpp, 64);
- 			dsc_slice_count =
- 				intel_dp_dsc_get_slice_count(intel_dp,
- 							     target_clock,
-@@ -1811,7 +1807,7 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 							     pipe_config->pipe_bpp);
- 
- 			pipe_config->dsc.compressed_bpp = min_t(u16,
--								dsc_max_compressed_bpp >> 4,
-+								dsc_max_compressed_bpp,
+@@ -1782,9 +1782,6 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
  								output_bpp);
  		}
  		pipe_config->dsc.slice_count = dsc_dp_slice_count;
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index dff4717edbd0..4895d6242915 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -982,7 +982,7 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
- 								    mode->hdisplay,
- 								    bigjoiner,
- 								    INTEL_OUTPUT_FORMAT_RGB,
--								    pipe_bpp, 64) >> 4;
-+								    pipe_bpp, 64);
- 			dsc_slice_count =
- 				intel_dp_dsc_get_slice_count(intel_dp,
- 							     target_clock,
+-		drm_dbg_kms(&dev_priv->drm, "DSC: compressed bpp %d slice count %d\n",
+-			    pipe_config->dsc.compressed_bpp,
+-			    pipe_config->dsc.slice_count);
+ 	}
+ 	/*
+ 	 * VDSC engine operates at 1 Pixel per clock, so if peak pixel rate
 -- 
 2.40.1
 
