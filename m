@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2487C3DA4D
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 16:16:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E40FC3DA4E
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 16:16:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 787AD10E516;
-	Thu, 17 Aug 2023 16:16:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBBC510E51C;
+	Thu, 17 Aug 2023 16:16:15 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B80EE10E511
- for <intel-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 16:16:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CABEA10E518;
+ Thu, 17 Aug 2023 16:16:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692288966; x=1723824966;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=bmVocKd/PU7vcJ3aw/8dUikcfq9NaE70UsKWSOEMMTw=;
- b=j/j40g5lsxIcTrJOjiorjjpL1H9w6HeGDPdQWO6Oz1SxwJiuR63IMdTq
- tFpzqFtNUHcnkpoWzSnFsMYow48n+93p42g36nHInT8jdNeRfhc4xJzd0
- HSRMtBydk5HniT6HNLEVf7m55PMG/FfnxBgApgaPR49v21cw2iZdqZhYa
- le3cpuMpuXC3yeR4izybHQlTogjC5CKi+hGUzw/uEElh/9zUXyUEbw7Oz
- K/oPD/neync9UBoo5HA2w5gqCeguImB1ekiEop+C1oI5ign2Yqkg+kuUA
- BxtUWQb/r9FAoCm8LLu0X3ntsH0Wx5Phu//ASTZBCym6WMGlPSMx5SyQa g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="357826614"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="357826614"
+ t=1692288973; x=1723824973;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=8Yl1kj2bzWHWYVr+O90bGX+JMr8MmOgmbCkmm3bTzIc=;
+ b=cuZdvogmOrjYXHIlBXswEFnrnlY+F48KBTxGb1bXX5sm7jjNaeF8Pva1
+ Rcxvmk9TUjt1fzMfkSzfcjHOlbxPLlcVyOomFnGYVEVcrvnJCl/m4UN7U
+ Rs3THwU5nlNE3ITKrrFSlTIjVu0o/IIlnlE9Z92mpZNjsKQKYWMu8aoPZ
+ 7yWj03sMp9iJ4WUh7mWby4i93ARGE9uSfdjlnQ6voOFKB6tKYZ5iRFZLS
+ efP343pStOIkdDxYc7yhDSwSEIyD44QF+aqFyeTtTSkBqOwb8ydvOZ36p
+ Nmqve74gpiyW4MeW9pXT4+fB6AE/VPvM+kdGTbasG64VEmbdQs39SEoa8 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="357826688"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="357826688"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 09:14:50 -0700
+ 17 Aug 2023 09:14:56 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="711601355"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="711601355"
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="711601359"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="711601359"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 09:14:49 -0700
+ 17 Aug 2023 09:14:55 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 17 Aug 2023 19:14:46 +0300
-Message-Id: <20230817161456.3857111-8-imre.deak@intel.com>
+Date: Thu, 17 Aug 2023 19:14:50 +0300
+Message-Id: <20230817161456.3857111-12-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230817161456.3857111-1-imre.deak@intel.com>
 References: <20230817161456.3857111-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/17] drm/i915: Factor out a helper to
- check/compute all the CRTC states
+Subject: [Intel-gfx] [PATCH 11/17] drm/dp_mst: Add helper to determine if an
+ MST port is downstream of another port
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,117 +58,99 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Factor out intel_atomic_check_config() to check and compute all the CRTC
-states. This will be used by a follow up patch to recompute/check the
-state until required by BW limitations between CRTCs.
+Add drm_dp_mst_port_downstream_of_parent() required by the i915
+driver in a follow-up patch to resolve a BW overallocation of MST
+streams going through a given MST port.
 
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 78 ++++++++++++--------
- 1 file changed, 46 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 52 +++++++++++++++++++
+ include/drm/display/drm_dp_mst_helper.h       |  3 ++
+ 2 files changed, 55 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index c35e5d7e45a3b..381f68890565c 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -6177,6 +6177,51 @@ static int intel_bigjoiner_add_affected_crtcs(struct intel_atomic_state *state)
- 	return 0;
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index e26f1b7f5a701..ced9ae36a9177 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -5105,6 +5105,58 @@ static bool drm_dp_mst_port_downstream_of_branch(struct drm_dp_mst_port *port,
+ 	return false;
  }
  
-+static int intel_atomic_check_config(struct intel_atomic_state *state)
++static bool
++drm_dp_mst_port_downstream_of_parent_locked(struct drm_dp_mst_topology_mgr *mgr,
++					    struct drm_dp_mst_port *port,
++					    struct drm_dp_mst_port *parent)
 +{
-+	struct drm_i915_private *i915 = to_i915(state->base.dev);
-+	struct intel_crtc_state *new_crtc_state;
-+	struct intel_crtc *crtc;
-+	int ret;
-+	int i;
++	if (!mgr->mst_primary)
++		return false;
 +
-+	ret = intel_bigjoiner_add_affected_crtcs(state);
-+	if (ret)
-+		return ret;
++	port = drm_dp_mst_topology_get_port_validated_locked(mgr->mst_primary,
++							     port);
++	if (!port)
++		return false;
 +
-+	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
-+		if (!intel_crtc_needs_modeset(new_crtc_state)) {
-+			if (intel_crtc_is_bigjoiner_slave(new_crtc_state))
-+				copy_bigjoiner_crtc_state_nomodeset(state, crtc);
-+			else
-+				intel_crtc_copy_uapi_to_hw_state_nomodeset(state, crtc);
-+			continue;
-+		}
++	if (!parent)
++		return true;
 +
-+		if (intel_crtc_is_bigjoiner_slave(new_crtc_state)) {
-+			drm_WARN_ON(&i915->drm, new_crtc_state->uapi.enable);
-+			continue;
-+		}
++	parent = drm_dp_mst_topology_get_port_validated_locked(mgr->mst_primary,
++							       parent);
++	if (!parent)
++		return false;
 +
-+		ret = intel_crtc_prepare_cleared_state(state, crtc);
-+		if (ret)
-+			break;
++	if (!parent->mstb)
++		return false;
 +
-+		if (!new_crtc_state->hw.enable)
-+			continue;
++	return drm_dp_mst_port_downstream_of_branch(port, parent->mstb);
++}
 +
-+		ret = intel_modeset_pipe_config(state, crtc);
-+		if (ret)
-+			break;
++/**
++ * drm_dp_mst_port_downstream_of_parent - check if a port is downstream of a parent port
++ * @mgr: MST topology manager
++ * @port: the port being looked up
++ * @parent: the parent port
++ *
++ * The function returns %true if @port is downstream of @parent. If @parent is
++ * %NULL - denoting the root port - the function returns %true if @port is in
++ * @mgr's topology.
++ */
++bool
++drm_dp_mst_port_downstream_of_parent(struct drm_dp_mst_topology_mgr *mgr,
++				     struct drm_dp_mst_port *port,
++				     struct drm_dp_mst_port *parent)
++{
++	bool ret;
 +
-+		ret = intel_atomic_check_bigjoiner(state, crtc);
-+		if (ret)
-+			break;
-+	}
++	mutex_lock(&mgr->lock);
++	ret = drm_dp_mst_port_downstream_of_parent_locked(mgr, port, parent);
++	mutex_unlock(&mgr->lock);
 +
 +	return ret;
 +}
++EXPORT_SYMBOL(drm_dp_mst_port_downstream_of_parent);
 +
- /**
-  * intel_atomic_check - validate state object
-  * @dev: drm device
-@@ -6221,41 +6266,10 @@ int intel_atomic_check(struct drm_device *dev,
- 			return ret;
- 	}
- 
--	ret = intel_bigjoiner_add_affected_crtcs(state);
-+	ret = intel_atomic_check_config(state);
- 	if (ret)
- 		goto fail;
- 
--	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state,
--					    new_crtc_state, i) {
--		if (!intel_crtc_needs_modeset(new_crtc_state)) {
--			if (intel_crtc_is_bigjoiner_slave(new_crtc_state))
--				copy_bigjoiner_crtc_state_nomodeset(state, crtc);
--			else
--				intel_crtc_copy_uapi_to_hw_state_nomodeset(state, crtc);
--			continue;
--		}
--
--		if (intel_crtc_is_bigjoiner_slave(new_crtc_state)) {
--			drm_WARN_ON(&dev_priv->drm, new_crtc_state->uapi.enable);
--			continue;
--		}
--
--		ret = intel_crtc_prepare_cleared_state(state, crtc);
--		if (ret)
--			goto fail;
--
--		if (!new_crtc_state->hw.enable)
--			continue;
--
--		ret = intel_modeset_pipe_config(state, crtc);
--		if (ret)
--			goto fail;
--
--		ret = intel_atomic_check_bigjoiner(state, crtc);
--		if (ret)
--			goto fail;
--	}
--
- 	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state,
- 					    new_crtc_state, i) {
- 		if (!intel_crtc_needs_modeset(new_crtc_state))
+ static int
+ drm_dp_mst_atomic_check_port_bw_limit(struct drm_dp_mst_port *port,
+ 				      struct drm_dp_mst_topology_state *state);
+diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
+index 0953b7b16a51b..097c4204ffae4 100644
+--- a/include/drm/display/drm_dp_mst_helper.h
++++ b/include/drm/display/drm_dp_mst_helper.h
+@@ -879,6 +879,9 @@ drm_atomic_get_new_mst_topology_state(struct drm_atomic_state *state,
+ struct drm_dp_mst_atomic_payload *
+ drm_atomic_get_mst_payload_state(struct drm_dp_mst_topology_state *state,
+ 				 struct drm_dp_mst_port *port);
++bool drm_dp_mst_port_downstream_of_parent(struct drm_dp_mst_topology_mgr *mgr,
++					  struct drm_dp_mst_port *port,
++					  struct drm_dp_mst_port *parent);
+ int __must_check
+ drm_dp_atomic_find_time_slots(struct drm_atomic_state *state,
+ 			      struct drm_dp_mst_topology_mgr *mgr,
 -- 
 2.37.2
 
