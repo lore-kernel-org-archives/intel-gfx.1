@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A597DC3DA4D
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 16:16:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18DC4C3DA4E
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 16:16:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E476F10E51D;
-	Thu, 17 Aug 2023 16:16:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 241C910E51E;
+	Thu, 17 Aug 2023 16:16:17 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77D8610E511
- for <intel-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 16:16:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B20F10E517;
+ Thu, 17 Aug 2023 16:16:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692288965; x=1723824965;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=ROEx426tyJD8F9YXR2GdJG6RsEobEw5AMU8qhDjYuH4=;
- b=OmE+SlOwWa1B8/S/55TS0DbW6Ruvc9JUuFj5lC9WfBou51BTNMXF+SA2
- zIfcxFc9e/XKP6oTTPOboh3peNMRqacObMqWblTzMz4omp51x8VYJua/9
- JoBkttsTIlLl8MpFtOZctIUsI3yi8znW5lBqU17qPY8APDLCmPWXxdQxt
- gkL5tlHx8GEh9T0XNEkSPGj2tsPTZ1qDRpilq+siiRTsOQAYh7R9ucB6D
- rDqczSzHOQRLVpdr/4rGT/ZlDFZL4A6XfUhwf0NzfYHH/WTqYEsA4m1zt
- deGXhVn8yAxfj3ojjbaGZtsjjWldwV0MCEXbdtao7MYzY88R0DjPJNhdJ Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="357826601"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="357826601"
+ t=1692288970; x=1723824970;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=AtkxhPpqyWJeCD20FN7ggGFiIRbG1f9rz/OOwXLEy3Q=;
+ b=gM9Vubakrxt3ZNKab7+uiugCTiumQmhqbQf6rto7CSD8v+7163mrK4Wt
+ jOBlxd7u1TWYv6TBKvLLCXjEmQ9sbQRIS/bWWGMsmBUGKjmtxmj8JqxFS
+ P01KfeltqaAPUDpQN/fLa6BTBSLd7ozXRfBPPEJqMj7VYD9WtZGpDaGm0
+ FN0vlGN6/ipvmAae8With9CME+jc2vxxh9XWlGhCvrU2G0q9nZahHlN4x
+ +zzresRfo6Z+c+RFrkrW4i/BgEFu/7DbFPiIsDAN5MwXWNf1b1aUJFvwy
+ qGrHsOAdbVFYBK8vgfXeiELhIYpLOA0q3o7hXNNtZzzHrmHux/TLQNo8H A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="357826647"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="357826647"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 09:14:48 -0700
+ 17 Aug 2023 09:14:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="711601351"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="711601351"
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="711601357"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="711601357"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 09:14:47 -0700
+ 17 Aug 2023 09:14:51 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 17 Aug 2023 19:14:44 +0300
-Message-Id: <20230817161456.3857111-6-imre.deak@intel.com>
+Date: Thu, 17 Aug 2023 19:14:48 +0300
+Message-Id: <20230817161456.3857111-10-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230817161456.3857111-1-imre.deak@intel.com>
 References: <20230817161456.3857111-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 05/17] drm/i915/dp: Limit the output link bpp in
- DSC mode
+Subject: [Intel-gfx] [PATCH 09/17] drm/dp_mst: Fix fractional bpp scaling in
+ drm_dp_calc_pbn_mode()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,67 +58,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Limit the output link bpp in DSC mode to the link_config_limits
-link.min_bpp .. max_bpp range the same way it's done in non-DSC mode.
-Atm, this doesn't make a difference, the link bpp range being
-0 .. max pipe bpp, but a follow-up patch will need a way to reduce max
-link bpp below its current value.
+For fractional bpp values passed to the function in a .4 fixed point
+format, the fractional part is currently ignored due to scaling bpp too
+early. Fix this by scaling the overhead factor instead and to avoid an
+overflow multiplying bpp with the overhead factor instead of the clock
+rate.
 
+While at it simplify the formula, and pass the expected fixed point bpp
+values in the kunit tests.
+
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c     | 12 +++++++++++-
- drivers/gpu/drm/i915/display/intel_dp_mst.c |  3 +++
- 2 files changed, 14 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/display/drm_dp_mst_topology.c  | 7 ++-----
+ drivers/gpu/drm/tests/drm_dp_mst_helper_test.c | 8 ++++----
+ 2 files changed, 6 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index c4016fd0dc980..b5d38765dde54 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1703,9 +1703,16 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 	pipe_config->lane_count = limits->max_lane_count;
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index ed96cfcfa3040..bd0f35a0ea5fb 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -4712,12 +4712,9 @@ int drm_dp_calc_pbn_mode(int clock, int bpp, bool dsc)
+ 	 * factor in the numerator rather than the denominator to avoid
+ 	 * integer overflow
+ 	 */
++	u32 bpp_m = (dsc ? 64 / 16 : 64) * 1006 * bpp;
  
- 	if (intel_dp_is_edp(intel_dp)) {
-+		u16 dsc_max_output_bpp;
-+
-+		dsc_max_output_bpp =
-+			min_t(u16, drm_edp_dsc_sink_output_bpp(intel_dp->dsc_dpcd),
-+			      limits->link.max_bpp);
-+
- 		pipe_config->dsc.compressed_bpp =
--			min_t(u16, drm_edp_dsc_sink_output_bpp(intel_dp->dsc_dpcd) >> 4,
-+			min_t(u16, dsc_max_output_bpp >> 4,
- 			      pipe_config->pipe_bpp);
-+
- 		pipe_config->dsc.slice_count =
- 			drm_dp_dsc_sink_max_slice_count(intel_dp->dsc_dpcd,
- 							true);
-@@ -1761,6 +1768,9 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 		 * calculation procedure is bit different for MST case.
- 		 */
- 		if (compute_pipe_bpp) {
-+			dsc_max_output_bpp = min_t(u16, dsc_max_output_bpp,
-+						   limits->link.max_bpp);
-+
- 			pipe_config->dsc.compressed_bpp = min_t(u16,
- 								dsc_max_output_bpp >> 4,
- 								pipe_config->pipe_bpp);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 48c247ddef53a..0dcb9a203dfe7 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -230,6 +230,9 @@ static int intel_dp_dsc_mst_compute_link_config(struct intel_encoder *encoder,
- 	if (max_bpp > sink_max_bpp)
- 		max_bpp = sink_max_bpp;
+-	if (dsc)
+-		return DIV_ROUND_UP_ULL(mul_u32_u32(clock * (bpp / 16), 64 * 1006),
+-					8 * 54 * 1000 * 1000);
+-
+-	return DIV_ROUND_UP_ULL(mul_u32_u32(clock * bpp, 64 * 1006),
++	return DIV_ROUND_UP_ULL(mul_u32_u32(clock, bpp_m),
+ 				8 * 54 * 1000 * 1000);
+ }
+ EXPORT_SYMBOL(drm_dp_calc_pbn_mode);
+diff --git a/drivers/gpu/drm/tests/drm_dp_mst_helper_test.c b/drivers/gpu/drm/tests/drm_dp_mst_helper_test.c
+index 545beea33e8c7..ea2182815ebe8 100644
+--- a/drivers/gpu/drm/tests/drm_dp_mst_helper_test.c
++++ b/drivers/gpu/drm/tests/drm_dp_mst_helper_test.c
+@@ -40,15 +40,15 @@ static const struct drm_dp_mst_calc_pbn_mode_test drm_dp_mst_calc_pbn_mode_cases
+ 	},
+ 	{
+ 		.clock = 332880,
+-		.bpp = 24,
++		.bpp = 24 << 4,
+ 		.dsc = true,
+-		.expected = 50
++		.expected = 1191
+ 	},
+ 	{
+ 		.clock = 324540,
+-		.bpp = 24,
++		.bpp = 24 << 4,
+ 		.dsc = true,
+-		.expected = 49
++		.expected = 1161
+ 	},
+ };
  
-+	min_bpp = max(min_bpp, (limits->link.min_bpp + 0xf) >> 4);
-+	max_bpp = min(max_bpp, limits->link.max_bpp >> 4);
-+
- 	slots = intel_dp_mst_find_vcpi_slots_for_bpp(encoder, crtc_state, max_bpp,
- 						     min_bpp, limits,
- 						     conn_state, 2 * 3, true);
 -- 
 2.37.2
 
