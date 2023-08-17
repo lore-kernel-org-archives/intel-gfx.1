@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7680C3DA53
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 16:16:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 693DDC3DA4F
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 16:16:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B43F110E51A;
-	Thu, 17 Aug 2023 16:16:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB6E110E528;
+	Thu, 17 Aug 2023 16:16:21 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7A4A10E51A;
- Thu, 17 Aug 2023 16:16:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D495B10E520
+ for <intel-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 16:16:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692288976; x=1723824976;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=6EX1swiNJ+LX3DtjjqJ4X+xaC34ucMrl4UEb0LozMYU=;
- b=k5sjDIJAyKPBJ5ZXZ+xVwlXUkLBEFZfp8Kzwz07ci2Na0FWgZ0V+ML+1
- 83LxwHGP3v36FEgmmxzUJDbDT42aqDSEvDTz0QhkAaaHzezk5rdMIW5M/
- YffWot65lbQ8IoWx35GNsJpvmnJ/CZv4T1SSy2MH6L+v4iYgUMn5PsAc/
- dBDF3+SU2AIn682T2HKJy6wjeaxll4+hw7skuQF8vrSeC4nMNVkbSXZnH
- OJCLRIw5ylmz8hBZYchqFBmLTUHoaz6kF1c+StvwIynG1Yvb1/7KV6V2A
- LJNrfRbVt03BSLe4xQLNV/X5xeosAopHx0JmuYs4zKiI7sx3EuoBVMweP A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="357826720"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="357826720"
+ t=1692288977; x=1723824977;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=rxUbb6SJ50dOpEmtCgx9XjyUXEFpsMuS1qjFRujGFaE=;
+ b=NgO07osA4di9/qv42AGehWDEQ3N9q9u6Da2N/nP7Ct51cut3p7pOrFi3
+ 9wBQ/bJMKYCq8u5MWr0rq5u0HNkNTVDNXBe5XeSCKHHtfClsTSMEcKQVp
+ 9QtyrdPDKkJUmSa1vbTiDY6vG+B/K5HLeAefzQ73Aod4gD7iv/7uHDAZn
+ U4uaoPBy03KlYiuRKwkRDRVtt8BokyBKSO+SvEQi5437U19T+oJsK0GVJ
+ lts/JCa9i35j/weLZ3xbbt0sezjg1IztyzZ9+e8eNI9jqhq+ooDcTbrF9
+ 1iwUgv7sx3wD0P6l2YlUF5DVedvLS1kWg4mPFYK6wA3SAVNMhKhfwXQJI w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="357826735"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="357826735"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 09:14:59 -0700
+ 17 Aug 2023 09:15:01 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="711601361"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="711601361"
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="711601365"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="711601365"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 09:14:58 -0700
+ 17 Aug 2023 09:15:01 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 17 Aug 2023 19:14:52 +0300
-Message-Id: <20230817161456.3857111-14-imre.deak@intel.com>
+Date: Thu, 17 Aug 2023 19:14:54 +0300
+Message-Id: <20230817161456.3857111-16-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230817161456.3857111-1-imre.deak@intel.com>
 References: <20230817161456.3857111-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 13/17] drm/dp_mst: Swap the order of checking
- root vs. non-root port BW limitations
+Subject: [Intel-gfx] [PATCH 15/17] drm/i915/dp_mst: Add atomic state for all
+ streams on pre-tgl platforms
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,70 +58,37 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-drm_dp_mst_atomic_check_mgr() should check for BW limitation starting
-from sink ports continuing towards the root port, so that drivers can
-use the @failing_port returned to resolve a BW overallocation in an
-ideal way. For instance from streams A,B,C in a topology A,B going
-through @failing_port and C not going through it, a BW overallocation of
-A,B due to a limit of the port must be resolved first before considering
-the limits of other ports closer to the root port. This way can avoid
-reducing the BW of stream C unnecessarily due to a BW limit closer to the
-root port.
+If an MST stream is modeset, its state must be checked along all the
+other streams on the same MST link, for instance to resolve a BW
+overallocation of a non-sink MST port or to make sure that the FEC is
+enabled/disabled the same way for all these streams.
 
-Based on the above swap the order of the BW check for the root port and
-the check for all the ports downstream of it (the latter going through
-the topology already in the sink->root port direction).
+To prepare for that this patch adds all the stream CRTCs to the atomic
+state and marks them for modeset similarly to tgl+ platforms. (If the
+state computation doesn't change the state the CRTC is switched back to
+fastset mode.)
 
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index a32da72bb05c5..12a13885145d3 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -5449,9 +5449,13 @@ EXPORT_SYMBOL(drm_dp_mst_atomic_enable_dsc);
-  * %-ENOSPC, if the new state is invalid, because of BW limitation
-  *           @failing_port is set to:
-  *           - The non-root port where a BW limit check failed
-+ *             with all the ports downstream of @failing_port passing
-+ *             the BW limit check.
-  *             The returned port pointer is valid until at least
-  *             one payload downstream of it exists.
-  *           - %NULL if the BW limit check failed at the root port
-+ *             with all the ports downstream of the root port passing
-+ *             the BW limit check.
-  * %-EINVAL, if the new state is invalid, because the root port has too many
-  *           payloads.
-  */
-@@ -5467,17 +5471,16 @@ int drm_dp_mst_atomic_check_mgr(struct drm_atomic_state *state,
- 	if (!mgr->mst_state)
- 		return 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 4fe10d7256630..b53254473e0d9 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -499,9 +499,6 @@ intel_dp_mst_atomic_master_trans_check(struct intel_connector *connector,
+ 	struct intel_connector *connector_iter;
+ 	int ret = 0;
  
--	ret = drm_dp_mst_atomic_check_payload_alloc_limits(mgr, mst_state);
--	if (ret)
--		return ret;
+-	if (DISPLAY_VER(dev_priv) < 12)
+-		return  0;
 -
- 	mutex_lock(&mgr->lock);
- 	ret = drm_dp_mst_atomic_check_mstb_bw_limit(mgr->mst_primary,
- 						    mst_state,
- 						    failing_port);
- 	mutex_unlock(&mgr->lock);
- 
--	return ret < 0 ? ret : 0;
-+	if (ret < 0)
-+		return ret;
-+
-+	return drm_dp_mst_atomic_check_payload_alloc_limits(mgr, mst_state);
- }
- EXPORT_SYMBOL(drm_dp_mst_atomic_check_mgr);
+ 	if (!intel_connector_needs_modeset(state, &connector->base))
+ 		return 0;
  
 -- 
 2.37.2
