@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4333C2FC05
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 00:04:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B69BFC2FC05
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 00:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3336B10E121;
-	Thu, 17 Aug 2023 00:04:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F062F10E3E0;
+	Thu, 17 Aug 2023 00:04:16 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 92C1D10E121;
- Thu, 17 Aug 2023 00:04:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 04FE410E3E0;
+ Thu, 17 Aug 2023 00:04:15 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 7E0D3AADD6;
- Thu, 17 Aug 2023 00:04:12 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 019BCAADFD;
+ Thu, 17 Aug 2023 00:04:15 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Matt Roper" <matthew.d.roper@intel.com>
-Date: Thu, 17 Aug 2023 00:04:12 -0000
-Message-ID: <169223065247.12432.7684093130805120643@emeril.freedesktop.org>
+Date: Thu, 17 Aug 2023 00:04:15 -0000
+Message-ID: <169223065500.12434.7102663498523198073@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20230816214201.534095-7-matthew.d.roper@intel.com>
 In-Reply-To: <20230816214201.534095-7-matthew.d.roper@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_Drop_support_for_pre-production_DG2_hardware_=28rev3=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?Drop_support_for_pre-production_DG2_hardware_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,7 +53,7 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
+Error: dim sparse failed
 /home/kbuild2/linux/maintainer-tools/dim: line 50: /home/kbuild2/.dimrc: No such file or directory
 
 
