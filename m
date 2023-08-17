@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53887C30627
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE3B1C30624
 	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 14:31:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 095C410E4D5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6216110E4D6;
 	Thu, 17 Aug 2023 14:31:06 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51C7810E4B6;
- Thu, 17 Aug 2023 14:30:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05DC210E3BA;
+ Thu, 17 Aug 2023 14:30:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692282650; x=1723818650;
+ t=1692282641; x=1723818641;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=UVNTspcN9wuQwQwUK2siBOwHm+SQXuRcRimJ4QH2ChA=;
- b=HDU1yk6eaG4TR7IogmXg1nOg+qafOAqe6DURefSjNcenUCoH7EDpUJqe
- PFgZ7aiXIjwp/KjqUWGweU8hCP0BAh1zKxc81ymuzRS+ZJ+OVzClkn9RJ
- jJp1MLl1djJmJMn/7lXxL8kdGCReQ3n9jmOUIteb26itvv7WSGy4NGAT5
- 8Guzr2xkOVZoWuk+pNykLzlSAGM2SRFyOPP/2kXwkGsQzCcVRbC/kU2sO
- 56AVJesm+yPxeowHPU/R5m3xL2Xudidq/XfF5CZy5vJbadZoq6m590jKz
- OkKZEB4Hn+YPjwrd4J8BUdZ7sXxr847KPWWKoc8ICACpkKEY4FXt3xSFw w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="376581780"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="376581780"
+ bh=/GqqNzzBwoni2CL3VSSmYbeD4xFYoLs2WyDv9pB7lpI=;
+ b=e8LjsDNFNCFw8E3ENIWWunnb7cjltmePKgogIWaeyZHzY/3z3U3UzbC6
+ MOjj1Y1jDb/2itSAsZ9yaGpkALImtaLi0qfIbu8ON5DNlMe7HTwRSnPTp
+ z8MJeG+ISP7Z1GG+FnylLXD4OT5oBgwuJKsGR/Lm4qBR2Gc+4W6Q+rg0T
+ DWzwk6ruur/2gEzle6y7kw7cXqA0gqyo8P0v86jv26qNUmfShpH3kz8tX
+ yz1unGB3Yf39+ezOrl4rQG03V4mwpEa9TJ6mOmo0tEYqwr8vmfIf4FVkz
+ 6qbl1V4PVpEqRYhgk6FR8LAf3zDH3XAZCmH++lcU8HvmFSTwypMpQXwkc w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="376581616"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="376581616"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 07:29:03 -0700
+ 17 Aug 2023 07:28:24 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="858244171"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="858244171"
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="858244043"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="858244043"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 07:29:00 -0700
+ 17 Aug 2023 07:28:22 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 17 Aug 2023 19:54:59 +0530
-Message-Id: <20230817142459.89764-19-ankit.k.nautiyal@intel.com>
+Date: Thu, 17 Aug 2023 19:54:43 +0530
+Message-Id: <20230817142459.89764-3-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230817142459.89764-1-ankit.k.nautiyal@intel.com>
 References: <20230817142459.89764-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 18/18] drm/i915/dp: Check if
- force_dsc_output_format is possible
+Subject: [Intel-gfx] [PATCH 02/18] drm/i915/dp: Move compressed bpp check
+ with 420 format inside the helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,66 +62,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently for testing an output format with DSC, we just force the
-output format, without checking if it can be supported.
-This also creates an issue where there is a PCON which might need to
-convert from forced output format to the format to sink format.
+Move the check for limiting compressed bits_per_pixel for 420,422
+formats in the helper to compute bits_per_pixel.
+
+v2: Fix typo in commit message. (Ankit)
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 30 +++++++++++++++++++++++--
- 1 file changed, 28 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 764663cd73ea..5b48bfe09d0e 100644
+index 29aab055ef11..ebf216596fdd 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -935,16 +935,42 @@ dfp_can_convert_from_ycbcr444(struct intel_dp *intel_dp,
- 	return false;
- }
+@@ -773,6 +773,15 @@ u16 intel_dp_dsc_get_output_bpp(struct drm_i915_private *i915,
+ 	if (output_format == INTEL_OUTPUT_FORMAT_YCBCR420)
+ 		bits_per_pixel *= 2;
  
-+static bool
-+dfp_can_convert(struct intel_dp *intel_dp,
-+		enum intel_output_format output_format,
-+		enum intel_output_format sink_format)
-+{
-+	switch (output_format) {
-+	case INTEL_OUTPUT_FORMAT_RGB:
-+		return dfp_can_convert_from_rgb(intel_dp, sink_format);
-+	case INTEL_OUTPUT_FORMAT_YCBCR444:
-+		return dfp_can_convert_from_ycbcr444(intel_dp, sink_format);
-+	default:
-+		MISSING_CASE(output_format);
-+		return false;
-+	}
++	/*
++	 * According to DSC 1.2a Section 4.1.1 Table 4.1 the maximum
++	 * supported PPS value can be 63.9375 and with the further
++	 * mention that for 420, 422 formats, bpp should be programmed double
++	 * the target bpp restricting our target bpp to be 31.9375 at max.
++	 */
++	if (output_format == INTEL_OUTPUT_FORMAT_YCBCR420)
++		bits_per_pixel = min_t(u32, bits_per_pixel, 31);
 +
-+	return false;
-+}
-+
- static enum intel_output_format
- intel_dp_output_format(struct intel_connector *connector,
- 		       enum intel_output_format sink_format)
- {
- 	struct intel_dp *intel_dp = intel_attached_dp(connector);
- 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+	enum intel_output_format force_dsc_output_format =
-+		intel_dp->force_dsc_output_format;
- 	enum intel_output_format output_format;
-+	if (force_dsc_output_format) {
-+		if (source_can_output(intel_dp, force_dsc_output_format) &&
-+		    (!drm_dp_is_branch(intel_dp->dpcd) ||
-+		     sink_format != force_dsc_output_format ||
-+		     dfp_can_convert(intel_dp, force_dsc_output_format, sink_format)))
-+			return force_dsc_output_format;
- 
--	if (intel_dp->force_dsc_output_format)
--		return intel_dp->force_dsc_output_format;
-+		drm_dbg_kms(&i915->drm, "Cannot force DSC output format\n");
-+	}
- 
- 	if (sink_format == INTEL_OUTPUT_FORMAT_RGB ||
- 	    dfp_can_convert_from_rgb(intel_dp, sink_format))
+ 	drm_dbg_kms(&i915->drm, "Max link bpp is %u for %u timeslots "
+ 				"total bw %u pixel clock %u\n",
+ 				bits_per_pixel, timeslots,
+@@ -1738,15 +1747,6 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 							    pipe_config->output_format,
+ 							    pipe_bpp,
+ 							    timeslots);
+-			/*
+-			 * According to DSC 1.2a Section 4.1.1 Table 4.1 the maximum
+-			 * supported PPS value can be 63.9375 and with the further
+-			 * mention that bpp should be programmed double the target bpp
+-			 * restricting our target bpp to be 31.9375 at max
+-			 */
+-			if (pipe_config->output_format == INTEL_OUTPUT_FORMAT_YCBCR420)
+-				dsc_max_output_bpp = min_t(u16, dsc_max_output_bpp, 31 << 4);
+-
+ 			if (!dsc_max_output_bpp) {
+ 				drm_dbg_kms(&dev_priv->drm,
+ 					    "Compressed BPP not supported\n");
 -- 
 2.40.1
 
