@@ -4,49 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48213C27C7A
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 13:06:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5ACAC27C7A
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 13:18:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3ACD10E478;
-	Thu, 17 Aug 2023 13:06:24 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 631D710E47C;
- Thu, 17 Aug 2023 13:06:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692277583; x=1723813583;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=wE7qeL3PmBJFRmq8LxVnfupjLQQE+KvKqnjTG7gUkqw=;
- b=UcmX4+BsbZGsxB9HofroWxyi+x3IjKwvBtIkQ23RlaItMdPxJ5/oJIsN
- 4DEgLk53JyRzGM5lMXKs0b1NgknDGtUTw6+6Bg145nZC4YX7ktj2tjZ86
- 7Duhr2FVlOsVkl6jwKF38ZgpPy/H9E1sEDzRdVqIVdaAvATY0KkTWSJWW
- Z83RfWGxj48cyVR/kmGL1SDvv7S+Mb0BiU6HaOSp8DdGVDmskmgfzzS46
- wySwBbjKGfRrmH1sRnTfugo/jBjG2SdTgyg6JaTr0+2kpzRA487JHFhE/
- oVMw8o9OUtX5ZZJNUEj7EDRFt4exMLwsq4kzGh4/9YMRpyxbVfqORtdiU w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="436707635"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="436707635"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 06:06:03 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10803"; a="981150375"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="981150375"
-Received: from jnikula-mobl4.fi.intel.com (HELO localhost) ([10.237.66.162])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 06:06:00 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Dirk Lehmann <develop@dj-l.de>, stable@vger.kernel.org
-In-Reply-To: <E1qWbpR-0007ey-0B@djlnb.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230815101907.2900768-1-jani.nikula@intel.com>
- <E1qWbpR-0007ey-0B@djlnb.local>
-Date: Thu, 17 Aug 2023 16:05:56 +0300
-Message-ID: <87o7j595u3.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2617810E480;
+	Thu, 17 Aug 2023 13:18:38 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BA6410E47D;
+ Thu, 17 Aug 2023 13:18:36 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9B55321861;
+ Thu, 17 Aug 2023 13:18:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1692278314; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type;
+ bh=qdkYIc9zOoSqiWAoepaxMNZ/TiG1koylvzzRZW8kd/k=;
+ b=bi6HF1EWl9tAIwsVH26Zlptldgb56C0hIbILLuChb364xpjAHn51MJgn5Xk5u4Jq6yGRKu
+ wNLDtqeos6oNpMDHbDL4w1Wo4FzWdM0OF0TCskIg8TBw42ZxWeuB5P9nSFFfME+BvJnzMs
+ fvhKJ7F8digtEThsh16B8VWJMxdTPBY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1692278314;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type;
+ bh=qdkYIc9zOoSqiWAoepaxMNZ/TiG1koylvzzRZW8kd/k=;
+ b=dkZIk4Nv+oXU0hfR+nlK1I+PAEdYINgF7xMlKVSZMZYbXmnhS3vU/e18cfZUNjk1wy0ISK
+ tRQd8VbCjveLSHCg==
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3D0891392B;
+ Thu, 17 Aug 2023 13:18:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id L7uxDSoe3mS+egAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 17 Aug 2023 13:18:34 +0000
+Date: Thu, 17 Aug 2023 15:18:32 +0200
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Dave Airlie <airlied@gmail.com>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <20230817131832.GA9361@linux-uq9g>
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH v2 2/2] drm/edid: Fix "Analog composite
- sync!" for current eDP display panels
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Subject: [Intel-gfx] [PULL] drm-misc-next-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,200 +61,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Dirk Lehmann <develop@dj-l.de>,
- dri-devel@lists.freedesktop.org
+Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 17 Aug 2023, Dirk Lehmann <develop@dj-l.de> wrote:
-> VESA Enhanced EDID Standard does not clearly describe how display
-> panel vendors should setup the Sync Signal Defintions (bit 4 & 3) in
-> the Detailed Timing Definition (relative offset 17, absolute offset
-> 47h[+18]) for Digital Video Signal Interfaces (bit 7 at offset 14h).
->
-> In practice many eDP panels which using a Digital Video Signal
-> Interfaces (bit 7 at offset 14h == 1) are leaving the Sync Signal
-> Defintions at offset 47h[+18] blank 0x00, which would mean concerned
-> with the VESA Standard [1] that they are using "Analog Composite
-> Sync".
->
-> Fix: Just detect Analog Sync Signal if an Analog Video Signal
->      Interface (bit 7 at offset 14h == 0) is in use.  Just detect
->      Digital Sync Signal if an Digital Video Signal Interface is in
->      use.
->
-> Reference: [1] VESA Enhanced EDID Standard, Release A, Rev.2, Page 35
+Hi Dave and Daniel,
 
-Please don't reply with patches in-reply-to other people's patches.
+this is the PR for drm-misc-next-fixes.
 
-> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/8789
+Best regards
+Thomas
 
-This is now fixed by the revert that I just pushed.
+drm-misc-next-fixes-2023-08-17:
+Short summary of fixes pull:
 
-> Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/8146
+ * Add MMU dependency to TTM unit tests
+ * panel: Fix Innolux G156HCE-L01 LVDS clock
+The following changes since commit a8b273a8fd9c88cee038ffdae05b7eca063b9622:
 
-I don't think this patch fixes that one; see below.
+  Merge tag 'amd-drm-next-6.6-2023-08-11' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2023-08-15 13:37:49 +1000)
 
-> Signed-off-by: Dirk Lehmann <develop@dj-l.de>
-> ---
->  drivers/gpu/drm/drm_edid.c | 74 ++++++++++++++++++++++++++++++++------
->  include/drm/drm_edid.h     | 12 +++++--
->  2 files changed, 73 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index 1f470968ed14..6afdc34e55ce 100644
-> --- a/drivers/gpu/drm/drm_edid.c
-> +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -3437,6 +3437,7 @@ static struct drm_display_mode *drm_mode_detailed(struct drm_connector *connecto
->  	const struct drm_display_info *info = &connector->display_info;
->  	struct drm_device *dev = connector->dev;
->  	struct drm_display_mode *mode;
-> +	const struct edid *edid = drm_edid->edid;
->  	const struct detailed_pixel_timing *pt = &timing->data.pixel_data;
->  	unsigned hactive = (pt->hactive_hblank_hi & 0xf0) << 4 | pt->hactive_lo;
->  	unsigned vactive = (pt->vactive_vblank_hi & 0xf0) << 4 | pt->vactive_lo;
-> @@ -3456,10 +3457,6 @@ static struct drm_display_mode *drm_mode_detailed(struct drm_connector *connecto
->  			    connector->base.id, connector->name);
->  		return NULL;
->  	}
-> -	if (!(pt->misc & DRM_EDID_PT_SEPARATE_SYNC)) {
-> -		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] Composite sync not supported\n",
-> -			    connector->base.id, connector->name);
-> -	}
->  
->  	/* it is incorrect if hsync/vsync width is zero */
->  	if (!hsync_pulse_width || !vsync_pulse_width) {
-> @@ -3505,11 +3502,68 @@ static struct drm_display_mode *drm_mode_detailed(struct drm_connector *connecto
->  
->  	if (info->quirks & EDID_QUIRK_DETAILED_SYNC_PP) {
->  		mode->flags |= DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC;
-> +	} else if (edid->input & DRM_EDID_INPUT_DIGITAL) {
-> +		/* !info->quirks && edid->input == DIGITAL  */
-> +		switch (pt->misc & DRM_EDID_PT_SYNC_MASK) {
-> +		/* VESA Enhanced EDID Standard, Release A, Rev.2, Page 35
-> +		 *
-> +		 * CASE DRM_EDID_PT_ANALOG_CSYNC:
-> +		 *
-> +		 * (pt->misc & DRM_EDID_PT_SYNC_MASK == 0x00) means
-> +		 * "Analog Composite Sync" as described in VESA
-> +		 * Standard.  But many digital display panels without
-> +		 * composite sync are also using 0x00 here.
-> +		 *
-> +		 * Therefore use DEFAULT: as we are currently on an
-> +		 * digital video signal interface.
-> +		 */
-> +		case DRM_EDID_PT_DIGITAL_CSYNC:
-> +			drm_dbg_kms(dev,
-> +				"[CONNECTOR:%d:%s] Digital composite sync!\n",
-> +				connector->base.id, connector->name);
-> +			mode->flags |= DRM_MODE_FLAG_CSYNC;
-> +			mode->flags |= (pt->misc & DRM_EDID_PT_HSYNC_POSITIVE) ?
-> +				DRM_MODE_FLAG_PCSYNC : DRM_MODE_FLAG_NCSYNC;
-> +			break;
-> +		case DRM_EDID_PT_DIGITAL_SEPARATE_SYNC:
-> +			drm_dbg_kms(dev,
-> +				"[CONNECTOR:%d:%s] Digital seperate sync!\n",
-> +				connector->base.id, connector->name);
-> +			goto digital_default;
-> +			break; /* Missing BREAK throws a compiler warning  */
+are available in the Git repository at:
 
-fallthrough; will do the trick.
+  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-next-fixes-2023-08-17
 
-> +		default:
-> +digital_default:
-> +			mode->flags |= (pt->misc & DRM_EDID_PT_HSYNC_POSITIVE) ?
-> +				DRM_MODE_FLAG_PHSYNC : DRM_MODE_FLAG_NHSYNC;
-> +			mode->flags |= (pt->misc & DRM_EDID_PT_VSYNC_POSITIVE) ?
-> +				DRM_MODE_FLAG_PVSYNC : DRM_MODE_FLAG_NVSYNC;
+for you to fetch changes up to ff065eaf5502384c0d0a3bd3a9459eb5eb0811e1:
 
-The failing mode in bug [1] has 0x0a for flags, so it ends up here, and
-for that display this patch is a no-op.
+  drm/ttm/tests: Require MMU when testing (2023-08-17 15:05:51 +0200)
 
-As I explained in [2], all the problematic cases have invalid data, but
-the ones fixed by the revert need to ignore the analog sync *flags* and
-accept the mode, and the display in [1] needs to have the whole *mode*
-rejected.
+----------------------------------------------------------------
+Short summary of fixes pull:
 
-[1] https://gitlab.freedesktop.org/drm/intel/-/issues/8146
-[2] https://gitlab.freedesktop.org/drm/intel/-/issues/8789#note_2047902
+ * Add MMU dependency to TTM unit tests
+ * panel: Fix Innolux G156HCE-L01 LVDS clock
 
-> +			break;
-> +		}
->  	} else {
-> -		mode->flags |= (pt->misc & DRM_EDID_PT_HSYNC_POSITIVE) ?
-> -			DRM_MODE_FLAG_PHSYNC : DRM_MODE_FLAG_NHSYNC;
-> -		mode->flags |= (pt->misc & DRM_EDID_PT_VSYNC_POSITIVE) ?
-> -			DRM_MODE_FLAG_PVSYNC : DRM_MODE_FLAG_NVSYNC;
-> +		/* !info->quirks && edid->input == ANALOG  */
-> +		switch (pt->misc & DRM_EDID_PT_SYNC_MASK) {
-> +		/* VESA Enhanced EDID Standard, Release A, Rev.2, Page 35
-> +		 *
-> +		 * CASE DRM_EDID_PT_ANALOG_CSYNC:
-> +		 *
-> +		 * (pt->misc & DRM_EDID_PT_SYNC_MASK == 0x00) for
-> +		 * "Analog Composite Sync" is possible here, as we are
-> +		 * currently on an analog video signal interface.
-> +		 */
-> +		case DRM_EDID_PT_ANALOG_CSYNC:
-> +		case DRM_EDID_PT_BIPOLAR_ANALOG_CSYNC:
-> +			drm_dbg_kms(dev,
-> +				"[CONNECTOR:%d:%s] Analog composite sync!\n",
-> +				connector->base.id, connector->name);
-> +			mode->flags |= DRM_MODE_FLAG_CSYNC | DRM_MODE_FLAG_NCSYNC;
-> +			break;
-> +		default:
-> +			mode->flags |= (pt->misc & DRM_EDID_PT_HSYNC_POSITIVE) ?
-> +				DRM_MODE_FLAG_PHSYNC : DRM_MODE_FLAG_NHSYNC;
-> +			mode->flags |= (pt->misc & DRM_EDID_PT_VSYNC_POSITIVE) ?
-> +				DRM_MODE_FLAG_PVSYNC : DRM_MODE_FLAG_NVSYNC;
-> +			break;
-> +		}
+----------------------------------------------------------------
+Karolina Stolarek (1):
+      drm/ttm/tests: Require MMU when testing
 
-Another angle is that for analog displays, EDID offset 0x14 has info
-about the supported sync modes. If we're separating digital/analog sync
-handling, we should probably filter the analog sync with the info from
-0x14.
+Luca Ceresoli (1):
+      drm/panel: simple: Fix Innolux G156HCE-L01 LVDS clock
 
-BR,
-Jani.
-
-
->  	}
->  
->  set_size:
-> @@ -3522,8 +3576,8 @@ static struct drm_display_mode *drm_mode_detailed(struct drm_connector *connecto
->  	}
->  
->  	if (info->quirks & EDID_QUIRK_DETAILED_USE_MAXIMUM_SIZE) {
-> -		mode->width_mm = drm_edid->edid->width_cm * 10;
-> -		mode->height_mm = drm_edid->edid->height_cm * 10;
-> +		mode->width_mm = edid->width_cm * 10;
-> +		mode->height_mm = edid->height_cm * 10;
->  	}
->  
->  	mode->type = DRM_MODE_TYPE_DRIVER;
-> diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
-> index 48e93f909ef6..169755d3de19 100644
-> --- a/include/drm/drm_edid.h
-> +++ b/include/drm/drm_edid.h
-> @@ -61,9 +61,15 @@ struct std_timing {
->  	u8 vfreq_aspect;
->  } __attribute__((packed));
->  
-> -#define DRM_EDID_PT_HSYNC_POSITIVE (1 << 1)
-> -#define DRM_EDID_PT_VSYNC_POSITIVE (1 << 2)
-> -#define DRM_EDID_PT_SEPARATE_SYNC  (3 << 3)
-> +#define DRM_EDID_PT_SYNC_MASK              (3 << 3)
-> +# define DRM_EDID_PT_ANALOG_CSYNC          (0 << 3)
-> +# define DRM_EDID_PT_BIPOLAR_ANALOG_CSYNC  (1 << 3)
-> +# define DRM_EDID_PT_DIGITAL_CSYNC         (2 << 3)
-> +#  define DRM_EDID_PT_CSYNC_ON_RGB         (1 << 1) /* analog csync only */
-> +#  define DRM_EDID_PT_CSYNC_SERRATE        (1 << 2)
-> +# define DRM_EDID_PT_DIGITAL_SEPARATE_SYNC (3 << 3)
-> +#  define DRM_EDID_PT_HSYNC_POSITIVE       (1 << 1) /* also digital csync */
-> +#  define DRM_EDID_PT_VSYNC_POSITIVE       (1 << 2)
->  #define DRM_EDID_PT_STEREO         (1 << 5)
->  #define DRM_EDID_PT_INTERLACED     (1 << 7)
+ drivers/gpu/drm/Kconfig              | 2 +-
+ drivers/gpu/drm/panel/panel-simple.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
 -- 
-Jani Nikula, Intel Open Source Graphics Center
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
