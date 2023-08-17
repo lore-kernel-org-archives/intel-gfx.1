@@ -4,49 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE1D2C3062F
-	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 14:31:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53E7DC3062B
+	for <intel-gfx@archiver.kernel.org>; Thu, 17 Aug 2023 14:39:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C95E010E4D2;
-	Thu, 17 Aug 2023 14:31:13 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF87810E4B6;
- Thu, 17 Aug 2023 14:30:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3A2A10E4B7;
+	Thu, 17 Aug 2023 14:39:21 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88F5810E4B7
+ for <intel-gfx@lists.freedesktop.org>; Thu, 17 Aug 2023 14:39:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692282649; x=1723818649;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=iW407p36WG6GBxW66nnFraQppS+p8rYdTP5xjdkiCSw=;
- b=i9gF5RxMGfHnmId8KG5u9OJTtaQidnWqFjfKyZgt1JsCvl99g/4SWxpC
- Ar++h94aHQchUaxtWqsPBTLWF2DQTJ9w9Nm+Lc1R6ZJq4m1PuSbRdf66M
- dUgWCfGl6ph1+uEv12eFq1GF42MB7q9lLfaINSDgsvR6BE5piRIgDFVcU
- UymMM884rHnYYzNk4nspkDqns7otjFYv7YGgtH6sa8dB+0vGYQ0jfrULc
- 38BQmodxcXk7RWATFg+DfYqGQw7nVuCybwPl2mAncPviJdjrAIDhbyZ7G
- AkltEbFtdPDmzzJTAJB8lL3oiKFy2kP+V2XljdAzKYYsGJOzmJ4NLY4gG A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="376581764"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="376581764"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 07:28:58 -0700
+ t=1692283160; x=1723819160;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=XywVjN9Fr/kHw1t7lGkCCu1im5G23Gu29mRR+gUaFCQ=;
+ b=bkaLeZwfTJpBtdBSKfLGKIQMVD6F5Py21SiRbILmhcvmZV5nibFyieTl
+ Mq9tusnM7Gl/TLPRCd2j+pFVJHMF5EcBjNdS7DG01jHKAaMbPY5Og2E+w
+ 22ZrVXsNOwwAlEzlW8bH3y+0oDAdHuQJR6q/qIG4yLlbdXngHSV9rKnlL
+ tzJGFv8NlHXGo9vQi1UbRqoagZLHhura5qlis4EcncHcIHG+vqbChLz2F
+ g1itHLeNZc5NzoOtjZa9jQpwnxQK3AlLbWZKpm3fG8JAi8MrHMqWJyuyk
+ 8fabIUe3KxU1pn1Gyce9jy+Xt0s8jG7ztxZdxFY2G/IRH3m2A0d1oqMCg Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="357800203"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="357800203"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2023 07:39:19 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="858244154"
-X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="858244154"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2023 07:28:55 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Thu, 17 Aug 2023 19:54:57 +0530
-Message-Id: <20230817142459.89764-17-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230817142459.89764-1-ankit.k.nautiyal@intel.com>
-References: <20230817142459.89764-1-ankit.k.nautiyal@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10805"; a="711580020"
+X-IronPort-AV: E=Sophos;i="6.01,180,1684825200"; d="scan'208";a="711580020"
+Received: from orsmsx603.amr.corp.intel.com ([10.22.229.16])
+ by orsmga006.jf.intel.com with ESMTP; 17 Aug 2023 07:39:19 -0700
+Received: from orsmsx603.amr.corp.intel.com (10.22.229.16) by
+ ORSMSX603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27; Thu, 17 Aug 2023 07:39:19 -0700
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27 via Frontend Transport; Thu, 17 Aug 2023 07:39:19 -0700
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com (104.47.56.168)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.27; Thu, 17 Aug 2023 07:39:19 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UB6Uom8rhcmhM7eWTGKBxqoteir00Rad2MBqhmGxPxj8pXBLVpWbo2rwzNMwUwF/0Rf720ga341a4rQfd004eDEVLkKg2cZz9OxgsSTDZ6gOaw77PKfFtEolUMQ4NJIY6hnIUWqqNMUOVIyAG75r4zV5LUIeuuH+Ra6C+9KRYH+O+E3GvR2HJJIw+tMkJSlM+fo+h4wuU/j5TE96b/x6XM5GfZTfshQhVw2FYnw+HLjKs3sVU2aaZeczO3Qclss+if1vW2Uqe8em9pQeL5Ty++lSIBMJnsZy/xRLNOqrvCc1T5eHOSzr59QRJZowZM4PuDKbUyR9ZuhyU6/DkBPDOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yAo3guzw4IekAoza2E0x33+yOBseXQSMCsIJ4D6jucI=;
+ b=hL1N2hXQZgfBvQylEj0qayDkInzng0mORNFfAq+EddCBidzQYJRgPstRgYbU91Ff4nhpoaIuXS3+MayYS/S6cV4XpDBQZ1avvz94BHjspkWuyGvO+AFeEbIAWpypK/tiBIiDBka71Ebq/sNJEQYZpap1hFji1sE+h2Wm203/AfK7XuSVm7pIQyJKTxZmEh0pQolgbp0Qk+p/gxqGMj5sINqBxwTmi4PqUBdSLz1/5CrRd09YXUt63zIwM66rK50finPG4J/xYv18FFHBRDSpyjZXcfXwEFRoCHVNKNwTG1xhB0g1lRu/B0MTs7WBUxsq51v3uYqx6ZnrQE+jThAVdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CY8PR11MB7134.namprd11.prod.outlook.com (2603:10b6:930:62::17)
+ by PH0PR11MB4918.namprd11.prod.outlook.com (2603:10b6:510:31::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6678.31; Thu, 17 Aug
+ 2023 14:39:17 +0000
+Received: from CY8PR11MB7134.namprd11.prod.outlook.com
+ ([fe80::afe6:1e86:52cc:f71d]) by CY8PR11MB7134.namprd11.prod.outlook.com
+ ([fe80::afe6:1e86:52cc:f71d%4]) with mapi id 15.20.6652.029; Thu, 17 Aug 2023
+ 14:39:17 +0000
+From: "Yu, Jianshui" <jianshui.yu@intel.com>
+To: "Gupta, Anshuman" <anshuman.gupta@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Thread-Topic: [PATCH v2] drm/i915/dgfx: Enable d3cold at s2idle
+Thread-Index: AQHZ0ECSko+7UmO4MUmsdJM36Osfj6/ukEgg
+Date: Thu, 17 Aug 2023 14:39:16 +0000
+Message-ID: <CY8PR11MB71341DBE139DE3F6F7B84639E61AA@CY8PR11MB7134.namprd11.prod.outlook.com>
+References: <20230816125216.1722002-1-anshuman.gupta@intel.com>
+In-Reply-To: <20230816125216.1722002-1-anshuman.gupta@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR11MB7134:EE_|PH0PR11MB4918:EE_
+x-ms-office365-filtering-correlation-id: cf55f746-f3dd-4bf6-af50-08db9f2fbc09
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: OmovtGWQYHmxdmaCj7huShJFh6+VkDagJQ7qf8XSCJ/nLo+HoL3dmI8htb+yXEAoTuZybuqGnEXkRIOBxfdRJg9/TAwk3JbcGPBFS741gmY1RJbrnpsy5hSW2s6J1Akq9c01InchFi9gUiRV3S8lm0YggnR3xOvBgxCkayUmGXgpFxIOQVZHUFmk6211XSUUbHGJASC9uuy7c9DzhhX0SM2SY4p/MngMwvAotJJlE1HmHyrdc7fcw5RrTAZHtGFBAAMpUgmcJAMHiMSb/y4z8o1fnr0E3ZaVuEGuirrX76nysZLMpDLxPy911upnagy1o0hlt3CUjkeWH8c9vtal8DrGZaMpOM7wNIU0iyFNUISbD2/lo8eWzZKS+vu1HA2x8EpB36lqteqOmdCmCjHOoDx/iDj0cWaESpyXvwwY6+2uC++FH5yIX227q559frpACA7o1PbDuPzwbaUdXtMMn4/a0vtAfmH9bVWxNDeJdpwBqpHGqQJe8qMdy8rxgicXpY0EJO9puG0S7wwX1lLMQ6h8dztHAYKP3n15zxvz4i/mtafwyJRN+t4DXHwt1Pon6A9uQ7GQ7r5J0YQlOY4sx/eg6/DqtDxPha18N1woKvwYTPSXFJvU04ac4I0kNOzu83v9pN6x4Bdr/gL0iBN6rg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR11MB7134.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(346002)(376002)(39860400002)(366004)(136003)(396003)(451199024)(1800799009)(186009)(86362001)(33656002)(122000001)(38100700002)(38070700005)(82960400001)(55016003)(478600001)(52536014)(7696005)(5660300002)(966005)(76116006)(66446008)(66556008)(66476007)(66946007)(64756008)(71200400001)(316002)(53546011)(54906003)(6506007)(110136005)(9686003)(26005)(41300700001)(8936002)(4326008)(8676002)(2906002)(83380400001)(42413004)(32563001);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?PTjjvhqgffdvSZTCpfzMmu4Av6cM0LhkDKFA4+bQGlREgq5XYtsHiapWRDxv?=
+ =?us-ascii?Q?Q1MjcgG6dSNrBPtq3GXnkEv+m+iRPTS/bNbFm2YSducUINihddb+FOBSjDIJ?=
+ =?us-ascii?Q?l4KTgsWkBFqq7jMxFPbw+KGgZGmVD3k/y15t/Z5QihY0yX8rUadqnjqEjNH4?=
+ =?us-ascii?Q?WpVkyl9hTffYtn0NPjcCzR0vTqm/AwmKXn/apOjgaZaszgRVcRELw2wAEM1+?=
+ =?us-ascii?Q?RMl96WYNZkEfInW1YRSXHqkLKs8/ETnmbhAXtrZJaKKYMBCxpW/sClpxquCD?=
+ =?us-ascii?Q?0aglH8IY7Uwjyqt1276l5DtPmWAqyo2yDXwhdQThkP1nPQFJdnEGxe1Yp6zS?=
+ =?us-ascii?Q?YjDmUE7NOBbrq0/X1ijTEXaFF4c17OcN8N2nwV/0Ea6zqKnS8FtCIRVnQR5e?=
+ =?us-ascii?Q?fmv5XWsrcRQAuEZyzqwlkw/LwlJFTla3o8L/hG+k2Sw1DpV9P5nmy6QInP6u?=
+ =?us-ascii?Q?RifONsDp3hPAXQVkgTB6Gvek/qBEIpWXzeK03ubdGOkDcWVhDM2CPfWIjPFy?=
+ =?us-ascii?Q?Cyc2FAaPzODhG8u3XBVQV73DuqhYdW41DdPRhoFEweHhUF4jzboHd6oS4T2M?=
+ =?us-ascii?Q?oxEFX4eM531vWFVLSinfRfcCjHzB7ms+JuqNDztYJPMcAwMqV2/DkQZgPtEt?=
+ =?us-ascii?Q?vAmJ1EfsDbkSE/3DoAn04mG5uRMZrD/SNk+g1vPA9sp3mJDYcueE14v+zn9i?=
+ =?us-ascii?Q?0UfMEiaVdA/LR2fADx46gZbwGP1qIkaBWP16w1l3i1KYkxL7VaexDTrV9tB/?=
+ =?us-ascii?Q?wTMrBI/j+T01Mv9KlrON+/g/pSFO1hEvak+Ld+ReO3EbJvU0+DkMnWwSUmEt?=
+ =?us-ascii?Q?visHSvF59eWekB4yTJYjC77+vZLR8sOdegnV+udp+ICzjQQAVFLczbRdFzK9?=
+ =?us-ascii?Q?vUzy4YoLRz4aMLquGpzNH72v7c9rD0apTQPxK9ys8AKjOEX/Wx7XYmj5IfQ7?=
+ =?us-ascii?Q?+d5rrShSn4l/mPqZscOfHRBpwRhTLxNCfOq3ur8ycrGOE7qCU8TyfxCWoucC?=
+ =?us-ascii?Q?zECPtWvbBoqr3lp66FnQegjRhbzU5lIW1Gi3sVK+vFWxy0UZujaO+J0dcLZ6?=
+ =?us-ascii?Q?qDvILo/8xUH+0DW+RqINjyCls/7VIiiozkjZmEAkUI6DNPzY03C1BLZq+Peb?=
+ =?us-ascii?Q?aMXVt731Pie1HvQej1Uk6dDtYfpBiQEwfJCXKryR9Z89dmmmXxn4d5fLsxxx?=
+ =?us-ascii?Q?kXH351uF0aMO8Psx4+QmyA7yCz+hwjgYNSCsWioYSXLPvF92fi4tkBuzgmj5?=
+ =?us-ascii?Q?/qZ/uMJ4WWaZ3hJNwxQIyXYb382mInzKirZdBWN0L89MODOuBQjAo4CTvD8C?=
+ =?us-ascii?Q?xgN14V57d98QacoNxMVWDkPO+fEPMBcmJoMDcJcQbs2XA7yKcIPkjTyrGmMa?=
+ =?us-ascii?Q?yuhduM80a7dn+7cSWvFFUAEIHK3+9Kc3ZmPoksw3KS0hkYOVFoIPRMiraTlM?=
+ =?us-ascii?Q?zKV1HjX9gw3rmCxBVm6T1ueyawoej/EzfInhvHG8fv6XcQBs1odFfwW8zEH7?=
+ =?us-ascii?Q?E8O+6DSR3MADH7M7IlUbJZjmguaIjBCiyt8feYrLXvS8Mm0lbEdfKB7RNgTQ?=
+ =?us-ascii?Q?pXOyZ5uGwSdZbQWyFdesU0Rveh5L6HXNvaAzlQg7?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 16/18] drm/i915/dp: Get optimal link config to
- have best compressed bpp
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR11MB7134.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf55f746-f3dd-4bf6-af50-08db9f2fbc09
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Aug 2023 14:39:16.9899 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: QsOH2arsQfymfM+uubueut6vnIj6SaeffdGV/i3KI0gOlTT/WzGjC/a48soqN4ofyKAzzF0zVWJp/CTKuLq1hA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB4918
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/dgfx: Enable d3cold at s2idle
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,372 +145,140 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>, "Wang,
+ Lidong" <lidong.wang@intel.com>, "Vivi, Rodrigo" <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently, we take the max lane, rate and pipe bpp, to get the maximum
-compressed bpp possible. We then set the output bpp to this value.
-This patch provides support to have max bpp, min rate and min lanes,
-that can support the min compressed bpp.
+Tested-By: Jianshui Yu <Jianshui.yu@intel.com>
+
+-----Original Message-----
+From: Gupta, Anshuman <anshuman.gupta@intel.com>=20
+Sent: Wednesday, August 16, 2023 8:52 PM
+To: intel-gfx@lists.freedesktop.org
+Cc: Nilawar, Badal <badal.nilawar@intel.com>; Tauro, Riana <riana.tauro@int=
+el.com>; Vivi, Rodrigo <rodrigo.vivi@intel.com>; Yu, Jianshui <jianshui.yu@=
+intel.com>; Wang, Lidong <lidong.wang@intel.com>; Gupta, Anshuman <anshuman=
+.gupta@intel.com>; stable@vger.kernel.org
+Subject: [PATCH v2] drm/i915/dgfx: Enable d3cold at s2idle
+
+System wide suspend already has support for lmem save/restore during suspen=
+d therefore enabling d3cold for s2idle and keepng it disable for runtime PM=
+.(Refer below commit for d3cold runtime PM disable justification) 'commit 6=
+6eb93e71a7a ("drm/i915/dgfx: Keep PCI autosuspend control 'on' by default o=
+n all dGPU")'
+
+It will reduce the DG2 Card power consumption to ~0 Watt for s2idle power K=
+PI.
 
 v2:
--Avoid ending up with compressed bpp, same as pipe bpp. (Stan)
--Fix the checks for limits->max/min_bpp while iterating over list of
- valid DSC bpcs. (Stan)
+- Added "Cc: stable@vger.kernel.org".
 
-v3:
--Refactor the code to have pipe bpp/compressed bpp computation and slice
-count calculation separately for different cases.
-
-v4:
--Separate the pipe_bpp calculation for eDP and DP.
-
-v5:
--Get rid of magic numbers for max and min bpp,
-and improve documentation. (Stan).
--Use functions for {src_sink}_{min_max}_compressed_bpp (Ville).
-
-v6:
--Remove lines to set link config to max.
-
-v7:
--Split the part to separate edp and dp functions for computing DSC BPP
-into separate patch.
-
-v8:
--Separate mechanism to get compressed bpp for ICL,TGL and XELPD+.
-
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/8755
+Cc: stable@vger.kernel.org
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Signed-off-by: Anshuman Gupta <anshuman.gupta@intel.com>
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 294 +++++++++++++++++++++---
- 1 file changed, 261 insertions(+), 33 deletions(-)
+ drivers/gpu/drm/i915/i915_driver.c | 33 ++++++++++++++++--------------
+ 1 file changed, 18 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 3ccdf765c1f0..b295dd32e076 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1689,6 +1689,231 @@ static bool intel_dp_dsc_supports_format(struct intel_dp *intel_dp,
- 	return drm_dp_dsc_sink_supports_format(intel_dp->dsc_dpcd, sink_dsc_format);
- }
- 
-+static bool is_bw_sufficient_for_dsc_config(u16 compressed_bpp, u32 link_clock,
-+					    u32 lane_count, u32 mode_clock,
-+					    enum intel_output_format output_format,
-+					    int timeslots)
-+{
-+	u32 available_bw, required_bw;
-+
-+	available_bw = (link_clock * lane_count * timeslots)  / 8;
-+	required_bw = compressed_bpp * (intel_dp_mode_to_fec_clock(mode_clock));
-+
-+	return available_bw > required_bw;
-+}
-+
-+static int dsc_compute_link_config(struct intel_dp *intel_dp,
-+				   struct intel_crtc_state *pipe_config,
-+				   struct link_config_limits *limits,
-+				   u16 compressed_bpp,
-+				   int timeslots)
-+{
-+	const struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
-+	int link_rate, lane_count;
-+	int i;
-+
-+	for (i = 0; i < intel_dp->num_common_rates; i++) {
-+		link_rate = intel_dp_common_rate(intel_dp, i);
-+		if (link_rate < limits->min_rate || link_rate > limits->max_rate)
-+			continue;
-+
-+		for (lane_count = limits->min_lane_count;
-+		     lane_count <= limits->max_lane_count;
-+		     lane_count <<= 1) {
-+			if (!is_bw_sufficient_for_dsc_config(compressed_bpp, link_rate, lane_count,
-+							     adjusted_mode->clock,
-+							     pipe_config->output_format,
-+							     timeslots))
-+				continue;
-+
-+			pipe_config->lane_count = lane_count;
-+			pipe_config->port_clock = link_rate;
-+
-+			return 0;
-+		}
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static
-+u16 intel_dp_dsc_max_sink_compressed_bppx16(struct intel_dp *intel_dp,
-+					    struct intel_crtc_state *pipe_config,
-+					    int bpc)
-+{
-+	u16 max_bppx16 = drm_edp_dsc_sink_output_bpp(intel_dp->dsc_dpcd);
-+
-+	if (max_bppx16)
-+		return max_bppx16;
-+	/*
-+	 * If support not given in DPCD 67h, 68h use the Maximum Allowed bit rate
-+	 * values as given in spec Table 2-157 DP v2.0
-+	 */
-+	switch (pipe_config->output_format) {
-+	case INTEL_OUTPUT_FORMAT_RGB:
-+	case INTEL_OUTPUT_FORMAT_YCBCR444:
-+		return (3 * bpc) << 4;
-+	case INTEL_OUTPUT_FORMAT_YCBCR420:
-+		return (3 * (bpc / 2)) << 4;
-+	default:
-+		MISSING_CASE(pipe_config->output_format);
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int dsc_sink_min_compressed_bpp(struct intel_crtc_state *pipe_config)
-+{
-+	/* From Mandatory bit rate range Support Table 2-157 (DP v2.0) */
-+	switch (pipe_config->output_format) {
-+	case INTEL_OUTPUT_FORMAT_RGB:
-+	case INTEL_OUTPUT_FORMAT_YCBCR444:
-+		return 8;
-+	case INTEL_OUTPUT_FORMAT_YCBCR420:
-+		return 6;
-+	default:
-+		MISSING_CASE(pipe_config->output_format);
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int dsc_sink_max_compressed_bpp(struct intel_dp *intel_dp,
-+				       struct intel_crtc_state *pipe_config,
-+				       int bpc)
-+{
-+	return intel_dp_dsc_max_sink_compressed_bppx16(intel_dp,
-+						       pipe_config, bpc) >> 4;
-+}
-+
-+static int dsc_src_min_compressed_bpp(void)
-+{
-+	/* Min Compressed bpp supported by source is 8 */
-+	return 8;
-+}
-+
-+static int dsc_src_max_compressed_bpp(struct intel_dp *intel_dp)
-+{
-+	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+
-+	/*
-+	 * Max Compressed bpp for Gen 13+ is 27bpp.
-+	 * For earlier platform is 23bpp. (Bspec:49259).
-+	 */
-+	if (DISPLAY_VER(i915) <= 12)
-+		return 23;
-+	else
-+		return 27;
-+}
-+
-+/*
-+ * From a list of valid compressed bpps try different compressed bpp and find a
-+ * suitable link configuration that can support it.
-+ */
-+static int
-+icl_dsc_compute_link_config(struct intel_dp *intel_dp,
-+			    struct intel_crtc_state *pipe_config,
-+			    struct link_config_limits *limits,
-+			    int dsc_max_bpp,
-+			    int dsc_min_bpp,
-+			    int pipe_bpp,
-+			    int timeslots)
-+{
-+	int i, ret;
-+
-+	/* Compressed BPP should be less than the Input DSC bpp */
-+	dsc_max_bpp = min(dsc_max_bpp, pipe_bpp - 1);
-+
-+	for (i = 0; i < ARRAY_SIZE(valid_dsc_bpp); i++) {
-+		if (valid_dsc_bpp[i] < dsc_min_bpp ||
-+		    valid_dsc_bpp[i] > dsc_max_bpp)
-+			break;
-+
-+		ret = dsc_compute_link_config(intel_dp,
-+					      pipe_config,
-+					      limits,
-+					      valid_dsc_bpp[i],
-+					      timeslots);
-+		if (ret == 0) {
-+			pipe_config->dsc.compressed_bpp = valid_dsc_bpp[i];
-+			return 0;
-+		}
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+/*
-+ * From XE_LPD onwards we supports compression bpps in steps of 1 up to
-+ * uncompressed bpp-1. So we start from max compressed bpp and see if any
-+ * link configuration is able to support that compressed bpp, if not we
-+ * step down and check for lower compressed bpp.
-+ */
-+static int
-+xelpd_dsc_compute_link_config(struct intel_dp *intel_dp,
-+			      struct intel_crtc_state *pipe_config,
-+			      struct link_config_limits *limits,
-+			      int dsc_max_bpp,
-+			      int dsc_min_bpp,
-+			      int pipe_bpp,
-+			      int timeslots)
-+{
-+	u16 compressed_bpp;
-+	int ret;
-+
-+	/* Compressed BPP should be less than the Input DSC bpp */
-+	dsc_max_bpp = min(dsc_max_bpp, pipe_bpp - 1);
-+
-+	for (compressed_bpp = dsc_max_bpp;
-+	     compressed_bpp >= dsc_min_bpp;
-+	     compressed_bpp--) {
-+		ret = dsc_compute_link_config(intel_dp,
-+					      pipe_config,
-+					      limits,
-+					      compressed_bpp,
-+					      timeslots);
-+		if (ret == 0) {
-+			pipe_config->dsc.compressed_bpp = compressed_bpp;
-+			return 0;
-+		}
-+	}
-+	return -EINVAL;
-+}
-+
-+static int dsc_compute_compressed_bpp(struct intel_dp *intel_dp,
-+				      struct intel_crtc_state *pipe_config,
-+				      struct link_config_limits *limits,
-+				      int pipe_bpp,
-+				      int timeslots)
-+{
-+	const struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
-+	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+	int dsc_src_min_bpp, dsc_sink_min_bpp, dsc_min_bpp;
-+	int dsc_src_max_bpp, dsc_sink_max_bpp, dsc_max_bpp;
-+	int dsc_joiner_max_bpp;
-+
-+	dsc_src_min_bpp = dsc_src_min_compressed_bpp();
-+	dsc_sink_min_bpp = dsc_sink_min_compressed_bpp(pipe_config);
-+	dsc_min_bpp = max(dsc_src_min_bpp, dsc_sink_min_bpp);
-+
-+	dsc_src_max_bpp = dsc_src_max_compressed_bpp(intel_dp);
-+	dsc_sink_max_bpp = dsc_sink_max_compressed_bpp(intel_dp, pipe_config, pipe_bpp / 3);
-+	dsc_max_bpp = dsc_sink_max_bpp ? min(dsc_sink_max_bpp, dsc_src_max_bpp) : dsc_src_max_bpp;
-+
-+	dsc_joiner_max_bpp = get_max_compressed_bpp_with_joiner(i915, adjusted_mode->clock,
-+								adjusted_mode->hdisplay,
-+								pipe_config->bigjoiner_pipes);
-+	dsc_max_bpp = min(dsc_max_bpp, dsc_joiner_max_bpp);
-+
-+	if (DISPLAY_VER(i915) >= 13)
-+		return xelpd_dsc_compute_link_config(intel_dp, pipe_config, limits,
-+						     dsc_max_bpp, dsc_min_bpp, pipe_bpp, timeslots);
-+	return icl_dsc_compute_link_config(intel_dp, pipe_config, limits,
-+					   dsc_max_bpp, dsc_min_bpp, pipe_bpp, timeslots);
-+}
-+
- static
- u8 intel_dp_dsc_min_src_input_bpc(struct drm_i915_private *i915)
- {
-@@ -1744,52 +1969,55 @@ static int intel_dp_dsc_compute_pipe_bpp(struct intel_dp *intel_dp,
- 					 struct link_config_limits *limits,
- 					 int timeslots)
- {
--	const struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
- 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
--	u16 output_bpp, dsc_max_compressed_bpp = 0;
-+	u8 max_req_bpc = conn_state->max_requested_bpc;
-+	u8 dsc_max_bpc, dsc_max_bpp;
-+	u8 dsc_min_bpc, dsc_min_bpp;
-+	u8 dsc_bpc[3] = {0};
- 	int forced_bpp, pipe_bpp;
-+	int num_bpc, i, ret;
- 
- 	forced_bpp = intel_dp_force_dsc_pipe_bpp(intel_dp, conn_state, limits);
- 
- 	if (forced_bpp) {
--		pipe_bpp = forced_bpp;
--	} else {
--		pipe_bpp = intel_dp_dsc_compute_max_bpp(intel_dp, conn_state->max_requested_bpc);
--
--		if (!is_dsc_pipe_bpp_sufficient(i915, conn_state, limits, pipe_bpp)) {
--			drm_dbg_kms(&i915->drm,
--				    "Computed BPC is not in DSC BPC limits\n");
--			return -EINVAL;
-+		ret = dsc_compute_compressed_bpp(intel_dp, pipe_config,
-+						 limits, forced_bpp, timeslots);
-+		if (ret == 0) {
-+			pipe_config->pipe_bpp = forced_bpp;
-+			return 0;
- 		}
- 	}
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915=
+_driver.c
+index b870c0df081a..ec4d26b3c17c 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -443,7 +443,6 @@ static int i915_pcode_init(struct drm_i915_private *i91=
+5)  static int i915_driver_hw_probe(struct drm_i915_private *dev_priv)  {
+ 	struct pci_dev *pdev =3D to_pci_dev(dev_priv->drm.dev);
+-	struct pci_dev *root_pdev;
+ 	int ret;
+=20
+ 	if (i915_inject_probe_failure(dev_priv))
+@@ -557,15 +556,6 @@ static int i915_driver_hw_probe(struct drm_i915_privat=
+e *dev_priv)
+=20
+ 	intel_bw_init_hw(dev_priv);
+=20
 -	/*
--	 * For now enable DSC for max link rate, max lane count.
--	 * Optimize this later for the minimum possible link rate/lane count
--	 * with DSC enabled for the requested mode.
+-	 * FIXME: Temporary hammer to avoid freezing the machine on our DGFX
+-	 * This should be totally removed when we handle the pci states properly
+-	 * on runtime PM and on s2idle cases.
 -	 */
--	pipe_config->port_clock = limits->max_rate;
--	pipe_config->lane_count = limits->max_lane_count;
--	dsc_max_compressed_bpp = intel_dp_dsc_get_max_compressed_bpp(i915,
--								     pipe_config->port_clock,
--								     pipe_config->lane_count,
--								     adjusted_mode->crtc_clock,
--								     adjusted_mode->crtc_hdisplay,
--								     pipe_config->bigjoiner_pipes,
--								     pipe_config->output_format,
--								     pipe_bpp,
--								     timeslots);
--	if (!dsc_max_compressed_bpp) {
--		drm_dbg_kms(&i915->drm, "Compressed BPP not supported\n");
-+
-+	dsc_max_bpc = intel_dp_dsc_min_src_input_bpc(i915);
-+	if (!dsc_max_bpc)
- 		return -EINVAL;
--	}
- 
--	output_bpp = intel_dp_output_bpp(pipe_config->output_format, pipe_bpp);
-+	dsc_max_bpc = min_t(u8, dsc_max_bpc, max_req_bpc);
-+	dsc_max_bpp = min(dsc_max_bpc * 3, limits->max_bpp);
- 
--	pipe_config->dsc.compressed_bpp = min_t(u16, dsc_max_compressed_bpp, output_bpp);
-+	dsc_min_bpc = intel_dp_dsc_min_src_input_bpc(i915);
-+	dsc_min_bpp = max(dsc_min_bpc * 3, limits->min_bpp);
- 
--	pipe_config->pipe_bpp = pipe_bpp;
-+	/*
-+	 * Get the maximum DSC bpc that will be supported by any valid
-+	 * link configuration and compressed bpp.
-+	 */
-+	num_bpc = drm_dp_dsc_sink_supported_input_bpcs(intel_dp->dsc_dpcd, dsc_bpc);
-+	for (i = 0; i < num_bpc; i++) {
-+		pipe_bpp = dsc_bpc[i] * 3;
-+		if (pipe_bpp < dsc_min_bpp)
-+			break;
-+		if (pipe_bpp > dsc_max_bpp)
-+			continue;
-+		ret = dsc_compute_compressed_bpp(intel_dp, pipe_config,
-+						 limits, pipe_bpp, timeslots);
-+		if (ret == 0) {
-+			pipe_config->pipe_bpp = pipe_bpp;
-+			return 0;
-+		}
-+	}
- 
--	return 0;
-+	return -EINVAL;
+-	root_pdev =3D pcie_find_root_port(pdev);
+-	if (root_pdev)
+-		pci_d3cold_disable(root_pdev);
+-
+ 	return 0;
+=20
+ err_opregion:
+@@ -591,7 +581,6 @@ static int i915_driver_hw_probe(struct drm_i915_private=
+ *dev_priv)  static void i915_driver_hw_remove(struct drm_i915_private *dev=
+_priv)  {
+ 	struct pci_dev *pdev =3D to_pci_dev(dev_priv->drm.dev);
+-	struct pci_dev *root_pdev;
+=20
+ 	i915_perf_fini(dev_priv);
+=20
+@@ -599,10 +588,6 @@ static void i915_driver_hw_remove(struct drm_i915_priv=
+ate *dev_priv)
+=20
+ 	if (pdev->msi_enabled)
+ 		pci_disable_msi(pdev);
+-
+-	root_pdev =3D pcie_find_root_port(pdev);
+-	if (root_pdev)
+-		pci_d3cold_enable(root_pdev);
  }
- 
- static int intel_edp_dsc_compute_pipe_bpp(struct intel_dp *intel_dp,
--- 
-2.40.1
+=20
+ /**
+@@ -1519,6 +1504,8 @@ static int intel_runtime_suspend(struct device *kdev)=
+  {
+ 	struct drm_i915_private *dev_priv =3D kdev_to_i915(kdev);
+ 	struct intel_runtime_pm *rpm =3D &dev_priv->runtime_pm;
++	struct pci_dev *pdev =3D to_pci_dev(dev_priv->drm.dev);
++	struct pci_dev *root_pdev;
+ 	struct intel_gt *gt;
+ 	int ret, i;
+=20
+@@ -1570,6 +1557,15 @@ static int intel_runtime_suspend(struct device *kdev=
+)
+ 		drm_err(&dev_priv->drm,
+ 			"Unclaimed access detected prior to suspending\n");
+=20
++	/*
++	 * FIXME: Temporary hammer to avoid freezing the machine on our DGFX
++	 * This should be totally removed when we handle the pci states properly
++	 * on runtime PM.
++	 */
++	root_pdev =3D pcie_find_root_port(pdev);
++	if (root_pdev)
++		pci_d3cold_disable(root_pdev);
++
+ 	rpm->suspended =3D true;
+=20
+ 	/*
+@@ -1608,6 +1604,8 @@ static int intel_runtime_resume(struct device *kdev) =
+ {
+ 	struct drm_i915_private *dev_priv =3D kdev_to_i915(kdev);
+ 	struct intel_runtime_pm *rpm =3D &dev_priv->runtime_pm;
++	struct pci_dev *pdev =3D to_pci_dev(dev_priv->drm.dev);
++	struct pci_dev *root_pdev;
+ 	struct intel_gt *gt;
+ 	int ret, i;
+=20
+@@ -1621,6 +1619,11 @@ static int intel_runtime_resume(struct device *kdev)
+=20
+ 	intel_opregion_notify_adapter(dev_priv, PCI_D0);
+ 	rpm->suspended =3D false;
++
++	root_pdev =3D pcie_find_root_port(pdev);
++	if (root_pdev)
++		pci_d3cold_enable(root_pdev);
++
+ 	if (intel_uncore_unclaimed_mmio(&dev_priv->uncore))
+ 		drm_dbg(&dev_priv->drm,
+ 			"Unclaimed access during suspend, bios?\n");
+--
+2.25.1
 
