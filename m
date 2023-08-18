@@ -4,79 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4533EE4993
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Aug 2023 12:05:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60F46EE49AA
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Aug 2023 12:05:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D85410E23D;
-	Mon, 21 Aug 2023 12:05:49 +0000 (UTC)
-X-Greylist: delayed 354 seconds by postgrey-1.36 at gabe;
- Thu, 17 Aug 2023 12:16:21 UTC
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [85.215.255.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9877D10E463;
- Thu, 17 Aug 2023 12:16:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1692274217; cv=none;
- d=strato.com; s=strato-dkim-0002;
- b=V3im4kf011q1E734m5bL/KHGWkY/OIuPxzoiGEp52s74/zo3tHLziCOCWsxk8Ent3L
- Hz/IlEPSKWgCpExpRA7KMjbmHwb4EAGareY0TqldmcgN7qnqj7ChRpZY2v5arDk77u+h
- QJEaeqw0zteK6AjTSwHiX5mZaAxrIcxLQipGEbgx6bWSUwxxDhJN89kgho7OjTITHcoZ
- gIgsKPKPu/PpkfO7I1lsbXs8IsyL9TvHfenGFjG6RSvUblL5ZhDa0ueGwx9tf71mN9Hd
- BOgBpk+vrBqgEY6VAeIkW8xnUJANmuYue9iXovAP37dj2WdZ3NiirkDWs4A3fvoFR6n8
- Xgfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1692274217;
- s=strato-dkim-0002; d=strato.com;
- h=Message-Id:Cc:To:Subject:Date:From:References:In-Reply-To:Cc:Date:
- From:Subject:Sender;
- bh=MnBVzEde0adBA/6W2C3hcOzEUtCCZaDoMyeEtZmOm08=;
- b=OaEuYlJaqQoKRtOEyWi+YKr3buR8mYicSs+o5fE3dKS3onqRzSiI0iLMBCXzwaJGtX
- Rn2ftUtDuNHRxWEMyC+hCWM91zhyvI+HU19ldmdFtJyQBWZc+MVsIf217zvDruvHNwj0
- AYWxRUMkJOGgm7gTBsZ2qAYvq2ZTD/WE/BAFI+q/fwhw1wbHIpzWErO3VoPcxVeb7PEo
- mxr1C+UWHW7yS15zEGuPKMElowb4K1sFLOXJeVWhqVceou+41JKahc0AOrWN4ay9tznz
- 5MU5psZskjfLeRf/DFoC8/vdLCSEbFpMRwDOKlT8UUfWutbGufeGNA7E5w+q2a0pUrqm
- AnlA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1692274217;
- s=strato-dkim-0002; d=dj-l.de;
- h=Message-Id:Cc:To:Subject:Date:From:References:In-Reply-To:Cc:Date:
- From:Subject:Sender;
- bh=MnBVzEde0adBA/6W2C3hcOzEUtCCZaDoMyeEtZmOm08=;
- b=kqStaSV/7alNtcCSUALpyG4coR7S3DjxD06A+F5e5Ou0cqfcdAlVmjiUeyGw9Wmsqn
- y8dUYZh+cJryHSrgJFqHhQoxd8h5ylc46ZesXLTsWCc6+G+OLmx8Pkji3Fvykf3HdfKg
- sD6/nd68lJPvPlDqH0WiyE8WYhdO+usxSa3aYmjfyjzacGfzQ1+tIfW6y0Cw+9GjtI6b
- ksL31Gai3Hc6cqDtwqW36IO6KcSj072LX9KYvlJWvfvb3Sqh7UFmdicgRWzI7qgcU+O8
- 4cUF535YQEF6St9PdX/B6mD0VDBdmNNMk8ALT98gQ6qujiFriaJzX+FmwZvnqZGv3QFW
- dX7A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1692274217;
- s=strato-dkim-0003; d=dj-l.de;
- h=Message-Id:Cc:To:Subject:Date:From:References:In-Reply-To:Cc:Date:
- From:Subject:Sender;
- bh=MnBVzEde0adBA/6W2C3hcOzEUtCCZaDoMyeEtZmOm08=;
- b=cpqMsx/s6bwBobEovgvlD6zGnG0VrDEtEdWTlmLmq9VzBmeOCZCWLskpjDlyyEV6AV
- aPbHgO26SLvmXsfsnbAA==
-X-RZG-AUTH: ":KXQNeGCscbKoBnIM8/qR6vmtauhqEyl791IykafLdFE3+tIIOaXyX73mJPT2bA=="
-Received: from djlnb.local by smtp.strato.de (RZmta 49.6.6 DYNA|AUTH)
- with ESMTPSA id ja88a5z7HCAH2zI
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Thu, 17 Aug 2023 14:10:17 +0200 (CEST)
-Received: from dirk by djlnb.local with local (Exim 4.96)
- (envelope-from <18b5e09612c677fd14e0d6ee3c2def159b6c49f1@djlnb.dj-l.de>)
- id 1qWbpR-0007ey-0B; Thu, 17 Aug 2023 14:10:17 +0200
-In-Reply-To: <20230815101907.2900768-1-jani.nikula@intel.com>
-References: <20230815101907.2900768-1-jani.nikula@intel.com>
-From: Dirk Lehmann <develop@dj-l.de>
-Date: Thu, 17 Aug 2023 11:44:52 +0200
-To: <stable@vger.kernel.org>
-Message-Id: <E1qWbpR-0007ey-0B@djlnb.local>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3A6910E169;
+	Mon, 21 Aug 2023 12:05:51 +0000 (UTC)
+Received: from out-49.mta0.migadu.com (out-49.mta0.migadu.com
+ [IPv6:2001:41d0:1004:224b::31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C12310E46E
+ for <intel-gfx@lists.freedesktop.org>; Fri, 18 Aug 2023 07:05:31 +0000 (UTC)
+Message-ID: <a1ad6a41-edd0-1201-c537-68693d5b70e6@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1692342329;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=jv+O91aJKOY8Oa1uiqnwHLxjtat+AR7MEL0TnmE0b24=;
+ b=t2VAUZ/03p433tyvzSI/43v6e2AbSGWAj8MxYeOybMl7YnRaVl2x7cj/71xMqWMRKgtL5v
+ gDTi48YCNm6X+Zx7LdxDdJqLYzdh7lfvVT1qlpkHtDEsYVQFpWK4DfMUfninCzwp/lvXbw
+ 99BmTYaes3N1P4mgadXNBtLHpTk2S6Q=
+Date: Fri, 18 Aug 2023 15:05:14 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+To: Matthew Wilcox <willy@infradead.org>
+References: <20230621164557.3510324-1-willy@infradead.org>
+ <20230621164557.3510324-4-willy@infradead.org>
+ <a2a2180c-62ac-452f-0737-26f01f228c79@linux.dev>
+ <ZMZHH5Xc507OZA1O@casper.infradead.org>
+ <40a3ab47-da3e-0d08-b3fa-b4663f3e727d@linux.dev>
+ <ZMbZVjMaIeI1DSj9@casper.infradead.org>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+In-Reply-To: <ZMbZVjMaIeI1DSj9@casper.infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Mon, 21 Aug 2023 12:05:38 +0000
-Subject: [Intel-gfx] [PATCH v2 2/2] drm/edid: Fix "Analog composite sync!"
- for current eDP display panels
+Subject: Re: [Intel-gfx] [PATCH 03/13] scatterlist: Add sg_set_folio()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,167 +54,114 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
- Dirk Lehmann <develop@dj-l.de>, dri-devel@lists.freedesktop.org
+Cc: linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ linux-afs@lists.infradead.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-VESA Enhanced EDID Standard does not clearly describe how display
-panel vendors should setup the Sync Signal Defintions (bit 4 & 3) in
-the Detailed Timing Definition (relative offset 17, absolute offset
-47h[+18]) for Digital Video Signal Interfaces (bit 7 at offset 14h).
 
-In practice many eDP panels which using a Digital Video Signal
-Interfaces (bit 7 at offset 14h == 1) are leaving the Sync Signal
-Defintions at offset 47h[+18] blank 0x00, which would mean concerned
-with the VESA Standard [1] that they are using "Analog Composite
-Sync".
+在 2023/7/31 5:42, Matthew Wilcox 写道:
+> On Sun, Jul 30, 2023 at 09:57:06PM +0800, Zhu Yanjun wrote:
+>> 在 2023/7/30 19:18, Matthew Wilcox 写道:
+>>> On Sun, Jul 30, 2023 at 07:01:26PM +0800, Zhu Yanjun wrote:
+>>>> Does the following function have folio version?
+>>>>
+>>>> "
+>>>> int sg_alloc_append_table_from_pages(struct sg_append_table *sgt_append,
+>>>> 		struct page **pages, unsigned int n_pages, unsigned int offset,
+>>>> 		unsigned long size, unsigned int max_segment,
+>>>> 		unsigned int left_pages, gfp_t gfp_mask)
+>>>> "
+>>> No -- I haven't needed to convert anything that uses
+>>> sg_alloc_append_table_from_pages() yet.  It doesn't look like it should
+>>> be _too_ hard to add a folio version.
+>> In many places, this function is used. So this function needs the folio
+>> version.
+> It's not used in very many places.  But the first one that I see it used
+> (drivers/infiniband/core/umem.c), you can't do a straightforward folio
+> conversion:
+>
+>                  pinned = pin_user_pages_fast(cur_base,
+>                                            min_t(unsigned long, npages,
+>                                                  PAGE_SIZE /
+>                                                  sizeof(struct page *)),
+>                                            gup_flags, page_list);
+> ...
+>                  ret = sg_alloc_append_table_from_pages(
+>                          &umem->sgt_append, page_list, pinned, 0,
+>                          pinned << PAGE_SHIFT, ib_dma_max_seg_size(device),
+>                          npages, GFP_KERNEL);
+>
+> That can't be converted to folios.  The GUP might start in the middle of
+> the folio, and we have no way to communicate that.
+>
+> This particular usage really needs the phyr work that Jason is doing so
+> we can efficiently communicate physically contiguous ranges from GUP
+> to sg.
 
-Fix: Just detect Analog Sync Signal if an Analog Video Signal
-     Interface (bit 7 at offset 14h == 0) is in use.  Just detect
-     Digital Sync Signal if an Digital Video Signal Interface is in
-     use.
+Hi, Matthew
 
-Reference: [1] VESA Enhanced EDID Standard, Release A, Rev.2, Page 35
+Thanks. To the following function, it seems that no folio function 
+replace vmalloc_to_page.
 
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/8789
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/8146
-Signed-off-by: Dirk Lehmann <develop@dj-l.de>
----
- drivers/gpu/drm/drm_edid.c | 74 ++++++++++++++++++++++++++++++++------
- include/drm/drm_edid.h     | 12 +++++--
- 2 files changed, 73 insertions(+), 13 deletions(-)
+vmalloc_to_page calls virt_to_page to get page. Finally the followings 
+will be called.
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 1f470968ed14..6afdc34e55ce 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -3437,6 +3437,7 @@ static struct drm_display_mode *drm_mode_detailed(struct drm_connector *connecto
- 	const struct drm_display_info *info = &connector->display_info;
- 	struct drm_device *dev = connector->dev;
- 	struct drm_display_mode *mode;
-+	const struct edid *edid = drm_edid->edid;
- 	const struct detailed_pixel_timing *pt = &timing->data.pixel_data;
- 	unsigned hactive = (pt->hactive_hblank_hi & 0xf0) << 4 | pt->hactive_lo;
- 	unsigned vactive = (pt->vactive_vblank_hi & 0xf0) << 4 | pt->vactive_lo;
-@@ -3456,10 +3457,6 @@ static struct drm_display_mode *drm_mode_detailed(struct drm_connector *connecto
- 			    connector->base.id, connector->name);
- 		return NULL;
- 	}
--	if (!(pt->misc & DRM_EDID_PT_SEPARATE_SYNC)) {
--		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] Composite sync not supported\n",
--			    connector->base.id, connector->name);
--	}
- 
- 	/* it is incorrect if hsync/vsync width is zero */
- 	if (!hsync_pulse_width || !vsync_pulse_width) {
-@@ -3505,11 +3502,68 @@ static struct drm_display_mode *drm_mode_detailed(struct drm_connector *connecto
- 
- 	if (info->quirks & EDID_QUIRK_DETAILED_SYNC_PP) {
- 		mode->flags |= DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC;
-+	} else if (edid->input & DRM_EDID_INPUT_DIGITAL) {
-+		/* !info->quirks && edid->input == DIGITAL  */
-+		switch (pt->misc & DRM_EDID_PT_SYNC_MASK) {
-+		/* VESA Enhanced EDID Standard, Release A, Rev.2, Page 35
-+		 *
-+		 * CASE DRM_EDID_PT_ANALOG_CSYNC:
-+		 *
-+		 * (pt->misc & DRM_EDID_PT_SYNC_MASK == 0x00) means
-+		 * "Analog Composite Sync" as described in VESA
-+		 * Standard.  But many digital display panels without
-+		 * composite sync are also using 0x00 here.
-+		 *
-+		 * Therefore use DEFAULT: as we are currently on an
-+		 * digital video signal interface.
-+		 */
-+		case DRM_EDID_PT_DIGITAL_CSYNC:
-+			drm_dbg_kms(dev,
-+				"[CONNECTOR:%d:%s] Digital composite sync!\n",
-+				connector->base.id, connector->name);
-+			mode->flags |= DRM_MODE_FLAG_CSYNC;
-+			mode->flags |= (pt->misc & DRM_EDID_PT_HSYNC_POSITIVE) ?
-+				DRM_MODE_FLAG_PCSYNC : DRM_MODE_FLAG_NCSYNC;
-+			break;
-+		case DRM_EDID_PT_DIGITAL_SEPARATE_SYNC:
-+			drm_dbg_kms(dev,
-+				"[CONNECTOR:%d:%s] Digital seperate sync!\n",
-+				connector->base.id, connector->name);
-+			goto digital_default;
-+			break; /* Missing BREAK throws a compiler warning  */
-+		default:
-+digital_default:
-+			mode->flags |= (pt->misc & DRM_EDID_PT_HSYNC_POSITIVE) ?
-+				DRM_MODE_FLAG_PHSYNC : DRM_MODE_FLAG_NHSYNC;
-+			mode->flags |= (pt->misc & DRM_EDID_PT_VSYNC_POSITIVE) ?
-+				DRM_MODE_FLAG_PVSYNC : DRM_MODE_FLAG_NVSYNC;
-+			break;
-+		}
- 	} else {
--		mode->flags |= (pt->misc & DRM_EDID_PT_HSYNC_POSITIVE) ?
--			DRM_MODE_FLAG_PHSYNC : DRM_MODE_FLAG_NHSYNC;
--		mode->flags |= (pt->misc & DRM_EDID_PT_VSYNC_POSITIVE) ?
--			DRM_MODE_FLAG_PVSYNC : DRM_MODE_FLAG_NVSYNC;
-+		/* !info->quirks && edid->input == ANALOG  */
-+		switch (pt->misc & DRM_EDID_PT_SYNC_MASK) {
-+		/* VESA Enhanced EDID Standard, Release A, Rev.2, Page 35
-+		 *
-+		 * CASE DRM_EDID_PT_ANALOG_CSYNC:
-+		 *
-+		 * (pt->misc & DRM_EDID_PT_SYNC_MASK == 0x00) for
-+		 * "Analog Composite Sync" is possible here, as we are
-+		 * currently on an analog video signal interface.
-+		 */
-+		case DRM_EDID_PT_ANALOG_CSYNC:
-+		case DRM_EDID_PT_BIPOLAR_ANALOG_CSYNC:
-+			drm_dbg_kms(dev,
-+				"[CONNECTOR:%d:%s] Analog composite sync!\n",
-+				connector->base.id, connector->name);
-+			mode->flags |= DRM_MODE_FLAG_CSYNC | DRM_MODE_FLAG_NCSYNC;
-+			break;
-+		default:
-+			mode->flags |= (pt->misc & DRM_EDID_PT_HSYNC_POSITIVE) ?
-+				DRM_MODE_FLAG_PHSYNC : DRM_MODE_FLAG_NHSYNC;
-+			mode->flags |= (pt->misc & DRM_EDID_PT_VSYNC_POSITIVE) ?
-+				DRM_MODE_FLAG_PVSYNC : DRM_MODE_FLAG_NVSYNC;
-+			break;
-+		}
- 	}
- 
- set_size:
-@@ -3522,8 +3576,8 @@ static struct drm_display_mode *drm_mode_detailed(struct drm_connector *connecto
- 	}
- 
- 	if (info->quirks & EDID_QUIRK_DETAILED_USE_MAXIMUM_SIZE) {
--		mode->width_mm = drm_edid->edid->width_cm * 10;
--		mode->height_mm = drm_edid->edid->height_cm * 10;
-+		mode->width_mm = edid->width_cm * 10;
-+		mode->height_mm = edid->height_cm * 10;
- 	}
- 
- 	mode->type = DRM_MODE_TYPE_DRIVER;
-diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
-index 48e93f909ef6..169755d3de19 100644
---- a/include/drm/drm_edid.h
-+++ b/include/drm/drm_edid.h
-@@ -61,9 +61,15 @@ struct std_timing {
- 	u8 vfreq_aspect;
- } __attribute__((packed));
- 
--#define DRM_EDID_PT_HSYNC_POSITIVE (1 << 1)
--#define DRM_EDID_PT_VSYNC_POSITIVE (1 << 2)
--#define DRM_EDID_PT_SEPARATE_SYNC  (3 << 3)
-+#define DRM_EDID_PT_SYNC_MASK              (3 << 3)
-+# define DRM_EDID_PT_ANALOG_CSYNC          (0 << 3)
-+# define DRM_EDID_PT_BIPOLAR_ANALOG_CSYNC  (1 << 3)
-+# define DRM_EDID_PT_DIGITAL_CSYNC         (2 << 3)
-+#  define DRM_EDID_PT_CSYNC_ON_RGB         (1 << 1) /* analog csync only */
-+#  define DRM_EDID_PT_CSYNC_SERRATE        (1 << 2)
-+# define DRM_EDID_PT_DIGITAL_SEPARATE_SYNC (3 << 3)
-+#  define DRM_EDID_PT_HSYNC_POSITIVE       (1 << 1) /* also digital csync */
-+#  define DRM_EDID_PT_VSYNC_POSITIVE       (1 << 2)
- #define DRM_EDID_PT_STEREO         (1 << 5)
- #define DRM_EDID_PT_INTERLACED     (1 << 7)
- 
--- 
-2.40.1
+"
+(mem_map + ((pfn) - ARCH_PFN_OFFSET))
 
+"
+
+And I do not find the related folio functions with vmalloc_to_page.
+
+And no folio function replaces dma_map_page.
+
+dma_map_page will call dma_map_page_attrs.
+
+Or these 2 function should not be replaced with folio functions?
+
+int irdma_map_vm_page_list(struct irdma_hw *hw, void *va, dma_addr_t 
+*pg_dma,
+
+                            u32 pg_cnt)
+{
+         struct page *vm_page;
+         int i;
+         u8 *addr;
+
+         addr = (u8 *)(uintptr_t)va;
+         for (i = 0; i < pg_cnt; i++) {
+                 vm_page = vmalloc_to_page(addr);
+                 if (!vm_page)
+                         goto err;
+
+                 pg_dma[i] = dma_map_page(hw->device, vm_page, 0, PAGE_SIZE,
+                                          DMA_BIDIRECTIONAL);
+                 if (dma_mapping_error(hw->device, pg_dma[i]))
+                         goto err;
+
+                 addr += PAGE_SIZE;
+         }
+
+         return 0;
+
+err:
+         irdma_unmap_vm_page_list(hw, pg_dma, i);
+         return -ENOMEM;
+
+}
+
+Thanks,
+
+Zhu Yanjun
+
+
+>> Another problem, after folio is used, I want to know the performance after
+>> folio is implemented.
+>>
+>> How to make tests to get the performance?
+> You know what you're working on ... I wouldn't know how best to test
+> your code.
