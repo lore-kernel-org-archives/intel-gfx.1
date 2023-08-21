@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C5CCEE49A6
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Aug 2023 16:04:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23567EE49A6
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Aug 2023 16:04:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC6A510E282;
-	Mon, 21 Aug 2023 16:04:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F41710E1E0;
+	Mon, 21 Aug 2023 16:04:25 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDD5010E1E0
- for <intel-gfx@lists.freedesktop.org>; Mon, 21 Aug 2023 16:04:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 662E710E1E0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 21 Aug 2023 16:04:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692633860; x=1724169860;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=0r82R88iwdeOhGIaCkAURN+6nmcA2hhMTD4zWH916QI=;
- b=UuXBlV39ej2+9+4xzfZrukhRGj0IdHV3KpD0XFa9EVuHgTHGgGtxsgtD
- cDt8DpT1+XUbxAUQEWAo8MkzSBE7ABYosSRpKfi+A4nvJDC3zJcAaIoaY
- LiOxgkNMpgGAZ2mwLof8o9Z3C3meQL9oiDt2svWpMhWBDGkLrjJ6ulYyL
- WJnu4thIbZ8Coq3JEmpeTsQiwALfhybvTLZ5e5qtg5TsKWtNgEGKIBP4n
- XzEfQHn1xUOlfta50cwapYWazgpNpTZNQbXa6B9EackimncOZKA5IUn+O
- j+AEbbUSjDey4B8+h0mnjUXoZbPDbPSA9vBc5eKbDk2WyAaWwFDCzKiVW g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="363799469"
-X-IronPort-AV: E=Sophos;i="6.01,190,1684825200"; d="scan'208";a="363799469"
+ t=1692633863; x=1724169863;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=15hoCvusIIaXzA3jeOiurz2XPiODnqRorNMn47IzM8c=;
+ b=BV8cTi5YwfPzoUDne8+6/PY1YJaHIm/0k5rhvrjPKsyi/wsHkkyfSo/v
+ aWh7sOmvwlSIi7ehDY7ioIBRueoT4FpogF3+f660PtJxzh1FaWNpFVodC
+ FKPK2L0/TjGSi69SJAl2tXRQTEt851eLYX6bgiR007zUXzG0opPiOKBmX
+ pP8D5zEvEGdhFaTfGfwo3eIu/bzQtmo3BqWh1OPZwJd4ZBfJeOsrm25Wq
+ oZjCxiGLqBqVckzqrBE/psVkLL7+ovVca46mgRq1ZOdAiePhRUZ2+mawP
+ 4jJmktxYDRWt32dCyNBhthUE2QP4QvmepGY/0g2n1kCb0ean0QCb37I02 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="363799482"
+X-IronPort-AV: E=Sophos;i="6.01,190,1684825200"; d="scan'208";a="363799482"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2023 09:04:19 -0700
+ 21 Aug 2023 09:04:23 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="771012417"
-X-IronPort-AV: E=Sophos;i="6.01,190,1684825200"; d="scan'208";a="771012417"
+X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="771012441"
+X-IronPort-AV: E=Sophos;i="6.01,190,1684825200"; d="scan'208";a="771012441"
 Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by orsmga001.jf.intel.com with ESMTP; 21 Aug 2023 09:04:17 -0700
+ by orsmga001.jf.intel.com with ESMTP; 21 Aug 2023 09:04:21 -0700
 From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 21 Aug 2023 21:30:01 +0530
-Message-Id: <20230821160004.2821445-1-mitulkumar.ajitkumar.golani@intel.com>
+Date: Mon, 21 Aug 2023 21:30:03 +0530
+Message-Id: <20230821160004.2821445-3-mitulkumar.ajitkumar.golani@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230821160004.2821445-1-mitulkumar.ajitkumar.golani@intel.com>
+References: <20230821160004.2821445-1-mitulkumar.ajitkumar.golani@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/3] Get optimal audio frequency and channels
+Subject: [Intel-gfx] [PATCH 2/3] drm: Add Wrapper Functions for ELD SAD
+ Extraction
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,46 +61,62 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently we do not check if there is enough bandwidth for
-audio, and what channels and freq it can really support.
-Also sometimes there can be HW constraints e.g. GLK where audio
-channels supported are only 2.
+Add wrapper functions to facilitate extracting Short Audio
+Descriptor (SAD) information from EDID-Like Data (ELD) pointers
+with different constness requirements.
 
-https://patchwork.freedesktop.org/series/107647/
+1. `drm_eld_sad`: This function returns a constant `uint8_t`
+pointer and wraps the main extraction function, allowing access
+to SAD information while maintaining const correctness.
 
-Obtain the optimal audio rate and channel based on available display
-timing constraints.
+2. `drm_extract_sad_from_eld`: This function returns a mutable
+`uint8_t` pointer and implements the core logic for extracting
+SAD from the provided ELD pointer. It performs version and
+maximum channel checks to ensure proper extraction.
 
-This can be achieved by:
-- Retrieve the supported channel and rate information from SADs
-- Adding audio-related config parameters in the CRTC state, such
-as audio support, rate, and channel.
-- Initializing the audio config parameters with the maximum supported
-rate and channel by the audio source.
-- Computing the SADs based on the audio source's capabilities.
+These wrapper functions provide flexibility to the codebase,
+allowing users to access SAD information while adhering to
+const correctness when needed and modifying the pointer when
+required.
 
 Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+---
+ include/drm/drm_edid.h | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-Mitul Golani (3):
-  drm/i915: Add has_audio to separate audio parameter in crtc_state
-  drm: Add Wrapper Functions for ELD SAD Extraction
-  drm/i915/display: Configure and initialize HDMI audio capabilities
-
- drivers/gpu/drm/i915/display/g4x_dp.c         |   4 +-
- drivers/gpu/drm/i915/display/g4x_hdmi.c       |  16 +--
- drivers/gpu/drm/i915/display/intel_audio.c    | 133 +++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_cdclk.c    |   6 +-
- .../drm/i915/display/intel_crtc_state_dump.c  |   4 +-
- drivers/gpu/drm/i915/display/intel_ddi.c      |   2 +-
- drivers/gpu/drm/i915/display/intel_display.c  |   4 +-
- .../drm/i915/display/intel_display_types.h    |  12 +-
- drivers/gpu/drm/i915/display/intel_dp.c       |   2 +-
- drivers/gpu/drm/i915/display/intel_dp_mst.c   |   2 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c     |   2 +-
- drivers/gpu/drm/i915/display/intel_sdvo.c     |  10 +-
- include/drm/drm_edid.h                        |  15 +-
- 13 files changed, 175 insertions(+), 37 deletions(-)
-
+diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
+index 48e93f909ef6..626bc0d542eb 100644
+--- a/include/drm/drm_edid.h
++++ b/include/drm/drm_edid.h
+@@ -418,11 +418,7 @@ static inline int drm_eld_mnl(const uint8_t *eld)
+ 	return (eld[DRM_ELD_CEA_EDID_VER_MNL] & DRM_ELD_MNL_MASK) >> DRM_ELD_MNL_SHIFT;
+ }
+ 
+-/**
+- * drm_eld_sad - Get ELD SAD structures.
+- * @eld: pointer to an eld memory structure with sad_count set
+- */
+-static inline const uint8_t *drm_eld_sad(const uint8_t *eld)
++static uint8_t *drm_extract_sad_from_eld(uint8_t *eld)
+ {
+ 	unsigned int ver, mnl;
+ 
+@@ -437,6 +433,15 @@ static inline const uint8_t *drm_eld_sad(const uint8_t *eld)
+ 	return eld + DRM_ELD_CEA_SAD(mnl, 0);
+ }
+ 
++/**
++ * drm_eld_sad - Get ELD SAD structures.
++ * @eld: pointer to an eld memory structure with sad_count set
++ */
++static inline const uint8_t *drm_eld_sad(const uint8_t *eld)
++{
++	return drm_extract_sad_from_eld((uint8_t *)eld);
++}
++
+ /**
+  * drm_eld_sad_count - Get ELD SAD count.
+  * @eld: pointer to an eld memory structure with sad_count set
 -- 
 2.25.1
 
