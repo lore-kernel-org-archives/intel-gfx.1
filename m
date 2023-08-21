@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50A9DEE4993
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Aug 2023 18:06:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFC5CEE49A5
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Aug 2023 18:06:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A672B10E29C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC1DE10E29E;
 	Mon, 21 Aug 2023 18:06:40 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80D3110E29E
- for <intel-gfx@lists.freedesktop.org>; Mon, 21 Aug 2023 18:06:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3C3910E29F
+ for <intel-gfx@lists.freedesktop.org>; Mon, 21 Aug 2023 18:06:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692641199; x=1724177199;
+ t=1692641198; x=1724177198;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=reB0s6y3aD+iVhTLMxS+ndqqm1T0PLXvbBoMEdBLU1A=;
- b=gIfzxGD/xnjGrJY4FsrRFlPFSClEtajeyDIDqKgJRPKVHo+wVsFeseOc
- SyJjxbo5X6cBG+7fcLDVTVOiD7n8X8IgB51tOjky3UUYw2zzdmqXKyvMK
- WgAa/wNIuGiPzfepxnQUQ2I28TXf4oac6pcSRVQU3CgzHKa5caiLj+Z3c
- WaiHz04faP76ma4KPl+gl5O+LEiQwSLhDeT/QsTFd2iZe4gFJkBHQee53
- 7RL7vgWnVimf1jzK4YQPgumlomQRAQJj/w+y6yYHEBXKe+xsMIBc8T5Rm
- xlIxiBxK/6u6rk0vWgflu37E7JMy1tai3JGGJBXf6vhM7mlsIrieOWH5C Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="353236511"
-X-IronPort-AV: E=Sophos;i="6.01,190,1684825200"; d="scan'208";a="353236511"
+ bh=cWuowT34PwdQ6/LIt3MOgHeS+Wam5itEYyNDjvNEd/k=;
+ b=D0nSTXjS1iatcbp7WK3xEh3jZdXTppPaQcPU1JmcLUjSWqemTx/kOEcz
+ 7orLR9dkuZrO7YjNX1ADG5hLL/a/spcnBSD8yqxarP9sUax+H6wltogls
+ /1iAjP4V53ZSa0cU5mFSVqSaMetxQmx0HH6yL1S1g+aL1WrDw3NWbuhhS
+ U1Y7qQGA7ZhDzUEJTV4jLDq5SBqhQ/f//gyqMZ1ToKfNFjlM5R76PvT3y
+ u2WBh4L7ezISlnj/4p0IrQfLmSBEygdJs0ypugyF9PHoUAx0l+foCGBIR
+ AGtuLRGD/6o3c8fFXx83LpAfbxSyAshJnDfvH60Rt6fIuLhAXubq9NFWz g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="353236506"
+X-IronPort-AV: E=Sophos;i="6.01,190,1684825200"; d="scan'208";a="353236506"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2023 11:06:29 -0700
+ 21 Aug 2023 11:06:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="738995574"
-X-IronPort-AV: E=Sophos;i="6.01,190,1684825200"; d="scan'208";a="738995574"
+X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="738995568"
+X-IronPort-AV: E=Sophos;i="6.01,190,1684825200"; d="scan'208";a="738995568"
 Received: from mdroper-desk1.fm.intel.com ([10.1.27.147])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  21 Aug 2023 11:06:28 -0700
 From: Matt Roper <matthew.d.roper@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 21 Aug 2023 11:06:25 -0700
-Message-ID: <20230821180619.650007-16-matthew.d.roper@intel.com>
+Date: Mon, 21 Aug 2023 11:06:23 -0700
+Message-ID: <20230821180619.650007-14-matthew.d.roper@intel.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230821180619.650007-11-matthew.d.roper@intel.com>
 References: <20230821180619.650007-11-matthew.d.roper@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 5/9] drm/i915: Eliminate IS_MTL_MEDIA_STEP
+Subject: [Intel-gfx] [PATCH v5 3/9] drm/i915/xelpg: Call Xe_LPG workaround
+ functions based on IP version
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,150 +62,175 @@ Cc: matthew.d.roper@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Stepping-specific media behavior shouldn't be tied to MTL as a platform,
-but rather specifically to the Xe_LPM+ IP.  Future non-MTL platforms may
-re-use this IP and will need to follow the exact same logic and apply
-the same workarounds.  IS_MTL_MEDIA_STEP() is dropped in favor of
-IS_MEDIA_GT_IP_STEP, which checks the media IP version associated with a
-specific IP and also ensures that we're operating on the media GT, not
-the primary GT.
+Although some of our Xe_LPG workarounds were already being applied based
+on IP version correctly, others were matching on MTL as a base platform,
+which is incorrect.  Although MTL is the only platform right now that
+uses Xe_LPG IP, this may not always be the case.  If a future platform
+re-uses this graphics IP, the same workarounds should be applied, even
+if it isn't a "MTL" platform.
+
+We were also incorrectly applying Xe_LPG workarounds/tuning to the
+Xe_LPM+ media IP in one or two places; we should make sure that we don't
+try to apply graphics workarounds to the media GT and vice versa where
+they don't belong.  A new helper macro IS_GT_IP_RANGE() is added to help
+ensure this is handled properly -- it checks that the GT matches the IP
+type being tested as well as the IP version falling in the proper range.
+
+Note that many of the stepping-based workarounds are still incorrectly
+checking for a MTL base platform; that will be remedied in a later
+patch.
 
 v2:
- - Switch to the IS_GT_IP_STEP macro.
-v3:
- - Switch back to long-form IS_MEDIA_GT_IP_STEP.  (Jani)
-v4:
- - Build IS_MEDIA_GT_IP_STEP on top of IS_MEDIA_GT_IP_RANGE and
-   IS_MEDIA_STEP building blocks and name the parameters from/until
-   rather than begin/fixed..  (Jani)
-v5:
- - Tweak macro comment wording.  (Gustavo)
- - Add a check to catch NULL gt in IS_MEDIA_GT_IP_RANGE; this allows it
-   to be used safely on i915->media_gt, which may be NULL on some
-   platforms.  (Gustavo)
+ - Rework macro into a slightly more generic IS_GT_IP_RANGE() that can
+   be used for either GFX or MEDIA checks.
 
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
+v3:
+ - Switch back to separate macros for gfx and media.  (Jani)
+ - Move macro to intel_gt.h.  (Andi)
+
 Cc: Gustavo Sousa <gustavo.sousa@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gt.h  | 32 +++++++++++++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_rc6.c |  3 +--
- drivers/gpu/drm/i915/i915_drv.h     |  4 ----
- drivers/gpu/drm/i915/i915_perf.c    | 15 ++++----------
- 4 files changed, 37 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt.h          | 11 ++++++
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 38 +++++++++++----------
+ 2 files changed, 31 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h b/drivers/gpu/drm/i915/gt/intel_gt.h
-index 6e63b46682f7..239848bcb2a4 100644
+index 6c34547b58b5..15c25980411d 100644
 --- a/drivers/gpu/drm/i915/gt/intel_gt.h
 +++ b/drivers/gpu/drm/i915/gt/intel_gt.h
-@@ -25,6 +25,20 @@ struct drm_printer;
- 	 GRAPHICS_VER_FULL((gt)->i915) >= (from) && \
- 	 GRAPHICS_VER_FULL((gt)->i915) <= (until)))
+@@ -14,6 +14,17 @@
+ struct drm_i915_private;
+ struct drm_printer;
  
 +/*
-+ * Check that the GT is a media GT and has an IP version within the
++ * Check that the GT is a graphics GT and has an IP version within the
 + * specified range (inclusive).
-+ *
-+ * Only usable on platforms with a standalone media design (i.e., IP version 13
-+ * and higher).
 + */
-+#define IS_MEDIA_GT_IP_RANGE(gt, from, until) ( \
-+	BUILD_BUG_ON_ZERO((from) < IP_VER(13, 0)) + \
++#define IS_GFX_GT_IP_RANGE(gt, from, until) ( \
++	BUILD_BUG_ON_ZERO((from) < IP_VER(2, 0)) + \
 +	BUILD_BUG_ON_ZERO((until) < (from)) + \
-+	((gt) && (gt)->type == GT_MEDIA && \
-+	 MEDIA_VER_FULL((gt)->i915) >= (from) && \
-+	 MEDIA_VER_FULL((gt)->i915) <= (until)))
-+
- /*
-  * Check that the GT is a graphics GT with a specific IP version and has
-  * a stepping in the range [from, until).  The lower stepping bound is
-@@ -45,6 +59,24 @@ struct drm_printer;
- 	(IS_GFX_GT_IP_RANGE((gt), (ipver), (ipver)) && \
- 	 IS_GRAPHICS_STEP((gt)->i915, (from), (until))))
- 
-+/*
-+ * Check that the GT is a media GT with a specific IP version and has
-+ * a stepping in the range [from, until).  The lower stepping bound is
-+ * inclusive, the upper bound is exclusive.  The most common use-case of this
-+ * macro is for checking bounds for workarounds, which usually have a stepping
-+ * ("from") at which the hardware issue is first present and another stepping
-+ * ("until") at which a hardware fix is present and the software workaround is
-+ * no longer necessary.  "STEP_FOREVER" can be passed as "until" for
-+ * workarounds that have no upper stepping bound for the specified IP version.
-+ *
-+ * This macro may only be used to match on platforms that have a standalone
-+ * media design (i.e., media version 13 or higher).
-+ */
-+#define IS_MEDIA_GT_IP_STEP(gt, ipver, from, until) ( \
-+	BUILD_BUG_ON_ZERO((until) <= (from)) + \
-+	(IS_MEDIA_GT_IP_RANGE((gt), (ipver), (ipver)) && \
-+	 IS_MEDIA_STEP((gt)->i915, (from), (until))))
++	((gt)->type != GT_MEDIA && \
++	 GRAPHICS_VER_FULL((gt)->i915) >= (from) && \
++	 GRAPHICS_VER_FULL((gt)->i915) <= (until)))
 +
  #define GT_TRACE(gt, fmt, ...) do {					\
  	const struct intel_gt *gt__ __maybe_unused = (gt);		\
  	GEM_TRACE("%s " fmt, dev_name(gt__->i915->drm.dev),		\
-diff --git a/drivers/gpu/drm/i915/gt/intel_rc6.c b/drivers/gpu/drm/i915/gt/intel_rc6.c
-index 90933fb8cb97..86df42cb5823 100644
---- a/drivers/gpu/drm/i915/gt/intel_rc6.c
-+++ b/drivers/gpu/drm/i915/gt/intel_rc6.c
-@@ -524,8 +524,7 @@ static bool rc6_supported(struct intel_rc6 *rc6)
- 		return false;
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 804b38bc9482..3f0686dc3620 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -778,8 +778,8 @@ static void dg2_ctx_workarounds_init(struct intel_engine_cs *engine,
+ 	wa_masked_en(wal, CACHE_MODE_1, MSAA_OPTIMIZATION_REDUC_DISABLE);
+ }
+ 
+-static void mtl_ctx_gt_tuning_init(struct intel_engine_cs *engine,
+-				   struct i915_wa_list *wal)
++static void xelpg_ctx_gt_tuning_init(struct intel_engine_cs *engine,
++				     struct i915_wa_list *wal)
+ {
+ 	struct drm_i915_private *i915 = engine->i915;
+ 
+@@ -790,12 +790,12 @@ static void mtl_ctx_gt_tuning_init(struct intel_engine_cs *engine,
+ 		wa_add(wal, DRAW_WATERMARK, VERT_WM_VAL, 0x3FF, 0, false);
+ }
+ 
+-static void mtl_ctx_workarounds_init(struct intel_engine_cs *engine,
+-				     struct i915_wa_list *wal)
++static void xelpg_ctx_workarounds_init(struct intel_engine_cs *engine,
++				       struct i915_wa_list *wal)
+ {
+ 	struct drm_i915_private *i915 = engine->i915;
+ 
+-	mtl_ctx_gt_tuning_init(engine, wal);
++	xelpg_ctx_gt_tuning_init(engine, wal);
+ 
+ 	if (IS_MTL_GRAPHICS_STEP(i915, M, STEP_A0, STEP_B0) ||
+ 	    IS_MTL_GRAPHICS_STEP(i915, P, STEP_A0, STEP_B0)) {
+@@ -904,8 +904,8 @@ __intel_engine_init_ctx_wa(struct intel_engine_cs *engine,
+ 	if (engine->class != RENDER_CLASS)
+ 		goto done;
+ 
+-	if (IS_METEORLAKE(i915))
+-		mtl_ctx_workarounds_init(engine, wal);
++	if (IS_GFX_GT_IP_RANGE(engine->gt, IP_VER(12, 70), IP_VER(12, 71)))
++		xelpg_ctx_workarounds_init(engine, wal);
+ 	else if (IS_PONTEVECCHIO(i915))
+ 		; /* noop; none at this time */
+ 	else if (IS_DG2(i915))
+@@ -1685,10 +1685,8 @@ xelpmp_gt_workarounds_init(struct intel_gt *gt, struct i915_wa_list *wal)
+  */
+ static void gt_tuning_settings(struct intel_gt *gt, struct i915_wa_list *wal)
+ {
+-	if (IS_METEORLAKE(gt->i915)) {
+-		if (gt->type != GT_MEDIA)
+-			wa_mcr_write_or(wal, XEHP_L3SCQREG7, BLEND_FILL_CACHING_OPT_DIS);
+-
++	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 71))) {
++		wa_mcr_write_or(wal, XEHP_L3SCQREG7, BLEND_FILL_CACHING_OPT_DIS);
+ 		wa_mcr_write_or(wal, XEHP_SQCM, EN_32B_ACCESS);
  	}
  
--	if (IS_MTL_MEDIA_STEP(gt->i915, STEP_A0, STEP_B0) &&
--	    gt->type == GT_MEDIA) {
-+	if (IS_MEDIA_GT_IP_STEP(gt, IP_VER(13, 0), STEP_A0, STEP_B0)) {
- 		drm_notice(&i915->drm,
- 			   "Media RC6 disabled on A step\n");
- 		return false;
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 3bb216d55c3e..b0894e7de403 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -662,10 +662,6 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- 	(IS_METEORLAKE(__i915) && \
- 	 IS_DISPLAY_STEP(__i915, since, until))
+@@ -1720,7 +1718,7 @@ gt_init_workarounds(struct intel_gt *gt, struct i915_wa_list *wal)
+ 		return;
+ 	}
  
--#define IS_MTL_MEDIA_STEP(__i915, since, until) \
--	(IS_METEORLAKE(__i915) && \
--	 IS_MEDIA_STEP(__i915, since, until))
--
- #define IS_PVC_BD_STEP(__i915, since, until) \
- 	(IS_PONTEVECCHIO(__i915) && \
- 	 IS_BASEDIE_STEP(__i915, since, until))
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index dfe7eff7d1a1..605e6e4fedf1 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -4191,7 +4191,7 @@ static int read_properties_unlocked(struct i915_perf *perf,
- 	 * C6 disable in BIOS. Fail if Media C6 is enabled on steppings where OAM
- 	 * does not work as expected.
- 	 */
--	if (IS_MTL_MEDIA_STEP(props->engine->i915, STEP_A0, STEP_C0) &&
-+	if (IS_MEDIA_GT_IP_STEP(props->engine->gt, IP_VER(13, 0), STEP_A0, STEP_C0) &&
- 	    props->engine->oa_group->type == TYPE_OAM &&
- 	    intel_check_bios_c6_setup(&props->engine->gt->rc6)) {
- 		drm_dbg(&perf->i915->drm,
-@@ -5300,16 +5300,9 @@ int i915_perf_ioctl_version(struct drm_i915_private *i915)
- 	 * C6 disable in BIOS. If Media C6 is enabled in BIOS, return version 6
- 	 * to indicate that OA media is not supported.
- 	 */
--	if (IS_MTL_MEDIA_STEP(i915, STEP_A0, STEP_C0)) {
--		struct intel_gt *gt;
--		int i;
--
--		for_each_gt(gt, i915, i) {
--			if (gt->type == GT_MEDIA &&
--			    intel_check_bios_c6_setup(&gt->rc6))
--				return 6;
--		}
--	}
-+	if (IS_MEDIA_GT_IP_STEP(i915->media_gt, IP_VER(13, 0), STEP_A0, STEP_C0) &&
-+	    intel_check_bios_c6_setup(&i915->media_gt->rc6))
-+		return 6;
- 
- 	return 7;
+-	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70))
++	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 71)))
+ 		xelpg_gt_workarounds_init(gt, wal);
+ 	else if (IS_PONTEVECCHIO(i915))
+ 		pvc_gt_workarounds_init(gt, wal);
+@@ -2169,7 +2167,7 @@ static void pvc_whitelist_build(struct intel_engine_cs *engine)
+ 	blacklist_trtt(engine);
  }
+ 
+-static void mtl_whitelist_build(struct intel_engine_cs *engine)
++static void xelpg_whitelist_build(struct intel_engine_cs *engine)
+ {
+ 	struct i915_wa_list *w = &engine->whitelist;
+ 
+@@ -2191,8 +2189,10 @@ void intel_engine_init_whitelist(struct intel_engine_cs *engine)
+ 
+ 	wa_init_start(w, engine->gt, "whitelist", engine->name);
+ 
+-	if (IS_METEORLAKE(i915))
+-		mtl_whitelist_build(engine);
++	if (engine->gt->type == GT_MEDIA)
++		; /* none yet */
++	else if (IS_GFX_GT_IP_RANGE(engine->gt, IP_VER(12, 70), IP_VER(12, 71)))
++		xelpg_whitelist_build(engine);
+ 	else if (IS_PONTEVECCHIO(i915))
+ 		pvc_whitelist_build(engine);
+ 	else if (IS_DG2(i915))
+@@ -2792,10 +2792,12 @@ ccs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+  * function invoked by __intel_engine_init_ctx_wa().
+  */
+ static void
+-add_render_compute_tuning_settings(struct drm_i915_private *i915,
++add_render_compute_tuning_settings(struct intel_gt *gt,
+ 				   struct i915_wa_list *wal)
+ {
+-	if (IS_METEORLAKE(i915) || IS_DG2(i915))
++	struct drm_i915_private *i915 = gt->i915;
++
++	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 71)) || IS_DG2(i915))
+ 		wa_mcr_write_clr_set(wal, RT_CTRL, STACKID_CTRL, STACKID_CTRL_512);
+ 
+ 	/*
+@@ -2825,7 +2827,7 @@ general_render_compute_wa_init(struct intel_engine_cs *engine, struct i915_wa_li
+ {
+ 	struct drm_i915_private *i915 = engine->i915;
+ 
+-	add_render_compute_tuning_settings(i915, wal);
++	add_render_compute_tuning_settings(engine->gt, wal);
+ 
+ 	if (GRAPHICS_VER(i915) >= 11) {
+ 		/* This is not a Wa (although referred to as
 -- 
 2.41.0
 
