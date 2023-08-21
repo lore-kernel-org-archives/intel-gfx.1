@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 824F5EE4993
-	for <intel-gfx@archiver.kernel.org>; Mon, 21 Aug 2023 14:15:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15F53EE4993
+	for <intel-gfx@archiver.kernel.org>; Mon, 21 Aug 2023 14:15:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD95810E0BB;
-	Mon, 21 Aug 2023 14:15:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6305510E26C;
+	Mon, 21 Aug 2023 14:15:19 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5186010E0B6;
- Mon, 21 Aug 2023 14:15:15 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id EBF1E10E0DC;
+ Mon, 21 Aug 2023 14:15:17 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 4A3A2AADD8;
- Mon, 21 Aug 2023 14:15:15 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id D41B9AADD8;
+ Mon, 21 Aug 2023 14:15:17 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Wang Jinchao" <wangjinchao@xfusion.com>
-Date: Mon, 21 Aug 2023 14:15:15 -0000
-Message-ID: <169262731527.22808.7107453719226368766@emeril.freedesktop.org>
+Date: Mon, 21 Aug 2023 14:15:17 -0000
+Message-ID: <169262731786.22807.2924802759765364372@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <ZOII3e9nsnmRjTN+@fedora>
 In-Reply-To: <ZOII3e9nsnmRjTN+@fedora>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Fix_Kconfig_error_for_CONFIG=5FDRM=5FI915_=28re?=
- =?utf-8?b?djIp?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915=3A_Fix_Kconfig_error_for_CONFIG=5FDRM=5FI915_=28rev2?=
+ =?utf-8?q?=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,7 +54,7 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-/home/kbuild/linux/maintainer-tools/dim: line 50: /home/kbuild/.dimrc: No such file or directory
+Error: dim sparse failed
+/home/kbuild2/linux/maintainer-tools/dim: line 50: /home/kbuild2/.dimrc: No such file or directory
 
 
