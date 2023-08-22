@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD9A3EE4993
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 12:13:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A696BEE49A4
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 12:14:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E83610E343;
-	Tue, 22 Aug 2023 12:13:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 423A610E344;
+	Tue, 22 Aug 2023 12:14:00 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F71C10E343
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Aug 2023 12:13:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B02510E343
+ for <intel-gfx@lists.freedesktop.org>; Tue, 22 Aug 2023 12:13:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692706434; x=1724242434;
+ t=1692706438; x=1724242438;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=9NsIxxkXgpod2ilVF56sW1obm0vX0AwlGSwrmk/OwQc=;
- b=E+8g4cyYK6+e4wOVaSyuoC/lT2lkU3iqOAaVVnhoDWYyBfWbslUUjt8A
- LrQUnIMSU/MdimHGVXZzKohlR/O4igH3ejCFiu4V2oO+RTlVIPrI2JMr1
- fZq6Qy3/3fiZGEZedKPIdRTRVkEEfk+q3g/ONDO/1RWd5Dx166gRzrJ9k
- IF/92wFfBrnOU8n08kfGO3ftDVOu7JH3ruDFFXz59NXNgMfsVLb0XWSUR
- ZotDtv1502x4uUE2gUl2A9SNdMoM7+fvIgXnqiTt+bKpCt7GwwdevzI2R
- gy0Ffvo2txLz9MYwl78TZHJ9H4ymFgv0+1dYOBWZ7Yfj3U4nwu2GYWPFy A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="440230319"
-X-IronPort-AV: E=Sophos;i="6.01,193,1684825200"; d="scan'208";a="440230319"
+ bh=ysgK0WlUVQPNo2yVPChfdy505RUbV33bAH70LS5RBPA=;
+ b=UuBtDSPXJVI5yRdu6hEPJd8BaFmxtZ85LOlyexB+VNflo+6tUC1xeQN9
+ XXPrZi8HvuKjfcrRLhqBk+2lszrJ558P/qhpTg/QcMtf0BxmVytovjBqy
+ 4MvmeSlyZV0WQn0KyvA4u9Z7yIqAQ/4peB28WfRBUAJKhZR81v14haHDM
+ lQjTAy44odmtOofs0rrVJjVJZoIID2ep3JGb7aVQleGYdrKcnWmBXzoQl
+ oFgDMeECjwtz9Upy82fCnHMZA5OvBXoN+zXr88bQdvT0X6qrWVxmFHjlN
+ s5ZgxVIhPuDcD3KXKzKfPUODHSUOZfFv9ZaIgdJrbFrOC/yhB/dCohmR0 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="440230327"
+X-IronPort-AV: E=Sophos;i="6.01,193,1684825200"; d="scan'208";a="440230327"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2023 05:13:54 -0700
+ 22 Aug 2023 05:13:58 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="771335281"
-X-IronPort-AV: E=Sophos;i="6.01,193,1684825200"; d="scan'208";a="771335281"
+X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="771335296"
+X-IronPort-AV: E=Sophos;i="6.01,193,1684825200"; d="scan'208";a="771335296"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2023 05:13:52 -0700
+ 22 Aug 2023 05:13:56 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 22 Aug 2023 17:40:29 +0530
-Message-Id: <20230822121033.597447-6-ankit.k.nautiyal@intel.com>
+Date: Tue, 22 Aug 2023 17:40:31 +0530
+Message-Id: <20230822121033.597447-8-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230822121033.597447-1-ankit.k.nautiyal@intel.com>
 References: <20230822121033.597447-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 5/9] drm/display/dp: Add helper function to get
- DSC bpp prescision
+Subject: [Intel-gfx] [PATCH 7/9] drm/i915/dp: Iterate over output bpp with
+ fractional step size
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,64 +62,107 @@ Cc: manasi.d.navare@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add helper to get the DSC bits_per_pixel precision for the DP sink.
+This patch adds support to iterate over compressed output bpp as per the
+fractional step, supported by DP sink.
+
+v2:
+-Avoid ending up with compressed bpp, same as pipe bpp. (Stan)
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_helper.c | 27 +++++++++++++++++++++++++
- include/drm/display/drm_dp_helper.h     |  1 +
- 2 files changed, 28 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp.c | 36 ++++++++++++++++---------
+ 1 file changed, 23 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index e6a78fd32380..aa8ea36211de 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -2323,6 +2323,33 @@ int drm_dp_read_desc(struct drm_dp_aux *aux, struct drm_dp_desc *desc,
- }
- EXPORT_SYMBOL(drm_dp_read_desc);
- 
-+/**
-+ * drm_dp_dsc_sink_bpp_incr() - Get bits per pixel increment
-+ * @dsc_dpcd: DSC capabilities from DPCD
-+ *
-+ * Returns the bpp precision supported by the DP sink.
-+ */
-+u8 drm_dp_dsc_sink_bpp_incr(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
-+{
-+	u8 bpp_increment_dpcd = dsc_dpcd[DP_DSC_BITS_PER_PIXEL_INC - DP_DSC_SUPPORT];
-+
-+	switch (bpp_increment_dpcd) {
-+	case DP_DSC_BITS_PER_PIXEL_1_16:
-+		return 16;
-+	case DP_DSC_BITS_PER_PIXEL_1_8:
-+		return 8;
-+	case DP_DSC_BITS_PER_PIXEL_1_4:
-+		return 4;
-+	case DP_DSC_BITS_PER_PIXEL_1_2:
-+		return 2;
-+	case DP_DSC_BITS_PER_PIXEL_1_1:
-+		return 1;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_dp_dsc_sink_bpp_incr);
-+
- /**
-  * drm_dp_dsc_sink_max_slice_count() - Get the max slice count
-  * supported by the DSC sink.
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index 86f24a759268..ba0514f0b032 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -164,6 +164,7 @@ drm_dp_is_branch(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 436889c601b1..011bcfe2ecc5 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1715,15 +1715,15 @@ static bool intel_dp_dsc_supports_format(struct intel_dp *intel_dp,
+ 	return drm_dp_dsc_sink_supports_format(intel_dp->dsc_dpcd, sink_dsc_format);
  }
  
- /* DP/eDP DSC support */
-+u8 drm_dp_dsc_sink_bpp_incr(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE]);
- u8 drm_dp_dsc_sink_max_slice_count(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE],
- 				   bool is_edp);
- u8 drm_dp_dsc_sink_line_buf_depth(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE]);
+-static bool is_bw_sufficient_for_dsc_config(u16 compressed_bpp, u32 link_clock,
++static bool is_bw_sufficient_for_dsc_config(u16 compressed_bppx16, u32 link_clock,
+ 					    u32 lane_count, u32 mode_clock,
+ 					    enum intel_output_format output_format,
+ 					    int timeslots)
+ {
+ 	u32 available_bw, required_bw;
+ 
+-	available_bw = (link_clock * lane_count * timeslots)  / 8;
+-	required_bw = compressed_bpp * (intel_dp_mode_to_fec_clock(mode_clock));
++	available_bw = (link_clock * lane_count * timeslots * 16)  / 8;
++	required_bw = compressed_bppx16 * (intel_dp_mode_to_fec_clock(mode_clock));
+ 
+ 	return available_bw > required_bw;
+ }
+@@ -1731,7 +1731,7 @@ static bool is_bw_sufficient_for_dsc_config(u16 compressed_bpp, u32 link_clock,
+ static int dsc_compute_link_config(struct intel_dp *intel_dp,
+ 				   struct intel_crtc_state *pipe_config,
+ 				   struct link_config_limits *limits,
+-				   u16 compressed_bpp,
++				   u16 compressed_bppx16,
+ 				   int timeslots)
+ {
+ 	const struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
+@@ -1746,7 +1746,8 @@ static int dsc_compute_link_config(struct intel_dp *intel_dp,
+ 		for (lane_count = limits->min_lane_count;
+ 		     lane_count <= limits->max_lane_count;
+ 		     lane_count <<= 1) {
+-			if (!is_bw_sufficient_for_dsc_config(compressed_bpp, link_rate, lane_count,
++
++			if (!is_bw_sufficient_for_dsc_config(compressed_bppx16, link_rate, lane_count,
+ 							     adjusted_mode->clock,
+ 							     pipe_config->output_format,
+ 							     timeslots))
+@@ -1860,7 +1861,7 @@ icl_dsc_compute_link_config(struct intel_dp *intel_dp,
+ 		ret = dsc_compute_link_config(intel_dp,
+ 					      pipe_config,
+ 					      limits,
+-					      valid_dsc_bpp[i],
++					      valid_dsc_bpp[i] << 4,
+ 					      timeslots);
+ 		if (ret == 0) {
+ 			pipe_config->dsc.compressed_bpp = valid_dsc_bpp[i];
+@@ -1886,22 +1887,31 @@ xelpd_dsc_compute_link_config(struct intel_dp *intel_dp,
+ 			      int pipe_bpp,
+ 			      int timeslots)
+ {
+-	u16 compressed_bpp;
++	u8 bppx16_incr = drm_dp_dsc_sink_bpp_incr(intel_dp->dsc_dpcd);
++	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
++	u16 compressed_bppx16;
++	u8 bppx16_step;
+ 	int ret;
+ 
++	if (DISPLAY_VER(i915) < 14 || bppx16_incr <= 1)
++		bppx16_step = 16;
++	else
++		bppx16_step = 16 / bppx16_incr;
++
+ 	/* Compressed BPP should be less than the Input DSC bpp */
+-	dsc_max_bpp = min(dsc_max_bpp, pipe_bpp - 1);
++	dsc_max_bpp = min(dsc_max_bpp << 4, (pipe_bpp << 4) - bppx16_step);
++	dsc_min_bpp = dsc_min_bpp << 4;
+ 
+-	for (compressed_bpp = dsc_max_bpp;
+-	     compressed_bpp >= dsc_min_bpp;
+-	     compressed_bpp--) {
++	for (compressed_bppx16 = dsc_max_bpp;
++	     compressed_bppx16 >= dsc_min_bpp;
++	     compressed_bppx16 -= bppx16_step) {
+ 		ret = dsc_compute_link_config(intel_dp,
+ 					      pipe_config,
+ 					      limits,
+-					      compressed_bpp,
++					      compressed_bppx16,
+ 					      timeslots);
+ 		if (ret == 0) {
+-			pipe_config->dsc.compressed_bpp = compressed_bpp << 4;
++			pipe_config->dsc.compressed_bpp = compressed_bppx16;
+ 			return 0;
+ 		}
+ 	}
 -- 
 2.40.1
 
