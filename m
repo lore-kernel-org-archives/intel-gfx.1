@@ -4,51 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 611E7EE4993
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 12:02:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DEB7EE49A4
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 12:02:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C340510E333;
-	Tue, 22 Aug 2023 12:02:21 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CACA810E32D;
- Tue, 22 Aug 2023 12:02:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31EFA10E330;
+	Tue, 22 Aug 2023 12:02:50 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03E2F10E32C;
+ Tue, 22 Aug 2023 12:02:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692705738; x=1724241738;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=hp+NZXqHkpxwllrzrSaGmzU2Ind1Fopscc+Rym/pSdE=;
- b=cxlvcfOw2qXq28Ig96Uhl2I596mIekryjmXylUQjik3wCJDrW1zzUG1f
- EJrDdQyl9l8LWdxq4P983Ldey0agce+xIzN13XiPFm1qV46UVTdVKKtO4
- w1I2Sgid9IFn5uzczXhyI0yctdy9BWguc2rFBCbdPVqMXAyt9oIZhSxvE
- eZySDwa6/m5AY/aIx/FF33jMVmkyMCAw1ilr4W6ykW0zZFQHyLQE7LTnA
- i0x8blE2hKrjh3C6vq+3f51Nwv+TbRheTlnP3eFAe/uu8hnJIlb5qAbrD
- +EJ6zD/MNxWTIyi3oT8xIs13BZjozAS9u0DDK80YYUcTHBoUPmHYs7QhF w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="354198250"
-X-IronPort-AV: E=Sophos;i="6.01,193,1684825200"; d="scan'208";a="354198250"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2023 05:02:18 -0700
+ t=1692705768; x=1724241768;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=8+cwU/WconM5vRP1J4pvZXPwxkqU0WDUGLdSnnM/Ce4=;
+ b=hHERWe4z0wRgFNwhKaH7Azc3R0sOowKSHX6tT3ZAC15SY/v2GPtgzmj/
+ Zj7Gcg3VvRBLX4eCtat1Hk2d/cb+XbWyNyKJ8thKkJghs6qt0KKlQfrcv
+ ODe9M+Xji9RaEEhuozVp0t0eBhdWrlKM7c+3TSzf5eKiVuB+qHpizg7Rq
+ DUeYpJMqPZjfDxCwrbYfhP2y8EhNlw2ds10Am1albkxP9OHZkdkCklEga
+ XhBjakNACTlg477e1W7OSIgqlZHQ3J7Viyvmg8TzSSrLHVZEBPiDCyDiO
+ nRJHuNMQW6q16/T6zFcojvkVnLe73RY+ch0Ym3zHO7nGIJ4v6C3w7+EiF A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="364022987"
+X-IronPort-AV: E=Sophos;i="6.01,193,1684825200"; d="scan'208";a="364022987"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Aug 2023 05:02:03 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="910070686"
-X-IronPort-AV: E=Sophos;i="6.01,193,1684825200"; d="scan'208";a="910070686"
+X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="729794702"
+X-IronPort-AV: E=Sophos;i="6.01,193,1684825200"; d="scan'208";a="729794702"
 Received: from kainaats-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.42.230])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2023 05:02:14 -0700
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Aug 2023 05:01:46 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org,
 	amd-gfx@lists.freedesktop.org
-Date: Tue, 22 Aug 2023 15:01:40 +0300
-Message-Id: <e65f30aa1bd581308f916fd005999ebe66618fad.1692705543.git.jani.nikula@intel.com>
+Date: Tue, 22 Aug 2023 15:01:36 +0300
+Message-Id: <cover.1692705543.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1692705543.git.jani.nikula@intel.com>
-References: <cover.1692705543.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/4] Revert "drm/amd/display: implement force
- function in amdgpu_dm_connector_funcs"
+Subject: [Intel-gfx] [PATCH 0/4] drm/amd/display: stop using
+ drm_edid_override_connector_update()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,19 +69,13 @@ Cc: jani.nikula@intel.com, David Airlie <airlied@gmail.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 0ba4a784a14592abed41873e339eab78ceb6e230.
+Over the past years I've been trying to unify the override and firmware
+EDID handling as well as EDID property updates. It won't work if drivers
+do their own random things.
 
-drm_edid_override_connector_update() is *not* supposed to be used by
-drivers directly.
+BR,
+Jani.
 
-From the documentation:
-
-  Only to be used from drm_helper_probe_single_connector_modes() as a
-  fallback for when DDC probe failed during drm_get_edid() and caused
-  the override/firmware EDID to be skipped.
-
-It's impossible to unify firmare and override EDID handling and property
-updates if drivers mess with this directly.
 
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Alex Hung <alex.hung@amd.com>
@@ -96,57 +88,18 @@ Cc: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Cc: Wenchieh Chien <wenchieh.chien@amd.com>
 Cc: David Airlie <airlied@gmail.com>
 Cc: Daniel Vetter <daniel@ffwll.ch>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 28 +------------------
- 1 file changed, 1 insertion(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index adfe2fcb915c..25151085508f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6317,31 +6317,6 @@ amdgpu_dm_connector_late_register(struct drm_connector *connector)
- 	return 0;
- }
- 
--void amdgpu_dm_connector_funcs_force(struct drm_connector *connector)
--{
--	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
--	struct dc_link *dc_link = aconnector->dc_link;
--	struct dc_sink *dc_em_sink = aconnector->dc_em_sink;
--	struct edid *edid;
--
--	if (!connector->edid_override)
--		return;
--
--	drm_edid_override_connector_update(&aconnector->base);
--	edid = aconnector->base.edid_blob_ptr->data;
--	aconnector->edid = edid;
--
--	/* Update emulated (virtual) sink's EDID */
--	if (dc_em_sink && dc_link) {
--		memset(&dc_em_sink->edid_caps, 0, sizeof(struct dc_edid_caps));
--		memmove(dc_em_sink->dc_edid.raw_edid, edid, (edid->extensions + 1) * EDID_LENGTH);
--		dm_helpers_parse_edid_caps(
--			dc_link,
--			&dc_em_sink->dc_edid,
--			&dc_em_sink->edid_caps);
--	}
--}
--
- static const struct drm_connector_funcs amdgpu_dm_connector_funcs = {
- 	.reset = amdgpu_dm_connector_funcs_reset,
- 	.detect = amdgpu_dm_connector_detect,
-@@ -6352,8 +6327,7 @@ static const struct drm_connector_funcs amdgpu_dm_connector_funcs = {
- 	.atomic_set_property = amdgpu_dm_connector_atomic_set_property,
- 	.atomic_get_property = amdgpu_dm_connector_atomic_get_property,
- 	.late_register = amdgpu_dm_connector_late_register,
--	.early_unregister = amdgpu_dm_connector_unregister,
--	.force = amdgpu_dm_connector_funcs_force
-+	.early_unregister = amdgpu_dm_connector_unregister
- };
- 
- static int get_modes(struct drm_connector *connector)
+Jani Nikula (4):
+  Revert "drm/amd/display: drop unused count variable in
+    create_eml_sink()"
+  Revert "drm/amd/display: assign edid_blob_ptr with edid from debugfs"
+  Revert "drm/amd/display: mark amdgpu_dm_connector_funcs_force static"
+  Revert "drm/amd/display: implement force function in
+    amdgpu_dm_connector_funcs"
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 44 +++----------------
+ 1 file changed, 5 insertions(+), 39 deletions(-)
+
 -- 
 2.39.2
 
