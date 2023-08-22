@@ -4,65 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A735CEE49AA
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 13:27:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0D18EE4996
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 13:35:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 060E310E35A;
-	Tue, 22 Aug 2023 13:27:14 +0000 (UTC)
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [IPv6:2607:f8b0:4864:20::233])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC09C10E283;
- Mon, 21 Aug 2023 15:04:18 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id
- 5614622812f47-3a7d4030621so2045941b6e.3; 
- Mon, 21 Aug 2023 08:04:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1692630258; x=1693235058;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4nsDNl9d4lshcExFhxOmfvT78+yT9J12bXqiEl8z3Wk=;
- b=Nsqjc+xPmg9p6wrzEXmKeYc+RXEIVfrxs6JTs/wnImB8BHukr5xyEHkwYJFuXv7hFW
- XzRcJumjO7r3YPqNwzsVd9JeY63M2FZixYGmD04Dzz/WvUSF8bQI23Ob9tsS+cEH/Kyb
- 5zXlnkTKokCbvjME5SwTPRdZCiCYXKoEojY56VfZncFa4MOqkcqnFUbSWAZW29XddIy/
- KMJjSIC698zTe8H8TqeFsyvM1Ou9Wg76bq/twCq/6k7uAFxO+lLizVj+p9nPO6K2JOHQ
- J0xaH+sqNFv2s2FTCgdYL7QroY1qGz8gzakmhotueEOQdsqrEzBhHfIu3ph74Y9Seipp
- RT1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692630258; x=1693235058;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=4nsDNl9d4lshcExFhxOmfvT78+yT9J12bXqiEl8z3Wk=;
- b=Ci5/8gF+dDNF1FPP7s18Wwbc2OGlP+245nfUVtKh5IxlH2zFqqmMeXgaUIjAmcsryt
- QzuXRtVWSF4vNxahitG4dMjxgDr0Wc/BUA+qNobkZa4EUCWO0B7Bk+kCj3vSp0rpQry3
- yRdL5gKAuzvMpAdG791gGWOgmWjL4rg48qO/Q68u8jz0QKguhJClDsBDvt3jk2DbHEhj
- AqvmxlWStvCFkNxpGO9j3s6+bkusHschYU8t+mg3S4tWALB8BU14JTkfUNjbLy8aUT2T
- ikq8Lhmz4qLnUxEHnCGN6alyfzcqP4AF8Ypg+TjQhFymx4Fkz3R5yG9tL6WQ7yVYFhqn
- xquw==
-X-Gm-Message-State: AOJu0YwShsWHFKA29x5CncmlxhTc0vj7g+Un/AcdZ6CMLBEPjufXJbIQ
- ptFYDoHfbeVmh+Jdd4jrJAI=
-X-Google-Smtp-Source: AGHT+IEAyShw7iDgkxpkmRqpOp+aVd74/ixWDlZbrKwshzv0+M8osDNdld8yOX26K6C1jLh/G0bLNw==
-X-Received: by 2002:a05:6808:219d:b0:3a7:543d:9102 with SMTP id
- be29-20020a056808219d00b003a7543d9102mr8171406oib.39.1692630257879; 
- Mon, 21 Aug 2023 08:04:17 -0700 (PDT)
-Received: from debian.lan ([168.227.196.240]) by smtp.gmail.com with ESMTPSA id
- bg12-20020a056808178c00b003a7a34a4ed8sm3650000oib.33.2023.08.21.08.04.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Aug 2023 08:04:17 -0700 (PDT)
-From: "Ricardo B. Marliere" <rbmarliere@gmail.com>
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tvrtko.ursulin@linux.intel.com, airlied@gmail.com,
- daniel@ffwll.ch, daniele.ceraolospurio@intel.com,
- John.C.Harrison@Intel.com, alan.previn.teres.alexis@intel.com,
- harshit.m.mogalapalli@oracle.com, michal.wajdeczko@intel.com,
- gregkh@linuxfoundation.org
-Date: Mon, 21 Aug 2023 15:02:42 +0000
-Message-Id: <20230821150241.40047-1-rbmarliere@gmail.com>
-X-Mailer: git-send-email 2.40.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF25A10E062;
+	Tue, 22 Aug 2023 13:35:03 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6AAC010E062;
+ Tue, 22 Aug 2023 13:35:02 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 542E8A47DF;
+ Tue, 22 Aug 2023 13:35:02 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0759007921919221416=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 22 Aug 2023 13:27:12 +0000
-Subject: [Intel-gfx] [PATCH] gpu: drm: i915: fix documentation style
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Date: Tue, 22 Aug 2023 13:35:02 -0000
+Message-ID: <169271130231.20551.2130474690886140093@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <cover.1692705543.git.jani.nikula@intel.com>
+In-Reply-To: <cover.1692705543.git.jani.nikula@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJBVDogZmFpbHVyZSBmb3IgZHJt?=
+ =?utf-8?q?/amd/display=3A_stop_using_drm=5Fedid=5Foverride=5Fconnector=5F?=
+ =?utf-8?q?update=28=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,43 +41,172 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Ricardo B. Marliere" <rbmarliere@gmail.com>, skhan@linuxfoundation.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch fixes the following sphinx warnings in the htmldocs make target:
+--===============0759007921919221416==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Documentation/gpu/i915:546: ./drivers/gpu/drm/i915/gt/uc/intel_huc.c:29: ERROR: Unexpected indentation.
-Documentation/gpu/i915:546: ./drivers/gpu/drm/i915/gt/uc/intel_huc.c:30: WARNING: Block quote ends without a blank line; unexpected unindent.
-Documentation/gpu/i915:546: ./drivers/gpu/drm/i915/gt/uc/intel_huc.c:35: WARNING: Bullet list ends without a blank line; unexpected unindent.
+== Series Details ==
 
-Signed-off-by: Ricardo B. Marliere <rbmarliere@gmail.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_huc.c | 2 ++
- 1 file changed, 2 insertions(+)
+Series: drm/amd/display: stop using drm_edid_override_connector_update()
+URL   : https://patchwork.freedesktop.org/series/122739/
+State : failure
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc.c b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-index ddd146265beb..fa70defcb5b2 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_huc.c
-@@ -26,6 +26,7 @@
-  * The kernel driver is only responsible for loading the HuC firmware and
-  * triggering its security authentication. This is done differently depending
-  * on the platform:
-+ *
-  * - older platforms (from Gen9 to most Gen12s): the load is performed via DMA
-  *   and the authentication via GuC
-  * - DG2: load and authentication are both performed via GSC.
-@@ -33,6 +34,7 @@
-  *   not-DG2 older platforms), while the authentication is done in 2-steps,
-  *   a first auth for clear-media workloads via GuC and a second one for all
-  *   workloads via GSC.
-+ *
-  * On platforms where the GuC does the authentication, to correctly do so the
-  * HuC binary must be loaded before the GuC one.
-  * Loading the HuC is optional; however, not using the HuC might negatively
--- 
-2.40.1
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_13543 -> Patchwork_122739v1
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_122739v1 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_122739v1, please notify your bug team to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122739v1/index.html
+
+Participating hosts (41 -> 13)
+------------------------------
+
+  ERROR: It appears as if the changes made in Patchwork_122739v1 prevented too many machines from booting.
+
+  Missing    (28): fi-kbl-soraka fi-rkl-11600 bat-adls-5 bat-dg1-5 fi-apl-guc fi-snb-2520m fi-pnv-d510 bat-rpls-1 fi-bsw-n3050 bat-adlm-1 bat-dg2-9 fi-ilk-650 fi-hsw-4770 bat-adln-1 fi-ivb-3770 bat-jsl-3 bat-rplp-1 bat-kbl-2 bat-adlp-9 fi-skl-guc fi-glk-j4005 bat-mtlp-8 bat-jsl-1 bat-mtlp-6 fi-kbl-guc fi-cfl-8109u fi-kbl-8809g bat-dg2-14 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_122739v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_suspend@basic-s3-without-i915:
+    - bat-rpls-2:         [PASS][1] -> [ABORT][2] ([i915#7978] / [i915#8668])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13543/bat-rpls-2/igt@i915_suspend@basic-s3-without-i915.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122739v1/bat-rpls-2/igt@i915_suspend@basic-s3-without-i915.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@migrate:
+    - bat-atsm-1:         [DMESG-FAIL][3] ([i915#7699] / [i915#7913]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13543/bat-atsm-1/igt@i915_selftest@live@migrate.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122739v1/bat-atsm-1/igt@i915_selftest@live@migrate.html
+
+  
+  [i915#7699]: https://gitlab.freedesktop.org/drm/intel/issues/7699
+  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
+  [i915#7978]: https://gitlab.freedesktop.org/drm/intel/issues/7978
+  [i915#8668]: https://gitlab.freedesktop.org/drm/intel/issues/8668
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_13543 -> Patchwork_122739v1
+
+  CI-20190529: 20190529
+  CI_DRM_13543: f450aa57b6725458339a934f474d5a0e5cb2dce0 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7448: 84aa6d50648d9349fb4f1520f37e5374908c9f4d @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_122739v1: f450aa57b6725458339a934f474d5a0e5cb2dce0 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+c5ebb77a1a8a Revert "drm/amd/display: implement force function in amdgpu_dm_connector_funcs"
+35f6a108d8c0 Revert "drm/amd/display: mark amdgpu_dm_connector_funcs_force static"
+fe7e98185e75 Revert "drm/amd/display: assign edid_blob_ptr with edid from debugfs"
+a6ad35907d63 Revert "drm/amd/display: drop unused count variable in create_eml_sink()"
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122739v1/index.html
+
+--===============0759007921919221416==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/amd/display: stop using drm_edid_override_connector_update()</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/122739/">https://patchwork.freedesktop.org/series/122739/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122739v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122739v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_13543 -&gt; Patchwork_122739v1</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_122739v1 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_122739v1, please notify your bug team to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122739v1/index.html</p>
+<h2>Participating hosts (41 -&gt; 13)</h2>
+<p>ERROR: It appears as if the changes made in Patchwork_122739v1 prevented too many machines from booting.</p>
+<p>Missing    (28): fi-kbl-soraka fi-rkl-11600 bat-adls-5 bat-dg1-5 fi-apl-guc fi-snb-2520m fi-pnv-d510 bat-rpls-1 fi-bsw-n3050 bat-adlm-1 bat-dg2-9 fi-ilk-650 fi-hsw-4770 bat-adln-1 fi-ivb-3770 bat-jsl-3 bat-rplp-1 bat-kbl-2 bat-adlp-9 fi-skl-guc fi-glk-j4005 bat-mtlp-8 bat-jsl-1 bat-mtlp-6 fi-kbl-guc fi-cfl-8109u fi-kbl-8809g bat-dg2-14 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_122739v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@i915_suspend@basic-s3-without-i915:<ul>
+<li>bat-rpls-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13543/bat-rpls-2/igt@i915_suspend@basic-s3-without-i915.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122739v1/bat-rpls-2/igt@i915_suspend@basic-s3-without-i915.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7978">i915#7978</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8668">i915#8668</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@migrate:<ul>
+<li>bat-atsm-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13543/bat-atsm-1/igt@i915_selftest@live@migrate.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7699">i915#7699</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122739v1/bat-atsm-1/igt@i915_selftest@live@migrate.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_13543 -&gt; Patchwork_122739v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_13543: f450aa57b6725458339a934f474d5a0e5cb2dce0 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7448: 84aa6d50648d9349fb4f1520f37e5374908c9f4d @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_122739v1: f450aa57b6725458339a934f474d5a0e5cb2dce0 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>c5ebb77a1a8a Revert "drm/amd/display: implement force function in amdgpu_dm_connector_funcs"<br />
+35f6a108d8c0 Revert "drm/amd/display: mark amdgpu_dm_connector_funcs_force static"<br />
+fe7e98185e75 Revert "drm/amd/display: assign edid_blob_ptr with edid from debugfs"<br />
+a6ad35907d63 Revert "drm/amd/display: drop unused count variable in create_eml_sink()"</p>
+
+</body>
+</html>
+
+--===============0759007921919221416==--
