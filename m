@@ -4,47 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D434EE49A3
-	for <intel-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 06:04:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 279F6EE49A5
+	for <intel-gfx@archiver.kernel.org>; Tue, 22 Aug 2023 06:38:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0DAD710E2E4;
-	Tue, 22 Aug 2023 06:04:40 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B53FC10E2DC
- for <intel-gfx@lists.freedesktop.org>; Tue, 22 Aug 2023 06:04:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692684267; x=1724220267;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ywJ3wKDPSaxn8IDbuys1Nbzg4dq6XF9zmDiLxFnMkfI=;
- b=K4WcfaLsT3d3AUPfAxcZ+6qFbZVL03jVMOK66fSqptEZf7s8z2HzhlYK
- LZ3gaePyM1fW2ZgFLRMUeMBDi1dyX5TszgH1x2k74p/ia4ypHgtTI6aDH
- sYneyMmzP+U1v7spjdp6KdeQdc9A4aqXSCbYQug/WjbQdxPlB5usNKee7
- Qg3meyEbCQkWg28L+crh8T1SrI2zUC+8B2apQYwCyXXfdGQq3Pv+NNzSS
- plG1dPVZfOlT/k4ZEfueDYdR55J6RhKexZxSwxmRrhdYfPS57ljtQJbSn
- P0kg31Ryz1wc4u9Ch+qGfF4ynPjQUcWvoLxOjgP0I1U/mJtfFwQBTrUVA Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="354119360"
-X-IronPort-AV: E=Sophos;i="6.01,192,1684825200"; d="scan'208";a="354119360"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2023 23:04:27 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10809"; a="806163101"
-X-IronPort-AV: E=Sophos;i="6.01,192,1684825200"; d="scan'208";a="806163101"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by fmsmga004.fm.intel.com with ESMTP; 21 Aug 2023 23:04:25 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 22 Aug 2023 11:32:38 +0530
-Message-Id: <20230822060240.413101-6-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230822060240.413101-1-suraj.kandpal@intel.com>
-References: <20230822060240.413101-1-suraj.kandpal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 518F710E2EA;
+	Tue, 22 Aug 2023 06:38:38 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 7375D10E2DB;
+ Tue, 22 Aug 2023 06:38:36 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 67B22AA01E;
+ Tue, 22 Aug 2023 06:38:36 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2301891494107744170=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v9 5/8] drm/i915/vdsc: Add function to write in
- PPS register
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Golani, Mitulkumar Ajitkumar" <mitulkumar.ajitkumar.golani@intel.com>
+Date: Tue, 22 Aug 2023 06:38:36 -0000
+Message-ID: <169268631639.20551.6621408268173450968@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230817125007.2681331-1-mitulkumar.ajitkumar.golani@intel.com>
+In-Reply-To: <20230817125007.2681331-1-mitulkumar.ajitkumar.golani@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgR2V0?=
+ =?utf-8?q?_optimal_audio_frequency_and_channels_=28rev9=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,410 +40,331 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that we have a function that reads any PPS register based
-on intel_dsc_pps enum provided lets create a function that can
-write on any PPS.
+--===============2301891494107744170==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
---v2
--Changes need as PPS enum was dropped
--Remove duplicated code in intel_dsc_write_pps_reg [Jani]
+== Series Details ==
 
---v3
--Use dsc_split instead of num_vdsc_instances [Ankit]
+Series: Get optimal audio frequency and channels (rev9)
+URL   : https://patchwork.freedesktop.org/series/119121/
+State : success
 
---v5
--Changes to implement the new dsc_reg array variable passing
-[Ankit]
+== Summary ==
 
---v7
--Pass no of vdsc instances to get_pps_reg [Ankit]
+CI Bug Log - changes from CI_DRM_13530 -> Patchwork_119121v9
+====================================================
 
---v8
--No need for dsc_reg dynamic allocation [Jani]
--Change function to void as no return needs to be sent back
+Summary
+-------
 
---v9
--Send ARRAY_SIZE(dsc_reg) instead of vdsc_per_pipe [Ankit]
+  **SUCCESS**
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_vdsc.c | 272 +++-------------------
- 1 file changed, 30 insertions(+), 242 deletions(-)
+  No regressions found.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index d505fa971dff..711454c0adbf 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -393,6 +393,22 @@ static void intel_dsc_get_pps_reg(const struct intel_crtc_state *crtc_state, int
- 	}
- }
- 
-+static void intel_dsc_write_pps_reg(const struct intel_crtc_state *crtc_state,
-+				    int pps, u32 pps_val)
-+{
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
-+	i915_reg_t dsc_reg[2];
-+	int i, vdsc_per_pipe = intel_dsc_get_vdsc_per_pipe(crtc_state);
-+
-+	drm_WARN_ON_ONCE(&i915->drm, ARRAY_SIZE(dsc_reg) < vdsc_per_pipe);
-+
-+	intel_dsc_get_pps_reg(crtc_state, pps, dsc_reg, ARRAY_SIZE(dsc_reg));
-+
-+	for (i = 0; i < min_t(int, ARRAY_SIZE(dsc_reg), vdsc_per_pipe); i++)
-+		intel_de_write(i915, dsc_reg[i], pps_val);
-+}
-+
- static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-@@ -428,149 +444,41 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 	if (vdsc_cfg->vbr_enable)
- 		pps_val |= DSC_VBR_ENABLE;
- 	drm_dbg_kms(&dev_priv->drm, "PPS0 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_0,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_0,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_0(pipe),
--			       pps_val);
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_0(pipe),
--				       pps_val);
--	}
-+	intel_dsc_write_pps_reg(crtc_state, 0, pps_val);
- 
- 	/* Populate PICTURE_PARAMETER_SET_1 registers */
- 	pps_val = 0;
- 	pps_val |= DSC_BPP(vdsc_cfg->bits_per_pixel);
- 	drm_dbg_kms(&dev_priv->drm, "PPS1 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_1,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_1,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_1(pipe),
--			       pps_val);
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_1(pipe),
--				       pps_val);
--	}
-+	intel_dsc_write_pps_reg(crtc_state, 1, pps_val);
- 
- 	/* Populate PICTURE_PARAMETER_SET_2 registers */
- 	pps_val = 0;
- 	pps_val |= DSC_PIC_HEIGHT(vdsc_cfg->pic_height) |
- 		DSC_PIC_WIDTH(vdsc_cfg->pic_width / num_vdsc_instances);
- 	drm_dbg_kms(&dev_priv->drm, "PPS2 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_2,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_2,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_2(pipe),
--			       pps_val);
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_2(pipe),
--				       pps_val);
--	}
-+	intel_dsc_write_pps_reg(crtc_state, 2, pps_val);
- 
- 	/* Populate PICTURE_PARAMETER_SET_3 registers */
- 	pps_val = 0;
- 	pps_val |= DSC_SLICE_HEIGHT(vdsc_cfg->slice_height) |
- 		DSC_SLICE_WIDTH(vdsc_cfg->slice_width);
- 	drm_dbg_kms(&dev_priv->drm, "PPS3 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_3,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_3,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_3(pipe),
--			       pps_val);
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_3(pipe),
--				       pps_val);
--	}
-+	intel_dsc_write_pps_reg(crtc_state, 3, pps_val);
- 
- 	/* Populate PICTURE_PARAMETER_SET_4 registers */
- 	pps_val = 0;
- 	pps_val |= DSC_INITIAL_XMIT_DELAY(vdsc_cfg->initial_xmit_delay) |
- 		DSC_INITIAL_DEC_DELAY(vdsc_cfg->initial_dec_delay);
- 	drm_dbg_kms(&dev_priv->drm, "PPS4 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_4,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_4,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_4(pipe),
--			       pps_val);
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_4(pipe),
--				       pps_val);
--	}
-+	intel_dsc_write_pps_reg(crtc_state, 4, pps_val);
- 
- 	/* Populate PICTURE_PARAMETER_SET_5 registers */
- 	pps_val = 0;
- 	pps_val |= DSC_SCALE_INC_INT(vdsc_cfg->scale_increment_interval) |
- 		DSC_SCALE_DEC_INT(vdsc_cfg->scale_decrement_interval);
- 	drm_dbg_kms(&dev_priv->drm, "PPS5 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_5,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_5,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_5(pipe),
--			       pps_val);
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_5(pipe),
--				       pps_val);
--	}
-+	intel_dsc_write_pps_reg(crtc_state, 5, pps_val);
- 
- 	/* Populate PICTURE_PARAMETER_SET_6 registers */
- 	pps_val = 0;
-@@ -579,100 +487,28 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		DSC_FLATNESS_MIN_QP(vdsc_cfg->flatness_min_qp) |
- 		DSC_FLATNESS_MAX_QP(vdsc_cfg->flatness_max_qp);
- 	drm_dbg_kms(&dev_priv->drm, "PPS6 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_6,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_6,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_6(pipe),
--			       pps_val);
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_6(pipe),
--				       pps_val);
--	}
-+	intel_dsc_write_pps_reg(crtc_state, 6, pps_val);
- 
- 	/* Populate PICTURE_PARAMETER_SET_7 registers */
- 	pps_val = 0;
- 	pps_val |= DSC_SLICE_BPG_OFFSET(vdsc_cfg->slice_bpg_offset) |
- 		DSC_NFL_BPG_OFFSET(vdsc_cfg->nfl_bpg_offset);
- 	drm_dbg_kms(&dev_priv->drm, "PPS7 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_7,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_7,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_7(pipe),
--			       pps_val);
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_7(pipe),
--				       pps_val);
--	}
-+	intel_dsc_write_pps_reg(crtc_state, 7, pps_val);
- 
- 	/* Populate PICTURE_PARAMETER_SET_8 registers */
- 	pps_val = 0;
- 	pps_val |= DSC_FINAL_OFFSET(vdsc_cfg->final_offset) |
- 		DSC_INITIAL_OFFSET(vdsc_cfg->initial_offset);
- 	drm_dbg_kms(&dev_priv->drm, "PPS8 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_8,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_8,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_8(pipe),
--			       pps_val);
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_8(pipe),
--				       pps_val);
--	}
-+	intel_dsc_write_pps_reg(crtc_state, 8, pps_val);
- 
- 	/* Populate PICTURE_PARAMETER_SET_9 registers */
- 	pps_val = 0;
- 	pps_val |= DSC_RC_MODEL_SIZE(vdsc_cfg->rc_model_size) |
- 		DSC_RC_EDGE_FACTOR(DSC_RC_EDGE_FACTOR_CONST);
- 	drm_dbg_kms(&dev_priv->drm, "PPS9 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_9,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_9,
--				       pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_9(pipe),
--			       pps_val);
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_9(pipe),
--				       pps_val);
--	}
-+	intel_dsc_write_pps_reg(crtc_state, 9, pps_val);
- 
- 	/* Populate PICTURE_PARAMETER_SET_10 registers */
- 	pps_val = 0;
-@@ -681,25 +517,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		DSC_RC_TARGET_OFF_HIGH(DSC_RC_TGT_OFFSET_HI_CONST) |
- 		DSC_RC_TARGET_OFF_LOW(DSC_RC_TGT_OFFSET_LO_CONST);
- 	drm_dbg_kms(&dev_priv->drm, "PPS10 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_10,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       DSCC_PICTURE_PARAMETER_SET_10, pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_10(pipe),
--			       pps_val);
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_10(pipe),
--				       pps_val);
--	}
-+	intel_dsc_write_pps_reg(crtc_state, 10, pps_val);
- 
- 	/* Populate Picture parameter set 16 */
- 	pps_val = 0;
-@@ -709,51 +527,21 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		DSC_SLICE_ROW_PER_FRAME(vdsc_cfg->pic_height /
- 					vdsc_cfg->slice_height);
- 	drm_dbg_kms(&dev_priv->drm, "PPS16 = 0x%08x\n", pps_val);
--	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
--		intel_de_write(dev_priv, DSCA_PICTURE_PARAMETER_SET_16,
--			       pps_val);
--		/*
--		 * If 2 VDSC instances are needed, configure PPS for second
--		 * VDSC
--		 */
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       DSCC_PICTURE_PARAMETER_SET_16, pps_val);
--	} else {
--		intel_de_write(dev_priv,
--			       ICL_DSC0_PICTURE_PARAMETER_SET_16(pipe),
--			       pps_val);
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       ICL_DSC1_PICTURE_PARAMETER_SET_16(pipe),
--				       pps_val);
--	}
-+	intel_dsc_write_pps_reg(crtc_state, 16, pps_val);
- 
- 	if (DISPLAY_VER(dev_priv) >= 14) {
- 		/* Populate PICTURE_PARAMETER_SET_17 registers */
- 		pps_val = 0;
- 		pps_val |= DSC_SL_BPG_OFFSET(vdsc_cfg->second_line_bpg_offset);
- 		drm_dbg_kms(&dev_priv->drm, "PPS17 = 0x%08x\n", pps_val);
--		intel_de_write(dev_priv,
--			       MTL_DSC0_PICTURE_PARAMETER_SET_17(pipe),
--			       pps_val);
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       MTL_DSC1_PICTURE_PARAMETER_SET_17(pipe),
--				       pps_val);
-+		intel_dsc_write_pps_reg(crtc_state, 17, pps_val);
- 
- 		/* Populate PICTURE_PARAMETER_SET_18 registers */
- 		pps_val = 0;
- 		pps_val |= DSC_NSL_BPG_OFFSET(vdsc_cfg->nsl_bpg_offset) |
- 			   DSC_SL_OFFSET_ADJ(vdsc_cfg->second_line_offset_adj);
- 		drm_dbg_kms(&dev_priv->drm, "PPS18 = 0x%08x\n", pps_val);
--		intel_de_write(dev_priv,
--			       MTL_DSC0_PICTURE_PARAMETER_SET_18(pipe),
--			       pps_val);
--		if (vdsc_instances_per_pipe > 1)
--			intel_de_write(dev_priv,
--				       MTL_DSC1_PICTURE_PARAMETER_SET_18(pipe),
--				       pps_val);
-+		intel_dsc_write_pps_reg(crtc_state, 18, pps_val);
- 	}
- 
- 	/* Populate the RC_BUF_THRESH registers */
--- 
-2.25.1
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/index.html
 
+Participating hosts (39 -> 39)
+------------------------------
+
+  Additional (1): fi-kbl-soraka 
+  Missing    (1): fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_119121v9 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][1] ([fdo#109271] / [i915#2190])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html
+
+  * igt@gem_lmem_swapping@basic:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][2] ([fdo#109271] / [i915#4613]) +3 similar issues
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html
+
+  * igt@gem_lmem_swapping@verify-random:
+    - bat-mtlp-8:         NOTRUN -> [SKIP][3] ([i915#4613]) +3 similar issues
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-mtlp-8/igt@gem_lmem_swapping@verify-random.html
+
+  * igt@i915_pm_rps@basic-api:
+    - bat-mtlp-8:         NOTRUN -> [SKIP][4] ([i915#6621])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-mtlp-8/igt@i915_pm_rps@basic-api.html
+
+  * igt@i915_selftest@live@gt_pm:
+    - fi-kbl-soraka:      NOTRUN -> [DMESG-FAIL][5] ([i915#1886] / [i915#7913])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html
+
+  * igt@i915_selftest@live@objects:
+    - fi-ilk-650:         [PASS][6] -> [INCOMPLETE][7] ([i915#9167])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13530/fi-ilk-650/igt@i915_selftest@live@objects.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/fi-ilk-650/igt@i915_selftest@live@objects.html
+
+  * igt@i915_suspend@basic-s3-without-i915:
+    - bat-adlm-1:         NOTRUN -> [INCOMPLETE][8] ([i915#7443])
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-adlm-1/igt@i915_suspend@basic-s3-without-i915.html
+    - bat-mtlp-8:         NOTRUN -> [SKIP][9] ([i915#6645])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-mtlp-8/igt@i915_suspend@basic-s3-without-i915.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][10] ([fdo#109271]) +8 similar issues
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/fi-kbl-soraka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
+
+  * igt@kms_psr@primary_mmap_gtt:
+    - bat-rplp-1:         NOTRUN -> [ABORT][11] ([i915#8442] / [i915#8469] / [i915#8668])
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-rplp-1/igt@kms_psr@primary_mmap_gtt.html
+
+  * igt@prime_vgem@basic-fence-mmap:
+    - bat-mtlp-8:         NOTRUN -> [SKIP][12] ([i915#3708] / [i915#4077]) +1 similar issue
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-mtlp-8/igt@prime_vgem@basic-fence-mmap.html
+
+  * igt@prime_vgem@basic-fence-read:
+    - bat-mtlp-8:         NOTRUN -> [SKIP][13] ([i915#3708]) +2 similar issues
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-mtlp-8/igt@prime_vgem@basic-fence-read.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_pm_rpm@basic-pci-d3-state:
+    - bat-mtlp-8:         [ABORT][14] ([i915#7977] / [i915#8668]) -> [PASS][15]
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13530/bat-mtlp-8/igt@i915_pm_rpm@basic-pci-d3-state.html
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-mtlp-8/igt@i915_pm_rpm@basic-pci-d3-state.html
+
+  * igt@i915_selftest@live@gt_lrc:
+    - bat-adlm-1:         [INCOMPLETE][16] ([i915#4983]) -> [PASS][17]
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13530/bat-adlm-1/igt@i915_selftest@live@gt_lrc.html
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-adlm-1/igt@i915_selftest@live@gt_lrc.html
+
+  * igt@i915_selftest@live@migrate:
+    - bat-dg2-11:         [DMESG-WARN][18] ([i915#7699]) -> [PASS][19]
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13530/bat-dg2-11/igt@i915_selftest@live@migrate.html
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-dg2-11/igt@i915_selftest@live@migrate.html
+
+  
+#### Warnings ####
+
+  * igt@kms_psr@sprite_plane_onoff:
+    - bat-rplp-1:         [ABORT][20] ([i915#8442] / [i915#8668] / [i915#8712]) -> [SKIP][21] ([i915#1072])
+   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13530/bat-rplp-1/igt@kms_psr@sprite_plane_onoff.html
+   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-rplp-1/igt@kms_psr@sprite_plane_onoff.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [Intel XE#486]: https://gitlab.freedesktop.org/drm/xe/kernel/issues/486
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#1072]: https://gitlab.freedesktop.org/drm/intel/issues/1072
+  [i915#1886]: https://gitlab.freedesktop.org/drm/intel/issues/1886
+  [i915#1982]: https://gitlab.freedesktop.org/drm/intel/issues/1982
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#3708]: https://gitlab.freedesktop.org/drm/intel/issues/3708
+  [i915#4077]: https://gitlab.freedesktop.org/drm/intel/issues/4077
+  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
+  [i915#4983]: https://gitlab.freedesktop.org/drm/intel/issues/4983
+  [i915#6621]: https://gitlab.freedesktop.org/drm/intel/issues/6621
+  [i915#6645]: https://gitlab.freedesktop.org/drm/intel/issues/6645
+  [i915#7443]: https://gitlab.freedesktop.org/drm/intel/issues/7443
+  [i915#7699]: https://gitlab.freedesktop.org/drm/intel/issues/7699
+  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
+  [i915#7977]: https://gitlab.freedesktop.org/drm/intel/issues/7977
+  [i915#8442]: https://gitlab.freedesktop.org/drm/intel/issues/8442
+  [i915#8469]: https://gitlab.freedesktop.org/drm/intel/issues/8469
+  [i915#8668]: https://gitlab.freedesktop.org/drm/intel/issues/8668
+  [i915#8712]: https://gitlab.freedesktop.org/drm/intel/issues/8712
+  [i915#8879]: https://gitlab.freedesktop.org/drm/intel/issues/8879
+  [i915#9167]: https://gitlab.freedesktop.org/drm/intel/issues/9167
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_13530 -> Patchwork_119121v9
+
+  CI-20190529: 20190529
+  CI_DRM_13530: d97cc063202bec7acb2e45909f45ebdecb44ff41 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7442: f6eea5a02525d62d10596408d1175c83d6f4038e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_119121v9: d97cc063202bec7acb2e45909f45ebdecb44ff41 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+b4eae9c6b086 drm/i915/display: Add wrapper to Compute SAD
+c93e25e4cc51 drm/i915/display: Configure and initialize HDMI audio capabilities
+14706fa40af7 drm/i915: Add has_audio to separate audio parameter in crtc_state
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/index.html
+
+--===============2301891494107744170==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Get optimal audio frequency and channels (rev9)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/119121/">https://patchwork.freedesktop.org/series/119121/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_13530 -&gt; Patchwork_119121v9</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/index.html</p>
+<h2>Participating hosts (39 -&gt; 39)</h2>
+<p>Additional (1): fi-kbl-soraka <br />
+  Missing    (1): fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_119121v9 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_lmem_swapping@basic:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_lmem_swapping@verify-random:</p>
+<ul>
+<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-mtlp-8/igt@gem_lmem_swapping@verify-random.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_pm_rps@basic-api:</p>
+<ul>
+<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-mtlp-8/igt@i915_pm_rps@basic-api.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6621">i915#6621</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_pm:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1886">i915#1886</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@objects:</p>
+<ul>
+<li>fi-ilk-650:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13530/fi-ilk-650/igt@i915_selftest@live@objects.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/fi-ilk-650/igt@i915_selftest@live@objects.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/9167">i915#9167</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_suspend@basic-s3-without-i915:</p>
+<ul>
+<li>
+<p>bat-adlm-1:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-adlm-1/igt@i915_suspend@basic-s3-without-i915.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7443">i915#7443</a>)</p>
+</li>
+<li>
+<p>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-mtlp-8/igt@i915_suspend@basic-s3-without-i915.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6645">i915#6645</a>)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/fi-kbl-soraka/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +8 similar issues</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@primary_mmap_gtt:</p>
+<ul>
+<li>bat-rplp-1:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-rplp-1/igt@kms_psr@primary_mmap_gtt.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8442">i915#8442</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8469">i915#8469</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8668">i915#8668</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-fence-mmap:</p>
+<ul>
+<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-mtlp-8/igt@prime_vgem@basic-fence-mmap.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3708">i915#3708</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4077">i915#4077</a>) +1 similar issue</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-fence-read:</p>
+<ul>
+<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-mtlp-8/igt@prime_vgem@basic-fence-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/3708">i915#3708</a>) +2 similar issues</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_pm_rpm@basic-pci-d3-state:</p>
+<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13530/bat-mtlp-8/igt@i915_pm_rpm@basic-pci-d3-state.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7977">i915#7977</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8668">i915#8668</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-mtlp-8/igt@i915_pm_rpm@basic-pci-d3-state.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_lrc:</p>
+<ul>
+<li>bat-adlm-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13530/bat-adlm-1/igt@i915_selftest@live@gt_lrc.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/4983">i915#4983</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-adlm-1/igt@i915_selftest@live@gt_lrc.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@migrate:</p>
+<ul>
+<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13530/bat-dg2-11/igt@i915_selftest@live@migrate.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7699">i915#7699</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-dg2-11/igt@i915_selftest@live@migrate.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>igt@kms_psr@sprite_plane_onoff:<ul>
+<li>bat-rplp-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13530/bat-rplp-1/igt@kms_psr@sprite_plane_onoff.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8442">i915#8442</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8668">i915#8668</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8712">i915#8712</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_119121v9/bat-rplp-1/igt@kms_psr@sprite_plane_onoff.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1072">i915#1072</a>)</li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_13530 -&gt; Patchwork_119121v9</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_13530: d97cc063202bec7acb2e45909f45ebdecb44ff41 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7442: f6eea5a02525d62d10596408d1175c83d6f4038e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_119121v9: d97cc063202bec7acb2e45909f45ebdecb44ff41 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>b4eae9c6b086 drm/i915/display: Add wrapper to Compute SAD<br />
+c93e25e4cc51 drm/i915/display: Configure and initialize HDMI audio capabilities<br />
+14706fa40af7 drm/i915: Add has_audio to separate audio parameter in crtc_state</p>
+
+</body>
+</html>
+
+--===============2301891494107744170==--
