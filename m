@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9C6DC6FA8F
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:09:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6120C71145
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:09:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94E5A10E482;
-	Wed, 23 Aug 2023 17:09:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC7CE10E485;
+	Wed, 23 Aug 2023 17:09:22 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C397710E424;
- Wed, 23 Aug 2023 17:09:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F9F710E424;
+ Wed, 23 Aug 2023 17:09:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692810555; x=1724346555;
+ t=1692810556; x=1724346556;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=iUSWh+seM/4oaRMtXUisIkzPlxk1qFN24VTB5CR2U5g=;
- b=I3CuE+S91qNz+db7klWPIJaL/JBjLeXWWXyxWrjV8VsnK30/+USh/KHy
- pwbgHMZ/c72RG9Zj7wOfGkCtZdBaD6LN6oJS9+i/iBDDtG6NwJU9cqOa3
- HKxvs110aXo17NNzF1CVdA2xy7mG36VYmKQSTyaTL7ulAa4z8Ckc5wzle
- W/WZGOguy/0Jbl8JcjksW8xyFbukw8rO0ILvxz62/A7M+DyfVOl6Ju9WC
- wbY8rxyY/8tit2BguoBewq60dhKG9IUbhrDHLGM34pnHkGn8VUm0k2eXA
- 78cP9PAcwNP2Ay8x/LhbYHMfo9sLoIHPTtkVHdXVIUfOdFuGGMJMt/B0R Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147462"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147462"
+ bh=cSz0yPh51AdsGr13Fidl/8QOeAgEOS3Nxkbq3XG2sYM=;
+ b=lzKSFHfE+/iP0fQu4vlbaLMcITnQdzv3YTV95H5/13F+61HojEkT05HI
+ ZrqWTR6oDHn+MwCRTxuZb6Lv/HtHIOlSZRpGJcNhwhsGr76czAMfAEryw
+ c/uJw23lS60KYmrMsgjqWNkRHigcw11VKexQ0wvHnCasN8IL+/yZqzZnH
+ 4r+tfi8E3IxdaIqet1Ar7a3zlqw8lbf6H5Sq72uh+gBXXauHaKsaOzZz3
+ 3Zr6yNoFSyFGfafAMWicWSB9YDoPAKygq3LQ+sWgfGSUms4EawQYQOMzk
+ J4QxEnDevy8/gu//5itPecCwO9Cs1s07K5JZ3c1VpXEm/AA9nsQSqLbFh w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147465"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147465"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 10:09:14 -0700
+ 23 Aug 2023 10:09:15 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204765"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204765"
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204774"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204774"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Aug 2023 10:09:14 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Aug 2023 10:07:01 -0700
-Message-Id: <20230823170740.1180212-4-lucas.demarchi@intel.com>
+Date: Wed, 23 Aug 2023 10:07:04 -0700
+Message-Id: <20230823170740.1180212-7-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 References: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 03/42] drm/i915/cx0: Add
- intel_cx0_get_owned_lane_mask()
+Subject: [Intel-gfx] [PATCH 06/42] drm/i915/cx0: Program vswing only for
+ owned lanes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,93 +65,91 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Gustavo Sousa <gustavo.sousa@intel.com>
 
-There are more parts of C10/C20 programming that need to take owned
-lanes into account. Define the function intel_cx0_get_owned_lane_mask()
-and use it. There will be new users of that function in upcoming
-changes.
+According to the BSpec, voltage swing programming should be done for
+owned PHY lanes. Do not program a not-owned PHY lane.
 
-BSpec: 64539
+BSpec: 74103, 74104
 Reviewed-by: Mika Kahola <mika.kahola@intel.com>
 Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20230814131331.69516-2-gustavo.sousa@intel.com
-(cherry picked from commit 3a8ecd4c3ede7283619536917e61c1aa3b9db6b7)
+Link: https://patchwork.freedesktop.org/patch/msgid/20230814131331.69516-5-gustavo.sousa@intel.com
+(cherry picked from commit 226fa3ab8be57aecced64d004ee24437d18bbf5f)
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 44 ++++++++++++--------
- 1 file changed, 27 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c | 25 +++++++++++---------
+ 1 file changed, 14 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index 1b00ef2c6185..b903ceb0b56a 100644
+index 93d3a63fe89a..26e256165b80 100644
 --- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
 +++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -46,6 +46,22 @@ static int lane_mask_to_lane(u8 lane_mask)
- 	return ilog2(lane_mask);
- }
- 
-+static u8 intel_cx0_get_owned_lane_mask(struct drm_i915_private *i915,
-+					struct intel_encoder *encoder)
-+{
-+	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
-+
-+	if (!intel_tc_port_in_dp_alt_mode(dig_port))
-+		return INTEL_CX0_BOTH_LANES;
-+
-+	/*
-+	 * In DP-alt with pin assignment D, only PHY lane 0 is owned
-+	 * by display and lane 1 is owned by USB.
-+	 */
-+	return intel_tc_port_fia_max_lane_count(dig_port) > 2
-+		? INTEL_CX0_BOTH_LANES : INTEL_CX0_LANE0;
-+}
-+
- static void
- assert_dc_off(struct drm_i915_private *i915)
- {
-@@ -2534,17 +2550,15 @@ static void intel_cx0_phy_lane_reset(struct drm_i915_private *i915,
- {
- 	enum port port = encoder->port;
- 	enum phy phy = intel_port_to_phy(i915, port);
--	bool both_lanes =  intel_tc_port_fia_max_lane_count(enc_to_dig_port(encoder)) > 2;
--	u8 lane_mask = lane_reversal ? INTEL_CX0_LANE1 :
--				  INTEL_CX0_LANE0;
--	u32 lane_pipe_reset = both_lanes ?
--			      XELPDP_LANE_PIPE_RESET(0) |
--			      XELPDP_LANE_PIPE_RESET(1) :
--			      XELPDP_LANE_PIPE_RESET(0);
--	u32 lane_phy_current_status = both_lanes ?
--				      XELPDP_LANE_PHY_CURRENT_STATUS(0) |
--				      XELPDP_LANE_PHY_CURRENT_STATUS(1) :
--				      XELPDP_LANE_PHY_CURRENT_STATUS(0);
+@@ -375,6 +375,7 @@ void intel_cx0_phy_set_signal_levels(struct intel_encoder *encoder,
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	const struct intel_ddi_buf_trans *trans;
+ 	enum phy phy = intel_port_to_phy(i915, encoder->port);
 +	u8 owned_lane_mask = intel_cx0_get_owned_lane_mask(i915, encoder);
-+	u8 lane_mask = lane_reversal ? INTEL_CX0_LANE1 : INTEL_CX0_LANE0;
-+	u32 lane_pipe_reset = owned_lane_mask == INTEL_CX0_BOTH_LANES
-+				? XELPDP_LANE_PIPE_RESET(0) | XELPDP_LANE_PIPE_RESET(1)
-+				: XELPDP_LANE_PIPE_RESET(0);
-+	u32 lane_phy_current_status = owned_lane_mask == INTEL_CX0_BOTH_LANES
-+					? (XELPDP_LANE_PHY_CURRENT_STATUS(0) |
-+					   XELPDP_LANE_PHY_CURRENT_STATUS(1))
-+					: XELPDP_LANE_PHY_CURRENT_STATUS(0);
+ 	intel_wakeref_t wakeref;
+ 	int n_entries, ln;
  
- 	if (__intel_de_wait_for_register(i915, XELPDP_PORT_BUF_CTL1(port),
- 					 XELPDP_PORT_BUF_SOC_PHY_READY,
-@@ -2564,15 +2578,11 @@ static void intel_cx0_phy_lane_reset(struct drm_i915_private *i915,
- 			 phy_name(phy), XELPDP_PORT_RESET_START_TIMEOUT_US);
+@@ -387,13 +388,13 @@ void intel_cx0_phy_set_signal_levels(struct intel_encoder *encoder,
+ 	}
  
- 	intel_de_rmw(i915, XELPDP_PORT_CLOCK_CTL(port),
--		     intel_cx0_get_pclk_refclk_request(both_lanes ?
--						       INTEL_CX0_BOTH_LANES :
--						       INTEL_CX0_LANE0),
-+		     intel_cx0_get_pclk_refclk_request(owned_lane_mask),
- 		     intel_cx0_get_pclk_refclk_request(lane_mask));
+ 	if (intel_is_c10phy(i915, phy)) {
+-		intel_cx0_rmw(i915, encoder->port, INTEL_CX0_BOTH_LANES, PHY_C10_VDR_CONTROL(1),
++		intel_cx0_rmw(i915, encoder->port, owned_lane_mask, PHY_C10_VDR_CONTROL(1),
+ 			      0, C10_VDR_CTRL_MSGBUS_ACCESS, MB_WRITE_COMMITTED);
+-		intel_cx0_rmw(i915, encoder->port, INTEL_CX0_BOTH_LANES, PHY_C10_VDR_CMN(3),
++		intel_cx0_rmw(i915, encoder->port, owned_lane_mask, PHY_C10_VDR_CMN(3),
+ 			      C10_CMN3_TXVBOOST_MASK,
+ 			      C10_CMN3_TXVBOOST(intel_c10_get_tx_vboost_lvl(crtc_state)),
+ 			      MB_WRITE_UNCOMMITTED);
+-		intel_cx0_rmw(i915, encoder->port, INTEL_CX0_BOTH_LANES, PHY_C10_VDR_TX(1),
++		intel_cx0_rmw(i915, encoder->port, owned_lane_mask, PHY_C10_VDR_TX(1),
+ 			      C10_TX1_TERMCTL_MASK,
+ 			      C10_TX1_TERMCTL(intel_c10_get_tx_term_ctl(crtc_state)),
+ 			      MB_WRITE_COMMITTED);
+@@ -401,32 +402,34 @@ void intel_cx0_phy_set_signal_levels(struct intel_encoder *encoder,
  
- 	if (__intel_de_wait_for_register(i915, XELPDP_PORT_CLOCK_CTL(port),
--					 intel_cx0_get_pclk_refclk_ack(both_lanes ?
--								       INTEL_CX0_BOTH_LANES :
--								       INTEL_CX0_LANE0),
-+					 intel_cx0_get_pclk_refclk_ack(owned_lane_mask),
- 					 intel_cx0_get_pclk_refclk_ack(lane_mask),
- 					 XELPDP_REFCLK_ENABLE_TIMEOUT_US, 0, NULL))
- 		drm_warn(&i915->drm, "PHY %c failed to request refclk after %dus.\n",
+ 	for (ln = 0; ln < crtc_state->lane_count; ln++) {
+ 		int level = intel_ddi_level(encoder, crtc_state, ln);
+-		int lane, tx;
++		int lane = ln / 2;
++		int tx = ln % 2;
++		u8 lane_mask = lane == 0 ? INTEL_CX0_LANE0 : INTEL_CX0_LANE1;
+ 
+-		lane = ln / 2;
+-		tx = ln % 2;
++		if (!(lane_mask & owned_lane_mask))
++			continue;
+ 
+-		intel_cx0_rmw(i915, encoder->port, BIT(lane), PHY_CX0_VDROVRD_CTL(lane, tx, 0),
++		intel_cx0_rmw(i915, encoder->port, lane_mask, PHY_CX0_VDROVRD_CTL(lane, tx, 0),
+ 			      C10_PHY_OVRD_LEVEL_MASK,
+ 			      C10_PHY_OVRD_LEVEL(trans->entries[level].snps.pre_cursor),
+ 			      MB_WRITE_COMMITTED);
+-		intel_cx0_rmw(i915, encoder->port, BIT(lane), PHY_CX0_VDROVRD_CTL(lane, tx, 1),
++		intel_cx0_rmw(i915, encoder->port, lane_mask, PHY_CX0_VDROVRD_CTL(lane, tx, 1),
+ 			      C10_PHY_OVRD_LEVEL_MASK,
+ 			      C10_PHY_OVRD_LEVEL(trans->entries[level].snps.vswing),
+ 			      MB_WRITE_COMMITTED);
+-		intel_cx0_rmw(i915, encoder->port, BIT(lane), PHY_CX0_VDROVRD_CTL(lane, tx, 2),
++		intel_cx0_rmw(i915, encoder->port, lane_mask, PHY_CX0_VDROVRD_CTL(lane, tx, 2),
+ 			      C10_PHY_OVRD_LEVEL_MASK,
+ 			      C10_PHY_OVRD_LEVEL(trans->entries[level].snps.post_cursor),
+ 			      MB_WRITE_COMMITTED);
+ 	}
+ 
+ 	/* Write Override enables in 0xD71 */
+-	intel_cx0_rmw(i915, encoder->port, INTEL_CX0_BOTH_LANES, PHY_C10_VDR_OVRD,
++	intel_cx0_rmw(i915, encoder->port, owned_lane_mask, PHY_C10_VDR_OVRD,
+ 		      0, PHY_C10_VDR_OVRD_TX1 | PHY_C10_VDR_OVRD_TX2,
+ 		      MB_WRITE_COMMITTED);
+ 
+ 	if (intel_is_c10phy(i915, phy))
+-		intel_cx0_rmw(i915, encoder->port, INTEL_CX0_BOTH_LANES, PHY_C10_VDR_CONTROL(1),
++		intel_cx0_rmw(i915, encoder->port, owned_lane_mask, PHY_C10_VDR_CONTROL(1),
+ 			      0, C10_VDR_CTRL_UPDATE_CFG, MB_WRITE_COMMITTED);
+ 
+ 	intel_cx0_phy_transaction_end(encoder, wakeref);
 -- 
 2.40.1
 
