@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55D59EE49B2
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 10:49:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00125EE49A0
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 10:49:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12B9010E40E;
-	Wed, 23 Aug 2023 10:49:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A911210E40B;
+	Wed, 23 Aug 2023 10:49:54 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B33610E07E
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Aug 2023 10:49:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F0F910E40B
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Aug 2023 10:49:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692787781; x=1724323781;
+ t=1692787786; x=1724323786;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=qZ4CPixKNxkPWsbLRXAHY2/PfJP8lHFCyEM7Z5+GODI=;
- b=CW23fP0b2qBoJGIyUg1sM9CB+KqjgPXrY0KGMg+irG5Nbgo0FfaYwXrj
- MSPTUWDMV/fHeD+xcChY182tgbY3mwBMIZl/2q1QtJcdgogtggvXaVssR
- i30BgGXMh1vEXfKDG9ZDXlf7E2rZ1beU0DEkNJKcbY/sAhnjm6q0y60+7
- fw6+E2hUVCwqdtoZThklmgDbMKtddLP1OjgmJC2sC1b6+OQzwo2mu9XwF
- 9gV8T/hIldKx0BfWFVPCFZyuTOsfDBCuxLZUItXZSX4H7FS2fr0pidjCn
- ZQRVU7RY8xmVgHvsU5A6ktuev41KurGCt4qNHT32ygtCZNhXeXsTv9CBl A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10810"; a="376856950"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="376856950"
+ bh=tuP3phajoIw0KelSTzyjcW4/HGWjR3w+iR9XsNVIcmM=;
+ b=C197YxBuN5xT/0xKWTT7/R/aWccWeGpcrgZGbWTAADnPuA3hGA7HOPM6
+ am0EpiioDAwwaYcWlNQ31pr85Yl5tujQ5YmUjk9qfm+YI7/5D9C3ows32
+ Y69qBGPzdPJ7zRK6JJPu1JE5eCnk+KEfROhkhQnkU/L75MIy1pvuI5+d5
+ WcxRPk+k335OOQODYCIXv2H7Z6NIgnuHCtVhZ050cgdrejT96WZsl+1hx
+ 69o2Y8fCkhWqqd05OSZWBeMtDyo1Hi4C7J5R6tK8ibLeU/yjOTRv0Pb05
+ Wt+Nfynj8mgGITKuGB70Ru4RAAO7qvOUWLFBm1caS1sJpZVni7DSqiu93 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10810"; a="376856973"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="376856973"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 03:49:41 -0700
+ 23 Aug 2023 03:49:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10810"; a="739730214"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="739730214"
+X-IronPort-AV: E=McAfee;i="6600,9927,10810"; a="739730266"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="739730266"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by fmsmga007.fm.intel.com with ESMTP; 23 Aug 2023 03:49:31 -0700
+ by fmsmga007.fm.intel.com with ESMTP; 23 Aug 2023 03:49:43 -0700
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Aug 2023 16:17:31 +0530
-Message-Id: <20230823104736.495930-3-suraj.kandpal@intel.com>
+Date: Wed, 23 Aug 2023 16:17:37 +0530
+Message-Id: <20230823104736.495930-9-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230823104736.495930-1-suraj.kandpal@intel.com>
 References: <20230823104736.495930-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v11 2/8] drm/i915/vdsc: Add a check for dsc
- split cases
+Subject: [Intel-gfx] [PATCH v11 8/8] drm/i915/display: Compare the readout
+ dsc pps params
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,61 +60,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In intel_vdsc_get_config we only read the primary dsc engine register
-and not take into account if the other dsc engine is in use and if
-both registers have the same value or not this patche fixes that by
-adding a check.
+With the dsc config being readout and filled in crtc_state add
+macros and use them to compare current and previous PPS param in
+DSC.
 
---v3
--Remove superfluos new line [Jani]
--Fix register naming [Jani]
-
---v5
--pps_temp0/pps_temp1 can be assigned where they are used [Ankit]
+--v2
+-Remove version check [Jani]
+-Remove dupe macro for dsc pipe compare and use the existing ones
+[Jani]
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vdsc.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 31 ++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index e4c395b4dc46..94af579b63d3 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -1002,7 +1002,7 @@ void intel_dsc_get_config(struct intel_crtc_state *crtc_state)
- 	enum pipe pipe = crtc->pipe;
- 	enum intel_display_power_domain power_domain;
- 	intel_wakeref_t wakeref;
--	u32 dss_ctl1, dss_ctl2, pps0 = 0, pps1 = 0;
-+	u32 dss_ctl1, dss_ctl2, pps0 = 0, pps1 = 0, pps_temp0, pps_temp1;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index db3c26e013e3..309a4c94b7ea 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -5377,6 +5377,37 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 	PIPE_CONF_CHECK_I(master_transcoder);
+ 	PIPE_CONF_CHECK_X(bigjoiner_pipes);
  
- 	if (!intel_dsc_source_support(crtc_state))
- 		return;
-@@ -1028,11 +1028,23 @@ void intel_dsc_get_config(struct intel_crtc_state *crtc_state)
- 	/* PPS0 & PPS1 */
- 	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
- 		pps1 = intel_de_read(dev_priv, DSCA_PICTURE_PARAMETER_SET_1);
-+		if (crtc_state->dsc.dsc_split) {
-+			pps_temp1 = intel_de_read(dev_priv, DSCC_PICTURE_PARAMETER_SET_1);
-+			drm_WARN_ON(&dev_priv->drm, pps1 != pps_temp1);
-+		}
- 	} else {
- 		pps0 = intel_de_read(dev_priv,
- 				     ICL_DSC0_PICTURE_PARAMETER_SET_0(pipe));
- 		pps1 = intel_de_read(dev_priv,
- 				     ICL_DSC0_PICTURE_PARAMETER_SET_1(pipe));
-+		if (crtc_state->dsc.dsc_split) {
-+			pps_temp0 = intel_de_read(dev_priv,
-+						  ICL_DSC1_PICTURE_PARAMETER_SET_0(pipe));
-+			pps_temp1 = intel_de_read(dev_priv,
-+						  ICL_DSC1_PICTURE_PARAMETER_SET_1(pipe));
-+			drm_WARN_ON(&dev_priv->drm, pps0 != pps_temp0);
-+			drm_WARN_ON(&dev_priv->drm, pps1 != pps_temp1);
-+		}
- 	}
- 
- 	vdsc_cfg->bits_per_pixel = pps1;
++	PIPE_CONF_CHECK_BOOL(dsc.config.block_pred_enable);
++	PIPE_CONF_CHECK_BOOL(dsc.config.convert_rgb);
++	PIPE_CONF_CHECK_BOOL(dsc.config.simple_422);
++	PIPE_CONF_CHECK_BOOL(dsc.config.native_422);
++	PIPE_CONF_CHECK_BOOL(dsc.config.native_420);
++	PIPE_CONF_CHECK_BOOL(dsc.config.vbr_enable);
++	PIPE_CONF_CHECK_I(dsc.config.line_buf_depth);
++	PIPE_CONF_CHECK_I(dsc.config.bits_per_component);
++	PIPE_CONF_CHECK_I(dsc.config.pic_width);
++	PIPE_CONF_CHECK_I(dsc.config.pic_height);
++	PIPE_CONF_CHECK_I(dsc.config.slice_width);
++	PIPE_CONF_CHECK_I(dsc.config.slice_height);
++	PIPE_CONF_CHECK_I(dsc.config.initial_dec_delay);
++	PIPE_CONF_CHECK_I(dsc.config.initial_xmit_delay);
++	PIPE_CONF_CHECK_I(dsc.config.scale_decrement_interval);
++	PIPE_CONF_CHECK_I(dsc.config.scale_increment_interval);
++	PIPE_CONF_CHECK_I(dsc.config.initial_scale_value);
++	PIPE_CONF_CHECK_I(dsc.config.first_line_bpg_offset);
++	PIPE_CONF_CHECK_I(dsc.config.flatness_min_qp);
++	PIPE_CONF_CHECK_I(dsc.config.flatness_max_qp);
++	PIPE_CONF_CHECK_I(dsc.config.slice_bpg_offset);
++	PIPE_CONF_CHECK_I(dsc.config.nfl_bpg_offset);
++	PIPE_CONF_CHECK_I(dsc.config.initial_offset);
++	PIPE_CONF_CHECK_I(dsc.config.final_offset);
++	PIPE_CONF_CHECK_I(dsc.config.rc_model_size);
++	PIPE_CONF_CHECK_I(dsc.config.rc_quant_incr_limit0);
++	PIPE_CONF_CHECK_I(dsc.config.rc_quant_incr_limit1);
++	PIPE_CONF_CHECK_I(dsc.config.slice_chunk_size);
++	PIPE_CONF_CHECK_I(dsc.config.second_line_bpg_offset);
++	PIPE_CONF_CHECK_I(dsc.config.nsl_bpg_offset);
++
+ 	PIPE_CONF_CHECK_I(dsc.compression_enable);
+ 	PIPE_CONF_CHECK_I(dsc.dsc_split);
+ 	PIPE_CONF_CHECK_I(dsc.compressed_bpp);
 -- 
 2.25.1
 
