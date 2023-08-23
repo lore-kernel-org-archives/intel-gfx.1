@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52A47C71145
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBDD9C6FA8F
 	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:10:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82F1310E47B;
-	Wed, 23 Aug 2023 17:09:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B26310E47F;
+	Wed, 23 Aug 2023 17:09:48 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F4BD10E485;
- Wed, 23 Aug 2023 17:09:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33C7410E481;
+ Wed, 23 Aug 2023 17:09:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692810560; x=1724346560;
+ t=1692810561; x=1724346561;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=xbqoFV6B5UMZ7XLeWlIItIOEbPaIEyFLPGmGgVJ8xes=;
- b=TIoOaBbQ4Mk2g0gBmTZNKvCa10kEWKzuMzk8lUC8sJJ/9we2k7MRu9/Z
- o/YTg2cV1naIb9yIWuuYIpMBBNf/T3QY+L7I/UanGhha3q8Nf8go1K+fs
- dGg37C81XJX+Y30X0vWLENX0ulyCsCLCc5xSabEoV1bLDpT58287NeiR1
- g70vu1FLWKLbf6dHcn9rGnsh9R7djf25a91nPqcjS29PX7gH9K+ZLSCj3
- 66fPiibgb03uyzL5oj+aM2H30miJD/ohUnLn6L2Ln6Ng/IA8Ynxa4f+6a
- iLCDwKBoYGYIZCuLNJrn+fcFbxJTj7MYrXGkwG0UiyGAMNbgH3wkKPVwI Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147494"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147494"
+ bh=6pyfYh4ufanXyN0HZWcHnTJbxw9JSOicqD7JGV3X/EQ=;
+ b=K8uWoXXAAirqrOhkIphpA5JaP9zaHLPgNkXAYlLPVF2oA6LwYEOWK/rs
+ RS1YZycbxe4YBHfiZ05gQalVvTSVhEPvZS32UoBQb5HjBBpt4FZsSV0i4
+ Jk3uZezA96R3T3eITQjfgwQv5zcjnrm1seE451a5XffX7bBYF4c0etZP3
+ IG1Yu/AZ/MmlrMqMARiS1Dy3cv42AQ+pJxMGZPbWg1K/HAjwdlQLKz2F6
+ 0+ZWZTmPg3P1zj1lVzO+BRgLfQYjustERPkW9mwBKuhf8M0F6+NESoj/e
+ MsGsa1buifSJAK4oqLPP+oxRorix/qDA4we448SM1AtA+7kIcy6PkEGtQ Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147500"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147500"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 10:09:19 -0700
+ 23 Aug 2023 10:09:20 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204839"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204839"
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204851"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204851"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 10:09:19 -0700
+ 23 Aug 2023 10:09:20 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Aug 2023 10:07:23 -0700
-Message-Id: <20230823170740.1180212-26-lucas.demarchi@intel.com>
+Date: Wed, 23 Aug 2023 10:07:26 -0700
+Message-Id: <20230823170740.1180212-29-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 References: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 25/42] drm/i915/xe2lpd: Add support for DP aux
- channels
+Subject: [Intel-gfx] [PATCH 28/42] drm/i915/xe2lpd: enable odd size and
+ panning for planar yuv on xe2lpd
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,83 +60,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Juha-Pekka=20Heikkil=C3=A4?= <juha-pekka.heikkila@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Gustavo Sousa <gustavo.sousa@intel.com>
+From: Juha-Pekka Heikkilä <juha-pekka.heikkila@intel.com>
 
-The location of aux channels registers for Xe2 display changed w.r.t.
-the previous version.
+Enable odd size and panning for planar yuv formats.
 
-BSpec: 69010
-Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Signed-off-by: Juha-Pekka Heikkilä <juha-pekka.heikkila@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_aux.c | 43 ++++++++++++++++++++-
- 1 file changed, 42 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_atomic_plane.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-index 3fcf609a1444..1ab6964ee1c2 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-@@ -714,6 +714,44 @@ static i915_reg_t xelpdp_aux_data_reg(struct intel_dp *intel_dp, int index)
- 	}
- }
- 
-+static i915_reg_t xe2lpd_aux_ctl_reg(struct intel_dp *intel_dp)
-+{
-+	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
-+	enum aux_ch aux_ch = dig_port->aux_ch;
-+
-+	switch (aux_ch) {
-+	case AUX_CH_A:
-+	case AUX_CH_B:
-+	case AUX_CH_USBC1:
-+	case AUX_CH_USBC2:
-+	case AUX_CH_USBC3:
-+	case AUX_CH_USBC4:
-+		return XE2LPD_DP_AUX_CH_CTL(aux_ch);
-+	default:
-+		MISSING_CASE(aux_ch);
-+		return XE2LPD_DP_AUX_CH_CTL(AUX_CH_A);
-+	}
-+}
-+
-+static i915_reg_t xe2lpd_aux_data_reg(struct intel_dp *intel_dp, int index)
-+{
-+	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
-+	enum aux_ch aux_ch = dig_port->aux_ch;
-+
-+	switch (aux_ch) {
-+	case AUX_CH_A:
-+	case AUX_CH_B:
-+	case AUX_CH_USBC1:
-+	case AUX_CH_USBC2:
-+	case AUX_CH_USBC3:
-+	case AUX_CH_USBC4:
-+		return XE2LPD_DP_AUX_CH_DATA(aux_ch, index);
-+	default:
-+		MISSING_CASE(aux_ch);
-+		return XE2LPD_DP_AUX_CH_DATA(AUX_CH_A, index);
-+	}
-+}
-+
- void intel_dp_aux_fini(struct intel_dp *intel_dp)
- {
- 	if (cpu_latency_qos_request_active(&intel_dp->pm_qos))
-@@ -731,7 +769,10 @@ void intel_dp_aux_init(struct intel_dp *intel_dp)
- 	struct intel_encoder *encoder = &dig_port->base;
- 	enum aux_ch aux_ch = dig_port->aux_ch;
- 
--	if (DISPLAY_VER(dev_priv) >= 14) {
-+	if (DISPLAY_VER(dev_priv) >= 20) {
-+		intel_dp->aux_ch_ctl_reg = xe2lpd_aux_ctl_reg;
-+		intel_dp->aux_ch_data_reg = xe2lpd_aux_data_reg;
-+	} else if (DISPLAY_VER(dev_priv) >= 14) {
- 		intel_dp->aux_ch_ctl_reg = xelpdp_aux_ctl_reg;
- 		intel_dp->aux_ch_data_reg = xelpdp_aux_data_reg;
- 	} else if (DISPLAY_VER(dev_priv) >= 12) {
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+index fb13f0bb8c52..da6ee7f0675a 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+@@ -986,6 +986,14 @@ int intel_plane_check_src_coordinates(struct intel_plane_state *plane_state)
+ 	if (fb->format->format == DRM_FORMAT_RGB565 && rotated) {
+ 		hsub = 2;
+ 		vsub = 2;
++	} else if (DISPLAY_VER(i915) >= 20 &&
++		intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier)) {
++		/*
++		 * This allow NV12 and P0xx formats to have odd size and/or odd
++		 * source coordinates on DISPLAY_VER(i915) >= 20
++		 */
++		hsub = 1;
++		vsub = 1;
+ 	} else {
+ 		hsub = fb->format->hsub;
+ 		vsub = fb->format->vsub;
 -- 
 2.40.1
 
