@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7687EE49A0
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:09:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6292DC7EE2C
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:09:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73B8510E4B2;
-	Wed, 23 Aug 2023 17:09:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0EA110E4BA;
+	Wed, 23 Aug 2023 17:09:34 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DBA310E481;
- Wed, 23 Aug 2023 17:09:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C92410E4A0;
+ Wed, 23 Aug 2023 17:09:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692810559; x=1724346559;
+ t=1692810564; x=1724346564;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=gSMPS+TX0ASRu9cql7A2WkXS4xSWEOSwd+RU9jp/hYE=;
- b=ThRzT4RkHngHDjfpGnLaqTZhlMBOEzdI4fgC2/aaPrDCALB/X+wQumAU
- AKr/wA9OEYI1Z37UyEDGlrZR/c4FgzBi8DWTI6Sjkt1X7puxNU2nT/eEn
- tLZTB9BKcc8e8qNJnku/uFIkGt1td3ooP2pDWN/2ns0h6diyMs1jIYNu/
- ++K9j+QLHERGzqzKhkcLWp/esW4L6tj0Ikj0Jkvwbo+Zu/38loJHIwxZr
- egqyXWUcr/mEYi5xEI/Hi9qKE+0jKO4hzZx2ml8g4o2cvZez8oC4twR2Z
- PS7LzFWHL/imJe+LrGR1J0jKWLJEL1hkOf+8xwbGlNiLtkz69NlKjMEM6 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147485"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147485"
+ bh=pukhlaXJeVsnZQjBhrHRKcmZSih3eHpnOTRoKy2jwOM=;
+ b=NzXTuq0vlZCG2JST746LCcDJgmxcb7FeKQ8gzUgopqhNXITCI0hcHBoz
+ hg17/HEKWhRpk4x1phbJ7m5NKD0iEfiskq0J7NSPjCnhO6ezypzGBHCW1
+ ImCy3+SrmA1ddp1QCF/F6u9l4hqXQjPd3/m8z6kGYjxKU+Ilm1Ejl9xhi
+ G488sSxcFV+fH0+ni212oN2jEjw5ZX7oW1QFR65habt739s+st0OqiXWg
+ yWGcW7HCLs+BIY9qC/C2x34e0qkGqYCgWHclKsMQrYyLdqfUUn/xVX7Xu
+ tzs4gI/8nvpYwbKguzqXLqtQJnHIrtqLey4f53xzbWVT9OWLlKOWfc5b0 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147521"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147521"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 10:09:18 -0700
+ 23 Aug 2023 10:09:23 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204819"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204819"
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204896"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204896"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 10:09:18 -0700
+ 23 Aug 2023 10:09:23 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Aug 2023 10:07:17 -0700
-Message-Id: <20230823170740.1180212-20-lucas.demarchi@intel.com>
+Date: Wed, 23 Aug 2023 10:07:40 -0700
+Message-Id: <20230823170740.1180212-43-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 References: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 19/42] drm/i915/xe2lpd: Don't try to program
- PLANE_AUX_DIST
+Subject: [Intel-gfx] [PATCH 42/42] drm/xe/lnl: Enable the display support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,36 +58,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>
+Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matt Roper <matthew.d.roper@intel.com>
+From: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 
-Since Xe2LPD technically has FlatCCS, it doesn't have AuxCCS registers
-like PLANE_AUX_DIST.  However we currently have HAS_FLAT_CCS hardcoded
-to 0 since compression isn't ready; we need to make sure this doesn't
-cause the display code to go back to trying to write this register.
+Enable the display support for LUNARLAKE
 
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_universal_plane.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/xe/xe_pci.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 3c212d8401c8..4dfd8b627147 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -1254,7 +1254,7 @@ icl_plane_update_noarm(struct intel_plane *plane,
- 	}
+diff --git a/drivers/gpu/drm/xe/xe_pci.c b/drivers/gpu/drm/xe/xe_pci.c
+index 7fb00ea410a6..f723e19e8ca5 100644
+--- a/drivers/gpu/drm/xe/xe_pci.c
++++ b/drivers/gpu/drm/xe/xe_pci.c
+@@ -337,6 +337,7 @@ static const struct xe_device_desc mtl_desc = {
  
- 	/* FLAT CCS doesn't need to program AUX_DIST */
--	if (!HAS_FLAT_CCS(dev_priv))
-+	if (!HAS_FLAT_CCS(dev_priv) && DISPLAY_VER(dev_priv) < 20)
- 		intel_de_write_fw(dev_priv, PLANE_AUX_DIST(pipe, plane_id),
- 				  skl_plane_aux_dist(plane_state, color_plane));
+ static const struct xe_device_desc lnl_desc = {
+ 	PLATFORM(XE_LUNARLAKE),
++	.has_display = true,
+ 	.require_force_probe = true,
+ };
  
 -- 
 2.40.1
