@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 369F3C71153
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:09:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 177B2C6FA8F
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:09:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 210D410E4A3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DB1410E49E;
 	Wed, 23 Aug 2023 17:09:27 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48A4810E424;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC25D10E47B;
  Wed, 23 Aug 2023 17:09:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1692810557; x=1724346557;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=J8CxPpUBKSJ4zbFaTOtjCitVijb1pZfdlYRVhiuPrCc=;
- b=gNVgVD/HAKx5UebYkh3f/bD+VUodEybas9O+CdgjRBurnJSXDj5r/L5H
- 3y0AjCf+WR218PKUT7YPnLFCbmIXofVOPcwJb+8iY1vZ9EHYGg0j656Dh
- KfNzyGbIfei2cwuXgXAkGQS4+vE89rsDvyOCR7RGOZhVy1d7CGIZbsqSQ
- lGOJVcUAtCuA8qZn9YeawwDfe4nznvz4L0MLuNneJmQc9whLy85TzdYyU
- 9cptXvHifwXPXGN/K/j8Gya1LCGbb9e7yJh4HNcDUqS9LJvqvP+MrWfqk
- riCvUp+BACXPG8/Ms2X3rG70PZiaWLF/vYfb+amI30FfoASI0drT2rB97 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147472"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147472"
+ bh=hM+v4npjlgGN1vDM7jqFqun0BdQpElLZIwaf7Mi+nBA=;
+ b=cw3pDYI6hjKO5NhXZJwfSNDflgYffe49KH+klKE1oQ1FrKOjL+rEzCbC
+ qGFS+tecMs0IBOuHrWPPMEE+NN7yY8zsUfbhtUAVNs7O+MJQfuBoYD1pC
+ lIx615EbShQMjeODvyadsMt1o5nGGselKhN9VlCI8Z9758b6x0OfSSTLk
+ AajGyjcHEjg5kBIhVjXWmhJ91LPAVhS9DGplbORVbliA97bjVwvx5u2Vr
+ NBVnRSQVQ9b8WkloxoaKMy2W2/35ff/5Q2pj+gGLC4bmcUzCECFzk2Eac
+ Crb0hJUAwI2JybFmKgPZZcY8iI+jwGQ9MbvgK9dFzDa+WZUlxGzAU0DT2 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147477"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147477"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 10:09:16 -0700
+ 23 Aug 2023 10:09:17 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204788"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204788"
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204804"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204804"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 10:09:15 -0700
+ 23 Aug 2023 10:09:17 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Aug 2023 10:07:08 -0700
-Message-Id: <20230823170740.1180212-11-lucas.demarchi@intel.com>
+Date: Wed, 23 Aug 2023 10:07:12 -0700
+Message-Id: <20230823170740.1180212-15-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 References: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 10/42] drm/i915/tc: remove "fia" from
- intel_tc_port_fia_max_lane_count()
+Subject: [Intel-gfx] [PATCH 14/42] drm/i915/lnl: Add fake PCH
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,95 +58,58 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
- Luca Coelho <luciano.coelho@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Luca Coelho <luciano.coelho@intel.com>
+From: Gustavo Sousa <gustavo.sousa@intel.com>
 
-It is irrelevant for the caller that the max lane count is being
-derived from a FIA register, so having "fia" in the function name is
-irrelevant.  Rename the function accordingly.
+LNL has south display on the same SoC. As such, define a new fake PCH
+entry for it.
 
-Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
-Reviewed-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Link: https://lore.kernel.org/r/20230721111121.369227-5-luciano.coelho@intel.com
+Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 2 +-
- drivers/gpu/drm/i915/display/intel_dp.c      | 4 ++--
- drivers/gpu/drm/i915/display/intel_tc.c      | 4 ++--
- drivers/gpu/drm/i915/display/intel_tc.h      | 2 +-
- 4 files changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/soc/intel_pch.c | 5 ++++-
+ drivers/gpu/drm/i915/soc/intel_pch.h | 2 ++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index 26e256165b80..a5918bf30c31 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -58,7 +58,7 @@ static u8 intel_cx0_get_owned_lane_mask(struct drm_i915_private *i915,
- 	 * In DP-alt with pin assignment D, only PHY lane 0 is owned
- 	 * by display and lane 1 is owned by USB.
+diff --git a/drivers/gpu/drm/i915/soc/intel_pch.c b/drivers/gpu/drm/i915/soc/intel_pch.c
+index cf795ecdcc26..5b9a01d26cab 100644
+--- a/drivers/gpu/drm/i915/soc/intel_pch.c
++++ b/drivers/gpu/drm/i915/soc/intel_pch.c
+@@ -220,7 +220,10 @@ void intel_detect_pch(struct drm_i915_private *dev_priv)
+ 	 * South display engine on the same PCI device: just assign the fake
+ 	 * PCH.
  	 */
--	return intel_tc_port_fia_max_lane_count(dig_port) > 2
-+	return intel_tc_port_max_lane_count(dig_port) > 2
- 		? INTEL_CX0_BOTH_LANES : INTEL_CX0_LANE0;
- }
+-	if (IS_DG2(dev_priv)) {
++	if (IS_LUNARLAKE(dev_priv)) {
++		dev_priv->pch_type = PCH_LNL;
++		return;
++	} else if (IS_DG2(dev_priv)) {
+ 		dev_priv->pch_type = PCH_DG2;
+ 		return;
+ 	} else if (IS_DG1(dev_priv)) {
+diff --git a/drivers/gpu/drm/i915/soc/intel_pch.h b/drivers/gpu/drm/i915/soc/intel_pch.h
+index 32aff5a70d04..1b03ea60a7a8 100644
+--- a/drivers/gpu/drm/i915/soc/intel_pch.h
++++ b/drivers/gpu/drm/i915/soc/intel_pch.h
+@@ -30,6 +30,7 @@ enum intel_pch {
+ 	/* Fake PCHs, functionality handled on the same PCI dev */
+ 	PCH_DG1 = 1024,
+ 	PCH_DG2,
++	PCH_LNL,
+ };
  
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 9f40da20e88d..84584864511b 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -306,13 +306,13 @@ static int intel_dp_max_common_lane_count(struct intel_dp *intel_dp)
- 	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
- 	int source_max = intel_dp_max_source_lane_count(dig_port);
- 	int sink_max = intel_dp->max_sink_lane_count;
--	int fia_max = intel_tc_port_fia_max_lane_count(dig_port);
-+	int port_max = intel_tc_port_max_lane_count(dig_port);
- 	int lttpr_max = drm_dp_lttpr_max_lane_count(intel_dp->lttpr_common_caps);
+ #define INTEL_PCH_DEVICE_ID_MASK		0xff80
+@@ -66,6 +67,7 @@ enum intel_pch {
  
- 	if (lttpr_max)
- 		sink_max = min(sink_max, lttpr_max);
- 
--	return min3(source_max, sink_max, fia_max);
-+	return min3(source_max, sink_max, port_max);
- }
- 
- int intel_dp_max_lane_count(struct intel_dp *intel_dp)
-diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
-index 43b8eeba26f8..3c94bbcb5497 100644
---- a/drivers/gpu/drm/i915/display/intel_tc.c
-+++ b/drivers/gpu/drm/i915/display/intel_tc.c
-@@ -337,7 +337,7 @@ static int intel_tc_port_get_max_lane_count(struct intel_digital_port *dig_port)
- 	}
- }
- 
--int intel_tc_port_fia_max_lane_count(struct intel_digital_port *dig_port)
-+int intel_tc_port_max_lane_count(struct intel_digital_port *dig_port)
- {
- 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
- 	struct intel_tc_port *tc = to_tc_port(dig_port);
-@@ -589,7 +589,7 @@ static bool tc_phy_verify_legacy_or_dp_alt_mode(struct intel_tc_port *tc,
- 	struct intel_digital_port *dig_port = tc->dig_port;
- 	int max_lanes;
- 
--	max_lanes = intel_tc_port_fia_max_lane_count(dig_port);
-+	max_lanes = intel_tc_port_max_lane_count(dig_port);
- 	if (tc->mode == TC_PORT_LEGACY) {
- 		drm_WARN_ON(&i915->drm, max_lanes != 4);
- 		return true;
-diff --git a/drivers/gpu/drm/i915/display/intel_tc.h b/drivers/gpu/drm/i915/display/intel_tc.h
-index ffc0e2a74e43..80a61e52850e 100644
---- a/drivers/gpu/drm/i915/display/intel_tc.h
-+++ b/drivers/gpu/drm/i915/display/intel_tc.h
-@@ -20,7 +20,7 @@ bool intel_tc_port_connected(struct intel_encoder *encoder);
- bool intel_tc_port_connected_locked(struct intel_encoder *encoder);
- 
- u32 intel_tc_port_get_pin_assignment_mask(struct intel_digital_port *dig_port);
--int intel_tc_port_fia_max_lane_count(struct intel_digital_port *dig_port);
-+int intel_tc_port_max_lane_count(struct intel_digital_port *dig_port);
- void intel_tc_port_set_fia_lane_count(struct intel_digital_port *dig_port,
- 				      int required_lanes);
- 
+ #define INTEL_PCH_TYPE(dev_priv)		((dev_priv)->pch_type)
+ #define INTEL_PCH_ID(dev_priv)			((dev_priv)->pch_id)
++#define HAS_PCH_LNL(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_LNL)
+ #define HAS_PCH_MTP(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_MTP)
+ #define HAS_PCH_DG2(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_DG2)
+ #define HAS_PCH_ADP(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_ADP)
 -- 
 2.40.1
 
