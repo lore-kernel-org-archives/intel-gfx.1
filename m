@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA791EE49B2
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 10:49:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24EC1EE49A0
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 10:49:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7462510E07E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A858710E40D;
 	Wed, 23 Aug 2023 10:49:47 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DAC2010E07E
- for <intel-gfx@lists.freedesktop.org>; Wed, 23 Aug 2023 10:49:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F2E310E080
+ for <intel-gfx@lists.freedesktop.org>; Wed, 23 Aug 2023 10:49:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692787782; x=1724323782;
+ t=1692787780; x=1724323780;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=T0cT2Ovg+8phM2ufwtnZvT9RcZV3Ph0X1SvWkafpMEg=;
- b=Y9IM3YB/eBci9+nfzVB5XgOWcUySpETxyU/f++oANHqKTrNKzW76zysg
- kjoFl6d2gmdT1OA/AieW0AIEH0bKO90HO6bfcSSM5TZ0ELw+lwam/od3b
- EXYApAzc+KI0tuP0rFSTaHHBRvkP9x48rNyE86XSX5DAcCAKFe4FbWJv/
- uMUUlE85D3Co3AbCgTwiTX98THdcxV1La57dKe51oio3NQBqyRaQvxrAD
- VRdbTvp4jBbeHyebVo+qxcIBiudCYYJL1WOR1NhKZb1T1mEb72WfMrvb3
- 9/m/WyNHZkFV/sfEUfnBTj0qnCcPDDqhXL1KF0B13zf7lknbB/Dd+JxWb w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10810"; a="376856955"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="376856955"
+ bh=PhAALNdpcGxKxSw8Jk1CGZDSIMaT/yP4ekSzOHeERpI=;
+ b=XQRSt9zQYUByx61r7hyebPom2TgZJN1+1mTabpKerMH6zmwtEogP3qh1
+ U2m2Np94TOgWwxhLYFiQhijteNA+5zs/2C8dgR/gjWLdqtJaou6BbSn0O
+ v2u9SnTv2RzX8aXIwI5lf/pldJ/yZCL1JSOfS3hMqvc3CvH/Tpaq3rEFf
+ pLwb/9OdxaK24M9Bk/z83DFRzrAhlPjh10myUq3kToe9TIJRaOvlBLAw9
+ 91bXGiblrxjBrRkbcGcxJ4twksQpNyvOSXt/A6rWtbs71k/121fFogGmW
+ QCuqpVpp4vrkH+hgQ9AyFRIR17PeQIqJMirZxDHtNja4XYoiLu1Dau4aI Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10810"; a="376856948"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="376856948"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 03:49:42 -0700
+ 23 Aug 2023 03:49:40 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10810"; a="739730245"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="739730245"
+X-IronPort-AV: E=McAfee;i="6600,9927,10810"; a="739730194"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="739730194"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by fmsmga007.fm.intel.com with ESMTP; 23 Aug 2023 03:49:33 -0700
+ by fmsmga007.fm.intel.com with ESMTP; 23 Aug 2023 03:49:29 -0700
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Aug 2023 16:17:32 +0530
-Message-Id: <20230823104736.495930-4-suraj.kandpal@intel.com>
+Date: Wed, 23 Aug 2023 16:17:30 +0530
+Message-Id: <20230823104736.495930-2-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230823104736.495930-1-suraj.kandpal@intel.com>
 References: <20230823104736.495930-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v11 3/8] drm/i915/vdsc: Add func to get no. of
- vdsc instances per pipe
+Subject: [Intel-gfx] [PATCH v11 1/8] drm/i915/vdsc: Refactor dsc register
+ field macro
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,355 +60,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We have a function that gets us the total of the vdsc engines being
-used but not the no. of vdsc instances being used by each pipe.
+This patch refactors dsc register related macros that prepares
+the values to be written in the register. The current bit shifting
+looks bad and going forward will not serve our purpose to readout
+dsc register field values the change was suggested by Jani Nikula.
 
---v6
--Change function to static
-
---v7
--Shorten name to intel_dsc_get_vdsc_per_pipe
-
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vdsc.c | 78 +++++++++++++----------
- 1 file changed, 44 insertions(+), 34 deletions(-)
+ .../gpu/drm/i915/display/intel_vdsc_regs.h    | 98 +++++++++++++------
+ 1 file changed, 70 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index 94af579b63d3..fbe8ce9fe1ab 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -356,9 +356,14 @@ intel_dsc_power_domain(struct intel_crtc *crtc, enum transcoder cpu_transcoder)
- 		return POWER_DOMAIN_TRANSCODER_VDSC_PW2;
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc_regs.h b/drivers/gpu/drm/i915/display/intel_vdsc_regs.h
+index b71f00b5c761..785ede31116e 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_vdsc_regs.h
+@@ -57,7 +57,8 @@
+ #define MTL_DSC1_PICTURE_PARAMETER_SET_17(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
+ 							   _MTL_DSC1_PICTURE_PARAMETER_SET_17_PB, \
+ 							   _MTL_DSC1_PICTURE_PARAMETER_SET_17_PC)
+-#define DSC_SL_BPG_OFFSET(offset)		((offset) << 27)
++#define DSC_SL_BPG_OFFSET_MASK			REG_GENMASK(31, 27)
++#define DSC_SL_BPG_OFFSET(offset)		REG_FIELD_PREP(DSC_SL_BPG_OFFSET_MASK, offset)
  
-+static int intel_dsc_get_vdsc_per_pipe(const struct intel_crtc_state *crtc_state)
-+{
-+	return crtc_state->dsc.dsc_split ? 2 : 1;
-+}
-+
- int intel_dsc_get_num_vdsc_instances(const struct intel_crtc_state *crtc_state)
- {
--	int num_vdsc_instances = (crtc_state->dsc.dsc_split) ? 2 : 1;
-+	int num_vdsc_instances = intel_dsc_get_vdsc_per_pipe(crtc_state);
+ #define _MTL_DSC0_PICTURE_PARAMETER_SET_18_PB	0x782B8
+ #define _MTL_DSC1_PICTURE_PARAMETER_SET_18_PB	0x783B8
+@@ -69,8 +70,10 @@
+ #define MTL_DSC1_PICTURE_PARAMETER_SET_18(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
+ 							   _MTL_DSC1_PICTURE_PARAMETER_SET_18_PB, \
+ 							   _MTL_DSC1_PICTURE_PARAMETER_SET_18_PC)
+-#define DSC_NSL_BPG_OFFSET(offset)		((offset) << 16)
+-#define DSC_SL_OFFSET_ADJ(offset)		((offset) << 0)
++#define DSC_NSL_BPG_OFFSET_MASK			REG_GENMASK(31, 16)
++#define DSC_SL_OFFSET_ADJ_MASK			REG_GENMASK(15, 0)
++#define DSC_NSL_BPG_OFFSET(offset)		REG_FIELD_PREP(DSC_NSL_BPG_OFFSET_MASK, offset)
++#define DSC_SL_OFFSET_ADJ(offset)		REG_FIELD_PREP(DSC_SL_OFFSET_ADJ_MASK, offset)
  
- 	if (crtc_state->bigjoiner_pipes)
- 		num_vdsc_instances *= 2;
-@@ -378,6 +383,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 	u32 rc_range_params_dword[8];
- 	int i = 0;
- 	int num_vdsc_instances = intel_dsc_get_num_vdsc_instances(crtc_state);
-+	int vdsc_instances_per_pipe = intel_dsc_get_vdsc_per_pipe(crtc_state);
+ /* Icelake Display Stream Compression Registers */
+ #define DSCA_PICTURE_PARAMETER_SET_0		_MMIO(0x6B200)
+@@ -123,8 +126,10 @@
+ #define ICL_DSC1_PICTURE_PARAMETER_SET_2(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
+ 					    _ICL_DSC1_PICTURE_PARAMETER_SET_2_PB, \
+ 					    _ICL_DSC1_PICTURE_PARAMETER_SET_2_PC)
+-#define  DSC_PIC_WIDTH(pic_width)	((pic_width) << 16)
+-#define  DSC_PIC_HEIGHT(pic_height)	((pic_height) << 0)
++#define  DSC_PIC_WIDTH_MASK		REG_GENMASK(31, 16)
++#define  DSC_PIC_HEIGHT_MASK		REG_GENMASK(15, 0)
++#define  DSC_PIC_WIDTH(pic_width)	REG_FIELD_PREP(DSC_PIC_WIDTH_MASK, pic_width)
++#define  DSC_PIC_HEIGHT(pic_height)	REG_FIELD_PREP(DSC_PIC_HEIGHT_MASK, pic_height)
  
- 	/* Populate PICTURE_PARAMETER_SET_0 registers */
- 	pps_val = DSC_VER_MAJ | vdsc_cfg->dsc_version_minor <<
-@@ -407,14 +413,14 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		 * If 2 VDSC instances are needed, configure PPS for second
- 		 * VDSC
- 		 */
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_0,
- 				       pps_val);
- 	} else {
- 		intel_de_write(dev_priv,
- 			       ICL_DSC0_PICTURE_PARAMETER_SET_0(pipe),
- 			       pps_val);
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv,
- 				       ICL_DSC1_PICTURE_PARAMETER_SET_0(pipe),
- 				       pps_val);
-@@ -431,14 +437,14 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		 * If 2 VDSC instances are needed, configure PPS for second
- 		 * VDSC
- 		 */
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_1,
- 				       pps_val);
- 	} else {
- 		intel_de_write(dev_priv,
- 			       ICL_DSC0_PICTURE_PARAMETER_SET_1(pipe),
- 			       pps_val);
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv,
- 				       ICL_DSC1_PICTURE_PARAMETER_SET_1(pipe),
- 				       pps_val);
-@@ -456,14 +462,14 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		 * If 2 VDSC instances are needed, configure PPS for second
- 		 * VDSC
- 		 */
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_2,
- 				       pps_val);
- 	} else {
- 		intel_de_write(dev_priv,
- 			       ICL_DSC0_PICTURE_PARAMETER_SET_2(pipe),
- 			       pps_val);
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv,
- 				       ICL_DSC1_PICTURE_PARAMETER_SET_2(pipe),
- 				       pps_val);
-@@ -481,14 +487,14 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		 * If 2 VDSC instances are needed, configure PPS for second
- 		 * VDSC
- 		 */
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_3,
- 				       pps_val);
- 	} else {
- 		intel_de_write(dev_priv,
- 			       ICL_DSC0_PICTURE_PARAMETER_SET_3(pipe),
- 			       pps_val);
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv,
- 				       ICL_DSC1_PICTURE_PARAMETER_SET_3(pipe),
- 				       pps_val);
-@@ -506,14 +512,14 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		 * If 2 VDSC instances are needed, configure PPS for second
- 		 * VDSC
- 		 */
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_4,
- 				       pps_val);
- 	} else {
- 		intel_de_write(dev_priv,
- 			       ICL_DSC0_PICTURE_PARAMETER_SET_4(pipe),
- 			       pps_val);
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv,
- 				       ICL_DSC1_PICTURE_PARAMETER_SET_4(pipe),
- 				       pps_val);
-@@ -531,14 +537,14 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		 * If 2 VDSC instances are needed, configure PPS for second
- 		 * VDSC
- 		 */
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_5,
- 				       pps_val);
- 	} else {
- 		intel_de_write(dev_priv,
- 			       ICL_DSC0_PICTURE_PARAMETER_SET_5(pipe),
- 			       pps_val);
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv,
- 				       ICL_DSC1_PICTURE_PARAMETER_SET_5(pipe),
- 				       pps_val);
-@@ -558,14 +564,14 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		 * If 2 VDSC instances are needed, configure PPS for second
- 		 * VDSC
- 		 */
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_6,
- 				       pps_val);
- 	} else {
- 		intel_de_write(dev_priv,
- 			       ICL_DSC0_PICTURE_PARAMETER_SET_6(pipe),
- 			       pps_val);
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv,
- 				       ICL_DSC1_PICTURE_PARAMETER_SET_6(pipe),
- 				       pps_val);
-@@ -583,14 +589,14 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		 * If 2 VDSC instances are needed, configure PPS for second
- 		 * VDSC
- 		 */
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_7,
- 				       pps_val);
- 	} else {
- 		intel_de_write(dev_priv,
- 			       ICL_DSC0_PICTURE_PARAMETER_SET_7(pipe),
- 			       pps_val);
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv,
- 				       ICL_DSC1_PICTURE_PARAMETER_SET_7(pipe),
- 				       pps_val);
-@@ -608,14 +614,14 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		 * If 2 VDSC instances are needed, configure PPS for second
- 		 * VDSC
- 		 */
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_8,
- 				       pps_val);
- 	} else {
- 		intel_de_write(dev_priv,
- 			       ICL_DSC0_PICTURE_PARAMETER_SET_8(pipe),
- 			       pps_val);
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv,
- 				       ICL_DSC1_PICTURE_PARAMETER_SET_8(pipe),
- 				       pps_val);
-@@ -633,14 +639,14 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		 * If 2 VDSC instances are needed, configure PPS for second
- 		 * VDSC
- 		 */
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv, DSCC_PICTURE_PARAMETER_SET_9,
- 				       pps_val);
- 	} else {
- 		intel_de_write(dev_priv,
- 			       ICL_DSC0_PICTURE_PARAMETER_SET_9(pipe),
- 			       pps_val);
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv,
- 				       ICL_DSC1_PICTURE_PARAMETER_SET_9(pipe),
- 				       pps_val);
-@@ -660,14 +666,14 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		 * If 2 VDSC instances are needed, configure PPS for second
- 		 * VDSC
- 		 */
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv,
- 				       DSCC_PICTURE_PARAMETER_SET_10, pps_val);
- 	} else {
- 		intel_de_write(dev_priv,
- 			       ICL_DSC0_PICTURE_PARAMETER_SET_10(pipe),
- 			       pps_val);
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv,
- 				       ICL_DSC1_PICTURE_PARAMETER_SET_10(pipe),
- 				       pps_val);
-@@ -688,14 +694,14 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		 * If 2 VDSC instances are needed, configure PPS for second
- 		 * VDSC
- 		 */
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv,
- 				       DSCC_PICTURE_PARAMETER_SET_16, pps_val);
- 	} else {
- 		intel_de_write(dev_priv,
- 			       ICL_DSC0_PICTURE_PARAMETER_SET_16(pipe),
- 			       pps_val);
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv,
- 				       ICL_DSC1_PICTURE_PARAMETER_SET_16(pipe),
- 				       pps_val);
-@@ -709,7 +715,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		intel_de_write(dev_priv,
- 			       MTL_DSC0_PICTURE_PARAMETER_SET_17(pipe),
- 			       pps_val);
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv,
- 				       MTL_DSC1_PICTURE_PARAMETER_SET_17(pipe),
- 				       pps_val);
-@@ -722,7 +728,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		intel_de_write(dev_priv,
- 			       MTL_DSC0_PICTURE_PARAMETER_SET_18(pipe),
- 			       pps_val);
--		if (crtc_state->dsc.dsc_split)
-+		if (vdsc_instances_per_pipe > 1)
- 			intel_de_write(dev_priv,
- 				       MTL_DSC1_PICTURE_PARAMETER_SET_18(pipe),
- 				       pps_val);
-@@ -746,7 +752,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 			       rc_buf_thresh_dword[2]);
- 		intel_de_write(dev_priv, DSCA_RC_BUF_THRESH_1_UDW,
- 			       rc_buf_thresh_dword[3]);
--		if (crtc_state->dsc.dsc_split) {
-+		if (vdsc_instances_per_pipe > 1) {
- 			intel_de_write(dev_priv, DSCC_RC_BUF_THRESH_0,
- 				       rc_buf_thresh_dword[0]);
- 			intel_de_write(dev_priv, DSCC_RC_BUF_THRESH_0_UDW,
-@@ -765,7 +771,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 			       rc_buf_thresh_dword[2]);
- 		intel_de_write(dev_priv, ICL_DSC0_RC_BUF_THRESH_1_UDW(pipe),
- 			       rc_buf_thresh_dword[3]);
--		if (crtc_state->dsc.dsc_split) {
-+		if (vdsc_instances_per_pipe > 1) {
- 			intel_de_write(dev_priv,
- 				       ICL_DSC1_RC_BUF_THRESH_0(pipe),
- 				       rc_buf_thresh_dword[0]);
-@@ -811,7 +817,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 			       rc_range_params_dword[6]);
- 		intel_de_write(dev_priv, DSCA_RC_RANGE_PARAMETERS_3_UDW,
- 			       rc_range_params_dword[7]);
--		if (crtc_state->dsc.dsc_split) {
-+		if (vdsc_instances_per_pipe > 1) {
- 			intel_de_write(dev_priv, DSCC_RC_RANGE_PARAMETERS_0,
- 				       rc_range_params_dword[0]);
- 			intel_de_write(dev_priv,
-@@ -854,7 +860,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
- 		intel_de_write(dev_priv,
- 			       ICL_DSC0_RC_RANGE_PARAMETERS_3_UDW(pipe),
- 			       rc_range_params_dword[7]);
--		if (crtc_state->dsc.dsc_split) {
-+		if (vdsc_instances_per_pipe > 1) {
- 			intel_de_write(dev_priv,
- 				       ICL_DSC1_RC_RANGE_PARAMETERS_0(pipe),
- 				       rc_range_params_dword[0]);
-@@ -960,6 +966,7 @@ void intel_dsc_enable(const struct intel_crtc_state *crtc_state)
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 	u32 dss_ctl1_val = 0;
- 	u32 dss_ctl2_val = 0;
-+	int vdsc_instances_per_pipe = intel_dsc_get_vdsc_per_pipe(crtc_state);
+ #define DSCA_PICTURE_PARAMETER_SET_3		_MMIO(0x6B20C)
+ #define DSCC_PICTURE_PARAMETER_SET_3		_MMIO(0x6BA0C)
+@@ -138,8 +143,10 @@
+ #define ICL_DSC1_PICTURE_PARAMETER_SET_3(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
+ 							   _ICL_DSC1_PICTURE_PARAMETER_SET_3_PB, \
+ 							   _ICL_DSC1_PICTURE_PARAMETER_SET_3_PC)
+-#define  DSC_SLICE_WIDTH(slice_width)   ((slice_width) << 16)
+-#define  DSC_SLICE_HEIGHT(slice_height) ((slice_height) << 0)
++#define  DSC_SLICE_WIDTH_MASK			REG_GENMASK(31, 16)
++#define  DSC_SLICE_HEIGHT_MASK			REG_GENMASK(15, 0)
++#define  DSC_SLICE_WIDTH(slice_width)		REG_FIELD_PREP(DSC_SLICE_WIDTH_MASK, slice_width)
++#define  DSC_SLICE_HEIGHT(slice_height)		REG_FIELD_PREP(DSC_SLICE_HEIGHT_MASK, slice_height)
  
- 	if (!crtc_state->dsc.compression_enable)
- 		return;
-@@ -967,7 +974,7 @@ void intel_dsc_enable(const struct intel_crtc_state *crtc_state)
- 	intel_dsc_pps_configure(crtc_state);
+ #define DSCA_PICTURE_PARAMETER_SET_4		_MMIO(0x6B210)
+ #define DSCC_PICTURE_PARAMETER_SET_4		_MMIO(0x6BA10)
+@@ -153,8 +160,12 @@
+ #define ICL_DSC1_PICTURE_PARAMETER_SET_4(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
+ 							   _ICL_DSC1_PICTURE_PARAMETER_SET_4_PB, \
+ 							   _ICL_DSC1_PICTURE_PARAMETER_SET_4_PC)
+-#define  DSC_INITIAL_DEC_DELAY(dec_delay)       ((dec_delay) << 16)
+-#define  DSC_INITIAL_XMIT_DELAY(xmit_delay)     ((xmit_delay) << 0)
++#define  DSC_INITIAL_DEC_DELAY_MASK		REG_GENMASK(31, 16)
++#define  DSC_INITIAL_XMIT_DELAY_MASK		REG_GENMASK(9, 0)
++#define  DSC_INITIAL_DEC_DELAY(dec_delay)       REG_FIELD_PREP(DSC_INITIAL_DEC_DELAY_MASK, \
++							       dec_delay)
++#define  DSC_INITIAL_XMIT_DELAY(xmit_delay)     REG_FIELD_PREP(DSC_INITIAL_XMIT_DELAY_MASK, \
++							       xmit_delay)
  
- 	dss_ctl2_val |= LEFT_BRANCH_VDSC_ENABLE;
--	if (crtc_state->dsc.dsc_split) {
-+	if (vdsc_instances_per_pipe > 1) {
- 		dss_ctl2_val |= RIGHT_BRANCH_VDSC_ENABLE;
- 		dss_ctl1_val |= JOINER_ENABLE;
- 	}
-@@ -1003,6 +1010,7 @@ void intel_dsc_get_config(struct intel_crtc_state *crtc_state)
- 	enum intel_display_power_domain power_domain;
- 	intel_wakeref_t wakeref;
- 	u32 dss_ctl1, dss_ctl2, pps0 = 0, pps1 = 0, pps_temp0, pps_temp1;
-+	int vdsc_instances_per_pipe;
+ #define DSCA_PICTURE_PARAMETER_SET_5		_MMIO(0x6B214)
+ #define DSCC_PICTURE_PARAMETER_SET_5		_MMIO(0x6BA14)
+@@ -168,8 +179,10 @@
+ #define ICL_DSC1_PICTURE_PARAMETER_SET_5(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
+ 							   _ICL_DSC1_PICTURE_PARAMETER_SET_5_PB, \
+ 							   _ICL_DSC1_PICTURE_PARAMETER_SET_5_PC)
+-#define  DSC_SCALE_DEC_INT(scale_dec)	((scale_dec) << 16)
+-#define  DSC_SCALE_INC_INT(scale_inc)		((scale_inc) << 0)
++#define  DSC_SCALE_DEC_INT_MASK			REG_GENMASK(27, 16)
++#define  DSC_SCALE_INC_INT_MASK			REG_GENMASK(15, 0)
++#define  DSC_SCALE_DEC_INT(scale_dec)		REG_FIELD_PREP(DSC_SCALE_DEC_INT_MASK, scale_dec)
++#define  DSC_SCALE_INC_INT(scale_inc)		REG_FIELD_PREP(DSC_SCALE_INC_INT_MASK, scale_inc)
  
- 	if (!intel_dsc_source_support(crtc_state))
- 		return;
-@@ -1025,10 +1033,12 @@ void intel_dsc_get_config(struct intel_crtc_state *crtc_state)
+ #define DSCA_PICTURE_PARAMETER_SET_6		_MMIO(0x6B218)
+ #define DSCC_PICTURE_PARAMETER_SET_6		_MMIO(0x6BA18)
+@@ -183,10 +196,16 @@
+ #define ICL_DSC1_PICTURE_PARAMETER_SET_6(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
+ 							   _ICL_DSC1_PICTURE_PARAMETER_SET_6_PB, \
+ 							   _ICL_DSC1_PICTURE_PARAMETER_SET_6_PC)
+-#define  DSC_FLATNESS_MAX_QP(max_qp)		((max_qp) << 24)
+-#define  DSC_FLATNESS_MIN_QP(min_qp)		((min_qp) << 16)
+-#define  DSC_FIRST_LINE_BPG_OFFSET(offset)	((offset) << 8)
+-#define  DSC_INITIAL_SCALE_VALUE(value)		((value) << 0)
++#define  DSC_FLATNESS_MAX_QP_MASK		REG_GENMASK(28, 24)
++#define  DSC_FLATNESS_MIN_QP_MASK		REG_GENMASK(20, 16)
++#define  DSC_FIRST_LINE_BPG_OFFSET_MASK		REG_GENMASK(12, 8)
++#define  DSC_INITIAL_SCALE_VALUE_MASK		REG_GENMASK(5, 0)
++#define  DSC_FLATNESS_MAX_QP(max_qp)		REG_FIELD_PREP(DSC_FLATNESS_MAX_QP_MASK, max_qp)
++#define  DSC_FLATNESS_MIN_QP(min_qp)		REG_FIELD_PREP(DSC_FLATNESS_MIN_QP_MASK, min_qp)
++#define  DSC_FIRST_LINE_BPG_OFFSET(offset)	REG_FIELD_PREP(DSC_FIRST_LINE_BPG_OFFSET_MASK, \
++							       offset)
++#define  DSC_INITIAL_SCALE_VALUE(value)		REG_FIELD_PREP(DSC_INITIAL_SCALE_VALUE_MASK, \
++							       value)
  
- 	/* FIXME: add more state readout as needed */
+ #define DSCA_PICTURE_PARAMETER_SET_7		_MMIO(0x6B21C)
+ #define DSCC_PICTURE_PARAMETER_SET_7		_MMIO(0x6BA1C)
+@@ -200,8 +219,11 @@
+ #define ICL_DSC1_PICTURE_PARAMETER_SET_7(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
+ 							    _ICL_DSC1_PICTURE_PARAMETER_SET_7_PB, \
+ 							    _ICL_DSC1_PICTURE_PARAMETER_SET_7_PC)
+-#define  DSC_NFL_BPG_OFFSET(bpg_offset)		((bpg_offset) << 16)
+-#define  DSC_SLICE_BPG_OFFSET(bpg_offset)	((bpg_offset) << 0)
++#define  DSC_NFL_BPG_OFFSET_MASK		REG_GENMASK(31, 16)
++#define  DSC_SLICE_BPG_OFFSET_MASK		REG_GENMASK(15, 0)
++#define  DSC_NFL_BPG_OFFSET(bpg_offset)		REG_FIELD_PREP(DSC_NFL_BPG_OFFSET_MASK, bpg_offset)
++#define  DSC_SLICE_BPG_OFFSET(bpg_offset)	REG_FIELD_PREP(DSC_SLICE_BPG_OFFSET_MASK, \
++							       bpg_offset)
  
-+	vdsc_instances_per_pipe = intel_dsc_get_vdsc_per_pipe(crtc_state);
-+
- 	/* PPS0 & PPS1 */
- 	if (!is_pipe_dsc(crtc, cpu_transcoder)) {
- 		pps1 = intel_de_read(dev_priv, DSCA_PICTURE_PARAMETER_SET_1);
--		if (crtc_state->dsc.dsc_split) {
-+		if (vdsc_instances_per_pipe > 1) {
- 			pps_temp1 = intel_de_read(dev_priv, DSCC_PICTURE_PARAMETER_SET_1);
- 			drm_WARN_ON(&dev_priv->drm, pps1 != pps_temp1);
- 		}
-@@ -1037,7 +1047,7 @@ void intel_dsc_get_config(struct intel_crtc_state *crtc_state)
- 				     ICL_DSC0_PICTURE_PARAMETER_SET_0(pipe));
- 		pps1 = intel_de_read(dev_priv,
- 				     ICL_DSC0_PICTURE_PARAMETER_SET_1(pipe));
--		if (crtc_state->dsc.dsc_split) {
-+		if (vdsc_instances_per_pipe > 1) {
- 			pps_temp0 = intel_de_read(dev_priv,
- 						  ICL_DSC1_PICTURE_PARAMETER_SET_0(pipe));
- 			pps_temp1 = intel_de_read(dev_priv,
+ #define DSCA_PICTURE_PARAMETER_SET_8		_MMIO(0x6B220)
+ #define DSCC_PICTURE_PARAMETER_SET_8		_MMIO(0x6BA20)
+@@ -215,8 +237,12 @@
+ #define ICL_DSC1_PICTURE_PARAMETER_SET_8(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
+ 							   _ICL_DSC1_PICTURE_PARAMETER_SET_8_PB, \
+ 							   _ICL_DSC1_PICTURE_PARAMETER_SET_8_PC)
+-#define  DSC_INITIAL_OFFSET(initial_offset)		((initial_offset) << 16)
+-#define  DSC_FINAL_OFFSET(final_offset)			((final_offset) << 0)
++#define  DSC_INITIAL_OFFSET_MASK		REG_GENMASK(31, 16)
++#define  DSC_FINAL_OFFSET_MASK			REG_GENMASK(15, 0)
++#define  DSC_INITIAL_OFFSET(initial_offset)	REG_FIELD_PREP(DSC_INITIAL_OFFSET_MASK, \
++							       initial_offset)
++#define  DSC_FINAL_OFFSET(final_offset)		REG_FIELD_PREP(DSC_FINAL_OFFSET_MASK, \
++							       final_offset)
+ 
+ #define DSCA_PICTURE_PARAMETER_SET_9		_MMIO(0x6B224)
+ #define DSCC_PICTURE_PARAMETER_SET_9		_MMIO(0x6BA24)
+@@ -230,8 +256,12 @@
+ #define ICL_DSC1_PICTURE_PARAMETER_SET_9(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
+ 							   _ICL_DSC1_PICTURE_PARAMETER_SET_9_PB, \
+ 							   _ICL_DSC1_PICTURE_PARAMETER_SET_9_PC)
+-#define  DSC_RC_EDGE_FACTOR(rc_edge_fact)	((rc_edge_fact) << 16)
+-#define  DSC_RC_MODEL_SIZE(rc_model_size)	((rc_model_size) << 0)
++#define  DSC_RC_EDGE_FACTOR_MASK		REG_GENMASK(19, 16)
++#define  DSC_RC_MODEL_SIZE_MASK			REG_GENMASK(15, 0)
++#define  DSC_RC_EDGE_FACTOR(rc_edge_fact)	REG_FIELD_PREP(DSC_RC_EDGE_FACTOR_MASK, \
++							       rc_edge_fact)
++#define  DSC_RC_MODEL_SIZE(rc_model_size)	REG_FIELD_PREP(DSC_RC_MODEL_SIZE_MASK, \
++							       rc_model_size)
+ 
+ #define DSCA_PICTURE_PARAMETER_SET_10		_MMIO(0x6B228)
+ #define DSCC_PICTURE_PARAMETER_SET_10		_MMIO(0x6BA28)
+@@ -245,10 +275,16 @@
+ #define ICL_DSC1_PICTURE_PARAMETER_SET_10(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
+ 							   _ICL_DSC1_PICTURE_PARAMETER_SET_10_PB, \
+ 							   _ICL_DSC1_PICTURE_PARAMETER_SET_10_PC)
+-#define  DSC_RC_TARGET_OFF_LOW(rc_tgt_off_low)		((rc_tgt_off_low) << 20)
+-#define  DSC_RC_TARGET_OFF_HIGH(rc_tgt_off_high)	((rc_tgt_off_high) << 16)
+-#define  DSC_RC_QUANT_INC_LIMIT1(lim)			((lim) << 8)
+-#define  DSC_RC_QUANT_INC_LIMIT0(lim)			((lim) << 0)
++#define  DSC_RC_TGT_OFF_LOW_MASK			REG_GENMASK(23, 20)
++#define  DSC_RC_TGT_OFF_HIGH_MASK			REG_GENMASK(19, 16)
++#define  DSC_RC_QUANT_INC_LIMIT1_MASK			REG_GENMASK(12, 8)
++#define  DSC_RC_QUANT_INC_LIMIT0_MASK			REG_GENMASK(4, 0)
++#define  DSC_RC_TARGET_OFF_LOW(rc_tgt_off_low)		REG_FIELD_PREP(DSC_RC_TGT_OFF_LOW_MASK, \
++								       rc_tgt_off_low)
++#define  DSC_RC_TARGET_OFF_HIGH(rc_tgt_off_high)	REG_FIELD_PREP(DSC_RC_TGT_OFF_HIGH_MASK, \
++								       rc_tgt_off_high)
++#define  DSC_RC_QUANT_INC_LIMIT1(lim)		REG_FIELD_PREP(DSC_RC_QUANT_INC_LIMIT1_MASK, lim)
++#define  DSC_RC_QUANT_INC_LIMIT0(lim)		REG_FIELD_PREP(DSC_RC_QUANT_INC_LIMIT0_MASK, lim)
+ 
+ #define DSCA_PICTURE_PARAMETER_SET_11		_MMIO(0x6B22C)
+ #define DSCC_PICTURE_PARAMETER_SET_11		_MMIO(0x6BA2C)
+@@ -327,9 +363,15 @@
+ #define ICL_DSC1_PICTURE_PARAMETER_SET_16(pipe)	_MMIO_PIPE((pipe) - PIPE_B, \
+ 							   _ICL_DSC1_PICTURE_PARAMETER_SET_16_PB, \
+ 							   _ICL_DSC1_PICTURE_PARAMETER_SET_16_PC)
+-#define  DSC_SLICE_ROW_PER_FRAME(slice_row_per_frame)	((slice_row_per_frame) << 20)
+-#define  DSC_SLICE_PER_LINE(slice_per_line)		((slice_per_line) << 16)
+-#define  DSC_SLICE_CHUNK_SIZE(slice_chunk_size)		((slice_chunk_size) << 0)
++#define  DSC_SLICE_ROW_PR_FRME_MASK			REG_GENMASK(31, 20)
++#define  DSC_SLICE_PER_LINE_MASK			REG_GENMASK(18, 16)
++#define  DSC_SLICE_CHUNK_SIZE_MASK			REG_GENMASK(15, 0)
++#define  DSC_SLICE_ROW_PER_FRAME(slice_row_per_frame)	REG_FIELD_PREP(DSC_SLICE_ROW_PR_FRME_MASK, \
++								       slice_row_per_frame)
++#define  DSC_SLICE_PER_LINE(slice_per_line)		REG_FIELD_PREP(DSC_SLICE_PER_LINE_MASK, \
++								       slice_per_line)
++#define  DSC_SLICE_CHUNK_SIZE(slice_chunk_size)		REG_FIELD_PREP(DSC_SLICE_CHUNK_SIZE_MASK, \
++								       slice_chunk_size)
+ 
+ /* Icelake Rate Control Buffer Threshold Registers */
+ #define DSCA_RC_BUF_THRESH_0			_MMIO(0x6B230)
 -- 
 2.25.1
 
