@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C2F0EE4993
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:09:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 540EAC88CB2
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:09:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D6CB10E478;
-	Wed, 23 Aug 2023 17:09:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6C8C10E4AB;
+	Wed, 23 Aug 2023 17:09:28 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6020A10E487;
- Wed, 23 Aug 2023 17:09:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10CC210E485;
+ Wed, 23 Aug 2023 17:09:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692810561; x=1724346561;
+ t=1692810562; x=1724346562;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=JaP2qAorvMgX2pDQpno3vjvufwJZ5W93ZeV5ZDcA9ek=;
- b=QculQ7IaUxJe1qzfZ81MoGry8mOVUJ5R1hcxA+x7AwmzPYsR7TcsDfHJ
- ZwvvV+je8yiWFHdPxNRECBpKbA96Zmtju5LcfSMPyF9MiD4YkVT1985g5
- Hpb0k7kDLD/TlGgE+1wWlDKSDTqp9W/YGYYazf5SBDz21rmHKrVwz0DEf
- GdePNYs69GEgkDeeYxGsPFBkY4nagKUl4wZ9eq6hDdeUZJ8cUfOmHjINg
- fevCAe8rGVY25DsXPyy+PWTPau1zncNAHe3Zashh1WLgfMjTyo/WahR6u
- Lb1UTeZsggglOyq4zMOE2I4otRbJEd9DjTmRXJN8J3gROMyRyywtkfL6g A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147502"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147502"
+ bh=XMl+FDob2i9WE+IJzlNFuYCaGCAxPVCJejakDJz35PE=;
+ b=bKAmNK5v88XYYSQwLKU53eN2e413mt0yWp1VSReksOtX2eTG7iSq6/Wx
+ XH/X+gWriUb9UFtCEnaB6UxxsaEc8A3U1u9fzd4kf+/OhdRaW/tqGUipK
+ brbN95d8zz1dyExqaao8F3lFS5LOohNF06sTYJfU3POCVK0gRBT1yksne
+ YGVNiHMl/0SEFHuIEJw0Ksw7yeC/PhRc6GFvZNQSpQQ8X+PZgF3gUi71a
+ R8zJknHBBKWRnZMYksEnGhZjhkoTD9HGg6Wlzp0Ik4994V/T34XbMAiJt
+ q02zX4bJVKcs40KZl68FHg6GPzobJ/4rLgZdnrx/uBsBh1E95FFBl3wmJ Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147507"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147507"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  23 Aug 2023 10:09:21 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204857"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204857"
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204864"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204864"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 10:09:20 -0700
+ 23 Aug 2023 10:09:21 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Aug 2023 10:07:28 -0700
-Message-Id: <20230823170740.1180212-31-lucas.demarchi@intel.com>
+Date: Wed, 23 Aug 2023 10:07:30 -0700
+Message-Id: <20230823170740.1180212-33-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 References: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 30/42] drm/i915/xe2lpd: Extend Wa_15010685871
+Subject: [Intel-gfx] [PATCH 32/42] drm/i915/lnl: Introduce MDCLK
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,30 +62,99 @@ Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Xe2_LPD also needs workaround 15010685871.
+From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
+In Lunar Lake we now separate MDCLK from CDLCK, which used to be before
+always 2 times CDCLK.  Now we might afford lower CDCLK, while having
+higher memory clock, so improving bandwidth and power consumption at the
+same time.  This is prep work required to enable that.
+
+Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 30 ++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_cdclk.h |  2 +-
+ 2 files changed, 31 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index 4207863b7b2a..fdd8d04fe12c 100644
+index fdd8d04fe12c..3e566f45996d 100644
 --- a/drivers/gpu/drm/i915/display/intel_cdclk.c
 +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -1839,9 +1839,9 @@ static bool cdclk_compute_crawl_and_squash_midpoint(struct drm_i915_private *i91
+@@ -1223,6 +1223,7 @@ static void skl_cdclk_uninit_hw(struct drm_i915_private *dev_priv)
  
- static bool pll_enable_wa_needed(struct drm_i915_private *dev_priv)
+ struct intel_cdclk_vals {
+ 	u32 cdclk;
++	u32 mdclk;
+ 	u16 refclk;
+ 	u16 waveform;
+ 	u8 divider;	/* CD2X divider * 2 */
+@@ -1524,6 +1525,8 @@ static void bxt_de_pll_readout(struct drm_i915_private *dev_priv,
+ static void bxt_get_cdclk(struct drm_i915_private *dev_priv,
+ 			  struct intel_cdclk_config *cdclk_config)
  {
--	return ((IS_DG2(dev_priv) || IS_METEORLAKE(dev_priv)) &&
--		dev_priv->display.cdclk.hw.vco > 0 &&
--		HAS_CDCLK_SQUASH(dev_priv));
-+	return (IS_DG2(dev_priv) || IS_METEORLAKE(dev_priv) ||
-+		DISPLAY_VER(dev_priv) == 20) &&
-+		dev_priv->display.cdclk.hw.vco > 0 && HAS_CDCLK_SQUASH(dev_priv);
- }
++	const struct intel_cdclk_vals *table = dev_priv->display.cdclk.table;
++	int i, ratio, tbl_waveform = 0;
+ 	u32 squash_ctl = 0;
+ 	u32 divider;
+ 	int div;
+@@ -1574,10 +1577,36 @@ static void bxt_get_cdclk(struct drm_i915_private *dev_priv,
  
- static void _bxt_set_cdclk(struct drm_i915_private *dev_priv,
+ 		cdclk_config->cdclk = DIV_ROUND_CLOSEST(hweight16(waveform) *
+ 							cdclk_config->vco, size * div);
++		tbl_waveform = squash_ctl & CDCLK_SQUASH_WAVEFORM_MASK;
+ 	} else {
+ 		cdclk_config->cdclk = DIV_ROUND_CLOSEST(cdclk_config->vco, div);
+ 	}
+ 
++	ratio = cdclk_config->vco / cdclk_config->ref;
++
++	for (i = 0; table[i].refclk; i++) {
++		if (table[i].refclk != cdclk_config->ref)
++			continue;
++
++		if (table[i].divider != div)
++			continue;
++
++		if (table[i].waveform != tbl_waveform)
++			continue;
++
++		if (table[i].ratio != ratio)
++			continue;
++
++		/*
++		 * Supported from LunarLake HW onwards, however considering that
++		 * besides this the whole procedure is the same, we keep this
++		 * for all the platforms.
++		 */
++		cdclk_config->mdclk = table[i].mdclk;
++
++		break;
++	}
++
+  out:
+ 	/*
+ 	 * Can't read this out :( Let's assume it's
+@@ -2191,6 +2220,7 @@ bool intel_cdclk_needs_modeset(const struct intel_cdclk_config *a,
+ 			       const struct intel_cdclk_config *b)
+ {
+ 	return a->cdclk != b->cdclk ||
++		a->mdclk != b->mdclk ||
+ 		a->vco != b->vco ||
+ 		a->ref != b->ref;
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.h b/drivers/gpu/drm/i915/display/intel_cdclk.h
+index 48fd7d39e0cd..3e7eabd4d7b6 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.h
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.h
+@@ -16,7 +16,7 @@ struct intel_atomic_state;
+ struct intel_crtc_state;
+ 
+ struct intel_cdclk_config {
+-	unsigned int cdclk, vco, ref, bypass;
++	unsigned int cdclk, mdclk, vco, ref, bypass;
+ 	u8 voltage_level;
+ };
+ 
 -- 
 2.40.1
 
