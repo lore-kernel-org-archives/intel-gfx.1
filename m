@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F79CEE49B3
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:09:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06EA1C3DA66
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:09:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1243010E4B0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F5D510E4B1;
 	Wed, 23 Aug 2023 17:09:30 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3704310E497;
- Wed, 23 Aug 2023 17:09:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB5EA10E0CF;
+ Wed, 23 Aug 2023 17:09:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692810563; x=1724346563;
+ t=1692810556; x=1724346556;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Ga/hIjgcn69c7sg4PcPk7X+GDCX2vsaNEcdDpwbmLJ8=;
- b=AZhs/3yWVOMtjvYA+aQNDltUhsXigS0ryah7YcPKgvC/F5l0DVzdq1oR
- xiS2M5Bvc6s4yBWYYiMsUuPsVHB8TuoROvgEjXeqB2EuAafKCw1mmfdt7
- MumaUL96rif9ko3XoLjcE0dziVqNRhIt9xvpdCaQCVb4aH0ZPyxbW8Ceu
- SqSE75buF8iIvcYLh4By8ZlxLSFBVPcjH+0nNvlPY0O0Jzv70sqbp2vuT
- Vz3Z25iqrNMi/wfj37CnvubDV2A20TeIyf5js6jm9ESVxwhTN0tKK0Ei9
- FJYEtYXcikD37GRxyYN1Pbe5BexHMU0uQmu+NuTVQ1Qp7a3qQrFAOT3xZ w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147513"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147513"
+ bh=fsjJMle76+ET9nOfxhMDdy0/yqa/SuINsWlBgqxkdfs=;
+ b=VMAPvwzyZCxcJm1QJlL+oQG8dhSy13WdylrDkG3xqXyOnaxw9nOnKICg
+ 4h7YH2eMjw6w6wmZd5yy+nu7/beRmKsaF4qKp5IsQkiVuNN7T4fwe1Xho
+ 3fdO261ch4q0eoCfWYsofuUmpZ7XtUPvaE8KFhhxaSuZEdiPhYYukdCiz
+ 3FiSWpGrt7yk4ll5nFT09eDw8Kw5zvPhDrws3m9K7mLfMEn4NaIBT/z4d
+ 6Q5fJpkjZ1Y74ROvxJApOTm2wk2z9AdyRpzLaCcnQrX6F/svfbPJIjQKB
+ 31BI8ybpb0BgjfBbyRxo6/fXyAh7qBxlYuEtLtkg1rCiXC4PJvexmIUes A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147470"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147470"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 10:09:22 -0700
+ 23 Aug 2023 10:09:15 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204879"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204879"
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204784"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204784"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 10:09:22 -0700
+ 23 Aug 2023 10:09:15 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Aug 2023 10:07:35 -0700
-Message-Id: <20230823170740.1180212-38-lucas.demarchi@intel.com>
+Date: Wed, 23 Aug 2023 10:07:07 -0700
+Message-Id: <20230823170740.1180212-10-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 References: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 37/42] drm/i915/xe2lpd: Write DBuf after CDCLK
- change in post plane
+Subject: [Intel-gfx] [PATCH 09/42] drm/i915/tc: move legacy code out of the
+ main _max_lane_count() func
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,52 +59,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Luca Coelho <luciano.coelho@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+From: Luca Coelho <luciano.coelho@intel.com>
 
-Previously we always updated DBuf MBUS CTL and DBUF CTL regs after
-CDCLK has been changed(CDCLK_CTL), however for Xe2-LPD we can't do like
-that anymore. According to BSpec, we have to first update DBuf regs and
-then write CDCLK regs, when CDCLK is decreased, which we do in post
-plane.
+This makes the code a bit more symmetric and readable, especially when
+we start adding more display version-specific alternatives.
 
-So now we do CDCLK post plane update only after DBuf regs are
-written (CDCLK/MDCLK separation requires MDCLK/CDCLK ratio to be written
-to DBuf regs).
-
-Cc: Mika Kahola <mika.kahola@intel.com>
-Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
+Link: https://lore.kernel.org/r/20230721111121.369227-4-luciano.coelho@intel.com
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_tc.c | 32 +++++++++++++++----------
+ 1 file changed, 19 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index f9eda7ad892e..de813831a5cf 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7113,7 +7113,7 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 	/* Now enable the clocks, plane, pipe, and connectors that we set up. */
- 	dev_priv->display.funcs.display->commit_modeset_enables(state);
+diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
+index de848b329f4b..43b8eeba26f8 100644
+--- a/drivers/gpu/drm/i915/display/intel_tc.c
++++ b/drivers/gpu/drm/i915/display/intel_tc.c
+@@ -311,23 +311,12 @@ static int mtl_tc_port_get_max_lane_count(struct intel_digital_port *dig_port)
+ 	}
+ }
  
--	if (state->modeset)
-+	if (state->modeset && DISPLAY_VER(dev_priv) < 20)
- 		intel_set_cdclk_post_plane_update(state);
+-int intel_tc_port_fia_max_lane_count(struct intel_digital_port *dig_port)
++static int intel_tc_port_get_max_lane_count(struct intel_digital_port *dig_port)
+ {
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+-	struct intel_tc_port *tc = to_tc_port(dig_port);
+-	enum phy phy = intel_port_to_phy(i915, dig_port->base.port);
+ 	intel_wakeref_t wakeref;
+-	u32 lane_mask;
+-
+-	if (!intel_phy_is_tc(i915, phy) || tc->mode != TC_PORT_DP_ALT)
+-		return 4;
++	u32 lane_mask = 0;
  
- 	intel_wait_for_vblank_workers(state);
-@@ -7160,6 +7160,9 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
- 	intel_dbuf_post_plane_update(state);
- 	intel_psr_post_plane_update(state);
+-	assert_tc_cold_blocked(tc);
+-
+-	if (DISPLAY_VER(i915) >= 14)
+-		return mtl_tc_port_get_max_lane_count(dig_port);
+-
+-	lane_mask = 0;
+ 	with_intel_display_power(i915, POWER_DOMAIN_DISPLAY_CORE, wakeref)
+ 		lane_mask = intel_tc_port_get_lane_mask(dig_port);
  
-+	if (state->modeset && DISPLAY_VER(dev_priv) >= 20)
-+		intel_set_cdclk_post_plane_update(state);
+@@ -348,6 +337,23 @@ int intel_tc_port_fia_max_lane_count(struct intel_digital_port *dig_port)
+ 	}
+ }
+ 
++int intel_tc_port_fia_max_lane_count(struct intel_digital_port *dig_port)
++{
++	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++	struct intel_tc_port *tc = to_tc_port(dig_port);
++	enum phy phy = intel_port_to_phy(i915, dig_port->base.port);
 +
- 	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
- 		intel_post_plane_update(state, crtc);
- 
++	if (!intel_phy_is_tc(i915, phy) || tc->mode != TC_PORT_DP_ALT)
++		return 4;
++
++	assert_tc_cold_blocked(tc);
++
++	if (DISPLAY_VER(i915) >= 14)
++		return mtl_tc_port_get_max_lane_count(dig_port);
++
++	return intel_tc_port_get_max_lane_count(dig_port);
++}
++
+ void intel_tc_port_set_fia_lane_count(struct intel_digital_port *dig_port,
+ 				      int required_lanes)
+ {
 -- 
 2.40.1
 
