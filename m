@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 755D1C3DA66
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:09:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C0B8C71145
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:09:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECDAA10E48F;
-	Wed, 23 Aug 2023 17:09:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE20510E49D;
+	Wed, 23 Aug 2023 17:09:23 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C793810E424;
- Wed, 23 Aug 2023 17:09:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BAE210E483;
+ Wed, 23 Aug 2023 17:09:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692810558; x=1724346558;
+ t=1692810560; x=1724346560;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=TwX9iLULU4ss9hOmwJ0tcc+doxMn1Tm4Cb0GqoSsrDc=;
- b=NXW0J4JP2Wy9i70b8nt0x0+PS6HirOE55EUlEpo50uo3YArLp9HgLL48
- yjeLvXhqFTOofs7RavaDMXUZBUvBNbXgvEpiItEDz+sJQXtOH4isSskAE
- poN8TPHvPyDRIEug2I0o1+uxJLzGNNTmPTn83uYGYd2K6gp2B6Ibxc/t5
- 8NRdjS7vi2oOgPKccCYnELQ+hzabRw1AWeoay/cUcLRDc1nedwUu3GkRj
- HcqvemMVWByxZmtO6agb9facE36kJ3KdihYRh38wOiyJr2BScOTgNo/KO
- stx8TxrhtQIbn55AGKfiMra/aIsY4IJqwraYKYivYWnFiiPadbhhFBRUx g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147480"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147480"
+ bh=JEEQdNfJ5gPUtbx0nbdVwDQtSviot8E6c114GT8eoew=;
+ b=PRgD/BlbP1p1COT3cSigF6yQ2S4h+EpEpj04TaujIO9ZRXyWQut2X3Ur
+ kX90DtC57SsW52qS4qobEZ2BKCmapTPZTLQWNXZaUpiFfhGfIF54nxPB7
+ G75vlhIN4p9gC4htejZrI/MABIflVtD3AXaXbTzHvBe81WDJNXjMoeuPz
+ 6qwZUQkjun4IfmbxLJj7ocKHzB4dwNTnZUXqa4HrR8CX1buvws25CzgKA
+ NimG3jPPzSm44L99Pfvb0Z0jOi3qHco5uRlzQ8ga8dBZCNvq2UnVe2Tub
+ Bs62G7fLRghm5ipXnurjwQLprCkHvEn8sx5xZE8WFO/ovvEj1ckMyvXBG g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147490"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147490"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 10:09:17 -0700
+ 23 Aug 2023 10:09:19 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204807"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204807"
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204830"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204830"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 10:09:17 -0700
+ 23 Aug 2023 10:09:18 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Aug 2023 10:07:13 -0700
-Message-Id: <20230823170740.1180212-16-lucas.demarchi@intel.com>
+Date: Wed, 23 Aug 2023 10:07:20 -0700
+Message-Id: <20230823170740.1180212-23-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 References: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 15/42] drm/i915/xe2lpd: Treat cursor plane as
- regular plane for DDB allocation
+Subject: [Intel-gfx] [PATCH 22/42] drm/i915/xe2lpd: Add DC state support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,96 +58,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+From: Matt Roper <matthew.d.roper@intel.com>
 
-We now start calculating relative plane data rate for sursor plane as
-well, as instructed by BSpec and also treat cursor plane same way as
-other planes, when doing allocation, i.e not using fixed allocation for
-cursor anymore.
+Xe2_LPD supports DC5, DC6, and DC9 (DC3CO no longer exists).  The
+overall programming and requirements to enter DC states are similar to
+those of Xe_LPD+ although AUX transactions do not require DC5/DC6 exit
+as they did previously.
 
-Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Bspec: 68851, 68857, 68886, 69115
+Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- .../gpu/drm/i915/display/intel_atomic_plane.c    |  6 +++---
- drivers/gpu/drm/i915/display/skl_watermark.c     | 16 +++++++++-------
- 2 files changed, 12 insertions(+), 10 deletions(-)
+ .../drm/i915/display/intel_display_power.c    |  4 +++-
+ .../i915/display/intel_display_power_map.c    | 19 +++++++++++++++++++
+ 2 files changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-index cb60165bc415..fb13f0bb8c52 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-@@ -219,9 +219,6 @@ intel_plane_relative_data_rate(const struct intel_crtc_state *crtc_state,
- 	int width, height;
- 	unsigned int rel_data_rate;
- 
--	if (plane->id == PLANE_CURSOR)
--		return 0;
--
- 	if (!plane_state->uapi.visible)
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 7e2059abae9a..508a3225d9f0 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -944,7 +944,9 @@ static u32 get_allowed_dc_mask(const struct drm_i915_private *dev_priv,
+ 	if (!HAS_DISPLAY(dev_priv))
  		return 0;
  
-@@ -249,6 +246,9 @@ intel_plane_relative_data_rate(const struct intel_crtc_state *crtc_state,
+-	if (IS_DG2(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 20)
++		max_dc = 2;
++	else if (IS_DG2(dev_priv))
+ 		max_dc = 1;
+ 	else if (IS_DG1(dev_priv))
+ 		max_dc = 3;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power_map.c b/drivers/gpu/drm/i915/display/intel_display_power_map.c
+index cef3b313c9f5..d74a742437c3 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power_map.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power_map.c
+@@ -1570,9 +1570,28 @@ static const struct i915_power_well_desc xe2lpd_power_wells_pica[] = {
+ 	},
+ };
  
- 	rel_data_rate = width * height * fb->format->cpp[color_plane];
- 
-+	if (plane->id == PLANE_CURSOR)
-+		return rel_data_rate;
++I915_DECL_PW_DOMAINS(xe2lpd_pwdoms_dc_off,
++	POWER_DOMAIN_DC_OFF,
++	XELPD_PW_C_POWER_DOMAINS,
++	XELPD_PW_D_POWER_DOMAINS,
++	POWER_DOMAIN_AUDIO_MMIO,
++	POWER_DOMAIN_MODESET,
++	POWER_DOMAIN_INIT);
 +
- 	return intel_adjusted_rate(&plane_state->uapi.src,
- 				   &plane_state->uapi.dst,
- 				   rel_data_rate);
-diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
-index 063929a42a42..64a122d3c9c0 100644
---- a/drivers/gpu/drm/i915/display/skl_watermark.c
-+++ b/drivers/gpu/drm/i915/display/skl_watermark.c
-@@ -1367,7 +1367,7 @@ skl_total_relative_data_rate(const struct intel_crtc_state *crtc_state)
- 	u64 data_rate = 0;
- 
- 	for_each_plane_id_on_crtc(crtc, plane_id) {
--		if (plane_id == PLANE_CURSOR)
-+		if (plane_id == PLANE_CURSOR && DISPLAY_VER(i915) < 20)
- 			continue;
- 
- 		data_rate += crtc_state->rel_data_rate[plane_id];
-@@ -1514,10 +1514,12 @@ skl_crtc_allocate_plane_ddb(struct intel_atomic_state *state,
- 		return 0;
- 
- 	/* Allocate fixed number of blocks for cursor. */
--	cursor_size = skl_cursor_allocation(crtc_state, num_active);
--	iter.size -= cursor_size;
--	skl_ddb_entry_init(&crtc_state->wm.skl.plane_ddb[PLANE_CURSOR],
--			   alloc->end - cursor_size, alloc->end);
-+	if (DISPLAY_VER(i915) < 20) {
-+		cursor_size = skl_cursor_allocation(crtc_state, num_active);
-+		iter.size -= cursor_size;
-+		skl_ddb_entry_init(&crtc_state->wm.skl.plane_ddb[PLANE_CURSOR],
-+				   alloc->end - cursor_size, alloc->end);
-+	}
- 
- 	iter.data_rate = skl_total_relative_data_rate(crtc_state);
- 
-@@ -1531,7 +1533,7 @@ skl_crtc_allocate_plane_ddb(struct intel_atomic_state *state,
- 			const struct skl_plane_wm *wm =
- 				&crtc_state->wm.skl.optimal.planes[plane_id];
- 
--			if (plane_id == PLANE_CURSOR) {
-+			if (plane_id == PLANE_CURSOR && DISPLAY_VER(i915) < 20) {
- 				const struct skl_ddb_entry *ddb =
- 					&crtc_state->wm.skl.plane_ddb[plane_id];
- 
-@@ -1579,7 +1581,7 @@ skl_crtc_allocate_plane_ddb(struct intel_atomic_state *state,
- 		const struct skl_plane_wm *wm =
- 			&crtc_state->wm.skl.optimal.planes[plane_id];
- 
--		if (plane_id == PLANE_CURSOR)
-+		if (plane_id == PLANE_CURSOR && DISPLAY_VER(i915) < 20)
- 			continue;
- 
- 		if (DISPLAY_VER(i915) < 11 &&
++static const struct i915_power_well_desc xe2lpd_power_wells_dcoff[] = {
++	{
++		.instances = &I915_PW_INSTANCES(
++			I915_PW("DC_off", &xe2lpd_pwdoms_dc_off,
++				.id = SKL_DISP_DC_OFF),
++		),
++		.ops = &gen9_dc_off_power_well_ops,
++	},
++};
++
+ static const struct i915_power_well_desc_list xe2lpd_power_wells[] = {
+ 	I915_PW_DESCRIPTORS(i9xx_power_wells_always_on),
+ 	I915_PW_DESCRIPTORS(icl_power_wells_pw_1),
++	I915_PW_DESCRIPTORS(xe2lpd_power_wells_dcoff),
+ 	I915_PW_DESCRIPTORS(xelpdp_power_wells_main),
+ 	I915_PW_DESCRIPTORS(xe2lpd_power_wells_pica),
+ };
 -- 
 2.40.1
 
