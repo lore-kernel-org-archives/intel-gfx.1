@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 190D2C71134
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:09:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62C9AC3DA66
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:09:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7267110E48A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EFE310E489;
 	Wed, 23 Aug 2023 17:09:21 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08CEA10E0A9;
- Wed, 23 Aug 2023 17:09:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A08A10E479;
+ Wed, 23 Aug 2023 17:09:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692810556; x=1724346556;
+ t=1692810557; x=1724346557;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=hE0xGQPtyfoEXdLOUbk/bCqqBwsqWrT4r2csZCF5NBI=;
- b=M0vTEMqpcRGvlH1yrTBU9pka1AbPpeRSLH2RJneiWVd6TrfhO2ai6PYw
- ZuTPKRGz5gfDNeYrq7H1JUNGe4NUqwfqC/rcSw/Tghivoa5wK+lSDeB7z
- PHVuhxsj9s8gu9+Ls15UcUkUXVDiM5Xjp7iqR2Oekn4N74ypoWwGpUNAa
- qcht3DnioVrCFov4u0fdbwX5yaRMbxpPoH2lGko+h0GM4wwaUSNuvczXl
- Owchog8U6qpI2AJBWHlle97GadQmQZBMOfzyzrX88MK5P9d4aAThpU1/w
- GuHvNR7nKJSGeS62lX9OGpDYuQ+Gnsmwr9wP1tLlPn0cWu8Ra/XdJWnie A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147464"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147464"
+ bh=n57d2N3BPiG7D8aEYD9UPVnfU0/qgSS9xOIqEgVeeEE=;
+ b=blLQIwjNN7PA7aZlDU0xWHnSgvLr+9fbYhCKNyAfLziHnnQZKPnebZQ+
+ ZqxaB4JkJptKptifGUQ02Anf2SjbEVJ8Bg4evqEeUiiZqlg/q+i/PDS74
+ KMiHh93yckBhpu4jOxXmrEavyEXbtU3aZ7BKRdt77SOZXPEP6KJEgEfcV
+ ZJMIO/nMyGeS0kXDReSDNzb8eJ4uJe+PDRHlX4QJey1n0pUmI6MtySP3U
+ 0Er9Re4hO9gVxuGrIPZgDfyNGTKUAhIC/xQ33ELIqSMNORz8kik0j7Fw7
+ ndHEhqPjvq5E9vEZmJOoNCzr4HaSMJj+kbl0FyeJK4wVqNGKCvMFNIEvD A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147474"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147474"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 10:09:15 -0700
+ 23 Aug 2023 10:09:16 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204771"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204771"
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204795"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204795"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 10:09:14 -0700
+ 23 Aug 2023 10:09:16 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Aug 2023 10:07:03 -0700
-Message-Id: <20230823170740.1180212-6-lucas.demarchi@intel.com>
+Date: Wed, 23 Aug 2023 10:07:10 -0700
+Message-Id: <20230823170740.1180212-13-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 References: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 05/42] drm/i915/cx0: Enable/disable TX only for
- owned PHY lanes
+Subject: [Intel-gfx] [PATCH 12/42] drm/i915/lnl: Add display definitions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,65 +58,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
+ Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Gustavo Sousa <gustavo.sousa@intel.com>
+From: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
 
-Display must not enable or disable transmitters for not-owned PHY lanes.
+Add Lunar Lake platform definitions for i915 display. The support for
+LNL will be added to the xe driver, with i915 only driving the display
+side. Therefore define IS_LUNARLAKE to 0 to disable it when building the
+i915 module.
 
-BSpec: 64539
-Reviewed-by: Mika Kahola <mika.kahola@intel.com>
-Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20230814131331.69516-4-gustavo.sousa@intel.com
-(cherry picked from commit 6a62986bb52e3c96372d92486f9461190144a66b)
+Signed-off-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ .../gpu/drm/i915/display/intel_display_device.c   | 15 +++++++++++++++
+ drivers/gpu/drm/i915/i915_drv.h                   |  1 +
+ 2 files changed, 16 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index 2b112ed78943..93d3a63fe89a 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -2607,10 +2607,11 @@ static void intel_cx0_program_phy_lane(struct drm_i915_private *i915,
- 	int i;
- 	u8 disables;
- 	bool dp_alt_mode = intel_tc_port_in_dp_alt_mode(enc_to_dig_port(encoder));
-+	u8 owned_lane_mask = intel_cx0_get_owned_lane_mask(i915, encoder);
- 	enum port port = encoder->port;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
+index f87470da25d0..b853cd0c704a 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_device.c
++++ b/drivers/gpu/drm/i915/display/intel_display_device.c
+@@ -727,6 +727,20 @@ static const struct intel_display_device_info xe_lpdp_display = {
+ 		BIT(PORT_TC1) | BIT(PORT_TC2) | BIT(PORT_TC3) | BIT(PORT_TC4),
+ };
  
- 	if (intel_is_c10phy(i915, intel_port_to_phy(i915, port)))
--		intel_cx0_rmw(i915, port, INTEL_CX0_BOTH_LANES,
-+		intel_cx0_rmw(i915, port, owned_lane_mask,
- 			      PHY_C10_VDR_CONTROL(1), 0,
- 			      C10_VDR_CTRL_MSGBUS_ACCESS,
- 			      MB_WRITE_COMMITTED);
-@@ -2625,11 +2626,13 @@ static void intel_cx0_program_phy_lane(struct drm_i915_private *i915,
- 		disables |= REG_FIELD_PREP8(REG_GENMASK8(1, 0), 0x1);
- 	}
- 
--	/* TODO: DP-alt MFD case where only one PHY lane should be programmed. */
- 	for (i = 0; i < 4; i++) {
- 		int tx = i % 2 + 1;
- 		u8 lane_mask = i < 2 ? INTEL_CX0_LANE0 : INTEL_CX0_LANE1;
- 
-+		if (!(owned_lane_mask & lane_mask))
-+			continue;
++static const struct intel_display_device_info xe2_lpd_display = {
++	XE_LPD_FEATURES,
++	.has_cdclk_crawl = 1,
++	.has_cdclk_squash = 1,
 +
- 		intel_cx0_rmw(i915, port, lane_mask, PHY_CX0_TX_CONTROL(tx, 2),
- 			      CONTROL2_DISABLE_SINGLE_TX,
- 			      disables & BIT(i) ? CONTROL2_DISABLE_SINGLE_TX : 0,
-@@ -2637,7 +2640,7 @@ static void intel_cx0_program_phy_lane(struct drm_i915_private *i915,
- 	}
++	.__runtime_defaults.ip.ver = 20,
++	.__runtime_defaults.fbc_mask = BIT(INTEL_FBC_A) | BIT(INTEL_FBC_B),
++	.__runtime_defaults.cpu_transcoder_mask =
++		BIT(TRANSCODER_A) | BIT(TRANSCODER_B) |
++		BIT(TRANSCODER_C) | BIT(TRANSCODER_D),
++	.__runtime_defaults.port_mask = BIT(PORT_A) | BIT(PORT_B) |
++		BIT(PORT_TC1) | BIT(PORT_TC2) | BIT(PORT_TC3) | BIT(PORT_TC4),
++};
++
+ __diag_pop();
  
- 	if (intel_is_c10phy(i915, intel_port_to_phy(i915, port)))
--		intel_cx0_rmw(i915, port, INTEL_CX0_BOTH_LANES,
-+		intel_cx0_rmw(i915, port, owned_lane_mask,
- 			      PHY_C10_VDR_CONTROL(1), 0,
- 			      C10_VDR_CTRL_UPDATE_CFG,
- 			      MB_WRITE_COMMITTED);
+ #undef INTEL_VGA_DEVICE
+@@ -795,6 +809,7 @@ static const struct {
+ 	const struct intel_display_device_info *display;
+ } gmdid_display_map[] = {
+ 	{ 14,  0, &xe_lpdp_display },
++	{ 20,  0, &xe2_lpd_display },
+ };
+ 
+ static const struct intel_display_device_info *
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 07f79b1028e1..96ac9a9cc155 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -574,6 +574,7 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define IS_DG2(i915)	IS_PLATFORM(i915, INTEL_DG2)
+ #define IS_PONTEVECCHIO(i915) IS_PLATFORM(i915, INTEL_PONTEVECCHIO)
+ #define IS_METEORLAKE(i915) IS_PLATFORM(i915, INTEL_METEORLAKE)
++#define IS_LUNARLAKE(dev_priv)  0
+ 
+ #define IS_METEORLAKE_M(i915) \
+ 	IS_SUBPLATFORM(i915, INTEL_METEORLAKE, INTEL_SUBPLATFORM_M)
 -- 
 2.40.1
 
