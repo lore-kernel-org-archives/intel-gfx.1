@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B12B7C7113B
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:09:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 190D2C71134
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:09:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3736310E488;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7267110E48A;
 	Wed, 23 Aug 2023 17:09:21 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6275710E424;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08CEA10E0A9;
  Wed, 23 Aug 2023 17:09:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692810555; x=1724346555;
+ t=1692810556; x=1724346556;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=sQvshacgWLZYQh3bIVBJHujYi9ED1Vfk+HGL42hyZSA=;
- b=eY9jpd5eK39EoLOCHAOL2FPWGh7V6kI7i7LJKRusntSQgywjFHk22i8p
- Ry6EgYtilCPXL0mMjspOtXkm7J7z072rAeFe1Z4JOfUGltlrEqzjru7IB
- 8TL35guK4mcm1juvMaHqkZFUktFDnm8BxlyubQ0EXS18LF3P/OBPYPLh4
- sEgt5nEouUGobgt45pNZbbFIN8L4aPowEGSNJYN6tl898sZPL5uVa+xtm
- qXQC8akAqByWI2zvkvGpXECjUaQPDtlEH85ipphL5ZyakKo9cjwJMD+LB
- 6ovF0p+nTluH55WSQQkK5iqFGtpDVqXhDNQZNpsBJRP9KlfJ8/tz3/Y9F A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147458"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147458"
+ bh=hE0xGQPtyfoEXdLOUbk/bCqqBwsqWrT4r2csZCF5NBI=;
+ b=M0vTEMqpcRGvlH1yrTBU9pka1AbPpeRSLH2RJneiWVd6TrfhO2ai6PYw
+ ZuTPKRGz5gfDNeYrq7H1JUNGe4NUqwfqC/rcSw/Tghivoa5wK+lSDeB7z
+ PHVuhxsj9s8gu9+Ls15UcUkUXVDiM5Xjp7iqR2Oekn4N74ypoWwGpUNAa
+ qcht3DnioVrCFov4u0fdbwX5yaRMbxpPoH2lGko+h0GM4wwaUSNuvczXl
+ Owchog8U6qpI2AJBWHlle97GadQmQZBMOfzyzrX88MK5P9d4aAThpU1/w
+ GuHvNR7nKJSGeS62lX9OGpDYuQ+Gnsmwr9wP1tLlPn0cWu8Ra/XdJWnie A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147464"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147464"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 10:09:14 -0700
+ 23 Aug 2023 10:09:15 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204756"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204756"
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204771"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204771"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 10:09:13 -0700
+ 23 Aug 2023 10:09:14 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Aug 2023 10:06:59 -0700
-Message-Id: <20230823170740.1180212-2-lucas.demarchi@intel.com>
+Date: Wed, 23 Aug 2023 10:07:03 -0700
+Message-Id: <20230823170740.1180212-6-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 References: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 01/42] drm/i915: Start using plane scale factor
- for relative data rate
+Subject: [Intel-gfx] [PATCH 05/42] drm/i915/cx0: Enable/disable TX only for
+ owned PHY lanes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,51 +59,65 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Garg@freedesktop.org
+Cc: Matt Roper <matthew.d.roper@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+From: Gustavo Sousa <gustavo.sousa@intel.com>
 
-BSpec clearly instructs us to use plane scale factor when calculating
-relative data rate to be used when allocating DDB blocks for each plane.
-For some reason we use scale factor for data_rate calculation, which is
-used for BW calculations, however we are not using it for DDB calculations.
-So lets fix it as described in BSpec 68907.
+Display must not enable or disable transmitters for not-owned PHY lanes.
 
-Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
-Reviewed-by: Garg, Nemesa <nemesa.garg@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20230719104833.25366-1-stanislav.lisovskiy@intel.com
-(cherry picked from commit a86c75dcdd0374444514c1e40411177ff7afe9bd)
+BSpec: 64539
+Reviewed-by: Mika Kahola <mika.kahola@intel.com>
+Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20230814131331.69516-4-gustavo.sousa@intel.com
+(cherry picked from commit 6a62986bb52e3c96372d92486f9461190144a66b)
 ---
- drivers/gpu/drm/i915/display/intel_atomic_plane.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-index edee71664332..cb60165bc415 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-@@ -217,6 +217,7 @@ intel_plane_relative_data_rate(const struct intel_crtc_state *crtc_state,
- 	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
- 	const struct drm_framebuffer *fb = plane_state->hw.fb;
- 	int width, height;
-+	unsigned int rel_data_rate;
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+index 2b112ed78943..93d3a63fe89a 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+@@ -2607,10 +2607,11 @@ static void intel_cx0_program_phy_lane(struct drm_i915_private *i915,
+ 	int i;
+ 	u8 disables;
+ 	bool dp_alt_mode = intel_tc_port_in_dp_alt_mode(enc_to_dig_port(encoder));
++	u8 owned_lane_mask = intel_cx0_get_owned_lane_mask(i915, encoder);
+ 	enum port port = encoder->port;
  
- 	if (plane->id == PLANE_CURSOR)
- 		return 0;
-@@ -246,7 +247,11 @@ intel_plane_relative_data_rate(const struct intel_crtc_state *crtc_state,
- 		height /= 2;
+ 	if (intel_is_c10phy(i915, intel_port_to_phy(i915, port)))
+-		intel_cx0_rmw(i915, port, INTEL_CX0_BOTH_LANES,
++		intel_cx0_rmw(i915, port, owned_lane_mask,
+ 			      PHY_C10_VDR_CONTROL(1), 0,
+ 			      C10_VDR_CTRL_MSGBUS_ACCESS,
+ 			      MB_WRITE_COMMITTED);
+@@ -2625,11 +2626,13 @@ static void intel_cx0_program_phy_lane(struct drm_i915_private *i915,
+ 		disables |= REG_FIELD_PREP8(REG_GENMASK8(1, 0), 0x1);
  	}
  
--	return width * height * fb->format->cpp[color_plane];
-+	rel_data_rate = width * height * fb->format->cpp[color_plane];
-+
-+	return intel_adjusted_rate(&plane_state->uapi.src,
-+				   &plane_state->uapi.dst,
-+				   rel_data_rate);
- }
+-	/* TODO: DP-alt MFD case where only one PHY lane should be programmed. */
+ 	for (i = 0; i < 4; i++) {
+ 		int tx = i % 2 + 1;
+ 		u8 lane_mask = i < 2 ? INTEL_CX0_LANE0 : INTEL_CX0_LANE1;
  
- int intel_plane_calc_min_cdclk(struct intel_atomic_state *state,
++		if (!(owned_lane_mask & lane_mask))
++			continue;
++
+ 		intel_cx0_rmw(i915, port, lane_mask, PHY_CX0_TX_CONTROL(tx, 2),
+ 			      CONTROL2_DISABLE_SINGLE_TX,
+ 			      disables & BIT(i) ? CONTROL2_DISABLE_SINGLE_TX : 0,
+@@ -2637,7 +2640,7 @@ static void intel_cx0_program_phy_lane(struct drm_i915_private *i915,
+ 	}
+ 
+ 	if (intel_is_c10phy(i915, intel_port_to_phy(i915, port)))
+-		intel_cx0_rmw(i915, port, INTEL_CX0_BOTH_LANES,
++		intel_cx0_rmw(i915, port, owned_lane_mask,
+ 			      PHY_C10_VDR_CONTROL(1), 0,
+ 			      C10_VDR_CTRL_UPDATE_CFG,
+ 			      MB_WRITE_COMMITTED);
 -- 
 2.40.1
 
