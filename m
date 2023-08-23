@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44B85C3DA6F
-	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:09:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B12B7C7113B
+	for <intel-gfx@archiver.kernel.org>; Wed, 23 Aug 2023 17:09:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27E2B10E47D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3736310E488;
 	Wed, 23 Aug 2023 17:09:21 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4912910E475;
- Wed, 23 Aug 2023 17:09:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6275710E424;
+ Wed, 23 Aug 2023 17:09:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692810557; x=1724346557;
+ t=1692810555; x=1724346555;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=xHjGrz8uVwHQ0vV1apRVPUGllxYn+iOJNuhzVj5Xhps=;
- b=QCOdr5T5sdR+tn+dP+XR+gUr+aw/H69rSh78bv2AG3zq1CfcYue2EHZK
- nMLg5QNeGmOhOyhPBy+hoHQTNjmzxrYp9+4K5afiHqzv2LDnfovi/1fas
- 2h4Du6SZytIvFpjbektW/xZ4SgBXzi330mdbhXr8vZrvioZ5As25FmAAZ
- FarQAO9Z4HGxg/E8JNIbZPkWKBucU2xKdLqQyu4+sWLsd38Q22Rt9DU1Y
- PjrzfMnU6cKJoiaP+IXDEkd2RTeIPAdtf+Gikygx2zbX43X2RIly0jsFI
- 5wAm6r9PzLQrSDW+R3kBuqfEKRrBftclqVc9f9mqU2FSDxU49qzHnqh0p g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147473"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147473"
+ bh=sQvshacgWLZYQh3bIVBJHujYi9ED1Vfk+HGL42hyZSA=;
+ b=eY9jpd5eK39EoLOCHAOL2FPWGh7V6kI7i7LJKRusntSQgywjFHk22i8p
+ Ry6EgYtilCPXL0mMjspOtXkm7J7z072rAeFe1Z4JOfUGltlrEqzjru7IB
+ 8TL35guK4mcm1juvMaHqkZFUktFDnm8BxlyubQ0EXS18LF3P/OBPYPLh4
+ sEgt5nEouUGobgt45pNZbbFIN8L4aPowEGSNJYN6tl898sZPL5uVa+xtm
+ qXQC8akAqByWI2zvkvGpXECjUaQPDtlEH85ipphL5ZyakKo9cjwJMD+LB
+ 6ovF0p+nTluH55WSQQkK5iqFGtpDVqXhDNQZNpsBJRP9KlfJ8/tz3/Y9F A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="438147458"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="438147458"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 10:09:16 -0700
+ 23 Aug 2023 10:09:14 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204791"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204791"
+X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="802204756"
+X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="802204756"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2023 10:09:16 -0700
+ 23 Aug 2023 10:09:13 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Wed, 23 Aug 2023 10:07:09 -0700
-Message-Id: <20230823170740.1180212-12-lucas.demarchi@intel.com>
+Date: Wed, 23 Aug 2023 10:06:59 -0700
+Message-Id: <20230823170740.1180212-2-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 References: <20230823170740.1180212-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 11/42] drm/xe/lnl: Add IS_LUNARLAKE
+Subject: [Intel-gfx] [PATCH 01/42] drm/i915: Start using plane scale factor
+ for relative data rate
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,33 +59,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+Cc: Garg@freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
-Add IS_LUNARLAKE in the compat-i915-headers. That macro, to be used by
-the xe driver, checks for the platform, whereas the macro on the i915
-side is always false.
+BSpec clearly instructs us to use plane scale factor when calculating
+relative data rate to be used when allocating DDB blocks for each plane.
+For some reason we use scale factor for data_rate calculation, which is
+used for BW calculations, however we are not using it for DDB calculations.
+So lets fix it as described in BSpec 68907.
 
-Signed-off-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Reviewed-by: Garg, Nemesa <nemesa.garg@intel.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20230719104833.25366-1-stanislav.lisovskiy@intel.com
+(cherry picked from commit a86c75dcdd0374444514c1e40411177ff7afe9bd)
 ---
- drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/i915/display/intel_atomic_plane.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h b/drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h
-index d64d34181790..38b64ff6b9ea 100644
---- a/drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h
-+++ b/drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h
-@@ -79,6 +79,7 @@ static inline struct drm_i915_private *kdev_to_i915(struct device *kdev)
- #define IS_DG2(dev_priv)	IS_PLATFORM(dev_priv, XE_DG2)
- #define IS_PONTEVECCHIO(dev_priv) IS_PLATFORM(dev_priv, XE_PVC)
- #define IS_METEORLAKE(dev_priv) IS_PLATFORM(dev_priv, XE_METEORLAKE)
-+#define IS_LUNARLAKE(dev_priv) IS_PLATFORM(dev_priv, XE_LUNARLAKE)
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+index edee71664332..cb60165bc415 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+@@ -217,6 +217,7 @@ intel_plane_relative_data_rate(const struct intel_crtc_state *crtc_state,
+ 	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
+ 	const struct drm_framebuffer *fb = plane_state->hw.fb;
+ 	int width, height;
++	unsigned int rel_data_rate;
  
- #define IS_HSW_ULT(dev_priv) (dev_priv && 0)
- #define IS_BDW_ULT(dev_priv) (dev_priv && 0)
+ 	if (plane->id == PLANE_CURSOR)
+ 		return 0;
+@@ -246,7 +247,11 @@ intel_plane_relative_data_rate(const struct intel_crtc_state *crtc_state,
+ 		height /= 2;
+ 	}
+ 
+-	return width * height * fb->format->cpp[color_plane];
++	rel_data_rate = width * height * fb->format->cpp[color_plane];
++
++	return intel_adjusted_rate(&plane_state->uapi.src,
++				   &plane_state->uapi.dst,
++				   rel_data_rate);
+ }
+ 
+ int intel_plane_calc_min_cdclk(struct intel_atomic_state *state,
 -- 
 2.40.1
 
