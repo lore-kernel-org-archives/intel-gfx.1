@@ -4,51 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09C48C27C40
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Aug 2023 08:35:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B469AC3DA6F
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Aug 2023 08:41:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D7ED10E4DD;
-	Thu, 24 Aug 2023 08:35:07 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3840D10E4B9;
- Thu, 24 Aug 2023 08:35:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692866105; x=1724402105;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=LxesuUToT8QX3olxMIGEDsudqPSgP462BCDZAuIf8VU=;
- b=GrB5WaCyPdQB8x34vHNJ6DzOK1oqINshvAy5fIKmf2+lfcbLcM8dFJqB
- AWIOt7phbrAflTctLsodnvwKDq0ZOTzuUhBINrLZcAv91QmQoJmVzHzXe
- zUt7AoE/CDu8MRuH58GRxpBhPFsvxyI1kEgM4sIyNo9RPOjZK92HmCXXU
- dbSSUq8WXfiTvM75Sl+udR4xiXKvuGLi0mSTCSnRarYnUeCiaSaEWnMOu
- F9fGdcZpFB3CO1xe9LANPUSuVDpa6kwRZwOr3arx1CLA+aB3cr91DKS6Q
- S3JsQX80kkc9MCeyU151PBX0IHQmmKZg4UiKqHFSCAxKV1lMP1F0gsy5t A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="405384450"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="405384450"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2023 01:35:04 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10811"; a="713878393"
-X-IronPort-AV: E=Sophos;i="6.01,195,1684825200"; d="scan'208";a="713878393"
-Received: from andrzejk-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.46.90])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2023 01:35:01 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Lucas De Marchi <lucas.demarchi@intel.com>,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20230823170740.1180212-19-lucas.demarchi@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230823170740.1180212-1-lucas.demarchi@intel.com>
- <20230823170740.1180212-19-lucas.demarchi@intel.com>
-Date: Thu, 24 Aug 2023 11:34:59 +0300
-Message-ID: <87zg2g4z4c.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AC6B10E4BC;
+	Thu, 24 Aug 2023 08:41:29 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BE2D10E4BC
+ for <intel-gfx@lists.freedesktop.org>; Thu, 24 Aug 2023 08:41:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1692866485;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+ bh=5mtjeMY9E3m0WJdC5E0q7o++ntGobTiHpLVFQcZVRcg=;
+ b=IeAQxNcpHGxaJ1KkmFW+dXXXYnxAuJO23CRcyjf4h7a+6z/25LzgmhmDJh5mnUU2N5J0Xi
+ lt3T55c0fcPrACZFDpNM40b05d0NcPMzgITWkhbvQ2apNSYEQwi847NbIKQiJ/GCYHdkk6
+ +oTO79ekT3hCubjdvxvD/9Il7JAbseU=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-177-y8Esw2OzM_SukeNCmAlfIg-1; Thu, 24 Aug 2023 04:41:23 -0400
+X-MC-Unique: y8Esw2OzM_SukeNCmAlfIg-1
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-31c5cc3b512so2261238f8f.1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 24 Aug 2023 01:41:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1692866482; x=1693471282;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=5mtjeMY9E3m0WJdC5E0q7o++ntGobTiHpLVFQcZVRcg=;
+ b=YGsGVH+AWtlOJijtxP1c1hSmFOx6MqBJ64bgNaqzgJLfDx0qvb4bw3e2jmuwDNMN7I
+ Pu6+c/xWatoARjYAKxNekZOClN6rS4L+lJWFICd1yCugYKJEEHo9U0pjlKnl5GDDyyo6
+ dKFLq/JUATNY4vX06tTMMgu8vfSO+tbsn/cPMZJV9zBr7PR64qUENjB+KWAWKyTf1AYQ
+ DDCORv1SZ9Jd58fmzqQ4uaOwO4Ef7QZ3nBpugVdBF4bGOvl7ZQTBbQLw3kJ6miAKp4qA
+ /CJnHA8oCbh41FWKvi/JeXxEMVLaHmR7Su5w1SrAMLcfIt0ZDgjSlnfHVQRXbuHbebg/
+ IF7A==
+X-Gm-Message-State: AOJu0YzgJ16tPnxwwg+HKlvxM86SFanps7sChRXveRqtHa+IYtoRS0eg
+ PRAb3QZrDr+/AOYFg5ly8cvaj2+7ARIjz/ZNoIQ7Gsp9gOb8+196UVLS+ZBIwnui2PORZFSZ9KA
+ FkWwQjaYJqcWCjn4aV+KL/9lZ0wtz
+X-Received: by 2002:a5d:574d:0:b0:319:6ec3:79c7 with SMTP id
+ q13-20020a5d574d000000b003196ec379c7mr11131613wrw.36.1692866481929; 
+ Thu, 24 Aug 2023 01:41:21 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IFKxlXLllNtHsIyDSgL0ciTV3wk7YxGaX6bIOc6LHqgUywc38hmcA9yUBmpzmwfQdsmxCmnYg==
+X-Received: by 2002:a5d:574d:0:b0:319:6ec3:79c7 with SMTP id
+ q13-20020a5d574d000000b003196ec379c7mr11131597wrw.36.1692866481549; 
+ Thu, 24 Aug 2023 01:41:21 -0700 (PDT)
+Received: from localhost ([2a01:e0a:b25:f902::ff])
+ by smtp.gmail.com with ESMTPSA id
+ f12-20020a0560001b0c00b0031c5d74ecd8sm9638680wrz.84.2023.08.24.01.41.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Aug 2023 01:41:21 -0700 (PDT)
+Date: Thu, 24 Aug 2023 10:41:20 +0200
+From: Maxime Ripard <mripard@redhat.com>
+To: Dave Airlie <airlied@gmail.com>, 
+	Daniel Vetter <daniel.vetter@ffwll.ch>
+Message-ID: <amy26vu5xbeeikswpx7nt6rddwfocdidshrtt2qovipihx5poj@y45p3dtzrloc>
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [Intel-xe] [PATCH 18/42] drm/i915/xe2lpd: Move
- registers to PICA
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="pg2nwcx6lmpfnz7x"
+Content-Disposition: inline
+Subject: [Intel-gfx] [PULL] drm-misc-fixes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,235 +77,84 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: dim-tools@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 23 Aug 2023, Lucas De Marchi <lucas.demarchi@intel.com> wrote:
-> diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h b/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
-> index cb5d1be2ba19..4b5b9a97142d 100644
-> --- a/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
-> +++ b/drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h
-> @@ -6,13 +6,15 @@
->  #ifndef __INTEL_CX0_PHY_REGS_H__
->  #define __INTEL_CX0_PHY_REGS_H__
->  
-> +#include "i915_drv.h"
 
-Please don't do this. Please don't add inline functions that depend on
-i915_drv.h etc. being included from headers. This simple headers just
-changed to including like half the headers in the entire driver. It's
-that bad.
+--pg2nwcx6lmpfnz7x
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I think the main question is why does anything other than
-intel_cx0_phy_regs.c need the helpers? It's probably the division
-between that and intel_ddi.c that's wrong in the first place.
+Hi,
 
-That's actually been one of the benefits of splitting the register
-macros by area; you can tell what registers are used where, and
-sometimes it gives bad code smells about stuff being accessed in the
-wrong place.
+Here's this week drm-misc-fixes PR
 
-BR,
-Jani.
+Maxime
 
+drm-misc-fixes-2023-08-24:
+A samsung-dsim initialization fix, a devfreq fix for panfrost, a DP DSC
+define fix, a recursive lock fix for dma-buf, a shader validation fix
+and a reference counting fix for vmwgfx
+The following changes since commit 50b6f2c8297793f7f3315623db78dcff85158e96:
 
->  #include "i915_reg_defs.h"
-> +#include "intel_display_limits.h"
->  
->  #define _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_A		0x64040
->  #define _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_B		0x64140
->  #define _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_USBC1		0x16F240
->  #define _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_USBC2		0x16F440
-> -#define XELPDP_PORT_M2P_MSGBUS_CTL(port, lane)		_MMIO(_PICK_EVEN_2RANGES(port, PORT_TC1, \
-> +#define XELPDP_PORT_M2P_MSGBUS_CTL(idx, lane)		_MMIO(_PICK_EVEN_2RANGES(idx, PORT_TC1, \
->  										 _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_A, \
->  										 _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_B, \
->  										 _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_USBC1, \
-> @@ -27,7 +29,7 @@
->  #define   XELPDP_PORT_M2P_TRANSACTION_RESET		REG_BIT(15)
->  #define   XELPDP_PORT_M2P_ADDRESS_MASK			REG_GENMASK(11, 0)
->  #define   XELPDP_PORT_M2P_ADDRESS(val)			REG_FIELD_PREP(XELPDP_PORT_M2P_ADDRESS_MASK, val)
-> -#define XELPDP_PORT_P2M_MSGBUS_STATUS(port, lane)	_MMIO(_PICK_EVEN_2RANGES(port, PORT_TC1, \
-> +#define XELPDP_PORT_P2M_MSGBUS_STATUS(idx, lane)	_MMIO(_PICK_EVEN_2RANGES(idx, PORT_TC1, \
->  										 _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_A, \
->  										 _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_B, \
->  										 _XELPDP_PORT_M2P_MSGBUS_CTL_LN0_USBC1, \
-> @@ -54,7 +56,7 @@
->  #define _XELPDP_PORT_BUF_CTL1_LN0_B			0x64104
->  #define _XELPDP_PORT_BUF_CTL1_LN0_USBC1			0x16F200
->  #define _XELPDP_PORT_BUF_CTL1_LN0_USBC2			0x16F400
-> -#define XELPDP_PORT_BUF_CTL1(port)			_MMIO(_PICK_EVEN_2RANGES(port, PORT_TC1, \
-> +#define XELPDP_PORT_BUF_CTL1(idx)			_MMIO(_PICK_EVEN_2RANGES(idx, PORT_TC1, \
->  										 _XELPDP_PORT_BUF_CTL1_LN0_A, \
->  										 _XELPDP_PORT_BUF_CTL1_LN0_B, \
->  										 _XELPDP_PORT_BUF_CTL1_LN0_USBC1, \
-> @@ -75,7 +77,7 @@
->  #define   XELPDP_PORT_WIDTH_MASK			REG_GENMASK(3, 1)
->  #define   XELPDP_PORT_WIDTH(val)			REG_FIELD_PREP(XELPDP_PORT_WIDTH_MASK, val)
->  
-> -#define XELPDP_PORT_BUF_CTL2(port)			_MMIO(_PICK_EVEN_2RANGES(port, PORT_TC1, \
-> +#define XELPDP_PORT_BUF_CTL2(idx)			_MMIO(_PICK_EVEN_2RANGES(idx, PORT_TC1, \
->  										 _XELPDP_PORT_BUF_CTL1_LN0_A, \
->  										 _XELPDP_PORT_BUF_CTL1_LN0_B, \
->  										 _XELPDP_PORT_BUF_CTL1_LN0_USBC1, \
-> @@ -95,7 +97,7 @@
->  #define   XELPDP_POWER_STATE_READY_MASK			REG_GENMASK(7, 4)
->  #define   XELPDP_POWER_STATE_READY(val)			REG_FIELD_PREP(XELPDP_POWER_STATE_READY_MASK, val)
->  
-> -#define XELPDP_PORT_BUF_CTL3(port)			_MMIO(_PICK_EVEN_2RANGES(port, PORT_TC1, \
-> +#define XELPDP_PORT_BUF_CTL3(idx)			_MMIO(_PICK_EVEN_2RANGES(idx, PORT_TC1, \
->  										 _XELPDP_PORT_BUF_CTL1_LN0_A, \
->  										 _XELPDP_PORT_BUF_CTL1_LN0_B, \
->  										 _XELPDP_PORT_BUF_CTL1_LN0_USBC1, \
-> @@ -114,7 +116,7 @@
->  #define _XELPDP_PORT_CLOCK_CTL_B			0x641E0
->  #define _XELPDP_PORT_CLOCK_CTL_USBC1			0x16F260
->  #define _XELPDP_PORT_CLOCK_CTL_USBC2			0x16F460
-> -#define XELPDP_PORT_CLOCK_CTL(port)			_MMIO(_PICK_EVEN_2RANGES(port, PORT_TC1, \
-> +#define XELPDP_PORT_CLOCK_CTL(idx)			_MMIO(_PICK_EVEN_2RANGES(idx, PORT_TC1, \
->  										 _XELPDP_PORT_CLOCK_CTL_A, \
->  										 _XELPDP_PORT_CLOCK_CTL_B, \
->  										 _XELPDP_PORT_CLOCK_CTL_USBC1, \
-> @@ -271,4 +273,61 @@
->  #define HDMI_DIV_MASK		REG_GENMASK16(2, 0)
->  #define HDMI_DIV(val)		REG_FIELD_PREP16(HDMI_DIV_MASK, val)
->  
-> +/*
-> + * All registers are in the same IP, with a single range.  However the registers
-> + * for TC_PORT come first.
-> + */
-> +static inline enum port xe2lpd_port_idx(enum port port)
-> +{
-> +	return port >= PORT_TC1 ? port : PORT_TC4 + 1 + port - PORT_A;
-> +}
-> +
-> +static inline i915_reg_t xelpdp_port_clock_ctl_reg(struct drm_i915_private *i915,
-> +						   enum port port)
-> +{
-> +	return DISPLAY_VER(i915) >= 20 ?
-> +		XELPDP_PORT_CLOCK_CTL(xe2lpd_port_idx(port)) :
-> +		XELPDP_PORT_CLOCK_CTL(port);
-> +}
-> +
-> +static inline i915_reg_t xelpdp_port_buf_ctl3_reg(struct drm_i915_private *i915,
-> +						  enum port port)
-> +{
-> +	return DISPLAY_VER(i915) >= 20 ?
-> +		XELPDP_PORT_BUF_CTL3(xe2lpd_port_idx(port)) :
-> +		XELPDP_PORT_BUF_CTL3(port);
-> +}
-> +
-> +static inline i915_reg_t xelpdp_port_buf_ctl2_reg(struct drm_i915_private *i915,
-> +						  enum port port)
-> +{
-> +	return DISPLAY_VER(i915) >= 20 ?
-> +		XELPDP_PORT_BUF_CTL2(xe2lpd_port_idx(port)) :
-> +		XELPDP_PORT_BUF_CTL2(port);
-> +}
-> +
-> +static inline i915_reg_t xelpdp_port_buf_ctl1_reg(struct drm_i915_private *i915,
-> +						  enum port port)
-> +{
-> +	return DISPLAY_VER(i915) >= 20 ?
-> +		XELPDP_PORT_BUF_CTL1(xe2lpd_port_idx(port)) :
-> +		XELPDP_PORT_BUF_CTL1(port);
-> +}
-> +
-> +static inline i915_reg_t xelpdp_port_m2p_msgbus_ctl_reg(struct drm_i915_private *i915,
-> +							enum port port, int lane)
-> +{
-> +	return DISPLAY_VER(i915) >= 20 ?
-> +		XELPDP_PORT_M2P_MSGBUS_CTL(xe2lpd_port_idx(port), lane) :
-> +		XELPDP_PORT_M2P_MSGBUS_CTL(port, lane);
-> +}
-> +
-> +static inline i915_reg_t xelpdp_port_p2m_msgbus_status_reg(struct drm_i915_private *i915,
-> +							   enum port port, int lane)
-> +{
-> +	return DISPLAY_VER(i915) >= 20 ?
-> +		XELPDP_PORT_P2M_MSGBUS_STATUS(xe2lpd_port_idx(port), lane) :
-> +		XELPDP_PORT_P2M_MSGBUS_STATUS(port, lane);
-> +}
-> +
->  #endif /* __INTEL_CX0_REG_DEFS_H__ */
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-> index 3147ed174d83..3587ddc6d8ed 100644
-> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> @@ -176,7 +176,7 @@ static void mtl_wait_ddi_buf_idle(struct drm_i915_private *i915, enum port port)
->  	int ret;
->  
->  	/* FIXME: find out why Bspec's 100us timeout is too short */
-> -	ret = wait_for_us((intel_de_read(i915, XELPDP_PORT_BUF_CTL1(port)) &
-> +	ret = wait_for_us((intel_de_read(i915, xelpdp_port_buf_ctl1_reg(i915, port)) &
->  			   XELPDP_PORT_BUF_PHY_IDLE), 10000);
->  	if (ret)
->  		drm_err(&i915->drm, "Timeout waiting for DDI BUF %c to get idle\n",
-> @@ -224,7 +224,9 @@ static void intel_wait_ddi_buf_active(struct drm_i915_private *dev_priv,
->  	}
->  
->  	if (DISPLAY_VER(dev_priv) >= 14)
-> -		ret = _wait_for(!(intel_de_read(dev_priv, XELPDP_PORT_BUF_CTL1(port)) & XELPDP_PORT_BUF_PHY_IDLE),
-> +		ret = _wait_for(!(intel_de_read(dev_priv,
-> +						xelpdp_port_buf_ctl1_reg(dev_priv, port)) &
-> +				  XELPDP_PORT_BUF_PHY_IDLE),
->  				timeout_us, 10, 10);
->  	else
->  		ret = _wait_for(!(intel_de_read(dev_priv, DDI_BUF_CTL(port)) & DDI_BUF_IS_IDLE),
-> @@ -2365,7 +2367,7 @@ mtl_ddi_enable_d2d(struct intel_encoder *encoder)
->  		dig_port->saved_port_bits |= XE2LPD_DDI_BUF_D2D_LINK_ENABLE;
->  		wait_bits = XE2LPD_DDI_BUF_D2D_LINK_STATE;
->  	} else {
-> -		reg = XELPDP_PORT_BUF_CTL1(port);
-> +		reg = xelpdp_port_buf_ctl1_reg(dev_priv, port);
->  		set_bits = XELPDP_PORT_BUF_D2D_LINK_ENABLE;
->  		wait_bits = XELPDP_PORT_BUF_D2D_LINK_STATE;
->  	}
-> @@ -2385,7 +2387,7 @@ static void mtl_port_buf_ctl_program(struct intel_encoder *encoder,
->  	enum port port = encoder->port;
->  	u32 val;
->  
-> -	val = intel_de_read(i915, XELPDP_PORT_BUF_CTL1(port));
-> +	val = intel_de_read(i915, xelpdp_port_buf_ctl1_reg(i915, port));
->  	val &= ~XELPDP_PORT_WIDTH_MASK;
->  	val |= XELPDP_PORT_WIDTH(mtl_get_port_width(crtc_state->lane_count));
->  
-> @@ -2398,7 +2400,7 @@ static void mtl_port_buf_ctl_program(struct intel_encoder *encoder,
->  	if (dig_port->saved_port_bits & DDI_BUF_PORT_REVERSAL)
->  		val |= XELPDP_PORT_REVERSAL;
->  
-> -	intel_de_write(i915, XELPDP_PORT_BUF_CTL1(port), val);
-> +	intel_de_write(i915, xelpdp_port_buf_ctl1_reg(i915, port), val);
->  }
->  
->  static void mtl_port_buf_ctl_io_selection(struct intel_encoder *encoder)
-> @@ -2409,7 +2411,7 @@ static void mtl_port_buf_ctl_io_selection(struct intel_encoder *encoder)
->  
->  	val = intel_tc_port_in_tbt_alt_mode(dig_port) ?
->  	      XELPDP_PORT_BUF_IO_SELECT_TBT : 0;
-> -	intel_de_rmw(i915, XELPDP_PORT_BUF_CTL1(encoder->port),
-> +	intel_de_rmw(i915, xelpdp_port_buf_ctl1_reg(i915, encoder->port),
->  		     XELPDP_PORT_BUF_IO_SELECT_TBT, val);
->  }
->  
-> @@ -2829,7 +2831,7 @@ mtl_ddi_disable_d2d_link(struct intel_encoder *encoder)
->  		dig_port->saved_port_bits &= ~XE2LPD_DDI_BUF_D2D_LINK_ENABLE;
->  		wait_bits = XE2LPD_DDI_BUF_D2D_LINK_STATE;
->  	} else {
-> -		reg = XELPDP_PORT_BUF_CTL1(port);
-> +		reg = xelpdp_port_buf_ctl1_reg(dev_priv, port);
->  		clr_bits = XELPDP_PORT_BUF_D2D_LINK_ENABLE;
->  		wait_bits = XELPDP_PORT_BUF_D2D_LINK_STATE;
->  	}
-> @@ -2967,7 +2969,7 @@ static void intel_ddi_post_disable_dp(struct intel_atomic_state *state,
->  
->  	/* De-select Thunderbolt */
->  	if (DISPLAY_VER(dev_priv) >= 14)
-> -		intel_de_rmw(dev_priv, XELPDP_PORT_BUF_CTL1(encoder->port),
-> +		intel_de_rmw(dev_priv, xelpdp_port_buf_ctl1_reg(dev_priv, encoder->port),
->  			     XELPDP_PORT_BUF_IO_SELECT_TBT, 0);
->  }
+  Revert "drm/edid: Fix csync detailed mode parsing" (2023-08-17 14:39:12 +0300)
 
--- 
-Jani Nikula, Intel Open Source Graphics Center
+are available in the Git repository at:
+
+  git://anongit.freedesktop.org/drm/drm-misc tags/drm-misc-fixes-2023-08-24
+
+for you to fetch changes up to f9e96bf1905479f18e83a3a4c314a8dfa56ede2c:
+
+  drm/vmwgfx: Fix possible invalid drm gem put calls (2023-08-23 13:20:04 -0400)
+
+----------------------------------------------------------------
+A samsung-dsim initialization fix, a devfreq fix for panfrost, a DP DSC
+define fix, a recursive lock fix for dma-buf, a shader validation fix
+and a reference counting fix for vmwgfx
+
+----------------------------------------------------------------
+Ankit Nautiyal (1):
+      drm/display/dp: Fix the DP DSC Receiver cap size
+
+David Michael (1):
+      drm/panfrost: Skip speed binning on EOPNOTSUPP
+
+Frieder Schrempf (1):
+      drm: bridge: samsung-dsim: Fix init during host transfer
+
+Rob Clark (1):
+      dma-buf/sw_sync: Avoid recursive lock during fence signal
+
+Zack Rusin (2):
+      drm/vmwgfx: Fix shader stage validation
+      drm/vmwgfx: Fix possible invalid drm gem put calls
+
+ drivers/dma-buf/sw_sync.c                   | 18 +++++++--------
+ drivers/gpu/drm/bridge/samsung-dsim.c       | 27 +++++++++++++---------
+ drivers/gpu/drm/panfrost/panfrost_devfreq.c |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.c          |  6 ++---
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.h          |  8 +++++++
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.h         | 12 ++++++++++
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c     | 35 +++++++++++------------------
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.c         |  6 ++---
+ drivers/gpu/drm/vmwgfx/vmwgfx_overlay.c     |  3 +--
+ drivers/gpu/drm/vmwgfx/vmwgfx_shader.c      |  3 +--
+ include/drm/display/drm_dp.h                |  2 +-
+ 11 files changed, 67 insertions(+), 55 deletions(-)
+
+--pg2nwcx6lmpfnz7x
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZOcXsAAKCRDj7w1vZxhR
+xb+UAQDmuE1fhpzh7uXoLbxwmZJsE8lqF59s1i45U7A9dr+eJwEA4JE7CF2ho4YX
+YG7n0H/hN/kJJ0CyPMmtCBzrKd+/KQI=
+=CCEM
+-----END PGP SIGNATURE-----
+
+--pg2nwcx6lmpfnz7x--
+
