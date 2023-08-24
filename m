@@ -4,48 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B49EDC7113B
-	for <intel-gfx@archiver.kernel.org>; Thu, 24 Aug 2023 13:46:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6961C88CB2
+	for <intel-gfx@archiver.kernel.org>; Thu, 24 Aug 2023 13:46:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A048710E54F;
-	Thu, 24 Aug 2023 13:46:27 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8381D10E54F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89F1410E552;
+	Thu, 24 Aug 2023 13:46:29 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5912A10E034;
  Thu, 24 Aug 2023 13:46:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1692884785; x=1724420785;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=CaoHY4p+qUgm3IS7tBRqBO4KNsX3ZdXL70kJayIFbdc=;
- b=JTrAco2RPuBQQYrBn8pgXVYzRj9EMY4sk1GEgc349+Q4E5Sq0J1uzo5L
- 60DOGZ7VypU1BXfFCsOSibJ6k9BPtujFKMAPd2O4N/bZrIN1HfsBTy04e
- l89B8qYP3E7Bc55wmwTcafOcH8rod+hfokSEvdLrpipyAA3D1nf947nWL
- PwBOHLQ76eoF2KGEWU1jz1/MK4N7JLJ82kcfG8InRHFo8pP9TajsJ5cSh
- VkvNJj44BVmcF2+QJzGWMJEMNgcgWVccZXUCEoD6DuZWmpIUN+/PiSeZq
- WVClsqUJ9NUt6McyTvqZ+NDWBS4hWOnWxJKamCaADuAJ8xNxy/sFies4H A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10812"; a="354773212"
-X-IronPort-AV: E=Sophos;i="6.02,195,1688454000"; d="scan'208";a="354773212"
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2023 06:46:24 -0700
+ t=1692884786; x=1724420786;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=k/KJQx8gqsSEm7rm85TQpOlExCDa24aHbOQ6NV6RaK4=;
+ b=meI7dCnpjTEl933B0lWJNKlfpzODfLtu8A/o6ELbXBLvZI2pxlKxX3cJ
+ ButWJLvAicotmen9kpKgRcgV/2Wj868akkrc1WB0unud6TnbPy/Q1hFDR
+ XQ03G8eo+NRUBJ7twybz6wsmxx7vI5tqlQ/8o3lpmW6hrS6p/gqE380y+
+ fnUTINUnkpKXqwu5OPd5lgxuoKhGs9aHSAmL7Mv8266MRMTcBsV5rwfI5
+ 1bT1SLRaVeLDrao4ggRnkaDhuIZXfOPniemUsGPjctOvHmzsp8ttSfnss
+ /B+i2UjFwKqRNRl1/QvpXNgqJQaX1hfrLjb+HquLUi+aNCIJ88o5MJojn A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10812"; a="405447499"
+X-IronPort-AV: E=Sophos;i="6.02,195,1688454000"; d="scan'208";a="405447499"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Aug 2023 06:46:14 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10812"; a="983706472"
-X-IronPort-AV: E=Sophos;i="6.02,195,1688454000"; d="scan'208";a="983706472"
+X-IronPort-AV: E=McAfee;i="6600,9927,10812"; a="802550886"
+X-IronPort-AV: E=Sophos;i="6.02,195,1688454000"; d="scan'208";a="802550886"
 Received: from jnikula-mobl4.fi.intel.com (HELO localhost) ([10.237.66.162])
- by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2023 06:46:22 -0700
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Aug 2023 06:46:12 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Thu, 24 Aug 2023 16:46:03 +0300
-Message-Id: <dbc0269d34f3140aff410eefae8a2711c59299b3.1692884619.git.jani.nikula@intel.com>
+Date: Thu, 24 Aug 2023 16:46:01 +0300
+Message-Id: <cover.1692884619.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1692884619.git.jani.nikula@intel.com>
-References: <cover.1692884619.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/6] drm/i915/display: use drm_edid_is_digital()
+Subject: [Intel-gfx] [PATCH 0/6] drm, cec and edid updates
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,105 +62,30 @@ Cc: Hans Verkuil <hverkuil-cisco@xs4all.nl>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Reduce the use of struct edid and drm_edid_raw().
+Avoid accessing the raw edid directly. Pre-parse the source physical
+address during normal EDID parsing and use that for CEC.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
+Jani Nikula (6):
+  drm/edid: add drm_edid_is_digital()
+  drm/i915/display: use drm_edid_is_digital()
+  drm/edid: parse source physical address
+  drm/cec: add drm_dp_cec_attach() as the non-edid version of set edid
+  drm/i915/cec: switch to setting physical address directly
+  media: cec: core: add note about *_from_edid() function usage in drm
+
+ drivers/gpu/drm/display/drm_dp_cec.c      | 22 +++++++++++++++++++---
+ drivers/gpu/drm/drm_edid.c                | 22 ++++++++++++++++++++--
  drivers/gpu/drm/i915/display/intel_crt.c  | 11 ++++-------
- drivers/gpu/drm/i915/display/intel_hdmi.c |  9 ++++-----
+ drivers/gpu/drm/i915/display/intel_dp.c   |  7 ++-----
+ drivers/gpu/drm/i915/display/intel_hdmi.c |  8 +++-----
  drivers/gpu/drm/i915/display/intel_sdvo.c |  7 ++-----
- 3 files changed, 10 insertions(+), 17 deletions(-)
+ drivers/media/cec/core/cec-adap.c         |  4 ++++
+ drivers/media/cec/core/cec-notifier.c     |  4 ++++
+ include/drm/display/drm_dp_helper.h       |  6 ++++++
+ include/drm/drm_connector.h               |  8 ++++++++
+ include/drm/drm_edid.h                    |  1 +
+ 11 files changed, 73 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i915/display/intel_crt.c
-index f66340b4caf0..310670bb6c25 100644
---- a/drivers/gpu/drm/i915/display/intel_crt.c
-+++ b/drivers/gpu/drm/i915/display/intel_crt.c
-@@ -657,21 +657,18 @@ static bool intel_crt_detect_ddc(struct drm_connector *connector)
- 	drm_edid = intel_crt_get_edid(connector, i2c);
- 
- 	if (drm_edid) {
--		const struct edid *edid = drm_edid_raw(drm_edid);
--		bool is_digital = edid->input & DRM_EDID_INPUT_DIGITAL;
--
- 		/*
- 		 * This may be a DVI-I connector with a shared DDC
- 		 * link between analog and digital outputs, so we
- 		 * have to check the EDID input spec of the attached device.
- 		 */
--		if (!is_digital) {
-+		if (drm_edid_is_digital(drm_edid)) {
- 			drm_dbg_kms(&dev_priv->drm,
--				    "CRT detected via DDC:0x50 [EDID]\n");
--			ret = true;
-+				    "CRT not detected via DDC:0x50 [EDID reports a digital panel]\n");
- 		} else {
- 			drm_dbg_kms(&dev_priv->drm,
--				    "CRT not detected via DDC:0x50 [EDID reports a digital panel]\n");
-+				    "CRT detected via DDC:0x50 [EDID]\n");
-+			ret = true;
- 		}
- 	} else {
- 		drm_dbg_kms(&dev_priv->drm,
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 9442bf43550e..aa9915098dda 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2452,7 +2452,6 @@ intel_hdmi_set_edid(struct drm_connector *connector)
- 	struct intel_hdmi *intel_hdmi = intel_attached_hdmi(to_intel_connector(connector));
- 	intel_wakeref_t wakeref;
- 	const struct drm_edid *drm_edid;
--	const struct edid *edid;
- 	bool connected = false;
- 	struct i2c_adapter *i2c;
- 
-@@ -2475,9 +2474,7 @@ intel_hdmi_set_edid(struct drm_connector *connector)
- 
- 	to_intel_connector(connector)->detect_edid = drm_edid;
- 
--	/* FIXME: Get rid of drm_edid_raw() */
--	edid = drm_edid_raw(drm_edid);
--	if (edid && edid->input & DRM_EDID_INPUT_DIGITAL) {
-+	if (drm_edid_is_digital(drm_edid)) {
- 		intel_hdmi_dp_dual_mode_detect(connector);
- 
- 		connected = true;
-@@ -2485,7 +2482,9 @@ intel_hdmi_set_edid(struct drm_connector *connector)
- 
- 	intel_display_power_put(dev_priv, POWER_DOMAIN_GMBUS, wakeref);
- 
--	cec_notifier_set_phys_addr_from_edid(intel_hdmi->cec_notifier, edid);
-+	/* FIXME: Get rid of drm_edid_raw() */
-+	cec_notifier_set_phys_addr_from_edid(intel_hdmi->cec_notifier,
-+					     drm_edid_raw(drm_edid));
- 
- 	return connected;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index 7d25a64698e2..917771e19e38 100644
---- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -2094,10 +2094,8 @@ intel_sdvo_tmds_sink_detect(struct drm_connector *connector)
- 
- 	status = connector_status_unknown;
- 	if (drm_edid) {
--		const struct edid *edid = drm_edid_raw(drm_edid);
--
- 		/* DDC bus is shared, match EDID to connector type */
--		if (edid && edid->input & DRM_EDID_INPUT_DIGITAL)
-+		if (drm_edid_is_digital(drm_edid))
- 			status = connector_status_connected;
- 		else
- 			status = connector_status_disconnected;
-@@ -2111,8 +2109,7 @@ static bool
- intel_sdvo_connector_matches_edid(struct intel_sdvo_connector *sdvo,
- 				  const struct drm_edid *drm_edid)
- {
--	const struct edid *edid = drm_edid_raw(drm_edid);
--	bool monitor_is_digital = !!(edid->input & DRM_EDID_INPUT_DIGITAL);
-+	bool monitor_is_digital = drm_edid_is_digital(drm_edid);
- 	bool connector_is_digital = !!IS_DIGITAL(sdvo);
- 
- 	DRM_DEBUG_KMS("connector_is_digital? %d, monitor_is_digital? %d\n",
 -- 
 2.39.2
 
