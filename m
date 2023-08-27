@@ -4,32 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 316C1C83F11
-	for <intel-gfx@archiver.kernel.org>; Sun, 27 Aug 2023 17:56:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DC24C83F16
+	for <intel-gfx@archiver.kernel.org>; Sun, 27 Aug 2023 17:56:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16D8E10E1D5;
-	Sun, 27 Aug 2023 17:56:08 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 804B510E1C6;
- Sun, 27 Aug 2023 17:55:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A6C610E1DA;
+	Sun, 27 Aug 2023 17:56:09 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF8C610E1CC;
+ Sun, 27 Aug 2023 17:56:03 +0000 (UTC)
 Received: from workpc.. (109-252-153-31.dynamic.spd-mgts.ru [109.252.153.31])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id E147966071A0;
- Sun, 27 Aug 2023 18:55:53 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id CE05E660729C;
+ Sun, 27 Aug 2023 18:56:00 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1693158955;
- bh=kHs6hGpWk8GyISlC9i8obNQGoUTYKAHITUEwxqD4fTc=;
+ s=mail; t=1693158962;
+ bh=BNTmxQOM46+HQ6UEvSllq5xIsj79DPU82tEdZSTZezY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EExfh5kCZS12EMrV51BMRfeI2Z5z23zv4dtO177A/uTCxfwHu+4L3V2LAerYvqU+R
- ZinxfZtH4MjTcO4hh3NEt9pzoBg3zazvkvXueHzuiGjEEvBNz62JC1vXp/MEle/BdD
- YV0abR5BevPzRQzA4lzxyW9uPeMH3L6KjnyNMRMLd6XHJJAZVRvKdrQyjyZPJjZz4l
- NPBe+9PCsO17R3vdpkewsF3VwX01BADG9y9WSCxbxI6NbibN06LqB81iZrt8fx9F5Q
- ZvhqkgYPsyu2P6gxM4geUHLY4U86O/+j+tUb8CCKWFhz2IjxTgRA5clYr5wUwu1mt8
- SJ5sYBJddxaJA==
+ b=bYecb6u32QyVdmEn/TuqovooYrq44AV5SNVKdiUSr3E/pzfUYVtffhwMb4FOe6j70
+ q6PFDw9sQ77nyeMiF6uby3VhRUksKiMoT5XsX86W1N5QL5rvEAAFCr9cTqxXUOiZM4
+ 54GMfxmqbVW+V1IKiIUanDcVdJoDUJSPO5a/Txi42wRjzKQhAhIoNZxWEoFo7jtK9L
+ zmQgQqeFCYe2yOmiQVHQFxhS0GDD8JVS9tL4nkQQE/Po9HGstXhDPmI2OV5uJ20Q2n
+ N2c/NhjWWY8hy+l1eLFnWzv4ag8cnJMRjWcLbKN5wtUeMieiV7wsjM2LJUh/dkHY8/
+ OpOMladm7edxg==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -43,15 +42,15 @@ To: David Airlie <airlied@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
  Emma Anholt <emma@anholt.net>, Melissa Wen <mwen@igalia.com>,
  Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
  Boqun Feng <boqun.feng@gmail.com>, Mark Rutland <mark.rutland@arm.com>
-Date: Sun, 27 Aug 2023 20:54:29 +0300
-Message-ID: <20230827175449.1766701-4-dmitry.osipenko@collabora.com>
+Date: Sun, 27 Aug 2023 20:54:33 +0300
+Message-ID: <20230827175449.1766701-8-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230827175449.1766701-1-dmitry.osipenko@collabora.com>
 References: <20230827175449.1766701-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v15 03/23] drm/gem: Change locked/unlocked
- postfix of drm_gem_v/unmap() function names
+Subject: [Intel-gfx] [PATCH v15 07/23] drm/shmem-helper: Make all exported
+ symbols GPL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,274 +69,90 @@ Cc: intel-gfx@lists.freedesktop.org, kernel@collabora.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Make drm/gem API function names consistent by having locked function
-use the _locked postfix in the name, while the unlocked variants don't
-use the _unlocked postfix. Rename drm_gem_v/unmap() function names to
-make them consistent with the rest of the API functions.
+Make all drm-shmem exported symbols GPL to make them consistent with
+the rest of drm-shmem symbols.
 
-Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/drm_client.c                 |  6 +++---
- drivers/gpu/drm/drm_gem.c                    | 20 ++++++++++----------
- drivers/gpu/drm/drm_gem_framebuffer_helper.c |  6 +++---
- drivers/gpu/drm/drm_internal.h               |  4 ++--
- drivers/gpu/drm/drm_prime.c                  |  4 ++--
- drivers/gpu/drm/lima/lima_sched.c            |  4 ++--
- drivers/gpu/drm/panfrost/panfrost_dump.c     |  4 ++--
- drivers/gpu/drm/panfrost/panfrost_perfcnt.c  |  6 +++---
- include/drm/drm_gem.h                        |  4 ++--
- 9 files changed, 29 insertions(+), 29 deletions(-)
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
-index 037e36f2049c..29306657117a 100644
---- a/drivers/gpu/drm/drm_client.c
-+++ b/drivers/gpu/drm/drm_client.c
-@@ -265,7 +265,7 @@ void drm_client_dev_restore(struct drm_device *dev)
- static void drm_client_buffer_delete(struct drm_client_buffer *buffer)
- {
- 	if (buffer->gem) {
--		drm_gem_vunmap_unlocked(buffer->gem, &buffer->map);
-+		drm_gem_vunmap(buffer->gem, &buffer->map);
- 		drm_gem_object_put(buffer->gem);
- 	}
- 
-@@ -349,7 +349,7 @@ drm_client_buffer_vmap(struct drm_client_buffer *buffer,
- 	 * fd_install step out of the driver backend hooks, to make that
- 	 * final step optional for internal users.
- 	 */
--	ret = drm_gem_vmap_unlocked(buffer->gem, map);
-+	ret = drm_gem_vmap(buffer->gem, map);
- 	if (ret)
- 		return ret;
- 
-@@ -371,7 +371,7 @@ void drm_client_buffer_vunmap(struct drm_client_buffer *buffer)
- {
- 	struct iosys_map *map = &buffer->map;
- 
--	drm_gem_vunmap_unlocked(buffer->gem, map);
-+	drm_gem_vunmap(buffer->gem, map);
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index db20b9123891..575704f38808 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -226,7 +226,7 @@ void drm_gem_shmem_put_pages(struct drm_gem_shmem_object *shmem)
+ 			  shmem->pages_mark_accessed_on_put);
+ 	shmem->pages = NULL;
  }
- EXPORT_SYMBOL(drm_client_buffer_vunmap);
+-EXPORT_SYMBOL(drm_gem_shmem_put_pages);
++EXPORT_SYMBOL_GPL(drm_gem_shmem_put_pages);
  
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index 6129b89bb366..fae5832bb0bd 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -1173,7 +1173,7 @@ void drm_gem_unpin(struct drm_gem_object *obj)
- 		obj->funcs->unpin(obj);
- }
- 
--int drm_gem_vmap(struct drm_gem_object *obj, struct iosys_map *map)
-+int drm_gem_vmap_locked(struct drm_gem_object *obj, struct iosys_map *map)
+ static int drm_gem_shmem_pin_locked(struct drm_gem_shmem_object *shmem)
  {
- 	int ret;
- 
-@@ -1190,9 +1190,9 @@ int drm_gem_vmap(struct drm_gem_object *obj, struct iosys_map *map)
- 
- 	return 0;
- }
--EXPORT_SYMBOL(drm_gem_vmap);
-+EXPORT_SYMBOL(drm_gem_vmap_locked);
- 
--void drm_gem_vunmap(struct drm_gem_object *obj, struct iosys_map *map)
-+void drm_gem_vunmap_locked(struct drm_gem_object *obj, struct iosys_map *map)
- {
- 	dma_resv_assert_held(obj->resv);
- 
-@@ -1205,27 +1205,27 @@ void drm_gem_vunmap(struct drm_gem_object *obj, struct iosys_map *map)
- 	/* Always set the mapping to NULL. Callers may rely on this. */
- 	iosys_map_clear(map);
- }
--EXPORT_SYMBOL(drm_gem_vunmap);
-+EXPORT_SYMBOL(drm_gem_vunmap_locked);
- 
--int drm_gem_vmap_unlocked(struct drm_gem_object *obj, struct iosys_map *map)
-+int drm_gem_vmap(struct drm_gem_object *obj, struct iosys_map *map)
- {
- 	int ret;
- 
- 	dma_resv_lock(obj->resv, NULL);
--	ret = drm_gem_vmap(obj, map);
-+	ret = drm_gem_vmap_locked(obj, map);
- 	dma_resv_unlock(obj->resv);
+@@ -271,7 +271,7 @@ int drm_gem_shmem_pin(struct drm_gem_shmem_object *shmem)
  
  	return ret;
  }
--EXPORT_SYMBOL(drm_gem_vmap_unlocked);
-+EXPORT_SYMBOL(drm_gem_vmap);
- 
--void drm_gem_vunmap_unlocked(struct drm_gem_object *obj, struct iosys_map *map)
-+void drm_gem_vunmap(struct drm_gem_object *obj, struct iosys_map *map)
- {
- 	dma_resv_lock(obj->resv, NULL);
--	drm_gem_vunmap(obj, map);
-+	drm_gem_vunmap_locked(obj, map);
- 	dma_resv_unlock(obj->resv);
- }
--EXPORT_SYMBOL(drm_gem_vunmap_unlocked);
-+EXPORT_SYMBOL(drm_gem_vunmap);
+-EXPORT_SYMBOL(drm_gem_shmem_pin);
++EXPORT_SYMBOL_GPL(drm_gem_shmem_pin);
  
  /**
-  * drm_gem_lock_reservations - Sets up the ww context and acquires
-diff --git a/drivers/gpu/drm/drm_gem_framebuffer_helper.c b/drivers/gpu/drm/drm_gem_framebuffer_helper.c
-index 3bdb6ba37ff4..3808f47310bf 100644
---- a/drivers/gpu/drm/drm_gem_framebuffer_helper.c
-+++ b/drivers/gpu/drm/drm_gem_framebuffer_helper.c
-@@ -362,7 +362,7 @@ int drm_gem_fb_vmap(struct drm_framebuffer *fb, struct iosys_map *map,
- 			ret = -EINVAL;
- 			goto err_drm_gem_vunmap;
- 		}
--		ret = drm_gem_vmap_unlocked(obj, &map[i]);
-+		ret = drm_gem_vmap(obj, &map[i]);
- 		if (ret)
- 			goto err_drm_gem_vunmap;
- 	}
-@@ -384,7 +384,7 @@ int drm_gem_fb_vmap(struct drm_framebuffer *fb, struct iosys_map *map,
- 		obj = drm_gem_fb_get_obj(fb, i);
- 		if (!obj)
- 			continue;
--		drm_gem_vunmap_unlocked(obj, &map[i]);
-+		drm_gem_vunmap(obj, &map[i]);
- 	}
+  * drm_gem_shmem_unpin - Unpin backing pages for a shmem GEM object
+@@ -290,7 +290,7 @@ void drm_gem_shmem_unpin(struct drm_gem_shmem_object *shmem)
+ 	drm_gem_shmem_unpin_locked(shmem);
+ 	dma_resv_unlock(shmem->base.resv);
+ }
+-EXPORT_SYMBOL(drm_gem_shmem_unpin);
++EXPORT_SYMBOL_GPL(drm_gem_shmem_unpin);
+ 
+ /*
+  * drm_gem_shmem_vmap - Create a virtual mapping for a shmem GEM object
+@@ -360,7 +360,7 @@ int drm_gem_shmem_vmap(struct drm_gem_shmem_object *shmem,
+ 
  	return ret;
  }
-@@ -411,7 +411,7 @@ void drm_gem_fb_vunmap(struct drm_framebuffer *fb, struct iosys_map *map)
- 			continue;
- 		if (iosys_map_is_null(&map[i]))
- 			continue;
--		drm_gem_vunmap_unlocked(obj, &map[i]);
-+		drm_gem_vunmap(obj, &map[i]);
- 	}
+-EXPORT_SYMBOL(drm_gem_shmem_vmap);
++EXPORT_SYMBOL_GPL(drm_gem_shmem_vmap);
+ 
+ /*
+  * drm_gem_shmem_vunmap - Unmap a virtual mapping for a shmem GEM object
+@@ -396,7 +396,7 @@ void drm_gem_shmem_vunmap(struct drm_gem_shmem_object *shmem,
+ 
+ 	shmem->vaddr = NULL;
  }
- EXPORT_SYMBOL(drm_gem_fb_vunmap);
-diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
-index ba12acd55139..243d9aa52881 100644
---- a/drivers/gpu/drm/drm_internal.h
-+++ b/drivers/gpu/drm/drm_internal.h
-@@ -175,8 +175,8 @@ void drm_gem_print_info(struct drm_printer *p, unsigned int indent,
+-EXPORT_SYMBOL(drm_gem_shmem_vunmap);
++EXPORT_SYMBOL_GPL(drm_gem_shmem_vunmap);
  
- int drm_gem_pin(struct drm_gem_object *obj);
- void drm_gem_unpin(struct drm_gem_object *obj);
--int drm_gem_vmap(struct drm_gem_object *obj, struct iosys_map *map);
--void drm_gem_vunmap(struct drm_gem_object *obj, struct iosys_map *map);
-+int drm_gem_vmap_locked(struct drm_gem_object *obj, struct iosys_map *map);
-+void drm_gem_vunmap_locked(struct drm_gem_object *obj, struct iosys_map *map);
+ static int
+ drm_gem_shmem_create_with_handle(struct drm_file *file_priv,
+@@ -435,7 +435,7 @@ int drm_gem_shmem_madvise(struct drm_gem_shmem_object *shmem, int madv)
  
- /* drm_debugfs.c drm_debugfs_crc.c */
- #if defined(CONFIG_DEBUG_FS)
-diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-index 63b709a67471..57ac5623f09a 100644
---- a/drivers/gpu/drm/drm_prime.c
-+++ b/drivers/gpu/drm/drm_prime.c
-@@ -682,7 +682,7 @@ int drm_gem_dmabuf_vmap(struct dma_buf *dma_buf, struct iosys_map *map)
+ 	return (madv >= 0);
+ }
+-EXPORT_SYMBOL(drm_gem_shmem_madvise);
++EXPORT_SYMBOL_GPL(drm_gem_shmem_madvise);
+ 
+ void drm_gem_shmem_purge(struct drm_gem_shmem_object *shmem)
  {
- 	struct drm_gem_object *obj = dma_buf->priv;
+@@ -467,7 +467,7 @@ void drm_gem_shmem_purge(struct drm_gem_shmem_object *shmem)
  
--	return drm_gem_vmap(obj, map);
-+	return drm_gem_vmap_locked(obj, map);
+ 	invalidate_mapping_pages(file_inode(obj->filp)->i_mapping, 0, (loff_t)-1);
  }
- EXPORT_SYMBOL(drm_gem_dmabuf_vmap);
+-EXPORT_SYMBOL(drm_gem_shmem_purge);
++EXPORT_SYMBOL_GPL(drm_gem_shmem_purge);
  
-@@ -698,7 +698,7 @@ void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map)
- {
- 	struct drm_gem_object *obj = dma_buf->priv;
- 
--	drm_gem_vunmap(obj, map);
-+	drm_gem_vunmap_locked(obj, map);
+ /**
+  * drm_gem_shmem_dumb_create - Create a dumb shmem buffer object
+@@ -636,7 +636,7 @@ void drm_gem_shmem_print_info(const struct drm_gem_shmem_object *shmem,
+ 	drm_printf_indent(p, indent, "vmap_use_count=%u\n", shmem->vmap_use_count);
+ 	drm_printf_indent(p, indent, "vaddr=%p\n", shmem->vaddr);
  }
- EXPORT_SYMBOL(drm_gem_dmabuf_vunmap);
+-EXPORT_SYMBOL(drm_gem_shmem_print_info);
++EXPORT_SYMBOL_GPL(drm_gem_shmem_print_info);
  
-diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
-index ffd91a5ee299..843487128544 100644
---- a/drivers/gpu/drm/lima/lima_sched.c
-+++ b/drivers/gpu/drm/lima/lima_sched.c
-@@ -371,7 +371,7 @@ static void lima_sched_build_error_task_list(struct lima_sched_task *task)
- 		} else {
- 			buffer_chunk->size = lima_bo_size(bo);
- 
--			ret = drm_gem_vmap_unlocked(&bo->base.base, &map);
-+			ret = drm_gem_vmap(&bo->base.base, &map);
- 			if (ret) {
- 				kvfree(et);
- 				goto out;
-@@ -379,7 +379,7 @@ static void lima_sched_build_error_task_list(struct lima_sched_task *task)
- 
- 			memcpy(buffer_chunk + 1, map.vaddr, buffer_chunk->size);
- 
--			drm_gem_vunmap_unlocked(&bo->base.base, &map);
-+			drm_gem_vunmap(&bo->base.base, &map);
- 		}
- 
- 		buffer_chunk = (void *)(buffer_chunk + 1) + buffer_chunk->size;
-diff --git a/drivers/gpu/drm/panfrost/panfrost_dump.c b/drivers/gpu/drm/panfrost/panfrost_dump.c
-index e7942ac449c6..0f30bbea9895 100644
---- a/drivers/gpu/drm/panfrost/panfrost_dump.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_dump.c
-@@ -209,7 +209,7 @@ void panfrost_core_dump(struct panfrost_job *job)
- 			goto dump_header;
- 		}
- 
--		ret = drm_gem_vmap_unlocked(&bo->base.base, &map);
-+		ret = drm_gem_vmap(&bo->base.base, &map);
- 		if (ret) {
- 			dev_err(pfdev->dev, "Panfrost Dump: couldn't map Buffer Object\n");
- 			iter.hdr->bomap.valid = 0;
-@@ -236,7 +236,7 @@ void panfrost_core_dump(struct panfrost_job *job)
- 		vaddr = map.vaddr;
- 		memcpy(iter.data, vaddr, bo->base.base.size);
- 
--		drm_gem_vunmap_unlocked(&bo->base.base, &map);
-+		drm_gem_vunmap(&bo->base.base, &map);
- 
- 		iter.hdr->bomap.valid = 1;
- 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-index ba9b6e2b2636..52befead08c6 100644
---- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-@@ -106,7 +106,7 @@ static int panfrost_perfcnt_enable_locked(struct panfrost_device *pfdev,
- 		goto err_close_bo;
- 	}
- 
--	ret = drm_gem_vmap_unlocked(&bo->base, &map);
-+	ret = drm_gem_vmap(&bo->base, &map);
- 	if (ret)
- 		goto err_put_mapping;
- 	perfcnt->buf = map.vaddr;
-@@ -165,7 +165,7 @@ static int panfrost_perfcnt_enable_locked(struct panfrost_device *pfdev,
- 	return 0;
- 
- err_vunmap:
--	drm_gem_vunmap_unlocked(&bo->base, &map);
-+	drm_gem_vunmap(&bo->base, &map);
- err_put_mapping:
- 	panfrost_gem_mapping_put(perfcnt->mapping);
- err_close_bo:
-@@ -195,7 +195,7 @@ static int panfrost_perfcnt_disable_locked(struct panfrost_device *pfdev,
- 		  GPU_PERFCNT_CFG_MODE(GPU_PERFCNT_CFG_MODE_OFF));
- 
- 	perfcnt->user = NULL;
--	drm_gem_vunmap_unlocked(&perfcnt->mapping->obj->base.base, &map);
-+	drm_gem_vunmap(&perfcnt->mapping->obj->base.base, &map);
- 	perfcnt->buf = NULL;
- 	panfrost_gem_close(&perfcnt->mapping->obj->base.base, file_priv);
- 	panfrost_mmu_as_put(pfdev, perfcnt->mapping->mmu);
-diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-index c0b13c43b459..f338f8cfacf7 100644
---- a/include/drm/drm_gem.h
-+++ b/include/drm/drm_gem.h
-@@ -518,8 +518,8 @@ struct page **drm_gem_get_pages(struct drm_gem_object *obj);
- void drm_gem_put_pages(struct drm_gem_object *obj, struct page **pages,
- 		bool dirty, bool accessed);
- 
--int drm_gem_vmap_unlocked(struct drm_gem_object *obj, struct iosys_map *map);
--void drm_gem_vunmap_unlocked(struct drm_gem_object *obj, struct iosys_map *map);
-+int drm_gem_vmap(struct drm_gem_object *obj, struct iosys_map *map);
-+void drm_gem_vunmap(struct drm_gem_object *obj, struct iosys_map *map);
- 
- int drm_gem_objects_lookup(struct drm_file *filp, void __user *bo_handles,
- 			   int count, struct drm_gem_object ***objs_out);
+ /**
+  * drm_gem_shmem_get_sg_table - Provide a scatter/gather table of pinned
 -- 
 2.41.0
 
