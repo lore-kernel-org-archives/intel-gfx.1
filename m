@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79AA5C83F10
-	for <intel-gfx@archiver.kernel.org>; Sun, 27 Aug 2023 17:56:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C34D8C83F13
+	for <intel-gfx@archiver.kernel.org>; Sun, 27 Aug 2023 17:56:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 884C010E1D4;
-	Sun, 27 Aug 2023 17:56:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3CC710E1D9;
+	Sun, 27 Aug 2023 17:56:08 +0000 (UTC)
 Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D4B010E1C8;
- Sun, 27 Aug 2023 17:55:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41E6710E1D3;
+ Sun, 27 Aug 2023 17:56:07 +0000 (UTC)
 Received: from workpc.. (109-252-153-31.dynamic.spd-mgts.ru [109.252.153.31])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 9E3C166056FC;
- Sun, 27 Aug 2023 18:55:55 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 63AE066072A3;
+ Sun, 27 Aug 2023 18:56:04 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1693158957;
- bh=07/1K7/qlWAExSgWA4WsYDHlbTQXKp97hh5kmC1Ec0o=;
+ s=mail; t=1693158966;
+ bh=IHioglZoVI2lSaGDBxw7DExC6Dk22dZyjUg2cFBSctU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PSppcjfCMi97GptL8IPoZH+YHzU4q0opjzeXBcez2Vju7FaR90cfkrFg//3JhRsJ+
- Ajt7qHyU1C7BG0pLydCzLamNm5tHVPclu6WrBixjmvCSSVLkBijDungmMcrUbTnZ1y
- 0ilnatbhE52USdY85pLq4Lchc8KrwGj9MT97hlpyEoN+RxF18AJnmx58gBqMz1l2+4
- C6ZilnRdLhZmYTB6Oofwke+yLE3yKBnQVSG0gBTBvKRBB0lIoCEQBSVXP2gU5I8b/0
- GRECWzauJKu+bD6KdiwPdWavqaavMkZs0HVe6+VrJzQZpdmoWb87ApxSlaEUQnxv8F
- TlTC7Zf0+LQug==
+ b=eFamxTs00+fhHgADMPppuElhVoFbv5F6c3LIvyb4o7Ov4gD/3n/l/5Pmtr/Zz1rIX
+ UXKwSgoELoOPAAkCFZAXQNgDwHWCOulEONTWddgw3zQKDalR6xF3Opyny6PLwz7Z7y
+ F1VbjLmfz67laqpKTl6cStrGAXYCWpxli1/pngcyCty8/8US5nnZ8FhNueico+CW1L
+ yPDhCOtTnI+V/5ausuQrDCcYwu2HSXVrYOFXgtsUvw8C+vN4agEYOd738ubmSmKlWK
+ aax7TKSi/wh/vXu+U477tV+CZcLjkH1BWZJAO8+XdwX1ynFXO/Epp/GDo9CaDK8zQh
+ Q0o+UuuTJVAXQ==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -42,15 +42,15 @@ To: David Airlie <airlied@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
  Emma Anholt <emma@anholt.net>, Melissa Wen <mwen@igalia.com>,
  Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
  Boqun Feng <boqun.feng@gmail.com>, Mark Rutland <mark.rutland@arm.com>
-Date: Sun, 27 Aug 2023 20:54:30 +0300
-Message-ID: <20230827175449.1766701-5-dmitry.osipenko@collabora.com>
+Date: Sun, 27 Aug 2023 20:54:35 +0300
+Message-ID: <20230827175449.1766701-10-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230827175449.1766701-1-dmitry.osipenko@collabora.com>
 References: <20230827175449.1766701-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v15 04/23] drm/gem: Add _locked postfix to
- functions that have unlocked counterpart
+Subject: [Intel-gfx] [PATCH v15 09/23] drm/shmem-helper: Remove obsoleted
+ is_iomem test
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,53 +69,34 @@ Cc: intel-gfx@lists.freedesktop.org, kernel@collabora.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add _locked postfix to drm_gem functions that have unlocked counterpart
-functions to make GEM functions naming more consistent and intuitive in
-regards to the locking requirements.
+Everything that uses the mapped buffer should by agnostic to is_iomem.
+The only reason for the is_iomem test is that we're setting shmem->vaddr
+to the returned map->vaddr. Now that the shmem->vaddr code is gone, remove
+the obsoleted is_iomem test to clean up the code.
 
-Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
+Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/drm_gem.c | 6 +++---
- include/drm/drm_gem.h     | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index fae5832bb0bd..8c0268944199 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -1488,10 +1488,10 @@ drm_gem_lru_scan(struct drm_gem_lru *lru,
- EXPORT_SYMBOL(drm_gem_lru_scan);
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index f053dc511508..d545d3d227d7 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -315,12 +315,6 @@ int drm_gem_shmem_vmap_locked(struct drm_gem_shmem_object *shmem,
  
- /**
-- * drm_gem_evict - helper to evict backing pages for a GEM object
-+ * drm_gem_evict_locked - helper to evict backing pages for a GEM object
-  * @obj: obj in question
-  */
--int drm_gem_evict(struct drm_gem_object *obj)
-+int drm_gem_evict_locked(struct drm_gem_object *obj)
- {
- 	dma_resv_assert_held(obj->resv);
+ 	if (obj->import_attach) {
+ 		ret = dma_buf_vmap(obj->import_attach->dmabuf, map);
+-		if (!ret) {
+-			if (drm_WARN_ON(obj->dev, map->is_iomem)) {
+-				dma_buf_vunmap(obj->import_attach->dmabuf, map);
+-				return -EIO;
+-			}
+-		}
+ 	} else {
+ 		pgprot_t prot = PAGE_KERNEL;
  
-@@ -1503,4 +1503,4 @@ int drm_gem_evict(struct drm_gem_object *obj)
- 
- 	return 0;
- }
--EXPORT_SYMBOL(drm_gem_evict);
-+EXPORT_SYMBOL(drm_gem_evict_locked);
-diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-index f338f8cfacf7..e78e6d817451 100644
---- a/include/drm/drm_gem.h
-+++ b/include/drm/drm_gem.h
-@@ -542,7 +542,7 @@ unsigned long drm_gem_lru_scan(struct drm_gem_lru *lru,
- 			       unsigned long *remaining,
- 			       bool (*shrink)(struct drm_gem_object *obj));
- 
--int drm_gem_evict(struct drm_gem_object *obj);
-+int drm_gem_evict_locked(struct drm_gem_object *obj);
- 
- #ifdef CONFIG_LOCKDEP
- /**
 -- 
 2.41.0
 
