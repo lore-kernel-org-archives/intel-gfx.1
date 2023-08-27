@@ -4,32 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F23F4C83F01
-	for <intel-gfx@archiver.kernel.org>; Sun, 27 Aug 2023 17:56:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90D6EC83F10
+	for <intel-gfx@archiver.kernel.org>; Sun, 27 Aug 2023 17:56:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5C4510E1D7;
-	Sun, 27 Aug 2023 17:56:23 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8271310E1E1;
- Sun, 27 Aug 2023 17:56:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3420310E1D3;
+	Sun, 27 Aug 2023 17:56:59 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4D6210E1E1;
+ Sun, 27 Aug 2023 17:56:26 +0000 (UTC)
 Received: from workpc.. (109-252-153-31.dynamic.spd-mgts.ru [109.252.153.31])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id E0EA16607290;
- Sun, 27 Aug 2023 18:56:16 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 127E66607383;
+ Sun, 27 Aug 2023 18:56:23 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1693158978;
- bh=h5zA3QI6jLEZ04+CP8fo0PuRIMQ8t88TtCG2qT9Ffo4=;
+ s=mail; t=1693158985;
+ bh=iD/RGR8vyEtS3p/My8ajCUUp4er25O/60kSxAeFzEeA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=iNSLxgqeiOzrV7VF4qOrkWsdZCcWTuFLRrgcZCerj/ELf3jnTGlBOGcdBAwdbbV4M
- LxQRiFJDoIik2S5Mg5DeDD8nXez4oPLNRkByEi4uL0mnSyQdkI/7vxizflqS3pLmHP
- bKatwdAxCtUKg9KKLCt9VSWQJlQwP2is/SdpyYXy8GBAn1IIHXmKLI8EUqtpNnY2dR
- fLs9waVIfpYJdEm6AwmzeT8k4iBxuw+n6cH+kxkaBuWXvgRTS3RW0hB+Xf4Yc4fTv5
- oQpbrMIXU/X7HN1iz+7Rj1arfSLy3/4vXakAAYjguctPqTCOw4KBdnk+gfJ33suU1A
- pBzCP7to1zYsA==
+ b=BQNUgE+IuOdVGDcx/E8UE81kIHEC/0ZTMdcT48uhszsRe0Z7AlfsI9ZAE+Ohu5Ti1
+ mBjCKYjFpiYY4GWmE7MApv4RqDplbKFuU1svi47CAjuRciC2vRmi9MIUeDXat4SxAg
+ q3Bra4UmssMzm2JuV9YCD2DRzOWVKDy+qPOSEcOLga1i4WU0h/bhVjRfvBWTI2gX27
+ z/C99KXG9CCdCpxvPRBo/c2HDqLh+w2ZrOEo5lTN5rnigrKnglAl0shRSCf1fbKL4a
+ hm/hagzPFNbg2chb1SAHzWM/ASYhsIVLHVWVJZ4enpAZSCC63ECE6b1pB57xVjeRxc
+ Lk3GKgXcZOeMQ==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -43,15 +42,14 @@ To: David Airlie <airlied@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
  Emma Anholt <emma@anholt.net>, Melissa Wen <mwen@igalia.com>,
  Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
  Boqun Feng <boqun.feng@gmail.com>, Mark Rutland <mark.rutland@arm.com>
-Date: Sun, 27 Aug 2023 20:54:42 +0300
-Message-ID: <20230827175449.1766701-17-dmitry.osipenko@collabora.com>
+Date: Sun, 27 Aug 2023 20:54:46 +0300
+Message-ID: <20230827175449.1766701-21-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230827175449.1766701-1-dmitry.osipenko@collabora.com>
 References: <20230827175449.1766701-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v15 16/23] drm/shmem-helper: Use kref for
- vmap_use_count
+Subject: [Intel-gfx] [PATCH v15 20/23] drm/virtio: Pin display framebuffer BO
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,124 +68,115 @@ Cc: intel-gfx@lists.freedesktop.org, kernel@collabora.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use kref helper for vmap_use_count to make refcounting consistent with
-pages_use_count and pages_pin_count that use kref. This will allow to
-optimize unlocked vmappings by skipping reservation locking if refcnt > 1.
+Prepare to addition of memory shrinker support by pinning display
+framebuffer BO pages in memory while they are in use by display on host.
+Shrinker is free to relocate framebuffer BO pages if it doesn't know that
+pages are in use, thus pin the pages to disallow shrinker to move them.
 
-Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
+Acked-by: Gerd Hoffmann <kraxel@redhat.com>
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/drm_gem_shmem_helper.c | 37 ++++++++++++++------------
- include/drm/drm_gem_shmem_helper.h     |  2 +-
- 2 files changed, 21 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/virtio/virtgpu_drv.h   |  2 ++
+ drivers/gpu/drm/virtio/virtgpu_gem.c   | 19 +++++++++++++++++++
+ drivers/gpu/drm/virtio/virtgpu_plane.c | 17 +++++++++++++++--
+ 3 files changed, 36 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index 17a0177acb5d..d96fee3d6166 100644
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -144,7 +144,7 @@ void drm_gem_shmem_free(struct drm_gem_shmem_object *shmem)
- 	} else if (!shmem->imported_sgt) {
- 		dma_resv_lock(shmem->base.resv, NULL);
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+index 4126c384286b..5a4b74b7b318 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.h
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+@@ -313,6 +313,8 @@ void virtio_gpu_array_put_free(struct virtio_gpu_object_array *objs);
+ void virtio_gpu_array_put_free_delayed(struct virtio_gpu_device *vgdev,
+ 				       struct virtio_gpu_object_array *objs);
+ void virtio_gpu_array_put_free_work(struct work_struct *work);
++int virtio_gpu_gem_pin(struct virtio_gpu_object *bo);
++void virtio_gpu_gem_unpin(struct virtio_gpu_object *bo);
  
--		drm_WARN_ON(obj->dev, shmem->vmap_use_count);
-+		drm_WARN_ON(obj->dev, kref_read(&shmem->vmap_use_count));
+ /* virtgpu_vq.c */
+ int virtio_gpu_alloc_vbufs(struct virtio_gpu_device *vgdev);
+diff --git a/drivers/gpu/drm/virtio/virtgpu_gem.c b/drivers/gpu/drm/virtio/virtgpu_gem.c
+index 7db48d17ee3a..625c05d625bf 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_gem.c
++++ b/drivers/gpu/drm/virtio/virtgpu_gem.c
+@@ -294,3 +294,22 @@ void virtio_gpu_array_put_free_work(struct work_struct *work)
+ 	}
+ 	spin_unlock(&vgdev->obj_free_lock);
+ }
++
++int virtio_gpu_gem_pin(struct virtio_gpu_object *bo)
++{
++	int err;
++
++	if (virtio_gpu_is_shmem(bo)) {
++		err = drm_gem_shmem_pin(&bo->base);
++		if (err)
++			return err;
++	}
++
++	return 0;
++}
++
++void virtio_gpu_gem_unpin(struct virtio_gpu_object *bo)
++{
++	if (virtio_gpu_is_shmem(bo))
++		drm_gem_shmem_unpin(&bo->base);
++}
+diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
+index a2e045f3a000..def57b01a826 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_plane.c
++++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
+@@ -238,20 +238,28 @@ static int virtio_gpu_plane_prepare_fb(struct drm_plane *plane,
+ 	struct virtio_gpu_device *vgdev = dev->dev_private;
+ 	struct virtio_gpu_framebuffer *vgfb;
+ 	struct virtio_gpu_object *bo;
++	int err;
  
- 		if (shmem->sgt) {
- 			dma_unmap_sgtable(obj->dev->dev, shmem->sgt,
-@@ -359,23 +359,25 @@ int drm_gem_shmem_vmap_locked(struct drm_gem_shmem_object *shmem,
+ 	if (!new_state->fb)
+ 		return 0;
  
- 		dma_resv_assert_held(shmem->base.resv);
+ 	vgfb = to_virtio_gpu_framebuffer(new_state->fb);
+ 	bo = gem_to_virtio_gpu_obj(vgfb->base.obj[0]);
+-	if (!bo || (plane->type == DRM_PLANE_TYPE_PRIMARY && !bo->guest_blob))
++
++	err = virtio_gpu_gem_pin(bo);
++	if (err)
++		return err;
++
++	if (plane->type == DRM_PLANE_TYPE_PRIMARY && !bo->guest_blob)
+ 		return 0;
  
--		if (shmem->vmap_use_count++ > 0) {
-+		if (kref_get_unless_zero(&shmem->vmap_use_count)) {
- 			iosys_map_set_vaddr(map, shmem->vaddr);
- 			return 0;
- 		}
- 
- 		ret = drm_gem_shmem_pin_locked(shmem);
- 		if (ret)
--			goto err_zero_use;
-+			return ret;
- 
- 		if (shmem->map_wc)
- 			prot = pgprot_writecombine(prot);
- 		shmem->vaddr = vmap(shmem->pages, obj->size >> PAGE_SHIFT,
- 				    VM_MAP, prot);
--		if (!shmem->vaddr)
-+		if (!shmem->vaddr) {
- 			ret = -ENOMEM;
--		else
-+		} else {
- 			iosys_map_set_vaddr(map, shmem->vaddr);
-+			kref_init(&shmem->vmap_use_count);
+ 	if (bo->dumb && (plane->state->fb != new_state->fb)) {
+ 		vgfb->fence = virtio_gpu_fence_alloc(vgdev, vgdev->fence_drv.context,
+ 						     0);
+-		if (!vgfb->fence)
++		if (!vgfb->fence) {
++			virtio_gpu_gem_unpin(bo);
+ 			return -ENOMEM;
 +		}
  	}
  
- 	if (ret) {
-@@ -388,13 +390,22 @@ int drm_gem_shmem_vmap_locked(struct drm_gem_shmem_object *shmem,
- err_put_pages:
- 	if (!obj->import_attach)
- 		drm_gem_shmem_unpin_locked(shmem);
--err_zero_use:
--	shmem->vmap_use_count = 0;
+ 	return 0;
+@@ -261,15 +269,20 @@ static void virtio_gpu_plane_cleanup_fb(struct drm_plane *plane,
+ 					struct drm_plane_state *state)
+ {
+ 	struct virtio_gpu_framebuffer *vgfb;
++	struct virtio_gpu_object *bo;
  
- 	return ret;
- }
- EXPORT_SYMBOL_GPL(drm_gem_shmem_vmap_locked);
- 
-+static void drm_gem_shmem_kref_vunmap(struct kref *kref)
-+{
-+	struct drm_gem_shmem_object *shmem;
-+
-+	shmem = container_of(kref, struct drm_gem_shmem_object,
-+			     vmap_use_count);
-+
-+	vunmap(shmem->vaddr);
-+	drm_gem_shmem_unpin_locked(shmem);
-+}
-+
- /*
-  * drm_gem_shmem_vunmap_locked - Unmap a virtual mapping for a shmem GEM object
-  * @shmem: shmem GEM object
-@@ -416,15 +427,7 @@ void drm_gem_shmem_vunmap_locked(struct drm_gem_shmem_object *shmem,
- 		dma_buf_vunmap(obj->import_attach->dmabuf, map);
- 	} else {
- 		dma_resv_assert_held(shmem->base.resv);
--
--		if (drm_WARN_ON_ONCE(obj->dev, !shmem->vmap_use_count))
--			return;
--
--		if (--shmem->vmap_use_count > 0)
--			return;
--
--		vunmap(shmem->vaddr);
--		drm_gem_shmem_unpin_locked(shmem);
-+		kref_put(&shmem->vmap_use_count, drm_gem_shmem_kref_vunmap);
- 	}
- 
- 	shmem->vaddr = NULL;
-@@ -663,7 +666,7 @@ void drm_gem_shmem_print_info(const struct drm_gem_shmem_object *shmem,
+ 	if (!state->fb)
  		return;
  
- 	drm_printf_indent(p, indent, "pages_use_count=%u\n", kref_read(&shmem->pages_use_count));
--	drm_printf_indent(p, indent, "vmap_use_count=%u\n", shmem->vmap_use_count);
-+	drm_printf_indent(p, indent, "vmap_use_count=%u\n", kref_read(&shmem->vmap_use_count));
- 	drm_printf_indent(p, indent, "vaddr=%p\n", shmem->vaddr);
+ 	vgfb = to_virtio_gpu_framebuffer(state->fb);
++	bo = gem_to_virtio_gpu_obj(vgfb->base.obj[0]);
++
+ 	if (vgfb->fence) {
+ 		dma_fence_put(&vgfb->fence->f);
+ 		vgfb->fence = NULL;
+ 	}
++
++	virtio_gpu_gem_unpin(bo);
  }
- EXPORT_SYMBOL_GPL(drm_gem_shmem_print_info);
-diff --git a/include/drm/drm_gem_shmem_helper.h b/include/drm/drm_gem_shmem_helper.h
-index 400ecd63f45f..0e0ccd380f66 100644
---- a/include/drm/drm_gem_shmem_helper.h
-+++ b/include/drm/drm_gem_shmem_helper.h
-@@ -81,7 +81,7 @@ struct drm_gem_shmem_object {
- 	 * Reference count on the virtual address.
- 	 * The address are un-mapped when the count reaches zero.
- 	 */
--	unsigned int vmap_use_count;
-+	struct kref vmap_use_count;
  
- 	/**
- 	 * @got_sgt:
+ static void virtio_gpu_cursor_plane_update(struct drm_plane *plane,
 -- 
 2.41.0
 
