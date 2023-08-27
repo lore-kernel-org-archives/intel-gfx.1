@@ -4,31 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DC24C83F16
-	for <intel-gfx@archiver.kernel.org>; Sun, 27 Aug 2023 17:56:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB3DDC83F01
+	for <intel-gfx@archiver.kernel.org>; Sun, 27 Aug 2023 17:56:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A6C610E1DA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 880B510E1D6;
 	Sun, 27 Aug 2023 17:56:09 +0000 (UTC)
-Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF8C610E1CC;
- Sun, 27 Aug 2023 17:56:03 +0000 (UTC)
+Received: from madras.collabora.co.uk (madras.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e5ab])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECE8E10E1CA;
+ Sun, 27 Aug 2023 17:55:59 +0000 (UTC)
 Received: from workpc.. (109-252-153-31.dynamic.spd-mgts.ru [109.252.153.31])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id CE05E660729C;
- Sun, 27 Aug 2023 18:56:00 +0100 (BST)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 5C5E26607292;
+ Sun, 27 Aug 2023 18:55:57 +0100 (BST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1693158962;
- bh=BNTmxQOM46+HQ6UEvSllq5xIsj79DPU82tEdZSTZezY=;
+ s=mail; t=1693158958;
+ bh=fRLodgl07tao4BtPSyoT/6xlg7PcCsmg2piBCDZKcAU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=bYecb6u32QyVdmEn/TuqovooYrq44AV5SNVKdiUSr3E/pzfUYVtffhwMb4FOe6j70
- q6PFDw9sQ77nyeMiF6uby3VhRUksKiMoT5XsX86W1N5QL5rvEAAFCr9cTqxXUOiZM4
- 54GMfxmqbVW+V1IKiIUanDcVdJoDUJSPO5a/Txi42wRjzKQhAhIoNZxWEoFo7jtK9L
- zmQgQqeFCYe2yOmiQVHQFxhS0GDD8JVS9tL4nkQQE/Po9HGstXhDPmI2OV5uJ20Q2n
- N2c/NhjWWY8hy+l1eLFnWzv4ag8cnJMRjWcLbKN5wtUeMieiV7wsjM2LJUh/dkHY8/
- OpOMladm7edxg==
+ b=lOxsFutvOy82n/HQXsWuaGGvlEqrq/nG930pNUXbYmBwnOzsoos8vkso6yOcZ4zAd
+ hkLSvZJGhzuIHGN/k0/GWqfcncvCIwdH1vxMaSM54u7F5AT1ogwhC0m9HRZqnHTiWh
+ hWnm4daKqxNu/a6NCXAiDgteXCymB06nGx0CHnCRal4YFYKbFxc4GSvyyb6eQzwwPi
+ xwyW6+dHy3WgzJsS0UlETtllcpATGpVSUQdIvlIBB2sxsZG1/7vLcJGYsr/mRsv74d
+ O33Gy1V1d0yfijqbnL63qIgw17Ln4W1lPncMU0YDf0qrAppvD1hL5Z9IHt2GWUWaF5
+ DkZxBCiNkKT/w==
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 To: David Airlie <airlied@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
  Gurchetan Singh <gurchetansingh@chromium.org>,
@@ -42,15 +43,15 @@ To: David Airlie <airlied@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
  Emma Anholt <emma@anholt.net>, Melissa Wen <mwen@igalia.com>,
  Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
  Boqun Feng <boqun.feng@gmail.com>, Mark Rutland <mark.rutland@arm.com>
-Date: Sun, 27 Aug 2023 20:54:33 +0300
-Message-ID: <20230827175449.1766701-8-dmitry.osipenko@collabora.com>
+Date: Sun, 27 Aug 2023 20:54:31 +0300
+Message-ID: <20230827175449.1766701-6-dmitry.osipenko@collabora.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230827175449.1766701-1-dmitry.osipenko@collabora.com>
 References: <20230827175449.1766701-1-dmitry.osipenko@collabora.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v15 07/23] drm/shmem-helper: Make all exported
- symbols GPL
+Subject: [Intel-gfx] [PATCH v15 05/23] drm/v3d: Replace open-coded
+ drm_gem_shmem_free() with drm_gem_object_put()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,90 +70,69 @@ Cc: intel-gfx@lists.freedesktop.org, kernel@collabora.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Make all drm-shmem exported symbols GPL to make them consistent with
-the rest of drm-shmem symbols.
+The drm_gem_shmem_free() doesn't put GEM's kref to zero, which becomes
+important with addition of the shrinker support to drm-shmem that will
+use kref=0 in order to prevent taking lock during special GEM-freeing
+time in order to avoid spurious lockdep warning about locking ordering
+vs fs_reclaim code paths.
+
+Replace open-coded drm_gem_shmem_free() with drm_gem_object_put() that
+drops kref to zero before freeing GEM.
 
 Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 ---
- drivers/gpu/drm/drm_gem_shmem_helper.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/v3d/v3d_bo.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index db20b9123891..575704f38808 100644
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -226,7 +226,7 @@ void drm_gem_shmem_put_pages(struct drm_gem_shmem_object *shmem)
- 			  shmem->pages_mark_accessed_on_put);
- 	shmem->pages = NULL;
+diff --git a/drivers/gpu/drm/v3d/v3d_bo.c b/drivers/gpu/drm/v3d/v3d_bo.c
+index 8b3229a37c6d..70c1095d6eec 100644
+--- a/drivers/gpu/drm/v3d/v3d_bo.c
++++ b/drivers/gpu/drm/v3d/v3d_bo.c
+@@ -33,16 +33,18 @@ void v3d_free_object(struct drm_gem_object *obj)
+ 	struct v3d_dev *v3d = to_v3d_dev(obj->dev);
+ 	struct v3d_bo *bo = to_v3d_bo(obj);
+ 
+-	v3d_mmu_remove_ptes(bo);
++	if (drm_mm_node_allocated(&bo->node)) {
++		v3d_mmu_remove_ptes(bo);
+ 
+-	mutex_lock(&v3d->bo_lock);
+-	v3d->bo_stats.num_allocated--;
+-	v3d->bo_stats.pages_allocated -= obj->size >> PAGE_SHIFT;
+-	mutex_unlock(&v3d->bo_lock);
++		mutex_lock(&v3d->bo_lock);
++		v3d->bo_stats.num_allocated--;
++		v3d->bo_stats.pages_allocated -= obj->size >> PAGE_SHIFT;
++		mutex_unlock(&v3d->bo_lock);
+ 
+-	spin_lock(&v3d->mm_lock);
+-	drm_mm_remove_node(&bo->node);
+-	spin_unlock(&v3d->mm_lock);
++		spin_lock(&v3d->mm_lock);
++		drm_mm_remove_node(&bo->node);
++		spin_unlock(&v3d->mm_lock);
++	}
+ 
+ 	/* GPU execution may have dirtied any pages in the BO. */
+ 	bo->base.pages_mark_dirty_on_put = true;
+@@ -142,7 +144,7 @@ struct v3d_bo *v3d_bo_create(struct drm_device *dev, struct drm_file *file_priv,
+ 	return bo;
+ 
+ free_obj:
+-	drm_gem_shmem_free(shmem_obj);
++	drm_gem_object_put(&shmem_obj->base);
+ 	return ERR_PTR(ret);
  }
--EXPORT_SYMBOL(drm_gem_shmem_put_pages);
-+EXPORT_SYMBOL_GPL(drm_gem_shmem_put_pages);
  
- static int drm_gem_shmem_pin_locked(struct drm_gem_shmem_object *shmem)
- {
-@@ -271,7 +271,7 @@ int drm_gem_shmem_pin(struct drm_gem_shmem_object *shmem)
+@@ -160,7 +162,7 @@ v3d_prime_import_sg_table(struct drm_device *dev,
  
- 	return ret;
- }
--EXPORT_SYMBOL(drm_gem_shmem_pin);
-+EXPORT_SYMBOL_GPL(drm_gem_shmem_pin);
+ 	ret = v3d_bo_create_finish(obj);
+ 	if (ret) {
+-		drm_gem_shmem_free(&to_v3d_bo(obj)->base);
++		drm_gem_object_put(obj);
+ 		return ERR_PTR(ret);
+ 	}
  
- /**
-  * drm_gem_shmem_unpin - Unpin backing pages for a shmem GEM object
-@@ -290,7 +290,7 @@ void drm_gem_shmem_unpin(struct drm_gem_shmem_object *shmem)
- 	drm_gem_shmem_unpin_locked(shmem);
- 	dma_resv_unlock(shmem->base.resv);
- }
--EXPORT_SYMBOL(drm_gem_shmem_unpin);
-+EXPORT_SYMBOL_GPL(drm_gem_shmem_unpin);
- 
- /*
-  * drm_gem_shmem_vmap - Create a virtual mapping for a shmem GEM object
-@@ -360,7 +360,7 @@ int drm_gem_shmem_vmap(struct drm_gem_shmem_object *shmem,
- 
- 	return ret;
- }
--EXPORT_SYMBOL(drm_gem_shmem_vmap);
-+EXPORT_SYMBOL_GPL(drm_gem_shmem_vmap);
- 
- /*
-  * drm_gem_shmem_vunmap - Unmap a virtual mapping for a shmem GEM object
-@@ -396,7 +396,7 @@ void drm_gem_shmem_vunmap(struct drm_gem_shmem_object *shmem,
- 
- 	shmem->vaddr = NULL;
- }
--EXPORT_SYMBOL(drm_gem_shmem_vunmap);
-+EXPORT_SYMBOL_GPL(drm_gem_shmem_vunmap);
- 
- static int
- drm_gem_shmem_create_with_handle(struct drm_file *file_priv,
-@@ -435,7 +435,7 @@ int drm_gem_shmem_madvise(struct drm_gem_shmem_object *shmem, int madv)
- 
- 	return (madv >= 0);
- }
--EXPORT_SYMBOL(drm_gem_shmem_madvise);
-+EXPORT_SYMBOL_GPL(drm_gem_shmem_madvise);
- 
- void drm_gem_shmem_purge(struct drm_gem_shmem_object *shmem)
- {
-@@ -467,7 +467,7 @@ void drm_gem_shmem_purge(struct drm_gem_shmem_object *shmem)
- 
- 	invalidate_mapping_pages(file_inode(obj->filp)->i_mapping, 0, (loff_t)-1);
- }
--EXPORT_SYMBOL(drm_gem_shmem_purge);
-+EXPORT_SYMBOL_GPL(drm_gem_shmem_purge);
- 
- /**
-  * drm_gem_shmem_dumb_create - Create a dumb shmem buffer object
-@@ -636,7 +636,7 @@ void drm_gem_shmem_print_info(const struct drm_gem_shmem_object *shmem,
- 	drm_printf_indent(p, indent, "vmap_use_count=%u\n", shmem->vmap_use_count);
- 	drm_printf_indent(p, indent, "vaddr=%p\n", shmem->vaddr);
- }
--EXPORT_SYMBOL(drm_gem_shmem_print_info);
-+EXPORT_SYMBOL_GPL(drm_gem_shmem_print_info);
- 
- /**
-  * drm_gem_shmem_get_sg_table - Provide a scatter/gather table of pinned
 -- 
 2.41.0
 
