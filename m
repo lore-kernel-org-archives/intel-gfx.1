@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFD5DC71153
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Aug 2023 06:35:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 371AEC83F12
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Aug 2023 06:35:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2653510E218;
-	Mon, 28 Aug 2023 06:35:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30DEB10E21A;
+	Mon, 28 Aug 2023 06:35:45 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3757710E218
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Aug 2023 06:35:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C067B10E218
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Aug 2023 06:35:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1693204542; x=1724740542;
+ t=1693204537; x=1724740537;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Kef5uF+PT5J7PdOjW4wZvf883qGaKfAKahwAwCspaks=;
- b=T++jxfWbXvKjh6QaY5M5V/3kXgqMXkJHFeTZm5sQp8zs8mNQUfpXFbyL
- i3LZm/B5NaECFRrAQJcomko39d/f/KI9mLMxgLAKIRuls0QYWMSQVo4Q6
- uXxXA1+9BfLMe1Uxfl2CA68dwJUmqK75f98+2oIPxbQM1S2d2aEh7fCpF
- 0YTOUMbPQxjKCa7u9I1F3AsrYb42Ue2+dnC9aPHmUss0wOtHNflrdfZLg
- jhM+YC4qPtO+ajnXuAjy27hBjoebrzPvlxp2H71wMi8FyxdyZxQpEgmnw
- Z1k9eM2yobcBx9hXSeSk8OXMhgMh02mH9hnOGeWOkurkmXKDzaSjwf7/N g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="461395942"
-X-IronPort-AV: E=Sophos;i="6.02,207,1688454000"; d="scan'208";a="461395942"
+ bh=d6m6liq2jAp6ba9gFDgnIKn4mRcVkpOrMzOAILAawLk=;
+ b=iXMeDBYgj8TwKwH/nnp/zG/v+6ECq6qoTYcbnPD4ehpVKlHIz63s2qOo
+ JZD7X7TfQ9MhkiDiVfS8kF8irDlGzuWLIM1SrV4CyIniakXVGg1i3kGE0
+ rBymBmFE32yhwIIn9WWEbb/5Ib7xe0GOhU8R0bPJds8SJn1nWYDzjuOmj
+ qwYOABIHXxoEcE3zRT231pQmqTQN8dhXZriZEE2VxXGnPCQub5iqqFZiK
+ 9CQ90/opuNdHrpKthCgw2IRpalLhNFQl7b78+KKChBcT6lDR2kixSBHa7
+ mbxRULKk562iriH/ISkUQzPJNVOAA53V68GA52NMGWWBEJiJ+wp/Na79X g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="461395934"
+X-IronPort-AV: E=Sophos;i="6.02,207,1688454000"; d="scan'208";a="461395934"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2023 23:35:42 -0700
+ 27 Aug 2023 23:35:37 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="911930511"
-X-IronPort-AV: E=Sophos;i="6.02,207,1688454000"; d="scan'208";a="911930511"
+X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="911930500"
+X-IronPort-AV: E=Sophos;i="6.02,207,1688454000"; d="scan'208";a="911930500"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by orsmga005.jf.intel.com with ESMTP; 27 Aug 2023 23:35:40 -0700
+ by orsmga005.jf.intel.com with ESMTP; 27 Aug 2023 23:35:35 -0700
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Aug 2023 12:04:01 +0530
-Message-Id: <20230828063401.600414-5-suraj.kandpal@intel.com>
+Date: Mon, 28 Aug 2023 12:03:59 +0530
+Message-Id: <20230828063401.600414-3-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230828063401.600414-1-suraj.kandpal@intel.com>
 References: <20230828063401.600414-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 4/4] drm/i915/hdcp: Adjust timeout for read
- in DPMST Scenario
+Subject: [Intel-gfx] [PATCH v3 2/4] drm/i915/hdcp: Propagate aux info in DP
+ HDCP functions
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,44 +61,162 @@ Cc: uma.shakar@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For dpmst hdcp scenario increase the message timeout based
-on the number of ports connected as each port needs to be
-validated and each will take the prescribed amount of time
-for the respective msg_id and total timeout will be
-original_timeout * num_ports.
+We were propagating dig_port info to dp hdcp2 specific functions.
+Let us clean that up and send intel_connector in the following
+functions: intel_dp_hdcp2_wait_for_msg, get_receiver_id_list_rx_info,
+intel_dp_hdcp2_read_rx_status.
+This optimises mst scenarios where aux ends up being remote and not
+stored in dig_port and dig_port can always be derived from
+intel_connector if needed.
 
 --v2
--Add justification for Adjusting the timeout [Arun]
+-Fix Typo [Arun]
+-Dont pass drm_dp core structures [Arun]
+-Fix commit message styling [Arun]
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_hdcp.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_hdcp.c | 39 +++++++++++---------
+ 1 file changed, 22 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-index df68fd8f2eed..b0cfe759d3e5 100644
+index 6cd42363837a..59ef77476cb9 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp_hdcp.c
-@@ -560,9 +560,15 @@ int intel_dp_hdcp2_read_msg(struct intel_connector *connector,
- 		      DP_AUX_MAX_PAYLOAD_BYTES : bytes_to_recv;
+@@ -331,10 +331,11 @@ static const struct hdcp2_dp_msg_data hdcp2_dp_msg_data[] = {
+ };
  
- 		/* Entire msg read timeout since initiate of msg read */
--		if (bytes_to_recv == size - 1 && hdcp2_msg_data->msg_read_timeout > 0)
--			msg_end = ktime_add_ms(ktime_get_raw(),
--					       hdcp2_msg_data->msg_read_timeout);
-+		if (bytes_to_recv == size - 1 && hdcp2_msg_data->msg_read_timeout > 0) {
-+			if (intel_encoder_is_mst(connector->encoder))
-+				msg_end = ktime_add_ms(ktime_get_raw(),
-+						       hdcp2_msg_data->msg_read_timeout *
-+						       connector->port->parent->num_ports);
-+			else
-+				msg_end = ktime_add_ms(ktime_get_raw(),
-+						       hdcp2_msg_data->msg_read_timeout);
-+		}
+ static int
+-intel_dp_hdcp2_read_rx_status(struct intel_digital_port *dig_port,
++intel_dp_hdcp2_read_rx_status(struct intel_connector *connector,
+ 			      u8 *rx_status)
+ {
+-	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
++	struct drm_i915_private *i915 = to_i915(connector->base.dev);
++	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
+ 	ssize_t ret;
  
- 		ret = drm_dp_dpcd_read(aux, offset,
- 				       (void *)byte, len);
+ 	ret = drm_dp_dpcd_read(&dig_port->dp.aux,
+@@ -350,14 +351,14 @@ intel_dp_hdcp2_read_rx_status(struct intel_digital_port *dig_port,
+ }
+ 
+ static
+-int hdcp2_detect_msg_availability(struct intel_digital_port *dig_port,
++int hdcp2_detect_msg_availability(struct intel_connector *connector,
+ 				  u8 msg_id, bool *msg_ready)
+ {
+ 	u8 rx_status;
+ 	int ret;
+ 
+ 	*msg_ready = false;
+-	ret = intel_dp_hdcp2_read_rx_status(dig_port, &rx_status);
++	ret = intel_dp_hdcp2_read_rx_status(connector, &rx_status);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -383,12 +384,11 @@ int hdcp2_detect_msg_availability(struct intel_digital_port *dig_port,
+ }
+ 
+ static ssize_t
+-intel_dp_hdcp2_wait_for_msg(struct intel_digital_port *dig_port,
++intel_dp_hdcp2_wait_for_msg(struct intel_connector *connector,
+ 			    const struct hdcp2_dp_msg_data *hdcp2_msg_data)
+ {
+-	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+-	struct intel_dp *dp = &dig_port->dp;
+-	struct intel_hdcp *hdcp = &dp->attached_connector->hdcp;
++	struct drm_i915_private *i915 = to_i915(connector->base.dev);
++	struct intel_hdcp *hdcp = &connector->hdcp;
+ 	u8 msg_id = hdcp2_msg_data->msg_id;
+ 	int ret, timeout;
+ 	bool msg_ready = false;
+@@ -411,8 +411,8 @@ intel_dp_hdcp2_wait_for_msg(struct intel_digital_port *dig_port,
+ 		 * the timeout at wait for CP_IRQ.
+ 		 */
+ 		intel_dp_hdcp_wait_for_cp_irq(hdcp, timeout);
+-		ret = hdcp2_detect_msg_availability(dig_port,
+-						    msg_id, &msg_ready);
++		ret = hdcp2_detect_msg_availability(connector, msg_id,
++						    &msg_ready);
+ 		if (!msg_ready)
+ 			ret = -ETIMEDOUT;
+ 	}
+@@ -445,6 +445,7 @@ int intel_dp_hdcp2_write_msg(struct intel_connector *connector,
+ 	u8 *byte = buf;
+ 	ssize_t ret, bytes_to_write, len;
+ 	const struct hdcp2_dp_msg_data *hdcp2_msg_data;
++	struct drm_dp_aux *aux;
+ 
+ 	hdcp2_msg_data = get_hdcp2_dp_msg_data(*byte);
+ 	if (!hdcp2_msg_data)
+@@ -452,6 +453,8 @@ int intel_dp_hdcp2_write_msg(struct intel_connector *connector,
+ 
+ 	offset = hdcp2_msg_data->offset;
+ 
++	aux = &dig_port->dp.aux;
++
+ 	/* No msg_id in DP HDCP2.2 msgs */
+ 	bytes_to_write = size - 1;
+ 	byte++;
+@@ -460,7 +463,7 @@ int intel_dp_hdcp2_write_msg(struct intel_connector *connector,
+ 		len = bytes_to_write > DP_AUX_MAX_PAYLOAD_BYTES ?
+ 				DP_AUX_MAX_PAYLOAD_BYTES : bytes_to_write;
+ 
+-		ret = drm_dp_dpcd_write(&dig_port->dp.aux,
++		ret = drm_dp_dpcd_write(aux,
+ 					offset, (void *)byte, len);
+ 		if (ret < 0)
+ 			return ret;
+@@ -474,8 +477,10 @@ int intel_dp_hdcp2_write_msg(struct intel_connector *connector,
+ }
+ 
+ static
+-ssize_t get_receiver_id_list_rx_info(struct intel_digital_port *dig_port, u32 *dev_cnt, u8 *byte)
++ssize_t get_receiver_id_list_rx_info(struct intel_connector *connector,
++				     u32 *dev_cnt, u8 *byte)
+ {
++	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
+ 	ssize_t ret;
+ 	u8 *rx_info = byte;
+ 
+@@ -500,8 +505,7 @@ int intel_dp_hdcp2_read_msg(struct intel_connector *connector,
+ {
+ 	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
+ 	struct drm_i915_private *i915 = to_i915(dig_port->base.base.dev);
+-	struct intel_dp *dp = &dig_port->dp;
+-	struct intel_hdcp *hdcp = &dp->attached_connector->hdcp;
++	struct intel_hdcp *hdcp = &connector->hdcp;
+ 	unsigned int offset;
+ 	u8 *byte = buf;
+ 	ssize_t ret, bytes_to_recv, len;
+@@ -515,7 +519,7 @@ int intel_dp_hdcp2_read_msg(struct intel_connector *connector,
+ 		return -EINVAL;
+ 	offset = hdcp2_msg_data->offset;
+ 
+-	ret = intel_dp_hdcp2_wait_for_msg(dig_port, hdcp2_msg_data);
++	ret = intel_dp_hdcp2_wait_for_msg(connector, hdcp2_msg_data);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -525,7 +529,7 @@ int intel_dp_hdcp2_read_msg(struct intel_connector *connector,
+ 	byte++;
+ 
+ 	if (msg_id == HDCP_2_2_REP_SEND_RECVID_LIST) {
+-		ret = get_receiver_id_list_rx_info(dig_port, &dev_cnt, byte);
++		ret = get_receiver_id_list_rx_info(connector, &dev_cnt, byte);
+ 		if (ret < 0)
+ 			return ret;
+ 
+@@ -609,7 +613,8 @@ int intel_dp_hdcp2_check_link(struct intel_digital_port *dig_port,
+ 	u8 rx_status;
+ 	int ret;
+ 
+-	ret = intel_dp_hdcp2_read_rx_status(dig_port, &rx_status);
++	ret = intel_dp_hdcp2_read_rx_status(connector,
++					    &rx_status);
+ 	if (ret)
+ 		return ret;
+ 
 -- 
 2.25.1
 
