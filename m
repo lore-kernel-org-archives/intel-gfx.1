@@ -4,50 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79494C83F11
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Aug 2023 06:21:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7163C71153
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Aug 2023 06:27:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE92110E210;
-	Mon, 28 Aug 2023 06:21:09 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C924210E210;
- Mon, 28 Aug 2023 06:21:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D60D010E20E;
+	Mon, 28 Aug 2023 06:27:29 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD70B10E20E
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Aug 2023 06:27:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1693203666; x=1724739666;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=uDSnkAcF64QyjTLR04sJ09Xw9NIiOgD3VXjY7Lx1ni8=;
- b=FS4kst/V4Ce3sr0Fsb9QrlG71gtzMGgHIy6ffiJjsuBko4BPxqJemM2F
- cRMBjksuxXj1oP+7653ku6rod0AqfG1gHx5DpBEjsPyDQmHyIVogFpK63
- upjizCeMPyFOG8zFsbnTixjBMQ6ztONgzgbuZcFvEGup37RkBji24vdho
- 0FKYocFfQCyl/tLRX5jqSmO8RqxVPR92ZPb70MvTvE4Uh62X2jArlUXKq
- RJ/LJSTeyEkBFgrga7JBkBxb0dI3nHVKeq4FYWLrpMbh4LjDMHDGDLs4Q
- oLszXzoK/rMgJ2Wgt9cHewiQ7GX07oYvgwzTaBfw6p8uCHVRmakY4ANOT Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="438973566"
-X-IronPort-AV: E=Sophos;i="6.02,206,1688454000"; d="scan'208";a="438973566"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2023 23:21:06 -0700
+ t=1693204046; x=1724740046;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=1BoxS37ArbPiikAMgQDDtOEw3Zw3trwtL+8E8jXgWBs=;
+ b=WG95NHWyd48vEMInzBa5WEBWbmPOdYyE2ZEL7YAPpi5Wsp/ZybtzJnDM
+ kZ+qd2dB0QM9EaPvE3PymN7P55BiPtnKK/YaDCqvKmoQ4vpcZRH82B0GU
+ wkz//8Tkf1OBqg9mYW+xNK6O+ifyjjS6El9uDdPI/UBdFG5mwM2szWclM
+ ahgRWzB1tdO+DOGZ3Ws3sWolmMEoUc7JFzg2LlHuonc9gKNUPFpZ2QRf/
+ KL5J06D1X7J1UnWlpXDN5vTboKiNWhVanOrM0ATHql1GXE8hYtch5lmeJ
+ xXtIQFF6zNasQwtosTSKTOx+gQwvNxd75Fmz1ctsWJO4A/V6jAtxLSHNP Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="374994884"
+X-IronPort-AV: E=Sophos;i="6.02,206,1688454000"; d="scan'208";a="374994884"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Aug 2023 23:27:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="861709835"
-X-IronPort-AV: E=Sophos;i="6.02,206,1688454000"; d="scan'208";a="861709835"
-Received: from dmocuta-mobl2.ger.corp.intel.com (HELO
- vgovind2-mobl3.intel.com) ([10.249.42.5])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2023 23:21:04 -0700
-From: Vinod Govindapillai <vinod.govindapillai@intel.com>
-To: intel-xe@lists.freedesktop.org
-Date: Mon, 28 Aug 2023 09:20:35 +0300
-Message-Id: <20230828062035.6906-5-vinod.govindapillai@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230828062035.6906-1-vinod.govindapillai@intel.com>
-References: <20230828062035.6906-1-vinod.govindapillai@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="767546737"
+X-IronPort-AV: E=Sophos;i="6.02,206,1688454000"; d="scan'208";a="767546737"
+Received: from tejas-super-server.iind.intel.com ([10.145.169.166])
+ by orsmga008.jf.intel.com with ESMTP; 27 Aug 2023 23:27:24 -0700
+From: Tejas Upadhyay <tejas.upadhyay@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 28 Aug 2023 12:04:50 +0530
+Message-Id: <20230828063450.2642748-1-tejas.upadhyay@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/4] drm/i915/lnl: FBC is supported with per
- pixel alpha
+Subject: [Intel-gfx] [PATCH] drm/i915/mtl: Update workaround 14016712196
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,33 +54,45 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, ville.syrjala@intel.com
+Cc: Matt Roper <matthew.d.roper@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For LNL onwards, FBC can be supported on planes with per
-pixel alpha
+Now this workaround is permanent workaround on MTL and DG2,
+earlier we used to apply on MTL A0 step only.
+VLK-45480
 
-Bspec: 69560
-Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
+Fixes: d922b80b1010 ("drm/i915/gt: Add workaround 14016712196")
+Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fbc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/gen8_engine_cs.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-index 62f59630d410..f36eb8652d3c 100644
---- a/drivers/gpu/drm/i915/display/intel_fbc.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-@@ -1224,7 +1224,8 @@ static int intel_fbc_check_plane(struct intel_atomic_state *state,
- 		return 0;
- 	}
+diff --git a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+index 6187b25b67ab..0143445dba83 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/gen8_engine_cs.c
+@@ -226,8 +226,8 @@ u32 *gen12_emit_aux_table_inv(struct intel_engine_cs *engine, u32 *cs)
+ static int mtl_dummy_pipe_control(struct i915_request *rq)
+ {
+ 	/* Wa_14016712196 */
+-	if (IS_GFX_GT_IP_STEP(rq->engine->gt, IP_VER(12, 70), STEP_A0, STEP_B0) ||
+-	    IS_GFX_GT_IP_STEP(rq->engine->gt, IP_VER(12, 71), STEP_A0, STEP_B0)) {
++	if (IS_GFX_GT_IP_RANGE(rq->engine->gt, IP_VER(12, 70), IP_VER(12, 71)) ||
++	    IS_DG2(rq->i915)) {
+ 		u32 *cs;
  
--	if (plane_state->hw.pixel_blend_mode != DRM_MODE_BLEND_PIXEL_NONE &&
-+	if (DISPLAY_VER(i915) < 20 &&
-+	    plane_state->hw.pixel_blend_mode != DRM_MODE_BLEND_PIXEL_NONE &&
- 	    fb->format->has_alpha) {
- 		plane_state->no_fbc_reason = "per-pixel alpha not supported";
- 		return 0;
+ 		/* dummy PIPE_CONTROL + depth flush */
+@@ -810,8 +810,7 @@ u32 *gen12_emit_fini_breadcrumb_rcs(struct i915_request *rq, u32 *cs)
+ 		     PIPE_CONTROL_FLUSH_ENABLE);
+ 
+ 	/* Wa_14016712196 */
+-	if (IS_GFX_GT_IP_STEP(gt, IP_VER(12, 70), STEP_A0, STEP_B0) ||
+-	    IS_GFX_GT_IP_STEP(gt, IP_VER(12, 71), STEP_A0, STEP_B0))
++	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 71)) || IS_DG2(i915))
+ 		/* dummy PIPE_CONTROL + depth flush */
+ 		cs = gen12_emit_pipe_control(cs, 0,
+ 					     PIPE_CONTROL_DEPTH_CACHE_FLUSH, 0);
 -- 
-2.34.1
+2.25.1
 
