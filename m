@@ -4,52 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D18A3C83F11
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Aug 2023 02:51:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C504C71153
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Aug 2023 05:41:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28DEF10E0B5;
-	Mon, 28 Aug 2023 02:51:01 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E251110E0B5
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Aug 2023 02:50:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99E1C10E044;
+	Mon, 28 Aug 2023 05:41:52 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C54410E044
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Aug 2023 05:41:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1693191059; x=1724727059;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=v9g6wpd0oO73Jd1mbsjEkoYyUvi4OhBSnr52rTVCrso=;
- b=BeHhaS4L4Z24YkRgvOKU0XpAfdSKqTIRCfqWvzrFLCZjlb3U6EOwk6yO
- Mzq5TT36jpSBHoeob7FcsBkmb5tfeuZSg1tG0aGBMgQ6SEtjIBJmdgAh7
- qwfjDsmHXavuzM8iNew6AME67mrIK+hcFK+wMhg8n5QweInPJcoqVDzuV
- My1e1nz9MSSnwaqXsxsYbV9rFfdgzJWCuWi33iBT2ElSOu1mBuwhEXh6Y
- qm4tOAwA7Omqs8pi5NjsjdMGQq0JELmgtv8Nf1w2NMaw4DHMRU92loaoO
- G8fCaQA7QTSHvLFqhEiBJy+fGjtEYjyaLcIFZBXylfWskSb75DUPWwFt4 Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="461365573"
-X-IronPort-AV: E=Sophos;i="6.02,206,1688454000"; d="scan'208";a="461365573"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2023 19:50:58 -0700
+ t=1693201311; x=1724737311;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=x43ZB0M20K72TbSfT3lgAuczKFCgrZ9jahH7kqkuaxs=;
+ b=BhhCp8Gqsp7I2yji2s9OFkwiqJdDQ75Z9fDZMpSger32w4V7EeLLvolT
+ dZfj0paMDUM+CHwQdJwstMJYf7CXkdUtgVyBuFrZYsN+z1X0oc1Ybx1nt
+ 9TQ9ek0Zw71Tk3u/aIWX5NM8CegF8OccIXQClAM3ojSVb7VSL5ndeFB9M
+ R4xKAdAJ+yn3rB77U6mXU2t1aXJRRm36hMKbx7y3JDZrT+jd+CwVDbchs
+ rspIGLPmb/hD9Kdrbdy9zplP+IVOf+DiimfUNJxJ8DvVT6/Z+ENyUteML
+ TQ4qEPsN979tVHARXGgh9ZRtCVd5F5lxMsxBJWtOK18QQzxQUwJFCp5L9 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="372420501"
+X-IronPort-AV: E=Sophos;i="6.02,206,1688454000"; d="scan'208";a="372420501"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Aug 2023 22:41:49 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="773112166"
-X-IronPort-AV: E=Sophos;i="6.02,206,1688454000"; d="scan'208";a="773112166"
+X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="852707947"
+X-IronPort-AV: E=Sophos;i="6.02,206,1688454000"; d="scan'208";a="852707947"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.153])
- by orsmga001.jf.intel.com with SMTP; 27 Aug 2023 19:50:56 -0700
+ by fmsmga002.fm.intel.com with SMTP; 27 Aug 2023 22:41:47 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 28 Aug 2023 05:50:55 +0300
-Date: Mon, 28 Aug 2023 05:50:55 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jouni =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>
-Message-ID: <ZOwLj3AQJj0ahKdJ@intel.com>
-References: <20230727053518.709345-1-jouni.hogander@intel.com>
- <20230727053518.709345-4-jouni.hogander@intel.com>
+ Mon, 28 Aug 2023 08:41:46 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon, 28 Aug 2023 08:41:36 +0300
+Message-ID: <20230828054140.28054-3-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230828054140.28054-1-ville.syrjala@linux.intel.com>
+References: <20230828054140.28054-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230727053518.709345-4-jouni.hogander@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH v2 3/4] drm/i915: Add new frontbuffer
- tracking interface to queue flush
+Subject: [Intel-gfx] [PATCH 2/6] drm/i915: Change intel_pipe_update_{start,
+ end}() calling convention
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,106 +60,113 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 27, 2023 at 08:35:17AM +0300, Jouni Hˆgander wrote:
-> We want to wait dma fences in dirtyfb ioctl. As we don't want to make
-> dirtyfb ioctl as blocking call we need to use
-> dma_fence_add_callback. Callback used for dma_fence_add_callback is
-> called from atomic context. Due to this we need to add a new
-> frontbuffer tracking interface to queue flush.
-> 
-> v2: Check if flush work is already pending
-> 
-> Signed-off-by: Jouni Hˆgander <jouni.hogander@intel.com>
-> ---
->  .../gpu/drm/i915/display/intel_frontbuffer.c  | 33 +++++++++++++++++++
->  .../gpu/drm/i915/display/intel_frontbuffer.h  |  4 +++
->  2 files changed, 37 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_frontbuffer.c b/drivers/gpu/drm/i915/display/intel_frontbuffer.c
-> index 17a7aa8b28c2..d33b6021d9ed 100644
-> --- a/drivers/gpu/drm/i915/display/intel_frontbuffer.c
-> +++ b/drivers/gpu/drm/i915/display/intel_frontbuffer.c
-> @@ -202,6 +202,39 @@ void __intel_fb_flush(struct intel_frontbuffer *front,
->  		frontbuffer_flush(i915, frontbuffer_bits, origin);
->  }
->  
-> +static void intel_frontbuffer_flush_work(struct work_struct *work)
-> +{
-> +	struct intel_frontbuffer *front =
-> +		container_of(work, struct intel_frontbuffer, flush_work);
-> +
-> +	i915_gem_object_flush_if_display(front->obj);
-> +	intel_frontbuffer_flush(front, ORIGIN_DIRTYFB);
-> +	intel_frontbuffer_put(front);
-> +}
-> +
-> +/**
-> + * intel_frontbuffer_queue_flush - queue flushing frontbuffer object
-> + * @front: GEM object to flush
-> + *
-> + * This function is targeted for our dirty callback for queueing flush when
-> + * dma fence is signales
-> + */
-> +void intel_frontbuffer_queue_flush(struct intel_frontbuffer *front)
-> +{
-> +	unsigned int frontbuffer_bits;
-> +
-> +	if (!front)
-> +		return;
-> +
-> +	frontbuffer_bits = atomic_read(&front->bits);
+From: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
 
-I'm thinking we could check that already before we add the fence cb.
+We'll need to also look at the old crtc state in
+intel_pipe_update_start() so change the calling convention to
+just plumb in the full atomic state instead.
 
-> +	if (!frontbuffer_bits || work_pending(&front->flush_work))
+Cc: Manasi Navare <navaremanasi@chromium.org>
+Signed-off-by: Ville Syrj√§l√§ <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_crtc.c    | 18 ++++++++++++------
+ drivers/gpu/drm/i915/display/intel_crtc.h    |  6 ++++--
+ drivers/gpu/drm/i915/display/intel_display.c |  4 ++--
+ 3 files changed, 18 insertions(+), 10 deletions(-)
 
-The work_pending() check is here to kep the kref in sync?
-Maybe better to just use the return value of schedule_work() for
-that?
-
-> +		return;
-> +
-> +	kref_get(&front->ref);
-> +	INIT_WORK(&front->flush_work, intel_frontbuffer_flush_work);
-
-Don't we have a better place for the INIT_WORK() (eg. when we initialize
-the intel_frontbuffer)?
-
-> +	schedule_work(&front->flush_work);
-> +}
-> +
->  static int frontbuffer_active(struct i915_active *ref)
->  {
->  	struct intel_frontbuffer *front =
-> diff --git a/drivers/gpu/drm/i915/display/intel_frontbuffer.h b/drivers/gpu/drm/i915/display/intel_frontbuffer.h
-> index 3c474ed937fb..11760b5ce9fa 100644
-> --- a/drivers/gpu/drm/i915/display/intel_frontbuffer.h
-> +++ b/drivers/gpu/drm/i915/display/intel_frontbuffer.h
-> @@ -47,6 +47,8 @@ struct intel_frontbuffer {
->  	struct i915_active write;
->  	struct drm_i915_gem_object *obj;
->  	struct rcu_head rcu;
-> +
-> +	struct work_struct flush_work;
->  };
->  
->  /*
-> @@ -163,6 +165,8 @@ static inline void intel_frontbuffer_flush(struct intel_frontbuffer *front,
->  	__intel_fb_flush(front, origin, frontbuffer_bits);
->  }
->  
-> +void intel_frontbuffer_queue_flush(struct intel_frontbuffer *front);
-> +
->  void intel_frontbuffer_track(struct intel_frontbuffer *old,
->  			     struct intel_frontbuffer *new,
->  			     unsigned int frontbuffer_bits);
-> -- 
-> 2.34.1
-
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
+index 5caa928e5ce9..461949b48411 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+@@ -470,7 +470,8 @@ static int intel_mode_vblank_start(const struct drm_display_mode *mode)
+ 
+ /**
+  * intel_pipe_update_start() - start update of a set of display registers
+- * @new_crtc_state: the new crtc state
++ * @state: the atomic state
++ * @crtc: the crtc
+  *
+  * Mark the start of an update to pipe registers that should be updated
+  * atomically regarding vblank. If the next vblank will happens within
+@@ -480,10 +481,12 @@ static int intel_mode_vblank_start(const struct drm_display_mode *mode)
+  * until a subsequent call to intel_pipe_update_end(). That is done to
+  * avoid random delays.
+  */
+-void intel_pipe_update_start(struct intel_crtc_state *new_crtc_state)
++void intel_pipe_update_start(struct intel_atomic_state *state,
++			     struct intel_crtc *crtc)
+ {
+-	struct intel_crtc *crtc = to_intel_crtc(new_crtc_state->uapi.crtc);
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
++	struct intel_crtc_state *new_crtc_state =
++		intel_atomic_get_new_crtc_state(state, crtc);
+ 	const struct drm_display_mode *adjusted_mode = &new_crtc_state->hw.adjusted_mode;
+ 	long timeout = msecs_to_jiffies_timeout(1);
+ 	int scanline, min, max, vblank_start;
+@@ -631,15 +634,18 @@ static void dbg_vblank_evade(struct intel_crtc *crtc, ktime_t end) {}
+ 
+ /**
+  * intel_pipe_update_end() - end update of a set of display registers
+- * @new_crtc_state: the new crtc state
++ * @state: the atomic state
++ * @crtc: the crtc
+  *
+  * Mark the end of an update started with intel_pipe_update_start(). This
+  * re-enables interrupts and verifies the update was actually completed
+  * before a vblank.
+  */
+-void intel_pipe_update_end(struct intel_crtc_state *new_crtc_state)
++void intel_pipe_update_end(struct intel_atomic_state *state,
++			   struct intel_crtc *crtc)
+ {
+-	struct intel_crtc *crtc = to_intel_crtc(new_crtc_state->uapi.crtc);
++	struct intel_crtc_state *new_crtc_state =
++		intel_atomic_get_new_crtc_state(state, crtc);
+ 	enum pipe pipe = crtc->pipe;
+ 	int scanline_end = intel_get_crtc_scanline(crtc);
+ 	u32 end_vbl_count = intel_crtc_get_vblank_counter(crtc);
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.h b/drivers/gpu/drm/i915/display/intel_crtc.h
+index 51a4c8df9e65..22d7993d1f0b 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.h
++++ b/drivers/gpu/drm/i915/display/intel_crtc.h
+@@ -36,8 +36,10 @@ void intel_crtc_state_reset(struct intel_crtc_state *crtc_state,
+ u32 intel_crtc_get_vblank_counter(struct intel_crtc *crtc);
+ void intel_crtc_vblank_on(const struct intel_crtc_state *crtc_state);
+ void intel_crtc_vblank_off(const struct intel_crtc_state *crtc_state);
+-void intel_pipe_update_start(struct intel_crtc_state *new_crtc_state);
+-void intel_pipe_update_end(struct intel_crtc_state *new_crtc_state);
++void intel_pipe_update_start(struct intel_atomic_state *state,
++			     struct intel_crtc *crtc);
++void intel_pipe_update_end(struct intel_atomic_state *state,
++			   struct intel_crtc *crtc);
+ void intel_wait_for_vblank_workers(struct intel_atomic_state *state);
+ struct intel_crtc *intel_first_crtc(struct drm_i915_private *i915);
+ struct intel_crtc *intel_crtc_for_pipe(struct drm_i915_private *i915,
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index f6397462e4c2..cfad967b5684 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -6559,7 +6559,7 @@ static void intel_update_crtc(struct intel_atomic_state *state,
+ 	intel_crtc_planes_update_noarm(state, crtc);
+ 
+ 	/* Perform vblank evasion around commit operation */
+-	intel_pipe_update_start(new_crtc_state);
++	intel_pipe_update_start(state, crtc);
+ 
+ 	commit_pipe_pre_planes(state, crtc);
+ 
+@@ -6567,7 +6567,7 @@ static void intel_update_crtc(struct intel_atomic_state *state,
+ 
+ 	commit_pipe_post_planes(state, crtc);
+ 
+-	intel_pipe_update_end(new_crtc_state);
++	intel_pipe_update_end(state, crtc);
+ 
+ 	/*
+ 	 * We usually enable FIFO underrun interrupts as part of the
 -- 
-Ville Syrj‰l‰
-Intel
+2.41.0
+
