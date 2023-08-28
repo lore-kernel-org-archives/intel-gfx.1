@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EC33C83F12
-	for <intel-gfx@archiver.kernel.org>; Mon, 28 Aug 2023 05:41:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 074D8C71153
+	for <intel-gfx@archiver.kernel.org>; Mon, 28 Aug 2023 05:42:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33BA910E04F;
-	Mon, 28 Aug 2023 05:41:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 752B710E04D;
+	Mon, 28 Aug 2023 05:42:01 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1728510E046
- for <intel-gfx@lists.freedesktop.org>; Mon, 28 Aug 2023 05:41:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B0C410E04B
+ for <intel-gfx@lists.freedesktop.org>; Mon, 28 Aug 2023 05:41:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1693201311; x=1724737311;
+ t=1693201313; x=1724737313;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=p2M+pWLW3mTcnUYh+nwFb/AtE17sboHJiDstynoh7i0=;
- b=HodjN6OgHsxR8cwMgDt1HinZJf8OYAgbQ2ZA2Hk/zNcEKNOfuYpvp0VS
- 00kWP5bSle03/bbqtDDELpEn5r+frmIR4u0Kw4XBGR8Dx/PvFYatCzlZv
- lhXlIRF4Wnskwci6kW4upzE7F7gdMsdaTAYsy9w6S2vdWrOUUoiaS8kCm
- 8EIDfQglFaeqvNHYpHvADpWP8rEZM4RQihdc8dqMb6O5sK/xAccGdq4An
- 4jdbi+9aoDlQpfeJIp01E1cq07PHwh+C+XZhGiPOCaDlr02ApnwImk04t
- L0ZrsH+sVxuYac7X4EM2CvQUEkxSIIUnXPMSgqJTE4LMuTFAraSvZWAw0 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="372420493"
-X-IronPort-AV: E=Sophos;i="6.02,206,1688454000"; d="scan'208";a="372420493"
+ bh=mJze8PHUwP/FkrJNl/7Rkd+oF9TeEPxZBXeSofsWqLo=;
+ b=WSORkBeAm9FvfHKPeTlRIkcQHGekQeJItLaoQZW6ntAM6VAni/Vhmu56
+ y6zKQcAmgF4MF+YgS8bt1WwQDW3ZYgq2sT91E6HPo4zn4PeqBwHOWMrqF
+ r6dSsWkWgJyXf27/LZc6yv6p6K6+1b2SonKOCAIgzS0s2W+nIwBKSjl8g
+ Hz4MvH0AXnVCngiS/C8poTxEF2aggUiyXXOvx37vJlQOWtuHIHA9sjmbp
+ cMS3eoLo99/9F4YfglFvjMhpE6NaKN+LuZD8R7SP6vO5qaNwlyyheIOks
+ zFU/c+UhweNMd9I+At8phwIC6jvGMv9nTNeTWC8cwpw+DZwRfjGcU6Ti5 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="372420509"
+X-IronPort-AV: E=Sophos;i="6.02,206,1688454000"; d="scan'208";a="372420509"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2023 22:41:46 -0700
+ 27 Aug 2023 22:41:52 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="852707934"
-X-IronPort-AV: E=Sophos;i="6.02,206,1688454000"; d="scan'208";a="852707934"
+X-IronPort-AV: E=McAfee;i="6600,9927,10815"; a="852707960"
+X-IronPort-AV: E=Sophos;i="6.02,206,1688454000"; d="scan'208";a="852707960"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.153])
- by fmsmga002.fm.intel.com with SMTP; 27 Aug 2023 22:41:44 -0700
+ by fmsmga002.fm.intel.com with SMTP; 27 Aug 2023 22:41:50 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Mon, 28 Aug 2023 08:41:43 +0300
+ Mon, 28 Aug 2023 08:41:49 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 28 Aug 2023 08:41:35 +0300
-Message-ID: <20230828054140.28054-2-ville.syrjala@linux.intel.com>
+Date: Mon, 28 Aug 2023 08:41:37 +0300
+Message-ID: <20230828054140.28054-4-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230828054140.28054-1-ville.syrjala@linux.intel.com>
 References: <20230828054140.28054-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/6] drm/i915: Move psr unlock out from the pipe
- update critical section
+Subject: [Intel-gfx] [PATCH 3/6] drm/i915: Extract
+ intel_crtc_vblank_evade_scanlines()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,48 +65,93 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Do the PSR unlock after the vblank evade critcal section is
-fully over, not before.
+Pull the vblank evasion scanline calculations into their own helper
+to declutter intel_pipe_update_start() a bit.
 
 Cc: Manasi Navare <navaremanasi@chromium.org>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_crtc.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_crtc.c | 53 +++++++++++++----------
+ 1 file changed, 31 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
-index 182c6dd64f47..5caa928e5ce9 100644
+index 461949b48411..e46a15d59d79 100644
 --- a/drivers/gpu/drm/i915/display/intel_crtc.c
 +++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-@@ -646,10 +646,8 @@ void intel_pipe_update_end(struct intel_crtc_state *new_crtc_state)
- 	ktime_t end_vbl_time = ktime_get();
- 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
- 
--	intel_psr_unlock(new_crtc_state);
--
- 	if (new_crtc_state->do_async_flip)
--		return;
-+		goto out;
- 
- 	trace_intel_pipe_update_end(crtc, end_vbl_count, scanline_end);
- 
-@@ -709,7 +707,7 @@ void intel_pipe_update_end(struct intel_crtc_state *new_crtc_state)
- 	local_irq_enable();
- 
- 	if (intel_vgpu_active(dev_priv))
--		return;
-+		goto out;
- 
- 	if (crtc->debug.start_vbl_count &&
- 	    crtc->debug.start_vbl_count != end_vbl_count) {
-@@ -724,4 +722,7 @@ void intel_pipe_update_end(struct intel_crtc_state *new_crtc_state)
- 	}
- 
- 	dbg_vblank_evade(crtc, end_vbl_time);
-+
-+out:
-+	intel_psr_unlock(new_crtc_state);
+@@ -468,6 +468,36 @@ static int intel_mode_vblank_start(const struct drm_display_mode *mode)
+ 	return vblank_start;
  }
+ 
++static void intel_crtc_vblank_evade_scanlines(struct intel_atomic_state *state,
++					      struct intel_crtc *crtc,
++					      int *min, int *max, int *vblank_start)
++{
++	const struct intel_crtc_state *new_crtc_state =
++		intel_atomic_get_new_crtc_state(state, crtc);
++	const struct drm_display_mode *adjusted_mode = &new_crtc_state->hw.adjusted_mode;
++
++	if (new_crtc_state->vrr.enable) {
++		if (intel_vrr_is_push_sent(new_crtc_state))
++			*vblank_start = intel_vrr_vmin_vblank_start(new_crtc_state);
++		else
++			*vblank_start = intel_vrr_vmax_vblank_start(new_crtc_state);
++	} else {
++		*vblank_start = intel_mode_vblank_start(adjusted_mode);
++	}
++
++	/* FIXME needs to be calibrated sensibly */
++	*min = *vblank_start - intel_usecs_to_scanlines(adjusted_mode,
++							VBLANK_EVASION_TIME_US);
++	*max = *vblank_start - 1;
++
++	/*
++	 * M/N is double buffered on the transcoder's undelayed vblank,
++	 * so with seamless M/N we must evade both vblanks.
++	 */
++	if (new_crtc_state->seamless_m_n && intel_crtc_needs_fastset(new_crtc_state))
++		*min -= adjusted_mode->crtc_vblank_start - adjusted_mode->crtc_vdisplay;
++}
++
+ /**
+  * intel_pipe_update_start() - start update of a set of display registers
+  * @state: the atomic state
+@@ -487,7 +517,6 @@ void intel_pipe_update_start(struct intel_atomic_state *state,
+ 	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev);
+ 	struct intel_crtc_state *new_crtc_state =
+ 		intel_atomic_get_new_crtc_state(state, crtc);
+-	const struct drm_display_mode *adjusted_mode = &new_crtc_state->hw.adjusted_mode;
+ 	long timeout = msecs_to_jiffies_timeout(1);
+ 	int scanline, min, max, vblank_start;
+ 	wait_queue_head_t *wq = drm_crtc_vblank_waitqueue(&crtc->base);
+@@ -503,27 +532,7 @@ void intel_pipe_update_start(struct intel_atomic_state *state,
+ 	if (intel_crtc_needs_vblank_work(new_crtc_state))
+ 		intel_crtc_vblank_work_init(new_crtc_state);
+ 
+-	if (new_crtc_state->vrr.enable) {
+-		if (intel_vrr_is_push_sent(new_crtc_state))
+-			vblank_start = intel_vrr_vmin_vblank_start(new_crtc_state);
+-		else
+-			vblank_start = intel_vrr_vmax_vblank_start(new_crtc_state);
+-	} else {
+-		vblank_start = intel_mode_vblank_start(adjusted_mode);
+-	}
+-
+-	/* FIXME needs to be calibrated sensibly */
+-	min = vblank_start - intel_usecs_to_scanlines(adjusted_mode,
+-						      VBLANK_EVASION_TIME_US);
+-	max = vblank_start - 1;
+-
+-	/*
+-	 * M/N is double buffered on the transcoder's undelayed vblank,
+-	 * so with seamless M/N we must evade both vblanks.
+-	 */
+-	if (new_crtc_state->seamless_m_n && intel_crtc_needs_fastset(new_crtc_state))
+-		min -= adjusted_mode->crtc_vblank_start - adjusted_mode->crtc_vdisplay;
+-
++	intel_crtc_vblank_evade_scanlines(state, crtc, &min, &max, &vblank_start);
+ 	if (min <= 0 || max <= 0)
+ 		goto irq_disable;
+ 
 -- 
 2.41.0
 
