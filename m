@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18317C83F14
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Aug 2023 15:59:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE318C6FA8F
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Aug 2023 16:00:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB7CE10E3F4;
-	Tue, 29 Aug 2023 15:59:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC1EB10E3F8;
+	Tue, 29 Aug 2023 15:59:16 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E50610E3EA;
- Tue, 29 Aug 2023 15:59:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E10910E3DD;
+ Tue, 29 Aug 2023 15:59:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1693324746; x=1724860746;
+ t=1693324742; x=1724860742;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=cPWdhNLT68jHg/LMORxacdjWiK4TIkQARfJU1hq3OP4=;
- b=NRT64M3Ml/kDBdhxhgfcW6Mscbt73RY2pBZXKVXp68XbqQo6BPg33L64
- TttVc9LhuX0ky0V0tZscQnXYaS7eOxa6QMfK6AoZmHxVwWdg/qyFwFmMI
- 7hPIqC/Om5r8bjUOs/0f2tq+erLaHN3KNQjd4JwHYiJeqdDnO+E5Wm7rW
- S+7/hU+CChm2EzYROqwj+rDm0MA7CDdRMoE6CznrPDmUYHJiLq+QoQwmS
- 6Q+Fi8Qik/ow7rKmw1ShoCyV6LkbFqeGGz7DlPTX32AQPqf0j8DZnkG7l
- FK0pQ3Av4le0Q1CNs09wLktQv02tl2HCOBsukt4L2w1tE/heGc0CEIwCI g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="441769294"
-X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="441769294"
+ bh=FTnaNI/dqfL0mN5AB3xSetNKJE1kZExcpPoMiYYhpds=;
+ b=ISgcOQKKNPRjca/MLpzACLi0yW+YooOH5dar98eNT1hfdxvBMojAOfFR
+ w3uIFVWwvvg/kW9b4bteTw6Wwt0fERCKqFH5RTeNxPjKdDmf9X3l5R4Go
+ rHfmnzO3WxoLz1PX4yC84zywe6AoQXa67gxMewmWCLT9p7tfpUHjKiy1T
+ BnQKxCq57LgU2oUnAk1hfSj7QOwg+U0FzWdL+NiIfd57376MPyBX17Rxv
+ XRRU3X04ec3Il3JYhz8995lpqsa/4o6jhICHMRLPUqEhsQ+8XyUbljcyA
+ 7na1PTmPUmyCQFQcZYcdrMRuU7d8r0P8LRnWoglNJ6ITVqVbvMCh2mwUj Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="441769266"
+X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="441769266"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2023 08:59:06 -0700
+ 29 Aug 2023 08:59:02 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="688555010"
-X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="688555010"
+X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="688554999"
+X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="688554999"
 Received: from cfl-desktop.iind.intel.com ([10.190.239.20])
- by orsmga003.jf.intel.com with ESMTP; 29 Aug 2023 08:59:04 -0700
+ by orsmga003.jf.intel.com with ESMTP; 29 Aug 2023 08:59:00 -0700
 From: Uma Shankar <uma.shankar@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue, 29 Aug 2023 21:34:00 +0530
-Message-ID: <20230829160422.1251087-12-uma.shankar@intel.com>
+Date: Tue, 29 Aug 2023 21:33:58 +0530
+Message-ID: <20230829160422.1251087-10-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20230829160422.1251087-1-uma.shankar@intel.com>
 References: <20230829160422.1251087-1-uma.shankar@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 11/33] drm: Replace individual color blobs
+Subject: [Intel-gfx] [RFC 09/33] drm: Add color information to plane state
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,133 +61,81 @@ Cc: wayland-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Add a new structure drm_plane_color to plane state. It consists
+of blobs with data needed for respective color HW blocks.
 
-Replace the color operation blobs depending on the values sent by
-userspace.
+Currently defining below blobs
 
-Co-developed-by: Uma Shankar <uma.shankar@intel.com>
-Signed-off-by: Uma Shankar <uma.shankar@intel.com>
+  pre-csc: can be used to linearize the input frame buffer data.
+
+  csc: used for color space conversion.
+
+  post-csc: can be used non-linearize frame buffer data or
+            to perform Tone mapping for HDR use-cases
+
+  private: can be used for vendor specific fixed function operations
+
+This can be extended to include other color operations as well.
+
+Co-developed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Signed-off-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/drm_atomic_uapi.c | 97 +++++++++++++++++++++++++++++++
- 1 file changed, 97 insertions(+)
+ include/drm/drm_plane.h | 41 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index a2d3393d21a2..20f9366865ca 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -404,6 +404,92 @@ drm_atomic_replace_property_blob_from_id(struct drm_device *dev,
- 	return 0;
- }
+diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
+index fcd589cb38f2..601b01e47a93 100644
+--- a/include/drm/drm_plane.h
++++ b/include/drm/drm_plane.h
+@@ -245,6 +245,47 @@ struct drm_plane_state {
+ 	 */
+ 	struct drm_property_blob *set_color_pipeline_data;
  
-+/*
-+ * Helper to replace individual color blobs for a plane. The function
-+ * changes all the color blobs sent by userspace agnostic of the color
-+ * pipeline chosen. Since, the information about color pipeline is
-+ * available at driver level, the driver should check for
-+ * the sanity of the userspace data.
-+ */
-+static
-+int drm_plane_replace_color_op_blobs(struct drm_plane *plane,
-+				     struct drm_plane_state *state,
-+				     uint64_t color_pipeline_blob_id,
-+				     bool *replaced)
-+{
-+	struct drm_device *dev = plane->dev;
-+	struct drm_property_blob *new_blob;
-+	struct drm_color_pipeline *color_pipeline;
-+	struct drm_color_op_data *color_op;
-+	int ret = 0, i;
-+	bool blob_replaced = false;
-+	bool temp_replaced = false;
++	/**
++	 * @drm_plane_color:
++	 *
++	 * Encapsulates all color states.
++	 */
++	struct drm_plane_color {
++		/**
++		 * @pre_csc_lut:
++		 *
++		 * Lookup table for converting framebuffer pixel data before apply the
++		 * color conversion matrix @ctm. See drm_plane_enable_color_mgmt(). The
++		 * blob (if not NULL) is an array of &struct drm_color_lut_ext.
++		 */
++		struct drm_property_blob *pre_csc_lut;
 +
-+	new_blob = drm_property_lookup_blob(dev, color_pipeline_blob_id);
++		/**
++		 * @ctm:
++		 *
++		 * Color transformation matrix. See drm_plane_enable_color_mgmt(). The
++		 * blob (if not NULL) is a &struct drm_color_ctm.
++		 */
++		struct drm_property_blob *ctm;
 +
-+	if (!new_blob) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
++		/**
++		 * @post_csc_lut:
++		 *
++		 * Lookup table for converting framebuffer pixel data after applying the
++		 * color conversion matrix @ctm. See drm_plane_enable_color_mgmt(). The
++		 * blob (if not NULL) is an array of &struct drm_color_lut_ext.
++		 */
++		struct drm_property_blob *post_csc_lut;
 +
-+	color_pipeline = new_blob->data;
-+	color_op = kzalloc(color_pipeline->size, GFP_KERNEL);
-+	if (!color_op) {
-+		ret = -ENOMEM;
-+		goto mem_fail;
-+	}
++		/**
++		 * @private_color_op_data:
++		 *
++		 * This blob is intended for drivers to implement driver private color operations.
++		 * For example: Parameterized/non-parameterized fixed function operations
++		 */
++		struct drm_property_blob *private_color_op_data;
++	} color;
 +
-+	if (copy_from_user(color_op, color_pipeline->data, color_pipeline->size)) {
-+		ret = -EFAULT;
-+		goto copy_fail;
-+	}
-+
-+	for (i = 0; i < color_pipeline->size / sizeof(struct drm_color_op_data); i++) {
-+		if (color_op[i].name == DRM_CB_CSC) {
-+			ret = drm_atomic_replace_property_blob_from_id(dev,
-+							&state->color.ctm,
-+							color_op[i].blob_id,
-+							-1, sizeof(struct drm_color_ctm),
-+							&blob_replaced);
-+		} else if (color_op[i].name ==  DRM_CB_PRE_CSC) {
-+			ret = drm_atomic_replace_property_blob_from_id(dev,
-+							&state->color.pre_csc_lut,
-+							color_op[i].blob_id,
-+							-1, sizeof(struct drm_color_lut_ext),
-+							&blob_replaced);
-+		} else if (color_op[i].name == DRM_CB_POST_CSC) {
-+			ret = drm_atomic_replace_property_blob_from_id(dev,
-+							&state->color.post_csc_lut,
-+							color_op[i].blob_id,
-+							-1, sizeof(struct drm_color_lut_ext),
-+							&blob_replaced);
-+		} else if (color_op[i].name == DRM_CB_PRIVATE) {
-+			ret = drm_atomic_replace_property_blob_from_id(dev,
-+							&state->color.private_color_op_data,
-+							color_op[i].blob_id,
-+							-1, -1,
-+							&blob_replaced);
-+		} else {
-+			ret = -EINVAL;
-+			goto copy_fail;
-+		}
-+
-+		if (ret)
-+			goto copy_fail;
-+
-+		temp_replaced |= blob_replaced;
-+	}
-+
-+copy_fail:
-+	kfree(color_op);
-+mem_fail:
-+	drm_property_blob_put(new_blob);
-+out:
-+	if (!ret)
-+		*replaced |= temp_replaced;
-+	return ret;
-+}
-+
- static int drm_atomic_crtc_set_property(struct drm_crtc *crtc,
- 		struct drm_crtc_state *state, struct drm_property *property,
- 		uint64_t val)
-@@ -597,6 +683,17 @@ static int drm_atomic_plane_set_property(struct drm_plane *plane,
- 					-1,
- 					sizeof(struct drm_color_pipeline),
- 					&replaced);
-+		if (replaced) {
-+			/* Consider actual color parameter change only when
-+			 * individual color blobs are replaced. Hence, reset
-+			 * the replaced boolean.
-+			 */
-+			replaced = false;
-+			ret = drm_plane_replace_color_op_blobs(plane, state,
-+							       val,
-+							       &replaced);
-+		}
-+
- 		state->color_mgmt_changed |= replaced;
- 		return ret;
- 	} else if (plane->funcs->atomic_set_property) {
+ 	/**
+ 	 * @color_mgmt_changed: Plane color pipeline state has changed
+ 	 * Used by the atomic helpers and
 -- 
 2.38.1
 
