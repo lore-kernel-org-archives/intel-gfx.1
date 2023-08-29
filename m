@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 218F0C6FA8F
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Aug 2023 16:01:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39B7CC83F12
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Aug 2023 16:01:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45AFC10E432;
-	Tue, 29 Aug 2023 16:00:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C40910E41A;
+	Tue, 29 Aug 2023 16:00:09 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94D9F10E3F6;
- Tue, 29 Aug 2023 15:59:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C271D10E414;
+ Tue, 29 Aug 2023 15:59:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1693324793; x=1724860793;
+ t=1693324797; x=1724860797;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=XKsz5W2ug/xIaYidDGFv+JT8hXUWr3ikaI14+0D8wDA=;
- b=OaZMbC3aTV2ogWPqIvzCnC7uHADo5uZfnERaxgEfhKrPkgktgj2KyRpw
- wAHzydrQ3fKDRG3V61i4+/gJF/rEBH2iLJRym7IkUAnxlEJiUdnBdBfNC
- MkgwWVzX3JsKswtRGrxQyhZE6UV3oTIwOIRKQOH5EGIvER8IcIR+H0iMJ
- xzq2+Zyov/hqQZcJQoH0aWQoLFNjTn1aT2NNnCfFwLyams/PRO7WYLC+E
- 0TFO3YHGU2lSk49dmE5nk5Gazb7x484i9aFv2LM8My2PP+IW2oT2ZMHiT
- IAAKYxqUdWsYzkhhzNcFhzfl9Q20lCsQbJ3/AptTLtvM0QGOONcl+oJQE Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="441769439"
-X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="441769439"
+ bh=PZ9YcLOC9X5oGxrhVOgeVRvJkh7ORpyVmvEZgbyqUTg=;
+ b=XB69BLyIRvyq5zqTJJ2ksVtSPIV1T8Nkcp44YrqFCu3KESCEBbUZLM/R
+ +tJYWVJ9zKaAMY9nEOIFmC/MJJ76EFJHapSOZXIPuNm11+rv6U08O+VHc
+ +7bTVZMtx2R9JfkRZpedtw9U/as5LeiX7Rcd8AIPy8iKNsEA5Gc8Ttrw+
+ gXYRdnEYMRx5F9NXCBFSL1XqkNu412gcxpnqyEUzSfhFEHJcjDYUbLvUd
+ MMAeksex2gfeU112Bgn7JxxQXDyZLLVDWMvoqgzfaPzeHh+88HWSnqSYY
+ GIrBBXRVU2CG0doZaf28v1nmCjMwtgz+wEc2qEq0I3Bj3nfT6L4X4UXOh A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="441769468"
+X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="441769468"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2023 08:59:30 -0700
+ 29 Aug 2023 08:59:42 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="688555070"
-X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="688555070"
+X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="688555178"
+X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="688555178"
 Received: from cfl-desktop.iind.intel.com ([10.190.239.20])
- by orsmga003.jf.intel.com with ESMTP; 29 Aug 2023 08:59:28 -0700
+ by orsmga003.jf.intel.com with ESMTP; 29 Aug 2023 08:59:40 -0700
 From: Uma Shankar <uma.shankar@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue, 29 Aug 2023 21:34:12 +0530
-Message-ID: <20230829160422.1251087-24-uma.shankar@intel.com>
+Date: Tue, 29 Aug 2023 21:34:18 +0530
+Message-ID: <20230829160422.1251087-30-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20230829160422.1251087-1-uma.shankar@intel.com>
 References: <20230829160422.1251087-1-uma.shankar@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 23/33] drm/i915/color: Load plane color luts from
- atomic flip
+Subject: [Intel-gfx] [RFC 29/33] drm/i915/xelpd: Program Plane Post CSC
+ Registers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,77 +62,130 @@ Cc: wayland-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Load plane color luts as part of atomic plane updates.
-This will be done only if the plane color luts are changed.
+Extract the LUT and program plane post csc registers.
 
 Co-developed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 Signed-off-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c         | 8 ++++++++
- drivers/gpu/drm/i915/display/intel_color.h         | 2 ++
- drivers/gpu/drm/i915/display/skl_universal_plane.c | 4 ++++
- 3 files changed, 14 insertions(+)
+ drivers/gpu/drm/i915/display/intel_color.c | 95 +++++++++++++++++++++-
+ 1 file changed, 94 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index faf16107d339..df2fc8f98dc9 100644
+index 56bcf750b047..ff996b9ee77d 100644
 --- a/drivers/gpu/drm/i915/display/intel_color.c
 +++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -1863,6 +1863,14 @@ void intel_color_load_luts(const struct intel_crtc_state *crtc_state)
- 	i915->display.funcs.color->load_luts(crtc_state);
+@@ -1963,16 +1963,109 @@ static void xelpd_program_plane_pre_csc_lut(const struct drm_plane_state *state,
+ 	}
  }
  
-+void intel_color_load_plane_luts(const struct drm_plane_state *plane_state)
++static void xelpd_program_plane_post_csc_lut(const struct drm_plane_state *state,
++					     struct drm_color_lut_ext *post_csc_lut,
++					     u32 offset)
 +{
-+	struct drm_i915_private *i915 = to_i915(plane_state->plane->dev);
++	struct drm_i915_private *dev_priv = to_i915(state->plane->dev);
++	enum pipe pipe = to_intel_plane(state->plane)->pipe;
++	enum plane_id plane = to_intel_plane(state->plane)->id;
++	u32 i, lut_size;
 +
-+	if (i915->display.funcs.color->load_plane_luts)
-+		i915->display.funcs.color->load_plane_luts(plane_state);
++	if (icl_is_hdr_plane(dev_priv, plane)) {
++		intel_de_write_fw(dev_priv, PLANE_POST_CSC_GAMC_INDEX_ENH(pipe, plane, 0),
++				  offset | PLANE_PAL_PREC_AUTO_INCREMENT);
++		if (post_csc_lut) {
++			lut_size = 32;
++			for (i = 0; i < lut_size; i++) {
++				u64 word = drm_color_lut_extract_ext(post_csc_lut[i].green, 24);
++				u32 lut_val = (word & 0xffffff);
++
++				intel_de_write_fw(dev_priv,
++						  PLANE_POST_CSC_GAMC_DATA_ENH(pipe, plane, 0),
++						  lut_val);
++			}
++
++			do {
++				/* Program the max register to clamp values > 1.0. */
++				intel_de_write_fw(dev_priv,
++						  PLANE_POST_CSC_GAMC_DATA_ENH(pipe, plane, 0),
++						  post_csc_lut[i].green);
++			} while (i++ < 34);
++		} else {
++			lut_size = 32;
++			for (i = 0; i < lut_size; i++) {
++				u32 v = (i * ((1 << 24) - 1)) / (lut_size - 1);
++
++				intel_de_write_fw(dev_priv,
++						  PLANE_POST_CSC_GAMC_DATA_ENH(pipe, plane, 0), v);
++			}
++
++			do {
++				intel_de_write_fw(dev_priv,
++						  PLANE_POST_CSC_GAMC_DATA_ENH(pipe, plane, 0),
++						  1 << 24);
++			} while (i++ < 34);
++		}
++
++		intel_de_write_fw(dev_priv, PLANE_POST_CSC_GAMC_INDEX_ENH(pipe, plane, 0), 0);
++	} else {
++		lut_size = 32;
++		/*
++		 * First 3 planes are HDR, so reduce by 3 to get to the right
++		 * SDR plane offset
++		 */
++		plane = plane - 3;
++
++		intel_de_write_fw(dev_priv, PLANE_POST_CSC_GAMC_INDEX(pipe, plane, 0),
++				  offset | PLANE_PAL_PREC_AUTO_INCREMENT);
++
++		if (post_csc_lut) {
++			for (i = 0; i < lut_size; i++)
++				intel_de_write_fw(dev_priv,
++						  PLANE_POST_CSC_GAMC_DATA(pipe, plane, 0),
++						  post_csc_lut[i].green & 0xffff);
++			/* Program the max register to clamp values > 1.0. */
++			while (i < 35)
++				intel_de_write_fw(dev_priv,
++						  PLANE_POST_CSC_GAMC_DATA(pipe, plane, 0),
++						  post_csc_lut[i++].green & 0x3ffff);
++		} else {
++			for (i = 0; i < lut_size; i++) {
++				u32 v = (i * ((1 << 16) - 1)) / (lut_size - 1);
++
++				intel_de_write_fw(dev_priv,
++						  PLANE_POST_CSC_GAMC_DATA(pipe, plane, 0), v);
++			}
++
++			do {
++				intel_de_write_fw(dev_priv,
++						  PLANE_POST_CSC_GAMC_DATA(pipe, plane, 0),
++						  (1 << 16));
++			} while (i++ < 34);
++		}
++
++		intel_de_write_fw(dev_priv, PLANE_POST_CSC_GAMC_INDEX(pipe, plane, 0), 0);
++	}
 +}
 +
- void intel_color_commit_noarm(const struct intel_crtc_state *crtc_state)
+ static void xelpd_plane_load_luts(const struct drm_plane_state *plane_state)
  {
- 	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
-diff --git a/drivers/gpu/drm/i915/display/intel_color.h b/drivers/gpu/drm/i915/display/intel_color.h
-index aa649d13c6fa..93382df101d9 100644
---- a/drivers/gpu/drm/i915/display/intel_color.h
-+++ b/drivers/gpu/drm/i915/display/intel_color.h
-@@ -13,6 +13,7 @@ struct intel_crtc;
- struct drm_plane;
- struct drm_i915_private;
- struct drm_property_blob;
-+struct drm_plane_state;
+ 	const struct drm_property_blob *pre_csc_lut_blob =
+ 					plane_state->color.pre_csc_lut;
+-	struct drm_color_lut_ext *pre_csc_lut = NULL;
++	const struct drm_property_blob *post_csc_lut_blob =
++					plane_state->color.post_csc_lut;
++	struct drm_color_lut_ext *pre_csc_lut, *post_csc_lut;
  
- void intel_color_init_hooks(struct drm_i915_private *i915);
- int intel_color_init(struct drm_i915_private *i915);
-@@ -31,4 +32,5 @@ bool intel_color_lut_equal(const struct intel_crtc_state *crtc_state,
- 			   bool is_pre_csc_lut);
- void intel_color_assert_luts(const struct intel_crtc_state *crtc_state);
- void intel_color_plane_init(struct drm_plane *plane);
-+void intel_color_load_plane_luts(const struct drm_plane_state *plane_state);
- #endif /* __INTEL_COLOR_H__ */
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 4566c95da1ca..ce7c367fe2da 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -11,6 +11,7 @@
- #include "i915_drv.h"
- #include "i915_reg.h"
- #include "intel_atomic_plane.h"
-+#include "intel_color.h"
- #include "intel_de.h"
- #include "intel_display_irq.h"
- #include "intel_display_types.h"
-@@ -1268,6 +1269,9 @@ icl_plane_update_noarm(struct intel_plane *plane,
- 	if (plane_state->force_black)
- 		icl_plane_csc_load_black(plane);
- 
-+	if (plane_state->uapi.color_mgmt_changed)
-+		intel_color_load_plane_luts(&plane_state->uapi);
+ 	if (pre_csc_lut_blob) {
+ 		pre_csc_lut = pre_csc_lut_blob->data;
+ 		xelpd_program_plane_pre_csc_lut(plane_state, pre_csc_lut, 0);
+ 	}
 +
- 	intel_psr2_program_plane_sel_fetch_noarm(plane, crtc_state, plane_state, color_plane);
++	if (post_csc_lut_blob) {
++		post_csc_lut = post_csc_lut_blob->data;
++		xelpd_program_plane_post_csc_lut(plane_state, post_csc_lut, 0);
++	}
  }
  
+ void intel_color_load_luts(const struct intel_crtc_state *crtc_state)
 -- 
 2.38.1
 
