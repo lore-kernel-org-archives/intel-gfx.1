@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49295C83F12
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Aug 2023 16:00:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDD6DC83F14
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Aug 2023 16:00:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B52E10E400;
-	Tue, 29 Aug 2023 15:59:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A66B710E3EF;
+	Tue, 29 Aug 2023 15:59:22 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A934210E3F3;
- Tue, 29 Aug 2023 15:59:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6654810E3E5;
+ Tue, 29 Aug 2023 15:59:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1693324754; x=1724860754;
+ t=1693324744; x=1724860744;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=rZoQ12nkjZqZBdVH2w4FJnuG3YN7ZC9A0VOAsDYnMbU=;
- b=JfM3q0gPyO92BQ78nPIBK9tIKgQ4B5rWZt944hGQ+D5301EDjkG10+HP
- 4qFR+yxYUyvIda7ZkxNfEwJ2MflfkQ2HiUhJ4zkeE/71CjU1nxQnRHdid
- CTsLGCqO3Vez3UfB+wT2VbWYGlKdXsGpJWsEItvnRzSHto+COrZwyWxZ1
- x1vAStWr4jrNN1XEDEvv7CXtzK2JMvan0CgfV87mMFYTzP0opH6se8Bm7
- +ByRFutqbKaBRNnwmZjvlRgxMi4+7X95tu1+0damcLtEfCnlFZ0UFLTvd
- i65CpPnn14oY/vlNirRPXfKVi20te+JB8C+ncdkyIPlXYP/j2sskoGEDg w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="441769347"
-X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="441769347"
+ bh=R61xpepqKpYQimlj4K6h7jVYR2oEcisvx/uzlHcstBE=;
+ b=c9zEm7VHESDSd5+Euxqb/0KPzcWUz7Q/TKOtm6khnZOinmVvGENaxVYK
+ vXZhNv05iufnrKPhsXgtxeL2PtZZAiEBRG7z0YjVjKneXyU08KgUZI/HC
+ IQ2vw85COwg6dNFY+Z7ARNc47wxgSjl3n1pAmfKAjSVyDI0bBL0l3q+9S
+ MU9OccbQsh5c/ay/CJR83dlD+jyKlQedQEYGpNVCtCrJJX5azNT5TYahH
+ MPDCr4LaP76LpUGyOZYx+0XKYF0KWB9lLJ18EitNLW7AFg40k8zvBdv9p
+ ol8s8tolX/F+LXMk/Wt7b0zf9zuk8o2LX4mEce4sDhdifogUnTPKCnSdl Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="441769281"
+X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="441769281"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2023 08:59:14 -0700
+ 29 Aug 2023 08:59:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="688555029"
-X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="688555029"
+X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="688555005"
+X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="688555005"
 Received: from cfl-desktop.iind.intel.com ([10.190.239.20])
- by orsmga003.jf.intel.com with ESMTP; 29 Aug 2023 08:59:12 -0700
+ by orsmga003.jf.intel.com with ESMTP; 29 Aug 2023 08:59:02 -0700
 From: Uma Shankar <uma.shankar@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue, 29 Aug 2023 21:34:04 +0530
-Message-ID: <20230829160422.1251087-16-uma.shankar@intel.com>
+Date: Tue, 29 Aug 2023 21:33:59 +0530
+Message-ID: <20230829160422.1251087-11-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20230829160422.1251087-1-uma.shankar@intel.com>
 References: <20230829160422.1251087-1-uma.shankar@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 15/33] drm/i915/color: Add lut range for HDR planes
+Subject: [Intel-gfx] [RFC 10/33] drm: Manage color blob states
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,137 +61,53 @@ Cc: wayland-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add lut range information for HDR planes. This is used to
-hint the userspace what kind of LUT values are needed by
-the hardware block. Pre-CSC and Post-CSC blocks have
-different lut ranges for HDR planes.
+From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 
-Co-developed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+This patch manages the references for color blobs.
+
+Co-developed-by: Uma Shankar <uma.shankar@intel.com>
 Signed-off-by: Uma Shankar <uma.shankar@intel.com>
+Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c | 108 +++++++++++++++++++++
- 1 file changed, 108 insertions(+)
+ drivers/gpu/drm/drm_atomic_state_helper.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index 3900e3748a0e..58b6d70043ca 100644
---- a/drivers/gpu/drm/i915/display/intel_color.c
-+++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -3833,6 +3833,114 @@ static const struct drm_color_lut_range xelpd_pre_post_csc_sdr[] = {
- 	},
- };
+diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
+index 784e63d70a42..a554e04c2ce3 100644
+--- a/drivers/gpu/drm/drm_atomic_state_helper.c
++++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+@@ -338,6 +338,19 @@ void __drm_atomic_helper_plane_duplicate_state(struct drm_plane *plane,
+ 	state->fence = NULL;
+ 	state->commit = NULL;
+ 	state->fb_damage_clips = NULL;
++
++	if (state->set_color_pipeline_data)
++		drm_property_blob_get(state->set_color_pipeline_data);
++	if (state->color.pre_csc_lut)
++		drm_property_blob_get(state->color.pre_csc_lut);
++	if (state->color.ctm)
++		drm_property_blob_get(state->color.ctm);
++	if (state->color.post_csc_lut)
++		drm_property_blob_get(state->color.post_csc_lut);
++	if (state->color.private_color_op_data)
++		drm_property_blob_get(state->color.private_color_op_data);
++
++	state->color_mgmt_changed = false;
+ }
+ EXPORT_SYMBOL(__drm_atomic_helper_plane_duplicate_state);
  
-+/* FIXME input bpc? */
-+static const struct drm_color_lut_range xelpd_pre_csc_hdr[] = {
-+	/* segment 1 */
-+	{
-+		.flags = (DRM_MODE_LUT_PRE_CSC |
-+			  DRM_MODE_LUT_REFLECT_NEGATIVE |
-+			  DRM_MODE_LUT_INTERPOLATE |
-+			  DRM_MODE_LUT_NON_DECREASING),
-+		.count = 128,
-+		.input_bpc = 24, .output_bpc = 16,
-+		.start = 0, .end = (1 << 24) - 1,
-+		.min = 0, .max = (1 << 24) - 1,
-+	},
-+	/* segment 2 */
-+	{
-+		.flags = (DRM_MODE_LUT_PRE_CSC |
-+			  DRM_MODE_LUT_REFLECT_NEGATIVE |
-+			  DRM_MODE_LUT_INTERPOLATE |
-+			  DRM_MODE_LUT_REUSE_LAST |
-+			  DRM_MODE_LUT_NON_DECREASING),
-+		.count = 1,
-+		.input_bpc = 24, .output_bpc = 16,
-+		.start = (1 << 24) - 1, .end = 1 << 24,
-+		.min = 0, .max = (1 << 27) - 1,
-+	},
-+	/* Segment 3 */
-+	{
-+		.flags = (DRM_MODE_LUT_PRE_CSC |
-+			  DRM_MODE_LUT_REFLECT_NEGATIVE |
-+			  DRM_MODE_LUT_INTERPOLATE |
-+			  DRM_MODE_LUT_REUSE_LAST |
-+			  DRM_MODE_LUT_NON_DECREASING),
-+		.count = 1,
-+		.input_bpc = 24, .output_bpc = 16,
-+		.start = 1 << 24, .end = 3 << 24,
-+		.min = 0, .max = (1 << 27) - 1,
-+	},
-+	/* Segment 4 */
-+	{
-+		.flags = (DRM_MODE_LUT_PRE_CSC |
-+			  DRM_MODE_LUT_REFLECT_NEGATIVE |
-+			  DRM_MODE_LUT_INTERPOLATE |
-+			  DRM_MODE_LUT_REUSE_LAST |
-+			  DRM_MODE_LUT_NON_DECREASING),
-+		.count = 1,
-+		.input_bpc = 24, .output_bpc = 16,
-+		.start = 3 << 24, .end = 7 << 24,
-+		.min = 0, .max = (1 << 27) - 1,
-+	},
-+};
-+
-+/* FIXME input bpc? */
-+static const struct drm_color_lut_range xelpd_post_csc_hdr[] = {
-+	/*
-+	 * ToDo: Add Segment 1
-+	 * There is an optional fine segment added with 9 lut values
-+	 * Will be added later
-+	 */
-+
-+	/* segment 2 */
-+	{
-+		.flags = (DRM_MODE_LUT_POST_CSC |
-+			  DRM_MODE_LUT_REFLECT_NEGATIVE |
-+			  DRM_MODE_LUT_INTERPOLATE |
-+			  DRM_MODE_LUT_NON_DECREASING),
-+		.count = 32,
-+		.input_bpc = 24, .output_bpc = 16,
-+		.start = 0, .end = (1 << 24) - 1,
-+		.min = 0, .max = (1 << 24) - 1,
-+	},
-+	/* segment 3 */
-+	{
-+		.flags = (DRM_MODE_LUT_POST_CSC |
-+			  DRM_MODE_LUT_REFLECT_NEGATIVE |
-+			  DRM_MODE_LUT_INTERPOLATE |
-+			  DRM_MODE_LUT_REUSE_LAST |
-+			  DRM_MODE_LUT_NON_DECREASING),
-+		.count = 1,
-+		.input_bpc = 24, .output_bpc = 16,
-+		.start = (1 << 24) - 1, .end = 1 << 24,
-+		.min = 0, .max = 1 << 24,
-+	},
-+	/* Segment 4 */
-+	{
-+		.flags = (DRM_MODE_LUT_POST_CSC |
-+			  DRM_MODE_LUT_REFLECT_NEGATIVE |
-+			  DRM_MODE_LUT_INTERPOLATE |
-+			  DRM_MODE_LUT_REUSE_LAST |
-+			  DRM_MODE_LUT_NON_DECREASING),
-+		.count = 1,
-+		.input_bpc = 24, .output_bpc = 16,
-+		.start = 1 << 24, .end = 3 << 24,
-+		.min = 0, .max = (3 << 24),
-+	},
-+	/* Segment 5 */
-+	{
-+		.flags = (DRM_MODE_LUT_POST_CSC |
-+			  DRM_MODE_LUT_REFLECT_NEGATIVE |
-+			  DRM_MODE_LUT_INTERPOLATE |
-+			  DRM_MODE_LUT_REUSE_LAST |
-+			  DRM_MODE_LUT_NON_DECREASING),
-+		.count = 1,
-+		.input_bpc = 24, .output_bpc = 16,
-+		.start = 3 << 24, .end = 7 << 24,
-+		.min = 0, .max = (7 << 24),
-+	},
-+};
-+
- void intel_color_crtc_init(struct intel_crtc *crtc)
- {
- 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+@@ -384,6 +397,11 @@ void __drm_atomic_helper_plane_destroy_state(struct drm_plane_state *state)
+ 		drm_crtc_commit_put(state->commit);
+ 
+ 	drm_property_blob_put(state->fb_damage_clips);
++	drm_property_blob_put(state->set_color_pipeline_data);
++	drm_property_blob_put(state->color.pre_csc_lut);
++	drm_property_blob_put(state->color.ctm);
++	drm_property_blob_put(state->color.post_csc_lut);
++	drm_property_blob_put(state->color.private_color_op_data);
+ }
+ EXPORT_SYMBOL(__drm_atomic_helper_plane_destroy_state);
+ 
 -- 
 2.38.1
 
