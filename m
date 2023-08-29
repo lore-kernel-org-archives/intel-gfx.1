@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AD3AC83F12
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E58A1C83F18
 	for <intel-gfx@archiver.kernel.org>; Tue, 29 Aug 2023 16:00:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 088E410E424;
-	Tue, 29 Aug 2023 16:00:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4BCD10E422;
+	Tue, 29 Aug 2023 15:59:59 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 754D910E3F6;
- Tue, 29 Aug 2023 15:59:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDBF310E3F6;
+ Tue, 29 Aug 2023 15:59:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1693324795; x=1724860795;
+ t=1693324792; x=1724860792;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=jnrtTbHIlA7jcWZk+QTlZV5oxEPc3BTZwd7i8EI2OzI=;
- b=dTNHFYM8QqxqUPqubs+5oUkDKR93cZJ0MMpyr2nG6A4sX678Jc8/TLCA
- Hz6AfU6Vo461ZLU77Ah3I6qi2PfyjQbNx4eWWj0+YrvK2RO2+51tAx2Ca
- w9vo+6/zIfUYVSIPIo7O4t9jC9xdghHDxkv8r6MVK3mr5B074LracGKnR
- 1QjSRRLl01YkRNT7x9XGU3oCGzSWVC63rjuDxmqndqCcccMLQVCyNuma4
- oK7q8sPAeysdI04mo2BAXXdy88/wrjvG9w5c7RFMBvLDaD2TSLpLv9qjj
- f+buIKw6FklTCMhwiwbogaUPuM2rTy21wJGegkC0uFoDar3o9aPFxHcAG w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="441769456"
-X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="441769456"
+ bh=G80/t0E+Y7X7UG/FuuAwrW8sEE/xYeufMdF4yveur7o=;
+ b=OIknZ0eweySJLcM7qjeKyNXhe9eLEeza4Q33z8br2pTlgP2T++8jlRq3
+ sHJNGkmkXupJFcDnk0nu8lYTzWjJx0Zy1jaKahw8CSxEH+yALo1Y1HT/C
+ mIi1Ke2e4+INAFL3dLDBsn6VcsDKLr7VKYXbXi5iKrC0UrE/FCnvfaJxC
+ Fathv7f/7Po6Pfk6307ttfQ1Mtc+2qMcY69QHzQYEGeSPJMP8Wt45voYv
+ wKAJUkI5N+tHjUgEWYzsOYFuMn5GuzoB6skZuedc/azQlUVnFMW/ZbsQJ
+ mTx969B/U0s3gC8cBRMhNjx2MnGrktAudqeTN94BOt0QITgG3lB7yHOMX w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="441769427"
+X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="441769427"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2023 08:59:36 -0700
+ 29 Aug 2023 08:59:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="688555123"
-X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="688555123"
+X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="688555060"
+X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="688555060"
 Received: from cfl-desktop.iind.intel.com ([10.190.239.20])
- by orsmga003.jf.intel.com with ESMTP; 29 Aug 2023 08:59:34 -0700
+ by orsmga003.jf.intel.com with ESMTP; 29 Aug 2023 08:59:26 -0700
 From: Uma Shankar <uma.shankar@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue, 29 Aug 2023 21:34:15 +0530
-Message-ID: <20230829160422.1251087-27-uma.shankar@intel.com>
+Date: Tue, 29 Aug 2023 21:34:11 +0530
+Message-ID: <20230829160422.1251087-23-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20230829160422.1251087-1-uma.shankar@intel.com>
 References: <20230829160422.1251087-1-uma.shankar@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 26/33] drm/i915/color: Add color functions for ADL
+Subject: [Intel-gfx] [RFC 22/33] drm/i915/color: Add plane color callbacks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,49 +61,35 @@ Cc: wayland-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Register color callbacks for ADL and beyond. While we have to register
-new callbacks for pre-blending color operations, re-use callbacks for
-post-blend operations.
+Add callbacks for color plane operations.
+
+load_plane_luts: used to load pre/post csc luts
+load_plane_csc_matrix: used to load csc matrix
 
 Co-developed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 Signed-off-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_color.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index df2fc8f98dc9..3f3c1ac10330 100644
+index feff8ac45f47..faf16107d339 100644
 --- a/drivers/gpu/drm/i915/display/intel_color.c
 +++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -3704,6 +3704,16 @@ static const struct intel_color_funcs i9xx_color_funcs = {
- 	.get_config = i9xx_get_config,
+@@ -81,6 +81,12 @@ struct intel_color_funcs {
+ 	 * Read config other than LUTs and CSCs, before them. Optional.
+ 	 */
+ 	void (*get_config)(struct intel_crtc_state *crtc_state);
++
++	/*
++	 * Plane color callbacks
++	 */
++	void (*load_plane_csc_matrix)(const struct drm_plane_state *plane_state);
++	void (*load_plane_luts)(const struct drm_plane_state *plane_state);
  };
  
-+static const struct intel_color_funcs xelpd_color_funcs = {
-+	.color_check = icl_color_check,
-+	.color_commit_noarm = icl_color_commit_noarm,
-+	.color_commit_arm = icl_color_commit_arm,
-+	.load_luts = icl_load_luts,
-+	.read_luts = icl_read_luts,
-+	.lut_equal = icl_lut_equal,
-+	.read_csc = icl_read_csc,
-+};
-+
- static const struct intel_color_funcs tgl_color_funcs = {
- 	.color_check = icl_color_check,
- 	.color_commit_noarm = icl_color_commit_noarm,
-@@ -4141,7 +4151,9 @@ void intel_color_init_hooks(struct drm_i915_private *i915)
- 		else
- 			i915->display.funcs.color = &i9xx_color_funcs;
- 	} else {
--		if (DISPLAY_VER(i915) >= 12)
-+		if (DISPLAY_VER(i915) >= 13)
-+			i915->display.funcs.color = &xelpd_color_funcs;
-+		else if (DISPLAY_VER(i915) == 12)
- 			i915->display.funcs.color = &tgl_color_funcs;
- 		else if (DISPLAY_VER(i915) == 11)
- 			i915->display.funcs.color = &icl_color_funcs;
+ #define CTM_COEFF_SIGN	(1ULL << 63)
 -- 
 2.38.1
 
