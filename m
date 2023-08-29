@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE318C6FA8F
-	for <intel-gfx@archiver.kernel.org>; Tue, 29 Aug 2023 16:00:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27DC5C83F14
+	for <intel-gfx@archiver.kernel.org>; Tue, 29 Aug 2023 16:00:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC1EB10E3F8;
-	Tue, 29 Aug 2023 15:59:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4848E10E3FB;
+	Tue, 29 Aug 2023 15:59:17 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E10910E3DD;
- Tue, 29 Aug 2023 15:59:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5BC510E3E8;
+ Tue, 29 Aug 2023 15:59:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1693324742; x=1724860742;
+ t=1693324753; x=1724860753;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=FTnaNI/dqfL0mN5AB3xSetNKJE1kZExcpPoMiYYhpds=;
- b=ISgcOQKKNPRjca/MLpzACLi0yW+YooOH5dar98eNT1hfdxvBMojAOfFR
- w3uIFVWwvvg/kW9b4bteTw6Wwt0fERCKqFH5RTeNxPjKdDmf9X3l5R4Go
- rHfmnzO3WxoLz1PX4yC84zywe6AoQXa67gxMewmWCLT9p7tfpUHjKiy1T
- BnQKxCq57LgU2oUnAk1hfSj7QOwg+U0FzWdL+NiIfd57376MPyBX17Rxv
- XRRU3X04ec3Il3JYhz8995lpqsa/4o6jhICHMRLPUqEhsQ+8XyUbljcyA
- 7na1PTmPUmyCQFQcZYcdrMRuU7d8r0P8LRnWoglNJ6ITVqVbvMCh2mwUj Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="441769266"
-X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="441769266"
+ bh=BkxhWwqLWw1PpEAtRsRC2Xy4hh82FaCIhbvRnJtc4Jg=;
+ b=YQRauQT8GripLRVixjPMOD8c/E1ZEES15uwCo0/sXaFbGMSPE7nwa6vv
+ A+D+xOYVRreNtc6LjiJv+KO94aaOsZ4I7kvJPs419JhVJMfVWc34RfiCS
+ DREBNMLIzPN6M5A9nsLjeD3KOa4BB3mXflck4k2elFoQmxU/9gij/lmvc
+ GoyTPrOO0xLYFmqc6o+Q3MJY08UgW6bR/NnapAShEvCU2URuh+pGa6r8a
+ pFFT1eB0EhsL64cqF94qDOzExN41FguHLuBKb7WsiafaZyzww+MY47O3m
+ 1Hsr4AtRYNPt/d2uDqTko8GWSl40Y4s7YgzoWKriQkaix22c42gHU6vFG w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="441769338"
+X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="441769338"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2023 08:59:02 -0700
+ 29 Aug 2023 08:59:12 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="688554999"
-X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="688554999"
+X-IronPort-AV: E=McAfee;i="6600,9927,10817"; a="688555026"
+X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="688555026"
 Received: from cfl-desktop.iind.intel.com ([10.190.239.20])
- by orsmga003.jf.intel.com with ESMTP; 29 Aug 2023 08:59:00 -0700
+ by orsmga003.jf.intel.com with ESMTP; 29 Aug 2023 08:59:10 -0700
 From: Uma Shankar <uma.shankar@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Tue, 29 Aug 2023 21:33:58 +0530
-Message-ID: <20230829160422.1251087-10-uma.shankar@intel.com>
+Date: Tue, 29 Aug 2023 21:34:03 +0530
+Message-ID: <20230829160422.1251087-15-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20230829160422.1251087-1-uma.shankar@intel.com>
 References: <20230829160422.1251087-1-uma.shankar@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC 09/33] drm: Add color information to plane state
+Subject: [Intel-gfx] [RFC 14/33] drm/i915/color: Add lut range for SDR planes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,81 +61,84 @@ Cc: wayland-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a new structure drm_plane_color to plane state. It consists
-of blobs with data needed for respective color HW blocks.
-
-Currently defining below blobs
-
-  pre-csc: can be used to linearize the input frame buffer data.
-
-  csc: used for color space conversion.
-
-  post-csc: can be used non-linearize frame buffer data or
-            to perform Tone mapping for HDR use-cases
-
-  private: can be used for vendor specific fixed function operations
-
-This can be extended to include other color operations as well.
+Add lut range information for SDR planes. This is used to
+hint the userspace what kind of LUT values are needed by
+the hardware block. Pre-CSC and Post-CSC blocks have similar
+lut range for HDR planes.
 
 Co-developed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 Signed-off-by: Uma Shankar <uma.shankar@intel.com>
 ---
- include/drm/drm_plane.h | 41 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
+ drivers/gpu/drm/i915/display/intel_color.c | 55 ++++++++++++++++++++++
+ 1 file changed, 55 insertions(+)
 
-diff --git a/include/drm/drm_plane.h b/include/drm/drm_plane.h
-index fcd589cb38f2..601b01e47a93 100644
---- a/include/drm/drm_plane.h
-+++ b/include/drm/drm_plane.h
-@@ -245,6 +245,47 @@ struct drm_plane_state {
- 	 */
- 	struct drm_property_blob *set_color_pipeline_data;
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index 5918e2e9bcdd..3900e3748a0e 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -3778,6 +3778,61 @@ static const struct intel_color_funcs ilk_color_funcs = {
+ 	.get_config = ilk_get_config,
+ };
  
-+	/**
-+	 * @drm_plane_color:
-+	 *
-+	 * Encapsulates all color states.
-+	 */
-+	struct drm_plane_color {
-+		/**
-+		 * @pre_csc_lut:
-+		 *
-+		 * Lookup table for converting framebuffer pixel data before apply the
-+		 * color conversion matrix @ctm. See drm_plane_enable_color_mgmt(). The
-+		 * blob (if not NULL) is an array of &struct drm_color_lut_ext.
-+		 */
-+		struct drm_property_blob *pre_csc_lut;
++/* FIXME input bpc? */
++static const struct drm_color_lut_range xelpd_pre_post_csc_sdr[] = {
++	/* segment 1 */
++	{
++		.flags = (DRM_MODE_LUT_POST_CSC |
++			  DRM_MODE_LUT_PRE_CSC |
++			  DRM_MODE_LUT_REFLECT_NEGATIVE |
++			  DRM_MODE_LUT_INTERPOLATE |
++			  DRM_MODE_LUT_NON_DECREASING),
++		.count = 32,
++		.input_bpc = 16, .output_bpc = 16,
++		.start = 0, .end = (1 << 16) - (1 << 16) / 33,
++		.min = 0, .max = (1 << 16) - 1,
++	},
++	/* segment 2 */
++	{
++		.flags = (DRM_MODE_LUT_POST_CSC |
++			  DRM_MODE_LUT_PRE_CSC |
++			  DRM_MODE_LUT_REFLECT_NEGATIVE |
++			  DRM_MODE_LUT_INTERPOLATE |
++			  DRM_MODE_LUT_REUSE_LAST |
++			  DRM_MODE_LUT_NON_DECREASING),
++		.count = 1,
++		.input_bpc = 16, .output_bpc = 16,
++		.start = (1 << 16) - (1 << 16) / 33, .end = 1 << 16,
++		.min = 0, .max = 1 << 16,
++	},
++	/* Segment 3 */
++	{
++		.flags = (DRM_MODE_LUT_POST_CSC |
++			  DRM_MODE_LUT_PRE_CSC |
++			  DRM_MODE_LUT_REFLECT_NEGATIVE |
++			  DRM_MODE_LUT_INTERPOLATE |
++			  DRM_MODE_LUT_REUSE_LAST |
++			  DRM_MODE_LUT_NON_DECREASING),
++		.count = 1,
++		.input_bpc = 16, .output_bpc = 16,
++		.start = 1 << 16, .end = 3 << 16,
++		.min = 0, .max = (8 << 16) - 1,
++	},
++	/* Segment 4 */
++	{
++		.flags = (DRM_MODE_LUT_POST_CSC |
++			  DRM_MODE_LUT_PRE_CSC |
++			  DRM_MODE_LUT_REFLECT_NEGATIVE |
++			  DRM_MODE_LUT_INTERPOLATE |
++			  DRM_MODE_LUT_REUSE_LAST |
++			  DRM_MODE_LUT_NON_DECREASING),
++		.count = 1,
++		.input_bpc = 16, .output_bpc = 16,
++		.start = 3 << 16, .end = 7 << 16,
++		.min = 0, .max = (8 << 16) - 1,
++	},
++};
 +
-+		/**
-+		 * @ctm:
-+		 *
-+		 * Color transformation matrix. See drm_plane_enable_color_mgmt(). The
-+		 * blob (if not NULL) is a &struct drm_color_ctm.
-+		 */
-+		struct drm_property_blob *ctm;
-+
-+		/**
-+		 * @post_csc_lut:
-+		 *
-+		 * Lookup table for converting framebuffer pixel data after applying the
-+		 * color conversion matrix @ctm. See drm_plane_enable_color_mgmt(). The
-+		 * blob (if not NULL) is an array of &struct drm_color_lut_ext.
-+		 */
-+		struct drm_property_blob *post_csc_lut;
-+
-+		/**
-+		 * @private_color_op_data:
-+		 *
-+		 * This blob is intended for drivers to implement driver private color operations.
-+		 * For example: Parameterized/non-parameterized fixed function operations
-+		 */
-+		struct drm_property_blob *private_color_op_data;
-+	} color;
-+
- 	/**
- 	 * @color_mgmt_changed: Plane color pipeline state has changed
- 	 * Used by the atomic helpers and
+ void intel_color_crtc_init(struct intel_crtc *crtc)
+ {
+ 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
 -- 
 2.38.1
 
