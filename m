@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ED3EC83F12
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB3C0C83F14
 	for <intel-gfx@archiver.kernel.org>; Tue, 29 Aug 2023 11:39:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E50B810E27E;
-	Tue, 29 Aug 2023 11:39:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E15C10E29B;
+	Tue, 29 Aug 2023 11:39:56 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62A2610E290;
- Tue, 29 Aug 2023 11:39:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5271610E27E;
+ Tue, 29 Aug 2023 11:39:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1693309186; x=1724845186;
+ t=1693309193; x=1724845193;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=YeE9dxdlwLm/2+MBrx63dQP80Hb/3tAvGNwYjeaLeX4=;
- b=jSr7sxz1IeLljHbrn7nltmMMM8hQG47FlNaJe/c8Fm/lXez3IN+6oWUe
- xPBFjYU/XAyXSSAiXlqqpAguHXxiNvlSXDtzj8abeZrXvt18RASYvT/o2
- lxnviZHrT4Vitskc0ATO4xuvacFtSPemJx34QDjpiSTeRRF8oXDwm6QEM
- ex9EYaPxrTTO+xxh/Ak0nwKEKiaUajQ94aU9WZZH+mFWPUPjMju986BFA
- MIT/90aFXaYVeRC4jmQgJ2ByaVNZradDiNy2CCTr6GV7ft6wb01Fg1qHG
- WmnxCrl5aPWZZVKL0rZcL0IZfwKzZ+xgCted8YorLayFZVGzXaDKr+3CF g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10816"; a="378063936"
-X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="378063936"
+ bh=aUVcxP6gkQBY3ZAeJRgiv+sTDv6CEU1AMMz8+dceLOw=;
+ b=lXRC9/liEANVCBC0fk53pLCrm1mS3mvSE+jSepGYoH8fXnwpYdXO5YBE
+ IvjqER+iTlMdb73xPlT5JnjizPraxkYBF+SsXUw4S35zhRUi11Yw2TOtH
+ P4HxElNpRoo8RrpZ2ucYLGgsT8yANsogSoUTQ4r7+Lj57QPSZMD+F0Q7N
+ aUITQNaAZImY3Es6Lt7cRVhR/ZoAINq8ojrfAw9s+MJaAkjm0XmK90zEr
+ r5mMIiSl2+fzmokVv9syy+fDiuXBrbQpuljgQbpDU2/M2ozuOAS7MTxYJ
+ l9/Gf38NUKHx+CWv5GjVqohYmvWEfpoUMOstfR7Pn4Zw+/P9ZG+L3+XEG A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10816"; a="378063949"
+X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="378063949"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2023 04:39:46 -0700
+ 29 Aug 2023 04:39:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10816"; a="738669059"
-X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="738669059"
+X-IronPort-AV: E=McAfee;i="6600,9927,10816"; a="738669082"
+X-IronPort-AV: E=Sophos;i="6.02,210,1688454000"; d="scan'208";a="738669082"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.153])
- by orsmga002.jf.intel.com with SMTP; 29 Aug 2023 04:39:44 -0700
+ by orsmga002.jf.intel.com with SMTP; 29 Aug 2023 04:39:50 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 29 Aug 2023 14:39:43 +0300
+ Tue, 29 Aug 2023 14:39:50 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 29 Aug 2023 14:39:14 +0300
-Message-ID: <20230829113920.13713-7-ville.syrjala@linux.intel.com>
+Date: Tue, 29 Aug 2023 14:39:16 +0300
+Message-ID: <20230829113920.13713-9-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230829113920.13713-1-ville.syrjala@linux.intel.com>
 References: <20230829113920.13713-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/12] drm/i915/dvo: Populate connector->ddc
+Subject: [Intel-gfx] [PATCH 08/12] drm/i915/mst: Populate connector->ddc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,49 +66,33 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
 Populate connector->ddc, and thus create the "ddc" symlink
-in sysfs for DVO connectors.
+in sysfs for DP MST connectors.
 
+TODO: test that this actually works
+
+References: https://gitlab.freedesktop.org/drm/intel/-/issues/3605
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dvo.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dvo.c b/drivers/gpu/drm/i915/display/intel_dvo.c
-index b386894c3a6d..d9f427856fb8 100644
---- a/drivers/gpu/drm/i915/display/intel_dvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_dvo.c
-@@ -328,7 +328,6 @@ intel_dvo_detect(struct drm_connector *_connector, bool force)
- static int intel_dvo_get_modes(struct drm_connector *_connector)
- {
- 	struct intel_connector *connector = to_intel_connector(_connector);
--	struct drm_i915_private *i915 = to_i915(connector->base.dev);
- 	int num_modes;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 2d1c42a5e684..0bf02a29e371 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -1104,8 +1104,10 @@ static struct drm_connector *intel_dp_add_mst_connector(struct drm_dp_mst_topolo
+ 	drm_dp_mst_get_port_malloc(port);
  
- 	/*
-@@ -337,8 +336,7 @@ static int intel_dvo_get_modes(struct drm_connector *_connector)
- 	 * (TV-out, for example), but for now with just TMDS and LVDS,
- 	 * that's not the case.
- 	 */
--	num_modes = intel_ddc_get_modes(&connector->base,
--					intel_gmbus_get_adapter(i915, GMBUS_PIN_DPC));
-+	num_modes = intel_ddc_get_modes(&connector->base, connector->base.ddc);
- 	if (num_modes)
- 		return num_modes;
- 
-@@ -533,9 +531,10 @@ void intel_dvo_init(struct drm_i915_private *i915)
- 		connector->polled = DRM_CONNECTOR_POLL_CONNECT |
- 			DRM_CONNECTOR_POLL_DISCONNECT;
- 
--	drm_connector_init(&i915->drm, &connector->base,
--			   &intel_dvo_connector_funcs,
--			   intel_dvo_connector_type(&intel_dvo->dev));
-+	drm_connector_init_with_ddc(&i915->drm, &connector->base,
-+				    &intel_dvo_connector_funcs,
-+				    intel_dvo_connector_type(&intel_dvo->dev),
-+				    intel_gmbus_get_adapter(i915, GMBUS_PIN_DPC));
- 
- 	drm_connector_helper_add(&connector->base,
- 				 &intel_dvo_connector_helper_funcs);
+ 	connector = &intel_connector->base;
+-	ret = drm_connector_init(dev, connector, &intel_dp_mst_connector_funcs,
+-				 DRM_MODE_CONNECTOR_DisplayPort);
++	ret = drm_connector_init_with_ddc(dev, connector,
++					  &intel_dp_mst_connector_funcs,
++					  DRM_MODE_CONNECTOR_DisplayPort,
++					  &port->aux.ddc);
+ 	if (ret) {
+ 		drm_dp_mst_put_port_malloc(port);
+ 		intel_connector_free(intel_connector);
 -- 
 2.41.0
 
