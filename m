@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63574C83F38
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 21:34:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39BA7C88CB2
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 21:34:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF9B010E6F5;
-	Thu, 31 Aug 2023 21:34:27 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A746A10E1BA;
- Thu, 31 Aug 2023 21:32:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B781510E6F4;
+	Thu, 31 Aug 2023 21:34:28 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDA7310E124;
+ Wed, 30 Aug 2023 09:54:28 +0000 (UTC)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 11725B823E7;
- Thu, 31 Aug 2023 21:32:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7809CC433C8;
- Thu, 31 Aug 2023 21:32:22 +0000 (UTC)
-Message-ID: <f24abf55-7261-f0b5-b95f-bf94ab80ea30@xs4all.nl>
-Date: Thu, 31 Aug 2023 23:32:20 +0200
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 60B3F614C7;
+ Wed, 30 Aug 2023 09:54:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9F47C433C9;
+ Wed, 30 Aug 2023 09:54:26 +0000 (UTC)
+Message-ID: <9a344111-483c-0883-9685-0d571e2295b2@xs4all.nl>
+Date: Wed, 30 Aug 2023 11:54:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
 Content-Language: en-US, nl
-To: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+To: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
 References: <cover.1692884619.git.jani.nikula@intel.com>
- <8734zzjb9v.fsf@intel.com>
+ <8c6b6403932536b6849e0b44e1ee6e7ebdbe4a69.1692884619.git.jani.nikula@intel.com>
 From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-In-Reply-To: <8734zzjb9v.fsf@intel.com>
+In-Reply-To: <8c6b6403932536b6849e0b44e1ee6e7ebdbe4a69.1692884619.git.jani.nikula@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 31 Aug 2023 21:33:53 +0000
-Subject: Re: [Intel-gfx] [PATCH 0/6] drm, cec and edid updates
+Subject: Re: [Intel-gfx] [PATCH 3/6] drm/edid: parse source physical address
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,54 +52,75 @@ Cc: intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 31/08/2023 20:51, Jani Nikula wrote:
-> On Thu, 24 Aug 2023, Jani Nikula <jani.nikula@intel.com> wrote:
->> Avoid accessing the raw edid directly. Pre-parse the source physical
->> address during normal EDID parsing and use that for CEC.
->>
->> Jani Nikula (6):
->>   drm/edid: add drm_edid_is_digital()
->>   drm/i915/display: use drm_edid_is_digital()
->>   drm/edid: parse source physical address
->>   drm/cec: add drm_dp_cec_attach() as the non-edid version of set edid
->>   drm/i915/cec: switch to setting physical address directly
+On 24/08/2023 15:46, Jani Nikula wrote:
+> CEC needs the source physical address. Parsing it is trivial with the
+> existing EDID CEA DB infrastructure.
 > 
-> Maarten, Maxime, Thomas, ack for merging patches 1, 3 and 4 via via
-> drm-intel?
+> Default to CEC_PHYS_ADDR_INVALID (0xffff) instead of 0 to cater for
+> easier CEC usage.
 > 
->>   media: cec: core: add note about *_from_edid() function usage in drm
-> 
-> Hans, while there's no build dependency here, I think it would make
-> sense to merge this together with patches 3 and 4. Ack for merging via
-> drm-intel?
+> Cc: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+> Cc: linux-media@vger.kernel.org
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-That's fine, it makes sense to do that.
-
-If you need it, for this series:
-
-Acked-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+Reviewed-by: Hans Verkuil <hverkuil-cisco@xs4all.nl>
 
 Regards,
 
 	Hans
 
+> ---
+>  drivers/gpu/drm/drm_edid.c  | 5 +++++
+>  include/drm/drm_connector.h | 8 ++++++++
+>  2 files changed, 13 insertions(+)
 > 
-> Thanks,
-> Jani.
-> 
-> 
->>
->>  drivers/gpu/drm/display/drm_dp_cec.c      | 22 +++++++++++++++++++---
->>  drivers/gpu/drm/drm_edid.c                | 22 ++++++++++++++++++++--
->>  drivers/gpu/drm/i915/display/intel_crt.c  | 11 ++++-------
->>  drivers/gpu/drm/i915/display/intel_dp.c   |  7 ++-----
->>  drivers/gpu/drm/i915/display/intel_hdmi.c |  8 +++-----
->>  drivers/gpu/drm/i915/display/intel_sdvo.c |  7 ++-----
->>  drivers/media/cec/core/cec-adap.c         |  4 ++++
->>  drivers/media/cec/core/cec-notifier.c     |  4 ++++
->>  include/drm/display/drm_dp_helper.h       |  6 ++++++
->>  include/drm/drm_connector.h               |  8 ++++++++
->>  include/drm/drm_edid.h                    |  1 +
->>  11 files changed, 73 insertions(+), 27 deletions(-)
-> 
+> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+> index 1dbb15439468..39dd3f694544 100644
+> --- a/drivers/gpu/drm/drm_edid.c
+> +++ b/drivers/gpu/drm/drm_edid.c
+> @@ -29,6 +29,7 @@
+>   */
+>  
+>  #include <linux/bitfield.h>
+> +#include <linux/cec.h>
+>  #include <linux/hdmi.h>
+>  #include <linux/i2c.h>
+>  #include <linux/kernel.h>
+> @@ -6192,6 +6193,8 @@ drm_parse_hdmi_vsdb_video(struct drm_connector *connector, const u8 *db)
+>  
+>  	info->is_hdmi = true;
+>  
+> +	info->source_physical_address = (db[4] << 8) | db[5];
+> +
+>  	if (len >= 6)
+>  		info->dvi_dual = db[6] & 1;
+>  	if (len >= 7)
+> @@ -6470,6 +6473,8 @@ static void drm_reset_display_info(struct drm_connector *connector)
+>  	info->vics_len = 0;
+>  
+>  	info->quirks = 0;
+> +
+> +	info->source_physical_address = CEC_PHYS_ADDR_INVALID;
+>  }
+>  
+>  static void update_displayid_info(struct drm_connector *connector,
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index d300fde6c1a4..40a5e7acf2fa 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -816,6 +816,14 @@ struct drm_display_info {
+>  	 * @quirks: EDID based quirks. Internal to EDID parsing.
+>  	 */
+>  	u32 quirks;
+> +
+> +	/**
+> +	 * @source_physical_address: Source Physical Address from HDMI
+> +	 * Vendor-Specific Data Block, for CEC usage.
+> +	 *
+> +	 * Defaults to CEC_PHYS_ADDR_INVALID (0xffff).
+> +	 */
+> +	u16 source_physical_address;
+>  };
+>  
+>  int drm_display_info_set_bus_formats(struct drm_display_info *info,
 
