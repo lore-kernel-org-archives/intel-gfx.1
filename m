@@ -4,39 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B97B8C83F12
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 21:34:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C76BC83F37
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 21:34:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF80110E6EF;
-	Thu, 31 Aug 2023 21:33:56 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6CAC10E4E5;
- Wed, 30 Aug 2023 10:03:08 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 64BA560EAA;
- Wed, 30 Aug 2023 10:03:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 044CDC433C7;
- Wed, 30 Aug 2023 10:03:06 +0000 (UTC)
-Message-ID: <343ed7f5-194a-805c-5608-b9000a868d5f@xs4all.nl>
-Date: Wed, 30 Aug 2023 12:03:05 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6157F10E6F2;
+	Thu, 31 Aug 2023 21:33:57 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89FE210E4AF
+ for <intel-gfx@lists.freedesktop.org>; Wed, 30 Aug 2023 02:01:27 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 37U21Mqd027015; Wed, 30 Aug 2023 02:01:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com;
+ h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=TEi9ZCzJnhyaZJpJZ92TnEABbWX2LUG4ji9g2mzEyvs=;
+ b=S3EpoM23n9jrghA/jlskffgWRbreNaGxUPePMkIhrCUsEnuQNvyK6lzvANB2kXcldV80
+ 96oITf0VXHVFph7E4H2DUQeKMAOtKzaMcxsnvLXfS0oaSjLz97rPGzBaZp9PxIiAGt7z
+ d6w41tBluYlAssj7geLuSlYwlL1v+rJgWnIq1DZmaUjA2sffOuGKAnRmUXxEegZSf8/K
+ o9oIko2kOlqls3GrFHfwth36gXo+cJX149TXck2ySFpSMkzFFZCxg94+/hFB1E51zkAb
+ bETqrQhTgkk2a/gLDWcE+rR95pmbByKhdxhHwymUrVNE8ibv7gfnGswLNskd7nsO3Kuj vw== 
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3ss4wq2y7u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 30 Aug 2023 02:01:22 +0000
+Received: from nalasex01b.na.qualcomm.com (nalasex01b.na.qualcomm.com
+ [10.47.209.197])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 37U21LLP010335
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 30 Aug 2023 02:01:21 GMT
+Received: from [10.233.19.102] (10.80.80.8) by nalasex01b.na.qualcomm.com
+ (10.47.209.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.36; Tue, 29 Aug
+ 2023 19:01:19 -0700
+Message-ID: <1de7b6df-8d61-4b32-59d7-00f6bc1a21e5@quicinc.com>
+Date: Wed, 30 Aug 2023 10:01:16 +0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.12.0
-Content-Language: en-US, nl
-To: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
-References: <cover.1692884619.git.jani.nikula@intel.com>
- <7cebfea8f999d2d0d49533f9849d109830c5d1b6.1692884619.git.jani.nikula@intel.com>
-From: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-In-Reply-To: <7cebfea8f999d2d0d49533f9849d109830c5d1b6.1692884619.git.jani.nikula@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+To: Michal Wajdeczko <michal.wajdeczko@intel.com>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+References: <20230825050029.1122-1-quic_linyyuan@quicinc.com>
+ <875y534r88.fsf@intel.com> <336c1090-e15f-03f5-7fa3-7fe3784dff5d@quicinc.com>
+ <1de9f939-1164-de25-9410-279f4558ebaa@intel.com>
+Content-Language: en-US
+From: Linyu Yuan <quic_linyyuan@quicinc.com>
+In-Reply-To: <1de9f939-1164-de25-9410-279f4558ebaa@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01b.na.qualcomm.com (10.47.209.197)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800
+ signatures=585085
+X-Proofpoint-GUID: 8-kySsrrc0JgC3pEYkv4-hYAjc8ER5HY
+X-Proofpoint-ORIG-GUID: 8-kySsrrc0JgC3pEYkv4-hYAjc8ER5HY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.267,Aquarius:18.0.957,Hydra:6.0.601,FMLib:17.11.176.26
+ definitions=2023-08-29_16,2023-08-29_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ suspectscore=0 phishscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1011
+ spamscore=0 malwarescore=0 priorityscore=1501 mlxscore=0 adultscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2308100000 definitions=main-2308300017
 X-Mailman-Approved-At: Thu, 31 Aug 2023 21:33:53 +0000
-Subject: Re: [Intel-gfx] [PATCH 6/6] media: cec: core: add note about
- *_from_edid() function usage in drm
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/guc: fix compile issue of
+ guc_klvs_abi.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,69 +89,242 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-media@vger.kernel.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 24/08/2023 15:46, Jani Nikula wrote:
-> In the drm subsystem, the source physical address is, in most cases,
-> available without having to parse the EDID again. Add notes about
-> preferring to use the pre-parsed address instead.
-> 
-> Cc: Hans Verkuil <hverkuil-cisco@xs4all.nl>
-> Cc: linux-media@vger.kernel.org
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> ---
->  drivers/media/cec/core/cec-adap.c     | 4 ++++
->  drivers/media/cec/core/cec-notifier.c | 4 ++++
->  2 files changed, 8 insertions(+)
-> 
-> diff --git a/drivers/media/cec/core/cec-adap.c b/drivers/media/cec/core/cec-adap.c
-> index 241b1621b197..2c627ed611ed 100644
-> --- a/drivers/media/cec/core/cec-adap.c
-> +++ b/drivers/media/cec/core/cec-adap.c
-> @@ -1688,6 +1688,10 @@ void cec_s_phys_addr(struct cec_adapter *adap, u16 phys_addr, bool block)
->  }
->  EXPORT_SYMBOL_GPL(cec_s_phys_addr);
->  
-> +/*
-> + * Note: In the drm subsystem, prefer calling cec_s_phys_addr() with
-> + * connector->display_info.source_physical_address if possible.
-> + */
 
-I would rephrase this:
+On 8/29/2023 5:42 AM, Michal Wajdeczko wrote:
+>
+> On 25.08.2023 07:50, Linyu Yuan wrote:
+>> On 8/25/2023 1:37 PM, Jani Nikula wrote:
+>>> On Fri, 25 Aug 2023, Linyu Yuan <quic_linyyuan@quicinc.com> wrote:
+>>>> GCC report GUC_KLV_0_KEY and GUC_KLV_0_LEN is not constant when do
+>>>> preprocessing.
+>>> Please paste the actual compiler warning.
+>>
+>>    CC      drivers/gpu/drm/i915/gt/uc/intel_guc_submission.o
+>> In file included from <command-line>:0:0:
+>> In function ‘__guc_context_policy_add_priority.isra.47’,
+>>      inlined from ‘__guc_context_set_prio.isra.48’ at
+>> drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:3332:3,
+>>      inlined from ‘guc_context_set_prio’ at
+>> drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:3360:2:
+>> ././include/linux/compiler_types.h:397:38: error: call to
+>> ‘__compiletime_assert_1803’ declared with attribute error: FIELD_PREP:
+>> mask is not constant
+>>    _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+>>                                        ^
+>> ././include/linux/compiler_types.h:378:4: note: in definition of macro
+>> ‘__compiletime_assert’
+>>      prefix ## suffix();    \
+>>      ^~~~~~
+>> ././include/linux/compiler_types.h:397:2: note: in expansion of macro
+>> ‘_compiletime_assert’
+>>    _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+>>    ^~~~~~~~~~~~~~~~~~~
+>> ./include/linux/build_bug.h:39:37: note: in expansion of macro
+>> ‘compiletime_assert’
+>>   #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+>>                                       ^~~~~~~~~~~~~~~~~~
+>> ./include/linux/bitfield.h:65:3: note: in expansion of macro
+>> ‘BUILD_BUG_ON_MSG’
+>>     BUILD_BUG_ON_MSG(!__builtin_constant_p(_mask),  \
+>>     ^~~~~~~~~~~~~~~~
+>> ./include/linux/bitfield.h:114:3: note: in expansion of macro
+>> ‘__BF_FIELD_CHECK’
+>>     __BF_FIELD_CHECK(_mask, 0ULL, _val, "FIELD_PREP: "); \
+>>     ^~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:2461:3: note: in
+>> expansion of macro ‘FIELD_PREP’
+>>     FIELD_PREP(GUC_KLV_0_KEY, GUC_CONTEXT_POLICIES_KLV_ID_##id) | \
+>>     ^~~~~~~~~~
+>> drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:2469:1: note: in
+>> expansion of macro ‘MAKE_CONTEXT_POLICY_ADD’
+>>   MAKE_CONTEXT_POLICY_ADD(priority, SCHEDULING_PRIORITY)
+>>   ^~~~~~~~~~~~~~~~~~~~~~~
+>> In function ‘__guc_context_policy_add_preemption_timeout.isra.51’,
+>>      inlined from ‘__guc_context_set_preemption_timeout’ at
+>> drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:3005:3:
+>> ././include/linux/compiler_types.h:397:38: error: call to
+>> ‘__compiletime_assert_1793’ declared with attribute error: FIELD_PREP:
+>> mask is not constant
+>>    _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+>>                                        ^
+>> ././include/linux/compiler_types.h:378:4: note: in definition of macro
+>> ‘__compiletime_assert’
+>>      prefix ## suffix();    \
+>>      ^~~~~~
+>> ././include/linux/compiler_types.h:397:2: note: in expansion of macro
+>> ‘_compiletime_assert’
+>>    _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+>>    ^~~~~~~~~~~~~~~~~~~
+>> ./include/linux/build_bug.h:39:37: note: in expansion of macro
+>> ‘compiletime_assert’
+>>   #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+>>                                       ^~~~~~~~~~~~~~~~~~
+>> ./include/linux/bitfield.h:65:3: note: in expansion of macro
+>> ‘BUILD_BUG_ON_MSG’
+>>     BUILD_BUG_ON_MSG(!__builtin_constant_p(_mask),  \
+>>     ^~~~~~~~~~~~~~~~
+>> ./include/linux/bitfield.h:114:3: note: in expansion of macro
+>> ‘__BF_FIELD_CHECK’
+>>     __BF_FIELD_CHECK(_mask, 0ULL, _val, "FIELD_PREP: "); \
+>>     ^~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:2461:3: note: in
+>> expansion of macro ‘FIELD_PREP’
+>>     FIELD_PREP(GUC_KLV_0_KEY, GUC_CONTEXT_POLICIES_KLV_ID_##id) | \
+>>     ^~~~~~~~~~
+>> drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:2468:1: note: in
+>> expansion of macro ‘MAKE_CONTEXT_POLICY_ADD’
+>>   MAKE_CONTEXT_POLICY_ADD(preemption_timeout, PREEMPTION_TIMEOUT)
+>>   ^~~~~~~~~~~~~~~~~~~~~~~
+>> In function ‘__guc_context_policy_add_priority.isra.47’,
+>>      inlined from ‘__guc_add_request’ at
+>> drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:2503:2:
+>> ././include/linux/compiler_types.h:397:38: error: call to
+>> ‘__compiletime_assert_1803’ declared with attribute error: FIELD_PREP:
+>> mask is not constant
+>>    _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+>>                                        ^
+>> ././include/linux/compiler_types.h:378:4: note: in definition of macro
+>> ‘__compiletime_assert’
+>>      prefix ## suffix();    \
+>>      ^~~~~~
+>> ././include/linux/compiler_types.h:397:2: note: in expansion of macro
+>> ‘_compiletime_assert’
+>>    _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+>>    ^~~~~~~~~~~~~~~~~~~
+>> ./include/linux/build_bug.h:39:37: note: in expansion of macro
+>> ‘compiletime_assert’
+>>   #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+>>                                       ^~~~~~~~~~~~~~~~~~
+>> ./include/linux/bitfield.h:65:3: note: in expansion of macro
+>> ‘BUILD_BUG_ON_MSG’
+>>     BUILD_BUG_ON_MSG(!__builtin_constant_p(_mask),  \
+>>     ^~~~~~~~~~~~~~~~
+>> ./include/linux/bitfield.h:114:3: note: in expansion of macro
+>> ‘__BF_FIELD_CHECK’
+>>     __BF_FIELD_CHECK(_mask, 0ULL, _val, "FIELD_PREP: "); \
+>>     ^~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:2461:3: note: in
+>> expansion of macro ‘FIELD_PREP’
+>>     FIELD_PREP(GUC_KLV_0_KEY, GUC_CONTEXT_POLICIES_KLV_ID_##id) | \
+>>     ^~~~~~~~~~
+>> drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:2469:1: note: in
+>> expansion of macro ‘MAKE_CONTEXT_POLICY_ADD’
+>>   MAKE_CONTEXT_POLICY_ADD(priority, SCHEDULING_PRIORITY)
+>>   ^~~~~~~~~~~~~~~~~~~~~~~
+>> In function ‘__guc_context_policy_add_priority.isra.47’,
+>>      inlined from ‘register_context’ at
+>> drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:2503:2:
+>> ././include/linux/compiler_types.h:397:38: error: call to
+>> ‘__compiletime_assert_1803’ declared with attribute error: FIELD_PREP:
+>> mask is not constant
+>>    _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+>>                                        ^
+>> ././include/linux/compiler_types.h:378:4: note: in definition of macro
+>> ‘__compiletime_assert’
+>>      prefix ## suffix();    \
+>>      ^~~~~~
+>> ././include/linux/compiler_types.h:397:2: note: in expansion of macro
+>> ‘_compiletime_assert’
+>>    _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+>>    ^~~~~~~~~~~~~~~~~~~
+>> ./include/linux/build_bug.h:39:37: note: in expansion of macro
+>> ‘compiletime_assert’
+>>   #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+>>                                       ^~~~~~~~~~~~~~~~~~
+>> ./include/linux/bitfield.h:65:3: note: in expansion of macro
+>> ‘BUILD_BUG_ON_MSG’
+>>     BUILD_BUG_ON_MSG(!__builtin_constant_p(_mask),  \
+>>     ^~~~~~~~~~~~~~~~
+>> ./include/linux/bitfield.h:114:3: note: in expansion of macro
+>> ‘__BF_FIELD_CHECK’
+>>     __BF_FIELD_CHECK(_mask, 0ULL, _val, "FIELD_PREP: "); \
+>>     ^~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:2461:3: note: in
+>> expansion of macro ‘FIELD_PREP’
+>>     FIELD_PREP(GUC_KLV_0_KEY, GUC_CONTEXT_POLICIES_KLV_ID_##id) | \
+>>     ^~~~~~~~~~
+>> drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:2469:1: note: in
+>> expansion of macro ‘MAKE_CONTEXT_POLICY_ADD’
+>>   MAKE_CONTEXT_POLICY_ADD(priority, SCHEDULING_PRIORITY)
+>>   ^~~~~~~~~~~~~~~~~~~~~~~
+>> In function ‘__guc_scheduling_policy_add_klv.isra.56’,
+>>      inlined from ‘guc_init_global_schedule_policy’ at
+>> drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:4449:3,
+>>      inlined from ‘intel_guc_submission_enable’ at
+>> drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:4490:6:
+>> ././include/linux/compiler_types.h:397:38: error: call to
+>> ‘__compiletime_assert_1882’ declared with attribute error: FIELD_PREP:
+>> mask is not constant
+>>    _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+>>                                        ^
+>> ././include/linux/compiler_types.h:378:4: note: in definition of macro
+>> ‘__compiletime_assert’
+>>      prefix ## suffix();    \
+>>      ^~~~~~
+>> ././include/linux/compiler_types.h:397:2: note: in expansion of macro
+>> ‘_compiletime_assert’
+>>    _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+>>    ^~~~~~~~~~~~~~~~~~~
+>> ./include/linux/build_bug.h:39:37: note: in expansion of macro
+>> ‘compiletime_assert’
+>>   #define BUILD_BUG_ON_MSG(cond, msg) compiletime_assert(!(cond), msg)
+>>                                       ^~~~~~~~~~~~~~~~~~
+>> ./include/linux/bitfield.h:65:3: note: in expansion of macro
+>> ‘BUILD_BUG_ON_MSG’
+>>     BUILD_BUG_ON_MSG(!__builtin_constant_p(_mask),  \
+>>     ^~~~~~~~~~~~~~~~
+>> ./include/linux/bitfield.h:114:3: note: in expansion of macro
+>> ‘__BF_FIELD_CHECK’
+>>     __BF_FIELD_CHECK(_mask, 0ULL, _val, "FIELD_PREP: "); \
+>>     ^~~~~~~~~~~~~~~~
+>> drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:4401:17: note: in
+>> expansion of macro ‘FIELD_PREP’
+>>    *(klv_ptr++) = FIELD_PREP(GUC_KLV_0_KEY, action) |
+>>                   ^~~~~~~~~~
+>> scripts/Makefile.build:243: recipe for target
+>> 'drivers/gpu/drm/i915/gt/uc/intel_guc_submission.o' failed
+>>
+> What GCC/.config was it?
+>
+> In the meantime, can you try simpler fix below (we want to avoid
+> external dependencies in GuC ABI headers)
+>
+> -#define GUC_KLV_0_KEY                          (0xffff << 16)
+> +#define GUC_KLV_0_KEY                          (0xffffu << 16)
 
-/*
- * Note: in the drm subsystem, prefer calling (if possible):
- *
- * cec_s_phys_addr(adap, connector->display_info.source_physical_address, false);
- */
 
-I think it is important to indicate that the last argument should be 'false'.
+i test it, this change can solve the issue, please submit a change.
 
->  void cec_s_phys_addr_from_edid(struct cec_adapter *adap,
->  			       const struct edid *edid)
->  {
-> diff --git a/drivers/media/cec/core/cec-notifier.c b/drivers/media/cec/core/cec-notifier.c
-> index 389dc664b211..13f043b3025b 100644
-> --- a/drivers/media/cec/core/cec-notifier.c
-> +++ b/drivers/media/cec/core/cec-notifier.c
-> @@ -195,6 +195,10 @@ void cec_notifier_set_phys_addr(struct cec_notifier *n, u16 pa)
->  }
->  EXPORT_SYMBOL_GPL(cec_notifier_set_phys_addr);
->  
-> +/*
-> + * Note: In the drm subsystem, prefer calling cec_notifier_set_phys_addr() with
-> + * connector->display_info.source_physical_address if possible.
-> + */
 
-This comment is fine, there is no similar last argument here. But perhaps
-it is good to use a similar format as above. Up to you.
-
->  void cec_notifier_set_phys_addr_from_edid(struct cec_notifier *n,
->  					  const struct edid *edid)
->  {
-
-Regards,
-
-	Hans
+> Michal
+>
+>>> BR,
+>>> Jani.
+>>>
+>>>
+>>>
+>>>> Change to use GENMASK() to avoid the issue.
+>>>>
+>>>> Signed-off-by: Linyu Yuan <quic_linyyuan@quicinc.com>
+>>>> ---
+>>>>    drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h | 4 ++--
+>>>>    1 file changed, 2 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h
+>>>> b/drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h
+>>>> index 58012edd4eb0..fd3c16695e5f 100644
+>>>> --- a/drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h
+>>>> +++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_klvs_abi.h
+>>>> @@ -29,8 +29,8 @@
+>>>>     */
+>>>>      #define GUC_KLV_LEN_MIN                1u
+>>>> -#define GUC_KLV_0_KEY                (0xffff << 16)
+>>>> -#define GUC_KLV_0_LEN                (0xffff << 0)
+>>>> +#define GUC_KLV_0_KEY                GENMASK(31, 16)
+>>>> +#define GUC_KLV_0_LEN                GENMASK(15, 0)
+>>>>    #define GUC_KLV_n_VALUE                (0xffffffff << 0)
+>>>>      /**
