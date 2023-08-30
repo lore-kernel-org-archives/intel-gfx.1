@@ -4,68 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF8DEC83F12
-	for <intel-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 21:33:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED1BFC83F38
+	for <intel-gfx@archiver.kernel.org>; Thu, 31 Aug 2023 21:33:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A88810E6E9;
-	Thu, 31 Aug 2023 21:33:55 +0000 (UTC)
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [IPv6:2607:f8b0:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 947E110E549;
- Wed, 30 Aug 2023 15:04:30 +0000 (UTC)
-Received: by mail-pf1-x431.google.com with SMTP id
- d2e1a72fcca58-68bec3a1c0fso4180466b3a.1; 
- Wed, 30 Aug 2023 08:04:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 316D310E6EB;
+	Thu, 31 Aug 2023 21:33:56 +0000 (UTC)
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [IPv6:2a00:1450:4864:20::634])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AA7D10E5AB
+ for <intel-gfx@lists.freedesktop.org>; Wed, 30 Aug 2023 19:54:20 +0000 (UTC)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-99c1c66876aso509566b.2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 30 Aug 2023 12:54:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693407870; x=1694012670; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=BY1v90+5NSPW40nepdwawsmQXXDE6gdV3lwX6BIPunA=;
- b=Mb+xyE/xiJ6C1gSJu/qbjA8Al7GQZdNZUz//cs2DouvJYS/guRV/06VZXEo8KnZSSB
- C5Sw+DiUo+Inmnv/9q95IhrGtoTy7Kvq9pXTDHzB9h78uRNQOd0iFVuuTPi1gCjnqcGJ
- jDh/c3akLYzD0BgtcLsXka8MzLTHwCauzggAabMpIDIuWDBOeV7/a0yUiHU1PbOd7Kcg
- 4ltMZbogaDRKvkFEOqJDs8I2A5/bCdEbT26pIhg8gjDvXSd6aRH6/3nfixzDRn2+oeFP
- +Gk1OnR1Ko1iX2idw9KJFPOqYvlaFrKPlB+7KSo2XdebdJ00mOyTvNJX/6+wJ4USPXvY
- VSbA==
+ d=gmail.com; s=20221208; t=1693425259; x=1694030059; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=lYTTCqSEdcIJyTpZVB7E2UPb3ND2QCQc334nWhMiy+U=;
+ b=KCuXBIWlAyfRG5cAbCuklqyYtUknQmTf0qARgUzJZEDxGcjkiGj2RPfvKQbYDKcXPU
+ m76Sj8Uj+sGPPo6gaXxftrWauwh0g07S27DJKEP2+TNdq03ZXKfTrffmCTST3XJ0zEIA
+ byIXNiwvjA2ZrceLNDmXWF7z89rWvpwYcxTv8ttSZOnAe5z+r5C6D4+GpDHiUGQ+RH8f
+ ZU39wvGS0A6kbG5HSRKFpNfvk2i8MG0Vc1sPeDNlKtyrJ94gtNVeV2UJZUysElc9mMwj
+ oOroXiIAnT16OMs8US97q2udPSBKVR1UuzgYXDmr1Wav5PKlL0eY32s8Cr8RvEfE8hF/
+ bN1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693407870; x=1694012670;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
- :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=BY1v90+5NSPW40nepdwawsmQXXDE6gdV3lwX6BIPunA=;
- b=SFISaLYDa8aUI/hPNh6ynmtRrmrW3FhwUkee8oQftgi+JczY1NCHYz5ziiVvh/9kcX
- QXYqaZe6nbixNtoPdTjaFwiU3FOok7fjyfZ8S2219Hz92+mjCdnvq0QbVnGZzxYxJJ34
- pneaIJqtvFxeiE2lLDhjpYEdrD6jsDGJ7Ai75jw5/L2/9h6LHjcG9B8OOD51Z7hvHXTH
- ZsC3DVLlBt4TWxMstvGVAJq3D8ZiR/xjfGqAHoetzguHSx9sOToVDok671fNByGei6jN
- 75ZiTLPY8mC0Jq0LJZ2iMM4iDsRDIxYDCUU5c6IEgBE/RHi+rYaFZqg9Z88+edQSu4WT
- G27Q==
-X-Gm-Message-State: AOJu0YxCp5XdteTYZaZpgoySCUrBNNstWyY51JsMJT4vpEebZ6CtZhVo
- 2/dtpB4aCmTRKY/MUGgqOJ0=
-X-Google-Smtp-Source: AGHT+IHRm7rtzj81ZlIYH0T79lr+GUMNzYCHKFMVKdWz4gEygQ5O/SCsRCq+FFjEb1B0FGxf56amUA==
-X-Received: by 2002:a05:6a21:9997:b0:14c:c767:a56a with SMTP id
- ve23-20020a056a21999700b0014cc767a56amr2949112pzb.25.1693407869896; 
- Wed, 30 Aug 2023 08:04:29 -0700 (PDT)
-Received: from [192.168.255.10] ([101.80.250.8])
- by smtp.gmail.com with ESMTPSA id
- n21-20020aa79055000000b00682a908949bsm10496088pfo.92.2023.08.30.08.04.25
+ d=1e100.net; s=20221208; t=1693425259; x=1694030059;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=lYTTCqSEdcIJyTpZVB7E2UPb3ND2QCQc334nWhMiy+U=;
+ b=QmiY9iqf4IUvn8+SO+DxeXjnEhUcm3P/3jw1oUXx0GeIhZaGNsAyKLc21P+mZCFLPm
+ Qa3F4bTDo5MvU0NaNipBRYPFkCon5D55Q9cS7Rq1Jz+dVSrN2NCBqiV7WVIWcL1Q7y6h
+ devy/18VUzExfi/sP7GR8YawBo8ZxopYjnCS67YJVTOOLlVBlFkof0K9koWqsHJOJqWq
+ ByYQCBZyXz4cr9Yg4G8NNBnIJhb43vrGr3fBLZF05BUdaagijYs+dBKYsKGi3X9Kni/7
+ 0kYD4SyUea2NcskWrv7+BTruJWDxKdgJb1vhEfy8oSvP6ieW3u3jh+xX3rxVXAhwjfG3
+ yGvw==
+X-Gm-Message-State: AOJu0Yxj6+NmzRRDh5xks4MeZ+mLvhDR4Pztbf+dUbwNYOY/kwYLmzqB
+ VmWQ6KPE5qJsY8RluhpSisA=
+X-Google-Smtp-Source: AGHT+IFzSmlz/pwFX2xKSsV9ocT+amX0DS7F7b+ZBL9KRK2TYYC6CbpN4ABojmsIoe3uWCcOwyiEOA==
+X-Received: by 2002:a17:906:3287:b0:9a1:ddb9:6550 with SMTP id
+ 7-20020a170906328700b009a1ddb96550mr2321538ejw.52.1693425258622; 
+ Wed, 30 Aug 2023 12:54:18 -0700 (PDT)
+Received: from ?IPV6:2a01:c23:b8a0:2d00:e558:bad6:b660:31e3?
+ (dynamic-2a01-0c23-b8a0-2d00-e558-bad6-b660-31e3.c23.pool.telefonica.de.
+ [2a01:c23:b8a0:2d00:e558:bad6:b660:31e3])
+ by smtp.googlemail.com with ESMTPSA id
+ v9-20020a170906488900b0099cc36c4681sm7530926ejq.157.2023.08.30.12.54.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Aug 2023 08:04:29 -0700 (PDT)
-Message-ID: <6c691bc5-dbfc-46f9-8c09-9c74c51d8708@gmail.com>
-Date: Wed, 30 Aug 2023 23:04:21 +0800
+ Wed, 30 Aug 2023 12:54:18 -0700 (PDT)
+Message-ID: <2e31f088-72e5-6a15-4210-2a721c422d1d@gmail.com>
+Date: Wed, 30 Aug 2023 21:54:17 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.13.0
-To: Sean Christopherson <seanjc@google.com>
-References: <20230729013535.1070024-1-seanjc@google.com>
- <20230729013535.1070024-17-seanjc@google.com>
-From: Like Xu <like.xu.linux@gmail.com>
-In-Reply-To: <20230729013535.1070024-17-seanjc@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Content-Language: en-US
+To: imre.deak@intel.com, Tejun Heo <tj@kernel.org>
+References: <f7e21caa-e98d-e5b5-932a-fe12d27fde9b@gmail.com>
+ <ZO-BkaGuVCgdr3wc@slm.duckdns.org> <ZO+Q0Oaw/1GkDx6T@ideak-desk.fi.intel.com>
+From: Heiner Kallweit <hkallweit1@gmail.com>
+In-Reply-To: <ZO+Q0Oaw/1GkDx6T@ideak-desk.fi.intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 31 Aug 2023 21:33:53 +0000
-Subject: Re: [Intel-gfx] [PATCH v4 16/29] KVM: x86: Reject memslot MOVE
- operations if KVMGT is attached
+Subject: Re: [Intel-gfx] WQ_UNBOUND warning since recent workqueue
+ refactoring
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,84 +81,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yan Zhao <yan.y.zhao@intel.com>, kvm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Yongwei Ma <yongwei.ma@intel.com>, Ben Gardon <bgardon@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, intel-gvt-dev@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2023/7/29 09:35, Sean Christopherson wrote:
-> Disallow moving memslots if the VM has external page-track users, i.e. if
-> KVMGT is being used to expose a virtual GPU to the guest, as KVMGT doesn't
-> correctly handle moving memory regions.
+On 30.08.2023 20:56, Imre Deak wrote:
+> On Wed, Aug 30, 2023 at 07:51:13AM -1000, Tejun Heo wrote:
+> Hi,
 > 
-> Note, this is potential ABI breakage!  E.g. userspace could move regions
-> that aren't shadowed by KVMGT without harming the guest.  However, the
-> only known user of KVMGT is QEMU, and QEMU doesn't move generic memory
-
-This change breaks two kvm selftests:
-
-- set_memory_region_test;
-- memslot_perf_test;
-
-Please help confirm if the tests/doc needs to be updated,
-or if the assumption needs to be further clarified.
-
-> regions.  KVM's own support for moving memory regions was also broken for
-> multiple years (albeit for an edge case, but arguably moving RAM is
-> itself an edge case), e.g. see commit edd4fa37baa6 ("KVM: x86: Allocate
-> new rmap and large page tracking when moving memslot").
+>> Hello,
+>>
+>> (cc'ing i915 folks)
+>>
+>> On Wed, Aug 30, 2023 at 04:57:42PM +0200, Heiner Kallweit wrote:
+>>> Recently I started to see the following warning on linux-next and presumably
+>>> this may be related to the refactoring of the workqueue core code.
+>>>
+>>> [   56.900223] workqueue: output_poll_execute [drm_kms_helper] hogged CPU for >10000us 4 times, consider switching to WQ_UNBOUND
+>>> [   56.923226] workqueue: i915_hpd_poll_init_work [i915] hogged CPU for >10000us 4 times, consider switching to WQ_UNBOUND
+>>> [   97.860430] workqueue: output_poll_execute [drm_kms_helper] hogged CPU for >10000us 8 times, consider switching to WQ_UNBOUND
+>>> [   97.884453] workqueue: i915_hpd_poll_init_work [i915] hogged CPU for >10000us 8 times, consider switching to WQ_UNBOUND
+>>>
+>>> Adding WQ_UNBOUND to these queues didn't change the behavior.
+>>
+>> That should have made them go away as the code path isn't active at all for
+>> WQ_UNBOUND workqueues. Can you please double check?
+>>
+>>> Maybe relevant: I run the affected system headless.
+>>
+>> i915 folks, workqueue recently added debug warnings which trigger when a
+>> per-cpu work item hogs the CPU for too long - 10ms in this case. This is
+>> problematic because such work item can stall other per-cpu work items.
+>>
+>> * Is it expected for the above two work functions to occupy the CPU for over
+>>   10ms repeatedly?
 > 
-> Reviewed-by: Yan Zhao <yan.y.zhao@intel.com>
-> Tested-by: Yongwei Ma <yongwei.ma@intel.com>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ---
->   arch/x86/include/asm/kvm_page_track.h | 3 +++
->   arch/x86/kvm/mmu/page_track.c         | 5 +++++
->   arch/x86/kvm/x86.c                    | 7 +++++++
->   3 files changed, 15 insertions(+)
+> No, this shouldn't happen.
 > 
-> diff --git a/arch/x86/include/asm/kvm_page_track.h b/arch/x86/include/asm/kvm_page_track.h
-> index 8c4d216e3b2b..f744682648e7 100644
-> --- a/arch/x86/include/asm/kvm_page_track.h
-> +++ b/arch/x86/include/asm/kvm_page_track.h
-> @@ -75,4 +75,7 @@ kvm_page_track_unregister_notifier(struct kvm *kvm,
->   void kvm_page_track_write(struct kvm_vcpu *vcpu, gpa_t gpa, const u8 *new,
->   			  int bytes);
->   void kvm_page_track_flush_slot(struct kvm *kvm, struct kvm_memory_slot *slot);
-> +
-> +bool kvm_page_track_has_external_user(struct kvm *kvm);
-> +
->   #endif
-> diff --git a/arch/x86/kvm/mmu/page_track.c b/arch/x86/kvm/mmu/page_track.c
-> index 891e5cc52b45..e6de9638e560 100644
-> --- a/arch/x86/kvm/mmu/page_track.c
-> +++ b/arch/x86/kvm/mmu/page_track.c
-> @@ -303,3 +303,8 @@ void kvm_page_track_flush_slot(struct kvm *kvm, struct kvm_memory_slot *slot)
->   			n->track_flush_slot(kvm, slot, n);
->   	srcu_read_unlock(&head->track_srcu, idx);
->   }
-> +
-> +bool kvm_page_track_has_external_user(struct kvm *kvm)
-> +{
-> +	return hlist_empty(&kvm->arch.track_notifier_head.track_notifier_list);
-> +}
-> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-> index 059571d5abed..4394bb49051f 100644
-> --- a/arch/x86/kvm/x86.c
-> +++ b/arch/x86/kvm/x86.c
-> @@ -12606,6 +12606,13 @@ int kvm_arch_prepare_memory_region(struct kvm *kvm,
->   				   struct kvm_memory_slot *new,
->   				   enum kvm_mr_change change)
->   {
-> +	/*
-> +	 * KVM doesn't support moving memslots when there are external page
-> +	 * trackers attached to the VM, i.e. if KVMGT is in use.
-> +	 */
-> +	if (change == KVM_MR_MOVE && kvm_page_track_has_external_user(kvm))
-> +		return -EINVAL;
-> +
->   	if (change == KVM_MR_CREATE || change == KVM_MR_MOVE) {
->   		if ((new->base_gfn + new->npages - 1) > kvm_mmu_max_gfn())
->   			return -EINVAL;
+> I assume it happens in
+> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+> 
+> after cfd48ad8c4a9 ("drm/i915: Fix HPD polling, reenabling the output poll work as needed")
+> 
+> which could result in the above problem.
+> 
+> Could you give a try to
+> https://lore.kernel.org/all/20230809104307.1218058-1-imre.deak@intel.com/
+> 
+> and if that doesn't help provide more information/logs, by opening a
+> ticket at:
+> https://gitlab.freedesktop.org/drm/intel/-/issues/new
+> 
+Done
+https://gitlab.freedesktop.org/drm/intel/-/issues/9245
+
+> Thanks,
+> Imre
+> 
+>> * If so, can we make them use an unbound workqueue instead?
+>>
+>> Thanks.
+>>
+>> -- 
+>> tejun
+
