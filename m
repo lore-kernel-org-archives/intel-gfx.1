@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F359CA0FE2
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Sep 2023 01:14:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD081CA0FE1
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Sep 2023 01:14:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FEFA10E70A;
-	Fri,  1 Sep 2023 01:14:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2477F10E70C;
+	Fri,  1 Sep 2023 01:14:56 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2D47A10E70A;
- Fri,  1 Sep 2023 01:14:52 +0000 (UTC)
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 82C2E10E70C;
+ Fri,  1 Sep 2023 01:14:54 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 25B18A00CC;
- Fri,  1 Sep 2023 01:14:52 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 7FA8BA00CC;
+ Fri,  1 Sep 2023 01:14:54 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Michal Wajdeczko" <michal.wajdeczko@intel.com>
-Date: Fri, 01 Sep 2023 01:14:52 -0000
-Message-ID: <169353089213.9816.9059556551530683852@emeril.freedesktop.org>
+Date: Fri, 01 Sep 2023 01:14:54 -0000
+Message-ID: <169353089451.9815.4445065046845232721@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20230831205150.165-1-michal.wajdeczko@intel.com>
 In-Reply-To: <20230831205150.165-1-michal.wajdeczko@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915/guc=3A_Update_GUC=5FKLV=5F0=5FKEY_definition?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915/guc=3A_Update_GUC=5FKLV=5F0=5FKEY_definition?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,17 +53,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-aadae3354910 drm/i915/guc: Update GUC_KLV_0_KEY definition
--:14: WARNING:COMMIT_LOG_LONG_LINE: Possible unwrapped commit description (prefer a maximum 75 chars per line)
-#14: 
-    inlined from ‘__guc_context_set_prio.isra.48’ at drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:3332:3,
-
--:42: WARNING:BAD_REPORTED_BY_LINK: Reported-by: should be immediately followed by Closes: with a URL to the report
-#42: 
-Reported-by: Linyu Yuan <quic_linyyuan@quicinc.com>
-Signed-off-by: Michal Wajdeczko <michal.wajdeczko@intel.com>
-
-total: 0 errors, 2 warnings, 0 checks, 8 lines checked
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
