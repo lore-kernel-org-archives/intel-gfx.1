@@ -4,58 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1FC7CA0FEC
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Sep 2023 21:14:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D332DCA0FEC
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Sep 2023 22:34:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04D4910E1CB;
-	Fri,  1 Sep 2023 21:14:13 +0000 (UTC)
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEA9710E1C4
- for <intel-gfx@lists.freedesktop.org>; Fri,  1 Sep 2023 21:14:10 +0000 (UTC)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2bcb89b4767so39877671fa.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 01 Sep 2023 14:14:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1693602849; x=1694207649;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cJtqGU4cc4Ge9UOEzXJZRxF5YcKTHQn7jqtstZ/lce0=;
- b=iXuLb2oOFJK6X0WZ0gxXkqRG/RjrsPqY++bdwaSBnAT0JFLDmoVvRwpOVRHNnq7hxI
- gBILnRxP6e0HNuUwa54Ww0qdJcss5An3jD2h8/+2pSdWDEccNz9yeYKkHI23NeJr4U3L
- MOfB4J0Wo0wJcy2waeuB1tlIxuv6gJwDDA8M0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693602849; x=1694207649;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=cJtqGU4cc4Ge9UOEzXJZRxF5YcKTHQn7jqtstZ/lce0=;
- b=E6aWeqAErz9mmLoDB2fID6bt73d2ziGCUQlxCvCt40k+IVjc9uBRvNYQ+aGkoAI6dm
- 1DZ6mkkE1KOcZjoiwPDkuBp6M8iqWoGDISLS6KbpeZz6RhCpL5/1l0fwkxbjfOrvHKSg
- iuHhRDBviO2MWtwlH6q8qKLWgG82qAaFZwXVkennxnyJsiWMbQBfntBh0UB7UbMNR1mq
- H4OwXxYAMkyIOvpNlo6sLIKSW4RWzEVcyu28kMKugbdqs6XVkHm76onwjunHBqvYip3J
- RK0vqHFfEY84PXgrflifmp6nYtd658kng3VfWFmvBaPYnlPOoFLZTUiFsqypyWXqRthE
- Em6A==
-X-Gm-Message-State: AOJu0YyLtMGR5t9DpN9171Xh2RqUQ2XgUtdnRHNiyyTZSGgdSjSR6DX6
- eNgsCJulA4WZqCukeki1Y1/VwIyUW1ojpxEDe8NOzw==
-X-Google-Smtp-Source: AGHT+IH90min5DveQz/5E+2JTuSY1DYgvEbfXPZKEl3pzzZ4KD2nAC7EaR2cLme4gJbthWu9PIz6qHburQlD/igoN3U=
-X-Received: by 2002:a2e:8506:0:b0:2b9:d7b7:36d4 with SMTP id
- j6-20020a2e8506000000b002b9d7b736d4mr2450757lji.16.1693602848495; Fri, 01 Sep
- 2023 14:14:08 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4E2010E01F;
+	Fri,  1 Sep 2023 22:34:13 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B41DF10E01F
+ for <intel-gfx@lists.freedesktop.org>; Fri,  1 Sep 2023 22:34:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1693607650; x=1725143650;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=yw6MhhHwhwyHMTT4Ggos4qA3IWNBOnNry4vuITf9KSM=;
+ b=cxEe619CrOmLKjNRZ2yreMR4bIiceYfhpriwK6LfCsD+Si4v3a5Rvnc1
+ SU/zB/SMOTo3gx/CUWhBmSbvEGiVlU0d8QhFzQ4HdVLYKI+4Lda/DPBvu
+ 0h6IHcJisBcFnHQkb0QerwbrXImYwOsGF1K6KZp+0sF+nJ29t7qw9l3U4
+ m7e9k3aC3c2opHtv6ySKQj7J0NZeUB6nJiQPWnvnwN68Si6g27UcGsSUv
+ WFWHdWo6lLkjSSVyy9jXisFbrvhO6ii0KcXbwbTmI/PYbk995UeENuUvK
+ QKcEE+iYT/BTOcFSQcslWo7fJk/pLCd5Z6E3oDRw058nNKEBh0zlTVM1q g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10819"; a="375222652"
+X-IronPort-AV: E=Sophos;i="6.02,221,1688454000"; d="scan'208";a="375222652"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2023 15:34:09 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10819"; a="769339898"
+X-IronPort-AV: E=Sophos;i="6.02,221,1688454000"; d="scan'208";a="769339898"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by orsmga008.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 01 Sep 2023 15:34:09 -0700
+Received: from fmsmsx612.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27; Fri, 1 Sep 2023 15:34:08 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx612.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.27 via Frontend Transport; Fri, 1 Sep 2023 15:34:08 -0700
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com (104.47.73.46) by
+ edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.27; Fri, 1 Sep 2023 15:34:08 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=b/7IoVTRkUmPXqKTeLkaqyOnk+A/VImbbQltIbuSIhsFxkWQ1eUfoe41DTLWiODRS3gsWLlQjNvSt1Bfl02H7UmzD6zzjwFYJsDA9z9t5rADYU5PQhRuUj8AARLDcQFjhfzVthDWGglM0LExZ0tIaJV31q1PvesgggdaidIRQLxuWvlOHrpE5a2/X/CimmRCtadTjeCgD7uMe2KsXz5ToaP3HikHvXX7Dxk8n00beN+u8YyYvkS0uyZcw8+9P2OjtJGCkL12WPkChBtqwp45UkV6klf6+3RNf9zkQOJAJrsr0GCK/pytSrikwRg+yNZh+6vOGwpaqF36WYYxZpxDVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JyctxHDKZWuk+7/hxywckf5xLKCQs/+RMJjtrTBaMYs=;
+ b=U0al0WHQKx3YS4vVkhNuYx08V/ofQGXze+CncGc/vFIE33/g3kAHG9vdGDEdIm/HyPChjJxMHUtc3QTI7vTs1aYE8hyHzXQKElGV4B/o+jSazREbug1s/94qPQHwIjp6x46DV96InfNQJclRuPtPJVGKssW11CM628MBXdKW1CCi6qtApPopPPXhO/JeirO91TvcrGmweuPiMkR2WgJA3ld4hiQpdL3ARIsTd9dknw4YSfSG3CJQIeuzdMk3b52XJVUy2L1NqDeYmJ7O8pAhyQYZqBw2Zj+d/lExiNnYhgIYd0uTfknQPOJWzhrb4sQPMKwYXRBty7CTi+NN4oGoxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS7PR11MB7859.namprd11.prod.outlook.com (2603:10b6:8:da::22) by
+ PH7PR11MB6546.namprd11.prod.outlook.com (2603:10b6:510:212::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6745.26; Fri, 1 Sep
+ 2023 22:34:04 +0000
+Received: from DS7PR11MB7859.namprd11.prod.outlook.com
+ ([fe80::48d9:4c34:35b:f66]) by DS7PR11MB7859.namprd11.prod.outlook.com
+ ([fe80::48d9:4c34:35b:f66%4]) with mapi id 15.20.6745.023; Fri, 1 Sep 2023
+ 22:34:03 +0000
+Date: Fri, 1 Sep 2023 15:34:00 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
+To: Shekhar Chauhan <shekhar.chauhan@intel.com>
+Message-ID: <20230901223400.GW6080@mdroper-desk1.amr.corp.intel.com>
+References: <20230901045700.2553994-1-shekhar.chauhan@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20230901045700.2553994-1-shekhar.chauhan@intel.com>
+X-ClientProxiedBy: BY3PR04CA0029.namprd04.prod.outlook.com
+ (2603:10b6:a03:217::34) To DS7PR11MB7859.namprd11.prod.outlook.com
+ (2603:10b6:8:da::22)
 MIME-Version: 1.0
-References: <20230824205335.500163-1-gildekel@chromium.org>
- <20230824205335.500163-6-gildekel@chromium.org> <ZPIzl/a60uD4FTRI@intel.com>
-In-Reply-To: <ZPIzl/a60uD4FTRI@intel.com>
-From: Gil Dekel <gildekel@chromium.org>
-Date: Fri, 1 Sep 2023 17:13:57 -0400
-Message-ID: <CAOD+-Q49q=WJCMDCiP0gZzRTK9-n2zxeYZF_9FeSEH9UvCLdoA@mail.gmail.com>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH v4 5/6] drm/i915/dp_link_training: Set all
- downstream MST ports to BAD before retrying
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR11MB7859:EE_|PH7PR11MB6546:EE_
+X-MS-Office365-Filtering-Correlation-Id: d2a47ae5-215d-4260-7898-08dbab3b8b2d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Ebm8HWv6GJMcBRhCuybr2+sjFwzhbMkQJOolUeCw9K1SJVA/mtuyxu6//VJQTjNwd0wE3CtzeFo88ouZMLuf5x9M3us8OidUtWdCJUqSlch0Ngd9vlUHpA3G5SeVO7tirGQG43VNKV0knSB8F1djhGEp8+VhajfymwjQKnx8qvdpLBUSs6UtLWlYJhyWAunp8HMecArmNJ5QjqvNylxZ3J0NoGIrjR2vfdzONtLo0ilfMg5PCFHLB5OS4AYjZdm/8OGGV8g0rhIgY/6kudiCUC7AzVQNaGUnVEbey5BKQyEXgk+aTmMR1x7BhXAU37DqYo3FsQJ6VsRuHolzHnqfACjG9xwCSzLxRsCPBLO2We1K88bVDBd6qRByLAKViANQYUJXuC4jNFe2C34QRPty/D68M0M4qVcklSA5gW8pWaavlzNGs5XVrEkHPs3bquLZS2rqVoDG3jD1gmfBIOuXmFlTJlkEqY1pxFoZyguHkdMoGVatiSSxfyTD0l7i6FTdOoVYqtIFh2VD1iH5oykS3duFnPy/1ua36Yuuu/TwgmlSf7zAqjn66k47s/Apnc7f
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR11MB7859.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(346002)(366004)(376002)(136003)(396003)(451199024)(1800799009)(186009)(33656002)(8676002)(6862004)(4326008)(8936002)(6486002)(6506007)(86362001)(66556008)(66946007)(66476007)(6512007)(478600001)(41300700001)(316002)(26005)(38100700002)(6636002)(5660300002)(82960400001)(2906002)(1076003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ZXadMPGdZYC0gxPoGIRD2QaqEWP0IpkMHkZ++bwgGHDBri9RuqpDBth+ZOSE?=
+ =?us-ascii?Q?vLzLu+z37m4eTm5En5QhG2WeXo0JHGURhD7i76xekzaQGQKX6s4fVMJBV9LT?=
+ =?us-ascii?Q?6Ov0mMBV6K/svo6fnj9Sqca96Cdd97MzwwhTI5q/PAFKCCf2aeMdbmOB57gY?=
+ =?us-ascii?Q?2KrjlBnbW48o70fkDEOupaRl2vIcn5Kiyyhd08X1Kpq/XzTYqLc7voyReQpg?=
+ =?us-ascii?Q?fTssiEGq1rhC1RS9fkxTx6ERf5TYnvHHT7NlnAE6cLFbmvpLdW0pIpOhJXbw?=
+ =?us-ascii?Q?xxLTR3W6d7XpbNBGcO/Hw2x3FjpboRnmSguAThYozMUuEfltCCG0+VuZl4Kq?=
+ =?us-ascii?Q?2YdWSgeGY8qjqVNaZ4vxRCWSiPZQsOXyVHbA8Snjjq7fY/1vU32gjm3NN2Za?=
+ =?us-ascii?Q?qjsecWtiGFdyIPr6QjO0AX6qBGYYQxNC4MahHeLBXIm7gvZAO/tZrGDSVr0Z?=
+ =?us-ascii?Q?u4A7VNAkt/Q9sw7pZ50j37X9z7kdbvRZdfruVbiBfnGmVYGg8JlhckO2s6z3?=
+ =?us-ascii?Q?ZKudGxHRZjBTlGWczAncAftHz8xOSj0H6sDI7hUN2/WOJFgEHa+Xbwwett48?=
+ =?us-ascii?Q?O5obWw4L59fmzBZWU3KxZySYYITFQCUKvwlXwMGuY4/B9p4eJ1KMb/p2a2Wa?=
+ =?us-ascii?Q?5s7k79609SAI5SYdMCoGm7edniy/Wxd+Ig4M/YhnE8cmRdFdijg1gv8sz6+W?=
+ =?us-ascii?Q?bZM/0APQ4QAtb28zC9RG6LSvFRSDRkb1CjlbZefoOz84Q3tz0qLoVvFhIubX?=
+ =?us-ascii?Q?07buT3e37a8TQFr+6jdIxcgsP/baRMlQvZ16aejc8+GmFjcyVK8zVvvQP+TI?=
+ =?us-ascii?Q?w/QTLkZ52wJNjBC4Jo54wOAh8f/ro6Jmnvzlx2L9/6FLIXRJcC4Xi8flkU2O?=
+ =?us-ascii?Q?h4cwF9sSEJc0HSSCNj2K8X+EJT485/KfhtvqK7pGzMgol+ys+RUwak1JtOdi?=
+ =?us-ascii?Q?FU0jONIvqjU/xsyto1XYzn1YIL2K18TdJXzx5l3koEzkPfCrdSZ8hYS5rlvM?=
+ =?us-ascii?Q?Nmgf2vx80y/LGvli75q1ROKB1fRpPBFLxu9+LoG4F773FUYx761txR3F/MI7?=
+ =?us-ascii?Q?FXhBqk4EbPZITXUkrPu5cs/3cVHgcADOmnVK3VQ5F8hNn4nQqDWGI3nhcgJM?=
+ =?us-ascii?Q?77LD3pd0THWYPo8FHUYUcRNVQrzxeKxSCGxjg0Oc5HLm6Th2BAEuvqA9BmxY?=
+ =?us-ascii?Q?/HlZCPvMdwTRJgewwCtGfymASh0smCaZNlMopyK0a3CnX/6KqIZtfzJPOvL1?=
+ =?us-ascii?Q?U6Crf9CQcybZajnrXFbpHS/XaUIhy/uz+dQuwWxiVDg8WyVz3tctMUsut8pG?=
+ =?us-ascii?Q?18ja6CNuxJTTnf6PSXvPuqXQhveJBX84jumEnhOLptj5CaKd997hQ00S/28f?=
+ =?us-ascii?Q?NdVtts0eo9KG7angQZPxYJJBZtbHaV/BOp0zZfFTJOVQEEDeMgEGWCjlXkCN?=
+ =?us-ascii?Q?+yCK5kXY4FYjx9dbKGWgw8gWdxVd45gJbF1M+mxXlG2gihrR92tQj4Lybrtx?=
+ =?us-ascii?Q?tURktKEbf4b8CrXbsr426Qqbkj3uzT9TRzgE/bB5veuicpJSmt3CeDlErFgr?=
+ =?us-ascii?Q?l4mpQvvFm7mxoMjxso17BTMNLvTUh/iI4D0cD6kgYgBmflgUZE2vo8rCHMt8?=
+ =?us-ascii?Q?qA=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2a47ae5-215d-4260-7898-08dbab3b8b2d
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR11MB7859.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2023 22:34:03.1664 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5J+U1nBVINKgPlCbAsh48tBakrLkmhKa3+hW/HL/ZwaYM8DcGts4Avikw218P+VPP7btERj2oxGKFu0UdtEs0R9z8f2pthqFTWktei/Ec88=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6546
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Add Wa_14015150844
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,133 +143,61 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, seanpaul@chromium.org,
- dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 1, 2023 at 2:55=E2=80=AFPM Rodrigo Vivi <rodrigo.vivi@intel.com=
-> wrote:
->
-> On Thu, Aug 24, 2023 at 04:50:20PM -0400, Gil Dekel wrote:
-> > Before sending a uevent to userspace in order to trigger a corrective
-> > modeset, we change the failing connector's link-status to BAD. However,
-> > the downstream MST branch ports are left in their original GOOD state.
-> >
-> > This patch utilizes the drm helper function
-> > drm_dp_set_mst_topology_link_status() to rectify this and set all
-> > downstream MST connectors' link-status to BAD before emitting the ueven=
-t
-> > to userspace.
-> >
-> > Signed-off-by: Gil Dekel <gildekel@chromium.org>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_dp.c | 16 ++++++++++------
-> >  1 file changed, 10 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/=
-i915/display/intel_dp.c
-> > index 42353b1ac487..e8b10f59e141 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> > @@ -5995,16 +5995,20 @@ static void intel_dp_modeset_retry_work_fn(stru=
-ct work_struct *work)
-> >       struct intel_dp *intel_dp =3D
-> >               container_of(work, typeof(*intel_dp), modeset_retry_work)=
-;
-> >       struct drm_connector *connector =3D &intel_dp->attached_connector=
-->base;
-> > -     drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s]\n", connector->bas=
-e.id,
-> > -                 connector->name);
-> >
-> > -     /* Grab the locks before changing connector property*/
-> > -     mutex_lock(&connector->dev->mode_config.mutex);
-> > -     /* Set connector link status to BAD and send a Uevent to notify
-> > -      * userspace to do a modeset.
-> > +     /* Set the connector's (and possibly all its downstream MST ports=
-') link
-> > +      * status to BAD.
-> >        */
-> > +     mutex_lock(&connector->dev->mode_config.mutex);
-> > +     drm_dbg_kms(connector->dev, "[CONNECTOR:%d:%s] link status %d -> =
-%d\n",
-> > +                 connector->base.id, connector->name,
-> > +                 connector->state->link_status, DRM_MODE_LINK_STATUS_B=
-AD);
-> >       drm_connector_set_link_status_property(connector,
-> >                                              DRM_MODE_LINK_STATUS_BAD);
-> > +     if (intel_dp->is_mst) {
-> > +             drm_dp_set_mst_topology_link_status(&intel_dp->mst_mgr,
-> > +                                                 DRM_MODE_LINK_STATUS_=
-BAD);
->
-> Something is weird with the locking here.
-> I noticed that on patch 3 this new function also gets the same
-> mutex_lock(&connector->dev->mode_config.mutex);
->
-> Since you didn't reach the deadlock, I'm clearly missing something
-> on the flow. But regardless of what I could be missing, I believe
-> this is totally not future proof and we will for sure hit dead-lock
-> cases.
->
-You are not wrong.
+On Fri, Sep 01, 2023 at 10:27:00AM +0530, Shekhar Chauhan wrote:
+> Disables Atomic-chaining of Typed Writes.
+> 
+> BSpec: 54040
+> Signed-off-by: Shekhar Chauhan <shekhar.chauhan@intel.com>
 
-Something must have been wrong in my workflow, as I was positive I
-tested the code with this lock, but I must remember wrong. I tried
-testing my current code and it immediately locked, as you expected.
-So thank you for catching this.
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 
-Lyude's original patch didn't include drm_dp_set_mst_topology_link_status()
-as an exposed drm helper function, so when I adjusted it for this series, I
-decided to add locks similar to how her other function using
-drm_dp_set_mst_topology_link_status() did. However, I failed to use the
-right lock, which is:
-drm_modeset_lock(&connector->dev->mode_config.connection_mutex, NULL);
-drm_modeset_unlock(&connector->dev->mode_config.connection_mutex);
-This is similar to how drm_connector_set_link_status_property() locks
-before writing to link_status.
+> ---
+>  drivers/gpu/drm/i915/gt/intel_gt_regs.h     | 2 ++
+>  drivers/gpu/drm/i915/gt/intel_workarounds.c | 8 ++++++++
+>  2 files changed, 10 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+> index 0e4c638fcbbf..a00ff51c681d 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+> +++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+> @@ -1218,6 +1218,8 @@
+>  
+>  #define XEHP_HDC_CHICKEN0			MCR_REG(0xe5f0)
+>  #define   LSC_L1_FLUSH_CTL_3D_DATAPORT_FLUSH_EVENTS_MASK	REG_GENMASK(13, 11)
+> +#define   DIS_ATOMIC_CHAINING_TYPED_WRITES	REG_BIT(3)
+> +
+>  #define ICL_HDC_MODE				MCR_REG(0xe5f4)
+>  
+>  #define EU_PERF_CNTL2				PERF_REG(0xe658)
+> diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> index 864d41bcf6bb..70071ead0659 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+> @@ -2327,6 +2327,14 @@ rcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+>  				  LSC_L1_FLUSH_CTL_3D_DATAPORT_FLUSH_EVENTS_MASK);
+>  	}
+>  
+> +	if (IS_GFX_GT_IP_RANGE(gt, IP_VER(12, 70), IP_VER(12, 71)) ||
+> +	    IS_DG2(i915)) {
+> +		/* Wa_14015150844 */
+> +		wa_mcr_add(wal, XEHP_HDC_CHICKEN0, 0,
+> +			   _MASKED_BIT_ENABLE(DIS_ATOMIC_CHAINING_TYPED_WRITES),
+> +			   0, true);
+> +	}
+> +
+>  	if (IS_DG2_G11(i915) || IS_DG2_G10(i915)) {
+>  		/* Wa_22014600077:dg2 */
+>  		wa_mcr_add(wal, GEN10_CACHE_MODE_SS, 0,
+> -- 
+> 2.34.1
+> 
 
-I made sure to test my code with the above locks, and it runs well. Here's
-an instrumented log excerpt for failing link-training with an MST hub
-(I hacked the driver to always fail non eDP connectors and print the
-raw pointer addresses of the drm_device and mutex right before locking):
-[   43.466329] i915 0000:00:02.0: [drm] *ERROR* Link Training
-Unsuccessful via gildekel HACK - (not eDP)
-[   43.594950] i915 0000:00:02.0: [drm] *ERROR* Link Training
-Unsuccessful via gildekel HACK - (not eDP)
-[   43.594979] i915 0000:00:02.0: [drm] *ERROR* Link Training Unsuccessful
-[   43.595023] i915 0000:00:02.0: [drm] *ERROR* [CONNECTOR:273:DP-3]:
-[   43.595028] i915 0000:00:02.0: [drm] *ERROR*
-connector->dev=3D00000000d4850450
-[   43.595033] i915 0000:00:02.0: [drm] *ERROR*
-connector->dev->mode_config.mutex=3D00000000aac3fe45
-[   44.771091] i915 0000:00:02.0: [drm] *ERROR*
-[MST-CONNECTOR:300:DP-5]:
-[   44.771108] i915 0000:00:02.0: [drm] *ERROR*
-connector->dev=3D000000003fb97435
-[   44.771115] i915 0000:00:02.0: [drm] *ERROR*
-&connector->dev->mode_config.connection_mutex=3D000000009aece20e
-[   44.771127] i915 0000:00:02.0: [drm] *ERROR*
-[MST-CONNECTOR:303:DP-6]:
-[   44.771132] i915 0000:00:02.0: [drm] *ERROR*
-connector->dev=3D0000000075236b75
-[   44.771137] i915 0000:00:02.0: [drm] *ERROR*
-&connector->dev->mode_config.connection_mutex=3D000000009aece20e
-
-Also, I was under the assumption that all connectors in an MST topology
-should reference the same drm_device object, but it seems like that's
-not the case. Is my assumption wrong?
-
-> > +     }
-> >       mutex_unlock(&connector->dev->mode_config.mutex);
-> >       /* Send Hotplug uevent so userspace can reprobe */
-> >       drm_kms_helper_connector_hotplug_event(connector);
-> > --
-> > Gil Dekel, Software Engineer, Google / ChromeOS Display and Graphics
-
-
-Thanks for your time and comments!
---
-Best,
-Gil Dekel, Software Engineer, Google / ChromeOS Display and Graphics
+-- 
+Matt Roper
+Graphics Software Engineer
+Linux GPU Platform Enablement
+Intel Corporation
