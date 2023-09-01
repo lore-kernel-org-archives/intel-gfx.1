@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61D22CA0FE8
-	for <intel-gfx@archiver.kernel.org>; Fri,  1 Sep 2023 13:05:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBBDDCA0FE6
+	for <intel-gfx@archiver.kernel.org>; Fri,  1 Sep 2023 13:05:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00EBE10E7C9;
-	Fri,  1 Sep 2023 13:05:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E096010E7CE;
+	Fri,  1 Sep 2023 13:05:08 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D69FC10E7C8
- for <intel-gfx@lists.freedesktop.org>; Fri,  1 Sep 2023 13:05:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 281F410E7CC
+ for <intel-gfx@lists.freedesktop.org>; Fri,  1 Sep 2023 13:05:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1693573501; x=1725109501;
+ t=1693573507; x=1725109507;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=B+F2nD/KyUIWASdn7EN9Px6yxnH8QEMei6XzE5hKSr0=;
- b=LJncfwOvZuDiN3FoMBmJHvq34oqNGzakbIhvslqSTfxMgXvGkmqjUK0x
- kbRVrmklsrCmpltTpVyrT23ONUFoZI7zOfqQbKKAc+ak+35qwEkoCAWO/
- lqoSB5Mhh7bmkJMB6no+9X2Ddc9hTsHcnaBt0ZqsVRFw2HF4MMZEOyDs1
- gCL0VaAQSho1s3u6AtDhOLwghmvThC+JyMLkkNxTQ3i3XNuf6kIXTtwO2
- vWMpAgle55Nm7AhDFKV4zKsSKVDKeMT4larqXAQSAORtUYutPmqpGTsN7
- x7hBlRrc0OXDuyh1ZyT8dQlEhGhLS7PEEzXsNky1eGoTiAIsWhSxATrci A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10819"; a="361240584"
-X-IronPort-AV: E=Sophos;i="6.02,219,1688454000"; d="scan'208";a="361240584"
+ bh=hq7C+2Dm8zQg7zqGfsMIA3n9p4rQuJO0R5KuVQAF03A=;
+ b=mUUJaigtfI3yHsnrbAn38Tym7hzS+3gQIgYJ8OXniImp7vmft5GEsJI7
+ 13ElJiOskeVUg5e+XkC0Vi4aNTBzLro3ouFNGCKj0NY+BuQlq6NR4Nxm/
+ Xy8bhSI5b58ggWSb0IqlMKHITUw5yDcySAJyTeURM1HvDOlAeXW/43K4z
+ kCRe6uKDyB/vX6Qoo2lJVWe4GFMMu2ug4PitW2YKO+1Owa0PFHWHI4zqF
+ cfNMaRUgYfZjzhNo2WhODvkn24GF6Vvi+5d05oSPnlh0fD+mYun61kF9s
+ UxWdBvagI0jYXXmPNFAFtiJuCL7q7Gjt/GOKUPKanI64vHxTtV8BkmHTf w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10819"; a="361240630"
+X-IronPort-AV: E=Sophos;i="6.02,219,1688454000"; d="scan'208";a="361240630"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2023 06:04:56 -0700
+ 01 Sep 2023 06:05:06 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10819"; a="774994823"
-X-IronPort-AV: E=Sophos;i="6.02,219,1688454000"; d="scan'208";a="774994823"
+X-IronPort-AV: E=McAfee;i="6600,9927,10819"; a="774994967"
+X-IronPort-AV: E=Sophos;i="6.02,219,1688454000"; d="scan'208";a="774994967"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.153])
- by orsmga001.jf.intel.com with SMTP; 01 Sep 2023 06:04:55 -0700
+ by orsmga001.jf.intel.com with SMTP; 01 Sep 2023 06:05:05 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Fri, 01 Sep 2023 16:04:53 +0300
+ Fri, 01 Sep 2023 16:05:03 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  1 Sep 2023 16:04:32 +0300
-Message-ID: <20230901130440.2085-5-ville.syrjala@linux.intel.com>
+Date: Fri,  1 Sep 2023 16:04:35 +0300
+Message-ID: <20230901130440.2085-8-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230901130440.2085-1-ville.syrjala@linux.intel.com>
 References: <20230901130440.2085-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 04/12] drm/i915: Enable VRR later during fastsets
+Subject: [Intel-gfx] [PATCH 07/12] drm/i915: Relocate is_in_vrr_range()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,140 +64,91 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-In order to reconcile seamless M/N updates with VRR we'll
-need to defer the fastset VRR enable to happen after the
-seamless M/N update (which happens during the vblank evade
-critical section). So just push the VRR enable to be the last
-thing during the update.
-
-This will also affect the vblank evasion as the transcoder
-will now still be running with the old VRR state during
-the vblank evasion. So just grab the timings always from the
-old crtc state during any non-modeset commit, and also grab
-the current state of VRR from the active timings (as we disable
-VRR before vblank evasion during fastsets).
-
-This also fixes vblank evasion for seamless M/N updates as
-we now properly account for the fact that the M/N update
-happens after vblank evasion.
+Move is_in_vrr_range() into intel_vrr.c in anticipation of
+more users, and rename it accordingly.
 
 Cc: Manasi Navare <navaremanasi@chromium.org>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_crtc.c    | 35 ++++++++++++--------
- drivers/gpu/drm/i915/display/intel_display.c | 21 ++++++++----
- 2 files changed, 36 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/i915/display/intel_panel.c | 17 ++++-------------
+ drivers/gpu/drm/i915/display/intel_vrr.c   |  9 +++++++++
+ drivers/gpu/drm/i915/display/intel_vrr.h   |  1 +
+ 3 files changed, 14 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
-index e46a15d59d79..1992e7060263 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-@@ -472,15 +472,31 @@ static void intel_crtc_vblank_evade_scanlines(struct intel_atomic_state *state,
- 					      struct intel_crtc *crtc,
- 					      int *min, int *max, int *vblank_start)
- {
-+	const struct intel_crtc_state *old_crtc_state =
-+		intel_atomic_get_old_crtc_state(state, crtc);
- 	const struct intel_crtc_state *new_crtc_state =
- 		intel_atomic_get_new_crtc_state(state, crtc);
--	const struct drm_display_mode *adjusted_mode = &new_crtc_state->hw.adjusted_mode;
-+	const struct intel_crtc_state *crtc_state;
-+	const struct drm_display_mode *adjusted_mode;
- 
--	if (new_crtc_state->vrr.enable) {
--		if (intel_vrr_is_push_sent(new_crtc_state))
--			*vblank_start = intel_vrr_vmin_vblank_start(new_crtc_state);
-+	/*
-+	 * During fastsets/etc. the transcoder is still
-+	 * running with the old timings at this point.
-+	 *
-+	 * TODO: maybe just use the active timings here?
-+	 */
-+	if (intel_crtc_needs_modeset(new_crtc_state))
-+		crtc_state = new_crtc_state;
-+	else
-+		crtc_state = old_crtc_state;
-+
-+	adjusted_mode = &crtc_state->hw.adjusted_mode;
-+
-+	if (crtc->mode_flags & I915_MODE_FLAG_VRR) {
-+		if (intel_vrr_is_push_sent(crtc_state))
-+			*vblank_start = intel_vrr_vmin_vblank_start(crtc_state);
- 		else
--			*vblank_start = intel_vrr_vmax_vblank_start(new_crtc_state);
-+			*vblank_start = intel_vrr_vmax_vblank_start(crtc_state);
- 	} else {
- 		*vblank_start = intel_mode_vblank_start(adjusted_mode);
- 	}
-@@ -710,15 +726,6 @@ void intel_pipe_update_end(struct intel_atomic_state *state,
- 	 */
- 	intel_vrr_send_push(new_crtc_state);
- 
--	/*
--	 * Seamless M/N update may need to update frame timings.
--	 *
--	 * FIXME Should be synchronized with the start of vblank somehow...
--	 */
--	if (new_crtc_state->seamless_m_n && intel_crtc_needs_fastset(new_crtc_state))
--		intel_crtc_update_active_timings(new_crtc_state,
--						 new_crtc_state->vrr.enable);
--
- 	local_irq_enable();
- 
- 	if (intel_vgpu_active(dev_priv))
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index cfad967b5684..632f1f58df9e 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -6476,6 +6476,8 @@ static void commit_pipe_post_planes(struct intel_atomic_state *state,
- 				    struct intel_crtc *crtc)
- {
- 	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
-+	const struct intel_crtc_state *old_crtc_state =
-+		intel_atomic_get_old_crtc_state(state, crtc);
- 	const struct intel_crtc_state *new_crtc_state =
- 		intel_atomic_get_new_crtc_state(state, crtc);
- 
-@@ -6487,6 +6489,9 @@ static void commit_pipe_post_planes(struct intel_atomic_state *state,
- 	if (DISPLAY_VER(dev_priv) >= 9 &&
- 	    !intel_crtc_needs_modeset(new_crtc_state))
- 		skl_detach_scalers(new_crtc_state);
-+
-+	if (vrr_enabling(old_crtc_state, new_crtc_state))
-+		intel_vrr_enable(new_crtc_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+index 9232a305b1e6..086cb8dbe22c 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.c
++++ b/drivers/gpu/drm/i915/display/intel_panel.c
+@@ -59,15 +59,6 @@ intel_panel_preferred_fixed_mode(struct intel_connector *connector)
+ 					struct drm_display_mode, head);
  }
  
- static void intel_enable_crtc(struct intel_atomic_state *state,
-@@ -6527,12 +6532,6 @@ static void intel_update_crtc(struct intel_atomic_state *state,
- 			intel_dpt_configure(crtc);
- 	}
- 
--	if (vrr_enabling(old_crtc_state, new_crtc_state)) {
--		intel_vrr_enable(new_crtc_state);
--		intel_crtc_update_active_timings(new_crtc_state,
--						 new_crtc_state->vrr.enable);
--	}
+-static bool is_in_vrr_range(struct intel_connector *connector, int vrefresh)
+-{
+-	const struct drm_display_info *info = &connector->base.display_info;
 -
- 	if (!modeset) {
- 		if (new_crtc_state->preload_luts &&
- 		    intel_crtc_needs_color_update(new_crtc_state))
-@@ -6569,6 +6568,16 @@ static void intel_update_crtc(struct intel_atomic_state *state,
+-	return intel_vrr_is_capable(connector) &&
+-		vrefresh >= info->monitor_range.min_vfreq &&
+-		vrefresh <= info->monitor_range.max_vfreq;
+-}
+-
+ static bool is_best_fixed_mode(struct intel_connector *connector,
+ 			       int vrefresh, int fixed_mode_vrefresh,
+ 			       const struct drm_display_mode *best_mode)
+@@ -81,8 +72,8 @@ static bool is_best_fixed_mode(struct intel_connector *connector,
+ 	 * vrefresh, which we can then reduce to match the requested
+ 	 * vrefresh by extending the vblank length.
+ 	 */
+-	if (is_in_vrr_range(connector, vrefresh) &&
+-	    is_in_vrr_range(connector, fixed_mode_vrefresh) &&
++	if (intel_vrr_is_in_range(connector, vrefresh) &&
++	    intel_vrr_is_in_range(connector, fixed_mode_vrefresh) &&
+ 	    fixed_mode_vrefresh < vrefresh)
+ 		return false;
  
- 	intel_pipe_update_end(state, crtc);
+@@ -224,8 +215,8 @@ int intel_panel_compute_config(struct intel_connector *connector,
+ 	 * Assume that we shouldn't muck about with the
+ 	 * timings if they don't land in the VRR range.
+ 	 */
+-	is_vrr = is_in_vrr_range(connector, vrefresh) &&
+-		is_in_vrr_range(connector, fixed_mode_vrefresh);
++	is_vrr = intel_vrr_is_in_range(connector, vrefresh) &&
++		intel_vrr_is_in_range(connector, fixed_mode_vrefresh);
  
-+	/*
-+	 * VRR/Seamless M/N update may need to update frame timings.
-+	 *
-+	 * FIXME Should be synchronized with the start of vblank somehow...
-+	 */
-+	if (vrr_enabling(old_crtc_state, new_crtc_state) ||
-+	    (new_crtc_state->seamless_m_n && intel_crtc_needs_fastset(new_crtc_state)))
-+		intel_crtc_update_active_timings(new_crtc_state,
-+						 new_crtc_state->vrr.enable);
+ 	if (!is_vrr) {
+ 		/*
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index 88e4759b538b..6ef782538337 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -42,6 +42,15 @@ bool intel_vrr_is_capable(struct intel_connector *connector)
+ 		info->monitor_range.max_vfreq - info->monitor_range.min_vfreq > 10;
+ }
+ 
++bool intel_vrr_is_in_range(struct intel_connector *connector, int vrefresh)
++{
++	const struct drm_display_info *info = &connector->base.display_info;
 +
- 	/*
- 	 * We usually enable FIFO underrun interrupts as part of the
- 	 * CRTC enable sequence during modesets.  But when we inherit a
++	return intel_vrr_is_capable(connector) &&
++		vrefresh >= info->monitor_range.min_vfreq &&
++		vrefresh <= info->monitor_range.max_vfreq;
++}
++
+ void
+ intel_vrr_check_modeset(struct intel_atomic_state *state)
+ {
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i915/display/intel_vrr.h
+index de16960c4929..89937858200d 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.h
++++ b/drivers/gpu/drm/i915/display/intel_vrr.h
+@@ -14,6 +14,7 @@ struct intel_connector;
+ struct intel_crtc_state;
+ 
+ bool intel_vrr_is_capable(struct intel_connector *connector);
++bool intel_vrr_is_in_range(struct intel_connector *connector, int vrefresh);
+ void intel_vrr_check_modeset(struct intel_atomic_state *state);
+ void intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+ 			      struct drm_connector_state *conn_state);
 -- 
 2.41.0
 
