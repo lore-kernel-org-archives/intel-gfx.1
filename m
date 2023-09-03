@@ -4,63 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D629FCA0FFA
-	for <intel-gfx@archiver.kernel.org>; Sun,  3 Sep 2023 18:46:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9DB5C71153
+	for <intel-gfx@archiver.kernel.org>; Sun,  3 Sep 2023 18:46:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A24F010E1A9;
-	Sun,  3 Sep 2023 18:46:26 +0000 (UTC)
-Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
- [IPv6:2607:f8b0:4864:20::d33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C45FD10E008;
- Sun,  3 Sep 2023 18:46:12 +0000 (UTC)
-Received: by mail-io1-xd33.google.com with SMTP id
- ca18e2360f4ac-79277cfc73bso35341839f.1; 
- Sun, 03 Sep 2023 11:46:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBDCF10E1B3;
+	Sun,  3 Sep 2023 18:46:28 +0000 (UTC)
+Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
+ [IPv6:2607:f8b0:4864:20::d31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56F2510E008;
+ Sun,  3 Sep 2023 18:46:20 +0000 (UTC)
+Received: by mail-io1-xd31.google.com with SMTP id
+ ca18e2360f4ac-792623074edso32724039f.1; 
+ Sun, 03 Sep 2023 11:46:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693766772; x=1694371572; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=pEXJ5N1twmgreqGXVpqoU0bzKcH7UckG6V7g/a9C+IE=;
- b=UbCUg/UKrx/zZoN1HVuVz0h5ab40dBXHiFdnFvKO5LXKQyY0Vfn+RpYfYa9jxrIew2
- dKSvegOzeHmYGQePaQxAWhQ0omH22a9+gjRxu2HKHrBbAkeJa4UnByRmkdSIjEw0QTpb
- 8JQgc/s7ssm+xBODRV3j5EEgHbnpq6/279tSIPkCK8A/QlXqiX35lozPAOscTsKsQlj6
- 0CsxrExN+09JyrlP6+IwEfPAlGZD+pJtkyG4cPb+s6qCrLTuGskmb5FU/t+mQS8lPI9C
- DOpRviB2PQxOWMxx28YiNg8E5ovHlG4l4MPYYyFwcuQdVxtX4vZYMOfBxBIFTtjGg1v4
- tpYg==
+ d=gmail.com; s=20221208; t=1693766779; x=1694371579; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=VQ/W1vAuvct0eQaNfV42dDs6Is2Bz/K+5cHGfVn4Nlg=;
+ b=MNEL8PWtVnTFfXGWQnjgJ8oYdsYcbHT3eg6KZg/PG6PM/uNg3Z/D8s5yvxKvCtpeVp
+ kIUa2J0191+tPntP/bXNg31kfYU8ynX0Q0r21h9EHEAi46PVs8yY4oyxK6XRKaeVK8kT
+ RU8XXmyyUXAh9XfKqzN9MhVURXma68yjKr3vKAEGHmq7LC+dunUeST3RDAdOtOnXQHXC
+ C6o0JDsW9NekeKrJMDKrP+Ko2YFXy33wZlg5KJ47wckgTu6gIyy4/ysRTnxbBDKQaSEt
+ sE6BIoGrPu4c1hF9ee3AGG5JI8FsYqOqOkKROzO59+3509R1ReFbWlsxjfrOccWZ6cA4
+ XhtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693766772; x=1694371572;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=pEXJ5N1twmgreqGXVpqoU0bzKcH7UckG6V7g/a9C+IE=;
- b=fpqtDIbVhzf4GqhuF7UfumJi9OuZycIXWu6MerD6prmZdhzAPX5XI0leGDCVOQg+RV
- agYr1Fzaj5TAqSXZ6BQkIrQouIn35Od+aAnGJAhB3tGpVY2IknEtE1zlCWcUKjttBDS2
- aSnEsP+WqeBrnm1fOs/Nvjg9nf7WzgNucUyYYXxaUqRPHiPn/But7WrNUk61+Ttjy02h
- qonwsDOgaiqWHpk8BNjfv2KnJC34fd8uDRqsUOB7WB5oJUB24zIDutf5cYeMe7+txJBm
- d3elNfG03wk1cEvIcgpbQ5vmZsaKnYP4ShzQm6QWttdT6xj2tKT1AtPOi/l6G8w2KF3A
- K2Mw==
-X-Gm-Message-State: AOJu0YzxVkrKl4V21xSlE7iX/8T05qyX4sDEvMWTbijbcxpIaBQWkf9+
- d5EWtrB3cjCk2ejT11+p4Zg=
-X-Google-Smtp-Source: AGHT+IFiChi/4PzbAqpMAN3czSGm3lxzSyeCkbTKkttXeYEpPz3KZqOEBt/2qm3z8FebuiPCmvuINg==
-X-Received: by 2002:a05:6602:2252:b0:791:1e87:b47e with SMTP id
- o18-20020a056602225200b007911e87b47emr8505184ioo.15.1693766771898; 
- Sun, 03 Sep 2023 11:46:11 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1693766779; x=1694371579;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=VQ/W1vAuvct0eQaNfV42dDs6Is2Bz/K+5cHGfVn4Nlg=;
+ b=UcJ8feBDIBxbZsbwb8N1rWXkKV/sWVBymOSAXQggo3h/m13qW1jDpJBtJlTSJsyPOD
+ UPS9cLHkI8pusk1OHqvM525a7ctBRvtGhijGd7/eC70i/6/Jkswi9tIBv4Bxo53f1R+C
+ NPodn1+ztIFqbk01Brhsmp0o9+CM4JXnJNXdTe7yORn6ItmZBackov06uL/exDIWXB8s
+ vRvAk0J0ltCO6f54LM1tcOZLKi77RODrgGfs8sodAo1BhK3ROdnoy2ExW6U4vvdRVYzG
+ UZ/NHzssqJWj4qcedhX6pS+A+q1OwQgvITdJuyDB27XzVESngxt7K3Gbj0TyufZRanWs
+ j1Pw==
+X-Gm-Message-State: AOJu0YybP5G9P/m501qzML4kbdKD3NFh3MimyWznggXPbriBj3WSSoCD
+ 36VWrZGeBx1u+/yJUgx8734=
+X-Google-Smtp-Source: AGHT+IG0oYogHO+wAh1Qc2b0RpBbRi8d3sGxNY89NwIzDxZvPXy3apKKIsYkF1LHmvM+09NoaEvKYw==
+X-Received: by 2002:a05:6e02:184e:b0:34d:ecbb:9cc4 with SMTP id
+ b14-20020a056e02184e00b0034decbb9cc4mr10979635ilv.3.1693766779453; 
+ Sun, 03 Sep 2023 11:46:19 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- u9-20020a02cb89000000b0042b37dda71asm2519968jap.136.2023.09.03.11.46.10
+ u9-20020a02cb89000000b0042b37dda71asm2519968jap.136.2023.09.03.11.46.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 03 Sep 2023 11:46:11 -0700 (PDT)
+ Sun, 03 Sep 2023 11:46:19 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Date: Sun,  3 Sep 2023 12:45:57 -0600
-Message-ID: <20230903184607.272198-1-jim.cromie@gmail.com>
+Date: Sun,  3 Sep 2023 12:46:01 -0600
+Message-ID: <20230903184607.272198-5-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230903184607.272198-1-jim.cromie@gmail.com>
+References: <20230903184607.272198-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/6] drm_dbg: add trailing newlines where
- missing
+Subject: [Intel-gfx] [PATCH v2 4/6] drm_dbg: add trailing newlines to msgs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,8 +75,12 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, daniel.vetter@ffwll.ch,
- Jim Cromie <jim.cromie@gmail.com>, seanpaul@chromium.org, daniel@ffwll.ch
+Cc: freedreno@lists.freedesktop.org, jani.nikula@intel.com,
+ daniel.vetter@ffwll.ch, Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jim Cromie <jim.cromie@gmail.com>, seanpaul@chromium.org, daniel@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
@@ -82,48 +88,47 @@ By at least strong convention, a print-buffer's trailing newline says
 "message complete, send it".  The exception (no TNL, followed by a call
 to pr_cont) proves the general rule.
 
-Most DRM.debug calls already comport with this rule/convention:
-207 DRM_DEV_DEBUG, 1288 drm_dbg.  Clean up the remainders, in
-maintainer sized chunks.
+Most DRM.debug calls already comport with this: 207 DRM_DEV_DEBUG,
+1288 drm_dbg.  Clean up the remainders, in maintainer sized chunks.
 
-V1 got Fi.CI.IGT failure, on 2 Possible regressions:
+No functional changes.
 
- igt@api_intel_bb@render@render-y-1024:
-  shard-snb: NOTRUN -> ABORT +1 similar issue
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ drivers/gpu/drm/msm/msm_fb.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
- igt@sysfs_timeslice_duration@timeout@ccs0:
-  shard-dg2: PASS -> TIMEOUT
-
-Neither have any logs bearing anything connected with drm.debug output.
-
-V2 tries again.
-
-  and fixes checkpatch warnings, by reusing 1st commit-msg.
-
-  also fix a ccflags-y spelling error in drm Makefile.
-
-  commits upon
-  e2884fe84a83 (drm-misc/for-linux-next-fixes, drm-misc/drm-misc-fixes) drm/amd: \
-  	       Make fence wait in suballocator uninterruptible
-
-Jim Cromie (6):
-  drm_dbg: add trailing newlines to msgs
-  drm_dbg: add trailing newlines to msgs
-  drm_dbg: add trailing newlines to msgs
-  drm_dbg: add trailing newlines to msgs
-  drm_dbg: add trailing newlines to msgs
-  drm: use correct ccflags-y syntax
-
- drivers/gpu/drm/Makefile                       |  3 ++-
- drivers/gpu/drm/drm_connector.c                |  4 +++-
- drivers/gpu/drm/i915/display/intel_ddi.c       |  2 +-
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c |  4 ++--
- drivers/gpu/drm/kmb/kmb_crtc.c                 | 10 +++++-----
- drivers/gpu/drm/kmb/kmb_plane.c                |  6 +++---
- drivers/gpu/drm/msm/msm_fb.c                   |  6 +++---
- drivers/gpu/drm/vc4/vc4_crtc.c                 |  4 ++--
- 8 files changed, 21 insertions(+), 18 deletions(-)
-
+diff --git a/drivers/gpu/drm/msm/msm_fb.c b/drivers/gpu/drm/msm/msm_fb.c
+index e3f61c39df69..80166f702a0d 100644
+--- a/drivers/gpu/drm/msm/msm_fb.c
++++ b/drivers/gpu/drm/msm/msm_fb.c
+@@ -89,7 +89,7 @@ int msm_framebuffer_prepare(struct drm_framebuffer *fb,
+ 
+ 	for (i = 0; i < n; i++) {
+ 		ret = msm_gem_get_and_pin_iova(fb->obj[i], aspace, &msm_fb->iova[i]);
+-		drm_dbg_state(fb->dev, "FB[%u]: iova[%d]: %08llx (%d)",
++		drm_dbg_state(fb->dev, "FB[%u]: iova[%d]: %08llx (%d)\n",
+ 			      fb->base.id, i, msm_fb->iova[i], ret);
+ 		if (ret)
+ 			return ret;
+@@ -176,7 +176,7 @@ static struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
+ 	const struct msm_format *format;
+ 	int ret, i, n;
+ 
+-	drm_dbg_state(dev, "create framebuffer: mode_cmd=%p (%dx%d@%4.4s)",
++	drm_dbg_state(dev, "create framebuffer: mode_cmd=%p (%dx%d@%4.4s)\n",
+ 			mode_cmd, mode_cmd->width, mode_cmd->height,
+ 			(char *)&mode_cmd->pixel_format);
+ 
+@@ -232,7 +232,7 @@ static struct drm_framebuffer *msm_framebuffer_init(struct drm_device *dev,
+ 
+ 	refcount_set(&msm_fb->dirtyfb, 1);
+ 
+-	drm_dbg_state(dev, "create: FB ID: %d (%p)", fb->base.id, fb);
++	drm_dbg_state(dev, "create: FB ID: %d (%p)\n", fb->base.id, fb);
+ 
+ 	return fb;
+ 
 -- 
 2.41.0
 
