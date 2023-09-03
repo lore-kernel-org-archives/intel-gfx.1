@@ -4,65 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87D89C83F2C
-	for <intel-gfx@archiver.kernel.org>; Sun,  3 Sep 2023 18:46:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6E23C83F2D
+	for <intel-gfx@archiver.kernel.org>; Sun,  3 Sep 2023 19:11:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB0EA10E1F6;
-	Sun,  3 Sep 2023 18:46:45 +0000 (UTC)
-Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com
- [IPv6:2607:f8b0:4864:20::d36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CE2910E181;
- Sun,  3 Sep 2023 18:46:21 +0000 (UTC)
-Received: by mail-io1-xd36.google.com with SMTP id
- ca18e2360f4ac-77acb04309dso37719439f.2; 
- Sun, 03 Sep 2023 11:46:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1693766780; x=1694371580; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=A7euIhAUxsBgqAycWxnasjxETI8zYNC1RLZ3qD73WsM=;
- b=enwkai3t/rnjxv6OiAhe+NzNvbQ0abppn5KbHTT2Fb7VUMxvxR1qmf/d9NRntx4uyz
- s+hlxSuE/w3X4gEP+Y/zClA0io5G3iYL4CEdbAcVXjYISufpudQORggvqxAmSEFzP2hf
- 0AbmlPYXPWBrEuVTSfvY3wqCICxvp/AGwROddGTvEtvYOjekkZMvuGYnVR3QB48tjPqT
- bnvRxgTEMZvKweTkv575EhZahX1ltLdEXJICripIYD4i9hgocTmUmpijAp7oFeQk1DvL
- fIawQlyGG98ccNMppXRm6ya61Nl+YffwtdlfNph7j56p+12ZxH4rfxlsbyrow709L/wC
- WBxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693766780; x=1694371580;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=A7euIhAUxsBgqAycWxnasjxETI8zYNC1RLZ3qD73WsM=;
- b=Y4fDiSKZavQkdPcRrG9V8+gX1wyPhGphmckgFkAAfzDxsBbwzuSwVuymcPDmddJypw
- ULj4KjNcHXkkDUHbUDpTY7wtc9DAre1DnjmsOGb82wA6sb1NNeHidL7S/ZY2+rTQ0wVd
- g+BoGQUkmZ7uq7ppInGlTc5Z0/+69oruHHBkZUR+/wyiYjQRZaopygvLE2l6ojQ9WjBw
- kotLet7MHm5LatqOiLUvUU2ZlgVHvvuOJZrI+y5pZzUhehiWDuf431aBM4eeyx7Wdppt
- M5HzyifRoyyLLU8XFsmFQgDjHVoxxQzl3ywZ5TlMFMo+5dxfs6MLs0yXHM9oDqsijroO
- H04w==
-X-Gm-Message-State: AOJu0Yzq1p7YQ1BbCsbxcv6/4fhognwItkyqdZYkh5egfZjy+TSqvd7H
- 04ktxEX30yfmMtNC/+Kjmg3K42O+jx7eYA==
-X-Google-Smtp-Source: AGHT+IFezAhzBe8bHNafQV2ls3Rrm07SEuvb9e6ZJAhZmonaPCE5ktQ5RYLT+3Q1JAWulfB2inkf2w==
-X-Received: by 2002:a6b:5103:0:b0:792:9333:2cbf with SMTP id
- f3-20020a6b5103000000b0079293332cbfmr9837914iob.6.1693766780607; 
- Sun, 03 Sep 2023 11:46:20 -0700 (PDT)
-Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
- by smtp.googlemail.com with ESMTPSA id
- u9-20020a02cb89000000b0042b37dda71asm2519968jap.136.2023.09.03.11.46.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 03 Sep 2023 11:46:20 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Date: Sun,  3 Sep 2023 12:46:02 -0600
-Message-ID: <20230903184607.272198-6-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230903184607.272198-1-jim.cromie@gmail.com>
-References: <20230903184607.272198-1-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE3D110E11F;
+	Sun,  3 Sep 2023 19:11:33 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2B08F10E11F;
+ Sun,  3 Sep 2023 19:11:30 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id F2B24AADF1;
+ Sun,  3 Sep 2023 19:11:29 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 5/6] drm_dbg: add trailing newlines to msgs
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jim Cromie" <jim.cromie@gmail.com>
+Date: Sun, 03 Sep 2023 19:11:29 -0000
+Message-ID: <169376828996.29657.677252132222845602@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230903184607.272198-1-jim.cromie@gmail.com>
+In-Reply-To: <20230903184607.272198-1-jim.cromie@gmail.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_drm=5Fdbg=3A_add_trailing_newlines_where_missing_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,49 +40,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Emma Anholt <emma@anholt.net>, jani.nikula@intel.com,
- daniel.vetter@ffwll.ch, Maxime Ripard <mripard@kernel.org>,
- Jim Cromie <jim.cromie@gmail.com>, seanpaul@chromium.org, daniel@ffwll.ch,
- David Airlie <airlied@gmail.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-By at least strong convention, a print-buffer's trailing newline says
-"message complete, send it".  The exception (no TNL, followed by a call
-to pr_cont) proves the general rule.
+== Series Details ==
 
-Most DRM.debug calls already comport with this: 207 DRM_DEV_DEBUG,
-1288 drm_dbg.  Clean up the remainders, in maintainer sized chunks.
+Series: drm_dbg: add trailing newlines where missing (rev2)
+URL   : https://patchwork.freedesktop.org/series/121583/
+State : warning
 
-No functional changes.
+== Summary ==
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/gpu/drm/vc4/vc4_crtc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Error: dim checkpatch failed
+4c66f4d11632 drm_dbg: add trailing newlines to msgs
+7cd8bc083a40 drm_dbg: add trailing newlines to msgs
+bf97bf2bfbe3 drm_dbg: add trailing newlines to msgs
+a4719712c337 drm_dbg: add trailing newlines to msgs
+-:36: CHECK:PARENTHESIS_ALIGNMENT: Alignment should match open parenthesis
+#36: FILE: drivers/gpu/drm/msm/msm_fb.c:180:
++	drm_dbg_state(dev, "create framebuffer: mode_cmd=%p (%dx%d@%4.4s)\n",
+ 			mode_cmd, mode_cmd->width, mode_cmd->height,
 
-diff --git a/drivers/gpu/drm/vc4/vc4_crtc.c b/drivers/gpu/drm/vc4/vc4_crtc.c
-index bef9d45ef1df..959123759711 100644
---- a/drivers/gpu/drm/vc4/vc4_crtc.c
-+++ b/drivers/gpu/drm/vc4/vc4_crtc.c
-@@ -592,7 +592,7 @@ static void vc4_crtc_atomic_disable(struct drm_crtc *crtc,
- 	struct drm_encoder *encoder = vc4_get_crtc_encoder(crtc, old_state);
- 	struct drm_device *dev = crtc->dev;
- 
--	drm_dbg(dev, "Disabling CRTC %s (%u) connected to Encoder %s (%u)",
-+	drm_dbg(dev, "Disabling CRTC %s (%u) connected to Encoder %s (%u)\n",
- 		crtc->name, crtc->base.id, encoder->name, encoder->base.id);
- 
- 	require_hvs_enabled(dev);
-@@ -620,7 +620,7 @@ static void vc4_crtc_atomic_enable(struct drm_crtc *crtc,
- 	struct vc4_encoder *vc4_encoder = to_vc4_encoder(encoder);
- 	int idx;
- 
--	drm_dbg(dev, "Enabling CRTC %s (%u) connected to Encoder %s (%u)",
-+	drm_dbg(dev, "Enabling CRTC %s (%u) connected to Encoder %s (%u)\n",
- 		crtc->name, crtc->base.id, encoder->name, encoder->base.id);
- 
- 	if (!drm_dev_enter(dev, &idx))
--- 
-2.41.0
+total: 0 errors, 0 warnings, 1 checks, 24 lines checked
+ed1eced143b5 drm_dbg: add trailing newlines to msgs
+019d4e4f030c drm: use correct ccflags-y syntax
+
 
