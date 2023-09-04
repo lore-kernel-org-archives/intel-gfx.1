@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5DC9C71153
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 Sep 2023 20:05:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3E55C83F2C
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 Sep 2023 20:05:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDBDE10E3FB;
-	Mon,  4 Sep 2023 20:05:37 +0000 (UTC)
-X-Greylist: delayed 471 seconds by postgrey-1.36 at gabe;
- Mon, 04 Sep 2023 20:05:31 UTC
-Received: from out-229.mta1.migadu.com (out-229.mta1.migadu.com
- [IPv6:2001:41d0:203:375::e5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1C3810E3F7
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE9A610E401;
+	Mon,  4 Sep 2023 20:05:40 +0000 (UTC)
+Received: from out-220.mta1.migadu.com (out-220.mta1.migadu.com
+ [95.215.58.220])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7DEB10E3E9
  for <intel-gfx@lists.freedesktop.org>; Mon,  4 Sep 2023 20:05:31 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1693857462;
+ t=1693857470;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Kmuyy5d8TjfKPYFKMrpKxMdJxlBIiyPktdk9/3dqaTc=;
- b=MRbIL1ezV+MLDlrq8FrN2e2iqKWOCBSzCMXu00ItCM4BykmOR85mcBF+KstvvBGs6g1CU3
- mO/B8rdGeNOFX1B78Vqej0MqiBxruE4A0+Vuxx2Pu/ErmZJgbG1UNtUYiHBqabuPRdixNg
- 0+mVRFLiH5Q5VIHnOltwIszhLHFeGRg=
+ bh=eVLtpKZqnO0MsDqBoHAPYkiqg81D+bke81ZOJN69XK4=;
+ b=NC2ru9MCWsAYNJ2JJcP1noCtF2zQDgPBa0LpYE2S+4M6e4i+WN2Kd9qVsYWiRslhWMrg0+
+ xIyJHmFr09Ash0CyTQsTafa0QY9OGLSS0SQL36tPB5E78LI0mlzwjbZA+6UeW9wJkR7mO+
+ OeDMb50AfrAOUBCe6WMMLaNnrkQX67s=
 From: Sui Jingfeng <sui.jingfeng@linux.dev>
 To: Bjorn Helgaas <bhelgaas@google.com>
-Date: Tue,  5 Sep 2023 03:57:18 +0800
-Message-Id: <20230904195724.633404-4-sui.jingfeng@linux.dev>
+Date: Tue,  5 Sep 2023 03:57:22 +0800
+Message-Id: <20230904195724.633404-8-sui.jingfeng@linux.dev>
 In-Reply-To: <20230904195724.633404-1-sui.jingfeng@linux.dev>
 References: <20230904195724.633404-1-sui.jingfeng@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
 Subject: [Intel-gfx] [RFC,
- drm-misc-next v4 3/9] drm/radeon: Implement .be_primary() callback
+ drm-misc-next v4 7/9] drm/ast: Register as a VGA client by calling
+ vga_client_register()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,57 +49,83 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sui Jingfeng <suijingfeng@loongson.cn>, nouveau@lists.freedesktop.org,
+Cc: Jocelyn Falempe <jfalempe@redhat.com>,
+ Sui Jingfeng <suijingfeng@loongson.cn>, nouveau@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-pci@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-pci@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Sui Jingfeng <suijingfeng@loongson.cn>
 
-On a machine with multiple GPUs, a Linux user has no control over which one
-is primary at boot time. This patch tries to solve the mentioned problem by
-implementing the .be_primary() callback. Pass radeon.modeset=10 on the
-kernel cmd line if you really want the device bound by radeon to be the
-primary video adapter, no matter what VGAARB say.
+Becasuse the display controller in the ASpeed BMC chip is a VGA-compatible
+device, the software programming guide of AST2400 say that it is fully
+IBM VGA compliant. Thus, it should also participate in the arbitration.
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Jocelyn Falempe <jfalempe@redhat.com>
 Signed-off-by: Sui Jingfeng <suijingfeng@loongson.cn>
 ---
- drivers/gpu/drm/radeon/radeon_device.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/ast/ast_drv.c | 31 +++++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 71f2ff39d6a1..b661cd3a8dc2 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1263,6 +1263,14 @@ static const struct vga_switcheroo_client_ops radeon_switcheroo_ops = {
- 	.can_switch = radeon_switcheroo_can_switch,
- };
+diff --git a/drivers/gpu/drm/ast/ast_drv.c b/drivers/gpu/drm/ast/ast_drv.c
+index e1224ef4ad83..1349f7bb5dfb 100644
+--- a/drivers/gpu/drm/ast/ast_drv.c
++++ b/drivers/gpu/drm/ast/ast_drv.c
+@@ -28,6 +28,7 @@
  
-+static bool radeon_want_to_be_primary(struct pci_dev *pdev)
+ #include <linux/module.h>
+ #include <linux/pci.h>
++#include <linux/vgaarb.h>
+ 
+ #include <drm/drm_aperture.h>
+ #include <drm/drm_atomic_helper.h>
+@@ -89,6 +90,34 @@ static const struct pci_device_id ast_pciidlist[] = {
+ 
+ MODULE_DEVICE_TABLE(pci, ast_pciidlist);
+ 
++static bool ast_want_to_be_primary(struct pci_dev *pdev)
 +{
-+	if (radeon_modeset == 10)
++	if (ast_modeset == 10)
 +		return true;
 +
 +	return false;
 +}
 +
- /**
-  * radeon_device_init - initialize the driver
-  *
-@@ -1425,7 +1433,7 @@ int radeon_device_init(struct radeon_device *rdev,
- 	/* if we have > 1 VGA cards, then disable the radeon VGA resources */
- 	/* this will fail for cards that aren't VGA class devices, just
- 	 * ignore it */
--	vga_client_register(rdev->pdev, radeon_vga_set_decode, NULL);
-+	vga_client_register(rdev->pdev, radeon_vga_set_decode, radeon_want_to_be_primary);
++static unsigned int ast_vga_set_decode(struct pci_dev *pdev, bool state)
++{
++	struct drm_device *drm = pci_get_drvdata(pdev);
++	struct ast_device *ast = to_ast_device(drm);
++	unsigned int decode;
++
++	if (state) {
++		/* Enable standard VGA decode and Enable normal VGA decode */
++		ast_set_index_reg(ast, AST_IO_CRTC_PORT, 0xa1, 0x04);
++
++		decode = VGA_RSRC_LEGACY_IO | VGA_RSRC_LEGACY_MEM |
++			 VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM;
++	} else {
++		ast_set_index_reg(ast, AST_IO_CRTC_PORT, 0xa1, 0x07);
++		decode = VGA_RSRC_NORMAL_IO | VGA_RSRC_NORMAL_MEM;
++	}
++
++	return decode;
++}
++
+ static int ast_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ {
+ 	struct ast_device *ast;
+@@ -112,6 +141,8 @@ static int ast_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	if (ret)
+ 		return ret;
  
- 	if (rdev->flags & RADEON_IS_PX)
- 		runtime = true;
++	vga_client_register(pdev, ast_vga_set_decode, ast_want_to_be_primary);
++
+ 	drm_fbdev_generic_setup(dev, 32);
+ 
+ 	return 0;
 -- 
 2.34.1
 
