@@ -4,76 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EDA6C83F2C
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 16:39:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05B29CA0FE2
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 17:11:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2790A10E416;
-	Tue,  5 Sep 2023 16:39:35 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60CCC10E3A5
- for <intel-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 16:39:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1693931972;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=1FYmV1SAUAP6clEqFptERvvV4+Mtfaips/SG+vcFGBs=;
- b=A8iDSisQa+NxAqM0vBPhyeADdC81J3rQL/n00kNa8xug/INOeavTiJ8Pr69aB4mYUvng+b
- el9dn2spenCneu+kkAQiT9oBkvzY8BYWMBXz1A4hC6RwxEgfld/ePEYQODAN6en5MxwsrO
- gL9QSb7tZ/FVcgOY/qzKRx5MEvTYx0E=
-Received: from mail-io1-f69.google.com (mail-io1-f69.google.com
- [209.85.166.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-173-riT_sCtQMZaPGgFA1wxOYw-1; Tue, 05 Sep 2023 12:39:29 -0400
-X-MC-Unique: riT_sCtQMZaPGgFA1wxOYw-1
-Received: by mail-io1-f69.google.com with SMTP id
- ca18e2360f4ac-786ca3e9160so729839f.1
- for <intel-gfx@lists.freedesktop.org>; Tue, 05 Sep 2023 09:39:29 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1693931969; x=1694536769;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=1FYmV1SAUAP6clEqFptERvvV4+Mtfaips/SG+vcFGBs=;
- b=V9Fty8Ee/CbUqgx+ERzbCnD3Y/pHSLXrhsaPYhPD7pyZQBy6H5UtBVuvMWTRRWKViv
- dDXw+Y6T7NcpXs6h9AOtAk0BEdkMo7CSPrn1Omt3K1zwR9aaT+P8aucX6zFzYsuLS9TA
- GNsf4svA5ncTze9fxXuwBebztV/tKxiK1ROUTKSI8JWw9FlqKP28+g9QBPX8Y6wbq5Ym
- 094PCiCwGPSQXs+EFAFP3EOdqSxxSC01x5e2G1KBeWFlU6EJM6Sh6vRktmFpN+ZMk4uI
- ixnRhh+bSfyEXOP/Y4bsmLfjaBx9zPEZECvQgfDSkDTOVCLIeRdd9J4JLzNGA33D/SxO
- I6IQ==
-X-Gm-Message-State: AOJu0YwH4rYdeQwRKd1Rpqv3jG62j2R2GCyLmmP6yKRBfF37c6u9qcSw
- 7XRC+7JHXOIdV2M4ANjjPv9sbWtpNifY8M9uCheAxa1oFzmNFpV8Y6pb4GyF069Dzk7Z3NRb3EB
- LFOX8i9mW03CxwoWCElwiHkQtePJE
-X-Received: by 2002:a05:6602:3707:b0:790:83e7:5000 with SMTP id
- bh7-20020a056602370700b0079083e75000mr15181204iob.2.1693931968783; 
- Tue, 05 Sep 2023 09:39:28 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IGrWgqWuvOjsPoQobmizp2yeXMxuOnvBLg+UYg0lVO0d7NoPYToo5iwU98Xj9J9TSkNPuS/Gw==
-X-Received: by 2002:a05:6602:3707:b0:790:83e7:5000 with SMTP id
- bh7-20020a056602370700b0079083e75000mr15181190iob.2.1693931968466; 
- Tue, 05 Sep 2023 09:39:28 -0700 (PDT)
-Received: from redhat.com ([38.15.60.12]) by smtp.gmail.com with ESMTPSA id
- l14-20020a02ccee000000b0042b929d3d2fsm4177089jaq.86.2023.09.05.09.39.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Sep 2023 09:39:27 -0700 (PDT)
-Date: Tue, 5 Sep 2023 10:39:26 -0600
-From: Alex Williamson <alex.williamson@redhat.com>
-To: suijingfeng <suijingfeng@loongson.cn>
-Message-ID: <20230905103926.2eda2c36.alex.williamson@redhat.com>
-In-Reply-To: <ce81413d-4872-8804-d816-0f1ef88b82cb@loongson.cn>
-References: <20230904195724.633404-1-sui.jingfeng@linux.dev>
- <20230905085243.4b22725e.alex.williamson@redhat.com>
- <ce81413d-4872-8804-d816-0f1ef88b82cb@loongson.cn>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.35; x86_64-redhat-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46F2910E0DC;
+	Tue,  5 Sep 2023 17:11:46 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B20010E0DC
+ for <intel-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 17:11:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1693933904; x=1725469904;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=3aiuNYXpcgH+NmHrc305241fpNfBIjsHHWgV7G0duco=;
+ b=k4LFDV+BbqrkzP/36d7KmZ9gDKLSvz/EDGth1Nh0AXdDCSzkyu5uPSUb
+ iiNLISUkBrUwwS+u65kJIJK3j5YGW7+/BCsSd4Y/ObGmZRLFvsOmAzCOg
+ mwupdowUQeMFCBHFA/yBFoqFQW4ADdyE122azdjCaF7iZiSRkVWLwli2L
+ vdH0CRkUx8XWbcadvN9SfHW64nZREIKJ+jQTdvjJRcXAkPjHDF+iebRRW
+ EsMnk3inx1/196AdKHS/+edSf8M+42Oz2UZRZtfajy81qZae5UUXnLMCy
+ nAQ73j5VMf0QWoykSN48EZ7lma++FGygWsoBXx56kgh7pLszyZsr6rPiV g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10824"; a="356341999"
+X-IronPort-AV: E=Sophos;i="6.02,229,1688454000"; d="scan'208";a="356341999"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Sep 2023 10:11:40 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10824"; a="741160646"
+X-IronPort-AV: E=Sophos;i="6.02,229,1688454000"; d="scan'208";a="741160646"
+Received: from amyachev-mobl3.ccr.corp.intel.com (HELO localhost)
+ ([10.252.60.152])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Sep 2023 10:11:37 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue,  5 Sep 2023 20:11:20 +0300
+Message-Id: <e2551b52ac0dd2b4ffe18d5e7733fafdc191d68a.1693933849.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <cover.1693933849.git.jani.nikula@intel.com>
+References: <cover.1693933849.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [RFC,
- drm-misc-next v4 0/9] PCI/VGA: Allowing the user to select the
- primary video adapter at boot time
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 1/8] drm/i915/dsc: improve clarify of the pps
+ reg read/write helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,92 +60,102 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sui Jingfeng <sui.jingfeng@linux.dev>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-pci@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>
+Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 6 Sep 2023 00:21:09 +0800
-suijingfeng <suijingfeng@loongson.cn> wrote:
+Make it clear what's the number of vdsc per pipe, and what's the number
+of registers to grab. Have intel_dsc_get_pps_reg() return the registers
+it knows even if the requested amount is bigger.
 
-> Hi,
-> 
-> On 2023/9/5 22:52, Alex Williamson wrote:
-> > On Tue,  5 Sep 2023 03:57:15 +0800
-> > Sui Jingfeng <sui.jingfeng@linux.dev> wrote:
-> >  
-> >> From: Sui Jingfeng <suijingfeng@loongson.cn>
-> >>
-> >> On a machine with multiple GPUs, a Linux user has no control over which
-> >> one is primary at boot time. This series tries to solve above mentioned
-> >> problem by introduced the ->be_primary() function stub. The specific
-> >> device drivers can provide an implementation to hook up with this stub by
-> >> calling the vga_client_register() function.
-> >>
-> >> Once the driver bound the device successfully, VGAARB will call back to
-> >> the device driver. To query if the device drivers want to be primary or
-> >> not. Device drivers can just pass NULL if have no such needs.
-> >>
-> >> Please note that:
-> >>
-> >> 1) The ARM64, Loongarch, Mips servers have a lot PCIe slot, and I would
-> >>     like to mount at least three video cards.
-> >>
-> >> 2) Typically, those non-86 machines don't have a good UEFI firmware
-> >>     support, which doesn't support select primary GPU as firmware stage.
-> >>     Even on x86, there are old UEFI firmwares which already made undesired
-> >>     decision for you.
-> >>
-> >> 3) This series is attempt to solve the remain problems at the driver level,
-> >>     while another series[1] of me is target to solve the majority of the
-> >>     problems at device level.
-> >>
-> >> Tested (limited) on x86 with four video card mounted, Intel UHD Graphics
-> >> 630 is the default boot VGA, successfully override by ast2400 with
-> >> ast.modeset=10 append at the kernel cmd line.
-> >>
-> >> $ lspci | grep VGA
-> >>
-> >>   00:02.0 VGA compatible controller: Intel Corporation CoffeeLake-S GT2 [UHD Graphics 630]  
-> > In all my previous experiments with VGA routing and IGD I found that
-> > IGD can't actually release VGA routing and Intel confirmed the hardware
-> > doesn't have the ability to do so.  It will always be primary from a
-> > VGA routing perspective.  Was this actually tested with non-UEFI?  
-> 
-> Yes, I have tested on my aspire e471 notebook (i5 5200U),
-> because that notebook using legacy firmware (also have UEFI, double firmware).
-> But this machine have difficult in install ubuntu under UEFI firmware in the past.
-> So I keep it using the legacy firmware.
-> 
-> It have two video card, IGD and nvidia video card(GFORCE 840M).
-> nvidia call its video card as 3D controller (pci->class = 0x030200)
-> 
-> I have tested this patch and another patch mention at [1] together.
-> I can tell you that the firmware framebuffer of this notebook using vesafb, not efifb.
-> And the framebuffer size (lfb.size) is very small. This is very strange,
-> but I don't have enough time to look in details. But still works.
-> 
-> I'm using and tesing my patch whenever and wherever possible.
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_vdsc.c | 40 ++++++++++++-----------
+ 1 file changed, 21 insertions(+), 19 deletions(-)
 
-So you're testing VGA routing using a non-VGA 3D controller through the
-VESA address space?  How does that test anything about VGA routing?
-
-> > I suspect it might only work in UEFI mode where we probably don't
-> > actually have a dependency on VGA routing.  This is essentially why
-> > vfio requires UEFI ROMs when assigning GPUs to VMs, VGA routing is too
-> > broken to use on Intel systems with IGD.  Thanks,  
-> 
-> 
-> What you tell me here is the side effect come with the VGA-compatible,
-> but I'm focus on the arbitration itself. I think there no need to keep
-> the VGA routing hardware features nowadays except that hardware vendor
-> want keep the backward compatibility and/or comply the PCI VGA compatible spec.
-
-"VGA arbitration" is the mediation of VGA routing between devices, so
-I'm confused how you can be focused on the arbitration without the
-routing itself.  Thanks,
-
-Alex
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+index b24601d0b2c5..14317bb6d3df 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.c
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+@@ -372,7 +372,7 @@ int intel_dsc_get_num_vdsc_instances(const struct intel_crtc_state *crtc_state)
+ }
+ 
+ static void intel_dsc_get_pps_reg(const struct intel_crtc_state *crtc_state, int pps,
+-				  i915_reg_t *dsc_reg, int vdsc_per_pipe)
++				  i915_reg_t *dsc_reg, int dsc_reg_num)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+@@ -381,16 +381,12 @@ static void intel_dsc_get_pps_reg(const struct intel_crtc_state *crtc_state, int
+ 
+ 	pipe_dsc = is_pipe_dsc(crtc, cpu_transcoder);
+ 
+-	switch (vdsc_per_pipe) {
+-	case 2:
++	if (dsc_reg_num >= 3)
++		MISSING_CASE(dsc_reg_num);
++	if (dsc_reg_num >= 2)
+ 		dsc_reg[1] = pipe_dsc ? ICL_DSC1_PPS(pipe, pps) : DSCC_PPS(pps);
+-		fallthrough;
+-	case 1:
++	if (dsc_reg_num >= 1)
+ 		dsc_reg[0] = pipe_dsc ? ICL_DSC0_PPS(pipe, pps) : DSCA_PPS(pps);
+-		break;
+-	default:
+-		MISSING_CASE(vdsc_per_pipe);
+-	}
+ }
+ 
+ static void intel_dsc_write_pps_reg(const struct intel_crtc_state *crtc_state,
+@@ -399,13 +395,16 @@ static void intel_dsc_write_pps_reg(const struct intel_crtc_state *crtc_state,
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+ 	i915_reg_t dsc_reg[2];
+-	int i, vdsc_per_pipe = intel_dsc_get_vdsc_per_pipe(crtc_state);
++	int i, vdsc_per_pipe, dsc_reg_num;
++
++	vdsc_per_pipe = intel_dsc_get_vdsc_per_pipe(crtc_state);
++	dsc_reg_num = min_t(int, ARRAY_SIZE(dsc_reg), vdsc_per_pipe);
+ 
+-	drm_WARN_ON_ONCE(&i915->drm, ARRAY_SIZE(dsc_reg) < vdsc_per_pipe);
++	drm_WARN_ON_ONCE(&i915->drm, dsc_reg_num < vdsc_per_pipe);
+ 
+-	intel_dsc_get_pps_reg(crtc_state, pps, dsc_reg, vdsc_per_pipe);
++	intel_dsc_get_pps_reg(crtc_state, pps, dsc_reg, dsc_reg_num);
+ 
+-	for (i = 0; i < min_t(int, ARRAY_SIZE(dsc_reg), vdsc_per_pipe); i++)
++	for (i = 0; i < dsc_reg_num; i++)
+ 		intel_de_write(i915, dsc_reg[i], pps_val);
+ }
+ 
+@@ -815,16 +814,19 @@ static bool intel_dsc_read_pps_reg(struct intel_crtc_state *crtc_state,
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+-	const int vdsc_per_pipe = intel_dsc_get_vdsc_per_pipe(crtc_state);
+ 	i915_reg_t dsc_reg[2];
+-	int i;
++	int i, vdsc_per_pipe, dsc_reg_num;
+ 
+-	*pps_val = 0;
+-	drm_WARN_ON_ONCE(&i915->drm, ARRAY_SIZE(dsc_reg) < vdsc_per_pipe);
++	vdsc_per_pipe = intel_dsc_get_vdsc_per_pipe(crtc_state);
++	dsc_reg_num = min_t(int, ARRAY_SIZE(dsc_reg), vdsc_per_pipe);
+ 
+-	intel_dsc_get_pps_reg(crtc_state, pps, dsc_reg, vdsc_per_pipe);
++	drm_WARN_ON_ONCE(&i915->drm, dsc_reg_num < vdsc_per_pipe);
++
++	intel_dsc_get_pps_reg(crtc_state, pps, dsc_reg, dsc_reg_num);
++
++	*pps_val = 0;
+ 
+-	for (i = 0; i < min_t(int, ARRAY_SIZE(dsc_reg), vdsc_per_pipe); i++) {
++	for (i = 0; i < dsc_reg_num; i++) {
+ 		u32 pps_temp;
+ 
+ 		pps_temp = intel_de_read(i915, dsc_reg[i]);
+-- 
+2.39.2
 
