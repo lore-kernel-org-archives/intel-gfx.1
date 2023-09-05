@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05B29CA0FE2
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 17:11:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7CA0C83F3E
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 17:11:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46F2910E0DC;
-	Tue,  5 Sep 2023 17:11:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FB2410E0FA;
+	Tue,  5 Sep 2023 17:11:59 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B20010E0DC
- for <intel-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 17:11:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A80510E0FA
+ for <intel-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 17:11:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1693933904; x=1725469904;
+ t=1693933918; x=1725469918;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=3aiuNYXpcgH+NmHrc305241fpNfBIjsHHWgV7G0duco=;
- b=k4LFDV+BbqrkzP/36d7KmZ9gDKLSvz/EDGth1Nh0AXdDCSzkyu5uPSUb
- iiNLISUkBrUwwS+u65kJIJK3j5YGW7+/BCsSd4Y/ObGmZRLFvsOmAzCOg
- mwupdowUQeMFCBHFA/yBFoqFQW4ADdyE122azdjCaF7iZiSRkVWLwli2L
- vdH0CRkUx8XWbcadvN9SfHW64nZREIKJ+jQTdvjJRcXAkPjHDF+iebRRW
- EsMnk3inx1/196AdKHS/+edSf8M+42Oz2UZRZtfajy81qZae5UUXnLMCy
- nAQ73j5VMf0QWoykSN48EZ7lma++FGygWsoBXx56kgh7pLszyZsr6rPiV g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10824"; a="356341999"
-X-IronPort-AV: E=Sophos;i="6.02,229,1688454000"; d="scan'208";a="356341999"
+ bh=VwnaZ6VLQ/nBsCDrHXZpPzn0hwOU7ncuJN0+CcXn1vg=;
+ b=jjEaB94fnUfExAlRUNiAUJo/XBqQ3fj7keA25mYjmsHkcf9Dhd9nKU71
+ /PQI5SW/KMlTv8I2zNpqpUFDHP5vIfY4PuS8K/fYWeyWUHV1sfKCHT3C9
+ LrqZEE9m3bN5ZpDsFHfQIA8ZPYvuI5dDIuUfAAlxuZGkj23LMQjFLNLM8
+ DYRwFuWrbPix0xme7rjiV/ZAEzXLCXfPDt1PNB5kLgzWhOgLtMjlyQ0nw
+ skx2KPSc56+Qv2PVHW0YMmQXdLMtjiqVJ48koPk7KQSdUzjvYVj3F0KLf
+ D6pmyjzsjZ5UAgshjjrHvCiknl+bxc2vTd8Mw8LTNudcqb1OAP/e0qOIN w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10824"; a="356342097"
+X-IronPort-AV: E=Sophos;i="6.02,229,1688454000"; d="scan'208";a="356342097"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2023 10:11:40 -0700
+ 05 Sep 2023 10:11:56 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10824"; a="741160646"
-X-IronPort-AV: E=Sophos;i="6.02,229,1688454000"; d="scan'208";a="741160646"
+X-IronPort-AV: E=McAfee;i="6600,9927,10824"; a="741160809"
+X-IronPort-AV: E=Sophos;i="6.02,229,1688454000"; d="scan'208";a="741160809"
 Received: from amyachev-mobl3.ccr.corp.intel.com (HELO localhost)
  ([10.252.60.152])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2023 10:11:37 -0700
+ 05 Sep 2023 10:11:54 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  5 Sep 2023 20:11:20 +0300
-Message-Id: <e2551b52ac0dd2b4ffe18d5e7733fafdc191d68a.1693933849.git.jani.nikula@intel.com>
+Date: Tue,  5 Sep 2023 20:11:24 +0300
+Message-Id: <d752a148cc84558b76c8c3dacd9c0b2e0a4efd91.1693933849.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1693933849.git.jani.nikula@intel.com>
 References: <cover.1693933849.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/8] drm/i915/dsc: improve clarify of the pps
- reg read/write helpers
+Subject: [Intel-gfx] [PATCH 5/8] drm/i915/dsc: drop redundant = 0 assignments
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,98 +63,141 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Make it clear what's the number of vdsc per pipe, and what's the number
-of registers to grab. Have intel_dsc_get_pps_reg() return the registers
-it knows even if the requested amount is bigger.
+Directly assign the values instead of first assigning 0 and then |= the
+values.
 
 Cc: Suraj Kandpal <suraj.kandpal@intel.com>
 Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vdsc.c | 40 ++++++++++++-----------
- 1 file changed, 21 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vdsc.c | 43 ++++++++---------------
+ 1 file changed, 15 insertions(+), 28 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index b24601d0b2c5..14317bb6d3df 100644
+index 4086dbb25ca5..73bfa4d6633d 100644
 --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
 +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -372,7 +372,7 @@ int intel_dsc_get_num_vdsc_instances(const struct intel_crtc_state *crtc_state)
- }
- 
- static void intel_dsc_get_pps_reg(const struct intel_crtc_state *crtc_state, int pps,
--				  i915_reg_t *dsc_reg, int vdsc_per_pipe)
-+				  i915_reg_t *dsc_reg, int dsc_reg_num)
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+@@ -415,7 +415,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 	const struct drm_dsc_config *vdsc_cfg = &crtc_state->dsc.config;
  	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-@@ -381,16 +381,12 @@ static void intel_dsc_get_pps_reg(const struct intel_crtc_state *crtc_state, int
+ 	enum pipe pipe = crtc->pipe;
+-	u32 pps_val = 0;
++	u32 pps_val;
+ 	u32 rc_buf_thresh_dword[4];
+ 	u32 rc_range_params_dword[8];
+ 	int i = 0;
+@@ -446,42 +446,36 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 	intel_dsc_pps_write(crtc_state, 0, pps_val);
  
- 	pipe_dsc = is_pipe_dsc(crtc, cpu_transcoder);
+ 	/* Populate PICTURE_PARAMETER_SET_1 registers */
+-	pps_val = 0;
+-	pps_val |= DSC_BPP(vdsc_cfg->bits_per_pixel);
++	pps_val = DSC_BPP(vdsc_cfg->bits_per_pixel);
+ 	drm_dbg_kms(&dev_priv->drm, "PPS1 = 0x%08x\n", pps_val);
+ 	intel_dsc_pps_write(crtc_state, 1, pps_val);
  
--	switch (vdsc_per_pipe) {
--	case 2:
-+	if (dsc_reg_num >= 3)
-+		MISSING_CASE(dsc_reg_num);
-+	if (dsc_reg_num >= 2)
- 		dsc_reg[1] = pipe_dsc ? ICL_DSC1_PPS(pipe, pps) : DSCC_PPS(pps);
--		fallthrough;
--	case 1:
-+	if (dsc_reg_num >= 1)
- 		dsc_reg[0] = pipe_dsc ? ICL_DSC0_PPS(pipe, pps) : DSCA_PPS(pps);
--		break;
--	default:
--		MISSING_CASE(vdsc_per_pipe);
--	}
- }
+ 	/* Populate PICTURE_PARAMETER_SET_2 registers */
+-	pps_val = 0;
+-	pps_val |= DSC_PIC_HEIGHT(vdsc_cfg->pic_height) |
++	pps_val = DSC_PIC_HEIGHT(vdsc_cfg->pic_height) |
+ 		DSC_PIC_WIDTH(vdsc_cfg->pic_width / num_vdsc_instances);
+ 	drm_dbg_kms(&dev_priv->drm, "PPS2 = 0x%08x\n", pps_val);
+ 	intel_dsc_pps_write(crtc_state, 2, pps_val);
  
- static void intel_dsc_write_pps_reg(const struct intel_crtc_state *crtc_state,
-@@ -399,13 +395,16 @@ static void intel_dsc_write_pps_reg(const struct intel_crtc_state *crtc_state,
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
- 	i915_reg_t dsc_reg[2];
--	int i, vdsc_per_pipe = intel_dsc_get_vdsc_per_pipe(crtc_state);
-+	int i, vdsc_per_pipe, dsc_reg_num;
-+
-+	vdsc_per_pipe = intel_dsc_get_vdsc_per_pipe(crtc_state);
-+	dsc_reg_num = min_t(int, ARRAY_SIZE(dsc_reg), vdsc_per_pipe);
+ 	/* Populate PICTURE_PARAMETER_SET_3 registers */
+-	pps_val = 0;
+-	pps_val |= DSC_SLICE_HEIGHT(vdsc_cfg->slice_height) |
++	pps_val = DSC_SLICE_HEIGHT(vdsc_cfg->slice_height) |
+ 		DSC_SLICE_WIDTH(vdsc_cfg->slice_width);
+ 	drm_dbg_kms(&dev_priv->drm, "PPS3 = 0x%08x\n", pps_val);
+ 	intel_dsc_pps_write(crtc_state, 3, pps_val);
  
--	drm_WARN_ON_ONCE(&i915->drm, ARRAY_SIZE(dsc_reg) < vdsc_per_pipe);
-+	drm_WARN_ON_ONCE(&i915->drm, dsc_reg_num < vdsc_per_pipe);
+ 	/* Populate PICTURE_PARAMETER_SET_4 registers */
+-	pps_val = 0;
+-	pps_val |= DSC_INITIAL_XMIT_DELAY(vdsc_cfg->initial_xmit_delay) |
++	pps_val = DSC_INITIAL_XMIT_DELAY(vdsc_cfg->initial_xmit_delay) |
+ 		DSC_INITIAL_DEC_DELAY(vdsc_cfg->initial_dec_delay);
+ 	drm_dbg_kms(&dev_priv->drm, "PPS4 = 0x%08x\n", pps_val);
+ 	intel_dsc_pps_write(crtc_state, 4, pps_val);
  
--	intel_dsc_get_pps_reg(crtc_state, pps, dsc_reg, vdsc_per_pipe);
-+	intel_dsc_get_pps_reg(crtc_state, pps, dsc_reg, dsc_reg_num);
+ 	/* Populate PICTURE_PARAMETER_SET_5 registers */
+-	pps_val = 0;
+-	pps_val |= DSC_SCALE_INC_INT(vdsc_cfg->scale_increment_interval) |
++	pps_val = DSC_SCALE_INC_INT(vdsc_cfg->scale_increment_interval) |
+ 		DSC_SCALE_DEC_INT(vdsc_cfg->scale_decrement_interval);
+ 	drm_dbg_kms(&dev_priv->drm, "PPS5 = 0x%08x\n", pps_val);
+ 	intel_dsc_pps_write(crtc_state, 5, pps_val);
  
--	for (i = 0; i < min_t(int, ARRAY_SIZE(dsc_reg), vdsc_per_pipe); i++)
-+	for (i = 0; i < dsc_reg_num; i++)
- 		intel_de_write(i915, dsc_reg[i], pps_val);
- }
+ 	/* Populate PICTURE_PARAMETER_SET_6 registers */
+-	pps_val = 0;
+-	pps_val |= DSC_INITIAL_SCALE_VALUE(vdsc_cfg->initial_scale_value) |
++	pps_val = DSC_INITIAL_SCALE_VALUE(vdsc_cfg->initial_scale_value) |
+ 		DSC_FIRST_LINE_BPG_OFFSET(vdsc_cfg->first_line_bpg_offset) |
+ 		DSC_FLATNESS_MIN_QP(vdsc_cfg->flatness_min_qp) |
+ 		DSC_FLATNESS_MAX_QP(vdsc_cfg->flatness_max_qp);
+@@ -489,29 +483,25 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 	intel_dsc_pps_write(crtc_state, 6, pps_val);
  
-@@ -815,16 +814,19 @@ static bool intel_dsc_read_pps_reg(struct intel_crtc_state *crtc_state,
- {
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
--	const int vdsc_per_pipe = intel_dsc_get_vdsc_per_pipe(crtc_state);
- 	i915_reg_t dsc_reg[2];
--	int i;
-+	int i, vdsc_per_pipe, dsc_reg_num;
+ 	/* Populate PICTURE_PARAMETER_SET_7 registers */
+-	pps_val = 0;
+-	pps_val |= DSC_SLICE_BPG_OFFSET(vdsc_cfg->slice_bpg_offset) |
++	pps_val = DSC_SLICE_BPG_OFFSET(vdsc_cfg->slice_bpg_offset) |
+ 		DSC_NFL_BPG_OFFSET(vdsc_cfg->nfl_bpg_offset);
+ 	drm_dbg_kms(&dev_priv->drm, "PPS7 = 0x%08x\n", pps_val);
+ 	intel_dsc_pps_write(crtc_state, 7, pps_val);
  
--	*pps_val = 0;
--	drm_WARN_ON_ONCE(&i915->drm, ARRAY_SIZE(dsc_reg) < vdsc_per_pipe);
-+	vdsc_per_pipe = intel_dsc_get_vdsc_per_pipe(crtc_state);
-+	dsc_reg_num = min_t(int, ARRAY_SIZE(dsc_reg), vdsc_per_pipe);
+ 	/* Populate PICTURE_PARAMETER_SET_8 registers */
+-	pps_val = 0;
+-	pps_val |= DSC_FINAL_OFFSET(vdsc_cfg->final_offset) |
++	pps_val = DSC_FINAL_OFFSET(vdsc_cfg->final_offset) |
+ 		DSC_INITIAL_OFFSET(vdsc_cfg->initial_offset);
+ 	drm_dbg_kms(&dev_priv->drm, "PPS8 = 0x%08x\n", pps_val);
+ 	intel_dsc_pps_write(crtc_state, 8, pps_val);
  
--	intel_dsc_get_pps_reg(crtc_state, pps, dsc_reg, vdsc_per_pipe);
-+	drm_WARN_ON_ONCE(&i915->drm, dsc_reg_num < vdsc_per_pipe);
-+
-+	intel_dsc_get_pps_reg(crtc_state, pps, dsc_reg, dsc_reg_num);
-+
-+	*pps_val = 0;
+ 	/* Populate PICTURE_PARAMETER_SET_9 registers */
+-	pps_val = 0;
+-	pps_val |= DSC_RC_MODEL_SIZE(vdsc_cfg->rc_model_size) |
++	pps_val = DSC_RC_MODEL_SIZE(vdsc_cfg->rc_model_size) |
+ 		DSC_RC_EDGE_FACTOR(DSC_RC_EDGE_FACTOR_CONST);
+ 	drm_dbg_kms(&dev_priv->drm, "PPS9 = 0x%08x\n", pps_val);
+ 	intel_dsc_pps_write(crtc_state, 9, pps_val);
  
--	for (i = 0; i < min_t(int, ARRAY_SIZE(dsc_reg), vdsc_per_pipe); i++) {
-+	for (i = 0; i < dsc_reg_num; i++) {
- 		u32 pps_temp;
+ 	/* Populate PICTURE_PARAMETER_SET_10 registers */
+-	pps_val = 0;
+-	pps_val |= DSC_RC_QUANT_INC_LIMIT0(vdsc_cfg->rc_quant_incr_limit0) |
++	pps_val = DSC_RC_QUANT_INC_LIMIT0(vdsc_cfg->rc_quant_incr_limit0) |
+ 		DSC_RC_QUANT_INC_LIMIT1(vdsc_cfg->rc_quant_incr_limit1) |
+ 		DSC_RC_TARGET_OFF_HIGH(DSC_RC_TGT_OFFSET_HI_CONST) |
+ 		DSC_RC_TARGET_OFF_LOW(DSC_RC_TGT_OFFSET_LO_CONST);
+@@ -519,8 +509,7 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 	intel_dsc_pps_write(crtc_state, 10, pps_val);
  
- 		pps_temp = intel_de_read(i915, dsc_reg[i]);
+ 	/* Populate Picture parameter set 16 */
+-	pps_val = 0;
+-	pps_val |= DSC_SLICE_CHUNK_SIZE(vdsc_cfg->slice_chunk_size) |
++	pps_val = DSC_SLICE_CHUNK_SIZE(vdsc_cfg->slice_chunk_size) |
+ 		DSC_SLICE_PER_LINE((vdsc_cfg->pic_width / num_vdsc_instances) /
+ 				   vdsc_cfg->slice_width) |
+ 		DSC_SLICE_ROW_PER_FRAME(vdsc_cfg->pic_height /
+@@ -530,15 +519,13 @@ static void intel_dsc_pps_configure(const struct intel_crtc_state *crtc_state)
+ 
+ 	if (DISPLAY_VER(dev_priv) >= 14) {
+ 		/* Populate PICTURE_PARAMETER_SET_17 registers */
+-		pps_val = 0;
+-		pps_val |= DSC_SL_BPG_OFFSET(vdsc_cfg->second_line_bpg_offset);
++		pps_val = DSC_SL_BPG_OFFSET(vdsc_cfg->second_line_bpg_offset);
+ 		drm_dbg_kms(&dev_priv->drm, "PPS17 = 0x%08x\n", pps_val);
+ 		intel_dsc_pps_write(crtc_state, 17, pps_val);
+ 
+ 		/* Populate PICTURE_PARAMETER_SET_18 registers */
+-		pps_val = 0;
+-		pps_val |= DSC_NSL_BPG_OFFSET(vdsc_cfg->nsl_bpg_offset) |
+-			   DSC_SL_OFFSET_ADJ(vdsc_cfg->second_line_offset_adj);
++		pps_val = DSC_NSL_BPG_OFFSET(vdsc_cfg->nsl_bpg_offset) |
++			DSC_SL_OFFSET_ADJ(vdsc_cfg->second_line_offset_adj);
+ 		drm_dbg_kms(&dev_priv->drm, "PPS18 = 0x%08x\n", pps_val);
+ 		intel_dsc_pps_write(crtc_state, 18, pps_val);
+ 	}
 -- 
 2.39.2
 
