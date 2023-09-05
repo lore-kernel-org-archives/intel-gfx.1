@@ -4,45 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B1D6CA1006
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 19:38:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2028FCA1008
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 Sep 2023 20:30:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F357C10E498;
-	Tue,  5 Sep 2023 19:38:50 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38AF310E1AE;
- Tue,  5 Sep 2023 19:38:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8493210E50B;
+	Tue,  5 Sep 2023 20:30:30 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E9AF10E507
+ for <intel-gfx@lists.freedesktop.org>; Tue,  5 Sep 2023 20:30:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1693942729; x=1725478729;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=UhvgFEm6UyiK4bEr3ZPxGzwMC7S3fNzkTt2gStFiObU=;
- b=kehWQSlDaSPPIdlBbiUVfgMmKcocYZZ85v7ZQw0ercsQaG6z6rsiEe0b
- iCAMOWW8ve6AiOxx/gIRC4hUHbQnvzXhhL1i5rQEqQfjvJD3yMAQjZjCL
- fdX885Vm3SbqbGbrhCOhE/HnIULgSlD6EDArHqUeyUEZz+nWjKGgmrxmC
- 3P6s5LVJYfHz3p0qIzPk5yMmkRNghmxPxL6CC8MuJI/QRcUltkM1+30UF
- f4m1wBaEC7MSdsLq4qX2BArHjTRPRsSdmSzPK0BMjguZ9brEsajKKXjA+
- OFbb5hCu4kjKkDkdiL/Qd56FhOu4sbfyBMIsPy5wM+K6HiuSYyXhQHHsO A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10824"; a="375783683"
-X-IronPort-AV: E=Sophos;i="6.02,229,1688454000"; d="scan'208";a="375783683"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2023 12:38:48 -0700
+ t=1693945829; x=1725481829;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=5URLieotgcIsIBUoi2GeChcHceEdlGL9RSNAtuZshi8=;
+ b=OCd/bEKbU5CUDVTbUJP86w3nxoVH+qoZaxtRt/yXZG01hZyfrsQSq4pC
+ pu9sdc/ONZDmT1iCMCX1DC7COkikpGhYD9BPoxm+BvFPMaUv3b2atp3KD
+ SO0KqEaROGIL8IynSdqvC+KiCZhTbELjN0tL4P4UVux3O092VWdSioB4j
+ 36b117IqSH7hlxZcUsq/4t9NarQsqmfmFPVorXB/Fqxs+WnGxw6CSoILW
+ UGXGJVdz4teJrEHnQ1uRyLwz/pZI4eGoJvYfTdHoSQ92+NGl17Gv7nI0F
+ 3uQm8OChZ7qEJZUd4rWnNVNUM0LoRjHR738Ur6K4eBNF7c/VAQPcK+WTv A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10824"; a="440869908"
+X-IronPort-AV: E=Sophos;i="6.02,230,1688454000"; d="scan'208";a="440869908"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Sep 2023 13:30:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10824"; a="776305620"
-X-IronPort-AV: E=Sophos;i="6.02,229,1688454000"; d="scan'208";a="776305620"
-Received: from invictus.jf.intel.com ([10.165.21.201])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2023 12:38:48 -0700
-From: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10824"; a="811380849"
+X-IronPort-AV: E=Sophos;i="6.02,230,1688454000"; d="scan'208";a="811380849"
+Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
+ by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Sep 2023 13:30:28 -0700
+From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  5 Sep 2023 12:36:24 -0700
-Message-Id: <20230905193624.525020-1-radhakrishna.sripada@intel.com>
-X-Mailer: git-send-email 2.34.1
+Date: Tue,  5 Sep 2023 13:19:47 -0700
+Message-Id: <20230905201947.1299112-3-jonathan.cavitt@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230905201947.1299112-1-jonathan.cavitt@intel.com>
+References: <20230905201947.1299112-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/mtl: Drop force_probe requirement
+Subject: [Intel-gfx] [PATCH v6 2/2] drm/i915: Set copy engine arbitration
+ for Wa_16018031267 / Wa_16018063123
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,37 +58,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com
+Cc: tomasz.mistat@intel.com, jonathan.cavitt@intel.com, rodrigo.vivi@intel.com,
+ gregory.f.germano@intel.com, matthew.d.roper@intel.com, nirmoy.das@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Meteorlake has been very usable for a while now, all of uapi changes
-related to fundamental platform usage have been finalized and all
-required firmware blobs are available. Recent CI results have also
-been healthy, so we're ready to drop the force_probe requirement and
-enable the platform by default.
+Set copy engine arbitration into round robin mode
+for part of Wa_16018031267 / Wa_16018063123 mitigation.
 
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Signed-off-by: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
 ---
- drivers/gpu/drm/i915/i915_pci.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_engine_regs.h | 3 +++
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 5 +++++
+ 2 files changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index df7c261410f7..fe748906c06f 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -836,7 +836,6 @@ static const struct intel_device_info mtl_info = {
- 	.has_pxp = 1,
- 	.memory_regions = REGION_SMEM | REGION_STOLEN_LMEM,
- 	.platform_engine_mask = BIT(RCS0) | BIT(BCS0) | BIT(CCS0),
--	.require_force_probe = 1,
- 	MTL_CACHELEVEL,
- };
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_regs.h b/drivers/gpu/drm/i915/gt/intel_engine_regs.h
+index 2e06bea73297a..823c6c40213f5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_regs.h
+@@ -124,6 +124,9 @@
+ #define RING_INDIRECT_CTX(base)			_MMIO((base) + 0x1c4) /* gen8+ */
+ #define RING_INDIRECT_CTX_OFFSET(base)		_MMIO((base) + 0x1c8) /* gen8+ */
+ #define ECOSKPD(base)				_MMIO((base) + 0x1d0)
++#define   XEHP_BLITTER_SCHEDULING_MODE_MASK	REG_GENMASK(12, 11)
++#define   XEHP_BLITTER_ROUND_ROBIN_MODE		\
++		REG_FIELD_PREP(XEHP_BLITTER_SCHEDULING_MODE_MASK, 1)
+ #define   ECO_CONSTANT_BUFFER_SR_DISABLE	REG_BIT(4)
+ #define   ECO_GATING_CX_ONLY			REG_BIT(3)
+ #define   GEN6_BLITTER_FBC_NOTIFY		REG_BIT(3)
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 864d41bcf6bbe..e891e7c8c0787 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -2769,6 +2769,11 @@ xcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 			 RING_SEMA_WAIT_POLL(engine->mmio_base),
+ 			 1);
+ 	}
++	/* Wa_16018031267, Wa_16018063123 */
++	if (NEEDS_FASTCOLOR_BLT_WABB(engine))
++		wa_masked_field_set(wal, ECOSKPD(engine->mmio_base),
++				    XEHP_BLITTER_SCHEDULING_MODE_MASK,
++				    XEHP_BLITTER_ROUND_ROBIN_MODE);
+ }
  
+ static void
 -- 
-2.34.1
+2.25.1
 
