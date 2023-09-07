@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE5D4EC873B
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Sep 2023 15:40:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 148EFEC873A
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Sep 2023 15:40:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B41F10E832;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E176510E836;
 	Thu,  7 Sep 2023 15:40:13 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 435D110E821;
- Thu,  7 Sep 2023 15:40:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8626D10E817;
+ Thu,  7 Sep 2023 15:40:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694101207; x=1725637207;
+ t=1694101206; x=1725637206;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=32zDfC9ZRfabOAYAAXS+s+rj3a1aK5RjZ96Lti5tkAA=;
- b=ktuSEYxeZJwlW5jPXqKep3pkZEiukp0n7UMvMrD3WyBdVbHbzUUyzDuc
- p7v3uaMB8XgIyXqfkaV8RiyyiFll8ceWWdBeJwXTxWrWybeosGvUOHdoE
- tzd+mrD8DlaRMYU30T9sS9qbujSoa22PRF5L+hVIS444PvnfvTrpIafmE
- lPWWdV+yWaMlTP19qu04ZsPf1hAfsWLyhSVcQaWYe20z1/Do5dbXATAI1
- f2QUk9alJs/x4JCO4O74fx1FTstt7a6Xva2oITKKWAHVP08SFiraE73/1
- RXAhG80NjUq+9OdLx1PwZmTcBh+CQLKSTWLOdK8W9v+Eh+bDbmEIJvw5n Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10826"; a="362445812"
-X-IronPort-AV: E=Sophos;i="6.02,235,1688454000"; d="scan'208";a="362445812"
+ bh=BCfFcplIfu7E4BwgrlcVWNFbT+X+Q5CneihKMfjaHS0=;
+ b=NGDDQkaQy29KjeqN/+QF5DtUX256ZMMaUjRIoHxbrzlV20Sq7J4weF0S
+ YGSroiWpbmzAYhV8VUHKczu5FENo86B+mmt/hv4yTe6P0f9l/EcOJBNef
+ mXxYEzw8KfZwQf5pvwNPGIyOD85aiUYSR+hXknhaWzvXeWcvVE+w0BLGL
+ JZ1sIOhsvCTQlX+u5rhM/EhxIuEhepewFXOBVZB9YnHgYe7+63eDGDW1q
+ eJUx8m9BcZcovNwNb3gk6laGZO+1WgnloycGlP9QgpP3N7e3bvZ1ki1oM
+ jsayDLyAFuCGN22SRJP0oi4aO5rT8jOOQrUUHDVTlSK1SCeWDk/7bHtXm g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10826"; a="362445792"
+X-IronPort-AV: E=Sophos;i="6.02,235,1688454000"; d="scan'208";a="362445792"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2023 08:38:19 -0700
+ 07 Sep 2023 08:38:18 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10826"; a="1072930314"
-X-IronPort-AV: E=Sophos;i="6.02,235,1688454000"; d="scan'208";a="1072930314"
+X-IronPort-AV: E=McAfee;i="6600,9927,10826"; a="1072930281"
+X-IronPort-AV: E=Sophos;i="6.02,235,1688454000"; d="scan'208";a="1072930281"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2023 08:38:19 -0700
+ 07 Sep 2023 08:38:17 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Thu,  7 Sep 2023 08:37:54 -0700
-Message-Id: <20230907153757.2249452-25-lucas.demarchi@intel.com>
+Date: Thu,  7 Sep 2023 08:37:46 -0700
+Message-Id: <20230907153757.2249452-17-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230907153757.2249452-1-lucas.demarchi@intel.com>
 References: <20230907153757.2249452-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 24/27] drm/i915/lnl: Introduce MDCLK_CDCLK
- ratio to DBuf
+Subject: [Intel-gfx] [PATCH v2 16/27] drm/i915/xe2lpd: Handle port AUX
+ interrupts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,200 +59,76 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+From: Gustavo Sousa <gustavo.sousa@intel.com>
 
-When we change MDCLK/CDCLK the BSpec now instructs us to write a ratio
-between MDCLK/CDCLK to MBUS CTL and DBUF CTL registers during that
-change.
+Differently from previous version, Xe2_LPD groups all port AUX interrupt
+bits into PICA interrupt registers.
 
-Previsouly DBuf state and CDCLK were not anyhow coupled together.  Now
-at compute stage when we know which CDCLK/MDCLK we are going to use, we
-need to update the DBuf state with that ratio, being properly encoded,
-so that it gets written to those registers, once DBuf state is being
-update. The criteria for updating DBuf state is also a CDCLK/MDCLK ratio
-change now.
+While at it, drop some trailing newlines.
 
-v2:
-  - Remove condition check for display version 20 since it's compatible
-    with previous versions (Matt Roper)
-  - Squash the serialization of global state when mdclk_cdclk_ratio
-    changes
-
-Bspec: 68864, 69482, 69445
-Cc: Mika Kahola <mika.kahola@intel.com>
-Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+BSpec: 68958, 69697
+Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c    | 28 +++++++++++++++++++
- drivers/gpu/drm/i915/display/skl_watermark.c  | 28 ++++++++++++++++---
- drivers/gpu/drm/i915/display/skl_watermark.h  |  1 +
- .../gpu/drm/i915/display/skl_watermark_regs.h |  2 ++
- 4 files changed, 55 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_irq.c | 4 +++-
+ drivers/gpu/drm/i915/display/intel_hotplug_irq.c | 3 +++
+ drivers/gpu/drm/i915/i915_reg.h                  | 5 ++---
+ 3 files changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index abe845906c7c..677a50c28dae 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -39,6 +39,7 @@
- #include "intel_pcode.h"
- #include "intel_psr.h"
- #include "intel_vdsc.h"
-+#include "skl_watermark.h"
- #include "vlv_sideband.h"
- 
- /**
-@@ -1800,6 +1801,16 @@ static bool cdclk_pll_is_unknown(unsigned int vco)
- 	return vco == ~0;
- }
- 
-+/* Return the MBUS_CTL's encoding of the mdclk/cdclk ratio */
-+static int get_mdclk_cdclk_ratio(struct drm_i915_private *i915,
-+				 const struct intel_cdclk_config *cdclk_config)
-+{
-+	if (DISPLAY_VER(i915) >= 20)
-+		return DIV_ROUND_UP(cdclk_config->vco, cdclk_config->cdclk) - 1;
-+
-+	return 1;
-+}
-+
- static int cdclk_squash_divider(u16 waveform)
+diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
+index 62ce55475554..bff4a76310c0 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_irq.c
++++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
+@@ -792,7 +792,9 @@ static u32 gen8_de_port_aux_mask(struct drm_i915_private *dev_priv)
  {
- 	return hweight16(waveform ?: 0xffff);
-@@ -2735,6 +2746,8 @@ static int intel_compute_min_cdclk(struct intel_cdclk_state *cdclk_state)
- 	struct intel_crtc_state *crtc_state;
- 	int min_cdclk, i;
- 	enum pipe pipe;
-+	struct intel_dbuf_state *new_dbuf_state;
-+	struct intel_dbuf_state *old_dbuf_state;
+ 	u32 mask;
  
- 	for_each_new_intel_crtc_in_state(state, crtc, crtc_state, i) {
- 		int ret;
-@@ -2768,6 +2781,21 @@ static int intel_compute_min_cdclk(struct intel_cdclk_state *cdclk_state)
- 		}
- 	}
+-	if (DISPLAY_VER(dev_priv) >= 14)
++	if (DISPLAY_VER(dev_priv) >= 20)
++		return 0;
++	else if (DISPLAY_VER(dev_priv) >= 14)
+ 		return TGL_DE_PORT_AUX_DDIA |
+ 			TGL_DE_PORT_AUX_DDIB;
+ 	else if (DISPLAY_VER(dev_priv) >= 13)
+diff --git a/drivers/gpu/drm/i915/display/intel_hotplug_irq.c b/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
+index 95a7ea94f417..3398cc21bd26 100644
+--- a/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
++++ b/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
+@@ -514,6 +514,9 @@ void xelpdp_pica_irq_handler(struct drm_i915_private *i915, u32 iir)
+ 	u32 trigger_aux = iir & XELPDP_AUX_TC_MASK;
+ 	u32 pin_mask = 0, long_mask = 0;
  
-+	new_dbuf_state = intel_atomic_get_new_dbuf_state(state);
-+	old_dbuf_state = intel_atomic_get_old_dbuf_state(state);
-+	if (new_dbuf_state && old_dbuf_state) {
-+		new_dbuf_state->mdclk_cdclk_ratio =
-+			get_mdclk_cdclk_ratio(dev_priv, &cdclk_state->actual);
++	if (DISPLAY_VER(i915) >= 20)
++		trigger_aux |= iir & XE2LPD_AUX_DDI_MASK;
 +
-+		if (new_dbuf_state->mdclk_cdclk_ratio != old_dbuf_state->mdclk_cdclk_ratio) {
-+			int ret;
-+
-+			ret = intel_atomic_serialize_global_state(&new_dbuf_state->base);
-+			if (ret)
-+				return ret;
-+		}
-+	}
-+
- 	min_cdclk = max(cdclk_state->force_min_cdclk,
- 			cdclk_state->bw_min_cdclk);
- 	for_each_pipe(dev_priv, pipe)
-diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
-index 64a122d3c9c0..1fefb02876c8 100644
---- a/drivers/gpu/drm/i915/display/skl_watermark.c
-+++ b/drivers/gpu/drm/i915/display/skl_watermark.c
-@@ -3472,6 +3472,16 @@ int intel_dbuf_init(struct drm_i915_private *i915)
- 	return 0;
- }
+ 	for (pin = HPD_PORT_TC1; pin <= HPD_PORT_TC4; pin++) {
+ 		u32 val;
  
-+static int get_mbus_mdclk_cdclk_ratio(struct drm_i915_private *i915,
-+				      int mdclk_cdclk_ratio,
-+				      int mbus_joined)
-+{
-+	if (mbus_joined)
-+		return (mdclk_cdclk_ratio << 1) + 1;
-+
-+	return mdclk_cdclk_ratio;
-+}
-+
- /*
-  * Configure MBUS_CTL and all DBUF_CTL_S of each slice to join_mbus state before
-  * update the request state of all DBUS slices.
-@@ -3483,10 +3493,16 @@ static void update_mbus_pre_enable(struct intel_atomic_state *state)
- 	enum dbuf_slice slice;
- 	const struct intel_dbuf_state *dbuf_state =
- 		intel_atomic_get_new_dbuf_state(state);
-+	int tracker_state_service;
- 
- 	if (!HAS_MBUS_JOINING(i915))
- 		return;
- 
-+	tracker_state_service =
-+		get_mbus_mdclk_cdclk_ratio(i915,
-+					   dbuf_state->mdclk_cdclk_ratio,
-+					   dbuf_state->joined_mbus);
-+
- 	/*
- 	 * TODO: Implement vblank synchronized MBUS joining changes.
- 	 * Must be properly coordinated with dbuf reprogramming.
-@@ -3494,13 +3510,15 @@ static void update_mbus_pre_enable(struct intel_atomic_state *state)
- 	if (dbuf_state->joined_mbus) {
- 		mbus_ctl = MBUS_HASHING_MODE_1x4 | MBUS_JOIN |
- 			MBUS_JOIN_PIPE_SELECT_NONE;
--		dbuf_min_tracker_val = DBUF_MIN_TRACKER_STATE_SERVICE(3);
- 	} else {
- 		mbus_ctl = MBUS_HASHING_MODE_2x2 |
- 			MBUS_JOIN_PIPE_SELECT_NONE;
--		dbuf_min_tracker_val = DBUF_MIN_TRACKER_STATE_SERVICE(1);
- 	}
- 
-+	dbuf_min_tracker_val = DBUF_MIN_TRACKER_STATE_SERVICE(tracker_state_service);
-+
-+	mbus_ctl |= MBUS_TRANS_THROTTLE_MIN_SELECT(dbuf_state->mdclk_cdclk_ratio);
-+
- 	intel_de_rmw(i915, MBUS_CTL,
- 		     MBUS_HASHING_MODE_MASK | MBUS_JOIN |
- 		     MBUS_JOIN_PIPE_SELECT_MASK, mbus_ctl);
-@@ -3521,7 +3539,8 @@ void intel_dbuf_pre_plane_update(struct intel_atomic_state *state)
- 
- 	if (!new_dbuf_state ||
- 	    (new_dbuf_state->enabled_slices == old_dbuf_state->enabled_slices &&
--	     new_dbuf_state->joined_mbus == old_dbuf_state->joined_mbus))
-+	     new_dbuf_state->joined_mbus == old_dbuf_state->joined_mbus &&
-+	     new_dbuf_state->mdclk_cdclk_ratio == old_dbuf_state->mdclk_cdclk_ratio))
- 		return;
- 
- 	WARN_ON(!new_dbuf_state->base.changed);
-@@ -3542,7 +3561,8 @@ void intel_dbuf_post_plane_update(struct intel_atomic_state *state)
- 
- 	if (!new_dbuf_state ||
- 	    (new_dbuf_state->enabled_slices == old_dbuf_state->enabled_slices &&
--	     new_dbuf_state->joined_mbus == old_dbuf_state->joined_mbus))
-+	     new_dbuf_state->joined_mbus == old_dbuf_state->joined_mbus &&
-+	     new_dbuf_state->mdclk_cdclk_ratio == old_dbuf_state->mdclk_cdclk_ratio))
- 		return;
- 
- 	WARN_ON(!new_dbuf_state->base.changed);
-diff --git a/drivers/gpu/drm/i915/display/skl_watermark.h b/drivers/gpu/drm/i915/display/skl_watermark.h
-index f91a3d4ddc07..54db5c7d517e 100644
---- a/drivers/gpu/drm/i915/display/skl_watermark.h
-+++ b/drivers/gpu/drm/i915/display/skl_watermark.h
-@@ -56,6 +56,7 @@ struct intel_dbuf_state {
- 	u8 slices[I915_MAX_PIPES];
- 	u8 enabled_slices;
- 	u8 active_pipes;
-+	u8 mdclk_cdclk_ratio;
- 	bool joined_mbus;
- };
- 
-diff --git a/drivers/gpu/drm/i915/display/skl_watermark_regs.h b/drivers/gpu/drm/i915/display/skl_watermark_regs.h
-index 628c5920ad49..4c820f1d351d 100644
---- a/drivers/gpu/drm/i915/display/skl_watermark_regs.h
-+++ b/drivers/gpu/drm/i915/display/skl_watermark_regs.h
-@@ -38,6 +38,8 @@
- #define MBUS_HASHING_MODE_2x2		REG_FIELD_PREP(MBUS_HASHING_MODE_MASK, 0)
- #define MBUS_HASHING_MODE_1x4		REG_FIELD_PREP(MBUS_HASHING_MODE_MASK, 1)
- #define MBUS_JOIN_PIPE_SELECT_MASK	REG_GENMASK(28, 26)
-+#define MBUS_TRANS_THROTTLE_MIN_MASK	REG_GENMASK(15, 13)
-+#define MBUS_TRANS_THROTTLE_MIN_SELECT(ratio)	REG_FIELD_PREP(MBUS_TRANS_THROTTLE_MIN_MASK, ratio)
- #define MBUS_JOIN_PIPE_SELECT(pipe)	REG_FIELD_PREP(MBUS_JOIN_PIPE_SELECT_MASK, pipe)
- #define MBUS_JOIN_PIPE_SELECT_NONE	MBUS_JOIN_PIPE_SELECT(7)
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 2f5dd5361263..2f115d339913 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -4467,13 +4467,12 @@
+ #define PICAINTERRUPT_IMR			_MMIO(0x16FE54)
+ #define PICAINTERRUPT_IIR			_MMIO(0x16FE58)
+ #define PICAINTERRUPT_IER			_MMIO(0x16FE5C)
+-
+ #define  XELPDP_DP_ALT_HOTPLUG(hpd_pin)		REG_BIT(16 + _HPD_PIN_TC(hpd_pin))
+ #define  XELPDP_DP_ALT_HOTPLUG_MASK		REG_GENMASK(19, 16)
+-
+ #define  XELPDP_AUX_TC(hpd_pin)			REG_BIT(8 + _HPD_PIN_TC(hpd_pin))
+ #define  XELPDP_AUX_TC_MASK			REG_GENMASK(11, 8)
+-
++#define  XE2LPD_AUX_DDI(hpd_pin)		REG_BIT(6 + _HPD_PIN_DDI(hpd_pin))
++#define  XE2LPD_AUX_DDI_MASK			REG_GENMASK(7, 6)
+ #define  XELPDP_TBT_HOTPLUG(hpd_pin)		REG_BIT(_HPD_PIN_TC(hpd_pin))
+ #define  XELPDP_TBT_HOTPLUG_MASK		REG_GENMASK(3, 0)
  
 -- 
 2.40.1
