@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F7E6EC8742
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Sep 2023 15:40:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37135EC873B
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Sep 2023 15:40:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D9A710E839;
-	Thu,  7 Sep 2023 15:40:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29F7310E843;
+	Thu,  7 Sep 2023 15:40:17 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F08310E80E;
- Thu,  7 Sep 2023 15:40:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2793E10E818;
+ Thu,  7 Sep 2023 15:40:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694101206; x=1725637206;
+ t=1694101209; x=1725637209;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=H71jBGYlJQngA06rkXZ7fvf5Ohv/9c3hvLrF5Hq8uUA=;
- b=aMyaCblTcsrtpA8li1bAXpk37st1eEn+C7GyR+az78rI5vLqLLiU2zR6
- yh0xwJSwQNiTa+xgMjYo+24kkgwRdrStrEA+R+nBpILSG4tlcJV/p8Kwd
- +kEJCNkHEHf27eQVZs68ErLsxOE+YxPqT2iwsgybK8hHj7tcD48zAkGjI
- BGnz35KGzKMYzZWneCtgVQgqjC1ONBIMhTPnBhlEwlG/PKckwpgkN5sBN
- 5ghEQKFuyZKhI53Als60oXoGwVsJt/f9Pe7fFWy6emKX7cSyC+bGsEJo/
- aRPAN4mU6NeG1h+3HW+H6kDq6lIqN/3xDcphjrhD4A52nm5nGQJavJpWn w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10826"; a="362445767"
-X-IronPort-AV: E=Sophos;i="6.02,235,1688454000"; d="scan'208";a="362445767"
+ bh=AssikX67Dy4A+aoEXSq9fSPghpAPBhmX4ysYH4Tib8A=;
+ b=BkNPKaQU3CqYdFUEHFFu9u+IYrDwDcyYsiN+BXnhURKw6WF3zknZlV1F
+ I1tji54kdsd1aKGEp7lc9sZw2Z4l9chYhMZdAOazE51LKaUJGk2QGCT1L
+ c1FAZVr1/GixYqZSSaZnumf8VVbqXC1DcO41FX5Tf2lLUk3lJ3LflB5z7
+ mLDxRmW7csWBtkJdeJVMf1IIEOr31cFm2CiYJzoGa/MFAnaH5OdBeS6YU
+ NC0JIrsUwKYJYf0YNM4zEsSIX7pNL7BhZptcLICk+YG513r0oYYNaxymP
+ ysOzoXbMP9uRxkU+XGrK7J+sdYpoi/+msiz9yJw1tzO6P+RlTJQYCS2vm w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10826"; a="362445817"
+X-IronPort-AV: E=Sophos;i="6.02,235,1688454000"; d="scan'208";a="362445817"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2023 08:38:15 -0700
+ 07 Sep 2023 08:38:20 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10826"; a="1072930257"
-X-IronPort-AV: E=Sophos;i="6.02,235,1688454000"; d="scan'208";a="1072930257"
+X-IronPort-AV: E=McAfee;i="6600,9927,10826"; a="1072930328"
+X-IronPort-AV: E=Sophos;i="6.02,235,1688454000"; d="scan'208";a="1072930328"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2023 08:38:15 -0700
+ 07 Sep 2023 08:38:20 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Thu,  7 Sep 2023 08:37:40 -0700
-Message-Id: <20230907153757.2249452-11-lucas.demarchi@intel.com>
+Date: Thu,  7 Sep 2023 08:37:57 -0700
+Message-Id: <20230907153757.2249452-28-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230907153757.2249452-1-lucas.demarchi@intel.com>
 References: <20230907153757.2249452-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 10/27] drm/i915/xe2lpd: Don't try to program
- PLANE_AUX_DIST
+Subject: [Intel-gfx] [PATCH v2 27/27] drm/i915/xe2lpd: Update mbus on post
+ plane updates
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,38 +59,59 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matt Roper <matthew.d.roper@intel.com>
+From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
-Since Xe2LPD technically has FlatCCS, it doesn't have AuxCCS registers
-like PLANE_AUX_DIST.  However we currently have HAS_FLAT_CCS hardcoded
-to 0 since compression isn't ready; we need to make sure this doesn't
-cause the display code to go back to trying to write this register.
+According to BSpec we need to write the MBUS CTL and DBUF CTL both for
+increasing CDCLK case (pre plane) and for decreasing CDCLK case (post
+plane). Make sure those updates are in place for Xe2-LPD.
 
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Since the mbus update is not only on pre-enable anymore, also rename the
+function accordingly.
+
+Cc: Mika Kahola <mika.kahola@intel.com>
+Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Reviewed-by: Mika Kahola <mika.kahola@intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_universal_plane.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/skl_watermark.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 517df2aa7a91..a73294e190df 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -1247,7 +1247,7 @@ icl_plane_update_noarm(struct intel_plane *plane,
- 	}
+diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
+index 1fefb02876c8..955a8fb7ba19 100644
+--- a/drivers/gpu/drm/i915/display/skl_watermark.c
++++ b/drivers/gpu/drm/i915/display/skl_watermark.c
+@@ -3486,7 +3486,7 @@ static int get_mbus_mdclk_cdclk_ratio(struct drm_i915_private *i915,
+  * Configure MBUS_CTL and all DBUF_CTL_S of each slice to join_mbus state before
+  * update the request state of all DBUS slices.
+  */
+-static void update_mbus_pre_enable(struct intel_atomic_state *state)
++static void update_mbus(struct intel_atomic_state *state)
+ {
+ 	struct drm_i915_private *i915 = to_i915(state->base.dev);
+ 	u32 mbus_ctl, dbuf_min_tracker_val;
+@@ -3545,7 +3545,7 @@ void intel_dbuf_pre_plane_update(struct intel_atomic_state *state)
  
- 	/* FLAT CCS doesn't need to program AUX_DIST */
--	if (!HAS_FLAT_CCS(dev_priv))
-+	if (!HAS_FLAT_CCS(dev_priv) && DISPLAY_VER(dev_priv) < 20)
- 		intel_de_write_fw(dev_priv, PLANE_AUX_DIST(pipe, plane_id),
- 				  skl_plane_aux_dist(plane_state, color_plane));
+ 	WARN_ON(!new_dbuf_state->base.changed);
  
+-	update_mbus_pre_enable(state);
++	update_mbus(state);
+ 	gen9_dbuf_slices_update(i915,
+ 				old_dbuf_state->enabled_slices |
+ 				new_dbuf_state->enabled_slices);
+@@ -3567,6 +3567,9 @@ void intel_dbuf_post_plane_update(struct intel_atomic_state *state)
+ 
+ 	WARN_ON(!new_dbuf_state->base.changed);
+ 
++	if (DISPLAY_VER(i915) >= 20)
++		update_mbus(state);
++
+ 	gen9_dbuf_slices_update(i915,
+ 				new_dbuf_state->enabled_slices);
+ }
 -- 
 2.40.1
 
