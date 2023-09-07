@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27A86EC873D
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 Sep 2023 15:40:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25F70EC8745
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 Sep 2023 15:40:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE25110E834;
-	Thu,  7 Sep 2023 15:40:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71E6810E83E;
+	Thu,  7 Sep 2023 15:40:14 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FC8610E811;
- Thu,  7 Sep 2023 15:40:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8C7010E7FF;
+ Thu,  7 Sep 2023 15:40:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694101207; x=1725637207;
+ t=1694101205; x=1725637205;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=NgV91TtJJ9Jz86l1g8bF6zD+vFCFYdQum/1AhV57+8U=;
- b=nrM/Iy3VNQV21zgLcAbzAQL993A7RIBnWB1lNtjL23XTujbYxDu19Iep
- I7IaoFaPpHG/RAg+HQudHu7/RyzQn4ckJx9k+PLSEZbrZihXagOrPoU49
- SPvGqDv5jop6LAZ4/j5wLNSQgxQvMsXd0vtN705CH4gQl/9NwUtYffnXL
- Q5Lw7O/lB9PYJr168/n2PENo65f5igXt2PhrRjUqBJmqzR70u5T2oLVJX
- le+SbtEcJfG/pnggzTyQc0+HI44xc7d5QbUeKyee5oYRlr83DBMHAM30O
- FSr0yBA3k5z1yjEFi6DHeU9bpSXxwpPFvXzIG/wVdaUltNjOIc6qzLz7+ g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10826"; a="362445810"
-X-IronPort-AV: E=Sophos;i="6.02,235,1688454000"; d="scan'208";a="362445810"
+ bh=Vu4IvyJizp1ejYFpS2JqnS9Eo1JZ5y5RNBuWzqASOak=;
+ b=g+if6j/UChvRA3d55zhUvXSlpEq/CVvi8GPpzbDhauaQlPZdjbzmU4tY
+ Yea9rcv38mebkbVK9Mggv3x+hYFUEgJmMKitawmkPVQLun0/o9afsltkt
+ 3Z8nKuK60yZd2NGrdrYvRsqfX/iLdNBUzlaD+NI7Jlphj9j1iFEuPt5LO
+ ofyAVwa4tmDKYT9mjDKYBHGluhc/5ttCnE28i1aoJHjYb2O3HI8eWpwsN
+ W4DB0BuokzFcENStxo+bnSiIiktqsX1GSNHHBwe6XuDXC1HpK6wiy2nCc
+ HTSM7+dIV50NPLDwYAE18E8LVSbhq8VsIcbWc8V5nYDn2IiXYooE7SUvX A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10826"; a="362445761"
+X-IronPort-AV: E=Sophos;i="6.02,235,1688454000"; d="scan'208";a="362445761"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2023 08:38:19 -0700
+ 07 Sep 2023 08:38:15 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10826"; a="1072930310"
-X-IronPort-AV: E=Sophos;i="6.02,235,1688454000"; d="scan'208";a="1072930310"
+X-IronPort-AV: E=McAfee;i="6600,9927,10826"; a="1072930245"
+X-IronPort-AV: E=Sophos;i="6.02,235,1688454000"; d="scan'208";a="1072930245"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2023 08:38:19 -0700
+ 07 Sep 2023 08:38:14 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Thu,  7 Sep 2023 08:37:53 -0700
-Message-Id: <20230907153757.2249452-24-lucas.demarchi@intel.com>
+Date: Thu,  7 Sep 2023 08:37:37 -0700
+Message-Id: <20230907153757.2249452-8-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230907153757.2249452-1-lucas.demarchi@intel.com>
 References: <20230907153757.2249452-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 23/27] drm/i915/lnl: Start using CDCLK
- through PLL
+Subject: [Intel-gfx] [PATCH v2 07/27] drm/i915/display: Consolidate saved
+ port bits in intel_digital_port
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,63 +63,152 @@ Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+From: Clint Taylor <clinton.a.taylor@intel.com>
 
-Introduce correspondent definitions and for choosing between CD2X CDCLK
-and PLL CDCLK as a source. All the entries in cdclk table for xe2lpd are
-defined with PLL CDCLK as source, so simply set it.
+We use multiple variables for HDMI and DisplayPort to store the value of
+DDI_BUF_CTL register (now called DDI_CTL_DE in the spec). Consolidate it
+to just one in struct intel_digital_port. This is a preparation step for
+future changes in D2D enable/disable sequence for xe2lpd that need to
+save some additional bits.
 
-v2:
-  - Remove unneeded comment and use REG_BIT() (Matt Roper)
-  - Rename CDCLK_SOURCE_SEL_CDCLK_PLL() to MDCLK_SOURCE_SEL_CDCLK_PLL
-    to match spec (Lucas)
-
-Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Cc: Gustavo Sousa <gustavo.sousa@intel.com>
+Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+Signed-off-by: Clint Taylor <clinton.a.taylor@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 9 +++++++--
- drivers/gpu/drm/i915/i915_reg.h            | 1 +
- 2 files changed, 8 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c | 36 +++++++++++-------------
+ drivers/gpu/drm/i915/display/intel_dp.c  |  2 +-
+ 2 files changed, 18 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index 7307af2a4af5..abe845906c7c 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -1906,8 +1906,7 @@ static void _bxt_set_cdclk(struct drm_i915_private *dev_priv,
- 		dg2_cdclk_squash_program(dev_priv, waveform);
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 690e1e02aba8..75a2da5d0c9e 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -325,26 +325,25 @@ static void intel_ddi_init_dp_buf_reg(struct intel_encoder *encoder,
+ 				      const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+-	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+ 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
+ 	enum phy phy = intel_port_to_phy(i915, encoder->port);
  
- 	val = bxt_cdclk_cd2x_div_sel(dev_priv, clock, vco) |
--		bxt_cdclk_cd2x_pipe(dev_priv, pipe) |
--		skl_cdclk_decimal(cdclk);
-+		bxt_cdclk_cd2x_pipe(dev_priv, pipe);
+ 	/* DDI_BUF_CTL_ENABLE will be set by intel_ddi_prepare_link_retrain() later */
+-	intel_dp->DP = dig_port->saved_port_bits |
++	dig_port->saved_port_bits |=
+ 		DDI_PORT_WIDTH(crtc_state->lane_count) |
+ 		DDI_BUF_TRANS_SELECT(0);
  
- 	/*
- 	 * Disable SSA Precharge when CD clock frequency < 500 MHz,
-@@ -1916,6 +1915,12 @@ static void _bxt_set_cdclk(struct drm_i915_private *dev_priv,
- 	if ((IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv)) &&
- 	    cdclk >= 500000)
- 		val |= BXT_CDCLK_SSA_PRECHARGE_ENABLE;
-+
-+	if (DISPLAY_VER(dev_priv) >= 20)
-+		val |= MDCLK_SOURCE_SEL_CDCLK_PLL;
-+	else
-+		val |= skl_cdclk_decimal(cdclk);
-+
- 	intel_de_write(dev_priv, CDCLK_CTL, val);
+ 	if (DISPLAY_VER(i915) >= 14) {
+ 		if (intel_dp_is_uhbr(crtc_state))
+-			intel_dp->DP |= DDI_BUF_PORT_DATA_40BIT;
++			dig_port->saved_port_bits |= DDI_BUF_PORT_DATA_40BIT;
+ 		else
+-			intel_dp->DP |= DDI_BUF_PORT_DATA_10BIT;
++			dig_port->saved_port_bits |= DDI_BUF_PORT_DATA_10BIT;
+ 	}
  
- 	if (pipe != INVALID_PIPE)
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index efcf1461988f..c59eb411cf06 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -5884,6 +5884,7 @@ enum skl_power_gate {
- #define  CDCLK_FREQ_540		REG_FIELD_PREP(CDCLK_FREQ_SEL_MASK, 1)
- #define  CDCLK_FREQ_337_308		REG_FIELD_PREP(CDCLK_FREQ_SEL_MASK, 2)
- #define  CDCLK_FREQ_675_617		REG_FIELD_PREP(CDCLK_FREQ_SEL_MASK, 3)
-+#define  MDCLK_SOURCE_SEL_CDCLK_PLL	REG_BIT(25)
- #define  BXT_CDCLK_CD2X_DIV_SEL_MASK	REG_GENMASK(23, 22)
- #define  BXT_CDCLK_CD2X_DIV_SEL_1	REG_FIELD_PREP(BXT_CDCLK_CD2X_DIV_SEL_MASK, 0)
- #define  BXT_CDCLK_CD2X_DIV_SEL_1_5	REG_FIELD_PREP(BXT_CDCLK_CD2X_DIV_SEL_MASK, 1)
+ 	if (IS_ALDERLAKE_P(i915) && intel_phy_is_tc(i915, phy)) {
+-		intel_dp->DP |= ddi_buf_phy_link_rate(crtc_state->port_clock);
++		dig_port->saved_port_bits |= ddi_buf_phy_link_rate(crtc_state->port_clock);
+ 		if (!intel_tc_port_in_tbt_alt_mode(dig_port))
+-			intel_dp->DP |= DDI_BUF_CTL_TC_PHY_OWNERSHIP;
++			dig_port->saved_port_bits |= DDI_BUF_CTL_TC_PHY_OWNERSHIP;
+ 	}
+ }
+ 
+@@ -1450,7 +1449,7 @@ hsw_set_signal_levels(struct intel_encoder *encoder,
+ 		      const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
+-	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
++	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
+ 	int level = intel_ddi_level(encoder, crtc_state, 0);
+ 	enum port port = encoder->port;
+ 	u32 signal_levels;
+@@ -1467,10 +1466,10 @@ hsw_set_signal_levels(struct intel_encoder *encoder,
+ 	drm_dbg_kms(&dev_priv->drm, "Using signal levels %08x\n",
+ 		    signal_levels);
+ 
+-	intel_dp->DP &= ~DDI_BUF_EMP_MASK;
+-	intel_dp->DP |= signal_levels;
++	dig_port->saved_port_bits &= ~DDI_BUF_EMP_MASK;
++	dig_port->saved_port_bits |= signal_levels;
+ 
+-	intel_de_write(dev_priv, DDI_BUF_CTL(port), intel_dp->DP);
++	intel_de_write(dev_priv, DDI_BUF_CTL(port), dig_port->saved_port_bits);
+ 	intel_de_posting_read(dev_priv, DDI_BUF_CTL(port));
+ }
+ 
+@@ -3145,7 +3144,6 @@ static void intel_enable_ddi_hdmi(struct intel_atomic_state *state,
+ 	struct drm_connector *connector = conn_state->connector;
+ 	enum port port = encoder->port;
+ 	enum phy phy = intel_port_to_phy(dev_priv, port);
+-	u32 buf_ctl;
+ 
+ 	if (!intel_hdmi_handle_sink_scrambling(encoder, connector,
+ 					       crtc_state->hdmi_high_tmds_clock_ratio,
+@@ -3211,7 +3209,7 @@ static void intel_enable_ddi_hdmi(struct intel_atomic_state *state,
+ 	 * is filled with lane count, already set in the crtc_state.
+ 	 * The same is required to be filled in PORT_BUF_CTL for C10/20 Phy.
+ 	 */
+-	buf_ctl = dig_port->saved_port_bits | DDI_BUF_CTL_ENABLE;
++	dig_port->saved_port_bits |= DDI_BUF_CTL_ENABLE;
+ 	if (DISPLAY_VER(dev_priv) >= 14) {
+ 		u8  lane_count = mtl_get_port_width(crtc_state->lane_count);
+ 		u32 port_buf = 0;
+@@ -3224,13 +3222,13 @@ static void intel_enable_ddi_hdmi(struct intel_atomic_state *state,
+ 		intel_de_rmw(dev_priv, XELPDP_PORT_BUF_CTL1(port),
+ 			     XELPDP_PORT_WIDTH_MASK | XELPDP_PORT_REVERSAL, port_buf);
+ 
+-		buf_ctl |= DDI_PORT_WIDTH(lane_count);
++		dig_port->saved_port_bits |= DDI_PORT_WIDTH(lane_count);
+ 	} else if (IS_ALDERLAKE_P(dev_priv) && intel_phy_is_tc(dev_priv, phy)) {
+ 		drm_WARN_ON(&dev_priv->drm, !intel_tc_port_in_legacy_mode(dig_port));
+-		buf_ctl |= DDI_BUF_CTL_TC_PHY_OWNERSHIP;
++		dig_port->saved_port_bits |= DDI_BUF_CTL_TC_PHY_OWNERSHIP;
+ 	}
+ 
+-	intel_de_write(dev_priv, DDI_BUF_CTL(port), buf_ctl);
++	intel_de_write(dev_priv, DDI_BUF_CTL(port), dig_port->saved_port_bits);
+ 
+ 	intel_wait_ddi_buf_active(dev_priv, port);
+ 
+@@ -3448,8 +3446,8 @@ static void mtl_ddi_prepare_link_retrain(struct intel_dp *intel_dp,
+ 	mtl_port_buf_ctl_program(encoder, crtc_state);
+ 
+ 	/* 6.i Configure and enable DDI_CTL_DE to start sending valid data to port slice */
+-	intel_dp->DP |= DDI_BUF_CTL_ENABLE;
+-	intel_de_write(dev_priv, DDI_BUF_CTL(port), intel_dp->DP);
++	dig_port->saved_port_bits |= DDI_BUF_CTL_ENABLE;
++	intel_de_write(dev_priv, DDI_BUF_CTL(port), dig_port->saved_port_bits);
+ 	intel_de_posting_read(dev_priv, DDI_BUF_CTL(port));
+ 
+ 	/* 6.j Poll for PORT_BUF_CTL Idle Status == 0, timeout after 100 us */
+@@ -3499,8 +3497,8 @@ static void intel_ddi_prepare_link_retrain(struct intel_dp *intel_dp,
+ 	    (intel_tc_port_in_dp_alt_mode(dig_port) || intel_tc_port_in_legacy_mode(dig_port)))
+ 		adlp_tbt_to_dp_alt_switch_wa(encoder);
+ 
+-	intel_dp->DP |= DDI_BUF_CTL_ENABLE;
+-	intel_de_write(dev_priv, DDI_BUF_CTL(port), intel_dp->DP);
++	dig_port->saved_port_bits |= DDI_BUF_CTL_ENABLE;
++	intel_de_write(dev_priv, DDI_BUF_CTL(port), dig_port->saved_port_bits);
+ 	intel_de_posting_read(dev_priv, DDI_BUF_CTL(port));
+ 
+ 	intel_wait_ddi_buf_active(dev_priv, port);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 2206b45bc78c..fdf71185cb00 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -6017,7 +6017,7 @@ intel_dp_init_connector(struct intel_digital_port *dig_port,
+ 	intel_dp->pps.active_pipe = INVALID_PIPE;
+ 
+ 	/* Preserve the current hw state. */
+-	intel_dp->DP = intel_de_read(dev_priv, intel_dp->output_reg);
++	dig_port->saved_port_bits = intel_de_read(dev_priv, intel_dp->output_reg);
+ 	intel_dp->attached_connector = intel_connector;
+ 
+ 	if (_intel_dp_is_port_edp(dev_priv, intel_encoder->devdata, port)) {
 -- 
 2.40.1
 
