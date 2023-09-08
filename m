@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7122CEE7FE7
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 Sep 2023 12:34:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47A71EE7FE9
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 Sep 2023 12:34:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38A1A10E8B0;
-	Fri,  8 Sep 2023 12:34:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C34AF10E8B6;
+	Fri,  8 Sep 2023 12:34:31 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B272310E8A7;
- Fri,  8 Sep 2023 12:34:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AD1C10E8AD;
+ Fri,  8 Sep 2023 12:34:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694176463; x=1725712463;
+ t=1694176468; x=1725712468;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=NgGrmVyyZfFDm3AIzeCAssCCd7sLa2xWlFx06MXCHiE=;
- b=KqIxj5WH0LwMh+Rc8YT6dJzvH7JRTCpCCkrjmQ92tv34eH6/7sV92hMY
- PlxsHo6wxukrWuV29iRV11vyPYKXp+//l396oU1zm4MTc0iZLumMLJApm
- JTMmGVPzZkXP/+jgIfIETNPFKasBjOg9z3reo0DAVm0RF6PzFyPdhMEHk
- 9y/IP9vAGXXWpH3/jwGlH9+hpltYcRsf6xOCd61umgfYs0vMSDzTE7j0o
- /XNpMNbpe5A9TZAExWrH6dJ1T+6LVLsQUtyEl3F6SLPrt1VLwpP3H2Rz7
- a4q98Ntq1+NDuTlJerGc+UVEib3MQu2O7/X9TnZPPahsPQhzniPKCNrsv Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10827"; a="375014947"
-X-IronPort-AV: E=Sophos;i="6.02,237,1688454000"; d="scan'208";a="375014947"
+ bh=r+IHRzp6K/Mi2Qdb1+eIJA15NKdIDNp1VFDAPNtiAi0=;
+ b=W7qwu+Isw2iTeDy8wqWMtGnQbLrWSlsVVlhlQd2e9M20/tyDOT7RgYAy
+ RAd7gpbn9wSEnjb1eiHfzDxK3tNkYvxAv9LDSXrpwnY/v1UvhqsBnKnDR
+ GYErMrGaZdRADnv9BUfzECzFwrlUElDm/W2X41pd1pOmgWMfC6yXaHHqv
+ PdtBeBeM7AMYZgXPkijTuSzje1gkq4OhgUsZtTsmmz5E+OIx+Pd1MzEfF
+ MKOuiEC19+IanzPtCRJK6xOrzCDYi3gM3bzf+XwmcRrM0ebse3PvZANaI
+ yJAlT3uD65BGHHfYP4+lFV4cJV0Imh3Fc8u9kTKifod8bDGb0Y85ohMvK g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10827"; a="375014959"
+X-IronPort-AV: E=Sophos;i="6.02,237,1688454000"; d="scan'208";a="375014959"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2023 05:34:23 -0700
+ 08 Sep 2023 05:34:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10827"; a="857381915"
-X-IronPort-AV: E=Sophos;i="6.02,237,1688454000"; d="scan'208";a="857381915"
+X-IronPort-AV: E=McAfee;i="6600,9927,10827"; a="857381935"
+X-IronPort-AV: E=Sophos;i="6.02,237,1688454000"; d="scan'208";a="857381935"
 Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.213.28.201])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2023 05:34:21 -0700
+ 08 Sep 2023 05:34:25 -0700
 From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 To: igt-dev@lists.freedesktop.org
-Date: Fri,  8 Sep 2023 14:32:36 +0200
-Message-ID: <20230908123233.137134-21-janusz.krzysztofik@linux.intel.com>
+Date: Fri,  8 Sep 2023 14:32:38 +0200
+Message-ID: <20230908123233.137134-23-janusz.krzysztofik@linux.intel.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230908123233.137134-19-janusz.krzysztofik@linux.intel.com>
 References: <20230908123233.137134-19-janusz.krzysztofik@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t v2 02/17] lib/kunit: Stop loading kunit
- module explicitly
+Subject: [Intel-gfx] [PATCH i-g-t v2 04/17] lib/kunit: Optimize calls to
+ igt_success/skip/fail()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,34 +65,57 @@ Cc: intel-gfx@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since kmod functions we use for module loading can process module
-dependencies, there is no need to load the "kunit" module explicitly
-before loading a kunit test module.  For the same reason we already don't
-unload the "kunit" module explicitly on cleanup.  Drop the unnecessary
-operation.
+Calling igt_success() explicitly at the end of subtest body is not needed.
+Other calls to igt_success() can be usually avoided by inverting test
+result checks.  Optimize the code that now calls igt_success().
+
+Moreover, using more advanced variants of igt_skip() and igt_fail() where
+applicable makes the code more compact.  Go for it.
 
 Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 ---
- lib/igt_kmod.c | 6 ------
- 1 file changed, 6 deletions(-)
+ lib/igt_kmod.c | 14 +++-----------
+ 1 file changed, 3 insertions(+), 11 deletions(-)
 
 diff --git a/lib/igt_kmod.c b/lib/igt_kmod.c
-index 97667a896f..faf31afabc 100644
+index 34ddec3fad..1d1cd51170 100644
 --- a/lib/igt_kmod.c
 +++ b/lib/igt_kmod.c
-@@ -789,12 +789,6 @@ static void __igt_kunit(const char *module_name, const char *opts)
- 		goto unload;
- 	}
+@@ -814,12 +814,8 @@ static void __igt_kunit(const char *module_name, const char *opts)
+ 		if (READ_ONCE(results->head) != NULL) {
+ 			pthread_mutex_lock(&results->mutex);
  
--	/* The KUnit module is required for running any KUnit tests */
--	ret = igt_kmod_load("kunit", NULL);
--	if (ret) {
--		skip = ret;
--		goto unload;
--	}
- 	ret = kmod_module_new_from_name(kmod_ctx(), "kunit", &kunit_kmod);
- 	if (ret) {
- 		igt_warn("Unable to load KUnit\n");
+-			igt_dynamic(results->head->test_name) {
+-				if (READ_ONCE(results->head->passed))
+-					igt_success();
+-				else
+-					igt_fail(IGT_EXIT_FAILURE);
+-			}
++			igt_dynamic(results->head->test_name)
++				igt_assert(READ_ONCE(results->head->passed));
+ 
+ 			temp = results->head;
+ 			results->head = results->head->next;
+@@ -834,8 +830,7 @@ unload:
+ 
+ 	igt_ktest_fini(&tst);
+ 
+-	if (skip)
+-		igt_skip("Skipping test, as probing KUnit module returned %d", skip);
++	igt_skip_on_f(skip, "Skipping test, as probing KUnit module failed\n");
+ 
+ 	if (fail)
+ 		igt_fail(IGT_EXIT_ABORT);
+@@ -844,9 +839,6 @@ unload:
+ 
+ 	if (ret != 0)
+ 		igt_fail(IGT_EXIT_ABORT);
+-
+-	if (ret == 0)
+-		igt_success();
+ }
+ 
+ void igt_kunit(const char *module_name, const char *name, const char *opts)
 -- 
 2.41.0
 
