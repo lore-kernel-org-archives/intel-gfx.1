@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87E5AEEB57B
-	for <intel-gfx@archiver.kernel.org>; Sat,  9 Sep 2023 01:16:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF81AEEB57A
+	for <intel-gfx@archiver.kernel.org>; Sat,  9 Sep 2023 01:16:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEA7810E153;
-	Sat,  9 Sep 2023 01:16:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4789110E24A;
+	Sat,  9 Sep 2023 01:16:35 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 534E210E0DB
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A476010E0DB
  for <intel-gfx@lists.freedesktop.org>; Sat,  9 Sep 2023 01:16:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1694222190; x=1725758190;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=h0jp84J+/G8jXh42Nw+TYN6EPEr+FSCbU51HfdsaSpo=;
- b=bA/2x/whBiYbwbp6cZp+HLFmoUM6x8GJwYCzQsjbfUlhT/wkmxelZmpJ
- hn+JJQbuvd3h8nH5i8eHsiU5ENljs3n++e7H92c+qG8z387IiPDAsN7zk
- RwmDJ5s+uS9oR81SvdGoekzPp43vOyH6DRFAvDut5EUxlz/LyzbUfCRmF
- jXe5qXrd4bsZhAYXvFpxwIpLs68pwBTB2+LbRaUNbJ92Jb7kL0Ej7wCpn
- jgIyJW+QfCAIf37pKOnr9XSVMaYBoJ4qqlYipPmfDls10fI73aS9lovjP
- oFOpobyxplcnJyYNG/wFpijqa7gA+RVWHAAj+W5PnnJ3sqLCrpZzBY9la g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10827"; a="441792745"
-X-IronPort-AV: E=Sophos;i="6.02,238,1688454000"; d="scan'208";a="441792745"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=pm9VQ7vKSeJHM0OblBpciqL0JoHjXzpxwBTYtBFTOUI=;
+ b=O9NdBzU25I5RZY415+Z4Q7eKc5nEp8c0utxB1AmQQrl1HQ8r3uPzRp8O
+ OayKR7LyiUifJsh2kn75ArHJQ6JOCEggSS6BuustlAe9OdVbFHde/uJru
+ SwRPsgwIYaUxnxjVqqWIwXlvyVe6PGy1qU5ooE6ekSTtk5aXYDvgebqEP
+ GmQp4xV++kYf9fBMZFT3yYFpnVHyKbHGYGdSsojSbAOa8fFpjfxC8nHE5
+ 7uPhAeItaMuJ66zvcLdXZ7+gAS0ltrQODHgcOvcqShj56MGEioljf+V7W
+ caScFQhO3ZgWB6aNOnvqID3HN5DrBgzkR6g0wTR5PIKs99gUMDrpSR7ge A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10827"; a="441792748"
+X-IronPort-AV: E=Sophos;i="6.02,238,1688454000"; d="scan'208";a="441792748"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Sep 2023 18:16:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10827"; a="719342287"
-X-IronPort-AV: E=Sophos;i="6.02,238,1688454000"; d="scan'208";a="719342287"
+X-IronPort-AV: E=McAfee;i="6600,9927,10827"; a="719342296"
+X-IronPort-AV: E=Sophos;i="6.02,238,1688454000"; d="scan'208";a="719342296"
 Received: from orsosgc001.jf.intel.com (HELO unerlige-ril.jf.intel.com)
  ([10.165.21.138])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  08 Sep 2023 18:16:29 -0700
 From: Ashutosh Dixit <ashutosh.dixit@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  8 Sep 2023 18:16:23 -0700
-Message-ID: <20230909011626.1643734-1-ashutosh.dixit@intel.com>
+Date: Fri,  8 Sep 2023 18:16:26 -0700
+Message-ID: <20230909011626.1643734-4-ashutosh.dixit@intel.com>
 X-Mailer: git-send-email 2.41.0
+In-Reply-To: <20230909011626.1643734-1-ashutosh.dixit@intel.com>
+References: <20230909011626.1643734-1-ashutosh.dixit@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/3] drm/i915/perf: A few fixes and enhancements
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915/perf: Initialize gen12 OA buffer
+ unconditionally
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,16 +62,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ashutosh Dixit (2):
-  drm/i915/perf: Subtract gtt_offset from hw_tail
-  drm/i915/perf: Remove gtt_offset from stream->oa_buffer.head/.tail
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 
-Umesh Nerlige Ramappa (1):
-  drm/i915/perf: Initialize gen12 OA buffer unconditionally
+Correct values for OAR counters are still dependent on enabling the
+GEN12_OAG_OACONTROL_OA_COUNTER_ENABLE in OAG_OACONTROL. Enabling this
+bit means OAG unit will write reports to the OAG buffer, so
+initialize the OAG buffer unconditionally for all use cases.
 
- drivers/gpu/drm/i915/i915_perf.c | 62 ++++++++++----------------------
- 1 file changed, 18 insertions(+), 44 deletions(-)
+BSpec: 46822
 
+Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+Signed-off-by: Ashutosh Dixit <ashutosh.dixit@intel.com>
+---
+ drivers/gpu/drm/i915/i915_perf.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
+index 1347e4ec9dd5a..30cf37d6e79be 100644
+--- a/drivers/gpu/drm/i915/i915_perf.c
++++ b/drivers/gpu/drm/i915/i915_perf.c
+@@ -3032,12 +3032,12 @@ static void gen12_oa_enable(struct i915_perf_stream *stream)
+ 	u32 val;
+ 
+ 	/*
+-	 * If we don't want OA reports from the OA buffer, then we don't even
+-	 * need to program the OAG unit.
++	 * BSpec: 46822
++	 * Correct values for OAR counters are still dependent on enabling the
++	 * GEN12_OAG_OACONTROL_OA_COUNTER_ENABLE in OAG_OACONTROL. Enabling this
++	 * bit means OAG unit will write reports to the OAG buffer, so
++	 * initialize the OAG buffer correctly.
+ 	 */
+-	if (!(stream->sample_flags & SAMPLE_OA_REPORT))
+-		return;
+-
+ 	gen12_init_oa_buffer(stream);
+ 
+ 	regs = __oa_regs(stream);
 -- 
 2.41.0
 
