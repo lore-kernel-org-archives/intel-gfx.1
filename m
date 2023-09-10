@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D84DBEEB57B
-	for <intel-gfx@archiver.kernel.org>; Sun, 10 Sep 2023 03:58:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89EC0EEB57D
+	for <intel-gfx@archiver.kernel.org>; Sun, 10 Sep 2023 03:59:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4EE110E0A0;
-	Sun, 10 Sep 2023 03:58:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F55110E0FC;
+	Sun, 10 Sep 2023 03:58:52 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C0CF10E075;
- Sun, 10 Sep 2023 03:58:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DACDD10E075;
+ Sun, 10 Sep 2023 03:58:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694318329; x=1725854329;
+ t=1694318328; x=1725854328;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=AefDBmB4tsmMpjWp05okuoGD+ZVs6gw0OKfYwGkno+k=;
- b=eSjF+TbxF2aozP9G5QFVpteTWaOR8Zla0thBWDd/v+SwymSOM5zCE/Bw
- rxDPK//I7TnBaEyx8TRFNzAXiPv55nymX30L2aVmqRZN4fNPBS9CaHbYh
- y9EQPCaaLP+eN40c4kS3g+75AdqiEXZ6aADbdgSK5M0HWKjDKP0sbmuMR
- eyW6LQU5bcRDBKxGr/njzXUrKkFtMxgfzTeHmNCU5ZNnOXzD2cLMuN0kT
- Edn019V9h58O8IJDGkeACCDMuk3rZOyJzBy3aiGR6oCRJvxA+kwGGIU5x
- cjJvHz/9tadvh9kZbf64ndRnS1QiBz9ZbyOQtAzwtyQIL5OG/fq70+bp7 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10827"; a="381684306"
-X-IronPort-AV: E=Sophos;i="6.02,241,1688454000"; d="scan'208";a="381684306"
+ bh=8kgE2vDd4envF6ybBIHG4KsloqsYw8n65ahuHXkC8AA=;
+ b=dX78x3rJlD+0IT55PdlSKy+MMoR6JQxQtrzRSgafPZKB0s9u7Lz4OPXs
+ KZGlFs5GbxYkA4re0VJzRNw8PnrPICisiTvsUITxYFDb+YKY6LOj7gUMI
+ SSt0KZbW1dEfjrL4Dl5haMD4nDsaA0uz44z7gkloOEm/pRVsi0sseOPsD
+ +4CzOKaaiHRhSXYmdYW60O7FXW+YZAxXpwBSU6NL6aFXgnJ7VICMLV0ak
+ Hmi+wu6D320ydRfpL38X3vsbMoj96VSwhftIMZVo1UQMLPs/vE3WtJ6eB
+ rvz5OkfhRi6ffP2BzqSksGRQH4iO5sWKwspQvVf890Ys16G0bmnIQOdyj g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10827"; a="381684300"
+X-IronPort-AV: E=Sophos;i="6.02,241,1688454000"; d="scan'208";a="381684300"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Sep 2023 20:58:49 -0700
+ 09 Sep 2023 20:58:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10827"; a="736377118"
-X-IronPort-AV: E=Sophos;i="6.02,241,1688454000"; d="scan'208";a="736377118"
+X-IronPort-AV: E=McAfee;i="6600,9927,10827"; a="736377110"
+X-IronPort-AV: E=Sophos;i="6.02,241,1688454000"; d="scan'208";a="736377110"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
  by orsmga007.jf.intel.com with ESMTP; 09 Sep 2023 20:58:48 -0700
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Sat,  9 Sep 2023 20:58:46 -0700
-Message-Id: <20230910035846.493766-4-alan.previn.teres.alexis@intel.com>
+Date: Sat,  9 Sep 2023 20:58:44 -0700
+Message-Id: <20230910035846.493766-2-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230910035846.493766-1-alan.previn.teres.alexis@intel.com>
 References: <20230910035846.493766-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 3/3] drm/i915/gt: Timeout when waiting for
- idle in suspending
+Subject: [Intel-gfx] [PATCH v3 1/3] drm/i915/guc: Flush context destruction
+ worker at suspend
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,134 +64,63 @@ Cc: , Alan Previn <alan.previn.teres.alexis@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When suspending, add a timeout when calling
-intel_gt_pm_wait_for_idle else if we have a lost
-G2H event that holds a wakeref (which would be
-indicative of a bug elsewhere in the driver),
-driver will at least complete the suspend-resume
-cycle, (albeit not hitting all the targets for
-low power hw counters), instead of hanging in the kernel.
+When suspending, flush the context-guc-id
+deregistration worker at the final stages of
+intel_gt_suspend_late when we finally call gt_sanitize
+that eventually leads down to __uc_sanitize so that
+the deregistration worker doesn't fire off later as
+we reset the GuC microcontroller.
 
 Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
 Tested-by: Mousumi Jana <mousumi.jana@intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c |  2 +-
- drivers/gpu/drm/i915/gt/intel_gt_pm.c     |  7 ++++++-
- drivers/gpu/drm/i915/gt/intel_gt_pm.h     |  7 ++++++-
- drivers/gpu/drm/i915/intel_wakeref.c      | 14 ++++++++++----
- drivers/gpu/drm/i915/intel_wakeref.h      |  6 ++++--
- 5 files changed, 27 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 5 +++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h | 2 ++
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c             | 2 ++
+ 3 files changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index dfb69fc977a0..4811f3be0332 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -688,7 +688,7 @@ void intel_engines_release(struct intel_gt *gt)
- 		if (!engine->release)
- 			continue;
- 
--		intel_wakeref_wait_for_idle(&engine->wakeref);
-+		intel_wakeref_wait_for_idle(&engine->wakeref, 0);
- 		GEM_BUG_ON(intel_engine_pm_is_awake(engine));
- 
- 		engine->release(engine);
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-index 5a942af0a14e..ca46aee72573 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
-@@ -289,6 +289,8 @@ int intel_gt_resume(struct intel_gt *gt)
- 
- static void wait_for_suspend(struct intel_gt *gt)
- {
-+	int timeout_ms = CONFIG_DRM_I915_MAX_REQUEST_BUSYWAIT ? : 10000;
-+
- 	if (!intel_gt_pm_is_awake(gt))
- 		return;
- 
-@@ -301,7 +303,10 @@ static void wait_for_suspend(struct intel_gt *gt)
- 		intel_gt_retire_requests(gt);
- 	}
- 
--	intel_gt_pm_wait_for_idle(gt);
-+	/* we are suspending, so we shouldn't be waiting forever */
-+	if (intel_gt_pm_wait_timeout_for_idle(gt, timeout_ms) == -ETIMEDOUT)
-+		gt_warn(gt, "bailing from %s after %d milisec timeout\n",
-+			__func__, timeout_ms);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index cabdc645fcdd..0ed44637bca0 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1578,6 +1578,11 @@ static void guc_flush_submissions(struct intel_guc *guc)
+ 	spin_unlock_irqrestore(&sched_engine->lock, flags);
  }
  
- void intel_gt_suspend_prepare(struct intel_gt *gt)
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.h b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-index 6c9a46452364..5358acc2b5b1 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.h
-@@ -68,7 +68,12 @@ static inline void intel_gt_pm_might_put(struct intel_gt *gt)
- 
- static inline int intel_gt_pm_wait_for_idle(struct intel_gt *gt)
- {
--	return intel_wakeref_wait_for_idle(&gt->wakeref);
-+	return intel_wakeref_wait_for_idle(&gt->wakeref, 0);
++void intel_guc_submission_flush_work(struct intel_guc *guc)
++{
++	flush_work(&guc->submission_state.destroyed_worker);
 +}
 +
-+static inline int intel_gt_pm_wait_timeout_for_idle(struct intel_gt *gt, int timeout_ms)
-+{
-+	return intel_wakeref_wait_for_idle(&gt->wakeref, timeout_ms);
- }
+ static void guc_flush_destroyed_contexts(struct intel_guc *guc);
  
- void intel_gt_pm_init_early(struct intel_gt *gt);
-diff --git a/drivers/gpu/drm/i915/intel_wakeref.c b/drivers/gpu/drm/i915/intel_wakeref.c
-index 718f2f1b6174..383a37521415 100644
---- a/drivers/gpu/drm/i915/intel_wakeref.c
-+++ b/drivers/gpu/drm/i915/intel_wakeref.c
-@@ -111,14 +111,20 @@ void __intel_wakeref_init(struct intel_wakeref *wf,
- 			 "wakeref.work", &key->work, 0);
- }
+ void intel_guc_submission_reset_prepare(struct intel_guc *guc)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
+index c57b29cdb1a6..b6df75622d3b 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.h
+@@ -38,6 +38,8 @@ int intel_guc_wait_for_pending_msg(struct intel_guc *guc,
+ 				   bool interruptible,
+ 				   long timeout);
  
--int intel_wakeref_wait_for_idle(struct intel_wakeref *wf)
-+int intel_wakeref_wait_for_idle(struct intel_wakeref *wf, int timeout_ms)
- {
--	int err;
-+	int err = 0;
- 
- 	might_sleep();
- 
--	err = wait_var_event_killable(&wf->wakeref,
--				      !intel_wakeref_is_active(wf));
-+	if (!timeout_ms)
-+		err = wait_var_event_killable(&wf->wakeref,
-+					      !intel_wakeref_is_active(wf));
-+	else if (wait_var_event_timeout(&wf->wakeref,
-+					!intel_wakeref_is_active(wf),
-+					msecs_to_jiffies(timeout_ms)) < 1)
-+		err = -ETIMEDOUT;
++void intel_guc_submission_flush_work(struct intel_guc *guc);
 +
- 	if (err)
- 		return err;
+ static inline bool intel_guc_submission_is_supported(struct intel_guc *guc)
+ {
+ 	return guc->submission_supported;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+index 98b103375b7a..eb3554cb5ea4 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+@@ -693,6 +693,8 @@ void intel_uc_suspend(struct intel_uc *uc)
+ 		return;
+ 	}
  
-diff --git a/drivers/gpu/drm/i915/intel_wakeref.h b/drivers/gpu/drm/i915/intel_wakeref.h
-index ec881b097368..302694a780d2 100644
---- a/drivers/gpu/drm/i915/intel_wakeref.h
-+++ b/drivers/gpu/drm/i915/intel_wakeref.h
-@@ -251,15 +251,17 @@ __intel_wakeref_defer_park(struct intel_wakeref *wf)
- /**
-  * intel_wakeref_wait_for_idle: Wait until the wakeref is idle
-  * @wf: the wakeref
-+ * @timeout_ms: Timeout in ms, 0 means never timeout.
-  *
-  * Wait for the earlier asynchronous release of the wakeref. Note
-  * this will wait for any third party as well, so make sure you only wait
-  * when you have control over the wakeref and trust no one else is acquiring
-  * it.
-  *
-- * Return: 0 on success, error code if killed.
-+ * Returns 0 on success, -ETIMEDOUT upon a timeout, or the unlikely
-+ * error propagation from wait_var_event_killable if timeout_ms is 0.
-  */
--int intel_wakeref_wait_for_idle(struct intel_wakeref *wf);
-+int intel_wakeref_wait_for_idle(struct intel_wakeref *wf, int timeout_ms);
- 
- struct intel_wakeref_auto {
- 	struct drm_i915_private *i915;
++	intel_guc_submission_flush_work(guc);
++
+ 	with_intel_runtime_pm(&uc_to_gt(uc)->i915->runtime_pm, wakeref) {
+ 		err = intel_guc_suspend(guc);
+ 		if (err)
 -- 
 2.39.0
 
