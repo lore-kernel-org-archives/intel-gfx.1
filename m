@@ -4,47 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB11CEE801F
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 05:11:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADCB1EE7FF4
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 05:43:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C99910E13C;
-	Mon, 11 Sep 2023 05:11:43 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C97610E059
- for <intel-gfx@lists.freedesktop.org>; Mon, 11 Sep 2023 05:11:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694409096; x=1725945096;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=ezSl3Z0zNEQUEwuaHjbGhz1AmS6NTTWlhTzpK4GcztY=;
- b=Q0q57VOBsZcqhD0G+p3x0oKBs5H3X0Wm6j+eWMUbmJv5l4JDEOLV6WvS
- BNcx++914e3jK1OQJupykb9S/Wu1CfVHRV7+IooXu95BH0bDpfnCTXary
- mft5FXQ9G/jXGAL/dwEPyWsvNR2EJ3tAOgesrlhxerHjQXQz6UHfNrJsf
- nTP6MWA6uZdoDJsI7REX5E1oyaWNzMfKiJx6q/B0UQqIrBe2i8hrRztKj
- fhOtoq6V7QEvFm4/ACEhqTX7Iif70N9fMGWy7x/18Wxn5rOpCMyv+TJrX
- bxhx845qR2KDXrmTvkW0NGD7oy48tr+v3Y0sF2jo2IXFjrBlTUJReQnrH A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10829"; a="377911991"
-X-IronPort-AV: E=Sophos;i="6.02,243,1688454000"; d="scan'208";a="377911991"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2023 22:11:35 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10829"; a="808692867"
-X-IronPort-AV: E=Sophos;i="6.02,243,1688454000"; d="scan'208";a="808692867"
-Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by fmsmga008.fm.intel.com with ESMTP; 10 Sep 2023 22:11:18 -0700
-From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 11 Sep 2023 10:35:45 +0530
-Message-Id: <20230911050549.763538-5-mitulkumar.ajitkumar.golani@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230911050549.763538-1-mitulkumar.ajitkumar.golani@intel.com>
-References: <20230911050549.763538-1-mitulkumar.ajitkumar.golani@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E183910E104;
+	Mon, 11 Sep 2023 05:43:38 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C836810E030;
+ Mon, 11 Sep 2023 05:43:36 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id BEC26AADF4;
+ Mon, 11 Sep 2023 05:43:36 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/8] drm/i915/audio : Consider fractional vdsc
- bpp while computing tu_data
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+Date: Mon, 11 Sep 2023 05:43:36 -0000
+Message-ID: <169441101675.31367.1315751483179935456@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230911050549.763538-1-mitulkumar.ajitkumar.golani@intel.com>
+In-Reply-To: <20230911050549.763538-1-mitulkumar.ajitkumar.golani@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_Add_DSC_fractional_bpp_support_=28rev5=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,70 +40,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+== Series Details ==
 
-MTL+ supports fractional compressed bits_per_pixel, with precision of
-1/16. This compressed bpp is stored in U6.4 format.
-Accommodate the precision during calculation of transfer unit data
-for hblank_early calculation.
+Series: Add DSC fractional bpp support (rev5)
+URL   : https://patchwork.freedesktop.org/series/111391/
+State : warning
 
-v2:
--Fixed tu_data calculation while dealing with U6.4 format. (Stan)
+== Summary ==
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_audio.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+Error: dim checkpatch failed
+212219eebdff drm/display/dp: Add helper function to get DSC bpp prescision
+8ca519027e97 drm/i915/display: Store compressed bpp in U6.4 format
+-:273: WARNING:LONG_LINE: line length of 108 exceeds 100 columns
+#273: FILE: drivers/gpu/drm/i915/display/intel_dp_mst.c:256:
++							     to_bpp_int(crtc_state->dsc.compressed_bpp_x16),
 
-diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
-index aa93ccd6c2aa..cfbaa7006905 100644
---- a/drivers/gpu/drm/i915/display/intel_audio.c
-+++ b/drivers/gpu/drm/i915/display/intel_audio.c
-@@ -521,14 +521,14 @@ static unsigned int calc_hblank_early_prog(struct intel_encoder *encoder,
- 	unsigned int link_clks_available, link_clks_required;
- 	unsigned int tu_data, tu_line, link_clks_active;
- 	unsigned int h_active, h_total, hblank_delta, pixel_clk;
--	unsigned int fec_coeff, cdclk, vdsc_bpp;
-+	unsigned int fec_coeff, cdclk, vdsc_bppx16;
- 	unsigned int link_clk, lanes;
- 	unsigned int hblank_rise;
- 
- 	h_active = crtc_state->hw.adjusted_mode.crtc_hdisplay;
- 	h_total = crtc_state->hw.adjusted_mode.crtc_htotal;
- 	pixel_clk = crtc_state->hw.adjusted_mode.crtc_clock;
--	vdsc_bpp = to_bpp_int(crtc_state->dsc.compressed_bpp_x16);
-+	vdsc_bppx16 = crtc_state->dsc.compressed_bpp_x16;
- 	cdclk = i915->display.cdclk.hw.cdclk;
- 	/* fec= 0.972261, using rounding multiplier of 1000000 */
- 	fec_coeff = 972261;
-@@ -536,10 +536,10 @@ static unsigned int calc_hblank_early_prog(struct intel_encoder *encoder,
- 	lanes = crtc_state->lane_count;
- 
- 	drm_dbg_kms(&i915->drm, "h_active = %u link_clk = %u :"
--		    "lanes = %u vdsc_bpp = %u cdclk = %u\n",
--		    h_active, link_clk, lanes, vdsc_bpp, cdclk);
-+		    "lanes = %u vdsc_bppx16 = %u cdclk = %u\n",
-+		    h_active, link_clk, lanes, vdsc_bppx16, cdclk);
- 
--	if (WARN_ON(!link_clk || !pixel_clk || !lanes || !vdsc_bpp || !cdclk))
-+	if (WARN_ON(!link_clk || !pixel_clk || !lanes || !vdsc_bppx16 || !cdclk))
- 		return 0;
- 
- 	link_clks_available = (h_total - h_active) * link_clk / pixel_clk - 28;
-@@ -551,8 +551,8 @@ static unsigned int calc_hblank_early_prog(struct intel_encoder *encoder,
- 		hblank_delta = DIV64_U64_ROUND_UP(mul_u32_u32(5 * (link_clk + cdclk), pixel_clk),
- 						  mul_u32_u32(link_clk, cdclk));
- 
--	tu_data = div64_u64(mul_u32_u32(pixel_clk * vdsc_bpp * 8, 1000000),
--			    mul_u32_u32(link_clk * lanes, fec_coeff));
-+	tu_data = div64_u64(mul_u32_u32(pixel_clk * vdsc_bppx16 * 8, 1000000),
-+			    mul_u32_u32(link_clk * lanes * 16, fec_coeff));
- 	tu_line = div64_u64(h_active * mul_u32_u32(link_clk, fec_coeff),
- 			    mul_u32_u32(64 * pixel_clk, 1000000));
- 	link_clks_active  = (tu_line - 1) * 64 + tu_data;
--- 
-2.25.1
+-:274: WARNING:LONG_LINE: line length of 108 exceeds 100 columns
+#274: FILE: drivers/gpu/drm/i915/display/intel_dp_mst.c:257:
++							     to_bpp_int(crtc_state->dsc.compressed_bpp_x16),
+
+total: 0 errors, 2 warnings, 0 checks, 229 lines checked
+1f6e8b3da485 drm/i915/display: Consider fractional vdsc bpp while computing m_n values
+8e22f6b5fd3d drm/i915/audio : Consider fractional vdsc bpp while computing tu_data
+63d0e6f944c3 drm/i915/dsc/mtl: Add support for fractional bpp
+87d13694719f drm/i915/dp: Iterate over output bpp with fractional step size
+4e1c6710e89f drm/i915/dsc: Add debugfs entry to validate DSC fractional bpp
+afa236fc4570 drm/i915/dsc: Allow DSC only with fractional bpp when forced from debugfs
+
 
