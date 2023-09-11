@@ -4,65 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA37ECA0EC3
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 23:09:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1723CA0EC6
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 23:35:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AAA110E366;
-	Mon, 11 Sep 2023 23:09:16 +0000 (UTC)
-Received: from mail-il1-x12a.google.com (mail-il1-x12a.google.com
- [IPv6:2607:f8b0:4864:20::12a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A29910E386;
- Mon, 11 Sep 2023 23:09:08 +0000 (UTC)
-Received: by mail-il1-x12a.google.com with SMTP id
- e9e14a558f8ab-34e202a9cc9so16177695ab.2; 
- Mon, 11 Sep 2023 16:09:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1694473747; x=1695078547; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=fcAgeVHnxNNRvfl+2uM1osGvKKovW40vicb6K15Ndz8=;
- b=TBYxvL53lrbTQlbD91jrU7s3DAe/qQQFuCn4qGpSMhj8ybNLmeIB2dnD/3ikrCP3if
- TkjGxtWYi3797cSKdus5LJqiD2Pbac/VtptsoHKmTcRZccYD0NzpnqSEjSyoYVWJcs1v
- 7iau6VUwIyTnfpH1vy63nPcQhpsUWe+6bdLQ5QEod3rkG8fYOWEvmT4QSmkm4dCdhT9E
- XXRsw5MjQkVeIbPNBGMfxMyt9v19xkbc1HczXqSykOH1u+yKYVlDqtA/pccxHp3VnWyc
- aKMtT4/FgYpsVEHrRvpN3L/RkFr2KhEb98jYbGWgx2F7MzREoAyHp+3xJIQLu4MW1hGx
- plCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694473747; x=1695078547;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=fcAgeVHnxNNRvfl+2uM1osGvKKovW40vicb6K15Ndz8=;
- b=We7+ZTVSWT0A3sDREuCIimU+Ixe8JwpdOz2OWI3Utq3fpjRhMdMlhQBKeCshvojWIj
- 3rlE5Bo8AGPECjl0yPpbwTpPiF6X5IwKxCKjdjVUPrxwLYrbDDHpymnBxs/1YMYEjf4z
- ZMCK3xpiBwcMEhHCiDx+sQDFl57nDwS7UclfBC9nJsMTTl5sNKmMw7Jt3zb6f5Bb9jSu
- tJU3uPcKbZv6D4NP4Jjy6Bi8KQnzppc4qVWkhpg5ieRUbQNhewuhcN+zZLgwcwNbMLs0
- RGF8FbuHvC9k/oLXcZ3p3dD7OFVI2m7Cs9oZqgjkfILvEDKZCifs7xfN3ZQCawDiQpvF
- sghQ==
-X-Gm-Message-State: AOJu0Yw5+J4Db3nQJw6oKHrLWbpgjZXaOmv1shIAibflTtldN87pPjgB
- XjfjDiI71Rhj4aD9NT/2Kgs=
-X-Google-Smtp-Source: AGHT+IGm8XJJjgEBdcXS6iFzgL2wU9gzTG524paxkBRkx7pWMbgnsFowJbau/w+sUivI5RVDg02BfA==
-X-Received: by 2002:a05:6e02:1a85:b0:34f:49cb:40a9 with SMTP id
- k5-20020a056e021a8500b0034f49cb40a9mr12781961ilv.4.1694473747663; 
- Mon, 11 Sep 2023 16:09:07 -0700 (PDT)
-Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
- by smtp.googlemail.com with ESMTPSA id
- z4-20020a029f04000000b00423240c7296sm2512607jal.69.2023.09.11.16.09.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Sep 2023 16:09:07 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: jbaron@akamai.com, gregkh@linuxfoundation.org, mcgrof@kernel.org,
- daniel.vetter@ffwll.ch
-Date: Mon, 11 Sep 2023 17:08:36 -0600
-Message-ID: <20230911230838.14461-21-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230911230838.14461-1-jim.cromie@gmail.com>
-References: <20230911230838.14461-1-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AC3510E1EA;
+	Mon, 11 Sep 2023 23:35:37 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 70D8110E1EA;
+ Mon, 11 Sep 2023 23:35:35 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 6BBF4AADDA;
+ Mon, 11 Sep 2023 23:35:35 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 20/22] drm: restore
- CONFIG_DRM_USE_DYNAMIC_DEBUG un-BROKEN
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jim Cromie" <jim.cromie@gmail.com>
+Date: Mon, 11 Sep 2023 23:35:35 -0000
+Message-ID: <169447533541.31369.8596976179384212643@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230911230838.14461-1-jim.cromie@gmail.com>
+In-Reply-To: <20230911230838.14461-1-jim.cromie@gmail.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBm?=
+ =?utf-8?q?ix_DRM=5FUSE=5FDYNAMIC=5FDEBUG_regression?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,38 +40,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-doc@vger.kernel.org, jani.nikula@intel.com,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Jim Cromie <jim.cromie@gmail.com>,
- seanpaul@chromium.org, dri-devel@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Lots of burn-in testing needed before signing, upstreaming.
+== Series Details ==
 
-NOTE: I set default Y to maximize testing by default.
-Is there a better way to do this ?
+Series: fix DRM_USE_DYNAMIC_DEBUG regression
+URL   : https://patchwork.freedesktop.org/series/123572/
+State : failure
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/gpu/drm/Kconfig | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index afb3b2f5f425..27bbb03e84dd 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -52,8 +52,7 @@ config DRM_DEBUG_MM
- 
- config DRM_USE_DYNAMIC_DEBUG
- 	bool "use dynamic debug to implement drm.debug"
--	default n
--	depends on BROKEN
-+	default y
- 	depends on DRM
- 	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
- 	depends on JUMP_LABEL
--- 
-2.41.0
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/123572/revisions/1/mbox/ not applied
+Applying: test-dyndbg: fixup CLASSMAP usage error
+Applying: dyndbg: make ddebug_class_param union members same size
+Applying: dyndbg: replace classmap list with a vector
+Applying: dyndbg: ddebug_apply_class_bitmap - add module arg, select on it
+Applying: dyndbg: split param_set_dyndbg_classes to module/wrapper fns
+Applying: dyndbg: drop NUM_TYPE_ARRAY
+Applying: dyndbg: reduce verbose/debug clutter
+Applying: dyndbg: silence debugs with no-change updates
+Applying: dyndbg: tighten ddebug_class_name() 1st arg type
+Applying: dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
+Applying: dyndbg-API: remove DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
+Applying: dyndbg-API: fix CONFIG_DRM_USE_DYNAMIC_DEBUG regression
+error: sha1 information is lacking or useless (lib/dynamic_debug.c).
+error: could not build fake ancestor
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0012 dyndbg-API: fix CONFIG_DRM_USE_DYNAMIC_DEBUG regression
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+Build failed, no error log produced
+
 
