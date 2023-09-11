@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EF5DEE57DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 12:33:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5859CEE7FF4
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 Sep 2023 12:34:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94D5C10E1A3;
-	Mon, 11 Sep 2023 12:33:12 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0303510E1A3
- for <intel-gfx@lists.freedesktop.org>; Mon, 11 Sep 2023 12:33:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694435590; x=1725971590;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=qpXCf/oywScWFpOuJNbSqgWjdaASxDQKm9PAmd/CdMY=;
- b=g7TSDnUxA8zjrTfVnCI9eFG1GooxtZa732Ha8xxpv6hZPqWz4ALQZmzU
- Q3DvpgHpM4m512gVIs4dJD+zLG9lxj0NeyS95eHuez/RQ7ADPVSlYtT2t
- JLxHclBzrwIuSQiPIjkFFXYFbK7aYu6HPoqIAWxEZ7zFLZUUhx5cqAimP
- 8ZsrwJI3m0FMBYjf6jFZKkJ6R0JB5BeFfvbAY0gMcNW9sz3La71ytdRUH
- csH49yduaoIU8uqa9wAzFF8LCGVIma8LD3uoC2GBcp48gbw+HWUKlgCzG
- 5niWIPmn22rPnHkpLVyZ+LyUAOHpSklF7U9Bh72ej+cGQpl2DarwvOs3S w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="444485672"
-X-IronPort-AV: E=Sophos;i="6.02,244,1688454000"; d="scan'208";a="444485672"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2023 05:33:09 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="719972032"
-X-IronPort-AV: E=Sophos;i="6.02,244,1688454000"; d="scan'208";a="719972032"
-Received: from kschuele-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.63.119])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2023 05:33:08 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 11 Sep 2023 15:33:05 +0300
-Message-Id: <20230911123305.1682554-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCB3B10E1A3;
+	Mon, 11 Sep 2023 12:34:24 +0000 (UTC)
+Received: from mslow1.mail.gandi.net (mslow1.mail.gandi.net [217.70.178.240])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BCCD10E128
+ for <intel-gfx@lists.freedesktop.org>; Mon, 11 Sep 2023 07:50:43 +0000 (UTC)
+Received: from relay9-d.mail.gandi.net (unknown [IPv6:2001:4b98:dc4:8::229])
+ by mslow1.mail.gandi.net (Postfix) with ESMTP id 9B86CCDE9A
+ for <intel-gfx@lists.freedesktop.org>; Mon, 11 Sep 2023 07:42:43 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 36C64FF804;
+ Mon, 11 Sep 2023 07:42:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1694418158;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=xIpV2c0DDqubgpsw65ctLWF4dneEjKQtJ62BTRMBd/M=;
+ b=nKHM6xpBmr0Fv13Fl3ZLqkkTx+umlwJZFnFUjJxEMpyBV3jH2DGh2cUg/5GeXPzB9d7tVf
+ PaDvgOo/lqtv6lJ2CcsKmTxnK491pvne/OzcTZoT2r5ZBiBB8oDslzGMjGs8R+Pu30KP/W
+ ajFlNhe1iKdSabEhxvCQ2oWxx/tzUGqTfLmNjdWILUVSBtRlP/wV/3cXOU9AyzIflR/pzX
+ 5MYK2K0tZCbbthK+wRJNDwyfigxLrIyH0Rkrv9ibxzcp6hsNwwpmwl4APpmgjv2O0bSS5f
+ 7LEVo7yqrGat4q5IFArQDxFt0rqg/VAN6tm5jmf7RrpeVbjdpL2oRWrceU20Sw==
+Date: Mon, 11 Sep 2023 09:42:33 +0200
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Alexander Usyskin <alexander.usyskin@intel.com>
+Message-ID: <20230911094233.326fd936@xps-13>
+In-Reply-To: <20230910123949.1251964-1-alexander.usyskin@intel.com>
+References: <20230910123949.1251964-1-alexander.usyskin@intel.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/gt: rename DBG() to GTT_TRACE()
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-GND-Sasl: miquel.raynal@bootlin.com
+X-Mailman-Approved-At: Mon, 11 Sep 2023 12:34:22 +0000
+Subject: Re: [Intel-gfx] [PATCH 00/10] drm/i915/spi: spi access for discrete
+ graphics
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,118 +56,79 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Cc: Vignesh Raghavendra <vigneshr@ti.com>, Richard Weinberger <richard@nod.at>,
+ intel-gfx@lists.freedesktop.org, Michael Walle <michael@walle.cc>,
+ linux-spi@vger.kernel.org, Tudor Ambarus <tudor.ambarus@linaro.org>,
+ Mark Brown <broonie@kernel.org>, linux-mtd@lists.infradead.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Vitaly Lubart <vitaly.lubart@intel.com>,
+ Pratyush Yadav <pratyush@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_gtt.h is indirectly included absolutely everywhere in the
-driver. DBG() is too short a name. Rename it GTT_TRACE() after
-GEM_TRACE().
+Hi Alexander,
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c | 36 ++++++++++++++--------------
- drivers/gpu/drm/i915/gt/intel_gtt.h  |  4 ++--
- 2 files changed, 20 insertions(+), 20 deletions(-)
++ Mark Brown + spi list
++ spi-nor maintainers
 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-index c8568e5d1147..9895e18df043 100644
---- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-@@ -242,9 +242,9 @@ static u64 __gen8_ppgtt_clear(struct i915_address_space * const vm,
- 	GEM_BUG_ON(end > vm->total >> GEN8_PTE_SHIFT);
- 
- 	len = gen8_pd_range(start, end, lvl--, &idx);
--	DBG("%s(%p):{ lvl:%d, start:%llx, end:%llx, idx:%d, len:%d, used:%d }\n",
--	    __func__, vm, lvl + 1, start, end,
--	    idx, len, atomic_read(px_used(pd)));
-+	GTT_TRACE("%s(%p):{ lvl:%d, start:%llx, end:%llx, idx:%d, len:%d, used:%d }\n",
-+		  __func__, vm, lvl + 1, start, end,
-+		  idx, len, atomic_read(px_used(pd)));
- 	GEM_BUG_ON(!len || len >= atomic_read(px_used(pd)));
- 
- 	do {
-@@ -252,8 +252,8 @@ static u64 __gen8_ppgtt_clear(struct i915_address_space * const vm,
- 
- 		if (atomic_fetch_inc(&pt->used) >> gen8_pd_shift(1) &&
- 		    gen8_pd_contains(start, end, lvl)) {
--			DBG("%s(%p):{ lvl:%d, idx:%d, start:%llx, end:%llx } removing pd\n",
--			    __func__, vm, lvl + 1, idx, start, end);
-+			GTT_TRACE("%s(%p):{ lvl:%d, idx:%d, start:%llx, end:%llx } removing pd\n",
-+				  __func__, vm, lvl + 1, idx, start, end);
- 			clear_pd_entry(pd, idx, scratch);
- 			__gen8_ppgtt_cleanup(vm, as_pd(pt), I915_PDES, lvl);
- 			start += (u64)I915_PDES << gen8_pd_shift(lvl);
-@@ -270,10 +270,10 @@ static u64 __gen8_ppgtt_clear(struct i915_address_space * const vm,
- 			u64 *vaddr;
- 
- 			count = gen8_pt_count(start, end);
--			DBG("%s(%p):{ lvl:%d, start:%llx, end:%llx, idx:%d, len:%d, used:%d } removing pte\n",
--			    __func__, vm, lvl, start, end,
--			    gen8_pd_index(start, 0), count,
--			    atomic_read(&pt->used));
-+			GTT_TRACE("%s(%p):{ lvl:%d, start:%llx, end:%llx, idx:%d, len:%d, used:%d } removing pte\n",
-+				  __func__, vm, lvl, start, end,
-+				  gen8_pd_index(start, 0), count,
-+				  atomic_read(&pt->used));
- 			GEM_BUG_ON(!count || count >= atomic_read(&pt->used));
- 
- 			num_ptes = count;
-@@ -325,9 +325,9 @@ static void __gen8_ppgtt_alloc(struct i915_address_space * const vm,
- 	GEM_BUG_ON(end > vm->total >> GEN8_PTE_SHIFT);
- 
- 	len = gen8_pd_range(*start, end, lvl--, &idx);
--	DBG("%s(%p):{ lvl:%d, start:%llx, end:%llx, idx:%d, len:%d, used:%d }\n",
--	    __func__, vm, lvl + 1, *start, end,
--	    idx, len, atomic_read(px_used(pd)));
-+	GTT_TRACE("%s(%p):{ lvl:%d, start:%llx, end:%llx, idx:%d, len:%d, used:%d }\n",
-+		  __func__, vm, lvl + 1, *start, end,
-+		  idx, len, atomic_read(px_used(pd)));
- 	GEM_BUG_ON(!len || (idx + len - 1) >> gen8_pd_shift(1));
- 
- 	spin_lock(&pd->lock);
-@@ -338,8 +338,8 @@ static void __gen8_ppgtt_alloc(struct i915_address_space * const vm,
- 		if (!pt) {
- 			spin_unlock(&pd->lock);
- 
--			DBG("%s(%p):{ lvl:%d, idx:%d } allocating new tree\n",
--			    __func__, vm, lvl + 1, idx);
-+			GTT_TRACE("%s(%p):{ lvl:%d, idx:%d } allocating new tree\n",
-+				  __func__, vm, lvl + 1, idx);
- 
- 			pt = stash->pt[!!lvl];
- 			__i915_gem_object_pin_pages(pt->base);
-@@ -369,10 +369,10 @@ static void __gen8_ppgtt_alloc(struct i915_address_space * const vm,
- 		} else {
- 			unsigned int count = gen8_pt_count(*start, end);
- 
--			DBG("%s(%p):{ lvl:%d, start:%llx, end:%llx, idx:%d, len:%d, used:%d } inserting pte\n",
--			    __func__, vm, lvl, *start, end,
--			    gen8_pd_index(*start, 0), count,
--			    atomic_read(&pt->used));
-+			GTT_TRACE("%s(%p):{ lvl:%d, start:%llx, end:%llx, idx:%d, len:%d, used:%d } inserting pte\n",
-+				  __func__, vm, lvl, *start, end,
-+				  gen8_pd_index(*start, 0), count,
-+				  atomic_read(&pt->used));
- 
- 			atomic_add(count, &pt->used);
- 			/* All other pdes may be simultaneously removed */
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index 4d6296cdbcfd..346ec8ec2edd 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -35,9 +35,9 @@
- #define I915_GFP_ALLOW_FAIL (GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN)
- 
- #if IS_ENABLED(CONFIG_DRM_I915_TRACE_GTT)
--#define DBG(...) trace_printk(__VA_ARGS__)
-+#define GTT_TRACE(...) trace_printk(__VA_ARGS__)
- #else
--#define DBG(...)
-+#define GTT_TRACE(...)
- #endif
- 
- #define NALLOC 3 /* 1 normal, 1 for concurrent threads, 1 for preallocation */
--- 
-2.39.2
+alexander.usyskin@intel.com wrote on Sun, 10 Sep 2023 15:39:39 +0300:
 
+> Add driver for access to the discrete graphics card
+> internal SPI device.
+> Expose device on auxiliary bus and provide driver to register
+> this device with MTD framework.
+
+Maybe you can explain why you think auxiliary bus is relevant here? The
+cover letter might maybe be a bit more verbose to give us more context?
+
+I've looked at the series, it looks like you try to expose a spi
+memory connected to a spi controller on your hardware. We usually
+expect the spi controller driver to register in the spi core and
+provide spi-mem operations for that.
+
+I don't know if this memory is supposed to be used as general purpose,
+but if it's not I would advise to use some kind of firmware mechanism
+instead. Also, what is the purpose of exposing this content in this
+case?
+
+Well, I'm partially convinced here, I would like to hear from the other
+maintainers, maybe your choices are legitimate and I'm off topic.
+
+Thanks,
+Miqu=C3=A8l
+
+> This series is intended to be upstreamed through drm tree.
+>
+> Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
+>=20
+>=20
+> Alexander Usyskin (3):
+>   drm/i915/spi: align 64bit read and write
+>   drm/i915/spi: wake card on operations
+>   drm/i915/spi: add support for access mode
+>=20
+> Jani Nikula (1):
+>   drm/i915/spi: add spi device for discrete graphics
+>=20
+> Tomas Winkler (6):
+>   drm/i915/spi: add intel_spi_region map
+>   drm/i915/spi: add driver for on-die spi device
+>   drm/i915/spi: implement region enumeration
+>   drm/i915/spi: implement spi access functions
+>   drm/i915/spi: spi register with mtd
+>   drm/i915/spi: mtd: implement access handlers
+>=20
+>  drivers/gpu/drm/i915/Kconfig             |   1 +
+>  drivers/gpu/drm/i915/Makefile            |   6 +
+>  drivers/gpu/drm/i915/i915_driver.c       |   7 +
+>  drivers/gpu/drm/i915/i915_drv.h          |   4 +
+>  drivers/gpu/drm/i915/i915_reg.h          |   1 +
+>  drivers/gpu/drm/i915/spi/intel_spi.c     | 101 +++
+>  drivers/gpu/drm/i915/spi/intel_spi.h     |  33 +
+>  drivers/gpu/drm/i915/spi/intel_spi_drv.c | 865 +++++++++++++++++++++++
+>  8 files changed, 1018 insertions(+)
+>  create mode 100644 drivers/gpu/drm/i915/spi/intel_spi.c
+>  create mode 100644 drivers/gpu/drm/i915/spi/intel_spi.h
+>  create mode 100644 drivers/gpu/drm/i915/spi/intel_spi_drv.c
+
+Thanks,
+Miqu=C3=A8l
