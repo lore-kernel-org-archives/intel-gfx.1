@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14163CA0ECA
-	for <intel-gfx@archiver.kernel.org>; Tue, 12 Sep 2023 12:06:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9EAECA0EC3
+	for <intel-gfx@archiver.kernel.org>; Tue, 12 Sep 2023 12:14:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98B3F10E412;
-	Tue, 12 Sep 2023 12:06:24 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85FBE10E417
- for <intel-gfx@lists.freedesktop.org>; Tue, 12 Sep 2023 12:06:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694520382; x=1726056382;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=COqZKJGX16JvILVLXX8XbI+6oKS/91J9v4iyTOphBK0=;
- b=fkaZIOCdSlSjeDGZ7hyp98v+eFp6aXKXiyBKw6AJ8LiCK8/tRRjYCnmQ
- mGPq7ml+Vy90pf47Ctn4tPOm29BpH1Jqk/iOt/0KcWmqiNLi/6TR83kzh
- Z/TfhES7BNjKxv+bunRJrfGgwwQa1Ra7Um39NFZBepIkbgqO0u+MgBkrs
- JVOxzlKA1kURS1nqTJ6/vlRWX8ezVq9ukO5xcXGkrwYAPFaYval7FFoGK
- Y5YkgXnEQiGXfNtf6JhxuuwV+x8HxCdaxfIJHKqQpP/KdImdZ2XIrbFDL
- BoyBLwA0seHsWsxcDBPGaxSiE1vwdPy2QRaNWX+Xvyjyl/gSq17MjNX2s A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="378266478"
-X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="378266478"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2023 05:05:44 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="720390728"
-X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="720390728"
-Received: from kscholl-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.63.206])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2023 05:05:41 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 12 Sep 2023 15:05:35 +0300
-Message-Id: <20230912120537.2158209-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89EA710E232;
+	Tue, 12 Sep 2023 12:14:39 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5493F10E232
+ for <intel-gfx@lists.freedesktop.org>; Tue, 12 Sep 2023 12:14:37 +0000 (UTC)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BF61060D29;
+ Tue, 12 Sep 2023 12:14:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B434C433C7;
+ Tue, 12 Sep 2023 12:14:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1694520876;
+ bh=XkmC7wK5Cc/UAqB4TBuSfa6MYKHMEOm7EQvizmgqOAw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=cVwai/lZtzmhpP30W6mex7F/Nfm+WrGAkueHjspW5LDRArScWMNMZNn7+V7ykhMPg
+ 1dPtNAnZDtVQV7TFxILZ1H0MsBUDZzciBv16NI4o1jkOHRJYlNN5YzH4DXBUL2pGj3
+ 9lMPgpMUaCrciKUL9lebhyyKD8MGIiVaZQl89YdtCSSYwx/xNIH+lMffDRucHZUD/W
+ pzkqcFfKpXgKxTO6WZeDkCNLVkQmTKqe+zS9U/t6cw3xkLaRaghx39pf72eIcLAMaU
+ v/k3JZohIaLYH7wns1+pqiVKHteNrHhhD/OeA/fkbmntvx9g9whmguxwYSw6Q82rud
+ 05XGxDZtr2rQw==
+Date: Tue, 12 Sep 2023 13:14:29 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Usyskin, Alexander" <alexander.usyskin@intel.com>
+Message-ID: <0d60a78b-0305-4cb3-babe-4eefe5001b29@sirena.org.uk>
+References: <20230910123949.1251964-1-alexander.usyskin@intel.com>
+ <20230911094233.326fd936@xps-13>
+ <CY5PR11MB63667FBB6AF5B4331419BDAAEDF1A@CY5PR11MB6366.namprd11.prod.outlook.com>
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/3] drm/i915: move more of the display probe to
- display code
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="uKDrHREIXSOB633X"
+Content-Disposition: inline
+In-Reply-To: <CY5PR11MB63667FBB6AF5B4331419BDAAEDF1A@CY5PR11MB6366.namprd11.prod.outlook.com>
+X-Cookie: Victory uber allies!
+Subject: Re: [Intel-gfx] [PATCH 00/10] drm/i915/spi: spi access for discrete
+ graphics
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,110 +57,46 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com, Matt Roper <matthew.d.roper@intel.com>
+Cc: Vignesh Raghavendra <vigneshr@ti.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Richard Weinberger <richard@nod.at>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ Michael Walle <michael@walle.cc>,
+ "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>,
+ "linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>, "Vivi,
+ Rodrigo" <rodrigo.vivi@intel.com>, "Lubart, Vitaly" <vitaly.lubart@intel.com>,
+ Pratyush Yadav <pratyush@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Initializing i915->display.info.__device_info and DISPLAY_RUNTIME_INFO()
-really belongs in display code. Move them there.
 
-Cc: Matt Roper <matthew.d.roper@intel.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- .../drm/i915/display/intel_display_device.c   | 24 ++++++++++++++++---
- .../drm/i915/display/intel_display_device.h   |  4 +---
- drivers/gpu/drm/i915/intel_device_info.c      | 14 +----------
- 3 files changed, 23 insertions(+), 19 deletions(-)
+--uKDrHREIXSOB633X
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
-index c39f8a15d8aa..ed564566e31b 100644
---- a/drivers/gpu/drm/i915/display/intel_display_device.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_device.c
-@@ -850,9 +850,9 @@ probe_gmdid_display(struct drm_i915_private *i915, u16 *ver, u16 *rel, u16 *step
- 	return &no_display;
- }
- 
--const struct intel_display_device_info *
--intel_display_device_probe(struct drm_i915_private *i915, bool has_gmdid,
--			   u16 *gmdid_ver, u16 *gmdid_rel, u16 *gmdid_step)
-+static const struct intel_display_device_info *
-+probe_display(struct drm_i915_private *i915, bool has_gmdid,
-+	      u16 *gmdid_ver, u16 *gmdid_rel, u16 *gmdid_step)
- {
- 	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
- 	int i;
-@@ -876,6 +876,24 @@ intel_display_device_probe(struct drm_i915_private *i915, bool has_gmdid,
- 	return &no_display;
- }
- 
-+void intel_display_device_probe(struct drm_i915_private *i915)
-+{
-+	u16 ver, rel, step;
-+
-+	/* Probe display support */
-+	i915->display.info.__device_info = probe_display(i915, HAS_GMD_ID(i915),
-+							 &ver, &rel, &step);
-+	memcpy(DISPLAY_RUNTIME_INFO(i915),
-+	       &DISPLAY_INFO(i915)->__runtime_defaults,
-+	       sizeof(*DISPLAY_RUNTIME_INFO(i915)));
-+
-+	if (HAS_GMD_ID(i915)) {
-+		DISPLAY_RUNTIME_INFO(i915)->ip.ver = ver;
-+		DISPLAY_RUNTIME_INFO(i915)->ip.rel = rel;
-+		DISPLAY_RUNTIME_INFO(i915)->ip.step = step;
-+	}
-+}
-+
- void intel_display_device_info_runtime_init(struct drm_i915_private *i915)
- {
- 	struct intel_display_runtime_info *display_runtime = DISPLAY_RUNTIME_INFO(i915);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_device.h b/drivers/gpu/drm/i915/display/intel_display_device.h
-index 8198401aa5be..a7b6469b43a6 100644
---- a/drivers/gpu/drm/i915/display/intel_display_device.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_device.h
-@@ -149,9 +149,7 @@ struct intel_display_device_info {
- 	} color;
- };
- 
--const struct intel_display_device_info *
--intel_display_device_probe(struct drm_i915_private *i915, bool has_gmdid,
--			   u16 *ver, u16 *rel, u16 *step);
-+void intel_display_device_probe(struct drm_i915_private *i915);
- void intel_display_device_info_runtime_init(struct drm_i915_private *i915);
- 
- void intel_display_device_info_print(const struct intel_display_device_info *info,
-diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index 9dfa680a4c62..b9b8b22540cb 100644
---- a/drivers/gpu/drm/i915/intel_device_info.c
-+++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -410,7 +410,6 @@ void intel_device_info_driver_create(struct drm_i915_private *i915,
- 				     const struct intel_device_info *match_info)
- {
- 	struct intel_runtime_info *runtime;
--	u16 ver, rel, step;
- 
- 	/* Setup INTEL_INFO() */
- 	i915->__info = match_info;
-@@ -419,18 +418,7 @@ void intel_device_info_driver_create(struct drm_i915_private *i915,
- 	runtime = RUNTIME_INFO(i915);
- 	memcpy(runtime, &INTEL_INFO(i915)->__runtime, sizeof(*runtime));
- 
--	/* Probe display support */
--	i915->display.info.__device_info = intel_display_device_probe(i915, HAS_GMD_ID(i915),
--								      &ver, &rel, &step);
--	memcpy(DISPLAY_RUNTIME_INFO(i915),
--	       &DISPLAY_INFO(i915)->__runtime_defaults,
--	       sizeof(*DISPLAY_RUNTIME_INFO(i915)));
--
--	if (HAS_GMD_ID(i915)) {
--		DISPLAY_RUNTIME_INFO(i915)->ip.ver = ver;
--		DISPLAY_RUNTIME_INFO(i915)->ip.rel = rel;
--		DISPLAY_RUNTIME_INFO(i915)->ip.step = step;
--	}
-+	intel_display_device_probe(i915);
- 
- 	runtime->device_id = device_id;
- }
--- 
-2.39.2
+On Tue, Sep 12, 2023 at 10:50:22AM +0000, Usyskin, Alexander wrote:
 
+> The spi controller on discreet graphics card is not visible to user-space.
+> Spi access flows are supported by another hardware module and relevant registers are
+> available on graphics device memory bar.
+
+No SPI controllers are directly visible to userspace, some SPI devices
+are selectively exposed but that needs to be explicitly requested and is
+generally discouraged.
+
+--uKDrHREIXSOB633X
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUAViIACgkQJNaLcl1U
+h9BBwQf9HEhBAYTf1p6rEEjFlaLKxvrdg4ZwS0HnCh7FR7EL1va8yFb1PT8hrn3e
+e8q3vfqaz1J5L8wUITwS9oyKzKiwfwwDCxXipW9y0+TSjhFEme5/ravNtEvpXN+M
+2hqbmCjp53gDQiz5KKj6F4XsfSHrmLrmCQ+4/qfj1CigXHnxOWuqKJ35tX9y+oDA
+4tngywE43hiLIPNTrVFnocrYzviXWoAMpKjESJiXaD/uRQrLUyOi5cLKb9BJgBaG
+PqETDDh+9R+G3Rvaa8vrr3UqbU0NxZtm/7FPKW1eTUm7/ferGcyMn2LCUH2G1jdj
+u69lmZ5Yhy0LiLVvrL3Ol49IzrUkdQ==
+=/F96
+-----END PGP SIGNATURE-----
+
+--uKDrHREIXSOB633X--
