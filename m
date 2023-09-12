@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A047CA0EC9
-	for <intel-gfx@archiver.kernel.org>; Tue, 12 Sep 2023 04:49:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28563CA0ECA
+	for <intel-gfx@archiver.kernel.org>; Tue, 12 Sep 2023 04:49:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75BDA10E350;
-	Tue, 12 Sep 2023 04:49:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCA7910E396;
+	Tue, 12 Sep 2023 04:49:07 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6596010E36D;
- Tue, 12 Sep 2023 04:48:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADDF010E38D;
+ Tue, 12 Sep 2023 04:48:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694494116; x=1726030116;
+ t=1694494118; x=1726030118;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=wMhognfuhmnzyC+G0kAy+YIuiBEM/O/I11llUTHQ71c=;
- b=QTW0qq5+QOoh3EcMUJ296lgwC3x59dHQV9Y4+qd+TC0PVODQiGlqW62Y
- /UwRqkjjJZN+zW4N919TmiH3btc94hDZquujNa5ve/MM0IAUwIEC3YCW1
- t3R+x0wNM/5RGmU8oLl5p5QD7JddunckqK1XaUNpJVDz3o3MY8viz24fh
- /CpU2fWAcBIJBJ4Aq3XH7c/d+mbjUfl48F243EbDK9leVMXW1xPoK6KMD
- 75F/gJVzBLv2XGiMHFO7tWcPQ6u2t6Y1DccwWDz9zOl9ULAMGaXGGwHqB
- baG1bI4Asr5cnjZ2Kq9RsAs0GawlV+OVwAym2IKk/fg4MXKA58PYxa4xV A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="378182338"
-X-IronPort-AV: E=Sophos;i="6.02,245,1688454000"; d="scan'208";a="378182338"
+ bh=AssikX67Dy4A+aoEXSq9fSPghpAPBhmX4ysYH4Tib8A=;
+ b=Aij17jj5rs8wPO0n5977n1lxmGUfJWWXBZ6yz3VXHYZuqYy82G9KWfh0
+ YaVgoTFgVgXfFKDC0M0sfai7aBE+Omt5+z8sU/FkXDmJsS3JO8C1Mpj5f
+ pOqKfWSLTiNeKEcesNJkz85Y6lfRMZrhohGm7675H4sxR05BwGZbqH3im
+ THnRSDSUc7nFM3C3CejEV+Bd8f4OLTFD7hP1LqWNVftUEls5MZb+Hm3k6
+ IFk5MUvTcdgDBui5xgR1eh19flCrLnh09igbp9XzpkBI3lDlCWAkW91kz
+ mR0i7hBfZRg7ARX9cdLeNx61W/wAS8VfJZcpYbkUgDfFSrWtAgnaivX4H w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="378182350"
+X-IronPort-AV: E=Sophos;i="6.02,245,1688454000"; d="scan'208";a="378182350"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2023 21:48:36 -0700
+ 11 Sep 2023 21:48:38 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="1074419968"
-X-IronPort-AV: E=Sophos;i="6.02,245,1688454000"; d="scan'208";a="1074419968"
+X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="1074419995"
+X-IronPort-AV: E=Sophos;i="6.02,245,1688454000"; d="scan'208";a="1074419995"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2023 21:48:35 -0700
+ 11 Sep 2023 21:48:38 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Mon, 11 Sep 2023 21:48:28 -0700
-Message-Id: <20230912044837.1672060-21-lucas.demarchi@intel.com>
+Date: Mon, 11 Sep 2023 21:48:37 -0700
+Message-Id: <20230912044837.1672060-30-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230912044837.1672060-1-lucas.demarchi@intel.com>
 References: <20230912044837.1672060-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 20/29] drm/i915/xe2lpd: Enable odd size and
- panning for planar yuv
+Subject: [Intel-gfx] [PATCH v3 29/29] drm/i915/xe2lpd: Update mbus on post
+ plane updates
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,42 +59,59 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Juha-Pekka=20Heikkil=C3=A4?= <juha-pekka.heikkila@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Juha-Pekka Heikkilä <juha-pekka.heikkila@intel.com>
+From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
-Enable odd size and panning for planar yuv formats.
+According to BSpec we need to write the MBUS CTL and DBUF CTL both for
+increasing CDCLK case (pre plane) and for decreasing CDCLK case (post
+plane). Make sure those updates are in place for Xe2-LPD.
 
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>
-Signed-off-by: Juha-Pekka Heikkilä <juha-pekka.heikkila@intel.com>
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Since the mbus update is not only on pre-enable anymore, also rename the
+function accordingly.
+
+Cc: Mika Kahola <mika.kahola@intel.com>
+Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Mika Kahola <mika.kahola@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_atomic_plane.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/i915/display/skl_watermark.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-index d7a0bd686e49..b1074350616c 100644
---- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
-@@ -981,6 +981,14 @@ int intel_plane_check_src_coordinates(struct intel_plane_state *plane_state)
- 	if (fb->format->format == DRM_FORMAT_RGB565 && rotated) {
- 		hsub = 2;
- 		vsub = 2;
-+	} else if (DISPLAY_VER(i915) >= 20 &&
-+		   intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier)) {
-+		/*
-+		 * This allows NV12 and P0xx formats to have odd size and/or odd
-+		 * source coordinates on DISPLAY_VER(i915) >= 20
-+		 */
-+		hsub = 1;
-+		vsub = 1;
- 	} else {
- 		hsub = fb->format->hsub;
- 		vsub = fb->format->vsub;
+diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
+index 1fefb02876c8..955a8fb7ba19 100644
+--- a/drivers/gpu/drm/i915/display/skl_watermark.c
++++ b/drivers/gpu/drm/i915/display/skl_watermark.c
+@@ -3486,7 +3486,7 @@ static int get_mbus_mdclk_cdclk_ratio(struct drm_i915_private *i915,
+  * Configure MBUS_CTL and all DBUF_CTL_S of each slice to join_mbus state before
+  * update the request state of all DBUS slices.
+  */
+-static void update_mbus_pre_enable(struct intel_atomic_state *state)
++static void update_mbus(struct intel_atomic_state *state)
+ {
+ 	struct drm_i915_private *i915 = to_i915(state->base.dev);
+ 	u32 mbus_ctl, dbuf_min_tracker_val;
+@@ -3545,7 +3545,7 @@ void intel_dbuf_pre_plane_update(struct intel_atomic_state *state)
+ 
+ 	WARN_ON(!new_dbuf_state->base.changed);
+ 
+-	update_mbus_pre_enable(state);
++	update_mbus(state);
+ 	gen9_dbuf_slices_update(i915,
+ 				old_dbuf_state->enabled_slices |
+ 				new_dbuf_state->enabled_slices);
+@@ -3567,6 +3567,9 @@ void intel_dbuf_post_plane_update(struct intel_atomic_state *state)
+ 
+ 	WARN_ON(!new_dbuf_state->base.changed);
+ 
++	if (DISPLAY_VER(i915) >= 20)
++		update_mbus(state);
++
+ 	gen9_dbuf_slices_update(i915,
+ 				new_dbuf_state->enabled_slices);
+ }
 -- 
 2.40.1
 
