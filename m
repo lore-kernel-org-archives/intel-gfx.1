@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFE4FCA0EC3
-	for <intel-gfx@archiver.kernel.org>; Tue, 12 Sep 2023 13:37:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10484CA0EEC
+	for <intel-gfx@archiver.kernel.org>; Tue, 12 Sep 2023 14:30:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3496610E040;
-	Tue, 12 Sep 2023 13:37:05 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3997710E040
- for <intel-gfx@lists.freedesktop.org>; Tue, 12 Sep 2023 13:37:03 +0000 (UTC)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 93CCB610E8;
- Tue, 12 Sep 2023 13:37:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 046EDC433C7;
- Tue, 12 Sep 2023 13:36:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1694525822;
- bh=wYJ8yKp7ajfNaJDIcAw7/RR8MBJtt232urChN4s3j4Y=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=INT9NgEkljBpOIgEmZBC7z4jC0vurEx2ZraXAr8zyISwMkv0cmbtSAW/6KTC9s8kM
- 0HAs0wg1JQaHS0t40xhMmBBFHgHXnidlpMQNhM6shALUq98LkQ1ORt+iPZtHeH7bM8
- odwrpsuS3pqvJ8tAMDBeatrI4VVH7ks2qU1d+3R3bSEnW6hOJ/JPTZX6IiLN+LS+vE
- wYw1jEtTmcLaQLCvTyFvaYOSWSGB6ADoklo+O8gGvl1lBlAn+LGhXQJO848OZXEu9Z
- +XYcWB78Ns9yvfFH2FXD+mqB64LaJbkTU7aEIAKoGBK4tN5jrmo/BFTDdiQ8wip6u1
- JjyOex+qcxerg==
-Date: Tue, 12 Sep 2023 14:36:54 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Message-ID: <ee4a85be-aa87-4c40-916c-0a796688ad6f@sirena.org.uk>
-References: <20230910123949.1251964-1-alexander.usyskin@intel.com>
- <20230911094233.326fd936@xps-13>
- <CY5PR11MB63667FBB6AF5B4331419BDAAEDF1A@CY5PR11MB6366.namprd11.prod.outlook.com>
- <0d60a78b-0305-4cb3-babe-4eefe5001b29@sirena.org.uk>
- <CY5PR11MB63667AB9958A23970B4B0D3EEDF1A@CY5PR11MB6366.namprd11.prod.outlook.com>
- <20230912152102.0dfe7558@xps-13>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E27310E422;
+	Tue, 12 Sep 2023 14:30:16 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48AEF10E41C
+ for <intel-gfx@lists.freedesktop.org>; Tue, 12 Sep 2023 14:30:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1694529014; x=1726065014;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=gzwHTOZPveKkOJbmUsr5uSRTMUYpEhelNTSMqbP6FgE=;
+ b=lR/bGVmWzK0RBuYc9g5B+lY3dbNPNeSSF8M7Fkht+BRGWdXnihCfKSCX
+ 1DZmgDThpA2ieentEYfajSb9znXpKKHd6xeVqpIHys39kKY9ud9wN6pla
+ OnAsZJzsKDGLuqVMyDS0+k0cXhpRxwebNldJCC5Oq8TTrILXUJZMi+n90
+ FImszdJaT6cz6wSxE55i10OIzjgOkztnxJPrN5scYXVpAUEfD2dqjFp2T
+ PiYKQE/L3ZrMXJdme+b9DGOAed+rKNWVINvI1fgw/EYFDTY7+OmWjB2Ng
+ lFeYp5pULVB3xXIhRiL+ZSkwv35agYgevrlfge0HlGDd84f9HnKohfcN2 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="409343851"
+X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="409343851"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2023 07:30:12 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="886951483"
+X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="886951483"
+Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2023 07:29:45 -0700
+From: Jonathan Cavitt <jonathan.cavitt@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 12 Sep 2023 07:19:29 -0700
+Message-Id: <20230912141931.1803917-2-jonathan.cavitt@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230912141931.1803917-1-jonathan.cavitt@intel.com>
+References: <20230912141931.1803917-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="+a3x98bDpQ9nV2FW"
-Content-Disposition: inline
-In-Reply-To: <20230912152102.0dfe7558@xps-13>
-X-Cookie: Victory uber allies!
-Subject: Re: [Intel-gfx] [PATCH 00/10] drm/i915/spi: spi access for discrete
- graphics
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v9 1/3] drm/i915: Reserve some kernel space per
+ vm
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,54 +58,59 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Vignesh Raghavendra <vigneshr@ti.com>, Richard Weinberger <richard@nod.at>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "Usyskin,
- Alexander" <alexander.usyskin@intel.com>, Michael Walle <michael@walle.cc>,
- "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>,
- "linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>, "Vivi,
- Rodrigo" <rodrigo.vivi@intel.com>, "Lubart, Vitaly" <vitaly.lubart@intel.com>,
- Pratyush Yadav <pratyush@kernel.org>
+Cc: andi.shyti@intel.com, chris.p.wilson@linux.intel.com,
+ tomasz.mistat@intel.com, jonathan.cavitt@intel.com, rodrigo.vivi@intel.com,
+ gregory.f.germano@intel.com, matthew.d.roper@intel.com, nirmoy.das@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Reserve a page in each vm for kernel space to use for things
+such as workarounds.
 
---+a3x98bDpQ9nV2FW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Suggested-by: Chris Wilson <chris.p.wilson@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c | 7 +++++++
+ drivers/gpu/drm/i915/gt/intel_gtt.h  | 1 +
+ 2 files changed, 8 insertions(+)
 
-On Tue, Sep 12, 2023 at 03:21:02PM +0200, Miquel Raynal wrote:
-> alexander.usyskin@intel.com wrote on Tue, 12 Sep 2023 13:15:58 +0000:
+diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+index 9895e18df0435..1a85858c55639 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+@@ -230,6 +230,7 @@ static void gen8_ppgtt_cleanup(struct i915_address_space *vm)
+ 				     gen8_pd_top_count(vm), vm->top);
+ 
+ 	free_scratch(vm);
++	drm_mm_remove_node(&vm->rsvd);
+ }
+ 
+ static u64 __gen8_ppgtt_clear(struct i915_address_space * const vm,
+@@ -1011,6 +1012,12 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt,
+ 	ppgtt->vm.foreach = gen8_ppgtt_foreach;
+ 	ppgtt->vm.cleanup = gen8_ppgtt_cleanup;
+ 
++	ppgtt->vm.rsvd.start = ppgtt->vm.total - SZ_4K;
++	ppgtt->vm.rsvd.size = SZ_4K;
++	ppgtt->vm.rsvd.color = I915_COLOR_UNEVICTABLE;
++	GEM_BUG_ON(drm_mm_reserve_node(&ppgtt->vm.mm, &ppgtt->vm.rsvd));
++	ppgtt->vm.total -= SZ_4K;
++
+ 	err = gen8_init_scratch(&ppgtt->vm);
+ 	if (err)
+ 		goto err_put;
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
+index 346ec8ec2edda..ab38a158fc715 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
+@@ -246,6 +246,7 @@ struct i915_address_space {
+ 	struct work_struct release_work;
+ 
+ 	struct drm_mm mm;
++	struct drm_mm_node rsvd;
+ 	struct intel_gt *gt;
+ 	struct drm_i915_private *i915;
+ 	struct device *dma;
+-- 
+2.25.1
 
-> > > No SPI controllers are directly visible to userspace, some SPI devices
-> > > are selectively exposed but that needs to be explicitly requested and=
- is
-> > > generally discouraged. =20
-
-> > What are the options here? Explicitly request exception is the one.
-> > Any other way to add access to flash memory connected in such way?
-
-> Register a spi controller with at least spi-mem ops, as suggested
-> previously, is the standard way I guess. If you're not willing to do
-> so, it must be justified, I guess?
-
-Right, we already have a way of describing flash chips so that should be
-used to describe any flash chips.
-
---+a3x98bDpQ9nV2FW
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmUAaXIACgkQJNaLcl1U
-h9CtlQf/ecZXfTuYSyrp160gqtjUDltFUZ1D+eyXQQzPBrVS5xcbfjG6vAY5AIDf
-Mi9qaTxAr9RbQ4EGfFT8TmiYbehg11PgPWhbTRhyJKyUfFVcZ5ntLtlsRlG3PMzS
-7xlh/V6Xd0pSkawDpw/ebglHJt2Wt4ubMDkFYd6c9LhAJdcNPsuD8uG8+YSn2+Ze
-V0j0cOsj/5kBwn2dcRT3PMbuwQ4OW4cPXlzZ3QYfz4cXdVjkKVe+CArF+/27+lC9
-GhYIqznR59b4BIA11gXAfW02slKJ6Ot8oKRdS65ugv1vjF+AtDPS3lBMdTcZ+NzI
-kgjSYoJHFM4/OX1br5DKalrItZdLfw==
-=lE4O
------END PGP SIGNATURE-----
-
---+a3x98bDpQ9nV2FW--
