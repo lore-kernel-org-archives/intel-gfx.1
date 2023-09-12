@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42C46CA0ED3
-	for <intel-gfx@archiver.kernel.org>; Tue, 12 Sep 2023 11:07:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 176A7CA0EC3
+	for <intel-gfx@archiver.kernel.org>; Tue, 12 Sep 2023 11:08:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A60610E3FE;
-	Tue, 12 Sep 2023 11:07:43 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9070310E3FE;
- Tue, 12 Sep 2023 11:07:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7394010E401;
+	Tue, 12 Sep 2023 11:08:07 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 597AF10E401;
+ Tue, 12 Sep 2023 11:08:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694516860; x=1726052860;
+ t=1694516886; x=1726052886;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=eR6U3wGrUl9y3C/W8ue69z+jLpseWEDAt7uM6TWxig4=;
- b=Jr4Hqt7/BzVTlMJgzWkEJSxqgW0MtcQMnbuOSFSdMm0I+MWTxEzDECH8
- Pz3aBJwspVJWgt7JvFcYIzokOxsarKVl4SaLRXd2msOswYvwon1V2KtNr
- T/ed/4ruDj4/hgBUnUQvZwCf4LTK5zGM9Elq9H3np2ShHhD8P+SJv5ucf
- 14W0Vwmt2mkQ2OFLSS47yHwCRaTjgJ59Mt3bpphdtjSal/CPnNOre/qfa
- qsWLJTMUdjOhgzYm8UIxCiEPoXcQYVi5QzTUuB/iAeVQBovr1lEscq8o5
- uPCorbuOWWvO8WgvIKF8IpVwf30DRS7xGzGy5Fc/C2LJs6Gi3DgykZBCk w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="375671481"
-X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="375671481"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2023 04:07:29 -0700
+ bh=kY6B/GS+/qj8YYnxQ5H5gwfoRUVrD29brphio3IGgUE=;
+ b=epZznVKM+SSsh2uSuTfzGBxwUbxC/+aVa3KLGhM9+0C/JSHNpeOmRXLU
+ MGtHxIEIYBJh7xq8gpi2UZc2UBZIcFD1st6WVeJhex2aqKlaiJvhjek2i
+ cmVICH92uJ6AoBbrCkwKi9akCb3zCu3MqOyuERLbpFHERQIKEPn8S+FSa
+ sHfjrFLSvVvkQ6Rw7hOd1tkGHHqDnRK5suwGNShAJhU8gti7G4h25Cxpk
+ mV5S0KIRCJ1zfWrBHB0ps5MTamshXpyrOXSP+41F/TIhjzQs56GBMPqf8
+ P06dxKzg4BKM7zp9vxfCO8LsmXaxrIOTrpkOELLQ2aHgJRxfxufYx7nwV w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="442358488"
+X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="442358488"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2023 04:08:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="809200624"
-X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="809200624"
+X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="737090718"
+X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="737090718"
 Received: from kscholl-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.63.206])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2023 04:07:24 -0700
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2023 04:08:03 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 12 Sep 2023 14:06:34 +0300
-Message-Id: <02de0089de58c9fb19b6b56121f6c917f51b4561.1694514689.git.jani.nikula@intel.com>
+Date: Tue, 12 Sep 2023 14:06:43 +0300
+Message-Id: <d43b27742297083b37d52222c4bb72b062ef4967.1694514689.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1694514689.git.jani.nikula@intel.com>
 References: <cover.1694514689.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/19] drm/i915/display: add I915 conditional
- build to intel_pch_display.h
+Subject: [Intel-gfx] [PATCH 16/19] drm/i915/display: add I915 conditional
+ build to intel_dvo.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,79 +68,26 @@ Add stubs for !I915.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- .../gpu/drm/i915/display/intel_pch_display.h  | 53 +++++++++++++++++++
- 1 file changed, 53 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dvo.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_pch_display.h b/drivers/gpu/drm/i915/display/intel_pch_display.h
-index 41a63413cb3d..35f8288af3d1 100644
---- a/drivers/gpu/drm/i915/display/intel_pch_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_pch_display.h
-@@ -15,6 +15,7 @@ struct intel_crtc;
- struct intel_crtc_state;
- struct intel_link_m_n;
+diff --git a/drivers/gpu/drm/i915/display/intel_dvo.h b/drivers/gpu/drm/i915/display/intel_dvo.h
+index 3ed0fdf8efff..bf7a356422ab 100644
+--- a/drivers/gpu/drm/i915/display/intel_dvo.h
++++ b/drivers/gpu/drm/i915/display/intel_dvo.h
+@@ -8,6 +8,12 @@
+ 
+ struct drm_i915_private;
  
 +#ifdef I915
- bool intel_has_pch_trancoder(struct drm_i915_private *i915,
- 			     enum pipe pch_transcoder);
- enum pipe intel_crtc_pch_transcoder(struct intel_crtc *crtc);
-@@ -41,5 +42,57 @@ void intel_pch_transcoder_get_m2_n2(struct intel_crtc *crtc,
- 				    struct intel_link_m_n *m_n);
- 
- void intel_pch_sanitize(struct drm_i915_private *i915);
+ void intel_dvo_init(struct drm_i915_private *dev_priv);
 +#else
-+static inline bool intel_has_pch_trancoder(struct drm_i915_private *i915,
-+					   enum pipe pch_transcoder)
-+{
-+	return false;
-+}
-+static inline int intel_crtc_pch_transcoder(struct intel_crtc *crtc)
-+{
-+	return 0;
-+}
-+static inline void ilk_pch_pre_enable(struct intel_atomic_state *state,
-+				      struct intel_crtc *crtc)
-+{
-+}
-+static inline void ilk_pch_enable(struct intel_atomic_state *state,
-+				  struct intel_crtc *crtc)
-+{
-+}
-+static inline void ilk_pch_disable(struct intel_atomic_state *state,
-+				   struct intel_crtc *crtc)
-+{
-+}
-+static inline void ilk_pch_post_disable(struct intel_atomic_state *state,
-+					struct intel_crtc *crtc)
-+{
-+}
-+static inline void ilk_pch_get_config(struct intel_crtc_state *crtc_state)
-+{
-+}
-+static inline void lpt_pch_enable(struct intel_atomic_state *state,
-+				  struct intel_crtc *crtc)
-+{
-+}
-+static inline void lpt_pch_disable(struct intel_atomic_state *state,
-+				   struct intel_crtc *crtc)
-+{
-+}
-+static inline void lpt_pch_get_config(struct intel_crtc_state *crtc_state)
-+{
-+}
-+static inline void intel_pch_transcoder_get_m1_n1(struct intel_crtc *crtc,
-+						  struct intel_link_m_n *m_n)
-+{
-+}
-+static inline void intel_pch_transcoder_get_m2_n2(struct intel_crtc *crtc,
-+						  struct intel_link_m_n *m_n)
-+{
-+}
-+static inline void intel_pch_sanitize(struct drm_i915_private *i915)
++static inline void intel_dvo_init(struct drm_i915_private *dev_priv)
 +{
 +}
 +#endif
  
- #endif
+ #endif /* __INTEL_DVO_H__ */
 -- 
 2.39.2
 
