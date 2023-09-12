@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A64E4CA0EC3
-	for <intel-gfx@archiver.kernel.org>; Tue, 12 Sep 2023 04:49:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54D22CA0ED6
+	for <intel-gfx@archiver.kernel.org>; Tue, 12 Sep 2023 04:49:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 860D110E33B;
-	Tue, 12 Sep 2023 04:48:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1626110E3B4;
+	Tue, 12 Sep 2023 04:49:00 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A16F10E379;
- Tue, 12 Sep 2023 04:48:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9581D10E33B;
+ Tue, 12 Sep 2023 04:48:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694494118; x=1726030118;
+ t=1694494115; x=1726030115;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Hx9uMjBCHkv4DU1LudMc+8Je66UcI/8zjxRe6kSqqtk=;
- b=AQqksahhz64OEpZms9sJa2pxg88SORdMQHcoyq5Rre4urJ03ApKKDhFN
- D56DpB1/B3xNQ057x+a9g/Hlynp93AEC4hPBvyZLR0IWcZEExEzVIZ6eB
- 1LL+A9De2kl0uojBu17N+milJ7SnLxgewBWkVXNUmCjKR5fxKCmEvb8lv
- gqTzeQFk56eR5ZCH6dOc2uuDW2PXIsx0dDXWolgcErFsIhTxwJWJTXxeZ
- ylFFRvk9o8+e6Zu3uQ4FjKBpHOrWC7PZMgMF1lIZkgtzd2PJuK8eA+BV4
- tZYQRDnRBNOSf0u7b8jdlpSK+LcUjGN0mCqLeixubcFwuLhTh9ZFDPBls A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="378182347"
-X-IronPort-AV: E=Sophos;i="6.02,245,1688454000"; d="scan'208";a="378182347"
+ bh=eZfF+JjU9u9bZ94i85fxKrUQv6RTcJI6hya+KDj9lWs=;
+ b=B+FyxTCA/vIiDjbvx8gMgT4tYiRsICefbaNfs1CBI/AEVuAy9zz+PAph
+ j2NvZzYHSU/sThjc+5rGiNDL+ODPlchBtSs6kB0iai6grNxKKjUL/CmkI
+ uAoPJqeIGiA5fzwoPtm8/KjRdF0sEvQEuJ2aFf5WSPF4bdkq42Rj7X132
+ N6bLG2VXEob72pRVe119Epcc5Z1oVEVLVZ1p9zM7SBxp3PxPTq4diL0JU
+ a7jcmZucT4V6vg8DGepwDZancKzjGuALmqechSGrAskuCZCRVZyvbX8bp
+ 9g8ofReDlCZOyjarQ/HxoWWtchK/1uGbZ7auoNpdWW86pAW3x+8EkWocq Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="378182333"
+X-IronPort-AV: E=Sophos;i="6.02,245,1688454000"; d="scan'208";a="378182333"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2023 21:48:38 -0700
+ 11 Sep 2023 21:48:35 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="1074419989"
-X-IronPort-AV: E=Sophos;i="6.02,245,1688454000"; d="scan'208";a="1074419989"
+X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="1074419959"
+X-IronPort-AV: E=Sophos;i="6.02,245,1688454000"; d="scan'208";a="1074419959"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2023 21:48:37 -0700
+ 11 Sep 2023 21:48:35 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Mon, 11 Sep 2023 21:48:35 -0700
-Message-Id: <20230912044837.1672060-28-lucas.demarchi@intel.com>
+Date: Mon, 11 Sep 2023 21:48:25 -0700
+Message-Id: <20230912044837.1672060-18-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230912044837.1672060-1-lucas.demarchi@intel.com>
 References: <20230912044837.1672060-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 27/29] drm/i915/lnl: Add programming for
- CDCLK change
+Subject: [Intel-gfx] [PATCH v3 17/29] drm/i915/xe2lpd: Add DC state support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,100 +58,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matt Roper <matthew.d.roper@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
+From: Matt Roper <matthew.d.roper@intel.com>
 
-Add programming sequence for changes on CDCLK for Lunar Lake
-platforms. It's mostly the same as MTL, but with some
-additional programming for the squash and crawling steps when
-a change in mdclk/cdclk ratio is observed.
+Xe2_LPD supports DC5, DC6, and DC9 (DC3CO no longer exists).  The
+overall programming and requirements to enter DC states are similar to
+those of Xe_LPD+ although AUX transactions do not require DC5/DC6 exit
+as they did previously.
 
-v2: Remove wrong changes for bxt_cdclk_cd2x_pipe() (Matt Roper)
-v3: Reword commit message and flatten if/else ladder (Matt Roper)
-
-BSpec: 68864
-Signed-off-by: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
+Bspec: 68851, 68857, 68886, 69115
+Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 46 +++++++++++++++++++++-
- 1 file changed, 45 insertions(+), 1 deletion(-)
+ .../gpu/drm/i915/display/intel_display_power.c |  4 +++-
+ .../drm/i915/display/intel_display_power_map.c | 18 ++++++++++++++++++
+ 2 files changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index e3db6c7934f3..1da1995fb3a7 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -40,6 +40,7 @@
- #include "intel_psr.h"
- #include "intel_vdsc.h"
- #include "skl_watermark.h"
-+#include "skl_watermark_regs.h"
- #include "vlv_sideband.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 68cf5e6b0b46..a0d90a613ab3 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -943,7 +943,9 @@ static u32 get_allowed_dc_mask(const struct drm_i915_private *dev_priv,
+ 	if (!HAS_DISPLAY(dev_priv))
+ 		return 0;
  
- /**
-@@ -1811,6 +1812,47 @@ static int get_mdclk_cdclk_ratio(struct drm_i915_private *i915,
- 	return 1;
- }
- 
-+static void lnl_prog_mbus_dbuf_ctrl(struct drm_i915_private *i915,
-+				    const struct intel_cdclk_config *cdclk_config)
-+{
-+	int min_throttle_val;
-+	int min_tracker_state;
-+	enum dbuf_slice slice;
-+	int mdclk_cdclk_div_ratio;
-+	int mbus_join = intel_de_read(i915, MBUS_CTL) & MBUS_JOIN;
-+
-+	mdclk_cdclk_div_ratio = get_mdclk_cdclk_ratio(i915, cdclk_config);
-+
-+	min_throttle_val = MBUS_TRANS_THROTTLE_MIN_SELECT(mdclk_cdclk_div_ratio);
-+
-+	intel_de_rmw(i915, MBUS_CTL, MBUS_TRANS_THROTTLE_MIN_MASK, min_throttle_val);
-+
-+	if (mbus_join)
-+		mdclk_cdclk_div_ratio = (mdclk_cdclk_div_ratio << 1) + 1;
-+
-+	min_tracker_state = DBUF_MIN_TRACKER_STATE_SERVICE(mdclk_cdclk_div_ratio);
-+
-+	for_each_dbuf_slice(i915, slice)
-+		intel_de_rmw(i915, DBUF_CTL_S(slice),
-+			     DBUF_MIN_TRACKER_STATE_SERVICE_MASK,
-+			     min_tracker_state);
-+}
-+
-+static void lnl_cdclk_squash_program(struct drm_i915_private *i915,
-+				     const struct intel_cdclk_config *cdclk_config,
-+				     u16 waveform)
-+{
-+	if (cdclk_config->cdclk < i915->display.cdclk.hw.cdclk)
-+		/* Program mbus_ctrl and dbuf_ctrl registers as Pre hook */
-+		lnl_prog_mbus_dbuf_ctrl(i915, cdclk_config);
-+
-+	dg2_cdclk_squash_program(i915, waveform);
-+
-+	if (cdclk_config->cdclk > i915->display.cdclk.hw.cdclk)
-+		/* Program mbus_ctrl and dbuf_ctrl registers as Post hook */
-+		lnl_prog_mbus_dbuf_ctrl(i915, cdclk_config);
-+}
-+
- static int cdclk_squash_divider(u16 waveform)
- {
- 	return hweight16(waveform ?: 0xffff);
-@@ -1913,7 +1955,9 @@ static void _bxt_set_cdclk(struct drm_i915_private *dev_priv,
- 	else
- 		clock = cdclk;
- 
--	if (HAS_CDCLK_SQUASH(dev_priv))
+-	if (IS_DG2(dev_priv))
 +	if (DISPLAY_VER(dev_priv) >= 20)
-+		lnl_cdclk_squash_program(dev_priv, cdclk_config, waveform);
-+	else if (HAS_CDCLK_SQUASH(dev_priv))
- 		dg2_cdclk_squash_program(dev_priv, waveform);
++		max_dc = 2;
++	else if (IS_DG2(dev_priv))
+ 		max_dc = 1;
+ 	else if (IS_DG1(dev_priv))
+ 		max_dc = 3;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power_map.c b/drivers/gpu/drm/i915/display/intel_display_power_map.c
+index 31c11586ede5..10948b3964ee 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power_map.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power_map.c
+@@ -1561,9 +1561,27 @@ static const struct i915_power_well_desc xe2lpd_power_wells_pica[] = {
+ 	},
+ };
  
- 	val = bxt_cdclk_cd2x_div_sel(dev_priv, clock, vco) |
++I915_DECL_PW_DOMAINS(xe2lpd_pwdoms_dc_off,
++	POWER_DOMAIN_DC_OFF,
++	XELPD_PW_C_POWER_DOMAINS,
++	XELPD_PW_D_POWER_DOMAINS,
++	POWER_DOMAIN_AUDIO_MMIO,
++	POWER_DOMAIN_INIT);
++
++static const struct i915_power_well_desc xe2lpd_power_wells_dcoff[] = {
++	{
++		.instances = &I915_PW_INSTANCES(
++			I915_PW("DC_off", &xe2lpd_pwdoms_dc_off,
++				.id = SKL_DISP_DC_OFF),
++		),
++		.ops = &gen9_dc_off_power_well_ops,
++	},
++};
++
+ static const struct i915_power_well_desc_list xe2lpd_power_wells[] = {
+ 	I915_PW_DESCRIPTORS(i9xx_power_wells_always_on),
+ 	I915_PW_DESCRIPTORS(icl_power_wells_pw_1),
++	I915_PW_DESCRIPTORS(xe2lpd_power_wells_dcoff),
+ 	I915_PW_DESCRIPTORS(xelpdp_power_wells_main),
+ 	I915_PW_DESCRIPTORS(xe2lpd_power_wells_pica),
+ };
 -- 
 2.40.1
 
