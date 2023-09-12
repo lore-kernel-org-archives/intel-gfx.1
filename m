@@ -4,46 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2DC3C46CA1
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Sep 2023 12:24:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E70DCC46CA1
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Sep 2023 12:24:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA2C210E276;
-	Mon, 18 Sep 2023 12:24:45 +0000 (UTC)
-Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0928B10E636;
- Fri, 15 Sep 2023 14:44:55 +0000 (UTC)
-Received: from fews01-sea.riseup.net (fews01-sea-pn.riseup.net [10.0.1.109])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx1.riseup.net (Postfix) with ESMTPS id 4RnH5y3fX8zDqvw;
- Fri, 15 Sep 2023 14:44:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
- t=1694789094; bh=7WnGctcR0Nrmkhsk6tceK1RcYZ5Am2ri8k6V1DoAUMc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=iXxnJ5nNuAR/TT25xPkyoZ7C8+tc/mdSy63JMbauFXWvg23adbAiPPLSUCKW9M08D
- 9oh1Nm91xZhgsr6q3KcUaaOG5YoGx4ub+NOVG4mTLTTEWshr0vQSXF9I9huYTU3B1e
- Ck82mwiHs8pWwUwflFd6Ro//hT6DzqiHunyc+BTQ=
-X-Riseup-User-ID: B37274D3CE7D0BDD056CF7E221C90C8893195330A846BAE59AAA21B3419799E0
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- by fews01-sea.riseup.net (Postfix) with ESMTPSA id 4RnH5v5fNczJmpf;
- Fri, 15 Sep 2023 14:44:51 +0000 (UTC)
-Message-ID: <5ef3e508-9f0a-1c73-ac42-e6c7ac4e027e@riseup.net>
-Date: Fri, 15 Sep 2023 11:44:49 -0300
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5534210E280;
+	Mon, 18 Sep 2023 12:24:56 +0000 (UTC)
+X-Greylist: delayed 106704 seconds by postgrey-1.36 at gabe;
+ Tue, 12 Sep 2023 13:21:07 UTC
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
+ [IPv6:2001:4b98:dc4:8::227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A172310E235
+ for <intel-gfx@lists.freedesktop.org>; Tue, 12 Sep 2023 13:21:07 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 075BB2000C;
+ Tue, 12 Sep 2023 13:21:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+ t=1694524865;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZZWZL1Aw34+UH6DNxwAGQdMbtI0hmjsgK4JYw4ZgLak=;
+ b=IQp4OLO/cIRSSzuN/DBJ9UArUhb8+kmnpScQeZrHsvqW/4vTtTDQw51/81qrq6MfQ6HIJu
+ eSTXwBivKA37CSBJhez2Sonb70bV2gvNRX9VeMpAmv7ixRcoUPtv0IKo4U64klUwGygKG7
+ 0isaTNY/APmtMAkO0hsr02mnrrUtKtYRADky80lJ1Ig+H4KDn4IRMzoAjjCNcBMDHlXyrf
+ E9XvvwkzKdiMdR46CMIMcNFq536ahn6gSpdps16XVSJisojj5YCNGyDYoa2i9AKyr36Q2y
+ OthlWc9qU07hOTHej6RQEJRwcJx5gvrTbsMOwksrlkcyeyx8kMYHZnS8XR/kYw==
+Date: Tue, 12 Sep 2023 15:21:02 +0200
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: "Usyskin, Alexander" <alexander.usyskin@intel.com>
+Message-ID: <20230912152102.0dfe7558@xps-13>
+In-Reply-To: <CY5PR11MB63667AB9958A23970B4B0D3EEDF1A@CY5PR11MB6366.namprd11.prod.outlook.com>
+References: <20230910123949.1251964-1-alexander.usyskin@intel.com>
+ <20230911094233.326fd936@xps-13>
+ <CY5PR11MB63667FBB6AF5B4331419BDAAEDF1A@CY5PR11MB6366.namprd11.prod.outlook.com>
+ <0d60a78b-0305-4cb3-babe-4eefe5001b29@sirena.org.uk>
+ <CY5PR11MB63667AB9958A23970B4B0D3EEDF1A@CY5PR11MB6366.namprd11.prod.outlook.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Language: en-US
-To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-References: <20230911130323.7037-2-janusz.krzysztofik@linux.intel.com>
- <4fb393ff-3b2a-369a-5e9f-f96d802b2d87@riseup.net>
- <3244709.oiGErgHkdL@jkrzyszt-mobl2.ger.corp.intel.com>
-From: Maira Canal <mairacanal@riseup.net>
-In-Reply-To: <3244709.oiGErgHkdL@jkrzyszt-mobl2.ger.corp.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-GND-Sasl: miquel.raynal@bootlin.com
 X-Mailman-Approved-At: Mon, 18 Sep 2023 12:24:43 +0000
-Subject: Re: [Intel-gfx] [PATCH] drm/tests: Fix incorrect argument in
- drm_test_mm_insert_range
+Subject: Re: [Intel-gfx] [PATCH 00/10] drm/i915/spi: spi access for discrete
+ graphics
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,75 +60,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Latypov <dlatypov@google.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Arthur Grillo <arthurgrillo@riseup.net>, igt-dev@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, intel-xe@lists.freedesktop.org,
- David Airlie <airlied@gmail.com>, intel-gfx@lists.freedesktop.org
+Cc: Vignesh Raghavendra <vigneshr@ti.com>, Richard Weinberger <richard@nod.at>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ Michael Walle <michael@walle.cc>,
+ "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Mark Brown <broonie@kernel.org>,
+ "linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>, "Vivi,
+ Rodrigo" <rodrigo.vivi@intel.com>, "Lubart, Vitaly" <vitaly.lubart@intel.com>,
+ Pratyush Yadav <pratyush@kernel.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 9/15/23 11:17, Janusz Krzysztofik wrote:
-> Hi Maíra,
-> 
-> Thanks for review.
-> 
-> On Friday, 15 September 2023 16:01:31 CEST Maira Canal wrote:
->> Hi,
->>
->> On 9/11/23 10:03, Janusz Krzysztofik wrote:
->>> While drm_mm test was converted form igt selftest to kunit, unexpected
->>> value of "end" argument equal "start" was introduced to one of calls to a
->>> function that executes the drm_test_mm_insert_range for specific start/end
->>> pair of arguments.  As a consequence, DRM_MM_BUG_ON(end <= start) is
->>> triggered.  Fix it by restoring the original value.
->>>
->>> Fixes: fc8d29e298cf ("drm: selftest: convert drm_mm selftest to KUnit")
->>> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
->>
->> Reviewed-by: Maíra Canal <mairacanal@riseup.net>
->>
->> Do you need me to push it to drm-misc-fixes?
-> 
-> Yes, please do if you can.
+Hi,
 
-Pushed to drm-misc/drm-misc-fixes. Thanks!
+alexander.usyskin@intel.com wrote on Tue, 12 Sep 2023 13:15:58 +0000:
 
-Best Regards,
-- Maíra
+> >  =20
+> > > The spi controller on discreet graphics card is not visible to user-s=
+pace.
+> > > Spi access flows are supported by another hardware module and relevan=
+t =20
+> > registers are =20
+> > > available on graphics device memory bar. =20
+> >=20
+> > No SPI controllers are directly visible to userspace, some SPI devices
+> > are selectively exposed but that needs to be explicitly requested and is
+> > generally discouraged. =20
+>=20
+> What are the options here? Explicitly request exception is the one.
+> Any other way to add access to flash memory connected in such way?
 
-> 
-> Thanks,
-> Janusz
-> 
->>
->> Best Regards,
->> - Maíra
->>
->>> Cc: "Maíra Canal" <mairacanal@riseup.net>
->>> Cc: Arthur Grillo <arthurgrillo@riseup.net>
->>> Cc: Javier Martinez Canillas <javierm@redhat.com>
->>> Cc: Daniel Latypov <dlatypov@google.com>
->>> Cc: stable@vger.kernel.org # v6.1+
->>> ---
->>>    drivers/gpu/drm/tests/drm_mm_test.c | 2 +-
->>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/tests/drm_mm_test.c b/drivers/gpu/drm/tests/drm_mm_test.c
->>> index 186b28dc70380..05d5e7af6d250 100644
->>> --- a/drivers/gpu/drm/tests/drm_mm_test.c
->>> +++ b/drivers/gpu/drm/tests/drm_mm_test.c
->>> @@ -939,7 +939,7 @@ static void drm_test_mm_insert_range(struct kunit *test)
->>>    		KUNIT_ASSERT_FALSE(test, __drm_test_mm_insert_range(test, count, size, 0, max - 1));
->>>    		KUNIT_ASSERT_FALSE(test, __drm_test_mm_insert_range(test, count, size, 0, max / 2));
->>>    		KUNIT_ASSERT_FALSE(test, __drm_test_mm_insert_range(test, count, size,
->>> -								    max / 2, max / 2));
->>> +								    max / 2, max));
->>>    		KUNIT_ASSERT_FALSE(test, __drm_test_mm_insert_range(test, count, size,
->>>    								    max / 4 + 1, 3 * max / 4 - 1));
->>>    
->>
-> 
-> 
-> 
-> 
+Register a spi controller with at least spi-mem ops, as suggested
+previously, is the standard way I guess. If you're not willing to do
+so, it must be justified, I guess?
+
+Thanks,
+Miqu=C3=A8l
