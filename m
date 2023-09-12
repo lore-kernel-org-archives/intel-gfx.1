@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5252FCA0ECE
-	for <intel-gfx@archiver.kernel.org>; Tue, 12 Sep 2023 04:49:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B58DCA0ECF
+	for <intel-gfx@archiver.kernel.org>; Tue, 12 Sep 2023 04:49:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A344A10E3A9;
-	Tue, 12 Sep 2023 04:48:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3492B10E3AD;
+	Tue, 12 Sep 2023 04:48:54 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9A0210E265;
- Tue, 12 Sep 2023 04:48:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 226FF10E36F;
+ Tue, 12 Sep 2023 04:48:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694494116; x=1726030116;
+ t=1694494117; x=1726030117;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=a7+gh32prj8nz06hf6z+QcrNIirN7XXaqMYJyv6/LZw=;
- b=DzpBNrFP7slETQZKcJDb/aT7Yujlgr8F42iXyEj2foD0BGPL1dF+7D2g
- upITLuSInBwDWWPsgWtR9Ax+KvM4mKfeGG4lgb4NpLCqfetMSpVgOYE12
- h62e8vVKXJVcfn2mdyBcShT927euXIX2+CJAWfv1h2zVwah4DX6huogAl
- pT2Cr7uuu3M96zLL9WPaS9OcJvVn3iH+hJsdi18az4TPVovpQz3bOpefU
- cJcJ2Suv5H2yFj6NjmT45cWFVxETemZGgxR0VDUqhebfaxCETKaMXbRR0
- U+DCHRgf1IHBdmPtfwHTQhEtCBXOJoHJ1dK+wGcCkaz2IPHqA+gWoknXR A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="378182339"
-X-IronPort-AV: E=Sophos;i="6.02,245,1688454000"; d="scan'208";a="378182339"
+ bh=aggD1gJsBR//0QfEMGykD795oSxE7k4lvw29mFSHY4U=;
+ b=jDdK7EcJj7FLaFdrtaQocrlSQ2WVfk4726JJEDBMdbrAG+TNI5BmEZ6b
+ 7zTGCwe4OAo+xkTfPs/uo2vneHHzjaF9mIFO9DTFboZyB1GvUSB3NMhAA
+ xDZVQctnOdGxUwNZ0NEyQ+hZXOERQ25+sMStfL4IL3eOulLBvtuROmsE9
+ OWgku3fozEd/1POuMzDDgw+FWnC1V2+scLgB/5rnk7m2P9btTH3MdGG1z
+ cqSKu+lFfLC/h1IGrdSRWZewz5VtDgSdvmPwme4m4UT4LOY+5GYceixQi
+ eXFb/Ll5GcMapdp6aZqJFu4/NcuCMUFQuXjFIZnhIs35uuc2cNULcvohX Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="378182341"
+X-IronPort-AV: E=Sophos;i="6.02,245,1688454000"; d="scan'208";a="378182341"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Sep 2023 21:48:36 -0700
+ 11 Sep 2023 21:48:37 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="1074419971"
-X-IronPort-AV: E=Sophos;i="6.02,245,1688454000"; d="scan'208";a="1074419971"
+X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="1074419977"
+X-IronPort-AV: E=Sophos;i="6.02,245,1688454000"; d="scan'208";a="1074419977"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  11 Sep 2023 21:48:36 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Mon, 11 Sep 2023 21:48:29 -0700
-Message-Id: <20230912044837.1672060-22-lucas.demarchi@intel.com>
+Date: Mon, 11 Sep 2023 21:48:31 -0700
+Message-Id: <20230912044837.1672060-24-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230912044837.1672060-1-lucas.demarchi@intel.com>
 References: <20230912044837.1672060-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 21/29] drm/i915/xe2lpd: Add support for HPD
+Subject: [Intel-gfx] [PATCH v3 23/29] drm/i915/lnl: Add gmbus/ddc support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,70 +63,51 @@ Cc: Matt Roper <matthew.d.roper@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Gustavo Sousa <gustavo.sousa@intel.com>
+LNL's south display uses the same table as MTP. Check for LNL's fake PCH
+to make it consistent with the other checks.
 
-Hotplug setup for Xe2_LPD differs from Xe_LPD+ by the fact that the
-extra programming for hotplug inversion and DDI HPD filter duration is
-not necessary anymore. As mtp_hpd_irq_setup() is reasonably small,
-prefer to fork it into a new function for Xe2_LPD instead of adding a
-platform check.
+The VBT table doesn't contain the VBT -> spec mapping for LNL. Like in
+other cases, uses the same as the previous platform.
 
-v2: Add extra bspec reference and fix missing else (Matt Roper)
-
-BSpec: 68970, 69940
-Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Bspec: 68971, 20124
+Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
 Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- .../gpu/drm/i915/display/intel_hotplug_irq.c  | 21 +++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bios.c  | 3 ++-
+ drivers/gpu/drm/i915/display/intel_gmbus.c | 5 ++++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hotplug_irq.c b/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
-index 3398cc21bd26..f07047e9cb30 100644
---- a/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
-+++ b/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
-@@ -163,7 +163,9 @@ static void intel_hpd_init_pins(struct drm_i915_private *dev_priv)
- 	    (!HAS_PCH_SPLIT(dev_priv) || HAS_PCH_NOP(dev_priv)))
- 		return;
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 858c959f7bab..1555769762f6 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -2194,7 +2194,8 @@ static u8 map_ddc_pin(struct drm_i915_private *i915, u8 vbt_pin)
+ 	const u8 *ddc_pin_map;
+ 	int i, n_entries;
  
--	if (INTEL_PCH_TYPE(dev_priv) >= PCH_DG1)
-+	if (INTEL_PCH_TYPE(dev_priv) >= PCH_LNL)
-+		hpd->pch_hpd = hpd_mtp;
-+	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_DG1)
- 		hpd->pch_hpd = hpd_sde_dg1;
- 	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_MTP)
- 		hpd->pch_hpd = hpd_mtp;
-@@ -1063,6 +1065,19 @@ static void mtp_hpd_irq_setup(struct drm_i915_private *i915)
- 	mtp_tc_hpd_detection_setup(i915);
- }
+-	if (HAS_PCH_MTP(i915) || IS_ALDERLAKE_P(i915)) {
++	if (INTEL_PCH_TYPE(i915) >= PCH_LNL || HAS_PCH_MTP(i915) ||
++	    IS_ALDERLAKE_P(i915)) {
+ 		ddc_pin_map = adlp_ddc_pin_map;
+ 		n_entries = ARRAY_SIZE(adlp_ddc_pin_map);
+ 	} else if (IS_ALDERLAKE_S(i915)) {
+diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
+index e95ddb580ef6..801fabbccf7e 100644
+--- a/drivers/gpu/drm/i915/display/intel_gmbus.c
++++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
+@@ -155,7 +155,10 @@ static const struct gmbus_pin *get_gmbus_pin(struct drm_i915_private *i915,
+ 	const struct gmbus_pin *pins;
+ 	size_t size;
  
-+static void xe2lpd_sde_hpd_irq_setup(struct drm_i915_private *i915)
-+{
-+	u32 hotplug_irqs, enabled_irqs;
-+
-+	enabled_irqs = intel_hpd_enabled_irqs(i915, i915->display.hotplug.pch_hpd);
-+	hotplug_irqs = intel_hpd_hotplug_irqs(i915, i915->display.hotplug.pch_hpd);
-+
-+	ibx_display_interrupt_update(i915, hotplug_irqs, enabled_irqs);
-+
-+	mtp_ddi_hpd_detection_setup(i915);
-+	mtp_tc_hpd_detection_setup(i915);
-+}
-+
- static bool is_xelpdp_pica_hpd_pin(enum hpd_pin hpd_pin)
- {
- 	return hpd_pin >= HPD_PORT_TC1 && hpd_pin <= HPD_PORT_TC4;
-@@ -1122,7 +1137,9 @@ static void xelpdp_hpd_irq_setup(struct drm_i915_private *i915)
- 
- 	xelpdp_pica_hpd_detection_setup(i915);
- 
--	if (INTEL_PCH_TYPE(i915) >= PCH_MTP)
-+	if (INTEL_PCH_TYPE(i915) >= PCH_LNL)
-+		xe2lpd_sde_hpd_irq_setup(i915);
-+	else if (INTEL_PCH_TYPE(i915) >= PCH_MTP)
- 		mtp_hpd_irq_setup(i915);
- }
- 
+-	if (INTEL_PCH_TYPE(i915) >= PCH_DG2) {
++	if (INTEL_PCH_TYPE(i915) >= PCH_LNL) {
++		pins = gmbus_pins_mtp;
++		size = ARRAY_SIZE(gmbus_pins_mtp);
++	} else if (INTEL_PCH_TYPE(i915) >= PCH_DG2) {
+ 		pins = gmbus_pins_dg2;
+ 		size = ARRAY_SIZE(gmbus_pins_dg2);
+ 	} else if (INTEL_PCH_TYPE(i915) >= PCH_DG1) {
 -- 
 2.40.1
 
