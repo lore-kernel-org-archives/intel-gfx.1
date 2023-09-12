@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA1F6CA0ECA
-	for <intel-gfx@archiver.kernel.org>; Tue, 12 Sep 2023 11:08:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40688CA0ECA
+	for <intel-gfx@archiver.kernel.org>; Tue, 12 Sep 2023 11:08:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C235210E40B;
-	Tue, 12 Sep 2023 11:08:20 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 646B410E405;
- Tue, 12 Sep 2023 11:08:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF2A710E3FC;
+	Tue, 12 Sep 2023 11:08:24 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1759310E40A;
+ Tue, 12 Sep 2023 11:08:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694516896; x=1726052896;
+ t=1694516900; x=1726052900;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=oz1RcKvblXXPHelKKKqJMVLdd9DLgmSG1JGiEpa7cYU=;
- b=Up5pl+aZOlcJhgN1aLSHUMg7n6IZXFVLqlb3+TiG8anLQ5iRdUNlXxB6
- aDDnWLXANZf/+zqM3wFWLJL/O+BfnLJlHSGyKF2WxOtFIuzhQ8MLjePpb
- OcXqT7uKqfhcO+vpd1EQan32xHBsYazHsw0MCVoKn3GPagyTDKSoft4EO
- 2PalZEg89EL5F1z5jEOLC9P4NNjWiIuwy7wAQWjlGPDAmCMQtJzyCH/ms
- TOcp7TDqcZ1/llWwfvTIhc3aI15SlC3a2L6XGDM0w8gmTExc2aJED/4WJ
- DZiquK0LnYw9FYkAhUKFmYwWI5C83DSozdtumEzmTdLyrwtWWyeZ8i0qL A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="442358539"
-X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="442358539"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2023 04:08:16 -0700
+ bh=FVAh4On5XdvV9iSCLEiakjacIZp6jEqoSMEB6aLwj64=;
+ b=g+ut6h3hUzLcJ+hdA7nA/ehL9gg4X/hEq0+4FuE9NbqgBEpkD0r6DRlo
+ QVIyjmNii443s56F4EuYgdxlS1tPAl26r9aALJCqaLGTqyYB8/T1wwnJL
+ sYfXopFJ+BTZk0eoMucD+7Eekg3tmhuZzvDlUceQK/+Kkef68OviTrSY1
+ MkQe2demf4iDfb5mMfUzSRRbYOIFxpx2Ev6J8K3hVSumWdfHJkmxZPnOu
+ pFFtlsXroKqjsI2hC10NdDqFLVB3SRJAXqD5m1TMAztaMOVGmXVHzqWfZ
+ Asy7DBx8i9nXSFUxhFG+nfyVMAKeHURoQEx8StZwO/5p1g8m2iEbyh/no Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="409295586"
+X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="409295586"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2023 04:07:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="813778579"
-X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="813778579"
+X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="743688248"
+X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="743688248"
 Received: from kscholl-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.63.206])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2023 04:08:14 -0700
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2023 04:07:46 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 12 Sep 2023 14:06:46 +0300
-Message-Id: <930c8d332d425a54dae7af16aed26ec293f80afd.1694514689.git.jani.nikula@intel.com>
+Date: Tue, 12 Sep 2023 14:06:39 +0300
+Message-Id: <89a6daca98f87ed1a8a54367a977f146216330d2.1694514689.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1694514689.git.jani.nikula@intel.com>
 References: <cover.1694514689.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 19/19] drm/i915/display: add I915 conditional
- build to vlv_dsi_pll.h
+Subject: [Intel-gfx] [PATCH 12/19] drm/i915/display: add I915 conditional
+ build to intel_crt.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,34 +64,41 @@ Cc: jani.nikula@intel.com, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add stubs for !I915. Not all the functions need to be stubbed.
+Add stubs for !I915.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/vlv_dsi_pll.h | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/gpu/drm/i915/display/intel_crt.h | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/vlv_dsi_pll.h b/drivers/gpu/drm/i915/display/vlv_dsi_pll.h
-index ab9291ad1e79..fbe5113dbeb9 100644
---- a/drivers/gpu/drm/i915/display/vlv_dsi_pll.h
-+++ b/drivers/gpu/drm/i915/display/vlv_dsi_pll.h
-@@ -32,7 +32,16 @@ u32 bxt_dsi_get_pclk(struct intel_encoder *encoder,
- 		     struct intel_crtc_state *config);
- void bxt_dsi_reset_clocks(struct intel_encoder *encoder, enum port port);
+diff --git a/drivers/gpu/drm/i915/display/intel_crt.h b/drivers/gpu/drm/i915/display/intel_crt.h
+index c6071efd93ce..fe7690c2b948 100644
+--- a/drivers/gpu/drm/i915/display/intel_crt.h
++++ b/drivers/gpu/drm/i915/display/intel_crt.h
+@@ -12,9 +12,23 @@ enum pipe;
+ struct drm_encoder;
+ struct drm_i915_private;
  
 +#ifdef I915
- void assert_dsi_pll_enabled(struct drm_i915_private *i915);
- void assert_dsi_pll_disabled(struct drm_i915_private *i915);
+ bool intel_crt_port_enabled(struct drm_i915_private *dev_priv,
+ 			    i915_reg_t adpa_reg, enum pipe *pipe);
+ void intel_crt_init(struct drm_i915_private *dev_priv);
+ void intel_crt_reset(struct drm_encoder *encoder);
 +#else
-+static inline void assert_dsi_pll_enabled(struct drm_i915_private *i915)
++static inline bool intel_crt_port_enabled(struct drm_i915_private *dev_priv,
++					  i915_reg_t adpa_reg, enum pipe *pipe)
++{
++	return false;
++}
++static inline void intel_crt_init(struct drm_i915_private *dev_priv)
 +{
 +}
-+static inline void assert_dsi_pll_disabled(struct drm_i915_private *i915)
++static inline void intel_crt_reset(struct drm_encoder *encoder)
 +{
 +}
 +#endif
  
- #endif /* __VLV_DSI_PLL_H__ */
+ #endif /* __INTEL_CRT_H__ */
 -- 
 2.39.2
 
