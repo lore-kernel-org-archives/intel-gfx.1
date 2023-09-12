@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D03BCA0EC3
-	for <intel-gfx@archiver.kernel.org>; Tue, 12 Sep 2023 11:08:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF85ECA0ECF
+	for <intel-gfx@archiver.kernel.org>; Tue, 12 Sep 2023 11:08:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B36B210E40C;
-	Tue, 12 Sep 2023 11:08:25 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6124810E40C;
- Tue, 12 Sep 2023 11:08:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 719C510E3EE;
+	Tue, 12 Sep 2023 11:08:47 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03AA110E3EE;
+ Tue, 12 Sep 2023 11:08:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694516902; x=1726052902;
+ t=1694516926; x=1726052926;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=P0cElYOitY9ppHpI2d7RvgE23u/lZogtas5Ihfn5W4Y=;
- b=Vc5qEo7lxds+xNQ77pPo66OjecyL+1D9Rpts3sRq+f0G8bFThVU/bzxq
- Gy0H4TYzhi+vj1sc2PAMr4ip5GlTrF0nje0dtXiRsf+/a61O9mpErnTJR
- 5yOYXiW6+8OSNaBzxc/QQjy+PEBwYDTNOIy4uqX7ahVl4cDgP3ewwPHnf
- grknS4zhPAQuc8YMBkEJu7mUMXJmlBMKUY+uADF0Df7vui61E+EsmfM3b
- htXevIQzX3bH9ViJ2RrVOFEcQHEdB3yaT4lnhSIw/i3p5jK6DkZg1Xqiv
- thRy4K/BgD6e2Bfj8GWgoCa0Ygsto3tiMrDFtnG6/bp1VRwH+UvKfmQKq g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="409295622"
-X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="409295622"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2023 04:07:57 -0700
+ bh=2LnSMNwXmZBIeFJR0OwhduOuJ6r2tFZJKPcsY17z1yU=;
+ b=C3SH+OD+bg9VwqqYk0U1X0j8FSEsZx23+FyiZGjInI6Zh/1bTTFp8DXQ
+ jpGo5YLBDeSFHfP7APayLJYbVzlDNBwVE7P7eAphp3QQZUFXrlZFf9gz1
+ bi8299ZvidSlFW6obkZVEpGYWQbn40tPV+Had8/c6GDL7em6ZXpTYiEUB
+ Rem0AyneVBwc2JLaVNbh6efzRBv65BZqsfBzEIKtWVNQIOy0lVarDiHIH
+ H6eqXvPem28MlquhvlwWHmIJigRJg7Co/qwp4ZAgNN6/tjxhGcPvTrwga
+ obAFqslE+nF94+LrChQp1imoT3nNGPCOkLg42d7gPLSZN57xmPhi9bkUX g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="378253092"
+X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="378253092"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2023 04:07:45 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="743688286"
-X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="743688286"
+X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="1074512687"
+X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="1074512687"
 Received: from kscholl-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.63.206])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2023 04:07:55 -0700
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2023 04:07:42 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 12 Sep 2023 14:06:41 +0300
-Message-Id: <bf15b14d3d060fdb256c78d4b8514d642a8958e6.1694514689.git.jani.nikula@intel.com>
+Date: Tue, 12 Sep 2023 14:06:38 +0300
+Message-Id: <978bc7263e8de10ffc1ef16086341dd629347c8e.1694514689.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1694514689.git.jani.nikula@intel.com>
 References: <cover.1694514689.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 14/19] drm/i915/display: add I915 conditional
- build to i9xx_wm.h
+Subject: [Intel-gfx] [PATCH 11/19] drm/i915/display: add I915 conditional
+ build to intel_dpio_phy.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,40 +68,122 @@ Add stubs for !I915.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/i9xx_wm.h | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dpio_phy.h | 96 +++++++++++++++++++
+ 1 file changed, 96 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/i9xx_wm.h b/drivers/gpu/drm/i915/display/i9xx_wm.h
-index b87ae369685a..de0920730ab2 100644
---- a/drivers/gpu/drm/i915/display/i9xx_wm.h
-+++ b/drivers/gpu/drm/i915/display/i9xx_wm.h
-@@ -12,9 +12,26 @@ struct drm_i915_private;
- struct intel_crtc_state;
- struct intel_plane_state;
+diff --git a/drivers/gpu/drm/i915/display/intel_dpio_phy.h b/drivers/gpu/drm/i915/display/intel_dpio_phy.h
+index 9c7725dacb47..4d43dbbdf81c 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpio_phy.h
++++ b/drivers/gpu/drm/i915/display/intel_dpio_phy.h
+@@ -26,6 +26,7 @@ enum dpio_phy {
+ 	DPIO_PHY2,
+ };
  
 +#ifdef I915
- bool ilk_disable_lp_wm(struct drm_i915_private *i915);
- void ilk_wm_sanitize(struct drm_i915_private *i915);
- bool intel_set_memory_cxsr(struct drm_i915_private *i915, bool enable);
- void i9xx_wm_init(struct drm_i915_private *i915);
+ void bxt_port_to_phy_channel(struct drm_i915_private *dev_priv, enum port port,
+ 			     enum dpio_phy *phy, enum dpio_channel *ch);
+ void bxt_ddi_phy_set_signal_levels(struct intel_encoder *encoder,
+@@ -70,5 +71,100 @@ void vlv_phy_pre_encoder_enable(struct intel_encoder *encoder,
+ 				const struct intel_crtc_state *crtc_state);
+ void vlv_phy_reset_lanes(struct intel_encoder *encoder,
+ 			 const struct intel_crtc_state *old_crtc_state);
 +#else
-+static inline bool ilk_disable_lp_wm(struct drm_i915_private *i915)
++static inline void bxt_port_to_phy_channel(struct drm_i915_private *dev_priv, enum port port,
++					   enum dpio_phy *phy, enum dpio_channel *ch)
++{
++}
++static inline void bxt_ddi_phy_set_signal_levels(struct intel_encoder *encoder,
++						 const struct intel_crtc_state *crtc_state)
++{
++}
++static inline void bxt_ddi_phy_init(struct drm_i915_private *dev_priv, enum dpio_phy phy)
++{
++}
++static inline void bxt_ddi_phy_uninit(struct drm_i915_private *dev_priv, enum dpio_phy phy)
++{
++}
++static inline bool bxt_ddi_phy_is_enabled(struct drm_i915_private *dev_priv,
++					  enum dpio_phy phy)
 +{
 +	return false;
 +}
-+static inline void ilk_wm_sanitize(struct drm_i915_private *i915)
++static inline bool bxt_ddi_phy_verify_state(struct drm_i915_private *dev_priv,
++					    enum dpio_phy phy)
++{
++	return true;
++}
++static inline u8 bxt_ddi_phy_calc_lane_lat_optim_mask(u8 lane_count)
++{
++	return 0;
++}
++static inline void bxt_ddi_phy_set_lane_optim_mask(struct intel_encoder *encoder,
++						   u8 lane_lat_optim_mask)
 +{
 +}
-+static inline bool intel_set_memory_cxsr(struct drm_i915_private *i915, bool enable)
++static inline u8 bxt_ddi_phy_get_lane_lat_optim_mask(struct intel_encoder *encoder)
 +{
-+	return false;
++	return 0;
 +}
-+static inline void i9xx_wm_init(struct drm_i915_private *i915)
++static inline enum dpio_channel vlv_dig_port_to_channel(struct intel_digital_port *dig_port)
++{
++	return DPIO_CH0;
++}
++static inline enum dpio_phy vlv_dig_port_to_phy(struct intel_digital_port *dig_port)
++{
++	return DPIO_PHY0;
++}
++static inline enum dpio_channel vlv_pipe_to_channel(enum pipe pipe)
++{
++	return DPIO_CH0;
++}
++static inline void chv_set_phy_signal_level(struct intel_encoder *encoder,
++					    const struct intel_crtc_state *crtc_state,
++					    u32 deemph_reg_value, u32 margin_reg_value,
++					    bool uniq_trans_scale)
++{
++}
++static inline void chv_data_lane_soft_reset(struct intel_encoder *encoder,
++					    const struct intel_crtc_state *crtc_state,
++					    bool reset)
++{
++}
++static inline void chv_phy_pre_pll_enable(struct intel_encoder *encoder,
++					  const struct intel_crtc_state *crtc_state)
++{
++}
++static inline void chv_phy_pre_encoder_enable(struct intel_encoder *encoder,
++					      const struct intel_crtc_state *crtc_state)
++{
++}
++static inline void chv_phy_release_cl2_override(struct intel_encoder *encoder)
++{
++}
++static inline void chv_phy_post_pll_disable(struct intel_encoder *encoder,
++					    const struct intel_crtc_state *old_crtc_state)
++{
++}
++
++static inline void vlv_set_phy_signal_level(struct intel_encoder *encoder,
++					    const struct intel_crtc_state *crtc_state,
++					    u32 demph_reg_value, u32 preemph_reg_value,
++					    u32 uniqtranscale_reg_value, u32 tx3_demph)
++{
++}
++static inline void vlv_phy_pre_pll_enable(struct intel_encoder *encoder,
++					  const struct intel_crtc_state *crtc_state)
++{
++}
++static inline void vlv_phy_pre_encoder_enable(struct intel_encoder *encoder,
++					      const struct intel_crtc_state *crtc_state)
++{
++}
++static inline void vlv_phy_reset_lanes(struct intel_encoder *encoder,
++				       const struct intel_crtc_state *old_crtc_state)
 +{
 +}
 +#endif
  
- #endif /* __I9XX_WM_H__ */
+ #endif /* __INTEL_DPIO_PHY_H__ */
 -- 
 2.39.2
 
