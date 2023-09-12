@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9ACDCA0EC3
-	for <intel-gfx@archiver.kernel.org>; Tue, 12 Sep 2023 11:07:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3488BCA0ECA
+	for <intel-gfx@archiver.kernel.org>; Tue, 12 Sep 2023 11:07:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2985510E3FD;
-	Tue, 12 Sep 2023 11:07:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53AF310E3EE;
+	Tue, 12 Sep 2023 11:07:43 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E02A610E400;
- Tue, 12 Sep 2023 11:07:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA1E410E3FB;
+ Tue, 12 Sep 2023 11:07:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694516841; x=1726052841;
+ t=1694516861; x=1726052861;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=bXW3Pf9dMTKSyf9wP2AX7Pjn2joY7wHuYq8Ul5r7mwU=;
- b=Ug4SggMf9c0Mb/l0uOUKkACmZZoY/5+cGs2nqocakokUrJXuUDueL5Je
- Io4nAVdMh58XGMeBacCXIu3V6upqkX4e+lrTZycyn9fvgJiVY0Tu/Gi6x
- JNzdFzrS38N039dBQNidRgFvgHeIYNClSWKf8rg4ErAu/kVL4Trk8Sr4Y
- QdighwXOI+SMYLqKwP+M+AVSXVN2JPJ0bEbXKQlXFVeHKeIAM9/a0ttw1
- zgq+WkNDOcGWC7rc9eSdqfL/IqHUBMTZnyYyxs0DmEzt7KmsEiqSUOl48
- rhbCm90CIxKI43/OlcP2wH8CUoyoNH/NMZV3MdCPeg3fk4PRQL0FX5x7L w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="409295328"
-X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="409295328"
+ bh=Bn3eA+nN1MZK+bJX9D1JN9gYkAlUw79/c8EAbPvvlu4=;
+ b=YZXT5YdmYxudvhv+aLrYxc9ghfup3OviVV0Ekp7ExN66Bn34lq/rXNZE
+ 0FqE1Rk9I/7Po2Ykf66Z2o2fm9ZDSEZE1ZDBXf/1uTx6E/tR3rA9xIbhH
+ J1kEn2+18S8pg3D2ZLQVEfqc+suS1q1gEKpGg+S6QJARIfEvGgt2MDm5P
+ pnm66ioqPMOAmpA96mhGr7J7xV/JBF9Jo/eaX3CRq+SjsEhfUEYvJWm7X
+ xGFvDBCeRy8FCP7fIByW85Gpd0cvhPrCzEZESpP22zNGOzY2J+2y1Zxxn
+ VCk5PMCiJRvFoN3qLFcVWgoW2a5CgbrTcJ4W6X07vxBXE2V4XnOB5brfL Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="409295472"
+X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="409295472"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2023 04:07:21 -0700
+ 12 Sep 2023 04:07:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="743688086"
-X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="743688086"
+X-IronPort-AV: E=McAfee;i="6600,9927,10830"; a="743688138"
+X-IronPort-AV: E=Sophos;i="6.02,139,1688454000"; d="scan'208";a="743688138"
 Received: from kscholl-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.63.206])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2023 04:07:20 -0700
+ 12 Sep 2023 04:07:30 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 12 Sep 2023 14:06:33 +0300
-Message-Id: <4359b34cbcff6199b5e42b5311c815aa6f4a167c.1694514689.git.jani.nikula@intel.com>
+Date: Tue, 12 Sep 2023 14:06:35 +0300
+Message-Id: <b9680203b0b93dc3472260d7e4128984e533b421.1694514689.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1694514689.git.jani.nikula@intel.com>
 References: <cover.1694514689.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 06/19] drm/i915/display: add I915 conditional
- build to intel_pch_refclk.h
+Subject: [Intel-gfx] [PATCH 08/19] drm/i915/display: add I915 conditional
+ build to intel_sprite.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,49 +68,34 @@ Add stubs for !I915.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- .../gpu/drm/i915/display/intel_pch_refclk.h   | 23 +++++++++++++++++++
- 1 file changed, 23 insertions(+)
+ drivers/gpu/drm/i915/display/intel_sprite.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_pch_refclk.h b/drivers/gpu/drm/i915/display/intel_pch_refclk.h
-index 9bcf56629f24..ae3403c0ced8 100644
---- a/drivers/gpu/drm/i915/display/intel_pch_refclk.h
-+++ b/drivers/gpu/drm/i915/display/intel_pch_refclk.h
-@@ -11,6 +11,7 @@
- struct drm_i915_private;
- struct intel_crtc_state;
+diff --git a/drivers/gpu/drm/i915/display/intel_sprite.h b/drivers/gpu/drm/i915/display/intel_sprite.h
+index 91c6dca342b2..044a032e41b9 100644
+--- a/drivers/gpu/drm/i915/display/intel_sprite.h
++++ b/drivers/gpu/drm/i915/display/intel_sprite.h
+@@ -16,6 +16,7 @@ struct intel_crtc_state;
+ struct intel_plane_state;
+ enum pipe;
  
 +#ifdef I915
- void lpt_program_iclkip(const struct intel_crtc_state *crtc_state);
- void lpt_disable_iclkip(struct drm_i915_private *dev_priv);
- int lpt_get_iclkip(struct drm_i915_private *dev_priv);
-@@ -18,5 +19,27 @@ int lpt_iclkip(const struct intel_crtc_state *crtc_state);
- 
- void intel_init_pch_refclk(struct drm_i915_private *dev_priv);
- void lpt_disable_clkout_dp(struct drm_i915_private *dev_priv);
+ struct intel_plane *intel_sprite_plane_create(struct drm_i915_private *dev_priv,
+ 					      enum pipe pipe, int plane);
+ int intel_sprite_set_colorkey_ioctl(struct drm_device *dev, void *data,
+@@ -29,5 +30,12 @@ int hsw_plane_min_cdclk(const struct intel_crtc_state *crtc_state,
+ 			const struct intel_plane_state *plane_state);
+ int vlv_plane_min_cdclk(const struct intel_crtc_state *crtc_state,
+ 			const struct intel_plane_state *plane_state);
 +#else
-+static inline void lpt_program_iclkip(const struct intel_crtc_state *crtc_state)
++static inline struct intel_plane *intel_sprite_plane_create(struct drm_i915_private *dev_priv,
++							    int pipe, int plane)
 +{
-+}
-+static inline void lpt_disable_iclkip(struct drm_i915_private *dev_priv)
-+{
-+}
-+static inline int lpt_get_iclkip(struct drm_i915_private *dev_priv)
-+{
-+	return 0;
-+}
-+static inline int lpt_iclkip(const struct intel_crtc_state *crtc_state)
-+{
-+	return 0;
-+}
-+static inline void intel_init_pch_refclk(struct drm_i915_private *dev_priv)
-+{
-+}
-+static inline void lpt_disable_clkout_dp(struct drm_i915_private *dev_priv)
-+{
++	return NULL;
 +}
 +#endif
  
- #endif
+ #endif /* __INTEL_SPRITE_H__ */
 -- 
 2.39.2
 
