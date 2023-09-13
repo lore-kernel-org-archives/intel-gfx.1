@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D5BFEEB599
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D43BCEEB598
 	for <intel-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 06:12:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38C1310E45F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FCF010E461;
 	Wed, 13 Sep 2023 06:12:02 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 787E710E304;
- Wed, 13 Sep 2023 06:11:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 290CE10E304;
+ Wed, 13 Sep 2023 06:11:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694585515; x=1726121515;
+ t=1694585513; x=1726121513;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=e7LHg9nYrvWMHZxedYwBKvv/wcrPKiHK4vtXPbwvz3E=;
- b=VINEDk1HUfuZeLxzkkLYglClmlgtrDW/IvPtmLKiVvbcFeKyok3RGFNJ
- g+pfeU5cdzwCb2noXSWP0LJsycSx3WR4elneBxhvoopf3nbxZsyMh/DAk
- kBFvm5YiHa+6K6NKsUjFaEKO1+oHT+QW9t9ERiI6JqoGOtH0Rousddd5S
- f2ustw+uW7kt5KSeD0cETDQ/8Ep21yltvx+7NCyyMLwAgTngIanzx5UNx
- VQsVj83+728N3o9II30Ct2s5OGjhcCHRwNWx/GYkpTeTTwT+DxXN4xsWA
- 4T/WX+gxbSOmx6CtRTiLHmxyQF+DVfAx3uHpnCdEFL7RT5tv+k5Vyha2E g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="377482569"
-X-IronPort-AV: E=Sophos;i="6.02,142,1688454000"; d="scan'208";a="377482569"
+ bh=sMgBEbFGROTgLS+UysAWyZpLbtA58FYyoMxCTbEr6Zs=;
+ b=gpScuGYtkQCdGa/fQCyGCNg4CmofChYc4h3EZvad18+QnpsXsEgmddFv
+ IwLJLRFoGZSBih6/InzEUTEXyVmAilHdco1tiy9tQmqRwk+mpM7OUPCjH
+ W2RfaFwKlzvF88U6TEWQEQONwSgzbZMlKSSFmHGNUYya3If0lVwsVLWW/
+ 6Jgbr+HAKALfyv+Qa81T45IG5SzmNfQ+iZxN8mAkH2F+6FtpERUPbbtQj
+ ZV2xIUQ6aMl1JKQpYQjg53lWUsnpElCNlelwZtHOF9L+GGOknhuRiSFbi
+ 5xHHvmY4JW7qFBvvHJmRD9A+gGCi/L9ddDvQ3E0bZD7NW3OgG50jM1nB6 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="377482536"
+X-IronPort-AV: E=Sophos;i="6.02,142,1688454000"; d="scan'208";a="377482536"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2023 23:11:39 -0700
+ 12 Sep 2023 23:11:32 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="693741719"
-X-IronPort-AV: E=Sophos;i="6.02,142,1688454000"; d="scan'208";a="693741719"
+X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="693741688"
+X-IronPort-AV: E=Sophos;i="6.02,142,1688454000"; d="scan'208";a="693741688"
 Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by orsmga003.jf.intel.com with ESMTP; 12 Sep 2023 23:11:37 -0700
+ by orsmga003.jf.intel.com with ESMTP; 12 Sep 2023 23:11:30 -0700
 From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 To: dri-devel@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Wed, 13 Sep 2023 11:36:02 +0530
-Message-Id: <20230913060606.1105349-5-mitulkumar.ajitkumar.golani@intel.com>
+Date: Wed, 13 Sep 2023 11:35:59 +0530
+Message-Id: <20230913060606.1105349-2-mitulkumar.ajitkumar.golani@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230913060606.1105349-1-mitulkumar.ajitkumar.golani@intel.com>
 References: <20230913060606.1105349-1-mitulkumar.ajitkumar.golani@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/8] drm/i915/audio : Consider fractional vdsc
- bpp while computing tu_data
+Subject: [Intel-gfx] [PATCH 1/8] drm/display/dp: Add helper function to get
+ DSC bpp prescision
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,67 +64,64 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-MTL+ supports fractional compressed bits_per_pixel, with precision of
-1/16. This compressed bpp is stored in U6.4 format.
-Accommodate the precision during calculation of transfer unit data
-for hblank_early calculation.
-
-v2:
--Fixed tu_data calculation while dealing with U6.4 format. (Stan)
+Add helper to get the DSC bits_per_pixel precision for the DP sink.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_audio.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/display/drm_dp_helper.c | 27 +++++++++++++++++++++++++
+ include/drm/display/drm_dp_helper.h     |  1 +
+ 2 files changed, 28 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
-index 4f1db1581316..3b08be54ce4f 100644
---- a/drivers/gpu/drm/i915/display/intel_audio.c
-+++ b/drivers/gpu/drm/i915/display/intel_audio.c
-@@ -522,25 +522,25 @@ static unsigned int calc_hblank_early_prog(struct intel_encoder *encoder,
- 	unsigned int link_clks_available, link_clks_required;
- 	unsigned int tu_data, tu_line, link_clks_active;
- 	unsigned int h_active, h_total, hblank_delta, pixel_clk;
--	unsigned int fec_coeff, cdclk, vdsc_bpp;
-+	unsigned int fec_coeff, cdclk, vdsc_bppx16;
- 	unsigned int link_clk, lanes;
- 	unsigned int hblank_rise;
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index 8a1b64c57dfd..5c23d5b8fc50 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -2323,6 +2323,33 @@ int drm_dp_read_desc(struct drm_dp_aux *aux, struct drm_dp_desc *desc,
+ }
+ EXPORT_SYMBOL(drm_dp_read_desc);
  
- 	h_active = crtc_state->hw.adjusted_mode.crtc_hdisplay;
- 	h_total = crtc_state->hw.adjusted_mode.crtc_htotal;
- 	pixel_clk = crtc_state->hw.adjusted_mode.crtc_clock;
--	vdsc_bpp = intel_fractional_bpp_from_x16(crtc_state->dsc.compressed_bpp_x16);
-+	vdsc_bppx16 = crtc_state->dsc.compressed_bpp_x16;
- 	cdclk = i915->display.cdclk.hw.cdclk;
- 	/* fec= 0.972261, using rounding multiplier of 1000000 */
- 	fec_coeff = 972261;
- 	link_clk = crtc_state->port_clock;
- 	lanes = crtc_state->lane_count;
++/**
++ * drm_dp_dsc_sink_bpp_incr() - Get bits per pixel increment
++ * @dsc_dpcd: DSC capabilities from DPCD
++ *
++ * Returns the bpp precision supported by the DP sink.
++ */
++u8 drm_dp_dsc_sink_bpp_incr(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
++{
++	u8 bpp_increment_dpcd = dsc_dpcd[DP_DSC_BITS_PER_PIXEL_INC - DP_DSC_SUPPORT];
++
++	switch (bpp_increment_dpcd) {
++	case DP_DSC_BITS_PER_PIXEL_1_16:
++		return 16;
++	case DP_DSC_BITS_PER_PIXEL_1_8:
++		return 8;
++	case DP_DSC_BITS_PER_PIXEL_1_4:
++		return 4;
++	case DP_DSC_BITS_PER_PIXEL_1_2:
++		return 2;
++	case DP_DSC_BITS_PER_PIXEL_1_1:
++		return 1;
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_dp_dsc_sink_bpp_incr);
++
+ /**
+  * drm_dp_dsc_sink_max_slice_count() - Get the max slice count
+  * supported by the DSC sink.
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index 3369104e2d25..6968d4d87931 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -164,6 +164,7 @@ drm_dp_is_branch(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+ }
  
--	drm_dbg_kms(&i915->drm, "h_active = %u link_clk = %u :"
--		    "lanes = %u vdsc_bpp = %u cdclk = %u\n",
--		    h_active, link_clk, lanes, vdsc_bpp, cdclk);
-+	drm_dbg_kms(&i915->drm,
-+		    "h_active = %u link_clk = %u : lanes = %u vdsc_bppx16 = %u cdclk = %u\n",
-+		    h_active, link_clk, lanes, vdsc_bppx16, cdclk);
- 
--	if (WARN_ON(!link_clk || !pixel_clk || !lanes || !vdsc_bpp || !cdclk))
-+	if (WARN_ON(!link_clk || !pixel_clk || !lanes || !vdsc_bppx16 || !cdclk))
- 		return 0;
- 
- 	link_clks_available = (h_total - h_active) * link_clk / pixel_clk - 28;
-@@ -552,8 +552,8 @@ static unsigned int calc_hblank_early_prog(struct intel_encoder *encoder,
- 		hblank_delta = DIV64_U64_ROUND_UP(mul_u32_u32(5 * (link_clk + cdclk), pixel_clk),
- 						  mul_u32_u32(link_clk, cdclk));
- 
--	tu_data = div64_u64(mul_u32_u32(pixel_clk * vdsc_bpp * 8, 1000000),
--			    mul_u32_u32(link_clk * lanes, fec_coeff));
-+	tu_data = div64_u64(mul_u32_u32(pixel_clk * vdsc_bppx16 * 8, 1000000),
-+			    mul_u32_u32(link_clk * lanes * 16, fec_coeff));
- 	tu_line = div64_u64(h_active * mul_u32_u32(link_clk, fec_coeff),
- 			    mul_u32_u32(64 * pixel_clk, 1000000));
- 	link_clks_active  = (tu_line - 1) * 64 + tu_data;
+ /* DP/eDP DSC support */
++u8 drm_dp_dsc_sink_bpp_incr(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE]);
+ u8 drm_dp_dsc_sink_max_slice_count(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE],
+ 				   bool is_edp);
+ u8 drm_dp_dsc_sink_line_buf_depth(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE]);
 -- 
 2.25.1
 
