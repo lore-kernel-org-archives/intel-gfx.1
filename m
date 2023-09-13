@@ -4,61 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26F87EDEC74
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 15:04:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 919D5EDEC70
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 15:05:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7C6910E4C2;
-	Wed, 13 Sep 2023 15:04:34 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AA7D10E45F;
- Wed, 13 Sep 2023 15:04:30 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 01D5F1F390;
- Wed, 13 Sep 2023 15:04:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1694617469; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=BXluFeV5HxPwkOMtLbDkSuoY04wNyivNmX5LABSF3AQ=;
- b=oSi8qEVzxmzcSaY45ZdlByqn8ta9Vdp0bjGPzTRfL56iNepoHtaKdMHPmD7xCY9rCnhUdR
- xJJGjjzA8XU4dnjO7QCmcU1MtSROzB8lalfSQ4q9Fj8YabN79iarWUeAh7RMc0cOahOLHH
- EZzais5n/iUbU1AdEzdxcTVpD1TyJ/8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1694617469;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=BXluFeV5HxPwkOMtLbDkSuoY04wNyivNmX5LABSF3AQ=;
- b=bBmYswtKCLAtti0MITzGE+7sfwyCXzV01ya9UG4jrLgxVZ7OVGGll6xfvWnunTIXafaa4P
- sAu5J78M+3WTBGCA==
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A932A13A34;
- Wed, 13 Sep 2023 15:04:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id EP54KHzPAWXEdAAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Wed, 13 Sep 2023 15:04:28 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tvrtko.ursulin@linux.intel.com,
- ville.syrjala@linux.intel.com, imre.deak@intel.com,
- tejas.upadhyay@intel.com, javierm@redhat.com, airlied@gmail.com,
- daniel@ffwll.ch
-Date: Wed, 13 Sep 2023 16:58:41 +0200
-Message-ID: <20230913150425.5742-2-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20230913150425.5742-1-tzimmermann@suse.de>
-References: <20230913150425.5742-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2124E10E461;
+	Wed, 13 Sep 2023 15:05:48 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A8FB10E461
+ for <intel-gfx@lists.freedesktop.org>; Wed, 13 Sep 2023 15:05:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1694617546; x=1726153546;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=I10CKN7GoFAQf/qAZwohOvj/Q7LBfwXpWRiOikbqB6w=;
+ b=RxgJkdQqF7UUQmzc918Li7J0C9fq33TfCjp6PsOKp1nIPhrOz0vvx+xQ
+ QbuoIeMY+13kAVd/Af7xW0Wb+n2tc4aoMenF7g5Ttd3rRYXgOLvJgjdYn
+ avEv7FYlfN5UPnWzUK9HdxHSh/HGChBs8GhJ7tDn6mQwkdnt39+bCcGsi
+ Mq7rt4SJG8Nag9gEGxFljh8NAaOAKQjx85ivGTKwgx4jAvYa9zJG8jf6R
+ mHirGkIMnQrKNal1glJvouOXbg6YavwWW1pOL7L+w0GPX62ZSp5BLNRfx
+ RWJU3pji0VUxRq+SWwxcz8y/h+f8pEnH5ZkK2UnTJ/dRqZkE11Ux6tPZc A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10832"; a="363717924"
+X-IronPort-AV: E=Sophos;i="6.02,143,1688454000"; d="scan'208";a="363717924"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Sep 2023 08:03:59 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10832"; a="809696191"
+X-IronPort-AV: E=Sophos;i="6.02,143,1688454000"; d="scan'208";a="809696191"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.153])
+ by fmsmga008.fm.intel.com with SMTP; 13 Sep 2023 08:03:57 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 13 Sep 2023 18:03:56 +0300
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 13 Sep 2023 18:03:55 +0300
+Message-ID: <20230913150356.9477-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/4] drm/i915: Move fbdev functions
+Subject: [Intel-gfx] [PATCH 1/2] drm/i915: Check lane count when determining
+ FEC support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,198 +58,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- dri-devel@lists.freedesktop.org
+Cc: Luca Coelho <luciano.coelho@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move functions within intel_fbdev.c to simplify later updates. No
-functional changes.
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+ICL doesn't support FEC with a x1 DP link. Make sure
+we don't try to enable FEC in such cases.
+
+Requires a bit of reordering to make sure we've computed lane_count
+before checking it.
+
+Cc: Luca Coelho <luciano.coelho@intel.com>
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fbdev.c | 154 ++++++++++-----------
- 1 file changed, 77 insertions(+), 77 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-index 31d0d695d5671..8d51550e18fd5 100644
---- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-@@ -545,58 +545,6 @@ static void intel_fbdev_suspend_worker(struct work_struct *work)
- 				true);
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 55ba6eeaa810..2cde8ac513bb 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1363,7 +1363,8 @@ static bool intel_dp_source_supports_fec(struct intel_dp *intel_dp,
+ 	if (DISPLAY_VER(dev_priv) >= 12)
+ 		return true;
  
--int intel_fbdev_init(struct drm_device *dev)
--{
--	struct drm_i915_private *dev_priv = to_i915(dev);
--	struct intel_fbdev *ifbdev;
--	int ret;
--
--	if (drm_WARN_ON(dev, !HAS_DISPLAY(dev_priv)))
--		return -ENODEV;
--
--	ifbdev = kzalloc(sizeof(struct intel_fbdev), GFP_KERNEL);
--	if (ifbdev == NULL)
--		return -ENOMEM;
--
--	mutex_init(&ifbdev->hpd_lock);
--	drm_fb_helper_prepare(dev, &ifbdev->helper, 32, &intel_fb_helper_funcs);
--
--	if (intel_fbdev_init_bios(dev, ifbdev))
--		ifbdev->helper.preferred_bpp = ifbdev->preferred_bpp;
--	else
--		ifbdev->preferred_bpp = ifbdev->helper.preferred_bpp;
--
--	ret = drm_fb_helper_init(dev, &ifbdev->helper);
--	if (ret) {
--		kfree(ifbdev);
--		return ret;
--	}
--
--	dev_priv->display.fbdev.fbdev = ifbdev;
--	INIT_WORK(&dev_priv->display.fbdev.suspend_work, intel_fbdev_suspend_worker);
--
--	return 0;
--}
--
--static void intel_fbdev_initial_config(void *data, async_cookie_t cookie)
--{
--	struct intel_fbdev *ifbdev = data;
--
--	/* Due to peculiar init order wrt to hpd handling this is separate. */
--	if (drm_fb_helper_initial_config(&ifbdev->helper))
--		intel_fbdev_unregister(to_i915(ifbdev->helper.dev));
--}
--
--void intel_fbdev_initial_config_async(struct drm_i915_private *dev_priv)
--{
--	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
--
--	if (!ifbdev)
--		return;
--
--	ifbdev->cookie = async_schedule(intel_fbdev_initial_config, ifbdev);
--}
--
- static void intel_fbdev_sync(struct intel_fbdev *ifbdev)
- {
- 	if (!ifbdev->cookie)
-@@ -607,31 +555,6 @@ static void intel_fbdev_sync(struct intel_fbdev *ifbdev)
- 	ifbdev->cookie = 0;
- }
+-	if (DISPLAY_VER(dev_priv) == 11 && encoder->port != PORT_A)
++	if (DISPLAY_VER(dev_priv) == 11 &&
++	    encoder->port != PORT_A && pipe_config->lane_count != 1)
+ 		return true;
  
--void intel_fbdev_unregister(struct drm_i915_private *dev_priv)
--{
--	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
--
--	if (!ifbdev)
--		return;
--
--	intel_fbdev_set_suspend(&dev_priv->drm, FBINFO_STATE_SUSPENDED, true);
--
--	if (!current_is_async())
--		intel_fbdev_sync(ifbdev);
--
--	drm_fb_helper_unregister_info(&ifbdev->helper);
--}
--
--void intel_fbdev_fini(struct drm_i915_private *dev_priv)
--{
--	struct intel_fbdev *ifbdev = fetch_and_zero(&dev_priv->display.fbdev.fbdev);
--
--	if (!ifbdev)
--		return;
--
--	intel_fbdev_destroy(ifbdev);
--}
--
- /* Suspends/resumes fbdev processing of incoming HPD events. When resuming HPD
-  * processing, fbdev will perform a full connector reprobe if a hotplug event
-  * was received while HPD was suspended.
-@@ -748,6 +671,83 @@ void intel_fbdev_restore_mode(struct drm_i915_private *dev_priv)
- 		intel_fbdev_invalidate(ifbdev);
- }
+ 	return false;
+@@ -2105,15 +2106,6 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 		&pipe_config->hw.adjusted_mode;
+ 	int ret;
  
-+int intel_fbdev_init(struct drm_device *dev)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(dev);
-+	struct intel_fbdev *ifbdev;
-+	int ret;
+-	pipe_config->fec_enable = !intel_dp_is_edp(intel_dp) &&
+-		intel_dp_supports_fec(intel_dp, pipe_config);
+-
+-	if (!intel_dp_supports_dsc(intel_dp, pipe_config))
+-		return -EINVAL;
+-
+-	if (!intel_dp_dsc_supports_format(intel_dp, pipe_config->output_format))
+-		return -EINVAL;
+-
+ 	/*
+ 	 * compute pipe bpp is set to false for DP MST DSC case
+ 	 * and compressed_bpp is calculated same time once
+@@ -2134,6 +2126,15 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 		}
+ 	}
+ 
++	pipe_config->fec_enable = !intel_dp_is_edp(intel_dp) &&
++		intel_dp_supports_fec(intel_dp, pipe_config);
 +
-+	if (drm_WARN_ON(dev, !HAS_DISPLAY(dev_priv)))
-+		return -ENODEV;
++	if (!intel_dp_supports_dsc(intel_dp, pipe_config))
++		return -EINVAL;
 +
-+	ifbdev = kzalloc(sizeof(struct intel_fbdev), GFP_KERNEL);
-+	if (ifbdev == NULL)
-+		return -ENOMEM;
++	if (!intel_dp_dsc_supports_format(intel_dp, pipe_config->output_format))
++		return -EINVAL;
 +
-+	mutex_init(&ifbdev->hpd_lock);
-+	drm_fb_helper_prepare(dev, &ifbdev->helper, 32, &intel_fb_helper_funcs);
-+
-+	if (intel_fbdev_init_bios(dev, ifbdev))
-+		ifbdev->helper.preferred_bpp = ifbdev->preferred_bpp;
-+	else
-+		ifbdev->preferred_bpp = ifbdev->helper.preferred_bpp;
-+
-+	ret = drm_fb_helper_init(dev, &ifbdev->helper);
-+	if (ret) {
-+		kfree(ifbdev);
-+		return ret;
-+	}
-+
-+	dev_priv->display.fbdev.fbdev = ifbdev;
-+	INIT_WORK(&dev_priv->display.fbdev.suspend_work, intel_fbdev_suspend_worker);
-+
-+	return 0;
-+}
-+
-+static void intel_fbdev_initial_config(void *data, async_cookie_t cookie)
-+{
-+	struct intel_fbdev *ifbdev = data;
-+
-+	/* Due to peculiar init order wrt to hpd handling this is separate. */
-+	if (drm_fb_helper_initial_config(&ifbdev->helper))
-+		intel_fbdev_unregister(to_i915(ifbdev->helper.dev));
-+}
-+
-+void intel_fbdev_initial_config_async(struct drm_i915_private *dev_priv)
-+{
-+	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
-+
-+	if (!ifbdev)
-+		return;
-+
-+	ifbdev->cookie = async_schedule(intel_fbdev_initial_config, ifbdev);
-+}
-+
-+void intel_fbdev_unregister(struct drm_i915_private *dev_priv)
-+{
-+	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
-+
-+	if (!ifbdev)
-+		return;
-+
-+	intel_fbdev_set_suspend(&dev_priv->drm, FBINFO_STATE_SUSPENDED, true);
-+
-+	if (!current_is_async())
-+		intel_fbdev_sync(ifbdev);
-+
-+	drm_fb_helper_unregister_info(&ifbdev->helper);
-+}
-+
-+void intel_fbdev_fini(struct drm_i915_private *dev_priv)
-+{
-+	struct intel_fbdev *ifbdev = fetch_and_zero(&dev_priv->display.fbdev.fbdev);
-+
-+	if (!ifbdev)
-+		return;
-+
-+	intel_fbdev_destroy(ifbdev);
-+}
-+
- struct intel_framebuffer *intel_fbdev_framebuffer(struct intel_fbdev *fbdev)
- {
- 	if (!fbdev || !fbdev->helper.fb)
+ 	/* Calculate Slice count */
+ 	if (intel_dp_is_edp(intel_dp)) {
+ 		pipe_config->dsc.slice_count =
 -- 
-2.42.0
+2.41.0
 
