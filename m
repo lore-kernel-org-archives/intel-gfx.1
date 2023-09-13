@@ -4,55 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2143FEDEC70
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 15:04:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66548EDEC70
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 15:04:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF2EE10E461;
-	Wed, 13 Sep 2023 15:04:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3046710E4BE;
+	Wed, 13 Sep 2023 15:04:34 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E632910E0D9;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10E4410E45F;
+ Wed, 13 Sep 2023 15:04:31 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9D7401F45E;
  Wed, 13 Sep 2023 15:04:29 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A5B9F1F385;
- Wed, 13 Sep 2023 15:04:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1694617468; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=aL/bukbP7Bk+ZmHI+B1BUbs0vTjSv75KRRo6YUZVjqQ=;
- b=gSfJT6InQwjudzY/SdfMkLYztfiZHw3TtQTi6FsjjVzw2KtfisKQihV3hgvND/qQ1LRfw8
- cPdpnUa/jRqimsKAVDtj5IR422pw0KUT/WRJv9pvUXLz2V3xGmS6LWgTdZFM3zX4oP3HZH
- JjFWEsdmbKh5h2yFfqPxpvzh7QVjTUQ=
+ t=1694617469; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Fj13KoQkvqGcMCfYniDfJcBzg1vjxXhsojWyPDOSNsQ=;
+ b=clvT5lVAVv6b893V1XF8qNTWSYNA/qlJVvrd+92B90+9JP39yWO0ZWn5+teJHmPesRl6p2
+ pyRfVhnXj8JovPW5CNT/IVTjfLdupr7TDIoYzGz7Keg6V3lcDivFAO81iHwTdNcD3+2wXn
+ DeKah+2FBHxLbb0sA1O2QKhQv6tGY00=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1694617468;
+ s=susede2_ed25519; t=1694617469;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=aL/bukbP7Bk+ZmHI+B1BUbs0vTjSv75KRRo6YUZVjqQ=;
- b=GgSKonoB/J8lKXTa/X7eiGyROviXI7X12+iH9q+Mle6Infmw2GELBBaNbO6OZ0Lz5J0PrJ
- uvTSXJckBy7vQzCA==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Fj13KoQkvqGcMCfYniDfJcBzg1vjxXhsojWyPDOSNsQ=;
+ b=vx3hmAzbzbRGutI1ffHniknXcj37T94aoRNlZoP9yczAub5Q9NgscOWRluPwTxOOZPXMdZ
+ BCfNkYOl6+Wtb8CQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5893513440;
- Wed, 13 Sep 2023 15:04:28 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5892313A34;
+ Wed, 13 Sep 2023 15:04:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 3iB9FHzPAWXEdAAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Wed, 13 Sep 2023 15:04:28 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id EGy1FH3PAWXEdAAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Wed, 13 Sep 2023 15:04:29 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
  rodrigo.vivi@intel.com, tvrtko.ursulin@linux.intel.com,
  ville.syrjala@linux.intel.com, imre.deak@intel.com,
  tejas.upadhyay@intel.com, javierm@redhat.com, airlied@gmail.com,
  daniel@ffwll.ch
-Date: Wed, 13 Sep 2023 16:58:40 +0200
-Message-ID: <20230913150425.5742-1-tzimmermann@suse.de>
+Date: Wed, 13 Sep 2023 16:58:43 +0200
+Message-ID: <20230913150425.5742-4-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20230913150425.5742-1-tzimmermann@suse.de>
+References: <20230913150425.5742-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/4] drm/i915: Convert fbdev to DRM client
+Subject: [Intel-gfx] [PATCH v2 3/4] drm/i915: Implement fbdev client
+ callbacks
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,41 +77,142 @@ Cc: intel-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Convert i915's fbdev code to struct drm_client. Replaces the current
-ad-hoc integration. The conversion includes a number of cleanups.
+Move code from ad-hoc fbdev callbacks into DRM client functions
+and remove the old callbacks. The functions instruct the client
+to poll for changed output or restore the display.
 
-As with most other driver's fbdev emulation, fbdev in i915 is now
-just another DRM client that runs after the DRM device has been
-registered. This allows to remove the asynchronous initialization.
+The DRM core calls both, the old callbacks and the new client
+helpers, from the same places. The new functions perform the same
+operation as before, so there's no change in functionality.
 
-I've long wanted to send out an update for this patchset. i915
-is the last driver with an fbdev emulation that is not build upon
-struct drm_client. Once reviewed, the patches would ideally go
-into drm-misc-next, so that the old fbdev helper code can be removed.
-We can also attempt to add additional in-kernel clients. A DRM-based
-dmesg log or a bootsplash are commonly mentioned. DRM can then switch
-easily among the existing clients if/when required.
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ .../drm/i915/display/intel_display_driver.c   |  1 -
+ drivers/gpu/drm/i915/display/intel_fbdev.c    | 11 ++++++++--
+ drivers/gpu/drm/i915/display/intel_fbdev.h    |  9 --------
+ drivers/gpu/drm/i915/i915_driver.c            | 22 -------------------
+ 4 files changed, 9 insertions(+), 34 deletions(-)
 
-v2:
-	* fix error handling (Jani)
-	* fix non-fbdev builds
-	* various minor fixes and cleanups
-
-Thomas Zimmermann (4):
-  drm/i915: Move fbdev functions
-  drm/i915: Initialize fbdev DRM client with callback functions
-  drm/i915: Implement fbdev client callbacks
-  drm/i915: Implement fbdev emulation as in-kernel client
-
- drivers/gpu/drm/i915/display/intel_display.c  |   1 -
- .../drm/i915/display/intel_display_driver.c   |  19 --
- drivers/gpu/drm/i915/display/intel_fbdev.c    | 250 ++++++++++--------
- drivers/gpu/drm/i915/display/intel_fbdev.h    |  29 +-
- drivers/gpu/drm/i915/i915_driver.c            |  24 +-
- 5 files changed, 139 insertions(+), 184 deletions(-)
-
-
-base-commit: f8d21cb17a99b75862196036bb4bb93ee9637b74
+diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
+index 9d9b034b9bdc7..0650c0ed30a0c 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_driver.c
++++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+@@ -96,7 +96,6 @@ void intel_display_driver_init_hw(struct drm_i915_private *i915)
+ static const struct drm_mode_config_funcs intel_mode_funcs = {
+ 	.fb_create = intel_user_framebuffer_create,
+ 	.get_format_info = intel_fb_get_format_info,
+-	.output_poll_changed = intel_fbdev_output_poll_changed,
+ 	.mode_valid = intel_mode_valid,
+ 	.atomic_check = intel_atomic_check,
+ 	.atomic_commit = intel_atomic_commit,
+diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+index d8a165582fd59..31e8275a70fea 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbdev.c
++++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+@@ -638,7 +638,7 @@ void intel_fbdev_set_suspend(struct drm_device *dev, int state, bool synchronous
+ 	intel_fbdev_hpd_set_suspend(dev_priv, state);
+ }
+ 
+-void intel_fbdev_output_poll_changed(struct drm_device *dev)
++static void intel_fbdev_output_poll_changed(struct drm_device *dev)
+ {
+ 	struct intel_fbdev *ifbdev = to_i915(dev)->display.fbdev.fbdev;
+ 	bool send_hpd;
+@@ -657,7 +657,7 @@ void intel_fbdev_output_poll_changed(struct drm_device *dev)
+ 		drm_fb_helper_hotplug_event(&ifbdev->helper);
+ }
+ 
+-void intel_fbdev_restore_mode(struct drm_i915_private *dev_priv)
++static void intel_fbdev_restore_mode(struct drm_i915_private *dev_priv)
+ {
+ 	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
+ 
+@@ -681,11 +681,18 @@ static void intel_fbdev_client_unregister(struct drm_client_dev *client)
+ 
+ static int intel_fbdev_client_restore(struct drm_client_dev *client)
+ {
++	struct drm_i915_private *dev_priv = to_i915(client->dev);
++
++	intel_fbdev_restore_mode(dev_priv);
++	vga_switcheroo_process_delayed_switch();
++
+ 	return 0;
+ }
+ 
+ static int intel_fbdev_client_hotplug(struct drm_client_dev *client)
+ {
++	intel_fbdev_output_poll_changed(client->dev);
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.h b/drivers/gpu/drm/i915/display/intel_fbdev.h
+index 04fd523a50232..8c953f102ba22 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbdev.h
++++ b/drivers/gpu/drm/i915/display/intel_fbdev.h
+@@ -19,8 +19,6 @@ void intel_fbdev_initial_config_async(struct drm_i915_private *dev_priv);
+ void intel_fbdev_unregister(struct drm_i915_private *dev_priv);
+ void intel_fbdev_fini(struct drm_i915_private *dev_priv);
+ void intel_fbdev_set_suspend(struct drm_device *dev, int state, bool synchronous);
+-void intel_fbdev_output_poll_changed(struct drm_device *dev);
+-void intel_fbdev_restore_mode(struct drm_i915_private *dev_priv);
+ struct intel_framebuffer *intel_fbdev_framebuffer(struct intel_fbdev *fbdev);
+ #else
+ static inline int intel_fbdev_init(struct drm_device *dev)
+@@ -44,13 +42,6 @@ static inline void intel_fbdev_set_suspend(struct drm_device *dev, int state, bo
+ {
+ }
+ 
+-static inline void intel_fbdev_output_poll_changed(struct drm_device *dev)
+-{
+-}
+-
+-static inline void intel_fbdev_restore_mode(struct drm_i915_private *i915)
+-{
+-}
+ static inline struct intel_framebuffer *intel_fbdev_framebuffer(struct intel_fbdev *fbdev)
+ {
+ 	return NULL;
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index f8dbee7a5af7f..14aa863dca60c 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -921,27 +921,6 @@ static int i915_driver_open(struct drm_device *dev, struct drm_file *file)
+ 	return 0;
+ }
+ 
+-/**
+- * i915_driver_lastclose - clean up after all DRM clients have exited
+- * @dev: DRM device
+- *
+- * Take care of cleaning up after all DRM clients have exited.  In the
+- * mode setting case, we want to restore the kernel's initial mode (just
+- * in case the last client left us in a bad state).
+- *
+- * Additionally, in the non-mode setting case, we'll tear down the GTT
+- * and DMA structures, since the kernel won't be using them, and clea
+- * up any GEM state.
+- */
+-static void i915_driver_lastclose(struct drm_device *dev)
+-{
+-	struct drm_i915_private *i915 = to_i915(dev);
+-
+-	intel_fbdev_restore_mode(i915);
+-
+-	vga_switcheroo_process_delayed_switch();
+-}
+-
+ static void i915_driver_postclose(struct drm_device *dev, struct drm_file *file)
+ {
+ 	struct drm_i915_file_private *file_priv = file->driver_priv;
+@@ -1822,7 +1801,6 @@ static const struct drm_driver i915_drm_driver = {
+ 	    DRIVER_SYNCOBJ_TIMELINE,
+ 	.release = i915_driver_release,
+ 	.open = i915_driver_open,
+-	.lastclose = i915_driver_lastclose,
+ 	.postclose = i915_driver_postclose,
+ 	.show_fdinfo = PTR_IF(IS_ENABLED(CONFIG_PROC_FS), i915_drm_client_fdinfo),
+ 
 -- 
 2.42.0
 
