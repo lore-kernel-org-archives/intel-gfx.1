@@ -4,45 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B9ECEEB597
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 06:12:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDEE0EEB596
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 Sep 2023 06:12:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F133210E3B2;
-	Wed, 13 Sep 2023 06:11:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F3FC10E455;
+	Wed, 13 Sep 2023 06:11:56 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E255E10E26D;
- Wed, 13 Sep 2023 06:11:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69F9C10E26D;
+ Wed, 13 Sep 2023 06:11:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694585513; x=1726121513;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=mA8VurIMNSYGfTXSwzwX47Tk3PNUx/Y7aVB24PGI2Cg=;
- b=c3aZF7tmIHj2iP3xD2CcO4eozsjiNWAUQBlJC+4FEqNCeK0CvLz4s+il
- +HE1RfuFC9BHwOHCrAnYC7PiX4fofvo0egP/QpwrdInm6wRyPhW0mRv93
- iAIG9DEecLS5xF1kGGCnngV4M1ZXJOuMjy714UsyXBEah0tQBajf8lMST
- ZryoiVUWPRuxrfdhf0WjvK/PzW8btIyHEC1xqWLKFdnG3+4A9/DLTfSyp
- 6L68t9tAZXbDNCs694/Gx5907ELYytzzkhagk2rCaeZRnv6k92qBNxqgh
- nP3zDMLhiptKpQ3jRmXZ2JDTwzU7AzogsBjA/Rsdnq7sbW7P8/NEHGP7O w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="377482531"
-X-IronPort-AV: E=Sophos;i="6.02,142,1688454000"; d="scan'208";a="377482531"
+ t=1694585514; x=1726121514;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Jxf7t5mslR/v5lVMPq/X0EfuUxA2xRH2DP0nq9usbQc=;
+ b=LRntQvj8mN/QVRxXDJYVCPAgV4ltV6p5ozxEweZgCITB7ndrrSz3qSJg
+ NvUAi2mSPoifjk/Iy5fVl/psOhd9fqFozx8EEh3tqS3A6jZsLg2cRKKs8
+ vONGDqqNe4jYS3YJPPgU+G0TXav4WYHe+6rc+MXeSmLO20rqpEXo2BDhS
+ rWDv9yqk7Cw+yjTQfm/49e2cu0S68ZPf+f+N9JK3nF/VwaVu15bfed2zc
+ VYWZq8Ew19LAlZ+LvKUdrBXaxN5uGbMGbpGpyKQ3JZsc4/2U84FKMCSfC
+ G1p9zotNb6nzQITzFuozm/edwbaGZzTGOb9zZIBDbh3DWpWlfdYMW96eY w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="377482561"
+X-IronPort-AV: E=Sophos;i="6.02,142,1688454000"; d="scan'208";a="377482561"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2023 23:11:30 -0700
+ 12 Sep 2023 23:11:37 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="693741680"
-X-IronPort-AV: E=Sophos;i="6.02,142,1688454000"; d="scan'208";a="693741680"
+X-IronPort-AV: E=McAfee;i="6600,9927,10831"; a="693741705"
+X-IronPort-AV: E=Sophos;i="6.02,142,1688454000"; d="scan'208";a="693741705"
 Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by orsmga003.jf.intel.com with ESMTP; 12 Sep 2023 23:11:28 -0700
+ by orsmga003.jf.intel.com with ESMTP; 12 Sep 2023 23:11:35 -0700
 From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 To: dri-devel@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Date: Wed, 13 Sep 2023 11:35:58 +0530
-Message-Id: <20230913060606.1105349-1-mitulkumar.ajitkumar.golani@intel.com>
+Date: Wed, 13 Sep 2023 11:36:01 +0530
+Message-Id: <20230913060606.1105349-4-mitulkumar.ajitkumar.golani@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230913060606.1105349-1-mitulkumar.ajitkumar.golani@intel.com>
+References: <20230913060606.1105349-1-mitulkumar.ajitkumar.golani@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/8] Add DSC fractional bpp support
+Subject: [Intel-gfx] [PATCH 3/8] drm/i915/display: Consider fractional vdsc
+ bpp while computing m_n values
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,57 +62,115 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-his patch series adds support for DSC fractional compressed bpp
-for MTL+. The series starts with some fixes, followed by patches that
-lay groundwork to iterate over valid compressed bpps to select the
-'best' compressed bpp with optimal link configuration (taken from
-upstream series: https://patchwork.freedesktop.org/series/105200/).
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-The later patches, add changes to accommodate compressed bpp with
-fractional part, including changes to QP calculations.
-To get the 'best' compressed bpp, we iterate over the valid compressed
-bpp values, but with fractional step size 1/16, 1/8, 1/4 or 1/2 as per
-sink support.
+MTL+ supports fractional compressed bits_per_pixel, with precision of
+1/16. This compressed bpp is stored in U6.4 format.
+Accommodate this precision while computing m_n values.
 
-The last 2 patches add support to depict DSC sink's fractional support,
-and debugfs to enforce use of fractional bpp, while choosing an
-appropriate compressed bpp.
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 6 +++++-
+ drivers/gpu/drm/i915/display/intel_display.h | 2 +-
+ drivers/gpu/drm/i915/display/intel_dp.c      | 5 +++--
+ drivers/gpu/drm/i915/display/intel_dp_mst.c  | 6 ++++--
+ drivers/gpu/drm/i915/display/intel_fdi.c     | 2 +-
+ 5 files changed, 14 insertions(+), 7 deletions(-)
 
-Ankit Nautiyal (5):
-  drm/display/dp: Add helper function to get DSC bpp prescision
-  drm/i915/display: Store compressed bpp in U6.4 format
-  drm/i915/display: Consider fractional vdsc bpp while computing m_n
-    values
-  drm/i915/audio : Consider fractional vdsc bpp while computing tu_data
-  drm/i915/dp: Iterate over output bpp with fractional step size
-
-Swati Sharma (2):
-  drm/i915/dsc: Add debugfs entry to validate DSC fractional bpp
-  drm/i915/dsc: Allow DSC only with fractional bpp when forced from
-    debugfs
-
-Vandita Kulkarni (1):
-  drm/i915/dsc/mtl: Add support for fractional bpp
-
- drivers/gpu/drm/display/drm_dp_helper.c       | 27 ++++++
- drivers/gpu/drm/i915/display/icl_dsi.c        | 11 +--
- drivers/gpu/drm/i915/display/intel_audio.c    | 17 ++--
- drivers/gpu/drm/i915/display/intel_bios.c     |  6 +-
- drivers/gpu/drm/i915/display/intel_cdclk.c    |  6 +-
- drivers/gpu/drm/i915/display/intel_display.c  |  8 +-
- drivers/gpu/drm/i915/display/intel_display.h  |  2 +-
- .../drm/i915/display/intel_display_debugfs.c  | 83 +++++++++++++++++++
- .../drm/i915/display/intel_display_types.h    |  4 +-
- drivers/gpu/drm/i915/display/intel_dp.c       | 81 +++++++++++-------
- drivers/gpu/drm/i915/display/intel_dp_mst.c   | 32 ++++---
- drivers/gpu/drm/i915/display/intel_fdi.c      |  2 +-
- .../i915/display/intel_fractional_helper.h    | 36 ++++++++
- .../gpu/drm/i915/display/intel_qp_tables.c    |  3 -
- drivers/gpu/drm/i915/display/intel_vdsc.c     | 30 +++++--
- include/drm/display/drm_dp_helper.h           |  1 +
- 16 files changed, 275 insertions(+), 74 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/display/intel_fractional_helper.h
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index afcbdd4f105a..b37aeac961f4 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -2380,10 +2380,14 @@ void
+ intel_link_compute_m_n(u16 bits_per_pixel, int nlanes,
+ 		       int pixel_clock, int link_clock,
+ 		       struct intel_link_m_n *m_n,
+-		       bool fec_enable)
++		       bool fec_enable,
++		       bool is_dsc_fractional_bpp)
+ {
+ 	u32 data_clock = bits_per_pixel * pixel_clock;
+ 
++	if (is_dsc_fractional_bpp)
++		data_clock = DIV_ROUND_UP(bits_per_pixel * pixel_clock, 16);
++
+ 	if (fec_enable)
+ 		data_clock = intel_dp_mode_to_fec_clock(data_clock);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+index 49ac8473b988..a4c4ca3cad65 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.h
++++ b/drivers/gpu/drm/i915/display/intel_display.h
+@@ -398,7 +398,7 @@ u8 intel_calc_active_pipes(struct intel_atomic_state *state,
+ void intel_link_compute_m_n(u16 bpp, int nlanes,
+ 			    int pixel_clock, int link_clock,
+ 			    struct intel_link_m_n *m_n,
+-			    bool fec_enable);
++			    bool fec_enable, bool is_dsc_fractional_bpp);
+ u32 intel_plane_fb_max_stride(struct drm_i915_private *dev_priv,
+ 			      u32 pixel_format, u64 modifier);
+ enum drm_mode_status
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index cb647bb38b12..6e09e21909a1 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2562,7 +2562,7 @@ intel_dp_drrs_compute_config(struct intel_connector *connector,
+ 
+ 	intel_link_compute_m_n(link_bpp, pipe_config->lane_count, pixel_clock,
+ 			       pipe_config->port_clock, &pipe_config->dp_m2_n2,
+-			       pipe_config->fec_enable);
++			       pipe_config->fec_enable, false);
+ 
+ 	/* FIXME: abstract this better */
+ 	if (pipe_config->splitter.enable)
+@@ -2741,7 +2741,8 @@ intel_dp_compute_config(struct intel_encoder *encoder,
+ 			       adjusted_mode->crtc_clock,
+ 			       pipe_config->port_clock,
+ 			       &pipe_config->dp_m_n,
+-			       pipe_config->fec_enable);
++			       pipe_config->fec_enable,
++			       pipe_config->dsc.compression_enable);
+ 
+ 	/* FIXME: abstract this better */
+ 	if (pipe_config->splitter.enable)
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 7bf0b6e4ac0b..8f6bd54532cb 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -172,7 +172,8 @@ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
+ 			       adjusted_mode->crtc_clock,
+ 			       crtc_state->port_clock,
+ 			       &crtc_state->dp_m_n,
+-			       crtc_state->fec_enable);
++			       crtc_state->fec_enable,
++			       false);
+ 	crtc_state->dp_m_n.tu = slots;
+ 
+ 	return 0;
+@@ -269,7 +270,8 @@ static int intel_dp_dsc_mst_compute_link_config(struct intel_encoder *encoder,
+ 			       adjusted_mode->crtc_clock,
+ 			       crtc_state->port_clock,
+ 			       &crtc_state->dp_m_n,
+-			       crtc_state->fec_enable);
++			       crtc_state->fec_enable,
++			       crtc_state->dsc.compression_enable);
+ 	crtc_state->dp_m_n.tu = slots;
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_fdi.c b/drivers/gpu/drm/i915/display/intel_fdi.c
+index e12b46a84fa1..15fddabf7c2e 100644
+--- a/drivers/gpu/drm/i915/display/intel_fdi.c
++++ b/drivers/gpu/drm/i915/display/intel_fdi.c
+@@ -259,7 +259,7 @@ int ilk_fdi_compute_config(struct intel_crtc *crtc,
+ 	pipe_config->fdi_lanes = lane;
+ 
+ 	intel_link_compute_m_n(pipe_config->pipe_bpp, lane, fdi_dotclock,
+-			       link_bw, &pipe_config->fdi_m_n, false);
++			       link_bw, &pipe_config->fdi_m_n, false, false);
+ 
+ 	ret = ilk_check_fdi_lanes(dev, crtc->pipe, pipe_config);
+ 	if (ret == -EDEADLK)
 -- 
 2.25.1
 
