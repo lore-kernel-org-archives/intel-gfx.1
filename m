@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3DE0EDE9A4
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 11:39:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF432EDE9A9
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 11:39:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9BC010E568;
-	Thu, 14 Sep 2023 11:39:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52CE210E569;
+	Thu, 14 Sep 2023 11:39:14 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 193F810E264
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9713E10E264
  for <intel-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 11:39:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1694691551; x=1726227551;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=BSxPcsOFSikr1DxB5jalf5k82fabJdMHLF/HnDzZ43Y=;
- b=OhMgBvjJfKfcgBR7pTpOEPxKD8+SLe9ptMa+d4QMgTfkDlnsFR9wcIZX
- R9ZwBmuiL0BIujEm079fO51MkeW7svNV28MdLbLrmQY3LSYlHqNfLul3I
- SYIark2NCdl9refocXujixv8p0YE2G4xaOKbbD/NCNcOqKwn1gEnO06S8
- QGE9ubm7lkCTLOGu/Rl9qCkd9T6W7lLLix9TKooFmFSS1TWlAuL2Nlys8
- BLwEGLFp7P+x3bSJp3gmTf7ZwaFuJZPcpxrWQYBoGlGNI0h4JnDIji0+C
- lEy7hWx5aREjNksEKOjoY/hrae0RhE6N0GLUPdBdqcLYeMAwNTjGT3aVv w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10832"; a="359186758"
-X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="359186758"
+ bh=KiWrfiMh0gIo9LzpPbvG5Ei3w22bCcHWRb8lguWbVxc=;
+ b=COVmeP019kw6+2u+T7m7+6Ymd0DBqVco2hy0kWbBD2LQk0YWdnBKKzQg
+ RyakZ+s+ub0tZ0iZtmz2bpIvSG9brPC/YmHDzz2nO8htqGa/Us91uLiJR
+ eDaNDR82AjDiebMryPi2u8kVbLXqXsFR2VGhrsH8OQ4Gg0akp6pUexNbM
+ hME7FOlCPd8jCgE2Q8NJH1WtJCI+cG4vLw+Xs9puFEXCkewg29tAxBDbt
+ dUoROyawQ3jkjRb3BavXhTKNg4MZGhDsvyvGV5cNJ9hAqwtiHzlOABQwN
+ JPAvWJwepB9BfjJZgtPpKFfEblPNKYGoLWsyS7MSG2KydD2aZhLe67xT5 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10832"; a="359186770"
+X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="359186770"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 04:39:03 -0700
+ 14 Sep 2023 04:39:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10832"; a="810028957"
-X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="810028957"
+X-IronPort-AV: E=McAfee;i="6600,9927,10832"; a="810028963"
+X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="810028963"
 Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.153])
- by fmsmga008.fm.intel.com with SMTP; 14 Sep 2023 04:39:01 -0700
+ by fmsmga008.fm.intel.com with SMTP; 14 Sep 2023 04:39:07 -0700
 Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 14 Sep 2023 14:39:01 +0300
+ Thu, 14 Sep 2023 14:39:07 +0300
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 14 Sep 2023 14:38:52 +0300
-Message-ID: <20230914113854.10008-3-ville.syrjala@linux.intel.com>
+Date: Thu, 14 Sep 2023 14:38:54 +0300
+Message-ID: <20230914113854.10008-5-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230914113854.10008-1-ville.syrjala@linux.intel.com>
 References: <20230914113854.10008-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/5] drm/i915/fbc: Split plane tiling checks
- per-platform
+Subject: [Intel-gfx] [PATCH 5/5] drm/i915/fbc: Split plane pixel format
+ checks per-platform
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,62 +65,72 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Carve up tiling_is_valid() into per-platform variants to
+Carve up pixel_format_is_valid() into per-platform variants to
 make it easier to see what limits are actually being imposed.
+
+Note that the XRGB1555 can be dropped from the g4x+ variant
+since the plane no longer supports that format anyway.
 
 TODO: maybe go for vfuncs later
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fbc.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_fbc.c | 28 +++++++++++++++++++++++-
+ 1 file changed, 27 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-index 4c4626c84666..052f9d8b53d4 100644
+index 1a6931e66d5d..51998b1ec941 100644
 --- a/drivers/gpu/drm/i915/display/intel_fbc.c
 +++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-@@ -984,16 +984,21 @@ static bool intel_fbc_hw_tracking_covers_screen(const struct intel_plane_state *
- 	return effective_w <= max_w && effective_h <= max_h;
+@@ -912,7 +912,7 @@ static bool stride_is_valid(const struct intel_plane_state *plane_state)
+ 		return i8xx_fbc_stride_is_valid(plane_state);
  }
  
--static bool tiling_is_valid(const struct intel_plane_state *plane_state)
-+static bool i8xx_fbc_tiling_valid(const struct intel_plane_state *plane_state)
-+{
-+	const struct drm_framebuffer *fb = plane_state->hw.fb;
-+
-+	return fb->modifier == I915_FORMAT_MOD_X_TILED;
+-static bool pixel_format_is_valid(const struct intel_plane_state *plane_state)
++static bool i8xx_fbc_pixel_format_is_valid(const struct intel_plane_state *plane_state)
+ {
+ 	struct drm_i915_private *i915 = to_i915(plane_state->uapi.plane->dev);
+ 	const struct drm_framebuffer *fb = plane_state->hw.fb;
+@@ -926,6 +926,22 @@ static bool pixel_format_is_valid(const struct intel_plane_state *plane_state)
+ 		/* 16bpp not supported on gen2 */
+ 		if (DISPLAY_VER(i915) == 2)
+ 			return false;
++		return true;
++	default:
++		return false;
++	}
 +}
 +
-+static bool skl_fbc_tiling_valid(const struct intel_plane_state *plane_state)
- {
--	struct drm_i915_private *i915 = to_i915(plane_state->uapi.plane->dev);
- 	const struct drm_framebuffer *fb = plane_state->hw.fb;
- 
- 	switch (fb->modifier) {
- 	case DRM_FORMAT_MOD_LINEAR:
- 	case I915_FORMAT_MOD_Y_TILED:
- 	case I915_FORMAT_MOD_Yf_TILED:
--		return DISPLAY_VER(i915) >= 9;
- 	case I915_FORMAT_MOD_4_TILED:
- 	case I915_FORMAT_MOD_X_TILED:
- 		return true;
-@@ -1002,6 +1007,16 @@ static bool tiling_is_valid(const struct intel_plane_state *plane_state)
++static bool g4x_fbc_pixel_format_is_valid(const struct intel_plane_state *plane_state)
++{
++	struct drm_i915_private *i915 = to_i915(plane_state->uapi.plane->dev);
++	const struct drm_framebuffer *fb = plane_state->hw.fb;
++
++	switch (fb->format->format) {
++	case DRM_FORMAT_XRGB8888:
++	case DRM_FORMAT_XBGR8888:
++		return true;
++	case DRM_FORMAT_RGB565:
+ 		/* WaFbcOnly1to1Ratio:ctg */
+ 		if (IS_G4X(i915))
+ 			return false;
+@@ -935,6 +951,16 @@ static bool pixel_format_is_valid(const struct intel_plane_state *plane_state)
  	}
  }
  
-+static bool tiling_is_valid(const struct intel_plane_state *plane_state)
++static bool pixel_format_is_valid(const struct intel_plane_state *plane_state)
 +{
 +	struct drm_i915_private *i915 = to_i915(plane_state->uapi.plane->dev);
 +
-+	if (DISPLAY_VER(i915) >= 9)
-+		return skl_fbc_tiling_valid(plane_state);
++	if (DISPLAY_VER(i915) >= 5 || IS_G4X(i915))
++		return g4x_fbc_pixel_format_is_valid(plane_state);
 +	else
-+		return i8xx_fbc_tiling_valid(plane_state);
++		return i8xx_fbc_pixel_format_is_valid(plane_state);
 +}
 +
- static void intel_fbc_update_state(struct intel_atomic_state *state,
- 				   struct intel_crtc *crtc,
- 				   struct intel_plane *plane)
+ static bool i8xx_fbc_rotation_is_valid(const struct intel_plane_state *plane_state)
+ {
+ 	return plane_state->hw.rotation == DRM_MODE_ROTATE_0;
 -- 
 2.41.0
 
