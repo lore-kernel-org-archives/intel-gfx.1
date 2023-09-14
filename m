@@ -4,48 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4E88EDE9A4
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 11:39:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F873EDE9AD
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 12:10:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8D1E10E56A;
-	Thu, 14 Sep 2023 11:39:15 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 767C210E264
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 11:39:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694691550; x=1726227550;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=bTc01px+lQjTF8f4Z41PJw/cACjmn40BTrdFZEGebQg=;
- b=cS2OwR0Rrka1fubsswNNlAV0mr+cOc9bwP+uNHQjBT60+HmPCWEwRku6
- AYcqmd2vtrL8uD61bRL+fXtGZ1RY/Q64Ix9eHhTu8D88+KM6tT6pRC8OO
- FP1mO4fG2sh2yPe2Ez93LodP89XGag5K2wuGMdYu/HOI7teMy4YEuuySj
- 6t2+rDUFyKJlEwzeA8b6MTpKKNRGDjx/S34u8h5PQUGpTULzD+tHcQL5g
- 4AVTxzu9oDxfUrqtEt8ldTo2/vrpboEsVIgwShlK35vc0NQONAsMKyfBz
- gIucprQ/LnF04V3qn4gvw6bwugGhaMxVAxlWzsk3+M7NgPaUVv6YIhmIO Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10832"; a="359186736"
-X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="359186736"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 04:38:58 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10832"; a="810028946"
-X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="810028946"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.153])
- by fmsmga008.fm.intel.com with SMTP; 14 Sep 2023 04:38:55 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 14 Sep 2023 14:38:54 +0300
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 14 Sep 2023 14:38:50 +0300
-Message-ID: <20230914113854.10008-1-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.41.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C82110E562;
+	Thu, 14 Sep 2023 12:10:26 +0000 (UTC)
+Received: from farmhouse.coelho.fi (paleale.coelho.fi [176.9.41.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0686F10E562
+ for <intel-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 12:10:25 +0000 (UTC)
+Received: from 85-76-8-78-nat.elisa-mobile.fi ([85.76.8.78]
+ helo=[192.168.196.10])
+ by farmhouse.coelho.fi with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <luca@coelho.fi>) id 1qglAr-000KFd-0w;
+ Thu, 14 Sep 2023 15:10:22 +0300
+Message-ID: <79f314dc722d10d038715f21b067a7b1402be914.camel@coelho.fi>
+From: Luca Coelho <luca@coelho.fi>
+To: imre.deak@intel.com
+Date: Thu, 14 Sep 2023 15:08:49 +0300
+In-Reply-To: <ZQLpwTpT2Zt22gyy@ideak-desk.fi.intel.com>
+References: <20230824080517.693621-1-imre.deak@intel.com>
+ <20230824080517.693621-3-imre.deak@intel.com>
+ <b381e7ff588f86f8ba9783f666de76926de433f5.camel@coelho.fi>
+ <ZQLYfJ7/SbFm+Gct@ideak-desk.fi.intel.com>
+ <c4b3ccfb044807808397aec963307fde16492992.camel@coelho.fi>
+ <ZQLpwTpT2Zt22gyy@ideak-desk.fi.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4-2 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/5] drm/i915/fbc: Remove ancient 16k plane
- stride limit
+Subject: Re: [Intel-gfx] [PATCH v2 02/22] drm/i915/dp: Track the pipe and
+ link bpp limits separately
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,51 +47,116 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+On Thu, 2023-09-14 at 14:08 +0300, Imre Deak wrote:
+> On Thu, Sep 14, 2023 at 01:51:16PM +0300, Luca Coelho wrote:
+> > On Thu, 2023-09-14 at 12:55 +0300, Imre Deak wrote:
+> > > On Thu, Sep 14, 2023 at 12:33:59PM +0300, Luca Coelho wrote:
+> > > > On Thu, 2023-08-24 at 11:04 +0300, Imre Deak wrote:
+> > > > > A follow-up patch will need to limit the output link bpp both in =
+the
+> > > > > non-DSC and DSC configuration, so track the pipe and link bpp lim=
+its
+> > > > > separately in the link_config_limits struct.
+> > > > >=20
+> > > > > Use .4 fixed point format for link bpp matching the 1/16 bpp gran=
+ularity
+> > > > > in DSC mode and for now keep this limit matching the pipe bpp lim=
+it.
+> > > > >=20
+> > > > > v2: (Jani)
+> > > > > - Add to_bpp_int(), to_bpp_x16() helpers instead of opencoding th=
+em.
+> > > > > - Rename link_config_limits::link.min/max_bpp to min/max_bpp_x16.
+> > > > >=20
+> > > > > Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> > > > > Signed-off-by: Imre Deak <imre.deak@intel.com>
+> > > > > ---
+> > > > >  .../drm/i915/display/intel_display_types.h    | 10 ++++++++
+> > > > >  drivers/gpu/drm/i915/display/intel_dp.c       | 25 +++++++++++--=
+------
+> > > > >  drivers/gpu/drm/i915/display/intel_dp.h       |  9 ++++++-
+> > > > >  drivers/gpu/drm/i915/display/intel_dp_mst.c   | 17 ++++++++-----
+> > > > >  4 files changed, 44 insertions(+), 17 deletions(-)
+> > > > >=20
+> > > > > diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b=
+/drivers/gpu/drm/i915/display/intel_display_types.h
+> > > > > index 731f2ec04d5cd..5875eff5012ce 100644
+> > > > > --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+> > > > > +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+> > > >=20
+> > > > [...]
+> > > >=20
+> > > > > diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gp=
+u/drm/i915/display/intel_dp.h
+> > > > > index 788a577ebe16e..ebc7f4e60c777 100644
+> > > > > --- a/drivers/gpu/drm/i915/display/intel_dp.h
+> > > > > +++ b/drivers/gpu/drm/i915/display/intel_dp.h
+> > > > > @@ -26,7 +26,14 @@ struct intel_encoder;
+> > > > >  struct link_config_limits {
+> > > > >  	int min_rate, max_rate;
+> > > > >  	int min_lane_count, max_lane_count;
+> > > > > -	int min_bpp, max_bpp;
+> > > > > +	struct {
+> > > > > +		/* Uncompressed DSC input or link output bpp in 1 bpp units */
+> > > > > +		int min_bpp, max_bpp;
+> > > > > +	} pipe;
+> > > > > +	struct {
+> > > > > +		/* Compressed or uncompressed link output bpp in 1/16 bpp unit=
+s */
+> > > > > +		int min_bpp_x16, max_bpp_x16;
+> > > > > +	} link;
+> > > > >  };
+> > > >=20
+> > > > It's not clear to me from the commit message (nor from the code, fo=
+r
+> > > > that matter) why you need to store the values in both formats.  Can=
+ you
+> > > > clarify?
+> > >=20
+> > > For DSC configuration two separate limits need to be considered:
+> > >=20
+> > > One is the bpp value which is a property of the pixel format input to
+> > > the DSC engine, for this the DSC state computation should use the
+> > > pipe.min/max_bpp limits and this functionality of the DSC HW block ca=
+n
+> > > be configured in 1 bits per pixel granularity.
+> > >=20
+> > > The other one is the bpp value which is the format of pixels output f=
+rom
+> > > the DSC engine (and is the actual pixel format on the link), for whic=
+h
+> > > the DSC state computation should use link.min/max_bpp_x16. The DSC HW
+> > > block can be configure this pixel format in 1/16 bits per granularity=
+.
+> > >=20
+> > > For instance pipe.min/max_bpp will be 16 .. 30 bpp range (in 1 bpp
+> > > units), link.min/max_bpp_x16 in the 8 .. 27 bpp range (in 1/16 bpp
+> > > units).
+> >=20
+> > Okay, but you're storing these two limits in the link structure.  So
+> > the important difference between them is not x16 vs non-x16.  If it
+> > were, you wouldn't have to store both, because you can easily convert
+> > them with your new to_*() functions.
+> >=20
+> > So, isn't there a better name for these? Maybe input_max/min_bpp and
+> > output_max/min_bpp? You could keep the _x16 in the relevant one, but I
+> > think the main difference between the two should be reflected in the
+> > symbol names.
+>=20
+> They are part of a pipe/link sub-structure, so the names are in effect
+> pipe.min/max_bpp and link.min/max_bpp_x16. pipe and link in turn are the
+> terms used for these same types of bpps elsewhere in DSC and non-DSC
+> code, hence I used them here as well for clarity. Maybe the comments
+> in the struct could be improved how the limits are used?
 
-The 16k max plane stride limit seems to be originally from
-i965gm, and no limit explicit limit has been specified since (g4x+).
-So let's assume the max plane stride itself is a suitable limit
-also for the more recent FBC hardware.
+Oh, of course.  Sorry, I missed that.
 
-In fact even for i965gm the max X-tiled stride is also 16k so
-technically we don't need the check there either, but let's
-keep it there anyway since it's explicitly mentioned in the
-spec. Gen2/3 have more strict limits checked separately.
+Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
 
-Cc: Swati Sharma <swati2.sharma@intel.com>
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_fbc.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-index 817e5784660b..1b3358a0fbfb 100644
---- a/drivers/gpu/drm/i915/display/intel_fbc.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-@@ -866,7 +866,8 @@ static bool stride_is_valid(const struct intel_plane_state *plane_state)
- 	if (DISPLAY_VER(i915) == 2 || DISPLAY_VER(i915) == 3)
- 		return stride == 4096 || stride == 8192;
- 
--	if (DISPLAY_VER(i915) == 4 && !IS_G4X(i915) && stride < 2048)
-+	if (DISPLAY_VER(i915) == 4 && !IS_G4X(i915) &&
-+	    (stride < 2048 || stride > 16384))
- 		return false;
- 
- 	/* Display WA #1105: skl,bxt,kbl,cfl,glk */
-@@ -874,9 +875,6 @@ static bool stride_is_valid(const struct intel_plane_state *plane_state)
- 	    fb->modifier == DRM_FORMAT_MOD_LINEAR && stride & 511)
- 		return false;
- 
--	if (stride > 16384)
--		return false;
--
- 	return true;
- }
- 
--- 
-2.41.0
-
+--
+Cheers,
+Luca.
