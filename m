@@ -4,50 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92298EDE99C
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 09:35:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D80EEDE99F
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 09:49:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB16F10E562;
-	Thu, 14 Sep 2023 09:35:16 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F28EE10E55F
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 09:35:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694684115; x=1726220115;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=nZ2e7e6gznTH6FcpmeDYIt3MPufv7iQ2TMFDb+uvoC0=;
- b=TG3kfylMV0LrCwPvuuc9vH5C4VfD3ziMSiU12yAjLe6hH3ARXmiTAtwr
- m/6PPVuemO3DjKf0YbFKNrztRm/otIy0btJOqJxdj6X5BJAKIm7Wi3uX0
- jOQEBz49ls27F06AdoEElW91gGk9Bwkmlqu6M0hltOn2McKDit/tLTrHl
- zrTGMEAn4RPrVJ986w7wXK9Q/M/GaU+MVE6TDgpvhp/sEPy7psSaLVqGV
- HK0tD0VndByMg/sVdp7i/5C+ZyyxBENJM9FyXf/0ciCfn6/LIq4yUHPiq
- dIDQDPuNXpKjPrnBZvlE+AAaIEjsvdfrVchodHdhBCA9sgnhuE9EZSRV4 Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10832"; a="409856715"
-X-IronPort-AV: E=Sophos;i="6.02,145,1688454000"; d="scan'208";a="409856715"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 02:35:14 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10832"; a="773825330"
-X-IronPort-AV: E=Sophos;i="6.02,145,1688454000"; d="scan'208";a="773825330"
-Received: from haslam-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.49.56])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 02:35:13 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 14 Sep 2023 12:34:59 +0300
-Message-Id: <17e70eaf967bdfe99111cdbb3bcf6aa2f0b0e837.1694684044.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1694684044.git.jani.nikula@intel.com>
-References: <cover.1694684044.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7439310E55A;
+	Thu, 14 Sep 2023 09:49:46 +0000 (UTC)
+X-Greylist: delayed 939 seconds by postgrey-1.36 at gabe;
+ Thu, 14 Sep 2023 09:49:44 UTC
+Received: from farmhouse.coelho.fi (paleale.coelho.fi [176.9.41.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1A1E10E559
+ for <intel-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 09:49:44 +0000 (UTC)
+Received: from 91-155-254-243.elisa-laajakaista.fi ([91.155.254.243]
+ helo=[192.168.100.137])
+ by farmhouse.coelho.fi with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <luca@coelho.fi>) id 1qgijY-000K8d-1v;
+ Thu, 14 Sep 2023 12:34:03 +0300
+Message-ID: <b381e7ff588f86f8ba9783f666de76926de433f5.camel@coelho.fi>
+From: Luca Coelho <luca@coelho.fi>
+To: Imre Deak <imre.deak@intel.com>, intel-gfx@lists.freedesktop.org
+Date: Thu, 14 Sep 2023 12:33:59 +0300
+In-Reply-To: <20230824080517.693621-3-imre.deak@intel.com>
+References: <20230824080517.693621-1-imre.deak@intel.com>
+ <20230824080517.693621-3-imre.deak@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4-2 
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/3] drm/i915/dpt: replace GEM_BUG_ON() with
- drm_WARN_ON()
+Subject: Re: [Intel-gfx] [PATCH v2 02/22] drm/i915/dp: Track the pipe and
+ link bpp limits separately
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,30 +45,62 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Avoid using GEM_BUG_ON() in display code.
+On Thu, 2023-08-24 at 11:04 +0300, Imre Deak wrote:
+> A follow-up patch will need to limit the output link bpp both in the
+> non-DSC and DSC configuration, so track the pipe and link bpp limits
+> separately in the link_config_limits struct.
+>=20
+> Use .4 fixed point format for link bpp matching the 1/16 bpp granularity
+> in DSC mode and for now keep this limit matching the pipe bpp limit.
+>=20
+> v2: (Jani)
+> - Add to_bpp_int(), to_bpp_x16() helpers instead of opencoding them.
+> - Rename link_config_limits::link.min/max_bpp to min/max_bpp_x16.
+>=20
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Signed-off-by: Imre Deak <imre.deak@intel.com>
+> ---
+>  .../drm/i915/display/intel_display_types.h    | 10 ++++++++
+>  drivers/gpu/drm/i915/display/intel_dp.c       | 25 +++++++++++--------
+>  drivers/gpu/drm/i915/display/intel_dp.h       |  9 ++++++-
+>  drivers/gpu/drm/i915/display/intel_dp_mst.c   | 17 ++++++++-----
+>  4 files changed, 44 insertions(+), 17 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers=
+/gpu/drm/i915/display/intel_display_types.h
+> index 731f2ec04d5cd..5875eff5012ce 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dpt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+[...]
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpt.c b/drivers/gpu/drm/i915/display/intel_dpt.c
-index fbfd8f959f17..48582b31b7f7 100644
---- a/drivers/gpu/drm/i915/display/intel_dpt.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpt.c
-@@ -29,7 +29,7 @@ static inline struct i915_dpt *
- i915_vm_to_dpt(struct i915_address_space *vm)
- {
- 	BUILD_BUG_ON(offsetof(struct i915_dpt, vm));
--	GEM_BUG_ON(!i915_is_dpt(vm));
-+	drm_WARN_ON(&vm->i915->drm, !i915_is_dpt(vm));
- 	return container_of(vm, struct i915_dpt, vm);
- }
- 
--- 
-2.39.2
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i9=
+15/display/intel_dp.h
+> index 788a577ebe16e..ebc7f4e60c777 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.h
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.h
+> @@ -26,7 +26,14 @@ struct intel_encoder;
+>  struct link_config_limits {
+>  	int min_rate, max_rate;
+>  	int min_lane_count, max_lane_count;
+> -	int min_bpp, max_bpp;
+> +	struct {
+> +		/* Uncompressed DSC input or link output bpp in 1 bpp units */
+> +		int min_bpp, max_bpp;
+> +	} pipe;
+> +	struct {
+> +		/* Compressed or uncompressed link output bpp in 1/16 bpp units */
+> +		int min_bpp_x16, max_bpp_x16;
+> +	} link;
+>  };
 
+It's not clear to me from the commit message (nor from the code, for
+that matter) why you need to store the values in both formats.  Can you
+clarify?
+
+--
+Cheers,
+Luca.
