@@ -4,46 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AED95EEAA7B
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 22:32:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A01EEEAA7A
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 22:46:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 317AF10E5A1;
-	Thu, 14 Sep 2023 22:31:57 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D99210E599;
- Thu, 14 Sep 2023 22:31:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694730713; x=1726266713;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Ig8XLfpekzmOV+dM59/+QvGXEaljplk4zqlVhMG1eHs=;
- b=THB2rSNb96OKuEBA67C8rcrZ38WYHmSEXfrZVzFkpeGntFCn3UURx34m
- X93rQEfzKLLSLPa20d850th6RiQ8rmQzc8zrl24E1vZGyFLdQzHa+RgIU
- 6rwo1Eny4+QbsrYnAdb3jVvSzB8eZJjiBEHoAHCAShJOkBvSKtWgAtf4b
- ObFureaiN2iZb1t+2SxWbPC6H6TWdFaPjPbli7SoJpGVza90F38Qr7a6c
- mGmGdoQ9cr5mpYKbzUgSoiW8CMwYN2N8f2Idq+YJuxErYIR6sltpMJrNE
- cQS9wzCBMOSUr35vyS1jqMCKxxmKVYGhSymU2Dgg9rNFXdSSyoNjs1Ubh g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="382913331"
-X-IronPort-AV: E=Sophos;i="6.02,147,1688454000"; d="scan'208";a="382913331"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 15:29:11 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="744717702"
-X-IronPort-AV: E=Sophos;i="6.02,147,1688454000"; d="scan'208";a="744717702"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
- by orsmga002.jf.intel.com with ESMTP; 14 Sep 2023 15:29:11 -0700
-From: John.C.Harrison@Intel.com
-To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu, 14 Sep 2023 15:28:11 -0700
-Message-ID: <20230914222813.278774-1-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.41.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id C97D910E59E;
+	Thu, 14 Sep 2023 22:46:58 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id CEA3310E31A;
+ Thu, 14 Sep 2023 22:46:56 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id C3C9DAADD5;
+ Thu, 14 Sep 2023 22:46:56 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/2] Enable Wa_14018913170 on DG2/MTL/PVD
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Date: Thu, 14 Sep 2023 22:46:56 -0000
+Message-ID: <169473161676.29166.7783215687727503730@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230912120537.2158209-1-jani.nikula@intel.com>
+In-Reply-To: <20230912120537.2158209-1-jani.nikula@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?series_starting_with_=5B1/3=5D_drm/i915=3A_move_more_of_the_dis?=
+ =?utf-8?q?play_probe_to_display_code_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,34 +41,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: DRI-Devel@Lists.FreeDesktop.Org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+== Series Details ==
 
-Enable a WA on the latest platforms. Also update the recommended GuC
-version for those platforms to the latest available. Further patches
-will follow to make use of other features in the latest GuC firmware,
-but the w/a at least requires something newer than what was previously
-in use.
+Series: series starting with [1/3] drm/i915: move more of the display probe to display code (rev3)
+URL   : https://patchwork.freedesktop.org/series/123600/
+State : warning
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
+== Summary ==
 
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
-Daniele Ceraolo Spurio (1):
-  drm/i915/guc: Enable WA 14018913170
-
-John Harrison (1):
-  drm/i915/guc: Update 'recommended' version to 70.11.0 for
-    DG2/ADL-P/MTL
-
- drivers/gpu/drm/i915/gt/uc/intel_guc.c      | 6 ++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc.h      | 1 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h | 1 +
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c    | 6 +++---
- 4 files changed, 11 insertions(+), 3 deletions(-)
-
--- 
-2.41.0
 
