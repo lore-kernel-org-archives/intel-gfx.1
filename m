@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1267EEAA62
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 19:27:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8FB6EEAA65
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 19:27:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F61710E59A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 257E710E597;
 	Thu, 14 Sep 2023 19:27:13 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A065010E588
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 19:27:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF63210E588;
+ Thu, 14 Sep 2023 19:27:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694719628; x=1726255628;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=SFAzTKurWcrZPQ0adhT2qLcrAi/kZwr76bI9iDldzBU=;
- b=d5jNjyNlZjSc6swwNDV6AaGHsAOoQuLznytp6eS5iiz3GqSYqJiDcp4P
- sjAEao2kPZzbVeG6PdfPsSssCjtQKawGETLzdmoMBH1nI3SdD8GSpVlyr
- OxKWbXX/qIZIuEwtISUOton+wSeEfFg2h1/TJhmdfgpVssbTZhJfHfryv
- fEPFWQ/73qmMcoH9iU+zPVAxDQs2l4T+b37baQylsKdUdkht4DrmnuhoI
- RPkshtkvsyawURWbQCN0wGBz52bcScI08/uqHJjcCRHktxccVQql7hNsT
- Lb3MQLrp3bc4r+Gd/EuGKk1BnOTZFbKgMaEqS+17NzBXeRL75P++3nUnW A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="465421768"
-X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="465421768"
+ t=1694719625; x=1726255625;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=4Wd9hHneXkilU07UcBJJGhlVWs0tgvp+rvn2ju4lWHo=;
+ b=FLGAj/kcRAkgQTg+QkGiZENZCeFpvwv1pB9wjpvGtD+LaJsZ5CqL5gnM
+ H+IRSLz50B/vmDIyBp4ykI/YYUxkPHU9jqB3DXWAIB5Rwq16ltE0xRLaj
+ cmGUwzAcKzyZsh43yZXlWzDtCV+Y1wREOMGle0zZvG6+5Qu5CEUTVcWnD
+ EoXBaLJrLklpvrbqogA+sxniqYlL8uuRC5uXfNuN0n1X+bJG24uLiMTXW
+ SZ+oqkLNKXhzBSm7P9XJ1QXbLiPoAv374simup7xDpMRxi57yMLE/Ej2V
+ B73R1iSJOoH1FoFmWNtWqOZeBpBRGjU5FBiEQQ9LUdkdLMWHAsiTPZzj3 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="465421756"
+X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="465421756"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 12:27:08 -0700
+ 14 Sep 2023 12:27:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="779790612"
-X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="779790612"
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="779790597"
+X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="779790597"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 12:27:07 -0700
+ 14 Sep 2023 12:27:03 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 14 Sep 2023 22:26:53 +0300
-Message-Id: <20230914192659.757475-20-imre.deak@intel.com>
+Date: Thu, 14 Sep 2023 22:26:50 +0300
+Message-Id: <20230914192659.757475-17-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230914192659.757475-1-imre.deak@intel.com>
 References: <20230914192659.757475-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 19/25] drm/i915/dp_mst: Program the DSC PPS
- SDP for each stream
+Subject: [Intel-gfx] [PATCH v3 16/25] drm/dp_mst: Swap the order of checking
+ root vs. non-root port BW limitations
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,76 +58,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Atm the DSC PPS SDP is programmed only if the first stream is compressed
-and then it's programmed only for the first stream. This left all other
-compressed streams blank. Program the SDP for all streams.
+drm_dp_mst_atomic_check_mgr() should check for BW limitation starting
+from sink ports continuing towards the root port, so that drivers can
+use the @failing_port returned to resolve a BW overallocation in an
+ideal way. For instance from streams A,B,C in a topology A,B going
+through @failing_port and C not going through it, a BW overallocation of
+A,B due to a limit of the port must be resolved first before considering
+the limits of other ports closer to the root port. This way can avoid
+reducing the BW of stream C unnecessarily due to a BW limit closer to the
+root port.
 
+Based on the above swap the order of the BW check for the root port and
+the check for all the ports downstream of it (the latter going through
+the topology already in the sink->root port direction).
+
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c    | 12 +++++++-----
- drivers/gpu/drm/i915/display/intel_dp_mst.c |  2 ++
- 2 files changed, 9 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 45db6349af94f..962c9c7c211ce 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -2505,7 +2505,8 @@ static void mtl_ddi_pre_enable_dp(struct intel_atomic_state *state,
- 	/* 6.o Configure and enable FEC if needed */
- 	intel_ddi_enable_fec(encoder, crtc_state);
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 3d93bc093c46c..f4b70ee3d715c 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -5479,9 +5479,13 @@ EXPORT_SYMBOL(drm_dp_mst_atomic_enable_dsc);
+  *   - %-ENOSPC, if the new state is invalid, because of BW limitation
+  *         @failing_port is set to:
+  *         - The non-root port where a BW limit check failed
++ *           with all the ports downstream of @failing_port passing
++ *           the BW limit check.
+  *           The returned port pointer is valid until at least
+  *           one payload downstream of it exists.
+  *         - %NULL if the BW limit check failed at the root port
++ *           with all the ports downstream of the root port passing
++ *           the BW limit check.
+  *   - %-EINVAL, if the new state is invalid, because the root port has
+  *     too many payloads.
+  */
+@@ -5497,17 +5501,16 @@ int drm_dp_mst_atomic_check_mgr(struct drm_atomic_state *state,
+ 	if (!mgr->mst_state)
+ 		return 0;
  
--	intel_dsc_dp_pps_write(encoder, crtc_state);
-+	if (!is_mst)
-+		intel_dsc_dp_pps_write(encoder, crtc_state);
- }
- 
- static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
-@@ -2643,7 +2644,8 @@ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
- 	/* 7.l Configure and enable FEC if needed */
- 	intel_ddi_enable_fec(encoder, crtc_state);
- 
--	intel_dsc_dp_pps_write(encoder, crtc_state);
-+	if (!is_mst)
-+		intel_dsc_dp_pps_write(encoder, crtc_state);
- }
- 
- static void hsw_ddi_pre_enable_dp(struct intel_atomic_state *state,
-@@ -2705,10 +2707,10 @@ static void hsw_ddi_pre_enable_dp(struct intel_atomic_state *state,
- 
- 	intel_ddi_enable_fec(encoder, crtc_state);
- 
--	if (!is_mst)
-+	if (!is_mst) {
- 		intel_ddi_enable_transcoder_clock(encoder, crtc_state);
+-	ret = drm_dp_mst_atomic_check_payload_alloc_limits(mgr, mst_state);
+-	if (ret)
+-		return ret;
 -
--	intel_dsc_dp_pps_write(encoder, crtc_state);
-+		intel_dsc_dp_pps_write(encoder, crtc_state);
-+	}
+ 	mutex_lock(&mgr->lock);
+ 	ret = drm_dp_mst_atomic_check_mstb_bw_limit(mgr->mst_primary,
+ 						    mst_state,
+ 						    failing_port);
+ 	mutex_unlock(&mgr->lock);
+ 
+-	return ret < 0 ? ret : 0;
++	if (ret < 0)
++		return ret;
++
++	return drm_dp_mst_atomic_check_payload_alloc_limits(mgr, mst_state);
  }
- 
- static void intel_ddi_pre_enable_dp(struct intel_atomic_state *state,
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 832e8b0e87e84..19548242fa0f2 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -43,6 +43,7 @@
- #include "intel_dpio_phy.h"
- #include "intel_hdcp.h"
- #include "intel_hotplug.h"
-+#include "intel_vdsc.h"
- #include "skl_scaler.h"
- 
- static int intel_dp_mst_check_constraints(struct drm_i915_private *i915, int bpp,
-@@ -775,6 +776,7 @@ static void intel_mst_pre_enable_dp(struct intel_atomic_state *state,
- 	if (DISPLAY_VER(dev_priv) < 12 || !first_mst_stream)
- 		intel_ddi_enable_transcoder_clock(encoder, pipe_config);
- 
-+	intel_dsc_dp_pps_write(&dig_port->base, pipe_config);
- 	intel_ddi_set_dp_msa(pipe_config, conn_state);
- }
+ EXPORT_SYMBOL(drm_dp_mst_atomic_check_mgr);
  
 -- 
 2.37.2
