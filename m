@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ACA5EEAA69
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1267EEAA62
 	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 19:27:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B27D010E596;
-	Thu, 14 Sep 2023 19:27:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F61710E59A;
+	Thu, 14 Sep 2023 19:27:13 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A0B010E58F;
- Thu, 14 Sep 2023 19:27:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A065010E588
+ for <intel-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 19:27:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694719622; x=1726255622;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Rr161wN0MuqsRzkLzQBjgeVlZVLuc/Z8RG20ltImKAE=;
- b=VosKegKm7koy583mUIRdLo6xXFbJbkT4ar5++F5gV8VJTOwwmpX/E0CG
- NtGdQMSCameORmjHDFCqzTQ3me8CebTGDKcZKkM37gT+LMRfByYYZUxu9
- B9/VEWpLaoPTd9IoLGP+cidwjF/2rlerDxZaHFWWKqT2HrLzD3CFTsbwj
- dgsd45XssJwmkASOmG6bgFVCUjZLeCK7G2C6w7yMHzc1lU+CpQ4bCQapf
- XX/HHL80XW4aRuDAA+Y1eJGcyfnZNrgO9OY9XJ07y3sZkLrw1VZiX2kNA
- PoMLuf08fne57yBVzk2kEZ4vfD+or/ntP84ww7ouDQsXw5+K8dBCTczO+ g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="465421740"
-X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="465421740"
+ t=1694719628; x=1726255628;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=SFAzTKurWcrZPQ0adhT2qLcrAi/kZwr76bI9iDldzBU=;
+ b=d5jNjyNlZjSc6swwNDV6AaGHsAOoQuLznytp6eS5iiz3GqSYqJiDcp4P
+ sjAEao2kPZzbVeG6PdfPsSssCjtQKawGETLzdmoMBH1nI3SdD8GSpVlyr
+ OxKWbXX/qIZIuEwtISUOton+wSeEfFg2h1/TJhmdfgpVssbTZhJfHfryv
+ fEPFWQ/73qmMcoH9iU+zPVAxDQs2l4T+b37baQylsKdUdkht4DrmnuhoI
+ RPkshtkvsyawURWbQCN0wGBz52bcScI08/uqHJjcCRHktxccVQql7hNsT
+ Lb3MQLrp3bc4r+Gd/EuGKk1BnOTZFbKgMaEqS+17NzBXeRL75P++3nUnW A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="465421768"
+X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="465421768"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 12:27:02 -0700
+ 14 Sep 2023 12:27:08 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="779790589"
-X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="779790589"
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="779790612"
+X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="779790612"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 12:27:00 -0700
+ 14 Sep 2023 12:27:07 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 14 Sep 2023 22:26:48 +0300
-Message-Id: <20230914192659.757475-15-imre.deak@intel.com>
+Date: Thu, 14 Sep 2023 22:26:53 +0300
+Message-Id: <20230914192659.757475-20-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230914192659.757475-1-imre.deak@intel.com>
 References: <20230914192659.757475-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 14/25] drm/dp_mst: Add helper to determine if
- an MST port is downstream of another port
+Subject: [Intel-gfx] [PATCH v3 19/25] drm/i915/dp_mst: Program the DSC PPS
+ SDP for each stream
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,100 +58,77 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add drm_dp_mst_port_downstream_of_parent() required by the i915
-driver in a follow-up patch to resolve a BW overallocation of MST
-streams going through a given MST port.
+Atm the DSC PPS SDP is programmed only if the first stream is compressed
+and then it's programmed only for the first stream. This left all other
+compressed streams blank. Program the SDP for all streams.
 
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
-Reviewed-by: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 52 +++++++++++++++++++
- include/drm/display/drm_dp_mst_helper.h       |  3 ++
- 2 files changed, 55 insertions(+)
+ drivers/gpu/drm/i915/display/intel_ddi.c    | 12 +++++++-----
+ drivers/gpu/drm/i915/display/intel_dp_mst.c |  2 ++
+ 2 files changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index db97aa76575c1..22a901493d24c 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -5136,6 +5136,58 @@ static bool drm_dp_mst_port_downstream_of_branch(struct drm_dp_mst_port *port,
- 	return false;
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 45db6349af94f..962c9c7c211ce 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -2505,7 +2505,8 @@ static void mtl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 	/* 6.o Configure and enable FEC if needed */
+ 	intel_ddi_enable_fec(encoder, crtc_state);
+ 
+-	intel_dsc_dp_pps_write(encoder, crtc_state);
++	if (!is_mst)
++		intel_dsc_dp_pps_write(encoder, crtc_state);
  }
  
-+static bool
-+drm_dp_mst_port_downstream_of_parent_locked(struct drm_dp_mst_topology_mgr *mgr,
-+					    struct drm_dp_mst_port *port,
-+					    struct drm_dp_mst_port *parent)
-+{
-+	if (!mgr->mst_primary)
-+		return false;
-+
-+	port = drm_dp_mst_topology_get_port_validated_locked(mgr->mst_primary,
-+							     port);
-+	if (!port)
-+		return false;
-+
-+	if (!parent)
-+		return true;
-+
-+	parent = drm_dp_mst_topology_get_port_validated_locked(mgr->mst_primary,
-+							       parent);
-+	if (!parent)
-+		return false;
-+
-+	if (!parent->mstb)
-+		return false;
-+
-+	return drm_dp_mst_port_downstream_of_branch(port, parent->mstb);
-+}
-+
-+/**
-+ * drm_dp_mst_port_downstream_of_parent - check if a port is downstream of a parent port
-+ * @mgr: MST topology manager
-+ * @port: the port being looked up
-+ * @parent: the parent port
-+ *
-+ * The function returns %true if @port is downstream of @parent. If @parent is
-+ * %NULL - denoting the root port - the function returns %true if @port is in
-+ * @mgr's topology.
-+ */
-+bool
-+drm_dp_mst_port_downstream_of_parent(struct drm_dp_mst_topology_mgr *mgr,
-+				     struct drm_dp_mst_port *port,
-+				     struct drm_dp_mst_port *parent)
-+{
-+	bool ret;
-+
-+	mutex_lock(&mgr->lock);
-+	ret = drm_dp_mst_port_downstream_of_parent_locked(mgr, port, parent);
-+	mutex_unlock(&mgr->lock);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL(drm_dp_mst_port_downstream_of_parent);
-+
- static int
- drm_dp_mst_atomic_check_port_bw_limit(struct drm_dp_mst_port *port,
- 				      struct drm_dp_mst_topology_state *state);
-diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
-index 5de0c3d28794b..aecce52cae167 100644
---- a/include/drm/display/drm_dp_mst_helper.h
-+++ b/include/drm/display/drm_dp_mst_helper.h
-@@ -892,6 +892,9 @@ drm_atomic_get_new_mst_topology_state(struct drm_atomic_state *state,
- struct drm_dp_mst_atomic_payload *
- drm_atomic_get_mst_payload_state(struct drm_dp_mst_topology_state *state,
- 				 struct drm_dp_mst_port *port);
-+bool drm_dp_mst_port_downstream_of_parent(struct drm_dp_mst_topology_mgr *mgr,
-+					  struct drm_dp_mst_port *port,
-+					  struct drm_dp_mst_port *parent);
- int __must_check
- drm_dp_atomic_find_time_slots(struct drm_atomic_state *state,
- 			      struct drm_dp_mst_topology_mgr *mgr,
+ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+@@ -2643,7 +2644,8 @@ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 	/* 7.l Configure and enable FEC if needed */
+ 	intel_ddi_enable_fec(encoder, crtc_state);
+ 
+-	intel_dsc_dp_pps_write(encoder, crtc_state);
++	if (!is_mst)
++		intel_dsc_dp_pps_write(encoder, crtc_state);
+ }
+ 
+ static void hsw_ddi_pre_enable_dp(struct intel_atomic_state *state,
+@@ -2705,10 +2707,10 @@ static void hsw_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 
+ 	intel_ddi_enable_fec(encoder, crtc_state);
+ 
+-	if (!is_mst)
++	if (!is_mst) {
+ 		intel_ddi_enable_transcoder_clock(encoder, crtc_state);
+-
+-	intel_dsc_dp_pps_write(encoder, crtc_state);
++		intel_dsc_dp_pps_write(encoder, crtc_state);
++	}
+ }
+ 
+ static void intel_ddi_pre_enable_dp(struct intel_atomic_state *state,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 832e8b0e87e84..19548242fa0f2 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -43,6 +43,7 @@
+ #include "intel_dpio_phy.h"
+ #include "intel_hdcp.h"
+ #include "intel_hotplug.h"
++#include "intel_vdsc.h"
+ #include "skl_scaler.h"
+ 
+ static int intel_dp_mst_check_constraints(struct drm_i915_private *i915, int bpp,
+@@ -775,6 +776,7 @@ static void intel_mst_pre_enable_dp(struct intel_atomic_state *state,
+ 	if (DISPLAY_VER(dev_priv) < 12 || !first_mst_stream)
+ 		intel_ddi_enable_transcoder_clock(encoder, pipe_config);
+ 
++	intel_dsc_dp_pps_write(&dig_port->base, pipe_config);
+ 	intel_ddi_set_dp_msa(pipe_config, conn_state);
+ }
+ 
 -- 
 2.37.2
 
