@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61775EEAA66
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 19:27:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 088EBEEAA68
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 19:27:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 121EE10E59C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FE5C10E59B;
 	Thu, 14 Sep 2023 19:27:14 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD8C410E588
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 19:27:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AD6F10E596
+ for <intel-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 19:27:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694719627; x=1726255627;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=cL5TTbN6UjW8rbUc+TlhH5PQLlOrrUCH/6vBhYoRIqY=;
- b=QWMAFhiG++SHkIcuz2BDUTyJan5AQNFQEiANeBqLPWrTt1nrgaYWJYx4
- mp4nI8Xdty2sdUscR4oY1kHssh2vLW2kbMs+lzcmE8aBMZ13EVjws57wN
- V5PptSjOJx9j317UAdWUxX3Sl0QOy6LQM5Hbb9uL4nn3OoxcSpA6OHe09
- fsvMXJUZKgPxiPmLBJmOOmAUWlx9Uj9BrCb8W2dX0BPUT4TvFhe021WGf
- 7TvhjQfasOyTuonQuyY8MzgA3iVHczrQOCPDvSNBlRDt4iPwo8I3lnz59
- mi8I0kmQnMzlLrntl7o3fq3zxU7PBpEPqNfQod9u17+wuR/PfFqVfdto0 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="465421763"
-X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="465421763"
+ t=1694719631; x=1726255631;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=fVdKKVeHhbvmD0uGAnnuScukUcZu+TQMhEBbFrndmYk=;
+ b=f+sZ9GIpoSziGcos0Y4DY42MbUFlaa557wwFg2cbb9grEoMe6A2VWnpH
+ TuXkQmSIQ7huRsoNv6YfvRpMdox99zQxgo3o0ZxCWmNe4c+Nqc9ch3A32
+ hrcXvqXqqgkgPC0tXFzMcgi9xpC5yVHTyvDL1wX5bRyct1dI+8UAkRHTo
+ MShUHvUfnJC2UYMHjtVdzRvBbYYtuDagSx21UxfMHj9sV1UPkTiggEEMu
+ DqOVNeiuLF2QrBlx/RKtViLtwabQK0RQl/1TDpFDV3fOS/9PBlbSSZMVO
+ o6pss9Ypc5Fo20k5V+/IX9PjqlQV67XLeETHz9BkTMsgYIMXrjQqnxIBs w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="465421780"
+X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="465421780"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 12:27:07 -0700
+ 14 Sep 2023 12:27:10 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="779790607"
-X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="779790607"
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="779790625"
+X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="779790625"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 12:27:06 -0700
+ 14 Sep 2023 12:27:09 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 14 Sep 2023 22:26:52 +0300
-Message-Id: <20230914192659.757475-19-imre.deak@intel.com>
+Date: Thu, 14 Sep 2023 22:26:55 +0300
+Message-Id: <20230914192659.757475-22-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230914192659.757475-1-imre.deak@intel.com>
 References: <20230914192659.757475-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 18/25] drm/i915/dp_mst: Add atomic state for
- all streams on pre-tgl platforms
+Subject: [Intel-gfx] [PATCH v3 21/25] drm/i915/dp_mst: Enable DSC
+ decompression if any stream needs this
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,35 +61,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If an MST stream is modeset, its state must be checked along all the
-other streams on the same MST link, for instance to resolve a BW
-overallocation of a non-sink MST port or to make sure that the FEC is
-enabled/disabled the same way for all these streams.
+Atm DSC decompression is enabled in the sink only if the first stream is
+compressed. This left compressed streams blank if the first stream was
+uncompressed.
 
-To prepare for that this patch adds all the stream CRTCs to the atomic
-state and marks them for modeset similarly to tgl+ platforms. (If the
-state computation doesn't change the state the CRTC is switched back to
-fastset mode.)
+Enable decompression whenever FEC is enabled, which will be true for all
+streams if any stream is compressed. Enabling FEC correctly in all
+streams will be only fixed by an upcoming patch.
 
+Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index c1fea894d3774..832e8b0e87e84 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -491,9 +491,6 @@ intel_dp_mst_atomic_master_trans_check(struct intel_connector *connector,
- 	struct intel_connector *connector_iter;
- 	int ret = 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index e942eb95d688f..ce8eafa4ece06 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2917,7 +2917,13 @@ void intel_dp_sink_set_decompression_state(struct intel_dp *intel_dp,
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+ 	int ret;
  
--	if (DISPLAY_VER(dev_priv) < 12)
--		return  0;
--
- 	if (!intel_connector_needs_modeset(state, &connector->base))
- 		return 0;
+-	if (!crtc_state->dsc.compression_enable)
++	/*
++	 * In case of MST any stream can be compressed not just the first. If
++	 * any stream is compressed FEC will be enabled in all streams, so toggle
++	 * decompression whenever FEC is enabled.
++	 */
++	if (!crtc_state->dsc.compression_enable &&
++	    !crtc_state->fec_enable)
+ 		return;
  
+ 	ret = drm_dp_dpcd_writeb(&intel_dp->aux, DP_DSC_ENABLE,
 -- 
 2.37.2
 
