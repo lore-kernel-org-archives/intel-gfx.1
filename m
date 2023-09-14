@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E331BEEAA66
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 19:26:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D596EEAA68
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 19:27:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDD9110E58B;
-	Thu, 14 Sep 2023 19:26:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B0E910E58D;
+	Thu, 14 Sep 2023 19:26:53 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E87310E587
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 19:26:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E716510E2B3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 19:26:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694719609; x=1726255609;
+ t=1694719606; x=1726255606;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=qGSqCp81AIudkguXnNFTttTbgtTglTF0WvVFjy4hHGw=;
- b=CKypvnnFXMFZ9c3060UUgQWPIqioo7ZalX+2xXEteQIjVBmbHKTcfg9d
- oL8i3amF1XHqZqrI9U1txj8i6CDZoUIUtOt+lZb6qZ4+gVWT47fDD3aD7
- sOEi0YNv/MBIS8poudynK3hl/qLygm+E19uAl9wfVU9GFCDkP3I3So/MQ
- FvjnJtuszISGI7IG9JYH9SFPmB35h5CY+naNPRah3960dMIi88pv6SxSq
- EzazcAIIGXwaplqFO5z34/mGrmftonaTAWyC/kziJ/tcnK/jnlGLmqRb4
- EjUrYQTf82eWUmxo+JVBj31XPR7a1qcjCpbqgiFRGXKGmlFaUSMhaLi6m Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="465421684"
-X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="465421684"
+ bh=Sre/ROdIPcfsYamXoxA6oB+nLFw9rV05jHeYfM7jMak=;
+ b=LA+abhHnpHqDmyu3S7MnjN8k1wV23+rWVoXyptvQKSBhuA/KjLg9uK2A
+ q7nCxnb0zLyMJ/HzI4NU2NB6oQtATKr3HogAo9mrFsst65RC496uQiVtY
+ kMkPtNWplYZLKF+iT5PIdkatI/bK81GdlX0HG3yH4CueWfuUAqDugYEup
+ V354DxURce83Phhk3myJ7nVxuipWG01EKl4mRhd48hdGCSyj/B/6M+XPj
+ YK5XOiz/ejxCzHvhuu5TUUDANdSBnNKR8lT5Odsksm54uAlAw0aX3yl/I
+ /nlG1AINKvarTXddMoI7iJ2drwMSLtxTsVjJNgUjXuxHOrBcVNYfSY/nH w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="465421665"
+X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="465421665"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 12:26:49 -0700
+ 14 Sep 2023 12:26:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="779790512"
-X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="779790512"
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="779790494"
+X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="779790494"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 12:26:48 -0700
+ 14 Sep 2023 12:26:45 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 14 Sep 2023 22:26:40 +0300
-Message-Id: <20230914192659.757475-7-imre.deak@intel.com>
+Date: Thu, 14 Sep 2023 22:26:38 +0300
+Message-Id: <20230914192659.757475-5-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230914192659.757475-1-imre.deak@intel.com>
 References: <20230914192659.757475-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 06/25] drm/i915: Add helper to modeset a set
- of pipes
+Subject: [Intel-gfx] [PATCH v3 04/25] drm/i915/dp: Update the link bpp
+ limits for DSC mode
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,148 +62,259 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add intel_modeset_pipes_in_mask_early() to modeset a provided set of
-pipes, used in a follow-up patch.
+In non-DSC mode the link bpp can be set in 2*3 bpp steps in the pipe bpp
+range, while in DSC mode it can be set in 1/16 bpp steps to any value
+up to the maximum pipe bpp. Update the limits accordingly in both modes
+to prepare for a follow-up patch which may need to reduce the max link
+bpp value and starts to check the link bpp limits in DSC mode as well.
 
-While at it add _late suffix to intel_modeset_all_pipes() for clarity
-and add DocBook descriptions for the two exported functions.
+While at it add more detail to the link limit debug print and print it
+also for DSC mode.
 
 v2:
-- Add a flag controlling if active planes are force updated as well.
-- Add DockBook descriptions.
-v3:
-- For clarity use _early/_late suffixes for the exported functions
-  instead of the update_active_planes parameter. (Ville)
+- Add to_bpp_frac_dec() instead of open coding it. (Jani)
+v3: (Ville)
+- Add BPP_X16_FMT / BPP_X16_ARG.
+- Add TODO: comment about initializing the DSC link bpp limits earlier.
 
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
 Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c   |  2 +-
- drivers/gpu/drm/i915/display/intel_display.c | 45 ++++++++++++++++++--
- drivers/gpu/drm/i915/display/intel_display.h |  6 ++-
- drivers/gpu/drm/i915/display/skl_watermark.c |  2 +-
- 4 files changed, 47 insertions(+), 8 deletions(-)
+ .../drm/i915/display/intel_display_types.h    |  8 ++
+ drivers/gpu/drm/i915/display/intel_dp.c       | 93 +++++++++++++++----
+ drivers/gpu/drm/i915/display/intel_dp.h       |  6 ++
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   | 23 +++--
+ 4 files changed, 108 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index ad5251ba6fe13..a2e20b25d6361 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -3139,7 +3139,7 @@ int intel_modeset_calc_cdclk(struct intel_atomic_state *state)
- 	} else if (intel_cdclk_needs_modeset(&old_cdclk_state->actual,
- 					     &new_cdclk_state->actual)) {
- 		/* All pipes must be switched off while we change the cdclk. */
--		ret = intel_modeset_all_pipes(state, "CDCLK change");
-+		ret = intel_modeset_all_pipes_late(state, "CDCLK change");
- 		if (ret)
- 			return ret;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 6bbc9069754c4..27e6ea21e0a91 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -5407,8 +5407,9 @@ intel_verify_planes(struct intel_atomic_state *state)
- 			     plane_state->uapi.visible);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index bdad675e03fb8..50fe8ff354137 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -2115,6 +2115,14 @@ static inline int to_bpp_int(int bpp_x16)
+ 	return bpp_x16 >> 4;
  }
  
--int intel_modeset_all_pipes(struct intel_atomic_state *state,
--			    const char *reason)
-+static int intel_modeset_pipes_in_mask(struct intel_atomic_state *state,
-+				       const char *reason, u8 mask,
-+				       bool update_active_planes)
- {
- 	struct drm_i915_private *dev_priv = to_i915(state->base.dev);
- 	struct intel_crtc *crtc;
-@@ -5417,7 +5418,7 @@ int intel_modeset_all_pipes(struct intel_atomic_state *state,
- 	 * Add all pipes to the state, and force
- 	 * a modeset on all the active ones.
- 	 */
--	for_each_intel_crtc(&dev_priv->drm, crtc) {
-+	for_each_intel_crtc_in_pipe_mask(&dev_priv->drm, crtc, mask) {
- 		struct intel_crtc_state *crtc_state;
- 		int ret;
- 
-@@ -5448,7 +5449,9 @@ int intel_modeset_all_pipes(struct intel_atomic_state *state,
- 		if (ret)
- 			return ret;
- 
--		crtc_state->update_planes |= crtc_state->active_planes;
-+		if (update_active_planes)
-+			crtc_state->update_planes |= crtc_state->active_planes;
++static inline int to_bpp_frac(int bpp_x16)
++{
++	return bpp_x16 & 0xf;
++}
 +
- 		crtc_state->async_flip_planes = 0;
- 		crtc_state->do_async_flip = false;
- 	}
-@@ -5456,6 +5459,40 @@ int intel_modeset_all_pipes(struct intel_atomic_state *state,
++#define BPP_X16_FMT		"%d.%04d"
++#define BPP_X16_ARGS(bpp_x16)	to_bpp_int(bpp_x16), (to_bpp_frac(bpp_x16) * 625)
++
+ static inline int to_bpp_x16(int bpp)
+ {
+ 	return bpp << 4;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index bdaaad34463fb..2a45eefc83ebf 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2190,16 +2190,72 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
  	return 0;
  }
  
+-static void
 +/**
-+ * intel_modeset_pipes_in_mask_early - force a full modeset on a set of pipes
-+ * @state: intel atomic state
-+ * @reason: the reason for the full modeset
-+ * @mask: mask of pipes to modeset
++ * intel_dp_compute_config_link_bpp_limits - compute output link bpp limits
++ * @intel_dp: intel DP
++ * @crtc_state: crtc state
++ * @dsc: DSC compression mode
++ * @limits: link configuration limits
 + *
-+ * Force a full modeset on pipes in @mask due to the description in @reason.
-+ * This function can be called only before new plane states are computed.
++ * Calculates the output link min, max bpp values in @limits based on the
++ * pipe bpp range, @crtc_state and @dsc mode.
 + *
-+ * Returns 0 in case of success, negative error code otherwise.
++ * Returns %true in case of success.
 + */
-+int intel_modeset_pipes_in_mask_early(struct intel_atomic_state *state,
-+				      const char *reason, u8 mask)
++bool
++intel_dp_compute_config_link_bpp_limits(struct intel_dp *intel_dp,
++					const struct intel_crtc_state *crtc_state,
++					bool dsc,
++					struct link_config_limits *limits)
 +{
-+	return intel_modeset_pipes_in_mask(state, reason, mask, false);
++	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
++	const struct drm_display_mode *adjusted_mode =
++		&crtc_state->hw.adjusted_mode;
++	const struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
++	const struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
++	int max_link_bpp_x16;
++
++	max_link_bpp_x16 = to_bpp_x16(limits->pipe.max_bpp);
++
++	if (!dsc) {
++		max_link_bpp_x16 = rounddown(max_link_bpp_x16, to_bpp_x16(2 * 3));
++
++		if (max_link_bpp_x16 < to_bpp_x16(limits->pipe.min_bpp))
++			return false;
++
++		limits->link.min_bpp_x16 = to_bpp_x16(limits->pipe.min_bpp);
++	} else {
++		/*
++		 * TODO: set the DSC link limits already here, atm these are
++		 * initialized only later in intel_edp_dsc_compute_pipe_bpp() /
++		 * intel_dp_dsc_compute_pipe_bpp()
++		 */
++		limits->link.min_bpp_x16 = 0;
++	}
++
++	limits->link.max_bpp_x16 = max_link_bpp_x16;
++
++	drm_dbg_kms(&i915->drm,
++		    "[ENCODER:%d:%s][CRTC:%d:%s] DP link limits: pixel clock %d kHz DSC %s max lanes %d max rate %d max pipe_bpp %d max link_bpp " BPP_X16_FMT "\n",
++		    encoder->base.base.id, encoder->base.name,
++		    crtc->base.base.id, crtc->base.name,
++		    adjusted_mode->crtc_clock,
++		    dsc ? "on" : "off",
++		    limits->max_lane_count,
++		    limits->max_rate,
++		    limits->pipe.max_bpp,
++		    BPP_X16_ARGS(limits->link.max_bpp_x16));
++
++	return true;
 +}
 +
-+/**
-+ * intel_modeset_all_pipes_late - force a full modeset on all pipes
-+ * @state: intel atomic state
-+ * @reason: the reason for the full modeset
-+ *
-+ * Force a full modeset on all pipes due to the description in @reason.
-+ * This function can be called only after new plane states are computed
-+ * already.
-+ *
-+ * Returns 0 in case of success, negative error code otherwise.
-+ */
-+int intel_modeset_all_pipes_late(struct intel_atomic_state *state,
-+				 const char *reason)
-+{
-+	return intel_modeset_pipes_in_mask(state, reason, -1, true);
-+}
++static bool
+ intel_dp_compute_config_limits(struct intel_dp *intel_dp,
+ 			       struct intel_crtc_state *crtc_state,
+ 			       bool respect_downstream_limits,
++			       bool dsc,
+ 			       struct link_config_limits *limits)
+ {
+-	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+-	const struct drm_display_mode *adjusted_mode =
+-		&crtc_state->hw.adjusted_mode;
+-
+ 	limits->min_rate = intel_dp_common_rate(intel_dp, 0);
+ 	limits->max_rate = intel_dp_max_link_rate(intel_dp);
+ 
+@@ -2225,13 +2281,10 @@ intel_dp_compute_config_limits(struct intel_dp *intel_dp,
+ 
+ 	intel_dp_adjust_compliance_config(intel_dp, crtc_state, limits);
+ 
+-	limits->link.min_bpp_x16 = to_bpp_x16(limits->pipe.min_bpp);
+-	limits->link.max_bpp_x16 = to_bpp_x16(limits->pipe.max_bpp);
+-
+-	drm_dbg_kms(&i915->drm, "DP link computation with max lane count %i "
+-		    "max rate %d max bpp %d pixel clock %iKHz\n",
+-		    limits->max_lane_count, limits->max_rate,
+-		    to_bpp_int(limits->link.max_bpp_x16), adjusted_mode->crtc_clock);
++	return intel_dp_compute_config_link_bpp_limits(intel_dp,
++						       crtc_state,
++						       dsc,
++						       limits);
+ }
+ 
+ static int
+@@ -2250,9 +2303,6 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
+ 	bool dsc_needed;
+ 	int ret = 0;
+ 
+-	intel_dp_compute_config_limits(intel_dp, pipe_config,
+-				       respect_downstream_limits, &limits);
+-
+ 	if (intel_dp_need_bigjoiner(intel_dp, adjusted_mode->crtc_hdisplay,
+ 				    adjusted_mode->crtc_clock))
+ 		pipe_config->bigjoiner_pipes = GENMASK(crtc->pipe + 1, crtc->pipe);
+@@ -2264,7 +2314,11 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
+ 	 */
+ 	joiner_needs_dsc = DISPLAY_VER(i915) < 13 && pipe_config->bigjoiner_pipes;
+ 
+-	dsc_needed = joiner_needs_dsc || intel_dp->force_dsc_en;
++	dsc_needed = joiner_needs_dsc || intel_dp->force_dsc_en ||
++		     !intel_dp_compute_config_limits(intel_dp, pipe_config,
++						     respect_downstream_limits,
++						     false,
++						     &limits);
+ 
+ 	if (!dsc_needed) {
+ 		/*
+@@ -2281,6 +2335,13 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
+ 		drm_dbg_kms(&i915->drm, "Try DSC (fallback=%s, joiner=%s, force=%s)\n",
+ 			    str_yes_no(ret), str_yes_no(joiner_needs_dsc),
+ 			    str_yes_no(intel_dp->force_dsc_en));
 +
- /*
-  * This implements the workaround described in the "notes" section of the mode
-  * set sequence documentation. When going from no pipes or single pipe to
-diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index 49ac8473b988b..64a5be7859331 100644
---- a/drivers/gpu/drm/i915/display/intel_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -513,8 +513,10 @@ void intel_plane_fixup_bitmasks(struct intel_crtc_state *crtc_state);
- void intel_update_watermarks(struct drm_i915_private *i915);
++		if (!intel_dp_compute_config_limits(intel_dp, pipe_config,
++						    respect_downstream_limits,
++						    true,
++						    &limits))
++			return -EINVAL;
++
+ 		ret = intel_dp_dsc_compute_config(intel_dp, pipe_config,
+ 						  conn_state, &limits, 64, true);
+ 		if (ret < 0)
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index 98c60ab6e182e..2cf3681bac64a 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -156,4 +156,10 @@ void intel_dp_phy_test(struct intel_encoder *encoder);
+ void intel_dp_wait_source_oui(struct intel_dp *intel_dp);
+ int intel_dp_output_bpp(enum intel_output_format output_format, int bpp);
  
- /* modesetting */
--int intel_modeset_all_pipes(struct intel_atomic_state *state,
--			    const char *reason);
-+int intel_modeset_pipes_in_mask_early(struct intel_atomic_state *state,
-+				      const char *reason, u8 pipe_mask);
-+int intel_modeset_all_pipes_late(struct intel_atomic_state *state,
-+				 const char *reason);
- void intel_modeset_get_crtc_power_domains(struct intel_crtc_state *crtc_state,
- 					  struct intel_power_domain_mask *old_domains);
- void intel_modeset_put_crtc_power_domains(struct intel_crtc *crtc,
-diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
-index 063929a42a42f..a29d9b717deed 100644
---- a/drivers/gpu/drm/i915/display/skl_watermark.c
-+++ b/drivers/gpu/drm/i915/display/skl_watermark.c
-@@ -2616,7 +2616,7 @@ skl_compute_ddb(struct intel_atomic_state *state)
++bool
++intel_dp_compute_config_link_bpp_limits(struct intel_dp *intel_dp,
++					const struct intel_crtc_state *crtc_state,
++					bool dsc,
++					struct link_config_limits *limits);
++
+ #endif /* __INTEL_DP_H__ */
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 2a0f2caf5b8d7..7d84689d69fad 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -295,9 +295,10 @@ static int intel_dp_mst_update_slots(struct intel_encoder *encoder,
+ 	return 0;
+ }
  
- 		if (old_dbuf_state->joined_mbus != new_dbuf_state->joined_mbus) {
- 			/* TODO: Implement vblank synchronized MBUS joining changes */
--			ret = intel_modeset_all_pipes(state, "MBUS joining change");
-+			ret = intel_modeset_all_pipes_late(state, "MBUS joining change");
- 			if (ret)
- 				return ret;
- 		}
+-static void
++static bool
+ intel_dp_mst_compute_config_limits(struct intel_dp *intel_dp,
+ 				   struct intel_crtc_state *crtc_state,
++				   bool dsc,
+ 				   struct link_config_limits *limits)
+ {
+ 	/*
+@@ -323,8 +324,10 @@ intel_dp_mst_compute_config_limits(struct intel_dp *intel_dp,
+ 
+ 	intel_dp_adjust_compliance_config(intel_dp, crtc_state, limits);
+ 
+-	limits->link.min_bpp_x16 = to_bpp_x16(limits->pipe.min_bpp);
+-	limits->link.max_bpp_x16 = to_bpp_x16(limits->pipe.max_bpp);
++	return intel_dp_compute_config_link_bpp_limits(intel_dp,
++						       crtc_state,
++						       dsc,
++						       limits);
+ }
+ 
+ static int intel_dp_mst_compute_config(struct intel_encoder *encoder,
+@@ -347,9 +350,11 @@ static int intel_dp_mst_compute_config(struct intel_encoder *encoder,
+ 	pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
+ 	pipe_config->has_pch_encoder = false;
+ 
+-	intel_dp_mst_compute_config_limits(intel_dp, pipe_config, &limits);
+-
+-	dsc_needed = intel_dp->force_dsc_en;
++	dsc_needed = intel_dp->force_dsc_en ||
++		     !intel_dp_mst_compute_config_limits(intel_dp,
++							 pipe_config,
++							 false,
++							 &limits);
+ 
+ 	if (!dsc_needed) {
+ 		ret = intel_dp_mst_compute_link_config(encoder, pipe_config,
+@@ -368,6 +373,12 @@ static int intel_dp_mst_compute_config(struct intel_encoder *encoder,
+ 			    str_yes_no(ret),
+ 			    str_yes_no(intel_dp->force_dsc_en));
+ 
++		if (!intel_dp_mst_compute_config_limits(intel_dp,
++							pipe_config,
++							true,
++							&limits))
++			return -EINVAL;
++
+ 		/*
+ 		 * FIXME: As bpc is hardcoded to 8, as mentioned above,
+ 		 * WARN and ignore the debug flag force_dsc_bpc for now.
 -- 
 2.37.2
 
