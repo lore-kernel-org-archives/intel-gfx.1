@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B20CCEEAA66
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 19:27:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52B74EEAA66
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 19:27:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A589910E58C;
-	Thu, 14 Sep 2023 19:27:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1900410E592;
+	Thu, 14 Sep 2023 19:27:09 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92DC310E589
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 19:26:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AD1B10E588;
+ Thu, 14 Sep 2023 19:27:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694719614; x=1726255614;
+ t=1694719621; x=1726255621;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=lTpSRaLS1ZlpSL4LnmDGm12Q7v1nyogIEB5O1wXe6ik=;
- b=ZG1CCriJ1EJxK+6wU+Xjt6JgqyKh6GefQNM50NCe4XNw1/F2Xm3g5RAs
- 4Y2UkiAGMnVXVJIpy2UK+EYGUOSfIzreTZhHbgUAKW1yLI5R7IQi7NWjC
- S/P69aqALe6pm/6VoF/v7mMzt/TdLltOY2qO+j6A7xGJHY2HmYA4yicDu
- xna/jCpb7KYwAbcJ/KCsqdnW8cTnKUqcu4qPmG8SwC56qKkw0yyEncynp
- P77Vle4FbxJUxfeIFGmreLMF9coDtJaT9lPqttTdPmv/0FcyiygjImoIE
- LWCfEFVhYGxtLvPTaJdcRNvTp1QDDljcNT76gE6C/nHlj6BanSFmavCjN g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="465421711"
-X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="465421711"
+ bh=D/7l2vZgN7z9j+UnpsAOgMTUEyfhEeqr7aPiMyqK36o=;
+ b=En2oMrH7cszzB3fmBfkSijJaHmnv5nNjtHX86G1jHMVINIMZtLrfQRrL
+ L4/K8JgM2vN+/I4kuBg7DoxX56qTteKDeXLn50YaT4odWlMvynPW0AMpc
+ k1TN7KE03RcpfWfSGMxYXyMqXzHOLfBWDEQr46QEhjE8ayVZu+7i8g37c
+ g8aB33Wl78HwQTQjNUzciJ6+CEF8bUbjVQ8EOmiMMM2g43LcCRmlCiySe
+ MA2DsFB8XuCPiX3eKal3ewBjsBebtdDd+wAa3iu3JesDwKFVw3AH+A7Fe
+ usWoyA7e7UTMx5aXFHfqUEjkAYjBCoWQ4jEZ9DSnKIJatssfX1JDxKtIu g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="465421734"
+X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="465421734"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 12:26:54 -0700
+ 14 Sep 2023 12:27:00 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="779790540"
-X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="779790540"
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="779790581"
+X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="779790581"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 12:26:53 -0700
+ 14 Sep 2023 12:26:58 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 14 Sep 2023 22:26:44 +0300
-Message-Id: <20230914192659.757475-11-imre.deak@intel.com>
+Date: Thu, 14 Sep 2023 22:26:47 +0300
+Message-Id: <20230914192659.757475-14-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230914192659.757475-1-imre.deak@intel.com>
 References: <20230914192659.757475-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 10/25] drm/i915/fdi: Improve FDI BW sharing
- between pipe B and C
+Subject: [Intel-gfx] [PATCH v3 13/25] drm/dp_mst: Add a way to calculate PBN
+ values with FEC overhead
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,402 +58,219 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org,
+ Wayne Lin <wayne.lin@amd.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-At the moment modesetting pipe C on IVB will fail if pipe B uses 4 FDI
-lanes. Make the BW sharing more dynamic by trying to reduce pipe B's
-link bpp in this case, until pipe B uses only up to 2 FDI lanes.
+Add a way for drivers to calculate the MST PBN values with FEC overhead.
+This is required by 8b/10b links both for DSC and non-DSC (the latter
+needed if there are both DSC and non-DSC streams on the same MST link).
 
-For this instead of the encoder compute config retry loop - which
-reduced link bpp only for the encoder's pipe - reduce the maximum link
-bpp for pipe B/C as required after all CRTC states are computed and
-recompute the CRTC states with the new bpp limit.
+Also add a kunit test case for PBN values calculated with FEC overhead.
 
 v2:
-- Don't assume that a CRTC is already in the atomic state, while
-  reducing its link bpp.
-- Add DocBook description to intel_fdi_atomic_check_link().
-v3:
-- Enable BW management for FDI links in a separate patch. (Ville)
+- Rebase on fractional bpp fix in the previous patch.
 
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Wayne Lin <wayne.lin@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+Reviewed-by: Lyude Paul <lyude@redhat.com> (v1)
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/g4x_hdmi.c      |  6 +-
- drivers/gpu/drm/i915/display/intel_crt.c     |  7 ++
- drivers/gpu/drm/i915/display/intel_display.c | 14 +---
- drivers/gpu/drm/i915/display/intel_dp.c      |  3 +-
- drivers/gpu/drm/i915/display/intel_fdi.c     | 87 +++++++++++++++-----
- drivers/gpu/drm/i915/display/intel_fdi.h     |  4 +
- drivers/gpu/drm/i915/display/intel_link_bw.c |  7 +-
- drivers/gpu/drm/i915/display/intel_lvds.c    | 10 ++-
- drivers/gpu/drm/i915/display/intel_sdvo.c    | 10 ++-
- 9 files changed, 107 insertions(+), 41 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  2 +-
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 19 ++++++++++++++-----
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |  5 +++--
+ drivers/gpu/drm/nouveau/dispnv50/disp.c       |  2 +-
+ .../gpu/drm/tests/drm_dp_mst_helper_test.c    | 15 ++++++++++++++-
+ include/drm/display/drm_dp_mst_helper.h       |  2 +-
+ 7 files changed, 35 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/g4x_hdmi.c b/drivers/gpu/drm/i915/display/g4x_hdmi.c
-index 634b14116d9dd..8b5d26cd3b85e 100644
---- a/drivers/gpu/drm/i915/display/g4x_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/g4x_hdmi.c
-@@ -19,6 +19,7 @@
- #include "intel_fifo_underrun.h"
- #include "intel_hdmi.h"
- #include "intel_hotplug.h"
-+#include "intel_link_bw.h"
- #include "intel_sdvo.h"
- #include "vlv_sideband.h"
- 
-@@ -133,8 +134,11 @@ static int g4x_hdmi_compute_config(struct intel_encoder *encoder,
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 
--	if (HAS_PCH_SPLIT(i915))
-+	if (HAS_PCH_SPLIT(i915)) {
- 		crtc_state->has_pch_encoder = true;
-+		if (!intel_link_bw_compute_pipe_bpp(crtc_state))
-+			return -EINVAL;
-+	}
- 
- 	if (IS_G4X(i915))
- 		crtc_state->has_hdmi_sink = g4x_compute_has_hdmi_sink(state, crtc);
-diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i915/display/intel_crt.c
-index f6df6c4fa72ef..7aa89d0fa3d6c 100644
---- a/drivers/gpu/drm/i915/display/intel_crt.c
-+++ b/drivers/gpu/drm/i915/display/intel_crt.c
-@@ -49,6 +49,7 @@
- #include "intel_gmbus.h"
- #include "intel_hotplug.h"
- #include "intel_hotplug_irq.h"
-+#include "intel_link_bw.h"
- #include "intel_load_detect.h"
- #include "intel_pch_display.h"
- #include "intel_pch_refclk.h"
-@@ -413,6 +414,9 @@ static int pch_crt_compute_config(struct intel_encoder *encoder,
- 		return -EINVAL;
- 
- 	pipe_config->has_pch_encoder = true;
-+	if (!intel_link_bw_compute_pipe_bpp(pipe_config))
-+		return -EINVAL;
-+
- 	pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
- 
- 	return 0;
-@@ -435,6 +439,9 @@ static int hsw_crt_compute_config(struct intel_encoder *encoder,
- 		return -EINVAL;
- 
- 	pipe_config->has_pch_encoder = true;
-+	if (!intel_link_bw_compute_pipe_bpp(pipe_config))
-+		return -EINVAL;
-+
- 	pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
- 
- 	/* LPT FDI RX only supports 8bpc. */
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 29816153fdd59..aad16dcceb788 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -4607,7 +4607,6 @@ intel_modeset_pipe_config(struct intel_atomic_state *state,
- 	struct drm_connector_state *connector_state;
- 	int pipe_src_w, pipe_src_h;
- 	int base_bpp, ret, i;
--	bool retry = true;
- 
- 	crtc_state->cpu_transcoder = (enum transcoder) crtc->pipe;
- 
-@@ -4637,6 +4636,7 @@ intel_modeset_pipe_config(struct intel_atomic_state *state,
- 			    "[CRTC:%d:%s] Link bpp limited to " BPP_X16_FMT "\n",
- 			    crtc->base.base.id, crtc->base.name,
- 			    BPP_X16_ARGS(crtc_state->max_link_bpp_x16));
-+		crtc_state->bw_constrained = true;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 1df65e3e674f6..fb175ac279318 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6804,7 +6804,7 @@ static int dm_encoder_helper_atomic_check(struct drm_encoder *encoder,
+ 								    max_bpc);
+ 		bpp = convert_dc_color_depth_into_bpc(color_depth) * 3;
+ 		clock = adjusted_mode->clock;
+-		dm_new_connector_state->pbn = drm_dp_calc_pbn_mode(clock, bpp << 4);
++		dm_new_connector_state->pbn = drm_dp_calc_pbn_mode(clock, bpp << 4, false);
  	}
  
- 	base_bpp = crtc_state->pipe_bpp;
-@@ -4680,7 +4680,6 @@ intel_modeset_pipe_config(struct intel_atomic_state *state,
- 			crtc_state->output_types |= BIT(encoder->type);
- 	}
+ 	dm_new_connector_state->vcpi_slots =
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 2afd1bc74978d..46829361175dc 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -1636,7 +1636,7 @@ enum dc_status dm_dp_mst_is_port_support_mode(
+ 	} else {
+ 		/* check if mode could be supported within full_pbn */
+ 		bpp = convert_dc_color_depth_into_bpc(stream->timing.display_color_depth) * 3;
+-		pbn = drm_dp_calc_pbn_mode(stream->timing.pix_clk_100hz / 10, bpp << 4);
++		pbn = drm_dp_calc_pbn_mode(stream->timing.pix_clk_100hz / 10, bpp << 4, false);
  
--encoder_retry:
- 	/* Ensure the port clock defaults are reset when retrying. */
- 	crtc_state->port_clock = 0;
- 	crtc_state->pixel_multiplier = 1;
-@@ -4720,17 +4719,6 @@ intel_modeset_pipe_config(struct intel_atomic_state *state,
- 	ret = intel_crtc_compute_config(state, crtc);
- 	if (ret == -EDEADLK)
- 		return ret;
--	if (ret == -EAGAIN) {
--		if (drm_WARN(&i915->drm, !retry,
--			     "[CRTC:%d:%s] loop in pipe configuration computation\n",
--			     crtc->base.base.id, crtc->base.name))
--			return -EINVAL;
--
--		drm_dbg_kms(&i915->drm, "[CRTC:%d:%s] bw constrained, retrying\n",
--			    crtc->base.base.id, crtc->base.name);
--		retry = false;
--		goto encoder_retry;
--	}
- 	if (ret < 0) {
- 		drm_dbg_kms(&i915->drm, "[CRTC:%d:%s] config failure: %d\n",
- 			    crtc->base.base.id, crtc->base.name, ret);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index d5e6813d36c8f..03010accc1c7f 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2219,7 +2219,8 @@ intel_dp_compute_config_link_bpp_limits(struct intel_dp *intel_dp,
- 	const struct intel_encoder *encoder = &dp_to_dig_port(intel_dp)->base;
- 	int max_link_bpp_x16;
- 
--	max_link_bpp_x16 = to_bpp_x16(limits->pipe.max_bpp);
-+	max_link_bpp_x16 = min(crtc_state->max_link_bpp_x16,
-+			       to_bpp_x16(limits->pipe.max_bpp));
- 
- 	if (!dsc) {
- 		max_link_bpp_x16 = rounddown(max_link_bpp_x16, to_bpp_x16(2 * 3));
-diff --git a/drivers/gpu/drm/i915/display/intel_fdi.c b/drivers/gpu/drm/i915/display/intel_fdi.c
-index 4d7d524c68017..ad01915a4a39b 100644
---- a/drivers/gpu/drm/i915/display/intel_fdi.c
-+++ b/drivers/gpu/drm/i915/display/intel_fdi.c
-@@ -13,6 +13,7 @@
- #include "intel_display_types.h"
- #include "intel_fdi.h"
- #include "intel_fdi_regs.h"
-+#include "intel_link_bw.h"
- 
- struct intel_fdi_funcs {
- 	void (*fdi_link_train)(struct intel_crtc *crtc,
-@@ -129,13 +130,16 @@ static int pipe_required_fdi_lanes(struct intel_crtc_state *crtc_state)
- }
- 
- static int ilk_check_fdi_lanes(struct drm_device *dev, enum pipe pipe,
--			       struct intel_crtc_state *pipe_config)
-+			       struct intel_crtc_state *pipe_config,
-+			       enum pipe *pipe_to_reduce)
+ 		if (pbn > aconnector->mst_output_port->full_pbn)
+ 			return DC_FAIL_BANDWIDTH_VALIDATE;
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 0264f673295a8..db97aa76575c1 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -4721,22 +4721,31 @@ EXPORT_SYMBOL(drm_dp_check_act_status);
+  * drm_dp_calc_pbn_mode() - Calculate the PBN for a mode.
+  * @clock: dot clock
+  * @bpp: bpp as .4 binary fixed point
++ * @fec: calculate PBN with FEC overhead
+  *
+  * This uses the formula in the spec to calculate the PBN value for a mode.
+  */
+-int drm_dp_calc_pbn_mode(int clock, int bpp)
++int drm_dp_calc_pbn_mode(int clock, int bpp, bool fec)
  {
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct drm_atomic_state *state = pipe_config->uapi.state;
- 	struct intel_crtc *other_crtc;
- 	struct intel_crtc_state *other_crtc_state;
- 
-+	*pipe_to_reduce = pipe;
-+
- 	drm_dbg_kms(&dev_priv->drm,
- 		    "checking fdi config on pipe %c, lanes %i\n",
- 		    pipe_name(pipe), pipe_config->fdi_lanes);
-@@ -198,6 +202,9 @@ static int ilk_check_fdi_lanes(struct drm_device *dev, enum pipe pipe,
- 		if (pipe_required_fdi_lanes(other_crtc_state) > 2) {
- 			drm_dbg_kms(&dev_priv->drm,
- 				    "fdi link B uses too many lanes to enable link C\n");
-+
-+			*pipe_to_reduce = PIPE_B;
-+
- 			return -EINVAL;
- 		}
- 		return 0;
-@@ -238,10 +245,8 @@ int ilk_fdi_compute_config(struct intel_crtc *crtc,
- 	struct drm_device *dev = crtc->base.dev;
- 	struct drm_i915_private *i915 = to_i915(dev);
- 	const struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
--	int lane, link_bw, fdi_dotclock, ret;
--	bool needs_recompute = false;
-+	int lane, link_bw, fdi_dotclock;
- 
--retry:
- 	/* FDI is a binary signal running at ~2.7GHz, encoding
- 	 * each output octet as 10 bits. The actual frequency
- 	 * is stored as a divider into a 100MHz clock, and the
-@@ -261,25 +266,69 @@ int ilk_fdi_compute_config(struct intel_crtc *crtc,
- 	intel_link_compute_m_n(pipe_config->pipe_bpp, lane, fdi_dotclock,
- 			       link_bw, &pipe_config->fdi_m_n, false);
- 
--	ret = ilk_check_fdi_lanes(dev, crtc->pipe, pipe_config);
--	if (ret == -EDEADLK)
-+	return 0;
-+}
-+
-+static int intel_fdi_atomic_check_bw(struct intel_atomic_state *state,
-+				     struct intel_crtc *crtc,
-+				     struct intel_crtc_state *pipe_config,
-+				     struct intel_link_bw_limits *limits)
-+{
-+	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
-+	enum pipe pipe_to_reduce;
-+	int ret;
-+
-+	ret = ilk_check_fdi_lanes(&i915->drm, crtc->pipe, pipe_config,
-+				  &pipe_to_reduce);
-+	if (ret != -EINVAL)
- 		return ret;
- 
--	if (ret == -EINVAL && pipe_config->pipe_bpp > 6*3) {
--		pipe_config->pipe_bpp -= 2*3;
--		drm_dbg_kms(&i915->drm,
--			    "fdi link bw constraint, reducing pipe bpp to %i\n",
--			    pipe_config->pipe_bpp);
--		needs_recompute = true;
--		pipe_config->bw_constrained = true;
--
--		goto retry;
-+	ret = intel_link_bw_reduce_bpp(state, limits,
-+				       BIT(pipe_to_reduce),
-+				       "FDI link BW");
-+
-+	return ret ? : -EAGAIN;
-+}
-+
-+/**
-+ * intel_fdi_atomic_check_link - check all modeset FDI link configuration
-+ * @state: intel atomic state
-+ * @limits: link BW limits
-+ *
-+ * Check the link configuration for all modeset FDI outputs. If the
-+ * configuration is invalid @limits will be updated if possible to
-+ * reduce the total BW, after which the configuration for all CRTCs in
-+ * @state must be recomputed with the updated @limits.
-+ *
-+ * Returns:
-+ *   - 0 if the confugration is valid
-+ *   - %-EAGAIN, if the configuration is invalid and @limits got updated
-+ *     with fallback values with which the configuration of all CRTCs
-+ *     in @state must be recomputed
-+ *   - Other negative error, if the configuration is invalid without a
-+ *     fallback possibility, or the check failed for another reason
-+ */
-+int intel_fdi_atomic_check_link(struct intel_atomic_state *state,
-+				struct intel_link_bw_limits *limits)
-+{
-+	struct intel_crtc *crtc;
-+	struct intel_crtc_state *crtc_state;
-+	int i;
-+
-+	for_each_new_intel_crtc_in_state(state, crtc, crtc_state, i) {
-+		int ret;
-+
-+		if (!crtc_state->has_pch_encoder ||
-+		    !intel_crtc_needs_modeset(crtc_state) ||
-+		    !crtc_state->hw.enable)
-+			continue;
-+
-+		ret = intel_fdi_atomic_check_bw(state, crtc, crtc_state, limits);
-+		if (ret)
-+			return ret;
- 	}
- 
--	if (needs_recompute)
--		return -EAGAIN;
--
--	return ret;
-+	return 0;
- }
- 
- static void cpt_set_fdi_bc_bifurcation(struct drm_i915_private *dev_priv, bool enable)
-diff --git a/drivers/gpu/drm/i915/display/intel_fdi.h b/drivers/gpu/drm/i915/display/intel_fdi.h
-index 1cdb86172702f..129444c580f27 100644
---- a/drivers/gpu/drm/i915/display/intel_fdi.h
-+++ b/drivers/gpu/drm/i915/display/intel_fdi.h
-@@ -8,14 +8,18 @@
- 
- enum pipe;
- struct drm_i915_private;
-+struct intel_atomic_state;
- struct intel_crtc;
- struct intel_crtc_state;
- struct intel_encoder;
-+struct intel_link_bw_limits;
- 
- int intel_fdi_link_freq(struct drm_i915_private *i915,
- 			const struct intel_crtc_state *pipe_config);
- int ilk_fdi_compute_config(struct intel_crtc *intel_crtc,
- 			   struct intel_crtc_state *pipe_config);
-+int intel_fdi_atomic_check_link(struct intel_atomic_state *state,
-+				struct intel_link_bw_limits *limits);
- void intel_fdi_normal_train(struct intel_crtc *crtc);
- void ilk_fdi_disable(struct intel_crtc *crtc);
- void ilk_fdi_pll_disable(struct intel_crtc *intel_crtc);
-diff --git a/drivers/gpu/drm/i915/display/intel_link_bw.c b/drivers/gpu/drm/i915/display/intel_link_bw.c
-index 22494772b9d59..aacf22bab3135 100644
---- a/drivers/gpu/drm/i915/display/intel_link_bw.c
-+++ b/drivers/gpu/drm/i915/display/intel_link_bw.c
-@@ -160,7 +160,12 @@ intel_link_bw_reset_pipe_limit_to_min(struct intel_atomic_state *state,
- static int check_all_link_config(struct intel_atomic_state *state,
- 				 struct intel_link_bw_limits *limits)
- {
--	/* TODO: Check all shared display link configurations like FDI */
-+	int ret;
-+
-+	ret = intel_fdi_atomic_check_link(state, limits);
-+	if (ret)
-+		return ret;
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
-index 3ace56979b70e..0366d4cc6b72b 100644
---- a/drivers/gpu/drm/i915/display/intel_lvds.c
-+++ b/drivers/gpu/drm/i915/display/intel_lvds.c
-@@ -48,6 +48,7 @@
- #include "intel_dpll.h"
- #include "intel_fdi.h"
- #include "intel_gmbus.h"
-+#include "intel_link_bw.h"
- #include "intel_lvds.h"
- #include "intel_lvds_regs.h"
- #include "intel_panel.h"
-@@ -425,6 +426,12 @@ static int intel_lvds_compute_config(struct intel_encoder *encoder,
- 		return -EINVAL;
- 	}
- 
-+	if (HAS_PCH_SPLIT(i915)) {
-+		crtc_state->has_pch_encoder = true;
-+		if (!intel_link_bw_compute_pipe_bpp(crtc_state))
-+			return -EINVAL;
-+	}
-+
- 	if (lvds_encoder->a3_power == LVDS_A3_POWER_UP)
- 		lvds_bpp = 8*3;
- 	else
-@@ -453,9 +460,6 @@ static int intel_lvds_compute_config(struct intel_encoder *encoder,
- 	if (adjusted_mode->flags & DRM_MODE_FLAG_DBLSCAN)
- 		return -EINVAL;
- 
--	if (HAS_PCH_SPLIT(i915))
--		crtc_state->has_pch_encoder = true;
--
- 	ret = intel_panel_fitting(crtc_state, conn_state);
- 	if (ret)
- 		return ret;
-diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index 135a2527fd1b4..3c912f3bc10ba 100644
---- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -48,6 +48,7 @@
- #include "intel_gmbus.h"
- #include "intel_hdmi.h"
- #include "intel_hotplug.h"
-+#include "intel_link_bw.h"
- #include "intel_panel.h"
- #include "intel_sdvo.h"
- #include "intel_sdvo_regs.h"
-@@ -1351,14 +1352,17 @@ static int intel_sdvo_compute_config(struct intel_encoder *encoder,
- 	struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
- 	struct drm_display_mode *mode = &pipe_config->hw.mode;
- 
-+	if (HAS_PCH_SPLIT(to_i915(encoder->base.dev))) {
-+		pipe_config->has_pch_encoder = true;
-+		if (!intel_link_bw_compute_pipe_bpp(pipe_config))
-+			return -EINVAL;
-+	}
-+
- 	DRM_DEBUG_KMS("forcing bpc to 8 for SDVO\n");
- 	pipe_config->pipe_bpp = 8*3;
- 	pipe_config->sink_format = INTEL_OUTPUT_FORMAT_RGB;
- 	pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
- 
--	if (HAS_PCH_SPLIT(to_i915(encoder->base.dev)))
--		pipe_config->has_pch_encoder = true;
--
  	/*
- 	 * We need to construct preferred input timings based on our
- 	 * output timings.  To do that, we have to set the output
+-	 * margin 5300ppm + 300ppm ~ 0.6% as per spec, factor is 1.006
++	 * Overheads:
++	 * - SSC downspread and ref clock variation margin:
++	 *     5300ppm + 300ppm ~ 0.6% as per spec, factor is 1.006
++	 * - FEC symbol insertions:
++	 *     2.4% as per spec, factor is 1.024
++	 *
+ 	 * The unit of 54/64Mbytes/sec is an arbitrary unit chosen based on
+ 	 * common multiplier to render an integer PBN for all link rate/lane
+ 	 * counts combinations
+ 	 * calculate
+-	 * peak_kbps *= (1006/1000)
++	 * peak_kbps *= (1006/1000) without FEC, or
++	 * peak_kbps *= (1030/1000) with FEC
+ 	 * peak_kbps *= (64/54)
+-	 * peak_kbps *= 8    convert to bytes
++	 * peak_kbps /= 8    convert to bytes
+ 	 */
+-	return DIV_ROUND_UP_ULL(mul_u32_u32(clock * bpp, 64 * 1006 >> 4),
++	u32 overhead = fec ? 1030 : 1006;
++
++	return DIV_ROUND_UP_ULL(mul_u32_u32(clock * bpp, 64 * overhead >> 4),
+ 				1000 * 8 * 54 * 1000);
+ }
+ EXPORT_SYMBOL(drm_dp_calc_pbn_mode);
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index dd04306ba9b32..01291bbb44693 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -109,7 +109,8 @@ static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
+ 			continue;
+ 
+ 		crtc_state->pbn = drm_dp_calc_pbn_mode(adjusted_mode->crtc_clock,
+-						       bpp << 4);
++						       bpp << 4,
++						       false);
+ 
+ 		slots = drm_dp_atomic_find_time_slots(state, &intel_dp->mst_mgr,
+ 						      connector->port,
+@@ -975,7 +976,7 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
+ 		return ret;
+ 
+ 	if (mode_rate > max_rate || mode->clock > max_dotclk ||
+-	    drm_dp_calc_pbn_mode(mode->clock, min_bpp << 4) > port->full_pbn) {
++	    drm_dp_calc_pbn_mode(mode->clock, min_bpp << 4, false) > port->full_pbn) {
+ 		*status = MODE_CLOCK_HIGH;
+ 		return 0;
+ 	}
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+index 0e1542a5b9ac1..e1c8f03e6bb57 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+@@ -967,7 +967,7 @@ nv50_msto_atomic_check(struct drm_encoder *encoder,
+ 		const int clock = crtc_state->adjusted_mode.clock;
+ 
+ 		asyh->or.bpc = connector->display_info.bpc;
+-		asyh->dp.pbn = drm_dp_calc_pbn_mode(clock, asyh->or.bpc * 3 << 4);
++		asyh->dp.pbn = drm_dp_calc_pbn_mode(clock, asyh->or.bpc * 3 << 4, false);
+ 	}
+ 
+ 	mst_state = drm_atomic_get_mst_topology_state(state, &mstm->mgr);
+diff --git a/drivers/gpu/drm/tests/drm_dp_mst_helper_test.c b/drivers/gpu/drm/tests/drm_dp_mst_helper_test.c
+index e3c818dfc0e6d..b8e3d9b64b3c4 100644
+--- a/drivers/gpu/drm/tests/drm_dp_mst_helper_test.c
++++ b/drivers/gpu/drm/tests/drm_dp_mst_helper_test.c
+@@ -16,6 +16,7 @@ struct drm_dp_mst_calc_pbn_mode_test {
+ 	const int clock;
+ 	const int bpp;
+ 	const bool dsc;
++	const bool fec;
+ 	const int expected;
+ };
+ 
+@@ -24,39 +25,51 @@ static const struct drm_dp_mst_calc_pbn_mode_test drm_dp_mst_calc_pbn_mode_cases
+ 		.clock = 154000,
+ 		.bpp = 30,
+ 		.dsc = false,
++		.fec = false,
+ 		.expected = 689
+ 	},
+ 	{
+ 		.clock = 234000,
+ 		.bpp = 30,
+ 		.dsc = false,
++		.fec = false,
+ 		.expected = 1047
+ 	},
+ 	{
+ 		.clock = 297000,
+ 		.bpp = 24,
+ 		.dsc = false,
++		.fec = false,
+ 		.expected = 1063
+ 	},
+ 	{
+ 		.clock = 332880,
+ 		.bpp = 24,
+ 		.dsc = true,
++		.fec = false,
+ 		.expected = 1191
+ 	},
+ 	{
+ 		.clock = 324540,
+ 		.bpp = 24,
+ 		.dsc = true,
++		.fec = false,
+ 		.expected = 1161
+ 	},
++	{
++		.clock = 324540,
++		.bpp = 24,
++		.dsc = true,
++		.fec = true,
++		.expected = 1189
++	},
+ };
+ 
+ static void drm_test_dp_mst_calc_pbn_mode(struct kunit *test)
+ {
+ 	const struct drm_dp_mst_calc_pbn_mode_test *params = test->param_value;
+ 
+-	KUNIT_EXPECT_EQ(test, drm_dp_calc_pbn_mode(params->clock, params->bpp << 4),
++	KUNIT_EXPECT_EQ(test, drm_dp_calc_pbn_mode(params->clock, params->bpp << 4, params->fec),
+ 			params->expected);
+ }
+ 
+diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
+index 655862b3d2a49..5de0c3d28794b 100644
+--- a/include/drm/display/drm_dp_mst_helper.h
++++ b/include/drm/display/drm_dp_mst_helper.h
+@@ -842,7 +842,7 @@ struct edid *drm_dp_mst_get_edid(struct drm_connector *connector,
+ int drm_dp_get_vc_payload_bw(const struct drm_dp_mst_topology_mgr *mgr,
+ 			     int link_rate, int link_lane_count);
+ 
+-int drm_dp_calc_pbn_mode(int clock, int bpp);
++int drm_dp_calc_pbn_mode(int clock, int bpp, bool fec);
+ 
+ void drm_dp_mst_update_slots(struct drm_dp_mst_topology_state *mst_state, uint8_t link_encoding_cap);
+ 
 -- 
 2.37.2
 
