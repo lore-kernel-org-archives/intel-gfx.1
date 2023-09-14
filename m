@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C109FEEAA65
-	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 19:27:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C3F0EEAA66
+	for <intel-gfx@archiver.kernel.org>; Thu, 14 Sep 2023 19:27:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C82910E594;
-	Thu, 14 Sep 2023 19:27:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EAB310E598;
+	Thu, 14 Sep 2023 19:27:12 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8307610E588
- for <intel-gfx@lists.freedesktop.org>; Thu, 14 Sep 2023 19:27:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24D2A10E590;
+ Thu, 14 Sep 2023 19:27:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694719626; x=1726255626;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=nIHiCGdB9mkA/Dzy58LAJa59qxyMF5DlSBdOGqIh3pM=;
- b=cDhj3fR3OkL4v0aoST4bn6btZhbi8LfAiU20r3CY55xfIdXvPfYfNZ5v
- 7LBtzz81EEru293PiT+dpJGK7urmfONiRqbDLRoMKTDP0nvop0IZZXWTA
- vMcZDmDhqJ6QV+ehSF3PFOe908B3ssXIRzN3+vMWYEeRq7UUQRKCvnE+6
- QX1JfxAYB5jAYdYJ1+nFRDiunQNQ8yjb2YmvO+571G5cbWXDgc1LgwAwM
- Ro7MZskdlt5B5HhuvGLTrf/ioxlpd4JtSRxPLe4iKTrlGGovXs2cx48tt
- mXE9uXncFTcFjlocFsQh3dmAA+OLEuH3VIMWiaxI2LiOTgJhNWmojWPE2 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="465421759"
-X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="465421759"
+ t=1694719624; x=1726255624;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=/6uECFiiAsVPqzzHFLj/v42YQGg3Xt9FsD2CAWLOtv8=;
+ b=gl9aPtdb/DBMsT+wkyAXXcVB5/SlQ0uT/P4u9F3F18R3vOvjUYZ8BGkZ
+ MxJu1wTu+SEj1/SgxQLtgPGVEiU6BfLZu0gLlOaYtO56hiIZTuRNz+Hp+
+ Ch0faohhY/gMag6XmfL1hghbYLzlyB9oN0Tll3FtBjQPnj9vqojWVrC6h
+ vtR+nuV5ZzThM75Oiiezqm+W2Q5ChtWMSTW1QgGEBZgqYD+OvdVFy3szt
+ eElgoRVNKUp/UluEOpNuDEc2oz1yPJi4iAI258FVP8WGd6/CaI/JxTqV4
+ gKWur4E6al3b64eMMAPhzlV2d/Uh+zVnHjtqH8mhZytO6xoIjyoqkj+bt g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="465421747"
+X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="465421747"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 12:27:06 -0700
+ 14 Sep 2023 12:27:03 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="779790605"
-X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="779790605"
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="779790593"
+X-IronPort-AV: E=Sophos;i="6.02,146,1688454000"; d="scan'208";a="779790593"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 12:27:05 -0700
+ 14 Sep 2023 12:27:02 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 14 Sep 2023 22:26:51 +0300
-Message-Id: <20230914192659.757475-18-imre.deak@intel.com>
+Date: Thu, 14 Sep 2023 22:26:49 +0300
+Message-Id: <20230914192659.757475-16-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230914192659.757475-1-imre.deak@intel.com>
 References: <20230914192659.757475-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 17/25] drm/i915/dp_mst: Fix PBN calculation
- with FEC overhead
+Subject: [Intel-gfx] [PATCH v3 15/25] drm/dp_mst: Factor out a helper to
+ check the atomic state of a topology manager
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,33 +58,209 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 8b/10b MST links the PBN value for DSC streams must be calculated
-accounting for the FEC overhead. The same applies to 8b/10b non-DSC
-streams if there is another DSC stream on the same link. Fix up the PBN
-calculation accordingly.
+Factor out a helper to check the atomic state for one MST topology
+manager, returning the MST port where the BW limit check has failed.
+This will be used in a follow-up patch by the i915 driver to improve the
+BW sharing between MST streams.
 
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 93 +++++++++++++++----
+ include/drm/display/drm_dp_mst_helper.h       |  4 +
+ 2 files changed, 78 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 01291bbb44693..c1fea894d3774 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -110,7 +110,8 @@ static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 22a901493d24c..3d93bc093c46c 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -5190,11 +5190,13 @@ EXPORT_SYMBOL(drm_dp_mst_port_downstream_of_parent);
  
- 		crtc_state->pbn = drm_dp_calc_pbn_mode(adjusted_mode->crtc_clock,
- 						       bpp << 4,
--						       false);
-+						       (dsc || crtc_state->fec_enable) &&
-+							!intel_dp_is_uhbr(crtc_state));
+ static int
+ drm_dp_mst_atomic_check_port_bw_limit(struct drm_dp_mst_port *port,
+-				      struct drm_dp_mst_topology_state *state);
++				      struct drm_dp_mst_topology_state *state,
++				      struct drm_dp_mst_port **failing_port);
  
- 		slots = drm_dp_atomic_find_time_slots(state, &intel_dp->mst_mgr,
- 						      connector->port,
+ static int
+ drm_dp_mst_atomic_check_mstb_bw_limit(struct drm_dp_mst_branch *mstb,
+-				      struct drm_dp_mst_topology_state *state)
++				      struct drm_dp_mst_topology_state *state,
++				      struct drm_dp_mst_port **failing_port)
+ {
+ 	struct drm_dp_mst_atomic_payload *payload;
+ 	struct drm_dp_mst_port *port;
+@@ -5223,7 +5225,7 @@ drm_dp_mst_atomic_check_mstb_bw_limit(struct drm_dp_mst_branch *mstb,
+ 		drm_dbg_atomic(mstb->mgr->dev, "[MSTB:%p] Checking bandwidth limits\n", mstb);
+ 
+ 	list_for_each_entry(port, &mstb->ports, next) {
+-		ret = drm_dp_mst_atomic_check_port_bw_limit(port, state);
++		ret = drm_dp_mst_atomic_check_port_bw_limit(port, state, failing_port);
+ 		if (ret < 0)
+ 			return ret;
+ 
+@@ -5235,7 +5237,8 @@ drm_dp_mst_atomic_check_mstb_bw_limit(struct drm_dp_mst_branch *mstb,
+ 
+ static int
+ drm_dp_mst_atomic_check_port_bw_limit(struct drm_dp_mst_port *port,
+-				      struct drm_dp_mst_topology_state *state)
++				      struct drm_dp_mst_topology_state *state,
++				      struct drm_dp_mst_port **failing_port)
+ {
+ 	struct drm_dp_mst_atomic_payload *payload;
+ 	int pbn_used = 0;
+@@ -5256,13 +5259,15 @@ drm_dp_mst_atomic_check_port_bw_limit(struct drm_dp_mst_port *port,
+ 			drm_dbg_atomic(port->mgr->dev,
+ 				       "[MSTB:%p] [MST PORT:%p] no BW available for the port\n",
+ 				       port->parent, port);
++			*failing_port = port;
+ 			return -EINVAL;
+ 		}
+ 
+ 		pbn_used = payload->pbn;
+ 	} else {
+ 		pbn_used = drm_dp_mst_atomic_check_mstb_bw_limit(port->mstb,
+-								 state);
++								 state,
++								 failing_port);
+ 		if (pbn_used <= 0)
+ 			return pbn_used;
+ 	}
+@@ -5271,6 +5276,7 @@ drm_dp_mst_atomic_check_port_bw_limit(struct drm_dp_mst_port *port,
+ 		drm_dbg_atomic(port->mgr->dev,
+ 			       "[MSTB:%p] [MST PORT:%p] required PBN of %d exceeds port limit of %d\n",
+ 			       port->parent, port, pbn_used, port->full_pbn);
++		*failing_port = port;
+ 		return -ENOSPC;
+ 	}
+ 
+@@ -5448,20 +5454,79 @@ int drm_dp_mst_atomic_enable_dsc(struct drm_atomic_state *state,
+ }
+ EXPORT_SYMBOL(drm_dp_mst_atomic_enable_dsc);
+ 
++/**
++ * drm_dp_mst_atomic_check_mgr - Check the atomic state of an MST topology manager
++ * @state: The global atomic state
++ * @mgr: Manager to check
++ * @mst_state: The MST atomic state for @mgr
++ * @failing_port: Returns the port with a BW limitation
++ *
++ * Checks the given MST manager's topology state for an atomic update to ensure
++ * that it's valid. This includes checking whether there's enough bandwidth to
++ * support the new timeslot allocations in the atomic update.
++ *
++ * Any atomic drivers supporting DP MST must make sure to call this or
++ * the drm_dp_mst_atomic_check() function after checking the rest of their state
++ * in their &drm_mode_config_funcs.atomic_check() callback.
++ *
++ * See also:
++ * drm_dp_mst_atomic_check()
++ * drm_dp_atomic_find_time_slots()
++ * drm_dp_atomic_release_time_slots()
++ *
++ * Returns:
++ *   - 0 if the new state is valid
++ *   - %-ENOSPC, if the new state is invalid, because of BW limitation
++ *         @failing_port is set to:
++ *         - The non-root port where a BW limit check failed
++ *           The returned port pointer is valid until at least
++ *           one payload downstream of it exists.
++ *         - %NULL if the BW limit check failed at the root port
++ *   - %-EINVAL, if the new state is invalid, because the root port has
++ *     too many payloads.
++ */
++int drm_dp_mst_atomic_check_mgr(struct drm_atomic_state *state,
++				struct drm_dp_mst_topology_mgr *mgr,
++				struct drm_dp_mst_topology_state *mst_state,
++				struct drm_dp_mst_port **failing_port)
++{
++	int ret;
++
++	*failing_port = NULL;
++
++	if (!mgr->mst_state)
++		return 0;
++
++	ret = drm_dp_mst_atomic_check_payload_alloc_limits(mgr, mst_state);
++	if (ret)
++		return ret;
++
++	mutex_lock(&mgr->lock);
++	ret = drm_dp_mst_atomic_check_mstb_bw_limit(mgr->mst_primary,
++						    mst_state,
++						    failing_port);
++	mutex_unlock(&mgr->lock);
++
++	return ret < 0 ? ret : 0;
++}
++EXPORT_SYMBOL(drm_dp_mst_atomic_check_mgr);
++
+ /**
+  * drm_dp_mst_atomic_check - Check that the new state of an MST topology in an
+  * atomic update is valid
+  * @state: Pointer to the new &struct drm_dp_mst_topology_state
+  *
+  * Checks the given topology state for an atomic update to ensure that it's
+- * valid. This includes checking whether there's enough bandwidth to support
+- * the new timeslot allocations in the atomic update.
++ * valid, calling drm_dp_mst_atomic_check_mgr() for all MST manager in the
++ * atomic state. This includes checking whether there's enough bandwidth to
++ * support the new timeslot allocations in the atomic update.
+  *
+  * Any atomic drivers supporting DP MST must make sure to call this after
+  * checking the rest of their state in their
+  * &drm_mode_config_funcs.atomic_check() callback.
+  *
+  * See also:
++ * drm_dp_mst_atomic_check_mgr()
+  * drm_dp_atomic_find_time_slots()
+  * drm_dp_atomic_release_time_slots()
+  *
+@@ -5476,21 +5541,11 @@ int drm_dp_mst_atomic_check(struct drm_atomic_state *state)
+ 	int i, ret = 0;
+ 
+ 	for_each_new_mst_mgr_in_state(state, mgr, mst_state, i) {
+-		if (!mgr->mst_state)
+-			continue;
++		struct drm_dp_mst_port *tmp_port;
+ 
+-		ret = drm_dp_mst_atomic_check_payload_alloc_limits(mgr, mst_state);
++		ret = drm_dp_mst_atomic_check_mgr(state, mgr, mst_state, &tmp_port);
+ 		if (ret)
+ 			break;
+-
+-		mutex_lock(&mgr->lock);
+-		ret = drm_dp_mst_atomic_check_mstb_bw_limit(mgr->mst_primary,
+-							    mst_state);
+-		mutex_unlock(&mgr->lock);
+-		if (ret < 0)
+-			break;
+-		else
+-			ret = 0;
+ 	}
+ 
+ 	return ret;
+diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
+index aecce52cae167..0e570b67563b5 100644
+--- a/include/drm/display/drm_dp_mst_helper.h
++++ b/include/drm/display/drm_dp_mst_helper.h
+@@ -916,6 +916,10 @@ int drm_dp_send_power_updown_phy(struct drm_dp_mst_topology_mgr *mgr,
+ int drm_dp_send_query_stream_enc_status(struct drm_dp_mst_topology_mgr *mgr,
+ 		struct drm_dp_mst_port *port,
+ 		struct drm_dp_query_stream_enc_status_ack_reply *status);
++int __must_check drm_dp_mst_atomic_check_mgr(struct drm_atomic_state *state,
++					     struct drm_dp_mst_topology_mgr *mgr,
++					     struct drm_dp_mst_topology_state *mst_state,
++					     struct drm_dp_mst_port **failing_port);
+ int __must_check drm_dp_mst_atomic_check(struct drm_atomic_state *state);
+ int __must_check drm_dp_mst_root_conn_atomic_check(struct drm_connector_state *new_conn_state,
+ 						   struct drm_dp_mst_topology_mgr *mgr);
 -- 
 2.37.2
 
