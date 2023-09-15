@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1096DEED61E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D25BEEED61A
 	for <intel-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 17:47:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DCF610E665;
-	Fri, 15 Sep 2023 17:47:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F2EA10E666;
+	Fri, 15 Sep 2023 17:47:51 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDA6010E675;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8985F10E670;
  Fri, 15 Sep 2023 17:46:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1694800012; x=1726336012;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=MxGVFyctYSYubYKqyVsJkYnxQ7j6QBwmBkx7nbP4OZ0=;
- b=eVqSH/tYIMXk4gGzJly8AWPf95IKKzPNoHJxPkZlTiVEwFN+Tdwo5KtO
- ul4jCknxRThuBg2I7zntVty0KDk3We2NXu3csHE0LJ5wuVmnD9R3H04I4
- dLZF/NmHB9VpFyJMu8QQLHXzUhZhxAAkhtdrH/VPzGkmWaD+eMxnDbo6K
- 2mJYWN/n1lE6aXgm/5RlqHsYp3FWXYYhcaHK+9SIwboNUq3CWSGK/3QQC
- Awqqb8k9/0Daj7U/PklTrnZ+zkJB7U7QIyjiMiKXS9uxMjuPUsy4L3Ewg
- 5Pr2NSUxq1cuVzg3U1XG1lZrKHPqs+Yv2CYAy1RARSq9wPeJK1JRJfYJT w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="445779287"
-X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="445779287"
+ bh=wMhognfuhmnzyC+G0kAy+YIuiBEM/O/I11llUTHQ71c=;
+ b=P27Hrhe1jQFmkfUywlc55F4xzRCj3J2fDNgVZpMBqd1vofX8UxQbGuzB
+ QUtXMwVKHTIGFjUc27NwdyMPFsr3/PCJBGhcZ1d/tHoBmHF3W4O1630r+
+ NK2hPjvcafJWVjLk9lRY7PnsXoULyYtrw6kUJ+Fgbf1dhqM9lbSwwGfKU
+ DmJ6ifUwl8l5cuSXtDg0WReu7ADoZnNpuO9MKv/XoyHTbIb8DTdJuGPN/
+ 3RXikgMfYOZedMfZC33SSAqnPrC3N3MYSzmmlI8dsZGuzM8ckqZSQRaDF
+ KMg8OPPdyICOsxLCIPu6kJS1KzrT07BPhogJBKp9Ocvd38h6cHSd7BAd6 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="445779279"
+X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="445779279"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 10:46:51 -0700
+ 15 Sep 2023 10:46:50 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="868818309"
-X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="868818309"
+X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="868818287"
+X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="868818287"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Sep 2023 10:46:50 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 15 Sep 2023 10:46:47 -0700
-Message-Id: <20230915174651.1928176-27-lucas.demarchi@intel.com>
+Date: Fri, 15 Sep 2023 10:46:40 -0700
+Message-Id: <20230915174651.1928176-20-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230915174651.1928176-1-lucas.demarchi@intel.com>
 References: <20230915174651.1928176-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 26/30] drm/i915/lnl: Start using CDCLK
- through PLL
+Subject: [Intel-gfx] [PATCH v4 19/30] drm/i915/xe2lpd: Enable odd size and
+ panning for planar yuv
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,71 +59,42 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matt Roper <matthew.d.roper@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, intel-xe@lists.freedesktop.org
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>, intel-xe@lists.freedesktop.org,
+ =?UTF-8?q?Juha-Pekka=20Heikkil=C3=A4?= <juha-pekka.heikkila@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+From: Juha-Pekka Heikkilä <juha-pekka.heikkila@intel.com>
 
-Introduce correspondent definitions for choosing between CD2X CDCLK
-and PLL CDCLK as a source. All the entries in cdclk table for xe2lpd are
-defined with PLL CDCLK as source, so simply set it. Also
-skl_cdclk_decimal() shouldn't be set in CDCLK_CTL anymore, so skip it
-for display version 20 and above.
+Enable odd size and panning for planar yuv formats.
 
-v2:
-  - Remove unneeded comment and use REG_BIT() (Matt Roper)
-  - Rename CDCLK_SOURCE_SEL_CDCLK_PLL() to MDCLK_SOURCE_SEL_CDCLK_PLL
-    to match spec (Lucas)
-
-Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Signed-off-by: Juha-Pekka Heikkilä <juha-pekka.heikkila@intel.com>
+Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 9 +++++++--
- drivers/gpu/drm/i915/i915_reg.h            | 1 +
- 2 files changed, 8 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_atomic_plane.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index 4cde78db83a1..b55a3f75f392 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -1906,8 +1906,7 @@ static void _bxt_set_cdclk(struct drm_i915_private *dev_priv,
- 		dg2_cdclk_squash_program(dev_priv, waveform);
- 
- 	val = bxt_cdclk_cd2x_div_sel(dev_priv, clock, vco) |
--		bxt_cdclk_cd2x_pipe(dev_priv, pipe) |
--		skl_cdclk_decimal(cdclk);
-+		bxt_cdclk_cd2x_pipe(dev_priv, pipe);
- 
- 	/*
- 	 * Disable SSA Precharge when CD clock frequency < 500 MHz,
-@@ -1916,6 +1915,12 @@ static void _bxt_set_cdclk(struct drm_i915_private *dev_priv,
- 	if ((IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv)) &&
- 	    cdclk >= 500000)
- 		val |= BXT_CDCLK_SSA_PRECHARGE_ENABLE;
-+
-+	if (DISPLAY_VER(dev_priv) >= 20)
-+		val |= MDCLK_SOURCE_SEL_CDCLK_PLL;
-+	else
-+		val |= skl_cdclk_decimal(cdclk);
-+
- 	intel_de_write(dev_priv, CDCLK_CTL, val);
- 
- 	if (pipe != INVALID_PIPE)
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index efcf1461988f..c59eb411cf06 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -5884,6 +5884,7 @@ enum skl_power_gate {
- #define  CDCLK_FREQ_540		REG_FIELD_PREP(CDCLK_FREQ_SEL_MASK, 1)
- #define  CDCLK_FREQ_337_308		REG_FIELD_PREP(CDCLK_FREQ_SEL_MASK, 2)
- #define  CDCLK_FREQ_675_617		REG_FIELD_PREP(CDCLK_FREQ_SEL_MASK, 3)
-+#define  MDCLK_SOURCE_SEL_CDCLK_PLL	REG_BIT(25)
- #define  BXT_CDCLK_CD2X_DIV_SEL_MASK	REG_GENMASK(23, 22)
- #define  BXT_CDCLK_CD2X_DIV_SEL_1	REG_FIELD_PREP(BXT_CDCLK_CD2X_DIV_SEL_MASK, 0)
- #define  BXT_CDCLK_CD2X_DIV_SEL_1_5	REG_FIELD_PREP(BXT_CDCLK_CD2X_DIV_SEL_MASK, 1)
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+index d7a0bd686e49..b1074350616c 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+@@ -981,6 +981,14 @@ int intel_plane_check_src_coordinates(struct intel_plane_state *plane_state)
+ 	if (fb->format->format == DRM_FORMAT_RGB565 && rotated) {
+ 		hsub = 2;
+ 		vsub = 2;
++	} else if (DISPLAY_VER(i915) >= 20 &&
++		   intel_format_info_is_yuv_semiplanar(fb->format, fb->modifier)) {
++		/*
++		 * This allows NV12 and P0xx formats to have odd size and/or odd
++		 * source coordinates on DISPLAY_VER(i915) >= 20
++		 */
++		hsub = 1;
++		vsub = 1;
+ 	} else {
+ 		hsub = fb->format->hsub;
+ 		vsub = fb->format->vsub;
 -- 
 2.40.1
 
