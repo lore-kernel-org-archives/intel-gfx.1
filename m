@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCCA7EED620
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64471EED61F
 	for <intel-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 17:47:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6845A10E66C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 605CC10E66B;
 	Fri, 15 Sep 2023 17:47:51 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 182C510E66C;
- Fri, 15 Sep 2023 17:46:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19AC910E677;
+ Fri, 15 Sep 2023 17:46:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694800012; x=1726336012;
+ t=1694800013; x=1726336013;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=y16Me9rxASa/rjQdysCxEZ6OaCLJB6U9N+r8onE04SY=;
- b=Q6fUkqGcf6mIgH+/vaS0y316ZFrRWsoKM5iCAw6hto/PG+Cl4IcTaHs/
- KIHkco4WUg5KLDW9yVdUOKk4qQhLFJoXv/vdFz9yWQU/NqGDE6LDvIZzt
- IOfr4LFtCSk/ZDqDK1RTuOaLM1ZhNlZeh0bhqZeSuWKRiqEZj66Wa54ih
- o2UDtZmLbByArrcOzwB+0/OtL7ZUSv2f1uSI8xO+FNwzIqYnBAz7Bcmgm
- CncyTvPNkOTlWefnoDaliiy0y8vAwydvhZAl1MWvx5a546qGMEY85xOzr
- 0zRM/yv4gJjzrEIwGnNuJ0/Lsn4ioYj2fOBKOvKuNItLLXE84VyL6X9wg g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="445779274"
-X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="445779274"
+ bh=3ZurH9uHeYjOkHmpKNhkMDg35vl0KxSjF4/nYf5iANQ=;
+ b=J2JKuVZ5jihDJZ7SBcTWZJ2kxZEeEV3lmjwgcyTKm4g4spQxxqhP97Yz
+ tTrkKGPenh5sLdSsEjXbLn/pMqhBBBsrMWLSdx4li+HIt3Ipeq3SQ7tKD
+ fH99a6N27pKPwubTA+8BykXKM5GS9RUhQmD+St8V2enApllnjV2hLSHQ7
+ CYeIop9BQUKJMIuyrl1qOH3azD6j/bGNCPDnCLmJU/SC5tr2TVvetUczu
+ 73LtsljCsL2nsqauLEMlfqpHg9fpIuDAqffzfOUdrM0EeKxsjedv5SF+5
+ ymYg/rIMnfn+ISWfuAs9Z8TULkLwnIQZN7AirRIplrhWSsXNdW9yppSbO A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="445779293"
+X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="445779293"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 10:46:50 -0700
+ 15 Sep 2023 10:46:51 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="868818275"
-X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="868818275"
+X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="868818320"
+X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="868818320"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 10:46:50 -0700
+ 15 Sep 2023 10:46:51 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 15 Sep 2023 10:46:36 -0700
-Message-Id: <20230915174651.1928176-16-lucas.demarchi@intel.com>
+Date: Fri, 15 Sep 2023 10:46:50 -0700
+Message-Id: <20230915174651.1928176-30-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230915174651.1928176-1-lucas.demarchi@intel.com>
 References: <20230915174651.1928176-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 15/30] drm/i915/display: Use
- _PICK_EVEN_2RANGES() in DP AUX regs
+Subject: [Intel-gfx] [PATCH v4 29/30] drm/i915/xe2lpd: Write DBuf after
+ CDCLK change in post plane
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,71 +58,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matt Roper <matthew.d.roper@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, intel-xe@lists.freedesktop.org
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>, intel-xe@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-XELPDP_DP_AUX_CH_CTL() and XELPDP_DP_AUX_CH_DATA() use 2 ranges. Prefer
-using _PICK_EVEN_2RANGES() over PICK().
+From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
+Previously we always updated DBuf MBUS CTL and DBUF CTL regs after
+CDCLK has been changed(CDCLK_CTL), however for Xe2-LPD we can't do like
+that anymore. According to BSpec, we have to first update DBuf regs and
+then write CDCLK regs, when CDCLK is decreased, which we do in post
+plane.
+
+So now we do CDCLK post plane update only after DBuf regs are
+written (CDCLK/MDCLK separation requires MDCLK/CDCLK ratio to be written
+to DBuf regs).
+
+Cc: Mika Kahola <mika.kahola@intel.com>
+Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Mika Kahola <mika.kahola@intel.com>
 ---
- .../gpu/drm/i915/display/intel_dp_aux_regs.h  | 30 +++++++------------
- 1 file changed, 10 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_regs.h b/drivers/gpu/drm/i915/display/intel_dp_aux_regs.h
-index 4503d94115d7..1e9e018a2a48 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux_regs.h
-@@ -19,18 +19,13 @@
- #define _DPB_AUX_CH_CTL			(DISPLAY_MMIO_BASE(dev_priv) + 0x64110)
- #define _XELPDP_USBC1_AUX_CH_CTL	0x16f210
- #define _XELPDP_USBC2_AUX_CH_CTL	0x16f410
--#define _XELPDP_USBC3_AUX_CH_CTL	0x16f610
--#define _XELPDP_USBC4_AUX_CH_CTL	0x16f810
- #define DP_AUX_CH_CTL(aux_ch)		_MMIO_PORT(aux_ch, _DPA_AUX_CH_CTL,	\
- 						   _DPB_AUX_CH_CTL)
--#define XELPDP_DP_AUX_CH_CTL(aux_ch)	_MMIO(_PICK(aux_ch, \
--						    _DPA_AUX_CH_CTL, \
--						    _DPB_AUX_CH_CTL, \
--						    0, /* port/aux_ch C is non-existent */ \
--						    _XELPDP_USBC1_AUX_CH_CTL, \
--						    _XELPDP_USBC2_AUX_CH_CTL, \
--						    _XELPDP_USBC3_AUX_CH_CTL, \
--						    _XELPDP_USBC4_AUX_CH_CTL))
-+#define XELPDP_DP_AUX_CH_CTL(aux_ch)						\
-+		_MMIO(_PICK_EVEN_2RANGES(aux_ch, AUX_CH_USBC1,			\
-+					 _DPA_AUX_CH_CTL, _DPB_AUX_CH_CTL,	\
-+					 _XELPDP_USBC1_AUX_CH_CTL,		\
-+					 _XELPDP_USBC2_AUX_CH_CTL))
- #define   DP_AUX_CH_CTL_SEND_BUSY		REG_BIT(31)
- #define   DP_AUX_CH_CTL_DONE			REG_BIT(30)
- #define   DP_AUX_CH_CTL_INTERRUPT		REG_BIT(29)
-@@ -68,17 +63,12 @@
- #define _DPB_AUX_CH_DATA1		(DISPLAY_MMIO_BASE(dev_priv) + 0x64114)
- #define _XELPDP_USBC1_AUX_CH_DATA1	0x16f214
- #define _XELPDP_USBC2_AUX_CH_DATA1	0x16f414
--#define _XELPDP_USBC3_AUX_CH_DATA1	0x16f614
--#define _XELPDP_USBC4_AUX_CH_DATA1	0x16f814
- #define DP_AUX_CH_DATA(aux_ch, i)	_MMIO(_PORT(aux_ch, _DPA_AUX_CH_DATA1,	\
- 						    _DPB_AUX_CH_DATA1) + (i) * 4) /* 5 registers */
--#define XELPDP_DP_AUX_CH_DATA(aux_ch, i)	_MMIO(_PICK(aux_ch, \
--							    _DPA_AUX_CH_DATA1, \
--							    _DPB_AUX_CH_DATA1, \
--							    0, /* port/aux_ch C is non-existent */ \
--							    _XELPDP_USBC1_AUX_CH_DATA1, \
--							    _XELPDP_USBC2_AUX_CH_DATA1, \
--							    _XELPDP_USBC3_AUX_CH_DATA1, \
--							    _XELPDP_USBC4_AUX_CH_DATA1) + (i) * 4)
-+#define XELPDP_DP_AUX_CH_DATA(aux_ch, i)					\
-+		_MMIO(_PICK_EVEN_2RANGES(aux_ch, AUX_CH_USBC1,			\
-+					 _DPA_AUX_CH_DATA1, _DPB_AUX_CH_DATA1,	\
-+					 _XELPDP_USBC1_AUX_CH_DATA1,		\
-+					 _XELPDP_USBC2_AUX_CH_DATA1) + (i) * 4) /* 5 registers */
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 6bbc9069754c..84c09958cca7 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7040,7 +7040,7 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
+ 	/* Now enable the clocks, plane, pipe, and connectors that we set up. */
+ 	dev_priv->display.funcs.display->commit_modeset_enables(state);
  
- #endif /* __INTEL_DP_AUX_REGS_H__ */
+-	if (state->modeset)
++	if (state->modeset && DISPLAY_VER(dev_priv) < 20)
+ 		intel_set_cdclk_post_plane_update(state);
+ 
+ 	intel_wait_for_vblank_workers(state);
+@@ -7087,6 +7087,9 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
+ 	intel_dbuf_post_plane_update(state);
+ 	intel_psr_post_plane_update(state);
+ 
++	if (state->modeset && DISPLAY_VER(dev_priv) >= 20)
++		intel_set_cdclk_post_plane_update(state);
++
+ 	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i) {
+ 		intel_post_plane_update(state, crtc);
+ 
 -- 
 2.40.1
 
