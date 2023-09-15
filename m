@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B7CCEED61A
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 17:47:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 145E7EED620
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 17:47:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2251A10E671;
-	Fri, 15 Sep 2023 17:47:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FBD510E676;
+	Fri, 15 Sep 2023 17:47:11 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8FB210E671;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D982F10E674;
  Fri, 15 Sep 2023 17:46:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1694800012; x=1726336012;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=a7+gh32prj8nz06hf6z+QcrNIirN7XXaqMYJyv6/LZw=;
- b=ElmUvq2X8p6Cc2o9CPl+Y4MiB5FRWI5SNoCh3FL83iSTjCujQtqxmTko
- 0xZCpF3q4DXWnyUflv3uzqDlDfxV2bTnJ65XJ3a0yrKNUJ6l/y0OyNLZY
- BnCvPIuZD3qYXoUvLiafgihPjcC/8K9dmmkPxX1MSfpAMdW0FRZTLs3rx
- ugJIE1/bdX82qZbnSatvEPB7DEh0lOk8KOHvS9s1oNySoIf1KQtwfO4Jl
- m3MLcTPTS6A3A94ILboolWspee/yT7TuDBDX5aXmp1dloW8k8xQJeQpye
- RijzhTKvKMRk3zPkBNj05MVCN8ZOKRHO2knw7AKDfRcGNqFMt+ZXvVDrf w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="445779281"
-X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="445779281"
+ bh=eZfF+JjU9u9bZ94i85fxKrUQv6RTcJI6hya+KDj9lWs=;
+ b=jE24qTPneJhyW+rQRkLuXlbwxMF00S6lgegjulwKP6YpXUDL3xWBTYeM
+ dKYIV06tUdcWjjG59oR4eHLhVjCyJgofif1S781RtFDzgI4GID2Gz0U3K
+ +oDE29/ngfzG90wgskSBL+FRi4ObS1bBsYrxzM3MjbeWDKrTZzRXxkcF3
+ Ig03N+hgRndL8pc3jJ0H9Tff0/4vDfDIH9in0QKzNMESJ8lZa4zPaQckP
+ I78gQE8yaHnbYnur4v1Ld1I6Szl6oQRXEea9n7vKJFPUffENlt6ug41rD
+ uMOLqoRj0XRDhuO7KeXg+Uk7FF8PGLvhogWJuARJqvQlYyugYGhH9jm1I w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="445779286"
+X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="445779286"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 10:46:50 -0700
+ 15 Sep 2023 10:46:51 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="868818290"
-X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="868818290"
+X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="868818306"
+X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="868818306"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Sep 2023 10:46:50 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 15 Sep 2023 10:46:41 -0700
-Message-Id: <20230915174651.1928176-21-lucas.demarchi@intel.com>
+Date: Fri, 15 Sep 2023 10:46:46 -0700
+Message-Id: <20230915174651.1928176-26-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230915174651.1928176-1-lucas.demarchi@intel.com>
 References: <20230915174651.1928176-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 20/30] drm/i915/xe2lpd: Add support for HPD
+Subject: [Intel-gfx] [PATCH v4 25/30] drm/i915/xe2lpd: Add DC state support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,75 +57,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matt Roper <matthew.d.roper@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, intel-xe@lists.freedesktop.org
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>, intel-xe@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Gustavo Sousa <gustavo.sousa@intel.com>
+From: Matt Roper <matthew.d.roper@intel.com>
 
-Hotplug setup for Xe2_LPD differs from Xe_LPD+ by the fact that the
-extra programming for hotplug inversion and DDI HPD filter duration is
-not necessary anymore. As mtp_hpd_irq_setup() is reasonably small,
-prefer to fork it into a new function for Xe2_LPD instead of adding a
-platform check.
+Xe2_LPD supports DC5, DC6, and DC9 (DC3CO no longer exists).  The
+overall programming and requirements to enter DC states are similar to
+those of Xe_LPD+ although AUX transactions do not require DC5/DC6 exit
+as they did previously.
 
-v2: Add extra bspec reference and fix missing else (Matt Roper)
-
-BSpec: 68970, 69940
-Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
+Bspec: 68851, 68857, 68886, 69115
+Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
 ---
- .../gpu/drm/i915/display/intel_hotplug_irq.c  | 21 +++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
+ .../gpu/drm/i915/display/intel_display_power.c |  4 +++-
+ .../drm/i915/display/intel_display_power_map.c | 18 ++++++++++++++++++
+ 2 files changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hotplug_irq.c b/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
-index 3398cc21bd26..f07047e9cb30 100644
---- a/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
-+++ b/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
-@@ -163,7 +163,9 @@ static void intel_hpd_init_pins(struct drm_i915_private *dev_priv)
- 	    (!HAS_PCH_SPLIT(dev_priv) || HAS_PCH_NOP(dev_priv)))
- 		return;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 68cf5e6b0b46..a0d90a613ab3 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -943,7 +943,9 @@ static u32 get_allowed_dc_mask(const struct drm_i915_private *dev_priv,
+ 	if (!HAS_DISPLAY(dev_priv))
+ 		return 0;
  
--	if (INTEL_PCH_TYPE(dev_priv) >= PCH_DG1)
-+	if (INTEL_PCH_TYPE(dev_priv) >= PCH_LNL)
-+		hpd->pch_hpd = hpd_mtp;
-+	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_DG1)
- 		hpd->pch_hpd = hpd_sde_dg1;
- 	else if (INTEL_PCH_TYPE(dev_priv) >= PCH_MTP)
- 		hpd->pch_hpd = hpd_mtp;
-@@ -1063,6 +1065,19 @@ static void mtp_hpd_irq_setup(struct drm_i915_private *i915)
- 	mtp_tc_hpd_detection_setup(i915);
- }
+-	if (IS_DG2(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 20)
++		max_dc = 2;
++	else if (IS_DG2(dev_priv))
+ 		max_dc = 1;
+ 	else if (IS_DG1(dev_priv))
+ 		max_dc = 3;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power_map.c b/drivers/gpu/drm/i915/display/intel_display_power_map.c
+index 31c11586ede5..10948b3964ee 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power_map.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power_map.c
+@@ -1561,9 +1561,27 @@ static const struct i915_power_well_desc xe2lpd_power_wells_pica[] = {
+ 	},
+ };
  
-+static void xe2lpd_sde_hpd_irq_setup(struct drm_i915_private *i915)
-+{
-+	u32 hotplug_irqs, enabled_irqs;
++I915_DECL_PW_DOMAINS(xe2lpd_pwdoms_dc_off,
++	POWER_DOMAIN_DC_OFF,
++	XELPD_PW_C_POWER_DOMAINS,
++	XELPD_PW_D_POWER_DOMAINS,
++	POWER_DOMAIN_AUDIO_MMIO,
++	POWER_DOMAIN_INIT);
 +
-+	enabled_irqs = intel_hpd_enabled_irqs(i915, i915->display.hotplug.pch_hpd);
-+	hotplug_irqs = intel_hpd_hotplug_irqs(i915, i915->display.hotplug.pch_hpd);
++static const struct i915_power_well_desc xe2lpd_power_wells_dcoff[] = {
++	{
++		.instances = &I915_PW_INSTANCES(
++			I915_PW("DC_off", &xe2lpd_pwdoms_dc_off,
++				.id = SKL_DISP_DC_OFF),
++		),
++		.ops = &gen9_dc_off_power_well_ops,
++	},
++};
 +
-+	ibx_display_interrupt_update(i915, hotplug_irqs, enabled_irqs);
-+
-+	mtp_ddi_hpd_detection_setup(i915);
-+	mtp_tc_hpd_detection_setup(i915);
-+}
-+
- static bool is_xelpdp_pica_hpd_pin(enum hpd_pin hpd_pin)
- {
- 	return hpd_pin >= HPD_PORT_TC1 && hpd_pin <= HPD_PORT_TC4;
-@@ -1122,7 +1137,9 @@ static void xelpdp_hpd_irq_setup(struct drm_i915_private *i915)
- 
- 	xelpdp_pica_hpd_detection_setup(i915);
- 
--	if (INTEL_PCH_TYPE(i915) >= PCH_MTP)
-+	if (INTEL_PCH_TYPE(i915) >= PCH_LNL)
-+		xe2lpd_sde_hpd_irq_setup(i915);
-+	else if (INTEL_PCH_TYPE(i915) >= PCH_MTP)
- 		mtp_hpd_irq_setup(i915);
- }
- 
+ static const struct i915_power_well_desc_list xe2lpd_power_wells[] = {
+ 	I915_PW_DESCRIPTORS(i9xx_power_wells_always_on),
+ 	I915_PW_DESCRIPTORS(icl_power_wells_pw_1),
++	I915_PW_DESCRIPTORS(xe2lpd_power_wells_dcoff),
+ 	I915_PW_DESCRIPTORS(xelpdp_power_wells_main),
+ 	I915_PW_DESCRIPTORS(xe2lpd_power_wells_pica),
+ };
 -- 
 2.40.1
 
