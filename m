@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57B25EED61A
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 17:47:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1096DEED61E
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 17:47:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A09E10E67C;
-	Fri, 15 Sep 2023 17:47:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DCF610E665;
+	Fri, 15 Sep 2023 17:47:50 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49C8310E66E;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDA6010E675;
  Fri, 15 Sep 2023 17:46:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1694800012; x=1726336012;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=BCfFcplIfu7E4BwgrlcVWNFbT+X+Q5CneihKMfjaHS0=;
- b=g8Uf+ud6f5XbJR5i+2GASIs5H1X2BV7WvdT5GcD4qUv3QcKucrN/1Beo
- +xIeZJQ4knqP0G5sPx3aqiqb8P1iYKRFqTURkoZnUM1My1chhtiCb4hZe
- cS5halCj+TjjiqMih5nBMMJ2weap/krdncIOFXzAXIlrwIw+aeAzAPqrm
- ge8tIavKXdFI3tK0V1iQuaw0URi5xiFucmkK1IBhKDGGTum/oI+pf9jX/
- /FFolETsEVxQdS46/GDVgT57XB7BJRY/zZ6uAWMktJwJHAQ8j1CWFD79W
- J8BpOHqwQa+USV5/S0cqLWyTAQj8oh8KHrC75rEw10M0XAsD4OcYn04QG A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="445779276"
-X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="445779276"
+ bh=MxGVFyctYSYubYKqyVsJkYnxQ7j6QBwmBkx7nbP4OZ0=;
+ b=eVqSH/tYIMXk4gGzJly8AWPf95IKKzPNoHJxPkZlTiVEwFN+Tdwo5KtO
+ ul4jCknxRThuBg2I7zntVty0KDk3We2NXu3csHE0LJ5wuVmnD9R3H04I4
+ dLZF/NmHB9VpFyJMu8QQLHXzUhZhxAAkhtdrH/VPzGkmWaD+eMxnDbo6K
+ 2mJYWN/n1lE6aXgm/5RlqHsYp3FWXYYhcaHK+9SIwboNUq3CWSGK/3QQC
+ Awqqb8k9/0Daj7U/PklTrnZ+zkJB7U7QIyjiMiKXS9uxMjuPUsy4L3Ewg
+ 5Pr2NSUxq1cuVzg3U1XG1lZrKHPqs+Yv2CYAy1RARSq9wPeJK1JRJfYJT w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="445779287"
+X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="445779287"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 10:46:50 -0700
+ 15 Sep 2023 10:46:51 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="868818281"
-X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="868818281"
+X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="868818309"
+X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="868818309"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  15 Sep 2023 10:46:50 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 15 Sep 2023 10:46:38 -0700
-Message-Id: <20230915174651.1928176-18-lucas.demarchi@intel.com>
+Date: Fri, 15 Sep 2023 10:46:47 -0700
+Message-Id: <20230915174651.1928176-27-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230915174651.1928176-1-lucas.demarchi@intel.com>
 References: <20230915174651.1928176-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 17/30] drm/i915/xe2lpd: Handle port AUX
- interrupts
+Subject: [Intel-gfx] [PATCH v4 26/30] drm/i915/lnl: Start using CDCLK
+ through PLL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,77 +58,71 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>, intel-xe@lists.freedesktop.org
+Cc: Matt Roper <matthew.d.roper@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, intel-xe@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Gustavo Sousa <gustavo.sousa@intel.com>
+From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
-Differently from previous version, Xe2_LPD groups all port AUX interrupt
-bits into PICA interrupt registers.
+Introduce correspondent definitions for choosing between CD2X CDCLK
+and PLL CDCLK as a source. All the entries in cdclk table for xe2lpd are
+defined with PLL CDCLK as source, so simply set it. Also
+skl_cdclk_decimal() shouldn't be set in CDCLK_CTL anymore, so skip it
+for display version 20 and above.
 
-While at it, drop some trailing newlines.
+v2:
+  - Remove unneeded comment and use REG_BIT() (Matt Roper)
+  - Rename CDCLK_SOURCE_SEL_CDCLK_PLL() to MDCLK_SOURCE_SEL_CDCLK_PLL
+    to match spec (Lucas)
 
-BSpec: 68958, 69697
-Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_irq.c | 4 +++-
- drivers/gpu/drm/i915/display/intel_hotplug_irq.c | 3 +++
- drivers/gpu/drm/i915/i915_reg.h                  | 5 ++---
- 3 files changed, 8 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 9 +++++++--
+ drivers/gpu/drm/i915/i915_reg.h            | 1 +
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
-index 62ce55475554..bff4a76310c0 100644
---- a/drivers/gpu/drm/i915/display/intel_display_irq.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
-@@ -792,7 +792,9 @@ static u32 gen8_de_port_aux_mask(struct drm_i915_private *dev_priv)
- {
- 	u32 mask;
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 4cde78db83a1..b55a3f75f392 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -1906,8 +1906,7 @@ static void _bxt_set_cdclk(struct drm_i915_private *dev_priv,
+ 		dg2_cdclk_squash_program(dev_priv, waveform);
  
--	if (DISPLAY_VER(dev_priv) >= 14)
-+	if (DISPLAY_VER(dev_priv) >= 20)
-+		return 0;
-+	else if (DISPLAY_VER(dev_priv) >= 14)
- 		return TGL_DE_PORT_AUX_DDIA |
- 			TGL_DE_PORT_AUX_DDIB;
- 	else if (DISPLAY_VER(dev_priv) >= 13)
-diff --git a/drivers/gpu/drm/i915/display/intel_hotplug_irq.c b/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
-index 95a7ea94f417..3398cc21bd26 100644
---- a/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
-+++ b/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
-@@ -514,6 +514,9 @@ void xelpdp_pica_irq_handler(struct drm_i915_private *i915, u32 iir)
- 	u32 trigger_aux = iir & XELPDP_AUX_TC_MASK;
- 	u32 pin_mask = 0, long_mask = 0;
+ 	val = bxt_cdclk_cd2x_div_sel(dev_priv, clock, vco) |
+-		bxt_cdclk_cd2x_pipe(dev_priv, pipe) |
+-		skl_cdclk_decimal(cdclk);
++		bxt_cdclk_cd2x_pipe(dev_priv, pipe);
  
-+	if (DISPLAY_VER(i915) >= 20)
-+		trigger_aux |= iir & XE2LPD_AUX_DDI_MASK;
+ 	/*
+ 	 * Disable SSA Precharge when CD clock frequency < 500 MHz,
+@@ -1916,6 +1915,12 @@ static void _bxt_set_cdclk(struct drm_i915_private *dev_priv,
+ 	if ((IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv)) &&
+ 	    cdclk >= 500000)
+ 		val |= BXT_CDCLK_SSA_PRECHARGE_ENABLE;
 +
- 	for (pin = HPD_PORT_TC1; pin <= HPD_PORT_TC4; pin++) {
- 		u32 val;
++	if (DISPLAY_VER(dev_priv) >= 20)
++		val |= MDCLK_SOURCE_SEL_CDCLK_PLL;
++	else
++		val |= skl_cdclk_decimal(cdclk);
++
+ 	intel_de_write(dev_priv, CDCLK_CTL, val);
  
+ 	if (pipe != INVALID_PIPE)
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 2f5dd5361263..2f115d339913 100644
+index efcf1461988f..c59eb411cf06 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -4467,13 +4467,12 @@
- #define PICAINTERRUPT_IMR			_MMIO(0x16FE54)
- #define PICAINTERRUPT_IIR			_MMIO(0x16FE58)
- #define PICAINTERRUPT_IER			_MMIO(0x16FE5C)
--
- #define  XELPDP_DP_ALT_HOTPLUG(hpd_pin)		REG_BIT(16 + _HPD_PIN_TC(hpd_pin))
- #define  XELPDP_DP_ALT_HOTPLUG_MASK		REG_GENMASK(19, 16)
--
- #define  XELPDP_AUX_TC(hpd_pin)			REG_BIT(8 + _HPD_PIN_TC(hpd_pin))
- #define  XELPDP_AUX_TC_MASK			REG_GENMASK(11, 8)
--
-+#define  XE2LPD_AUX_DDI(hpd_pin)		REG_BIT(6 + _HPD_PIN_DDI(hpd_pin))
-+#define  XE2LPD_AUX_DDI_MASK			REG_GENMASK(7, 6)
- #define  XELPDP_TBT_HOTPLUG(hpd_pin)		REG_BIT(_HPD_PIN_TC(hpd_pin))
- #define  XELPDP_TBT_HOTPLUG_MASK		REG_GENMASK(3, 0)
- 
+@@ -5884,6 +5884,7 @@ enum skl_power_gate {
+ #define  CDCLK_FREQ_540		REG_FIELD_PREP(CDCLK_FREQ_SEL_MASK, 1)
+ #define  CDCLK_FREQ_337_308		REG_FIELD_PREP(CDCLK_FREQ_SEL_MASK, 2)
+ #define  CDCLK_FREQ_675_617		REG_FIELD_PREP(CDCLK_FREQ_SEL_MASK, 3)
++#define  MDCLK_SOURCE_SEL_CDCLK_PLL	REG_BIT(25)
+ #define  BXT_CDCLK_CD2X_DIV_SEL_MASK	REG_GENMASK(23, 22)
+ #define  BXT_CDCLK_CD2X_DIV_SEL_1	REG_FIELD_PREP(BXT_CDCLK_CD2X_DIV_SEL_MASK, 0)
+ #define  BXT_CDCLK_CD2X_DIV_SEL_1_5	REG_FIELD_PREP(BXT_CDCLK_CD2X_DIV_SEL_MASK, 1)
 -- 
 2.40.1
 
