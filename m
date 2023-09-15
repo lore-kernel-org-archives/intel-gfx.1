@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 184E0EED61E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0D65EED620
 	for <intel-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 17:47:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FF7810E682;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4FBE10E667;
 	Fri, 15 Sep 2023 17:47:52 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 096EB10E665;
- Fri, 15 Sep 2023 17:46:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9EE210E672;
+ Fri, 15 Sep 2023 17:46:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694800013; x=1726336013;
+ t=1694800012; x=1726336012;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Hx9uMjBCHkv4DU1LudMc+8Je66UcI/8zjxRe6kSqqtk=;
- b=FU6xCO58roup0szIeZzGFRxF3xt7qNk4tt6wUr7t7IjP2YfT/TNVJlDy
- K9rrN1QsmEM6vt1nns6A1awuEjfVXzvo5gcZwqtNfNrZx+ZIqP1PWwoDJ
- NH1LZvsB3XayjV1vp428qzdmCWSdyHMx2cUK/QevV49Rz1E54WuqQrA3I
- n16lHUqJokiFriHy12W+gjCK+D47nd+uR4Y8UiCxQzOfBNCC4gDSxrXMe
- xwRBzcPTGIB3M4J1HstHKq7mA7SV2bCFEpL7gx/QCyDUcfTMoQF13iv16
- tGBXfL6D3unRY2uZD+8s3x2RHM+1c9vwqj1uEnOD85uU/Rp8TxA9BDaM6 Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="445779290"
-X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="445779290"
+ bh=C94K5GbLvkSWlNEuGcsQ6ArfMB3aFpVzc6uUDTKnMm8=;
+ b=d846qWLKQjZSzWiSsMPIjvRpjqTuyRcHL7R9R136J9d73i34y2OFUK93
+ NERASscN0/Z5ddRUU+gmB+AAI5/9j7My5O0eSKf0K6VEg3e1c6MozmQei
+ 2ZcLSo77NFLozHuirVbJkD7nmAAjU3MJ6JGLJr2IU2hDKGAWkI/9z1sEz
+ v6Z96tdm1W8ynH3Z2rBspx9dM3vMkD1o/up7fxS5RhMtspRVfIlIksdUI
+ s/Hh4Ph5ZwZut4Q28f7iegaiQMKutCFzC2IDrojR/IkqTeqJeLrmiwD8s
+ VMaWugXvqNgpOvNmQtMHvt70KONExvIDE5v6fPSmRzZrNXS3mBDX089Og A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="445779282"
+X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="445779282"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 10:46:51 -0700
+ 15 Sep 2023 10:46:50 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="868818317"
-X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="868818317"
+X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="868818296"
+X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="868818296"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 10:46:51 -0700
+ 15 Sep 2023 10:46:50 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 15 Sep 2023 10:46:49 -0700
-Message-Id: <20230915174651.1928176-29-lucas.demarchi@intel.com>
+Date: Fri, 15 Sep 2023 10:46:43 -0700
+Message-Id: <20230915174651.1928176-23-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230915174651.1928176-1-lucas.demarchi@intel.com>
 References: <20230915174651.1928176-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 28/30] drm/i915/lnl: Add programming for
- CDCLK change
+Subject: [Intel-gfx] [PATCH v4 22/30] drm/i915/lnl: Add gmbus/ddc support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,95 +62,51 @@ Cc: Matt Roper <matthew.d.roper@intel.com>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
+LNL's south display uses the same table as MTP. Check for LNL's fake PCH
+to make it consistent with the other checks.
 
-Add programming sequence for changes on CDCLK for Lunar Lake
-platforms. It's mostly the same as MTL, but with some
-additional programming for the squash and crawling steps when
-a change in mdclk/cdclk ratio is observed.
+The VBT table doesn't contain the VBT -> spec mapping for LNL. Like in
+other cases, uses the same as the previous platform.
 
-v2: Remove wrong changes for bxt_cdclk_cd2x_pipe() (Matt Roper)
-v3: Reword commit message and flatten if/else ladder (Matt Roper)
-
-BSpec: 68864
-Signed-off-by: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Bspec: 68971, 20124
+Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
 Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 46 +++++++++++++++++++++-
- 1 file changed, 45 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_bios.c  | 3 ++-
+ drivers/gpu/drm/i915/display/intel_gmbus.c | 5 ++++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index e3db6c7934f3..1da1995fb3a7 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -40,6 +40,7 @@
- #include "intel_psr.h"
- #include "intel_vdsc.h"
- #include "skl_watermark.h"
-+#include "skl_watermark_regs.h"
- #include "vlv_sideband.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index f735b035436c..099ef48d8172 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -2194,7 +2194,8 @@ static u8 map_ddc_pin(struct drm_i915_private *i915, u8 vbt_pin)
+ 	const u8 *ddc_pin_map;
+ 	int i, n_entries;
  
- /**
-@@ -1811,6 +1812,47 @@ static int get_mdclk_cdclk_ratio(struct drm_i915_private *i915,
- 	return 1;
- }
+-	if (HAS_PCH_MTP(i915) || IS_ALDERLAKE_P(i915)) {
++	if (INTEL_PCH_TYPE(i915) >= PCH_LNL || HAS_PCH_MTP(i915) ||
++	    IS_ALDERLAKE_P(i915)) {
+ 		ddc_pin_map = adlp_ddc_pin_map;
+ 		n_entries = ARRAY_SIZE(adlp_ddc_pin_map);
+ 	} else if (IS_ALDERLAKE_S(i915)) {
+diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
+index e95ddb580ef6..801fabbccf7e 100644
+--- a/drivers/gpu/drm/i915/display/intel_gmbus.c
++++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
+@@ -155,7 +155,10 @@ static const struct gmbus_pin *get_gmbus_pin(struct drm_i915_private *i915,
+ 	const struct gmbus_pin *pins;
+ 	size_t size;
  
-+static void lnl_prog_mbus_dbuf_ctrl(struct drm_i915_private *i915,
-+				    const struct intel_cdclk_config *cdclk_config)
-+{
-+	int min_throttle_val;
-+	int min_tracker_state;
-+	enum dbuf_slice slice;
-+	int mdclk_cdclk_div_ratio;
-+	int mbus_join = intel_de_read(i915, MBUS_CTL) & MBUS_JOIN;
-+
-+	mdclk_cdclk_div_ratio = get_mdclk_cdclk_ratio(i915, cdclk_config);
-+
-+	min_throttle_val = MBUS_TRANS_THROTTLE_MIN_SELECT(mdclk_cdclk_div_ratio);
-+
-+	intel_de_rmw(i915, MBUS_CTL, MBUS_TRANS_THROTTLE_MIN_MASK, min_throttle_val);
-+
-+	if (mbus_join)
-+		mdclk_cdclk_div_ratio = (mdclk_cdclk_div_ratio << 1) + 1;
-+
-+	min_tracker_state = DBUF_MIN_TRACKER_STATE_SERVICE(mdclk_cdclk_div_ratio);
-+
-+	for_each_dbuf_slice(i915, slice)
-+		intel_de_rmw(i915, DBUF_CTL_S(slice),
-+			     DBUF_MIN_TRACKER_STATE_SERVICE_MASK,
-+			     min_tracker_state);
-+}
-+
-+static void lnl_cdclk_squash_program(struct drm_i915_private *i915,
-+				     const struct intel_cdclk_config *cdclk_config,
-+				     u16 waveform)
-+{
-+	if (cdclk_config->cdclk < i915->display.cdclk.hw.cdclk)
-+		/* Program mbus_ctrl and dbuf_ctrl registers as Pre hook */
-+		lnl_prog_mbus_dbuf_ctrl(i915, cdclk_config);
-+
-+	dg2_cdclk_squash_program(i915, waveform);
-+
-+	if (cdclk_config->cdclk > i915->display.cdclk.hw.cdclk)
-+		/* Program mbus_ctrl and dbuf_ctrl registers as Post hook */
-+		lnl_prog_mbus_dbuf_ctrl(i915, cdclk_config);
-+}
-+
- static int cdclk_squash_divider(u16 waveform)
- {
- 	return hweight16(waveform ?: 0xffff);
-@@ -1913,7 +1955,9 @@ static void _bxt_set_cdclk(struct drm_i915_private *dev_priv,
- 	else
- 		clock = cdclk;
- 
--	if (HAS_CDCLK_SQUASH(dev_priv))
-+	if (DISPLAY_VER(dev_priv) >= 20)
-+		lnl_cdclk_squash_program(dev_priv, cdclk_config, waveform);
-+	else if (HAS_CDCLK_SQUASH(dev_priv))
- 		dg2_cdclk_squash_program(dev_priv, waveform);
- 
- 	val = bxt_cdclk_cd2x_div_sel(dev_priv, clock, vco) |
+-	if (INTEL_PCH_TYPE(i915) >= PCH_DG2) {
++	if (INTEL_PCH_TYPE(i915) >= PCH_LNL) {
++		pins = gmbus_pins_mtp;
++		size = ARRAY_SIZE(gmbus_pins_mtp);
++	} else if (INTEL_PCH_TYPE(i915) >= PCH_DG2) {
+ 		pins = gmbus_pins_dg2;
+ 		size = ARRAY_SIZE(gmbus_pins_dg2);
+ 	} else if (INTEL_PCH_TYPE(i915) >= PCH_DG1) {
 -- 
 2.40.1
 
