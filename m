@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F6DDEED61E
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 17:47:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D45C6EED620
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 Sep 2023 17:47:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A35E110E674;
-	Fri, 15 Sep 2023 17:47:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F99210E668;
+	Fri, 15 Sep 2023 17:47:08 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B47E910E664;
- Fri, 15 Sep 2023 17:46:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB91110E669;
+ Fri, 15 Sep 2023 17:46:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1694800010; x=1726336010;
+ t=1694800011; x=1726336011;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Fi3hzHbLNy9uyMNC4yqhY4fa3f074Xiyuaw6zxNyRVY=;
- b=HVct6qtb/MH7UvMwSEtk6ZZBIBr0LsBXxB0e63pX0wY3wPpk04TWO4Gr
- Y7vG+aneh9Uq34iTQYixx+hxRUgL+UcpluJ0ZeUwHf/4lQ7ekpZ3m8/Vs
- GCCvTKFLfqaBa8mtj7gbD46mZTqZMpwNxaSEBaXYduj1/WCpjpTyIuR6Q
- eTi84F4rKFzA6mvi8uVEPolKXZUA9nBr34lMo/1F1nvvWcBGlTHxLbHQY
- 1pEAaqDrifs5wI7zs+HhglOAIyzQO2Hml9d5FdyNYYglR6wo3JjqDDZPe
- xDq9dVbCib+Gib6wpaYe4p7vTILgHwdkbUFdhwOfBaKxeTV48hnCJ1scI w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="445779263"
-X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="445779263"
+ bh=9VSrD+gfijch7hJR9MjxcxHLG40wvU47zS0qiXMqZoE=;
+ b=AP7AIdhO9xykyvzhO7M0S4GxCFxPgGJnSzCPjcc2iiPN4VO+2J0xZ+o4
+ G82pgwKqGy8WwBSIP1CQPOsroJH8+Gg+D4M0eCOz88TadrF4OqwFPMTQX
+ F7PespmIBaoQp/h40aTFMdIEUybfVLZrzEycgEeFMLiRnfUi7wzgWHw3+
+ mw0BVgzcYFyHT6KyM7q7xJmmwGAFWbhckk3rNY1q6UlxBaLqF5J3TSxYd
+ HoPt4EAgS0V8QTi9Wmm6imQ6eIpaNcEQ32krAeN7/W2lVdCl0yRC4QC7h
+ 1ZR8mOqgQz+Alihjzruk1fTHfEcP4c9zGBtsqLGGxrIRUHvAgiU/kxxvV w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="445779270"
+X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="445779270"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 10:46:49 -0700
+ 15 Sep 2023 10:46:50 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="868818237"
-X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="868818237"
+X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="868818265"
+X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="868818265"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 10:46:49 -0700
+ 15 Sep 2023 10:46:50 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 15 Sep 2023 10:46:24 -0700
-Message-Id: <20230915174651.1928176-4-lucas.demarchi@intel.com>
+Date: Fri, 15 Sep 2023 10:46:33 -0700
+Message-Id: <20230915174651.1928176-13-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230915174651.1928176-1-lucas.demarchi@intel.com>
 References: <20230915174651.1928176-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 03/30] drm/i915/xe2lpd: FBC is now supported
- on all pipes
+Subject: [Intel-gfx] [PATCH v4 12/30] drm/i915/xe2lpd: Move D2D
+ enable/disable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,53 +58,108 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>, intel-xe@lists.freedesktop.org
+Cc: Matt Roper <matthew.d.roper@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, intel-xe@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matt Roper <matthew.d.roper@intel.com>
+Bits to enable/disable and check state for D2D moved from
+XELPDP_PORT_BUF_CTL1 to DDI_BUF_CTL (now named DDI_CTL_DE in the spec).
+Make the functions mtl_ddi_disable_d2d() and mtl_ddi_enable_d2d generic
+to work with multiple reg location and bitfield layout.
 
-FBC is no longer limited by pipe: add the defines for pipes B and C that
-will be used by platforms supporting FBC on such pipes.
+v2: Set/Clear XE2LPD_DDI_BUF_D2D_LINK_ENABLE in saved_port_bits when
+    enabling/disabling D2D so DDI_BUF_CTL is correctly programmed in
+    other places without overriding these bits (Clint)
 
-Bspec: 68881, 68904
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_device.c | 4 ++++
- drivers/gpu/drm/i915/display/intel_fbc.h            | 2 ++
- 2 files changed, 6 insertions(+)
+ drivers/gpu/drm/i915/display/intel_ddi.c | 46 +++++++++++++++++-------
+ drivers/gpu/drm/i915/i915_reg.h          |  2 ++
+ 2 files changed, 36 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
-index 5d6d771791df..5f14f9e8ca88 100644
---- a/drivers/gpu/drm/i915/display/intel_display_device.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_device.c
-@@ -761,6 +761,10 @@ static const struct intel_display_device_info xe_lpdp_display = {
- 
- static const struct intel_display_device_info xe2_lpd_display = {
- 	XE_LPDP_FEATURES,
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 29c9386659ff..b09c00f8f346 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -2355,14 +2355,25 @@ static void
+ mtl_ddi_enable_d2d(struct intel_encoder *encoder)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
++	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
+ 	enum port port = encoder->port;
++	i915_reg_t reg;
++	u32 set_bits, wait_bits;
 +
-+	.__runtime_defaults.fbc_mask =
-+		BIT(INTEL_FBC_A) | BIT(INTEL_FBC_B) |
-+		BIT(INTEL_FBC_C) | BIT(INTEL_FBC_D),
- };
++	if (DISPLAY_VER(dev_priv) >= 20) {
++		reg = DDI_BUF_CTL(port);
++		set_bits = XE2LPD_DDI_BUF_D2D_LINK_ENABLE;
++		wait_bits = XE2LPD_DDI_BUF_D2D_LINK_STATE;
++		dig_port->saved_port_bits |= XE2LPD_DDI_BUF_D2D_LINK_ENABLE;
++	} else {
++		reg = XELPDP_PORT_BUF_CTL1(port);
++		set_bits = XELPDP_PORT_BUF_D2D_LINK_ENABLE;
++		wait_bits = XELPDP_PORT_BUF_D2D_LINK_STATE;
++	}
  
- /*
-diff --git a/drivers/gpu/drm/i915/display/intel_fbc.h b/drivers/gpu/drm/i915/display/intel_fbc.h
-index 4adb98afe6ff..6720ec8ee8a2 100644
---- a/drivers/gpu/drm/i915/display/intel_fbc.h
-+++ b/drivers/gpu/drm/i915/display/intel_fbc.h
-@@ -20,6 +20,8 @@ struct intel_plane_state;
- enum intel_fbc_id {
- 	INTEL_FBC_A,
- 	INTEL_FBC_B,
-+	INTEL_FBC_C,
-+	INTEL_FBC_D,
+-	intel_de_rmw(dev_priv, XELPDP_PORT_BUF_CTL1(port), 0,
+-		     XELPDP_PORT_BUF_D2D_LINK_ENABLE);
+-
+-	if (wait_for_us((intel_de_read(dev_priv, XELPDP_PORT_BUF_CTL1(port)) &
+-			 XELPDP_PORT_BUF_D2D_LINK_STATE), 100)) {
+-		drm_err(&dev_priv->drm, "Timeout waiting for D2D Link enable for PORT_BUF_CTL %c\n",
++	intel_de_rmw(dev_priv, reg, 0, set_bits);
++	if (wait_for_us(intel_de_read(dev_priv, reg) & wait_bits, 100)) {
++		drm_err(&dev_priv->drm, "Timeout waiting for D2D Link enable for DDI/PORT_BUF_CTL %c\n",
+ 			port_name(port));
+ 	}
+ }
+@@ -2808,14 +2819,25 @@ static void
+ mtl_ddi_disable_d2d_link(struct intel_encoder *encoder)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
++	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
+ 	enum port port = encoder->port;
++	i915_reg_t reg;
++	u32 clr_bits, wait_bits;
++
++	if (DISPLAY_VER(dev_priv) >= 20) {
++		reg = DDI_BUF_CTL(port);
++		clr_bits = XE2LPD_DDI_BUF_D2D_LINK_ENABLE;
++		wait_bits = XE2LPD_DDI_BUF_D2D_LINK_STATE;
++		dig_port->saved_port_bits &= ~XE2LPD_DDI_BUF_D2D_LINK_ENABLE;
++	} else {
++		reg = XELPDP_PORT_BUF_CTL1(port);
++		clr_bits = XELPDP_PORT_BUF_D2D_LINK_ENABLE;
++		wait_bits = XELPDP_PORT_BUF_D2D_LINK_STATE;
++	}
  
- 	I915_MAX_FBCS,
- };
+-	intel_de_rmw(dev_priv, XELPDP_PORT_BUF_CTL1(port),
+-		     XELPDP_PORT_BUF_D2D_LINK_ENABLE, 0);
+-
+-	if (wait_for_us(!(intel_de_read(dev_priv, XELPDP_PORT_BUF_CTL1(port)) &
+-			  XELPDP_PORT_BUF_D2D_LINK_STATE), 100))
+-		drm_err(&dev_priv->drm, "Timeout waiting for D2D Link disable for PORT_BUF_CTL %c\n",
++	intel_de_rmw(dev_priv, reg, clr_bits, 0);
++	if (wait_for_us(!(intel_de_read(dev_priv, reg) & wait_bits), 100))
++		drm_err(&dev_priv->drm, "Timeout waiting for D2D Link disable for DDI/PORT_BUF_CTL %c\n",
+ 			port_name(port));
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index e00e4d569ba9..2f5dd5361263 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -5678,6 +5678,8 @@ enum skl_power_gate {
+ /* Known as DDI_CTL_DE in MTL+ */
+ #define DDI_BUF_CTL(port) _MMIO_PORT(port, _DDI_BUF_CTL_A, _DDI_BUF_CTL_B)
+ #define  DDI_BUF_CTL_ENABLE			(1 << 31)
++#define  XE2LPD_DDI_BUF_D2D_LINK_ENABLE		REG_BIT(29)
++#define  XE2LPD_DDI_BUF_D2D_LINK_STATE		REG_BIT(28)
+ #define  DDI_BUF_TRANS_SELECT(n)	((n) << 24)
+ #define  DDI_BUF_EMP_MASK			(0xf << 24)
+ #define  DDI_BUF_PHY_LINK_RATE(r)		((r) << 20)
 -- 
 2.40.1
 
