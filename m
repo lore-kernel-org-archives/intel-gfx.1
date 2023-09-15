@@ -4,56 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D3A7CD37B0
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Sep 2023 12:24:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 759AFCD13D2
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Sep 2023 12:24:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E74410E271;
-	Mon, 18 Sep 2023 12:24:44 +0000 (UTC)
-Received: from mail-qt1-x82b.google.com (mail-qt1-x82b.google.com
- [IPv6:2607:f8b0:4864:20::82b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 365AD10E05E
- for <intel-gfx@lists.freedesktop.org>; Tue, 12 Sep 2023 16:23:54 +0000 (UTC)
-Received: by mail-qt1-x82b.google.com with SMTP id
- d75a77b69052e-412b073a82bso71cf.1
- for <intel-gfx@lists.freedesktop.org>; Tue, 12 Sep 2023 09:23:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1694535833; x=1695140633;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=N+ugFgOb5iS2vOO7DahZWqOi4I/gSUmJb5jnpjTlaDk=;
- b=y21+ISD5E8S2Zt4n2j+6mj70AStUK7xw+G81J5pd30Xyx8M5GFWjfHvohrmOzqkJs0
- 0LSgr8qMd6qih8h1k4AOGna5+mJtyevN69yKJCz8yQt6F3ANobncigtF1m40Z+tQAxut
- TF/s40jaoorBcGn0UDQO/MZeTqNmpufd6b6AMdyDcoMo6hFI1MRXIIfGJGnCVMHM0TW5
- 7Pzcvh29gbP3MgP0PsOguNaqBoAulwP9CGuT4rjT77fnBnFmnpVPehrWaTEP6Cd/vXXQ
- 9OkdLL7X44X8cUUQpY93/rWqgLE4IAnJOLslSFBF+E0OykjJTq49DFX+JdvAO0qiQ8Vv
- i/Kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694535833; x=1695140633;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=N+ugFgOb5iS2vOO7DahZWqOi4I/gSUmJb5jnpjTlaDk=;
- b=RagkZ08TGNEOL6TV1+Eia2/rxCQHLl9YWyK+gbQwHdl+kcsIxhHu/wC/cOu5PShF83
- XnyifQ8rhZKYw7xeMInIhGyiWDRZeSi3IQNxYI3sah0HYaCXrZ2L0l6I9/KTxr8t4CJo
- VwZ5JSVposCIz6roAXYEf8nRwi+oodgZ03b6HUVWnLS3oXKLXg1PJ8DmbNoXgjJHH/c5
- 4n/FtGMEIAhHSJEXQfiVePuLKW5vul8zpxWn1MKOcWQshysMT7NzhMRzwnI8Yp9GWrmp
- oKEgKBFiInVOy6Izm0U3NyLV5vnj6+P7uvPlvyFxvAadl36vt0i5SMoKqlobULUcxQA9
- Kmuw==
-X-Gm-Message-State: AOJu0YwFgyMNan8371XY6L1//EpmlrOEObLJVSfowVO//ybpg4X0OHUc
- rrdTw+11qagZ1lwRTwjG2lgzup7u166/+BMeH61xzegkTdoQWx0UrahG
-X-Google-Smtp-Source: AGHT+IGZKq1neVdPa5doNGKg4ZeW48OcCeQNtBQcguqv/oZA7QzGQDO5RyH2blcv1AqWSyJKVDQlyqsbKQeiYJ53mNw=
-X-Received: by 2002:ac8:6b04:0:b0:405:4662:d1b6 with SMTP id
- w4-20020ac86b04000000b004054662d1b6mr729qts.0.1694535832436; Tue, 12 Sep 2023
- 09:23:52 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 897AE10E272;
+	Mon, 18 Sep 2023 12:24:45 +0000 (UTC)
+Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4329B10E02B;
+ Fri, 15 Sep 2023 14:01:37 +0000 (UTC)
+Received: from fews01-sea.riseup.net (fews01-sea-pn.riseup.net [10.0.1.109])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx1.riseup.net (Postfix) with ESMTPS id 4RnG805hhHzDqxc;
+ Fri, 15 Sep 2023 14:01:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=riseup.net; s=squak;
+ t=1694786497; bh=MI98SM5+oIIZ1M8pFYjcc+BLWFeGwbKK+O7tzV7KOxM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=H/0xbQDojJ9PqAIpuYOvPW/2v51NTDOmiXWDHOUtooveB53TaEK3NCEJ/ynBes0LK
+ MNnrnbHAAi+TlBzZv3CyqXG3dwoNFTyPaENNDyEdJM8BBjSOKqQGLCdDAIGa6JVdyT
+ CXxYAMeSVtOea7pPqUw4jl053DVTJvGS+BFC9La8=
+X-Riseup-User-ID: BD85FA056706F238D9D8FBF4100C612ADFDC3F7F8EB4E34EFD2C83A48B0CEC69
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ by fews01-sea.riseup.net (Postfix) with ESMTPSA id 4RnG7x6mt5zJmpf;
+ Fri, 15 Sep 2023 14:01:33 +0000 (UTC)
+Message-ID: <4fb393ff-3b2a-369a-5e9f-f96d802b2d87@riseup.net>
+Date: Fri, 15 Sep 2023 11:01:31 -0300
 MIME-Version: 1.0
-From: Joshua Pius <joshuapius@google.com>
-Date: Tue, 12 Sep 2023 12:23:14 -0400
-Message-ID: <CAFs7P=hZVfUnTKYgOUwfwT6S9TO72iuJMBPbBG0i+U-4Au=O=Q@mail.gmail.com>
-To: Ankit K Nautiyal <ankit.k.nautiyal@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+References: <20230911130323.7037-2-janusz.krzysztofik@linux.intel.com>
+Content-Language: en-US
+From: Maira Canal <mairacanal@riseup.net>
+In-Reply-To: <20230911130323.7037-2-janusz.krzysztofik@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 18 Sep 2023 12:24:43 +0000
-Subject: Re: [Intel-gfx] [v3] drm/i915/display/lspcon: Increase LSPCON mode
- settle timeout
+Subject: Re: [Intel-gfx] [PATCH] drm/tests: Fix incorrect argument in
+ drm_test_mm_insert_range
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,109 +54,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Niko Tsirakis <ntsirakis@google.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Pablo Ceballos <pceballos@google.com>
+Cc: Daniel Latypov <dlatypov@google.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Arthur Grillo <arthurgrillo@riseup.net>, igt-dev@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, intel-xe@lists.freedesktop.org,
+ David Airlie <airlied@gmail.com>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Yes, we've proposed this change before. The reasoning is still the
-same. Added below to include in this thread as well. Is there a reason
-the below explanation and test is not sufficient?
+Hi,
 
-This issue affected several different CometLake-based Chrome OS device
-designs. The details of the original report are in the Google partner
-issue tracker (issue # 178169843), but I believe this requires a
-Google partner account to access:
-https://partnerissuetracker.corp.google.com/issues/178169843
+On 9/11/23 10:03, Janusz Krzysztofik wrote:
+> While drm_mm test was converted form igt selftest to kunit, unexpected
+> value of "end" argument equal "start" was introduced to one of calls to a
+> function that executes the drm_test_mm_insert_range for specific start/end
+> pair of arguments.  As a consequence, DRM_MM_BUG_ON(end <= start) is
+> triggered.  Fix it by restoring the original value.
+> 
+> Fixes: fc8d29e298cf ("drm: selftest: convert drm_mm selftest to KUnit")
+> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 
-The summary is that we were seeing these "*ERROR* LSPCON mode hasn't
-settled" messages in the kernel logs followed by the display not
-working at all. We increased the timeout to 500ms while investigation
-continued and this reduced the number of occurrences of this issue:
-https://chromium.googlesource.com/chromiumos/third_party/kernel/+/7b2899fc1a6f9409e8075b3153baaf02c4d1fc75
+Reviewed-by: Maíra Canal <mairacanal@riseup.net>
 
-The problem continued to occur on about 2% of devices even after
-increasing the timeout to 500ms. The investigation continued in issue
-# 188035814, with engineers from Parade and Intel involved.
-Ultimately, the recommendation from Intel engineers was to increase
-the timeout further:
-https://partnerissuetracker.corp.google.com/issues/188035814
+Do you need me to push it to drm-misc-fixes?
 
-The timeout was then increased to 1000ms:
-https://chromium.googlesource.com/chromiumos/third_party/kernel/+/a16cfc2062e768c8e5ad8fa09b8ca127aa1ead9a
+Best Regards,
+- Maíra
 
-I recently ran 100 reboot trials on one device and found that the
-median time for the LSPCON mode to settle was 440ms and the max was
-444ms. But we know from the original reports that even after we set
-the timeout to 500ms the issue continued to happen on some small
-percentage of devices. So this is why I picked the larger value of
-800ms.
-
->> This is to eliminate all cases of "*ERROR* LSPCON mode hasn't settled",
->> followed by link training errors. Intel engineers recommended increasing
->> this timeout and that does resolve the issue.
->>
->> On some CometLake-based device designs the Parade PS175 takes more than
->> 400ms to settle in PCON mode. 100 reboot trials on one device resulted
->> in a median settle time of 440ms and a maximum of 444ms. Even after
->> increasing the timeout to 500ms, 2% of devices still had this error. So
->> this increases the timeout to 800ms.
->>
->> Signed-off-by: Pablo Ceballos <pceballos@google.com>
->
->I think we've been here before. Do you have a publicly available gitlab
->issue with the proper logs? If not, please file one at [1].
->
->BR,
->Jani.
->
->[1] https://gitlab.freedesktop.org/drm/intel/issues/new
->
->
->> ---
->>
->> V2: Added more details in the commit message
->> V3: Only apply the increased timeout if the vendor is Parade
->>
->> drivers/gpu/drm/i915/display/intel_lspcon.c | 21 ++++++++++++++++++++-
->>  1 file changed, 20 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_lspcon.c b/drivers/gpu/drm/i915/display/intel_lspcon.c
->> index bb3b5355a0d9..b07eab84cc63 100644
->> --- a/drivers/gpu/drm/i915/display/intel_lspcon.c
->> +++ b/drivers/gpu/drm/i915/display/intel_lspcon.c
->> @@ -153,6 +153,24 @@ static enum drm_lspcon_mode lspcon_get_current_mode(struct intel_lspcon *lspcon)
->>   return current_mode;
->>  }
->>
->> +static u32 lspcon_get_mode_settle_timeout(struct intel_lspcon *lspcon)
->> +{
->> + u32 timeout_ms = 400;
->> +
->> + /*
->> + * On some CometLake-based device designs the Parade PS175 takes more
->> + * than 400ms to settle in PCON mode. 100 reboot trials on one device
->> + * resulted in a median settle time of 440ms and a maximum of 444ms.
->> + * Even after increasing the timeout to 500ms, 2% of devices still had
->> + * this error. So this sets the timeout to 800ms.
->> + */
->> + if (lspcon->vendor == LSPCON_VENDOR_PARADE)
->> + timeout_ms = 800;
->> +
->> + return timeout_ms;
->> +}
->> +
->> +
->>  static enum drm_lspcon_mode lspcon_wait_mode(struct intel_lspcon *lspcon,
->>       enum drm_lspcon_mode mode)
->>  {
->> @@ -167,7 +185,8 @@ static enum drm_lspcon_mode lspcon_wait_mode(struct intel_lspcon *lspcon,
->>   drm_dbg_kms(&i915->drm, "Waiting for LSPCON mode %s to settle\n",
->>      lspcon_mode_name(mode));
->>
->> - wait_for((current_mode = lspcon_get_current_mode(lspcon)) == mode, 400);
->> + wait_for((current_mode = lspcon_get_current_mode(lspcon)) == mode,
->> + lspcon_get_mode_settle_timeout(lspcon));
->>   if (current_mode != mode)
->>   drm_err(&i915->drm, "LSPCON mode hasn't settled\n");
+> Cc: "Maíra Canal" <mairacanal@riseup.net>
+> Cc: Arthur Grillo <arthurgrillo@riseup.net>
+> Cc: Javier Martinez Canillas <javierm@redhat.com>
+> Cc: Daniel Latypov <dlatypov@google.com>
+> Cc: stable@vger.kernel.org # v6.1+
+> ---
+>   drivers/gpu/drm/tests/drm_mm_test.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/tests/drm_mm_test.c b/drivers/gpu/drm/tests/drm_mm_test.c
+> index 186b28dc70380..05d5e7af6d250 100644
+> --- a/drivers/gpu/drm/tests/drm_mm_test.c
+> +++ b/drivers/gpu/drm/tests/drm_mm_test.c
+> @@ -939,7 +939,7 @@ static void drm_test_mm_insert_range(struct kunit *test)
+>   		KUNIT_ASSERT_FALSE(test, __drm_test_mm_insert_range(test, count, size, 0, max - 1));
+>   		KUNIT_ASSERT_FALSE(test, __drm_test_mm_insert_range(test, count, size, 0, max / 2));
+>   		KUNIT_ASSERT_FALSE(test, __drm_test_mm_insert_range(test, count, size,
+> -								    max / 2, max / 2));
+> +								    max / 2, max));
+>   		KUNIT_ASSERT_FALSE(test, __drm_test_mm_insert_range(test, count, size,
+>   								    max / 4 + 1, 3 * max / 4 - 1));
+>   
