@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 219D5CD37B4
-	for <intel-gfx@archiver.kernel.org>; Sun, 17 Sep 2023 21:19:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07EA5CD13CF
+	for <intel-gfx@archiver.kernel.org>; Sun, 17 Sep 2023 21:19:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF50E10E198;
-	Sun, 17 Sep 2023 21:19:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A9C210E19D;
+	Sun, 17 Sep 2023 21:19:40 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AF5710E102;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D36DA10E15E;
  Sun, 17 Sep 2023 21:19:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1694985577; x=1726521577;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=2SkqyqxyrBl0WpxBD5/sSA3jqfuMpbrEe5bfVY0JinY=;
- b=e1A7KSMU56UoUluxeWnLuk4PmWds9WL6HhFSILrxkqk1V1GUY+V3XSPa
- 9kOvOoytuV6+9RGUAz1dXa7az4/3bvrZsOZXLVDhgxDQKF7YtZtxcUk4L
- uX57uoHnTp+Jo7illaiXjkBigY77iJ6hs+FOGXabOqqGyEp/CF0+NO1OP
- EtFBpipmf5uZsXu16OUOScKb1IUYQSeuMSJzdN2uUaI6SxYDZ9YAmMX89
- U31/OyQKZ1xFkHYAbBjCPjqxCO5VM+0rkmTdhLDFK5vj0Bq50GPREt55W
- fHM8gsdVLMW2D8zMeRdBVFVlUrxqRr7h+8jfhuiLjagGFNfvCV+Ixml7o w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10836"; a="410487904"
-X-IronPort-AV: E=Sophos;i="6.02,155,1688454000"; d="scan'208";a="410487904"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=muW+YPLpDWw2JGWgI/7fLzSR/aoqenIXx4FJB/YPGhg=;
+ b=kYC7ZyhBgrUoAclTHoVOsJ5ilhb+5fy6PCluYqwKqYfCGoX0+ri/L/oV
+ rMeLP+PIGqApAxGi5OHtPWV1g33et8sSBjD1lVrMKitdNi44JtwcUlwaU
+ 8OKJZwhPlAJtTlT9LFHRFNm1nTsb6p76NtP3HTjmbk2LeqmPlT0oshy77
+ qhi05KyVQqWBsugbil6McGHbZESImBtSBGI9RDU+U8q1d8AQLXVU778ox
+ 1gGrB6iZzaw1kXeD7GResH5Umi86atMMKII8m3qYsmbyKOWP42YOmljtQ
+ NNN+tV5SN2QMISO/yXU8rdPq16w1vKSZVYhy0sjIYNRuAp3dkauo/5oAt Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10836"; a="410487907"
+X-IronPort-AV: E=Sophos;i="6.02,155,1688454000"; d="scan'208";a="410487907"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  17 Sep 2023 14:19:36 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10836"; a="860825084"
-X-IronPort-AV: E=Sophos;i="6.02,155,1688454000"; d="scan'208";a="860825084"
+X-IronPort-AV: E=McAfee;i="6600,9927,10836"; a="860825091"
+X-IronPort-AV: E=Sophos;i="6.02,155,1688454000"; d="scan'208";a="860825091"
 Received: from aalteres-desk.fm.intel.com ([10.80.57.53])
  by fmsmga002.fm.intel.com with ESMTP; 17 Sep 2023 14:19:36 -0700
 From: Alan Previn <alan.previn.teres.alexis@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Sun, 17 Sep 2023 14:19:30 -0700
-Message-Id: <20230917211933.1407559-1-alan.previn.teres.alexis@intel.com>
+Date: Sun, 17 Sep 2023 14:19:33 -0700
+Message-Id: <20230917211933.1407559-4-alan.previn.teres.alexis@intel.com>
 X-Mailer: git-send-email 2.39.0
+In-Reply-To: <20230917211933.1407559-1-alan.previn.teres.alexis@intel.com>
+References: <20230917211933.1407559-1-alan.previn.teres.alexis@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 0/3] drm/i915/pxp/mtl: Update gsc-heci cmd
- submission to align with fw/hw spec
+Subject: [Intel-gfx] [PATCH v7 3/3] drm/i915/lrc: User PXP contexts requires
+ runalone bit in lrc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,40 +62,70 @@ Cc: dri-devel@lists.freedesktop.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For MTL, update the GSC-HECI packet size and the max firmware
-response timeout to match internal fw specs. Enforce setting
-run-alone bit in LRC for protected contexts.
-
-Changes from prio revs:
-   v6: - fix build error with PXP config (Alan)
-   v5: - PAGE_ALIGN typo fix (Alan).
-       - Use macro for runalone bit (Vivaik)
-       - Spec alignment with system overhead,
-         increase fw timeout to 500ms (Alan)
-   v4: - PAGE_ALIGN the max heci packet size (Alan).
-   v3: - Patch #1. Only start counting the request completion
-         timeout from after the request has started (Daniele).
-   v2: - Patch #3: fix sparse warning reported by kernel test robot.
-   v1: - N/A (Re-test)
+On Meteorlake onwards, HW specs require that all user contexts that
+run on render or compute engines and require PXP must enforce
+run-alone bit in lrc. Add this enforcement for protected contexts.
 
 Signed-off-by: Alan Previn <alan.previn.teres.alexis@intel.com>
+Reviewed-by: Vivaik Balasubrawmanian <vivaik.balasubrawmanian@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_engine_regs.h |  1 +
+ drivers/gpu/drm/i915/gt/intel_lrc.c         | 23 +++++++++++++++++++++
+ 2 files changed, 24 insertions(+)
 
-Alan Previn (3):
-  drm/i915/pxp/mtl: Update pxp-firmware response timeout
-  drm/i915/pxp/mtl: Update pxp-firmware packet size
-  drm/i915/lrc: User PXP contexts requires runalone bit in lrc
-
- drivers/gpu/drm/i915/gt/intel_engine_regs.h   |  1 +
- drivers/gpu/drm/i915/gt/intel_lrc.c           | 23 +++++++++++++++++++
- .../i915/gt/uc/intel_gsc_uc_heci_cmd_submit.c | 20 ++++++++++++++--
- .../i915/gt/uc/intel_gsc_uc_heci_cmd_submit.h |  6 +++++
- .../drm/i915/pxp/intel_pxp_cmd_interface_43.h |  4 ++--
- drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.c    |  2 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_gsccs.h    | 10 ++++----
- 7 files changed, 55 insertions(+), 11 deletions(-)
-
-
-base-commit: dc4cd6e4e53d46211952fe7c0e408fce3e212993
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_regs.h b/drivers/gpu/drm/i915/gt/intel_engine_regs.h
+index 6b9d9f837669..fdd4ddd3a978 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_regs.h
+@@ -177,6 +177,7 @@
+ #define   CTX_CTRL_RS_CTX_ENABLE		REG_BIT(1)
+ #define	  CTX_CTRL_ENGINE_CTX_SAVE_INHIBIT	REG_BIT(2)
+ #define	  CTX_CTRL_INHIBIT_SYN_CTX_SWITCH	REG_BIT(3)
++#define	  GEN12_CTX_CTRL_RUNALONE_MODE		REG_BIT(7)
+ #define	  GEN12_CTX_CTRL_OAR_CONTEXT_ENABLE	REG_BIT(8)
+ #define RING_CTX_SR_CTL(base)			_MMIO((base) + 0x244)
+ #define RING_SEMA_WAIT_POLL(base)		_MMIO((base) + 0x24c)
+diff --git a/drivers/gpu/drm/i915/gt/intel_lrc.c b/drivers/gpu/drm/i915/gt/intel_lrc.c
+index 147b6f44ad56..eaf66d903166 100644
+--- a/drivers/gpu/drm/i915/gt/intel_lrc.c
++++ b/drivers/gpu/drm/i915/gt/intel_lrc.c
+@@ -845,6 +845,27 @@ lrc_setup_indirect_ctx(u32 *regs,
+ 		lrc_ring_indirect_offset_default(engine) << 6;
+ }
+ 
++static bool ctx_needs_runalone(const struct intel_context *ce)
++{
++	struct i915_gem_context *gem_ctx;
++	bool ctx_is_protected = false;
++
++	/*
++	 * On MTL and newer platforms, protected contexts require setting
++	 * the LRC run-alone bit or else the encryption will not happen.
++	 */
++	if (GRAPHICS_VER_FULL(ce->engine->i915) >= IP_VER(12, 70) &&
++	    (ce->engine->class == COMPUTE_CLASS || ce->engine->class == RENDER_CLASS)) {
++		rcu_read_lock();
++		gem_ctx = rcu_dereference(ce->gem_context);
++		if (gem_ctx)
++			ctx_is_protected = gem_ctx->uses_protected_content;
++		rcu_read_unlock();
++	}
++
++	return ctx_is_protected;
++}
++
+ static void init_common_regs(u32 * const regs,
+ 			     const struct intel_context *ce,
+ 			     const struct intel_engine_cs *engine,
+@@ -860,6 +881,8 @@ static void init_common_regs(u32 * const regs,
+ 	if (GRAPHICS_VER(engine->i915) < 11)
+ 		ctl |= _MASKED_BIT_DISABLE(CTX_CTRL_ENGINE_CTX_SAVE_INHIBIT |
+ 					   CTX_CTRL_RS_CTX_ENABLE);
++	if (ctx_needs_runalone(ce))
++		ctl |= _MASKED_BIT_ENABLE(GEN12_CTX_CTRL_RUNALONE_MODE);
+ 	regs[CTX_CONTEXT_CONTROL] = ctl;
+ 
+ 	regs[CTX_TIMESTAMP] = ce->stats.runtime.last;
 -- 
 2.39.0
 
