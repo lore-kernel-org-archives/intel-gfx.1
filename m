@@ -4,50 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E70DCC46CA1
-	for <intel-gfx@archiver.kernel.org>; Mon, 18 Sep 2023 12:24:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07B26C46CA1
+	for <intel-gfx@archiver.kernel.org>; Mon, 18 Sep 2023 13:52:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5534210E280;
-	Mon, 18 Sep 2023 12:24:56 +0000 (UTC)
-X-Greylist: delayed 106704 seconds by postgrey-1.36 at gabe;
- Tue, 12 Sep 2023 13:21:07 UTC
-Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
- [IPv6:2001:4b98:dc4:8::227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A172310E235
- for <intel-gfx@lists.freedesktop.org>; Tue, 12 Sep 2023 13:21:07 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 075BB2000C;
- Tue, 12 Sep 2023 13:21:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
- t=1694524865;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ZZWZL1Aw34+UH6DNxwAGQdMbtI0hmjsgK4JYw4ZgLak=;
- b=IQp4OLO/cIRSSzuN/DBJ9UArUhb8+kmnpScQeZrHsvqW/4vTtTDQw51/81qrq6MfQ6HIJu
- eSTXwBivKA37CSBJhez2Sonb70bV2gvNRX9VeMpAmv7ixRcoUPtv0IKo4U64klUwGygKG7
- 0isaTNY/APmtMAkO0hsr02mnrrUtKtYRADky80lJ1Ig+H4KDn4IRMzoAjjCNcBMDHlXyrf
- E9XvvwkzKdiMdR46CMIMcNFq536ahn6gSpdps16XVSJisojj5YCNGyDYoa2i9AKyr36Q2y
- OthlWc9qU07hOTHej6RQEJRwcJx5gvrTbsMOwksrlkcyeyx8kMYHZnS8XR/kYw==
-Date: Tue, 12 Sep 2023 15:21:02 +0200
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: "Usyskin, Alexander" <alexander.usyskin@intel.com>
-Message-ID: <20230912152102.0dfe7558@xps-13>
-In-Reply-To: <CY5PR11MB63667AB9958A23970B4B0D3EEDF1A@CY5PR11MB6366.namprd11.prod.outlook.com>
-References: <20230910123949.1251964-1-alexander.usyskin@intel.com>
- <20230911094233.326fd936@xps-13>
- <CY5PR11MB63667FBB6AF5B4331419BDAAEDF1A@CY5PR11MB6366.namprd11.prod.outlook.com>
- <0d60a78b-0305-4cb3-babe-4eefe5001b29@sirena.org.uk>
- <CY5PR11MB63667AB9958A23970B4B0D3EEDF1A@CY5PR11MB6366.namprd11.prod.outlook.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A240C10E0C7;
+	Mon, 18 Sep 2023 13:52:27 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B65AF10E011;
+ Mon, 18 Sep 2023 13:52:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1695045144; x=1726581144;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=NP1h+0UKldLz1lY9m6HbO8rN+lE/bgTGhXtzh53+ZzU=;
+ b=StO+iggF6C8h96MCl/t/rM7CKp+jLnFTT9QogSkTATfF8HNKmif+V277
+ Ea9jN63K8XWWUhw2igU/q39nXueOXYHA7sBhxAl4bFeyctxpQWU0TtuY5
+ YRxQf4BnEwpMTNz/AAW3gQDW1GbEYcYujQV0oIx8QaQQpFfrCOwL4D/5x
+ EmFzThxeKCa0LSnMdv2uRYNapii9e5Fp0cWsWXL71+Vv7cVniFAWEyr1y
+ OhMz9ZTNQC3jph/Zb3NztjnMUVW7+1MTZuAc4b3/TTyfvGAN+FbQu8tGf
+ vSY/ieOFP9EYwch64Ru7CTG1ag/vLOmrKmgccAE52+eyQfMOQms5gbWt2 Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="376969479"
+X-IronPort-AV: E=Sophos;i="6.02,156,1688454000"; d="scan'208";a="376969479"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2023 06:52:24 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10837"; a="749030431"
+X-IronPort-AV: E=Sophos;i="6.02,156,1688454000"; d="scan'208";a="749030431"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.213.18.199])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2023 06:52:21 -0700
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: igt-dev@lists.freedesktop.org
+Date: Mon, 18 Sep 2023 15:42:50 +0200
+Message-ID: <20230918134249.31645-19-janusz.krzysztofik@linux.intel.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-GND-Sasl: miquel.raynal@bootlin.com
-X-Mailman-Approved-At: Mon, 18 Sep 2023 12:24:43 +0000
-Subject: Re: [Intel-gfx] [PATCH 00/10] drm/i915/spi: spi access for discrete
- graphics
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH i-g-t v3 00/17] Fix IGT Kunit implementation
+ issues
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,39 +56,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Vignesh Raghavendra <vigneshr@ti.com>, Richard Weinberger <richard@nod.at>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- Michael Walle <michael@walle.cc>,
- "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>, Mark Brown <broonie@kernel.org>,
- "linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>, "Vivi,
- Rodrigo" <rodrigo.vivi@intel.com>, "Lubart, Vitaly" <vitaly.lubart@intel.com>,
- Pratyush Yadav <pratyush@kernel.org>
+Cc: intel-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Dominik=20Karol=20Pi=C4=85tkowski?=
+ <dominik.karol.piatkowski@intel.com>, Isabella Basso <isabbasso@riseup.net>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, intel-xe@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+v3: Also call igt_skip() on igt_ktest_init() failure (Mauro), but then,
+    initialize local tst structure when declaring it to avoid freeing a
+    random pointer from igt_ktest_fini() when only listing subtests,
+  - call igt_ktest_end() from igt_fixture so it is not unnecessarily
+    called when only listing subtests,
+  - drop EINTR handling completely as not applicable since SIGINT default
+    signal handler kills the whole process anyway,
+  - update commit description to also mention read error handling fix,
+  - interrupt blocking read() on modprobe failure.
+v2: Fix incorrect and missing includes in the test source file,
+  - add license and copyright clauses to the test source file.
 
-alexander.usyskin@intel.com wrote on Tue, 12 Sep 2023 13:15:58 +0000:
+Janusz Krzysztofik (17):
+  lib/kunit: Drop unused file stream
+  lib/kunit: Stop loading kunit module explicitly
+  lib/kunit: Fix struct kmod_module kunit_kmod not freed
+  lib/kunit: Optimize calls to igt_success/skip/fail()
+  lib/kunit: Fix illegal igt_fail() calls inside subtest body
+  lib/ktap: Make sure we fail on premature cancel
+  lib/ktap: Drop checks for EINTR on read() failures
+  lib/kunit: Cancel KTP parser on module load failure
+  lib/ktap: Drop is_running flag
+  lib/ktap: Read /dev/kmsg in blocking mode
+  lib/kunit: Fail / skip on kernel taint
+  lib/ktap: Use IGT linked lists for storing KTAP results
+  lib/ktap: Reimplement KTAP parser
+  lib/kunit: Load test modules in background
+  lib/kunit: Parse KTAP report from the main process thread
+  lib/kunit: Strip "_test" or "_kunit" suffix from subtest names
+  lib/kunit: Omit suite name prefix if the same as subtest name
 
-> >  =20
-> > > The spi controller on discreet graphics card is not visible to user-s=
-pace.
-> > > Spi access flows are supported by another hardware module and relevan=
-t =20
-> > registers are =20
-> > > available on graphics device memory bar. =20
-> >=20
-> > No SPI controllers are directly visible to userspace, some SPI devices
-> > are selectively exposed but that needs to be explicitly requested and is
-> > generally discouraged. =20
->=20
-> What are the options here? Explicitly request exception is the one.
-> Any other way to add access to flash memory connected in such way?
+ lib/igt_kmod.c              | 320 ++++++++++----
+ lib/igt_ktap.c              | 833 ++++++++++++------------------------
+ lib/igt_ktap.h              |  28 +-
+ lib/tests/igt_ktap_parser.c | 246 +++++++++++
+ lib/tests/meson.build       |   1 +
+ tests/drm_mm.c              |  42 +-
+ 6 files changed, 775 insertions(+), 695 deletions(-)
+ create mode 100644 lib/tests/igt_ktap_parser.c
 
-Register a spi controller with at least spi-mem ops, as suggested
-previously, is the standard way I guess. If you're not willing to do
-so, it must be justified, I guess?
+-- 
+2.41.0
 
-Thanks,
-Miqu=C3=A8l
