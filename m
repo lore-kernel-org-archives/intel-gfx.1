@@ -4,36 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 094C0CE79A9
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 19:49:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C779CE79A8
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 19:49:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA87D10E287;
-	Tue, 19 Sep 2023 19:49:04 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5ECC710E1D9;
- Tue, 19 Sep 2023 19:49:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:MIME-Version:
- Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:In-Reply-To:References;
- bh=vdqM9SRxwQlx1Icm+Y2BUJy4OvZR+xQvc2NZy3lMllo=; b=VWvC7AOVyrmVZ69EWYqETfNWzM
- LPPoTgCAgs4/flhJBcgd+KtrL41recfIOYc97OXcwTy2/XisT9/fyRKo92+DG/HibXDm3sfwJa7Tp
- mFppHnAcdd1GI4b1f54NifXzQz5dvzHMvnIAnOcg7A/wg1t/gRpwe+rkRfNmhucG3jRt23yOfNgq6
- 3fXjc2HAGJgyOCGN0qmi4IYySbOa3MHBZJNJnQtUNGrpcLFkdV0ljAvzoNQh/bp8Wzin21yO716Wv
- GeAICBMRtoA9Kt8WBv/KYftqNKtTBlvJrrtUb/C6LhSgUhPSRuJXLwe9FnU7JEYw2kO7WP0B6m3G2
- s/GClI4A==;
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1qigiR-001SQP-2I; Tue, 19 Sep 2023 19:48:59 +0000
-From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Date: Tue, 19 Sep 2023 20:48:55 +0100
-Message-Id: <20230919194855.347582-1-willy@infradead.org>
-X-Mailer: git-send-email 2.37.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98CFB10E1D9;
+	Tue, 19 Sep 2023 19:49:41 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A788110E288
+ for <intel-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 19:49:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1695152979; x=1726688979;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=aM3xxlShXkV1GXaUk9p/6LofrbRli6vjQwEjxosWt4c=;
+ b=CAtg3lVL3VsKviU9Q3VoV8MFQz5N92lU5IkYNaVteogfHP+ZNERLmzX4
+ 47tX5+SSvL/u0EFNIhtAzHpGTjcTvfi58ASZbYT2sfWL/Q8QAOkgakTlg
+ xWTVfoy3HioQa3mxTcigKS4FKvAMD25+l/Di8ITqOl3mRL3VAMyYNe42x
+ d97Ws1Or//NMxoqJqAvUrdhVkoj1hl/pl0J6TXTkdrkW5f/ua7AhRBy7S
+ EEVHNMLZDvUaYnf33u9G3sCSRVxYsqvTVrOqucI5W499zSBMvLPKUrMBy
+ Yx0KOiLud+3sRTDud0o5TghPXvuBRrU/aXPUaj2iy79/i57mVvDPYw8dr w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="410968569"
+X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="410968569"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Sep 2023 12:49:39 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="749616775"
+X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="749616775"
+Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Sep 2023 12:49:38 -0700
+From: Jonathan Cavitt <jonathan.cavitt@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Tue, 19 Sep 2023 12:38:55 -0700
+Message-Id: <20230919193857.3391566-2-jonathan.cavitt@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230919193857.3391566-1-jonathan.cavitt@intel.com>
+References: <20230919193857.3391566-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] i915: Limit the length of an sg list to the
- requested length
+Subject: [Intel-gfx] [PATCH v11 1/3] drm/i915: Reserve some kernel space per
+ vm
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,73 +58,59 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Oleksandr Natalenko <oleksandr@natalenko.name>,
- dri-devel@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- stable@vger.kernel.org
+Cc: andi.shyti@intel.com, chris.p.wilson@linux.intel.com,
+ tomasz.mistat@intel.com, jonathan.cavitt@intel.com, rodrigo.vivi@intel.com,
+ gregory.f.germano@intel.com, matthew.d.roper@intel.com, nirmoy.das@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The folio conversion changed the behaviour of shmem_sg_alloc_table() to
-put the entire length of the last folio into the sg list, even if the sg
-list should have been shorter.  gen8_ggtt_insert_entries() relied on the
-list being the right langth and would overrun the end of the page tables.
-Other functions may also have been affected.
+Reserve two pages in each vm for kernel space to use for things
+such as workarounds.
 
-Clamp the length of the last entry in the sg list to be the expected
-length.
-
-Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-Fixes: 0b62af28f249 ("i915: convert shmem_sg_free_table() to use a folio_batch")
-Cc: stable@vger.kernel.org # 6.5.x
-Link: https://gitlab.freedesktop.org/drm/intel/-/issues/9256
-Link: https://lore.kernel.org/lkml/6287208.lOV4Wx5bFT@natalenko.name/
-Reported-by: Oleksandr Natalenko <oleksandr@natalenko.name>
-Tested-by: Oleksandr Natalenko <oleksandr@natalenko.name>
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Suggested-by: Chris Wilson <chris.p.wilson@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/gt/gen8_ppgtt.c | 7 +++++++
+ drivers/gpu/drm/i915/gt/intel_gtt.h  | 1 +
+ 2 files changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index 8f1633c3fb93..73a4a4eb29e0 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -100,6 +100,7 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
- 	st->nents = 0;
- 	for (i = 0; i < page_count; i++) {
- 		struct folio *folio;
-+		unsigned long nr_pages;
- 		const unsigned int shrink[] = {
- 			I915_SHRINK_BOUND | I915_SHRINK_UNBOUND,
- 			0,
-@@ -150,6 +151,8 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
- 			}
- 		} while (1);
+diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+index 9895e18df0435..d6c0c84eda736 100644
+--- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
++++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
+@@ -230,6 +230,7 @@ static void gen8_ppgtt_cleanup(struct i915_address_space *vm)
+ 				     gen8_pd_top_count(vm), vm->top);
  
-+		nr_pages = min_t(unsigned long,
-+				folio_nr_pages(folio), page_count - i);
- 		if (!i ||
- 		    sg->length >= max_segment ||
- 		    folio_pfn(folio) != next_pfn) {
-@@ -157,13 +160,13 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
- 				sg = sg_next(sg);
+ 	free_scratch(vm);
++	drm_mm_remove_node(&vm->rsvd);
+ }
  
- 			st->nents++;
--			sg_set_folio(sg, folio, folio_size(folio), 0);
-+			sg_set_folio(sg, folio, nr_pages * PAGE_SIZE, 0);
- 		} else {
- 			/* XXX: could overflow? */
--			sg->length += folio_size(folio);
-+			sg->length += nr_pages * PAGE_SIZE;
- 		}
--		next_pfn = folio_pfn(folio) + folio_nr_pages(folio);
--		i += folio_nr_pages(folio) - 1;
-+		next_pfn = folio_pfn(folio) + nr_pages;
-+		i += nr_pages - 1;
+ static u64 __gen8_ppgtt_clear(struct i915_address_space * const vm,
+@@ -1011,6 +1012,12 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt,
+ 	ppgtt->vm.foreach = gen8_ppgtt_foreach;
+ 	ppgtt->vm.cleanup = gen8_ppgtt_cleanup;
  
- 		/* Check that the i965g/gm workaround works. */
- 		GEM_BUG_ON(gfp & __GFP_DMA32 && next_pfn >= 0x00100000UL);
++	ppgtt->vm.rsvd.start = ppgtt->vm.total - (SZ_4K * 2);
++	ppgtt->vm.rsvd.size = (SZ_4K * 2);
++	ppgtt->vm.rsvd.color = I915_COLOR_UNEVICTABLE;
++	GEM_BUG_ON(drm_mm_reserve_node(&ppgtt->vm.mm, &ppgtt->vm.rsvd));
++	ppgtt->vm.total -= (SZ_4K * 2);
++
+ 	err = gen8_init_scratch(&ppgtt->vm);
+ 	if (err)
+ 		goto err_put;
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
+index 346ec8ec2edda..ab38a158fc715 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
+@@ -246,6 +246,7 @@ struct i915_address_space {
+ 	struct work_struct release_work;
+ 
+ 	struct drm_mm mm;
++	struct drm_mm_node rsvd;
+ 	struct intel_gt *gt;
+ 	struct drm_i915_private *i915;
+ 	struct device *dma;
 -- 
-2.40.1
+2.25.1
 
