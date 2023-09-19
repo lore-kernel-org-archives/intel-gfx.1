@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BD9FCE79AB
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 19:21:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A363CE79A8
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 19:21:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2E0110E29E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D297310E29D;
 	Tue, 19 Sep 2023 19:21:33 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28D0410E24F
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1202110E288
  for <intel-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 19:21:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1695151287; x=1726687287;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=qxMkiwJDkH+r+M/wyXOQFt7QzVfoWlIi1Dr+d/8t8ms=;
- b=h3oQ81JrNy1JNfPBEmmXvfltS9IrV2q9mJrL8hLVI70pQZ5CGhsWfwY/
- Hokd4Vlpw28nzc041+7TOslSTdBtjGojOktNwP7HjJn8wqa5cpEF8AC/a
- pSjdjLIxQodc2dUaQ+LpbkZR6RfmWNlSw0A1IAeVJ0NzMTuHsNKA3qiC6
- VfozVHrd6+D7B0+L6j5LLajvhZt1mZ2Qsn1iiV4kCO0uNqQuVMTsAPUdK
- kqIp/67nvOT72yMs+fKsk+nzRV/+6zqXYOGAK+hSWuhkI01D0thHKJSwn
- HkzxY2gECKGViF5IcIvCWLQxNdNTZgjyR0xRMZUrcMo45P9pt6vwTQHMK w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="359423142"
-X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="359423142"
+ bh=lKaEe/FISTpwywFqtYzO2YFrxAJhshC/hcnjOcPPHno=;
+ b=N0x2tU7Q8ZX/51WWpppm8bP9lS9TFkjihSBZUraTpK0s8/RGtypMFpNj
+ fFUkyTg91J4DqXGWBAxxHAE48EEt0iRjB0PYyUxOjCW871hoK3XRtifWC
+ 3bays66tEjXW6FDZY9HVmWupfhEQfzGyRPoqfvXpvKp1VVo/9mfC3L4uF
+ OjDRG1NDdehSWC3FdFV5TohpovJGRWqLQrkcAphddY/0qi8gIDlGV+KrK
+ vvmyz2cukwmO/VRX/Pcnc43oPx/+7EWrjd2rVwEu4eq4aDyz1RJOQQuhV
+ vJ2mMZGTx+RxY/p6EzDkeBFe18LuziTSv8GRe0IrnqMpE5hOZ7XtOnzYB w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="359423141"
+X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="359423141"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Sep 2023 12:21:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="746350099"
-X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="746350099"
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="746350084"
+X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="746350084"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Sep 2023 12:21:25 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 19 Sep 2023 12:21:23 -0700
-Message-Id: <20230919192128.2045154-17-lucas.demarchi@intel.com>
+Date: Tue, 19 Sep 2023 12:21:19 -0700
+Message-Id: <20230919192128.2045154-13-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230919192128.2045154-1-lucas.demarchi@intel.com>
 References: <20230919192128.2045154-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 17/22] drm/i915/xe2lpd: Extend Wa_15010685871
+Subject: [Intel-gfx] [CI 13/22] drm/i915/xe2lpd: Handle port AUX interrupts
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,38 +60,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Xe2_LPD also needs workaround 15010685871. While adding the new display
-version, also re-order the condition to follow the convention of new
-version first.
+From: Gustavo Sousa <gustavo.sousa@intel.com>
 
-v2: Remove redundant HAS_CDCLK_SQUASH(). As the platform or IP version
-    needing the workaround are handpicked, there is no need to also
-    check if tha platform has squashing support (Matt Roper)
+Differently from previous version, Xe2_LPD groups all port AUX interrupt
+bits into PICA interrupt registers.
 
-Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+While at it, drop some trailing newlines.
+
+BSpec: 68958, 69697
+Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
 Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_irq.c | 4 +++-
+ drivers/gpu/drm/i915/display/intel_hotplug_irq.c | 3 +++
+ drivers/gpu/drm/i915/i915_reg.h                  | 5 ++---
+ 3 files changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index ad5251ba6fe1..656ff50def39 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -1841,9 +1841,10 @@ static bool cdclk_compute_crawl_and_squash_midpoint(struct drm_i915_private *i91
- 
- static bool pll_enable_wa_needed(struct drm_i915_private *dev_priv)
+diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
+index 62ce55475554..bff4a76310c0 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_irq.c
++++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
+@@ -792,7 +792,9 @@ static u32 gen8_de_port_aux_mask(struct drm_i915_private *dev_priv)
  {
--	return ((IS_DG2(dev_priv) || DISPLAY_VER_FULL(dev_priv) == IP_VER(14, 0)) &&
--		dev_priv->display.cdclk.hw.vco > 0 &&
--		HAS_CDCLK_SQUASH(dev_priv));
-+	return (DISPLAY_VER_FULL(dev_priv) == IP_VER(20, 0) ||
-+		DISPLAY_VER_FULL(dev_priv) == IP_VER(14, 0) ||
-+		IS_DG2(dev_priv)) &&
-+		dev_priv->display.cdclk.hw.vco > 0;
- }
+ 	u32 mask;
  
- static void _bxt_set_cdclk(struct drm_i915_private *dev_priv,
+-	if (DISPLAY_VER(dev_priv) >= 14)
++	if (DISPLAY_VER(dev_priv) >= 20)
++		return 0;
++	else if (DISPLAY_VER(dev_priv) >= 14)
+ 		return TGL_DE_PORT_AUX_DDIA |
+ 			TGL_DE_PORT_AUX_DDIB;
+ 	else if (DISPLAY_VER(dev_priv) >= 13)
+diff --git a/drivers/gpu/drm/i915/display/intel_hotplug_irq.c b/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
+index 95a7ea94f417..3398cc21bd26 100644
+--- a/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
++++ b/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
+@@ -514,6 +514,9 @@ void xelpdp_pica_irq_handler(struct drm_i915_private *i915, u32 iir)
+ 	u32 trigger_aux = iir & XELPDP_AUX_TC_MASK;
+ 	u32 pin_mask = 0, long_mask = 0;
+ 
++	if (DISPLAY_VER(i915) >= 20)
++		trigger_aux |= iir & XE2LPD_AUX_DDI_MASK;
++
+ 	for (pin = HPD_PORT_TC1; pin <= HPD_PORT_TC4; pin++) {
+ 		u32 val;
+ 
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index e00e4d569ba9..467edc6f9e39 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -4467,13 +4467,12 @@
+ #define PICAINTERRUPT_IMR			_MMIO(0x16FE54)
+ #define PICAINTERRUPT_IIR			_MMIO(0x16FE58)
+ #define PICAINTERRUPT_IER			_MMIO(0x16FE5C)
+-
+ #define  XELPDP_DP_ALT_HOTPLUG(hpd_pin)		REG_BIT(16 + _HPD_PIN_TC(hpd_pin))
+ #define  XELPDP_DP_ALT_HOTPLUG_MASK		REG_GENMASK(19, 16)
+-
+ #define  XELPDP_AUX_TC(hpd_pin)			REG_BIT(8 + _HPD_PIN_TC(hpd_pin))
+ #define  XELPDP_AUX_TC_MASK			REG_GENMASK(11, 8)
+-
++#define  XE2LPD_AUX_DDI(hpd_pin)		REG_BIT(6 + _HPD_PIN_DDI(hpd_pin))
++#define  XE2LPD_AUX_DDI_MASK			REG_GENMASK(7, 6)
+ #define  XELPDP_TBT_HOTPLUG(hpd_pin)		REG_BIT(_HPD_PIN_TC(hpd_pin))
+ #define  XELPDP_TBT_HOTPLUG_MASK		REG_GENMASK(3, 0)
+ 
 -- 
 2.40.1
 
