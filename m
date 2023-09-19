@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2583CCE79AA
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 19:21:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16D13CE79A8
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 19:21:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 392FA10E298;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81F0F10E29A;
 	Tue, 19 Sep 2023 19:21:33 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D34D10E294
- for <intel-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 19:21:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45C1510E24F
+ for <intel-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 19:21:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695151287; x=1726687287;
+ t=1695151286; x=1726687286;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=a+Nfya7ORmNO+5J3FeHNHBGLBVbSyUfG8K1GSTOGS5Q=;
- b=XVMshtCgthQ6rZmZvTmTB9kHUkzueb4fc45bgZGWf9NtMbtVhbuyKsro
- 2VxUKc8Ib0eAn+OP+dbD3R0tivj+KrLrm46MBMffm0z+P2relqrj2foSQ
- KrbpCyhMj0vCcpkYf0+S2a930wNs3Mfnd9chiH2+The0WHBkNpa49s+Nw
- vBAnWSSYZ29kezouMV9i1UmrLtGs0sx6MhdlmctpMIMHTBYd2TxHql/ch
- w9r7lfVRU6cCK9bUDkVfxlFu6eVI+NIAfT2v6NOSWkCPsTRqajvWEUBlB
- swEWYsNr15PQlogZoHxY0l36ulC72rD195CsXWHmtR3aw55EASfi9tL05 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="359423148"
-X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="359423148"
+ bh=+bD14OxvuUmmtf/wadeIO7E3ZQx8lH01cJQrzNQY2TU=;
+ b=YGRL4ziDlOrdGlDBDbXwf7Rod020+wnRhGY8tg36NVxOWRV9rXJBXrGm
+ DE8cCOjywqNi8OSOwkSdbMykl0yDY0N+mnfTqS+oxx0TXiMux6HsvWxmg
+ 1RRiaR31kHFQhctwSm+rL9njUEJRxAcj1ygcJB8I8c2v2obwLa5RsSsoZ
+ jvDIbewO6mc+ocNfhoqsTofMERhFPrHjoweeb0+6VvKTpgHgqiRzBrDIa
+ +fhwhgRi6w5O8Z3GblqPVLrUvThQneIirw9olzdSxcquVklGLVd8wcj2X
+ U/jY2sd12Y6OfTnPISeMxeXVYspZsspIhnYZIF4MUNy7Q4Bb6nsJUiBFC Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="359423133"
+X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="359423133"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2023 12:21:26 -0700
+ 19 Sep 2023 12:21:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="746350110"
-X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="746350110"
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="746350055"
+X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="746350055"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2023 12:21:25 -0700
+ 19 Sep 2023 12:21:24 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 19 Sep 2023 12:21:27 -0700
-Message-Id: <20230919192128.2045154-21-lucas.demarchi@intel.com>
+Date: Tue, 19 Sep 2023 12:21:10 -0700
+Message-Id: <20230919192128.2045154-4-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230919192128.2045154-1-lucas.demarchi@intel.com>
 References: <20230919192128.2045154-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 21/22] drm/i915/xe2lpd: Add DC state support
+Subject: [Intel-gfx] [CI 04/22] drm/i915/display: Remove FBC capability from
+ fused off pipes
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,70 +61,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matt Roper <matthew.d.roper@intel.com>
+From: Clint Taylor <clinton.a.taylor@intel.com>
 
-Xe2_LPD supports DC5, DC6, and DC9 (DC3CO no longer exists).  The
-overall programming and requirements to enter DC states are similar to
-those of Xe_LPD+ although AUX transactions do not require DC5/DC6 exit
-as they did previously.
+If a particular pipe is disabled by fuse also remove the FBC for that
+pipe.
 
-Bspec: 68851, 68857, 68886, 69115
+Bspec: 69464
 Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Cc: Gustavo Sousa <gustavo.sousa@intel.com>
+Signed-off-by: Clint Taylor <clinton.a.taylor@intel.com>
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Reviewed-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
 ---
- .../gpu/drm/i915/display/intel_display_power.c |  4 +++-
- .../drm/i915/display/intel_display_power_map.c | 18 ++++++++++++++++++
- 2 files changed, 21 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_display_device.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index 889bb26009a2..e25785ae1c20 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -943,7 +943,9 @@ static u32 get_allowed_dc_mask(const struct drm_i915_private *dev_priv,
- 	if (!HAS_DISPLAY(dev_priv))
- 		return 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
+index 5f14f9e8ca88..a6a18eae7ae8 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_device.c
++++ b/drivers/gpu/drm/i915/display/intel_display_device.c
+@@ -1033,16 +1033,19 @@ void intel_display_device_info_runtime_init(struct drm_i915_private *i915)
+ 		if (dfsm & SKL_DFSM_PIPE_B_DISABLE) {
+ 			display_runtime->pipe_mask &= ~BIT(PIPE_B);
+ 			display_runtime->cpu_transcoder_mask &= ~BIT(TRANSCODER_B);
++			display_runtime->fbc_mask &= ~BIT(INTEL_FBC_B);
+ 		}
+ 		if (dfsm & SKL_DFSM_PIPE_C_DISABLE) {
+ 			display_runtime->pipe_mask &= ~BIT(PIPE_C);
+ 			display_runtime->cpu_transcoder_mask &= ~BIT(TRANSCODER_C);
++			display_runtime->fbc_mask &= ~BIT(INTEL_FBC_C);
+ 		}
  
--	if (IS_DG2(dev_priv))
-+	if (DISPLAY_VER(dev_priv) >= 20)
-+		max_dc = 2;
-+	else if (IS_DG2(dev_priv))
- 		max_dc = 1;
- 	else if (IS_DG1(dev_priv))
- 		max_dc = 3;
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_map.c b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-index 31c11586ede5..10948b3964ee 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_map.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-@@ -1561,9 +1561,27 @@ static const struct i915_power_well_desc xe2lpd_power_wells_pica[] = {
- 	},
- };
+ 		if (DISPLAY_VER(i915) >= 12 &&
+ 		    (dfsm & TGL_DFSM_PIPE_D_DISABLE)) {
+ 			display_runtime->pipe_mask &= ~BIT(PIPE_D);
+ 			display_runtime->cpu_transcoder_mask &= ~BIT(TRANSCODER_D);
++			display_runtime->fbc_mask &= ~BIT(INTEL_FBC_D);
+ 		}
  
-+I915_DECL_PW_DOMAINS(xe2lpd_pwdoms_dc_off,
-+	POWER_DOMAIN_DC_OFF,
-+	XELPD_PW_C_POWER_DOMAINS,
-+	XELPD_PW_D_POWER_DOMAINS,
-+	POWER_DOMAIN_AUDIO_MMIO,
-+	POWER_DOMAIN_INIT);
-+
-+static const struct i915_power_well_desc xe2lpd_power_wells_dcoff[] = {
-+	{
-+		.instances = &I915_PW_INSTANCES(
-+			I915_PW("DC_off", &xe2lpd_pwdoms_dc_off,
-+				.id = SKL_DISP_DC_OFF),
-+		),
-+		.ops = &gen9_dc_off_power_well_ops,
-+	},
-+};
-+
- static const struct i915_power_well_desc_list xe2lpd_power_wells[] = {
- 	I915_PW_DESCRIPTORS(i9xx_power_wells_always_on),
- 	I915_PW_DESCRIPTORS(icl_power_wells_pw_1),
-+	I915_PW_DESCRIPTORS(xe2lpd_power_wells_dcoff),
- 	I915_PW_DESCRIPTORS(xelpdp_power_wells_main),
- 	I915_PW_DESCRIPTORS(xe2lpd_power_wells_pica),
- };
+ 		if (!display_runtime->pipe_mask)
 -- 
 2.40.1
 
