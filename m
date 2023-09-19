@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F4E4CE79A9
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 19:21:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2583CCE79AA
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 19:21:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1961E10E287;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 392FA10E298;
 	Tue, 19 Sep 2023 19:21:33 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4E6510E24F
- for <intel-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 19:21:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D34D10E294
+ for <intel-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 19:21:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695151286; x=1726687286;
+ t=1695151287; x=1726687287;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=HOgBTaV7zi6zrkpmZKPw5fCd3x2A45hzO9RMCtdD+qA=;
- b=KZc6aGtVjlV/q6Y6QclJyXzC+UewYw2LU5Xh//jRTmr8umqZssMmQftK
- +PWmjKT3ZytILTLYq+lxa/d0NhlpkKKRw67sZmuHs2yESACfOEItuht22
- UkH/PfB7DBbRLZr/FqyDNfK4knCtaKnAWQREXGywkonmPvvak5m+vHxFr
- 6KqXJUV+L9L78dNcisgmv6YUiERhR5POJ0SX6IQDis5yZ/63gYUKZhQcb
- QGwCwbosPcuAQiZNVR4N5aisRttcr97FrkljL4ieooY0F3UnpDfYl3mBz
- yGvyGaYtezxDGO8+FHuwS6gkK7y31lj/e4wenKs9n9VDnjGQrkPAdDBJA Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="359423137"
-X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="359423137"
+ bh=a+Nfya7ORmNO+5J3FeHNHBGLBVbSyUfG8K1GSTOGS5Q=;
+ b=XVMshtCgthQ6rZmZvTmTB9kHUkzueb4fc45bgZGWf9NtMbtVhbuyKsro
+ 2VxUKc8Ib0eAn+OP+dbD3R0tivj+KrLrm46MBMffm0z+P2relqrj2foSQ
+ KrbpCyhMj0vCcpkYf0+S2a930wNs3Mfnd9chiH2+The0WHBkNpa49s+Nw
+ vBAnWSSYZ29kezouMV9i1UmrLtGs0sx6MhdlmctpMIMHTBYd2TxHql/ch
+ w9r7lfVRU6cCK9bUDkVfxlFu6eVI+NIAfT2v6NOSWkCPsTRqajvWEUBlB
+ swEWYsNr15PQlogZoHxY0l36ulC72rD195CsXWHmtR3aw55EASfi9tL05 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="359423148"
+X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="359423148"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2023 12:21:25 -0700
+ 19 Sep 2023 12:21:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="746350067"
-X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="746350067"
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="746350110"
+X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="746350110"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2023 12:21:24 -0700
+ 19 Sep 2023 12:21:25 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 19 Sep 2023 12:21:14 -0700
-Message-Id: <20230919192128.2045154-8-lucas.demarchi@intel.com>
+Date: Tue, 19 Sep 2023 12:21:27 -0700
+Message-Id: <20230919192128.2045154-21-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230919192128.2045154-1-lucas.demarchi@intel.com>
 References: <20230919192128.2045154-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 08/22] drm/i915/xe2lpd: Don't try to program
- PLANE_AUX_DIST
+Subject: [Intel-gfx] [CI 21/22] drm/i915/xe2lpd: Add DC state support
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,31 +62,68 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Matt Roper <matthew.d.roper@intel.com>
 
-Since Xe2LPD technically has FlatCCS, it doesn't have AuxCCS registers
-like PLANE_AUX_DIST.  However we currently have HAS_FLAT_CCS hardcoded
-to 0 since compression isn't ready; we need to make sure this doesn't
-cause the display code to go back to trying to write this register.
+Xe2_LPD supports DC5, DC6, and DC9 (DC3CO no longer exists).  The
+overall programming and requirements to enter DC states are similar to
+those of Xe_LPD+ although AUX transactions do not require DC5/DC6 exit
+as they did previously.
 
+Bspec: 68851, 68857, 68886, 69115
+Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Reviewed-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_universal_plane.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../gpu/drm/i915/display/intel_display_power.c |  4 +++-
+ .../drm/i915/display/intel_display_power_map.c | 18 ++++++++++++++++++
+ 2 files changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 007a0bcb3f93..2a30b8aa2994 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -1247,7 +1247,7 @@ icl_plane_update_noarm(struct intel_plane *plane,
- 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 889bb26009a2..e25785ae1c20 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -943,7 +943,9 @@ static u32 get_allowed_dc_mask(const struct drm_i915_private *dev_priv,
+ 	if (!HAS_DISPLAY(dev_priv))
+ 		return 0;
  
- 	/* FLAT CCS doesn't need to program AUX_DIST */
--	if (!HAS_FLAT_CCS(dev_priv))
-+	if (!HAS_FLAT_CCS(dev_priv) && DISPLAY_VER(dev_priv) < 20)
- 		intel_de_write_fw(dev_priv, PLANE_AUX_DIST(pipe, plane_id),
- 				  skl_plane_aux_dist(plane_state, color_plane));
+-	if (IS_DG2(dev_priv))
++	if (DISPLAY_VER(dev_priv) >= 20)
++		max_dc = 2;
++	else if (IS_DG2(dev_priv))
+ 		max_dc = 1;
+ 	else if (IS_DG1(dev_priv))
+ 		max_dc = 3;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power_map.c b/drivers/gpu/drm/i915/display/intel_display_power_map.c
+index 31c11586ede5..10948b3964ee 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power_map.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power_map.c
+@@ -1561,9 +1561,27 @@ static const struct i915_power_well_desc xe2lpd_power_wells_pica[] = {
+ 	},
+ };
  
++I915_DECL_PW_DOMAINS(xe2lpd_pwdoms_dc_off,
++	POWER_DOMAIN_DC_OFF,
++	XELPD_PW_C_POWER_DOMAINS,
++	XELPD_PW_D_POWER_DOMAINS,
++	POWER_DOMAIN_AUDIO_MMIO,
++	POWER_DOMAIN_INIT);
++
++static const struct i915_power_well_desc xe2lpd_power_wells_dcoff[] = {
++	{
++		.instances = &I915_PW_INSTANCES(
++			I915_PW("DC_off", &xe2lpd_pwdoms_dc_off,
++				.id = SKL_DISP_DC_OFF),
++		),
++		.ops = &gen9_dc_off_power_well_ops,
++	},
++};
++
+ static const struct i915_power_well_desc_list xe2lpd_power_wells[] = {
+ 	I915_PW_DESCRIPTORS(i9xx_power_wells_always_on),
+ 	I915_PW_DESCRIPTORS(icl_power_wells_pw_1),
++	I915_PW_DESCRIPTORS(xe2lpd_power_wells_dcoff),
+ 	I915_PW_DESCRIPTORS(xelpdp_power_wells_main),
+ 	I915_PW_DESCRIPTORS(xe2lpd_power_wells_pica),
+ };
 -- 
 2.40.1
 
