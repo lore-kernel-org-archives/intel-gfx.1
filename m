@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E897FCE79A9
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 19:21:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6A2ECE79AA
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 19:21:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7087410E299;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93AC710E29B;
 	Tue, 19 Sep 2023 19:21:33 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D44E10E1D9
- for <intel-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 19:21:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F0F410E1D9
+ for <intel-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 19:21:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695151287; x=1726687287;
+ t=1695151286; x=1726687286;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=ZHPPCYI3/2NeUKdVbYUO+Ph7Fqlw6jK0devr29IYsRk=;
- b=beUFwgrRXXtsccd1iDasTCsevjc2bAknUeCc7qJxOfZC+6eTKv4m1RWE
- EFLRHf6nuo4uMlaQhFJq+LbP6C9xm/WeBLQsqaOXHZvcarAxauqXMUYfM
- 1VNgtB/wqWP0T9nRQGmfQXFvPaU2apSJuQ8HskJVtU8aTQY1pSkWN3KwQ
- NAsxVVFOpvRhrDC5QciJH2PpPdIjdbMSGdwgoqHm8vxd2GtCRI2AMzcrD
- HAlf6qECM3uTrZwpmDhW++MmXd3/sJGzy55Uz5QJl4q48KaHy/jGlcc9b
- o9y2TgFgBemcmEV6dF1AyOLHL+QKrpxHd64qxKJN2dnS3sS4ib5O0vaZj Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="359423149"
-X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="359423149"
+ bh=+VG9ESQlNzM9HtZpmCeE/wWAypMARShXKl9W9qAoV3A=;
+ b=T1ewjI8XX8qcZFqjxk0o41ij31sY36d3pgqgmbC44Uyivz/BLBKxE+zh
+ XsvEG69DIoE1fk3VtEKsLDNg4SdeZth4MA0o+N8+Q5YGAtjaSqyv4U21w
+ Sijz3GXidEfOtQDYYMQXn1SeAhnhZBJJv+hptua4UVGiQ9AThjTzAdjoP
+ rc9FribI5A07DdtcUL+soxrTh3t1bcQNEL/FMYSnncTi0ep1L0KnHZ5l2
+ mZNBAiYP78nwxRr5Qr8yyol51OtMeAyFohfE0HGoy6Iv2FSxfS94HmuRV
+ tD5FhiEQUnNyyzTAbmFQ5JyH3gJ/95x3GxRvoyry9QTuMx+EHCIeAPuI3 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="359423134"
+X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="359423134"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2023 12:21:26 -0700
+ 19 Sep 2023 12:21:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="746350107"
-X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="746350107"
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="746350060"
+X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="746350060"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2023 12:21:25 -0700
+ 19 Sep 2023 12:21:24 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 19 Sep 2023 12:21:26 -0700
-Message-Id: <20230919192128.2045154-20-lucas.demarchi@intel.com>
+Date: Tue, 19 Sep 2023 12:21:12 -0700
+Message-Id: <20230919192128.2045154-6-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230919192128.2045154-1-lucas.demarchi@intel.com>
 References: <20230919192128.2045154-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 20/22] drm/i915/xe2lpd: Add display power well
+Subject: [Intel-gfx] [CI 06/22] drm/i915/xe2lpd: Add fake PCH
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,164 +60,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
+From: Gustavo Sousa <gustavo.sousa@intel.com>
 
-Add Display Power Well for Xe2_LPD. It's mostly the same as Xe_LPD+,
-so reuse the code. PGPICA1 contains type-C capable port slices
-which requires the well to power powered up, so add new power well
-definition for it.
+Xe2_LPD doesn't have south display engine on a PCH, it's actually
+on the SoC die (while north display engine is on compute die). As
+such it makes no sense to go through the PCI devices looking for
+an ISA bridge. The approach used by BXT/GLK can't be used here since
+leaving it with PCH_NONE would mean taking the wrong code paths.
 
-The DC_OFF fake power well will be added in a follow up commit.
+For the places we currently use a PCH check, it's enough for now to just
+check the north display version. Use that to define a fake PCH to be
+used across the driver. Eventually these PCH checks may need to be
+re-designed as this is already the third platform using/needing a
+fake PCH.
 
-v2: Do not rmw as bit 31 is the only R/W bit in the regiser (Matt Roper)
+v2: Match on display IP version rather than on platform (Matt Roper)
+v3: Extend and clarify commit message (Matt Roper / Ville)
 
-BSpec: 68886
-Signed-off-by: Ravi Kumar Vodapalli <ravi.kumar.vodapalli@intel.com>
 Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- .../i915/display/intel_display_power_map.c    | 36 +++++++++++++++-
- .../i915/display/intel_display_power_well.c   | 41 +++++++++++++++++++
- .../i915/display/intel_display_power_well.h   |  1 +
- .../gpu/drm/i915/display/intel_dp_aux_regs.h  |  5 +++
- 4 files changed, 82 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/soc/intel_pch.c | 5 ++++-
+ drivers/gpu/drm/i915/soc/intel_pch.h | 2 ++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_map.c b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-index 0f1b93d139ca..31c11586ede5 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_map.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-@@ -1536,6 +1536,38 @@ static const struct i915_power_well_desc_list xelpdp_power_wells[] = {
- 	I915_PW_DESCRIPTORS(xelpdp_power_wells_main),
+diff --git a/drivers/gpu/drm/i915/soc/intel_pch.c b/drivers/gpu/drm/i915/soc/intel_pch.c
+index dfffdfa50b97..240beafb38ed 100644
+--- a/drivers/gpu/drm/i915/soc/intel_pch.c
++++ b/drivers/gpu/drm/i915/soc/intel_pch.c
+@@ -222,7 +222,10 @@ void intel_detect_pch(struct drm_i915_private *dev_priv)
+ 	 * South display engine on the same PCI device: just assign the fake
+ 	 * PCH.
+ 	 */
+-	if (IS_DG2(dev_priv)) {
++	if (DISPLAY_VER(dev_priv) >= 20) {
++		dev_priv->pch_type = PCH_LNL;
++		return;
++	} else if (IS_DG2(dev_priv)) {
+ 		dev_priv->pch_type = PCH_DG2;
+ 		return;
+ 	} else if (IS_DG1(dev_priv)) {
+diff --git a/drivers/gpu/drm/i915/soc/intel_pch.h b/drivers/gpu/drm/i915/soc/intel_pch.h
+index 32aff5a70d04..1b03ea60a7a8 100644
+--- a/drivers/gpu/drm/i915/soc/intel_pch.h
++++ b/drivers/gpu/drm/i915/soc/intel_pch.h
+@@ -30,6 +30,7 @@ enum intel_pch {
+ 	/* Fake PCHs, functionality handled on the same PCI dev */
+ 	PCH_DG1 = 1024,
+ 	PCH_DG2,
++	PCH_LNL,
  };
  
-+I915_DECL_PW_DOMAINS(xe2lpd_pwdoms_pica_tc,
-+		     POWER_DOMAIN_PORT_DDI_LANES_TC1,
-+		     POWER_DOMAIN_PORT_DDI_LANES_TC2,
-+		     POWER_DOMAIN_PORT_DDI_LANES_TC3,
-+		     POWER_DOMAIN_PORT_DDI_LANES_TC4,
-+		     POWER_DOMAIN_AUX_USBC1,
-+		     POWER_DOMAIN_AUX_USBC2,
-+		     POWER_DOMAIN_AUX_USBC3,
-+		     POWER_DOMAIN_AUX_USBC4,
-+		     POWER_DOMAIN_AUX_TBT1,
-+		     POWER_DOMAIN_AUX_TBT2,
-+		     POWER_DOMAIN_AUX_TBT3,
-+		     POWER_DOMAIN_AUX_TBT4,
-+		     POWER_DOMAIN_INIT);
-+
-+static const struct i915_power_well_desc xe2lpd_power_wells_pica[] = {
-+	{
-+		.instances = &I915_PW_INSTANCES(I915_PW("PICA_TC",
-+							&xe2lpd_pwdoms_pica_tc,
-+							.id = DISP_PW_ID_NONE),
-+					       ),
-+		.ops = &xe2lpd_pica_power_well_ops,
-+	},
-+};
-+
-+static const struct i915_power_well_desc_list xe2lpd_power_wells[] = {
-+	I915_PW_DESCRIPTORS(i9xx_power_wells_always_on),
-+	I915_PW_DESCRIPTORS(icl_power_wells_pw_1),
-+	I915_PW_DESCRIPTORS(xelpdp_power_wells_main),
-+	I915_PW_DESCRIPTORS(xe2lpd_power_wells_pica),
-+};
-+
- static void init_power_well_domains(const struct i915_power_well_instance *inst,
- 				    struct i915_power_well *power_well)
- {
-@@ -1643,7 +1675,9 @@ int intel_display_power_map_init(struct i915_power_domains *power_domains)
- 		return 0;
- 	}
+ #define INTEL_PCH_DEVICE_ID_MASK		0xff80
+@@ -66,6 +67,7 @@ enum intel_pch {
  
--	if (DISPLAY_VER(i915) >= 14)
-+	if (DISPLAY_VER(i915) >= 20)
-+		return set_power_wells(power_domains, xe2lpd_power_wells);
-+	else if (DISPLAY_VER(i915) >= 14)
- 		return set_power_wells(power_domains, xelpdp_power_wells);
- 	else if (IS_DG2(i915))
- 		return set_power_wells(power_domains, xehpd_power_wells);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.c b/drivers/gpu/drm/i915/display/intel_display_power_well.c
-index ca0714eba17a..07d650050099 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_well.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_well.c
-@@ -1833,6 +1833,40 @@ static bool xelpdp_aux_power_well_enabled(struct drm_i915_private *dev_priv,
- 		XELPDP_DP_AUX_CH_CTL_POWER_STATUS;
- }
- 
-+static void xe2lpd_pica_power_well_enable(struct drm_i915_private *dev_priv,
-+					  struct i915_power_well *power_well)
-+{
-+	intel_de_write(dev_priv, XE2LPD_PICA_PW_CTL,
-+		       XE2LPD_PICA_CTL_POWER_REQUEST);
-+
-+	if (intel_de_wait_for_set(dev_priv, XE2LPD_PICA_PW_CTL,
-+				  XE2LPD_PICA_CTL_POWER_STATUS, 1)) {
-+		drm_dbg_kms(&dev_priv->drm, "pica power well enable timeout\n");
-+
-+		drm_WARN(&dev_priv->drm, 1, "Power well PICA timeout when enabled");
-+	}
-+}
-+
-+static void xe2lpd_pica_power_well_disable(struct drm_i915_private *dev_priv,
-+					   struct i915_power_well *power_well)
-+{
-+	intel_de_write(dev_priv, XE2LPD_PICA_PW_CTL, 0);
-+
-+	if (intel_de_wait_for_clear(dev_priv, XE2LPD_PICA_PW_CTL,
-+				    XE2LPD_PICA_CTL_POWER_STATUS, 1)) {
-+		drm_dbg_kms(&dev_priv->drm, "pica power well disable timeout\n");
-+
-+		drm_WARN(&dev_priv->drm, 1, "Power well PICA timeout when disabled");
-+	}
-+}
-+
-+static bool xe2lpd_pica_power_well_enabled(struct drm_i915_private *dev_priv,
-+					   struct i915_power_well *power_well)
-+{
-+	return intel_de_read(dev_priv, XE2LPD_PICA_PW_CTL) &
-+		XE2LPD_PICA_CTL_POWER_STATUS;
-+}
-+
- const struct i915_power_well_ops i9xx_always_on_power_well_ops = {
- 	.sync_hw = i9xx_power_well_sync_hw_noop,
- 	.enable = i9xx_always_on_power_well_noop,
-@@ -1952,3 +1986,10 @@ const struct i915_power_well_ops xelpdp_aux_power_well_ops = {
- 	.disable = xelpdp_aux_power_well_disable,
- 	.is_enabled = xelpdp_aux_power_well_enabled,
- };
-+
-+const struct i915_power_well_ops xe2lpd_pica_power_well_ops = {
-+	.sync_hw = i9xx_power_well_sync_hw_noop,
-+	.enable = xe2lpd_pica_power_well_enable,
-+	.disable = xe2lpd_pica_power_well_disable,
-+	.is_enabled = xe2lpd_pica_power_well_enabled,
-+};
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.h b/drivers/gpu/drm/i915/display/intel_display_power_well.h
-index a8736588314d..9357a9a73c06 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_well.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_well.h
-@@ -176,5 +176,6 @@ extern const struct i915_power_well_ops icl_aux_power_well_ops;
- extern const struct i915_power_well_ops icl_ddi_power_well_ops;
- extern const struct i915_power_well_ops tgl_tc_cold_off_ops;
- extern const struct i915_power_well_ops xelpdp_aux_power_well_ops;
-+extern const struct i915_power_well_ops xe2lpd_pica_power_well_ops;
- 
- #endif
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_regs.h b/drivers/gpu/drm/i915/display/intel_dp_aux_regs.h
-index 9d141e86a4b6..e8f426d5ce20 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux_regs.h
-@@ -86,4 +86,9 @@
- 		 _XELPDP_DP_AUX_CH_DATA(__xe2lpd_aux_ch_idx(aux_ch), i) :	\
- 		 _XELPDP_DP_AUX_CH_DATA(aux_ch, i))
- 
-+/* PICA Power Well Control */
-+#define XE2LPD_PICA_PW_CTL			_MMIO(0x16fe04)
-+#define   XE2LPD_PICA_CTL_POWER_REQUEST		REG_BIT(31)
-+#define   XE2LPD_PICA_CTL_POWER_STATUS		REG_BIT(30)
-+
- #endif /* __INTEL_DP_AUX_REGS_H__ */
+ #define INTEL_PCH_TYPE(dev_priv)		((dev_priv)->pch_type)
+ #define INTEL_PCH_ID(dev_priv)			((dev_priv)->pch_id)
++#define HAS_PCH_LNL(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_LNL)
+ #define HAS_PCH_MTP(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_MTP)
+ #define HAS_PCH_DG2(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_DG2)
+ #define HAS_PCH_ADP(dev_priv)			(INTEL_PCH_TYPE(dev_priv) == PCH_ADP)
 -- 
 2.40.1
 
