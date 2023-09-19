@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2878FCE79A8
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 19:21:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F4E4CE79A9
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 19:21:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E418110E294;
-	Tue, 19 Sep 2023 19:21:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1961E10E287;
+	Tue, 19 Sep 2023 19:21:33 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A0D010E242
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4E6510E24F
  for <intel-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 19:21:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1695151286; x=1726687286;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=Fi3hzHbLNy9uyMNC4yqhY4fa3f074Xiyuaw6zxNyRVY=;
- b=TVHjYhm+MGj6RHEf0yOdOXGIV/dZs+zxe5dOOp0JJuzkASqb9BcQUor7
- BtvtgesHWyYoie6Xios5qNukCFL1TVp8z1yUp6zBQNPT6ZaFg0yWKVtCu
- Gygmemj8L84Lsnm0xVFlzd6wS8UL9qS5j3B4G8Xs5Wk5Fgz4b7AuRV+mu
- u2hgyAB9wQTU5DJA4dsUAn0TtSjwHd5ZHBUgjPhRsEe61DDmkrVNX+fwJ
- lhr9q4qwG/9MoLiz8dG5PyFRoC6T/ZoCFxtQwxs7DxteuT8FJCXrGhoMF
- vb/bPgJz2fGi5+YJGq1nEZCnmFBZBQlB4FuI5od7AGWJNfmODTLOibDbm A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="359423131"
-X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="359423131"
+ bh=HOgBTaV7zi6zrkpmZKPw5fCd3x2A45hzO9RMCtdD+qA=;
+ b=KZc6aGtVjlV/q6Y6QclJyXzC+UewYw2LU5Xh//jRTmr8umqZssMmQftK
+ +PWmjKT3ZytILTLYq+lxa/d0NhlpkKKRw67sZmuHs2yESACfOEItuht22
+ UkH/PfB7DBbRLZr/FqyDNfK4knCtaKnAWQREXGywkonmPvvak5m+vHxFr
+ 6KqXJUV+L9L78dNcisgmv6YUiERhR5POJ0SX6IQDis5yZ/63gYUKZhQcb
+ QGwCwbosPcuAQiZNVR4N5aisRttcr97FrkljL4ieooY0F3UnpDfYl3mBz
+ yGvyGaYtezxDGO8+FHuwS6gkK7y31lj/e4wenKs9n9VDnjGQrkPAdDBJA Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="359423137"
+X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="359423137"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Sep 2023 12:21:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="746350051"
-X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="746350051"
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="746350067"
+X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="746350067"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Sep 2023 12:21:24 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 19 Sep 2023 12:21:09 -0700
-Message-Id: <20230919192128.2045154-3-lucas.demarchi@intel.com>
+Date: Tue, 19 Sep 2023 12:21:14 -0700
+Message-Id: <20230919192128.2045154-8-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230919192128.2045154-1-lucas.demarchi@intel.com>
 References: <20230919192128.2045154-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 03/22] drm/i915/xe2lpd: FBC is now supported on all
- pipes
+Subject: [Intel-gfx] [CI 08/22] drm/i915/xe2lpd: Don't try to program
+ PLANE_AUX_DIST
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,46 +63,31 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Matt Roper <matthew.d.roper@intel.com>
 
-FBC is no longer limited by pipe: add the defines for pipes B and C that
-will be used by platforms supporting FBC on such pipes.
+Since Xe2LPD technically has FlatCCS, it doesn't have AuxCCS registers
+like PLANE_AUX_DIST.  However we currently have HAS_FLAT_CCS hardcoded
+to 0 since compression isn't ready; we need to make sure this doesn't
+cause the display code to go back to trying to write this register.
 
-Bspec: 68881, 68904
 Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
-Reviewed-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
+Reviewed-by: Anusha Srivatsa <anusha.srivatsa@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_device.c | 4 ++++
- drivers/gpu/drm/i915/display/intel_fbc.h            | 2 ++
- 2 files changed, 6 insertions(+)
+ drivers/gpu/drm/i915/display/skl_universal_plane.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
-index 5d6d771791df..5f14f9e8ca88 100644
---- a/drivers/gpu/drm/i915/display/intel_display_device.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_device.c
-@@ -761,6 +761,10 @@ static const struct intel_display_device_info xe_lpdp_display = {
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index 007a0bcb3f93..2a30b8aa2994 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -1247,7 +1247,7 @@ icl_plane_update_noarm(struct intel_plane *plane,
+ 	}
  
- static const struct intel_display_device_info xe2_lpd_display = {
- 	XE_LPDP_FEATURES,
-+
-+	.__runtime_defaults.fbc_mask =
-+		BIT(INTEL_FBC_A) | BIT(INTEL_FBC_B) |
-+		BIT(INTEL_FBC_C) | BIT(INTEL_FBC_D),
- };
+ 	/* FLAT CCS doesn't need to program AUX_DIST */
+-	if (!HAS_FLAT_CCS(dev_priv))
++	if (!HAS_FLAT_CCS(dev_priv) && DISPLAY_VER(dev_priv) < 20)
+ 		intel_de_write_fw(dev_priv, PLANE_AUX_DIST(pipe, plane_id),
+ 				  skl_plane_aux_dist(plane_state, color_plane));
  
- /*
-diff --git a/drivers/gpu/drm/i915/display/intel_fbc.h b/drivers/gpu/drm/i915/display/intel_fbc.h
-index 4adb98afe6ff..6720ec8ee8a2 100644
---- a/drivers/gpu/drm/i915/display/intel_fbc.h
-+++ b/drivers/gpu/drm/i915/display/intel_fbc.h
-@@ -20,6 +20,8 @@ struct intel_plane_state;
- enum intel_fbc_id {
- 	INTEL_FBC_A,
- 	INTEL_FBC_B,
-+	INTEL_FBC_C,
-+	INTEL_FBC_D,
- 
- 	I915_MAX_FBCS,
- };
 -- 
 2.40.1
 
