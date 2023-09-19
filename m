@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BA6DCE79AC
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 19:21:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 543ABCE79A9
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 19:21:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB21B10E2A7;
-	Tue, 19 Sep 2023 19:21:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E600D10E2AA;
+	Tue, 19 Sep 2023 19:21:35 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83ED810E288
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6151910E287
  for <intel-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 19:21:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1695151287; x=1726687287;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=LVycpaphrKAne/Gb5QNg69rrlXtrLR2eDex7bb7ykdw=;
- b=msZ5OOnfl335DLET3SMz6gdyE0cP8snJurG1mLsq0IjdoKEA/b6GUYqe
- EjyHSk8mgJzYrpvh3NyL7aEtcM850NFtO1Tsby0qGtv6T7VkD06ySoNKF
- y0zKUF0oazsnsatJFZsLB7LamFuShb92UQMzPWauz5FGT9Oq+TunKtzkw
- NLz7gyhH/uGeBTWo0IGMuN4VwBKKkBwiTPnMC3OzPlhjAxqYHHUOHxcyQ
- RstCrgkEVf7+z1Q357NWCERE2hq4RCY0uVl37My0GBzuPB7b3QO7U2AL/
- XCFSgYBtIHGQcqH7DK/StonDkhDPE1DpbjfSw2yevTEA8tVQQTYV3JT2f A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="359423150"
-X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="359423150"
+ bh=Z6psOcumUPl+pSGNIXoez5eJxnSOHFI7bNo62p5C0NQ=;
+ b=BsxqUvoowH12bNNSZK8Hd54+sO2/5134irEUfxbHoTZotBXPFOoayTpg
+ PPLayv2v91kK69ae96C+Vo7m+Vh9ulJ2+qyH9rLOW3BJtRR/wLXwg+d05
+ 9eO+SSyjEuhA0QBx+hG2Q26MZYKHOf1RVR3wj50ZvKxGJNjw8VhCKM6K6
+ 6D9sAurhIWiWPJss3hVTsxOwUJ7SFsIMqbN7Xj3uvjcx4u+L/AWwrmBZt
+ rlnWlK8nPM6i5EKbRJqDnUtFjQpPneekzrTfXre2hJuCz+D+gB5eicdW8
+ oBz13PaKxUsHiALtTOPhVT3VgpXbEKkNIwmDr465xQ7WYhZRxSLr/YX2n w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="359423147"
+X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="359423147"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Sep 2023 12:21:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="746350113"
-X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="746350113"
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="746350104"
+X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="746350104"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Sep 2023 12:21:25 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 19 Sep 2023 12:21:28 -0700
-Message-Id: <20230919192128.2045154-22-lucas.demarchi@intel.com>
+Date: Tue, 19 Sep 2023 12:21:25 -0700
+Message-Id: <20230919192128.2045154-19-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230919192128.2045154-1-lucas.demarchi@intel.com>
 References: <20230919192128.2045154-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 22/22] drm/i915/lnl: Start using CDCLK through PLL
+Subject: [Intel-gfx] [CI 19/22] drm/i915/lnl: Add CDCLK table
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,64 +62,74 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
-Introduce correspondent definitions for choosing between CD2X CDCLK
-and PLL CDCLK as a source. All the entries in cdclk table for xe2lpd are
-defined with PLL CDCLK as source, so simply set it. Also
-skl_cdclk_decimal() shouldn't be set in CDCLK_CTL anymore, so skip it
-for display version 20 and above.
+Add a new CDCLK table for Lunar Lake.
 
 v2:
-  - Remove unneeded comment and use REG_BIT() (Matt Roper)
-  - Rename CDCLK_SOURCE_SEL_CDCLK_PLL() to MDCLK_SOURCE_SEL_CDCLK_PLL
-    to match spec (Lucas)
+  - Remove mdclk from the table as it's not needed (Matt Roper)
+  - Update waveform values to the latest from spec (Matt Roper)
+  - Rename functions and calculation to match by pixel rate (Lucas)
+v3: Keep only the table: as far as intel_pixel_rate_to_cdclk()
+    is concerned, the minimum cdclk should still be half the pixel
+    rate on Xe2 (bspec 68858:
+    "Pipe maximum pixel rate = 2 * CDCLK frequency * Pipe Ratio")
+    (Matt Roper)
 
+Bspec: 68861, 68858
 Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 9 +++++++--
- drivers/gpu/drm/i915/i915_reg.h            | 1 +
- 2 files changed, 8 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 30 +++++++++++++++++++++-
+ 1 file changed, 29 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index 4cde78db83a1..b55a3f75f392 100644
+index 656ff50def39..4cde78db83a1 100644
 --- a/drivers/gpu/drm/i915/display/intel_cdclk.c
 +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -1906,8 +1906,7 @@ static void _bxt_set_cdclk(struct drm_i915_private *dev_priv,
- 		dg2_cdclk_squash_program(dev_priv, waveform);
+@@ -1382,6 +1382,31 @@ static const struct intel_cdclk_vals mtl_cdclk_table[] = {
+ 	{}
+ };
  
- 	val = bxt_cdclk_cd2x_div_sel(dev_priv, clock, vco) |
--		bxt_cdclk_cd2x_pipe(dev_priv, pipe) |
--		skl_cdclk_decimal(cdclk);
-+		bxt_cdclk_cd2x_pipe(dev_priv, pipe);
- 
- 	/*
- 	 * Disable SSA Precharge when CD clock frequency < 500 MHz,
-@@ -1916,6 +1915,12 @@ static void _bxt_set_cdclk(struct drm_i915_private *dev_priv,
- 	if ((IS_GEMINILAKE(dev_priv) || IS_BROXTON(dev_priv)) &&
- 	    cdclk >= 500000)
- 		val |= BXT_CDCLK_SSA_PRECHARGE_ENABLE;
++static const struct intel_cdclk_vals lnl_cdclk_table[] = {
++	{ .refclk = 38400, .cdclk = 153600, .divider = 2, .ratio = 16, .waveform = 0xaaaa },
++	{ .refclk = 38400, .cdclk = 172800, .divider = 2, .ratio = 16, .waveform = 0xad5a },
++	{ .refclk = 38400, .cdclk = 192000, .divider = 2, .ratio = 16, .waveform = 0xb6b6 },
++	{ .refclk = 38400, .cdclk = 211200, .divider = 2, .ratio = 16, .waveform = 0xdbb6 },
++	{ .refclk = 38400, .cdclk = 230400, .divider = 2, .ratio = 16, .waveform = 0xeeee },
++	{ .refclk = 38400, .cdclk = 249600, .divider = 2, .ratio = 16, .waveform = 0xf7de },
++	{ .refclk = 38400, .cdclk = 268800, .divider = 2, .ratio = 16, .waveform = 0xfefe },
++	{ .refclk = 38400, .cdclk = 288000, .divider = 2, .ratio = 16, .waveform = 0xfffe },
++	{ .refclk = 38400, .cdclk = 307200, .divider = 2, .ratio = 16, .waveform = 0xffff },
++	{ .refclk = 38400, .cdclk = 330000, .divider = 2, .ratio = 25, .waveform = 0xdbb6 },
++	{ .refclk = 38400, .cdclk = 360000, .divider = 2, .ratio = 25, .waveform = 0xeeee },
++	{ .refclk = 38400, .cdclk = 390000, .divider = 2, .ratio = 25, .waveform = 0xf7de },
++	{ .refclk = 38400, .cdclk = 420000, .divider = 2, .ratio = 25, .waveform = 0xfefe },
++	{ .refclk = 38400, .cdclk = 450000, .divider = 2, .ratio = 25, .waveform = 0xfffe },
++	{ .refclk = 38400, .cdclk = 480000, .divider = 2, .ratio = 25, .waveform = 0xffff },
++	{ .refclk = 38400, .cdclk = 487200, .divider = 2, .ratio = 29, .waveform = 0xfefe },
++	{ .refclk = 38400, .cdclk = 522000, .divider = 2, .ratio = 29, .waveform = 0xfffe },
++	{ .refclk = 38400, .cdclk = 556800, .divider = 2, .ratio = 29, .waveform = 0xffff },
++	{ .refclk = 38400, .cdclk = 571200, .divider = 2, .ratio = 34, .waveform = 0xfefe },
++	{ .refclk = 38400, .cdclk = 612000, .divider = 2, .ratio = 34, .waveform = 0xfffe },
++	{ .refclk = 38400, .cdclk = 652800, .divider = 2, .ratio = 34, .waveform = 0xffff },
++	{}
++};
 +
-+	if (DISPLAY_VER(dev_priv) >= 20)
-+		val |= MDCLK_SOURCE_SEL_CDCLK_PLL;
-+	else
-+		val |= skl_cdclk_decimal(cdclk);
-+
- 	intel_de_write(dev_priv, CDCLK_CTL, val);
- 
- 	if (pipe != INVALID_PIPE)
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index d67f381050dc..e0ea2dc13556 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -5882,6 +5882,7 @@ enum skl_power_gate {
- #define  CDCLK_FREQ_540		REG_FIELD_PREP(CDCLK_FREQ_SEL_MASK, 1)
- #define  CDCLK_FREQ_337_308		REG_FIELD_PREP(CDCLK_FREQ_SEL_MASK, 2)
- #define  CDCLK_FREQ_675_617		REG_FIELD_PREP(CDCLK_FREQ_SEL_MASK, 3)
-+#define  MDCLK_SOURCE_SEL_CDCLK_PLL	REG_BIT(25)
- #define  BXT_CDCLK_CD2X_DIV_SEL_MASK	REG_GENMASK(23, 22)
- #define  BXT_CDCLK_CD2X_DIV_SEL_1	REG_FIELD_PREP(BXT_CDCLK_CD2X_DIV_SEL_MASK, 0)
- #define  BXT_CDCLK_CD2X_DIV_SEL_1_5	REG_FIELD_PREP(BXT_CDCLK_CD2X_DIV_SEL_MASK, 1)
+ static int bxt_calc_cdclk(struct drm_i915_private *dev_priv, int min_cdclk)
+ {
+ 	const struct intel_cdclk_vals *table = dev_priv->display.cdclk.table;
+@@ -3591,7 +3616,10 @@ static const struct intel_cdclk_funcs i830_cdclk_funcs = {
+  */
+ void intel_init_cdclk_hooks(struct drm_i915_private *dev_priv)
+ {
+-	if (DISPLAY_VER(dev_priv) >= 14) {
++	if (DISPLAY_VER(dev_priv) >= 20) {
++		dev_priv->display.funcs.cdclk = &mtl_cdclk_funcs;
++		dev_priv->display.cdclk.table = lnl_cdclk_table;
++	} else if (DISPLAY_VER(dev_priv) >= 14) {
+ 		dev_priv->display.funcs.cdclk = &mtl_cdclk_funcs;
+ 		dev_priv->display.cdclk.table = mtl_cdclk_table;
+ 	} else if (IS_DG2(dev_priv)) {
 -- 
 2.40.1
 
