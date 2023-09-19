@@ -4,45 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82784CE79AB
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 19:49:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41CB4CE79A8
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 19:49:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C5C610E28D;
-	Tue, 19 Sep 2023 19:49:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAED510E28F;
+	Tue, 19 Sep 2023 19:49:47 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 894AB10E1D9
- for <intel-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 19:49:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FEE010E1D9
+ for <intel-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 19:49:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695152979; x=1726688979;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=tBwSqOON5HcufhOXK+qE+V3hYAndE/luka7FY17yRJE=;
- b=MOBNZonrGwO+7xgI78ob4mvUI3ZjLHnnNu8sTMGaCdk67WOxE/Y7Cr7g
- KT97E3nLkk6yHlaT5ZM4y7snGslpeBQg8hr3PaibCEJbLcNyYkPQ7UC+s
- gfv3aQN9BzBarMeJJsfW3cBH1U+h91qzoSsUfRAeRKY1gp191R4zWL1iK
- qOTs6HJSZEGcLzCB/tmY4ZJ8EY0eLGxTsvpDSi4d0L0Rcs3lqy1vj0Bjo
- cOJ7nXdCt08oOTvPdyYZg9ILTQ/3JLs15pRoR20WyQZ9tu5LmceKEp5yg
- Jlut1X8snLoYkxX7IvyiBf4s5nSCtCarr8fKvdvsbhsPXeU0wz8oJV7fV g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="410968560"
-X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="410968560"
+ t=1695152980; x=1726688980;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=pHZQGW6io1vBMwx8rPg5abbyidFJ7oBYITpLMBoJH7I=;
+ b=CSL4ckjJ5jfIPTcngoAUW0phRe8E7lN1hfREKN2k9kWZsMJCard3rsar
+ /Pbx21sDva0h2YgPtd58dwoRM6JPDt2U2e7wMiiHYLgMQy2YcUQTK1ZU8
+ yvZ3vUOmFZyAvEiB0m+9UwbKWskrtRJIm0A2qLoRLsBF9DcnR2t4dWmZb
+ dLZHN6IQ1OEDAhJ84hVNeUmN3LYv4/k1CrCRZ1gEcnHTaZNn7tGl6cWwz
+ 8t5rrw7Mstmw/TWhBdqxpuhszlMzANYWSK8VkuTUjeotozV0BxStluBRW
+ uG2Okyb/O31Uu0+l+2pkyZjgLvzutEqJ2Qf5NRS8+VQrIobm2XZxrJOWD g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="410968573"
+X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="410968573"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2023 12:49:38 -0700
+ 19 Sep 2023 12:49:40 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="749616771"
-X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="749616771"
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="749616782"
+X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="749616782"
 Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2023 12:49:38 -0700
+ 19 Sep 2023 12:49:39 -0700
 From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 19 Sep 2023 12:38:54 -0700
-Message-Id: <20230919193857.3391566-1-jonathan.cavitt@intel.com>
+Date: Tue, 19 Sep 2023 12:38:57 -0700
+Message-Id: <20230919193857.3391566-4-jonathan.cavitt@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230919193857.3391566-1-jonathan.cavitt@intel.com>
+References: <20230919193857.3391566-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v11 0/3] Apply Wa_16018031267 / Wa_16018063123
+Subject: [Intel-gfx] [PATCH v11 3/3] drm/i915: Set copy engine arbitration
+ for Wa_16018031267 / Wa_16018063123
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,86 +64,46 @@ Cc: andi.shyti@intel.com, chris.p.wilson@linux.intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Apply Wa_16018031267 / Wa_16018063123.  This necessitates submitting a
-fastcolor blit as WABB and setting the copy engine arbitration to
-round-robin mode.
-
-v2:
-- Rename old platform check in second patch to match
-  declaration in first patch.
-- Refactor second patch name to match first patch.
-
-v3:
-- Move NEEDS_FASTCOLOR_BLT_WABB to intel_gt.h.
-- Refactor NEEDS_FASTCOLOR_BLT_WABB to make it more
-  streamlined to use.
-- Stop dividing PAGE_SIZE by sizeof(u32) when computing
-  ctx_bb_ggtt_addr for lrc_setup_bb_per_ctx.
-- Reduce comment complexity.
-- Fix several checkpatch warnings.
-
-v4:
-- Actually stop dividing PAGE_SIZE by sizeof(u32) when
-  computing ctx_bb_ggtt_addr for lrc_setup_bb_per_ctx.
-
-v5:
-- Stop dividing PAGE_SIZE by sizeof(u32) in
-  check_ring_start during lrc live selftest.
-
-v6:
-- Append MI_BATCH_BUFFER_END to end of all PER_CTX_BB
-  command streams.
-- No longer skip on empty, as command stream will never
-  be empty (always contains at least MI_BATCH_BUFFER_END).
-- No longer append MI_NOOP until cachline aligned (was a
-  fragment from INDIRECT_CTX setup).
-
-v7:
-- Use 0x6b instead of 0 for color to maintain functionality.
-
-v8:
-- Revert v7.
-- Add some reserved kernel space per vm to run the
-  workaround on.
-
-v9:
-- Hide reserved kernel space per vm from userspace.
-
-v10:
-- Revert v7 properly.
-- Test on updated IGT.
-
-v11:
-- Remove Test-with tag.
-- Reserve two pages per vm for workaround.
+Set copy engine arbitration into round robin mode
+for part of Wa_16018031267 / Wa_16018063123 mitigation.
 
 Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
 Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
-CC: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-CC: Rodrigo Vivi <rodrigo.vivi@intel.com>
-CC: Tomasz Mistat <tomasz.mistat@intel.com>
-CC: Gregory F Germano <gregory.f.germano@intel.com>
-CC: Matt Roper <matthew.d.roper@intel.com>
-CC: James Ausmus <james.ausmus@intel.com>
-CC: Chris Wilson <chris.p.wilson@linux.intel.com>
-CC: Andi Shyti <andi.shyti@intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_engine_regs.h | 3 +++
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 5 +++++
+ 2 files changed, 8 insertions(+)
 
-Jonathan Cavitt (3):
-  drm/i915: Reserve some kernel space per vm
-  drm/i915: Add WABB blit for Wa_16018031267 / Wa_16018063123
-  drm/i915: Set copy engine arbitration for Wa_16018031267 /
-    Wa_16018063123
-
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c        |   7 ++
- drivers/gpu/drm/i915/gt/intel_engine_regs.h |   6 ++
- drivers/gpu/drm/i915/gt/intel_gt.h          |   4 +
- drivers/gpu/drm/i915/gt/intel_gt_types.h    |   2 +
- drivers/gpu/drm/i915/gt/intel_gtt.h         |   1 +
- drivers/gpu/drm/i915/gt/intel_lrc.c         | 100 +++++++++++++++++++-
- drivers/gpu/drm/i915/gt/intel_workarounds.c |   5 +
- drivers/gpu/drm/i915/gt/selftest_lrc.c      |  65 +++++++++----
- 8 files changed, 169 insertions(+), 21 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_regs.h b/drivers/gpu/drm/i915/gt/intel_engine_regs.h
+index 2e06bea73297a..823c6c40213f5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_regs.h
+@@ -124,6 +124,9 @@
+ #define RING_INDIRECT_CTX(base)			_MMIO((base) + 0x1c4) /* gen8+ */
+ #define RING_INDIRECT_CTX_OFFSET(base)		_MMIO((base) + 0x1c8) /* gen8+ */
+ #define ECOSKPD(base)				_MMIO((base) + 0x1d0)
++#define   XEHP_BLITTER_SCHEDULING_MODE_MASK	REG_GENMASK(12, 11)
++#define   XEHP_BLITTER_ROUND_ROBIN_MODE		\
++		REG_FIELD_PREP(XEHP_BLITTER_SCHEDULING_MODE_MASK, 1)
+ #define   ECO_CONSTANT_BUFFER_SR_DISABLE	REG_BIT(4)
+ #define   ECO_GATING_CX_ONLY			REG_BIT(3)
+ #define   GEN6_BLITTER_FBC_NOTIFY		REG_BIT(3)
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 660d4f358eab7..b8f3b991e4202 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -2781,6 +2781,11 @@ xcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 			 RING_SEMA_WAIT_POLL(engine->mmio_base),
+ 			 1);
+ 	}
++	/* Wa_16018031267, Wa_16018063123 */
++	if (NEEDS_FASTCOLOR_BLT_WABB(engine))
++		wa_masked_field_set(wal, ECOSKPD(engine->mmio_base),
++				    XEHP_BLITTER_SCHEDULING_MODE_MASK,
++				    XEHP_BLITTER_ROUND_ROBIN_MODE);
+ }
+ 
+ static void
 -- 
 2.25.1
 
