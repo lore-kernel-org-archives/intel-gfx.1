@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 543ABCE79A9
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 19:21:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10F8FCE79A8
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 Sep 2023 19:21:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E600D10E2AA;
-	Tue, 19 Sep 2023 19:21:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6633A10E2A0;
+	Tue, 19 Sep 2023 19:21:49 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6151910E287
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 110DA10E1D9
  for <intel-gfx@lists.freedesktop.org>; Tue, 19 Sep 2023 19:21:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1695151287; x=1726687287;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=Z6psOcumUPl+pSGNIXoez5eJxnSOHFI7bNo62p5C0NQ=;
- b=BsxqUvoowH12bNNSZK8Hd54+sO2/5134irEUfxbHoTZotBXPFOoayTpg
- PPLayv2v91kK69ae96C+Vo7m+Vh9ulJ2+qyH9rLOW3BJtRR/wLXwg+d05
- 9eO+SSyjEuhA0QBx+hG2Q26MZYKHOf1RVR3wj50ZvKxGJNjw8VhCKM6K6
- 6D9sAurhIWiWPJss3hVTsxOwUJ7SFsIMqbN7Xj3uvjcx4u+L/AWwrmBZt
- rlnWlK8nPM6i5EKbRJqDnUtFjQpPneekzrTfXre2hJuCz+D+gB5eicdW8
- oBz13PaKxUsHiALtTOPhVT3VgpXbEKkNIwmDr465xQ7WYhZRxSLr/YX2n w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="359423147"
-X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="359423147"
+ bh=NuWfjRfZC5wYjbno3Znq8GXQ4djM6zBw7HRp3/pRgrI=;
+ b=FELgMDYxn+H+cfwlp3B8FzvmzmbXPt2su05PkWd0PujlqukIs4A/B/XL
+ NLRr8cN0JiMxdUBvvuucNLXb44xEJ44CQbf3rlJAavSsnUQg91cJKzDBG
+ z5cLj3YdIOh6fiD29Qu5ce9tbLmsAj6tUQHiig9TxOeJ4tH2coepZOKtl
+ K/mr182Dl4XiNie+v8A3eL2U46hX43MyB+geVDkB6A47fhgCdEMhFiUtj
+ f2zRtR5+0xtbe58ml0DExyVX6ZocqYFvMsCnA0Bq//i66YqrRnwqfy3Uw
+ 8jUqxDgW0NYslJ/TQFxLmPLi8jPgCBdmDaI8I7kMGPQhqL0Jf0cf/u7md A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="359423140"
+X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="359423140"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Sep 2023 12:21:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="746350104"
-X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="746350104"
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="746350082"
+X-IronPort-AV: E=Sophos;i="6.02,160,1688454000"; d="scan'208";a="746350082"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  19 Sep 2023 12:21:25 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 19 Sep 2023 12:21:25 -0700
-Message-Id: <20230919192128.2045154-19-lucas.demarchi@intel.com>
+Date: Tue, 19 Sep 2023 12:21:18 -0700
+Message-Id: <20230919192128.2045154-12-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230919192128.2045154-1-lucas.demarchi@intel.com>
 References: <20230919192128.2045154-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [CI 19/22] drm/i915/lnl: Add CDCLK table
+Subject: [Intel-gfx] [CI 12/22] drm/i915/xe2lpd: Re-order DP AUX regs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,76 +60,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+The address of CTL and DATA registers for DP AUX were changed in Xe2_LPD:
+now they are all in a single range, with CH_A and CH_B coming right after
+the USBC instances. Like was done when moving registers to PICA, use
+a helper macro to remap the ch passed to an index that can be used to
+calculate the right offset.
 
-Add a new CDCLK table for Lunar Lake.
-
-v2:
-  - Remove mdclk from the table as it's not needed (Matt Roper)
-  - Update waveform values to the latest from spec (Matt Roper)
-  - Rename functions and calculation to match by pixel rate (Lucas)
-v3: Keep only the table: as far as intel_pixel_rate_to_cdclk()
-    is concerned, the minimum cdclk should still be half the pixel
-    rate on Xe2 (bspec 68858:
-    "Pipe maximum pixel rate = 2 * CDCLK frequency * Pipe Ratio")
-    (Matt Roper)
-
-Bspec: 68861, 68858
-Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
 Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 30 +++++++++++++++++++++-
- 1 file changed, 29 insertions(+), 1 deletion(-)
+ .../i915/display/intel_display_power_well.c   |  6 +++---
+ drivers/gpu/drm/i915/display/intel_dp_aux.c   |  8 ++++----
+ .../gpu/drm/i915/display/intel_dp_aux_regs.h  | 19 +++++++++++++++++--
+ 3 files changed, 24 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index 656ff50def39..4cde78db83a1 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -1382,6 +1382,31 @@ static const struct intel_cdclk_vals mtl_cdclk_table[] = {
- 	{}
- };
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.c b/drivers/gpu/drm/i915/display/intel_display_power_well.c
+index 820b7d41a0a8..ca0714eba17a 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power_well.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power_well.c
+@@ -1800,7 +1800,7 @@ static void xelpdp_aux_power_well_enable(struct drm_i915_private *dev_priv,
+ 		icl_tc_port_assert_ref_held(dev_priv, power_well,
+ 					    aux_ch_to_digital_port(dev_priv, aux_ch));
  
-+static const struct intel_cdclk_vals lnl_cdclk_table[] = {
-+	{ .refclk = 38400, .cdclk = 153600, .divider = 2, .ratio = 16, .waveform = 0xaaaa },
-+	{ .refclk = 38400, .cdclk = 172800, .divider = 2, .ratio = 16, .waveform = 0xad5a },
-+	{ .refclk = 38400, .cdclk = 192000, .divider = 2, .ratio = 16, .waveform = 0xb6b6 },
-+	{ .refclk = 38400, .cdclk = 211200, .divider = 2, .ratio = 16, .waveform = 0xdbb6 },
-+	{ .refclk = 38400, .cdclk = 230400, .divider = 2, .ratio = 16, .waveform = 0xeeee },
-+	{ .refclk = 38400, .cdclk = 249600, .divider = 2, .ratio = 16, .waveform = 0xf7de },
-+	{ .refclk = 38400, .cdclk = 268800, .divider = 2, .ratio = 16, .waveform = 0xfefe },
-+	{ .refclk = 38400, .cdclk = 288000, .divider = 2, .ratio = 16, .waveform = 0xfffe },
-+	{ .refclk = 38400, .cdclk = 307200, .divider = 2, .ratio = 16, .waveform = 0xffff },
-+	{ .refclk = 38400, .cdclk = 330000, .divider = 2, .ratio = 25, .waveform = 0xdbb6 },
-+	{ .refclk = 38400, .cdclk = 360000, .divider = 2, .ratio = 25, .waveform = 0xeeee },
-+	{ .refclk = 38400, .cdclk = 390000, .divider = 2, .ratio = 25, .waveform = 0xf7de },
-+	{ .refclk = 38400, .cdclk = 420000, .divider = 2, .ratio = 25, .waveform = 0xfefe },
-+	{ .refclk = 38400, .cdclk = 450000, .divider = 2, .ratio = 25, .waveform = 0xfffe },
-+	{ .refclk = 38400, .cdclk = 480000, .divider = 2, .ratio = 25, .waveform = 0xffff },
-+	{ .refclk = 38400, .cdclk = 487200, .divider = 2, .ratio = 29, .waveform = 0xfefe },
-+	{ .refclk = 38400, .cdclk = 522000, .divider = 2, .ratio = 29, .waveform = 0xfffe },
-+	{ .refclk = 38400, .cdclk = 556800, .divider = 2, .ratio = 29, .waveform = 0xffff },
-+	{ .refclk = 38400, .cdclk = 571200, .divider = 2, .ratio = 34, .waveform = 0xfefe },
-+	{ .refclk = 38400, .cdclk = 612000, .divider = 2, .ratio = 34, .waveform = 0xfffe },
-+	{ .refclk = 38400, .cdclk = 652800, .divider = 2, .ratio = 34, .waveform = 0xffff },
-+	{}
-+};
-+
- static int bxt_calc_cdclk(struct drm_i915_private *dev_priv, int min_cdclk)
+-	intel_de_rmw(dev_priv, XELPDP_DP_AUX_CH_CTL(aux_ch),
++	intel_de_rmw(dev_priv, XELPDP_DP_AUX_CH_CTL(dev_priv, aux_ch),
+ 		     XELPDP_DP_AUX_CH_CTL_POWER_REQUEST,
+ 		     XELPDP_DP_AUX_CH_CTL_POWER_REQUEST);
+ 
+@@ -1818,7 +1818,7 @@ static void xelpdp_aux_power_well_disable(struct drm_i915_private *dev_priv,
  {
- 	const struct intel_cdclk_vals *table = dev_priv->display.cdclk.table;
-@@ -3591,7 +3616,10 @@ static const struct intel_cdclk_funcs i830_cdclk_funcs = {
+ 	enum aux_ch aux_ch = i915_power_well_instance(power_well)->xelpdp.aux_ch;
+ 
+-	intel_de_rmw(dev_priv, XELPDP_DP_AUX_CH_CTL(aux_ch),
++	intel_de_rmw(dev_priv, XELPDP_DP_AUX_CH_CTL(dev_priv, aux_ch),
+ 		     XELPDP_DP_AUX_CH_CTL_POWER_REQUEST,
+ 		     0);
+ 	usleep_range(10, 30);
+@@ -1829,7 +1829,7 @@ static bool xelpdp_aux_power_well_enabled(struct drm_i915_private *dev_priv,
+ {
+ 	enum aux_ch aux_ch = i915_power_well_instance(power_well)->xelpdp.aux_ch;
+ 
+-	return intel_de_read(dev_priv, XELPDP_DP_AUX_CH_CTL(aux_ch)) &
++	return intel_de_read(dev_priv, XELPDP_DP_AUX_CH_CTL(dev_priv, aux_ch)) &
+ 		XELPDP_DP_AUX_CH_CTL_POWER_STATUS;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+index 2d173bd495a3..b90cad7f567b 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+@@ -687,10 +687,10 @@ static i915_reg_t xelpdp_aux_ctl_reg(struct intel_dp *intel_dp)
+ 	case AUX_CH_USBC2:
+ 	case AUX_CH_USBC3:
+ 	case AUX_CH_USBC4:
+-		return XELPDP_DP_AUX_CH_CTL(aux_ch);
++		return XELPDP_DP_AUX_CH_CTL(dev_priv, aux_ch);
+ 	default:
+ 		MISSING_CASE(aux_ch);
+-		return XELPDP_DP_AUX_CH_CTL(AUX_CH_A);
++		return XELPDP_DP_AUX_CH_CTL(dev_priv, AUX_CH_A);
+ 	}
+ }
+ 
+@@ -707,10 +707,10 @@ static i915_reg_t xelpdp_aux_data_reg(struct intel_dp *intel_dp, int index)
+ 	case AUX_CH_USBC2:
+ 	case AUX_CH_USBC3:
+ 	case AUX_CH_USBC4:
+-		return XELPDP_DP_AUX_CH_DATA(aux_ch, index);
++		return XELPDP_DP_AUX_CH_DATA(dev_priv, aux_ch, index);
+ 	default:
+ 		MISSING_CASE(aux_ch);
+-		return XELPDP_DP_AUX_CH_DATA(AUX_CH_A, index);
++		return XELPDP_DP_AUX_CH_DATA(dev_priv, AUX_CH_A, index);
+ 	}
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_regs.h b/drivers/gpu/drm/i915/display/intel_dp_aux_regs.h
+index 1e9e018a2a48..9d141e86a4b6 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_aux_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_dp_aux_regs.h
+@@ -14,6 +14,13 @@
+  * registers
   */
- void intel_init_cdclk_hooks(struct drm_i915_private *dev_priv)
- {
--	if (DISPLAY_VER(dev_priv) >= 14) {
-+	if (DISPLAY_VER(dev_priv) >= 20) {
-+		dev_priv->display.funcs.cdclk = &mtl_cdclk_funcs;
-+		dev_priv->display.cdclk.table = lnl_cdclk_table;
-+	} else if (DISPLAY_VER(dev_priv) >= 14) {
- 		dev_priv->display.funcs.cdclk = &mtl_cdclk_funcs;
- 		dev_priv->display.cdclk.table = mtl_cdclk_table;
- 	} else if (IS_DG2(dev_priv)) {
+ 
++/*
++ * Wrapper macro to convert from aux_ch to the index used in some of the
++ * registers, similarly to __xe2lpd_port_idx().
++ */
++#define __xe2lpd_aux_ch_idx(aux_ch)						\
++	(aux_ch >= AUX_CH_USBC1 ? aux_ch : AUX_CH_USBC4 + 1 + aux_ch - AUX_CH_A)
++
+ /* TODO: Remove implicit dev_priv */
+ #define _DPA_AUX_CH_CTL			(DISPLAY_MMIO_BASE(dev_priv) + 0x64010)
+ #define _DPB_AUX_CH_CTL			(DISPLAY_MMIO_BASE(dev_priv) + 0x64110)
+@@ -21,11 +28,15 @@
+ #define _XELPDP_USBC2_AUX_CH_CTL	0x16f410
+ #define DP_AUX_CH_CTL(aux_ch)		_MMIO_PORT(aux_ch, _DPA_AUX_CH_CTL,	\
+ 						   _DPB_AUX_CH_CTL)
+-#define XELPDP_DP_AUX_CH_CTL(aux_ch)						\
++#define _XELPDP_DP_AUX_CH_CTL(aux_ch)						\
+ 		_MMIO(_PICK_EVEN_2RANGES(aux_ch, AUX_CH_USBC1,			\
+ 					 _DPA_AUX_CH_CTL, _DPB_AUX_CH_CTL,	\
+ 					 _XELPDP_USBC1_AUX_CH_CTL,		\
+ 					 _XELPDP_USBC2_AUX_CH_CTL))
++#define XELPDP_DP_AUX_CH_CTL(i915__, aux_ch)					\
++		(DISPLAY_VER(i915__) >= 20 ?					\
++		 _XELPDP_DP_AUX_CH_CTL(__xe2lpd_aux_ch_idx(aux_ch)) :		\
++		 _XELPDP_DP_AUX_CH_CTL(aux_ch))
+ #define   DP_AUX_CH_CTL_SEND_BUSY		REG_BIT(31)
+ #define   DP_AUX_CH_CTL_DONE			REG_BIT(30)
+ #define   DP_AUX_CH_CTL_INTERRUPT		REG_BIT(29)
+@@ -65,10 +76,14 @@
+ #define _XELPDP_USBC2_AUX_CH_DATA1	0x16f414
+ #define DP_AUX_CH_DATA(aux_ch, i)	_MMIO(_PORT(aux_ch, _DPA_AUX_CH_DATA1,	\
+ 						    _DPB_AUX_CH_DATA1) + (i) * 4) /* 5 registers */
+-#define XELPDP_DP_AUX_CH_DATA(aux_ch, i)					\
++#define _XELPDP_DP_AUX_CH_DATA(aux_ch, i)					\
+ 		_MMIO(_PICK_EVEN_2RANGES(aux_ch, AUX_CH_USBC1,			\
+ 					 _DPA_AUX_CH_DATA1, _DPB_AUX_CH_DATA1,	\
+ 					 _XELPDP_USBC1_AUX_CH_DATA1,		\
+ 					 _XELPDP_USBC2_AUX_CH_DATA1) + (i) * 4) /* 5 registers */
++#define XELPDP_DP_AUX_CH_DATA(i915__, aux_ch, i)				\
++		(DISPLAY_VER(i915__) >= 20 ?					\
++		 _XELPDP_DP_AUX_CH_DATA(__xe2lpd_aux_ch_idx(aux_ch), i) :	\
++		 _XELPDP_DP_AUX_CH_DATA(aux_ch, i))
+ 
+ #endif /* __INTEL_DP_AUX_REGS_H__ */
 -- 
 2.40.1
 
