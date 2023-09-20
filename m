@@ -4,47 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83D2CCE79AC
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Sep 2023 08:57:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EDE1CE79AC
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Sep 2023 08:59:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F62010E465;
-	Wed, 20 Sep 2023 08:57:29 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4072410E465;
- Wed, 20 Sep 2023 08:57:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B02A810E465;
+	Wed, 20 Sep 2023 08:59:08 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2750510E465
+ for <intel-gfx@lists.freedesktop.org>; Wed, 20 Sep 2023 08:59:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695200247; x=1726736247;
+ t=1695200347; x=1726736347;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=djyyXToti7lJPyuRdeI85+Np8rtiT2F4hDXN5kTKqpc=;
- b=edUpwrhPnTIk0wT76S/zh9WN35P5LUIouT1xDDx7D5RT6EG/EH/CAcLX
- afG8wxgTr3SXs2E8mf9jwLol0zdi5hkZw8piyyeF6sdI05QNVeJGui5lD
- XKNLZyHHXQZ3D91eEM0GatIZZK3/ZAbVOb//XmqMFhA4/XrRYJjiK0CcS
- Jk/UausYoO9/V0SVzwBCvWuO0UPC9JggIcQpZueAu3KdeJm2mmeG5OZ9p
- oF9ugU3buIoh4JXDnkuzT0JBLAaRSw29J0QBOX4LAxigW7/Ia/ak1FmhD
- aKUyPXGMXUHjzK4UHY3sfapra9s0rAdMleqE9T7mI+JZJ6p2lQSgib0i0 Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="446638777"
-X-IronPort-AV: E=Sophos;i="6.02,161,1688454000"; d="scan'208";a="446638777"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2023 01:57:26 -0700
+ bh=3F/fr9b/8Qug53SBfoGyM30+rimDLZ/gkyFEFYCyFRY=;
+ b=j5qMwNh0Jr/Opqhv+ALsfpqAiXiN0qJu7LPWVUpq+UJ/VhA4nfTeiWK9
+ 8Jl2qm4ays7xKcXYbfSloyigi4H2zCU+XhbGthVzfgFgihvYCFBMK/9Qc
+ AV2hGzyNolpmxpqNWrOO9vOLe2kUUozGqfVjxBtedW6pp4MxU4WRVyGfU
+ bLdExdUyTk01IXlOc8U5fPNkckcKu3PI/NxeiM3Zfxb5kUFwWVdAU0rPG
+ k75jJI/t+p571AYS4ZA88/9rnKLyr5fbmoPrpVDbMEFKT2dgqEl7CnbHt
+ eSI8ZxaYKS8/zlRfhwmU4jpXNmgG+5z72i3bS3FTv4fZBw1TByDfHJ5ku g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="379053769"
+X-IronPort-AV: E=Sophos;i="6.02,161,1688454000"; d="scan'208";a="379053769"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Sep 2023 01:59:06 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="740117767"
-X-IronPort-AV: E=Sophos;i="6.02,161,1688454000"; d="scan'208";a="740117767"
-Received: from conorbyr-mobl1.ger.corp.intel.com (HELO localhost.localdomain)
- ([10.213.199.161])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2023 01:57:24 -0700
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: Intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Date: Wed, 20 Sep 2023 09:57:15 +0100
-Message-Id: <20230920085715.6905-1-tvrtko.ursulin@linux.intel.com>
-X-Mailer: git-send-email 2.39.2
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="746567680"
+X-IronPort-AV: E=Sophos;i="6.02,161,1688454000"; d="scan'208";a="746567680"
+Received: from bnilawar-desk1.iind.intel.com ([10.145.169.158])
+ by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Sep 2023 01:59:04 -0700
+From: Badal Nilawar <badal.nilawar@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 20 Sep 2023 14:36:20 +0530
+Message-Id: <20230920090620.3255091-1-badal.nilawar@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915: Zap some empty lines
+Subject: [Intel-gfx] [PATCH v2] drm/i915/gt: Update RC6 mask for mtl_drpc
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,39 +55,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: rodrigo.vivi@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+It is seen that for RC6 status register is sometimes setting unused bits
+without affecting functionality. So updated the mask with used bits.
+As mtl_drpc is debug fs function removing MISSING_CASE from default case as
+it doesn't make sense to panic (panic_on_warn=1) the system if register is
+reporting unsupported state.
 
-Recent refactoring left an unsightly block of empty lines. Remove them.
-
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
-Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
-Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
+Cc: Anshuman Gupta <anshuman.gupta@intel.com>
+Signed-off-by: Badal Nilawar <badal.nilawar@intel.com>
+Reviewed-by: Anshuman Gupta <anshuman.gupta@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h | 7 -------
- 1 file changed, 7 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c | 1 -
+ drivers/gpu/drm/i915/gt/intel_gt_regs.h       | 2 +-
+ 2 files changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 87ffc477c3b1..511eba3bbdba 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -646,13 +646,6 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- #define IS_TIGERLAKE_UY(i915) \
- 	IS_SUBPLATFORM(i915, INTEL_TIGERLAKE, INTEL_SUBPLATFORM_UY)
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
+index 357e2f865727..f900cc68d6d9 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c
+@@ -290,7 +290,6 @@ static int mtl_drpc(struct seq_file *m)
+ 		seq_puts(m, "RC6\n");
+ 		break;
+ 	default:
+-		MISSING_CASE(REG_FIELD_GET(MTL_CC_MASK, gt_core_status));
+ 		seq_puts(m, "Unknown\n");
+ 		break;
+ 	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+index 0d5260d126d8..9f2a7d103ea5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
+@@ -26,7 +26,7 @@
+ #define   MTL_CAGF_MASK				REG_GENMASK(8, 0)
+ #define   MTL_CC0				0x0
+ #define   MTL_CC6				0x3
+-#define   MTL_CC_MASK				REG_GENMASK(12, 9)
++#define   MTL_CC_MASK				REG_GENMASK(10, 9)
  
--
--
--
--
--
--
--
- #define IS_XEHPSDV_GRAPHICS_STEP(__i915, since, until) \
- 	(IS_XEHPSDV(__i915) && IS_GRAPHICS_STEP(__i915, since, until))
- 
+ /* RPM unit config (Gen8+) */
+ #define RPM_CONFIG0				_MMIO(0xd00)
 -- 
-2.39.2
+2.25.1
 
