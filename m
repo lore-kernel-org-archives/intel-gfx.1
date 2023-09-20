@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 995C1CE79AC
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Sep 2023 09:03:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 742BCCE79AB
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Sep 2023 09:08:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 167BA10E469;
-	Wed, 20 Sep 2023 09:03:53 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DCF510E469
- for <intel-gfx@lists.freedesktop.org>; Wed, 20 Sep 2023 09:03:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0AC010E46D;
+	Wed, 20 Sep 2023 09:08:49 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E2B710E46C;
+ Wed, 20 Sep 2023 09:08:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695200632; x=1726736632;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=/G0/IQFTFSSKvVy8r4FvFf19psAAL9s8kWJlYnZvKLU=;
- b=RYa4jp/wwatzqW1eWQL9p7v4xeq4GLgOryDnBvjz7HTPP6kDL8XYPMxV
- w6kneTKnG2pLmGPu5Q++HnZBF79OH6y5JhWfISusKVsP7sz9rqGFxTdee
- YuKYoMJ5YhEuL5p0tbPJKG3V4petG2JoirsLOLWpB+v/fzXz5zV4KGm13
- SW4JLAda1zJyr6tOv43gpWXo67S6qWErq5Ue04TEo3GbIivrROMBd2kmX
- Hdp4qr16HJ1AoqsfQOnwl8wYOkeDV1AD+NRBGXeRN+anrkZPDBghrJsYr
- AOSoLz8iGwol87j4c8HYAsy/Hbj7P9LV2tx1U8SCyG+IPOtp83BGxypLM A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="411110007"
-X-IronPort-AV: E=Sophos;i="6.02,161,1688454000"; d="scan'208";a="411110007"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2023 02:03:49 -0700
+ t=1695200928; x=1726736928;
+ h=from:to:subject:in-reply-to:references:date:message-id:
+ mime-version; bh=AfhwoS7uXIFUvf4f5ZkpilRwaDSDXoWJQQj3zfGwfrk=;
+ b=EdQHEEzeyWO/4pMYsrtA3ROQKO1nY8VdrFF+EdY3dGXm0qbuqKBW5E2D
+ 0c5rs5ck6DmWzKbIdHt5Ajh4Odmw4XBL1KgVyk1quYX+H6lL+c5wM8Q2C
+ 25lnB5AjgTX7b7Ib/9+mJi8TyxKYDeiG9vgwmgF3YXS/vgeN2VhweUbla
+ Ij2TS0ZE3jVyYUPIfrRPvKRf6NsQHG7BbUfCpxzW6j6MDRgHlXbZbNeFh
+ uGKamvXNiuSKBbsLcV/k0gd9Iw2lXoqwxa9zE0ABJl3OmTQ8z2xabq9eO
+ YaY6Ox/rLaOgXeO33cNdtwYTORxnUbXy4L3glVMLP4fmgGAPs21/qHOLG A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="380075502"
+X-IronPort-AV: E=Sophos;i="6.02,161,1688454000"; d="scan'208";a="380075502"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Sep 2023 02:08:47 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="1077354581"
-X-IronPort-AV: E=Sophos;i="6.02,161,1688454000"; d="scan'208";a="1077354581"
+X-IronPort-AV: E=McAfee;i="6600,9927,10838"; a="781617993"
+X-IronPort-AV: E=Sophos;i="6.02,161,1688454000"; d="scan'208";a="781617993"
 Received: from ptelkov-mobl2.ccr.corp.intel.com (HELO localhost)
  ([10.252.38.103])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Sep 2023 02:03:43 -0700
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Sep 2023 02:08:46 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Nirmoy Das <nirmoy.das@intel.com>, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20230918170257.8586-2-nirmoy.das@intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20230920085715.6905-1-tvrtko.ursulin@linux.intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230918170257.8586-1-nirmoy.das@intel.com>
- <20230918170257.8586-2-nirmoy.das@intel.com>
-Date: Wed, 20 Sep 2023 12:03:40 +0300
-Message-ID: <87ttrprzbn.fsf@intel.com>
+References: <20230920085715.6905-1-tvrtko.ursulin@linux.intel.com>
+Date: Wed, 20 Sep 2023 12:08:43 +0300
+Message-ID: <87r0mtrz38.fsf@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH 1/7] drm/i915: Lift runtime-pm acquire
- callbacks out of intel_wakeref.mutex
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Zap some empty lines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,145 +58,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: matthew.d.roper@intel.com, chris.p.wilson@linux.intel.com,
- andi.shyti@intel.com, Chris Wilson <chris.p.wilson@intel.com>,
- Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 18 Sep 2023, Nirmoy Das <nirmoy.das@intel.com> wrote:
-> From: Chris Wilson <chris.p.wilson@intel.com>
+On Wed, 20 Sep 2023, Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com> wrote:
+> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 >
-> When runtime pm is first woken, it will synchronously call the
-> registered callbacks for the device. These callbacks
-> may pull in their own forest of locks, which we do not want to
-> conflate with the intel_wakeref.mutex. A second minor benefit to
-> reducing the coverage of the mutex, is that it will reduce
-> contention for frequent sleeps and wakes (such as when being used
-> for soft-rc6).
+> Recent refactoring left an unsightly block of empty lines. Remove them.
 >
-> Signed-off-by: Chris Wilson <chris.p.wilson@intel.com>
-> Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
-> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> Cc: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
+> Cc: Anusha Srivatsa <anusha.srivatsa@intel.com>
+> Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
 
-Is this patch a dependency on the subsequent patches in the series? If
-yes, what's the rationale? If not, please submit separately. None of
-this is is obvious in the commit messages.
+One of the harder patches I've reviewed this week.
+
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
 > ---
->  drivers/gpu/drm/i915/intel_wakeref.c | 43 ++++++++++++++--------------
->  1 file changed, 21 insertions(+), 22 deletions(-)
+>  drivers/gpu/drm/i915/i915_drv.h | 7 -------
+>  1 file changed, 7 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/i915/intel_wakeref.c b/drivers/gpu/drm/i915/intel_wakeref.c
-> index 718f2f1b6174..af7b4cb5b4d7 100644
-> --- a/drivers/gpu/drm/i915/intel_wakeref.c
-> +++ b/drivers/gpu/drm/i915/intel_wakeref.c
-> @@ -10,21 +10,11 @@
->  #include "intel_wakeref.h"
->  #include "i915_drv.h"
+> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+> index 87ffc477c3b1..511eba3bbdba 100644
+> --- a/drivers/gpu/drm/i915/i915_drv.h
+> +++ b/drivers/gpu/drm/i915/i915_drv.h
+> @@ -646,13 +646,6 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+>  #define IS_TIGERLAKE_UY(i915) \
+>  	IS_SUBPLATFORM(i915, INTEL_TIGERLAKE, INTEL_SUBPLATFORM_UY)
 >  
-> -static void rpm_get(struct intel_wakeref *wf)
-> -{
-> -	wf->wakeref = intel_runtime_pm_get(&wf->i915->runtime_pm);
-> -}
 > -
-> -static void rpm_put(struct intel_wakeref *wf)
-> -{
-> -	intel_wakeref_t wakeref = fetch_and_zero(&wf->wakeref);
 > -
-> -	intel_runtime_pm_put(&wf->i915->runtime_pm, wakeref);
-> -	INTEL_WAKEREF_BUG_ON(!wakeref);
-> -}
 > -
->  int __intel_wakeref_get_first(struct intel_wakeref *wf)
->  {
-> +	intel_wakeref_t wakeref = intel_runtime_pm_get(&wf->i915->runtime_pm);
-
-No non-trivial function calls in the initializer please.
-
-> +	int err = 0;
-
-Until now err was only for handling error returns. If it's also for
-returning success, it should probably be named ret.
-
-> +
->  	/*
->  	 * Treat get/put as different subclasses, as we may need to run
->  	 * the put callback from under the shrinker and do not want to
-> @@ -32,41 +22,50 @@ int __intel_wakeref_get_first(struct intel_wakeref *wf)
->  	 * upon acquiring the wakeref.
->  	 */
->  	mutex_lock_nested(&wf->mutex, SINGLE_DEPTH_NESTING);
-> -	if (!atomic_read(&wf->count)) {
-> -		int err;
->  
-> -		rpm_get(wf);
-> +	if (likely(!atomic_read(&wf->count))) {
-
-Adding the likely should be a separate patch with rationale, not a
-random drive-by change. (And maybe it just should not be added at all.)
-
-> +		INTEL_WAKEREF_BUG_ON(wf->wakeref);
-> +		wf->wakeref = fetch_and_zero(&wakeref);
-
-fetch_and_zero() should just die. All it does here is make things more
-confusing, not less. Please don't add new users.
-
-The get and put helpers could probably stay, modified, to make this more
-readable.
-
->  
->  		err = wf->ops->get(wf);
->  		if (unlikely(err)) {
-> -			rpm_put(wf);
-> -			mutex_unlock(&wf->mutex);
-> -			return err;
-> +			wakeref = xchg(&wf->wakeref, 0);
-> +			wake_up_var(&wf->wakeref);
-
-e.g. here this bit is duplicated in ____intel_wakeref_put_last().
-
-> +			goto unlock;
->  		}
->  
->  		smp_mb__before_atomic(); /* release wf->count */
->  	}
->  	atomic_inc(&wf->count);
-> +	INTEL_WAKEREF_BUG_ON(atomic_read(&wf->count) <= 0);
-> +
-> +unlock:
->  	mutex_unlock(&wf->mutex);
-> +	if (unlikely(wakeref))
-> +		intel_runtime_pm_put(&wf->i915->runtime_pm, wakeref);
->  
-> -	INTEL_WAKEREF_BUG_ON(atomic_read(&wf->count) <= 0);
-> -	return 0;
-> +	return err;
->  }
->  
->  static void ____intel_wakeref_put_last(struct intel_wakeref *wf)
->  {
-> +	intel_wakeref_t wakeref = 0;
-> +
->  	INTEL_WAKEREF_BUG_ON(atomic_read(&wf->count) <= 0);
->  	if (unlikely(!atomic_dec_and_test(&wf->count)))
->  		goto unlock;
->  
->  	/* ops->put() must reschedule its own release on error/deferral */
->  	if (likely(!wf->ops->put(wf))) {
-> -		rpm_put(wf);
-> +		INTEL_WAKEREF_BUG_ON(!wf->wakeref);
-> +		wakeref = xchg(&wf->wakeref, 0);
->  		wake_up_var(&wf->wakeref);
->  	}
->  
->  unlock:
->  	mutex_unlock(&wf->mutex);
-> +	if (wakeref)
-> +		intel_runtime_pm_put(&wf->i915->runtime_pm, wakeref);
->  }
->  
->  void __intel_wakeref_put_last(struct intel_wakeref *wf, unsigned long flags)
+> -
+> -
+> -
+> -
+>  #define IS_XEHPSDV_GRAPHICS_STEP(__i915, since, until) \
+>  	(IS_XEHPSDV(__i915) && IS_GRAPHICS_STEP(__i915, since, until))
 
 -- 
 Jani Nikula, Intel
