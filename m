@@ -4,57 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AD01C04FEE
-	for <intel-gfx@archiver.kernel.org>; Wed, 20 Sep 2023 19:56:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83896C04FF7
+	for <intel-gfx@archiver.kernel.org>; Wed, 20 Sep 2023 20:00:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF77610E553;
-	Wed, 20 Sep 2023 19:56:38 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFC1010E54E
- for <intel-gfx@lists.freedesktop.org>; Wed, 20 Sep 2023 19:56:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1695239792;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=rqNzyDz4cREI90UtQiQYs75oZQPILvBZMvQm1D6ktbw=;
- b=L5jUY5ERFlH3wuN5OE7oDqPFBmUqY0BfcrjCn35DrH0desUs1pt1ItiCi97IIxTrs6VTas
- tAzJ02OFQ+m6a+ae7d20Y426+z5Ygcop0SFGtwkAv04mDjDLb95/ioUM4Lq0PNjeNOBefl
- c+L8OQoxdHeWMkeN+JloHkEEqK+OE00=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-659-Uwbpmm6RMH6W7XwmKX2B-g-1; Wed, 20 Sep 2023 15:56:26 -0400
-X-MC-Unique: Uwbpmm6RMH6W7XwmKX2B-g-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3FD7028EC107;
- Wed, 20 Sep 2023 19:56:26 +0000 (UTC)
-Received: from localhost.localdomain (unknown [10.39.195.126])
- by smtp.corp.redhat.com (Postfix) with ESMTP id C31D2C15BB8;
- Wed, 20 Sep 2023 19:56:24 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Date: Wed, 20 Sep 2023 21:56:11 +0200
-Message-ID: <20230920195613.304091-3-hdegoede@redhat.com>
-In-Reply-To: <20230920195613.304091-1-hdegoede@redhat.com>
-References: <20230920195613.304091-1-hdegoede@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B451610E545;
+	Wed, 20 Sep 2023 20:00:14 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 573FF10E545
+ for <intel-gfx@lists.freedesktop.org>; Wed, 20 Sep 2023 20:00:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1695240012; x=1726776012;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=ONV1QJD9kTR6O1/YD1I5DvFJBcs9CERmETVEO1P0d3Q=;
+ b=MLaR/jR72aV+7AW0RlQIwhr/FuvmmyG2lqt2ecvMIx84arqctBWL+821
+ 9P8i3oK2jPF07sZYrLXihnc2vlqhzr1qu26K4Af1eQtrdN0euyWcf0wJj
+ FFyT39uudeSS9joNHEO1onRp4KpJJAl0wJ1aacurjyMUQ/X215Ndog8Jg
+ 9Jyv5Fl/37SW+dzSlde6aj8l6S1W0zMY26x0m3ZCcVa0R8qgDadfho/PE
+ AP0bPEMG9TEnzrPOza56prPfpBRdPObp4ixD4mIDtA7EWZC4Ke50qacfY
+ 5GlK+vd1HWGHFxeTr5krOpGA2o4AvbKSjW5/f7yEnRGWWh2mfysR+Z0gS w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10839"; a="384161677"
+X-IronPort-AV: E=Sophos;i="6.03,162,1694761200"; d="scan'208";a="384161677"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Sep 2023 13:00:11 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10839"; a="862132856"
+X-IronPort-AV: E=Sophos;i="6.03,162,1694761200"; d="scan'208";a="862132856"
+Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.153])
+ by fmsmga002.fm.intel.com with SMTP; 20 Sep 2023 13:00:08 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Wed, 20 Sep 2023 23:00:07 +0300
+Date: Wed, 20 Sep 2023 23:00:07 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Gustavo Sousa <gustavo.sousa@intel.com>
+Message-ID: <ZQtPR3XtOl3WWW9Q@intel.com>
+References: <20230920195351.59421-2-gustavo.sousa@intel.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="US-ASCII"; x-default=true
-Subject: [Intel-gfx] [PATCH 2/4] drm/i915/vlv_dsi: Add DMI quirk for wrong
- I2C bus and panel size on Lenovo Yoga Tablet 2 series (v3)
+In-Reply-To: <20230920195351.59421-2-gustavo.sousa@intel.com>
+X-Patchwork-Hint: comment
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/irq: Clear GFX_MSTR_IRQ as part
+ of IRQ reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,124 +61,51 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Hans de Goede <hdegoede@redhat.com>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Javier Martinez Canillas <javierm@redhat.com>, dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On the Lenovo Yoga Tablet 2 830 / 1050 there are 2 problems:
+On Wed, Sep 20, 2023 at 04:53:52PM -0300, Gustavo Sousa wrote:
+> Starting with Xe_LP+, GFX_MSTR_IRQ contains status bits that have W1C
+> behavior. If we do not properly reset them, we would miss delivery of
+> interrupts if a pending bit is set when enabling IRQs.
+> 
+> As an example, the display part of our probe routine contains paths
+> where we wait for vblank interrupts. If a display interrupt was already
+> pending when enabling IRQs, we would time out waiting for the vblank.
+> 
+> Avoid the potential issue by clearing GFX_MSTR_IRQ as part of the IRQ
+> reset.
+> 
+> v2:
+>   - Move logic from gen11_gt_irq_reset() to dg1_irq_reset(). (Matt)
+> 
+> BSpec: 50875, 54028
+> Cc: Matt Roper <matthew.d.roper@intel.com>
+> Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
+> ---
+>  drivers/gpu/drm/i915/i915_irq.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
+> index 1bfcfbe6e30b..8130f043693b 100644
+> --- a/drivers/gpu/drm/i915/i915_irq.c
+> +++ b/drivers/gpu/drm/i915/i915_irq.c
+> @@ -751,6 +751,8 @@ static void dg1_irq_reset(struct drm_i915_private *dev_priv)
+>  
+>  	GEN3_IRQ_RESET(uncore, GEN11_GU_MISC_);
+>  	GEN3_IRQ_RESET(uncore, GEN8_PCU_);
+> +
+> +	intel_uncore_write(uncore, GEN11_GFX_MSTR_IRQ, ~0);
 
-1. The I2C MIPI sequence elements reference bus 3. ACPI has I2C1 - I2C7
-   which under Linux become bus 0 - 6. And the MIPI sequence reference
-   to bus 3 is indented for I2C3 which is bus 2 under Linux.
+Did you confirm that it's not double buffered?
 
-   This leads to errors like these:
-   [  178.244049] i2c_designware 80860F41:03: controller timed out
-   [  178.245703] i915 0000:00:02.0: [drm] *ERROR* Failed to xfer payload of size (1) to reg (169)
-   There are 3 timeouts when the panel is on, delaying
-   waking up the screen on a key press by 3 seconds.
+>  }
+>  
+>  static void cherryview_irq_reset(struct drm_i915_private *dev_priv)
+> -- 
+> 2.42.0
 
-   Note mipi_exec_i2c() cannot just subtract 1 from the bus
-   given in the I2C MIPI sequence element. Since on other
-   devices the I2C bus-numbers used in the MIPI sequences do
-   actually start at 0.
-
-2. width_/height_mm contain a bogus 192mm x 120mm size. This is
-   especially a problem on the 8" 830 version which uses a 10:16
-   portrait screen where as the bogus size is 16:10.
-
-Add a DMI quirk to override the I2C bus and the panel size with
-the correct values.
-
-Note both the 10" 1050 models as well as the 8" 830 models use the same
-mainboard and thus the same DMI strings. The 10" 1050 uses a 1920x1200
-landscape screen, where as the 8" 830 uses a 1200x1920 portrait screen,
-so the quirk handling uses the display resolution to detect the model.
-
-v2:
-- Also override i2c_bus_num to fix mipi_exec_i2c() timeouts
-
-v3:
-- Add Closes tag to gitlab issue with drm.debug=0xe, VBT info
-
-Closes: https://gitlab.freedesktop.org/drm/intel/-/issues/9379
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- drivers/gpu/drm/i915/display/vlv_dsi.c | 52 ++++++++++++++++++++++++++
- 1 file changed, 52 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
-index 0d3aabf6a1dd..f69cafe8a17d 100644
---- a/drivers/gpu/drm/i915/display/vlv_dsi.c
-+++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
-@@ -1767,6 +1767,44 @@ static void vlv_dsi_asus_tf103c_mode_fixup(struct intel_dsi *intel_dsi)
- 		fixed_mode->vtotal -= 4;
- }
- 
-+/*
-+ * On the Lenovo Yoga Tablet 2 830 / 1050 there are 2 problems:
-+ * 1. The I2C MIPI sequence elements reference bus 3. ACPI has I2C1 - I2C7
-+ *    which under Linux become bus 0 - 6. And the MIPI sequence reference
-+ *    to bus 3 is indented for I2C3 which is bus 2 under Linux.
-+ *
-+ *    Note mipi_exec_i2c() cannot just subtract 1 from the bus
-+ *    given in the I2C MIPI sequence element. Since on other
-+ *    devices the I2C bus-numbers used in the MIPI sequences do
-+ *    actually start at 0.
-+ *
-+ * 2. width_/height_mm contain a bogus 192mm x 120mm size. This is
-+ *    especially a problem on the 8" 830 version which uses a 10:16
-+ *    portrait screen where as the bogus size is 16:10.
-+ *
-+ * https://gitlab.freedesktop.org/drm/intel/-/issues/9379
-+ */
-+static void vlv_dsi_lenovo_yoga_tab2_size_fixup(struct intel_dsi *intel_dsi)
-+{
-+	const struct drm_display_mode *fixed_mode =
-+		intel_panel_preferred_fixed_mode(intel_dsi->attached_connector);
-+	struct drm_display_info *info = &intel_dsi->attached_connector->base.display_info;
-+
-+	intel_dsi->i2c_bus_num = 2;
-+
-+	/*
-+	 * The 10" 1050 uses a 1920x1200 landscape screen, where as the 8" 830
-+	 * uses a 1200x1920 portrait screen.
-+	 */
-+	if (fixed_mode->hdisplay == 1920) {
-+		info->width_mm = 216;
-+		info->height_mm = 135;
-+	} else {
-+		info->width_mm = 107;
-+		info->height_mm = 171;
-+	}
-+}
-+
- static const struct dmi_system_id vlv_dsi_dmi_quirk_table[] = {
- 	{
- 		/* Asus Transformer Pad TF103C */
-@@ -1776,6 +1814,20 @@ static const struct dmi_system_id vlv_dsi_dmi_quirk_table[] = {
- 		},
- 		.driver_data = (void *)vlv_dsi_asus_tf103c_mode_fixup,
- 	},
-+	{
-+		/*
-+		 * Lenovo Yoga Tablet 2 830F/L or 1050F/L (The 8" and 10"
-+		 * Lenovo Yoga Tablet 2 use the same mainboard)
-+		 */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Intel Corp."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "VALLEYVIEW C0 PLATFORM"),
-+			DMI_MATCH(DMI_BOARD_NAME, "BYT-T FFD8"),
-+			/* Partial match on beginning of BIOS version */
-+			DMI_MATCH(DMI_BIOS_VERSION, "BLADE_21"),
-+		},
-+		.driver_data = (void *)vlv_dsi_lenovo_yoga_tab2_size_fixup,
-+	},
- 	{ }
- };
- 
 -- 
-2.41.0
-
+Ville Syrjälä
+Intel
