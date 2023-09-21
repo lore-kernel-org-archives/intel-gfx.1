@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA05ACD4933
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 11:49:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E88DC04AAC
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 11:49:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F91110E5D6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9780F10E5D7;
 	Thu, 21 Sep 2023 11:49:04 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CD2510E5D4;
- Thu, 21 Sep 2023 11:49:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A00C910E5BF;
+ Thu, 21 Sep 2023 11:48:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695296943; x=1726832943;
+ t=1695296938; x=1726832938;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=OMEwk0X8NNrrJfGShu2S3rKH+WcQr9i/VJ2no0E2OfU=;
- b=TMA4OtBIO3hBlC9rxNhAZ/aoK6woZTRm1pXk/fJJsgy8pCQ+jOzN649H
- JQzHvDnWKv/1AJYW4PnA1VbssCzoJwi9bC3PfOzDTkjX9uFAMHP+J5Mdj
- BolZB0ZC3gxkyzEW+Y8RdAZdZVM64CyhyVy5G+ZOht5rax1f4O7sYzJwp
- g0fqEqbh/N5wEuHscrmOlyF0U4ynJCd5537ebHLP5b0Ps1ureXkLLuhHj
- Q/Tu8t6hEoaTVxk+Ilyhp8f5sDxo12R1vgwr6hiS00JCMqebeqk6C0xIj
- D88IZ5G3fnAgJK1FSWH5iGO2FiiMRVJTuASu3lf0ChOH38n6vLaQ/AFM7 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10839"; a="384336796"
-X-IronPort-AV: E=Sophos;i="6.03,165,1694761200"; d="scan'208";a="384336796"
+ bh=yikGkSN8s1V0c9Zm3g1sA2aggisnLgdn8txT5CGITFc=;
+ b=TiuZijl+6CUcxHJ8sA2a2Zhh7u+nZLsg4ECzT+FaMJWZu1WT6yls680Y
+ /XWzR4jPyc8r50NO/es3La0UlEwIp3paM613XN+U/QdBjpRQAwha9sSCM
+ 0J0BqSJs2kNz82/61apz1FutVr5F2+ULr+mj+Cop6ZVC3Wx+BHQ8JdMYa
+ R9aToDQJgkoJgz7I6iwWI4gSiIJ50GTB0d6fcOIFbcGYeUCHI2FZR0Qkq
+ uNljvG44dfkbaXMJ9z6FDWX7paxNW3r3aB1xv45X8rS0rtijCECyMoAm1
+ BRRtI/SsmqMgfjzVa2uplf9+Pl18aV4m42D1B9IMBh/yiLvqCWAQzTzn6 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10839"; a="384336787"
+X-IronPort-AV: E=Sophos;i="6.03,165,1694761200"; d="scan'208";a="384336787"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2023 04:49:02 -0700
+ 21 Sep 2023 04:48:58 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10839"; a="920700893"
-X-IronPort-AV: E=Sophos;i="6.03,165,1694761200"; d="scan'208";a="920700893"
+X-IronPort-AV: E=McAfee;i="6600,9927,10839"; a="920700880"
+X-IronPort-AV: E=Sophos;i="6.03,165,1694761200"; d="scan'208";a="920700880"
 Received: from asilke-mobl2.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.199.249])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2023 04:49:01 -0700
+ 21 Sep 2023 04:48:56 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Thu, 21 Sep 2023 12:48:51 +0100
-Message-Id: <20230921114852.192862-5-tvrtko.ursulin@linux.intel.com>
+Date: Thu, 21 Sep 2023 12:48:48 +0100
+Message-Id: <20230921114852.192862-2-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230921114852.192862-1-tvrtko.ursulin@linux.intel.com>
 References: <20230921114852.192862-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/5] drm/i915: Account ring buffer and context
- state storage
+Subject: [Intel-gfx] [PATCH 1/5] drm/i915: Add ability for tracking buffer
+ objects per client
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,108 +65,199 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Account ring buffers and logical context space against the owning client
-memory usage stats.
+In order to show per client memory usage lets add some infrastructure
+which enables tracking buffer objects owned by clients.
+
+We add a per client list protected by a new per client lock and to support
+delayed destruction (post client exit) we make tracked objects hold
+references to the owning client.
+
+Also, object memory region teardown is moved to the existing RCU free
+callback to allow safe dereference from the fdinfo RCU read section.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Reviewed-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_context.c | 14 ++++++++++++++
- drivers/gpu/drm/i915/i915_drm_client.c  | 10 ++++++++++
- drivers/gpu/drm/i915/i915_drm_client.h  |  9 +++++++++
- 3 files changed, 33 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_object.c    | 13 +++++--
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  | 12 +++++++
+ drivers/gpu/drm/i915/i915_drm_client.c        | 36 +++++++++++++++++++
+ drivers/gpu/drm/i915/i915_drm_client.h        | 32 +++++++++++++++++
+ 4 files changed, 90 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index a53b26178f0a..a2f1245741bb 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -6,6 +6,7 @@
- #include "gem/i915_gem_context.h"
- #include "gem/i915_gem_pm.h"
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index c26d87555825..25eeeb863209 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -106,6 +106,10 @@ void i915_gem_object_init(struct drm_i915_gem_object *obj,
  
-+#include "i915_drm_client.h"
- #include "i915_drv.h"
- #include "i915_trace.h"
+ 	INIT_LIST_HEAD(&obj->mm.link);
  
-@@ -50,6 +51,7 @@ intel_context_create(struct intel_engine_cs *engine)
- 
- int intel_context_alloc_state(struct intel_context *ce)
- {
-+	struct i915_gem_context *ctx;
- 	int err = 0;
- 
- 	if (mutex_lock_interruptible(&ce->pin_mutex))
-@@ -66,6 +68,18 @@ int intel_context_alloc_state(struct intel_context *ce)
- 			goto unlock;
- 
- 		set_bit(CONTEXT_ALLOC_BIT, &ce->flags);
++#ifdef CONFIG_PROC_FS
++	INIT_LIST_HEAD(&obj->client_link);
++#endif
 +
-+		rcu_read_lock();
-+		ctx = rcu_dereference(ce->gem_context);
-+		if (ctx && !kref_get_unless_zero(&ctx->ref))
-+			ctx = NULL;
-+		rcu_read_unlock();
-+		if (ctx) {
-+			if (ctx->client)
-+				i915_drm_client_add_context_objects(ctx->client,
-+								    ce);
-+			i915_gem_context_put(ctx);
-+		}
- 	}
+ 	INIT_LIST_HEAD(&obj->lut_list);
+ 	spin_lock_init(&obj->lut_lock);
  
- unlock:
+@@ -293,6 +297,10 @@ void __i915_gem_free_object_rcu(struct rcu_head *head)
+ 		container_of(head, typeof(*obj), rcu);
+ 	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+ 
++	/* We need to keep this alive for RCU read access from fdinfo. */
++	if (obj->mm.n_placements > 1)
++		kfree(obj->mm.placements);
++
+ 	i915_gem_object_free(obj);
+ 
+ 	GEM_BUG_ON(!atomic_read(&i915->mm.free_count));
+@@ -389,9 +397,6 @@ void __i915_gem_free_object(struct drm_i915_gem_object *obj)
+ 	if (obj->ops->release)
+ 		obj->ops->release(obj);
+ 
+-	if (obj->mm.n_placements > 1)
+-		kfree(obj->mm.placements);
+-
+ 	if (obj->shares_resv_from)
+ 		i915_vm_resv_put(obj->shares_resv_from);
+ 
+@@ -442,6 +447,8 @@ static void i915_gem_free_object(struct drm_gem_object *gem_obj)
+ 
+ 	GEM_BUG_ON(i915_gem_object_is_framebuffer(obj));
+ 
++	i915_drm_client_remove_object(obj);
++
+ 	/*
+ 	 * Before we free the object, make sure any pure RCU-only
+ 	 * read-side critical sections are complete, e.g.
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+index 2292404007c8..0c5cdab278b6 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object_types.h
+@@ -302,6 +302,18 @@ struct drm_i915_gem_object {
+ 	 */
+ 	struct i915_address_space *shares_resv_from;
+ 
++#ifdef CONFIG_PROC_FS
++	/**
++	 * @client: @i915_drm_client which created the object
++	 */
++	struct i915_drm_client *client;
++
++	/**
++	 * @client_link: Link into @i915_drm_client.objects_list
++	 */
++	struct list_head client_link;
++#endif
++
+ 	union {
+ 		struct rcu_head rcu;
+ 		struct llist_node freed;
 diff --git a/drivers/gpu/drm/i915/i915_drm_client.c b/drivers/gpu/drm/i915/i915_drm_client.c
-index 2e5e69edc0f9..a61356012df8 100644
+index 2a44b3876cb5..2e5e69edc0f9 100644
 --- a/drivers/gpu/drm/i915/i915_drm_client.c
 +++ b/drivers/gpu/drm/i915/i915_drm_client.c
-@@ -144,4 +144,14 @@ bool i915_drm_client_remove_object(struct drm_i915_gem_object *obj)
+@@ -28,6 +28,10 @@ struct i915_drm_client *i915_drm_client_alloc(void)
+ 	kref_init(&client->kref);
+ 	spin_lock_init(&client->ctx_lock);
+ 	INIT_LIST_HEAD(&client->ctx_list);
++#ifdef CONFIG_PROC_FS
++	spin_lock_init(&client->objects_lock);
++	INIT_LIST_HEAD(&client->objects_list);
++#endif
  
- 	return true;
+ 	return client;
+ }
+@@ -108,4 +112,36 @@ void i915_drm_client_fdinfo(struct drm_printer *p, struct drm_file *file)
+ 	for (i = 0; i < ARRAY_SIZE(uabi_class_names); i++)
+ 		show_client_class(p, i915, file_priv->client, i);
  }
 +
-+void i915_drm_client_add_context_objects(struct i915_drm_client *client,
-+					 struct intel_context *ce)
++void i915_drm_client_add_object(struct i915_drm_client *client,
++				struct drm_i915_gem_object *obj)
 +{
-+	if (ce->state)
-+		i915_drm_client_add_object(client, ce->state->obj);
++	unsigned long flags;
 +
-+	if (ce->ring != ce->engine->legacy.ring && ce->ring->vma)
-+		i915_drm_client_add_object(client, ce->ring->vma->obj);
++	GEM_WARN_ON(obj->client);
++	GEM_WARN_ON(!list_empty(&obj->client_link));
++
++	spin_lock_irqsave(&client->objects_lock, flags);
++	obj->client = i915_drm_client_get(client);
++	list_add_tail_rcu(&obj->client_link, &client->objects_list);
++	spin_unlock_irqrestore(&client->objects_lock, flags);
++}
++
++bool i915_drm_client_remove_object(struct drm_i915_gem_object *obj)
++{
++	struct i915_drm_client *client = fetch_and_zero(&obj->client);
++	unsigned long flags;
++
++	/* Object may not be associated with a client. */
++	if (!client)
++		return false;
++
++	spin_lock_irqsave(&client->objects_lock, flags);
++	list_del_rcu(&obj->client_link);
++	spin_unlock_irqrestore(&client->objects_lock, flags);
++
++	i915_drm_client_put(client);
++
++	return true;
 +}
  #endif
 diff --git a/drivers/gpu/drm/i915/i915_drm_client.h b/drivers/gpu/drm/i915/i915_drm_client.h
-index 5f58fdf7dcb8..69cedfcd3d69 100644
+index 67816c912bca..5f58fdf7dcb8 100644
 --- a/drivers/gpu/drm/i915/i915_drm_client.h
 +++ b/drivers/gpu/drm/i915/i915_drm_client.h
-@@ -14,6 +14,7 @@
+@@ -12,6 +12,9 @@
  
- #include "i915_file_private.h"
- #include "gem/i915_gem_object_types.h"
-+#include "gt/intel_context_types.h"
+ #include <uapi/drm/i915_drm.h>
  
++#include "i915_file_private.h"
++#include "gem/i915_gem_object_types.h"
++
  #define I915_LAST_UABI_ENGINE_CLASS I915_ENGINE_CLASS_COMPUTE
  
-@@ -70,6 +71,8 @@ void i915_drm_client_fdinfo(struct drm_printer *p, struct drm_file *file);
- void i915_drm_client_add_object(struct i915_drm_client *client,
- 				struct drm_i915_gem_object *obj);
- bool i915_drm_client_remove_object(struct drm_i915_gem_object *obj);
-+void i915_drm_client_add_context_objects(struct i915_drm_client *client,
-+					 struct intel_context *ce);
- #else
- static inline void i915_drm_client_add_object(struct i915_drm_client *client,
- 					      struct drm_i915_gem_object *obj)
-@@ -79,6 +82,12 @@ static inline void i915_drm_client_add_object(struct i915_drm_client *client,
- static inline bool i915_drm_client_remove_object(struct drm_i915_gem_object *obj)
- {
- }
+ struct drm_file;
+@@ -25,6 +28,20 @@ struct i915_drm_client {
+ 	spinlock_t ctx_lock; /* For add/remove from ctx_list. */
+ 	struct list_head ctx_list; /* List of contexts belonging to client. */
+ 
++#ifdef CONFIG_PROC_FS
++	/**
++	 * @objects_lock: lock protecting @objects_list
++	 */
++	spinlock_t objects_lock;
 +
-+static inline void
-+i915_drm_client_add_context_objects(struct i915_drm_client *client,
-+				    struct intel_context *ce)
++	/**
++	 * @objects_list: list of objects created by this client
++	 *
++	 * Protected by @objects_lock.
++	 */
++	struct list_head objects_list;
++#endif
++
+ 	/**
+ 	 * @past_runtime: Accumulation of pphwsp runtimes from closed contexts.
+ 	 */
+@@ -49,4 +66,19 @@ struct i915_drm_client *i915_drm_client_alloc(void);
+ 
+ void i915_drm_client_fdinfo(struct drm_printer *p, struct drm_file *file);
+ 
++#ifdef CONFIG_PROC_FS
++void i915_drm_client_add_object(struct i915_drm_client *client,
++				struct drm_i915_gem_object *obj);
++bool i915_drm_client_remove_object(struct drm_i915_gem_object *obj);
++#else
++static inline void i915_drm_client_add_object(struct i915_drm_client *client,
++					      struct drm_i915_gem_object *obj)
 +{
 +}
- #endif
- 
++
++static inline bool i915_drm_client_remove_object(struct drm_i915_gem_object *obj)
++{
++}
++#endif
++
  #endif /* !__I915_DRM_CLIENT_H__ */
 -- 
 2.39.2
