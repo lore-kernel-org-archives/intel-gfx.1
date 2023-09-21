@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B3C1CD342E
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 07:24:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77D8CCD5BD5
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 07:38:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E837510E580;
-	Thu, 21 Sep 2023 07:24:18 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D85D710E580
- for <intel-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 07:24:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A31610E573;
+	Thu, 21 Sep 2023 07:38:12 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3DC210E573
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 07:38:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695281056; x=1726817056;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=QSgx2Sw/K/nFgnJmZ5UKTC6+ilybkq/kjnQQ5WAzwnQ=;
- b=OvfYtp4DgHE1W3FjQ+JN4o37QWYN4cSsube4qO8zH8eZiJUoeXFuKGWC
- rPsRW4tKOEgeHTTCy2Fe0c0dKQmiZpHoEfrXFWg7R4d6xfYxUXr2tmsLg
- KB3zgh2b7JHxcaESdsY8RTDV7DR9cLB7O7YNuNqFXstVb+LUPOx/FODv3
- TfcowSSx1EpgozjWwIBRNC0jSSkVcNm87C/fO8++oj5Mu1xfSufRs9vXR
- cis4Fxx9siY+iqm/TBCV0n13pfaIONNpRJdifNKke02ngMdkIWU16QmqL
- bUxUlBxc1xUsaG9S/vdi6dqHnb+oxVF8UVlLfuFiXy3irVsQllpGjcbKJ g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10839"; a="379326119"
-X-IronPort-AV: E=Sophos;i="6.03,164,1694761200"; d="scan'208";a="379326119"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2023 00:20:01 -0700
+ t=1695281889; x=1726817889;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=R1o/bGSY6RoZDJl1DjB2BNTIf53Y2/ywp6tN29sBlXI=;
+ b=LxEV90VFOKGyEBntBwRkw1Sb4nsaQ2qJjPgxV7ikSTZmqJUw3NbZOciM
+ 0OrgY8fnaB1oeMMNLl5BiVenGG3RZtE+vy0HJasOXgbfE/yR1TWmJW+ZW
+ sv4KDHck/0a2QaV0aHkYj/pmBPc95F+bf7oDuIH+gOfYropH3nF+OcHlK
+ ixaIQih7rQk0DPVGgcRSHsoUQaRq8hlF33zXFOUD0inVwvT8a4KNcqGFv
+ LyX06ZWoslYwwL0nEu4dyecKhkPE8OvyG+HxJgmrVfu23oblRPfEM43FU
+ Hrr7/xTUtMIAzOspcdk/q1ks+ZjDIUZgis3FM4KFlW/AfvmEQU8Y+MUOg w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10839"; a="359830413"
+X-IronPort-AV: E=Sophos;i="6.03,164,1694761200"; d="scan'208";a="359830413"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2023 00:38:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10839"; a="862341338"
-X-IronPort-AV: E=Sophos;i="6.03,164,1694761200"; d="scan'208";a="862341338"
-Received: from lkp-server02.sh.intel.com (HELO 9ef86b2655e5) ([10.239.97.151])
- by fmsmga002.fm.intel.com with ESMTP; 21 Sep 2023 00:18:12 -0700
-Received: from kbuild by 9ef86b2655e5 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qjDww-0009gu-1C;
- Thu, 21 Sep 2023 07:18:10 +0000
-Date: Thu, 21 Sep 2023 15:17:17 +0800
-From: kernel test robot <lkp@intel.com>
-To: Shekhar Chauhan <shekhar.chauhan@intel.com>,
+X-IronPort-AV: E=McAfee;i="6600,9927,10839"; a="1077802385"
+X-IronPort-AV: E=Sophos;i="6.03,164,1694761200"; d="scan'208";a="1077802385"
+Received: from idubinov-mobl1.ccr.corp.intel.com (HELO localhost)
+ ([10.252.52.72])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2023 00:38:07 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>,
  intel-gfx@lists.freedesktop.org
-Message-ID: <202309211509.sE4onxLs-lkp@intel.com>
-References: <20230921042727.362710-1-shekhar.chauhan@intel.com>
+In-Reply-To: <20230921071820.1969102-1-balasubramani.vivekanandan@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20230921071820.1969102-1-balasubramani.vivekanandan@intel.com>
+Date: Thu, 21 Sep 2023 10:38:05 +0300
+Message-ID: <878r90q8ma.fsf@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230921042727.362710-1-shekhar.chauhan@intel.com>
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Add Wa_18028616096
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/display: Print display info inside
+ driver display initialization
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,60 +60,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: oe-kbuild-all@lists.linux.dev
+Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Shekhar,
+On Thu, 21 Sep 2023, Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com> wrote:
+> Separate the printing of display version and feature flags from the main
+> driver probe to inside the display initialization. This is in alignment
+> with isolating the display code from the main driver and helps Xe driver
+> to resuse it.
+>
+> Signed-off-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_display_driver.c | 5 +++++
+>  drivers/gpu/drm/i915/i915_driver.c                  | 2 --
+>  2 files changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
+> index 9d9b034b9bdc..2fbb3c956336 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+> @@ -380,6 +380,8 @@ int intel_display_driver_probe(struct drm_i915_private *i915)
+>  
+>  void intel_display_driver_register(struct drm_i915_private *i915)
+>  {
+> +	struct drm_printer p = drm_info_printer(i915->drm.dev);
 
-kernel test robot noticed the following build errors:
+It needs to be a debug printer, not info printer, maybe:
 
-[auto build test ERROR on drm-tip/drm-tip]
+	struct drm_printer p = drm_debug_printer("display info:");
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Shekhar-Chauhan/drm-i915-Add-Wa_18028616096/20230921-122837
-base:   git://anongit.freedesktop.org/drm/drm-tip drm-tip
-patch link:    https://lore.kernel.org/r/20230921042727.362710-1-shekhar.chauhan%40intel.com
-patch subject: [Intel-gfx] [PATCH] drm/i915: Add Wa_18028616096
-config: i386-randconfig-014-20230921 (https://download.01.org/0day-ci/archive/20230921/202309211509.sE4onxLs-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230921/202309211509.sE4onxLs-lkp@intel.com/reproduce)
+Unfortunately, it's not device specific, but that's for another set of
+patches another day.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202309211509.sE4onxLs-lkp@intel.com/
+BR,
+Jani.
 
-All errors (new ones prefixed by >>):
-
-   In file included from drivers/gpu/drm/i915/intel_uncore.h:34,
-                    from drivers/gpu/drm/i915/gt/intel_engine_types.h:26,
-                    from drivers/gpu/drm/i915/gt/intel_context_types.h:18,
-                    from drivers/gpu/drm/i915/gem/i915_gem_context_types.h:20,
-                    from drivers/gpu/drm/i915/i915_drv.h:42,
-                    from drivers/gpu/drm/i915/gt/intel_workarounds.c:6:
-   drivers/gpu/drm/i915/gt/intel_workarounds.c: In function 'general_render_compute_wa_init':
->> drivers/gpu/drm/i915/i915_reg_defs.h:273:25: error: incompatible type for argument 3 of 'wa_mcr_write_or'
-     273 | #define MCR_REG(offset) ((const i915_mcr_reg_t){ .reg = (offset) })
-         |                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         |                         |
-         |                         i915_mcr_reg_t
-   drivers/gpu/drm/i915/gt/intel_gt_regs.h:1235:49: note: in expansion of macro 'MCR_REG'
-    1235 | #define   UGM_FRAGMENT_THRESHOLD_TO_3           MCR_REG(58 - 32)
-         |                                                 ^~~~~~~
-   drivers/gpu/drm/i915/gt/intel_workarounds.c:2919:61: note: in expansion of macro 'UGM_FRAGMENT_THRESHOLD_TO_3'
-    2919 |                 wa_mcr_write_or(wal, LSC_CHICKEN_BIT_0_UDW, UGM_FRAGMENT_THRESHOLD_TO_3);
-         |                                                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/gpu/drm/i915/gt/intel_workarounds.c:272:67: note: expected 'u32' {aka 'unsigned int'} but argument is of type 'i915_mcr_reg_t'
-     272 | wa_mcr_write_or(struct i915_wa_list *wal, i915_mcr_reg_t reg, u32 set)
-         |                                                               ~~~~^~~
-
-
-vim +/wa_mcr_write_or +273 drivers/gpu/drm/i915/i915_reg_defs.h
-
-2b25a93bf07c6b Matt Roper      2022-01-10  272  
-c6a53c90e3be8b Lucas De Marchi 2023-02-24 @273  #define MCR_REG(offset)	((const i915_mcr_reg_t){ .reg = (offset) })
-c6a53c90e3be8b Lucas De Marchi 2023-02-24  274  
+> +
+>  	if (!HAS_DISPLAY(i915))
+>  		return;
+>  
+> @@ -407,6 +409,9 @@ void intel_display_driver_register(struct drm_i915_private *i915)
+>  	 * fbdev->async_cookie.
+>  	 */
+>  	drm_kms_helper_poll_init(&i915->drm);
+> +
+> +	intel_display_device_info_print(DISPLAY_INFO(i915),
+> +					DISPLAY_RUNTIME_INFO(i915), &p);
+>  }
+>  
+>  /* part #1: call before irq uninstall */
+> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+> index e5d693904123..d50347e5773a 100644
+> --- a/drivers/gpu/drm/i915/i915_driver.c
+> +++ b/drivers/gpu/drm/i915/i915_driver.c
+> @@ -699,8 +699,6 @@ static void i915_welcome_messages(struct drm_i915_private *dev_priv)
+>  
+>  		intel_device_info_print(INTEL_INFO(dev_priv),
+>  					RUNTIME_INFO(dev_priv), &p);
+> -		intel_display_device_info_print(DISPLAY_INFO(dev_priv),
+> -						DISPLAY_RUNTIME_INFO(dev_priv), &p);
+>  		i915_print_iommu_status(dev_priv, &p);
+>  		for_each_gt(gt, dev_priv, i)
+>  			intel_gt_info_print(&gt->info, &p);
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Jani Nikula, Intel
