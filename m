@@ -4,46 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31272CE7A81
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 12:59:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC3BFCE7A94
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 12:59:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB3AC10E24E;
-	Mon, 25 Sep 2023 12:59:28 +0000 (UTC)
-X-Greylist: delayed 1316 seconds by postgrey-1.36 at gabe;
- Sun, 24 Sep 2023 01:03:11 UTC
-Received: from mx.treblig.org (mx.treblig.org [IPv6:2a00:1098:5b::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7974D10E08A
- for <intel-gfx@lists.freedesktop.org>; Sun, 24 Sep 2023 01:03:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
- ; s=bytemarkmx;
- h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:
- Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:Content-Description
- :Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=E077wAdyEkVySS1+LXo/H+AZNFp/cAK0I9hfQH/1Dmc=; b=bfedigwJ9dJryvC4sxxFFrruxQ
- UOiofSrSMVdXPlnjBepLh3H6VOO+KwQglGV/5VOxNXVfH+eWgCJ+kON0tlwvmf7lsaTKJPI0nbbmD
- Wo/BBRhvWlq9TiEC9e9TZkgdwDNxgCDditCaJ53zTQgfCIoDUvERXrOV3UdkPK1pDQJWMnODNccm+
- 7WDwMLtnTdBAr9i7tSlOgIxE0WkSgRrWqTbXgj52Etmjy0JKnkJzY9q3/wq4cOdscVtzSXyRUVngK
- HiE8TcxifIB5wmGw6pQtu3Q1W4lLHHmNeujcWy9WSChZyZCElKns30wvHxOdPc/wfBsqFEC7vSfvN
- yR6nmSOg==;
-Received: from dg by mx.treblig.org with local (Exim 4.96)
- (envelope-from <dg@treblig.org>) id 1qkDBL-0018ci-19;
- Sun, 24 Sep 2023 00:41:07 +0000
-Date: Sun, 24 Sep 2023 00:41:07 +0000
-From: "Dr. David Alan Gilbert" <dave@treblig.org>
-To: matthew.brost@intel.com, mgreer@animalcreek.com,
- krzysztof.kozlowski@linaro.org
-Message-ID: <ZQ+Fo9WKyGphwI8R@gallifrey>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFEEB10E252;
+	Mon, 25 Sep 2023 12:59:29 +0000 (UTC)
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6580D10E059
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 06:24:51 +0000 (UTC)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-99c1c66876aso61051366b.2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 20 Sep 2023 23:24:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=grsecurity.net; s=grsec; t=1695277489; x=1695882289;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=fvbyf4nOemyFjkTwjJzZnDNxJaEvzpTzZJFCe3Gi+1M=;
+ b=tqaLSXYXE2ZeUb9m4jSptGdm7krCQx3U60T50acZ1JM0aGuMk1D/GmrprUN00QC5T9
+ 1FRZ9+QZpHzS6iPDm15BAe3WBfZ/22jdJ5Tz9OfmWR+ZiqaFj/TAKABIEXtzjiF+vWcb
+ eJasVrIEd15COYG6DNDhPUn8+0O4Eb4Nb7UpF+3aI+n6tCJYZ3R/0AtKSAWk/HM3kiAY
+ 5CL0jbwbRA8rozE1cT0kQ9edjwlgd3sHjDFgVsN0IWGLH9zlxMWotH4Ylk2mnuwLLTIB
+ XFlpxbMSEjZfTMY3yGWFFiJhmMake69Cho4meFEHyRHiB+vG1qBuMjhSEmzFYquNxKLY
+ EHcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1695277489; x=1695882289;
+ h=content-transfer-encoding:in-reply-to:from:references:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=fvbyf4nOemyFjkTwjJzZnDNxJaEvzpTzZJFCe3Gi+1M=;
+ b=lJw7r+Uedx0ozOuzzbR6UAX3c/Cn9NnfDiu9sMIHX/JNGa8jH3D8MI/2ADa8EEX+aT
+ 1//4dBCtGW2DWe8S+P0+FVysbUGoRJ9odjKJq51p1dEFVUY21wT+evSeQReZLxy1avet
+ mDugoed3b6Q/xD/7uXw9zXMPoeI/VXRYOS7p72uMLOnZJalmeIVOHZc9iJRNIUdLCiPF
+ iab7+V18wFGEUJu72iJleZMLCby04og6Je/D3Z7WkDanTMNDwKkTUvB+MR5xO2ZmsSG4
+ wWZ/E7XHDWP5G7Psl0IGA3pG+hDDuNRtvpOLuqq5KGRZC7ZhiX8rO1nvbnGhxdC9DjGl
+ G+Gg==
+X-Gm-Message-State: AOJu0Yz160duO9CI1Rq9QOQDz+u58mzC1OffLy17GH2/nY7LTau/F9wc
+ S1DQLWJzETyFQP8lYQVe2VcDrpnjaGFErwIDuHA=
+X-Google-Smtp-Source: AGHT+IFuV+GCxUrhBpLCDU+qnBjT2r/m4HG2UD9vDPivvGTBlm9c6acpL0ZpK5gEgDdJpF3U1yYeBg==
+X-Received: by 2002:a17:907:75fc:b0:9ae:50e3:7e40 with SMTP id
+ jz28-20020a17090775fc00b009ae50e37e40mr2634144ejc.52.1695277489269; 
+ Wed, 20 Sep 2023 23:24:49 -0700 (PDT)
+Received: from ?IPV6:2003:f6:af0b:f500:9282:fc17:35d3:acf0?
+ (p200300f6af0bf5009282fc1735d3acf0.dip0.t-ipconnect.de.
+ [2003:f6:af0b:f500:9282:fc17:35d3:acf0])
+ by smtp.gmail.com with ESMTPSA id
+ h9-20020a17090619c900b009ae54eba5casm542919ejd.102.2023.09.20.23.24.48
+ for <intel-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 Sep 2023 23:24:48 -0700 (PDT)
+Message-ID: <60b80b2d-b96f-f87c-d96b-31650620b2f9@grsecurity.net>
+Date: Thu, 21 Sep 2023 08:24:49 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-X-Chocolate: 70 percent or better cocoa solids preferably
-X-Operating-System: Linux/6.1.0-12-amd64 (x86_64)
-X-Uptime: 00:32:50 up 8 days,  3:31,  1 user,  load average: 0.00, 0.00, 0.00
-User-Agent: Mutt/2.2.9 (2022-11-12)
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.14.0
+Content-Language: en-US, de-DE
+To: intel-gfx@lists.freedesktop.org
+References: <20230905113921.14071-1-minipli@grsecurity.net>
+From: Mathias Krause <minipli@grsecurity.net>
+In-Reply-To: <20230905113921.14071-1-minipli@grsecurity.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 25 Sep 2023 12:59:26 +0000
-Subject: [Intel-gfx] ERR_PTR(0) in a couple of places
+Subject: Re: [Intel-gfx] [PATCH 0/2] drm/i915: fix rb-tree/llist/list
+ confusion
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,39 +82,34 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, airlied@gmail.com,
- linux-kernel@vger.kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-  I randomly noticed there are a couple of places in the kernel that
-do
-   ERR_PTR(0);
+On 05.09.23 13:39, Mathias Krause wrote:
+> Commit 1ec23ed7126e ("drm/i915: Use uabi engines for the default engine
+> map") introduced a bug regarding engine iteration in default_engines()
+> as the rb tree isn't set up yet that early during driver initialization.
+> This triggered a sanity check we have in our grsecurity kernels, fixed
+> by reverting the offending commit (patch 1) and giving the
+> type-multiplexed members some more visibility to avoid making a similar
+> mistake again in the future (patch 2).
+> 
+> Please apply!
+> 
+> Thanks,
+> Mathias
+> 
+> Mathias Krause (2):
+>   Revert "drm/i915: Use uabi engines for the default engine map"
+>   drm/i915: Clarify type evolution of uabi_node/uabi_engines
+> 
+>  drivers/gpu/drm/i915/gem/i915_gem_context.c  |  9 +++++----
+>  drivers/gpu/drm/i915/gt/intel_engine_types.h | 10 +++++++++-
+>  drivers/gpu/drm/i915/gt/intel_engine_user.c  | 17 +++++++----------
+>  drivers/gpu/drm/i915/i915_drv.h              | 17 ++++++++++++++++-
+>  4 files changed, 37 insertions(+), 16 deletions(-)
+> 
 
-and thought that was odd - shouldn't those just be NULL's ?
+Ping. Any objections to this series?
 
-1) i915
-  drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c : 47
-
-    if (i <= 1)
-      return ERR_PTR(0);
-
-  from f9d72092cb490 
-
-2) trf7970a
-  drivers/nfc/trf7970a.c : 896
-
-      trf->ignore_timeout =
-         !cancel_delayed_work(&trf->timeout_work);
-      trf->rx_skb = ERR_PTR(0);
-      trf7970a_send_upstream(trf);
-
-   from 1961843ceeca0
-
-Dave
--- 
- -----Open up your eyes, open up your mind, open up your code -------   
-/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
-\        dave @ treblig.org |                               | In Hex /
- \ _________________________|_____ http://www.treblig.org   |_______/
+- Mathias
