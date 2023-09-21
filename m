@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76D87E7106A
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 13:13:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A28CAE7106B
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 13:23:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D048C10E00D;
-	Thu, 21 Sep 2023 13:13:01 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0057E10E00D
- for <intel-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 13:12:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06EB110E0EE;
+	Thu, 21 Sep 2023 13:23:55 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FA1310E0EE
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 13:23:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695301979; x=1726837979;
+ t=1695302633; x=1726838633;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=NjO9tYF1cFC9RxZmXdPhdyCF8L9Wq/94x+ed6HRMZM8=;
- b=hyKeZyuTodb8a1/q/5spQF5s01dC6Xq7NGi7/Wsr3KLa5xvKsz1T+oTl
- h09w7dIKnuLl01/hgVmLxpZFNAr++NsKX4c/GhSx6s/7Q1iHXBLud68a2
- sGvYXCCmkleBjmuLw0UJbRfdXODp2h95ETNoBlCG4LQHD2wxCYuTsaqNO
- mKM/5m/N8b2q2zKqQtXdXR9KbCzqtsVH4z0zjbrEl2b5z9/MExhCqIYtn
- K1+b7l/Wt1lzkAHSW6iJXSsA6VBSgijzbZghsBn+C3B/IfX4hGIN5OPVv
- GFqM5lh7IFBvFaJcYq6ifsIdKSc38wc/1O6E8gYpDQL/Tub2oN1Xdi5wK g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10840"; a="446987266"
-X-IronPort-AV: E=Sophos;i="6.03,165,1694761200"; d="scan'208";a="446987266"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2023 06:07:34 -0700
+ bh=TnJgWimn2jl26AUawPjrkEir4nDMEcBleWqHXPjd1eQ=;
+ b=f7LpBhKIpkvN1DFfY11EvKU212gilhdZtjjbpZuNpHYl1sZUaHFs6vIt
+ BV6rGHf7N4+5+xDVoYP9jyv70XydN1/cx524JBuoKb6swEH0bKyiBHJYN
+ ojqeESMmTHAKtc/X6qlKgfApIIrKCzi/lqVhfuwbuUg0b9oXx+xmUojUr
+ mUOfRFZV5Pi4GWZBsVbQ/5CVOw/CGjDeWlv9tlyviWViKCWiTElHvnz88
+ yQ6DmykK507PwIhr5SdsUZ6/Q/iXa/UKLGvqUSNgilkXv2jd7EHTs5SnL
+ 7ap3GMifMwqeMYY+DHaM4tWA0sZIjFMsApFhlZCUxahazQiwIilBH0l4k w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10840"; a="411460362"
+X-IronPort-AV: E=Sophos;i="6.03,165,1694761200"; d="scan'208";a="411460362"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2023 06:09:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10840"; a="782157664"
-X-IronPort-AV: E=Sophos;i="6.03,165,1694761200"; d="scan'208";a="782157664"
+X-IronPort-AV: E=McAfee;i="6600,9927,10840"; a="870817642"
+X-IronPort-AV: E=Sophos;i="6.03,165,1694761200"; d="scan'208";a="870817642"
 Received: from skalitha-mobl2.gar.corp.intel.com (HELO intel.com)
  ([10.215.150.18])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2023 06:06:27 -0700
-Date: Thu, 21 Sep 2023 15:06:20 +0200
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Sep 2023 06:09:40 -0700
+Date: Thu, 21 Sep 2023 15:09:33 +0200
 From: Andi Shyti <andi.shyti@linux.intel.com>
 To: Nirmoy Das <nirmoy.das@intel.com>
-Message-ID: <ZQw/zPFuOB9iXWJA@ashyti-mobl2.lan>
+Message-ID: <ZQxAjdDwuSkM3TRH@ashyti-mobl2.lan>
 References: <20230918170257.8586-1-nirmoy.das@intel.com>
- <20230918170257.8586-4-nirmoy.das@intel.com>
+ <20230918170257.8586-6-nirmoy.das@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230918170257.8586-4-nirmoy.das@intel.com>
-Subject: Re: [Intel-gfx] [PATCH 3/7] drm/i915: Implement
- for_each_sgt_daddr_next
+In-Reply-To: <20230918170257.8586-6-nirmoy.das@intel.com>
+Subject: Re: [Intel-gfx] [PATCH 5/7] drm/i915: Implement GGTT update method
+ with MI_UPDATE_GTT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,12 +67,21 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Hi Nirmoy,
 
-On Mon, Sep 18, 2023 at 07:02:53PM +0200, Nirmoy Das wrote:
-> Implement a way to iterate over sgt with pre-initialized
-> sgt_iter state.
+On Mon, Sep 18, 2023 at 07:02:55PM +0200, Nirmoy Das wrote:
+> Implement GGTT update method with blitter command, MI_UPDATE_GTT
+> and install those handlers if a platform requires that.
+> 
+> v2: Make sure we hold the GT wakeref and Blitter engine wakeref before
+> we call mutex_lock/intel_context_enter below. When GT/engine are not
+> awake, the intel_context_enter calls into some runtime pm function which
+> can end up with kmalloc/fs_reclaim. But trigger fs_reclaim holding a
+> mutex lock is not allowed because shrinker can also try to hold the same
+> mutex lock. It is a circular lock. So hold the GT/blitter engine wakeref
+> before calling mutex_lock, to fix the circular lock.
 > 
 > Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
-> Reviewed-by: Oak Zeng <oak.zeng@intel.com>
+> Signed-off-by: Oak Zeng <oak.zeng@intel.com>
+> Acked-by: Oak Zeng <oak.zeng@intel.com>
 
 Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com> 
 
