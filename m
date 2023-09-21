@@ -4,47 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00E2CE7D0A6
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 19:51:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FE7EE7D0A2
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 19:51:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DEC510E55E;
-	Thu, 21 Sep 2023 19:51:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0076C10E607;
+	Thu, 21 Sep 2023 19:51:45 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A50DA10E55E
- for <intel-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 19:51:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2341010E607
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 Sep 2023 19:51:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695325899; x=1726861899;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=lGvcGQ5iuGMLXWLumw1h5tkVf3QYxd690uD2Tp33DiQ=;
- b=NOfA2cA/OnjROybtCFHBX/ClmXtN3cg54Bu+f3Zme/5iQo/RgNMrLgkw
- Mztz+StQFEtTtvCiTcsijOXwh6w721BV7qc50P7P/VUYxxLGtan4kTdxo
- xY1MKUaWxt/W76Dwu+HaD+pc8/TGK2XObQM3BqubPC8j+6AuPrTgVcLgy
- oTUHJMu2fFs3DvNy2j7vmurHPoZwTmBKGpWDOPkaUj0OBqcFNWznM178t
- SxrqaXEx6Tsv6L9eaOBECkHNtg40+Dne75UbP5Xr090OfT+DH1ZmpLcu3
- /S1UBtVw7SDZVNmfA7qJlxkrw5GgY4w3E2vfAQFNQ43g4ToS2I+MQeoqt A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10840"; a="379523058"
-X-IronPort-AV: E=Sophos;i="6.03,166,1694761200"; d="scan'208";a="379523058"
+ t=1695325903; x=1726861903;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=S3vrDNb1/4pzv6f8Mk3lrDP4bliqqUAnmTXccXoyDnw=;
+ b=SRbi/s35bUobJjVyAgkifdGhQQEAdtp1UI4F7esane+19EkvvZCVDrX8
+ VLNkk6dip267JWREjCasAneJzyyTifHMKXlmKm4MnpEdNbSC/GO8ffRIp
+ 5OKVjIMVgYa+I2qnLfoRLIgP68IKAH8nIj6TEGxU6tT/75WCmof8bJ0hZ
+ +k3J35bM32ljR8Cx9FSrrxlzWQUlFVf3GRRckW7U5bTjAyoRD1kxW14Fz
+ XOvwiHdpUWQs5hoyrOzh2Jk2+GVW12cCRN4wujpctgtQjIM9ufdu7cK/r
+ gkCkpW3DQkSytQV/sWVOqPFa/Y5fS/GilGoAtTYplycbMK2iyhSTKwT4c g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10840"; a="379523068"
+X-IronPort-AV: E=Sophos;i="6.03,166,1694761200"; d="scan'208";a="379523068"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2023 12:51:38 -0700
+ 21 Sep 2023 12:51:42 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10840"; a="817523701"
-X-IronPort-AV: E=Sophos;i="6.03,166,1694761200"; d="scan'208";a="817523701"
+X-IronPort-AV: E=McAfee;i="6600,9927,10840"; a="817523710"
+X-IronPort-AV: E=Sophos;i="6.03,166,1694761200"; d="scan'208";a="817523710"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2023 12:51:36 -0700
+ 21 Sep 2023 12:51:41 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 21 Sep 2023 22:51:48 +0300
-Message-Id: <20230921195159.2646027-1-imre.deak@intel.com>
+Date: Thu, 21 Sep 2023 22:51:51 +0300
+Message-Id: <20230921195159.2646027-4-imre.deak@intel.com>
 X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20230921195159.2646027-1-imre.deak@intel.com>
+References: <20230921195159.2646027-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 00/11] drm/i915: Improve BW management on FDI
- links
+Subject: [Intel-gfx] [PATCH 03/11] drm/i915/dp: Skip computing a non-DSC
+ link config if DSC is needed
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,57 +59,111 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Luca Coelho <luciano.coelho@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is the first half of patchset [1] enabling the BW management on FDI
-links, addressing the review comments and adding R-bs.
+Computing the non-DSC mode link config is redundant once it's determined
+that DSC will be needed, so skip computing it. In a follow-up patch this
+simplifies setting the link limits which are dependent on the DSC vs.
+non-DSC mode.
 
-[1] https://lore.kernel.org/all/20230914192659.757475-1-imre.deak@intel.com
+While at it sanitize the debug print about the MST DSC fallback path,
+making it similar to the SST DSC one.
 
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Luca Coelho <luciano.coelho@intel.com>
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c     | 22 ++++++++++++------
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 25 +++++++++++++++------
+ 2 files changed, 33 insertions(+), 14 deletions(-)
 
-Imre Deak (11):
-  drm/i915/dp: Factor out helpers to compute the link limits
-  drm/i915/dp: Track the pipe and link bpp limits separately
-  drm/i915/dp: Skip computing a non-DSC link config if DSC is needed
-  drm/i915/dp: Update the link bpp limits for DSC mode
-  drm/i915/dp: Limit the output link bpp in DSC mode
-  drm/i915: Add helper to modeset a set of pipes
-  drm/i915: Rename intel_modeset_all_pipes() to
-    intel_modeset_all_pipes_late()
-  drm/i915: Factor out a helper to check/compute all the CRTC states
-  drm/i915: Add helpers for BW management on shared display links
-  drm/i915/fdi: Improve FDI BW sharing between pipe B and C
-  drm/i915/fdi: Recompute state for affected CRTCs on FDI links
-
- drivers/gpu/drm/i915/Makefile                 |   1 +
- drivers/gpu/drm/i915/display/g4x_hdmi.c       |   6 +-
- drivers/gpu/drm/i915/display/intel_cdclk.c    |   2 +-
- drivers/gpu/drm/i915/display/intel_crt.c      |   7 +
- drivers/gpu/drm/i915/display/intel_crtc.c     |   1 +
- drivers/gpu/drm/i915/display/intel_display.c  | 261 +++++++++++++-----
- drivers/gpu/drm/i915/display/intel_display.h  |   6 +-
- .../drm/i915/display/intel_display_types.h    |  26 +-
- drivers/gpu/drm/i915/display/intel_dp.c       | 170 +++++++++---
- drivers/gpu/drm/i915/display/intel_dp.h       |  15 +-
- drivers/gpu/drm/i915/display/intel_dp_mst.c   | 106 ++++---
- drivers/gpu/drm/i915/display/intel_fdi.c      | 162 +++++++++--
- drivers/gpu/drm/i915/display/intel_fdi.h      |   8 +
- drivers/gpu/drm/i915/display/intel_link_bw.c  | 212 ++++++++++++++
- drivers/gpu/drm/i915/display/intel_link_bw.h  |  37 +++
- drivers/gpu/drm/i915/display/intel_lvds.c     |  10 +-
- drivers/gpu/drm/i915/display/intel_sdvo.c     |  11 +-
- drivers/gpu/drm/i915/display/skl_watermark.c  |   2 +-
- 18 files changed, 872 insertions(+), 171 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/display/intel_link_bw.c
- create mode 100644 drivers/gpu/drm/i915/display/intel_link_bw.h
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 9a38ea58b7876..8c6ff2fa63654 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2247,7 +2247,8 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
+ 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
+ 	struct link_config_limits limits;
+ 	bool joiner_needs_dsc = false;
+-	int ret;
++	bool dsc_needed;
++	int ret = 0;
+ 
+ 	intel_dp_compute_config_limits(intel_dp, pipe_config,
+ 				       respect_downstream_limits, &limits);
+@@ -2263,13 +2264,20 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
+ 	 */
+ 	joiner_needs_dsc = DISPLAY_VER(i915) < 13 && pipe_config->bigjoiner_pipes;
+ 
+-	/*
+-	 * Optimize for slow and wide for everything, because there are some
+-	 * eDP 1.3 and 1.4 panels don't work well with fast and narrow.
+-	 */
+-	ret = intel_dp_compute_link_config_wide(intel_dp, pipe_config, conn_state, &limits);
++	dsc_needed = joiner_needs_dsc || intel_dp->force_dsc_en;
+ 
+-	if (ret || joiner_needs_dsc || intel_dp->force_dsc_en) {
++	if (!dsc_needed) {
++		/*
++		 * Optimize for slow and wide for everything, because there are some
++		 * eDP 1.3 and 1.4 panels don't work well with fast and narrow.
++		 */
++		ret = intel_dp_compute_link_config_wide(intel_dp, pipe_config,
++							conn_state, &limits);
++		if (ret)
++			dsc_needed = true;
++	}
++
++	if (dsc_needed) {
+ 		drm_dbg_kms(&i915->drm, "Try DSC (fallback=%s, joiner=%s, force=%s)\n",
+ 			    str_yes_no(ret), str_yes_no(joiner_needs_dsc),
+ 			    str_yes_no(intel_dp->force_dsc_en));
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 69b1a13e45bf8..05a7bce7cb8e2 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -337,7 +337,8 @@ static int intel_dp_mst_compute_config(struct intel_encoder *encoder,
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&pipe_config->hw.adjusted_mode;
+ 	struct link_config_limits limits;
+-	int ret;
++	bool dsc_needed;
++	int ret = 0;
+ 
+ 	if (adjusted_mode->flags & DRM_MODE_FLAG_DBLSCAN)
+ 		return -EINVAL;
+@@ -348,15 +349,25 @@ static int intel_dp_mst_compute_config(struct intel_encoder *encoder,
+ 
+ 	intel_dp_mst_compute_config_limits(intel_dp, pipe_config, &limits);
+ 
+-	ret = intel_dp_mst_compute_link_config(encoder, pipe_config,
+-					       conn_state, &limits);
++	dsc_needed = intel_dp->force_dsc_en;
+ 
+-	if (ret == -EDEADLK)
+-		return ret;
++	if (!dsc_needed) {
++		ret = intel_dp_mst_compute_link_config(encoder, pipe_config,
++						       conn_state, &limits);
++
++		if (ret == -EDEADLK)
++			return ret;
++
++		if (ret)
++			dsc_needed = true;
++	}
+ 
+ 	/* enable compression if the mode doesn't fit available BW */
+-	drm_dbg_kms(&dev_priv->drm, "Force DSC en = %d\n", intel_dp->force_dsc_en);
+-	if (ret || intel_dp->force_dsc_en) {
++	if (dsc_needed) {
++		drm_dbg_kms(&dev_priv->drm, "Try DSC (fallback=%s, force=%s)\n",
++			    str_yes_no(ret),
++			    str_yes_no(intel_dp->force_dsc_en));
++
+ 		/*
+ 		 * FIXME: As bpc is hardcoded to 8, as mentioned above,
+ 		 * WARN and ignore the debug flag force_dsc_bpc for now.
 -- 
 2.37.2
 
