@@ -4,47 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A17CCE7D0A4
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 18:21:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CE15E7D0A2
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 Sep 2023 18:47:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60E8F10E152;
-	Thu, 21 Sep 2023 18:21:24 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F37AF10E152;
- Thu, 21 Sep 2023 18:21:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695320482; x=1726856482;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=gF9YaWLf5j8y4umFkKe3L4QbsxVsINM2PMkoT8McGUU=;
- b=XyuU4LzqEKQsMFs8T6V7PJZyUPPOeVrv9Ip/TrT5VWkIMzJ/UkkNekgi
- f8uIMy4dXYXIqfEQLxm/nVgbdprvFZuulVX+QQf3pZeOd55eWw7S/ADLf
- bpItpckFui/g+dlAJJKGJulHpZ3PDhVpCsPa+PvenSfIxsgXlgnxCwv4/
- jgsfe/Ez3rwXiU0MbcGi800VFWErCaoXsFDXwBH6CQYMEYjoiDF9flzUM
- 0VjsF9b9wvus+oyV6LVvAh6GI8yJ622b4cUhMGJx7wkR5h94P/jj1btEF
- 0N+mmkj2NbEsgcUdEa4Rt3slPqvPO+sEn7Gwm2c+29acJ8+TISkT7R+rs g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10840"; a="384461598"
-X-IronPort-AV: E=Sophos;i="6.03,166,1694761200"; d="scan'208";a="384461598"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Sep 2023 11:21:21 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10840"; a="776545658"
-X-IronPort-AV: E=Sophos;i="6.03,166,1694761200"; d="scan'208";a="776545658"
-Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
- by orsmga008.jf.intel.com with ESMTP; 21 Sep 2023 11:21:21 -0700
-From: John.C.Harrison@Intel.com
-To: Intel-GFX@Lists.FreeDesktop.Org
-Date: Thu, 21 Sep 2023 11:20:33 -0700
-Message-ID: <20230921182033.135448-1-John.C.Harrison@Intel.com>
-X-Mailer: git-send-email 2.41.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03B5010E31A;
+	Thu, 21 Sep 2023 18:47:10 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C751D10E31A;
+ Thu, 21 Sep 2023 18:47:07 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id C354DA0169;
+ Thu, 21 Sep 2023 18:47:07 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8153241120966299787=="
 MIME-Version: 1.0
-Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
- Swindon SN3 1RJ
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/guc: Suppress 'ignoring reset
- notification' message
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Maxime Ripard" <mripard@kernel.org>
+Date: Thu, 21 Sep 2023 18:47:07 -0000
+Message-ID: <169532202779.7233.5126714666532755153@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230921105743.2611263-1-mripard@kernel.org>
+In-Reply-To: <20230921105743.2611263-1-mripard@kernel.org>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgTUFJ?=
+ =?utf-8?q?NTAINERS=3A_Update_drm-misc_entry_to_match_all_drivers?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,57 +40,186 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: DRI-Devel@Lists.FreeDesktop.Org
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: John Harrison <John.C.Harrison@Intel.com>
+--===============8153241120966299787==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-If an active context has been banned (e.g. Ctrl+C killed) then it is
-likely to be reset as part of evicting it from the hardware. That
-results in a 'ignoring context reset notification: banned = 1'
-message at info level. This confuses/concerns people and makes them
-thing something has gone wrong when it hasn't.
+== Series Details ==
 
-There is already a debug level message with essentially the same
-information. So drop the 'ignore' info level one and just add the
-'ignore' flag to the debug level one instead (which will therefore not
-appear by default but will still show up in CI runs).
+Series: MAINTAINERS: Update drm-misc entry to match all drivers
+URL   : https://patchwork.freedesktop.org/series/124045/
+State : success
 
-Signed-off-by: John Harrison <John.C.Harrison@Intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index cabdc645fcddb..da7331346df1f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -4770,19 +4770,19 @@ static void guc_context_replay(struct intel_context *ce)
- static void guc_handle_context_reset(struct intel_guc *guc,
- 				     struct intel_context *ce)
- {
-+	bool capture = intel_context_is_schedulable(ce);
-+
- 	trace_intel_context_reset(ce);
- 
--	guc_dbg(guc, "Got context reset notification: 0x%04X on %s, exiting = %s, banned = %s\n",
-+	guc_dbg(guc, "%s context reset notification: 0x%04X on %s, exiting = %s, banned = %s\n",
-+		capture ? "Got" : "Ignoring",
- 		ce->guc_id.id, ce->engine->name,
- 		str_yes_no(intel_context_is_exiting(ce)),
- 		str_yes_no(intel_context_is_banned(ce)));
- 
--	if (likely(intel_context_is_schedulable(ce))) {
-+	if (capture) {
- 		capture_error_state(guc, ce);
- 		guc_context_replay(ce);
--	} else {
--		guc_info(guc, "Ignoring context reset notification of exiting context 0x%04X on %s",
--			 ce->guc_id.id, ce->engine->name);
- 	}
- }
- 
--- 
-2.41.0
+CI Bug Log - changes from CI_DRM_13664 -> Patchwork_124045v1
+====================================================
 
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124045v1/index.html
+
+Participating hosts (40 -> 37)
+------------------------------
+
+  Missing    (3): fi-kbl-soraka fi-snb-2520m fi-kbl-8809g 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_124045v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_exec_suspend@basic-s3@lmem0:
+    - bat-atsm-1:         NOTRUN -> [DMESG-WARN][1] ([i915#8841]) +4 other tests dmesg-warn
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124045v1/bat-atsm-1/igt@gem_exec_suspend@basic-s3@lmem0.html
+
+  * igt@i915_selftest@live@gt_heartbeat:
+    - fi-apl-guc:         [PASS][2] -> [DMESG-FAIL][3] ([i915#5334])
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13664/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124045v1/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html
+
+  * igt@i915_suspend@basic-s3-without-i915:
+    - bat-atsm-1:         NOTRUN -> [SKIP][4] ([i915#6645])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124045v1/bat-atsm-1/igt@i915_suspend@basic-s3-without-i915.html
+
+  * igt@kms_pipe_crc_basic@suspend-read-crc:
+    - bat-atsm-1:         NOTRUN -> [SKIP][5] ([i915#1836])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124045v1/bat-atsm-1/igt@kms_pipe_crc_basic@suspend-read-crc.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@gt_timelines:
+    - bat-atsm-1:         [INCOMPLETE][6] -> [PASS][7]
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13664/bat-atsm-1/igt@i915_selftest@live@gt_timelines.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124045v1/bat-atsm-1/igt@i915_selftest@live@gt_timelines.html
+
+  
+  [i915#1836]: https://gitlab.freedesktop.org/drm/intel/issues/1836
+  [i915#5334]: https://gitlab.freedesktop.org/drm/intel/issues/5334
+  [i915#6645]: https://gitlab.freedesktop.org/drm/intel/issues/6645
+  [i915#8841]: https://gitlab.freedesktop.org/drm/intel/issues/8841
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_13664 -> Patchwork_124045v1
+
+  CI-20190529: 20190529
+  CI_DRM_13664: 24303ce015224a18891b6b2787aa52a0bdfed4b6 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7496: 6a96d3ad178e468b74a58cc10dead2f57bc1558d @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_124045v1: 24303ce015224a18891b6b2787aa52a0bdfed4b6 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+2f66b107c21c MAINTAINERS: Update drm-misc entry to match all drivers
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124045v1/index.html
+
+--===============8153241120966299787==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>MAINTAINERS: Update drm-misc entry to match all drivers</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/124045/">https://patchwork.freedesktop.org/series/124045/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124045v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124045v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_13664 -&gt; Patchwork_124045v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124045v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 37)</h2>
+<p>Missing    (3): fi-kbl-soraka fi-snb-2520m fi-kbl-8809g </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_124045v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_exec_suspend@basic-s3@lmem0:</p>
+<ul>
+<li>bat-atsm-1:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124045v1/bat-atsm-1/igt@gem_exec_suspend@basic-s3@lmem0.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8841">i915#8841</a>) +4 other tests dmesg-warn</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_heartbeat:</p>
+<ul>
+<li>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13664/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124045v1/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_suspend@basic-s3-without-i915:</p>
+<ul>
+<li>bat-atsm-1:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124045v1/bat-atsm-1/igt@i915_suspend@basic-s3-without-i915.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6645">i915#6645</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@suspend-read-crc:</p>
+<ul>
+<li>bat-atsm-1:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124045v1/bat-atsm-1/igt@kms_pipe_crc_basic@suspend-read-crc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1836">i915#1836</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@gt_timelines:<ul>
+<li>bat-atsm-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13664/bat-atsm-1/igt@i915_selftest@live@gt_timelines.html">INCOMPLETE</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124045v1/bat-atsm-1/igt@i915_selftest@live@gt_timelines.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_13664 -&gt; Patchwork_124045v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_13664: 24303ce015224a18891b6b2787aa52a0bdfed4b6 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7496: 6a96d3ad178e468b74a58cc10dead2f57bc1558d @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_124045v1: 24303ce015224a18891b6b2787aa52a0bdfed4b6 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>2f66b107c21c MAINTAINERS: Update drm-misc entry to match all drivers</p>
+
+</body>
+</html>
+
+--===============8153241120966299787==--
