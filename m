@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE005E6FE32
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Sep 2023 13:45:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E2D0E6FE32
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Sep 2023 13:46:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4667610E66D;
-	Fri, 22 Sep 2023 13:45:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4705610E192;
+	Fri, 22 Sep 2023 13:46:00 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E3F110E66B;
- Fri, 22 Sep 2023 13:44:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F381010E676;
+ Fri, 22 Sep 2023 13:45:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695390291; x=1726926291;
+ t=1695390338; x=1726926338;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=n2K9IrbXdRiICRY6FYfzQGK165O4mFQTgTDnPLiqswM=;
- b=BaAgAxsVMyr24gsf5ow2Z+91nbK0W5MOfQj/yoVNXs/D5UsJW+dWeObt
- MChdSWe/KQ/qkC7UZIbu1JlQUogpReyCKufMf8zl03vRooSYeIECXVdcK
- FTzEMkwB/nyCQIMtUF2gHFcJTdkwGMQotrSFl30dXxvpPGp9STyCT8x6+
- YvI20ODeNTKOMTocv6vRYHv7DKygH0RXXNMa/lGpkGm7A2cIL/iEngEBl
- P2KT6Me1esFp/u5CurO4ydLF4eBRV1bQnKXkll5KV9cP7Itiky0bT2of7
- PmmWw1Rez7dyXyNg5MAg+fGBZ858MkuDmGJPMDfCwcIErcABaSQNJLLq2 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="378117141"
-X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="378117141"
+ bh=Yt46lnO79fw85Z3m8LKQvMLLP745R4hvjLbFZi57wa0=;
+ b=BNGTQEy1402pkOuWozSalVNweb2EJX/8Q71pxtq0xEJ7VG1cBMY7cDlX
+ K5yO7ME7O9ejt6gmxGXnmsQqcWxWyrmokbSOzb9Yye7guaFL0GYDa+5jE
+ Yvq5CeGdQQjwgkgUdsb/jTWTPbwXcJLSI0mGPCK8Gfr9X7blrXYiR+1w/
+ +vqw7UGHgOYxR2H83vq8GKvdDigeA0BDQDc4tA9pJAGv9sbMBeNtQPsHW
+ SRIJkneU/9RjKFp7y4sWL1hY9rOuJH/8Rbr5yY1RKQ/jM2zJjxWZytWB/
+ ortbxQECLq1d4Pa5gkSmbn5FOB4U1a9HixQN6nOQxlsZPMKqUw22DMdDs Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="378117149"
+X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="378117149"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2023 06:44:50 -0700
+ 22 Sep 2023 06:44:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="871243575"
-X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="871243575"
+X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="871243598"
+X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="871243598"
 Received: from placki-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.200.149])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2023 06:44:49 -0700
+ 22 Sep 2023 06:44:52 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: igt-dev@lists.freedesktop.org,
 	Intel-gfx@lists.freedesktop.org
-Date: Fri, 22 Sep 2023 14:44:30 +0100
-Message-Id: <20230922134437.234888-6-tvrtko.ursulin@linux.intel.com>
+Date: Fri, 22 Sep 2023 14:44:32 +0100
+Message-Id: <20230922134437.234888-8-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230922134437.234888-1-tvrtko.ursulin@linux.intel.com>
 References: <20230922134437.234888-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 05/12] tools/intel_gpu_top: Fix client
- layout on first sample period
+Subject: [Intel-gfx] [PATCH i-g-t 07/12] lib/igt_drm_fdinfo: Copy over
+ region map name on match
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,60 +65,29 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-When I moved the client name to be last, I did not account for the fact
-current code skips showing engine utilisation until at least two sampling
-periods have passed. Consequence of this is that client name gets printed
-as the second field and not under the "NAME" column header.
-
-Fix it by emitting spaces instead of engine utilisation until two samples
-have been collected.
+I will need some record of which regions were found for intel_gpu_top so
+lets just copy over the region name from the map on the first match.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- tools/intel_gpu_top.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ lib/igt_drm_fdinfo.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
-index 76956619eaae..6363f460c892 100644
---- a/tools/intel_gpu_top.c
-+++ b/tools/intel_gpu_top.c
-@@ -930,12 +930,14 @@ static void free_display_clients(struct igt_drm_clients *clients)
- 
- static const char *bars[] = { " ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█" };
- 
--static void n_spaces(const unsigned int n)
-+static unsigned int n_spaces(const unsigned int n)
- {
- 	unsigned int i;
- 
- 	for (i = 0; i < n; i++)
- 		putchar(' ');
-+
-+	return n;
- }
- 
- static void
-@@ -2045,14 +2047,17 @@ print_client(struct igt_drm_client *c, struct engines *engines, double t, int li
- 
- 		len = printf("%*s ", clients->max_pid_len, c->pid_str);
- 
--		for (i = 0;
--		     c->samples > 1 && i <= iclients->classes.max_engine_id;
--		     i++) {
-+		for (i = 0; i <= iclients->classes.max_engine_id; i++) {
- 			double pct, max;
- 
- 			if (!iclients->classes.capacity[i])
- 				continue;
- 
-+			if (c->samples < 2) {
-+				len += n_spaces(*class_w);
-+				continue;
-+			}
-+
- 			pct = (double)c->val[i] / period_us / 1e3 * 100;
- 
- 			/*
+diff --git a/lib/igt_drm_fdinfo.c b/lib/igt_drm_fdinfo.c
+index b72822894782..222ccbfb1fd6 100644
+--- a/lib/igt_drm_fdinfo.c
++++ b/lib/igt_drm_fdinfo.c
+@@ -148,6 +148,10 @@ static int parse_region(char *line, struct drm_client_fdinfo *info,
+ 		for (i = 0; i < region_entries; i++) {
+ 			if (!strncmp(name, region_map[i], name_len)) {
+ 				found = i;
++				if (!info->region_names[info->num_regions][0]) {
++					assert(name_len < sizeof(info->region_names[i]));
++					strncpy(info->region_names[i], name, name_len);
++				}
+ 				break;
+ 			}
+ 		}
 -- 
 2.39.2
 
