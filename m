@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBAF3E6FE34
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Sep 2023 13:46:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B017BE6FE32
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Sep 2023 13:46:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B106A10E66B;
-	Fri, 22 Sep 2023 13:46:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A23C110E66E;
+	Fri, 22 Sep 2023 13:46:02 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 187CC10E669;
- Fri, 22 Sep 2023 13:45:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F273E10E674;
+ Fri, 22 Sep 2023 13:45:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695390341; x=1726926341;
+ t=1695390338; x=1726926338;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ypMid9qz8w3EISgLqRrSIozWij9gpQmaY7umHfWSeKo=;
- b=gRobfyjlwf9Fh6GNUuupGrRODB9TyqloSkPamZouGjTKQM0eJZVCEYbj
- mPXuJjjCcA1g9+InIKFwnVrkqtcGjdj82AMGmosHHZgmE8cD66eupgTUz
- BzkUgH1/DodXauvJxc5xahAl2vUeLstWZawf2ttB/aR6idOGseTc2szvF
- Kl0WONHRDRObwNVgdDJFBc80X3RsVY9Fh7yE3dsLddH+7szgV1WtgMRqa
- Bokvb/TAwoHBrZg5lgTBXAmiQbOzfVmsn9k/ubt0T3lcL/KpAJMtR3Amp
- cKpXftJUSQgJ3i4Au00MX5Mhh6NZmAD5H1Rx2fIOiyDc43RRAfCtBrITH A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="378117156"
-X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="378117156"
+ bh=Sr43CvzG/k974mK43Pj+WtTVAi0698tnjW5IM1nJZgg=;
+ b=fS6YWuFIxsM4ulD7dC/YDkREFQ4StnL6Vy3jN0hKiFiDYpRJp2K10tZt
+ pclNxVd4JGzpgRXBG9gijSu0ISZgxv50trkIKb9qoRNa5lkXQ84C0XeC5
+ lwXbLkJm/gHFGOJ+KOJSxbmWj9qe+8xBunXcNiorxeNJy+bQD6FuYzKzo
+ NbTpNjRJZIdeONOWITfDgVyb19FLglfpEB9RGNQ+268VQCJhAPKgtFY3Q
+ woZ+bHDKybD0YXaKxizuS1rf14Z7mOWUULuEvjQkOed5gChGTSjtevv3l
+ huUwS7IbrfQDzQ+GIsDlDkpHXm4QueVPI/bSn2kGuLDa89WtP+tC9c9wF g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="378117145"
+X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="378117145"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2023 06:44:56 -0700
+ 22 Sep 2023 06:44:52 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="871243614"
-X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="871243614"
+X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="871243586"
+X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="871243586"
 Received: from placki-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.200.149])
  by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2023 06:44:55 -0700
+ 22 Sep 2023 06:44:50 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: igt-dev@lists.freedesktop.org,
 	Intel-gfx@lists.freedesktop.org
-Date: Fri, 22 Sep 2023 14:44:34 +0100
-Message-Id: <20230922134437.234888-10-tvrtko.ursulin@linux.intel.com>
+Date: Fri, 22 Sep 2023 14:44:31 +0100
+Message-Id: <20230922134437.234888-7-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230922134437.234888-1-tvrtko.ursulin@linux.intel.com>
 References: <20230922134437.234888-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 09/12] lib/igt_drm_clients: Allow passing
- in the memory region map
+Subject: [Intel-gfx] [PATCH i-g-t 06/12] tools/intel_gpu_top: Optimise
+ interactive display a bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,103 +66,76 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Same concept as with the engine map, allowing callers to pass in fixed
-map of names to indices, simplifying their implementation and avoiding
-auto-detection while parsing.
+Padding the percentage bars and table columns with spaces happens quite a
+lot so lets do better than putchar at a time. Have a table of visually
+empty strings and build the required length out of those chunks.
+
+While at it, also move the percentage bar table into its function scope.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- lib/igt_drm_clients.c | 5 +++--
- lib/igt_drm_clients.h | 3 ++-
- tools/gputop.c        | 4 ++--
- tools/intel_gpu_top.c | 8 +++++---
- 4 files changed, 12 insertions(+), 8 deletions(-)
+ tools/intel_gpu_top.c | 38 +++++++++++++++++++++++++++++++++-----
+ 1 file changed, 33 insertions(+), 5 deletions(-)
 
-diff --git a/lib/igt_drm_clients.c b/lib/igt_drm_clients.c
-index da51d7335b2b..025d60c51503 100644
---- a/lib/igt_drm_clients.c
-+++ b/lib/igt_drm_clients.c
-@@ -445,7 +445,8 @@ struct igt_drm_clients *
- igt_drm_clients_scan(struct igt_drm_clients *clients,
- 		     bool (*filter_client)(const struct igt_drm_clients *,
- 					   const struct drm_client_fdinfo *),
--		     const char **name_map, unsigned int map_entries)
-+		     const char **name_map, unsigned int map_entries,
-+		     const char **region_map, unsigned int region_entries)
- {
- 	struct dirent *proc_dent;
- 	struct igt_drm_client *c;
-@@ -524,7 +525,7 @@ igt_drm_clients_scan(struct igt_drm_clients *clients,
- 			if (!__igt_parse_drm_fdinfo(dirfd(fdinfo_dir),
- 						    fdinfo_dent->d_name, &info,
- 						    name_map, map_entries,
--						    NULL, 0))
-+						    region_map, region_entries))
- 				continue;
- 
- 			if (filter_client && !filter_client(clients, &info))
-diff --git a/lib/igt_drm_clients.h b/lib/igt_drm_clients.h
-index cd37f8508b20..52888aedc25a 100644
---- a/lib/igt_drm_clients.h
-+++ b/lib/igt_drm_clients.h
-@@ -93,7 +93,8 @@ struct igt_drm_clients *
- igt_drm_clients_scan(struct igt_drm_clients *clients,
- 		     bool (*filter_client)(const struct igt_drm_clients *,
- 					   const struct drm_client_fdinfo *),
--		     const char **name_map, unsigned int map_entries);
-+		     const char **name_map, unsigned int map_entries,
-+		     const char **region_map, unsigned int region_entries);
- 
- struct igt_drm_clients *
- igt_drm_clients_sort(struct igt_drm_clients *clients,
-diff --git a/tools/gputop.c b/tools/gputop.c
-index ea95e0333dd2..71e28f43ee4c 100644
---- a/tools/gputop.c
-+++ b/tools/gputop.c
-@@ -253,7 +253,7 @@ int main(int argc, char **argv)
- 	if (!clients)
- 		exit(1);
- 
--	igt_drm_clients_scan(clients, NULL, NULL, 0);
-+	igt_drm_clients_scan(clients, NULL, NULL, 0, NULL, 0);
- 
- 	for (;;) {
- 		struct igt_drm_client *c, *prevc = NULL;
-@@ -270,7 +270,7 @@ int main(int argc, char **argv)
- 			}
- 		}
- 
--		igt_drm_clients_scan(clients, NULL, NULL, 0);
-+		igt_drm_clients_scan(clients, NULL, NULL, 0, NULL, 0);
- 		igt_drm_clients_sort(clients, client_cmp);
- 
- 		printf("\033[H\033[J");
 diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
-index e18ec25e8036..eb0ef00abeaf 100644
+index 6363f460c892..a7a24e527f01 100644
 --- a/tools/intel_gpu_top.c
 +++ b/tools/intel_gpu_top.c
-@@ -2619,8 +2619,9 @@ int main(int argc, char **argv)
- 	}
+@@ -928,14 +928,40 @@ static void free_display_clients(struct igt_drm_clients *clients)
+ 	free(clients);
+ }
  
- 	pmu_sample(engines);
--	igt_drm_clients_scan(clients, client_match, engine_map,
--			     ARRAY_SIZE(engine_map));
-+	igt_drm_clients_scan(clients, client_match,
-+			     engine_map, ARRAY_SIZE(engine_map),
-+			     NULL, 0);
- 	gettime(&ts);
+-static const char *bars[] = { " ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█" };
+-
+ static unsigned int n_spaces(const unsigned int n)
+ {
+-	unsigned int i;
++	static const char *spaces[] = {
++		" ",
++		"  ",
++		"   ",
++		"    ",
++		"     ",
++		"      ",
++		"       ",
++		"        ",
++		"         ",
++		"          ",
++		"           ",
++		"            ",
++		"             ",
++		"              ",
++		"               ",
++		"                ",
++		"                 ",
++		"                  ",
++		"                   ",
++#define MAX_SPACES 19
++	};
++	unsigned int i, r = n;
  
- 	if (output_mode == JSON)
-@@ -2655,7 +2656,8 @@ int main(int argc, char **argv)
- 			display_clients(igt_drm_clients_scan(clients,
- 							     client_match,
- 							     engine_map,
--							     ARRAY_SIZE(engine_map)));
-+							     ARRAY_SIZE(engine_map),
-+							     NULL, 0));
- 		scan_us = elapsed_us(&ts, period_us);
+-	for (i = 0; i < n; i++)
+-		putchar(' ');
++	while (r) {
++		if (r > MAX_SPACES)
++			i = MAX_SPACES - 1;
++		else
++			i = r - 1;
++		fputs(spaces[i], stdout);
++		r -= i + 1;
++	}
  
- 		if (stop_top)
+ 	return n;
+ }
+@@ -943,6 +969,8 @@ static unsigned int n_spaces(const unsigned int n)
+ static void
+ print_percentage_bar(double percent, double max, int max_len, bool numeric)
+ {
++	static const char *bars[] =
++		{ " ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█" };
+ 	int bar_len, i, len = max_len - 2;
+ 	const int w = 8;
+ 
 -- 
 2.39.2
 
