@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95305E6FE33
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 Sep 2023 13:46:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80209E6FE2F
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 Sep 2023 13:47:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40F7310E678;
-	Fri, 22 Sep 2023 13:46:27 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1705B10E192;
- Fri, 22 Sep 2023 13:45:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF43B10E192;
+	Fri, 22 Sep 2023 13:47:18 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C99A110E192;
+ Fri, 22 Sep 2023 13:47:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695390341; x=1726926341;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=n+EnFC8AWmNcXHW2jMhVhlk71dYyN9VYXI4CLNN9rqg=;
- b=A+EA9HJSz1t6OMNB2Hi/1xkIaCEpsILoFom01tB3JSPjFO/tcYGY19Jo
- TJmJeIx5Bhupd4slE2CIfAAOdWrusMPv+4r67zozHCubWILVKLrst2VMD
- ybWHhZqk+UHD8FyF03UXFAWpaIGoxEUAW7Yf5iKxvpQrjBV/0VQRSQ85Z
- 5bj9b1Q+4rNN74BuBvPnT3F3Mnac5v822M27eYzVSXJD8Oh2jVvcRpVJ0
- jNx9tfDAxrfC9CliejoTV48it5j4tkzB+nfilA0/mB0dSkmdGJwnzFpoO
- ESic2yP5yQczol6cxkFkQ3fYv2PFshbtJKw+j4kMLDASTGsps3AvEdmQ4 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="378117167"
-X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="378117167"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2023 06:44:59 -0700
+ t=1695390425; x=1726926425;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=G47JHRJss6dSpMrMkut5fqi9gVM7nfssHFaWHIPEHdY=;
+ b=Xe44oPJLFKzdy2lakP7m+4KZI4ak5ijaKwI2X1/gJFIJUh6EA4zKRnjA
+ dzZYyMsoWebJBOhTqatFhnhdQCu7xfpxKv0XMAlgA2Wi41ooJBjmb6LUU
+ gpYnRlm6t78lbGrYBQlYrhBs5qj2kJG9ONfG2xrFzsKaD5BUI59mC+8Sf
+ Xj7Xg4yKeYW/psAHFhPJ4/axLBGfX7FNeh0nQIpYHMgcDRrvSSHSCxHrE
+ Fpdrdk3/UvGZAJgMlVhnV5Inc5zd82Sxt43hF4buBX9n8tuG/2UkJC25r
+ u2I0wHm95Rh+gftTD7jzg+8nh6R+5hFjsFZRbaOL5vLoGeDgMHn+m+ae5 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="467126577"
+X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="467126577"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2023 06:47:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="871243633"
-X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="871243633"
+X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="1078376213"
+X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="1078376213"
 Received: from placki-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.200.149])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Sep 2023 06:44:57 -0700
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2023 06:47:03 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-To: igt-dev@lists.freedesktop.org,
-	Intel-gfx@lists.freedesktop.org
-Date: Fri, 22 Sep 2023 14:44:36 +0100
-Message-Id: <20230922134437.234888-12-tvrtko.ursulin@linux.intel.com>
+To: Intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Fri, 22 Sep 2023 14:46:54 +0100
+Message-Id: <20230922134700.235039-1-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230922134437.234888-1-tvrtko.ursulin@linux.intel.com>
-References: <20230922134437.234888-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 11/12] tools/intel_gpu_top: Add per client
- memory info
+Subject: [Intel-gfx] [PATCH v7 0/6] fdinfo memory stats
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,204 +63,139 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-JSON output has the full breakdown but for now the interactive mode only
-shows total and resident aggregated for all memory regions.
+A short series to enable fdinfo memory stats for i915.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
----
- tools/intel_gpu_top.c | 114 +++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 112 insertions(+), 2 deletions(-)
+I added tracking of most classes of objects (user objects, page tables, context
+state, ring buffers) which contribute to client's memory footprint and am
+accouting their memory use along the similar lines as in Rob's msm code, just
+that with i915 specific code we can show a memory region breakdown and so
+support discrete and multi-tile GPUs properly. And also reflect that our objects
+can have multiple allowed backing stores.
 
-diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
-index 27503ac03ebd..c239a0d4f350 100644
---- a/tools/intel_gpu_top.c
-+++ b/tools/intel_gpu_top.c
-@@ -133,11 +133,24 @@ struct intel_clients {
- 	const char *pci_slot;
- 	struct igt_drm_client_engines classes;
- 	struct igt_drm_clients *clients;
-+	struct igt_drm_client_regions *regions; /* Borrowed from first client */
- };
- 
- static struct termios termios_orig;
- static bool class_view;
- 
-+/* Maps i915 fdinfo names to indices */
-+static const char *memory_region_map[] = {
-+	"system0",
-+	"local0",
-+};
-+
-+/* For JSON, 1:1 with indices above. */
-+static const char *json_memory_region_names[] = {
-+	"system",
-+	"local",
-+};
-+
- __attribute__((format(scanf,3,4)))
- static int igt_sysfs_scanf(int dir, const char *attr, const char *fmt, ...)
- {
-@@ -884,6 +897,9 @@ static struct igt_drm_clients *display_clients(struct igt_drm_clients *clients)
- 			ac->val = calloc(c->engines->max_engine_id + 1,
- 					 sizeof(ac->val[0]));
- 			assert(ac->val);
-+			ac->regions = c->regions;
-+			ac->memory = calloc(c->regions->max_region_id + 1,
-+					    sizeof(ac->memory[0]));
- 			ac->samples = 1;
- 		}
- 
-@@ -898,6 +914,14 @@ static struct igt_drm_clients *display_clients(struct igt_drm_clients *clients)
- 
- 		for (i = 0; i <= c->engines->max_engine_id; i++)
- 			ac->val[i] += c->val[i];
-+
-+		for (i = 0; i <= c->regions->max_region_id; i++) {
-+			ac->memory[i].total += c->memory[i].total;
-+			ac->memory[i].shared += c->memory[i].shared;
-+			ac->memory[i].resident += c->memory[i].resident;
-+			ac->memory[i].purgeable += c->memory[i].purgeable;
-+			ac->memory[i].active += c->memory[i].active;
-+		}
- 	}
- 
- 	aggregated->num_clients = num;
-@@ -922,8 +946,10 @@ static void free_display_clients(struct igt_drm_clients *clients)
- 	 * "display" clients are not proper clients and have un-initialized
- 	 * or borrowed fields which we don't want the library to try and free.
- 	 */
--	igt_for_each_drm_client(clients, c, tmp)
-+	igt_for_each_drm_client(clients, c, tmp) {
- 		free(c->val);
-+		free(c->memory);
-+	}
- 
- 	free(clients->client);
- 	free(clients);
-@@ -2016,6 +2042,9 @@ print_clients_header(struct igt_drm_clients *clients, int lines,
- 		if (lines++ >= con_h || len >= con_w)
- 			return lines;
- 
-+		if (iclients->regions)
-+			len += printf("     MEM      RSS ");
-+
- 		if (iclients->classes.num_engines) {
- 			unsigned int i;
- 			int width;
-@@ -2059,6 +2088,20 @@ print_clients_header(struct igt_drm_clients *clients, int lines,
- static bool numeric_clients;
- static bool filter_idle;
- 
-+static int print_size(uint64_t sz)
-+{
-+	char units[] = { ' ', 'K', 'M', 'G' };
-+	unsigned int u;
-+
-+	for (u = 0; u < ARRAY_SIZE(units) - 1; u++) {
-+		if (sz & 1023 || sz < 1024)
-+			break;
-+		sz /= 1024;
-+	}
-+
-+	return printf("%7"PRIu64"%c ", sz, units[u]);
-+}
-+
- static int
- print_client(struct igt_drm_client *c, struct engines *engines, double t, int lines,
- 	     int con_w, int con_h, unsigned int period_us, int *class_w)
-@@ -2076,6 +2119,18 @@ print_client(struct igt_drm_client *c, struct engines *engines, double t, int li
- 
- 		len = printf("%*s ", clients->max_pid_len, c->pid_str);
- 
-+		if (iclients->regions) {
-+			uint64_t sz;
-+
-+			for (sz = 0, i = 0; i <= c->regions->max_region_id; i++)
-+				sz += c->memory[i].total;
-+			len += print_size(sz);
-+
-+			for (sz = 0, i = 0; i <= c->regions->max_region_id; i++)
-+				sz += c->memory[i].resident;
-+			len += print_size(sz);
-+		}
-+
- 		for (i = 0; i <= iclients->classes.max_engine_id; i++) {
- 			double pct, max;
- 
-@@ -2115,6 +2170,42 @@ print_client(struct igt_drm_client *c, struct engines *engines, double t, int li
- 		snprintf(buf, sizeof(buf), "%u", c->pid);
- 		__json_add_member("pid", buf);
- 
-+		if (iclients->regions) {
-+			pops->open_struct("memory");
-+
-+			for (i = 0; i < ARRAY_SIZE(json_memory_region_names);
-+			     i++) {
-+				if (i > c->regions->max_region_id)
-+					break;
-+
-+				pops->open_struct(json_memory_region_names[i]);
-+
-+				snprintf(buf, sizeof(buf), "%" PRIu64,
-+					 c->memory[i].total);
-+				__json_add_member("total", buf);
-+
-+				snprintf(buf, sizeof(buf), "%" PRIu64,
-+					 c->memory[i].shared);
-+				__json_add_member("shared", buf);
-+
-+				snprintf(buf, sizeof(buf), "%" PRIu64,
-+					 c->memory[i].resident);
-+				__json_add_member("resident", buf);
-+
-+				snprintf(buf, sizeof(buf), "%" PRIu64,
-+					 c->memory[i].purgeable);
-+				__json_add_member("purgeable", buf);
-+
-+				snprintf(buf, sizeof(buf), "%" PRIu64,
-+					 c->memory[i].active);
-+				__json_add_member("active", buf);
-+
-+				pops->close_struct();
-+			}
-+
-+			pops->close_struct();
-+		}
-+
- 		if (c->samples > 1) {
- 			pops->open_struct("engine-classes");
- 
-@@ -2460,10 +2551,29 @@ static void intel_scan_clients(struct intel_clients *iclients)
- 		"video-enhance",
- 		"compute",
- 	};
-+	struct igt_drm_client *c;
-+	unsigned int i;
- 
- 	igt_drm_clients_scan(iclients->clients, client_match,
- 			     engine_map, ARRAY_SIZE(engine_map),
--			     NULL, 0);
-+			     memory_region_map, ARRAY_SIZE(memory_region_map));
-+
-+	iclients->regions = NULL;
-+
-+	if (!iclients->clients)
-+		return;
-+
-+	/*
-+	 * Borrow memory region data from first client so we can use it
-+	 * when displaying stuff. All regions are the same due our client_match.
-+	 */
-+	igt_for_each_drm_client(iclients->clients, c, i) {
-+		if (c->status == IGT_DRM_CLIENT_ALIVE) {
-+			if (c->regions->num_regions)
-+				iclients->regions = c->regions;
-+			break;
-+		}
-+	}
- }
- 
- int main(int argc, char **argv)
+The existing helper Rob added is then used to dump the per memory region stats
+to fdinfo.
+
+The basic objects-per-client infrastructure can later be extended to cover all
+objects and so avoid needing to walk the IDR under the client's file table lock,
+which would further avoid distburbing the running clients by parallel fdinfo
+readers.
+
+Example fdinfo format:
+
+# cat /proc/1383/fdinfo/8
+pos:    0
+flags:  02100002
+mnt_id: 21
+ino:    397
+drm-driver:     i915
+drm-client-id:  18
+drm-pdev:       0000:00:02.0
+drm-total-system:       125 MiB
+drm-shared-system:      16 MiB
+drm-active-system:      110 MiB
+drm-resident-system:    125 MiB
+drm-purgeable-system:   2 MiB
+drm-total-stolen-system:        0
+drm-shared-stolen-system:       0
+drm-active-stolen-system:       0
+drm-resident-stolen-system:     0
+drm-purgeable-stolen-system:    0
+drm-engine-render:      25662044495 ns
+drm-engine-copy:        0 ns
+drm-engine-video:       0 ns
+drm-engine-video-enhance:       0 ns
+
+Example gputop output:
+
+DRM minor 0
+ PID     SMEM  SMEMRSS   render     copy     video    NAME
+1233     124M     124M |████████||        ||        ||        | neverball
+1130      59M      59M |█▌      ||        ||        ||        | Xorg
+1207      12M      12M |        ||        ||        ||        | xfwm4
+
+Or with Wayland:
+
+DRM minor 0
+ PID      MEM      RSS    render        copy         video    video-enhance NAME
+2093     191M     191M |▊          ||           ||           ||           | gnome-shell
+DRM minor 128
+ PID      MEM      RSS    render        copy         video    video-enhance NAME
+2551      71M      71M |██▉        ||           ||           ||           | neverball
+2553      50M      50M |           ||           ||           ||           | Xwayland
+
+Example intel_gpu_top output, aggregated mode:
+
+intel-gpu-top: Intel Dg1 (Gen12) @ /dev/dri/card1 -   21/ 577 MHz;  71% RC6
+          8 irqs/s
+
+         ENGINES     BUSY                                   MI_SEMA MI_WAIT
+       Render/3D    2.80% |▉                              |      0%      0%
+         Blitter    0.01% |▏                              |      0%      0%
+           Video    0.00% |                               |      0%      0%
+    VideoEnhance    0.00% |                               |      0%      0%
+
+  PID      MEM      RSS Render/3D  Blitter    Video    NAME
+50783     109M     107M |▎       ||        ||        ||        | neverball
+
+Region breakdown mode (needs more width for best experience):
+
+intel-gpu-top: Intel Dg1 (Gen12) @ /dev/dri/card1 -   18/ 555 MHz;  65% RC6
+          8 irqs/s
+
+         ENGINES     BUSY                                   MI_SEMA MI_WAIT
+       Render/3D    2.52% |▉                              |      0%      0%
+         Blitter    0.00% |                               |      0%      0%
+           Video    0.00% |                               |      0%      0%
+    VideoEnhance    0.00% |                               |      0%      0%
+
+  PID      RAM      RSS     VRAM     VRSS Video NAME
+50783      34M      32M      75M      75M |▏  ||   ||   ||   | neverball
+
+v2:
+ * Now actually per client.
+
+v3:
+ * Track imported dma-buf objects.
+
+v4:
+ * Rely on DRM GEM handles for tracking user objects.
+ * Fix internal object accounting (no placements).
+
+v5:
+ * Fixed brain fart of overwriting the loop cursor.
+ * Fixed object destruction racing with fdinfo reads.
+ * Take reference to GEM context while using it.
+
+v6:
+ * Rebase, cover letter update.
+
+v7:
+ * New patch in series for making region names consistent and stable.
+
+Test-with: 20230922134437.234888-1-tvrtko.ursulin@linux.intel.com
+
+Tvrtko Ursulin (6):
+  drm/i915: Add ability for tracking buffer objects per client
+  drm/i915: Record which client owns a VM
+  drm/i915: Track page table backing store usage
+  drm/i915: Account ring buffer and context state storage
+  drm/i915: Add stable memory region names
+  drm/i915: Implement fdinfo memory stats printing
+
+ drivers/gpu/drm/i915/gem/i915_gem_context.c   |  11 +-
+ .../gpu/drm/i915/gem/i915_gem_context_types.h |   3 +
+ drivers/gpu/drm/i915/gem/i915_gem_object.c    |  13 ++-
+ .../gpu/drm/i915/gem/i915_gem_object_types.h  |  12 ++
+ .../gpu/drm/i915/gem/selftests/mock_context.c |   4 +-
+ drivers/gpu/drm/i915/gt/intel_context.c       |  14 +++
+ drivers/gpu/drm/i915/gt/intel_gtt.c           |   6 +
+ drivers/gpu/drm/i915/gt/intel_gtt.h           |   1 +
+ drivers/gpu/drm/i915/i915_drm_client.c        | 110 ++++++++++++++++++
+ drivers/gpu/drm/i915/i915_drm_client.h        |  41 +++++++
+ drivers/gpu/drm/i915/intel_memory_region.c    |  19 +++
+ drivers/gpu/drm/i915/intel_memory_region.h    |   1 +
+ 12 files changed, 227 insertions(+), 8 deletions(-)
+
 -- 
 2.39.2
 
