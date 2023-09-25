@@ -4,42 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C83DACE7A98
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 07:33:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92C36CE7A89
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 Sep 2023 07:33:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82ED810E20A;
-	Mon, 25 Sep 2023 07:33:26 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [IPv6:2001:67c:2178:6::1d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B104B10E075;
- Mon, 25 Sep 2023 07:33:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C796610E1EB;
+	Mon, 25 Sep 2023 07:33:27 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89FE910E156;
+ Mon, 25 Sep 2023 07:33:20 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 69DCC1F38D;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id EFC2D1F460;
  Mon, 25 Sep 2023 07:33:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1695627198; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=QWUwHZClstx7ZOSeshSO7yDLKV3TqAiZa8aDlPu/hxk=;
- b=OtFMMGnBealOMT8kelTkyR/G6aJAFoMa8igi+8/Vv5h2uzKRYGOV9skGjlkKNfKteZIeZJ
- jjcvytX3MGaR8TJDHKkxvYleclbdpkRv732zPAHqBDeqVem3URTAEamWPQs8kd+vINWt+E
- HyVGceqZgtbUpMZqCK79VApeeNGqyCA=
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=wKbREabpY/tMUbfIokDvQuIXsWrd55d6jcXVepokFiI=;
+ b=aiF8zAOND3Z0/kKjUb+euMM+s+EyBt4DIl3TMXeRrFrG94lKbqgfDujl1aRUzukHTTAGHu
+ erVhT4j9LuOI296rHJV6zko4ERJXiRyd69N31+SHRMpz5e0ysCSfxVShnKNW8+8K8bcMW5
+ bXdALi0K4nCXr3nHOWxSK4iCt5JmHT4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1695627198;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=QWUwHZClstx7ZOSeshSO7yDLKV3TqAiZa8aDlPu/hxk=;
- b=wTzkEVSsvRZiDEVtZ+yRKzrs79xhgtBRfLSVvQWawGVXwDbKOmKSKy6HRrigr3RX1szc5f
- 7z8PotdYCLr2mNDQ==
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=wKbREabpY/tMUbfIokDvQuIXsWrd55d6jcXVepokFiI=;
+ b=ijPcAaWyeKBKU3BMlXcaX7De83TqNkQ4PFPgtHnqXn18h6G23rckO+A7C+SGlpbKsm3698
+ KtXhUeWHXQnLb8Ag==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2B67C1358F;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AAC8E1358F;
  Mon, 25 Sep 2023 07:33:18 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id KPClCb43EWVyPQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id GCHpKL43EWVyPQAAMHmgww
  (envelope-from <tzimmermann@suse.de>); Mon, 25 Sep 2023 07:33:18 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
@@ -47,12 +51,14 @@ To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
  ville.syrjala@linux.intel.com, imre.deak@intel.com,
  tejas.upadhyay@intel.com, javierm@redhat.com, airlied@gmail.com,
  daniel@ffwll.ch
-Date: Mon, 25 Sep 2023 09:26:36 +0200
-Message-ID: <20230925073315.11627-1-tzimmermann@suse.de>
+Date: Mon, 25 Sep 2023 09:26:38 +0200
+Message-ID: <20230925073315.11627-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20230925073315.11627-1-tzimmermann@suse.de>
+References: <20230925073315.11627-1-tzimmermann@suse.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/7] drm/i915: Convert fbdev to DRM client
+Subject: [Intel-gfx] [PATCH 2/7] drm/client: Do not acquire module reference
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,47 +76,77 @@ Cc: intel-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Convert i915's fbdev code to struct drm_client. Replaces the current
-ad-hoc integration. The conversion includes a number of cleanups. The
-patchset also enables unloading of driver modules with in-kernel DRM
-clients; a feature required by i915.
+Do not acquire a reference on the module that provides a client's
+callback functions in drm_client_init(). The additional reference
+prevents the user from unloading the callback functions' module and
+thus creating dangling pointers.
 
-As with the other drivers' fbdev emulation, fbdev in i915 is now
-an in-kernel DRM client that runs after the DRM device has been
-registered. This allows to remove the asynchronous initialization.
+This is only necessary if there is no direct dependency between the
+caller of drm_client_init() and the provider of the callbacks in
+struct drm_client_funcs. If this case ever existed, it has been
+removed from the DRM code. Callers of drm_client_init() also provide
+the callback implementation. The lifetime of the clients is tied to
+the dependency chain's outer-most module, which is the hardware's
+DRM driver. Before client helpers could be unloaded, the driver module
+would have to be unloaded, which also unregisters all clients.
 
-i915 is the last driver with an fbdev emulation that is not build
-upon struct drm_client. Once reviewed, the patches would ideally go
-into drm-misc-next, so that the old fbdev helper code can be removed.
-We can also attempt to add additional in-kernel clients. A DRM-based
-dmesg log or a bootsplash are commonly mentioned. DRM can then switch
-easily among the existing clients if/when required.
+Driver modules that set up DRM clients can now be unloaded.
 
-v3:
-	* support module unloading (Jani, CI bot)
-	* as before, silently ignore devices without displays (CI  bot)
-v2:
-	* fix error handling (Jani)
-	* fix non-fbdev builds
-	* various minor fixes and cleanups
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/drm_client.c | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
 
-Thomas Zimmermann (7):
-  drm/i915: Unregister in-kernel clients
-  drm/client: Do not acquire module reference
-  drm/client: Export drm_client_dev_unregister()
-  drm/i915: Move fbdev functions
-  drm/i915: Initialize fbdev DRM client with callback functions
-  drm/i915: Implement fbdev client callbacks
-  drm/i915: Implement fbdev emulation as in-kernel client
-
- drivers/gpu/drm/drm_client.c                  |  25 +-
- drivers/gpu/drm/i915/display/intel_display.c  |   1 -
- .../drm/i915/display/intel_display_driver.c   |  19 --
- drivers/gpu/drm/i915/display/intel_fbdev.c    | 250 ++++++++++--------
- drivers/gpu/drm/i915/display/intel_fbdev.h    |  29 +-
- drivers/gpu/drm/i915/i915_driver.c            |  27 +-
- 6 files changed, 156 insertions(+), 195 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
+index 2762572f286e7..b49f91b5d4b27 100644
+--- a/drivers/gpu/drm/drm_client.c
++++ b/drivers/gpu/drm/drm_client.c
+@@ -5,7 +5,6 @@
+ 
+ #include <linux/iosys-map.h>
+ #include <linux/list.h>
+-#include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/seq_file.h>
+ #include <linux/slab.h>
+@@ -84,16 +83,13 @@ int drm_client_init(struct drm_device *dev, struct drm_client_dev *client,
+ 	if (!drm_core_check_feature(dev, DRIVER_MODESET) || !dev->driver->dumb_create)
+ 		return -EOPNOTSUPP;
+ 
+-	if (funcs && !try_module_get(funcs->owner))
+-		return -ENODEV;
+-
+ 	client->dev = dev;
+ 	client->name = name;
+ 	client->funcs = funcs;
+ 
+ 	ret = drm_client_modeset_create(client);
+ 	if (ret)
+-		goto err_put_module;
++		return ret;
+ 
+ 	ret = drm_client_open(client);
+ 	if (ret)
+@@ -105,10 +101,6 @@ int drm_client_init(struct drm_device *dev, struct drm_client_dev *client,
+ 
+ err_free:
+ 	drm_client_modeset_free(client);
+-err_put_module:
+-	if (funcs)
+-		module_put(funcs->owner);
+-
+ 	return ret;
+ }
+ EXPORT_SYMBOL(drm_client_init);
+@@ -177,8 +169,6 @@ void drm_client_release(struct drm_client_dev *client)
+ 	drm_client_modeset_free(client);
+ 	drm_client_close(client);
+ 	drm_dev_put(dev);
+-	if (client->funcs)
+-		module_put(client->funcs->owner);
+ }
+ EXPORT_SYMBOL(drm_client_release);
+ 
 -- 
 2.42.0
 
