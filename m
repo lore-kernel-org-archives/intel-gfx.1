@@ -4,30 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75887E8181D
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 05:16:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9E45E7D0C5
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 05:40:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CE3710E0B0;
-	Tue, 26 Sep 2023 05:16:12 +0000 (UTC)
-Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 89F1110E0B0;
- Tue, 26 Sep 2023 05:16:09 +0000 (UTC)
-Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 84D50A0003;
- Tue, 26 Sep 2023 05:16:09 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2373968273745912657=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A4C910E0B5;
+	Tue, 26 Sep 2023 05:39:59 +0000 (UTC)
+X-Greylist: delayed 426 seconds by postgrey-1.36 at gabe;
+ Tue, 26 Sep 2023 05:39:57 UTC
+Received: from mgamail.intel.com (unknown [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F22BA10E0B5
+ for <intel-gfx@lists.freedesktop.org>; Tue, 26 Sep 2023 05:39:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1695706798; x=1727242798;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=UNIWnm/8VhH9tlbBojTi2H3pGwi7Gu3mBIhpPS4ZpEE=;
+ b=KNluR6UMCieR6jLm4IRVpa4E3OhK+J7FPxPEMx6dpElsgNbhd3HxBelQ
+ vqSY0s8JJqPce/1YI774y6Pvpn9HHqKIaL5w2RUCfskBNAARTzdpGpwNW
+ BUltjlkE6Fxas3cx4knXrxq26myO6FOXIXNc8nT4r2b3T8PfQ4oHdfbSo
+ NkzpGzekdEHSycSstDB83RzJs9jUqhK+2WpC5vXMJVaZHjUyLK6JXxok+
+ oLIDye0iS4F0zNzLBhp5GiT0ljxbYQvPsfRZPLomn1qNyTpaECbXj1ds7
+ BlLS2W/HzbLa7+GLAc/7b68Q8D0Z9+y8ftdD1xu5jKZVU3yVW5BIlzfy7 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="133248"
+X-IronPort-AV: E=Sophos;i="6.03,174,1694761200"; 
+   d="scan'208";a="133248"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2023 01:00:46 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="891576326"
+X-IronPort-AV: E=Sophos;i="6.03,174,1694761200"; d="scan'208";a="891576326"
+Received: from unknown (HELO intel.com) ([10.237.72.65])
+ by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2023 00:59:42 -0700
+Date: Mon, 25 Sep 2023 11:00:40 +0300
+From: "Lisovskiy, Stanislav" <stanislav.lisovskiy@intel.com>
+To: Imre Deak <imre.deak@intel.com>
+Message-ID: <ZRE+KJMoJnaI+yMD@intel.com>
+References: <20230914192659.757475-1-imre.deak@intel.com>
+ <20230914192659.757475-20-imre.deak@intel.com>
 MIME-Version: 1.0
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Rodrigo Vivi" <rodrigo.vivi@intel.com>
-Date: Tue, 26 Sep 2023 05:16:09 -0000
-Message-ID: <169570536951.20979.2511961499734258052@emeril.freedesktop.org>
-X-Patchwork-Hint: ignore
-References: <20230823213901.335696-1-rodrigo.vivi@intel.com>
-In-Reply-To: <20230823213901.335696-1-rodrigo.vivi@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
- =?utf-8?q?/i915=3A_Add_missing_CCS_documentation=2E_=28rev2=29?=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230914192659.757475-20-imre.deak@intel.com>
+Subject: Re: [Intel-gfx] [PATCH v3 19/25] drm/i915/dp_mst: Program the DSC
+ PPS SDP for each stream
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,249 +62,82 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2373968273745912657==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Thu, Sep 14, 2023 at 10:26:53PM +0300, Imre Deak wrote:
+> Atm the DSC PPS SDP is programmed only if the first stream is compressed
+> and then it's programmed only for the first stream. This left all other
+> compressed streams blank. Program the SDP for all streams.
+> 
+> Signed-off-by: Imre Deak <imre.deak@intel.com>
 
-== Series Details ==
+Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
-Series: drm/i915: Add missing CCS documentation. (rev2)
-URL   : https://patchwork.freedesktop.org/series/122807/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_13679 -> Patchwork_122807v2
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/index.html
-
-Participating hosts (37 -> 38)
-------------------------------
-
-  Additional (2): fi-kbl-soraka fi-pnv-d510 
-  Missing    (1): fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_122807v2 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@gem_huc_copy@huc-copy:
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][1] ([fdo#109271] / [i915#2190])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html
-
-  * igt@gem_lmem_swapping@basic:
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][2] ([fdo#109271] / [i915#4613]) +3 other tests skip
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html
-
-  * igt@i915_selftest@live@gt_heartbeat:
-    - fi-cfl-guc:         [PASS][3] -> [DMESG-FAIL][4] ([i915#5334])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13679/fi-cfl-guc/igt@i915_selftest@live@gt_heartbeat.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/fi-cfl-guc/igt@i915_selftest@live@gt_heartbeat.html
-
-  * igt@i915_selftest@live@gt_lrc:
-    - bat-dg2-11:         [PASS][5] -> [INCOMPLETE][6] ([i915#7609] / [i915#7913])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13679/bat-dg2-11/igt@i915_selftest@live@gt_lrc.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/bat-dg2-11/igt@i915_selftest@live@gt_lrc.html
-
-  * igt@i915_selftest@live@gt_pm:
-    - fi-kbl-soraka:      NOTRUN -> [DMESG-FAIL][7] ([i915#1886] / [i915#7913])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html
-
-  * igt@i915_selftest@live@requests:
-    - bat-atsm-1:         [PASS][8] -> [INCOMPLETE][9] ([i915#7913])
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13679/bat-atsm-1/igt@i915_selftest@live@requests.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/bat-atsm-1/igt@i915_selftest@live@requests.html
-
-  * igt@kms_dsc@dsc-basic:
-    - fi-kbl-soraka:      NOTRUN -> [SKIP][10] ([fdo#109271]) +9 other tests skip
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/fi-kbl-soraka/igt@kms_dsc@dsc-basic.html
-
-  * igt@kms_pipe_crc_basic@suspend-read-crc:
-    - fi-kbl-x1275:       NOTRUN -> [SKIP][11] ([fdo#109271])
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/fi-kbl-x1275/igt@kms_pipe_crc_basic@suspend-read-crc.html
-
-  * igt@kms_psr@primary_page_flip:
-    - fi-pnv-d510:        NOTRUN -> [SKIP][12] ([fdo#109271]) +31 other tests skip
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/fi-pnv-d510/igt@kms_psr@primary_page_flip.html
-
-  
-#### Possible fixes ####
-
-  * igt@kms_hdmi_inject@inject-audio:
-    - fi-kbl-guc:         [FAIL][13] ([IGT#3]) -> [PASS][14]
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13679/fi-kbl-guc/igt@kms_hdmi_inject@inject-audio.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/fi-kbl-guc/igt@kms_hdmi_inject@inject-audio.html
-
-  
-  {name}: This element is suppressed. This means it is ignored when computing
-          the status of the difference (SUCCESS, WARNING, or FAILURE).
-
-  [IGT#3]: https://gitlab.freedesktop.org/drm/igt-gpu-tools/issues/3
-  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
-  [i915#1886]: https://gitlab.freedesktop.org/drm/intel/issues/1886
-  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
-  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
-  [i915#5334]: https://gitlab.freedesktop.org/drm/intel/issues/5334
-  [i915#7609]: https://gitlab.freedesktop.org/drm/intel/issues/7609
-  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_13679 -> Patchwork_122807v2
-
-  CI-20190529: 20190529
-  CI_DRM_13679: 6dad88365b6dfbe68e8b527c421369d2c6620049 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_7502: ac56ba97248b33668fbe771882360bd7b274cc9a @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_122807v2: 6dad88365b6dfbe68e8b527c421369d2c6620049 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-
-### Linux commits
-
-61dd2170f0ff drm/i915: Add missing CCS documentation.
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/index.html
-
---===============2373968273745912657==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Add missing CCS documentation. (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/122807/">https://patchwork.freedesktop.org/series/122807/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_13679 -&gt; Patchwork_122807v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/index.html</p>
-<h2>Participating hosts (37 -&gt; 38)</h2>
-<p>Additional (2): fi-kbl-soraka fi-pnv-d510 <br />
-  Missing    (1): fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_122807v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@basic:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@gt_heartbeat:</p>
-<ul>
-<li>fi-cfl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13679/fi-cfl-guc/igt@i915_selftest@live@gt_heartbeat.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/fi-cfl-guc/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@gt_lrc:</p>
-<ul>
-<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13679/bat-dg2-11/igt@i915_selftest@live@gt_lrc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/bat-dg2-11/igt@i915_selftest@live@gt_lrc.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7609">i915#7609</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@gt_pm:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1886">i915#1886</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@requests:</p>
-<ul>
-<li>bat-atsm-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13679/bat-atsm-1/igt@i915_selftest@live@requests.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/bat-atsm-1/igt@i915_selftest@live@requests.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_dsc@dsc-basic:</p>
-<ul>
-<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/fi-kbl-soraka/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +9 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@suspend-read-crc:</p>
-<ul>
-<li>fi-kbl-x1275:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/fi-kbl-x1275/igt@kms_pipe_crc_basic@suspend-read-crc.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@primary_page_flip:</p>
-<ul>
-<li>fi-pnv-d510:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/fi-pnv-d510/igt@kms_psr@primary_page_flip.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +31 other tests skip</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@kms_hdmi_inject@inject-audio:<ul>
-<li>fi-kbl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13679/fi-kbl-guc/igt@kms_hdmi_inject@inject-audio.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/igt-gpu-tools/issues/3">IGT#3</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_122807v2/fi-kbl-guc/igt@kms_hdmi_inject@inject-audio.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<p>{name}: This element is suppressed. This means it is ignored when computing<br />
-          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_13679 -&gt; Patchwork_122807v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_13679: 6dad88365b6dfbe68e8b527c421369d2c6620049 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_7502: ac56ba97248b33668fbe771882360bd7b274cc9a @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_122807v2: 6dad88365b6dfbe68e8b527c421369d2c6620049 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-<h3>Linux commits</h3>
-<p>61dd2170f0ff drm/i915: Add missing CCS documentation.</p>
-
-</body>
-</html>
-
---===============2373968273745912657==--
+> ---
+>  drivers/gpu/drm/i915/display/intel_ddi.c    | 12 +++++++-----
+>  drivers/gpu/drm/i915/display/intel_dp_mst.c |  2 ++
+>  2 files changed, 9 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+> index 45db6349af94f..962c9c7c211ce 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> @@ -2505,7 +2505,8 @@ static void mtl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+>  	/* 6.o Configure and enable FEC if needed */
+>  	intel_ddi_enable_fec(encoder, crtc_state);
+>  
+> -	intel_dsc_dp_pps_write(encoder, crtc_state);
+> +	if (!is_mst)
+> +		intel_dsc_dp_pps_write(encoder, crtc_state);
+>  }
+>  
+>  static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+> @@ -2643,7 +2644,8 @@ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+>  	/* 7.l Configure and enable FEC if needed */
+>  	intel_ddi_enable_fec(encoder, crtc_state);
+>  
+> -	intel_dsc_dp_pps_write(encoder, crtc_state);
+> +	if (!is_mst)
+> +		intel_dsc_dp_pps_write(encoder, crtc_state);
+>  }
+>  
+>  static void hsw_ddi_pre_enable_dp(struct intel_atomic_state *state,
+> @@ -2705,10 +2707,10 @@ static void hsw_ddi_pre_enable_dp(struct intel_atomic_state *state,
+>  
+>  	intel_ddi_enable_fec(encoder, crtc_state);
+>  
+> -	if (!is_mst)
+> +	if (!is_mst) {
+>  		intel_ddi_enable_transcoder_clock(encoder, crtc_state);
+> -
+> -	intel_dsc_dp_pps_write(encoder, crtc_state);
+> +		intel_dsc_dp_pps_write(encoder, crtc_state);
+> +	}
+>  }
+>  
+>  static void intel_ddi_pre_enable_dp(struct intel_atomic_state *state,
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> index 832e8b0e87e84..19548242fa0f2 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> @@ -43,6 +43,7 @@
+>  #include "intel_dpio_phy.h"
+>  #include "intel_hdcp.h"
+>  #include "intel_hotplug.h"
+> +#include "intel_vdsc.h"
+>  #include "skl_scaler.h"
+>  
+>  static int intel_dp_mst_check_constraints(struct drm_i915_private *i915, int bpp,
+> @@ -775,6 +776,7 @@ static void intel_mst_pre_enable_dp(struct intel_atomic_state *state,
+>  	if (DISPLAY_VER(dev_priv) < 12 || !first_mst_stream)
+>  		intel_ddi_enable_transcoder_clock(encoder, pipe_config);
+>  
+> +	intel_dsc_dp_pps_write(&dig_port->base, pipe_config);
+>  	intel_ddi_set_dp_msa(pipe_config, conn_state);
+>  }
+>  
+> -- 
+> 2.37.2
+> 
