@@ -4,50 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D920E7D271
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 09:55:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED7FBE7D271
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 10:09:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF3BC10E048;
-	Tue, 26 Sep 2023 09:55:38 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D960B10E048
- for <intel-gfx@lists.freedesktop.org>; Tue, 26 Sep 2023 09:55:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 737EA10E396;
+	Tue, 26 Sep 2023 10:09:05 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B33C10E396;
+ Tue, 26 Sep 2023 10:09:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695722136; x=1727258136;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=MpImtw0f2GFJTMvBus30BBe5OIbpEnhdBgwPDOKJiIQ=;
- b=CG7RCTWZMr6rjJmZJ6qieEGaMG+iVv3FXBOTYludz+oWdg+7yl3GT4P5
- sO7HD/IJ8JACOX449dOXpXE2zWjUKsw+qs3Q44fQv0fBA78tqaGaDtQ50
- N1kug54uCYyq8SGkOqF+3jZknp2Ny9UApe3KdYhDryRJJYvrtzBxCB2XX
- X3tmxuKo4bJa0WuZ1k88lZC8K9R1Eot4ApM+FIHgo3MC6QVfffBzhdtm6
- 26ibQSu03NOnSMIOT1FWe2HqcBXdDWt1PuSq4MbjyQ9mnzOSp2lTBhEay
- 5jpdWlRftCMcnT5RH6FhOwBHHXmm9Lyn4uogo618nM2ngLAFRPgSkE2vk g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="385378111"
-X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="385378111"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2023 02:55:36 -0700
+ t=1695722943; x=1727258943;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=4K+ImXtoRkOATy7yfeEpGuSg7J5Li5l6RRQHWI39/58=;
+ b=ceu20qXaySblmp93kTFAUXXok6AYFsqdky63hgCmNGPak+Bd4Sx8Km8Z
+ FYx129Ht/+bnGsIkVDCoBeJaFps8PY1YUTSDYKQzKNHO4LCT+SvT/PSfY
+ z9e77Qo9dtbHYE4TcAuGoKwUwQ6JJzVklL9GwkUBw6uxLy4dW82qXM+LD
+ cgRJSh4rHUA3XhI4+jbez/n4kblZzbqyItni5Yeimnr8aV2l7LkD6vCZL
+ NYPnfE7od2TMV9MdicOBy9KHywa8VhWdP7Y/WYpuiv3txqdfA6cz0et8h
+ Ad1SYdYBBZJdMz7WxJFE1ol3+OBc5emN1xwhvU+tetNj5zjSN0YW7hlxR w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="467816648"
+X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="467816648"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Sep 2023 03:09:02 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="698405304"
-X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="698405304"
-Received: from wagnert-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.252.52.202])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2023 02:55:34 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-In-Reply-To: <ZQypLvTIlF7dsWX0@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20230921155325.3851197-1-jani.nikula@intel.com>
- <ZQypLvTIlF7dsWX0@intel.com>
-Date: Tue, 26 Sep 2023 12:55:32 +0300
-Message-ID: <87msx9l0mj.fsf@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="872451038"
+X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="872451038"
+Received: from dilipban-mobl.ger.corp.intel.com (HELO localhost.localdomain)
+ ([10.213.201.63])
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Sep 2023 03:09:00 -0700
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+To: Intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Date: Tue, 26 Sep 2023 11:08:55 +0100
+Message-Id: <20230926100855.61722-1-tvrtko.ursulin@linux.intel.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/cx0: prefer forward declarations
- over includes
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2] drm/i915: Do not disable preemption for
+ resets
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,67 +58,116 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: Paul Gortmaker <paul.gortmaker@windriver.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Chris Wilson <chris.p.wilson@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 21 Sep 2023, Rodrigo Vivi <rodrigo.vivi@intel.com> wrote:
-> On Thu, Sep 21, 2023 at 06:53:25PM +0300, Jani Nikula wrote:
->> Avoid including the world from headers when forward declarations
->> suffice.
->> 
->> Cc: Radhakrishna Sripada <radhakrishna.sripada@intel.com>
->> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->
-> Trusting more your compiler then my eyes, but
->
-> Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Thanks, pushed to drm-intel-next.
+Commit ade8a0f59844 ("drm/i915: Make all GPU resets atomic") added a
+preempt disable section over the hardware reset callback to prepare the
+driver for being able to reset from atomic contexts.
 
-BR,
-Jani.
+In retrospect I can see that the work item at a time was about removing
+the struct mutex from the reset path. Code base also briefly entertained
+the idea of doing the reset under stop_machine in order to serialize
+userspace mmap and temporary glitch in the fence registers (see
+eb8d0f5af4ec ("drm/i915: Remove GPU reset dependence on struct_mutex"),
+but that never materialized and was soon removed in 2caffbf11762
+("drm/i915: Revoke mmaps and prevent access to fence registers across
+reset") and replaced with a SRCU based solution.
 
->
->> ---
->>  drivers/gpu/drm/i915/display/intel_cx0_phy.h | 14 ++++++++------
->>  1 file changed, 8 insertions(+), 6 deletions(-)
->> 
->> diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.h b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
->> index 4c4db5cdcbd0..912e0eeb0be3 100644
->> --- a/drivers/gpu/drm/i915/display/intel_cx0_phy.h
->> +++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
->> @@ -10,14 +10,15 @@
->>  #include <linux/bitfield.h>
->>  #include <linux/bits.h>
->>  
->> -#include "i915_drv.h"
->> -#include "intel_display_types.h"
->> -
->> -struct drm_i915_private;
->> -struct intel_encoder;
->> -struct intel_crtc_state;
->>  enum icl_port_dpll_id;
->>  enum phy;
->> +struct drm_i915_private;
->> +struct intel_atomic_state;
->> +struct intel_c10pll_state;
->> +struct intel_c20pll_state;
->> +struct intel_crtc_state;
->> +struct intel_encoder;
->> +struct intel_hdmi;
->>  
->>  bool intel_is_c10phy(struct drm_i915_private *dev_priv, enum phy phy);
->>  void intel_mtl_pll_enable(struct intel_encoder *encoder,
->> @@ -44,4 +45,5 @@ void intel_cx0_phy_set_signal_levels(struct intel_encoder *encoder,
->>  				     const struct intel_crtc_state *crtc_state);
->>  int intel_cx0_phy_check_hdmi_link_rate(struct intel_hdmi *hdmi, int clock);
->>  int intel_mtl_tbt_calc_port_clock(struct intel_encoder *encoder);
->> +
->>  #endif /* __INTEL_CX0_PHY_H__ */
->> -- 
->> 2.39.2
->> 
+As such, as far as I can see, today we still have a requirement that
+resets must not sleep (invoked from submission tasklets), but no need to
+support invoking them from a truly atomic context.
 
+Given that the preemption section is problematic on RT kernels, since the
+uncore lock becomes a sleeping lock and so is invalid in such section,
+lets try and remove it. Potential downside is that our short waits on GPU
+to complete the reset may get extended if CPU scheduling interferes, but
+in practice that probably isn't a deal breaker.
+
+In terms of mechanics, since the preemption disabled block is being
+removed we just need to replace a few of the wait_for_atomic macros into
+busy looping versions which will work (and not complain) when called from
+non-atomic sections.
+
+v2:
+ * Fix timeouts which are now in us. (Andi)
+ * Update one comment as a drive by. (Andi)
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+Cc: Chris Wilson <chris.p.wilson@intel.com>
+Cc: Paul Gortmaker <paul.gortmaker@windriver.com>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_reset.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index 98575d79c446..a21e939fdbf6 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -161,16 +161,16 @@ static int i915_do_reset(struct intel_gt *gt,
+ 	struct pci_dev *pdev = to_pci_dev(gt->i915->drm.dev);
+ 	int err;
+ 
+-	/* Assert reset for at least 20 usec, and wait for acknowledgement. */
++	/* Assert reset for at least 50 usec, and wait for acknowledgement. */
+ 	pci_write_config_byte(pdev, I915_GDRST, GRDOM_RESET_ENABLE);
+ 	udelay(50);
+-	err = wait_for_atomic(i915_in_reset(pdev), 50);
++	err = _wait_for_atomic(i915_in_reset(pdev), 50000, 0);
+ 
+ 	/* Clear the reset request. */
+ 	pci_write_config_byte(pdev, I915_GDRST, 0);
+ 	udelay(50);
+ 	if (!err)
+-		err = wait_for_atomic(!i915_in_reset(pdev), 50);
++		err = _wait_for_atomic(!i915_in_reset(pdev), 50000, 0);
+ 
+ 	return err;
+ }
+@@ -190,7 +190,7 @@ static int g33_do_reset(struct intel_gt *gt,
+ 	struct pci_dev *pdev = to_pci_dev(gt->i915->drm.dev);
+ 
+ 	pci_write_config_byte(pdev, I915_GDRST, GRDOM_RESET_ENABLE);
+-	return wait_for_atomic(g4x_reset_complete(pdev), 50);
++	return _wait_for_atomic(g4x_reset_complete(pdev), 50000, 0);
+ }
+ 
+ static int g4x_do_reset(struct intel_gt *gt,
+@@ -207,7 +207,7 @@ static int g4x_do_reset(struct intel_gt *gt,
+ 
+ 	pci_write_config_byte(pdev, I915_GDRST,
+ 			      GRDOM_MEDIA | GRDOM_RESET_ENABLE);
+-	ret =  wait_for_atomic(g4x_reset_complete(pdev), 50);
++	ret =  _wait_for_atomic(g4x_reset_complete(pdev), 50000, 0);
+ 	if (ret) {
+ 		GT_TRACE(gt, "Wait for media reset failed\n");
+ 		goto out;
+@@ -215,7 +215,7 @@ static int g4x_do_reset(struct intel_gt *gt,
+ 
+ 	pci_write_config_byte(pdev, I915_GDRST,
+ 			      GRDOM_RENDER | GRDOM_RESET_ENABLE);
+-	ret =  wait_for_atomic(g4x_reset_complete(pdev), 50);
++	ret =  _wait_for_atomic(g4x_reset_complete(pdev), 50000, 0);
+ 	if (ret) {
+ 		GT_TRACE(gt, "Wait for render reset failed\n");
+ 		goto out;
+@@ -785,9 +785,7 @@ int __intel_gt_reset(struct intel_gt *gt, intel_engine_mask_t engine_mask)
+ 		reset_mask = wa_14015076503_start(gt, engine_mask, !retry);
+ 
+ 		GT_TRACE(gt, "engine_mask=%x\n", reset_mask);
+-		preempt_disable();
+ 		ret = reset(gt, reset_mask, retry);
+-		preempt_enable();
+ 
+ 		wa_14015076503_end(gt, reset_mask);
+ 	}
 -- 
-Jani Nikula, Intel
+2.39.2
+
