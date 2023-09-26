@@ -4,51 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8995EE7D263
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 08:38:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B66E6E7D269
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 08:53:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ED2310E0C6;
-	Tue, 26 Sep 2023 08:38:25 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D25410E37C
- for <intel-gfx@lists.freedesktop.org>; Tue, 26 Sep 2023 08:38:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BD4210E361;
+	Tue, 26 Sep 2023 08:53:32 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F24310E361
+ for <intel-gfx@lists.freedesktop.org>; Tue, 26 Sep 2023 08:53:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695717484; x=1727253484;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Z6VNc4XjXvriLc/Cve9Uun8sjiewlDfTLnp5HzoO1tE=;
- b=QNvpQZ33uO5he5AIZciELnYiafbqCpb8OGu+OqUacucpYC7zJq8LkTyH
- 8voZoi90wgOSvMN0eJ97ahhBVKKZH34Q8/8YFXyWkgqsb1zVtzqNRRyGV
- r9JxhV3lCIJqjRsTHRR8y8yTPPoJ+wnB8JrpyZgPKnyBMWpjRqPgJAbpG
- yg3z4r3ZjBsyxTHXJWSEM6TTARaNYyn6D/NB8/gZ7LtkNTlU6Iu4Q9acG
- nSKSoNB00wMGSKee8oMwi2xvoDHRvBEXli4f7qcCSPK1NqaYydrDQAVeL
- tk0GBJOG0/ZlrY58pON0eT0MTzNswZa0vNEF/z9eEIukpI7NHZaqfNeqP w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="381419226"
-X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="381419226"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2023 01:38:04 -0700
+ t=1695718411; x=1727254411;
+ h=message-id:date:mime-version:subject:to:references:from:
+ in-reply-to:content-transfer-encoding;
+ bh=vT+hLDeupapz5C2LjdDi5aUqNqE+VmQVxWnBJmfvMAk=;
+ b=mDZMHGD5ufl9gYL6rH6RwlSWMab/InDoPMumqthkX45NZlmOwlo57/KK
+ P5S5n1SPP6L3C8Yy8Ib+Yp9N0NM8pUdpDN99pj0bsAdhtijVJlbZrAavb
+ tvm4ytNAKtYWQc/3TXdglKKf3FIcjHUu6ShHQhMIF4pyCfrFUDe1no1id
+ biAzPU7NEZteMswzCUsaYnBrDjVDRmWLc0iaTCSE4tiXw/1O8S5e/6HtG
+ 5XJx7hmvwI6oPjwJNB4jCuiWHn9ZbI6b0+tY9BbH4+IpAxnOh1lgurujL
+ 65vM1Pznw8DVg3N/d/b1CuakUGXVVA+wD8HMIWS2R6bI2n2tOorN+DnuP w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="371854710"
+X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="371854710"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Sep 2023 01:53:30 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="1079623537"
-X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="1079623537"
-Received: from nirmoyda-desk.igk.intel.com ([10.102.138.190])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2023 01:38:02 -0700
-From: Nirmoy Das <nirmoy.das@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 26 Sep 2023 10:37:40 +0200
-Message-ID: <20230926083742.14740-6-nirmoy.das@intel.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230926083742.14740-1-nirmoy.das@intel.com>
-References: <20230926083742.14740-1-nirmoy.das@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="725366683"
+X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="725366683"
+Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.8.182])
+ ([10.213.8.182])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Sep 2023 01:53:29 -0700
+Message-ID: <fe724b7c-3a1c-278c-f2b5-aceca701ba41@intel.com>
+Date: Tue, 26 Sep 2023 10:53:27 +0200
 MIME-Version: 1.0
-Organization: Intel Deutschland GmbH, Registered Address: Am Campeon 10,
- 85579 Neubiberg, Germany,
- Commercial Register: Amtsgericht Muenchen HRB 186928 
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 5/7] drm/i915: Implement GGTT update method
- with MI_UPDATE_GTT
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Firefox/102.0 Thunderbird/102.15.1
+Content-Language: en-US
+To: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org
+References: <20230922105645.3991066-1-jani.nikula@intel.com>
+From: Andrzej Hajda <andrzej.hajda@intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
+ Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <20230922105645.3991066-1-jani.nikula@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/dp: refactor aux_ch_name()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,323 +63,134 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: andi.shyti@intel.com, chris.p.wilson@linux.intel.com,
- matthew.d.roper@intel.com, Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implement GGTT update method with blitter command, MI_UPDATE_GTT
-and install those handlers if a platform requires that.
+On 22.09.2023 12:56, Jani Nikula wrote:
+> Convert aux_ch_name() to a helper that prints a string to a caller
+> provided buffer, and use it to get more consistent aux channel
+> debugs. Now that all users of aux_ch_name() are in intel_dp_aux.c, we
+> can make it static too.
+> 
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+>   drivers/gpu/drm/i915/display/intel_display.h |  2 -
+>   drivers/gpu/drm/i915/display/intel_dp_aux.c  | 41 ++++++++++++--------
+>   2 files changed, 25 insertions(+), 18 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+> index 49ac8473b988..9f252d1f03a7 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display.h
+> @@ -190,8 +190,6 @@ enum aux_ch {
+>   	AUX_CH_E_XELPD,
+>   };
+>   
+> -#define aux_ch_name(a) ((a) + 'A')
+> -
+>   enum phy {
+>   	PHY_NONE = -1,
+>   
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+> index b90cad7f567b..4431b6290c4c 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
+> @@ -14,6 +14,21 @@
+>   #include "intel_pps.h"
+>   #include "intel_tc.h"
+>   
+> +#define AUX_CH_NAME_BUFSIZE	6
+> +
+> +static const char *aux_ch_name(struct drm_i915_private *i915,
+> +			       char *buf, int size, enum aux_ch aux_ch)
+> +{
+> +	if (DISPLAY_VER(i915) >= 13 && aux_ch >= AUX_CH_D_XELPD)
+> +		snprintf(buf, size, "%c", 'A' + aux_ch - AUX_CH_D_XELPD + AUX_CH_D);
+> +	else if (DISPLAY_VER(i915) >= 12 && aux_ch >= AUX_CH_USBC1)
+> +		snprintf(buf, size, "USBC%c", '1' + aux_ch - AUX_CH_USBC1);
+> +	else
+> +		snprintf(buf, size, "%c", 'A' + aux_ch);
+> +
+> +	return buf;
+> +}
+> +
+>   u32 intel_dp_aux_pack(const u8 *src, int src_bytes)
+>   {
+>   	int i;
+> @@ -728,6 +743,7 @@ void intel_dp_aux_init(struct intel_dp *intel_dp)
+>   	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
+>   	struct intel_encoder *encoder = &dig_port->base;
+>   	enum aux_ch aux_ch = dig_port->aux_ch;
+> +	char buf[AUX_CH_NAME_BUFSIZE];
+>   
+>   	if (DISPLAY_VER(dev_priv) >= 14) {
+>   		intel_dp->aux_ch_ctl_reg = xelpdp_aux_ctl_reg;
+> @@ -764,18 +780,9 @@ void intel_dp_aux_init(struct intel_dp *intel_dp)
+>   	drm_dp_aux_init(&intel_dp->aux);
+>   
+>   	/* Failure to allocate our preferred name is not critical */
+> -	if (DISPLAY_VER(dev_priv) >= 13 && aux_ch >= AUX_CH_D_XELPD)
+> -		intel_dp->aux.name = kasprintf(GFP_KERNEL, "AUX %c/%s",
+> -					       aux_ch_name(aux_ch - AUX_CH_D_XELPD + AUX_CH_D),
+> -					       encoder->base.name);
+> -	else if (DISPLAY_VER(dev_priv) >= 12 && aux_ch >= AUX_CH_USBC1)
+> -		intel_dp->aux.name = kasprintf(GFP_KERNEL, "AUX USBC%c/%s",
+> -					       aux_ch - AUX_CH_USBC1 + '1',
+> -					       encoder->base.name);
+> -	else
+> -		intel_dp->aux.name = kasprintf(GFP_KERNEL, "AUX %c/%s",
+> -					       aux_ch_name(aux_ch),
+> -					       encoder->base.name);
+> +	intel_dp->aux.name = kasprintf(GFP_KERNEL, "AUX %s/%s",
+> +				       aux_ch_name(dev_priv, buf, sizeof(buf), aux_ch),
+> +				       encoder->base.name);
 
-v2: Make sure we hold the GT wakeref and Blitter engine wakeref before
-we call mutex_lock/intel_context_enter below. When GT/engine are not
-awake, the intel_context_enter calls into some runtime pm function which
-can end up with kmalloc/fs_reclaim. But trigger fs_reclaim holding a
-mutex lock is not allowed because shrinker can also try to hold the same
-mutex lock. It is a circular lock. So hold the GT/blitter engine wakeref
-before calling mutex_lock, to fix the circular lock.
+With define like:
 
-Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
-Signed-off-by: Oak Zeng <oak.zeng@intel.com>
-Acked-by: Oak Zeng <oak.zeng@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
----
- drivers/gpu/drm/i915/gt/intel_ggtt.c | 235 +++++++++++++++++++++++++++
- 1 file changed, 235 insertions(+)
+#define aux_ch_name_smart(dev_priv, aux_ch) aux_ch_name(dev_priv, 
+(char[AUX_CH_NAME_BUFSIZE]){}, AUX_CH_NAME_BUFSIZE, aux_ch)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-index da21f2786b5d..4d7d88b92632 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-@@ -15,18 +15,23 @@
- #include "display/intel_display.h"
- #include "gem/i915_gem_lmem.h"
- 
-+#include "intel_context.h"
- #include "intel_ggtt_gmch.h"
-+#include "intel_gpu_commands.h"
- #include "intel_gt.h"
- #include "intel_gt_regs.h"
- #include "intel_pci_config.h"
-+#include "intel_ring.h"
- #include "i915_drv.h"
- #include "i915_pci.h"
-+#include "i915_request.h"
- #include "i915_scatterlist.h"
- #include "i915_utils.h"
- #include "i915_vgpu.h"
- 
- #include "intel_gtt.h"
- #include "gen8_ppgtt.h"
-+#include "intel_engine_pm.h"
- 
- static void i915_ggtt_color_adjust(const struct drm_mm_node *node,
- 				   unsigned long color,
-@@ -252,6 +257,145 @@ u64 gen8_ggtt_pte_encode(dma_addr_t addr,
- 	return pte;
- }
- 
-+static bool should_update_ggtt_with_bind(struct i915_ggtt *ggtt)
-+{
-+	struct intel_gt *gt = ggtt->vm.gt;
-+
-+	return intel_gt_is_bind_context_ready(gt);
-+}
-+
-+static struct intel_context *gen8_ggtt_bind_get_ce(struct i915_ggtt *ggtt)
-+{
-+	struct intel_context *ce;
-+	struct intel_gt *gt = ggtt->vm.gt;
-+
-+	if (intel_gt_is_wedged(gt))
-+		return NULL;
-+
-+	ce = gt->engine[BCS0]->bind_context;
-+	GEM_BUG_ON(!ce);
-+
-+	/*
-+	 * If the GT is not awake already at this stage then fallback
-+	 * to pci based GGTT update otherwise __intel_wakeref_get_first()
-+	 * would conflict with fs_reclaim trying to allocate memory while
-+	 * doing rpm_resume().
-+	 */
-+	if (!intel_gt_pm_get_if_awake(gt))
-+		return NULL;
-+
-+	intel_engine_pm_get(ce->engine);
-+
-+	return ce;
-+}
-+
-+static void gen8_ggtt_bind_put_ce(struct intel_context *ce)
-+{
-+	intel_engine_pm_put(ce->engine);
-+	intel_gt_pm_put(ce->engine->gt);
-+}
-+
-+static bool gen8_ggtt_bind_ptes(struct i915_ggtt *ggtt, u32 offset,
-+				struct sg_table *pages, u32 num_entries,
-+				const gen8_pte_t pte)
-+{
-+	struct i915_sched_attr attr = {};
-+	struct intel_gt *gt = ggtt->vm.gt;
-+	const gen8_pte_t scratch_pte = ggtt->vm.scratch[0]->encode;
-+	struct sgt_iter iter;
-+	struct i915_request *rq;
-+	struct intel_context *ce;
-+	u32 *cs;
-+
-+	if (!num_entries)
-+		return true;
-+
-+	ce = gen8_ggtt_bind_get_ce(ggtt);
-+	if (!ce)
-+		return false;
-+
-+	if (pages)
-+		iter = __sgt_iter(pages->sgl, true);
-+
-+	while (num_entries) {
-+		int count = 0;
-+		dma_addr_t addr;
-+		/*
-+		 * MI_UPDATE_GTT can update 512 entries in a single command but
-+		 * that end up with engine reset, 511 works.
-+		 */
-+		u32 n_ptes = min_t(u32, 511, num_entries);
-+
-+		if (mutex_lock_interruptible(&ce->timeline->mutex))
-+			goto put_ce;
-+
-+		intel_context_enter(ce);
-+		rq = __i915_request_create(ce, GFP_NOWAIT | GFP_ATOMIC);
-+		intel_context_exit(ce);
-+		if (IS_ERR(rq)) {
-+			GT_TRACE(gt, "Failed to get bind request\n");
-+			mutex_unlock(&ce->timeline->mutex);
-+			goto put_ce;
-+		}
-+
-+		cs = intel_ring_begin(rq, 2 * n_ptes + 2);
-+		if (IS_ERR(cs)) {
-+			GT_TRACE(gt, "Failed to ring space for GGTT bind\n");
-+			i915_request_set_error_once(rq, PTR_ERR(cs));
-+			/* once a request is created, it must be queued */
-+			goto queue_err_rq;
-+		}
-+
-+		*cs++ = MI_UPDATE_GTT | (2 * n_ptes);
-+		*cs++ = offset << 12;
-+
-+		if (pages) {
-+			for_each_sgt_daddr_next(addr, iter) {
-+				if (count == n_ptes)
-+					break;
-+				*cs++ = lower_32_bits(pte | addr);
-+				*cs++ = upper_32_bits(pte | addr);
-+				count++;
-+			}
-+			/* fill remaining with scratch pte, if any */
-+			if (count < n_ptes) {
-+				memset64((u64 *)cs, scratch_pte,
-+					 n_ptes - count);
-+				cs += (n_ptes - count) * 2;
-+			}
-+		} else {
-+			memset64((u64 *)cs, pte, n_ptes);
-+			cs += n_ptes * 2;
-+		}
-+
-+		intel_ring_advance(rq, cs);
-+queue_err_rq:
-+		i915_request_get(rq);
-+		__i915_request_commit(rq);
-+		__i915_request_queue(rq, &attr);
-+
-+		mutex_unlock(&ce->timeline->mutex);
-+		/* This will break if the request is complete or after engine reset */
-+		i915_request_wait(rq, 0, MAX_SCHEDULE_TIMEOUT);
-+		if (rq->fence.error)
-+			goto err_rq;
-+
-+		i915_request_put(rq);
-+
-+		num_entries -= n_ptes;
-+		offset += n_ptes;
-+	}
-+
-+	gen8_ggtt_bind_put_ce(ce);
-+	return true;
-+
-+err_rq:
-+	i915_request_put(rq);
-+put_ce:
-+	gen8_ggtt_bind_put_ce(ce);
-+	return false;
-+}
-+
- static void gen8_set_pte(void __iomem *addr, gen8_pte_t pte)
- {
- 	writeq(pte, addr);
-@@ -272,6 +416,21 @@ static void gen8_ggtt_insert_page(struct i915_address_space *vm,
- 	ggtt->invalidate(ggtt);
- }
- 
-+static void gen8_ggtt_insert_page_bind(struct i915_address_space *vm,
-+				       dma_addr_t addr, u64 offset,
-+				       unsigned int pat_index, u32 flags)
-+{
-+	struct i915_ggtt *ggtt = i915_vm_to_ggtt(vm);
-+	gen8_pte_t pte;
-+
-+	pte = ggtt->vm.pte_encode(addr, pat_index, flags);
-+	if (should_update_ggtt_with_bind(i915_vm_to_ggtt(vm)) &&
-+	    gen8_ggtt_bind_ptes(ggtt, offset, NULL, 1, pte))
-+		return ggtt->invalidate(ggtt);
-+
-+	gen8_ggtt_insert_page(vm, addr, offset, pat_index, flags);
-+}
-+
- static void gen8_ggtt_insert_entries(struct i915_address_space *vm,
- 				     struct i915_vma_resource *vma_res,
- 				     unsigned int pat_index,
-@@ -311,6 +470,50 @@ static void gen8_ggtt_insert_entries(struct i915_address_space *vm,
- 	ggtt->invalidate(ggtt);
- }
- 
-+static bool __gen8_ggtt_insert_entries_bind(struct i915_address_space *vm,
-+					    struct i915_vma_resource *vma_res,
-+					    unsigned int pat_index, u32 flags)
-+{
-+	struct i915_ggtt *ggtt = i915_vm_to_ggtt(vm);
-+	gen8_pte_t scratch_pte = vm->scratch[0]->encode;
-+	gen8_pte_t pte_encode;
-+	u64 start, end;
-+
-+	pte_encode = ggtt->vm.pte_encode(0, pat_index, flags);
-+	start = (vma_res->start - vma_res->guard) / I915_GTT_PAGE_SIZE;
-+	end = start + vma_res->guard / I915_GTT_PAGE_SIZE;
-+	if (!gen8_ggtt_bind_ptes(ggtt, start, NULL, end - start, scratch_pte))
-+		goto err;
-+
-+	start = end;
-+	end += (vma_res->node_size + vma_res->guard) / I915_GTT_PAGE_SIZE;
-+	if (!gen8_ggtt_bind_ptes(ggtt, start, vma_res->bi.pages,
-+	      vma_res->node_size / I915_GTT_PAGE_SIZE, pte_encode))
-+		goto err;
-+
-+	start += vma_res->node_size / I915_GTT_PAGE_SIZE;
-+	if (!gen8_ggtt_bind_ptes(ggtt, start, NULL, end - start, scratch_pte))
-+		goto err;
-+
-+	return true;
-+
-+err:
-+	return false;
-+}
-+
-+static void gen8_ggtt_insert_entries_bind(struct i915_address_space *vm,
-+					  struct i915_vma_resource *vma_res,
-+					  unsigned int pat_index, u32 flags)
-+{
-+	struct i915_ggtt *ggtt = i915_vm_to_ggtt(vm);
-+
-+	if (should_update_ggtt_with_bind(i915_vm_to_ggtt(vm)) &&
-+	    __gen8_ggtt_insert_entries_bind(vm, vma_res, pat_index, flags))
-+		return ggtt->invalidate(ggtt);
-+
-+	gen8_ggtt_insert_entries(vm, vma_res, pat_index, flags);
-+}
-+
- static void gen8_ggtt_clear_range(struct i915_address_space *vm,
- 				  u64 start, u64 length)
- {
-@@ -332,6 +535,27 @@ static void gen8_ggtt_clear_range(struct i915_address_space *vm,
- 		gen8_set_pte(&gtt_base[i], scratch_pte);
- }
- 
-+static void gen8_ggtt_scratch_range_bind(struct i915_address_space *vm,
-+					 u64 start, u64 length)
-+{
-+	struct i915_ggtt *ggtt = i915_vm_to_ggtt(vm);
-+	unsigned int first_entry = start / I915_GTT_PAGE_SIZE;
-+	unsigned int num_entries = length / I915_GTT_PAGE_SIZE;
-+	const gen8_pte_t scratch_pte = vm->scratch[0]->encode;
-+	const int max_entries = ggtt_total_entries(ggtt) - first_entry;
-+
-+	if (WARN(num_entries > max_entries,
-+		 "First entry = %d; Num entries = %d (max=%d)\n",
-+		 first_entry, num_entries, max_entries))
-+		num_entries = max_entries;
-+
-+	if (should_update_ggtt_with_bind(ggtt) && gen8_ggtt_bind_ptes(ggtt, first_entry,
-+	     NULL, num_entries, scratch_pte))
-+		return ggtt->invalidate(ggtt);
-+
-+	gen8_ggtt_clear_range(vm, start, length);
-+}
-+
- static void gen6_ggtt_insert_page(struct i915_address_space *vm,
- 				  dma_addr_t addr,
- 				  u64 offset,
-@@ -1008,6 +1232,17 @@ static int gen8_gmch_probe(struct i915_ggtt *ggtt)
- 			I915_VMA_GLOBAL_BIND | I915_VMA_LOCAL_BIND;
- 	}
- 
-+	if (i915_ggtt_require_binder(i915)) {
-+		ggtt->vm.scratch_range = gen8_ggtt_scratch_range_bind;
-+		ggtt->vm.insert_page = gen8_ggtt_insert_page_bind;
-+		ggtt->vm.insert_entries = gen8_ggtt_insert_entries_bind;
-+		/*
-+		 * On GPU is hung, we might bind VMAs for error capture.
-+		 * Fallback to CPU GGTT updates in that case.
-+		 */
-+		ggtt->vm.raw_insert_page = gen8_ggtt_insert_page;
-+	}
-+
- 	if (intel_uc_wants_guc(&ggtt->vm.gt->uc))
- 		ggtt->invalidate = guc_ggtt_invalidate;
- 	else
--- 
-2.41.0
+you could get rid of local variable buf, and two extra arguments in 
+call. The price is gcc macro magic and maybe less visible life-time 
+constraints, no strong suggestion :)
+
+Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
+
+Regards
+Andrzej
+
+
+>   
+>   	intel_dp->aux.transfer = intel_dp_aux_transfer;
+>   	cpu_latency_qos_add_request(&intel_dp->pm_qos, PM_QOS_DEFAULT_VALUE);
+> @@ -819,6 +826,7 @@ enum aux_ch intel_dp_aux_ch(struct intel_encoder *encoder)
+>   	struct intel_encoder *other;
+>   	const char *source;
+>   	enum aux_ch aux_ch;
+> +	char buf[AUX_CH_NAME_BUFSIZE];
+>   
+>   	aux_ch = intel_bios_dp_aux_ch(encoder->devdata);
+>   	source = "VBT";
+> @@ -836,16 +844,17 @@ enum aux_ch intel_dp_aux_ch(struct intel_encoder *encoder)
+>   	other = get_encoder_by_aux_ch(encoder, aux_ch);
+>   	if (other) {
+>   		drm_dbg_kms(&i915->drm,
+> -			    "[ENCODER:%d:%s] AUX CH %c already claimed by [ENCODER:%d:%s]\n",
+> -			    encoder->base.base.id, encoder->base.name, aux_ch_name(aux_ch),
+> +			    "[ENCODER:%d:%s] AUX CH %s already claimed by [ENCODER:%d:%s]\n",
+> +			    encoder->base.base.id, encoder->base.name,
+> +			    aux_ch_name(i915, buf, sizeof(buf), aux_ch),
+>   			    other->base.base.id, other->base.name);
+>   		return AUX_CH_NONE;
+>   	}
+>   
+>   	drm_dbg_kms(&i915->drm,
+> -		    "[ENCODER:%d:%s] Using AUX CH %c (%s)\n",
+> +		    "[ENCODER:%d:%s] Using AUX CH %s (%s)\n",
+>   		    encoder->base.base.id, encoder->base.name,
+> -		    aux_ch_name(aux_ch), source);
+> +		    aux_ch_name(i915, buf, sizeof(buf), aux_ch), source);
+>   
+>   	return aux_ch;
+>   }
 
