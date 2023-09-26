@@ -4,56 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82B53E7D271
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 10:10:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1895E7D27A
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 10:26:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC28110E389;
-	Tue, 26 Sep 2023 10:10:55 +0000 (UTC)
-X-Greylist: delayed 425 seconds by postgrey-1.36 at gabe;
- Tue, 26 Sep 2023 10:10:53 UTC
-Received: from mgamail.intel.com (unknown [198.175.65.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4E8810E389;
- Tue, 26 Sep 2023 10:10:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 495CD10E39C;
+	Tue, 26 Sep 2023 10:26:34 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 664DB10E39C;
+ Tue, 26 Sep 2023 10:26:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695723054; x=1727259054;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=qwKYWRuF1ObaOkqWlf8IjpbYZ64/s+PDxB2Lmueb5kc=;
- b=E5NfjV9EHGchA18qAoVvi+0j3WUnJxyFz8yecsbu/FQz53zU8UG3vu5Z
- 6HbOwCTr3t+QbdFCr3u7e6heHc3cMvGB1FGEYyK+vqme+GNDtfvdcNtDJ
- jGVPpimu2wPeLZJug4EIMf+fvINSAZimCQCGH50UicliJ9c6xa5yF6bff
- HQpa9FjZAHqW6u9K+/srKnMAzMuMvj07sjCwq64OeqSLOnvaf5bDenwn1
- 9m9Jagr7mlPkFnkZ9CSJ9l5eUEN9kEO7OfXd3l3+VoFwv2Kvup59b4PUl
- xT92iiXM4oCgh4F7ftDXjFx7qvoi8YJa5pqOAtwUG4+rPruFHbgkTQP+x Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="174571"
-X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; 
-   d="scan'208";a="174571"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2023 03:03:48 -0700
+ t=1695723992; x=1727259992;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=hDw8X3rIiVGWuY6ofeu4CtUvl3RzNIqd+pL2zWvlE18=;
+ b=R75gO2W8RqcLdCQcmCivsvl3n8/GOyMY6QGl09fqd895EL3QlyjW1t3Z
+ rQEaNmUT9QNpvI8FASRdGNyzHbxL6OqfoRwWDvMVpOCXsy5Q+IfUiQ2Ei
+ 3Br5Rh5u/t5GhbjaMuc7WsK5L6tckxIM8SZOp9KXN6JBk5jNaGWWviF52
+ cUgCIphW8A8P4VrYRlHW5uVv1DyIWb/f9uJYNyLrEMN5FoqF9CqGzBYWl
+ 2aD69pBlt5udG917EeaxkAy8LqwDn8oWSG7WO+7SYWhRb4SDtuEL/cZM2
+ AbEqAcu5O2dRpgsCFWeTkNrnxVQnhJ086Gw95T2VcswEVNoQNLtrk8MqU g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="385382968"
+X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="385382968"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Sep 2023 03:26:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="838973973"
-X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="838973973"
-Received: from dilipban-mobl.ger.corp.intel.com (HELO [10.213.201.63])
- ([10.213.201.63])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2023 03:03:45 -0700
-Message-ID: <28a7da40-9589-b81f-f32f-f7c3bb30836c@linux.intel.com>
-Date: Tue, 26 Sep 2023 11:03:43 +0100
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="742311952"
+X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="742311952"
+Received: from jliew-mobl.gar.corp.intel.com (HELO intel.com) ([10.213.158.52])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Sep 2023 03:26:25 -0700
+Date: Tue, 26 Sep 2023 12:26:19 +0200
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Message-ID: <ZRKxy49j17qgg14y@ashyti-mobl2.lan>
+References: <20230926100855.61722-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Content-Language: en-US
-To: Andi Shyti <andi.shyti@linux.intel.com>
-References: <20230705093025.3689748-1-tvrtko.ursulin@linux.intel.com>
- <ZRKhy6QcQ28Z2cPT@ashyti-mobl2.lan>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-In-Reply-To: <ZRKhy6QcQ28Z2cPT@ashyti-mobl2.lan>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH] drm/i915: Do not disable preemption for
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230926100855.61722-1-tvrtko.ursulin@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915: Do not disable preemption for
  resets
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,81 +58,56 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Paul Gortmaker <paul.gortmaker@windriver.com>,
- Intel-gfx@lists.freedesktop.org, Chris Wilson <chris.p.wilson@intel.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- dri-devel@lists.freedesktop.org
+Cc: Intel-gfx@lists.freedesktop.org, Chris Wilson <chris.p.wilson@intel.com>,
+ Paul Gortmaker <paul.gortmaker@windriver.com>, dri-devel@lists.freedesktop.org,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Tvrtko,
 
-On 26/09/2023 10:18, Andi Shyti wrote:
-> Hi Tvrtko,
+On Tue, Sep 26, 2023 at 11:08:55AM +0100, Tvrtko Ursulin wrote:
+> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 > 
->> Commit ade8a0f59844 ("drm/i915: Make all GPU resets atomic") added a
->> preempt disable section over the hardware reset callback to prepare the
->> driver for being able to reset from atomic contexts.
->>
->> In retrospect I can see that the work item at a time was about removing
->> the struct mutex from the reset path. Code base also briefly entertained
->> the idea of doing the reset under stop_machine in order to serialize
->> userspace mmap and temporary glitch in the fence registers (see
->> eb8d0f5af4ec ("drm/i915: Remove GPU reset dependence on struct_mutex"),
->> but that never materialized and was soon removed in 2caffbf11762
->> ("drm/i915: Revoke mmaps and prevent access to fence registers across
->> reset") and replaced with a SRCU based solution.
->>
->> As such, as far as I can see, today we still have a requirement that
->> resets must not sleep (invoked from submission tasklets), but no need to
->> support invoking them from a truly atomic context.
->>
->> Given that the preemption section is problematic on RT kernels, since the
->> uncore lock becomes a sleeping lock and so is invalid in such section,
->> lets try and remove it. Potential downside is that our short waits on GPU
->> to complete the reset may get extended if CPU scheduling interferes, but
->> in practice that probably isn't a deal breaker.
->>
->> In terms of mechanics, since the preemption disabled block is being
->> removed we just need to replace a few of the wait_for_atomic macros into
->> busy looping versions which will work (and not complain) when called from
->> non-atomic sections.
+> Commit ade8a0f59844 ("drm/i915: Make all GPU resets atomic") added a
+> preempt disable section over the hardware reset callback to prepare the
+> driver for being able to reset from atomic contexts.
 > 
-> looks reasonable, few unrelated questions
+> In retrospect I can see that the work item at a time was about removing
+> the struct mutex from the reset path. Code base also briefly entertained
+> the idea of doing the reset under stop_machine in order to serialize
+> userspace mmap and temporary glitch in the fence registers (see
+> eb8d0f5af4ec ("drm/i915: Remove GPU reset dependence on struct_mutex"),
+> but that never materialized and was soon removed in 2caffbf11762
+> ("drm/i915: Revoke mmaps and prevent access to fence registers across
+> reset") and replaced with a SRCU based solution.
 > 
->> ---
->>   drivers/gpu/drm/i915/gt/intel_reset.c | 12 +++++-------
->>   1 file changed, 5 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
->> index e2152f75ba2e..6916eba3bd33 100644
->> --- a/drivers/gpu/drm/i915/gt/intel_reset.c
->> +++ b/drivers/gpu/drm/i915/gt/intel_reset.c
->> @@ -167,13 +167,13 @@ static int i915_do_reset(struct intel_gt *gt,
->>   	/* Assert reset for at least 20 usec, and wait for acknowledgement. */
+> As such, as far as I can see, today we still have a requirement that
+> resets must not sleep (invoked from submission tasklets), but no need to
+> support invoking them from a truly atomic context.
 > 
-> is this /20/50/ ?
-
-Unrelated change but okay.
-
+> Given that the preemption section is problematic on RT kernels, since the
+> uncore lock becomes a sleeping lock and so is invalid in such section,
+> lets try and remove it. Potential downside is that our short waits on GPU
+> to complete the reset may get extended if CPU scheduling interferes, but
+> in practice that probably isn't a deal breaker.
 > 
->>   	pci_write_config_byte(pdev, I915_GDRST, GRDOM_RESET_ENABLE);
->>   	udelay(50);
->> -	err = wait_for_atomic(i915_in_reset(pdev), 50);
->> +	err = _wait_for_atomic(i915_in_reset(pdev), 50, 0);
+> In terms of mechanics, since the preemption disabled block is being
+> removed we just need to replace a few of the wait_for_atomic macros into
+> busy looping versions which will work (and not complain) when called from
+> non-atomic sections.
 > 
-> wait_for_atomic() waits in milliseconds, while _wait_for_atomic()
-> waits in microseconds, I think you need to update the timer.
-
-Ah.. well spotted!
-
-> Do you think we might need a wait_for_atomic_preempt() macro?
+> v2:
+>  * Fix timeouts which are now in us. (Andi)
+>  * Update one comment as a drive by. (Andi)
 > 
-> 	err = wait_for_atomic_preempt(i915_in_reset(pdev), 50);
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> Cc: Chris Wilson <chris.p.wilson@intel.com>
+> Cc: Paul Gortmaker <paul.gortmaker@windriver.com>
+> Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> Cc: Andi Shyti <andi.shyti@linux.intel.com>
 
-I don't see what it would do? _wait_for_atomic when ATOMIC == 0 already 
-enables preemption. To allow passing in milliseconds? I fear one more 
-macro would create more confusion.
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com> 
 
-Regards,
-
-Tvrtko
+Thanks,
+Andi
