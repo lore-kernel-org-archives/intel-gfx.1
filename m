@@ -4,53 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B66E6E7D269
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 08:53:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 072EEE7D26C
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 09:18:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BD4210E361;
-	Tue, 26 Sep 2023 08:53:32 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F24310E361
- for <intel-gfx@lists.freedesktop.org>; Tue, 26 Sep 2023 08:53:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1BD10E387;
+	Tue, 26 Sep 2023 09:18:20 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EA1810E384;
+ Tue, 26 Sep 2023 09:18:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695718411; x=1727254411;
- h=message-id:date:mime-version:subject:to:references:from:
- in-reply-to:content-transfer-encoding;
- bh=vT+hLDeupapz5C2LjdDi5aUqNqE+VmQVxWnBJmfvMAk=;
- b=mDZMHGD5ufl9gYL6rH6RwlSWMab/InDoPMumqthkX45NZlmOwlo57/KK
- P5S5n1SPP6L3C8Yy8Ib+Yp9N0NM8pUdpDN99pj0bsAdhtijVJlbZrAavb
- tvm4ytNAKtYWQc/3TXdglKKf3FIcjHUu6ShHQhMIF4pyCfrFUDe1no1id
- biAzPU7NEZteMswzCUsaYnBrDjVDRmWLc0iaTCSE4tiXw/1O8S5e/6HtG
- 5XJx7hmvwI6oPjwJNB4jCuiWHn9ZbI6b0+tY9BbH4+IpAxnOh1lgurujL
- 65vM1Pznw8DVg3N/d/b1CuakUGXVVA+wD8HMIWS2R6bI2n2tOorN+DnuP w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="371854710"
-X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="371854710"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2023 01:53:30 -0700
+ t=1695719898; x=1727255898;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=KneAb0S+m+iYRbwqBA9rAbD7+wrrqEvmyHgL9DakO84=;
+ b=nJLvwj8WOnXzzXNET/AerD5JutaMJLaPHQnl4PeX6e6XqPRv2W06bKV6
+ GzIadzDnwd7KkJQ+dtwbbNBMMSj48OyEhsPIHsrV3S854d9gDe/49NeZi
+ 6PaiGMVwUFGOyHgVnfx3DF6upAghR9K+sXFCN+nXaTkwVPhVfUsqUyyuZ
+ AzEzrkKQNM0QNA0tZX+guEFP6sVplDPt5RmSj8I2lwy/IJ9BHHbP3teZZ
+ 5MSsnAtdPd+i6IO7kmUrCv9lCx49g7bJI25Ze+Wn1gOT3APJ2w5XwDFBT
+ 7MTRyK22ApTemLHP8OBQvxzEI0RQTD0lAeZLhrnfD9mNym66E821RmEmU A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="360903521"
+X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="360903521"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Sep 2023 02:18:17 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="725366683"
-X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="725366683"
-Received: from ahajda-mobl.ger.corp.intel.com (HELO [10.213.8.182])
- ([10.213.8.182])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2023 01:53:29 -0700
-Message-ID: <fe724b7c-3a1c-278c-f2b5-aceca701ba41@intel.com>
-Date: Tue, 26 Sep 2023 10:53:27 +0200
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="778072187"
+X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="778072187"
+Received: from jliew-mobl.gar.corp.intel.com (HELO intel.com) ([10.213.158.52])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Sep 2023 02:18:11 -0700
+Date: Tue, 26 Sep 2023 11:18:03 +0200
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Message-ID: <ZRKhy6QcQ28Z2cPT@ashyti-mobl2.lan>
+References: <20230705093025.3689748-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.15.1
-Content-Language: en-US
-To: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org
-References: <20230922105645.3991066-1-jani.nikula@intel.com>
-From: Andrzej Hajda <andrzej.hajda@intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298
- Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <20230922105645.3991066-1-jani.nikula@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/dp: refactor aux_ch_name()
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230705093025.3689748-1-tvrtko.ursulin@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Do not disable preemption for
+ resets
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,134 +58,69 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Paul Gortmaker <paul.gortmaker@windriver.com>,
+ Intel-gfx@lists.freedesktop.org, Chris Wilson <chris.p.wilson@intel.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 22.09.2023 12:56, Jani Nikula wrote:
-> Convert aux_ch_name() to a helper that prints a string to a caller
-> provided buffer, and use it to get more consistent aux channel
-> debugs. Now that all users of aux_ch_name() are in intel_dp_aux.c, we
-> can make it static too.
+Hi Tvrtko,
+
+> Commit ade8a0f59844 ("drm/i915: Make all GPU resets atomic") added a
+> preempt disable section over the hardware reset callback to prepare the
+> driver for being able to reset from atomic contexts.
 > 
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> In retrospect I can see that the work item at a time was about removing
+> the struct mutex from the reset path. Code base also briefly entertained
+> the idea of doing the reset under stop_machine in order to serialize
+> userspace mmap and temporary glitch in the fence registers (see
+> eb8d0f5af4ec ("drm/i915: Remove GPU reset dependence on struct_mutex"),
+> but that never materialized and was soon removed in 2caffbf11762
+> ("drm/i915: Revoke mmaps and prevent access to fence registers across
+> reset") and replaced with a SRCU based solution.
+> 
+> As such, as far as I can see, today we still have a requirement that
+> resets must not sleep (invoked from submission tasklets), but no need to
+> support invoking them from a truly atomic context.
+> 
+> Given that the preemption section is problematic on RT kernels, since the
+> uncore lock becomes a sleeping lock and so is invalid in such section,
+> lets try and remove it. Potential downside is that our short waits on GPU
+> to complete the reset may get extended if CPU scheduling interferes, but
+> in practice that probably isn't a deal breaker.
+> 
+> In terms of mechanics, since the preemption disabled block is being
+> removed we just need to replace a few of the wait_for_atomic macros into
+> busy looping versions which will work (and not complain) when called from
+> non-atomic sections.
+
+looks reasonable, few unrelated questions
+
 > ---
->   drivers/gpu/drm/i915/display/intel_display.h |  2 -
->   drivers/gpu/drm/i915/display/intel_dp_aux.c  | 41 ++++++++++++--------
->   2 files changed, 25 insertions(+), 18 deletions(-)
+>  drivers/gpu/drm/i915/gt/intel_reset.c | 12 +++++-------
+>  1 file changed, 5 insertions(+), 7 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-> index 49ac8473b988..9f252d1f03a7 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display.h
-> @@ -190,8 +190,6 @@ enum aux_ch {
->   	AUX_CH_E_XELPD,
->   };
->   
-> -#define aux_ch_name(a) ((a) + 'A')
-> -
->   enum phy {
->   	PHY_NONE = -1,
->   
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux.c b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> index b90cad7f567b..4431b6290c4c 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux.c
-> @@ -14,6 +14,21 @@
->   #include "intel_pps.h"
->   #include "intel_tc.h"
->   
-> +#define AUX_CH_NAME_BUFSIZE	6
-> +
-> +static const char *aux_ch_name(struct drm_i915_private *i915,
-> +			       char *buf, int size, enum aux_ch aux_ch)
-> +{
-> +	if (DISPLAY_VER(i915) >= 13 && aux_ch >= AUX_CH_D_XELPD)
-> +		snprintf(buf, size, "%c", 'A' + aux_ch - AUX_CH_D_XELPD + AUX_CH_D);
-> +	else if (DISPLAY_VER(i915) >= 12 && aux_ch >= AUX_CH_USBC1)
-> +		snprintf(buf, size, "USBC%c", '1' + aux_ch - AUX_CH_USBC1);
-> +	else
-> +		snprintf(buf, size, "%c", 'A' + aux_ch);
-> +
-> +	return buf;
-> +}
-> +
->   u32 intel_dp_aux_pack(const u8 *src, int src_bytes)
->   {
->   	int i;
-> @@ -728,6 +743,7 @@ void intel_dp_aux_init(struct intel_dp *intel_dp)
->   	struct intel_digital_port *dig_port = dp_to_dig_port(intel_dp);
->   	struct intel_encoder *encoder = &dig_port->base;
->   	enum aux_ch aux_ch = dig_port->aux_ch;
-> +	char buf[AUX_CH_NAME_BUFSIZE];
->   
->   	if (DISPLAY_VER(dev_priv) >= 14) {
->   		intel_dp->aux_ch_ctl_reg = xelpdp_aux_ctl_reg;
-> @@ -764,18 +780,9 @@ void intel_dp_aux_init(struct intel_dp *intel_dp)
->   	drm_dp_aux_init(&intel_dp->aux);
->   
->   	/* Failure to allocate our preferred name is not critical */
-> -	if (DISPLAY_VER(dev_priv) >= 13 && aux_ch >= AUX_CH_D_XELPD)
-> -		intel_dp->aux.name = kasprintf(GFP_KERNEL, "AUX %c/%s",
-> -					       aux_ch_name(aux_ch - AUX_CH_D_XELPD + AUX_CH_D),
-> -					       encoder->base.name);
-> -	else if (DISPLAY_VER(dev_priv) >= 12 && aux_ch >= AUX_CH_USBC1)
-> -		intel_dp->aux.name = kasprintf(GFP_KERNEL, "AUX USBC%c/%s",
-> -					       aux_ch - AUX_CH_USBC1 + '1',
-> -					       encoder->base.name);
-> -	else
-> -		intel_dp->aux.name = kasprintf(GFP_KERNEL, "AUX %c/%s",
-> -					       aux_ch_name(aux_ch),
-> -					       encoder->base.name);
-> +	intel_dp->aux.name = kasprintf(GFP_KERNEL, "AUX %s/%s",
-> +				       aux_ch_name(dev_priv, buf, sizeof(buf), aux_ch),
-> +				       encoder->base.name);
+> diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+> index e2152f75ba2e..6916eba3bd33 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_reset.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+> @@ -167,13 +167,13 @@ static int i915_do_reset(struct intel_gt *gt,
+>  	/* Assert reset for at least 20 usec, and wait for acknowledgement. */
 
-With define like:
+is this /20/50/ ?
 
-#define aux_ch_name_smart(dev_priv, aux_ch) aux_ch_name(dev_priv, 
-(char[AUX_CH_NAME_BUFSIZE]){}, AUX_CH_NAME_BUFSIZE, aux_ch)
+>  	pci_write_config_byte(pdev, I915_GDRST, GRDOM_RESET_ENABLE);
+>  	udelay(50);
+> -	err = wait_for_atomic(i915_in_reset(pdev), 50);
+> +	err = _wait_for_atomic(i915_in_reset(pdev), 50, 0);
 
-you could get rid of local variable buf, and two extra arguments in 
-call. The price is gcc macro magic and maybe less visible life-time 
-constraints, no strong suggestion :)
+wait_for_atomic() waits in milliseconds, while _wait_for_atomic()
+waits in microseconds, I think you need to update the timer.
 
-Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
+Do you think we might need a wait_for_atomic_preempt() macro?
 
-Regards
-Andrzej
+	err = wait_for_atomic_preempt(i915_in_reset(pdev), 50);
 
-
->   
->   	intel_dp->aux.transfer = intel_dp_aux_transfer;
->   	cpu_latency_qos_add_request(&intel_dp->pm_qos, PM_QOS_DEFAULT_VALUE);
-> @@ -819,6 +826,7 @@ enum aux_ch intel_dp_aux_ch(struct intel_encoder *encoder)
->   	struct intel_encoder *other;
->   	const char *source;
->   	enum aux_ch aux_ch;
-> +	char buf[AUX_CH_NAME_BUFSIZE];
->   
->   	aux_ch = intel_bios_dp_aux_ch(encoder->devdata);
->   	source = "VBT";
-> @@ -836,16 +844,17 @@ enum aux_ch intel_dp_aux_ch(struct intel_encoder *encoder)
->   	other = get_encoder_by_aux_ch(encoder, aux_ch);
->   	if (other) {
->   		drm_dbg_kms(&i915->drm,
-> -			    "[ENCODER:%d:%s] AUX CH %c already claimed by [ENCODER:%d:%s]\n",
-> -			    encoder->base.base.id, encoder->base.name, aux_ch_name(aux_ch),
-> +			    "[ENCODER:%d:%s] AUX CH %s already claimed by [ENCODER:%d:%s]\n",
-> +			    encoder->base.base.id, encoder->base.name,
-> +			    aux_ch_name(i915, buf, sizeof(buf), aux_ch),
->   			    other->base.base.id, other->base.name);
->   		return AUX_CH_NONE;
->   	}
->   
->   	drm_dbg_kms(&i915->drm,
-> -		    "[ENCODER:%d:%s] Using AUX CH %c (%s)\n",
-> +		    "[ENCODER:%d:%s] Using AUX CH %s (%s)\n",
->   		    encoder->base.base.id, encoder->base.name,
-> -		    aux_ch_name(aux_ch), source);
-> +		    aux_ch_name(i915, buf, sizeof(buf), aux_ch), source);
->   
->   	return aux_ch;
->   }
-
+Thanks,
+Andi
