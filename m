@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A721DE7D263
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 08:38:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8C48E7D267
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 08:38:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22D8C10E37B;
-	Tue, 26 Sep 2023 08:38:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 542B810E384;
+	Tue, 26 Sep 2023 08:38:04 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D3AB10E379
- for <intel-gfx@lists.freedesktop.org>; Tue, 26 Sep 2023 08:37:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A06A10E37B
+ for <intel-gfx@lists.freedesktop.org>; Tue, 26 Sep 2023 08:38:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695717475; x=1727253475;
+ t=1695717482; x=1727253482;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=jjSVfIKOQAzkB3aQRUqRC5luhVvGxDgaafxWg+3E7p8=;
- b=ayYtkSYjXv7rVGIoRrW2zTbLIFyYBMQLaDJlY52hl++23HTK/oxkbqHH
- ieRNnYL/fC1sVBW9E4JbScZbDxE0O6j+/9g4TFn3bDJkALVu6XAbwTCQl
- 2+RcayFwmRGOcc9OHROsQWG2S9kmazIsVhxjY1xWP/K4xfoo+iiVaij1s
- oQzvmaRJElgD9AS2X1FAIQZy4SkO5uYR6FrdxZAbRMMxdJkvFinhKMoSd
- 79l/eZq+1ESWE/qh6jjogwbn14KNQoGYcIaBPoldBqg4//CxyPXt5lrs+
- X4JynjDGXgGHaR9zgeI+dfILDZLt0R0/zZGQMs9ooLaNXy2KIwFS7YlAK A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="381419209"
-X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="381419209"
+ bh=f7RTHiHWdv+3BKPhcI5v+XT852ZiSlIBVslSx6GIj1E=;
+ b=lE3Ta8U67RoU4q2+sY2+z1vT/TdqzsNSbRr7jMoYsxLQAx1OohYLzYLY
+ Jt/bJHnJulAtC5jZB63fk02XMhIDoNPCRzPY5davr1Y+2HxzhP0WkzQKB
+ 24fpEHv8g3OTNxc4ldy+9ppJZ/MqNyXAyNQwKbndp87aL07GrehS8D/J3
+ eHZ3CkTGpg5wHN33l1hq/cNm33XnC8B+S9tJGRNFvd4JNe3YSSsjL5t5L
+ lgotSPyJgelnXQp2ZYS4JHYZO7CTwBpGpMXuqPEMEhRCwWlzk5VeqWKYu
+ ZzPCYTrvMCcgcDk6b2L8g8W3BntFOzpN6q7+sFuoTG+OwtyAzXh+4erYB A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="381419225"
+X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="381419225"
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2023 01:37:55 -0700
+ 26 Sep 2023 01:38:02 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="1079623494"
-X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="1079623494"
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="1079623529"
+X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="1079623529"
 Received: from nirmoyda-desk.igk.intel.com ([10.102.138.190])
  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2023 01:37:52 -0700
+ 26 Sep 2023 01:37:59 -0700
 From: Nirmoy Das <nirmoy.das@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 26 Sep 2023 10:37:36 +0200
-Message-ID: <20230926083742.14740-2-nirmoy.das@intel.com>
+Date: Tue, 26 Sep 2023 10:37:39 +0200
+Message-ID: <20230926083742.14740-5-nirmoy.das@intel.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20230926083742.14740-1-nirmoy.das@intel.com>
 References: <20230926083742.14740-1-nirmoy.das@intel.com>
@@ -47,8 +47,8 @@ Organization: Intel Deutschland GmbH, Registered Address: Am Campeon 10,
  85579 Neubiberg, Germany,
  Commercial Register: Amtsgericht Muenchen HRB 186928 
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 1/7] drm/i915: Lift runtime-pm acquire
- callbacks out of intel_wakeref.mutex
+Subject: [Intel-gfx] [PATCH 4/7] drm/i915: Parameterize binder context
+ creation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,126 +61,64 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chris Wilson <chris.p.wilson@intel.com>, andi.shyti@intel.com,
- chris.p.wilson@linux.intel.com, matthew.d.roper@intel.com,
- Nirmoy Das <nirmoy.das@intel.com>
+Cc: andi.shyti@intel.com, chris.p.wilson@linux.intel.com,
+ matthew.d.roper@intel.com, Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Chris Wilson <chris.p.wilson@intel.com>
+Add i915_ggtt_require_binder() to indicate that i915
+needs to create binder context which will be used
+by subsequent patch to enable i915_address_space vfuncs
+that will use GPU commands to update GGTT.
 
-When runtime pm is first woken, it will synchronously call the
-registered callbacks for the device. These callbacks
-may pull in their own forest of locks, which we do not want to
-conflate with the intel_wakeref.mutex. A second minor benefit to
-reducing the coverage of the mutex, is that it will reduce
-contention for frequent sleeps and wakes (such as when being used
-for soft-rc6).
-
-v2: remove usage of fetch_and_zero() and other improvements(Jani)
-
-Signed-off-by: Chris Wilson <chris.p.wilson@intel.com>
 Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
+Reviewed-by: Oak Zeng <oak.zeng@intel.com>
 Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- drivers/gpu/drm/i915/intel_wakeref.c | 52 +++++++++++++++-------------
- 1 file changed, 27 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 2 +-
+ drivers/gpu/drm/i915/gt/intel_gtt.c       | 4 ++++
+ drivers/gpu/drm/i915/gt/intel_gtt.h       | 2 ++
+ 3 files changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/intel_wakeref.c b/drivers/gpu/drm/i915/intel_wakeref.c
-index 718f2f1b6174..623a69089386 100644
---- a/drivers/gpu/drm/i915/intel_wakeref.c
-+++ b/drivers/gpu/drm/i915/intel_wakeref.c
-@@ -10,21 +10,12 @@
- #include "intel_wakeref.h"
- #include "i915_drv.h"
- 
--static void rpm_get(struct intel_wakeref *wf)
--{
--	wf->wakeref = intel_runtime_pm_get(&wf->i915->runtime_pm);
--}
--
--static void rpm_put(struct intel_wakeref *wf)
--{
--	intel_wakeref_t wakeref = fetch_and_zero(&wf->wakeref);
--
--	intel_runtime_pm_put(&wf->i915->runtime_pm, wakeref);
--	INTEL_WAKEREF_BUG_ON(!wakeref);
--}
--
- int __intel_wakeref_get_first(struct intel_wakeref *wf)
- {
-+	intel_wakeref_t wakeref;
-+	int ret = 0;
-+
-+	wakeref = intel_runtime_pm_get(&wf->i915->runtime_pm);
- 	/*
- 	 * Treat get/put as different subclasses, as we may need to run
- 	 * the put callback from under the shrinker and do not want to
-@@ -32,41 +23,52 @@ int __intel_wakeref_get_first(struct intel_wakeref *wf)
- 	 * upon acquiring the wakeref.
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 64f51defc2cb..b1a1d07e2e21 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -1477,7 +1477,7 @@ static int engine_init_common(struct intel_engine_cs *engine)
+ 	 * engines as well but BCS should be less busy engine so pick that for
+ 	 * GGTT updates.
  	 */
- 	mutex_lock_nested(&wf->mutex, SINGLE_DEPTH_NESTING);
--	if (!atomic_read(&wf->count)) {
--		int err;
--
--		rpm_get(wf);
+-	if (engine->id == BCS0) {
++	if (i915_ggtt_require_binder(engine->i915) && engine->id == BCS0) {
+ 		bce = create_ggtt_bind_context(engine);
+ 		if (IS_ERR(bce)) {
+ 			ret = PTR_ERR(bce);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
+index 13944a14ea2d..4c89eb8d9af7 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
+@@ -21,6 +21,10 @@
+ #include "intel_gt_regs.h"
+ #include "intel_gtt.h"
  
--		err = wf->ops->get(wf);
--		if (unlikely(err)) {
--			rpm_put(wf);
--			mutex_unlock(&wf->mutex);
--			return err;
-+	if (!atomic_read(&wf->count)) {
-+		INTEL_WAKEREF_BUG_ON(wf->wakeref);
-+		wf->wakeref = wakeref;
-+		wakeref = 0;
-+
-+		ret = wf->ops->get(wf);
-+		if (ret) {
-+			wakeref = xchg(&wf->wakeref, 0);
-+			wake_up_var(&wf->wakeref);
-+			goto unlock;
- 		}
++bool i915_ggtt_require_binder(struct drm_i915_private *i915)
++{
++	return false;
++}
  
- 		smp_mb__before_atomic(); /* release wf->count */
- 	}
-+
- 	atomic_inc(&wf->count);
-+	INTEL_WAKEREF_BUG_ON(atomic_read(&wf->count) <= 0);
-+
-+unlock:
- 	mutex_unlock(&wf->mutex);
-+	if (unlikely(wakeref))
-+		intel_runtime_pm_put(&wf->i915->runtime_pm, wakeref);
- 
--	INTEL_WAKEREF_BUG_ON(atomic_read(&wf->count) <= 0);
--	return 0;
-+	return ret;
- }
- 
- static void ____intel_wakeref_put_last(struct intel_wakeref *wf)
+ static bool intel_ggtt_update_needs_vtd_wa(struct drm_i915_private *i915)
  {
-+	intel_wakeref_t wakeref = 0;
-+
- 	INTEL_WAKEREF_BUG_ON(atomic_read(&wf->count) <= 0);
- 	if (unlikely(!atomic_dec_and_test(&wf->count)))
- 		goto unlock;
- 
- 	/* ops->put() must reschedule its own release on error/deferral */
- 	if (likely(!wf->ops->put(wf))) {
--		rpm_put(wf);
-+		INTEL_WAKEREF_BUG_ON(!wf->wakeref);
-+		wakeref = xchg(&wf->wakeref, 0);
- 		wake_up_var(&wf->wakeref);
- 	}
- 
- unlock:
- 	mutex_unlock(&wf->mutex);
-+	if (wakeref)
-+		intel_runtime_pm_put(&wf->i915->runtime_pm, wakeref);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
+index 41e530d0a4e9..b471edac2699 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
+@@ -691,4 +691,6 @@ static inline struct sgt_dma {
+ 	return (struct sgt_dma){ sg, addr, addr + sg_dma_len(sg) };
  }
  
- void __intel_wakeref_put_last(struct intel_wakeref *wf, unsigned long flags)
++bool i915_ggtt_require_binder(struct drm_i915_private *i915);
++
+ #endif
 -- 
 2.41.0
 
