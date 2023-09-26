@@ -4,48 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51A05E7D25E
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 08:29:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD982E7D263
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 08:36:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ECC210E387;
-	Tue, 26 Sep 2023 08:29:45 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A573C10E382;
- Tue, 26 Sep 2023 08:29:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 418A610E0E5;
+	Tue, 26 Sep 2023 08:36:59 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D39510E0C6
+ for <intel-gfx@lists.freedesktop.org>; Tue, 26 Sep 2023 08:36:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695716978; x=1727252978;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=qL0ID9/W3gPk8XfbcaxhW+fLc4LwK5E/ZhegRunYlFE=;
- b=PX83Cju1dgjbwqdeYk1fLo0LTjLjCb92ngKifuaSWPGd3u2ttTwneCoi
- J5/3btgwDxPkdSOHIMLEqM0BDNRA4CAN+101edwoM97Nk0tqwAV1q4L+T
- lRM/wddQBKsnrnt53whLmF2doySHkqEgpTq/pQAnQ84c+0+CjufE51FR9
- H5/8BeKTM3mpcwC+dCuJusZ+vmuxcdMQPuLZ38d6vm5ZMkm+1cN7cTXFM
- dX+nHD4TFyQXHfPpLgejHJCvMsaQfPkcKQXcL+ZJ2T6h/vFemnQnAOlZu
- P3Mtl9BFzsBXJImkV7WSb/946j6sMnNdUpiLqHNB2qbRwHWO38OmWDpr6 Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="412431876"
-X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="412431876"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2023 01:29:38 -0700
+ t=1695717417; x=1727253417;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=mbbpNiqC+CBuMF9eyGbTmIbPWNAps+oE+IMzpnhnIaw=;
+ b=IKlTWJ886QunMmeujb8ALaotTguTYiSFL9sCtShYU9/wC0vYa+tH+bxD
+ rJePF8A7d24nrk/s5yw+Rw+IleuP4cZ2xYXwlJ6/4S8FIQK+Qdtt1DyxV
+ hB29Le9GEiA/LmtOm/lY1tAn5k5jyThdTS+iD/6zGALiw7eVVFec7ICNA
+ U761vX6xkrkj5eqTjj8ruY9CJTHKHf+6yiqxt6IIQHTfV1s9DgQ0GoA9f
+ c/UajpNbKBUfbyVJQFqMSjX5UfqiX48fFS8dN8gQBddjtS6nc1DAGmbg7
+ p+uS46hNmf2Dhh9qULMd/IJyrcOVXH2wak/1n7DdsN7h0U2BGn7TBr414 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="361762550"
+X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="361762550"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Sep 2023 01:36:56 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="752079105"
-X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="752079105"
-Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by fmsmga007.fm.intel.com with ESMTP; 26 Sep 2023 01:29:35 -0700
-From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-To: dri-devel@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Date: Tue, 26 Sep 2023 13:53:29 +0530
-Message-Id: <20230926082331.739705-7-mitulkumar.ajitkumar.golani@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230926082331.739705-1-mitulkumar.ajitkumar.golani@intel.com>
-References: <20230926082331.739705-1-mitulkumar.ajitkumar.golani@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10843"; a="864323786"
+X-IronPort-AV: E=Sophos;i="6.03,177,1694761200"; d="scan'208";a="864323786"
+Received: from dilipban-mobl.ger.corp.intel.com (HELO [10.213.201.63])
+ ([10.213.201.63])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Sep 2023 01:36:55 -0700
+Message-ID: <3dd3f8be-f071-0edb-5613-6732f4f76f02@linux.intel.com>
+Date: Tue, 26 Sep 2023 09:36:53 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 6/8] drm/i915/dp: Iterate over output bpp with
- fractional step size
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Content-Language: en-US
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
+References: <e038e664-2ab0-75bf-8df5-1158cae9c685@linux.intel.com>
+ <20230926020053.245046-1-rodrigo.vivi@intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <20230926020053.245046-1-rodrigo.vivi@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Add missing CCS documentation.
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,116 +63,77 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: suijingfeng@loongson.cn, jani.nikula@intel.com, mripard@kernel.org
+Cc: Matt Roper <matthew.d.roper@intel.com>,
+ Sushma Venkatesh Reddy <sushma.venkatesh.reddy@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-This patch adds support to iterate over compressed output bpp as per the
-fractional step, supported by DP sink.
+On 26/09/2023 03:00, Rodrigo Vivi wrote:
+> Let's introduce the basic documentation about CCS.
+> While doing that, also removed the legacy execution flag name. That flag
+> simply doesn't exist for CCS and it is not needed on current context
+> submission. Those flag names are only needed on legacy context,
+> while on new ones we only need to pass the engine ID.
+> 
+> It is worth mention that this documentation should probably live with
+> the engine definitions rather than in the i915.rst file directly and
+> that more updates are likely need in this section. But this should
+> come later.
+> 
+> v2: Overall improvements from Matt and Tvrtko.
+> 
+> Fixes: 944823c94639 ("drm/i915/xehp: Define compute class and engine")
+> Cc: Matt Roper <matthew.d.roper@intel.com>
+> Cc: Sushma Venkatesh Reddy <sushma.venkatesh.reddy@intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> ---
+>   Documentation/gpu/i915.rst | 25 ++++++++++++-------------
+>   1 file changed, 12 insertions(+), 13 deletions(-)
+> 
+> diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
+> index 378e825754d5..13de8bcaaa29 100644
+> --- a/Documentation/gpu/i915.rst
+> +++ b/Documentation/gpu/i915.rst
+> @@ -267,19 +267,18 @@ i915 driver.
+>   Intel GPU Basics
+>   ----------------
+>   
+> -An Intel GPU has multiple engines. There are several engine types.
+> -
+> -- RCS engine is for rendering 3D and performing compute, this is named
+> -  `I915_EXEC_RENDER` in user space.
+> -- BCS is a blitting (copy) engine, this is named `I915_EXEC_BLT` in user
+> -  space.
+> -- VCS is a video encode and decode engine, this is named `I915_EXEC_BSD`
+> -  in user space
+> -- VECS is video enhancement engine, this is named `I915_EXEC_VEBOX` in user
+> -  space.
+> -- The enumeration `I915_EXEC_DEFAULT` does not refer to specific engine;
+> -  instead it is to be used by user space to specify a default rendering
+> -  engine (for 3D) that may or may not be the same as RCS.
+> +An Intel GPU has multiple engines. There are several engine types:
+> +
+> +- Render Command Streamer (RCS). An engine for rendering 3D and
+> +  performing compute.
+> +- Blitting Command Streamer (BCS). An engine for performing blitting and/or
+> +  copying operations.
+> +- Video Command Streamer. An engine used for video encoding and decoding. Also
+> +  sometimes called 'BSD' in hardware documentation.
+> +- Video Enhancement Command Streamer (VECS). An engine for video enhancement.
+> +  Also sometimes called 'VEBOX' in hardware documentation.
+> +- Compute Command Streamer (CCS). An engine that has access to the media and
+> +  GPGPU pipelines, but not the 3D pipeline.
+>   
+>   The Intel GPU family is a family of integrated GPU's using Unified
+>   Memory Access. For having the GPU "do work", user space will feed the
 
-v2:
--Avoid ending up with compressed bpp, same as pipe bpp. (Stan)
+LGTM.
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 38 +++++++++++++++----------
- 1 file changed, 23 insertions(+), 15 deletions(-)
+Acked-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index fc72590f93c6..6f4a25d024e9 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1716,15 +1716,15 @@ static bool intel_dp_dsc_supports_format(struct intel_dp *intel_dp,
- 	return drm_dp_dsc_sink_supports_format(intel_dp->dsc_dpcd, sink_dsc_format);
- }
- 
--static bool is_bw_sufficient_for_dsc_config(u16 compressed_bpp, u32 link_clock,
-+static bool is_bw_sufficient_for_dsc_config(u16 compressed_bppx16, u32 link_clock,
- 					    u32 lane_count, u32 mode_clock,
- 					    enum intel_output_format output_format,
- 					    int timeslots)
- {
- 	u32 available_bw, required_bw;
- 
--	available_bw = (link_clock * lane_count * timeslots)  / 8;
--	required_bw = compressed_bpp * (intel_dp_mode_to_fec_clock(mode_clock));
-+	available_bw = (link_clock * lane_count * timeslots * 16)  / 8;
-+	required_bw = compressed_bppx16 * (intel_dp_mode_to_fec_clock(mode_clock));
- 
- 	return available_bw > required_bw;
- }
-@@ -1732,7 +1732,7 @@ static bool is_bw_sufficient_for_dsc_config(u16 compressed_bpp, u32 link_clock,
- static int dsc_compute_link_config(struct intel_dp *intel_dp,
- 				   struct intel_crtc_state *pipe_config,
- 				   struct link_config_limits *limits,
--				   u16 compressed_bpp,
-+				   u16 compressed_bppx16,
- 				   int timeslots)
- {
- 	const struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
-@@ -1747,8 +1747,8 @@ static int dsc_compute_link_config(struct intel_dp *intel_dp,
- 		for (lane_count = limits->min_lane_count;
- 		     lane_count <= limits->max_lane_count;
- 		     lane_count <<= 1) {
--			if (!is_bw_sufficient_for_dsc_config(compressed_bpp, link_rate, lane_count,
--							     adjusted_mode->clock,
-+			if (!is_bw_sufficient_for_dsc_config(compressed_bppx16, link_rate,
-+							     lane_count, adjusted_mode->clock,
- 							     pipe_config->output_format,
- 							     timeslots))
- 				continue;
-@@ -1861,7 +1861,7 @@ icl_dsc_compute_link_config(struct intel_dp *intel_dp,
- 		ret = dsc_compute_link_config(intel_dp,
- 					      pipe_config,
- 					      limits,
--					      valid_dsc_bpp[i],
-+					      valid_dsc_bpp[i] << 4,
- 					      timeslots);
- 		if (ret == 0) {
- 			pipe_config->dsc.compressed_bpp_x16 =
-@@ -1888,23 +1888,31 @@ xelpd_dsc_compute_link_config(struct intel_dp *intel_dp,
- 			      int pipe_bpp,
- 			      int timeslots)
- {
--	u16 compressed_bpp;
-+	u8 bppx16_incr = drm_dp_dsc_sink_bpp_incr(intel_dp->dsc_dpcd);
-+	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+	u16 compressed_bppx16;
-+	u8 bppx16_step;
- 	int ret;
- 
-+	if (DISPLAY_VER(i915) < 14 || bppx16_incr <= 1)
-+		bppx16_step = 16;
-+	else
-+		bppx16_step = 16 / bppx16_incr;
-+
- 	/* Compressed BPP should be less than the Input DSC bpp */
--	dsc_max_bpp = min(dsc_max_bpp, pipe_bpp - 1);
-+	dsc_max_bpp = min(dsc_max_bpp << 4, (pipe_bpp << 4) - bppx16_step);
-+	dsc_min_bpp = dsc_min_bpp << 4;
- 
--	for (compressed_bpp = dsc_max_bpp;
--	     compressed_bpp >= dsc_min_bpp;
--	     compressed_bpp--) {
-+	for (compressed_bppx16 = dsc_max_bpp;
-+	     compressed_bppx16 >= dsc_min_bpp;
-+	     compressed_bppx16 -= bppx16_step) {
- 		ret = dsc_compute_link_config(intel_dp,
- 					      pipe_config,
- 					      limits,
--					      compressed_bpp,
-+					      compressed_bppx16,
- 					      timeslots);
- 		if (ret == 0) {
--			pipe_config->dsc.compressed_bpp_x16 =
--				intel_fractional_bpp_to_x16(compressed_bpp);
-+			pipe_config->dsc.compressed_bpp_x16 = compressed_bppx16;
- 			return 0;
- 		}
- 	}
--- 
-2.25.1
+Regards,
 
+Tvrtko
