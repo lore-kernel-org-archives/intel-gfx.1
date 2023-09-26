@@ -4,53 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07C45E7E65D
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 19:17:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0BC3E7E65D
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Sep 2023 19:24:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09E8310E42B;
-	Tue, 26 Sep 2023 19:17:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7829510E158;
+	Tue, 26 Sep 2023 19:24:08 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5988310E42B;
- Tue, 26 Sep 2023 19:17:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B4E410E158
+ for <intel-gfx@lists.freedesktop.org>; Tue, 26 Sep 2023 19:24:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695755862; x=1727291862;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=SH17sUONlagBR+83EvFyQqMYrAZ5iCGrsYpICKtrjxU=;
- b=JMWr7LKCqgMpGSLqN6jG91+gXV/luZ6b2nhlPgR9HAi6lEmGmJ2+sJt8
- dB7PAgUG+oZ9zeA+rixMfEy5bx11skO3RLHvPt2NiJXdGAoNP80kHJUDp
- MTMr9slMYGyjfP4TOXmBRLgDn+mLdQk302DUe2TDwlgfjjCQZ/U1lAvCQ
- OmAYXWW/EW1sUQyX2cCvbSM3OCTDkoenNZfFld+VLhjo84aw6gqa/hvpc
- IlQVysG0BDT1OTn/9ucaf04s7+yu09jPMOr7KxootSZMtcB9Vq7bnbetO
- 2swTpgEoIygXKHDsgvE5bWURumYaM4prz9lc39bo+z71km+c7dZBoubIW A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10845"; a="378929536"
-X-IronPort-AV: E=Sophos;i="6.03,178,1694761200"; d="scan'208";a="378929536"
+ t=1695756246; x=1727292246;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=6YUqTlxnlwGPXOOeX2oWtvodmjvK7Gv5gemVD8QsM4w=;
+ b=P8h8W53LA5NoAYmgaBT6ZnYPBgVn8ODXLjoFLo2Bwkxuom2LlH76m56X
+ 8xQ176wjiv1x5Ih4VyRnJqWbXInzqHS/5DMEEttbpZWCaHKssER3z5RLa
+ oH+d9wfZ84c0n1avoxXndUrAeOyCAc6qgIsO/cHeJsTG6JcBMCeDbyUzi
+ swoXLPH6S06SZ4HjDGpUWw7CtipYfirL3TSb3AoxkW/FHV4ZkertBnVTc
+ 1TPd/cpBYOPr7yNIWRWd0fj2qxTyaNNrgJ0r2Sh7PN3UZvNFIelW2YqqF
+ 6Igmki0OPrBkQzJKT+elOUExBEFPrib5/RMTKLes/B66m2K3l0BdKE4Ag g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10845"; a="378931019"
+X-IronPort-AV: E=Sophos;i="6.03,178,1694761200"; d="scan'208";a="378931019"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2023 12:17:41 -0700
+ 26 Sep 2023 12:24:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10845"; a="892319662"
-X-IronPort-AV: E=Sophos;i="6.03,178,1694761200"; d="scan'208";a="892319662"
-Received: from nirmoyda-mobl.ger.corp.intel.com (HELO [10.252.40.128])
- ([10.252.40.128])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2023 12:16:35 -0700
-Message-ID: <b8efa738-42e3-65d7-dcb2-06ef9edec21c@linux.intel.com>
-Date: Tue, 26 Sep 2023 21:17:38 +0200
+X-IronPort-AV: E=McAfee;i="6600,9927,10845"; a="892320054"
+X-IronPort-AV: E=Sophos;i="6.03,178,1694761200"; d="scan'208";a="892320054"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
+ by fmsmga001.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 26 Sep 2023 12:23:00 -0700
+Received: from orsmsx611.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.32; Tue, 26 Sep 2023 12:24:05 -0700
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx611.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.32 via Frontend Transport; Tue, 26 Sep 2023 12:24:04 -0700
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.170)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.32; Tue, 26 Sep 2023 12:24:04 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oeuUd4aJBuwDOhFgeWnrh+laaoTAzTn/elECw9WsLhn4E71dLtaa6c2VdJCQQq83v7k8SKDIZ230c+RLy7JQd+ZKAQBRMvkNV+LlYlLVpGc+4+xctymWK1Z/4D7jd94ldd+OknGMfaz+w4PzPY1pkDTjY3PyPuogXoeyDVyuZOVFz4wF2m5um/2HiwoGMekKCLVvXUPlCCIBZIDUZcPCa5nVA9iuhTGpis16UmwXcXyeEEhk4Hphgjf6JUoMe6NSn47htt1LyoZh7MlBhZrQGRjgEMYhKs4rjgNCuogy6RmkbTvwTLzUqgqo2X2GopI96CYPlVCJkVuLadXomgibiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=loxIHa2mYZv8RuZd3DnXQNgxkW3GefMHK9wM98IUqT4=;
+ b=eMWBvYzKDaXY42c/AjKsgY1iyzG18fPqJ6qVRZIUJJQhe4qI/LyKznY95SqhJ7Mq6mkow1u+boZLBRSZ5IsOZDG8UDa+AG8BFyEdTUnI20KZ/OaRe8IxUniY102QGkl8tJAds9vkVpJgYr0rlqKvgnTRzgvjkCzUuVwuT2NyZjNK57IAxbZa6jYqcF3H+L8/uDPwpXzHeRQ/FSe2DB9TbDIe6rurL9EA7JwGUzXdvgv5hboqaOZdlxRBJ1N5LKw9/taBVcAIk/FMeTWyYNpVQxVqOF31kjXtO5A/xpDPKOxjgO3RcOfx+76ngwf9WLCBWCX+WS+jK9H2R9Z9r6O8jg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS7PR11MB7859.namprd11.prod.outlook.com (2603:10b6:8:da::22) by
+ CH0PR11MB5690.namprd11.prod.outlook.com (2603:10b6:610:ed::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6813.28; Tue, 26 Sep 2023 19:24:01 +0000
+Received: from DS7PR11MB7859.namprd11.prod.outlook.com
+ ([fe80::48d9:4c34:35b:f66]) by DS7PR11MB7859.namprd11.prod.outlook.com
+ ([fe80::48d9:4c34:35b:f66%4]) with mapi id 15.20.6768.029; Tue, 26 Sep 2023
+ 19:24:01 +0000
+Date: Tue, 26 Sep 2023 12:23:58 -0700
+From: Matt Roper <matthew.d.roper@intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Message-ID: <20230926192358.GV233750@mdroper-desk1.amr.corp.intel.com>
+References: <20230926172829.GS233750@mdroper-desk1.amr.corp.intel.com>
+ <20230926175554.25968-1-rodrigo.vivi@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20230926175554.25968-1-rodrigo.vivi@intel.com>
+X-ClientProxiedBy: BYAPR05CA0004.namprd05.prod.outlook.com
+ (2603:10b6:a03:c0::17) To DS7PR11MB7859.namprd11.prod.outlook.com
+ (2603:10b6:8:da::22)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.15.1
-Content-Language: en-US
-To: Matt Roper <matthew.d.roper@intel.com>, Nirmoy Das <nirmoy.das@intel.com>
-References: <20230926141842.8681-1-nirmoy.das@intel.com>
- <20230926143809.GG2706891@mdroper-desk1.amr.corp.intel.com>
-From: Nirmoy Das <nirmoy.das@linux.intel.com>
-In-Reply-To: <20230926143809.GG2706891@mdroper-desk1.amr.corp.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Intel-gfx] [PATCH] drm/i915/mtl: Skip MCR ops for ring fault
- register
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR11MB7859:EE_|CH0PR11MB5690:EE_
+X-MS-Office365-Filtering-Correlation-Id: bec01814-dc02-4bd2-0437-08dbbec62375
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: qV2Dgb48BM0az8IZhmv7B9advm92+1cx1i+XgI40Yw478jYLgRVyWvrcRpl7qEQZ6dUF/A3j1snwNcCv+sDbLBtu3xm5fDz5h753r/UwWffyvXTeNHcSzkD6K0nV9RFXQ+8yjSK3yhs3Mfx7Bxj2msPvP/zIR5QxhiCrMz47cmgNpX3K77KFQ8iE240d9wWgL0n8F8M3R9GkPGCP+PdrJXc1z/aTa5fxjGOg9Fx6BOsLSK5dODMVjp5DdxwBw6gsOady7sHzV8uzYB8Z0e2K7SEN0AK2Dt+dm4hFak26ZbCih+jM68HTATxnXHIHHoc9lA0RVEdGOwBpnN48xKY9cC8KnjhYOhujzgtAZ1/N4UMiaLZjCJOkHsRI0IPvwJ4dyA/N4f4Hqc1wQ6jCap68+RU2k/0ayiN1WGXvhD/OHpE+k7Ir7LbKHhLHz16f2Io8GhZUIedcSQRZTTh1wzXeWI/3U9p/hEny94MI3HyKEjv+8z0vLzgyzsXr5NPMIn89QwQPJkcO1RtnWEundfKnyHzl+fN3FtDJk7dEZhjMRhuloVh1EucXGDpW3VnVyuNs
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR11MB7859.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(396003)(366004)(136003)(346002)(376002)(230922051799003)(451199024)(186009)(1800799009)(5660300002)(316002)(54906003)(83380400001)(6636002)(41300700001)(8676002)(8936002)(6862004)(4326008)(66476007)(66946007)(33656002)(1076003)(6486002)(6512007)(6666004)(6506007)(86362001)(66556008)(107886003)(82960400001)(26005)(38100700002)(2906002)(478600001);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?+mBUBk8HOtZ4ZjEM9RWwy9Xk4IdFIPKeGlnRBO0lgf5Kvac3tslWneJUZB/9?=
+ =?us-ascii?Q?LH+NOYu3qcGzvheIFnTK5QW29ilLZPsvId6KvzV0jiM223JQ8ghhKIUUdWFS?=
+ =?us-ascii?Q?eiGDz5BzdEdcZzTbireFC9d6RF4XRmCaftyMRiwh5QzK97wEGhkudATuIrTK?=
+ =?us-ascii?Q?8LeyLuYJoOuF5A2Bgxx3UcECm1M+SIBHMvIhhVwIFj+qmOScNkUjdP9EvXX3?=
+ =?us-ascii?Q?q0NhadOKmFKUb1hMxlKHTkweenJ4zqYTWzP1eqRb3esu1Kbgl+RkEqzoZEfZ?=
+ =?us-ascii?Q?BWmONCr/7o9pM757KC8wOVL+IO8qLOUMrLiZZc99KjkCPdS9afY6n0L4FjyS?=
+ =?us-ascii?Q?xxfxj9Blc2z+Nt/As89/R7X4F3uok086OTQh5awdrQtXeK6h/v5/2ByOrkXR?=
+ =?us-ascii?Q?f3MrwUOkbtQtUowBR8hkZQDdl+3UiX14RjFL21rxGQGfTiiw0zlKHycsDiXP?=
+ =?us-ascii?Q?HW46Qz0J15C1xsugSGBY8K756yekCguHZmoOqwXutNL34AC/tF59Slj/jxne?=
+ =?us-ascii?Q?jEJvF9s6YI3Ko4shZYzrlqYmn8YMYlkIEAaVjQQmkq0TwNbk3p/u9YtUIjHb?=
+ =?us-ascii?Q?WhMtk/LnV9BYB/D5BtqL198sjGeF+qaOhewVpZ/CnMkHkEtgOV4G+T8PUG+U?=
+ =?us-ascii?Q?PW+32aRn6pKFWk53ochOEXC8sXrlx+6XtON3hF18mBVU4G+wNfgBCwckX9HX?=
+ =?us-ascii?Q?8pkR+g5iIq7G/V2ZJsLBq/cuNLqDNFLuQ90TAvcgSIBgGW6KkjjkcIionHiS?=
+ =?us-ascii?Q?D7y4U7ECrxOCgnd28FgHHz/A+sR140lI29Dxx7XccymVJCs7S+BWd/r5IdYj?=
+ =?us-ascii?Q?WKQJRqmll9tivEX2ZaLFkRph2cXIcWUuUnTBMppigirfiT9Wy2qtVVy8hTrR?=
+ =?us-ascii?Q?/zV7FEm9eKQ++lh09OS7G9RdZRH9W/l675RzDUVuyXN3qY3XAdlIpqudBnS9?=
+ =?us-ascii?Q?xkspP66lphNsLN+nDjgQYAdM3RDqgaqVBM4iOPAYHdAPiPFivLpBVi9dKXTi?=
+ =?us-ascii?Q?0f/KnYRlg20N1B7aTv6tXaT4fF9I5EqDu4jJvd17Xm8R40oaTd6NX9MSteCM?=
+ =?us-ascii?Q?72wAzqLvj0mEWJAMDnD6/Dud/uzjIR65eeMT/lgIeIUblySdZxcNixvyaBRC?=
+ =?us-ascii?Q?QbBOILfhNm/G74G4s0a1hmyq2tAN7xnMqHwhqBw7WMZJlA6WfZF80/8wHpCI?=
+ =?us-ascii?Q?aVzVB3fHGhfEmiaY89q3smuyC6k3edawPRl7VhvWemPJwdRUeh/vUJSqrM6H?=
+ =?us-ascii?Q?8A8AtmyFIpCCrisx43FPuXYm6VwoDSLK/sWc3rcVc8jet7SIeKmJIYbkjbpy?=
+ =?us-ascii?Q?/x2muVR9WbYxWYGys0D6U8+RYLtnsc4N+Q9uYToPYkknPxlHXCIJvSfuQhjE?=
+ =?us-ascii?Q?fJ4GSy6FHJj5agyGWwm89oRYI3bGrxciXZFJiXwAzy5V0+GPbtSgy0zo6I1N?=
+ =?us-ascii?Q?TkumIvW8wYWuoumzan05jBQJw8wFVobPheJ/Xay/PJOJsSpqWzaphNt/PjGD?=
+ =?us-ascii?Q?gslrQw1pP+c6ZHyACfTsZWyxIF1YFkmkwYQdpDv/YiVk9YmIVByYA/toJVgm?=
+ =?us-ascii?Q?ZOdSsRnKqqh8ntCDgu1KfO07nhamv6vbSwgWEmCpzKUOr+3agVNybfrEiS5G?=
+ =?us-ascii?Q?5w=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: bec01814-dc02-4bd2-0437-08dbbec62375
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR11MB7859.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2023 19:24:01.2202 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MyRm6ACN1giZtm/Qekpx0/cUs/SMNo0gJGNEFqnPovPILsLFLPOBBTS7LCyZzhWgNP2eWbdWNi/ZNaEuL7Zl0W0DQwROCQVHC1Z06Q5iKkg=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR11MB5690
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH] drm/i915: Add missing GSCCS documentation
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,105 +144,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Matt,
+On Tue, Sep 26, 2023 at 01:55:54PM -0400, Rodrigo Vivi wrote:
+> Introduce the basic documentation about GSC CS.
+> 
+> This "GPU Basics" section is focused on explaining the hardware
+> rather than the driver/uapi, so let's make sure GSC is also
+> properly documented here.
+> 
+> v2: Fixes from Matt: typos and acronym.
+> 
+> Fixes: 5fd974d164b4 ("drm/i915/mtl: add initial definitions for GSC CS")
+> Suggested-by: Matt Roper <matthew.d.roper@intel.com>
+> Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 
-On 9/26/2023 4:38 PM, Matt Roper wrote:
-> On Tue, Sep 26, 2023 at 04:18:42PM +0200, Nirmoy Das wrote:
->> On MTL GEN12_RING_FAULT_REG is not replicated so don't
->> do mcr based operation for this register.
->>
->> Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
->> ---
->>   drivers/gpu/drm/i915/gt/intel_gt.c      | 14 +++++++++++++-
->>   drivers/gpu/drm/i915/gt/intel_gt_regs.h |  1 +
->>   drivers/gpu/drm/i915/i915_gpu_error.c   | 11 ++++++++++-
->>   3 files changed, 24 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
->> index 93062c35e072..d4de692e8be1 100644
->> --- a/drivers/gpu/drm/i915/gt/intel_gt.c
->> +++ b/drivers/gpu/drm/i915/gt/intel_gt.c
->> @@ -262,10 +262,22 @@ intel_gt_clear_error_registers(struct intel_gt *gt,
->>   				   I915_MASTER_ERROR_INTERRUPT);
->>   	}
->>   
->> -	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50)) {
->> +	/*
->> +	 * for media tile this ring fault register is not replicated
->> +	 * so skip doing mcr ops on it.
->> +	 */
->> +	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50) &&
-> This should be checking the media version rather than the graphics
-> version.  I.e., "MEDIA_VER(i915) > 13" since it's possible future
-> versions of the media IP may change the behavior (independently of the
-> graphics IP versions).
-Sounds good. I will replace this with
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
 
-if (MEDIA_VER(i915) == 13 && engine->gt->type == GT_MEDIA)
+> ---
+>  Documentation/gpu/i915.rst | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/Documentation/gpu/i915.rst b/Documentation/gpu/i915.rst
+> index 13de8bcaaa29..0ca1550fd9dc 100644
+> --- a/Documentation/gpu/i915.rst
+> +++ b/Documentation/gpu/i915.rst
+> @@ -279,6 +279,10 @@ An Intel GPU has multiple engines. There are several engine types:
+>    Also sometimes called 'VEBOX' in hardware documentation.
+>  - Compute Command Streamer (CCS). An engine that has access to the media and
+>    GPGPU pipelines, but not the 3D pipeline.
+> +- Graphics Security Controller (GSCCS). A dedicated engine for internal
+> +  communication with GSC controller on security related tasks like
+> +  High-bandwidth Digital Content Protection (HDCP), Protected Xe Path (PXP),
+> +  and HuC firmware authentication.
+>  
+>  The Intel GPU family is a family of integrated GPU's using Unified
+>  Memory Access. For having the GPU "do work", user space will feed the
+> -- 
+> 2.41.0
+> 
 
-to limit this this change on media IP 13
-
-
-Thanks,
-
-Nirmoy
-
->
->
-> Matt
->
->> +	    gt->type == GT_MEDIA) {
->> +		intel_uncore_rmw(uncore, XELPMP_RING_FAULT_REG,
->> +				 RING_FAULT_VALID, 0);
->> +		intel_uncore_posting_read(uncore,
->> +					  XELPMP_RING_FAULT_REG);
->> +
->> +	} else if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50)) {
->>   		intel_gt_mcr_multicast_rmw(gt, XEHP_RING_FAULT_REG,
->>   					   RING_FAULT_VALID, 0);
->>   		intel_gt_mcr_read_any(gt, XEHP_RING_FAULT_REG);
->> +
->>   	} else if (GRAPHICS_VER(i915) >= 12) {
->>   		intel_uncore_rmw(uncore, GEN12_RING_FAULT_REG, RING_FAULT_VALID, 0);
->>   		intel_uncore_posting_read(uncore, GEN12_RING_FAULT_REG);
->> diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
->> index cca4bac8f8b0..eecd0a87a647 100644
->> --- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
->> +++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
->> @@ -1084,6 +1084,7 @@
->>   
->>   #define GEN12_RING_FAULT_REG			_MMIO(0xcec4)
->>   #define XEHP_RING_FAULT_REG			MCR_REG(0xcec4)
->> +#define XELPMP_RING_FAULT_REG			_MMIO(0xcec4)
->>   #define   GEN8_RING_FAULT_ENGINE_ID(x)		(((x) >> 12) & 0x7)
->>   #define   RING_FAULT_GTTSEL_MASK		(1 << 11)
->>   #define   RING_FAULT_SRCID(x)			(((x) >> 3) & 0xff)
->> diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
->> index f4ebcfb70289..83f1a729da8b 100644
->> --- a/drivers/gpu/drm/i915/i915_gpu_error.c
->> +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
->> @@ -1234,7 +1234,16 @@ static void engine_record_registers(struct intel_engine_coredump *ee)
->>   	if (GRAPHICS_VER(i915) >= 6) {
->>   		ee->rc_psmi = ENGINE_READ(engine, RING_PSMI_CTL);
->>   
->> -		if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50))
->> +		/*
->> +		 * for media tile this ring fault register is not replicated
->> +		 * so skip doing mcr ops on it.
->> +		 */
->> +		if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50) &&
->> +		    engine->gt->type == GT_MEDIA)
->> +			ee->fault_reg = intel_uncore_read(engine->uncore,
->> +							  XELPMP_RING_FAULT_REG);
->> +
->> +		else if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50))
->>   			ee->fault_reg = intel_gt_mcr_read_any(engine->gt,
->>   							      XEHP_RING_FAULT_REG);
->>   		else if (GRAPHICS_VER(i915) >= 12)
->> -- 
->> 2.41.0
->>
+-- 
+Matt Roper
+Graphics Software Engineer
+Linux GPU Platform Enablement
+Intel Corporation
