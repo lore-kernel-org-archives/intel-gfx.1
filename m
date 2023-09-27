@@ -4,53 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F55FE82CA1
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Sep 2023 15:38:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8992FE82CA5
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Sep 2023 15:53:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A892510E54C;
-	Wed, 27 Sep 2023 15:38:18 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFA7F10E54C
- for <intel-gfx@lists.freedesktop.org>; Wed, 27 Sep 2023 15:38:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695829096; x=1727365096;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=HhG4lB0yelZILviWgLpci2XYkEBKqOPJhrmdUK3R9qU=;
- b=CVu4qukk+u8DajcVQlTqSEvB0cB0TuGGecz/cCYeght7lmhg/vp4lEXb
- 8oSwLvUIJOhNflllWa4NGbrgnEK7iU8mWHVq3sg4SUSay2yvammzZtTgE
- zjHbh1gie9xMWuMABbLx+K7cO05uO9ST7qFBXOPS25xymr/OoVPgpS0//
- MnJ5X+O8Xa7m9B+x45Olob2LEL+SHFO4hYg0emi7L9MAdavfVF6iu+QI/
- IzjVJVlPywtajxnaeecomwlMitz982nerEeieEt+JW3hItpj6ryzo1Bm+
- tf0bqbUg60Occ+5zg6kM8tpfL3yq1MevNyRrW34aP6xFlBcca6pTOV5xG A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10846"; a="448344712"
-X-IronPort-AV: E=Sophos;i="6.03,181,1694761200"; d="scan'208";a="448344712"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2023 08:38:16 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10846"; a="814909320"
-X-IronPort-AV: E=Sophos;i="6.03,181,1694761200"; d="scan'208";a="814909320"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.153])
- by fmsmga008.fm.intel.com with SMTP; 27 Sep 2023 08:38:13 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 27 Sep 2023 18:38:12 +0300
-Date: Wed, 27 Sep 2023 18:38:12 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: "Shankar, Uma" <uma.shankar@intel.com>
-Message-ID: <ZRRMZP-5bCnENM2O@intel.com>
-References: <20230606191504.18099-1-ville.syrjala@linux.intel.com>
- <20230606191504.18099-6-ville.syrjala@linux.intel.com>
- <DM4PR11MB6360F135F0BAB87C3FE9D389F4F2A@DM4PR11MB6360.namprd11.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F42910E557;
+	Wed, 27 Sep 2023 15:53:42 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E99BB10E557;
+ Wed, 27 Sep 2023 15:53:39 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id E43FEAADF1;
+ Wed, 27 Sep 2023 15:53:39 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <DM4PR11MB6360F135F0BAB87C3FE9D389F4F2A@DM4PR11MB6360.namprd11.prod.outlook.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH v2 05/19] drm/i915/dsb: Define the contents
- of some intstructions bit better
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Nirmoy Das" <nirmoy.das@intel.com>
+Date: Wed, 27 Sep 2023 15:53:39 -0000
+Message-ID: <169583001990.20755.11810820131052982678@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230927102237.30773-1-nirmoy.das@intel.com>
+In-Reply-To: <20230927102237.30773-1-nirmoy.das@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?series_starting_with_=5B1/3=5D_drm/i915=3A_Introduce_intel=5Fgt?=
+ =?utf-8?b?X21jcl9sb2NrX3Jlc2V0KCk=?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,77 +41,106 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 11, 2023 at 08:50:24PM +0000, Shankar, Uma wrote:
-> 
-> 
-> > -----Original Message-----
-> > From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of Ville
-> > Syrjala
-> > Sent: Wednesday, June 7, 2023 12:45 AM
-> > To: intel-gfx@lists.freedesktop.org
-> > Subject: [Intel-gfx] [PATCH v2 05/19] drm/i915/dsb: Define the contents of some
-> > intstructions bit better
-> > 
-> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > 
-> > Add some defines to specify what goes inside certain DSB instructions.
-> 
-> Only upper and lower shift seems to be added in the patch, do we need a
-> separate patch for this or we can squash with where its used.
-> Will leave the decision to you.
-> 
-> > 
-> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_dsb.c | 12 ++++++++----
-> >  1 file changed, 8 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c
-> > b/drivers/gpu/drm/i915/display/intel_dsb.c
-> > index 42911abcd3ab..093b2567883d 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_dsb.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_dsb.c
-> > @@ -70,17 +70,21 @@ struct intel_dsb {
-> >  #define DSB_OPCODE_SHIFT		24
-> >  #define DSB_OPCODE_NOOP			0x0
-> >  #define DSB_OPCODE_MMIO_WRITE		0x1
-> > +#define   DSB_BYTE_EN			0xf
-> > +#define   DSB_BYTE_EN_SHIFT		20
-> > +#define   DSB_REG_VALUE_MASK		0xfffff
-> >  #define DSB_OPCODE_WAIT_USEC		0x2
-> > -#define DSB_OPCODE_WAIT_LINES		0x3
-> > +#define DSB_OPCODE_WAIT_SCANLINE	0x3
-> >  #define DSB_OPCODE_WAIT_VBLANKS		0x4
-> >  #define DSB_OPCODE_WAIT_DSL_IN		0x5
-> >  #define DSB_OPCODE_WAIT_DSL_OUT		0x6
-> > +#define   DSB_SCANLINE_UPPER_SHIFT	20
-> > +#define   DSB_SCANLINE_LOWER_SHIFT	0
-> >  #define DSB_OPCODE_INTERRUPT		0x7	
-> >  #define DSB_OPCODE_INDEXED_WRITE	0x9
-> > +/* see DSB_REG_VALUE_MASK */
-> >  #define DSB_OPCODE_POLL			0xA
-> > -#define DSB_BYTE_EN			0xF
-> > -#define DSB_BYTE_EN_SHIFT		20
-> > -#define DSB_REG_VALUE_MASK		0xfffff
-> > +/* see DSB_REG_VALUE_MASK */
-> 
-> This comment seems redundant. With this fixed,
+== Series Details ==
 
-The comment indicates that DSB_OPCODE_POLL also uses DSB_REG_VALUE_MASK,
-similar to DSB_OPCODE_INDEXED_WRITE.
+Series: series starting with [1/3] drm/i915: Introduce intel_gt_mcr_lock_reset()
+URL   : https://patchwork.freedesktop.org/series/124325/
+State : warning
 
-> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
-> 
-> > 
-> >  static bool assert_dsb_has_room(struct intel_dsb *dsb)  {
-> > --
-> > 2.39.3
-> 
+== Summary ==
 
--- 
-Ville Syrjälä
-Intel
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
++./arch/x86/include/asm/bitops.h:117:1: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:148:1: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:150:9: warning: unreplaced symbol 'oldbit'
++./arch/x86/include/asm/bitops.h:154:26: warning: unreplaced symbol 'oldbit'
++./arch/x86/include/asm/bitops.h:156:16: warning: unreplaced symbol 'oldbit'
++./arch/x86/include/asm/bitops.h:156:9: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:174:1: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:176:9: warning: unreplaced symbol 'oldbit'
++./arch/x86/include/asm/bitops.h:180:35: warning: unreplaced symbol 'oldbit'
++./arch/x86/include/asm/bitops.h:182:16: warning: unreplaced symbol 'oldbit'
++./arch/x86/include/asm/bitops.h:182:9: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:186:1: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:188:9: warning: unreplaced symbol 'oldbit'
++./arch/x86/include/asm/bitops.h:192:35: warning: unreplaced symbol 'oldbit'
++./arch/x86/include/asm/bitops.h:195:16: warning: unreplaced symbol 'oldbit'
++./arch/x86/include/asm/bitops.h:195:9: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:237:1: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:239:9: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:66:1: warning: unreplaced symbol 'return'
++./arch/x86/include/asm/bitops.h:92:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:100:17: warning: unreplaced symbol 'old'
++./include/asm-generic/bitops/generic-non-atomic.h:100:23: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:100:9: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:105:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:107:9: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:108:9: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:109:9: warning: unreplaced symbol 'old'
++./include/asm-generic/bitops/generic-non-atomic.h:111:10: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:111:14: warning: unreplaced symbol 'old'
++./include/asm-generic/bitops/generic-non-atomic.h:111:20: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:112:17: warning: unreplaced symbol 'old'
++./include/asm-generic/bitops/generic-non-atomic.h:112:23: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:112:9: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:121:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:128:9: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:166:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:168:9: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:169:9: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:170:9: warning: unreplaced symbol 'val'
++./include/asm-generic/bitops/generic-non-atomic.h:172:19: warning: unreplaced symbol 'val'
++./include/asm-generic/bitops/generic-non-atomic.h:172:25: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:172:9: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:28:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:30:9: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:31:9: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:33:10: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:33:16: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:37:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:39:9: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:40:9: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:42:10: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:42:16: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:55:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:57:9: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:58:9: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:60:10: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:60:15: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:73:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:75:9: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:76:9: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:77:9: warning: unreplaced symbol 'old'
++./include/asm-generic/bitops/generic-non-atomic.h:79:10: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:79:14: warning: unreplaced symbol 'old'
++./include/asm-generic/bitops/generic-non-atomic.h:79:20: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:80:17: warning: unreplaced symbol 'old'
++./include/asm-generic/bitops/generic-non-atomic.h:80:23: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:80:9: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:93:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/generic-non-atomic.h:95:9: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/generic-non-atomic.h:96:9: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:97:9: warning: unreplaced symbol 'old'
++./include/asm-generic/bitops/generic-non-atomic.h:99:10: warning: unreplaced symbol 'p'
++./include/asm-generic/bitops/generic-non-atomic.h:99:14: warning: unreplaced symbol 'old'
++./include/asm-generic/bitops/generic-non-atomic.h:99:21: warning: unreplaced symbol 'mask'
++./include/asm-generic/bitops/instrumented-non-atomic.h:100:9: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:112:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:115:9: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:127:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:130:9: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:139:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:142:9: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:26:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:42:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:58:1: warning: unreplaced symbol 'return'
++./include/asm-generic/bitops/instrumented-non-atomic.h:97:1: warning: unreplaced symbol 'return'
+
+
