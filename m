@@ -4,51 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF54CE810D9
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Sep 2023 13:39:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48B4BE80A8A
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Sep 2023 13:39:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A090310E524;
-	Wed, 27 Sep 2023 13:38:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC5D110E52A;
+	Wed, 27 Sep 2023 13:39:03 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0AD210E520;
- Wed, 27 Sep 2023 13:38:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E672810E525;
+ Wed, 27 Sep 2023 13:38:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695821934; x=1727357934;
+ t=1695821938; x=1727357938;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=XfhUSK9oPOsrUCWTOO8CEEobRY0kofBmGLtuhYVzvzk=;
- b=BnbzveEYmOUigJOT1VLKcHF3jDZy4hshnFMvg10alSFOlTry0b3Vol8P
- 5xEU5eCXDSRwJEji7YlP7/Tw/v9DYIwP19V5+mMoiCwXUXggYJjEVRttz
- 1xMQC9+vaRiJv2B22yERYu3AG5eBAHr1BMu4chJ9L5Vez5W4gA+zoNLPY
- x0yyhRbqC2SkCW5Hy3XORduGu9AnJSzHKz8b0MGhjEXIsLqUeNG6DRyRq
- UX0AanLa+mHo1T3Cc8R+6wWo9ctTYxj8yT0TETNV+YJfdnUVmnGG0aNIc
- RLRcAf/ReWE1c0bYsdp8pPQfNBVqpiEIodgR6ZQ7cYnqiuQ1M1ghplNrJ A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10846"; a="412738601"
-X-IronPort-AV: E=Sophos;i="6.03,181,1694761200"; d="scan'208";a="412738601"
+ bh=Ra+i4tt6ppes8HStItWrtM26zBgkqZKUC8weaYO0iyo=;
+ b=WYei9cp19/E+MPIkv8qg80ssdw4F0vEZICAbCssBpmpqPFh6i8WNItxs
+ /FFoT0aEXL4LXslLg1mR5hG4jsiD0JEDwuKoiV1PgqBhtyq6VgwnU8BUm
+ FmasjeLMAzLEsviNvaHjx6oy0/4CbPvsJE0dGIHzP7qzRe2cEygU0mZMf
+ +RY/7ZK6mk4NayDD52DAFRfCcysDSyz+zrCA83tQzV3E9lxzvSALrFg6W
+ fbkAeN7scKDU3rFIqIqJ/NEPVzUZPdT19DmzGun6Ck2O/RbyevwzVSype
+ 8sUVxHDY4nM2SJlIYwBwEM0XIolnUt9kjTni/IFj9Q90kPszYZ/Sr+HDn w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10846"; a="412738612"
+X-IronPort-AV: E=Sophos;i="6.03,181,1694761200"; d="scan'208";a="412738612"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2023 06:38:54 -0700
+ 27 Sep 2023 06:38:57 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10846"; a="752597175"
-X-IronPort-AV: E=Sophos;i="6.03,181,1694761200"; d="scan'208";a="752597175"
+X-IronPort-AV: E=McAfee;i="6600,9927,10846"; a="752597190"
+X-IronPort-AV: E=Sophos;i="6.03,181,1694761200"; d="scan'208";a="752597190"
 Received: from mscanex-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.204.17])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2023 06:38:49 -0700
+ 27 Sep 2023 06:38:54 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: Intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
-Date: Wed, 27 Sep 2023 14:38:37 +0100
-Message-Id: <20230927133843.247957-2-tvrtko.ursulin@linux.intel.com>
+Date: Wed, 27 Sep 2023 14:38:39 +0100
+Message-Id: <20230927133843.247957-4-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230927133843.247957-1-tvrtko.ursulin@linux.intel.com>
 References: <20230927133843.247957-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/7] drm: Do not round to megabytes for greater
- than 1MiB sizes in fdinfo stats
+Subject: [Intel-gfx] [PATCH 3/7] drm/i915: Record which client owns a VM
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,49 +59,128 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
- steven.price@arm.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-It is better not to lose precision and not revert to 1 MiB size
-granularity for every size greater than 1 MiB.
-
-Sizes in KiB should not be so troublesome to read (and in fact machine
-parsing is I expect the norm here), they align with other api like
-/proc/meminfo, and they allow writing tests for the interface without
-having to embed drm.ko implementation knowledge into them. (Like knowing
-that minimum buffer size one can use for successful verification has to be
-1MiB aligned, and on top account for any pre-existing memory utilisation
-outside of driver's control.)
-
-But probably even more importantly I think that it is just better to show
-the accurate sizes and not arbitrary lose precision for a little bit of a
-stretched use case of eyeballing fdinfo text directly.
+To enable accounting of indirect client memory usage (such as page tables)
+in the following patch, lets start recording the creator of each PPGTT.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Adrián Larumbe <adrian.larumbe@collabora.com>
-Cc: steven.price@arm.com
+Reviewed-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
 ---
- drivers/gpu/drm/drm_file.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c       | 11 ++++++++---
+ drivers/gpu/drm/i915/gem/i915_gem_context_types.h |  3 +++
+ drivers/gpu/drm/i915/gem/selftests/mock_context.c |  4 ++--
+ drivers/gpu/drm/i915/gt/intel_gtt.h               |  1 +
+ 4 files changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-index e692770ef6d3..ecb5038009e7 100644
---- a/drivers/gpu/drm/drm_file.c
-+++ b/drivers/gpu/drm/drm_file.c
-@@ -913,7 +913,7 @@ static void print_size(struct drm_printer *p, const char *stat,
- 	unsigned u;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 9a9ff84c90d7..35cf6608180e 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -279,7 +279,8 @@ static int proto_context_set_protected(struct drm_i915_private *i915,
+ }
  
- 	for (u = 0; u < ARRAY_SIZE(units) - 1; u++) {
--		if (sz < SZ_1K)
-+		if (sz == 0 || !IS_ALIGNED(sz, SZ_1K))
- 			break;
- 		sz = div_u64(sz, SZ_1K);
+ static struct i915_gem_proto_context *
+-proto_context_create(struct drm_i915_private *i915, unsigned int flags)
++proto_context_create(struct drm_i915_file_private *fpriv,
++		     struct drm_i915_private *i915, unsigned int flags)
+ {
+ 	struct i915_gem_proto_context *pc, *err;
+ 
+@@ -287,6 +288,7 @@ proto_context_create(struct drm_i915_private *i915, unsigned int flags)
+ 	if (!pc)
+ 		return ERR_PTR(-ENOMEM);
+ 
++	pc->fpriv = fpriv;
+ 	pc->num_user_engines = -1;
+ 	pc->user_engines = NULL;
+ 	pc->user_flags = BIT(UCONTEXT_BANNABLE) |
+@@ -1621,6 +1623,7 @@ i915_gem_create_context(struct drm_i915_private *i915,
+ 			err = PTR_ERR(ppgtt);
+ 			goto err_ctx;
+ 		}
++		ppgtt->vm.fpriv = pc->fpriv;
+ 		vm = &ppgtt->vm;
  	}
+ 	if (vm)
+@@ -1740,7 +1743,7 @@ int i915_gem_context_open(struct drm_i915_private *i915,
+ 	/* 0 reserved for invalid/unassigned ppgtt */
+ 	xa_init_flags(&file_priv->vm_xa, XA_FLAGS_ALLOC1);
+ 
+-	pc = proto_context_create(i915, 0);
++	pc = proto_context_create(file_priv, i915, 0);
+ 	if (IS_ERR(pc)) {
+ 		err = PTR_ERR(pc);
+ 		goto err;
+@@ -1822,6 +1825,7 @@ int i915_gem_vm_create_ioctl(struct drm_device *dev, void *data,
+ 
+ 	GEM_BUG_ON(id == 0); /* reserved for invalid/unassigned ppgtt */
+ 	args->vm_id = id;
++	ppgtt->vm.fpriv = file_priv;
+ 	return 0;
+ 
+ err_put:
+@@ -2284,7 +2288,8 @@ int i915_gem_context_create_ioctl(struct drm_device *dev, void *data,
+ 		return -EIO;
+ 	}
+ 
+-	ext_data.pc = proto_context_create(i915, args->flags);
++	ext_data.pc = proto_context_create(file->driver_priv, i915,
++					   args->flags);
+ 	if (IS_ERR(ext_data.pc))
+ 		return PTR_ERR(ext_data.pc);
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+index cb78214a7dcd..c573c067779f 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context_types.h
+@@ -188,6 +188,9 @@ struct i915_gem_proto_engine {
+  * CONTEXT_CREATE_SET_PARAM during GEM_CONTEXT_CREATE.
+  */
+ struct i915_gem_proto_context {
++	/** @fpriv: Client which creates the context */
++	struct drm_i915_file_private *fpriv;
++
+ 	/** @vm: See &i915_gem_context.vm */
+ 	struct i915_address_space *vm;
+ 
+diff --git a/drivers/gpu/drm/i915/gem/selftests/mock_context.c b/drivers/gpu/drm/i915/gem/selftests/mock_context.c
+index e199d7dbb876..2b0327cc47c2 100644
+--- a/drivers/gpu/drm/i915/gem/selftests/mock_context.c
++++ b/drivers/gpu/drm/i915/gem/selftests/mock_context.c
+@@ -83,7 +83,7 @@ live_context(struct drm_i915_private *i915, struct file *file)
+ 	int err;
+ 	u32 id;
+ 
+-	pc = proto_context_create(i915, 0);
++	pc = proto_context_create(fpriv, i915, 0);
+ 	if (IS_ERR(pc))
+ 		return ERR_CAST(pc);
+ 
+@@ -152,7 +152,7 @@ kernel_context(struct drm_i915_private *i915,
+ 	struct i915_gem_context *ctx;
+ 	struct i915_gem_proto_context *pc;
+ 
+-	pc = proto_context_create(i915, 0);
++	pc = proto_context_create(NULL, i915, 0);
+ 	if (IS_ERR(pc))
+ 		return ERR_CAST(pc);
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
+index 346ec8ec2edd..8cf62f5134a9 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gtt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
+@@ -248,6 +248,7 @@ struct i915_address_space {
+ 	struct drm_mm mm;
+ 	struct intel_gt *gt;
+ 	struct drm_i915_private *i915;
++	struct drm_i915_file_private *fpriv;
+ 	struct device *dma;
+ 	u64 total;		/* size addr space maps (ex. 2GB for ggtt) */
+ 	u64 reserved;		/* size addr space reserved */
 -- 
 2.39.2
 
