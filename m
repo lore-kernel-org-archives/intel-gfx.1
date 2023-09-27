@@ -4,56 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A083E82CA7
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Sep 2023 15:58:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51406E82CAA
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Sep 2023 16:04:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82F7510E559;
-	Wed, 27 Sep 2023 15:58:50 +0000 (UTC)
-X-Greylist: delayed 424 seconds by postgrey-1.36 at gabe;
- Wed, 27 Sep 2023 15:58:47 UTC
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0153110E559
- for <intel-gfx@lists.freedesktop.org>; Wed, 27 Sep 2023 15:58:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695830328; x=1727366328;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=ffUjqDFagXKcrSkMbh7RGGassoo8ykGyj/vpEVgD6Sw=;
- b=D9o6szc2NWDHp9LCIvMnWPicWbNCQXAEECqms08kaf5gTblJEHjr9vLQ
- oER4837ZaLZJjC7GIb+QlOLCJZ1S3g4Nee1kQzK9kp4cX6R6K8EBBPfuX
- 6XwMNGDQcexghKrm0RvWY2ioI2mCU2a9Lvph2ZMC2NJmWvm9UWlUbEW5O
- 136zW5XY9VecH/7ku0qH7h3VaET09GcNdXbwDyY6eb87D3hD0O99VetwL
- RDaC802pvYiYHig07gpHMJDB7yBRSCBaok2OuV8+049G/gFEJcRS7nNoD
- /E94mUeyjukBPgpinEqyhyfB1qWwczsenSD22EHiw8l9kgFeWyVIQVieQ w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10846"; a="457228"
-X-IronPort-AV: E=Sophos;i="6.03,181,1694761200"; 
-   d="scan'208";a="457228"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2023 08:51:43 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10846"; a="839500378"
-X-IronPort-AV: E=Sophos;i="6.03,181,1694761200"; d="scan'208";a="839500378"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.153])
- by FMSMGA003.fm.intel.com with SMTP; 27 Sep 2023 08:51:40 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Wed, 27 Sep 2023 18:51:39 +0300
-Date: Wed, 27 Sep 2023 18:51:39 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: "Shankar, Uma" <uma.shankar@intel.com>
-Message-ID: <ZRRPi3iQeFdQrEIL@intel.com>
-References: <20230606191504.18099-1-ville.syrjala@linux.intel.com>
- <20230606191504.18099-18-ville.syrjala@linux.intel.com>
- <DM4PR11MB63602CC163A61DEE251714E2F4F0A@DM4PR11MB6360.namprd11.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8937110E55E;
+	Wed, 27 Sep 2023 16:04:04 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id CBD1410E55E;
+ Wed, 27 Sep 2023 16:04:02 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id C5E7FA03D2;
+ Wed, 27 Sep 2023 16:04:02 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0732372733677862390=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <DM4PR11MB63602CC163A61DEE251714E2F4F0A@DM4PR11MB6360.namprd11.prod.outlook.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH v2 17/19] drm/i915/dsb: Use DEwake to combat
- PkgC latency
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Nirmoy Das" <nirmoy.das@intel.com>
+Date: Wed, 27 Sep 2023 16:04:02 -0000
+Message-ID: <169583064277.20757.17312522239994073837@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20230927102237.30773-1-nirmoy.das@intel.com>
+In-Reply-To: <20230927102237.30773-1-nirmoy.das@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3Igc2Vy?=
+ =?utf-8?q?ies_starting_with_=5B1/3=5D_drm/i915=3A_Introduce_intel=5Fgt=5F?=
+ =?utf-8?q?mcr=5Flock=5Freset=28=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,265 +41,246 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 13, 2023 at 06:08:42PM +0000, Shankar, Uma wrote:
-> 
-> 
-> > -----Original Message-----
-> > From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of Ville
-> > Syrjala
-> > Sent: Wednesday, June 7, 2023 12:45 AM
-> > To: intel-gfx@lists.freedesktop.org
-> > Subject: [Intel-gfx] [PATCH v2 17/19] drm/i915/dsb: Use DEwake to combat PkgC
-> > latency
-> > 
-> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > 
-> > Normally we could be in a deep PkgC state all the way up to the point when DSB
-> > starts its execution at the transcoders undelayed vblank. The DSB will then have
-> > to wait for the hardware to wake up before it can execute anything. This will
-> > waste a huge chunk of the vblank time just waiting, and risks the DSB execution
-> > spilling into the vertical active period. That will be very bad, especially when
-> > programming the LUTs as the anti-collision logic will cause DSB to corrupt LUT
-> > writes during vertical active.
-> > 
-> > To avoid these problems we can instruct the DSB to pre-wake the display engined
-> > on a specific scanline so that everything will be 100% ready to go when we hit the
-> > transcoder's undelayed vblank.
-> > 
-> > One annoyance is that the scanline is specified as just that, a single scanline. So if
-> > we happen to start the DSB execution after passing said scanline no DEwake will
-> > happen and we may drop back into some PkgC state before reaching the
-> > transcoder's undelayed vblank. To prevent that we'll use the "force DEwake" bit
-> > to manually force the display engined to stay awake. We'll then have to clear the
-> 
-> Nit: Typo in engine
-> 
-> > force bit again after the DSB is done (the force bit remains effective even when
-> > the DSB is otherwise disabled).
-> 
-> Approach looks good, this will help hardware be ready and maximize the chance of
-> update within the vblank.
-> 
-> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_color.c |  2 +-
-> >  drivers/gpu/drm/i915/display/intel_dsb.c   | 91 +++++++++++++++++++---
-> >  drivers/gpu/drm/i915/display/intel_dsb.h   |  3 +-
-> >  3 files changed, 82 insertions(+), 14 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/display/intel_color.c
-> > b/drivers/gpu/drm/i915/display/intel_color.c
-> > index b3dd4013d058..c5a9ea53a718 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_color.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_color.c
-> > @@ -1824,7 +1824,7 @@ void intel_color_prepare_commit(struct
-> > intel_crtc_state *crtc_state)
-> >  	if (!crtc_state->pre_csc_lut && !crtc_state->post_csc_lut)
-> >  		return;
-> > 
-> > -	crtc_state->dsb = intel_dsb_prepare(crtc, 1024);
-> > +	crtc_state->dsb = intel_dsb_prepare(crtc_state, 1024);
-> >  	if (!crtc_state->dsb)
-> >  		return;
-> > 
-> > diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c
-> > b/drivers/gpu/drm/i915/display/intel_dsb.c
-> > index 73d609507f24..3e32aa49b8eb 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_dsb.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_dsb.c
-> > @@ -7,11 +7,16 @@
-> >  #include "gem/i915_gem_internal.h"
-> > 
-> >  #include "i915_drv.h"
-> > +#include "i915_irq.h"
-> >  #include "i915_reg.h"
-> > +#include "intel_crtc.h"
-> >  #include "intel_de.h"
-> >  #include "intel_display_types.h"
-> >  #include "intel_dsb.h"
-> >  #include "intel_dsb_regs.h"
-> > +#include "intel_vblank.h"
-> > +#include "intel_vrr.h"
-> > +#include "skl_watermark.h"
-> > 
-> >  struct i915_vma;
-> > 
-> > @@ -47,6 +52,8 @@ struct intel_dsb {
-> >  	 * register.
-> >  	 */
-> >  	unsigned int ins_start_offset;
-> > +
-> > +	int dewake_scanline;
-> >  };
-> > 
-> >  /**
-> > @@ -297,17 +304,40 @@ static void intel_dsb_align_tail(struct intel_dsb *dsb)
-> > 
-> >  void intel_dsb_finish(struct intel_dsb *dsb)  {
-> > +	struct intel_crtc *crtc = dsb->crtc;
-> > +
-> > +	/*
-> > +	 * DSB_FORCE_DEWAKE remains active even after DSB is
-> > +	 * disabled, so make sure to clear it (if set during
-> > +	 * intel_dsb_commit()).
-> > +	 */
-> > +	intel_dsb_reg_write_masked(dsb, DSB_PMCTRL_2(crtc->pipe, dsb->id),
-> > +				   DSB_FORCE_DEWAKE, 0);
-> 
-> We should also keep DSB_BLOCK_DEWAKE_EXTENSION set to 1, the default .
+--===============0732372733677862390==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-This is a masked write that doesn't touch that bit.
+== Series Details ==
 
-> 
-> With this fixed or clarified, this is:
-> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
-> 
-> >  	intel_dsb_align_tail(dsb);
-> >  }
-> > 
-> > -/**
-> > - * intel_dsb_commit() - Trigger workload execution of DSB.
-> > - * @dsb: DSB context
-> > - * @wait_for_vblank: wait for vblank before executing
-> > - *
-> > - * This function is used to do actual write to hardware using DSB.
-> > - */
-> > -void intel_dsb_commit(struct intel_dsb *dsb, bool wait_for_vblank)
-> > +static int intel_dsb_dewake_scanline(const struct intel_crtc_state
-> > +*crtc_state) {
-> > +	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
-> > +	const struct drm_display_mode *adjusted_mode = &crtc_state-
-> > >hw.adjusted_mode;
-> > +	unsigned int latency = skl_watermark_max_latency(i915);
-> > +	int vblank_start;
-> > +
-> > +	if (crtc_state->vrr.enable) {
-> > +		vblank_start = intel_vrr_vmin_vblank_start(crtc_state);
-> > +	} else {
-> > +		vblank_start = adjusted_mode->crtc_vblank_start;
-> > +
-> > +		if (adjusted_mode->flags & DRM_MODE_FLAG_INTERLACE)
-> > +			vblank_start = DIV_ROUND_UP(vblank_start, 2);
-> > +	}
-> > +
-> > +	return max(0, vblank_start - intel_usecs_to_scanlines(adjusted_mode,
-> > +latency)); }
-> > +
-> > +static void _intel_dsb_commit(struct intel_dsb *dsb, u32 ctrl,
-> > +			      unsigned int dewake_scanline)
-> >  {
-> >  	struct intel_crtc *crtc = dsb->crtc;
-> >  	struct drm_i915_private *dev_priv = to_i915(crtc->base.dev); @@ -
-> > 325,14 +355,49 @@ void intel_dsb_commit(struct intel_dsb *dsb, bool
-> > wait_for_vblank)
-> >  	}
-> > 
-> >  	intel_de_write_fw(dev_priv, DSB_CTRL(pipe, dsb->id),
-> > -			  (wait_for_vblank ? DSB_WAIT_FOR_VBLANK : 0) |
-> > -			  DSB_ENABLE);
-> > +			  ctrl | DSB_ENABLE);
-> > +
-> >  	intel_de_write_fw(dev_priv, DSB_HEAD(pipe, dsb->id),
-> >  			  i915_ggtt_offset(dsb->vma));
-> > +
-> > +	if (dewake_scanline >= 0) {
-> > +		int diff, hw_dewake_scanline;
-> > +
-> > +		hw_dewake_scanline = intel_crtc_scanline_to_hw(crtc,
-> > +dewake_scanline);
-> > +
-> > +		intel_de_write_fw(dev_priv, DSB_PMCTRL(pipe, dsb->id),
-> > +				  DSB_ENABLE_DEWAKE |
-> > +
-> > DSB_SCANLINE_FOR_DEWAKE(hw_dewake_scanline));
-> > +
-> > +		/*
-> > +		 * Force DEwake immediately if we're already past
-> > +		 * or close to racing past the target scanline.
-> > +		 */
-> > +		diff = dewake_scanline - intel_get_crtc_scanline(crtc);
-> > +		intel_de_write_fw(dev_priv, DSB_PMCTRL_2(pipe, dsb->id),
-> > +				  (diff >= 0 && diff < 5 ? DSB_FORCE_DEWAKE :
-> > 0) |
-> > +				  DSB_BLOCK_DEWAKE_EXTENSION);
-> > +	}
-> > +
-> >  	intel_de_write_fw(dev_priv, DSB_TAIL(pipe, dsb->id),
-> >  			  i915_ggtt_offset(dsb->vma) + tail);  }
-> > 
-> > +/**
-> > + * intel_dsb_commit() - Trigger workload execution of DSB.
-> > + * @dsb: DSB context
-> > + * @wait_for_vblank: wait for vblank before executing
-> > + *
-> > + * This function is used to do actual write to hardware using DSB.
-> > + */
-> > +void intel_dsb_commit(struct intel_dsb *dsb,
-> > +		      bool wait_for_vblank)
-> > +{
-> > +	_intel_dsb_commit(dsb,
-> > +			  wait_for_vblank ? DSB_WAIT_FOR_VBLANK : 0,
-> > +			  wait_for_vblank ? dsb->dewake_scanline : -1); }
-> > +
-> >  void intel_dsb_wait(struct intel_dsb *dsb)  {
-> >  	struct intel_crtc *crtc = dsb->crtc;
-> > @@ -363,7 +428,7 @@ void intel_dsb_wait(struct intel_dsb *dsb)
-> > 
-> >  /**
-> >   * intel_dsb_prepare() - Allocate, pin and map the DSB command buffer.
-> > - * @crtc: the CRTC
-> > + * @crtc_state: the CRTC state
-> >   * @max_cmds: number of commands we need to fit into command buffer
-> >   *
-> >   * This function prepare the command buffer which is used to store dsb @@ -
-> > 372,9 +437,10 @@ void intel_dsb_wait(struct intel_dsb *dsb)
-> >   * Returns:
-> >   * DSB context, NULL on failure
-> >   */
-> > -struct intel_dsb *intel_dsb_prepare(struct intel_crtc *crtc,
-> > +struct intel_dsb *intel_dsb_prepare(const struct intel_crtc_state
-> > +*crtc_state,
-> >  				    unsigned int max_cmds)
-> >  {
-> > +	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-> >  	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
-> >  	struct drm_i915_gem_object *obj;
-> >  	intel_wakeref_t wakeref;
-> > @@ -420,6 +486,7 @@ struct intel_dsb *intel_dsb_prepare(struct intel_crtc
-> > *crtc,
-> >  	dsb->size = size / 4; /* in dwords */
-> >  	dsb->free_pos = 0;
-> >  	dsb->ins_start_offset = 0;
-> > +	dsb->dewake_scanline = intel_dsb_dewake_scanline(crtc_state);
-> > 
-> >  	return dsb;
-> > 
-> > diff --git a/drivers/gpu/drm/i915/display/intel_dsb.h
-> > b/drivers/gpu/drm/i915/display/intel_dsb.h
-> > index 54e9e1dc31ee..16d80f434356 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_dsb.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_dsb.h
-> > @@ -11,9 +11,10 @@
-> >  #include "i915_reg_defs.h"
-> > 
-> >  struct intel_crtc;
-> > +struct intel_crtc_state;
-> >  struct intel_dsb;
-> > 
-> > -struct intel_dsb *intel_dsb_prepare(struct intel_crtc *crtc,
-> > +struct intel_dsb *intel_dsb_prepare(const struct intel_crtc_state
-> > +*crtc_state,
-> >  				    unsigned int max_cmds);
-> >  void intel_dsb_finish(struct intel_dsb *dsb);  void intel_dsb_cleanup(struct
-> > intel_dsb *dsb);
-> > --
-> > 2.39.3
-> 
+Series: series starting with [1/3] drm/i915: Introduce intel_gt_mcr_lock_reset()
+URL   : https://patchwork.freedesktop.org/series/124325/
+State : success
 
--- 
-Ville Syrjälä
-Intel
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_13685 -> Patchwork_124325v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/index.html
+
+Participating hosts (39 -> 38)
+------------------------------
+
+  Missing    (1): fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_124325v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@gt_heartbeat:
+    - fi-glk-j4005:       [PASS][1] -> [DMESG-FAIL][2] ([i915#5334])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13685/fi-glk-j4005/igt@i915_selftest@live@gt_heartbeat.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/fi-glk-j4005/igt@i915_selftest@live@gt_heartbeat.html
+
+  * igt@i915_selftest@live@requests:
+    - bat-mtlp-8:         [PASS][3] -> [ABORT][4] ([i915#9414])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13685/bat-mtlp-8/igt@i915_selftest@live@requests.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/bat-mtlp-8/igt@i915_selftest@live@requests.html
+
+  * igt@i915_suspend@basic-s2idle-without-i915:
+    - bat-dg2-11:         [PASS][5] -> [ABORT][6] ([i915#8213])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13685/bat-dg2-11/igt@i915_suspend@basic-s2idle-without-i915.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/bat-dg2-11/igt@i915_suspend@basic-s2idle-without-i915.html
+
+  * igt@i915_suspend@basic-s3-without-i915:
+    - bat-rpls-1:         NOTRUN -> [ABORT][7] ([i915#7978] / [i915#8668])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/bat-rpls-1/igt@i915_suspend@basic-s3-without-i915.html
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:
+    - bat-dg2-11:         NOTRUN -> [SKIP][8] ([i915#1845]) +2 other tests skip
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html
+
+  * igt@kms_pipe_crc_basic@read-crc-frame-sequence@pipe-d-dp-5:
+    - bat-adlp-11:        [PASS][9] -> [ABORT][10] ([i915#8668])
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13685/bat-adlp-11/igt@kms_pipe_crc_basic@read-crc-frame-sequence@pipe-d-dp-5.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/bat-adlp-11/igt@kms_pipe_crc_basic@read-crc-frame-sequence@pipe-d-dp-5.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@gt_heartbeat:
+    - fi-apl-guc:         [DMESG-FAIL][11] ([i915#5334]) -> [PASS][12]
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13685/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html
+
+  * igt@i915_suspend@basic-s2idle-without-i915:
+    - bat-rpls-1:         [ABORT][13] ([i915#8668]) -> [PASS][14]
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13685/bat-rpls-1/igt@i915_suspend@basic-s2idle-without-i915.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/bat-rpls-1/igt@i915_suspend@basic-s2idle-without-i915.html
+
+  * igt@kms_pipe_crc_basic@read-crc-frame-sequence@pipe-c-dp-5:
+    - bat-adlp-11:        [ABORT][15] ([i915#8668]) -> [PASS][16]
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13685/bat-adlp-11/igt@kms_pipe_crc_basic@read-crc-frame-sequence@pipe-c-dp-5.html
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/bat-adlp-11/igt@kms_pipe_crc_basic@read-crc-frame-sequence@pipe-c-dp-5.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [i915#1845]: https://gitlab.freedesktop.org/drm/intel/issues/1845
+  [i915#5334]: https://gitlab.freedesktop.org/drm/intel/issues/5334
+  [i915#7359]: https://gitlab.freedesktop.org/drm/intel/issues/7359
+  [i915#7978]: https://gitlab.freedesktop.org/drm/intel/issues/7978
+  [i915#8213]: https://gitlab.freedesktop.org/drm/intel/issues/8213
+  [i915#8668]: https://gitlab.freedesktop.org/drm/intel/issues/8668
+  [i915#8981]: https://gitlab.freedesktop.org/drm/intel/issues/8981
+  [i915#9414]: https://gitlab.freedesktop.org/drm/intel/issues/9414
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_13685 -> Patchwork_124325v1
+
+  CI-20190529: 20190529
+  CI_DRM_13685: 1907f24fed1f58a8c7210aa4abaee56dd897936b @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7506: 4fdf544bd0a38c5a100ef43c30171827e1c8c442 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_124325v1: 1907f24fed1f58a8c7210aa4abaee56dd897936b @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+56bc25843d2d drm/i915/mtl: Skip MCR ops for ring fault register
+a190fdf51055 drm/i915: Reset steer semaphore for media GT
+c0a9929ab57e drm/i915: Introduce intel_gt_mcr_lock_reset()
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/index.html
+
+--===============0732372733677862390==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with [1/3] drm/i915: Introduce intel_gt_mcr_lock_reset()</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/124325/">https://patchwork.freedesktop.org/series/124325/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_13685 -&gt; Patchwork_124325v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/index.html</p>
+<h2>Participating hosts (39 -&gt; 38)</h2>
+<p>Missing    (1): fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_124325v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@gt_heartbeat:</p>
+<ul>
+<li>fi-glk-j4005:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13685/fi-glk-j4005/igt@i915_selftest@live@gt_heartbeat.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/fi-glk-j4005/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@requests:</p>
+<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13685/bat-mtlp-8/igt@i915_selftest@live@requests.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/bat-mtlp-8/igt@i915_selftest@live@requests.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/9414">i915#9414</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_suspend@basic-s2idle-without-i915:</p>
+<ul>
+<li>bat-dg2-11:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13685/bat-dg2-11/igt@i915_suspend@basic-s2idle-without-i915.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/bat-dg2-11/igt@i915_suspend@basic-s2idle-without-i915.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8213">i915#8213</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_suspend@basic-s3-without-i915:</p>
+<ul>
+<li>bat-rpls-1:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/bat-rpls-1/igt@i915_suspend@basic-s3-without-i915.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/7978">i915#7978</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/8668">i915#8668</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence:</p>
+<ul>
+<li>bat-dg2-11:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/bat-dg2-11/igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1845">i915#1845</a>) +2 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc-frame-sequence@pipe-d-dp-5:</p>
+<ul>
+<li>bat-adlp-11:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13685/bat-adlp-11/igt@kms_pipe_crc_basic@read-crc-frame-sequence@pipe-d-dp-5.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/bat-adlp-11/igt@kms_pipe_crc_basic@read-crc-frame-sequence@pipe-d-dp-5.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8668">i915#8668</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@gt_heartbeat:</p>
+<ul>
+<li>fi-apl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13685/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/5334">i915#5334</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/fi-apl-guc/igt@i915_selftest@live@gt_heartbeat.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_suspend@basic-s2idle-without-i915:</p>
+<ul>
+<li>bat-rpls-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13685/bat-rpls-1/igt@i915_suspend@basic-s2idle-without-i915.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8668">i915#8668</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/bat-rpls-1/igt@i915_suspend@basic-s2idle-without-i915.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc-frame-sequence@pipe-c-dp-5:</p>
+<ul>
+<li>bat-adlp-11:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13685/bat-adlp-11/igt@kms_pipe_crc_basic@read-crc-frame-sequence@pipe-c-dp-5.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/8668">i915#8668</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124325v1/bat-adlp-11/igt@kms_pipe_crc_basic@read-crc-frame-sequence@pipe-c-dp-5.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_13685 -&gt; Patchwork_124325v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_13685: 1907f24fed1f58a8c7210aa4abaee56dd897936b @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7506: 4fdf544bd0a38c5a100ef43c30171827e1c8c442 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_124325v1: 1907f24fed1f58a8c7210aa4abaee56dd897936b @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>56bc25843d2d drm/i915/mtl: Skip MCR ops for ring fault register<br />
+a190fdf51055 drm/i915: Reset steer semaphore for media GT<br />
+c0a9929ab57e drm/i915: Introduce intel_gt_mcr_lock_reset()</p>
+
+</body>
+</html>
+
+--===============0732372733677862390==--
