@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14E9EE732C8
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 13:00:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD5F6E732D0
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 13:28:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6642910E645;
-	Thu, 28 Sep 2023 13:00:31 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A859410E641;
- Thu, 28 Sep 2023 13:00:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37F5C10E662;
+	Thu, 28 Sep 2023 13:28:39 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE70D10E65F;
+ Thu, 28 Sep 2023 13:28:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695906029; x=1727442029;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=yVYOjD16lPxS35jtyj3M+NlpDlByKS0O7iJodZZ3QME=;
- b=D58QlLxnZR1eSzv7XXQWv+oDk+GllzoM60f13IQxIk0elcw//dU/3R6I
- K6pbJtzKKq8QROoW7ZTKVMYozLeL3qRUL1oG6UkKnVQFRQUn8T9mDSBUc
- aXkICh/bNi45Lq/SjTj71cZIR4SG7wsK+2kmKnH/GK3uSYrD9IqU2Ugfl
- UHPhPQ70/O0yuUJrKY9xi9dldQ8h+Jp2DVaANC8UUCcAxCw4i5LwimnOI
- cvGncK5YJ4p0ai8hYsaJ4bjjcm//njoZzKg01bNTi2j4YG+ZyyR9Md/PI
- lZLRAnQSSCl90/Z8QEHKCflsRovMK+uMWT0f1cTlBEbQhf3RbdHzzqKQm g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10846"; a="380925510"
-X-IronPort-AV: E=Sophos;i="6.03,184,1694761200"; d="scan'208";a="380925510"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2023 06:00:29 -0700
+ t=1695907717; x=1727443717;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=YqaMZ66o5P06nJDpTMUxdS/zsr42Y54Zbu4+HaglCQE=;
+ b=VDwkm46x0zfBOOYZXx4d+JzwEvCytZV7/pfmy5k49cEOOQ2AHaiPuqQI
+ o/zed3r4Fo4mSCkF6I7PqIzIVsfmCGU1V1BZc8s68H6+gW3Hl+iK88yKO
+ 4gz/LYZsZO076Xo9WQwlinTXXnLeHnKHAaj4OblUqibQjA50r5TaFvwE2
+ fVkdaNxJkXk3jWdDCVcz44g8SLezinixP+4Kec0CPkB467G/k9kLKyMJW
+ zn03SVf2Qw0IN49tAv+F5KKi1S9Z3Lbb35qek31CnuvAQ1yUZhoCO+6L3
+ /UDDF1zKqglvTiycgYTvGdcX6nZqH96SpgcZ/wz18rn7P9CakW84ztuXz g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10846"; a="673572"
+X-IronPort-AV: E=Sophos;i="6.03,184,1694761200"; 
+   d="scan'208";a="673572"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2023 06:28:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10846"; a="865247807"
-X-IronPort-AV: E=Sophos;i="6.03,184,1694761200"; d="scan'208";a="865247807"
-Received: from nirmoyda-desk.igk.intel.com ([10.102.138.190])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2023 06:00:27 -0700
-From: Nirmoy Das <nirmoy.das@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Thu, 28 Sep 2023 15:00:15 +0200
-Message-ID: <20230928130015.6758-4-nirmoy.das@intel.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20230928130015.6758-1-nirmoy.das@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10846"; a="726234015"
+X-IronPort-AV: E=Sophos;i="6.03,184,1694761200"; d="scan'208";a="726234015"
+Received: from mabrazak-mobl.gar.corp.intel.com (HELO intel.com)
+ ([10.214.160.185])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2023 06:28:04 -0700
+Date: Thu, 28 Sep 2023 15:27:57 +0200
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Nirmoy Das <nirmoy.das@intel.com>
+Message-ID: <ZRV/XR441w0a2Dt0@ashyti-mobl2.lan>
 References: <20230928130015.6758-1-nirmoy.das@intel.com>
 MIME-Version: 1.0
-Organization: Intel Deutschland GmbH, Registered Address: Am Campeon 10,
- 85579 Neubiberg, Germany,
- Commercial Register: Amtsgericht Muenchen HRB 186928 
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 4/4] drm/i915/mtl: Skip MCR ops for ring
- fault register
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230928130015.6758-1-nirmoy.das@intel.com>
+Subject: Re: [Intel-gfx] [PATCH v7 1/4] drm/i915: Introduce
+ intel_gt_mcr_lock_sanitize()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,90 +60,23 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, matthew.d.roper@intel.com,
- dri-devel@lists.freedesktop.org, Nirmoy Das <nirmoy.das@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, matthew.d.roper@intel.com,
+ dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On MTL GEN12_RING_FAULT_REG is not replicated so don't
-do mcr based operation for this register.
+Hi Nirmoy,
 
-v2: use MEDIA_VER() instead of GRAPHICS_VER()(Matt).
-v3: s/"MEDIA_VER(i915) == 13"/"MEDIA_VER(i915) >= 13"(Matt)
-    improve comment.
-v4: improve the comment further(Andi)
+On Thu, Sep 28, 2023 at 03:00:12PM +0200, Nirmoy Das wrote:
+> Implement intel_gt_mcr_lock_sanitize() to provide a mechanism
+> for cleaning the steer semaphore when absolutely necessary.
+> 
+> v2: remove unnecessary lock(Andi, Matt)
+>     improve the kernel doc(Matt)
+>     s/intel_gt_mcr_lock_clear/intel_gt_mcr_lock_sanitize
+> 
+> Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
 
-Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
-Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_gt.c      | 13 ++++++++++++-
- drivers/gpu/drm/i915/gt/intel_gt_regs.h |  1 +
- drivers/gpu/drm/i915/i915_gpu_error.c   | 11 ++++++++++-
- 3 files changed, 23 insertions(+), 2 deletions(-)
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com> 
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
-index 93062c35e072..dff8bba1f5d4 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt.c
-@@ -262,10 +262,21 @@ intel_gt_clear_error_registers(struct intel_gt *gt,
- 				   I915_MASTER_ERROR_INTERRUPT);
- 	}
- 
--	if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50)) {
-+	/*
-+	 * For the media GT, this ring fault register is not replicated,
-+	 * so don't do multicast/replicated register read/write operation on it.
-+	 */
-+	if (MEDIA_VER(i915) >= 13 && gt->type == GT_MEDIA) {
-+		intel_uncore_rmw(uncore, XELPMP_RING_FAULT_REG,
-+				 RING_FAULT_VALID, 0);
-+		intel_uncore_posting_read(uncore,
-+					  XELPMP_RING_FAULT_REG);
-+
-+	} else if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50)) {
- 		intel_gt_mcr_multicast_rmw(gt, XEHP_RING_FAULT_REG,
- 					   RING_FAULT_VALID, 0);
- 		intel_gt_mcr_read_any(gt, XEHP_RING_FAULT_REG);
-+
- 	} else if (GRAPHICS_VER(i915) >= 12) {
- 		intel_uncore_rmw(uncore, GEN12_RING_FAULT_REG, RING_FAULT_VALID, 0);
- 		intel_uncore_posting_read(uncore, GEN12_RING_FAULT_REG);
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_regs.h b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-index cca4bac8f8b0..eecd0a87a647 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_regs.h
-@@ -1084,6 +1084,7 @@
- 
- #define GEN12_RING_FAULT_REG			_MMIO(0xcec4)
- #define XEHP_RING_FAULT_REG			MCR_REG(0xcec4)
-+#define XELPMP_RING_FAULT_REG			_MMIO(0xcec4)
- #define   GEN8_RING_FAULT_ENGINE_ID(x)		(((x) >> 12) & 0x7)
- #define   RING_FAULT_GTTSEL_MASK		(1 << 11)
- #define   RING_FAULT_SRCID(x)			(((x) >> 3) & 0xff)
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index f4ebcfb70289..b4e31e59c799 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -1234,7 +1234,16 @@ static void engine_record_registers(struct intel_engine_coredump *ee)
- 	if (GRAPHICS_VER(i915) >= 6) {
- 		ee->rc_psmi = ENGINE_READ(engine, RING_PSMI_CTL);
- 
--		if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50))
-+		/*
-+		 * For the media GT, this ring fault register is not replicated,
-+		 * so don't do multicast/replicated register read/write
-+		 * operation on it.
-+		 */
-+		if (MEDIA_VER(i915) >= 13 && engine->gt->type == GT_MEDIA)
-+			ee->fault_reg = intel_uncore_read(engine->uncore,
-+							  XELPMP_RING_FAULT_REG);
-+
-+		else if (GRAPHICS_VER_FULL(i915) >= IP_VER(12, 50))
- 			ee->fault_reg = intel_gt_mcr_read_any(engine->gt,
- 							      XEHP_RING_FAULT_REG);
- 		else if (GRAPHICS_VER(i915) >= 12)
--- 
-2.41.0
-
+Andi
