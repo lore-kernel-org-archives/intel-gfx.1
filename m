@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6727AE732E4
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 15:23:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 806E1E732E5
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 15:23:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DFAB10E682;
-	Thu, 28 Sep 2023 15:22:52 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD5CF10E648;
- Thu, 28 Sep 2023 13:20:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5932010E686;
+	Thu, 28 Sep 2023 15:22:53 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [IPv6:2604:1380:40e1:4800::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B8D310E64B;
+ Thu, 28 Sep 2023 13:20:42 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A9B2D61CB8;
+ by sin.source.kernel.org (Postfix) with ESMTP id C0CFCCE21C3;
  Thu, 28 Sep 2023 13:20:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F3C10C32779;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8CE4FC4AF5E;
  Thu, 28 Sep 2023 13:20:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1695907237;
- bh=5zO7s9Lwosi7QmmL2WLVnIc8u/uJoPITOshfrd6dPWg=;
+ s=k20201202; t=1695907236;
+ bh=8o6Wkw35mSCVhnOKFt6ClknFvPUd13GONPb8bhwpADE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=OZuf7hMNQH/6jfPbtQZPCoyl72bn87/HT1LPJ3FoDxaF5e08+Voy29HA90DNmKOoG
- K8KTyPsT29Q26moP3JUFagj7TAexacVLiF290EeK6+rY62iPg6ZyRTx4ilgv7E7E8F
- DvR4G7zQgEsTokMkNy6lVyh3stCdclTnVH5Vp3bKDcYTPfCdpzizojbvyyoPPS5pjd
- Mq7h9q+sOBnZ7vG+kASbLG/sVqWDBGgHfd0LO7kF40frLpwZuwHCNu4vrFnpG85OVQ
- lokojtHlhEBwQcvtiHV40wjfGBbAImHeFyFCmXQ0lP4q6HD2l3RILeABD1jxtaSzcZ
- GfMvBEvqEdDYQ==
+ b=HIlWOSKnflZYvel5mQyGeX+gmJJL1K+LilMXYd6IzuwCYD/pX0XE7cmHV9c4nOI4A
+ G/mkwjoUMxgPO9uLZV65HoYUoBxIiALIDd0v2EKOMEFnp5AOGGZpQFUJcruJ22uEaK
+ 6hZ/DjT4HKVs4Gn2aq0Qzauo+hlbISOX5wXlDc4/dqdkKwmBrrv64aJxB/7ayPmA3u
+ SkJc3jtqdOhQq7fmfr4AfTJYsZ9nSQh0GwQ3B3bM6Ss0AJ+E8yLi6VkYwl9SjIv0Nk
+ dbDndA8ukr878p7LrXNVzfNdGRORSE7mwMQVaG7cGntwej+ICqVYE0DUR7BraOIYwS
+ zpRNDsJdBMXOw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id DD06BE732CF;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 7596BE732D0;
  Thu, 28 Sep 2023 13:20:36 +0000 (UTC)
 From: Joel Granados via B4 Relay <devnull+j.granados.samsung.com@kernel.org>
-Date: Thu, 28 Sep 2023 15:21:34 +0200
+Date: Thu, 28 Sep 2023 15:21:30 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-9-e59120fca9f9@samsung.com>
+Message-Id: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-5-e59120fca9f9@samsung.com>
 References: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-0-e59120fca9f9@samsung.com>
 In-Reply-To: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-0-e59120fca9f9@samsung.com>
 To: Luis Chamberlain <mcgrof@kernel.org>, willy@infradead.org, 
@@ -69,26 +69,26 @@ To: Luis Chamberlain <mcgrof@kernel.org>, willy@infradead.org,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, 
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
 X-Mailer: b4 0.13-dev-86aa5
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1462;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1435;
  i=j.granados@samsung.com; h=from:subject:message-id;
- bh=tCD6uUjpENwGRI1wSieFMxVn0HaUdToj9oadXuH2mRs=;
- b=owEB7QES/pANAwAKAbqXzVK3lkFPAcsmYgBlFX3e649I8iEgCQ+8jvmfVnSbEH+5cM+/uGjHp
- +7sMjQufCiJAbMEAAEKAB0WIQSuRwlXJeYxJc7LJ5C6l81St5ZBTwUCZRV93gAKCRC6l81St5ZB
- TwJnC/0dPQEskd6EkB4tfpnbwc2TgKq0dfoj8tKncz1G9fyLn3o0DNocpaZy1J4AYL6xD9M4XOC
- kb8puBCX15k3E5sE5lbIupq0uxghhIz2QY6VgfmuomBSGqMVmc8v3gckB2sJCJ0z5cPwmGU9LLM
- wq7K6pONMby24XwTPGt/fPbLT0WQ6y5WkunD9VwmNnFA7zmxQCtUqfY644ugivFOBW5pgclR9hM
- C5jdw8MqjkddlipW10caCiPkzcMV+kSoo3qs3wHncPTT7vISH2e6tkmI2Xy75z1budS54vtamLX
- QwV6V1xjrMUdchaAvkfWGb/tMSrwmBFOgQuQ0mmvFwoQ26xpdGB0iMIQEopG12V2aUFxEI1/vaJ
- 8Q6aXtkcH9hwbAp8iR1LbVAzPoCeivNtsvq9A8ogh/og192Qwas7QVtFgbNNcPKSovvljsGIJ6c
- iM6sGTzKbWd6JxxlKEyGZw2u6ept3Ng28GdM6XTYEcyB8nWkVSiKcpqhOpbwekS5ZZmaI=
+ bh=AA2i2ffT9doWEzIff4Zajp6KzJDIS2fsOGTMhAaBzPI=;
+ b=owEB7QES/pANAwAKAbqXzVK3lkFPAcsmYgBlFX3dBMzSGGCPjKqz33CWWmIlVPmX0ZG079rEE
+ swyLW78XdWJAbMEAAEKAB0WIQSuRwlXJeYxJc7LJ5C6l81St5ZBTwUCZRV93QAKCRC6l81St5ZB
+ T7GeC/9Fj9+4xEMnCkTQFapmBGFCFKtx2YJeRuHAo0GBWLACG0DDu2Bq/aeCqY5a1VRczUgy2iG
+ MrB6KcEeBrzNF65Rwq9n3LkqKtvhqBlEjpL5VUDRytrhp++LB+9uWq7GBE9kSvsg2iFVLzL5Kf1
+ vukcj20IN9ZHg5L7G6S1rf0Qme59NiTfQqPWrtQhBlLqQpUQFOyIwb4yWxeEK8uNy1IYuvqQ/E3
+ wpfg3TIxo1KHtVLm3h8zqAlW+Pf7n9Y1ojT4DscU67RqIoN6p133XKh/Uq1z4e72TMkqH1aD5Qi
+ l2C+Ecc0DO8jdIHFP+hmPcu5ZurChtUCC6BrrPHZRCo3loAWnJ5rBX3dOF4MCrvRNX6wOab8Flg
+ pn8K8Ewtqr7MP+RrGIXSz9pUu0EjBHk0kMBzENIu+m0ePrG3gpz7NpW2WUBWjZiSiw4buzxgKzz
+ ZFP6ljJZXft/+hBDXWcJJ+AnT99TNDZeD3fJ8/6bRGsWAUGQQuzNNpVq0vK4U47NfOCGI=
 X-Developer-Key: i=j.granados@samsung.com; a=openpgp;
  fpr=F1F8E46D30F0F6C4A45FF4465895FAAC338C6E77
 X-Endpoint-Received: by B4 Relay for j.granados@samsung.com/default with
  auth_id=70
 X-Original-From: Joel Granados <j.granados@samsung.com>
 X-Mailman-Approved-At: Thu, 28 Sep 2023 15:22:50 +0000
-Subject: [Intel-gfx] [PATCH 09/15] char-misc: Remove the now superfluous
- sentinel element from ctl_table array
+Subject: [Intel-gfx] [PATCH 05/15] scsi: Remove now superfluous sentinel
+ element from ctl_table array
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,42 +119,42 @@ will reduce the overall build time size of the kernel and run time
 memory bloat by ~64 bytes per sentinel (further information Link :
 https://lore.kernel.org/all/ZO5Yx5JFogGi%2FcBo@bombadil.infradead.org/)
 
-Remove sentinel from impi_table and random_table
+Remove sentinel from scsi_table and sg_sysctls.
 
 Signed-off-by: Joel Granados <j.granados@samsung.com>
 ---
- drivers/char/ipmi/ipmi_poweroff.c | 3 +--
- drivers/char/random.c             | 3 +--
+ drivers/scsi/scsi_sysctl.c | 3 +--
+ drivers/scsi/sg.c          | 3 +--
  2 files changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/char/ipmi/ipmi_poweroff.c b/drivers/char/ipmi/ipmi_poweroff.c
-index 870659d91db2..b65ab51bf9fa 100644
---- a/drivers/char/ipmi/ipmi_poweroff.c
-+++ b/drivers/char/ipmi/ipmi_poweroff.c
-@@ -655,8 +655,7 @@ static struct ctl_table ipmi_table[] = {
- 	  .data		= &poweroff_powercycle,
- 	  .maxlen	= sizeof(poweroff_powercycle),
+diff --git a/drivers/scsi/scsi_sysctl.c b/drivers/scsi/scsi_sysctl.c
+index 7f0914ea168f..c74da88b20d3 100644
+--- a/drivers/scsi/scsi_sysctl.c
++++ b/drivers/scsi/scsi_sysctl.c
+@@ -17,8 +17,7 @@ static struct ctl_table scsi_table[] = {
+ 	  .data		= &scsi_logging_level,
+ 	  .maxlen	= sizeof(scsi_logging_level),
  	  .mode		= 0644,
 -	  .proc_handler	= proc_dointvec },
 -	{ }
 +	  .proc_handler	= proc_dointvec }
  };
  
- static struct ctl_table_header *ipmi_table_header;
-diff --git a/drivers/char/random.c b/drivers/char/random.c
-index 3cb37760dfec..4040715cba19 100644
---- a/drivers/char/random.c
-+++ b/drivers/char/random.c
-@@ -1682,8 +1682,7 @@ static struct ctl_table random_table[] = {
- 		.procname	= "uuid",
+ static struct ctl_table_header *scsi_table_header;
+diff --git a/drivers/scsi/sg.c b/drivers/scsi/sg.c
+index 0d8afffd1683..22a59c5e22eb 100644
+--- a/drivers/scsi/sg.c
++++ b/drivers/scsi/sg.c
+@@ -1649,8 +1649,7 @@ static struct ctl_table sg_sysctls[] = {
+ 		.maxlen		= sizeof(int),
  		.mode		= 0444,
- 		.proc_handler	= proc_do_uuid,
+ 		.proc_handler	= proc_dointvec,
 -	},
--	{ }
+-	{}
 +	}
  };
  
- /*
+ static struct ctl_table_header *hdr;
 
 -- 
 2.30.2
