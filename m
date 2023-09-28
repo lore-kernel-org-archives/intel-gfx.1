@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2669E732E4
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 15:23:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C899E732E7
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 15:23:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22BD010E689;
-	Thu, 28 Sep 2023 15:23:08 +0000 (UTC)
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [IPv6:2604:1380:40e1:4800::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 908B910E645;
- Thu, 28 Sep 2023 13:20:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22F2710E691;
+	Thu, 28 Sep 2023 15:23:09 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [IPv6:2604:1380:4641:c500::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3ECB10E64E;
+ Thu, 28 Sep 2023 13:20:40 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 549DDCE21D5;
+ by dfw.source.kernel.org (Postfix) with ESMTP id 23E9A61CB6;
  Thu, 28 Sep 2023 13:20:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 156AFC3277A;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 694BAC32792;
  Thu, 28 Sep 2023 13:20:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1695907237;
- bh=lrXHVV3iKHeN1GBo4fXrfsJZ5+V8aEe9bhvkg3xQu78=;
+ bh=qEbYGqUMnAni5CU3u1xnFGdb1FPLHz8knsrTsoBqy2s=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=TWsVtO1se30j6NzRsQjznKd0IGCNIY2VgIg21hGNa14HC3vwxzs1aVq4U4DLOEsfT
- vQbxlngy5nU2UnJYZDYUyFIYmMWGnsQnlKbC22dRFKc074V3GF2R65SppEJW2FUD6N
- IXO4n+4W6rJ6vuS2fVDGW2rfRnJ509II8Amksn6W8cNuHoWjUjPqnPiMHHFuQl2GtJ
- 4EN9T0bOlFEfubaFgkknSCgzfOEIbfjhhaJdVWQnxqL/g3zNbR9XAg06lmEDArens3
- 5pg3ppf9QpErzQbOwwM6QfDuD/ut8bNLQAA9LcKsi0cVAHbIjDQOnVyunv179quYiT
- 9Pd5mZe9q6Tqg==
+ b=EHLQaBcOwLswCBdGO23q6TptXW6rEuRsuyDDju9YDgRwtTJAFZW1glERTx2pWCUDF
+ tOjVoIbCmJcAzVL9/nTdUYWAUEoFOLTZaeqDmRP7/hYb80DQCpMkK431kVYV4MtfFt
+ nuFRCQTcKbRTwk6aFUMiInxZgGf9g5PN30MfE6Qn8BPKnhdkF5OHjDHyNHlefR16a7
+ kovNGZEJ82o8HzdaJTXh1lfiwnQ7miRpMa5No/lMwaB3fxzvkpo62uyXd+OJ7Lamtz
+ GFU10q1sSUCvk3aoq4J6ku2lDemCv1JH5wQAVTiONg+P8BHZEPDbPLIxqj2PRpLtAJ
+ 88YnEQ7UZgt5Q==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id EE3F5E732D4;
- Thu, 28 Sep 2023 13:20:36 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 505F0E732D7;
+ Thu, 28 Sep 2023 13:20:37 +0000 (UTC)
 From: Joel Granados via B4 Relay <devnull+j.granados.samsung.com@kernel.org>
-Date: Thu, 28 Sep 2023 15:21:35 +0200
+Date: Thu, 28 Sep 2023 15:21:39 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 Message-Id: =?utf-8?q?=3C20230928-jag-sysctl=5Fremove=5Fempty=5Felem=5Fdrive?=
- =?utf-8?q?rs-v1-10-e59120fca9f9=40samsung=2Ecom=3E?=
+ =?utf-8?q?rs-v1-14-e59120fca9f9=40samsung=2Ecom=3E?=
 References: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-0-e59120fca9f9@samsung.com>
 In-Reply-To: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-0-e59120fca9f9@samsung.com>
 To: Luis Chamberlain <mcgrof@kernel.org>, willy@infradead.org, 
@@ -70,26 +70,26 @@ To: Luis Chamberlain <mcgrof@kernel.org>, willy@infradead.org,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, 
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
 X-Mailer: b4 0.13-dev-86aa5
-X-Developer-Signature: v=1; a=openpgp-sha256; l=957; i=j.granados@samsung.com; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=961; i=j.granados@samsung.com; 
  h=from:subject:message-id;
- bh=1NLC9qP1CY5hbDPyr23yN2zoH2+i6NGjxa91ihvztxA=; 
- b=owEB7QES/pANAwAKAbqXzVK3lkFPAcsmYgBlFX3efmxA5MIacGiPYUJqzMHLsUucZXUhKmZvp
- uwNl2wpIdyJAbMEAAEKAB0WIQSuRwlXJeYxJc7LJ5C6l81St5ZBTwUCZRV93gAKCRC6l81St5ZB
- T7zVC/9nccm8Jt9uhH7oQGv/uUE1TUHdyD8riQXjy6Q7siM8V6fZZKtqQAuVbgk+dQ+XYCY0MXU
- +gofOFghmvbuZW33bSsn6BpCMPsZitmR2AIrJz40JNmDes9atMglKzaw6YK2sktVhAl5vRjsBF6
- C5J/9HUHSFTD8MEiz/KG9qmfVDtOhZJrKQgG/eDxaK/tTOWULGYjcrTRsBdqVkhYUwiQyEmiisu
- obKNXMg1SnhtJyaW6u1yDjXdEuCYd7wdKEyFxJI/TVAsD80Usfi+gJ22UC1YiyxBWVYbaLTcm3/
- zXaEujj/bV6H7Mg+H3VBldoOzwUvs2J/KXMTzFHPGN3CideOlJrNCrkFP8axi7opC2TPD+ep4pW
- 0zw45g4ZcDDdEZ7ttDDSQIcb3A6YNO2mXHNC8l8Op9uQPlfVSgcF0E0Tm7cxZd0lrEy+neUKS8q
- GUMrJtSPCvRNPD4xWGcwfpGrX5UX9Vuuit+whdxcOw2k8YWghpbrglRWCjHk82JtuA8a4=
+ bh=4F2+ffa3GXhFGEYppFEHm2Mtt4QSfNMs1+9vGf3WJxo=; 
+ b=owEB7QES/pANAwAKAbqXzVK3lkFPAcsmYgBlFX3f7bbg+0UaO56WXQOXlIq7JJTQoGGJcP1ef
+ /0I3/y2l9yJAbMEAAEKAB0WIQSuRwlXJeYxJc7LJ5C6l81St5ZBTwUCZRV93wAKCRC6l81St5ZB
+ T4FKC/9a2qdj27UKReYhOR67fov89RkcBAc0SAtrPXpSnnrATI2eCpgilBgK1TJnsd0vUJGn0v3
+ HjutmUfnoXup+S3WT9l3Slop3hFazPlp4SGiLhCk1S23c/OlDwWO3IiAx8fA32NnNESs+MiBioa
+ mXZu1jueoTISV7491NrBE5AqSzUD6+hA+gD6YfMNt4IFj5W3Hgy97oNrKmbVPktauNusnunZZ3F
+ o192QRllKpTe1YlCVbYhL7flWa+1/barEVZyZWVtxgNuB0P57zgVImqQ8XQmCxmECx8AD0wq5Ks
+ O59WWgdwa2mnVSl6yc2foQ8tNalHJ38XJAfBwByhMtcPnw4jsyyRTs/yPy24cW1Ht3s4r+RdWr1
+ SWhzfXIIcW9zXul6wENWenDvXgVnHgPonLkKr/3w7ZFnRaLRczi94+a9SLqVIsthKPjIE+3Oj1E
+ nOgzwMEh2XX72oDthoVuqB9I+Pl7Reo4jpwdDfbqp1O6tARRauhhozGbiE+umxbAGQwJo=
 X-Developer-Key: i=j.granados@samsung.com; a=openpgp;
  fpr=F1F8E46D30F0F6C4A45FF4465895FAAC338C6E77
 X-Endpoint-Received: by B4 Relay for j.granados@samsung.com/default with
  auth_id=70
 X-Original-From: Joel Granados <j.granados@samsung.com>
 X-Mailman-Approved-At: Thu, 28 Sep 2023 15:22:50 +0000
-Subject: [Intel-gfx] [PATCH 10/15] vrf: Remove the now superfluous sentinel
- element from ctl_table array
+Subject: [Intel-gfx] [PATCH 14/15] hyper-v/azure: Remove now superfluous
+ sentinel element from ctl_table array
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,27 +120,27 @@ will reduce the overall build time size of the kernel and run time
 memory bloat by ~64 bytes per sentinel (further information Link :
 https://lore.kernel.org/all/ZO5Yx5JFogGi%2FcBo@bombadil.infradead.org/)
 
-Remove sentinel from vrf_table
+Remove sentinel from hv_ctl_table
 
 Signed-off-by: Joel Granados <j.granados@samsung.com>
 ---
- drivers/net/vrf.c | 3 +--
+ drivers/hv/hv_common.c | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/net/vrf.c b/drivers/net/vrf.c
-index a3408e4e1491..94eed8708467 100644
---- a/drivers/net/vrf.c
-+++ b/drivers/net/vrf.c
-@@ -1962,8 +1962,7 @@ static const struct ctl_table vrf_table[] = {
- 		.proc_handler	= vrf_shared_table_handler,
- 		/* set by the vrf_netns_init */
- 		.extra1		= NULL,
+diff --git a/drivers/hv/hv_common.c b/drivers/hv/hv_common.c
+index ccad7bca3fd3..bc7d678030aa 100644
+--- a/drivers/hv/hv_common.c
++++ b/drivers/hv/hv_common.c
+@@ -147,8 +147,7 @@ static struct ctl_table hv_ctl_table[] = {
+ 		.proc_handler	= proc_dointvec_minmax,
+ 		.extra1		= SYSCTL_ZERO,
+ 		.extra2		= SYSCTL_ONE
 -	},
--	{ },
+-	{}
 +	}
  };
  
- static int vrf_netns_init_sysctl(struct net *net, struct netns_vrf *nn_vrf)
+ static int hv_die_panic_notify_crash(struct notifier_block *self,
 
 -- 
 2.30.2
