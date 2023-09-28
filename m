@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 402C3CE7B1F
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 19:29:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE41CCE7B1F
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 19:29:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A466910E0F2;
-	Thu, 28 Sep 2023 19:29:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EEAB10E0AE;
+	Thu, 28 Sep 2023 19:29:11 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2F99410E0AE;
- Thu, 28 Sep 2023 19:29:04 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9619410E0AE;
+ Thu, 28 Sep 2023 19:29:06 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 28D6AA00CC;
- Thu, 28 Sep 2023 19:29:04 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 94186A00CC;
+ Thu, 28 Sep 2023 19:29:06 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Mathias Krause" <minipli@grsecurity.net>
-Date: Thu, 28 Sep 2023 19:29:04 -0000
-Message-ID: <169592934413.21266.5197465717136183118@emeril.freedesktop.org>
+Date: Thu, 28 Sep 2023 19:29:06 -0000
+Message-ID: <169592934660.21268.9966224076076327356@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20230928182019.10256-1-minipli@grsecurity.net>
 In-Reply-To: <20230928182019.10256-1-minipli@grsecurity.net>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_fix_rb-tree/llist/list_confusion_=28rev2=29?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915=3A_fix_rb-tree/llist/list_confusion_=28rev2=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,18 +53,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-27cafd1d78df drm/i915: Register engines early to avoid type confusion
--:40: ERROR:BAD_SIGN_OFF: Unrecognized email address: 'sanitiy checks in grsecurity'
-#40: 
-Reported-by: sanitiy checks in grsecurity
-
--:40: WARNING:BAD_REPORTED_BY_LINK: Reported-by: should be immediately followed by Closes: with a URL to the report
-#40: 
-Reported-by: sanitiy checks in grsecurity
-Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-
-total: 1 errors, 1 warnings, 0 checks, 21 lines checked
-3c19a2096cfe drm/i915: Clarify type evolution of uabi_node/uabi_engines
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
