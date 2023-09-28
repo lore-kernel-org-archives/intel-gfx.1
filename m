@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9BC0CE7AFC
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 18:09:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44EBCE732FD
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 18:10:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 715CE10E6AE;
-	Thu, 28 Sep 2023 18:09:57 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30EBA10E6AE
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Sep 2023 18:09:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAD3F10E6A3;
+	Thu, 28 Sep 2023 18:09:59 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69CB810E6AC
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Sep 2023 18:09:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695924595; x=1727460595;
+ t=1695924597; x=1727460597;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=y9fGufntnDkOtayAmy6dt5bWllDhhHSSGxNr5nHDRMw=;
- b=bTdoRJHPqMpedx/pLjCTB9wX4AL0ZS1tLdq/VR/ejjFJYtrpDPamQLsy
- LM4G64jIPcAWkdZwOSerNP0sMUX93QtWWW7fzwvntW4YHbwbJpDHI+vsE
- WjxrDR4VHik3JXd2yEDvuR6jlB3q5Pbu+OAtW6DSJ4volNmscwOkYABo/
- 2gecKRRrWcp+DPOE7RlBQf+lHu7K3ap7Cuq3Ksos7WwQuZR9AGHn1+Osa
- xmugat1aSY5zyzGZteSOo022w1GbAewS+gsW/GVXipYzD+tdA79vVDatI
- 9yhpIW3KkxLeMMTk108yDGTshvAk52y8E2YipU+XUYSMuaV2kFt7mhv4b Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="448627805"
-X-IronPort-AV: E=Sophos;i="6.03,184,1694761200"; d="scan'208";a="448627805"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2023 11:09:42 -0700
+ bh=Hnqr5uWu5F9WBjZPB4meu8W4GTBxyv5v400/N+PnywA=;
+ b=gloSzPKgVAMo9KJtD1xNNzA2gUlheeywQPoiJZcLyNjfqm9/scKkgcKy
+ sByGuhV7NySYuhe2da/g0G2k4MILQxuYhcIYZ7X9Kav8r3IpOF5KcqRxr
+ UK6Z2CmAB6A179pkfvfPkqxG6CueojeBDWN27YUSdMenGgacnsynmOR6n
+ o1TgnGZ065v/V5fAkXwuOLmnVbxAPGp8dCCM60QLTdgxq+PRun8hmOEIg
+ VFV1WnyUGvYgFQX0YFQUK02pHkOKTZzrCFdtWYUH4DejoUKozX0efGQD1
+ RMPTRjMk71bGTHKS9M4jD8lqQ2oJDVyincM/tmrjemaaMo3optV48J8kP w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="379407286"
+X-IronPort-AV: E=Sophos;i="6.03,184,1694761200"; d="scan'208";a="379407286"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2023 11:09:57 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="865366538"
-X-IronPort-AV: E=Sophos;i="6.03,184,1694761200"; d="scan'208";a="865366538"
+X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="1080659546"
+X-IronPort-AV: E=Sophos;i="6.03,184,1694761200"; d="scan'208";a="1080659546"
 Received: from danielba-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.53.20])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2023 11:09:41 -0700
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Sep 2023 11:09:56 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 28 Sep 2023 21:08:54 +0300
-Message-Id: <398fe9e2f4be6fa2da685bba95f5081f5da08587.1695924021.git.jani.nikula@intel.com>
+Date: Thu, 28 Sep 2023 21:08:58 +0300
+Message-Id: <679db22381c8aa9c8c533779044ad6f6d89a45d4.1695924021.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1695924021.git.jani.nikula@intel.com>
 References: <cover.1695924021.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 10/15] drm/i915: move execlist capture to
- i915_gpu_error.c
+Subject: [Intel-gfx] [PATCH 14/15] drm/i915: stop including gt/uc/intel_uc.h
+ from i915_drv.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,214 +64,129 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Localize error capture details within i915_gpu_error.c so we can reduce
-the interfaces.
-
-FIXME: I don't know what the function should be called.
+Turns out it's not needed, except implicitly in a handful of
+places. Make them explicit.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- .../drm/i915/gt/intel_execlists_submission.c  | 22 +-------
- drivers/gpu/drm/i915/i915_gpu_error.c         | 36 ++++++++++---
- drivers/gpu/drm/i915/i915_gpu_error.h         | 51 ++-----------------
- 3 files changed, 36 insertions(+), 73 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_lmem.c   | 5 +++--
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c | 1 +
+ drivers/gpu/drm/i915/gt/gen7_renderclear.c | 1 +
+ drivers/gpu/drm/i915/i915_drv.h            | 1 -
+ drivers/gpu/drm/i915/i915_sysfs.c          | 2 ++
+ drivers/gpu/drm/i915/i915_utils.h          | 1 +
+ drivers/gpu/drm/i915/i915_vgpu.c           | 2 ++
+ drivers/gpu/drm/i915/intel_region_ttm.c    | 2 ++
+ 8 files changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 7c7e8c3a12e0..aea2fd75f227 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -2222,31 +2222,13 @@ struct execlists_capture {
- static void execlists_capture_work(struct work_struct *work)
- {
- 	struct execlists_capture *cap = container_of(work, typeof(*cap), work);
--	const gfp_t gfp = __GFP_KSWAPD_RECLAIM | __GFP_RETRY_MAYFAIL |
--		__GFP_NOWARN;
--	struct intel_engine_cs *engine = cap->rq->engine;
--	struct intel_gt_coredump *gt = cap->error->gt;
--	struct intel_engine_capture_vma *vma;
--
--	/* Compress all the objects attached to the request, slow! */
--	vma = intel_engine_coredump_add_request(gt->engine, cap->rq, gfp);
--	if (vma) {
--		struct i915_vma_compress *compress =
--			i915_vma_capture_prepare(gt);
--
--		intel_engine_coredump_add_vma(gt->engine, vma, compress);
--		i915_vma_capture_finish(gt, compress);
--	}
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_lmem.c b/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
+index 3198b64ad7db..a12047897650 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_lmem.c
+@@ -5,10 +5,11 @@
  
--	gt->simulated = gt->engine->simulated;
--	cap->error->simulated = gt->simulated;
-+	i915_gpu_error_execlist_capture(cap->error, cap->rq);
+ #include <uapi/drm/i915_drm.h>
  
--	/* Publish the error state, and announce it to the world */
--	i915_error_state_store(cap->error);
- 	i915_gpu_coredump_put(cap->error);
+-#include "intel_memory_region.h"
+-#include "gem/i915_gem_region.h"
+ #include "gem/i915_gem_lmem.h"
++#include "gem/i915_gem_object.h"
++#include "gem/i915_gem_region.h"
+ #include "i915_drv.h"
++#include "intel_memory_region.h"
  
- 	/* Return this request and all that depend upon it for signaling */
--	execlists_unhold(engine, cap->rq);
-+	execlists_unhold(cap->rq->engine, cap->rq);
- 	i915_request_put(cap->rq);
+ void __iomem *
+ i915_gem_object_lmem_io_map(struct drm_i915_gem_object *obj,
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
+index ad649523d5e0..b9f02de8c1bb 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_pm.c
+@@ -10,6 +10,7 @@
+ #include "intel_memory_region.h"
+ #include "intel_region_ttm.h"
  
- 	kfree(cap);
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index e4185f30f07c..837542c94b00 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.c
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -1584,7 +1584,7 @@ engine_coredump_add_context(struct intel_engine_coredump *ee,
- 	return vma;
- }
++#include "gem/i915_gem_object.h"
+ #include "gem/i915_gem_region.h"
+ #include "gem/i915_gem_ttm.h"
+ #include "gem/i915_gem_ttm_move.h"
+diff --git a/drivers/gpu/drm/i915/gt/gen7_renderclear.c b/drivers/gpu/drm/i915/gt/gen7_renderclear.c
+index d38b914d1206..0724ce39744a 100644
+--- a/drivers/gpu/drm/i915/gt/gen7_renderclear.c
++++ b/drivers/gpu/drm/i915/gt/gen7_renderclear.c
+@@ -5,6 +5,7 @@
  
--struct intel_engine_capture_vma *
-+static struct intel_engine_capture_vma *
- intel_engine_coredump_add_request(struct intel_engine_coredump *ee,
- 				  struct i915_request *rq,
- 				  gfp_t gfp)
-@@ -1610,7 +1610,7 @@ intel_engine_coredump_add_request(struct intel_engine_coredump *ee,
- 	return vma;
- }
+ #include "gen7_renderclear.h"
+ #include "i915_drv.h"
++#include "i915_vma.h"
+ #include "intel_gpu_commands.h"
+ #include "intel_gt_regs.h"
  
--void
-+static void
- intel_engine_coredump_add_vma(struct intel_engine_coredump *ee,
- 			      struct intel_engine_capture_vma *capture,
- 			      struct i915_vma_compress *compress)
-@@ -2096,7 +2096,7 @@ intel_gt_coredump_alloc(struct intel_gt *gt, gfp_t gfp, u32 dump_flags)
- 	return gc;
- }
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index cd4d55f5f8de..fb7139514e18 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -45,7 +45,6 @@
  
--struct i915_vma_compress *
-+static struct i915_vma_compress *
- i915_vma_capture_prepare(struct intel_gt_coredump *gt)
- {
- 	struct i915_vma_compress *compress;
-@@ -2113,8 +2113,8 @@ i915_vma_capture_prepare(struct intel_gt_coredump *gt)
- 	return compress;
- }
+ #include "gt/intel_region_lmem.h"
+ #include "gt/intel_workarounds.h"
+-#include "gt/uc/intel_uc.h"
  
--void i915_vma_capture_finish(struct intel_gt_coredump *gt,
--			     struct i915_vma_compress *compress)
-+static void i915_vma_capture_finish(struct intel_gt_coredump *gt,
-+				    struct i915_vma_compress *compress)
- {
- 	if (!compress)
- 		return;
-@@ -2189,7 +2189,7 @@ i915_gpu_coredump(struct intel_gt *gt, intel_engine_mask_t engine_mask, u32 dump
- 	return dump;
- }
+ #include "soc/intel_pch.h"
  
--void i915_error_state_store(struct i915_gpu_coredump *error)
-+static void i915_error_state_store(struct i915_gpu_coredump *error)
- {
- 	struct drm_i915_private *i915;
- 	static bool warned;
-@@ -2244,6 +2244,30 @@ void i915_capture_error_state(struct intel_gt *gt,
- 	i915_gpu_coredump_put(error);
- }
+diff --git a/drivers/gpu/drm/i915/i915_sysfs.c b/drivers/gpu/drm/i915/i915_sysfs.c
+index 613decd47760..6226ce924562 100644
+--- a/drivers/gpu/drm/i915/i915_sysfs.c
++++ b/drivers/gpu/drm/i915/i915_sysfs.c
+@@ -30,6 +30,8 @@
+ #include <linux/stat.h>
+ #include <linux/sysfs.h>
  
-+void i915_gpu_error_execlist_capture(struct i915_gpu_coredump *error,
-+				     struct i915_request *rq)
-+{
-+	struct intel_gt_coredump *gt = error->gt;
-+	struct intel_engine_capture_vma *vma;
-+	const gfp_t gfp = __GFP_KSWAPD_RECLAIM | __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
++#include <drm/drm_file.h>
 +
-+	/* Compress all the objects attached to the request, slow! */
-+	vma = intel_engine_coredump_add_request(gt->engine, rq, gfp);
-+	if (vma) {
-+		struct i915_vma_compress *compress =
-+			i915_vma_capture_prepare(gt);
+ #include "gt/intel_gt_regs.h"
+ #include "gt/intel_rc6.h"
+ #include "gt/intel_rps.h"
+diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
+index c61066498bf2..039b0a849c81 100644
+--- a/drivers/gpu/drm/i915/i915_utils.h
++++ b/drivers/gpu/drm/i915/i915_utils.h
+@@ -26,6 +26,7 @@
+ #define __I915_UTILS_H
+ 
+ #include <linux/list.h>
++#include <linux/delay.h>
+ #include <linux/overflow.h>
+ #include <linux/sched.h>
+ #include <linux/string_helpers.h>
+diff --git a/drivers/gpu/drm/i915/i915_vgpu.c b/drivers/gpu/drm/i915/i915_vgpu.c
+index c97323973f9b..91f07b778eda 100644
+--- a/drivers/gpu/drm/i915/i915_vgpu.c
++++ b/drivers/gpu/drm/i915/i915_vgpu.c
+@@ -21,7 +21,9 @@
+  * SOFTWARE.
+  */
+ 
++#include "gt/intel_gtt.h"
+ #include "i915_drv.h"
++#include "i915_gem_gtt.h"
+ #include "i915_pvinfo.h"
+ #include "i915_vgpu.h"
+ 
+diff --git a/drivers/gpu/drm/i915/intel_region_ttm.c b/drivers/gpu/drm/i915/intel_region_ttm.c
+index bf6097e7433d..d1fbd476a435 100644
+--- a/drivers/gpu/drm/i915/intel_region_ttm.c
++++ b/drivers/gpu/drm/i915/intel_region_ttm.c
+@@ -11,8 +11,10 @@
+ 
+ #include "intel_region_ttm.h"
+ 
++#include "gem/i915_gem_object.h"
+ #include "gem/i915_gem_region.h"
+ #include "gem/i915_gem_ttm.h" /* For the funcs/ops export only */
 +
-+		intel_engine_coredump_add_vma(gt->engine, vma, compress);
-+		i915_vma_capture_finish(gt, compress);
-+	}
-+
-+	gt->simulated = gt->engine->simulated;
-+	error->simulated = gt->simulated;
-+
-+	/* Publish the error state, and announce it to the world */
-+	i915_error_state_store(error);
-+}
-+
- static struct i915_gpu_coredump *
- i915_first_error_state(struct drm_i915_private *i915)
- {
-diff --git a/drivers/gpu/drm/i915/i915_gpu_error.h b/drivers/gpu/drm/i915/i915_gpu_error.h
-index 0439dde95344..c2c15e29e266 100644
---- a/drivers/gpu/drm/i915/i915_gpu_error.h
-+++ b/drivers/gpu/drm/i915/i915_gpu_error.h
-@@ -27,8 +27,6 @@
- #include "i915_scheduler.h"
- 
- struct drm_i915_private;
--struct i915_vma_compress;
--struct intel_engine_capture_vma;
- struct intel_overlay_error_state;
- 
- struct i915_vma_coredump {
-@@ -282,22 +280,8 @@ void i915_capture_error_state(struct intel_gt *gt,
- struct i915_gpu_coredump *
- i915_gpu_coredump_alloc(struct intel_engine_cs *engine, gfp_t gfp);
- 
--struct intel_engine_capture_vma *
--intel_engine_coredump_add_request(struct intel_engine_coredump *ee,
--				  struct i915_request *rq,
--				  gfp_t gfp);
--
--void intel_engine_coredump_add_vma(struct intel_engine_coredump *ee,
--				   struct intel_engine_capture_vma *capture,
--				   struct i915_vma_compress *compress);
--
--struct i915_vma_compress *
--i915_vma_capture_prepare(struct intel_gt_coredump *gt);
--
--void i915_vma_capture_finish(struct intel_gt_coredump *gt,
--			     struct i915_vma_compress *compress);
--
--void i915_error_state_store(struct i915_gpu_coredump *error);
-+void i915_gpu_error_execlist_capture(struct i915_gpu_coredump *error,
-+				     struct i915_request *rq);
- 
- ssize_t
- i915_gpu_coredump_copy_to_buffer(struct i915_gpu_coredump *error,
-@@ -331,35 +315,8 @@ i915_gpu_coredump_alloc(struct drm_i915_private *i915, gfp_t gfp)
- 	return NULL;
- }
- 
--static inline struct intel_engine_capture_vma *
--intel_engine_coredump_add_request(struct intel_engine_coredump *ee,
--				  struct i915_request *rq,
--				  gfp_t gfp)
--{
--	return NULL;
--}
--
--static inline void
--intel_engine_coredump_add_vma(struct intel_engine_coredump *ee,
--			      struct intel_engine_capture_vma *capture,
--			      struct i915_vma_compress *compress)
--{
--}
--
--static inline struct i915_vma_compress *
--i915_vma_capture_prepare(struct intel_gt_coredump *gt)
--{
--	return NULL;
--}
--
--static inline void
--i915_vma_capture_finish(struct intel_gt_coredump *gt,
--			struct i915_vma_compress *compress)
--{
--}
--
--static inline void
--i915_error_state_store(struct i915_gpu_coredump *error)
-+static inline void i915_gpu_error_execlist_capture(struct i915_gpu_coredump *error,
-+						   struct i915_request *rq)
- {
- }
- 
+ /**
+  * DOC: TTM support structure
+  *
 -- 
 2.39.2
 
