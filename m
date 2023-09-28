@@ -4,47 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 227E5E732D0
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 13:34:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B211E732D1
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 13:37:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66F1510E65E;
-	Thu, 28 Sep 2023 13:34:10 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D540310E65D
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Sep 2023 13:34:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695908048; x=1727444048;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=pRw2lgjHQe32QRkxxYTZ1Z8TrLKSsXPxTkJfyZbkLt4=;
- b=SWC8I51Jgtt/34Xl7dASeRtsnLfP4KAXJsPU0DM6+GNcc8IIpnIHgWES
- vDJqHC9CPJ52tvOsoSjlNH1L7ZPLmbV+gZKuOFsItHmz/d7Sp691/IDgE
- 5nTrD5CaUNbh9kXxB7IGzKbyJcrCZg1QaiEPgBxCLy51wiWgwNnh1xpFj
- qJWeunbFiYRd1+xoSoKzYuz4mik+t2kOP7qw2gwXHuslWa/zSFRTFQ0Wy
- OypAXhq2w03mYw0Ves/FH7w73gGNGo6x2k+icl1xGOdzuABi1yjAI2A5j
- tSFE91Jj/NUmJD8Ez8syOgHy9Lj25j2cua2JiiEmOqtWxhqsZe+1FEdht w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10846"; a="362304243"
-X-IronPort-AV: E=Sophos;i="6.03,184,1694761200"; d="scan'208";a="362304243"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2023 06:23:14 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10846"; a="752961977"
-X-IronPort-AV: E=Sophos;i="6.03,184,1694761200"; d="scan'208";a="752961977"
-Received: from mabrazak-mobl.gar.corp.intel.com (HELO intel.com)
- ([10.214.160.185])
- by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2023 06:23:10 -0700
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: intel-gfx <intel-gfx@lists.freedesktop.org>
-Date: Thu, 28 Sep 2023 15:22:35 +0200
-Message-Id: <20230928132235.349258-1-andi.shyti@linux.intel.com>
-X-Mailer: git-send-email 2.40.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1090710E65E;
+	Thu, 28 Sep 2023 13:37:10 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C5D310E65E;
+ Thu, 28 Sep 2023 13:37:06 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id AF3DFCE21CE;
+ Thu, 28 Sep 2023 13:37:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30ED8C433C8;
+ Thu, 28 Sep 2023 13:36:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1695908220;
+ bh=+wQRUm2msRT1Vv6LzHjx16q1r07oTZukLX6w4Q72cRo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=fQY4RQBXMdvdqFGAIafv/Phk7Y1oE+EJjzKjC3TRuINAbWxqzcqLPwyX0a9VAn7db
+ lrLv0OwYBTVD2TtgiIEZJRfo0bKqoMi2GBhCLXf4v+k2xekgAHOfI6frhHYfLI3c4k
+ s478XPbm0PhMMeW0NqTPzj3Xl+SvTPCIBgs7SdE0=
+Date: Thu, 28 Sep 2023 15:36:55 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: j.granados@samsung.com
+Message-ID: <2023092855-cultivate-earthy-4d25@gregkh>
+References: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-0-e59120fca9f9@samsung.com>
+ <20230928-jag-sysctl_remove_empty_elem_drivers-v1-1-e59120fca9f9@samsung.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC PATCH] drm/i915/gt: Force mcr lock takeover if
- hardware forgot to release it
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-1-e59120fca9f9@samsung.com>
+Subject: Re: [Intel-gfx] [PATCH 01/15] cdrom: Remove now superfluous
+ sentinel element from ctl_table array
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,102 +48,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Matt Roper <matthew.d.roper@intel.com>, Nirmoy Das <nirmoy.das@intel.com>
+Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>, Steve Wahl <steve.wahl@hpe.com>,
+ Clemens Ladisch <clemens@ladisch.de>, linux-hyperv@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Phillip Potter <phil@philpotter.co.uk>,
+ Song Liu <song@kernel.org>, Eric Dumazet <edumazet@google.com>,
+ "K. Y. Srinivasan" <kys@microsoft.com>, Jiri Slaby <jirislaby@kernel.org>,
+ Russ Weight <russell.h.weight@intel.com>, Wei Liu <wei.liu@kernel.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Corey Minyard <minyard@acm.org>,
+ Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
+ David Airlie <airlied@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, willy@infradead.org,
+ Jason Gunthorpe <jgg@ziepe.ca>, linux-serial@vger.kernel.org,
+ Doug Gilbert <dgilbert@interlog.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+ Kees Cook <keescook@chromium.org>, Arnd Bergmann <arnd@arndb.de>,
+ linux-kernel@vger.kernel.org, "James E.J. Bottomley" <jejb@linux.ibm.com>,
+ intel-gfx@lists.freedesktop.org, josh@joshtriplett.org,
+ linux-raid@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ xen-devel@lists.xenproject.org, openipmi-developer@lists.sourceforge.net,
+ Juergen Gross <jgross@suse.com>, Theodore Ts'o <tytso@mit.edu>,
+ linux-scsi@vger.kernel.org, "Martin K. Petersen" <martin.petersen@oracle.com>,
+ netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
+ Robin Holt <robinmholt@gmail.com>,
+ Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Luis Chamberlain <mcgrof@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ linuxppc-dev@lists.ozlabs.org, "David S. Miller" <davem@davemloft.net>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-While discussing with Nirmoy offline about this other way for
-fixing lock contention, he was a bit sceptical about it.
+On Thu, Sep 28, 2023 at 03:21:26PM +0200, Joel Granados via B4 Relay wrote:
+> From: Joel Granados <j.granados@samsung.com>
+> 
+> This commit comes at the tail end of a greater effort to remove the
+> empty elements at the end of the ctl_table arrays (sentinels) which
+> will reduce the overall build time size of the kernel and run time
+> memory bloat by ~64 bytes per sentinel (further information Link :
+> https://lore.kernel.org/all/ZO5Yx5JFogGi%2FcBo@bombadil.infradead.org/)
+> 
+> Remove sentinel element from cdrom_table
+> 
+> Signed-off-by: Joel Granados <j.granados@samsung.com>
+> ---
+>  drivers/cdrom/cdrom.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/cdrom/cdrom.c b/drivers/cdrom/cdrom.c
+> index cc2839805983..451907ade389 100644
+> --- a/drivers/cdrom/cdrom.c
+> +++ b/drivers/cdrom/cdrom.c
+> @@ -3654,8 +3654,7 @@ static struct ctl_table cdrom_table[] = {
+>  		.maxlen		= sizeof(int),
+>  		.mode		= 0644,
+>  		.proc_handler	= cdrom_sysctl_handler
+> -	},
+> -	{ }
+> +	}
 
-But why not? We know that if we fall into this case it's because
-some hardware component has forgotten to release the lock within
-100ms. So that we have two possibilities, either bail out or
-force the unlock.
+You should have the final entry as "}," so as to make any future
+additions to the list to only contain that entry, that's long been the
+kernel style for lists like this.
 
-Forcing the unlock might not be respectful to the environment,
-but, at the end, i915 should have the highest priority.
+So your patches will just remove one line, not 2 and add 1, making it a
+smaller diff.
 
-Nirmoy's solution here[*] is to force the unlock during gt
-resume, but what happens if meantime the hardware takes the lock
-and doesn't release it?
+thanks,
 
-Open for opinions or profligate rejections :-)
-
-I'm also curious to see what CI has to say about.
-
-[*] https://patchwork.freedesktop.org/series/124397/
-
-Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-Cc: Nirmoy Das <nirmoy.das@intel.com>
-Cc: Matt Roper <matthew.d.roper@intel.com>
----
- drivers/gpu/drm/i915/gt/intel_gt_mcr.c | 46 ++++++++++++++++----------
- 1 file changed, 28 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_mcr.c b/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-index bf4a933de03a..e3eb3c2ace68 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_mcr.c
-@@ -371,14 +371,34 @@ void intel_gt_mcr_lock(struct intel_gt *gt, unsigned long *flags)
- 
- 	lockdep_assert_not_held(&gt->uncore->lock);
- 
--	/*
--	 * Starting with MTL, we need to coordinate not only with other
--	 * driver threads, but also with hardware/firmware agents.  A dedicated
--	 * locking register is used.
--	 */
--	if (GRAPHICS_VER_FULL(gt->i915) >= IP_VER(12, 70))
--		err = wait_for(intel_uncore_read_fw(gt->uncore,
--						    MTL_STEER_SEMAPHORE) == 0x1, 100);
-+	do {
-+		/*
-+		 * Starting with MTL, we need to coordinate not only with other
-+		 * driver threads, but also with hardware/firmware agents.  A
-+		 * dedicated locking register is used.
-+		 */
-+		if (GRAPHICS_VER_FULL(gt->i915) >= IP_VER(12, 70))
-+			err = wait_for(intel_uncore_read_fw(gt->uncore,
-+					      MTL_STEER_SEMAPHORE) == 0x1, 100);
-+		else
-+			break;
-+
-+		/*
-+		 * In theory we should never fail to acquire the HW semaphore;
-+		 * this would indicate some hardware/firmware is misbehaving and
-+		 * not releasing it properly.
-+		 */
-+		if (err == -ETIMEDOUT) {
-+			gt_warn(gt,
-+				"hardware MCR steering semaphore timed out "
-+				"forcing lock takeover\n");
-+			/*
-+			 * Force lock takeover
-+			 */
-+			intel_uncore_write_fw(gt->uncore,
-+					      MTL_STEER_SEMAPHORE, 0x1);
-+		}
-+	} while (err != -ETIMEDOUT);
- 
- 	/*
- 	 * Even on platforms with a hardware lock, we'll continue to grab
-@@ -389,16 +409,6 @@ void intel_gt_mcr_lock(struct intel_gt *gt, unsigned long *flags)
- 	spin_lock_irqsave(&gt->mcr_lock, __flags);
- 
- 	*flags = __flags;
--
--	/*
--	 * In theory we should never fail to acquire the HW semaphore; this
--	 * would indicate some hardware/firmware is misbehaving and not
--	 * releasing it properly.
--	 */
--	if (err == -ETIMEDOUT) {
--		gt_err_ratelimited(gt, "hardware MCR steering semaphore timed out");
--		add_taint_for_CI(gt->i915, TAINT_WARN);  /* CI is now unreliable */
--	}
- }
- 
- /**
--- 
-2.40.1
-
+greg k-h
