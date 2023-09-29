@@ -4,48 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B27F4E743F5
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Sep 2023 08:18:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0101E743F3
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Sep 2023 08:22:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E196710E6E5;
-	Fri, 29 Sep 2023 08:18:04 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAD1110E6CE;
- Fri, 29 Sep 2023 08:17:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66E7710E123;
+	Fri, 29 Sep 2023 08:22:28 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F0AF10E6CC
+ for <intel-gfx@lists.freedesktop.org>; Fri, 29 Sep 2023 08:22:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695975469; x=1727511469;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Ywo0ojaODUwSXjv1Nly29gbYknaGO2Bih2R1esaOhbs=;
- b=fIkj8tTggD6FMYkOqE5QwLhaCArcFSSvjPeFn8HJEANVLFVb3hxT/PHd
- c9ymxU2VnE42b/8wv9MOKDCsS4KESdATY5nN95dMYN8Ah/tCS8aXe1QWr
- mI3EQkWPIWxjv59ezdhknj4wDUYlutBC14Fxvl3nbTyRj0awaAN1RVKD2
- bvLOPCBmV/csBaBA6vgjpHCGMRX24cHEMF1M+JzozUjkT8JFKbBezF9mj
- wUuFBZxoQreijdQQCc7+1TOJJb8pO7tf6Au8D6HrNDTSNrqbpalEsfDCl
- E1Or+15OtIZJJSEKwi67u4W48pdB6n+OLRKgOQQaP/AL2zw+4HksDBulC A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="379520314"
-X-IronPort-AV: E=Sophos;i="6.03,186,1694761200"; d="scan'208";a="379520314"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2023 00:19:30 -0700
+ t=1695975746; x=1727511746;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=MFVaQlJQOS52hNgYbpRX7KUH8QE49pqsHGxaCkgexIQ=;
+ b=DKyUOgt0TEAz3kR2tbylSCJ/QhDX90EJ4sE8CPoNHpO0SIpeDxXyWM8k
+ y66jHRJU+P+hmOOf9zPDLrMhUP1aHnWAlLbogRnEDUEba7EoSSONC3bB5
+ iMf59LNrwL4e3BQuhd+ahOxyu8Ls5EljDScMKxlkGLndJqR3WfrvaTJe3
+ Egu6mywCfu3msnXilDXzf7t/Tqm0iygPPOvwZwRaQkIhdYpIYrCqyhfuL
+ Fz3+GWxssIT0b+icDJHdkPq5SSPky9U6s+P+1UfRKNOn5JAgDKFWofEOW
+ 0lDwvWHbeNCPEgrLUGUTY1BbSHAejZaOswdSSO7LQnzFRw+KlSUh0Pc/q w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="385070573"
+X-IronPort-AV: E=Sophos;i="6.03,186,1694761200"; d="scan'208";a="385070573"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2023 00:46:44 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="815517461"
-X-IronPort-AV: E=Sophos;i="6.03,186,1694761200"; d="scan'208";a="815517461"
-Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by fmsmga008.fm.intel.com with ESMTP; 29 Sep 2023 00:19:28 -0700
-From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-To: dri-devel@lists.freedesktop.org,
+X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="865614319"
+X-IronPort-AV: E=Sophos;i="6.03,186,1694761200"; d="scan'208";a="865614319"
+Received: from danielba-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.252.53.20])
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2023 00:46:42 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>,
 	intel-gfx@lists.freedesktop.org
-Date: Fri, 29 Sep 2023 12:43:22 +0530
-Message-Id: <20230929071322.945521-9-mitulkumar.ajitkumar.golani@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230929071322.945521-1-mitulkumar.ajitkumar.golani@intel.com>
-References: <20230929071322.945521-1-mitulkumar.ajitkumar.golani@intel.com>
+Date: Fri, 29 Sep 2023 10:46:36 +0300
+Message-Id: <20230929074636.1433475-1-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <d5f8aab89835a70c0af741e7f5765fc2c4875bf7.1695924021.git.jani.nikula@intel.com>
+References: <d5f8aab89835a70c0af741e7f5765fc2c4875bf7.1695924021.git.jani.nikula@intel.com>
 MIME-Version: 1.0
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 8/8] drm/i915/dsc: Allow DSC only with
- fractional bpp when forced from debugfs
+Subject: [Intel-gfx] [PATCH v2] drm/i915: do more in
+ i915_gpu_coredump_alloc()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,52 +61,163 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: suijingfeng@loongson.cn, jani.nikula@intel.com, mripard@kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Swati Sharma <swati2.sharma@intel.com>
+Reduce gpu error interface further by doing more in
+i915_gpu_coredump_alloc().
 
-If force_dsc_fractional_bpp_en is set through debugfs allow DSC iff
-compressed bpp is fractional. Continue if the computed compressed bpp
-turns out to be a integer.
+v2: Fix build for CONFIG_DRM_I915_CAPTURE_ERROR=n
 
-v2:
--Use helpers for fractional, integral bits of bits_per_pixel. (Suraj)
--Fix comment (Suraj)
-
-Signed-off-by: Swati Sharma <swati2.sharma@intel.com>
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Reviewed-by: Sui Jingfeng <suijingfeng@loongson.cn>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ .../drm/i915/gt/intel_execlists_submission.c  | 16 +-------
+ drivers/gpu/drm/i915/i915_gpu_error.c         | 38 +++++++++++++++++--
+ drivers/gpu/drm/i915/i915_gpu_error.h         | 22 +----------
+ 3 files changed, 38 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index bc4ea1c21562..a9e1a89a2804 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1908,6 +1908,9 @@ xelpd_dsc_compute_link_config(struct intel_dp *intel_dp,
- 	for (compressed_bppx16 = dsc_max_bpp;
- 	     compressed_bppx16 >= dsc_min_bpp;
- 	     compressed_bppx16 -= bppx16_step) {
-+		if (intel_dp->force_dsc_fractional_bpp_en &&
-+		    !intel_fractional_bpp_decimal(compressed_bppx16))
-+			continue;
- 		ret = dsc_compute_link_config(intel_dp,
- 					      pipe_config,
- 					      limits,
-@@ -1915,6 +1918,10 @@ xelpd_dsc_compute_link_config(struct intel_dp *intel_dp,
- 					      timeslots);
- 		if (ret == 0) {
- 			pipe_config->dsc.compressed_bpp_x16 = compressed_bppx16;
-+			if (intel_dp->force_dsc_fractional_bpp_en &&
-+			    intel_fractional_bpp_decimal(compressed_bppx16))
-+				drm_dbg_kms(&i915->drm, "Forcing DSC fractional bpp\n");
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index e8f42ec6b1b4..7c7e8c3a12e0 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -2261,26 +2261,12 @@ static struct execlists_capture *capture_regs(struct intel_engine_cs *engine)
+ 	if (!cap)
+ 		return NULL;
+ 
+-	cap->error = i915_gpu_coredump_alloc(engine->i915, gfp);
++	cap->error = i915_gpu_coredump_alloc(engine, gfp);
+ 	if (!cap->error)
+ 		goto err_cap;
+ 
+-	cap->error->gt = intel_gt_coredump_alloc(engine->gt, gfp, CORE_DUMP_FLAG_NONE);
+-	if (!cap->error->gt)
+-		goto err_gpu;
+-
+-	cap->error->gt->engine = intel_engine_coredump_alloc(engine, gfp, CORE_DUMP_FLAG_NONE);
+-	if (!cap->error->gt->engine)
+-		goto err_gt;
+-
+-	cap->error->gt->engine->hung = true;
+-
+ 	return cap;
+ 
+-err_gt:
+-	kfree(cap->error->gt);
+-err_gpu:
+-	kfree(cap->error);
+ err_cap:
+ 	kfree(cap);
+ 	return NULL;
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index 9b1bb5aeec11..e4185f30f07c 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -63,6 +63,9 @@
+ #define ALLOW_FAIL (__GFP_KSWAPD_RECLAIM | __GFP_RETRY_MAYFAIL | __GFP_NOWARN)
+ #define ATOMIC_MAYFAIL (GFP_ATOMIC | __GFP_NOWARN)
+ 
++struct intel_gt_coredump *
++intel_gt_coredump_alloc(struct intel_gt *gt, gfp_t gfp, u32 dump_flags);
 +
- 			return 0;
- 		}
- 	}
+ static void __sg_set_buf(struct scatterlist *sg,
+ 			 void *addr, unsigned int len, loff_t it)
+ {
+@@ -2005,8 +2008,8 @@ static void capture_gen(struct i915_gpu_coredump *error)
+ 	error->driver_caps = i915->caps;
+ }
+ 
+-struct i915_gpu_coredump *
+-i915_gpu_coredump_alloc(struct drm_i915_private *i915, gfp_t gfp)
++static struct i915_gpu_coredump *
++__i915_gpu_coredump_alloc(struct drm_i915_private *i915, gfp_t gfp)
+ {
+ 	struct i915_gpu_coredump *error;
+ 
+@@ -2030,6 +2033,35 @@ i915_gpu_coredump_alloc(struct drm_i915_private *i915, gfp_t gfp)
+ 	return error;
+ }
+ 
++struct i915_gpu_coredump *
++i915_gpu_coredump_alloc(struct intel_engine_cs *engine, gfp_t gfp)
++{
++	struct i915_gpu_coredump *error;
++
++	error = __i915_gpu_coredump_alloc(engine->i915, gfp);
++	if (!error)
++		return NULL;
++
++	error->gt = intel_gt_coredump_alloc(engine->gt, gfp, CORE_DUMP_FLAG_NONE);
++	if (!error->gt)
++		goto err_gpu;
++
++	error->gt->engine = intel_engine_coredump_alloc(engine, gfp, CORE_DUMP_FLAG_NONE);
++	if (!error->gt->engine)
++		goto err_gt;
++
++	error->gt->engine->hung = true;
++
++	return error;
++
++err_gt:
++	kfree(error->gt);
++err_gpu:
++	kfree(error);
++
++	return NULL;
++}
++
+ #define DAY_AS_SECONDS(x) (24 * 60 * 60 * (x))
+ 
+ struct intel_gt_coredump *
+@@ -2102,7 +2134,7 @@ __i915_gpu_coredump(struct intel_gt *gt, intel_engine_mask_t engine_mask, u32 du
+ 	if (IS_ERR(error))
+ 		return error;
+ 
+-	error = i915_gpu_coredump_alloc(i915, ALLOW_FAIL);
++	error = __i915_gpu_coredump_alloc(i915, ALLOW_FAIL);
+ 	if (!error)
+ 		return ERR_PTR(-ENOMEM);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.h b/drivers/gpu/drm/i915/i915_gpu_error.h
+index f6f8d284a07d..a0ab187b426d 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.h
++++ b/drivers/gpu/drm/i915/i915_gpu_error.h
+@@ -280,13 +280,7 @@ void i915_capture_error_state(struct intel_gt *gt,
+ 			      intel_engine_mask_t engine_mask, u32 dump_flags);
+ 
+ struct i915_gpu_coredump *
+-i915_gpu_coredump_alloc(struct drm_i915_private *i915, gfp_t gfp);
+-
+-struct intel_gt_coredump *
+-intel_gt_coredump_alloc(struct intel_gt *gt, gfp_t gfp, u32 dump_flags);
+-
+-struct intel_engine_coredump *
+-intel_engine_coredump_alloc(struct intel_engine_cs *engine, gfp_t gfp, u32 dump_flags);
++i915_gpu_coredump_alloc(struct intel_engine_cs *engine, gfp_t gfp);
+ 
+ struct intel_engine_capture_vma *
+ intel_engine_coredump_add_request(struct intel_engine_coredump *ee,
+@@ -332,19 +326,7 @@ i915_capture_error_state(struct intel_gt *gt, intel_engine_mask_t engine_mask, u
+ }
+ 
+ static inline struct i915_gpu_coredump *
+-i915_gpu_coredump_alloc(struct drm_i915_private *i915, gfp_t gfp)
+-{
+-	return NULL;
+-}
+-
+-static inline struct intel_gt_coredump *
+-intel_gt_coredump_alloc(struct intel_gt *gt, gfp_t gfp, u32 dump_flags)
+-{
+-	return NULL;
+-}
+-
+-static inline struct intel_engine_coredump *
+-intel_engine_coredump_alloc(struct intel_engine_cs *engine, gfp_t gfp, u32 dump_flags)
++i915_gpu_coredump_alloc(struct intel_engine_cs *engine, gfp_t gfp)
+ {
+ 	return NULL;
+ }
 -- 
-2.25.1
+2.39.2
 
