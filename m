@@ -4,71 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCD10E743FA
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Sep 2023 08:42:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF863E743FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Sep 2023 09:20:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E5BD10E6F4;
-	Fri, 29 Sep 2023 08:42:36 +0000 (UTC)
-X-Greylist: delayed 1605 seconds by postgrey-1.36 at gabe;
- Thu, 28 Sep 2023 18:18:51 UTC
-Received: from mx0b-002e3701.pphosted.com (mx0b-002e3701.pphosted.com
- [148.163.143.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 064F410E42B;
- Thu, 28 Sep 2023 18:18:50 +0000 (UTC)
-Received: from pps.filterd (m0134424.ppops.net [127.0.0.1])
- by mx0b-002e3701.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 38SHhHiB002198; Thu, 28 Sep 2023 17:51:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com;
- h=date : from : to : cc :
- subject : message-id : references : content-type : in-reply-to :
- mime-version; s=pps0720; bh=mZrC/t7ae+Z2o86iz704abLpUMsth0bb5IgGpyWjrnM=;
- b=APaa5kKkE4mpyTjbaPlvnbYIWIT9A784n1fDZhZsP48Q4BO9uSG32bZsfAF52jrU1bOT
- 1h7DtIZq8CfCoiXJzZq8iCLGpdSe2PlQIjBXHSbzsrerYmN3AzKoVoUge3gno+oOKne0
- TZt5ZpPcmFxaL8khHe4Ax9IRzjtiszQvxqsciJsyNpAD6ZY84bLt17ZecVDpe5s/3MjB
- a3q5Nj2zzP41qNl43/8ndPzzA6qoqUz03rp+3yjfOcXzoZpJvReW4KIp/RtMFfifP+Ul
- Z6IbclgwAUZ5SJhoTsDmi8nxYS4v/OvpF1TAywHM0NXqhjlAEPK6WdmkxzbGRG8AthqO KA== 
-Received: from p1lg14881.it.hpe.com ([16.230.97.202])
- by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 3tde4ur2yg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 28 Sep 2023 17:51:25 +0000
-Received: from p1lg14885.dc01.its.hpecorp.net (unknown [10.119.18.236])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by p1lg14881.it.hpe.com (Postfix) with ESMTPS id A9CF8805E26;
- Thu, 28 Sep 2023 17:51:23 +0000 (UTC)
-Received: from swahl-home.5wahls.com (unknown [16.231.227.36])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (Client did not present a certificate)
- by p1lg14885.dc01.its.hpecorp.net (Postfix) with ESMTPS id DAC6681566E;
- Thu, 28 Sep 2023 17:51:16 +0000 (UTC)
-Date: Thu, 28 Sep 2023 12:51:15 -0500
-From: Steve Wahl <steve.wahl@hpe.com>
-To: j.granados@samsung.com
-Message-ID: <ZRW9Eywl831h/YhW@swahl-home.5wahls.com>
-References: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-0-e59120fca9f9@samsung.com>
- <=?utf-8?q?=3C20230928-jag-sysctl=5Fremove=5Fempty=5Felem=5Fdrive?=>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <=?utf-8?q?=3C20230928-jag-sysctl=5Fremove=5Fempty=5Felem=5Fdrive?=>
-X-Proofpoint-GUID: ARXao25-avAoloITuhrfvukM5pXVcFhf
-X-Proofpoint-ORIG-GUID: ARXao25-avAoloITuhrfvukM5pXVcFhf
-X-Proofpoint-UnRewURL: 0 URL was un-rewritten
+	by gabe.freedesktop.org (Postfix) with ESMTP id 682B310E0F4;
+	Fri, 29 Sep 2023 09:20:12 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69D9610E0F4
+ for <intel-gfx@lists.freedesktop.org>; Fri, 29 Sep 2023 09:20:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1695979210; x=1727515210;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=7MnNfgUUnJL+kG0zbXS+qO1gXE68Vuc4RyRaz1bX+yQ=;
+ b=QNR3Z1N/M/SvqyQXW0z2m2OHpgCx/bbB19LKfHBhxScQoGmcXMQmwruo
+ //477NJzcw4TtQy8dYwAgCxS2hxY9UTj3u0q926CCDRXJrvvsUN7qrItY
+ oc2jYVLPsN4M8opZphS4OpNizpuhFZw14qgcWW/6+pwbEB6Cv9DEXLRjg
+ gppwMFjOfojwTd/hkMoQbZ9hlv3DzVvnQ2arqRboZpCrjN8e/XrSQe106
+ 0JEleFIDJMRIWO5QjAHPv0rti8qj+zpkCUYRJXGyuSZVYxKY3z6Ib/c9s
+ ZH06fgL2n1o68JbR1X0UiF4ntyq53nmhRiYF5WGiR1NqNSDoNTsOpelZR A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="379535227"
+X-IronPort-AV: E=Sophos;i="6.03,186,1694761200"; d="scan'208";a="379535227"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2023 02:19:57 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="726542118"
+X-IronPort-AV: E=Sophos;i="6.03,186,1694761200"; d="scan'208";a="726542118"
+Received: from osalyk-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.252.53.237])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2023 02:19:55 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Gustavo
+ Sousa <gustavo.sousa@intel.com>
+In-Reply-To: <ZQxd5wLhPELN5hfu@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20230920195351.59421-2-gustavo.sousa@intel.com>
+ <ZQtPR3XtOl3WWW9Q@intel.com>
+ <169524081664.7665.4045864066370477019@gjsousa-mobl2>
+ <ZQtWNlJimAS8V57w@intel.com>
+ <169530722255.1903.12270984235287148195@gjsousa-mobl2>
+ <ZQxd5wLhPELN5hfu@intel.com>
+Date: Fri, 29 Sep 2023 12:19:53 +0300
+Message-ID: <87ttrdibeu.fsf@intel.com>
 MIME-Version: 1.0
-X-HPE-SCL: -1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.267,Aquarius:18.0.980,Hydra:6.0.619,FMLib:17.11.176.26
- definitions=2023-09-28_16,2023-09-28_03,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 phishscore=0
- malwarescore=0 adultscore=0 spamscore=0 priorityscore=1501
- lowpriorityscore=0 suspectscore=0 impostorscore=0 mlxlogscore=999
- mlxscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2309180000 definitions=main-2309280155
-X-Mailman-Approved-At: Fri, 29 Sep 2023 08:42:34 +0000
-Subject: Re: [Intel-gfx] [PATCH 11/15] sgi-xp: Remove the now superfluous
- sentinel element from ctl_table array
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915/irq: Clear GFX_MSTR_IRQ as part
+ of IRQ reset
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,85 +66,146 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>, Steve Wahl <steve.wahl@hpe.com>,
- Clemens Ladisch <clemens@ladisch.de>, linux-hyperv@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Phillip Potter <phil@philpotter.co.uk>,
- Song Liu <song@kernel.org>, Eric Dumazet <edumazet@google.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>, Jiri Slaby <jirislaby@kernel.org>,
- Russ Weight <russell.h.weight@intel.com>, Wei Liu <wei.liu@kernel.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Corey Minyard <minyard@acm.org>,
- Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org,
- David Airlie <airlied@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, willy@infradead.org,
- Jason Gunthorpe <jgg@ziepe.ca>, linux-serial@vger.kernel.org,
- Doug Gilbert <dgilbert@interlog.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Haiyang Zhang <haiyangz@microsoft.com>,
- Kees Cook <keescook@chromium.org>, Arnd Bergmann <arnd@arndb.de>,
- linux-kernel@vger.kernel.org, "James E.J. Bottomley" <jejb@linux.ibm.com>,
- intel-gfx@lists.freedesktop.org, josh@joshtriplett.org,
- linux-raid@vger.kernel.org, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- xen-devel@lists.xenproject.org, openipmi-developer@lists.sourceforge.net,
- Juergen Gross <jgross@suse.com>, Theodore Ts'o <tytso@mit.edu>,
- linux-scsi@vger.kernel.org, "Martin K. Petersen" <martin.petersen@oracle.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- David Ahern <dsahern@kernel.org>, Robin Holt <robinmholt@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Luis Chamberlain <mcgrof@kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- Sudip Mukherjee <sudipm.mukherjee@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org, Matt Roper <matthew.d.roper@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Sep 28, 2023 at 03:21:36PM +0200, Joel Granados via B4 Relay wrote:
-> From: Joel Granados <j.granados@samsung.com>
-> 
-> This commit comes at the tail end of a greater effort to remove the
-> empty elements at the end of the ctl_table arrays (sentinels) which
-> will reduce the overall build time size of the kernel and run time
-> memory bloat by ~64 bytes per sentinel (further information Link :
-> https://lore.kernel.org/all/ZO5Yx5JFogGi%2FcBo@bombadil.infradead.org/)
-> 
-> Remove sentinel from xpc_sys_xpc_hb and xpc_sys_xpc
-> 
-> Signed-off-by: Joel Granados <j.granados@samsung.com>
-> ---
->  drivers/misc/sgi-xp/xpc_main.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/misc/sgi-xp/xpc_main.c b/drivers/misc/sgi-xp/xpc_main.c
-> index 6da509d692bb..c898092ff3ac 100644
-> --- a/drivers/misc/sgi-xp/xpc_main.c
-> +++ b/drivers/misc/sgi-xp/xpc_main.c
-> @@ -109,8 +109,7 @@ static struct ctl_table xpc_sys_xpc_hb[] = {
->  	 .mode = 0644,
->  	 .proc_handler = proc_dointvec_minmax,
->  	 .extra1 = &xpc_hb_check_min_interval,
-> -	 .extra2 = &xpc_hb_check_max_interval},
-> -	{}
-> +	 .extra2 = &xpc_hb_check_max_interval}
->  };
->  static struct ctl_table xpc_sys_xpc[] = {
->  	{
-> @@ -120,8 +119,7 @@ static struct ctl_table xpc_sys_xpc[] = {
->  	 .mode = 0644,
->  	 .proc_handler = proc_dointvec_minmax,
->  	 .extra1 = &xpc_disengage_min_timelimit,
-> -	 .extra2 = &xpc_disengage_max_timelimit},
-> -	{}
-> +	 .extra2 = &xpc_disengage_max_timelimit}
->  };
->  
->  static struct ctl_table_header *xpc_sysctl;
-> 
-> -- 
-> 2.30.2
-> 
+On Thu, 21 Sep 2023, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
+> wrote:
+> On Thu, Sep 21, 2023 at 11:40:22AM -0300, Gustavo Sousa wrote:
+>> Quoting Ville Syrj=C3=A4l=C3=A4 (2023-09-20 17:29:42-03:00)
+>> >On Wed, Sep 20, 2023 at 05:13:36PM -0300, Gustavo Sousa wrote:
+>> >> Quoting Ville Syrj=C3=A4l=C3=A4 (2023-09-20 17:00:07-03:00)
+>> >> >On Wed, Sep 20, 2023 at 04:53:52PM -0300, Gustavo Sousa wrote:
+>> >> >> Starting with Xe_LP+, GFX_MSTR_IRQ contains status bits that have =
+W1C
+>> >> >> behavior. If we do not properly reset them, we would miss delivery=
+ of
+>> >> >> interrupts if a pending bit is set when enabling IRQs.
+>> >> >>=20
+>> >> >> As an example, the display part of our probe routine contains paths
+>> >> >> where we wait for vblank interrupts. If a display interrupt was al=
+ready
+>> >> >> pending when enabling IRQs, we would time out waiting for the vbla=
+nk.
+>> >> >>=20
+>> >> >> Avoid the potential issue by clearing GFX_MSTR_IRQ as part of the =
+IRQ
+>> >> >> reset.
+>> >> >>=20
+>> >> >> v2:
+>> >> >>   - Move logic from gen11_gt_irq_reset() to dg1_irq_reset(). (Matt)
+>> >> >>=20
+>> >> >> BSpec: 50875, 54028
+>> >> >> Cc: Matt Roper <matthew.d.roper@intel.com>
+>> >> >> Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
+>> >> >> ---
+>> >> >>  drivers/gpu/drm/i915/i915_irq.c | 2 ++
+>> >> >>  1 file changed, 2 insertions(+)
+>> >> >>=20
+>> >> >> diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i91=
+5/i915_irq.c
+>> >> >> index 1bfcfbe6e30b..8130f043693b 100644
+>> >> >> --- a/drivers/gpu/drm/i915/i915_irq.c
+>> >> >> +++ b/drivers/gpu/drm/i915/i915_irq.c
+>> >> >> @@ -751,6 +751,8 @@ static void dg1_irq_reset(struct drm_i915_priv=
+ate *dev_priv)
+>> >> >>=20=20
+>> >> >>          GEN3_IRQ_RESET(uncore, GEN11_GU_MISC_);
+>> >> >>          GEN3_IRQ_RESET(uncore, GEN8_PCU_);
+>> >> >> +
+>> >> >> +        intel_uncore_write(uncore, GEN11_GFX_MSTR_IRQ, ~0);
+>> >> >
+>> >> >Did you confirm that it's not double buffered?
+>> >>=20
+>> >> Ah, sorry... I forgot to mention on the original thread where you ask=
+ed:
+>> >>=20
+>> >>   - BSpec 50875 and 66434 (for Xe2) does not say that GFX_MSTR_IRQ is
+>> >>     double buffered. In fact they mention the fact that display IIR
+>> >>     registers are double buffered and require multiple writes to fully
+>> >>     clear, but does not say the same about GFX_MSTR_IRQ.
+>> >>=20
+>> >>   - Also, BSpec 54028 does not mention that the register is double
+>> >>     buffered.
+>> >>=20
+>> >> Based on the above, I'm assuming it is not double buffered.
+>> >>=20
+>> >> Should I check other sources? Is there some sort of runtime check that
+>> >> can be done?
+>> >
+>> >I'd probably just poke at it with intel_reg. Eg:
+>> >1. boot w/o driver
+>> >2. unmask+enable eg. pipe vblank interrupt in GEN8_DE_PIPE_IMR/IER
+>> >3. make sure GEN11_DISPLAY_INT_CTL sees it
+>> >4. enable GEN11_DISPLAY_IRQ_ENABLE
+>> >5. make sure GEN11_GFX_MSTR_IRQ see it
+>> >6. toggle GEN11_DISPLAY_IRQ_ENABLE a few more times to generate extra e=
+dges
+>> >7. try to clear the bit in GEN11_GFX_MSTR_IRQ
+>> >8. did the bit clear?
+>> >   yes -> single buffered
+>> >   no -> goto 7 and check again to make sure it clears on the second ti=
+me around -> double buffered
+>>=20
+>> Thanks for the detailed sequence above.
+>>=20
+>> I wrote a small bash script based on the above and ran it on a Lunar
+>> Lake machine. The output is presented below.
+>>=20
+>> I belive the output is self explanatory, but just to be sure: "write
+>> <REG_NAME> <VAL>" tells that we are writing <VAL> to <REG_NAME>; and
+>> "read <REG_NAME> <VAL>" tells that we got <VAL> after reading
+>> <REG_NAME>.
+>>=20
+>>     $ sudo ./confirm-gfx-mstr-irq-is-single-buffered.sh
+>>     Reset stuff
+>>       write GEN8_DE_PIPE_IMR__PIPE_A        0xffffffff
+>>       write GEN8_DE_PIPE_IER__PIPE_A        0x00000000
+>>       write GEN8_DE_PIPE_IIR__PIPE_A        0xffffffff
+>>       write GEN8_DE_PIPE_IIR__PIPE_A        0xffffffff
+>>       write GEN11_DISPLAY_INT_CTL   0x00000000
+>>       write GEN11_GFX_MSTR_IRQ      0xffffffff
+>>       write GEN11_GFX_MSTR_IRQ      0xffffffff
+>>       read  GEN8_DE_PIPE_IIR__PIPE_A        0x00000000
+>>       read  GEN11_DISPLAY_INT_CTL   0x00000000
+>>       read  GEN11_GFX_MSTR_IRQ      0x00000000
+>>=20
+>>     Enable vblank on PIPE A
+>>       write GEN8_DE_PIPE_IMR__PIPE_A        0xfffffffe
+>>       write GEN8_DE_PIPE_IER__PIPE_A        0x00000001
+>>=20
+>>     Check that display interrupt was generated
+>>       read  GEN11_DISPLAY_INT_CTL   0x00010000
+>>=20
+>>     Enable display interrupt
+>>       write GEN11_DISPLAY_INT_CTL   0x80000000
+>>=20
+>>     Check that display bit in GFX_MSTR_IRQ was set
+>>       read  GEN11_GFX_MSTR_IRQ      0x00010000
+>>=20
+>>     Toggle the enable bit to generate edges
+>>       write GEN11_DISPLAY_INT_CTL   0x00000000
+>>       write GEN11_DISPLAY_INT_CTL   0x80000000
+>>       write GEN11_DISPLAY_INT_CTL   0x00000000
+>>       write GEN11_DISPLAY_INT_CTL   0x80000000
+>>=20
+>>     Clear and read GFX_MSTR_IRQ again
+>>       write GEN11_GFX_MSTR_IRQ      0xffffffff
+>>       read  GEN11_GFX_MSTR_IRQ      0x00000000
+>>=20
+>> By the output above, I belive we can conclude that GFX_MSTR_IRQ is
+>> single buffered, right?
+>
+> Aye. Looks conclusive.
+>
+> Reviewed-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-I assume you'll match the rest of the changes with regards to the
-trailing comma.
+Should this have been Cc: stable?
 
-Reviewed-by: Steve Wahl <steve.wahl@hpe.com>
+BR,
+Jani.
 
--- 
-Steve Wahl, Hewlett Packard Enterprise
+
+--=20
+Jani Nikula, Intel
