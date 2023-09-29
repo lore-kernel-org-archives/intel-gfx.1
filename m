@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F042E71D21
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Sep 2023 12:25:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A95EE71D22
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Sep 2023 12:25:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3DD210E713;
-	Fri, 29 Sep 2023 12:25:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33F6A10E714;
+	Fri, 29 Sep 2023 12:25:53 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7812310E708;
- Fri, 29 Sep 2023 12:25:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DFFB10E700;
+ Fri, 29 Sep 2023 12:25:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1695990334; x=1727526334;
+ t=1695990332; x=1727526332;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Yt46lnO79fw85Z3m8LKQvMLLP745R4hvjLbFZi57wa0=;
- b=MKkukp018IghU8yxaljZcvzibEov+bkmIlCM8nWFFfn0ylq6EZ22pP/J
- XxpVjQn5jFVhZR7lCF6y2Iz+02dFAAc67l/Z9BVt3zJqA8bYR+qKNccWD
- Rb3vVaeg+U+0fUFmlFxNsVSAHZH0WaZQLuyiU/AWUAN0q+p/4XHLHahj9
- ZgOrJgdht/+v05UQ2TAHu+AJNA55zEfWwLCdzlnIUF2U5V39REkMdE5s2
- JM084nknMB3O3U6Cx5vc5tNtnEvjszAv6Jqs841kC6z9zNtbsatoxOmVH
- hlNqh9tVw+oAUEl1qXBuUShTJxPjPIkk6EBLXZkFZ37st5VhBxKY1oS6W Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="446443776"
-X-IronPort-AV: E=Sophos;i="6.03,187,1694761200"; d="scan'208";a="446443776"
+ bh=fFC8zeAXYse+bJ24oEkQAdx6LySDbjEi5siD3StUVRM=;
+ b=ibDScVqzXAEASgaZHTmA1VjbjYgffVFkjFEMppsZ8xVp1tpl58dcgdvw
+ +K0x+aCTWLNB7uEAAvhmGWwqV7u9mJC8GUrWIMtOqRli5mumwo9ypEdoH
+ fO/BtGVu+EdSPEUBdzYhKuV/yfeV4g9el+IUW3RulobWN3uHuKvaoxE/D
+ AC6ud3APBQ5EIe+pzDWXgS7s/9l3YC4Z/MkcgvFM2DtNgWvbsVIA/2Vkc
+ 86x06R1GqY2Rp0aViFAAu6m9lq2uYirZzMMw1e+GDApXfoo9HLfzjiJHe
+ LRbC7C3bzYESQgdIB4njhFIsh+G1GrOp98PpX78vegrvM8I1BjBIrrKWI A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="446443770"
+X-IronPort-AV: E=Sophos;i="6.03,187,1694761200"; d="scan'208";a="446443770"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2023 05:25:34 -0700
+ 29 Sep 2023 05:25:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="726577159"
-X-IronPort-AV: E=Sophos;i="6.03,187,1694761200"; d="scan'208";a="726577159"
+X-IronPort-AV: E=McAfee;i="6600,9927,10847"; a="726577151"
+X-IronPort-AV: E=Sophos;i="6.03,187,1694761200"; d="scan'208";a="726577151"
 Received: from pbrady4x-mobl1.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.203.84])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2023 05:25:33 -0700
+ 29 Sep 2023 05:25:30 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: igt-dev@lists.freedesktop.org,
 	Intel-gfx@lists.freedesktop.org
-Date: Fri, 29 Sep 2023 13:25:12 +0100
-Message-Id: <20230929122517.349348-8-tvrtko.ursulin@linux.intel.com>
+Date: Fri, 29 Sep 2023 13:25:10 +0100
+Message-Id: <20230929122517.349348-6-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230929122517.349348-1-tvrtko.ursulin@linux.intel.com>
 References: <20230929122517.349348-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 07/12] lib/igt_drm_fdinfo: Copy over
- region map name on match
+Subject: [Intel-gfx] [PATCH i-g-t 05/12] tools/intel_gpu_top: Fix client
+ layout on first sample period
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,29 +66,60 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-I will need some record of which regions were found for intel_gpu_top so
-lets just copy over the region name from the map on the first match.
+When I moved the client name to be last, I did not account for the fact
+current code skips showing engine utilisation until at least two sampling
+periods have passed. Consequence of this is that client name gets printed
+as the second field and not under the "NAME" column header.
+
+Fix it by emitting spaces instead of engine utilisation until two samples
+have been collected.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- lib/igt_drm_fdinfo.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ tools/intel_gpu_top.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/lib/igt_drm_fdinfo.c b/lib/igt_drm_fdinfo.c
-index b72822894782..222ccbfb1fd6 100644
---- a/lib/igt_drm_fdinfo.c
-+++ b/lib/igt_drm_fdinfo.c
-@@ -148,6 +148,10 @@ static int parse_region(char *line, struct drm_client_fdinfo *info,
- 		for (i = 0; i < region_entries; i++) {
- 			if (!strncmp(name, region_map[i], name_len)) {
- 				found = i;
-+				if (!info->region_names[info->num_regions][0]) {
-+					assert(name_len < sizeof(info->region_names[i]));
-+					strncpy(info->region_names[i], name, name_len);
-+				}
- 				break;
- 			}
- 		}
+diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
+index 66b76c4afed0..de37ff603b6f 100644
+--- a/tools/intel_gpu_top.c
++++ b/tools/intel_gpu_top.c
+@@ -926,12 +926,14 @@ static void free_display_clients(struct igt_drm_clients *clients)
+ 
+ static const char *bars[] = { " ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█" };
+ 
+-static void n_spaces(const unsigned int n)
++static unsigned int n_spaces(const unsigned int n)
+ {
+ 	unsigned int i;
+ 
+ 	for (i = 0; i < n; i++)
+ 		putchar(' ');
++
++	return n;
+ }
+ 
+ static void
+@@ -2041,14 +2043,17 @@ print_client(struct igt_drm_client *c, struct engines *engines, double t, int li
+ 
+ 		len = printf("%*s ", clients->max_pid_len, c->pid_str);
+ 
+-		for (i = 0;
+-		     c->samples > 1 && i <= iclients->classes.max_engine_id;
+-		     i++) {
++		for (i = 0; i <= iclients->classes.max_engine_id; i++) {
+ 			double pct, max;
+ 
+ 			if (!iclients->classes.capacity[i])
+ 				continue;
+ 
++			if (c->samples < 2) {
++				len += n_spaces(*class_w);
++				continue;
++			}
++
+ 			pct = (double)c->val[i] / period_us / 1e3 * 100;
+ 
+ 			/*
 -- 
 2.39.2
 
