@@ -4,46 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1589E71D53
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Sep 2023 15:34:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EC41E728C1
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Sep 2023 15:40:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEE8410E15C;
-	Fri, 29 Sep 2023 15:34:00 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F5EF10E155
- for <intel-gfx@lists.freedesktop.org>; Fri, 29 Sep 2023 15:33:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E3D110E09A;
+	Fri, 29 Sep 2023 15:40:45 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 905F610E172;
+ Fri, 29 Sep 2023 15:40:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696001638; x=1727537638;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=UE7bQNoSKQCIsK4Ot5MnsiMxXCaHJCqQq+KhQN5D1jc=;
- b=d0golDB2M8iKi1aMNf8M5VAAGoSxrXQf77gE52kq4MeEsu8U4IF9Siha
- 8GkgWilRRmCKx0zd0Kjzcj32x1pYxMlbwsY+tf3fJs9WfB51YUfCbDDAE
- 2hdIbhMC+P+MC4j7yR+XKJz7iLwS8wcFwlMfXbHRsVs6vs9GgKCgtgURf
- y2vniaVuvvBji6qomkjQp8dFYFGtOCl+jPYWSyBcntyvRbMqok7XLAAT5
- DSaYG0Dh2S3yx+iWP/Xx2jMZV+bqdIe6OsdKS5QBO/6XxjDbF5kWlhIxu
- CVr/tE8hdY7asCdLyG0xpKBsuLsgB/nTM1hY8A+Ah9cGJ/v0mOfRu55+l g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10848"; a="361702187"
-X-IronPort-AV: E=Sophos;i="6.03,187,1694761200"; d="scan'208";a="361702187"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2023 08:33:57 -0700
+ t=1696002043; x=1727538043;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=BmGwkNlG8TyzlePrlq9aBh1e9WlzDJ7SvzZUT0vIZ8k=;
+ b=hCCTkXuiz+QgRkNwc03O7nA2HYrTbqjm7BdCnaa6iwi6t3fUfybrbh8F
+ S+O3F3MN47An0ZVxj4wEYVMyF3Y5M8ucGMP5lZYVvirNCoKnv/0o1z7kJ
+ MX6vuJ1a+ho0G25YlUBqG5NS+s7rTPLviebNrByOpEFZ1FQnaeIReM7/4
+ CmDJXnreCWNm3TuhoG8OJjf15oD74u79K+TORWppv1zRl0iOzOn+Lw48I
+ DOxGVxs77vtx9cHPIMc31MrpGWS6UUmm6Bpa6fgRiESN4ByFmE3O3Kft6
+ dpI/uJTx77iHUbCK5TZ6ls9FKPL8z3nO+zXMhKXg+cKsVtsWIU5BRm2Sv A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10848"; a="379597199"
+X-IronPort-AV: E=Sophos;i="6.03,187,1694761200"; d="scan'208";a="379597199"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Sep 2023 08:40:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10848"; a="815642534"
-X-IronPort-AV: E=Sophos;i="6.03,187,1694761200"; d="scan'208";a="815642534"
-Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Sep 2023 08:33:56 -0700
-From: Jonathan Cavitt <jonathan.cavitt@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 29 Sep 2023 08:23:14 -0700
-Message-Id: <20230929152315.724900-1-jonathan.cavitt@intel.com>
-X-Mailer: git-send-email 2.25.1
+X-IronPort-AV: E=McAfee;i="6600,9927,10848"; a="785129306"
+X-IronPort-AV: E=Sophos;i="6.03,187,1694761200"; d="scan'208";a="785129306"
+Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
+ by orsmga001.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 29 Sep 2023 08:40:25 -0700
+Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.32; Fri, 29 Sep 2023 08:40:25 -0700
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.32; Fri, 29 Sep 2023 08:40:25 -0700
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.32 via Frontend Transport; Fri, 29 Sep 2023 08:40:25 -0700
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.170)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.32; Fri, 29 Sep 2023 08:40:24 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Qoyfb6zryLn5ffepDPcp8Jimbr8s7x/S+3jZEnoBOcgeyqG8aRi+eHwP2/q+0wqnOPUrWDmXK0/agQ5nzDm+QDcYRGtXO1kBTWUafQjn3sSRklVtSxyWl1AzjtHDAzqpWbiLv69V89Vz1dbM30o783uuDiFdfZN1Mq3uSgojpEX9q8XjA6yW2BQ1BnVj0E0s+8o4EIKIFJx29fP2Gk87HcWIqlS3vwvJpAuc2Deta2RBeVLn7aioP6mdVz1nVQlzsuvW8XX9LSMAZeaI7fjDzy5cT2UQX+0ENt/95ZITsk0Jafbz4F6jvZF6D/XTMSh+u8GgTbTGxYA0rjt99grm8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Cbglc0Cs1wOcYun3ODrzpYDpixEMJamIs1NLzC16SlQ=;
+ b=bpIZ70Qrj2PWGrJ6L0r9SzGdc74vNoTxvButDTI92u2K4Ijpgg6qvG+NHiyMrMadyTrV/Q2oFeCZ1UL4sFGICXwiWsGoyH2NuHSLBEXtmniCf4rMOfkkEswg7gTZGZirm1RulEf05KdtZT54h74NFskZtOOu9CVQiLZE9hS7y5Se2S2uWPUT5pyPK643S0zTfqwinPU6yv0V66+KClcqEoWcZFaNZ0YGWj2ouS5iMS+55OwDxUwl3x3WiQXo4bkquRJ/8Q7TH90u3/1jjfVTZwgJpMR/94BML8Ff8xEVqvxbdHaffw3/92ThLr5Nq4lHIa/cPLOLq+jTQQJg1tCndA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM6PR11MB2987.namprd11.prod.outlook.com (2603:10b6:5:65::14) by
+ SN7PR11MB7975.namprd11.prod.outlook.com (2603:10b6:806:2eb::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6813.28; Fri, 29 Sep 2023 15:40:17 +0000
+Received: from DM6PR11MB2987.namprd11.prod.outlook.com
+ ([fe80::a51e:7713:dd10:97da]) by DM6PR11MB2987.namprd11.prod.outlook.com
+ ([fe80::a51e:7713:dd10:97da%3]) with mapi id 15.20.6813.027; Fri, 29 Sep 2023
+ 15:40:17 +0000
+Date: Fri, 29 Sep 2023 08:40:10 -0700
+From: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Message-ID: <ZRbv2jgIi1xN298e@unerlige-ril>
+References: <20230929110949.342325-1-tvrtko.ursulin@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20230929110949.342325-1-tvrtko.ursulin@linux.intel.com>
+X-ClientProxiedBy: MW4PR04CA0036.namprd04.prod.outlook.com
+ (2603:10b6:303:6a::11) To DM6PR11MB2987.namprd11.prod.outlook.com
+ (2603:10b6:5:65::14)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/2] drm/i915: Define and use GuC and CTB TLB
- invalidation routines
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR11MB2987:EE_|SN7PR11MB7975:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0d7856c2-4d82-46e5-736c-08dbc102615a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Lgwtev7+b4gewADPq0YZCvEo+gEAoEp2mOQjIB3Fc3KTeM8y/s7elv/dDXFWIS/bSKzU2fQq7xuAKVeDRPA0iI6MKcs5d0D8yAPZogKTWD81xsV/qmEJ24i47jlTWmsAh8gw2Dat2fRgJkk1+UOzHvHhXUUaXdvntSIXKKLxQ3q7Wdx9lu/voWWOmRjlC51pA2AYsOCjaRVU8ayL32PegO/gZJ1SkOUNgFxhRiDAOFn+wD0mpBIveDZqivRGFN21tL6RPJ7W2NRy4Hto4zOlexraG+aTze3R8NlOsafLVdecy+MiY5J6QCktvjsUh9bg0sooouU1x9XE+DpS//XepI7SY8GsVZxVMJioC4mntp6Hlc9iyzfCwmXHxB4AzCyf/F2WT2hamDUH89Mtnp9G8T+D6o01r6Jyufe+Qqclo7Xdo7coWUKWXbyQiluChQeTjFwCV+CXNqlxZKnfzCqwwO/bm+mhluxp4XbTPscyaCHE3DEDS/A7P/UpB54hj5jWKhY21M2vQp9tozvLE6cbJfyRuzYuNMy+DwleOPIIqLq/zUN8u6UnxXdOk9LEft+q
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR11MB2987.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(7916004)(396003)(376002)(366004)(346002)(39860400002)(136003)(230922051799003)(64100799003)(186009)(451199024)(1800799009)(33716001)(83380400001)(6916009)(6506007)(82960400001)(66476007)(478600001)(38100700002)(66946007)(8936002)(6666004)(2906002)(6486002)(66556008)(8676002)(9686003)(6512007)(15650500001)(26005)(86362001)(316002)(41300700001)(5660300002)(4326008);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MWt5UTd3bVh6NVlMZlUwSjJoclBJTmRKaEJIZTNuKzAyb0xJaElzNVdwaWVz?=
+ =?utf-8?B?VmM1WURsYzRvcm04dFJISmNnVThzNEdUYTJBOFp1VGNDWE5RM2FaSDRPc0xS?=
+ =?utf-8?B?UFZzaUovRTlIOUFLR0d0cWIvQlFabXNLSzlocEJ0b1dVOGVaTUNBM1o3eXZO?=
+ =?utf-8?B?NUFDL2RVZjNjRFpmWGpmRXhtYlZvYXJhU2labHNxSVhYamcrWnJGS1dLd3dk?=
+ =?utf-8?B?eENXdkRGOVdzRWZ5bWlrb0l5enJRU0tPWVRwaFU2S0szVWprUWRpNG9zM1Rp?=
+ =?utf-8?B?Rit6WXh0OHRtUDdISy9rM0d6eWpvMFdwd1pFVk53ellVL0RDbDlaU3p2aHNT?=
+ =?utf-8?B?ZVpLenYvZ2txdGcxelhUanYvUzUzbUNsRXpvYlNlSDNHbm5NUngrYnovY2RW?=
+ =?utf-8?B?QjRMamE3d1NCSmhIcDkxbjgyd3BCQUNVR2xKNjZLZTdxZWlET0hrZFk4Z3hC?=
+ =?utf-8?B?d1lGVHljY0dGaU5kNC9kNmlXU1MzUlpTcjE1czlna2FvOFFHRmUxOWZoWmY0?=
+ =?utf-8?B?dUdDQmYvdStuZmwxV2JPU0dGRnUxeCtVRmluanpnOW9MUGlxd3pXeGIwVnY4?=
+ =?utf-8?B?R1F6ejZYTlV0eTRCOWNsbVV6VzAyYTNld1ZFbEI5T2c1T1I0VVBTZ1BpdEV6?=
+ =?utf-8?B?ek9EMldqNnJaQWE2cnlEM3ZaRWhOTm81elByMWVxSTNXdHZ1OWtsRWhURHJw?=
+ =?utf-8?B?OVQwYkh5eVFZa3AxZWllNDkxOTMwa3laS0l4VUpOZnZFbHBNT1pYU2FyZVdD?=
+ =?utf-8?B?OG1rUmpqNnNVSnNtcmZPMGh2enpTNm9KL1llSXdidXd2ZEFIM0ZFQmtQOGVx?=
+ =?utf-8?B?Z0lMOTQrTUdMbGgzV1R2SDR3enNZaDZoSThhQlVtN2gxSFpIaER0VFh4ang1?=
+ =?utf-8?B?dEhjMGxnWEZmaUN3SW01Q3VwZ0hpWFF3NVJqUEs4U2d5N2pFZXBOZEx0T3Q4?=
+ =?utf-8?B?ZTlMdnkxczNXTUNDd3FEZUk0ZzhMcEdOOFJ0ZmI2aE1xdkpWMWlHRHFLR0Ir?=
+ =?utf-8?B?OTY0cHlFd2xUMDM2RVZYaFZhSmh6aTNNTmJmcjJhM1hhRVZ0MHBNZ1N3UFpt?=
+ =?utf-8?B?a09kTkJKc3U2bGhIc051cU5Kd01uUkJwaG9KaG44ZFFtZUZGSlN1UGtPSFBm?=
+ =?utf-8?B?N1pEbkdLUFlXNGFIZ1VySVJ0U2tEM3ZDd3BaZTkySHBoWEVKYmRLU3B3UEp5?=
+ =?utf-8?B?cnBxdy8xeEFkZ0dhWC81L2Qzb1hnYVF5ZGQvdUhMSC9vTmtMOXdkdVdWQjF4?=
+ =?utf-8?B?dWtPTTlMdnJzaktRVXpmWnhjODIvbFREYkFraU1nS0tkVTZCK2Z4SCs0V2lE?=
+ =?utf-8?B?Q2FLSWtHbGhjaGw5SEhaQ3ZySjNlWEhNdjZ3emVyQ1h0bXRSdFRoRUo4ay9P?=
+ =?utf-8?B?R1hseGRZRTFlSER2YTludmRlZ3NUSzdLb1NOVG9EM0ZUM2pYWFp2T0EzMHFE?=
+ =?utf-8?B?WEJZZUx2TFkweU5LWlJVeCt0UHVuZkRqUUt2T25NSWNpblRXT0ZWUTVJNFY1?=
+ =?utf-8?B?RE54eGR5eGxITFdBci9wQ1gxTGpuRXVicTdXcElOaGgxb2tGRTVoakRvWUtS?=
+ =?utf-8?B?aWJ3Y0NjRGlMN2FJcEV4SlpWTWlyVnJPSzY1QVhidlhoK1cxN1dsalhzM0xm?=
+ =?utf-8?B?dmkzV3FjYVpLVy9mWnVzT3BUT05YNHZENFBSdTNEVTYvVGFFdEVhdjlzNjQ0?=
+ =?utf-8?B?T2xGbk5nd2xxUzk2UGFiL3l4ejdhdnppMjdCQUhwclFBaEVmbUhxSkV0Tlpi?=
+ =?utf-8?B?TnpNRjBNcDU4MnNKVVUwVTdvL29vWWM4M1RVOFBteXNONFIxdU9TVDN5VjUz?=
+ =?utf-8?B?bndRekpFdXdod2FHNVU0LzlZdFpEWEdnQjZqaE95bE9Da2VLTGMzQmRTNWJz?=
+ =?utf-8?B?UVRXcWl2cHlScGxaZ1dCeWtXYUFSdDY0ODJBSmZsZlhucXlKNVJxOVpKRzNE?=
+ =?utf-8?B?YXowNU5qay9KUVRVeWZIQUttOU83RXdVQXZvMmg4SzIxZktUZU9BMUw2ZFVH?=
+ =?utf-8?B?T2RlaUE1YkFwM1dEenJKa3NQOHpwUEtoWkdwdEtOUmRLRTdRcWUwNlhQUTF0?=
+ =?utf-8?B?OXhmVHQ5S2R1Q3JuenVBS3JRVThqcXZwWGdLbzVCZ0NkWjJpOTRLVW1YRXFR?=
+ =?utf-8?B?bTZHb05IckpZYnc0SmJqWGtRTXhIamM0YjdTS01pc3Y0eHhWT2ZJNFY5dlpB?=
+ =?utf-8?Q?yY24M32j5UIJ0tvWdtQROoo=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d7856c2-4d82-46e5-736c-08dbc102615a
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB2987.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Sep 2023 15:40:17.2252 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dbr5nr8LaLXnhZseaGSknWSSsf06elnIP6nelSrMjJ2VI/6tzSXDmRhdYDUQTp1E9uvg9jZFboGhq/mjEsgLBB6ddSubyV8IbzDma5oJlug=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB7975
+X-OriginatorOrg: intel.com
+Subject: Re: [Intel-gfx] [PATCH i-g-t] tools/intel_gpu_top: Restore user
+ friendly error message
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,557 +157,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: janusz.krzysztofik@intel.com, andi.shyti@intel.com,
- jonathan.cavitt@intel.com, umesh.nirlige.ramappa@intel.com,
- chris.p.wilson@linux.intel.com, nirmoy.das@intel.com
+Cc: igt-dev@lists.freedesktop.org, Intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
+On Fri, Sep 29, 2023 at 12:09:49PM +0100, Tvrtko Ursulin wrote:
+>From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>
+>We have a nice error message displayed when an user with insufficient
+>permissions tries to run the tool, but that got lost while Meteorlake
+>support was added. Bring it back in.
+>
+>v2:
+> * Propagate unexpected errno on multi-tile systems too. (Umesh)
+>
+>Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+>Cc: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
+>---
+> tools/intel_gpu_top.c | 8 +++++---
+> 1 file changed, 5 insertions(+), 3 deletions(-)
+>
+>diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
+>index 87e9681e53b4..10601e66b18e 100644
+>--- a/tools/intel_gpu_top.c
+>+++ b/tools/intel_gpu_top.c
+>@@ -554,9 +554,9 @@ static int get_num_gts(uint64_t type)
+>
+> 		close(fd);
+> 	}
+>-	assert(!errno || errno == ENOENT);
+>-	assert(cnt > 0);
+>-	errno = 0;
+>+
+>+	if (!cnt || (errno && errno != ENOENT))
+>+		cnt = -errno;
 
-The GuC firmware had defined the interface for Translation Look-Aside
-Buffer (TLB) invalidation.  We should use this interface when
-invalidating the engine and GuC TLBs.
-Add additional functionality to intel_gt_invalidate_tlb, invalidating
-the GuC TLBs and falling back to GT invalidation when the GuC is
-disabled.
-The invalidation is done by sending a request directly to the GuC
-tlb_lookup that invalidates the table.  The invalidation is submitted as
-a wait request and is performed in the CT event handler.  This means we
-cannot perform this TLB invalidation path if the CT is not enabled.
-If the request isn't fulfilled in two seconds, this would constitute
-an error in the invalidation as that would constitute either a lost
-request or a severe GuC overload.
+Reviewed-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
 
-With this new invalidation routine, we can perform GuC-based GGTT
-invalidations.  We should only do this when GuC is enabled and fall
-back to the original path when GuC is disabled to prevent concurrent
-issuance between GuC and KMD.
-
-Signed-off-by: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
-Signed-off-by: Bruce Chang <yu.bruce.chang@intel.com>
-Signed-off-by: Chris Wilson <chris.p.wilson@intel.com>
-Signed-off-by: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
-Signed-off-by: Aravind Iddamsetty <aravind.iddamsetty@intel.com>
-Signed-off-by: Fei Yang <fei.yang@intel.com>
-CC: Andi Shyti <andi.shyti@linux.intel.com>
----
- drivers/gpu/drm/i915/gt/intel_ggtt.c          |  42 ++--
- drivers/gpu/drm/i915/gt/intel_tlb.c           |  14 +-
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |  33 +++
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  22 ++
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |   8 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   1 +
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 212 +++++++++++++++++-
- 7 files changed, 316 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-index da21f2786b5d7..c5b3725be3bf3 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-@@ -201,22 +201,37 @@ static void gen8_ggtt_invalidate(struct i915_ggtt *ggtt)
- 	intel_uncore_write_fw(uncore, GFX_FLSH_CNTL_GEN6, GFX_FLSH_CNTL_EN);
- }
- 
--static void guc_ggtt_invalidate(struct i915_ggtt *ggtt)
-+static void guc_ggtt_ct_invalidate(struct intel_gt *gt)
- {
--	struct drm_i915_private *i915 = ggtt->vm.i915;
-+	struct intel_uncore *uncore = gt->uncore;
-+	intel_wakeref_t wakeref;
-+
-+	with_intel_runtime_pm_if_active(uncore->rpm, wakeref) {
-+		struct intel_guc *guc = &gt->uc.guc;
- 
--	gen8_ggtt_invalidate(ggtt);
-+		intel_guc_invalidate_tlb(guc);
-+	}
-+}
- 
--	if (GRAPHICS_VER(i915) >= 12) {
--		struct intel_gt *gt;
-+static void guc_ggtt_invalidate(struct i915_ggtt *ggtt)
-+{
-+	struct drm_i915_private *i915 = ggtt->vm.i915;
-+	struct intel_gt *gt;
- 
--		list_for_each_entry(gt, &ggtt->gt_list, ggtt_link)
--			intel_uncore_write_fw(gt->uncore,
--					      GEN12_GUC_TLB_INV_CR,
--					      GEN12_GUC_TLB_INV_CR_INVALIDATE);
--	} else {
--		intel_uncore_write_fw(ggtt->vm.gt->uncore,
--				      GEN8_GTCR, GEN8_GTCR_INVALIDATE);
-+	if (!IS_GEN9_LP(i915) && GRAPHICS_VER(i915) < 11)
-+		gen8_ggtt_invalidate(ggtt);
-+
-+	list_for_each_entry(gt, &ggtt->gt_list, ggtt_link) {
-+		if (intel_guc_is_ready(&gt->uc.guc)) {
-+			guc_ggtt_ct_invalidate(gt);
-+		} else if (GRAPHICS_VER(i915) >= 12) {
-+			intel_uncore_write(gt->uncore,
-+					   GEN12_GUC_TLB_INV_CR,
-+					   GEN12_GUC_TLB_INV_CR_INVALIDATE);
-+		} else {
-+			intel_uncore_write(gt->uncore,
-+					   GEN8_GTCR, GEN8_GTCR_INVALIDATE);
-+		}
- 	}
- }
- 
-@@ -1008,7 +1023,8 @@ static int gen8_gmch_probe(struct i915_ggtt *ggtt)
- 			I915_VMA_GLOBAL_BIND | I915_VMA_LOCAL_BIND;
- 	}
- 
--	if (intel_uc_wants_guc(&ggtt->vm.gt->uc))
-+	if (intel_uc_wants_guc(&ggtt->vm.gt->uc) &&
-+	    intel_uc_wants_guc_submission(&ggtt->vm.gt->uc))
- 		ggtt->invalidate = guc_ggtt_invalidate;
- 	else
- 		ggtt->invalidate = gen8_ggtt_invalidate;
-diff --git a/drivers/gpu/drm/i915/gt/intel_tlb.c b/drivers/gpu/drm/i915/gt/intel_tlb.c
-index 139608c30d978..018aeb6bacc66 100644
---- a/drivers/gpu/drm/i915/gt/intel_tlb.c
-+++ b/drivers/gpu/drm/i915/gt/intel_tlb.c
-@@ -12,6 +12,7 @@
- #include "intel_gt_print.h"
- #include "intel_gt_regs.h"
- #include "intel_tlb.h"
-+#include "uc/intel_guc.h"
- 
- /*
-  * HW architecture suggest typical invalidation time at 40us,
-@@ -131,11 +132,22 @@ void intel_gt_invalidate_tlb_full(struct intel_gt *gt, u32 seqno)
- 		return;
- 
- 	with_intel_gt_pm_if_awake(gt, wakeref) {
-+		struct intel_guc *guc = &gt->uc.guc;
-+
- 		mutex_lock(&gt->tlb.invalidate_lock);
- 		if (tlb_seqno_passed(gt, seqno))
- 			goto unlock;
- 
--		mmio_invalidate_full(gt);
-+		if (intel_guc_submission_is_used(guc)) {
-+			if (intel_guc_is_ready(guc))
-+				intel_guc_invalidate_tlb_full(guc);
-+		} else {
-+			/*
-+			 * Fall back to old path if GuC is disabled.
-+			 * This is safe because GuC is not enabled and not writing to MMIO.
-+			 */
-+			mmio_invalidate_full(gt);
-+		}
- 
- 		write_seqcount_invalidate(&gt->tlb.seqno);
- unlock:
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-index f359bef046e0b..9dff8012d5e76 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-@@ -138,6 +138,8 @@ enum intel_guc_action {
- 	INTEL_GUC_ACTION_REGISTER_CONTEXT_MULTI_LRC = 0x4601,
- 	INTEL_GUC_ACTION_CLIENT_SOFT_RESET = 0x5507,
- 	INTEL_GUC_ACTION_SET_ENG_UTIL_BUFF = 0x550A,
-+	INTEL_GUC_ACTION_TLB_INVALIDATION = 0x7000,
-+	INTEL_GUC_ACTION_TLB_INVALIDATION_DONE = 0x7001,
- 	INTEL_GUC_ACTION_STATE_CAPTURE_NOTIFICATION = 0x8002,
- 	INTEL_GUC_ACTION_NOTIFY_FLUSH_LOG_BUFFER_TO_FILE = 0x8003,
- 	INTEL_GUC_ACTION_NOTIFY_CRASH_DUMP_POSTED = 0x8004,
-@@ -181,4 +183,35 @@ enum intel_guc_state_capture_event_status {
- 
- #define INTEL_GUC_STATE_CAPTURE_EVENT_STATUS_MASK      0x000000FF
- 
-+#define INTEL_GUC_TLB_INVAL_TYPE_MASK	REG_GENMASK(7, 0)
-+#define INTEL_GUC_TLB_INVAL_MODE_MASK	REG_GENMASK(11, 8)
-+#define INTEL_GUC_TLB_INVAL_FLUSH_CACHE REG_BIT(31)
-+
-+enum intel_guc_tlb_invalidation_type {
-+	INTEL_GUC_TLB_INVAL_FULL = 0x0,
-+	INTEL_GUC_TLB_INVAL_GUC = 0x3,
-+};
-+
-+/*
-+ * 0: Heavy mode of Invalidation:
-+ * The pipeline of the engine(s) for which the invalidation is targeted to is
-+ * blocked, and all the in-flight transactions are guaranteed to be Globally
-+ * Observed before completing the TLB invalidation
-+ * 1: Lite mode of Invalidation:
-+ * TLBs of the targeted engine(s) are immediately invalidated.
-+ * In-flight transactions are NOT guaranteed to be Globally Observed before
-+ * completing TLB invalidation.
-+ * Light Invalidation Mode is to be used only when
-+ * it can be guaranteed (by SW) that the address translations remain invariant
-+ * for the in-flight transactions across the TLB invalidation. In other words,
-+ * this mode can be used when the TLB invalidation is intended to clear out the
-+ * stale cached translations that are no longer in use. Light Invalidation Mode
-+ * is much faster than the Heavy Invalidation Mode, as it does not wait for the
-+ * in-flight transactions to be GOd.
-+ */
-+enum intel_guc_tlb_inval_mode {
-+	INTEL_GUC_TLB_INVAL_MODE_HEAVY = 0x0,
-+	INTEL_GUC_TLB_INVAL_MODE_LITE = 0x1,
-+};
-+
- #endif /* _ABI_GUC_ACTIONS_ABI_H */
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 6c392bad29c19..0f74a460bfe56 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -79,6 +79,18 @@ struct intel_guc {
- 	 */
- 	atomic_t outstanding_submission_g2h;
- 
-+	/** @tlb_lookup: xarray to store all pending TLB invalidation requests */
-+	struct xarray tlb_lookup;
-+
-+	/**
-+	 * @serial_slot: id to the initial waiter created in tlb_lookup,
-+	 * which is used only when failed to allocate new waiter.
-+	 */
-+	u32 serial_slot;
-+
-+	/** @next_seqno: the next id (sequence no.) to allocate. */
-+	u32 next_seqno;
-+
- 	/** @interrupts: pointers to GuC interrupt-managing functions. */
- 	struct {
- 		bool enabled;
-@@ -296,6 +308,11 @@ struct intel_guc {
- #define MAKE_GUC_VER_STRUCT(ver)	MAKE_GUC_VER((ver).major, (ver).minor, (ver).patch)
- #define GUC_SUBMIT_VER(guc)		MAKE_GUC_VER_STRUCT((guc)->submission_version)
- 
-+struct intel_guc_tlb_wait {
-+	struct wait_queue_head wq;
-+	u8 status;
-+} __aligned(4);
-+
- static inline struct intel_guc *log_to_guc(struct intel_guc_log *log)
- {
- 	return container_of(log, struct intel_guc, log);
-@@ -413,6 +430,11 @@ int intel_guc_allocate_and_map_vma(struct intel_guc *guc, u32 size,
- int intel_guc_self_cfg32(struct intel_guc *guc, u16 key, u32 value);
- int intel_guc_self_cfg64(struct intel_guc *guc, u16 key, u64 value);
- 
-+int intel_guc_invalidate_tlb_full(struct intel_guc *guc);
-+int intel_guc_invalidate_tlb(struct intel_guc *guc);
-+int intel_guc_tlb_invalidation_done(struct intel_guc *guc, const u32 *hxg,
-+				    u32 size);
-+
- static inline bool intel_guc_is_supported(struct intel_guc *guc)
- {
- 	return intel_uc_fw_is_supported(&guc->fw);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 6e22af31513a5..21dd271b68d63 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -1186,9 +1186,17 @@ static int ct_handle_event(struct intel_guc_ct *ct, struct ct_incoming_msg *requ
- 	switch (action) {
- 	case INTEL_GUC_ACTION_SCHED_CONTEXT_MODE_DONE:
- 	case INTEL_GUC_ACTION_DEREGISTER_CONTEXT_DONE:
-+	case INTEL_GUC_ACTION_TLB_INVALIDATION_DONE:
- 		g2h_release_space(ct, request->size);
- 	}
- 
-+	/* Handle tlb invalidation response in interrupt context */
-+	if (action == INTEL_GUC_ACTION_TLB_INVALIDATION_DONE) {
-+		int ret = intel_guc_tlb_invalidation_done(ct_to_guc(ct), hxg, request->size);
-+		ct_free_msg(request);
-+		return ret;
-+	}
-+
- 	spin_lock_irqsave(&ct->requests.lock, flags);
- 	list_add_tail(&request->link, &ct->requests.incoming);
- 	spin_unlock_irqrestore(&ct->requests.lock, flags);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-index b4d56eccfb1f0..a7c9874e122a3 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h
-@@ -22,6 +22,7 @@
- /* Payload length only i.e. don't include G2H header length */
- #define G2H_LEN_DW_SCHED_CONTEXT_MODE_SET	2
- #define G2H_LEN_DW_DEREGISTER_CONTEXT		1
-+#define G2H_LEN_DW_INVALIDATE_TLB		1
- 
- #define GUC_CONTEXT_DISABLE		0
- #define GUC_CONTEXT_ENABLE		1
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index ae3495a9c8146..6a2dcab63074e 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1796,11 +1796,20 @@ static void __guc_reset_context(struct intel_context *ce, intel_engine_mask_t st
- 	intel_context_put(parent);
- }
- 
-+static void wake_up_tlb_invalidate(struct intel_guc_tlb_wait *wait)
-+{
-+	/* Barrier to ensure the store is observed by the woken thread */
-+	smp_store_mb(wait->status, 0);
-+	wake_up(&wait->wq);
-+}
-+
- void intel_guc_submission_reset(struct intel_guc *guc, intel_engine_mask_t stalled)
- {
-+	struct intel_guc_tlb_wait *wait;
- 	struct intel_context *ce;
- 	unsigned long index;
- 	unsigned long flags;
-+	unsigned long i;
- 
- 	if (unlikely(!guc_submission_initialized(guc))) {
- 		/* Reset called during driver load? GuC not yet initialised! */
-@@ -1826,6 +1835,13 @@ void intel_guc_submission_reset(struct intel_guc *guc, intel_engine_mask_t stall
- 
- 	/* GuC is blown away, drop all references to contexts */
- 	xa_destroy(&guc->context_lookup);
-+
-+	/*
-+	 * The full GT reset will have cleared the TLB caches and flushed the
-+	 * G2H message queue; we can release all the blocked waiters.
-+	 */
-+	xa_for_each(&guc->tlb_lookup, i, wait)
-+		wake_up_tlb_invalidate(wait);
- }
- 
- static void guc_cancel_context_requests(struct intel_context *ce)
-@@ -1948,6 +1964,41 @@ void intel_guc_submission_reset_finish(struct intel_guc *guc)
- static void destroyed_worker_func(struct work_struct *w);
- static void reset_fail_worker_func(struct work_struct *w);
- 
-+static int init_tlb_lookup(struct intel_guc *guc)
-+{
-+	struct intel_guc_tlb_wait *wait;
-+	int err;
-+
-+	xa_init_flags(&guc->tlb_lookup, XA_FLAGS_ALLOC);
-+
-+	wait = kzalloc(sizeof(*wait), GFP_KERNEL);
-+	if (!wait)
-+		return -ENOMEM;
-+
-+	init_waitqueue_head(&wait->wq);
-+	err = xa_alloc_cyclic_irq(&guc->tlb_lookup, &guc->serial_slot, wait,
-+				  xa_limit_32b, &guc->next_seqno, GFP_KERNEL);
-+	if (err == -ENOMEM) {
-+		kfree(wait);
-+		return err;
-+	}
-+
-+	return 0;
-+}
-+
-+static void fini_tlb_lookup(struct intel_guc *guc)
-+{
-+	struct intel_guc_tlb_wait *wait;
-+
-+	wait = xa_load(&guc->tlb_lookup, guc->serial_slot);
-+	if (wait) {
-+		GEM_BUG_ON(wait->status);
-+		kfree(wait);
-+	}
-+
-+	xa_destroy(&guc->tlb_lookup);
-+}
-+
- /*
-  * Set up the memory resources to be shared with the GuC (via the GGTT)
-  * at firmware loading time.
-@@ -1966,11 +2017,15 @@ int intel_guc_submission_init(struct intel_guc *guc)
- 			return ret;
- 	}
- 
-+	ret = init_tlb_lookup(guc);
-+	if (ret)
-+		goto destroy_pool;
-+
- 	guc->submission_state.guc_ids_bitmap =
- 		bitmap_zalloc(NUMBER_MULTI_LRC_GUC_ID(guc), GFP_KERNEL);
- 	if (!guc->submission_state.guc_ids_bitmap) {
- 		ret = -ENOMEM;
--		goto destroy_pool;
-+		goto destroy_tlb;
- 	}
- 
- 	guc->timestamp.ping_delay = (POLL_TIME_CLKS / gt->clock_frequency + 1) * HZ;
-@@ -1979,9 +2034,10 @@ int intel_guc_submission_init(struct intel_guc *guc)
- 
- 	return 0;
- 
-+destroy_tlb:
-+	fini_tlb_lookup(guc);
- destroy_pool:
- 	guc_lrc_desc_pool_destroy_v69(guc);
--
- 	return ret;
- }
- 
-@@ -1994,6 +2050,7 @@ void intel_guc_submission_fini(struct intel_guc *guc)
- 	guc_lrc_desc_pool_destroy_v69(guc);
- 	i915_sched_engine_put(guc->sched_engine);
- 	bitmap_free(guc->submission_state.guc_ids_bitmap);
-+	fini_tlb_lookup(guc);
- 	guc->submission_initialized = false;
- }
- 
-@@ -4624,6 +4681,157 @@ g2h_context_lookup(struct intel_guc *guc, u32 ctx_id)
- 	return ce;
- }
- 
-+static void wait_wake_outstanding_tlb_g2h(struct intel_guc *guc, u32 seqno)
-+{
-+	struct intel_guc_tlb_wait *wait;
-+	unsigned long flags;
-+
-+	xa_lock_irqsave(&guc->tlb_lookup, flags);
-+	wait = xa_load(&guc->tlb_lookup, seqno);
-+
-+	/* We received a response after the waiting task did exit with a timeout */
-+	if (unlikely(!wait))
-+		drm_dbg(&guc_to_gt(guc)->i915->drm,
-+			"Stale TLB invalidation response with seqno %d\n", seqno);
-+
-+	if (wait)
-+		wake_up_tlb_invalidate(wait);
-+
-+	xa_unlock_irqrestore(&guc->tlb_lookup, flags);
-+}
-+
-+int intel_guc_tlb_invalidation_done(struct intel_guc *guc, const u32 *hxg, u32 size)
-+{
-+	u32 seqno, hxg_len, len;
-+
-+	/*
-+	 * FIXME: these calculations would be better done signed. That
-+	 * way underflow can be detected as well.
-+	 */
-+	hxg_len = size - GUC_CTB_MSG_MIN_LEN;
-+	len = hxg_len - GUC_HXG_MSG_MIN_LEN;
-+
-+	if (unlikely(len < 1))
-+		return -EPROTO;
-+
-+	seqno = hxg[GUC_HXG_MSG_MIN_LEN];
-+	wait_wake_outstanding_tlb_g2h(guc, seqno);
-+	return 0;
-+}
-+
-+static long must_wait_woken(struct wait_queue_entry *wq_entry, long timeout)
-+{
-+	/*
-+	 * This is equivalent to wait_woken() with the exception that
-+	 * we do not wake up early if the kthread task has been completed.
-+	 * As we are called from page reclaim in any task context,
-+	 * we may be invoked from stopped kthreads, but we *must*
-+	 * complete the wait from the HW .
-+	 *
-+	 * A second problem is that since we are called under reclaim
-+	 * and wait_woken() inspected the thread state, it makes an invalid
-+	 * assumption that all PF_KTHREAD tasks have set_kthread_struct()
-+	 * called upon them, and will trigger a GPF in is_kthread_should_stop().
-+	 */
-+	do {
-+		set_current_state(TASK_UNINTERRUPTIBLE);
-+		if (wq_entry->flags & WQ_FLAG_WOKEN)
-+			break;
-+
-+		timeout = schedule_timeout(timeout);
-+	} while (timeout);
-+	__set_current_state(TASK_RUNNING);
-+
-+	/* See wait_woken() and woken_wake_function() */
-+	smp_store_mb(wq_entry->flags, wq_entry->flags & ~WQ_FLAG_WOKEN);
-+
-+	return timeout;
-+}
-+
-+static int guc_send_invalidate_tlb(struct intel_guc *guc, u32 type)
-+{
-+	struct intel_guc_tlb_wait _wq, *wq = &_wq;
-+	DEFINE_WAIT_FUNC(wait, woken_wake_function);
-+	struct intel_gt *gt = guc_to_gt(guc);
-+	int err = 0;
-+	u32 seqno;
-+	u32 action[] = {
-+		INTEL_GUC_ACTION_TLB_INVALIDATION,
-+		0,
-+		REG_FIELD_PREP(INTEL_GUC_TLB_INVAL_TYPE_MASK, type) |
-+			REG_FIELD_PREP(INTEL_GUC_TLB_INVAL_MODE_MASK, INTEL_GUC_TLB_INVAL_MODE_HEAVY) |
-+			INTEL_GUC_TLB_INVAL_FLUSH_CACHE,
-+	};
-+	u32 size = ARRAY_SIZE(action);
-+
-+	if (!intel_guc_ct_enabled(&guc->ct))
-+		return -EINVAL;
-+
-+	init_waitqueue_head(&_wq.wq);
-+
-+	if (xa_alloc_cyclic_irq(&guc->tlb_lookup, &seqno, wq,
-+				xa_limit_32b, &guc->next_seqno,
-+				GFP_ATOMIC | __GFP_NOWARN) < 0) {
-+		/* Under severe memory pressure? Serialise TLB allocations */
-+		xa_lock_irq(&guc->tlb_lookup);
-+		wq = xa_load(&guc->tlb_lookup, guc->serial_slot);
-+		wait_event_lock_irq(wq->wq,
-+				    !READ_ONCE(wq->status),
-+				    guc->tlb_lookup.xa_lock);
-+		/*
-+		 * Update wq->status under lock to ensure only one waiter can
-+		 * issue the TLB invalidation command using the serial slot at a
-+		 * time. The condition is set to false before releasing the lock
-+		 * so that other caller continue to wait until woken up again.
-+		 */
-+		wq->status = 1;
-+		xa_unlock_irq(&guc->tlb_lookup);
-+
-+		seqno = guc->serial_slot;
-+	}
-+
-+	action[1] = seqno;
-+
-+	add_wait_queue(&wq->wq, &wait);
-+
-+	err = intel_guc_send_busy_loop(guc, action, size, G2H_LEN_DW_INVALIDATE_TLB, true);
-+	if (err) {
-+		goto out;
-+	}
-+	/*
-+	 * GuC has a timeout of 1ms for a TLB invalidation response from GAM. On a
-+	 * timeout GuC drops the request and has no mechanism to notify the host about
-+	 * the timeout. So keep a larger timeout that accounts for this individual
-+	 * timeout and max number of outstanding invalidation requests that can be
-+	 * queued in CT buffer.
-+	 */
-+#define OUTSTANDING_GUC_TIMEOUT_PERIOD  (HZ * 2)
-+	if (!must_wait_woken(&wait, OUTSTANDING_GUC_TIMEOUT_PERIOD)) {
-+		gt_err(gt,
-+		       "TLB invalidation response timed out for seqno %u\n", seqno);
-+		err = -ETIME;
-+	}
-+out:
-+	remove_wait_queue(&wq->wq, &wait);
-+	if (seqno != guc->serial_slot)
-+		xa_erase_irq(&guc->tlb_lookup, seqno);
-+
-+	return err;
-+}
-+
-+/* Full TLB invalidation */
-+int intel_guc_invalidate_tlb_full(struct intel_guc *guc)
-+{
-+	return guc_send_invalidate_tlb(guc, INTEL_GUC_TLB_INVAL_FULL);
-+}
-+
-+/* GuC TLB Invalidation: Invalidate the TLB's of GuC itself. */
-+int intel_guc_invalidate_tlb(struct intel_guc *guc)
-+{
-+	return guc_send_invalidate_tlb(guc, INTEL_GUC_TLB_INVAL_GUC);
-+}
-+
-+
- int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
- 					  const u32 *msg,
- 					  u32 len)
--- 
-2.25.1
-
+Thanks,
+Umesh
+>
+> 	return cnt;
+> }
+>@@ -590,6 +590,8 @@ static int pmu_init(struct engines *engines)
+> 	engines->fd = -1;
+> 	engines->num_counters = 0;
+> 	engines->num_gts = get_num_gts(type);
+>+	if (engines->num_gts <= 0)
+>+		return -1;
+>
+> 	engines->irq.config = I915_PMU_INTERRUPTS;
+> 	fd = _open_pmu(type, engines->num_counters, &engines->irq, engines->fd);
+>-- 
+>2.39.2
+>
