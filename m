@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E1A7E732E4
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Sep 2023 15:23:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 567C9E784B4
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Oct 2023 08:53:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2FBB10E690;
-	Thu, 28 Sep 2023 15:23:11 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [IPv6:2604:1380:4641:c500::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B8BC10E648;
- Thu, 28 Sep 2023 13:20:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD2AC10E24F;
+	Mon,  2 Oct 2023 08:53:29 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B56A310E241;
+ Mon,  2 Oct 2023 08:53:19 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D863961C67;
- Thu, 28 Sep 2023 13:20:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 28DEAC3277C;
- Thu, 28 Sep 2023 13:20:37 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id E359E60D3D;
+ Mon,  2 Oct 2023 08:53:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D5543C32781;
+ Mon,  2 Oct 2023 08:53:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1695907237;
- bh=WESDWSBIxBgTV46NKfEUHelTwfrWg95I2h4/Iqr/LRM=;
+ s=k20201202; t=1696236795;
+ bh=7IWRTGCcHSZcJzQ9+CQB1q8u0SSRDwfa1ILU59ULK2s=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=X1KG2CslKyXTmAHOE9ut19dU3D1ndZDLDdqUloNr92yULn+YqrPZji2xw2INBYpUm
- 6F9yTU649cXeMkhlXPNSEgx9CZEqSU2KI7nIVnuEAcHdctqE7BBYS5qhtEf2yOfQnG
- R1mpQOonF6UvHW7ScvUsXX6PuQxhn8SfiZiDQ0St7xAhbhnYOBS6MvxU2R0XUDnGt/
- DBV2CmPFYybbpaGP/rLAB1yXMe/SnzrzBKC0su2BZmK87DmShTLpzxZCLR/mQ4v1pN
- 8cUsQWYemfXRz8FCPMeF9hl3BfYwspIRCViLCTG6Pj0iu6BAbtFCXNuyprY8KmJO9t
- qJcclRkDU4adA==
+ b=oGcOGSdFN01g9tO0zq1jWZxxY5eHTEK6Ieh32g8Zl/2u76GNVZiQplz+70dwM408C
+ xjGlLWU9svr3ba5PnteRqLQfz0+/I37zpSxnNv1EoOGbS4xjDcu/B9evHnXvTA8j7v
+ d7BQmq6BXC7iZHS906y/XkAV5W/lOuNd4ZfYBZNpclFo6eOLGpnNk7uNvGblazVEHf
+ os8uOGrLIInyl8EPMHRpCflKVwdVNnAKpOvp5OB+K6OLgI8MJQzgp/5rAIMjY36OfD
+ 3H/N/aFfLHnF8zbVNeIF9+kNw12/GhyMqXUJ4Ex2+CIwPcnwWQrSlYs4vgLjPwpQuh
+ /R3FAf3MQKt6g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 0F863E732D0;
- Thu, 28 Sep 2023 13:20:37 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id BB085E784AF;
+ Mon,  2 Oct 2023 08:53:15 +0000 (UTC)
 From: Joel Granados via B4 Relay <devnull+j.granados.samsung.com@kernel.org>
-Date: Thu, 28 Sep 2023 15:21:36 +0200
+Date: Mon, 02 Oct 2023 10:55:28 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: =?utf-8?q?=3C20230928-jag-sysctl=5Fremove=5Fempty=5Felem=5Fdrive?=
- =?utf-8?q?rs-v1-11-e59120fca9f9=40samsung=2Ecom=3E?=
-References: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-0-e59120fca9f9@samsung.com>
-In-Reply-To: <20230928-jag-sysctl_remove_empty_elem_drivers-v1-0-e59120fca9f9@samsung.com>
+Message-Id: =?utf-8?q?=3C20231002-jag-sysctl=5Fremove=5Fempty=5Felem=5Fdrive?=
+ =?utf-8?q?rs-v2-11-02dd0d46f71e=40samsung=2Ecom=3E?=
+References: <20231002-jag-sysctl_remove_empty_elem_drivers-v2-0-02dd0d46f71e@samsung.com>
+In-Reply-To: <20231002-jag-sysctl_remove_empty_elem_drivers-v2-0-02dd0d46f71e@samsung.com>
 To: Luis Chamberlain <mcgrof@kernel.org>, willy@infradead.org, 
  josh@joshtriplett.org, Kees Cook <keescook@chromium.org>, 
  Phillip Potter <phil@philpotter.co.uk>, 
@@ -70,25 +69,24 @@ To: Luis Chamberlain <mcgrof@kernel.org>, willy@infradead.org,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>, 
  David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
 X-Mailer: b4 0.13-dev-86aa5
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1399;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1256;
  i=j.granados@samsung.com; h=from:subject:message-id;
- bh=pY2XyujxOt+Rj6u6+44+o009/nkYZtGGPZk9nN2iFyE=;
- b=owEB7QES/pANAwAKAbqXzVK3lkFPAcsmYgBlFX3fe3sdkuVX/cH9+wfjrH5ueAgUPjamrIOH4
- /3zyIkdfAqJAbMEAAEKAB0WIQSuRwlXJeYxJc7LJ5C6l81St5ZBTwUCZRV93wAKCRC6l81St5ZB
- TwpRC/4lSj5L+OahMU8+3S1fvTtKAyIY/uKM1bPNHdispZZPQR1Rd3tvqJTptup1mzRuFuO8L1m
- 8PJXRwGmMWlfPnW6wWYP/M4Aqq1CITeSckvnMuyUa9IAlZg0a3oKSGu5yX6zSvvAQ0+k7mBAb3y
- UBqDMmlaWuIsDoJskRRHROj9+KwmhMmsEKZWwN5UGxnjSX57Ws5oYdteVXY5AI8Zp7Hy8Tx0heX
- FCndhRyQrnj2jq8I3cC94HaHBQ+r/FbCmV0KJSg5xqjdEy9VmQiEja6TCN2IAUta6kgV5r3iSsz
- uRL2Spqp9oaZW9r25KtgCboTiH5fnCIkTB16pgKJEydjH49JsnKqmlAleVwBd/WjEU86E4be+/t
- V9Kx7iqRDYUo2aZWNOMBizEJlyYBMYHFFIiSdMNx4xMMW78VnCfWmHYPolywQlOL/IO7kdASIva
- qz9zA7cr0tjD3lcLzXnQuXIHAhNUbhz37de0+vmc7TtbbfZaFsJe0s2ItUEMGxrc4UUuo=
+ bh=ePmiIBkulMk2J0Hn3yd3SHNfMVzMlB72hhtExcVcV3k=;
+ b=owEB7QES/pANAwAKAbqXzVK3lkFPAcsmYgBlGoV+aKXagxwn9FWH6ZTWvhVjY34ucdd7w4DTR
+ 2dN5LSnfq+JAbMEAAEKAB0WIQSuRwlXJeYxJc7LJ5C6l81St5ZBTwUCZRqFfgAKCRC6l81St5ZB
+ T1upC/0f07DfBkp9sG4MGPmaJMzGlZZGiOnSzrgySbn+KY4QlvVmzeCW1RNh4/SI3qUvFnRH36B
+ HBgmh4yFhDu4q+nFYCARsivwe8aPPp1SDmgVepBn+ew8CtGedybiL+3GVk+plFOmzUKyXRqAKon
+ nl6r/yKeTppABClVqoKzfvgqLzNdwZ1N0/hKaxCvpE3bXE8C738wQoCchtxfzSD/xxKTcP3goQ9
+ RcUh/CLFpuWwPYKkhhje8q2K9Kuag3MAUHMxqTBKjQxCHsRQoM6bMQBD2HAZv/dnO7CIzJlXrG1
+ DMp+Kj8HcvmcGue1narnsl/PUBnvXc6MHPZjyHedBOfa4+ZohotYOHCdLnRsB4tbge4IwuYE0Ju
+ MRVv3O66uFsRuysv/tf6I/ai86ZsmS9bXTFhF3IKs1z75FxvjZH8a228UoQ5l+88yppXQR7bEK9
+ 7kXy21jdGYBzOOmBMhIg6MzwCUczClJJAyH8bUbGA9Uew0qK+QE+XeevXulpo/4D6CW2o=
 X-Developer-Key: i=j.granados@samsung.com; a=openpgp;
  fpr=F1F8E46D30F0F6C4A45FF4465895FAAC338C6E77
 X-Endpoint-Received: by B4 Relay for j.granados@samsung.com/default with
  auth_id=70
 X-Original-From: Joel Granados <j.granados@samsung.com>
-X-Mailman-Approved-At: Thu, 28 Sep 2023 15:22:50 +0000
-Subject: [Intel-gfx] [PATCH 11/15] sgi-xp: Remove the now superfluous
+Subject: [Intel-gfx] [PATCH v2 11/15] sgi-xp: Remove the now superfluous
  sentinel element from ctl_table array
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -124,30 +122,26 @@ Remove sentinel from xpc_sys_xpc_hb and xpc_sys_xpc
 
 Signed-off-by: Joel Granados <j.granados@samsung.com>
 ---
- drivers/misc/sgi-xp/xpc_main.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/misc/sgi-xp/xpc_main.c | 2 --
+ 1 file changed, 2 deletions(-)
 
 diff --git a/drivers/misc/sgi-xp/xpc_main.c b/drivers/misc/sgi-xp/xpc_main.c
-index 6da509d692bb..c898092ff3ac 100644
+index 6da509d692bb..3186421e82c3 100644
 --- a/drivers/misc/sgi-xp/xpc_main.c
 +++ b/drivers/misc/sgi-xp/xpc_main.c
-@@ -109,8 +109,7 @@ static struct ctl_table xpc_sys_xpc_hb[] = {
- 	 .mode = 0644,
+@@ -110,7 +110,6 @@ static struct ctl_table xpc_sys_xpc_hb[] = {
  	 .proc_handler = proc_dointvec_minmax,
  	 .extra1 = &xpc_hb_check_min_interval,
--	 .extra2 = &xpc_hb_check_max_interval},
+ 	 .extra2 = &xpc_hb_check_max_interval},
 -	{}
-+	 .extra2 = &xpc_hb_check_max_interval}
  };
  static struct ctl_table xpc_sys_xpc[] = {
  	{
-@@ -120,8 +119,7 @@ static struct ctl_table xpc_sys_xpc[] = {
- 	 .mode = 0644,
+@@ -121,7 +120,6 @@ static struct ctl_table xpc_sys_xpc[] = {
  	 .proc_handler = proc_dointvec_minmax,
  	 .extra1 = &xpc_disengage_min_timelimit,
--	 .extra2 = &xpc_disengage_max_timelimit},
+ 	 .extra2 = &xpc_disengage_max_timelimit},
 -	{}
-+	 .extra2 = &xpc_disengage_max_timelimit}
  };
  
  static struct ctl_table_header *xpc_sysctl;
