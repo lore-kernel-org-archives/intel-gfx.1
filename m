@@ -4,26 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76B63E784A4
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Oct 2023 11:45:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E4C2E784AC
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Oct 2023 12:20:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD3B710E28E;
-	Mon,  2 Oct 2023 11:45:53 +0000 (UTC)
-Received: from mblankhorst.nl (lankhorst.se
- [IPv6:2a02:2308:0:7ec:e79c:4e97:b6c4:f0ae])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B10010E27F
- for <intel-gfx@lists.freedesktop.org>; Mon,  2 Oct 2023 11:45:50 +0000 (UTC)
-From: maarten.lankhorst@linux.intel.com
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1AF610E2A5;
+	Mon,  2 Oct 2023 12:20:52 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A54810E29F;
+ Mon,  2 Oct 2023 12:20:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1696249245; x=1727785245;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=TtzwBm9DERNLTiJPDvQed7U0fE/SYIghggWbRcXuo+g=;
+ b=DIsIkt5vRGHV5Je1tj5if1VHPPVGkulahESgYPIkN2nYqMibFZJ5vLM6
+ EbhbIHg3duiPh2i/spn8yxiV5er7lEqFpS0p+IRU+de2YY0NYt2yj6/PJ
+ F/Hy1h+JvgD+f/KQM6fBSyiWZYdQvKlqFkFfu0ozFbvdh5/gIyLk3IFsh
+ P8WcsMXva9uCp88i1mXGXUsGnK430JoENiWHpS1HoUng3PgaO2dXKfyGU
+ qLmKvgfHE3vdGHb/CP3pnr36afIeLpHVlyVfJHGNHuJArKoUkuAnFUz//
+ E2jIwfiUTg0yNLvnheq+hUGfMevu2oW8pEeA+LSfdCyF8H9Xxds8Eb3Y8 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10850"; a="386501844"
+X-IronPort-AV: E=Sophos;i="6.03,194,1694761200"; d="scan'208";a="386501844"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Oct 2023 05:20:43 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10850"; a="779918158"
+X-IronPort-AV: E=Sophos;i="6.03,194,1694761200"; d="scan'208";a="779918158"
+Received: from nirmoyda-desk.igk.intel.com ([10.102.138.190])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Oct 2023 05:20:39 -0700
+From: Nirmoy Das <nirmoy.das@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon,  2 Oct 2023 13:45:28 +0200
-Message-Id: <20231002114528.125529-2-maarten.lankhorst@linux.intel.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20231002114528.125529-1-maarten.lankhorst@linux.intel.com>
-References: <20231002114528.125529-1-maarten.lankhorst@linux.intel.com>
+Date: Mon,  2 Oct 2023 14:20:32 +0200
+Message-ID: <20231002122032.23703-1-nirmoy.das@intel.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Deutschland GmbH, Registered Address: Am Campeon 10,
+ 85579 Neubiberg, Germany,
+ Commercial Register: Amtsgericht Muenchen HRB 186928 
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 2/2] drm/i915: Use
- drm_atomic_helper_update_plane for cursor updates
+Subject: [Intel-gfx] [PATCH] drm/i915: Invalidate all GTs in
+ flush_tlb_invalidate()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -36,177 +60,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Maarten Lankhorst <dev@lankhorst.se>
+Cc: Matt Roper <matthew.d.roper@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Jonathan Cavitt <jonathan.cavitt@intel.com>, dri-devel@lists.freedesktop.org,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Chris Wilson <chris.p.wilson@linux.intel.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Maarten Lankhorst <dev@lankhorst.se>
+Don't return early if one of the GT doesn't require
+any flushing.
 
-Regular path should be fast enough, even for i915.
-
-Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Fixes: d6c531ab4820 ("drm/i915: Invalidate the TLBs on each GT")
+Cc: Chris Wilson <chris.p.wilson@linux.intel.com>
+Cc: Fei Yang <fei.yang@intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Cc: Nirmoy Das <nirmoy.das@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: "Ville Syrjälä" <ville.syrjala@linux.intel.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cursor.c | 146 +-------------------
- 1 file changed, 1 insertion(+), 145 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_pages.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index b342fad180ca..37c0d3d40e6f 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -603,152 +603,8 @@ static bool intel_cursor_format_mod_supported(struct drm_plane *_plane,
- 	return format == DRM_FORMAT_ARGB8888;
- }
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_pages.c b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+index 6b6d22c19411..0ba955611dfb 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_pages.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_pages.c
+@@ -198,7 +198,7 @@ static void flush_tlb_invalidate(struct drm_i915_gem_object *obj)
  
--static int
--intel_legacy_cursor_update(struct drm_plane *_plane,
--			   struct drm_crtc *_crtc,
--			   struct drm_framebuffer *fb,
--			   int crtc_x, int crtc_y,
--			   unsigned int crtc_w, unsigned int crtc_h,
--			   u32 src_x, u32 src_y,
--			   u32 src_w, u32 src_h,
--			   struct drm_modeset_acquire_ctx *ctx)
--{
--	struct intel_plane *plane = to_intel_plane(_plane);
--	struct intel_crtc *crtc = to_intel_crtc(_crtc);
--	struct intel_plane_state *old_plane_state =
--		to_intel_plane_state(plane->base.state);
--	struct intel_plane_state *new_plane_state;
--	struct intel_crtc_state *crtc_state =
--		to_intel_crtc_state(crtc->base.state);
--	struct intel_crtc_state *new_crtc_state;
--	int ret;
--
--	/*
--	 * When crtc is inactive or there is a modeset pending,
--	 * wait for it to complete in the slowpath.
--	 * PSR2 selective fetch also requires the slow path as
--	 * PSR2 plane and transcoder registers can only be updated during
--	 * vblank.
--	 *
--	 * FIXME bigjoiner fastpath would be good
--	 */
--	if (!crtc_state->hw.active ||
--	    intel_crtc_needs_modeset(crtc_state) ||
--	    intel_crtc_needs_fastset(crtc_state) ||
--	    crtc_state->bigjoiner_pipes)
--		goto slow;
--
--	/*
--	 * Don't do an async update if there is an outstanding commit modifying
--	 * the plane.  This prevents our async update's changes from getting
--	 * overridden by a previous synchronous update's state.
--	 */
--	if (old_plane_state->uapi.commit &&
--	    !try_wait_for_completion(&old_plane_state->uapi.commit->hw_done))
--		goto slow;
--
--	/*
--	 * If any parameters change that may affect watermarks,
--	 * take the slowpath. Only changing fb or position should be
--	 * in the fastpath.
--	 */
--	if (old_plane_state->uapi.crtc != &crtc->base ||
--	    old_plane_state->uapi.src_w != src_w ||
--	    old_plane_state->uapi.src_h != src_h ||
--	    old_plane_state->uapi.crtc_w != crtc_w ||
--	    old_plane_state->uapi.crtc_h != crtc_h ||
--	    !old_plane_state->uapi.fb != !fb)
--		goto slow;
--
--	new_plane_state = to_intel_plane_state(intel_plane_duplicate_state(&plane->base));
--	if (!new_plane_state)
--		return -ENOMEM;
--
--	new_crtc_state = to_intel_crtc_state(intel_crtc_duplicate_state(&crtc->base));
--	if (!new_crtc_state) {
--		ret = -ENOMEM;
--		goto out_free;
--	}
--
--	drm_atomic_set_fb_for_plane(&new_plane_state->uapi, fb);
--
--	new_plane_state->uapi.src_x = src_x;
--	new_plane_state->uapi.src_y = src_y;
--	new_plane_state->uapi.src_w = src_w;
--	new_plane_state->uapi.src_h = src_h;
--	new_plane_state->uapi.crtc_x = crtc_x;
--	new_plane_state->uapi.crtc_y = crtc_y;
--	new_plane_state->uapi.crtc_w = crtc_w;
--	new_plane_state->uapi.crtc_h = crtc_h;
--
--	intel_plane_copy_uapi_to_hw_state(new_plane_state, new_plane_state, crtc);
--
--	ret = intel_plane_atomic_check_with_state(crtc_state, new_crtc_state,
--						  old_plane_state, new_plane_state);
--	if (ret)
--		goto out_free;
--
--	ret = intel_plane_pin_fb(new_plane_state);
--	if (ret)
--		goto out_free;
--
--	intel_frontbuffer_flush(to_intel_frontbuffer(new_plane_state->hw.fb),
--				ORIGIN_CURSOR_UPDATE);
--	intel_frontbuffer_track(to_intel_frontbuffer(old_plane_state->hw.fb),
--				to_intel_frontbuffer(new_plane_state->hw.fb),
--				plane->frontbuffer_bit);
--
--	/* Swap plane state */
--	plane->base.state = &new_plane_state->uapi;
--
--	/*
--	 * We cannot swap crtc_state as it may be in use by an atomic commit or
--	 * page flip that's running simultaneously. If we swap crtc_state and
--	 * destroy the old state, we will cause a use-after-free there.
--	 *
--	 * Only update active_planes, which is needed for our internal
--	 * bookkeeping. Either value will do the right thing when updating
--	 * planes atomically. If the cursor was part of the atomic update then
--	 * we would have taken the slowpath.
--	 */
--	crtc_state->active_planes = new_crtc_state->active_planes;
--
--	/*
--	 * Technically we should do a vblank evasion here to make
--	 * sure all the cursor registers update on the same frame.
--	 * For now just make sure the register writes happen as
--	 * quickly as possible to minimize the race window.
--	 */
--	local_irq_disable();
--
--	if (new_plane_state->uapi.visible) {
--		intel_plane_update_noarm(plane, crtc_state, new_plane_state);
--		intel_plane_update_arm(plane, crtc_state, new_plane_state);
--	} else {
--		intel_plane_disable_arm(plane, crtc_state);
--	}
--
--	local_irq_enable();
--
--	intel_plane_unpin_fb(old_plane_state);
--
--out_free:
--	if (new_crtc_state)
--		intel_crtc_destroy_state(&crtc->base, &new_crtc_state->uapi);
--	if (ret)
--		intel_plane_destroy_state(&plane->base, &new_plane_state->uapi);
--	else
--		intel_plane_destroy_state(&plane->base, &old_plane_state->uapi);
--	return ret;
--
--slow:
--	return drm_atomic_helper_update_plane(&plane->base, &crtc->base, fb,
--					      crtc_x, crtc_y, crtc_w, crtc_h,
--					      src_x, src_y, src_w, src_h, ctx);
--}
--
- static const struct drm_plane_funcs intel_cursor_plane_funcs = {
--	.update_plane = intel_legacy_cursor_update,
-+	.update_plane = drm_atomic_helper_update_plane,
- 	.disable_plane = drm_atomic_helper_disable_plane,
- 	.destroy = intel_plane_destroy,
- 	.atomic_duplicate_state = intel_plane_duplicate_state,
+ 	for_each_gt(gt, i915, id) {
+ 		if (!obj->mm.tlb[id])
+-			return;
++			continue;
+ 
+ 		intel_gt_invalidate_tlb_full(gt, obj->mm.tlb[id]);
+ 		obj->mm.tlb[id] = 0;
 -- 
-2.40.1
+2.41.0
 
