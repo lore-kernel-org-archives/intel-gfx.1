@@ -4,50 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7BACE75455
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Oct 2023 12:42:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78572E75457
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Oct 2023 12:58:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 498E110E0E3;
-	Tue,  3 Oct 2023 12:42:35 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99ADA10E0E3
- for <intel-gfx@lists.freedesktop.org>; Tue,  3 Oct 2023 12:42:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696336952; x=1727872952;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=1IGom2Z2rAeP4TZyLCSc2vEmaZYXvyIXXmMg/1W9CZs=;
- b=BzHJJMSjgA8OrEs18G6cTK8omRJD+FchtTMUtnkeH7ewJ0VOclWNp7X1
- v6yYfbfTLthov5aLeApwKazSTJXJ71hTFrS6yMP03+C3SN0nWwttNqBNm
- YYrLa3gDHbJiiWDTb+eXvPE74Ab9kdGxUjWF0ism1G8WQZhqzzmYNjzlK
- 94J9lE34wgUUfRQAPVQsBmCXWyY1z3TLtz2MSX/w+ndw4cLgfwvsNf2jU
- V+QDrkyjA3JnVqfc9BLEUdBwbT39n81HxIXcYk4joTnNgAB4HQ7G3hGV9
- Pmj0WPtZLfLMoWqIkvzeEQCEJtHfNtYvOKDH865aiAb098h/7LA3EaWYE w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10851"; a="447020634"
-X-IronPort-AV: E=Sophos;i="6.03,197,1694761200"; d="scan'208";a="447020634"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Oct 2023 05:42:29 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10851"; a="727601604"
-X-IronPort-AV: E=Sophos;i="6.03,197,1694761200"; d="scan'208";a="727601604"
-Received: from akorotox-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.55.199])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Oct 2023 05:42:27 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue,  3 Oct 2023 15:42:10 +0300
-Message-Id: <1035800e623e13d5e7baf1215b07e7cdad5eb764.1696336887.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1696336887.git.jani.nikula@intel.com>
-References: <cover.1696336887.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C052110E04E;
+	Tue,  3 Oct 2023 12:58:09 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [IPv6:2604:1380:4601:e00::1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19C4E10E0E5;
+ Mon,  2 Oct 2023 14:17:41 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id EF62EB81094;
+ Mon,  2 Oct 2023 14:17:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53217C433C8;
+ Mon,  2 Oct 2023 14:17:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1696256258;
+ bh=vkYSu3CMdUku1DYMLSbi1CqSIx/Y+w371ZyBOHbOWQU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=exLEpilJBAgz5ZnsirATe9JxW+UqjlphdsbHWsfr4jfuvvcdvfFqCOOPADpHoegLG
+ QT1ZRviNOCQSFKPR+2ncqqKUmVN5OgF6Y3H/MOzAcM/iVe2Rhws0drvVplI+2eIc8B
+ vEtl9FK4HkZ3OOjR4RCkE9u+Gvi4K1kPyS1jOYkSvxJSQs2ZBIu74ouWye+qLIE93j
+ akqIqYVLy6LU2/F78IRxLEwEfXTSJG6/bFwFcDmsl1IBSzB7eh4B9D9E143cSdty4X
+ r2p6zx5xCX9grOdpP+GalyJ8YI4rJQvVL0i4iN5OQXuy6/X9d744gUtflnDsfOCo5Y
+ 8pia5lOvzI0rg==
+Message-ID: <e493d101-348a-949d-5160-3d633817adf2@kernel.org>
+Date: Mon, 2 Oct 2023 08:17:35 -0600
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 4/4] drm/i915: separate subplatform init and
- runtime feature init
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.15.1
+Content-Language: en-US
+To: j.granados@samsung.com, Luis Chamberlain <mcgrof@kernel.org>,
+ willy@infradead.org, josh@joshtriplett.org, Kees Cook
+ <keescook@chromium.org>, Phillip Potter <phil@philpotter.co.uk>,
+ Clemens Ladisch <clemens@ladisch.de>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Jiri Slaby <jirislaby@kernel.org>, "James E.J. Bottomley"
+ <jejb@linux.ibm.com>, "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Doug Gilbert <dgilbert@interlog.com>,
+ Sudip Mukherjee <sudipm.mukherjee@gmail.com>, Jason Gunthorpe
+ <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Corey Minyard <minyard@acm.org>, Theodore Ts'o <tytso@mit.edu>,
+ "Jason A. Donenfeld" <Jason@zx2c4.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Robin Holt <robinmholt@gmail.com>, Steve Wahl <steve.wahl@hpe.com>,
+ Russ Weight <russell.h.weight@intel.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Song Liu <song@kernel.org>,
+ "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+References: <20231002-jag-sysctl_remove_empty_elem_drivers-v2-0-02dd0d46f71e@samsung.com>
+ <651a84ff.050a0220.51ca9.2e91SMTPIN_ADDED_BROKEN@mx.google.com>
+From: David Ahern <dsahern@kernel.org>
+In-Reply-To: <651a84ff.050a0220.51ca9.2e91SMTPIN_ADDED_BROKEN@mx.google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Tue, 03 Oct 2023 12:58:08 +0000
+Subject: Re: [Intel-gfx] [PATCH v2 10/15] vrf: Remove the now superfluous
+ sentinel element from ctl_table array
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,70 +82,32 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: jani.nikula@intel.com
+Cc: linux-hyperv@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-rdma@vger.kernel.org, netdev@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-raid@vger.kernel.org,
+ linux-serial@vger.kernel.org, xen-devel@lists.xenproject.org,
+ openipmi-developer@lists.sourceforge.net, linuxppc-dev@lists.ozlabs.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Adjusting ->port_mask does not belong in
-intel_device_info_subplatform_init(), but rather
-intel_display_device_info_runtime_init().
+On 10/2/23 2:55 AM, Joel Granados via B4 Relay wrote:
+> From: Joel Granados <j.granados@samsung.com>
+> 
+> This commit comes at the tail end of a greater effort to remove the
+> empty elements at the end of the ctl_table arrays (sentinels) which
+> will reduce the overall build time size of the kernel and run time
+> memory bloat by ~64 bytes per sentinel (further information Link :
+> https://lore.kernel.org/all/ZO5Yx5JFogGi%2FcBo@bombadil.infradead.org/)
+> 
+> Remove sentinel from vrf_table
+> 
+> Signed-off-by: Joel Granados <j.granados@samsung.com>
+> ---
+>  drivers/net/vrf.c | 1 -
+>  1 file changed, 1 deletion(-)
+> 
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display_device.c | 7 +++++++
- drivers/gpu/drm/i915/intel_device_info.c            | 5 -----
- 2 files changed, 7 insertions(+), 5 deletions(-)
+Reviewed-by: David Ahern <dsahern@kernel.org>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
-index 11f4a6c54cc7..9f0266318a41 100644
---- a/drivers/gpu/drm/i915/display/intel_display_device.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_device.c
-@@ -948,6 +948,13 @@ static void __intel_display_device_info_runtime_init(struct drm_i915_private *i9
- 	BUILD_BUG_ON(BITS_PER_TYPE(display_runtime->cpu_transcoder_mask) < I915_MAX_TRANSCODERS);
- 	BUILD_BUG_ON(BITS_PER_TYPE(display_runtime->port_mask) < I915_MAX_PORTS);
- 
-+	/* This covers both ULT and ULX */
-+	if (IS_HASWELL_ULT(i915) || IS_BROADWELL_ULT(i915))
-+		display_runtime->port_mask &= ~BIT(PORT_D);
-+
-+	if (IS_ICL_WITH_PORT_F(i915))
-+		display_runtime->port_mask |= BIT(PORT_F);
-+
- 	/* Wa_14011765242: adl-s A0,A1 */
- 	if (IS_ALDERLAKE_S(i915) && IS_DISPLAY_STEP(i915, STEP_A0, STEP_A2))
- 		for_each_pipe(i915, pipe)
-diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index db3997cec6ff..59bea1398c91 100644
---- a/drivers/gpu/drm/i915/intel_device_info.c
-+++ b/drivers/gpu/drm/i915/intel_device_info.c
-@@ -27,7 +27,6 @@
- #include <drm/drm_print.h>
- #include <drm/i915_pciids.h>
- 
--#include "display/intel_display_device.h"
- #include "gt/intel_gt_regs.h"
- #include "i915_drv.h"
- #include "i915_reg.h"
-@@ -232,19 +231,15 @@ static void intel_device_info_subplatform_init(struct drm_i915_private *i915)
- 	if (find_devid(devid, subplatform_ult_ids,
- 		       ARRAY_SIZE(subplatform_ult_ids))) {
- 		mask = BIT(INTEL_SUBPLATFORM_ULT);
--		if (IS_HASWELL(i915) || IS_BROADWELL(i915))
--			DISPLAY_RUNTIME_INFO(i915)->port_mask &= ~BIT(PORT_D);
- 	} else if (find_devid(devid, subplatform_ulx_ids,
- 			      ARRAY_SIZE(subplatform_ulx_ids))) {
- 		mask = BIT(INTEL_SUBPLATFORM_ULX);
- 		if (IS_HASWELL(i915) || IS_BROADWELL(i915)) {
- 			/* ULX machines are also considered ULT. */
- 			mask |= BIT(INTEL_SUBPLATFORM_ULT);
--			DISPLAY_RUNTIME_INFO(i915)->port_mask &= ~BIT(PORT_D);
- 		}
- 	} else if (find_devid(devid, subplatform_portf_ids,
- 			      ARRAY_SIZE(subplatform_portf_ids))) {
--		DISPLAY_RUNTIME_INFO(i915)->port_mask |= BIT(PORT_F);
- 		mask = BIT(INTEL_SUBPLATFORM_PORTF);
- 	} else if (find_devid(devid, subplatform_uy_ids,
- 			   ARRAY_SIZE(subplatform_uy_ids))) {
--- 
-2.39.2
 
