@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A29DE7C4E9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3E6FE7C4EC
 	for <intel-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 18:47:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BB2C10E1A8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C408510E3B7;
 	Wed,  4 Oct 2023 18:47:10 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7324610E1A8
- for <intel-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 18:47:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B14310E1A8
+ for <intel-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 18:47:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696445230; x=1727981230;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=yfm0L8pwwccBLmpYUDrz+ZyIUF0BYrjGxFq8Uk7Fc3E=;
- b=ZeBm96as6ZVqerwmfI7rI9W/i1ZEJFOGW9oEkAWjMiugZO3LmzEIkYFX
- 1DfyMidbd5uvTKu6pYfkC4B0iCM3EKh9X7XRRTVWaDyBuwYcOt2KJS4fO
- XlNzOYN1Cdiq+pd+sEn61sF6MjY2e4xBN+kFH5gc2YfMW2kxk6MsivHyk
- jyIJVD7Em5CEx349rNz4tKLBDh7bgxx7Tv+6jiPZ6TBfVkj0m7PIUKuiD
- KQ1KKCnpyqOp7TwZGqfqoPPVo1ZTHBbaVRFVpnWSozH4qtcn+u86MBQ2y
- ltFVv/1RY/YQm/x8Jm/3iW+128qIWCiRmBOTfZJ5sUgBVl4c7mLUi6D/N w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10853"; a="1864918"
+ t=1696445229; x=1727981229;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=Ye85n27Z0pwNLAwTCoaHyI4bcWs/su68UQcfW0G6RFU=;
+ b=kGmB3hXGgdnA24Imu8Sp8IX3GI0HDUO+pmikW8a7EMQHex9oHjWuwZ6W
+ KdWkkfHSj6R3JJ9q5vTZpnfV2DB9ti4YXAtVMNr+A556RaTTNb+0AB9Jt
+ cTxFrYRggiUPE4I9UrTNcmBR0sn6/D8/YXcU/wHQ0bKOmjCBoILpOwQW8
+ xk4MiW3d1rG882mqXEAEBjBa4mHIATVcsst+cQneCelyu9tGkoGOgKPaw
+ 74I5NgqImhQsbwsmGtlDFYrwtqttFUTSW+pudGITupzUhHSu83zh4CJj6
+ DITuHamJc5kcBZ1/X6SJVsPK9bjGOETfLTtM7XFntWrqa57rq7VCmRl8C A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10853"; a="1864914"
 X-IronPort-AV: E=Sophos;i="6.03,201,1694761200"; 
-   d="scan'208";a="1864918"
+   d="scan'208";a="1864914"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  04 Oct 2023 11:47:08 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10853"; a="925274567"
-X-IronPort-AV: E=Sophos;i="6.03,201,1694761200"; d="scan'208";a="925274567"
+X-IronPort-AV: E=McAfee;i="6600,9927,10853"; a="925274555"
+X-IronPort-AV: E=Sophos;i="6.03,201,1694761200"; d="scan'208";a="925274555"
 Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  04 Oct 2023 11:47:07 -0700
 From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed,  4 Oct 2023 11:36:25 -0700
-Message-Id: <20231004183625.1307100-4-jonathan.cavitt@intel.com>
+Date: Wed,  4 Oct 2023 11:36:22 -0700
+Message-Id: <20231004183625.1307100-1-jonathan.cavitt@intel.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231004183625.1307100-1-jonathan.cavitt@intel.com>
-References: <20231004183625.1307100-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 4/4] drm/i915/gt: Increase sleep in gt_tlb
- selftest sanitycheck
+Subject: [Intel-gfx] [PATCH v5 1/4] drm/i915: Add GuC TLB Invalidation pci
+ tags
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,27 +63,53 @@ Cc: janusz.krzysztofik@intel.com, andi.shyti@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For the gt_tlb live selftest, increase the timeout from 10 ms to 200 ms.
-200 ms should be more than enough time, and 10 ms was too aggressive.
+Add pci (device info) tags for if GuC TLB Invalidation is enabled.
+Since GuC based TLB invalidation is only strictly necessary for MTL
+resently, only enable GuC based TLB invalidations for MTL.
 
 Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_tlb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_drv.h          | 1 +
+ drivers/gpu/drm/i915/i915_pci.c          | 1 +
+ drivers/gpu/drm/i915/intel_device_info.h | 3 ++-
+ 3 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_tlb.c b/drivers/gpu/drm/i915/gt/selftest_tlb.c
-index 7e41f69fc818f..46e0a1dbecc8d 100644
---- a/drivers/gpu/drm/i915/gt/selftest_tlb.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_tlb.c
-@@ -137,7 +137,7 @@ pte_tlbinv(struct intel_context *ce,
- 	i915_request_add(rq);
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 2b7a6db4d0d44..1e25cc1e3dba1 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -807,4 +807,5 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define HAS_LMEMBAR_SMEM_STOLEN(i915) (!HAS_LMEM(i915) && \
+ 				       GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70))
  
- 	/* Short sleep to sanitycheck the batch is spinning before we begin */
--	msleep(10);
-+	msleep(200);
- 	if (va == vb) {
- 		if (!i915_request_completed(rq)) {
- 			pr_err("%s(%s): Semaphore sanitycheck failed %llx, with alignment %llx, using PTE size %x (phys %x, sg %x)\n",
++#define HAS_GUC_TLB_INVALIDATION(i915)	(INTEL_INFO(i915)->has_guc_tlb_invalidation)
+ #endif
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index df7c261410f79..c3a5d5efb45d1 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -837,6 +837,7 @@ static const struct intel_device_info mtl_info = {
+ 	.memory_regions = REGION_SMEM | REGION_STOLEN_LMEM,
+ 	.platform_engine_mask = BIT(RCS0) | BIT(BCS0) | BIT(CCS0),
+ 	.require_force_probe = 1,
++	.has_guc_tlb_invalidation = 1,
+ 	MTL_CACHELEVEL,
+ };
+ 
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index 39817490b13fd..ad54db0a22470 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -173,7 +173,8 @@ enum intel_ppgtt_type {
+ 	func(has_coherent_ggtt); \
+ 	func(tuning_thread_rr_after_dep); \
+ 	func(unfenced_needs_alignment); \
+-	func(hws_needs_physical);
++	func(hws_needs_physical); \
++	func(has_guc_tlb_invalidation);
+ 
+ struct intel_ip_version {
+ 	u8 ver;
 -- 
 2.25.1
 
