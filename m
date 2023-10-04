@@ -4,51 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCD7CE7B5E7
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 10:23:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36663E7B5E6
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Oct 2023 10:28:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D10710E0F0;
-	Wed,  4 Oct 2023 10:23:39 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B74EE10E0F0
- for <intel-gfx@lists.freedesktop.org>; Wed,  4 Oct 2023 10:23:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696415017; x=1727951017;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=ClnttCWlXHslpjqGRsiymUHIzwvJeoHHhvSBEG3kFM0=;
- b=CofeRJ3BKyZapwKCU1CkkBAVRLPlG09M1PQHFj232EqYaWndricfXtze
- mD3GAh0a26a69TW5u+Ensu4vuns/BmqoicVLYrl1PCCCZSav8fg6UfdA3
- XnSoDwcZNXwH1dZ2fT8USi6o1BWiRxXs8gzKhqg7CMwWiwm16EaTfw6OT
- p/0vCmUwW2ZBXA8+oWSU0sm8bgL0r3iXF/VO0CBxbw0t+GL86180wf64C
- Bui1JunCKlkbABHKYnF4/gPpFSXYlccMMDwPZWSuPgaiR5l0+ANhCVy2f
- pzb2Kxvbjoh84D6Z7g5r7bPI+3rVN7PQEynZtCo9+FURuTV/bxnhm5fhD w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="1726992"
-X-IronPort-AV: E=Sophos;i="6.03,199,1694761200"; 
-   d="scan'208";a="1726992"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2023 03:23:37 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10852"; a="841758721"
-X-IronPort-AV: E=Sophos;i="6.03,199,1694761200"; d="scan'208";a="841758721"
-Received: from msterni-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.56.48])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2023 03:23:34 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Jonathan Cavitt <jonathan.cavitt@intel.com>,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20231003210156.1172732-1-jonathan.cavitt@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20231003210156.1172732-1-jonathan.cavitt@intel.com>
-Date: Wed, 04 Oct 2023 13:23:32 +0300
-Message-ID: <877co2fzyz.fsf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7BF4F10E0F0;
+	Wed,  4 Oct 2023 10:28:33 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 94D3110E0F0;
+ Wed,  4 Oct 2023 10:28:32 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 8DFBCAADD6;
+ Wed,  4 Oct 2023 10:28:32 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3946237290870259564=="
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [PATCH v4 1/3] drm/i915: Add GuC TLB Invalidation
- pci tags
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Date: Wed, 04 Oct 2023 10:28:32 -0000
+Message-ID: <169641531255.7832.6267506836981149898@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <cover.1696236329.git.jani.nikula@intel.com>
+In-Reply-To: <cover.1696236329.git.jani.nikula@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyTIEZpLkNJLkJBVDogc3VjY2VzcyBmb3IgZHJt?=
+ =?utf-8?q?/i915=3A_nuke_i915-=3Egt0_=28rev3=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,67 +40,210 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: janusz.krzysztofik@intel.com, andi.shyti@intel.com,
- chris.p.wilson@linux.intel.com, jonathan.cavitt@intel.com,
- matthew.d.roper@intel.com, nirmoy.das@intel.com
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 03 Oct 2023, Jonathan Cavitt <jonathan.cavitt@intel.com> wrote:
-> Add device info tags for if GuC TLB Invalidation is enabled.  Since GuC
-> based TLB invalidation is only strictly necessary for MTL presently,
-> only enable GuC based TLB invalidations for MTL.
+--===============3946237290870259564==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-In the subject, what's a "pci tag"?
+== Series Details ==
 
-BR,
-Jani.
+Series: drm/i915: nuke i915->gt0 (rev3)
+URL   : https://patchwork.freedesktop.org/series/124508/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_13708 -> Patchwork_124508v3
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124508v3/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Additional (1): fi-kbl-soraka 
+  Missing    (2): bat-dg2-9 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_124508v3 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][1] ([fdo#109271] / [i915#2190])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124508v3/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html
+
+  * igt@gem_lmem_swapping@basic:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][2] ([fdo#109271] / [i915#4613]) +3 other tests skip
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124508v3/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html
+
+  * igt@i915_selftest@live@gt_pm:
+    - fi-kbl-soraka:      NOTRUN -> [DMESG-FAIL][3] ([i915#1886] / [i915#7913])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124508v3/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html
+
+  * igt@i915_suspend@basic-s3-without-i915:
+    - bat-mtlp-8:         NOTRUN -> [SKIP][4] ([i915#6645])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124508v3/bat-mtlp-8/igt@i915_suspend@basic-s3-without-i915.html
+
+  * igt@kms_dsc@dsc-basic:
+    - fi-kbl-soraka:      NOTRUN -> [SKIP][5] ([fdo#109271]) +9 other tests skip
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124508v3/fi-kbl-soraka/igt@kms_dsc@dsc-basic.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@requests:
+    - bat-mtlp-8:         [ABORT][6] ([i915#9414]) -> [PASS][7]
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13708/bat-mtlp-8/igt@i915_selftest@live@requests.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124508v3/bat-mtlp-8/igt@i915_selftest@live@requests.html
+
+  
+  {name}: This element is suppressed. This means it is ignored when computing
+          the status of the difference (SUCCESS, WARNING, or FAILURE).
+
+  [fdo#109271]: https://bugs.freedesktop.org/show_bug.cgi?id=109271
+  [i915#1886]: https://gitlab.freedesktop.org/drm/intel/issues/1886
+  [i915#2190]: https://gitlab.freedesktop.org/drm/intel/issues/2190
+  [i915#4613]: https://gitlab.freedesktop.org/drm/intel/issues/4613
+  [i915#6645]: https://gitlab.freedesktop.org/drm/intel/issues/6645
+  [i915#7913]: https://gitlab.freedesktop.org/drm/intel/issues/7913
+  [i915#7952]: https://gitlab.freedesktop.org/drm/intel/issues/7952
+  [i915#9414]: https://gitlab.freedesktop.org/drm/intel/issues/9414
 
 
->
-> Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
-> ---
->  drivers/gpu/drm/i915/i915_drv.h          | 1 +
->  drivers/gpu/drm/i915/i915_pci.c          | 1 +
->  drivers/gpu/drm/i915/intel_device_info.h | 3 ++-
->  3 files changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-> index b4fa81cab92d7..154f004373a9c 100644
-> --- a/drivers/gpu/drm/i915/i915_drv.h
-> +++ b/drivers/gpu/drm/i915/i915_drv.h
-> @@ -821,4 +821,5 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
->  #define HAS_LMEMBAR_SMEM_STOLEN(i915) (!HAS_LMEM(i915) && \
->  				       GRAPHICS_VER_FULL(i915) >= IP_VER(12, 70))
->  
-> +#define HAS_GUC_TLB_INVALIDATION(i915)	(INTEL_INFO(i915)->has_guc_tlb_invalidation)
->  #endif
-> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-> index df7c261410f79..c3a5d5efb45d1 100644
-> --- a/drivers/gpu/drm/i915/i915_pci.c
-> +++ b/drivers/gpu/drm/i915/i915_pci.c
-> @@ -837,6 +837,7 @@ static const struct intel_device_info mtl_info = {
->  	.memory_regions = REGION_SMEM | REGION_STOLEN_LMEM,
->  	.platform_engine_mask = BIT(RCS0) | BIT(BCS0) | BIT(CCS0),
->  	.require_force_probe = 1,
-> +	.has_guc_tlb_invalidation = 1,
->  	MTL_CACHELEVEL,
->  };
->  
-> diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-> index 39817490b13fd..ad54db0a22470 100644
-> --- a/drivers/gpu/drm/i915/intel_device_info.h
-> +++ b/drivers/gpu/drm/i915/intel_device_info.h
-> @@ -173,7 +173,8 @@ enum intel_ppgtt_type {
->  	func(has_coherent_ggtt); \
->  	func(tuning_thread_rr_after_dep); \
->  	func(unfenced_needs_alignment); \
-> -	func(hws_needs_physical);
-> +	func(hws_needs_physical); \
-> +	func(has_guc_tlb_invalidation);
->  
->  struct intel_ip_version {
->  	u8 ver;
+Build changes
+-------------
 
--- 
-Jani Nikula, Intel
+  * Linux: CI_DRM_13708 -> Patchwork_124508v3
+
+  CI-20190529: 20190529
+  CI_DRM_13708: e73c26348a1d154ce981707ae3508018267394b1 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_7510: a4b4a33d8312e4e30ca23d26bbd1758e56540e1d @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_124508v3: e73c26348a1d154ce981707ae3508018267394b1 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+
+### Linux commits
+
+d423eb69ab5a drm/i915/gt: remove i915->gt0 in favour of i915->gt[0]
+f6a2792ff6bf drm/i915: allocate i915->gt0 dynamically
+6479b96c0e11 drm/i915/mocs: use to_gt() instead of direct &i915->gt
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124508v3/index.html
+
+--===============3946237290870259564==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: nuke i915-&gt;gt0 (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/124508/">https://patchwork.freedesktop.org/series/124508/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124508v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124508v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_13708 -&gt; Patchwork_124508v3</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124508v3/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Additional (1): fi-kbl-soraka <br />
+  Missing    (2): bat-dg2-9 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_124508v3 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124508v3/fi-kbl-soraka/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_lmem_swapping@basic:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124508v3/fi-kbl-soraka/igt@gem_lmem_swapping@basic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/4613">i915#4613</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_pm:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124508v3/fi-kbl-soraka/igt@i915_selftest@live@gt_pm.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/1886">i915#1886</a> / <a href="https://gitlab.freedesktop.org/drm/intel/issues/7913">i915#7913</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_suspend@basic-s3-without-i915:</p>
+<ul>
+<li>bat-mtlp-8:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124508v3/bat-mtlp-8/igt@i915_suspend@basic-s3-without-i915.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/6645">i915#6645</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_dsc@dsc-basic:</p>
+<ul>
+<li>fi-kbl-soraka:      NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124508v3/fi-kbl-soraka/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://bugs.freedesktop.org/show_bug.cgi?id=109271">fdo#109271</a>) +9 other tests skip</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@requests:<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13708/bat-mtlp-8/igt@i915_selftest@live@requests.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/intel/issues/9414">i915#9414</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124508v3/bat-mtlp-8/igt@i915_selftest@live@requests.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<p>{name}: This element is suppressed. This means it is ignored when computing<br />
+          the status of the difference (SUCCESS, WARNING, or FAILURE).</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_13708 -&gt; Patchwork_124508v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_13708: e73c26348a1d154ce981707ae3508018267394b1 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_7510: a4b4a33d8312e4e30ca23d26bbd1758e56540e1d @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_124508v3: e73c26348a1d154ce981707ae3508018267394b1 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+<h3>Linux commits</h3>
+<p>d423eb69ab5a drm/i915/gt: remove i915-&gt;gt0 in favour of i915-&gt;gt[0]<br />
+f6a2792ff6bf drm/i915: allocate i915-&gt;gt0 dynamically<br />
+6479b96c0e11 drm/i915/mocs: use to_gt() instead of direct &amp;i915-&gt;gt</p>
+
+</body>
+</html>
+
+--===============3946237290870259564==--
