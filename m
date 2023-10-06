@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC6A5E81DFB
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Oct 2023 13:30:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75FC9E81DFB
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Oct 2023 13:37:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29CCE10E4E9;
-	Fri,  6 Oct 2023 13:30:30 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BC3510E4E4;
- Fri,  6 Oct 2023 13:30:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAA0910E4EB;
+	Fri,  6 Oct 2023 13:37:10 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3C6E10E4E9
+ for <intel-gfx@lists.freedesktop.org>; Fri,  6 Oct 2023 13:37:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696599028; x=1728135028;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=I98yzBK0JubzPDAX0lsVZ6E7MGX7y0noV4cm1KjbcPQ=;
- b=oFgahP9UTElC6nv+vD/LrlQ9uPbM3iekXFc4NNiQdx3JzgCFLpiECiqf
- NG5upDnyj8QpDISPfbcv4hKu2Xf0yTMrSnW5LBM4jFYMOqJcxJPnwzkwK
- iq4jX0QN+MIKsYMHnnNnPDK3hyrJw+ewmRatOaOSuUnTWPMwOtlnVPSnn
- n2KXXzjSKOBKEMHJVsMWAd7Nj8znUBJYM3CK033bf7jLWNIFpHGFnIiL+
- lNCO1MKveID7nGOIcU0RnP+zVARGfJUsv0wTbRjRzcEikjeFpjVv9n39E
- FCAVjJsgTmYsCCIbrfs/EfwthD9SVfs/ExyO9Puc+E0s+iZ+d9W+El7TO w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10855"; a="386572879"
-X-IronPort-AV: E=Sophos;i="6.03,204,1694761200"; d="scan'208";a="386572879"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2023 06:30:27 -0700
+ t=1696599429; x=1728135429;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=LO+trEY430oHwBSxmbQj7+2vdsrS4ue1Gp5mvd9y3BE=;
+ b=nszUZxE0ecvVCc6qOUU+AkURjlX8XfukSMKEWOv3/NqvIozSir14+ks8
+ P00AXrHA65FU5lMGtAOMZnI0sY3KI3mQklyL1LF/gY4k3UXK+ZIhnUVh2
+ CnEPWD6CvzAcg8i/ot3JFpeZBDwQYVBzm1anJd6T9NbstR3zpiE4IjRJM
+ YA+y0jGFFTli6ePMP9QhKZE/pB/2Jp0F/HDXBwfghcxPIPrV1w3f6Rvgi
+ GGXCZa032IhM7TaliQL54Cybey5vOkH50DqHtKDhDTI2BdoD1+5pV6ECY
+ eezozdVtl0c9Xak1K+13HO/cgP6oEkchBpZAHcCDQ99X2kWR+HTjtiIaP g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10855"; a="470019075"
+X-IronPort-AV: E=Sophos;i="6.03,204,1694761200"; d="scan'208";a="470019075"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2023 06:37:08 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10855"; a="925963037"
-X-IronPort-AV: E=Sophos;i="6.03,204,1694761200"; d="scan'208";a="925963037"
-Received: from suthengc-mobl1.gar.corp.intel.com (HELO intel.com)
- ([10.215.154.2])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2023 06:30:20 -0700
-Date: Fri, 6 Oct 2023 15:30:13 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Message-ID: <ZSAL5VZ9BFMzDnQR@ashyti-mobl2.lan>
-References: <20231006083103.660153-1-tvrtko.ursulin@linux.intel.com>
- <20231006083103.660153-4-tvrtko.ursulin@linux.intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10855"; a="728841346"
+X-IronPort-AV: E=Sophos;i="6.03,204,1694761200"; d="scan'208";a="728841346"
+Received: from ideak-desk.fi.intel.com ([10.237.72.78])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Oct 2023 06:37:07 -0700
+From: Imre Deak <imre.deak@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Fri,  6 Oct 2023 16:37:09 +0300
+Message-Id: <20231006133727.1822579-2-imre.deak@intel.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20231006133727.1822579-1-imre.deak@intel.com>
+References: <20231006133727.1822579-1-imre.deak@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231006083103.660153-4-tvrtko.ursulin@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH 3/3] drm/i915: Remove xehpsdv support
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 01/19] drm/i915/dp: Sanitize DPCD revision check
+ in intel_dp_get_dsc_sink_cap()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,29 +58,63 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@intel.com>,
- Jani Nikula <jani.nikula@intel.com>, Intel-gfx@lists.freedesktop.org,
- Lucas De Marchi <lucas.demarchi@intel.com>, dri-devel@lists.freedesktop.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Matt Roper <matthew.d.roper@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Tvrtko,
+Check only the eDP or the DP specific DPCD revision depending on the
+sink type. Pass the corresponding revision to the function, which allows
+getting the DSC caps of a branch device (in an MST topology, which has
+its own DPCD and so DPCD revision).
 
-On Fri, Oct 06, 2023 at 09:31:03AM +0100, Tvrtko Ursulin wrote:
-> From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-> 
-> XeHP SDV was a pre-production hardware used to bring up ATS and was not
-> generally available. Since latter was since explicitly added, there is no
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-mmhh?
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 0ef7cb8134b66..1bd11f9e308c1 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -3467,7 +3467,7 @@ bool intel_dp_get_colorimetry_status(struct intel_dp *intel_dp)
+ 	return dprx & DP_VSC_SDP_EXT_FOR_COLORIMETRY_SUPPORTED;
+ }
+ 
+-static void intel_dp_get_dsc_sink_cap(struct intel_dp *intel_dp)
++static void intel_dp_get_dsc_sink_cap(u8 dpcd_rev, struct intel_dp *intel_dp)
+ {
+ 	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
+ 
+@@ -3481,8 +3481,8 @@ static void intel_dp_get_dsc_sink_cap(struct intel_dp *intel_dp)
+ 	intel_dp->fec_capable = 0;
+ 
+ 	/* Cache the DSC DPCD if eDP or DP rev >= 1.4 */
+-	if (intel_dp->dpcd[DP_DPCD_REV] >= 0x14 ||
+-	    intel_dp->edp_dpcd[0] >= DP_EDP_14) {
++	if ((intel_dp_is_edp(intel_dp) && dpcd_rev >= DP_EDP_14) ||
++	    (!intel_dp_is_edp(intel_dp) && dpcd_rev >= 0x14)) {
+ 		if (drm_dp_dpcd_read(&intel_dp->aux, DP_DSC_SUPPORT,
+ 				     intel_dp->dsc_dpcd,
+ 				     sizeof(intel_dp->dsc_dpcd)) < 0)
+@@ -3674,7 +3674,8 @@ intel_edp_init_dpcd(struct intel_dp *intel_dp)
+ 
+ 	/* Read the eDP DSC DPCD registers */
+ 	if (HAS_DSC(dev_priv))
+-		intel_dp_get_dsc_sink_cap(intel_dp);
++		intel_dp_get_dsc_sink_cap(intel_dp->edp_dpcd[0],
++					  intel_dp);
+ 
+ 	/*
+ 	 * If needed, program our source OUI so we can make various Intel-specific AUX services
+@@ -5384,7 +5385,8 @@ intel_dp_detect(struct drm_connector *connector,
+ 
+ 	/* Read DP Sink DSC Cap DPCD regs for DP v1.4 */
+ 	if (HAS_DSC(dev_priv))
+-		intel_dp_get_dsc_sink_cap(intel_dp);
++		intel_dp_get_dsc_sink_cap(intel_dp->dpcd[DP_DPCD_REV],
++					  intel_dp);
+ 
+ 	intel_dp_configure_mst(intel_dp);
+ 
+-- 
+2.39.2
 
-> need to keep the code for the former around.
-> 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-
-didn't spot anything odd... looks good:
-
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com> 
-
-Andi
