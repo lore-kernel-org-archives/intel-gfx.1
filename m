@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF142E81DFE
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Oct 2023 13:37:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98C23E81E00
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Oct 2023 13:37:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0C0210E508;
-	Fri,  6 Oct 2023 13:37:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 354B910E50B;
+	Fri,  6 Oct 2023 13:37:33 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9042310E4FA
- for <intel-gfx@lists.freedesktop.org>; Fri,  6 Oct 2023 13:37:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C504610E4F8
+ for <intel-gfx@lists.freedesktop.org>; Fri,  6 Oct 2023 13:37:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696599445; x=1728135445;
+ t=1696599443; x=1728135443;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=AMOP3sFwmIeh5rIrKBF60aAPV5pfJPo09a7ZmXLRq8k=;
- b=LA9yfc5jT5RatHfTJxg5uLXMx5zgiFk8i8yOCCFLhf0WKbg1Sr4YxGvS
- Avo++tFhVO5LN3C4TjZYIJC4AT1d21WXV4OOexyJrjjVCHClK/PTI19ax
- PauL4KHyMeiFQ0kz6m5fgW/qxgbOaG46d9e+VJyfS36YzZLKSsD5Or+RL
- pSE+n5rLhz34B9yTIBwOUj/L4+qFXMII/ka8FoyndPrnlPRuhhzJbs7rs
- +oNhXm/iUw0DD+Yzev57CtA6jub414EYz9l7mIhqhPxvZriFob4rxfUas
- YP6OKL+ItxISbxXKVVZy9Vz3314La+9XMOUrAM0KNKZSbVbPAXtQ9LVTr Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10855"; a="470019126"
-X-IronPort-AV: E=Sophos;i="6.03,204,1694761200"; d="scan'208";a="470019126"
+ bh=08V5EMUcWzb9uRWIaSmBjoSTPLYrRIyCJHKBYs8ZSrA=;
+ b=UE9OJWv00F1XoV6sEx2QaHWmy7iefvxD0oEEKNzFox4ZIKT0J96YYVSJ
+ 8xGg9DYncF4BRtywrf5GDY++E/2DopwRdxwk8yomCv5zTHArwSV6Mbx9s
+ 72wxAn9h/d14eYf9dXpex7WtLzNsOFuyDDdrFBekjCdnTgypv16hmXUNJ
+ fXshkCCq8H5Slmhi/f8Munx3CTrgzo3w8R/joLNnPIug0pfw5InG0Bmbf
+ hTQpbrA+C70xtgD/FQamYywk8Ip8AkQWOoAaZTLSHZXNokY1gwAfZ5wgp
+ 0YfFlEsUixKdZEFCZAhxtR5toZLlvt3xRd3Y+H1kkGfR78KqkQkGMRnM/ w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10855"; a="470019118"
+X-IronPort-AV: E=Sophos;i="6.03,204,1694761200"; d="scan'208";a="470019118"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2023 06:37:25 -0700
+ 06 Oct 2023 06:37:23 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10855"; a="728841488"
-X-IronPort-AV: E=Sophos;i="6.03,204,1694761200"; d="scan'208";a="728841488"
+X-IronPort-AV: E=McAfee;i="6600,9927,10855"; a="728841465"
+X-IronPort-AV: E=Sophos;i="6.03,204,1694761200"; d="scan'208";a="728841465"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2023 06:37:24 -0700
+ 06 Oct 2023 06:37:22 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  6 Oct 2023 16:37:22 +0300
-Message-Id: <20231006133727.1822579-15-imre.deak@intel.com>
+Date: Fri,  6 Oct 2023 16:37:20 +0300
+Message-Id: <20231006133727.1822579-13-imre.deak@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231006133727.1822579-1-imre.deak@intel.com>
 References: <20231006133727.1822579-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 14/19] drm/i915/dp: Use connector DSC DPCD in
- intel_dp_dsc_supports_format()
+Subject: [Intel-gfx] [PATCH 12/19] drm/i915/dp: Pass only the required DSC
+ DPCD to intel_dp_sink_dsc_version_minor()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,58 +61,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use the connector's DSC DPCD capabilities in
-intel_dp_dsc_supports_format().
+intel_dp_sink_dsc_version_minor() only requires the DSC DPCD, so pass
+only this to the function.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 02c020068c9c0..846a25a85d6b6 100644
+index eee7eac5e8e9c..d08a206cb1237 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1691,10 +1691,10 @@ static int intel_dp_dsc_compute_params(const struct intel_connector *connector,
- 	return drm_dsc_compute_rc_parameters(vdsc_cfg);
+@@ -1608,9 +1608,9 @@ static int intel_dp_source_dsc_version_minor(struct drm_i915_private *i915)
+ 	return DISPLAY_VER(i915) >= 14 ? 2 : 1;
  }
  
--static bool intel_dp_dsc_supports_format(struct intel_dp *intel_dp,
-+static bool intel_dp_dsc_supports_format(const struct intel_connector *connector,
- 					 enum intel_output_format output_format)
+-static int intel_dp_sink_dsc_version_minor(struct intel_dp *intel_dp)
++static int intel_dp_sink_dsc_version_minor(const u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
  {
--	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+	struct drm_i915_private *i915 = to_i915(connector->base.dev);
- 	u8 sink_dsc_format;
+-	return (intel_dp->dsc_dpcd[DP_DSC_REV - DP_DSC_SUPPORT] & DP_DSC_MINOR_MASK) >>
++	return (dsc_dpcd[DP_DSC_REV - DP_DSC_SUPPORT] & DP_DSC_MINOR_MASK) >>
+ 		DP_DSC_MINOR_SHIFT;
+ }
  
- 	switch (output_format) {
-@@ -1706,7 +1706,7 @@ static bool intel_dp_dsc_supports_format(struct intel_dp *intel_dp,
+@@ -1665,7 +1665,7 @@ static int intel_dp_dsc_compute_params(struct intel_encoder *encoder,
+ 		 DP_DSC_MAJOR_MASK) >> DP_DSC_MAJOR_SHIFT;
+ 	vdsc_cfg->dsc_version_minor =
+ 		min(intel_dp_source_dsc_version_minor(i915),
+-		    intel_dp_sink_dsc_version_minor(intel_dp));
++		    intel_dp_sink_dsc_version_minor(intel_dp->dsc_dpcd));
+ 	if (vdsc_cfg->convert_rgb)
+ 		vdsc_cfg->convert_rgb =
+ 			intel_dp->dsc_dpcd[DP_DSC_DEC_COLOR_FORMAT_CAP - DP_DSC_SUPPORT] &
+@@ -1707,7 +1707,7 @@ static bool intel_dp_dsc_supports_format(struct intel_dp *intel_dp,
  		break;
  	case INTEL_OUTPUT_FORMAT_YCBCR420:
  		if (min(intel_dp_source_dsc_version_minor(i915),
--			intel_dp_sink_dsc_version_minor(intel_dp->dsc_dpcd)) < 2)
-+			intel_dp_sink_dsc_version_minor(connector->dp.dsc_dpcd)) < 2)
+-			intel_dp_sink_dsc_version_minor(intel_dp)) < 2)
++			intel_dp_sink_dsc_version_minor(intel_dp->dsc_dpcd)) < 2)
  			return false;
  		sink_dsc_format = DP_DSC_YCbCr420_Native;
  		break;
-@@ -1714,7 +1714,7 @@ static bool intel_dp_dsc_supports_format(struct intel_dp *intel_dp,
- 		return false;
- 	}
- 
--	return drm_dp_dsc_sink_supports_format(intel_dp->dsc_dpcd, sink_dsc_format);
-+	return drm_dp_dsc_sink_supports_format(connector->dp.dsc_dpcd, sink_dsc_format);
- }
- 
- static bool is_bw_sufficient_for_dsc_config(u16 compressed_bpp, u32 link_clock,
-@@ -2124,7 +2124,7 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 	if (!intel_dp_supports_dsc(connector, pipe_config))
- 		return -EINVAL;
- 
--	if (!intel_dp_dsc_supports_format(intel_dp, pipe_config->output_format))
-+	if (!intel_dp_dsc_supports_format(connector, pipe_config->output_format))
- 		return -EINVAL;
- 
- 	/*
 -- 
 2.39.2
 
