@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DC2EE81DFD
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Oct 2023 13:37:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC3ECE81DFE
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Oct 2023 13:37:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 953B610E50F;
-	Fri,  6 Oct 2023 13:37:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BC6A10E510;
+	Fri,  6 Oct 2023 13:37:40 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D44B10E4F8
- for <intel-gfx@lists.freedesktop.org>; Fri,  6 Oct 2023 13:37:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36ED510E502
+ for <intel-gfx@lists.freedesktop.org>; Fri,  6 Oct 2023 13:37:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696599444; x=1728135444;
+ t=1696599450; x=1728135450;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=MKsi/5PuuelfztAuE4x19vL41eZiVZ56YetXra5Ivfk=;
- b=RhOU926okYfmG4w6tTyLLtv9Q/tz4Kcq6EKbkz1AwcsFmj3lgvricwqQ
- 3mpqqkQsr0oBM8Na7cCBn7tNQIE7leLGuY1Vd7FjBy6JkSsdU4VAaivTN
- KylhV/f2luP3Zdw58Jgm2r7wZ+UE/3QK0T5G4unjJSj3W/jLDWliGY5ii
- X0qD6/nkKYRUko11mN/XQATEczB1i+Uucy/HnM0qhKMdg1c6YuaqYkN/f
- DjobYFJFWyqo4b9nNDwCy8sAMkQ6aiOybuH6xyV1jtCUw90kvjaCYmkdc
- j8jMXV97TYUFjvlIfdbeW5V4+P++biQM1Hyzaf8aCyoSXaYcfZz4zJXbT g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10855"; a="470019121"
-X-IronPort-AV: E=Sophos;i="6.03,204,1694761200"; d="scan'208";a="470019121"
+ bh=sreiTpk+c6LqPCAw3LgYIW/w043KH9YZI8mL1G6aSGs=;
+ b=F5fGmkKAghuse0WXQcf3VnXdovFfiebjy28/L9EPGm3zZr882gQ1+IJt
+ WUuLw1x4fvdqCbTyHgwqE8iXTqrERB7tS8pjQuHKz83xSphsbm9dtx6QV
+ E95lFsKY9PdGOfwJRIzd/uy85iwg36FB9bvAnX9UjgSkU7N/1zLelc7Yh
+ D1CHVyU3J4PNKeV35os6GUKYQpkY5uTTDvVABKujUvJn6QUEhPjkLnG77
+ ff6z3pb9RZlLZ5KovVO9gRy29grVtZYXrIHKXqaFjCBAfCpfF0/UDl548
+ qeBwxrdO0tJ3/pOLtuKn2r7YFh5u+kNbiXUfKjj0cQ1HoZpDgX9EpNSG4 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10855"; a="470019147"
+X-IronPort-AV: E=Sophos;i="6.03,204,1694761200"; d="scan'208";a="470019147"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2023 06:37:24 -0700
+ 06 Oct 2023 06:37:30 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10855"; a="728841476"
-X-IronPort-AV: E=Sophos;i="6.03,204,1694761200"; d="scan'208";a="728841476"
+X-IronPort-AV: E=McAfee;i="6600,9927,10855"; a="728841530"
+X-IronPort-AV: E=Sophos;i="6.03,204,1694761200"; d="scan'208";a="728841530"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2023 06:37:23 -0700
+ 06 Oct 2023 06:37:29 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri,  6 Oct 2023 16:37:21 +0300
-Message-Id: <20231006133727.1822579-14-imre.deak@intel.com>
+Date: Fri,  6 Oct 2023 16:37:26 +0300
+Message-Id: <20231006133727.1822579-19-imre.deak@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231006133727.1822579-1-imre.deak@intel.com>
 References: <20231006133727.1822579-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 13/19] drm/i915/dp: Use connector DSC DPCD in
- intel_dp_dsc_compute_params()
+Subject: [Intel-gfx] [PATCH 18/19] drm/i915/dp_mst: Use connector DSC DPCD
+ in intel_dp_mst_mode_valid_ctx()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,71 +62,34 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Use the connector's DSC DPCD capabilities in
-intel_dp_dsc_compute_params().
+intel_dp_mst_mode_valid_ctx().
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index d08a206cb1237..02c020068c9c0 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1636,11 +1636,10 @@ static int intel_dp_get_slice_height(int vactive)
- 	return 2;
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 115d4d8870b03..a065388c2199f 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -996,14 +996,14 @@ intel_dp_mst_mode_valid_ctx(struct drm_connector *connector,
+ 	}
  
--static int intel_dp_dsc_compute_params(struct intel_encoder *encoder,
-+static int intel_dp_dsc_compute_params(const struct intel_connector *connector,
- 				       struct intel_crtc_state *crtc_state)
- {
--	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
--	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
-+	struct drm_i915_private *i915 = to_i915(connector->base.dev);
- 	struct drm_dsc_config *vdsc_cfg = &crtc_state->dsc.config;
- 	u8 line_buf_depth;
- 	int ret;
-@@ -1661,17 +1660,17 @@ static int intel_dp_dsc_compute_params(struct intel_encoder *encoder,
- 		return ret;
+ 	if (DISPLAY_VER(dev_priv) >= 10 &&
+-	    drm_dp_sink_supports_dsc(intel_dp->dsc_dpcd)) {
++	    drm_dp_sink_supports_dsc(intel_connector->dp.dsc_dpcd)) {
+ 		/*
+ 		 * TBD pass the connector BPC,
+ 		 * for now U8_MAX so that max BPC on that platform would be picked
+ 		 */
+ 		int pipe_bpp = intel_dp_dsc_compute_max_bpp(intel_connector, U8_MAX);
  
- 	vdsc_cfg->dsc_version_major =
--		(intel_dp->dsc_dpcd[DP_DSC_REV - DP_DSC_SUPPORT] &
-+		(connector->dp.dsc_dpcd[DP_DSC_REV - DP_DSC_SUPPORT] &
- 		 DP_DSC_MAJOR_MASK) >> DP_DSC_MAJOR_SHIFT;
- 	vdsc_cfg->dsc_version_minor =
- 		min(intel_dp_source_dsc_version_minor(i915),
--		    intel_dp_sink_dsc_version_minor(intel_dp->dsc_dpcd));
-+		    intel_dp_sink_dsc_version_minor(connector->dp.dsc_dpcd));
- 	if (vdsc_cfg->convert_rgb)
- 		vdsc_cfg->convert_rgb =
--			intel_dp->dsc_dpcd[DP_DSC_DEC_COLOR_FORMAT_CAP - DP_DSC_SUPPORT] &
-+			connector->dp.dsc_dpcd[DP_DSC_DEC_COLOR_FORMAT_CAP - DP_DSC_SUPPORT] &
- 			DP_DSC_RGB;
- 
--	line_buf_depth = drm_dp_dsc_sink_line_buf_depth(intel_dp->dsc_dpcd);
-+	line_buf_depth = drm_dp_dsc_sink_line_buf_depth(connector->dp.dsc_dpcd);
- 	if (!line_buf_depth) {
- 		drm_dbg_kms(&i915->drm,
- 			    "DSC Sink Line Buffer Depth invalid\n");
-@@ -1686,7 +1685,7 @@ static int intel_dp_dsc_compute_params(struct intel_encoder *encoder,
- 			DSC_1_1_MAX_LINEBUF_DEPTH_BITS : line_buf_depth;
- 
- 	vdsc_cfg->block_pred_enable =
--		intel_dp->dsc_dpcd[DP_DSC_BLK_PREDICTION_SUPPORT - DP_DSC_SUPPORT] &
-+		connector->dp.dsc_dpcd[DP_DSC_BLK_PREDICTION_SUPPORT - DP_DSC_SUPPORT] &
- 		DP_DSC_BLK_PREDICTION_IS_SUPPORTED;
- 
- 	return drm_dsc_compute_rc_parameters(vdsc_cfg);
-@@ -2182,7 +2181,7 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 	if (pipe_config->bigjoiner_pipes || pipe_config->dsc.slice_count > 1)
- 		pipe_config->dsc.dsc_split = true;
- 
--	ret = intel_dp_dsc_compute_params(&dig_port->base, pipe_config);
-+	ret = intel_dp_dsc_compute_params(connector, pipe_config);
- 	if (ret < 0) {
- 		drm_dbg_kms(&dev_priv->drm,
- 			    "Cannot compute valid DSC parameters for Input Bpp = %d "
+-		if (drm_dp_sink_supports_fec(intel_dp->fec_capable)) {
++		if (drm_dp_sink_supports_fec(intel_connector->dp.fec_capability)) {
+ 			dsc_max_compressed_bpp =
+ 				intel_dp_dsc_get_max_compressed_bpp(dev_priv,
+ 								    max_link_clock,
 -- 
 2.39.2
 
