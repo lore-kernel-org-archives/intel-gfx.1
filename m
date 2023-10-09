@@ -4,54 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A110BCD6114
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 17:37:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CF09CD6114
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 17:40:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC96010E296;
-	Mon,  9 Oct 2023 17:37:43 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8405710E290;
- Mon,  9 Oct 2023 17:37:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D02510E069;
+	Mon,  9 Oct 2023 17:40:03 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1335910E290
+ for <intel-gfx@lists.freedesktop.org>; Mon,  9 Oct 2023 17:40:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696873059; x=1728409059;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=OcTOspHkUa4xG8ulFK9IJS4cToxANGYDefUtiKXQ2QE=;
- b=VU44ktgaU+31D4ycPi20L6J6wyLl79EcN5my2voo3lon5VzrVgIfVd2c
- fZ6mQpV2rsmUw90wMaaZkyexoeRjeNY5gm7SFOwWiCpJLyhKb8jpZAL8r
- R+EB90lPNVpLMxyYR5XUPlFVczaN/aLjBYhz1YDgI1lZomqUs5CgLTVXd
- 7uKUo87/itPOOXTpkmijnEgr0Tgahv8nBJEwm91iC/MzbIeukx1x/anvU
- 1kFsdrbvs5w+GjzffmnTCQpNsTTIQwblYfanerG70PdNPkUlLNAdjkG4+
- FB/LNflffRfjQDacUw5k9kP29LihyCXHGFwwry8EkLM2u/qD5v+XVWDP2 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="388073221"
-X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="388073221"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2023 10:37:38 -0700
+ t=1696873202; x=1728409202;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=M1Czg5f0AUD6s8LQvrfBEq1VZw35aoj8/qlkdkheOLU=;
+ b=Uxwvg+0+MJ1CNXzdED14v9ULQVX6585nL3z8YSD76n7K+NecwW6MzdhH
+ f4ReO4LN4uGRSy8N6ak5DXZPlVrO8vL4irD83fgkf1/sIp3re/f5VJTuj
+ p68SsdlNOwiDArS05a7IHxJtIXsMaZqbAkXpxS29z2D1YYih8tLBkjafl
+ adpZy+AkXhXi+1HhtqPKbWxI4ageWfclCMKNBb5sHUVFD/jD/ZPyUjp8x
+ H/a25IoH9Qbt8SWhtRuwy8b4t73X/mNOYvCGOh7jEfCGqeKw31V3cA+fc
+ i5FlspiCVXzDHYcS0B4+h0lxaopNTsqaOBLIRZBSRN8PK/ebqShxGkP/4 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="450705016"
+X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="450705016"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2023 10:40:01 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="702997825"
-X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="702997825"
-Received: from kamilkon-desk.igk.intel.com (HELO localhost) ([10.102.138.187])
- by orsmga003-auth.jf.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2023 10:37:33 -0700
-Date: Mon, 9 Oct 2023 19:37:31 +0200
-From: Kamil Konieczny <kamil.konieczny@linux.intel.com>
-To: igt-dev@lists.freedesktop.org
-Message-ID: <20231009173731.sqtkomm45leyplq5@kamilkon-desk.igk.intel.com>
-Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- igt-dev@lists.freedesktop.org,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-References: <20231009122750.519112-13-janusz.krzysztofik@linux.intel.com>
- <20231009122750.519112-22-janusz.krzysztofik@linux.intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="788251442"
+X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="788251442"
+Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2023 10:40:01 -0700
+From: Jonathan Cavitt <jonathan.cavitt@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Mon,  9 Oct 2023 10:29:14 -0700
+Message-Id: <20231009172919.1769055-3-jonathan.cavitt@intel.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20231009172919.1769055-1-jonathan.cavitt@intel.com>
+References: <20231009172919.1769055-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20231009122750.519112-22-janusz.krzysztofik@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH i-g-t v2 09/11] lib/kunit: Prepare for KTAP
- parsing after modprobe completed
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v9 2/7] drm/i915/guc: Add CT size delay helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,101 +57,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
- intel-xe@lists.freedesktop.org
+Cc: janusz.krzysztofik@intel.com, andi.shyti@intel.com,
+ matthew.d.roper@intel.com, jonathan.cavitt@intel.com, saurabhg.gupta@intel.com,
+ chris.p.wilson@linux.intel.com, nirmoy.das@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Janusz,
-On 2023-10-09 at 14:28:00 +0200, Janusz Krzysztofik wrote:
-> We are going to add support for reading a list of kunit test cases
-> provided by a kunit test module prior to executing those test cases.  That
---------------------------------------------------------------------- ^^
-Two spaces, use only one.
+Add a helper function to the GuC CT buffer that reports the expected
+time to process all outstanding requests.  As of now, there is no
+functionality to check number of requests in the buffer, so the helper
+function just reports 2 seconds, or 1ms per request up to the maximum
+number of requests the CT buffer can store.
 
-> will be done by first loading kunit modules in list only mode, then
-> reading the list from /dev/kmsg with our KTAP parser.  Since that parsing
--------------------------------------------------------^^
-Same here.
+Suggested-by: John Harrison <john.c.harrison@intel.com>
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-> will be performed after the kunit test module is successfully loaded and
-> there will be no concurrently running modprobe thread, we need to make
-> synchronization of reads from /dev/kmsg with potential errors modprobe
-> thread optional.
-> 
-> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+index 58e42901ff498..36afc1ce9fabd 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+@@ -120,6 +120,19 @@ static inline bool intel_guc_ct_enabled(struct intel_guc_ct *ct)
+ 	return ct->enabled;
+ }
+ 
++/*
++ * GuC has a timeout of 1ms for a TLB invalidation response from GAM.  On a
++ * timeout GuC drops the request and has no mechanism to notify the host about
++ * the timeout.  There is also no mechanism for determining the number of
++ * outstanding requests in the CT buffer.  Ergo, keep a larger timeout that accounts
++ * for this individual timeout and the max number of outstanding requests that
++ * can be queued in CT buffer.
++ */
++static inline long intel_guc_ct_expected_delay(struct intel_guc_ct *ct)
++{
++	return HZ * 2;
++}
++
+ #define INTEL_GUC_CT_SEND_NB		BIT(31)
+ #define INTEL_GUC_CT_SEND_G2H_DW_SHIFT	0
+ #define INTEL_GUC_CT_SEND_G2H_DW_MASK	(0xff << INTEL_GUC_CT_SEND_G2H_DW_SHIFT)
+-- 
+2.25.1
 
-Reviewed-by: Kamil Konieczny <kamil.konieczny@linux.intel.com>
-
-> ---
->  lib/igt_kmod.c | 50 ++++++++++++++++++++++++++------------------------
->  1 file changed, 26 insertions(+), 24 deletions(-)
-> 
-> diff --git a/lib/igt_kmod.c b/lib/igt_kmod.c
-> index fed0855c84..ed41aa1235 100644
-> --- a/lib/igt_kmod.c
-> +++ b/lib/igt_kmod.c
-> @@ -802,34 +802,36 @@ static int kunit_kmsg_result_get(struct igt_list_head *results,
->  		if (igt_debug_on(igt_kernel_tainted(&taints)))
->  			return -ENOTRECOVERABLE;
->  
-> -		err = igt_debug_on(sigaction(SIGCHLD, &sigchld, saved));
-> -		if (err == -1)
-> -			return -errno;
-> -		else if (unlikely(err))
-> -			return err;
-> -
-> -		err = pthread_mutex_lock(&modprobe->lock);
-> -		switch (err) {
-> -		case EOWNERDEAD:
-> -			/* leave the mutex unrecoverable */
-> -			igt_debug_on(pthread_mutex_unlock(&modprobe->lock));
-> -			__attribute__ ((fallthrough));
-> -		case ENOTRECOVERABLE:
-> -			igt_debug_on(sigaction(SIGCHLD, saved, NULL));
-> -			if (igt_debug_on(modprobe->err))
-> -				return modprobe->err;
-> -			break;
-> -		case 0:
-> -			break;
-> -		default:
-> -			igt_debug("pthread_mutex_lock() error: %d\n", err);
-> -			igt_debug_on(sigaction(SIGCHLD, saved, NULL));
-> -			return -err;
-> +		if (modprobe) {
-> +			err = igt_debug_on(sigaction(SIGCHLD, &sigchld, saved));
-> +			if (err == -1)
-> +				return -errno;
-> +			else if (unlikely(err))
-> +				return err;
-> +
-> +			err = pthread_mutex_lock(&modprobe->lock);
-> +			switch (err) {
-> +			case EOWNERDEAD:
-> +				/* leave the mutex unrecoverable */
-> +				igt_debug_on(pthread_mutex_unlock(&modprobe->lock));
-> +				__attribute__ ((fallthrough));
-> +			case ENOTRECOVERABLE:
-> +				igt_debug_on(sigaction(SIGCHLD, saved, NULL));
-> +				if (igt_debug_on(modprobe->err))
-> +					return modprobe->err;
-> +				break;
-> +			case 0:
-> +				break;
-> +			default:
-> +				igt_debug("pthread_mutex_lock() error: %d\n", err);
-> +				igt_debug_on(sigaction(SIGCHLD, saved, NULL));
-> +				return -err;
-> +			}
->  		}
->  
->  		ret = read(fd, record, BUF_LEN);
->  
-> -		if (!err) {
-> +		if (modprobe && !err) {
->  			igt_debug_on(pthread_mutex_unlock(&modprobe->lock));
->  			igt_debug_on(sigaction(SIGCHLD, saved, NULL));
->  		}
-> -- 
-> 2.42.0
-> 
