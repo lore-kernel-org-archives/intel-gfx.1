@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0F97E95A8E
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 12:43:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B3ECE95A91
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Oct 2023 12:43:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47A7B10E108;
-	Mon,  9 Oct 2023 12:43:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA64D10E118;
+	Mon,  9 Oct 2023 12:43:35 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6036A10E0FF;
- Mon,  9 Oct 2023 12:43:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D43A010E116;
+ Mon,  9 Oct 2023 12:43:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696855410; x=1728391410;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=63H6vcYvxbv+iF8WFcxqpkKqrSb/D597I2kZnhI25H8=;
- b=npveLrr/oY7DpwgFn4S1ftYGIMHR7+CGGf0g8QnGyl4szhMtF0SVYp2e
- IzCAvseo5XI1gE+CdTdiwNZ3ozKTT8B9cU5lVRy7zn13hcwaWTIZCH17g
- 0KBHrGllWfNHIaFSfzy9Jq8wyqY4nCY7bx75VIFeUrmHduS8Mx/Ag+WMN
- /kL62XU4XJ9zVP+OosQdmjD+Q7+oL7IMcphxvHQsz+FMe9+sa3OjuG2Vk
- mPcbSFXRgI9IrxEVyhosxqO1lLvVFNT3yox9cxGhz20mungZnCO6SSsKV
- NApeRqOnAQZggZe1pgLrKJJQEoAnfWRVjf5J6Cxq/ixJOe36gIIjgSuBQ A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="383010557"
-X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="383010557"
+ t=1696855413; x=1728391413;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=/mtCjtYhA0W3JjBJCJht7t0OvWu85GqnVjjWvhSZz+s=;
+ b=ihP5lkMTKXs+3J48BHXKaBp+1PJXTw34JvOotezSbeLKp88AXNSktPUx
+ 2u0HGecvJax3Nmno60fAkGCfQrjZbByd99bOTNueMQeXcIsJ099wElC9R
+ 9HcnwamevZZgkJLfs21+MErpEkK7tU0o8oGxoDxJSm822JlLyJzcPxdXs
+ H9ERmJONFpG6OmNhX1Sr4PClAieNmw9omt0SQl7UGCBZUaS8wQnyZfbOC
+ oyCCjcNfllxh38bJbSom/DyUWyiFC15L8a2gvAYQ4+menljASdWXjJnRF
+ sibvXxOk6/9L904SN45UWggOI2KReGHvjyvVfhcwuGii76Oq+ShhgB8RQ g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="383010564"
+X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="383010564"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2023 05:43:29 -0700
+ 09 Oct 2023 05:43:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="823326802"
-X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="823326802"
+X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="823326817"
+X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="823326817"
 Received: from jkrzyszt-mobl2.ger.corp.intel.com (HELO
  jkrzyszt-mobl2.intranet) ([10.213.16.68])
  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2023 05:43:27 -0700
+ 09 Oct 2023 05:43:31 -0700
 From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 To: igt-dev@lists.freedesktop.org
-Date: Mon,  9 Oct 2023 14:27:51 +0200
-Message-ID: <20231009122750.519112-13-janusz.krzysztofik@linux.intel.com>
+Date: Mon,  9 Oct 2023 14:27:53 +0200
+Message-ID: <20231009122750.519112-15-janusz.krzysztofik@linux.intel.com>
 X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20231009122750.519112-13-janusz.krzysztofik@linux.intel.com>
+References: <20231009122750.519112-13-janusz.krzysztofik@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t v2 00/11] Kunit fixes and improvements
+Subject: [Intel-gfx] [PATCH i-g-t v2 02/11] lib/kunit: Be more verbose on
+ errors
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,41 +64,38 @@ Cc: intel-gfx@lists.freedesktop.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-v2: Add a new patch that provides all results cleanup helper,
-  - split out changes in handling of modprobe errors and kernel taints from
-    "Fetch a list of test cases in advance" to separate patches (Kamil),
-  - prepare for KTAP parsing after modprobe completed in a separate
-    patch,
-  - drop other modprobe and kernel taint related changes from the series,
-  - fix some string duplicates referenced from filtered out test cases not
-    freed,
-  - always pass last result to next dynamic sub-subtest, fetch first
-    result right after loading the kunit test module for execution,
-  - still break the loop of test cases on unexpected return codes from
-    kunit_kmsg_get_result(),
-  - fix typos (Kamil),
-  - update commit descriptions.
+Use a more verbose variant of igt_fail() when failing a dynamic sub-
+subtest on kernel taint.  Also, print a debug message on string
+duplication failure.
 
-Janusz Krzysztofik (11):
-  lib/kunit: Fix handling of potential errors from F_GETFL
-  lib/kunit: Be more verbose on errors
-  lib/kunit: Fix misplaced igt_kunit() doc
-  lib/kunit: Parse KTAP report from the main process thread
-  lib/kunit: Omit suite name prefix if the same as subtest name
-  tests/kms_selftest: Let subtest names match suite names
-  lib/ktap: Drop workaround for missing top level KTAP headers
-  lib/kunit: Provide all results cleanup helper
-  lib/kunit: Prepare for KTAP parsing after modprobe completed
-  lib/kunit: Fetch a list of test cases in advance
-  lib/kunit: Execute kunit test cases only when needed
+Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Reviewed-by: Kamil Konieczny <kamil.konieczny@linux.intel.com>
+---
+ lib/igt_kmod.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- lib/igt_kmod.c              | 418 ++++++++++++++++++++++----
- lib/igt_ktap.c              | 580 ------------------------------------
- lib/igt_ktap.h              |  22 --
- lib/tests/igt_ktap_parser.c |   3 +-
- tests/kms_selftest.c        |  37 +--
- 5 files changed, 374 insertions(+), 686 deletions(-)
-
+diff --git a/lib/igt_kmod.c b/lib/igt_kmod.c
+index 05ff178b27..df0e650d49 100644
+--- a/lib/igt_kmod.c
++++ b/lib/igt_kmod.c
+@@ -834,7 +834,7 @@ static void __igt_kunit(struct igt_ktest *tst, const char *opts)
+ 			if (!pthread_tryjoin_np(modprobe_thread, NULL))
+ 				igt_assert_eq(modprobe.err, 0);
+ 
+-			igt_fail_on(igt_kernel_tainted(&taints));
++			igt_assert_eq(igt_kernel_tainted(&taints), 0);
+ 		}
+ 
+ 		free(result);
+@@ -861,7 +861,7 @@ void igt_kunit(const char *module_name, const char *name, const char *opts)
+ 	 */
+ 	if (!name) {
+ 		name = strdup(module_name);
+-		if (name) {
++		if (!igt_debug_on(!name)) {
+ 			char *suffix = strstr(name, "_test");
+ 
+ 			if (!suffix)
 -- 
 2.42.0
 
