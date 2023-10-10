@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB35ACD8CAC
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 18:57:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C84F3CD8CB3
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 18:57:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E32710E3CB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D6F910E3CA;
 	Tue, 10 Oct 2023 18:57:30 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49F3210E3C6
- for <intel-gfx@lists.freedesktop.org>; Tue, 10 Oct 2023 18:57:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7CF410E3E4
+ for <intel-gfx@lists.freedesktop.org>; Tue, 10 Oct 2023 18:57:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696964247; x=1728500247;
+ t=1696964246; x=1728500246;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Gx0fKgQ63mPpcjcyMcdaJg8nHI032rvcEtCeYHVNvnE=;
- b=RGLf1spvlURHdZWmagjgvDq98wYMqPkaRFuDukP99GDBSWAdsLbOTKWC
- +9c27YmZMJ3toG+QrtiB5FvuVwH0LzQYWirTu6cTr1G3Q8ITq9yrsuuBV
- Byn/KbhpsA4oX+gmHQXTDyTUC3MfYbNeJ+nZZlWwhg3OmuWUjiiZM/bbX
- f2Q9ZMbsXesYnsFwySSojcCy0fspy7yX3EeLBcMSVByfcL6AES+BlbP7N
- uiNBeXrgFtLOJbNj9nYPcNGkGS24gjcIXecxo+skmwQq6aKy/aBguIMjG
- WSPAC4Xr7CuIxMLtqXQnzerBGsMtMg0l+tGB/9tQo4jALJmptXfFdZf7t g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="374830091"
-X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="374830091"
+ bh=aya2YuM5tbecZPP1LDqLzQtR+v0iUIvsUP0HUO5HGSk=;
+ b=nn5hUfhN+z02VDwQ/O2ALy10PdGZZ3bnakKMuY/871TRGJjKVh90Y4kr
+ L3D2ChugWQ7Jkl+HO9u5pfo/N/4K3lPhRuCZNfs9lM1uLIuF6vzbbDqkE
+ RCDebwKOFuYqS3BrD/RVZb3yJrmJ4cTv7nmSD3voW4KWyNKIB5CAbFiD5
+ 7+555X/JOHAB0W38ipemxjlWFOrqFqSCdTbXhHGRU9wdq85goXemT0fQj
+ CGVD7j0PW4/hUrV53uOdJcV6ptiad8OXl0w1UfaD+9HXbGd4HrHegMi7L
+ cBOTCM0pz0cCDaV5ctPgsACARqAQFoyBybB4IMKi2/ZpfiN0818MgU2mU A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="374830088"
+X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="374830088"
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Oct 2023 11:57:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="1000802301"
-X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="1000802301"
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="1000802295"
+X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="1000802295"
 Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
  by fmsmga006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 11:57:26 -0700
+ 10 Oct 2023 11:57:25 -0700
 From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 10 Oct 2023 11:46:39 -0700
-Message-Id: <20231010184641.2119129-9-jonathan.cavitt@intel.com>
+Date: Tue, 10 Oct 2023 11:46:37 -0700
+Message-Id: <20231010184641.2119129-7-jonathan.cavitt@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231010184641.2119129-1-jonathan.cavitt@intel.com>
 References: <20231010184641.2119129-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC PATCH 08/10] drm/i915: Define GuC Based TLB
- invalidation routines
+Subject: [Intel-gfx] [RFC PATCH 06/10] drm/i915/gt: Increase sleep in gt_tlb
+ selftest sanitycheck
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,187 +63,40 @@ Cc: andi.shyti@intel.com, jonathan.cavitt@intel.com, saurabhg.gupta@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
+For the gt_tlb live selftest, when operating on the GSC engine,
+increase the timeout from 10 ms to 200 ms because the GSC
+engine is a bit slower than the rest.
 
-The GuC firmware has defined the interface for selective TLB
-invalidation support. This patch adds routines to interface with GuC.
+Additionally, increase the default timeout from 10 ms to 20 ms
+because msleep < 20ms can sleep for up to 20ms.
 
-Signed-off-by: Prathap Kumar Valsan <prathap.kumar.valsan@intel.com>
-CC: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |   2 +
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  11 ++
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 105 +++++++++++++++---
- 3 files changed, 105 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_tlb.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-index 33f253410d0c8..7bb710fcd9087 100644
---- a/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-+++ b/drivers/gpu/drm/i915/gt/uc/abi/guc_actions_abi.h
-@@ -189,6 +189,8 @@ enum intel_guc_state_capture_event_status {
+diff --git a/drivers/gpu/drm/i915/gt/selftest_tlb.c b/drivers/gpu/drm/i915/gt/selftest_tlb.c
+index 7e41f69fc818f..24beb94aa7a37 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_tlb.c
++++ b/drivers/gpu/drm/i915/gt/selftest_tlb.c
+@@ -136,8 +136,15 @@ pte_tlbinv(struct intel_context *ce,
+ 	i915_request_get(rq);
+ 	i915_request_add(rq);
  
- enum intel_guc_tlb_invalidation_type {
- 	INTEL_GUC_TLB_INVAL_ENGINES = 0x0,
-+	INTEL_GUC_TLB_INVAL_PAGE_SELECTIVE = 0x1,
-+	INTEL_GUC_TLB_INVAL_PAGE_SELECTIVE_CTX = 0x2,
- 	INTEL_GUC_TLB_INVAL_GUC = 0x3,
- };
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 3fbf4b33ce139..369fd2be1c725 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -431,6 +431,17 @@ int intel_guc_allocate_and_map_vma(struct intel_guc *guc, u32 size,
- int intel_guc_self_cfg32(struct intel_guc *guc, u16 key, u32 value);
- int intel_guc_self_cfg64(struct intel_guc *guc, u16 key, u64 value);
- 
-+int intel_guc_g2g_register(struct intel_guc *guc);
-+
-+int intel_guc_invalidate_tlb_full(struct intel_guc *guc);
-+int intel_guc_invalidate_tlb_page_selective(struct intel_guc *guc,
-+					    enum intel_guc_tlb_inval_mode mode,
-+					    u64 start, u64 length);
-+int intel_guc_invalidate_tlb_page_selective_ctx(struct intel_guc *guc,
-+						enum intel_guc_tlb_inval_mode mode,
-+						u64 start, u64 length, u32 ctxid);
-+int intel_guc_invalidate_tlb_guc(struct intel_guc *guc);
-+
- static inline bool intel_guc_is_supported(struct intel_guc *guc)
- {
- 	return intel_uc_fw_is_supported(&guc->fw);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index c3c45d3b9e89b..8c31000525b59 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -4753,22 +4753,12 @@ static bool intel_gt_is_enabled(const struct intel_gt *gt)
- 	return true;
- }
- 
--static int guc_send_invalidate_tlb(struct intel_guc *guc,
--				   enum intel_guc_tlb_invalidation_type type)
-+static int guc_send_invalidate_tlb(struct intel_guc *guc, u32 *action, u32 size)
- {
- 	struct intel_guc_tlb_wait _wq, *wq = &_wq;
- 	DEFINE_WAIT_FUNC(wait, woken_wake_function);
- 	int err;
- 	u32 seqno;
--	u32 action[] = {
--		INTEL_GUC_ACTION_TLB_INVALIDATION,
--		0,
--		REG_FIELD_PREP(INTEL_GUC_TLB_INVAL_TYPE_MASK, type) |
--			REG_FIELD_PREP(INTEL_GUC_TLB_INVAL_MODE_MASK,
--				       INTEL_GUC_TLB_INVAL_MODE_HEAVY) |
--			INTEL_GUC_TLB_INVAL_FLUSH_CACHE,
--	};
--	u32 size = ARRAY_SIZE(action);
- 
- 	init_waitqueue_head(&_wq.wq);
- 
-@@ -4822,13 +4812,102 @@ static int guc_send_invalidate_tlb(struct intel_guc *guc,
- /* Full TLB invalidation */
- int intel_guc_invalidate_tlb_engines(struct intel_guc *guc)
- {
--	return guc_send_invalidate_tlb(guc, INTEL_GUC_TLB_INVAL_ENGINES);
-+	u32 action[] = {
-+		INTEL_GUC_ACTION_TLB_INVALIDATION,
-+		0,
-+		REG_FIELD_PREP(INTEL_GUC_TLB_INVAL_TYPE_MASK,
-+			       INTEL_GUC_TLB_INVAL_ENGINES) |
-+			REG_FIELD_PREP(INTEL_GUC_TLB_INVAL_MODE_MASK,
-+				       INTEL_GUC_TLB_INVAL_MODE_HEAVY) |
-+			INTEL_GUC_TLB_INVAL_FLUSH_CACHE,
-+	};
-+	u32 size = ARRAY_SIZE(action);
-+	return guc_send_invalidate_tlb(guc, action, size);
-+}
-+
-+/*
-+ * Selective TLB Invalidation for Address Range:
-+ * TLB's in the Address Range is Invalidated across all engines.
-+ */
-+int intel_guc_invalidate_tlb_page_selective(struct intel_guc *guc,
-+					    enum intel_guc_tlb_inval_mode mode,
-+					    u64 start, u64 length)
-+{
-+	u64 vm_total = BIT_ULL(RUNTIME_INFO(guc_to_gt(guc)->i915)->ppgtt_size);
-+
+-	/* Short sleep to sanitycheck the batch is spinning before we begin */
+-	msleep(10);
 +	/*
-+	 * For page selective invalidations, this specifies the number of contiguous
-+	 * PPGTT pages that needs to be invalidated.
++	 * Short sleep to sanitycheck the batch is spinning before we begin.
++	 * FIXME: Why is GSC so slow?
 +	 */
-+	u32 address_mask = length >= vm_total ? 0 : ilog2(length) - ilog2(SZ_4K);
-+	u32 action[] = {
-+		INTEL_GUC_ACTION_TLB_INVALIDATION,
-+		0,
-+		REG_FIELD_PREP(INTEL_GUC_TLB_INVAL_TYPE_MASK,
-+			       INTEL_GUC_TLB_INVAL_PAGE_SELECTIVE) |
-+			REG_FIELD_PREP(INTEL_GUC_TLB_INVAL_MODE_MASK, mode) |
-+			INTEL_GUC_TLB_INVAL_FLUSH_CACHE,
-+		0,
-+		length >= vm_total ? 1 : lower_32_bits(start),
-+		upper_32_bits(start),
-+		address_mask,
-+	};
++	if (ce->engine->class == OTHER_CLASS)
++		msleep(200);
++	else
++		msleep(20);
 +
-+	GEM_BUG_ON(length < SZ_4K);
-+	GEM_BUG_ON(!is_power_of_2(length));
-+	GEM_BUG_ON(!IS_ALIGNED(start, length));
-+	GEM_BUG_ON(range_overflows(start, length, vm_total));
-+
-+	return guc_send_invalidate_tlb(guc, action, ARRAY_SIZE(action));
-+}
-+
-+/*
-+ * Selective TLB Invalidation for Context:
-+ * Invalidates all TLB's for a specific context across all engines.
-+ */
-+int intel_guc_invalidate_tlb_page_selective_ctx(struct intel_guc *guc,
-+                                                enum intel_guc_tlb_inval_mode mode,
-+                                                u64 start, u64 length, u32 ctxid)
-+{
-+        u64 vm_total = BIT_ULL(RUNTIME_INFO(guc_to_gt(guc)->i915)->ppgtt_size);
-+        u32 address_mask = (ilog2(length) - ilog2(I915_GTT_PAGE_SIZE_4K));
-+        u32 full_range = vm_total == length;
-+        u32 action[] = {
-+                INTEL_GUC_ACTION_TLB_INVALIDATION,
-+                0,
-+                REG_FIELD_PREP(INTEL_GUC_TLB_INVAL_TYPE_MASK,
-+			       INTEL_GUC_TLB_INVAL_PAGE_SELECTIVE_CTX) |
-+                        REG_FIELD_PREP(INTEL_GUC_TLB_INVAL_MODE_MASK, mode) |
-+                        INTEL_GUC_TLB_INVAL_FLUSH_CACHE,
-+                ctxid,
-+                full_range ? full_range : lower_32_bits(start),
-+                full_range ? 0 : upper_32_bits(start),
-+                full_range ? 0 : address_mask,
-+        };
-+
-+        GEM_BUG_ON(length < SZ_4K);
-+        GEM_BUG_ON(!is_power_of_2(length));
-+        GEM_BUG_ON(length & GENMASK(ilog2(SZ_16M) - 1, ilog2(SZ_2M) + 1));
-+        GEM_BUG_ON(!IS_ALIGNED(start, length));
-+        GEM_BUG_ON(range_overflows(start, length, vm_total));
-+
-+        return guc_send_invalidate_tlb(guc, action, ARRAY_SIZE(action));
- }
- 
- /* GuC TLB Invalidation: Invalidate the TLB's of GuC itself. */
- int intel_guc_invalidate_tlb_guc(struct intel_guc *guc)
- {
--	return guc_send_invalidate_tlb(guc, INTEL_GUC_TLB_INVAL_GUC);
-+	u32 action[] = {
-+		INTEL_GUC_ACTION_TLB_INVALIDATION,
-+		0,
-+		REG_FIELD_PREP(INTEL_GUC_TLB_INVAL_TYPE_MASK,
-+			       INTEL_GUC_TLB_INVAL_GUC) |
-+			REG_FIELD_PREP(INTEL_GUC_TLB_INVAL_MODE_MASK,
-+				       INTEL_GUC_TLB_INVAL_MODE_HEAVY) |
-+			INTEL_GUC_TLB_INVAL_FLUSH_CACHE,
-+	};
-+	u32 size = ARRAY_SIZE(action);
-+	return guc_send_invalidate_tlb(guc, action, size);
- }
- 
- int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
+ 	if (va == vb) {
+ 		if (!i915_request_completed(rq)) {
+ 			pr_err("%s(%s): Semaphore sanitycheck failed %llx, with alignment %llx, using PTE size %x (phys %x, sg %x)\n",
 -- 
 2.25.1
 
