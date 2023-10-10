@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 353B5CD80A7
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 11:08:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41AF7CD80A3
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 11:08:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43A9A10E33F;
-	Tue, 10 Oct 2023 11:08:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C9E710E335;
+	Tue, 10 Oct 2023 11:08:01 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66A0610E1D0;
- Tue, 10 Oct 2023 11:07:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE40010E1D0;
+ Tue, 10 Oct 2023 11:07:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1696936078; x=1728472078;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=03nDRWW7EVAGKmebBot0ZRNlqX0pvuY1gK8RtPU+Pps=;
- b=RcKIhfVOn0z6i2/vqI/6XWn9atjlXmHtg1Bpby4OkSC7/tktsDUPoLoE
- F+Px3cxQgrFdNVX6E6S4Ylu0anDUKbbum5o4noQtgY8HhwH96CByaIi9E
- eQCI3uzNh78AlbDgdSYoVSsx5ZausWmv6AoUYlnxoQ05nqTFRW2zhD/dF
- ma9GDAL9kPrKe9ZyNieJUbf+oAsWEtN2iEGLO4tS6hr74nAWxrfNyG9ni
- FIBbXQQdjKPMGsm7xsLgrKmvvaKjyIrPBp/EU5rYk6ot0nW8wnti6UnpE
- oz+4pkrDeMp7K4QP33Z0Dm5lZnJ39wBPR4HLTJJihtswaZVmyJQzK8T32 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="450863400"
-X-IronPort-AV: E=Sophos;i="6.03,212,1694761200"; d="scan'208";a="450863400"
+ bh=oSW8UAGZ/xuxrulfCMy/ouKz2mQ/bQtyNOA0TQI3wuk=;
+ b=ZJRaWftezB2kMceygho61rGg4lx9gDAUAIpZArsDhL0dd+Jkc+Ulzw7W
+ Z76h4y+OAcLb5ia+fuy2iFhHeeWKAk/a9Iw3IwMjvg7dw5TkF6QZdK4+V
+ an9KHrqFgSlQU3c6J96XqZW5LIIrKyGyRRIVuowjME2Y1bm5p7k1VBbKQ
+ pEihmAy24lhCyHt+9YCd60q1xaK05N7VOaSBv+5oTOwcv3yOs/K6SaBSO
+ JbCIeBbG8yMda/TWTYfeMGHnC7nbN4iC2vLcAqCGAC0uKx2qf+UwhmPhw
+ I9gwgVqZmq9brSLViwxeRrVFC/w5CxOwLri8FOMlQLFi9GOxELQiTb0Fe A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="450863383"
+X-IronPort-AV: E=Sophos;i="6.03,212,1694761200"; d="scan'208";a="450863383"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 04:07:33 -0700
+ 10 Oct 2023 04:07:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="819205899"
-X-IronPort-AV: E=Sophos;i="6.03,212,1694761200"; d="scan'208";a="819205899"
+X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="819205888"
+X-IronPort-AV: E=Sophos;i="6.03,212,1694761200"; d="scan'208";a="819205888"
 Received: from emikisch-mobl.amr.corp.intel.com (HELO localhost.localdomain)
  ([10.213.174.67])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 04:07:25 -0700
+ 10 Oct 2023 04:07:22 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: igt-dev@lists.freedesktop.org,
 	Intel-gfx@lists.freedesktop.org
-Date: Tue, 10 Oct 2023 12:07:14 +0100
-Message-Id: <20231010110714.749239-5-tvrtko.ursulin@linux.intel.com>
+Date: Tue, 10 Oct 2023 12:07:11 +0100
+Message-Id: <20231010110714.749239-2-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231010110714.749239-1-tvrtko.ursulin@linux.intel.com>
 References: <20231010110714.749239-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 4/4] tools/intel_gpu_top: Handle narrow
- terminals more gracefully
+Subject: [Intel-gfx] [PATCH i-g-t 1/4] tools/intel_gpu_top: Fix clients
+ header width when no clients
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,68 +66,40 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-Instead of asserting just skip trying to print columns when terminal is
-too narrow.
-
-At the same time fix some type confusion to fix calculations going huge.
+Recent refactoring broke the clients header in cases when there are no
+clients displayed. To fix it we need to account the width of the "NAME"
+label.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Closes: https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/issues/143
 ---
- tools/intel_gpu_top.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ tools/intel_gpu_top.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
-index 472ce3f13ba9..6d1397cb8214 100644
+index 10601e66b18e..60fe06917531 100644
 --- a/tools/intel_gpu_top.c
 +++ b/tools/intel_gpu_top.c
-@@ -926,7 +926,7 @@ static void free_display_clients(struct igt_drm_clients *clients)
- 	free(clients);
- }
- 
--static unsigned int n_spaces(const unsigned int n)
-+static int n_spaces(const int n)
+@@ -1967,6 +1967,8 @@ print_clients_header(struct igt_drm_clients *clients, int lines,
+ 		     int con_w, int con_h, int *class_w)
  {
- 	static const char *spaces[] = {
- 		" ",
-@@ -950,7 +950,7 @@ static unsigned int n_spaces(const unsigned int n)
- 		"                   ",
- #define MAX_SPACES 19
- 	};
--	unsigned int i, r = n;
-+	int i, r = n;
- 
- 	while (r) {
- 		if (r > MAX_SPACES)
-@@ -972,7 +972,8 @@ print_percentage_bar(double percent, double max, int max_len, bool numeric)
- 	int bar_len, i, len = max_len - 2;
- 	const int w = 8;
- 
--	assert(max_len > 0);
-+	if (len < 2) /* For edge lines '|' */
-+		return;
- 
- 	bar_len = ceil(w * percent * len / max);
- 	if (bar_len > w * len)
-@@ -986,6 +987,8 @@ print_percentage_bar(double percent, double max, int max_len, bool numeric)
- 		printf("%s", bars[i]);
- 
- 	len -= (bar_len + (w - 1)) / w;
-+	if (len < 1)
-+		return;
- 	n_spaces(len);
- 
- 	putchar('|');
-@@ -2001,8 +2004,7 @@ print_clients_header(struct igt_drm_clients *clients, int lines,
- 				 4 : clients->max_name_len; /* At least "NAME" */
+ 	struct intel_clients *iclients = clients->private_data;
++	const int max_name_len = clients->max_name_len < 4 ?
++				 4 : clients->max_name_len; /* At least "NAME" */
  
  	if (output_mode == INTERACTIVE) {
--		unsigned int num_active = 0;
--		int len;
-+		int len, num_active = 0;
+ 		unsigned int num_active = 0;
+@@ -1990,9 +1992,8 @@ print_clients_header(struct igt_drm_clients *clients, int lines,
+ 					num_active++;
+ 			}
  
- 		if (lines++ >= con_h)
- 			return lines;
+-			*class_w = width =
+-				(con_w - len - clients->max_name_len - 1) /
+-				num_active;
++			*class_w = width = (con_w - len - max_name_len - 1) /
++					   num_active;
+ 
+ 			for (i = 0; i <= iclients->classes.max_engine_id; i++) {
+ 				const char *name = iclients->classes.names[i];
 -- 
 2.39.2
 
