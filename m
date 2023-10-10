@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B0E5CD8CB2
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 18:55:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD4A8CD8CB1
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 18:55:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9DC510E3B8;
-	Tue, 10 Oct 2023 18:55:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C72A10E3BA;
+	Tue, 10 Oct 2023 18:55:16 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B095F10E3B4
- for <intel-gfx@lists.freedesktop.org>; Tue, 10 Oct 2023 18:55:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70D8510E0D3
+ for <intel-gfx@lists.freedesktop.org>; Tue, 10 Oct 2023 18:55:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696964108; x=1728500108;
+ t=1696964107; x=1728500107;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=aya2YuM5tbecZPP1LDqLzQtR+v0iUIvsUP0HUO5HGSk=;
- b=LjWfXGZiot119CNUFXimDVjPATvFK4AmxE8/9Icye7r7Xq0PgRE6IqE6
- Oa8/SFGuKwFgGz/hl+EPDEfB8q3EKW7NGZitqhnuvaPtDMc1TRGyaaY+f
- wIRkXCmhKazQTUTG83MQpMHGxWJzEWOKxO6Xz3YOrRrsyxYHtb6w2Ox8O
- SWvxaD4M3D2iWu2WX1+2joDpU9gTY6oxPerh0xtxWNry1emK/EfJjR/1X
- bfHATqPqn6Bpdr0mrVX8iJUQEdmUbDy930ybRjtJPv08k1LIlvsH7vEow
- mzB2wzNqFItx5KuVjUC7VFm9uQJuja9HggmtoZsG7Q/ZdASefPNqT5kWp Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="364776802"
-X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="364776802"
+ bh=M1Czg5f0AUD6s8LQvrfBEq1VZw35aoj8/qlkdkheOLU=;
+ b=Ka8xQo1mlPhkLU0e35uil853vaQY6O+s4iMd5j8kinXQx5h6WRNvc8M/
+ FptwNcV4DBR+hlyXE3eWTyfhTie/Xg3/OUi7R2RhcOIj8wZr7EUU97nk5
+ P+iR2lwSbURJdiAkx97YhBlJ/uYKRpOvy9S7eWz72zGSDqRAjImouhOIN
+ SnVU++PvmHj1SQxW1p/sp6F7sXUx+n77LvE35RF8jCTdr5LcFBOy9fbHn
+ Z86feht6p+KdSSlETkSCFgxhuR4dSPei6/Gz4TjMtkFoju4Pb/DrXkIqd
+ f+6D/B3V2iHSNgFiYBEV+581A+QyoSGYWSQTiYXXQSTnSDihyrssidh3h g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="364776796"
+X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="364776796"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 11:55:08 -0700
+ 10 Oct 2023 11:55:07 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="757234872"
-X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="757234872"
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="757234858"
+X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="757234858"
 Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 11:55:08 -0700
+ 10 Oct 2023 11:55:06 -0700
 From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 10 Oct 2023 11:44:19 -0700
-Message-Id: <20231010184423.2118908-9-jonathan.cavitt@intel.com>
+Date: Tue, 10 Oct 2023 11:44:15 -0700
+Message-Id: <20231010184423.2118908-5-jonathan.cavitt@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231010184423.2118908-1-jonathan.cavitt@intel.com>
 References: <20231010184423.2118908-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [RFC PATCH 06/10] drm/i915/gt: Increase sleep in gt_tlb
- selftest sanitycheck
+Subject: [Intel-gfx] [RFC PATCH 02/10] drm/i915/guc: Add CT size delay helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,40 +62,42 @@ Cc: andi.shyti@intel.com, jonathan.cavitt@intel.com, saurabhg.gupta@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For the gt_tlb live selftest, when operating on the GSC engine,
-increase the timeout from 10 ms to 200 ms because the GSC
-engine is a bit slower than the rest.
+Add a helper function to the GuC CT buffer that reports the expected
+time to process all outstanding requests.  As of now, there is no
+functionality to check number of requests in the buffer, so the helper
+function just reports 2 seconds, or 1ms per request up to the maximum
+number of requests the CT buffer can store.
 
-Additionally, increase the default timeout from 10 ms to 20 ms
-because msleep < 20ms can sleep for up to 20ms.
-
+Suggested-by: John Harrison <john.c.harrison@intel.com>
 Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_tlb.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_tlb.c b/drivers/gpu/drm/i915/gt/selftest_tlb.c
-index 7e41f69fc818f..24beb94aa7a37 100644
---- a/drivers/gpu/drm/i915/gt/selftest_tlb.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_tlb.c
-@@ -136,8 +136,15 @@ pte_tlbinv(struct intel_context *ce,
- 	i915_request_get(rq);
- 	i915_request_add(rq);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+index 58e42901ff498..36afc1ce9fabd 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+@@ -120,6 +120,19 @@ static inline bool intel_guc_ct_enabled(struct intel_guc_ct *ct)
+ 	return ct->enabled;
+ }
  
--	/* Short sleep to sanitycheck the batch is spinning before we begin */
--	msleep(10);
-+	/*
-+	 * Short sleep to sanitycheck the batch is spinning before we begin.
-+	 * FIXME: Why is GSC so slow?
-+	 */
-+	if (ce->engine->class == OTHER_CLASS)
-+		msleep(200);
-+	else
-+		msleep(20);
++/*
++ * GuC has a timeout of 1ms for a TLB invalidation response from GAM.  On a
++ * timeout GuC drops the request and has no mechanism to notify the host about
++ * the timeout.  There is also no mechanism for determining the number of
++ * outstanding requests in the CT buffer.  Ergo, keep a larger timeout that accounts
++ * for this individual timeout and the max number of outstanding requests that
++ * can be queued in CT buffer.
++ */
++static inline long intel_guc_ct_expected_delay(struct intel_guc_ct *ct)
++{
++	return HZ * 2;
++}
 +
- 	if (va == vb) {
- 		if (!i915_request_completed(rq)) {
- 			pr_err("%s(%s): Semaphore sanitycheck failed %llx, with alignment %llx, using PTE size %x (phys %x, sg %x)\n",
+ #define INTEL_GUC_CT_SEND_NB		BIT(31)
+ #define INTEL_GUC_CT_SEND_G2H_DW_SHIFT	0
+ #define INTEL_GUC_CT_SEND_G2H_DW_MASK	(0xff << INTEL_GUC_CT_SEND_G2H_DW_SHIFT)
 -- 
 2.25.1
 
