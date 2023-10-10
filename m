@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4433DCD8CA4
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 15:13:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E3B6CD8CA5
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 15:13:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3D1710E32C;
-	Tue, 10 Oct 2023 15:13:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CEB510E390;
+	Tue, 10 Oct 2023 15:13:31 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A24FB10E32C
- for <intel-gfx@lists.freedesktop.org>; Tue, 10 Oct 2023 15:13:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E03CC10E390
+ for <intel-gfx@lists.freedesktop.org>; Tue, 10 Oct 2023 15:13:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696950807; x=1728486807;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=DJSijsZ3lQcx/jNKJB0XodXea7HtnRLaMrQaZELi/Nk=;
- b=NqsCGYmbdzVR6Fcib99THHQq61nQxJzrsYt6fF9c1kL8miSgUau2NFXC
- GcDmiljxw3SNaLTzF7yBNl+fj/Joq8JuR0hlIXz5Wzs9JFCm2Xn4cCtaG
- HAQA+hp9CFtheXWd/Uou/i5KhK5thos2qlA12squ64u9HcRVb9cmYTIZm
- B5maZhWHz1BvhPWgcs0F9S68QVulRJgmHZW3iWnPe098duSXUD4VHxaCW
- t0dVA3AAYT39JM3uOGr806TLRk1h/+XCa0jDqmNtkXNjiFgezBguyDDhm
- 5zgqPtNBMLkQJpM13zom0Pcw6QliKpAHow2jtSWlBEVPxeF0uL8+MB0Wx g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="415435731"
-X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="415435731"
+ t=1696950809; x=1728486809;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=+r/lc4mDefQ6hIT5sQlKNW10ag7ly8xSz8WuI83JJxs=;
+ b=imri/R5B44t1aLqFiYV5mZkZhYWuw27eUOovFtz0mjMRUpWkAgmR/ybw
+ KXczB2gWV1gFFYRyYjgk1ATi8eMtygBZSS4RoKeigt7I/HsxRtPBT57Sw
+ fVXdNrpgo8/taWAkPWJwZLt64TrvJUze8j/w01ZjXuVPhJkllfeg2sBaw
+ ggVsmXqubQk+uH//nVmPV+ssej/BQSOnV8689riy0vmLue+UaXcYwcwZa
+ cvCmyV81+zdcI1mXbSzg6hQBgmjMnK2IhkIjw6cnPnob7WUAgI021S8iq
+ hkVREG9Qa/Fx+GP3G6pHUzsWHl1wH3PeDu06uUqS3SWYi83B8alkApgqM A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="415435751"
+X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="415435751"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 08:13:27 -0700
+ 10 Oct 2023 08:13:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="757154978"
-X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="757154978"
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="757155015"
+X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="757155015"
 Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 08:13:26 -0700
+ 10 Oct 2023 08:13:29 -0700
 From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 10 Oct 2023 08:02:37 -0700
-Message-Id: <20231010150244.2021420-1-jonathan.cavitt@intel.com>
+Date: Tue, 10 Oct 2023 08:02:42 -0700
+Message-Id: <20231010150244.2021420-6-jonathan.cavitt@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20231010150244.2021420-1-jonathan.cavitt@intel.com>
+References: <20231010150244.2021420-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 0/7] drm/i915: Define and use GuC and CTB
- TLB invalidation routines
+Subject: [Intel-gfx] [PATCH v10 5/7] drm/i915: No TLB invalidation on wedged
+ GT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,120 +64,67 @@ Cc: janusz.krzysztofik@intel.com, andi.shyti@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implement GuC-based TLB invalidations and use them on MTL.
+It is not an error for GuC TLB invalidations to fail when the GT is
+wedged or disabled, so do not process a wait failure as one in
+guc_send_invalidate_tlb.
 
-v2:
-- Add missing supporting patches.
+Signed-off-by: Fei Yang <fei.yang@intel.com>
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+CC: John Harrison <john.c.harrison@intel.com>
+---
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c  | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-v3:
-- Split suspend/resume changes and multi-gt support into separate
-  patches.
-- Only perform GuC TLB invalidation functions when supported.
-- Move intel_guc_is_enabled check function to usage location.
-- Address comments.
-
-v4:
-- Change conditions for GuC-based tlb invalidation support
-  to a pci tag that's only active for MTL.
-- Address some FIXMEs and formatting issues.
-- Move suspend/resume changes to helper functions in intel_gt.h
-- Improve comment for ct_handle_event change.
-- Use cleaner if-else conditions.
-- Address comments.
-
-v5:
-- Reintroduce missing change to selftest msleep duration
-- Move suspend/resume loops from intel_gt.h to intel_tlb.c,
-  making them no longer static inlines.
-- Remove superfluous blocking and error checks.
-- Move ct_handle_event exception to general case in
-  ct_process_request.
-- Explain usage of xa_alloc_cyclic_irq.
-- Modify explanation of purpose of
-  OUTSTANDING_GUC_TIMEOUT_PERIOD macro.
-- Explain purpose of performing tlb invalidation twice in
-  intel_gt_tlb_resume_all.
-
-v6:
-- Add this cover letter.
-- Fix explanation of purpose of
-  OUTSTANDING_GUC_TIMEOUT_PERIOD macro again.
-- s/pci tags/pci flags
-- Enable GuC TLB Invalidations separately from adding the
-  flags to do so.
-
-v7:
-- Eliminate pci terminology from patches.
-- Order new device info flag correctly.
-- Run gen8_ggtt_invalidate in more cases, specifically when
-  GuC-based TLB invalidation is not supported.
-- Use intel_uncore_write_fw instead of intel_uncore_write
-  during guc_ggtt_invalidate.
-- Remove duplicate request message clear in ct_process_request.
-- Remove faulty tag from series.
-
-v8:
-- Simplify cover letter contents.
-- Fix miscellaneous formatting and typos.
-- Reorder device info flags and defines.
-- Reword commit message.
-- Rename TLB invalidation enums and functions.
-- Add comments explaining confusing points.
-- Add helper function getting expected delay of CT buffer.
-- Simplify intel_guc_tlb_invalidation_done by passing computed
-  values.
-- Remove helper functions for tlb suspend and resume.
-- Move tlb suspend and resume paths to uc.
-- Split suspend/resume and wedged into two patches.
-- Clarify purpose of sleep change in tlb selftest.
-
-v9:
-- Explain complexity of GuC TLB invalidations as required for
-  range-based TLB invalidations, which will be platformed later.
-- Fix CHECKPATCH issues.
-- Explain intel_guc_is_ready tlb invalidation skip in
-  intel_gt_invalidate_tlb_full.
-- Reword comment for unlocked xa_for_each loop in
-  intel_guc_submission_reset.
-- Report all errors in init_tlb_lookup.
-- Remove debug message from fini_tlb_lookup.
-- Use standardized interface for
-  intel_guc_tlb_invalidation_done
-- Remove spurious changes.
-- Move wake_up_all_tlb_invalidate on wedge to correct patch.
-
-v10:
-- Add lock to tlb_lookup on guc submission reset.
-- Add comment about why timeout increased from 10 ms to 20 ms
-  by default in gt_tlb selftest.
-- Remove spurious changes.
-
-Jonathan Cavitt (6):
-  drm/i915: Add GuC TLB Invalidation device info flags
-  drm/i915/guc: Add CT size delay helper
-  drm/i915: No TLB invalidation on suspended GT
-  drm/i915: No TLB invalidation on wedged GT
-  drm/i915/gt: Increase sleep in gt_tlb selftest sanitycheck
-  drm/i915: Enable GuC TLB invalidations for MTL
-
-Prathap Kumar Valsan (1):
-  drm/i915: Define and use GuC and CTB TLB invalidation routines
-
- drivers/gpu/drm/i915/gt/intel_ggtt.c          |  34 ++-
- drivers/gpu/drm/i915/gt/intel_tlb.c           |  16 +-
- drivers/gpu/drm/i915/gt/selftest_tlb.c        |  11 +-
- .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |  33 +++
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  23 ++
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |   4 +
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |  13 ++
- drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   1 +
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 211 +++++++++++++++++-
- drivers/gpu/drm/i915/gt/uc/intel_uc.c         |   7 +
- drivers/gpu/drm/i915/i915_drv.h               |   2 +
- drivers/gpu/drm/i915/i915_pci.c               |   1 +
- drivers/gpu/drm/i915/intel_device_info.h      |   1 +
- 13 files changed, 343 insertions(+), 14 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index b9c168ea57270..c3c45d3b9e89b 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -32,6 +32,7 @@
+ 
+ #include "i915_drv.h"
+ #include "i915_reg.h"
++#include "i915_irq.h"
+ #include "i915_trace.h"
+ 
+ /**
+@@ -1941,6 +1942,12 @@ void intel_guc_submission_cancel_requests(struct intel_guc *guc)
+ 
+ 	/* GuC is blown away, drop all references to contexts */
+ 	xa_destroy(&guc->context_lookup);
++
++	/*
++	 * Wedged GT won't respond to any TLB invalidation request. Simply
++	 * release all the blocked waiters.
++	 */
++	wake_up_all_tlb_invalidate(guc);
+ }
+ 
+ void intel_guc_submission_reset_finish(struct intel_guc *guc)
+@@ -4738,6 +4745,14 @@ static long must_wait_woken(struct wait_queue_entry *wq_entry, long timeout)
+ 	return timeout;
+ }
+ 
++static bool intel_gt_is_enabled(const struct intel_gt *gt)
++{
++	/* Check if GT is wedged or suspended */
++	if (intel_gt_is_wedged(gt) || !intel_irqs_enabled(gt->i915))
++		return false;
++	return true;
++}
++
+ static int guc_send_invalidate_tlb(struct intel_guc *guc,
+ 				   enum intel_guc_tlb_invalidation_type type)
+ {
+@@ -4790,7 +4805,8 @@ static int guc_send_invalidate_tlb(struct intel_guc *guc,
+ 	if (err)
+ 		goto out;
+ 
+-	if (!must_wait_woken(&wait, intel_guc_ct_expected_delay(&guc->ct))) {
++	if (intel_gt_is_enabled(guc_to_gt(guc)) &&
++	    !must_wait_woken(&wait, intel_guc_ct_expected_delay(&guc->ct))) {
+ 		guc_err(guc,
+ 			"TLB invalidation response timed out for seqno %u\n", seqno);
+ 		err = -ETIME;
 -- 
 2.25.1
 
