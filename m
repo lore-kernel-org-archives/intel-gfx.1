@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E6C1CD8CA4
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 15:13:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53C7CCD8CA5
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 15:13:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 117A610E397;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32FF510E398;
 	Tue, 10 Oct 2023 15:13:32 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76F3110E390
- for <intel-gfx@lists.freedesktop.org>; Tue, 10 Oct 2023 15:13:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AC0310E395
+ for <intel-gfx@lists.freedesktop.org>; Tue, 10 Oct 2023 15:13:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696950810; x=1728486810;
+ t=1696950809; x=1728486809;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=sCPg81uT6dezkH2hVM6SDIRyOuX6w9glL6jnh8lBjcM=;
- b=e0LISq1sdSNjFd1obf5IHTnvBMuKRKF162iQGXtHqaVwoa8WFtgwuuaS
- G5KGqOAbKwwURiTyz1YCMMenjbfm6e/6iaBMA8Pkj5HXYp6RsBIlaDaGs
- ESQIooRzi3+Tge1NeDT4H4IqH3/+dvPAn/MOqwN+TYsJUBkLAEtPs+9h9
- UqIEsAydVAyogbknWrqkfCStjg6JLL5Vs9fmhrXsD/zQu/0yXY6bHfcHw
- TkIZQINLSp8ES08fU/H8VRdHFmL02LreAxyTWwWYJZjpY6ZlO989XyeZv
- aixNFrXOFNZPutpxJ2ddsSXEiKuQ3ii1PgoCRTBVCUnbIcKp95TJMk/u3 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="415435756"
-X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="415435756"
+ bh=M1Czg5f0AUD6s8LQvrfBEq1VZw35aoj8/qlkdkheOLU=;
+ b=DYc4/K1LQc6/NU3ahJaKZY1ZpY1hxSjSy74gr4q23ViqVI3OfrIWtVaU
+ BgIfqocxigPumUsV3zPG82yWgeudEjJU1B2N2KyeJa9yGDEQl8TLOLTqT
+ 1birIyoLqvu3z+WnX3lcJ9cPdtJH8GFH3jU4MnsB6fncv5DnxVuUAxCRq
+ rz8vhV7g/ugOvY2YyvcdOyYnqbMp0Pqog+wUfqZU4+NS2AXBNwzIWYoQ8
+ oorjMpeC317lXZCm6PowSciK3JZgyzSZ888Jw0qZ830wPRtmpVEV/1jz+
+ U/Qg6k08Nbp/wWldBbxHAq2/MFQOSxJ3HFLj6WOxbdN1pUOrPwEvtF5vH g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="415435744"
+X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="415435744"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 08:13:30 -0700
+ 10 Oct 2023 08:13:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="757155025"
-X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="757155025"
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="757154996"
+X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="757154996"
 Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 08:13:29 -0700
+ 10 Oct 2023 08:13:27 -0700
 From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 10 Oct 2023 08:02:44 -0700
-Message-Id: <20231010150244.2021420-8-jonathan.cavitt@intel.com>
+Date: Tue, 10 Oct 2023 08:02:39 -0700
+Message-Id: <20231010150244.2021420-3-jonathan.cavitt@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231010150244.2021420-1-jonathan.cavitt@intel.com>
 References: <20231010150244.2021420-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v10 7/7] drm/i915: Enable GuC TLB invalidations
- for MTL
+Subject: [Intel-gfx] [PATCH v10 2/7] drm/i915/guc: Add CT size delay helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,28 +63,42 @@ Cc: janusz.krzysztofik@intel.com, andi.shyti@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable GuC TLB invalidations for MTL.  Though more platforms than just
-MTL support GuC TLB invalidations, MTL is presently the only platform
-that requires it for any purpose, so only enable it there for now to
-minimize cross-platform impact.
+Add a helper function to the GuC CT buffer that reports the expected
+time to process all outstanding requests.  As of now, there is no
+functionality to check number of requests in the buffer, so the helper
+function just reports 2 seconds, or 1ms per request up to the maximum
+number of requests the CT buffer can store.
 
+Suggested-by: John Harrison <john.c.harrison@intel.com>
 Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
 ---
- drivers/gpu/drm/i915/i915_pci.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index df7c261410f79..d4b51ececbb12 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -829,6 +829,7 @@ static const struct intel_device_info mtl_info = {
- 	.has_flat_ccs = 0,
- 	.has_gmd_id = 1,
- 	.has_guc_deprivilege = 1,
-+	.has_guc_tlb_invalidation = 1,
- 	.has_llc = 0,
- 	.has_mslice_steering = 0,
- 	.has_snoop = 1,
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+index 58e42901ff498..36afc1ce9fabd 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+@@ -120,6 +120,19 @@ static inline bool intel_guc_ct_enabled(struct intel_guc_ct *ct)
+ 	return ct->enabled;
+ }
+ 
++/*
++ * GuC has a timeout of 1ms for a TLB invalidation response from GAM.  On a
++ * timeout GuC drops the request and has no mechanism to notify the host about
++ * the timeout.  There is also no mechanism for determining the number of
++ * outstanding requests in the CT buffer.  Ergo, keep a larger timeout that accounts
++ * for this individual timeout and the max number of outstanding requests that
++ * can be queued in CT buffer.
++ */
++static inline long intel_guc_ct_expected_delay(struct intel_guc_ct *ct)
++{
++	return HZ * 2;
++}
++
+ #define INTEL_GUC_CT_SEND_NB		BIT(31)
+ #define INTEL_GUC_CT_SEND_G2H_DW_SHIFT	0
+ #define INTEL_GUC_CT_SEND_G2H_DW_MASK	(0xff << INTEL_GUC_CT_SEND_G2H_DW_SHIFT)
 -- 
 2.25.1
 
