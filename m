@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABAD9CD80B7
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 11:42:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C66BCD80B0
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 11:43:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 650AF10E337;
-	Tue, 10 Oct 2023 11:42:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3E5510E335;
+	Tue, 10 Oct 2023 11:42:59 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D2E710E1E4
- for <intel-gfx@lists.freedesktop.org>; Tue, 10 Oct 2023 11:42:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D17CF10E1E4
+ for <intel-gfx@lists.freedesktop.org>; Tue, 10 Oct 2023 11:42:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696938171; x=1728474171;
+ t=1696938174; x=1728474174;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=eYN0l5qGUqZIVYn9C5lmL5Qh0mDo3dW1G79CEEr8/o4=;
- b=eUaeicWHZZcLDiOyJhOz/c7auN9pfL+5yYJhcqFp22LdBIZlPbS8kkvq
- SGhMHMFDAanRZjU7kIEzuC672mb3KIvzQoQPZw+fSy2K9VlDQszxqXrWr
- DuUGC5pPLuMbZRombEh5vQ0eynGkC/sDto6//f+CpWpYTkUJrV0Rdi7Nt
- ufVifi+Vf7Hc6AF8HgMkXHoKaBOCB0IHuK9w3dKlc3M3dXR6o21VY6YNV
- vH7HdvXm3+hTyHOWHiZtUXeFVbIN0STEcqFYITBIRJEGdnKRcZuy1d9M1
- zdK9pXrx2FoPO7AGQnSwuFV0I72LJtDJgqUIB3meOv7GK01JnnrbIkZah g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="470635431"
-X-IronPort-AV: E=Sophos;i="6.03,212,1694761200"; d="scan'208";a="470635431"
+ bh=Vvx3rpO/SHeoTbNcc2/pZUyFQWjib/ucBxhtMM/9v3A=;
+ b=Vz+1Ffv1roUBZdlA2NpKD01XKY2ncy61XhiirezFI4MKpumHxMqyMH6C
+ smrl5+dliKSK0O5RgsLymQmC24l9n8nwmiRjQK2Ra/XoAoT2H4HQDugWG
+ KS9O2kAh7fTv0vB654ZVvQjFPA1JopoIXeZfFOd3CFuzxTPq1qAcPeCwF
+ 7nMc/MqInaikidYQpvqTzGGVoAlhhfzNFsZElKxV5BEOyf2qelhQK3y6b
+ abv4ztAHV7m3Ms1q5ALpKI9DU4vMb0u53gI48a7wppBWi0NJ5Y804mT8S
+ kv8qZH7j0k9RVMw35aAWwzyZ4r8wyAO3OHdKHDFKwTXuuyQXvY8w0Pqqe g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="470635438"
+X-IronPort-AV: E=Sophos;i="6.03,212,1694761200"; d="scan'208";a="470635438"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 04:42:51 -0700
+ 10 Oct 2023 04:42:54 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="869655302"
-X-IronPort-AV: E=Sophos;i="6.03,212,1694761200"; d="scan'208";a="869655302"
+X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="869655320"
+X-IronPort-AV: E=Sophos;i="6.03,212,1694761200"; d="scan'208";a="869655320"
 Received: from snutt-mobl1.ger.corp.intel.com (HELO jhogande-mobl1.intel.com)
  ([10.252.57.138])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 04:42:49 -0700
+ 10 Oct 2023 04:42:53 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 10 Oct 2023 14:40:59 +0300
-Message-Id: <20231010114120.2504103-5-jouni.hogander@intel.com>
+Date: Tue, 10 Oct 2023 14:41:01 +0300
+Message-Id: <20231010114120.2504103-7-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231010114120.2504103-1-jouni.hogander@intel.com>
 References: <20231010114120.2504103-1-jouni.hogander@intel.com>
@@ -47,8 +47,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 04/25] drm/i915/display: Move psr related module
- parameters under display
+Subject: [Intel-gfx] [PATCH 06/25] drm/i915/display: Move lvds_channel_mode
+ module parameter under display
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,164 +66,84 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- .../gpu/drm/i915/display/intel_display_params.c   | 15 +++++++++++++++
- .../gpu/drm/i915/display/intel_display_params.h   |  5 +++++
- drivers/gpu/drm/i915/display/intel_psr.c          | 14 +++++++-------
- drivers/gpu/drm/i915/i915_params.c                | 15 ---------------
- drivers/gpu/drm/i915/i915_params.h                |  3 ---
- 5 files changed, 27 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_params.c | 4 ++++
+ drivers/gpu/drm/i915/display/intel_display_params.h | 3 ++-
+ drivers/gpu/drm/i915/display/intel_lvds.c           | 4 ++--
+ drivers/gpu/drm/i915/i915_params.c                  | 4 ----
+ drivers/gpu/drm/i915/i915_params.h                  | 1 -
+ 5 files changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
-index 330613cd64db..eac82deede4c 100644
+index 72f1782e27fe..cdc42bc575b8 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_params.c
 +++ b/drivers/gpu/drm/i915/display/intel_display_params.c
-@@ -31,6 +31,21 @@ intel_display_param_named_unsafe(enable_fbc, int, 0400,
+@@ -30,6 +30,10 @@ static struct intel_display_params intel_display_modparams __read_mostly = {
+ intel_display_param_named_unsafe(vbt_firmware, charp, 0400,
+ 	"Load VBT from specified file under /lib/firmware");
+ 
++intel_display_param_named_unsafe(lvds_channel_mode, int, 0400,
++	 "Specify LVDS channel mode "
++	 "(0=probe BIOS [default], 1=single-channel, 2=dual-channel)");
++
+ intel_display_param_named_unsafe(enable_fbc, int, 0400,
  	"Enable frame buffer compression for power savings "
  	"(default: -1 (use per-chip default))");
- 
-+intel_display_param_named_unsafe(enable_psr, int, 0400,
-+	"Enable PSR "
-+	"(0=disabled, 1=enable up to PSR1, 2=enable up to PSR2) "
-+	"Default: -1 (use per-chip default)");
-+
-+intel_display_param_named(psr_safest_params, bool, 0400,
-+	"Replace PSR VBT parameters by the safest and not optimal ones. This "
-+	"is helpful to detect if PSR issues are related to bad values set in "
-+	" VBT. (0=use VBT parameters, 1=use safest parameters)");
-+
-+intel_display_param_named_unsafe(enable_psr2_sel_fetch, bool, 0400,
-+	"Enable PSR2 selective fetch "
-+	"(0=disabled, 1=enabled) "
-+	"Default: 0");
-+
- __maybe_unused
- static void _param_print_bool(struct drm_printer *p, const char *driver_name,
- 			      const char *name, bool val)
 diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
-index f1bdf2c6e5cd..99b79bed9363 100644
+index a6f37c55523d..a4988ef44837 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_params.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_params.h
-@@ -6,6 +6,8 @@
- #ifndef _INTEL_DISPLAY_PARAMS_H_
- #define _INTEL_DISPLAY_PARAMS_H_
- 
-+#include <linux/types.h>
-+
- struct drm_printer;
- struct drm_i915_private;
- 
-@@ -23,6 +25,9 @@ struct drm_i915_private;
+@@ -25,7 +25,8 @@ struct drm_i915_private;
   */
  #define INTEL_DISPLAY_PARAMS_FOR_EACH(param) \
- 	param(int, enable_fbc, -1, 0600)     \
-+	param(int, enable_psr, -1, 0600) \
-+	param(bool, psr_safest_params, false, 0400) \
-+	param(bool, enable_psr2_sel_fetch, true, 0400) \
+ 	param(char *, vbt_firmware, NULL, 0400) \
+-	param(int, enable_fbc, -1, 0600)     \
++	param(int, lvds_channel_mode, 0, 0400) \
++	param(int, enable_fbc, -1, 0600)	\
+ 	param(int, enable_psr, -1, 0600) \
+ 	param(bool, psr_safest_params, false, 0400) \
+ 	param(bool, enable_psr2_sel_fetch, true, 0400) \
+diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
+index 2a4ca7e65775..4b114fde57b1 100644
+--- a/drivers/gpu/drm/i915/display/intel_lvds.c
++++ b/drivers/gpu/drm/i915/display/intel_lvds.c
+@@ -794,8 +794,8 @@ static bool compute_is_dual_link_lvds(struct intel_lvds_encoder *lvds_encoder)
+ 	unsigned int val;
  
- #define MEMBER(T, member, ...) T member;
- struct intel_display_params {
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index bb65881e87cc..32917e4c6312 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -179,9 +179,9 @@ static bool psr_global_enabled(struct intel_dp *intel_dp)
+ 	/* use the module option value if specified */
+-	if (i915->params.lvds_channel_mode > 0)
+-		return i915->params.lvds_channel_mode == 2;
++	if (i915->display.params.lvds_channel_mode > 0)
++		return i915->display.params.lvds_channel_mode == 2;
  
- 	switch (intel_dp->psr.debug & I915_PSR_DEBUG_MODE_MASK) {
- 	case I915_PSR_DEBUG_DEFAULT:
--		if (i915->params.enable_psr == -1)
-+		if (i915->display.params.enable_psr == -1)
- 			return connector->panel.vbt.psr.enable;
--		return i915->params.enable_psr;
-+		return i915->display.params.enable_psr;
- 	case I915_PSR_DEBUG_DISABLE:
- 		return false;
- 	default:
-@@ -198,7 +198,7 @@ static bool psr2_global_enabled(struct intel_dp *intel_dp)
- 	case I915_PSR_DEBUG_FORCE_PSR1:
- 		return false;
- 	default:
--		if (i915->params.enable_psr == 1)
-+		if (i915->display.params.enable_psr == 1)
- 			return false;
- 		return true;
- 	}
-@@ -606,7 +606,7 @@ static u32 intel_psr1_get_tp_time(struct intel_dp *intel_dp)
- 	if (DISPLAY_VER(dev_priv) >= 11)
- 		val |= EDP_PSR_TP4_TIME_0us;
- 
--	if (dev_priv->params.psr_safest_params) {
-+	if (dev_priv->display.params.psr_safest_params) {
- 		val |= EDP_PSR_TP1_TIME_2500us;
- 		val |= EDP_PSR_TP2_TP3_TIME_2500us;
- 		goto check_tp3_sel;
-@@ -698,7 +698,7 @@ static u32 intel_psr2_get_tp_time(struct intel_dp *intel_dp)
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 	u32 val = 0;
- 
--	if (dev_priv->params.psr_safest_params)
-+	if (dev_priv->display.params.psr_safest_params)
- 		return EDP_PSR2_TP2_TIME_2500us;
- 
- 	if (connector->panel.vbt.psr.psr2_tp2_tp3_wakeup_time_us >= 0 &&
-@@ -941,7 +941,7 @@ static bool intel_psr2_sel_fetch_config_valid(struct intel_dp *intel_dp,
- {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 
--	if (!dev_priv->params.enable_psr2_sel_fetch &&
-+	if (!dev_priv->display.params.enable_psr2_sel_fetch &&
- 	    intel_dp->psr.debug != I915_PSR_DEBUG_ENABLE_SEL_FETCH) {
- 		drm_dbg_kms(&dev_priv->drm,
- 			    "PSR2 sel fetch not enabled, disabled by parameter\n");
-@@ -1054,7 +1054,7 @@ static bool _compute_psr2_wake_times(struct intel_dp *intel_dp,
- 	    fast_wake_lines > max_wake_lines)
- 		return false;
- 
--	if (i915->params.psr_safest_params)
-+	if (i915->display.params.psr_safest_params)
- 		io_wake_lines = fast_wake_lines = max_wake_lines;
- 
- 	/* According to Bspec lower limit should be set as 7 lines. */
+ 	/* single channel LVDS is limited to 112 MHz */
+ 	if (fixed_mode->clock > 112999)
 diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
-index c52021932b8f..2c66e8cc0953 100644
+index 12a2bd59303e..46859a99fe20 100644
 --- a/drivers/gpu/drm/i915/i915_params.c
 +++ b/drivers/gpu/drm/i915/i915_params.c
-@@ -102,21 +102,6 @@ i915_param_named_unsafe(enable_hangcheck, bool, 0400,
- 	"WARNING: Disabling this can cause system wide hangs. "
- 	"(default: true)");
+@@ -72,10 +72,6 @@ i915_param_named_unsafe(enable_dc, int, 0400,
+ 	"(-1=auto [default]; 0=disable; 1=up to DC5; 2=up to DC6; "
+ 	"3=up to DC5 with DC3CO; 4=up to DC6 with DC3CO)");
  
--i915_param_named_unsafe(enable_psr, int, 0400,
--	"Enable PSR "
--	"(0=disabled, 1=enable up to PSR1, 2=enable up to PSR2) "
--	"Default: -1 (use per-chip default)");
+-i915_param_named_unsafe(lvds_channel_mode, int, 0400,
+-	 "Specify LVDS channel mode "
+-	 "(0=probe BIOS [default], 1=single-channel, 2=dual-channel)");
 -
--i915_param_named(psr_safest_params, bool, 0400,
--	"Replace PSR VBT parameters by the safest and not optimal ones. This "
--	"is helpful to detect if PSR issues are related to bad values set in "
--	" VBT. (0=use VBT parameters, 1=use safest parameters)");
--
--i915_param_named_unsafe(enable_psr2_sel_fetch, bool, 0400,
--	"Enable PSR2 selective fetch "
--	"(0=disabled, 1=enabled) "
--	"Default: 0");
--
- i915_param_named_unsafe(enable_sagv, bool, 0600,
- 	"Enable system agent voltage/frequency scaling (SAGV) (default: true)");
- 
+ i915_param_named_unsafe(panel_use_ssc, int, 0400,
+ 	"Use Spread Spectrum Clock with panels [LVDS/eDP] "
+ 	"(default: auto from VBT)");
 diff --git a/drivers/gpu/drm/i915/i915_params.h b/drivers/gpu/drm/i915/i915_params.h
-index 393633f9222b..c8d65c983cb0 100644
+index 702da3a8d471..ddd0adb786a3 100644
 --- a/drivers/gpu/drm/i915/i915_params.h
 +++ b/drivers/gpu/drm/i915/i915_params.h
-@@ -52,10 +52,7 @@ struct drm_printer;
+@@ -47,7 +47,6 @@ struct drm_printer;
+  */
+ #define I915_PARAMS_FOR_EACH(param) \
+ 	param(int, modeset, -1, 0400) \
+-	param(int, lvds_channel_mode, 0, 0400) \
  	param(int, panel_use_ssc, -1, 0600) \
  	param(int, vbt_sdvo_panel_type, -1, 0400) \
  	param(int, enable_dc, -1, 0400) \
--	param(int, enable_psr, -1, 0600) \
- 	param(bool, enable_dpt, true, 0400) \
--	param(bool, psr_safest_params, false, 0400) \
--	param(bool, enable_psr2_sel_fetch, true, 0400) \
- 	param(bool, enable_sagv, true, 0600) \
- 	param(int, disable_power_well, -1, 0400) \
- 	param(int, enable_ips, 1, 0600) \
 -- 
 2.34.1
 
