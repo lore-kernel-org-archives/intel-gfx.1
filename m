@@ -4,51 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EB55CD8CAB
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 16:35:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02D23CD8CA9
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 16:43:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3A1F10E3AC;
-	Tue, 10 Oct 2023 16:35:37 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9859710E3AC
- for <intel-gfx@lists.freedesktop.org>; Tue, 10 Oct 2023 16:35:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C34B10E045;
+	Tue, 10 Oct 2023 16:43:08 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2497B10E045
+ for <intel-gfx@lists.freedesktop.org>; Tue, 10 Oct 2023 16:43:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696955736; x=1728491736;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=uiSea6+qDG6plTf35siSSzRAYITG6NUB7haIYKYppJs=;
- b=DTyd/J3ruGlDetPXSqIseiQXGKzZ/OYOT4fdxSZl2usD2PaNkFj9D1xN
- QMBS1acTZ+jeQFZoyWQTup6a93ughw4T9BPRMiq1I3PIP7s6ZR86viI9f
- KQarypoKgC3Ik5UholZ60ch6hnywNj74LFjZG01ZbcsEF0jhTZjjSYHSy
- Z1cULYgYsvLkEiIhlLVyWV9wm/wxsirNZELCyoOfZPNv4T9hpM8M1Jse3
- J8kk++tUHmNEQOEsolMKZ512hCXP+jyoX6JI6Soek06ypqp/NYDZfrD6j
- zzERXIGGVxSLWPCtM3IHtbc6oJI73NXP0qP+E67CX3xjAoQZsAZAM0gKD g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="448637834"
-X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="448637834"
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 09:17:24 -0700
+ t=1696956186; x=1728492186;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=d1MJDSPlDL45iXBnvRlhB9A1QzCgQlkTp9r0gUTbCY8=;
+ b=gUJRHotJvUuvaB5z5I6pvXWEhsOn5Wnl8XsHH4wtsM386FNamFJFDIrU
+ UWBLFM26JobJzd5QH8dcultL2FjOj/qwetxe0/+uIK+DReTPnMtcmguPN
+ OmwT7O4FeaZkhDRGxW3Uf1HPNmWvtaP3eiO6u5VHYldrihiAgIWfm21y7
+ MBexsJW9q5kzUSwH0mN+EHGjrApPhDY0a55lysp1G7fwFpdKxc636QzqQ
+ bnmBUFlWoSIAsGU0rgmWXC97oc+mDIKCSGoFVWS8I7+rNbc8r6c37yITl
+ OpqClCAJA0oWzFVFpXcZ6fiWdr7mpn9IMsjmfHh64tteoUiPRfjwNJmbU w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="3037734"
+X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; 
+   d="scan'208";a="3037734"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2023 09:42:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="757173618"
-X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="757173618"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.153])
- by fmsmga007.fm.intel.com with SMTP; 10 Oct 2023 09:17:21 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Tue, 10 Oct 2023 19:17:20 +0300
-Date: Tue, 10 Oct 2023 19:17:20 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Imre Deak <imre.deak@intel.com>
-Message-ID: <ZSV5EDUwkM9UoRSU@intel.com>
-References: <20231006133727.1822579-1-imre.deak@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="703369297"
+X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="703369297"
+Received: from emikisch-mobl.amr.corp.intel.com (HELO [10.213.174.67])
+ ([10.213.174.67])
+ by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2023 09:42:30 -0700
+Message-ID: <60c69174-05ab-0c7f-d960-a3d8605582b3@linux.intel.com>
+Date: Tue, 10 Oct 2023 17:42:28 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20231006133727.1822579-1-imre.deak@intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH 00/19] drm/i915: Store DSC DPCD capabilities
- in the connector
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Content-Language: en-US
+To: Andi Shyti <andi.shyti@linux.intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>
+References: <20231009233856.1932887-1-jonathan.cavitt@intel.com>
+ <20231010135827.GA21382@mdroper-desk1.amr.corp.intel.com>
+ <ZSVpunHMTkvNoX77@ashyti-mobl2.lan>
+ <20231010160150.GF5757@mdroper-desk1.amr.corp.intel.com>
+ <ZSV5F4NHv/I8Q0PH@ashyti-mobl2.lan>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <ZSV5F4NHv/I8Q0PH@ashyti-mobl2.lan>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gt: Temporarily force MTL into
+ uncached mode
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,68 +69,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: intel-gfx@lists.freedesktop.org
+Cc: saurabhg.gupta@intel.com, intel-gfx@lists.freedesktop.org,
+ Jonathan Cavitt <jonathan.cavitt@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Oct 06, 2023 at 04:37:08PM +0300, Imre Deak wrote:
-> This patchset moves the DSC DPCD capabilities from the encoder
-> (intel_dp) to the connector. This is required since in an MST topology
-> each connector has its own version of these capabilities, allowing
-> to configure/enable the DSC decompression for each stream separately.
-> 
-> The changes are needed for a follow-up patchset, fixing the MST DSC
-> functionality, making it also possible to enable the BW management on
-> MST links. The follow-up changes are based on patches 12-25 in
-> 
-> https://lore.kernel.org/all/20230914192659.757475-1-imre.deak@intel.com
-> 
-> Imre Deak (19):
->   drm/i915/dp: Sanitize DPCD revision check in
->     intel_dp_get_dsc_sink_cap()
->   drm/i915/dp: Store DSC DPCD capabilities in the connector
->   drm/i915/dp_mst: Set connector DSC capabilities and decompression AUX
->   drm/i915/dp: Use i915/intel connector local variables in
->     i915_dsc_fec_support_show()
->   drm/i915/dp: Use connector DSC DPCD in i915_dsc_fec_support_show()
->   drm/i915/dp: Use connector DSC DPCD in intel_dp_dsc_compute_max_bpp()
->   drm/i915/dp: Use connector DSC DPCD in intel_dp_supports_fec()
->   drm/i915/dp: Use connector DSC DPCD in intel_dp_supports_dsc()
->   drm/i915/dp: Use connector DSC DPCD in
->     intel_dp_dsc_max_sink_compressed_bppx16()
->   drm/i915/dp: Pass connector DSC DPCD to
->     drm_dp_dsc_sink_supported_input_bpcs()
->   drm/i915/dp: Pass only the required i915 to
->     intel_dp_source_dsc_version_minor()
->   drm/i915/dp: Pass only the required DSC DPCD to
->     intel_dp_sink_dsc_version_minor()
->   drm/i915/dp: Use connector DSC DPCD in intel_dp_dsc_compute_params()
->   drm/i915/dp: Use connector DSC DPCD in intel_dp_dsc_supports_format()
->   drm/i915/dp: Use connector DSC DPCD in intel_dp_dsc_get_slice_count()
->   drm/i915/dp: Use connector DSC DPCD in intel_dp_mode_valid()
->   drm/i915/dp: Use connector DSC DPCD in intel_dp_dsc_compute_config()
->   drm/i915/dp_mst: Use connector DSC DPCD in
->     intel_dp_mst_mode_valid_ctx()
->   drm/i915/dp: Remove unused DSC caps from intel_dp
 
-Looks reasonable to me. The one open question I have is how the DSC/FEC
-capabilities get discovered in the MST topology, but I presume that'll
-happen in some followup series.
-
-Series is
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-
+On 10/10/2023 17:17, Andi Shyti wrote:
+> Hi Matt,
 > 
->  .../drm/i915/display/intel_display_debugfs.c  |  22 +--
->  .../drm/i915/display/intel_display_types.h    |   8 +-
->  drivers/gpu/drm/i915/display/intel_dp.c       | 154 ++++++++++--------
->  drivers/gpu/drm/i915/display/intel_dp.h       |   8 +-
->  drivers/gpu/drm/i915/display/intel_dp_mst.c   |  35 +++-
->  5 files changed, 136 insertions(+), 91 deletions(-)
+>>>>> FIXME: CAT errors are cropping up on MTL.  This removes them,
+>>>>> but the real root cause must still be diagnosed.
+>>>>
+>>>> Do you have a link to specific IGT test(s) that illustrate the CAT
+>>>> errors so that we can ensure that they now appear fixed in CI?
+>>>
+>>> this one:
+>>>
+>>> https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_124599v1/bat-mtlp-8/igt@i915_selftest@live@hugepages.html
+>>>
+>>> Andi
+>>
+>> Wait, now I'm confused.  That's a failure caused by a different patch
+>> series (one that we won't be moving forward with).  The live@hugepages
+>> test is always passing on drm-tip today:
+>> https://intel-gfx-ci.01.org/tree/drm-tip/igt@i915_selftest@live@hugepages.html
 > 
-> -- 
-> 2.39.2
+> yes, true, but that patch allows us to move forward with the
+> testing and hit the CAT error.
+> 
+> (it was the most reachable link I found :))
+> 
+>> Is there a test that's giving CAT errors on drm-tip itself (even
+>> sporadically) that we can monitor to see the impact of Jonathan's patch
+>> here?
+> 
+> Otherwise this one:
+> 
+> https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_13667/re-mtlp-3/igt@gem_exec_fence@parallel.html#dmesg-warnings11
 
--- 
-Ville Syrjälä
-Intel
+Parachuting in on a tangent - please do not mix CAT and CT errors. CAT, for me at least, associates with CATastrophic faults reported over CT channel, like GuC page faulting IIRC.
+
+For CT errors maybe GuC folks can sched some light what they mean.
+
+Regards,
+
+Tvrtko
