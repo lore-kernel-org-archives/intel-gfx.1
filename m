@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46F81CD8CAB
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 16:45:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC6ECCD8CA9
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 16:45:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C49D210E3AE;
-	Tue, 10 Oct 2023 16:45:00 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C56C10E3AC;
- Tue, 10 Oct 2023 16:44:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49C0710E3AC;
+	Tue, 10 Oct 2023 16:45:25 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E154210E3B0;
+ Tue, 10 Oct 2023 16:45:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696956298; x=1728492298;
+ t=1696956323; x=1728492323;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=6qeoclL7vOBvx0HJGK4b88Or+VCV2bvs6+JG5AZ78W0=;
- b=NppkjRZKigwPoXcroHcAh69HFK44o2Bf00I8QD9YGUXpdGX12sGluVpO
- 8xWm4utvw8eKb1dYCt3PRL+Em11cCI3iK3itlx6kja+VklwmN2cP3t1Yi
- vw3YkQq+bZkHDWNMgQ0pEVwZiXv1s2GAR3+N+cNtQ8PMI5jnlCogkcWOT
- L1UpGMn26CGo4aEQUnq1BIm2VjHpQ138DtwK42aO6tmGWfnlH7ZCZ9dek
- HSaRuRnp7CzJ9qlhfu06IoqzZDnlzo8eBx1udCuMPzBEpnu69/LeABuSV
- 7byMFwataRCxxyS9Iacpbq4hfKWcYlZU28ZfhLsGh7CSnIv7sEZFsp8F4 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="448643771"
-X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="448643771"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 09:35:23 -0700
+ mime-version:in-reply-to;
+ bh=SKEkbRD9n7OmSjNLe5p/QE07D9HRB8bg7FKcJuo1MT8=;
+ b=ENfRyOogjrAsZ7KE8NJUVcUyysGeXgmWzcSjdKyRfTResDMlVLZRQarZ
+ 07ckinX1URhSbETR3d/QHSXAEfAEqn2iZXhnhSYlcSH8RyYkZkktTcOml
+ u6/OEE03XV/g9cs7qO/adp1BnUIqynC4Uhk3eljCKnsYLOGrSpkJmCq5/
+ Vnfusg3FLyYNlfAyOGaQo4DwyZZV6/vMmrt8Q0P+/LlBbtqXM8SIlF+OU
+ q4eVMMtpu3OCPTI5OAjqbbLi0CpsGfUAY8j+7zlcXJQsEgBZjIW4+4jsQ
+ XUCN5gaS+VbJq3/Lpzq0lb1Tgu3zJfVMwRvi8BT02DUd9ZArVBcz2sg0N w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="383320827"
+X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="383320827"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2023 09:44:02 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="1084863760"
-X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="1084863760"
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="877289931"
+X-IronPort-AV: E=Sophos;i="6.03,213,1694761200"; d="scan'208";a="877289931"
 Received: from kamilkon-desk.igk.intel.com (HELO localhost) ([10.102.138.187])
- by fmsmga005-auth.fm.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Oct 2023 09:35:20 -0700
-Date: Tue, 10 Oct 2023 18:35:18 +0200
+ by orsmga004-auth.jf.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Oct 2023 09:44:00 -0700
+Date: Tue, 10 Oct 2023 18:43:36 +0200
 From: Kamil Konieczny <kamil.konieczny@linux.intel.com>
 To: igt-dev@lists.freedesktop.org
-Message-ID: <20231010163518.hgcqkap3dx655hrk@kamilkon-desk.igk.intel.com>
+Message-ID: <20231010164336.dikudseydggrrux7@kamilkon-desk.igk.intel.com>
 Mail-Followup-To: Kamil Konieczny <kamil.konieczny@linux.intel.com>,
  igt-dev@lists.freedesktop.org,
  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
  Intel-gfx@lists.freedesktop.org,
  Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 References: <20231010110714.749239-1-tvrtko.ursulin@linux.intel.com>
- <20231010110714.749239-4-tvrtko.ursulin@linux.intel.com>
+ <20231010110714.749239-5-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20231010110714.749239-4-tvrtko.ursulin@linux.intel.com>
-Subject: Re: [Intel-gfx] [PATCH i-g-t 3/4] tools/intel_gpu_top: Optimise
- interactive display a bit
+In-Reply-To: <20231010110714.749239-5-tvrtko.ursulin@linux.intel.com>
+Subject: Re: [Intel-gfx] [PATCH i-g-t 4/4] tools/intel_gpu_top: Handle
+ narrow terminals more gracefully
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,89 +69,86 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Hi Tvrtko,
-On 2023-10-10 at 12:07:13 +0100, Tvrtko Ursulin wrote:
+On 2023-10-10 at 12:07:14 +0100, Tvrtko Ursulin wrote:
 > From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 > 
-> Padding the percentage bars and table columns with spaces happens quite a
-> lot so lets do better than putchar at a time. Have a table of visually
-> empty strings and build the required length out of those chunks.
+> Instead of asserting just skip trying to print columns when terminal is
+> too narrow.
 > 
-> While at it, also move the percentage bar table into its function scope.
+> At the same time fix some type confusion to fix calculations going huge.
 > 
 > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+> Closes: https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/issues/143
+
+Did you tested this in screensaver? I mean running intel_gpu_top
+in terminal windows under X (Gnome or other) and leaving desktop
+unattanded, entering screen saver mode (possible with screen
+turned off) and then re-enabling screen?
+
 > ---
->  tools/intel_gpu_top.c | 38 +++++++++++++++++++++++++++++++++-----
->  1 file changed, 33 insertions(+), 5 deletions(-)
+>  tools/intel_gpu_top.c | 12 +++++++-----
+>  1 file changed, 7 insertions(+), 5 deletions(-)
 > 
 > diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
-> index c5abd0c92155..472ce3f13ba9 100644
+> index 472ce3f13ba9..6d1397cb8214 100644
 > --- a/tools/intel_gpu_top.c
 > +++ b/tools/intel_gpu_top.c
-> @@ -926,14 +926,40 @@ static void free_display_clients(struct igt_drm_clients *clients)
+> @@ -926,7 +926,7 @@ static void free_display_clients(struct igt_drm_clients *clients)
 >  	free(clients);
 >  }
 >  
-> -static const char *bars[] = { " ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█" };
-> -
->  static unsigned int n_spaces(const unsigned int n)
->  {
-> -	unsigned int i;
-> +	static const char *spaces[] = {
-> +		" ",
-> +		"  ",
-> +		"   ",
-> +		"    ",
-> +		"     ",
-> +		"      ",
-> +		"       ",
-> +		"        ",
-> +		"         ",
-> +		"          ",
-> +		"           ",
-> +		"            ",
-> +		"             ",
-> +		"              ",
-> +		"               ",
-> +		"                ",
-> +		"                 ",
-> +		"                  ",
-> +		"                   ",
-> +#define MAX_SPACES 19
-----^^^^^^^^^^^^^^^^^^^^
-imho better sizeof(spaces)
+> -static unsigned int n_spaces(const unsigned int n)
+> +static int n_spaces(const int n)
+--------- ^^^
+Could you make it int at your first patch touching this function?
 
-> +	};
-> +	unsigned int i, r = n;
->  
-> -	for (i = 0; i < n; i++)
-> -		putchar(' ');
-> +	while (r) {
-> +		if (r > MAX_SPACES)
-> +			i = MAX_SPACES - 1;
-> +		else
-> +			i = r - 1;
-> +		fputs(spaces[i], stdout);
-> +		r -= i + 1;
-> +	}
->  
->  	return n;
->  }
-> @@ -941,6 +967,8 @@ static unsigned int n_spaces(const unsigned int n)
->  static void
->  print_percentage_bar(double percent, double max, int max_len, bool numeric)
->  {
-> +	static const char *bars[] =
-> +		{ " ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█" };
-
-Please write it in one line or start with '= {' as checkpatch.pl
-is complaining here.
+With or without this suggestion,
+Reviewed-by: Kamil Konieczny <kamil.konieczny@linux.intel.com>
 
 Regards,
 Kamil
 
+>  {
+>  	static const char *spaces[] = {
+>  		" ",
+> @@ -950,7 +950,7 @@ static unsigned int n_spaces(const unsigned int n)
+>  		"                   ",
+>  #define MAX_SPACES 19
+>  	};
+> -	unsigned int i, r = n;
+> +	int i, r = n;
+>  
+>  	while (r) {
+>  		if (r > MAX_SPACES)
+> @@ -972,7 +972,8 @@ print_percentage_bar(double percent, double max, int max_len, bool numeric)
 >  	int bar_len, i, len = max_len - 2;
 >  	const int w = 8;
 >  
+> -	assert(max_len > 0);
+> +	if (len < 2) /* For edge lines '|' */
+> +		return;
+>  
+>  	bar_len = ceil(w * percent * len / max);
+>  	if (bar_len > w * len)
+> @@ -986,6 +987,8 @@ print_percentage_bar(double percent, double max, int max_len, bool numeric)
+>  		printf("%s", bars[i]);
+>  
+>  	len -= (bar_len + (w - 1)) / w;
+> +	if (len < 1)
+> +		return;
+>  	n_spaces(len);
+>  
+>  	putchar('|');
+> @@ -2001,8 +2004,7 @@ print_clients_header(struct igt_drm_clients *clients, int lines,
+>  				 4 : clients->max_name_len; /* At least "NAME" */
+>  
+>  	if (output_mode == INTERACTIVE) {
+> -		unsigned int num_active = 0;
+> -		int len;
+> +		int len, num_active = 0;
+>  
+>  		if (lines++ >= con_h)
+>  			return lines;
 > -- 
 > 2.39.2
 > 
