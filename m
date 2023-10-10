@@ -4,48 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B20C6CD80B0
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 11:42:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFB06CD80B3
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Oct 2023 11:42:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5217610E1E0;
-	Tue, 10 Oct 2023 11:42:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A80610E075;
+	Tue, 10 Oct 2023 11:42:51 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5140F10E075
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6ED910E075
  for <intel-gfx@lists.freedesktop.org>; Tue, 10 Oct 2023 11:42:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1696938168; x=1728474168;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=VtoKeC8k1ZVbUayLYbDiyu7qFR5e2Q0PNGv/AeE8dSg=;
- b=FVB9VQ8Lw3Q+/OnQLmGF2CD8Nql/p/UhKUNFCJCJ3qElD0FjoUwWSwjw
- aCg1E6IOzMCEcKmBhTD10zN+C3FAtAx0rkXI3QobvZLJeBdHU15UrT99w
- fc0tdHDw2aZXXokaIbZg0hxV+w730JY+/OclmBGN3fcdB4o1RIXFIYg2y
- uQ5uZsBTWqdsRI9cH6Q8PvGJdJezwD2w96YI6Ahd4n7abHHfYzNYBlIG3
- ytvF6p0b1dZguoi+h8BP676cPkfNmoV4gUJNuGtUnhS0eegKXEkWQBIBi
- wjB1jgApycMz0jfUykxxHQ8/UbT/q6QbnDLiv3BXpkStJ+QMWRYkhIAU+ Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="470635416"
-X-IronPort-AV: E=Sophos;i="6.03,212,1694761200"; d="scan'208";a="470635416"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=0AXVNMgxau5uKEFFpj2rc2qkstf278pvNkCI+2Qsgsw=;
+ b=GIr2mmtHv2Q1c/QL2BtcCmPjllMX45zhouIONSVnuEFitCZrXXLm1OS7
+ RPTf+Q+LAxhe87RQG+1QK3Yxr/gmjCnrZXv6cPRAsjhhevwLBL7WVZmzu
+ XL1MQIA+Snu2RkRh1ZCsP3NAKdV1JFyiS9FU1yFR5SzUO/i3yKuPUXLWT
+ DvfLcN9VNsWu0gOj0mq8j2ysAnaGBtQdDF4BmpTAOAz7ZeGhU5g/kzW4m
+ rXpEwSS6J1gyCmCyaD8nwbJflhGt/7cELZGcRMI9vHyQ+3SXCEB9CO3cp
+ k7m97rFZXxWPi+4PCJX71HMRfkT41UfC93I/EMaIdH+zbSuNhyUPzzvIS Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="470635424"
+X-IronPort-AV: E=Sophos;i="6.03,212,1694761200"; d="scan'208";a="470635424"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 04:42:43 -0700
+ 10 Oct 2023 04:42:47 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="869655239"
-X-IronPort-AV: E=Sophos;i="6.03,212,1694761200"; d="scan'208";a="869655239"
+X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="869655275"
+X-IronPort-AV: E=Sophos;i="6.03,212,1694761200"; d="scan'208";a="869655275"
 Received: from snutt-mobl1.ger.corp.intel.com (HELO jhogande-mobl1.intel.com)
  ([10.252.57.138])
  by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 04:42:40 -0700
+ 10 Oct 2023 04:42:46 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 10 Oct 2023 14:40:55 +0300
-Message-Id: <20231010114120.2504103-1-jouni.hogander@intel.com>
+Date: Tue, 10 Oct 2023 14:40:57 +0300
+Message-Id: <20231010114120.2504103-3-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20231010114120.2504103-1-jouni.hogander@intel.com>
+References: <20231010114120.2504103-1-jouni.hogander@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 00/25] Framework for display parameters
+Subject: [Intel-gfx] [PATCH 02/25] drm/i915/display: Dump also display
+ parameters into GPU error dump
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,104 +61,159 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently all module parameters are handled by i915_param.c/h. This
-is a problem for display parameters when Xe driver is used.
+GPU error dump contained all module parameters. If we are moving
+display parameters to intel_display_params.[ch] they are not dumped
+into GPU error dump. This patch is adding moved display parameters
+back to GPU error dump.
 
-This patch set adds a mechanism to add parameters specific to the
-display. This is mainly copied from existing i915 parameters
-implementation with some naming changes and taking into account
-varying driver name.
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+---
+ .../drm/i915/display/intel_display_params.c   | 57 +++++++++++++++++++
+ .../drm/i915/display/intel_display_params.h   |  3 +
+ drivers/gpu/drm/i915/i915_gpu_error.c         |  3 +
+ drivers/gpu/drm/i915/i915_gpu_error.h         |  2 +
+ 4 files changed, 65 insertions(+)
 
-Also all display specific module parameters are moved under display and the
-module parameter are all converted as non-writable. This should be ok
-as we have writable device parameters under debugfs.
-
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Uma Shankar <uma.shankar@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-
-Jouni Högander (25):
-  drm/i915/display: Add framework to add parameters specific to display
-  drm/i915/display: Dump also display parameters into GPU error dump
-  drm/i915/display: Move enable_fbc module parameter under display
-  drm/i915/display: Move psr related module parameters under display
-  drm/i915/display: Move vbt_firmware module parameter under display
-  drm/i915/display: Move lvds_channel_mode module parameter under
-    display
-  drm/i915/display: Move panel_use_ssc module parameter under display
-  drm/i915/display: Move vbt_sdvo_panel_type module parameter under
-    display
-  drm/i915/display: Move enable_dc module parameter under display
-  drm/i915/display: Move enable_dpt module parameter under display
-  drm/i915/display: Move enable_sagv module parameter under display
-  drm/i915/display: Move disable_power_well module parameter under
-    display
-  drm/i915/display: Move enable_ips module parameter under display
-  drm/i915/display: Move invert_brightness module parameter under
-    display
-  drm/i915/display: Move edp_vswing module parameter under display
-  drm/i915/display: Move fastboot module parameter under display
-  drm/i915/display: Move enable_dpcd_backlightmodule parameter under
-    display
-  drm/i915/display: Move load_detect_test parameter under display
-  drm/i915/display: Move force_reset_modeset_test parameter under
-    display
-  drm/i915/display: Move disable_display parameter under display
-  drm/i915/display: Use device parameters instead of module in
-    I915_STATE_WARN
-  drm/i915/display: Move verbose_state_checks under display
-  drm/i915/display: Move nuclear_pageflip under display
-  drm/i915/display: Move enable_dp_mst under display
-  drm/i915/display: Use same permissions for enable_sagv as for rest
-
- drivers/gpu/drm/i915/Makefile                 |   2 +
- drivers/gpu/drm/i915/display/hsw_ips.c        |   4 +-
- drivers/gpu/drm/i915/display/i9xx_wm.c        |   2 +-
- .../gpu/drm/i915/display/intel_backlight.c    |   9 +-
- drivers/gpu/drm/i915/display/intel_bios.c     |   6 +-
- drivers/gpu/drm/i915/display/intel_crt.c      |   4 +-
- drivers/gpu/drm/i915/display/intel_display.c  |   4 +-
- drivers/gpu/drm/i915/display/intel_display.h  |   2 +-
- .../gpu/drm/i915/display/intel_display_core.h |   2 +
- .../drm/i915/display/intel_display_debugfs.c  |   2 +
- .../display/intel_display_debugfs_params.c    | 176 ++++++++++++++
- .../display/intel_display_debugfs_params.h    |  14 ++
- .../drm/i915/display/intel_display_device.c   |  13 +-
- .../drm/i915/display/intel_display_device.h   |   1 +
- .../drm/i915/display/intel_display_params.c   | 221 ++++++++++++++++++
- .../drm/i915/display/intel_display_params.h   |  62 +++++
- .../drm/i915/display/intel_display_power.c    |  14 +-
- .../drm/i915/display/intel_display_reset.c    |   2 +-
- drivers/gpu/drm/i915/display/intel_dp.c       |   6 +-
- .../drm/i915/display/intel_dp_aux_backlight.c |   4 +-
- drivers/gpu/drm/i915/display/intel_dpt.c      |   6 +-
- drivers/gpu/drm/i915/display/intel_fb.c       |   2 +-
- drivers/gpu/drm/i915/display/intel_fbc.c      |  10 +-
- drivers/gpu/drm/i915/display/intel_lvds.c     |   4 +-
- drivers/gpu/drm/i915/display/intel_opregion.c |   2 +-
- drivers/gpu/drm/i915/display/intel_panel.c    |   4 +-
- drivers/gpu/drm/i915/display/intel_psr.c      |  14 +-
- .../drm/i915/display/skl_universal_plane.c    |   2 +-
- drivers/gpu/drm/i915/display/skl_watermark.c  |   5 +-
- drivers/gpu/drm/i915/i915_driver.c            |   2 +
- drivers/gpu/drm/i915/i915_gpu_error.c         |   3 +
- drivers/gpu/drm/i915/i915_gpu_error.h         |   2 +
- drivers/gpu/drm/i915/i915_params.c            |  94 --------
- drivers/gpu/drm/i915/i915_params.h            |  23 --
- 34 files changed, 553 insertions(+), 170 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/display/intel_display_debugfs_params.c
- create mode 100644 drivers/gpu/drm/i915/display/intel_display_debugfs_params.h
- create mode 100644 drivers/gpu/drm/i915/display/intel_display_params.c
- create mode 100644 drivers/gpu/drm/i915/display/intel_display_params.h
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
+index 91953ae27144..11ee73a98b5b 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_params.c
++++ b/drivers/gpu/drm/i915/display/intel_display_params.c
+@@ -27,6 +27,63 @@ static struct intel_display_params intel_display_modparams __read_mostly = {
+  * debugfs mode to 0.
+  */
+ 
++__maybe_unused
++static void _param_print_bool(struct drm_printer *p, const char *driver_name,
++			      const char *name, bool val)
++{
++	drm_printf(p, "%s.%s=%s\n", driver_name, name, str_yes_no(val));
++}
++
++__maybe_unused
++static void _param_print_int(struct drm_printer *p, const char *driver_name,
++			     const char *name, int val)
++{
++	drm_printf(p, "%s.%s=%d\n", driver_name, name, val);
++}
++
++__maybe_unused
++static void _param_print_uint(struct drm_printer *p, const char *driver_name,
++			      const char *name, unsigned int val)
++{
++	drm_printf(p, "%s.%s=%u\n", driver_name, name, val);
++}
++
++__maybe_unused
++static void _param_print_ulong(struct drm_printer *p, const char *driver_name,
++			       const char *name, unsigned long val)
++{
++	drm_printf(p, "%s.%s=%lu\n", driver_name, name, val);
++}
++
++__maybe_unused
++static void _param_print_charp(struct drm_printer *p, const char *driver_name,
++			       const char *name, const char *val)
++{
++	drm_printf(p, "%s.%s=%s\n", driver_name, name, val);
++}
++
++#define _param_print(p, driver_name, name, val)			\
++	_Generic(val,						\
++		 bool : _param_print_bool,			\
++		 int : _param_print_int,			\
++		 unsigned int : _param_print_uint,		\
++		 unsigned long : _param_print_ulong,		\
++		 char * : _param_print_charp)(p, driver_name, name, val)
++
++/**
++ * intel_display_params_dump - dump intel display modparams
++ * @i915: i915 device
++ * @p: the &drm_printer
++ *
++ * Pretty printer for i915 modparams.
++ */
++void intel_display_params_dump(struct drm_i915_private *i915, struct drm_printer *p)
++{
++#define PRINT(T, x, ...) _param_print(p, i915->drm.driver->name, #x, i915->display.params.x);
++	INTEL_DISPLAY_PARAMS_FOR_EACH(PRINT);
++#undef PRINT
++}
++
+ __maybe_unused static void _param_dup_charp(char **valp)
+ {
+ 	*valp = kstrdup(*valp ? *valp : "", GFP_ATOMIC);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
+index 1b347365988c..a0fb3e1aa2f5 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_params.h
++++ b/drivers/gpu/drm/i915/display/intel_display_params.h
+@@ -7,6 +7,7 @@
+ #define _INTEL_DISPLAY_PARAMS_H_
+ 
+ struct drm_printer;
++struct drm_i915_private;
+ 
+ /*
+  * Invoke param, a function-like macro, for each intel display param, with
+@@ -28,6 +29,8 @@ struct intel_display_params {
+ };
+ #undef MEMBER
+ 
++void intel_display_params_dump(struct drm_i915_private *i915,
++			       struct drm_printer *p);
+ void intel_display_params_copy(struct intel_display_params *dest);
+ void intel_display_params_free(struct intel_display_params *params);
+ 
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+index b4e31e59c799..8275f9b6a47d 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.c
++++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+@@ -660,6 +660,7 @@ static void err_print_params(struct drm_i915_error_state_buf *m,
+ 	struct drm_printer p = i915_error_printer(m);
+ 
+ 	i915_params_dump(params, &p);
++	intel_display_params_dump(m->i915, &p);
+ }
+ 
+ static void err_print_pciid(struct drm_i915_error_state_buf *m,
+@@ -1027,6 +1028,7 @@ static void i915_vma_coredump_free(struct i915_vma_coredump *vma)
+ static void cleanup_params(struct i915_gpu_coredump *error)
+ {
+ 	i915_params_free(&error->params);
++	intel_display_params_free(&error->display_params);
+ }
+ 
+ static void cleanup_uc(struct intel_uc_coredump *uc)
+@@ -1988,6 +1990,7 @@ static void capture_gen(struct i915_gpu_coredump *error)
+ 	error->suspend_count = i915->suspend_count;
+ 
+ 	i915_params_copy(&error->params, &i915->params);
++	intel_display_params_copy(&error->display_params);
+ 	memcpy(&error->device_info,
+ 	       INTEL_INFO(i915),
+ 	       sizeof(error->device_info));
+diff --git a/drivers/gpu/drm/i915/i915_gpu_error.h b/drivers/gpu/drm/i915/i915_gpu_error.h
+index 9f5971f5e980..4ce227f7e1e1 100644
+--- a/drivers/gpu/drm/i915/i915_gpu_error.h
++++ b/drivers/gpu/drm/i915/i915_gpu_error.h
+@@ -15,6 +15,7 @@
+ #include <drm/drm_mm.h>
+ 
+ #include "display/intel_display_device.h"
++#include "display/intel_display_params.h"
+ #include "gt/intel_engine.h"
+ #include "gt/intel_gt_types.h"
+ #include "gt/uc/intel_uc_fw.h"
+@@ -214,6 +215,7 @@ struct i915_gpu_coredump {
+ 	struct intel_display_runtime_info display_runtime_info;
+ 	struct intel_driver_caps driver_caps;
+ 	struct i915_params params;
++	struct intel_display_params display_params;
+ 
+ 	struct intel_overlay_error_state *overlay;
+ 
 -- 
 2.34.1
 
