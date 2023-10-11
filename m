@@ -4,45 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B72DCD6E5C
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Oct 2023 11:23:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 743E0CD6E5D
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Oct 2023 11:23:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B78010E6EB;
-	Wed, 11 Oct 2023 11:23:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DFD210E6F6;
+	Wed, 11 Oct 2023 11:23:07 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2589110E6DA;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59C1D10E6DD;
  Wed, 11 Oct 2023 11:23:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1697023383; x=1728559383;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=FtuBzGz/ko8Fc9UIXeb/MQA1b22z4OVYZi/D2llHLRo=;
- b=DtnG7UF09u/Kw1ig3jCsNE/3X8SCutYIhRuZb1YnPGynyoUHZi6hYbcC
- e7AglaZ1c/NSzjyAxTn1eeFrZDsnegI+RfSXvfl/y4TpX6QXc8gotd6yS
- NfZA//ipy9SEbLw675eLg1RzfAFajKzAYVmban2q1/iWA3TVF89kdCn5/
- 98Rr1MnRdtIlg5Jit+caY/0pAEgwn+bQDyrl//o0EQRMPTTLzOKJnvnRS
- fZKAnEcdvepfGj+t7oxEjHQS+nZdpqJMMWXqGBEqDU1bt9TviWImSaQxN
- Dd23oCMQ/+dpX3kV2v5VFzH1242EGslXAGfHxZLCrugveRp4/gH+lQJYI w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="387482605"
-X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; d="scan'208";a="387482605"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=+x6N/+SlYIICyWcGJ3/MzYSCBbudHAE71/TFBkuKmL8=;
+ b=NCrpjrOUY5Em3z6lK3uuqUkU5r3RBDEj1yfxBAF0DaDkYs6/gEIBv+1l
+ KLlmbOor29MJmP8+/ZEzVj38Jtnpc+hyFB6t1Tc4HerEyY4ZHSC7uLAy8
+ YErRGMQCb07tIgpLnbPhBWQjVNP+ky8751hQIvtsemdqJgB7kWnxKQ9a/
+ SwOA6S6S+0Te9XiNEjGjULGyDZUfio4h7M8cTsJ+S38Qs42cv9GwzzH+5
+ Fa+haBNCpwcZ46XhxyBNTRsyIXfUgdq7DUDZFUDfTxnZmDjC1b40hQRtQ
+ eAU9NdMjyb8g+DocWoYS4R5zkr7eZaYZR157NskWqGuueOX9K2hYxqv57 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="387482633"
+X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; d="scan'208";a="387482633"
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2023 04:21:30 -0700
+ 11 Oct 2023 04:21:36 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="877630894"
-X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; d="scan'208";a="877630894"
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="877630907"
+X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; d="scan'208";a="877630907"
 Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.223.74.76])
- by orsmga004.jf.intel.com with ESMTP; 11 Oct 2023 04:21:28 -0700
+ by orsmga004.jf.intel.com with ESMTP; 11 Oct 2023 04:21:34 -0700
 From: Animesh Manna <animesh.manna@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 11 Oct 2023 16:39:30 +0530
-Message-Id: <20231011110936.1851563-1-animesh.manna@intel.com>
+Date: Wed, 11 Oct 2023 16:39:32 +0530
+Message-Id: <20231011110936.1851563-3-animesh.manna@intel.com>
 X-Mailer: git-send-email 2.29.0
+In-Reply-To: <20231011110936.1851563-1-animesh.manna@intel.com>
+References: <20231011110936.1851563-1-animesh.manna@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7 0/6] Panel replay phase1 implementation
+Subject: [Intel-gfx] [PATCH v7 2/6] drm/i915/psr: Move psr specific dpcd
+ init into own function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,52 +62,97 @@ Cc: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Panel Replay is a power saving feature for DP 2.0 monitor and similar
-to PSR on EDP.
+From: Jouni Högander <jouni.hogander@intel.com>
 
-These patches are basic enablement patches added on top of
-existing psr framework to enable full-screen live active frame
-update mode of panel replay. Panel replay also can be enabled
-in selective update mode which will be enabled in a incremental
-approach.
+This patch is preparing adding panel replay specific dpcd init.
 
-As per current design panel replay priority is higher than psr.
-intel_dp->psr.panel_replay_enabled flag indicate panel replay is enabled.
-intel_dp->psr.panel_replay_enabled + intel_dp->psr.psr2_enabled indicates
-panel replay is enabled in selective update mode.
-intel_dp->psr.panel_replay_enabled + intel_dp->psr.psr2_enabled +
-intel_psr.selective_fetch enabled indicates panel replay is
-enabled in selective update mode with selective fetch.
-PSR replated flags remain same like before.
-
-Note: The patches are under testing by using panel replay emulator and
-panel is not avalible.
-
-Cc: Jouni Högander <jouni.hogander@intel.com>
 Cc: Arun R Murthy <arun.r.murthy@intel.com>
 Cc: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_psr.c | 41 +++++++++++++-----------
+ 1 file changed, 23 insertions(+), 18 deletions(-)
 
-Animesh Manna (5):
-  drm/panelreplay: dpcd register definition for panelreplay
-  drm/i915/panelreplay: Initializaton and compute config for panel
-    replay
-  drm/i915/panelreplay: Enable panel replay dpcd initialization for DP
-  drm/i915/panelreplay: enable/disable panel replay
-  drm/i915/panelreplay: Debugfs support for panel replay
-
-Jouni Högander (1):
-  drm/i915/psr: Move psr specific dpcd init into own function
-
- drivers/gpu/drm/i915/display/intel_ddi.c      |   7 +-
- .../drm/i915/display/intel_display_types.h    |  15 +-
- drivers/gpu/drm/i915/display/intel_dp.c       |  49 ++-
- drivers/gpu/drm/i915/display/intel_dp_mst.c   |   3 +
- drivers/gpu/drm/i915/display/intel_psr.c      | 335 +++++++++++++-----
- drivers/gpu/drm/i915/display/intel_psr.h      |   7 +
- include/drm/display/drm_dp.h                  |  23 ++
- 7 files changed, 327 insertions(+), 112 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index bb65881e87cc..0669ab7a9191 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -474,27 +474,22 @@ static void intel_dp_get_su_granularity(struct intel_dp *intel_dp)
+ 	intel_dp->psr.su_y_granularity = y;
+ }
+ 
+-void intel_psr_init_dpcd(struct intel_dp *intel_dp)
++static void _psr_init_dpcd(struct intel_dp *intel_dp)
+ {
+-	struct drm_i915_private *dev_priv =
++	struct drm_i915_private *i915 =
+ 		to_i915(dp_to_dig_port(intel_dp)->base.base.dev);
+ 
+-	drm_dp_dpcd_read(&intel_dp->aux, DP_PSR_SUPPORT, intel_dp->psr_dpcd,
+-			 sizeof(intel_dp->psr_dpcd));
+-
+-	if (!intel_dp->psr_dpcd[0])
+-		return;
+-	drm_dbg_kms(&dev_priv->drm, "eDP panel supports PSR version %x\n",
++	drm_dbg_kms(&i915->drm, "eDP panel supports PSR version %x\n",
+ 		    intel_dp->psr_dpcd[0]);
+ 
+ 	if (drm_dp_has_quirk(&intel_dp->desc, DP_DPCD_QUIRK_NO_PSR)) {
+-		drm_dbg_kms(&dev_priv->drm,
++		drm_dbg_kms(&i915->drm,
+ 			    "PSR support not currently available for this panel\n");
+ 		return;
+ 	}
+ 
+ 	if (!(intel_dp->edp_dpcd[1] & DP_EDP_SET_POWER_CAP)) {
+-		drm_dbg_kms(&dev_priv->drm,
++		drm_dbg_kms(&i915->drm,
+ 			    "Panel lacks power state control, PSR cannot be enabled\n");
+ 		return;
+ 	}
+@@ -503,8 +498,8 @@ void intel_psr_init_dpcd(struct intel_dp *intel_dp)
+ 	intel_dp->psr.sink_sync_latency =
+ 		intel_dp_get_sink_sync_latency(intel_dp);
+ 
+-	if (DISPLAY_VER(dev_priv) >= 9 &&
+-	    (intel_dp->psr_dpcd[0] == DP_PSR2_WITH_Y_COORD_IS_SUPPORTED)) {
++	if (DISPLAY_VER(i915) >= 9 &&
++	    intel_dp->psr_dpcd[0] == DP_PSR2_WITH_Y_COORD_IS_SUPPORTED) {
+ 		bool y_req = intel_dp->psr_dpcd[1] &
+ 			     DP_PSR2_SU_Y_COORDINATE_REQUIRED;
+ 		bool alpm = intel_dp_get_alpm_status(intel_dp);
+@@ -521,14 +516,24 @@ void intel_psr_init_dpcd(struct intel_dp *intel_dp)
+ 		 * GTC first.
+ 		 */
+ 		intel_dp->psr.sink_psr2_support = y_req && alpm;
+-		drm_dbg_kms(&dev_priv->drm, "PSR2 %ssupported\n",
++		drm_dbg_kms(&i915->drm, "PSR2 %ssupported\n",
+ 			    intel_dp->psr.sink_psr2_support ? "" : "not ");
++	}
++}
+ 
+-		if (intel_dp->psr.sink_psr2_support) {
+-			intel_dp->psr.colorimetry_support =
+-				intel_dp_get_colorimetry_status(intel_dp);
+-			intel_dp_get_su_granularity(intel_dp);
+-		}
++void intel_psr_init_dpcd(struct intel_dp *intel_dp)
++{
++	drm_dp_dpcd_read(&intel_dp->aux, DP_PSR_SUPPORT, intel_dp->psr_dpcd,
++			 sizeof(intel_dp->psr_dpcd));
++
++	if (intel_dp->psr_dpcd[0])
++		_psr_init_dpcd(intel_dp);
++	/* TODO: Add PR case here */
++
++	if (intel_dp->psr.sink_psr2_support) {
++		intel_dp->psr.colorimetry_support =
++			intel_dp_get_colorimetry_status(intel_dp);
++		intel_dp_get_su_granularity(intel_dp);
+ 	}
+ }
+ 
 -- 
 2.29.0
 
