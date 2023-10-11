@@ -4,55 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D8BDCD98F5
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Oct 2023 07:31:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E774BCD98F9
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Oct 2023 08:00:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E88EB10E494;
-	Wed, 11 Oct 2023 07:31:45 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3553B10E494
- for <intel-gfx@lists.freedesktop.org>; Wed, 11 Oct 2023 07:31:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5480510E249;
+	Wed, 11 Oct 2023 08:00:52 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4670A10E249
+ for <intel-gfx@lists.freedesktop.org>; Wed, 11 Oct 2023 08:00:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1697009504; x=1728545504;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=BrYQUkORXNWK96QnfPZBm35az/Tgpuxk/0trKjL9YTs=;
- b=AlE41056JNljWVv1yYoy+N1/bjCX2WVwTPbMw854PCyYgUj8huVhxwHi
- EP/3g3SDRXlK3GxvR2UJXjgvUVIXHzQxoNVEJky6BrUCH4GkBK473i9Yu
- jPVwAYjWv0bBVp75i3gkZ1ncF9xAU4g9otKyowI5KZyJ299qVXb42fcvH
- Hfdrhmg69XgiN+kMK2e/hJLGI77XNWRB9j14Axl3rdZio+jq9wuiLv55D
- Q/Xa+cGT0DCIUM6eFeis8hMwf0O+SYSDBxiUWJPozXVur79P/jrvR2+Ju
- GcLKjGZyAmnIRslNx5YjC7730/RkjSUzD6ehQ6FtrtPGQLSABzOtlW3Oc A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="381850587"
-X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; d="scan'208";a="381850587"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2023 00:31:43 -0700
+ t=1697011250; x=1728547250;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=+1ocNnbh+8T53ryv2tOK+ZdvzALWJrSF5NXLp5rU8/A=;
+ b=A6uK4xpKSoTfnYTzfRdx9xdjPlk87d/kTJd/P6tINZrvTaKFNVR2bWMo
+ Og95IqKhZjrgDPQzeK/tTwb4ycv4c1KcoFoF2gxIiQ5yRphP10oMYmXHZ
+ 1jYhx0mPVdwClSVR9p0pnLhubvaSi0YT1zJgbmYKchAwuifv7TQSNU1RT
+ Dx6EKCaPfRzJmRXs2sbzQdZQCBK8LcNSGECrQIkkutU0vxWsFysK9Vet2
+ gorv0ZAqPUroGEiMp7gyDaQH5VetMgTV72u7V1LR5mwvhJvLz9B0ldTrQ
+ 6m2FqMaXhThVVw4SCjNc+wxfWIsfgSzjlP7ckQir1xKprzM6xjyLAuV6m g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="374947435"
+X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; d="scan'208";a="374947435"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2023 01:00:49 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="824064122"
-X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; d="scan'208";a="824064122"
-Received: from wprelogx-mobl.ger.corp.intel.com (HELO localhost)
- ([10.252.56.229])
- by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2023 00:31:41 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Nick Desaulniers <ndesaulniers@google.com>
-In-Reply-To: <CAKwvOdk-h_Bvz9iFN=fMMn14A=8iwoPgSS27iZVmy4auTXCYvA@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1696595500.git.jani.nikula@intel.com>
- <48f11648d7169687e7242e4c9b4694a0c03c4263.1696595500.git.jani.nikula@intel.com>
- <CAK7LNAT6MzbcjR7KZMEFUCHkq+WXgTB=Qmp_VD4UC7TvMg+dMg@mail.gmail.com>
- <20231009163837.GA1153868@dev-arch.thelio-3990X>
- <87o7h66fti.fsf@intel.com> <87h6my6evg.fsf@intel.com>
- <CAKwvOdk-h_Bvz9iFN=fMMn14A=8iwoPgSS27iZVmy4auTXCYvA@mail.gmail.com>
-Date: Wed, 11 Oct 2023 10:31:38 +0300
-Message-ID: <871qe162ed.fsf@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="1085126248"
+X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; d="scan'208";a="1085126248"
+Received: from shekharc-desk.iind.intel.com ([10.190.239.54])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2023 01:00:48 -0700
+From: Shekhar Chauhan <shekhar.chauhan@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 11 Oct 2023 13:30:39 +0530
+Message-Id: <20231011080039.2781048-1-shekhar.chauhan@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH 1/2] drm/i915: drop -Wall and related
- disables from cflags as redundant
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v2] drm/i915: Add new DG2 PCI IDs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,41 +55,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nathan Chancellor <nathan@kernel.org>,
- Masahiro Yamada <masahiroy@kernel.org>, intel-gfx@lists.freedesktop.org,
- Arnd Bergmann <arnd@arndb.de>, linux-kbuild@vger.kernel.org
+Cc: matthew.d.roper@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 10 Oct 2023, Nick Desaulniers <ndesaulniers@google.com> wrote:
-> On Tue, Oct 10, 2023 at 1:50=E2=80=AFAM Jani Nikula <jani.nikula@intel.co=
-m> wrote:
->> This is the simplest I could think of:
->>
->> # The following turn off the warnings enabled by -Wextra
->> ifeq ($(findstring 2, $(KBUILD_EXTRA_WARN)),)
->> KBUILD_CFLAGS +=3D -Wno-missing-field-initializers
->> KBUILD_CFLAGS +=3D -Wno-type-limits
->> KBUILD_CFLAGS +=3D -Wno-shift-negative-value
->> endif
->> ifeq ($(findstring 3, $(KBUILD_EXTRA_WARN)),)
->> KBUILD_CFLAGS +=3D -Wno-sign-compare
->> endif
->>
->> Masahiro, I'd like to get your feedback on which to choose,
->> unconditionally silencing the W=3D2/W=3D3 warnings for i915, or looking =
-at
->> KBUILD_EXTRA_WARN.
->
-> KBUILD_EXTRA_WARN looks better to me; otherwise they would be hidden
-> forever (or nearly).  Suffer some duplication, w/e.
+Add recently added PCI IDs for DG2
 
-Thanks, sent v2 with this [1].
+BSpec: 44477
+Signed-off-by: Shekhar Chauhan <shekhar.chauhan@intel.com>
+---
+ include/drm/i915_pciids.h | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-BR,
-Jani.
+diff --git a/include/drm/i915_pciids.h b/include/drm/i915_pciids.h
+index 1256770d3827..1c9ea6ab3eb9 100644
+--- a/include/drm/i915_pciids.h
++++ b/include/drm/i915_pciids.h
+@@ -718,7 +718,11 @@
+ 	INTEL_VGA_DEVICE(0x56A5, info), \
+ 	INTEL_VGA_DEVICE(0x56A6, info), \
+ 	INTEL_VGA_DEVICE(0x56B0, info), \
+-	INTEL_VGA_DEVICE(0x56B1, info)
++	INTEL_VGA_DEVICE(0x56B1, info), \
++	INTEL_VGA_DEVICE(0x56BA, info), \
++	INTEL_VGA_DEVICE(0x56BB, info), \
++	INTEL_VGA_DEVICE(0x56BC, info), \
++	INTEL_VGA_DEVICE(0x56BD, info)
+ 
+ #define INTEL_DG2_G12_IDS(info) \
+ 	INTEL_VGA_DEVICE(0x5696, info), \
+-- 
+2.34.1
 
-[1] https://lore.kernel.org/r/cover.1697009258.git.jani.nikula@intel.com
-
---=20
-Jani Nikula, Intel
