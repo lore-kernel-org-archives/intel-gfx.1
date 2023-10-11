@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3A7BCDB47E
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Oct 2023 21:04:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6987CDB484
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Oct 2023 21:05:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3A2F10E205;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F04F310E22E;
 	Wed, 11 Oct 2023 21:04:54 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A42E910E1F3
- for <intel-gfx@lists.freedesktop.org>; Wed, 11 Oct 2023 21:04:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9A0F10E1F3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 11 Oct 2023 21:04:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1697058288; x=1728594288;
+ t=1697058291; x=1728594291;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=LsdlYfToWsi6sDszi0jXbuU59Jxyqs1CvzV3ZT/Mo3A=;
- b=EnGb2INvaQfHh4KE4s46AxvXUJDadsOL2++IMKn3+hm7LOZCEDMD4P26
- kjplHDsKErIIp0c8jBxG3o61t6cqyCzqKVIs7/XnIrIdjWiv0KJF3PF9Q
- NOHLtz7jINTREqzUx9nRiySMoE0iRB5dt0QdXlAccyWKWXwHbT19ehjH1
- WnOTmmATJc2K7/hCVKHOI282XWVSGibHjWz6UKzL2sAeNqmq3rc/mqxbB
- hQzorlF0RmWmUpFkuNT6fj0lxrBBu4c+UC8WvgWFQYlyjYlYzsGDZQWtN
- +8RXzcIn0FbN0MYpnLar+E9WI0GhjiZb8CSrQKUY8sr1t8rzbBoCSjm4w A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="375118401"
-X-IronPort-AV: E=Sophos;i="6.03,217,1694761200"; d="scan'208";a="375118401"
+ bh=kH71c7G79c47Sqh7bzx0cMksFEIF8JepRxBiIrAt+fk=;
+ b=djrr0WL+K1XaGMq1CH1lcK9uyCZwQPEcACxi97ejhfTIO+obC8ka4fYj
+ AnMM2Ihvqfmkl2HXsmuTmFrQEBzriA25rrqmcTyjulgrFWP0qCd3o/I03
+ G/j/3AwODEu97mQ2/v3v5UocpuettDXs1oWu8lyP7Ylviod/LBmW6hCHV
+ pqBC6n9e3Q6uo77aGNQSuWwKdY7ZSK3vbPntxOfKQQgvGX6zZpWH46cZl
+ 7oqvQwGula83rr/kuO4excmO3h7qBHNgWPQoK37qEtuKL01yWn5pcSFVa
+ ougPoz5n7QmrfnVad1znyON+HcvIw31mClWU55Coi1GwmK7ZsKkaEZ9wJ w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="375118444"
+X-IronPort-AV: E=Sophos;i="6.03,217,1694761200"; d="scan'208";a="375118444"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2023 14:04:07 -0700
+ 11 Oct 2023 14:04:08 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="757717879"
-X-IronPort-AV: E=Sophos;i="6.03,217,1694761200"; d="scan'208";a="757717879"
+X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="757717962"
+X-IronPort-AV: E=Sophos;i="6.03,217,1694761200"; d="scan'208";a="757717962"
 Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2023 14:03:42 -0700
+ 11 Oct 2023 14:03:44 -0700
 From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 11 Oct 2023 13:52:53 -0700
-Message-Id: <20231011205259.2295032-2-jonathan.cavitt@intel.com>
+Date: Wed, 11 Oct 2023 13:52:58 -0700
+Message-Id: <20231011205259.2295032-7-jonathan.cavitt@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231011205259.2295032-1-jonathan.cavitt@intel.com>
 References: <20231011205259.2295032-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v12 1/7] drm/i915: Add GuC TLB Invalidation
- device info flags
+Subject: [Intel-gfx] [PATCH v12 6/7] drm/i915/gt: Increase sleep in gt_tlb
+ selftest sanitycheck
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,42 +64,40 @@ Cc: janusz.krzysztofik@intel.com, andi.shyti@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add device info flags for if GuC TLB Invalidation is enabled.
+For the gt_tlb live selftest, when operating on the GSC engine,
+increase the timeout from 10 ms to 200 ms because the GSC
+engine is a bit slower than the rest.
 
 Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
 Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 Acked-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h          | 2 ++
- drivers/gpu/drm/i915/intel_device_info.h | 1 +
- 2 files changed, 3 insertions(+)
+ drivers/gpu/drm/i915/gt/selftest_tlb.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index cb60fc9cf8737..6a2a78c61f212 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -794,6 +794,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- #define HAS_GUC_DEPRIVILEGE(i915) \
- 	(INTEL_INFO(i915)->has_guc_deprivilege)
+diff --git a/drivers/gpu/drm/i915/gt/selftest_tlb.c b/drivers/gpu/drm/i915/gt/selftest_tlb.c
+index 7e41f69fc818f..00b872b6380b1 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_tlb.c
++++ b/drivers/gpu/drm/i915/gt/selftest_tlb.c
+@@ -136,8 +136,15 @@ pte_tlbinv(struct intel_context *ce,
+ 	i915_request_get(rq);
+ 	i915_request_add(rq);
  
-+#define HAS_GUC_TLB_INVALIDATION(i915)	(INTEL_INFO(i915)->has_guc_tlb_invalidation)
+-	/* Short sleep to sanitycheck the batch is spinning before we begin */
+-	msleep(10);
++	/*
++	 * Short sleep to sanitycheck the batch is spinning before we begin.
++	 * FIXME: Why is GSC so slow?
++	 */
++	if (ce->engine->class == OTHER_CLASS)
++		msleep(200);
++	else
++		msleep(10);
 +
- #define HAS_3D_PIPELINE(i915)	(INTEL_INFO(i915)->has_3d_pipeline)
- 
- #define HAS_ONE_EU_PER_FUSE_BIT(i915)	(INTEL_INFO(i915)->has_one_eu_per_fuse_bit)
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index 39817490b13fd..eba2f0b919c87 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -153,6 +153,7 @@ enum intel_ppgtt_type {
- 	func(has_heci_pxp); \
- 	func(has_heci_gscfi); \
- 	func(has_guc_deprivilege); \
-+	func(has_guc_tlb_invalidation); \
- 	func(has_l3_ccs_read); \
- 	func(has_l3_dpf); \
- 	func(has_llc); \
+ 	if (va == vb) {
+ 		if (!i915_request_completed(rq)) {
+ 			pr_err("%s(%s): Semaphore sanitycheck failed %llx, with alignment %llx, using PTE size %x (phys %x, sg %x)\n",
 -- 
 2.25.1
 
