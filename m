@@ -4,49 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 072A0CDB468
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Oct 2023 16:38:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 415D7CDB467
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Oct 2023 16:38:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75D9A10E9AB;
-	Wed, 11 Oct 2023 16:38:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C271A10E9B7;
+	Wed, 11 Oct 2023 16:38:53 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AE9210E9AB
- for <intel-gfx@lists.freedesktop.org>; Wed, 11 Oct 2023 16:38:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24EAB10E9AB
+ for <intel-gfx@lists.freedesktop.org>; Wed, 11 Oct 2023 16:38:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1697042330; x=1728578330;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=/jm8A83G2ANoQbTpzcMBTJfnVMgs/9i9lJ0njJxmSRw=;
- b=ahMHiiop5kd1kT8UO+XRXNkOrYi0BLyGT15XFUu+UQTakgzzgS5hktYh
- YXqrsQTVwaVqunTCraTaoJay5pMdf5UlsKO4xQnYzl4ebbwH6cE+W1pFp
- Bgcu+1Cc3qH03Mrv1mco9Ey3Pl3bm5jos7RLRwY4lIHgarHSh4c4EgoU0
- XXbSYJIdioBVHFGbo7TfZKW3rCsrR6A4KIFBlJ81fkg9YoEurRN0u6UnX
- D3O5o+0nY8TCIauNe0eHXtdPiv3E9/l9iTn2WnD64zPZbHniJG8vRPwj8
- GqG3+h9aVcaxMR5IWmabKwaFHc7ydcm4se9vEUlC3IwfiREXa/FLr0tWf w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="3298984"
+ t=1697042331; x=1728578331;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=x8ct4mGZA74QfGq5mo7zIxuQrEw+cPqEXBDqZaPs644=;
+ b=bqm9jHVVVGiq9XuSjXRuf/pXECsBCejWcigsTCjTNCMYrd/rie2ua7Td
+ +IJvedBbkK+ddp8919HTRRhOLT7ne4fMDQgsrI3L/+bI51fC9TjzlelLa
+ 38rZPK9mxTE5hgX1rzkn7b/xoOJbtxO9PNOW65Yrbv2lFcDFvtfzy0rL3
+ aF9k3LYxYBh6TCJIuoBRKWlrMAJJFyJT4WFvE5DB7PmTMF5fnc5eaTfEl
+ YD5r20ofgliJLpHqzlS/GoM91SwgcHhXIE3SBE3VWTCdH25TbxtZjdGjP
+ w7rW7O+XvPUcJZEOBgRS+snk56n/Fwig7RAa75Y9L4MHFQLtQ3lMc8PW2 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="3298988"
 X-IronPort-AV: E=Sophos;i="6.03,216,1694761200"; 
-   d="scan'208";a="3298984"
+   d="scan'208";a="3298988"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2023 09:38:50 -0700
+ 11 Oct 2023 09:38:51 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="844630891"
-X-IronPort-AV: E=Sophos;i="6.03,216,1694761200"; d="scan'208";a="844630891"
+X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="844630907"
+X-IronPort-AV: E=Sophos;i="6.03,216,1694761200"; d="scan'208";a="844630907"
 Received: from lpaczyn-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.252.57.43])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2023 09:38:37 -0700
+ 11 Oct 2023 09:38:45 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Wed, 11 Oct 2023 19:38:28 +0300
-Message-Id: <20231011163830.1055517-1-jani.nikula@intel.com>
+Date: Wed, 11 Oct 2023 19:38:30 +0300
+Message-Id: <20231011163830.1055517-3-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20231011163830.1055517-1-jani.nikula@intel.com>
+References: <20231011163830.1055517-1-jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/3] drm/i915: make some error capture functions
- static
+Subject: [Intel-gfx] [PATCH 3/3] drm/i915: move gpu error sysfs to
+ i915_gpu_error.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,56 +65,266 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Not needed outside of i915_gpu_error.c.
+Hide gpu error specifics in i915_gpu_error.c. This is also cleaner wrt
+conditional compilation, as i915_gpu_error.c is only built with
+DRM_I915_CAPTURE_ERROR=y.
+
+With this, we can also make i915_first_error_state() static.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/i915_gpu_error.c | 8 ++++----
- drivers/gpu/drm/i915/i915_gpu_error.h | 5 -----
- 2 files changed, 4 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/i915/i915_gpu_error.c | 75 ++++++++++++++++++++++++-
+ drivers/gpu/drm/i915/i915_gpu_error.h | 17 +++---
+ drivers/gpu/drm/i915/i915_sysfs.c     | 79 +--------------------------
+ 3 files changed, 86 insertions(+), 85 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
-index b4e31e59c799..db7ac28c44e5 100644
+index b4c8459deb7b..f9e750217f18 100644
 --- a/drivers/gpu/drm/i915/i915_gpu_error.c
 +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
-@@ -520,7 +520,7 @@ __find_vma(struct i915_vma_coredump *vma, const char *name)
- 	return NULL;
+@@ -57,6 +57,7 @@
+ #include "i915_memcpy.h"
+ #include "i915_reg.h"
+ #include "i915_scatterlist.h"
++#include "i915_sysfs.h"
+ #include "i915_utils.h"
+ 
+ #define ALLOW_FAIL (__GFP_KSWAPD_RECLAIM | __GFP_RETRY_MAYFAIL | __GFP_NOWARN)
+@@ -2208,7 +2209,7 @@ void i915_capture_error_state(struct intel_gt *gt,
+ 	i915_gpu_coredump_put(error);
  }
  
--struct i915_vma_coredump *
-+static struct i915_vma_coredump *
- intel_gpu_error_find_batch(const struct intel_engine_coredump *ee)
+-struct i915_gpu_coredump *
++static struct i915_gpu_coredump *
+ i915_first_error_state(struct drm_i915_private *i915)
  {
- 	return __find_vma(ee->vma, "batch");
-@@ -609,9 +609,9 @@ void i915_error_printf(struct drm_i915_error_state_buf *e, const char *f, ...)
- 	va_end(args);
+ 	struct i915_gpu_coredump *error;
+@@ -2484,3 +2485,75 @@ void i915_gpu_error_debugfs_register(struct drm_i915_private *i915)
+ 	debugfs_create_file("i915_gpu_info", 0644, minor->debugfs_root, i915,
+ 			    &i915_gpu_info_fops);
  }
- 
--void intel_gpu_error_print_vma(struct drm_i915_error_state_buf *m,
--			       const struct intel_engine_cs *engine,
--			       const struct i915_vma_coredump *vma)
-+static void intel_gpu_error_print_vma(struct drm_i915_error_state_buf *m,
-+				      const struct intel_engine_cs *engine,
-+				      const struct i915_vma_coredump *vma)
- {
- 	char out[ASCII85_BUFSZ];
- 	struct page *page;
++
++static ssize_t error_state_read(struct file *filp, struct kobject *kobj,
++				struct bin_attribute *attr, char *buf,
++				loff_t off, size_t count)
++{
++
++	struct device *kdev = kobj_to_dev(kobj);
++	struct drm_i915_private *i915 = kdev_minor_to_i915(kdev);
++	struct i915_gpu_coredump *gpu;
++	ssize_t ret = 0;
++
++	/*
++	 * FIXME: Concurrent clients triggering resets and reading + clearing
++	 * dumps can cause inconsistent sysfs reads when a user calls in with a
++	 * non-zero offset to complete a prior partial read but the
++	 * gpu_coredump has been cleared or replaced.
++	 */
++
++	gpu = i915_first_error_state(i915);
++	if (IS_ERR(gpu)) {
++		ret = PTR_ERR(gpu);
++	} else if (gpu) {
++		ret = i915_gpu_coredump_copy_to_buffer(gpu, buf, off, count);
++		i915_gpu_coredump_put(gpu);
++	} else {
++		const char *str = "No error state collected\n";
++		size_t len = strlen(str);
++
++		if (off < len) {
++			ret = min_t(size_t, count, len - off);
++			memcpy(buf, str + off, ret);
++		}
++	}
++
++	return ret;
++}
++
++static ssize_t error_state_write(struct file *file, struct kobject *kobj,
++				 struct bin_attribute *attr, char *buf,
++				 loff_t off, size_t count)
++{
++	struct device *kdev = kobj_to_dev(kobj);
++	struct drm_i915_private *dev_priv = kdev_minor_to_i915(kdev);
++
++	drm_dbg(&dev_priv->drm, "Resetting error state\n");
++	i915_reset_error_state(dev_priv);
++
++	return count;
++}
++
++static const struct bin_attribute error_state_attr = {
++	.attr.name = "error",
++	.attr.mode = S_IRUSR | S_IWUSR,
++	.size = 0,
++	.read = error_state_read,
++	.write = error_state_write,
++};
++
++void i915_gpu_error_sysfs_setup(struct drm_i915_private *i915)
++{
++	struct device *kdev = i915->drm.primary->kdev;
++
++	if (sysfs_create_bin_file(&kdev->kobj, &error_state_attr))
++		drm_err(&i915->drm, "error_state sysfs setup failed\n");
++}
++
++void i915_gpu_error_sysfs_teardown(struct drm_i915_private *i915)
++{
++	struct device *kdev = i915->drm.primary->kdev;
++
++	sysfs_remove_bin_file(&kdev->kobj, &error_state_attr);
++}
 diff --git a/drivers/gpu/drm/i915/i915_gpu_error.h b/drivers/gpu/drm/i915/i915_gpu_error.h
-index 9f5971f5e980..c982b162b7ff 100644
+index a6f2a7518cf0..68c964d6720a 100644
 --- a/drivers/gpu/drm/i915/i915_gpu_error.h
 +++ b/drivers/gpu/drm/i915/i915_gpu_error.h
-@@ -275,11 +275,6 @@ static inline void intel_klog_error_capture(struct intel_gt *gt,
+@@ -323,11 +323,12 @@ static inline void i915_gpu_coredump_put(struct i915_gpu_coredump *gpu)
+ 		kref_put(&gpu->ref, __i915_gpu_coredump_free);
+ }
  
- __printf(2, 3)
- void i915_error_printf(struct drm_i915_error_state_buf *e, const char *f, ...);
--void intel_gpu_error_print_vma(struct drm_i915_error_state_buf *m,
--			       const struct intel_engine_cs *engine,
--			       const struct i915_vma_coredump *vma);
--struct i915_vma_coredump *
--intel_gpu_error_find_batch(const struct intel_engine_coredump *ee);
+-struct i915_gpu_coredump *i915_first_error_state(struct drm_i915_private *i915);
+ void i915_reset_error_state(struct drm_i915_private *i915);
+ void i915_disable_error_state(struct drm_i915_private *i915, int err);
  
- struct i915_gpu_coredump *i915_gpu_coredump(struct intel_gt *gt,
- 					    intel_engine_mask_t engine_mask, u32 dump_flags);
+ void i915_gpu_error_debugfs_register(struct drm_i915_private *i915);
++void i915_gpu_error_sysfs_setup(struct drm_i915_private *i915);
++void i915_gpu_error_sysfs_teardown(struct drm_i915_private *i915);
+ 
+ #else
+ 
+@@ -396,12 +397,6 @@ static inline void i915_gpu_coredump_put(struct i915_gpu_coredump *gpu)
+ {
+ }
+ 
+-static inline struct i915_gpu_coredump *
+-i915_first_error_state(struct drm_i915_private *i915)
+-{
+-	return ERR_PTR(-ENODEV);
+-}
+-
+ static inline void i915_reset_error_state(struct drm_i915_private *i915)
+ {
+ }
+@@ -415,6 +410,14 @@ static inline void i915_gpu_error_debugfs_register(struct drm_i915_private *i915
+ {
+ }
+ 
++static inline void i915_gpu_error_sysfs_setup(struct drm_i915_private *i915)
++{
++}
++
++static inline void i915_gpu_error_sysfs_teardown(struct drm_i915_private *i915)
++{
++}
++
+ #endif /* IS_ENABLED(CONFIG_DRM_I915_CAPTURE_ERROR) */
+ 
+ #endif /* _I915_GPU_ERROR_H_ */
+diff --git a/drivers/gpu/drm/i915/i915_sysfs.c b/drivers/gpu/drm/i915/i915_sysfs.c
+index e88bb4f04305..613decd47760 100644
+--- a/drivers/gpu/drm/i915/i915_sysfs.c
++++ b/drivers/gpu/drm/i915/i915_sysfs.c
+@@ -155,81 +155,6 @@ static const struct bin_attribute dpf_attrs_1 = {
+ 	.private = (void *)1
+ };
+ 
+-#if IS_ENABLED(CONFIG_DRM_I915_CAPTURE_ERROR)
+-
+-static ssize_t error_state_read(struct file *filp, struct kobject *kobj,
+-				struct bin_attribute *attr, char *buf,
+-				loff_t off, size_t count)
+-{
+-
+-	struct device *kdev = kobj_to_dev(kobj);
+-	struct drm_i915_private *i915 = kdev_minor_to_i915(kdev);
+-	struct i915_gpu_coredump *gpu;
+-	ssize_t ret = 0;
+-
+-	/*
+-	 * FIXME: Concurrent clients triggering resets and reading + clearing
+-	 * dumps can cause inconsistent sysfs reads when a user calls in with a
+-	 * non-zero offset to complete a prior partial read but the
+-	 * gpu_coredump has been cleared or replaced.
+-	 */
+-
+-	gpu = i915_first_error_state(i915);
+-	if (IS_ERR(gpu)) {
+-		ret = PTR_ERR(gpu);
+-	} else if (gpu) {
+-		ret = i915_gpu_coredump_copy_to_buffer(gpu, buf, off, count);
+-		i915_gpu_coredump_put(gpu);
+-	} else {
+-		const char *str = "No error state collected\n";
+-		size_t len = strlen(str);
+-
+-		if (off < len) {
+-			ret = min_t(size_t, count, len - off);
+-			memcpy(buf, str + off, ret);
+-		}
+-	}
+-
+-	return ret;
+-}
+-
+-static ssize_t error_state_write(struct file *file, struct kobject *kobj,
+-				 struct bin_attribute *attr, char *buf,
+-				 loff_t off, size_t count)
+-{
+-	struct device *kdev = kobj_to_dev(kobj);
+-	struct drm_i915_private *dev_priv = kdev_minor_to_i915(kdev);
+-
+-	drm_dbg(&dev_priv->drm, "Resetting error state\n");
+-	i915_reset_error_state(dev_priv);
+-
+-	return count;
+-}
+-
+-static const struct bin_attribute error_state_attr = {
+-	.attr.name = "error",
+-	.attr.mode = S_IRUSR | S_IWUSR,
+-	.size = 0,
+-	.read = error_state_read,
+-	.write = error_state_write,
+-};
+-
+-static void i915_setup_error_capture(struct device *kdev)
+-{
+-	if (sysfs_create_bin_file(&kdev->kobj, &error_state_attr))
+-		drm_err(&kdev_minor_to_i915(kdev)->drm,
+-			"error_state sysfs setup failed\n");
+-}
+-
+-static void i915_teardown_error_capture(struct device *kdev)
+-{
+-	sysfs_remove_bin_file(&kdev->kobj, &error_state_attr);
+-}
+-#else
+-static void i915_setup_error_capture(struct device *kdev) {}
+-static void i915_teardown_error_capture(struct device *kdev) {}
+-#endif
+-
+ void i915_setup_sysfs(struct drm_i915_private *dev_priv)
+ {
+ 	struct device *kdev = dev_priv->drm.primary->kdev;
+@@ -255,7 +180,7 @@ void i915_setup_sysfs(struct drm_i915_private *dev_priv)
+ 		drm_warn(&dev_priv->drm,
+ 			 "failed to register GT sysfs directory\n");
+ 
+-	i915_setup_error_capture(kdev);
++	i915_gpu_error_sysfs_setup(dev_priv);
+ 
+ 	intel_engines_add_sysfs(dev_priv);
+ }
+@@ -264,7 +189,7 @@ void i915_teardown_sysfs(struct drm_i915_private *dev_priv)
+ {
+ 	struct device *kdev = dev_priv->drm.primary->kdev;
+ 
+-	i915_teardown_error_capture(kdev);
++	i915_gpu_error_sysfs_teardown(dev_priv);
+ 
+ 	device_remove_bin_file(kdev,  &dpf_attrs_1);
+ 	device_remove_bin_file(kdev,  &dpf_attrs);
 -- 
 2.39.2
 
