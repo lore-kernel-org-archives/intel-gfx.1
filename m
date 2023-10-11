@@ -4,53 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF4AACDB47E
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Oct 2023 20:54:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D498CCDB482
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Oct 2023 21:04:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DC0710E1D4;
-	Wed, 11 Oct 2023 20:54:22 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AB0110E1D4
- for <intel-gfx@lists.freedesktop.org>; Wed, 11 Oct 2023 20:54:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F50510E1D4;
+	Wed, 11 Oct 2023 21:04:43 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ECA410E1D4
+ for <intel-gfx@lists.freedesktop.org>; Wed, 11 Oct 2023 21:04:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1697057659; x=1728593659;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=QNf3Q7ICUXumxY53qJthomE1Ml2suVDO5yj6WJnjsFU=;
- b=NTGsnnX+JdfuC9OUpv4KLysNohaAIm25GtluEQzDdANT+dEi5IER7WYD
- 8ntBFZBCU+Sb5vMz3Cv7Hfn+9tTFBUZFsUc54ULe79C9Yn1sowUsI6gv5
- is7rFDtiwrsCHkskeCpbwSXvT9BJ7QviIXbHYyAA3W415zuf9ccoyjqOM
- dnfzMMjb5MjVF2U1qfEnNkv51ydetg30SviB/7LK8vl67L9E3QCTMu/KE
- rKKF6IZTSYMS06ffDFa70DtJ7LUpRKLXidnp8z+IMLLpnQKxNCu+fl223
- L1QuhCo3lYFsnHdB4VMQtx4HPXytXatOvE1Cpkq6OLtyW0x8L+RDExNFm g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="3352202"
-X-IronPort-AV: E=Sophos;i="6.03,217,1694761200"; 
-   d="scan'208";a="3352202"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2023 13:54:19 -0700
+ t=1697058281; x=1728594281;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=GruCLRsiDYRWx0Ib0fdOERUbrZk4k3vFK7m9b8pXK2w=;
+ b=AiKk0J+QC2+wCMhRGTuvKuvn8cvrF1f3E5Bw86dWdLyJV4AynOlR2M2E
+ 6J/QgCOc385VarEgyRh8Dh4AQN7PBKSVMtIZvVKlhjZEU4h1mV3lj9/g+
+ rSt2sL8gbYn545w5qSYIJh2svB9DadAal8s0n3j/Mibwag4mm3m/G4hC9
+ zpL+VKTbCYRkTUpBr5QSJpssGK94ByrlKzgB/YIXeVwUnYLAjqeZZrQlx
+ 0UxmQj09SfRB0reSK2FANKPhQCQSDgaXKFp0w3H94OJ89RSmq5HNOOL1D
+ EDj9Th+J28SRHkQ9lTeNsl+droTe3cNCgirmI4kgTbuMhlVqRp0MAWUTU w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="375118386"
+X-IronPort-AV: E=Sophos;i="6.03,217,1694761200"; d="scan'208";a="375118386"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2023 14:04:07 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="897794990"
-X-IronPort-AV: E=Sophos;i="6.03,217,1694761200"; d="scan'208";a="897794990"
-Received: from lpaczyn-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.252.57.43])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2023 13:52:29 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Masahiro Yamada <masahiroy@kernel.org>
-In-Reply-To: <CAK7LNAQ1K4X6=jW1b8cyS9vs_hpn+YGzF2qw7YTFawo-bs_9gQ@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1697009258.git.jani.nikula@intel.com>
- <69a812273091b6535ddc7f9346289d71bb30f43d.1697009258.git.jani.nikula@intel.com>
- <CAK7LNAQ1K4X6=jW1b8cyS9vs_hpn+YGzF2qw7YTFawo-bs_9gQ@mail.gmail.com>
-Date: Wed, 11 Oct 2023 23:54:13 +0300
-Message-ID: <87wmvs3moa.fsf@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="757717866"
+X-IronPort-AV: E=Sophos;i="6.03,217,1694761200"; d="scan'208";a="757717866"
+Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Oct 2023 14:03:41 -0700
+From: Jonathan Cavitt <jonathan.cavitt@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 11 Oct 2023 13:52:52 -0700
+Message-Id: <20231011205259.2295032-1-jonathan.cavitt@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Intel-gfx] [PATCH v2 2/2] drm/i915: enable W=1 warnings by
- default
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH v12 0/7] drm/i915: Define and use GuC and CTB
+ TLB invalidation routines
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,48 +56,148 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Nathan Chancellor <nathan@kernel.org>, intel-gfx@lists.freedesktop.org,
- Nick Desaulniers <ndesaulniers@google.com>, Arnd Bergmann <arnd@arndb.de>,
- linux-kbuild@vger.kernel.org
+Cc: janusz.krzysztofik@intel.com, andi.shyti@intel.com,
+ matthew.d.roper@intel.com, jonathan.cavitt@intel.com, saurabhg.gupta@intel.com,
+ chris.p.wilson@linux.intel.com, nirmoy.das@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 11 Oct 2023, Masahiro Yamada <masahiroy@kernel.org> wrote:
-> On Wed, Oct 11, 2023 at 4:29=E2=80=AFPM Jani Nikula <jani.nikula@intel.co=
-m> wrote:
->>
->> We enable a bunch more compiler warnings than the kernel
->> defaults. However, they've drifted to become a unique set of warnings,
->> and have increasingly fallen behind from the W=3D1 set.
->>
->> Align with the W=3D1 warnings from scripts/Makefile.extrawarn for clarit=
-y,
->> by copy-pasting them with s/KBUILD_CFLAGS/subdir-ccflags-y/ to make it
->> easier to compare in the future.
->>
->> Some of the -Wextra warnings do need to be disabled, just like in
->> Makefile.extrawarn, but take care to not disable them for W=3D2 or W=3D3
->> builds, depending on the warning.
->>
->> v2: Add back some -Wextra warning disables (Nathan)
->>
->> Cc: Arnd Bergmann <arnd@arndb.de>
->> Cc: Nick Desaulniers <ndesaulniers@google.com>
->> Cc: Nathan Chancellor <nathan@kernel.org>
->> Cc: Masahiro Yamada <masahiroy@kernel.org>
->> Reviewed-by: Nathan Chancellor <nathan@kernel.org>
->> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->
-> Reviewed-by: Masahiro Yamada <masahiroy@kernel.org>
+Implement GuC-based TLB invalidations and use them on MTL.
 
-Thanks for the reviews everyone...
+Some complexity in the implementation was introduced early on
+and will be required for range-based TLB invalidations.
+RFC: https://patchwork.freedesktop.org/series/124922/
 
-...though we missed some s/KBUILD_CFLAGS/subdir-ccflags-y/ in v2. Fixed
-while applying.
+v2:
+- Add missing supporting patches.
 
-BR,
-Jani.
+v3:
+- Split suspend/resume changes and multi-gt support into separate
+  patches.
+- Only perform GuC TLB invalidation functions when supported.
+- Move intel_guc_is_enabled check function to usage location.
+- Address comments.
 
+v4:
+- Change conditions for GuC-based tlb invalidation support
+  to a pci tag that's only active for MTL.
+- Address some FIXMEs and formatting issues.
+- Move suspend/resume changes to helper functions in intel_gt.h
+- Improve comment for ct_handle_event change.
+- Use cleaner if-else conditions.
+- Address comments.
 
---=20
-Jani Nikula, Intel
+v5:
+- Reintroduce missing change to selftest msleep duration
+- Move suspend/resume loops from intel_gt.h to intel_tlb.c,
+  making them no longer static inlines.
+- Remove superfluous blocking and error checks.
+- Move ct_handle_event exception to general case in
+  ct_process_request.
+- Explain usage of xa_alloc_cyclic_irq.
+- Modify explanation of purpose of
+  OUTSTANDING_GUC_TIMEOUT_PERIOD macro.
+- Explain purpose of performing tlb invalidation twice in
+  intel_gt_tlb_resume_all.
+
+v6:
+- Add this cover letter.
+- Fix explanation of purpose of
+  OUTSTANDING_GUC_TIMEOUT_PERIOD macro again.
+- s/pci tags/pci flags
+- Enable GuC TLB Invalidations separately from adding the
+  flags to do so.
+
+v7:
+- Eliminate pci terminology from patches.
+- Order new device info flag correctly.
+- Run gen8_ggtt_invalidate in more cases, specifically when
+  GuC-based TLB invalidation is not supported.
+- Use intel_uncore_write_fw instead of intel_uncore_write
+  during guc_ggtt_invalidate.
+- Remove duplicate request message clear in ct_process_request.
+- Remove faulty tag from series.
+
+v8:
+- Simplify cover letter contents.
+- Fix miscellaneous formatting and typos.
+- Reorder device info flags and defines.
+- Reword commit message.
+- Rename TLB invalidation enums and functions.
+- Add comments explaining confusing points.
+- Add helper function getting expected delay of CT buffer.
+- Simplify intel_guc_tlb_invalidation_done by passing computed
+  values.
+- Remove helper functions for tlb suspend and resume.
+- Move tlb suspend and resume paths to uc.
+- Split suspend/resume and wedged into two patches.
+- Clarify purpose of sleep change in tlb selftest.
+
+v9:
+- Explain complexity of GuC TLB invalidations as required for
+  range-based TLB invalidations, which will be platformed later.
+- Fix CHECKPATCH issues.
+- Explain intel_guc_is_ready tlb invalidation skip in
+  intel_gt_invalidate_tlb_full.
+- Reword comment for unlocked xa_for_each loop in
+  intel_guc_submission_reset.
+- Report all errors in init_tlb_lookup.
+- Remove debug message from fini_tlb_lookup.
+- Use standardized interface for
+  intel_guc_tlb_invalidation_done
+- Remove spurious changes.
+- Move wake_up_all_tlb_invalidate on wedge to correct patch.
+
+v10:
+- Add lock to tlb_lookup on guc submission reset.
+- Add comment about why timeout increased from 10 ms to 20 ms
+  by default in gt_tlb selftest.
+- Remove spurious changes.
+
+v11:
+- Update CT size delay helper to be clearer.
+- Reorder some function declarations.
+- Clarify some comments.
+- Produce error message if attempting to free a busy wait
+  during fini_tlb_lookup.
+- Revert default sleep back to 10 ms.
+- Link to RFC.
+
+v12:
+- Add helper for checking if GuC TLB invalidation is
+  supported and guc is ready.
+- Prevent suspend/resume actions involving GuC TLB
+  invalidations if guc is not ready.
+- Add path for INTEL_GUC_ACTION_TLB_INVALIDATION_DONE
+  to immediately process in ct_process_request after
+  it is submitted to ct_handle_event.
+
+Jonathan Cavitt (6):
+  drm/i915: Add GuC TLB Invalidation device info flags
+  drm/i915/guc: Add CT size delay helper
+  drm/i915: No TLB invalidation on suspended GT
+  drm/i915: No TLB invalidation on wedged GT
+  drm/i915/gt: Increase sleep in gt_tlb selftest sanitycheck
+  drm/i915: Enable GuC TLB invalidations for MTL
+
+Prathap Kumar Valsan (1):
+  drm/i915: Define and use GuC and CTB TLB invalidation routines
+
+ drivers/gpu/drm/i915/gt/intel_ggtt.c          |  33 ++-
+ drivers/gpu/drm/i915/gt/intel_tlb.c           |  16 +-
+ drivers/gpu/drm/i915/gt/selftest_tlb.c        |  11 +-
+ .../gpu/drm/i915/gt/uc/abi/guc_actions_abi.h  |  33 +++
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  23 ++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |  38 +++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h     |   2 +
+ drivers/gpu/drm/i915/gt/uc/intel_guc_fwif.h   |   1 +
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 216 +++++++++++++++++-
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c         |   7 +
+ drivers/gpu/drm/i915/i915_drv.h               |   2 +
+ drivers/gpu/drm/i915/i915_pci.c               |   1 +
+ drivers/gpu/drm/i915/intel_device_info.h      |   1 +
+ 13 files changed, 370 insertions(+), 14 deletions(-)
+
+-- 
+2.25.1
+
