@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFAE2CD98E4
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Oct 2023 00:13:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A93B4CD98D9
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Oct 2023 00:13:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E905310E409;
-	Wed, 11 Oct 2023 00:13:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33A1210E40C;
+	Wed, 11 Oct 2023 00:13:36 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 356A010E405
- for <intel-gfx@lists.freedesktop.org>; Wed, 11 Oct 2023 00:13:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61B5B10E406
+ for <intel-gfx@lists.freedesktop.org>; Wed, 11 Oct 2023 00:13:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696983212; x=1728519212;
+ t=1696983211; x=1728519211;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=qrMlq6nw8DEh7siWT96Uz9LBHtYLh9oyI4H40Lh3T1Y=;
- b=lVcTWUFNiEcd78iuEtRikW4LaoHAn0mpQgHG7trAqSnSlRY/3whSm0XT
- fZ+xOY3xViANsHKC2/SCD/ItUKzkMKAVFoBRh+ULsN0Y6QR3NZeezAiNa
- 8W1PlveAf0CE73CS0NK0hAkm2fFBqNKIpFIhykq6o5CesXMEtMhHFSdJf
- a3yb9TnIgpG690QIhNQzCrhohdnJV6Wc1PheTTJN0eNitUkYeW4ZgDMh7
- netTgs6pSq2Lv/Iai1Z3qNeXjJzicKKhb9YIniEoPktHvjfV1xynPxWPM
- uMQnAu++O3Za4uFuE61KO4KFm/h7nFcZ7ll/zuMURG24EgNdcXL3doqfG g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="363903223"
-X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; d="scan'208";a="363903223"
+ bh=E/yT1taCqmOUo/odnz3x72LZtupxdtlFcSQeLGIpKKc=;
+ b=VWRFt6cJEHtLBjgiK0Kaz0TUps97Tw8A/f6hJI8lDBuROSMe0o2GLR0/
+ xfn8zGP3RSI6ZRm7zQCrhHG/zRbH1yiZ5z37jus59gEQG7Filk4ZPEphS
+ MZ6+wVIzlHM1D0DHqG0iKvqEOqCmd4MJeB1p4qF5Czp8MkRiCj8zUwphw
+ D7cLI/wHUmpkkjOOMR9ObVYIybBPpZuIOVafy0+joIRAApJ03UIs80+dD
+ oLLixNZLxGfvMU/+lDc/xWO4ioHTBRRMKBV8pIOhIk7fbGm7ikYkImdRO
+ sf2tporLLDYa1SSXOGCWd6nFnNaQvBoTf3cUfJWcbF1KONngBg5BozVOj g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="363903217"
+X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; d="scan'208";a="363903217"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2023 17:13:31 -0700
+ 10 Oct 2023 17:13:30 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="753626325"
-X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; d="scan'208";a="753626325"
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="753626306"
+X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; d="scan'208";a="753626306"
 Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Oct 2023 17:13:30 -0700
 From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 10 Oct 2023 17:02:48 -0700
-Message-Id: <20231011000248.2181018-8-jonathan.cavitt@intel.com>
+Date: Tue, 10 Oct 2023 17:02:42 -0700
+Message-Id: <20231011000248.2181018-2-jonathan.cavitt@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231011000248.2181018-1-jonathan.cavitt@intel.com>
 References: <20231011000248.2181018-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v11 7/7] drm/i915: Enable GuC TLB invalidations
- for MTL
+Subject: [Intel-gfx] [PATCH v11 1/7] drm/i915: Add GuC TLB Invalidation
+ device info flags
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,29 +64,40 @@ Cc: janusz.krzysztofik@intel.com, andi.shyti@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable GuC TLB invalidations for MTL.  Though more platforms than just
-MTL support GuC TLB invalidations, MTL is presently the only platform
-that requires it for any purpose, so only enable it there for now to
-minimize cross-platform impact.
+Add device info flags for if GuC TLB Invalidation is enabled.
 
 Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
 Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_pci.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/i915/i915_drv.h          | 2 ++
+ drivers/gpu/drm/i915/intel_device_info.h | 1 +
+ 2 files changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-index df7c261410f79..d4b51ececbb12 100644
---- a/drivers/gpu/drm/i915/i915_pci.c
-+++ b/drivers/gpu/drm/i915/i915_pci.c
-@@ -829,6 +829,7 @@ static const struct intel_device_info mtl_info = {
- 	.has_flat_ccs = 0,
- 	.has_gmd_id = 1,
- 	.has_guc_deprivilege = 1,
-+	.has_guc_tlb_invalidation = 1,
- 	.has_llc = 0,
- 	.has_mslice_steering = 0,
- 	.has_snoop = 1,
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index cb60fc9cf8737..6a2a78c61f212 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -794,6 +794,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
+ #define HAS_GUC_DEPRIVILEGE(i915) \
+ 	(INTEL_INFO(i915)->has_guc_deprivilege)
+ 
++#define HAS_GUC_TLB_INVALIDATION(i915)	(INTEL_INFO(i915)->has_guc_tlb_invalidation)
++
+ #define HAS_3D_PIPELINE(i915)	(INTEL_INFO(i915)->has_3d_pipeline)
+ 
+ #define HAS_ONE_EU_PER_FUSE_BIT(i915)	(INTEL_INFO(i915)->has_one_eu_per_fuse_bit)
+diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
+index 39817490b13fd..eba2f0b919c87 100644
+--- a/drivers/gpu/drm/i915/intel_device_info.h
++++ b/drivers/gpu/drm/i915/intel_device_info.h
+@@ -153,6 +153,7 @@ enum intel_ppgtt_type {
+ 	func(has_heci_pxp); \
+ 	func(has_heci_gscfi); \
+ 	func(has_guc_deprivilege); \
++	func(has_guc_tlb_invalidation); \
+ 	func(has_l3_ccs_read); \
+ 	func(has_l3_dpf); \
+ 	func(has_llc); \
 -- 
 2.25.1
 
