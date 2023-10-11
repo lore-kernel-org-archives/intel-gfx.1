@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B66FCD98E5
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Oct 2023 00:13:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5A29CD98E3
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Oct 2023 00:13:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D05AD10E40A;
-	Wed, 11 Oct 2023 00:13:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A53110E40B;
+	Wed, 11 Oct 2023 00:13:35 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8436F10E405
- for <intel-gfx@lists.freedesktop.org>; Wed, 11 Oct 2023 00:13:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1794010E406
+ for <intel-gfx@lists.freedesktop.org>; Wed, 11 Oct 2023 00:13:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1696983211; x=1728519211;
+ t=1696983212; x=1728519212;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=6zYLoEHHxsATq8xCBuzjbyrGYvfNKnLynHY9dsrIJEg=;
- b=U0gGL6oe+MQWTIyxPm3GsCSb8qULAZ8epvEEHHi0+xGImtULikwoUnGj
- lesFMSRfEQu+yAczaFEiyYwBAegUiAeaOwFjClHQLrqmaJIGhiRberkOe
- p8LekKLlZxPxBqyIppZlNiB4/wx0f1YXCpHyR8GOiTsGRZMSD2Xz9PrW/
- AencYMGF73wY3WnCJ0+EpAFJmxbpsXv8nszbSuT94fRb2nInXkM8wziKa
- FEJl/tI/Xdl0fAe1nbvMfG2Kd9bU+ReCb4YgRN0s7FPX7hEhRCRqHdClz
- 2gXbn2dbiIC5Q7xz29bAZZh1Y9cEa1adV7rUSMsesWtBgSaZxdlGtx0/N A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="363903218"
-X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; d="scan'208";a="363903218"
+ bh=C9rXTkvDni+nMHMPYiofCJPI9d1Vbg3Q3RGQ/6khhaU=;
+ b=eXxM3ugSSskqzPKKMYE6IclkEmcD5doie7kB7vVTioevog7KLq+V49I2
+ YNS2aCJA93hmjdyXjcUXyfcuKI1QwvlyupNkuUkXGTK74MEbnnzCRSYrJ
+ 14+6HhjOcvv2NyHW8+MF0+S4kl2FAKoGxwd2EZdcZQ0qG3UK1ssYBLufX
+ 8LqhXJ1ZbSZYk4Ne+QyJgpGKnG/s+J4efDmeezAPktTpNhbs9LZ8iWS+G
+ W63FNYHyd1p8Ynsqw1hEmGMVO0AJn/e4dsHjwTVTN8+TtOvnOIwk82VIA
+ v8d+axOxej29R5vwYJnSaIwu9ANhVjF5LjRw3BVxrIRMCppSB4cpqYXlT w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="363903222"
+X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; d="scan'208";a="363903222"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Oct 2023 17:13:31 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="753626309"
-X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; d="scan'208";a="753626309"
+X-IronPort-AV: E=McAfee;i="6600,9927,10859"; a="753626322"
+X-IronPort-AV: E=Sophos;i="6.03,214,1694761200"; d="scan'208";a="753626322"
 Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Oct 2023 17:13:30 -0700
 From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 10 Oct 2023 17:02:43 -0700
-Message-Id: <20231011000248.2181018-3-jonathan.cavitt@intel.com>
+Date: Tue, 10 Oct 2023 17:02:47 -0700
+Message-Id: <20231011000248.2181018-7-jonathan.cavitt@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231011000248.2181018-1-jonathan.cavitt@intel.com>
 References: <20231011000248.2181018-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v11 2/7] drm/i915/guc: Add CT size delay helper
+Subject: [Intel-gfx] [PATCH v11 6/7] drm/i915/gt: Increase sleep in gt_tlb
+ selftest sanitycheck
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,71 +64,38 @@ Cc: janusz.krzysztofik@intel.com, andi.shyti@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a helper function to the GuC CT buffer that reports the expected
-time to process all outstanding requests.  As of now, there is no
-functionality to check number of requests in the buffer, so the helper
-function just reports 2 seconds, or 1ms per request up to the maximum
-number of requests the CT buffer can store.
+For the gt_tlb live selftest, when operating on the GSC engine,
+increase the timeout from 10 ms to 200 ms because the GSC
+engine is a bit slower than the rest.
 
-Suggested-by: John Harrison <john.c.harrison@intel.com>
 Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
 Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 27 +++++++++++++++++++++++
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  2 ++
- 2 files changed, 29 insertions(+)
+ drivers/gpu/drm/i915/gt/selftest_tlb.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index c33210ead1ef7..03b616ba4ebb7 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -103,6 +103,33 @@ enum { CTB_SEND = 0, CTB_RECV = 1 };
+diff --git a/drivers/gpu/drm/i915/gt/selftest_tlb.c b/drivers/gpu/drm/i915/gt/selftest_tlb.c
+index 7e41f69fc818f..00b872b6380b1 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_tlb.c
++++ b/drivers/gpu/drm/i915/gt/selftest_tlb.c
+@@ -136,8 +136,15 @@ pte_tlbinv(struct intel_context *ce,
+ 	i915_request_get(rq);
+ 	i915_request_add(rq);
  
- enum { CTB_OWNER_HOST = 0 };
- 
-+/*
-+ * Some H2G commands involve a synchronous response that the driver needs
-+ * to wait for. In such cases, a timeout is required to prevent the driver
-+ * from waiting forever in the case of an error (either no error response
-+ * is defined in the protocol or something has died and requires a reset).
-+ * The specific command may be defined as having a time bound response but
-+ * the CT is a queue and that time guarantee only starts from the point
-+ * when the command reaches the head of the queue and is processed by GuC.
-+ *
-+ * Ideally there would be a helper to report the progress of a given
-+ * command through the CT. However, that would require a significant
-+ * amount of work in the CT layer. In the meantime, provide a reasonable
-+ * estimation of the worst case latency it should take for the entire
-+ * queue to drain. And therefore, how long a caller should wait before
-+ * giving up on their request. The current estimate is based on empirical
-+ * measurement of a test that fills the buffer with context creation and
-+ * destruction requests as they seem to be the slowest operation.
-+ */
-+long intel_guc_ct_max_queue_time_jiffies(void)
-+{
+-	/* Short sleep to sanitycheck the batch is spinning before we begin */
+-	msleep(10);
 +	/*
-+	 * A 4KB buffer full of context destroy commands takes a little
-+	 * over a second to process so bump that to 2s to be super safe.
++	 * Short sleep to sanitycheck the batch is spinning before we begin.
++	 * FIXME: Why is GSC so slow?
 +	 */
-+	return (CTB_H2G_BUFFER_SIZE * HZ) / SZ_2K;
-+}
++	if (ce->engine->class == OTHER_CLASS)
++		msleep(200);
++	else
++		msleep(10);
 +
- static void ct_receive_tasklet_func(struct tasklet_struct *t);
- static void ct_incoming_request_worker_func(struct work_struct *w);
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-index 58e42901ff498..2c4bb9a941be6 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
-@@ -104,6 +104,8 @@ struct intel_guc_ct {
- #endif
- };
- 
-+long intel_guc_ct_max_queue_time_jiffies(void);
-+
- void intel_guc_ct_init_early(struct intel_guc_ct *ct);
- int intel_guc_ct_init(struct intel_guc_ct *ct);
- void intel_guc_ct_fini(struct intel_guc_ct *ct);
+ 	if (va == vb) {
+ 		if (!i915_request_completed(rq)) {
+ 			pr_err("%s(%s): Semaphore sanitycheck failed %llx, with alignment %llx, using PTE size %x (phys %x, sg %x)\n",
 -- 
 2.25.1
 
