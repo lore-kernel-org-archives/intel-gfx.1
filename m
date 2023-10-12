@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D37ACDB474
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Oct 2023 22:49:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E205CDB483
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Oct 2023 22:49:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C23910E580;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D51C10E587;
 	Thu, 12 Oct 2023 22:49:12 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9553310E575
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66E9510E575
  for <intel-gfx@lists.freedesktop.org>; Thu, 12 Oct 2023 22:49:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1697150951; x=1728686951;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Hero0mFn+uHv6psjATfsLaoTRp946V+1RX47lxuSQ4E=;
- b=nuz2crdkJMmcJ8+efnXMqqke2MsUk438HyJdJaYC6TRwMw+bt54MyNGJ
- Cg4YZPafECcJBnJG2FrY6OzRuooJne7wDayO9Qg38f2mMJ+5Fox0uYF7f
- o/Oy2vOuw5HPDoWOhwcuM1U7NPsZxCKS5Oa9IJcqSfp6uTIFsMdRmyud0
- ulrgjZbspedmjRJnzb2eeesNXj7u34k8o01dU9RV8+zbwUOdrp4htriju
- hi7SfXLTL8za9ZLHLPDbPxGh+JIUiSgoEPH0SkMsOQxn/UXYG8TwjRpLb
- JvoTxzUMAmCBaRKltdxDhWY3dpv4Zt0o48+4L6J5fBPzKAClVbERj4Vgt Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10861"; a="6613981"
+ bh=tbYWLHj+eumaQcVVvUmFmGipHv5n+/lm2FOMQFJ9g+w=;
+ b=FpnrMPH39CtH9rWgO5uFLgeMy0vS28LQkMq4VeTKLjypekzjy4eBwVZo
+ IJcJX1ouJUcw855k87WWvFKfjqR4aft2paDcQ6Fs7ffvGxPvR5ye+GsZf
+ /tp3NU/F7iO/PRXnpKenqgsYO7+3YjNuSh7/Dlo78vSh/0tK6WL+EgEIR
+ 742ev2dubA9T01Zoq2LdDTqwjOtt1yxK4P8yXWe7GxFwPw5GBjgS8JgR4
+ xMthT9VFqKAii/RHjO2W9kGaZYnpC0vyVZj+nP/5hCrJ/ozLl1q5z5ReW
+ wkyd+uq+Thu986KpmTRe1OxwuLNMQlQyG4ffItGpaZjEk8x1ghcQASPQU A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10861"; a="6613979"
 X-IronPort-AV: E=Sophos;i="6.03,219,1694761200"; 
-   d="scan'208";a="6613981"
+   d="scan'208";a="6613979"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Oct 2023 15:49:10 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10861"; a="754463667"
-X-IronPort-AV: E=Sophos;i="6.03,219,1694761200"; d="scan'208";a="754463667"
+X-IronPort-AV: E=McAfee;i="6600,9927,10861"; a="754463661"
+X-IronPort-AV: E=Sophos;i="6.03,219,1694761200"; d="scan'208";a="754463661"
 Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  12 Oct 2023 15:49:09 -0700
 From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 12 Oct 2023 15:38:23 -0700
-Message-Id: <20231012223826.2556700-5-jonathan.cavitt@intel.com>
+Date: Thu, 12 Oct 2023 15:38:21 -0700
+Message-Id: <20231012223826.2556700-3-jonathan.cavitt@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231012223826.2556700-1-jonathan.cavitt@intel.com>
 References: <20231012223826.2556700-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v13 4/7] drm/i915: No TLB invalidation on
- suspended GT
+Subject: [Intel-gfx] [PATCH v13 2/7] drm/i915/guc: Add CT size delay helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,102 +64,73 @@ Cc: janusz.krzysztofik@intel.com, andi.shyti@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In case of GT is suspended, don't allow submission of new TLB invalidation
-request and cancel all pending requests. The TLB entries will be
-invalidated either during GuC reload or on system resume.
+As of now, there is no mechanism for tracking a given request's
+progress through the queue.  Instead, add a helper that returns
+an estimated maximum time the queue should take to drain if
+completely full.
 
-Signed-off-by: Fei Yang <fei.yang@intel.com>
+Suggested-by: John Harrison <john.c.harrison@intel.com>
 Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
-CC: John Harrison <john.c.harrison@intel.com>
 Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 Acked-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Acked-by: Nirmoy Das <nirmoy.das@intel.com>
+Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
+Reviewed-by: John Harrison <john.c.harrison@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  1 +
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 22 ++++++++++++-------
- drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  7 ++++++
- 3 files changed, 22 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 27 +++++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  2 ++
+ 2 files changed, 29 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 0949628d69f8b..2b6dfe62c8f2a 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -537,4 +537,5 @@ int intel_guc_invalidate_tlb_engines(struct intel_guc *guc);
- int intel_guc_invalidate_tlb_guc(struct intel_guc *guc);
- int intel_guc_tlb_invalidation_done(struct intel_guc *guc,
- 				    const u32 *payload, u32 len);
-+void wake_up_all_tlb_invalidate(struct intel_guc *guc);
- #endif
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 1377398afcdfa..3a0d20064878a 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1796,13 +1796,24 @@ static void __guc_reset_context(struct intel_context *ce, intel_engine_mask_t st
- 	intel_context_put(parent);
- }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index c33210ead1ef7..03b616ba4ebb7 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -103,6 +103,33 @@ enum { CTB_SEND = 0, CTB_RECV = 1 };
  
--void intel_guc_submission_reset(struct intel_guc *guc, intel_engine_mask_t stalled)
-+void wake_up_all_tlb_invalidate(struct intel_guc *guc)
- {
- 	struct intel_guc_tlb_wait *wait;
-+	unsigned long i;
-+
-+	if (HAS_GUC_TLB_INVALIDATION(guc_to_gt(guc)->i915)) {
-+		xa_lock_irq(&guc->tlb_lookup);
-+		xa_for_each(&guc->tlb_lookup, i, wait)
-+			wake_up(&wait->wq);
-+		xa_unlock_irq(&guc->tlb_lookup);
-+	}
+ enum { CTB_OWNER_HOST = 0 };
+ 
++/*
++ * Some H2G commands involve a synchronous response that the driver needs
++ * to wait for. In such cases, a timeout is required to prevent the driver
++ * from waiting forever in the case of an error (either no error response
++ * is defined in the protocol or something has died and requires a reset).
++ * The specific command may be defined as having a time bound response but
++ * the CT is a queue and that time guarantee only starts from the point
++ * when the command reaches the head of the queue and is processed by GuC.
++ *
++ * Ideally there would be a helper to report the progress of a given
++ * command through the CT. However, that would require a significant
++ * amount of work in the CT layer. In the meantime, provide a reasonable
++ * estimation of the worst case latency it should take for the entire
++ * queue to drain. And therefore, how long a caller should wait before
++ * giving up on their request. The current estimate is based on empirical
++ * measurement of a test that fills the buffer with context creation and
++ * destruction requests as they seem to be the slowest operation.
++ */
++long intel_guc_ct_max_queue_time_jiffies(void)
++{
++	/*
++	 * A 4KB buffer full of context destroy commands takes a little
++	 * over a second to process so bump that to 2s to be super safe.
++	 */
++	return (CTB_H2G_BUFFER_SIZE * HZ) / SZ_2K;
 +}
 +
-+void intel_guc_submission_reset(struct intel_guc *guc, intel_engine_mask_t stalled)
-+{
- 	struct intel_context *ce;
- 	unsigned long index;
- 	unsigned long flags;
--	unsigned long i;
+ static void ct_receive_tasklet_func(struct tasklet_struct *t);
+ static void ct_incoming_request_worker_func(struct work_struct *w);
  
- 	if (unlikely(!guc_submission_initialized(guc))) {
- 		/* Reset called during driver load? GuC not yet initialised! */
-@@ -1833,12 +1844,7 @@ void intel_guc_submission_reset(struct intel_guc *guc, intel_engine_mask_t stall
- 	 * The full GT reset will have cleared the TLB caches and flushed the
- 	 * G2H message queue; we can release all the blocked waiters.
- 	 */
--	if (HAS_GUC_TLB_INVALIDATION(guc_to_gt(guc)->i915)) {
--		xa_lock_irq(&guc->tlb_lookup);
--		xa_for_each(&guc->tlb_lookup, i, wait)
--			wake_up(&wait->wq);
--		xa_unlock_irq(&guc->tlb_lookup);
--	}
-+	wake_up_all_tlb_invalidate(guc);
- }
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+index 58e42901ff498..2c4bb9a941be6 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+@@ -104,6 +104,8 @@ struct intel_guc_ct {
+ #endif
+ };
  
- static void guc_cancel_context_requests(struct intel_context *ce)
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-index 98b103375b7ab..27f6561dd7319 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
-@@ -688,6 +688,8 @@ void intel_uc_suspend(struct intel_uc *uc)
- 	/* flush the GSC worker */
- 	intel_gsc_uc_flush_work(&uc->gsc);
- 
-+	wake_up_all_tlb_invalidate(guc);
++long intel_guc_ct_max_queue_time_jiffies(void);
 +
- 	if (!intel_guc_is_ready(guc)) {
- 		guc->interrupts.enabled = false;
- 		return;
-@@ -736,6 +738,11 @@ static int __uc_resume(struct intel_uc *uc, bool enable_communication)
- 
- 	intel_gsc_uc_resume(&uc->gsc);
- 
-+	if (intel_guc_tlb_invalidation_is_available(guc)) {
-+		intel_guc_invalidate_tlb_engines(guc);
-+		intel_guc_invalidate_tlb_guc(guc);
-+	}
-+
- 	return 0;
- }
- 
+ void intel_guc_ct_init_early(struct intel_guc_ct *ct);
+ int intel_guc_ct_init(struct intel_guc_ct *ct);
+ void intel_guc_ct_fini(struct intel_guc_ct *ct);
 -- 
 2.25.1
 
