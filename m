@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F6F7CDB483
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Oct 2023 08:16:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 250D3CDB46E
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Oct 2023 08:16:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6ADF810E45B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7C2E10E45D;
 	Thu, 12 Oct 2023 08:16:11 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 949BA10E44B;
- Thu, 12 Oct 2023 08:16:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5C3210E459;
+ Thu, 12 Oct 2023 08:16:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1697098567; x=1728634567;
+ t=1697098564; x=1728634564;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=a6U4H2lQs0PaPDdLeVrmcAvYvW1I7Z4rxJiMO/qErSo=;
- b=kChG5Wp6kSk8a1V5+6FcVwsjXH3FhTsXGJOpEt39hZcElTOLcbLYosjy
- wf97ni5gpUR2MG4JmWQo19L2nXsMtS0KFNCqMyGoRUDndzedC0XT0kqw8
- nAF1q8f3fnfumSRyQY5vz1h86QhnES5neT6KipxqtujiTSItgbiVW2GsI
- NlcALsNCzbCfraA7BCzomcschfFNCfIJiW+1vWRyw10VJvdFXsNQJdkRW
- vMsczuC3HaDQn+eL8BzZxWHz0hWoTsLmYDy+cutf9qvnuN86L+B7eU4ev
- 0hBXVyWH69sMID2DJ53/1XwfXHHYFWnvCaojims2tRBPcyk5aADhfpDYL g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="3454697"
+ bh=nvwxwG4c/KiRwfpYmE9F7CnpOmiMqL79bbJPHVrUYWk=;
+ b=HIrC5cv6dc2SEJENnghdKUKaYsm6VBmmEUkAJlsxPDZymLlTG/86ClCI
+ 5jrmxW/rhgL2aiMvnwOhs32kfanWpbsVxfvI8PhgxGTFotsxxetD3PBfz
+ GJgd5F8RCB96sdgmHEF6EPTh0oOlbImNC99Zk0PAlstGVrDQ+L8w1zXy5
+ MYP+/FRqjuZt+NY2dK0AF62tgzi687wODX7yj8KImsAP4KE20txtPLj1z
+ WrBxSYXMSiNriY9gAbsiPrsaW7PmD+njg0fPWIWwbFCDx2uq7OlIjq5ry
+ R8ZDfHcOzf2yS3K2hCh3HlOFX3q5Q3Z4j5Sj3U05ouKW79KoGAUYCAW2h g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="3454689"
 X-IronPort-AV: E=Sophos;i="6.03,218,1694761200"; 
-   d="scan'208";a="3454697"
+   d="scan'208";a="3454689"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2023 01:16:07 -0700
+ 12 Oct 2023 01:16:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="783599359"
-X-IronPort-AV: E=Sophos;i="6.03,218,1694761200"; d="scan'208";a="783599359"
+X-IronPort-AV: E=McAfee;i="6600,9927,10860"; a="783599342"
+X-IronPort-AV: E=Sophos;i="6.03,218,1694761200"; d="scan'208";a="783599342"
 Received: from maloneyj-mobl.ger.corp.intel.com (HELO localhost.localdomain)
  ([10.213.239.225])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Oct 2023 01:16:05 -0700
+ 12 Oct 2023 01:16:02 -0700
 From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
 To: igt-dev@lists.freedesktop.org,
 	Intel-gfx@lists.freedesktop.org
-Date: Thu, 12 Oct 2023 09:15:46 +0100
-Message-Id: <20231012081547.852052-9-tvrtko.ursulin@linux.intel.com>
+Date: Thu, 12 Oct 2023 09:15:44 +0100
+Message-Id: <20231012081547.852052-7-tvrtko.ursulin@linux.intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231012081547.852052-1-tvrtko.ursulin@linux.intel.com>
 References: <20231012081547.852052-1-tvrtko.ursulin@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH i-g-t 8/9] tools/intel_gpu_top: Add per client
- memory info
+Subject: [Intel-gfx] [PATCH i-g-t 6/9] lib/igt_drm_clients: Allow passing in
+ the memory region map
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,204 +67,103 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-JSON output has the full breakdown but for now the interactive mode only
-shows total and resident aggregated for all memory regions.
+Same concept as with the engine map, allowing callers to pass in fixed
+map of names to indices, simplifying their implementation and avoiding
+auto-detection while parsing.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 ---
- tools/intel_gpu_top.c | 114 +++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 112 insertions(+), 2 deletions(-)
+ lib/igt_drm_clients.c | 5 +++--
+ lib/igt_drm_clients.h | 3 ++-
+ tools/gputop.c        | 4 ++--
+ tools/intel_gpu_top.c | 8 +++++---
+ 4 files changed, 12 insertions(+), 8 deletions(-)
 
-diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
-index b2e81d5f9ffb..2c09895c79dd 100644
---- a/tools/intel_gpu_top.c
-+++ b/tools/intel_gpu_top.c
-@@ -133,11 +133,24 @@ struct intel_clients {
- 	const char *pci_slot;
- 	struct igt_drm_client_engines classes;
- 	struct igt_drm_clients *clients;
-+	struct igt_drm_client_regions *regions; /* Borrowed from first client */
- };
- 
- static struct termios termios_orig;
- static bool class_view;
- 
-+/* Maps i915 fdinfo names to indices */
-+static const char *memory_region_map[] = {
-+	"system0",
-+	"local0",
-+};
-+
-+/* For JSON, 1:1 with indices above. */
-+static const char *json_memory_region_names[] = {
-+	"system",
-+	"local",
-+};
-+
- __attribute__((format(scanf,3,4)))
- static int igt_sysfs_scanf(int dir, const char *attr, const char *fmt, ...)
+diff --git a/lib/igt_drm_clients.c b/lib/igt_drm_clients.c
+index da51d7335b2b..025d60c51503 100644
+--- a/lib/igt_drm_clients.c
++++ b/lib/igt_drm_clients.c
+@@ -445,7 +445,8 @@ struct igt_drm_clients *
+ igt_drm_clients_scan(struct igt_drm_clients *clients,
+ 		     bool (*filter_client)(const struct igt_drm_clients *,
+ 					   const struct drm_client_fdinfo *),
+-		     const char **name_map, unsigned int map_entries)
++		     const char **name_map, unsigned int map_entries,
++		     const char **region_map, unsigned int region_entries)
  {
-@@ -882,6 +895,9 @@ static struct igt_drm_clients *display_clients(struct igt_drm_clients *clients)
- 			ac->val = calloc(c->engines->max_engine_id + 1,
- 					 sizeof(ac->val[0]));
- 			assert(ac->val);
-+			ac->regions = c->regions;
-+			ac->memory = calloc(c->regions->max_region_id + 1,
-+					    sizeof(ac->memory[0]));
- 			ac->samples = 1;
+ 	struct dirent *proc_dent;
+ 	struct igt_drm_client *c;
+@@ -524,7 +525,7 @@ igt_drm_clients_scan(struct igt_drm_clients *clients,
+ 			if (!__igt_parse_drm_fdinfo(dirfd(fdinfo_dir),
+ 						    fdinfo_dent->d_name, &info,
+ 						    name_map, map_entries,
+-						    NULL, 0))
++						    region_map, region_entries))
+ 				continue;
+ 
+ 			if (filter_client && !filter_client(clients, &info))
+diff --git a/lib/igt_drm_clients.h b/lib/igt_drm_clients.h
+index cd37f8508b20..52888aedc25a 100644
+--- a/lib/igt_drm_clients.h
++++ b/lib/igt_drm_clients.h
+@@ -93,7 +93,8 @@ struct igt_drm_clients *
+ igt_drm_clients_scan(struct igt_drm_clients *clients,
+ 		     bool (*filter_client)(const struct igt_drm_clients *,
+ 					   const struct drm_client_fdinfo *),
+-		     const char **name_map, unsigned int map_entries);
++		     const char **name_map, unsigned int map_entries,
++		     const char **region_map, unsigned int region_entries);
+ 
+ struct igt_drm_clients *
+ igt_drm_clients_sort(struct igt_drm_clients *clients,
+diff --git a/tools/gputop.c b/tools/gputop.c
+index ea95e0333dd2..71e28f43ee4c 100644
+--- a/tools/gputop.c
++++ b/tools/gputop.c
+@@ -253,7 +253,7 @@ int main(int argc, char **argv)
+ 	if (!clients)
+ 		exit(1);
+ 
+-	igt_drm_clients_scan(clients, NULL, NULL, 0);
++	igt_drm_clients_scan(clients, NULL, NULL, 0, NULL, 0);
+ 
+ 	for (;;) {
+ 		struct igt_drm_client *c, *prevc = NULL;
+@@ -270,7 +270,7 @@ int main(int argc, char **argv)
+ 			}
  		}
  
-@@ -896,6 +912,14 @@ static struct igt_drm_clients *display_clients(struct igt_drm_clients *clients)
+-		igt_drm_clients_scan(clients, NULL, NULL, 0);
++		igt_drm_clients_scan(clients, NULL, NULL, 0, NULL, 0);
+ 		igt_drm_clients_sort(clients, client_cmp);
  
- 		for (i = 0; i <= c->engines->max_engine_id; i++)
- 			ac->val[i] += c->val[i];
-+
-+		for (i = 0; i <= c->regions->max_region_id; i++) {
-+			ac->memory[i].total += c->memory[i].total;
-+			ac->memory[i].shared += c->memory[i].shared;
-+			ac->memory[i].resident += c->memory[i].resident;
-+			ac->memory[i].purgeable += c->memory[i].purgeable;
-+			ac->memory[i].active += c->memory[i].active;
-+		}
+ 		printf("\033[H\033[J");
+diff --git a/tools/intel_gpu_top.c b/tools/intel_gpu_top.c
+index 34fa99235e11..091fe28068dc 100644
+--- a/tools/intel_gpu_top.c
++++ b/tools/intel_gpu_top.c
+@@ -2619,8 +2619,9 @@ int main(int argc, char **argv)
  	}
  
- 	aggregated->num_clients = num;
-@@ -920,8 +944,10 @@ static void free_display_clients(struct igt_drm_clients *clients)
- 	 * "display" clients are not proper clients and have un-initialized
- 	 * or borrowed fields which we don't want the library to try and free.
- 	 */
--	igt_for_each_drm_client(clients, c, tmp)
-+	igt_for_each_drm_client(clients, c, tmp) {
- 		free(c->val);
-+		free(c->memory);
-+	}
+ 	pmu_sample(engines);
+-	igt_drm_clients_scan(clients, client_match, engine_map,
+-			     ARRAY_SIZE(engine_map));
++	igt_drm_clients_scan(clients, client_match,
++			     engine_map, ARRAY_SIZE(engine_map),
++			     NULL, 0);
+ 	gettime(&ts);
  
- 	free(clients->client);
- 	free(clients);
-@@ -2016,6 +2042,9 @@ print_clients_header(struct igt_drm_clients *clients, int lines,
- 		if (lines++ >= con_h || len >= con_w)
- 			return lines;
+ 	if (output_mode == JSON)
+@@ -2655,7 +2656,8 @@ int main(int argc, char **argv)
+ 			display_clients(igt_drm_clients_scan(clients,
+ 							     client_match,
+ 							     engine_map,
+-							     ARRAY_SIZE(engine_map)));
++							     ARRAY_SIZE(engine_map),
++							     NULL, 0));
+ 		scan_us = elapsed_us(&ts, period_us);
  
-+		if (iclients->regions)
-+			len += printf("     MEM      RSS ");
-+
- 		if (iclients->classes.num_engines) {
- 			unsigned int i;
- 			int width;
-@@ -2059,6 +2088,20 @@ print_clients_header(struct igt_drm_clients *clients, int lines,
- static bool numeric_clients;
- static bool filter_idle;
- 
-+static int print_size(uint64_t sz)
-+{
-+	char units[] = { ' ', 'K', 'M', 'G' };
-+	unsigned int u;
-+
-+	for (u = 0; u < ARRAY_SIZE(units) - 1; u++) {
-+		if (sz & 1023 || sz < 1024)
-+			break;
-+		sz /= 1024;
-+	}
-+
-+	return printf("%7"PRIu64"%c ", sz, units[u]);
-+}
-+
- static int
- print_client(struct igt_drm_client *c, struct engines *engines, double t, int lines,
- 	     int con_w, int con_h, unsigned int period_us, int *class_w)
-@@ -2076,6 +2119,18 @@ print_client(struct igt_drm_client *c, struct engines *engines, double t, int li
- 
- 		len = printf("%*s ", clients->max_pid_len, c->pid_str);
- 
-+		if (iclients->regions) {
-+			uint64_t sz;
-+
-+			for (sz = 0, i = 0; i <= c->regions->max_region_id; i++)
-+				sz += c->memory[i].total;
-+			len += print_size(sz);
-+
-+			for (sz = 0, i = 0; i <= c->regions->max_region_id; i++)
-+				sz += c->memory[i].resident;
-+			len += print_size(sz);
-+		}
-+
- 		for (i = 0; i <= iclients->classes.max_engine_id; i++) {
- 			double pct, max;
- 
-@@ -2115,6 +2170,42 @@ print_client(struct igt_drm_client *c, struct engines *engines, double t, int li
- 		snprintf(buf, sizeof(buf), "%u", c->pid);
- 		__json_add_member("pid", buf);
- 
-+		if (iclients->regions) {
-+			pops->open_struct("memory");
-+
-+			for (i = 0; i < ARRAY_SIZE(json_memory_region_names);
-+			     i++) {
-+				if (i > c->regions->max_region_id)
-+					break;
-+
-+				pops->open_struct(json_memory_region_names[i]);
-+
-+				snprintf(buf, sizeof(buf), "%" PRIu64,
-+					 c->memory[i].total);
-+				__json_add_member("total", buf);
-+
-+				snprintf(buf, sizeof(buf), "%" PRIu64,
-+					 c->memory[i].shared);
-+				__json_add_member("shared", buf);
-+
-+				snprintf(buf, sizeof(buf), "%" PRIu64,
-+					 c->memory[i].resident);
-+				__json_add_member("resident", buf);
-+
-+				snprintf(buf, sizeof(buf), "%" PRIu64,
-+					 c->memory[i].purgeable);
-+				__json_add_member("purgeable", buf);
-+
-+				snprintf(buf, sizeof(buf), "%" PRIu64,
-+					 c->memory[i].active);
-+				__json_add_member("active", buf);
-+
-+				pops->close_struct();
-+			}
-+
-+			pops->close_struct();
-+		}
-+
- 		if (c->samples > 1) {
- 			pops->open_struct("engine-classes");
- 
-@@ -2460,10 +2551,29 @@ static void intel_scan_clients(struct intel_clients *iclients)
- 		"video-enhance",
- 		"compute",
- 	};
-+	struct igt_drm_client *c;
-+	unsigned int i;
- 
- 	igt_drm_clients_scan(iclients->clients, client_match,
- 			     engine_map, ARRAY_SIZE(engine_map),
--			     NULL, 0);
-+			     memory_region_map, ARRAY_SIZE(memory_region_map));
-+
-+	iclients->regions = NULL;
-+
-+	if (!iclients->clients)
-+		return;
-+
-+	/*
-+	 * Borrow memory region data from first client so we can use it
-+	 * when displaying stuff. All regions are the same due our client_match.
-+	 */
-+	igt_for_each_drm_client(iclients->clients, c, i) {
-+		if (c->status == IGT_DRM_CLIENT_ALIVE) {
-+			if (c->regions->num_regions)
-+				iclients->regions = c->regions;
-+			break;
-+		}
-+	}
- }
- 
- int main(int argc, char **argv)
+ 		if (stop_top)
 -- 
 2.39.2
 
