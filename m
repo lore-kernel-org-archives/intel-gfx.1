@@ -4,31 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD0C5CDB483
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 08:25:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5287BCDB482
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 08:33:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2739210E097;
-	Fri, 13 Oct 2023 08:25:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A93D910E086;
+	Fri, 13 Oct 2023 08:33:35 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
  [IPv6:2610:10:20:722:a800:ff:feee:56cf])
- by gabe.freedesktop.org (Postfix) with ESMTP id 0CE8910E091;
- Fri, 13 Oct 2023 08:25:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id B418B10E5DE;
+ Fri, 13 Oct 2023 08:33:33 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 0BC9BAADE3;
- Fri, 13 Oct 2023 08:25:16 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id AFDC2A02F0;
+ Fri, 13 Oct 2023 08:33:33 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jonathan Cavitt" <jonathan.cavitt@intel.com>
-Date: Fri, 13 Oct 2023 08:25:16 -0000
-Message-ID: <169718551604.31157.16429226867699236095@emeril.freedesktop.org>
+To: "Lee Shawn C" <shawn.c.lee@intel.com>
+Date: Fri, 13 Oct 2023 08:33:33 -0000
+Message-ID: <169718601369.31156.5057531313494391184@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
-References: <20231012223826.2556700-1-jonathan.cavitt@intel.com>
-In-Reply-To: <20231012223826.2556700-1-jonathan.cavitt@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
- =?utf-8?q?drm/i915=3A_Define_and_use_GuC_and_CTB_TLB_invalidation_routine?=
- =?utf-8?q?s?=
+References: <20231013042012.409376-1-shawn.c.lee@intel.com>
+In-Reply-To: <20231013042012.409376-1-shawn.c.lee@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciB0?=
+ =?utf-8?q?ests=3A_save_GPU_engine_information_more_properly?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,14 +47,21 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm/i915: Define and use GuC and CTB TLB invalidation routines
-URL   : https://patchwork.freedesktop.org/series/125076/
-State : warning
+Series: tests: save GPU engine information more properly
+URL   : https://patchwork.freedesktop.org/series/125090/
+State : failure
 
 == Summary ==
 
-Error: dim sparse failed
-Sparse version: v0.6.2
-Fast mode used, each commit won't be checked separately.
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/125090/revisions/1/mbox/ not applied
+Applying: tests: save GPU engine information more properly
+error: sha1 information is lacking or useless (lib/i915/gem_engine_topology.c).
+error: could not build fake ancestor
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0001 tests: save GPU engine information more properly
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+Build failed, no error log produced
 
 
