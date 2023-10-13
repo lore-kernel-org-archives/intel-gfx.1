@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45EA5CDB484
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 22:49:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33D70CDB486
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 22:49:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AACF10E67D;
-	Fri, 13 Oct 2023 22:48:50 +0000 (UTC)
-Received: from mail-il1-x132.google.com (mail-il1-x132.google.com
- [IPv6:2607:f8b0:4864:20::132])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B996910E66B;
- Fri, 13 Oct 2023 22:48:44 +0000 (UTC)
-Received: by mail-il1-x132.google.com with SMTP id
- e9e14a558f8ab-35749078a59so9751985ab.3; 
- Fri, 13 Oct 2023 15:48:44 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DF2810E659;
+	Fri, 13 Oct 2023 22:48:51 +0000 (UTC)
+Received: from mail-il1-x135.google.com (mail-il1-x135.google.com
+ [IPv6:2607:f8b0:4864:20::135])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1363610E656;
+ Fri, 13 Oct 2023 22:48:42 +0000 (UTC)
+Received: by mail-il1-x135.google.com with SMTP id
+ e9e14a558f8ab-351208d0d6cso9740445ab.1; 
+ Fri, 13 Oct 2023 15:48:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697237324; x=1697842124; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1697237321; x=1697842121; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=mLvXeLnsRUQ3/TUrQnBU04ibB7JIWTVa6JOjlgQ9hVM=;
- b=UFYqsohfDpscxqbUXsUmzcp0E/qcVtNj4SvPm0/LGsMRo/1J3PkQuDbcaITmoHGa1y
- Df6Bz9g3D3m1OnIu9OMnOYUQQEeCYTZbIKgQYaEicLKUcon4Ury3jl1IbQ4wqi86F8nI
- 74k3PsZDVfE/pTvsl1J+KX3tKISA6/sRIpXhUJYebiThaOSnA1O8i3Rj3LMg68F4OaLR
- U1n5s262uOzorN+mEWTQ5XAKLwep9q2zBdm5n0xvWikjSaDOfZfshSnFn7P/BzQYRvbn
- 5w+Ls8+DRoID1fq0UU5FnRZd6BreozaLCBBOMbAwaH0a332ATsAp+2lQ6YVhat3vNrOV
- w0uw==
+ bh=O4Nv87Lg2zXFTsrsMPJe4o1KQfKM5CR/Su7zfjGsbi8=;
+ b=QmHE+5Q4w/GYCZ2YVYMgeRtiITq+1fE5RAgjAyzL5YavccUiLkr1XxW42bkMeEl0lG
+ EtQH3QQ4ptDmyPanjNy8rPcE99TMeSZ7onvvHKVNTQOqagMKln1QNjRrVPUjwxKXF6cm
+ LsmygJBk+kZ6hNHlXaT9nH3CkbN0TWp752xGm/ysAAcMmigh9VhwecAxxCuLUSrmKy3g
+ 9ubqF5KAnm451lWubyc7+xHJF6GQmroRpuMyFXxxZLk6tTBNUSxLc3z1LkFJvoHX7+jA
+ gyi97b14DlOjS+lf4tzo26hBL5MSXHgGbVP2vaKR7eQOvoJYe6daX42A519CiPp3zSvr
+ ac+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697237324; x=1697842124;
+ d=1e100.net; s=20230601; t=1697237321; x=1697842121;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=mLvXeLnsRUQ3/TUrQnBU04ibB7JIWTVa6JOjlgQ9hVM=;
- b=t1tOJzpFfbJQx1ciFGqWtgDoMM9VOuBBedWh3Or3iUerauUNVxOz8DaGe5eSX2F60e
- CRX5pnqnvWJmsKiNwLbC3fbJzvT6K4psmO0WMBNdJ50Y1yBlp4egVg8rlcj4eW2YUqPr
- E5hJ727WtHqj4JF2FAynLmEY127o/8z643iPD2AI21s6rbA3vVUxoGJedEsyFDeybIS+
- rjOIcZRUQTyeoDisGZ2zuK6ebC8qcLKtn995yNZBIy6Kpghmbc0PzFsosFhkCYRA7jb3
- 5XWMWEB8hSpOQ5eYzdYVhGoxDjqeG249xBjZDZjxV+mOq1Wv5sbz04DsK2tapfPfRpZX
- /v8g==
-X-Gm-Message-State: AOJu0Yzk6YH66w2MSBa1Hv12KoJFPUKRzfGeHWLX1onic97kZ7LlU4vN
- RYvX/hoNskSaHE6hT4p6YVs=
-X-Google-Smtp-Source: AGHT+IHQw2wXhC/2oHYIYAGyvyYiqI1YXiorq4KT58Qv5KODmOPOVfx0/unPtKoAepPcMV4mVMSdQQ==
-X-Received: by 2002:a92:c56b:0:b0:34f:f5a4:3e68 with SMTP id
- b11-20020a92c56b000000b0034ff5a43e68mr37534070ilj.30.1697237323880; 
- Fri, 13 Oct 2023 15:48:43 -0700 (PDT)
+ bh=O4Nv87Lg2zXFTsrsMPJe4o1KQfKM5CR/Su7zfjGsbi8=;
+ b=V046RG1MAhtWY8NIJEQ8nOO87a+bw8xQCRxSbhFV5O96U4EcWBQ06ySX3rwj0KemfJ
+ aayJCVgjdjFYDwgBh2lXsYrMA2gBGLuphiF903ia9XOZr8X5b+djOe+eSr94raidEPXU
+ SqJ4fVOWYESafQhDkDEgL4bsSWa/AW9qEheBOHL5CHvkpA0JDr9O2cKsktw6HvxPLJKs
+ AQesaXBE1v6ikzOqwnUpZ8G5Hsd4w3CBYmoEpjXIaq7L/ZPVm4upw0Byhg97b0aD5ED6
+ HK6SNL0GU/Jl7/hDHPEUOM8q6IOEDY1sd7y+4d39LQv0OlHakp/zriFafPv9Wi2FnEDX
+ K/Aw==
+X-Gm-Message-State: AOJu0YykV1cGkdiShWW2+ctUbzJM5A7/GYO47zeAmyukH3B73h6arOpo
+ eKlmr5WAvyZcj0A7Y3ytxOU=
+X-Google-Smtp-Source: AGHT+IFi2WfSSyAbjqCpWaNlxupVxRqtj0XluiJVnf5vbLg35Uz1MLSFKUJlsjNrq6Dz1o+F9+CISA==
+X-Received: by 2002:a05:6e02:1e02:b0:350:f0bb:6a42 with SMTP id
+ g2-20020a056e021e0200b00350f0bb6a42mr39141991ila.29.1697237321292; 
+ Fri, 13 Oct 2023 15:48:41 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- t10-20020a92dc0a000000b003512c3e8809sm1683071iln.71.2023.10.13.15.48.42
+ t10-20020a92dc0a000000b003512c3e8809sm1683071iln.71.2023.10.13.15.48.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Oct 2023 15:48:43 -0700 (PDT)
+ Fri, 13 Oct 2023 15:48:40 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Oct 2023 16:48:04 -0600
-Message-ID: <20231013224818.3456409-13-jim.cromie@gmail.com>
+Date: Fri, 13 Oct 2023 16:48:02 -0600
+Message-ID: <20231013224818.3456409-11-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231013224818.3456409-1-jim.cromie@gmail.com>
 References: <20231013224818.3456409-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7b 12/25] dyndbg: reduce verbose=3 messages in
- ddebug_add_module
+Subject: [Intel-gfx] [PATCH v7b 10/25] dyndbg: tighten ddebug_class_name()
+ 1st arg type
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,35 +84,46 @@ Cc: lb@semihalf.com, groeck@google.com, linux-doc@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The fn currently says "add-module", then "skipping" if the module has
-no prdbgs.  Just check 1st and return quietly.
+Change function's 1st arg-type, and deref in the caller.
+The fn doesn't need any other fields in the struct.
 
-no functional change
+no functional change.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ lib/dynamic_debug.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 8beb98a831f5..45870a699507 100644
+index b07aab422604..8158943b350d 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -1242,11 +1242,10 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+@@ -1117,12 +1117,12 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
+ #define class_in_range(class_id, map)					\
+ 	(class_id >= map->base && class_id < map->base + map->length)
+ 
+-static const char *ddebug_class_name(struct ddebug_iter *iter, struct _ddebug *dp)
++static const char *ddebug_class_name(struct ddebug_table *dt, struct _ddebug *dp)
  {
- 	struct ddebug_table *dt;
+-	struct ddebug_class_map *map = iter->table->classes;
+-	int i, nc = iter->table->num_classes;
++	struct ddebug_class_map *map = dt->classes;
++	int i;
  
--	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
--	if (!di->num_descs) {
--		v3pr_info(" skip %s\n", modname);
-+	if (!di->num_descs)
- 		return 0;
--	}
-+
-+	v3pr_info("add-module: %s %d sites\n", modname, di->num_descs);
+-	for (i = 0; i < nc; i++, map++)
++	for (i = 0; i < dt->num_classes; i++, map++)
+ 		if (class_in_range(dp->class_id, map))
+ 			return map->class_names[dp->class_id - map->base];
  
- 	dt = kzalloc(sizeof(*dt), GFP_KERNEL);
- 	if (dt == NULL) {
+@@ -1156,7 +1156,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 	seq_puts(m, "\"");
+ 
+ 	if (dp->class_id != _DPRINTK_CLASS_DFLT) {
+-		class = ddebug_class_name(iter, dp);
++		class = ddebug_class_name(iter->table, dp);
+ 		if (class)
+ 			seq_printf(m, " class:%s", class);
+ 		else
 -- 
 2.41.0
 
