@@ -4,66 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC31DCDB483
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D659CDB485
 	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 22:49:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 926CD10E68A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AB3C10E672;
 	Fri, 13 Oct 2023 22:49:09 +0000 (UTC)
-Received: from mail-il1-x133.google.com (mail-il1-x133.google.com
- [IPv6:2607:f8b0:4864:20::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D078510E64F;
- Fri, 13 Oct 2023 22:48:58 +0000 (UTC)
-Received: by mail-il1-x133.google.com with SMTP id
- e9e14a558f8ab-351437112c1so9977835ab.3; 
- Fri, 13 Oct 2023 15:48:58 -0700 (PDT)
+Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com
+ [IPv6:2607:f8b0:4864:20::12b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 545F410E695;
+ Fri, 13 Oct 2023 22:49:01 +0000 (UTC)
+Received: by mail-il1-x12b.google.com with SMTP id
+ e9e14a558f8ab-35748b32d73so10075755ab.0; 
+ Fri, 13 Oct 2023 15:49:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697237338; x=1697842138; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1697237340; x=1697842140; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=5LQP5MFDhA+xfUDGLuGe24GCmwsysAw7CRqOtSg8az8=;
- b=gh1IywdElFUXwKPEUAUawVMRnjacgE2O632upVecKL8D7b9lN+Wsns50bN3KJGNK2p
- 80fwODK/nSn0OWuA0eKWTTo2FDD+Kv2KKYEFbPz0kyfoyqDKLn254wbM2wepgvk7o3+d
- I5o4468fLjLsiuephUHm7EvX0xEWUvzyb2r9LL8b51UQN6bnKt3OKKtHy7Fp1xeL0uQm
- OVFgkzjemAKmBAnkdc+RRW++O0k4vpnwgL8XOb1ZzBdZx0w9U4gwQMPABMk3DnT8/f+j
- znETCgg2K5fmnhmKiSSe/GJrQI4MBEI97a4LTynFAFsVp2fdJIPg1Wb7aw6FtFm+P40+
- l4PQ==
+ bh=3SAgGhvFgEq3ojom6jJPWJ2MyF/faZd9tWGs5HOFcQQ=;
+ b=enHp9S8sE7p8ECxxp9vTBwkyEkf9e83bFjRq5n1rBINkpY1sD1tQDrBYMZeoeDq/tO
+ eH7ScldmtEcu4axKIkM8OUO+NIEU+qfiqruVUf1Gm+sW9eDWnLd6eqcAQvAubXX9aMdN
+ 6dxHt149hWCcaayjZvNhlv9/zwrmde1dxrQ/uIFAarW3ThDKD0tzBt++DM1TDB09Slzd
+ 2njW21bDa7jggnzh6sEr7GgBwCHI8Ynev7KWkG3rxmvnk9DvLDS5ArjJuMwpVMNIBzR5
+ u5VKwrxTgIUXe7nH0XzhFeBLAdHwnawEqbdYIgLzlGIsnrgkHrn1fC7eTH+9bBiGcPc7
+ mSCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697237338; x=1697842138;
+ d=1e100.net; s=20230601; t=1697237340; x=1697842140;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=5LQP5MFDhA+xfUDGLuGe24GCmwsysAw7CRqOtSg8az8=;
- b=R/KZ2N0c+q3mEcwT2BzvBXEp1accVN7qyUgtBkyuu/l4HnDDKnzyfvZeujjSuw+u/q
- 7x0bP4OTTZ2NevC3/qkVoNH00Mr7CvPWkFsO2V1f+rgGr/UWZUlJp+BnWKj4sZPw+k4X
- Yy1D7mlAAWU8aAiUeF3bbMtgt/ZwopwQN6JA0xGozpmx1GG6azIeCKdKYtAkDnoAvs4K
- OVboxKtsSeEwSK+5jPpeFyaP5OLrWyVnrTJAlCMnLQLZ4I4VXJaxnlwQ9AOSxD7D4i7U
- t6g0lYcVq2LJN3UuD3KcckFHM57aLtDs/wcbBelwTsbTlcYVdzANBbnhsetKG6Ttz5pF
- 2PvA==
-X-Gm-Message-State: AOJu0Ywuw+oJq5zi6THbjSA+QMvaIGDP3moWKZmGOzqpUzPJZsskH1fH
- 8p3+DGlPa2KdCaONq5apPPY=
-X-Google-Smtp-Source: AGHT+IEJ4ihDtxg4i0f+O3a1nP1WX/0PhyVsSYrOk6CkMFZeWPrAYYUPoiqiZdr7DHr2MyHDmzJNlQ==
-X-Received: by 2002:a92:c269:0:b0:357:5234:802d with SMTP id
- h9-20020a92c269000000b003575234802dmr9521151ild.10.1697237338045; 
- Fri, 13 Oct 2023 15:48:58 -0700 (PDT)
+ bh=3SAgGhvFgEq3ojom6jJPWJ2MyF/faZd9tWGs5HOFcQQ=;
+ b=OAi+kSFOdMnm4VyQCm40eAhyflCJtELOg2EjtgT6/wdc/3lzTF48Wlarlei8CAdlRN
+ jwRs2/nGT4PA/9tlr1YYrHRlp2jP8cAKztjXGEgw65MrGCqR2vRK38ytocwyGIvuo/tC
+ kC00S+rgqHpjJnepLF1UxdLUURULwx9QcsJuAmRpMCb0rclGABM/zR8SPD4IcrEwt0oW
+ jA1aWfXP1ZJNGh1vtDMCcyHlCzaZfgz0lATKo1xLBrHpmEBogKk37Zd2kTPM4zpLuK2G
+ N05mCw8A5TXKL6Zub29VGPSts4siVZMonHiM2Otwlb/qWFLg1ZaWHbzziBf8bMUdEfyM
+ 9wUg==
+X-Gm-Message-State: AOJu0YxwjyXY4kcB6OCgUFUAbr+tcjT/k5MvvoErHIuipa66G+s5KmnI
+ h9A1vKBy44Cfprp/RN1AZng=
+X-Google-Smtp-Source: AGHT+IGabCzGZckH890sOFHM0bOgw3lVPHOXqyusXaXzxwFPYH0hLfKtQHAFmLNjwmQTHTLQKcZ52Q==
+X-Received: by 2002:a05:6e02:164f:b0:351:57d5:51bb with SMTP id
+ v15-20020a056e02164f00b0035157d551bbmr39248796ilu.16.1697237340380; 
+ Fri, 13 Oct 2023 15:49:00 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- t10-20020a92dc0a000000b003512c3e8809sm1683071iln.71.2023.10.13.15.48.57
+ t10-20020a92dc0a000000b003512c3e8809sm1683071iln.71.2023.10.13.15.48.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Oct 2023 15:48:57 -0700 (PDT)
+ Fri, 13 Oct 2023 15:48:59 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Oct 2023 16:48:15 -0600
-Message-ID: <20231013224818.3456409-24-jim.cromie@gmail.com>
+Date: Fri, 13 Oct 2023 16:48:17 -0600
+Message-ID: <20231013224818.3456409-26-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231013224818.3456409-1-jim.cromie@gmail.com>
 References: <20231013224818.3456409-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7b 23/25] drm: use correct ccflags-y spelling
+Subject: [Intel-gfx] [PATCH v7b 25/25] drm: restore
+ CONFIG_DRM_USE_DYNAMIC_DEBUG un-BROKEN
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,35 +84,30 @@ Cc: lb@semihalf.com, groeck@google.com, linux-doc@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Incorrectly spelled CFLAGS- failed to add -DDYNAMIC_DEBUG_MODULE,
-which broke builds with:
+Lots of burn-in testing needed before signing, upstreaming.
 
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y
-CONFIG_DYNAMIC_DEBUG_CORE=y
-CONFIG_DYNAMIC_DEBUG=n
+NOTE: I set default Y to maximize testing by default.
+Is there a better way to do this ?
 
-Also add subdir-ccflags so that all drivers pick up the addition.
-
-Fixes: 84ec67288c10 ("drm_print: wrap drm_*_dbg in dyndbg descriptor factory macro")
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/Makefile | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/Kconfig | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index 215e78e79125..22b1984cc982 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -3,7 +3,8 @@
- # Makefile for the drm device driver.  This driver provides support for the
- # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index 3caa020391c7..708f5e8cb205 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -55,8 +55,7 @@ config DRM_DEBUG_MM
  
--CFLAGS-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
-+ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)		+= -DDYNAMIC_DEBUG_MODULE
-+subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
- 
- drm-y := \
- 	drm_aperture.o \
+ config DRM_USE_DYNAMIC_DEBUG
+ 	bool "use dynamic debug to implement drm.debug"
+-	default n
+-	depends on BROKEN
++	default y
+ 	depends on DRM
+ 	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
+ 	depends on JUMP_LABEL
 -- 
 2.41.0
 
