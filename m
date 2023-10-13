@@ -4,67 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D659CDB485
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 22:49:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F195ECDB488
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 22:49:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AB3C10E672;
-	Fri, 13 Oct 2023 22:49:09 +0000 (UTC)
-Received: from mail-il1-x12b.google.com (mail-il1-x12b.google.com
- [IPv6:2607:f8b0:4864:20::12b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 545F410E695;
- Fri, 13 Oct 2023 22:49:01 +0000 (UTC)
-Received: by mail-il1-x12b.google.com with SMTP id
- e9e14a558f8ab-35748b32d73so10075755ab.0; 
- Fri, 13 Oct 2023 15:49:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B32EB10E6A9;
+	Fri, 13 Oct 2023 22:49:10 +0000 (UTC)
+Received: from mail-il1-x130.google.com (mail-il1-x130.google.com
+ [IPv6:2607:f8b0:4864:20::130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A63810E64F;
+ Fri, 13 Oct 2023 22:48:55 +0000 (UTC)
+Received: by mail-il1-x130.google.com with SMTP id
+ e9e14a558f8ab-3574cde48b4so9415405ab.1; 
+ Fri, 13 Oct 2023 15:48:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697237340; x=1697842140; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1697237334; x=1697842134; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3SAgGhvFgEq3ojom6jJPWJ2MyF/faZd9tWGs5HOFcQQ=;
- b=enHp9S8sE7p8ECxxp9vTBwkyEkf9e83bFjRq5n1rBINkpY1sD1tQDrBYMZeoeDq/tO
- eH7ScldmtEcu4axKIkM8OUO+NIEU+qfiqruVUf1Gm+sW9eDWnLd6eqcAQvAubXX9aMdN
- 6dxHt149hWCcaayjZvNhlv9/zwrmde1dxrQ/uIFAarW3ThDKD0tzBt++DM1TDB09Slzd
- 2njW21bDa7jggnzh6sEr7GgBwCHI8Ynev7KWkG3rxmvnk9DvLDS5ArjJuMwpVMNIBzR5
- u5VKwrxTgIUXe7nH0XzhFeBLAdHwnawEqbdYIgLzlGIsnrgkHrn1fC7eTH+9bBiGcPc7
- mSCQ==
+ bh=PdhZKvxYwXdkWkdLVl73JQfyJJ5FbxfJO6rydQUwjqs=;
+ b=LGT08OlobyPIr8RlOZyOPuMa5gK1RaH3/o98EdFvT3owMsyaaA1zBXbfK2q0k3uD2y
+ GXyjrYonyDXLaizt18aJ5YteSYiI1HkFUWW0HcWbXQTHhyLZOgUbRNaVpsQF3uLngMyE
+ 9IjoeHvxET3W5fxDbctpEVhavo6c5Icf56y+fKNaO81pDrjMg3AKn1vIJ7ua2hqI+7Gp
+ pOttuAN4cRe8F5lqxnoM68Fcvm0yoRiJQWAtjPpv14r4iSi04FYutFBvNPp5e7ZaEJqS
+ bqrbKsjn/pKELsntVDuU/bvII1pidxAOeRJ0Sn0g9lX+UzR4q9QV/ixTjdNuFe/lrJwU
+ Rvmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697237340; x=1697842140;
+ d=1e100.net; s=20230601; t=1697237334; x=1697842134;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=3SAgGhvFgEq3ojom6jJPWJ2MyF/faZd9tWGs5HOFcQQ=;
- b=OAi+kSFOdMnm4VyQCm40eAhyflCJtELOg2EjtgT6/wdc/3lzTF48Wlarlei8CAdlRN
- jwRs2/nGT4PA/9tlr1YYrHRlp2jP8cAKztjXGEgw65MrGCqR2vRK38ytocwyGIvuo/tC
- kC00S+rgqHpjJnepLF1UxdLUURULwx9QcsJuAmRpMCb0rclGABM/zR8SPD4IcrEwt0oW
- jA1aWfXP1ZJNGh1vtDMCcyHlCzaZfgz0lATKo1xLBrHpmEBogKk37Zd2kTPM4zpLuK2G
- N05mCw8A5TXKL6Zub29VGPSts4siVZMonHiM2Otwlb/qWFLg1ZaWHbzziBf8bMUdEfyM
- 9wUg==
-X-Gm-Message-State: AOJu0YxwjyXY4kcB6OCgUFUAbr+tcjT/k5MvvoErHIuipa66G+s5KmnI
- h9A1vKBy44Cfprp/RN1AZng=
-X-Google-Smtp-Source: AGHT+IGabCzGZckH890sOFHM0bOgw3lVPHOXqyusXaXzxwFPYH0hLfKtQHAFmLNjwmQTHTLQKcZ52Q==
-X-Received: by 2002:a05:6e02:164f:b0:351:57d5:51bb with SMTP id
- v15-20020a056e02164f00b0035157d551bbmr39248796ilu.16.1697237340380; 
- Fri, 13 Oct 2023 15:49:00 -0700 (PDT)
+ bh=PdhZKvxYwXdkWkdLVl73JQfyJJ5FbxfJO6rydQUwjqs=;
+ b=E24UHDNMqkvb7kb31W1pAUFSQo7mKzfrsK7LqnHRaVxt9YTFNgZKt78szNVzxcxrxD
+ yzrZgV1AiLSj8O754kHzge7woe9dE6Y6NAy/PUBrGzdH9flRvSzxSKJKTc4mgDDO+CK3
+ 2WwfbNsyxT/UibMOJehrk/P1JezVUT9Rkrs7NNJc+g/lI9Nm1UnQLYcQHv7usriuMZiX
+ bBjyF1z1K0JAO+r7Mk0rtEyfBDZMQKM+lfpL7c4Ka5+//LMEuytVkGyu/+M7Gy3+JM2p
+ RVU1NVQ4KdfR9C6Fy4a1u4lE02wL1wJXZ/QTRRGB2kLqqNqRFtocYWbMT+8VUB8MgcuK
+ oAEg==
+X-Gm-Message-State: AOJu0YxW/ehHyEklqBSWOu1qwEgsXayq3vIKDrV8zZjSG+PuPXORyF//
+ ghZL2JlrxWOFZQLtDWQiNTlvF5fWKn4X0Q==
+X-Google-Smtp-Source: AGHT+IF3D17mL6y2d13cwyIjmP3+07yGtwbO19SBlnOyYbqXK1NWwD4Cm7hxH5ll2GZm/mnKj3kEZg==
+X-Received: by 2002:a05:6e02:1c28:b0:34b:ba9f:679c with SMTP id
+ m8-20020a056e021c2800b0034bba9f679cmr37397493ilh.16.1697237334576; 
+ Fri, 13 Oct 2023 15:48:54 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- t10-20020a92dc0a000000b003512c3e8809sm1683071iln.71.2023.10.13.15.48.59
+ t10-20020a92dc0a000000b003512c3e8809sm1683071iln.71.2023.10.13.15.48.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Oct 2023 15:48:59 -0700 (PDT)
+ Fri, 13 Oct 2023 15:48:54 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Oct 2023 16:48:17 -0600
-Message-ID: <20231013224818.3456409-26-jim.cromie@gmail.com>
+Date: Fri, 13 Oct 2023 16:48:12 -0600
+Message-ID: <20231013224818.3456409-21-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231013224818.3456409-1-jim.cromie@gmail.com>
 References: <20231013224818.3456409-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7b 25/25] drm: restore
- CONFIG_DRM_USE_DYNAMIC_DEBUG un-BROKEN
+Subject: [Intel-gfx] [PATCH v7b 20/25] dyndbg: add _DPRINTK_FLAGS_INCL_LOOKUP
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,30 +83,67 @@ Cc: lb@semihalf.com, groeck@google.com, linux-doc@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Lots of burn-in testing needed before signing, upstreaming.
+dyndbg's dynamic prefixing (by +tmfsl flags) is needlessly expensive.
 
-NOTE: I set default Y to maximize testing by default.
-Is there a better way to do this ?
+When an enabled (with +p) pr_debug is called, _DPRINTK_FLAGS_INCL_ANY
+prefix decorations are sprintf'd into stack-mem for every call.
+
+This string (or part of it) could be cached once its 1st generated,
+and retrieved thereafter, as long as its deleted any time the
+callsite's flags are changed afterwards.
+
+So consider the prefix/decoration flags: 'tmfsl', and what should be
+in the cache:
+
+-t  thread-id. not part of the "callsite" info, derived from current.
+    doesn't belong in the cache. it would be wrong.
+    can be done in outer: dynamic_emit_prefix()
+
+-l  line number
+    this could be part of the prefix, but would bloat the cache
+    can also be done in outer: dynamic_emit_prefix()
+
+-mfs  module, function, source-file
+    we cache these, composed into a sub-string.
+    they are "lookups", currently to descriptor fields,
+    could be accessor macros to "compressed" tables.
+    cache saves more access work.
+
+All enabled together, they compose a prefix string like:
+
+  # outer   -----inner----------   outer
+  "[tid] module:function:sourcfile:line: "
+
+So this patch extracts _DPRINTK_FLAGS_INCL_LOOKUP macro out of
+_DPRINTK_FLAGS_INCL_ANY macro, then redefs latter.
+
+Next re-refactor dynamic_emit_prefix inner/outer fns accordingly.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/Kconfig | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ include/linux/dynamic_debug.h | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 3caa020391c7..708f5e8cb205 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -55,8 +55,7 @@ config DRM_DEBUG_MM
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 927cb14f24e0..2237d454bc19 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -40,10 +40,12 @@ struct _ddebug {
+ #define _DPRINTK_FLAGS_INCL_SOURCENAME	(1<<5)
+ #define _DPRINTK_FLAGS_PREFIX_CACHED	(1<<7)
  
- config DRM_USE_DYNAMIC_DEBUG
- 	bool "use dynamic debug to implement drm.debug"
--	default n
--	depends on BROKEN
-+	default y
- 	depends on DRM
- 	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
- 	depends on JUMP_LABEL
+-#define _DPRINTK_FLAGS_INCL_ANY		\
+-	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |\
+-	 _DPRINTK_FLAGS_INCL_LINENO  | _DPRINTK_FLAGS_INCL_TID |\
++#define _DPRINTK_FLAGS_INCL_LOOKUP					\
++	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |	\
+ 	 _DPRINTK_FLAGS_INCL_SOURCENAME)
++#define _DPRINTK_FLAGS_INCL_ANY						\
++	(_DPRINTK_FLAGS_INCL_LINENO | _DPRINTK_FLAGS_INCL_TID |		\
++	 _DPRINTK_FLAGS_INCL_LOOKUP)
+ 
+ #if defined DEBUG
+ #define _DPRINTK_FLAGS_DEFAULT _DPRINTK_FLAGS_PRINT
 -- 
 2.41.0
 
