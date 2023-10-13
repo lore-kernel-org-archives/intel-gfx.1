@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17FBDCDB485
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 22:49:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAE86CDB487
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 22:49:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9376E10E68C;
-	Fri, 13 Oct 2023 22:48:59 +0000 (UTC)
-Received: from mail-il1-x12f.google.com (mail-il1-x12f.google.com
- [IPv6:2607:f8b0:4864:20::12f])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F4F510E67B;
- Fri, 13 Oct 2023 22:48:52 +0000 (UTC)
-Received: by mail-il1-x12f.google.com with SMTP id
- e9e14a558f8ab-3512efed950so9927265ab.2; 
- Fri, 13 Oct 2023 15:48:52 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7EBF10E68F;
+	Fri, 13 Oct 2023 22:49:00 +0000 (UTC)
+Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
+ [IPv6:2607:f8b0:4864:20::d2c])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80E9B10E686;
+ Fri, 13 Oct 2023 22:48:56 +0000 (UTC)
+Received: by mail-io1-xd2c.google.com with SMTP id
+ ca18e2360f4ac-79fe612beabso104543739f.3; 
+ Fri, 13 Oct 2023 15:48:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697237332; x=1697842132; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1697237336; x=1697842136; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Xt5GYS9mXBsgXWCKjkvZOfiO8j43yK6Z0bFknFJi+ls=;
- b=QpNd1UDX2oHF5jBE43mEFmPBNnYQxAuITgVTwd1BlP+ZCDAgSnyyMC9vl7nHqTXW0u
- JnIQegLpDslkuFozQsAZNV6TwdrGbnVgBu0kknL3q8dwH2cAYfJHe2EdYy5KaGX+cryY
- nrrQNoV3Rx6UEXouL7qjlabqcq9SPjeII1JzdL7INCHXMuEzR+iSSxFV0y/pRn5AnGtY
- hNgTuG+LEOfqD6bO9JZWrfRvJ8Cs7vMLxKIzfUb7OT/eB/f4fnMk3GeV2CbWzUCs8VEi
- c1Pof2YFptDqOoVod7UxKfNfL+wLCTq7h31Pem+E0jfCquKbmITPZ3VYVf2ifL9E5rhA
- nWFQ==
+ bh=F7BOhkrkHITitY1j/kRDjansJLSo7hGc2Ealdbve1QE=;
+ b=bvULCDgAN3C5AoMRB9TQmuZR9iaJHTOPJwZaSt41I6KAPVChGpFuZsPVPn8BRFwNgT
+ 8mNhgGSi0ptIuEY4e0z0v+wm5BLOYyyq8iURHaYRtsxetU0jx6UeN15e2NT/otEoYzJu
+ 5vv41EhlUin13O//qDfKmxrfhrzvhZFN/KrhKiBYGH8Ha/1KbRO2BE7ASdNRmecBJz2k
+ LDW3mGUjmHQG++bIWaPiuoBXVue70Vh9py6Ru3nVJ4wlHJqYlyaLBePyUcR6/Vs5j4Mc
+ YOxDrHiNemrMjrwGeoGguFmPtyoVPY34+7QPoBNkLXvKldGDmcYb62Gqc3Hz9eomadaO
+ pt2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697237332; x=1697842132;
+ d=1e100.net; s=20230601; t=1697237336; x=1697842136;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Xt5GYS9mXBsgXWCKjkvZOfiO8j43yK6Z0bFknFJi+ls=;
- b=mmMoSUw6ZsOYaafIEBPWK4hhM9uOOr4/6Mn9n0qA2kOwXByQWL1xQDtCMHJmI6UjRI
- 6bSYLJ3aIGk0EMW8ZYVYMyv1mc2aNa4WLR5OZHC8m7DlNnJ/KKCnPKr+/7/ySxM7v9RQ
- jDvqlFbP9k8+FN7LuAYRydJxj2xUyvZQ+irBm8ns4CNDJvPNhQgv3EAiEyfb5aMvUCmz
- Js0GrY2v0Hno9zXMyGcqdf82+fv6unrywTB+KDc4CBFCwtNZn+ej2/1M2OTadnle2F1P
- nuxRd3MRLrfylX49OVSKQwjggSixG8lJJ0JnQ6ipLNHzZIToCBAO6J+64I9J1cVJk8gy
- IqgQ==
-X-Gm-Message-State: AOJu0Yy0WhbnPvcH4FKhRBzTXbhyBY2dsU58Jh1eO8PW8pvwFZxqfxQk
- 5HlVZmmO3NR3pXXsIEvTkU4=
-X-Google-Smtp-Source: AGHT+IGqQ1iwV3rhmpHdu75VZNFfcZihQtqNSLpY33tZ2e3fX8O3LgvYIt+m1LEyZYRdn0zTAq8rIA==
-X-Received: by 2002:a92:cdac:0:b0:357:4a69:60d8 with SMTP id
- g12-20020a92cdac000000b003574a6960d8mr10470030ild.4.1697237331792; 
- Fri, 13 Oct 2023 15:48:51 -0700 (PDT)
+ bh=F7BOhkrkHITitY1j/kRDjansJLSo7hGc2Ealdbve1QE=;
+ b=hzYjcsG6fhuu9PZKearn7HXDX8Qc3Sj0iVIjLkRzGRj5oVA/9+wP1CVth7QvIILVK7
+ GWEcinGKLXuedgvy246oFoDKVAatkFk33RNFhyULxjudbfIwOYs7co9naxbB7V3cqrZV
+ TCmOD12/H6rl+5k/eYr7IvChTP6Y0MVQpkK9ob/rqmwbjkKRpdw/Kt8J8zduRc2cj25d
+ 3T56pQA645JPw92sLGLq0zi2mvEb998lFBaqdgAiZ3JgzcSC+aE5lU/EGh05iow0UoEk
+ EdKW639CLVrWU1WLiUIt0ANueSdRDi11cm27fwpE4MVAfBi6b2ILJqL4pJLzI2vNB0VL
+ n4GQ==
+X-Gm-Message-State: AOJu0YwGRbKwsojZ3YGx7tG1bRmzTMAz8bMr9ZSEqpRrO4Ii61gZcqSs
+ jdw2IJrEgxIyIhYUBFvMOs0=
+X-Google-Smtp-Source: AGHT+IHV+1dejqWmVluHB1YabEHlzoSNnK4D52lGGpz4zveUJlfgzCoJ9RoCMzdJ/fWCyvcjW3aAIA==
+X-Received: by 2002:a92:c56e:0:b0:351:50f1:1f98 with SMTP id
+ b14-20020a92c56e000000b0035150f11f98mr31025480ilj.32.1697237335751; 
+ Fri, 13 Oct 2023 15:48:55 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- t10-20020a92dc0a000000b003512c3e8809sm1683071iln.71.2023.10.13.15.48.50
+ t10-20020a92dc0a000000b003512c3e8809sm1683071iln.71.2023.10.13.15.48.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Oct 2023 15:48:51 -0700 (PDT)
+ Fri, 13 Oct 2023 15:48:55 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Oct 2023 16:48:10 -0600
-Message-ID: <20231013224818.3456409-19-jim.cromie@gmail.com>
+Date: Fri, 13 Oct 2023 16:48:13 -0600
+Message-ID: <20231013224818.3456409-22-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231013224818.3456409-1-jim.cromie@gmail.com>
 References: <20231013224818.3456409-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7b 18/25] dyndbg-doc: add classmap info to howto
+Subject: [Intel-gfx] [PATCH v7b 21/25] dyndbg: refactor *dynamic_emit_prefix
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,92 +83,108 @@ Cc: lb@semihalf.com, groeck@google.com, linux-doc@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add some basic info on classmap usage and api
+Refactor the split of duties between outer & inner fns.
 
-cc: linux-doc@vger.kernel.org
+The outer fn was previously just an inline unlikely forward to inner,
+which did all the work.
+
+Now, outer handles +t and +l flags itself, and calls inner only when
+_DPRINTK_FLAGS_INCL_LOOKUP is needed.
+
+No functional change.
+
+But it does make the results of the inner-fn more cache-friendly
+(fewer entries, reused more often):
+
+1- no spurious [TID] or <intr> noise
+2- no LINE-number to bloat the cache (avg 9 pr_debugs/fn)
+3- only LOOKUP stuff
+
+Currently LOOKUPs are descriptor-field refs but could be replaced by
+accessor functions.  This would allow the __dyndbg_sites section to be
+de-duplicated and reclaimed; currently module, filename fields are
+~90% repeated.  As the accessors get more expensive, the value of
+caching part of the prefix goes up.
+
+Also change inner-fn to return count of extra chars written to the
+buffer, and drop "inline" from outer, let the compiler decide.  Maybe
+also change name accordingly.
+
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-v5- adjustments per Randy Dunlap, me
-v7b- checkpatch fixes
+fixup whitespace
 ---
- .../admin-guide/dynamic-debug-howto.rst       | 60 ++++++++++++++++++-
- 1 file changed, 59 insertions(+), 1 deletion(-)
+ lib/dynamic_debug.c | 39 ++++++++++++++++++++++-----------------
+ 1 file changed, 22 insertions(+), 17 deletions(-)
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index 0b3d39c610d9..028c2cb5b4c5 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -225,7 +225,6 @@ the ``p`` flag has meaning, other flags are ignored.
- Note the regexp ``^[-+=][fslmpt_]+$`` matches a flags specification.
- To clear all flags at once, use ``=_`` or ``-fslmpt``.
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 17eefb35ac96..5825b58043a6 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -777,11 +777,28 @@ static int remaining(int wrote)
+ 	return 0;
+ }
  
+-static char *__dynamic_emit_prefix(const struct _ddebug *desc, char *buf)
++static int __dynamic_emit_prefix(const struct _ddebug *desc, char *buf, int pos)
++{
++	if (desc->flags & _DPRINTK_FLAGS_INCL_MODNAME)
++		pos += snprintf(buf + pos, remaining(pos), "%s:",
++				desc->modname);
++	if (desc->flags & _DPRINTK_FLAGS_INCL_FUNCNAME)
++		pos += snprintf(buf + pos, remaining(pos), "%s:",
++				desc->function);
++	if (desc->flags & _DPRINTK_FLAGS_INCL_SOURCENAME)
++		pos += snprintf(buf + pos, remaining(pos), "%s:",
++				trim_prefix(desc->filename));
++	return pos;
++}
++
++static char *dynamic_emit_prefix(struct _ddebug *desc, char *buf)
+ {
+ 	int pos_after_tid;
+ 	int pos = 0;
+ 
++	if (likely(!(desc->flags & _DPRINTK_FLAGS_INCL_ANY)))
++		return buf;
++
+ 	if (desc->flags & _DPRINTK_FLAGS_INCL_TID) {
+ 		if (in_interrupt())
+ 			pos += snprintf(buf + pos, remaining(pos), "<intr> ");
+@@ -790,15 +807,10 @@ static char *__dynamic_emit_prefix(const struct _ddebug *desc, char *buf)
+ 					task_pid_vnr(current));
+ 	}
+ 	pos_after_tid = pos;
+-	if (desc->flags & _DPRINTK_FLAGS_INCL_MODNAME)
+-		pos += snprintf(buf + pos, remaining(pos), "%s:",
+-				desc->modname);
+-	if (desc->flags & _DPRINTK_FLAGS_INCL_FUNCNAME)
+-		pos += snprintf(buf + pos, remaining(pos), "%s:",
+-				desc->function);
+-	if (desc->flags & _DPRINTK_FLAGS_INCL_SOURCENAME)
+-		pos += snprintf(buf + pos, remaining(pos), "%s:",
+-				trim_prefix(desc->filename));
++
++	if (unlikely(desc->flags & _DPRINTK_FLAGS_INCL_LOOKUP))
++		pos += __dynamic_emit_prefix(desc, buf, pos);
++
+ 	if (desc->flags & _DPRINTK_FLAGS_INCL_LINENO)
+ 		pos += snprintf(buf + pos, remaining(pos), "%d:",
+ 				desc->lineno);
+@@ -810,13 +822,6 @@ static char *__dynamic_emit_prefix(const struct _ddebug *desc, char *buf)
+ 	return buf;
+ }
+ 
+-static inline char *dynamic_emit_prefix(struct _ddebug *desc, char *buf)
+-{
+-	if (unlikely(desc->flags & _DPRINTK_FLAGS_INCL_ANY))
+-		return __dynamic_emit_prefix(desc, buf);
+-	return buf;
+-}
 -
- Debug messages during Boot Process
- ==================================
- 
-@@ -375,3 +374,62 @@ just a shortcut for ``print_hex_dump(KERN_DEBUG)``.
- For ``print_hex_dump_debug()``/``print_hex_dump_bytes()``, format string is
- its ``prefix_str`` argument, if it is constant string; or ``hexdump``
- in case ``prefix_str`` is built dynamically.
-+
-+Dynamic Debug classmaps
-+=======================
-+
-+Dyndbg allows selection/grouping of *prdbg* callsites using structural
-+info: module, file, function, line.  Classmaps allow authors to add
-+their own domain-oriented groupings using class-names.  Classmaps are
-+exported, so they referencable from other modules.
-+
-+  # enable classes individually
-+  :#> ddcmd class DRM_UT_CORE +p
-+  :#> ddcmd class DRM_UT_KMS +p
-+  # or more selectively
-+  :#> ddcmd class DRM_UT_CORE module drm +p
-+
-+The "class FOO" syntax protects class'd prdbgs from generic overwrite::
-+
-+  # IOW this doesn't wipe any DRM.debug settings
-+  :#> ddcmd -p
-+
-+To support the DRM.debug parameter, DYNDBG_CLASSMAP_PARAM* updates all
-+classes in a classmap, mapping param-bits 0..N onto the classes:
-+DRM_UT_<*> for the DRM use-case.
-+
-+Dynamic Debug Classmap API
-+==========================
-+
-+DYNDBG_CLASSMAP_DEFINE - modules use this to create classmaps, naming
-+each of the classes (stringified enum-symbols: "DRM_UT_<*>"), and
-+type, and mapping the class-names to consecutive _class_ids.
-+
-+By doing so, modules tell dyndbg that they are have prdbgs with those
-+class_ids, and they authorize dyndbg to accept "class FOO" for the
-+module defining that classname.
-+
-+There are 2 types of classmaps:
-+
-+ DD_CLASS_TYPE_DISJOINT_BITS: classes are independent, like DRM.debug
-+ DD_CLASS_TYPE_LEVEL_NUM: classes are relative, ordered (V3 > V2)
-+
-+DYNDBG_CLASSMAP_PARAM - refers to a DEFINEd classmap, exposing the set
-+of defined classes to manipulation as a group.  This interface
-+enforces the relatedness of classes of DD_CLASS_TYPE_LEVEL_NUM typed
-+classmaps; all classes are independent in the >control parser itself.
-+
-+DYNDBG_CLASSMAP_USE - drm drivers invoke this to ref the CLASSMAP that
-+drm DEFINEs.  This shares the classmap definition, and authorizes
-+dyndbg to apply changes to the user module's class'd pr_debugs.  It
-+also tells dyndbg how to initialize the user's prdbgs at modprobe,
-+based upon the current setting of the parent's controlling param.
-+
-+Modules or module-groups (drm & drivers) can define multiple
-+classmaps, as long as they share the limited 0..62 per-module-group
-+_class_id range, without overlap.
-+
-+``#define DEBUG`` will enable all pr_debugs in scope, including any
-+class'd ones.  This won't be reflected in the PARAM readback value,
-+but the pr_debug callsites can be toggled into agreement with the
-+param.
+ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...)
+ {
+ 	va_list args;
 -- 
 2.41.0
 
