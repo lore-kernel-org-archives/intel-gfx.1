@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBFE9CDB47E
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 22:49:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FB30CDB485
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 22:49:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B036510E65D;
-	Fri, 13 Oct 2023 22:48:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C60C710E652;
+	Fri, 13 Oct 2023 22:48:40 +0000 (UTC)
 Received: from mail-il1-x130.google.com (mail-il1-x130.google.com
  [IPv6:2607:f8b0:4864:20::130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 416A510E644;
- Fri, 13 Oct 2023 22:48:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8FFB110E654;
+ Fri, 13 Oct 2023 22:48:37 +0000 (UTC)
 Received: by mail-il1-x130.google.com with SMTP id
- e9e14a558f8ab-3576121362eso5246275ab.1; 
- Fri, 13 Oct 2023 15:48:34 -0700 (PDT)
+ e9e14a558f8ab-3574f99d260so9970595ab.3; 
+ Fri, 13 Oct 2023 15:48:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697237313; x=1697842113; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1697237317; x=1697842117; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1C+2NMg1JH09l8lpRwB0Ubzh+mfktnl5vVkwETAlRt8=;
- b=BQRUlr9ZYfUa2KQTYCD75B1w/wxApZ84cvYOk2gwy3kQOlo6e5oZI7poBjX+DglVgD
- TqxCF/+mOuEcRGcugKy2DPtlo101gVZEgk0Eb9wyniCGfQMQtlFp2JF0K34Kn1nT9Q4O
- KD9uKV158BV/v4ZOjvK0ETql/lWQKwOO6efJlZmj4Z3fqJKXJ+o5OG4c59RGvp/gNTXT
- 3S/ZvnSDpu4AlPIsUZ2Nzuv1Kt2P7WI/doqsjY4nmPYfEJRu5XQCnYUzyxeJzFAnT+fe
- 98gtVELp/H87WhwzhjyQ2OKQSWXptVybPMWfqG2rdoq6At8JEdWC/M/R/v6Vd3uRUMg0
- jgUQ==
+ bh=X+YoaYP9Btr77N0brD8AfqI/lJY3W3ao1Z4fzgsncX4=;
+ b=aa/ISgVdLkJcnEE6cmRcB2UwhCTWT62k4ShsY1R4klcZenFHPwGg8G0U4yGX14yKsC
+ t5O4yNgla6xicveBirUHKRHc6/FPAjEqy7/TLSIiwvajy8aIYvJkzlaBDuT4148of1l0
+ nlNh+MC3JrwIiFZdpprQD/iw4mOb6sQ8WjOHLxxZnDJbS0r59DVZb35N1vjlpYPSfZKd
+ yF96PPv3ZKfgLofmU+Xi3xeIR5NwScictz7UTo/QHqUxsg+6vqquGTVJQH+gcV8ZQ7ni
+ GqsVc/rCG7g3lqicgPLkSY+R5m7xQH8MrzMvjanY7a4XN2aMKHuQ0y/lSlavkOLlu9c+
+ aDAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697237313; x=1697842113;
+ d=1e100.net; s=20230601; t=1697237317; x=1697842117;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=1C+2NMg1JH09l8lpRwB0Ubzh+mfktnl5vVkwETAlRt8=;
- b=Fiu0qz/RRHnfs6XBkUdsRDEMXusgA6a22LMhYUzpnINowc8FWRHMKhxu7Df9t8Q6rD
- bKuz6PrbEMHHfu9/txxnmEfE8tw2sDlFvsfbhcEEDHamrGfH2ekxRgcQyUV25y0sJaVu
- vKbanh4JldgZiw+OiznZZ3bQY447q0MRHrMZv/6p9w2RNg8j3vMA+0c4/TKgVQe03gIh
- dKKx/lkX7D2D9aD2fKwbu3029NEmYEQohkmEZQJhW+yrrKwJ0Xzmu2ujESXIcAws8UUX
- YUy05eVGR+c7NCNB0BbjZ+mfqDXXkeBYBsuWpljXt5XVCdxt4nt1uuopP5c4d/dYPUnh
- x90w==
-X-Gm-Message-State: AOJu0Yy0EFltaePj817K2E8/bJPltV5s8kmSaHPG4BNJ6EW4L/wXTf55
- m5Ix0ffXRlxiA8LrWDDp0T4=
-X-Google-Smtp-Source: AGHT+IERN8pJIP8+ddoE+eB01U1+UXtsDPSDnnzIVYSoLKnjpR6o8aO6/OIr3x06+l+lRtKcnjJmFQ==
-X-Received: by 2002:a92:c56b:0:b0:34f:f5a4:3e68 with SMTP id
- b11-20020a92c56b000000b0034ff5a43e68mr37533699ilj.30.1697237313527; 
- Fri, 13 Oct 2023 15:48:33 -0700 (PDT)
+ bh=X+YoaYP9Btr77N0brD8AfqI/lJY3W3ao1Z4fzgsncX4=;
+ b=ZWgINElcogzJKj0BE6IaEAK/jZYi3CWAMdaaFAXJjanmXwOYZ755oakqy6dSKsLQmd
+ fgbRyVw4exqos8r7Vf7FRgJq0FfUCx9I4MgT2aZRGykKdqp93iDZ0f01J+X2e/DD1BHU
+ nglNA77p1Fh12rZfMnV+ypBxVjR33L/nXvx+eR4VAsQWRrh5j0l7ZF0iNoWKKin0+o+1
+ dTzNE1tHF1DjbpmYYrfBBWVV8DnxaIedQ1uNCsuuWkfDHPLuv2bNrvDQ2yUWI/y6T3qN
+ 4TnWjikwzbXklmR4dfbpn+bFkaXZCUJSrEMxItpt3W6s5y4z6ZrC9TdQKr0d07UgUnCQ
+ 0b3A==
+X-Gm-Message-State: AOJu0Yxg+6DMMNo0RsI4fNCD+sG2NDsd9wvh8pP1sC3eKmKBcpo/3uN+
+ FuOdfaxBTMfJvBiEy0f4FjkUs4kn1PoNLg==
+X-Google-Smtp-Source: AGHT+IHwailVRlZkUbGYom5kFyqAItD1e1tOiOSBrxx42FM/r/kE7Kk109A0EUSZNIcZwaLqfWt5wA==
+X-Received: by 2002:a92:d482:0:b0:357:5751:7aa9 with SMTP id
+ p2-20020a92d482000000b0035757517aa9mr6317829ilg.2.1697237316825; 
+ Fri, 13 Oct 2023 15:48:36 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- t10-20020a92dc0a000000b003512c3e8809sm1683071iln.71.2023.10.13.15.48.32
+ t10-20020a92dc0a000000b003512c3e8809sm1683071iln.71.2023.10.13.15.48.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Oct 2023 15:48:33 -0700 (PDT)
+ Fri, 13 Oct 2023 15:48:36 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Oct 2023 16:47:55 -0600
-Message-ID: <20231013224818.3456409-4-jim.cromie@gmail.com>
+Date: Fri, 13 Oct 2023 16:47:58 -0600
+Message-ID: <20231013224818.3456409-7-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231013224818.3456409-1-jim.cromie@gmail.com>
 References: <20231013224818.3456409-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7b 03/25] dyndbg: make ddebug_class_param union
- members same size
+Subject: [Intel-gfx] [PATCH v7b 06/25] dyndbg: split
+ param_set_dyndbg_classes to module/wrapper fns
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,42 +84,90 @@ Cc: lb@semihalf.com, groeck@google.com, linux-doc@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-struct ddebug_class_param keeps a ref to the state-storage of the
-param, make both flavors use the same unsigned long under-type.
-ISTM this is simpler and safer.
+rename param_set_dyndbg_classes: add _module_ name & arg, old name is
+wrapper to new.  New arg allows caller to specify that only one module
+is affected by a prdbgs update.
+
+Outer fn preserves kernel_param interface, passing NULL to inner fn.
+This selectivity will be used later to narrow the scope of changes
+made.
+
+no functional change.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 2 +-
- lib/dynamic_debug.c           | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ lib/dynamic_debug.c | 37 ++++++++++++++++++++++---------------
+ 1 file changed, 22 insertions(+), 15 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 4fcbf4d4fd0a..5231aaf361c4 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -124,7 +124,7 @@ struct _ddebug_info {
- struct ddebug_class_param {
- 	union {
- 		unsigned long *bits;
--		unsigned int *lvl;
-+		unsigned long *lvl;
- 	};
- 	char flags[8];
- 	const struct ddebug_class_map *map;
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index ceb3067a5c83..b984ce338921 100644
+index ba41fdeaaf98..b67c9b137447 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -796,7 +796,7 @@ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
+@@ -708,18 +708,9 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
+ 	return 0;
+ }
  
- 	case DD_CLASS_TYPE_LEVEL_NAMES:
+-/**
+- * param_set_dyndbg_classes - class FOO >control
+- * @instr: string echo>d to sysfs, input depends on map_type
+- * @kp:    kp->arg has state: bits/lvl, map, map_type
+- *
+- * Enable/disable prdbgs by their class, as given in the arguments to
+- * DECLARE_DYNDBG_CLASSMAP.  For LEVEL map-types, enforce relative
+- * levels by bitpos.
+- *
+- * Returns: 0 or <0 if error.
+- */
+-int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
++static int param_set_dyndbg_module_classes(const char *instr,
++					   const struct kernel_param *kp,
++					   const char *modnm)
+ {
+ 	const struct ddebug_class_param *dcp = kp->arg;
+ 	const struct ddebug_class_map *map = dcp->map;
+@@ -756,8 +747,8 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 				KP_NAME(kp), inrep, CLASSMAP_BITMASK(map->length));
+ 			inrep &= CLASSMAP_BITMASK(map->length);
+ 		}
+-		v2pr_info("bits:%lx > %s\n", inrep, KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits, NULL);
++		v2pr_info("bits:0x%lx > %s.%s\n", inrep, modnm ?: "*", KP_NAME(kp));
++		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits, modnm);
+ 		*dcp->bits = inrep;
+ 		break;
  	case DD_CLASS_TYPE_LEVEL_NUM:
--		return scnprintf(buffer, PAGE_SIZE, "%d\n", *dcp->lvl);
-+		return scnprintf(buffer, PAGE_SIZE, "%ld\n", *dcp->lvl);
+@@ -770,7 +761,7 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
+ 		new_bits = CLASSMAP_BITMASK(inrep);
+ 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, NULL);
++		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, modnm);
+ 		*dcp->lvl = inrep;
+ 		break;
  	default:
- 		return -1;
- 	}
+@@ -779,6 +770,22 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
+ 	vpr_info("%s: total matches: %d\n", KP_NAME(kp), totct);
+ 	return 0;
+ }
++
++/**
++ * param_set_dyndbg_classes - class FOO >control
++ * @instr: string echo>d to sysfs, input depends on map_type
++ * @kp:    kp->arg has state: bits/lvl, map, map_type
++ *
++ * Enable/disable prdbgs by their class, as given in the arguments to
++ * DECLARE_DYNDBG_CLASSMAP.  For LEVEL map-types, enforce relative
++ * levels by bitpos.
++ *
++ * Returns: 0 or <0 if error.
++ */
++int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
++{
++	return param_set_dyndbg_module_classes(instr, kp, NULL);
++}
+ EXPORT_SYMBOL(param_set_dyndbg_classes);
+ 
+ /**
 -- 
 2.41.0
 
