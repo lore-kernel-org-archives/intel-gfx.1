@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BC4ECDB47E
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 08:25:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD0C5CDB483
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 08:25:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E9FA10E094;
-	Fri, 13 Oct 2023 08:25:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2739210E097;
+	Fri, 13 Oct 2023 08:25:19 +0000 (UTC)
 Received: from emeril.freedesktop.org (emeril.freedesktop.org
- [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTP id 403AA10E086;
- Fri, 13 Oct 2023 08:25:13 +0000 (UTC)
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0CE8910E091;
+ Fri, 13 Oct 2023 08:25:16 +0000 (UTC)
 Received: from emeril.freedesktop.org (localhost [127.0.0.1])
- by emeril.freedesktop.org (Postfix) with ESMTP id 39B46AADE3;
- Fri, 13 Oct 2023 08:25:13 +0000 (UTC)
+ by emeril.freedesktop.org (Postfix) with ESMTP id 0BC9BAADE3;
+ Fri, 13 Oct 2023 08:25:16 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Jonathan Cavitt" <jonathan.cavitt@intel.com>
-Date: Fri, 13 Oct 2023 08:25:13 -0000
-Message-ID: <169718551320.31157.4562299899530962889@emeril.freedesktop.org>
+Date: Fri, 13 Oct 2023 08:25:16 -0000
+Message-ID: <169718551604.31157.16429226867699236095@emeril.freedesktop.org>
 X-Patchwork-Hint: ignore
 References: <20231012223826.2556700-1-jonathan.cavitt@intel.com>
 In-Reply-To: <20231012223826.2556700-1-jonathan.cavitt@intel.com>
-Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
- =?utf-8?q?for_drm/i915=3A_Define_and_use_GuC_and_CTB_TLB_invalidation_rou?=
- =?utf-8?q?tines?=
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLlNQQVJTRTogd2FybmluZyBmb3Ig?=
+ =?utf-8?q?drm/i915=3A_Define_and_use_GuC_and_CTB_TLB_invalidation_routine?=
+ =?utf-8?q?s?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,23 +54,8 @@ State : warning
 
 == Summary ==
 
-Error: dim checkpatch failed
-f7cb19dc39f1 drm/i915: Add GuC TLB Invalidation device info flags
-23d5c0118b98 drm/i915/guc: Add CT size delay helper
-a7184bb383c9 drm/i915: Define and use GuC and CTB TLB invalidation routines
--:452: WARNING:MEMORY_BARRIER: memory barrier without comment
-#452: FILE: drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c:4739:
-+	smp_store_mb(wq_entry->flags, wq_entry->flags & ~WQ_FLAG_WOKEN);
-
-total: 0 errors, 1 warnings, 0 checks, 445 lines checked
-8c6010e5ab58 drm/i915: No TLB invalidation on suspended GT
-0cfb064c9e9c drm/i915: No TLB invalidation on wedged GT
-937b7430468e drm/i915/gt: Increase sleep in gt_tlb selftest sanitycheck
--:32: WARNING:MSLEEP: msleep < 20ms can sleep for up to 20ms; see Documentation/timers/timers-howto.rst
-#32: FILE: drivers/gpu/drm/i915/gt/selftest_tlb.c:146:
-+		msleep(10);
-
-total: 0 errors, 1 warnings, 0 checks, 17 lines checked
-9553f34bb117 drm/i915: Enable GuC TLB invalidations for MTL
+Error: dim sparse failed
+Sparse version: v0.6.2
+Fast mode used, each commit won't be checked separately.
 
 
