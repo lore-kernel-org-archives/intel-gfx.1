@@ -4,45 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36277CDB47E
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 07:01:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31B8ACDB483
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 07:47:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AAA410E5BD;
-	Fri, 13 Oct 2023 07:01:32 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A57310E5BD
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Oct 2023 07:01:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98C2110E5C7;
+	Fri, 13 Oct 2023 07:47:35 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F39410E5C7;
+ Fri, 13 Oct 2023 07:47:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1697180491; x=1728716491;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=OxR2SUuExcS9uP/hSmP4NlvxtCNYjO0X4rGJ5gzf4M4=;
- b=j6AP81/MmBhnKxmPMLh+XKh0vAaX79A2LV8R5vFojy8y+sBwi5OeS3dC
- L7JzSXmstOAv3TTFeQ0muuYIo2bfR4XUBiQ5h9LrdU48KGr1a6zSGsm3f
- zgBgtSl8bANBzkpNOiPh9HIns9CwJkpeHeyla/yKSMLozdvCghCwPmqxH
- nihp8bA4lrBS00NyMvMvdSMTLx8KpgaBoUzSIzzVnyAwlNmwFG3ZqX6Os
- sFpu5JPnfbZIRq/875F5cdIxLKp10glOGs3f2ZTTDsX4NjCQeNDeoRb/A
- HyG3UWDtGd+RNwE5mXgm1O5IGN0aDO7R03iRg3qwpw8UQq/mOyZg1q3fQ A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10861"; a="384955111"
-X-IronPort-AV: E=Sophos;i="6.03,221,1694761200"; d="scan'208";a="384955111"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2023 00:01:30 -0700
+ t=1697183254; x=1728719254;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=yYDal+AexT6HwL22NcaLeWQHkd5eAAuExiCqdzOUahc=;
+ b=bl45YRWsRWUTm2n5cpLyGjFVKFKUIcfpH/Z16cjGhQwuwCxB1aiYyNlH
+ 6n7c3YY8TScZKvXeZgaQ0O9/HUhThr+q57cx8DIaox/rLjuiGtfmXBYDi
+ 1DG8J2fuI6u5busbtq3zfwD/8Ues78bMz+GpWxIPJVhwkBvhOLsnVTVfg
+ Htof+hi/PIhdJ55hczF7mgEquCRrKsgFmBDT1Jw7e2Yqqh0ur/pfznZAW
+ kJFZxdUhmV5f55W9LZHEBEKnFKy3zzEdIl5LIZRmwzdzjjC9qhzoTZrgB
+ g5fjVE4Png+SvBjJjJQEdR03Wa5xsjjwhxK1dIQdzk2F1a2VIlkZIpTQd g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10861"; a="449316229"
+X-IronPort-AV: E=Sophos;i="6.03,221,1694761200"; d="scan'208";a="449316229"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2023 00:47:33 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10861"; a="928304037"
-X-IronPort-AV: E=Sophos;i="6.03,221,1694761200"; d="scan'208";a="928304037"
-Received: from sorvi2.fi.intel.com ([10.237.72.194])
- by orsmga005.jf.intel.com with ESMTP; 13 Oct 2023 00:01:28 -0700
-From: Mika Kahola <mika.kahola@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Oct 2023 09:55:32 +0300
-Message-Id: <20231013065532.634872-1-mika.kahola@intel.com>
-X-Mailer: git-send-email 2.34.1
+X-IronPort-AV: E=McAfee;i="6600,9927,10861"; a="1086043104"
+X-IronPort-AV: E=Sophos;i="6.03,221,1694761200"; d="scan'208";a="1086043104"
+Received: from acarotti-mobl1.ger.corp.intel.com (HELO [10.213.212.153])
+ ([10.213.212.153])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2023 00:47:31 -0700
+Message-ID: <12b425f9-1b13-5c75-2e74-0c45ec4f46e0@linux.intel.com>
+Date: Fri, 13 Oct 2023 08:47:30 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2] drm/i915/display: Reset message bus after
- each read/write operation
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Content-Language: en-US
+To: Lee Shawn C <shawn.c.lee@intel.com>, intel-gfx@lists.freedesktop.org,
+ igt-dev@lists.freedesktop.org
+References: <20231013042012.409376-1-shawn.c.lee@intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <20231013042012.409376-1-shawn.c.lee@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH] tests: save GPU engine information more
+ properly
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,66 +64,166 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rodrigo.vivi@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Every know and then we receive the following error when running
-for example IGT test kms_flip.
 
-[drm] *ERROR* PHY G Read 0d80 failed after 3 retries.
-[drm] *ERROR* PHY G Write 0d81 failed after 3 retries.
+On 13/10/2023 05:20, Lee Shawn C wrote:
+> We encounter a unexpected error on chrome book device while
+> running kms_busy test. It will restore GPU engine's timeout
+> value but open incorrect file name (XR24 in below).
+> 
+> openat(AT_FDCWD, "/sys/dev/char/226:0", O_RDONLY) = 12
+> openat(12, "dev", O_RDONLY)             = 13
+> read(13, "226:0\n", 1023)               = 6
+> close(13)                               = 0
+> openat(12, "engine", O_RDONLY)          = 13
+> close(12)                               = 0
+> openat(13, "XR24", O_RDONLY)            = -1 ENOENT (No such file or directory)
+> 
+> Test code did not save engine data properly to cause this problem.
+> So modify the code to save GPU engine information into a globla variable
+> to avoid test deamon to open incorrect file again.
+> 
+> Issue: https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/issues/147
+> Fixes: 9e635a1c5029 ("tests/kms_busy: Ensure GPU reset when waiting
+> for a new FB during modeset")
 
-Since the error is sporadic in nature, the patch proposes
-to reset the message bus after every successful or unsuccessful
-read or write operation. However, the testing revealed that this
-alone is not sufficient method and therefore an additional
-delay is introduced anything from 200us to 300us to let HW to
-settle down. This delay is experimental value and has no
-specification to back it up.
+I guess if we are having one Fixes: could add some more for i915_hangman 
+and gem_exec_capture but it is not that important for igt so meh.
 
-v2: Add FIXME's to indicate the experimental nature of
-    this workaround (Rodrigo)
+Changes look good to me. Presumably it fixes things for you and if CI 
+ends up green:
 
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
----
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index 6e6a1818071e..7c48ec5e54bd 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -221,6 +221,14 @@ static u8 __intel_cx0_read(struct drm_i915_private *i915, enum port port,
- 	for (i = 0; i < 3; i++) {
- 		status = __intel_cx0_read_once(i915, port, lane, addr);
- 
-+		/*
-+		 * FIXME: Workaround to let HW to settle
-+		 * down and let the message bus to end up
-+		 * in a known state
-+		 */
-+		intel_cx0_bus_reset(i915, port, lane);
-+		usleep_range(200, 300);
-+
- 		if (status >= 0)
- 			return status;
- 	}
-@@ -300,6 +308,14 @@ static void __intel_cx0_write(struct drm_i915_private *i915, enum port port,
- 	for (i = 0; i < 3; i++) {
- 		status = __intel_cx0_write_once(i915, port, lane, addr, data, committed);
- 
-+		/*
-+		 * FIXME: Workaround to let HW to settle
-+		 * down and let the message bus to end up
-+		 * in a known state
-+		 */
-+		intel_cx0_bus_reset(i915, port, lane);
-+		usleep_range(200, 300);
-+
- 		if (status == 0)
- 			return;
- 	}
--- 
-2.34.1
+Regards,
 
+Tvrtko
+
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+> Cc: Imre Deak <imre.deak@intel.com>
+> Cc: Vidya Srinivas <vidya.srinivas@intel.com>
+> Signed-off-by: Lee Shawn C <shawn.c.lee@intel.com>
+> ---
+>   lib/i915/gem_engine_topology.c | 12 ++++++------
+>   lib/i915/gem_engine_topology.h |  2 +-
+>   tests/intel/gem_exec_capture.c |  2 +-
+>   tests/intel/gem_reset_stats.c  |  2 +-
+>   tests/intel/i915_hangman.c     |  2 +-
+>   tests/intel/kms_busy.c         |  2 +-
+>   6 files changed, 11 insertions(+), 11 deletions(-)
+> 
+> diff --git a/lib/i915/gem_engine_topology.c b/lib/i915/gem_engine_topology.c
+> index 7c6cd9ba97db..afb576afb2dc 100644
+> --- a/lib/i915/gem_engine_topology.c
+> +++ b/lib/i915/gem_engine_topology.c
+> @@ -571,23 +571,23 @@ void gem_engine_properties_configure(int fd, struct gem_engine_properties *param
+>   	int ret;
+>   	struct gem_engine_properties write = *params;
+>   
+> -	ret = gem_engine_property_scanf(fd, write.engine->name,
+> +	ret = gem_engine_property_scanf(fd, write.engine.name,
+>   					"heartbeat_interval_ms",
+>   					"%d", &params->heartbeat_interval);
+>   	igt_assert_eq(ret, 1);
+>   
+> -	ret = gem_engine_property_printf(fd, write.engine->name,
+> +	ret = gem_engine_property_printf(fd, write.engine.name,
+>   					 "heartbeat_interval_ms", "%d",
+>   					 write.heartbeat_interval);
+>   	igt_assert_lt(0, ret);
+>   
+>   	if (gem_scheduler_has_preemption(fd)) {
+> -		ret = gem_engine_property_scanf(fd, write.engine->name,
+> +		ret = gem_engine_property_scanf(fd, write.engine.name,
+>   						"preempt_timeout_ms",
+>   						"%d", &params->preempt_timeout);
+>   		igt_assert_eq(ret, 1);
+>   
+> -		ret = gem_engine_property_printf(fd, write.engine->name,
+> +		ret = gem_engine_property_printf(fd, write.engine.name,
+>   						 "preempt_timeout_ms", "%d",
+>   						 write.preempt_timeout);
+>   		igt_assert_lt(0, ret);
+> @@ -598,13 +598,13 @@ void gem_engine_properties_restore(int fd, const struct gem_engine_properties *s
+>   {
+>   	int ret;
+>   
+> -	ret = gem_engine_property_printf(fd, saved->engine->name,
+> +	ret = gem_engine_property_printf(fd, saved->engine.name,
+>   					 "heartbeat_interval_ms", "%d",
+>   					 saved->heartbeat_interval);
+>   	igt_assert_lt(0, ret);
+>   
+>   	if (gem_scheduler_has_preemption(fd)) {
+> -		ret = gem_engine_property_printf(fd, saved->engine->name,
+> +		ret = gem_engine_property_printf(fd, saved->engine.name,
+>   						 "preempt_timeout_ms", "%d",
+>   						 saved->preempt_timeout);
+>   		igt_assert_lt(0, ret);
+> diff --git a/lib/i915/gem_engine_topology.h b/lib/i915/gem_engine_topology.h
+> index 89642c31721c..9eb9d5ddc888 100644
+> --- a/lib/i915/gem_engine_topology.h
+> +++ b/lib/i915/gem_engine_topology.h
+> @@ -122,7 +122,7 @@ struct intel_execution_engine2 gem_eb_flags_to_engine(unsigned int flags);
+>   	     intel_next_engine(&i__##e__))
+>   
+>   struct gem_engine_properties {
+> -	const struct intel_execution_engine2 *engine;
+> +	struct intel_execution_engine2 engine;
+>   	int preempt_timeout;
+>   	int heartbeat_interval;
+>   };
+> diff --git a/tests/intel/gem_exec_capture.c b/tests/intel/gem_exec_capture.c
+> index ab8305e4dfaf..d231c53b98e1 100644
+> --- a/tests/intel/gem_exec_capture.c
+> +++ b/tests/intel/gem_exec_capture.c
+> @@ -258,7 +258,7 @@ configure_hangs(int fd, const struct intel_execution_engine2 *e, int ctxt_id)
+>   	struct gem_engine_properties props;
+>   
+>   	/* Ensure fast hang detection */
+> -	props.engine = e;
+> +	props.engine = *e;
+>   	props.preempt_timeout = 250;
+>   	props.heartbeat_interval = 500;
+>   	gem_engine_properties_configure(fd, &props);
+> diff --git a/tests/intel/gem_reset_stats.c b/tests/intel/gem_reset_stats.c
+> index 6939722c7001..5dfc1fc677ec 100644
+> --- a/tests/intel/gem_reset_stats.c
+> +++ b/tests/intel/gem_reset_stats.c
+> @@ -1004,7 +1004,7 @@ static void test_shared_reset_domain(const intel_ctx_cfg_t *base_cfg,
+>   
+>   	sync_gpu();
+>   
+> -	params.engine = e;
+> +	params.engine = *e;
+>   	params.preempt_timeout = 1;
+>   	params.heartbeat_interval = 250;
+>   	gem_engine_properties_configure(device, &params);
+> diff --git a/tests/intel/i915_hangman.c b/tests/intel/i915_hangman.c
+> index dcd34cd0ebfe..8a7de562609c 100644
+> --- a/tests/intel/i915_hangman.c
+> +++ b/tests/intel/i915_hangman.c
+> @@ -600,7 +600,7 @@ igt_main
+>   		gem_require_mmap_device_coherent(device);
+>   
+>   		for_each_physical_engine(device, e) {
+> -			saved_params[num_engines].engine = e;
+> +			saved_params[num_engines].engine = *e;
+>   			saved_params[num_engines].preempt_timeout = 500;
+>   			saved_params[num_engines].heartbeat_interval = 1000;
+>   			gem_engine_properties_configure(device, saved_params + num_engines++);
+> diff --git a/tests/intel/kms_busy.c b/tests/intel/kms_busy.c
+> index 5b620658fb18..50616513c5ba 100644
+> --- a/tests/intel/kms_busy.c
+> +++ b/tests/intel/kms_busy.c
+> @@ -404,7 +404,7 @@ static void gpu_engines_init_timeouts(int fd, int max_engines,
+>   	for_each_physical_engine(fd, e) {
+>   		igt_assert(*num_engines < max_engines);
+>   
+> -		props[*num_engines].engine = e;
+> +		props[*num_engines].engine = *e;
+>   		props[*num_engines].preempt_timeout = 0;
+>   		props[*num_engines].heartbeat_interval = 250;
+>   
