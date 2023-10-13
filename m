@@ -4,48 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87EE3CDB482
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 18:03:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 957F0CDB47E
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 18:38:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1497D10E62E;
-	Fri, 13 Oct 2023 18:03:46 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B214910E627
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Oct 2023 18:03:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 403CA10E629;
+	Fri, 13 Oct 2023 18:38:51 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D24CA10E629
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Oct 2023 18:38:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1697220210; x=1728756210;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=kH71c7G79c47Sqh7bzx0cMksFEIF8JepRxBiIrAt+fk=;
- b=d6V/DBi1YNWXpQ1EyiibrNakxZlf4zSVqnr+bMCr7hj9GH+mkObSmf3c
- +w55auVzbCsSeToDyfwZSBTVCjfjLWXFKebMLCfzqjibKS7gZfELY8RE2
- qeAheAy5qTwF++riD3pN4sDfUOxRkdIPOB00qnnMRckMVVzHpv5ywTFWJ
- qa0B95misI68mr9Tb5veEpp5H8JWy5w9bqAnmUpE3DjBAAlH8EomoEsOv
- qqx2BTJDfdbZ2Z5GdmpLvoB1nFsFxO1V+Ujtb30gy9PQtjJY0LpVk+7yg
- 91l09WYAk1hjrJgccAIS4E65/PM3YNVPIyXtja1nKcTdjtF31WCVkZvwK Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10862"; a="388083595"
-X-IronPort-AV: E=Sophos;i="6.03,222,1694761200"; d="scan'208";a="388083595"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2023 11:03:30 -0700
+ t=1697222328; x=1728758328;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=l4H395Dg6duY9LjNNgMUe8M6E+QyjCmebBYyT/dCyTw=;
+ b=CK7/4h0QGq3HShOD5QVPVolXkOppiXYEEaVNw0NZefQP8kQQPghy9ENi
+ UduMe3bIE+INRCGdmkB9vBfqG5frClErMJfpklBta1c4fkRFVEeigRgNK
+ I8BDlSoZnEvLLg5vBotsYjq8i5NxY3cGO+y4VzHJab1K3SSrgtxpEwKuI
+ AsMCp3RByNSfXIFcfZ+15cZ9Uz1wYXGtdDGP+oFtsjWXIgFOD4oeGeQev
+ +yDAiLmpcdM+fw/0wIZN6m5oA1qwZ6RF4EDN3JvyB3SnC2JIX/CfZLBEy
+ A0rY7OQu0DoX/A9dcxon6StYhRsV2aV+Q+9ep3Yk9j5Hi7QZ/Iswj6axX w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10862"; a="364602519"
+X-IronPort-AV: E=Sophos;i="6.03,222,1694761200"; d="scan'208";a="364602519"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2023 11:38:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10862"; a="898649305"
-X-IronPort-AV: E=Sophos;i="6.03,222,1694761200"; d="scan'208";a="898649305"
-Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2023 11:01:20 -0700
-From: Jonathan Cavitt <jonathan.cavitt@intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10862"; a="820744107"
+X-IronPort-AV: E=Sophos;i="6.03,222,1694761200"; d="scan'208";a="820744107"
+Received: from relo-linux-5.jf.intel.com ([10.165.21.152])
+ by fmsmga008.fm.intel.com with ESMTP; 13 Oct 2023 11:38:48 -0700
+From: John.C.Harrison@Intel.com
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Oct 2023 10:52:17 -0700
-Message-Id: <20231013175218.2664309-7-jonathan.cavitt@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231013175218.2664309-1-jonathan.cavitt@intel.com>
-References: <20231013175218.2664309-1-jonathan.cavitt@intel.com>
+Date: Fri, 13 Oct 2023 11:38:33 -0700
+Message-ID: <20231013183834.3490370-1-John.C.Harrison@Intel.com>
+X-Mailer: git-send-email 2.41.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v14 6/7] drm/i915/gt: Increase sleep in gt_tlb
- selftest sanitycheck
+Subject: [Intel-gfx] [CI] PR for new GuC v70.13.1
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,46 +54,28 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: janusz.krzysztofik@intel.com, andi.shyti@intel.com,
- matthew.d.roper@intel.com, jonathan.cavitt@intel.com, saurabhg.gupta@intel.com,
- chris.p.wilson@linux.intel.com, nirmoy.das@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For the gt_tlb live selftest, when operating on the GSC engine,
-increase the timeout from 10 ms to 200 ms because the GSC
-engine is a bit slower than the rest.
+The following changes since commit 7727f7e3b3358713c7c91c64a835e80c331a6b8b:
 
-Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-Acked-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
----
- drivers/gpu/drm/i915/gt/selftest_tlb.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+  Merge branch 'patch-1696561325' into 'main' (2023-10-06 03:04:57 +0000)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_tlb.c b/drivers/gpu/drm/i915/gt/selftest_tlb.c
-index 7e41f69fc818f..00b872b6380b1 100644
---- a/drivers/gpu/drm/i915/gt/selftest_tlb.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_tlb.c
-@@ -136,8 +136,15 @@ pte_tlbinv(struct intel_context *ce,
- 	i915_request_get(rq);
- 	i915_request_add(rq);
- 
--	/* Short sleep to sanitycheck the batch is spinning before we begin */
--	msleep(10);
-+	/*
-+	 * Short sleep to sanitycheck the batch is spinning before we begin.
-+	 * FIXME: Why is GSC so slow?
-+	 */
-+	if (ce->engine->class == OTHER_CLASS)
-+		msleep(200);
-+	else
-+		msleep(10);
-+
- 	if (va == vb) {
- 		if (!i915_request_completed(rq)) {
- 			pr_err("%s(%s): Semaphore sanitycheck failed %llx, with alignment %llx, using PTE size %x (phys %x, sg %x)\n",
--- 
-2.25.1
+are available in the Git repository at:
 
+  git://anongit.freedesktop.org/drm/drm-firmware guc_70.13.1
+
+for you to fetch changes up to 44a9510c94ac0334931b6c89dd240ffe5bf1e5fa:
+
+  i915: Add GuC v70.13.1 for DG2, TGL, ADL-P and MTL (2023-10-13 11:34:26 -0700)
+
+----------------------------------------------------------------
+John Harrison (1):
+      i915: Add GuC v70.13.1 for DG2, TGL, ADL-P and MTL
+
+ WHENCE               |   8 ++++----
+ i915/adlp_guc_70.bin | Bin 297984 -> 342848 bytes
+ i915/dg2_guc_70.bin  | Bin 385856 -> 443200 bytes
+ i915/mtl_guc_70.bin  | Bin 308032 -> 365376 bytes
+ i915/tgl_guc_70.bin  | Bin 285888 -> 330304 bytes
+ 5 files changed, 4 insertions(+), 4 deletions(-)
