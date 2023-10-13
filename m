@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F3BBCDB484
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 18:03:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8121ECDB47E
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Oct 2023 18:03:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 545ED10E621;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8152E10E627;
 	Fri, 13 Oct 2023 18:03:32 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF69E10E083
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4519F10E621
  for <intel-gfx@lists.freedesktop.org>; Fri, 13 Oct 2023 18:03:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1697220210; x=1728756210;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=nj0SonOrPHHQMohoP8Gbszs4ySJKtNr6c7c764L7M0E=;
- b=Sn8crBNJBkhH6HVbi+4JxZ3NhWOwz7IUPupRPR2adVFmq1/vprS/gCCu
- VqH660wwUqfwRpTykjlcYJDjJyM8kso+YDjYyaAKgmoRHjhIQs4FKIE3T
- jE0NrLlswcaunb+VIk33yIabe1Rdsb0vrspq9we/VGVbwU3CfDss0pkKP
- Wz9wMTBnv3LhlrqpO5prkEwXH2rZd1HZehGDUoG6g9YRfaZPDh/gm7eth
- l9h9y7Y7SWpi7aZKms8IuonxfQJ1rgnKOUslU1hLhRDwaYyN+MnlZhTFF
- RFQirUnlywAKlRR6RFPveRRQSHdnp33h+/bUvm38Bu3YGr7i9Tiaq0rX6 g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10862"; a="388083592"
-X-IronPort-AV: E=Sophos;i="6.03,222,1694761200"; d="scan'208";a="388083592"
+ bh=tbYWLHj+eumaQcVVvUmFmGipHv5n+/lm2FOMQFJ9g+w=;
+ b=d6WpYDM78vx+YAkQgOXFcZTYqFM18IbpVEo1ywn8bX+UO0fswJLDkdsK
+ 9MdqidFm/JdBVVSKRjfxYCZ0Vmm3N7TD7zmghXkS1fdycJ6ghXDyNnBun
+ MJfakhf3GUue2IDgTt/Co+tGQoRqk2UM5IgOjKwPYsbUIoCTN+Utw18CX
+ Yijiv5YsQiRVUhMqtF0RgAjJUvd8zslEX8Pw8fsUnAmGtkNjcMBEdEZE/
+ 963UOlkH+l1vf/8h1ER1sGqCjd81yvNyz+Xl011JTye16kF6k1tEcJbw9
+ 3OgA++K+adNgOeGCvbGxAUlkWRv2N0KYaJc/dvsfWUdChfzgePer3kik3 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10862"; a="388083581"
+X-IronPort-AV: E=Sophos;i="6.03,222,1694761200"; d="scan'208";a="388083581"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2023 11:03:30 -0700
+ 13 Oct 2023 11:03:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10862"; a="898649304"
-X-IronPort-AV: E=Sophos;i="6.03,222,1694761200"; d="scan'208";a="898649304"
+X-IronPort-AV: E=McAfee;i="6600,9927,10862"; a="898649248"
+X-IronPort-AV: E=Sophos;i="6.03,222,1694761200"; d="scan'208";a="898649248"
 Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
  by fmsmga001-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2023 11:01:20 -0700
+ 13 Oct 2023 11:01:19 -0700
 From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Fri, 13 Oct 2023 10:52:16 -0700
-Message-Id: <20231013175218.2664309-6-jonathan.cavitt@intel.com>
+Date: Fri, 13 Oct 2023 10:52:13 -0700
+Message-Id: <20231013175218.2664309-3-jonathan.cavitt@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231013175218.2664309-1-jonathan.cavitt@intel.com>
 References: <20231013175218.2664309-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v14 5/7] drm/i915: No TLB invalidation on wedged
- GT
+Subject: [Intel-gfx] [PATCH v14 2/7] drm/i915/guc: Add CT size delay helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,70 +63,73 @@ Cc: janusz.krzysztofik@intel.com, andi.shyti@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It is not an error for GuC TLB invalidations to fail when the GT is
-wedged or disabled, so do not process a wait failure as one in
-guc_send_invalidate_tlb.
+As of now, there is no mechanism for tracking a given request's
+progress through the queue.  Instead, add a helper that returns
+an estimated maximum time the queue should take to drain if
+completely full.
 
-Signed-off-by: Fei Yang <fei.yang@intel.com>
+Suggested-by: John Harrison <john.c.harrison@intel.com>
 Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
-CC: John Harrison <john.c.harrison@intel.com>
 Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 Acked-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Acked-by: Nirmoy Das <nirmoy.das@intel.com>
+Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
+Reviewed-by: John Harrison <john.c.harrison@intel.com>
 ---
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c  | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c | 27 +++++++++++++++++++++++
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h |  2 ++
+ 2 files changed, 29 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 1b9fa2bafaad6..7f2d6adb5dfce 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -32,6 +32,7 @@
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+index c33210ead1ef7..03b616ba4ebb7 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+@@ -103,6 +103,33 @@ enum { CTB_SEND = 0, CTB_RECV = 1 };
  
- #include "i915_drv.h"
- #include "i915_reg.h"
-+#include "i915_irq.h"
- #include "i915_trace.h"
+ enum { CTB_OWNER_HOST = 0 };
  
- /**
-@@ -1934,6 +1935,12 @@ void intel_guc_submission_cancel_requests(struct intel_guc *guc)
- 
- 	/* GuC is blown away, drop all references to contexts */
- 	xa_destroy(&guc->context_lookup);
-+
-+	/*
-+	 * Wedged GT won't respond to any TLB invalidation request. Simply
-+	 * release all the blocked waiters.
-+	 */
-+	wake_up_all_tlb_invalidate(guc);
- }
- 
- void intel_guc_submission_reset_finish(struct intel_guc *guc)
-@@ -4742,6 +4749,14 @@ static long must_wait_woken(struct wait_queue_entry *wq_entry, long timeout)
- 	return timeout;
- }
- 
-+static bool intel_gt_is_enabled(const struct intel_gt *gt)
++/*
++ * Some H2G commands involve a synchronous response that the driver needs
++ * to wait for. In such cases, a timeout is required to prevent the driver
++ * from waiting forever in the case of an error (either no error response
++ * is defined in the protocol or something has died and requires a reset).
++ * The specific command may be defined as having a time bound response but
++ * the CT is a queue and that time guarantee only starts from the point
++ * when the command reaches the head of the queue and is processed by GuC.
++ *
++ * Ideally there would be a helper to report the progress of a given
++ * command through the CT. However, that would require a significant
++ * amount of work in the CT layer. In the meantime, provide a reasonable
++ * estimation of the worst case latency it should take for the entire
++ * queue to drain. And therefore, how long a caller should wait before
++ * giving up on their request. The current estimate is based on empirical
++ * measurement of a test that fills the buffer with context creation and
++ * destruction requests as they seem to be the slowest operation.
++ */
++long intel_guc_ct_max_queue_time_jiffies(void)
 +{
-+	/* Check if GT is wedged or suspended */
-+	if (intel_gt_is_wedged(gt) || !intel_irqs_enabled(gt->i915))
-+		return false;
-+	return true;
++	/*
++	 * A 4KB buffer full of context destroy commands takes a little
++	 * over a second to process so bump that to 2s to be super safe.
++	 */
++	return (CTB_H2G_BUFFER_SIZE * HZ) / SZ_2K;
 +}
 +
- static int guc_send_invalidate_tlb(struct intel_guc *guc,
- 				   enum intel_guc_tlb_invalidation_type type)
- {
-@@ -4791,7 +4806,8 @@ static int guc_send_invalidate_tlb(struct intel_guc *guc,
- 	if (err)
- 		goto out;
+ static void ct_receive_tasklet_func(struct tasklet_struct *t);
+ static void ct_incoming_request_worker_func(struct work_struct *w);
  
--	if (!must_wait_woken(&wait, intel_guc_ct_max_queue_time_jiffies())) {
-+	if (intel_gt_is_enabled(guc_to_gt(guc)) &&
-+	    !must_wait_woken(&wait, intel_guc_ct_max_queue_time_jiffies())) {
- 		guc_err(guc,
- 			"TLB invalidation response timed out for seqno %u\n", seqno);
- 		err = -ETIME;
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+index 58e42901ff498..2c4bb9a941be6 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.h
+@@ -104,6 +104,8 @@ struct intel_guc_ct {
+ #endif
+ };
+ 
++long intel_guc_ct_max_queue_time_jiffies(void);
++
+ void intel_guc_ct_init_early(struct intel_guc_ct *ct);
+ int intel_guc_ct_init(struct intel_guc_ct *ct);
+ void intel_guc_ct_fini(struct intel_guc_ct *ct);
 -- 
 2.25.1
 
