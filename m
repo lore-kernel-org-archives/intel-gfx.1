@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B426CDB465
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Oct 2023 15:02:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89784CDB474
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Oct 2023 15:02:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E52B10E1FF;
-	Mon, 16 Oct 2023 15:02:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1544110E206;
+	Mon, 16 Oct 2023 15:02:27 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 702E810E1FF
- for <intel-gfx@lists.freedesktop.org>; Mon, 16 Oct 2023 15:02:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18BBE10E1FF
+ for <intel-gfx@lists.freedesktop.org>; Mon, 16 Oct 2023 15:02:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1697468541; x=1729004541;
+ t=1697468544; x=1729004544;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=LsdlYfToWsi6sDszi0jXbuU59Jxyqs1CvzV3ZT/Mo3A=;
- b=gnNefGcvDTrT4MESLQqE7W3svZsMM87TG1AMt5vtczJLaoZNsZ1cDGxH
- qGerBMfN2MNBrn+OHU7ZACzA1gs4dhG5SD9tuduZCn61ZnTzO23ZCnS+I
- imKDlFicvm7FKGQ9dLWv7la0pKnlBect0JsbCXuiXcrhiDomm6q3mRYTq
- BYw+hrtZtGNFyatU8YY4SH9u9boRVd4h/v+m+FPeT6UwxsftQv7vzSjUN
- 5qMyjRLGO1/hEfxAu3lDkPEjDw/RiYTw3eHonnLpvPMm0SXNSyQ510Vg6
- UDMsUQLiTCdzFAvy/L3AEZhY2X1WnnexzAd0YD9PkRDbb/UZn2EuBFz1b g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10863"; a="389408223"
-X-IronPort-AV: E=Sophos;i="6.03,229,1694761200"; d="scan'208";a="389408223"
+ bh=BGDq57J45f1ihtELrConWxDWf8H7JbTPJAmdQBaZ3jA=;
+ b=KZukHAZi0pXTlk0Ke6P38cJP0pVTtCHakRise60u0mhl6xwIEpxDS1OG
+ 4DlYfrX7uZAqbVKFOj0itQ13H2wYmdltumAZo/ihIRdl3F59s3rrcb9zq
+ JixVPCY+Z4JqBVUuwPQMDou/XRtlgogbpW7H+cgstn/kn03R53GF8ROZk
+ lbJyojP3usc67uNnmBGcIBs27ldshFnQd+X4sy2eU3NFHHRgCvU8ZZFZg
+ MIXCjz5hnrgesSyuiULWOj26Ql6FmS4VGgxIBi2IS/+S7b3PUnXlmL/v0
+ WlwQfgAs2W7uj2DP62sgKLRoOr9uegEucoGQV9GQ1WlWjz8ULIgNf9z18 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10863"; a="389408234"
+X-IronPort-AV: E=Sophos;i="6.03,229,1694761200"; d="scan'208";a="389408234"
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2023 08:01:52 -0700
+ 16 Oct 2023 08:01:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10863"; a="759429274"
-X-IronPort-AV: E=Sophos;i="6.03,229,1694761200"; d="scan'208";a="759429274"
+X-IronPort-AV: E=McAfee;i="6600,9927,10863"; a="759429285"
+X-IronPort-AV: E=Sophos;i="6.03,229,1694761200"; d="scan'208";a="759429285"
 Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
  by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2023 08:01:52 -0700
+ 16 Oct 2023 08:01:53 -0700
 From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 16 Oct 2023 07:51:03 -0700
-Message-Id: <20231016145109.2843611-2-jonathan.cavitt@intel.com>
+Date: Mon, 16 Oct 2023 07:51:06 -0700
+Message-Id: <20231016145109.2843611-5-jonathan.cavitt@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231016145109.2843611-1-jonathan.cavitt@intel.com>
 References: <20231016145109.2843611-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v16 1/7] drm/i915: Add GuC TLB Invalidation
- device info flags
+Subject: [Intel-gfx] [PATCH v16 4/7] drm/i915: No TLB invalidation on
+ suspended GT
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,42 +64,106 @@ Cc: janusz.krzysztofik@intel.com, andi.shyti@intel.com,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add device info flags for if GuC TLB Invalidation is enabled.
+In case of GT is suspended, don't allow submission of new TLB invalidation
+request and cancel all pending requests. The TLB entries will be
+invalidated either during GuC reload or on system resume.
 
+Signed-off-by: Fei Yang <fei.yang@intel.com>
 Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+CC: John Harrison <john.c.harrison@intel.com>
 Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 Acked-by: Tvrtko Ursulin <tvrtko.ursulin@intel.com>
-Reviewed-by: Nirmoy Das <nirmoy.das@intel.com>
+Acked-by: Nirmoy Das <nirmoy.das@intel.com>
 ---
- drivers/gpu/drm/i915/i915_drv.h          | 2 ++
- drivers/gpu/drm/i915/intel_device_info.h | 1 +
- 2 files changed, 3 insertions(+)
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  1 +
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 24 ++++++++++++-------
+ drivers/gpu/drm/i915/gt/uc/intel_uc.c         |  7 ++++++
+ 3 files changed, 23 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index cb60fc9cf8737..6a2a78c61f212 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -794,6 +794,8 @@ IS_SUBPLATFORM(const struct drm_i915_private *i915,
- #define HAS_GUC_DEPRIVILEGE(i915) \
- 	(INTEL_INFO(i915)->has_guc_deprivilege)
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index 0949628d69f8b..2b6dfe62c8f2a 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -537,4 +537,5 @@ int intel_guc_invalidate_tlb_engines(struct intel_guc *guc);
+ int intel_guc_invalidate_tlb_guc(struct intel_guc *guc);
+ int intel_guc_tlb_invalidation_done(struct intel_guc *guc,
+ 				    const u32 *payload, u32 len);
++void wake_up_all_tlb_invalidate(struct intel_guc *guc);
+ #endif
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 9ec6e80b258c4..1b04b1692e48d 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -1796,6 +1796,20 @@ static void __guc_reset_context(struct intel_context *ce, intel_engine_mask_t st
+ 	intel_context_put(parent);
+ }
  
-+#define HAS_GUC_TLB_INVALIDATION(i915)	(INTEL_INFO(i915)->has_guc_tlb_invalidation)
++void wake_up_all_tlb_invalidate(struct intel_guc *guc)
++{
++	struct intel_guc_tlb_wait *wait;
++	unsigned long i;
 +
- #define HAS_3D_PIPELINE(i915)	(INTEL_INFO(i915)->has_3d_pipeline)
++	if (!intel_guc_tlb_invalidation_is_available(guc))
++		return;
++
++	xa_lock_irq(&guc->tlb_lookup);
++	xa_for_each(&guc->tlb_lookup, i, wait)
++		wake_up(&wait->wq);
++	xa_unlock_irq(&guc->tlb_lookup);
++}
++
+ void intel_guc_submission_reset(struct intel_guc *guc, intel_engine_mask_t stalled)
+ {
+ 	struct intel_context *ce;
+@@ -1925,9 +1939,6 @@ void intel_guc_submission_cancel_requests(struct intel_guc *guc)
  
- #define HAS_ONE_EU_PER_FUSE_BIT(i915)	(INTEL_INFO(i915)->has_one_eu_per_fuse_bit)
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index 39817490b13fd..eba2f0b919c87 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
-@@ -153,6 +153,7 @@ enum intel_ppgtt_type {
- 	func(has_heci_pxp); \
- 	func(has_heci_gscfi); \
- 	func(has_guc_deprivilege); \
-+	func(has_guc_tlb_invalidation); \
- 	func(has_l3_ccs_read); \
- 	func(has_l3_dpf); \
- 	func(has_llc); \
+ void intel_guc_submission_reset_finish(struct intel_guc *guc)
+ {
+-	struct intel_guc_tlb_wait *wait;
+-	long unsigned int i;
+-
+ 	/* Reset called during driver load or during wedge? */
+ 	if (unlikely(!guc_submission_initialized(guc) ||
+ 		     intel_gt_is_wedged(guc_to_gt(guc)))) {
+@@ -1951,12 +1962,7 @@ void intel_guc_submission_reset_finish(struct intel_guc *guc)
+ 	 * The full GT reset will have cleared the TLB caches and flushed the
+ 	 * G2H message queue; we can release all the blocked waiters.
+ 	 */
+-	if (intel_guc_tlb_invalidation_is_available(guc)) {
+-		xa_lock_irq(&guc->tlb_lookup);
+-		xa_for_each(&guc->tlb_lookup, i, wait)
+-			wake_up(&wait->wq);
+-		xa_unlock_irq(&guc->tlb_lookup);
+-	}
++	wake_up_all_tlb_invalidate(guc);
+ }
+ 
+ static void destroyed_worker_func(struct work_struct *w);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.c b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+index 98b103375b7ab..27f6561dd7319 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.c
+@@ -688,6 +688,8 @@ void intel_uc_suspend(struct intel_uc *uc)
+ 	/* flush the GSC worker */
+ 	intel_gsc_uc_flush_work(&uc->gsc);
+ 
++	wake_up_all_tlb_invalidate(guc);
++
+ 	if (!intel_guc_is_ready(guc)) {
+ 		guc->interrupts.enabled = false;
+ 		return;
+@@ -736,6 +738,11 @@ static int __uc_resume(struct intel_uc *uc, bool enable_communication)
+ 
+ 	intel_gsc_uc_resume(&uc->gsc);
+ 
++	if (intel_guc_tlb_invalidation_is_available(guc)) {
++		intel_guc_invalidate_tlb_engines(guc);
++		intel_guc_invalidate_tlb_guc(guc);
++	}
++
+ 	return 0;
+ }
+ 
 -- 
 2.25.1
 
