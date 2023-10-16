@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 712ACCDB465
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Oct 2023 11:17:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16569CDB482
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Oct 2023 11:17:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB2A310E1C8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7C3A10E1C9;
 	Mon, 16 Oct 2023 11:17:36 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D029210E1BB
- for <intel-gfx@lists.freedesktop.org>; Mon, 16 Oct 2023 11:17:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDDE410E1C6
+ for <intel-gfx@lists.freedesktop.org>; Mon, 16 Oct 2023 11:17:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1697455053; x=1728991053;
+ t=1697455050; x=1728991050;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=w1E7xcgpG8yWEOuJ4r3spAVmjTfQSF03FKcJHu2LWuA=;
- b=mzB4FltBpMQl35IvxVNMMSXgYM0WPTmpbLyHuvAz0wBJq04ji2Pfpqpj
- I1cxnoUK3n7o/8D8UiZoymhw5/yvpHnNcV6U8yIiP0Q0SeJ+WeGjTxv+d
- 8m+lfmEvOxD/Hk6l3Jygs7wTG75avM9W22Ta6nh8VQnyJYsUrF8qAgRPw
- zVuS8RDwQvRJtXmigqKyOt0niMkfWSxp8YhdpNjm5WT60ks1PKzmPrfO+
- BGShLZZd2WKPos82UuJEULrqOoJNRds/vPtubKrvRwFPMEcrJgtar+lSH
- uDDaLsrCs2CTIxTTEHq9uOtZciq/Mol/jc4hug+4w6bLs9/IfzJ2MQBNM w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10863"; a="385341369"
-X-IronPort-AV: E=Sophos;i="6.03,229,1694761200"; d="scan'208";a="385341369"
+ bh=vX/tRHuMWx3bUjcFrkkcAI84QNrY2yQ3tpXPtBY5q80=;
+ b=VYZqOaZY+M8ENlNgB+49q1+ndfcV6sVmUMAk7OfiIFwPzXoofpMNZLW+
+ FdrDci8KVrg6I1GwfX+V5m2yBt7/Jh/++WRZGSCd3W8w0W7u+kBHO2s0r
+ to67FSzhWCMEveEDdZNg4F4HaKYpCu+ALOxn01MrPKNFmqu5ClMZIL5SJ
+ +5ZScqazChLJDs4ln0KIiCWzOziv3wPockG9YHcUc2K7n6Y4lo+pD4oHC
+ Tc7lmHy/x4e5QOyGPGJc4mpjDMW8hC9idQkU4eBjZ04N8d4fQmD4gDtGg
+ 3zJkU1ev27wRJAMuUehx4vrIkQ8ZKvV6zmqBQBFJb53+i9FzyFVzjSaMl g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10863"; a="385341367"
+X-IronPort-AV: E=Sophos;i="6.03,229,1694761200"; d="scan'208";a="385341367"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2023 04:17:33 -0700
+ 16 Oct 2023 04:17:30 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10863"; a="821532631"
-X-IronPort-AV: E=Sophos;i="6.03,229,1694761200"; d="scan'208";a="821532631"
+X-IronPort-AV: E=McAfee;i="6600,9927,10863"; a="821532612"
+X-IronPort-AV: E=Sophos;i="6.03,229,1694761200"; d="scan'208";a="821532612"
 Received: from dleve-mobl.ger.corp.intel.com (HELO jhogande-mobl1.intel.com)
  ([10.252.41.143])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2023 04:17:32 -0700
+ 16 Oct 2023 04:17:29 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 16 Oct 2023 14:16:47 +0300
-Message-Id: <20231016111658.3432581-14-jouni.hogander@intel.com>
+Date: Mon, 16 Oct 2023 14:16:45 +0300
+Message-Id: <20231016111658.3432581-12-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231016111658.3432581-1-jouni.hogander@intel.com>
 References: <20231016111658.3432581-1-jouni.hogander@intel.com>
@@ -47,7 +47,7 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 13/24] drm/i915/display: Move enable_ips
+Subject: [Intel-gfx] [PATCH v2 11/24] drm/i915/display: Move enable_sagv
  module parameter under display
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,85 +66,88 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/hsw_ips.c              | 4 ++--
- drivers/gpu/drm/i915/display/intel_display_params.c | 2 ++
+ drivers/gpu/drm/i915/display/intel_display_params.c | 3 +++
  drivers/gpu/drm/i915/display/intel_display_params.h | 1 +
- drivers/gpu/drm/i915/i915_params.c                  | 2 --
+ drivers/gpu/drm/i915/display/skl_watermark.c        | 5 +++--
+ drivers/gpu/drm/i915/i915_params.c                  | 3 ---
  drivers/gpu/drm/i915/i915_params.h                  | 1 -
- 5 files changed, 5 insertions(+), 5 deletions(-)
+ 5 files changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/hsw_ips.c b/drivers/gpu/drm/i915/display/hsw_ips.c
-index 7dc38ac02092..611a7d6ef80c 100644
---- a/drivers/gpu/drm/i915/display/hsw_ips.c
-+++ b/drivers/gpu/drm/i915/display/hsw_ips.c
-@@ -193,7 +193,7 @@ bool hsw_crtc_state_ips_capable(const struct intel_crtc_state *crtc_state)
- 	if (!hsw_crtc_supports_ips(crtc))
- 		return false;
- 
--	if (!i915->params.enable_ips)
-+	if (!i915->display.params.enable_ips)
- 		return false;
- 
- 	if (crtc_state->pipe_bpp > 24)
-@@ -329,7 +329,7 @@ static int hsw_ips_debugfs_status_show(struct seq_file *m, void *unused)
- 	wakeref = intel_runtime_pm_get(&i915->runtime_pm);
- 
- 	seq_printf(m, "Enabled by kernel parameter: %s\n",
--		   str_yes_no(i915->params.enable_ips));
-+		   str_yes_no(i915->display.params.enable_ips));
- 
- 	if (DISPLAY_VER(i915) >= 8) {
- 		seq_puts(m, "Currently: unknown\n");
 diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
-index 86b46cff1718..c2399e11203c 100644
+index 8f222b5bfd8d..efc311837ff1 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_params.c
 +++ b/drivers/gpu/drm/i915/display/intel_display_params.c
-@@ -57,6 +57,8 @@ intel_display_param_named_unsafe(disable_power_well, int, 0400,
- 	"Disable display power wells when possible "
- 	"(-1=auto [default], 0=power wells always on, 1=power wells disabled when possible)");
+@@ -50,6 +50,9 @@ intel_display_param_named_unsafe(enable_dc, int, 0400,
+ intel_display_param_named_unsafe(enable_dpt, bool, 0400,
+ 	"Enable display page table (DPT) (default: true)");
  
-+i915_param_named_unsafe(enable_ips, int, 0400, "Enable IPS (default: true)");
++intel_display_param_named_unsafe(enable_sagv, bool, 0600,
++	"Enable system agent voltage/frequency scaling (SAGV) (default: true)");
 +
  intel_display_param_named_unsafe(enable_fbc, int, 0400,
  	"Enable frame buffer compression for power savings "
  	"(default: -1 (use per-chip default))");
 diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
-index 998f99a2857c..11c21a3a3124 100644
+index c67ed16670c3..06e920c9aa36 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_params.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_params.h
-@@ -32,6 +32,7 @@ struct drm_i915_private;
+@@ -30,6 +30,7 @@ struct drm_i915_private;
+ 	param(int, vbt_sdvo_panel_type, -1, 0400) \
+ 	param(int, enable_dc, -1, 0400) \
  	param(bool, enable_dpt, true, 0400) \
- 	param(bool, enable_sagv, true, 0600) \
- 	param(int, disable_power_well, -1, 0400) \
-+	param(int, enable_ips, 1, 0600) \
++	param(bool, enable_sagv, true, 0600) \
  	param(int, enable_fbc, -1, 0600)	\
  	param(int, enable_psr, -1, 0600) \
  	param(bool, psr_safest_params, false, 0400) \
+diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
+index 99b8ccdc3dfa..56588d6e24ae 100644
+--- a/drivers/gpu/drm/i915/display/skl_watermark.c
++++ b/drivers/gpu/drm/i915/display/skl_watermark.c
+@@ -412,7 +412,7 @@ static bool intel_crtc_can_enable_sagv(const struct intel_crtc_state *crtc_state
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	struct drm_i915_private *i915 = to_i915(crtc->base.dev);
+ 
+-	if (!i915->params.enable_sagv)
++	if (!i915->display.params.enable_sagv)
+ 		return false;
+ 
+ 	if (DISPLAY_VER(i915) >= 12)
+@@ -3702,7 +3702,8 @@ static int intel_sagv_status_show(struct seq_file *m, void *unused)
+ 	};
+ 
+ 	seq_printf(m, "SAGV available: %s\n", str_yes_no(intel_has_sagv(i915)));
+-	seq_printf(m, "SAGV modparam: %s\n", str_enabled_disabled(i915->params.enable_sagv));
++	seq_printf(m, "SAGV modparam: %s\n",
++		   str_enabled_disabled(i915->display.params.enable_sagv));
+ 	seq_printf(m, "SAGV status: %s\n", sagv_status[i915->display.sagv.status]);
+ 	seq_printf(m, "SAGV block time: %d usec\n", i915->display.sagv.block_time_us);
+ 
 diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
-index eab02f71a4e5..54dcce97da2a 100644
+index 773a0a709fc6..51e706f6e57e 100644
 --- a/drivers/gpu/drm/i915/i915_params.c
 +++ b/drivers/gpu/drm/i915/i915_params.c
-@@ -86,8 +86,6 @@ i915_param_named_unsafe(force_probe, charp, 0400,
+@@ -82,9 +82,6 @@ i915_param_named_unsafe(enable_hangcheck, bool, 0400,
+ 	"WARNING: Disabling this can cause system wide hangs. "
+ 	"(default: true)");
+ 
+-i915_param_named_unsafe(enable_sagv, bool, 0600,
+-	"Enable system agent voltage/frequency scaling (SAGV) (default: true)");
+-
+ i915_param_named_unsafe(force_probe, charp, 0400,
  	"Force probe options for specified supported devices. "
  	"See CONFIG_DRM_I915_FORCE_PROBE for details.");
- 
--i915_param_named_unsafe(enable_ips, int, 0400, "Enable IPS (default: true)");
--
- i915_param_named_unsafe(load_detect_test, bool, 0400,
- 	"Force-enable the VGA load detect code for testing (default:false). "
- 	"For developers only.");
 diff --git a/drivers/gpu/drm/i915/i915_params.h b/drivers/gpu/drm/i915/i915_params.h
-index 060464df03c2..18bb8a93e0e8 100644
+index b8728990cb8b..066f15783580 100644
 --- a/drivers/gpu/drm/i915/i915_params.h
 +++ b/drivers/gpu/drm/i915/i915_params.h
 @@ -47,7 +47,6 @@ struct drm_printer;
   */
  #define I915_PARAMS_FOR_EACH(param) \
  	param(int, modeset, -1, 0400) \
--	param(int, enable_ips, 1, 0600) \
+-	param(bool, enable_sagv, true, 0600) \
+ 	param(int, disable_power_well, -1, 0400) \
+ 	param(int, enable_ips, 1, 0600) \
  	param(int, invert_brightness, 0, 0600) \
- 	param(int, enable_guc, -1, 0400) \
- 	param(int, guc_log_level, -1, 0400) \
 -- 
 2.34.1
 
