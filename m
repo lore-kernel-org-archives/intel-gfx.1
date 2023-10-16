@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60AA1CDB465
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Oct 2023 11:17:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24920CDB482
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Oct 2023 11:17:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9CAF10E1CF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED9B010E1D7;
 	Mon, 16 Oct 2023 11:17:43 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 407FD10E1BB
- for <intel-gfx@lists.freedesktop.org>; Mon, 16 Oct 2023 11:17:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D388010E1C6
+ for <intel-gfx@lists.freedesktop.org>; Mon, 16 Oct 2023 11:17:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1697455055; x=1728991055;
+ t=1697455049; x=1728991049;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=lgWyYTt89zKBQTe2feM5EUoi0zF1fu37F+9702Gv/7o=;
- b=G8JacKz7Vo075lM2O3ZXi2rLP0AqqdFLemiw/Gl/uHhor1tl8RUbU/di
- oHz1yDvzJmSv/2ZKmQ7a67UILjrOKsRPsnul9wV7naZ0KR/Fk+y0Bgiip
- 1WLuFbdjbzeKV3NqKHLgMRtuoppKkFG6T4jOlIke7CrYjTJKy+X0K+B3y
- 4wUxJy9IPauek3TPy96sRta34ItcYWsUez84/TzrMo3Sbj3rW4IaIfWk7
- pRg/7Ihz04D+eGFlqdHoL6lcBVLj3mk/PPgfTsAFwa3oYfg9LcMkE1IQY
- m67na8CFH3Ywmx6gtSC7HuQe43Ci77nO63RAW0g5mg/LW/4Adv2C6FhoA A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10863"; a="385341371"
-X-IronPort-AV: E=Sophos;i="6.03,229,1694761200"; d="scan'208";a="385341371"
+ bh=oKTAfjMOfSFAYW36OiAfEWFz4kZbRbrjc3rHLGJ6m0o=;
+ b=dlw7kNK4Ednk9VybtagvLUBQBN1DSKwExO4XafYbqMtpDTu0teBRiegX
+ QdwTz0qH1g3gOvAa5fAZpFJZ7PD/CT3qxsiqmgKhRI/q+n5LaG7K1PL8F
+ qsXgslzuwKi2PWghWVnTjn8juuYM8Sh5TP/Q36fEBtyBgEpX3w0bn8uxc
+ tFsX6eow3yvmTTQdlvfBHryqPUyBoM4oOsqU4YEv5rF/2JuRsPM8BbNOG
+ xKvzggUZI+HUXlzkS8ZICqb3l1d6ubECXBQY8Qz/OMroKARaFQzq54Nsj
+ 2cy5Z+orN8qu449tN0dKvGjM4/hu55K846c/5k/vJRkdb2f+nNqogzXTQ g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10863"; a="385341364"
+X-IronPort-AV: E=Sophos;i="6.03,229,1694761200"; d="scan'208";a="385341364"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2023 04:17:35 -0700
+ 16 Oct 2023 04:17:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10863"; a="821532639"
-X-IronPort-AV: E=Sophos;i="6.03,229,1694761200"; d="scan'208";a="821532639"
+X-IronPort-AV: E=McAfee;i="6600,9927,10863"; a="821532603"
+X-IronPort-AV: E=Sophos;i="6.03,229,1694761200"; d="scan'208";a="821532603"
 Received: from dleve-mobl.ger.corp.intel.com (HELO jhogande-mobl1.intel.com)
  ([10.252.41.143])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Oct 2023 04:17:33 -0700
+ 16 Oct 2023 04:17:28 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 16 Oct 2023 14:16:48 +0300
-Message-Id: <20231016111658.3432581-15-jouni.hogander@intel.com>
+Date: Mon, 16 Oct 2023 14:16:44 +0300
+Message-Id: <20231016111658.3432581-11-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231016111658.3432581-1-jouni.hogander@intel.com>
 References: <20231016111658.3432581-1-jouni.hogander@intel.com>
@@ -47,8 +47,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 14/24] drm/i915/display: Move
- invert_brightness module parameter under display
+Subject: [Intel-gfx] [PATCH v2 10/24] drm/i915/display: Move enable_dpt
+ module parameter under display
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,104 +66,113 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_backlight.c      | 9 +++++----
- drivers/gpu/drm/i915/display/intel_display_params.c | 9 ++++++++-
+ drivers/gpu/drm/i915/display/intel_display_params.c | 3 +++
  drivers/gpu/drm/i915/display/intel_display_params.h | 1 +
- drivers/gpu/drm/i915/i915_params.c                  | 7 -------
+ drivers/gpu/drm/i915/display/intel_dpt.c            | 6 ++++--
+ drivers/gpu/drm/i915/display/intel_fb.c             | 2 +-
+ drivers/gpu/drm/i915/display/skl_universal_plane.c  | 2 +-
+ drivers/gpu/drm/i915/i915_params.c                  | 3 ---
  drivers/gpu/drm/i915/i915_params.h                  | 1 -
- 5 files changed, 14 insertions(+), 13 deletions(-)
+ 7 files changed, 10 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
-index 2e8f17c04522..612d4cd9dacb 100644
---- a/drivers/gpu/drm/i915/display/intel_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_backlight.c
-@@ -88,10 +88,10 @@ u32 intel_backlight_invert_pwm_level(struct intel_connector *connector, u32 val)
- 
- 	drm_WARN_ON(&i915->drm, panel->backlight.pwm_level_max == 0);
- 
--	if (i915->params.invert_brightness < 0)
-+	if (i915->display.params.invert_brightness < 0)
- 		return val;
- 
--	if (i915->params.invert_brightness > 0 ||
-+	if (i915->display.params.invert_brightness > 0 ||
- 	    intel_has_quirk(i915, QUIRK_INVERT_BRIGHTNESS)) {
- 		return panel->backlight.pwm_level_max - val + panel->backlight.pwm_level_min;
- 	}
-@@ -132,8 +132,9 @@ u32 intel_backlight_level_from_pwm(struct intel_connector *connector, u32 val)
- 	drm_WARN_ON_ONCE(&i915->drm,
- 			 panel->backlight.max == 0 || panel->backlight.pwm_level_max == 0);
- 
--	if (i915->params.invert_brightness > 0 ||
--	    (i915->params.invert_brightness == 0 && intel_has_quirk(i915, QUIRK_INVERT_BRIGHTNESS)))
-+	if (i915->display.params.invert_brightness > 0 ||
-+	    (i915->display.params.invert_brightness == 0 &&
-+	     intel_has_quirk(i915, QUIRK_INVERT_BRIGHTNESS)))
- 		val = panel->backlight.pwm_level_max - (val - panel->backlight.pwm_level_min);
- 
- 	return scale(val, panel->backlight.pwm_level_min, panel->backlight.pwm_level_max,
 diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
-index c2399e11203c..8d8050a22bf7 100644
+index 7a528e72c970..8f222b5bfd8d 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_params.c
 +++ b/drivers/gpu/drm/i915/display/intel_display_params.c
-@@ -57,7 +57,14 @@ intel_display_param_named_unsafe(disable_power_well, int, 0400,
- 	"Disable display power wells when possible "
- 	"(-1=auto [default], 0=power wells always on, 1=power wells disabled when possible)");
+@@ -47,6 +47,9 @@ intel_display_param_named_unsafe(enable_dc, int, 0400,
+ 	"(-1=auto [default]; 0=disable; 1=up to DC5; 2=up to DC6; "
+ 	"3=up to DC5 with DC3CO; 4=up to DC6 with DC3CO)");
  
--i915_param_named_unsafe(enable_ips, int, 0400, "Enable IPS (default: true)");
-+intel_display_param_named_unsafe(enable_ips, int, 0400, "Enable IPS (default: true)");
++intel_display_param_named_unsafe(enable_dpt, bool, 0400,
++	"Enable display page table (DPT) (default: true)");
 +
-+intel_display_param_named_unsafe(invert_brightness, int, 0400,
-+	"Invert backlight brightness "
-+	"(-1 force normal, 0 machine defaults, 1 force inversion), please "
-+	"report PCI device ID, subsystem vendor and subsystem device ID "
-+	"to dri-devel@lists.freedesktop.org, if your machine needs it. "
-+	"It will then be included in an upcoming module version.");
- 
  intel_display_param_named_unsafe(enable_fbc, int, 0400,
  	"Enable frame buffer compression for power savings "
+ 	"(default: -1 (use per-chip default))");
 diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
-index 11c21a3a3124..23fa03ea38c9 100644
+index 8721179b3f09..c67ed16670c3 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_params.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_params.h
-@@ -33,6 +33,7 @@ struct drm_i915_private;
- 	param(bool, enable_sagv, true, 0600) \
- 	param(int, disable_power_well, -1, 0400) \
- 	param(int, enable_ips, 1, 0600) \
-+	param(int, invert_brightness, 0, 0600) \
+@@ -29,6 +29,7 @@ struct drm_i915_private;
+ 	param(int, panel_use_ssc, -1, 0600) \
+ 	param(int, vbt_sdvo_panel_type, -1, 0400) \
+ 	param(int, enable_dc, -1, 0400) \
++	param(bool, enable_dpt, true, 0400) \
  	param(int, enable_fbc, -1, 0600)	\
  	param(int, enable_psr, -1, 0600) \
  	param(bool, psr_safest_params, false, 0400) \
+diff --git a/drivers/gpu/drm/i915/display/intel_dpt.c b/drivers/gpu/drm/i915/display/intel_dpt.c
+index 48582b31b7f7..2b067cb952f0 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpt.c
++++ b/drivers/gpu/drm/i915/display/intel_dpt.c
+@@ -332,11 +332,13 @@ void intel_dpt_configure(struct intel_crtc *crtc)
+ 
+ 			intel_de_rmw(i915, PLANE_CHICKEN(pipe, plane_id),
+ 				     PLANE_CHICKEN_DISABLE_DPT,
+-				     i915->params.enable_dpt ? 0 : PLANE_CHICKEN_DISABLE_DPT);
++				     i915->display.params.enable_dpt ? 0 :
++				     PLANE_CHICKEN_DISABLE_DPT);
+ 		}
+ 	} else if (DISPLAY_VER(i915) == 13) {
+ 		intel_de_rmw(i915, CHICKEN_MISC_2,
+ 			     CHICKEN_MISC_DISABLE_DPT,
+-			     i915->params.enable_dpt ? 0 : CHICKEN_MISC_DISABLE_DPT);
++			     i915->display.params.enable_dpt ? 0 :
++			     CHICKEN_MISC_DISABLE_DPT);
+ 	}
+ }
+diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+index 19b35ece31f1..9a48eb7dcf8b 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb.c
++++ b/drivers/gpu/drm/i915/display/intel_fb.c
+@@ -764,7 +764,7 @@ bool intel_fb_modifier_uses_dpt(struct drm_i915_private *i915, u64 modifier)
+ 
+ bool intel_fb_uses_dpt(const struct drm_framebuffer *fb)
+ {
+-	return fb && to_i915(fb->dev)->params.enable_dpt &&
++	return fb && to_i915(fb->dev)->display.params.enable_dpt &&
+ 		intel_fb_modifier_uses_dpt(to_i915(fb->dev), fb->modifier);
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index 245a64332cc7..6fb5612bff2b 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -2489,7 +2489,7 @@ skl_get_initial_plane_config(struct intel_crtc *crtc,
+ 		goto error;
+ 	}
+ 
+-	if (!dev_priv->params.enable_dpt &&
++	if (!dev_priv->display.params.enable_dpt &&
+ 	    intel_fb_modifier_uses_dpt(dev_priv, fb->modifier)) {
+ 		drm_dbg_kms(&dev_priv->drm, "DPT disabled, skipping initial FB\n");
+ 		goto error;
 diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
-index 54dcce97da2a..423fe54484e1 100644
+index 3d370e43df3c..773a0a709fc6 100644
 --- a/drivers/gpu/drm/i915/i915_params.c
 +++ b/drivers/gpu/drm/i915/i915_params.c
-@@ -94,13 +94,6 @@ i915_param_named_unsafe(force_reset_modeset_test, bool, 0400,
- 	"Force a modeset during gpu reset for testing (default:false). "
- 	"For developers only.");
+@@ -95,9 +95,6 @@ i915_param_named_unsafe(disable_power_well, int, 0400,
  
--i915_param_named_unsafe(invert_brightness, int, 0400,
--	"Invert backlight brightness "
--	"(-1 force normal, 0 machine defaults, 1 force inversion), please "
--	"report PCI device ID, subsystem vendor and subsystem device ID "
--	"to dri-devel@lists.freedesktop.org, if your machine needs it. "
--	"It will then be included in an upcoming module version.");
+ i915_param_named_unsafe(enable_ips, int, 0400, "Enable IPS (default: true)");
+ 
+-i915_param_named_unsafe(enable_dpt, bool, 0400,
+-	"Enable display page table (DPT) (default: true)");
 -
- i915_param_named(disable_display, bool, 0400,
- 	"Disable display (default: false)");
- 
+ i915_param_named_unsafe(load_detect_test, bool, 0400,
+ 	"Force-enable the VGA load detect code for testing (default:false). "
+ 	"For developers only.");
 diff --git a/drivers/gpu/drm/i915/i915_params.h b/drivers/gpu/drm/i915/i915_params.h
-index 18bb8a93e0e8..ae0873443a65 100644
+index c3487b9d6937..b8728990cb8b 100644
 --- a/drivers/gpu/drm/i915/i915_params.h
 +++ b/drivers/gpu/drm/i915/i915_params.h
 @@ -47,7 +47,6 @@ struct drm_printer;
   */
  #define I915_PARAMS_FOR_EACH(param) \
  	param(int, modeset, -1, 0400) \
--	param(int, invert_brightness, 0, 0600) \
- 	param(int, enable_guc, -1, 0400) \
- 	param(int, guc_log_level, -1, 0400) \
- 	param(char *, guc_firmware_path, NULL, 0400) \
+-	param(bool, enable_dpt, true, 0400) \
+ 	param(bool, enable_sagv, true, 0600) \
+ 	param(int, disable_power_well, -1, 0400) \
+ 	param(int, enable_ips, 1, 0600) \
 -- 
 2.34.1
 
