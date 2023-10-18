@@ -4,66 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFCC9CDB485
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Oct 2023 17:06:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9801CDB483
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Oct 2023 17:06:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E25B610E40B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BA6410E41F;
 	Wed, 18 Oct 2023 17:06:27 +0000 (UTC)
-Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
- [IPv6:2607:f8b0:4864:20::d31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E60FD10E411;
- Wed, 18 Oct 2023 17:06:18 +0000 (UTC)
-Received: by mail-io1-xd31.google.com with SMTP id
- ca18e2360f4ac-7a67bc84c87so22026139f.0; 
- Wed, 18 Oct 2023 10:06:18 -0700 (PDT)
+Received: from mail-io1-xd34.google.com (mail-io1-xd34.google.com
+ [IPv6:2607:f8b0:4864:20::d34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06D3F10E422;
+ Wed, 18 Oct 2023 17:06:25 +0000 (UTC)
+Received: by mail-io1-xd34.google.com with SMTP id
+ ca18e2360f4ac-77acb04309dso284292939f.2; 
+ Wed, 18 Oct 2023 10:06:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697648778; x=1698253578; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1697648784; x=1698253584; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=fEjUcd2gIGh+rcuXSmEeq7H3LSdL8L2dg7mL1DHpCLA=;
- b=m4O4ZVv7bp+ebdCgxlfNxfGzHx3xsBJaO/IV3yJ+A/Dfqi/50PD/RBPg+5nANtF3T9
- DWTeUSSKjjEfWeZl53T5YuVVEGl2tLP0NFsdBQdf5BIMl5F9QNFe53yLrL2NA2RD9vQm
- xUEgDFPVtpnxaKWQi69Xi3ZTisWuJKf49gbTyaJl7r0NSuRfW9U4sngD5swFl6JlApn3
- BaedF8jOabNi/rgGtp5vMkZGPT+NhQPNSSf4UeKttfbCmI3u0Tsc7WKL1WLMnww+gVkf
- joivEoYUPQ09gYTEqx40VHfUoD1BBnKN3tRpBzPi9nRec4wiDBVH5fXqb028n6Mh/B9U
- 4vzQ==
+ bh=mLvXeLnsRUQ3/TUrQnBU04ibB7JIWTVa6JOjlgQ9hVM=;
+ b=dY88Gg0N5yczLUXx9HGiGuKcqx/7UPqmZ/X4kC87ECzvh0QC6W8IPDK/oWkun6s2RB
+ wuHzZlOyUFU1uNUMVmHCUqF8Earjbq5XrJm+a83oZcmHBgIbS27hwkNvOcdND91moLVo
+ ZkfhtV8JsORRpG/kpjHrv3O3Xztgu0p7cXzkWzMdCpGLxEcZ5lAjWt/xW0U9XCAlAOMZ
+ GllHUPnthS7AELmTdKGLTlWWq5XYuPPf0EwHBOIjaTLwC5G81GayC51W37SAoUAblbqR
+ bHsrUtjkQcq+AQyNyT2E8bmcY2NefQ47pLSdWDwgPK5JFu8+n/ODkFHWDQWsybUVZgFU
+ exAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697648778; x=1698253578;
+ d=1e100.net; s=20230601; t=1697648784; x=1698253584;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=fEjUcd2gIGh+rcuXSmEeq7H3LSdL8L2dg7mL1DHpCLA=;
- b=EnMgFcEfAXFv7pRYxaIEMD+wFEN4ITbeMoq3roNOOFsT5k3MmlyVjLFNhjxvonDC1P
- 9RFNBT+5gl7+lNh8zHyEZrhmCsTbQ5J8o6GbCf5QY/8Jtre/WNjKBMayzz/6Xk8tKW/J
- 2Gmqu2LHVUuZZjOEwxpuV99D2BleuW7w9WPipuEQ0oJIKkxxk/3WaXRgUvydH+fMKhnl
- 1TfyHkuw52enQU42m2c8YFRbC+nW7mvHsqdwvvUCtBaOfxP3GNGN6f7Rx0pXzBeonfAJ
- BuZ9iLqwZYKDh/5E7+86qkQVT/b9NPlUmaIsgRy/pM5LljmATAPY0SdhYpkI44DG1s0T
- yC+w==
-X-Gm-Message-State: AOJu0YxWrWgupwkosLK1QpYuh1xMK9dryX++l/mgrX/bbhC/EGsx4Beg
- BFXuoWAU3BIGW88REBu5SlI=
-X-Google-Smtp-Source: AGHT+IHiPCmw3qmoMK7AeF6o0eJf+It/UBfoaChJE/QZZEZ5eOiSjJ85hXm9m0W3TLpYoiqoPplX+w==
-X-Received: by 2002:a05:6602:2b81:b0:79f:cb49:f476 with SMTP id
- r1-20020a0566022b8100b0079fcb49f476mr7627926iov.21.1697648778066; 
- Wed, 18 Oct 2023 10:06:18 -0700 (PDT)
+ bh=mLvXeLnsRUQ3/TUrQnBU04ibB7JIWTVa6JOjlgQ9hVM=;
+ b=J2iVJdhvHY0O9mvzwGG9yqkBHa9Iln01ob7m81dy+CJiN5diuv9UPs2CCDsjr3fvy9
+ kUKxEjGkCDeKO4/hUNrh8+mGzJ9Hc/HpCEsDLB5dCQ1+Z2UjZ97dywYCvLKFnH3dKO0H
+ wBkRbX+1dup8QuqFJLp5nWudbKw9xAqoAFS4lTDnB96rC5s8jCpHGK2bxWM2XQdPcScU
+ 81LxkjTgFDUdLbMGCqYTE1IIMAxCu0qVJ0V56vY05XkbVzlYl/Uc4sWFMSFGIw7Vb0zc
+ NT+89VRI7Tcm5Qrq/+/7fcmKZF60+OVpRdNdQYYqH5rKzLEZdoeFpxrKawzEDUdKmMBV
+ 48fA==
+X-Gm-Message-State: AOJu0YyPxE6kBvfiwnmpcozfLtf2aeMBV49HY84/8hA1DVkSEbrV6Bnz
+ f4g1dgoQbUPKvOiXzCFGwQs=
+X-Google-Smtp-Source: AGHT+IHXn5aDSBWQ4yV+ZfP2Q8uwJsUM84jyQKFm2T659/qUKTQfbS6h1rfjfndzbeqO5bduFZlWHg==
+X-Received: by 2002:a05:6602:1611:b0:791:2db5:c779 with SMTP id
+ x17-20020a056602161100b007912db5c779mr6946727iow.10.1697648784315; 
+ Wed, 18 Oct 2023 10:06:24 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- n4-20020a5d8244000000b0079fa1a7cd36sm1228944ioo.30.2023.10.18.10.06.16
+ n4-20020a5d8244000000b0079fa1a7cd36sm1228944ioo.30.2023.10.18.10.06.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Oct 2023 10:06:17 -0700 (PDT)
+ Wed, 18 Oct 2023 10:06:23 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Date: Wed, 18 Oct 2023 11:05:47 -0600
-Message-ID: <20231018170604.569042-8-jim.cromie@gmail.com>
+Date: Wed, 18 Oct 2023 11:05:52 -0600
+Message-ID: <20231018170604.569042-13-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231018170604.569042-1-jim.cromie@gmail.com>
 References: <20231018170604.569042-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7c 07/24] dyndbg: drop NUM_TYPE_ARRAY
+Subject: [Intel-gfx] [PATCH v7c 12/24] dyndbg: reduce verbose=3 messages in
+ ddebug_add_module
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,32 +84,35 @@ Cc: lb@semihalf.com, groeck@google.com, linux-doc@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-ARRAY_SIZE works here, since array decl is complete.
+The fn currently says "add-module", then "skipping" if the module has
+no prdbgs.  Just check 1st and return quietly.
 
 no functional change
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ lib/dynamic_debug.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index b53217e4b711..8116d0a0d33a 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -106,11 +106,9 @@ struct ddebug_class_map {
- 		.mod_name = KBUILD_MODNAME,				\
- 		.base = _base,						\
- 		.map_type = _maptype,					\
--		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
-+		.length = ARRAY_SIZE(_var##_classnames),		\
- 		.class_names = _var##_classnames,			\
- 	}
--#define NUM_TYPE_ARGS(eltype, ...)				\
--        (sizeof((eltype[]){__VA_ARGS__}) / sizeof(eltype))
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 8beb98a831f5..45870a699507 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1242,11 +1242,10 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ {
+ 	struct ddebug_table *dt;
  
- /* encapsulate linker provided built-in (or module) dyndbg data */
- struct _ddebug_info {
+-	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
+-	if (!di->num_descs) {
+-		v3pr_info(" skip %s\n", modname);
++	if (!di->num_descs)
+ 		return 0;
+-	}
++
++	v3pr_info("add-module: %s %d sites\n", modname, di->num_descs);
+ 
+ 	dt = kzalloc(sizeof(*dt), GFP_KERNEL);
+ 	if (dt == NULL) {
 -- 
 2.41.0
 
