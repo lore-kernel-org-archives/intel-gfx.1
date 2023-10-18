@@ -4,50 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35A5BCDB482
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Oct 2023 10:27:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48F29CDB482
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Oct 2023 11:38:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D8D710E3D0;
-	Wed, 18 Oct 2023 10:27:45 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 009CC10E3B5
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Oct 2023 10:27:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C329210E3CD;
+	Wed, 18 Oct 2023 11:38:55 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 964B510E102;
+ Wed, 18 Oct 2023 11:38:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1697624861; x=1729160861;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=42oPbByZEK6MGlws0E7L3zzGCN6jn/9898JNIPGIOhA=;
- b=hyhz+9uff0rvpz7q6eGY0gmREMrIv1Ek6W4GfALxo5BVmm29g+zN3UI/
- X6CN9qratuyV/bp2aKBuhUSFB0LPLhrDIkmhTiEPVo2WrNKRIkoAi429L
- K4w3uyGtqLCHoisUEjTea84iSdbvVXP3t/q3vD1qLsZ2yDe1Wx0ungOXS
- ltaLezIKDOXQ7Whx3M6hfSKRYhxwJngfOz1i0o1jNmn1p92lvslldEnPZ
- HUXbpdHdq6a+toQX+X59UJF2/w7Bt4DQrVlJcXdn6VCb9WsW0DXsrnlx+
- o7Acf++NK2TWdPikI2EsllYStL6GYSBWmnBfDzzr8RwRYj0mahdyUHUjF g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="452453260"
-X-IronPort-AV: E=Sophos;i="6.03,234,1694761200"; d="scan'208";a="452453260"
+ t=1697629132; x=1729165132;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=92Frp5CdplGsPc4y8TeuGfpCzj1dJMcEcjPZAhwviug=;
+ b=OlRUvtKpLWlJqv7vOjlurAyLiq5quDYOPI1XRkc1oO9QT+VCLIElWE61
+ EhTOAZ/rI7B8QWPfDuKkHlMv9+yQj7+f/FuHvuHtGXbxysq596hx8tZQe
+ yIAV2WP9Fav1Mw/U5n3IvsxgbV5UqOhNFED6sAoGncPw6uZDAfBFyq616
+ QOpWi2t25iHf3BANJcdlgZBenbMiucPpGzBrsNIFYuEYA+StRrjhLkU4D
+ bf99CS1LW3e4jrktOrOsKeap3g/FHYyCWGflaKeJRNr1FLVJ4k5R388PC
+ 4QJ5GQ/X9/H/wfLNIN8qs6sj1baTn8ZyMZJDLEZd0Fxp0gTzkqOFdCllb A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="388858005"
+X-IronPort-AV: E=Sophos;i="6.03,234,1694761200"; d="scan'208";a="388858005"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2023 03:27:39 -0700
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2023 04:38:52 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="822393336"
-X-IronPort-AV: E=Sophos;i="6.03,234,1694761200"; d="scan'208";a="822393336"
-Received: from feyang-mobl.ger.corp.intel.com (HELO vgovind2-mobl3.intel.com)
- ([10.252.44.154])
+X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="822416132"
+X-IronPort-AV: E=Sophos;i="6.03,234,1694761200"; d="scan'208";a="822416132"
+Received: from nirmoyda-mobl.ger.corp.intel.com (HELO [10.249.39.1])
+ ([10.249.39.1])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Oct 2023 03:27:38 -0700
-From: Vinod Govindapillai <vinod.govindapillai@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Wed, 18 Oct 2023 13:27:22 +0300
-Message-Id: <20231018102723.16915-2-vinod.govindapillai@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231018102723.16915-1-vinod.govindapillai@intel.com>
-References: <20231018102723.16915-1-vinod.govindapillai@intel.com>
+ 18 Oct 2023 04:38:50 -0700
+Message-ID: <84558dd8-3bfa-100d-3bfc-e779ac4e54c8@linux.intel.com>
+Date: Wed, 18 Oct 2023 13:38:48 +0200
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 1/2] drm/i915/display: debugfs entry to list
- display capabilities
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.15.1
+Content-Language: en-US
+To: Nirmoy Das <nirmoy.das@intel.com>, intel-gfx@lists.freedesktop.org
+References: <20231011122547.7085-1-nirmoy.das@intel.com>
+From: Nirmoy Das <nirmoy.das@linux.intel.com>
+In-Reply-To: <20231011122547.7085-1-nirmoy.das@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Intel-gfx] [PATCH v2] drm/i915: Prevent potential
+ null-ptr-deref in engine_init_common
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,51 +62,39 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Create a separate debugfs entry to list the display capabilities
-IGT can rely on this debugfs entry for tests that depend on
-display device and display runtime info for both xe and i915
-drivers.
+This now merged. CI errors are unrelated.
 
-v2: rename the entry to i915_display_capabilities (Chaitanya)
-
-Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display_debugfs.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index fbe75d47a165..b0248dfa8dea 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -641,6 +641,17 @@ static int i915_display_info(struct seq_file *m, void *unused)
- 	return 0;
- }
- 
-+static int i915_display_capabilities(struct seq_file *m, void *unused)
-+{
-+	struct drm_i915_private *i915 = node_to_i915(m->private);
-+	struct drm_printer p = drm_seq_file_printer(m);
-+
-+	intel_display_device_info_print(DISPLAY_INFO(i915),
-+					DISPLAY_RUNTIME_INFO(i915), &p);
-+
-+	return 0;
-+}
-+
- static int i915_shared_dplls_info(struct seq_file *m, void *unused)
- {
- 	struct drm_i915_private *dev_priv = node_to_i915(m->private);
-@@ -1059,6 +1070,7 @@ static const struct drm_info_list intel_display_debugfs_list[] = {
- 	{"i915_gem_framebuffer", i915_gem_framebuffer_info, 0},
- 	{"i915_power_domain_info", i915_power_domain_info, 0},
- 	{"i915_display_info", i915_display_info, 0},
-+	{"i915_display_capabilities", i915_display_capabilities, 0},
- 	{"i915_shared_dplls_info", i915_shared_dplls_info, 0},
- 	{"i915_dp_mst_info", i915_dp_mst_info, 0},
- 	{"i915_ddb_info", i915_ddb_info, 0},
--- 
-2.34.1
-
+On 10/11/2023 2:25 PM, Nirmoy Das wrote:
+> If measure_breadcrumb_dw() returns an error and bce isn't created,
+> this commit ensures that intel_engine_destroy_pinned_context()
+> is not called with a NULL bce.
+>
+> v2: Fix the subject s/UAF/null-ptr-deref(Jani)
+>
+> Fixes: b35274993680 ("drm/i915: Create a kernel context for GGTT updates")
+> Cc: Oak Zeng <oak.zeng@intel.com>
+> Cc: Andi Shyti <andi.shyti@linux.intel.com>
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
+> ---
+>   drivers/gpu/drm/i915/gt/intel_engine_cs.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+> index 179d9546865b..4a11219e560e 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+> @@ -1491,7 +1491,8 @@ static int engine_init_common(struct intel_engine_cs *engine)
+>   	return 0;
+>   
+>   err_bce_context:
+> -	intel_engine_destroy_pinned_context(bce);
+> +	if (bce)
+> +		intel_engine_destroy_pinned_context(bce);
+>   err_ce_context:
+>   	intel_engine_destroy_pinned_context(ce);
+>   	return ret;
