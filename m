@@ -4,67 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04BB7CDB483
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Oct 2023 17:07:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C52A4CDB47E
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Oct 2023 17:13:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5169610E41A;
-	Wed, 18 Oct 2023 17:06:54 +0000 (UTC)
-Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
- [IPv6:2607:f8b0:4864:20::d33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C40FD10E41A;
- Wed, 18 Oct 2023 17:06:37 +0000 (UTC)
-Received: by mail-io1-xd33.google.com with SMTP id
- ca18e2360f4ac-79fce245bf6so284202239f.1; 
- Wed, 18 Oct 2023 10:06:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1697648797; x=1698253597; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=BcqTwHq7sHXYNJa8WmhhNW6roNCK+d1UfmWS8347nH4=;
- b=SR9tWH9hJ+mIBaRkDjvC+tXEdXoX5AZPVMhX9ZG+uGSlQxdt3YKOk4W+lWy6DJn0vs
- i+DPEqms+/tEhTSaT/KQQCOhxO1KRIhcCtUUkDvpiL7oURzUoSSIo676F+su+BhJlu5C
- ImsCVjVlAbPlvAu8Ysk+O3rgeFCXP/dpZo1f/Mdm0ya36wy7sVq3DEa8i9krg3NbUAjF
- QYPr+16vK8tKKI9knVJEKaaCoQAVBgL3ZUyzNGSkt7z2T2r2bws7eVC/OwMQz+eid/lx
- wX+b7FXK2t3PvdbhrzIReCIbsCMJjoohWE6VQ1pAPArgXTuG1LWaQRCgRLChZceA444K
- ALxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1697648797; x=1698253597;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=BcqTwHq7sHXYNJa8WmhhNW6roNCK+d1UfmWS8347nH4=;
- b=oWyIV1Cx2DOqvBT5jobpikVtTMxJSA1Gi17Tf5EkZ3ibjJOX0ILBGwwU3dspG9krAu
- Qtgz8ujFO5tEFtWegqpzxKIyQPwnfrTzqW88dPmSpPT18ckwAGv7KjdLijpX7p28mdV7
- isSjJOWAS4YRwttA1bNhGDsGWgyzTXgzRZE2kt+LnsA78K7lkVO8MZzZKabHOHf78o0K
- u9Lp62gl/x4v1Z9U+ya9GYfoI/ECKeF0UMTmMXn/FEha7nQtCCpbHVJdRxXJwMfW2EvT
- BpD7gmC2TOAlV2Eb8ZaQS7vSz9kseDDANPNQF9Kbt1/1fwreTsI29dy2UdWPR6orZ2/F
- OBzQ==
-X-Gm-Message-State: AOJu0YzoqLueGKV5n03Gk6a2UvkPqEoCi6f4y7xv3ysTpBOgvO214xe3
- RWTGqU0wRmxFCLLcp62ulyY=
-X-Google-Smtp-Source: AGHT+IGEoGW0dhG7fjOKBkU+mUiWJ+Phy8IGnV+99em8GKf+aT51e3VHKzqKbrMN+P1EiWIEky4Vig==
-X-Received: by 2002:a05:6602:14d0:b0:790:c259:4ee5 with SMTP id
- b16-20020a05660214d000b00790c2594ee5mr7271761iow.8.1697648796972; 
- Wed, 18 Oct 2023 10:06:36 -0700 (PDT)
-Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
- by smtp.googlemail.com with ESMTPSA id
- n4-20020a5d8244000000b0079fa1a7cd36sm1228944ioo.30.2023.10.18.10.06.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Oct 2023 10:06:36 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
- gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Date: Wed, 18 Oct 2023 11:06:03 -0600
-Message-ID: <20231018170604.569042-24-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.41.0
-In-Reply-To: <20231018170604.569042-1-jim.cromie@gmail.com>
-References: <20231018170604.569042-1-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B89910E412;
+	Wed, 18 Oct 2023 17:13:23 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBE5910E406
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Oct 2023 17:13:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1697649200; x=1729185200;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Rtchehn1sG2F6h5GNCS5PlS5ry/iHa2L4Or0wxfRs7c=;
+ b=OxyQLHD8HWaef6phXMK5YCOh+JMYbXjKhXOsZ7cIfVxwnYQccnRLRMv9
+ 3yR/9r49HATTWtXa4pV9uTk2J+thBdTk6hbs1YQXbKULVVvTxJz9CQ9qt
+ FkXdOlA2LG6XNiSTT0aXaFNhOhbMIJ0Eil8tF0hDly0NFK61UVlMFs1VC
+ ELEO/N992dO7224XUf7p3TpivohrHtiU+RIYSbPAqRjLwgx5HCr4FKIz7
+ bcn4qFwTwA77AcVX8qt13lrZiR8eucN2IBQ38dQkABRmAmt6NyDqM7p6S
+ G8cqOXzuch6KlBor5/etpSkL+ehOsAS0VS6H/g/SURwLCI3ygaudskJwr A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10867"; a="384940030"
+X-IronPort-AV: E=Sophos;i="6.03,235,1694761200"; d="scan'208";a="384940030"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2023 10:13:16 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10867"; a="786005833"
+X-IronPort-AV: E=Sophos;i="6.03,235,1694761200"; d="scan'208";a="786005833"
+Received: from hluxenbu-mobl1.ger.corp.intel.com (HELO [10.252.62.4])
+ ([10.252.62.4])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2023 10:13:14 -0700
+Message-ID: <eb76fa53-a5b7-24ab-6902-1828e689deed@linux.intel.com>
+Date: Wed, 18 Oct 2023 19:13:12 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Content-Language: en-US
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ =?UTF-8?Q?Jouni_H=c3=b6gander?= <jouni.hogander@intel.com>
+References: <20231016080803.3313020-1-jouni.hogander@intel.com>
+ <ZS_72os_326uj8ty@intel.com>
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+In-Reply-To: <ZS_72os_326uj8ty@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7c 23/24] drm-drivers: DRM_CLASSMAP_USE in 2nd
- batch of drivers, helpers
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/display: Use dma_fence interfaces
+ instead of i915_sw_fence
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,149 +64,92 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: lb@semihalf.com, groeck@google.com, linux-doc@vger.kernel.org,
- jani.nikula@intel.com, daniel.vetter@ffwll.ch, linux@rasmusvillemoes.dk,
- rostedt@goodmis.org, Jim Cromie <jim.cromie@gmail.com>, mcgrof@kernel.org,
- seanpaul@chromium.org, joe@perches.com, bleung@google.com, yanivt@google.com
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a DRM_CLASSMAP_USE declaration to 2nd batch of helpers and *_drv.c
-files.  For drivers, add the decl just above the module's PARAMs,
-since it identifies the "inherited" drm.debug param.
 
-Note: with CONFIG_DRM_USE_DYNAMIC_DEBUG=y, a module not also declaring
-DRM_CLASSMAP_USE will have its class'd prdbgs stuck in the initial
-(disabled, but for DEBUG) state.
 
-The stuck sites are evident in /proc/dynamic_debug/control as:
+On 2023-10-18 17:38, Ville Syrjälä wrote:
+> On Mon, Oct 16, 2023 at 11:08:03AM +0300, Jouni Högander wrote:
+>> We are preparing for Xe driver. Xe driver doesn't have i915_sw_fence
+>> implementation. Lets drop i915_sw_fence usage from display code and
+>> use dma_fence interfaces directly.
+>>
+>> For this purpose stack dma fences from related objects into old and new
+>> plane states using drm_gem_plane_helper_prepare_fb. Then wait for these
+>> stacked fences during atomic commit.
+>>
+>> There is no be need for separate GPU reset handling in
+>> intel_atomic_commit_fence_wait as the fences are signaled when GPU hang is
+>> detected and GPU is being reset.
+>>
+>> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> Cc: José Roberto de Souza <jose.souza@intel.com>
+>>
+>> Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+>> ---
+>>   drivers/gpu/drm/i915/display/intel_atomic.c   |  3 -
+>>   .../gpu/drm/i915/display/intel_atomic_plane.c | 49 +++---------
+>>   drivers/gpu/drm/i915/display/intel_display.c  | 78 ++++++-------------
+>>   .../drm/i915/display/intel_display_types.h    |  2 -
+>>   4 files changed, 37 insertions(+), 95 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
+>> index 5d18145da279..ec0d5168b503 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_atomic.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_atomic.c
+>> @@ -331,9 +331,6 @@ void intel_atomic_state_free(struct drm_atomic_state *_state)
+>>   
+>>   	drm_atomic_state_default_release(&state->base);
+>>   	kfree(state->global_objs);
+>> -
+>> -	i915_sw_fence_fini(&state->commit_ready);
+>> -
+>>   	kfree(state);
+>>   }
+>>   
+>> diff --git a/drivers/gpu/drm/i915/display/intel_atomic_plane.c b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+>> index b1074350616c..d4f9168ec42c 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_atomic_plane.c
+>> @@ -32,6 +32,7 @@
+>>    */
+>>   
+>>   #include <drm/drm_atomic_helper.h>
+>> +#include <drm/drm_gem_atomic_helper.h>
+>>   #include <drm/drm_blend.h>
+>>   #include <drm/drm_fourcc.h>
+>>   
+>> @@ -1035,7 +1036,7 @@ intel_prepare_plane_fb(struct drm_plane *_plane,
+>>   	struct intel_atomic_state *state =
+>>   		to_intel_atomic_state(new_plane_state->uapi.state);
+>>   	struct drm_i915_private *dev_priv = to_i915(plane->base.dev);
+>> -	const struct intel_plane_state *old_plane_state =
+>> +	struct intel_plane_state *old_plane_state =
+>>   		intel_atomic_get_old_plane_state(state, plane);
+>>   	struct drm_i915_gem_object *obj = intel_fb_obj(new_plane_state->hw.fb);
+>>   	struct drm_i915_gem_object *old_obj = intel_fb_obj(old_plane_state->hw.fb);
+>> @@ -1057,56 +1058,30 @@ intel_prepare_plane_fb(struct drm_plane *_plane,
+>>   		 * This should only fail upon a hung GPU, in which case we
+>>   		 * can safely continue.
+>>   		 */
+>> -		if (new_crtc_state && intel_crtc_needs_modeset(new_crtc_state)) {
+>> -			ret = i915_sw_fence_await_reservation(&state->commit_ready,
+>> -							      old_obj->base.resv,
+>> -							      false, 0,
+>> -							      GFP_KERNEL);
+>> +		if (new_crtc_state && intel_crtc_needs_modeset(new_crtc_state) &&
+>> +		    !dma_resv_test_signaled(old_obj->base.resv,
+>> +					    dma_resv_usage_rw(false))) {
+>> +			ret = drm_gem_plane_helper_prepare_fb(_plane, &old_plane_state->uapi);
+> 
+> This I think is broken. The old plane state and its fence can still be
+> in use by the previous commit, so we cannot mutate it here. Thus we
+> really need to get the implicit fence from the old fb chained into the
+> new plane state's fence.
+Is it even needed though? If new_plane_state always calls prepare_fb.
 
-   class:_UNKNOWN_ _id:N		# control's last column
-
-rather than a proper "enumeration":
-
-   class:DRM_UT_CORE
-
-This set of updates was found by choosing M for all DRM-config items I
-found (not allmodconfig), building & modprobing them, and grepping
-"class unknown," control.  There may yet be others.
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/gpu/drm/drm_gem_shmem_helper.c | 2 ++
- drivers/gpu/drm/gud/gud_drv.c          | 2 ++
- drivers/gpu/drm/mgag200/mgag200_drv.c  | 2 ++
- drivers/gpu/drm/qxl/qxl_drv.c          | 2 ++
- drivers/gpu/drm/radeon/radeon_drv.c    | 2 ++
- drivers/gpu/drm/udl/udl_main.c         | 2 ++
- drivers/gpu/drm/vkms/vkms_drv.c        | 2 ++
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c    | 2 ++
- 8 files changed, 16 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index e435f986cd13..066d906e3199 100644
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -23,6 +23,8 @@
- #include <drm/drm_prime.h>
- #include <drm/drm_print.h>
- 
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- MODULE_IMPORT_NS(DMA_BUF);
- 
- /**
-diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
-index 9d7bf8ee45f1..5b555045fce4 100644
---- a/drivers/gpu/drm/gud/gud_drv.c
-+++ b/drivers/gpu/drm/gud/gud_drv.c
-@@ -31,6 +31,8 @@
- 
- #include "gud_internal.h"
- 
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- /* Only used internally */
- static const struct drm_format_info gud_drm_format_r1 = {
- 	.format = GUD_DRM_FORMAT_R1,
-diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c b/drivers/gpu/drm/mgag200/mgag200_drv.c
-index abddf37f0ea1..d678eb8e028d 100644
---- a/drivers/gpu/drm/mgag200/mgag200_drv.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
-@@ -24,6 +24,8 @@ static int mgag200_modeset = -1;
- MODULE_PARM_DESC(modeset, "Disable/Enable modesetting");
- module_param_named(modeset, mgag200_modeset, int, 0400);
- 
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- int mgag200_init_pci_options(struct pci_dev *pdev, u32 option, u32 option2)
- {
- 	struct device *dev = &pdev->dev;
-diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
-index b30ede1cf62d..91942ffcc2b4 100644
---- a/drivers/gpu/drm/qxl/qxl_drv.c
-+++ b/drivers/gpu/drm/qxl/qxl_drv.c
-@@ -65,6 +65,8 @@ module_param_named(modeset, qxl_modeset, int, 0400);
- MODULE_PARM_DESC(num_heads, "Number of virtual crtcs to expose (default 4)");
- module_param_named(num_heads, qxl_num_crtc, int, 0400);
- 
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- static struct drm_driver qxl_driver;
- static struct pci_driver qxl_pci_driver;
- 
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index fa531493b111..ab29945af657 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -247,6 +247,8 @@ int radeon_cik_support = 1;
- MODULE_PARM_DESC(cik_support, "CIK support (1 = enabled (default), 0 = disabled)");
- module_param_named(cik_support, radeon_cik_support, int, 0444);
- 
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- static struct pci_device_id pciidlist[] = {
- 	radeon_PCI_IDS
- };
-diff --git a/drivers/gpu/drm/udl/udl_main.c b/drivers/gpu/drm/udl/udl_main.c
-index 3ebe2ce55dfd..ba57c14454e5 100644
---- a/drivers/gpu/drm/udl/udl_main.c
-+++ b/drivers/gpu/drm/udl/udl_main.c
-@@ -19,6 +19,8 @@
- 
- #define NR_USB_REQUEST_CHANNEL 0x12
- 
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- #define MAX_TRANSFER (PAGE_SIZE*16 - BULK_SIZE)
- #define WRITES_IN_FLIGHT (20)
- #define MAX_VENDOR_DESCRIPTOR_SIZE 256
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
-index dd0af086e7fa..086797c4b82b 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.c
-+++ b/drivers/gpu/drm/vkms/vkms_drv.c
-@@ -39,6 +39,8 @@
- 
- static struct vkms_config *default_config;
- 
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- static bool enable_cursor = true;
- module_param_named(enable_cursor, enable_cursor, bool, 0444);
- MODULE_PARM_DESC(enable_cursor, "Enable/Disable cursor support");
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-index 8b24ecf60e3e..9cb6be422621 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-@@ -275,6 +275,8 @@ static int vmw_probe(struct pci_dev *, const struct pci_device_id *);
- static int vmwgfx_pm_notifier(struct notifier_block *nb, unsigned long val,
- 			      void *ptr);
- 
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- MODULE_PARM_DESC(restrict_iommu, "Try to limit IOMMU usage for TTM pages");
- module_param_named(restrict_iommu, vmw_restrict_iommu, int, 0600);
- MODULE_PARM_DESC(force_coherent, "Force coherent TTM pages");
--- 
-2.41.0
-
+Cheers,
+~Maarten
