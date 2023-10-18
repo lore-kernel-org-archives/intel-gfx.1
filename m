@@ -4,52 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89624CDB47E
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Oct 2023 05:11:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E209CDB482
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Oct 2023 08:04:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADDD710E384;
-	Wed, 18 Oct 2023 05:11:07 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43C2B10E37E;
- Wed, 18 Oct 2023 05:11:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7151B10E023;
+	Wed, 18 Oct 2023 08:04:51 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C41E810E023
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Oct 2023 08:04:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1697605864; x=1729141864;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=YvDBqhfDgnDd5m69diSkC/yOJ2Ix4OIlArCI45h7ELg=;
- b=lTGrtu5l8pbx4Le7e4f1/81QB/SaUugv8R55hypZoua+3EZtvbgQtOgC
- 979NraneN8R+qPQbQcZwq6CWnfp+gKM/0aiPJnarjadJSXqs06n0AtGAZ
- gxmZOkYVc/KuRais7m++CmZ29H84rajOyo+Bg1Nlyz6bgaVN3yEOyLSRl
- 2rvBWFnMSrKalkkIXZTO2Nix03rYrAYET4gPuLSo8hCbt1QjqcifakOMp
- isDczgtydJ57U3Cjkpjf2HVpGOe6KMC8FQ99VFfLhMGpQFg9GoIctjaU3
- FK9ofk6tH9xq5t/eXSlWYhQJmCXprRR6H/Vb6nvaZjFd8lH3H7xZTxpks Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="388803243"
-X-IronPort-AV: E=Sophos;i="6.03,234,1694761200"; d="scan'208";a="388803243"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Oct 2023 22:11:03 -0700
+ t=1697616288; x=1729152288;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=r4ypGGXypjz+UDLTfcGFvZJDjp0zRHfJBQw+XMTulcw=;
+ b=E/fmsSoALwny/IB2aTJ4px6yic559zgrXPXSFQeh2MlLevjbgG0CnaBC
+ Vk8KPJHsZRaCrp0/OK77cAObXHpMKx9pAw3yodZIg9oYpR4HjLKaNHUTh
+ hmIKncqF78AeG+XvrSubknXmUooCQ3X1OAIF3yYetNvDqfDgHhxNRgZhA
+ iN29zkYJkEERhdICXwE1mp/SqS1Lj5czYBFCH94u5XVKkN6cRDrf/PvaL
+ iKrTRcd7EnVn6u2QgDwuKrPZnXELe7sDfH3yhZIdl0yuur86rD9Uf2nB9
+ WFagwgQcTkuc/rsRluTzJviAblGtwFCruPcFgfj6s0cWR1rFgeNkWxhJs w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="452435374"
+X-IronPort-AV: E=Sophos;i="6.03,234,1694761200"; d="scan'208";a="452435374"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Oct 2023 01:04:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="785736947"
-X-IronPort-AV: E=Sophos;i="6.03,234,1694761200"; d="scan'208";a="785736947"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga008.jf.intel.com with ESMTP; 17 Oct 2023 22:10:59 -0700
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 8BE61BF; Wed, 18 Oct 2023 08:10:58 +0300 (EEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Jani Nikula <jani.nikula@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 18 Oct 2023 08:10:51 +0300
-Message-Id: <20231018051052.1328852-2-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
-In-Reply-To: <20231018051052.1328852-1-andriy.shevchenko@linux.intel.com>
-References: <20231018051052.1328852-1-andriy.shevchenko@linux.intel.com>
+X-IronPort-AV: E=McAfee;i="6600,9927,10866"; a="822343513"
+X-IronPort-AV: E=Sophos;i="6.03,234,1694761200"; d="scan'208";a="822343513"
+Received: from pltuser2-ms-7d25.iind.intel.com ([10.190.239.58])
+ by fmsmga008.fm.intel.com with ESMTP; 18 Oct 2023 01:04:46 -0700
+From: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Wed, 18 Oct 2023 13:34:43 +0530
+Message-Id: <20231018080443.2543881-1-dnyaneshwar.bhadane@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v1 1/2] drm/i915/dsi: Extract common
- soc_gpio_exec() helper
+Subject: [Intel-gfx] [PATCH] drm/i915/mtl: Add Wa_14019821291
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,85 +54,61 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Hans de Goede <hdegoede@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Extract a common soc_gpio_exec() helper that may be used by a few SoCs.
+This workaround is primarily implemented by the BIOS.  However if the
+BIOS applies the workaround it will reserve a small piece of our DSM
+(which should be at the top, right below the WOPCM); we just need to
+keep that region reserved so that nothing else attempts to re-use it.
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Signed-off-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 49 +++++++++++---------
- 1 file changed, 27 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_stolen.c | 18 ++++++++++++++++++
+ drivers/gpu/drm/i915/i915_reg.h            |  2 ++
+ 2 files changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-index 24b2cbcfc1ef..c3c3f4df9ac4 100644
---- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-@@ -243,6 +243,32 @@ static const u8 *mipi_exec_delay(struct intel_dsi *intel_dsi, const u8 *data)
- 	return data;
- }
- 
-+static void soc_exec_gpio(struct intel_connector *connector, const char *con_id,
-+			  u8 gpio_index, bool value)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
-+	/* XXX: this table is a quick ugly hack. */
-+	static struct gpio_desc *soc_gpio_table[U8_MAX + 1];
-+	struct gpio_desc *gpio_desc = soc_gpio_table[gpio_index];
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+index 1a766d8e7cce..b2bc5aab88d3 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_stolen.c
+@@ -409,6 +409,24 @@ static void icl_get_stolen_reserved(struct drm_i915_private *i915,
+ 		*base -= *size;
+ 	else
+ 		*base = reg_val & GEN11_STOLEN_RESERVED_ADDR_MASK;
 +
-+	if (gpio_desc) {
-+		gpiod_set_value(gpio_desc, value);
-+	} else {
-+		gpio_desc = devm_gpiod_get_index(dev_priv->drm.dev,
-+						 con_id, gpio_index,
-+						 value ? GPIOD_OUT_LOW :
-+						 GPIOD_OUT_HIGH);
-+		if (IS_ERR(gpio_desc)) {
-+			drm_err(&dev_priv->drm,
-+				"GPIO index %u request failed (%pe)\n",
-+				gpio_index, gpio_desc);
-+			return;
-+		}
++	/* Wa_14019821291*/
++	if (IS_MEDIA_GT_IP_STEP(i915->media_gt, IP_VER(13, 0), STEP_A0, STEP_C0)) {
++		/*
++		 * This workaround is primarily implemented by the BIOS.  We
++		 * just need to figure out whether the BIOS has applied the
++		 * workaround (meaning the programmed address falls within
++		 * the DSM) and, if so, reserve that part of the DSM to
++		 * prevent accidental reuse.  The DSM location should be just
++		 * below the WOPCM.
++		 */
 +
-+		soc_gpio_table[gpio_index] = gpio_desc;
++		u64 gscpsmi_base = intel_uncore_read64_2x32(uncore,
++							    MTL_GSCPSMI_BASEADDR_LSB,
++							    MTL_GSCPSMI_BASEADDR_MSB);
++		if (gscpsmi_base >= *base && gscpsmi_base < *base + *size)
++			*size = gscpsmi_base - *base;
 +	}
-+}
-+
- static void vlv_exec_gpio(struct intel_connector *connector,
- 			  u8 gpio_source, u8 gpio_index, bool value)
- {
-@@ -348,28 +374,7 @@ static void chv_exec_gpio(struct intel_connector *connector,
- static void bxt_exec_gpio(struct intel_connector *connector,
- 			  u8 gpio_source, u8 gpio_index, bool value)
- {
--	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
--	/* XXX: this table is a quick ugly hack. */
--	static struct gpio_desc *bxt_gpio_table[U8_MAX + 1];
--	struct gpio_desc *gpio_desc = bxt_gpio_table[gpio_index];
--
--	if (!gpio_desc) {
--		gpio_desc = devm_gpiod_get_index(dev_priv->drm.dev,
--						 NULL, gpio_index,
--						 value ? GPIOD_OUT_LOW :
--						 GPIOD_OUT_HIGH);
--
--		if (IS_ERR_OR_NULL(gpio_desc)) {
--			drm_err(&dev_priv->drm,
--				"GPIO index %u request failed (%ld)\n",
--				gpio_index, PTR_ERR(gpio_desc));
--			return;
--		}
--
--		bxt_gpio_table[gpio_index] = gpio_desc;
--	}
--
--	gpiod_set_value(gpio_desc, value);
-+	soc_exec_gpio(connector, NULL, gpio_index, value);
  }
  
- static void icl_exec_gpio(struct intel_connector *connector,
+ /*
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 135e8d8dbdf0..31d0692a5620 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -6399,5 +6399,7 @@ enum skl_power_gate {
+ #define   MTL_TRDPRE_MASK		REG_GENMASK(7, 0)
+ 
+ #define MTL_MEDIA_GSI_BASE		0x380000
++#define MTL_GSCPSMI_BASEADDR_LSB		_MMIO(MTL_MEDIA_GSI_BASE + 0x880c)
++#define MTL_GSCPSMI_BASEADDR_MSB		_MMIO(MTL_MEDIA_GSI_BASE + 0x8810)
+ 
+ #endif /* _I915_REG_H_ */
 -- 
-2.40.0.1.gaa8946217a0b
+2.34.1
 
