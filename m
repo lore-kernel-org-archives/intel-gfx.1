@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2957C25B49
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Oct 2023 20:22:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7312C25B46
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Oct 2023 20:22:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1304A10E249;
-	Mon, 23 Oct 2023 20:22:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DE0110E24B;
+	Mon, 23 Oct 2023 20:22:09 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6369E10E242
- for <intel-gfx@lists.freedesktop.org>; Mon, 23 Oct 2023 20:22:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB67810E24B
+ for <intel-gfx@lists.freedesktop.org>; Mon, 23 Oct 2023 20:22:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698092520; x=1729628520;
+ t=1698092525; x=1729628525;
  h=from:date:subject:mime-version:content-transfer-encoding:
  message-id:references:in-reply-to:to:cc;
- bh=RlmScj/GGStR3E43FR7UK+fm/NeWZn4Gkb0Knkn1A/Y=;
- b=IuEDgmNQ6AcCRtmOctUnpvPCpTmegP8cEcPJnHwebSdL5kSKK97T3PdO
- fPnjiOw/sdiWGE+NZVzO66ZjgmzP2GXabvMibUQ3Bj5bzGB+ZLJcXlNfE
- Cfmlu/xo007/rWQ1JHGYeqa12xkwF4UN3Njcxvs71+rm8v10olgiJlhtL
- nZHndik6kLoToGw0ECkzAiROHzOoAkpOC3jxjPrV4/0Hf/dSa7/zAkb4T
- RlrCsXwm986JQelSdhDv5jn6mIlegXOoT1rPxYiwvC+nV+ix30OtzMnQu
- luuwiS07Nv61vdI6alGEDqyIW+ESZ+VGfny7Nt+v8c8JrEobzDRDPbfEn Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="371989464"
-X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="371989464"
+ bh=a8dhYNib41lXDgcVFkweQNqAZTcg7pwhGP5KdQD2Wfc=;
+ b=fIdrHOMUPGygLXs2P2OBsjTNqe4k14hW5cr7ll8qY+XBiMlgVAowLRpr
+ NATRRZSjZySKmWf/9FNT4rF0t6x4DdWA/re8fnq4Rf8WTd++34qMeJ5P9
+ PxMg1L5+JSQ8zulfYI0F9AB2y5eM7viPuq8TTa5mjnolXbOTEZ/oDoMO8
+ TphPBd5BHQ7C+KhgwjDoWZ0NNBobEykoWybcNu0DNkwKLyaA/aoj9gWB0
+ kgYVX2l+9XL/IYnWq1DWz1RRNhIyBhREe0IHr/xav/2hu4rrnLllWpHgO
+ UNm9mNs3NRySYgtn1V2dtJpM99nGtLXR0VssH4aosf0UIAaXOnfArPo6f Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="371989474"
+X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="371989474"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2023 13:22:00 -0700
+ 23 Oct 2023 13:22:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="734796470"
-X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="734796470"
+X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="734796524"
+X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="734796524"
 Received: from lab-ah.igk.intel.com ([10.102.138.202])
  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2023 13:21:58 -0700
+ 23 Oct 2023 13:22:03 -0700
 From: Andrzej Hajda <andrzej.hajda@intel.com>
-Date: Mon, 23 Oct 2023 22:21:45 +0200
+Date: Mon, 23 Oct 2023 22:21:48 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20231023-wabb-v4-1-f75dec962b7d@intel.com>
+Message-Id: <20231023-wabb-v4-4-f75dec962b7d@intel.com>
 References: <20231023-wabb-v4-0-f75dec962b7d@intel.com>
 In-Reply-To: <20231023-wabb-v4-0-f75dec962b7d@intel.com>
 To: intel-gfx@lists.freedesktop.org
 X-Mailer: b4 0.12.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2667;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1881;
  i=andrzej.hajda@intel.com; h=from:subject:message-id;
- bh=RlmScj/GGStR3E43FR7UK+fm/NeWZn4Gkb0Knkn1A/Y=;
- b=owEB7QES/pANAwAKASNispPeEP3XAcsmYgBlNtXiKhho7b+ndBwTVtaH5y6ZwMulUTK/P7T6izGk
- CBCmJU+JAbMEAAEKAB0WIQT8qEQxNN2/XeF/A00jYrKT3hD91wUCZTbV4gAKCRAjYrKT3hD919xMC/
- kBPNHDptNFdVX0Yv5ekCNF2SU0KpAB4Ebbk1dOA8NafJzJoh5Sy4pnvK9DSvykLvbSBgFvWpHslas5
- FWRY9Hvy98TIHmmAJKfRdOlbKjvHIbQybA7FqJ7L5eqhGuOSh5mJT8Rm433AVrPzHIduEfLDieiaY9
- Zz93fegYuAllyAk8bop/b6gGCa0YDCspXcWBHho0bi+gdrgVi/NOFT2NcdS4VemyvkTc79fGSGb2JB
- GPWA+rFw1Ht6VlnWhb9f+ADXyPH3gwGqinsv/E9mHsLkHRCNoUQxi+NXo6i+d5Bv4LbUqWyP44lTLa
- /pOKzPD9uKDQyZO+DV5wkGzXPwmhaE9elyihZsqmJ8IzqxGxVSGX2I0Ebhx9rG3JyVTuaJrK9n0u7N
- dIW0RocWHqmayYjdmonwlMBn8snnwZ4WHLWUmOaEZI4/EQDc2HfFYcwss8Ty1QRGcvoYUV9+bMoMPt
- Tc8tEqL9Qp4Q8I4USyaM5Avzau/nFZdYWRL9DKSBkDgLA=
+ bh=nDRbyhSJhTAjBI8lxwyQRTPCFf4uI6ppQz63RvljIaQ=;
+ b=owEB7QES/pANAwAKASNispPeEP3XAcsmYgBlNtXk37WqJ/waAGpmd1Q12GXVBPGtMjpSoPpjG29W
+ XOnOoTKJAbMEAAEKAB0WIQT8qEQxNN2/XeF/A00jYrKT3hD91wUCZTbV5AAKCRAjYrKT3hD9144MDA
+ CtCGn0FLxFV8ypV3WnViSka3jTJL351rO7pTxUALU4shdiB6A4BZFPBTHo7Hv4qnwwjXKvOE7WctIK
+ 6h3gJJFUMGbb6q/UCgnHtsubnX/8WKKXvhKaPzPYMnzW4OEOEFBwstOCYdApTXwf7RNCLEui0remOv
+ e2i0UP9pBn9DK+WjwmRNbQEhYDN00NM72wyoej7yzKUeRwm0DYOW49ccvWe7MD1POamsTyhwRB7Qdw
+ JvhIjaGdPS9wAnn4oK6nhbqptV1c7Zwse0YUuWzWnfjwKLYcoZL9CYnH7BMO6ulWTpigP6eYCSNguR
+ tXfX71BPFJGceMZcOMXIUG4nq2y8o0XRuoE4wUT6Lzz++6jFqTy2eDU1xZC/4N4ADYXKPcd+m8Z98P
+ sVG08A6nK6/u0TISI099BvlEbNu4XZn1IItb6g1aN4mECv3IfFC6x8nDXnT2iFeeeAjd9u2ZhfS35U
+ uf2yF1ljpX+GmjqZG6kOLuM5S88sx4MkDSY2w2JN/bZwg=
 X-Developer-Key: i=andrzej.hajda@intel.com; a=openpgp;
  fpr=FCA8443134DDBF5DE17F034D2362B293DE10FDD7
-Subject: [Intel-gfx] [PATCH v4 1/4] drm/i915: Reserve some kernel space per
- vm
+Subject: [Intel-gfx] [PATCH v4 4/4] drm/i915: Set copy engine arbitration
+ for Wa_16018031267 / Wa_16018063123
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,100 +74,53 @@ List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Jonathan Cavitt <jonathan.cavitt@intel.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Chris Wilson <chris.p.wilson@linux.intel.com>
+ Andrzej Hajda <andrzej.hajda@intel.com>, Nirmoy Das <nirmoy.das@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Reserve one page in each vm for kernel space to use for things
-such as workarounds.
+From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 
-v2: use real memory, do not decrease vm.total
-v4: reserve only one page and explain flag
+Set copy engine arbitration into round robin mode
+for part of Wa_16018031267 / Wa_16018063123 mitigation.
 
-Suggested-by: Chris Wilson <chris.p.wilson@linux.intel.com>
-Signed-off-by: Andrzej Hajda <andrzej.hajda@intel.com>
-Reviewed-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Signed-off-by: Nirmoy Das <nirmoy.das@intel.com>
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Reviewed-by: Andrzej Hajda <andrzej.hajda@intel.com>
 ---
- drivers/gpu/drm/i915/gt/gen8_ppgtt.c | 38 ++++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/i915/gt/intel_gtt.h  |  1 +
- 2 files changed, 39 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_engine_regs.h | 3 +++
+ drivers/gpu/drm/i915/gt/intel_workarounds.c | 5 +++++
+ 2 files changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-index 9895e18df0435a..1ac619a02a8567 100644
---- a/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-+++ b/drivers/gpu/drm/i915/gt/gen8_ppgtt.c
-@@ -5,6 +5,7 @@
- 
- #include <linux/log2.h>
- 
-+#include "gem/i915_gem_internal.h"
- #include "gem/i915_gem_lmem.h"
- 
- #include "gen8_ppgtt.h"
-@@ -950,6 +951,39 @@ gen8_alloc_top_pd(struct i915_address_space *vm)
- 	return ERR_PTR(err);
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_regs.h b/drivers/gpu/drm/i915/gt/intel_engine_regs.h
+index b8618ee3e3041a..c0c8c12edea104 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_regs.h
++++ b/drivers/gpu/drm/i915/gt/intel_engine_regs.h
+@@ -124,6 +124,9 @@
+ #define RING_INDIRECT_CTX(base)			_MMIO((base) + 0x1c4) /* gen8+ */
+ #define RING_INDIRECT_CTX_OFFSET(base)		_MMIO((base) + 0x1c8) /* gen8+ */
+ #define ECOSKPD(base)				_MMIO((base) + 0x1d0)
++#define   XEHP_BLITTER_SCHEDULING_MODE_MASK	REG_GENMASK(12, 11)
++#define   XEHP_BLITTER_ROUND_ROBIN_MODE		\
++		REG_FIELD_PREP(XEHP_BLITTER_SCHEDULING_MODE_MASK, 1)
+ #define   ECO_CONSTANT_BUFFER_SR_DISABLE	REG_BIT(4)
+ #define   ECO_GATING_CX_ONLY			REG_BIT(3)
+ #define   GEN6_BLITTER_FBC_NOTIFY		REG_BIT(3)
+diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+index 192ac0e59afa13..108d9326735910 100644
+--- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
++++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
+@@ -2782,6 +2782,11 @@ xcs_engine_wa_init(struct intel_engine_cs *engine, struct i915_wa_list *wal)
+ 			 RING_SEMA_WAIT_POLL(engine->mmio_base),
+ 			 1);
+ 	}
++	/* Wa_16018031267, Wa_16018063123 */
++	if (NEEDS_FASTCOLOR_BLT_WABB(engine))
++		wa_masked_field_set(wal, ECOSKPD(engine->mmio_base),
++				    XEHP_BLITTER_SCHEDULING_MODE_MASK,
++				    XEHP_BLITTER_ROUND_ROBIN_MODE);
  }
  
-+static int gen8_init_rsvd(struct i915_address_space *vm)
-+{
-+	struct drm_i915_private *i915 = vm->i915;
-+	struct drm_i915_gem_object *obj;
-+	struct i915_vma *vma;
-+	int ret;
-+
-+	/* The memory will be used only by GPU. */
-+	obj = i915_gem_object_create_lmem(i915, PAGE_SIZE,
-+					  I915_BO_ALLOC_VOLATILE |
-+					  I915_BO_ALLOC_GPU_ONLY);
-+	if (IS_ERR(obj))
-+		obj = i915_gem_object_create_internal(i915, PAGE_SIZE);
-+	if (IS_ERR(obj))
-+		return PTR_ERR(obj);
-+
-+	vma = i915_vma_instance(obj, vm, NULL);
-+	if (IS_ERR(vma)) {
-+		ret = PTR_ERR(vma);
-+		goto unref;
-+	}
-+
-+	ret = i915_vma_pin(vma, 0, 0, PIN_USER | PIN_HIGH);
-+	if (ret)
-+		goto unref;
-+
-+	vm->rsvd = i915_vma_make_unshrinkable(vma);
-+
-+unref:
-+	i915_gem_object_put(obj);
-+	return ret;
-+}
-+
- /*
-  * GEN8 legacy ppgtt programming is accomplished through a max 4 PDP registers
-  * with a net effect resembling a 2-level page table in normal x86 terms. Each
-@@ -1031,6 +1065,10 @@ struct i915_ppgtt *gen8_ppgtt_create(struct intel_gt *gt,
- 	if (intel_vgpu_active(gt->i915))
- 		gen8_ppgtt_notify_vgt(ppgtt, true);
- 
-+	err = gen8_init_rsvd(&ppgtt->vm);
-+	if (err)
-+		goto err_put;
-+
- 	return ppgtt;
- 
- err_put:
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index b471edac269920..5ac079e5f12f67 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -249,6 +249,7 @@ struct i915_address_space {
- 	struct work_struct release_work;
- 
- 	struct drm_mm mm;
-+	struct i915_vma *rsvd;
- 	struct intel_gt *gt;
- 	struct drm_i915_private *i915;
- 	struct device *dma;
+ static void
 
 -- 
 2.34.1
