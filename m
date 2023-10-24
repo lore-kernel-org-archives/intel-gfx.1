@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2FDAC00A8F
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 12:42:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECC50C25B6E
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 12:42:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0781910E37B;
-	Tue, 24 Oct 2023 12:42:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83C9110E37E;
+	Tue, 24 Oct 2023 12:42:16 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35BAE10E37B
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 12:42:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37D0E10E37A
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 12:42:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698151331; x=1729687331;
+ t=1698151321; x=1729687321;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=mAhH6USEvYddVFpTFP3cCN+ncwh/OGsLZkR4y18xao8=;
- b=asWl2loa4aDnL3POVr8mTTm+JWV9GAzBiFY6ScmMzLT98Ck9kNfdxjBc
- q4gkaA7ox5h0bkhjvYb/idHP3AokLsV0mv9glWC464lFguXIMAdHNdT5f
- TqLWA7G6SfA4O9ZnpVOu7YzgP8c2/NKHtcC8kDYzEVVmPWSPJuJFtbAqv
- jK4NBzt8IBQCNNGZHguFbnVx1flFQog5muLKzDQAjRnJ79mAFztsVYs4t
- fV/6xEnMXg2rubrErntKlHSv9p4XC9tqB5sAsranjMYeid4YatdtyO0ja
- nTunXw2netthXygbed7RPYNdj4tkFHH3jUpXLkqGkp59jrV8MHqrLSiy7 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10873"; a="386856708"
-X-IronPort-AV: E=Sophos;i="6.03,247,1694761200"; d="scan'208";a="386856708"
+ bh=Q4isZy2yyIkVPGdlAxGdfmF6AVfOZCQNkCUiuGEqIzc=;
+ b=lAM+NEKNvLC7JsZsYnbUvtBa4eEu7E2MetTBS46bncrhY/c5wiYa38QX
+ KCh01Nqqp9x6B6s90YWGGVBVbBhDI5g51yF5lzQ1ITIX6k6hHLwyqhPVM
+ 38OpPWxd8cW/vkoQzDQJXMK5BBXHoG1X+ok+3dKazIc0InEL/uGgaY6Kt
+ 5W9O1gjMgqwMSsQpBel+lfjhJUjLp5NRCNmt+MOpuG58mvGxAdF9aN//P
+ GTy2JDOkUyusMLD+AzKEHDbNR800i8wYkieqRUksulz3QEsTDoOR8qB/r
+ IdgZoNYksSepIV+9fRHxs0pgn7XTyXx1Q6GN3vLwIqcILFq68iyX4UC0x g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10873"; a="386856651"
+X-IronPort-AV: E=Sophos;i="6.03,247,1694761200"; d="scan'208";a="386856651"
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2023 05:42:10 -0700
+ 24 Oct 2023 05:42:00 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10873"; a="758464484"
-X-IronPort-AV: E=Sophos;i="6.03,247,1694761200"; d="scan'208";a="758464484"
+X-IronPort-AV: E=McAfee;i="6600,9927,10873"; a="758464438"
+X-IronPort-AV: E=Sophos;i="6.03,247,1694761200"; d="scan'208";a="758464438"
 Received: from cpantea-mobl.ger.corp.intel.com (HELO jhogande-mobl1.intel.com)
  ([10.252.63.253])
  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2023 05:42:09 -0700
+ 24 Oct 2023 05:41:58 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 24 Oct 2023 15:41:03 +0300
-Message-Id: <20231024124109.384973-18-jouni.hogander@intel.com>
+Date: Tue, 24 Oct 2023 15:40:58 +0300
+Message-Id: <20231024124109.384973-13-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231024124109.384973-1-jouni.hogander@intel.com>
 References: <20231024124109.384973-1-jouni.hogander@intel.com>
@@ -47,8 +47,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 17/23] drm/i915/display: Move
- load_detect_test parameter under display
+Subject: [Intel-gfx] [PATCH v4 12/23] drm/i915/display: Move
+ disable_power_well module parameter under display
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,89 +68,119 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_crt.c            | 4 ++--
- drivers/gpu/drm/i915/display/intel_display_params.c | 4 ++++
- drivers/gpu/drm/i915/display/intel_display_params.h | 1 +
- drivers/gpu/drm/i915/i915_params.c                  | 4 ----
- drivers/gpu/drm/i915/i915_params.h                  | 1 -
- 5 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_params.c |  4 ++++
+ drivers/gpu/drm/i915/display/intel_display_params.h |  1 +
+ drivers/gpu/drm/i915/display/intel_display_power.c  | 12 ++++++------
+ drivers/gpu/drm/i915/i915_params.c                  |  4 ----
+ drivers/gpu/drm/i915/i915_params.h                  |  1 -
+ 5 files changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crt.c b/drivers/gpu/drm/i915/display/intel_crt.c
-index 913e5d230a4d..0e33a0523a75 100644
---- a/drivers/gpu/drm/i915/display/intel_crt.c
-+++ b/drivers/gpu/drm/i915/display/intel_crt.c
-@@ -841,7 +841,7 @@ intel_crt_detect(struct drm_connector *connector,
- 	if (!intel_display_device_enabled(dev_priv))
- 		return connector_status_disconnected;
- 
--	if (dev_priv->params.load_detect_test) {
-+	if (dev_priv->display.params.load_detect_test) {
- 		wakeref = intel_display_power_get(dev_priv,
- 						  intel_encoder->power_domain);
- 		goto load_detect;
-@@ -901,7 +901,7 @@ intel_crt_detect(struct drm_connector *connector,
- 		else if (DISPLAY_VER(dev_priv) < 4)
- 			status = intel_crt_load_detect(crt,
- 				to_intel_crtc(connector->state->crtc)->pipe);
--		else if (dev_priv->params.load_detect_test)
-+		else if (dev_priv->display.params.load_detect_test)
- 			status = connector_status_disconnected;
- 		else
- 			status = connector_status_unknown;
 diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
-index 190ca12ce64b..16a30f7b96b4 100644
+index a98df2afc996..79a212dded80 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_params.c
 +++ b/drivers/gpu/drm/i915/display/intel_display_params.c
-@@ -76,6 +76,10 @@ intel_display_param_named(enable_dpcd_backlight, int, 0400,
- 	"Enable support for DPCD backlight control"
- 	"(-1=use per-VBT LFP backlight type setting [default], 0=disabled, 1=enable, 2=force VESA interface, 3=force Intel interface)");
+@@ -53,6 +53,10 @@ intel_display_param_named_unsafe(enable_dpt, bool, 0400,
+ intel_display_param_named_unsafe(enable_sagv, bool, 0400,
+ 	"Enable system agent voltage/frequency scaling (SAGV) (default: true)");
  
-+intel_display_param_named_unsafe(load_detect_test, bool, 0400,
-+	"Force-enable the VGA load detect code for testing (default:false). "
-+	"For developers only.");
++intel_display_param_named_unsafe(disable_power_well, int, 0400,
++	"Disable display power wells when possible "
++	"(-1=auto [default], 0=power wells always on, 1=power wells disabled when possible)");
 +
  intel_display_param_named_unsafe(enable_fbc, int, 0400,
  	"Enable frame buffer compression for power savings "
  	"(default: -1 (use per-chip default))");
 diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
-index 85d1128954e9..558eecaa520a 100644
+index 0a7ac416403a..aadbef664965 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_params.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_params.h
-@@ -36,6 +36,7 @@ struct drm_i915_private;
- 	param(int, invert_brightness, 0, 0600) \
- 	param(int, edp_vswing, 0, 0400) \
- 	param(int, enable_dpcd_backlight, -1, 0600) \
-+	param(bool, load_detect_test, false, 0600) \
+@@ -31,6 +31,7 @@ struct drm_i915_private;
+ 	param(int, enable_dc, -1, 0400) \
+ 	param(bool, enable_dpt, true, 0400) \
+ 	param(bool, enable_sagv, true, 0600) \
++	param(int, disable_power_well, -1, 0400) \
  	param(int, enable_fbc, -1, 0600) \
  	param(int, enable_psr, -1, 0600) \
  	param(bool, psr_safest_params, false, 0400) \
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 4832eb8da080..e390595d7341 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -967,7 +967,7 @@ static u32 get_allowed_dc_mask(const struct drm_i915_private *dev_priv,
+ 		DISPLAY_VER(dev_priv) >= 11 ?
+ 	       DC_STATE_EN_DC9 : 0;
+ 
+-	if (!dev_priv->params.disable_power_well)
++	if (!dev_priv->display.params.disable_power_well)
+ 		max_dc = 0;
+ 
+ 	if (enable_dc >= 0 && enable_dc <= max_dc) {
+@@ -1016,9 +1016,9 @@ int intel_power_domains_init(struct drm_i915_private *dev_priv)
+ {
+ 	struct i915_power_domains *power_domains = &dev_priv->display.power.domains;
+ 
+-	dev_priv->params.disable_power_well =
++	dev_priv->display.params.disable_power_well =
+ 		sanitize_disable_power_well_option(dev_priv,
+-						   dev_priv->params.disable_power_well);
++						   dev_priv->display.params.disable_power_well);
+ 	power_domains->allowed_dc_mask =
+ 		get_allowed_dc_mask(dev_priv, dev_priv->display.params.enable_dc);
+ 
+@@ -1950,7 +1950,7 @@ void intel_power_domains_init_hw(struct drm_i915_private *i915, bool resume)
+ 		intel_display_power_get(i915, POWER_DOMAIN_INIT);
+ 
+ 	/* Disable power support if the user asked so. */
+-	if (!i915->params.disable_power_well) {
++	if (!i915->display.params.disable_power_well) {
+ 		drm_WARN_ON(&i915->drm, power_domains->disable_wakeref);
+ 		i915->display.power.domains.disable_wakeref = intel_display_power_get(i915,
+ 										      POWER_DOMAIN_INIT);
+@@ -1977,7 +1977,7 @@ void intel_power_domains_driver_remove(struct drm_i915_private *i915)
+ 		fetch_and_zero(&i915->display.power.domains.init_wakeref);
+ 
+ 	/* Remove the refcount we took to keep power well support disabled. */
+-	if (!i915->params.disable_power_well)
++	if (!i915->display.params.disable_power_well)
+ 		intel_display_power_put(i915, POWER_DOMAIN_INIT,
+ 					fetch_and_zero(&i915->display.power.domains.disable_wakeref));
+ 
+@@ -2096,7 +2096,7 @@ void intel_power_domains_suspend(struct drm_i915_private *i915, bool s2idle)
+ 	 * Even if power well support was disabled we still want to disable
+ 	 * power wells if power domains must be deinitialized for suspend.
+ 	 */
+-	if (!i915->params.disable_power_well)
++	if (!i915->display.params.disable_power_well)
+ 		intel_display_power_put(i915, POWER_DOMAIN_INIT,
+ 					fetch_and_zero(&i915->display.power.domains.disable_wakeref));
+ 
 diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
-index e15cd8491c7f..cb56973a2394 100644
+index 51e706f6e57e..eab02f71a4e5 100644
 --- a/drivers/gpu/drm/i915/i915_params.c
 +++ b/drivers/gpu/drm/i915/i915_params.c
 @@ -86,10 +86,6 @@ i915_param_named_unsafe(force_probe, charp, 0400,
  	"Force probe options for specified supported devices. "
  	"See CONFIG_DRM_I915_FORCE_PROBE for details.");
  
--i915_param_named_unsafe(load_detect_test, bool, 0400,
--	"Force-enable the VGA load detect code for testing (default:false). "
--	"For developers only.");
+-i915_param_named_unsafe(disable_power_well, int, 0400,
+-	"Disable display power wells when possible "
+-	"(-1=auto [default], 0=power wells always on, 1=power wells disabled when possible)");
 -
- i915_param_named_unsafe(force_reset_modeset_test, bool, 0400,
- 	"Force a modeset during gpu reset for testing (default:false). "
- 	"For developers only.");
+ i915_param_named_unsafe(enable_ips, int, 0400, "Enable IPS (default: true)");
+ 
+ i915_param_named_unsafe(load_detect_test, bool, 0400,
 diff --git a/drivers/gpu/drm/i915/i915_params.h b/drivers/gpu/drm/i915/i915_params.h
-index 8169234338b1..cf5448bbc087 100644
+index 066f15783580..060464df03c2 100644
 --- a/drivers/gpu/drm/i915/i915_params.h
 +++ b/drivers/gpu/drm/i915/i915_params.h
-@@ -63,7 +63,6 @@ struct drm_printer;
- 	param(unsigned int, lmem_bar_size, 0, 0400) \
- 	/* leave bools at the end to not create holes */ \
- 	param(bool, enable_hangcheck, true, 0600) \
--	param(bool, load_detect_test, false, 0600) \
- 	param(bool, force_reset_modeset_test, false, 0600) \
- 	param(bool, error_capture, true, IS_ENABLED(CONFIG_DRM_I915_CAPTURE_ERROR) ? 0600 : 0) \
- 	param(bool, disable_display, false, 0400) \
+@@ -47,7 +47,6 @@ struct drm_printer;
+  */
+ #define I915_PARAMS_FOR_EACH(param) \
+ 	param(int, modeset, -1, 0400) \
+-	param(int, disable_power_well, -1, 0400) \
+ 	param(int, enable_ips, 1, 0600) \
+ 	param(int, invert_brightness, 0, 0600) \
+ 	param(int, enable_guc, -1, 0400) \
 -- 
 2.34.1
 
