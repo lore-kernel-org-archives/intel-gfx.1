@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 675ADC07545
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 12:42:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8471C00A8F
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 12:42:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5558810E385;
-	Tue, 24 Oct 2023 12:42:29 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1007510E380
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 12:42:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83CBF10E387;
+	Tue, 24 Oct 2023 12:42:40 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61BA610E386
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 12:42:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698151341; x=1729687341;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=DKMO6RwwsCpejMe4GyrBJt8jIQfq7YFcaCZ4k79N2m4=;
- b=A3IbIE+a9anFA+Fh1M8kfoiPmqlg+KQUJ5YJAiMvnNPrQ4hDoACnNfB3
- TLvdMIpKhmW2ri8ZZCTlzYmwS5Lpn/OKvNjxA5mMWJtNSef9orAgpYieQ
- U8+qly6omC8qSyr+sTDDXHMyjMNqGDbgtE/lt3VYgyg2tD4qm98OReZpa
- AoXbwfJVKKHN1mSd1gRe3f5+8lsPgHOgyfS6kT3xSLQ7yH2/cfUIjV4Qo
- v/mu+m7U3uT6odvoYz5wIWoIrjj+dkHaqIEriSZoHcN/mzMUu1w4PwDX2
- DVjhxvqm2Tiq//1mpHckAjgmTVKnyng5W7rQQqOTtudwtIJo43NHoYeBG Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10873"; a="386856737"
-X-IronPort-AV: E=Sophos;i="6.03,247,1694761200"; d="scan'208";a="386856737"
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2023 05:42:20 -0700
+ t=1698151356; x=1729687356;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=STJY7I+4GdSiLQXm17iPyvxWZdoUM3dOXevoD0dPj+0=;
+ b=XZlv4AayG79sOiEVxgeRXYzLkbQbqneXCglEUcGHWFbqCE8D2ysjXHhp
+ F+19EbbNJJMdJC908gZA1yvDGi8Rfa3cOjPJmfE2BHl8h5xYSgjZBp4yN
+ jkEinrDS++dxuD6Mtr6lTKib+FOrnN33qylysmRIGc+8q7W0hz8CcjBKL
+ cb3JldLTzgkOniq9qdLJHF++nErLAA5Z2laMMMHWSI11HPQZmPD7D0gTn
+ WPVUpvQie3/w8kofKTS6PQzkUPtqOki8UmmP/tcgMMxprWf90pIQjZKE6
+ 11eltNknU6UKUoAV9w3ZHRPj664NFX2TxMe3zyglut034tO4QM8F3pZEi w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10873"; a="5669898"
+X-IronPort-AV: E=Sophos;i="6.03,247,1694761200"; 
+   d="scan'208";a="5669898"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Oct 2023 05:42:36 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10873"; a="758464502"
-X-IronPort-AV: E=Sophos;i="6.03,247,1694761200"; d="scan'208";a="758464502"
-Received: from cpantea-mobl.ger.corp.intel.com (HELO jhogande-mobl1.intel.com)
- ([10.252.63.253])
- by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2023 05:42:19 -0700
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 24 Oct 2023 15:41:08 +0300
-Message-Id: <20231024124109.384973-23-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231024124109.384973-1-jouni.hogander@intel.com>
-References: <20231024124109.384973-1-jouni.hogander@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+X-IronPort-AV: E=McAfee;i="6600,9927,10873"; a="762086854"
+X-IronPort-AV: E=Sophos;i="6.03,247,1694761200"; d="scan'208";a="762086854"
+Received: from goepfrim-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.252.48.28])
+ by fmsmga007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Oct 2023 05:42:34 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Andi Shyti <andi.shyti@linux.intel.com>
+In-Reply-To: <ZTe4uzgC7sIPGzwV@ashyti-mobl2.lan>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 22/23] drm/i915/display: Move
- nuclear_pageflip under display
+References: <20231023150256.438331-1-jani.nikula@intel.com>
+ <20231023150256.438331-2-jani.nikula@intel.com>
+ <ZTe4uzgC7sIPGzwV@ashyti-mobl2.lan>
+Date: Tue, 24 Oct 2023 15:42:31 +0300
+Message-ID: <87h6mg9op4.fsf@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+Subject: Re: [Intel-gfx] [PATCH 2/3] drm/i915/pmu: add event_to_pmu() helper
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,85 +61,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Luca Coelho <luciano.coelho@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
-Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display_device.c | 2 +-
- drivers/gpu/drm/i915/display/intel_display_params.c | 3 +++
- drivers/gpu/drm/i915/display/intel_display_params.h | 1 +
- drivers/gpu/drm/i915/i915_params.c                  | 3 ---
- drivers/gpu/drm/i915/i915_params.h                  | 1 -
- 5 files changed, 5 insertions(+), 5 deletions(-)
+On Tue, 24 Oct 2023, Andi Shyti <andi.shyti@linux.intel.com> wrote:
+> Hi Jani,
+>
+> On Mon, Oct 23, 2023 at 06:02:55PM +0300, Jani Nikula wrote:
+>> It's tedious to duplicate the container_of() everywhere. Add a helper.
+>> 
+>> Also do the logical steps of first getting from struct perf_event to
+>> struct i915_pmu, and then from struct i915_pmu to struct
+>> drm_i915_private if needed, instead of perf_event->i915->pmu. Not all
+>> places even need the i915 pointer.
+>> 
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>> ---
+>>  drivers/gpu/drm/i915/i915_pmu.c | 45 +++++++++++++++------------------
+>>  1 file changed, 20 insertions(+), 25 deletions(-)
+>> 
+>> diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+>> index dcae2fcd8d36..d45b40ec6d47 100644
+>> --- a/drivers/gpu/drm/i915/i915_pmu.c
+>> +++ b/drivers/gpu/drm/i915/i915_pmu.c
+>> @@ -31,6 +31,11 @@
+>>  static cpumask_t i915_pmu_cpumask;
+>>  static unsigned int i915_pmu_target_cpu = -1;
+>>  
+>> +static struct i915_pmu *event_to_pmu(struct perf_event *event)
+>
+> I would call it perfevent (or perf_event), event is too generic.
+> We have other kind of events, too.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
-index 50841818fb59..0b522c6a8d6f 100644
---- a/drivers/gpu/drm/i915/display/intel_display_device.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_device.c
-@@ -1113,7 +1113,7 @@ void intel_display_device_info_runtime_init(struct drm_i915_private *i915)
- 	}
- 
- 	/* Disable nuclear pageflip by default on pre-g4x */
--	if (!i915->params.nuclear_pageflip &&
-+	if (!i915->display.params.nuclear_pageflip &&
- 	    DISPLAY_VER(i915) < 5 && !IS_G4X(i915))
- 		i915->drm.driver_features &= ~DRIVER_ATOMIC;
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
-index cae1449e9b06..f82f5bed69bc 100644
---- a/drivers/gpu/drm/i915/display/intel_display_params.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_params.c
-@@ -90,6 +90,9 @@ intel_display_param_named(disable_display, bool, 0400,
- intel_display_param_named(verbose_state_checks, bool, 0400,
- 	"Enable verbose logs (ie. WARN_ON()) in case of unexpected hw state conditions.");
- 
-+intel_display_param_named_unsafe(nuclear_pageflip, bool, 0400,
-+	"Force enable atomic functionality on platforms that don't have full support yet.");
-+
- intel_display_param_named_unsafe(enable_fbc, int, 0400,
- 	"Enable frame buffer compression for power savings "
- 	"(default: -1 (use per-chip default))");
-diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
-index 46ec097d43be..40aed14d18be 100644
---- a/drivers/gpu/drm/i915/display/intel_display_params.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_params.h
-@@ -40,6 +40,7 @@ struct drm_i915_private;
- 	param(bool, force_reset_modeset_test, false, 0600) \
- 	param(bool, disable_display, false, 0400) \
- 	param(bool, verbose_state_checks, true, 0400) \
-+	param(bool, nuclear_pageflip, false, 0400) \
- 	param(int, enable_fbc, -1, 0600) \
- 	param(int, enable_psr, -1, 0600) \
- 	param(bool, psr_safest_params, false, 0400) \
-diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
-index 72614c139222..18424873442d 100644
---- a/drivers/gpu/drm/i915/i915_params.c
-+++ b/drivers/gpu/drm/i915/i915_params.c
-@@ -93,9 +93,6 @@ i915_param_named(mmio_debug, int, 0400,
- 	"Enable the MMIO debug code for the first N failures (default: off). "
- 	"This may negatively affect performance.");
- 
--i915_param_named_unsafe(nuclear_pageflip, bool, 0400,
--	"Force enable atomic functionality on platforms that don't have full support yet.");
--
- i915_param_named_unsafe(enable_guc, int, 0400,
- 	"Enable GuC load for GuC submission and/or HuC load. "
- 	"Required functionality can be selected using bitmask values. "
-diff --git a/drivers/gpu/drm/i915/i915_params.h b/drivers/gpu/drm/i915/i915_params.h
-index 4b543beb17ca..c7fff571db2c 100644
---- a/drivers/gpu/drm/i915/i915_params.h
-+++ b/drivers/gpu/drm/i915/i915_params.h
-@@ -64,7 +64,6 @@ struct drm_printer;
- 	/* leave bools at the end to not create holes */ \
- 	param(bool, enable_hangcheck, true, 0600) \
- 	param(bool, error_capture, true, IS_ENABLED(CONFIG_DRM_I915_CAPTURE_ERROR) ? 0600 : 0) \
--	param(bool, nuclear_pageflip, false, 0400) \
- 	param(bool, enable_dp_mst, true, 0600) \
- 	param(bool, enable_gvt, false, IS_ENABLED(CONFIG_DRM_I915_GVT) ? 0400 : 0)
- 
+Fair enough.
+
+>
+>> +{
+>> +	return container_of(event->pmu, struct i915_pmu, base);
+>> +}
+>> +
+>>  static struct drm_i915_private *pmu_to_i915(struct i915_pmu *pmu)
+>>  {
+>>  	return container_of(pmu, struct drm_i915_private, pmu);
+>> @@ -510,8 +515,8 @@ static enum hrtimer_restart i915_sample(struct hrtimer *hrtimer)
+>>  
+>>  static void i915_pmu_event_destroy(struct perf_event *event)
+>>  {
+>> -	struct drm_i915_private *i915 =
+>> -		container_of(event->pmu, typeof(*i915), pmu.base);
+>> +	struct i915_pmu *pmu = event_to_pmu(event);
+>> +	struct drm_i915_private *i915 = pmu_to_i915(pmu);
+>
+> perf_event_to_i915() ?
+
+Nah. Most places that need i915 also need pmu. Feels a bit much to add a
+helper to combine two helpers.
+
+Thanks for the review.
+
+BR,
+Jani.
+
+>
+> Andi
+
 -- 
-2.34.1
-
+Jani Nikula, Intel
