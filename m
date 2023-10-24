@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A56BC00A8F
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 01:09:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4ECFAC25B6F
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 01:09:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 132CC10E2CB;
-	Tue, 24 Oct 2023 01:09:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E83810E2CC;
+	Tue, 24 Oct 2023 01:09:39 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D8B910E2B9
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 01:09:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C48410E2BC
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 01:09:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698109771; x=1729645771;
+ t=1698109762; x=1729645762;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=JQoyzKqUG/JGrJxgKc9sK/nRpaTX9iPno6sNi2qysno=;
- b=Ukd4Nyc849m3jWx6htGQI7q2aFSE9wwe9axGmyknhDgZPC7TCuXAQsAD
- 1RPQlNIgc3x45BLa5/0J1VNgt9EY6B+wxJr8H/VV3eG2ihRVZfWaA87Z9
- c9IeEpv2TKqa5GJMR2nWdoTMjn29gmzlaLOToWMYEvo/m9uUyyaMe9Bmq
- 2Z/bvAoLOaGbt/Fpj7VFoMTaCMg0u69Ya97ZHEyAv1CmxLlg+mlMYTlT+
- Zyd76MPFhtZEz9uYxd0c/hNkjtxk2hlXEhM0P7rshJqg/nZbXgxTO3KFv
- JU4HFqNPIQYaQCYpHH+wZdqU03raE5G+e9pyq2S7VObtK4GLVfC2PA7VP w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="366304394"
-X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="366304394"
+ bh=WDr5m+wM9j96BtF/GfVrmUeEo3KMtwiu4PHjuWaKU8w=;
+ b=EItbfZ6VG54RTPVWuQMvVJ/Gw8KrelkNkPDlb4U21IG3Lb9GSJJn/sT/
+ bC1U0p1GQVaJCPTSeP+41NnHR9MuNyZRLJfgnTQkMpw6fE+E20rGHHksi
+ yOmJ52YfuhLUWW6zT6aPjxAlu7ByKI77WXoEObIrdrLf0x3LoCO4Sgcwl
+ 9H4ewq3HWjRCNvT5VfeJsNuUo9WianaoNhcUEWMt4tbchWJHFIzDwg0vJ
+ ug9x3ypI/Tr1rYL3yMw0Eh+GhfipIwewgTaNvKR2sowPv4ZMWIknxKzM0
+ /L5R8JSeJtluKPL2Q++RRhLpccAoervMp8tmd7ugNb2HQLFNXqbmEN3Lo g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="366304376"
+X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="366304376"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2023 18:09:31 -0700
+ 23 Oct 2023 18:09:22 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="931870151"
-X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="931870151"
+X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="931870080"
+X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="931870080"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2023 18:09:30 -0700
+ 23 Oct 2023 18:09:21 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 24 Oct 2023 04:09:21 +0300
-Message-Id: <20231024010925.3949910-26-imre.deak@intel.com>
+Date: Tue, 24 Oct 2023 04:09:13 +0300
+Message-Id: <20231024010925.3949910-18-imre.deak@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231024010925.3949910-1-imre.deak@intel.com>
 References: <20231024010925.3949910-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 25/29] drm/i915: Factor out function to clear
- pipe update flags
+Subject: [Intel-gfx] [PATCH 17/29] drm/i915/dp: Rename
+ intel_ddi_disable_fec_state() to intel_ddi_disable_fec()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,112 +61,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Factor out a helper to clear the pipe update flags, used by a follow-up
-patch to modeset an MST topology.
+Rename intel_ddi_disable_fec_state() to intel_ddi_disable_fec(), for
+symmetry with intel_ddi_enable_fec().
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 52 ++++++++++----------
- 1 file changed, 27 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index de352d9c43439..22f88389035bd 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -5551,6 +5551,16 @@ int intel_modeset_pipes_in_mask_early(struct intel_atomic_state *state,
- 	return 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 721a5f28be808..dac3b59758af7 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -2234,8 +2234,8 @@ static void intel_ddi_enable_fec(struct intel_encoder *encoder,
+ 		     0, DP_TP_CTL_FEC_ENABLE);
  }
  
-+static void clear_pipe_update_flags_on_modeset_crtc(struct intel_crtc_state *crtc_state)
-+{
-+	if (!intel_crtc_needs_modeset(crtc_state))
-+		return;
-+
-+	crtc_state->update_pipe = false;
-+	crtc_state->update_m_n = false;
-+	crtc_state->update_lrr = false;
-+}
-+
- /**
-  * intel_modeset_all_pipes_late - force a full modeset on all pipes
-  * @state: intel atomic state
-@@ -5584,9 +5594,8 @@ int intel_modeset_all_pipes_late(struct intel_atomic_state *state,
- 		if (ret)
- 			return ret;
+-static void intel_ddi_disable_fec_state(struct intel_encoder *encoder,
+-					const struct intel_crtc_state *crtc_state)
++static void intel_ddi_disable_fec(struct intel_encoder *encoder,
++				  const struct intel_crtc_state *crtc_state)
+ {
+ 	struct drm_i915_private *dev_priv = to_i915(encoder->base.dev);
  
--		crtc_state->update_pipe = false;
--		crtc_state->update_m_n = false;
--		crtc_state->update_lrr = false;
-+		clear_pipe_update_flags_on_modeset_crtc(crtc_state);
-+
- 		crtc_state->update_planes |= crtc_state->active_planes;
- 		crtc_state->async_flip_planes = 0;
- 		crtc_state->do_async_flip = false;
-@@ -5699,13 +5708,13 @@ static void intel_crtc_check_fastset(const struct intel_crtc_state *old_crtc_sta
- 	else
- 		new_crtc_state->uapi.mode_changed = false;
+@@ -2868,8 +2868,7 @@ static void disable_ddi_buf(struct intel_encoder *encoder,
+ 		intel_de_rmw(dev_priv, dp_tp_ctl_reg(encoder, crtc_state),
+ 			     DP_TP_CTL_ENABLE, 0);
  
--	if (intel_crtc_needs_modeset(new_crtc_state) ||
--	    intel_compare_link_m_n(&old_crtc_state->dp_m_n,
-+	clear_pipe_update_flags_on_modeset_crtc(new_crtc_state);
-+
-+	if (intel_compare_link_m_n(&old_crtc_state->dp_m_n,
- 				   &new_crtc_state->dp_m_n))
- 		new_crtc_state->update_m_n = false;
+-	/* Disable FEC in DP Sink */
+-	intel_ddi_disable_fec_state(encoder, crtc_state);
++	intel_ddi_disable_fec(encoder, crtc_state);
  
--	if (intel_crtc_needs_modeset(new_crtc_state) ||
--	    (old_crtc_state->hw.adjusted_mode.crtc_vtotal == new_crtc_state->hw.adjusted_mode.crtc_vtotal &&
-+	if ((old_crtc_state->hw.adjusted_mode.crtc_vtotal == new_crtc_state->hw.adjusted_mode.crtc_vtotal &&
- 	     old_crtc_state->hw.adjusted_mode.crtc_vblank_end == new_crtc_state->hw.adjusted_mode.crtc_vblank_end))
- 		new_crtc_state->update_lrr = false;
+ 	if (wait)
+ 		intel_wait_ddi_buf_idle(dev_priv, port);
+@@ -2884,7 +2883,7 @@ static void intel_disable_ddi_buf(struct intel_encoder *encoder,
+ 		mtl_disable_ddi_buf(encoder, crtc_state);
  
-@@ -6484,12 +6493,9 @@ int intel_atomic_check(struct drm_device *dev,
- 		if (intel_dp_mst_is_slave_trans(new_crtc_state)) {
- 			enum transcoder master = new_crtc_state->mst_master_transcoder;
- 
--			if (intel_cpu_transcoders_need_modeset(state, BIT(master))) {
--				new_crtc_state->uapi.mode_changed = true;
--				new_crtc_state->update_pipe = false;
--				new_crtc_state->update_m_n = false;
--				new_crtc_state->update_lrr = false;
--			}
-+			if (intel_cpu_transcoders_need_modeset(state, BIT(master)))
-+				intel_modeset_pipes_in_mask_early(state, "MST master transcoder",
-+								  BIT(crtc->pipe));
- 		}
- 
- 		if (is_trans_port_sync_mode(new_crtc_state)) {
-@@ -6498,22 +6504,18 @@ int intel_atomic_check(struct drm_device *dev,
- 			if (new_crtc_state->master_transcoder != INVALID_TRANSCODER)
- 				trans |= BIT(new_crtc_state->master_transcoder);
- 
--			if (intel_cpu_transcoders_need_modeset(state, trans)) {
--				new_crtc_state->uapi.mode_changed = true;
--				new_crtc_state->update_pipe = false;
--				new_crtc_state->update_m_n = false;
--				new_crtc_state->update_lrr = false;
--			}
-+			if (intel_cpu_transcoders_need_modeset(state, trans))
-+				intel_modeset_pipes_in_mask_early(state, "port sync",
-+								  BIT(crtc->pipe));
- 		}
- 
- 		if (new_crtc_state->bigjoiner_pipes) {
--			if (intel_pipes_need_modeset(state, new_crtc_state->bigjoiner_pipes)) {
--				new_crtc_state->uapi.mode_changed = true;
--				new_crtc_state->update_pipe = false;
--				new_crtc_state->update_m_n = false;
--				new_crtc_state->update_lrr = false;
--			}
-+			if (intel_pipes_need_modeset(state, new_crtc_state->bigjoiner_pipes))
-+				intel_modeset_pipes_in_mask_early(state, "bigjoiner pipes",
-+								  BIT(crtc->pipe));
- 		}
-+
-+		clear_pipe_update_flags_on_modeset_crtc(new_crtc_state);
+ 		/* 3.f Disable DP_TP_CTL FEC Enable if it is needed */
+-		intel_ddi_disable_fec_state(encoder, crtc_state);
++		intel_ddi_disable_fec(encoder, crtc_state);
+ 	} else {
+ 		disable_ddi_buf(encoder, crtc_state);
  	}
- 
- 	for_each_oldnew_intel_crtc_in_state(state, crtc, old_crtc_state,
 -- 
 2.39.2
 
