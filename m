@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6C8AC25B48
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 10:33:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7853C07545
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 10:33:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66CC210E32D;
-	Tue, 24 Oct 2023 10:33:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F32110E32E;
+	Tue, 24 Oct 2023 10:33:04 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70C8C10E32B
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 10:32:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F39B10E32C
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 10:33:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698143574; x=1729679574;
+ t=1698143580; x=1729679580;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=SMIRekp91s2UcxKx4X7C6UUv39BuQ0YPxK15ScFpcOM=;
- b=lDhMo8CGEb8ZdgdtBSfBKywdJSfU4A1tn0zfqBVaWOetfcuibBrTIB3g
- Bt/GhzX5KsyX6APbm60mKqZhQVsJA68NGtwaXxkhaJPSwJpFo0bRQNp+6
- 68oSg4KFpgUp4U85TiA67klrZ1FRq2M/jdrOxxQkMSjyzVfieZ4V802S0
- JLguWa3lFIcSPx7flsPzAqUiqyfvWWiOPrVtK4AWwNEjijvVTOaxQe4iU
- 7HTveLEKmWqa0mNC6TB5YOVXBq7EFN4lb6lljw9bG4pBNwRJkRpdZqy0h
- 38xQRy3pRbttkJGk1M4Z6G7z/M1XUL1aoO1xZoUHI0dGT2mj90uiQxDMf Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="386839489"
-X-IronPort-AV: E=Sophos;i="6.03,247,1694761200"; d="scan'208";a="386839489"
+ bh=5voTiSyVowZloeKmIYMc5237yZGR/a37cdVUul8OYMY=;
+ b=d8Y40IjlXI2vb7aFPJpREc/FyySTb4A3KkTGJwv0bLdjDmrcWPH9gQwn
+ rUswRkzypmT1vKRXcMZUSGAWoZ4pbA56clPZlE9dtRB20u4eAH1LWxQSa
+ 6Q+uAdnfLguowBZQ/aOgmNpjMCTZJ7mqI49Z2mzfBlrNYZrHYFPzOKcN4
+ gcxUORM6a46yxBGs6y2hX3FzPnqSwYsJzcMYsix2pf7I7douLAX6GBXQn
+ vYgzHcoDjmsNoMNaz43UJnktv+xFCGpIfj5jyYJ+OlO7BD8V57qzcKr8G
+ OmAakTbemplAi367FHX8kh9iatNDPOpL9xWqoN7zxOoVd1Sh/gg4t7gO1 g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="386839532"
+X-IronPort-AV: E=Sophos;i="6.03,247,1694761200"; d="scan'208";a="386839532"
 Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2023 03:32:54 -0700
+ 24 Oct 2023 03:32:59 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="793439368"
-X-IronPort-AV: E=Sophos;i="6.03,247,1694761200"; d="scan'208";a="793439368"
+X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="793439412"
+X-IronPort-AV: E=Sophos;i="6.03,247,1694761200"; d="scan'208";a="793439412"
 Received: from cpantea-mobl.ger.corp.intel.com (HELO jhogande-mobl1.intel.com)
  ([10.252.63.253])
  by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Oct 2023 03:32:52 -0700
+ 24 Oct 2023 03:32:58 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 24 Oct 2023 13:32:05 +0300
-Message-Id: <20231024103222.302256-7-jouni.hogander@intel.com>
+Date: Tue, 24 Oct 2023 13:32:08 +0300
+Message-Id: <20231024103222.302256-10-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20231024103222.302256-1-jouni.hogander@intel.com>
 References: <20231024103222.302256-1-jouni.hogander@intel.com>
@@ -47,8 +47,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 06/23] drm/i915/display: Move
- lvds_channel_mode module parameter under display
+Subject: [Intel-gfx] [PATCH v3 09/23] drm/i915/display: Move enable_dc
+ module parameter under display
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,82 +68,82 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_params.c | 4 ++++
+ drivers/gpu/drm/i915/display/intel_display_params.c | 5 +++++
  drivers/gpu/drm/i915/display/intel_display_params.h | 1 +
- drivers/gpu/drm/i915/display/intel_lvds.c           | 4 ++--
- drivers/gpu/drm/i915/i915_params.c                  | 4 ----
+ drivers/gpu/drm/i915/display/intel_display_power.c  | 2 +-
+ drivers/gpu/drm/i915/i915_params.c                  | 5 -----
  drivers/gpu/drm/i915/i915_params.h                  | 1 -
  5 files changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
-index d00ea5cda432..91e2b5056d63 100644
+index d11c74ba001e..60fa0bbce77d 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_params.c
 +++ b/drivers/gpu/drm/i915/display/intel_display_params.c
-@@ -30,6 +30,10 @@ static struct intel_display_params intel_display_modparams __read_mostly = {
- intel_display_param_named_unsafe(vbt_firmware, charp, 0400,
- 	"Load VBT from specified file under /lib/firmware");
+@@ -42,6 +42,11 @@ intel_display_param_named_unsafe(vbt_sdvo_panel_type, int, 0400,
+ 	"Override/Ignore selection of SDVO panel mode in the VBT "
+ 	"(-2=ignore, -1=auto [default], index in VBT BIOS table)");
  
-+intel_display_param_named_unsafe(lvds_channel_mode, int, 0400,
-+	 "Specify LVDS channel mode "
-+	 "(0=probe BIOS [default], 1=single-channel, 2=dual-channel)");
++intel_display_param_named_unsafe(enable_dc, int, 0400,
++	"Enable power-saving display C-states. "
++	"(-1=auto [default]; 0=disable; 1=up to DC5; 2=up to DC6; "
++	"3=up to DC5 with DC3CO; 4=up to DC6 with DC3CO)");
 +
  intel_display_param_named_unsafe(enable_fbc, int, 0400,
  	"Enable frame buffer compression for power savings "
  	"(default: -1 (use per-chip default))");
 diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
-index e51e8a1960eb..09bd6614b813 100644
+index 03dea0ba81d1..2cca06ad7d71 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_params.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_params.h
-@@ -25,6 +25,7 @@ struct drm_i915_private;
-  */
- #define INTEL_DISPLAY_PARAMS_FOR_EACH(param) \
- 	param(char *, vbt_firmware, NULL, 0400) \
-+	param(int, lvds_channel_mode, 0, 0400) \
+@@ -28,6 +28,7 @@ struct drm_i915_private;
+ 	param(int, lvds_channel_mode, 0, 0400) \
+ 	param(int, panel_use_ssc, -1, 0600) \
+ 	param(int, vbt_sdvo_panel_type, -1, 0400) \
++	param(int, enable_dc, -1, 0400) \
  	param(int, enable_fbc, -1, 0600) \
  	param(int, enable_psr, -1, 0600) \
  	param(bool, psr_safest_params, false, 0400) \
-diff --git a/drivers/gpu/drm/i915/display/intel_lvds.c b/drivers/gpu/drm/i915/display/intel_lvds.c
-index 2a4ca7e65775..4b114fde57b1 100644
---- a/drivers/gpu/drm/i915/display/intel_lvds.c
-+++ b/drivers/gpu/drm/i915/display/intel_lvds.c
-@@ -794,8 +794,8 @@ static bool compute_is_dual_link_lvds(struct intel_lvds_encoder *lvds_encoder)
- 	unsigned int val;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index e25785ae1c20..4832eb8da080 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -1020,7 +1020,7 @@ int intel_power_domains_init(struct drm_i915_private *dev_priv)
+ 		sanitize_disable_power_well_option(dev_priv,
+ 						   dev_priv->params.disable_power_well);
+ 	power_domains->allowed_dc_mask =
+-		get_allowed_dc_mask(dev_priv, dev_priv->params.enable_dc);
++		get_allowed_dc_mask(dev_priv, dev_priv->display.params.enable_dc);
  
- 	/* use the module option value if specified */
--	if (i915->params.lvds_channel_mode > 0)
--		return i915->params.lvds_channel_mode == 2;
-+	if (i915->display.params.lvds_channel_mode > 0)
-+		return i915->display.params.lvds_channel_mode == 2;
- 
- 	/* single channel LVDS is limited to 112 MHz */
- 	if (fixed_mode->clock > 112999)
+ 	power_domains->target_dc_state =
+ 		sanitize_target_dc_state(dev_priv, DC_STATE_EN_UPTO_DC6);
 diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
-index 9d0535d774c9..ea55cc2c4854 100644
+index d0abcbd526a7..3d370e43df3c 100644
 --- a/drivers/gpu/drm/i915/i915_params.c
 +++ b/drivers/gpu/drm/i915/i915_params.c
-@@ -72,10 +72,6 @@ i915_param_named_unsafe(enable_dc, int, 0400,
- 	"(-1=auto [default]; 0=disable; 1=up to DC5; 2=up to DC6; "
- 	"3=up to DC5 with DC3CO; 4=up to DC6 with DC3CO)");
+@@ -67,11 +67,6 @@ i915_param_named(modeset, int, 0400,
+ 	"Use kernel modesetting [KMS] (0=disable, "
+ 	"1=on, -1=force vga console preference [default])");
  
--i915_param_named_unsafe(lvds_channel_mode, int, 0400,
--	 "Specify LVDS channel mode "
--	 "(0=probe BIOS [default], 1=single-channel, 2=dual-channel)");
+-i915_param_named_unsafe(enable_dc, int, 0400,
+-	"Enable power-saving display C-states. "
+-	"(-1=auto [default]; 0=disable; 1=up to DC5; 2=up to DC6; "
+-	"3=up to DC5 with DC3CO; 4=up to DC6 with DC3CO)");
 -
- i915_param_named_unsafe(panel_use_ssc, int, 0400,
- 	"Use Spread Spectrum Clock with panels [LVDS/eDP] "
- 	"(default: auto from VBT)");
+ i915_param_named_unsafe(reset, uint, 0400,
+ 	"Attempt GPU resets (0=disabled, 1=full gpu reset, 2=engine reset [default])");
+ 
 diff --git a/drivers/gpu/drm/i915/i915_params.h b/drivers/gpu/drm/i915/i915_params.h
-index 37a1d31a233c..03ec2c2b589d 100644
+index 1ea332dfbb5d..c3487b9d6937 100644
 --- a/drivers/gpu/drm/i915/i915_params.h
 +++ b/drivers/gpu/drm/i915/i915_params.h
 @@ -47,7 +47,6 @@ struct drm_printer;
   */
  #define I915_PARAMS_FOR_EACH(param) \
  	param(int, modeset, -1, 0400) \
--	param(int, lvds_channel_mode, 0, 0400) \
- 	param(int, panel_use_ssc, -1, 0600) \
- 	param(int, vbt_sdvo_panel_type, -1, 0400) \
- 	param(int, enable_dc, -1, 0400) \
+-	param(int, enable_dc, -1, 0400) \
+ 	param(bool, enable_dpt, true, 0400) \
+ 	param(bool, enable_sagv, true, 0600) \
+ 	param(int, disable_power_well, -1, 0400) \
 -- 
 2.34.1
 
