@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8984C25B6B
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 01:09:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7380BC00A8F
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 01:09:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29EE510E2B2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9438C10E2AF;
 	Tue, 24 Oct 2023 01:09:13 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9987A10E2AF
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 01:09:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EF1010E2A1;
+ Tue, 24 Oct 2023 01:09:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698109749; x=1729645749;
+ t=1698109745; x=1729645745;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Y74i2OGuPU8qa9dtkqV+dHSlEK3jrM0KirOKzfr7V7o=;
- b=FmZSql7k1s0EmqJ1YnVXO2GMbaXL+Q5fNpY67OHBqEesCq2LWv5LedM5
- +VAyWSMcPm4nB5Xh4Ocn9BOch77rITQV2dHSjtvQa+ctwm1KxRtDITB5z
- DKiMIrH15r2jQcC4YG5w6lpTOsdczPgCmUHFlC6ISyBNO3S9SZ7xXj5EE
- 8wzWn7Duh9HqA3qQH7WiSUA+1IFzt+Z5rZDyuz1mFpUL0IUvKfYyoHgMI
- xEsKaY8t5ppL5a718bNTmFcAZDlZAQuiIkJNTVY39NFURXd71bhu8oREk
- x34M/18pVoSH2UWrpIKE3Lg5/VEw7pbDUxP4T6yaEs2J32hbi0TU10gTP Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="366304347"
-X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="366304347"
+ bh=VsqM1xF/AplsEwiGjrP6+aBGayu1M/I9KPvAI2Cpm6U=;
+ b=lJkfAYjzv8zkoTN2yYR7rjNE1MAbVhn3MXeDEJcqz9+1XGPl4YojtbSx
+ m2ZOcUQwDv81djooSPQ1kEDNDyEk6Q7qmKokQ2OZGRpD0tRNXP6saLU0H
+ dh5zCM9u+/+n94D1d5B74IUj9dYG7NVMDFez3ZTI0dsPh0wyLpuGlclUl
+ cRWGtQvRHxLDXc8MakHt6Gf4HNwwHDb6GO36CKKIcAJ9enPTazgKNs2Ie
+ jk5SK3ioo8IFboGUwF18l/hUXixsM8VaysZB52uXffWdK14I4UyLIVRDs
+ oPwGkvaIjlagVhlVfRRiTjl2uQywwxkDcVknaCudFwIf3SrFqiwrXapRF Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="366304338"
+X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="366304338"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2023 18:09:09 -0700
+ 23 Oct 2023 18:09:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="931870022"
-X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="931870022"
+X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="931870012"
+X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="931870012"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2023 18:09:07 -0700
+ 23 Oct 2023 18:09:03 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 24 Oct 2023 04:09:03 +0300
-Message-Id: <20231024010925.3949910-8-imre.deak@intel.com>
+Date: Tue, 24 Oct 2023 04:09:00 +0300
+Message-Id: <20231024010925.3949910-5-imre.deak@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231024010925.3949910-1-imre.deak@intel.com>
 References: <20231024010925.3949910-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 07/29] drm/dp_mst: Add HBLANK expansion quirk
- for Synaptics MST hubs
+Subject: [Intel-gfx] [PATCH 04/29] drm/dp_mst: Swap the order of checking
+ root vs. non-root port BW limitations
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,52 +58,72 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a quirk for Synaptics MST hubs, which require a workaround - at leat
-on i915 - for some modes, on which the hub applies HBLANK expansion.
-These modes will only work by enabling DSC decompression for them, a
-follow-up patch will do this in i915.
+drm_dp_mst_atomic_check_mgr() should check for BW limitation starting
+from sink ports continuing towards the root port, so that drivers can
+use the @failing_port returned to resolve a BW overallocation in an
+ideal way. For instance from streams A,B,C in a topology A,B going
+through @failing_port and C not going through it, a BW overallocation of
+A,B due to a limit of the port must be resolved first before considering
+the limits of other ports closer to the root port. This way can avoid
+reducing the BW of stream C unnecessarily due to a BW limit closer to the
+root port.
+
+Based on the above swap the order of the BW check for the root port and
+the check for all the ports downstream of it (the latter going through
+the topology already in the sink->root port direction).
 
 Cc: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_helper.c | 2 ++
- include/drm/display/drm_dp_helper.h     | 7 +++++++
- 2 files changed, 9 insertions(+)
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index f3680f4e69708..e5d7970a9ddd0 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -2245,6 +2245,8 @@ static const struct dpcd_quirk dpcd_quirk_list[] = {
- 	{ OUI(0x00, 0x00, 0x00), DEVICE_ID('C', 'H', '7', '5', '1', '1'), false, BIT(DP_DPCD_QUIRK_NO_SINK_COUNT) },
- 	/* Synaptics DP1.4 MST hubs can support DSC without virtual DPCD */
- 	{ OUI(0x90, 0xCC, 0x24), DEVICE_ID_ANY, true, BIT(DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD) },
-+	/* Synaptics DP1.4 MST hubs require DSC for some modes on which it applies HBLANK expansion. */
-+	{ OUI(0x90, 0xCC, 0x24), DEVICE_ID_ANY, true, BIT(DP_DPCD_QUIRK_HBLANK_EXPANSION_REQUIRES_DSC) },
- 	/* Apple MacBookPro 2017 15 inch eDP Retina panel reports too low DP_MAX_LINK_RATE */
- 	{ OUI(0x00, 0x10, 0xfa), DEVICE_ID(101, 68, 21, 101, 98, 97), false, BIT(DP_DPCD_QUIRK_CAN_DO_MAX_LINK_RATE_3_24_GBPS) },
- };
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index 3d74b2cec72fd..351f38d5cc351 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -632,6 +632,13 @@ enum drm_dp_quirk {
- 	 * the DP_MAX_LINK_RATE register reporting a lower max multiplier.
- 	 */
- 	DP_DPCD_QUIRK_CAN_DO_MAX_LINK_RATE_3_24_GBPS,
-+	/**
-+	 * @DP_DPCD_QUIRK_HBLANK_EXPANSION_NEEDS_DSC:
-+	 *
-+	 * The device applies HBLANK expansion for some modes, but this
-+	 * requires enabling DSC.
-+	 */
-+	DP_DPCD_QUIRK_HBLANK_EXPANSION_REQUIRES_DSC,
- };
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index a86a67d3516ff..5972c93615f18 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -5469,9 +5469,13 @@ EXPORT_SYMBOL(drm_dp_mst_atomic_enable_dsc);
+  *   - %-ENOSPC, if the new state is invalid, because of BW limitation
+  *         @failing_port is set to:
+  *         - The non-root port where a BW limit check failed
++ *           with all the ports downstream of @failing_port passing
++ *           the BW limit check.
+  *           The returned port pointer is valid until at least
+  *           one payload downstream of it exists.
+  *         - %NULL if the BW limit check failed at the root port
++ *           with all the ports downstream of the root port passing
++ *           the BW limit check.
+  *   - %-EINVAL, if the new state is invalid, because the root port has
+  *     too many payloads.
+  */
+@@ -5487,17 +5491,16 @@ int drm_dp_mst_atomic_check_mgr(struct drm_atomic_state *state,
+ 	if (!mgr->mst_state)
+ 		return 0;
  
- /**
+-	ret = drm_dp_mst_atomic_check_payload_alloc_limits(mgr, mst_state);
+-	if (ret)
+-		return ret;
+-
+ 	mutex_lock(&mgr->lock);
+ 	ret = drm_dp_mst_atomic_check_mstb_bw_limit(mgr->mst_primary,
+ 						    mst_state,
+ 						    failing_port);
+ 	mutex_unlock(&mgr->lock);
+ 
+-	return ret < 0 ? ret : 0;
++	if (ret < 0)
++		return ret;
++
++	return drm_dp_mst_atomic_check_payload_alloc_limits(mgr, mst_state);
+ }
+ EXPORT_SYMBOL(drm_dp_mst_atomic_check_mgr);
+ 
 -- 
 2.39.2
 
