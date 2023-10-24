@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BED61C25B67
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 01:09:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 420E1C25B6D
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 01:09:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D35E010E2C0;
-	Tue, 24 Oct 2023 01:09:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C2A210E2C2;
+	Tue, 24 Oct 2023 01:09:33 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0DB710E2BC
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 01:09:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FDA910E2C0
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 01:09:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698109763; x=1729645763;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=3WkJV3VCZYOTSjbXVivxanIEbhYKtmoWtY+BsOTGLgQ=;
- b=ePY/vxKNuAUmOYuL5oXejiXFYLBbs28lVoFd96QCPSvqFIbQRkDhAOYM
- 5VorkBMgjKSI4uKf3HkDc2tkl2M01Na2OLnBpe1O8Ro0lCCz2UyNX6M79
- jZ2RbpTcbdyRYN9KmAQ2poDsF5/8KmhRs2l40VXwxbxczk0a0kzeDSgig
- yQ/x483bGgJqa8BY/xqOMQdBBJNDtnKvKnj+FOpRCnsvja+leZvci+AoN
- z5f6tBTq0TUTuIlDB8zBdRQRmM8FKlxWMl1zlh9gUxldpy2VNVu6sIKp9
- nlAD7nMdB7NSY/yrL2L3Oy9nbOEsTpAC+kOQ6yKXpu/zy/J+VcEvCoGys w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="366304379"
-X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="366304379"
+ t=1698109760; x=1729645760;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=CO/EAEU8pZYZ/aIdxeafddUthLNmeWZgrtC5kzHx0Z8=;
+ b=YavNRRqsZouhFyfeUcq56L4mSKGUfk3iwjTObR95AoJ4AWNxsAkLmyrc
+ 6hDNJb3ww48GCGoBhF2gAGxYtG9mpciw3/U59HF5Ut4udhrKxkAlEIym6
+ 5li89GnoqQnD8L5SPdsHRmoiGcj6eMN6VnLLz79MOvPklrT2NZSSeEdZC
+ t2W3qZZpKmvsthXOG30V4H5kI3Ylwuvocw726G0h1jHIqIvF1uAtyqkBx
+ SOl7X01wRVN3hfqG+zvePXZNQr/aRk/9q48cOwwdl+Aub7vFFnaR7gP05
+ mEOC5z7O3rhhaTXolOnYQP2m9zvkD6xGzvfuSEfgCkdA9xv37z/dyLpjf Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="366304372"
+X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="366304372"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2023 18:09:23 -0700
+ 23 Oct 2023 18:09:19 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="931870097"
-X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="931870097"
+X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="931870073"
+X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="931870073"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2023 18:09:22 -0700
+ 23 Oct 2023 18:09:18 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 24 Oct 2023 04:09:14 +0300
-Message-Id: <20231024010925.3949910-19-imre.deak@intel.com>
+Date: Tue, 24 Oct 2023 04:09:11 +0300
+Message-Id: <20231024010925.3949910-16-imre.deak@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231024010925.3949910-1-imre.deak@intel.com>
 References: <20231024010925.3949910-1-imre.deak@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 18/29] drm/i915/dp: Wait for FEC detected status
- in the sink
+Subject: [Intel-gfx] [PATCH 15/29] drm/i915/dp: Make sure the DSC PPS SDP is
+ disabled whenever DSC is disabled
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,157 +62,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As required by the DP standard wait for the sink to detect the FEC
-decode enabling symbol sent by the source.
+Atm the DSC PPS SDP will stay enabled after enabling and disabling DSC.
+This leaves an output blank after switching off DSC on it. Make sure the
+SDP is disabled for an uncompressed output.
 
+v2:
+- Disable the SDP already during output disabling. (Ville)
+
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c    | 73 +++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_ddi.h    |  3 +
- drivers/gpu/drm/i915/display/intel_dp_mst.c |  4 ++
- 3 files changed, 80 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp.c     | 5 ++++-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 5 ++---
+ 2 files changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index dac3b59758af7..6f9d0f2ff3d9a 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -25,6 +25,7 @@
-  *
-  */
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 0235de5bb8cd1..7d185d6b2fe9d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -4069,7 +4069,10 @@ void intel_dp_set_infoframes(struct intel_encoder *encoder,
+ 			 VIDEO_DIP_ENABLE_SPD_HSW | VIDEO_DIP_ENABLE_DRM_GLK;
+ 	u32 val = intel_de_read(dev_priv, reg) & ~dip_enable;
  
-+#include <linux/iopoll.h>
- #include <linux/string_helpers.h>
- 
- #include <drm/display/drm_scdc_helper.h>
-@@ -2220,6 +2221,74 @@ static void intel_dp_sink_set_fec_ready(struct intel_dp *intel_dp,
- 	if (drm_dp_dpcd_writeb(&intel_dp->aux, DP_FEC_CONFIGURATION, DP_FEC_READY) <= 0)
- 		drm_dbg_kms(&i915->drm,
- 			    "Failed to set FEC_READY in the sink\n");
+-	/* TODO: Add DSC case (DIP_ENABLE_PPS) */
++	/* TODO: Sanitize DSC enabling wrt. intel_dsc_dp_pps_write(). */
++	if (!enable && HAS_DSC(dev_priv))
++		val &= ~VDIP_ENABLE_PPS;
 +
-+	if (drm_dp_dpcd_writeb(&intel_dp->aux, DP_FEC_STATUS,
-+			       DP_FEC_DECODE_EN_DETECTED | DP_FEC_DECODE_DIS_DETECTED) <= 0)
-+		drm_dbg_kms(&i915->drm, "Failed to clear FEC detected flags\n");
-+}
-+
-+static int read_fec_detected_status(struct drm_dp_aux *aux)
-+{
-+	int ret;
-+	u8 status;
-+
-+	ret = drm_dp_dpcd_readb(aux, DP_FEC_STATUS, &status);
-+	if (ret < 0)
-+		return ret;
-+
-+	return status;
-+}
-+
-+static void wait_for_fec_detected(struct drm_dp_aux *aux, bool enabled)
-+{
-+	struct drm_i915_private *i915 = to_i915(aux->drm_dev);
-+	int mask = enabled ? DP_FEC_DECODE_EN_DETECTED : DP_FEC_DECODE_DIS_DETECTED;
-+	int status;
-+	int err;
-+
-+	err = readx_poll_timeout(read_fec_detected_status, aux, status,
-+				 status & mask || status < 0,
-+				 10000, 200000);
-+
-+	if (!err && status >= 0)
-+		return;
-+
-+	if (err == -ETIMEDOUT)
-+		drm_err(&i915->drm, "Timeout waiting for FEC %s to get detected\n",
-+			str_enabled_disabled(enabled));
-+	else
-+		drm_dbg_kms(&i915->drm, "FEC detected status read error: %d\n", status);
-+}
-+
-+void intel_ddi_wait_for_fec_status(struct intel_encoder *encoder,
-+				   const struct intel_crtc_state *crtc_state,
-+				   bool enabled)
-+{
-+	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
-+	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
-+	int ret;
-+
-+	if (!crtc_state->fec_enable)
-+		return;
-+
-+	if (enabled)
-+		ret = intel_de_wait_for_set(i915, dp_tp_status_reg(encoder, crtc_state),
-+					    DP_TP_STATUS_FEC_ENABLE_LIVE, 1);
-+	else
-+		ret = intel_de_wait_for_clear(i915, dp_tp_status_reg(encoder, crtc_state),
-+					      DP_TP_STATUS_FEC_ENABLE_LIVE, 1);
-+
-+	if (ret)
-+		drm_err(&i915->drm,
-+			"Timeout waiting for FEC live state to get %s\n",
-+			str_enabled_disabled(enabled));
-+
-+	/*
-+	 * At least the Synoptics MST hub doesn't set the detected flag for
-+	 * FEC decoding disabling so skip waiting for that.
-+	 */
-+	if (enabled)
-+		wait_for_fec_detected(&intel_dp->aux, enabled);
- }
- 
- static void intel_ddi_enable_fec(struct intel_encoder *encoder,
-@@ -2887,6 +2956,8 @@ static void intel_disable_ddi_buf(struct intel_encoder *encoder,
- 	} else {
- 		disable_ddi_buf(encoder, crtc_state);
- 	}
-+
-+	intel_ddi_wait_for_fec_status(encoder, crtc_state, false);
- }
- 
- static void intel_ddi_post_disable_dp(struct intel_atomic_state *state,
-@@ -3248,6 +3319,8 @@ static void intel_enable_ddi(struct intel_atomic_state *state,
- 	if (!intel_crtc_is_bigjoiner_slave(crtc_state))
- 		intel_ddi_enable_transcoder_func(encoder, crtc_state);
- 
-+	intel_ddi_wait_for_fec_status(encoder, crtc_state, true);
-+
- 	/* Enable/Disable DP2.0 SDP split config before transcoder */
- 	intel_audio_sdp_split_update(crtc_state);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.h b/drivers/gpu/drm/i915/display/intel_ddi.h
-index 4999c0ee229bd..e939b93fc81c2 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.h
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.h
-@@ -60,6 +60,9 @@ void intel_ddi_disable_transcoder_func(const struct intel_crtc_state *crtc_state
- void intel_ddi_enable_transcoder_clock(struct intel_encoder *encoder,
- 				       const struct intel_crtc_state *crtc_state);
- void intel_ddi_disable_transcoder_clock(const  struct intel_crtc_state *crtc_state);
-+void intel_ddi_wait_for_fec_status(struct intel_encoder *encoder,
-+				   const struct intel_crtc_state *crtc_state,
-+				   bool enabled);
- void intel_ddi_set_dp_msa(const struct intel_crtc_state *crtc_state,
- 			  const struct drm_connector_state *conn_state);
- bool intel_ddi_connector_get_hw_state(struct intel_connector *intel_connector);
+ 	/* When PSR is enabled, this routine doesn't disable VSC DIP */
+ 	if (!crtc_state->has_psr)
+ 		val &= ~VIDEO_DIP_ENABLE_VSC_HSW;
 diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index b7a9ce40cf59a..a1ea75cd5ea84 100644
+index 02da25631b6ef..0c3851f099b98 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -853,6 +853,7 @@ static void intel_mst_enable_dp(struct intel_atomic_state *state,
- 	struct drm_dp_mst_topology_state *mst_state =
- 		drm_atomic_get_new_mst_topology_state(&state->base, &intel_dp->mst_mgr);
- 	enum transcoder trans = pipe_config->cpu_transcoder;
-+	bool first_mst_stream = intel_dp->active_mst_links == 1;
- 
- 	drm_WARN_ON(&dev_priv->drm, pipe_config->has_pch_encoder);
- 
-@@ -879,6 +880,9 @@ static void intel_mst_enable_dp(struct intel_atomic_state *state,
- 
- 	wait_for_act_sent(encoder, pipe_config);
- 
-+	if (first_mst_stream)
-+		intel_ddi_wait_for_fec_status(encoder, pipe_config, true);
-+
- 	drm_dp_add_payload_part2(&intel_dp->mst_mgr, &state->base,
- 				 drm_atomic_get_mst_payload_state(mst_state, connector->port));
- 
+@@ -721,9 +721,8 @@ static void intel_mst_post_disable_dp(struct intel_atomic_state *state,
+ 	 * BSpec 4287: disable DIP after the transcoder is disabled and before
+ 	 * the transcoder clock select is set to none.
+ 	 */
+-	if (last_mst_stream)
+-		intel_dp_set_infoframes(&dig_port->base, false,
+-					old_crtc_state, NULL);
++	intel_dp_set_infoframes(&dig_port->base, false,
++				old_crtc_state, NULL);
+ 	/*
+ 	 * From TGL spec: "If multi-stream slave transcoder: Configure
+ 	 * Transcoder Clock Select to direct no clock to the transcoder"
 -- 
 2.39.2
 
