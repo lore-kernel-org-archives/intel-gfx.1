@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6FBFC25B6D
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 01:09:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CCE2C25B6C
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Oct 2023 01:09:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B808510E2B6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D172710E2B7;
 	Tue, 24 Oct 2023 01:09:14 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFFA010E2AE
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 01:09:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B5EB10E2AF
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Oct 2023 01:09:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698109746; x=1729645746;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=XY9jKZTWFLuvy9NigwNcJeYNvfJ19kjKtxv7ZBeHmCA=;
- b=MQEhk2mFXqFZ9XC6RAUU6pyd6MsA1SJuxqY2ZR3PyaeX5NR1+rv8IFjV
- ENC559uTZmNrbBfVRG/3aTReBNK6ltz87jIZQ+1+DwFAyW0pJIADeRHnB
- YO/gMS6/gV4culcQzHJ24mwUQgoG6aY/l2wIKkYIPe3b8pdENgHOA/stk
- A5AdJZXpqpuBWoTzB/qF4c2pK1/9wovMDzKznWbUvsMU0GVWQnT5oOlS0
- 9cbEHb8uVLqyLHH3xE0txdYMAQLIKQ9b7oQGOJOR+t/r5sqg27UfeDNtG
- UA2Dvl5zt+XRvCfRP6LXtOWY/oTXHZyOFg28ARA5mGvET4LNbp62s/0JD Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="366304340"
-X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="366304340"
+ t=1698109753; x=1729645753;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=IedyKEHyU1RMx+SPXABpFyNVfxVPjzpFCtzp/SQlQCo=;
+ b=DDmNbCbZvtap0C0dJ52ty4vBYcOJ/k6lLckb5OwVQWmLMIq9Fj9aBRDq
+ 0iUWY39L61FVBtptKZP/XPL7OqORUUtFIMVE4GHeJ+m1w6h9cQdxpL543
+ xTkHXksTPgS78PBOIPW/wZcM21L85RA6QRsV/Hsnzufzj4oyBsbUfYVU0
+ KG0YTYqlD2xhQss84IzVPP4r+loUrnF5RD6LfOxJsS8DIkXB4agZEyd4s
+ WGuha9jnSOnIyWPObmOu1m8EZ/pxJBEhsvwSXXgFyE45NhoXToMt2nMld
+ wAaKEUY9CVaJRNIjKa12No0UiPQ4NOVzNEGqYQ2+8UbKBBcMkf1Nej8U5 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="366304358"
+X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="366304358"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2023 18:09:06 -0700
+ 23 Oct 2023 18:09:12 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="931870015"
-X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="931870015"
+X-IronPort-AV: E=McAfee;i="6600,9927,10872"; a="931870045"
+X-IronPort-AV: E=Sophos;i="6.03,246,1694761200"; d="scan'208";a="931870045"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2023 18:09:05 -0700
+ 23 Oct 2023 18:09:11 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue, 24 Oct 2023 04:09:01 +0300
-Message-Id: <20231024010925.3949910-6-imre.deak@intel.com>
+Date: Tue, 24 Oct 2023 04:09:06 +0300
+Message-Id: <20231024010925.3949910-11-imre.deak@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231024010925.3949910-1-imre.deak@intel.com>
 References: <20231024010925.3949910-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 05/29] drm/dp_mst: Allow DSC in any Synaptics
- last branch device
+Subject: [Intel-gfx] [PATCH 10/29] drm/i915/dp: Specify the FEC overhead as
+ an increment vs. a remainder
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,69 +61,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The Synaptics MST branch deivces support DSC decompression on all their
-output ports, provided that they are last branch devices (with their
-output ports connected to the sinks). The Thinkpad 40B0 TBT dock for
-instance has two such branch devices, a secondary one connected to one
-of the output ports of the primary; hence the decompression needs to be
-enabled in both branch devices to enable decompression for all the
-sinks.
+A follow-up patch will add up all the overheads on a DP link, where it
+makes more sense to specify each overhead factor in terms of the added
+overhead amount vs. the reciprocal remainder (of usable BW remaining
+after deducting the overhead). Prepare for that here, keeping the
+existing behavior.
 
-Based on the above add support for enabling decompression in last
-Synaptics branch devices.
-
-Cc: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 21 ++++++++++++-------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 5972c93615f18..cc0a8fe84d290 100644
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -5994,6 +5994,7 @@ static bool drm_dp_mst_is_virtual_dpcd(struct drm_dp_mst_port *port)
- struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 2048649b420b2..0c0f026fb3161 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -85,8 +85,8 @@
+ #define DP_DSC_MAX_ENC_THROUGHPUT_0		340000
+ #define DP_DSC_MAX_ENC_THROUGHPUT_1		400000
+ 
+-/* DP DSC FEC Overhead factor = 1/(0.972261) */
+-#define DP_DSC_FEC_OVERHEAD_FACTOR		972261
++/* DP DSC FEC Overhead factor = 1/(0.972261) = 1.028530 ppm */
++#define DP_DSC_FEC_OVERHEAD_FACTOR		1028530
+ 
+ /* Compliance test status bits  */
+ #define INTEL_DP_RESOLUTION_SHIFT_MASK	0
+@@ -680,8 +680,8 @@ int intel_dp_get_link_train_fallback_values(struct intel_dp *intel_dp,
+ 
+ u32 intel_dp_mode_to_fec_clock(u32 mode_clock)
  {
- 	struct drm_dp_mst_port *immediate_upstream_port;
-+	struct drm_dp_aux *immediate_upstream_aux;
- 	struct drm_dp_mst_port *fec_port;
- 	struct drm_dp_desc desc = {};
- 	u8 endpoint_fec;
-@@ -6058,21 +6059,25 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
- 	 * - Port is on primary branch device
- 	 * - Not a VGA adapter (DP_DWN_STRM_PORT_TYPE_ANALOG)
- 	 */
--	if (drm_dp_read_desc(port->mgr->aux, &desc, true))
-+	if (immediate_upstream_port)
-+		immediate_upstream_aux = &immediate_upstream_port->aux;
-+	else
-+		immediate_upstream_aux = port->mgr->aux;
-+
-+	if (drm_dp_read_desc(immediate_upstream_aux, &desc, true))
- 		return NULL;
+-	return div_u64(mul_u32_u32(mode_clock, 1000000U),
+-		       DP_DSC_FEC_OVERHEAD_FACTOR);
++	return div_u64(mul_u32_u32(mode_clock, DP_DSC_FEC_OVERHEAD_FACTOR),
++		       1000000U);
+ }
  
--	if (drm_dp_has_quirk(&desc, DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD) &&
--	    port->mgr->dpcd[DP_DPCD_REV] >= DP_DPCD_REV_14 &&
--	    port->parent == port->mgr->mst_primary) {
-+	if (drm_dp_has_quirk(&desc, DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD)) {
- 		u8 dpcd_ext[DP_RECEIVER_CAP_SIZE];
- 
--		if (drm_dp_read_dpcd_caps(port->mgr->aux, dpcd_ext) < 0)
-+		if (drm_dp_read_dpcd_caps(immediate_upstream_aux, dpcd_ext) < 0)
- 			return NULL;
- 
--		if ((dpcd_ext[DP_DOWNSTREAMPORT_PRESENT] & DP_DWN_STRM_PORT_PRESENT) &&
-+		if (dpcd_ext[DP_DPCD_REV] >= DP_DPCD_REV_14 &&
-+		    ((dpcd_ext[DP_DOWNSTREAMPORT_PRESENT] & DP_DWN_STRM_PORT_PRESENT) &&
- 		    ((dpcd_ext[DP_DOWNSTREAMPORT_PRESENT] & DP_DWN_STRM_PORT_TYPE_MASK)
--		     != DP_DWN_STRM_PORT_TYPE_ANALOG))
--			return port->mgr->aux;
-+		     != DP_DWN_STRM_PORT_TYPE_ANALOG)))
-+			return immediate_upstream_aux;
- 	}
- 
- 	/*
+ static int
 -- 
 2.39.2
 
