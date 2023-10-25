@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1062C07545
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Oct 2023 14:30:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6006C07545
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Oct 2023 14:35:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2295510E660;
-	Wed, 25 Oct 2023 14:30:59 +0000 (UTC)
-Received: from gofer.mess.org (gofer.mess.org [88.97.38.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4E0810E62F;
- Wed, 25 Oct 2023 09:53:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
- t=1698227607; bh=H1wJkMmM3RLGtqBxcD2SkPsFMAkzEk6Lnx1q4pd00ZY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Dp64/GGqXplxAhkDT3gedu+Sab+eb/+Hyj0bIZlSKcMYYtDGIKUDEQN6fzQa/xlWi
- o9URUD2793P3Pd8XVPtqKqWTRAWhOiLBqiz+Xj3KOS85yfdWFhDot+7gzeuGebU2Zt
- /vOhlmP3zxX9lj7KLBn6IJmZx0z20dln14S9n2x6Yzk09UxcjqI8woHLHXZemEA+ms
- G8jMY417JT8CLRviQBvZbEnnBRm31/RRtknULdvrSajNWMWruQnWO0D1WntEXQ4bp8
- kXnb1OiHoBPIJf1LDgFRQcbonrgHZyPUe6PZDp5u9XAfU2Yp3uI/3Mm8Uw7e0+5TWN
- CKIORt/Tz/lNg==
-Received: by gofer.mess.org (Postfix, from userid 1000)
- id DD4071000FC; Wed, 25 Oct 2023 10:53:27 +0100 (BST)
-Date: Wed, 25 Oct 2023 10:53:27 +0100
-From: Sean Young <sean@mess.org>
-To: Daniel Thompson <daniel.thompson@linaro.org>
-Message-ID: <ZTjll7oTNVWqygbD@gofer.mess.org>
-References: <cover.1697534024.git.sean@mess.org>
- <a7fcd19938d5422abc59c968ff7b3d5c275577ed.1697534024.git.sean@mess.org>
- <90728c06-4c6c-b3d2-4723-c24711be2fa5@redhat.com>
- <20231019105118.64gdzzixwqrztjir@pengutronix.de>
- <01a505ac-320f-3819-a58d-2b82c1bf2a86@redhat.com>
- <ZTT9fvEF+lqfzGJ/@gofer.mess.org>
- <20231023133417.GE49511@aspen.lan>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2688D10E676;
+	Wed, 25 Oct 2023 14:35:42 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 671F810E676;
+ Wed, 25 Oct 2023 14:35:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1698244539; x=1729780539;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=irynHibsENopzA2YTPqM/u9yk2FLhxudwWWg4Bn+yJ4=;
+ b=evdsH/30Uh+mOaxN+RerOFdvdPBMV5BrVfAWlvIe0D45787nzZpGDgAh
+ z18C94tDz0/B7R3zLcePEq5ws/6m0FQPvas969SvkNwgIl0b8wjlotO46
+ kmVGzfb2VlHifJdxrieb66mog/eF+CqMPjfLPYBLl5d1kiN2c5j3SxN/V
+ ye9DVlkH05V2Td2PVs/3FKYCBib7oVql6qqLHruXcxm/2gfpJrk8wGCB1
+ XvwN6wlhX9NlWmSqlOuGru47lhRJP4VeBs2bIjchKHz+rwiuPtl1e7d2L
+ aI25Bj6xE3z2ZUoaZk8FHi1IqOr1ojbHBgWvYjL5OsDxfJK8Ojbyd+J8A A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10874"; a="453787497"
+X-IronPort-AV: E=Sophos;i="6.03,250,1694761200"; d="scan'208";a="453787497"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2023 07:35:38 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10874"; a="1090245551"
+X-IronPort-AV: E=Sophos;i="6.03,250,1694761200"; d="scan'208";a="1090245551"
+Received: from marlonpr-mobl1.ger.corp.intel.com (HELO intel.com)
+ ([10.252.33.160])
+ by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2023 07:35:36 -0700
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: John Harrison <John.C.Harrison@Intel.com>,
+ Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Date: Wed, 25 Oct 2023 16:35:10 +0200
+Message-ID: <20231025143515.254468-1-andi.shyti@linux.intel.com>
+X-Mailer: git-send-email 2.42.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20231023133417.GE49511@aspen.lan>
-X-Mailman-Approved-At: Wed, 25 Oct 2023 14:30:58 +0000
-Subject: Re: [Intel-gfx] [PATCH v3 1/3] pwm: make it possible to apply pwm
- changes in atomic context
+Subject: [Intel-gfx] [PATCH v2 0/5] Add gt_to_guc and guc_to_i915 helpers
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,77 +57,66 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, linux-doc@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Pavel Machek <pavel@ucw.cz>, David Airlie <airlied@gmail.com>,
- linux-leds@vger.kernel.org, Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>,
- Jonathan Corbet <corbet@lwn.net>, Helge Deller <deller@gmx.de>,
- Lee Jones <lee@kernel.org>, Javier Martinez Canillas <javierm@redhat.com>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
- Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Guenter Roeck <linux@roeck-us.net>, linux-media@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-pwm@vger.kernel.org,
- Jean Delvare <jdelvare@suse.com>, intel-gfx@lists.freedesktop.org,
- linux-input@vger.kernel.org, Mark Gross <markgross@kernel.org>,
- Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- Support Opensource <support.opensource@diasemi.com>,
- Jingoo Han <jingoohan1@gmail.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
+Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Oct 23, 2023 at 02:34:17PM +0100, Daniel Thompson wrote:
-> On Sun, Oct 22, 2023 at 11:46:22AM +0100, Sean Young wrote:
-> > On Sat, Oct 21, 2023 at 11:08:22AM +0200, Hans de Goede wrote:
-> > > On 10/19/23 12:51, Uwe Kleine-König wrote:
-> > > > On Wed, Oct 18, 2023 at 03:57:48PM +0200, Hans de Goede wrote:
-> > > >> On 10/17/23 11:17, Sean Young wrote:
-> > > > I think it's very subjective if you consider this
-> > > > churn or not.
-> > >
-> > > I consider it churn because I don't think adding a postfix
-> > > for what is the default/expected behavior is a good idea
-> > > (with GPIOs not sleeping is the expected behavior).
-> > >
-> > > I agree that this is very subjective and very much goes
-> > > into the territory of bikeshedding. So please consider
-> > > the above my 2 cents on this and lets leave it at that.
-> >
-> > You have a valid point. Let's focus on having descriptive function names.
-> 
-> For a couple of days I've been trying to resist the bikeshedding (esp.
-> given the changes to backlight are tiny) so I'll try to keep it as
-> brief as I can:
-> 
-> 1. I dislike the do_it() and do_it_cansleep() pairing. It is
->    difficult to detect when a client driver calls do_it() by mistake.
->    In fact a latent bug of this nature can only be detected by runtime
->    testing with the small number of PWMs that do not support
->    configuration from an atomic context.
-> 
->    In contrast do_it() and do_it_atomic()[*] means that although
->    incorrectly calling do_it() from an atomic context can be pretty
->    catastrophic it is also trivially detected (with any PWM driver)
->    simply by running with CONFIG_DEBUG_ATOMIC_SLEEP.
-> 
->    No objections (beyond churn) to fully spelt out pairings such as
->    do_it_cansleep() and do_it_atomic()[*]!
+Hi,
 
-I must say I do like the look of this. Uwe, how do you feel about:
-pwm_apply_cansleep() and pwm_apply_atomic()? I know we've talked about
-pwm_apply_atomic in the past, however I think this this the best 
-option I've seen so far.
+while working on the GuC TLB invalidation these days, I just
+wished I had the two helpers I am submitting today:
 
-> 2. If there is an API rename can we make sure the patch contains no
->    other changes (e.g. don't introduce any new API in the same patch).
->    Seperating renames makes the patches easier to review!
->    It makes each one smaller and easier to review!
+   gt_to_guc()
+   guc_to_i915()
 
-Yes, this should have been separated out. Will fix for next version.
+Now I have them, at the next GuC TLB invalidation my life will be
+easier :-)
 
-Thanks,
+Andi
 
-Sean
+Changelog:
+==========
+ - add the gt_to_guc() helper and change files in:
+    - i915/gt/
+    - i915/gt/uc
+    - i915/
+
+Andi Shyti (5):
+  drm/i915/guc: Create the guc_to_i915() wrapper
+  drm/i915/gt: Create the gt_to_guc() wrapper
+  drm/i915/guc: Use the new gt_to_guc() wrapper
+  drm/i915: Use the new gt_to_guc() wrapper
+  drm/i915/guc: Use the ce_to_guc() wrapper whenever possible
+
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |  4 +--
+ drivers/gpu/drm/i915/gt/intel_ggtt.c          |  9 ++---
+ drivers/gpu/drm/i915/gt/intel_gt.h            | 10 ++++++
+ drivers/gpu/drm/i915/gt/intel_gt_irq.c        |  6 ++--
+ drivers/gpu/drm/i915/gt/intel_gt_pm_debugfs.c |  2 +-
+ drivers/gpu/drm/i915/gt/intel_gt_sysfs_pm.c   |  8 ++---
+ drivers/gpu/drm/i915/gt/intel_rc6.c           |  4 +--
+ drivers/gpu/drm/i915/gt/intel_rps.c           |  2 +-
+ drivers/gpu/drm/i915/gt/intel_tlb.c           |  2 +-
+ drivers/gpu/drm/i915/gt/selftest_slpc.c       |  6 ++--
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c     |  4 +--
+ drivers/gpu/drm/i915/gt/uc/intel_gsc_proxy.c  |  3 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.c        |  2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ads.c    |  2 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_capture.c    |  8 ++---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c     |  2 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_hwconfig.c   |  2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.c    | 10 +++---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_rc.c     |  2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_slpc.c   |  2 +-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 34 +++++++++----------
+ drivers/gpu/drm/i915/gt/uc/intel_huc.c        |  4 +--
+ drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c      |  4 +--
+ drivers/gpu/drm/i915/gt/uc/selftest_guc.c     |  2 +-
+ drivers/gpu/drm/i915/i915_debugfs_params.c    |  5 +--
+ .../i915/selftests/intel_scheduler_helpers.c  |  4 +--
+ 26 files changed, 76 insertions(+), 67 deletions(-)
+
+-- 
+2.42.0
+
