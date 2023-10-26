@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4B46C25B48
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Oct 2023 09:38:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F13A9C25B48
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Oct 2023 09:38:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A9D610E78A;
-	Thu, 26 Oct 2023 09:38:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A15310E789;
+	Thu, 26 Oct 2023 09:38:53 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.93])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 865B810E78A
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Oct 2023 09:38:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1573810E789
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Oct 2023 09:38:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698313128; x=1729849128;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=NLcB9ZzDqN5c0Qf10O0A92gke6NBp5D7Ll8diuSnon8=;
- b=Vzpx3cj0vXu3wzwNmhCjFvCmYuebzJPwVT5L+axoaeZWRodWc10xmWz1
- t23ZCTVhwHZlUnZ0nuFkgrC6vyuacU9kwCDvfZnxPDUx9qQtIu4TQnL+l
- 9F8ZsI72nfGAWO8ry0+D6egHkoSlbRvxvfS7Va1b7HeNqmQpN+AlKFWFs
- VqxU/t3S2TaDg0FMA3irst8tOguQZ3drZEnaotnVKvZdLXLshYq59Adil
- ET76NYUAWbKkkA3AkRh2WSXWRDOZxF8F0ntRNldVjyztjvIi87+xGM8Fw
- 3MAD4n1dGzzMt+aHIoQ/kScXkFh8bGXde3uBGWEZncRarBMuFFkocBO4y A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10874"; a="384708151"
-X-IronPort-AV: E=Sophos;i="6.03,253,1694761200"; d="scan'208";a="384708151"
+ t=1698313132; x=1729849132;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=X5c8tRDw6F72ykz6230EYg7dSf+JJbagUswe5wYcxS8=;
+ b=UujpMhwZca5iVPZ3oyRAaBAF/dVASwiY7tIlcB9J4U4BjIuytNSlPxq8
+ CntoVfzCspHa8gC+DRKx1O8PRgjI/INgRTZC4UpfgsHXKQr/9cKLO3kQr
+ idg7pLKfHzFPR7XJrZ8VMocW4zgkR+fHRcAny+7n2AtGdIHPgJUK+1bJ7
+ RCSMeOQkL9NFclBfXkMYKkuEiezKOmvhvjV5GpLL0TQB/ujFOkC9nr31b
+ nnv9rJPrGAKvag1Q9DRMfLgPkgZJpwVI4pQMiGIZSBFc1GpTBxhrGnME2
+ AGW43XDsDpFXrr5RN5T7E96wNGUh4wapOTJZ8RmEF6duFdhHMaRLc8vlx w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10874"; a="384708156"
+X-IronPort-AV: E=Sophos;i="6.03,253,1694761200"; d="scan'208";a="384708156"
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Oct 2023 02:38:48 -0700
+ 26 Oct 2023 02:38:51 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10874"; a="735688239"
-X-IronPort-AV: E=Sophos;i="6.03,253,1694761200"; d="scan'208";a="735688239"
+X-IronPort-AV: E=McAfee;i="6600,9927,10874"; a="735688274"
+X-IronPort-AV: E=Sophos;i="6.03,253,1694761200"; d="scan'208";a="735688274"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.32])
- by orsmga006.jf.intel.com with ESMTP; 26 Oct 2023 02:38:46 -0700
+ by orsmga006.jf.intel.com with ESMTP; 26 Oct 2023 02:38:49 -0700
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 26 Oct 2023 15:06:44 +0530
-Message-Id: <20231026093647.987267-1-suraj.kandpal@intel.com>
+Date: Thu, 26 Oct 2023 15:06:46 +0530
+Message-Id: <20231026093647.987267-3-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20231026093647.987267-1-suraj.kandpal@intel.com>
+References: <20231026093647.987267-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 0/3] drm/i915/hdcp: Additional conditions to
- enable hdcp
+Subject: [Intel-gfx] [PATCH 2/3] drm/i915/hdcp: Convert intel_hdcp_enable to
+ a blanket function
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,29 +60,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We are seeing a issue when we close the lid of a laptop or dock a
-monitor hdcp content is not being reenabled automatically this is
-because when we dock a monitor we end up with a enable and
-disable connector cycle but if hdcp content is running we get the
-userspace in enabled state and driver maintaining a undesired
-state which causes the content to stop playing and we only enabe
-hdcp if the userspace state in desired.
-This first and second patch refactors the code while the third one adds the
-new conditions to enable hdcp.
+Let's convert intel_hdcp_enable to a blanket function
+which just has some conditions which needs to be checked
+before connectors enable hdcp.
+This cleans up code and avoids code duplication.
+
+--v3
+-Keep function name as intel_hdcp_enable() [Jani]
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_ddi.c    |  5 +----
+ drivers/gpu/drm/i915/display/intel_dp_mst.c |  5 +----
+ drivers/gpu/drm/i915/display/intel_hdcp.c   | 21 ++++++++++++++++-----
+ drivers/gpu/drm/i915/display/intel_hdcp.h   |  8 ++++----
+ 4 files changed, 22 insertions(+), 17 deletions(-)
 
-Suraj Kandpal (3):
-  drm/i915/hdcp: Rename HCDP 1.4 enablement function
-  drm/i915/hdcp: Convert intel_hdcp_enable to a blanket function
-  drm/i915/hdcp: Add more conditions to enable hdcp
-
- drivers/gpu/drm/i915/display/intel_ddi.c    |  5 +--
- drivers/gpu/drm/i915/display/intel_dp_mst.c |  5 +--
- drivers/gpu/drm/i915/display/intel_hdcp.c   | 37 ++++++++++++++++-----
- drivers/gpu/drm/i915/display/intel_hdcp.h   |  8 ++---
- 4 files changed, 35 insertions(+), 20 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 9151d5add960..b644cf981846 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -3259,10 +3259,7 @@ static void intel_enable_ddi(struct intel_atomic_state *state,
+ 	else
+ 		intel_enable_ddi_dp(state, encoder, crtc_state, conn_state);
+ 
+-	/* Enable hdcp if it's desired */
+-	if (conn_state->content_protection ==
+-	    DRM_MODE_CONTENT_PROTECTION_DESIRED)
+-		intel_hdcp_enable(state, encoder, crtc_state, conn_state);
++	intel_hdcp_enable(state, encoder, crtc_state, conn_state);
+ }
+ 
+ static void intel_disable_ddi_dp(struct intel_atomic_state *state,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 7b4628f4f124..4366da79fe81 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -836,10 +836,7 @@ static void intel_mst_enable_dp(struct intel_atomic_state *state,
+ 
+ 	intel_audio_codec_enable(encoder, pipe_config, conn_state);
+ 
+-	/* Enable hdcp if it's desired */
+-	if (conn_state->content_protection ==
+-	    DRM_MODE_CONTENT_PROTECTION_DESIRED)
+-		intel_hdcp_enable(state, encoder, pipe_config, conn_state);
++	intel_hdcp_enable(state, encoder, pipe_config, conn_state);
+ }
+ 
+ static bool intel_dp_mst_enc_get_hw_state(struct intel_encoder *encoder,
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
+index 7c0cfcb48521..44c0a93f3af8 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.c
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
+@@ -2324,10 +2324,10 @@ intel_hdcp_set_streams(struct intel_digital_port *dig_port,
+ 	return 0;
+ }
+ 
+-int intel_hdcp_enable(struct intel_atomic_state *state,
+-		      struct intel_encoder *encoder,
+-		      const struct intel_crtc_state *pipe_config,
+-		      const struct drm_connector_state *conn_state)
++static int _intel_hdcp_enable(struct intel_atomic_state *state,
++			      struct intel_encoder *encoder,
++			      const struct intel_crtc_state *pipe_config,
++			      const struct drm_connector_state *conn_state)
+ {
+ 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
+ 	struct intel_connector *connector =
+@@ -2404,6 +2404,17 @@ int intel_hdcp_enable(struct intel_atomic_state *state,
+ 	return ret;
+ }
+ 
++void intel_hdcp_enable(struct intel_atomic_state *state,
++		       struct intel_encoder *encoder,
++		       const struct intel_crtc_state *crtc_state,
++		       const struct drm_connector_state *conn_state)
++{
++	/* Enable hdcp if it's desired */
++	if (conn_state->content_protection ==
++	    DRM_MODE_CONTENT_PROTECTION_DESIRED)
++		_intel_hdcp_enable(state, encoder, crtc_state, conn_state);
++}
++
+ int intel_hdcp_disable(struct intel_connector *connector)
+ {
+ 	struct intel_digital_port *dig_port = intel_attached_dig_port(connector);
+@@ -2491,7 +2502,7 @@ void intel_hdcp_update_pipe(struct intel_atomic_state *state,
+ 	}
+ 
+ 	if (desired_and_not_enabled || content_protection_type_changed)
+-		intel_hdcp_enable(state, encoder, crtc_state, conn_state);
++		_intel_hdcp_enable(state, encoder, crtc_state, conn_state);
+ }
+ 
+ void intel_hdcp_component_fini(struct drm_i915_private *i915)
+diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.h b/drivers/gpu/drm/i915/display/intel_hdcp.h
+index 5997c52a0958..a9c784fd9ba5 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdcp.h
++++ b/drivers/gpu/drm/i915/display/intel_hdcp.h
+@@ -28,10 +28,10 @@ void intel_hdcp_atomic_check(struct drm_connector *connector,
+ int intel_hdcp_init(struct intel_connector *connector,
+ 		    struct intel_digital_port *dig_port,
+ 		    const struct intel_hdcp_shim *hdcp_shim);
+-int intel_hdcp_enable(struct intel_atomic_state *state,
+-		      struct intel_encoder *encoder,
+-		      const struct intel_crtc_state *pipe_config,
+-		      const struct drm_connector_state *conn_state);
++void intel_hdcp_enable(struct intel_atomic_state *state,
++		       struct intel_encoder *encoder,
++		       const struct intel_crtc_state *pipe_config,
++		       const struct drm_connector_state *conn_state);
+ int intel_hdcp_disable(struct intel_connector *connector);
+ void intel_hdcp_update_pipe(struct intel_atomic_state *state,
+ 			    struct intel_encoder *encoder,
 -- 
 2.25.1
 
