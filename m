@@ -4,46 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39693C25B6E
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Oct 2023 18:40:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7F7AC25B6B
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Oct 2023 18:40:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6521210E855;
-	Thu, 26 Oct 2023 18:40:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F5A410E859;
+	Thu, 26 Oct 2023 18:40:22 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C1A210E851
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Oct 2023 18:40:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0ECCC10E851
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Oct 2023 18:40:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1698345614; x=1729881614;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=CEOSDmnmCFAe+K8smfO8XvxS52MO5rna6gHV/dmc3XU=;
- b=M5Rp+bWp6ukhvcRW33alHF5jJnawi1qPBVQYgI6LTdiD+NdmrLbeKupp
- G6M5ZLMRb5Qq4MtXLQw9UP3nFtiY5aevMuRV6bWVJAyjH9EYJpjqTtLwm
- DrHNKI5qsXwgg5b40XPCbHO5kh0IdzW1rsj86sDlB60PEXSbkFXXkuuvP
- y5m1ho7eOCt9fXTXZdiMWne2SPrOozaDFc8Qi1pg+6IDZuy0UlnHQ8GzN
- DN3wEoZW2mRKkx3L0QE9+Vx1KOfPbpZ0cQJcvpzab3SusCUnzSgzwlKtj
- OOUjPDm2jnQakob7H54wNWSwFYVOeKSZpN33AESq7oRPFJC9h3wEZF2t+ g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10875"; a="431866"
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=0kfvUvuFVxKwlF7tocSNL2RbweeijUsXxFNQhjTJO90=;
+ b=ThnCia7OCqxoXSUDsuHbYnuyalPhOPvcTUykYwgyLx1g54jyupLmdovL
+ OHVU3Aw+vfNxMjPlurcbFejv9e3KnoXp1YbFjcLdEVEiVQ+AaNWjMLe/h
+ nq+Cp0NwlXPwqEofOaGo6jrBnr0KpXxKd3CGtekLJVylQE3uBKnnbn2gX
+ SC0TBHZ1y9c9+h8ScchBHhkNkVI1ER0Nx4Df71Yr18I3S1bORjwvCUMgU
+ VDarCJuL221ItdXhgVM8RbdfHblsJg/d+Jdg+lUjOVjT/QHT2TRChDr7f
+ SrTxsxPEuAGMiDGIhVjw5dAy6CVUy8C7gaM8iRATIIEKpghDc7EZhY2K9 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10875"; a="431869"
 X-IronPort-AV: E=Sophos;i="6.03,254,1694761200"; 
-   d="scan'208";a="431866"
+   d="scan'208";a="431869"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  26 Oct 2023 11:40:13 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10875"; a="788597398"
-X-IronPort-AV: E=Sophos;i="6.03,254,1694761200"; d="scan'208";a="788597398"
+X-IronPort-AV: E=McAfee;i="6600,9927,10875"; a="788597404"
+X-IronPort-AV: E=Sophos;i="6.03,254,1694761200"; d="scan'208";a="788597404"
 Received: from lucas-s2600cw.jf.intel.com ([10.165.21.196])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  26 Oct 2023 11:40:12 -0700
 From: Lucas De Marchi <lucas.demarchi@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu, 26 Oct 2023 11:40:43 -0700
-Message-Id: <20231026184045.1015655-1-lucas.demarchi@intel.com>
+Date: Thu, 26 Oct 2023 11:40:45 -0700
+Message-Id: <20231026184045.1015655-3-lucas.demarchi@intel.com>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <20231026184045.1015655-1-lucas.demarchi@intel.com>
+References: <20231026184045.1015655-1-lucas.demarchi@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 0/2] drm/i915/lnl: Assign correct phys
+Subject: [Intel-gfx] [PATCH v2 2/2] drm/i915/lnl: Fix check for TC phy
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,51 +62,71 @@ Cc: Lucas De Marchi <lucas.demarchi@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For this series to work, we still need a separate patch on the xe side
-so it defines the LNL platform macro to be used by display.
+With MTL adding PICA between the port and the real phy, the path
+add for DG2 stopped being followed and newer platforms are simply using
+the older path for TC phys. LNL is no different than MTL in this aspect,
+so just add it to the mess. In future the phy and port designation and
+deciding if it's TC should better be cleaned up.
 
-One thing missing for LNL during the previous patches was the
-port <-> phy assignment. With the bspec now clarified, this is the
-minimum changes needed for LNL.  As the commit messages say and after
-looking at the history of the code, it seems we were thinking to go one
-direction abstraction-wise with DG2, but reverted course with MTL. The
-end result right now is a very confusing mix of port/phy/tc_port.
-I was hoping to do a cleanup now, but we probably need some consensus on
-the approach as it'd be an intrusive change.
+To make it just a bit better, also change intel_phy_is_snps() to show
+this is DG2-only.
 
-Here are some thoughts after looking again at the current state of the
-code:
-
-1) What is the port -> phy conversion for? AFAIR this was because from
-the display engine side we want, some registers have bit offsets based
-on the port and others are based on the PHY. I think now we can
-
-	a) Remove enum tc_port and have only `enum port` and `enum phy`.
-	   Those should be sufficient for all platform needs afaics
-
-	b) Add phy to intel_encoder (or intel_digital_port). It's
-	   appalling number of places we convert from port to phy. That
-	   would just be initialized during init.
-
-2) It looks we need to better abstract the phy handling. Right now it's
-very confusing with dkl, c10/c20 (that leak the abstraction from
-intel_cx0_phy.c to everywhere in the driver), snps and the older
-combo/tc being a superset of them.  I'm still not sure what to do here.
-One thing that we can probably do is to remove the dg2-special case and
-let the "is tc" be about the **port being connected to a TC-capable phy**.
-Bspec always refer to those as TC<N> / USBC<N>. Then dkl, c10, c20, snps
-would all be in the same abstraction layer.
-
-
-Lucas De Marchi (2):
-  drm/i915/lnl: Extend C10/C20 phy
-  Subject: [PATCH] drm/i915/lnl: Fix check for TC phy
-
- drivers/gpu/drm/i915/display/intel_cx0_phy.c |  2 +-
+Signed-off-by: Lucas De Marchi <lucas.demarchi@intel.com>
+Reviewed-by: Gustavo Sousa <gustavo.sousa@intel.com>
+---
  drivers/gpu/drm/i915/display/intel_display.c | 28 ++++++++++----------
- drivers/gpu/drm/i915/i915_drv.h              |  1 +
- 3 files changed, 16 insertions(+), 15 deletions(-)
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 28d85e1e858e..1caf46e3e569 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1784,31 +1784,31 @@ bool intel_phy_is_combo(struct drm_i915_private *dev_priv, enum phy phy)
+ 
+ bool intel_phy_is_tc(struct drm_i915_private *dev_priv, enum phy phy)
+ {
++	/*
++	 * DG2's "TC1", although TC-capable output, doesn't share the same flow
++	 * as other platforms on the display engine side and rather rely on the
++	 * SNPS PHY, that is programmed separately
++	 */
+ 	if (IS_DG2(dev_priv))
+-		/* DG2's "TC1" output uses a SNPS PHY */
+ 		return false;
+-	else if (IS_ALDERLAKE_P(dev_priv) || DISPLAY_VER_FULL(dev_priv) == IP_VER(14, 0))
++
++	if (DISPLAY_VER(dev_priv) >= 13)
+ 		return phy >= PHY_F && phy <= PHY_I;
+ 	else if (IS_TIGERLAKE(dev_priv))
+ 		return phy >= PHY_D && phy <= PHY_I;
+ 	else if (IS_ICELAKE(dev_priv))
+ 		return phy >= PHY_C && phy <= PHY_F;
+-	else
+-		return false;
++
++	return false;
+ }
+ 
+ bool intel_phy_is_snps(struct drm_i915_private *dev_priv, enum phy phy)
+ {
+-	if (phy == PHY_NONE)
+-		return false;
+-	else if (IS_DG2(dev_priv))
+-		/*
+-		 * All four "combo" ports and the TC1 port (PHY E) use
+-		 * Synopsis PHYs.
+-		 */
+-		return phy <= PHY_E;
+-
+-	return false;
++	/*
++	 * For DG2, and for DG2 only, all four "combo" ports and the TC1 port
++	 * (PHY E) use Synopsis PHYs. See intel_phy_is_tc().
++	 */
++	return IS_DG2(dev_priv) && phy > PHY_NONE && phy <= PHY_E;
+ }
+ 
+ enum phy intel_port_to_phy(struct drm_i915_private *i915, enum port port)
 -- 
 2.40.1
 
