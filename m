@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E81AAC4167B
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Oct 2023 15:58:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BAE6C4167D
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Oct 2023 15:58:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 174A310E308;
-	Mon, 30 Oct 2023 15:58:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AC9B10E309;
+	Mon, 30 Oct 2023 15:58:26 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0972710E308;
- Mon, 30 Oct 2023 15:58:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E117110E0F2;
+ Mon, 30 Oct 2023 15:58:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698681501; x=1730217501;
+ t=1698681504; x=1730217504;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Os9vjAs3NAshuBAE/Iluuvbe4iXWPuh64EHUG2H99Vs=;
- b=I4pXn/du0S160gKhCQVJ3ncs3cZA7CBCLJZklTV2B0nlVj2EQELxmRiK
- h9hxZ2BYkq9uJAT+C34W/uBcic5WSzGXb3btR0IjD0SEQr1rThNrsBw+z
- zUIaEh9N/HhTGs4QT0A7R50xUc841JnaKdSDeriZsAN6z3pjVdaevGZFK
- IFIj5S6g6oxugjluUrb8Q0Q8r4eCHWltJuPz24QK7e0aRB/lOgQYmfgS4
- dpoZsTSU+KCeN3SE2lVUgZroI7dsokfP0Tivo+O0aAx+17sDkDBiuaoJI
- Ur4qA4XQdtnlQ+L0394ruwh2sdaA0FKIdRd9XAbo7+lvjCTIRgcwVxcqi Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="974377"
+ bh=VsqM1xF/AplsEwiGjrP6+aBGayu1M/I9KPvAI2Cpm6U=;
+ b=C5w090sVwdkkLAe9rRYIhycQ43Knt7R4xKXsY3lnOn0iBioE8IRfl/xP
+ vBcjUt6g0tcaBWxBTvhhvx6l+HHZvSYvhD7vkQkH3/A2b+dLoemydnAG5
+ O3DwLJp+UCRyEQapKUN7Pl6Hi9NQHRJJZtjgMNN4uv23pF3L/cyyjM0P/
+ Hf+Bz8Oj5nkK1iT1ZwX0UYjEzoiFpDDBenAiyDApCXqlPaiwv+vYavaGs
+ 5h5WPs1RacuGNzC/6q0z6t0gn/J5Lo3m8aVOLQpWAMUeaONMOLsN+DA0w
+ 5lyRNDrrI/nQLy4FWWON83dSWwcJ/s4CUzj+HG4kutvIg5MRnb9jXBfoG w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="974394"
 X-IronPort-AV: E=Sophos;i="6.03,263,1694761200"; 
-   d="scan'208";a="974377"
+   d="scan'208";a="974394"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2023 08:58:20 -0700
+ 30 Oct 2023 08:58:23 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="789493947"
-X-IronPort-AV: E=Sophos;i="6.03,263,1694761200"; d="scan'208";a="789493947"
+X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="789493949"
+X-IronPort-AV: E=Sophos;i="6.03,263,1694761200"; d="scan'208";a="789493949"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2023 08:58:18 -0700
+ 30 Oct 2023 08:58:21 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 30 Oct 2023 17:58:16 +0200
-Message-Id: <20231030155843.2251023-4-imre.deak@intel.com>
+Date: Mon, 30 Oct 2023 17:58:18 +0200
+Message-Id: <20231030155843.2251023-6-imre.deak@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231030155843.2251023-1-imre.deak@intel.com>
 References: <20231030155843.2251023-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 03/30] drm/dp_mst: Add helper to determine if
- an MST port is downstream of another port
+Subject: [Intel-gfx] [PATCH v4 05/30] drm/dp_mst: Swap the order of checking
+ root vs. non-root port BW limitations
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,96 +63,68 @@ Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add drm_dp_mst_port_downstream_of_parent() required by the i915
-driver in a follow-up patch to resolve a BW overallocation of MST
-streams going through a given MST port.
+drm_dp_mst_atomic_check_mgr() should check for BW limitation starting
+from sink ports continuing towards the root port, so that drivers can
+use the @failing_port returned to resolve a BW overallocation in an
+ideal way. For instance from streams A,B,C in a topology A,B going
+through @failing_port and C not going through it, a BW overallocation of
+A,B due to a limit of the port must be resolved first before considering
+the limits of other ports closer to the root port. This way can avoid
+reducing the BW of stream C unnecessarily due to a BW limit closer to the
+root port.
+
+Based on the above swap the order of the BW check for the root port and
+the check for all the ports downstream of it (the latter going through
+the topology already in the sink->root port direction).
 
 Cc: Lyude Paul <lyude@redhat.com>
 Cc: dri-devel@lists.freedesktop.org
 Reviewed-by: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_mst_topology.c | 52 +++++++++++++++++++
- include/drm/display/drm_dp_mst_helper.h       |  3 ++
- 2 files changed, 55 insertions(+)
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-index 772b00ebd57bd..f733f620347f6 100644
+index a86a67d3516ff..5972c93615f18 100644
 --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
 +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -5126,6 +5126,58 @@ static bool drm_dp_mst_port_downstream_of_branch(struct drm_dp_mst_port *port,
- 	return false;
- }
+@@ -5469,9 +5469,13 @@ EXPORT_SYMBOL(drm_dp_mst_atomic_enable_dsc);
+  *   - %-ENOSPC, if the new state is invalid, because of BW limitation
+  *         @failing_port is set to:
+  *         - The non-root port where a BW limit check failed
++ *           with all the ports downstream of @failing_port passing
++ *           the BW limit check.
+  *           The returned port pointer is valid until at least
+  *           one payload downstream of it exists.
+  *         - %NULL if the BW limit check failed at the root port
++ *           with all the ports downstream of the root port passing
++ *           the BW limit check.
+  *   - %-EINVAL, if the new state is invalid, because the root port has
+  *     too many payloads.
+  */
+@@ -5487,17 +5491,16 @@ int drm_dp_mst_atomic_check_mgr(struct drm_atomic_state *state,
+ 	if (!mgr->mst_state)
+ 		return 0;
  
-+static bool
-+drm_dp_mst_port_downstream_of_parent_locked(struct drm_dp_mst_topology_mgr *mgr,
-+					    struct drm_dp_mst_port *port,
-+					    struct drm_dp_mst_port *parent)
-+{
-+	if (!mgr->mst_primary)
-+		return false;
+-	ret = drm_dp_mst_atomic_check_payload_alloc_limits(mgr, mst_state);
+-	if (ret)
+-		return ret;
+-
+ 	mutex_lock(&mgr->lock);
+ 	ret = drm_dp_mst_atomic_check_mstb_bw_limit(mgr->mst_primary,
+ 						    mst_state,
+ 						    failing_port);
+ 	mutex_unlock(&mgr->lock);
+ 
+-	return ret < 0 ? ret : 0;
++	if (ret < 0)
++		return ret;
 +
-+	port = drm_dp_mst_topology_get_port_validated_locked(mgr->mst_primary,
-+							     port);
-+	if (!port)
-+		return false;
-+
-+	if (!parent)
-+		return true;
-+
-+	parent = drm_dp_mst_topology_get_port_validated_locked(mgr->mst_primary,
-+							       parent);
-+	if (!parent)
-+		return false;
-+
-+	if (!parent->mstb)
-+		return false;
-+
-+	return drm_dp_mst_port_downstream_of_branch(port, parent->mstb);
-+}
-+
-+/**
-+ * drm_dp_mst_port_downstream_of_parent - check if a port is downstream of a parent port
-+ * @mgr: MST topology manager
-+ * @port: the port being looked up
-+ * @parent: the parent port
-+ *
-+ * The function returns %true if @port is downstream of @parent. If @parent is
-+ * %NULL - denoting the root port - the function returns %true if @port is in
-+ * @mgr's topology.
-+ */
-+bool
-+drm_dp_mst_port_downstream_of_parent(struct drm_dp_mst_topology_mgr *mgr,
-+				     struct drm_dp_mst_port *port,
-+				     struct drm_dp_mst_port *parent)
-+{
-+	bool ret;
-+
-+	mutex_lock(&mgr->lock);
-+	ret = drm_dp_mst_port_downstream_of_parent_locked(mgr, port, parent);
-+	mutex_unlock(&mgr->lock);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL(drm_dp_mst_port_downstream_of_parent);
-+
- static int
- drm_dp_mst_atomic_check_port_bw_limit(struct drm_dp_mst_port *port,
- 				      struct drm_dp_mst_topology_state *state);
-diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
-index 655862b3d2a49..e44485aa74e94 100644
---- a/include/drm/display/drm_dp_mst_helper.h
-+++ b/include/drm/display/drm_dp_mst_helper.h
-@@ -892,6 +892,9 @@ drm_atomic_get_new_mst_topology_state(struct drm_atomic_state *state,
- struct drm_dp_mst_atomic_payload *
- drm_atomic_get_mst_payload_state(struct drm_dp_mst_topology_state *state,
- 				 struct drm_dp_mst_port *port);
-+bool drm_dp_mst_port_downstream_of_parent(struct drm_dp_mst_topology_mgr *mgr,
-+					  struct drm_dp_mst_port *port,
-+					  struct drm_dp_mst_port *parent);
- int __must_check
- drm_dp_atomic_find_time_slots(struct drm_atomic_state *state,
- 			      struct drm_dp_mst_topology_mgr *mgr,
++	return drm_dp_mst_atomic_check_payload_alloc_limits(mgr, mst_state);
+ }
+ EXPORT_SYMBOL(drm_dp_mst_atomic_check_mgr);
+ 
 -- 
 2.39.2
 
