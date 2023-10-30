@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8A21C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Oct 2023 12:44:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60C14C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Oct 2023 12:44:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D5D710E2B5;
-	Mon, 30 Oct 2023 12:44:24 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DAA310E2B0
- for <intel-gfx@lists.freedesktop.org>; Mon, 30 Oct 2023 12:44:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBDD110E2AC;
+	Mon, 30 Oct 2023 12:44:51 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2AA6110E2AC
+ for <intel-gfx@lists.freedesktop.org>; Mon, 30 Oct 2023 12:44:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698669862; x=1730205862;
+ t=1698669889; x=1730205889;
  h=from:to:subject:in-reply-to:references:date:message-id:
  mime-version:content-transfer-encoding;
- bh=C+eCWpxlxD5dzVwHjABWLCTa/NiVWzajBof+NDlukWs=;
- b=A8KIdnsES/8PWN3xZZ1avZilanEtBnk0Uol2ixh0+jZN1Kl5E8x3y06E
- vFCRKyjfkHoh9iJDeSj23VcX/0FDX2m0Z+t/qFAc0TQAAziZ191EXbp5U
- 15wBhnmy2v1hekAGW9gBK5srjNKmzY/kYI3BiIAOPGFcJupKhN2oob5/y
- ikaLkZJOgnaHBV0dSR0PhVRiRwBMosPEmQ4nNkIBIkDWH02ODbdqBGfkC
- t8dK2UH6i0GFBIRj7TmsB6hD1Z3EiGkmduX2UogEETMdE+AoCNhIeK/X4
- tmrUHDE/rCCFkrnI1Zbl1MGFY3htZuJBHapkU0dzopptx6A1O86+5UIz7 A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10878"; a="391925012"
-X-IronPort-AV: E=Sophos;i="6.03,263,1694761200"; d="scan'208";a="391925012"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2023 05:44:21 -0700
+ bh=HTsKIumS7GHXy1BvmEAKIr3wOFlXOFYvT/4sgikHBl4=;
+ b=CiQnB6nNsshMUvK/q71KEIuSUDVA3ZEOG7vxk4DkaiBvrsuPw8jBOOgc
+ 7T3F9H24D/R6dI1AVbjDZL0AU7JK/nGnkMT8khawfORKugUv8wus+HLaz
+ 3wRaE9LQtjjKTkcxVl1o7822XtiBwcsqFTzj/m/C4LGyRBPKrpmBPaSUu
+ EOrjebEd/Y35yy/kj/+/4omgkJCUxKuHlUXixpZzjPsdaQO/pQHspC9oX
+ kylBlB83W5n6carG+2SLcdE9Negz/TwZhC3RAlcTxzKnjyIgtrCgGP5N3
+ djrCAlICqf/sNJ1A3cX7zjdcZP8ZMiuB/z2UR4/vlM0F/ZpO4TGvinZJo g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10878"; a="368276850"
+X-IronPort-AV: E=Sophos;i="6.03,263,1694761200"; d="scan'208";a="368276850"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2023 05:44:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10878"; a="1091610179"
-X-IronPort-AV: E=Sophos;i="6.03,263,1694761200"; d="scan'208";a="1091610179"
+X-IronPort-AV: E=McAfee;i="6600,9927,10878"; a="826047324"
+X-IronPort-AV: E=Sophos;i="6.03,263,1694761200"; d="scan'208";a="826047324"
 Received: from squtub-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.33.238])
- by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2023 05:44:20 -0700
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Oct 2023 05:44:47 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: Ville Syrjala <ville.syrjala@linux.intel.com>,
  intel-gfx@lists.freedesktop.org
@@ -43,8 +43,8 @@ In-Reply-To: <20231018154123.5479-4-ville.syrjala@linux.intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 References: <20231018154123.5479-1-ville.syrjala@linux.intel.com>
  <20231018154123.5479-4-ville.syrjala@linux.intel.com>
-Date: Mon, 30 Oct 2023 14:44:09 +0200
-Message-ID: <87h6m85lgm.fsf@intel.com>
+Date: Mon, 30 Oct 2023 14:44:36 +0200
+Message-ID: <87edhc5lfv.fsf@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -69,13 +69,12 @@ On Wed, 18 Oct 2023, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
 > From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 >
 > Follow the bspec sequqnece more closely and clear ACT sent just
+                   ^ sequence
+
 > before triggering the allocation. Can't see why we'd want to
 > deviate from the spec sequence here.
 >
 > Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-
 > ---
 >  drivers/gpu/drm/i915/display/intel_dp_mst.c | 4 ++--
 >  1 file changed, 2 insertions(+), 2 deletions(-)
