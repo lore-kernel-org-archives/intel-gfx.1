@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6964C0018C
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Oct 2023 15:59:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51A1FC001B0
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Oct 2023 15:59:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C8BF10E335;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE46810E330;
 	Mon, 30 Oct 2023 15:59:01 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECA2810E32C
- for <intel-gfx@lists.freedesktop.org>; Mon, 30 Oct 2023 15:58:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A60110E32F
+ for <intel-gfx@lists.freedesktop.org>; Mon, 30 Oct 2023 15:59:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698681537; x=1730217537;
+ t=1698681540; x=1730217540;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=xe5N51Sv3BnYKU6FLVVgYXBYd2Df4uBgGHkMcBmLa50=;
- b=NAi4LZ7EshBRjLpyAB3AQ7ynaCof7Z5UbYqULwJv106x0SlMzsIFfA+V
- VeDbcGsq/xC5b7DwvrH/2/k8eDP7xikGptwj1lPpG/lEAukGk32MJoW7v
- oSOT3SNcTvkzNsE2SOXY4igV5zDu4lONxoGi6vgEnglTXO1PlXR3i0gFu
- 70XwcmzAEZ6uD12Hwr6tObHBr9WnQfyK93+WDbvgVQh1T8/1FkwOQ04oe
- xgxa8/rEUwybylYVTlMvlM8qYq52zdsIRp5qhL3vbpg+eHA/0SgW0Z7iY
- xgZ7CV3+PrQtY0i3f6HkybwpyamKPWw67LqRbOLX5d+7Dov4NALs8jcy6 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="974530"
+ bh=6ojVUkBRyvBl+bq5e0Zm+Fzt9ESgbtFmqqOBjbbcx1A=;
+ b=CLX6rB/GizGn4neaJhVr5W3lGtA7IZx81prb47djiJ6J+qLr2Pqa13vs
+ LRwVVqBqpHCVbczIpjjYvCcbbR1VSsV3aKwsUgkgZTWCSzKmTzn01Ko0g
+ jAnt6rWpIm+PZ0Js1zNnLNSybFKa7MwNTZrgatZ/WyIIUMrGx8/pbEcAG
+ 3wKZcRQvTnUJ0FVerdEHxvu2jlfMdXffQs0qKv0eCZ7XIwSjO3t2aqMJ5
+ U558brucjCiK3pzgnXagb/CY+I1jVzbo5Y57PT773Lt7n2AjdV9+J+T3S
+ +TB5q89VX6SOs6v030SM0h2ORackVETtAjjkoAIY3ry+EygW5erCba9MZ A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="974541"
 X-IronPort-AV: E=Sophos;i="6.03,263,1694761200"; 
-   d="scan'208";a="974530"
+   d="scan'208";a="974541"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2023 08:58:57 -0700
+ 30 Oct 2023 08:59:00 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="789494060"
-X-IronPort-AV: E=Sophos;i="6.03,263,1694761200"; d="scan'208";a="789494060"
+X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="789494071"
+X-IronPort-AV: E=Sophos;i="6.03,263,1694761200"; d="scan'208";a="789494071"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2023 08:58:55 -0700
+ 30 Oct 2023 08:58:58 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 30 Oct 2023 17:58:41 +0200
-Message-Id: <20231030155843.2251023-29-imre.deak@intel.com>
+Date: Mon, 30 Oct 2023 17:58:43 +0200
+Message-Id: <20231030155843.2251023-31-imre.deak@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231030155843.2251023-1-imre.deak@intel.com>
 References: <20231030155843.2251023-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 28/30] drm/i915/dp_mst: Improve BW sharing
- between MST streams
+Subject: [Intel-gfx] [PATCH v4 30/30] drm/i915: Query compressed bpp
+ properly using correct DPCD and DP Spec info
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,355 +62,194 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-At the moment modesetting a stream CRTC will fail if the stream's BW
-along with the current BW of all the other streams on the same MST link
-is above the total BW of the MST link. Make the BW sharing more dynamic
-by trying to reduce the link bpp of one or more streams on the MST link
-in this case.
+From: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 
-When selecting a stream to reduce the BW for, take into account which
-link segment in the MST topology ran out of BW and which streams go
-through this link segment. For instance with A,B,C streams in the same
-MST topology A and B may share the BW of a link segment downstream of a
-branch device, stream C not downstream of the branch device, hence not
-affecting this BW. If this link segment's BW runs out one or both of
-stream A/B's BW will be reduced until their total BW is within limits.
+Currently we seem to be using wrong DPCD register for reading
+compressed bpps, reading min/max input bpc instead of compressed bpp.
+Fix that, so that we now apply min/max compressed bpp limitations we
+get from DP Spec Table 2-157 DP v2.0 and/or correspondent DPCD
+register DP_DSC_MAX_BITS_PER_PIXEL_LOW/HIGH.
 
-While reducing the link bpp for a given stream DSC may need to be
-enabled for it, which requires FEC on the whole MST link. Check for this
-condition and recompute the state for all streams taking the FEC
-overhead into account (on 8b/10b links).
+This might also allow us to get rid of an ugly compressed bpp
+recalculation, which we had to add to make some MST hubs usable.
 
-v2:
-- Rebase on s/min_bpp_pipes/min_bpp_reached_pipes/ change.
+v2: - Fix operator precedence
+v3: - Added debug info about compressed bpps
+v4: - Don't try to intersect Sink input bpp and compressed bpps.
+v5: - Decrease step while looking for suitable compressed bpp to
+      accommodate.
+v6: - Use helper for getting min and max compressed_bpp (Ankit)
+v7: - Fix checkpatch warning (Ankit)
 
-Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
-Signed-off-by: Imre Deak <imre.deak@intel.com>
+Signed-off-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c |   5 +-
- drivers/gpu/drm/i915/display/intel_dp.c      |  11 +-
- drivers/gpu/drm/i915/display/intel_dp.h      |   3 +
- drivers/gpu/drm/i915/display/intel_dp_mst.c  | 129 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_dp_mst.h  |   3 +
- drivers/gpu/drm/i915/display/intel_link_bw.c |  16 ++-
- drivers/gpu/drm/i915/display/intel_link_bw.h |   1 +
- 7 files changed, 161 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c     | 20 +++++---
+ drivers/gpu/drm/i915/display/intel_dp.h     |  4 ++
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 54 ++++++++++-----------
+ 3 files changed, 41 insertions(+), 37 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 2d614180b6bdc..8ec515d05a7f0 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -4707,6 +4707,7 @@ intel_modeset_pipe_config(struct intel_atomic_state *state,
- 	if (ret)
- 		return ret;
- 
-+	crtc_state->fec_enable = limits->force_fec_pipes & BIT(crtc->pipe);
- 	crtc_state->max_link_bpp_x16 = limits->max_bpp_x16[crtc->pipe];
- 
- 	if (crtc_state->pipe_bpp > to_bpp_int(crtc_state->max_link_bpp_x16)) {
-@@ -6539,10 +6540,6 @@ int intel_atomic_check(struct drm_device *dev,
- 		goto fail;
- 	}
- 
--	ret = drm_dp_mst_atomic_check(&state->base);
--	if (ret)
--		goto fail;
--
- 	ret = intel_atomic_check_planes(state);
- 	if (ret)
- 		goto fail;
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 6d2fd068b8359..230a599ba4f40 100644
+index 230a599ba4f40..524390240eaf2 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -2138,8 +2138,9 @@ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 		&pipe_config->hw.adjusted_mode;
- 	int ret;
+@@ -1811,7 +1811,7 @@ u16 intel_dp_dsc_max_sink_compressed_bppx16(const struct intel_connector *connec
+ 	return 0;
+ }
  
--	pipe_config->fec_enable = !intel_dp_is_edp(intel_dp) &&
--		intel_dp_supports_fec(intel_dp, connector, pipe_config);
-+	pipe_config->fec_enable = pipe_config->fec_enable ||
-+		(!intel_dp_is_edp(intel_dp) &&
-+		 intel_dp_supports_fec(intel_dp, connector, pipe_config));
- 
- 	if (!intel_dp_supports_dsc(connector, pipe_config))
- 		return -EINVAL;
-@@ -2327,6 +2328,8 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
+-static int dsc_sink_min_compressed_bpp(struct intel_crtc_state *pipe_config)
++int intel_dp_dsc_sink_min_compressed_bpp(struct intel_crtc_state *pipe_config)
  {
- 	struct drm_i915_private *i915 = to_i915(encoder->base.dev);
- 	struct intel_crtc *crtc = to_intel_crtc(pipe_config->uapi.crtc);
-+	const struct intel_connector *connector =
-+		to_intel_connector(conn_state->connector);
- 	const struct drm_display_mode *adjusted_mode =
- 		&pipe_config->hw.adjusted_mode;
- 	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
-@@ -2335,6 +2338,10 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
- 	bool dsc_needed;
- 	int ret = 0;
+ 	/* From Mandatory bit rate range Support Table 2-157 (DP v2.0) */
+ 	switch (pipe_config->output_format) {
+@@ -1828,9 +1828,9 @@ static int dsc_sink_min_compressed_bpp(struct intel_crtc_state *pipe_config)
+ 	return 0;
+ }
  
-+	if (pipe_config->fec_enable &&
-+	    !intel_dp_supports_fec(intel_dp, connector, pipe_config))
-+		return -EINVAL;
-+
- 	if (intel_dp_need_bigjoiner(intel_dp, adjusted_mode->crtc_hdisplay,
- 				    adjusted_mode->crtc_clock))
- 		pipe_config->bigjoiner_pipes = GENMASK(crtc->pipe + 1, crtc->pipe);
+-static int dsc_sink_max_compressed_bpp(const struct intel_connector *connector,
+-				       struct intel_crtc_state *pipe_config,
+-				       int bpc)
++int intel_dp_dsc_sink_max_compressed_bpp(const struct intel_connector *connector,
++					 struct intel_crtc_state *pipe_config,
++					 int bpc)
+ {
+ 	return intel_dp_dsc_max_sink_compressed_bppx16(connector,
+ 						       pipe_config, bpc) >> 4;
+@@ -1944,12 +1944,14 @@ static int dsc_compute_compressed_bpp(struct intel_dp *intel_dp,
+ 	int dsc_joiner_max_bpp;
+ 
+ 	dsc_src_min_bpp = dsc_src_min_compressed_bpp();
+-	dsc_sink_min_bpp = dsc_sink_min_compressed_bpp(pipe_config);
++	dsc_sink_min_bpp = intel_dp_dsc_sink_min_compressed_bpp(pipe_config);
+ 	dsc_min_bpp = max(dsc_src_min_bpp, dsc_sink_min_bpp);
+ 	dsc_min_bpp = max(dsc_min_bpp, to_bpp_int_roundup(limits->link.min_bpp_x16));
+ 
+ 	dsc_src_max_bpp = dsc_src_max_compressed_bpp(intel_dp);
+-	dsc_sink_max_bpp = dsc_sink_max_compressed_bpp(connector, pipe_config, pipe_bpp / 3);
++	dsc_sink_max_bpp = intel_dp_dsc_sink_max_compressed_bpp(connector,
++								pipe_config,
++								pipe_bpp / 3);
+ 	dsc_max_bpp = dsc_sink_max_bpp ? min(dsc_sink_max_bpp, dsc_src_max_bpp) : dsc_src_max_bpp;
+ 
+ 	dsc_joiner_max_bpp = get_max_compressed_bpp_with_joiner(i915, adjusted_mode->clock,
+@@ -2104,12 +2106,14 @@ static int intel_edp_dsc_compute_pipe_bpp(struct intel_dp *intel_dp,
+ 	pipe_config->lane_count = limits->max_lane_count;
+ 
+ 	dsc_src_min_bpp = dsc_src_min_compressed_bpp();
+-	dsc_sink_min_bpp = dsc_sink_min_compressed_bpp(pipe_config);
++	dsc_sink_min_bpp = intel_dp_dsc_sink_min_compressed_bpp(pipe_config);
+ 	dsc_min_bpp = max(dsc_src_min_bpp, dsc_sink_min_bpp);
+ 	dsc_min_bpp = max(dsc_min_bpp, to_bpp_int_roundup(limits->link.min_bpp_x16));
+ 
+ 	dsc_src_max_bpp = dsc_src_max_compressed_bpp(intel_dp);
+-	dsc_sink_max_bpp = dsc_sink_max_compressed_bpp(connector, pipe_config, pipe_bpp / 3);
++	dsc_sink_max_bpp = intel_dp_dsc_sink_max_compressed_bpp(connector,
++								pipe_config,
++								pipe_bpp / 3);
+ 	dsc_max_bpp = dsc_sink_max_bpp ? min(dsc_sink_max_bpp, dsc_src_max_bpp) : dsc_src_max_bpp;
+ 	dsc_max_bpp = min(dsc_max_bpp, to_bpp_int(limits->link.max_bpp_x16));
+ 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 7cc23d846dfbf..91051973be2d5 100644
+index 91051973be2d5..e80da67554196 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.h
 +++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -140,6 +140,9 @@ static inline unsigned int intel_dp_unused_lane_mask(int lane_count)
- 	return ~((1 << lane_count) - 1) & 0xf;
- }
- 
-+bool intel_dp_supports_fec(struct intel_dp *intel_dp,
-+			   const struct intel_connector *connector,
-+			   const struct intel_crtc_state *pipe_config);
- u32 intel_dp_mode_to_fec_clock(u32 mode_clock);
- int intel_dp_bw_fec_overhead(bool fec_enabled);
- 
+@@ -129,6 +129,10 @@ u16 intel_dp_dsc_get_max_compressed_bpp(struct drm_i915_private *i915,
+ 					enum intel_output_format output_format,
+ 					u32 pipe_bpp,
+ 					u32 timeslots);
++int intel_dp_dsc_sink_min_compressed_bpp(struct intel_crtc_state *pipe_config);
++int intel_dp_dsc_sink_max_compressed_bpp(const struct intel_connector *connector,
++					 struct intel_crtc_state *pipe_config,
++					 int bpc);
+ u8 intel_dp_dsc_get_slice_count(const struct intel_connector *connector,
+ 				int mode_clock, int mode_hdisplay,
+ 				bool bigjoiner);
 diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 2313844456961..c9447df2ea7c3 100644
+index cf82832d6a951..cecd2fa365ed6 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -43,6 +43,7 @@
- #include "intel_dpio_phy.h"
- #include "intel_hdcp.h"
- #include "intel_hotplug.h"
-+#include "intel_link_bw.h"
- #include "intel_vdsc.h"
- #include "skl_scaler.h"
+@@ -164,6 +164,9 @@ static int intel_dp_mst_find_vcpi_slots_for_bpp(struct intel_encoder *encoder,
+ 						      crtc_state->port_clock,
+ 						      crtc_state->lane_count);
  
-@@ -485,6 +486,10 @@ static int intel_dp_mst_compute_config(struct intel_encoder *encoder,
- 	bool dsc_needed;
- 	int ret = 0;
- 
-+	if (pipe_config->fec_enable &&
-+	    !intel_dp_supports_fec(intel_dp, connector, pipe_config))
-+		return -EINVAL;
++	drm_dbg_kms(&i915->drm, "Looking for slots in range min bpp %d max bpp %d\n",
++		    min_bpp, max_bpp);
 +
- 	if (adjusted_mode->flags & DRM_MODE_FLAG_DBLSCAN)
- 		return -EINVAL;
+ 	for (bpp = max_bpp; bpp >= min_bpp; bpp -= step) {
+ 		struct intel_link_m_n remote_m_n;
+ 		int link_bpp;
+@@ -261,8 +264,7 @@ static int intel_dp_dsc_mst_compute_link_config(struct intel_encoder *encoder,
+ 	u8 dsc_bpc[3] = {};
+ 	int min_bpp, max_bpp, sink_min_bpp, sink_max_bpp;
+ 	u8 dsc_max_bpc;
+-	bool need_timeslot_recalc = false;
+-	u32 last_compressed_bpp;
++	int min_compressed_bpp, max_compressed_bpp;
  
-@@ -601,6 +606,130 @@ intel_dp_mst_transcoder_mask(struct intel_atomic_state *state,
- 	return transcoders;
+ 	/* Max DSC Input BPC for ICL is 10 and for TGL+ is 12 */
+ 	if (DISPLAY_VER(i915) >= 12)
+@@ -298,38 +300,32 @@ static int intel_dp_dsc_mst_compute_link_config(struct intel_encoder *encoder,
+ 	if (max_bpp > sink_max_bpp)
+ 		max_bpp = sink_max_bpp;
+ 
+-	min_bpp = max(min_bpp, to_bpp_int_roundup(limits->link.min_bpp_x16));
+-	max_bpp = min(max_bpp, to_bpp_int(limits->link.max_bpp_x16));
++	max_compressed_bpp = intel_dp_dsc_sink_max_compressed_bpp(connector,
++								  crtc_state,
++								  max_bpp / 3);
++	max_compressed_bpp = min(max_compressed_bpp,
++				 to_bpp_int(limits->link.max_bpp_x16));
+ 
+-	slots = intel_dp_mst_find_vcpi_slots_for_bpp(encoder, crtc_state, max_bpp,
+-						     min_bpp, limits,
+-						     conn_state, 2 * 3, true);
++	min_compressed_bpp = intel_dp_dsc_sink_min_compressed_bpp(crtc_state);
++	min_compressed_bpp = max(min_compressed_bpp,
++				 to_bpp_int_roundup(limits->link.min_bpp_x16));
++
++	drm_dbg_kms(&i915->drm, "DSC Sink supported compressed min bpp %d compressed max bpp %d\n",
++		    min_compressed_bpp, max_compressed_bpp);
++
++	/* Align compressed bpps according to our own constraints */
++	max_compressed_bpp = intel_dp_dsc_nearest_valid_bpp(i915, max_compressed_bpp,
++							    crtc_state->pipe_bpp);
++	min_compressed_bpp = intel_dp_dsc_nearest_valid_bpp(i915, min_compressed_bpp,
++							    crtc_state->pipe_bpp);
++
++	slots = intel_dp_mst_find_vcpi_slots_for_bpp(encoder, crtc_state, max_compressed_bpp,
++						     min_compressed_bpp, limits,
++						     conn_state, 1, true);
+ 
+ 	if (slots < 0)
+ 		return slots;
+ 
+-	last_compressed_bpp = crtc_state->dsc.compressed_bpp;
+-
+-	crtc_state->dsc.compressed_bpp = intel_dp_dsc_nearest_valid_bpp(i915,
+-									last_compressed_bpp,
+-									crtc_state->pipe_bpp);
+-
+-	if (crtc_state->dsc.compressed_bpp != last_compressed_bpp)
+-		need_timeslot_recalc = true;
+-
+-	/*
+-	 * Apparently some MST hubs dislike if vcpi slots are not matching precisely
+-	 * the actual compressed bpp we use.
+-	 */
+-	if (need_timeslot_recalc) {
+-		slots = intel_dp_mst_find_vcpi_slots_for_bpp(encoder, crtc_state,
+-							     crtc_state->dsc.compressed_bpp,
+-							     crtc_state->dsc.compressed_bpp,
+-							     limits, conn_state, 2 * 3, true);
+-		if (slots < 0)
+-			return slots;
+-	}
+-
+ 	return 0;
  }
- 
-+static u8 get_pipes_downstream_of_mst_port(struct intel_atomic_state *state,
-+					   struct drm_dp_mst_topology_mgr *mst_mgr,
-+					   struct drm_dp_mst_port *parent_port)
-+{
-+	const struct intel_digital_connector_state *conn_state;
-+	struct intel_connector *connector;
-+	u8 mask = 0;
-+	int i;
-+
-+	for_each_new_intel_connector_in_state(state, connector, conn_state, i) {
-+		if (!conn_state->base.crtc)
-+			continue;
-+
-+		if (&connector->mst_port->mst_mgr != mst_mgr)
-+			continue;
-+
-+		if (connector->port != parent_port &&
-+		    !drm_dp_mst_port_downstream_of_parent(mst_mgr,
-+							  connector->port,
-+							  parent_port))
-+			continue;
-+
-+		mask |= BIT(to_intel_crtc(conn_state->base.crtc)->pipe);
-+	}
-+
-+	return mask;
-+}
-+
-+static int intel_dp_mst_check_fec_change(struct intel_atomic_state *state,
-+					 struct drm_dp_mst_topology_mgr *mst_mgr,
-+					 struct intel_link_bw_limits *limits)
-+{
-+	struct drm_i915_private *i915 = to_i915(state->base.dev);
-+	struct intel_crtc *crtc;
-+	u8 mst_pipe_mask;
-+	u8 fec_pipe_mask = 0;
-+	int ret;
-+
-+	mst_pipe_mask = get_pipes_downstream_of_mst_port(state, mst_mgr, NULL);
-+
-+	for_each_intel_crtc_in_pipe_mask(&i915->drm, crtc, mst_pipe_mask) {
-+		struct intel_crtc_state *crtc_state =
-+			intel_atomic_get_new_crtc_state(state, crtc);
-+
-+		/* Atomic connector check should've added all the MST CRTCs. */
-+		if (drm_WARN_ON(&i915->drm, !crtc_state))
-+			return -EINVAL;
-+
-+		if (crtc_state->fec_enable)
-+			fec_pipe_mask |= BIT(crtc->pipe);
-+	}
-+
-+	if (!fec_pipe_mask || mst_pipe_mask == fec_pipe_mask)
-+		return 0;
-+
-+	limits->force_fec_pipes |= mst_pipe_mask;
-+
-+	ret = intel_modeset_pipes_in_mask_early(state, "MST FEC",
-+						mst_pipe_mask);
-+
-+	return ret ? : -EAGAIN;
-+}
-+
-+static int intel_dp_mst_check_bw(struct intel_atomic_state *state,
-+				 struct drm_dp_mst_topology_mgr *mst_mgr,
-+				 struct drm_dp_mst_topology_state *mst_state,
-+				 struct intel_link_bw_limits *limits)
-+{
-+	struct drm_dp_mst_port *mst_port;
-+	u8 mst_port_pipes;
-+	int ret;
-+
-+	ret = drm_dp_mst_atomic_check_mgr(&state->base, mst_mgr, mst_state, &mst_port);
-+	if (ret != -ENOSPC)
-+		return ret;
-+
-+	mst_port_pipes = get_pipes_downstream_of_mst_port(state, mst_mgr, mst_port);
-+
-+	ret = intel_link_bw_reduce_bpp(state, limits,
-+				       mst_port_pipes, "MST link BW");
-+
-+	return ret ? : -EAGAIN;
-+}
-+
-+/**
-+ * intel_dp_mst_atomic_check_link - check all modeset MST link configuration
-+ * @state: intel atomic state
-+ * @limits: link BW limits
-+ *
-+ * Check the link configuration for all modeset MST outputs. If the
-+ * configuration is invalid @limits will be updated if possible to
-+ * reduce the total BW, after which the configuration for all CRTCs in
-+ * @state must be recomputed with the updated @limits.
-+ *
-+ * Returns:
-+ *   - 0 if the confugration is valid
-+ *   - %-EAGAIN, if the configuration is invalid and @limits got updated
-+ *     with fallback values with which the configuration of all CRTCs in
-+ *     @state must be recomputed
-+ *   - Other negative error, if the configuration is invalid without a
-+ *     fallback possibility, or the check failed for another reason
-+ */
-+int intel_dp_mst_atomic_check_link(struct intel_atomic_state *state,
-+				   struct intel_link_bw_limits *limits)
-+{
-+	struct drm_dp_mst_topology_mgr *mgr;
-+	struct drm_dp_mst_topology_state *mst_state;
-+	int ret;
-+	int i;
-+
-+	for_each_new_mst_mgr_in_state(&state->base, mgr, mst_state, i) {
-+		ret = intel_dp_mst_check_fec_change(state, mgr, limits);
-+		if (ret)
-+			return ret;
-+
-+		ret = intel_dp_mst_check_bw(state, mgr, mst_state,
-+					    limits);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static int intel_dp_mst_compute_config_late(struct intel_encoder *encoder,
- 					    struct intel_crtc_state *crtc_state,
- 					    struct drm_connector_state *conn_state)
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.h b/drivers/gpu/drm/i915/display/intel_dp_mst.h
-index fc5e85776a858..8ca1d599091c6 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.h
-@@ -13,6 +13,7 @@ struct intel_crtc;
- struct intel_crtc_state;
- struct intel_digital_port;
- struct intel_dp;
-+struct intel_link_bw_limits;
- 
- int intel_dp_mst_encoder_init(struct intel_digital_port *dig_port, int conn_id);
- void intel_dp_mst_encoder_cleanup(struct intel_digital_port *dig_port);
-@@ -22,6 +23,8 @@ bool intel_dp_mst_is_slave_trans(const struct intel_crtc_state *crtc_state);
- bool intel_dp_mst_source_support(struct intel_dp *intel_dp);
- int intel_dp_mst_add_topology_state_for_crtc(struct intel_atomic_state *state,
- 					     struct intel_crtc *crtc);
-+int intel_dp_mst_atomic_check_link(struct intel_atomic_state *state,
-+				   struct intel_link_bw_limits *limits);
- bool intel_dp_mst_crtc_needs_modeset(struct intel_atomic_state *state,
- 				     struct intel_crtc *crtc);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_link_bw.c b/drivers/gpu/drm/i915/display/intel_link_bw.c
-index c5eb5f2425361..390db5c0c24a5 100644
---- a/drivers/gpu/drm/i915/display/intel_link_bw.c
-+++ b/drivers/gpu/drm/i915/display/intel_link_bw.c
-@@ -7,6 +7,7 @@
- 
- #include "intel_atomic.h"
- #include "intel_display_types.h"
-+#include "intel_dp_mst.h"
- #include "intel_fdi.h"
- #include "intel_link_bw.h"
- 
-@@ -21,6 +22,7 @@ void intel_link_bw_init_limits(struct drm_i915_private *i915, struct intel_link_
- {
- 	enum pipe pipe;
- 
-+	limits->force_fec_pipes = 0;
- 	limits->bpp_limit_reached_pipes = 0;
- 	for_each_pipe(i915, pipe)
- 		limits->max_bpp_x16[pipe] = INT_MAX;
-@@ -143,6 +145,10 @@ static int check_all_link_config(struct intel_atomic_state *state,
- 	/* TODO: Check additional shared display link configurations like MST */
- 	int ret;
- 
-+	ret = intel_dp_mst_atomic_check_link(state, limits);
-+	if (ret)
-+		return ret;
-+
- 	ret = intel_fdi_atomic_check_link(state, limits);
- 	if (ret)
- 		return ret;
-@@ -158,6 +164,12 @@ assert_link_limit_change_valid(struct drm_i915_private *i915,
- 	bool bpps_changed = false;
- 	enum pipe pipe;
- 
-+	/* FEC can't be forced off after it was forced on. */
-+	if (drm_WARN_ON(&i915->drm,
-+			(old_limits->force_fec_pipes & new_limits->force_fec_pipes) !=
-+			old_limits->force_fec_pipes))
-+		return false;
-+
- 	for_each_pipe(i915, pipe) {
- 		/* The bpp limit can only decrease. */
- 		if (drm_WARN_ON(&i915->drm,
-@@ -172,7 +184,9 @@ assert_link_limit_change_valid(struct drm_i915_private *i915,
- 
- 	/* At least one limit must change. */
- 	if (drm_WARN_ON(&i915->drm,
--			!bpps_changed))
-+			!bpps_changed &&
-+			new_limits->force_fec_pipes ==
-+			old_limits->force_fec_pipes))
- 		return false;
- 
- 	return true;
-diff --git a/drivers/gpu/drm/i915/display/intel_link_bw.h b/drivers/gpu/drm/i915/display/intel_link_bw.h
-index e07df22a779a2..2cf57307cc249 100644
---- a/drivers/gpu/drm/i915/display/intel_link_bw.h
-+++ b/drivers/gpu/drm/i915/display/intel_link_bw.h
-@@ -16,6 +16,7 @@ struct intel_atomic_state;
- struct intel_crtc_state;
- 
- struct intel_link_bw_limits {
-+	u8 force_fec_pipes;
- 	u8 bpp_limit_reached_pipes;
- 	/* in 1/16 bpp units */
- 	int max_bpp_x16[I915_MAX_PIPES];
+ static int intel_dp_mst_update_slots(struct intel_encoder *encoder,
 -- 
 2.39.2
 
