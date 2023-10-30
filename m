@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BDB5C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Oct 2023 15:58:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A125C4167D
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Oct 2023 15:58:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A9A310E31F;
-	Mon, 30 Oct 2023 15:58:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9E7010E31C;
+	Mon, 30 Oct 2023 15:58:37 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2F5110E312
- for <intel-gfx@lists.freedesktop.org>; Mon, 30 Oct 2023 15:58:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EBEE10E30A;
+ Mon, 30 Oct 2023 15:58:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698681515; x=1730217515;
+ t=1698681507; x=1730217507;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=SlMIDrWv7PaRI3BxcxeihXWud4j+USokCj6fRq1jW+8=;
- b=ccID/UtrloCbg4ylb07ETVaZm5s/U6htdSyJg4UD6agL7TaUm40oHDYa
- 4mQ4a02luvJy6YeQFccCdQ8C5RfKZWx4CPORaxV35EoQDZ9tjuTy24PKw
- uezYTGumMr+UdP6coeWDerpKUGxBnmMnNfXtUYqLjX8eORZoADAqiuklG
- f3YumYjpe0Ya7Igy3FZY8Tv+hAUjoNbnIualO/c4wP7GziVgAf8U2jruc
- JAZmvskP14c+X4pI0Ja1R/SfSKoR3uL5pD/6bhYwLedvC8WU8Mw04l7z6
- 5bj4j3JyMG9aI/k407HuayNepXQ9mIhi9aqW+jPH5JJP1b7yiBM6UP0By g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="974463"
+ bh=Gek8SoA3y+Bov3soiICekHbjTqbQ7Yj0955rYGk2gsE=;
+ b=j9frC26Hn58hP7456fx+RS5JnALPTIoPmLM0m5PV3ICIftGwx88/7r9a
+ uMwtQzGJjSTcDIGDsm4HLym7dgIspZDAijsxwFYtwURp0h3AV7CUK4kvz
+ Pfrd3zYNFu9c5PpwyJkFJ/snHoNkSkG039BdqIFqOI8ayHXu4XRrzp99O
+ iv8vuv4PWLc/iQyIV8XfXJaoJFGs6Yf3GDz6gVpS4xvTpFt260EH0GxgS
+ KIOfiasw5thu40fFnVHOmn/WUrEFNHrB1VzzH8cB/4e5l5eyeY+6IPsCP
+ GMGy9PMrzA0sNLp/i/GvmaI9p6vFKD/HvlKt48ChSKw1z1OGrO8SWohzp g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="974402"
 X-IronPort-AV: E=Sophos;i="6.03,263,1694761200"; 
-   d="scan'208";a="974463"
+   d="scan'208";a="974402"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2023 08:58:35 -0700
+ 30 Oct 2023 08:58:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="789493986"
-X-IronPort-AV: E=Sophos;i="6.03,263,1694761200"; d="scan'208";a="789493986"
+X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="789493955"
+X-IronPort-AV: E=Sophos;i="6.03,263,1694761200"; d="scan'208";a="789493955"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2023 08:58:33 -0700
+ 30 Oct 2023 08:58:23 -0700
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Mon, 30 Oct 2023 17:58:25 +0200
-Message-Id: <20231030155843.2251023-13-imre.deak@intel.com>
+Date: Mon, 30 Oct 2023 17:58:19 +0200
+Message-Id: <20231030155843.2251023-7-imre.deak@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231030155843.2251023-1-imre.deak@intel.com>
 References: <20231030155843.2251023-1-imre.deak@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 12/30] drm/i915/dp: Pass actual BW overhead
- to m_n calculation
+Subject: [Intel-gfx] [PATCH v4 06/30] drm/dp_mst: Allow DSC in any Synaptics
+ last branch device
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,242 +59,75 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: dri-devel@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A follow-up MST patch will need to specify the total BW allocation
-overhead, prepare for that here by passing the amount of overhead
-to intel_link_compute_m_n(), keeping the existing behavior.
+The Synaptics MST branch devices support DSC decompression on all their
+output ports, provided that they are last branch devices (with their
+output ports connected to the sinks). The Thinkpad 40B0 TBT dock for
+instance has two such branch devices, a secondary one connected to one
+of the output ports of the primary; hence the decompression needs to be
+enabled in both branch devices to enable decompression for all the
+sinks.
 
-v2:
-- Fix passing the correct crtc_state->fec_enable param in
-  intel_dp_mst_compute_link_config() /
-  intel_dp_dsc_mst_compute_link_config().
+Based on the above add support for enabling decompression in last
+Synaptics branch devices.
 
-Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com> (v1)
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 40 +++++++++++++++++---
- drivers/gpu/drm/i915/display/intel_display.h |  4 +-
- drivers/gpu/drm/i915/display/intel_dp.c      | 30 ++++++++++++---
- drivers/gpu/drm/i915/display/intel_dp.h      |  2 +
- drivers/gpu/drm/i915/display/intel_dp_mst.c  |  8 ++--
- drivers/gpu/drm/i915/display/intel_fdi.c     |  5 ++-
- 6 files changed, 71 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 21 ++++++++++++-------
+ 1 file changed, 13 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 1caf46e3e5692..1133c2893bb38 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -2396,17 +2396,45 @@ static void compute_m_n(u32 *ret_m, u32 *ret_n,
- 	intel_reduce_m_n_ratio(ret_m, ret_n);
- }
- 
-+static void
-+add_bw_alloc_overhead(int link_clock, int bw_overhead,
-+		      int pixel_data_rate, int link_data_rate,
-+		      u32 *data_m, u32 *data_n)
-+{
-+	bool is_uhbr = intel_dp_is_uhbr_rate(link_clock);
-+	int ch_coding_efficiency =
-+		drm_dp_bw_channel_coding_efficiency(is_uhbr);
-+
-+	/*
-+	 * TODO: adjust for actual UHBR channel coding efficiency and BW
-+	 * overhead.
-+	 */
-+	if (is_uhbr) {
-+		*data_m = pixel_data_rate;
-+		*data_n = link_data_rate * 8 / 10;
-+		return;
-+	}
-+
-+	*data_m = DIV_ROUND_UP_ULL(mul_u32_u32(pixel_data_rate, bw_overhead),
-+				   1000000);
-+	*data_n = DIV_ROUND_DOWN_ULL(mul_u32_u32(link_data_rate, ch_coding_efficiency),
-+				     1000000);
-+}
-+
- void
- intel_link_compute_m_n(u16 bits_per_pixel, int nlanes,
- 		       int pixel_clock, int link_clock,
--		       struct intel_link_m_n *m_n,
--		       bool fec_enable)
-+		       int bw_overhead,
-+		       struct intel_link_m_n *m_n)
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 5972c93615f18..cc0a8fe84d290 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -5994,6 +5994,7 @@ static bool drm_dp_mst_is_virtual_dpcd(struct drm_dp_mst_port *port)
+ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
  {
- 	u32 data_clock = bits_per_pixel * pixel_clock;
-+	u32 data_m;
-+	u32 data_n;
- 
--	if (fec_enable)
--		data_clock = intel_dp_mode_to_fec_clock(data_clock);
--
-+	add_bw_alloc_overhead(link_clock, bw_overhead,
-+			      data_clock,
-+			      link_clock * 10 * nlanes,
-+			      &data_m, &data_n);
- 	/*
- 	 * Windows/BIOS uses fixed M/N values always. Follow suit.
- 	 *
-@@ -2416,7 +2444,7 @@ intel_link_compute_m_n(u16 bits_per_pixel, int nlanes,
+ 	struct drm_dp_mst_port *immediate_upstream_port;
++	struct drm_dp_aux *immediate_upstream_aux;
+ 	struct drm_dp_mst_port *fec_port;
+ 	struct drm_dp_desc desc = {};
+ 	u8 endpoint_fec;
+@@ -6058,21 +6059,25 @@ struct drm_dp_aux *drm_dp_mst_dsc_aux_for_port(struct drm_dp_mst_port *port)
+ 	 * - Port is on primary branch device
+ 	 * - Not a VGA adapter (DP_DWN_STRM_PORT_TYPE_ANALOG)
  	 */
- 	m_n->tu = 64;
- 	compute_m_n(&m_n->data_m, &m_n->data_n,
--		    data_clock, link_clock * nlanes * 8,
-+		    data_m, data_n,
- 		    0x8000000);
- 
- 	compute_m_n(&m_n->link_m, &m_n->link_n,
-diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index cae2a3b12e20d..6d0636acb7250 100644
---- a/drivers/gpu/drm/i915/display/intel_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -394,8 +394,8 @@ u8 intel_calc_active_pipes(struct intel_atomic_state *state,
- 			   u8 active_pipes);
- void intel_link_compute_m_n(u16 bpp, int nlanes,
- 			    int pixel_clock, int link_clock,
--			    struct intel_link_m_n *m_n,
--			    bool fec_enable);
-+			    int bw_overhead,
-+			    struct intel_link_m_n *m_n);
- u32 intel_plane_fb_max_stride(struct drm_i915_private *dev_priv,
- 			      u32 pixel_format, u64 modifier);
- enum drm_mode_status
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 4d8f068218ea3..34da403fa512b 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -121,10 +121,15 @@ bool intel_dp_is_edp(struct intel_dp *intel_dp)
- 
- static void intel_dp_unset_edid(struct intel_dp *intel_dp);
- 
-+bool intel_dp_is_uhbr_rate(int rate)
-+{
-+	return rate >= 1000000;
-+}
+-	if (drm_dp_read_desc(port->mgr->aux, &desc, true))
++	if (immediate_upstream_port)
++		immediate_upstream_aux = &immediate_upstream_port->aux;
++	else
++		immediate_upstream_aux = port->mgr->aux;
 +
- /* Is link rate UHBR and thus 128b/132b? */
- bool intel_dp_is_uhbr(const struct intel_crtc_state *crtc_state)
- {
--	return crtc_state->port_clock >= 1000000;
-+	return intel_dp_is_uhbr_rate(crtc_state->port_clock);
- }
++	if (drm_dp_read_desc(immediate_upstream_aux, &desc, true))
+ 		return NULL;
  
- static void intel_dp_set_default_sink_rates(struct intel_dp *intel_dp)
-@@ -684,6 +689,20 @@ u32 intel_dp_mode_to_fec_clock(u32 mode_clock)
- 		       1000000U);
- }
+-	if (drm_dp_has_quirk(&desc, DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD) &&
+-	    port->mgr->dpcd[DP_DPCD_REV] >= DP_DPCD_REV_14 &&
+-	    port->parent == port->mgr->mst_primary) {
++	if (drm_dp_has_quirk(&desc, DP_DPCD_QUIRK_DSC_WITHOUT_VIRTUAL_DPCD)) {
+ 		u8 dpcd_ext[DP_RECEIVER_CAP_SIZE];
  
-+int intel_dp_bw_fec_overhead(bool fec_enabled)
-+{
-+	/*
-+	 * TODO: Calculate the actual overhead for a given mode.
-+	 * The hard-coded 1/0.972261=2.853% overhead factor
-+	 * corresponds (for instance) to the 8b/10b DP FEC 2.4% +
-+	 * 0.453% DSC overhead. This is enough for a 3840 width mode,
-+	 * which has a DSC overhead of up to ~0.2%, but may not be
-+	 * enough for a 1024 width mode where this is ~0.8% (on a 4
-+	 * lane DP link, with 2 DSC slices and 8 bpp color depth).
-+	 */
-+	return fec_enabled ? DP_DSC_FEC_OVERHEAD_FACTOR : 1000000;
-+}
-+
- static int
- small_joiner_ram_size_bits(struct drm_i915_private *i915)
- {
-@@ -2655,8 +2674,9 @@ intel_dp_drrs_compute_config(struct intel_connector *connector,
- 		pixel_clock /= pipe_config->splitter.link_count;
+-		if (drm_dp_read_dpcd_caps(port->mgr->aux, dpcd_ext) < 0)
++		if (drm_dp_read_dpcd_caps(immediate_upstream_aux, dpcd_ext) < 0)
+ 			return NULL;
  
- 	intel_link_compute_m_n(link_bpp, pipe_config->lane_count, pixel_clock,
--			       pipe_config->port_clock, &pipe_config->dp_m2_n2,
--			       pipe_config->fec_enable);
-+			       pipe_config->port_clock,
-+			       intel_dp_bw_fec_overhead(pipe_config->fec_enable),
-+			       &pipe_config->dp_m2_n2);
+-		if ((dpcd_ext[DP_DOWNSTREAMPORT_PRESENT] & DP_DWN_STRM_PORT_PRESENT) &&
++		if (dpcd_ext[DP_DPCD_REV] >= DP_DPCD_REV_14 &&
++		    ((dpcd_ext[DP_DOWNSTREAMPORT_PRESENT] & DP_DWN_STRM_PORT_PRESENT) &&
+ 		    ((dpcd_ext[DP_DOWNSTREAMPORT_PRESENT] & DP_DWN_STRM_PORT_TYPE_MASK)
+-		     != DP_DWN_STRM_PORT_TYPE_ANALOG))
+-			return port->mgr->aux;
++		     != DP_DWN_STRM_PORT_TYPE_ANALOG)))
++			return immediate_upstream_aux;
+ 	}
  
- 	/* FIXME: abstract this better */
- 	if (pipe_config->splitter.enable)
-@@ -2837,8 +2857,8 @@ intel_dp_compute_config(struct intel_encoder *encoder,
- 			       pipe_config->lane_count,
- 			       adjusted_mode->crtc_clock,
- 			       pipe_config->port_clock,
--			       &pipe_config->dp_m_n,
--			       pipe_config->fec_enable);
-+			       intel_dp_bw_fec_overhead(pipe_config->fec_enable),
-+			       &pipe_config->dp_m_n);
- 
- 	/* FIXME: abstract this better */
- 	if (pipe_config->splitter.enable)
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 0258580a6aadc..2080575fef69a 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -77,6 +77,7 @@ void intel_dp_audio_compute_config(struct intel_encoder *encoder,
- 				   struct drm_connector_state *conn_state);
- bool intel_dp_has_hdmi_sink(struct intel_dp *intel_dp);
- bool intel_dp_is_edp(struct intel_dp *intel_dp);
-+bool intel_dp_is_uhbr_rate(int rate);
- bool intel_dp_is_uhbr(const struct intel_crtc_state *crtc_state);
- bool intel_dp_is_port_edp(struct drm_i915_private *dev_priv, enum port port);
- enum irqreturn intel_dp_hpd_pulse(struct intel_digital_port *dig_port,
-@@ -137,6 +138,7 @@ static inline unsigned int intel_dp_unused_lane_mask(int lane_count)
- }
- 
- u32 intel_dp_mode_to_fec_clock(u32 mode_clock);
-+int intel_dp_bw_fec_overhead(bool fec_enabled);
- 
- bool intel_dp_supports_fec(struct intel_dp *intel_dp,
- 			   const struct intel_connector *connector,
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 8177e19e53ac8..dcbc5d3aa7bc3 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -179,8 +179,8 @@ static int intel_dp_mst_compute_link_config(struct intel_encoder *encoder,
- 			       crtc_state->lane_count,
- 			       adjusted_mode->crtc_clock,
- 			       crtc_state->port_clock,
--			       &crtc_state->dp_m_n,
--			       crtc_state->fec_enable);
-+			       intel_dp_bw_fec_overhead(crtc_state->fec_enable),
-+			       &crtc_state->dp_m_n);
- 	crtc_state->dp_m_n.tu = slots;
- 
- 	return 0;
-@@ -274,8 +274,8 @@ static int intel_dp_dsc_mst_compute_link_config(struct intel_encoder *encoder,
- 			       crtc_state->lane_count,
- 			       adjusted_mode->crtc_clock,
- 			       crtc_state->port_clock,
--			       &crtc_state->dp_m_n,
--			       crtc_state->fec_enable);
-+			       intel_dp_bw_fec_overhead(crtc_state->fec_enable),
-+			       &crtc_state->dp_m_n);
- 	crtc_state->dp_m_n.tu = slots;
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/i915/display/intel_fdi.c b/drivers/gpu/drm/i915/display/intel_fdi.c
-index e6429dfebe159..1d87fbc1e8138 100644
---- a/drivers/gpu/drm/i915/display/intel_fdi.c
-+++ b/drivers/gpu/drm/i915/display/intel_fdi.c
-@@ -10,6 +10,7 @@
- #include "intel_crtc.h"
- #include "intel_ddi.h"
- #include "intel_de.h"
-+#include "intel_dp.h"
- #include "intel_display_types.h"
- #include "intel_fdi.h"
- #include "intel_fdi_regs.h"
-@@ -339,7 +340,9 @@ int ilk_fdi_compute_config(struct intel_crtc *crtc,
- 	pipe_config->fdi_lanes = lane;
- 
- 	intel_link_compute_m_n(pipe_config->pipe_bpp, lane, fdi_dotclock,
--			       link_bw, &pipe_config->fdi_m_n, false);
-+			       link_bw,
-+			       intel_dp_bw_fec_overhead(false),
-+			       &pipe_config->fdi_m_n);
- 
- 	return 0;
- }
+ 	/*
 -- 
 2.39.2
 
