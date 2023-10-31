@@ -4,49 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A818AC4332F
-	for <intel-gfx@archiver.kernel.org>; Tue, 31 Oct 2023 10:17:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9034C4332F
+	for <intel-gfx@archiver.kernel.org>; Tue, 31 Oct 2023 10:17:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8ABB10E45C;
-	Tue, 31 Oct 2023 10:17:20 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1789310E45B;
- Tue, 31 Oct 2023 10:17:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DB2210E456;
+	Tue, 31 Oct 2023 10:17:25 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7CED10E456;
+ Tue, 31 Oct 2023 10:17:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698747439; x=1730283439;
+ t=1698747442; x=1730283442;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=DxQWsF5+3/Ph3jHBGJzEzJKA/tcQh1mVHes7E6mHer0=;
- b=ICvORmXu1TJm1WCYMLmd00CUzs78E0cM5Gj2a0vRsGE5jf0nsHTLbuX2
- kvU6LhEcAZ5GvYIEMhN7kjAthD1krUrR8D9r18Hfs+fYUgw3nUP8XKwm4
- 9qoyQI+cSspVgwZkU5Nd6njw9u+EVUhez1O4T2MzQ8RWsqJy9iliSmoph
- s0FiquMQMJ2fFvyjzxlLnHvL5iVbtKYsnMfXIJm7IRXVTk/huAZeqBbaz
- ePpjuAMwhFu+1T1uT2cDpfU83vQ5+DM44lplT4KHxnl/VBz0BYAdwwOti
- skYICVl/Ggh1z1z/2go8X+8ACjjiQiETqg+7LwvzSfalmBnZXtQXrYJrG g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="454724820"
-X-IronPort-AV: E=Sophos;i="6.03,265,1694761200"; d="scan'208";a="454724820"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Oct 2023 03:17:02 -0700
+ bh=IgEqjSwLtT6neNTEs4ma74HrNJocekFPJHcYHYu5DTg=;
+ b=Hx9RGXOAyAO9TaUJYX+IvL+REv4pw5eiHNoogLHCNamEEfTh5OF/1Bxz
+ pZIshGxBYTPqev1KDg0aXAjT3LOQ5B8hBK5110clPeF68qvYoEa16AI7S
+ 3cpOJ6ysFjdkLn8zn5s0GYoxEF6dk4Is5Q9AU6pocTrn3knVi++2ObA5X
+ 0YebXY5DTBarUf7Udh3BQwnmGaJcCHeHjziNo4m4WRwhn/SKZJWBPgac/
+ ojErPjKOEv0BDya2o7MZEOwSVb0cGyFra/x4GLspDCGFa1LhpJXJ7PmhN
+ fAO1KywfVQsfWascCFuBzWPWxcul63Mo60QNk6/oiQ6pfZOPDP2eKib1j g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="388079215"
+X-IronPort-AV: E=Sophos;i="6.03,265,1694761200"; d="scan'208";a="388079215"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Oct 2023 03:17:22 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="789747783"
-X-IronPort-AV: E=Sophos;i="6.03,265,1694761200"; d="scan'208";a="789747783"
+X-IronPort-AV: E=McAfee;i="6600,9927,10879"; a="795530865"
+X-IronPort-AV: E=Sophos;i="6.03,265,1694761200"; d="scan'208";a="795530865"
 Received: from moelschl-mobl.ger.corp.intel.com (HELO localhost)
  ([10.252.51.45])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Oct 2023 03:17:00 -0700
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Oct 2023 03:17:20 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: dri-devel@lists.freedesktop.org
-Date: Tue, 31 Oct 2023 12:16:39 +0200
-Message-Id: <6e048fc4c8a3ebec638ce27b0b8b969a3d2fa8bc.1698747331.git.jani.nikula@intel.com>
+Date: Tue, 31 Oct 2023 12:16:43 +0200
+Message-Id: <8e9a05f2b1e0dd184132d636e1e778e8917ec25d.1698747331.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1698747331.git.jani.nikula@intel.com>
 References: <cover.1698747331.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v2 2/6] drm/eld: replace uint8_t with u8
+Subject: [Intel-gfx] [PATCH v2 6/6] drm/eld: add helpers to modify the SADs
+ of an ELD
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,83 +65,134 @@ Cc: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Unify on kernel types.
+Occasionally it's necessary for drivers to modify the SADs of an ELD,
+but it's not so cool to have drivers poke at the ELD buffer directly.
+
+Using the helpers to translate between 3-byte SAD and struct cea_sad,
+add ELD helpers to get/set the SADs from/to an ELD.
+
+v2: s/i/sad_index/ (Mitul)
 
 Cc: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Reviewed-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- include/drm/drm_eld.h | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ Documentation/gpu/drm-kms-helpers.rst |  3 ++
+ drivers/gpu/drm/Makefile              |  1 +
+ drivers/gpu/drm/drm_eld.c             | 55 +++++++++++++++++++++++++++
+ include/drm/drm_eld.h                 |  5 +++
+ 4 files changed, 64 insertions(+)
+ create mode 100644 drivers/gpu/drm/drm_eld.c
 
+diff --git a/Documentation/gpu/drm-kms-helpers.rst b/Documentation/gpu/drm-kms-helpers.rst
+index cfa8e6c399b6..59cfe8a7a8ba 100644
+--- a/Documentation/gpu/drm-kms-helpers.rst
++++ b/Documentation/gpu/drm-kms-helpers.rst
+@@ -366,6 +366,9 @@ EDID Helper Functions Reference
+ .. kernel-doc:: include/drm/drm_eld.h
+    :internal:
+ 
++.. kernel-doc:: drivers/gpu/drm/drm_eld.c
++   :export:
++
+ SCDC Helper Functions Reference
+ ===============================
+ 
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index 8e1bde059170..cdbe91ac0bfc 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -22,6 +22,7 @@ drm-y := \
+ 	drm_drv.o \
+ 	drm_dumb_buffers.o \
+ 	drm_edid.o \
++	drm_eld.o \
+ 	drm_encoder.o \
+ 	drm_file.o \
+ 	drm_fourcc.o \
+diff --git a/drivers/gpu/drm/drm_eld.c b/drivers/gpu/drm/drm_eld.c
+new file mode 100644
+index 000000000000..5177991aa272
+--- /dev/null
++++ b/drivers/gpu/drm/drm_eld.c
+@@ -0,0 +1,55 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2023 Intel Corporation
++ */
++
++#include <drm/drm_edid.h>
++#include <drm/drm_eld.h>
++
++#include "drm_internal.h"
++
++/**
++ * drm_eld_sad_get - get SAD from ELD to struct cea_sad
++ * @eld: ELD buffer
++ * @sad_index: SAD index
++ * @cta_sad: destination struct cea_sad
++ *
++ * @return: 0 on success, or negative on errors
++ */
++int drm_eld_sad_get(const u8 *eld, int sad_index, struct cea_sad *cta_sad)
++{
++	const u8 *sad;
++
++	if (sad_index >= drm_eld_sad_count(eld))
++		return -EINVAL;
++
++	sad = eld + DRM_ELD_CEA_SAD(drm_eld_mnl(eld), sad_index);
++
++	drm_edid_cta_sad_set(cta_sad, sad);
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_eld_sad_get);
++
++/**
++ * drm_eld_sad_set - set SAD to ELD from struct cea_sad
++ * @eld: ELD buffer
++ * @sad_index: SAD index
++ * @cta_sad: source struct cea_sad
++ *
++ * @return: 0 on success, or negative on errors
++ */
++int drm_eld_sad_set(u8 *eld, int sad_index, const struct cea_sad *cta_sad)
++{
++	u8 *sad;
++
++	if (sad_index >= drm_eld_sad_count(eld))
++		return -EINVAL;
++
++	sad = eld + DRM_ELD_CEA_SAD(drm_eld_mnl(eld), sad_index);
++
++	drm_edid_cta_sad_get(cta_sad, sad);
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_eld_sad_set);
 diff --git a/include/drm/drm_eld.h b/include/drm/drm_eld.h
-index 9bde89bd96ea..7b674256b9aa 100644
+index 7b674256b9aa..0a88d10b28b0 100644
 --- a/include/drm/drm_eld.h
 +++ b/include/drm/drm_eld.h
-@@ -70,7 +70,7 @@
-  * drm_eld_mnl - Get ELD monitor name length in bytes.
-  * @eld: pointer to an eld memory structure with mnl set
-  */
--static inline int drm_eld_mnl(const uint8_t *eld)
-+static inline int drm_eld_mnl(const u8 *eld)
- {
+@@ -8,6 +8,8 @@
+ 
+ #include <linux/types.h>
+ 
++struct cea_sad;
++
+ /* ELD Header Block */
+ #define DRM_ELD_HEADER_BLOCK_SIZE	4
+ 
+@@ -75,6 +77,9 @@ static inline int drm_eld_mnl(const u8 *eld)
  	return (eld[DRM_ELD_CEA_EDID_VER_MNL] & DRM_ELD_MNL_MASK) >> DRM_ELD_MNL_SHIFT;
  }
-@@ -79,7 +79,7 @@ static inline int drm_eld_mnl(const uint8_t *eld)
+ 
++int drm_eld_sad_get(const u8 *eld, int sad_index, struct cea_sad *cta_sad);
++int drm_eld_sad_set(u8 *eld, int sad_index, const struct cea_sad *cta_sad);
++
+ /**
   * drm_eld_sad - Get ELD SAD structures.
   * @eld: pointer to an eld memory structure with sad_count set
-  */
--static inline const uint8_t *drm_eld_sad(const uint8_t *eld)
-+static inline const u8 *drm_eld_sad(const u8 *eld)
- {
- 	unsigned int ver, mnl;
- 
-@@ -98,7 +98,7 @@ static inline const uint8_t *drm_eld_sad(const uint8_t *eld)
-  * drm_eld_sad_count - Get ELD SAD count.
-  * @eld: pointer to an eld memory structure with sad_count set
-  */
--static inline int drm_eld_sad_count(const uint8_t *eld)
-+static inline int drm_eld_sad_count(const u8 *eld)
- {
- 	return (eld[DRM_ELD_SAD_COUNT_CONN_TYPE] & DRM_ELD_SAD_COUNT_MASK) >>
- 		DRM_ELD_SAD_COUNT_SHIFT;
-@@ -111,7 +111,7 @@ static inline int drm_eld_sad_count(const uint8_t *eld)
-  * This is a helper for determining the payload size of the baseline block, in
-  * bytes, for e.g. setting the Baseline_ELD_Len field in the ELD header block.
-  */
--static inline int drm_eld_calc_baseline_block_size(const uint8_t *eld)
-+static inline int drm_eld_calc_baseline_block_size(const u8 *eld)
- {
- 	return DRM_ELD_MONITOR_NAME_STRING - DRM_ELD_HEADER_BLOCK_SIZE +
- 		drm_eld_mnl(eld) + drm_eld_sad_count(eld) * 3;
-@@ -127,7 +127,7 @@ static inline int drm_eld_calc_baseline_block_size(const uint8_t *eld)
-  *
-  * The returned value is guaranteed to be a multiple of 4.
-  */
--static inline int drm_eld_size(const uint8_t *eld)
-+static inline int drm_eld_size(const u8 *eld)
- {
- 	return DRM_ELD_HEADER_BLOCK_SIZE + eld[DRM_ELD_BASELINE_ELD_LEN] * 4;
- }
-@@ -139,7 +139,7 @@ static inline int drm_eld_size(const uint8_t *eld)
-  * The returned value is the speakers mask. User has to use %DRM_ELD_SPEAKER
-  * field definitions to identify speakers.
-  */
--static inline u8 drm_eld_get_spk_alloc(const uint8_t *eld)
-+static inline u8 drm_eld_get_spk_alloc(const u8 *eld)
- {
- 	return eld[DRM_ELD_SPEAKER] & DRM_ELD_SPEAKER_MASK;
- }
-@@ -151,7 +151,7 @@ static inline u8 drm_eld_get_spk_alloc(const uint8_t *eld)
-  * The caller need to use %DRM_ELD_CONN_TYPE_HDMI or %DRM_ELD_CONN_TYPE_DP to
-  * identify the display type connected.
-  */
--static inline u8 drm_eld_get_conn_type(const uint8_t *eld)
-+static inline u8 drm_eld_get_conn_type(const u8 *eld)
- {
- 	return eld[DRM_ELD_SAD_COUNT_CONN_TYPE] & DRM_ELD_CONN_TYPE_MASK;
- }
 -- 
 2.39.2
 
