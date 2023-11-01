@@ -4,67 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F776C4332F
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Nov 2023 00:27:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE8D2C05031
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Nov 2023 00:27:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FAA610E624;
-	Wed,  1 Nov 2023 00:26:43 +0000 (UTC)
-Received: from mail-io1-xd2e.google.com (mail-io1-xd2e.google.com
- [IPv6:2607:f8b0:4864:20::d2e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F4A810E61C;
- Wed,  1 Nov 2023 00:26:39 +0000 (UTC)
-Received: by mail-io1-xd2e.google.com with SMTP id
- ca18e2360f4ac-7ac7b2b1e99so147003839f.2; 
- Tue, 31 Oct 2023 17:26:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0EAFD10E62D;
+	Wed,  1 Nov 2023 00:26:46 +0000 (UTC)
+Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com
+ [IPv6:2607:f8b0:4864:20::12e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A00110E62A;
+ Wed,  1 Nov 2023 00:26:42 +0000 (UTC)
+Received: by mail-il1-x12e.google.com with SMTP id
+ e9e14a558f8ab-35941ccaa85so1214795ab.1; 
+ Tue, 31 Oct 2023 17:26:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698798398; x=1699403198; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1698798401; x=1699403201; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=U/Y22HDoQtQ5J6jKu+XMrHNDFCbaw7mLlFMAwMGHHHY=;
- b=bT90Nm2AtdAOwe91j+ZW/g2hM4rk2VP7eXR5irZfTt48ZtUZkwvsO6r8rmkj7kndPP
- U4d0r1A29kTRR2kZ8VPBVVxO5IMHAXBJed7aD5P3lX4hA1anNQRXFFiwgYAGJqA+3P4f
- slp8jBtOkPWxXLVvShXh+wqpFWybjn3X8MeEnIgIq0t4gbTdzrUXE05VNenC2Y0ajCIV
- VuAn7Ux2pTIuXRJzkbSFVv2C13ScmREzwlu+OHWNYZQLj3s2p81t4wzUpsw6/hOhQaY6
- pZBtcKqHT/63WbNC8CBMKLQ+iQJrYv7OSDx+DtWfBqzNO+LvkjbqVL8nZWz4B/sEXIng
- SdBQ==
+ bh=Xt5GYS9mXBsgXWCKjkvZOfiO8j43yK6Z0bFknFJi+ls=;
+ b=J0y+BL9sirvgwmBMsApiWL18kG+WKu9GTPZrS+9tipzRL1S5LaARvZWQx07DeyqDCI
+ vCzRdf84GhW5/sDOCYU0DBq6wtq+Hwp3kP1x4VP31rf4ccNFVz8GOf2RE59dyIr8aQqJ
+ SQlx1iARq2/IwZNmFnNIzv75ZTig95PGbU4Z/MHpsw4pPD+KMcA+eo9Lgl/i1JWQizta
+ 0BbcBRiKkMAr/BNNQaVBbPXwYUENail5qXJBvzM031BJJ1waYBPHQLw4C+mXbEnYpRJm
+ Ow1mZCoCQ8d81olt3GnbVv9ulb/9ncmA3XFyU1idvOyhhnyJwRV0fuBO+eXQX8txtRsW
+ yEwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698798398; x=1699403198;
+ d=1e100.net; s=20230601; t=1698798401; x=1699403201;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=U/Y22HDoQtQ5J6jKu+XMrHNDFCbaw7mLlFMAwMGHHHY=;
- b=MLTxpnNWUleL2UDRCrHUrFMWIMHUIrYlWPulBaqozatcGdu3edgOO3qyeHU5SUVb0Q
- 9Q0Q3B0JoD4IPMtwT5WTgMW+z2qektmgkkw8bytq0VtX9QtUi97Xqe4q8h5F36Cv9Xbw
- zaLV8bdKIH9fJL4XAq32T/9c1s3M8b71jgC+bt3RQk4hf3CCb+0BX2TvqZHrN2MlyOQc
- qArUN9kKsbJ2upjqxbG6zo6bZ/tjbJp8zYDZwPL90pB92D/MYHlLI7NX0ckMFNza2Zc0
- OHbUTZZqDYPRnVh6+0cJsaYmVzPHInriBsqL01OQSWAHQwrplOxHbPfbvXjK+JGfE7tM
- AGMQ==
-X-Gm-Message-State: AOJu0Yy6wgoqzRqkFgKZ6fxnxQ0SLOR3Jo/NfozK8PYqnGHWZqB/yYjS
- MeIw2/aaFw/K53efJlAuqo0=
-X-Google-Smtp-Source: AGHT+IGplcxVeKRrxfEzIe5t4tRpaoRwBH4GttUH+1bSvDZD6oSEvtngVm7LhpLRqTeegbroJkeBfg==
-X-Received: by 2002:a05:6e02:11b0:b0:359:4048:38da with SMTP id
- 16-20020a056e0211b000b00359404838damr1276156ilj.1.1698798398709; 
- Tue, 31 Oct 2023 17:26:38 -0700 (PDT)
+ bh=Xt5GYS9mXBsgXWCKjkvZOfiO8j43yK6Z0bFknFJi+ls=;
+ b=AFe9IAJeV1/iH4iWzHX14T/ckmE1xLKLcajcay7Wtp9rPdyCgjI4BGWUZNO6lKcbxl
+ Q/1XVHFN3CGIdOUDeQweluB9+cTE/iljhHXhUF/0nTZPbvefIg182tTo6C1lb+F8ihQH
+ oBey4v/8P9hvmG0mPovANaJIeQjzCDiLikRONseGpnaFZYCXEMNR/7UJm3ed+td5PHOd
+ ydkO0b4nIROLcTyEyHYDlfQJv/DQAe7T6CUcuNrEcGUSGUKjv7o9avIFFS8DKSflgICQ
+ uhHLYkJmM0cMCMi4lrArOnFMWRL9CUSNzkYdlCGKEJEvqTJjj0eLE1YOtMXAH6lfOI6p
+ MJUw==
+X-Gm-Message-State: AOJu0YyhgKhLowhSHT3izzZXURBuvEliweZC7HnaDy/NdqzsDl2XeHrR
+ mhi+E0Q+gYEHXIM1uXJC+0k=
+X-Google-Smtp-Source: AGHT+IEnq6yilvS523bKlSj7hFpIHWcTVw7hccWlP46IsJgWdtPP6IzKyLzgXeN5+1LH7kZInFgtRw==
+X-Received: by 2002:a92:cdaf:0:b0:357:faae:ae38 with SMTP id
+ g15-20020a92cdaf000000b00357faaeae38mr19570135ild.29.1698798401538; 
+ Tue, 31 Oct 2023 17:26:41 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- t1-20020a92c901000000b00357cc8df1d5sm141701ilp.68.2023.10.31.17.26.36
+ t1-20020a92c901000000b00357cc8df1d5sm141701ilp.68.2023.10.31.17.26.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Oct 2023 17:26:38 -0700 (PDT)
+ Tue, 31 Oct 2023 17:26:41 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Date: Tue, 31 Oct 2023 18:26:01 -0600
-Message-ID: <20231101002609.3533731-16-jim.cromie@gmail.com>
+Date: Tue, 31 Oct 2023 18:26:03 -0600
+Message-ID: <20231101002609.3533731-18-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231101002609.3533731-1-jim.cromie@gmail.com>
 References: <20231101002609.3533731-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7d 15/23] dyndbg: refactor
- ddebug_classparam_clamp_input
+Subject: [Intel-gfx] [PATCH v7d 17/23] dyndbg-doc: add classmap info to howto
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,133 +87,92 @@ Cc: quic_saipraka@quicinc.com, linux-doc@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Extract input validation code, from param_set_dyndbg_module_classes()
-(the sys-node >handler) to new: ddebug_classparam_clamp_input(kp),
-call it from former.  It takes kernel-param arg, so it can complain
-about "foo: bad input".
+Add some basic info on classmap usage and api
 
-Reuse ddparam_clamp_input(kp) in ddebug_sync_classbits(),
-to validate inputs from parent's params, just like our own.
-To support that reuse, alter ddebug_sync_classbits() and caller to
-pass kp instead of kp->arg.
-
+cc: linux-doc@vger.kernel.org
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 70 ++++++++++++++++++++++++++++++---------------
- 1 file changed, 47 insertions(+), 23 deletions(-)
+v5- adjustments per Randy Dunlap, me
+v7b- checkpatch fixes
+---
+ .../admin-guide/dynamic-debug-howto.rst       | 60 ++++++++++++++++++-
+ 1 file changed, 59 insertions(+), 1 deletion(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 7d3261dede77..f878a6f09fc8 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -653,6 +653,30 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+index 0b3d39c610d9..028c2cb5b4c5 100644
+--- a/Documentation/admin-guide/dynamic-debug-howto.rst
++++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+@@ -225,7 +225,6 @@ the ``p`` flag has meaning, other flags are ignored.
+ Note the regexp ``^[-+=][fslmpt_]+$`` matches a flags specification.
+ To clear all flags at once, use ``=_`` or ``-fslmpt``.
  
- #define CLASSMAP_BITMASK(width) ((1UL << (width)) - 1)
+-
+ Debug messages during Boot Process
+ ==================================
  
-+static void ddebug_class_param_clamp_input(unsigned long *inrep, const struct kernel_param *kp)
-+{
-+	const struct ddebug_class_param *dcp = kp->arg;
-+	const struct ddebug_class_map *map = dcp->map;
+@@ -375,3 +374,62 @@ just a shortcut for ``print_hex_dump(KERN_DEBUG)``.
+ For ``print_hex_dump_debug()``/``print_hex_dump_bytes()``, format string is
+ its ``prefix_str`` argument, if it is constant string; or ``hexdump``
+ in case ``prefix_str`` is built dynamically.
 +
-+	switch (map->map_type) {
-+	case DD_CLASS_TYPE_DISJOINT_BITS:
-+		/* expect bits. mask and warn if too many */
-+		if (*inrep & ~CLASSMAP_BITMASK(map->length)) {
-+			pr_warn("%s: input: 0x%lx exceeds mask: 0x%lx, masking\n",
-+				KP_NAME(kp), *inrep, CLASSMAP_BITMASK(map->length));
-+			*inrep &= CLASSMAP_BITMASK(map->length);
-+		}
-+		break;
-+	case DD_CLASS_TYPE_LEVEL_NUM:
-+		/* input is bitpos, of highest verbosity to be enabled */
-+		if (*inrep > map->length) {
-+			pr_warn("%s: level:%ld exceeds max:%d, clamping\n",
-+				KP_NAME(kp), *inrep, map->length);
-+			*inrep = map->length;
-+		}
-+		break;
-+	}
-+}
- static int param_set_dyndbg_module_classes(const char *instr,
- 					   const struct kernel_param *kp,
- 					   const char *modnm)
-@@ -671,26 +695,15 @@ static int param_set_dyndbg_module_classes(const char *instr,
- 		pr_err("expecting numeric input, not: %s > %s\n", instr, KP_NAME(kp));
- 		return -EINVAL;
- 	}
-+	ddebug_class_param_clamp_input(&inrep, kp);
- 
- 	switch (map->map_type) {
- 	case DD_CLASS_TYPE_DISJOINT_BITS:
--		/* expect bits. mask and warn if too many */
--		if (inrep & ~CLASSMAP_BITMASK(map->length)) {
--			pr_warn("%s: input: 0x%lx exceeds mask: 0x%lx, masking\n",
--				KP_NAME(kp), inrep, CLASSMAP_BITMASK(map->length));
--			inrep &= CLASSMAP_BITMASK(map->length);
--		}
- 		v2pr_info("bits:0x%lx > %s.%s\n", inrep, modnm ?: "*", KP_NAME(kp));
- 		totct += ddebug_apply_class_bitmap(dcp, &inrep, *dcp->bits, modnm);
- 		*dcp->bits = inrep;
- 		break;
- 	case DD_CLASS_TYPE_LEVEL_NUM:
--		/* input is bitpos, of highest verbosity to be enabled */
--		if (inrep > map->length) {
--			pr_warn("%s: level:%ld exceeds max:%d, clamping\n",
--				KP_NAME(kp), inrep, map->length);
--			inrep = map->length;
--		}
- 		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
- 		new_bits = CLASSMAP_BITMASK(inrep);
- 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
-@@ -1157,16 +1170,27 @@ static const char * const ddebug_classmap_typenames[] = {
- 		  ddebug_classmap_typenames[_cm->map_type]);		\
- 	})
- 
--static void ddebug_sync_classbits(const struct ddebug_class_param *dcp, const char *modname)
-+static void ddebug_sync_classbits(const struct kernel_param *kp, const char *modname)
- {
--	/* clamp initial bitvec, mask off hi-bits */
--	if (*dcp->bits & ~CLASSMAP_BITMASK(dcp->map->length)) {
--		*dcp->bits &= CLASSMAP_BITMASK(dcp->map->length);
--		v2pr_info("preset classbits: %lx\n", *dcp->bits);
-+	struct ddebug_class_param *dcp = kp->arg;
-+	unsigned long new_bits;
++Dynamic Debug classmaps
++=======================
 +
-+	ddebug_class_param_clamp_input(dcp->bits, kp);
++Dyndbg allows selection/grouping of *prdbg* callsites using structural
++info: module, file, function, line.  Classmaps allow authors to add
++their own domain-oriented groupings using class-names.  Classmaps are
++exported, so they referencable from other modules.
 +
-+	switch (dcp->map->map_type) {
-+	case DD_CLASS_TYPE_DISJOINT_BITS:
-+		v2pr_info("  %s: classbits: 0x%lx\n", KP_NAME(kp), *dcp->bits);
-+		ddebug_apply_class_bitmap(dcp, dcp->bits, 0UL, modname);
-+		break;
-+	case DD_CLASS_TYPE_LEVEL_NUM:
-+		new_bits = CLASSMAP_BITMASK(*dcp->lvl);
-+		v2pr_info("  %s: lvl:%ld bits:0x%lx\n", KP_NAME(kp), *dcp->lvl, new_bits);
-+		ddebug_apply_class_bitmap(dcp, &new_bits, 0UL, modname);
-+		break;
-+	default:
-+		pr_err("bad map type %d\n", dcp->map->map_type);
-+		return;
- 	}
--	/* force class'd prdbgs (in USEr module) to match (DEFINEr module) class-param */
--	ddebug_apply_class_bitmap(dcp, dcp->bits, ~0, modname);
--	ddebug_apply_class_bitmap(dcp, dcp->bits, 0, modname);
- }
- 
- static void ddebug_match_apply_kparam(const struct kernel_param *kp,
-@@ -1181,9 +1205,9 @@ static void ddebug_match_apply_kparam(const struct kernel_param *kp,
- 	dcp = (struct ddebug_class_param *)kp->arg;
- 
- 	if (map == dcp->map) {
--		v2pr_info("found kp:%s =0x%lx", kp->name, *dcp->bits);
--		vpr_cm_info(map, "mapped to:");
--		ddebug_sync_classbits(dcp, modnm);
-+		v2pr_info(" found kp:%s =0x%lx", kp->name, *dcp->bits);
-+		vpr_cm_info(map, "  mapped to:");
-+		ddebug_sync_classbits(kp, modnm);
- 	}
- }
- 
++  # enable classes individually
++  :#> ddcmd class DRM_UT_CORE +p
++  :#> ddcmd class DRM_UT_KMS +p
++  # or more selectively
++  :#> ddcmd class DRM_UT_CORE module drm +p
++
++The "class FOO" syntax protects class'd prdbgs from generic overwrite::
++
++  # IOW this doesn't wipe any DRM.debug settings
++  :#> ddcmd -p
++
++To support the DRM.debug parameter, DYNDBG_CLASSMAP_PARAM* updates all
++classes in a classmap, mapping param-bits 0..N onto the classes:
++DRM_UT_<*> for the DRM use-case.
++
++Dynamic Debug Classmap API
++==========================
++
++DYNDBG_CLASSMAP_DEFINE - modules use this to create classmaps, naming
++each of the classes (stringified enum-symbols: "DRM_UT_<*>"), and
++type, and mapping the class-names to consecutive _class_ids.
++
++By doing so, modules tell dyndbg that they are have prdbgs with those
++class_ids, and they authorize dyndbg to accept "class FOO" for the
++module defining that classname.
++
++There are 2 types of classmaps:
++
++ DD_CLASS_TYPE_DISJOINT_BITS: classes are independent, like DRM.debug
++ DD_CLASS_TYPE_LEVEL_NUM: classes are relative, ordered (V3 > V2)
++
++DYNDBG_CLASSMAP_PARAM - refers to a DEFINEd classmap, exposing the set
++of defined classes to manipulation as a group.  This interface
++enforces the relatedness of classes of DD_CLASS_TYPE_LEVEL_NUM typed
++classmaps; all classes are independent in the >control parser itself.
++
++DYNDBG_CLASSMAP_USE - drm drivers invoke this to ref the CLASSMAP that
++drm DEFINEs.  This shares the classmap definition, and authorizes
++dyndbg to apply changes to the user module's class'd pr_debugs.  It
++also tells dyndbg how to initialize the user's prdbgs at modprobe,
++based upon the current setting of the parent's controlling param.
++
++Modules or module-groups (drm & drivers) can define multiple
++classmaps, as long as they share the limited 0..62 per-module-group
++_class_id range, without overlap.
++
++``#define DEBUG`` will enable all pr_debugs in scope, including any
++class'd ones.  This won't be reflected in the PARAM readback value,
++but the pr_debug callsites can be toggled into agreement with the
++param.
 -- 
 2.41.0
 
