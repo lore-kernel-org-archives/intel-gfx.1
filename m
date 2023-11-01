@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12ACBC05022
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7F0BC0723F
 	for <intel-gfx@archiver.kernel.org>; Wed,  1 Nov 2023 00:27:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5F6710E642;
-	Wed,  1 Nov 2023 00:26:53 +0000 (UTC)
-Received: from mail-il1-x129.google.com (mail-il1-x129.google.com
- [IPv6:2607:f8b0:4864:20::129])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 808FB10E5FD;
- Wed,  1 Nov 2023 00:26:50 +0000 (UTC)
-Received: by mail-il1-x129.google.com with SMTP id
- e9e14a558f8ab-35742cbb670so22934805ab.2; 
- Tue, 31 Oct 2023 17:26:50 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4E2910E616;
+	Wed,  1 Nov 2023 00:26:54 +0000 (UTC)
+Received: from mail-io1-xd32.google.com (mail-io1-xd32.google.com
+ [IPv6:2607:f8b0:4864:20::d32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B30BB10E628;
+ Wed,  1 Nov 2023 00:26:43 +0000 (UTC)
+Received: by mail-io1-xd32.google.com with SMTP id
+ ca18e2360f4ac-7a66a7fc2d4so230522039f.0; 
+ Tue, 31 Oct 2023 17:26:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1698798410; x=1699403210; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1698798403; x=1699403203; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3SAgGhvFgEq3ojom6jJPWJ2MyF/faZd9tWGs5HOFcQQ=;
- b=bI9zprPMgTz0BmAlRl9apGEqlHSvSHxepom9h0H12cRylus6cbWQc/TSvOyhDD9bfA
- EUIAx8ifPfox0JcVlRKJ4DCz58epHdtxY4mFF6nOy6GciyZ/d/RWzxtcDrnhWHwgA1r8
- rOBgLLzjtN2k19HD2oiCk1H6rVr+syC/KHNAR279/V7dX0ChVh1dK9jlaVlnm3SSO2op
- Ob1tDC3ib2GUDPiUgDzbuZVeh5FYXhuSzarI6vXAWK5TkV3A8eU5jTZ9kjLGJoS7SDHD
- n6zpSI0aEXXIYEFKr2Aqn3bZEknk3Z48TsTYwd0vMag39OWDq1hoohhGNZUrx/kNkalU
- vdQw==
+ bh=4XXimEcMUHLKcy89kdpmOcYiRa3Yj2O0YL1kh5UVcGE=;
+ b=W4G5c3rw2yB0jdnDOeBICQIjoOb+jKR0rZWcUfvej4tJNJP8SxKtz/K58jpabfFGOk
+ PdzKVnVP0FoN8JGNXw8tPYd6HFXtMBer4PU9G6MHbVhFg4gxN/2Fwb3cikYHfTowwH18
+ bLOAYIfhCDkH+kHDciXLfkaE8A2UXlyG/rz29TlHLQZZE0WKL6WXJrx7/utdI5r7/Tc/
+ 7+wBxRLr3VSDXCxep4TdGkgDc1ZgDXWfB+tbwWIIbPOwJKkfdOkpou0ot12h05ahkC55
+ MtVJui7Hy1n885EQ2wmbBvv/YuOGgpGuztc8rLKPWE+tUeosIdIQy+hmiYt++LF20C9T
+ tO1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698798410; x=1699403210;
+ d=1e100.net; s=20230601; t=1698798403; x=1699403203;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=3SAgGhvFgEq3ojom6jJPWJ2MyF/faZd9tWGs5HOFcQQ=;
- b=m6xIRvF7/dmlgmKGetJLyP/Yj/auBPXxC+AHnQXuSf9T7PtzkBLQF/RMOVV4otmFyp
- tLmnt9iB3TYCGk9FYuQOkaIdKCZpCfqnpo/lE0VvAurgkdsKx/eezYyDUwI9/nxLi4qp
- G9bwbjw/v/9uF81nVqve9/0g90Pqb/lUmBXtW1Uu9+gYygnC0DSxi5MLtlnoeTZUik6O
- oLDR607o/5CfHYwUYivUfiPKf4oGJX0LftX1gqq8mdkywF7IRzhzS4ZFGGmmnKX23fRC
- heFuucklbCC0ht/hW1X0d9NF6IW1/XWDExnivyFWKg7QES3KZ0zOQduYeORUdtsZ0YkF
- XwWw==
-X-Gm-Message-State: AOJu0Yyr+ja2MGRglU6743FyQKFI2eYtgO5strsTe0QDb5V+jHUGOEEF
- t6mjdG4v/rnFkQszP7Su4Dg=
-X-Google-Smtp-Source: AGHT+IFaLMPhKAQDiXwdcpHNHlQB0x4IFVrH9A1QbFz7CNOFwFce//LXq9uQbZHYcyJx7HoGA67UZQ==
-X-Received: by 2002:a05:6e02:1522:b0:357:a180:6b74 with SMTP id
- i2-20020a056e02152200b00357a1806b74mr19332114ilu.27.1698798409806; 
- Tue, 31 Oct 2023 17:26:49 -0700 (PDT)
+ bh=4XXimEcMUHLKcy89kdpmOcYiRa3Yj2O0YL1kh5UVcGE=;
+ b=h9VYuoYz9npSJz5/ygDx2dT0j/Kg08Fv8IJMJBUNEAuby81sTqdWwU2PZhoSPOltUB
+ gDCY0q5Aljnr4bVirK2ZNtRqeYT+LsoS1asB9HOPcClXxlDbdImMKwyq1VYzkLMpOLts
+ JmFK4lQTFPd7HTSLeZ/YqnzxT/dld7f159PpGYThaTqPjAxHWxIWDXGuZEh9j6/KRmlW
+ hQVr04rRNk4f+YNQRIbLptYt2TkSn2edIijogvmv3lcOgTDzYEeukAf/yEpcmZj5rd5f
+ uTe1UWJ8Mtn8nXo9keuFuhGh2y+vYPBARDxfNhvOeREJi3mUSK4YvRNQpDl5wpRG8Xnk
+ GaQQ==
+X-Gm-Message-State: AOJu0Yy7Qwm2fOEg37miOcDVfnMMfws1CQHt4yoi0jtZcVTP21MM6yHM
+ eHP/z0gbLA+yp6dnANZaCPk=
+X-Google-Smtp-Source: AGHT+IEuxw5w71K77jdcQFb+x0zSRbj1XYX7dWzhjRL84L4L9BuVeF7Xwp09HkHULcT6OFMfMKAQzw==
+X-Received: by 2002:a92:c24f:0:b0:350:f352:4853 with SMTP id
+ k15-20020a92c24f000000b00350f3524853mr17133011ilo.25.1698798402979; 
+ Tue, 31 Oct 2023 17:26:42 -0700 (PDT)
 Received: from frodo.. (c-73-78-62-130.hsd1.co.comcast.net. [73.78.62.130])
  by smtp.googlemail.com with ESMTPSA id
- t1-20020a92c901000000b00357cc8df1d5sm141701ilp.68.2023.10.31.17.26.48
+ t1-20020a92c901000000b00357cc8df1d5sm141701ilp.68.2023.10.31.17.26.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Oct 2023 17:26:49 -0700 (PDT)
+ Tue, 31 Oct 2023 17:26:42 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
-Date: Tue, 31 Oct 2023 18:26:09 -0600
-Message-ID: <20231101002609.3533731-24-jim.cromie@gmail.com>
+Date: Tue, 31 Oct 2023 18:26:04 -0600
+Message-ID: <20231101002609.3533731-19-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20231101002609.3533731-1-jim.cromie@gmail.com>
 References: <20231101002609.3533731-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v7d 23/23] drm: restore
- CONFIG_DRM_USE_DYNAMIC_DEBUG un-BROKEN
+Subject: [Intel-gfx] [PATCH v7d 18/23] dyndbg: reserve flag bit
+ _DPRINTK_FLAGS_PREFIX_CACHED
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,30 +88,37 @@ Cc: quic_saipraka@quicinc.com, linux-doc@vger.kernel.org,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Lots of burn-in testing needed before signing, upstreaming.
+Reserve bit 7 to remember that a pr-debug callsite is/was:
+- enabled, with +p
+- wants a dynamic-prefix, with one+ of module:function:sourcfile
+- was previously called
+- was thus saved in the cache. NOT YET.
 
-NOTE: I set default Y to maximize testing by default.
-Is there a better way to do this ?
+Its unclear whether any cache fetch would be faster than 2-3 field
+fetches, but theres another factor; the 3 columns in the __dyndbg
+section are highly redundant and compressible, but to get the
+compression, we need field accessors, which will rebalance the
+tradeoff.
+
+So, for now, its just the bit reservation.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/Kconfig | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ include/linux/dynamic_debug.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 3caa020391c7..708f5e8cb205 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -55,8 +55,7 @@ config DRM_DEBUG_MM
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 2a7832b1ba5b..4ffddf5e9152 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -38,6 +38,7 @@ struct _ddebug {
+ #define _DPRINTK_FLAGS_INCL_LINENO	(1<<3)
+ #define _DPRINTK_FLAGS_INCL_TID		(1<<4)
+ #define _DPRINTK_FLAGS_INCL_SOURCENAME	(1<<5)
++#define _DPRINTK_FLAGS_PREFIX_CACHED	(1<<7)
  
- config DRM_USE_DYNAMIC_DEBUG
- 	bool "use dynamic debug to implement drm.debug"
--	default n
--	depends on BROKEN
-+	default y
- 	depends on DRM
- 	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
- 	depends on JUMP_LABEL
+ #define _DPRINTK_FLAGS_INCL_ANY		\
+ 	(_DPRINTK_FLAGS_INCL_MODNAME | _DPRINTK_FLAGS_INCL_FUNCNAME |\
 -- 
 2.41.0
 
