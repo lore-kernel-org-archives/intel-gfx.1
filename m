@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FF92C0018A
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 15:13:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5C3BC41535
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 15:13:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38ADC10E92B;
-	Thu,  2 Nov 2023 15:12:45 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EE7D10E915;
- Thu,  2 Nov 2023 15:12:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B05C210E929;
+	Thu,  2 Nov 2023 15:12:44 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B76410E073;
+ Thu,  2 Nov 2023 15:12:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698937962; x=1730473962;
+ t=1698937960; x=1730473960;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=9aluI6zbH8D/Sjkz7dz1700dHJd2ex1h5F6FMyNEQM8=;
- b=ZOnrt2UbwrYyAtoK/sYSwgSBWeqxCSzRte8bK7cr/16eKaqLqawA1sdl
- kMBVDQMOXEkfc1XcdXZgyngARbKyqiAsxOWuCeJByphYhd2ijBtxa6rFj
- XIUzYU5ay/mol3+YKEKR7tfcYvKmLeB+BdPKzOrgHzcPrmcXOIDqF4DKR
- DtwOU1G6fx7ZSZsBwbGYwdARywUhr9mqxwCfFAHE1BjpQIhKcY8c6I9Q4
- 3giy2to2P+Of3UsN1qMz0fDTgepAM/WzGnZdD9miXrTrox7hLmzFtEUZo
- 4MiHJoQ6Xpre8EGk5G1gb4+/uHQHTsFD8ekK0YB8MohgoziYVmYbnevbh A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="1660181"
-X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; 
-   d="scan'208";a="1660181"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ bh=GllTeDr5X3asel3oBTv59ZoUHW/F9FWypvBlv9MLNPM=;
+ b=R6wh05wduqQhLWNptFtqgQVwOKqs0pbOPLBCI+DUoyjO5ZsQd6cwNU8+
+ URttTbiyNAmEU0X4AefK6nYl3AmgNfaUY11aI/Z63cQfE75d0bYbkJl6F
+ k/cY0juxt27PEHg0luM1M1d6NfxIxkR8Bi2zYITDbTkQHx2GjoYD6rtmU
+ MYFt7rIXe29tCBwbf5n1/+siq7vQPwUrduid7wk3fWqhDBGazCs0BkWet
+ K3Lmmn99Q8UKssSJXfOyZuBOwrVYzTq5Z3nbIePpl9H1gT3uHe5b2WnTd
+ 4YMIt7FhU04w/sd4Jnj9VbFqTF73U+BEZeNzUfw7ThEb+nF9CnpWffBxS g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="373773470"
+X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="373773470"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  02 Nov 2023 08:12:40 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="737784572"
-X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="737784572"
+X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="711174070"
+X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="711174070"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga006.jf.intel.com with ESMTP; 02 Nov 2023 08:12:36 -0700
+ by orsmga003.jf.intel.com with ESMTP; 02 Nov 2023 08:12:36 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 384F1591; Thu,  2 Nov 2023 17:12:31 +0200 (EET)
+ id E881D65B; Thu,  2 Nov 2023 17:12:30 +0200 (EET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Jani Nikula <jani.nikula@intel.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Thu,  2 Nov 2023 17:12:27 +0200
-Message-Id: <20231102151228.668842-15-andriy.shevchenko@linux.intel.com>
+Date: Thu,  2 Nov 2023 17:12:21 +0200
+Message-Id: <20231102151228.668842-9-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
 In-Reply-To: <20231102151228.668842-1-andriy.shevchenko@linux.intel.com>
 References: <20231102151228.668842-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 14/15] drm/i915/dsi: Replace poking of CHV
- GPIOs behind the driver's back
+Subject: [Intel-gfx] [PATCH v3 08/15] drm/i915/dsi: Replace check with a
+ (missing) MIPI sequence name
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,98 +67,38 @@ Cc: Hans de Goede <hdegoede@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It's a dirty hack in the driver that pokes GPIO registers behind
-the driver's back. Moreoever it might be problematic as simultaneous
-I/O may hang the system, see the commit 0bd50d719b00 ("pinctrl:
-cherryview: prevent concurrent access to GPIO controllers") for
-the details. Taking all this into consideration replace the hack
-with proper GPIO APIs being used.
+Names of the MIPI sequence steps are sequential and defined, no
+need to check for the gaps. However in seq_name the MIPI_SEQ_END
+is missing. Add it there, and drop unneeded NULL check in
+sequence_name().
 
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 47 +++++---------------
- 1 file changed, 10 insertions(+), 37 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-index b1736c1301ea..ffc65c943b11 100644
+index 4ed5ede9ec5b..d270437217b3 100644
 --- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
 +++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-@@ -66,19 +66,6 @@ struct i2c_adapter_lookup {
- #define CHV_GPIO_IDX_START_SW		100
- #define CHV_GPIO_IDX_START_SE		198
+@@ -653,6 +653,7 @@ static const fn_mipi_elem_exec exec_elem[] = {
+  */
  
--#define CHV_VBT_MAX_PINS_PER_FMLY	15
--
--#define CHV_GPIO_PAD_CFG0(f, i)		(0x4400 + (f) * 0x400 + (i) * 8)
--#define  CHV_GPIO_GPIOEN		(1 << 15)
--#define  CHV_GPIO_GPIOCFG_GPIO		(0 << 8)
--#define  CHV_GPIO_GPIOCFG_GPO		(1 << 8)
--#define  CHV_GPIO_GPIOCFG_GPI		(2 << 8)
--#define  CHV_GPIO_GPIOCFG_HIZ		(3 << 8)
--#define  CHV_GPIO_GPIOTXSTATE(state)	((!!(state)) << 1)
--
--#define CHV_GPIO_PAD_CFG1(f, i)		(0x4400 + (f) * 0x400 + (i) * 8 + 4)
--#define  CHV_GPIO_CFGLOCK		(1 << 31)
--
- /* ICL DSI Display GPIO Pins */
- #define  ICL_GPIO_DDSP_HPD_A		0
- #define  ICL_GPIO_L_VDDEN_1		1
-@@ -278,23 +265,21 @@ static void chv_gpio_set_value(struct intel_connector *connector,
- 			       u8 gpio_source, u8 gpio_index, bool value)
+ static const char * const seq_name[] = {
++	[MIPI_SEQ_END] = "MIPI_SEQ_END",
+ 	[MIPI_SEQ_DEASSERT_RESET] = "MIPI_SEQ_DEASSERT_RESET",
+ 	[MIPI_SEQ_INIT_OTP] = "MIPI_SEQ_INIT_OTP",
+ 	[MIPI_SEQ_DISPLAY_ON] = "MIPI_SEQ_DISPLAY_ON",
+@@ -668,7 +669,7 @@ static const char * const seq_name[] = {
+ 
+ static const char *sequence_name(enum mipi_seq seq_id)
  {
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
--	u16 cfg0, cfg1;
--	u16 family_num;
--	u8 port;
+-	if (seq_id < ARRAY_SIZE(seq_name) && seq_name[seq_id])
++	if (seq_id < ARRAY_SIZE(seq_name))
+ 		return seq_name[seq_id];
  
- 	if (connector->panel.vbt.dsi.seq_version >= 3) {
- 		if (gpio_index >= CHV_GPIO_IDX_START_SE) {
- 			/* XXX: it's unclear whether 255->57 is part of SE. */
--			gpio_index -= CHV_GPIO_IDX_START_SE;
--			port = CHV_IOSF_PORT_GPIO_SE;
-+			soc_exec_opaque_gpio(connector, gpio_index, "INT33FF:03", "Panel SE",
-+					     gpio_index - CHV_GPIO_IDX_START_SW, value);
- 		} else if (gpio_index >= CHV_GPIO_IDX_START_SW) {
--			gpio_index -= CHV_GPIO_IDX_START_SW;
--			port = CHV_IOSF_PORT_GPIO_SW;
-+			soc_exec_opaque_gpio(connector, gpio_index, "INT33FF:00", "Panel SW",
-+					     gpio_index - CHV_GPIO_IDX_START_SW, value);
- 		} else if (gpio_index >= CHV_GPIO_IDX_START_E) {
--			gpio_index -= CHV_GPIO_IDX_START_E;
--			port = CHV_IOSF_PORT_GPIO_E;
-+			soc_exec_opaque_gpio(connector, gpio_index, "INT33FF:02", "Panel E",
-+					     gpio_index - CHV_GPIO_IDX_START_E, value);
- 		} else {
--			port = CHV_IOSF_PORT_GPIO_N;
-+			soc_exec_opaque_gpio(connector, gpio_index, "INT33FF:01", "Panel N",
-+					     gpio_index - CHV_GPIO_IDX_START_N, value);
- 		}
- 	} else {
- 		/* XXX: The spec is unclear about CHV GPIO on seq v2 */
-@@ -311,21 +296,9 @@ static void chv_gpio_set_value(struct intel_connector *connector,
- 			return;
- 		}
- 
--		port = CHV_IOSF_PORT_GPIO_N;
-+		soc_exec_opaque_gpio(connector, gpio_index, "INT33FF:01", "Panel N",
-+				     gpio_index - CHV_GPIO_IDX_START_N, value);
- 	}
--
--	family_num = gpio_index / CHV_VBT_MAX_PINS_PER_FMLY;
--	gpio_index = gpio_index % CHV_VBT_MAX_PINS_PER_FMLY;
--
--	cfg0 = CHV_GPIO_PAD_CFG0(family_num, gpio_index);
--	cfg1 = CHV_GPIO_PAD_CFG1(family_num, gpio_index);
--
--	vlv_iosf_sb_get(dev_priv, BIT(VLV_IOSF_SB_GPIO));
--	vlv_iosf_sb_write(dev_priv, port, cfg1, 0);
--	vlv_iosf_sb_write(dev_priv, port, cfg0,
--			  CHV_GPIO_GPIOEN | CHV_GPIO_GPIOCFG_GPO |
--			  CHV_GPIO_GPIOTXSTATE(value));
--	vlv_iosf_sb_put(dev_priv, BIT(VLV_IOSF_SB_GPIO));
- }
- 
- static void bxt_gpio_set_value(struct intel_connector *connector,
+ 	return "(unknown)";
 -- 
 2.40.0.1.gaa8946217a0b
 
