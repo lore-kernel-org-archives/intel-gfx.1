@@ -4,50 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9AD3C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 14:20:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E3FCC4167D
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 14:20:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4338C10E038;
-	Mon,  6 Nov 2023 14:20:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68A2910E0D2;
+	Mon,  6 Nov 2023 14:20:52 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45BB910E36B;
- Fri,  3 Nov 2023 02:33:16 +0000 (UTC)
-X-UUID: a1b81360ae14479ebb8ae7d3bb98ee0b-20231103
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8924E10E135;
+ Thu,  2 Nov 2023 10:17:08 +0000 (UTC)
+X-UUID: 96cda947c0f74112b41184cc2d2ef5c8-20231102
 X-CID-O-RULE: Release_Ham
 X-CID-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.32, REQID:6ab78e64-c05c-4841-bd7d-646fd518aa52, IP:10,
- URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACT
- ION:release,TS:-10
-X-CID-INFO: VERSION:1.1.32, REQID:6ab78e64-c05c-4841-bd7d-646fd518aa52, IP:10,
- UR
- L:0,TC:0,Content:-5,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+X-CID-O-INFO: VERSION:1.1.32, REQID:6e50dc69-4234-4404-88bd-e778a631df38, IP:5,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
  N:release,TS:-10
-X-CID-META: VersionHash:5f78ec9, CLOUDID:38acf594-10ce-4e4b-85c2-c9b5229ff92b,
+X-CID-INFO: VERSION:1.1.32, REQID:6e50dc69-4234-4404-88bd-e778a631df38, IP:5,
+ URL
+ :0,TC:0,Content:0,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:-10
+X-CID-META: VersionHash:5f78ec9, CLOUDID:1777ef94-10ce-4e4b-85c2-c9b5229ff92b,
  B
- ulkID:231103103311LO8N2NZS,BulkQuantity:0,Recheck:0,SF:66|24|17|19|44|102,
- TC:nil,Content:0,EDM:-3,IP:-2,URL:1,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
- ,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
+ ulkID:231102181151XAX9TCXF,BulkQuantity:1,Recheck:0,SF:17|19|44|66|38|24|1
+ 02,TC:nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:40,QS:nil,BEC:nil,COL
+ :0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
 X-CID-BVR: 0,NGT
 X-CID-BAS: 0,NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR, TF_CID_SPAM_FAS, TF_CID_SPAM_FSD,
- TF_CID_SPAM_FSI, TF_CID_SPAM_ULS
-X-UUID: a1b81360ae14479ebb8ae7d3bb98ee0b-20231103
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD,TF_CID_SPAM_FSI
+X-UUID: 96cda947c0f74112b41184cc2d2ef5c8-20231102
 X-User: chentao@kylinos.cn
-Received: from vt.. [(116.128.244.171)] by mailgw
+Received: from vt.. [(116.128.244.169)] by mailgw
  (envelope-from <chentao@kylinos.cn>)
  (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 885977007; Fri, 03 Nov 2023 10:33:08 +0800
-From: Kunwu Chan <chentao@kylinos.cn>
-To: tvrtko.ursulin@linux.intel.com
-Date: Fri,  3 Nov 2023 10:32:57 +0800
-Message-Id: <20231103023257.58199-1-chentao@kylinos.cn>
+ with ESMTP id 1552670189; Thu, 02 Nov 2023 18:16:55 +0800
+From: chentao <chentao@kylinos.cn>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tvrtko.ursulin@linux.intel.com, airlied@gmail.com,
+ daniel@ffwll.ch, andi.shyti@linux.intel.com, robdclark@chromium.org,
+ jonathan.cavitt@intel.com, andrzej.hajda@intel.com,
+ chris.p.wilson@intel.com, alan.previn.teres.alexis@intel.com
+Date: Thu,  2 Nov 2023 18:16:42 +0800
+Message-Id: <20231102101642.52988-1-chentao@kylinos.cn>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <d300506c-ab82-4cc1-b750-61e54ec2ad9e@linux.intel.com>
-References: <d300506c-ab82-4cc1-b750-61e54ec2ad9e@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 06 Nov 2023 14:20:49 +0000
-Subject: [Intel-gfx] [PATCH v2] drm/i915: Fix potential spectre vulnerability
+Subject: [Intel-gfx] [PATCH] drm/i915: Fix potential spectre vulnerability
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,12 +62,9 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: robdclark@chromium.org, chentao@kylinos.cn, kunwu.chan@hotmail.com,
- jonathan.cavitt@intel.com, intel-gfx@lists.freedesktop.org,
- alan.previn.teres.alexis@intel.com, linux-kernel@vger.kernel.org,
- chris.p.wilson@intel.com, dri-devel@lists.freedesktop.org,
- andrzej.hajda@intel.com, rodrigo.vivi@intel.com, daniel@ffwll.ch,
- stable@vger.kernel.org, airlied@gmail.com
+Cc: chentao <chentao@kylinos.cn>, intel-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kunwu.chan@hotmail.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
@@ -73,24 +72,20 @@ Fix smatch warning:
 drivers/gpu/drm/i915/gem/i915_gem_context.c:847 set_proto_ctx_sseu()
 warn: potential spectre issue 'pc->user_engines' [r] (local cap)
 
-Fixes: d4433c7600f7 ("drm/i915/gem: Use the proto-context to handle create parameters (v5)")
-Cc: <stable@vger.kernel.org> # v5.15+
-Signed-off-by: Kunwu Chan <chentao@kylinos.cn>
-Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Link: https://lore.kernel.org/all/20231102101642.52988-1-chentao@kylinos.cn
+Signed-off-by: chentao <chentao@kylinos.cn>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index 9a9ff84c90d7..e38f06a6e56e 100644
+index 9a9ff84c90d7..b2fdfc7ca4de 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -844,6 +844,7 @@ static int set_proto_ctx_sseu(struct drm_i915_file_private *fpriv,
+@@ -843,7 +843,7 @@ static int set_proto_ctx_sseu(struct drm_i915_file_private *fpriv,
+ 
  		if (idx >= pc->num_user_engines)
  			return -EINVAL;
- 
+-
 +		idx = array_index_nospec(idx, pc->num_user_engines);
  		pe = &pc->user_engines[idx];
  
