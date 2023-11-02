@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F39F2C4167B
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 13:11:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76D7FC001B5
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 13:11:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A9E110E88F;
-	Thu,  2 Nov 2023 13:11:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FC0810E893;
+	Thu,  2 Nov 2023 13:11:06 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55C4910E88D;
- Thu,  2 Nov 2023 13:11:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF9AD10E896;
+ Thu,  2 Nov 2023 13:11:00 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E57FD21A5D;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5EC8921A30;
  Thu,  2 Nov 2023 13:10:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
  t=1698930659; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=e5j1wpnB+M/lEbe86L9vJRsjGYnUxtbiyBnDOUViINA=;
- b=g6Aeh0lTazJz5YrdqlxY6YtHWqoWm+L1SR486IaCpRfcffEK7QN+uEbiWz2ehMH0R3xtrJ
- nevc2xGRXt9JydzE+ekdXJddEAhVIIe4voyev4A6NrbOm5MQNREtgEuQHt5pURoawy4lwS
- R/Tn/bfGlBT4A5cZZTP4PLcO78Jzayg=
+ bh=rOM/CN8DzukNzV4YtNO4tELxOQY/Lk6SmdiPUblPWXo=;
+ b=mMjczgMsRw/dPneC2RmueH7vhlCUEgABshMho+qsNwgWs1YnmojDsV87I8iBLzHo6lsuXq
+ HD2MnGOwlOs40PORThSm1ci9YNOk/Zp4rSNU/p7P2Brkx/R0U7hwIuYBl7RgnTl6CTkT9f
+ aFYNTvEq1Ir9cSjB0dKLiuKOpgCeEO8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
  s=susede2_ed25519; t=1698930659;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
+ mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=e5j1wpnB+M/lEbe86L9vJRsjGYnUxtbiyBnDOUViINA=;
- b=+An7uvyKa/yb6hdSDVkHxhM9vm79/svHKX8vbjx2Zvcgll6DA6e25VKLDdKFUpcfxC4xpF
- jvEE+ED9HzgwRUAA==
+ bh=rOM/CN8DzukNzV4YtNO4tELxOQY/Lk6SmdiPUblPWXo=;
+ b=JJDhsnYy2FLZAUvMt+IdWVZbUAyP4hXGH1XujGRu+1pWrJECvELXD2ihFSx1om9aPWVu3a
+ zYL0wf3n/ikogjDQ==
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A28EC13584;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2268F13584;
  Thu,  2 Nov 2023 13:10:59 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 0ACpJuOfQ2VRXwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id UImwB+OfQ2VRXwAAMHmgww
  (envelope-from <tzimmermann@suse.de>); Thu, 02 Nov 2023 13:10:59 +0000
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
@@ -51,15 +51,15 @@ To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
  ville.syrjala@linux.intel.com, imre.deak@intel.com,
  tejas.upadhyay@intel.com, jouni.hogander@intel.com, javierm@redhat.com,
  airlied@gmail.com, daniel@ffwll.ch
-Date: Thu,  2 Nov 2023 14:08:09 +0100
-Message-ID: <20231102131056.7256-5-tzimmermann@suse.de>
+Date: Thu,  2 Nov 2023 14:08:07 +0100
+Message-ID: <20231102131056.7256-3-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20231102131056.7256-1-tzimmermann@suse.de>
 References: <20231102131056.7256-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v6 4/7] drm/i915: Move fbdev functions
+Subject: [Intel-gfx] [PATCH v6 2/7] drm/client: Export
+ drm_client_dev_unregister()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,197 +77,46 @@ Cc: intel-gfx@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move functions within intel_fbdev.c to simplify later updates. Minor
-style fixes to make checkpatch happy, but no functional changes.
-
-v5:
-	* style fixes (checkpatch)
+Export drm_client_dev_unregister() for use by the i915 driver. The
+driver does not use drm_dev_unregister(), so it has to clean up the
+in-kernel DRM clients by itself.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fbdev.c | 154 ++++++++++-----------
- 1 file changed, 77 insertions(+), 77 deletions(-)
+ drivers/gpu/drm/drm_client.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-index 31d0d695d5671..2695c65b55ddc 100644
---- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-@@ -545,58 +545,6 @@ static void intel_fbdev_suspend_worker(struct work_struct *work)
- 				true);
+diff --git a/drivers/gpu/drm/drm_client.c b/drivers/gpu/drm/drm_client.c
+index 9403b3f576f7b..3d4f8b77d0789 100644
+--- a/drivers/gpu/drm/drm_client.c
++++ b/drivers/gpu/drm/drm_client.c
+@@ -172,6 +172,18 @@ void drm_client_release(struct drm_client_dev *client)
  }
+ EXPORT_SYMBOL(drm_client_release);
  
--int intel_fbdev_init(struct drm_device *dev)
--{
--	struct drm_i915_private *dev_priv = to_i915(dev);
--	struct intel_fbdev *ifbdev;
--	int ret;
--
--	if (drm_WARN_ON(dev, !HAS_DISPLAY(dev_priv)))
--		return -ENODEV;
--
--	ifbdev = kzalloc(sizeof(struct intel_fbdev), GFP_KERNEL);
--	if (ifbdev == NULL)
--		return -ENOMEM;
--
--	mutex_init(&ifbdev->hpd_lock);
--	drm_fb_helper_prepare(dev, &ifbdev->helper, 32, &intel_fb_helper_funcs);
--
--	if (intel_fbdev_init_bios(dev, ifbdev))
--		ifbdev->helper.preferred_bpp = ifbdev->preferred_bpp;
--	else
--		ifbdev->preferred_bpp = ifbdev->helper.preferred_bpp;
--
--	ret = drm_fb_helper_init(dev, &ifbdev->helper);
--	if (ret) {
--		kfree(ifbdev);
--		return ret;
--	}
--
--	dev_priv->display.fbdev.fbdev = ifbdev;
--	INIT_WORK(&dev_priv->display.fbdev.suspend_work, intel_fbdev_suspend_worker);
--
--	return 0;
--}
--
--static void intel_fbdev_initial_config(void *data, async_cookie_t cookie)
--{
--	struct intel_fbdev *ifbdev = data;
--
--	/* Due to peculiar init order wrt to hpd handling this is separate. */
--	if (drm_fb_helper_initial_config(&ifbdev->helper))
--		intel_fbdev_unregister(to_i915(ifbdev->helper.dev));
--}
--
--void intel_fbdev_initial_config_async(struct drm_i915_private *dev_priv)
--{
--	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
--
--	if (!ifbdev)
--		return;
--
--	ifbdev->cookie = async_schedule(intel_fbdev_initial_config, ifbdev);
--}
--
- static void intel_fbdev_sync(struct intel_fbdev *ifbdev)
++/**
++ * drm_client_dev_unregister - Unregister clients
++ * @dev: DRM device
++ *
++ * This function releases all clients by calling each client's
++ * &drm_client_funcs.unregister callback. The callback function
++ * is responsibe for releaseing all resources including the client
++ * itself.
++ *
++ * The helper drm_dev_unregister() calls this function. Drivers
++ * that use it don't need to call this function themselves.
++ */
+ void drm_client_dev_unregister(struct drm_device *dev)
  {
- 	if (!ifbdev->cookie)
-@@ -607,31 +555,6 @@ static void intel_fbdev_sync(struct intel_fbdev *ifbdev)
- 	ifbdev->cookie = 0;
+ 	struct drm_client_dev *client, *tmp;
+@@ -191,6 +203,7 @@ void drm_client_dev_unregister(struct drm_device *dev)
+ 	}
+ 	mutex_unlock(&dev->clientlist_mutex);
  }
++EXPORT_SYMBOL(drm_client_dev_unregister);
  
--void intel_fbdev_unregister(struct drm_i915_private *dev_priv)
--{
--	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
--
--	if (!ifbdev)
--		return;
--
--	intel_fbdev_set_suspend(&dev_priv->drm, FBINFO_STATE_SUSPENDED, true);
--
--	if (!current_is_async())
--		intel_fbdev_sync(ifbdev);
--
--	drm_fb_helper_unregister_info(&ifbdev->helper);
--}
--
--void intel_fbdev_fini(struct drm_i915_private *dev_priv)
--{
--	struct intel_fbdev *ifbdev = fetch_and_zero(&dev_priv->display.fbdev.fbdev);
--
--	if (!ifbdev)
--		return;
--
--	intel_fbdev_destroy(ifbdev);
--}
--
- /* Suspends/resumes fbdev processing of incoming HPD events. When resuming HPD
-  * processing, fbdev will perform a full connector reprobe if a hotplug event
-  * was received while HPD was suspended.
-@@ -748,6 +671,83 @@ void intel_fbdev_restore_mode(struct drm_i915_private *dev_priv)
- 		intel_fbdev_invalidate(ifbdev);
- }
- 
-+int intel_fbdev_init(struct drm_device *dev)
-+{
-+	struct drm_i915_private *dev_priv = to_i915(dev);
-+	struct intel_fbdev *ifbdev;
-+	int ret;
-+
-+	if (drm_WARN_ON(dev, !HAS_DISPLAY(dev_priv)))
-+		return -ENODEV;
-+
-+	ifbdev = kzalloc(sizeof(*ifbdev), GFP_KERNEL);
-+	if (!ifbdev)
-+		return -ENOMEM;
-+
-+	mutex_init(&ifbdev->hpd_lock);
-+	drm_fb_helper_prepare(dev, &ifbdev->helper, 32, &intel_fb_helper_funcs);
-+
-+	if (intel_fbdev_init_bios(dev, ifbdev))
-+		ifbdev->helper.preferred_bpp = ifbdev->preferred_bpp;
-+	else
-+		ifbdev->preferred_bpp = ifbdev->helper.preferred_bpp;
-+
-+	ret = drm_fb_helper_init(dev, &ifbdev->helper);
-+	if (ret) {
-+		kfree(ifbdev);
-+		return ret;
-+	}
-+
-+	dev_priv->display.fbdev.fbdev = ifbdev;
-+	INIT_WORK(&dev_priv->display.fbdev.suspend_work, intel_fbdev_suspend_worker);
-+
-+	return 0;
-+}
-+
-+static void intel_fbdev_initial_config(void *data, async_cookie_t cookie)
-+{
-+	struct intel_fbdev *ifbdev = data;
-+
-+	/* Due to peculiar init order wrt to hpd handling this is separate. */
-+	if (drm_fb_helper_initial_config(&ifbdev->helper))
-+		intel_fbdev_unregister(to_i915(ifbdev->helper.dev));
-+}
-+
-+void intel_fbdev_initial_config_async(struct drm_i915_private *dev_priv)
-+{
-+	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
-+
-+	if (!ifbdev)
-+		return;
-+
-+	ifbdev->cookie = async_schedule(intel_fbdev_initial_config, ifbdev);
-+}
-+
-+void intel_fbdev_unregister(struct drm_i915_private *dev_priv)
-+{
-+	struct intel_fbdev *ifbdev = dev_priv->display.fbdev.fbdev;
-+
-+	if (!ifbdev)
-+		return;
-+
-+	intel_fbdev_set_suspend(&dev_priv->drm, FBINFO_STATE_SUSPENDED, true);
-+
-+	if (!current_is_async())
-+		intel_fbdev_sync(ifbdev);
-+
-+	drm_fb_helper_unregister_info(&ifbdev->helper);
-+}
-+
-+void intel_fbdev_fini(struct drm_i915_private *dev_priv)
-+{
-+	struct intel_fbdev *ifbdev = fetch_and_zero(&dev_priv->display.fbdev.fbdev);
-+
-+	if (!ifbdev)
-+		return;
-+
-+	intel_fbdev_destroy(ifbdev);
-+}
-+
- struct intel_framebuffer *intel_fbdev_framebuffer(struct intel_fbdev *fbdev)
- {
- 	if (!fbdev || !fbdev->helper.fb)
+ /**
+  * drm_client_dev_hotplug - Send hotplug event to clients
 -- 
 2.42.0
 
