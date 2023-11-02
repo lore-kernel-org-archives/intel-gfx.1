@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D16EC4167D
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 15:41:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C28F7C4167B
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 15:42:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2257510E8FF;
-	Thu,  2 Nov 2023 15:41:09 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8173510E8F0;
- Thu,  2 Nov 2023 15:41:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D13E10E90B;
+	Thu,  2 Nov 2023 15:42:54 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EC1710E907
+ for <intel-gfx@lists.freedesktop.org>; Thu,  2 Nov 2023 15:42:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698939666; x=1730475666;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=vCsjbKy17pRUpW2uJl+oxDqlEWApGz3EOPnZNeFhj5Q=;
- b=fBPWqmIlYWetVzTvkoCAt78Gf4IyZZ78Bha6TNqlXgLmP7ScycHQNruW
- BZrbbvNKDVsREw9dHtLeUH7RWdJ/HLGFvLMM8D4e2j9grbHF2YgRAlWJP
- O/MWZnJ3ICjvm3OU7FJjWmnq3/uwSq9YcLtc/SRF22enLBXqDqYJabxx3
- eLbIhY2vrE5bPQ3kGhAO1cdz6kWbg59FReGz1FEQHzo5tnD6fPxI1MW33
- ydtplVD+K74ixDaWaB206+RyaBM6/8ctu/OKoAeZTPFwAKjBZcB/yWzW2
- MnmMzGANv4ZQ8rD0rutUqACYbNBXfaSQywhC5FGN8cB5Znchw6UdkmyLj Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="391605327"
-X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="391605327"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2023 08:40:54 -0700
+ t=1698939771; x=1730475771;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=oAVgd4AElbtGIPJ9LCde8uV97y78erCttsYyCYvoapQ=;
+ b=DYn6eIkHUrOV/yEO9Src5dcSi22vey7bPQu7+oVHbYX0XECJocoKVm+7
+ HINFI0ucyJ2unqlcyB4ZkXPC73hLdu++2iX4GBtfotA3vxJKIzl2rhDuX
+ O7/ya5oizrB9622rhvVHkkNxjrJCzfCnpDuih2osB2lVfn7TY7a4cKQ5O
+ q5J9gr8inijUi4ttUd8/PR+pRk48Fk6V4ptyPwJZZ9iyPnXGKfjgABPqa
+ KCqjX0FwDhFBG5P0zdnLUVIzAH/MwmlvsjMBrhuaL64So58Y5nZulqkEG
+ nhHtRDVhhTinIFkACDBUOtuw41qbhe1dYZcLTPLCwBTuQz7ZmDGak7xcr g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="368087349"
+X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="368087349"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2023 08:42:43 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="737794897"
-X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="737794897"
+X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="878294680"
+X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="878294680"
 Received: from unknown (HELO localhost) ([10.237.66.162])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2023 08:40:49 -0700
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2023 08:42:41 -0700
 From: Jani Nikula <jani.nikula@intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20231102151228.668842-1-andriy.shevchenko@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20231102151228.668842-1-andriy.shevchenko@linux.intel.com>
-Date: Thu, 02 Nov 2023 17:40:46 +0200
-Message-ID: <87zfzw17up.fsf@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Date: Thu,  2 Nov 2023 17:42:27 +0200
+Message-Id: <8f1060d968c6683c3dd2cafbb69cee86f2981544.1698939671.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <cover.1698939671.git.jani.nikula@intel.com>
+References: <cover.1698939671.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-Subject: Re: [Intel-gfx] [rft,
- PATCH v3 00/15] drm/i915/dsi: 2nd attempt to get rid of IOSF GPIO
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
+Subject: [Intel-gfx] [PATCH 2/5] drm/i915/pmu: convert one more
+ container_of() to event_to_pmu()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,70 +59,32 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Hans de Goede <hdegoede@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>
+Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 02 Nov 2023, Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
-> DSI code for VBT has a set of ugly GPIO hacks, one of which is direct
-> talking to GPIO IP behind the actual driver's back. A second attempt
-> to fix that is here.
->
-> If I understood correctly, my approach should work in the similar way as
-> the current IOSF GPIO.
->
-> Hans, I believe you have some devices that use this piece of code,
-> is it possible to give a test run on (one of) them?
->
-> In v3:
-> - incorporated series by Jani
-> - incorporated couple of precursor patches by Hans
-> - added Rb tag for used to be first three patches (Andi)
-> - rebased on top of the above changes
-> - fixed indexing for multi-community devices, such as Cherry View
->
-> In v2:
-> - added a few cleanup patches
-> - reworked to use dynamic GPIO lookup tables
-> - converted CHV as well
->
-> Andy Shevchenko (8):
->   drm/i915/dsi: Replace while(1) with one with clear exit condition
->   drm/i915/dsi: Get rid of redundant 'else'
->   drm/i915/dsi: Replace check with a (missing) MIPI sequence name
->   drm/i915/dsi: Extract common soc_gpio_set_value() helper
->   drm/i915/dsi: Replace poking of VLV GPIOs behind the driver's back
->   drm/i915/dsi: Prepare soc_gpio_set_value() to distinguish GPIO
->     communities
->   drm/i915/dsi: Replace poking of CHV GPIOs behind the driver's back
->   drm/i915/iosf: Drop unused APIs
->
-> Hans de Goede (2):
->   drm/i915/dsi: Remove GPIO lookup table at the end of
->     intel_dsi_vbt_gpio_init()
->   drm/i915/dsi: Fix wrong initial value for GPIOs in bxt_exec_gpio()
+Use the helpers.
 
-Assuming it all still works, and I do trust Hans' testing here quite a
-bit, the above is
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/i915_pmu.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
-
-Thanks for doing this!
-
->
-> Jani Nikula (5):
->   drm/i915/dsi: assume BXT gpio works for non-native GPIO
->   drm/i915/dsi: switch mipi_exec_gpio() from dev_priv to i915
->   drm/i915/dsi: clarify GPIO exec sequence
->   drm/i915/dsi: rename platform specific *_exec_gpio() to
->     *_gpio_set_value()
->   drm/i915/dsi: bxt/icl GPIO set value do not need gpio source
->
->  drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 355 +++++++------------
->  drivers/gpu/drm/i915/vlv_sideband.c          |  17 -
->  drivers/gpu/drm/i915/vlv_sideband.h          |   3 -
->  3 files changed, 137 insertions(+), 238 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+index ef4b907a799b..21ef76a11ed7 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.c
++++ b/drivers/gpu/drm/i915/i915_pmu.c
+@@ -832,9 +832,7 @@ static void i915_pmu_event_start(struct perf_event *event, int flags)
+ 
+ static void i915_pmu_event_stop(struct perf_event *event, int flags)
+ {
+-	struct drm_i915_private *i915 =
+-		container_of(event->pmu, typeof(*i915), pmu.base);
+-	struct i915_pmu *pmu = &i915->pmu;
++	struct i915_pmu *pmu = event_to_pmu(event);
+ 
+ 	if (pmu->closed)
+ 		goto out;
 -- 
-Jani Nikula, Intel
+2.39.2
+
