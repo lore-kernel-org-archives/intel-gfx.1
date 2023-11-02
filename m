@@ -4,46 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA3D0C4332F
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 18:09:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29034C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 19:44:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 495EF10E0BF;
-	Thu,  2 Nov 2023 18:09:24 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B67710E0BF
- for <intel-gfx@lists.freedesktop.org>; Thu,  2 Nov 2023 18:09:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92EBC10E997;
+	Thu,  2 Nov 2023 19:44:07 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AB0810E997
+ for <intel-gfx@lists.freedesktop.org>; Thu,  2 Nov 2023 19:44:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698948562; x=1730484562;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=8uTw+Ur5y0t5j5argtjYN/a/GetkqQF+S46jim4XFDM=;
- b=oJ94WxePEHqQ+w/CbYI1x2F9ucD+xeIw9P8OHjorczCzXtYhvEFqg2cH
- A+op3SCNqoLSmjFCacHXts4bCEx0KnUXYm9lrWeXgYHjVAC1rwI63/Udy
- 7Uj5ctIss57V4Z8W8bmTPz6Fx+ztK9FoL9FJyGj3G0i+UVthS31D9FKIP
- vaf8ZYrWUrCU2M0b2j7PfmRnScaUE7CP3os0gj+llisRRsZB8Y3p4Wgqw
- Us8IPNMYUDELpTJAuezWv0T0si9oam9KNtduEv0/k6/dDEui5xrsw96a5
- iW6/ScIXYSAdI7wr7+0uKHY9veZvlLnIN+Lbl4bBBbMhPPnNMqJjL61hV A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="419886772"
-X-IronPort-AV: E=Sophos;i="6.03,272,1694761200"; d="scan'208";a="419886772"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2023 11:09:21 -0700
+ t=1698954246; x=1730490246;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=qDjFpspYMZL7rtqJmY/kKYBRcnEDVBaz5LLDGR67upQ=;
+ b=AbzG4CyiZ0XzpDp5yVLWwwuF5PhsPM/lgzXUjzKXqM5eEw6XhGhYLuCA
+ ldx4s+nuwq9gkE2ZGgtHT9MRvBsjCJX7elB0UFW8RhSINvCC+pFPUQero
+ pmqXQJy4cxtGtsmhbGbowyEOvd1J6UopQOz8BEeCNdaxtCokxSMXijgKx
+ yOPVXELkVUMVsZmtKuSO8UJUHg3S3w+ncaENzV4VPNRSIeR2EppYXVNjZ
+ 41fabbhlD/WFuHxw4NEVvqHz+9qAHMmwH4sScJEsKgftP1WxCdIcQWgpj
+ SG9ju/XbKs8D55SfTvv85JxCQ2jicGZS9S0eZT8JNSKUtIcnFEaimIoRD A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="368145149"
+X-IronPort-AV: E=Sophos;i="6.03,272,1694761200"; d="scan'208";a="368145149"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2023 12:44:05 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="884971550"
-X-IronPort-AV: E=Sophos;i="6.03,272,1694761200"; d="scan'208";a="884971550"
-Received: from dut-internal-9dd7.jf.intel.com ([10.165.21.194])
- by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2023 11:09:21 -0700
-From: Jonathan Cavitt <jonathan.cavitt@intel.com>
+X-IronPort-AV: E=Sophos;i="6.03,272,1694761200"; 
+   d="scan'208";a="9119187"
+Received: from ideak-desk.fi.intel.com ([10.237.72.78])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2023 12:44:03 -0700
+From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  2 Nov 2023 10:58:31 -0700
-Message-Id: <20231102175831.872763-1-jonathan.cavitt@intel.com>
-X-Mailer: git-send-email 2.25.1
+Date: Thu,  2 Nov 2023 21:44:34 +0200
+Message-Id: <20231102194434.2634786-1-imre.deak@intel.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20231102115935.2591979-1-imre.deak@intel.com>
+References: <20231102115935.2591979-1-imre.deak@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH] drm/i915/gt: Temporarily disable CPU caching
- into DMA for MTL
+Subject: [Intel-gfx] [PATCH v2] drm/i915/dp_mst: Disable DSC on ICL+ MST
+ outputs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,62 +59,70 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: saurabhg.gupta@intel.com, jonathan.cavitt@intel.com,
- chris.p.wilson@linux.intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-FIXME: It is suspected that some Address Translation Service (ATS)
-issue on IOMMU is causing CAT errors to occur on some MTL workloads.
-Applying a write barrier to the ppgtt set entry functions appeared
-to have no effect, so we must temporarily use I915_MAP_WC in the
-map_pt_dma class of functions on MTL until a proper ATS solution is
-found.
+Enabling DSC on ICL MST outputs is broken leading to FIFO pipe /
+transcoder underruns and blank screen. On TGL+ platforms MST/DSC works -
+after fixing the known issues in [1] - however to make this work on ICL
+requires more work.
 
-Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
-CC: Chris Wilson <chris.p.wilson@linux.intel.com>
+So far DSC on MST probably didn't get enabled for users - due to an issue
+fixed by [2] - but after fixing that, DSC could get enabled, leading to a
+blank screen in ICL/MST configurations which do work atm. To prevent
+this disable MST/DSC on ICL for now.
+
+[1] https://lore.kernel.org/all/20231030155843.2251023-1-imre.deak@intel.com
+[2] https://lore.kernel.org/all/20231030155843.2251023-31-imre.deak@intel.com
+
+Cc: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/gt/intel_gtt.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.c b/drivers/gpu/drm/i915/gt/intel_gtt.c
-index 4fbed27ef0ecc..21719563a602a 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.c
-@@ -95,6 +95,16 @@ int map_pt_dma(struct i915_address_space *vm, struct drm_i915_gem_object *obj)
- 	void *vaddr;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 82f425ef15953..60fe10f80fe45 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -43,6 +43,7 @@
+ #include "intel_dpio_phy.h"
+ #include "intel_hdcp.h"
+ #include "intel_hotplug.h"
++#include "intel_vdsc.h"
+ #include "skl_scaler.h"
  
- 	type = intel_gt_coherent_map_type(vm->gt, obj, true);
-+	/*
-+	 * FIXME: It is suspected that some Address Translation Service (ATS)
-+	 * issue on IOMMU is causing CAT errors to occur on some MTL workloads.
-+	 * Applying a write barrier to the ppgtt set entry functions appeared
-+	 * to have no effect, so we must temporarily use I915_MAP_WC here on
-+	 * MTL until a proper ATS solution is found.
-+	 */
-+	if (IS_METEORLAKE(vm->i915))
-+		type = I915_MAP_WC;
-+
- 	vaddr = i915_gem_object_pin_map_unlocked(obj, type);
- 	if (IS_ERR(vaddr))
- 		return PTR_ERR(vaddr);
-@@ -109,6 +119,16 @@ int map_pt_dma_locked(struct i915_address_space *vm, struct drm_i915_gem_object
- 	void *vaddr;
+ static int intel_dp_mst_check_constraints(struct drm_i915_private *i915, int bpp,
+@@ -297,6 +298,18 @@ static int intel_dp_mst_update_slots(struct intel_encoder *encoder,
+ 	return 0;
+ }
  
- 	type = intel_gt_coherent_map_type(vm->gt, obj, true);
-+	/*
-+	 * FIXME: It is suspected that some Address Translation Service (ATS)
-+	 * issue on IOMMU is causing CAT errors to occur on some MTL workloads.
-+	 * Applying a write barrier to the ppgtt set entry functions appeared
-+	 * to have no effect, so we must temporarily use I915_MAP_WC here on
-+	 * MTL until a proper ATS solution is found.
-+	 */
-+	if (IS_METEORLAKE(vm->i915))
-+		type = I915_MAP_WC;
++static bool
++intel_dp_mst_dsc_source_support(const struct intel_crtc_state *crtc_state)
++{
++	struct drm_i915_private *i915 = to_i915(crtc_state->uapi.crtc->dev);
 +
- 	vaddr = i915_gem_object_pin_map(obj, type);
- 	if (IS_ERR(vaddr))
- 		return PTR_ERR(vaddr);
++	/*
++	 * FIXME: Enabling DSC on ICL results in blank screen and FIFO pipe /
++	 * transcoder underruns, re-enable DSC after fixing this issue.
++	 */
++	return DISPLAY_VER(i915) >= 12 && intel_dsc_source_support(crtc_state);
++}
++
+ static bool
+ intel_dp_mst_compute_config_limits(struct intel_dp *intel_dp,
+ 				   struct intel_crtc_state *crtc_state,
+@@ -375,6 +388,9 @@ static int intel_dp_mst_compute_config(struct intel_encoder *encoder,
+ 			    str_yes_no(ret),
+ 			    str_yes_no(intel_dp->force_dsc_en));
+ 
++		if (!intel_dp_mst_dsc_source_support(pipe_config))
++			return -EINVAL;
++
+ 		if (!intel_dp_mst_compute_config_limits(intel_dp,
+ 							pipe_config,
+ 							true,
 -- 
-2.25.1
+2.39.2
 
