@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F3F5C0032E
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 15:13:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97ABDC4167D
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 15:18:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A518C10E8F6;
-	Thu,  2 Nov 2023 15:12:47 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A913410E90D;
- Thu,  2 Nov 2023 15:12:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C727410E8FD;
+	Thu,  2 Nov 2023 15:18:01 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F328810E8F4;
+ Thu,  2 Nov 2023 15:17:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698937960; x=1730473960;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=OjtX56iRe2R3p5yMpkS5TZ75eagAFRwkxp7gUYAmyeg=;
- b=hPsRLFWXOfJUCptHRQ60OYwE2ppgnGsyKQOfRVf1c7di+HeLHsOdNWUP
- srIEK2AXs7b0xGoanRSQaomqx8m5+9UO4J/kOfkdcYYfJ0HbniC8bGSIV
- tGOMz+ie+RA6IVXw/cbM3UT/fH89QexduBinKu+QP1Nr1U8CoWh6wtZqA
- A8Buol71eJw/JkAtBw8cXNJARDZcPmGFMFnCUQzJLiu7M7Jnu+mc+Waor
- 5B8CX04LdXuD2qEAHL8saJC02rgW/6cxzGhQ9qXiBBeHeTee/3YO8KmmA
- qfykGw88gxjlfaARkuevFFmMXDArJhyVHp211tz+zV+vVWibOl6r1ImAl w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="373773477"
-X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="373773477"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2023 08:12:40 -0700
+ t=1698938279; x=1730474279;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=5Uzrbvx48qGjXpbAuwhyeliMci7jTovYf/GA8M3d6Rc=;
+ b=aNx4RTGfDygODm/zwNVcGq6zmK0pyPQkCcA2ud3YvhogwAG0xwr4F6Fv
+ tdSQIknAtu0E7OGcBIjQMhUOFAtARDFTvhI2NE//TkfE83X/ip8WkD8Hg
+ 39hKr9YHG1xUHejLO177qy0JIqHTRFA310LbxUhWP6yn4WqRrHjaWL3aN
+ 1NlvGBr10Q47esUc5sbHeG4tLhurEdO4kgqbQY7i0RA0Ps9ln+i5pMH6N
+ GtWoWmZD3/KL5bMBo5pLOySzin8fLKfidg4qTZUZ9NxlwxQkjG7oQYhai
+ bf66X9mF6XqkYpB43K4X5LSy7RRBbC7dY8EALRDD3cHnZoHY5sAazdaQL A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="474977796"
+X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="474977796"
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2023 08:17:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="711174072"
-X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="711174072"
-Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga003.jf.intel.com with ESMTP; 02 Nov 2023 08:12:36 -0700
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id DC358644; Thu,  2 Nov 2023 17:12:30 +0200 (EET)
+X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="1008491941"
+X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="1008491941"
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by fmsmga006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2023 08:17:25 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.97-RC3)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1qyZRi-0000000Aind-3Sfa; Thu, 02 Nov 2023 17:17:22 +0200
+Date: Thu, 2 Nov 2023 17:17:22 +0200
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Jani Nikula <jani.nikula@intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Date: Thu,  2 Nov 2023 17:12:20 +0200
-Message-Id: <20231102151228.668842-8-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
-In-Reply-To: <20231102151228.668842-1-andriy.shevchenko@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Message-ID: <ZUO9grtE_jLnBBjW@smile.fi.intel.com>
 References: <20231102151228.668842-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 07/15] drm/i915/dsi: Get rid of redundant
- 'else'
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231102151228.668842-1-andriy.shevchenko@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Subject: Re: [Intel-gfx] [rft,
+ PATCH v3 00/15] drm/i915/dsi: 2nd attempt to get rid of IOSF GPIO
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,107 +68,34 @@ Cc: Hans de Goede <hdegoede@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In the snippets like the following
+On Thu, Nov 02, 2023 at 05:12:13PM +0200, Andy Shevchenko wrote:
+> DSI code for VBT has a set of ugly GPIO hacks, one of which is direct
+> talking to GPIO IP behind the actual driver's back. A second attempt
+> to fix that is here.
+> 
+> If I understood correctly, my approach should work in the similar way as
+> the current IOSF GPIO.
+> 
+> Hans, I believe you have some devices that use this piece of code,
+> is it possible to give a test run on (one of) them?
 
-	if (...)
-		return / goto / break / continue ...;
-	else
-		...
+Subject should be "3rd attempt ..." :-)
 
-the 'else' is redundant. Get rid of it.
+> In v3:
+> - incorporated series by Jani
+> - incorporated couple of precursor patches by Hans
+> - added Rb tag for used to be first three patches (Andi)
+> - rebased on top of the above changes
+> - fixed indexing for multi-community devices, such as Cherry View
+> 
+> In v2:
+> - added a few cleanup patches
+> - reworked to use dynamic GPIO lookup tables
+> - converted CHV as well
 
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 58 ++++++++++----------
- 1 file changed, 28 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-index 290a112f1b63..4ed5ede9ec5b 100644
---- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-@@ -142,7 +142,7 @@ static enum port intel_dsi_seq_port_to_port(struct intel_dsi *intel_dsi,
- 	if (seq_port) {
- 		if (intel_dsi->ports & BIT(PORT_B))
- 			return PORT_B;
--		else if (intel_dsi->ports & BIT(PORT_C))
-+		if (intel_dsi->ports & BIT(PORT_C))
- 			return PORT_C;
- 	}
- 
-@@ -670,8 +670,8 @@ static const char *sequence_name(enum mipi_seq seq_id)
- {
- 	if (seq_id < ARRAY_SIZE(seq_name) && seq_name[seq_id])
- 		return seq_name[seq_id];
--	else
--		return "(unknown)";
-+
-+	return "(unknown)";
- }
- 
- static void intel_dsi_vbt_exec(struct intel_dsi *intel_dsi,
-@@ -865,36 +865,34 @@ bool intel_dsi_vbt_init(struct intel_dsi *intel_dsi, u16 panel_id)
- 	 * multiply by 100 to preserve remainder
- 	 */
- 	if (intel_dsi->video_mode == BURST_MODE) {
--		if (mipi_config->target_burst_mode_freq) {
--			u32 bitrate = intel_dsi_bitrate(intel_dsi);
-+		u32 bitrate;
- 
--			/*
--			 * Sometimes the VBT contains a slightly lower clock,
--			 * then the bitrate we have calculated, in this case
--			 * just replace it with the calculated bitrate.
--			 */
--			if (mipi_config->target_burst_mode_freq < bitrate &&
--			    intel_fuzzy_clock_check(
--					mipi_config->target_burst_mode_freq,
--					bitrate))
--				mipi_config->target_burst_mode_freq = bitrate;
--
--			if (mipi_config->target_burst_mode_freq < bitrate) {
--				drm_err(&dev_priv->drm,
--					"Burst mode freq is less than computed\n");
--				return false;
--			}
--
--			burst_mode_ratio = DIV_ROUND_UP(
--				mipi_config->target_burst_mode_freq * 100,
--				bitrate);
--
--			intel_dsi->pclk = DIV_ROUND_UP(intel_dsi->pclk * burst_mode_ratio, 100);
--		} else {
--			drm_err(&dev_priv->drm,
--				"Burst mode target is not set\n");
-+		if (mipi_config->target_burst_mode_freq == 0) {
-+			drm_err(&dev_priv->drm, "Burst mode target is not set\n");
- 			return false;
- 		}
-+
-+		bitrate = intel_dsi_bitrate(intel_dsi);
-+
-+		/*
-+		 * Sometimes the VBT contains a slightly lower clock, then
-+		 * the bitrate we have calculated, in this case just replace it
-+		 * with the calculated bitrate.
-+		 */
-+		if (mipi_config->target_burst_mode_freq < bitrate &&
-+		    intel_fuzzy_clock_check(mipi_config->target_burst_mode_freq,
-+					    bitrate))
-+			mipi_config->target_burst_mode_freq = bitrate;
-+
-+		if (mipi_config->target_burst_mode_freq < bitrate) {
-+			drm_err(&dev_priv->drm, "Burst mode freq is less than computed\n");
-+			return false;
-+		}
-+
-+		burst_mode_ratio =
-+			DIV_ROUND_UP(mipi_config->target_burst_mode_freq * 100, bitrate);
-+
-+		intel_dsi->pclk = DIV_ROUND_UP(intel_dsi->pclk * burst_mode_ratio, 100);
- 	} else
- 		burst_mode_ratio = 100;
- 
 -- 
-2.40.0.1.gaa8946217a0b
+With Best Regards,
+Andy Shevchenko
+
 
