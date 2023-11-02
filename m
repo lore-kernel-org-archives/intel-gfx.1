@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0456C4167B
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 15:43:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 604F4C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 15:46:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15D4610E907;
-	Thu,  2 Nov 2023 15:43:19 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0D0D10E907
- for <intel-gfx@lists.freedesktop.org>; Thu,  2 Nov 2023 15:43:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEAC810E0BD;
+	Thu,  2 Nov 2023 15:46:30 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D63510E0BD
+ for <intel-gfx@lists.freedesktop.org>; Thu,  2 Nov 2023 15:46:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698939796; x=1730475796;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=pO6kFc1l3b4mDAi+zLbBlkuMSbXMMeHwFZ9U5AojGOA=;
- b=PFXM6rTEpupjyfIs3O3F9xzC3cal3ZGAr2SGUygsJGwRxi1uogd1E/mf
- Q5akTcN+oDhELft3YqDIw+KKcM+a+u+dRoiwRnF3Tx3pwNaKwHvtBpauS
- W+AX/SDzKezPwBc6Nyq5j1nsbk11z0nocBGu7mWghrctbaROgZRUlvH/1
- DjS7387eAH3udfU7SbJuR/mjxkP1xvgy6v3iHYV3eYESdVt/y6tsiwyd3
- GcuGDWWKFylv52SiEjjHC1WnjBDphqOHd34ga9E7ha2YU2NkQQQ1X4NEg
- 7t3bpvfazfIa/ZlmslCyOWFtGlmGMGMC4OpD6ovuCkL9zALTbtb1TJvva A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="368087444"
-X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="368087444"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2023 08:43:16 -0700
+ t=1698939989; x=1730475989;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=lqsFx4ffxbZ068ibxNIdz03fOlIVyt/civFO8dr5M/c=;
+ b=le84A8V3+sDlvMowCcEYLHldCTMKRbhKD6MpdVRwMHVdnXBM6lJBC6e4
+ TV5a2bvYhdfcJo4V360v9UJ6+abGXA/qJTrAsVwdDDSpoYDlt6IcdUFm7
+ 2dzxIqwT/kejhzraUWjYc8FQ8F/Aq8exsIsPNlbbYht1urbwII3//1Wab
+ ytB2AOWlt+JjT8H2PjB1l042PP3YfyLrWk5QbjZSWopcK8ro6cARb6zmn
+ xbSKXO9EMR4D2qi9Mj/ncXImDnr5yVzAsrjyKrwDhTWwJ51WefAGfvusy
+ nqbLPNm4LAyk+2c8g4E7mnjfkdZMpHH8ZQwDvaunAlE9J9Stsdy29gkmM Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="455222646"
+X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="455222646"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2023 08:46:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="878294695"
-X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="878294695"
+X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; 
+   d="scan'208";a="2466133"
 Received: from unknown (HELO localhost) ([10.237.66.162])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2023 08:42:45 -0700
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2023 08:46:28 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  2 Nov 2023 17:42:28 +0200
-Message-Id: <6fbdcf084dfa4dbc2ba92c73a4a72ae36c170e0f.1698939671.git.jani.nikula@intel.com>
+Date: Thu,  2 Nov 2023 17:46:22 +0200
+Message-Id: <20231102154623.2288054-1-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1698939671.git.jani.nikula@intel.com>
-References: <cover.1698939671.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 3/5] drm/i915/pmu: change attr_group allocation
- and initialization
+Subject: [Intel-gfx] [PATCH 1/2] drm/i915: use PIPE_CONF_CHECK_BOOL() for
+ bool members
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,56 +61,39 @@ Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Prepare for dynamically allocating struct i915_pmu by changing the
-allocation and initialization of the attr_group. With pmu allocated
-dynamically, pmu->events_attr_group can't be used for local attr_group
-array initialization.
+Don't treat bools as integers.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/i915_pmu.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-index 21ef76a11ed7..3c6191b7fc82 100644
---- a/drivers/gpu/drm/i915/i915_pmu.c
-+++ b/drivers/gpu/drm/i915/i915_pmu.c
-@@ -1242,13 +1242,7 @@ static bool is_igp(struct drm_i915_private *i915)
- void i915_pmu_register(struct drm_i915_private *i915)
- {
- 	struct i915_pmu *pmu = &i915->pmu;
--	const struct attribute_group *attr_groups[] = {
--		&i915_pmu_format_attr_group,
--		&pmu->events_attr_group,
--		&i915_pmu_cpumask_attr_group,
--		NULL
--	};
--
-+	const struct attribute_group **attr_groups;
- 	int ret = -ENOMEM;
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 49ded4e32883..268c16ec9d00 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -5206,8 +5206,8 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ #define PIPE_CONF_QUIRK(quirk) \
+ 	((current_config->quirks | pipe_config->quirks) & (quirk))
  
- 	if (GRAPHICS_VER(i915) <= 2) {
-@@ -1281,11 +1275,17 @@ void i915_pmu_register(struct drm_i915_private *i915)
- 	if (!pmu->events_attr_group.attrs)
- 		goto err_name;
+-	PIPE_CONF_CHECK_I(hw.enable);
+-	PIPE_CONF_CHECK_I(hw.active);
++	PIPE_CONF_CHECK_BOOL(hw.enable);
++	PIPE_CONF_CHECK_BOOL(hw.active);
  
--	pmu->base.attr_groups = kmemdup(attr_groups, sizeof(attr_groups),
--					GFP_KERNEL);
--	if (!pmu->base.attr_groups)
-+	attr_groups = kcalloc(4, sizeof(struct attribute_group *), GFP_KERNEL);
-+	if (!attr_groups)
- 		goto err_attr;
+ 	PIPE_CONF_CHECK_I(cpu_transcoder);
+ 	PIPE_CONF_CHECK_I(mst_master_transcoder);
+@@ -5414,8 +5414,8 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
+ 	PIPE_CONF_CHECK_I(dsc.config.second_line_bpg_offset);
+ 	PIPE_CONF_CHECK_I(dsc.config.nsl_bpg_offset);
  
-+	attr_groups[0] = &i915_pmu_format_attr_group;
-+	attr_groups[1] = &pmu->events_attr_group;
-+	attr_groups[2] = &i915_pmu_cpumask_attr_group;
-+	attr_groups[3] = NULL; /* sentinel */
-+
-+	pmu->base.attr_groups = attr_groups;
-+
- 	pmu->base.module	= THIS_MODULE;
- 	pmu->base.task_ctx_nr	= perf_invalid_context;
- 	pmu->base.event_init	= i915_pmu_event_init;
+-	PIPE_CONF_CHECK_I(dsc.compression_enable);
+-	PIPE_CONF_CHECK_I(dsc.dsc_split);
++	PIPE_CONF_CHECK_BOOL(dsc.compression_enable);
++	PIPE_CONF_CHECK_BOOL(dsc.dsc_split);
+ 	PIPE_CONF_CHECK_I(dsc.compressed_bpp);
+ 
+ 	PIPE_CONF_CHECK_BOOL(splitter.enable);
 -- 
 2.39.2
 
