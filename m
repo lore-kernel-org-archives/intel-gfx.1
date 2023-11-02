@@ -4,52 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0D7CC4332F
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 17:10:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADC50C4167B
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 17:33:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79B6F10E954;
-	Thu,  2 Nov 2023 17:10:37 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C94C10E954;
- Thu,  2 Nov 2023 17:10:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698945035; x=1730481035;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=l3DEo/2hyL2Es/18G2qmyrNiJQ7yZh7GfBi7w0KGeh8=;
- b=VlJ39CpDwyhtf1GCTOMYTB0kSzmOLDQfO4SvY9LMeoyZvvbimjwWFiPl
- xEm028MIs5gbQ1dEefFJT062D4hJSxDCbxG7AZQ+qsy1/h0/tIPJKXCj5
- TGmMFsYBg9C3u14/jvme5XK1Xvs+E5RwcbutNdfEMkdCBCZ7M+AyUbGdm
- XBsIhKIDtTVdw0mcwF7I72FQpkbFVhjIjU37dwQsapDz4LOTuq4zQ5iF9
- 0oFXtleXzBhvnSGps1nkXM5efILJlrlsb65iEglhBniddd7yMo4u1qzrI
- 1mps8jNuSR3cfFXlfWx4M6kkICtTcj89k3oiC2uIoIa4RKg913T4/3pWh w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="379158856"
-X-IronPort-AV: E=Sophos;i="6.03,272,1694761200"; d="scan'208";a="379158856"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2023 10:10:34 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="754861339"
-X-IronPort-AV: E=Sophos;i="6.03,272,1694761200"; d="scan'208";a="754861339"
-Received: from stinkpipe.fi.intel.com (HELO stinkbox) ([10.237.72.74])
- by orsmga007.jf.intel.com with SMTP; 02 Nov 2023 10:10:10 -0700
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 02 Nov 2023 19:10:09 +0200
-Date: Thu, 2 Nov 2023 19:10:09 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Message-ID: <ZUPX8RgtrCX8B_Cg@intel.com>
-References: <20231102151228.668842-1-andriy.shevchenko@linux.intel.com>
- <20231102151228.668842-2-andriy.shevchenko@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3141B10E968;
+	Thu,  2 Nov 2023 17:33:08 +0000 (UTC)
+Received: from emeril.freedesktop.org (emeril.freedesktop.org
+ [IPv6:2610:10:20:722:a800:ff:feee:56cf])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 88A8610E968;
+ Thu,  2 Nov 2023 17:33:06 +0000 (UTC)
+Received: from emeril.freedesktop.org (localhost [127.0.0.1])
+ by emeril.freedesktop.org (Postfix) with ESMTP id 820F5AADD6;
+ Thu,  2 Nov 2023 17:33:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20231102151228.668842-2-andriy.shevchenko@linux.intel.com>
-X-Patchwork-Hint: comment
-Subject: Re: [Intel-gfx] [PATCH v3 01/15] drm/i915/dsi: assume BXT gpio
- works for non-native GPIO
+Content-Transfer-Encoding: 7bit
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Andrzej Hajda" <andrzej.hajda@intel.com>
+Date: Thu, 02 Nov 2023 17:33:06 -0000
+Message-ID: <169894638652.28157.11935627979201246481@emeril.freedesktop.org>
+X-Patchwork-Hint: ignore
+References: <20231025-debugobjects_fix-v3-1-2bc3bf7084c2@intel.com>
+In-Reply-To: <20231025-debugobjects_fix-v3-1-2bc3bf7084c2@intel.com>
+Subject: [Intel-gfx] =?utf-8?b?4pyXIEZpLkNJLkNIRUNLUEFUQ0g6IHdhcm5pbmcg?=
+ =?utf-8?q?for_debugobjects=3A_stop_accessing_objects_after_releasing_spin?=
+ =?utf-8?q?lock_=28rev4=29?=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,62 +41,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Hans de Goede <hdegoede@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>
+Reply-To: intel-gfx@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Nov 02, 2023 at 05:12:14PM +0200, Andy Shevchenko wrote:
-> From: Jani Nikula <jani.nikula@intel.com>
-> 
-> Purely a guess. Drop the nop function.
-> 
-> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Cc: Hans de Goede <hdegoede@redhat.com>
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 10 +---------
->  1 file changed, 1 insertion(+), 9 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-> index 24b2cbcfc1ef..b2c0cc11f8c1 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-> @@ -372,14 +372,6 @@ static void bxt_exec_gpio(struct intel_connector *connector,
->  	gpiod_set_value(gpio_desc, value);
->  }
->  
-> -static void icl_exec_gpio(struct intel_connector *connector,
-> -			  u8 gpio_source, u8 gpio_index, bool value)
-> -{
-> -	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
-> -
-> -	drm_dbg_kms(&dev_priv->drm, "Skipping ICL GPIO element execution\n");
-> -}
-> -
->  enum {
->  	MIPI_RESET_1 = 0,
->  	MIPI_AVDD_EN_1,
-> @@ -491,7 +483,7 @@ static const u8 *mipi_exec_gpio(struct intel_dsi *intel_dsi, const u8 *data)
->  	if (native)
->  		icl_native_gpio_set_value(dev_priv, gpio_number, value);
->  	else if (DISPLAY_VER(dev_priv) >= 11)
-> -		icl_exec_gpio(connector, gpio_source, gpio_index, value);
-> +		bxt_exec_gpio(connector, gpio_source, gpio_index, value);
+== Series Details ==
 
-We could just drop this whole branch since we end up in bxt_exec_gpio()
-in the end anyway. Or we drop the final else and make this one check for
-DISPLAY_VER >=9.
+Series: debugobjects: stop accessing objects after releasing spinlock (rev4)
+URL   : https://patchwork.freedesktop.org/series/124185/
+State : warning
 
->  	else if (IS_VALLEYVIEW(dev_priv))
->  		vlv_exec_gpio(connector, gpio_source, gpio_number, value);
->  	else if (IS_CHERRYVIEW(dev_priv))
-> -- 
-> 2.40.0.1.gaa8946217a0b
+== Summary ==
 
--- 
-Ville Syrjälä
-Intel
+Error: dim checkpatch failed
+d3d4d06720a6 debugobjects: stop accessing objects after releasing spinlock
+-:13: WARNING:COMMIT_LOG_LONG_LINE: Prefer a maximum 75 chars per line (possible unwrapped commit description?)
+#13: 
+2. Other thread frees debugobject, then allocates new one on the same memory
+
+-:88: WARNING:LIKELY_MISUSE: nested (un)?likely() calls, IS_ERR already uses unlikely() internally
+#88: FILE: lib/debugobjects.c:715:
++	} else if (likely(!IS_ERR(obj))) {
+
+-:384: CHECK:SPACING: No space is necessary after a cast
+#384: FILE: lib/debugobjects.c:992:
++						   (void *) oaddr, o.state);
+
+total: 0 errors, 2 warnings, 1 checks, 350 lines checked
+
+
