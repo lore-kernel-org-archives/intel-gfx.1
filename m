@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 935F6C001DD
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 15:13:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8BA4C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 15:13:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C375510E8F3;
-	Thu,  2 Nov 2023 15:12:46 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AD7710E909;
- Thu,  2 Nov 2023 15:12:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CC3310E909;
+	Thu,  2 Nov 2023 15:12:52 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E4F210E8FD;
+ Thu,  2 Nov 2023 15:12:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698937960; x=1730473960;
+ t=1698937965; x=1730473965;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=EwelSoZ61k9tZJuVFvgxr/RQChgXvtfD52YtSTJ+m/s=;
- b=l9Fi5n6o+TfkAU9pkf80VdYNMTzbZlBTHCatc8s/N2egSxm+ccGeublw
- jhMX2+A0HsRhp01YzrBc3KfXMN6wa5sK48y2JCj638ukU9G/uf055xoq7
- izYOv1iRF5u7oT26ijQG/d6UOZJUIZIjNqjmI16xBUPM7+k1D+tHL0M1O
- zMyA9c4FBUuTQ8SNPXfpcrPYV7RoLrHzVVLjghbx+U5fEeob8qh9O5/vk
- xqqFdfRIp1cgfWtVE/tmZci8Nau+d91eT+Y0rnGG4Edyz0cxFszzSwbW0
- 7LtBPCdey2ozTR5dxbC7r5BhfY+1a5TCjmtDDrga5l+hvw2A1hX/n9lh1 w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="373773464"
-X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="373773464"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2023 08:12:39 -0700
+ bh=sX1J1ySAF4MO+eRhktvw93+gXMSrlD5/6fA9bNgY1QY=;
+ b=U8q51xCPA8ssVyfqSSMLLg/fAjMzfSChV3zu0Ub1S+9e3/dJZuw0xVv9
+ 4Pa7+djGS0Pz7US2gFpXGG1vS490C0x17WJhkHRIqTzeS19mNc0mVm24Y
+ 1sEld9nT9bO+ZHOu10/iOyWdGv7E1igsYlHUxnuhC23tmAQA//T1rJAvv
+ pi9TQpKtkTXRKqaa6Cfp1uW7sZFHN5TJ0V05VGQoObhy98GphFeK/FCJh
+ CjRigZLhZ8erEpKLQ5VAz9kTQiD/ipdXGNnTMDMWgXH+k9XaDdxCHsqzU
+ V2dIpwZw+9NkVrISnFYaEmk1ifuXVdNyptcajR0zRyRyPNpZgvq51RkZz w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="1660210"
+X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; 
+   d="scan'208";a="1660210"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Nov 2023 08:12:44 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="711174065"
-X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="711174065"
+X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="737784575"
+X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="737784575"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga003.jf.intel.com with ESMTP; 02 Nov 2023 08:12:36 -0700
+ by orsmga006.jf.intel.com with ESMTP; 02 Nov 2023 08:12:40 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id D074C618; Thu,  2 Nov 2023 17:12:30 +0200 (EET)
+ id 48FFF76F; Thu,  2 Nov 2023 17:12:31 +0200 (EET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Jani Nikula <jani.nikula@intel.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Thu,  2 Nov 2023 17:12:19 +0200
-Message-Id: <20231102151228.668842-7-andriy.shevchenko@linux.intel.com>
+Date: Thu,  2 Nov 2023 17:12:28 +0200
+Message-Id: <20231102151228.668842-16-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
 In-Reply-To: <20231102151228.668842-1-andriy.shevchenko@linux.intel.com>
 References: <20231102151228.668842-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 06/15] drm/i915/dsi: Replace while(1) with
- one with clear exit condition
+Subject: [Intel-gfx] [PATCH v3 15/15] drm/i915/iosf: Drop unused APIs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,34 +67,56 @@ Cc: Hans de Goede <hdegoede@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move existing condition to while(), so it will be clear on what
-circumstances the loop is successfully finishing.
+Drop unused vlv_iosf_sb_read() and vlv_iosf_sb_write().
 
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ drivers/gpu/drm/i915/vlv_sideband.c | 17 -----------------
+ drivers/gpu/drm/i915/vlv_sideband.h |  3 ---
+ 2 files changed, 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-index 4af43cf3cee0..290a112f1b63 100644
---- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-@@ -702,13 +702,10 @@ static void intel_dsi_vbt_exec(struct intel_dsi *intel_dsi,
- 	if (connector->panel.vbt.dsi.seq_version >= 3)
- 		data += 4;
+diff --git a/drivers/gpu/drm/i915/vlv_sideband.c b/drivers/gpu/drm/i915/vlv_sideband.c
+index b98dec3ad817..13b644958e38 100644
+--- a/drivers/gpu/drm/i915/vlv_sideband.c
++++ b/drivers/gpu/drm/i915/vlv_sideband.c
+@@ -166,23 +166,6 @@ u32 vlv_nc_read(struct drm_i915_private *i915, u8 addr)
+ 	return val;
+ }
  
--	while (1) {
-+	while (*data != MIPI_SEQ_ELEM_END) {
- 		u8 operation_byte = *data++;
- 		u8 operation_size = 0;
- 
--		if (operation_byte == MIPI_SEQ_ELEM_END)
--			break;
+-u32 vlv_iosf_sb_read(struct drm_i915_private *i915, u8 port, u32 reg)
+-{
+-	u32 val = 0;
 -
- 		if (operation_byte < ARRAY_SIZE(exec_elem))
- 			mipi_elem_exec = exec_elem[operation_byte];
- 		else
+-	vlv_sideband_rw(i915, PCI_DEVFN(0, 0), port,
+-			SB_CRRDDA_NP, reg, &val);
+-
+-	return val;
+-}
+-
+-void vlv_iosf_sb_write(struct drm_i915_private *i915,
+-		       u8 port, u32 reg, u32 val)
+-{
+-	vlv_sideband_rw(i915, PCI_DEVFN(0, 0), port,
+-			SB_CRWRDA_NP, reg, &val);
+-}
+-
+ u32 vlv_cck_read(struct drm_i915_private *i915, u32 reg)
+ {
+ 	u32 val = 0;
+diff --git a/drivers/gpu/drm/i915/vlv_sideband.h b/drivers/gpu/drm/i915/vlv_sideband.h
+index 9ce283d96b80..8b4495e14bce 100644
+--- a/drivers/gpu/drm/i915/vlv_sideband.h
++++ b/drivers/gpu/drm/i915/vlv_sideband.h
+@@ -26,9 +26,6 @@ enum {
+ };
+ 
+ void vlv_iosf_sb_get(struct drm_i915_private *i915, unsigned long ports);
+-u32 vlv_iosf_sb_read(struct drm_i915_private *i915, u8 port, u32 reg);
+-void vlv_iosf_sb_write(struct drm_i915_private *i915,
+-		       u8 port, u32 reg, u32 val);
+ void vlv_iosf_sb_put(struct drm_i915_private *i915, unsigned long ports);
+ 
+ static inline void vlv_bunit_get(struct drm_i915_private *i915)
 -- 
 2.40.0.1.gaa8946217a0b
 
