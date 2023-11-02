@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E1D8C0018A
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 15:13:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2D0EC001B0
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Nov 2023 15:13:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9336C10E90C;
-	Thu,  2 Nov 2023 15:12:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBD3E10E903;
+	Thu,  2 Nov 2023 15:12:43 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71AEA10E8EF;
- Thu,  2 Nov 2023 15:12:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8BA910E912;
+ Thu,  2 Nov 2023 15:12:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1698937956; x=1730473956;
+ t=1698937960; x=1730473960;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=sOlXPhm2EWggWgC9auNPoDBOg8jjBU+Gm+8lS7rVTqE=;
- b=FX4cQlRwZI3suHj6Y+6qJhbhDtmXJ9coD4dX+d/0tR9yvLLYcPw6W+Fn
- ttkeX58j+uXfFI/O6pLNeZyp16hDH/k/T4+Wm6JMcNnFKxodD9yV0kEnb
- WCeXCISToH9DfBTkDNp19DmiKn45KktcWBPCHrURvLNfUjmDdZhtjx2+A
- q5i8+Dlnu8SP5pNs3aOj6hqYtbUYBgOJOrWhj3jOyfV65TZAHlhRzf3Ax
- 6tmcctEB0onaFz7/UJ3f4oXg36kqvlF3v4ses2hXLHU5YQ4IyfkIBSgKX
- /vjU1uTWnHIHB+S/YS+ecDXYSLiNtizBFi6fxYfWsZtSStJ2UobDxz1jB w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="373773430"
-X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="373773430"
+ bh=d5TnJD8mZT4XCWRMm2D4HqLq+7mmDEPFtEmjmsmEvVE=;
+ b=Gh73aP8fs9fibSwPBN2LsVf5UVxU7K29lXJpv6nUyR+tBQESm4gJ9dGX
+ jpazhz6GtxXDJPiQjpcJxwJqdlNfsLlS4LFwjoInM0/tycsc5XrOkJZ97
+ RAyDophNY1aihFz5N2hWBxvdDZcHmIs4FUaoDYUUaQcZDOSjFE3Q0BLn/
+ 0LEemMTNdJZnNCpqOEMg1u8z8kLb5bdefu5eV8CWXEqd6e8onVZwzaesa
+ Ylz2nZT/cLz6Pws87EClcDGhOKNKt4nbSaoxtAGivv/nQvozFbX3jnQ+l
+ ENvea/y8017lmRGB5dQa1aFW7MTI0Gr+964d+UbkpbEO1gzQ/+vyrRQ1m g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="373773481"
+X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="373773481"
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Nov 2023 08:12:35 -0700
+ 02 Nov 2023 08:12:40 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="711173922"
-X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="711173922"
+X-IronPort-AV: E=McAfee;i="6600,9927,10882"; a="711174074"
+X-IronPort-AV: E=Sophos;i="6.03,271,1694761200"; d="scan'208";a="711174074"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga003.jf.intel.com with ESMTP; 02 Nov 2023 08:12:32 -0700
+ by orsmga003.jf.intel.com with ESMTP; 02 Nov 2023 08:12:36 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id A7C3E5E5; Thu,  2 Nov 2023 17:12:30 +0200 (EET)
+ id 03C84690; Thu,  2 Nov 2023 17:12:30 +0200 (EET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Jani Nikula <jani.nikula@intel.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Thu,  2 Nov 2023 17:12:16 +0200
-Message-Id: <20231102151228.668842-4-andriy.shevchenko@linux.intel.com>
+Date: Thu,  2 Nov 2023 17:12:22 +0200
+Message-Id: <20231102151228.668842-10-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
 In-Reply-To: <20231102151228.668842-1-andriy.shevchenko@linux.intel.com>
 References: <20231102151228.668842-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v3 03/15] drm/i915/dsi: clarify GPIO exec
- sequence
+Subject: [Intel-gfx] [PATCH v3 09/15] drm/i915/dsi: Remove GPIO lookup table
+ at the end of intel_dsi_vbt_gpio_init()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,76 +67,94 @@ Cc: Hans de Goede <hdegoede@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Jani Nikula <jani.nikula@intel.com>
+From: Hans de Goede <hdegoede@redhat.com>
 
-With the various sequence versions and pointer increments interleaved,
-it's a bit hard to decipher what's going on. Add separate paths for
-different sequence versions.
+To properly deal with GPIOs used in MIPI panel sequences a temporary
+GPIO lookup will be used. Since there can only be 1 GPIO lookup table
+for the "0000:00:02.0" device this will not work if the GPIO lookup
+table used by intel_dsi_vbt_gpio_init() is still registered.
 
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Hans de Goede <hdegoede@redhat.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+After getting the "backlight" and "panel" GPIOs the lookup table
+registered by intel_dsi_vbt_gpio_init() is no longer necessary,
+remove it so that another temporary lookup-table for the "0000:00:02.0"
+device can be added.
+
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 31 +++++++++++---------
- 1 file changed, 17 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 25 +++++++-------------
+ 1 file changed, 9 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-index 8b962f2ac475..11073efe26c0 100644
+index d270437217b3..8e6beef90e5e 100644
 --- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
 +++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-@@ -456,26 +456,29 @@ static const u8 *mipi_exec_gpio(struct intel_dsi *intel_dsi, const u8 *data)
- 	struct drm_device *dev = intel_dsi->base.base.dev;
- 	struct drm_i915_private *i915 = to_i915(dev);
+@@ -955,6 +955,7 @@ void intel_dsi_vbt_gpio_init(struct intel_dsi *intel_dsi, bool panel_is_on)
  	struct intel_connector *connector = intel_dsi->attached_connector;
--	u8 gpio_source, gpio_index = 0, gpio_number;
-+	u8 gpio_source = 0, gpio_index = 0, gpio_number;
- 	bool value;
-+	int size;
- 	bool native = DISPLAY_VER(i915) >= 11;
+ 	struct mipi_config *mipi_config = connector->panel.vbt.dsi.config;
+ 	enum gpiod_flags flags = panel_is_on ? GPIOD_OUT_HIGH : GPIOD_OUT_LOW;
++	struct gpiod_lookup_table *gpiod_lookup_table = NULL;
+ 	bool want_backlight_gpio = false;
+ 	bool want_panel_gpio = false;
+ 	struct pinctrl *pinctrl;
+@@ -962,12 +963,12 @@ void intel_dsi_vbt_gpio_init(struct intel_dsi *intel_dsi, bool panel_is_on)
  
--	if (connector->panel.vbt.dsi.seq_version >= 3)
--		gpio_index = *data++;
-+	if (connector->panel.vbt.dsi.seq_version >= 3) {
-+		size = 3;
+ 	if ((IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) &&
+ 	    mipi_config->pwm_blc == PPS_BLC_PMIC) {
+-		gpiod_add_lookup_table(&pmic_panel_gpio_table);
++		gpiod_lookup_table = &pmic_panel_gpio_table;
+ 		want_panel_gpio = true;
+ 	}
  
--	gpio_number = *data++;
-+		gpio_index = data[0];
-+		gpio_number = data[1];
-+		value = data[2] & BIT(0);
+ 	if (IS_VALLEYVIEW(dev_priv) && mipi_config->pwm_blc == PPS_BLC_SOC) {
+-		gpiod_add_lookup_table(&soc_panel_gpio_table);
++		gpiod_lookup_table = &soc_panel_gpio_table;
+ 		want_panel_gpio = true;
+ 		want_backlight_gpio = true;
  
--	/* gpio source in sequence v2 only */
--	if (connector->panel.vbt.dsi.seq_version == 2)
--		gpio_source = (*data >> 1) & 3;
--	else
--		gpio_source = 0;
-+		if (connector->panel.vbt.dsi.seq_version >= 4 && data[2] & BIT(1))
-+			native = false;
-+	} else {
-+		size = 2;
+@@ -984,6 +985,9 @@ void intel_dsi_vbt_gpio_init(struct intel_dsi *intel_dsi, bool panel_is_on)
+ 				"Failed to set pinmux to PWM\n");
+ 	}
  
--	if (connector->panel.vbt.dsi.seq_version >= 4 && *data & BIT(1))
--		native = false;
-+		gpio_number = data[0];
-+		value = data[1] & BIT(0);
- 
--	/* pull up/down */
--	value = *data++ & 1;
-+		if (connector->panel.vbt.dsi.seq_version == 2)
-+			gpio_source = (data[1] >> 1) & 3;
-+	}
- 
- 	drm_dbg_kms(&i915->drm, "GPIO index %u, number %u, source %u, native %s, set to %s\n",
- 		    gpio_index, gpio_number, gpio_source, str_yes_no(native), str_on_off(value));
-@@ -491,7 +494,7 @@ static const u8 *mipi_exec_gpio(struct intel_dsi *intel_dsi, const u8 *data)
- 	else
- 		bxt_exec_gpio(connector, gpio_source, gpio_index, value);
- 
--	return data;
-+	return data + size;
++	if (gpiod_lookup_table)
++		gpiod_add_lookup_table(gpiod_lookup_table);
++
+ 	if (want_panel_gpio) {
+ 		intel_dsi->gpio_panel = gpiod_get(dev->dev, "panel", flags);
+ 		if (IS_ERR(intel_dsi->gpio_panel)) {
+@@ -1002,15 +1006,13 @@ void intel_dsi_vbt_gpio_init(struct intel_dsi *intel_dsi, bool panel_is_on)
+ 			intel_dsi->gpio_backlight = NULL;
+ 		}
+ 	}
++
++	if (gpiod_lookup_table)
++		gpiod_remove_lookup_table(gpiod_lookup_table);
  }
  
- #ifdef CONFIG_ACPI
+ void intel_dsi_vbt_gpio_cleanup(struct intel_dsi *intel_dsi)
+ {
+-	struct drm_device *dev = intel_dsi->base.base.dev;
+-	struct drm_i915_private *dev_priv = to_i915(dev);
+-	struct intel_connector *connector = intel_dsi->attached_connector;
+-	struct mipi_config *mipi_config = connector->panel.vbt.dsi.config;
+-
+ 	if (intel_dsi->gpio_panel) {
+ 		gpiod_put(intel_dsi->gpio_panel);
+ 		intel_dsi->gpio_panel = NULL;
+@@ -1020,13 +1022,4 @@ void intel_dsi_vbt_gpio_cleanup(struct intel_dsi *intel_dsi)
+ 		gpiod_put(intel_dsi->gpio_backlight);
+ 		intel_dsi->gpio_backlight = NULL;
+ 	}
+-
+-	if ((IS_VALLEYVIEW(dev_priv) || IS_CHERRYVIEW(dev_priv)) &&
+-	    mipi_config->pwm_blc == PPS_BLC_PMIC)
+-		gpiod_remove_lookup_table(&pmic_panel_gpio_table);
+-
+-	if (IS_VALLEYVIEW(dev_priv) && mipi_config->pwm_blc == PPS_BLC_SOC) {
+-		pinctrl_unregister_mappings(soc_pwm_pinctrl_map);
+-		gpiod_remove_lookup_table(&soc_panel_gpio_table);
+-	}
+ }
 -- 
 2.40.0.1.gaa8946217a0b
 
