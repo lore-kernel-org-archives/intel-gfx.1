@@ -4,54 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CA91C4332F
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Nov 2023 20:19:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3A0DC4332F
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Nov 2023 20:19:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BCF310EAAB;
-	Fri,  3 Nov 2023 20:18:50 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8C1B10EA9D;
- Fri,  3 Nov 2023 20:18:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACF0010EAAA;
+	Fri,  3 Nov 2023 20:18:51 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E54710EA9A;
+ Fri,  3 Nov 2023 20:18:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1699042727; x=1730578727;
+ t=1699042723; x=1730578723;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=4OY3kIG/Mh3qAhC+/tcUQlmLJd+LmlJUxhST6rmeiio=;
- b=Nw1PKTsUX6jPk3MnYoWEZ0IfYqfqBsPJvgm2tY1Lz0fy7FyVI/5BYn+r
- apyZ5YV2OBfpwiPAyJMsLDaKqh3xKvMrKIuLSMEwJaWr6hcLlWczBD9e2
- lnU0mvpeQLubSig7Qa+sbnnNOSDyApeodaUel55dIkAWQBYbCUdwwzwtQ
- FxAkdDAQokGNrc1k7ce9gMpVhSJ/u8/+7wLGr6kBXTCtykoorWPVOsevi
- 34PfQO3SyKXFeH+KVaebYRJiZBnEjh+hVTQJaWl3cTw2TIpR/YfZohlnG
- MibIIPXsoluTQaQzqEwTKqRPwqAVTmfRleF1F60c3xWlj5yQblnYw/ASJ w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10883"; a="1896131"
-X-IronPort-AV: E=Sophos;i="6.03,275,1694761200"; 
-   d="scan'208";a="1896131"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2023 13:18:46 -0700
+ bh=grTcdks/Ll70fGBWNiqdqzL8NMj1dVygNqVaInrANw8=;
+ b=Fku0v1hB0Hlf7YCcHkiuwwMpLFkp6h5L1wt7H07mBJFsJt1VlreuhCpp
+ 7zCMRRwYkfmp9HPoo+jniGX2/j392migelgsTCG1lABe1BAq5T/Wo7s7g
+ LQbtEka5oMsysbNxYggPTpKIlpP0mRobJqMMbKNOw3tl0gWjZjuIKl5Ba
+ cWGGmoHX4BwYNvHpVjyMP/ENri6qG2379SF4+b/5aB93w3oA5i+Q+eziY
+ 3SUstFmHWI17ykTtSbHVy/uI+o7zgGsbqg0+xy0mQR41m5Xo/hC5wWH9S
+ lBCyUMJ5upssLjKhGSZfiPgXrNpBH10EESkk9l7azi3j9081fnXFCIiAb w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10883"; a="387904513"
+X-IronPort-AV: E=Sophos;i="6.03,275,1694761200"; d="scan'208";a="387904513"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2023 13:18:42 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10883"; a="832131210"
-X-IronPort-AV: E=Sophos;i="6.03,275,1694761200"; d="scan'208";a="832131210"
+X-IronPort-AV: E=McAfee;i="6600,9927,10883"; a="885303671"
+X-IronPort-AV: E=Sophos;i="6.03,275,1694761200"; d="scan'208";a="885303671"
 Received: from black.fi.intel.com ([10.237.72.28])
- by fmsmga004.fm.intel.com with ESMTP; 03 Nov 2023 13:18:43 -0700
+ by orsmga004.jf.intel.com with ESMTP; 03 Nov 2023 13:18:39 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 51F587C4; Fri,  3 Nov 2023 22:18:34 +0200 (EET)
+ id 018C06B4; Fri,  3 Nov 2023 22:18:33 +0200 (EET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Jani Nikula <jani.nikula@intel.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Fri,  3 Nov 2023 22:18:30 +0200
-Message-Id: <20231103201831.1037416-16-andriy.shevchenko@linux.intel.com>
+Date: Fri,  3 Nov 2023 22:18:23 +0200
+Message-Id: <20231103201831.1037416-9-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
 In-Reply-To: <20231103201831.1037416-1-andriy.shevchenko@linux.intel.com>
 References: <20231103201831.1037416-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 15/16] drm/i915/dsi: Combine checks in
- mipi_exec_gpio()
+Subject: [Intel-gfx] [PATCH v4 08/16] drm/i915/dsi: Replace check with a
+ (missing) MIPI sequence name
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,36 +67,39 @@ Cc: Hans de Goede <hdegoede@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For a couple of cases the branches call the same bxt_gpio_set_value().
-As Ville suggested they can be combined by dropping the DISPLAY_VER()
-check from Gen 11 to Gen 9. Do it that way.
+Names of the MIPI sequence steps are sequential and defined, no
+need to check for the gaps. However in seq_name the MIPI_SEQ_END
+is missing. Add it there, and drop unneeded NULL check in
+sequence_name().
 
-Suggested-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-index 9c6946ccb193..275d0218394c 100644
+index 4ed5ede9ec5b..d270437217b3 100644
 --- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
 +++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-@@ -420,14 +420,12 @@ static const u8 *mipi_exec_gpio(struct intel_dsi *intel_dsi, const u8 *data)
+@@ -653,6 +653,7 @@ static const fn_mipi_elem_exec exec_elem[] = {
+  */
  
- 	if (native)
- 		icl_native_gpio_set_value(i915, gpio_number, value);
--	else if (DISPLAY_VER(i915) >= 11)
-+	else if (DISPLAY_VER(i915) >= 9)
- 		bxt_gpio_set_value(connector, gpio_index, value);
- 	else if (IS_VALLEYVIEW(i915))
- 		vlv_gpio_set_value(connector, gpio_source, gpio_number, value);
- 	else if (IS_CHERRYVIEW(i915))
- 		chv_gpio_set_value(connector, gpio_source, gpio_number, value);
--	else
--		bxt_gpio_set_value(connector, gpio_index, value);
+ static const char * const seq_name[] = {
++	[MIPI_SEQ_END] = "MIPI_SEQ_END",
+ 	[MIPI_SEQ_DEASSERT_RESET] = "MIPI_SEQ_DEASSERT_RESET",
+ 	[MIPI_SEQ_INIT_OTP] = "MIPI_SEQ_INIT_OTP",
+ 	[MIPI_SEQ_DISPLAY_ON] = "MIPI_SEQ_DISPLAY_ON",
+@@ -668,7 +669,7 @@ static const char * const seq_name[] = {
  
- 	return data + size;
- }
+ static const char *sequence_name(enum mipi_seq seq_id)
+ {
+-	if (seq_id < ARRAY_SIZE(seq_name) && seq_name[seq_id])
++	if (seq_id < ARRAY_SIZE(seq_name))
+ 		return seq_name[seq_id];
+ 
+ 	return "(unknown)";
 -- 
 2.40.0.1.gaa8946217a0b
 
