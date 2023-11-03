@@ -4,51 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76754C4167B
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Nov 2023 20:19:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 358DFC4167D
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Nov 2023 20:19:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABF7510EAA1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E81D010EAA4;
 	Fri,  3 Nov 2023 20:18:48 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52A1A10EA96;
- Fri,  3 Nov 2023 20:18:41 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B9C610EA9C;
+ Fri,  3 Nov 2023 20:18:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1699042721; x=1730578721;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=SsqYwVa3nj+KQxx6klaIUKyb/YVe7UbmMNumzB/z7A8=;
- b=QqJ5NcbFNLVQi57O5tc2vcAWGE/fqTRq8N5kVDAKPTTF4GmThOgf6x4w
- N5gjcxcvskOgUX+AAXovO80DSiRLaz46Ts5d/sdZ/2mYy6mmRq8Ax422Z
- Ng8fteM7mYfn66devWSrDdbDBB6YbPgA3D7P72Z6iHk5SeMhVLerZV3Ul
- KVDPEVE5k5yPyqZYkI3WVWdAPNStU12rOeFMdUB3n9xikLHjmOn06in4X
- 3FFgKFWG4OjdhtiauJ2J/RoiI2Ku3NkD+x/yLGQ5E5NOUsYNRCBC++SnJ
- hJ/dJQ2VKNb/oBlibaLqGLgoZwU0HdSR6OHYONZaRYaER6ZTVuk362kGd A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10883"; a="387904507"
-X-IronPort-AV: E=Sophos;i="6.03,275,1694761200"; d="scan'208";a="387904507"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2023 13:18:40 -0700
+ t=1699042723; x=1730578723;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=fTxFU5Jq+F2HECS3gMhdwvDnSHvLw8vHCQZKqBJV8HQ=;
+ b=TdBXR+sPdXzSbMIMOaGcv8wKQjrBnBSKC0V7Ig+KT16QUfQODVs4v32k
+ fwV17fb+HG2NzHLA6OuAbbInyva8HBEUzubr++PJaKOhniRSwsvveGQ4A
+ exWUfeicK1Rl8BUNNVizpIOzuxZUxnJFGNLzECBMhSAYaVftt+3HrTNRv
+ pBAf6yv/j9g/tEUnUp1Pti5VtKiSMPphNIABIXDbwIOiB6T+AKs5LhfgU
+ UHFKlO3wafKuivu4g3LouztPs3+abf8eL3Ve7Osrw6quIXtcXShTgjgUC
+ oJhoghZG37X11Wjn+xdJab7h6xRGOKU4v5o2HgNvL4BeHPJxVTG9Ee4Y3 w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10883"; a="1896081"
+X-IronPort-AV: E=Sophos;i="6.03,275,1694761200"; 
+   d="scan'208";a="1896081"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2023 13:18:43 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10883"; a="885303649"
-X-IronPort-AV: E=Sophos;i="6.03,275,1694761200"; d="scan'208";a="885303649"
+X-IronPort-AV: E=McAfee;i="6600,9927,10883"; a="832131163"
+X-IronPort-AV: E=Sophos;i="6.03,275,1694761200"; d="scan'208";a="832131163"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga004.jf.intel.com with ESMTP; 03 Nov 2023 13:18:34 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 03 Nov 2023 13:18:38 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 8B4795E2; Fri,  3 Nov 2023 22:18:33 +0200 (EET)
+ id DEFCC65B; Fri,  3 Nov 2023 22:18:33 +0200 (EET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Jani Nikula <jani.nikula@intel.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Fri,  3 Nov 2023 22:18:15 +0200
-Message-Id: <20231103201831.1037416-1-andriy.shevchenko@linux.intel.com>
+Date: Fri,  3 Nov 2023 22:18:21 +0200
+Message-Id: <20231103201831.1037416-7-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
+In-Reply-To: <20231103201831.1037416-1-andriy.shevchenko@linux.intel.com>
+References: <20231103201831.1037416-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [rft,
- PATCH v4 00/16] drm/i915/dsi: 4th attempt to get rid of IOSF GPIO
+Subject: [Intel-gfx] [PATCH v4 06/16] drm/i915/dsi: Replace while(1) with
+ one with clear exit condition
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,65 +68,35 @@ Cc: Hans de Goede <hdegoede@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DSI code for VBT has a set of ugly GPIO hacks, one of which is direct
-talking to GPIO IP behind the actual driver's back. A second attempt
-to fix that is here.
+Move existing condition to while(), so it will be clear on what
+circumstances the loop is successfully finishing.
 
-If I understood correctly, my approach should work in the similar way as
-the current IOSF GPIO.
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-Hans, I believe you have some devices that use this piece of code,
-is it possible to give a test run on (one of) them?
-
-In v4:
-- fixed compile time errors in patch 14 (Hans, LKP)
-- fixed cover letter Subject
-- added patch 15 (as suggested by Ville)
-- added Ack tag (Jani)
-
-In v3:
-- incorporated series by Jani
-- incorporated couple of precursor patches by Hans
-- added Rb tag for used to be first three patches (Andi)
-- rebased on top of the above changes
-- fixed indexing for multi-community devices, such as Cherry View
-
-In v2:
-- added a few cleanup patches
-- reworked to use dynamic GPIO lookup tables
-- converted CHV as well
-
-Andy Shevchenko (9):
-  drm/i915/dsi: Replace while(1) with one with clear exit condition
-  drm/i915/dsi: Get rid of redundant 'else'
-  drm/i915/dsi: Replace check with a (missing) MIPI sequence name
-  drm/i915/dsi: Extract common soc_gpio_set_value() helper
-  drm/i915/dsi: Replace poking of VLV GPIOs behind the driver's back
-  drm/i915/dsi: Prepare soc_gpio_set_value() to distinguish GPIO
-    communities
-  drm/i915/dsi: Replace poking of CHV GPIOs behind the driver's back
-  drm/i915/dsi: Combine checks in mipi_exec_gpio()
-  drm/i915/iosf: Drop unused APIs
-
-Hans de Goede (2):
-  drm/i915/dsi: Remove GPIO lookup table at the end of
-    intel_dsi_vbt_gpio_init()
-  drm/i915/dsi: Fix wrong initial value for GPIOs in
-    bxt_gpio_set_value()
-
-Jani Nikula (5):
-  drm/i915/dsi: assume BXT gpio works for non-native GPIO
-  drm/i915/dsi: switch mipi_exec_gpio() from dev_priv to i915
-  drm/i915/dsi: clarify GPIO exec sequence
-  drm/i915/dsi: rename platform specific *_exec_gpio() to
-    *_gpio_set_value()
-  drm/i915/dsi: bxt/icl GPIO set value do not need gpio source
-
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 355 +++++++------------
- drivers/gpu/drm/i915/vlv_sideband.c          |  17 -
- drivers/gpu/drm/i915/vlv_sideband.h          |   3 -
- 3 files changed, 136 insertions(+), 239 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+index 4af43cf3cee0..290a112f1b63 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
++++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
+@@ -702,13 +702,10 @@ static void intel_dsi_vbt_exec(struct intel_dsi *intel_dsi,
+ 	if (connector->panel.vbt.dsi.seq_version >= 3)
+ 		data += 4;
+ 
+-	while (1) {
++	while (*data != MIPI_SEQ_ELEM_END) {
+ 		u8 operation_byte = *data++;
+ 		u8 operation_size = 0;
+ 
+-		if (operation_byte == MIPI_SEQ_ELEM_END)
+-			break;
+-
+ 		if (operation_byte < ARRAY_SIZE(exec_elem))
+ 			mipi_elem_exec = exec_elem[operation_byte];
+ 		else
 -- 
 2.40.0.1.gaa8946217a0b
 
