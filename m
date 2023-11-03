@@ -4,45 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F61CC4167B
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 13:27:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9AD3C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 14:20:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A86C810E319;
-	Mon,  6 Nov 2023 13:27:37 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [IPv6:2604:1380:4601:e00::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7556610E319;
- Mon,  6 Nov 2023 13:27:35 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id E3D7AB80F63;
- Mon,  6 Nov 2023 13:27:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5A15C433C7;
- Mon,  6 Nov 2023 13:27:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1699277253;
- bh=Vu0muShwvRqsL9wegAEVP9IkcMiLR8CQSs1+kTxcN+8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=qfV5+5U4Hh2ssX+TWR27iwjuE/QZJ4Us4gyBB7P9vLLarquCMpYRWglUwbS3anF9j
- kav90yc4qloC2+jbLCkirbaXrWfvZRrDuYq2DEYMdaRdqP7H1x83gv8VfqZfOYGYQ3
- hN7jHdt7M8B/X2vo+xykObTazi9yoxwYzNn7ihlu4d10vyUSLpOy8T6HMn+vPUGJ97
- kK42Q/4n0GFy9lnyAuEtO4wp4RCSWGXGuyX+wRPfGEeo9FpV433cRO45As+WDbeaMX
- iGvqz2iF0AwE6eZ7WqPXMVY8sp8+NvskFSGAGgT46vnKr+TbsYP3NZZkS22TIYX47h
- X2MMMLrFhwSwQ==
-Date: Mon, 6 Nov 2023 14:27:30 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: "Manna, Animesh" <animesh.manna@intel.com>
-Message-ID: <elcebygxs432bcj7oez7ndlfvb3lru7m7yznyqp2ei4ocjkvxp@23lf2rh45fmt>
-References: <20231011110936.1851563-1-animesh.manna@intel.com>
- <20231011110936.1851563-2-animesh.manna@intel.com>
- <87jzqz194w.fsf@intel.com>
- <BL1PR11MB5979BF8B55E730D76DD29345F9AAA@BL1PR11MB5979.namprd11.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4338C10E038;
+	Mon,  6 Nov 2023 14:20:51 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45BB910E36B;
+ Fri,  3 Nov 2023 02:33:16 +0000 (UTC)
+X-UUID: a1b81360ae14479ebb8ae7d3bb98ee0b-20231103
+X-CID-O-RULE: Release_Ham
+X-CID-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.32, REQID:6ab78e64-c05c-4841-bd7d-646fd518aa52, IP:10,
+ URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACT
+ ION:release,TS:-10
+X-CID-INFO: VERSION:1.1.32, REQID:6ab78e64-c05c-4841-bd7d-646fd518aa52, IP:10,
+ UR
+ L:0,TC:0,Content:-5,EDM:0,RT:0,SF:-15,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:-10
+X-CID-META: VersionHash:5f78ec9, CLOUDID:38acf594-10ce-4e4b-85c2-c9b5229ff92b,
+ B
+ ulkID:231103103311LO8N2NZS,BulkQuantity:0,Recheck:0,SF:66|24|17|19|44|102,
+ TC:nil,Content:0,EDM:-3,IP:-2,URL:1,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+ ,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR, TF_CID_SPAM_FAS, TF_CID_SPAM_FSD,
+ TF_CID_SPAM_FSI, TF_CID_SPAM_ULS
+X-UUID: a1b81360ae14479ebb8ae7d3bb98ee0b-20231103
+X-User: chentao@kylinos.cn
+Received: from vt.. [(116.128.244.171)] by mailgw
+ (envelope-from <chentao@kylinos.cn>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 885977007; Fri, 03 Nov 2023 10:33:08 +0800
+From: Kunwu Chan <chentao@kylinos.cn>
+To: tvrtko.ursulin@linux.intel.com
+Date: Fri,  3 Nov 2023 10:32:57 +0800
+Message-Id: <20231103023257.58199-1-chentao@kylinos.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <d300506c-ab82-4cc1-b750-61e54ec2ad9e@linux.intel.com>
+References: <d300506c-ab82-4cc1-b750-61e54ec2ad9e@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="mowf5xwkcgpkc23e"
-Content-Disposition: inline
-In-Reply-To: <BL1PR11MB5979BF8B55E730D76DD29345F9AAA@BL1PR11MB5979.namprd11.prod.outlook.com>
-Subject: Re: [Intel-gfx] [PATCH v7 1/6] drm/panelreplay: dpcd register
- definition for panelreplay
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 06 Nov 2023 14:20:49 +0000
+Subject: [Intel-gfx] [PATCH v2] drm/i915: Fix potential spectre vulnerability
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,65 +60,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Nikula, Jani" <jani.nikula@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Thomas Zimmermann <tzimmermann@suse.de>
+Cc: robdclark@chromium.org, chentao@kylinos.cn, kunwu.chan@hotmail.com,
+ jonathan.cavitt@intel.com, intel-gfx@lists.freedesktop.org,
+ alan.previn.teres.alexis@intel.com, linux-kernel@vger.kernel.org,
+ chris.p.wilson@intel.com, dri-devel@lists.freedesktop.org,
+ andrzej.hajda@intel.com, rodrigo.vivi@intel.com, daniel@ffwll.ch,
+ stable@vger.kernel.org, airlied@gmail.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Fix smatch warning:
+drivers/gpu/drm/i915/gem/i915_gem_context.c:847 set_proto_ctx_sseu()
+warn: potential spectre issue 'pc->user_engines' [r] (local cap)
 
---mowf5xwkcgpkc23e
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Fixes: d4433c7600f7 ("drm/i915/gem: Use the proto-context to handle create parameters (v5)")
+Cc: <stable@vger.kernel.org> # v5.15+
+Signed-off-by: Kunwu Chan <chentao@kylinos.cn>
+Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Link: https://lore.kernel.org/all/20231102101642.52988-1-chentao@kylinos.cn
+---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-On Mon, Nov 06, 2023 at 01:01:19PM +0000, Manna, Animesh wrote:
->=20
->=20
-> > -----Original Message-----
-> > From: Nikula, Jani <jani.nikula@intel.com>
-> > Sent: Friday, November 3, 2023 2:55 PM
-> > To: Manna, Animesh <animesh.manna@intel.com>; intel-
-> > gfx@lists.freedesktop.org; Maxime Ripard <mripard@kernel.org>; Thomas
-> > Zimmermann <tzimmermann@suse.de>; Maarten Lankhorst
-> > <maarten.lankhorst@linux.intel.com>
-> > Cc: dri-devel@lists.freedesktop.org; Manna, Animesh
-> > <animesh.manna@intel.com>; Hogander, Jouni
-> > <jouni.hogander@intel.com>; Murthy, Arun R <arun.r.murthy@intel.com>
-> > Subject: Re: [PATCH v7 1/6] drm/panelreplay: dpcd register definition f=
-or
-> > panelreplay
-> >=20
-> > On Wed, 11 Oct 2023, Animesh Manna <animesh.manna@intel.com> wrote:
-> > > Add DPCD register definition for discovering, enabling and checking
-> > > status of panel replay of the sink.
-> > >
-> > > Cc: Jouni H=F6gander <jouni.hogander@intel.com>
-> > > Cc: Arun R Murthy <arun.r.murthy@intel.com>
-> > > Cc: Jani Nikula <jani.nikula@intel.com>
-> > > Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
-> > > Signed-off-by: Animesh Manna <animesh.manna@intel.com>
-> >=20
-> > Maarten, Maxime, Thomas -
-> >=20
-> > Ack for merging this via drm-intel-next?
->=20
-> Ping!
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 9a9ff84c90d7..e38f06a6e56e 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -844,6 +844,7 @@ static int set_proto_ctx_sseu(struct drm_i915_file_private *fpriv,
+ 		if (idx >= pc->num_user_engines)
+ 			return -EINVAL;
+ 
++		idx = array_index_nospec(idx, pc->num_user_engines);
+ 		pe = &pc->user_engines[idx];
+ 
+ 		/* Only render engine supports RPCS configuration. */
+-- 
+2.34.1
 
-Ack
-
-Maxime
-
---mowf5xwkcgpkc23e
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCZUjpwgAKCRDj7w1vZxhR
-xTFwAQD3Pk8HTgJrz0YAsbzsQD8R1JJymcwV9KvzYnYGcV963AEAnA69tsX2Z0N9
-cmT12vHmLGqDCqVuN3iITJGpIaV4vwQ=
-=EHzr
------END PGP SIGNATURE-----
-
---mowf5xwkcgpkc23e--
