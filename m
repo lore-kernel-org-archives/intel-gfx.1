@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DC0BC0018A
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Nov 2023 20:19:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BDEBC4332F
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Nov 2023 20:19:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 366B510EA9E;
-	Fri,  3 Nov 2023 20:18:45 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F389210EA8C;
- Fri,  3 Nov 2023 20:18:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA97810EA9C;
+	Fri,  3 Nov 2023 20:18:46 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A63610EA97;
+ Fri,  3 Nov 2023 20:18:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1699042721; x=1730578721;
+ t=1699042723; x=1730578723;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=zPRCzYNN16HwjO3RHBcn1H7M4PO+1uvgVko+eIKdfwQ=;
- b=OqptCPVIepR4G405OUb0ZU+CAqne/L7h3VQj4A4KE9UPrWKvJm1FYZpJ
- DcSghLnpE6k1OJTbzpxR++BBmacDTLvGAhIJ0cmzowoxuY0U3h5FoqR4J
- aulzXpFxAYDbGLagReBsyyb8KXhdmfnQuXQp6j4BgEOROuWKJxr2kUwoR
- BFl+gsEx4aZRLHuaAp5lRnjDQay94wP1YmuKMl4URjPcTo3QO4zli2tUZ
- 9yyeV9YTBixI8dJ5B48Fkc5gr+LrfjP2VWd/XXblpa81XX3m8E55lH+vz
- 1X2CVnMtK8VCRyipyRQdDxnEpnG7q9B3lUMjEzKZ7FdV5Cpr+Kvp+yX4t g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10883"; a="387904498"
-X-IronPort-AV: E=Sophos;i="6.03,275,1694761200"; d="scan'208";a="387904498"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2023 13:18:40 -0700
+ bh=Zmln3yyzcVM/LYPj/mpbDMzt1pG2aWEjj+ZbDI0Y7xM=;
+ b=P8EHmTeMCZ5vnDVTzFfR3S8jDEsxBopduXaHrOWax6UgbU0mviKfbR42
+ eR12kwVnI6DQ6oUJ5s73kblf3eenbqFoFA1BSITdF9gMcT27GTMQVO2tZ
+ P2sw/1noqs95H/RIMGNTZJC/Y06ciGEsC94HQzc8Q6SPlPlTIeS6whGg1
+ qCXeTflkW7Cdg0DY8cbk0cUsNOcaGhKbRdHPQ9Bwq0B0sF6LmKm/eZL0T
+ pLfau1h9103lxPGtotDHnPV6Po4xUB+6G3G5I6p1L6ONxhYNdIyRJxpNY
+ WD1HGgMEyIcJpYW5C4ryFt3IQtCgFwLDctfAmPQtvbgCL7VT/lDOnmbN+ Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10883"; a="1896068"
+X-IronPort-AV: E=Sophos;i="6.03,275,1694761200"; 
+   d="scan'208";a="1896068"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2023 13:18:42 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10883"; a="885303644"
-X-IronPort-AV: E=Sophos;i="6.03,275,1694761200"; d="scan'208";a="885303644"
+X-IronPort-AV: E=McAfee;i="6600,9927,10883"; a="832131147"
+X-IronPort-AV: E=Sophos;i="6.03,275,1694761200"; d="scan'208";a="832131147"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga004.jf.intel.com with ESMTP; 03 Nov 2023 13:18:34 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 03 Nov 2023 13:18:38 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 9BEB42A6; Fri,  3 Nov 2023 22:18:33 +0200 (EET)
+ id 194B0706; Fri,  3 Nov 2023 22:18:34 +0200 (EET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Jani Nikula <jani.nikula@intel.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Fri,  3 Nov 2023 22:18:16 +0200
-Message-Id: <20231103201831.1037416-2-andriy.shevchenko@linux.intel.com>
+Date: Fri,  3 Nov 2023 22:18:25 +0200
+Message-Id: <20231103201831.1037416-11-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
 In-Reply-To: <20231103201831.1037416-1-andriy.shevchenko@linux.intel.com>
 References: <20231103201831.1037416-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 01/16] drm/i915/dsi: assume BXT gpio works
- for non-native GPIO
+Subject: [Intel-gfx] [PATCH v4 10/16] drm/i915/dsi: Fix wrong initial value
+ for GPIOs in bxt_gpio_set_value()
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,46 +68,32 @@ Cc: Hans de Goede <hdegoede@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Jani Nikula <jani.nikula@intel.com>
+From: Hans de Goede <hdegoede@redhat.com>
 
-Purely a guess. Drop the nop function.
+Fix wrong initial value for GPIOs in bxt_gpio_set_value().
 
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Hans de Goede <hdegoede@redhat.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 10 +---------
- 1 file changed, 1 insertion(+), 9 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-index 24b2cbcfc1ef..b2c0cc11f8c1 100644
+index 8e6beef90e5e..0f9da0168a7b 100644
 --- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
 +++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-@@ -372,14 +372,6 @@ static void bxt_exec_gpio(struct intel_connector *connector,
- 	gpiod_set_value(gpio_desc, value);
- }
- 
--static void icl_exec_gpio(struct intel_connector *connector,
--			  u8 gpio_source, u8 gpio_index, bool value)
--{
--	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
+@@ -356,9 +356,7 @@ static void bxt_gpio_set_value(struct intel_connector *connector,
+ 	if (!gpio_desc) {
+ 		gpio_desc = devm_gpiod_get_index(dev_priv->drm.dev,
+ 						 NULL, gpio_index,
+-						 value ? GPIOD_OUT_LOW :
+-						 GPIOD_OUT_HIGH);
 -
--	drm_dbg_kms(&dev_priv->drm, "Skipping ICL GPIO element execution\n");
--}
--
- enum {
- 	MIPI_RESET_1 = 0,
- 	MIPI_AVDD_EN_1,
-@@ -491,7 +483,7 @@ static const u8 *mipi_exec_gpio(struct intel_dsi *intel_dsi, const u8 *data)
- 	if (native)
- 		icl_native_gpio_set_value(dev_priv, gpio_number, value);
- 	else if (DISPLAY_VER(dev_priv) >= 11)
--		icl_exec_gpio(connector, gpio_source, gpio_index, value);
-+		bxt_exec_gpio(connector, gpio_source, gpio_index, value);
- 	else if (IS_VALLEYVIEW(dev_priv))
- 		vlv_exec_gpio(connector, gpio_source, gpio_number, value);
- 	else if (IS_CHERRYVIEW(dev_priv))
++						 value ? GPIOD_OUT_HIGH : GPIOD_OUT_LOW);
+ 		if (IS_ERR_OR_NULL(gpio_desc)) {
+ 			drm_err(&dev_priv->drm,
+ 				"GPIO index %u request failed (%ld)\n",
 -- 
 2.40.0.1.gaa8946217a0b
 
