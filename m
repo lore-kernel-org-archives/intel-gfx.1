@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18AB4C0018A
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Nov 2023 20:19:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1867CC4167D
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Nov 2023 20:19:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15A6D10EABA;
-	Fri,  3 Nov 2023 20:18:53 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F288710EA9A;
- Fri,  3 Nov 2023 20:18:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DAB410EAAE;
+	Fri,  3 Nov 2023 20:18:54 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2BCD10EA9D;
+ Fri,  3 Nov 2023 20:18:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1699042725; x=1730578725;
+ t=1699042723; x=1730578723;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=9fjZkSqZ2/vke86mtzG4YvB7Q8n7TXNivYgzodiXkaY=;
- b=Lwuuba30LFQEtV2tQPepAAiZjTxqGJql6QftDHJlGf4IUvbaRA06J/CL
- ceJFmhtldPdiOI57+2eCA3DcMb0mKyyUCdL24IvUvtra5R+0hNr+L9gED
- RHM4jZslrfzOqAoHAKelHvAoh0xE2M1khl4uI0mFIWota/gXQvFG5If7/
- KmA0CYOKX0rb/Ljl87QAiz4xdR+gDv64NpIWyGn8F394d5KJ7x2xzW7q2
- OHW647iE9x7ppQeg9vdl89kLdpSkdhjShtd0IxpCOgEcxxhsJcixJ5/ab
- A9Hjli0kCMVkDK0W6LmH7tJ2rvt4ISH6O6nd54h8kPrLzPvvmw1OrCp1c g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10883"; a="387904532"
-X-IronPort-AV: E=Sophos;i="6.03,275,1694761200"; d="scan'208";a="387904532"
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2023 13:18:44 -0700
+ bh=hYPgn7IwxVJgv7DR1WyFHhOoe5hhOJM/MdnJ94wskeM=;
+ b=bZmkK4PYwtZ0utxuR3pnxJe96ucxXhnpZj4r09J4uOPa99cK0EKUgeKW
+ UOyV+jo7XkOrfZqxEoA1vzNQOWmBxpJRpJQbXq2InqHtxth3XcsPoEKOY
+ o7XjUPRFcpon/6xQfN6MxDBsAIFHNpwgqm8kAOtsJGGUU3VXMnCNoowHn
+ 81E7pksTBJFLmlRgeHwk3tVLrt3s7iIF8tiCTF6gcaS6ZGlmmsGRvzI4g
+ 7A04mqC1vER4nTX6oH0jdqLxBxIy2xCIF9mMHDaR1bP/98/ybAt0Hm766
+ RYMhC0ytQKUIiGLbyMUsBgGXRYbiR3FlkqTfeCMcNJ71+VKQykZYD7jdj A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10883"; a="1896087"
+X-IronPort-AV: E=Sophos;i="6.03,275,1694761200"; 
+   d="scan'208";a="1896087"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2023 13:18:43 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10883"; a="885303688"
-X-IronPort-AV: E=Sophos;i="6.03,275,1694761200"; d="scan'208";a="885303688"
+X-IronPort-AV: E=McAfee;i="6600,9927,10883"; a="832131162"
+X-IronPort-AV: E=Sophos;i="6.03,275,1694761200"; d="scan'208";a="832131162"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga004.jf.intel.com with ESMTP; 03 Nov 2023 13:18:41 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 03 Nov 2023 13:18:38 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 3F1BF76F; Fri,  3 Nov 2023 22:18:34 +0200 (EET)
+ id EA76E690; Fri,  3 Nov 2023 22:18:33 +0200 (EET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Jani Nikula <jani.nikula@intel.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Date: Fri,  3 Nov 2023 22:18:28 +0200
-Message-Id: <20231103201831.1037416-14-andriy.shevchenko@linux.intel.com>
+Date: Fri,  3 Nov 2023 22:18:22 +0200
+Message-Id: <20231103201831.1037416-8-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
 In-Reply-To: <20231103201831.1037416-1-andriy.shevchenko@linux.intel.com>
 References: <20231103201831.1037416-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4 13/16] drm/i915/dsi: Prepare
- soc_gpio_set_value() to distinguish GPIO communities
+Subject: [Intel-gfx] [PATCH v4 07/16] drm/i915/dsi: Get rid of redundant
+ 'else'
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,86 +68,108 @@ Cc: Hans de Goede <hdegoede@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently soc_gpio_set_value() supports only a single indexing for GPIO pin.
-For CHV case, for example, we will need to distinguish community based index
-from the one that VBT is using. Introduce an additional parameter to
-soc_gpio_set_value() and its callers.
+In the snippets like the following
 
+	if (...)
+		return / goto / break / continue ...;
+	else
+		...
+
+the 'else' is redundant. Get rid of it.
+
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Acked-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 58 ++++++++++----------
+ 1 file changed, 28 insertions(+), 30 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-index 552bc6564d79..b1736c1301ea 100644
+index 290a112f1b63..4ed5ede9ec5b 100644
 --- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
 +++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-@@ -206,8 +206,8 @@ static const u8 *mipi_exec_delay(struct intel_dsi *intel_dsi, const u8 *data)
- 	return data;
- }
- 
--static void soc_gpio_set_value(struct intel_connector *connector, const char *con_id,
--			       u8 gpio_index, bool value)
-+static void soc_gpio_set_value(struct intel_connector *connector, u8 gpio_index,
-+			       const char *con_id, u8 idx, bool value)
- {
- 	struct drm_i915_private *dev_priv = to_i915(connector->base.dev);
- 	/* XXX: this table is a quick ugly hack. */
-@@ -217,8 +217,7 @@ static void soc_gpio_set_value(struct intel_connector *connector, const char *co
- 	if (gpio_desc) {
- 		gpiod_set_value(gpio_desc, value);
- 	} else {
--		gpio_desc = devm_gpiod_get_index(dev_priv->drm.dev,
--						 con_id, gpio_index,
-+		gpio_desc = devm_gpiod_get_index(dev_priv->drm.dev, con_id, idx,
- 						 value ? GPIOD_OUT_HIGH : GPIOD_OUT_LOW);
- 		if (IS_ERR(gpio_desc)) {
- 			drm_err(&dev_priv->drm,
-@@ -232,8 +231,8 @@ static void soc_gpio_set_value(struct intel_connector *connector, const char *co
- }
- 
- static void soc_opaque_gpio_set_value(struct intel_connector *connector,
--				      const char *chip, const char *con_id,
--				      u8 gpio_index, bool value)
-+				      u8 gpio_index, const char *chip,
-+				      const char *con_id, u8 idx, bool value)
- {
- 	struct gpiod_lookup_table *lookup;
- 
-@@ -243,11 +242,11 @@ static void soc_opaque_gpio_set_value(struct intel_connector *connector,
- 
- 	lookup->dev_id = "0000:00:02.0";
- 	lookup->table[0] =
--		GPIO_LOOKUP_IDX(chip, gpio_index, con_id, gpio_index, GPIO_ACTIVE_HIGH);
-+		GPIO_LOOKUP_IDX(chip, idx, con_id, idx, GPIO_ACTIVE_HIGH);
- 
- 	gpiod_add_lookup_table(lookup);
- 
--	soc_gpio_set_value(connector, con_id, gpio_index, value);
-+	soc_gpio_set_value(connector, gpio_index, con_id, idx, value);
- 
- 	gpiod_remove_lookup_table(lookup);
- 	kfree(lookup);
-@@ -271,7 +270,8 @@ static void vlv_gpio_set_value(struct intel_connector *connector,
- 		}
+@@ -142,7 +142,7 @@ static enum port intel_dsi_seq_port_to_port(struct intel_dsi *intel_dsi,
+ 	if (seq_port) {
+ 		if (intel_dsi->ports & BIT(PORT_B))
+ 			return PORT_B;
+-		else if (intel_dsi->ports & BIT(PORT_C))
++		if (intel_dsi->ports & BIT(PORT_C))
+ 			return PORT_C;
  	}
  
--	soc_opaque_gpio_set_value(connector, "INT33FC:01", "Panel N", gpio_index, value);
-+	soc_opaque_gpio_set_value(connector, gpio_index,
-+				  "INT33FC:01", "Panel N", gpio_index, value);
- }
- 
- static void chv_gpio_set_value(struct intel_connector *connector,
-@@ -331,7 +331,7 @@ static void chv_gpio_set_value(struct intel_connector *connector,
- static void bxt_gpio_set_value(struct intel_connector *connector,
- 			       u8 gpio_index, bool value)
+@@ -670,8 +670,8 @@ static const char *sequence_name(enum mipi_seq seq_id)
  {
--	soc_gpio_set_value(connector, NULL, gpio_index, value);
-+	soc_gpio_set_value(connector, gpio_index, NULL, gpio_index, value);
+ 	if (seq_id < ARRAY_SIZE(seq_name) && seq_name[seq_id])
+ 		return seq_name[seq_id];
+-	else
+-		return "(unknown)";
++
++	return "(unknown)";
  }
  
- enum {
+ static void intel_dsi_vbt_exec(struct intel_dsi *intel_dsi,
+@@ -865,36 +865,34 @@ bool intel_dsi_vbt_init(struct intel_dsi *intel_dsi, u16 panel_id)
+ 	 * multiply by 100 to preserve remainder
+ 	 */
+ 	if (intel_dsi->video_mode == BURST_MODE) {
+-		if (mipi_config->target_burst_mode_freq) {
+-			u32 bitrate = intel_dsi_bitrate(intel_dsi);
++		u32 bitrate;
+ 
+-			/*
+-			 * Sometimes the VBT contains a slightly lower clock,
+-			 * then the bitrate we have calculated, in this case
+-			 * just replace it with the calculated bitrate.
+-			 */
+-			if (mipi_config->target_burst_mode_freq < bitrate &&
+-			    intel_fuzzy_clock_check(
+-					mipi_config->target_burst_mode_freq,
+-					bitrate))
+-				mipi_config->target_burst_mode_freq = bitrate;
+-
+-			if (mipi_config->target_burst_mode_freq < bitrate) {
+-				drm_err(&dev_priv->drm,
+-					"Burst mode freq is less than computed\n");
+-				return false;
+-			}
+-
+-			burst_mode_ratio = DIV_ROUND_UP(
+-				mipi_config->target_burst_mode_freq * 100,
+-				bitrate);
+-
+-			intel_dsi->pclk = DIV_ROUND_UP(intel_dsi->pclk * burst_mode_ratio, 100);
+-		} else {
+-			drm_err(&dev_priv->drm,
+-				"Burst mode target is not set\n");
++		if (mipi_config->target_burst_mode_freq == 0) {
++			drm_err(&dev_priv->drm, "Burst mode target is not set\n");
+ 			return false;
+ 		}
++
++		bitrate = intel_dsi_bitrate(intel_dsi);
++
++		/*
++		 * Sometimes the VBT contains a slightly lower clock, then
++		 * the bitrate we have calculated, in this case just replace it
++		 * with the calculated bitrate.
++		 */
++		if (mipi_config->target_burst_mode_freq < bitrate &&
++		    intel_fuzzy_clock_check(mipi_config->target_burst_mode_freq,
++					    bitrate))
++			mipi_config->target_burst_mode_freq = bitrate;
++
++		if (mipi_config->target_burst_mode_freq < bitrate) {
++			drm_err(&dev_priv->drm, "Burst mode freq is less than computed\n");
++			return false;
++		}
++
++		burst_mode_ratio =
++			DIV_ROUND_UP(mipi_config->target_burst_mode_freq * 100, bitrate);
++
++		intel_dsi->pclk = DIV_ROUND_UP(intel_dsi->pclk * burst_mode_ratio, 100);
+ 	} else
+ 		burst_mode_ratio = 100;
+ 
 -- 
 2.40.0.1.gaa8946217a0b
 
