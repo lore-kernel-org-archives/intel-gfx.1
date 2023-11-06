@@ -4,45 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A5C7C4332F
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 11:48:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73174C4332F
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 12:30:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 778E410E0C2;
-	Mon,  6 Nov 2023 11:48:44 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C425E10E0C2
- for <intel-gfx@lists.freedesktop.org>; Mon,  6 Nov 2023 11:48:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C85D010E061;
+	Mon,  6 Nov 2023 12:30:21 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAA2210E061
+ for <intel-gfx@lists.freedesktop.org>; Mon,  6 Nov 2023 12:30:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1699271322; x=1730807322;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=9LJ1avj1ti729HSy4frzHQaqmygafyMRktyLcxhPzSk=;
- b=fwLxkYlXLia/oKBDKTOmNd+KZDV5FU0sYIZaT4urqEyALGADLXGIviZd
- qb5IL5GvkhCs3QdxoeEO9GBq7zz/2HImNKkHK/WRPocTqknsx2Et79u7O
- 905IHABRAISMqgxoJ+VFTRNm+u39QnenUxi24b+CLHWHsGOiw4+N40GjH
- 9qLy0vVugzTPokUais51ase8TZ2ER5ys3lfLbfdzt6+KspnSQhMMX4YBM
- 361lsQp2E08mrpqwApD+UaLKWgfoC5PMHI6mxqr1LZ5tAXRcvJ2466Krv
- 8uuDjYz1T2Hh1T0N5/ObQ2KvIJnpBgqimoQykqgbQx/xt9HSx1jXZi8MW A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="388138056"
-X-IronPort-AV: E=Sophos;i="6.03,281,1694761200"; d="scan'208";a="388138056"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Nov 2023 03:48:42 -0800
+ t=1699273818; x=1730809818;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Ziy2PtZr/ZQqrMIU6MMItLgOUB3LIP14jchmBqC6iDE=;
+ b=CznTLAYp6Hs37ZMgeTkC+wx5fdIteTUQSCtsALIwTagedThj2a8U0V1Z
+ ZjTd63d8EAlv1Jeq71AF62PoRkcR87c8m5qW14nFQ8dYpfB3Rfp8c5G7U
+ l4SPX/P8opuYTwOFIPm197jXLgHiDuD6B4+BXfDXqAr+9OG+eKXuq5t2J
+ /QMwpGrQSxkzE646LB9/wVwOITOkJI+qMSDsIgfgQpfXlxU2HfiljMdXP
+ oPkEzmxJrHjE6MgcyO84igrRUa8fY9X+cWNdYhNgnwJEFluG9lBcymheR
+ XUilhxAxiL3YgSmRtXcvf7cF/eI9sdWzl6Oow2t8S9VIrRVnrmWAyuK7J Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="455747784"
+X-IronPort-AV: E=Sophos;i="6.03,281,1694761200"; d="scan'208";a="455747784"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Nov 2023 04:30:18 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="1093765142"
-X-IronPort-AV: E=Sophos;i="6.03,281,1694761200"; d="scan'208";a="1093765142"
-Received: from sorvi2.fi.intel.com ([10.237.72.194])
- by fmsmga005.fm.intel.com with ESMTP; 06 Nov 2023 03:48:40 -0800
-From: Mika Kahola <mika.kahola@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon,  6 Nov 2023 13:42:28 +0200
-Message-Id: <20231106114228.146574-1-mika.kahola@intel.com>
-X-Mailer: git-send-email 2.34.1
+X-IronPort-AV: E=McAfee;i="6600,9927,10885"; a="797292785"
+X-IronPort-AV: E=Sophos;i="6.03,281,1694761200"; d="scan'208";a="797292785"
+Received: from ajayshan-mobl.ger.corp.intel.com (HELO [10.213.234.152])
+ ([10.213.234.152])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Nov 2023 04:30:16 -0800
+Message-ID: <b1f7c0aa-1a3f-4c91-bd6f-77033676244b@linux.intel.com>
+Date: Mon, 6 Nov 2023 12:30:14 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Matt Roper <matthew.d.roper@intel.com>
+References: <20231103052959.3537-1-gareth.yu@intel.com>
+ <35c88e1e-0f2a-411e-b224-a9526723b2dd@linux.intel.com>
+ <20231103172412.GQ1327160@mdroper-desk1.amr.corp.intel.com>
+From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+Organization: Intel Corporation UK Plc
+In-Reply-To: <20231103172412.GQ1327160@mdroper-desk1.amr.corp.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v4] drm/i915/display: Support PSR entry VSC
- packet to be transmitted one frame earlier
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/mtl: Print SSEU information of all
+ GTs for debugfs
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,218 +64,146 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: intel-gfx@lists.freedesktop.org, Andi Shyti <andi.shyti@intel.com>,
+ Gareth Yu <gareth.yu@intel.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Display driver shall read DPCD 00071h[3:1] during configuration
-to get PSR setup time. This register provides the setup time
-requirement on the VSC SDP entry packet. If setup time cannot be
-met with the current timings
-(e.g., PSR setup time + other blanking requirements > blanking time),
-driver should enable sending VSC SDP one frame earlier before sending
-the capture frame.
 
-BSpec: 69895 (PSR Entry Setup Frames 17:16)
+On 03/11/2023 17:24, Matt Roper wrote:
+> On Fri, Nov 03, 2023 at 11:17:18AM +0000, Tvrtko Ursulin wrote:
+>>
+>> On 03/11/2023 05:29, Gareth Yu wrote:
+>>> Print another SSEU information addition to the first one.
+>>>
+>>> Cc : Tejas Upadhyay <tejaskumarx.surendrakumar.upadhyay@intel.com>
+>>> Cc : Matt Roper <matthew.d.roper@intel.com>
+>>> Cc : Ville Syrjälä <ville.syrjala@linux.intel.com>
+>>> Signed-off-by: Gareth Yu <gareth.yu@intel.com>
+>>> ---
+>>>    drivers/gpu/drm/i915/i915_debugfs.c   | 13 ++++++++++---
+>>>    drivers/gpu/drm/i915/i915_gpu_error.c |  6 +++++-
+>>>    2 files changed, 15 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
+>>> index e9b79c2c37d8..b5914a2c0597 100644
+>>> --- a/drivers/gpu/drm/i915/i915_debugfs.c
+>>> +++ b/drivers/gpu/drm/i915/i915_debugfs.c
+>>> @@ -63,13 +63,16 @@ static int i915_capabilities(struct seq_file *m, void *data)
+>>>    {
+>>>    	struct drm_i915_private *i915 = node_to_i915(m->private);
+>>>    	struct drm_printer p = drm_seq_file_printer(m);
+>>> +	struct intel_gt *gt;
+>>> +	unsigned int i;
+>>>    	seq_printf(m, "pch: %d\n", INTEL_PCH_TYPE(i915));
+>>>    	intel_device_info_print(INTEL_INFO(i915), RUNTIME_INFO(i915), &p);
+>>>    	intel_display_device_info_print(DISPLAY_INFO(i915), DISPLAY_RUNTIME_INFO(i915), &p);
+>>>    	i915_print_iommu_status(i915, &p);
+>>> -	intel_gt_info_print(&to_gt(i915)->info, &p);
+>>> +	for_each_gt(gt, i915, i)
+>>> +		intel_gt_info_print(&gt->info, &p);
+>>>    	intel_driver_caps_print(&i915->caps, &p);
+>>>    	kernel_param_lock(THIS_MODULE);
+>>> @@ -783,9 +786,13 @@ DEFINE_SIMPLE_ATTRIBUTE(i915_drop_caches_fops,
+>>>    static int i915_sseu_status(struct seq_file *m, void *unused)
+>>>    {
+>>>    	struct drm_i915_private *i915 = node_to_i915(m->private);
+>>> -	struct intel_gt *gt = to_gt(i915);
+>>> +	struct intel_gt *gt;
+>>> +	unsigned int i;
+>>> +
+>>> +	for_each_gt(gt, i915, i)
+>>> +		intel_sseu_status(m, gt);
+>>
+>> Don't we have the per GT debugfs directories and files already!?
+> 
+> Yeah, we shouldn't be updating this.  Commit a00eda7d8996 ("drm/i915:
+> Move sseu debugfs under gt/") notes:
+> 
+>          "The sseu_status debugfs has also been kept at the top level as
+>          we do have tests that use it; it will be removed once we teach
+>          the tests to look into the new path."
+> 
+> If there are still IGT tests that haven't been updated, dumping both GTs
+> here will probably break them since they aren't expecting it.  If they
+> have all been updated, then we should just move forward with deleting
+> this device-level SSEU instead.
 
-v2: Write frames before su entry to correct register (Ville, Jouni)
-    Move frames before su entry calculation to it's
-    own function (Ville, Jouni)
-    Rename PSR Entry Setup Frames register to indicate
-    Lunarlake specificity (Jouni)
-v3: Modify setup entry frames calculation function to
-    return the actual frames (Ville)
-    Match comment with actual implementation (Jouni)
-v4: Drop "set" from function naming (Jouni, Ville)
-    Use i915 instead of dev_priv (Jouni)
+Thanks for confirming the debugfs parts should be dropped.
 
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
----
- .../drm/i915/display/intel_display_types.h    |  1 +
- drivers/gpu/drm/i915/display/intel_psr.c      | 82 +++++++++++++++----
- drivers/gpu/drm/i915/display/intel_psr_regs.h |  2 +
- 3 files changed, 71 insertions(+), 14 deletions(-)
+> 
+>>
+>>> -	return intel_sseu_status(m, gt);
+>>> +	return 0;
+>>>    }
+>>>    static int i915_forcewake_open(struct inode *inode, struct file *file)
+>>> diff --git a/drivers/gpu/drm/i915/i915_gpu_error.c b/drivers/gpu/drm/i915/i915_gpu_error.c
+>>> index b4e31e59c799..2adc317af944 100644
+>>> --- a/drivers/gpu/drm/i915/i915_gpu_error.c
+>>> +++ b/drivers/gpu/drm/i915/i915_gpu_error.c
+>>> @@ -722,9 +722,13 @@ static void err_print_gt_info(struct drm_i915_error_state_buf *m,
+>>>    			      struct intel_gt_coredump *gt)
+>>>    {
+>>>    	struct drm_printer p = i915_error_printer(m);
+>>> +	struct drm_i915_private *i915 = gt->_gt->i915;
+>>> +	struct intel_gt *gt_n;
+>>> +	unsigned int n;
+>>>    	intel_gt_info_print(&gt->info, &p);
+>>> -	intel_sseu_print_topology(gt->_gt->i915, &gt->info.sseu, &p);
+>>> +	for_each_gt(gt_n, i915, n)
+>>> +		intel_sseu_print_topology(gt_n->i915, &gt_n->info.sseu, &p);
+>>
+>> Do we need a consistent story across all error capture? Aka why is sseu
+>> special.
+>>
+>> Also the intel_gt_info_print() above calls intel_sseu_dump so we end up with
+>> root tile SSEU printed twice?
+> 
+> I'm guessing this call was supposed to be deleted by 0b6613c6b91e
+> ("drm/i915/sseu: Move sseu_info under gt_info").  We should probably go
+> ahead and do that now do remove the redundancy.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 047fe3f8905a..92f06d67fd1e 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1708,6 +1708,7 @@ struct intel_psr {
- 	u32 dc3co_exitline;
- 	u32 dc3co_exit_delay;
- 	struct delayed_work dc3co_work;
-+	u8 entry_setup_frames;
- };
- 
- struct intel_dp {
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 920f77336163..fc242916349b 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -593,6 +593,9 @@ static void intel_psr_enable_sink(struct intel_dp *intel_dp)
- 	if (intel_dp->psr.req_psr2_sdp_prior_scanline)
- 		dpcd_val |= DP_PSR_SU_REGION_SCANLINE_CAPTURE;
- 
-+	if (intel_dp->psr.entry_setup_frames > 0)
-+		dpcd_val |= DP_PSR_FRAME_CAPTURE;
-+
- 	drm_dp_dpcd_writeb(&intel_dp->aux, DP_PSR_EN_CFG, dpcd_val);
- 
- 	drm_dp_dpcd_writeb(&intel_dp->aux, DP_SET_POWER, DP_SET_POWER_D0);
-@@ -691,6 +694,9 @@ static void hsw_activate_psr1(struct intel_dp *intel_dp)
- 	if (DISPLAY_VER(dev_priv) >= 8)
- 		val |= EDP_PSR_CRC_ENABLE;
- 
-+	if (DISPLAY_VER(dev_priv) >= 20)
-+		val |= LNL_EDP_PSR_ENTRY_SETUP_FRAMES(intel_dp->psr.entry_setup_frames);
-+
- 	intel_de_rmw(dev_priv, psr_ctl_reg(dev_priv, cpu_transcoder),
- 		     ~EDP_PSR_RESTORE_PSR_ACTIVE_CTX_MASK, val);
- }
-@@ -728,11 +734,27 @@ static int psr2_block_count(struct intel_dp *intel_dp)
- 	return psr2_block_count_lines(intel_dp) / 4;
- }
- 
-+static u8 frames_before_su_entry(struct intel_dp *intel_dp)
-+{
-+	u8 frames_before_su_entry;
-+
-+	frames_before_su_entry = max_t(u8,
-+				       intel_dp->psr.sink_sync_latency + 1,
-+				       2);
-+
-+	/* Entry setup frames must be at least 1 less than frames before SU entry */
-+	if (intel_dp->psr.entry_setup_frames >= frames_before_su_entry)
-+		frames_before_su_entry = intel_dp->psr.entry_setup_frames + 1;
-+
-+	return frames_before_su_entry;
-+}
-+
- static void hsw_activate_psr2(struct intel_dp *intel_dp)
- {
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 	enum transcoder cpu_transcoder = intel_dp->psr.transcoder;
- 	u32 val = EDP_PSR2_ENABLE;
-+	u32 psr_val = 0;
- 
- 	val |= EDP_PSR2_IDLE_FRAMES(psr_compute_idle_frames(intel_dp));
- 
-@@ -742,7 +764,8 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
- 	if (DISPLAY_VER(dev_priv) >= 10 && DISPLAY_VER(dev_priv) <= 12)
- 		val |= EDP_Y_COORDINATE_ENABLE;
- 
--	val |= EDP_PSR2_FRAME_BEFORE_SU(max_t(u8, intel_dp->psr.sink_sync_latency + 1, 2));
-+	val |= EDP_PSR2_FRAME_BEFORE_SU(frames_before_su_entry(intel_dp));
-+
- 	val |= intel_psr2_get_tp_time(intel_dp);
- 
- 	if (DISPLAY_VER(dev_priv) >= 12) {
-@@ -786,6 +809,9 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
- 	if (intel_dp->psr.req_psr2_sdp_prior_scanline)
- 		val |= EDP_PSR2_SU_SDP_SCANLINE;
- 
-+	if (DISPLAY_VER(dev_priv) >= 20)
-+		psr_val |= LNL_EDP_PSR_ENTRY_SETUP_FRAMES(intel_dp->psr.entry_setup_frames);
-+
- 	if (intel_dp->psr.psr2_sel_fetch_enabled) {
- 		u32 tmp;
- 
-@@ -799,7 +825,7 @@ static void hsw_activate_psr2(struct intel_dp *intel_dp)
- 	 * PSR2 HW is incorrectly using EDP_PSR_TP1_TP3_SEL and BSpec is
- 	 * recommending keep this bit unset while PSR2 is enabled.
- 	 */
--	intel_de_write(dev_priv, psr_ctl_reg(dev_priv, cpu_transcoder), 0);
-+	intel_de_write(dev_priv, psr_ctl_reg(dev_priv, cpu_transcoder), psr_val);
- 
- 	intel_de_write(dev_priv, EDP_PSR2_CTL(cpu_transcoder), val);
- }
-@@ -1067,6 +1093,40 @@ static bool _compute_psr2_wake_times(struct intel_dp *intel_dp,
- 	return true;
- }
- 
-+static u8 intel_psr_entry_setup_frames(struct intel_dp *intel_dp,
-+					   const struct drm_display_mode *adjusted_mode)
-+{
-+	struct drm_i915_private *i915 = dp_to_i915(intel_dp);
-+	int psr_setup_time = drm_dp_psr_setup_time(intel_dp->psr_dpcd);
-+	u8 entry_setup_frames = 0;
-+
-+	if (psr_setup_time < 0) {
-+		drm_dbg_kms(&i915->drm,
-+			    "PSR condition failed: Invalid PSR setup time (0x%02x)\n",
-+			    intel_dp->psr_dpcd[1]);
-+		return -ETIME;
-+	}
-+
-+
-+	if (intel_usecs_to_scanlines(adjusted_mode, psr_setup_time) >
-+	    adjusted_mode->crtc_vtotal - adjusted_mode->crtc_vdisplay - 1) {
-+		if (DISPLAY_VER(i915) >= 20) {
-+			/* setup entry frames can be up to 3 frames */
-+			entry_setup_frames = 1;
-+			drm_dbg_kms(&i915->drm,
-+				    "PSR setup entry frames %d\n",
-+				    entry_setup_frames);
-+		} else {
-+			drm_dbg_kms(&i915->drm,
-+				    "PSR condition failed: PSR setup time (%d us) too long\n",
-+				    psr_setup_time);
-+			return -ETIME;
-+		}
-+	}
-+
-+	return entry_setup_frames;
-+}
-+
- static bool intel_psr2_config_valid(struct intel_dp *intel_dp,
- 				    struct intel_crtc_state *crtc_state)
- {
-@@ -1214,7 +1274,7 @@ void intel_psr_compute_config(struct intel_dp *intel_dp,
- 	struct drm_i915_private *dev_priv = dp_to_i915(intel_dp);
- 	const struct drm_display_mode *adjusted_mode =
- 		&crtc_state->hw.adjusted_mode;
--	int psr_setup_time;
-+	u8 entry_setup_frames;
- 
- 	/*
- 	 * Current PSR panels don't work reliably with VRR enabled
-@@ -1243,19 +1303,13 @@ void intel_psr_compute_config(struct intel_dp *intel_dp,
- 		return;
- 	}
- 
--	psr_setup_time = drm_dp_psr_setup_time(intel_dp->psr_dpcd);
--	if (psr_setup_time < 0) {
--		drm_dbg_kms(&dev_priv->drm,
--			    "PSR condition failed: Invalid PSR setup time (0x%02x)\n",
--			    intel_dp->psr_dpcd[1]);
--		return;
--	}
-+	entry_setup_frames = intel_psr_entry_setup_frames(intel_dp, adjusted_mode);
- 
--	if (intel_usecs_to_scanlines(adjusted_mode, psr_setup_time) >
--	    adjusted_mode->crtc_vtotal - adjusted_mode->crtc_vdisplay - 1) {
-+	if (entry_setup_frames >= 0) {
-+		intel_dp->psr.entry_setup_frames = entry_setup_frames;
-+	} else {
- 		drm_dbg_kms(&dev_priv->drm,
--			    "PSR condition failed: PSR setup time (%d us) too long\n",
--			    psr_setup_time);
-+			    "PSR condition failed: PSR setup timing not met\n");
- 		return;
- 	}
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr_regs.h b/drivers/gpu/drm/i915/display/intel_psr_regs.h
-index d39951383c92..efe4306b37e0 100644
---- a/drivers/gpu/drm/i915/display/intel_psr_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_psr_regs.h
-@@ -35,6 +35,8 @@
- #define   EDP_PSR_MIN_LINK_ENTRY_TIME_0_LINES	REG_FIELD_PREP(EDP_PSR_MIN_LINK_ENTRY_TIME_MASK, 3)
- #define   EDP_PSR_MAX_SLEEP_TIME_MASK		REG_GENMASK(24, 20)
- #define   EDP_PSR_MAX_SLEEP_TIME(x)		REG_FIELD_PREP(EDP_PSR_MAX_SLEEP_TIME_MASK, (x))
-+#define   LNL_EDP_PSR_ENTRY_SETUP_FRAMES_MASK	REG_GENMASK(17, 16)
-+#define   LNL_EDP_PSR_ENTRY_SETUP_FRAMES(x)	REG_FIELD_PREP(LNL_EDP_PSR_ENTRY_SETUP_FRAMES_MASK, (x))
- #define   EDP_PSR_SKIP_AUX_EXIT			REG_BIT(12)
- #define   EDP_PSR_TP_MASK			REG_BIT(11)
- #define   EDP_PSR_TP_TP1_TP2			REG_FIELD_PREP(EDP_PSR_TP_MASK, 0)
--- 
-2.34.1
+Okay, just need a volunteer! :)
 
+> err_print_gt_info() should be printing the GT information (including
+> SSEU) for whichever GT had the error.  I don't see a reason why we'd
+> want to dump extra SSEU information for a different GT that wasn't
+> involved in the error.
+> 
+> Actually, SSEU is the _least_ useful thing to print for extra GTs
+> because once xehpsdv/pvc are gone from i915, the only platforms that
+> have multiple GTs are MTL/ARL and the SSEU information will always be
+> empty on the media GT (there's no DSS or EUs there).
+
+Yes all good points. Perhaps Yu can shed more light on why the need to 
+dump on GTs came about?
+
+Then, on a second look, the correct GT info is already captured. What is 
+missing is teaching, probably intel_gt_info_print, to skip dumping the 
+SSEU info on media tiles. That coupled with removing one of the 
+redundant calls should complete the picture. Although I don't know which 
+one between intel_sseu_print_topology and intel_sseu_dump to keep. Or 
+the data from intel_sseu_print_topology is a genuine value add on top of 
+intel_sseu_dump?
+
+Regards,
+
+Tvrtko
+
+> 
+> 
+> Matt
+> 
+>>
+>> There possibly was a Jira years ago to do stuff about multi-tile error
+>> capture but maybe it got lost.
+>>
+>> Adding Andi if he has comments.
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
+>>>    }
+>>>    static void err_print_gt_display(struct drm_i915_error_state_buf *m,
+> 
