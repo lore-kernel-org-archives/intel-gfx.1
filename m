@@ -4,56 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BF2FC4167B
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 14:20:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD249C4167B
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Nov 2023 16:37:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FA0710E32C;
-	Mon,  6 Nov 2023 14:20:55 +0000 (UTC)
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4931E10EA33;
- Fri,  3 Nov 2023 16:37:56 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-53e70b0a218so3907995a12.2; 
- Fri, 03 Nov 2023 09:37:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1699029475; x=1699634275; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=0oO/80ZeYt4KVkN4kDuX7GkoCNLaCgmInxlkENKg9eo=;
- b=VxeNYgEhAJodqmhRkCiSReqR+/NPJrwN0NxXVTk9QYEGFPJ31EanBZqZ8hSKXpGR2b
- tVwjwhfZnHsE9pgd33WK7uU/Hub/8NxBmL2H7pERDzEwTsQ+70k1OPTISG+udrs5lUMO
- z9OJme84NUzggtDDU56epBilVYdjmlm2hiUjTfltGRMUt2IwdoxJUZdER/+1NAmMs/co
- jmU2XN0z2U/T6b1KgBEMweuNNYU94lpbBDJoO/WuB6cResInfO2bxEm56KK1wjV2iu32
- egtw0dVSW7kh2/JNrGPsvp5/5q5ShoGUGe+3hanm1xkMRexYI5AXPXdmNSPtsurpFLBQ
- CNNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1699029475; x=1699634275;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=0oO/80ZeYt4KVkN4kDuX7GkoCNLaCgmInxlkENKg9eo=;
- b=g9Ll3NpjIOVN5amqX7XEUOKO8Kf/GthWveuZ3CL/loTL73sddTG7f0cW6in9d3Xunn
- 7fbnQeLZ3+1ixZ+g66xY8nZxGtPv0L+a2fjyXzRvgXXDL0M9Yy7GEXqvEVrYbKGo+PvT
- x12qH9UssIrBqZM8gxg26psdFBUmtiM7tJioE6ZmmJJSvvAr0w6hyhPdpcxBTwbIFmnT
- QQW0CqAl5zEP+MFr7GWRi8/Z8au1VtuB13t+ekTy2NrJHKL63uTY5xw6YxMKrygiwv+2
- V1W8xSHkoFEAolqZW8b8XzQ60dHTdt//TuaUKp9I0Y/tZ+oQYOFtu+Kkz5h3818IKdiO
- oR8g==
-X-Gm-Message-State: AOJu0YxHeKsc2ePvUzdCIwPqVo8yY+zrpP+PAiLEjFaTyDktGxm4LTjP
- +yjWJ7TRCzDEnSSLsA50zRvzvIt+xql9W9vYHAhW3vKm86E=
-X-Google-Smtp-Source: AGHT+IGpYR9a74iT7ijf7bUPi/PqW6G6CZfJCgU+gck2RDBa1GYYKLt9m+XZks9UCsHS9F2yZVz/Nwt5eooE6CbvYSQ=
-X-Received: by 2002:a05:6402:a43:b0:540:2ece:79 with SMTP id
- bt3-20020a0564020a4300b005402ece0079mr18023886edb.10.1699029474367; Fri, 03
- Nov 2023 09:37:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4874D10E356;
+	Mon,  6 Nov 2023 16:37:13 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D14E10E356
+ for <intel-gfx@lists.freedesktop.org>; Mon,  6 Nov 2023 16:37:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1699288631; x=1730824631;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=lkFYKjRWlxwZmj7DMBN1tcd5xuHn/Jd2MiopPVF11hM=;
+ b=gDtsXjzIfeHj5SghszC91qZByfP7LazYbQ0rxOhIfUY8366Zo4RrA/Gb
+ eZbStZSyf9KSDDvyINYYPOLvVsG/QypFrKcNi0gdLlmpGTr27LZuuqFeo
+ 4wcCLxdIf81yLlMIDuXOnqdvEPxPuEdJDSf91aY7o9eStUMuhY9WmwthC
+ wkuicTaa+LSTiwqd/iZualNBNSbo9KZaBObVnDyWCc2cdhcvsqiIWoRFD
+ /uUSikTRE4FC8j8wTa114aVHRIfBWGeOkEDfS1UxNaI3RIFMGE5q9g/aV
+ H1oSgVP/kcSFh5paIIBO45QTbYEPO6fxr5sytbQqFTyVGerdod/9lLIDl w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10886"; a="379706109"
+X-IronPort-AV: E=Sophos;i="6.03,282,1694761200"; d="scan'208";a="379706109"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Nov 2023 08:37:10 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10886"; a="828277852"
+X-IronPort-AV: E=Sophos;i="6.03,282,1694761200"; d="scan'208";a="828277852"
+Received: from astrano-mobl2.ger.corp.intel.com (HELO intel.com)
+ ([10.249.43.34])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Nov 2023 08:37:07 -0800
+Date: Mon, 6 Nov 2023 17:37:05 +0100
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Message-ID: <ZUkWMUtLEozSdISF@ashyti-mobl2.lan>
+References: <20231102175831.872763-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
-From: David Edelsohn <dje.gcc@gmail.com>
-Date: Fri, 3 Nov 2023 12:37:43 -0400
-Message-ID: <CAGWvnynOWoKT1EWkL8ELfRVxSUjm-hBQnnjb-w2Gq-tmOFm0Hg@mail.gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Daniel Vetter <daniel.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Content-Type: multipart/alternative; boundary="000000000000485e730609422002"
-X-Mailman-Approved-At: Mon, 06 Nov 2023 14:20:49 +0000
-Subject: Re: [Intel-gfx] [PULL] drm-misc-next
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231102175831.872763-1-jonathan.cavitt@intel.com>
+Subject: Re: [Intel-gfx] [PATCH] drm/i915/gt: Temporarily disable CPU
+ caching into DMA for MTL
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,106 +59,25 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dim-tools@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: saurabhg.gupta@intel.com, intel-gfx@lists.freedesktop.org,
+ chris.p.wilson@linux.intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---000000000000485e730609422002
-Content-Type: text/plain; charset="UTF-8"
+Hi Jonathan,
 
-Dual-license drm_gpuvm to GPL-2.0 OR MIT.
+On Thu, Nov 02, 2023 at 10:58:31AM -0700, Jonathan Cavitt wrote:
+> FIXME: It is suspected that some Address Translation Service (ATS)
+> issue on IOMMU is causing CAT errors to occur on some MTL workloads.
+> Applying a write barrier to the ppgtt set entry functions appeared
+> to have no effect, so we must temporarily use I915_MAP_WC in the
+> map_pt_dma class of functions on MTL until a proper ATS solution is
+> found.
+> 
+> Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+> CC: Chris Wilson <chris.p.wilson@linux.intel.com>
 
-diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
-index 02ce6baacdad..08c088319652 100644
---- a/drivers/gpu/drm/drm_gpuvm.c
-<https://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/drm_gpuvm.c?id=6f2eeef4a0aa9791bbba9d353641a6e067bb86c1>
-+++ b/drivers/gpu/drm/drm_gpuvm.c
-<https://cgit.freedesktop.org/drm/drm-misc/tree/drivers/gpu/drm/drm_gpuvm.c?id=f7749a549b4f4db0c02e6b3d3800ea400dd76c12>
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0-only
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
- /*
-  * Copyright (c) 2022 Red Hat.
-  *
+acked and pushed!
 
-The above SPDX License Identifier change is incorrect and no longer
-valid.  The change misunderstood the syntax of SPDX license identifiers
-and boolean operations.  GPL-2.0-only is the name of the license and means
-GPL 2.0 only, as opposed to GPL 2.0 or later.  The "only" does not
-refer to restrictions on other licenses in the identifier and should
-not have been
-removed.  The hyphens designated that the name was a single unit.
-The SPDX License Identifier boolean operators, such as OR, are a separate layer
-of syntax.
-
-The SPDX License Identifier should be
-
-GPL-2.0-only OR MIT
-
-Thanks, David
-
---000000000000485e730609422002
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><pre id=3D"gmail-b" style=3D"font-size:13px;background-ima=
-ge:initial;background-position:initial;background-size:initial;background-r=
-epeat:initial;background-origin:initial;background-clip:initial;color:rgb(0=
-,0,51)">Dual-license drm_gpuvm to GPL-2.0 OR MIT.</pre><pre id=3D"gmail-b" =
-style=3D"font-size:13px;background-image:initial;background-position:initia=
-l;background-size:initial;background-repeat:initial;background-origin:initi=
-al;background-clip:initial;color:rgb(0,0,51)"><div class=3D"gmail-head" sty=
-le=3D"font-weight:bold;margin-top:1em;color:black;font-size:13.3333px">diff=
- --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c<br>index=
- 02ce6baacdad..08c088319652 100644<br>--- a/<a href=3D"https://cgit.freedes=
-ktop.org/drm/drm-misc/tree/drivers/gpu/drm/drm_gpuvm.c?id=3D6f2eeef4a0aa979=
-1bbba9d353641a6e067bb86c1" style=3D"color:blue;text-decoration-line:none">d=
-rivers/gpu/drm/drm_gpuvm.c</a><br>+++ b/<a href=3D"https://cgit.freedesktop=
-.org/drm/drm-misc/tree/drivers/gpu/drm/drm_gpuvm.c?id=3Df7749a549b4f4db0c02=
-e6b3d3800ea400dd76c12" style=3D"color:blue;text-decoration-line:none">drive=
-rs/gpu/drm/drm_gpuvm.c</a></div><div class=3D"gmail-hunk" style=3D"color:rg=
-b(0,0,153);font-size:13.3333px">@@ -1,4 +1,4 @@</div><div class=3D"gmail-de=
-l" style=3D"color:red;font-size:13.3333px">-// SPDX-License-Identifier: GPL=
--2.0-only</div><div class=3D"gmail-add" style=3D"color:green;font-size:13.3=
-333px">+// SPDX-License-Identifier: GPL-2.0 OR MIT</div><div class=3D"gmail=
--ctx" style=3D"color:rgb(51,51,51);font-size:13.3333px"> /*</div><div class=
-=3D"gmail-ctx" style=3D"color:rgb(51,51,51);font-size:13.3333px">  * Copyri=
-ght (c) 2022 Red Hat.</div><div class=3D"gmail-ctx" style=3D"color:rgb(51,5=
-1,51);font-size:13.3333px">  *</div><div class=3D"gmail-ctx" style=3D"color=
-:rgb(51,51,51);font-size:13.3333px"><br></div><div class=3D"gmail-ctx" styl=
-e=3D"color:rgb(51,51,51);font-size:13.3333px"><font face=3D"arial, sans-ser=
-if">The above SPDX License Identifier change is incorrect and no longer</fo=
-nt></div><div class=3D"gmail-ctx" style=3D"color:rgb(51,51,51);font-size:13=
-.3333px"><font face=3D"arial, sans-serif">valid.  The change misunderstood =
-the syntax of SPDX license identifiers</font></div><div class=3D"gmail-ctx"=
- style=3D"color:rgb(51,51,51);font-size:13.3333px"><font face=3D"arial, san=
-s-serif">and boolean operations.  GPL-2.0-only is the name of the license a=
-nd means</font></div><div class=3D"gmail-ctx" style=3D"color:rgb(51,51,51);=
-font-size:13.3333px"><font face=3D"arial, sans-serif">GPL 2.0 only, as oppo=
-sed to GPL 2.0 or later.  The &quot;only&quot; does not</font></div><div cl=
-ass=3D"gmail-ctx" style=3D"color:rgb(51,51,51);font-size:13.3333px"><font f=
-ace=3D"arial, sans-serif">refer to restrictions on other licenses in the id=
-entifier and should not have been</font></div><div class=3D"gmail-ctx" styl=
-e=3D"color:rgb(51,51,51);font-size:13.3333px"><font face=3D"arial, sans-ser=
-if">removed.  The hyphens designated that the name was a single unit.</font=
-></div><div class=3D"gmail-ctx" style=3D"color:rgb(51,51,51);font-size:13.3=
-333px"><font face=3D"arial, sans-serif">The SPDX License Identifier boolean=
- operators, such as OR, are a separate layer</font></div><div class=3D"gmai=
-l-ctx" style=3D"color:rgb(51,51,51);font-size:13.3333px"><font face=3D"aria=
-l, sans-serif">of syntax. </font></div><div class=3D"gmail-ctx" style=3D"co=
-lor:rgb(51,51,51);font-size:13.3333px"><font face=3D"arial, sans-serif"><br=
-></font></div><div class=3D"gmail-ctx" style=3D"color:rgb(51,51,51);font-si=
-ze:13.3333px"><font face=3D"arial, sans-serif">The SPDX License Identifier =
-should be</font></div><div class=3D"gmail-ctx" style=3D"color:rgb(51,51,51)=
-;font-size:13.3333px"><font face=3D"arial, sans-serif"><br></font></div><di=
-v class=3D"gmail-ctx" style=3D"color:rgb(51,51,51);font-size:13.3333px"><fo=
-nt face=3D"arial, sans-serif">GPL-2.0-only OR MIT</font></div><div class=3D=
-"gmail-ctx" style=3D"color:rgb(51,51,51);font-size:13.3333px"><font face=3D=
-"arial, sans-serif"><br></font></div><div class=3D"gmail-ctx" style=3D"colo=
-r:rgb(51,51,51);font-size:13.3333px"><font face=3D"arial, sans-serif">Thank=
-s, David</font></div><div class=3D"gmail-ctx" style=3D"color:rgb(51,51,51);=
-font-size:13.3333px"><br></div></pre></div>
-
---000000000000485e730609422002--
+Thanks!
+Andi
