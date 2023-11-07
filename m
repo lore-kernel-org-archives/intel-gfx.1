@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A31DC4167B
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 00:15:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29FDAC4167D
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Nov 2023 00:15:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89AE210E494;
-	Tue,  7 Nov 2023 00:15:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 112F510E48E;
+	Tue,  7 Nov 2023 00:15:20 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DA0D10E488
- for <intel-gfx@lists.freedesktop.org>; Tue,  7 Nov 2023 00:15:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E5BD10E48E
+ for <intel-gfx@lists.freedesktop.org>; Tue,  7 Nov 2023 00:15:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1699316115; x=1730852115;
+ t=1699316118; x=1730852118;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=v2N8JtUmFUqURiJzbPz8vL/gshWqziovh6zz8G52+Sk=;
- b=gcd9xaOpdM9obVmb8s0Tqplc+bxgwcCpIdu94X2kqRFpJwHJ3qRUv3Ea
- bfWHh7NsH/uFVM6NFAXvQJ8IDspCcai++HZj226sCA3sUzeKLlBQ6E1pp
- sGq3V2G7R3KK5RuTgf7KCv+3V31gyLULXqbyOvzWu1cS26RGr7W7+SVOB
- 358umU5JOdtdvFhxD1tYHjgeBAwBm4Z99Um4J8bZYhA50QzDTaYGDw44K
- 2D8MgELniWpj9iQ3pZCj1kkWXWVsV2My98ZDojRgs6LKe1hHbzIqxedLY
- fIrYjw8OHB7nJJBZ68D9rjsF6+M9TESwiWYBft9wqLmc7sVzQHLI5/SFC A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10886"; a="369596205"
-X-IronPort-AV: E=Sophos;i="6.03,282,1694761200"; d="scan'208";a="369596205"
+ bh=+cBlnwRlJOnT0Bjd0o96H2tEfQnFHAvTFDUIqluHBQo=;
+ b=lccmc2CcSxH8/jO5ADw6leeED/YK6ye2E4Sd+j7UGEgGjCx4ADu327KX
+ 3Ah8Ci8SpgiDkn3pymkmhUiCnuVhDVSz9FMqqssxjKrYGg4p+5Fk6VWC7
+ oLC7iCLxYPwqSu2QaamKO44g867c1FlwzrVIid/Yy115Xtu/PhbKFUiGj
+ NrG9XXfw8wj3oJrNAb6SI83+O5jL7Evxo4r+ALy0K82IWlHrkviIu2900
+ iSg78M3qGVZLUcD/Mz8ofjx0YIUuflEG6+YGAxHc+ZUxgb7CspOPOuRZ+
+ pWhiszF7EsQLaRy4w3aw80Gc6GJ3CQIFpmZeIcA6eTTpUnmkpq4XbJ340 A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10886"; a="369596209"
+X-IronPort-AV: E=Sophos;i="6.03,282,1694761200"; d="scan'208";a="369596209"
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Nov 2023 16:15:15 -0800
+ 06 Nov 2023 16:15:18 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10886"; a="853178004"
-X-IronPort-AV: E=Sophos;i="6.03,282,1694761200"; d="scan'208";a="853178004"
+X-IronPort-AV: E=McAfee;i="6600,9927,10886"; a="853178013"
+X-IronPort-AV: E=Sophos;i="6.03,282,1694761200"; d="scan'208";a="853178013"
 Received: from ideak-desk.fi.intel.com ([10.237.72.78])
  by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Nov 2023 16:15:14 -0800
+ 06 Nov 2023 16:15:16 -0800
 From: Imre Deak <imre.deak@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Tue,  7 Nov 2023 02:15:02 +0200
-Message-Id: <20231107001505.3370108-5-imre.deak@intel.com>
+Date: Tue,  7 Nov 2023 02:15:04 +0200
+Message-Id: <20231107001505.3370108-7-imre.deak@intel.com>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20231030155843.2251023-23-imre.deak@intel.com>
-References: <20231030155843.2251023-23-imre.deak@intel.com>
+In-Reply-To: <20231030155843.2251023-27-imre.deak@intel.com>
+References: <20231030155843.2251023-27-imre.deak@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH v5 22/30] drm/i915/dp_mst: Enable decompression
- in the sink from the MST encoder hooks
+Subject: [Intel-gfx] [PATCH v5 26/30] drm/i915: Factor out function to clear
+ pipe update flags
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,92 +62,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable/disable the DSC decompression in the sink/branch from the MST
-encoder hooks. This prepares for an upcoming patch toggling DSC for each
-stream as needed, but for now keeps the current behavior, as DSC is only
-enabled for the first MST stream.
+Factor out a helper to clear the pipe update flags, used by a follow-up
+patch to modeset an MST topology.
 
 v2:
-- Rebased on latest drm-tip.
+- Move the intel_crtc_needs_modeset() check to the callers. (Ville)
+v3 (Ville):
+- Rename clear_pipe_update_flags_on_modeset_crtc() to
+  intel_crtc_flag_modeset().
+- Also set crtc_state->uapi.mode_changed in the function.
+- Leave out the unrelated change to use
+  intel_modeset_pipes_in_mask_early().
 
-Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Reviewed-by: Stanislav Lisovskiy <stanislav.lisovskiy@intel.com> (v1)
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c    | 12 ++++++++----
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 15 ++++++++++++++-
- 2 files changed, 22 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 49 +++++++++-----------
+ 1 file changed, 23 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 1abf74af6c5ce..cc2a38fc22d0d 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -2538,7 +2538,9 @@ static void mtl_ddi_pre_enable_dp(struct intel_atomic_state *state,
- 		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
- 
- 	intel_dp_configure_protocol_converter(intel_dp, crtc_state);
--	intel_dp_sink_set_decompression_state(intel_dp, crtc_state, true);
-+	if (!is_mst)
-+		intel_dp_sink_set_decompression_state(intel_dp, crtc_state, true);
-+
- 	/*
- 	 * DDI FEC: "anticipates enabling FEC encoding sets the FEC_READY bit
- 	 * in the FEC_CONFIGURATION register to 1 before initiating link
-@@ -2689,7 +2691,8 @@ static void tgl_ddi_pre_enable_dp(struct intel_atomic_state *state,
- 		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
- 
- 	intel_dp_configure_protocol_converter(intel_dp, crtc_state);
--	intel_dp_sink_set_decompression_state(intel_dp, crtc_state, true);
-+	if (!is_mst)
-+		intel_dp_sink_set_decompression_state(intel_dp, crtc_state, true);
- 	/*
- 	 * DDI FEC: "anticipates enabling FEC encoding sets the FEC_READY bit
- 	 * in the FEC_CONFIGURATION register to 1 before initiating link
-@@ -2769,8 +2772,9 @@ static void hsw_ddi_pre_enable_dp(struct intel_atomic_state *state,
- 	if (!is_mst)
- 		intel_dp_set_power(intel_dp, DP_SET_POWER_D0);
- 	intel_dp_configure_protocol_converter(intel_dp, crtc_state);
--	intel_dp_sink_set_decompression_state(intel_dp, crtc_state,
--					      true);
-+	if (!is_mst)
-+		intel_dp_sink_set_decompression_state(intel_dp, crtc_state,
-+						      true);
- 	intel_dp_sink_set_fec_ready(intel_dp, crtc_state, true);
- 	intel_dp_start_link_train(intel_dp, crtc_state);
- 	if ((port != PORT_A || DISPLAY_VER(dev_priv) >= 9) &&
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 4f066a868b9a2..eab69f57655d9 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -776,6 +776,13 @@ static void intel_mst_disable_dp(struct intel_atomic_state *state,
- 	intel_hdcp_disable(intel_mst->connector);
- 
- 	intel_audio_codec_disable(encoder, old_crtc_state, old_conn_state);
-+
-+	if (intel_dp->active_mst_links == 1) /* last stream ? */
-+		/*
-+		 * TODO: disable decompression for all streams/in any MST ports, not
-+		 * only in the first downstream branch device.
-+		 */
-+		intel_dp_sink_set_decompression_state(intel_dp, old_crtc_state, false);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 3c7ef2cc3b8b1..afa5613fd847c 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -5542,6 +5542,16 @@ int intel_modeset_pipes_in_mask_early(struct intel_atomic_state *state,
+ 	return 0;
  }
  
- static void intel_mst_post_disable_dp(struct intel_atomic_state *state,
-@@ -932,9 +939,15 @@ static void intel_mst_pre_enable_dp(struct intel_atomic_state *state,
++static void
++intel_crtc_flag_modeset(struct intel_crtc_state *crtc_state)
++{
++	crtc_state->uapi.mode_changed = true;
++
++	crtc_state->update_pipe = false;
++	crtc_state->update_m_n = false;
++	crtc_state->update_lrr = false;
++}
++
+ /**
+  * intel_modeset_all_pipes_late - force a full modeset on all pipes
+  * @state: intel atomic state
+@@ -5575,9 +5585,8 @@ int intel_modeset_all_pipes_late(struct intel_atomic_state *state,
+ 		if (ret)
+ 			return ret;
  
- 	drm_dp_send_power_updown_phy(&intel_dp->mst_mgr, connector->port, true);
+-		crtc_state->update_pipe = false;
+-		crtc_state->update_m_n = false;
+-		crtc_state->update_lrr = false;
++		intel_crtc_flag_modeset(crtc_state);
++
+ 		crtc_state->update_planes |= crtc_state->active_planes;
+ 		crtc_state->async_flip_planes = 0;
+ 		crtc_state->do_async_flip = false;
+@@ -5690,17 +5699,17 @@ static void intel_crtc_check_fastset(const struct intel_crtc_state *old_crtc_sta
+ 	else
+ 		new_crtc_state->uapi.mode_changed = false;
  
--	if (first_mst_stream)
-+	if (first_mst_stream) {
-+		/*
-+		 * TODO: enable decompression for all streams/in any MST ports, not
-+		 * only in the first downstream branch device.
-+		 */
-+		intel_dp_sink_set_decompression_state(intel_dp, pipe_config, true);
- 		dig_port->base.pre_enable(state, &dig_port->base,
- 						pipe_config, NULL);
-+	}
+-	if (intel_crtc_needs_modeset(new_crtc_state) ||
+-	    intel_compare_link_m_n(&old_crtc_state->dp_m_n,
++	if (intel_compare_link_m_n(&old_crtc_state->dp_m_n,
+ 				   &new_crtc_state->dp_m_n))
+ 		new_crtc_state->update_m_n = false;
  
- 	intel_dp->active_mst_links++;
+-	if (intel_crtc_needs_modeset(new_crtc_state) ||
+-	    (old_crtc_state->hw.adjusted_mode.crtc_vtotal == new_crtc_state->hw.adjusted_mode.crtc_vtotal &&
++	if ((old_crtc_state->hw.adjusted_mode.crtc_vtotal == new_crtc_state->hw.adjusted_mode.crtc_vtotal &&
+ 	     old_crtc_state->hw.adjusted_mode.crtc_vblank_end == new_crtc_state->hw.adjusted_mode.crtc_vblank_end))
+ 		new_crtc_state->update_lrr = false;
+ 
+-	if (!intel_crtc_needs_modeset(new_crtc_state))
++	if (intel_crtc_needs_modeset(new_crtc_state))
++		intel_crtc_flag_modeset(new_crtc_state);
++	else
+ 		new_crtc_state->update_pipe = true;
+ }
+ 
+@@ -6475,12 +6484,8 @@ int intel_atomic_check(struct drm_device *dev,
+ 		if (intel_dp_mst_is_slave_trans(new_crtc_state)) {
+ 			enum transcoder master = new_crtc_state->mst_master_transcoder;
+ 
+-			if (intel_cpu_transcoders_need_modeset(state, BIT(master))) {
+-				new_crtc_state->uapi.mode_changed = true;
+-				new_crtc_state->update_pipe = false;
+-				new_crtc_state->update_m_n = false;
+-				new_crtc_state->update_lrr = false;
+-			}
++			if (intel_cpu_transcoders_need_modeset(state, BIT(master)))
++				intel_crtc_flag_modeset(new_crtc_state);
+ 		}
+ 
+ 		if (is_trans_port_sync_mode(new_crtc_state)) {
+@@ -6489,21 +6494,13 @@ int intel_atomic_check(struct drm_device *dev,
+ 			if (new_crtc_state->master_transcoder != INVALID_TRANSCODER)
+ 				trans |= BIT(new_crtc_state->master_transcoder);
+ 
+-			if (intel_cpu_transcoders_need_modeset(state, trans)) {
+-				new_crtc_state->uapi.mode_changed = true;
+-				new_crtc_state->update_pipe = false;
+-				new_crtc_state->update_m_n = false;
+-				new_crtc_state->update_lrr = false;
+-			}
++			if (intel_cpu_transcoders_need_modeset(state, trans))
++				intel_crtc_flag_modeset(new_crtc_state);
+ 		}
+ 
+ 		if (new_crtc_state->bigjoiner_pipes) {
+-			if (intel_pipes_need_modeset(state, new_crtc_state->bigjoiner_pipes)) {
+-				new_crtc_state->uapi.mode_changed = true;
+-				new_crtc_state->update_pipe = false;
+-				new_crtc_state->update_m_n = false;
+-				new_crtc_state->update_lrr = false;
+-			}
++			if (intel_pipes_need_modeset(state, new_crtc_state->bigjoiner_pipes))
++				intel_crtc_flag_modeset(new_crtc_state);
+ 		}
+ 	}
  
 -- 
 2.39.2
