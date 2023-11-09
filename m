@@ -4,24 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBCCFC4167D
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Nov 2023 15:34:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 634D2C4332F
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Nov 2023 16:07:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8795310E8D1;
-	Thu,  9 Nov 2023 15:34:58 +0000 (UTC)
-X-Greylist: delayed 103464 seconds by postgrey-1.36 at gabe;
- Thu, 09 Nov 2023 15:34:54 UTC
-Received: from mblankhorst.nl (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E3B410E8CE
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 15:34:54 +0000 (UTC)
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AA5310E8E2;
+	Thu,  9 Nov 2023 16:07:47 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D931E10E8E2
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Nov 2023 16:07:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1699546063; x=1731082063;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=HVeAa+/OpKqoScFpiuJpvVMfKDd9F8Ks6l46QcSdRuU=;
+ b=Rdgb1OwI+ey2oYcUHckSE2nxnUc9R48hDG7411qiARtTzjGHBAR2/dr9
+ 88wi4GqPVGh0KMSavXStF3NWnI/IXPGbx5xotrkN9uAWSChuJRpRWM7RQ
+ XtBoLfKG8s8a80LWzYBO3T/lsGKtDuuAG+PnqvNgHVnCh8jR/mThUQksP
+ ozvp9VEA6/WBltNafnTPUmxwjDgJ9A5j7MV5E5CoKntZtz9CmeMKUYWCv
+ a3peEmdLPE/touhSWU218dw1WPKz6Ikq/bwU6DtvFNowzZ6//H20q6hJK
+ VrSFWdpFo5eu19OtjT1IQrFuVtOStVsnQLXGNWGkTDYOiS/PmYIN5Vbuh Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10889"; a="392883446"
+X-IronPort-AV: E=Sophos;i="6.03,289,1694761200"; d="scan'208";a="392883446"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2023 08:07:38 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10889"; a="739882807"
+X-IronPort-AV: E=Sophos;i="6.03,289,1694761200"; d="scan'208";a="739882807"
+Received: from unknown (HELO localhost) ([10.237.66.162])
+ by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Nov 2023 08:07:32 -0800
+From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Date: Thu,  9 Nov 2023 16:34:48 +0100
-Message-Id: <20231109153450.142185-1-maarten.lankhorst@linux.intel.com>
+Date: Thu,  9 Nov 2023 18:07:22 +0200
+Message-Id: <20231109160722.3372379-2-jani.nikula@intel.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20231109160722.3372379-1-jani.nikula@intel.com>
+References: <20231109160722.3372379-1-jani.nikula@intel.com>
 MIME-Version: 1.0
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
-Subject: [Intel-gfx] [PATCH 1/3] drm: Add drm_vblank_work_flush_all().
+Subject: [Intel-gfx] [PATCH 2/2] drm/i915: remove excess functions from
+ plane protection check
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,70 +59,55 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: jani.nikula@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In some cases we want to flush all vblank work, right before vblank_off
-for example. Add a simple function to make this possible.
+Reduce the function calls by reusing ->decrypt.
 
-Signed-off-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/drm_vblank_work.c | 22 ++++++++++++++++++++++
- include/drm/drm_vblank_work.h     |  2 ++
- 2 files changed, 24 insertions(+)
+ .../gpu/drm/i915/display/skl_universal_plane.c | 18 ++++--------------
+ 1 file changed, 4 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_vblank_work.c b/drivers/gpu/drm/drm_vblank_work.c
-index bd481fdd6b870..27c8646a79c8e 100644
---- a/drivers/gpu/drm/drm_vblank_work.c
-+++ b/drivers/gpu/drm/drm_vblank_work.c
-@@ -229,6 +229,28 @@ void drm_vblank_work_flush(struct drm_vblank_work *work)
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index 98acf25a5ca3..39499a0ec6c0 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -1854,29 +1854,19 @@ static bool skl_fb_scalable(const struct drm_framebuffer *fb)
+ 	}
  }
- EXPORT_SYMBOL(drm_vblank_work_flush);
  
-+/**
-+ * drm_vblank_work_flush_all - flush all currently pending vblank work on crtc.
-+ * @crtc: crtc for which vblank work to flush
-+ *
-+ * Wait until all currently queued vblank work on @crtc
-+ * has finished executing once.
-+ */
-+void drm_vblank_work_flush_all(struct drm_crtc *crtc)
-+{
-+	struct drm_device *dev = crtc->dev;
-+	struct drm_vblank_crtc *vblank = &dev->vblank[drm_crtc_index(crtc)];
-+
-+	spin_lock_irq(&dev->event_lock);
-+	wait_event_lock_irq(vblank->work_wait_queue,
-+			    waitqueue_active(&vblank->work_wait_queue),
-+			    dev->event_lock);
-+	spin_unlock_irq(&dev->event_lock);
-+
-+	kthread_flush_worker(vblank->worker);
-+}
-+EXPORT_SYMBOL(drm_vblank_work_flush_all);
-+
- /**
-  * drm_vblank_work_init - initialize a vblank work item
-  * @work: vblank work item
-diff --git a/include/drm/drm_vblank_work.h b/include/drm/drm_vblank_work.h
-index eb41d0810c4ff..e04d436b72973 100644
---- a/include/drm/drm_vblank_work.h
-+++ b/include/drm/drm_vblank_work.h
-@@ -17,6 +17,7 @@ struct drm_crtc;
-  * drm_vblank_work_init()
-  * drm_vblank_work_cancel_sync()
-  * drm_vblank_work_flush()
-+ * drm_vblank_work_flush_all()
-  */
- struct drm_vblank_work {
- 	/**
-@@ -67,5 +68,6 @@ void drm_vblank_work_init(struct drm_vblank_work *work, struct drm_crtc *crtc,
- 			  void (*func)(struct kthread_work *work));
- bool drm_vblank_work_cancel_sync(struct drm_vblank_work *work);
- void drm_vblank_work_flush(struct drm_vblank_work *work);
-+void drm_vblank_work_flush_all(struct drm_crtc *crtc);
+-static bool bo_has_valid_encryption(struct drm_i915_gem_object *obj)
+-{
+-	struct drm_i915_private *i915 = to_i915(obj->base.dev);
+-
+-	return intel_pxp_key_check(i915->pxp, obj, false) == 0;
+-}
+-
+-static bool pxp_is_borked(struct drm_i915_gem_object *obj)
+-{
+-	return i915_gem_object_is_protected(obj) && !bo_has_valid_encryption(obj);
+-}
+-
+ static void check_protection(struct intel_plane_state *plane_state)
+ {
+ 	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
+ 	struct drm_i915_private *i915 = to_i915(plane->base.dev);
+ 	const struct drm_framebuffer *fb = plane_state->hw.fb;
++	struct drm_i915_gem_object *obj = intel_fb_obj(fb);
  
- #endif /* !_DRM_VBLANK_WORK_H_ */
+ 	if (DISPLAY_VER(i915) < 11)
+ 		return;
+ 
+-	plane_state->decrypt = bo_has_valid_encryption(intel_fb_obj(fb));
+-	plane_state->force_black = pxp_is_borked(intel_fb_obj(fb));
++	plane_state->decrypt = intel_pxp_key_check(i915->pxp, obj, false) == 0;
++	plane_state->force_black = i915_gem_object_is_protected(obj) &&
++		!plane_state->decrypt;
+ }
+ 
+ static int skl_plane_check(struct intel_crtc_state *crtc_state,
 -- 
 2.39.2
 
